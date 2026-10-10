@@ -7,6 +7,7 @@
 //! synthesized. Everything here is std-only Rust, f64 internally, at 48 kHz,
 //! and deterministic from seeds.
 
+pub mod digest;
 pub mod duck;
 pub mod fft;
 pub mod filter;
