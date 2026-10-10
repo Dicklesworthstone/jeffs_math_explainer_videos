@@ -1127,7 +1127,8 @@ lives inside it.
 
 - **Harmonic plan per chapter:** chords of 4–16 s; changes only in gaps or in
   intra-sentence pauses ≥ 0.2 s, never within 150 ms after a speech onset; a
-  voice-leading solver minimizes total motion with the bass in E1–D2 and upper
+  voice-leading solver minimizes total motion with the bass in E1–E♭2 (one
+  octave, so every root has a bass note; E1–D2 left E♭ chords without one) and upper
   voices from C4 (262 Hz) up, holding common tones; pedal points under dense
   derivations.
 - **Intensity arc per chapter (0–1)** drives density, cutoff, register spread

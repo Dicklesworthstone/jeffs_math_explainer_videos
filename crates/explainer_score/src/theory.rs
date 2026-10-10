@@ -6,12 +6,13 @@
 //! music fundamental sits between 95 and 250 Hz, because the narrator's pitch
 //! lives there (5th–95th percentile ≈ 105–216 Hz for the `robert` voice), and
 //! a fixed tone in that band roughens and masks the voice as its harmonics
-//! glide past. So the bass stays in E1–D2 (41–73 Hz) and the upper voices start
-//! at C4 (261.6 Hz; B3 at 246.9 Hz would sit inside the 95–250 Hz band).
+//! glide past. So the bass stays in E1–E♭2 (41–78 Hz: exactly one octave, so
+//! every root has exactly one bass note) and the upper voices start at C4
+//! (261.6 Hz; B3 at 246.9 Hz would sit inside the 95–250 Hz band).
 
 /// MIDI note numbers for the registral limits.
 pub const BASS_LOW: i32 = 28; // E1, 41.2 Hz
-pub const BASS_HIGH: i32 = 38; // D2, 73.4 Hz
+pub const BASS_HIGH: i32 = 39; // E♭2, 77.8 Hz (E1..=E♭2 covers all 12 pitch classes)
 pub const UPPER_LOW: i32 = 60; // C4, 261.6 Hz
 pub const UPPER_HIGH: i32 = 79; // G5, 784 Hz
 
@@ -227,9 +228,9 @@ fn voicing_cost(cand: &[i32], want: &[i32], prev: Option<&Voicing>) -> i64 {
     cost
 }
 
-/// Pitch classes safe for a cue over `chord`: the key's pentatonic-ish subset
-/// (scale degrees 1, 2, 3, 5, 6) that are chord tones or a whole tone from
-/// one, and never a semitone (minor 9th) from any chord tone (hard rule 7).
+/// Pitch classes safe for a cue over `chord`: the key's pentatonic subset
+/// (scale degrees 1, 2, 3, 5, 6) minus any pitch class a semitone from a chord
+/// tone (a minor 9th against it, hard rule 7).
 pub fn safe_cue_pitch_classes(key: &Key, chord: &Chord) -> Vec<i32> {
     let chord_pcs = chord.pitch_classes();
     let penta: Vec<i32> = [0usize, 1, 2, 4, 5]
@@ -270,7 +271,9 @@ impl Motif {
     }
     /// Mirror around the first degree.
     pub fn inverted(&self) -> Self {
-        let pivot = self.degrees[0];
+        let Some(&pivot) = self.degrees.first() else {
+            return self.clone();
+        };
         Self {
             degrees: self.degrees.iter().map(|d| 2 * pivot - d).collect(),
             durations: self.durations.clone(),
@@ -296,6 +299,35 @@ mod tests {
 
     fn d_major() -> Key {
         Key::new(2, IONIAN)
+    }
+
+    #[test]
+    fn every_root_and_quality_voices_without_panicking() {
+        // E1..=D2 once missed E♭ entirely, so an E♭ chord (IV in B♭ major,
+        // video C's key) had no bass note and the solver panicked.
+        let makers: [fn(i32) -> Chord; 7] = [
+            Chord::maj7,
+            Chord::maj9,
+            Chord::maj9_sharp11,
+            Chord::min9,
+            Chord::dom7sus4,
+            Chord::sus4,
+            Chord::six_sus4,
+        ];
+        for root in 0..12 {
+            for make in makers {
+                let c = make(root);
+                let first = voice_lead(&c, 4, None);
+                let next = voice_lead(&c, 4, Some(&first));
+                for v in [first, next] {
+                    assert_eq!(v.bass.rem_euclid(12), root, "{c:?}");
+                    assert!((BASS_LOW..=BASS_HIGH).contains(&v.bass));
+                    assert!(midi_to_hz(f64::from(v.bass)) < 95.0);
+                    assert_eq!(v.upper.len(), 4);
+                }
+            }
+        }
+        assert_eq!(Motif::new(&[], &[]).inverted(), Motif::new(&[], &[]));
     }
 
     #[test]

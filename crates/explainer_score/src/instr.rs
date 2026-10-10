@@ -752,9 +752,9 @@ mod tests {
 
     #[test]
     fn bass_keeps_out_of_the_narrators_band() {
-        // Hard rule 1's intent: E1–D2 bass notes put ≥ 20 dB less energy in
+        // Hard rule 1's intent: E1–E♭2 bass notes put ≥ 20 dB less energy in
         // 95–250 Hz than in total (harmonics included, not only fundamentals).
-        for pitch in [28.0, 33.0, 38.0] {
+        for pitch in [28.0, 33.0, 39.0] {
             let x = render(Instrument::Bass, &Note::new(pitch, 1.0, 2.0, 1)).l;
             let (df, psd) = crate::fft::welch(&x[4_800..96_000], FS, 8_192);
             let band = |lo: f64, hi: f64| -> f64 {

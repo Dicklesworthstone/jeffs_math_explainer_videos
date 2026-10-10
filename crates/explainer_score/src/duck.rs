@@ -5,7 +5,8 @@
 //! bus itself; the bed drops 8 dB with a 0.3 s raised-cosine ramp that starts
 //! 0.08 s early, holds 0.25 s after the voice stops and releases over 1.2 s;
 //! and while ducked, a zero-phase EQ "pocket" opens 1–4 kHz (where consonants
-//! carry intelligibility) and the 300 Hz–1 kHz centre where the narrator sits.
+//! carry intelligibility) and the 300 Hz–1 kHz centre where the narrator sits,
+//! and a low-pass takes everything above 2.5 kHz down by ≥ 12 dB (hard rule 2).
 //! Plan §7.2; docs/research/sound_design/MEMO.md §2.3.
 
 use crate::filter::{Biquad, Kind, filtfilt};
@@ -150,7 +151,8 @@ pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], ramp_s: f64) {
 }
 
 /// The pocket EQ (zero phase): −3 dB 300 Hz–1 kHz on the mid channel only (the
-/// narrator's centre), then −5 dB around 2 kHz (≈1–4 kHz) on both channels.
+/// narrator's centre), then −5 dB around 2 kHz (≈1–4 kHz) and a 2.2 kHz
+/// low-pass on both channels: ≈ −9.5 dB at 2 kHz, ≥ 12 dB down from 2.5 kHz up.
 pub fn pocket(x: &Stereo) -> Stereo {
     let mid: Vec<f64> = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a + b)).collect();
     let side: Vec<f64> = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a - b)).collect();
@@ -160,13 +162,14 @@ pub fn pocket(x: &Stereo) -> Stereo {
     let r: Vec<f64> = mid.iter().zip(&side).map(|(m, s)| m - s).collect();
     let bell = || Biquad::new(Kind::Peaking { q: 0.7, db: -2.5 }, 2_000.0);
     // hard rule 2: under speech, content above 2.5 kHz is cut by ≥ 12 dB; a
-    // zero-phase 2.4 kHz Butterworth (run twice: 4th-order slope) does that
+    // 2.2 kHz Butterworth run forward and back (≈ −8.5 dB at 2.5 kHz, 4th-order
+    // slope) plus the bell's ≈ −4.4 dB there does that
     let lp = || {
         Biquad::new(
             Kind::LowPass {
                 q: std::f64::consts::FRAC_1_SQRT_2,
             },
-            2_400.0,
+            2_200.0,
         )
     };
     Stereo {
@@ -284,7 +287,7 @@ mod tests {
         assert!(gain_db(80.0).abs() < 0.3, "bass spared: {}", gain_db(80.0));
         assert!((gain_db(550.0) + 3.0).abs() < 1.2, "centre: {}", gain_db(550.0));
         assert!(gain_db(1_500.0) < -4.0, "consonant band: {}", gain_db(1_500.0));
-        for hz in [3_500.0, 5_000.0, 8_000.0] {
+        for hz in [2_500.0, 3_500.0, 5_000.0, 8_000.0] {
             assert!(gain_db(hz) <= -12.0, "{hz} Hz: {} (hard rule 2)", gain_db(hz));
         }
     }
