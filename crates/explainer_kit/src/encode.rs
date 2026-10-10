@@ -143,7 +143,14 @@ impl QualityRunner {
         if let Some(i) = s.argv.windows(2).position(|w| w[0] == "-c:v" && w[1] != "copy")
             && !s.argv.iter().any(|a| a == "-crf" || a == "-cq")
         {
-            let extra = self.video_args(&s.argv[i + 1].clone());
+            let mut extra = self.video_args(&s.argv[i + 1].clone());
+            if s.argv[i + 1] == "libx264" && frame_macroblocks(&s.argv).is_some_and(|mbs| mbs > MBS_1080P) {
+                // preset slow + tune animation asks for 10 reference frames;
+                // at 4K that is H.264 level 6.0, past every hardware decoder
+                // (Apple's rejected pictures of Hoeffding's v6.1 master). Level
+                // 5.2 holds 4K60, and x264 then caps the references (5 at 4K).
+                extra.extend(["-level".to_owned(), "5.2".to_owned()]);
+            }
             s.argv.splice(i + 2..i + 2, extra);
         }
         // the raw input's colour, declared as the output's (BT.709 and the
@@ -244,6 +251,18 @@ pub fn delivery_options(
     Ok(o)
 }
 
+/// Level 4.2's largest frame in macroblocks (1080p is 8,160): above it the
+/// x264 encode is held to level 5.2.
+const MBS_1080P: u64 = 8_704;
+
+/// The raw input's frame size in 16x16 macroblocks, from `-video_size WxH`.
+fn frame_macroblocks(argv: &[String]) -> Option<u64> {
+    let size = argv.windows(2).find(|w| w[0] == "-video_size")?[1].clone();
+    let (w, h) = size.split_once('x')?;
+    let (w, h): (u64, u64) = (w.parse().ok()?, h.parse().ok()?);
+    Some(w.div_ceil(16) * h.div_ceil(16))
+}
+
 /// The attempts a render gets against franken_manim's transient Darwin
 /// EPERM race (bead fm-darwin-killpg-eperm-race-7aae).
 pub const RENDER_ATTEMPTS: u32 = 5;
@@ -305,6 +324,39 @@ mod tests {
             timeout: Duration::from_secs(4 * 3600),
             ..Quality::delivery()
         })
+    }
+
+    #[test]
+    fn x264_above_1080p_is_held_to_level_5_2() {
+        let job = |size: &str, encoder: &str| {
+            spec(
+                &[
+                    "-f",
+                    "rawvideo",
+                    "-video_size",
+                    size,
+                    "-i",
+                    "-",
+                    "-c:v",
+                    encoder,
+                    "out.mp4",
+                ],
+                600,
+            )
+        };
+        let r = runner("slow", None);
+        let level = |s: &ProcessSpec| s.argv.windows(2).any(|w| w[0] == "-level" && w[1] == "5.2");
+        assert!(level(&r.adjust(&job("3840x2160", "libx264"))));
+        assert!(level(&r.adjust(&job("2560x1440", "libx264"))));
+        assert!(
+            !level(&r.adjust(&job("1920x1080", "libx264"))),
+            "1080p keeps x264's own level"
+        );
+        assert!(!level(&r.adjust(&job("3840x2160", "h264_nvenc"))), "x264 only");
+        assert!(!level(&r.adjust(&spec(
+            &["-f", "rawvideo", "-i", "-", "-c:v", "libx264", "o.mp4"],
+            600
+        ))));
     }
 
     #[test]
