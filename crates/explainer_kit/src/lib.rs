@@ -9,13 +9,15 @@
 //! NumPy-parity stats kit and the facts harness; the delivery encoder
 //! (quality runner, raised caps, camera route, soundtrack capture); and the
 //! shared CLI (`cli::run`) with the two-pass score (`render --timeline-only`,
-//! `score`, `render --score`).
+//! `score`, `render --score`) and the PCM master (`master`: cues replayed
+//! through fmn's own mixer, null-tested, joined without re-encoding).
 
 pub mod cli;
 pub mod encode;
 pub mod facts;
 pub mod kit;
 pub mod layout;
+pub mod master;
 pub mod narration;
 pub mod palette;
 pub mod play;

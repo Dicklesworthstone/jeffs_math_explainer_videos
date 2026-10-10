@@ -209,3 +209,77 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
     );
     assert!(!wout.join("01_first.mp4").exists(), "nothing published");
 }
+
+#[test]
+fn the_pcm_master_replays_nulls_and_joins() {
+    assert!(
+        std::process::Command::new("ffmpeg")
+            .arg("-version")
+            .output()
+            .is_ok_and(|o| o.status.success()),
+        "this test needs ffmpeg on PATH"
+    );
+    let root = std::env::temp_dir().join(format!("explainer_kit_master_e2e_{}", std::process::id()));
+    let narration = root.join("narration");
+    let out = root.join("out");
+    std::fs::create_dir_all(&narration).unwrap();
+    for (k, id) in ["01_1", "01_2", "02_1", "02_2"].iter().enumerate() {
+        write_line(&narration.join(format!("{id}.wav")), k as u64 + 11);
+    }
+    let e = explainer(good_facts);
+    let (o, n) = (out.display().to_string(), narration.display().to_string());
+    let run = |s: &str| explainer_kit::cli::run(&e, args(s));
+    assert_eq!(run(&format!("render --timeline-only --narration {n} --out {o}")), 0);
+    assert_eq!(run(&format!("score --out {o}")), 0);
+    let s = out.join("stems").display().to_string();
+    // a delivery render (x264 via the quality runner) captures each soundtrack
+    assert_eq!(
+        run(&format!(
+            "render --res 64x36 --crf 20 --preset ultrafast --narration {n} --score {s} --out {o}"
+        )),
+        0
+    );
+    assert!(out.join("soundtrack/01_first/soundtrack_0.wav").exists());
+    // the master: replays null against fmn's own soundtracks, joins, gates
+    assert_eq!(run(&format!("master --out {o}")), 0);
+    let master = out.join("toy_master.mp4");
+    let probe = |entries: &str, stream: &str| {
+        let o = std::process::Command::new("ffprobe")
+            .args([
+                "-v",
+                "error",
+                "-select_streams",
+                stream,
+                "-count_packets",
+                "-show_entries",
+                entries,
+                "-of",
+                "csv=p=0",
+            ])
+            .arg(&master)
+            .output()
+            .unwrap();
+        String::from_utf8_lossy(&o.stdout).trim().to_owned()
+    };
+    let frames: u64 = probe("stream=nb_read_packets", "v:0").parse().unwrap();
+    let chapter_frames: u64 = ["01_first", "02_second"]
+        .iter()
+        .map(|k| {
+            explainer_score::timeline::ChapterTimeline::read(&out.join(format!("{k}.timeline.tsv")))
+                .unwrap()
+                .frames
+        })
+        .sum();
+    assert_eq!(frames, chapter_frames, "the join keeps every frame");
+    assert_eq!(probe("stream=codec_name", "a:0"), "aac");
+    // planted negatives: a changed narration file, a missing capture
+    write_line(&narration.join("02_2.wav"), 99);
+    assert_eq!(run(&format!("master --out {o}")), 1, "a cue changed since the render");
+    write_line(&narration.join("02_2.wav"), 14); // the original bytes again (same seed)
+    std::fs::rename(out.join("soundtrack/02_second"), root.join("moved_capture")).unwrap();
+    assert_eq!(
+        run(&format!("master --out {o}")),
+        1,
+        "no captured soundtrack to null against"
+    );
+}

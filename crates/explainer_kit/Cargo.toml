@@ -9,6 +9,6 @@ description = "Shared scene kit for the explainer corpus: palette roles, text/Te
 fmn.workspace = true
 # the timeline format, WAV checks and SHA-256 the narrator records with
 explainer_score.workspace = true
-
-[dev-dependencies]
+# the PCM master replays cues through fmn's own decoder and mixer
+fmn-output.workspace = true
 fmn-codec.workspace = true

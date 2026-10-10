@@ -664,6 +664,7 @@ dependencies = [
  "explainer_score",
  "fmn",
  "fmn-codec",
+ "fmn-output",
 ]
 
 [[package]]

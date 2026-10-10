@@ -21,6 +21,9 @@ publish = false
 fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea", features = ["ffmpeg"] }
 # franken_manim's own WAV decoder, for cross-validating score stems (same rev as fmn).
 fmn-codec = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea" }
+# franken_manim's own sound mixer and decoder (the facade does not re-export
+# SoundMixer): the PCM master replays every chapter's cues through them.
+fmn-output = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea" }
 explainer_kit = { path = "crates/explainer_kit" }
 explainer_score = { path = "crates/explainer_score" }
 

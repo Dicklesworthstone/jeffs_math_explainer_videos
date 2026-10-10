@@ -63,6 +63,9 @@ commands:
   render [all|CHAPTER...]  render chapters to OUT/<chapter>.mp4
   score                    score the music from the chapters' timelines (OUT/<chapter>.timeline.tsv,
                            or --timelines DIR) into OUT/stems/, with QA; exits 1 on any QA failure
+  master                   the PCM master: every chapter's cues replayed through fmn's own mixer and
+                           null-tested against the soundtrack it muxed (renders made with --crf),
+                           joined to OUT/CRATE_master.mp4 without re-encoding the video
   help                     show this text
 
 render options:
@@ -292,6 +295,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
             "glyphs" => return glyphs(e, &args),
             "render" => render_chapters(e, &args, &script)?,
             "score" => return score_video(e, &args),
+            "master" => return master_video(e, &args),
             other => return Err(format!("unknown command {other}").into()),
         }
         Ok(0)
@@ -395,6 +399,12 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 opts.max_frames = n;
             }
             if let Some(crf) = args.crf {
+                // a delivery render keeps the soundtrack fmn muxes, for the
+                // PCM master's null test
+                let capture = args.out.join("soundtrack").join(c.key);
+                if !profiling {
+                    set_aside(&capture)?;
+                }
                 let mut o = encode::delivery_options(
                     path.clone(),
                     RenderFormat::Mp4,
@@ -402,6 +412,7 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                         quality: crf,
                         gpu: args.gpu,
                         preset: args.preset.unwrap_or("medium"),
+                        capture_dir: (!profiling).then_some(capture),
                         ..Quality::delivery()
                     },
                 )?;
@@ -584,6 +595,79 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     }
     std::fs::write(&fp_path, &fp)?;
     Ok(i32::from(!failed.is_empty()))
+}
+
+/// The `master` command (plan §7.7): replay every chapter's cue log through
+/// fmn's own mixer, require it to equal the soundtrack fmn muxed (captured by
+/// `render --crf`), concatenate, apply one fixed gain, and join the chapters'
+/// video without re-encoding. Gates: the joined frame count is the sum of the
+/// chapters'; the audio lasts as long as the picture (within one AAC frame).
+fn master_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    use crate::master;
+    let chapters = (e.chapters)();
+    let mut programme = explainer_score::Stereo::default();
+    let (mut total_frames, mut fps_all) = (0u64, None);
+    let mut mp4s = Vec::new();
+    for c in &chapters {
+        let tl = ChapterTimeline::read(&args.out.join(format!("{}.timeline.tsv", c.key)))?;
+        if *fps_all.get_or_insert(tl.fps) != tl.fps {
+            return Err(format!("{}: {} fps, the others {}", c.key, tl.fps, fps_all.unwrap_or(0)).into());
+        }
+        let cues = master::parse_cue_log(&std::fs::read_to_string(
+            args.out.join(format!("{}.cuelog.tsv", c.key)),
+        )?)?;
+        let replay = master::replay(&cues, tl.frames, tl.fps)?;
+        let dir = args.out.join("soundtrack").join(c.key);
+        let captured = (0..)
+            .map(|n| dir.join(format!("soundtrack_{n}.wav")))
+            .take_while(|p| p.exists())
+            .last()
+            .ok_or_else(|| {
+                format!(
+                    "{}: no captured soundtrack in {} (render it with --crf)",
+                    c.key,
+                    dir.display()
+                )
+            })?;
+        master::null_test(&replay, &std::fs::read(&captured)?)
+            .map_err(|m| format!("{}: null test failed: {m}", c.key))?;
+        let audio = master::to_stereo(&replay);
+        let want = explainer_score::units::frame_to_sample(tl.frames, tl.fps) as usize;
+        if audio.len() != want {
+            return Err(format!("{}: soundtrack {} samples, picture {want}", c.key, audio.len()).into());
+        }
+        println!(
+            "{:<14} replay = fmn's soundtrack, bit for bit ({} cues, {} samples)",
+            c.key,
+            cues.len(),
+            audio.len()
+        );
+        programme.l.extend(&audio.l);
+        programme.r.extend(&audio.r);
+        total_frames += tl.frames;
+        mp4s.push(args.out.join(format!("{}.mp4", c.key)));
+    }
+    let fps = fps_all.ok_or("no chapters")?;
+    let (gain, lufs, tp) = master::apply_master_gain(&mut programme);
+    let work = args.out.join("master");
+    std::fs::create_dir_all(&work)?;
+    let wav = work.join(format!("{}.master.wav", e.crate_name));
+    set_aside(&wav)?;
+    explainer_score::wav::write_master(&wav, &programme, explainer_score::wav::Format::F32)?;
+    let out = args.out.join(format!("{}_master.mp4", e.crate_name));
+    set_aside(&out)?;
+    master::join(&mp4s, &wav, fps, &work.join("join"), &out)?;
+    let (frames, secs) = master::probe(&out)?;
+    let picture = total_frames as f64 / f64::from(fps);
+    println!(
+        "master -> {}: gain {gain:+.2} dB, {lufs:.2} LUFS, {tp:.2} dBTP; {frames} frames (chapters {total_frames}); audio {secs:.3} s (picture {picture:.3} s)",
+        out.display()
+    );
+    let ok = frames == total_frames && (secs - picture).abs() <= 1024.0 / 48_000.0 + 1e-3;
+    if !ok {
+        eprintln!("master gates failed: frames {frames} vs {total_frames}, audio {secs:.3} s vs {picture:.3} s");
+    }
+    Ok(i32::from(!ok))
 }
 
 /// The `glyphs` command: every Text and Tex string the video uses, on PNG
