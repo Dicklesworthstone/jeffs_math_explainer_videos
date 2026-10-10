@@ -335,6 +335,53 @@ pub fn max_repeats(music: &Stereo) -> usize {
         .unwrap_or(0)
 }
 
+/// Exposed beating (plan §7.6): the deepest slow amplitude modulation of the
+/// music over steady stretches, in dB. Each 2 s window (hop 0.5 s) counts
+/// only when the level cannot be moving for another reason: no score onset
+/// in the 3 s before it or inside it (a chord change crossfades for ~3 s), no
+/// duck ramp (wholly inside speech after its first 0.4 s, or wholly in a gap
+/// from 1.5 s after the voice stops to 0.4 s before it returns), clear of the
+/// stem's first and last 3 s, and above −60 dBFS. Depth is the p95/p5 ratio
+/// of the 25 ms RMS envelope divided by its 1 s moving mean. `None` when no
+/// window qualifies.
+pub fn exposed_beating_db(music: &Stereo, onsets: &[f64], speech: &[(f64, f64)]) -> Option<f64> {
+    let m = mono(music);
+    let frame = (0.025 * FS) as usize;
+    let env: Vec<f64> = m
+        .chunks(frame)
+        .map(|c| (c.iter().map(|v| v * v).sum::<f64>() / c.len() as f64).sqrt())
+        .collect();
+    let fps = 1.0 / 0.025;
+    let half = (0.5 * fps) as usize;
+    let total = m.len() as f64 / FS;
+    let steady = |a: f64, b: f64| {
+        let in_speech = speech.iter().any(|&(s, e)| a >= s + 0.4 && b <= e);
+        let in_gap = !speech.iter().any(|&(s, e)| s < b + 0.4 && e + 1.5 > a);
+        (in_speech || in_gap) && a >= 3.0 && b <= total - 3.0 && !onsets.iter().any(|&t| t > a - 3.0 && t < b)
+    };
+    let mut worst: Option<f64> = None;
+    let mut a = 0.0;
+    while a + 2.0 <= total {
+        let b = a + 2.0;
+        if steady(a, b) {
+            let (i0, i1) = ((a * fps) as usize, (b * fps) as usize);
+            let ratio: Vec<f64> = (i0..i1.min(env.len()))
+                .filter_map(|i| {
+                    let (lo, hi) = (i.saturating_sub(half), (i + half).min(env.len()));
+                    let mean = env[lo..hi].iter().sum::<f64>() / (hi - lo) as f64;
+                    (mean > 1e-3).then(|| env[i] / mean)
+                })
+                .collect();
+            if ratio.len() > 20 {
+                let depth = 20.0 * (percentile(&ratio, 95.0) / percentile(&ratio, 5.0).max(1e-9)).log10();
+                worst = Some(worst.map_or(depth, |w: f64| w.max(depth)));
+            }
+        }
+        a += 0.5;
+    }
+    worst
+}
+
 /// Unique onset times of the score's notes (a chord's bed notes start together).
 fn onsets(events: &[Event]) -> Vec<f64> {
     let mut t: Vec<f64> = events.iter().map(|e| (e.start * 100.0).round() / 100.0).collect();
@@ -551,6 +598,22 @@ pub fn evaluate(
         }
     }
     r.push("rule6_identical_notes_10s", rule6 as f64, "= 0", Some(rule6 == 0), "");
+    match exposed_beating_db(music, &onsets(&f.events), &speech) {
+        Some(d) => r.push(
+            "exposed_beating_db",
+            d,
+            "<= 6",
+            Some(d <= 6.0),
+            "deepest slow amplitude modulation over steady stretches",
+        ),
+        None => r.push(
+            "exposed_beating_db",
+            f64::NAN,
+            "<= 6",
+            None,
+            "no steady stretch to measure",
+        ),
+    }
     let rough = f
         .chords
         .iter()
@@ -728,6 +791,35 @@ mod tests {
         };
         assert_eq!(rule7(0.9), Some(true), "released before the change");
         assert_eq!(rule7(2.0), Some(false), "held over the change");
+    }
+
+    #[test]
+    fn detuned_sines_beat_and_a_steady_tone_does_not() {
+        // v5's pad: sines detuned by 1.003 beat at 0.66 Hz; amplitudes 1 and 0.6
+        // swing the envelope 1.6 / 0.4, a 12 dB tremolo
+        let n = (30.0 * FS) as usize;
+        let beat: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                0.1 * ((TAU * 220.0 * t).sin() + 0.6 * (TAU * 220.0 * 1.003 * t).sin())
+            })
+            .collect();
+        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[]).unwrap();
+        assert!(d > 6.0, "{d:.1} dB");
+        // eight steady harmonics: no slow modulation at all
+        let steady: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                (1..=8)
+                    .map(|k| 0.02 / k as f64 * (TAU * 220.0 * k as f64 * t + k as f64).sin())
+                    .sum()
+            })
+            .collect();
+        let d = exposed_beating_db(&Stereo::from_mono(&steady), &[], &[]).unwrap();
+        assert!(d < 1.0, "{d:.2} dB");
+        // an onset 1 s before every window leaves nothing steady to measure
+        let onsets: Vec<f64> = (0..30).map(|k| k as f64).collect();
+        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &onsets, &[]), None);
     }
 
     #[test]
