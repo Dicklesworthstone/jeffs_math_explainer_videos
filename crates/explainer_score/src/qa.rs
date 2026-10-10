@@ -640,6 +640,47 @@ mod tests {
     }
 
     #[test]
+    fn the_v5_chime_under_speech_fails_and_a_static_90_s_chord_fails_monotony() {
+        // the v5 chime: free-free bar partials 1 : 2.76 : 5.4 at 880 Hz (2.4
+        // and 4.75 kHz, in the intelligibility band), struck under speech at
+        // the level v5 used against its −9.4 dB narration
+        let total = 30.0;
+        let v = speech(&[(1.0, 14.0), (15.0, 29.0)], total, 0.1 * 10f64.powf(-9.4 / 20.0));
+        let n = v.len();
+        let mut chime = vec![0.0; n];
+        for strike in [3.0, 9.0, 18.0, 24.0] {
+            let at = (strike * FS) as usize;
+            for i in 0..(2.0 * FS) as usize {
+                let t = i as f64 / FS;
+                let y: f64 = [(1.0, 1.0, 1.2), (2.76, 0.5, 0.5), (5.4, 0.3, 0.25)]
+                    .iter()
+                    .map(|&(r, a, tau)| a * (-t / tau).exp() * (TAU * 880.0 * r * t).sin())
+                    .sum();
+                chime[at + i] += 0.3 * 10f64.powf(-10.0 / 20.0) * y;
+            }
+        }
+        let r = evaluate("v5 chime", &v, &Stereo::from_mono(&chime), n, None);
+        for m in ["sii_loss_max", "music_loudest_400ms_re_speech_lu"] {
+            assert_eq!(r.get(m).unwrap().pass, Some(false), "{m}: {:?}", r.get(m));
+        }
+        // a 90 s static chord: one ChordSpan for the whole chapter
+        let v = speech(&[(1.0, 40.0), (45.0, 85.0)], 90.0, 0.1);
+        let chord = crate::theory::Chord::maj9(2);
+        let facts = ScoreFacts {
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 89.0,
+                voicing: crate::theory::voice_lead(&chord, 4, None),
+                chord,
+            }],
+            ..Default::default()
+        };
+        let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
+        let m = r.get("longest_chord_s").unwrap();
+        assert_eq!(m.pass, Some(false), "{m:?}");
+    }
+
+    #[test]
     fn length_and_finiteness_are_checked_first() {
         let v = speech(&[(1.0, 3.0)], 4.0, 0.1);
         let short = Stereo::silence(v.len() - 1);

@@ -74,6 +74,8 @@ pub struct Identity {
     pub melody_lu: f64,
     /// Duck depth under speech (dB).
     pub duck_db: f64,
+    /// Sound-effect level relative to the voice (LU), for a reference whoosh.
+    pub sfx_lu: f64,
 }
 
 impl Identity {
@@ -99,6 +101,7 @@ impl Identity {
             bed_lu: -11.0,
             melody_lu: -12.0,
             duck_db: 8.0,
+            sfx_lu: -16.0,
         }
     }
 }
@@ -127,6 +130,52 @@ pub enum Track {
     Answer,
     /// A reveal answering an authored mark.
     Cue,
+}
+
+/// What an authored mark asks for, read from its label: `kind:name`, or a
+/// bare name for a reveal (`kit.mark(stage, "swell:tableau")`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CueKind {
+    /// A soft dyad of chord tones, in the gap (the default).
+    Reveal,
+    /// A noise swell rising into the mark (a transition).
+    Swell,
+    /// The motif's resolution on the melody instrument (an "aha").
+    Resolve,
+    /// A soft wooden tick on the mark itself, even under speech (a counter).
+    Tick,
+    /// One plucked chord tone (pizzicato counts).
+    Pizz,
+    /// A noise whoosh centred on the mark (a scene change).
+    Whoosh,
+}
+
+impl CueKind {
+    pub fn from_label(label: &str) -> Self {
+        match label.split_once(':').map(|(k, _)| k) {
+            Some("swell") => Self::Swell,
+            Some("resolve") => Self::Resolve,
+            Some("tick") => Self::Tick,
+            Some("pizz") => Self::Pizz,
+            Some("whoosh") => Self::Whoosh,
+            _ => Self::Reveal,
+        }
+    }
+}
+
+/// A sound effect (noise or tick) placed by the score.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum SfxKind {
+    Swell { seconds: f64 },
+    Whoosh { seconds: f64 },
+    Tick { hz: f64 },
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Sfx {
+    pub start: f64,
+    pub kind: SfxKind,
+    pub seed: u64,
 }
 
 /// One note the score played (times in seconds from the video start).
@@ -166,6 +215,8 @@ pub struct Score {
     pub cues: Vec<(f64, String)>,
     /// Marks with no room for a cue (deep inside a long sentence).
     pub skipped_marks: Vec<String>,
+    /// Sound effects placed for marks.
+    pub sfx: Vec<Sfx>,
     /// Coarse speech regions (seconds) the duck follows.
     pub speech: Vec<(f64, f64)>,
     /// Chapter name and sample span [start, end) within the video.
@@ -305,6 +356,35 @@ pub fn fit_phrase(
         t += d * beat_s;
     }
     if out.len() < 2 { Vec::new() } else { out }
+}
+
+/// Elastic phrasing (±8%): the video's closing resolution relaxes into the
+/// end (beat × 1.08) when that still fits; a phrase that does not fit whole
+/// at tempo may tighten (beat × 0.92) to fit whole; otherwise the longest
+/// prefix that fits at tempo.
+pub fn elastic_phrase(
+    motif: &Motif,
+    identity: &Identity,
+    start: f64,
+    limit: f64,
+    closing: bool,
+) -> Vec<(f64, i32, f64)> {
+    let fit = |beat: f64| fit_phrase(motif, &identity.key, identity.tonic_midi, beat, start, limit);
+    let whole = motif.degrees.len();
+    if closing {
+        let relaxed = fit(identity.beat_s * 1.08);
+        if relaxed.len() == whole {
+            return relaxed;
+        }
+    }
+    let nominal = fit(identity.beat_s);
+    if nominal.len() < whole {
+        let tight = fit(identity.beat_s * 0.92);
+        if tight.len() == whole {
+            return tight;
+        }
+    }
+    nominal
 }
 
 /// Move `pitch` off a minor ninth (a semitone from any chord tone, hard rule
@@ -451,6 +531,20 @@ fn melody_bus(events: &[Event], n: usize) -> Stereo {
     dry
 }
 
+/// The sound-effect bus: swells, whooshes and ticks.
+fn sfx_bus(sfx: &[Sfx], n: usize) -> Stereo {
+    let mut bus = Stereo::silence(n);
+    for f in sfx {
+        let buf = match f.kind {
+            SfxKind::Swell { seconds } => instr::riser(seconds, f.seed),
+            SfxKind::Whoosh { seconds } => instr::whoosh(seconds, 250.0, 1_600.0, 400.0, f.seed),
+            SfxKind::Tick { hz } => crate::fx::pan(&instr::tick(hz, f.seed), 0.3),
+        };
+        bus.mix_in(&buf, (f.start.max(0.0) * FS).round() as usize, 1.0);
+    }
+    bus
+}
+
 /// The melody's note events for a phrase starting at `start` (all notes at
 /// the reference velocity): used to calibrate the melody bus.
 fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
@@ -501,6 +595,37 @@ pub fn reference_levels(identity: &Identity) -> (f64, f64) {
     let len = phrase.last().map_or(1.0, |e| e.start + e.hold) + 3.0;
     let mel_lufs = meter::integrated(&melody_bus(&phrase, (len * FS) as usize));
     (bed_lufs, mel_lufs)
+}
+
+/// The loudness (LUFS) of a reference sound effect (a 0.8 s whoosh) at unity
+/// gain: the fixed point the sfx bus is set against.
+pub fn reference_sfx_level(identity: &Identity) -> f64 {
+    let f = Sfx {
+        start: 0.1,
+        kind: SfxKind::Whoosh { seconds: 0.8 },
+        seed: seed_for(&identity.name, "", "reference-sfx", 0),
+    };
+    meter::integrated(&sfx_bus(&[f], (1.5 * FS) as usize))
+}
+
+/// A digest of everything a render depends on: the crate version, the
+/// identity, each chapter's timeline and plan, the bytes of every narration
+/// WAV, and the voice gain. A cached stem is reused only under the same
+/// fingerprint.
+pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<u64> {
+    let mut bytes = Vec::new();
+    bytes.extend(env!("CARGO_PKG_VERSION").as_bytes());
+    bytes.extend(format!("{identity:?}|{voice_gain_db:?}").as_bytes());
+    for s in sections {
+        bytes.extend(s.timeline.to_text().as_bytes());
+        bytes.extend(format!("{:?}", s.plan).as_bytes());
+        for l in &s.timeline.lines {
+            let wav = std::fs::read(&l.wav)?;
+            bytes.extend((wav.len() as u64).to_le_bytes());
+            bytes.extend(wav);
+        }
+    }
+    Ok(crate::rng::fnv1a64(&bytes))
 }
 
 /// Score a whole video: `sections` in order, the voice placed at each line's
@@ -615,14 +740,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         // the duck to come down before the next line (pre-roll + attack)
         let start = if a <= 0.0 { 0.9 } else { a + 0.35 };
         let limit = if b >= total { total - 2.5 } else { b - 0.6 };
-        let notes = fit_phrase(
-            &motif,
-            &identity.key,
-            identity.tonic_midi,
-            identity.beat_s,
-            start,
-            limit,
-        );
+        let notes = elastic_phrase(&motif, identity, start, limit, final_gap);
         let Some(&(last_t, _, last_d)) = notes.last() else {
             continue;
         };
@@ -660,36 +778,100 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         }
     }
 
-    // 5. authored marks: a soft reveal dyad on the mark, or where the
-    //    sentence it falls in ends (if that is within 2 s); else skipped
+    // 5. authored marks, by kind: a reveal, pizzicato or resolution goes on
+    //    the mark, or where the sentence it falls in ends (if that is within
+    //    2 s), else it is skipped; a swell rises into the mark, a whoosh is
+    //    centred on it, a tick lands on it even under speech (a counter must
+    //    stay in sync with what it counts; the duck and pocket keep it soft)
     let mut cues = Vec::new();
     let mut skipped_marks = Vec::new();
+    let mut sfx = Vec::new();
     for (c, s) in sections.iter().enumerate() {
         let t0 = chapter_starts[c];
+        let name = chapters[c].0.as_str();
         for (i, m) in s.timeline.marks.iter().enumerate() {
             let t = t0 + m.frame as f64 / f64::from(s.timeline.fps);
-            let when = match fine.iter().find(|r| t >= r.0 && t < r.1) {
-                None => Some(t),
-                Some(r) if r.1 - t <= 2.0 => Some(r.1 + 0.05),
-                Some(_) => None,
+            let kind = CueKind::from_label(&m.label);
+            let seed = |track: &str, j: usize| seed_for(&identity.name, name, track, (i * 8 + j) as u64);
+            let when = match kind {
+                CueKind::Swell | CueKind::Whoosh | CueKind::Tick => Some(t),
+                _ => match fine.iter().find(|r| t >= r.0 && t < r.1) {
+                    None => Some(t),
+                    Some(r) if r.1 - t <= 2.0 => Some(r.1 + 0.05),
+                    Some(_) => None,
+                },
             };
             let Some(when) = when.filter(|&w| w < total - 0.5) else {
                 skipped_marks.push(m.label.clone());
                 continue;
             };
             let v = &chord_at(when).voicing;
-            for (j, &mp) in v.upper[2..].iter().enumerate() {
-                let p = if mp < 72 { mp + 12 } else { mp };
-                events.push(Event {
-                    start: when + 0.04 * j as f64,
-                    hold: 1.5,
-                    track: Track::Cue,
-                    inst: identity.palette.answer,
-                    pitch: f64::from(p.min(88)),
-                    velocity: 0.4,
-                    seed: seed_for(&identity.name, &chapters[c].0, "cue", (i * 2 + j) as u64),
-                    pan: if j == 0 { -0.45 } else { 0.45 },
-                });
+            match kind {
+                CueKind::Reveal => {
+                    for (j, &mp) in v.upper[2..].iter().enumerate() {
+                        let p = if mp < 72 { mp + 12 } else { mp };
+                        events.push(Event {
+                            start: when + 0.04 * j as f64,
+                            hold: 1.5,
+                            track: Track::Cue,
+                            inst: identity.palette.answer,
+                            pitch: f64::from(p.min(88)),
+                            velocity: 0.4,
+                            seed: seed("cue", j),
+                            pan: if j == 0 { -0.45 } else { 0.45 },
+                        });
+                    }
+                }
+                CueKind::Pizz => {
+                    let p = v.upper[1];
+                    events.push(Event {
+                        start: when,
+                        hold: 0.4,
+                        track: Track::Cue,
+                        inst: Instrument::Pluck,
+                        pitch: f64::from(if p < 67 { p + 12 } else { p }),
+                        velocity: 0.45,
+                        seed: seed("pizz", 0),
+                        pan: 0.35,
+                    });
+                }
+                CueKind::Resolve => {
+                    let notes = fit_phrase(
+                        &identity.resolution,
+                        &identity.key,
+                        identity.tonic_midi,
+                        identity.beat_s,
+                        when,
+                        f64::INFINITY,
+                    );
+                    for (j, (nt, np, nd)) in notes.into_iter().enumerate() {
+                        events.push(Event {
+                            start: nt,
+                            hold: nd * 1.4,
+                            track: Track::Cue,
+                            inst: identity.palette.melody,
+                            pitch: f64::from(avoid_minor_ninths(np, &chord_at(nt).chord, &identity.key)),
+                            velocity: 0.55,
+                            seed: seed("resolve", j),
+                            pan: 0.1,
+                        });
+                    }
+                }
+                CueKind::Swell => sfx.push(Sfx {
+                    start: (when - 2.0).max(0.0),
+                    kind: SfxKind::Swell { seconds: when.min(2.0) },
+                    seed: seed("swell", 0),
+                }),
+                CueKind::Whoosh => sfx.push(Sfx {
+                    start: (when - 0.4).max(0.0),
+                    kind: SfxKind::Whoosh { seconds: 0.8 },
+                    seed: seed("whoosh", 0),
+                }),
+                CueKind::Tick => sfx.push(Sfx {
+                    start: when,
+                    kind: SfxKind::Tick { hz: 700.0 },
+                    seed: seed("tick", 0),
+                }),
             }
             cues.push((when, m.label.clone()));
         }
@@ -703,6 +885,14 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let melody = melody_bus(&events, n);
     add_scaled(&mut sum, &melody, db_to_gain(voice_lufs + identity.melody_lu - ref_mel));
     drop(melody);
+    if !sfx.is_empty() {
+        let effects = sfx_bus(&sfx, n);
+        add_scaled(
+            &mut sum,
+            &effects,
+            db_to_gain(voice_lufs + identity.sfx_lu - reference_sfx_level(identity)),
+        );
+    }
     // tape glue: one transport, so both channels share the wow and flutter
     let tape_seed = seed_for(&identity.name, "", "tape", 0);
     let (mut tl, mut tr) = (Tape::new(tape_seed), Tape::new(tape_seed));
@@ -758,6 +948,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         phrases,
         cues,
         skipped_marks,
+        sfx,
         speech,
         chapters,
         voice_lufs,
@@ -848,6 +1039,36 @@ mod tests {
     }
 
     #[test]
+    fn phrasing_is_elastic_within_eight_percent() {
+        let id = Identity::hoeffding();
+        let b = id.beat_s;
+        // onsets at 0, 1, 2, 3 beats: the last at 3 b; 2.85 b fits only tightened
+        let tight = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.85 * b, false);
+        assert_eq!(tight.len(), 4);
+        assert!((tight[3].0 - (10.0 + 3.0 * 0.92 * b)).abs() < 1e-9);
+        // 2.7 b fits neither way: the prefix at tempo
+        let short = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.7 * b, false);
+        assert_eq!(short.len(), 3);
+        assert!((short[2].0 - (10.0 + 2.0 * b)).abs() < 1e-9);
+        // plenty of room: at tempo, unless it is the closing phrase (relaxed)
+        let free = elastic_phrase(&id.motif, &id, 10.0, 30.0, false);
+        assert!((free[3].0 - (10.0 + 3.0 * b)).abs() < 1e-9);
+        let closing = elastic_phrase(&id.motif, &id, 10.0, 30.0, true);
+        assert!((closing[3].0 - (10.0 + 3.0 * 1.08 * b)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn cue_kinds_come_from_mark_labels() {
+        assert_eq!(CueKind::from_label("reveal_mle"), CueKind::Reveal);
+        assert_eq!(CueKind::from_label("swell:table"), CueKind::Swell);
+        assert_eq!(CueKind::from_label("resolve:estimate"), CueKind::Resolve);
+        assert_eq!(CueKind::from_label("tick:3"), CueKind::Tick);
+        assert_eq!(CueKind::from_label("pizz:1"), CueKind::Pizz);
+        assert_eq!(CueKind::from_label("whoosh:cut"), CueKind::Whoosh);
+        assert_eq!(CueKind::from_label("other:x"), CueKind::Reveal);
+    }
+
+    #[test]
     fn minor_ninths_are_moved_to_safe_key_tones() {
         let key = Key::new(2, IONIAN);
         let d = Chord::maj9(2); // D F♯ A C♯ E
@@ -913,7 +1134,7 @@ mod tests {
     }
 
     /// Third-octave levels (dB) of each whole second of `x` in [a, b) s.
-    fn fingerprint(x: &Stereo, a: f64, b: f64) -> Vec<[f64; 18]> {
+    fn band_levels_per_second(x: &Stereo, a: f64, b: f64) -> Vec<[f64; 18]> {
         (a as usize..b as usize)
             .map(|s| {
                 let m: Vec<f64> = (s * 48_000..(s + 1) * 48_000).map(|i| x.l[i] + x.r[i]).collect();
@@ -937,8 +1158,8 @@ mod tests {
         // ...chapter 1 (40–70 s) did not, past the few seconds its neighbour's
         // tails ring into it: within ±0.5 dB per third octave per second
         let (fa, fb) = (
-            fingerprint(&before.music, 45.0, 70.0),
-            fingerprint(&after.music, 45.0, 70.0),
+            band_levels_per_second(&before.music, 45.0, 70.0),
+            band_levels_per_second(&after.music, 45.0, 70.0),
         );
         for (sec, (x, y)) in fa.iter().zip(&fb).enumerate() {
             for (band, (p, q)) in x.iter().zip(y).enumerate() {
@@ -985,6 +1206,75 @@ mod tests {
         );
         let cue_notes = s.events.iter().filter(|e| e.track == Track::Cue).count();
         assert_eq!(cue_notes, 4, "a dyad per cue");
+    }
+
+    #[test]
+    fn each_cue_kind_lands_where_it_should() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_kinds_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let mark = |label: &str, secs: f64| crate::timeline::Mark {
+            label: label.into(),
+            frame: (secs * 60.0) as u64,
+        };
+        // chapter 1 has a gap at 12–16 s; 3.0 s is inside a sentence
+        sections[0].timeline.marks = vec![
+            mark("swell:a", 14.0),
+            mark("whoosh:b", 13.0),
+            mark("tick:c", 3.0),
+            mark("pizz:d", 12.5),
+            mark("resolve:e", 14.5),
+        ];
+        let s = render(&Identity::hoeffding(), &sections, None).unwrap();
+        assert!(s.skipped_marks.is_empty(), "{:?}", s.skipped_marks);
+        let swell = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Swell { .. })).unwrap();
+        let SfxKind::Swell { seconds } = swell.kind else {
+            unreachable!()
+        };
+        assert!(
+            (swell.start + seconds - 14.0).abs() < 1e-9,
+            "the swell ends on its mark"
+        );
+        let whoosh = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Whoosh { .. })).unwrap();
+        assert!((whoosh.start - 12.6).abs() < 1e-9, "centred on 13 s");
+        let tick = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Tick { .. })).unwrap();
+        assert!(
+            (tick.start - 3.0).abs() < 1e-9,
+            "a tick stays on its mark, even in speech"
+        );
+        let pizz: Vec<&Event> = s.events.iter().filter(|e| e.inst == Instrument::Pluck).collect();
+        assert_eq!(pizz.len(), 1);
+        assert!((pizz[0].start - 12.5).abs() < 1e-9);
+        let resolve: Vec<&Event> = s
+            .events
+            .iter()
+            .filter(|e| e.track == Track::Cue && e.inst == Instrument::FeltPiano)
+            .collect();
+        assert_eq!(resolve.len(), 2, "the resolution 2̂–1̂");
+        assert!((resolve[0].start - 14.5).abs() < 1e-9);
+        assert!(s.music.is_finite());
+    }
+
+    #[test]
+    fn the_fingerprint_changes_with_any_input_and_only_then() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_fp_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let id = Identity::hoeffding();
+        let f0 = fingerprint(&id, &sections, None).unwrap();
+        assert_eq!(f0, fingerprint(&id, &sections, None).unwrap());
+        assert_ne!(f0, fingerprint(&id, &sections, Some(0.0)).unwrap(), "voice gain");
+        let mut other = id.clone();
+        other.bed_lu -= 1.0;
+        assert_ne!(f0, fingerprint(&other, &sections, None).unwrap(), "identity");
+        sections[1].plan.intensity += 0.1;
+        let f1 = fingerprint(&id, &sections, None).unwrap();
+        assert_ne!(f0, f1, "plan");
+        // one byte of one narration WAV
+        let wav = sections[0].timeline.lines[0].wav.clone();
+        let mut bytes = std::fs::read(&wav).unwrap();
+        let k = bytes.len() - 1;
+        bytes[k] ^= 1;
+        std::fs::write(&wav, &bytes).unwrap();
+        assert_ne!(f1, fingerprint(&id, &sections, None).unwrap(), "narration bytes");
     }
 
     #[test]

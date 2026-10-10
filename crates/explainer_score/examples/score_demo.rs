@@ -14,9 +14,11 @@
 //!
 //! Writes to OUT_DIR: `timelines/<chapter>.tl`; `stems/<chapter>.music.f32.wav`
 //! (the new score, each exactly its scene's length); `qa/{new,old}_<chapter>.json`;
-//! `hoeffding_{new,old}_master.wav` (voice + music for the whole video, one
-//! fixed gain to −16 LUFS or the −1.5 dBTP ceiling, whichever binds first);
-//! `ab/<chapter>_{old,new}.wav` for 02_gallery and 07_shuffle; and
+//! `hoeffding_{old,new}_ab.wav` (voice + music for the whole video, both by
+//! one fixed gain to the same loudness, the loudest both reach under
+//! −1.5 dBTP: a fair A/B); `hoeffding_new_master.wav` (the new mix alone at
+//! the delivery spec, −16 LUFS); `ab/<chapter>_{old,new}.wav` for 02_gallery
+//! and 07_shuffle, matched the same way; and
 //! `summary.tsv` with every metric side by side.
 
 use std::collections::BTreeMap;
@@ -130,6 +132,29 @@ fn master(mix: &Stereo) -> (Stereo, f64, f64, f64) {
     let mut m = mix.clone();
     m.scale(db_to_gain(g));
     (m, g, i + g, tp + g)
+}
+
+/// Master an A/B pair fairly: each by one fixed gain, both to the same
+/// integrated loudness, the loudest both can reach (−16 LUFS unless either
+/// one's true peak would pass −1.5 dBTP first). A louder version tends to win
+/// a listening test, so the two are never compared at different loudness.
+/// Returns the masters and, per version, (gain, LUFS, dBTP).
+fn master_pair(a: &Stereo, b: &Stereo) -> (Vec<Stereo>, Vec<(f64, f64, f64)>) {
+    let m: Vec<(f64, f64)> = [a, b]
+        .iter()
+        .map(|x| (meter::integrated(x), meter::true_peak_db(x)))
+        .collect();
+    let target = m.iter().map(|&(i, tp)| i + (-1.5 - tp)).fold(-16.0_f64, f64::min);
+    let mut out = Vec::new();
+    let mut stats = Vec::new();
+    for (x, &(i, tp)) in [a, b].iter().zip(&m) {
+        let g = target - i;
+        let mut y = (*x).clone();
+        y.scale(db_to_gain(g));
+        out.push(y);
+        stats.push((g, i + g, tp + g));
+    }
+    (out, stats)
 }
 
 fn main() -> Result<(), String> {
@@ -248,9 +273,9 @@ fn main() -> Result<(), String> {
             }
         );
         if name == "02_gallery" || name == "07_shuffle" {
-            for (tag, v, m) in [("old", &ov, &om), ("new", &nv, &nm)] {
-                let (mixed, _, _, _) = master(&add(v, m));
-                wav::write(&out.join(format!("ab/{name}_{tag}.wav")), &mixed, wav::Format::S24)
+            let (pair, _) = master_pair(&add(&ov, &om), &add(&nv, &nm));
+            for (tag, mixed) in ["old", "new"].iter().zip(&pair) {
+                wav::write(&out.join(format!("ab/{name}_{tag}.wav")), mixed, wav::Format::S24)
                     .map_err(|e| e.to_string())?;
             }
         }
@@ -266,15 +291,20 @@ fn main() -> Result<(), String> {
     // whole-video masters
     let new_mix = add(&new.voice, &new.music);
     let old_mix = add(&concat(&old_voice_parts), &concat(&old_music_parts));
-    for (tag, mix) in [("new", &new_mix), ("old", &old_mix)] {
-        let (m, g, i, tp) = master(mix);
-        wav::write_master(&out.join(format!("hoeffding_{tag}_master.wav")), &m, wav::Format::S24)
+    // the A/B pair at one loudness, then the new mix alone at the delivery spec
+    let (pair, stats) = master_pair(&old_mix, &new_mix);
+    for ((tag, m), (g, i, tp)) in ["old", "new"].iter().zip(&pair).zip(stats) {
+        wav::write_master(&out.join(format!("hoeffding_{tag}_ab.wav")), m, wav::Format::S24)
             .map_err(|e| e.to_string())?;
         println!(
-            "{tag} master: gain {g:+.2} dB -> {i:.2} LUFS, {tp:.2} dBTP, {:.3} s",
+            "{tag} (A/B): gain {g:+.2} dB -> {i:.2} LUFS, {tp:.2} dBTP, {:.3} s",
             m.len() as f64 / 48_000.0
         );
     }
+    drop(pair);
+    let (m, g, i, tp) = master(&new_mix);
+    wav::write_master(&out.join("hoeffding_new_master.wav"), &m, wav::Format::S24).map_err(|e| e.to_string())?;
+    println!("new master at spec: gain {g:+.2} dB -> {i:.2} LUFS, {tp:.2} dBTP");
     let mut tsv = String::from("metric\tchapter\tlimit\told (v5)\tnew\n");
     for (metric, per) in &rows {
         for (ch, cells) in per {
