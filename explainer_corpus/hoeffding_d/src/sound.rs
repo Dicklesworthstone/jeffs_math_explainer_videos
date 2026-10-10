@@ -117,6 +117,9 @@ impl Score {
         write_wav(&path, &l, &r)
             .map_err(|e| fmn::Error::Scene(SceneError::InvalidConfig(leak(format!("pad: {e}")))))?;
         let gain = if self.under_voice { -9.0 } else { 0.0 };
+        if std::env::var_os("HOEFFDING_CUE_LOG").is_some() {
+            eprintln!("music\t{}\t0.000\t{gain}", path.display());
+        }
         stage
             .scene_mut()
             .add_sound(path, -seconds, Some(gain), None)?;
@@ -133,6 +136,10 @@ impl Score {
             })?;
         }
         let gain = if self.under_voice { -10.0 } else { -3.0 };
+        if std::env::var_os("HOEFFDING_CUE_LOG").is_some() {
+            let now = stage.scene().time().to_f64();
+            eprintln!("music\t{}\t{now:.3}\t{gain}", path.display());
+        }
         stage.scene_mut().add_sound(path, 0.0, Some(gain), None)?;
         Ok(())
     }
