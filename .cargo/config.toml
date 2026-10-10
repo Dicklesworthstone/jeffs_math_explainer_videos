@@ -1,0 +1,10 @@
+# Parallel rustc front-end (nightly only, like the rest of this build).
+[build]
+rustflags = ["-Z", "threads=4"]
+fingerprint = "content"
+
+# RCH preserves source mtimes. An edit made while an older remote snapshot
+# builds can therefore predate its artifact and appear fresh to mtime checks.
+# The pinned nightly must compare contents before reusing compiled output.
+[unstable]
+checksum-freshness = true

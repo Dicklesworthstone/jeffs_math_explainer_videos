@@ -1,0 +1,9 @@
+[package]
+name = "explainer_kit"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Shared scene kit for the explainer corpus: palette roles, text/Tex helpers, live readouts, data windows, layout lint, narration timeline, encoder wrapper, stats kit and CLI (extracted from the explainer skill's template)"
+
+[dependencies]
+fmn.workspace = true

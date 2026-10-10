@@ -1,0 +1,37 @@
+# The explainer corpus: one workspace, one lock, one franken_manim compile.
+# Plan §3.2 (D-01, D-02).
+[workspace]
+resolver = "3"
+members = ["crates/*", "explainer_corpus/*"]
+# hoeffding_d keeps its own [workspace] (and its own git pin) until it is
+# migrated onto the shared kit (bead W3-migrate). A members glob that covers a
+# crate with its own [workspace] fails with "multiple workspace roots found".
+exclude = ["explainer_corpus/hoeffding_d"]
+
+[workspace.package]
+edition = "2024"
+license-file = "LICENSE"
+repository = "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos"
+publish = false
+
+[workspace.dependencies]
+# franken_manim pinned by git revision (= FRANKEN_MANIM.pin). Upgrading is a
+# deliberate commit: bump rev, re-run every explainer's tests and glyph probes,
+# and read fresh contact sheets (TeX layout changes ride franken_markdown pins).
+fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea", features = ["ffmpeg"] }
+explainer_kit = { path = "crates/explainer_kit" }
+explainer_score = { path = "crates/explainer_score" }
+
+# Unused today: `block` is reachable only through fmn-render's optional `metal`
+# feature, which fmn never enables (cargo records it as an unused patch). Kept so
+# the lock matches franken_manim's own if that feature is ever turned on.
+[patch.crates-io]
+block = { git = "https://github.com/Dicklesworthstone/rust-block", rev = "b39ae859d1ee8e8cb5eef6a516471f1578d26b96" }
+
+# franken_manim's profiles and .cargo/config.toml do not reach consumers.
+[profile.release]
+lto = "thin"
+
+# The score engine's tests synthesize seconds of audio; keep them fast in test.
+[profile.test]
+opt-level = 2
