@@ -1,7 +1,8 @@
 //! The narrator in a real scene, end to end: lines placed frame-exactly
-//! after their breaths, a mark, a music breath, a stem laid from t = 0, the
-//! timeline the score engine reads (round-tripped through its text format
-//! and turned into a voice bus), and the exact cue log.
+//! after their breaths, a mark, a music breath, a sonification window, a
+//! stem laid from t = 0, the timeline the score engine reads (round-tripped
+//! through its text format and turned into a voice bus), and the exact cue
+//! log.
 
 use std::cell::RefCell;
 use std::path::{Path, PathBuf};
@@ -119,4 +120,81 @@ fn a_bad_cue_is_refused_when_placed() {
     // a scripted line with no file is an error before anything renders
     let err = Narrator::load(&script, &dir, 0.0).err().expect("missing 02_1.wav");
     assert!(err.to_string().contains("02_1.wav"), "{err}");
+}
+
+/// A sonification window: it opens after the line and its breath, does not
+/// wait (the scene animates through it), and holds the next line off until
+/// it ends.
+struct Sonified {
+    kit: Kit,
+    sound: PathBuf,
+    timeline: Rc<RefCell<Option<ChapterTimeline>>>,
+}
+
+impl SceneConstruct for Sonified {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        kit.say(stage, "01_1")?; // frame 36, 15 frames long
+        kit.sonify(stage, 2.0, "cloud", &self.sound)?; // opens at 36 + 15 + 36 = 87
+        assert_eq!(stage.scene().time().frames(), 87, "sonify does not wait");
+        let t = kit.text(stage, "listen", 30.0, Palette::ink(), v(0.0, 0.0))?;
+        stage.play(write(stage.arena(), t))?; // 1 s inside the window: frame 147
+        kit.say(stage, "01_2")?; // held to the window's end: 87 + 120 = 207
+        kit.hold(stage)?;
+        *self.timeline.borrow_mut() = Some(kit.narrator.as_ref().unwrap().timeline(stage, "01_son"));
+        Ok(())
+    }
+}
+
+#[test]
+fn a_sonification_window_lets_the_scene_animate_and_holds_the_next_line() {
+    let dir = std::env::temp_dir().join(format!("explainer_kit_sonify_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    write_line(&dir.join("01_1.wav"), 0.25);
+    write_line(&dir.join("01_2.wav"), 0.25);
+    let sound = dir.join("cloud.wav");
+    write_line(&sound, 3.0);
+    let script = Script::parse("01_1\tHello.\n01_2\tAfter the cloud.\n").unwrap();
+    for with_stem in [false, true] {
+        let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
+        let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
+        if with_stem {
+            kit.stem = Some(dir.join("not_placed_here.wav"));
+        }
+        let got = Rc::new(RefCell::new(None));
+        let mut scene = Sonified {
+            kit,
+            sound: sound.clone(),
+            timeline: Rc::clone(&got),
+        };
+        let mut opts =
+            RenderOptions::with_format(dir.join(format!("frames_{with_stem}")), RenderFormat::PngSequence).unwrap();
+        opts.config.camera.resolution = (32, 18);
+        opts.config.camera.fps = 60;
+        fmn::render(&mut scene, opts).expect("render");
+        let tl = got.borrow().clone().unwrap();
+        let lines: Vec<(&str, u64)> = tl.lines.iter().map(|l| (l.id.as_str(), l.start_frame)).collect();
+        assert_eq!(
+            lines,
+            vec![("01_1", 36), ("01_2", 207)],
+            "the next line waits for the window"
+        );
+        assert_eq!(tl.listens.len(), 1);
+        let w = &tl.listens[0];
+        assert_eq!((w.frame, w.seconds, w.label.as_str()), (87, 2.0, "cloud"));
+        assert_eq!(w.sound.as_deref(), Some(sound.as_path()));
+        assert_eq!(ChapterTimeline::parse(&tl.to_text()).unwrap(), tl);
+        // a narrated draft plays it directly; under a score stem, the stem has it
+        let placed: Vec<(u64, Option<f64>)> = narrator
+            .cues()
+            .iter()
+            .filter(|c| c.file.path == sound)
+            .map(|c| (c.frame, c.gain_db))
+            .collect();
+        if with_stem {
+            assert!(placed.is_empty(), "{placed:?}");
+        } else {
+            assert_eq!(placed, vec![(87, Some(explainer_kit::kit::DRAFT_SONIFY_DB))]);
+        }
+    }
 }

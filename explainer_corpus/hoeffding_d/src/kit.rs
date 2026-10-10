@@ -2,13 +2,13 @@
 //! chapters use, this video's palette roles, and the v5 score hooks.
 //!
 //! The chapters were written against the v5 kit, whose API the shared kit
-//! keeps, so they only import from here. Until the score engine replaces the
-//! v5 pad and chimes (bead W3-score), [`Kit::pad`] and [`Kit::chime`] still
-//! play them under a real narration, placed through the narrator so the exact
-//! cue log (and the PCM master's replay of it) has them. `pad`, which every
-//! chapter calls last, also ends the chapter for the shared kit (`finish`:
-//! the last line's hold, a score stem if one was given, and the chapter's
-//! timeline).
+//! keeps, so they only import from here. v6 is scored by the score engine:
+//! [`Kit::chime`] marks a reveal for it to answer, and [`Kit::pad`], which
+//! every chapter calls last, ends the chapter for the shared kit (`finish`:
+//! the last line's hold, the score stem if one was given, and the chapter's
+//! timeline). With `HOEFFDING_V5_SOUND=1` (the A/B's old side) the v5 pad
+//! and chimes play instead, placed through the narrator so the exact cue log
+//! (and the PCM master's replay of it) has them.
 
 use std::ops::Deref;
 use std::path::Path;
@@ -23,6 +23,10 @@ pub use explainer_kit::{
 };
 
 use crate::sound::Score;
+
+/// The music's own breath at each act's end (plan §7.2: after h7, g10, q8,
+/// c8, f8 and s9), before the closing fade.
+pub const ACT_BREATH: f64 = 2.5;
 
 /// Roles, not hues: every chapter colors the same idea the same way.
 pub struct Palette;
@@ -97,14 +101,13 @@ impl Deref for Kit {
 
 impl Kit {
     /// Wrap the kit the shared CLI built for a chapter. The v5 pad and chimes
-    /// play only under a real narration (v5 also played them under the
-    /// scratch voice; drafts lose them until the score engine takes over),
-    /// and never with a score stem, which replaces them.
+    /// play only when asked for (`HOEFFDING_V5_SOUND=1`), under a real
+    /// narration, and never with a score stem.
     pub fn wrap(base: explainer_kit::Kit) -> Self {
         let v5 = base
             .narrator
             .as_ref()
-            .filter(|n| n.has_audio() && base.stem.is_none())
+            .filter(|n| crate::v5_sound() && n.has_audio() && base.stem.is_none())
             .map(|n| {
                 let score = Score {
                     dir: std::env::temp_dir().join("hoeffding_v5_score"),
@@ -130,9 +133,29 @@ impl Kit {
         }
     }
 
-    /// A soft v5 bell now.
+    /// A sonification in its own listen window (see
+    /// `explainer_kit::Kit::sonify`). The v5 sound never had one, so with it
+    /// the window is recorded but the sound is not played: the A/B's old
+    /// side stays v5's.
+    pub fn sonify(
+        &self,
+        stage: &mut Stage<'_>,
+        seconds: f64,
+        label: &str,
+        wav: &Path,
+    ) -> fmn::Result<()> {
+        match &self.v5 {
+            Some((_, narrator)) => narrator.sonify(stage, seconds, label, wav),
+            None => self.base.sonify(stage, seconds, label, wav),
+        }
+    }
+
+    /// A reveal now: a mark the score answers (a soft dyad in the next gap),
+    /// or, for the v5 sound, a soft bell.
     pub fn chime(&self, stage: &mut Stage<'_>, freq: f64) -> fmn::Result<()> {
         let Some((score, narrator)) = &self.v5 else {
+            self.base
+                .mark(stage, &format!("reveal:chime_{}", freq.round()));
             return Ok(());
         };
         match create_dir(&score.dir).and_then(|()| score.chime_wav(freq)) {

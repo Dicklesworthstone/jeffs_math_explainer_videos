@@ -27,9 +27,23 @@
 > corpus's `explainer_kit`: text, Tex, live readouts, the narrator, the encoder
 > wrapper, the CLI. `script.tsv` holds the narration with the v5 ids (h1..o4), so
 > `narration_v5` still matches. The v5 kit, narrator, encoder and CLI sources are
-> kept, uncompiled, in `v5_legacy/`. Until the re-score, the v5 pad, the chimes
-> and the −9.4 dB narration balance are kept. `hoeffding stats` prints exactly
-> what v5 printed (checked byte for byte).
+> kept, uncompiled, in `v5_legacy/`. `hoeffding stats` prints exactly what v5
+> printed (checked byte for byte).
+>
+> **The v6 score (bead W3-score).** The corpus's score engine now scores the
+> video in two passes, with the narration at 0 dB: D major through Dmaj9 → Bm9
+> → Gmaj9(♯11) → Asus4, felt piano over a Juno pad with soft vibraphone
+> answers, and the motif 1̂–5̂–6̂–3̂, which resolves at "dependent". Each act
+> ends with a 2.5 s breath for the music. The old chime moments are now reveal
+> marks; the score answers only those with a clear second before the next
+> sentence, which is one of the nine. In the shuffle test, a 4.5 s listen
+> window lets you hear the 2,000 shuffles: one grain per shuffle at the pitch
+> of its D, in step with a counter, then the observed value as a vibraphone
+> dyad far above the pile. Score QA passes in all 8 chapters (voice over
+> music: median 17.7–18.5 LU; intelligibility loss ≤ 0.002). The picture
+> runs 8:47, 19.5 s longer than v5's, for the breaths and the listen window.
+> `HOEFFDING_V5_SOUND=1` brings back the v5 pad, chimes and balance (the A/B's
+> old side).
 
 A 3Blue1Brown-style explainer of **Hoeffding's D**, about 8½ minutes long and narrated. It was written entirely against
 [franken_manim](https://github.com/Dicklesworthstone/franken_manim)'s native Rust front door, with no Python and no LaTeX.
@@ -218,15 +232,21 @@ B=$CARGO_TARGET_DIR/release/hoeffding       # or target/release/hoeffding
 
 $B stats                                     # every number the video shows
 $B script                                    # the narration as TSV
-$B render all --res 960x540 --fps 30 --narration narration_v5 --out draft       # fast draft
+$B render all --res 960x540 --fps 30 --narration narration_v5 --out draft       # fast draft (no score)
+
+# the score: timelines at the delivery frame rate, then stems and QA
+$B render --timeline-only --narration narration_v5 --out renders/v6
+$B score --out renders/v6                    # renders/v6/stems; exits 1 if QA fails
 $B render all --res 3840x2160 --fps 60 --crf 16 --preset slow \
-              --narration narration_v5 --out renders/final_4k                   # delivery (x264)
+              --narration narration_v5 --score renders/v6/stems --out renders/v6  # delivery (x264)
+$B master --out renders/v6                   # PCM master: replay, null test, join, one fixed gain
 
 # Delivery on a 2-GPU Linux host: all 8 chapters at once, NVENC, round-robin GPUs
-OUT_ROOT=out GPU_COUNT=2 NARRATION=franken_manim_hoeffding_explainer/narration_v5 \
-  HOEFFDING_ARGS="--threads 16 --encoder h264_nvenc --crf 16" ./render_parallel.sh BUILD_DIR
+OUT_ROOT=renders/v6 GPU_COUNT=2 NARRATION=franken_manim_hoeffding_explainer/narration_v5 \
+  HOEFFDING_ARGS="--threads 16 --encoder h264_nvenc --crf 16 --score renders/v6/stems" \
+  ./render_parallel.sh BUILD_DIR
 
-cd renders/final_4k && ../../master.sh      # join chapters + one fixed gain (video stream copied)
+cd renders/final_4k && ../../master.sh      # v5's master: AAC concat + one fixed gain
 ```
 
 ### Delivery quality

@@ -182,7 +182,7 @@ impl SceneConstruct for Formula {
         kit.say(stage, "f8")?;
         play!(stage; replacement_transform(others, scale).rt(1.0));
         stage.wait(1.5)?;
-        kit.hold(stage)?;
+        kit.music_breath(stage, crate::kit::ACT_BREATH)?;
         fade_all(stage, 1.0)?;
         kit.pad(stage, 5)?;
         Ok(())

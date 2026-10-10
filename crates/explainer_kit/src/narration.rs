@@ -345,6 +345,29 @@ impl Narrator {
         self.window(stage, seconds, Some(label))
     }
 
+    /// A listen window that carries its sonification, `wav`: it opens once the
+    /// current line has finished and lasts `seconds`, but does not wait, so
+    /// the scene animates through it (and must fill it: the next line cannot
+    /// start before the window ends). The score plays `wav` there at the
+    /// identity's listen level; this call does not place it.
+    pub fn sonify(&self, stage: &mut Stage<'_>, seconds: f64, label: &str, wav: &Path) -> fmn::Result<()> {
+        inspect_cue(wav).map_err(|e| {
+            fmn::Error::Scene(SceneError::InvalidConfig(Box::leak(
+                format!("sonification {label}: {e}").into_boxed_str(),
+            )))
+        })?;
+        self.hold(stage)?;
+        let (frame, _, now) = clock(stage);
+        self.log.borrow_mut().listens.push(Window {
+            frame,
+            seconds,
+            label: label.to_owned(),
+            sound: Some(wav.to_owned()),
+        });
+        self.busy_until.set(now + seconds - BREATH);
+        Ok(())
+    }
+
     fn window(&self, stage: &mut Stage<'_>, seconds: f64, label: Option<&str>) -> fmn::Result<()> {
         self.hold(stage)?;
         let (frame, _, now) = clock(stage);
@@ -352,6 +375,7 @@ impl Narrator {
             frame,
             seconds,
             label: label.unwrap_or_default().to_owned(),
+            sound: None,
         };
         if label.is_some() {
             self.log.borrow_mut().listens.push(w);

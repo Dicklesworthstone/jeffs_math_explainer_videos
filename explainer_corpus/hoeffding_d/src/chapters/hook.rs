@@ -198,7 +198,7 @@ impl SceneConstruct for Hook {
         play!(stage; fade_in(stage.arena_mut(), subtitle, v(0.0, 0.25), 1.0)?.rt(1.2));
         play!(stage; fade_in(stage.arena_mut(), credit, ORIGIN, 1.0)?.rt(1.0));
         stage.wait(1.5)?;
-        kit.hold(stage)?;
+        kit.music_breath(stage, crate::kit::ACT_BREATH)?;
         fade_all(stage, 1.0)?;
         kit.pad(stage, 0)?;
         Ok(())

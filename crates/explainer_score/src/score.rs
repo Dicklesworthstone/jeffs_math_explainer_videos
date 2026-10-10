@@ -26,6 +26,7 @@
 //!    peak at −12 dBTP (never a limiter).
 
 use std::io;
+use std::path::Path;
 
 use crate::duck::{self, DuckShape};
 use crate::fx::{Chorus, Fdn, Plate, Tape, Warmth, from_mid_side, mid_side, rcos};
@@ -76,6 +77,9 @@ pub struct Identity {
     pub duck_db: f64,
     /// Sound-effect level relative to the voice (LU), for a reference whoosh.
     pub sfx_lu: f64,
+    /// A listen window's sonification, relative to the voice (LU): V − 10 or
+    /// louder (plan §7.2), so a sound that teaches is heard.
+    pub listen_lu: f64,
 }
 
 impl Identity {
@@ -102,9 +106,16 @@ impl Identity {
         if !(self.beat_s > 0.0 && self.chord_s.0 > 0.0 && self.chord_s.0 <= self.chord_s.1) {
             return bad(format!("beat {} s, chord lengths {:?}", self.beat_s, self.chord_s));
         }
-        if ![self.bed_t60, self.bed_lu, self.melody_lu, self.duck_db, self.sfx_lu]
-            .iter()
-            .all(|v| v.is_finite())
+        if ![
+            self.bed_t60,
+            self.bed_lu,
+            self.melody_lu,
+            self.duck_db,
+            self.sfx_lu,
+            self.listen_lu,
+        ]
+        .iter()
+        .all(|v| v.is_finite())
         {
             return bad("non-finite level or reverb time".into());
         }
@@ -139,6 +150,9 @@ impl Identity {
             melody_lu: -12.0,
             duck_db: 8.0,
             sfx_lu: -16.0,
+            // the 2,000 shuffles as a texture: clearly heard, still under the
+            // voice that explains it a moment later
+            listen_lu: -8.0,
         }
     }
 }
@@ -250,7 +264,9 @@ pub struct Score {
     pub phrases: Vec<(f64, f64)>,
     /// Reveal cues placed for authored marks: (seconds, label).
     pub cues: Vec<(f64, String)>,
-    /// Marks with no room for a cue (deep inside a long sentence).
+    /// Marks the score could not answer, as `chapter/label`: no room (deep
+    /// inside a long sentence, at the very end), too close to another cue
+    /// (rule 5), or no pitch clear of a minor ninth.
     pub skipped_marks: Vec<String>,
     /// Sound effects placed for marks.
     pub sfx: Vec<Sfx>,
@@ -441,6 +457,36 @@ pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key) -> i32 {
 fn top_two(v: &Voicing) -> Vec<i32> {
     let k = v.upper.len().saturating_sub(2);
     v.upper[k..].to_vec()
+}
+
+/// The shortest melody, answer or cue note worth playing once rule 7 has cut
+/// it at a clashing change (s).
+const MIN_NOTE_S: f64 = 0.12;
+/// A note cue (reveal, pizzicato, resolution) needs this much clear time
+/// before the next speech onset, or it is skipped: struck in the pause
+/// between two sentences it rings into the second (found on Hoeffding's
+/// hook; plan §7.2: the music answers in the gaps the author writes).
+const CUE_MIN_GAP: f64 = 1.0;
+/// A cue note is released this long before the next speech onset (s).
+const CUE_CLEAR: f64 = 0.3;
+
+/// A reveal's dyad: the voicing's top two voices, up into the cue register
+/// (folding by octaves above E6), each moved off any minor ninth, since in a
+/// ninth chord one chord tone can clash with another (Bm9's D against its
+/// C♯); a tone with no safe neighbour is left out, and a repeat is dropped.
+fn reveal_dyad(v: &Voicing, chord: &Chord, key: &Key) -> Vec<i32> {
+    let mut dyad: Vec<i32> = Vec::new();
+    for &mp in &top_two(v) {
+        let mut p = if mp < 72 { mp + 12 } else { mp };
+        while p > 88 {
+            p -= 12;
+        }
+        let p = avoid_minor_ninths(p, chord, key);
+        if !clashes(p, chord) && !dyad.contains(&p) {
+            dyad.push(p);
+        }
+    }
+    dyad
 }
 
 /// True when `pitch` is a semitone from any tone of `chord` (a minor ninth).
@@ -772,8 +818,9 @@ pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Opt
     for s in sections {
         bytes.extend(s.timeline.to_text().as_bytes());
         bytes.extend(format!("{:?}", s.plan).as_bytes());
-        for l in &s.timeline.lines {
-            let wav = std::fs::read(&l.wav)?;
+        let sounds = s.timeline.listens.iter().filter_map(|w| w.sound.as_ref());
+        for path in s.timeline.lines.iter().map(|l| &l.wav).chain(sounds) {
+            let wav = std::fs::read(path)?;
             bytes.extend((wav.len() as u64).to_le_bytes());
             bytes.extend(wav);
         }
@@ -946,9 +993,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
 
     // 5. authored marks, by kind: a reveal, pizzicato or resolution goes on
     //    the mark, or where the sentence it falls in ends (if that is within
-    //    2 s), else it is skipped; a swell rises into the mark, a whoosh is
+    //    2 s), else it is skipped (a mark on a sentence's onset, within the
+    //    onset guard, is in that sentence: a note struck there masks the
+    //    first syllable); a swell rises into the mark, a whoosh is
     //    centred on it, a tick lands on it even under speech (a counter must
     //    stay in sync with what it counts; the duck and pocket keep it soft)
+    let next_onset = |t: f64| fine.iter().map(|r| r.0).find(|&s| s > t).unwrap_or(f64::INFINITY);
     let mut cues = Vec::new();
     let mut placed: Vec<(f64, CueKind)> = Vec::new();
     let mut skipped_marks = Vec::new();
@@ -962,29 +1012,37 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             let seed = |track: &str, j: usize| seed_for(&identity.name, name, track, (i * 8 + j) as u64);
             let when = match kind {
                 CueKind::Swell | CueKind::Whoosh | CueKind::Tick => Some(t),
-                _ => match fine.iter().find(|r| t >= r.0 && t < r.1) {
+                _ => match fine.iter().find(|r| t >= r.0 - ONSET_GUARD && t < r.1) {
                     None => Some(t),
                     Some(r) if r.1 - t <= 2.0 => Some(r.1 + 0.05),
                     Some(_) => None,
                 },
             };
+            // a note cue needs a clear second before the next sentence
+            let when = when.filter(|&w| {
+                !matches!(kind, CueKind::Reveal | CueKind::Pizz | CueKind::Resolve) || next_onset(w) - w >= CUE_MIN_GAP
+            });
             // no room (deep in a sentence, at the very end), or too dense (rule 5)
             let Some(when) = when.filter(|&w| w < total - 0.5 && cue_allowed(kind, w, &placed)) else {
-                skipped_marks.push(m.label.clone());
+                skipped_marks.push(format!("{name}/{}", m.label));
                 continue;
             };
             placed.push((when, kind));
-            let v = &chord_at(when).voicing;
+            let (v, chord) = (&chord_at(when).voicing, &chord_at(when).chord);
             match kind {
                 CueKind::Reveal => {
-                    for (j, &mp) in top_two(v).iter().enumerate() {
-                        let p = if mp < 72 { mp + 12 } else { mp };
+                    let dyad = reveal_dyad(v, chord, &identity.key);
+                    if dyad.is_empty() {
+                        skipped_marks.push(format!("{name}/{}", m.label));
+                        continue;
+                    }
+                    for (j, p) in dyad.into_iter().enumerate() {
                         events.push(Event {
                             start: when + 0.04 * j as f64,
                             hold: 1.5,
                             track: Track::Cue,
                             inst: identity.palette.answer,
-                            pitch: f64::from(p.min(88)),
+                            pitch: f64::from(p),
                             velocity: 0.4,
                             seed: seed("cue", j),
                             pan: if j == 0 { -0.45 } else { 0.45 },
@@ -993,12 +1051,17 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 }
                 CueKind::Pizz => {
                     let p = v.upper[v.upper.len() / 2];
+                    let p = avoid_minor_ninths(if p < 67 { p + 12 } else { p }, chord, &identity.key);
+                    if clashes(p, chord) {
+                        skipped_marks.push(format!("{name}/{}", m.label));
+                        continue;
+                    }
                     events.push(Event {
                         start: when,
                         hold: 0.4,
                         track: Track::Cue,
                         inst: Instrument::Pluck,
-                        pitch: f64::from(if p < 67 { p + 12 } else { p }),
+                        pitch: f64::from(p),
                         velocity: 0.45,
                         seed: seed("pizz", 0),
                         pan: 0.35,
@@ -1047,12 +1110,20 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     }
 
     // rule 7 for as long as a note sounds: a melody, answer or cue note held
-    // into a chord it would clash with is released at that chord's change
-    for e in &mut events {
-        if matches!(e.track, Track::Melody | Track::Answer | Track::Cue) {
-            e.hold = hold_until_clash(e.pitch.round() as i32, e.start, e.hold, &chords).max(0.05);
+    // into a chord it would clash with is released at that chord's change;
+    // one that would clash almost at once is not played (flooring its hold
+    // would sound it over the clash, and a blip is no note)
+    // (a cue note is also released before the next sentence begins)
+    events.retain_mut(|e| {
+        if !matches!(e.track, Track::Melody | Track::Answer | Track::Cue) {
+            return true;
         }
-    }
+        e.hold = hold_until_clash(e.pitch.round() as i32, e.start, e.hold, &chords);
+        if e.track == Track::Cue {
+            e.hold = e.hold.min(next_onset(e.start) - e.start - CUE_CLEAR);
+        }
+        e.hold >= MIN_NOTE_S
+    });
 
     // 6. buses and levels, against the fixed reference levels
     let voice_lufs = meter::integrated(&voice);
@@ -1100,6 +1171,25 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     if !sfx.is_empty() {
         let effects = sfx_bus(&sfx, n);
         add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
+    }
+    // listen windows' sonifications at V + listen_lu, each cut at its
+    // window's end with a short fade so it never runs into the next line
+    for (c, s) in sections.iter().enumerate() {
+        let (a, b) = (chapters[c].1, chapters[c].2);
+        for w in &s.timeline.listens {
+            let Some(path) = &w.sound else { continue };
+            let start = a + frame_to_sample(w.frame, s.timeline.fps) as usize;
+            let end = (start + (w.seconds * FS).round() as usize).min(b);
+            let sound = listen_sound(path, end.saturating_sub(start))?;
+            let lufs = meter::integrated(&sound);
+            if !lufs.is_finite() {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    format!("{}: a silent sonification", path.display()),
+                ));
+            }
+            sum.mix_in(&sound, start, db_to_gain(v_ref + identity.listen_lu - lufs));
+        }
     }
     // tape glue: one transport, so both channels share the wow and flutter
     let tape_seed = seed_for(&identity.name, "", "tape", 0);
@@ -1165,6 +1255,34 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         true_peak_db,
         cap_db,
     })
+}
+
+/// A listen window's sonification: decoded, at 48 kHz, cut to `max` samples
+/// with a 0.25 s raised-cosine fade at the cut.
+fn listen_sound(path: &Path, max: usize) -> io::Result<Stereo> {
+    let d = crate::wav::read(path).map_err(|e| io::Error::new(e.kind(), format!("{}: {e}", path.display())))?;
+    let to48 = |x: &[f64]| crate::resample::resample(x, d.rate, crate::SAMPLE_RATE);
+    let mut s = match d.samples.as_slice() {
+        [l, r] => Stereo { l: to48(l), r: to48(r) },
+        [m] => Stereo::from_mono(&to48(m)),
+        _ => {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                format!("{}: {} channels (mono or stereo)", path.display(), d.channels),
+            ));
+        }
+    };
+    if s.len() > max {
+        s.l.truncate(max);
+        s.r.truncate(max);
+        let fade = ((0.25 * FS) as usize).min(max);
+        for k in 0..fade {
+            let g = rcos(k as f64 / fade as f64);
+            s.l[max - 1 - k] *= g;
+            s.r[max - 1 - k] *= g;
+        }
+    }
+    Ok(s)
 }
 
 /// Sample index of a chapter-relative frame (for callers placing stems).
@@ -1485,15 +1603,30 @@ mod tests {
             frame: (secs * 60.0) as u64,
         };
         // chapter 1 (speech 0.6–6, 6.6–12, 16–24, 24.6–33): a mark in the
-        // 12–16 s gap, one 1 s before a sentence ends, one deep inside a long one
-        sections[0].timeline.marks = vec![mark("gap", 13.0), mark("late", 23.0), mark("deep", 18.0)];
+        // 12–16 s gap; one 1 s before a sentence that a long gap follows
+        // ends; one deep inside a long sentence; one 0.1 s before a
+        // sentence's onset, which belongs to that sentence (struck there, it
+        // masked Hoeffding's h5 onset); and one before a sentence whose end
+        // leaves only a 0.6 s pause (a cue there rings into the next one)
+        sections[0].timeline.marks = vec![
+            mark("gap", 14.0),
+            mark("late", 11.0),
+            mark("deep", 18.0),
+            mark("onset", 15.9),
+            mark("short_pause", 23.0),
+        ];
         let s = render(&Identity::hoeffding(), &sections, None).unwrap();
         let labels: Vec<&str> = s.cues.iter().map(|c| c.1.as_str()).collect();
         assert_eq!(labels, vec!["gap", "late"]);
-        assert_eq!(s.skipped_marks, vec!["deep".to_string()]);
-        assert!((s.cues[0].0 - 13.0).abs() < 1e-9, "on the mark");
+        assert_eq!(
+            s.skipped_marks,
+            ["01_a/deep", "01_a/onset", "01_a/short_pause"]
+                .map(String::from)
+                .to_vec()
+        );
+        assert!((s.cues[0].0 - 14.0).abs() < 1e-9, "on the mark");
         assert!(
-            s.cues[1].0 > 23.9 && s.cues[1].0 < 24.6,
+            s.cues[1].0 > 11.9 && s.cues[1].0 < 12.6,
             "at the sentence's end: {}",
             s.cues[1].0
         );
@@ -1522,7 +1655,7 @@ mod tests {
         let s = render(&Identity::hoeffding(), &sections, None).unwrap();
         assert_eq!(
             s.skipped_marks,
-            vec!["too_close".to_string()],
+            vec!["01_a/too_close".to_string()],
             "rule 5: 0.6 s after the whoosh"
         );
         let swell = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Swell { .. })).unwrap();
@@ -1611,6 +1744,178 @@ mod tests {
         assert_eq!(bed(0.5), 4);
         assert_eq!(bed(0.7), 5);
         assert!(reverb_send(0.9) > reverb_send(0.3));
+    }
+
+    #[test]
+    fn a_reveal_never_sounds_a_minor_ninth_even_on_a_ninth_chords_own_tones() {
+        // Bm9 (B D F♯ A C♯) voiced C♯4 F♯4 A4 D5: the dyad took the top two,
+        // A5 and D5, and D5 sits a semitone over the chord's own C♯ (found on
+        // Hoeffding's v6: four chapters failed rule 7)
+        let key = Key::new(2, IONIAN);
+        let bm9 = Chord::min9(11);
+        let v = Voicing {
+            bass: 35,
+            upper: vec![61, 66, 69, 74],
+        };
+        assert!(clashes(74, &bm9), "the old dyad's D5");
+        assert_eq!(reveal_dyad(&v, &bm9, &key), vec![81, 76], "A5 and E5");
+        // every chord of the synthetic progression, every inversion's top two
+        for chord in Identity::hoeffding().progression {
+            for top in 60..84 {
+                let v = Voicing {
+                    bass: 40,
+                    upper: vec![top - 7, top],
+                };
+                for p in reveal_dyad(&v, &chord, &key) {
+                    assert!(!clashes(p, &chord) && p <= 88, "{p} over {chord:?}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn reveals_at_every_chord_change_keep_rule_7() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_reveal_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let id = Identity::hoeffding();
+        let plain = render(&id, &sections, None).unwrap();
+        // a reveal 0.1 s before every chord change in 01_a: the ones in a
+        // real gap sound, the rest are skipped, and none sounds a minor ninth
+        sections[0].timeline.marks = plain
+            .chords
+            .iter()
+            .filter(|c| c.start > 1.0 && c.start < 39.0)
+            .enumerate()
+            .map(|(k, c)| crate::timeline::Mark {
+                label: format!("reveal:{k}"),
+                frame: ((c.start - 0.1) * 60.0).floor() as u64,
+            })
+            .collect();
+        let s = render(&id, &sections, None).unwrap();
+        let starts = |x: &Score| x.chords.iter().map(|c| c.start).collect::<Vec<_>>();
+        assert_eq!(starts(&s), starts(&plain), "marks do not move the harmony");
+        let cue: Vec<&Event> = s.events.iter().filter(|e| e.track == Track::Cue).collect();
+        assert!(!cue.is_empty(), "some reveals sound: {:?}", s.skipped_marks);
+        assert!(cue.iter().all(|e| e.hold >= MIN_NOTE_S && e.pitch <= 88.0));
+        let r = crate::qa::evaluate(
+            "01_a",
+            &s.chapter_voice(0),
+            &s.chapter_music(0),
+            40 * 48_000,
+            Some(&crate::qa::ScoreFacts::chapter(&s, 0)),
+        );
+        let offenders = |x: &Score| {
+            x.events
+                .iter()
+                .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
+                .filter_map(|e| {
+                    let over: Vec<String> = x
+                        .chords
+                        .iter()
+                        .filter(|c| {
+                            c.start < e.start + e.hold && c.end > e.start && clashes(e.pitch.round() as i32, &c.chord)
+                        })
+                        .map(|c| format!("{:?}@{:.3}-{:.3}", c.chord, c.start, c.end))
+                        .collect();
+                    (!over.is_empty()).then(|| {
+                        format!(
+                            "{:?} {} at {:.3}+{:.3} over {over:?}",
+                            e.track, e.pitch, e.start, e.hold
+                        )
+                    })
+                })
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(
+            r.get("rule7_minor_ninths").unwrap().pass,
+            Some(true),
+            "with the mark: {:?}; without: {:?}",
+            offenders(&s),
+            offenders(&plain)
+        );
+    }
+
+    #[test]
+    fn a_listen_window_plays_its_sonification_at_the_listen_level_and_stops_at_its_end() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_listen_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        // 01_a is silent from 12 s to 16 s: a 3 s window from 12.4 s, and a
+        // 5 s cloud of grains, longer than the window, so it must be cut
+        let grains: Vec<crate::sonify::Grain> = (0..400)
+            .map(|k| crate::sonify::Grain {
+                start: k as f64 * 0.0125,
+                pitch: crate::sonify::snap(74.0 + (k % 9) as f64, &[2, 4, 6, 9, 11]),
+                pan: if k % 2 == 0 { -0.3 } else { 0.3 },
+                amp: 0.3,
+            })
+            .collect();
+        let son = dir.join("cloud.wav");
+        crate::wav::write(&son, &crate::sonify::cloud(&grains, 5.0), crate::wav::Format::F32).unwrap();
+        let window = |sound: Option<std::path::PathBuf>| crate::timeline::Window {
+            frame: (12.4 * 60.0) as u64,
+            seconds: 3.0,
+            label: "cloud".into(),
+            sound,
+        };
+        let id = Identity::hoeffding();
+        sections[0].timeline.listens = vec![window(None)];
+        let quiet = render(&id, &sections, None).unwrap();
+        let f_quiet = fingerprint(&id, &sections, None).unwrap();
+        sections[0].timeline.listens = vec![window(Some(son.clone()))];
+        let heard = render(&id, &sections, None).unwrap();
+        assert_eq!(
+            (quiet.cap_db, heard.cap_db),
+            (0.0, 0.0),
+            "no true-peak cap to confound the difference"
+        );
+        let diff = Stereo {
+            l: heard.music.l.iter().zip(&quiet.music.l).map(|(a, b)| a - b).collect(),
+            r: heard.music.r.iter().zip(&quiet.music.r).map(|(a, b)| a - b).collect(),
+        };
+        let (start, end) = ((12.4 * FS) as usize, (15.4 * FS) as usize);
+        let peak = diff.peak();
+        assert!(peak > 0.0, "the sonification is in the stem");
+        // nothing before the window (the pocket's zero-phase filter may
+        // pre-ring at the 1e-6 level), nothing after it but the tape's 2 ms
+        let before = diff.l[..start]
+            .iter()
+            .chain(&diff.r[..start])
+            .fold(0.0_f64, |m, x| m.max(x.abs()));
+        assert!(before <= 1e-6 * peak, "{before} before the window");
+        let tail = end + (0.01 * FS) as usize;
+        let after = diff.l[tail..]
+            .iter()
+            .chain(&diff.r[tail..])
+            .fold(0.0_f64, |m, x| m.max(x.abs()));
+        assert!(after <= 1e-6 * peak, "{after} after the window");
+        // at the listen level, against the voice, inside the window
+        let inside = Stereo {
+            l: diff.l[start..end].to_vec(),
+            r: diff.r[start..end].to_vec(),
+        };
+        let lufs = meter::integrated(&inside);
+        let want = heard.voice_lufs + id.listen_lu;
+        assert!((lufs - want).abs() < 1.5, "{lufs:.2} LUFS, want {want:.2}");
+        // the sonification's bytes are part of the fingerprint
+        let f_heard = fingerprint(&id, &sections, None).unwrap();
+        assert_ne!(f_quiet, f_heard);
+        let mut bytes = std::fs::read(&son).unwrap();
+        let k = bytes.len() - 1;
+        bytes[k] ^= 1;
+        std::fs::write(&son, &bytes).unwrap();
+        assert_ne!(
+            f_heard,
+            fingerprint(&id, &sections, None).unwrap(),
+            "sonification bytes"
+        );
+        // a sonification with no sound in it is refused, not silently skipped
+        crate::wav::write(&son, &Stereo::silence(48_000), crate::wav::Format::F32).unwrap();
+        assert!(
+            render(&id, &sections, None)
+                .unwrap_err()
+                .to_string()
+                .contains("silent sonification")
+        );
     }
 
     #[test]

@@ -1,8 +1,14 @@
 //! Chapter 7 — what D measures: the distance from independence. Shuffling
 //! Y keeps both marginals (the rugs) and destroys only the pairing; D,
 //! recomputed live from the moving dots every frame, falls to ~0. Then a
-//! permutation test: 2,000 shuffles against the observed value.
+//! permutation test: 2,000 shuffles against the observed value, heard as
+//! well as seen (a listen window: one grain per shuffle at the pitch of its
+//! D, then the observed value as a bell dyad far above the pile).
 
+use explainer_score::instr::{self, Instrument, Note};
+use explainer_score::sonify::{GRAIN_S, Grain, cloud, snap};
+use explainer_score::units::db_to_gain;
+use explainer_score::{FS, Stereo, meter};
 use fmn::animation::grow_from_edge;
 use fmn::prelude::*;
 
@@ -20,6 +26,81 @@ const N: usize = 48;
 const BINS: usize = 4;
 const HEAT_CELL: f64 = 0.82;
 const HEAT_CENTER: Vec3 = [3.65, 0.95, 0.0];
+
+/// The listen window (s): the shuffles, the observed dyad, its ring.
+const LISTEN_S: f64 = 4.5;
+/// The grain cloud's length (s); the shuffle counter runs in step with it.
+const CLOUD_S: f64 = 2.8;
+/// How the shuffles rush in: after t of `CLOUD_S`, 2,000 · (t / CLOUD_S)^RUSH
+/// have sounded (a few ticks, then a flood).
+const RUSH: f64 = 2.5;
+/// D major pentatonic: the data stays in the video's key.
+const PENTATONIC: [u8; 5] = [2, 4, 6, 9, 11];
+
+/// The counter's rate function: the share of shuffles heard by time `u`.
+fn rush(u: f64) -> f64 {
+    u.clamp(0.0, 1.0).powf(RUSH)
+}
+
+/// The pitch a value of D sounds at: the histogram's axis, low to high, over
+/// two octaves up from E5, snapped into the key.
+fn d_pitch(d: f64, axis: (f64, f64)) -> f64 {
+    let u = ((d - axis.0) / (axis.1 - axis.0)).clamp(0.0, 1.0);
+    snap(76.0 + 24.0 * u, &PENTATONIC)
+}
+
+/// The 2,000 shuffles heard: grain k starts as the counter reaches k + 1, at
+/// the pitch of its D, so chance sounds as a narrow shimmer; then the
+/// observed D as a vibraphone dyad (the A and the D above it) at its own
+/// height, far above. Levelled at the narration's −23 LUFS; the score sets
+/// the final level.
+fn shuffle_sound(null: &[f64], observed: f64, axis: (f64, f64)) -> Stereo {
+    let n = null.len() as f64;
+    let mut rng = explainer_score::rng::Rng::new(0x0005_EEDD);
+    let grains: Vec<Grain> = null
+        .iter()
+        .enumerate()
+        .map(|(k, &d)| {
+            let start = CLOUD_S * ((k + 1) as f64 / n).powf(1.0 / RUSH);
+            // grains overlap as they rush: soften each, so the cloud swells
+            // by a few dB rather than twenty
+            let density = RUSH * n / CLOUD_S * (start / CLOUD_S).powf(RUSH - 1.0);
+            Grain {
+                start,
+                pitch: d_pitch(d, axis),
+                pan: rng.uniform() - 0.5,
+                amp: 0.3 * (1.0 + density * GRAIN_S).powf(-0.4),
+            }
+        })
+        .collect();
+    let mut s = cloud(&grains, LISTEN_S);
+    let top = d_pitch(observed, axis);
+    let a = (0..12)
+        .map(|k| top - f64::from(k))
+        .find(|p| (*p as i64).rem_euclid(12) == 9)
+        .unwrap_or(top);
+    for (j, pitch) in [a, a + 5.0].into_iter().enumerate() {
+        let note = Note {
+            pitch,
+            velocity: 0.55,
+            hold: 1.0,
+            seed: 7 + j as u64,
+            pan: if j == 0 { -0.2 } else { 0.2 },
+        };
+        let at = ((CLOUD_S + 0.05 + 0.03 * j as f64) * FS) as usize;
+        s.mix_in(&instr::render(Instrument::Vibraphone, &note), at, 0.5);
+    }
+    // the window ends in silence
+    let fade = (0.3 * FS) as usize;
+    let len = s.len();
+    for k in 0..fade {
+        let g = 0.5 - 0.5 * (std::f64::consts::PI * k as f64 / fade as f64).cos();
+        s.l[len - 1 - k] *= g;
+        s.r[len - 1 - k] *= g;
+    }
+    s.scale(db_to_gain(-23.0 - meter::integrated(&s)));
+    s
+}
 
 /// Current (x, y) in rank units for every dot, read from the live arena.
 fn positions(s: &fmn::mobject::Stage, dots: &[Mob], f: &Frame2) -> (Vec<f64>, Vec<f64>) {
@@ -419,8 +500,42 @@ impl SceneConstruct for Shuffle {
             v(ox, hist.top() + 0.35),
         )?;
         stage.move_to(obs_l, v(ox + 0.12, hist.top() - 0.15), LEFT);
-        kit.say(stage, "s9")?;
+        // ---- listen: the shuffles heard, the counter in step, then the
+        // observed value rings far above the pile, before it is named
+        let sound = shuffle_sound(&null, observed, hist.x);
+        let wav = explainer_kit::sound_file("hoeffding_shuffles", &sound).map_err(|e| {
+            fmn::Error::Scene(SceneError::InvalidConfig(Box::leak(
+                format!("shuffle sonification: {e}").into_boxed_str(),
+            )))
+        })?;
+        kit.sonify(stage, LISTEN_S, "shuffles", &wav)?;
+        let count = stage.add_value_tracker(0.0);
+        kit.live_count(
+            stage,
+            count,
+            30.0,
+            Palette::dim(),
+            v(3.0, hist.top() - 0.35),
+        )?;
+        let counter_l = kit.text(
+            stage,
+            "shuffles",
+            22.0,
+            Palette::dim(),
+            v(3.0, hist.top() - 0.8),
+        )?;
+        let rushing = count
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(CLOUD_S),
+                rate_func: Some(rush),
+                ..AnimateArgs::default()
+            })?
+            .set_value(null.len() as f64)?;
+        play!(stage; rushing, fade_in(stage.arena_mut(), counter_l, ORIGIN, 1.0)?.rt(0.6));
         play!(stage; show_creation(obs).rt(0.9), fade_in(stage.arena_mut(), obs_l, ORIGIN, 1.0)?);
+        stage.wait(LISTEN_S - CLOUD_S - 0.9)?;
+        kit.say(stage, "s9")?;
         let verdict = kit.text(
             stage,
             &format!("{exceed} of 2,000 shuffles reach it: X and Y are dependent."),
@@ -431,7 +546,10 @@ impl SceneConstruct for Shuffle {
         kit.chime(stage, 880.0)?;
         play!(stage; write(stage.arena(), verdict).rt(1.4));
         stage.wait(1.5)?;
+        // "dependent": the motif resolves in the act's closing breath
         kit.hold(stage)?;
+        kit.mark(stage, "resolve:dependent");
+        kit.music_breath(stage, crate::kit::ACT_BREATH)?;
         fade_all(stage, 1.0)?;
         kit.pad(stage, 6)?;
         Ok(())

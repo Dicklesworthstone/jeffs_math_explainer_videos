@@ -219,7 +219,7 @@ pub fn loudest_400ms(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> f
 /// scripts/sii.py): the speech spectrum S is the voice's long-term third-octave
 /// levels over its active samples; each block's music levels N are the masker;
 /// band audibility clip((S − N + 15) / 30); loss = Σ w·(1 − A).
-pub fn sii_losses(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
+pub fn sii_losses(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<(f64, f64)> {
     let active = duck::vad(voice);
     let vm = mono(voice);
     let speech_samples: Vec<f64> = active
@@ -238,11 +238,13 @@ pub fn sii_losses(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<
         .filter(|&k| inside((k as f64 + 0.5) * 0.4, speech))
         .map(|k| {
             let n = third_octave_levels(&mm[k * block..(k + 1) * block], FS);
-            s.iter()
+            let loss = s
+                .iter()
                 .zip(&n)
                 .zip(&BAND_IMPORTANCE)
                 .map(|((sv, nv), w)| w * (1.0 - ((sv - nv + 15.0) / 30.0).clamp(0.0, 1.0)))
-                .sum()
+                .sum();
+            ((k as f64 + 0.5) * 0.4, loss)
         })
         .collect()
 }
@@ -465,8 +467,10 @@ pub fn evaluate(
         judge(l400, l400 <= -15.0),
         "music's loudest momentary during speech minus the speech's",
     );
-    let sii = sii_losses(voice, music, &speech);
+    let blocks = sii_losses(voice, music, &speech);
+    let sii: Vec<f64> = blocks.iter().map(|b| b.1).collect();
     let (sii_med, sii_max) = (percentile(&sii, 50.0), sii.iter().copied().fold(f64::NAN, f64::max));
+    let worst = blocks.iter().copied().max_by(|a, b| a.1.total_cmp(&b.1));
     r.push(
         "sii_loss_median",
         sii_med,
@@ -474,7 +478,13 @@ pub fn evaluate(
         judge(sii_med, sii_med <= 0.01),
         format!("{} blocks of 400 ms", sii.len()),
     );
-    r.push("sii_loss_max", sii_max, "<= 0.03", judge(sii_max, sii_max <= 0.03), "");
+    r.push(
+        "sii_loss_max",
+        sii_max,
+        "<= 0.03",
+        judge(sii_max, sii_max <= 0.03),
+        worst.map_or(String::new(), |(t, _)| format!("worst block centred at {t:.1} s")),
+    );
     let br = band_ratio_db(voice, music, &speech, 1_000.0, 4_000.0);
     r.push(
         "music_to_voice_1_4khz_db",

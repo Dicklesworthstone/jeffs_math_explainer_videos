@@ -29,6 +29,38 @@ use crate::palette::ink_style;
 /// The largest group the kit transforms per frame (plan §6.6, F-17).
 pub const GROUP_TRANSFORM_LIMIT: usize = 2_000;
 
+/// Write a generated sound (a sonification) where the narrator and the score
+/// can read it: `<temp>/explainer_kit_sounds/<label>_<hash>.wav`, 32-bit
+/// float, named by a hash of its samples. It is written once (a file with
+/// that name already holds these samples) and atomically, so parallel renders
+/// never read half a file.
+pub fn sound_file(label: &str, sound: &explainer_score::Stereo) -> std::io::Result<PathBuf> {
+    let mut bytes = Vec::with_capacity(sound.len() * 16);
+    for (l, r) in sound.l.iter().zip(&sound.r) {
+        bytes.extend(l.to_bits().to_le_bytes());
+        bytes.extend(r.to_bits().to_le_bytes());
+    }
+    let name: String = label
+        .chars()
+        .map(|c| if c.is_ascii_alphanumeric() || c == '-' { c } else { '_' })
+        .collect();
+    let stem = format!("{name}_{:016x}", explainer_score::rng::fnv1a64(&bytes));
+    let dir = std::env::temp_dir().join("explainer_kit_sounds");
+    std::fs::create_dir_all(&dir)?;
+    let path = dir.join(format!("{stem}.wav"));
+    if !path.exists() {
+        let tmp = dir.join(format!("{stem}.{}.tmp", std::process::id()));
+        explainer_score::wav::write(&tmp, sound, explainer_score::wav::Format::F32)?;
+        std::fs::rename(&tmp, &path)?;
+    }
+    Ok(path)
+}
+
+/// A sonification's gain in a narrated draft with no score stem (dB): a WAV
+/// written at the narration's level then sits where the score's listen
+/// level would put it (V − 8).
+pub const DRAFT_SONIFY_DB: f64 = -8.0;
+
 /// What kind of text-like mobject a registry entry is.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TextKind {
@@ -183,6 +215,28 @@ impl Kit {
                 crate::narration::frames_covering(seconds, stage.scene().time().fps()),
             ),
         }
+    }
+
+    /// A sonification that teaches, in its own listen window (see
+    /// `Narrator::sonify`: the window does not wait; the scene animates
+    /// through it). The score stem carries the sound; a narrated draft
+    /// without a stem plays it directly, [`DRAFT_SONIFY_DB`] down, so the
+    /// draft is heard as it will be. Write the WAV at about the narration's
+    /// −23 LUFS. Without a narrator, nothing (the scene's own animations keep
+    /// the time).
+    pub fn sonify(&self, stage: &mut Stage<'_>, seconds: f64, label: &str, wav: &std::path::Path) -> fmn::Result<()> {
+        let Some(n) = &self.narrator else {
+            return Ok(());
+        };
+        n.sonify(stage, seconds, label, wav)?;
+        if self.stem.is_none() && n.has_audio() {
+            n.sound(stage, wav, 0.0, Some(DRAFT_SONIFY_DB)).map_err(|e| {
+                fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+                    format!("sonification {label}: {e}").into_boxed_str(),
+                )))
+            })?;
+        }
+        Ok(())
     }
 
     /// Every text-like mobject built so far, in order.

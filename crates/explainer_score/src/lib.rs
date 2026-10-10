@@ -19,6 +19,7 @@ pub mod qa;
 pub mod resample;
 pub mod rng;
 pub mod score;
+pub mod sonify;
 pub mod theory;
 pub mod timeline;
 pub mod units;

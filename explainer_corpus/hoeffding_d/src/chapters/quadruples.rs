@@ -222,7 +222,7 @@ impl SceneConstruct for Quadruples {
         )?;
         play!(stage; fade_in(stage.arena_mut(), q, v(0.0, 0.2), 1.0)?.rt(1.0));
         stage.wait(1.2)?;
-        kit.hold(stage)?;
+        kit.music_breath(stage, crate::kit::ACT_BREATH)?;
         fade_all(stage, 1.0)?;
         kit.pad(stage, 2)?;
         Ok(())

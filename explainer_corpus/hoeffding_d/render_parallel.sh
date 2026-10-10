@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Render all eight chapters of the narrated 4K explainer in parallel, one
-# process per chapter, each in its own output directory (the chapters share
-# nothing, and separate dirs keep their generated chime/pad WAVs apart).
+# process per chapter, all into one output directory (every file a chapter
+# writes is named by its key, and generated sounds are content-addressed), so
+# `hoeffding master --out OUT_ROOT` finds every chapter afterwards.
 #
-#   [OUT_ROOT=out] [GPU_COUNT=2] [NARRATION=dir] [HOEFFDING_ARGS="--threads 16 --encoder h264_nvenc --crf 16"] \
+#   [OUT_ROOT=out] [GPU_COUNT=2] [NARRATION=dir] \
+#   [HOEFFDING_ARGS="--threads 16 --encoder h264_nvenc --crf 16 --score out/stems"] \
 #       ./render_parallel.sh BUILD_DIR
 #
 # GPU_COUNT > 0 spreads chapters over NVENC devices round-robin (--gpu i % n).
@@ -29,7 +31,7 @@ for ch in 01_hook 02_gallery 03_quadruples 04_ranks 05_counting 06_formula 07_sh
     fi
     # shellcheck disable=SC2086 # HOEFFDING_ARGS is a deliberate word list
     "$B" render "$ch" --res 3840x2160 --fps 60 --preset slow \
-        --narration "$N" --out "$OUT/$ch" ${HOEFFDING_ARGS:-} ${gpu_args[@]+"${gpu_args[@]}"} >>"logs/$ch.log" 2>&1 &
+        --narration "$N" --out "$OUT" ${HOEFFDING_ARGS:-} ${gpu_args[@]+"${gpu_args[@]}"} >>"logs/$ch.log" 2>&1 &
     i=$((i + 1))
 done
 wait

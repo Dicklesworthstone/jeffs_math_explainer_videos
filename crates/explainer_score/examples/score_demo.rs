@@ -2,8 +2,10 @@
 //! the v5 score (pad + chimes), on the same narration, by the same QA.
 //!
 //! Input is the output directory of the explainer's timeline pass, run with
-//! the v5 narration so the v5 pad and chimes play:
-//! `hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR`.
+//! the v5 sound on, so the v5 pad and chimes play and the narration keeps the
+//! v5 balance:
+//! `HOEFFDING_V5_SOUND=1 hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR`.
+//! (Both sides then share v6's picture timing, its act breaths included.)
 //! Each chapter's `<chapter>.timeline.tsv` gives the narration placements and
 //! the scene length; its exact `<chapter>.cuelog.tsv` gives every other cue
 //! (the v5 pad and chimes) at the sample franken_manim's mixer placed it.

@@ -10,6 +10,14 @@
 //! hoeffding render all|<chapter>... [--res 1920x1080] [--fps 60] [--out DIR]
 //!                  [--narration DIR] [--crf N] [--preset P] [--silent] ...
 //! hoeffding help                       # the full option list
+//!
+//! # the score (two passes), then the PCM master
+//! hoeffding render --timeline-only --narration DIR --out OUT
+//! hoeffding score --out OUT            # stems and QA in OUT/stems
+//! hoeffding render all --narration DIR --score OUT/stems --crf 16 --out OUT
+//! hoeffding master --out OUT
+//!
+//! HOEFFDING_V5_SOUND=1 hoeffding ...   # the v5 pad and chimes instead (the A/B's old side)
 //! ```
 
 mod chapters;
@@ -23,9 +31,15 @@ use explainer_kit::{Explainer, Facts};
 /// The narration lines, with the v5 ids (h1..o4) so `narration_v5` matches.
 const SCRIPT: &str = include_str!("../script.tsv");
 
-/// v5's voice/score balance: the narration sits 9.4 dB down under the v5
-/// pad, until the score engine takes over (bead W3-score: 0 dB, as D-21).
+/// v5's voice/score balance: the narration sat 9.4 dB down under the v5 pad.
+/// v6 places it at 0 dB under the score engine (D-21).
 const V5_NARRATION_GAIN_DB: f64 = -9.4;
+
+/// `HOEFFDING_V5_SOUND=1`: the v5 pad and chimes, with the v5 balance, for
+/// the A/B's old side (the picture is v6's either way).
+pub(crate) fn v5_sound() -> bool {
+    std::env::var_os("HOEFFDING_V5_SOUND").is_some_and(|v| v == "1")
+}
 
 /// The chapter of a v5 line id: its first letter (h1 → 01_hook, ...).
 fn line_owner(id: &str) -> Option<&'static str> {
@@ -58,8 +72,14 @@ const EXPLAINER: Explainer = Explainer {
     glyph_text: chapters::glyphs::TEXT,
     glyph_tex: chapters::glyphs::TEX,
     identity: explainer_score::score::Identity::hoeffding,
-    narration_gain_db: V5_NARRATION_GAIN_DB,
+    narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_owner: Some(line_owner),
+};
+
+/// The same video with the v5 sound (see [`v5_sound`]).
+const EXPLAINER_V5: Explainer = Explainer {
+    narration_gain_db: V5_NARRATION_GAIN_DB,
+    ..EXPLAINER
 };
 
 fn main() {
@@ -69,7 +89,12 @@ fn main() {
         print_stats();
         return;
     }
-    std::process::exit(explainer_kit::cli::run(&EXPLAINER, args));
+    let e = if v5_sound() {
+        &EXPLAINER_V5
+    } else {
+        &EXPLAINER
+    };
+    std::process::exit(explainer_kit::cli::run(e, args));
 }
 
 /// Every number the video shows (the v5 `stats` output, unchanged).
@@ -207,8 +232,9 @@ mod tests {
     }
 
     #[test]
-    fn the_v5_balance_is_kept_until_the_score_engine_takes_over() {
-        assert_eq!(EXPLAINER.narration_gain_db, -9.4);
-        assert_ne!(EXPLAINER.narration_gain_db, narration::GAIN_DB);
+    fn v6_speaks_at_0_db_and_the_v5_side_keeps_its_balance() {
+        assert_eq!(EXPLAINER.narration_gain_db, narration::GAIN_DB);
+        assert_eq!(EXPLAINER_V5.narration_gain_db, -9.4);
+        assert_eq!(EXPLAINER_V5.crate_name, EXPLAINER.crate_name);
     }
 }

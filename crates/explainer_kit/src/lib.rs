@@ -26,7 +26,7 @@ pub mod stats;
 
 pub use cli::{Chapter, Explainer};
 pub use facts::{Fact, Facts, choose, oracle_diff};
-pub use kit::{GROUP_TRANSFORM_LIMIT, Kit, Registered, TextKind, live_bar};
+pub use kit::{DRAFT_SONIFY_DB, GROUP_TRANSFORM_LIMIT, Kit, Registered, TextKind, live_bar, sound_file};
 pub use layout::Linter;
 pub use narration::{Cue, CueFile, Narrator, Script, inspect_cue};
 pub use palette::{BACKGROUND, Palette, hex, ink_style, point_colors, stroke_style};

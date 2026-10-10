@@ -225,7 +225,7 @@ impl SceneConstruct for Counting {
         let g = lagged(stage, anims, 0.1)?;
         play!(stage; g.rt(1.6));
         stage.wait(1.2)?;
-        kit.hold(stage)?;
+        kit.music_breath(stage, crate::kit::ACT_BREATH)?;
         fade_all(stage, 1.0)?;
         kit.pad(stage, 4)?;
         Ok(())

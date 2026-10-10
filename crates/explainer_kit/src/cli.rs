@@ -588,6 +588,10 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         s.phrases.len(),
         s.true_peak_db
     );
+    if !s.skipped_marks.is_empty() {
+        // deep in a sentence, at the very end, or too close to another cue
+        println!("marks the score could not answer: {:?}", s.skipped_marks);
+    }
     let mut failed = Vec::new();
     for (k, c) in chapters.iter().enumerate() {
         let music = s.chapter_music(k);

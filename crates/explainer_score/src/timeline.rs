@@ -11,8 +11,12 @@
 //! line    <id>  <start_frame>  <gain_db>  <wav path>
 //! mark    <label>  <frame>
 //! breath  <frame>  <seconds>
-//! listen  <frame>  <seconds>  <label>
+//! listen  <frame>  <seconds>  <label>  [<wav path>]
 //! ```
+//!
+//! A listen window may carry the sonification it is for: the score plays it
+//! from the window's start at the identity's listen level, cut at the
+//! window's end.
 
 use std::fmt::Write as _;
 use std::io;
@@ -46,6 +50,9 @@ pub struct Window {
     pub frame: u64,
     pub seconds: f64,
     pub label: String,
+    /// The sonification a listen window plays (None: the scene's own sound,
+    /// or a breath).
+    pub sound: Option<PathBuf>,
 }
 
 /// Everything the score needs to know about one chapter.
@@ -98,7 +105,11 @@ impl ChapterTimeline {
             let _ = writeln!(s, "breath\t{}\t{}", w.frame, w.seconds);
         }
         for w in &self.listens {
-            let _ = writeln!(s, "listen\t{}\t{}\t{}", w.frame, w.seconds, w.label);
+            let _ = write!(s, "listen\t{}\t{}\t{}", w.frame, w.seconds, w.label);
+            if let Some(p) = &w.sound {
+                let _ = write!(s, "\t{}", p.display());
+            }
+            s.push('\n');
         }
         s
     }
@@ -148,12 +159,19 @@ impl ChapterTimeline {
                     frame: int(1)?,
                     seconds: num(2)?,
                     label: String::new(),
+                    sound: None,
                 }),
-                "listen" => t.listens.push(Window {
-                    frame: int(1)?,
-                    seconds: num(2)?,
-                    label: f.get(3).unwrap_or(&"").to_string(),
-                }),
+                "listen" => {
+                    if f.len() > 5 {
+                        return Err(bad(n, "listen needs frame, seconds, label and at most a path"));
+                    }
+                    t.listens.push(Window {
+                        frame: int(1)?,
+                        seconds: num(2)?,
+                        label: f.get(3).unwrap_or(&"").to_string(),
+                        sound: f.get(4).map(PathBuf::from),
+                    })
+                }
                 other => return Err(bad(n, format!("unknown record {other:?}"))),
             }
         }
@@ -233,12 +251,22 @@ mod tests {
                 frame: 1_000,
                 seconds: 2.5,
                 label: String::new(),
+                sound: None,
             }],
-            listens: vec![Window {
-                frame: 2_000,
-                seconds: 3.0,
-                label: "shuffle".into(),
-            }],
+            listens: vec![
+                Window {
+                    frame: 2_000,
+                    seconds: 3.0,
+                    label: "shuffle".into(),
+                    sound: Some("son/shuffles.wav".into()),
+                },
+                Window {
+                    frame: 3_000,
+                    seconds: 3.5,
+                    label: "quiet".into(),
+                    sound: None,
+                },
+            ],
         }
     }
 
@@ -247,6 +275,17 @@ mod tests {
         let t = sample();
         assert_eq!(ChapterTimeline::parse(&t.to_text()).unwrap(), t);
         assert_eq!(t.samples(), 5_123 * 800);
+    }
+
+    #[test]
+    fn a_listen_window_keeps_its_sonification_and_an_older_timeline_still_reads() {
+        let text = sample().to_text();
+        assert!(text.contains("listen\t2000\t3\tshuffle\tson/shuffles.wav\n"));
+        assert!(text.contains("listen\t3000\t3.5\tquiet\n"));
+        // the v1 record without a path
+        let old = ChapterTimeline::parse("fps\t60\nlisten\t10\t3\tx\n").unwrap();
+        assert_eq!(old.listens[0].sound, None);
+        assert!(ChapterTimeline::parse("fps\t60\nlisten\t10\t3\tx\ta.wav\tb\n").is_err());
     }
 
     #[test]

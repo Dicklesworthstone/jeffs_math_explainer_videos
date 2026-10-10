@@ -57,7 +57,7 @@ differently on every machine.
 
 | # | Video | What it explains | Status |
 |---|---|---|---|
-| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. A re-scored v6 with the new sound engine is planned. |
+| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. Its v6 score, from the new engine, passes score QA in all 8 chapters; the v6 finals are next. |
 | 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | Researched (`docs/research/capture_recapture/`), storyboarded (plan §9) |
 | 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | Researched (`docs/research/raptorq_gf256/`), storyboarded (plan §10) |
 | 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | Researched (`docs/research/bakery_algorithm/`), storyboarded (plan §11) |
@@ -149,7 +149,8 @@ the owner's ears; metrics can rule a score out, not in.
 ```text
 crates/
   explainer_score/       the sound engine: DSP, instruments, theory, arrangement,
-                         offline duck and pocket, §7.6 QA (std-only Rust)
+                         offline duck and pocket, listen-window sonifications,
+                         §7.6 QA (std-only Rust)
   explainer_kit/         the shared scene kit: palette, text and math helpers, live
                          readouts, playback, plots, narration and the exact cue
                          log, layout lint, NumPy-parity stats, facts harness,
@@ -196,7 +197,7 @@ header):
 
 ```bash
 cargo test --release -p explainer_score
-target/release/hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR
+HOEFFDING_V5_SOUND=1 target/release/hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR
 cargo run --release -p explainer_score --example score_demo -- RENDER_DIR OUT_DIR
 ```
 
@@ -207,7 +208,7 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 
 | Piece | State |
 |---|---|
-| Hoeffding's D explainer | finished (v5); runs here on the shared kit from a git-pinned engine |
+| Hoeffding's D explainer | finished (v5); runs here on the shared kit; the v6 score passes QA in 8 of 8 chapters (narration at 0 dB, act breaths, the shuffles as a listen window); 4K finals and the PCM master next |
 | Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm) |
 | The plan | revision 2: architecture, doctrines and beat-by-beat storyboards, revised after a five-reviewer round |
 | Shared workspace | built: root Cargo workspace, franken_manim pinned by git revision |
