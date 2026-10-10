@@ -12,6 +12,7 @@
 //! `score`, `render --score`) and the PCM master (`master`: cues replayed
 //! through fmn's own mixer, null-tested, joined without re-encoding).
 
+pub mod captions;
 pub mod cli;
 pub mod encode;
 pub mod facts;

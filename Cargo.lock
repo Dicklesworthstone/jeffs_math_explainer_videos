@@ -665,6 +665,7 @@ dependencies = [
  "fmn",
  "fmn-codec",
  "fmn-output",
+ "serde_json",
 ]
 
 [[package]]

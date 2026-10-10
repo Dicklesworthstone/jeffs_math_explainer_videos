@@ -12,3 +12,5 @@ explainer_score.workspace = true
 # the PCM master replays cues through fmn's own decoder and mixer
 fmn-output.workspace = true
 fmn-codec.workspace = true
+# the narration skill's report.json, for captions (already in the tree via fmn)
+serde_json = "1"

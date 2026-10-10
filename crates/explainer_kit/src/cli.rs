@@ -21,6 +21,7 @@ use explainer_score::timeline::ChapterTimeline;
 use explainer_score::wav;
 use fmn::prelude::*;
 
+use crate::captions;
 use crate::encode::{self, Quality};
 use crate::facts::Facts;
 use crate::kit::Kit;
@@ -72,6 +73,8 @@ commands:
   master                   the PCM master: every chapter's cues replayed through fmn's own mixer and
                            null-tested against the soundtrack it muxed (renders made with --crf),
                            joined to OUT/CRATE_master.mp4 without re-encoding the video
+  captions                 OUT/CRATE.en.srt and .vtt, sentence by sentence, from the chapters'
+                           timelines in OUT and the narration's report.json (--narration DIR)
   help                     show this text
 
 render options:
@@ -315,6 +318,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
             "render" => render_chapters(e, &args, &script)?,
             "score" => return score_video(e, &args),
             "master" => return master_video(e, &args),
+            "captions" => return captions_video(e, &args),
             other => return Err(format!("unknown command {other}").into()),
         }
         Ok(0)
@@ -616,6 +620,43 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     }
     std::fs::write(&fp_path, &fp)?;
     Ok(i32::from(!failed.is_empty()))
+}
+
+/// The `captions` command (plan §13): `OUT/CRATE.en.srt` and `.en.vtt` for
+/// the whole video, sentence by sentence, from every chapter's timeline in
+/// OUT and the narration skill's `report.json` (in the `--narration` DIR,
+/// beside the WAVs); refused (exit 1) if any caption overlaps or overflows.
+fn captions_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    let dir = args
+        .narration
+        .as_ref()
+        .ok_or("captions needs --narration DIR (the report.json beside the WAVs)")?;
+    let report = captions::read_report(&dir.join("report.json"))?;
+    let chapters = (e.chapters)()
+        .iter()
+        .map(|c| ChapterTimeline::read(&args.out.join(format!("{}.timeline.tsv", c.key))))
+        .collect::<io::Result<Vec<_>>>()?;
+    let caps = captions::video_captions(&chapters, &report)?;
+    if let Err(m) = captions::validate(&caps) {
+        eprintln!("captions refused: {m}");
+        return Ok(1);
+    }
+    let sentences: usize = chapters
+        .iter()
+        .flat_map(|c| &c.lines)
+        .map(|l| report.get(&l.id).map_or(0, Vec::len))
+        .sum();
+    for (ext, body) in [("en.srt", captions::to_srt(&caps)), ("en.vtt", captions::to_vtt(&caps))] {
+        let p = args.out.join(format!("{}.{ext}", e.crate_name));
+        set_aside(&p)?;
+        std::fs::write(&p, body)?;
+    }
+    println!(
+        "captions: {sentences} sentences as {} captions -> {}",
+        caps.len(),
+        args.out.join(format!("{}.en.srt", e.crate_name)).display()
+    );
+    Ok(0)
 }
 
 /// The `master` command (plan §7.7): replay every chapter's cue log through
