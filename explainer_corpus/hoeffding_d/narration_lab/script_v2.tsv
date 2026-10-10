@@ -1,0 +1,61 @@
+h1	Here are a hundred and fifty measurements of two quantities, X and Y.
+h2	Are they related?
+h3	Let's ask the usual suspects. Pearson's correlation, Spearman's rank correlation, and Kendall's tau.
+h4	All three come back essentially zero. By their account, there is no relationship here at all.
+h5	But your eye says otherwise. These points lie on a circle. Knowing X narrows Y down to just two possibilities.
+h6	What we need is a measure of dependence, not a measure of slope.
+h7	One of the most elegant is Hoeffding's D, introduced by Wassily Hoeffding in nineteen forty-eight.
+g1	Let's watch four measures side by side, as one cloud of points changes shape.
+g2	Each bar shows how far a measure sits above pure chance. To find chance, we shuffle Y three hundred times, and recompute. The dashed line is that noise ceiling.
+g3	For a straight line, everyone agrees. All four measures are far above the noise.
+g4	Now bend it into a parabola. The three correlations collapse, because the falling left half cancels the rising right half. Hoeffding's D barely flinches.
+g5	A ring. The correlations sit inside the noise.
+g6	But D is well above it. It has detected the dependence.
+g7	Next, an X shape. Two lines with opposite slopes. Again, the correlations see nothing, and D does.
+g8	A wave, rising and falling twice. Same story.
+g9	And finally, genuinely independent noise. Now every measure, D included, stays under its ceiling. D is not simply eager to find patterns. It finds them only when they are there.
+g10	Correlation asks whether X and Y move together. Hoeffding's D asks a deeper question. Could X and Y be independent at all?
+q1	Why can D see shapes that correlations miss? It comes down to how many points you look at at once.
+q2	Two points define a direction. Pearson's correlation is built from pairs, so lines are what it sees.
+q3	Three points can reveal a bend. Rank correlations like Spearman's and Kendall's capture any curve that keeps heading the same way.
+q4	But to see a turn, where a curve rises and then falls back, you need at least four points.
+q5	Rings, crosses and waves all turn. So detecting them means reasoning about groups of four.
+q6	The trouble is that the number of groups of four grows ferociously.
+q7	With five thousand points, there are more than twenty-six trillion of them.
+q8	Hoeffding's trick avoids listing them. Working with ranks, every quadruple gets folded into a single count per point, which we'll call Q.
+r1	Let's work through a small example. The heights and weights of ten people.
+r2	Here they are as a scatter plot.
+r3	Step one is to forget the raw values and keep only their order. The shortest person gets rank one, the next shortest rank two, and so on. We do the same for weight.
+r4	Three people are tied at seventy-eight. They share places eight, nine and ten, so each one gets the average, which is nine.
+r5	Plotting rank against rank gives us the same people in new coordinates.
+r6	Ranks make the method robust. Push one person's weight way up, and the raw point jumps, but their rank stays at seven.
+r7	Only the order matters, so no single extreme value can dominate.
+c1	Step two is the heart of the method. For each point, count how many others sit strictly below it and to its left.
+c2	That count, plus one, is Q. A tie in one coordinate earns half credit, and an exact twin earns a quarter.
+c3	Take the person ranked seventh in both height and weight. Six people sit below and to the left, so Q is seven.
+c4	If height and weight were unrelated, we would expect only about five. Seeing seven means these points cluster together more than chance allows.
+c5	For the person ranked sixth and fourth, three points qualify, so Q is four.
+c6	One of our tied people sits at rank nine, nine. Seven points lie strictly below and to the left, and the two twins add a quarter each, for eight and a half.
+c7	Repeat this for everyone, and we get the full list of Q values.
+c8	Comparing these observed counts with what independence would predict is exactly what Hoeffding's D adds up.
+f1	Step three folds everything into three sums. D one runs over the Q values, measuring how tightly points pile up below and to the left of one another.
+f2	D two uses only the ranks, the marginals, describing what each variable looks like on its own.
+f3	And D three is the cross term that ties the joint counts to the marginals.
+f4	Hoeffding's formula weighs these three against each other, and normalizes by the sample size.
+f5	Plugging in our ten people,
+f6	the numerator works out to four hundred fourteen, and D comes out to about zero point four one.
+f7	For comparison, Pearson's correlation here is zero point nine three, and Kendall's tau is zero point eight six.
+f8	D lives on its own scale. It is about zero under independence, one for a perfectly monotone relationship, and it never drops below minus one half.
+s1	So what is D really measuring? Here are forty-eight points along a parabola, in rank coordinates.
+s2	The tick marks along the edges are the marginals. They show where the X values fall, and where the Y values fall, each on its own.
+s3	On the right, we count points in each cell of a four by four grid. If X and Y were independent, every cell would hold about three.
+s4	And this is Hoeffding's D, recomputed live from the dots on every single frame.
+s5	Now watch what happens when we shuffle the Y values among the points.
+s6	The tick marks have not changed at all. Both marginals are exactly the same. Only the pairing is gone. The grid flattens out, and D drops to essentially zero.
+s7	Put them back, and D comes right back too.
+s8	That gives us a test. Shuffle two thousand times, and record D each time. Chance alone produces this narrow pile near zero.
+s9	Our observed value is far beyond anything shuffling ever produced, so X and Y are dependent. D measures exactly what shuffling destroys. It is the gap between the real pattern and independence.
+o1	So, to recap. Pearson's correlation sees straight lines. Spearman and Kendall see any monotone curve.
+o2	And Hoeffding's D sees dependence of any shape. Rings, crosses, and waves.
+o3	It is symmetric. It is built on ranks, so it shrugs off outliers. And its price is that it reasons about groups of points rather than pairs, a price well worth paying whenever the shape of a relationship matters.
+o4	Every frame, formula and number in this video was rendered by franken manim, a pure Rust rebuild of manim. And this narration was spoken by franken T T S.

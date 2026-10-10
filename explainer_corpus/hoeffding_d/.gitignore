@@ -1,0 +1,55 @@
+# --- Rust build output ---
+/target/
+
+# --- Rendered video and audio (regenerable with `hoeffding render` + master.sh) ---
+# The narrated 4K master alone is ~186 MB, over GitHub's 100 MB file limit;
+# publish finished cuts as release assets instead.
+/renders/
+/draft/
+/out/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.m4a
+*.aac
+concat.txt
+glyphs.png
+
+# --- Narration audio (regenerable with ./narrate.sh via FrankenTTS) ---
+# The script itself lives in src/narration.rs; only the spoken WAVs are ignored.
+*.wav
+*.partial.wav
+
+# --- narration_lab outputs (spectrogram grids etc.) ---
+/narration_lab/*.png
+
+# --- render_parallel.sh logs ---
+/logs/
+logs_render_all.txt
+*.log
+
+# --- franken_whisper QA state (SQLite DB, WAL, temp audio) ---
+/.franken_whisper/
+*.sqlite3
+*.sqlite3-*
+
+# --- Profiling captures ---
+# macOS `sample` output embeds the host's process list and local paths.
+/perf/mac/
+/perf/**/sample_*.txt
+*.trace
+flamegraph*.svg
+perf.data*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+
+# --- OS / editor cruft ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~

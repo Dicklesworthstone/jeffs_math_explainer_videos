@@ -1,0 +1,132 @@
+line	sent	score	asr	syl/s	lufs_in	cut_s	hesit	pitch_sd	final_st	tts	heard
+h1	0	0.9891	1.0	4.44	-30.9	0.01	0	2.82	-4.97	Here are a hundred and fifty measurements of two quantities, X and Y.	Here are 150 measurements of two quantities, X and Y.
+h2	0	0.8663	1.0	5.75	-29.2	0.0	0	1.55	1.39	Are they related?	Are they related?
+h3	0	0.9464	1.0	4.96	-33.5	0.0	0	2.47	-3.09	Let's ask the usual suspects.	Let's ask the usual suspects
+h3	1	0.957	1.0	4.86	-32.9	0.0	0	1.64	-3.07	Peerson's correlation, Speerman's rank correlation, and Kendall's tau.	Pearson's correlation, Spearman's rank correlation, and Kendall's tau.
+h4	0	0.9994	1.0	4.35	-31.9	0.05	0	2.7	-5.44	All three come back at essentially zero.	All three come back at essentially zero.
+h4	1	0.8805	1.0	4.72	-31.7	0.81	0	2.34	3.47	As far as they can tell, there's no relationship here at all.	As far as they can tell, there's no relationship here at all.
+h5	0	0.9842	1.0	4.4	-31.8	0.0	0	1.13	-0.97	But your eye says otherwise.	but your eye says otherwise.
+h5	1	0.9761	1.0	4.05	-33.3	0.27	0	2.34	-1.46	These points lie on a circle.	These points lie on a circle.
+h5	2	0.9929	1.0	4.23	-31.8	0.0	0	1.57	-1.91	Knowing X narrows Y down to just two possibilities.	Knowing X narrows Y down to just two possibilities.
+h6	0	0.8928	1.0	5.7	-31.8	0.0	0	3.08	-1.14	What we need is a measure of dependence, not a measure of slope.	What we need is a measure of dependence, not a measure of slope.
+h7	0	0.8971	1.0	4.76	-34.2	0.1	1	3.14	-3.36	One of the most elegant is called Hefding's D.	One of the most elegant is called Hefting's D.
+h7	1	0.9036	1.0	5.25	-34.4	0.0	0	2.66	-3.07	Vassily Heffding introduced it in nineteen forty-eight.	Vasily Hefding introduced it in 1948.
+g1	0	0.9466	1.0	3.84	-32.9	0.0	0	2.81	-3.93	Let's watch four measures side by side, as one cloud of points changes shape.	Let's watch four measures side by side as one cloud of points changes shape.
+g2	0	0.9221	1.0	4.24	-31.3	0.11	1	2.05	-4.25	Each bar shows how far a measure rises above pure chance.	Each bar shows how far a measure rises above pure chance.
+g2	1	0.8703	1.0	4.46	-34.0	0.01	0	2.03	2.96	To estimate chance, we shuffle Y three hundred times, and recompute.	To estimate chance, we shuffle Y 300 times and recompute.
+g2	2	0.8117	0.857	3.43	-32.0	0.0	0	2.38	-5.94	The dashed line marks that noise ceiling.	The dash line marks that noise ceiling.
+g3	0	0.9701	1.0	4.08	-32.3	1.36	0	2.82	-4.44	For a straight line, everyone agrees.	for a straight line. Everyone agrees.
+g3	1	0.9985	1.0	4.48	-33.0	0.0	0	2.29	-5.13	All four measures are far above the noise.	All four measures are far above the noise.
+g4	0	0.9906	1.0	4.18	-32.7	0.04	0	2.79	-4.07	Now, bend it into a parabola.	Now, bend it into a parabola.
+g4	1	0.9276	1.0	5.06	-31.5	0.0	0	1.81	-1.99	The three correlations collapse into the noise.	The three correlations collapse into the noise.
+g4	2	0.9947	1.0	4.56	-32.8	0.0	0	2.4	-3.72	The falling left half cancels out the rising right half.	The falling left half cancels out the rising right half.
+g4	3	0.9541	1.0	4.42	-32.7	0.07	0	2.25	-4.38	But Hefding's D barely moves.	But Hefting's D barely moves.
+g5	0	0.9616	1.0	3.95	-35.5	0.2	0	1.93	-4.02	Next, a ring.	Next, a ring.
+g5	1	0.9126	1.0	3.97	-32.6	0.0	0	2.92	1.34	The correlations sit right inside the noise.	The correlations sit right inside the noise.
+g6	0	0.962	1.0	4.79	-29.5	0.0	0	1.85	-0.06	But D sits well above it.	but D sits well above it.
+g6	1	0.9539	1.0	4.7	-32.4	0.0	0	2.2	-3.11	It has found the dependence.	It has found the dependence.
+g7	0	0.9774	1.0	4.13	-31.8	0.0	0	1.92	-3.97	Now, an X shape, made of two lines with opposite slopes.	Now, an X shape made of two lines with opposite slopes.
+g7	1	0.9001	1.0	4.03	-32.7	0.12	1	2.63	-3.88	Once again, the correlations see nothing.	Once again, the correlations see nothing.
+g7	2	0.9438	1.0	3.85	-32.7	0.0	0	1.48	-1.77	D sees it clearly.	D sees it clearly.
+g8	0	0.8937	1.0	3.49	-31.5	0.0	0	1.5	-3.77	A wave, rising and falling twice.	a wave rising and falling twice.
+g8	1	0.8135	1.0	3.61	-31.1	0.0	0	3.15	3.85	Same story.	Same story.
+g9	0	0.9153	1.0	5.08	-31.5	0.0	0	1.71	-4.56	And finally, genuinely independent noise.	And finally, genuinely independent noise.
+g9	1	0.99	1.0	4.18	-32.6	0.15	0	3.58	-4.59	This time, every measure stays under its ceiling, D included.	This time, every measure stays under its ceiling, D included.
+g9	2	0.9074	1.0	4.26	-32.0	0.0	0	2.25	1.98	So D isn't just eager to find patterns.	So D isn't just eager to find patterns.
+g9	3	0.8521	1.0	4.93	-31.4	0.0	0	2.63	2.95	It finds them only when they're really there.	It finds them only when they're really there.
+g10	0	0.9369	1.0	4.96	-33.0	0.0	0	1.39	0.05	Correlation asks whether X and Y move together.	Correlation asks whether X and Y move together.
+g10	1	0.9682	1.0	4.17	-34.2	0.0	0	2.91	-5.76	Hefding's D asks a deeper question.	Heftings D. asks a deeper question.
+g10	2	0.8897	1.0	5.67	-32.2	0.0	0	1.82	2.72	Could X and Y be independent at all?	Could X and Y be independent at all?
+q1	0	0.9954	1.0	4.49	-33.7	0.0	0	2.91	-3.58	So why can D see shapes that correlations miss?	So why can D see shapes that correlations miss?
+q1	1	0.8764	1.0	4.81	-34.2	0.32	0	3.02	1.99	It comes down to how many points you look at, at once.	It comes down to how many points you look at at once.
+q2	0	0.992	1.0	4.32	-33.4	0.0	0	2.7	-3.28	Two points define a direction.	Two points define a direction.
+q2	1	0.9784	1.0	4.11	-31.8	0.0	0	2.81	-5.48	Peerson's correlation is built from pairs of points, so straight lines are what it sees.	Pearson's correlation is built from pairs of points so straight lines are what it sees.
+q3	0	0.8578	1.0	3.95	-31.6	0.37	1	2.07	-4.35	Three points can reveal a bend.	Three points can reveal a bend.
+q3	1	0.9994	1.0	4.35	-32.3	0.0	0	2.32	-4.75	Rank correlations, like Speerman's and Kendall's, capture any curve that keeps heading the same way.	Rank correlations like Spearman's and Kendall's capture any curve that keeps heading the same way.
+q4	0	0.9996	1.0	4.36	-32.5	0.0	0	2.61	-5.45	But to see a turn, where a curve rises and then falls back down, you need at least four points.	But to see a turn where a curve rises and then falls back down, you need at least four points.
+q5	0	0.8506	1.0	2.75	-31.8	0.14	0	3.1	-4.86	Rings, crosses, and waves all turn.	Rings, crosses, and waves all turn.
+q5	1	0.8167	1.0	4.46	-32.4	0.24	1	2.02	4.09	So detecting them means reasoning about groups of four.	So, detecting them means reasoning about groups of four.
+q6	0	0.9107	1.0	5.18	-32.7	0.02	0	2.73	-5.18	The trouble is, the number of groups of four grows ferociously fast.	The trouble is the number of groups of four grows ferociously fast.
+q7	0	0.9874	1.0	4.65	-32.4	0.11	0	1.59	-5.05	With five thousand points, there are more than twenty-six trillion of them.	With 5,000 points, there are more than 26 trillion of them.
+q8	0	0.9901	1.0	4.62	-31.5	0.0	0	2.12	-4.39	Heff-ding's trick is to never list them at all.	Hefting's trick is to never list them at all.
+q8	1	0.8906	1.0	5.64	-31.9	0.0	0	2.42	-5.36	By working with ranks, he folds every quadruple into a single count for each point.	By working with ranks he folds every quadruple into a single count for each point
+q8	2	0.9326	1.0	3.97	-32.5	0.04	0	1.57	-3.08	We'll call that count Q.	We'll call that count Q.
+r1	0	0.9303	1.0	5.07	-33.1	0.11	0	3.08	-3.16	Let's work through a small example, using the heights and weights of ten people.	Let's work through a small example, using the heights and weights of 10 people.
+r2	0	0.9988	1.0	4.37	-31.6	0.0	0	2.52	-4.9	Here they are as a scatter plot.	Here they are as a scatterplot.
+r3	0	0.829	1.0	2.6	-33.6	0.0	0	2.18	-1.93	Step one.	Step one.
+r3	1	0.8573	1.0	3.91	-33.6	0.56	1	1.55	-1.4	Forget the raw values, and keep only their order.	Forget the raw values and keep only their order.
+r3	2	0.8911	1.0	3.62	-32.1	0.0	0	2.3	-3.36	The shortest person gets rank one.	The shortest person gets rank one.
+r3	3	0.9033	0.889	3.94	-32.1	0.0	0	2.93	-6.42	The next shortest gets rank two, and so on.	The next shortest gets ranked two, and so on.
+r3	4	0.9526	1.0	4.79	-32.0	0.0	0	1.31	-2.44	Then we do the same for weight.	then we do the same for weight.
+r4	0	0.9076	1.0	4.31	-33.7	0.3	1	2.9	-4.98	Three people are tied at seventy-eight.	Three people are tied at 78.
+r4	1	0.9734	1.0	4.78	-32.6	0.03	0	2.12	-4.97	They share places eight, nine, and ten, so each of them gets the average.	They share places 8, 9, and 10, so each of them gets the average.
+r4	2	0.8479	1.0	3.33	-30.8	0.0	0	1.18	-2.72	That's nine.	That's nine.
+r5	0	0.9168	1.0	4.27	-32.8	0.24	1	1.95	-4.62	Plotting rank against rank gives us the same people, in new coordinates.	Plotting rank against rank gives us the same people in new coordinates.
+r6	0	0.9009	1.0	3.52	-31.8	0.01	0	2.01	-3.94	Ranks make the method robust.	Ranks make the method robust.
+r6	1	0.9821	1.0	4.11	-33.0	0.01	0	2.45	-4.74	Push one person's weight way up, and their raw point jumps.	push one person's weight way up, and their raw point jumps.
+r6	2	0.9716	1.0	4.29	-29.8	0.0	0	2.44	-1.49	But their rank stays at seven.	But their rank stays at seven.
+r7	0	0.8071	1.0	4.01	-31.5	0.16	1	3.86	2.17	Only the order matters, so no single extreme value can dominate.	Only the order matters, so no single extreme value can dominate.
+c1	0	0.8928	1.0	5.84	-33.6	0.0	0	1.42	-2.64	Step two is the heart of the method.	Step two is the heart of the method.
+c1	1	0.7928	1.0	5.48	-33.6	0.19	0	2.68	3.58	For each point, count how many other points sit strictly below it, and to its left.	For each point, count how many other points sit strictly below it and to its left.
+c2	0	0.9123	1.0	3.83	-34.7	0.22	0	2.15	-5.19	That count, plus one, is called Q.	That count plus one is called Q.
+c2	1	0.8933	1.0	5.15	-33.1	0.02	0	1.13	-0.9	A point tied in one coordinate earns half credit.	a point tied in one coordinate earns half credit.
+c2	2	0.8591	0.875	5.18	-33.1	0.0	0	1.45	-0.23	An exact twin counts for just a quarter.	and exact twin counts for just a quarter.
+c3	0	0.882	1.0	4.29	-31.4	0.0	0	2.31	3.99	Take the person ranked seventh in both height and weight.	Take the person ranked seventh in both height and weight.
+c3	1	0.9045	1.0	4.67	-34.1	0.62	1	2.45	-2.9	Six people sit below and to the left, so Q is seven.	Six people sit below and to the left, so cue is seven.
+c4	0	0.932	1.0	5.06	-32.9	0.04	0	1.87	-2.73	If height and weight were unrelated, we'd expect only about five.	If height and weight were unrelated, we'd expect only about five.
+c4	1	0.8547	1.0	3.99	-32.9	0.2	0	2.64	4.82	Seeing seven tells us these points cluster together, more than chance allows.	Seeing seven tells us these points cluster together more than chance allows.
+c5	0	0.9994	1.0	4.38	-33.4	0.18	0	1.78	-5.79	For the person ranked sixth in height and fourth in weight, three points qualify.	For the person ranked sixth in height and fourth in weight, three points qualify.
+c5	1	0.9132	1.0	4.55	-33.2	0.0	0	2.99	-4.04	So Q is four.	So Q is 4.
+c6	0	0.993	1.0	4.38	-32.2	0.18	0	2.51	-5.56	Now take one of the tied people, ranked ninth in both.	Now, take one of the tied people, ranked ninth in both.
+c6	1	0.9239	1.0	3.82	-30.5	0.0	0	3.48	-2.57	Seven points sit strictly below and to the left.	Seven points sit strictly below and to the left.
+c6	2	0.9122	1.0	3.6	-32.0	0.0	0	2.69	-4.32	Its two twins add a quarter each.	It's two twins, add a quarter each.
+c6	3	0.9508	1.0	4.35	-32.7	0.0	0	2.5	-5.21	So Q is one plus seven plus a half.	So Q is 1 plus 7 plus a half.
+c6	4	0.9059	1.0	5.21	-31.7	0.0	0	2.45	-4.11	That's eight and a half.	That's eight and a half.
+c7	0	0.9781	1.0	4.61	-32.9	0.43	0	1.87	0.32	Repeat this for everyone, and we get the full list of Q values.	Repeat this for everyone, and we get the full list of Q values.
+c8	0	0.995	1.0	4.42	-33.7	0.0	0	1.58	-4.77	Hefding's D adds up how much these counts differ from what independence would predict.	Hefting's D adds up how much these counts differ from what independence would predict.
+f1	0	0.9623	1.0	3.97	-32.1	0.0	0	1.93	-1.18	Step three folds everything into three separate sums.	Step three folds everything into three separate sums.
+f1	1	0.9225	1.0	3.68	-32.4	0.0	0	1.77	-2.44	The first one, D one, runs over the Q values.	The first one, D1, runs over the Q values.
+f1	2	0.8928	1.0	5.43	-33.0	0.18	0	2.06	-3.88	It measures how tightly the points pile up, below and to the left of one another.	It measures how tightly the points pile up below and to the left of one another.
+f2	0	0.9817	1.0	4.71	-30.8	0.0	0	1.38	-2.26	D two uses only the ranks.	D2 uses only the ranks.
+f2	1	0.9871	1.0	4.15	-32.1	0.25	0	3.23	-5.54	These are the marginals, describing each variable on its own.	These are the marginals describing each variable on its own.
+f3	0	0.8981	1.0	4.05	-34.0	0.14	1	2.96	-5.7	And D three is the cross term that ties the joint counts to the marginals.	And D3 is the cross term that ties the joint counts to the marginals.
+f4	0	0.9988	1.0	4.32	-31.5	0.03	0	2.34	-3.4	Heffding's formula weighs these three against each other, and normalizes by the sample size.	Hefting's formula weighs these three against each other and normalizes by the sample size.
+f5	0	0.9747	1.0	4.76	-31.4	0.0	0	1.63	-3.65	Now, let's plug in our ten people.	Now, let's plug in our 10 people.
+f6	0	0.9999	1.0	4.42	-31.3	0.0	0	3.46	-5.6	The numerator works out to four hundred and fourteen.	The numerator works out to 414.
+f6	1	0.924	1.0	3.72	-32.2	0.0	0	2.4	-1.05	And D comes out to about zero point four one.	And D comes out to about 0.41.
+f7	0	0.9802	1.0	4.71	-33.0	0.02	0	2.93	-3.63	For comparison, Peer-son's correlation here is zero point nine three, and Kendall's tau is zero point eight six.	For comparison, Pearson's correlation here is 0.93 and Kendall's tau is 0.86.
+f8	0	0.9638	1.0	4.85	-31.1	0.0	0	1.97	-4.08	Keep in mind that D lives on its own scale.	Keep in mind that D lives on its own scale.
+f8	1	0.8761	1.0	4.94	-33.1	0.12	1	2.24	-2.32	It's about zero under independence, and one for a perfectly monotone relationship.	It's about zero under independence and one for a perfectly monotone relationship.
+f8	2	0.975	1.0	4.38	-31.4	0.0	0	2.1	-3.22	And it never drops below minus one half.	and it never drops below minus one half.
+s1	0	0.9703	1.0	4.35	-33.2	0.0	0	2.77	-4.94	So what is D really measuring?	So what is D really measuring?
+s1	1	0.8548	1.0	5.03	-33.7	0.67	1	2.94	-3.39	Here are forty-eight points along a parabola, in rank coordinates.	Here are 48 points along a parabola in rank coordinates.
+s2	0	0.8724	0.9	5.17	-31.3	0.0	0	1.83	-2.4	These tick marks along the edges are called the marginals.	These tick marks along the edges are called the marginal.
+s2	1	0.9668	1.0	4.01	-33.7	0.01	0	2.91	-3.68	They show where the X values fall, and where the Y values fall, each on its own.	They show where the X values fall and where the Y values fall, each on its own.
+s3	0	0.9655	1.0	4.83	-36.3	0.05	0	1.96	-3.93	On the right, we count the points in each cell of a four by four grid.	On the right, we count the points in each cell of a 4x4 grid.
+s3	1	0.7956	1.0	6.04	-31.6	0.0	0	2.43	2.38	If X and Y were independent, every cell would hold about three.	If X and Y were independent, every cell would hold about three.
+s4	0	0.9913	1.0	4.54	-32.2	0.04	0	2.71	-4.94	And this is Heff-ding's D, recomputed live from the dots on every single frame.	And this is Hefting's D, recomputed live from the dots on every single frame.
+s5	0	0.8869	1.0	4.72	-31.5	0.0	0	1.94	2.27	Now watch what happens when we shuffle the Y values among the points.	Now watch what happens when we shuffle the Y values among the points.
+s6	0	0.918	1.0	5.15	-34.7	0.0	0	3.32	-5.44	Look at the tick marks.	Look at the tick marks.
+s6	1	0.9368	1.0	5.0	-33.4	0.0	0	3.13	-4.86	They haven't changed at all.	They haven't changed at all.
+s6	2	1.0	1.0	4.41	-33.5	0.0	0	2.93	-5.58	Both marginals are exactly the same.	Both marginals are exactly the same.
+s6	3	0.8874	1.0	5.56	-32.3	0.0	0	1.94	-4.2	Only the pairing is gone.	Only the pairing is gone.
+s6	4	0.9755	1.0	4.11	-32.3	0.03	0	2.29	-4.05	The grid flattens out, and D drops to essentially zero.	The grid flattens out and D drops to essentially zero.
+s7	0	0.9638	1.0	4.76	-33.4	0.02	0	2.45	-3.02	Put the pairs back together, and D comes right back.	Put the pairs back together, and D comes right back.
+s8	0	0.9991	1.0	4.46	-34.9	0.0	0	1.83	-3.18	That gives us a test.	That gives us a test.
+s8	1	0.9598	1.0	4.14	-33.1	0.37	0	1.56	-1.79	We shuffle two thousand times, and record D each time.	We shuffle 2,000 times and record D each time.
+s8	2	0.7901	1.0	4.71	-32.6	0.13	1	2.91	3.94	Chance alone produces this narrow pile near zero.	chance alone produces this narrow pile near zero.
+s9	0	0.7943	1.0	3.46	-31.3	0.45	0	2.4	3.83	Our observed value is far beyond anything shuffling ever produced.	Our observed value is far beyond anything shuffling ever produced.
+s9	1	0.9709	1.0	4.73	-31.4	0.0	0	2.6	-4.06	So X and Y are dependent.	So X and Y are dependent.
+s9	2	0.8583	1.0	3.17	-33.4	0.07	0	1.15	-2.34	In the end, D measures exactly what shuffling destroys.	In the end, D measures exactly what shuffling destroys.
+s9	3	0.9246	1.0	5.11	-31.9	0.0	0	2.02	-3.35	It's the gap between the real pattern, and independence.	It's the gap between the real pattern and independence.
+o1	0	0.952	1.0	4.0	-31.6	0.0	0	2.22	0.0	So, to recap.	So to recap
+o1	1	0.9938	1.0	4.23	-33.8	0.0	0	2.29	-5.1	Peerson's correlation sees straight lines.	Pearson's correlation sees straight lines.
+o1	2	0.9897	1.0	4.29	-32.8	0.0	0	1.51	-5.48	Speerman and Kendall see any monotone curve.	Spearman and Kendall see any monotone curve.
+o2	0	0.9555	1.0	4.14	-31.3	0.0	0	2.33	0.03	And Heffding's D sees dependence of any shape.	and Hefting's D sees dependence of any shape.
+o2	1	0.81	1.0	2.36	-32.2	0.0	0	3.3	-4.87	Rings, crosses, and waves.	rings, crosses, and waves.
+o3	0	0.9842	1.0	4.6	-31.0	0.0	0	2.31	-3.78	It's symmetric.	It's symmetric.
+o3	1	0.8652	1.0	3.12	-33.5	0.04	0	2.45	-5.42	It's built on ranks, so it shrugs off outliers.	It's built on ranks, so it shrugs off outliers.
+o3	2	0.9994	1.0	4.35	-32.1	0.0	0	2.38	-1.73	The trade-off is that it looks at groups of points, rather than pairs.	The trade-off is that it looks at groups of points rather than pairs.
+o3	3	0.9319	1.0	5.06	-30.7	0.0	0	2.62	-4.12	And that's a trade well worth making, whenever the shape of a relationship matters.	And that's a trade well worth making whenever the shape of a relationship matters.
+o4	0	0.886	1.0	5.49	-31.3	0.01	0	2.59	-5.09	Every frame, every formula, and every number in this video was rendered by franken man-im, a pure Rust rebuild of man-im.	Every frame, every formula, and every number in this video was rendered by Franken-Man-Im, a pure rust rebuild of Man-Im.
+o4	1	0.9851	1.0	4.58	-30.9	0.0	0	2.7	-0.71	And the narration you're hearing was spoken by franken T T S.	And the narration you're hearing was spoken by Frank and TTS.

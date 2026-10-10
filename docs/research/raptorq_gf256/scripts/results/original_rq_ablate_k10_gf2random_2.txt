@@ -1,0 +1,1 @@
+K'=10 L=27 H=10 mode=gf2random N=K'+2 trials=10000: fails=2293 rate=2.293e-01 time=90s

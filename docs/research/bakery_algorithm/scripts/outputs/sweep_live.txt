@@ -1,0 +1,5 @@
+== LIVENESS (no reachable trying state without a path to a CS entry; atomic) ==
+N=2 K=6 correct       atomic states=      424 pruned=     18 result=OK (no violation) | liveness: every trying state can reach a CS entry  (0.3s)
+N=2 K=6 le_nums       atomic states=      422 pruned=     18 result=OK (no violation) | liveness: NO-PROGRESS STATE FOUND  (0.0s)
+N=3 K=4 correct       atomic states=   18,576 pruned=  1,379 result=OK (no violation) | liveness: every trying state can reach a CS entry  (1.8s)
+N=3 K=4 le_nums       atomic states=   17,708 pruned=  1,348 result=OK (no violation) | liveness: NO-PROGRESS STATE FOUND  (2.3s)

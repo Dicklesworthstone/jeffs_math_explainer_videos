@@ -1,0 +1,15 @@
+1. Mn-kN == ab-ku: ok; Feller u_hat = 8100 toy u_hat = 16 -> N = 33
+2. Chapman exact mean 935.2 (-6.5%); P(k=0)=0.0720; naive mean given k>0 1241
+3. Feller: mean 10082.5 SD 924.4 CV 9.17%
+   split M=2000, n=500: mean 10077.4 SD 894.4 CV 8.88%
+   split M=500, n=2000: mean 10077.4 SD 894.4 CV 8.88%
+   approx CVs: binomial sqrt(1/k-1/n)=9.49%  symmetric sqrt((1-M/N)(1-n/N)/k)=9.00%  (2000/500): 8.72%
+4. bugs: MLE 60; seen 42; exact 95% CI [47, 94] -> unseen 5..52; Chapman 58.6 +- 8.4
+5. area M=10 n=10 k=3: 16.6667 vs Mn/(k(k-1)) = 16.6667 = (Mn/k)/(k-1)
+5. area M=1000 n=1000 k=100: 101.0101 vs Mn/(k(k-1)) = 101.0101 = (Mn/k)/(k-1)
+5. area M=7 n=5 k=2: 17.4979 vs Mn/(k(k-1)) = 17.5000 = (Mn/k)/(k-1)
+6. carousel mean loops 2.642; P(all 1e6 phones done by m loops): m=4: 0.000, m=5: 0.368, m=6: 0.990, m=7: 1.000
+   coupon K*H_K = 97876.06; GF(2) h=20 failure ~ 9.54e-07
+7. Z/256 K=8 invertible (via det odd <=> mod-2 rank): MC 0.2853 vs prod 0.2899; 2*131 % 256 = 6
+8. 1e6/90 = 11111  1e6/110 = 9091  P(50 heads/100) = 0.0796  7/8*6/8*4/8 = 0.328125
+   3 reads per other process: 3(N-1); 2^35 = 34359738368 ms/yr = 31557600000

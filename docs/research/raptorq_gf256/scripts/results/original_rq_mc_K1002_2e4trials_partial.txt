@@ -1,0 +1,2 @@
+K=1002 recv=K+0 trials=20000: failures=108 rate=5.400e-03
+K=1002 recv=K+1 trials=20000: failures=0 rate=0.000e+00

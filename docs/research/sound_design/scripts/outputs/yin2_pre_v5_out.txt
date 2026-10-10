@@ -1,0 +1,5 @@
+YIN f0 pct 5/10/25/50/75/90/95: [106.7 112.7 121.2 135.6 153.8 177.8 200. ] frames 11336
+in-sentence pauses >=150 ms: n 256, per sentence 4.13, median 0.20 s, p90 0.52 s, max 0.91 s
+real 31.09
+user 1.92
+sys 0.46

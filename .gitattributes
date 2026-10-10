@@ -1,0 +1,13 @@
+# Byte-exact checkouts everywhere. Narration takes are content-addressed by
+# the exact bytes of script.tsv, lexicon.json and alts.tsv; facts and oracle
+# outputs are compared byte for byte; score stems are fingerprinted from the
+# score sources. Git EOL normalization (autocrlf defaults to true on Windows)
+# would silently rewrite those files at checkout and invalidate every hash,
+# so conversion is disabled for the whole tree (as in franken_manim).
+* -text
+
+# Binary media that may appear under docs/media (README stills only).
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary

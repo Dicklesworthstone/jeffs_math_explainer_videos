@@ -1,0 +1,13 @@
+pad D @-9 dB: integrated -38.3 LUFS, TP -29.5 dBTP
+chime  523 Hz @-10 dB: loudest 400 ms -26.2 LUFS, whole-cue -31.5 LUFS, sample peak -20.9 dBFS, TP -20.9 dBTP; partials Hz [523, 1444, 2826, 262]
+chime  587 Hz @-10 dB: loudest 400 ms -26.1 LUFS, whole-cue -31.4 LUFS, sample peak -20.9 dBFS, TP -20.9 dBTP; partials Hz [587, 1621, 3172, 294]
+chime  659 Hz @-10 dB: loudest 400 ms -26.0 LUFS, whole-cue -31.3 LUFS, sample peak -20.9 dBFS, TP -20.9 dBTP; partials Hz [659, 1820, 3560, 330]
+chime  880 Hz @-10 dB: loudest 400 ms -25.6 LUFS, whole-cue -30.9 LUFS, sample peak -20.9 dBFS, TP -20.8 dBTP; partials Hz [880, 2429, 4752, 440]
+detune 1.003 = 5.19 cents
+beat Hz per chord tone: {98: 0.29, 123.47: 0.37, 146.83: 0.44, 185: 0.56, 220: 0.66, 293.66: 0.88, 369.99: 1.11, 440: 1.32}
+AM depth of a 1.0 + 0.6 sine pair: 12.0 dB
+breathe LFO 0.8 +/- 0.2 swing: 4.4 dB, period 14.3 s
+pad spectral centroid 257 Hz; energy above 2 kHz -145.3 dB re total
+real 25.29
+user 1.71
+sys 0.54

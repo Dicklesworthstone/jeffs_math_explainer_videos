@@ -1,0 +1,30 @@
+[package]
+name = "hoeffding_explainer"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "A 3Blue1Brown-style explainer of Hoeffding's D, rendered end to end by franken_manim"
+
+[[bin]]
+name = "hoeffding"
+path = "src/main.rs"
+
+[dependencies]
+# Pinned to the franken_manim revision this explainer was last verified against
+# (cargo test 25/25, 2026-10-09). A git pin, not a path to a sibling checkout:
+# a fresh clone builds the same engine no matter where franken_manim's main is.
+# To try a newer engine, bump `rev`, rebuild, re-run the tests and re-read the
+# glyph probe and contact sheets (TeX layout changes ride franken_markdown pins).
+fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea", features = ["ffmpeg"] }
+
+# Mirror franken_manim's reviewed patch (patches do not propagate through deps).
+# `block` is only reachable through fmn-render's optional `metal` feature, which
+# fmn never enables, so cargo records this patch as unused; it is kept so the
+# lock stays identical to franken_manim's if that feature is ever turned on.
+[patch.crates-io]
+block = { git = "https://github.com/Dicklesworthstone/rust-block", rev = "b39ae859d1ee8e8cb5eef6a516471f1578d26b96" }
+
+[profile.release]
+lto = "thin"
+
+[workspace]

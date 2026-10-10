@@ -1,0 +1,6 @@
+[toolchain]
+# fmn builds only on franken_manim's exact pinned nightly (it uses std::simd),
+# so this must equal the channel in ../franken_manim/rust-toolchain.toml.
+# Bump the two together.
+channel = "nightly-2026-08-31"
+components = ["rustfmt", "clippy", "rust-src"]

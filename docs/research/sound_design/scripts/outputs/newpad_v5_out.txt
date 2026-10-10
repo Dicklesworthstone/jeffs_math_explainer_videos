@@ -1,0 +1,10 @@
+prototype pad, first 60 s: -11.3 LUFS as rendered (peak-normalised)
+pad at -38.3 LUFS (15.1 LU under voice -23.2): SII loss 0.0088
+   speech-pad dB per band 160 Hz..8 kHz: [15.  7. 22. 15. 12. 23. 17. 14. 15. 18. 27. 35. 39. 39. 50. 61. 65. 76.]
+pad at -41.0 LUFS (17.8 LU under voice -23.2): SII loss 0.0016
+   speech-pad dB per band 160 Hz..8 kHz: [18. 10. 24. 18. 15. 26. 20. 17. 17. 20. 30. 38. 42. 42. 53. 64. 68. 78.]
+prototype pad centroid 401 Hz; energy above 2 kHz -35.4 dB re total
+saw f0=1782 Hz: aliased energy below 5 kHz re harmonics: naive -20.3 dB, PolyBLEP -55.5 dB
+real 63.17
+user 2.20
+sys 1.11

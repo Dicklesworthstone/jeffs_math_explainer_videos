@@ -1,0 +1,2 @@
+final state: P1:ncs | P2:CS || choosing=[0, 0] number=[0, 6]
+tickets taken in order: 1,2,3,4,5,6

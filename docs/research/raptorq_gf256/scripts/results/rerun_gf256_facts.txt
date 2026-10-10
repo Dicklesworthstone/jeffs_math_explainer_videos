@@ -1,0 +1,47 @@
+OCT_EXP[0..12] (computed): [1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205]
+distinct values among first 255 powers of 2: 255
+RFC OCT_EXP matches 2^i mod 0x11D for all 510 entries: True
+RFC OCT_LOG matches discrete log: True
+RFC table mul == poly mul for all 65536 pairs: True
+2*128: 0x11D -> 29 (0x1D); 0x11B(AES) -> 27 (0x1B); carryless=256; int mod 256=0
+3*7: 0x11D -> 9 (0x09); 0x11B(AES) -> 9 (0x09); carryless=9; int mod 256=21
+87*131: 0x11D -> 49 (0x31); 0x11B(AES) -> 193 (0xC1); carryless=11129; int mod 256=133
+83*202: 0x11D -> 143 (0x8F); 0x11B(AES) -> 1 (0x01); carryless=16254; int mod 256=126
+2*142: 0x11D -> 1 (0x01); 0x11B(AES) -> 7 (0x07); carryless=284; int mod 256=28
+16*16: 0x11D -> 29 (0x1D); 0x11B(AES) -> 27 (0x1B); carryless=256; int mod 256=0
+255*255: 0x11D -> 226 (0xE2); 0x11B(AES) -> 19 (0x13); carryless=21845; int mod 256=1
+5*9: 0x11D -> 45 (0x2D); 0x11B(AES) -> 45 (0x2D); carryless=45; int mod 256=45
+200*100: 0x11D -> 79 (0x4F); 0x11B(AES) -> 181 (0xB5); carryless=10272; int mod 256=32
+7*7: 0x11D -> 21 (0x15); 0x11B(AES) -> 21 (0x15); carryless=21; int mod 256=49
+128*3: 0x11D -> 157 (0x9D); 0x11B(AES) -> 155 (0x9B); carryless=384; int mod 256=128
+150*3: 0x11D -> 167 (0xA7); 0x11B(AES) -> 161 (0xA1); carryless=442; int mod 256=194
+poly 0x57: x^6 + x^4 + x^2 + x + 1  0x83: x^7 + x + 1  clmul: x^13 + x^11 + x^9 + x^8 + x^6 + x^5 + x^4 + x^3 + 1 =0x2B79
+0x31: x^5 + x^4 + 1  0xC1: x^7 + x^6 + 1
+29: x^4 + x^3 + x^2 + 1  0x11D: x^8 + x^4 + x^3 + x^2 + 1  0x11B: x^8 + x^4 + x^3 + x + 1
+inverse of 2 (0x11D): 142 check 1  via OCT_EXP[255-log 2]: 142
+inverse of 3 (0x11D): 244  inverse of 2 (AES 0x11B): 141
+inverse of 0x53 under 0x11D: 0x8c  under 0x11B: 0xca
+logs: log 2 = 1  log 3 = 25  log 29 = 8  log 128 = 7  log 150 = 180  OCT_EXP[205] = 167
+Z/256: 2*128 mod 256 = 0 ; # units: 128 ; # nonzero non-units: 127
+does 2 have an inverse mod 256? False
+Z/256 distinct products per row: a=1: 256  a=2: 128  a=128: 2
+GF(256) nonzero rows are all permutations: True
+# irreducible deg-8 over GF(2): 30 ; # primitive (x has order 255): 16
+0x11D irreducible? True primitive? True ; 0x11B irreducible? True primitive? False
+order of 2 under 0x11B: 51 ; order of 3 under 0x11B: 255 ; order of 2 under 0x11D: 255
+# primitive elements in GF(256): 128  phi(255) = 128
+orders histogram (0x11D): [(1, 1), (3, 2), (5, 4), (15, 8), (17, 16), (51, 32), (85, 64), (255, 128)]
+GF(16) subfield: [0, 1, 10, 11, 68, 69, 78, 79, 146, 147, 152, 153, 214, 215, 220, 221]
+GF(4) subfield: [0, 1, 214, 215]
+xtime == multiply by 2 for all bytes: True
+log-ordered table is Hankel (entry depends on i+j only): True
+a^255 == 1 for all nonzero a: True
+freshman's dream (a+b)^2 = a^2+b^2 for all pairs: True
+reduction steps for 0x57*0x83 mod 0x11D:
+    x^13 + x^11 + x^9 + x^8 + x^6 + x^5 + x^4 + x^3 + 1  XOR x^5*p(x) = x^13 + x^9 + x^8 + x^7 + x^5
+    x^11 + x^7 + x^6 + x^4 + x^3 + 1  XOR x^3*p(x) = x^11 + x^7 + x^6 + x^5 + x^3
+    result: x^5 + x^4 + 1 = 49 0x31
+reduction steps for 0x57*0x83 mod 0x11B:
+    x^13 + x^11 + x^9 + x^8 + x^6 + x^5 + x^4 + x^3 + 1  XOR x^5*p(x) = x^13 + x^9 + x^8 + x^6 + x^5
+    x^11 + x^4 + x^3 + 1  XOR x^3*p(x) = x^11 + x^7 + x^6 + x^4 + x^3
+    result: x^7 + x^6 + 1 = 193 0xc1

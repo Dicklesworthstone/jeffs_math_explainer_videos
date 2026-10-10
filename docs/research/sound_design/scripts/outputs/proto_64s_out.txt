@@ -1,0 +1,8 @@
+$ proto pad64.wav 64        (built: rustc -C opt-level=3 -C target-cpu=native main.rs; M4 Pro, load average ~200)
+voices 40 | voice render 15.75s | +chorus+fdn 16.02s | total incl. write 16.09s | peak 0.166
+real 16.36
+user 0.75
+sys 0.04
+
+The section timings printed by the program are wall-clock and were inflated by machine load; `user` is the CPU figure.
+The memo's 6.27 s user-CPU figure is the original 600 s render (375 voices) from the same source.

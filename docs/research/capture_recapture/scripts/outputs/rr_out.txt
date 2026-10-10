@@ -1,0 +1,5 @@
+N=1000 M=n=64: E[k]=4.096, Chapman exact bias=-10.9534 (-1.095% ), exp(-E[k])*N=16.6391
+N=1000 M=n=50: E[k]=2.500, Chapman exact bias=-64.7793 (-6.478% ), exp(-E[k])*N=82.0850
+N=1000 M=n=100: E[k]=10.000, Chapman exact bias=-0.0118 (-0.001% ), exp(-E[k])*N=0.0454
+N=10000 M=n=200: E[k]=4.000, Chapman exact bias=-162.0347 (-1.620% ), exp(-E[k])*N=183.1564
+N=10000 M=n=1000: E[k]=100.000, Chapman exact bias=-0.0000 (-0.000% ), exp(-E[k])*N=0.0000

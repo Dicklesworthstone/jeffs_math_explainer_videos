@@ -1,0 +1,37 @@
+q=2
+   k=   1  P(square invertible)=0.5000000000
+   k=   2  P(square invertible)=0.3750000000
+   k=   3  P(square invertible)=0.3281250000
+   k=   4  P(square invertible)=0.3076171875
+   k=   5  P(square invertible)=0.2980041504
+   k=  10  P(square invertible)=0.2890702984
+   k=  20  P(square invertible)=0.2887883705
+   k=  50  P(square invertible)=0.2887880951
+   k= 100  P(square invertible)=0.2887880951
+   limit k->inf, h=0: P(full rank)=0.288788095087  P(fail)=7.112119e-01  union bound q^-h/(q-1)=1.000000e+00
+   limit k->inf, h=1: P(full rank)=0.577576190173  P(fail)=4.224238e-01  union bound q^-h/(q-1)=5.000000e-01
+   limit k->inf, h=2: P(full rank)=0.770101586898  P(fail)=2.298984e-01  union bound q^-h/(q-1)=2.500000e-01
+   limit k->inf, h=3: P(full rank)=0.880116099312  P(fail)=1.198839e-01  union bound q^-h/(q-1)=1.250000e-01
+   limit k->inf, h=4: P(full rank)=0.938790505932  P(fail)=6.120949e-02  union bound q^-h/(q-1)=6.250000e-02
+q=256
+   k=   1  P(square invertible)=0.9960937500
+   k=   2  P(square invertible)=0.9960785508
+   k=   3  P(square invertible)=0.9960784914
+   k=   4  P(square invertible)=0.9960784912
+   k=   5  P(square invertible)=0.9960784912
+   k=  10  P(square invertible)=0.9960784912
+   k=  20  P(square invertible)=0.9960784912
+   k=  50  P(square invertible)=0.9960784912
+   k= 100  P(square invertible)=0.9960784912
+   limit k->inf, h=0: P(full rank)=0.996078491212  P(fail)=3.921509e-03  union bound q^-h/(q-1)=3.921569e-03
+   limit k->inf, h=1: P(full rank)=0.999984681373  P(fail)=1.531863e-05  union bound q^-h/(q-1)=1.531863e-05
+   limit k->inf, h=2: P(full rank)=0.999999940162  P(fail)=5.983839e-08  union bound q^-h/(q-1)=5.983839e-08
+   limit k->inf, h=3: P(full rank)=0.999999999766  P(fail)=2.337437e-10  union bound q^-h/(q-1)=2.337437e-10
+   limit k->inf, h=4: P(full rank)=0.999999999999  P(fail)=9.130474e-13  union bound q^-h/(q-1)=9.130613e-13
+2 successive failure ratios: [1.683645401534097, 1.8374368231878733, 1.9176754491818369, 1.9585834275299328]
+256 successive failure ratios: [255.99610894918533, 255.99998480081558, 256.0000151991853, 256.00389105058366]
+q=2: expected # extra random equations beyond k needed (k->inf) = 1.606695
+q=256: expected # extra random equations beyond k needed (k->inf) = 0.003937
+q=256 first factor 1-1/256 = 0.99609375  255/256 = 0.99609375
+2 fraction of space hit by span when one dimension missing: 0.5
+256 fraction of space hit by span when one dimension missing: 0.00390625

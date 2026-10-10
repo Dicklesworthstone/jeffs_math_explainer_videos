@@ -1,0 +1,30 @@
+speech (active frames) integrated loudness -23.2 LUFS
+band   speech  pad@-9  speech-pad
+  160   -40.0   -44.9    4.8
+  200   -39.5   -44.6    5.2
+  250   -32.2   -59.6   27.4
+  315   -30.2   -43.4   13.2
+  400   -32.1   -43.6   11.5
+  500   -32.4  -100.4   68.0
+  630   -32.0   -63.9   31.9
+  800   -35.5   -63.4   27.9
+ 1000   -40.7  -154.2  113.5
+ 1250   -39.3  -168.0  128.8
+ 1600   -36.8  -175.8  139.0
+ 2000   -36.8  -181.8  145.0
+ 2500   -39.8  -187.3  147.5
+ 3150   -47.0  -192.7  145.7
+ 4000   -44.6  -198.2  153.7
+ 5000   -42.9  -203.2  160.4
+ 6300   -46.1  -208.4  162.3
+ 8000   -47.6  -213.7  166.1
+SII loss, current pad: 0.013
+chime  523 Hz: SII loss in its first 400 ms 0.147; speech-chime dB, 1.25-4 kHz bands: [20.  -2.1 43.  30.9 -4.  36.2]
+   chime + pad: 0.160
+chime  659 Hz: SII loss in its first 400 ms 0.107; speech-chime dB, 1.25-4 kHz bands: [31.2 22.2 -2.1 29.7 22.2 12.6]
+   chime + pad: 0.119
+chime  880 Hz: SII loss in its first 400 ms 0.155; speech-chime dB, 1.25-4 kHz bands: [27.3 33.9 32.3 -5.1 35.5 39.8]
+   chime + pad: 0.165
+real 68.59
+user 2.04
+sys 1.35

@@ -1,0 +1,13 @@
+K=10000 N=K(1+0.00): pure-peeling recovered fraction (5 runs): [0.0924, 0.421, 0.2249, 0.1735, 0.0825]; never-touched fraction: [0.0063, 0.0092, 0.0088, 0.0084, 0.0076]
+K=10000 N=K(1+0.02): pure-peeling recovered fraction (5 runs): [0.9824, 0.9871, 0.9853, 0.9884, 0.1578]; never-touched fraction: [0.0079, 0.0083, 0.0082, 0.0066, 0.0067]
+K=10000 N=K(1+0.05): pure-peeling recovered fraction (5 runs): [0.9902, 0.9877, 0.9877, 0.9865, 0.9903]; never-touched fraction: [0.0065, 0.0075, 0.0073, 0.0067, 0.006]
+K=10000 N=K(1+0.10): pure-peeling recovered fraction (5 runs): [0.9942, 0.9901, 0.9914, 0.9941, 0.9937]; never-touched fraction: [0.0045, 0.0055, 0.0057, 0.0041, 0.0042]
+K=10000 N=K(1+0.20): pure-peeling recovered fraction (5 runs): [0.9967, 0.9964, 0.9963, 0.9962, 0.9968]; never-touched fraction: [0.0031, 0.0026, 0.0027, 0.0032, 0.0028]
+K=10000 N=K(1+0.50): pure-peeling recovered fraction (5 runs): [0.9996, 0.999, 0.9997, 0.999, 0.999]; never-touched fraction: [0.0002, 0.001, 0.0003, 0.0006, 0.001]
+e^-4.8166 = 0.008094260894289999
+q=2 k=5: expected random equations to reach rank k = 6.5751 (extra 1.5751)
+q=2 k=8: expected random equations to reach rank k = 9.6028 (extra 1.6028)
+q=2 k=20: expected random equations to reach rank k = 21.6067 (extra 1.6067)
+q=256 k=5: expected random equations to reach rank k = 5.0039 (extra 0.0039)
+q=256 k=8: expected random equations to reach rank k = 8.0039 (extra 0.0039)
+q=256 k=20: expected random equations to reach rank k = 20.0039 (extra 0.0039)

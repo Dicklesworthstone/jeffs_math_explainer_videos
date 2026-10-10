@@ -1,0 +1,4 @@
+k=20 h=0 trials=2000: GF(2) fail rate=0.7080   GF(256) fail rate=0.001000 (2 fails)
+k=20 h=1 trials=2000: GF(2) fail rate=0.4275   GF(256) fail rate=0.000000 (0 fails)
+k=20 h=2 trials=2000: GF(2) fail rate=0.2345   GF(256) fail rate=0.000000 (0 fails)
+k=20 h=3 trials=2000: GF(2) fail rate=0.1200   GF(256) fail rate=0.000000 (0 fails)

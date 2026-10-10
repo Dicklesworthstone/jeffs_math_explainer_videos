@@ -1,0 +1,4 @@
+narration_v5: 61 files; LUFS median -23.3 range -23.6..-23.0; TP max -7.5 median -7.9 dBTP
+real 28.07
+user 2.19
+sys 0.40

@@ -1,0 +1,1 @@
+K'=10 L=27 H=10 mode=gf256random N=K'+0 trials=20000: fails=137 rate=6.850e-03 time=143s

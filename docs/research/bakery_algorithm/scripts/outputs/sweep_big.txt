@@ -1,0 +1,3 @@
+== larger runs ==
+N=3 K=6 correct       safe   states=  269,550 pruned= 12,306 result=OK (no violation)  (34.9s)
+N=4 K=4 correct       atomic states=3,027,633 pruned=204,059 result=OK (no violation)  (711.7s)

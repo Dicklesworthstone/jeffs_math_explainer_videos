@@ -1,0 +1,16 @@
+speech loudest-400 ms, median over 20 sentences: -20.1 LUFS
+cue at -14 LU  D5 LP2.2k  SII loss (first 400 ms) 0.0430
+cue at -14 LU  D4 LP2.2k  SII loss (first 400 ms) 0.0327
+cue at -14 LU  D5 raw     SII loss (first 400 ms) 0.0516
+cue at -18 LU  D5 LP2.2k  SII loss (first 400 ms) 0.0228
+cue at -18 LU  D4 LP2.2k  SII loss (first 400 ms) 0.0176
+cue at -18 LU  D5 raw     SII loss (first 400 ms) 0.0313
+cue at -20 LU  D5 LP2.2k  SII loss (first 400 ms) 0.0157
+cue at -20 LU  D4 LP2.2k  SII loss (first 400 ms) 0.0100
+cue at -20 LU  D5 raw     SII loss (first 400 ms) 0.0211
+cue at -22 LU  D5 LP2.2k  SII loss (first 400 ms) 0.0113
+cue at -22 LU  D4 LP2.2k  SII loss (first 400 ms) 0.0033
+cue at -22 LU  D5 raw     SII loss (first 400 ms) 0.0110
+real 55.39
+user 2.36
+sys 0.85

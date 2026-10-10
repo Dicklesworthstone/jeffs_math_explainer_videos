@@ -1,0 +1,241 @@
+# jeffs_math_explainer_videos
+
+<div align="center">
+
+[![License: MIT + Rider](https://img.shields.io/badge/License-MIT_+_OpenAI/Anthropic_Rider-blue.svg)](./LICENSE)
+[![Rust Edition](https://img.shields.io/badge/Rust-2024_Edition-orange.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)
+[![engine: franken_manim](https://img.shields.io/badge/engine-franken__manim-black.svg)](https://github.com/Dicklesworthstone/franken_manim)
+[![voice: FrankenTTS](https://img.shields.io/badge/voice-FrankenTTS-purple.svg)](https://github.com/Dicklesworthstone/franken_tts)
+[![LaTeX: none, anywhere](https://img.shields.io/badge/LaTeX-none,_anywhere-teal.svg)](https://github.com/Dicklesworthstone/franken_manim)
+[![every number: oracle-checked](https://img.shields.io/badge/every_number-oracle--checked-success.svg)](./docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md)
+
+**A monorepo of narrated, 3Blue1Brown-style 4K math explainer videos, each one written in Rust against [franken_manim](https://github.com/Dicklesworthstone/franken_manim) (native TeX, no LaTeX, no Python) and voiced by [FrankenTTS](https://github.com/Dicklesworthstone/franken_tts). Every number on screen or in the narration is computed by the scene and pinned against an independent oracle, every narration line is checked by speech recognition and never time-stretched, every frame is looked at before it ships, and a warm, procedurally synthesized score sits under the voice without competing with it.**
+
+</div>
+
+> **A note on tense.** Like franken_manim's README, this one describes the
+> *method* in the present tense, because the method is fixed and every video
+> follows it. What exists today is stated separately and plainly: see
+> [The corpus](#the-corpus) and [Status](#status). One video is finished; three
+> are researched and storyboarded; the shared crates are specified, not yet
+> built.
+
+---
+
+## TL;DR
+
+**The goal.** Explain genuinely deep mathematics so clearly that a curious
+14-year-old follows it, a working programmer could implement it afterwards,
+and a professional mathematician finds nothing incorrect or misleading and
+marvels at the clarity. Never by dumbing down: by finding the right picture,
+the right tiny example, the right order, and by earning every formula.
+
+**The problem with the usual way.** Explainer videos are usually assembled from
+tools that cannot check themselves. Numbers are typed into slides, so they drift
+from the math. Narration is recorded once and stretched to fit the picture, so
+it sounds smeared. Background music is chosen by taste and mixed by ear, so it
+masks the consonants that carry the meaning. And the rendering stack (manim +
+LaTeX + Python + system fonts) is a multi-gigabyte install that renders
+differently on every machine.
+
+**The approach here.** Each video is a Rust program:
+
+| | How it works here |
+|---|---|
+| Picture | Scenes written against franken_manim's native `fmn` facade: native TeX typesetting, an analytic Bézier rasterizer with the 3b1b look, 3D surfaces with a moving camera, flowing streamlines, live readouts recomputed from moving objects every frame. One binary; ffmpeg is the only external tool. |
+| Numbers | Computed by the scene from the same data it draws, then pinned at startup against an independent oracle (`oracle.py`). A typed number is a defect. Every "always" or "never" in the script is tested at its edges before it is voiced. |
+| Voice | FrankenTTS, one call per sentence, several takes, each transcribed by FrankenWhisper and scored; the best take wins. Every name is looked up and its pronunciation verified against a control and a decoy. Only cuts and gain touch the audio: never time-stretch, pitch-shift or loudnorm. |
+| Timing | The picture waits for the voice: scenes are written as beats keyed to script lines, so re-recording a line re-times the animation. |
+| Sound | A std-only Rust synthesizer (band-limited drifting oscillators, ladder filters, chorus, tape colour, modal mallets, FM electric piano, plucked strings, an FDN reverb), ducked under the voice with perfect look-ahead and a spectral pocket, with harmony that moves and melody only in the gaps. Automated checks enforce level, masking and monotony budgets. |
+| Review | Every frame is looked at (layout lint, contact sheets, cue sheets). Each video is reviewed three times through three named viewers and a mathematician's audit, and the findings and their dispositions are committed. |
+| Delivery | 3840×2160 at 60 fps, explicit encoder quality, one fixed mastering gain to −16 LUFS, a strict verify, captions from the exact cue timings. Renders never enter git; finished cuts ship as GitHub Release assets. |
+
+---
+
+## The corpus
+
+| # | Video | What it explains | Status |
+|---|---|---|---|
+| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); builds and passes 25/25 tests here. A re-scored v6 with the new sound engine is planned. |
+| 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | Researched (`docs/research/capture_recapture/`), storyboarded (plan §9) |
+| 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | Researched (`docs/research/raptorq_gf256/`), storyboarded (plan §10) |
+| 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | Researched (`docs/research/bakery_algorithm/`), storyboarded (plan §11) |
+
+![One still from each chapter of the Hoeffding's D explainer](explainer_corpus/hoeffding_d/docs/media/chapters.jpg)
+
+---
+
+## How a video is made
+
+```text
+ brief ─► facts + oracle ─► storyboard ─► review R1 ─► script ─► review R2 + audit
+   │                                                              │
+   │   (every number computed, then pinned)    (one beat per line; prediction pauses;
+   │                                             one word per idea; listen windows)
+   ▼                                                              ▼
+ build: scenes in Rust ─► 540p drafts + layout lint + contact/cue sheets (read every one)
+                                                                  │
+ narration: FrankenTTS per sentence ─► FrankenWhisper scores ─► best take ─► ASR gate
+                                                                  │
+ narrated draft ─► score: timeline pass ─► music stems ─► score QA ─► review R3
+                                                                  │
+ 4K60 chapters in parallel ─► PCM master (one fixed gain) ─► strict verify ─► release
+```
+
+Each arrow is a gate that fails closed and is recorded by the `./x` driver, so
+an agent can resume after any interruption by asking the driver what is next.
+The full pipeline, with every gate, is §4 of the
+[plan](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md).
+
+## Design commitments
+
+| Commitment | One-line statement |
+|---|---|
+| **Correctness first** | Every number is computed and oracle-checked; every simplification keeps its exact version on screen or in the description; every always/never is tested at its edges. |
+| **The voice leads** | The picture waits for the narration; the music holds still under speech and plays out in the gaps; narration is never stretched. |
+| **Show, then name** | A situation before an abstraction, the idea before its name, numbers before letters, a formula only after it is earned. |
+| **Three viewers, every time** | A 14-year-old, a programmer and a mathematician review each video three times; a chapter one of them cannot summarize in a sentence is rewritten. |
+| **Spectacle that carries ideas** | The engine's most advanced features (3D camera moves, flowing fields, thousands of particles, live recomputation) appear only where they make an idea visible. Decoration is a defect. |
+| **Look at every frame** | Layout lint, contact sheets and cue sheets are read before anything is called done. |
+| **Honest status** | Measured numbers carry their sample sizes; model numbers say "model"; nothing is announced until it passes its gate. |
+
+## The sound
+
+The first video's score was a static sine-wave pad per chapter plus bell chimes.
+Measured against the real narration, the pad's chord tones sat inside the
+narrator's pitch range, its detuned sines pumped with a 12 dB beating tremolo,
+and, as actually mixed, it sat only about 5.6 LU under the voice; the chimes
+put their energy at 2.4–4.8 kHz, exactly where consonants live, and cost up to
+0.165 of speech intelligibility at each onset. The new engine
+(`crates/explainer_score`, std-only Rust, specified in §7 of the plan and in
+[`docs/research/sound_design/`](docs/research/sound_design/)) fixes that by
+construction:
+
+- warm, analog-style voices (PolyBLEP oscillators with slow random pitch drift,
+  zero-delay-feedback ladder filters, Juno- and Solina-style chorus, tape wow and
+  flutter, modal marimba/vibraphone/kalimba, FM electric piano, Karplus–Strong
+  plucks, an 8-line FDN reverb);
+- the bed 18 LU under the voice during speech and 10 LU under it in authored
+  gaps, ducked offline with perfect look-ahead from the known narration
+  timeline, with a 1–4 kHz pocket carved while the voice speaks;
+- no sustained music between 95 and 250 Hz during speech, no melody starting
+  under a sentence, chords moving every 4–16 seconds, and a musical identity per
+  video (key, palette, a leitmotif in scale degrees);
+- sonification only where it teaches, in authored listen windows: in the bakery
+  video only one process's melody can ever sound at a time, so mutual exclusion
+  is audible and a violation sounds like a bug.
+
+## Repository layout
+
+```text
+explainer_corpus/        one directory per video (each a Rust crate)
+  hoeffding_d/           corpus entry 1 (finished; imported)
+docs/
+  planning/              the comprehensive plan (architecture, doctrine, all storyboards)
+  research/              one memo per topic plus scripts that recompute every number
+  reviews/plan_r1/       review round 1 of the plan: three viewers, an audit,
+                         engine feasibility, creative direction, and their scripts
+.beads/                  the work graph (br): what to build next, and in what order
+AGENTS.md                rules for coding agents working here
+LICENSE                  MIT with an OpenAI/Anthropic rider
+```
+
+Planned, per the plan's §3: a root Cargo workspace; `crates/explainer_kit` (the
+shared scene kit, layout lint, narration timeline, encoder wrapper, stats kit,
+CLI and captions, extracted from the explainer skill's template) and
+`crates/explainer_score` (the sound engine); `templates/explainer/`; `tools/`;
+and the corpus-aware `./x` driver.
+
+## Building
+
+What builds today is the Hoeffding explainer. It pins franken_manim by git
+revision, so nothing else needs to be checked out:
+
+```bash
+git clone https://github.com/Dicklesworthstone/jeffs_math_explainer_videos
+cd jeffs_math_explainer_videos/explainer_corpus/hoeffding_d
+cargo test --release            # rustup fetches the pinned nightly; first build fetches the FrankenSuite (~1.7 GB of git deps)
+cargo build --release
+target/release/hoeffding stats  # every number the video shows
+target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out draft
+```
+
+- `render` needs `ffmpeg` on `PATH`; `stats`, `script` and `cargo test` don't.
+- A narrated render needs the voice-over WAVs, which are generated, not
+  committed (see the explainer's README).
+- Producing narration uses the owner's FrankenTTS narration skills, referenced
+  by path rather than vendored here.
+
+The research scripts run with a plain Python 3 (`python3 -I <script>.py`); a few
+need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
+
+## Status
+
+| Piece | State |
+|---|---|
+| Hoeffding's D explainer | finished (v5); builds and tests here from a git-pinned engine |
+| Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm) |
+| The plan | revision 2: architecture, doctrines and beat-by-beat storyboards, revised after a five-reviewer round |
+| Shared workspace, kit, score engine, driver | specified; implementation tracked in `.beads/` |
+| Videos 2–4 | storyboarded; production follows the plan's order (kit → score engine → Hoeffding v6 → fish → RaptorQ and bakery) |
+
+## Limitations
+
+- **Narration needs the FrankenTTS skills.** The narration pipeline (takes,
+  scoring, pronunciation probes, the release gate) lives in the owner's
+  published skills and is referenced by path. Without them you can build and
+  render the pictures, but not regenerate the voice.
+- **Heavy work wants a big machine.** TTS, speech recognition and 4K finals run
+  best on a many-core Linux host with NVENC; a laptop can draft at 540p.
+- **The engine has honest gaps** (from the plan's engine review): no 2D camera
+  pan or zoom on the fast route, no bloom, a few Greek letters drawn in variant
+  forms, 3D only on a slower CPU route. The videos work around each one, and
+  §14 of the plan lists them for upstream.
+- **Renders are not in git.** At about 200 MB, a 4K master is over GitHub's
+  100 MB file limit; finished cuts are published as release assets.
+
+## FAQ
+
+**Why Rust and franken_manim instead of manim?** One binary, native TeX with no
+LaTeX install, deterministic output, and live readouts recomputed from the
+picture every frame. A real-world measurement: the Hoeffding explainer's binary
+is 9.2 MB; making the same kind of video with legacy manim means installing a
+LaTeX distribution and a Python stack of 0.9–11 GB.
+
+**Why so much process for a video?** Because the failure modes are real and
+were all hit: a number on screen that drifted from the math, a narration
+stretched until it smeared, an "always" that was false with ties, a chime that
+buried a consonant at the moment of a reveal. Each gate exists because of one of
+those.
+
+**Are the videos AI-generated?** The narration voice is synthetic (FrankenTTS),
+and AI agents write much of the code and the first drafts under the owner's
+direction. The mathematics is checked by code, not by trust: every number
+against an oracle, every claim in a fact sheet with its source, every quote
+verbatim.
+
+**Can I use the research?** The memos and scripts in `docs/research/` are part
+of this repository and carry its license.
+
+## About Contributions
+
+Please don't take this the wrong way, but I do not accept outside contributions for any of my projects. I simply don't have the mental bandwidth to review anything, and it's my name on the thing, so I'm responsible for any problems it causes; thus, the risk-reward is highly asymmetric from my perspective. I'd also have to worry about other "stakeholders," which seems unwise for tools I mostly make for myself for free. Feel free to submit issues, and even PRs if you want to illustrate a proposed fix, but know I won't merge them directly. Instead, I'll have Claude or Codex review submissions via `gh` and independently decide whether and how to address them. Bug reports in particular are welcome. Sorry if this offends, but I want to avoid wasted time and hurt feelings. I understand this isn't in sync with the prevailing open-source ethos that seeks community contributions, but it's the only way I can move at this velocity and keep my sanity.
+
+## License
+
+The source code, research memos and scripts in this repository are licensed
+under the **MIT License with an OpenAI/Anthropic Rider**, Copyright (c) 2026
+Jeffrey Emanuel (see [`LICENSE`](./LICENSE)). The rider withholds all rights
+from OpenAI, Anthropic, their affiliates, and anyone acting on their behalf,
+including any use of the software or derivative works in a machine-learning
+dataset, training corpus, evaluation harness, or pipeline. In any conflict
+between the rider and the rest of the license, the rider controls. Short
+quotations from published works in the research memos are attributed to their
+sources.
+
+## See also
+
+- [`COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md`](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md): the plan (revision 2): mission and the three viewers, the engine's verified capabilities, the repository architecture, the production pipeline and its gates, the pedagogy, visual and sound doctrines, beat-by-beat storyboards for every new video, testing, workstreams, risks and decisions.
+- [`AGENTS.md`](./AGENTS.md): rules for agents working in this repository.
+- [franken_manim](https://github.com/Dicklesworthstone/franken_manim): the animation engine.
+- [FrankenTTS](https://github.com/Dicklesworthstone/franken_tts) and [FrankenWhisper](https://github.com/Dicklesworthstone/franken_whisper): the voice and the ears.

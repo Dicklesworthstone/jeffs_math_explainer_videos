@@ -1,0 +1,7 @@
+K'=10: S=7 H=10 W=17 L=27 P=10 U=0 P1=11; systematic A rank=27 of 27
+   my encoder vs cberner/raptorq packets: 60/60 byte-identical
+K'=26: S=11 H=10 W=37 L=47 P=10 U=0 P1=11; systematic A rank=47 of 47
+   my encoder vs cberner/raptorq packets: 76/76 byte-identical
+K'=101: S=17 H=10 W=113 L=128 P=15 U=5 P1=17; systematic A rank=128 of 128
+   my encoder vs cberner/raptorq packets: 151/151 byte-identical
+systematic A full rank for first 30 K' values; failures: []; max K' checked 149

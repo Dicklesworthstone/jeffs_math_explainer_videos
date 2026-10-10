@@ -1,0 +1,4 @@
+K=10 recv=K+0 trials=20000: failures=127 rate=6.350e-03
+K=10 recv=K+1 trials=20000: failures=1 rate=5.000e-05
+K=10 recv=K+2 trials=20000: failures=0 rate=0.000e+00
+time 25.247047185897827

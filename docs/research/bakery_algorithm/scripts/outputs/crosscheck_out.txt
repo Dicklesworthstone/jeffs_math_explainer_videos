@@ -1,0 +1,6 @@
+False lex [28, 4, 0]
+False strict [52, 24, 0]
+False le [24, 0, 4]
+True lex [322, 0, 0]
+True strict [898, 432, 0]
+True le [250, 0, 72]

@@ -1,0 +1,16 @@
+# Throwaway timing prototype for the sound-design memo; std only, no dependencies.
+# Standalone (empty [workspace]) so it never joins another workspace.
+[package]
+name = "sound_design_proto"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "proto"
+path = "main.rs"
+
+[profile.release]
+opt-level = 3
+
+[workspace]

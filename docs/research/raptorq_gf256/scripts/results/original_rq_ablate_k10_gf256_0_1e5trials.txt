@@ -1,0 +1,1 @@
+K'=10 L=27 mode=gf256 N=K'+0 trials=100000: fails=646 rate=6.460e-03

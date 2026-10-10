@@ -1,0 +1,14 @@
+lost update: 6 schedules; final x -> count: {1: 4, 2: 2}
+naive flag lock N=2: 14 complete schedules | 8 put 2 in CS | 0 deadlock
+one-shot N=2 choosing=no  compare=lex   :             28 complete schedules |            4 put 2+ in CS |          0 end in deadlock
+one-shot N=2 choosing=no  compare=strict:             52 complete schedules |           24 put 2+ in CS |          0 end in deadlock
+one-shot N=2 choosing=no  compare=le    :             24 complete schedules |            0 put 2+ in CS |          4 end in deadlock
+one-shot N=2 choosing=yes compare=lex   :            322 complete schedules |            0 put 2+ in CS |          0 end in deadlock
+one-shot N=2 choosing=yes compare=strict:            898 complete schedules |          432 put 2+ in CS |          0 end in deadlock
+one-shot N=2 choosing=yes compare=le    :            250 complete schedules |            0 put 2+ in CS |         72 end in deadlock
+one-shot N=3 choosing=no  compare=lex   :        792,987 complete schedules |      312,492 put 2+ in CS |          0 end in deadlock
+one-shot N=3 choosing=no  compare=strict:      6,568,884 complete schedules |    5,239,212 put 2+ in CS |          0 end in deadlock
+one-shot N=3 choosing=no  compare=le    :        352,044 complete schedules |       69,348 put 2+ in CS |     31,770 end in deadlock
+one-shot N=3 choosing=yes compare=lex   :  2,126,816,238 complete schedules |            0 put 2+ in CS |          0 end in deadlock
+one-shot N=3 choosing=yes compare=strict: 350,028,003,491 complete schedules | 297,475,502,296 put 2+ in CS |          0 end in deadlock
+one-shot N=3 choosing=yes compare=le    :    450,018,062 complete schedules |            0 put 2+ in CS | 51,403,987 end in deadlock

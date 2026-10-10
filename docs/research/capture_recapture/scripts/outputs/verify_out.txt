@@ -1,0 +1,139 @@
+=== 1. Ratio identity check (exact) ===
+ratio identity L(N)/L(N-1) = (N-M)(N-n)/(N(N-M-n+k)) holds on all tests: True
+
+=== 2. Feller's example M=n=1000, k=100 ===
+9998 0.044289117030532295
+9999 0.04428917172067476
+10000 0.04428917172067476
+10001 0.04428911705490109
+L(9999) == L(10000) exactly: True
+ratio at N=10000: 1
+argmax (lgamma, first max) = 10000
+L_max = q_100(10000) = 0.04428917172067476
+q_100(1900) = (1000!)^2/(100! 1900!); log10 = -429.27152718730594
+  exact log10 check: -429 (digit-count approx)
+P(K<=100 | N=8500)  exact = 0.034677097408900515  (Feller: ~0.04 normal approx)
+P(K>=100 | N=12000) exact = 0.02887469588850519  (Feller: ~0.03)
+N=8500: mean=117.647, sd=9.571, normal P(K<=100) cc=0.0366, nocc=0.0326
+N=12000: mean=83.333, sd=8.368, normal P(K>=100) cc=0.0267, nocc=0.0232
+
+=== 3. Likelihood curve shape for Feller's numbers ===
+  N=    1900: L/Lmax = 0
+  N=    5000: L/Lmax = 6.01221e-20
+  N=    7000: L/Lmax = 7.69354e-05
+  N=    8000: L/Lmax = 0.031992
+  N=    8500: L/Lmax = 0.170675
+  N=    9000: L/Lmax = 0.486131
+  N=    9500: L/Lmax = 0.846874
+  N=   10000: L/Lmax = 1
+  N=   10500: L/Lmax = 0.866049
+  N=   11000: L/Lmax = 0.58487
+  N=   12000: L/Lmax = 0.151834
+  N=   13000: L/Lmax = 0.0231362
+  N=   15000: L/Lmax = 0.000211383
+  N=   20000: L/Lmax = 2.61577e-10
+  N=   50000: L/Lmax = 7.95379e-39
+  N= 1000000: L/Lmax = 3.83755e-162
+half-max (FWHM) range: (9019, 11148)
+LR 95% interval threshold 0.14650006448608432 -> (8445, 12021)
+1/8 likelihood interval: (8390, 12115)  1/32: (7995, 12853)
+
+=== 4. Exact 95% CI by inverting the hypergeometric test ===
+exact (Clopper-Pearson style) 95% CI for N: 8400 12073
+  check: P(K<=100|N=lowN-1)= 0.024941740790476435  P(K<=100|lowN)= 0.025026281991815436
+  check: P(K>=100|N=highN)= 0.025031014230107337  P(K>=100|highN+1)= 0.024981714150567772
+  exact-fraction check lower: 0.024941740790686964 0.025026281992078177
+  exact-fraction check upper: 0.025031014230370425 0.02498171415137104
+
+=== 5. Point estimators and variance formulas ===
+Lincoln-Petersen Mn/k = 10000 10000.0
+Chapman (M+1)(n+1)/(k+1) - 1 = 1001900/101 9919.801980198019
+LP variance approx M^2 n (n-k)/k^3 = 900000.0 SE = 948.6832980505138
+Chapman/Seber variance (M+1)(n+1)(M-k)(n-k)/((k+1)^2(k+2)) = 780028.1114308286 SE = 883.1920014531544
+  normal 95% CI around Chapman: 8188.745657349837 11650.858303046201
+At N=10000: E[K]= 100.0 Var[K]= 81.008100810081 SD= 9.000450033752813
+  1/k map of k=100 +/- 1.96 sd: 8500.446294151796 12141.946454589966
+  Wald on p=k/n: 8432.116090376092 12284.135892169223
+
+=== 6. Chapman exact unbiasedness identity ===
+  N=20, M=5, n=4: M+n>=N? False; E[Chapman]=16.900929, bias=-3.09907
+  N=20, M=8, n=8: M+n>=N? False; E[Chapman]=19.984282, bias=-0.015718
+  N=20, M=10, n=10: M+n>=N? True; E[Chapman]=20.000000, bias=0
+  N=20, M=12, n=9: M+n>=N? True; E[Chapman]=20.000000, bias=0
+  N=50, M=10, n=10: M+n>=N? False; E[Chapman]=47.524423, bias=-2.47558
+  N=100, M=20, n=30: M+n>=N? False; E[Chapman]=99.984898, bias=-0.0151016
+  N=30, M=15, n=15: M+n>=N? True; E[Chapman]=30.000000, bias=0
+  closed form bias = -(N+1)C(N-M,n+1)/C(N+1,n+1) matches: True
+  Feller-scale bias at N=10000: -3.5568158010787473e-45
+  P(K=0) at N=10000: 4.446019751348434e-49  log10: -48.35202861229227
+
+=== 7. Exact sampling distribution of the estimators (no simulation needed) ===
+ N=10000, M=1000, n=1000: E[K]=100.000, P(K=0)=4.446e-49, E[LP|K>0]=10082.5 (bias +0.82%), E[Chapman]=10000.00, LP quantiles 2.5/50/97.5% = 8475/10000/12048, mode K=100
+ N=500, M=50, n=50: E[K]=5.000, P(K=0)=0.003846, E[LP|K>0]=618.6 (bias +23.71%), E[Chapman]=498.46, LP quantiles 2.5/50/97.5% = 278/500/1250, mode K=5
+ N=1000, M=50, n=50: E[K]=2.500, P(K=0)=0.07198, E[LP|K>0]=1241.2 (bias +24.12%), E[Chapman]=935.22, LP quantiles 2.5/50/97.5% = 417/1250/2500, mode K=2
+
+=== 8. Toy lakes ===
+ Hypergeometric pmf for N=20, M=5, n=4:
+  k=0: 1*1365/4845 = 1365/4845 = 0.2817
+  k=1: 5*455/4845 = 2275/4845 = 0.4696
+  k=2: 10*105/4845 = 1050/4845 = 0.2167
+  k=3: 10*15/4845 = 150/4845 = 0.0310
+  k=4: 5*1/4845 = 5/4845 = 0.0010
+ sum check: 1
+  M=5, n=4, k=1: Mn/k=20.000, argmax=[19, 20], Lmax=0.4696, min N=8
+  M=6, n=5, k=2: Mn/k=15.000, argmax=[14, 15], Lmax=0.4196, min N=9
+  M=7, n=5, k=2: Mn/k=17.500, argmax=[17], Lmax=0.4072, min N=10
+  M=5, n=8, k=3: Mn/k=13.333, argmax=[13], Lmax=0.4351, min N=10
+  M=8, n=6, k=2: Mn/k=24.000, argmax=[23, 24], Lmax=0.3786, min N=12
+  M=10, n=10, k=3: Mn/k=33.333, argmax=[33], Lmax=0.3178, min N=17
+  M=10, n=8, k=3: Mn/k=26.667, argmax=[26], Lmax=0.3355, min N=15
+  M=6, n=6, k=2: Mn/k=18.000, argmax=[17, 18], Lmax=0.4000, min N=10
+  M=10, n=10, k=5: Mn/k=20.000, argmax=[19, 20], Lmax=0.3437, min N=15
+
+=== 9. Toy likelihood table M=10, n=8, k=3 (Mn/k=26.67) ===
+  N=15: L=0.0186
+  N=16: L=0.0559, ratio L(N)/L(N-1)=3.0000
+  N=17: L=0.1037, ratio L(N)/L(N-1)=1.8529
+  N=18: L=0.1536, ratio L(N)/L(N-1)=1.4815
+  N=19: L=0.2000, ratio L(N)/L(N-1)=1.3026
+  N=20: L=0.2401, ratio L(N)/L(N-1)=1.2000
+  N=21: L=0.2724, ratio L(N)/L(N-1)=1.1349
+  N=22: L=0.2972, ratio L(N)/L(N-1)=1.0909
+  N=23: L=0.3150, ratio L(N)/L(N-1)=1.0598
+  N=24: L=0.3266, ratio L(N)/L(N-1)=1.0370
+  N=25: L=0.3332, ratio L(N)/L(N-1)=1.0200
+  N=26: L=0.3355, ratio L(N)/L(N-1)=1.0070
+  N=27: L=0.3345, ratio L(N)/L(N-1)=0.9969
+  N=28: L=0.3308, ratio L(N)/L(N-1)=0.9890
+  N=29: L=0.3251, ratio L(N)/L(N-1)=0.9828
+  N=30: L=0.3179, ratio L(N)/L(N-1)=0.9778
+  N=31: L=0.3095, ratio L(N)/L(N-1)=0.9738
+  N=32: L=0.3004, ratio L(N)/L(N-1)=0.9706
+  N=33: L=0.2908, ratio L(N)/L(N-1)=0.9680
+  N=34: L=0.2809, ratio L(N)/L(N-1)=0.9659
+  N=35: L=0.2709, ratio L(N)/L(N-1)=0.9643
+  N=36: L=0.2609, ratio L(N)/L(N-1)=0.9630
+  N=37: L=0.2509, ratio L(N)/L(N-1)=0.9619
+  N=38: L=0.2412, ratio L(N)/L(N-1)=0.9611
+  N=39: L=0.2316, ratio L(N)/L(N-1)=0.9605
+  N=40: L=0.2224, ratio L(N)/L(N-1)=0.9600
+  N=41: L=0.2134, ratio L(N)/L(N-1)=0.9597
+  N=42: L=0.2047, ratio L(N)/L(N-1)=0.9594
+  N=43: L=0.1964, ratio L(N)/L(N-1)=0.9593
+  N=44: L=0.1884, ratio L(N)/L(N-1)=0.9592
+  N=45: L=0.1807, ratio L(N)/L(N-1)=0.9593
+  N=46: L=0.1734, ratio L(N)/L(N-1)=0.9593
+  N=47: L=0.1663, ratio L(N)/L(N-1)=0.9594
+  N=48: L=0.1596, ratio L(N)/L(N-1)=0.9596
+  N=49: L=0.1532, ratio L(N)/L(N-1)=0.9598
+  N=50: L=0.1471, ratio L(N)/L(N-1)=0.9600
+  N=51: L=0.1412, ratio L(N)/L(N-1)=0.9602
+  N=52: L=0.1356, ratio L(N)/L(N-1)=0.9605
+  N=53: L=0.1303, ratio L(N)/L(N-1)=0.9608
+  N=54: L=0.1253, ratio L(N)/L(N-1)=0.9611
+  N=55: L=0.1204, ratio L(N)/L(N-1)=0.9614
+  N=56: L=0.1158, ratio L(N)/L(N-1)=0.9617
+  N=57: L=0.1114, ratio L(N)/L(N-1)=0.9620
+  N=58: L=0.1072, ratio L(N)/L(N-1)=0.9623
+  N=59: L=0.1032, ratio L(N)/L(N-1)=0.9626
+  N=60: L=0.0994, ratio L(N)/L(N-1)=0.9630

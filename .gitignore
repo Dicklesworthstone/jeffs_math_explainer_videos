@@ -1,0 +1,159 @@
+# ---------------------------------------------------------------------------
+# jeffs_math_explainer_videos
+#
+# Sources, scripts, facts, oracles, lexicons, storyboards and research live in
+# git. Everything an explainer *generates* (video, audio, frames, sheets,
+# narration takes, ASR databases, build trees) is regenerable and stays out:
+# a single 4K master is ~200 MB, over GitHub's 100 MB file limit. Finished
+# cuts ship as GitHub Release assets instead (see README "Releases").
+# ---------------------------------------------------------------------------
+
+# --- Rust build output -------------------------------------------------------
+/target/
+target/
+target-*/
+target_*/
+.rch-target/
+.rch-target-*/
+.rch-results/
+
+# --- Rendered media: never commit -------------------------------------------
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.gif
+*.y4m
+*.m4a
+*.aac
+*.flac
+*.mp3
+*.ogg
+*.wav
+*.partial.wav
+**/renders/
+**/draft/
+**/draft_*/
+**/out/
+**/frames/
+**/glyphs_probe/
+**/previous/
+concat.txt
+
+# Contact sheets, cue sheets and other review PNGs are build products.
+# Hand-picked README stills live under docs/media/ and are allowed.
+*.png
+!**/docs/media/*.png
+!docs/media/**/*.png
+
+# --- Narration pipeline work dirs (regenerable with ./x narrate) ------------
+**/narration/
+**/narration_work/
+**/narration_takes/
+**/probes_work/
+# Text records of a *shipped* narration (spoken.tsv, review.tsv, report.json)
+# are kept deliberately; see explainer_corpus/hoeffding_d/narration_v5/.
+
+# --- Music / score stems (regenerable from the score DSL) -------------------
+**/stems/
+**/score_cache/
+
+# --- franken_whisper QA state (SQLite DB, WAL, temp audio) ------------------
+.franken_whisper/
+*.sqlite3
+*.sqlite3-*
+
+# --- ./x driver gate markers and logs (per machine) ------------------------
+**/.x/
+**/logs/
+*.log
+logs_render_all.txt
+nohup.out
+
+# --- Per-machine settings ---------------------------------------------------
+project.env
+**/project.env
+.env
+.env.*
+!.env.example
+!project.env.example
+.claude/settings.local.json
+
+# --- Profiling captures -----------------------------------------------------
+# macOS `sample` output embeds the host's process list and local paths.
+**/perf/mac/
+**/perf/**/sample_*.txt
+*.trace
+flamegraph*.svg
+perf.data
+perf.data.old
+
+# --- franken_manim caches & provenance sidecars ----------------------------
+.fmn-cache/
+*.fmncache
+*.provenance.json
+*.repro-bundle
+*.replay
+*.journal
+
+# --- Python -------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# --- Beads (br): JSONL is canonical and committed; DB and recovery cruft not -
+.beads/*.db
+.beads/*.db-shm
+.beads/*.db-wal
+.beads/*.db-wal-cert
+.beads/*.db-wal-cert-head
+.beads/*.orphan_*
+.beads/*.corrupt_*
+.beads/*.pre_recovery_*
+.beads/*.recover*.sql
+.beads/*.bad_*
+.beads/*.backup_*
+.beads/*.rebuild_*
+.beads/recovery*/
+.beads_recovery/
+.beads_recovery_*/
+.bv/
+.doctor/
+
+# --- Agent coordination / session ephemera ----------------------------------
+.agent-mail-project-id
+.agent-mail.yaml
+.ntm/
+SESSION_TODO.md
+SESSION_REPORT.md
+SESSION_*.md
+.skill-loop-progress*.md
+codex.mcp.json
+cursor.mcp.json
+gemini.mcp.json
+cline.mcp.json
+opencode.json
+windsurf.mcp.json
+*.mcp.json.*.bak
+
+# --- OS / editor cruft -------------------------------------------------------
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- Temporary files -----------------------------------------------------------
+*.tmp
+*.bak
+*.orig
+*.rej
+core
+core.*
+rustc-ice-*.txt

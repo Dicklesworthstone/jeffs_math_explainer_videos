@@ -1,0 +1,103 @@
+=== A. Likelihood is not a distribution over N: area under q_100(N) ===
+sum_N q_100(N) over N=1900..400000 = 101.01010100983189 (not 1)
+tail check: q at N=400000 = 3.148168966944221e-124
+
+=== B. Bayesian posteriors for Feller's data ===
+flat prior on N (1900..400000): mode=10000, median=10121, mean=10184, 95% equal-tail CrI=[8536, 12186]
+prior proportional to 1/N: mode=9919, median=10039, mean=10100, 95% equal-tail CrI=[8475, 12073]
+
+=== C. What-if sensitivities ===
+  k=90: Mn/k=11111.11, MLE=floor -> 11111
+  k=95: Mn/k=10526.32, MLE=floor -> 10526
+  k=99: Mn/k=10101.01, MLE=floor -> 10101
+  k=100: Mn/k=10000.00, MLE=floor -> 9999 & 10000
+  k=101: Mn/k=9900.99, MLE=floor -> 9900
+  k=105: Mn/k=9523.81, MLE=floor -> 9523
+  k=110: Mn/k=9090.91, MLE=floor -> 9090
+  P(K=100 | N=10000) = 0.04428917172054146
+  P(95<=K<=105 | N=10000) = 0.4588259856084514
+  P(91<=K<=109 | N=10000) = 0.7089557334559233
+
+=== D. Toy lake: tag M=10, catch n=10, see k=3 ===
+  N=17: L=0.0062
+  N=18: L=0.0219  ratio=3.5556
+  N=19: L=0.0468  ratio=2.1316
+  N=20: L=0.0779  ratio=1.6667
+  N=21: L=0.1123  ratio=1.4405
+  N=22: L=0.1470  ratio=1.3091
+  N=23: L=0.1800  ratio=1.2246
+  N=24: L=0.2100  ratio=1.1667
+  N=25: L=0.2362  ratio=1.1250
+  N=26: L=0.2584  ratio=1.0940
+  N=27: L=0.2766  ratio=1.0704
+  N=28: L=0.2910  ratio=1.0519
+  N=29: L=0.3019  ratio=1.0374
+  N=30: L=0.3096  ratio=1.0256
+  N=31: L=0.3146  ratio=1.0161
+  N=32: L=0.3172  ratio=1.0083
+  N=33: L=0.3178  ratio=1.0019
+  N=34: L=0.3167  ratio=0.9965
+  N=35: L=0.3142  ratio=0.9921
+  N=36: L=0.3105  ratio=0.9883
+  N=37: L=0.3059  ratio=0.9851
+  N=38: L=0.3006  ratio=0.9825
+  N=39: L=0.2946  ratio=0.9802
+  N=40: L=0.2882  ratio=0.9783
+  N=41: L=0.2815  ratio=0.9766
+  N=42: L=0.2745  ratio=0.9752
+  N=43: L=0.2674  ratio=0.9741
+  N=44: L=0.2602  ratio=0.9731
+  N=45: L=0.2529  ratio=0.9722
+  N=46: L=0.2457  ratio=0.9715
+  N=47: L=0.2386  ratio=0.9709
+  N=48: L=0.2315  ratio=0.9704
+  N=49: L=0.2246  ratio=0.9700
+  N=50: L=0.2178  ratio=0.9697
+  N=51: L=0.2111  ratio=0.9694
+  N=52: L=0.2046  ratio=0.9692
+  N=53: L=0.1983  ratio=0.9691
+  N=54: L=0.1922  ratio=0.9690
+  N=55: L=0.1862  ratio=0.9689
+  N=56: L=0.1804  ratio=0.9689
+  N=57: L=0.1748  ratio=0.9689
+  N=58: L=0.1693  ratio=0.9689
+  N=59: L=0.1641  ratio=0.9689
+  N=60: L=0.1590  ratio=0.9690
+  sum over N of L(N) (to 200000) = 16.666665586837656
+  LR 95% interval: 19 104
+  exact test-inversion 95% CI: 19 138
+  Chapman: 29.25
+  hypergeometric pmf if true N=33: [0.0124, 0.0883, 0.2384, 0.3178, 0.229, 0.0916, 0.0201, 0.0023, 0.0001, 0.0, 0.0]
+  hypergeometric pmf if true N=30: [0.0061, 0.0559, 0.1887, 0.3096, 0.2709, 0.13, 0.0339, 0.0046, 0.0003, 0.0, 0.0]
+
+=== E. Seeded Monte Carlo (numpy) ===
+ N=10000,M=1000,n=1000: k=0 in 0/10000; LP mean=10080.0, median=10000.0, 2.5%=8475, 97.5%=12048, max=15152, skew=0.53; Chapman mean=9997.6
+ N=1000,M=100,n=100: k=0 in 0/10000; LP mean=1103.3, median=1000.0, 2.5%=625, 97.5%=2000, max=10000, skew=4.73; Chapman mean=1000.3
+ N=1000,M=50,n=50: k=0 in 663/10000; LP mean=1228.7, median=833.3, 2.5%=417, 97.5%=2500, max=2500, skew=0.95; Chapman mean=920.2
+ N=500,M=50,n=50: k=0 in 32/10000; LP mean=617.8, median=500.0, 2.5%=278, 97.5%=2500, max=2500, skew=3.01; Chapman mean=495.6
+ exact N=1000,M=n=100: P(K=0)=1.47e-05, E[LP|K>0]=1102.0, E[Chapman]=999.988
+  exact LP quantiles 2.5/50/97.5: {0.025: 625.0, 0.5: 1000.0, 0.975: 2000.0}
+  pmf of K at N=1000,M=n=100 (k:prob) for 3..18: [(3, 0.0045), (4, 0.0131), (5, 0.0299), (6, 0.0559), (7, 0.0874), (8, 0.1169), (9, 0.1359), (10, 0.139), (11, 0.1262), (12, 0.1026), (13, 0.0752), (14, 0.0499), (15, 0.0302), (16, 0.0167), (17, 0.0085), (18, 0.004)]
+
+=== F. Assumption violations (simulation, N=10000, M=n=1000) ===
+ ideal: (np.float64(10000.0), np.float64(10078.682783242877))
+ heterogeneity (30% of fish 3x catchable, both catches): (np.float64(7751.937984496124), np.float64(7796.0891785628555))
+ trap-happy (tagged 1.5x more catchable later): (np.float64(7142.857142857143), np.float64(7177.400676895555))
+ trap-shy (tagged 0.67x as catchable later): (np.float64(14492.753623188406), np.float64(14546.025234896006))
+ tag loss 20%: median estimate 12500.0 (theory ~ 10000/0.8 = 12500)
+ recruitment +2000 untagged: median 12121.657361151925 (estimates ~12000 = population at 2nd catch)
+ 30% random deaths (no births): median 10000.0 (estimates ~10000 = population at 1st catch)
+ no mixing, 2nd catch mostly SAME side: 6250.0
+ no mixing, 2nd catch mostly OTHER side: 25000.0
+
+=== G. History arithmetic ===
+ Laplace: annual births in sample = 71866.33333333333  ratio = 28.3528448647721  x 1,000,000 = 28352844.8647721
+ Laplace 1783: 26 x 973054.5 = 25299417.0 ; 26.5 x 973054.5 = 25785944.25
+ Graunt: 8 x 48000 = 384000 ; 13000*11/3 = 47666.666666666664
+ Lincoln hypothetical: 5000 banded, 600 returns, 5,000,000 killed -> 41666666.666666664
+ Dahl/Ricker Rodli tarn 109,177,57: LP = 338.4736842105263  Chapman = 336.58620689655174
+ Silverman fish example 100,100,20 -> 500.0
+ Kosovo: 4400 named vs 10356 estimated, ratio 2.3536363636363635
+ Feller p(n=1900) log10 check done in verify.py
+ German tank: serials seen {19, 40, 42, 60}: m + m/k - 1 = 74.0
+ Two reviewers A=30, B=24, overlap=12: N_hat=60.0, missed-by-both est=18.0; Chapman=58.62

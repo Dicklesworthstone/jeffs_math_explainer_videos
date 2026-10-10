@@ -1,0 +1,7 @@
+P1R P1W P2R P2W -> x = 43 | through (1,1): False
+P1R P2R P1W P2W -> x = 42 | through (1,1): True
+P1R P2R P2W P1W -> x = 42 | through (1,1): True
+P2R P1R P1W P2W -> x = 42 | through (1,1): True
+P2R P1R P2W P1W -> x = 42 | through (1,1): True
+P2R P2W P1R P1W -> x = 43 | through (1,1): False
+schedules: 6 lost updates: 4 through (1,1): 4 both: 4

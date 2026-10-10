@@ -1,0 +1,5 @@
+== FCFS ghost check + Assertion 2 (correct algorithm) ==
+N=2 K=6 correct       atomic states=      498 pruned=     20 result=OK (no violation) | Assertion2 checked in 84 CS states  (0.0s)
+N=2 K=6 correct       safe   states=    2,304 pruned=     76 result=OK (no violation) | Assertion2 checked in 248 CS states  (0.0s)
+N=3 K=4 correct       atomic states=   32,491 pruned=  2,106 result=OK (no violation) | Assertion2 checked in 2,194 CS states  (3.5s)
+N=3 K=4 correct       safe   states=  168,742 pruned= 10,913 result=OK (no violation) | Assertion2 checked in 8,930 CS states  (23.7s)

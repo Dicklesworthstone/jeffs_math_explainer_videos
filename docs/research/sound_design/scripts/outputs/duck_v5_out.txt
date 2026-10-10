@@ -1,0 +1,8 @@
+lines c*: 8 sentences, 65.6 s, speech-active fraction 0.80
+silent gaps: n=57, >=0.15 s 25, >=0.7 s 2, >=1.0 s 0, >=1.5 s 0; max 0.75 s
+merge gaps < 0.7 s -> 3 speech region(s)
+merge gaps < 1.2 s -> 1 speech region(s)
+merge gaps < 1.5 s -> 1 speech region(s)
+real 3.72
+user 0.21
+sys 0.08

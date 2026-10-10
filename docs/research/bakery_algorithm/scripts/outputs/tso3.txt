@@ -1,0 +1,2 @@
+TSO N=2 K=6 B=4 fences=F1+F2: states=1,811 -> OK (0s)
+TSO N=3 K=3 B=3 fences=F1+F2: states=37,580 -> OK (3s)
