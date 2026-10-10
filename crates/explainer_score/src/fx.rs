@@ -1,13 +1,14 @@
-//! Envelopes and effects: exponential ADSR, raised-cosine ramps, a fractional
-//! delay line, Juno- and Solina-style chorus, tape (wow, flutter, head bump,
-//! high-frequency shelf), an 8-line feedback-delay-network reverb, a ping-pong
-//! delay and constant-power panning.
+//! Envelopes and effects: exponential ADSR, raised-cosine ramps, breakpoint
+//! automation, a fractional delay line, asymmetric "warmth" saturation, Juno-
+//! and Solina-style chorus, tape (wow, flutter, head bump, high-frequency
+//! shelf), an 8-line feedback-delay-network reverb with early reflections, a
+//! Dattorro plate, a ping-pong delay, mid/side and constant-power panning.
 //!
 //! Parameters follow docs/research/sound_design/MEMO.md §3.3–3.4.
 
 use std::f64::consts::{FRAC_PI_2, TAU};
 
-use crate::filter::{Biquad, DcBlock, Kind, OnePole};
+use crate::filter::{AdaaTanh, Biquad, DcBlock, Kind, OnePole};
 use crate::rng::Rng;
 use crate::{FS, Stereo};
 
@@ -62,6 +63,81 @@ impl Adsr {
 #[inline]
 pub fn rcos(u: f64) -> f64 {
     0.5 - 0.5 * (std::f64::consts::PI * u.clamp(0.0, 1.0)).cos()
+}
+
+/// Breakpoint automation: `(seconds, value)` points joined by raised-cosine
+/// segments (smooth at every breakpoint), constant before the first point and
+/// after the last. Drives slow musical moves: intensity, cutoff, sends.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Automation {
+    points: Vec<(f64, f64)>,
+}
+
+impl Automation {
+    /// Points are sorted by time; an empty list is a constant 0.
+    pub fn new(points: &[(f64, f64)]) -> Self {
+        let mut points = points.to_vec();
+        points.sort_by(|a, b| a.0.total_cmp(&b.0));
+        Self { points }
+    }
+
+    /// The value at `t` seconds.
+    pub fn at(&self, t: f64) -> f64 {
+        let Some(&(t0, v0)) = self.points.first() else {
+            return 0.0;
+        };
+        if t <= t0 {
+            return v0;
+        }
+        for w in self.points.windows(2) {
+            let ((ta, va), (tb, vb)) = (w[0], w[1]);
+            if t <= tb {
+                let u = if tb > ta { (t - ta) / (tb - ta) } else { 1.0 };
+                return va + (vb - va) * rcos(u);
+            }
+        }
+        self.points[self.points.len() - 1].1
+    }
+
+    /// One value per sample for `n` samples at 48 kHz.
+    pub fn render(&self, n: usize) -> Vec<f64> {
+        (0..n).map(|i| self.at(i as f64 / FS)).collect()
+    }
+}
+
+// ----------------------------------------------------------------- saturation
+
+/// Asymmetric soft saturation, the even-harmonic "warmth" of a biased tube or
+/// tape stage: first-order ADAA tanh of `drive·x + bias`, minus the bias's
+/// static offset, scaled to unity small-signal gain, then a DC blocker (the
+/// asymmetry rectifies a little of every signal into DC).
+#[derive(Clone, Debug)]
+pub struct Warmth {
+    sat: AdaaTanh,
+    dc: DcBlock,
+    drive: f64,
+    bias: f64,
+    norm: f64,
+}
+
+impl Warmth {
+    pub fn new(drive: f64, bias: f64) -> Self {
+        let drive = drive.max(1e-3);
+        let slope = 1.0 - bias.tanh().powi(2);
+        Self {
+            sat: AdaaTanh::default(),
+            dc: DcBlock::default(),
+            drive,
+            bias,
+            norm: 1.0 / (drive * slope),
+        }
+    }
+
+    #[inline]
+    pub fn process(&mut self, x: f64) -> f64 {
+        let y = self.sat.process(self.drive * x + self.bias) - self.bias.tanh();
+        self.dc.process(y * self.norm)
+    }
 }
 
 // ----------------------------------------------------------------- delay line
@@ -264,10 +340,22 @@ pub struct Fdn {
     dc: [DcBlock; 2],
 }
 
+/// Early reflections: (delay after the pre-delay in ms, gain); alternate taps
+/// go left and right, so the first echoes already give the room its width.
+const EARLY: [(f64, f64); 6] = [
+    (7.3, 0.5),
+    (11.9, -0.42),
+    (17.1, 0.36),
+    (23.3, -0.3),
+    (29.7, 0.25),
+    (37.1, -0.2),
+];
+
 const FDN_LENS: [f64; 8] = [1_427.0, 1_637.0, 1_871.0, 2_053.0, 2_311.0, 2_539.0, 2_833.0, 3_373.0];
 
 impl Fdn {
-    /// `t60` seconds; `damping_hz` loop low-pass; `predelay_ms`.
+    /// `t60` seconds; `damping_hz` loop low-pass; `predelay_ms` (20–40 ms is
+    /// typical; the six early reflections follow it within 40 ms).
     pub fn new(t60: f64, damping_hz: f64, predelay_ms: f64) -> Self {
         let lens = FDN_LENS;
         let gains = lens.map(|m| 10f64.powf(-3.0 * m / (t60.max(0.05) * FS)));
@@ -276,7 +364,7 @@ impl Fdn {
             lens,
             gains,
             damp: (0..8).map(|_| OnePole::new(damping_hz)).collect(),
-            pre: DelayLine::new((predelay_ms.max(0.0) * 1e-3 * FS) as usize + 4),
+            pre: DelayLine::new(((predelay_ms.max(0.0) + 40.0) * 1e-3 * FS) as usize + 4),
             pre_d: (predelay_ms * 1e-3 * FS).max(1.0),
             diff: [142.0, 107.0, 379.0, 277.0]
                 .iter()
@@ -291,6 +379,11 @@ impl Fdn {
     pub fn process(&mut self, l: f64, r: f64) -> (f64, f64) {
         self.pre.push(0.5 * (l + r));
         let mut x = self.pre.read(self.pre_d);
+        let (mut el, mut er) = (0.0, 0.0);
+        for (k, &(ms, g)) in EARLY.iter().enumerate() {
+            let tap = g * self.pre.read(self.pre_d + ms * 1e-3 * FS);
+            if k % 2 == 0 { el += tap } else { er += tap }
+        }
         // Schroeder allpass diffusion, g = 0.6
         for (line, d) in &mut self.diff {
             let delayed = line.read(*d);
@@ -314,7 +407,10 @@ impl Fdn {
         }
         let wl = outs[0] + outs[2] + outs[4] + outs[6];
         let wr = outs[1] + outs[3] + outs[5] + outs[7];
-        (self.dc[0].process(0.25 * wl), self.dc[1].process(0.25 * wr))
+        (
+            self.dc[0].process(0.25 * wl + 0.5 * el),
+            self.dc[1].process(0.25 * wr + 0.5 * er),
+        )
     }
 
     /// Wet response of a whole stereo buffer, with a tail of `tail_s` seconds.
@@ -470,6 +566,28 @@ pub fn ping_pong(input: &Stereo, time_s: f64, feedback: f64, lp_hz: f64, mix: f6
     out
 }
 
+/// Split into mid (L+R)/2 and side (L−R)/2.
+pub fn mid_side(x: &Stereo) -> (Vec<f64>, Vec<f64>) {
+    let mid = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a + b)).collect();
+    let side = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a - b)).collect();
+    (mid, side)
+}
+
+/// Join mid and side back into left/right (exact inverse of [`mid_side`]).
+pub fn from_mid_side(mid: &[f64], side: &[f64]) -> Stereo {
+    Stereo {
+        l: mid.iter().zip(side).map(|(m, s)| m + s).collect(),
+        r: mid.iter().zip(side).map(|(m, s)| m - s).collect(),
+    }
+}
+
+/// Scale the stereo width: 0 = mono, 1 = unchanged, > 1 = wider.
+pub fn width(x: &Stereo, w: f64) -> Stereo {
+    let (m, s) = mid_side(x);
+    let s: Vec<f64> = s.iter().map(|v| v * w).collect();
+    from_mid_side(&m, &s)
+}
+
 /// Constant-power pan of a mono signal; `pan` in [−1 (left), +1 (right)].
 pub fn pan(mono: &[f64], pan: f64) -> Stereo {
     let a = (pan.clamp(-1.0, 1.0) + 1.0) * 0.5 * FRAC_PI_2;
@@ -573,9 +691,83 @@ mod tests {
             let g = 20.0 * (rms(&y[4_800..]) / r0).log10();
             assert!((-3.1..=0.1).contains(&g), "{name}: {g:.2} dB");
         }
-        // Tape is one path with gentle EQ: level within ±1.5 dB.
+        // Tape is one path with gentle EQ: level within ±1 dB.
         let g = 20.0 * (rms(&t[4_800..]) / r0).log10();
-        assert!(g.abs() < 1.5, "tape: {g:.2} dB");
+        assert!(g.abs() < 1.0, "tape: {g:.2} dB");
+    }
+
+    #[test]
+    fn automation_is_smooth_and_hits_its_breakpoints() {
+        let a = Automation::new(&[(2.0, 1.0), (0.0, 0.0), (4.0, 0.25)]);
+        assert_eq!(a.at(-1.0), 0.0);
+        assert_eq!(a.at(0.0), 0.0);
+        assert_eq!(a.at(2.0), 1.0);
+        assert_eq!(a.at(4.0), 0.25);
+        assert_eq!(a.at(9.0), 0.25);
+        assert!((a.at(1.0) - 0.5).abs() < 1e-12, "raised-cosine midpoint");
+        let v = a.render((5.0 * FS) as usize);
+        let max_step = v.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
+        assert!(max_step < 1e-4, "{max_step}");
+        assert!(
+            v[..(2.0 * FS) as usize].windows(2).all(|w| w[1] >= w[0]),
+            "monotone rise"
+        );
+        assert_eq!(Automation::new(&[]).at(3.0), 0.0);
+    }
+
+    #[test]
+    fn warmth_adds_even_harmonics_at_unity_gain_without_dc() {
+        let mut w = Warmth::new(2.0, 0.3);
+        let small: Vec<f64> = (0..48_000)
+            .map(|i| 0.01 * (TAU * 500.0 * i as f64 / FS).sin())
+            .collect();
+        let y: Vec<f64> = small.iter().map(|&v| w.process(v)).collect();
+        let g = 20.0 * (rms(&y[24_000..]) / rms(&small[24_000..])).log10();
+        assert!(g.abs() < 0.2, "small-signal gain {g:.2} dB");
+        let mut w = Warmth::new(2.0, 0.3);
+        let big: Vec<f64> = (0..48_000).map(|i| 0.5 * (TAU * 500.0 * i as f64 / FS).sin()).collect();
+        let y: Vec<f64> = big.iter().map(|&v| w.process(v)).collect();
+        let seg = &y[24_000..];
+        let at = |f: f64| {
+            let (mut re, mut im) = (0.0, 0.0);
+            for (i, v) in seg.iter().enumerate() {
+                let a = TAU * f * i as f64 / FS;
+                re += v * a.cos();
+                im += v * a.sin();
+            }
+            (re * re + im * im).sqrt()
+        };
+        let h2 = 20.0 * (at(1_000.0) / at(500.0)).log10();
+        assert!(h2 > -40.0 && h2 < -10.0, "second harmonic {h2:.1} dB");
+        let mean = seg.iter().sum::<f64>() / seg.len() as f64;
+        assert!(mean.abs() < 1e-3, "DC {mean}");
+    }
+
+    #[test]
+    fn mid_side_round_trips_and_width_scales_the_side() {
+        let x = Stereo {
+            l: vec![1.0, 0.5, -0.25],
+            r: vec![0.0, 0.5, 0.75],
+        };
+        let (m, s) = mid_side(&x);
+        assert_eq!(from_mid_side(&m, &s), x);
+        let mono = width(&x, 0.0);
+        assert_eq!(mono.l, mono.r);
+        assert_eq!(width(&x, 1.0), x);
+    }
+
+    #[test]
+    fn fdn_early_reflections_arrive_first_and_alternate_sides() {
+        let mut f = Fdn::new(1.6, 6_000.0, 20.0);
+        let mut imp = Stereo::silence(1);
+        imp.l[0] = 1.0;
+        imp.r[0] = 1.0;
+        let out = f.run(&imp, 0.2);
+        let first = |v: &[f64]| v.iter().position(|x| x.abs() > 1e-3).unwrap() as f64 / FS * 1e3;
+        // the first echo: 20 ms pre-delay + 7.3 ms, on the left; the right's
+        // first is the 11.9 ms tap; the FDN's own tail arrives later
+        assert!((first(&out.l) - 27.3).abs() < 0.2, "left {:.2} ms", first(&out.l));
+        assert!((first(&out.r) - 31.9).abs() < 0.2, "right {:.2} ms", first(&out.r));
     }
 
     #[test]

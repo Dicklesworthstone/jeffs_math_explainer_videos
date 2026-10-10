@@ -664,6 +664,31 @@ mod tests {
     }
 
     #[test]
+    fn modal_frequencies_are_within_half_a_percent_of_the_recipe() {
+        // Scan ±3% around each mode in 0.02% steps for the windowed-DFT peak.
+        // Each mode is a decaying sinusoid at exactly f0·ratio, so the peak sits
+        // there unless another mode or the window bias pulls it away.
+        for (inst, ratios) in [
+            (Instrument::Marimba, vec![1.0, 3.92, 9.2]),
+            (Instrument::Vibraphone, vec![1.0, 4.0, 10.0]),
+            (Instrument::Kalimba, vec![1.0, 2.0, 5.9]),
+        ] {
+            let x = render(inst, &Note::new(57.0, 1.0, 0.5, 4)).l;
+            let seg = &x[480..480 + 16_384];
+            let f0 = midi_to_hz(57.0);
+            for r in ratios {
+                let target = f0 * r;
+                let best = (-150..=150)
+                    .map(|k| target * (1.0 + f64::from(k) * 2e-4))
+                    .max_by(|a, b| level_at(seg, *a).total_cmp(&level_at(seg, *b)))
+                    .unwrap();
+                let err = (best / target - 1.0) * 100.0;
+                assert!(err.abs() < 0.5, "{inst:?} mode {r}: peak {best:.1} Hz, {err:+.3}%");
+            }
+        }
+    }
+
+    #[test]
     fn no_bare_sines_above_100_hz() {
         // Hard rule 3 (plan §7.3): at least three partials above −40 dB.
         for inst in ALL.iter().filter(|i| !matches!(i, Instrument::Bass)) {

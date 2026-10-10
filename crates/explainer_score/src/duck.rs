@@ -10,7 +10,7 @@
 //! Plan §7.2; docs/research/sound_design/MEMO.md §2.3.
 
 use crate::filter::{Biquad, Kind, filtfilt};
-use crate::fx::rcos;
+use crate::fx::{from_mid_side, mid_side, rcos};
 use crate::units::db_to_gain;
 use crate::{FS, Stereo};
 
@@ -136,15 +136,20 @@ pub fn duck_curve(regions: &[(f64, f64)], n: usize, shape: DuckShape) -> Vec<f64
 
 /// Release the duck inside authored windows (`(start_s, length_s)`): music
 /// breaths and listen windows, where the music is meant to be heard. The duck
-/// fades out over `ramp_s` at the window's start and back in at its end.
-pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], ramp_s: f64) {
+/// fades out over `shape.attack` from the window's start and is fully back
+/// where the next line's own duck attack begins (`pre_roll + attack` before
+/// the window ends, since the next line starts when the window does), so the
+/// voice never enters over a half-ducked bed.
+pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], shape: DuckShape) {
+    let ramp = shape.attack;
     for &(start, len) in windows {
-        let (a, b) = (start, start + len);
+        let a = start;
+        let b = start + len - shape.pre_roll - shape.attack;
         let i0 = (a.max(0.0) * FS) as usize;
-        let i1 = ((b * FS) as usize).min(u.len());
+        let i1 = ((b.max(0.0) * FS) as usize).min(u.len());
         for (i, v) in u.iter_mut().enumerate().take(i1).skip(i0) {
             let t = i as f64 / FS;
-            let open = rcos(((t - a) / ramp_s).min((b - t) / ramp_s));
+            let open = rcos(((t - a) / ramp).min((b - t) / ramp));
             *v *= 1.0 - open;
         }
     }
@@ -154,12 +159,10 @@ pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], ramp_s: f64) {
 /// narrator's centre), then −5 dB around 2 kHz (≈1–4 kHz) and a 2.2 kHz
 /// low-pass on both channels: ≈ −9.5 dB at 2 kHz, ≥ 12 dB down from 2.5 kHz up.
 pub fn pocket(x: &Stereo) -> Stereo {
-    let mid: Vec<f64> = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a + b)).collect();
-    let side: Vec<f64> = x.l.iter().zip(&x.r).map(|(a, b)| 0.5 * (a - b)).collect();
+    let (mid, side) = mid_side(x);
     // filtfilt squares the magnitude: design each pass for half the dB
     let mid = filtfilt(&mid, || Biquad::new(Kind::Peaking { q: 0.8, db: -1.5 }, 550.0));
-    let l: Vec<f64> = mid.iter().zip(&side).map(|(m, s)| m + s).collect();
-    let r: Vec<f64> = mid.iter().zip(&side).map(|(m, s)| m - s).collect();
+    let Stereo { l, r } = from_mid_side(&mid, &side);
     let bell = || Biquad::new(Kind::Peaking { q: 0.7, db: -2.5 }, 2_000.0);
     // hard rule 2: under speech, content above 2.5 kHz is cut by ≥ 12 dB; a
     // 2.2 kHz Butterworth run forward and back (≈ −8.5 dB at 2.5 kHz, 4th-order
@@ -263,11 +266,31 @@ mod tests {
     fn listen_windows_release_the_duck_fully() {
         let n = (10.0 * FS) as usize;
         let mut u = duck_curve(&[(1.0, 9.0)], n, DuckShape::default());
-        release_windows(&mut u, &[(4.0, 3.0)], 0.3);
+        release_windows(&mut u, &[(4.0, 3.0)], DuckShape::default());
         let at = |t: f64| u[(t * FS) as usize];
         assert!((at(3.5) - 1.0).abs() < 1e-9, "outside the window: still ducked");
         assert!(at(5.5).abs() < 1e-9, "inside: fully released");
         assert!(at(4.15) > 0.0 && at(4.15) < 1.0, "smooth ramp in");
+        assert!((at(6.62) - 1.0).abs() < 1e-9, "back down before the window ends");
+        let max_step = u.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
+        assert!(max_step < 1e-3, "{max_step}");
+    }
+
+    #[test]
+    fn a_two_and_a_half_second_breath_is_heard_and_the_next_line_is_ducked() {
+        // A line ends at 5.0 s, `music_breath(2.5)`, the next line at 7.5 s.
+        let shape = DuckShape::default();
+        let n = (12.0 * FS) as usize;
+        let mut u = duck_curve(&[(0.5, 5.0), (7.5, 11.0)], n, shape);
+        release_windows(&mut u, &[(5.0, 2.5)], shape);
+        let at = |t: f64| u[(t * FS) as usize];
+        // open from one ramp after the breath starts until the next attack's ramp
+        for t in [5.31, 5.8, 6.4, 6.8] {
+            assert!(at(t) < 1e-9, "t = {t}: u = {}", at(t));
+        }
+        // fully ducked where the next line's pre-roll begins, and while it speaks
+        assert!((at(7.42) - 1.0).abs() < 1e-9, "{}", at(7.42));
+        assert!((at(7.5) - 1.0).abs() < 1e-9);
         let max_step = u.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
         assert!(max_step < 1e-3, "{max_step}");
     }
@@ -284,6 +307,23 @@ mod tests {
             let e = |v: &[f64]| v[12_000..36_000].iter().map(|s| s * s).sum::<f64>();
             10.0 * (e(&y.l) / e(&x.l)).log10()
         };
+        // the designed response (each biquad's magnitude, doubled by filtfilt;
+        // a centred tone has no side, so the mid-only bell applies in full)
+        let designed = |hz: f64| {
+            2.0 * (Biquad::new(Kind::Peaking { q: 0.8, db: -1.5 }, 550.0).magnitude_db(hz)
+                + Biquad::new(Kind::Peaking { q: 0.7, db: -2.5 }, 2_000.0).magnitude_db(hz)
+                + Biquad::new(
+                    Kind::LowPass {
+                        q: std::f64::consts::FRAC_1_SQRT_2,
+                    },
+                    2_200.0,
+                )
+                .magnitude_db(hz))
+        };
+        for hz in [80.0, 300.0, 550.0, 1_000.0, 2_000.0, 2_500.0, 4_000.0] {
+            let (m, d) = (gain_db(hz), designed(hz));
+            assert!((m - d).abs() < 0.5, "{hz} Hz: measured {m:.2}, designed {d:.2}");
+        }
         assert!(gain_db(80.0).abs() < 0.3, "bass spared: {}", gain_db(80.0));
         assert!((gain_db(550.0) + 3.0).abs() < 1.2, "centre: {}", gain_db(550.0));
         assert!(gain_db(1_500.0) < -4.0, "consonant band: {}", gain_db(1_500.0));
