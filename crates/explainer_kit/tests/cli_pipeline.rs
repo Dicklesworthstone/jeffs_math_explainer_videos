@@ -275,6 +275,19 @@ fn the_pcm_master_replays_nulls_and_joins() {
     assert_eq!(frames, chapter_frames, "the join keeps every frame");
     assert_eq!(probe("stream=codec_name", "a:0"), "aac");
     explainer_kit::master::check_timestamps(&master, 60, chapter_frames).expect("every frame on its slot");
+    // verify_video.sh's decode gate: the whole file decodes, video and
+    // audio, without a single complaint
+    let decode = std::process::Command::new("ffmpeg")
+        .args(["-nostdin", "-v", "error", "-xerror", "-i"])
+        .arg(&master)
+        .args(["-f", "null", "-"])
+        .output()
+        .unwrap();
+    assert!(
+        decode.status.success() && decode.stderr.is_empty(),
+        "decode: {}",
+        String::from_utf8_lossy(&decode.stderr)
+    );
     // planted negative: the raw Annex-B join this replaced loses the
     // presentation times of B-frames, and the timestamp gate must see it
     let raw = root.join("annexb");

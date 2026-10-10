@@ -208,7 +208,7 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, work: &Path, out: &Path) ->
         ));
     }
     std::fs::create_dir_all(work)?;
-    let mut list = String::new();
+    let mut parts = Vec::new();
     for (k, c) in chapters.iter().enumerate() {
         let part = work.join(format!("{k:02}.video.mp4"));
         ffmpeg(&[
@@ -221,11 +221,10 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, work: &Path, out: &Path) ->
             "-an",
             &part.to_string_lossy(),
         ])?;
-        // the concat list quotes with ' (a ' inside is written '\'')
-        list.push_str(&format!("file '{}'\n", part.to_string_lossy().replace('\'', r"'\''")));
+        parts.push(part);
     }
     let list_path = work.join("chapters.txt");
-    std::fs::write(&list_path, list)?;
+    std::fs::write(&list_path, concat_list(&parts)?)?;
     ffmpeg(&[
         "-f",
         "concat",
@@ -253,6 +252,19 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, work: &Path, out: &Path) ->
         "+faststart",
         &out.to_string_lossy(),
     ])
+}
+
+/// The concat demuxer's list: each part by its absolute path (the demuxer
+/// resolves a relative entry against the list file's own directory, so a
+/// relative `--out` named every part twice over), quoted with ', a ' inside
+/// written '\''.
+fn concat_list(parts: &[PathBuf]) -> io::Result<String> {
+    let mut list = String::new();
+    for p in parts {
+        let abs = std::fs::canonicalize(p)?;
+        list.push_str(&format!("file '{}'\n", abs.to_string_lossy().replace('\'', r"'\''")));
+    }
+    Ok(list)
 }
 
 /// The joined video's timestamps, read back: decode times strictly
@@ -346,6 +358,24 @@ pub fn probe(path: &Path) -> io::Result<(u64, f64)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_concat_list_names_every_part_absolutely_and_quotes_safely() {
+        // cargo runs tests from the package root: this path is relative
+        let list = concat_list(&[PathBuf::from("Cargo.toml")]).unwrap();
+        let path = list.strip_prefix("file '").unwrap().strip_suffix("'\n").unwrap();
+        assert!(Path::new(path).is_absolute(), "{list}");
+        assert!(Path::new(path).ends_with("crates/explainer_kit/Cargo.toml"), "{list}");
+        // a quote in a path is closed, escaped and reopened
+        let odd = tmp("it's.mp4");
+        std::fs::write(&odd, b"x").unwrap();
+        let list = concat_list(std::slice::from_ref(&odd)).unwrap();
+        assert!(list.contains(r"it'\''s.mp4'"), "{list}");
+        assert!(
+            concat_list(&[tmp("missing.mp4")]).is_err(),
+            "a missing part is an error"
+        );
+    }
 
     fn tmp(name: &str) -> PathBuf {
         let d = std::env::temp_dir().join(format!("explainer_kit_master_{}", std::process::id()));
