@@ -7,9 +7,11 @@
 //! number formatting); narration (script.tsv, the Narrator, the
 //! exact cue log and the score engine's timeline); the layout lint; the
 //! NumPy-parity stats kit and the facts harness; the delivery encoder
-//! (quality runner, raised caps, camera route, soundtrack capture). The CLI
-//! lands through bead W1-kit-cli.
+//! (quality runner, raised caps, camera route, soundtrack capture); and the
+//! shared CLI (`cli::run`) with the two-pass score (`render --timeline-only`,
+//! `score`, `render --score`).
 
+pub mod cli;
 pub mod encode;
 pub mod facts;
 pub mod kit;
@@ -20,6 +22,7 @@ pub mod play;
 pub mod plot;
 pub mod stats;
 
+pub use cli::{Chapter, Explainer};
 pub use facts::{Fact, Facts, choose, oracle_diff};
 pub use kit::{GROUP_TRANSFORM_LIMIT, Kit, Registered, TextKind, live_bar};
 pub use layout::Linter;

@@ -1,0 +1,766 @@
+//! The shared command line (plan §3.3): each explainer's `main.rs` describes
+//! the video as an [`Explainer`] and hands over to [`run`], so every video gets
+//! the same commands, flags, safety rules and outputs.
+//!
+//! The music is scored in two passes (D-22): `render --timeline-only` runs
+//! every chapter at 64×36 with the real narration to record its timeline;
+//! `score` renders the music for the whole video from all the timelines
+//! (cached under a fingerprint), slices it per chapter and runs the §7.6 QA,
+//! failing on any violation; `render --score DIR` then lays each chapter's
+//! stem under it, refusing a stem whose length is not the scene's.
+
+use std::error::Error;
+use std::io;
+use std::path::{Path, PathBuf};
+use std::rc::Rc;
+use std::time::Instant;
+
+use explainer_score::qa::{self, ScoreFacts};
+use explainer_score::score::{self, ChapterPlan, Identity, Section};
+use explainer_score::timeline::ChapterTimeline;
+use explainer_score::wav;
+use fmn::prelude::*;
+
+use crate::encode::{self, Quality};
+use crate::facts::Facts;
+use crate::kit::Kit;
+use crate::layout::Linter;
+use crate::narration::{Narrator, Script};
+use crate::palette::{BACKGROUND, Palette, ink_style};
+use crate::plot::v;
+
+/// One chapter: its key (`NN_name`), its scene, and how intense its music is.
+pub struct Chapter {
+    pub key: &'static str,
+    pub make: fn(Kit) -> Box<dyn SceneConstruct>,
+    /// 0..1, the score's intensity for this chapter.
+    pub intensity: f64,
+}
+
+/// Everything the shared CLI needs to know about a video.
+pub struct Explainer {
+    pub crate_name: &'static str,
+    /// `include_str!("../script.tsv")`.
+    pub script: &'static str,
+    pub chapters: fn() -> Vec<Chapter>,
+    /// Every number the video shows or says; `self_check` runs first, always.
+    pub facts: fn() -> Result<Facts, String>,
+    /// Every Text and Tex string the video uses, for the glyph probe.
+    pub glyph_text: &'static [&'static str],
+    pub glyph_tex: &'static [&'static str],
+    /// The video's musical identity.
+    pub identity: fn() -> Identity,
+}
+
+const USAGE: &str = "\
+usage: CRATE <command> [options]
+
+commands:
+  facts                    print every number the video shows or says (key<TAB>value)
+  script                   print the narration as TSV (id, text)
+  chapters                 print the chapter keys, in order
+  glyphs [OUT_DIR]         render the typesetting probe pages; exits 1 if any string fails
+  render [all|CHAPTER...]  render chapters to OUT/<chapter>.mp4
+  score                    score the music from the chapters' timelines (OUT/<chapter>.timeline.tsv,
+                           or --timelines DIR) into OUT/stems/, with QA; exits 1 on any QA failure
+  help                     show this text
+
+render options:
+  --res WxH         frame size (default 1920x1080; drafts 960x540, final 3840x2160)
+  --fps N           frame rate (default 60)
+  --out DIR         output directory (default renders)
+  --narration DIR   the voice-over: one <id>.wav per script line; writes OUT/<chapter>.cues.tsv
+                    (id, start s, length s), .cuelog.tsv (every cue, exact) and .timeline.tsv
+  --scratch-voice   time the beats from estimated line lengths (no audio; drafts)
+  --silent          no narration
+  --lint            layout lint at every beat: OUT/<chapter>.layout.tsv
+  --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
+  --score DIR       lay DIR/<chapter>.music.f32.wav under each chapter (needs --narration)
+  --crf N           delivery quality: x264 CRF or NVENC constant quality; also --preset, --gpu, AAC 256k
+  --preset NAME     x264 preset, ultrafast..veryslow (with --crf)
+  --encoder NAME    libx264 (default), h264_nvenc, hevc_nvenc, h264_videotoolbox
+  --gpu N           NVENC device index (with --crf)
+  --threads N       fixed render thread count
+  --max-frames N    stop after N frames (profiling: OUT/profile/, publishes nothing)
+
+score options:
+  --timelines DIR   where the timelines are (default: --out)
+  --out DIR         stems go to OUT/stems/ (default renders)
+";
+
+#[derive(Debug)]
+pub struct Args {
+    pub command: String,
+    pub help: bool,
+    pub targets: Vec<String>,
+    pub res: (u32, u32),
+    pub fps: u32,
+    pub out: PathBuf,
+    pub silent: bool,
+    pub narration: Option<PathBuf>,
+    pub scratch_voice: bool,
+    pub lint: bool,
+    pub timeline_only: bool,
+    pub score: Option<PathBuf>,
+    pub timelines: Option<PathBuf>,
+    pub max_frames: Option<u64>,
+    pub crf: Option<u8>,
+    pub preset: Option<&'static str>,
+    pub threads: Option<u32>,
+    pub encoder: String,
+    pub gpu: Option<u32>,
+}
+
+fn next_parsed<T: std::str::FromStr>(it: &mut impl Iterator<Item = String>, flag: &str) -> Result<T, String> {
+    it.next()
+        .ok_or(format!("{flag} needs a value"))?
+        .parse()
+        .map_err(|_| format!("bad value for {flag}"))
+}
+
+/// Parse the command line (without the program name). Typos are errors,
+/// never chapter names.
+pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String> {
+    let mut it = argv.into_iter();
+    let command = it.next().ok_or("missing command")?;
+    let mut a = Args {
+        help: matches!(command.as_str(), "help" | "-h" | "--help"),
+        command,
+        targets: Vec::new(),
+        res: (1920, 1080),
+        fps: 60,
+        out: PathBuf::from("renders"),
+        silent: false,
+        narration: None,
+        scratch_voice: false,
+        lint: false,
+        timeline_only: false,
+        score: None,
+        timelines: None,
+        max_frames: None,
+        crf: None,
+        preset: None,
+        threads: None,
+        encoder: "libx264".to_owned(),
+        gpu: None,
+    };
+    while let Some(arg) = it.next() {
+        match arg.as_str() {
+            "--res" => {
+                let r = it.next().ok_or("--res needs WxH")?;
+                let (w, h) = r.split_once('x').ok_or("--res needs WxH")?;
+                a.res = (
+                    w.parse().map_err(|_| "bad width")?,
+                    h.parse().map_err(|_| "bad height")?,
+                );
+            }
+            "--fps" => a.fps = next_parsed(&mut it, "--fps")?,
+            "--out" => a.out = PathBuf::from(it.next().ok_or("--out needs DIR")?),
+            "--silent" => a.silent = true,
+            "--scratch-voice" => a.scratch_voice = true,
+            "--lint" => a.lint = true,
+            "--timeline-only" => a.timeline_only = true,
+            "--score" => a.score = Some(PathBuf::from(it.next().ok_or("--score needs DIR")?)),
+            "--timelines" => a.timelines = Some(PathBuf::from(it.next().ok_or("--timelines needs DIR")?)),
+            "--max-frames" => a.max_frames = Some(next_parsed(&mut it, "--max-frames")?),
+            "-h" | "--help" => a.help = true,
+            "--narration" => a.narration = Some(PathBuf::from(it.next().ok_or("--narration needs DIR")?)),
+            "--encoder" => {
+                let e = it.next().ok_or("--encoder needs a name")?;
+                if !matches!(
+                    e.as_str(),
+                    "libx264" | "h264_nvenc" | "hevc_nvenc" | "h264_videotoolbox"
+                ) {
+                    return Err("--encoder is libx264, h264_nvenc, hevc_nvenc or h264_videotoolbox".into());
+                }
+                a.encoder = e;
+            }
+            "--gpu" => a.gpu = Some(next_parsed(&mut it, "--gpu")?),
+            "--threads" => a.threads = Some(next_parsed(&mut it, "--threads")?),
+            "--crf" => a.crf = Some(next_parsed(&mut it, "--crf")?),
+            "--preset" => {
+                const PRESETS: [&str; 8] = [
+                    "ultrafast",
+                    "veryfast",
+                    "faster",
+                    "fast",
+                    "medium",
+                    "slow",
+                    "slower",
+                    "veryslow",
+                ];
+                let p = it.next().ok_or("--preset needs a name")?;
+                a.preset = Some(PRESETS.into_iter().find(|&q| q == p).ok_or("unknown x264 preset")?);
+            }
+            other if other.starts_with('-') => return Err(format!("unknown option {other}")),
+            other => a.targets.push(other.to_owned()),
+        }
+    }
+    if a.narration.is_some() && a.scratch_voice {
+        return Err("--narration and --scratch-voice are exclusive".into());
+    }
+    if a.silent && (a.narration.is_some() || a.scratch_voice) {
+        return Err("--silent drops the voice; it excludes --narration and --scratch-voice".into());
+    }
+    if a.timeline_only && (a.narration.is_none() || a.score.is_some() || a.crf.is_some()) {
+        return Err("--timeline-only needs --narration and excludes --score and --crf".into());
+    }
+    if a.score.is_some() && a.narration.is_none() {
+        return Err("--score lays stems scored from the real narration; it needs --narration".into());
+    }
+    Ok(a)
+}
+
+/// Renders never overwrite: the engine refuses an existing path. So that
+/// drafts can be re-rendered into the same directory, an earlier output is
+/// moved to `<dir>/previous/<name>.vN<ext>` (never deleted).
+pub fn set_aside(path: &Path) -> io::Result<()> {
+    if !path.exists() {
+        return Ok(());
+    }
+    let dir = path.parent().unwrap_or(Path::new(".")).join("previous");
+    std::fs::create_dir_all(&dir)?;
+    let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("output");
+    let (stem, ext) = match name.split_once('.') {
+        Some((s, e)) => (s.to_owned(), format!(".{e}")),
+        None => (name.to_owned(), String::new()),
+    };
+    let mut n = 1;
+    let target = loop {
+        let candidate = dir.join(format!("{stem}.v{n}{ext}"));
+        if !candidate.exists() {
+            break candidate;
+        }
+        n += 1;
+    };
+    std::fs::rename(path, &target)?;
+    eprintln!("note: moved the earlier {} to {}", path.display(), target.display());
+    Ok(())
+}
+
+/// Every script line belongs to exactly one chapter: line `NN_k` to the one
+/// chapter whose key starts `NN_`.
+pub fn check_script_owners(script: &Script, keys: &[&str]) -> Result<(), String> {
+    for (id, _) in script.lines() {
+        let prefix = id.split('_').next().unwrap_or(id);
+        let owners = keys.iter().filter(|k| k.starts_with(&format!("{prefix}_"))).count();
+        if owners != 1 {
+            return Err(format!(
+                "line {id} maps to {owners} chapters (it must map to exactly one)"
+            ));
+        }
+    }
+    Ok(())
+}
+
+/// Run the CLI; returns the process exit code (0 ok, 1 a failed check, 2 usage).
+pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
+    // a wrong number must never render, or even print
+    let facts = match (e.facts)().and_then(|f| f.self_check().map(|()| f)) {
+        Ok(f) => f,
+        Err(msg) => {
+            eprintln!("{}: facts self-check failed:\n{msg}", e.crate_name);
+            return 1;
+        }
+    };
+    let usage = USAGE.replace("CRATE", e.crate_name);
+    let args = match parse_args(argv) {
+        Ok(a) => a,
+        Err(msg) => {
+            eprintln!("{}: {msg}\n\n{usage}", e.crate_name);
+            return 2;
+        }
+    };
+    if args.help {
+        print!("{usage}");
+        return 0;
+    }
+    let result: Result<i32, Box<dyn Error>> = (|| {
+        let script = Script::parse(e.script)?;
+        match args.command.as_str() {
+            "facts" => print!("{}", facts.print()),
+            "script" => {
+                for (id, text) in script.lines() {
+                    println!("{id}\t{text}");
+                }
+            }
+            "chapters" => {
+                for c in (e.chapters)() {
+                    println!("{}", c.key);
+                }
+            }
+            "glyphs" => return glyphs(e, &args),
+            "render" => render_chapters(e, &args, &script)?,
+            "score" => return score_video(e, &args),
+            other => return Err(format!("unknown command {other}").into()),
+        }
+        Ok(0)
+    })();
+    match result {
+        Ok(code) => code,
+        Err(err) => {
+            eprintln!("{}: {err}", e.crate_name);
+            1
+        }
+    }
+}
+
+fn options(path: PathBuf, format: RenderFormat, res: (u32, u32), fps: u32) -> Result<RenderOptions, Box<dyn Error>> {
+    let mut o = RenderOptions::with_format(path, format)?;
+    o.config.camera.resolution = res;
+    o.config.camera.fps = fps;
+    o.config.camera.background_color = BACKGROUND.to_owned();
+    Ok(o)
+}
+
+fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Box<dyn Error>> {
+    let all = (e.chapters)();
+    let keys: Vec<&str> = all.iter().map(|c| c.key).collect();
+    check_script_owners(script, &keys)?;
+    let wanted: Vec<&Chapter> = if args.targets.is_empty() || args.targets.iter().any(|t| t == "all") {
+        all.iter().collect()
+    } else {
+        args.targets
+            .iter()
+            .map(|t| {
+                all.iter()
+                    .find(|c| c.key == t)
+                    .ok_or_else(|| format!("unknown chapter {t}"))
+            })
+            .collect::<Result<_, _>>()?
+    };
+    if args.crf.is_none() && (args.preset.is_some() || args.gpu.is_some()) {
+        eprintln!("note: --preset and --gpu take effect only together with --crf");
+    }
+    std::fs::create_dir_all(&args.out)?;
+    let narrator = match (&args.narration, args.scratch_voice) {
+        (Some(dir), _) => Some(Narrator::load(script, dir, crate::narration::GAIN_DB)?),
+        (None, true) => Some(Narrator::estimate(script)),
+        _ => None,
+    };
+    let (res, profiling) = if args.timeline_only {
+        ((64, 36), false)
+    } else {
+        (args.res, args.max_frames.is_some())
+    };
+    let total = Instant::now();
+    let mut frames = 0;
+    for c in wanted {
+        let out_of = |ext: &str| args.out.join(format!("{}.{ext}", c.key));
+        let path = if profiling {
+            let dir = args.out.join("profile");
+            std::fs::create_dir_all(&dir)?;
+            dir.join(format!("{}.{}.mp4", c.key, std::process::id()))
+        } else if args.timeline_only {
+            let dir = args.out.join("timeline");
+            std::fs::create_dir_all(&dir)?;
+            let p = dir.join(format!("{}.mp4", c.key));
+            set_aside(&p)?;
+            p
+        } else {
+            let p = out_of("mp4");
+            set_aside(&p)?;
+            set_aside(&out_of("layout.tsv"))?;
+            p
+        };
+        let mut linter = None;
+        let started = Instant::now();
+        // macOS: a transient Darwin killpg EPERM after ffmpeg exits fails the
+        // whole render (fm-darwin-killpg-eperm-race-7aae). Publication is
+        // atomic, so nothing partial exists; render the chapter again.
+        let mut attempt = 1;
+        let (report, timeline) = loop {
+            let mut kit = Kit::new()?;
+            kit.chapter = c.key.to_owned();
+            if args.lint && !args.timeline_only {
+                let l = Rc::new(Linter::new());
+                kit = kit.with_lint(Rc::clone(&l));
+                linter = Some(l);
+            }
+            if let Some(n) = &narrator {
+                n.reset(); // every chapter is its own scene; its clock starts at zero
+                kit = kit.with_narrator(Rc::clone(n));
+            }
+            if let Some(dir) = &args.score {
+                kit.stem = Some(dir.join(format!("{}.music.f32.wav", c.key)));
+            }
+            let finished = Rc::clone(&kit.finished);
+            let mut scene = (c.make)(kit);
+            let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
+            if let Some(n) = args.threads {
+                opts.config.render.threads = fmn::config::config::ThreadPolicy::Fixed(n);
+            }
+            opts.config.file_writer.video_codec = args.encoder.clone();
+            if let Some(n) = args.max_frames {
+                opts.max_frames = n;
+            }
+            if let Some(crf) = args.crf {
+                let mut o = encode::delivery_options(
+                    path.clone(),
+                    RenderFormat::Mp4,
+                    Quality {
+                        quality: crf,
+                        gpu: args.gpu,
+                        preset: args.preset.unwrap_or("medium"),
+                        ..Quality::delivery()
+                    },
+                )?;
+                o.config = opts.config.clone();
+                o.max_frames = opts.max_frames;
+                opts = o;
+            }
+            match render(scene.as_mut(), opts) {
+                Ok(report) => break (report, finished.borrow().clone()),
+                Err(error)
+                    if attempt < 3
+                        && format!("{error:?}")
+                            .contains("process-tree completion kill failed: Operation not permitted") =>
+                {
+                    eprintln!(
+                        "{}: transient Darwin EPERM after ffmpeg exit (attempt {attempt}); rendering again",
+                        c.key
+                    );
+                    attempt += 1;
+                }
+                Err(error) => return Err(error.into()),
+            }
+        };
+        let secs = started.elapsed().as_secs_f64();
+        frames += report.artifact.frame_count;
+        let clipped = report.artifact.soundtrack.as_ref().map_or(0, |s| s.clipped_samples);
+        if clipped > 0 {
+            eprintln!("WARNING {}: {clipped} soundtrack samples clipped", c.key);
+        }
+        if let Some(n) = narrator.as_ref().filter(|_| !profiling) {
+            // the skill's cue_sheets.py reads `id, start s, length s` (for
+            // review sheets only: timing lives in the exact logs below)
+            let cues: String = timeline
+                .iter()
+                .flat_map(|t| t.lines.iter().map(move |l| (l, t.fps)))
+                .map(|(l, fps)| {
+                    format!(
+                        "{}\t{:.3}\t{:.3}\n",
+                        l.id,
+                        l.start_frame as f64 / f64::from(fps),
+                        n.length(&l.id).unwrap_or(0.0)
+                    )
+                })
+                .collect();
+            if args.narration.is_some() {
+                for (ext, body) in [("cues.tsv", cues), ("cuelog.tsv", n.cue_log())] {
+                    let p = out_of(ext);
+                    set_aside(&p)?;
+                    std::fs::write(&p, body)?;
+                }
+                match &timeline {
+                    Some(t) => {
+                        let p = out_of("timeline.tsv");
+                        set_aside(&p)?;
+                        std::fs::write(&p, t.to_text())?;
+                    }
+                    None => eprintln!("note {}: no timeline (the chapter does not call kit.finish)", c.key),
+                }
+            }
+        }
+        if let Some(l) = linter.as_ref().filter(|_| !profiling) {
+            std::fs::write(out_of("layout.tsv"), l.report())?;
+            if l.count() > 0 {
+                eprintln!(
+                    "LAYOUT {}: {} findings -> {}",
+                    c.key,
+                    l.count(),
+                    out_of("layout.tsv").display()
+                );
+            }
+        }
+        println!(
+            "{:<14} {:>5} frames  {:>6.1}s  {:>6.1} fps  -> {}{}",
+            c.key,
+            report.artifact.frame_count,
+            secs,
+            report.artifact.frame_count as f64 / secs.max(1e-9),
+            report.artifact.path.display(),
+            if attempt > 1 {
+                format!("  (attempt {attempt})")
+            } else {
+                String::new()
+            }
+        );
+    }
+    let secs = total.elapsed().as_secs_f64();
+    println!(
+        "total          {frames:>5} frames  {secs:>6.1}s  {:>6.1} fps",
+        frames as f64 / secs.max(1e-9)
+    );
+    Ok(())
+}
+
+/// The `score` command: the whole video's music from every chapter's
+/// timeline, sliced per chapter into `OUT/stems/<chapter>.music.f32.wav`,
+/// with a QA report per chapter. Returns 1 when any chapter fails QA (the
+/// stems and reports are written either way, for inspection).
+fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    let chapters = (e.chapters)();
+    let dir = args.timelines.clone().unwrap_or_else(|| args.out.clone());
+    let last = chapters.len().saturating_sub(1);
+    let sections = chapters
+        .iter()
+        .enumerate()
+        .map(|(k, c)| {
+            let path = dir.join(format!("{}.timeline.tsv", c.key));
+            let timeline = ChapterTimeline::read(&path).map_err(|err| {
+                io::Error::new(
+                    err.kind(),
+                    format!("{}: {err} (run render --timeline-only first)", path.display()),
+                )
+            })?;
+            Ok(Section {
+                timeline,
+                plan: ChapterPlan {
+                    intensity: c.intensity,
+                    resolve: k == last,
+                },
+            })
+        })
+        .collect::<io::Result<Vec<_>>>()?;
+    let identity = (e.identity)();
+    let stems = args.out.join("stems");
+    std::fs::create_dir_all(stems.join("qa"))?;
+    let fp = format!("{:016x}\n", score::fingerprint(&identity, &sections, None)?);
+    let fp_path = stems.join("score.fingerprint");
+    let up_to_date = std::fs::read_to_string(&fp_path).is_ok_and(|f| f == fp)
+        && chapters
+            .iter()
+            .all(|c| stems.join(format!("{}.music.f32.wav", c.key)).exists());
+    if up_to_date {
+        let failed: Vec<&str> = chapters
+            .iter()
+            .filter(|c| {
+                std::fs::read_to_string(stems.join(format!("qa/{}.json", c.key)))
+                    .map_or(true, |j| !j.contains("\"passed\":true"))
+            })
+            .map(|c| c.key)
+            .collect();
+        println!("score up to date ({}); QA failing in: {failed:?}", fp.trim());
+        return Ok(i32::from(!failed.is_empty()));
+    }
+    let started = Instant::now();
+    let s = score::render(&identity, &sections, None)?;
+    println!(
+        "scored {:.1} s of music in {:.1} s: {} chords, {} notes, {} phrases; stem {:.1} dBTP",
+        s.music.len() as f64 / 48_000.0,
+        started.elapsed().as_secs_f64(),
+        s.chords.len(),
+        s.events.len(),
+        s.phrases.len(),
+        s.true_peak_db
+    );
+    let mut failed = Vec::new();
+    for (k, c) in chapters.iter().enumerate() {
+        let music = s.chapter_music(k);
+        let stem = stems.join(format!("{}.music.f32.wav", c.key));
+        set_aside(&stem)?;
+        wav::write(&stem, &music, wav::Format::F32)?;
+        let report = qa::evaluate(
+            c.key,
+            &s.chapter_voice(k),
+            &music,
+            music.len(),
+            Some(&ScoreFacts::chapter(&s, k)),
+        );
+        std::fs::write(stems.join(format!("qa/{}.json", c.key)), report.to_json())?;
+        let verdict = if report.passed() {
+            "PASS".to_owned()
+        } else {
+            format!(
+                "FAIL {:?}",
+                report.failures().iter().map(|m| m.name.as_str()).collect::<Vec<_>>()
+            )
+        };
+        println!("{:<14} QA {verdict}", c.key);
+        if !report.passed() {
+            failed.push(c.key);
+        }
+    }
+    std::fs::write(&fp_path, &fp)?;
+    Ok(i32::from(!failed.is_empty()))
+}
+
+/// The `glyphs` command: every Text and Tex string the video uses, on PNG
+/// pages; each failure reported by name, exit 1 if any (the pages are written
+/// either way). A string can typeset and still be wrong (math ρ/θ draw as
+/// ϱ/ϑ), so look at every page.
+fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    let out = args.targets.first().cloned().unwrap_or_else(|| "glyphs".into());
+    set_aside(Path::new(&out))?;
+    let mut scene = Glyphs {
+        kit: Kit::new()?,
+        text: e.glyph_text,
+        tex: e.glyph_tex,
+        failures: Vec::new(),
+    };
+    let report = render(&mut scene, options(out.into(), RenderFormat::PngSequence, args.res, 1)?)?;
+    println!("glyph sheet -> {}", report.artifact.path.display());
+    if scene.failures.is_empty() {
+        Ok(0)
+    } else {
+        eprintln!(
+            "glyph probe: {} of {} strings failed to typeset:",
+            scene.failures.len(),
+            e.glyph_text.len() + e.glyph_tex.len()
+        );
+        for line in &scene.failures {
+            eprintln!("  {line}");
+        }
+        Ok(1)
+    }
+}
+
+struct Glyphs {
+    kit: Kit,
+    text: &'static [&'static str],
+    tex: &'static [&'static str],
+    failures: Vec<String>,
+}
+
+impl SceneConstruct for Glyphs {
+    fn name(&self) -> &str {
+        "glyphs"
+    }
+
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        const TOP: f64 = 3.5;
+        const BOTTOM: f64 = -3.3;
+        self.failures.clear();
+        let mut y = TOP;
+        let rows = self
+            .text
+            .iter()
+            .map(|s| (false, *s, 0.8))
+            .chain(self.tex.iter().map(|s| (true, *s, 1.25)));
+        for (is_tex, s, step) in rows {
+            if y < BOTTOM {
+                // page full: capture it (1 s at the probe's 1 fps is one PNG)
+                stage.wait(1.0)?;
+                stage.scene_mut().clear();
+                y = TOP;
+            }
+            let added = if is_tex {
+                match Tex::new(s)
+                    .font_size(36.0)
+                    .style(ink_style(Palette::ink()))
+                    .build(stage.tex_engine()?)
+                {
+                    Ok(t) => Some(stage.add(t)?),
+                    Err(err) => {
+                        self.failures.push(format!("TEX FAIL {s:?}: {err}"));
+                        None
+                    }
+                }
+            } else {
+                match Text::new(s)
+                    .font_size(34.0)
+                    .style(ink_style(Palette::ink()))
+                    .build(&self.kit.book)
+                {
+                    Ok(t) => Some(stage.add(t)?),
+                    Err(err) => {
+                        self.failures.push(format!("TEXT FAIL {s:?}: {err}"));
+                        None
+                    }
+                }
+            };
+            if let Some(m) = added {
+                stage.move_to(m, v(-6.8, y), LEFT);
+            }
+            y -= step;
+        }
+        stage.wait(1.0)?;
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn parse(line: &str) -> Result<Args, String> {
+        parse_args(line.split_whitespace().map(str::to_owned))
+    }
+
+    #[test]
+    fn final_render_invocation_parses_exactly() {
+        let a = parse(
+            "render 01_intro --res 3840x2160 --fps 60 --preset slow --narration narration \
+             --out out/01_intro --threads 16 --encoder h264_nvenc --crf 16 --gpu 1 --score stems",
+        )
+        .unwrap();
+        assert_eq!(a.targets, ["01_intro"]);
+        assert_eq!((a.res, a.fps), ((3840, 2160), 60));
+        assert_eq!(a.narration, Some(PathBuf::from("narration")));
+        assert_eq!((a.threads, a.crf, a.gpu), (Some(16), Some(16), Some(1)));
+        assert_eq!((a.encoder.as_str(), a.preset), ("h264_nvenc", Some("slow")));
+        assert_eq!(a.score, Some(PathBuf::from("stems")));
+    }
+
+    #[test]
+    fn typos_and_contradictions_are_errors() {
+        assert_eq!(parse("render --fsp 30").unwrap_err(), "unknown option --fsp");
+        assert!(parse("render --preset ludicrous").is_err());
+        assert!(parse("render --encoder libx265").is_err());
+        assert!(parse("render --res 1920").is_err());
+        assert!(parse("render --crf").is_err());
+        assert!(parse("render --narration n --scratch-voice").is_err());
+        assert!(parse("render --silent --scratch-voice").is_err());
+        assert!(
+            parse("render --timeline-only").is_err(),
+            "the timeline pass needs the real voice"
+        );
+        assert!(parse("render --timeline-only --narration n --score s").is_err());
+        assert!(
+            parse("render --score s").is_err(),
+            "stems need the narration they were scored from"
+        );
+        assert!(parse("").is_err());
+        assert!(parse("help").unwrap().help);
+        assert!(parse("render --help").unwrap().help);
+    }
+
+    #[test]
+    fn set_aside_keeps_every_earlier_output() {
+        let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_or(0, |d| d.as_nanos());
+        let dir = std::env::temp_dir().join(format!("set_aside_test_{}_{nanos}", std::process::id()));
+        assert!(!dir.exists());
+        std::fs::create_dir_all(&dir).unwrap();
+        let f = dir.join("01_intro.cues.tsv");
+        for round in 1..=2 {
+            std::fs::write(&f, format!("round {round}")).unwrap();
+            set_aside(&f).unwrap();
+            assert!(!f.exists());
+        }
+        let prev = dir.join("previous");
+        assert_eq!(
+            std::fs::read_to_string(prev.join("01_intro.v1.cues.tsv")).unwrap(),
+            "round 1"
+        );
+        assert_eq!(
+            std::fs::read_to_string(prev.join("01_intro.v2.cues.tsv")).unwrap(),
+            "round 2"
+        );
+        set_aside(&dir.join("absent.mp4")).unwrap();
+    }
+
+    #[test]
+    fn every_script_line_belongs_to_exactly_one_chapter() {
+        let script = Script::parse("01_1\ta\n01_2\tb\n02_1\tc\n").unwrap();
+        assert!(check_script_owners(&script, &["01_intro", "02_outro"]).is_ok());
+        assert!(
+            check_script_owners(&script, &["01_intro"])
+                .unwrap_err()
+                .contains("02_1")
+        );
+        assert!(check_script_owners(&script, &["01_intro", "01_again", "02_outro"]).is_err());
+    }
+}

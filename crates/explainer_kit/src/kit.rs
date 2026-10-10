@@ -14,7 +14,10 @@
 //!   frame; animate a few representatives, or split the group.
 
 use std::cell::RefCell;
+use std::path::PathBuf;
 use std::rc::Rc;
+
+use explainer_score::timeline::ChapterTimeline;
 
 use fmn::library::TextMobjectError;
 use fmn::prelude::*;
@@ -52,6 +55,12 @@ pub struct Kit {
     pub narrator: Option<Rc<Narrator>>,
     /// The layout lint (`render --lint`); `None` costs nothing.
     pub lint: Option<Rc<Linter>>,
+    /// The chapter's key (`NN_name`), naming its timeline.
+    pub chapter: String,
+    /// The chapter's music stem, laid under the whole scene by [`Kit::finish`].
+    pub stem: Option<PathBuf>,
+    /// Where [`Kit::finish`] leaves the chapter's timeline for the CLI.
+    pub finished: Rc<RefCell<Option<ChapterTimeline>>>,
 }
 
 impl Kit {
@@ -62,7 +71,47 @@ impl Kit {
             registry: Rc::new(RefCell::new(Vec::new())),
             narrator: None,
             lint: None,
+            chapter: String::new(),
+            stem: None,
+            finished: Rc::new(RefCell::new(None)),
         })
+    }
+
+    /// End the chapter (call it last in `construct`): let the last line
+    /// finish, lay the chapter's music stem from t = 0, and leave the
+    /// chapter's timeline for the CLI. The stem must be exactly the scene's
+    /// length (frames × 48000 / fps samples): a stem scored from another
+    /// timeline is refused, never stretched or cut.
+    pub fn finish(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.hold(stage)?;
+        let fail = |m: String| fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())));
+        if let Some(stem) = &self.stem {
+            let file = crate::narration::inspect_cue(stem).map_err(|e| fail(e.to_string()))?;
+            let t = stage.scene().time();
+            let want = explainer_score::units::frame_to_sample(t.frames().max(0) as u64, t.fps()) as usize;
+            if file.rate != explainer_score::SAMPLE_RATE || file.frames != want {
+                return Err(fail(format!(
+                    "{}: {} frames at {} Hz, but chapter {} is {want} samples at 48 kHz: score it from this chapter's timeline",
+                    stem.display(),
+                    file.frames,
+                    file.rate,
+                    self.chapter
+                )));
+            }
+            let secs = t.to_f64();
+            match &self.narrator {
+                Some(n) => n
+                    .sound(stage, stem, -secs, Some(0.0))
+                    .map_err(|e| fail(e.to_string()))?,
+                None => {
+                    stage.scene_mut().add_sound(stem.clone(), -secs, Some(0.0), None)?;
+                }
+            }
+        }
+        if let Some(n) = &self.narrator {
+            *self.finished.borrow_mut() = Some(n.timeline(stage, &self.chapter));
+        }
+        Ok(())
     }
 
     /// The same kit with the layout lint on.

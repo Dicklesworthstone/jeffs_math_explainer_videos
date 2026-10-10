@@ -130,7 +130,12 @@ impl Identity {
             },
             chord_s: (6.0, 12.0),
             bed_t60: 2.5,
-            bed_lu: -11.0,
+            // V - 12 before the 8 dB duck: V - 20 nominal, which measures as
+            // a 17-18.5 LU median gap over speech once duck ramps, reverb and
+            // bass are counted (plan 7.2's V - 18; at V - 11 the Hoeffding
+            // median sat at 16.7-17.5 LU, and short speech regions fell
+            // under the 16 LU gate)
+            bed_lu: -12.0,
             melody_lu: -12.0,
             duck_db: 8.0,
             sfx_lu: -16.0,
