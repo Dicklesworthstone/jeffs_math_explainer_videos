@@ -529,6 +529,23 @@ fn chord_events(identity: &Identity, span: &ChordSpan, intensity: f64, chapter: 
             pan: [-0.35, -0.12, 0.12, 0.35][j % 4],
         });
     }
+    // intensity adds density and spread: from 0.6 up, the top voice is
+    // doubled an octave higher, softly
+    if intensity >= 0.6
+        && let Some(&top) = span.voicing.upper.last()
+        && top + 12 <= 88
+    {
+        out.push(Event {
+            start: note_start,
+            hold,
+            track: Track::Bed,
+            inst: bed_instrument(identity, intensity),
+            pitch: f64::from(top + 12),
+            velocity: 0.6 * (0.35 + 0.3 * intensity),
+            seed: seed_for(&identity.name, chapter, "bed", (k * 8 + 4) as u64),
+            pan: 0.0,
+        });
+    }
     out.push(Event {
         start: span.start,
         hold: (span.end - span.start - 0.15).max(0.3),
@@ -543,16 +560,26 @@ fn chord_events(identity: &Identity, span: &ChordSpan, intensity: f64, chapter: 
 }
 
 /// The bed bus: pads (Juno chorus on the mid, the voices' spread kept on the
-/// side), an FDN room, and the bass through gentle warmth.
-fn bed_bus(identity: &Identity, events: &[Event], n: usize) -> Stereo {
+/// side) scaled by `gain` (per sample: the thin-outs before reveals), an FDN
+/// room fed at `send` (per sample: more room at higher intensity), and the
+/// bass through gentle warmth.
+fn bed_bus(identity: &Identity, events: &[Event], n: usize, send: &[f64], gain: &[f64]) -> Stereo {
     let of = |t: Track| events.iter().filter(|e| e.track == t).collect::<Vec<_>>();
     let dry = render_track(&of(Track::Bed), n);
     let (mid, side) = mid_side(&dry);
     drop(dry);
     let mut bed = Chorus::juno(0.5, 0.5).run(&mid);
     add_scaled(&mut bed, &from_mid_side(&vec![0.0; n], &side), 1.0);
-    let wet = Fdn::new(identity.bed_t60, 5_000.0, 25.0).run(&bed, 0.0);
-    add_scaled(&mut bed, &wet, 0.3);
+    for (i, g) in gain.iter().enumerate().take(n) {
+        bed.l[i] *= g;
+        bed.r[i] *= g;
+    }
+    let fed = Stereo {
+        l: bed.l.iter().zip(send).map(|(x, s)| x * s).collect(),
+        r: bed.r.iter().zip(send).map(|(x, s)| x * s).collect(),
+    };
+    let wet = Fdn::new(identity.bed_t60, 5_000.0, 25.0).run(&fed, 0.0);
+    add_scaled(&mut bed, &wet, 1.0);
     let bass = render_track(&of(Track::Bass), n);
     let mut w = Warmth::new(1.3, 0.12);
     let warm: Vec<f64> = bass.l.iter().map(|&x| w.process(x)).collect();
@@ -565,6 +592,51 @@ fn bed_bus(identity: &Identity, events: &[Event], n: usize) -> Stereo {
         1.0,
     );
     bed
+}
+
+/// The bed's reverb send at an intensity: 0.22 (dry, close) to 0.38.
+fn reverb_send(intensity: f64) -> f64 {
+    0.22 + 0.16 * intensity.clamp(0.0, 1.0)
+}
+
+/// Cue density (hard rule 5): onsets of foreground cues at least this far
+/// apart, at most [`MAX_CUES_PER_30S`] in any 30 s, ticks no faster than 6/s.
+pub const MIN_CUE_GAP: f64 = 1.5;
+pub const MAX_CUES_PER_30S: usize = 6;
+const MIN_TICK_GAP: f64 = 1.0 / 6.0;
+
+/// Whether a cue of `kind` may sound at `t`, given the cues placed so far.
+fn cue_allowed(kind: CueKind, t: f64, placed: &[(f64, CueKind)]) -> bool {
+    if kind == CueKind::Tick {
+        return placed
+            .iter()
+            .filter(|p| p.1 == CueKind::Tick)
+            .all(|p| (p.0 - t).abs() >= MIN_TICK_GAP);
+    }
+    let fg: Vec<f64> = placed.iter().filter(|p| p.1 != CueKind::Tick).map(|p| p.0).collect();
+    fg.iter().all(|&u| (u - t).abs() >= MIN_CUE_GAP)
+        && fg.iter().filter(|&&u| (u - t).abs() < 30.0).count() < MAX_CUES_PER_30S
+}
+
+/// The bed's gain: 1, dipping 4 dB over the second before each reveal or
+/// resolution and recovering over the 1.5 s after it, so the reveal lands in
+/// a moment of space.
+fn thin_outs(reveals: &[f64], n: usize) -> Vec<f64> {
+    let mut g = vec![1.0_f64; n];
+    let depth = 1.0 - db_to_gain(-4.0);
+    for &t in reveals {
+        let (a, b) = (((t - 1.0).max(0.0) * FS) as usize, (((t + 1.5) * FS) as usize).min(n));
+        for (i, v) in g.iter_mut().enumerate().take(b).skip(a) {
+            let s = i as f64 / FS;
+            let dip = if s < t {
+                rcos((s - (t - 1.0)) / 1.0)
+            } else {
+                1.0 - rcos((s - t) / 1.5)
+            };
+            *v = (*v).min(1.0 - depth * dip);
+        }
+    }
+    g
 }
 
 /// The melody bus: melody, answers and cues, with a plate.
@@ -633,7 +705,13 @@ pub fn reference_levels(identity: &Identity) -> (f64, f64) {
         voicing: voice_lead(&chord, 4, None),
         chord,
     };
-    let bed = bed_bus(identity, &chord_events(identity, &span, 0.5, "", 0), n);
+    let bed = bed_bus(
+        identity,
+        &chord_events(identity, &span, 0.5, "", 0),
+        n,
+        &vec![reverb_send(0.5); n],
+        &vec![1.0; n],
+    );
     let (a, b) = ((3.0 * FS) as usize, (8.0 * FS) as usize);
     let bed_lufs = meter::integrated(&Stereo {
         l: bed.l[a..b].to_vec(),
@@ -867,6 +945,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     //    centred on it, a tick lands on it even under speech (a counter must
     //    stay in sync with what it counts; the duck and pocket keep it soft)
     let mut cues = Vec::new();
+    let mut placed: Vec<(f64, CueKind)> = Vec::new();
     let mut skipped_marks = Vec::new();
     let mut sfx = Vec::new();
     for (c, s) in sections.iter().enumerate() {
@@ -884,10 +963,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                     Some(_) => None,
                 },
             };
-            let Some(when) = when.filter(|&w| w < total - 0.5) else {
+            // no room (deep in a sentence, at the very end), or too dense (rule 5)
+            let Some(when) = when.filter(|&w| w < total - 0.5 && cue_allowed(kind, w, &placed)) else {
                 skipped_marks.push(m.label.clone());
                 continue;
             };
+            placed.push((when, kind));
             let v = &chord_at(when).voicing;
             match kind {
                 CueKind::Reveal => {
@@ -984,7 +1065,29 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             ),
         ));
     }
-    let mut sum = bed_bus(identity, &events, n);
+    // per-sample reverb send from each chapter's intensity, moving over the
+    // first 2 s of a chapter (like a tail, a change reaches forward over a
+    // cut, never back), and the thin-outs before reveals
+    let mut send_points = Vec::new();
+    for (c, (_, a, b)) in chapters.iter().enumerate() {
+        let s = reverb_send(sections[c].plan.intensity);
+        let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
+        if c == 0 {
+            send_points.push((t0, s));
+        } else {
+            let prev = reverb_send(sections[c - 1].plan.intensity);
+            send_points.push((t0, prev));
+            send_points.push(((t0 + 2.0).min(t1), s));
+        }
+    }
+    let send = crate::fx::Automation::new(&send_points).render(n);
+    let reveals: Vec<f64> = cues
+        .iter()
+        .filter(|c| matches!(CueKind::from_label(&c.1), CueKind::Reveal | CueKind::Resolve))
+        .map(|c| c.0)
+        .collect();
+    let mut sum = bed_bus(identity, &events, n, &send, &thin_outs(&reveals, n));
+    drop(send);
     sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed));
     let melody = melody_bus(&events, n);
     add_scaled(&mut sum, &melody, db_to_gain(v_ref + identity.melody_lu - ref_mel));
@@ -1401,26 +1504,32 @@ mod tests {
             label: label.into(),
             frame: (secs * 60.0) as u64,
         };
-        // chapter 1 has a gap at 12–16 s; 3.0 s is inside a sentence
+        // chapter 1 has gaps at 12–16 s and 33–40 s; 3.0 s is inside a
+        // sentence; foreground cues are kept 1.5 s apart (rule 5)
         sections[0].timeline.marks = vec![
-            mark("swell:a", 14.0),
-            mark("whoosh:b", 13.0),
-            mark("tick:c", 3.0),
             mark("pizz:d", 12.5),
-            mark("resolve:e", 14.5),
+            mark("whoosh:b", 14.0),
+            mark("swell:a", 15.5),
+            mark("tick:c", 3.0),
+            mark("resolve:e", 34.0),
+            mark("too_close", 14.6),
         ];
         let s = render(&Identity::hoeffding(), &sections, None).unwrap();
-        assert!(s.skipped_marks.is_empty(), "{:?}", s.skipped_marks);
+        assert_eq!(
+            s.skipped_marks,
+            vec!["too_close".to_string()],
+            "rule 5: 0.6 s after the whoosh"
+        );
         let swell = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Swell { .. })).unwrap();
         let SfxKind::Swell { seconds } = swell.kind else {
             unreachable!()
         };
         assert!(
-            (swell.start + seconds - 14.0).abs() < 1e-9,
+            (swell.start + seconds - 15.5).abs() < 1e-9,
             "the swell ends on its mark"
         );
         let whoosh = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Whoosh { .. })).unwrap();
-        assert!((whoosh.start - 12.6).abs() < 1e-9, "centred on 13 s");
+        assert!((whoosh.start - 13.6).abs() < 1e-9, "centred on 14 s");
         let tick = s.sfx.iter().find(|f| matches!(f.kind, SfxKind::Tick { .. })).unwrap();
         assert!(
             (tick.start - 3.0).abs() < 1e-9,
@@ -1435,8 +1544,68 @@ mod tests {
             .filter(|e| e.track == Track::Cue && e.inst == Instrument::FeltPiano)
             .collect();
         assert_eq!(resolve.len(), 2, "the resolution 2̂–1̂");
-        assert!((resolve[0].start - 14.5).abs() < 1e-9);
+        assert!((resolve[0].start - 34.0).abs() < 1e-9);
         assert!(s.music.is_finite());
+    }
+
+    #[test]
+    fn cue_density_follows_rule_5() {
+        let mut placed = Vec::new();
+        for (t, k) in [(10.0, CueKind::Reveal), (11.6, CueKind::Pizz), (13.2, CueKind::Whoosh)] {
+            assert!(cue_allowed(k, t, &placed));
+            placed.push((t, k));
+        }
+        assert!(!cue_allowed(CueKind::Reveal, 12.0, &placed), "0.4 s after a cue");
+        // at most six foreground cues in any 30 s
+        for t in [14.8, 16.4, 18.0] {
+            assert!(cue_allowed(CueKind::Reveal, t, &placed));
+            placed.push((t, CueKind::Reveal));
+        }
+        assert!(!cue_allowed(CueKind::Reveal, 19.6, &placed), "a seventh within 30 s");
+        assert!(cue_allowed(CueKind::Reveal, 41.0, &placed), "30 s on, room again");
+        // ticks are counters: they ignore the foreground gap, but a stream
+        // faster than 6 per second is thinned
+        assert!(cue_allowed(CueKind::Tick, 10.1, &placed));
+        placed.push((10.1, CueKind::Tick));
+        assert!(!cue_allowed(CueKind::Tick, 10.2, &placed));
+        assert!(cue_allowed(CueKind::Tick, 10.3, &placed));
+    }
+
+    #[test]
+    fn the_bed_thins_before_a_reveal() {
+        let n = (10.0 * FS) as usize;
+        let g = thin_outs(&[5.0], n);
+        let at = |t: f64| g[(t * FS) as usize];
+        assert_eq!(at(3.9), 1.0);
+        assert!(
+            (crate::units::gain_to_db(at(5.0)) + 4.0).abs() < 1e-6,
+            "4 dB down at the reveal"
+        );
+        assert!(at(4.5) < 1.0 && at(4.5) > at(5.0), "a smooth dip");
+        assert!((at(6.6) - 1.0).abs() < 1e-12, "recovered 1.5 s later");
+        let steps = g.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
+        assert!(steps < 1e-4, "{steps}");
+    }
+
+    #[test]
+    fn intensity_adds_a_doubled_top_voice() {
+        let id = Identity::hoeffding();
+        let chord = id.progression[0].clone();
+        let span = ChordSpan {
+            start: 0.0,
+            end: 8.0,
+            voicing: voice_lead(&chord, 4, None),
+            chord,
+        };
+        let bed = |i: f64| {
+            chord_events(&id, &span, i, "x", 0)
+                .iter()
+                .filter(|e| e.track == Track::Bed)
+                .count()
+        };
+        assert_eq!(bed(0.5), 4);
+        assert_eq!(bed(0.7), 5);
+        assert!(reverb_send(0.9) > reverb_send(0.3));
     }
 
     #[test]
@@ -1472,6 +1641,12 @@ mod tests {
         assert_eq!(s.music.len(), (40 + 30) * 48_000);
         assert_eq!(s.chapter_music(0).len(), 40 * 48_000);
         assert_eq!(s.chapter_music(1).len(), 30 * 48_000);
+        let (a, b) = (s.chapter_music(0), s.chapter_music(1));
+        assert_eq!(
+            [a.l, b.l].concat(),
+            s.music.l,
+            "slices concatenate to the render exactly"
+        );
         assert!(s.music.is_finite());
         assert!(s.true_peak_db <= -12.0 + 1e-9, "{}", s.true_peak_db);
         // harmony: chords last 6–12 s where pauses allow, never past the 16 s
