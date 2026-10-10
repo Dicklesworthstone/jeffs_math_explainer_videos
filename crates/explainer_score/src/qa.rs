@@ -307,7 +307,9 @@ pub fn min_mono_correlation(music: &Stereo) -> f64 {
     worst
 }
 
-/// The most times any 8 s segment recurs (correlation > 0.98) elsewhere.
+/// The most times any 8 s segment recurs (correlation > 0.98) elsewhere,
+/// comparing the stem's consecutive 8 s chunks (a loop whose period is a
+/// multiple of 8 s is caught exactly; other periods only partly).
 pub fn max_repeats(music: &Stereo) -> usize {
     let w = (8.0 * FS) as usize;
     let m = mono(music);
@@ -366,7 +368,15 @@ pub fn evaluate(
     };
     let speech = speech_regions(voice);
     let has_speech = !speech.is_empty();
-    let info = |ok: bool| if has_speech { Some(ok) } else { None };
+    // a speech metric with nothing to measure (no speech, a chapter shorter
+    // than its window) is informational, never a pass and never a failure
+    let judge = |value: f64, ok: bool| {
+        if has_speech && value.is_finite() {
+            Some(ok)
+        } else {
+            None
+        }
+    };
 
     // sanity first: everything below assumes finite, aligned buffers
     let finite = music.is_finite();
@@ -396,16 +406,16 @@ pub fn evaluate(
         "voice_minus_music_median_lu",
         med,
         ">= 16",
-        info(med >= 16.0),
+        judge(med, med >= 16.0),
         "short-term (3 s) windows centred in speech",
     );
-    r.push("voice_minus_music_p5_lu", p5, ">= 12", info(p5 >= 12.0), "");
+    r.push("voice_minus_music_p5_lu", p5, ">= 12", judge(p5, p5 >= 12.0), "");
     let l400 = loudest_400ms(voice, music, &speech);
     r.push(
         "music_loudest_400ms_re_speech_lu",
         l400,
         "<= -15",
-        info(l400 <= -15.0),
+        judge(l400, l400 <= -15.0),
         "music's loudest momentary during speech minus the speech's",
     );
     let sii = sii_losses(voice, music, &speech);
@@ -414,16 +424,16 @@ pub fn evaluate(
         "sii_loss_median",
         sii_med,
         "<= 0.01",
-        info(sii_med <= 0.01),
+        judge(sii_med, sii_med <= 0.01),
         format!("{} blocks of 400 ms", sii.len()),
     );
-    r.push("sii_loss_max", sii_max, "<= 0.03", info(sii_max <= 0.03), "");
+    r.push("sii_loss_max", sii_max, "<= 0.03", judge(sii_max, sii_max <= 0.03), "");
     let br = band_ratio_db(voice, music, &speech, 1_000.0, 4_000.0);
     r.push(
         "music_to_voice_1_4khz_db",
         br,
         "<= -20",
-        info(br <= -20.0),
+        judge(br, br <= -20.0),
         "energy ratio over speech",
     );
 
@@ -466,14 +476,9 @@ pub fn evaluate(
         );
         return r;
     };
-    let chapter_s = expected_len as f64 / FS;
-    let longest = f
-        .chords
-        .iter()
-        // the video's last chord ends with the video: it may hold to the end
-        .filter(|c| c.end < chapter_s - 1e-6 || c.start > 0.0)
-        .map(|c| c.end - c.start)
-        .fold(0.0, f64::max);
+    // every chord sounding here, at its full length (one held through a
+    // whole chapter is exactly what this gate exists to catch)
+    let longest = f.chords.iter().map(|c| c.end - c.start).fold(0.0, f64::max);
     r.push(
         "longest_chord_s",
         longest,
@@ -511,19 +516,17 @@ pub fn evaluate(
         Some(rule8 == 0),
         "",
     );
-    let chord_at = |t: f64| f.chords.iter().find(|c| t >= c.start && t < c.end);
+    // a note is judged against every chord it sounds over, not only the one
+    // it starts on
     let rule7 = f
         .events
         .iter()
         .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
         .filter(|e| {
-            chord_at(e.start).is_some_and(|c| {
-                let p = e.pitch.round() as i32;
-                c.chord
-                    .pitch_classes()
-                    .iter()
-                    .any(|&pc| (p - pc).rem_euclid(12) == 1 || (pc - p).rem_euclid(12) == 1)
-            })
+            f.chords
+                .iter()
+                .filter(|c| c.start < e.start + e.hold && c.end > e.start)
+                .any(|c| crate::score::clashes(e.pitch.round() as i32, &c.chord))
         })
         .count();
     r.push(
@@ -531,7 +534,7 @@ pub fn evaluate(
         rule7 as f64,
         "= 0",
         Some(rule7 == 0),
-        "melody notes a semitone from a chord tone",
+        "melody notes a semitone from a tone of a chord they sound over",
     );
     let mut rule6 = 0;
     for (i, a) in f.events.iter().enumerate() {
@@ -669,7 +672,7 @@ mod tests {
         let facts = ScoreFacts {
             chords: vec![ChordSpan {
                 start: 0.0,
-                end: 89.0,
+                end: 90.0,
                 voicing: crate::theory::voice_lead(&chord, 4, None),
                 chord,
             }],
@@ -678,6 +681,53 @@ mod tests {
         let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
         let m = r.get("longest_chord_s").unwrap();
         assert_eq!(m.pass, Some(false), "{m:?}");
+    }
+
+    #[test]
+    fn nothing_to_measure_is_informational_not_a_failure() {
+        // 2 s with speech: no 3 s short-term window fits, so the level metrics
+        // have nothing to measure
+        let v = speech(&[(0.2, 1.8)], 2.0, 0.1);
+        let r = evaluate("short", &v, &Stereo::silence(v.len()), v.len(), None);
+        let m = r.get("voice_minus_music_median_lu").unwrap();
+        assert_eq!(m.pass, None, "{m:?}");
+        assert!(r.passed(), "{:?}", r.failures());
+    }
+
+    #[test]
+    fn a_note_held_into_a_clashing_chord_breaks_rule_7() {
+        let v = speech(&[(1.0, 4.0)], 20.0, 0.1);
+        let mk = |start: f64, end: f64, chord: crate::theory::Chord| ChordSpan {
+            start,
+            end,
+            voicing: crate::theory::voice_lead(&chord, 4, None),
+            chord,
+        };
+        let facts = |hold: f64| ScoreFacts {
+            events: vec![Event {
+                start: 10.0,
+                hold,
+                track: Track::Melody,
+                inst: crate::instr::Instrument::FeltPiano,
+                pitch: 66.0, // F♯4: fine over Bm9, a minor ninth under Gmaj9♯11's G
+                velocity: 0.5,
+                seed: 1,
+                pan: 0.0,
+            }],
+            chords: vec![
+                mk(0.0, 11.0, crate::theory::Chord::min9(11)),
+                mk(11.0, 20.0, crate::theory::Chord::maj9_sharp11(7)),
+            ],
+            phrases: vec![],
+        };
+        let rule7 = |hold: f64| {
+            evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
+                .get("rule7_minor_ninths")
+                .unwrap()
+                .pass
+        };
+        assert_eq!(rule7(0.9), Some(true), "released before the change");
+        assert_eq!(rule7(2.0), Some(false), "held over the change");
     }
 
     #[test]

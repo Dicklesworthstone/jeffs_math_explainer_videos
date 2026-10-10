@@ -48,7 +48,10 @@ fn parse_cue_log(text: &str, narration: &Path) -> Result<Vec<Chapter>, String> {
     for raw in text.lines() {
         let f: Vec<&str> = raw.split('\t').collect();
         match f.first().copied() {
-            Some("cue") if f.len() == 4 => {
+            Some(kind @ ("cue" | "music")) if f.len() != 4 => {
+                return Err(format!("malformed {kind} line (want 4 tab-separated fields): {raw:?}"));
+            }
+            Some("cue") => {
                 let secs: f64 = f[2].parse().map_err(|_| format!("bad cue time: {raw}"))?;
                 lines.push(LinePlacement {
                     id: f[1].to_string(),
@@ -57,7 +60,7 @@ fn parse_cue_log(text: &str, narration: &Path) -> Result<Vec<Chapter>, String> {
                     wav: narration.join(format!("{}.wav", f[1])),
                 });
             }
-            Some("music") if f.len() == 4 => {
+            Some("music") => {
                 let secs: f64 = f[2].parse().map_err(|_| format!("bad music time: {raw}"))?;
                 let gain: f64 = f[3].parse().map_err(|_| format!("bad music gain: {raw}"))?;
                 music.push((PathBuf::from(f[1]), secs, gain));

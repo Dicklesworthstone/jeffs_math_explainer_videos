@@ -79,6 +79,38 @@ pub struct Identity {
 }
 
 impl Identity {
+    /// Refuse an identity the engine cannot play: an empty progression, a
+    /// chord too thin for a four-voice bed (fewer than three pitch classes),
+    /// a motif or resolution of fewer than two notes, a non-positive beat, an
+    /// empty chord-length range, or a non-finite level.
+    pub fn validate(&self) -> io::Result<()> {
+        let bad = |m: String| {
+            Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                format!("identity {}: {m}", self.name),
+            ))
+        };
+        if self.progression.is_empty() {
+            return bad("empty progression".into());
+        }
+        if let Some(c) = self.progression.iter().find(|c| c.pitch_classes().len() < 3) {
+            return bad(format!("{c:?} has fewer than three pitch classes"));
+        }
+        if self.motif.degrees.len() < 2 || self.resolution.degrees.len() < 2 {
+            return bad("the motif and the resolution need at least two notes each".into());
+        }
+        if !(self.beat_s > 0.0 && self.chord_s.0 > 0.0 && self.chord_s.0 <= self.chord_s.1) {
+            return bad(format!("beat {} s, chord lengths {:?}", self.beat_s, self.chord_s));
+        }
+        if ![self.bed_t60, self.bed_lu, self.melody_lu, self.duck_db, self.sfx_lu]
+            .iter()
+            .all(|v| v.is_finite())
+        {
+            return bad("non-finite level or reverb time".into());
+        }
+        Ok(())
+    }
+
     /// Hoeffding's D, v6 (plan §7.5): D major, Dmaj9 → Bm9 → Gmaj9(♯11) →
     /// Asus4, felt piano over a Juno pad with a soft vibraphone answer, 72 BPM
     /// and free, the rising question 1̂–5̂–6̂–3̂ resolving 2̂–1̂ at the end.
@@ -258,69 +290,59 @@ const MIN_PAUSE: f64 = 0.2;
 /// The shortest gap a melodic phrase may play in.
 pub const MIN_PHRASE_GAP: f64 = 1.6;
 
-/// Times where a chord may change: just after each pause of ≥ 0.2 s begins,
-/// every 0.5 s through longer silences, and at chapter starts; never within
-/// 150 ms after a speech onset. `fine` are speech regions (sorted).
-pub fn change_candidates(fine: &[(f64, f64)], total: f64, chapter_starts: &[f64]) -> Vec<f64> {
+/// Times where a chord may change: the start of the span and of each pause
+/// of ≥ 0.2 s (just after the voice stops), then every 0.5 s through the
+/// silence; never inside speech or within 150 ms after a speech onset.
+/// `fine` are the speech regions (sorted, merged across gaps under 0.2 s).
+pub fn change_candidates(fine: &[(f64, f64)], total: f64) -> Vec<f64> {
     let mut c = Vec::new();
     let silence = |a: f64, b: f64, c: &mut Vec<f64>| {
-        // a silent span [a, b): its start, then every 0.5 s
         let mut t = a;
         while t < b {
             c.push(t);
             t += 0.5;
         }
     };
-    let mut prev_end = 0.0;
+    let mut prev_end: Option<f64> = None;
     for &(s, e) in fine {
-        if s - prev_end >= MIN_PAUSE || prev_end == 0.0 {
-            let a = if prev_end == 0.0 { 0.0 } else { prev_end + 0.05 };
-            silence(a, s, &mut c);
+        match prev_end {
+            None => silence(0.0, s, &mut c),
+            Some(p) if s - p >= MIN_PAUSE => silence(p + 0.05, s, &mut c),
+            Some(_) => {}
         }
-        prev_end = e;
+        prev_end = Some(e);
     }
-    silence(if fine.is_empty() { 0.0 } else { prev_end + 0.05 }, total, &mut c);
-    c.extend(chapter_starts.iter().copied().filter(|&t| t < total));
-    c.retain(|&t| !fine.iter().any(|&(s, e)| t >= s && (t < e || t < s + ONSET_GUARD)));
+    silence(prev_end.map_or(0.0, |p| p + 0.05), total, &mut c);
+    c.retain(|&t| t < total && !fine.iter().any(|&(s, e)| t >= s && (t < e || t < s + ONSET_GUARD)));
     c.sort_by(f64::total_cmp);
     c.dedup_by(|a, b| (*a - *b).abs() < 1e-6);
     c
 }
 
-/// Choose chord change times (the first is 0): each chord lasts a seeded
-/// target in [min, max]; a chapter start inside [min/2, max] wins; otherwise
-/// the candidate nearest the target within [min, max]; with none there, the
-/// first candidate after max (the chord holds, a pedal). A last chord shorter
-/// than `min` is not started.
-pub fn plan_changes(
-    candidates: &[f64],
-    chapter_starts: &[f64],
-    total: f64,
-    (min, max): (f64, f64),
-    rng: &mut Rng,
-) -> Vec<f64> {
+/// Choose chord change times (the first is 0) so every chord lasts between
+/// `min` and `max` whenever the candidates allow: while more than `max`
+/// remains, the next change goes to the candidate nearest a seeded target in
+/// [t + min, t + max] that still leaves ≥ `min` for what follows; with no
+/// candidate there (speech allowed no pause), to the first later one that
+/// does (the chord holds, a pedal, longer than `max`).
+pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng: &mut Rng) -> Vec<f64> {
     let mut out = vec![0.0];
     let mut t = 0.0;
-    loop {
-        let target = t + rng.range(min, max);
-        let chapter = chapter_starts
+    while total - t > max {
+        let (lo, hi) = (t + min, (t + max).min(total - min));
+        let target = (t + rng.range(min, max)).clamp(lo, hi.max(lo));
+        let next = candidates
             .iter()
             .copied()
-            .find(|&c| c >= t + 0.5 * min && c <= t + max && candidates.iter().any(|&k| (k - c).abs() < 1e-6));
-        let inside = candidates
-            .iter()
-            .copied()
-            .filter(|&c| c >= t + min && c <= t + max)
-            .min_by(|a, b| (a - target).abs().total_cmp(&(b - target).abs()));
-        let next = chapter
-            .or(inside)
-            .or_else(|| candidates.iter().copied().find(|&c| c > t + max));
+            .filter(|&c| c >= lo && c <= hi)
+            .min_by(|a, b| (a - target).abs().total_cmp(&(b - target).abs()))
+            .or_else(|| candidates.iter().copied().find(|&c| c > hi && c <= total - min));
         match next {
-            Some(c) if total - c >= min => {
+            Some(c) => {
                 out.push(c);
                 t = c;
             }
-            _ => break,
+            None => break,
         }
     }
     out
@@ -388,7 +410,8 @@ pub fn elastic_phrase(
 }
 
 /// Move `pitch` off a minor ninth (a semitone from any chord tone, hard rule
-/// 7) to the nearest key tone that clashes with nothing.
+/// 7) to the nearest key tone that clashes with nothing and stays in the
+/// melody's register (C4 up: never into the narrator's band).
 pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key) -> i32 {
     let tones = chord.pitch_classes();
     let clashes = |p: i32| {
@@ -402,11 +425,35 @@ pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key) -> i32 {
     let scale = key.pitch_classes();
     for d in [1, -1, 2, -2, 3, -3] {
         let p = pitch + d;
-        if scale.contains(&p.rem_euclid(12)) && !clashes(p) {
+        if (UPPER_LOW..=88).contains(&p) && scale.contains(&p.rem_euclid(12)) && !clashes(p) {
             return p;
         }
     }
     pitch
+}
+
+/// The voicing's top two upper voices (fewer if it has fewer).
+fn top_two(v: &Voicing) -> Vec<i32> {
+    let k = v.upper.len().saturating_sub(2);
+    v.upper[k..].to_vec()
+}
+
+/// True when `pitch` is a semitone from any tone of `chord` (a minor ninth).
+pub fn clashes(pitch: i32, chord: &Chord) -> bool {
+    chord
+        .pitch_classes()
+        .iter()
+        .any(|&c| (pitch - c).rem_euclid(12) == 1 || (c - pitch).rem_euclid(12) == 1)
+}
+
+/// The hold of a note at `pitch` from `start`, cut where a later chord it
+/// would clash with begins (rule 7 holds for as long as the note sounds).
+pub fn hold_until_clash(pitch: i32, start: f64, hold: f64, chords: &[ChordSpan]) -> f64 {
+    chords
+        .iter()
+        .filter(|c| c.start > start && c.start < start + hold && clashes(pitch, &c.chord))
+        .map(|c| c.start - start)
+        .fold(hold, f64::min)
 }
 
 // ----------------------------------------------------------------- rendering
@@ -465,10 +512,11 @@ fn bed_instrument(identity: &Identity, intensity: f64) -> Instrument {
 fn chord_events(identity: &Identity, span: &ChordSpan, intensity: f64, chapter: &str, k: usize) -> Vec<Event> {
     let intensity = intensity.clamp(0.0, 1.0);
     let mut out = Vec::new();
-    // the chord swells in from 0.8 s before its change and starts to release
-    // 0.3 s before the next change
-    let note_start = (span.start - 0.8).max(0.0);
-    let hold = (span.end - 0.3 - note_start).max(0.5);
+    // the chord swells in from its change (in a pause), and releases from the
+    // next change: the crossfade begins where the rules allow a change, never
+    // inside the sentence before it, and never across a chapter's cut
+    let note_start = span.start;
+    let hold = (span.end - span.start).max(0.5);
     for (j, &m) in span.voicing.upper.iter().enumerate() {
         out.push(Event {
             start: note_start,
@@ -608,13 +656,35 @@ pub fn reference_sfx_level(identity: &Identity) -> f64 {
     meter::integrated(&sfx_bus(&[f], (1.5 * FS) as usize))
 }
 
-/// A digest of everything a render depends on: the crate version, the
-/// identity, each chapter's timeline and plan, the bytes of every narration
-/// WAV, and the voice gain. A cached stem is reused only under the same
-/// fingerprint.
+/// The engine's own source: any change to how notes are chosen or sounds are
+/// made changes every fingerprint, so a stale stem is never reused.
+const ENGINE_SOURCE: [&str; 14] = [
+    include_str!("score.rs"),
+    include_str!("instr.rs"),
+    include_str!("fx.rs"),
+    include_str!("filter.rs"),
+    include_str!("osc.rs"),
+    include_str!("theory.rs"),
+    include_str!("duck.rs"),
+    include_str!("timeline.rs"),
+    include_str!("resample.rs"),
+    include_str!("rng.rs"),
+    include_str!("units.rs"),
+    include_str!("meter.rs"),
+    include_str!("wav.rs"),
+    include_str!("lib.rs"),
+];
+
+/// A digest of everything a render depends on: the engine's source and
+/// version, the identity, each chapter's timeline and plan, the bytes of
+/// every narration WAV, and the voice gain. A cached stem is reused only
+/// under the same fingerprint.
 pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<u64> {
     let mut bytes = Vec::new();
     bytes.extend(env!("CARGO_PKG_VERSION").as_bytes());
+    for src in ENGINE_SOURCE {
+        bytes.extend(src.as_bytes());
+    }
     bytes.extend(format!("{identity:?}|{voice_gain_db:?}").as_bytes());
     for s in sections {
         bytes.extend(s.timeline.to_text().as_bytes());
@@ -638,6 +708,10 @@ pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Opt
 /// few seconds of release and reverb) and the true-peak cap, if it ever
 /// binds, reach a neighbour.
 pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<Score> {
+    identity.validate()?;
+    if sections.is_empty() {
+        return Err(io::Error::new(io::ErrorKind::InvalidInput, "no chapters to score"));
+    }
     // 1. the voice bus of the whole video, chapter after chapter
     let mut chapters = Vec::new();
     let mut voice = Stereo::default();
@@ -672,20 +746,22 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             .filter(|r| r.1 > t0 && r.0 < t1)
             .map(|&(s, e)| (s.max(t0) - t0, e.min(t1) - t0))
             .collect();
-        let cands = change_candidates(&local, t1 - t0, &[]);
+        let cands = change_candidates(&local, t1 - t0);
         let mut rng = Rng::new(seed_for(&identity.name, name, "harmony", 0));
-        let changes = plan_changes(&cands, &[], t1 - t0, identity.chord_s, &mut rng);
-        let last_chapter = c + 1 == chapters.len();
+        let changes = plan_changes(&cands, t1 - t0, identity.chord_s, &mut rng);
+        // the resolving chapter enters the progression so that its last chord
+        // is the tonic: the cycle is kept whole and nothing is merged
+        let offset = if c + 1 == chapters.len() && resolve {
+            (1 + len * changes.len() - changes.len()) % len
+        } else {
+            c % len
+        };
         let mut prev: Option<Voicing> = None;
         let mut mine: Vec<ChordSpan> = Vec::new();
         for (k, &s) in changes.iter().enumerate() {
             let (start, end) = (t0 + s, changes.get(k + 1).map_or(t1, |&x| t0 + x));
-            let chord = if last_chapter && resolve && k + 1 == changes.len() {
-                identity.progression[0].clone()
-            } else {
-                identity.progression[(c + k) % len].clone()
-            };
-            // a resolution onto the chord already sounding just extends it
+            let chord = identity.progression[(offset + k) % len].clone();
+            // a progression that repeats a chord just holds it
             if let Some(p) = mine.last_mut().filter(|p| p.chord == chord) {
                 p.end = end;
                 continue;
@@ -740,7 +816,15 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         // the duck to come down before the next line (pre-roll + attack)
         let start = if a <= 0.0 { 0.9 } else { a + 0.35 };
         let limit = if b >= total { total - 2.5 } else { b - 0.6 };
-        let notes = elastic_phrase(&motif, identity, start, limit, final_gap);
+        let mut notes = elastic_phrase(&motif, identity, start, limit, final_gap);
+        if final_gap && notes.len() < motif.degrees.len() {
+            // no room for the whole closing phrase: the resolution alone, so
+            // the video still ends on the tonic it promised
+            let res = elastic_phrase(&identity.resolution, identity, start, limit, true);
+            if res.len() == identity.resolution.degrees.len() {
+                notes = res;
+            }
+        }
         let Some(&(last_t, _, last_d)) = notes.last() else {
             continue;
         };
@@ -761,8 +845,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         // a soft answer: two chord tones an octave up, if there is room
         let t = last_t + last_d + 0.25;
         if t + 0.4 <= limit {
-            let v = &chord_at(t).voicing;
-            for (i, &m) in v.upper[2..].iter().enumerate() {
+            for (i, &m) in top_two(&chord_at(t).voicing).iter().enumerate() {
                 let p = if m < 72 { m + 12 } else { m };
                 events.push(Event {
                     start: t + 0.03 * i as f64,
@@ -808,7 +891,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             let v = &chord_at(when).voicing;
             match kind {
                 CueKind::Reveal => {
-                    for (j, &mp) in v.upper[2..].iter().enumerate() {
+                    for (j, &mp) in top_two(v).iter().enumerate() {
                         let p = if mp < 72 { mp + 12 } else { mp };
                         events.push(Event {
                             start: when + 0.04 * j as f64,
@@ -823,7 +906,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                     }
                 }
                 CueKind::Pizz => {
-                    let p = v.upper[1];
+                    let p = v.upper[v.upper.len() / 2];
                     events.push(Event {
                         start: when,
                         hold: 0.4,
@@ -877,21 +960,38 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         }
     }
 
+    // rule 7 for as long as a note sounds: a melody, answer or cue note held
+    // into a chord it would clash with is released at that chord's change
+    for e in &mut events {
+        if matches!(e.track, Track::Melody | Track::Answer | Track::Cue) {
+            e.hold = hold_until_clash(e.pitch.round() as i32, e.start, e.hold, &chords).max(0.05);
+        }
+    }
+
     // 6. buses and levels, against the fixed reference levels
     let voice_lufs = meter::integrated(&voice);
+    // a video with no narration still gets music, set against the level a
+    // narrated sentence would have (−23 LUFS, the narration doctrine's)
+    let v_ref = if voice_lufs.is_finite() { voice_lufs } else { -23.0 };
     let (ref_bed, ref_mel) = reference_levels(identity);
+    let ref_sfx = reference_sfx_level(identity);
+    if !(ref_bed.is_finite() && ref_mel.is_finite() && ref_sfx.is_finite()) {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            format!(
+                "identity {}: a silent reference ({ref_bed}, {ref_mel}, {ref_sfx} LUFS)",
+                identity.name
+            ),
+        ));
+    }
     let mut sum = bed_bus(identity, &events, n);
-    sum.scale(db_to_gain(voice_lufs + identity.bed_lu - ref_bed));
+    sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed));
     let melody = melody_bus(&events, n);
-    add_scaled(&mut sum, &melody, db_to_gain(voice_lufs + identity.melody_lu - ref_mel));
+    add_scaled(&mut sum, &melody, db_to_gain(v_ref + identity.melody_lu - ref_mel));
     drop(melody);
     if !sfx.is_empty() {
         let effects = sfx_bus(&sfx, n);
-        add_scaled(
-            &mut sum,
-            &effects,
-            db_to_gain(voice_lufs + identity.sfx_lu - reference_sfx_level(identity)),
-        );
+        add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
     }
     // tape glue: one transport, so both channels share the wow and flutter
     let tape_seed = seed_for(&identity.name, "", "tape", 0);
@@ -934,8 +1034,10 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     // 9. the true-peak cap: a fixed gain, never a limiter
     let mut true_peak_db = meter::true_peak_db(&music);
     let mut cap_db = 0.0;
-    if true_peak_db > -12.0 {
-        cap_db = -12.1 - true_peak_db;
+    // a 0.5 dB margin: a chapter's slice re-measured alone can read a hair
+    // higher than the whole (the interpolator sees a cut edge)
+    if true_peak_db > -12.5 {
+        cap_db = -12.5 - true_peak_db;
         music.scale(db_to_gain(cap_db));
         true_peak_db += cap_db;
     }
@@ -976,7 +1078,7 @@ mod tests {
     fn candidates_respect_pauses_and_onsets() {
         // speech 1–4 s, a 0.1 s pause (too short), 4.1–6 s, a 0.5 s pause, 6.5–9 s
         let fine = [(1.0, 4.0), (4.1, 6.0), (6.5, 9.0)];
-        let c = change_candidates(&fine, 12.0, &[]);
+        let c = change_candidates(&fine, 12.0);
         assert!(c.contains(&0.0) && c.contains(&0.5), "{c:?}");
         assert!(
             !c.iter().any(|&t| (4.0..4.1).contains(&t)),
@@ -993,9 +1095,13 @@ mod tests {
             }
         }
         assert!(c.iter().any(|&t| t > 9.0 && t < 12.0), "the closing silence");
-        // a chapter start inside speech is not a candidate
-        let c = change_candidates(&fine, 12.0, &[5.0]);
-        assert!(!c.contains(&5.0));
+        assert!(c.iter().all(|&t| t < 12.0));
+        // a span that starts in speech (a sentence carried over a cut) has no
+        // candidate until that sentence ends
+        let c = change_candidates(&[(0.0, 3.0)], 6.0);
+        assert!(c.iter().all(|&t| t >= 3.0), "{c:?}");
+        // no speech at all: the whole span, every 0.5 s
+        assert_eq!(change_candidates(&[], 2.0), vec![0.0, 0.5, 1.0, 1.5]);
     }
 
     #[test]
@@ -1003,21 +1109,41 @@ mod tests {
         let cands: Vec<f64> = (0..400).map(|k| k as f64 * 0.37).collect();
         let total = 140.0;
         let mut rng = Rng::new(7);
-        let ch = plan_changes(&cands, &[], total, (6.0, 12.0), &mut rng);
+        let ch = plan_changes(&cands, total, (6.0, 12.0), &mut rng);
         assert_eq!(ch[0], 0.0);
-        for w in ch.windows(2) {
-            let d = w[1] - w[0];
-            assert!((6.0..=12.0).contains(&d), "{d}");
-            assert!(cands.iter().any(|&c| (c - w[1]).abs() < 1e-9));
+        let lengths: Vec<f64> = ch
+            .windows(2)
+            .map(|w| w[1] - w[0])
+            .chain([total - ch.last().unwrap()])
+            .collect();
+        for &d in &lengths {
+            assert!((6.0..=12.0).contains(&d), "{d} in {lengths:?}");
         }
-        assert!(total - ch.last().unwrap() >= 6.0);
-        // a chapter start inside the window wins
-        let ch = plan_changes(&cands, &[cands[10]], total, (6.0, 12.0), &mut Rng::new(7));
-        assert!((ch[1] - cands[10]).abs() < 1e-9, "{:?}", &ch[..3]);
+        for &c in &ch[1..] {
+            assert!(cands.iter().any(|&k| (k - c).abs() < 1e-9));
+        }
+        // short spans in silence, every seed: the last chord never runs long
+        // (a target near the end must not strand the rest as one chord)
+        let dense: Vec<f64> = (0..60).map(|k| k as f64 * 0.5).collect();
+        for total in [13.0, 17.0, 23.5, 29.0] {
+            for seed in 0..64 {
+                let ch = plan_changes(&dense, total, (6.0, 12.0), &mut Rng::new(seed));
+                let last = total - ch.last().unwrap();
+                assert!((6.0..=12.0).contains(&last), "total {total} seed {seed}: {ch:?}");
+                for w in ch.windows(2) {
+                    assert!(
+                        (6.0..=12.0).contains(&(w[1] - w[0])),
+                        "total {total} seed {seed}: {ch:?}"
+                    );
+                }
+            }
+        }
         // no candidate for a long stretch: the chord holds (a pedal)
         let sparse = [0.0, 3.0, 30.0, 60.0];
-        let ch = plan_changes(&sparse, &[], 80.0, (6.0, 12.0), &mut Rng::new(1));
+        let ch = plan_changes(&sparse, 80.0, (6.0, 12.0), &mut Rng::new(1));
         assert_eq!(ch, vec![0.0, 30.0, 60.0]);
+        // a span shorter than the longest chord is one chord
+        assert_eq!(plan_changes(&dense, 11.0, (6.0, 12.0), &mut Rng::new(3)), vec![0.0]);
     }
 
     #[test]
@@ -1083,6 +1209,46 @@ mod tests {
         );
         // a chord tone stays
         assert_eq!(avoid_minor_ninths(66, &d, &key), 66);
+        // never moved down into the narrator's band: C♯4 clashes with D, and
+        // B3 (246.9 Hz) is not an option
+        let p = avoid_minor_ninths(61, &d, &key);
+        assert!(p >= UPPER_LOW, "{p}");
+    }
+
+    #[test]
+    fn a_held_note_is_released_where_it_would_clash() {
+        let key = Key::new(2, IONIAN);
+        let mk = |start: f64, end: f64, chord: Chord| ChordSpan {
+            start,
+            end,
+            voicing: voice_lead(&chord, 4, None),
+            chord,
+        };
+        // F♯4 over Bm9 is fine; from 11 s, Gmaj9♯11 has G a semitone above it
+        let chords = vec![mk(0.0, 11.0, Chord::min9(11)), mk(11.0, 20.0, Chord::maj9_sharp11(7))];
+        assert!(!clashes(66, &chords[0].chord));
+        assert!(clashes(66, &chords[1].chord));
+        assert!((hold_until_clash(66, 10.0, 2.5, &chords) - 1.0).abs() < 1e-9);
+        // a note that is safe over both keeps its hold
+        assert_eq!(hold_until_clash(71, 10.0, 2.5, &chords), 2.5);
+        let _ = key;
+    }
+
+    #[test]
+    fn an_unplayable_identity_is_refused() {
+        let mut id = Identity::hoeffding();
+        assert!(id.validate().is_ok());
+        id.progression.clear();
+        assert!(id.validate().is_err());
+        let mut id = Identity::hoeffding();
+        id.progression.push(Chord::new(2, &[0, 7]));
+        assert!(id.validate().is_err(), "a bare fifth is too thin for the bed");
+        let mut id = Identity::hoeffding();
+        id.motif = Motif::new(&[1], &[1.0]);
+        assert!(id.validate().is_err());
+        let mut id = Identity::hoeffding();
+        id.chord_s = (12.0, 6.0);
+        assert!(id.validate().is_err());
     }
 
     /// A synthetic narration: noise bursts as "sentences" in a 40 s chapter
@@ -1149,6 +1315,25 @@ mod tests {
         let mut sections = synthetic_sections(&dir);
         let id = Identity::hoeffding();
         let before = render(&id, &sections, None).unwrap();
+        // the other direction first: nothing of chapter 2 starts before its
+        // cut, so editing it leaves chapter 1 (0–40 s) unchanged but for the
+        // zero-phase pocket's few-millisecond pre-ring of the cut, at the level
+        // of a swell's first samples
+        let mut later = sections.clone();
+        later[1].plan.intensity = 0.95;
+        let edited = render(&id, &later, None).unwrap();
+        let (x, y) = (before.chapter_music(0), edited.chapter_music(0));
+        let diff =
+            x.l.iter()
+                .zip(&y.l)
+                .chain(x.r.iter().zip(&y.r))
+                .map(|(a, b)| (a - b).abs())
+                .fold(0.0, f64::max);
+        assert!(
+            diff <= 1e-6 * x.peak(),
+            "chapter 1 moved by {diff:e} (peak {:e})",
+            x.peak()
+        );
         sections[0].plan.intensity = 0.95;
         let after = render(&id, &sections, None).unwrap();
         assert_eq!(before.cap_db, 0.0);
@@ -1289,8 +1474,18 @@ mod tests {
         assert_eq!(s.chapter_music(1).len(), 30 * 48_000);
         assert!(s.music.is_finite());
         assert!(s.true_peak_db <= -12.0 + 1e-9, "{}", s.true_peak_db);
-        // harmony: chords last 6–12 s except the last, and the video ends on the tonic
+        // harmony: chords last 6–12 s where pauses allow, never past the 16 s
+        // QA limit here, and the video ends on the tonic
         assert!(s.chords.len() >= 5, "{}", s.chords.len());
+        for c in &s.chords {
+            let d = c.end - c.start;
+            assert!(
+                (6.0 - 1e-9..=16.0).contains(&d),
+                "{:.2}–{:.2} s: {d:.2} s",
+                c.start,
+                c.end
+            );
+        }
         assert_eq!(s.chords.last().unwrap().chord, id.progression[0]);
         // no melodic onset inside speech (rule 8), no bed note in 95–250 Hz (rule 1)
         for e in &s.events {
