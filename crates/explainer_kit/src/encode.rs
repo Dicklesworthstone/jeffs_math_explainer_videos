@@ -17,6 +17,13 @@
 //!   -b:v 0`) at preset p7 / tune hq with spatial and temporal AQ and B-frames
 //!   as references; never the x264 preset.
 //!
+//! Colour: fmn hands ffmpeg raw BT.709 limited-range frames but declares
+//! neither on the raw input, only on the output, so ffmpeg converts them
+//! from its default matrix on the way in: the corpus background #0E1116
+//! (BT.709 codes 30.4 / 130.5 / 126.5) came out with Cb 129, green-black
+//! (spike S-5). The runner declares the input's colour space and range
+//! (the output's own), so the frames pass through untouched.
+//!
 //! The camera route (`render_camera`) installs no ffmpeg of its own, and a
 //! camera segment encoded differently would corrupt the stream-copy join, so
 //! [`render_camera`] here refuses a video render without the same capability
@@ -138,6 +145,26 @@ impl QualityRunner {
         {
             let extra = self.video_args(&s.argv[i + 1].clone());
             s.argv.splice(i + 2..i + 2, extra);
+        }
+        // the raw input's colour, declared as the output's (BT.709 and the
+        // output's range), so ffmpeg does not convert from its default matrix
+        if let Some(i) = s.argv.windows(2).position(|w| w[0] == "-i" && w[1] == "-")
+            && s.argv[..i].windows(2).any(|w| w[0] == "-f" && w[1] == "rawvideo")
+            && !s.argv[..i].iter().any(|a| a == "-colorspace")
+        {
+            let range = s.argv[i..]
+                .windows(2)
+                .find(|w| w[0] == "-color_range")
+                .map_or("tv".to_owned(), |w| w[1].clone());
+            s.argv.splice(
+                i..i,
+                [
+                    "-colorspace".to_owned(),
+                    "bt709".to_owned(),
+                    "-color_range".to_owned(),
+                    range,
+                ],
+            );
         }
         // the audio mux: a transparent AAC bitrate for the narration
         if let Some(i) = s.argv.windows(2).position(|w| w[0] == "-c:a" && w[1] == "aac")
@@ -280,6 +307,42 @@ mod tests {
         })
     }
 
+    #[test]
+    fn the_raw_input_is_declared_bt709_in_the_outputs_range_once() {
+        let job = |range: &str| {
+            spec(
+                &[
+                    "-f",
+                    "rawvideo",
+                    "-pix_fmt",
+                    "nv12",
+                    "-i",
+                    "-",
+                    "-c:v",
+                    "libx264",
+                    "-colorspace",
+                    "bt709",
+                    "-color_range",
+                    range,
+                    "out.mp4",
+                ],
+                600,
+            )
+        };
+        let r = runner("slow", None);
+        let out = r.adjust(&job("tv"));
+        let argv = out.argv.join(" ");
+        assert!(
+            argv.contains("-pix_fmt nv12 -colorspace bt709 -color_range tv -i -"),
+            "{argv}"
+        );
+        assert!(r.adjust(&job("pc")).argv.join(" ").contains("-color_range pc -i -"));
+        assert_eq!(r.adjust(&out).argv, out.argv, "declared once");
+        // a mux job (no raw input) is left alone
+        let mux = spec(&["-i", "v.mp4", "-i", "a.wav", "-c:v", "copy", "o.mp4"], 600);
+        assert_eq!(r.adjust(&mux).argv, mux.argv);
+    }
+
     fn spec(argv: &[&str], timeout_secs: u64) -> ProcessSpec {
         ProcessSpec {
             program: PathBuf::from("/usr/bin/ffmpeg"),
@@ -304,8 +367,9 @@ mod tests {
     #[test]
     fn x264_gets_crf_preset_and_animation_tune_right_after_the_codec() {
         let out = runner("slow", None).adjust(&encode_job("libx264"));
+        let i = out.argv.iter().position(|a| a == "-c:v").unwrap();
         assert_eq!(
-            out.argv[4..14],
+            out.argv[i..i + 10],
             [
                 "-c:v",
                 "libx264",
@@ -343,7 +407,16 @@ mod tests {
     #[test]
     fn videotoolbox_gets_no_rate_control() {
         let job = encode_job("h264_videotoolbox");
-        assert_eq!(runner("slow", None).adjust(&job).argv, job.argv);
+        let out = runner("slow", None).adjust(&job).argv;
+        assert!(
+            !out.iter()
+                .any(|a| ["-crf", "-cq", "-preset", "-tune", "-b:v"].contains(&a.as_str()))
+        );
+        // nothing else changes but the raw input's declared colour
+        let mut rest = out.clone();
+        let i = rest.iter().position(|a| a == "-colorspace").unwrap();
+        rest.drain(i..i + 4);
+        assert_eq!(rest, job.argv);
     }
 
     #[test]
