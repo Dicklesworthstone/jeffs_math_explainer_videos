@@ -6,7 +6,8 @@ common integrated loudness by a fixed gain per file (-16 LUFS unless a
     python3 -I ab_excerpts.py RENDERS_DIR WORK_DIR
 
 RENDERS_DIR holds score_ab/hoeffdings_d_4k_v5_score_old_ab.mp4 (v5's
-picture and sound) and hoeffding_d_4k_v6.mp4; the excerpts go to
+picture and sound) and hoeffding_d_4k_v6.2.mp4; the excerpts are held to
+H.264 level 5.2 (4K at x264's own level is 6.0, past Apple's decoder); the excerpts go to
 RENDERS_DIR/ab_v6/ (which must not exist), with levels.json. WORK_DIR keeps
 the intermediates (cut video, PCM audio)."""
 import json, pathlib, re, subprocess, sys
@@ -15,7 +16,7 @@ ROOT = pathlib.Path(sys.argv[1])          # explainer_corpus/hoeffding_d/renders
 OUT = ROOT / "ab_v6"
 WORK = pathlib.Path(sys.argv[2])     # intermediates (scratch)
 V5 = ROOT / "score_ab/hoeffdings_d_4k_v5_score_old_ab.mp4"
-V6 = ROOT / "hoeffding_d_4k_v6.mp4"
+V6 = ROOT / "hoeffding_d_4k_v6.2.mp4"
 # chapter starts (s) from the chapters' frame counts at 60 fps
 V5_START = {"01_hook": 0, "02_gallery": 2642 / 60, "07_shuffle": 22687 / 60}
 V6_START = {"01_hook": 0, "02_gallery": 2792 / 60, "07_shuffle": 23433 / 60}
@@ -50,7 +51,7 @@ for name, ch, rel, d5, d6 in CUTS:
         v = base.with_suffix(".video.mp4")
         a = base.with_suffix(".wav")
         run(["-ss", f"{start:.4f}", "-t", f"{dur:.4f}", "-i", str(src), "-map", "0:v:0", "-an",
-             "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-tune", "animation", "-pix_fmt", "yuv420p",
+             "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-tune", "animation", "-level", "5.2", "-pix_fmt", "yuv420p",
              "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1", str(v)])
         run(["-ss", f"{start:.4f}", "-t", f"{dur:.4f}", "-i", str(src), "-map", "0:a:0", "-vn",
              "-af", f"afade=t=in:d=0.3,afade=t=out:st={dur - 0.3:.4f}:d=0.3", "-c:a", "pcm_f32le", str(a)])
