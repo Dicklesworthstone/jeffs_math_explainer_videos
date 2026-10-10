@@ -17,8 +17,9 @@
 > *method* in the present tense, because the method is fixed and every video
 > follows it. What exists today is stated separately and plainly: see
 > [The corpus](#the-corpus) and [Status](#status). One video is finished; three
-> are researched and storyboarded; the shared crates are specified, not yet
-> built.
+> are researched and storyboarded. The sound engine is built and has re-scored
+> the finished video for a listening test that awaits the owner's verdict; the
+> shared scene kit is partly extracted; the corpus driver is not started.
 
 ---
 
@@ -107,7 +108,8 @@ narrator's pitch range, its detuned sines pumped with a 12 dB beating tremolo,
 and, as actually mixed, it sat only about 5.6 LU under the voice; the chimes
 put their energy at 2.4–4.8 kHz, exactly where consonants live, and cost up to
 0.165 of speech intelligibility at each onset. The new engine
-(`crates/explainer_score`, std-only Rust, specified in §7 of the plan and in
+([`crates/explainer_score`](crates/explainer_score/), std-only Rust, built to
+§7 of the plan and
 [`docs/research/sound_design/`](docs/research/sound_design/)) fixes that by
 construction:
 
@@ -125,9 +127,32 @@ construction:
   video only one process's melody can ever sound at a time, so mutual exclusion
   is audible and a violation sounds like a bug.
 
+Measured on the Hoeffding narration by the plan's §7.6 QA, the v5 score and the
+new one, chapter by chapter (8 chapters, the same voice placement and QA code
+for both):
+
+| Metric (limit) | v5 pad + chimes | New engine |
+|---|---|---|
+| voice − music, median of 3 s windows over speech (≥ 16 LU) | 7.4–9.2 LU, 8 fail | 16.7–17.5 LU |
+| music's loudest 400 ms during speech, re the speech's (≤ −15 LU) | −1.7 to 0.0 LU, 8 fail | −21.5 to −17.7 LU |
+| speech-intelligibility (SII-lite) loss, worst 400 ms (≤ 0.03) | 0.07–0.25, 8 fail | ≤ 0.001 |
+| music/voice energy at 1–4 kHz during speech (≤ −20 dB) | −20.4 to −10.6 dB, 7 fail | −37.0 to −31.9 dB |
+| clicks (0) | up to 2 per chapter, 7 fail | 0 |
+| chapters passing every gate | 0 of 8 | 8 of 8 |
+
+The A/B itself (the v5 4K video with each soundtrack, loudness-matched) is for
+the owner's ears; metrics can rule a score out, not in.
+
 ## Repository layout
 
 ```text
+crates/
+  explainer_score/       the sound engine: DSP, instruments, theory, arrangement,
+                         offline duck and pocket, §7.6 QA (std-only Rust)
+  explainer_kit/         the shared scene kit: palette, text and math helpers, live
+                         readouts, playback, plots, narration and the exact cue
+                         log, layout lint, NumPy-parity stats, facts harness,
+                         delivery encoder (the CLI and captions are still to come)
 explainer_corpus/        one directory per video (each a Rust crate)
   hoeffding_d/           corpus entry 1 (finished; imported)
 docs/
@@ -140,11 +165,8 @@ AGENTS.md                rules for coding agents working here
 LICENSE                  MIT with an OpenAI/Anthropic rider
 ```
 
-Planned, per the plan's §3: a root Cargo workspace; `crates/explainer_kit` (the
-shared scene kit, layout lint, narration timeline, encoder wrapper, stats kit,
-CLI and captions, extracted from the explainer skill's template) and
-`crates/explainer_score` (the sound engine); `templates/explainer/`; `tools/`;
-and the corpus-aware `./x` driver.
+Still to come, per the plan's §3: the kit's shared CLI and captions,
+`templates/explainer/`, `tools/`, and the corpus-aware `./x` driver.
 
 ## Building
 
@@ -166,6 +188,15 @@ target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out dr
 - Producing narration uses the owner's FrankenTTS narration skills, referenced
   by path rather than vendored here.
 
+The sound engine and its A/B on the Hoeffding narration (the demo needs a cue
+log from a `HOEFFDING_CUE_LOG=1` render and the narration WAVs; see the
+example's header):
+
+```bash
+cargo test --release -p explainer_score
+cargo run --release -p explainer_score --example score_demo -- CUE_LOG NARRATION_DIR OUT_DIR
+```
+
 The research scripts run with a plain Python 3 (`python3 -I <script>.py`); a few
 need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 
@@ -176,7 +207,10 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 | Hoeffding's D explainer | finished (v5); builds and tests here from a git-pinned engine |
 | Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm) |
 | The plan | revision 2: architecture, doctrines and beat-by-beat storyboards, revised after a five-reviewer round |
-| Shared workspace, kit, score engine, driver | specified; implementation tracked in `.beads/` |
+| Shared workspace | built: root Cargo workspace, franken_manim pinned by git revision |
+| Score engine (`explainer_score`) | built and tested; the Hoeffding A/B passes its QA in 8 of 8 chapters (v5: 0 of 8) and awaits the owner's listening verdict |
+| Scene kit (`explainer_kit`) | extracted and tested except the shared CLI and captions (tracked in `.beads/`) |
+| Corpus driver (`./x`), template, CI | not started; tracked in `.beads/` |
 | Videos 2–4 | storyboarded; production follows the plan's order (kit → score engine → Hoeffding v6 → fish → RaptorQ and bakery) |
 
 ## Limitations

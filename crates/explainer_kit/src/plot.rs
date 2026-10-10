@@ -1,5 +1,6 @@
-//! Small geometry and number helpers: vectors, the `Frame2` data window, and
-//! thousands separators for numbers built from `facts` (never typed).
+//! Small geometry and number helpers: vectors, the `Frame2` data window,
+//! rectangles and dot clouds, and thousands separators for numbers built from
+//! `facts` (never typed).
 
 use fmn::prelude::*;
 
@@ -31,6 +32,44 @@ pub fn thousands(n: impl Into<u128>) -> String {
         out.push(c);
     }
     out
+}
+
+/// As [`thousands`] for signed values, with a typographic minus (U+2212),
+/// which the bundled fonts carry and which reads better than a hyphen.
+pub fn signed_thousands(n: i128) -> String {
+    let body = thousands(n.unsigned_abs());
+    if n < 0 { format!("\u{2212}{body}") } else { body }
+}
+
+/// A plain rectangle with its lower-left corner at `dl` (degenerate sizes are
+/// clamped to a hairline instead of failing).
+pub fn rect(dl: Vec3, w: f64, h: f64, style: Style) -> fmn::Result<VMobject> {
+    let r = Rectangle::new()
+        .width(w.max(1e-4))
+        .height(h.max(1e-4))
+        .style(style)
+        .build()?;
+    Ok(r.moved_to([dl[0] + w / 2.0, dl[1] + h / 2.0, 0.0]))
+}
+
+/// Dots, one per point, as a single group, coloured per point.
+///
+/// # Panics
+/// If `colors` and `points` differ in length (a shorter list would silently
+/// drop dots); `point_colors(points.len())` always fits.
+pub fn dot_cloud(points: &[Vec3], colors: &[Srgb], radius: f64) -> VMobject {
+    assert_eq!(points.len(), colors.len(), "dot_cloud: one color per point");
+    v_group(
+        points
+            .iter()
+            .zip(colors)
+            .map(|(&p, &c)| Dot::new().point(p).radius(radius).color(c).build()),
+    )
+}
+
+/// The children of a group, in order.
+pub fn children(stage: &Stage<'_>, group: Mob) -> Vec<Mob> {
+    stage.get(group).map(|e| e.submobjects().to_vec()).unwrap_or_default()
 }
 
 /// A data window: maps the data rectangle `x × y` onto a scene rectangle
@@ -97,7 +136,19 @@ mod tests {
         assert_eq!(thousands(1_000u32), "1,000");
         assert_eq!(thousands(4_845u32), "4,845");
         assert_eq!(thousands(2_126_816_238u64), "2,126,816,238");
+        assert_eq!(thousands(1_234_567u32), "1,234,567");
         assert_eq!(thousands(u128::MAX).matches(',').count(), 12);
+        assert_eq!(signed_thousands(-1_234_567), "\u{2212}1,234,567");
+        assert_eq!(signed_thousands(-999), "\u{2212}999");
+        assert_eq!(signed_thousands(0), "0");
+        assert_eq!(signed_thousands(1_000), "1,000");
+        assert_eq!(signed_thousands(i128::MIN).matches(',').count(), 12);
+    }
+
+    #[test]
+    #[should_panic(expected = "one color per point")]
+    fn dot_cloud_refuses_a_short_color_list() {
+        dot_cloud(&[v(0.0, 0.0), v(1.0, 0.0)], &[crate::Palette::blue()], 0.05);
     }
 
     #[test]

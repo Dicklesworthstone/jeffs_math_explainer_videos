@@ -7,7 +7,8 @@ description = "Shared scene kit for the explainer corpus: palette roles, text/Te
 
 [dependencies]
 fmn.workspace = true
+# the timeline format, WAV checks and SHA-256 the narrator records with
+explainer_score.workspace = true
 
 [dev-dependencies]
-explainer_score.workspace = true
 fmn-codec.workspace = true
