@@ -1,8 +1,10 @@
 //! WAV files: stems are written as 32-bit float stereo (lossless, no dither);
 //! s24 and s16 (with TPDF dither) are available for other consumers. The reader
-//! accepts what franken_manim's decoder accepts (PCM u8/s16/s24/s32, IEEE f32,
-//! including WAVE_FORMAT_EXTENSIBLE; mono or stereo) so narration WAVs can be
-//! loaded for ducking and QA.
+//! takes the sample formats franken_manim's decoder takes (PCM u8/s16/s24/s32,
+//! IEEE f32, including WAVE_FORMAT_EXTENSIBLE) but is deliberately stricter:
+//! mono or stereo only, whole frames only, finite floats only, a complete
+//! EXTENSIBLE header. It reads narration WAVs for ducking and QA; a file it
+//! refuses is a file worth looking at.
 
 use std::fs::File;
 use std::io::{self, BufWriter, Read, Write};

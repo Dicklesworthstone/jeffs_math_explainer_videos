@@ -6,7 +6,7 @@
 
 use std::f64::consts::{PI, TAU};
 
-use crate::filter::{AdaaTanh, Ladder, OnePole, Svf};
+use crate::filter::{AdaaTanh, DcBlock, Ladder, OnePole, Svf};
 use crate::fx::{Adsr, DelayLine, rcos};
 use crate::osc::{BlepOsc, Drift, Pink, Wave, White};
 use crate::rng::Rng;
@@ -42,7 +42,7 @@ impl Note {
 /// The instruments the score can call.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Instrument {
-    /// Juno-style pad: two drifting saws, a PWM pulse and a sub triangle into a
+    /// Juno-style pad: two drifting saws and a PWM pulse into a
     /// ladder filter (chorus is applied on the bus).
     Pad {
         brightness: f64,
@@ -63,45 +63,83 @@ pub enum Instrument {
     WarmGlass,
     /// Karplus–Strong plucked string (pizzicato).
     Pluck,
-    /// Sine + triangle through gentle saturation and a 350 Hz low-pass.
+    /// Sine + triangle through gentle saturation and a low-pass at 2× f0.
     Bass,
 }
 
 /// Render `note` with `inst`; returns a stereo buffer (instrument-internal
-/// stereo such as the EP's autopan; otherwise the note's pan).
+/// stereo such as the EP's autopan; otherwise the note's pan). Every voice
+/// leaves through [`shape_edges`]: the onset floor of hard rule 4 and a short
+/// closing fade, so no recipe can click or strike too fast.
 pub fn render(inst: Instrument, note: &Note) -> Stereo {
-    let mono = match inst {
-        Instrument::Pad { brightness } => pad(note, brightness),
-        Instrument::Strings { brightness } => strings(note, brightness),
-        Instrument::FmEp => return fm_ep(note),
-        Instrument::FeltPiano => felt_piano(note),
-        // the third mode must ring long enough to be heard: a two-partial bar
+    let voice = |mono: Vec<f64>| crate::fx::pan(&mono, note.pan);
+    let mut out = match inst {
+        Instrument::Pad { brightness } => voice(pad(note, brightness)),
+        Instrument::Strings { brightness } => voice(strings(note, brightness)),
+        Instrument::FmEp => fm_ep(note),
+        Instrument::FeltPiano => voice(felt_piano(note)),
+        // the upper modes must ring long enough to be heard: a two-partial bar
         // is the sterile "test tone" hard rule 3 exists to prevent
-        Instrument::Marimba => modal(
+        Instrument::Marimba => voice(modal(
             note,
-            &[(1.0, 1.0, 0.55), (3.92, 0.22, 0.12), (9.2, 0.08, 0.09)],
+            &[(1.0, 1.0, 0.55), (3.92, 0.22, 0.22), (9.2, 0.08, 0.09)],
             0.0018,
             None,
-        ),
-        Instrument::Vibraphone => modal(
+        )),
+        Instrument::Vibraphone => voice(modal(
             note,
             &[(1.0, 1.0, 2.2), (4.0, 0.18, 0.55), (10.0, 0.05, 0.15)],
             0.0012,
             Some(4.0),
-        ),
-        // a tine's fundamental, a weak second harmonic from the bridge, and the
+        )),
+        // a tine's fundamental, a second harmonic from the bridge, and the
         // inharmonic first overtone (~5.3–6.8×) that gives it its plink
-        Instrument::Kalimba => modal(
+        Instrument::Kalimba => voice(modal(
             note,
-            &[(1.0, 1.0, 0.9), (2.0, 0.05, 0.4), (5.9, 0.18, 0.12)],
+            &[(1.0, 1.0, 0.9), (2.0, 0.07, 0.7), (5.9, 0.18, 0.12)],
             0.0009,
             None,
-        ),
-        Instrument::WarmGlass => warm_glass(note),
-        Instrument::Pluck => pluck(note),
-        Instrument::Bass => bass(note),
+        )),
+        Instrument::WarmGlass => voice(warm_glass(note)),
+        Instrument::Pluck => voice(pluck(note)),
+        Instrument::Bass => voice(bass(note)),
     };
-    crate::fx::pan(&mono, note.pan)
+    let onset = onset_floor(inst);
+    shape_edges(&mut out.l, onset);
+    shape_edges(&mut out.r, onset);
+    out
+}
+
+/// Hard rule 4 (plan §7.3): the shortest onset (0 → full, raised cosine) an
+/// instrument may have: 8 ms for plucked voices, 3 ms for everything else.
+/// The recipes' own contact widths still set brightness; this sets the rise.
+pub fn onset_floor(inst: Instrument) -> f64 {
+    match inst {
+        Instrument::Kalimba | Instrument::Pluck => 0.008,
+        _ => 0.003,
+    }
+}
+
+/// The closing fade every voice ends with (seconds).
+pub const TAIL_FADE: f64 = 0.02;
+
+/// Raised-cosine onset over `onset` seconds and a [`TAIL_FADE`] fade to an
+/// exact zero at the last sample: a note buffer never starts or stops with a step.
+pub fn shape_edges(x: &mut [f64], onset: f64) {
+    let n_on = ((onset * FS) as usize).min(x.len());
+    for (i, v) in x.iter_mut().enumerate().take(n_on) {
+        *v *= rcos(i as f64 / n_on as f64);
+    }
+    let n_tail = ((TAIL_FADE * FS) as usize).min(x.len());
+    let len = x.len();
+    for (j, v) in x[len - n_tail..].iter_mut().enumerate() {
+        *v *= rcos((n_tail - 1 - j) as f64 / n_tail as f64);
+    }
+}
+
+/// A brightness in [0, 1] (non-finite input falls back to 0.5).
+fn unit(b: f64) -> f64 {
+    if b.is_finite() { b.clamp(0.0, 1.0) } else { 0.5 }
 }
 
 fn amp_from_velocity(v: f64) -> f64 {
@@ -110,6 +148,7 @@ fn amp_from_velocity(v: f64) -> f64 {
 }
 
 fn pad(note: &Note, brightness: f64) -> Vec<f64> {
+    let brightness = unit(brightness);
     let f0 = note.hz();
     let env = Adsr {
         attack: 1.1,
@@ -130,7 +169,6 @@ fn pad(note: &Note, brightness: f64) -> Vec<f64> {
     let mut o1 = BlepOsc::new(Wave::Saw, rng.uniform());
     let mut o2 = BlepOsc::new(Wave::Saw, rng.uniform());
     let mut pw = BlepOsc::new(Wave::Pulse(0.5), rng.uniform());
-    let mut sub = BlepOsc::new(Wave::Triangle, rng.uniform());
     let (mut d1, mut d2) = (
         Drift::new(rng.next_u64(), 3.0, 0.7),
         Drift::new(rng.next_u64(), 3.0, 0.7),
@@ -140,27 +178,32 @@ fn pad(note: &Note, brightness: f64) -> Vec<f64> {
     let lfo_phase = rng.uniform();
     let amp = amp_from_velocity(note.velocity) * 0.22;
     let mut out = Vec::with_capacity(env.len());
-    let (mut c1, mut c2) = (0.0, 0.0);
+    let (mut c1, mut c2, mut pw_dc) = (0.0, 0.0, 0.0);
     for (i, (&e, &fe)) in env.iter().zip(&fenv).enumerate() {
         if i % 32 == 0 {
             c1 = d1.step(32.0 / FS);
             c2 = d2.step(32.0 / FS);
-            let fc = (2.5 + 1.5 * brightness.clamp(0.0, 1.0)) * f0 + 600.0 * fe * brightness;
+            let fc = (2.5 + 1.5 * brightness) * f0 + 600.0 * fe * brightness;
             lad.set(fc.clamp(250.0, 2_000.0 + 4_000.0 * brightness), 0.8);
             let w = 0.5 + 0.15 * (TAU * (lfo_rate * i as f64 / FS + lfo_phase)).sin();
             pw.wave = Wave::Pulse(w);
+            // a ±1 pulse of width w has mean 2w − 1: remove it, or the PWM
+            // LFO becomes a slow DC wobble
+            pw_dc = 2.0 * w - 1.0;
         }
         let a = o1.next(f0 * cents_ratio(detune * 0.5 + c1));
         let b = o2.next(f0 * cents_ratio(-detune * 0.5 + c2));
-        let p = pw.next(f0 * cents_ratio(c1 * 0.5));
-        let s = sub.next(f0 * 0.5);
-        let x = 0.42 * (a + b) + 0.25 * p + 0.4 * s;
+        let p = pw.next(f0 * cents_ratio(c1 * 0.5)) - pw_dc;
+        // no sub-oscillator: an octave below a C4 voice is 131 Hz, inside the
+        // narrator's pitch band (hard rule 1); the bass instrument owns the low end
+        let x = 0.48 * (a + b) + 0.3 * p;
         out.push(amp * e * lad.process(x));
     }
     out
 }
 
 fn strings(note: &Note, brightness: f64) -> Vec<f64> {
+    let brightness = unit(brightness);
     let f0 = note.hz();
     let env = Adsr {
         attack: 0.6,
@@ -174,7 +217,7 @@ fn strings(note: &Note, brightness: f64) -> Vec<f64> {
     let mut o2 = BlepOsc::new(Wave::Saw, rng.uniform());
     let mut drift = Drift::new(rng.next_u64(), 2.5, 0.6);
     let mut hp = Svf::new(200.0, 0.707);
-    let mut lp = Svf::new(1_500.0 + 1_500.0 * brightness.clamp(0.0, 1.0), 0.707);
+    let mut lp = Svf::new(1_500.0 + 1_500.0 * brightness, 0.707);
     let amp = amp_from_velocity(note.velocity) * 0.2;
     let mut c = 0.0;
     env.iter()
@@ -196,8 +239,10 @@ fn fm_ep(note: &Note) -> Stereo {
     let decay = 1.4 + 1.2 * (1.0 - (note.pitch - 48.0).max(0.0) / 48.0);
     let n = ((note.hold + decay * 2.5) * FS) as usize;
     let mut rng = Rng::new(note.seed);
-    let (ph0, trem_ph) = (rng.uniform(), rng.uniform());
+    let (ph0, trem_ph) = (rng.uniform() * TAU, rng.uniform());
     let mut sat = AdaaTanh::default();
+    let mut dc = DcBlock::default();
+    let pan = note.pan.clamp(-1.0, 1.0);
     let amp = amp_from_velocity(v) * 0.32;
     let mut s = Stereo::silence(n);
     for i in 0..n {
@@ -212,12 +257,16 @@ fn fm_ep(note: &Note) -> Stereo {
         let m = (TAU * f0 * t + ph0).sin();
         let body = (TAU * f0 * t + idx * m).sin();
         let tine = 0.12 * (-t / 0.02).exp() * (TAU * f0 * t + 1.5 * (TAU * 14.0 * f0 * t).sin()).sin();
-        // a touch of asymmetric "bark" from the pickup
-        let y = sat.process(1.2 * (body + tine) + 0.08) - (0.08f64).tanh();
+        // a touch of asymmetric "bark" from the pickup; the asymmetry leaves a
+        // DC offset that the blocker removes
+        let y = dc.process(sat.process(1.2 * (body + tine) + 0.08));
         let x = amp * a * y;
-        let trem = 0.25 * (TAU * (4.5 * t + trem_ph)).sin();
-        s.l[i] = x * (0.5 + 0.5 * (note.pan.clamp(-1.0, 1.0) * 0.5 - trem).clamp(-1.0, 1.0)).sqrt();
-        s.r[i] = x * (0.5 + 0.5 * (note.pan.clamp(-1.0, 1.0) * 0.5 + trem).clamp(-1.0, 1.0)).sqrt();
+        // constant-power position (the same law as `fx::pan`): the note's pan
+        // plus the tremolo's autopan
+        let p = (pan + 0.25 * (TAU * (4.5 * t + trem_ph)).sin()).clamp(-1.0, 1.0);
+        let angle = (p + 1.0) * 0.25 * PI;
+        s.l[i] = x * angle.cos();
+        s.r[i] = x * angle.sin();
     }
     s
 }
@@ -318,17 +367,25 @@ fn modal(note: &Note, modes: &[(f64, f64, f64)], contact: f64, tremolo: Option<f
 }
 
 fn warm_glass(note: &Note) -> Vec<f64> {
-    // FM bell with harmonic ratios (1:1 and 1:2), low index, softened top.
+    // FM bell with harmonic ratios (1:1 and 1:2), low index, softened top. It
+    // rings freely (τ ≈ 1.4 s) for `hold`, then damps (τ 0.6 s); the buffer
+    // runs six damping constants past `hold`, so it ends > 50 dB down.
     let f0 = note.hz();
     let v = note.velocity.clamp(0.0, 1.0);
-    let n = ((note.hold.max(0.1) + 3.0) * FS) as usize;
+    let mut rng = Rng::new(note.seed);
+    // round-robin variation (rule 6): ±10% decay, ±15% index
+    let tau = 1.4 * (1.0 + rng.jitter(0.10));
+    let index = 0.9 * (1.0 + rng.jitter(0.15));
+    let hold = note.hold.max(0.1);
+    let n = ((hold + 6.0 * 0.6) * FS) as usize;
     let mut lp = Svf::new(2_200.0 + 1_500.0 * v, 0.6);
     let amp = amp_from_velocity(v) * 0.35;
     let mut out = Vec::with_capacity(n);
     for i in 0..n {
         let t = i as f64 / FS;
-        let env = (t / 0.003).min(1.0) * (-t / 1.4).exp();
-        let idx = 0.9 * (-t / 0.5).exp() + 0.2;
+        let rel = if t > hold { (-(t - hold) / 0.6).exp() } else { 1.0 };
+        let env = (-t / tau).exp() * rel;
+        let idx = index * (-t / 0.5).exp() + 0.2;
         let m1 = (TAU * f0 * t).sin();
         let m2 = (TAU * 2.0 * f0 * t).sin();
         let y = (TAU * f0 * t + idx * m1).sin() + 0.35 * (TAU * 2.0 * f0 * t + 0.6 * idx * m2).sin();
@@ -413,12 +470,15 @@ fn bass(note: &Note) -> Vec<f64> {
     let mut s = BlepOsc::new(Wave::Sine, rng.uniform());
     let mut t = BlepOsc::new(Wave::Triangle, rng.uniform());
     let mut sat = AdaaTanh::default();
-    let mut lp = Svf::new(350.0, 0.707);
-    let amp = amp_from_velocity(note.velocity) * 0.45;
+    // the low-pass tracks the note (2× f0) so the saturation's and the
+    // triangle's harmonics stay out of the narrator's 95–250 Hz band: the
+    // intent of hard rule 1, not just its letter (fundamentals)
+    let mut lp = Svf::new((2.0 * f0).clamp(60.0, 350.0), 0.707);
+    let amp = amp_from_velocity(note.velocity) * 0.5;
     env.iter()
         .map(|&e| {
             let x = s.next(f0) + 0.25 * t.next(f0);
-            amp * e * lp.step(sat.process(1.5 * x) / 1.5).low
+            amp * e * lp.step(sat.process(0.8 * x) / 0.8).low
         })
         .collect()
 }
@@ -471,14 +531,16 @@ pub fn bubble(radius_m: f64, seed: u64) -> Vec<f64> {
     let glide = 1.0 + rng.range(0.1, 0.25);
     let n = (0.12 * FS) as usize;
     let mut ph = 0.0;
-    (0..n)
+    let mut out: Vec<f64> = (0..n)
         .map(|i| {
             let t = i as f64 / FS;
             let fi = f * (1.0 + (glide - 1.0) * (t / 0.12));
             ph += TAU * fi / FS;
-            0.4 * (t / 0.002).min(1.0) * (-t / 0.025).exp() * ph.sin()
+            0.4 * (-t / 0.025).exp() * ph.sin()
         })
-        .collect()
+        .collect();
+    shape_edges(&mut out, 0.004);
+    out
 }
 
 /// A soft wooden "tok" for counters: two modes, 20–40 ms, low-passed < 3 kHz.
@@ -487,13 +549,16 @@ pub fn tick(pitch_hz: f64, seed: u64) -> Vec<f64> {
     let f = pitch_hz.clamp(500.0, 1_000.0) * (1.0 + rng.jitter(0.02));
     let n = (0.04 * FS) as usize;
     let mut lp = Svf::new(2_800.0, 0.6);
-    (0..n)
+    let mut out: Vec<f64> = (0..n)
         .map(|i| {
             let t = i as f64 / FS;
             let y = (-t / 0.008).exp() * (TAU * f * t).sin() + 0.4 * (-t / 0.004).exp() * (TAU * 2.3 * f * t).sin();
-            0.35 * (t / 0.001).min(1.0) * lp.step(y).low
+            0.35 * lp.step(y).low
         })
-        .collect()
+        .collect();
+    // a deliberate tick may start in 1 ms: it is low-passed under 3 kHz
+    shape_edges(&mut out, 0.001);
+    out
 }
 
 #[cfg(test)]
@@ -616,12 +681,131 @@ mod tests {
     }
 
     #[test]
+    fn mallet_tails_keep_more_than_one_partial() {
+        // Hard rule 3 in the tail, 0.5 s after the strike: a struck voice must
+        // not decay into a bare sine. (The colour bus adds chorus and plate on
+        // top; this checks the dry voice keeps at least two partials.)
+        for (inst, ratios) in [
+            (Instrument::Marimba, [1.0, 3.92]),
+            (Instrument::Vibraphone, [1.0, 4.0]),
+            (Instrument::Kalimba, [1.0, 2.0]),
+        ] {
+            let x = render(inst, &Note::new(57.0, 0.8, 1.0, 5)).l;
+            let seg = &x[24_000..24_000 + 16_384];
+            let f0 = midi_to_hz(57.0);
+            let lv: Vec<f64> = ratios.iter().map(|r| level_at(seg, f0 * r)).collect();
+            assert!(
+                lv[1] > 0.01 * lv[0],
+                "{inst:?}: second partial {:.1} dB",
+                20.0 * (lv[1] / lv[0]).log10()
+            );
+        }
+    }
+
+    #[test]
+    fn onsets_respect_hard_rule_4() {
+        // Within the first half of its onset floor a note stays under ~half of
+        // its peak (a raised cosine is exactly 0.5 there). Kalimba and pluck
+        // must not reach it before 4 ms, mallets not before 1.5 ms.
+        for inst in ALL {
+            for pitch in [45.0, 57.0, 69.0, 81.0] {
+                let s = render(inst, &Note::new(pitch, 1.0, 0.8, 7));
+                let k = (onset_floor(inst) * 0.5 * FS) as usize;
+                let early = s.l[..k].iter().chain(&s.r[..k]).fold(0.0_f64, |m, v| m.max(v.abs()));
+                assert!(
+                    early <= 0.55 * s.peak(),
+                    "{inst:?} at {pitch}: {early:.3} within {k} samples (peak {:.3})",
+                    s.peak()
+                );
+            }
+        }
+        assert!(onset_floor(Instrument::Pluck) >= 0.008 && onset_floor(Instrument::Kalimba) >= 0.008);
+        assert!(ALL.iter().all(|&i| onset_floor(i) >= 0.003));
+    }
+
+    #[test]
+    fn every_note_ends_in_silence_without_a_cut() {
+        // The closing fade reaches an exact zero, and it is not hiding a hard
+        // cut: just before the fade the note is already 40 dB under its peak.
+        let fade = (TAIL_FADE * FS) as usize;
+        for inst in ALL {
+            for hold in [0.1, 1.5] {
+                let s = render(inst, &Note::new(60.0, 0.9, hold, 9));
+                let n = s.len();
+                assert_eq!((s.l[n - 1], s.r[n - 1]), (0.0, 0.0), "{inst:?}");
+                let before = s.l[n - fade - 2_400..n - fade]
+                    .iter()
+                    .chain(&s.r[n - fade - 2_400..n - fade])
+                    .fold(0.0_f64, |m, v| m.max(v.abs()));
+                assert!(
+                    before < 0.01 * s.peak(),
+                    "{inst:?} hold {hold}: {:.1} dB re peak before the fade",
+                    20.0 * (before / s.peak()).log10()
+                );
+            }
+        }
+        for m in [bubble(0.005, 3), tick(700.0, 4)] {
+            assert_eq!(m[0], 0.0);
+            assert_eq!(*m.last().unwrap(), 0.0);
+        }
+    }
+
+    #[test]
+    fn bass_keeps_out_of_the_narrators_band() {
+        // Hard rule 1's intent: E1–D2 bass notes put ≥ 20 dB less energy in
+        // 95–250 Hz than in total (harmonics included, not only fundamentals).
+        for pitch in [28.0, 33.0, 38.0] {
+            let x = render(Instrument::Bass, &Note::new(pitch, 1.0, 2.0, 1)).l;
+            let (df, psd) = crate::fft::welch(&x[4_800..96_000], FS, 8_192);
+            let band = |lo: f64, hi: f64| -> f64 {
+                psd.iter()
+                    .enumerate()
+                    .filter(|(k, _)| (lo..hi).contains(&(*k as f64 * df)))
+                    .map(|(_, p)| p)
+                    .sum()
+            };
+            let ratio = 10.0 * (band(95.0, 250.0) / band(0.0, 24_000.0)).log10();
+            assert!(ratio < -20.0, "pitch {pitch}: {ratio:.1} dB in 95–250 Hz");
+        }
+    }
+
+    #[test]
+    fn fm_ep_pan_moves_the_image_at_constant_power() {
+        let energy = |pan: f64| {
+            let mut n = Note::new(64.0, 0.7, 1.0, 3);
+            n.pan = pan;
+            let s = render(Instrument::FmEp, &n);
+            let e = |v: &[f64]| v.iter().map(|x| x * x).sum::<f64>();
+            (e(&s.l), e(&s.r))
+        };
+        let (l0, r0) = energy(0.0);
+        let (lp, rp) = energy(1.0);
+        let (lm, rm) = energy(-1.0);
+        assert!((10.0 * (l0 / r0).log10()).abs() < 1.0, "centre is balanced");
+        assert!(10.0 * (rp / lp).log10() > 6.0, "pan +1 leans right");
+        assert!(10.0 * (lm / rm).log10() > 6.0, "pan −1 leans left");
+        for (l, r) in [(lp, rp), (lm, rm)] {
+            assert!((10.0 * ((l + r) / (l0 + r0)).log10()).abs() < 0.5, "constant power");
+        }
+    }
+
+    #[test]
     fn same_seed_same_note_different_seed_different_note() {
-        let a = render(Instrument::Vibraphone, &Note::new(64.0, 0.7, 0.5, 10));
-        let b = render(Instrument::Vibraphone, &Note::new(64.0, 0.7, 0.5, 10));
-        let c = render(Instrument::Vibraphone, &Note::new(64.0, 0.7, 0.5, 11));
-        assert_eq!(a, b);
-        assert_ne!(a, c);
+        for inst in [Instrument::Vibraphone, Instrument::WarmGlass, Instrument::FmEp] {
+            let a = render(inst, &Note::new(64.0, 0.7, 0.5, 10));
+            let b = render(inst, &Note::new(64.0, 0.7, 0.5, 10));
+            let c = render(inst, &Note::new(64.0, 0.7, 0.5, 11));
+            assert_eq!(a, b, "{inst:?}");
+            assert_ne!(a, c, "{inst:?} (rule 6: no identical repeats)");
+        }
+    }
+
+    #[test]
+    fn bad_brightness_does_not_panic() {
+        for b in [-3.0, f64::NAN, 7.0] {
+            assert!(render(Instrument::Pad { brightness: b }, &Note::new(60.0, 0.5, 0.3, 1)).is_finite());
+            assert!(render(Instrument::Strings { brightness: b }, &Note::new(60.0, 0.5, 0.3, 1)).is_finite());
+        }
     }
 
     #[test]

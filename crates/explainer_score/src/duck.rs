@@ -133,6 +133,22 @@ pub fn duck_curve(regions: &[(f64, f64)], n: usize, shape: DuckShape) -> Vec<f64
     u
 }
 
+/// Release the duck inside authored windows (`(start_s, length_s)`): music
+/// breaths and listen windows, where the music is meant to be heard. The duck
+/// fades out over `ramp_s` at the window's start and back in at its end.
+pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], ramp_s: f64) {
+    for &(start, len) in windows {
+        let (a, b) = (start, start + len);
+        let i0 = (a.max(0.0) * FS) as usize;
+        let i1 = ((b * FS) as usize).min(u.len());
+        for (i, v) in u.iter_mut().enumerate().take(i1).skip(i0) {
+            let t = i as f64 / FS;
+            let open = rcos(((t - a) / ramp_s).min((b - t) / ramp_s));
+            *v *= 1.0 - open;
+        }
+    }
+}
+
 /// The pocket EQ (zero phase): −3 dB 300 Hz–1 kHz on the mid channel only (the
 /// narrator's centre), then −5 dB around 2 kHz (≈1–4 kHz) on both channels.
 pub fn pocket(x: &Stereo) -> Stereo {
@@ -143,9 +159,19 @@ pub fn pocket(x: &Stereo) -> Stereo {
     let l: Vec<f64> = mid.iter().zip(&side).map(|(m, s)| m + s).collect();
     let r: Vec<f64> = mid.iter().zip(&side).map(|(m, s)| m - s).collect();
     let bell = || Biquad::new(Kind::Peaking { q: 0.7, db: -2.5 }, 2_000.0);
+    // hard rule 2: under speech, content above 2.5 kHz is cut by ≥ 12 dB; a
+    // zero-phase 2.4 kHz Butterworth (run twice: 4th-order slope) does that
+    let lp = || {
+        Biquad::new(
+            Kind::LowPass {
+                q: std::f64::consts::FRAC_1_SQRT_2,
+            },
+            2_400.0,
+        )
+    };
     Stereo {
-        l: filtfilt(&l, bell),
-        r: filtfilt(&r, bell),
+        l: filtfilt(&filtfilt(&l, bell), lp),
+        r: filtfilt(&filtfilt(&r, bell), lp),
     }
 }
 
@@ -231,7 +257,20 @@ mod tests {
     }
 
     #[test]
-    fn pocket_cuts_the_speech_band_and_spares_the_rest() {
+    fn listen_windows_release_the_duck_fully() {
+        let n = (10.0 * FS) as usize;
+        let mut u = duck_curve(&[(1.0, 9.0)], n, DuckShape::default());
+        release_windows(&mut u, &[(4.0, 3.0)], 0.3);
+        let at = |t: f64| u[(t * FS) as usize];
+        assert!((at(3.5) - 1.0).abs() < 1e-9, "outside the window: still ducked");
+        assert!(at(5.5).abs() < 1e-9, "inside: fully released");
+        assert!(at(4.15) > 0.0 && at(4.15) < 1.0, "smooth ramp in");
+        let max_step = u.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
+        assert!(max_step < 1e-3, "{max_step}");
+    }
+
+    #[test]
+    fn pocket_carves_the_speech_band_cuts_the_top_and_spares_the_bass() {
         let tone = |hz: f64| -> Stereo {
             let m: Vec<f64> = (0..48_000).map(|i| (TAU * hz * i as f64 / FS).sin()).collect();
             Stereo::from_mono(&m)
@@ -242,10 +281,12 @@ mod tests {
             let e = |v: &[f64]| v[12_000..36_000].iter().map(|s| s * s).sum::<f64>();
             10.0 * (e(&y.l) / e(&x.l)).log10()
         };
-        assert!((gain_db(2_000.0) + 5.0).abs() < 0.6, "{}", gain_db(2_000.0));
-        assert!(gain_db(80.0).abs() < 0.3);
-        assert!(gain_db(12_000.0).abs() < 0.5);
-        assert!((gain_db(550.0) + 3.0).abs() < 1.2, "{}", gain_db(550.0));
+        assert!(gain_db(80.0).abs() < 0.3, "bass spared: {}", gain_db(80.0));
+        assert!((gain_db(550.0) + 3.0).abs() < 1.2, "centre: {}", gain_db(550.0));
+        assert!(gain_db(1_500.0) < -4.0, "consonant band: {}", gain_db(1_500.0));
+        for hz in [3_500.0, 5_000.0, 8_000.0] {
+            assert!(gain_db(hz) <= -12.0, "{hz} Hz: {} (hard rule 2)", gain_db(hz));
+        }
     }
 
     #[test]

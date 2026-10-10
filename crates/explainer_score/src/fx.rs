@@ -89,10 +89,19 @@ impl DelayLine {
         self.buf[self.w] = x;
         self.w = (self.w + 1) & self.mask;
     }
-    /// Read `d` samples behind the last write (d ≥ 1; fractional OK).
+    /// The longest delay [`read`](Self::read) can return.
+    pub fn max_delay(&self) -> f64 {
+        (self.mask - 2) as f64
+    }
+
+    /// Read the value written `d` pushes ago (`read(1)` is the latest write;
+    /// fractional `d` interpolates). Read before pushing the current input for
+    /// a delay of exactly `d` samples. `d` must lie in [1, `max_delay`]; it is
+    /// clamped there (and checked in debug builds), never wrapped.
     #[inline]
     pub fn read(&self, d: f64) -> f64 {
-        let d = d.max(1.0);
+        debug_assert!(d <= self.max_delay(), "delay {d} exceeds capacity {}", self.max_delay());
+        let d = d.clamp(1.0, self.max_delay());
         let i = d.floor() as usize;
         let f = d - i as f64;
         let at = |k: usize| self.buf[(self.w + self.mask + 1 - k) & self.mask];
@@ -267,7 +276,7 @@ impl Fdn {
             lens,
             gains,
             damp: (0..8).map(|_| OnePole::new(damping_hz)).collect(),
-            pre: DelayLine::new((0.1 * FS) as usize),
+            pre: DelayLine::new((predelay_ms.max(0.0) * 1e-3 * FS) as usize + 4),
             pre_d: (predelay_ms * 1e-3 * FS).max(1.0),
             diff: [142.0, 107.0, 379.0, 277.0]
                 .iter()
@@ -306,6 +315,123 @@ impl Fdn {
         let wl = outs[0] + outs[2] + outs[4] + outs[6];
         let wr = outs[1] + outs[3] + outs[5] + outs[7];
         (self.dc[0].process(0.25 * wl), self.dc[1].process(0.25 * wr))
+    }
+
+    /// Wet response of a whole stereo buffer, with a tail of `tail_s` seconds.
+    pub fn run(&mut self, input: &Stereo, tail_s: f64) -> Stereo {
+        let n = input.len() + (tail_s * FS) as usize;
+        let mut out = Stereo::silence(n);
+        for i in 0..n {
+            let (l, r) = if i < input.len() {
+                (input.l[i], input.r[i])
+            } else {
+                (0.0, 0.0)
+            };
+            let (a, b) = self.process(l, r);
+            out.l[i] = a;
+            out.r[i] = b;
+        }
+        out
+    }
+}
+
+/// Dattorro's plate (J. Dattorro, "Effect Design, Part 1", JAES 1997): input
+/// diffusion, then a figure-of-eight tank of modulated allpasses, delays and
+/// damping. Delay lengths and diffusion gains are Dattorro's published values
+/// (at 29,761 Hz) scaled to 48 kHz; the output uses four of his seven taps per
+/// side plus one rewired second-delay tap (decorrelation is what matters
+/// here, and the test measures it). Bright and dense: the classic choice for
+/// bells and glassy mallets.
+#[derive(Clone, Debug)]
+pub struct Plate {
+    pre: DelayLine,
+    bw: OnePole,
+    in_ap: Vec<(DelayLine, f64, f64)>,
+    tank: [TankSide; 2],
+    decay: f64,
+    t: f64,
+}
+
+#[derive(Clone, Debug)]
+struct TankSide {
+    mod_ap: (DelayLine, f64),
+    d1: (DelayLine, f64),
+    damp: OnePole,
+    ap2: (DelayLine, f64),
+    d2: (DelayLine, f64),
+    phase: f64,
+}
+
+fn scaled(n: f64) -> f64 {
+    n * FS / 29_761.0
+}
+
+fn allpass_step(line: &mut DelayLine, d: f64, g: f64, x: f64) -> f64 {
+    let delayed = line.read(d);
+    let v = x + g * delayed;
+    line.push(v);
+    delayed - g * v
+}
+
+impl Plate {
+    /// `decay` in (0, 1): tank feedback (0.5 ≈ 1.5 s, 0.7 ≈ 3 s);
+    /// `damping_hz`: tank low-pass.
+    pub fn new(decay: f64, damping_hz: f64) -> Self {
+        let line = |n: f64| DelayLine::new(scaled(n) as usize + 40);
+        let side = |a: f64, b: f64, c: f64, d: f64, ph: f64| TankSide {
+            mod_ap: (line(a + 16.0), scaled(a)),
+            d1: (line(b), scaled(b)),
+            damp: OnePole::new(damping_hz),
+            ap2: (line(c), scaled(c)),
+            d2: (line(d), scaled(d)),
+            phase: ph,
+        };
+        Self {
+            pre: DelayLine::new(scaled(10.0) as usize + 4),
+            bw: OnePole::new(9_000.0),
+            in_ap: [(142.0, 0.75), (107.0, 0.75), (379.0, 0.625), (277.0, 0.625)]
+                .iter()
+                .map(|&(n, g)| (line(n), scaled(n), g))
+                .collect(),
+            tank: [
+                side(672.0, 4_453.0, 1_800.0, 3_720.0, 0.0),
+                side(908.0, 4_217.0, 2_656.0, 3_163.0, 0.25),
+            ],
+            decay: decay.clamp(0.0, 0.95),
+            t: 0.0,
+        }
+    }
+
+    /// Process one stereo frame; returns the wet signal.
+    pub fn process(&mut self, l: f64, r: f64) -> (f64, f64) {
+        self.pre.push(0.5 * (l + r));
+        let mut x = self.bw.lp(self.pre.read(scaled(10.0)));
+        for (line, d, g) in &mut self.in_ap {
+            x = allpass_step(line, *d, *g, x);
+        }
+        // figure of eight: each side is fed by the input plus the other side's output
+        let fb = [
+            self.tank[1].d2.0.read(self.tank[1].d2.1),
+            self.tank[0].d2.0.read(self.tank[0].d2.1),
+        ];
+        let excursion = scaled(8.0);
+        for (k, side) in self.tank.iter_mut().enumerate() {
+            let m = side.mod_ap.1 + excursion * (TAU * (1.0 * self.t + side.phase)).sin();
+            let a = allpass_step(&mut side.mod_ap.0, m, -0.7, x + self.decay * fb[k]);
+            let delayed1 = side.d1.0.read(side.d1.1);
+            side.d1.0.push(a);
+            let damped = side.damp.lp(delayed1) * self.decay;
+            let b = allpass_step(&mut side.ap2.0, side.ap2.1, 0.5, damped);
+            side.d2.0.push(b);
+        }
+        self.t += 1.0 / FS;
+        // output taps: Dattorro's d1/ap2 taps, and one rewired d2 tap per side
+        let tap = |side: &TankSide, a: f64, b: f64, c: f64| {
+            side.d1.0.read(scaled(a)) + side.d1.0.read(scaled(b)) - side.ap2.0.read(scaled(c))
+        };
+        let yl = 0.6 * (tap(&self.tank[1], 266.0, 2_974.0, 1_913.0) - self.tank[0].d2.0.read(scaled(1_996.0)));
+        let yr = 0.6 * (tap(&self.tank[0], 353.0, 3_627.0, 1_228.0) - self.tank[1].d2.0.read(scaled(1_066.0)));
+        (yl, yr)
     }
 
     /// Wet response of a whole stereo buffer, with a tail of `tail_s` seconds.
@@ -450,6 +576,85 @@ mod tests {
         // Tape is one path with gentle EQ: level within ±1.5 dB.
         let g = 20.0 * (rms(&t[4_800..]) / r0).log10();
         assert!(g.abs() < 1.5, "tape: {g:.2} dB");
+    }
+
+    #[test]
+    fn plate_is_dense_decorrelated_and_decays() {
+        let mut p = Plate::new(0.5, 6_000.0);
+        let mut imp = Stereo::silence(1);
+        imp.l[0] = 1.0;
+        imp.r[0] = 1.0;
+        let out = p.run(&imp, 4.0);
+        assert!(out.is_finite());
+        let e = |v: &[f64], a: f64, b: f64| {
+            v[(a * FS) as usize..(b * FS) as usize]
+                .iter()
+                .map(|x| x * x)
+                .sum::<f64>()
+        };
+        let early = e(&out.l, 0.05, 0.25) + e(&out.r, 0.05, 0.25);
+        let late = e(&out.l, 3.5, 4.0) + e(&out.r, 3.5, 4.0);
+        assert!(
+            early > 0.0 && 10.0 * (late / early).log10() < -40.0,
+            "decay {:.1} dB",
+            10.0 * (late / early).log10()
+        );
+        // left and right are decorrelated (a plate's width)
+        let (a, b) = (&out.l[2_400..96_000], &out.r[2_400..96_000]);
+        let dot: f64 = a.iter().zip(b).map(|(x, y)| x * y).sum();
+        let corr = dot / (a.iter().map(|x| x * x).sum::<f64>() * b.iter().map(|y| y * y).sum::<f64>()).sqrt();
+        assert!(corr.abs() < 0.5, "L/R correlation {corr:.2}");
+    }
+
+    /// T60 from Schroeder backward integration (the −5 to −35 dB slope, ×2).
+    fn t60_of(x: &[f64]) -> f64 {
+        let mut edc: Vec<f64> = x
+            .iter()
+            .rev()
+            .scan(0.0, |acc, v| {
+                *acc += v * v;
+                Some(*acc)
+            })
+            .collect();
+        edc.reverse();
+        let db = |i: usize| 10.0 * (edc[i] / edc[0]).log10();
+        let t5 = (0..edc.len()).find(|&i| db(i) < -5.0).unwrap();
+        let t35 = (0..edc.len()).find(|&i| db(i) < -35.0).unwrap();
+        2.0 * (t35 - t5) as f64 / FS
+    }
+
+    #[test]
+    fn plate_decay_parameter_sets_the_tail_length() {
+        let t60 = |decay: f64| {
+            let mut p = Plate::new(decay, 6_000.0);
+            let mut imp = Stereo::silence(1);
+            imp.l[0] = 1.0;
+            imp.r[0] = 1.0;
+            let out = p.run(&imp, 12.0);
+            t60_of(&out.l)
+        };
+        let (a, b) = (t60(0.5), t60(0.7));
+        // the doc's figures: 0.5 ≈ 1.5 s, 0.7 ≈ 3 s
+        assert!((1.1..=1.9).contains(&a), "decay 0.5: T60 {a:.2} s");
+        assert!((2.4..=3.6).contains(&b), "decay 0.7: T60 {b:.2} s");
+    }
+
+    #[test]
+    fn ping_pong_echoes_alternate_left_then_right() {
+        let mut x = Stereo::silence((1.2 * FS) as usize);
+        x.l[0] = 1.0;
+        x.r[0] = 1.0;
+        let y = ping_pong(&x, 0.25, 0.5, 20_000.0, 1.0);
+        let near = |v: &[f64], t: f64| {
+            v[(t * FS) as usize - 50..(t * FS) as usize + 50]
+                .iter()
+                .fold(0.0_f64, |m, s| m.max(s.abs()))
+        };
+        // first echo on the left at 0.25 s, then on the right at 0.5 s, then left at 0.75 s
+        assert!(near(&y.l, 0.25) > 0.3 && near(&y.r, 0.25) < 0.01);
+        assert!(near(&y.r, 0.5) > 0.1 && near(&y.l, 0.5) < 0.01);
+        assert!(near(&y.l, 0.75) > 0.05 && near(&y.r, 0.75) < 0.01);
+        assert!(near(&y.l, 0.75) < near(&y.l, 0.25), "echoes decay");
     }
 
     #[test]

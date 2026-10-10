@@ -462,20 +462,40 @@ mod tests {
             let y = s.process(x);
             assert!((y - (x - 0.002).tanh()).abs() < 1e-3, "{x}: {y}");
         }
-        // A 3 kHz sine driven hard: compare energy above 10 kHz, which only
-        // aliased and high harmonics occupy, against naive tanh.
-        let (mut a, mut ea, mut en) = (AdaaTanh::default(), 0.0, 0.0);
-        let (mut ha, mut hn) = (Svf::new(12_000.0, 0.707), Svf::new(12_000.0, 0.707));
-        for i in 0..48_000 {
-            let x = 4.0 * (TAU * 3_000.0 * i as f64 / FS).sin();
-            let ya = ha.step(a.process(x)).high;
-            let yn = hn.step(x.tanh()).high;
-            if i > 1_000 {
-                ea += ya * ya;
-                en += yn * yn;
+        // A 2.71 kHz sine driven hard (not a sub-multiple of 48 kHz, so its
+        // aliases fall between the harmonics): compare the inharmonic share of
+        // the spectrum, which only aliasing occupies, against naive tanh.
+        let f0 = 2_710.0;
+        let inharmonic_db = |y: &[f64]| -> f64 {
+            let n = y.len();
+            let mut re: Vec<f64> = y
+                .iter()
+                .enumerate()
+                .map(|(i, v)| {
+                    let a = TAU * i as f64 / n as f64;
+                    v * (0.35875 - 0.48829 * a.cos() + 0.14128 * (2.0 * a).cos() - 0.01168 * (3.0 * a).cos())
+                })
+                .collect();
+            let mut im = vec![0.0; n];
+            crate::fft::fft(&mut re, &mut im);
+            let df = FS / n as f64;
+            let (mut harm, mut other) = (0.0, 0.0);
+            for k in 1..n / 2 {
+                let p = re[k] * re[k] + im[k] * im[k];
+                let f = k as f64 * df;
+                let near = (f / f0).round() >= 1.0 && (f - (f / f0).round() * f0).abs() < 6.0 * df;
+                if near { harm += p } else { other += p }
             }
-        }
-        assert!(ea < en, "adaa {ea} naive {en}");
+            10.0 * (other / (harm + other)).log10()
+        };
+        let mut a = AdaaTanh::default();
+        let x: Vec<f64> = (0..20_384).map(|i| 4.0 * (TAU * f0 * i as f64 / FS).sin()).collect();
+        let ya: Vec<f64> = x.iter().map(|&v| a.process(v)).skip(4_000).collect();
+        let yn: Vec<f64> = x.iter().map(|v| v.tanh()).skip(4_000).collect();
+        let (da, dn) = (inharmonic_db(&ya), inharmonic_db(&yn));
+        // first-order ADAA without oversampling buys a few dB here (measured
+        // ≈ 4.8 dB); the instruments keep drive moderate rather than rely on it
+        assert!(da < dn - 3.0, "aliasing: adaa {da:.1} dB, naive {dn:.1} dB");
     }
 
     #[test]

@@ -71,31 +71,37 @@ pub fn max_momentary(audio: &Stereo) -> f64 {
     windowed(audio, 0.4, 0.1).into_iter().fold(f64::NEG_INFINITY, f64::max)
 }
 
-/// True peak (dBTP): the largest absolute value of the 4× oversampled signal.
+/// True peak (dBTP): the largest absolute value of the 4× oversampled signal
+/// (Blackman-windowed sinc, 48 input taps per phase).
 pub fn true_peak_db(audio: &Stereo) -> f64 {
     const TAPS: i64 = 48; // per phase span (in input samples)
+    let pi = std::f64::consts::PI;
+    // kernel[phase − 1][j] multiplies x[i + j − TAPS/2 + 1] for the point i + phase/4
+    let kernel: Vec<Vec<f64>> = (1..4)
+        .map(|phase| {
+            (0..TAPS)
+                .map(|j| {
+                    let d = phase as f64 / 4.0 - (j - TAPS / 2 + 1) as f64;
+                    let w = 0.42
+                        + 0.5 * (pi * d / (TAPS as f64 / 2.0)).cos()
+                        + 0.08 * (2.0 * pi * d / (TAPS as f64 / 2.0)).cos();
+                    (pi * d).sin() / (pi * d) * w
+                })
+                .collect()
+        })
+        .collect();
     let mut peak = 0.0_f64;
     for ch in [&audio.l, &audio.r] {
         let n = ch.len() as i64;
         for i in 0..n {
             peak = peak.max(ch[i as usize].abs());
-            for phase in 1..4 {
-                let t = i as f64 + phase as f64 / 4.0;
+            for k in &kernel {
                 let mut acc = 0.0;
-                for k in (i - TAPS / 2 + 1)..=(i + TAPS / 2) {
-                    if k < 0 || k >= n {
-                        continue;
+                for (j, c) in k.iter().enumerate() {
+                    let at = i + j as i64 - TAPS / 2 + 1;
+                    if (0..n).contains(&at) {
+                        acc += ch[at as usize] * c;
                     }
-                    let d = t - k as f64;
-                    let w = 0.42
-                        + 0.5 * (std::f64::consts::PI * d / (TAPS as f64 / 2.0)).cos()
-                        + 0.08 * (2.0 * std::f64::consts::PI * d / (TAPS as f64 / 2.0)).cos();
-                    let s = if d.abs() < 1e-12 {
-                        1.0
-                    } else {
-                        (std::f64::consts::PI * d).sin() / (std::f64::consts::PI * d)
-                    };
-                    acc += ch[k as usize] * s * w;
                 }
                 peak = peak.max(acc.abs());
             }
