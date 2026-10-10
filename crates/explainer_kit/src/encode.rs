@@ -217,6 +217,36 @@ pub fn delivery_options(
     Ok(o)
 }
 
+/// The attempts a render gets against franken_manim's transient Darwin
+/// EPERM race (bead fm-darwin-killpg-eperm-race-7aae).
+pub const RENDER_ATTEMPTS: u32 = 5;
+
+/// Whether `error` is that race: the process-tree kill after ffmpeg has
+/// already exited, refused by macOS. It clusters under heavy load (three in
+/// a row at load ~300); a fresh render of the same scene succeeds.
+pub fn is_transient_eperm(error: &RenderError) -> bool {
+    format!("{error:?}").contains("process-tree completion kill failed: Operation not permitted")
+}
+
+/// Run `render` again, backing off, while it fails with the transient Darwin
+/// EPERM ([`is_transient_eperm`]), up to [`RENDER_ATTEMPTS`]; returns the
+/// last result and the attempt it came from. A failed attempt has consumed
+/// its scene, so build the scene inside `render` (and reset its narrator:
+/// the lines it already logged would otherwise be said twice).
+pub fn retrying<T>(label: &str, mut render: impl FnMut() -> Result<T, RenderError>) -> (Result<T, RenderError>, u32) {
+    let mut attempt = 1;
+    loop {
+        match render() {
+            Err(e) if attempt < RENDER_ATTEMPTS && is_transient_eperm(&e) => {
+                eprintln!("{label}: transient Darwin EPERM after ffmpeg exit (attempt {attempt}); rendering again");
+                std::thread::sleep(Duration::from_millis(500 << attempt));
+                attempt += 1;
+            }
+            result => return (result, attempt),
+        }
+    }
+}
+
 /// franken_manim's camera route, refusing a video render that lacks the
 /// ffmpeg capability [`delivery_options`] installs (the camera route installs
 /// none, and a differently encoded segment corrupts the stream-copy join).

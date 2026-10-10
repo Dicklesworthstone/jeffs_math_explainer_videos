@@ -441,13 +441,8 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
             }
             match render(scene.as_mut(), opts) {
                 Ok(report) => break (report, finished.borrow().clone()),
-                Err(error)
-                    if attempt < 5
-                        && format!("{error:?}")
-                            .contains("process-tree completion kill failed: Operation not permitted") =>
-                {
-                    // the race clusters under heavy host load (three in a row
-                    // at load ~300): back off before the next try
+                Err(error) if attempt < encode::RENDER_ATTEMPTS && encode::is_transient_eperm(&error) => {
+                    // the race clusters under heavy host load: back off
                     eprintln!(
                         "{}: transient Darwin EPERM after ffmpeg exit (attempt {attempt}); rendering again",
                         c.key

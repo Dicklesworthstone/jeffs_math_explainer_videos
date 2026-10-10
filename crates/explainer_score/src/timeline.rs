@@ -191,6 +191,44 @@ impl ChapterTimeline {
         Self::parse(&std::fs::read_to_string(path)?)
     }
 
+    /// Append the next segment of the same chapter (a scene rendered on
+    /// another route, say): its lines, marks and windows move by this
+    /// timeline's frames, and the lengths add, so the chapter is scored as
+    /// one piece and its stem can be sliced at the boundary.
+    pub fn append(&mut self, next: &ChapterTimeline) -> io::Result<()> {
+        if next.fps != self.fps {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                format!("segment at {} fps after {} fps", next.fps, self.fps),
+            ));
+        }
+        let shift = self.frames;
+        for l in &next.lines {
+            if self.lines.iter().any(|x| x.id == l.id) {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidInput,
+                    format!("line {} in two segments", l.id),
+                ));
+            }
+            self.lines.push(LinePlacement {
+                start_frame: l.start_frame + shift,
+                ..l.clone()
+            });
+        }
+        self.marks.extend(next.marks.iter().map(|m| Mark {
+            frame: m.frame + shift,
+            ..m.clone()
+        }));
+        let moved = |w: &Window| Window {
+            frame: w.frame + shift,
+            ..w.clone()
+        };
+        self.breaths.extend(next.breaths.iter().map(moved));
+        self.listens.extend(next.listens.iter().map(moved));
+        self.frames += next.frames;
+        Ok(())
+    }
+
     /// Build the voice bus: every line decoded, resampled to 48 kHz, placed at
     /// its start frame with `gain_db` (or `gain_override_db`), the chapter's
     /// exact length. Lines that run past the end are cut, as the scene would.
@@ -286,6 +324,38 @@ mod tests {
         let old = ChapterTimeline::parse("fps\t60\nlisten\t10\t3\tx\n").unwrap();
         assert_eq!(old.listens[0].sound, None);
         assert!(ChapterTimeline::parse("fps\t60\nlisten\t10\t3\tx\ta.wav\tb\n").is_err());
+    }
+
+    #[test]
+    fn a_segment_appends_shifted_by_the_first_ones_frames() {
+        let a = sample();
+        let mut b = ChapterTimeline {
+            chapter: "07_shuffle".into(),
+            fps: 60,
+            frames: 600,
+            lines: vec![LinePlacement {
+                id: "s3".into(),
+                start_frame: 36,
+                gain_db: 0.0,
+                wav: "n/s3.wav".into(),
+            }],
+            marks: vec![Mark {
+                label: "reveal:b".into(),
+                frame: 100,
+            }],
+            ..Default::default()
+        };
+        b.breaths = a.breaths.clone();
+        let mut ab = a.clone();
+        ab.append(&b).unwrap();
+        assert_eq!(ab.frames, 5_123 + 600);
+        assert_eq!(ab.lines.last().unwrap().start_frame, 5_123 + 36);
+        assert_eq!(ab.marks.last().unwrap().frame, 5_123 + 100);
+        assert_eq!(ab.breaths.last().unwrap().frame, 5_123 + 1_000);
+        assert_eq!(ab.samples(), a.samples() + b.samples(), "sample-exact at 60 fps");
+        // a line spoken in both, or another frame rate, is refused
+        assert!(ab.clone().append(&b).is_err());
+        assert!(a.clone().append(&ChapterTimeline { fps: 30, ..b }).is_err());
     }
 
     #[test]
