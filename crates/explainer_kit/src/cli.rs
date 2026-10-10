@@ -49,6 +49,8 @@ pub struct Explainer {
     /// Every Text and Tex string the video uses, for the glyph probe.
     pub glyph_text: &'static [&'static str],
     pub glyph_tex: &'static [&'static str],
+    /// Code and hex the video shows, set in CM Typewriter (`Kit::mono`).
+    pub glyph_mono: &'static [&'static str],
     /// The video's musical identity.
     pub identity: fn() -> Identity,
     /// The narration's placement gain (dB): `narration::GAIN_DB` (0) under the
@@ -747,6 +749,7 @@ fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         kit: Kit::new()?,
         text: e.glyph_text,
         tex: e.glyph_tex,
+        mono: e.glyph_mono,
         failures: Vec::new(),
     };
     let report = render(&mut scene, options(out.into(), RenderFormat::PngSequence, args.res, 1)?)?;
@@ -757,7 +760,7 @@ fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         eprintln!(
             "glyph probe: {} of {} strings failed to typeset:",
             scene.failures.len(),
-            e.glyph_text.len() + e.glyph_tex.len()
+            e.glyph_text.len() + e.glyph_tex.len() + e.glyph_mono.len()
         );
         for line in &scene.failures {
             eprintln!("  {line}");
@@ -766,10 +769,18 @@ fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     }
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Row {
+    Text,
+    Tex,
+    Mono,
+}
+
 struct Glyphs {
     kit: Kit,
     text: &'static [&'static str],
     tex: &'static [&'static str],
+    mono: &'static [&'static str],
     failures: Vec<String>,
 }
 
@@ -786,16 +797,17 @@ impl SceneConstruct for Glyphs {
         let rows = self
             .text
             .iter()
-            .map(|s| (false, *s, 0.8))
-            .chain(self.tex.iter().map(|s| (true, *s, 1.25)));
-        for (is_tex, s, step) in rows {
+            .map(|s| (Row::Text, *s, 0.8))
+            .chain(self.tex.iter().map(|s| (Row::Tex, *s, 1.25)))
+            .chain(self.mono.iter().map(|s| (Row::Mono, *s, 0.8)));
+        for (row, s, step) in rows {
             if y < BOTTOM {
                 // page full: capture it (1 s at the probe's 1 fps is one PNG)
                 stage.wait(1.0)?;
                 stage.scene_mut().clear();
                 y = TOP;
             }
-            let added = if is_tex {
+            let added = if row == Row::Tex {
                 match Tex::new(s)
                     .font_size(36.0)
                     .style(ink_style(Palette::ink()))
@@ -808,14 +820,14 @@ impl SceneConstruct for Glyphs {
                     }
                 }
             } else {
-                match Text::new(s)
-                    .font_size(34.0)
-                    .style(ink_style(Palette::ink()))
-                    .build(&self.kit.book)
-                {
+                let mut t = Text::new(s).font_size(34.0).style(ink_style(Palette::ink()));
+                if row == Row::Mono {
+                    t = t.font(crate::kit::MONO_FAMILY);
+                }
+                match t.build(&self.kit.book) {
                     Ok(t) => Some(stage.add(t)?),
                     Err(err) => {
-                        self.failures.push(format!("TEXT FAIL {s:?}: {err}"));
+                        self.failures.push(format!("{row:?} FAIL {s:?}: {err}"));
                         None
                     }
                 }

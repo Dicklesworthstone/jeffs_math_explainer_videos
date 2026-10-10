@@ -73,6 +73,7 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
         facts,
         glyph_text: &["toy"],
         glyph_tex: &[r"x^2"],
+        glyph_mono: &["0x1D"],
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
         line_owner: None,

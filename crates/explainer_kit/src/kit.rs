@@ -26,6 +26,9 @@ use crate::layout::Linter;
 use crate::narration::Narrator;
 use crate::palette::ink_style;
 
+/// The bundled typewriter face, for code and hex.
+pub const MONO_FAMILY: &str = "CM Typewriter";
+
 /// The largest group the kit transforms per frame (plan §6.6, F-17).
 pub const GROUP_TRANSFORM_LIMIT: usize = 2_000;
 
@@ -255,6 +258,20 @@ impl Kit {
     /// Detached text (not yet in the scene) centred at `at`.
     pub fn text(&self, stage: &mut Stage<'_>, s: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
         let t = Text::new(s).font_size(size).style(ink_style(color)).build(&self.book)?;
+        let m = stage.arena_mut().add(t);
+        stage.move_to(m, at, ORIGIN);
+        self.note(m, s, TextKind::Text);
+        Ok(m)
+    }
+
+    /// Detached code or hex (`0x1D`) in the bundled CM Typewriter, centred at
+    /// `at`. fmn's TeX has no `\texttt` (spike S-7), so code is Text.
+    pub fn mono(&self, stage: &mut Stage<'_>, s: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
+        let t = Text::new(s)
+            .font(MONO_FAMILY)
+            .font_size(size)
+            .style(ink_style(color))
+            .build(&self.book)?;
         let m = stage.arena_mut().add(t);
         stage.move_to(m, at, ORIGIN);
         self.note(m, s, TextKind::Text);

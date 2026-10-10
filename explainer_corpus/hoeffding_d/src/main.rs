@@ -71,6 +71,7 @@ const EXPLAINER: Explainer = Explainer {
     facts,
     glyph_text: chapters::glyphs::TEXT,
     glyph_tex: chapters::glyphs::TEX,
+    glyph_mono: &[],
     identity: explainer_score::score::Identity::hoeffding,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_owner: Some(line_owner),
