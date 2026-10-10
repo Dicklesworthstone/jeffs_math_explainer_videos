@@ -133,11 +133,12 @@ for both):
 
 | Metric (limit) | v5 pad + chimes | New engine |
 |---|---|---|
-| voice − music, median of 3 s windows over speech (≥ 16 LU) | 7.4–9.2 LU, 8 fail | 16.7–17.5 LU |
-| music's loudest 400 ms during speech, re the speech's (≤ −15 LU) | −1.7 to 0.0 LU, 8 fail | −21.5 to −17.7 LU |
+| voice − music, median of 3 s windows over speech (≥ 16 LU; plan target 18) | 7.4–9.2 LU, 8 fail | 17.7–18.5 LU |
+| music's loudest 400 ms during speech, re the speech's (≤ −15 LU) | −1.7 to 0.0 LU, 8 fail | −22.5 to −18.6 LU |
 | speech-intelligibility (SII-lite) loss, worst 400 ms (≤ 0.03) | 0.07–0.25, 8 fail | ≤ 0.001 |
-| music/voice energy at 1–4 kHz during speech (≤ −20 dB) | −20.4 to −10.6 dB, 7 fail | −37.0 to −31.9 dB |
+| music/voice energy at 1–4 kHz during speech (≤ −20 dB) | −20.4 to −10.6 dB, 7 fail | −38.0 to −32.9 dB |
 | clicks (0) | up to 2 per chapter, 7 fail | 0 |
+| exposed beating, steady stretches (≤ 6 dB) | not measurable (no score facts) | 1.1–2.2 dB |
 | chapters passing every gate | 0 of 8 | 8 of 8 |
 
 The A/B itself (the v5 4K video with each soundtrack, loudness-matched) is for
