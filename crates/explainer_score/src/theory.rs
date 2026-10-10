@@ -186,19 +186,32 @@ fn search(cands: &[i32], start: usize, left: usize, stack: &mut Vec<i32>, f: &mu
     }
 }
 
+/// Two sustained tones whose fundamentals are 15–60 Hz apart beat in the
+/// range the ear hears as roughness (plan §7.6). Low in the register even a
+/// minor third qualifies (C4–E♭4 is 50 Hz apart), so the solver spreads
+/// voices there and keeps seconds for the top of the range.
+pub fn rough(a: i32, b: i32) -> bool {
+    let d = (crate::units::midi_to_hz(f64::from(b)) - crate::units::midi_to_hz(f64::from(a))).abs();
+    (15.0..=60.0).contains(&d)
+}
+
 fn voicing_cost(cand: &[i32], want: &[i32], prev: Option<&Voicing>) -> i64 {
     let mut cost: i64 = 0;
-    // cover the characteristic tones
-    for pc in want {
+    // cover the characteristic tones; the first (the third, or a sus chord's
+    // fourth) says major or minor, so losing it costs more than a rough pair
+    for (k, pc) in want.iter().enumerate() {
         if !cand.iter().any(|m| m.rem_euclid(12) == *pc) {
-            cost += 40;
+            cost += if k == 0 { 90 } else { 40 };
         }
     }
-    // no semitone clusters (they buzz), and keep the voicing compact
+    // no semitone clusters (they buzz), no rough pairs, and keep the voicing compact
     for w in cand.windows(2) {
         let gap = w[1] - w[0];
         if gap < 2 {
             cost += 60;
+        }
+        if rough(w[0], w[1]) {
+            cost += 50;
         }
         if gap > 9 {
             cost += 3 * i64::from(gap - 9);
@@ -331,6 +344,49 @@ mod tests {
     }
 
     #[test]
+    fn the_four_identities_voice_without_rough_pairs() {
+        // plan §7.5: A (F), B (E), C (B♭), Hoeffding (D)
+        let progressions = [
+            vec![
+                Chord::maj9(5),
+                Chord::min9(2),
+                Chord::maj9_sharp11(10),
+                Chord::dom7sus4(0),
+            ],
+            vec![
+                Chord::maj9(4),
+                Chord::min9(1),
+                Chord::maj9_sharp11(9),
+                Chord::six_sus4(11),
+            ],
+            vec![
+                Chord::maj7(10),
+                Chord::min9(7),
+                Chord::maj9_sharp11(3),
+                Chord::dom7sus4(5),
+            ],
+            vec![Chord::maj9(2), Chord::min9(11), Chord::maj9_sharp11(7), Chord::sus4(9)],
+        ];
+        for prog in &progressions {
+            let mut prev: Option<Voicing> = None;
+            for _ in 0..3 {
+                for c in prog {
+                    let v = voice_lead(c, 4, prev.as_ref());
+                    for w in v.upper.windows(2) {
+                        assert!(!rough(w[0], w[1]), "{c:?}: {v:?}");
+                        assert!(w[1] - w[0] >= 2, "{c:?}: {v:?}");
+                    }
+                    // the third (or the sus fourth) is always there
+                    let third = c.upper_priority()[0];
+                    assert!(v.upper.iter().any(|m| m.rem_euclid(12) == third), "{c:?}: {v:?}");
+                    prev = Some(v);
+                }
+            }
+        }
+        assert!(rough(60, 63) && rough(69, 71) && !rough(60, 64) && !rough(72, 74));
+    }
+
+    #[test]
     fn registral_limits_keep_out_of_the_voice_band() {
         assert!(midi_to_hz(f64::from(BASS_HIGH)) < 95.0);
         assert!(midi_to_hz(f64::from(UPPER_LOW)) > 245.0);
@@ -351,9 +407,10 @@ mod tests {
 
     #[test]
     fn voice_leading_is_minimal_among_valid_voicings_and_holds_common_tones() {
-        // Brute force: every 4-note upper voicing in range that covers the
-        // chord's characteristic tones and has no semitone clusters. The solver
-        // may trade a little motion for compactness, never more than 2 semitones.
+        // Brute force: every 4-note upper voicing in range with no semitone
+        // clusters, no rough pairs, and at least the solver's coverage of the
+        // chord's characteristic tones. Among those the solver may trade a
+        // little motion for compactness, never more than 2 semitones.
         let motion = |a: &[i32], b: &[i32]| a.iter().zip(b).map(|(x, y)| (x - y).abs()).sum::<i32>();
         let prog = [
             Chord::maj9(2),
@@ -371,10 +428,15 @@ mod tests {
                 .collect();
             let mut best = i32::MAX;
             let mut stack = Vec::new();
+            let coverage = |v: &[i32]| {
+                want.iter()
+                    .filter(|pc| v.iter().any(|m| m.rem_euclid(12) == **pc))
+                    .count()
+            };
+            let got_coverage = coverage(&got.upper);
             search(&cands, 0, 4, &mut stack, &mut |v: &[i32]| {
-                let covers = want.iter().all(|pc| v.iter().any(|m| m.rem_euclid(12) == *pc));
-                let clean = v.windows(2).all(|w| w[1] - w[0] >= 2);
-                if covers && clean {
+                let clean = v.windows(2).all(|w| w[1] - w[0] >= 2 && !rough(w[0], w[1]));
+                if clean && coverage(v) >= got_coverage {
                     best = best.min(motion(v, &prev.upper));
                 }
             });

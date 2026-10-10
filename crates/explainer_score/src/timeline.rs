@@ -273,7 +273,7 @@ mod tests {
     fn voice_bus_places_lines_at_exact_samples() {
         let dir = std::env::temp_dir().join(format!("explainer_score_tl_{}", std::process::id()));
         std::fs::create_dir_all(&dir).unwrap();
-        // a 24 kHz mono click line, as ftts writes
+        // a mono click line (written at 48 kHz: no resampling in this test)
         let mut click = Stereo::silence(2_400);
         click.l[0] = 0.5;
         click.r[0] = 0.5;
@@ -297,5 +297,68 @@ mod tests {
         assert!(bus.l[..at].iter().all(|v| *v == 0.0));
         assert!((bus.l[at] - 0.5 * db_to_gain(-6.0)).abs() < 1e-9);
         assert_eq!(t.line_spans().unwrap(), vec![(at, at + 2_400)]);
+    }
+
+    #[test]
+    fn a_24_khz_s16_line_as_ftts_writes_it_is_resampled_in_place() {
+        // ftts writes 24 kHz mono s16 PCM: build exactly that file by hand.
+        let dir = std::env::temp_dir().join(format!("explainer_score_tl24_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let n = 24_000; // one second
+        let pcm: Vec<i16> = (0..n)
+            .map(|i| (0.25 * 32_767.0 * (std::f64::consts::TAU * 1_000.0 * i as f64 / 24_000.0).sin()) as i16)
+            .collect();
+        let mut b = Vec::new();
+        let data_len = (pcm.len() * 2) as u32;
+        b.extend(b"RIFF");
+        b.extend((36 + data_len).to_le_bytes());
+        b.extend(b"WAVEfmt ");
+        b.extend(16u32.to_le_bytes());
+        b.extend(1u16.to_le_bytes()); // PCM
+        b.extend(1u16.to_le_bytes()); // mono
+        b.extend(24_000u32.to_le_bytes());
+        b.extend(48_000u32.to_le_bytes()); // byte rate
+        b.extend(2u16.to_le_bytes()); // block align
+        b.extend(16u16.to_le_bytes());
+        b.extend(b"data");
+        b.extend(data_len.to_le_bytes());
+        for v in &pcm {
+            b.extend(v.to_le_bytes());
+        }
+        let p = dir.join("l.wav");
+        std::fs::write(&p, &b).unwrap();
+        let t = ChapterTimeline {
+            chapter: "x".into(),
+            fps: 60,
+            frames: 180,
+            lines: vec![LinePlacement {
+                id: "l".into(),
+                start_frame: 36,
+                gain_db: 0.0,
+                wav: p,
+            }],
+            ..Default::default()
+        };
+        // one second at 24 kHz lasts one second at 48 kHz, from frame 36 on
+        let at = 36 * 800;
+        assert_eq!(t.line_spans().unwrap(), vec![(at, at + 48_000)]);
+        let bus = t.voice_bus(None).unwrap();
+        assert!(
+            bus.l[..at - 64].iter().all(|v| v.abs() < 1e-3),
+            "silent before the line"
+        );
+        assert!(
+            bus.l[at + 48_000 + 64..].iter().all(|v| v.abs() < 1e-3),
+            "silent after it"
+        );
+        // still a 1 kHz tone at the same level: count zero crossings over 0.5 s
+        let mid = &bus.l[at + 12_000..at + 36_000];
+        let crossings = mid.windows(2).filter(|w| w[0] < 0.0 && w[1] >= 0.0).count();
+        assert!(
+            (499..=501).contains(&crossings),
+            "{crossings} upward crossings in 0.5 s"
+        );
+        let rms = (mid.iter().map(|v| v * v).sum::<f64>() / mid.len() as f64).sqrt();
+        assert!((rms - 0.25 / 2f64.sqrt()).abs() < 0.005, "{rms}");
     }
 }

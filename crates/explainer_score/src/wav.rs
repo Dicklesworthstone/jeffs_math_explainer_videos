@@ -44,17 +44,33 @@ pub fn encoded_size(frames: u64, fmt: Format) -> u64 {
     header + frames * 2 * u64::from(fmt.bytes_per_sample())
 }
 
-/// Write a stereo WAV at 48 kHz. Refuses files franken_manim would refuse.
+/// Write a stereo WAV at 48 kHz. Refuses files franken_manim would refuse
+/// (over [`MAX_CUE_BYTES`]): this is the writer for stems scenes will load.
 pub fn write(path: &Path, audio: &Stereo, fmt: Format) -> io::Result<()> {
+    write_capped(
+        path,
+        audio,
+        fmt,
+        MAX_CUE_BYTES,
+        "franken_manim's cue limit; split the stem",
+    )
+}
+
+/// Write a stereo WAV at 48 kHz that franken_manim will never load (a
+/// whole-video master for ffmpeg): only RIFF's own 4 GiB limit applies.
+pub fn write_master(path: &Path, audio: &Stereo, fmt: Format) -> io::Result<()> {
+    write_capped(path, audio, fmt, u64::from(u32::MAX), "the 4 GiB RIFF limit")
+}
+
+fn write_capped(path: &Path, audio: &Stereo, fmt: Format, cap: u64, what: &str) -> io::Result<()> {
     let frames = audio.len() as u64;
-    if encoded_size(frames, fmt) > MAX_CUE_BYTES {
+    if encoded_size(frames, fmt) > cap {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
             format!(
-                "{} frames as {fmt:?} is {} bytes, over franken_manim's {} byte cue limit; split the stem",
+                "{} frames as {fmt:?} is {} bytes, over {what} ({cap} bytes)",
                 frames,
                 encoded_size(frames, fmt),
-                MAX_CUE_BYTES
             ),
         ));
     }
@@ -311,6 +327,11 @@ mod tests {
         assert!(encoded_size(48_000 * 175, Format::F32) > MAX_CUE_BYTES);
         let big = Stereo::silence(48_000 * 175);
         assert!(write(&tmp("big.wav"), &big, Format::F32).is_err());
+        // a whole-video master is not a cue: only RIFF's own limit applies
+        let p = tmp("master.wav");
+        write_master(&p, &big, Format::S24).unwrap();
+        let d = read(&p).unwrap();
+        assert_eq!((d.rate, d.channels, d.frames()), (48_000, 2, 48_000 * 175));
         let mut nan = Stereo::silence(10);
         nan.l[3] = f64::NAN;
         assert!(write(&tmp("nan.wav"), &nan, Format::F32).is_err());

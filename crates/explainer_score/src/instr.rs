@@ -150,18 +150,20 @@ fn amp_from_velocity(v: f64) -> f64 {
 fn pad(note: &Note, brightness: f64) -> Vec<f64> {
     let brightness = unit(brightness);
     let f0 = note.hz();
+    // release τ 1 s: a chord change crossfades over ~3 s instead of smearing
+    // the old chord across the next one for ~12 s
     let env = Adsr {
         attack: 1.1,
         decay: 2.0,
         sustain: 0.85,
-        release: 2.5,
+        release: 1.0,
     }
     .render(note.hold);
     let fenv = Adsr {
         attack: 0.8,
         decay: 3.0,
         sustain: 0.6,
-        release: 2.5,
+        release: 1.0,
     }
     .render(note.hold);
     let mut rng = Rng::new(note.seed);
