@@ -17,10 +17,13 @@
 //!    and the leitmotif plays only in gaps of ≥ 1.6 s (no melody under
 //!    speech, hard rule 8), its notes moved off any minor ninth against the
 //!    chord (rule 7), answered by a soft dyad when there is room.
-//! 5. Levels come from the voice's integrated loudness V: the bed at
-//!    V + `bed_lu`, the melody at V + `melody_lu` while it plays; the sum goes
-//!    through tape, then the duck (`duck_db`) with the speech pocket; a fixed
-//!    gain caps the stem's true peak at −12 dBTP (never a limiter).
+//! 5. Authored marks get a soft reveal dyad, on the mark or where its
+//!    sentence ends.
+//! 6. Levels come from the voice's integrated loudness V against fixed
+//!    reference renders: a tonic bed at intensity 0.5 sits at V + `bed_lu`,
+//!    the motif at V + `melody_lu`; the sum goes through tape, then the duck
+//!    (`duck_db`) with the speech pocket; a fixed gain caps the stem's true
+//!    peak at −12 dBTP (never a limiter).
 
 use std::io;
 
@@ -122,6 +125,8 @@ pub enum Track {
     Bass,
     Melody,
     Answer,
+    /// A reveal answering an authored mark.
+    Cue,
 }
 
 /// One note the score played (times in seconds from the video start).
@@ -157,6 +162,10 @@ pub struct Score {
     pub chords: Vec<ChordSpan>,
     /// Melodic phrases (start, end of the last onset) in seconds.
     pub phrases: Vec<(f64, f64)>,
+    /// Reveal cues placed for authored marks: (seconds, label).
+    pub cues: Vec<(f64, String)>,
+    /// Marks with no room for a cue (deep inside a long sentence).
+    pub skipped_marks: Vec<String>,
     /// Coarse speech regions (seconds) the duck follows.
     pub speech: Vec<(f64, f64)>,
     /// Chapter name and sample span [start, end) within the video.
@@ -358,8 +367,151 @@ fn add_scaled(acc: &mut Stereo, x: &Stereo, g: f64) {
     }
 }
 
+/// The bed instrument at a chapter's intensity.
+fn bed_instrument(identity: &Identity, intensity: f64) -> Instrument {
+    match identity.palette.bed {
+        Instrument::Pad { .. } => Instrument::Pad {
+            brightness: 0.15 + 0.35 * intensity,
+        },
+        Instrument::Strings { .. } => Instrument::Strings {
+            brightness: 0.15 + 0.35 * intensity,
+        },
+        other => other,
+    }
+}
+
+/// The bed and bass notes of one chord. Seeds come from the chapter and the
+/// chord's index within it, so no other chapter's edit can change them.
+fn chord_events(identity: &Identity, span: &ChordSpan, intensity: f64, chapter: &str, k: usize) -> Vec<Event> {
+    let intensity = intensity.clamp(0.0, 1.0);
+    let mut out = Vec::new();
+    // the chord swells in from 0.8 s before its change and starts to release
+    // 0.3 s before the next change
+    let note_start = (span.start - 0.8).max(0.0);
+    let hold = (span.end - 0.3 - note_start).max(0.5);
+    for (j, &m) in span.voicing.upper.iter().enumerate() {
+        out.push(Event {
+            start: note_start,
+            hold,
+            track: Track::Bed,
+            inst: bed_instrument(identity, intensity),
+            pitch: f64::from(m),
+            velocity: 0.35 + 0.3 * intensity,
+            seed: seed_for(&identity.name, chapter, "bed", (k * 8 + j) as u64),
+            pan: [-0.35, -0.12, 0.12, 0.35][j % 4],
+        });
+    }
+    out.push(Event {
+        start: span.start,
+        hold: (span.end - span.start - 0.15).max(0.3),
+        track: Track::Bass,
+        inst: Instrument::Bass,
+        pitch: f64::from(span.voicing.bass),
+        velocity: 0.5 + 0.2 * intensity,
+        seed: seed_for(&identity.name, chapter, "bass", k as u64),
+        pan: 0.0,
+    });
+    out
+}
+
+/// The bed bus: pads (Juno chorus on the mid, the voices' spread kept on the
+/// side), an FDN room, and the bass through gentle warmth.
+fn bed_bus(identity: &Identity, events: &[Event], n: usize) -> Stereo {
+    let of = |t: Track| events.iter().filter(|e| e.track == t).collect::<Vec<_>>();
+    let dry = render_track(&of(Track::Bed), n);
+    let (mid, side) = mid_side(&dry);
+    drop(dry);
+    let mut bed = Chorus::juno(0.5, 0.5).run(&mid);
+    add_scaled(&mut bed, &from_mid_side(&vec![0.0; n], &side), 1.0);
+    let wet = Fdn::new(identity.bed_t60, 5_000.0, 25.0).run(&bed, 0.0);
+    add_scaled(&mut bed, &wet, 0.3);
+    let bass = render_track(&of(Track::Bass), n);
+    let mut w = Warmth::new(1.3, 0.12);
+    let warm: Vec<f64> = bass.l.iter().map(|&x| w.process(x)).collect();
+    add_scaled(
+        &mut bed,
+        &Stereo {
+            r: warm.clone(),
+            l: warm,
+        },
+        1.0,
+    );
+    bed
+}
+
+/// The melody bus: melody, answers and cues, with a plate.
+fn melody_bus(events: &[Event], n: usize) -> Stereo {
+    let notes: Vec<&Event> = events
+        .iter()
+        .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
+        .collect();
+    let mut dry = render_track(&notes, n);
+    let wet = Plate::new(0.55, 5_500.0).run(&dry, 0.0);
+    add_scaled(&mut dry, &wet, 0.3);
+    dry
+}
+
+/// The melody's note events for a phrase starting at `start` (all notes at
+/// the reference velocity): used to calibrate the melody bus.
+fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
+    fit_phrase(
+        &identity.motif,
+        &identity.key,
+        identity.tonic_midi,
+        identity.beat_s,
+        start,
+        f64::INFINITY,
+    )
+    .into_iter()
+    .enumerate()
+    .map(|(i, (t, p, d))| Event {
+        start: t,
+        hold: d * 1.4,
+        track: Track::Melody,
+        inst: identity.palette.melody,
+        pitch: f64::from(p),
+        velocity: 0.56,
+        seed: seed_for(&identity.name, "", "reference", i as u64),
+        pan: 0.0,
+    })
+    .collect()
+}
+
+/// The loudness (LUFS) of a reference bed (the tonic chord at intensity 0.5,
+/// measured over its sustained middle) and of a reference phrase (the motif)
+/// through their buses at unity gain. Levels are set against these fixed
+/// points, never against the video's own music, so one chapter's plan cannot
+/// move another chapter's level.
+pub fn reference_levels(identity: &Identity) -> (f64, f64) {
+    let n = (10.0 * FS) as usize;
+    let chord = identity.progression[0].clone();
+    let span = ChordSpan {
+        start: 0.0,
+        end: 9.0,
+        voicing: voice_lead(&chord, 4, None),
+        chord,
+    };
+    let bed = bed_bus(identity, &chord_events(identity, &span, 0.5, "", 0), n);
+    let (a, b) = ((3.0 * FS) as usize, (8.0 * FS) as usize);
+    let bed_lufs = meter::integrated(&Stereo {
+        l: bed.l[a..b].to_vec(),
+        r: bed.r[a..b].to_vec(),
+    });
+    let phrase = reference_phrase(identity, 0.5);
+    let len = phrase.last().map_or(1.0, |e| e.start + e.hold) + 3.0;
+    let mel_lufs = meter::integrated(&melody_bus(&phrase, (len * FS) as usize));
+    (bed_lufs, mel_lufs)
+}
+
 /// Score a whole video: `sections` in order, the voice placed at each line's
 /// own gain or at `voice_gain_db` when given.
+///
+/// Everything a chapter contributes depends only on that chapter (its plan,
+/// its timeline, the identity) and on the voice's integrated loudness: its
+/// harmony is planned inside it, its seeds are its own, and the levels are
+/// set against [`reference_levels`]. Only tails that ring across a cut (a
+/// few seconds of release and reverb) and the true-peak cap, if it ever
+/// binds, reach a neighbour.
 pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<Score> {
     // 1. the voice bus of the whole video, chapter after chapter
     let mut chapters = Vec::new();
@@ -381,77 +533,51 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let speech = duck::regions(&active, 1.2);
     let fine = duck::regions(&active, MIN_PAUSE);
 
-    // 3. harmony
-    let mut rng = Rng::new(seed_for(&identity.name, "", "harmony", 0));
-    let cands = change_candidates(&fine, total, &chapter_starts);
-    let changes = plan_changes(&cands, &chapter_starts, total, identity.chord_s, &mut rng);
+    // 3. harmony, planned inside each chapter: a chapter enters the
+    //    progression where its index puts it, so consecutive chapters keep
+    //    moving; the video's last chord is the tonic when the plan resolves
     let resolve = sections.last().is_some_and(|s| s.plan.resolve);
+    let len = identity.progression.len();
     let mut chords: Vec<ChordSpan> = Vec::new();
-    let mut prev: Option<Voicing> = None;
-    for (k, &start) in changes.iter().enumerate() {
-        let end = changes.get(k + 1).copied().unwrap_or(total);
-        let last = k + 1 == changes.len();
-        let chord = if last && resolve {
-            identity.progression[0].clone()
-        } else {
-            identity.progression[k % identity.progression.len()].clone()
-        };
-        // a resolution onto the chord already sounding just extends it
-        if let Some(p) = chords.last_mut().filter(|p| p.chord == chord) {
-            p.end = end;
-            continue;
-        }
-        let voicing = voice_lead(&chord, 4, prev.as_ref());
-        prev = Some(voicing.clone());
-        chords.push(ChordSpan {
-            start,
-            end,
-            chord,
-            voicing,
-        });
-    }
-
-    // 4. notes
     let mut events = Vec::new();
-    let chapter_name = |k: usize| chapters[k].0.as_str();
-    for (k, span) in chords.iter().enumerate() {
-        let ch = chapter_at(span.start);
-        let intensity = sections[ch].plan.intensity.clamp(0.0, 1.0);
-        let bed = match identity.palette.bed {
-            Instrument::Pad { .. } => Instrument::Pad {
-                brightness: 0.15 + 0.35 * intensity,
-            },
-            Instrument::Strings { .. } => Instrument::Strings {
-                brightness: 0.15 + 0.35 * intensity,
-            },
-            other => other,
-        };
-        // the next chord swells in from 0.8 s before its change; this one
-        // starts to release 0.3 s before the next change
-        let note_start = (span.start - 0.8).max(0.0);
-        let hold = (span.end - 0.3 - note_start).max(0.5);
-        for (j, &m) in span.voicing.upper.iter().enumerate() {
-            events.push(Event {
-                start: note_start,
-                hold,
-                track: Track::Bed,
-                inst: bed,
-                pitch: f64::from(m),
-                velocity: 0.35 + 0.3 * intensity,
-                seed: seed_for(&identity.name, chapter_name(ch), "bed", (k * 8 + j) as u64),
-                pan: [-0.35, -0.12, 0.12, 0.35][j % 4],
+    for (c, (name, a, b)) in chapters.iter().enumerate() {
+        let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
+        let local: Vec<(f64, f64)> = fine
+            .iter()
+            .filter(|r| r.1 > t0 && r.0 < t1)
+            .map(|&(s, e)| (s.max(t0) - t0, e.min(t1) - t0))
+            .collect();
+        let cands = change_candidates(&local, t1 - t0, &[]);
+        let mut rng = Rng::new(seed_for(&identity.name, name, "harmony", 0));
+        let changes = plan_changes(&cands, &[], t1 - t0, identity.chord_s, &mut rng);
+        let last_chapter = c + 1 == chapters.len();
+        let mut prev: Option<Voicing> = None;
+        let mut mine: Vec<ChordSpan> = Vec::new();
+        for (k, &s) in changes.iter().enumerate() {
+            let (start, end) = (t0 + s, changes.get(k + 1).map_or(t1, |&x| t0 + x));
+            let chord = if last_chapter && resolve && k + 1 == changes.len() {
+                identity.progression[0].clone()
+            } else {
+                identity.progression[(c + k) % len].clone()
+            };
+            // a resolution onto the chord already sounding just extends it
+            if let Some(p) = mine.last_mut().filter(|p| p.chord == chord) {
+                p.end = end;
+                continue;
+            }
+            let voicing = voice_lead(&chord, 4, prev.as_ref());
+            prev = Some(voicing.clone());
+            mine.push(ChordSpan {
+                start,
+                end,
+                chord,
+                voicing,
             });
         }
-        events.push(Event {
-            start: span.start,
-            hold: (span.end - span.start - 0.15).max(0.3),
-            track: Track::Bass,
-            inst: Instrument::Bass,
-            pitch: f64::from(span.voicing.bass),
-            velocity: 0.5 + 0.2 * intensity,
-            seed: seed_for(&identity.name, chapter_name(ch), "bass", k as u64),
-            pan: 0.0,
-        });
+        for (k, span) in mine.iter().enumerate() {
+            events.extend(chord_events(identity, span, sections[c].plan.intensity, name, k));
+        }
+        chords.extend(mine);
     }
     let chord_at = |t: f64| {
         chords
@@ -460,11 +586,17 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             .or(chords.last())
             .expect("at least one chord")
     };
+
+    // 4. the leitmotif in gaps, numbered within each chapter
     let mut phrases = Vec::new();
     let gaps = duck::gaps(&speech, total, MIN_PHRASE_GAP);
+    let mut gap_index = vec![0usize; chapters.len()];
     for (g, &(a, b)) in gaps.iter().enumerate() {
         let ch = chapter_at(a);
-        let mut prng = Rng::new(seed_for(&identity.name, chapter_name(ch), "phrase", g as u64));
+        let gi = gap_index[ch];
+        gap_index[ch] += 1;
+        let name = chapters[ch].0.as_str();
+        let mut prng = Rng::new(seed_for(&identity.name, name, "phrase", gi as u64));
         let final_gap = g + 1 == gaps.len() && resolve;
         let motif = if final_gap {
             let mut m = identity.motif.clone();
@@ -503,7 +635,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 inst: identity.palette.melody,
                 pitch: f64::from(p),
                 velocity: 0.5 + 0.12 * prng.uniform() + if i == 0 { 0.06 } else { 0.0 },
-                seed: seed_for(&identity.name, chapter_name(ch), "melody", (g * 16 + i) as u64),
+                seed: seed_for(&identity.name, name, "melody", (gi * 16 + i) as u64),
                 pan: 0.12 * prng.jitter(1.0),
             });
         }
@@ -521,53 +653,56 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                     inst: identity.palette.answer,
                     pitch: f64::from(p.min(88)),
                     velocity: 0.32,
-                    seed: seed_for(&identity.name, chapter_name(ch), "answer", (g * 4 + i) as u64),
+                    seed: seed_for(&identity.name, name, "answer", (gi * 4 + i) as u64),
                     pan: if i == 0 { -0.4 } else { 0.4 },
                 });
             }
         }
     }
 
-    // 5. buses
-    let of = |track: Track| events.iter().filter(|e| e.track == track).collect::<Vec<_>>();
-    let mut bed = {
-        let dry = render_track(&of(Track::Bed), n);
-        let (mid, side) = mid_side(&dry);
-        let mut chorused = Chorus::juno(0.5, 0.5).run(&mid);
-        add_scaled(&mut chorused, &from_mid_side(&vec![0.0; n], &side), 1.0);
-        let wet = Fdn::new(identity.bed_t60, 5_000.0, 25.0).run(&chorused, 0.0);
-        add_scaled(&mut chorused, &wet, 0.3);
-        chorused
-    };
-    let bass = {
-        let dry = render_track(&of(Track::Bass), n);
-        let mut w = Warmth::new(1.3, 0.12);
-        let l: Vec<f64> = dry.l.iter().map(|&x| w.process(x)).collect();
-        Stereo { r: l.clone(), l }
-    };
-    add_scaled(&mut bed, &bass, 1.0);
-    drop(bass);
-    let melody = {
-        let mut dry = render_track(&of(Track::Melody), n);
-        add_scaled(&mut dry, &render_track(&of(Track::Answer), n), 1.0);
-        let wet = Plate::new(0.55, 5_500.0).run(&dry, 0.0);
-        add_scaled(&mut dry, &wet, 0.3);
-        dry
-    };
+    // 5. authored marks: a soft reveal dyad on the mark, or where the
+    //    sentence it falls in ends (if that is within 2 s); else skipped
+    let mut cues = Vec::new();
+    let mut skipped_marks = Vec::new();
+    for (c, s) in sections.iter().enumerate() {
+        let t0 = chapter_starts[c];
+        for (i, m) in s.timeline.marks.iter().enumerate() {
+            let t = t0 + m.frame as f64 / f64::from(s.timeline.fps);
+            let when = match fine.iter().find(|r| t >= r.0 && t < r.1) {
+                None => Some(t),
+                Some(r) if r.1 - t <= 2.0 => Some(r.1 + 0.05),
+                Some(_) => None,
+            };
+            let Some(when) = when.filter(|&w| w < total - 0.5) else {
+                skipped_marks.push(m.label.clone());
+                continue;
+            };
+            let v = &chord_at(when).voicing;
+            for (j, &mp) in v.upper[2..].iter().enumerate() {
+                let p = if mp < 72 { mp + 12 } else { mp };
+                events.push(Event {
+                    start: when + 0.04 * j as f64,
+                    hold: 1.5,
+                    track: Track::Cue,
+                    inst: identity.palette.answer,
+                    pitch: f64::from(p.min(88)),
+                    velocity: 0.4,
+                    seed: seed_for(&identity.name, &chapters[c].0, "cue", (i * 2 + j) as u64),
+                    pan: if j == 0 { -0.45 } else { 0.45 },
+                });
+            }
+            cues.push((when, m.label.clone()));
+        }
+    }
 
-    // 6. levels
+    // 6. buses and levels, against the fixed reference levels
     let voice_lufs = meter::integrated(&voice);
-    let bed_gain = db_to_gain(voice_lufs + identity.bed_lu - meter::integrated(&bed));
-    let mel_lufs = meter::integrated(&melody);
-    let mel_gain = if mel_lufs.is_finite() {
-        db_to_gain(voice_lufs + identity.melody_lu - mel_lufs)
-    } else {
-        0.0
-    };
-    let mut sum = Stereo::silence(n);
-    add_scaled(&mut sum, &bed, bed_gain);
-    add_scaled(&mut sum, &melody, mel_gain);
-    drop((bed, melody));
+    let (ref_bed, ref_mel) = reference_levels(identity);
+    let mut sum = bed_bus(identity, &events, n);
+    sum.scale(db_to_gain(voice_lufs + identity.bed_lu - ref_bed));
+    let melody = melody_bus(&events, n);
+    add_scaled(&mut sum, &melody, db_to_gain(voice_lufs + identity.melody_lu - ref_mel));
+    drop(melody);
     // tape glue: one transport, so both channels share the wow and flutter
     let tape_seed = seed_for(&identity.name, "", "tape", 0);
     let (mut tl, mut tr) = (Tape::new(tape_seed), Tape::new(tape_seed));
@@ -595,6 +730,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         .collect();
     duck::release_windows(&mut u, &windows, shape);
     let mut music = duck::apply(&sum, &u, identity.duck_db);
+    drop(sum);
 
     // 8. the video's edges: a 1 s fade-in, a 3 s fade-out
     let fade_in = (1.0 * FS) as usize;
@@ -620,6 +756,8 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         events,
         chords,
         phrases,
+        cues,
+        skipped_marks,
         speech,
         chapters,
         voice_lufs,
@@ -772,6 +910,81 @@ mod tests {
             });
         }
         sections
+    }
+
+    /// Third-octave levels (dB) of each whole second of `x` in [a, b) s.
+    fn fingerprint(x: &Stereo, a: f64, b: f64) -> Vec<[f64; 18]> {
+        (a as usize..b as usize)
+            .map(|s| {
+                let m: Vec<f64> = (s * 48_000..(s + 1) * 48_000).map(|i| x.l[i] + x.r[i]).collect();
+                crate::fft::third_octave_levels(&m, FS)
+            })
+            .collect()
+    }
+
+    #[test]
+    fn editing_one_chapter_leaves_the_others_alone() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_indep_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let id = Identity::hoeffding();
+        let before = render(&id, &sections, None).unwrap();
+        sections[0].plan.intensity = 0.95;
+        let after = render(&id, &sections, None).unwrap();
+        assert_eq!(before.cap_db, 0.0);
+        assert_eq!(after.cap_db, 0.0);
+        // chapter 0 did change...
+        assert_ne!(before.chapter_music(0), after.chapter_music(0));
+        // ...chapter 1 (40–70 s) did not, past the few seconds its neighbour's
+        // tails ring into it: within ±0.5 dB per third octave per second
+        let (fa, fb) = (
+            fingerprint(&before.music, 45.0, 70.0),
+            fingerprint(&after.music, 45.0, 70.0),
+        );
+        for (sec, (x, y)) in fa.iter().zip(&fb).enumerate() {
+            for (band, (p, q)) in x.iter().zip(y).enumerate() {
+                if *p > -100.0 {
+                    assert!(
+                        (p - q).abs() <= 0.5,
+                        "second {} band {band}: {p:.2} vs {q:.2} dB",
+                        45 + sec
+                    );
+                }
+            }
+        }
+        // and its notes are the very same notes
+        let notes = |s: &Score| {
+            s.events
+                .iter()
+                .filter(|e| e.start >= 40.0)
+                .map(|e| (e.seed, e.pitch.to_bits(), e.start.to_bits()))
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(notes(&before), notes(&after));
+    }
+
+    #[test]
+    fn marks_become_reveal_cues_outside_speech() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_marks_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let mark = |label: &str, secs: f64| crate::timeline::Mark {
+            label: label.into(),
+            frame: (secs * 60.0) as u64,
+        };
+        // chapter 1 (speech 0.6–6, 6.6–12, 16–24, 24.6–33): a mark in the
+        // 12–16 s gap, one 1 s before a sentence ends, one deep inside a long one
+        sections[0].timeline.marks = vec![mark("gap", 13.0), mark("late", 23.0), mark("deep", 18.0)];
+        let s = render(&Identity::hoeffding(), &sections, None).unwrap();
+        let labels: Vec<&str> = s.cues.iter().map(|c| c.1.as_str()).collect();
+        assert_eq!(labels, vec!["gap", "late"]);
+        assert_eq!(s.skipped_marks, vec!["deep".to_string()]);
+        assert!((s.cues[0].0 - 13.0).abs() < 1e-9, "on the mark");
+        assert!(
+            s.cues[1].0 > 23.9 && s.cues[1].0 < 24.6,
+            "at the sentence's end: {}",
+            s.cues[1].0
+        );
+        let cue_notes = s.events.iter().filter(|e| e.track == Track::Cue).count();
+        assert_eq!(cue_notes, 4, "a dyad per cue");
     }
 
     #[test]

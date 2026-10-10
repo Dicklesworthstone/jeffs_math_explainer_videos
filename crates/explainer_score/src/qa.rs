@@ -515,7 +515,7 @@ pub fn evaluate(
     let rule7 = f
         .events
         .iter()
-        .filter(|e| matches!(e.track, Track::Melody | Track::Answer))
+        .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
         .filter(|e| {
             chord_at(e.start).is_some_and(|c| {
                 let p = e.pitch.round() as i32;
