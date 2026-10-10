@@ -175,7 +175,8 @@ impl SceneConstruct for Gallery {
             24.0,
             Palette::dim(),
             &[],
-            v(BAR_X + BAR_LEN, -1.95),
+            // right-aligned on the scale's end, inside the safe area
+            v(BAR_X + BAR_LEN - 0.04, -1.95),
         )?;
         let zero = Line::new(v(BAR_X, 2.35), v(BAR_X, -1.65))
             .style(stroke_style(Palette::faint(), 2.0))
@@ -327,11 +328,11 @@ fn settle(
 
 /// On the ring: the correlations sit under the ceiling, D clears it.
 fn ring_verdict(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<()> {
-    let lost = SurroundingRectangle::from_extent(Some((v(0.4, -0.35), v(6.95, 2.3))))
+    let lost = SurroundingRectangle::from_extent(Some((v(0.4, -0.35), v(6.9, 2.3))))
         .buff(0.05)
         .color(Palette::warn())
         .build();
-    let found = SurroundingRectangle::from_extent(Some((v(0.4, -1.5), v(6.95, -0.9))))
+    let found = SurroundingRectangle::from_extent(Some((v(0.4, -1.5), v(6.9, -0.9))))
         .buff(0.05)
         .color(Palette::good())
         .build();

@@ -67,7 +67,7 @@ impl SceneConstruct for Hook {
             38.0,
             Palette::dim(),
             &[],
-            v(frame.right() + 0.25, frame.bottom() - 0.35),
+            v(frame.right() + 0.25, frame.bottom() - 0.25),
         )?;
         let yl = kit.tex(
             stage,
@@ -75,7 +75,7 @@ impl SceneConstruct for Hook {
             38.0,
             Palette::dim(),
             &[],
-            v(frame.left() - 0.4, frame.top() + 0.15),
+            v(frame.left() - 0.3, frame.top() + 0.15),
         )?;
         let cloud = stage
             .arena_mut()

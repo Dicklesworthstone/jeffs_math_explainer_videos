@@ -18,6 +18,9 @@ pub struct Ranks {
 const CELL_X0: f64 = -3.4;
 const CELL_DX: f64 = 1.0;
 const ROWS: [f64; 4] = [2.55, 1.95, 1.0, 0.4];
+/// The two scatters' centre line: high enough that their axis labels stay
+/// inside the safe area (at -2.25 the "height" label was cut off).
+const SCATTER_Y: f64 = -2.05;
 
 fn fmt(v: f64) -> String {
     if v.fract() == 0.0 {
@@ -93,14 +96,14 @@ impl SceneConstruct for Ranks {
 
         // ---- the raw scatter
         let raw = Frame2 {
-            center: v(-3.4, -2.25),
+            center: v(-3.4, SCATTER_Y),
             width: 5.2,
             height: 2.75,
             x: (52.0, 81.0),
             y: (110.0, 265.0),
         };
         let rank = Frame2 {
-            center: v(3.55, -2.25),
+            center: v(3.55, SCATTER_Y),
             width: 5.2,
             height: 2.75,
             x: (0.0, 10.2),
@@ -224,7 +227,7 @@ impl SceneConstruct for Ranks {
             Palette::dim(),
             crate::kit::add(rank_pts[8], v(0.32, 0.0)),
         )?;
-        let bridge = Arrow::new(v(-0.55, -2.25), v(0.75, -2.25))
+        let bridge = Arrow::new(v(-0.55, SCATTER_Y), v(0.75, SCATTER_Y))
             .buff(0.0)
             .color(Palette::dim())
             .build()?;

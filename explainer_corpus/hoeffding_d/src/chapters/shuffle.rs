@@ -220,7 +220,7 @@ impl SceneConstruct for Shuffle {
             "rugs = the marginals: where X values fall, where Y values fall",
             24.0,
             Palette::dim(),
-            v(-3.45, -3.8),
+            v(-3.45, -3.72),
         )?;
         kit.say(stage, "s2")?;
         play!(stage; fade_in(stage.arena_mut(), marg, v(0.0, 0.15), 1.0)?.rt(1.0));
