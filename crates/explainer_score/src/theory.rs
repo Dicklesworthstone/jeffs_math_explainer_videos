@@ -7,12 +7,12 @@
 //! lives there (5th–95th percentile ≈ 105–216 Hz for the `robert` voice), and
 //! a fixed tone in that band roughens and masks the voice as its harmonics
 //! glide past. So the bass stays in E1–D2 (41–73 Hz) and the upper voices start
-//! at B3 (247 Hz).
+//! at C4 (261.6 Hz; B3 at 246.9 Hz would sit inside the 95–250 Hz band).
 
 /// MIDI note numbers for the registral limits.
 pub const BASS_LOW: i32 = 28; // E1, 41.2 Hz
 pub const BASS_HIGH: i32 = 38; // D2, 73.4 Hz
-pub const UPPER_LOW: i32 = 59; // B3, 246.9 Hz
+pub const UPPER_LOW: i32 = 60; // C4, 261.6 Hz
 pub const UPPER_HIGH: i32 = 79; // G5, 784 Hz
 
 /// Mode intervals (semitones above the tonic).
@@ -104,8 +104,8 @@ impl Chord {
             .iter()
             .map(|&i| {
                 let rank = match i.rem_euclid(12) {
-                    3 | 4 | 5 => 0,
-                    10 | 11 | 9 => 1,
+                    3..=5 => 0,
+                    9..=11 => 1,
                     2 => 2,
                     6 => 2, // #11 colour
                     7 => 3,
@@ -140,8 +140,10 @@ pub struct Voicing {
 pub fn voice_lead(chord: &Chord, voices: usize, prev: Option<&Voicing>) -> Voicing {
     let pcs = chord.upper_priority();
     let want: Vec<i32> = pcs.iter().take(voices).copied().collect();
-    // candidate notes: every chord tone (not the root unless it is all we have)
-    let tones: Vec<i32> = if pcs.is_empty() { vec![chord.root] } else { pcs.clone() };
+    // candidate notes: every chord tone, the root included (a triad or a sus
+    // chord has fewer non-root tones than voices, so the root and doublings
+    // must be available); `want` still ranks the characteristic tones first
+    let tones: Vec<i32> = chord.pitch_classes();
     let candidates: Vec<i32> = (UPPER_LOW..=UPPER_HIGH)
         .filter(|m| tones.contains(&m.rem_euclid(12)))
         .collect();
@@ -201,19 +203,21 @@ fn voicing_cost(cand: &[i32], want: &[i32], prev: Option<&Voicing>) -> i64 {
             cost += 3 * i64::from(gap - 9);
         }
     }
-    // smooth motion from the previous voicing; common tones held for free
+    // smooth motion from the previous voicing: for equal-size sets of pitches,
+    // matching sorted to sorted minimizes total motion (common tones then cost 0)
     if let Some(p) = prev {
-        let mut used = vec![false; cand.len()];
-        for &old in &p.upper {
-            let (j, d) = cand
+        let mut old = p.upper.clone();
+        old.sort_unstable();
+        if old.len() == cand.len() {
+            cost += 2 * cand
                 .iter()
-                .enumerate()
-                .filter(|(j, _)| !used[*j])
-                .map(|(j, &m)| (j, (m - old).abs()))
-                .min_by_key(|&(_, d)| d)
-                .unwrap_or((0, 12));
-            used[j] = true;
-            cost += 2 * i64::from(d);
+                .zip(&old)
+                .map(|(a, b)| i64::from((a - b).abs()))
+                .sum::<i64>();
+        } else {
+            for &o in &old {
+                cost += 2 * i64::from(cand.iter().map(|&m| (m - o).abs()).min().unwrap_or(12));
+            }
         }
     } else {
         // first chord: centre the voicing around E4–A4
@@ -314,14 +318,48 @@ mod tests {
     }
 
     #[test]
-    fn voice_leading_holds_common_tones_and_moves_little() {
-        // Dmaj9 (D F# A C# E) → Bm9 (B D F# A C#) share D, F#, A and C#.
-        let a = voice_lead(&Chord::maj9(2), 4, None);
-        let b = voice_lead(&Chord::min9(11), 4, Some(&a));
-        let motion: i32 = a.upper.iter().zip(&b.upper).map(|(x, y)| (x - y).abs()).sum();
-        assert!(motion <= 6, "{a:?} → {b:?}: {motion} semitones");
-        let common = a.upper.iter().filter(|m| b.upper.contains(m)).count();
-        assert!(common >= 2, "{a:?} → {b:?}");
+    fn voice_leading_is_minimal_among_valid_voicings_and_holds_common_tones() {
+        // Brute force: every 4-note upper voicing in range that covers the
+        // chord's characteristic tones and has no semitone clusters. The solver
+        // may trade a little motion for compactness, never more than 2 semitones.
+        let motion = |a: &[i32], b: &[i32]| a.iter().zip(b).map(|(x, y)| (x - y).abs()).sum::<i32>();
+        let prog = [
+            Chord::maj9(2),
+            Chord::min9(11),
+            Chord::maj9_sharp11(7),
+            Chord::sus4(9),
+            Chord::maj9(2),
+        ];
+        let mut prev = voice_lead(&prog[0], 4, None);
+        for c in &prog[1..] {
+            let got = voice_lead(c, 4, Some(&prev));
+            let want: Vec<i32> = c.upper_priority().into_iter().take(4).collect();
+            let cands: Vec<i32> = (UPPER_LOW..=UPPER_HIGH)
+                .filter(|m| c.pitch_classes().contains(&m.rem_euclid(12)))
+                .collect();
+            let mut best = i32::MAX;
+            let mut stack = Vec::new();
+            search(&cands, 0, 4, &mut stack, &mut |v: &[i32]| {
+                let covers = want.iter().all(|pc| v.iter().any(|m| m.rem_euclid(12) == *pc));
+                let clean = v.windows(2).all(|w| w[1] - w[0] >= 2);
+                if covers && clean {
+                    best = best.min(motion(v, &prev.upper));
+                }
+            });
+            let m = motion(&got.upper, &prev.upper);
+            assert!(
+                m <= best + 2,
+                "{c:?}: {prev:?} → {got:?} moves {m}, minimum valid {best}"
+            );
+            let common = prev.upper.iter().filter(|x| got.upper.contains(x)).count();
+            let shared_pcs = prev
+                .upper
+                .iter()
+                .filter(|x| c.pitch_classes().contains(&x.rem_euclid(12)))
+                .count();
+            assert!(common >= shared_pcs.min(2), "{prev:?} → {got:?}");
+            prev = got;
+        }
     }
 
     #[test]

@@ -1035,7 +1035,7 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
 
 1. No sustained music fundamentals between 95 and 250 Hz during speech (the v5
    narrator's 5th–95th percentile pitch is ≈105–216 Hz); bass stays below
-   95 Hz, upper voices from B3 (247 Hz) up.
+   95 Hz, upper voices from C4 (262 Hz) up (B3, at 247 Hz, would sit inside the band).
 2. Under speech, music content above 2.5 kHz is at least 12 dB down (low-pass
    plus pocket).
 3. No pure-sine voices above 100 Hz: at least three partials, chorus or noise.
@@ -1128,7 +1128,7 @@ lives inside it.
 - **Harmonic plan per chapter:** chords of 4–16 s; changes only in gaps or in
   intra-sentence pauses ≥ 0.2 s, never within 150 ms after a speech onset; a
   voice-leading solver minimizes total motion with the bass in E1–D2 and upper
-  voices from B3 up, holding common tones; pedal points under dense
+  voices from C4 (262 Hz) up, holding common tones; pedal points under dense
   derivations.
 - **Intensity arc per chapter (0–1)** drives density, cutoff, register spread
   and reverb send: intro motif at V − 6 then down to the bed at the first line;

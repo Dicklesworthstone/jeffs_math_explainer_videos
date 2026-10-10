@@ -77,7 +77,11 @@ impl Frame2 {
 
     /// The window's border.
     pub fn border(&self, color: Srgb) -> fmn::Result<VMobject> {
-        let r = Rectangle::new().width(self.width).height(self.height).style(stroke_style(color, 2.0)).build()?;
+        let r = Rectangle::new()
+            .width(self.width)
+            .height(self.height)
+            .style(stroke_style(color, 2.0))
+            .build()?;
         Ok(r.moved_to(self.center))
     }
 }
@@ -98,7 +102,13 @@ mod tests {
 
     #[test]
     fn frame2_round_trips_and_edges() {
-        let f = Frame2 { center: v(-3.45, -0.4), width: 5.6, height: 3.2, x: (-0.04, 0.2), y: (0.0, 49.0) };
+        let f = Frame2 {
+            center: v(-3.45, -0.4),
+            width: 5.6,
+            height: 3.2,
+            x: (-0.04, 0.2),
+            y: (0.0, 49.0),
+        };
         for i in 0..=20 {
             for j in 0..=20 {
                 let (x, y) = (lerp(f.x.0, f.x.1, i as f64 / 20.0), lerp(f.y.0, f.y.1, j as f64 / 20.0));
@@ -113,7 +123,13 @@ mod tests {
 
     #[test]
     fn border_builds() {
-        let f = Frame2 { center: v(0.0, 0.0), width: 4.0, height: 2.0, x: (0.0, 1.0), y: (0.0, 1.0) };
+        let f = Frame2 {
+            center: v(0.0, 0.0),
+            width: 4.0,
+            height: 2.0,
+            x: (0.0, 1.0),
+            y: (0.0, 1.0),
+        };
         assert!(f.border(crate::Palette::dim()).is_ok());
     }
 }

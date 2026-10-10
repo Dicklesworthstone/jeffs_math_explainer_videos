@@ -19,6 +19,8 @@ publish = false
 # deliberate commit: bump rev, re-run every explainer's tests and glyph probes,
 # and read fresh contact sheets (TeX layout changes ride franken_markdown pins).
 fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea", features = ["ffmpeg"] }
+# franken_manim's own WAV decoder, for cross-validating score stems (same rev as fmn).
+fmn-codec = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "e2eec6326cee490462e497509fce9289c8157bea" }
 explainer_kit = { path = "crates/explainer_kit" }
 explainer_score = { path = "crates/explainer_score" }
 

@@ -65,12 +65,18 @@ impl Palette {
 
 /// A smooth blue → teal → green → gold ramp, one color per point.
 pub fn point_colors(n: usize) -> Vec<Srgb> {
-    color_gradient(&[Palette::blue(), Palette::teal(), Palette::green(), Palette::gold()], n)
+    color_gradient(
+        &[Palette::blue(), Palette::teal(), Palette::green(), Palette::gold()],
+        n,
+    )
 }
 
 /// Solid fill in `color` (text and filled shapes).
 pub fn ink_style(color: Srgb) -> Style {
-    Style::default().fill(color, 1.0).stroke(color, 0.0, 1.0).fill_border_width(0.5)
+    Style::default()
+        .fill(color, 1.0)
+        .stroke(color, 0.0, 1.0)
+        .fill_border_width(0.5)
 }
 
 /// Outline only, `width` in Reference stroke units.
