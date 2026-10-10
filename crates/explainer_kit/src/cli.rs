@@ -50,6 +50,12 @@ pub struct Explainer {
     pub glyph_tex: &'static [&'static str],
     /// The video's musical identity.
     pub identity: fn() -> Identity,
+    /// The narration's placement gain (dB): `narration::GAIN_DB` (0) under the
+    /// score engine; an older video may keep its own balance until re-scored.
+    pub narration_gain_db: f64,
+    /// The chapter a script line belongs to, for line ids that do not follow
+    /// `NN_k` (None: the line's `NN_` prefix names its chapter).
+    pub line_owner: Option<fn(&str) -> Option<&'static str>>,
 }
 
 const USAGE: &str = "\
@@ -242,11 +248,24 @@ pub fn set_aside(path: &Path) -> io::Result<()> {
 }
 
 /// Every script line belongs to exactly one chapter: line `NN_k` to the one
-/// chapter whose key starts `NN_`.
-pub fn check_script_owners(script: &Script, keys: &[&str]) -> Result<(), String> {
+/// chapter whose key starts `NN_`, or, given `owner`, to the chapter it names.
+pub fn check_script_owners(
+    script: &Script,
+    keys: &[&str],
+    owner: Option<fn(&str) -> Option<&'static str>>,
+) -> Result<(), String> {
     for (id, _) in script.lines() {
-        let prefix = id.split('_').next().unwrap_or(id);
-        let owners = keys.iter().filter(|k| k.starts_with(&format!("{prefix}_"))).count();
+        let owners = match owner {
+            Some(f) => match f(id) {
+                Some(k) if keys.contains(&k) => 1,
+                Some(k) => return Err(format!("line {id} maps to {k:?}, which is not a chapter")),
+                None => 0,
+            },
+            None => {
+                let prefix = id.split('_').next().unwrap_or(id);
+                keys.iter().filter(|k| k.starts_with(&format!("{prefix}_"))).count()
+            }
+        };
         if owners != 1 {
             return Err(format!(
                 "line {id} maps to {owners} chapters (it must map to exactly one)"
@@ -320,7 +339,7 @@ fn options(path: PathBuf, format: RenderFormat, res: (u32, u32), fps: u32) -> Re
 fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Box<dyn Error>> {
     let all = (e.chapters)();
     let keys: Vec<&str> = all.iter().map(|c| c.key).collect();
-    check_script_owners(script, &keys)?;
+    check_script_owners(script, &keys, e.line_owner)?;
     let wanted: Vec<&Chapter> = if args.targets.is_empty() || args.targets.iter().any(|t| t == "all") {
         all.iter().collect()
     } else {
@@ -338,7 +357,7 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
     }
     std::fs::create_dir_all(&args.out)?;
     let narrator = match (&args.narration, args.scratch_voice) {
-        (Some(dir), _) => Some(Narrator::load(script, dir, crate::narration::GAIN_DB)?),
+        (Some(dir), _) => Some(Narrator::load(script, dir, e.narration_gain_db)?),
         (None, true) => Some(Narrator::estimate(script)),
         _ => None,
     };
@@ -423,14 +442,17 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
             match render(scene.as_mut(), opts) {
                 Ok(report) => break (report, finished.borrow().clone()),
                 Err(error)
-                    if attempt < 3
+                    if attempt < 5
                         && format!("{error:?}")
                             .contains("process-tree completion kill failed: Operation not permitted") =>
                 {
+                    // the race clusters under heavy host load (three in a row
+                    // at load ~300): back off before the next try
                     eprintln!(
                         "{}: transient Darwin EPERM after ffmpeg exit (attempt {attempt}); rendering again",
                         c.key
                     );
+                    std::thread::sleep(std::time::Duration::from_millis(500 << attempt));
                     attempt += 1;
                 }
                 Err(error) => return Err(error.into()),
@@ -656,14 +678,18 @@ fn master_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     explainer_score::wav::write_master(&wav, &programme, explainer_score::wav::Format::F32)?;
     let out = args.out.join(format!("{}_master.mp4", e.crate_name));
     set_aside(&out)?;
-    master::join(&mp4s, &wav, fps, &work.join("join"), &out)?;
+    master::join(&mp4s, &wav, &work.join("join"), &out)?;
     let (frames, secs) = master::probe(&out)?;
     let picture = total_frames as f64 / f64::from(fps);
     println!(
         "master -> {}: gain {gain:+.2} dB, {lufs:.2} LUFS, {tp:.2} dBTP; {frames} frames (chapters {total_frames}); audio {secs:.3} s (picture {picture:.3} s)",
         out.display()
     );
-    let ok = frames == total_frames && (secs - picture).abs() <= 1024.0 / 48_000.0 + 1e-3;
+    let grid = master::check_timestamps(&out, fps, total_frames);
+    if let Err(e) = &grid {
+        eprintln!("master gate failed: {e}");
+    }
+    let ok = frames == total_frames && (secs - picture).abs() <= 1024.0 / 48_000.0 + 1e-3 && grid.is_ok();
     if !ok {
         eprintln!("master gates failed: frames {frames} vs {total_frames}, audio {secs:.3} s vs {picture:.3} s");
     }
@@ -839,12 +865,27 @@ mod tests {
     #[test]
     fn every_script_line_belongs_to_exactly_one_chapter() {
         let script = Script::parse("01_1\ta\n01_2\tb\n02_1\tc\n").unwrap();
-        assert!(check_script_owners(&script, &["01_intro", "02_outro"]).is_ok());
+        assert!(check_script_owners(&script, &["01_intro", "02_outro"], None).is_ok());
         assert!(
-            check_script_owners(&script, &["01_intro"])
+            check_script_owners(&script, &["01_intro"], None)
                 .unwrap_err()
                 .contains("02_1")
         );
-        assert!(check_script_owners(&script, &["01_intro", "01_again", "02_outro"]).is_err());
+        assert!(check_script_owners(&script, &["01_intro", "01_again", "02_outro"], None).is_err());
+        // ids that do not follow NN_k, with an explicit map
+        let v5 = Script::parse("h1\ta\ng1\tb\n").unwrap();
+        let owner: fn(&str) -> Option<&'static str> = |id| match id.chars().next() {
+            Some('h') => Some("01_hook"),
+            Some('g') => Some("02_gallery"),
+            _ => None,
+        };
+        assert!(check_script_owners(&v5, &["01_hook", "02_gallery"], Some(owner)).is_ok());
+        assert!(
+            check_script_owners(&v5, &["01_hook"], Some(owner))
+                .unwrap_err()
+                .contains("not a chapter")
+        );
+        let none = Script::parse("x1\tc\n").unwrap();
+        assert!(check_script_owners(&none, &["01_hook"], Some(owner)).is_err());
     }
 }

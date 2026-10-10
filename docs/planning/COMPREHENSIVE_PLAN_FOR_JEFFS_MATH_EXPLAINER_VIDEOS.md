@@ -940,7 +940,7 @@ fallback.
 | S-6 | 322 staircase paths growing and morphing, with a scaled "zoom" | prune to the decisive paths and show counts |
 | S-7 | glyph probe of every planned string (§6.5) | the fallbacks in §6.5 |
 | S-8 | arena growth: fps at t = 0 vs t = 80 s for chapter A-03's live maps (updaters vs `always_redraw`) | fixed mobjects recoloured in place (already the rule) |
-| S-9 | a two-segment chapter (retained + camera) with a stem spanning the boundary → Annex-B join → PCM master via fmn's own `SoundMixer` → null test against fmn's captured `soundtrack.wav` (≈ −90 dBFS attainable) → frame count = Σ frames, audio samples = Σ frames × 800 | fix the join or master path before any final |
+| S-9 | a two-segment chapter (retained + camera) with a stem spanning the boundary → video-only concat join → PCM master via fmn's own `SoundMixer` → null test against fmn's captured `soundtrack.wav` (≈ −90 dBFS attainable) → frame count = Σ frames, audio samples = Σ frames × 800 | fix the join or master path before any final |
 
 ### 6.7 Looking at every frame
 
@@ -1206,11 +1206,17 @@ every concat join. The new master rebuilds the soundtrack from sources instead:
 - **Join and gain.** Chapters concatenate sample-exactly (each is
   `frames × 800` samples at 60 fps); one fixed gain `min(−16 − I, −1.5 − TP)`;
   AAC 256k once.
-- **Video join.** Video only (`-map 0:v:0`, dropping each chapter's AAC),
-  converted to Annex-B (`h264_mp4toannexb`), concatenated, remuxed at 60 fps with
-  regenerated timestamps; then the PCM soundtrack is muxed in. Gates: ffprobe
-  frame count = Σ chapter frames; audio samples = Σ frames × 800; one lossless
-  `h264_metadata` BT.709 re-tag on the joined file.
+- **Video join.** Each chapter remuxed video only (`-map 0:v:0`, dropping its
+  AAC, so the concat demuxer offsets each chapter by its picture's exact
+  length), concatenated with the concat demuxer and `-c:v copy`; then the PCM
+  soundtrack is muxed in. Gates: ffprobe frame count = Σ chapter frames; audio
+  samples = Σ frames × 800; decode times strictly increasing and every frame k
+  presented at k/60 s (± 1 ms); one lossless `h264_metadata` BT.709 re-tag on
+  the joined file. (Revised 2026-10-10: the first design, an Annex-B
+  concatenation remuxed with regenerated timestamps, failed on Hoeffding's
+  real chapters: the raw stream carries no presentation times, so B-frames
+  came back with pts = dts, two leading frames were discarded and the decode
+  reported non-monotonic DTS.)
 - Spike S-9 proves this whole path before any final.
 
 ---
@@ -2363,7 +2369,7 @@ the first failed assertion.
 | `e2e_scaffold.sh` | `./x new` in a temp copy → builds → `facts-check` → `status` gate transitions are right |
 | `e2e_draft_smoke.sh <slug>` | one chapter at 480×270@15 with `--lint`: MP4 decodes, frame count = expected, cue log parses, layout report parses, contact sheet written |
 | `e2e_score.sh <slug>` | stems from a fixture narration timeline → score QA JSON → every threshold asserted |
-| `e2e_master.sh` | PCM master on two short fixture chapters (one retained, one camera segment, a stem spanning the boundary) → Annex-B video join → `verify_video.sh` with EXPECT_* → null test of our `SoundMixer` replay against fmn's captured s16 `soundtrack.wav` ≤ −90 dBFS → frame count = Σ frames, samples = Σ frames × 800 (spike S-9 made permanent) |
+| `e2e_master.sh` | PCM master on two short fixture chapters (one retained, one camera segment, a stem spanning the boundary) → video-only concat join → `verify_video.sh` with EXPECT_* → null test of our `SoundMixer` replay against fmn's captured s16 `soundtrack.wav` ≤ −90 dBFS → frame count = Σ frames, samples = Σ frames × 800 (spike S-9 made permanent) |
 | `e2e_timeline.sh <slug>` | the construct-only timeline pass: every cue logged with integer frames and exact f64 bits; replayed placements equal fmn's own sample positions |
 | `e2e_captions.sh <slug>` | SRT/VTT validity, monotone, aligned to cue logs within one frame |
 | `e2e_publish_dryrun.sh <slug>` | the release bundle assembles, checksums verify, nothing is uploaded |
@@ -2474,7 +2480,7 @@ W0 ─┬─ W9 ─┬─ A:P0..P3r ─┐
 | D-17 | No changes to franken_manim from this repo; upstream asks go through its beads with the owner's OK | the shared engine tree has other agents' work in progress |
 | D-18 | Committed files never name private hosts or absolute home paths | public repository hygiene |
 | D-19 | The README describes the system in the present tense and gives every video an explicit status | honest about what exists, without rewriting the README at every milestone |
-| D-20 | Master the soundtrack from PCM sources by replaying the logged cues through fmn's own `SoundMixer`, once, with one fixed gain; join video via Annex-B with regenerated timestamps | avoids double AAC, undithered s16 and seam gaps; a null test against fmn's captured s16 soundtrack proves equivalence |
+| D-20 | Master the soundtrack from PCM sources by replaying the logged cues through fmn's own `SoundMixer`, once, with one fixed gain; join video by the concat demuxer over video-only remuxes, timestamps checked against the frame grid (an Annex-B join loses B-frame pts) | avoids double AAC, undithered s16 and seam gaps; a null test against fmn's captured s16 soundtrack proves equivalence |
 | D-21 | V is the narration's loudness as placed; the new engine places narration at 0 dB | the old −9.4 dB placement made the pad sit ≈5.6 LU under the voice while the measurements claimed 15 |
 | D-22 | Score in two passes (construct-only timeline dump, then per-act music sliced per chapter) | parallel chapter renders cannot see each other's narration; music crosses chapter boundaries |
 | D-23 | Large visual families are row-strip VMobjects recoloured in place; `always_redraw` only for small readouts | O(M²) group ops, serial per-frame snapshots and arena growth |

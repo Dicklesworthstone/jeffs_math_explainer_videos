@@ -21,6 +21,15 @@
 > is now `align*`, fractions are slightly wider, and matrices are taller. The tests
 > render nothing, so read fresh contact sheets of the formula chapters before any
 > re-render ships.
+>
+> **On the shared kit (2026-10-10, bead W3-migrate).** The crate is now a member
+> of the corpus workspace. Its scenes are unchanged, and they now run on the
+> corpus's `explainer_kit`: text, Tex, live readouts, the narrator, the encoder
+> wrapper, the CLI. `script.tsv` holds the narration with the v5 ids (h1..o4), so
+> `narration_v5` still matches. The v5 kit, narrator, encoder and CLI sources are
+> kept, uncompiled, in `v5_legacy/`. Until the re-score, the v5 pad, the chimes
+> and the −9.4 dB narration balance are kept. `hoeffding stats` prints exactly
+> what v5 printed (checked byte for byte).
 
 A 3Blue1Brown-style explainer of **Hoeffding's D**, about 8½ minutes long and narrated. It was written entirely against
 [franken_manim](https://github.com/Dicklesworthstone/franken_manim)'s native Rust front door, with no Python and no LaTeX.
@@ -195,15 +204,16 @@ A whole multi-sentence line spoken in one TTS call drifts in pace and pitch, and
 
 `contour.py` prints a read's pitch contour against its words, which is how uptalk was told apart from tracker octave errors.
 
-```bash
-HOEFFDING_CUE_LOG=1 $B render ...     # logs each line's start time, for checking that picture and voice line up
-```
+A narrated render writes, beside each chapter's MP4, `<chapter>.cues.tsv` (each line's id, start
+and length in seconds, for checking that picture and voice line up), the exact cue log
+`<chapter>.cuelog.tsv` and the chapter's `<chapter>.timeline.tsv`.
 
 ## Build and render
 
 ```bash
-# Uses fmn from franken_manim, pinned by git revision in Cargo.toml, and its pinned nightly.
-RCH_SHIM_LOCAL_IDE=1 cargo build --release
+# From the repository root: fmn from franken_manim, pinned by git revision in the workspace
+# Cargo.toml, and its pinned nightly.
+RCH_SHIM_LOCAL_IDE=1 cargo build --release -p hoeffding_explainer
 B=$CARGO_TARGET_DIR/release/hoeffding       # or target/release/hoeffding
 
 $B stats                                     # every number the video shows
@@ -224,7 +234,7 @@ cd renders/final_4k && ../../master.sh      # join chapters + one fixed gain (vi
 `fmn::render` sends libx264 no rate control (x264's CRF 23 default) and caps each ffmpeg job at
 600 s (beads `fm-video-encode-quality-knob-fm85` and `fm-render-ffmpeg-job-limits-laeo`).
 
-`src/encode.rs` therefore injects an `FfmpegCapability` whose process runner wraps the standard exact-image runner. It adds `-crf/-preset/-tune animation` to the libx264 job and `-b:a 256k` to the mux, and raises the timeout. Everything still runs through franken_manim's sandboxed boundary. The x264 SEI in the output confirms the settings.
+The corpus kit's encoder (`crates/explainer_kit/src/encode.rs`, moved there verbatim from this crate) therefore injects an `FfmpegCapability` whose process runner wraps the standard exact-image runner. It adds `-crf/-preset/-tune animation` to the libx264 job and `-b:a 256k` to the mux, and raises the timeout. Everything still runs through franken_manim's sandboxed boundary. The x264 SEI in the output confirms the settings.
 
 On macOS, `render` also retries a chapter when the known transient Darwin `killpg` EPERM race fails it (bead `fm-darwin-killpg-eperm-race-7aae`). Publication is atomic, so nothing partial is left behind.
 
@@ -350,14 +360,14 @@ The repository holds no rendered video or audio, narration WAVs, or franken_whis
 
 ```bash
 git clone https://github.com/Dicklesworthstone/jeffs_math_explainer_videos
-cd jeffs_math_explainer_videos/explainer_corpus/hoeffding_d
-cargo test                    # rustup fetches the pinned nightly first
-cargo build --release
+cd jeffs_math_explainer_videos
+cargo test --release -p hoeffding_explainer   # rustup fetches the pinned nightly first
+cargo build --release -p hoeffding_explainer
 target/release/hoeffding stats
 target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out draft
 ```
 
-- No franken_manim checkout is needed: `Cargo.toml` pins `fmn` to franken_manim `e2eec632` by git revision, and `Cargo.lock` records every FrankenSuite revision under it. The first build fetches those git dependencies (about 1.7 GB of repositories, mostly franken_manim's FrankenSuite dependencies).
-- To try a newer engine, bump `rev` in `Cargo.toml`, rebuild, re-run the tests, and re-read the glyph probe and contact sheets: TeX layout changes ride franken_markdown pin bumps.
+- No franken_manim checkout is needed: the workspace's `Cargo.toml` pins `fmn` to franken_manim `e2eec632` by git revision, and the workspace `Cargo.lock` records every FrankenSuite revision under it. A first build from an empty cargo home fills it to about 6.5 GB, 6.3 GB of which is git checkouts of franken_manim's FrankenSuite dependencies (measured 2026-10-10 with cargo's shallow git fetch, `-Zgit=shallow-deps -Zgitoxide=fetch`).
+- To try a newer engine, bump `rev` in the workspace `Cargo.toml` (and `FRANKEN_MANIM.pin`), rebuild, re-run every explainer's tests, and re-read the glyph probes and contact sheets: TeX layout changes ride franken_markdown pin bumps.
 - `render` needs `ffmpeg` on `PATH`. `stats`, `script` and `cargo test` don't.
 - A narrated render also needs the voice-over WAVs. They are generated, not committed; see [Narration](#narration-the-picture-follows-the-voice).

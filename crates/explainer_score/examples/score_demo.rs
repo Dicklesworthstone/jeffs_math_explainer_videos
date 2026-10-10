@@ -1,18 +1,18 @@
 //! Score the Hoeffding's D explainer with the new engine and compare it with
 //! the v5 score (pad + chimes), on the same narration, by the same QA.
 //!
-//! Input is the cue log of a `HOEFFDING_CUE_LOG=1` render of
-//! `explainer_corpus/hoeffding_d` (any resolution; only scene times matter):
-//! `cue <id> <seconds> <length>` per narration line, `music <wav> <seconds>
-//! <gain_db>` per pad/chime, and one summary line per chapter
-//! (`<NN_name> <frames> frames ...`).
+//! Input is the output directory of the explainer's timeline pass, run with
+//! the v5 narration so the v5 pad and chimes play:
+//! `hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR`.
+//! Each chapter's `<chapter>.timeline.tsv` gives the narration placements and
+//! the scene length; its exact `<chapter>.cuelog.tsv` gives every other cue
+//! (the v5 pad and chimes) at the sample franken_manim's mixer placed it.
 //!
 //! ```text
-//! cargo run --release -p explainer_score --example score_demo -- \
-//!     CUE_LOG NARRATION_DIR OUT_DIR
+//! cargo run --release -p explainer_score --example score_demo -- RENDER_DIR OUT_DIR
 //! ```
 //!
-//! Writes to OUT_DIR: `timelines/<chapter>.tl`; `stems/<chapter>.music.f32.wav`
+//! Writes to OUT_DIR: `stems/<chapter>.music.f32.wav`
 //! (the new score, each exactly its scene's length); `qa/{new,old}_<chapter>.json`;
 //! `hoeffding_{old,new}_ab.wav` (voice + music for the whole video, both by
 //! one fixed gain to the same loudness, the loudest both reach under
@@ -21,71 +21,68 @@
 //! and 07_shuffle, matched the same way; and
 //! `summary.tsv` with every metric side by side.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use explainer_score::qa::{self, ScoreFacts};
 use explainer_score::score::{self, ChapterPlan, Identity, Section};
-use explainer_score::timeline::{ChapterTimeline, LinePlacement};
+use explainer_score::timeline::ChapterTimeline;
 use explainer_score::units::db_to_gain;
 use explainer_score::{Stereo, meter, wav};
 
-/// The v5 narrator placed every line at this gain (hoeffding_d narration.rs).
-const V5_VOICE_GAIN_DB: f64 = -9.4;
-const FPS: u32 = 60;
-
 struct Chapter {
     timeline: ChapterTimeline,
-    /// (wav, seconds, gain dB) of the v5 pad and chimes.
-    music: Vec<(PathBuf, f64, f64)>,
+    /// (wav, start sample, gain dB) of the v5 pad and chimes.
+    music: Vec<(PathBuf, usize, f64)>,
 }
 
-fn parse_cue_log(text: &str, narration: &Path) -> Result<Vec<Chapter>, String> {
+/// Every chapter of a timeline pass, in order: its timeline, and from its
+/// exact cue log every cue that is not a narration line.
+fn read_render_dir(dir: &Path) -> Result<Vec<Chapter>, String> {
+    let mut paths: Vec<PathBuf> = fs::read_dir(dir)
+        .map_err(|e| format!("{}: {e}", dir.display()))?
+        .filter_map(|e| e.ok().map(|e| e.path()))
+        .filter(|p| p.to_string_lossy().ends_with(".timeline.tsv"))
+        .collect();
+    paths.sort();
     let mut out = Vec::new();
-    let (mut lines, mut music) = (Vec::new(), Vec::new());
-    for raw in text.lines() {
-        let f: Vec<&str> = raw.split('\t').collect();
-        match f.first().copied() {
-            Some(kind @ ("cue" | "music")) if f.len() != 4 => {
-                return Err(format!("malformed {kind} line (want 4 tab-separated fields): {raw:?}"));
+    for p in paths {
+        let timeline = ChapterTimeline::read(&p).map_err(|e| format!("{}: {e}", p.display()))?;
+        let log_path = dir.join(format!("{}.cuelog.tsv", timeline.chapter));
+        let log = fs::read_to_string(&log_path).map_err(|e| format!("{}: {e}", log_path.display()))?;
+        let voice: HashSet<&Path> = timeline.lines.iter().map(|l| l.wav.as_path()).collect();
+        let mut music = Vec::new();
+        for (n, raw) in log.lines().enumerate() {
+            if raw.starts_with('#') || raw.trim().is_empty() {
+                continue;
             }
-            Some("cue") => {
-                let secs: f64 = f[2].parse().map_err(|_| format!("bad cue time: {raw}"))?;
-                lines.push(LinePlacement {
-                    id: f[1].to_string(),
-                    start_frame: (secs * f64::from(FPS)).round() as u64,
-                    gain_db: V5_VOICE_GAIN_DB,
-                    wav: narration.join(format!("{}.wav", f[1])),
-                });
+            let bad = |m: &str| format!("{}:{}: {m}", log_path.display(), n + 1);
+            let f: Vec<&str> = raw.split('\t').collect();
+            if f.len() != 13 {
+                return Err(bad("want 13 tab-separated fields"));
             }
-            Some("music") => {
-                let secs: f64 = f[2].parse().map_err(|_| format!("bad music time: {raw}"))?;
-                let gain: f64 = f[3].parse().map_err(|_| format!("bad music gain: {raw}"))?;
-                music.push((PathBuf::from(f[1]), secs, gain));
+            let path = PathBuf::from(f[0]);
+            if voice.contains(path.as_path()) {
+                continue;
             }
-            _ => {
-                // "<NN_name>   <frames> frames ..." closes a chapter
-                let w: Vec<&str> = raw.split_whitespace().collect();
-                if w.len() >= 3 && w[2] == "frames" && w[0].as_bytes().first().is_some_and(u8::is_ascii_digit) {
-                    let frames: u64 = w[1].parse().map_err(|_| format!("bad frame count: {raw}"))?;
-                    out.push(Chapter {
-                        timeline: ChapterTimeline {
-                            chapter: w[0].to_string(),
-                            fps: FPS,
-                            frames,
-                            lines: std::mem::take(&mut lines),
-                            ..Default::default()
-                        },
-                        music: std::mem::take(&mut music),
-                    });
-                }
-            }
+            let start: usize = f[12].parse().map_err(|_| bad("bad start sample"))?;
+            let gain = match f[8] {
+                "-" => 0.0,
+                bits => f64::from_bits(
+                    u64::from_str_radix(bits.trim_start_matches("0x"), 16).map_err(|_| bad("bad gain bits"))?,
+                ),
+            };
+            music.push((path, start, gain));
         }
+        out.push(Chapter { timeline, music });
     }
     if out.is_empty() {
-        return Err("no chapter summary lines in the cue log".into());
+        return Err(format!(
+            "{}: no <chapter>.timeline.tsv (run the timeline pass first)",
+            dir.display()
+        ));
     }
     Ok(out)
 }
@@ -93,7 +90,7 @@ fn parse_cue_log(text: &str, narration: &Path) -> Result<Vec<Chapter>, String> {
 /// The v5 music of one chapter, placed exactly as franken_manim placed it.
 fn old_music(ch: &Chapter) -> Result<Stereo, String> {
     let mut bus = Stereo::silence(ch.timeline.samples());
-    for (path, secs, gain) in &ch.music {
+    for (path, start, gain) in &ch.music {
         let d = wav::read(path).map_err(|e| format!("{}: {e}", path.display()))?;
         if d.rate != explainer_score::SAMPLE_RATE {
             return Err(format!("{}: {} Hz (expected 48 kHz)", path.display(), d.rate));
@@ -106,8 +103,7 @@ fn old_music(ch: &Chapter) -> Result<Stereo, String> {
             [m] => Stereo::from_mono(m),
             _ => return Err(format!("{}: {} channels", path.display(), d.channels)),
         };
-        let frame = (secs * f64::from(FPS)).round() as u64;
-        bus.mix_in(&s, score::frame_sample(frame, FPS), db_to_gain(*gain));
+        bus.mix_in(&s, *start, db_to_gain(*gain));
     }
     Ok(bus)
 }
@@ -162,13 +158,12 @@ fn master_pair(a: &Stereo, b: &Stereo) -> (Vec<Stereo>, Vec<(f64, f64, f64)>) {
 
 fn main() -> Result<(), String> {
     let args: Vec<String> = std::env::args().skip(1).collect();
-    let [cue_log, narration, out] = args.as_slice() else {
-        return Err("usage: score_demo CUE_LOG NARRATION_DIR OUT_DIR".into());
+    let [render_dir, out] = args.as_slice() else {
+        return Err("usage: score_demo RENDER_DIR OUT_DIR".into());
     };
-    let (narration, out) = (PathBuf::from(narration), PathBuf::from(out));
-    let text = fs::read_to_string(cue_log).map_err(|e| format!("{cue_log}: {e}"))?;
-    let chapters = parse_cue_log(&text, &narration)?;
-    for d in ["timelines", "stems", "qa", "ab"] {
+    let out = PathBuf::from(out);
+    let chapters = read_render_dir(Path::new(render_dir))?;
+    for d in ["stems", "qa", "ab"] {
         fs::create_dir_all(out.join(d)).map_err(|e| e.to_string())?;
     }
     let total_frames: u64 = chapters.iter().map(|c| c.timeline.frames).sum();
@@ -178,13 +173,6 @@ fn main() -> Result<(), String> {
         chapters.iter().map(|c| c.timeline.lines.len()).sum::<usize>(),
         chapters.iter().map(|c| c.music.len()).sum::<usize>()
     );
-    for c in &chapters {
-        fs::write(
-            out.join(format!("timelines/{}.tl", c.timeline.chapter)),
-            c.timeline.to_text(),
-        )
-        .map_err(|e| e.to_string())?;
-    }
 
     // the new score: narration at 0 dB (plan §7.2), the music under it
     let last = chapters.len() - 1;

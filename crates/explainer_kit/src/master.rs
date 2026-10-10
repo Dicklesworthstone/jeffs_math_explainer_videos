@@ -13,9 +13,11 @@
 //! 3. chapters concatenate sample-exactly (each is frames × 48000 / fps
 //!    samples); one fixed gain takes the programme to −16 LUFS unless the
 //!    −1.5 dBTP ceiling binds first;
-//! 4. the chapters' video streams are joined without re-encoding (Annex-B
-//!    concatenation, regenerated 60 fps timestamps), the master is muxed as
-//!    AAC 256k once, and the BT.709 tags are written losslessly.
+//! 4. the chapters' video streams are joined without re-encoding (each
+//!    remuxed video-only, then concatenated with their own timestamps), the
+//!    master is muxed as AAC 256k once, and the BT.709 tags are written
+//!    losslessly; the joined timestamps are read back and must sit exactly on
+//!    the frame grid.
 
 use std::io;
 use std::path::{Path, PathBuf};
@@ -188,11 +190,17 @@ fn ffmpeg(args: &[&str]) -> io::Result<()> {
     }
 }
 
-/// Join the chapters' video streams without re-encoding and mux the master:
-/// each chapter's H.264 to Annex B, the streams concatenated, remuxed at
-/// `fps` with regenerated timestamps, the master as AAC 256k, BT.709 tags
-/// written losslessly. `work` holds the intermediates; `out` must not exist.
-pub fn join(chapters: &[PathBuf], master_wav: &Path, fps: u32, work: &Path, out: &Path) -> io::Result<()> {
+/// Join the chapters' video streams without re-encoding and mux the master
+/// as AAC 256k, BT.709 tags written losslessly. `work` holds the
+/// intermediates; `out` must not exist.
+///
+/// Each chapter is first remuxed video-only, so the concat demuxer offsets
+/// every chapter by its picture's exact length (with the chapter's AAC still
+/// in, the offset would be the longer audio's, and every join would open a
+/// gap). Raw Annex-B concatenation is not an option: the raw stream carries
+/// no presentation times, so B-frames come back with pts = dts and the
+/// remux drops and misorders frames (seen on Hoeffding's master).
+pub fn join(chapters: &[PathBuf], master_wav: &Path, work: &Path, out: &Path) -> io::Result<()> {
     if out.exists() {
         return Err(io::Error::new(
             io::ErrorKind::AlreadyExists,
@@ -200,10 +208,9 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, fps: u32, work: &Path, out:
         ));
     }
     std::fs::create_dir_all(work)?;
-    let all = work.join("video.h264");
-    let mut joined = Vec::new();
+    let mut list = String::new();
     for (k, c) in chapters.iter().enumerate() {
-        let part = work.join(format!("{k:02}.h264"));
+        let part = work.join(format!("{k:02}.video.mp4"));
         ffmpeg(&[
             "-i",
             &c.to_string_lossy(),
@@ -211,23 +218,21 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, fps: u32, work: &Path, out:
             "0:v:0",
             "-c:v",
             "copy",
-            "-bsf:v",
-            "h264_mp4toannexb",
-            "-f",
-            "h264",
+            "-an",
             &part.to_string_lossy(),
         ])?;
-        joined.extend(std::fs::read(&part)?);
+        // the concat list quotes with ' (a ' inside is written '\'')
+        list.push_str(&format!("file '{}'\n", part.to_string_lossy().replace('\'', r"'\''")));
     }
-    std::fs::write(&all, joined)?;
-    let rate = fps.to_string();
+    let list_path = work.join("chapters.txt");
+    std::fs::write(&list_path, list)?;
     ffmpeg(&[
-        "-framerate",
-        &rate,
         "-f",
-        "h264",
+        "concat",
+        "-safe",
+        "0",
         "-i",
-        &all.to_string_lossy(),
+        &list_path.to_string_lossy(),
         "-i",
         &master_wav.to_string_lossy(),
         "-map",
@@ -248,6 +253,55 @@ pub fn join(chapters: &[PathBuf], master_wav: &Path, fps: u32, work: &Path, out:
         "+faststart",
         &out.to_string_lossy(),
     ])
+}
+
+/// The joined video's timestamps, read back: decode times strictly
+/// increasing, `frames` packets, and the presentation times exactly the
+/// frame grid (frame k at k / `fps`, within a millisecond), so no frame is
+/// dropped, doubled or shown out of order.
+pub fn check_timestamps(path: &Path, fps: u32, frames: u64) -> io::Result<()> {
+    let o = Command::new("ffprobe")
+        .args([
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-show_entries",
+            "packet=pts_time,dts_time",
+            "-of",
+            "csv=p=0",
+        ])
+        .arg(path)
+        .output()?;
+    if !o.status.success() {
+        return Err(io::Error::other(String::from_utf8_lossy(&o.stderr).into_owned()));
+    }
+    let bad = |m: String| io::Error::new(io::ErrorKind::InvalidData, format!("{}: {m}", path.display()));
+    let mut pts = Vec::new();
+    let mut last_dts = f64::NEG_INFINITY;
+    for line in String::from_utf8_lossy(&o.stdout).lines() {
+        let n = pts.len();
+        let mut f = line.split(',').map(|x| x.trim().parse::<f64>());
+        let (Some(Ok(p)), Some(Ok(d))) = (f.next(), f.next()) else {
+            return Err(bad(format!("packet {n} has no timestamps: {line:?}")));
+        };
+        if d <= last_dts {
+            return Err(bad(format!("decode time {d} at packet {n} does not increase")));
+        }
+        last_dts = d;
+        pts.push(p);
+    }
+    if pts.len() as u64 != frames {
+        return Err(bad(format!("{} video packets, want {frames}", pts.len())));
+    }
+    pts.sort_by(f64::total_cmp);
+    for (k, p) in pts.iter().enumerate() {
+        let want = k as f64 / f64::from(fps);
+        if (p - want).abs() > 1e-3 {
+            return Err(bad(format!("frame {k} is shown at {p:.4} s, its slot is {want:.4} s")));
+        }
+    }
+    Ok(())
 }
 
 /// The master's gates, read back from the file: the video frame count and

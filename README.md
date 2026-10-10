@@ -57,7 +57,7 @@ differently on every machine.
 
 | # | Video | What it explains | Status |
 |---|---|---|---|
-| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); builds and passes 25/25 tests here. A re-scored v6 with the new sound engine is planned. |
+| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. A re-scored v6 with the new sound engine is planned. |
 | 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | Researched (`docs/research/capture_recapture/`), storyboarded (plan §9) |
 | 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | Researched (`docs/research/raptorq_gf256/`), storyboarded (plan §10) |
 | 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | Researched (`docs/research/bakery_algorithm/`), storyboarded (plan §11) |
@@ -153,9 +153,10 @@ crates/
   explainer_kit/         the shared scene kit: palette, text and math helpers, live
                          readouts, playback, plots, narration and the exact cue
                          log, layout lint, NumPy-parity stats, facts harness,
-                         delivery encoder (the CLI and captions are still to come)
+                         delivery encoder, the shared CLI with the two-pass score,
+                         the PCM master (captions are still to come)
 explainer_corpus/        one directory per video (each a Rust crate)
-  hoeffding_d/           corpus entry 1 (finished; imported)
+  hoeffding_d/           corpus entry 1 (finished; imported, now on the shared kit)
 docs/
   planning/              the comprehensive plan (architecture, doctrine, all storyboards)
   research/              one memo per topic plus scripts that recompute every number
@@ -166,7 +167,7 @@ AGENTS.md                rules for coding agents working here
 LICENSE                  MIT with an OpenAI/Anthropic rider
 ```
 
-Still to come, per the plan's §3: the kit's shared CLI and captions,
+Still to come, per the plan's §3: the kit's captions,
 `templates/explainer/`, `tools/`, and the corpus-aware `./x` driver.
 
 ## Building
@@ -176,9 +177,9 @@ revision, so nothing else needs to be checked out:
 
 ```bash
 git clone https://github.com/Dicklesworthstone/jeffs_math_explainer_videos
-cd jeffs_math_explainer_videos/explainer_corpus/hoeffding_d
-cargo test --release            # rustup fetches the pinned nightly; first build fetches the FrankenSuite (~1.7 GB of git deps)
-cargo build --release
+cd jeffs_math_explainer_videos
+cargo test --release -p hoeffding_explainer   # rustup fetches the pinned nightly; first build fetches the FrankenSuite (~6.5 GB cargo home)
+cargo build --release -p hoeffding_explainer
 target/release/hoeffding stats  # every number the video shows
 target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out draft
 ```
@@ -189,13 +190,14 @@ target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out dr
 - Producing narration uses the owner's FrankenTTS narration skills, referenced
   by path rather than vendored here.
 
-The sound engine and its A/B on the Hoeffding narration (the demo needs a cue
-log from a `HOEFFDING_CUE_LOG=1` render and the narration WAVs; see the
-example's header):
+The sound engine and its A/B on the Hoeffding narration (the demo reads the
+explainer's timeline pass, run with the v5 narration WAVs; see the example's
+header):
 
 ```bash
 cargo test --release -p explainer_score
-cargo run --release -p explainer_score --example score_demo -- CUE_LOG NARRATION_DIR OUT_DIR
+target/release/hoeffding render --timeline-only --narration NARRATION_DIR --out RENDER_DIR
+cargo run --release -p explainer_score --example score_demo -- RENDER_DIR OUT_DIR
 ```
 
 The research scripts run with a plain Python 3 (`python3 -I <script>.py`); a few
@@ -205,12 +207,12 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 
 | Piece | State |
 |---|---|
-| Hoeffding's D explainer | finished (v5); builds and tests here from a git-pinned engine |
+| Hoeffding's D explainer | finished (v5); runs here on the shared kit from a git-pinned engine |
 | Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm) |
 | The plan | revision 2: architecture, doctrines and beat-by-beat storyboards, revised after a five-reviewer round |
 | Shared workspace | built: root Cargo workspace, franken_manim pinned by git revision |
 | Score engine (`explainer_score`) | built and tested; the Hoeffding A/B passes its QA in 8 of 8 chapters (v5: 0 of 8) and awaits the owner's listening verdict |
-| Scene kit (`explainer_kit`) | extracted and tested except the shared CLI and captions (tracked in `.beads/`) |
+| Scene kit (`explainer_kit`) | extracted and tested, with the shared CLI (two-pass score) and the PCM master; captions are tracked in `.beads/` |
 | Corpus driver (`./x`), template, CI | not started; tracked in `.beads/` |
 | Videos 2–4 | storyboarded; production follows the plan's order (kit → score engine → Hoeffding v6 → fish → RaptorQ and bakery) |
 

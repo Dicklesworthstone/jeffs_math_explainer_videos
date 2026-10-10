@@ -252,6 +252,11 @@ impl Narrator {
         *self.log.borrow_mut() = Log::default();
     }
 
+    /// Whether this narrator places real audio (false for the scratch voice).
+    pub fn has_audio(&self) -> bool {
+        self.dir.is_some()
+    }
+
     /// The length of line `id`, seconds.
     pub fn length(&self, id: &str) -> Option<f64> {
         self.lengths.get(id).copied()

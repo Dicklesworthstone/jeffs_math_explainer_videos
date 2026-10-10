@@ -1,13 +1,12 @@
 //! A tiny procedural score: one soft chord pad per chapter and a bell
-//! chime for key reveals, written as 48 kHz s16 stereo WAV (std only) and
-//! handed to franken_manim's native, sample-exact mixer via `add_sound`.
+//! chime for key reveals, written as 48 kHz s16 stereo WAV (std only). The
+//! kit places them through the narrator (`crate::kit::Kit::pad`), so the
+//! exact cue log records them like every other sound.
 
 use std::f64::consts::TAU;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
-
-use fmn::prelude::*;
 
 const RATE: u32 = 48_000;
 
@@ -104,47 +103,39 @@ pub const CHORDS: [&[f64]; 8] = [
     &[146.83, 220.00, 293.66, 369.99, 440.00], // D
 ];
 
-impl Score {
-    /// Lay a pad under everything played so far (call at the end of
-    /// `construct`): the WAV is exactly the scene's length and starts at 0.
-    pub fn pad_under(&self, stage: &mut Stage<'_>, chapter: usize) -> fmn::Result<()> {
-        let seconds = stage.scene().time().to_f64();
-        if seconds <= 0.5 {
-            return Ok(());
-        }
-        let path = self.dir.join(format!("pad_{chapter:02}.wav"));
-        let (l, r) = pad(seconds, CHORDS[chapter % CHORDS.len()]);
-        write_wav(&path, &l, &r)
-            .map_err(|e| fmn::Error::Scene(SceneError::InvalidConfig(leak(format!("pad: {e}")))))?;
-        let gain = if self.under_voice { -9.0 } else { 0.0 };
-        if std::env::var_os("HOEFFDING_CUE_LOG").is_some() {
-            eprintln!("music\t{}\t0.000\t{gain}", path.display());
-        }
-        stage
-            .scene_mut()
-            .add_sound(path, -seconds, Some(gain), None)?;
-        Ok(())
+/// Write `path` once: the name says what is in it (the synthesis is
+/// deterministic), so an existing file is already right. Written beside it
+/// and renamed into place, so a parallel render never reads half a file.
+fn write_once(path: &Path, make: impl FnOnce() -> (Vec<f64>, Vec<f64>)) -> std::io::Result<()> {
+    if path.exists() {
+        return Ok(());
     }
-
-    /// A bell at the current moment.
-    pub fn chime(&self, stage: &mut Stage<'_>, freq: f64) -> fmn::Result<()> {
-        let path = self.dir.join(format!("chime_{}.wav", freq.round() as u32));
-        if !path.exists() {
-            let (l, r) = chime(freq);
-            write_wav(&path, &l, &r).map_err(|e| {
-                fmn::Error::Scene(SceneError::InvalidConfig(leak(format!("chime: {e}"))))
-            })?;
-        }
-        let gain = if self.under_voice { -10.0 } else { -3.0 };
-        if std::env::var_os("HOEFFDING_CUE_LOG").is_some() {
-            let now = stage.scene().time().to_f64();
-            eprintln!("music\t{}\t{now:.3}\t{gain}", path.display());
-        }
-        stage.scene_mut().add_sound(path, 0.0, Some(gain), None)?;
-        Ok(())
-    }
+    let (l, r) = make();
+    let tmp = path.with_extension(format!("wav.{}.tmp", std::process::id()));
+    write_wav(&tmp, &l, &r)?;
+    std::fs::rename(&tmp, path)
 }
 
-fn leak(s: String) -> &'static str {
-    Box::leak(s.into_boxed_str())
+impl Score {
+    /// The pad for a scene of `seconds`, to lay under it from 0 (call at the
+    /// end of `construct`), and its gain; `None` for a scene too short to
+    /// carry one.
+    pub fn pad_wav(&self, seconds: f64, chapter: usize) -> std::io::Result<Option<(PathBuf, f64)>> {
+        if seconds <= 0.5 {
+            return Ok(None);
+        }
+        let n = (seconds * f64::from(RATE)).round() as usize;
+        let path = self.dir.join(format!("pad_{chapter:02}_{n}.wav"));
+        write_once(&path, || pad(seconds, CHORDS[chapter % CHORDS.len()]))?;
+        let gain = if self.under_voice { -9.0 } else { 0.0 };
+        Ok(Some((path, gain)))
+    }
+
+    /// A bell, and its gain.
+    pub fn chime_wav(&self, freq: f64) -> std::io::Result<(PathBuf, f64)> {
+        let path = self.dir.join(format!("chime_{}.wav", freq.round() as u32));
+        write_once(&path, || chime(freq))?;
+        let gain = if self.under_voice { -10.0 } else { -3.0 };
+        Ok((path, gain))
+    }
 }

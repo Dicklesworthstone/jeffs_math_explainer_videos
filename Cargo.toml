@@ -3,10 +3,6 @@
 [workspace]
 resolver = "3"
 members = ["crates/*", "explainer_corpus/*"]
-# hoeffding_d keeps its own [workspace] (and its own git pin) until it is
-# migrated onto the shared kit (bead W3-migrate). A members glob that covers a
-# crate with its own [workspace] fails with "multiple workspace roots found".
-exclude = ["explainer_corpus/hoeffding_d"]
 
 [workspace.package]
 edition = "2024"

@@ -74,6 +74,8 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
         glyph_text: &["toy"],
         glyph_tex: &[r"x^2"],
         identity: Identity::hoeffding,
+        narration_gain_db: explainer_kit::narration::GAIN_DB,
+        line_owner: None,
     }
 }
 
@@ -272,6 +274,47 @@ fn the_pcm_master_replays_nulls_and_joins() {
         .sum();
     assert_eq!(frames, chapter_frames, "the join keeps every frame");
     assert_eq!(probe("stream=codec_name", "a:0"), "aac");
+    explainer_kit::master::check_timestamps(&master, 60, chapter_frames).expect("every frame on its slot");
+    // planted negative: the raw Annex-B join this replaced loses the
+    // presentation times of B-frames, and the timestamp gate must see it
+    let raw = root.join("annexb");
+    std::fs::create_dir_all(&raw).unwrap();
+    let mut bytes = Vec::new();
+    for k in ["01_first", "02_second"] {
+        let part = raw.join(format!("{k}.h264"));
+        let ok = std::process::Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-i"])
+            .arg(out.join(format!("{k}.mp4")))
+            .args([
+                "-map",
+                "0:v:0",
+                "-c:v",
+                "copy",
+                "-bsf:v",
+                "h264_mp4toannexb",
+                "-f",
+                "h264",
+            ])
+            .arg(&part)
+            .status()
+            .unwrap();
+        assert!(ok.success());
+        bytes.extend(std::fs::read(&part).unwrap());
+    }
+    std::fs::write(raw.join("all.h264"), bytes).unwrap();
+    let broken = raw.join("broken.mp4");
+    let ok = std::process::Command::new("ffmpeg")
+        .args(["-nostdin", "-v", "error", "-y", "-framerate", "60", "-f", "h264", "-i"])
+        .arg(raw.join("all.h264"))
+        .args(["-c:v", "copy"])
+        .arg(&broken)
+        .status()
+        .unwrap();
+    assert!(ok.success());
+    assert!(
+        explainer_kit::master::check_timestamps(&broken, 60, chapter_frames).is_err(),
+        "the Annex-B join's timestamps are refused"
+    );
     // planted negatives: a changed narration file, a missing capture
     write_line(&narration.join("02_2.wav"), 99);
     assert_eq!(run(&format!("master --out {o}")), 1, "a cue changed since the render");
