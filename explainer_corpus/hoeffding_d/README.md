@@ -44,6 +44,13 @@
 > runs 8:47, 19.5 s longer than v5's, for the breaths and the listen window.
 > `HOEFFDING_V5_SOUND=1` brings back the v5 pad, chimes and balance (the A/B's
 > old side).
+>
+> **The v6 master (bead W3-finals).** `renders/hoeffding_d_4k_v6.mp4` (not
+> committed): 3840×2160 at 60 fps, 31,603 frames, x264 CRF 16, its soundtrack
+> mastered from PCM (every chapter's replay matches franken_manim's own mix
+> bit for bit), −16.00 LUFS by one fixed gain, −2.68 dBTP; `verify_video.sh`
+> passes. `ab_excerpts.py` cuts the loudness-matched v5/v6 excerpts for the
+> owner's listening verdict (bead W3-ab), which is still to come.
 
 A 3Blue1Brown-style explainer of **Hoeffding's D**, about 8½ minutes long and narrated. It was written entirely against
 [franken_manim](https://github.com/Dicklesworthstone/franken_manim)'s native Rust front door, with no Python and no LaTeX.
