@@ -1053,6 +1053,8 @@ pub fn roll_voicing(span: &ChordSpan) -> Vec<i32> {
 
 /// The roll's highest note (E6).
 const ROLL_TOP: i32 = 88;
+/// A gap's motif waits this long after an authored cue in the same gap (s).
+const AFTER_CUE: f64 = 1.2;
 
 /// True when `hi` sits a minor ninth (or a compound of it) above `lo`.
 pub fn minor_ninth(lo: i32, hi: i32) -> bool {
@@ -1678,6 +1680,32 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let mut phrases = Vec::new();
     let gaps = duck::gaps(&speech, total, MIN_PHRASE_GAP);
     let mut gap_index = vec![0usize; chapters.len()];
+    // where the authored note cues (reveal, pizzicato, resolution) will land:
+    // on the mark, or at the end of the sentence it falls in (as step 5
+    // places them). A gap one lands in is that cue's: no roll there, and the
+    // motif only after it (one gesture at a time; a roll and a reveal's dyad
+    // together were seven onsets in a second on C's real narration)
+    let authored: Vec<f64> = sections
+        .iter()
+        .zip(&chapter_starts)
+        .flat_map(|(s, &t0)| {
+            let fps = f64::from(s.timeline.fps);
+            s.timeline
+                .marks
+                .iter()
+                .filter(|m| {
+                    matches!(
+                        CueKind::from_label(&m.label),
+                        CueKind::Reveal | CueKind::Pizz | CueKind::Resolve
+                    )
+                })
+                .map(move |m| t0 + m.frame as f64 / fps)
+        })
+        .map(|t| match fine.iter().find(|r| t >= r.0 - ONSET_GUARD && t < r.1) {
+            Some(r) => r.1 + 0.05,
+            None => t,
+        })
+        .collect();
     let theme_motif = || {
         let mut m = identity.motif.clone();
         m.degrees.extend(&identity.resolution.degrees);
@@ -1726,7 +1754,15 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         // the pedal comes up before the voice returns
         let lift = if b >= total { total - 0.5 } else { b - PEDAL_CLEAR };
         let mut start = opening;
-        if let Some(inst) = identity.palette.roll.filter(|_| b - a >= ROLL_GAP) {
+        let answered = authored.iter().copied().find(|&c| c >= a - 0.2 && c < b);
+        if let Some(c) = answered {
+            start = start.max(c + AFTER_CUE);
+        }
+        if let Some(inst) = identity
+            .palette
+            .roll
+            .filter(|_| b - a >= ROLL_GAP && answered.is_none())
+        {
             // a theme is struck over one soft block chord; otherwise the
             // chord unfolds from the bass before the motif enters. Either
             // enters with the harmony: on the gap's chord change, if one
@@ -3210,6 +3246,45 @@ mod tests {
                 id.name
             );
         }
+    }
+
+    #[test]
+    fn an_authored_reveal_owns_its_gap_no_roll_and_the_motif_after_it() {
+        // found on C's real narration: a lane's reveal dyad inside the
+        // gap's roll made seven onsets in a second (QA allows six)
+        let dir = std::env::temp_dir().join(format!("explainer_score_owned_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        sections[0].timeline.marks = vec![crate::timeline::Mark {
+            label: "reveal_answer".into(),
+            frame: (33.4 * 60.0) as u64,
+        }];
+        let id = Identity::bakery_algorithm();
+        let s = render(&id, &sections, None).unwrap();
+        let in_gap = |t: Track| {
+            s.events
+                .iter()
+                .filter(|e| e.track == t && e.start > 33.0 && e.start < 40.0)
+                .count()
+        };
+        assert_eq!(in_gap(Track::Cue), 2, "the reveal's dyad");
+        assert_eq!(in_gap(Track::Roll), 0, "no roll in the reveal's gap");
+        let first_melody = s
+            .events
+            .iter()
+            .filter(|e| e.track == Track::Melody && e.start > 33.0 && e.start < 40.0)
+            .map(|e| e.start)
+            .fold(f64::INFINITY, f64::min);
+        assert!(first_melody >= 33.4 + AFTER_CUE - 1e-9, "{first_melody}");
+        let r = crate::qa::evaluate(
+            "01_a",
+            &s.chapter_voice(0),
+            &s.chapter_music(0),
+            s.chapter_music(0).len(),
+            Some(&crate::qa::ScoreFacts::chapter(&s, 0)),
+        );
+        assert_eq!(r.get("onsets_per_s_gaps").unwrap().pass, Some(true));
+        // the other chapter's closing gap still rolls
+        assert!(s.events.iter().any(|e| e.track == Track::Roll && e.start > 40.0));
     }
 
     #[test]
