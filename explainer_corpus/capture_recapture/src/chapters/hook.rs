@@ -1,23 +1,22 @@
 //! Chapter 01, the hook: the fish nobody caught. Feller's story drawn one
 //! fish per ten on the seeded lake (01_1), the catches flying into the table
-//! and the table growing into the mosaic (01_2–01_3), the title (01_4), then
-//! one net dipped and scaled up, three times (01_5–01_8; the lake is
-//! `model.rs`, which is oracle A-F27 fish for fish).
-
-use std::f64::consts::TAU;
+//! and the table growing into the mosaic (01_2–01_3), the title over the
+//! living lake (01_4), then one net dipped and scaled up, three times
+//! (01_5–01_8; the lake is `model.rs`, which is oracle A-F27 fish for fish).
 
 use explainer_kit::props::{Pose, RowStrips, Swarm, precisely, predict_pause};
-use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, thousands, tween, v};
+use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, play, thousands, tween, v};
 use fmn::core::color::interpolate_color;
+use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
 use fmn::prelude::*;
 
-use super::draw::{fish, line_style, marked_fish, ring};
+use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{
-    Cell, LAKE_H, LAKE_W, PER_GLYPH, TABLE_C, TABLE_H, TABLE_W, Wander, cell_backs, cell_numbers, cell_rect, fly,
-    lake_p, lake_picture, places_in, shuffled, table_cells, table_labels, wander,
+    Cell, LAKE_H, LAKE_W, LakeArt, PER_GLYPH, Shade, Wander, behind, cell_backs, cell_numbers, cell_rect, fit, fly,
+    header_places, key, lake_p, mosaic_cells, places_in, plated, shuffled, table_cells, table_labels, wander,
 };
 use crate::facts::FELLER;
-use crate::model::{GRID, LAKE_FISH, Lake, SEED, SPOTS, SplitMix64};
+use crate::model::{GRID, LAKE_FISH, Lake, SEED, SPOTS, SplitMix64, cell_of};
 
 /// Which catch a drawn fish was in.
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -39,8 +38,35 @@ impl Fate {
     }
 }
 
+/// How bright the fish no net touched stay once the table forms.
+const SILHOUETTE: f64 = 0.28;
+/// The widest the title may be (the frame is 14.2 wide).
+const TITLE_MAX_W: f64 = 12.4;
+
 pub struct Hook {
     pub kit: Kit,
+}
+
+/// An animation that moves (and optionally rescales) `m`, prepared.
+fn glide(
+    stage: &mut Stage<'_>,
+    m: Mob,
+    to: Vec3,
+    edge: Vec3,
+    scale: f64,
+    secs: f64,
+) -> fmn::Result<Box<dyn Animation>> {
+    let mut a = m
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(secs),
+            ..AnimateArgs::default()
+        })?
+        .move_to(to, edge)?;
+    if (scale - 1.0).abs() > 1e-9 {
+        a = a.scale(scale)?;
+    }
+    stage.prepare(a)
 }
 
 impl SceneConstruct for Hook {
@@ -80,89 +106,86 @@ impl SceneConstruct for Hook {
         let second: Vec<usize> = (0..n)
             .filter(|&i| matches!(fate[i], Fate::Twice | Fate::SecondOnly))
             .collect();
-        let wanders: Vec<Wander> = drawn
-            .iter()
-            .map(|&at| {
-                let omega = (0.35 + 0.45 * rng.uniform()) * if rng.uniform() < 0.5 { -1.0 } else { 1.0 };
-                Wander {
-                    at,
-                    omega,
-                    phase: TAU * rng.uniform(),
-                }
-            })
-            .collect();
+        let wanders = Wander::round(&drawn, &mut rng);
 
         // 01_1: the lake, a thousand fish, the two catches
-        let picture = lake_picture(stage)?;
-        let key = kit.text(stage, "each fish drawn = 10 fish", 24.0, Palette::dim(), v(5.0, -3.8))?;
+        let art = LakeArt::whole(stage)?;
+        let the_key = key(&kit, stage)?;
+        let blue = fish(Role::unmarked());
         let poses0: Vec<Pose> = wanders.iter().map(|w| w.pose(0.0)).collect();
-        let plain = Swarm::build(stage, &fish(Palette::blue()), &poses0, None)?;
+        let plain = Swarm::build(stage, &blue.mob, &poses0, None)?;
         kit.say(stage, "01_1")?;
         play!(stage;
-            fade_in(stage.arena_mut(), picture, ORIGIN, 1.0)?.rt(1.2),
+            fade_in(stage.arena_mut(), art, ORIGIN, 1.0)?.rt(1.2),
             fade_in(stage.arena_mut(), plain.group, ORIGIN, 1.0)?.rt(1.6),
-            fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(1.0),
+            fade_in(stage.arena_mut(), the_key, ORIGIN, 1.0)?.rt(1.0),
         );
         // the wander clock starts with the wandering: every later swarm joins
         // it at `now`, so the gold bodies and the rings sit on their fish
         let t_start = stage.scene().time().to_f64();
         wander(stage, &plain, wanders.clone(), 0.0)?;
         stage.wait(1.0)?;
+        let now = |stage: &Stage<'_>| stage.scene().time().to_f64() - t_start;
         // the first catch: marked, glowing, let go where it was
-        let now = stage.scene().time().to_f64() - t_start;
+        let t = now(stage);
+        let gold_glyph = marked_fish();
         let gold_w: Vec<Wander> = marked.iter().map(|&i| wanders[i]).collect();
-        let gold_poses: Vec<Pose> = gold_w.iter().map(|w| w.pose(now)).collect();
-        let gold = Swarm::build(stage, &marked_fish(), &gold_poses, None)?;
-        wander(stage, &gold, gold_w, now)?;
-        play!(stage; fade_in(stage.arena_mut(), gold.group, ORIGIN, 1.4)?.rt(1.2));
-        stage.wait(1.2)?;
+        let gold_poses: Vec<Pose> = gold_w.iter().map(|w| w.pose(t)).collect();
+        let gold = Swarm::build(stage, &gold_glyph.mob, &gold_poses, None)?;
+        let gold_shade = Shade::new(stage, &gold.members, &gold_glyph.paints, 0.0)?;
+        stage.add_to_scene(gold.group)?;
+        wander(stage, &gold, gold_w, t)?;
+        stage.play(gold_shade.to(1.0, 1.2)?)?;
+        stage.wait(1.0)?;
         // the second catch: a green ring on each fish it caught
-        let now = stage.scene().time().to_f64() - t_start;
+        let t = now(stage);
+        let ring_glyph = ring();
         let ring_w: Vec<Wander> = second.iter().map(|&i| wanders[i]).collect();
-        let ring_poses: Vec<Pose> = ring_w.iter().map(|w| w.pose(now)).collect();
-        let rings = Swarm::build(stage, &ring(), &ring_poses, None)?;
-        wander(stage, &rings, ring_w, now)?;
-        play!(stage; fade_in(stage.arena_mut(), rings.group, ORIGIN, 0.6)?.rt(1.0));
+        let ring_poses: Vec<Pose> = ring_w.iter().map(|w| w.pose(t)).collect();
+        let rings = Swarm::build(stage, &ring_glyph.mob, &ring_poses, None)?;
+        let ring_shade = Shade::new(stage, &rings.members, &ring_glyph.paints, 0.0)?;
+        stage.add_to_scene(rings.group)?;
+        wander(stage, &rings, ring_w, t)?;
+        stage.play(ring_shade.to(1.0, 1.0)?)?;
         kit.hold(stage)?;
 
-        // 01_2: the fish no net touched; every fish flies into the table
-        let cells = table_cells(0.5, 0.5);
-        let backs = cell_backs(stage, &cells)?;
-        let mut place_rng = SplitMix64::new(SEED ^ 0x0102);
-        let targets = targets_for(&fate, &cells, &mut place_rng);
-        kit.say(stage, "01_2")?;
-        let now = stage.scene().time().to_f64() - t_start;
-        let here = |ids: &[usize]| -> Vec<Pose> { ids.iter().map(|&i| wanders[i].pose(now)).collect() };
-        let all: Vec<usize> = (0..n).collect();
-        let to = |ids: &[usize]| -> Vec<Pose> { ids.iter().map(|&i| targets[i]).collect() };
-        play!(stage;
-            fade_out(stage.arena_mut(), picture, ORIGIN, 1.0)?.rt(1.0),
-            fade_out(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(1.0),
-            fade_in(stage.arena_mut(), backs, ORIGIN, 1.0)?.rt(1.0),
-        );
-        fly(stage, &plain, here(&all), to(&all), 2.2)?;
-        fly(stage, &gold, here(&marked), to(&marked), 2.2)?;
-        fly(stage, &rings, here(&second), to(&second), 2.2)?;
-        stage.wait(2.3)?;
+        // 01_2: the fish no net touched dim to silhouettes, the lake gives
+        // way to the table, and every fish flies to its cell
         let untouched: Vec<Mob> = (0..n)
             .filter(|&i| fate[i] == Fate::Untouched)
             .map(|i| plain.members[i])
             .collect();
-        let mut dim: Vec<Box<dyn Animation>> = Vec::new();
-        for m in untouched {
-            let a = m
-                .animate()
-                .set_anim_args(AnimateArgs {
-                    run_time: Some(1.0),
-                    ..AnimateArgs::default()
-                })?
-                .set_opacity(0.25)?;
-            dim.push(stage.prepare(a)?);
-        }
-        stage.play_prepared(dim)?;
+        let dim = Shade::new(stage, &untouched, &blue.paints, 1.0)?;
+        let cells = table_cells(0.5, 0.5);
+        let backs = cell_backs(stage, &cells)?;
+        behind(stage, backs)?;
+        stage.set_opacity(backs, 0.0, true);
+        let mut place_rng = SplitMix64::new(SEED ^ 0x0102);
+        let targets = targets_for(&fate, &cells, &mut place_rng);
+        kit.say(stage, "01_2")?;
+        stage.play(dim.to(SILHOUETTE, 1.2)?)?;
+        let t = now(stage);
+        let here = |ids: &[usize]| -> Vec<Pose> { ids.iter().map(|&i| wanders[i].pose(t)).collect() };
+        let all: Vec<usize> = (0..n).collect();
+        let to = |ids: &[usize]| -> Vec<Pose> { ids.iter().map(|&i| targets[i]).collect() };
+        fly(stage, &plain, here(&all), to(&all), 2.4)?;
+        fly(stage, &gold, here(&marked), to(&marked), 2.4)?;
+        fly(stage, &rings, here(&second), to(&second), 2.4)?;
+        let back_in = backs
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(1.4),
+                ..AnimateArgs::default()
+            })?
+            .set_opacity(1.0)?;
+        play!(stage;
+            fade_out(stage.arena_mut(), art, ORIGIN, 1.0)?.rt(1.4),
+            back_in,
+        );
+        stage.wait(1.1)?;
         let headers = table_labels(&kit, stage, &cells)?;
         let numbers = cell_numbers(&kit, stage, &cells, [k, big_m - k, big_n - k])?;
-        let question = kit.text(stage, "?", 96.0, Palette::dim(), cells[3].c)?;
+        let question = plated(&kit, stage, "?", 96.0, Palette::dim(), cells[3].c)?;
         play!(stage;
             fade_in(stage.arena_mut(), headers, ORIGIN, 1.0)?.rt(0.8),
             fade_in(stage.arena_mut(), numbers, ORIGIN, 1.0)?.rt(0.8),
@@ -173,35 +196,44 @@ impl SceneConstruct for Hook {
         // 01_3: the best guess for the dark cell, and the table becomes the
         // mosaic: areas in proportion
         let u = (big_m - k) * (big_n - k) / k;
+        let estimate = big_m * big_n / k;
         kit.say(stage, "01_3")?;
         let count = stage.add_value_tracker(0.0);
-        play!(stage; fade_out(stage.arena_mut(), question, ORIGIN, 1.0)?.rt(0.4));
-        let live = kit.live_count(stage, count, 60.0, Palette::ink(), cells[3].c)?;
-        stage.play(tween(count, u as f64, 1.4)?)?;
-        let guess = kit.text(
+        // the guess's plate first, the count climbing on it, then the guess
+        let guess = plated(
+            &kit,
             stage,
             &format!("≈ {}", thousands(u as u64)),
             60.0,
             Palette::ink(),
             cells[3].c,
         )?;
+        let guess_text = children(stage, guess)[1];
+        stage.set_opacity(guess_text, 0.0, true);
+        play!(stage;
+            fade_out(stage.arena_mut(), question, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), guess, ORIGIN, 1.0)?.rt(0.4),
+        );
+        let live = kit.live_count(stage, count, 60.0, Palette::ink(), cells[3].c)?;
+        stage.play(tween(count, u as f64, 1.4)?)?;
         stage.remove_from_scene(live);
-        stage.add_to_scene(guess)?;
-        // the mosaic: the marked column is k/n of the width (M of an
-        // estimated Mn/k), the top row k/M of the height
-        let mosaic = table_cells(k as f64 / big_n as f64, k as f64 / big_m as f64);
+        stage.set_opacity(guess_text, 1.0, true);
+        // the mosaic: the marked column M of an estimated Mn/k wide, each
+        // column's second catch on top
+        let mosaic = mosaic_cells(estimate as f64, big_m as f64, k as f64, big_n as f64);
         let mut place_rng = SplitMix64::new(SEED ^ 0x0103);
         let mosaic_targets = targets_for(&fate, &mosaic, &mut place_rng);
         let to2 = |ids: &[usize]| -> Vec<Pose> { ids.iter().map(|&i| mosaic_targets[i]).collect() };
-        fly(stage, &plain, to(&all), to2(&all), 2.4)?;
-        fly(stage, &gold, to(&marked), to2(&marked), 2.4)?;
-        fly(stage, &rings, to(&second), to2(&second), 2.4)?;
+        let secs = 2.6;
+        fly(stage, &plain, to(&all), to2(&all), secs)?;
+        fly(stage, &gold, to(&marked), to2(&marked), secs)?;
+        fly(stage, &rings, to(&second), to2(&second), secs)?;
         let mut morph: Vec<Box<dyn Animation>> = Vec::new();
-        for (back, cell) in explainer_kit::children(stage, backs).into_iter().zip(mosaic) {
+        for (back, cell) in children(stage, backs).into_iter().zip(mosaic) {
             let a = back
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(2.4),
+                    run_time: Some(secs),
                     ..AnimateArgs::default()
                 })?
                 .set_width(cell.w, true)?
@@ -209,42 +241,31 @@ impl SceneConstruct for Hook {
                 .move_to(cell.c, ORIGIN)?;
             morph.push(stage.prepare(a)?);
         }
-        // the headers follow their columns and rows: [marked, unmarked,
-        // in the second catch, not]
-        let (top, left) = (TABLE_C[1] + TABLE_H / 2.0 + 0.35, TABLE_C[0] - TABLE_W / 2.0);
-        let heads = explainer_kit::children(stage, headers);
-        let moved = [
-            (guess, mosaic[3].c, ORIGIN),
-            (heads[0], v(left, top), LEFT),
-            (heads[1], v(mosaic[2].c[0], top), ORIGIN),
-            (heads[2], v(left - 0.25, mosaic[0].c[1]), RIGHT),
-            (heads[3], v(left - 0.25, mosaic[1].c[1]), RIGHT),
-        ];
-        for (m, at, edge) in moved {
-            let a = m
-                .animate()
-                .set_anim_args(AnimateArgs {
-                    run_time: Some(2.4),
-                    ..AnimateArgs::default()
-                })?
-                .move_to(at, edge)?;
-            morph.push(stage.prepare(a)?);
+        // the headers follow their columns and rows; each number shrinks to
+        // fit its new cell
+        for (m, (at, edge)) in children(stage, headers).into_iter().zip(header_places(&mosaic)) {
+            morph.push(glide(stage, m, at, edge, 1.0, secs)?);
         }
-        for (num, cell) in explainer_kit::children(stage, numbers).into_iter().zip(mosaic) {
-            let a = num
-                .animate()
-                .set_anim_args(AnimateArgs {
-                    run_time: Some(2.4),
-                    ..AnimateArgs::default()
-                })?
-                .move_to(cell.c, ORIGIN)?;
-            morph.push(stage.prepare(a)?);
+        for (m, cell) in children(stage, numbers).into_iter().zip(mosaic) {
+            let f = fit(stage.get_width(m), stage.get_height(m), cell);
+            morph.push(glide(stage, m, cell.c, ORIGIN, f, secs)?);
         }
+        morph.push(glide(stage, guess, mosaic[3].c, ORIGIN, 1.0, secs)?);
+        // the top row is the second catch now: its rings would only pile up
+        morph.push(stage.prepare(ring_shade.to(0.0, secs)?)?);
         stage.play_prepared(morph)?;
         kit.hold(stage)?;
 
-        // 01_4: the title over the unresolved motif
+        // 01_4: the title over the living lake, the motif unresolved
         fade_all(stage, 1.0)?;
+        let scene = DipLake::build(stage, &drawn)?;
+        let veil = stage.arena_mut().add(
+            Rectangle::new()
+                .width(2.0 * FRAME_X_RADIUS + 0.2)
+                .height(2.0 * FRAME_Y_RADIUS + 0.2)
+                .style(flat(hex("#0B0F14"), 0.62))
+                .build()?,
+        );
         let title = kit.text_styled(
             stage,
             "How to Count Fish You've Never Seen",
@@ -254,12 +275,25 @@ impl SceneConstruct for Hook {
             true,
             false,
         )?;
+        let w = stage.get_width(title);
+        if w > TITLE_MAX_W {
+            stage.scale(title, TITLE_MAX_W / w);
+        }
+        play!(stage;
+            fade_in(stage.arena_mut(), scene.art, ORIGIN, 1.0)?.rt(1.2),
+            fade_in(stage.arena_mut(), scene.school.group, ORIGIN, 1.0)?.rt(1.2),
+            fade_in(stage.arena_mut(), veil, ORIGIN, 1.0)?.rt(0.6),
+        );
+        wander(stage, &scene.school, scene.wanders.clone(), 0.0)?;
         play!(stage; write(stage.arena(), title).rt(1.8));
         kit.listen(stage, 3.0, "01_4")?;
-        fade_all(stage, 0.8)?;
+        play!(stage;
+            fade_out(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(0.8),
+            fade_out(stage.arena_mut(), veil, ORIGIN, 1.0)?.rt(1.0),
+        );
 
-        // 01_5–01_8: the frozen lake, a 10 × 10 grid, one net dipped
-        dips(&kit, stage, &lake, &drawn)?;
+        // 01_5–01_8: a 10 × 10 grid, one net dipped
+        dips(&kit, stage, &lake, &scene)?;
 
         kit.hold(stage)?;
         fade_all(stage, 1.0)?;
@@ -286,60 +320,95 @@ fn targets_for(fate: &[Fate], cells: &[Cell; 4], rng: &mut SplitMix64) -> Vec<Po
     out
 }
 
-/// 01_5–01_8: count one patch and scale up; two other patches; the heat
-/// map that explains why one net cannot know its share of the fish.
-fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, drawn: &[Vec3]) -> fmn::Result<()> {
-    let picture = lake_picture(stage)?;
-    let mut rng = SplitMix64::new(SEED ^ 0x0105);
-    let poses: Vec<Pose> = drawn
-        .iter()
-        .map(|p| Pose {
-            x: p[0],
-            y: p[1],
-            heading: TAU * rng.uniform(),
-        })
-        .collect();
-    let school = Swarm::build(stage, &fish(Palette::blue()), &poses, None)?;
-    let key = kit.text(stage, "each fish drawn = 10 fish", 24.0, Palette::dim(), v(5.0, -3.8))?;
-    let mut lines = Vec::new();
-    for i in 0..=GRID {
-        let f = i as f64 / GRID as f64;
-        lines.push(
-            Line::new(lake_p(f, 0.0), lake_p(f, 1.0))
-                .style(line_style(Palette::faint(), 1.5))
+/// The lake of the dips: its picture and every drawn fish wandering round
+/// its own place (01_4–01_8).
+struct DipLake {
+    art: Mob,
+    school: Swarm,
+    wanders: Vec<Wander>,
+}
+
+impl DipLake {
+    fn build(stage: &mut Stage<'_>, drawn: &[Vec3]) -> fmn::Result<Self> {
+        let art = LakeArt::whole(stage)?;
+        let mut rng = SplitMix64::new(SEED ^ 0x0105);
+        let wanders = Wander::round(drawn, &mut rng);
+        let poses: Vec<Pose> = wanders.iter().map(|w| w.pose(0.0)).collect();
+        let school = Swarm::build(stage, &fish(Role::unmarked()).mob, &poses, None)?;
+        Ok(Self { art, school, wanders })
+    }
+}
+
+/// The dip net: an outline, a faint fill and a mesh, as one detached group
+/// the size of one grid cell, centred at the origin.
+fn dip_net(stage: &mut Stage<'_>, w: f64, h: f64) -> fmn::Result<Mob> {
+    let c = Role::net();
+    let mut parts = vec![
+        Rectangle::new()
+            .width(w)
+            .height(h)
+            .style(Style::default().fill(c, 0.1).stroke(c, 4.0, 1.0))
+            .build()?,
+    ];
+    for i in 1..4 {
+        let x = -w / 2.0 + w * f64::from(i) / 4.0;
+        let y = -h / 2.0 + h * f64::from(i) / 4.0;
+        parts.push(
+            Line::new(v(x, -h / 2.0), v(x, h / 2.0))
+                .style(line_style(c, 1.2))
                 .build()?,
         );
-        lines.push(
-            Line::new(lake_p(0.0, f), lake_p(1.0, f))
-                .style(line_style(Palette::faint(), 1.5))
+        parts.push(
+            Line::new(v(-w / 2.0, y), v(w / 2.0, y))
+                .style(line_style(c, 1.2))
                 .build()?,
         );
     }
-    let grid = stage.arena_mut().add(v_group(lines));
+    Ok(stage.arena_mut().add(v_group(parts)))
+}
+
+/// The 10 × 10 grid, every line cut at the cells (short pieces under the
+/// moving fish).
+fn dip_grid(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let mut lines = Vec::new();
+    let f = |i: usize| i as f64 / GRID as f64;
+    for i in 0..=GRID {
+        for j in 0..GRID {
+            for (a, b) in [
+                (lake_p(f(i), f(j)), lake_p(f(i), f(j + 1))),
+                (lake_p(f(j), f(i)), lake_p(f(j + 1), f(i))),
+            ] {
+                lines.push(Line::new(a, b).style(line_style(hex("#2C4560"), 1.5)).build()?);
+            }
+        }
+    }
+    Ok(stage.arena_mut().add(v_group(lines)))
+}
+
+/// The screen centre of the grid cell holding a lake point.
+fn spot_centre(p: (f64, f64)) -> Vec3 {
+    let (c, r) = cell_of(p.0, p.1);
+    cell_rect(c, r).0
+}
+
+/// 01_5–01_8: count one patch and scale up; two other patches; the heat
+/// map that explains why one net cannot know its share of the fish.
+fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, scene: &DipLake) -> fmn::Result<()> {
+    let the_key = key(kit, stage)?;
+    let grid = dip_grid(stage)?;
+    let (_, cw, ch) = cell_rect(0, 0);
+    let net = dip_net(stage, cw, ch)?;
+    let [weeds, open, deep] = SPOTS.map(|(_, p)| p);
 
     // 01_5: one net on the deep end, counted and multiplied by a hundred
-    let deep = lake.count_at(SPOTS[2].1);
-    let (deep_x, deep_y) = SPOTS[2].1;
-    let (dc, dr) = crate::model::cell_of(deep_x, deep_y);
-    let (c, w, h) = cell_rect(dc, dr);
-    let net = Rectangle::new()
-        .width(w)
-        .height(h)
-        .style(
-            Style::default()
-                .fill(Palette::hero(), 0.16)
-                .stroke(Palette::hero(), 4.0, 1.0),
-        )
-        .build()?
-        .moved_to(v(c[0], c[1] + 2.0));
-    let net = stage.arena_mut().add(net);
+    let deep_fish = lake.count_at(deep);
+    let deep_c = spot_centre(deep);
+    stage.move_to(net, v(deep_c[0], deep_c[1] + 2.4), ORIGIN);
     kit.say(stage, "01_5")?;
     play!(stage;
-        fade_in(stage.arena_mut(), picture, ORIGIN, 1.0)?.rt(1.0),
-        fade_in(stage.arena_mut(), school.group, ORIGIN, 1.0)?.rt(1.0),
-        fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(1.0),
+        fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), the_key, ORIGIN, 1.0)?.rt(0.8),
     );
-    play!(stage; fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8));
     stage.add_to_scene(net)?;
     let drop = net
         .animate()
@@ -347,114 +416,160 @@ fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, drawn: &[Vec3]) -> fmn::R
             run_time: Some(0.9),
             ..AnimateArgs::default()
         })?
-        .move_to(c, ORIGIN)?;
+        .move_to(deep_c, ORIGIN)?;
     stage.play(drop)?;
-    let label = kit.text_left(stage, "fish in this net:", 30.0, Palette::dim(), v(-6.8, 3.55))?;
+    let label = kit.text_left(stage, "fish in this net:", 30.0, Palette::dim(), v(-6.6, 3.45))?;
     stage.add_to_scene(label)?;
     let tracker = stage.add_value_tracker(0.0);
-    let readout = kit.live_count(stage, tracker, 40.0, Palette::hero(), v(-2.6, 3.55))?;
-    stage.play(tween(tracker, f64::from(deep), 1.4)?)?;
+    let readout = kit.live_count(stage, tracker, 40.0, Role::net(), v(-2.7, 3.45))?;
+    stage.play(tween(tracker, f64::from(deep_fish), 1.4)?)?;
     let sum = kit.text(
         stage,
-        &format!("{} × 100 = {}", thousands(deep), thousands(deep * 100)),
+        &format!("{} × 100 = {}", thousands(deep_fish), thousands(deep_fish * 100)),
         40.0,
-        Palette::ink(),
-        v(2.6, 3.55),
+        Role::dark(),
+        v(2.4, 3.45),
     )?;
     play!(stage; write(stage.arena(), sum).rt(1.0));
     kit.hold(stage)?;
 
     // 01_6: the same net over the weeds and over open water
     kit.say(stage, "01_6")?;
-    play!(stage; fade_out(stage.arena_mut(), sum, ORIGIN, 1.0)?.rt(0.4));
-    stage.remove_from_scene(readout);
-    stage.remove_from_scene(label);
-    for spot in [SPOTS[0].1, SPOTS[1].1] {
-        let (sc, sr) = crate::model::cell_of(spot.0, spot.1);
-        let (to, _, _) = cell_rect(sc, sr);
+    stage.clear_updaters(readout, true);
+    play!(stage;
+        fade_out(stage.arena_mut(), sum, ORIGIN, 1.0)?.rt(0.4),
+        fade_out(stage.arena_mut(), readout, ORIGIN, 1.0)?.rt(0.4),
+        fade_out(stage.arena_mut(), label, ORIGIN, 1.0)?.rt(0.4),
+    );
+    for spot in [weeds, open] {
         let hover = net
             .animate()
             .set_anim_args(AnimateArgs {
                 run_time: Some(1.0),
                 ..AnimateArgs::default()
             })?
-            .move_to(to, ORIGIN)?;
+            .move_to(spot_centre(spot), ORIGIN)?;
         stage.play(hover)?;
         stage.wait(0.4)?;
     }
-    let q = predict_pause(kit, stage, v(6.4, 2.6))?;
+    let q = predict_pause(kit, stage, v(6.3, 2.4))?;
 
-    // 01_7: three answers on one number line, 31 times apart
-    let estimates: Vec<(u32, Srgb)> = [
-        (SPOTS[1].1, Palette::teal()),
-        (SPOTS[2].1, Palette::hero()),
-        (SPOTS[0].1, Palette::green()),
-    ]
-    .into_iter()
-    .map(|(p, color)| (lake.count_at(p) * 100, color))
-    .collect();
+    // 01_7: each spot's answer where it was netted, then all three on one
+    // number line, 31 times apart
     kit.say(stage, "01_7")?;
     play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
-    // the strip above the lake (its bank tops out at y = 3.0)
-    let (x0, x1, y) = (-6.2, 4.4, 3.3);
-    let scale = |e: u32| x0 + (x1 - x0) * f64::from(e) / 100_000.0;
+    let spots = [("deep end", deep), ("weeds", weeds), ("open water", open)];
+    let mut tags = Vec::new();
+    let mut pins = Vec::new();
+    for (i, &(_, p)) in spots.iter().enumerate() {
+        let c = spot_centre(p);
+        let e = lake.count_at(p) * 100;
+        let tag = plated(
+            kit,
+            stage,
+            &thousands(e),
+            30.0,
+            Role::dark(),
+            v(c[0], c[1] + ch / 2.0 + 0.3),
+        )?;
+        if i > 0 {
+            let hop = net
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(0.7),
+                    ..AnimateArgs::default()
+                })?
+                .move_to(c, ORIGIN)?;
+            stage.play(hop)?;
+        }
+        let pin = stage.arena_mut().add(
+            Rectangle::new()
+                .width(cw)
+                .height(ch)
+                .style(Style::default().fill(Role::dark(), 0.08).stroke(Role::dark(), 4.5, 1.0))
+                .build()?
+                .moved_to(c),
+        );
+        play!(stage;
+            fade_in(stage.arena_mut(), pin, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), tag, v(0.0, -0.15), 1.0)?.rt(0.5),
+        );
+        tags.push(tag);
+        pins.push(pin);
+    }
+    // the strip above the lake (its bank tops out at y = 2.95)
+    let (x0, x1, y) = (-6.0, 4.0, 3.3);
+    let top = 100_000.0;
+    let scale = |e: u32| x0 + (x1 - x0) * f64::from(e) / top;
     let mut marks = vec![
         Line::new(v(x0, y), v(x1, y))
             .style(line_style(Palette::dim(), 2.5))
             .build()?,
     ];
-    for &(e, color) in &estimates {
+    let estimates: Vec<(&str, u32)> = spots.iter().map(|&(name, p)| (name, lake.count_at(p) * 100)).collect();
+    for &(_, e) in &estimates {
         marks.push(
-            Line::new(v(scale(e), y - 0.15), v(scale(e), y + 0.15))
-                .style(line_style(color, 4.0))
+            Line::new(v(scale(e), y - 0.13), v(scale(e), y + 0.13))
+                .style(line_style(Role::dark(), 4.0))
                 .build()?,
         );
     }
     let axis = stage.arena_mut().add(v_group(marks));
-    let mut tags = Vec::new();
-    for &(e, color) in &estimates {
-        tags.push(kit.text(stage, &thousands(e), 28.0, color, v(scale(e), y + 0.38))?);
+    let mut words = Vec::new();
+    for &(name, e) in &estimates {
+        words.push(kit.text(
+            stage,
+            &format!("{name}  {}", thousands(e)),
+            24.0,
+            Role::dark(),
+            v(scale(e), y + 0.32),
+        )?);
     }
-    let lo = estimates.iter().map(|e| e.0).min().unwrap_or(1).max(1);
-    let hi = estimates.iter().map(|e| e.0).max().unwrap_or(1);
+    let lo = estimates.iter().map(|e| e.1).min().unwrap_or(1).max(1);
+    let hi = estimates.iter().map(|e| e.1).max().unwrap_or(1);
     let apart = kit.text(
         stage,
         &format!("{}× apart", (f64::from(hi) / f64::from(lo)).floor()),
         30.0,
-        Palette::red(),
-        v(5.8, y),
+        Role::bias(),
+        v(5.6, y),
     )?;
-    play!(stage; fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.8));
-    for t in tags {
-        play!(stage; fade_in(stage.arena_mut(), t, v(0.0, -0.15), 1.0)?.rt(0.5));
+    play!(stage; fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.6));
+    for w in words {
+        play!(stage; fade_in(stage.arena_mut(), w, v(0.0, -0.15), 1.0)?.rt(0.4));
     }
     play!(stage; fade_in(stage.arena_mut(), apart, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
 
-    // 01_8: the heat map: a hundredth of the water is not a hundredth of
-    // the fish
+    // 01_8: the heat map under the fish: a hundredth of the water is not a
+    // hundredth of the fish
+    // (it fades in by recolouring from the water's own colour: a fade_in
+    // would re-root it above the fish)
     let max = f64::from(lake.all_counts().max().unwrap_or(1));
-    let water = hex("#13253A");
-    let colors: Vec<Vec<Srgb>> = (0..GRID)
-        .rev()
-        .map(|r| {
-            (0..GRID)
-                .map(|c| interpolate_color(water, Palette::hero(), (f64::from(lake.counts[r][c]) / max).sqrt()))
-                .collect()
-        })
-        .collect();
+    let heat_at = |u: f64| -> Vec<Vec<Srgb>> {
+        let (low, high) = (Role::water(), interpolate_color(Role::water(), hex("#2F7398"), u));
+        (0..GRID)
+            .rev()
+            .map(|r| {
+                (0..GRID)
+                    .map(|c| interpolate_color(low, high, (f64::from(lake.counts[r][c]) / max).sqrt()))
+                    .collect()
+            })
+            .collect()
+    };
     let heat = RowStrips::build(
         stage,
         lake_p(0.0, 1.0),
         (LAKE_W / GRID as f64, LAKE_H / GRID as f64),
-        &colors,
+        &heat_at(0.0),
     )?;
+    let steps: Vec<Vec<Vec<Srgb>>> = (0..=24).map(|i| heat_at(f64::from(i) / 24.0)).collect();
     let box_text = kit.text(
         stage,
         "how many fish in all?  (coming up)",
         30.0,
         Palette::ink(),
-        v(0.0, -0.35),
+        v(0.0, -0.2),
     )?;
     let (bw, bh) = (stage.get_width(box_text) + 0.5, stage.get_height(box_text) + 0.35);
     let frame = stage.arena_mut().add(
@@ -468,14 +583,31 @@ fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, drawn: &[Vec3]) -> fmn::R
                     .stroke(Palette::faint(), 2.0, 1.0),
             )
             .build()?
-            .moved_to(v(0.0, -0.35)),
+            .moved_to(v(0.0, -0.2)),
     );
     kit.say(stage, "01_8")?;
     play!(stage;
         fade_out(stage.arena_mut(), net, ORIGIN, 1.0)?.rt(0.6),
-        fade_out(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.6),
-        fade_in(stage.arena_mut(), heat.group, ORIGIN, 1.0)?.rt(1.6),
+        fade_out(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.6),
     );
+    // the heat lies on the water, under the fish, pins and tags
+    stage.add_to_scene(heat.group)?;
+    let mut front = vec![scene.school.group];
+    front.extend(&pins);
+    front.extend(&tags);
+    stage.scene_mut().bring_to_front(&front)?;
+    let level = stage.add_value_tracker(0.0);
+    stage.add_to_scene(level)?;
+    let rows = heat.rows[0];
+    stage.add_dt_updater(
+        rows,
+        move |s, _, _| {
+            let u = s.tracker_value(level).unwrap_or(0.0).clamp(0.0, 1.0);
+            heat.recolor(s, &steps[(u * 24.0).round() as usize]);
+        },
+        false,
+    )?;
+    stage.play(tween(level, 1.0, 1.6)?)?;
     play!(stage;
         fade_in(stage.arena_mut(), frame, ORIGIN, 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), box_text, ORIGIN, 1.0)?.rt(0.6),

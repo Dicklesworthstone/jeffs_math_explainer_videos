@@ -266,11 +266,18 @@ pub mod mixing {
 
         /// Marked fish among the `net` fish nearest a point (squared
         /// distance, ties to the lower index).
-        pub fn net_at(&self, (px, py): (f64, f64), net: usize) -> u32 {
+        pub fn net_at(&self, p: (f64, f64), net: usize) -> u32 {
+            self.net_members(p, net).iter().filter(|&&i| self.marked[i]).count() as u32
+        }
+
+        /// The `net` fish nearest a point (squared distance, ties to the
+        /// lower index), nearest first: the fish a net there brings up.
+        pub fn net_members(&self, (px, py): (f64, f64), net: usize) -> Vec<usize> {
             let d2 = |i: usize| squared(self.x[i] - px) + squared(self.y[i] - py);
             let mut order: Vec<usize> = (0..self.x.len()).collect();
             order.sort_by(|&a, &b| d2(a).total_cmp(&d2(b)).then(a.cmp(&b)));
-            order[..net].iter().filter(|&&i| self.marked[i]).count() as u32
+            order.truncate(net);
+            order
         }
     }
 
@@ -379,5 +386,15 @@ mod tests {
             [90, 93, 103, 100, 94, 100, 105, 100, 99],
             "A-CH03.portable.nets1000"
         );
+        // a net's members: the thousand nearest, nearest first, and no fish
+        // left in the lake is nearer than the farthest one caught
+        let c = mixing::region_centres()[4];
+        let members = m.net_members(c, 1_000);
+        let d2 = |i: usize| (m.x[i] - c.0).powi(2) + (m.y[i] - c.1).powi(2);
+        assert_eq!(members.len(), 1_000);
+        assert!(members.windows(2).all(|w| d2(w[0]) <= d2(w[1])));
+        let far = d2(members[999]);
+        let inside: std::collections::HashSet<usize> = members.iter().copied().collect();
+        assert!((0..m.x.len()).all(|i| inside.contains(&i) || d2(i) >= far));
     }
 }
