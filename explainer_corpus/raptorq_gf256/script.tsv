@@ -55,7 +55,7 @@
 10_1	A product past x to the seventh doesn't fit in a byte. The simplest fold drops the fallen bit back in at the bottom. A rotation.
 10_2	Three times a byte is double it, ex-or itself. Under that fold, what's three times two fifty-five?
 10_3	Zero. The rotation turns x to the eighth into one, so x to the eighth plus one is zero. And it factors into x plus one, which is three, times a long polynomial, two fifty-five. Two fifty-six was two times one twenty-eight all over again.
-10_4	So we need a polynomial that can't be factored, a prime polynomial. RaptorQ's is x to the eighth plus x to the fourth plus x cubed plus x squared plus one. Treat it as zero, and an x to the eighth that falls off becomes the rest of it.
+10_4	So we need a polynomial that can't be factored, a prime polynomial. RaptorQ uses x to the eighth plus x to the fourth plus x cubed plus x squared plus one. Treat it as zero, and an x to the eighth that falls off becomes the rest of it.
 10_5	Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero.
 10_6	And every nonzero byte now has a partner. Two times one forty-two is exactly one. So bytes form a field, the byte field.
 11_1	Start at one and keep multiplying by two. One, two, four, eight, sixteen, thirty-two, sixty-four, one twenty-eight. What comes next?
@@ -87,7 +87,7 @@
 14_7	On average, about seventy of them aren't in any card. No decoder can find those.
 15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Each is a plain ex-or card of about seven pieces on average.
 15_7	First, the sender adds extra pieces. With three pieces, add P, equal to A ex-or B ex-or C. Then A ex-or B ex-or C ex-or P is always zero. Both sides know that card, so it's never sent. It's a free card.
-15_2	RaptorQ picks its extra pieces so many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down.
+15_2	RaptorQ picks its extra pieces so that many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down.
 15_3	The bucket now has a slot for every piece, old and new, filled in any order. Count the ex-or cards first, and they almost always fill it up to the last ten to sixteen slots. The byte cards fill those, where a card is useless only one time in two fifty-six.
 15_4	What if those last cards were plain ex-or cards?
 15_5	The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand.
