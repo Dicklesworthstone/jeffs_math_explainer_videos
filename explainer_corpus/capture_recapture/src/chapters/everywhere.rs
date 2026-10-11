@@ -546,7 +546,9 @@ impl SceneConstruct for Everywhere {
             show.push(stage.prepare(a)?);
         }
         stage.play_prepared(show)?;
-        kit.music_breath(stage, 4.0)?;
+        // the odds card's breath, trimmed with the closing fade to keep 14
+        // under 85 s narrated
+        kit.music_breath(stage, 3.2)?;
         let mut hide: Vec<Box<dyn Animation>> = Vec::new();
         for m in card.iter().copied().chain([
             outline,
@@ -844,7 +846,7 @@ impl SceneConstruct for Everywhere {
         play!(stage; fade_in(stage.arena_mut(), card, ORIGIN, 1.0)?.rt(0.7));
         kit.hold(stage)?;
         stage.clear_updaters(picture, true);
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
 }
