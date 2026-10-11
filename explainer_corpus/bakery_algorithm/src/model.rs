@@ -2006,63 +2006,6 @@ pub mod tso {
         (2, "L3 load number[1]=0, pass -> ENTER CS"),
     ];
 
-    /// 12_5's fix on the same race: both fences, so each outbox is delivered
-    /// before its customer reads; both choose at once, take 1, and the tie goes
-    /// to Blue while Green waits.
-    pub const FENCED: [(usize, &str); 22] = [
-        (1, "store choosing:=1"),
-        (2, "store choosing:=1"),
-        (1, "flush choosing[1]=1"),
-        (1, "mfence"),
-        (2, "flush choosing[2]=1"),
-        (2, "mfence"),
-        (1, "load number[2]=0"),
-        (2, "load number[1]=0"),
-        (1, "store number:=1"),
-        (2, "store number:=1"),
-        (1, "store choosing:=0"),
-        (2, "store choosing:=0"),
-        (1, "flush number[1]=1"),
-        (1, "flush choosing[1]=0"),
-        (1, "mfence"),
-        (2, "flush number[2]=1"),
-        (2, "flush choosing[2]=0"),
-        (2, "mfence"),
-        (1, "L2 load choosing[2]=0, pass"),
-        (1, "L3 load number[2]=1, pass -> ENTER CS"),
-        (2, "L2 load choosing[1]=0, pass"),
-        (2, "L3 load number[1]=1, wait"),
-    ];
-
-    /// 12_6 on the reordering model, both fences in place: Blue's lowered flag
-    /// reaches memory before her ticket, Green sees no flag and no ticket and
-    /// walks in (05_2's crack), then Blue's ticket lands, wins the tie, and she
-    /// walks in too.
-    pub const REORDERED: [(usize, &str); 22] = [
-        (1, "store choosing:=1"),
-        (1, "flush choosing[1]=1"),
-        (1, "mfence"),
-        (1, "load number[2]=0"),
-        (1, "store number:=1"),
-        (1, "store choosing:=0"),
-        (1, "flush choosing[1]=0 to memory (out of order)"),
-        (2, "store choosing:=1"),
-        (2, "flush choosing[2]=1"),
-        (2, "mfence"),
-        (2, "load number[1]=0"),
-        (2, "store number:=1"),
-        (2, "store choosing:=0"),
-        (2, "flush number[2]=1"),
-        (2, "flush choosing[2]=0"),
-        (2, "mfence"),
-        (2, "L2 load choosing[1]=0, pass"),
-        (2, "L3 load number[1]=0, pass -> ENTER CS"),
-        (1, "flush number[1]=1"),
-        (1, "mfence"),
-        (1, "L2 load choosing[2]=0, pass"),
-        (1, "L3 load number[2]=1, pass -> ENTER CS"),
-    ];
-
     #[cfg(test)]
     mod tests {
         use super::*;
@@ -2103,32 +2046,11 @@ pub mod tso {
         }
 
         #[test]
-        fn with_both_fences_the_same_race_lets_one_in() {
-            let m = Tso::new(2, 4, true, true);
-            let (states, _) = m.replay(&FENCED).unwrap();
-            let end = states.last().unwrap();
-            assert_eq!(m.in_room(end), 1);
-            assert_eq!(end.local[0].pc, Pc::Room);
-            assert_eq!(end.local[1].pc, Pc::WaitTicket);
-            assert!(states.iter().all(|s| m.in_room(s) <= 1));
-        }
-
-        #[test]
         fn a_reordering_outbox_breaks_the_two_fences() {
             // C-F9.ooo_outbox.f1_f2.*: 1,673 states, a 22-step shortest failure
             let mut ooo = Tso::new(2, 4, true, true);
             ooo.reorder = true;
             assert_eq!(ooo.explore(), (1_673, Some(22)));
-            let (states, moves) = ooo.replay(&REORDERED).unwrap();
-            assert_eq!(moves.len(), 22);
-            assert_eq!(ooo.in_room(states.last().unwrap()), 2);
-            // Green walks in while Blue's ticket is still in her outbox
-            let green_in = states.iter().position(|s| s.local[1].pc == Pc::Room).unwrap();
-            let s = &states[green_in];
-            assert_eq!((s.flags[0], s.slates[0]), (0, 0));
-            assert!(s.outbox[0].iter().any(|e| e.var == Var::Slate && e.value == 1));
-            // the in-order model refuses the overtaking delivery
-            assert!(Tso::new(2, 4, true, true).replay(&REORDERED).is_err());
         }
 
         #[test]

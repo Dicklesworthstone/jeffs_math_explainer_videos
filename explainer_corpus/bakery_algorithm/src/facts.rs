@@ -55,14 +55,17 @@ pub mod cited {
     pub const CHM_PAGES: &str = "9-10";
 
     /// The journal part of a citation: "CACM 17(8)".
+    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     fn journal(citation: &'static str) -> &'static str {
         citation.split(':').next().unwrap_or(citation)
     }
 
+    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     pub fn bakery_journal() -> &'static str {
         journal(BAKERY_CITATION)
     }
 
+    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     pub fn turing_journal() -> &'static str {
         journal(TURING_CITATION)
     }
@@ -556,6 +559,7 @@ mod tests {
 /// # Panics
 /// On a key the facts do not register (every chapter's keys are covered by
 /// the tests), or if the facts fail their own pins.
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn fact(key: &str) -> &'static str {
     static FACTS: std::sync::OnceLock<Facts> = std::sync::OnceLock::new();
     FACTS
@@ -565,6 +569,7 @@ pub fn fact(key: &str) -> &'static str {
 }
 
 /// The same, parsed as a number.
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn fact_u64(key: &str) -> u64 {
     fact(key)
         .parse()
@@ -664,11 +669,13 @@ pub struct MeasuredMode {
 /// The whole record of one machine: its CPU and every block's modes.
 #[derive(Clone, Debug)]
 pub struct Measured {
+    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     pub arch: Arch,
     pub cpu: String,
     pub modes: Vec<MeasuredMode>,
 }
 
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 impl Measured {
     /// `mode` in the ten-run block with `threads` customers.
     ///
@@ -794,11 +801,13 @@ pub fn choosing_order(orders: &[Order]) -> ChoosingOrder {
 }
 
 /// 11_2's "at most once" (C-X5, three customers, tickets ≤ 4, atomic).
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn bypass_worst() -> u8 {
     model::bypass_bfs(&model::Bakery::new(3, 4, Variant::Correct, false, true)).1
 }
 
 /// 11_7's "after at most one more visit each" (C-X8, the same bound).
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn frozen_worst() -> u8 {
     let m = model::Bakery::new(3, 4, Variant::Correct, false, true);
     let (choosing, _) = model::customer1_choosing_and_in_line(&model::reachable(&m));
@@ -807,6 +816,7 @@ pub fn frozen_worst() -> u8 {
 
 /// 13_3's grid: the pairs of 04_2's tie (slates 4, 3, 5, 5, 2), as
 /// (ticket, customer number).
+#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn tie_pairs() -> Vec<(u32, usize)> {
     let steps = purple_and_teal_tie();
     let last = &steps.last().expect("the tie runs").after;
@@ -817,6 +827,14 @@ pub fn tie_pairs() -> Vec<(u32, usize)> {
         .map(|(i, &t)| (t, i + 1))
         .collect()
 }
+
+/// The lost points chapter 12 shows, pinned to the records' totals (the
+/// rest of each record is registered as read).
+const ON_SCREEN_LOSSES: [(&str, &str, &str); 3] = [
+    ("C-M1.arm.n2_r10.relaxed.lost", "2314899", "mx-e-c-7v0.17 (48f3e37)"),
+    ("C-M1.x86.n2_r10.relacq.lost", "1173616", "mx-e-c-7v0.17 (eb668c7)"),
+    ("C-M1.x86.n2_r10.relaxed.lost", "1006846", "mx-e-c-7v0.17 (eb668c7)"),
+];
 
 fn facts_10_13(f: &mut Facts) -> Result<(), String> {
     use crate::model::tso::{self, Tso};
@@ -1062,29 +1080,14 @@ fn facts_10_13(f: &mut Facts) -> Result<(), String> {
                 f.add(&format!("C-M1.{tag}.{}.runs", m.mode), m.runs)?;
                 f.add(&format!("C-M1.{tag}.{}.entries_per_run", m.mode), m.entries_per_run)?;
                 f.add(&format!("C-M1.{tag}.{}.entries", m.mode), m.entries)?;
-                f.add(&format!("C-M1.{tag}.{}.lost", m.mode), m.lost)?;
+                let key = format!("C-M1.{tag}.{}.lost", m.mode);
+                match ON_SCREEN_LOSSES.iter().find(|(k, _, _)| *k == key) {
+                    Some((_, want, source)) => f.pin(&key, m.lost, want, source)?,
+                    None => f.add(&key, m.lost)?,
+                };
             }
         }
     }
-    let (arm, x86) = (measured(Arch::Arm), measured(Arch::X86));
-    f.pin(
-        "C-M1.arm.n2_r10.relaxed.lost",
-        arm.mode("relaxed", 2).lost,
-        "2314899",
-        "mx-e-c-7v0.17 (48f3e37)",
-    )?;
-    f.pin(
-        "C-M1.x86.n2_r10.relacq.lost",
-        x86.mode("relacq", 2).lost,
-        "1173616",
-        "mx-e-c-7v0.17 (eb668c7)",
-    )?;
-    f.pin(
-        "C-M1.x86.n2_r10.relaxed.lost",
-        x86.mode("relaxed", 2).lost,
-        "1006846",
-        "mx-e-c-7v0.17 (eb668c7)",
-    )?;
     // cited (fact sheet C-F14, C-S21, C-S26, C-S27)
     f.pin(
         "C-F14.bakery_paper.citation",
