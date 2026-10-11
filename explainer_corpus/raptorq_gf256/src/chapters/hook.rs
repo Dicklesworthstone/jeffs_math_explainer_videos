@@ -220,9 +220,17 @@ fn broadcast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
     }
     let flecks: Vec<Mob> = flecks.into_iter().map(|b| stage.arena_mut().add(v_group(b))).collect();
 
+    // "this picture": it opens big at the centre, then flies into the tower
+    // as the phones appear
+    let (big_size, big_at) = (3.6, v(0.0, 0.2));
+    let big = picture::picture(stage, big_size, big_at)?;
     kit.say(stage, "01_1")?;
+    play!(stage; fade_in(stage.arena_mut(), big.group, ORIGIN, 0.85)?.rt(0.7));
+    stage.wait(0.9)?;
+    let to_tower = v(SMALL_PICTURE.1[0] - big_at[0], SMALL_PICTURE.1[1] - big_at[1]);
     play!(stage;
-        fade_in(stage.arena_mut(), s1.picture.group, ORIGIN, 0.6)?.rt(0.8),
+        fade_out(stage.arena_mut(), big.group, to_tower, SMALL_PICTURE.0 / big_size)?.rt(0.9),
+        fade_in(stage.arena_mut(), s1.picture.group, ORIGIN, 1.0)?.rt(0.9),
         show_creation(s1.tower).rt(0.9),
         fade_in(stage.arena_mut(), s1.field.group, ORIGIN, 1.0)?.rt(1.2).lag(0.0008),
         fade_in(stage.arena_mut(), s1.key, ORIGIN, 1.0)?.rt(0.8),
