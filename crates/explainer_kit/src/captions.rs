@@ -47,9 +47,14 @@ fn bad(m: impl Into<String>) -> io::Error {
 pub fn read_report(path: &Path) -> io::Result<HashMap<String, Vec<Spoken>>> {
     let v: serde_json::Value =
         serde_json::from_str(&std::fs::read_to_string(path)?).map_err(|e| bad(format!("{}: {e}", path.display())))?;
-    let lines = v
-        .as_object()
-        .ok_or_else(|| bad("report.json: not an object of lines"))?;
+    // the narration skill writes {"meta": {..}, "lines": {id: [..]}}; a shipped
+    // narration (Hoeffding v5) is the bare {id: [..]}
+    let lines = match v.get("lines").and_then(serde_json::Value::as_object) {
+        Some(lines) => lines,
+        None => v
+            .as_object()
+            .ok_or_else(|| bad("report.json: not an object of lines"))?,
+    };
     let mut out = HashMap::new();
     for (id, sentences) in lines {
         let list = sentences
@@ -370,6 +375,22 @@ mod tests {
         }];
         assert_eq!(to_srt(&caps), "1\n01:02:03,457 --> 01:02:04,000\none\ntwo\n\n");
         assert_eq!(to_vtt(&caps), "WEBVTT\n\n01:02:03.457 --> 01:02:04.000\none\ntwo\n\n");
+    }
+
+    #[test]
+    fn a_report_with_meta_reads_its_lines_only() {
+        let sentence = |text: &str, start: f64| serde_json::json!({"sentence": text, "start": start, "end": start + 2.0, "pause_cut_s": 0.25});
+        let report = serde_json::json!({
+            "meta": {"sentence_lufs": -23.0, "rate": 24000},
+            "lines": {"01_1": [sentence("One.", 0.0), sentence("Two.", 2.5)], "01_2": [sentence("Three.", 0.0)]}
+        });
+        let path = std::env::temp_dir().join(format!("explainer_kit_report_meta_{}.json", std::process::id()));
+        std::fs::write(&path, report.to_string()).unwrap();
+        let r = read_report(&path).unwrap();
+        assert_eq!(r.len(), 2, "two lines, and meta is not one");
+        assert_eq!(r["01_1"].len(), 2);
+        assert_eq!(r["01_1"][1].text, "Two.");
+        assert!((r["01_2"][0].seconds - 1.75).abs() < 1e-9, "end - start - pause_cut_s");
     }
 
     #[test]
