@@ -317,6 +317,20 @@ fn rgb_gold() -> [f32; 3] {
     [1.0, 0.847, 0.4]
 }
 
+/// A rewind mark (two triangles pointing back), chalk, centred at `at`.
+fn rewind_mark(at: Vec3) -> fmn::Result<VMobject> {
+    let tri = |dx: f64| {
+        Polygon::new([
+            v(at[0] + dx + 0.22, at[1] + 0.2),
+            v(at[0] + dx - 0.12, at[1]),
+            v(at[0] + dx + 0.22, at[1] - 0.2),
+        ])
+        .style(super::draw::flat(chalk(), 0.85))
+        .build()
+    };
+    Ok(v_group([tri(-0.17), tri(0.17)]))
+}
+
 /// Everyone with a ticket smaller than Purple and Teal's, in the order the
 /// room serves them from 04_2's slates (the model's order).
 fn served_before_the_tie(st2: &State) -> fmn::Result<Vec<usize>> {
@@ -439,7 +453,9 @@ fn tie_breaker(
     let line = say(kit, stage, "04_4")?;
     fade_out_all(stage, &words, 0.4)?;
     // back to 04_2's slates: the customers 04_3 served hold their
-    // tickets again
+    // tickets again, under a rewind mark (R3 maya-08)
+    let rewind = stage.arena_mut().add(rewind_mark(v(0.0, 3.3))?);
+    play!(stage; fade_in(stage.arena_mut(), rewind, ORIGIN, 1.0)?.rt(0.3));
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for k in served_before_the_tie(st2)? {
         let [a, w] = b.slates[k - 1].rewrite(kit, stage, st2.number[k - 1])?;
@@ -451,6 +467,7 @@ fn tie_breaker(
         anims.push(stage.prepare(a)?);
     }
     stage.play_prepared(anims)?;
+    play!(stage; fade_out(stage.arena_mut(), rewind, ORIGIN, 1.0)?.rt(0.3));
     let mut out = b.all();
     out.extend(room);
     out.retain(|m| !b.slates.iter().any(|s| s.parts().contains(m)));

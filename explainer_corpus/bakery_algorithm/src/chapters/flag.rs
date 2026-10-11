@@ -703,8 +703,7 @@ fn choosing_time(kit: &Kit, stage: &mut Stage<'_>, square: &[Mob]) -> fmn::Resul
         flag_amber(),
         v(slot_x(3), LANE_Y[0] + 0.42),
     )?;
-    let doorway = kit.text(stage, g::DOORWAY, 22.0, Palette::dim(), v(slot_x(3), LANE_Y[1] - 0.42))?;
-    fade_in_all(stage, &[label, doorway], 0.5)?;
+    fade_in_all(stage, &[label], 0.5)?;
     // the door sign returns beside the flag: a lock; the flag is not one
     line.wait_for(stage, "Unlike the door sign")?;
     let door = sign(kit, stage, true, v(2.0, 3.05), 1.0, false)?;
@@ -725,7 +724,7 @@ fn choosing_time(kit: &Kit, stage: &mut Stage<'_>, square: &[Mob]) -> fmn::Resul
     // 05_9: two customers choosing at once take equal tickets (trace c);
     // the pair settles it
     let line = say(kit, stage, "05_9")?;
-    let mut out = vec![label, doorway, lock];
+    let mut out = vec![label, lock];
     out.extend(door.parts());
     out.extend(bands);
     let t = flags[2].set(stage, false);

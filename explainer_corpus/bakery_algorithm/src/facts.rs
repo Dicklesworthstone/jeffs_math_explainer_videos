@@ -141,6 +141,37 @@ fn bit(b: bool) -> u8 {
     u8::from(b)
 }
 
+/// Every way to mix two copies of `prog`'s steps (each program's own steps
+/// in order), and how many of those mixes can run step by step from an
+/// empty sign: a wait that cannot pass stops a mix.
+pub fn step_mixes(prog: &[model::Op]) -> (usize, usize) {
+    let n = prog.len();
+    let mut mixes = 0;
+    let mut runnable = 0;
+    // each mix is a choice of which of the 2n slots are the first program's
+    for mask in 0u32..1 << (2 * n) {
+        if mask.count_ones() as usize != n {
+            continue;
+        }
+        mixes += 1;
+        let mut mem = vec![0];
+        let mut pcs = [0usize; 2];
+        let ok = (0..2 * n).all(|slot| {
+            let i = usize::from(mask >> slot & 1 == 0);
+            match model::apply(prog[pcs[i]], i, 1, &mem, 0) {
+                Some((m, _)) => {
+                    mem = m;
+                    pcs[i] += 1;
+                    true
+                }
+                None => false,
+            }
+        });
+        runnable += usize::from(ok);
+    }
+    (mixes, runnable)
+}
+
 /// The lattice point "both have read, neither has written" (01_8).
 pub const MIDDLE: (usize, usize) = (1, 1);
 
@@ -207,6 +238,16 @@ pub fn facts() -> Result<Facts, String> {
         end,
         "0",
         "fact sheet C-F2 (finding F1)",
+    )?;
+    // 02_4 (R3 maya-07): the 20 ways to mix the two programs' steps, and
+    // the ones that cannot run (a check that finds "occupied" waits)
+    let (mixes, runnable) = step_mixes(&model::sign_program());
+    f.pin("C-F2.step_mixes", mixes, "20", "R3 maya-07 (checked by hand)")?;
+    f.pin(
+        "C-F2.step_mixes_that_cannot_run",
+        mixes - runnable,
+        "6",
+        "R3 maya-07 (checked by hand)",
     )?;
     // 05: two customers, one visit each, without and with the flag
     for (flag, tag, want) in [(false, "no_flag", ["28", "4"]), (true, "flag", ["322", "0"])] {
@@ -682,6 +723,15 @@ mod tests {
         assert_eq!(service_order(&[0, 0, 5, 5, 0]), [3, 4]);
         // 04_5: Teal holds 2, Blue holds 3, so Teal goes first
         assert_eq!(service_order(&[3, 0, 0, 2, 0]), [4, 1]);
+    }
+
+    #[test]
+    fn the_runnable_mixes_are_exactly_the_orders() {
+        // 02_4: every mix that runs is one of the 14 orders, and back
+        let (mixes, runnable) = step_mixes(&model::sign_program());
+        assert_eq!((mixes, runnable), (20, sign_orders().len()));
+        // the scoreboard's steps never wait: all 6 mixes run (01_7)
+        assert_eq!(step_mixes(&model::scoreboard_program()), (6, 6));
     }
 
     #[test]

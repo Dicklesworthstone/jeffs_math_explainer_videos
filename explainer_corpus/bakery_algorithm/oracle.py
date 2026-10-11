@@ -464,6 +464,25 @@ def row_cf2():
     check("C-F2 tree_count agrees", tc == (total, both, dead), f"tree_count {tc}")
     m, where = recorded("tree_count_out.txt", r"naive flag lock N=2: (\d+) complete schedules \| (\d+) put 2 in CS \| (\d+) deadlock")
     check("C-F2 matches recording", tuple(map(int, m.groups())) == (total, both, dead), where)
+    # R3 (maya-07, 02_4): mixing the two programs' three steps gives 20
+    # sequences; a check that finds "occupied" has to wait, so only the ones
+    # that never meet a closed check can run, and those are the orders above
+    steps = len(naive_sign_ops())
+    mixes = set(permutations([0] * steps + [1] * steps))
+    runnable = 0
+    for seq in mixes:
+        mem, pcs, ok = (0,), [0, 0], True
+        for i in seq:
+            r = apply_op(progs[i][pcs[i]], i, 1, mem, 0)
+            if r is None:
+                ok = False
+                break
+            mem, pcs[i] = r[0], pcs[i] + 1
+        runnable += ok
+    emit("C-F2.step_mixes", len(mixes))
+    emit("C-F2.step_mixes_that_cannot_run", len(mixes) - runnable)
+    check("C-F2 step mixes = C(6, 3)", len(mixes) == math.comb(2 * steps, steps), f"{len(mixes)}")
+    check("C-F2 runnable mixes are exactly the orders", runnable == total, f"{runnable} runnable, {total} orders")
 
 
 # ==========================================================================

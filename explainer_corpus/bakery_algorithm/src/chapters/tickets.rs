@@ -174,8 +174,10 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
         lowest[1].animate().set_anim_args(AnimateArgs { run_time: Some(0.7), ..AnimateArgs::default() })?
             .set_color(order_gold())?,
     );
-    // the badges: each customer's number
+    // the badges: each customer's number, with a roll call beside her
+    // (R3 maya-08: the numbers are named once, on screen)
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    let mut roll = Vec::new();
     for f in &figures {
         let a = f
             .badge
@@ -186,9 +188,16 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
             })?
             .set_opacity(1.0)?;
         anims.push(stage.prepare(a)?);
+        let name = format!("{} {}", super::draw::NAMES[f.k - 1], f.k);
+        let tag = kit.text_left(stage, &name, 28.0, customer(f.k), v(FIG_X + 0.5, LANE_Y[f.k - 1]))?;
+        let t = fade_in(stage.arena_mut(), tag, v(-0.15, 0.0), 1.0)?;
+        anims.push(stage.prepare(t.rt(0.6))?);
+        roll.push(tag);
     }
-    stage.play_prepared(anims)?;
+    let g_roll = fmn::animation::lagged_start(stage.arena_mut(), anims)?;
+    stage.play(g_roll)?;
     line.wait_for(stage, "From now on")?;
+    fade_out_all(stage, &roll, 0.4)?;
     let names = lower_third(kit, stage, g::NAMES, g::PROCESS)?;
     play!(stage;
         fade_in(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.5),
