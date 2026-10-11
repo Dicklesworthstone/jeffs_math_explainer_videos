@@ -78,7 +78,7 @@ and citations in the plan's draft script.
   ends with both customers gone. The 8 are orders in which both are inside *at
   some moment*. Suggest "eight put both in the room at once", the phrasing 05_6
   already uses.
-- **F2, TF-A narration (10_5): partly supported.** The narration says the
+- **F2, TF-A narration (11_1, was 10_5): partly supported.** The narration says the
   bakery lock is used "for the moments at boot when caches are off and
   compare-and-swap isn't guaranteed to work". The source supports a narrower
   claim:
@@ -101,7 +101,7 @@ and citations in the plan's draft script.
   7 is the true garbage value: it overlaps a 0 → 1 write and is neither 0
   nor 1. If the narration needs garbage that only safe registers allow, say so
   for e1 only.
-- **F4, CHM page (10_7 Quotes; memo §2.2).** Levin's question ("You've also
+- **F4, CHM page (11_3 Quotes, was 10_7; memo §2.2).** Levin's question ("You've also
   said it was the one you were proudest of") is on page 9 of 40. Lamport's
   answer ("…it just seemed to come out of thin air to me … perhaps that's why
   I'm proudest of it") is on **page 10** of 40. Cite pp. 9–10.
@@ -178,7 +178,7 @@ p. 455 (the C-F10 bound):
 https://lamport.azurewebsites.net/pubs/pubs.html, entry "A New Solution of
 Dijkstra's Concurrent Programming Problem":
 - "If the write changes the value from 0 to 1, a concurrent read could obtain the value 7456 (assuming that 7456 is a value that could be in the memory location). The algorithm still works. I didn't try to devise an algorithm with this property. I discovered that the bakery algorithm had this property after writing a proof of its correctness and noticing that the proof did not depend on what value is returned by a read that overlaps a write."
-- The same entry also has "I feel that I did not invent the bakery algorithm, I discovered it." (10_7) and, on Anatol Holt, "He refused to believe it could be true." (08_6).
+- The same entry also has "I feel that I did not invent the bakery algorithm, I discovered it." (11_3) and, on Anatol Holt, "He refused to believe it could be true." (08_6).
 
 **5. Arm TF-A bakery lock rationale: VERIFIED, with the narrowing in F2.**
 The source is TF-A `master` at commit
@@ -230,7 +230,7 @@ by SHA matched `master`.
   right for the merge and the release.
 - Queued spinlocks: plan §11 does not mention them, so they were not checked.
 
-**Also verified (not bead items, used in 10_7 and C-F14):**
+**Also verified (not bead items, used in 11_3 and C-F14):**
 - CHM oral history (Roy Levin, recorded August 12, 2016),
   https://archive.computerhistory.org/resources/access/text/2017/07/102717182-05-01-acc.pdf,
   page 10 of 40: "But the bakery algorithm, it just seemed to come out of thin
@@ -319,13 +319,13 @@ last column means the method of the row above it.
 | C-F6 | leapfrog length | `C-F6.leapfrog.steps` = `46` | — | n/a | `row_cf6`: schedule copied from `leapfrog.py`, replayed on `bakery_mc` |
 | C-F6 | leapfrog tickets | `C-F6.leapfrog.tickets` = `1,2,3,4,5,6` | 1…6 (ledger §11.5; 09_3 odometer 1, 2, 3, 4, 5, 6) | MATCH | same; == `outputs/leapfrog_out.txt:2` |
 | C-F6 | leapfrog final slates | `C-F6.leapfrog.final_tickets` = `0,6` | — | n/a | same |
-| C-F6 | double-fetch max, 3 customers, safe: shortest violation | `C-F6.double_fetch.n3_k3_safe.shortest_violation_steps` = `33` | 33 (ledger §11.5; 08_7) | MATCH | `explore` (BFS, reused `bakery_mc`) as in `df_trace.py`; == `outputs/df_trace_out.txt:3` and its 33 trace lines |
+| C-F6 | double-fetch max, 3 customers, safe: shortest violation | `C-F6.double_fetch.n3_k3_safe.shortest_violation_steps` = `33` | 33 (ledger §11.5; 09_6) | MATCH | `explore` (BFS, reused `bakery_mc`) as in `df_trace.py`; == `outputs/df_trace_out.txt:3` and its 33 trace lines |
 | C-F6 | double-fetch N=3: states explored | `C-F6.double_fetch.n3_k3_safe.states` = `47642` | — | n/a | same |
-| C-F6 | double-fetch N=3: breaks | `C-F6.double_fetch.n3_k3_safe.violation_found` = `1` | "it breaks" (08_7) | MATCH | same |
+| C-F6 | double-fetch N=3: breaks | `C-F6.double_fetch.n3_k3_safe.violation_found` = `1` | "it breaks" (09_6) | MATCH | same |
 | C-F6 | double-fetch N=2, K=6 safe: states | `C-F6.double_fetch.n2_k6_safe.states` = `2224` | — | n/a | same; == `outputs/df_trace_out.txt:1` |
-| C-F6 | double-fetch N=2, K=6: breaks | `C-F6.double_fetch.n2_k6_safe.violation_found` = `0` | only with 3+ customers (08_7) | MATCH | same |
+| C-F6 | double-fetch N=2, K=6: breaks | `C-F6.double_fetch.n2_k6_safe.violation_found` = `0` | only with 3+ customers (09_6) | MATCH | same |
 | C-F6 | double-fetch N=2, K=9 safe: states | `C-F6.double_fetch.n2_k9_safe.states` = `4597` | — | n/a | same; == `outputs/df_trace_out.txt:2` |
-| C-F6 | double-fetch N=2, K=9: breaks | `C-F6.double_fetch.n2_k9_safe.violation_found` = `0` | only with 3+ customers (08_7) | MATCH | same |
+| C-F6 | double-fetch N=2, K=9: breaks | `C-F6.double_fetch.n2_k9_safe.violation_found` = `0` | only with 3+ customers (09_6) | MATCH | same |
 | C-F7 | slates | `C-F7.slates_before` = `0,3,0,0,2` | 0, 3, 0, 0, 2 (ledger §11.5) | MATCH | `row_cf7`: direct computation; memo §5 Ch3 |
 | C-F7 | customer 4 reads | `C-F7.customer4_reads` = `0,3,0,2` | zero, three, zero, two (03_4) | MATCH | same |
 | C-F7 | customer 4 writes | `C-F7.customer4_ticket` = `4` | 4 (ledger §11.5) | MATCH | same |

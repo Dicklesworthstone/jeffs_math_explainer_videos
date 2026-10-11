@@ -30,9 +30,13 @@ as 05) to ask which sizes could have produced our catch.
 | bias / failure | red `#FC6255` (never the marks) | gauges, warnings |
 
 
+## Vocabulary (one word per idea)
+
+**marked** (Feller's word; our marks glow gold, "Feller used red paint; ours glow so you can see them"), **catch**, **caught twice** (= recaptured; define early), **lake size**, **score** for likelihood after it is named once. Never say "n" and "N" in one sentence; the letters live on screen with word labels.
+
 ## 01_hook: The fish nobody caught (~75 s)
 
-Estimated **55 s**, plan ~75 s; 6 lines.
+Estimated **57 s**, plan ~75 s; 6 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -41,7 +45,7 @@ Estimated **55 s**, plan ~75 s; 6 lines.
 | 01_3 | We can say there are about eight thousand one hundred of them, and we can say how sure we are. | The dark cell fills with "≈ 8,100" | live number | listen 2 s (motif, unresolved) |
 | 01_4 | *(title)* | **How to Count Fish You've Never Seen** | title card | hold |
 | 01_5 | Why not just count one patch and scale up? This net covers one hundredth of the lake. Four hundred and fifty-one fish, times a hundred, is forty-five thousand one hundred. *(the deep-end spot of the seeded lake, A-F27)* | A net drops; a 10×10 grid with one square lit; the arithmetic | net sweep, live count |  |
-| 01_6 | Try two other spots, and you get wildly different answers. Fish crowd into weeds and the deep end, and avoid open water. A net can't tell you how much of the lake it really searched. | Three estimates on a plain number line spanning ≥ 30× (one P1 number used everywhere); a density heat map fades in; a "real answer: ?" box | heat map, `indicate` |  |
+| 01_6 | ⟨predict⟩ Try two other spots. Same answer? Not even close. Fish crowd into weeds and the deep end, and avoid open water. A net can't tell you how much of the lake it really searched. | Three estimates on a plain number line spanning ≥ 30× (one P1 number used everywhere); a density heat map fades in; a "real answer: ?" box | heat map, `indicate` |  |
 
 - **Personas.** Maya: the table is a puzzle she can see; the patch arithmetic
   is shown. Dev: sampling bias in one picture. Ruth: the claim is not that
@@ -72,14 +76,14 @@ Estimated **58 s**, plan ~80 s; 7 lines.
 
 ## 03_why_the_marks_spread (~85 s)
 
-Estimated **51 s**, plan ~85 s; 6 lines.
+Estimated **57 s**, plan ~85 s; 6 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 03_1 | Think about tasting soup. Stir it, and one spoonful tells you how salty the whole pot is. | Stirred-pot icon | icon |  |
 | 03_2 | We built this lake, so we can peek. The fisher can't. | Label "only we can see this"; god's-eye view | label |  |
 | 03_3 | Here's a crowded patch. Fifty fish, five marked. Here's a sparse one. Ten fish, one marked. Both one in ten. | Zoom into two patches with counts | zoom (group scaling) |  |
-| 03_4 | Watch the marked fish swim. The fish stay crowded where they like to be. But the marks spread out evenly among them. | Split view, titled in words: left "how many fish" (stays clumpy), right "what fraction is marked" (starts hot at the dock, flattens to ≈10%); fish circle their favourite haunts along the habitat's contour lines | **habitat-potential dynamics; contour streamlines; maps from a large simulated population on 3×3 regions, recoloured in place** | listen 3 s (proportion rhythm) |
+| 03_4 | Watch the marked fish swim. ⟨predict⟩ Will the marks stay bunched up where we let them go? The fish stay crowded where they like to be. But the marks spread out evenly among them. | Split view, titled in words: left "how many fish" (stays clumpy), right "what fraction is marked" (starts hot at the dock, flattens to ≈10%); fish circle their favourite haunts along the habitat's contour lines | **habitat-potential dynamics; contour streamlines; maps from a large simulated population on 3×3 regions, recoloured in place** | listen 3 s (proportion rhythm) |
 | 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake. | Several nets; each tray's marked fraction jitters near 10% | repeated small catches |  |
 | 03_6 | That's what makes the table fair. Mixing makes the two catches independent, so the overlap tells the truth. | Table returns; "independent catches" label | callback | hold |
 
@@ -142,18 +146,18 @@ Estimated **80 s**, plan ~85 s; 9 lines.
 
 ## 06_the_table_balances (~85 s)
 
-Estimated **90 s**, plan ~85 s; 8 lines.
+Estimated **84 s**, plan ~85 s; 8 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 06_1 | Feller found the top score without drawing anything. Compare each lake size with the one just below it. When does the score still go up? | Two adjacent bars on a seesaw | seesaw prop |  |
+| 06_1 | Feller found the top score without drawing anything. Compare each lake size with the one just below it: is the score still going up? | Two adjacent bars on a seesaw | seesaw prop |  |
 | 06_2 | Most of the counting cancels, and the comparison comes down to this. | The ratio as a two-second lower-third: `L(N)/L(N−1) = (N−M)(N−n) / (N(N−M−n+k))` ("the cancelling is in the description") | lower-third |  |
 | 06_3 | ⟨predict⟩ Multiply out the top and the bottom. What survives? | `(N−M)(N−n)` and `N(N−M−n+k)` expand; matching terms strike through in pairs (drawn strike lines) | **term-by-term cancellation** |  |
-| 06_4 | M times n, minus k times N. If that's positive, the score is still rising. In our small lake, ten times ten is a hundred. Three times thirty-three is ninety-nine: still rising. Three times thirty-four is a hundred and two: falling. The top is thirty-three. | `Mn − kN` with live numbers | live arithmetic |  |
-| 06_5 | Now write it with the table's four cells. It becomes the marked-only fish times the caught-only fish, minus the overlap times the dark cell. | `Mn − kN = ab − k·u`; the table's two diagonals glow | **TransformMatchingTex onto the table** |  |
-| 06_6 | So the score keeps climbing as fish are added to the dark cell, until overlap times dark cell catches up with the two side cells. Nine hundred times nine hundred, over a hundred. Eight thousand one hundred. | Seesaw pans k·u and a·b; the dark-cell counter ticks up to 8,100; the beam levels | seesaw + counter | listen 2 s (motif resolves) |
+| 06_4 | Marked times caught, minus caught twice times the lake size. While that's positive, the score is still rising. In our small lake, ten times ten is a hundred, and three times thirty-three is ninety-nine: still rising. Three times thirty-four is a hundred and two: falling. The top is thirty-three. | `Mn − kN` with live numbers | live arithmetic |  |
+| 06_5 | In the table's four cells, it becomes marked-only times caught-only, minus overlap times the dark cell. | `Mn − kN = ab − k·u`; the table's two diagonals glow | **TransformMatchingTex onto the table** |  |
+| 06_6 | So the score climbs as fish go into the dark cell, until overlap times dark cell catches up with the two side cells. Nine hundred times nine hundred, over a hundred: eight thousand one hundred. | Seesaw pans k·u and a·b; the dark-cell counter ticks up to 8,100; the beam levels | seesaw + counter | listen 2 s (motif resolves) |
 | 06_7 | That balance is exactly what two independent catches look like. The careful argument and the soup argument are the same argument. | Cards merge | statement card |  |
-| 06_8 | At Feller's numbers the two sides are a million and a million. Perfectly level. A lake of nine thousand nine hundred ninety-nine and a lake of ten thousand tie for the top score. Feller just says ten thousand. | Level beam; the eight-digit fractions only in a lower-third | live fraction | hold |
+| 06_8 | At Feller's numbers the beam is perfectly level, so lakes of nine thousand nine hundred ninety-nine and ten thousand tie for the top score. Feller just says ten thousand. | Level beam; the eight-digit fractions only in a lower-third | live fraction | hold |
 
 - **Precisely (lower-third):** "MLE = ⌊Mn/k⌋; a tie with Mn/k − 1 when Mn/k is a
   whole number and k < min(M, n); none when k = 0. Equivalently, the best dark
@@ -164,17 +168,17 @@ Estimated **90 s**, plan ~85 s; 8 lines.
 
 ## 07_check_it_by_cheating: Ten thousand lakes (~85 s)
 
-Estimated **85 s**, plan ~85 s; 7 lines.
+Estimated **84 s**, plan ~85 s; 7 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | Let's check all this by cheating. Build a lake where we know the answer, ten thousand fish, and run Feller's experiment ten thousand times. | 100 × 100 grid of tiny lakes flashing their estimates | **10,000 cells as 100 row VMobjects recoloured in place** | listen 3 s (trial rain at the pitch of k) |
+| 07_1 | Let's check this by cheating. Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times. | 100 × 100 grid of tiny lakes flashing their estimates | **10,000 cells as 100 row VMobjects recoloured in place** | listen 3 s (trial rain at the pitch of k) |
 | 07_2 | The counts of fish caught twice pile up in a bell around a hundred. | Histogram of k (mean 100, SD 9.0) | histogram prop |  |
 | 07_3 | But the estimate divides by that count, and dividing bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many. | The k-bell's bars travel along the hyperbola N = Mn/k (the crest curve from 05) and stretch into a right-skewed histogram | **bars along a curve** |  |
 | 07_4 | Ninety-five percent of estimates land between about eighty-five hundred and twelve thousand. Their average is about ten thousand and eighty, a little high. | Quantiles 8,475 / 10,000 / 12,048; mean ≈ 10,080 | live stats |  |
-| 07_5 | *(for programmers)* Two lines of code, and the simulation agrees with the exact calculation. Test your simulation against something you can compute. | Code panel: `k = rng.hypergeometric(M, N-M, n, size=10_000)`, `est = M*n/k` | code panel slides in |  |
-| 07_6 | With a smaller study it gets worse. In a lake of a thousand, marking and catching fifty, about one study in fourteen catches no marked fish at all. Then the formula asks you to divide by zero. | P(k = 0) = 7.2%; an estimate flies off the edge | red |  |
-| 07_7 | Douglas Chapman's fix: add one to each count, and subtract one at the end. It's as if one imaginary fish had been caught both times. It never divides by zero, and on average it's almost exactly right once you expect a few fish caught twice. | `(M+1)(n+1)/(k+1) − 1`; small-study means: Chapman ≈ 935 (−6.5%) vs the plain formula, among studies that caught any, ≈ 1,241 (+24%) | TransformMatchingTex | hold |
+| 07_5 | *(for programmers)* Two lines of code. Always check a simulation against something you can compute exactly. | Code panel: `k = rng.hypergeometric(M, N-M, n, size=10_000)`, `est = M*n/k` | code panel slides in |  |
+| 07_6 | With a smaller study it gets worse. In a lake of a thousand, marking and catching fifty: ⟨predict⟩ how often does the second catch hold no marked fish at all? About one study in fourteen. Then the formula divides by zero. | P(k = 0) = 7.2%; an estimate flies off the edge | red |  |
+| 07_7 | Douglas Chapman's fix: add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. It never divides by zero, and on average it's nearly exact once you expect a few fish caught twice. | `(M+1)(n+1)/(k+1) − 1`; small-study means: Chapman ≈ 935 (−6.5%) vs the plain formula, among studies that caught any, ≈ 1,241 (+24%) | TransformMatchingTex | hold |
 
 - **Precisely (lower-third at 07_7):** "E[N̂_C] = N − (N+1)·C(N−M, n+1)/C(N+1,
   n+1): exactly unbiased when M + n ≥ N; −1.1% at E[k] ≈ 4." Proof: absorption
@@ -188,17 +192,17 @@ Estimated **85 s**, plan ~85 s; 7 lines.
 
 ## 08_how_sure: Turning it around again (~85 s)
 
-Estimated **93 s**, plan ~85 s; 7 lines.
+Estimated **83 s**, plan ~85 s; 7 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | We knew the lake and watched the estimates scatter. Now turn it around, like before. We don't know the lake. Which sizes could plausibly have given us a hundred? | Score curve for Feller's numbers (relative to its top) | Axes + `c2p`, FunctionGraph |  |
-| 08_2 | Could the lake hold only nineteen hundred fish? Then our two catches would be every fish in it, and a catch like ours would have a chance of about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen | scrolling digits |  |
-| 08_3 | A million fish? Then one fish in a thousand is marked. We'd expect to catch about one marked fish, not a hundred. | Marker far right | — |  |
-| 08_4 | Even at the best size, catching exactly a hundred had only about a four percent chance. ⟨predict⟩ Is that a problem? Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet fifty is the most likely count. | Coin inset: P(50 of 100) = 7.96% | inset histogram |  |
-| 08_5 | Here's a ring toss. Build a range around each study's estimate in a careful way, and it lands around the true size at least ninety-five times in a hundred, whatever the true size is. | Twenty stacked ranges from the 07 simulation; one misses; then the name **confidence interval** | interval stack, then name |  |
-| 08_6 | For Feller's catch, that range runs from about eighty-four hundred to about twelve thousand one hundred. Lopsided, for the reason we just saw. | [8,400, 12,073] shaded; callback to 07's bent histogram | shading |  |
-| 08_7 | What makes it tight? Mostly, catching marked fish again. Catch four times as many and the range halves. Catching a big share of the lake helps a little too. Catch every fish and no doubt is left. | Slider on k; the range shrinks; relative error ≈ √((1 − M/N)(1 − n/N)/k) ≈ 9% | tracker-driven interval | hold |
+| 08_1 | We knew the lake and watched the estimates scatter. Now turn it around: we don't know the lake. Which sizes could plausibly have given us our hundred? | Score curve for Feller's numbers (relative to its top) | Axes + `c2p`, FunctionGraph |  |
+| 08_2 | Only nineteen hundred fish? Then we caught every fish in it, and a catch like ours has a chance of about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen | scrolling digits |  |
+| 08_3 | A million fish? Then we'd expect to catch about one marked fish, not a hundred. | Marker far right | — |  |
+| 08_4 | Even at the best size, catching exactly a hundred had only about a four percent chance. ⟨predict⟩ Is that a problem? Flip a hundred coins: exactly fifty heads happens only about eight percent of the time, yet it's the most likely count. | Coin inset: P(50 of 100) = 7.96% | inset histogram |  |
+| 08_5 | Here's a ring toss. Build a range around each study's estimate, the careful way, and it rings the true size at least ninety-five times in a hundred, whatever that size is. | Twenty stacked ranges from the 07 simulation; one misses; then the name **confidence interval** | interval stack, then name |  |
+| 08_6 | For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred: lopsided, for the reason we saw. | [8,400, 12,073] shaded; callback to 07's bent histogram | shading |  |
+| 08_7 | What makes it tight? Mostly, catching marked fish again: four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt. | Slider on k; the range shrinks; relative error ≈ √((1 − M/N)(1 − n/N)/k) ≈ 9% | tracker-driven interval | hold |
 
 - **Precisely:** "exact test inversion, [8,400, 12,073]; coverage ≥ 95% at
   every N"; Feller's own "8,500 to 12,000" (normal approximation) is a ≈93.6%
@@ -239,16 +243,16 @@ Estimated **75 s**, plan ~80 s; 8 lines.
 
 ## 10_the_dark_cell_everywhere (~85 s)
 
-Estimated **89 s**, plan ~85 s; 7 lines.
+Estimated **84 s**, plan ~85 s; 7 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 10_1 | The same table counted France. Every birth was registered, so Laplace treated each newborn as a marked fish. | Stylized outline of France; births as marks | outline asset |  |
 | 10_2 | In selected towns he counted everyone. About two million people, about seventy-two thousand births a year. One birth per twenty-eight people. Taking France's births as about a million a year, that's about twenty-eight point four million people. | The same template: births = marked, people counted = catch, births among them = caught twice | template morph |  |
-| 10_3 | He even gave odds. Almost three hundred thousand to one that he was within half a million. | Odds card | — |  |
-| 10_4 | *(for programmers)* It counts bugs. Two reviewers read the same code separately, without seeing each other's notes. One finds thirty, the other twenty-four, and twelve are the same. Together they found forty-two. The estimate is sixty, so about eighteen are still hiding. | Two lists; Venn; the 2×2 table again | Venn via boolean ops |  |
-| 10_5 | But twelve overlaps isn't much. An honest range is about forty-seven to ninety-four, so somewhere between five and fifty-two are hiding. And bugs that are easy for everyone make it a floor. That's the bold-fish problem again. | Range bar; callback to 09_3 | callback |  |
-| 10_6 | And it has counted the dead. During the war in Kosovo, in nineteen ninety-nine, about four thousand four hundred victims were named across several lists. The overlaps between lists estimated about ten thousand four hundred. Years later a full count found nine thousand seven hundred ninety, inside the estimate's range. | Sober typography only; numbers; the range 9,002–12,122; a four-list table with sixteen cells, one dark | quiet card, **silence** under the numbers | hold |
+| 10_3 | *(silent: Laplace's odds as a lower-third, "almost 300000 against 1" that he was within half a million, verbatim from the Essai)* | Odds card | — |  |
+| 10_4 | *(for programmers)* It counts bugs. Two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. ⟨predict⟩ How many are still hiding? Thirty times twenty-four over twelve is sixty. They found forty-two, so about eighteen. | Two lists; Venn; the 2×2 table again | Venn via boolean ops |  |
+| 10_5 | But twelve is a small overlap: an honest range is forty-seven to ninety-four bugs in all. And bugs that are easy for everyone swell the overlap and pull the estimate down. The bold-fish problem again. | Range bar; callback to 09_3 | callback |  |
+| 10_6 | And it has counted the dead. In the Kosovo war of nineteen ninety-nine, about four thousand four hundred victims were named on several lists. Their overlaps estimated about ten thousand four hundred. Years later, a full count found nine thousand seven hundred ninety, inside the estimate's range. | Sober typography only; numbers; the range 9,002–12,122; a four-list table with sixteen cells, one dark | quiet card, **silence** under the numbers | hold |
 | 10_7 | France, the bugs, Kosovo. Each is the same table, with one cell nobody can see, filled in by the cells we can. | Final lake; the table; motif resolves | coda; receipts card ("every number in this video was computed by code: link") |  |
 
 - **Ruth:** Laplace's sample: thirty départements spread evenly over France,
@@ -270,7 +274,7 @@ Estimated **89 s**, plan ~85 s; 7 lines.
 
 ## Totals and checks
 
-Estimated total: **12.6 min** over 10 chapters.
+Estimated total: **12.3 min** over 10 chapters.
 
 Showcase checklist (the skill's, ticked with the beats that use each device):
 
@@ -284,12 +288,4 @@ Showcase checklist (the skill's, ticked with the beats that use each device):
 - [x] tables and grids built from primitives: 01_2, 01_5, 02_5, 03_6, 06_5, 07_1, 09_1, 09_3 …
 - [x] the camera route (3D, orbits): 05_7
 
-Checks (G2): 
-- capture_recapture 01_hook: no prediction pause
-- capture_recapture 03_why_the_marks_spread: no prediction pause
-- capture_recapture 06_the_table_balances: estimated 90.0 s > 85 s
-- capture_recapture 07_check_it_by_cheating: estimated 85.1 s > 85 s
-- capture_recapture 07_check_it_by_cheating: no prediction pause
-- capture_recapture 08_how_sure: estimated 93.0 s > 85 s
-- capture_recapture 10_the_dark_cell_everywhere: estimated 89.2 s > 85 s
-- capture_recapture 10_the_dark_cell_everywhere: no prediction pause
+Checks (G2): none failed.

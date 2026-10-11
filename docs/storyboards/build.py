@@ -93,6 +93,13 @@ def build(slug, title, sec):
     out.append("Length estimates: draft words at 2.68 words/s (Hoeffding's measured rate) + 0.6 s per line + 2 s per ⟨predict⟩ + holds (2.5 s) and listen windows. "
                "The 85 s cap is plan D-05's pacing rule; the raw-output limit that first motivated it no longer binds (the kit allows ~369 s of 4K60).\n")
     out.append("\n".join(intro).replace(f"### {sec}.", "## ") + "\n")
+    # the vocabulary (one word per idea, plan rule 21) from the brief's Words row
+    brief = section(lines, f"### {sec}.1", f"### {sec}.2")
+    vocab = next((l for l in brief if l.startswith("| Words")), None)
+    if vocab is None:
+        problems.append(f"{slug}: no Words row in plan §{sec}.1 (the vocabulary)")
+    else:
+        out.append("## Vocabulary (one word per idea)\n\n" + vocab.strip().strip("|").split(" | ", 1)[1].strip() + "\n")
     total = 0.0
     showcase = {name: [] for name, _ in SHOWCASE}
     for ch in chapters:

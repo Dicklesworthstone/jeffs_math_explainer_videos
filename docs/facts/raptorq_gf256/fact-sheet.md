@@ -200,10 +200,10 @@ that the oracle's computations contradict or qualify.
    are correct exact values. Suggested fix: "0.39215%", or "0.392%".
 3. **§10.4 06, "For programmers" (plan line 1768):** "with generator 2 under AES's polynomial". 2 is not a generator
    under 0x11B; see open item 2. The count 51 is right.
-4. **§10.4 03_7 (plan line 1687):** "Two spares still fail one time in four … a quarter of a million stuck". The exact
+4. **§10.4 04_1 (was 03_7 before the G2 split):** "Two spares still fail one time in four … a quarter of a million stuck". The exact
    value is 22.99%, i.e. 229,898 of 10⁶ (`B-F28.phones_stuck_of_1e6_at_h2`). That is about 1 in 4.35. Acceptable as
-   rounding; "about one in four" or "nearly a quarter" would be more exact.
-5. **§10.4 10_3:** "for every block size". The RFC says "for all values of K′ in Table 2". The Ruth note under 10
+   rounding; "about one in four" or "nearly a quarter" would be more exact. Applied at the G2 pass: "nearly one time in four", "almost a quarter of a million".
+5. **§10.4 11_3 (was 10_3):** "for every block size". The RFC says "for all values of K′ in Table 2". The Ruth note under 11
    already covers this (the requirement applies at the padded K′).
 
 ## Reproducibility notes for the Rust `facts` binary (gate G1)

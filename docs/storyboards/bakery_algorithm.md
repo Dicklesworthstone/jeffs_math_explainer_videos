@@ -11,7 +11,7 @@ Length estimates: draft words at 2.68 words/s (Hoeffding's measured rate) + 0.6 
 | I. The problem | 01 one plus one is one, 02 the room | a step is a read then a write; check-then-set fails; Dijkstra's problem and Knuth's addition; the harder question |
 | II. Building the bakery | 03 take a number, 04 same number, 05 the unwritten ticket, 06 one run | slates and tickets; ties → (ticket, name); unwritten tickets → the flag |
 | III. Why it works | 07 the proof, 08 garbage | three places a customer can be; the proof never trusts a read that overlaps a write |
-| IV. Costs and legacy | 09 fair at a price, 10 your CPU | FCFS, unbounded tickets, costs; outboxes and fences; clocks and Paxos |
+| IV. Costs and legacy | 09 fair at a price, 10 your CPU, 11 out of thin air | FCFS, unbounded tickets, costs; outboxes and fences; clocks and Paxos |
 
 ## 3 Color roles
 
@@ -25,6 +25,10 @@ Length estimates: draft words at 2.68 words/s (Hoeffding's measured rate) + 0.6 
 | garbage reads (overlapping a write) | flickering magenta |
 | store buffers ("outboxes") / hardware | cool grey |
 
+
+## Vocabulary (one word per idea)
+
+"customer" (lower-third "process"), "the room" (named "critical section" once), "order" (lower-third: counting each read, write and successful wait as one step), "slate" (register), "flag" (choosing), "ticket"
 
 ## 01_one_plus_one_is_one (~75 s)
 
@@ -48,13 +52,13 @@ Estimated **82 s**, plan ~75 s; 8 lines.
 
 ## 02_the_room (~80 s)
 
-Estimated **68 s**, plan ~80 s; 6 lines.
+Estimated **72 s**, plan ~80 s; 6 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 02_1 | The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room. Computer scientists say critical section, and the rule is called mutual exclusion. | A room around the scoreboard | room prop |  |
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, go in. | Sign | — |  |
-| 02_3 | Same problem. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square |  |
+| 02_3 | ⟨predict⟩ Does the sign work? Same problem. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square |  |
 | 02_4 | Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who wanders off outside can't block everyone. And fast or slow, it still works. A year later Donald Knuth added one more. Everyone who wants in gets in eventually. | Rule cards | statement cards |  |
 | 02_5 | Hardware usually cheats with a magic sign you can check and flip in one motion. Dijkstra showed an ordinary sign is enough, if nobody can ever catch it halfway through a flip. | Magic sign vs ordinary sign | — |  |
 | 02_6 | Here's the harder question. What if a glance can catch the sign mid-flip, as a blur? Hold that thought. | Sign blurs | flicker | hold |
@@ -98,7 +102,7 @@ Estimated **48 s**, plan ~75 s; 5 lines.
 
 ## 05_the_unwritten_ticket (~85 s)
 
-Estimated **79 s**, plan ~85 s; 7 lines.
+Estimated **83 s**, plan ~85 s; 7 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -106,9 +110,9 @@ Estimated **79 s**, plan ~85 s; 7 lines.
 | 05_2 | Customer two takes ticket one, checks customer one's slate, sees zero, which means not in line, and walks in. | Customer 2 enters | — |  |
 | 05_3 | Then customer one writes her one, sees a tie, wins it on her name, and walks in too. Both in the room. | Both inside; two motifs clash | 8-step trace (a) | listen 3 s (two motifs at once = the bug) |
 | 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, lower it after writing your ticket. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |
-| 05_5 | Same unlucky order, now with flags. Customer two sees customer one's flag up, and waits. | Scheduler slider replays the order with flags (15 steps) | toggle replay |  |
+| 05_5 | Same unlucky order, now with flags. ⟨predict⟩ What does customer two do this time? She sees customer one's flag up, and waits. | Scheduler slider replays the order with flags (15 steps) | toggle replay |  |
 | 05_6 | With two customers and one visit each, the version without flags has twenty-eight possible orders, and four of them put both in the room. With flags, three hundred twenty-two orders, and not one does. | Progress-square paths: 28 (4 through the red square) morph to 322 (none) | **path-set morph (S-6)** |  |
-| 05_7 | The stretch between raising and lowering the flag is called the doorway. You can't close the gap between looking and writing. Lamport didn't try. He made the gap visible with the flag, and made every race harmless with the tie-breaker. | Doorway shading on the lanes; thesis card | statement card | hold |
+| 05_7 | The stretch between raising and lowering the flag is called the doorway. Lamport didn't try to close the gap between looking and writing. He made it visible with the flag, and made every race harmless with the tie-breaker. | Doorway shading on the lanes; thesis card | statement card | hold |
 
 - **Engine note:** blocked moves depend on history, so draw paths, not static
   walls. Optional 3D set piece (camera route, spike): for three customers the
@@ -151,17 +155,16 @@ Estimated **76 s**, plan ~85 s; 7 lines.
 
 ## 08_reading_garbage_safely (~85 s)
 
-Estimated **93 s**, plan ~85 s; 7 lines.
+Estimated **82 s**, plan ~85 s; 6 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero. Lamport went further. Assume a glance during a write can return anything at all. | Two-digit rewrite; then wild values | flicker |  |
+| 08_1 | Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero. Lamport went further: a glance during a write may return anything at all. | Two-digit rewrite; then wild values | flicker |  |
 | 08_2 | He called memory like that safe. A funny name, since it's the least safe kind. | "safe" card; atomic and regular on screen for Ruth | register zoo (screen) |  |
-| 08_3 | Go back to the proof picture, and let every slate flicker while it's written. Every glance that crosses a write turns magenta. | 07's zones; magenta reads | **overlay on the proof zones** |  |
-| 08_4 | Every magenta glance lands in the first case, where the proof never used the value. In the last case, the ticket was finished and nobody was touching it. Every read the proof trusts happens while nothing is being written. | Zone (a) shaded "value unused" | zones |  |
-| 08_5 | Here a customer glances mid-write, gets seven, garbage, and takes eight. That only makes her later. Here a read in the middle of a write still sees the old zero, and lets a customer straight in. But the other customer is writing a brand-new ticket, so she started choosing after the first one finished. Fact one: her ticket will be bigger, so she waits. | Traces e1 and e3 | traces |  |
-| 08_6 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. A colleague, Anatol Holt, refused to believe it. | Verbatim quote card (1974) | quote card |  |
-| 08_7 | One caution, from Lamport himself. Read each slate exactly once when finding the biggest. Read one twice, and with three or more customers and garbage reads, it breaks. | Double-fetch trace (33 steps) | trace | hold |
+| 08_3 | Go back to the proof picture, and let every slate flicker while it's written. Every glance that crosses a write turns magenta. ⟨predict⟩ Where do the magenta glances land? | 07's zones; magenta reads | **overlay on the proof zones** |  |
+| 08_4 | All in the first case, where the proof never used the value. In the last case, the ticket was finished and nobody was touching it. Every read the proof trusts happens while nothing is being written. | Zone (a) shaded "value unused" | zones |  |
+| 08_5 | A glance mid-write that returns garbage, say seven, just makes a customer take eight and wait longer. A glance that catches the old zero mid-write lets her straight in. But the writer is taking a brand-new ticket, so she started choosing after the reader finished. By fact one, her ticket will be bigger, so she waits. | Traces e1 and e3 | traces |  |
+| 08_6 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. A colleague, Anatol Holt, refused to believe it. | Verbatim quote card (1974) | quote card | hold |
 
 - **Ruth:** safe / regular / atomic per "On Interprocess Communication" (1986);
   the safe-register model check (N ≤ 3; 269,550 states at tickets ≤ 6, zero
@@ -173,15 +176,16 @@ Estimated **93 s**, plan ~85 s; 7 lines.
 
 ## 09_fair_at_a_price (~75 s)
 
-Estimated **52 s**, plan ~75 s; 5 lines.
+Estimated **65 s**, plan ~75 s; 6 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 09_1 | It's also fair. Finish taking your ticket before I start taking mine, and you're served first. Counted from when you finish choosing, not from when you walked up. If our doorways overlap, either of us may go first. | FCFS on the lanes | — |  |
 | 09_2 | So nobody waits forever, as long as everyone in the room eventually leaves and nobody dies in the doorway. Each other customer can get ahead of you at most once. | Bounded bypass | — |  |
 | 09_3 | The price: tickets keep growing as long as somebody is always in line. They reset only when the bakery empties. | Odometer 1, 2, 3, 4, 5, 6 | odometer |  |
-| 09_4 | Lamport did the sum. At one customer a millisecond, after a year the tickets are still below about thirty-four billion, two to the thirty-five. That fits easily in an ordinary computer number. | 31,557,600,000 < 34,359,738,368 | arithmetic card |  |
-| 09_5 | *(for programmers)* And it isn't cheap. | Costs card: N fixed in advance; 3(N−1) slate reads per entry even alone; spinning; a customer paused mid-doorway stalls everyone; one that dies with its flag up deadlocks everyone; slates sharing a cache line ping-pong (pad each); 2N shared variables, half unbounded, while any read/write lock needs at least N (Burns–Lynch) | card | hold |
+| 09_4 | ⟨predict⟩ Could tickets outgrow an ordinary computer number? Lamport did the sum. At one customer a millisecond, after a year they're still below about thirty-four billion, two to the thirty-five. That fits easily. | 31,557,600,000 < 34,359,738,368 | arithmetic card |  |
+| 09_5 | *(for programmers)* And it isn't cheap. | Costs card: N fixed in advance; 3(N−1) slate reads per entry even alone; spinning; a customer paused mid-doorway stalls everyone; one that dies with its flag up deadlocks everyone; slates sharing a cache line ping-pong (pad each); 2N shared variables, half unbounded, while any read/write lock needs at least N (Burns–Lynch) | card |  |
+| 09_6 | One more caution, from Lamport himself. Read each slate exactly once when finding the biggest. Read one twice, and with three or more customers and garbage reads, it breaks. | Double-fetch trace (33 steps) | trace | hold |
 
 - **Precisely:** "if i finishes its doorway before k starts its doorway, i
   enters first"; the 2³⁵ bound assumes "a read of number[i] can never obtain a
@@ -190,17 +194,14 @@ Estimated **52 s**, plan ~75 s; 5 lines.
 
 ## 10_your_cpu (~85 s)
 
-Estimated **102 s**, plan ~85 s; 7 lines.
+Estimated **68 s**, plan ~85 s; 4 lines.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 10_1 | The proof is right. But run this on your laptop as written, and it can fail, because your laptop breaks one of the proof's promises. | The proof's promises from 07 as a short list; one ("a write is seen in order") flickers and breaks over a CPU outline | promise list |  |
-| 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. They read the other slates, see no flags, and walk in. Main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
-| 10_3 | That's not the cache. Caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before you read anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — |  |
-| 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel |  |
-| 10_5 | In practice people use the hardware's atomic instructions. But the bakery lock still ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card |  |
-| 10_6 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback |  |
-| 10_7 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card |  |
+| 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. ⟨predict⟩ Then each reads the other's slate. What does it see? No flag. Both walk in, while main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
+| 10_3 | That's not the cache; caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — |  |
+| 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | hold |
 
 - **Honest data:** "it can fail" is backed by the TSO model (12-step trace).
   A real-hardware experiment (Relaxed atomics on this Mac and on an x86 host,
@@ -209,6 +210,17 @@ Estimated **102 s**, plan ~85 s; 7 lines.
 - **Ruth:** "two fences per customer on x86" is the TSO model result for N ≤ 3
   (bounded), consistent with Abdulla et al. (TACAS 2012); "reappears" rather
   than "became" for the clock lineage (CHM p. 9 supports the counter link).
+
+## 11_out_of_thin_air (~45 s)
+
+Estimated **44 s**, plan ~45 s; 3 lines.
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | In practice people use the hardware's atomic instructions. ⟨predict⟩ So does the bakery lock still run anywhere? It ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card |  |
+| 11_2 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback |  |
+| 11_3 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card |  |
+
 - **Quotes (verbatim):** "I feel that I did not invent the bakery algorithm, I
   discovered it." (publications page); "the bakery algorithm, it just seemed to
   come out of thin air to me … perhaps that's why I'm proudest of it" (CHM oral
@@ -216,7 +228,7 @@ Estimated **102 s**, plan ~85 s; 7 lines.
 
 ## Totals and checks
 
-Estimated total: **11.5 min** over 10 chapters.
+Estimated total: **11.8 min** over 11 chapters.
 
 Showcase checklist (the skill's, ticked with the beats that use each device):
 
@@ -227,14 +239,7 @@ Showcase checklist (the skill's, ticked with the beats that use each device):
 - [ ] lagged group reveals
 - [x] highlights (`indicate`, surrounding boxes, flashes, glow): 03_6, 10_2
 - [x] sound that teaches (listen windows, the score engine): 05_3, 07_7, 10_2
-- [x] tables and grids built from primitives: 01_6, 04_5, 06_1, 06_4, 10_6
+- [x] tables and grids built from primitives: 01_6, 04_5, 06_1, 06_4, 11_2
 - [ ] the camera route (3D, orbits)
 
-Checks (G2): 
-- bakery_algorithm 02_the_room: no prediction pause
-- bakery_algorithm 05_the_unwritten_ticket: no prediction pause
-- bakery_algorithm 08_reading_garbage_safely: estimated 93.3 s > 85 s
-- bakery_algorithm 08_reading_garbage_safely: no prediction pause
-- bakery_algorithm 09_fair_at_a_price: no prediction pause
-- bakery_algorithm 10_your_cpu: estimated 102.3 s > 85 s
-- bakery_algorithm 10_your_cpu: no prediction pause
+Checks (G2): none failed.

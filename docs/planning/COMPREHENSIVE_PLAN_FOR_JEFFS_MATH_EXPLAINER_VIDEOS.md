@@ -1311,7 +1311,7 @@ chapter has one or two.
 | 01_3 | We can say there are about eight thousand one hundred of them, and we can say how sure we are. | The dark cell fills with "≈ 8,100" | live number | listen 2 s (motif, unresolved) |
 | 01_4 | *(title)* | **How to Count Fish You've Never Seen** | title card | hold |
 | 01_5 | Why not just count one patch and scale up? This net covers one hundredth of the lake. Four hundred and fifty-one fish, times a hundred, is forty-five thousand one hundred. *(the deep-end spot of the seeded lake, A-F27)* | A net drops; a 10×10 grid with one square lit; the arithmetic | net sweep, live count | |
-| 01_6 | Try two other spots, and you get wildly different answers. Fish crowd into weeds and the deep end, and avoid open water. A net can't tell you how much of the lake it really searched. | Three estimates on a plain number line spanning ≥ 30× (one P1 number used everywhere); a density heat map fades in; a "real answer: ?" box | heat map, `indicate` | |
+| 01_6 | ⟨predict⟩ Try two other spots. Same answer? Not even close. Fish crowd into weeds and the deep end, and avoid open water. A net can't tell you how much of the lake it really searched. | Three estimates on a plain number line spanning ≥ 30× (one P1 number used everywhere); a density heat map fades in; a "real answer: ?" box | heat map, `indicate` | |
 
 - **Personas.** Maya: the table is a puzzle she can see; the patch arithmetic
   is shown. Dev: sampling bias in one picture. Ruth: the claim is not that
@@ -1345,7 +1345,7 @@ chapter has one or two.
 | 03_1 | Think about tasting soup. Stir it, and one spoonful tells you how salty the whole pot is. | Stirred-pot icon | icon | |
 | 03_2 | We built this lake, so we can peek. The fisher can't. | Label "only we can see this"; god's-eye view | label | |
 | 03_3 | Here's a crowded patch. Fifty fish, five marked. Here's a sparse one. Ten fish, one marked. Both one in ten. | Zoom into two patches with counts | zoom (group scaling) | |
-| 03_4 | Watch the marked fish swim. The fish stay crowded where they like to be. But the marks spread out evenly among them. | Split view, titled in words: left "how many fish" (stays clumpy), right "what fraction is marked" (starts hot at the dock, flattens to ≈10%); fish circle their favourite haunts along the habitat's contour lines | **habitat-potential dynamics; contour streamlines; maps from a large simulated population on 3×3 regions, recoloured in place** | listen 3 s (proportion rhythm) |
+| 03_4 | Watch the marked fish swim. ⟨predict⟩ Will the marks stay bunched up where we let them go? The fish stay crowded where they like to be. But the marks spread out evenly among them. | Split view, titled in words: left "how many fish" (stays clumpy), right "what fraction is marked" (starts hot at the dock, flattens to ≈10%); fish circle their favourite haunts along the habitat's contour lines | **habitat-potential dynamics; contour streamlines; maps from a large simulated population on 3×3 regions, recoloured in place** | listen 3 s (proportion rhythm) |
 | 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake. | Several nets; each tray's marked fraction jitters near 10% | repeated small catches | |
 | 03_6 | That's what makes the table fair. Mixing makes the two catches independent, so the overlap tells the truth. | Table returns; "independent catches" label | callback | hold |
 
@@ -1406,14 +1406,14 @@ chapter has one or two.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 06_1 | Feller found the top score without drawing anything. Compare each lake size with the one just below it. When does the score still go up? | Two adjacent bars on a seesaw | seesaw prop | |
+| 06_1 | Feller found the top score without drawing anything. Compare each lake size with the one just below it: is the score still going up? | Two adjacent bars on a seesaw | seesaw prop | |
 | 06_2 | Most of the counting cancels, and the comparison comes down to this. | The ratio as a two-second lower-third: `L(N)/L(N−1) = (N−M)(N−n) / (N(N−M−n+k))` ("the cancelling is in the description") | lower-third | |
 | 06_3 | ⟨predict⟩ Multiply out the top and the bottom. What survives? | `(N−M)(N−n)` and `N(N−M−n+k)` expand; matching terms strike through in pairs (drawn strike lines) | **term-by-term cancellation** | |
-| 06_4 | M times n, minus k times N. If that's positive, the score is still rising. In our small lake, ten times ten is a hundred. Three times thirty-three is ninety-nine: still rising. Three times thirty-four is a hundred and two: falling. The top is thirty-three. | `Mn − kN` with live numbers | live arithmetic | |
-| 06_5 | Now write it with the table's four cells. It becomes the marked-only fish times the caught-only fish, minus the overlap times the dark cell. | `Mn − kN = ab − k·u`; the table's two diagonals glow | **TransformMatchingTex onto the table** | |
-| 06_6 | So the score keeps climbing as fish are added to the dark cell, until overlap times dark cell catches up with the two side cells. Nine hundred times nine hundred, over a hundred. Eight thousand one hundred. | Seesaw pans k·u and a·b; the dark-cell counter ticks up to 8,100; the beam levels | seesaw + counter | listen 2 s (motif resolves) |
+| 06_4 | Marked times caught, minus caught twice times the lake size. While that's positive, the score is still rising. In our small lake, ten times ten is a hundred, and three times thirty-three is ninety-nine: still rising. Three times thirty-four is a hundred and two: falling. The top is thirty-three. | `Mn − kN` with live numbers | live arithmetic | |
+| 06_5 | In the table's four cells, it becomes marked-only times caught-only, minus overlap times the dark cell. | `Mn − kN = ab − k·u`; the table's two diagonals glow | **TransformMatchingTex onto the table** | |
+| 06_6 | So the score climbs as fish go into the dark cell, until overlap times dark cell catches up with the two side cells. Nine hundred times nine hundred, over a hundred: eight thousand one hundred. | Seesaw pans k·u and a·b; the dark-cell counter ticks up to 8,100; the beam levels | seesaw + counter | listen 2 s (motif resolves) |
 | 06_7 | That balance is exactly what two independent catches look like. The careful argument and the soup argument are the same argument. | Cards merge | statement card | |
-| 06_8 | At Feller's numbers the two sides are a million and a million. Perfectly level. A lake of nine thousand nine hundred ninety-nine and a lake of ten thousand tie for the top score. Feller just says ten thousand. | Level beam; the eight-digit fractions only in a lower-third | live fraction | hold |
+| 06_8 | At Feller's numbers the beam is perfectly level, so lakes of nine thousand nine hundred ninety-nine and ten thousand tie for the top score. Feller just says ten thousand. | Level beam; the eight-digit fractions only in a lower-third | live fraction | hold |
 
 - **Precisely (lower-third):** "MLE = ⌊Mn/k⌋; a tie with Mn/k − 1 when Mn/k is a
   whole number and k < min(M, n); none when k = 0. Equivalently, the best dark
@@ -1426,13 +1426,13 @@ chapter has one or two.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | Let's check all this by cheating. Build a lake where we know the answer, ten thousand fish, and run Feller's experiment ten thousand times. | 100 × 100 grid of tiny lakes flashing their estimates | **10,000 cells as 100 row VMobjects recoloured in place** | listen 3 s (trial rain at the pitch of k) |
+| 07_1 | Let's check this by cheating. Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times. | 100 × 100 grid of tiny lakes flashing their estimates | **10,000 cells as 100 row VMobjects recoloured in place** | listen 3 s (trial rain at the pitch of k) |
 | 07_2 | The counts of fish caught twice pile up in a bell around a hundred. | Histogram of k (mean 100, SD 9.0) | histogram prop | |
 | 07_3 | But the estimate divides by that count, and dividing bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many. | The k-bell's bars travel along the hyperbola N = Mn/k (the crest curve from 05) and stretch into a right-skewed histogram | **bars along a curve** | |
 | 07_4 | Ninety-five percent of estimates land between about eighty-five hundred and twelve thousand. Their average is about ten thousand and eighty, a little high. | Quantiles 8,475 / 10,000 / 12,048; mean ≈ 10,080 | live stats | |
-| 07_5 | *(for programmers)* Two lines of code, and the simulation agrees with the exact calculation. Test your simulation against something you can compute. | Code panel: `k = rng.hypergeometric(M, N-M, n, size=10_000)`, `est = M*n/k` | code panel slides in | |
-| 07_6 | With a smaller study it gets worse. In a lake of a thousand, marking and catching fifty, about one study in fourteen catches no marked fish at all. Then the formula asks you to divide by zero. | P(k = 0) = 7.2%; an estimate flies off the edge | red | |
-| 07_7 | Douglas Chapman's fix: add one to each count, and subtract one at the end. It's as if one imaginary fish had been caught both times. It never divides by zero, and on average it's almost exactly right once you expect a few fish caught twice. | `(M+1)(n+1)/(k+1) − 1`; small-study means: Chapman ≈ 935 (−6.5%) vs the plain formula, among studies that caught any, ≈ 1,241 (+24%) | TransformMatchingTex | hold |
+| 07_5 | *(for programmers)* Two lines of code. Always check a simulation against something you can compute exactly. | Code panel: `k = rng.hypergeometric(M, N-M, n, size=10_000)`, `est = M*n/k` | code panel slides in | |
+| 07_6 | With a smaller study it gets worse. In a lake of a thousand, marking and catching fifty: ⟨predict⟩ how often does the second catch hold no marked fish at all? About one study in fourteen. Then the formula divides by zero. | P(k = 0) = 7.2%; an estimate flies off the edge | red | |
+| 07_7 | Douglas Chapman's fix: add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. It never divides by zero, and on average it's nearly exact once you expect a few fish caught twice. | `(M+1)(n+1)/(k+1) − 1`; small-study means: Chapman ≈ 935 (−6.5%) vs the plain formula, among studies that caught any, ≈ 1,241 (+24%) | TransformMatchingTex | hold |
 
 - **Precisely (lower-third at 07_7):** "E[N̂_C] = N − (N+1)·C(N−M, n+1)/C(N+1,
   n+1): exactly unbiased when M + n ≥ N; −1.1% at E[k] ≈ 4." Proof: absorption
@@ -1448,13 +1448,13 @@ chapter has one or two.
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | We knew the lake and watched the estimates scatter. Now turn it around, like before. We don't know the lake. Which sizes could plausibly have given us a hundred? | Score curve for Feller's numbers (relative to its top) | Axes + `c2p`, FunctionGraph | |
-| 08_2 | Could the lake hold only nineteen hundred fish? Then our two catches would be every fish in it, and a catch like ours would have a chance of about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen | scrolling digits | |
-| 08_3 | A million fish? Then one fish in a thousand is marked. We'd expect to catch about one marked fish, not a hundred. | Marker far right | — | |
-| 08_4 | Even at the best size, catching exactly a hundred had only about a four percent chance. ⟨predict⟩ Is that a problem? Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet fifty is the most likely count. | Coin inset: P(50 of 100) = 7.96% | inset histogram | |
-| 08_5 | Here's a ring toss. Build a range around each study's estimate in a careful way, and it lands around the true size at least ninety-five times in a hundred, whatever the true size is. | Twenty stacked ranges from the 07 simulation; one misses; then the name **confidence interval** | interval stack, then name | |
-| 08_6 | For Feller's catch, that range runs from about eighty-four hundred to about twelve thousand one hundred. Lopsided, for the reason we just saw. | [8,400, 12,073] shaded; callback to 07's bent histogram | shading | |
-| 08_7 | What makes it tight? Mostly, catching marked fish again. Catch four times as many and the range halves. Catching a big share of the lake helps a little too. Catch every fish and no doubt is left. | Slider on k; the range shrinks; relative error ≈ √((1 − M/N)(1 − n/N)/k) ≈ 9% | tracker-driven interval | hold |
+| 08_1 | We knew the lake and watched the estimates scatter. Now turn it around: we don't know the lake. Which sizes could plausibly have given us our hundred? | Score curve for Feller's numbers (relative to its top) | Axes + `c2p`, FunctionGraph | |
+| 08_2 | Only nineteen hundred fish? Then we caught every fish in it, and a catch like ours has a chance of about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen | scrolling digits | |
+| 08_3 | A million fish? Then we'd expect to catch about one marked fish, not a hundred. | Marker far right | — | |
+| 08_4 | Even at the best size, catching exactly a hundred had only about a four percent chance. ⟨predict⟩ Is that a problem? Flip a hundred coins: exactly fifty heads happens only about eight percent of the time, yet it's the most likely count. | Coin inset: P(50 of 100) = 7.96% | inset histogram | |
+| 08_5 | Here's a ring toss. Build a range around each study's estimate, the careful way, and it rings the true size at least ninety-five times in a hundred, whatever that size is. | Twenty stacked ranges from the 07 simulation; one misses; then the name **confidence interval** | interval stack, then name | |
+| 08_6 | For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred: lopsided, for the reason we saw. | [8,400, 12,073] shaded; callback to 07's bent histogram | shading | |
+| 08_7 | What makes it tight? Mostly, catching marked fish again: four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt. | Slider on k; the range shrinks; relative error ≈ √((1 − M/N)(1 − n/N)/k) ≈ 9% | tracker-driven interval | hold |
 
 - **Precisely:** "exact test inversion, [8,400, 12,073]; coverage ≥ 95% at
   every N"; Feller's own "8,500 to 12,000" (normal approximation) is a ≈93.6%
@@ -1497,10 +1497,10 @@ chapter has one or two.
 |---|---|---|---|---|
 | 10_1 | The same table counted France. Every birth was registered, so Laplace treated each newborn as a marked fish. | Stylized outline of France; births as marks | outline asset | |
 | 10_2 | In selected towns he counted everyone. About two million people, about seventy-two thousand births a year. One birth per twenty-eight people. Taking France's births as about a million a year, that's about twenty-eight point four million people. | The same template: births = marked, people counted = catch, births among them = caught twice | template morph | |
-| 10_3 | He even gave odds. Almost three hundred thousand to one that he was within half a million. | Odds card | — | |
-| 10_4 | *(for programmers)* It counts bugs. Two reviewers read the same code separately, without seeing each other's notes. One finds thirty, the other twenty-four, and twelve are the same. Together they found forty-two. The estimate is sixty, so about eighteen are still hiding. | Two lists; Venn; the 2×2 table again | Venn via boolean ops | |
-| 10_5 | But twelve overlaps isn't much. An honest range is about forty-seven to ninety-four, so somewhere between five and fifty-two are hiding. And bugs that are easy for everyone make it a floor. That's the bold-fish problem again. | Range bar; callback to 09_3 | callback | |
-| 10_6 | And it has counted the dead. During the war in Kosovo, in nineteen ninety-nine, about four thousand four hundred victims were named across several lists. The overlaps between lists estimated about ten thousand four hundred. Years later a full count found nine thousand seven hundred ninety, inside the estimate's range. | Sober typography only; numbers; the range 9,002–12,122; a four-list table with sixteen cells, one dark | quiet card, **silence** under the numbers | hold |
+| 10_3 | *(silent: Laplace's odds as a lower-third, "almost 300000 against 1" that he was within half a million, verbatim from the Essai)* | Odds card | — | |
+| 10_4 | *(for programmers)* It counts bugs. Two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. ⟨predict⟩ How many are still hiding? Thirty times twenty-four over twelve is sixty. They found forty-two, so about eighteen. | Two lists; Venn; the 2×2 table again | Venn via boolean ops | |
+| 10_5 | But twelve is a small overlap: an honest range is forty-seven to ninety-four bugs in all. And bugs that are easy for everyone swell the overlap and pull the estimate down. The bold-fish problem again. | Range bar; callback to 09_3 | callback | |
+| 10_6 | And it has counted the dead. In the Kosovo war of nineteen ninety-nine, about four thousand four hundred victims were named on several lists. Their overlaps estimated about ten thousand four hundred. Years later, a full count found nine thousand seven hundred ninety, inside the estimate's range. | Sober typography only; numbers; the range 9,002–12,122; a four-list table with sixteen cells, one dark | quiet card, **silence** under the numbers | hold |
 | 10_7 | France, the bugs, Kosovo. Each is the same table, with one cell nobody can see, filled in by the cells we can. | Final lake; the table; motif resolves | coda; receipts card ("every number in this video was computed by code: link") | |
 
 - **Ruth:** Laplace's sample: thirty départements spread evenly over France,
@@ -1616,7 +1616,7 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 | The hero pictures | (1) **The bucket's danger meter:** equations filling a space; the lit (already-known) fraction is near zero for almost the whole fill and spikes only at the end. (2) **The byte clock:** a 255-hour clock where multiplying is adding clicks, set against the wrong 256-hour clock that adds. |
 | Worked examples | A=5, B=3, C=7, D=2 with A⊕C=2, B⊕C⊕D=6, A⊕B=6, A⊕B⊕C⊕D=3 (rank 4) and the redundant B⊕C=4; GF(2)³ (8 patterns); 3·7 = 9, 2·128 = 29, 128·4 = 58, 150·3 = 167, 2·142 = 1, 0x57·0x83 = 0x31 (AES 0xC1); the 5-unknown peeling toy (C, A, B, D, E; c = 7); the pentagon (3A = 15 ⇒ A = 5). |
 | Words | "piece" (source symbol; a whole chunk, ≈1 KB, not one byte), "packet" (encoding symbol), "card" for one equation on screen, "useful" (= independent), "wrap around" (said "mod" once), "byte field" (named GF(256) once). |
-| Length | ~13.5 min, 10 chapters (D-05) |
+| Length | ~13.5 min, 11 chapters (D-05; 03 split at the G2 check) |
 | Out of scope | the RFC's tuple generator, systematic index tables, robust-soliton derivation, LDPC row construction, Reed–Solomon decoding algorithms |
 | Oracle | `oracle.py` imports `docs/research/raptorq_gf256/scripts/`; measured RaptorQ counts are recorded outputs pinned as constants, not recomputed per build |
 
@@ -1624,10 +1624,10 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 
 | Act | Chapters | Spine |
 |---|---|---|
-| I. Packets as equations | 01 hook, 02 equations, 03 the XOR lottery | loops are slow → equations work → but exactly enough random XOR equations fail 71%, and the danger lives at the end |
-| II. Building a better number system | 04 wrapping at 256, 05 polynomials, 06 the byte clock | 256 choices per coefficient need division; wrapping around fails exactly as badly as XOR; folding the overflow by a polynomial that can't be factored works |
-| III. Spending it wisely | 07 the byte lottery, 08 the price of density, 09 where the danger lives | byte coefficients make redundancy 256× rarer per equation; dense math is slow; RaptorQ keeps packets XOR and spends a few byte rows exactly where the danger lives |
-| IV. Payoff | 10 two packets | measured failures, the standard's guarantee, deployments, the closing line |
+| I. Packets as equations | 01 hook, 02 equations, 03 the XOR lottery, 04 spares and loops | loops are slow → equations work → but exactly enough random XOR equations fail 71%, and the danger lives at the end |
+| II. Building a better number system | 05 wrapping at 256, 06 polynomials, 07 the byte clock | 256 choices per coefficient need division; wrapping around fails exactly as badly as XOR; folding the overflow by a polynomial that can't be factored works |
+| III. Spending it wisely | 08 the byte lottery, 09 the price of density, 10 where the danger lives | byte coefficients make redundancy 256× rarer per equation; dense math is slow; RaptorQ keeps packets XOR and spends a few byte rows exactly where the danger lives |
+| IV. Payoff | 11 two packets | measured failures, the standard's guarantee, deployments, the closing line |
 
 ### 10.3 Color roles
 
@@ -1657,7 +1657,7 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 
 - **Ruth:** "about ten thousand" assumes 1% loss (said); 97,876 ≈ K·H_K =
   97,876.06 on average (not a ceiling); "two more packets" and "almost every"
-  are probabilistic, stated exactly in 10.
+  are probabilistic, stated exactly in 11.
 - **Facts:** carousel at 1% loss, K = 10,000: mean 2.64 loops; P(all 10⁶ phones
   done) 0.37 by 5 loops, 0.99 by 6 (B-F24).
 
@@ -1689,9 +1689,6 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 | 03_4 | ⟨predict⟩ Two cards in hand. The next card is random. What's the chance it's useless? Four lit corners out of eight. Half. | Random arrows; half land in the lit set | Monte Carlo arrows | |
 | 03_5 | For all three cards to be useful: seven eighths, times six eighths, times four eighths. About one in three. With many pieces it settles at twenty-nine percent. So exactly enough random ex-or cards fail about seventy-one percent of the time. | 7/8 · 6/8 · 4/8 = 0.328 → 0.2888 | live product | |
 | 03_6 | Watch where the danger is as the bucket fills. For almost the whole fill, a random card is nearly certain to help. All the danger is packed into the last few slots. One in eight. One in four. One in two. Ten pieces or ten million, the answer is about seventy-one percent. | **The danger meter**: lit fraction vs fill, flat near zero, spiking at the end | danger-meter prop | listen 3 s (rank chord + thuds) |
-| 03_7 | Spares help, slowly. Each extra card only halves the risk. Two spares still fail one time in four. With a million phones, that's a quarter of a million stuck. Reaching one in a million takes about twenty spares. | Failure 71 / 42 / 23 / 12% and ≈20 spares for 10⁻⁶ | table | |
-| 03_8 | And sometimes it's structure, not luck. Five cards around a loop, each the ex-or of two neighbours. Every letter appears twice, so together they cancel to nothing. One of them is always useless. | Pentagon; letters pair up and vanish | pentagon prop | |
-| 03_9 | What if a card could use three A's, or a hundred A's? Then multiplying a byte must give a byte, and we must be able to undo it. | Coefficients {0,1} grow to 256 dots | cliffhanger | hold |
 
 - **Ruth:** P(K random 0/1 rows independent) = ∏(1 − 2⁻ⁱ); 0.328 at K = 3, →
   0.288788; the average number of spares is Σ 1/(2ⁱ − 1) = 1.6067, the
@@ -1700,18 +1697,26 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 - **Sound:** the **rank chord**: each useful card adds a chord tone; a useless
   one is a muted thud; near the end of the GF(2) run the thuds crowd in.
 
-#### 04_why_not_wrap_around_at_256 (~85 s)
+#### 04_spares_and_loops (~45 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | On a twelve-hour clock, nine plus five is two. You wrap around. Mathematicians call this mod. | 12-hour clock | clock prop | |
-| 04_2 | Bytes can wrap around at two fifty-six. To use three A's in a card, we'll have to undo times three, which means dividing. | 256-hour clock | — | |
-| 04_3 | ⟨predict⟩ Double one twenty-eight. The top bit slides off the end, and it's gone. Two times one twenty-eight is zero. | Bits slide left; the top bit drops into a dark gutter; `2·128 ≡ 0` | **fallen-bit animation** | |
-| 04_4 | So a card that says two times A is six can't tell you A. It could be three. It could be one thirty-one. | 2·3 = 6 and 2·131 = 262 → 6 | — | |
-| 04_5 | Run the lottery with random byte amounts and this arithmetic, and it fails seventy-one percent of the time. Exactly as often as plain ex-or. Only the last bit of each amount was doing anything. | Two counters (XOR and wrap-around) converge to 71% | **lottery race** | |
-| 04_6 | A clock with a prime number of hours doesn't have this problem. ⟨predict⟩ On a seven-hour clock, three times what is one? Five. Every row of its times table, except zero's, is a reshuffle of every value. | 7-hour table; then 16-hour vs 7-hour heat maps | small tables | |
-| 04_7 | Zero sneaks in because two fifty-six splits into two times one twenty-eight. Seven can't split. But two fifty-seven doesn't fit in a byte. | 256 splits into 2 × 128 beside the 2·128 = 0 card; 257 is written into an 8-bit box and its ninth bit spills out, lit red | factor split, byte box | |
-| 04_8 | A number system where you can add, subtract, multiply, and divide by anything but zero is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in. | Name card "field"; the gutter bit lifts back | statement card | hold |
+| 04_1 | Spares help, slowly: each extra card only halves the risk. ⟨predict⟩ With two spares, how often does it still fail? Nearly one time in four. With a million phones, that's almost a quarter of a million stuck. Reaching one in a million takes about twenty spares. | Failure 71 / 42 / 23 / 12% and ≈20 spares for 10⁻⁶ | table | |
+| 04_2 | And sometimes it's structure, not luck. Five cards around a loop, each the ex-or of two neighbours. Every letter appears twice, so together they cancel to nothing. One of them is always useless. | Pentagon; letters pair up and vanish | pentagon prop | |
+| 04_3 | What if a card could use three A's, or a hundred A's? Then multiplying a byte must give a byte, and we must be able to undo it. | Coefficients {0,1} grow to 256 dots | cliffhanger | hold |
+
+#### 05_why_not_wrap_around_at_256 (~85 s)
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | On a twelve-hour clock, nine plus five is two: you wrap around. Mathematicians call it mod. | 12-hour clock | clock prop | |
+| 05_2 | Bytes can wrap around at two fifty-six. But using three A's in a card means undoing times three: dividing. | 256-hour clock | — | |
+| 05_3 | ⟨predict⟩ Double one twenty-eight. The top bit slides off the end, and it's gone. Two times one twenty-eight is zero. | Bits slide left; the top bit drops into a dark gutter; `2·128 ≡ 0` | **fallen-bit animation** | |
+| 05_4 | So a card saying two times A is six can't tell you A. It could be three, or one thirty-one. | 2·3 = 6 and 2·131 = 262 → 6 | — | |
+| 05_5 | With random byte amounts in this arithmetic, the lottery fails seventy-one percent of the time, exactly as often as plain ex-or. Only the last bit of each amount mattered. | Two counters (XOR and wrap-around) converge to 71% | **lottery race** | |
+| 05_6 | A prime number of hours fixes this. ⟨predict⟩ On a seven-hour clock, three times what is one? Five. Every row of its times table, except zero's, is a reshuffle of all seven values. | 7-hour table; then 16-hour vs 7-hour heat maps | small tables | |
+| 05_7 | Zero sneaks in because two fifty-six is two times one twenty-eight. Seven can't split. But two fifty-seven doesn't fit in a byte. | 256 splits into 2 × 128 beside the 2·128 = 0 card; 257 is written into an 8-bit box and its ninth bit spills out, lit red | factor split, byte box | |
+| 05_8 | A number system where you can add, subtract, multiply, and divide by anything but zero is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in. | Name card "field"; the gutter bit lifts back | statement card | hold |
 
 - **Precisely (lower-thirds):** "a K×K matrix over Z/256 is invertible ⇔ its
   determinant is odd ⇔ it is invertible mod 2; uniform entries reduce to uniform
@@ -1720,19 +1725,19 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 - **Big tables** (S-3) are built as row strips (one multi-subpath VMobject per
   row with per-point fill), never 65,536 separate mobjects.
 
-#### 05_bytes_are_polynomials (~85 s)
+#### 06_bytes_are_polynomials (~85 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | Stop reading a byte as a number. Read its bits as the numbers in front of the powers of x. | 10000000 → x⁷; 00000011 → x + 1; place values beneath | bits → Tex morph | |
-| 05_2 | Here's the one weird rule. Those numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero. Adding is ex-or again. | `x + x = 0`; column-wise XOR | callback to 02 | |
-| 05_3 | ⟨predict⟩ Three is x plus one. Seven is x squared plus x plus one. Multiply them out, remembering one plus one is zero. | FOIL: x³ + 2x² + 2x + 1 → the doubled terms vanish → x³ + 1 = 1001 = 9 | **FOIL with vanishing terms** | |
-| 05_4 | Three times seven is nine. | Chalk `3 × 7 = 9` (callback to 01) | — | listen 2 s |
-| 05_5 | When a product grows past x to the seventh, it no longer fits. The simplest fold drops the fallen bit into the bottom slot, a rotation. But then three times two fifty-five comes out zero. The fold has to follow a rule that can't be factored. | Rotation fold; `3·255 = 0` mod x⁸+1, because (x+1)(x⁷+…+1) = x⁸+1 | fold animation | |
-| 05_6 | The rule RaptorQ uses is x to the eighth equals x to the fourth plus x cubed plus x squared plus one. It's the polynomial version of a prime clock. | `x⁸ = x⁴+x³+x²+1` (0x11D) | the fold | |
-| 05_7 | Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero. | The fallen bit lands as 00011101 with place values | **overflow-fold animation** (0x1D motif) | |
-| 05_8 | And every nonzero byte now has a partner. Two times one forty-two is exactly one. | 142×2 folded step by step; everything cancels except 1 | — | |
-| 05_9 | Thirty polynomials could do this job, and a famous encryption standard picked a different one. Then the same two bytes multiply to different answers, so both ends must agree. | 0x57·0x83 = 0x31 (RaptorQ) vs 0xC1 (AES), in decimal 49 vs 193 | side-by-side | hold |
+| 06_1 | Stop reading a byte as a number. Read its bits as the numbers in front of the powers of x. | 10000000 → x⁷; 00000011 → x + 1; place values beneath | bits → Tex morph | |
+| 06_2 | One weird rule: those numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again. | `x + x = 0`; column-wise XOR | callback to 02 | |
+| 06_3 | ⟨predict⟩ Three is x plus one. Seven is x squared plus x plus one. Multiply them out, remembering one plus one is zero. | FOIL: x³ + 2x² + 2x + 1 → the doubled terms vanish → x³ + 1 = 1001 = 9 | **FOIL with vanishing terms** | |
+| 06_4 | Three times seven is nine. | Chalk `3 × 7 = 9` (callback to 01) | — | listen 2 s |
+| 06_5 | A product past x to the seventh doesn't fit. The simplest fold drops the fallen bit into the bottom slot, a rotation. But then three times two fifty-five is zero. The fold must follow a rule that can't be factored. | Rotation fold; `3·255 = 0` mod x⁸+1, because (x+1)(x⁷+…+1) = x⁸+1 | fold animation | |
+| 06_6 | The rule RaptorQ uses is x to the eighth equals x to the fourth plus x cubed plus x squared plus one. It's the polynomial version of a prime clock. | `x⁸ = x⁴+x³+x²+1` (0x11D) | the fold | |
+| 06_7 | Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero. | The fallen bit lands as 00011101 with place values | **overflow-fold animation** (0x1D motif) | |
+| 06_8 | And every nonzero byte now has a partner. Two times one forty-two is exactly one. | 142×2 folded step by step; everything cancels except 1 | — | |
+| 06_9 | *(silent: the side-by-side, with the lower-third "30 polynomials could do this job; AES picked another, so the same bytes multiply differently, and both ends must agree")* | 0x57·0x83 = 0x31 (RaptorQ) vs 0xC1 (AES), in decimal 49 vs 193 | side-by-side | hold |
 
 - **Precisely:** "GF(2⁸) ≅ GF(2)[x]/(p) for any irreducible p; all fields of
   order 256 are isomorphic; the polynomial is a choice of labels"; "no zero
@@ -1749,18 +1754,18 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 }
 ```
 
-#### 06_the_byte_clock (~85 s)
+#### 07_the_byte_clock (~85 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 06_1 | Start at one and keep doubling. One, two, four, eight, sixteen, thirty-two, sixty-four, one twenty-eight. ⟨predict⟩ What comes next? | Doubling sequence on byte-ordered points | — | |
-| 06_2 | Twenty-nine. Keep going, and you visit every nonzero byte exactly once before coming back. Two hundred fifty-five steps. | In byte order the doubling path is a tangled 255-point star | **255-gon star** | |
-| 06_3 | Now move every byte to the step where doubling first reached it. The star untangles into a circle. Doubling is one click around. A clock with two hundred fifty-five hours. | Bytes slide to their log positions; the star untangles | **star → circle untangling** | listen 3 s (Shepard glide) |
-| 06_4 | To multiply, add clicks, just like two cubed times two to the fourth is two to the seventh. One twenty-eight times four: seven clicks plus two is nine clicks, which is fifty-eight. | 2⁷·2² = 2⁹ = 58, read off the doubling list | slide-rule rings | |
-| 06_5 | One fifty is a hundred eighty clicks. Three is twenty-five. Two hundred five clicks. One sixty-seven. That click count is called a logarithm. | Two concentric rings; inner ring rotates 25 clicks | rings | |
-| 06_6 | The wrong clock had two hundred fifty-six hours and added. The right one has two hundred fifty-five and multiplies. | The two clocks side by side | rhyme | |
-| 06_7 | Every pair at once: here's the whole times table in byte order. Noise. Sort the rows and columns by clicks, and it turns into perfect diagonal stripes. | Table (row strips) → reorder → stripes | **table reorder (S-3)** | |
-| 06_8 | With the encryption standard's polynomial, doubling gets stuck in a loop of fifty-one. It's still a field, but RaptorQ's choice lets two visit everyone. | AES star closes after 51 | star comparison | hold |
+| 07_1 | Start at one and keep doubling. One, two, four, eight, sixteen, thirty-two, sixty-four, one twenty-eight. ⟨predict⟩ What comes next? | Doubling sequence on byte-ordered points | — | |
+| 07_2 | Twenty-nine. Keep going, and you visit every nonzero byte exactly once before coming back. Two hundred fifty-five steps. | In byte order the doubling path is a tangled 255-point star | **255-gon star** | |
+| 07_3 | Now move every byte to the step where doubling first reached it. The star untangles into a circle. Doubling is one click around. A clock with two hundred fifty-five hours. | Bytes slide to their log positions; the star untangles | **star → circle untangling** | listen 3 s (Shepard glide) |
+| 07_4 | To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four: seven clicks plus two is nine clicks, fifty-eight. | 2⁷·2² = 2⁹ = 58, read off the doubling list | slide-rule rings | |
+| 07_5 | One fifty is a hundred eighty clicks. Three is twenty-five. Two hundred five clicks. One sixty-seven. That click count is called a logarithm. | Two concentric rings; inner ring rotates 25 clicks | rings | |
+| 07_6 | The wrong clock had two hundred fifty-six hours and added. The right one has two hundred fifty-five and multiplies. | The two clocks side by side | rhyme | |
+| 07_7 | Every pair at once: here's the whole times table in byte order. Noise. Sort the rows and columns by clicks, and it turns into perfect diagonal stripes. | Table (row strips) → reorder → stripes | **table reorder (S-3)** | |
+| 07_8 | A famous encryption standard picked a different polynomial. With it, doubling gets stuck in a loop of fifty-one: still a field, but RaptorQ's choice lets two visit everyone. | AES star closes after 51 | star comparison | hold |
 
 - **Ruth:** primitive vs irreducible (16 of the 30 degree-8 irreducibles are
   primitive; 0x11D is, 0x11B is not: ord 2 = 51, ord 3 = 255); log of 0 is
@@ -1775,31 +1780,31 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
   generator: its powers give only 51 distinct weights (Anvin, "The
   mathematics of RAID-6").
 
-#### 07_the_byte_lottery (~85 s)
+#### 08_the_byte_lottery (~85 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | Now give every card random byte amounts. This design exists, called random linear network coding. RaptorQ does something cheaper, but first see why it's so good. | Card with byte coefficients | card | |
-| 07_2 | Decoding fails only if some change to the file would slip past every card you hold. | A "change" glyph sliding past cards | — | |
-| 07_3 | Take one such change. A random byte-weighted card misses it only one time in two fifty-six, because no two nonzero bytes multiply to zero. | Pie: 1/256 sliver vs XOR's 1/2 | pies | |
-| 07_4 | So every extra card divides the risk by two fifty-six. With ex-or, each extra card only halves it. | Model: 0.39% / 0.0015% / 0.000006% at K, K+1, K+2 | table, labelled **model** | |
-| 07_5 | Let's race them. Keep adding random cards until the system is solvable, a thousand times over. | Histograms of spares needed: XOR spread (mean 1.6), bytes almost all at zero (mean 0.004) | **Monte Carlo race** | |
-| 07_6 | One subtlety. A bigger field gains nothing if the amounts are still only zeros and ones. All the gain comes from the other two fifty-four values. | Same 0/1 card in both fields: same rank | Ruth beat | hold |
+| 08_1 | Now give every card random byte amounts. This design exists, called random linear network coding. RaptorQ does something cheaper, but first see why it's so good. | Card with byte coefficients | card | |
+| 08_2 | Decoding fails only if some change to the file would slip past every card you hold. | A "change" glyph sliding past cards | — | |
+| 08_3 | Take one such change. ⟨predict⟩ How often does a random byte-weighted card miss it? Only one time in two fifty-six, because no two nonzero bytes multiply to zero. | Pie: 1/256 sliver vs XOR's 1/2 | pies | |
+| 08_4 | So every extra card divides the risk by two fifty-six. With ex-or, each extra card only halves it. | Model: 0.39% / 0.0015% / 0.000006% at K, K+1, K+2 | table, labelled **model** | |
+| 08_5 | Let's race them. Keep adding random cards until the system is solvable, a thousand times over. | Histograms of spares needed: XOR spread (mean 1.6), bytes almost all at zero (mean 0.004) | **Monte Carlo race** | |
+| 08_6 | One subtlety. A bigger field gains nothing if the amounts are still only zeros and ones. All the gain comes from the other two fifty-four values. | Same 0/1 card in both fields: same rank | Ruth beat | hold |
 
 - **Precisely:** "union bound: P(fail) < 256^−h/255; exact values 0.39215% (the bound, 1/255, is 0.39216%) /
   1.5319×10⁻⁵ / 5.984×10⁻⁸ agree to three digits"; "rank is unchanged by
   extending the field".
 
-#### 08_the_price_of_density (~85 s)
+#### 09_the_price_of_density (~85 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | So use random byte amounts everywhere? Solving a system where every card uses every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, tens of trillions of steps. | K³/3 count-up: ≈4.2×10¹³ | count-up | |
-| 08_2 | Fast codes keep cards sparse. A few cards carry a single piece. About half carry two. A long tail carry many. | Graph labelled "pieces" / "packets"; degree histogram | graph prop | |
-| 08_3 | Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. | Peeling cascade on the 5-unknown toy (values, not y's): C, A, B, D, E; the ripple glows | **peeling cascade** | |
-| 08_4 | Lose the card that starts it, and nothing moves. | Graph freezes | stall | |
-| 08_5 | With exactly enough sparse cards, peeling usually collapses early. Even with a few percent extra, in our simulation it stalls around ninety-eight or ninety-nine percent. One run in five collapsed. | Progress bars stalling; "1 of 5 runs collapsed" | stall bars | |
-| 08_6 | *(for programmers)* Reed–Solomon codes are perfect: any K of N packets work. But you must pick N up front, and with byte-sized symbols it tops out near two fifty-six. A fountain never runs dry. | RS vs fountain card; `n ≤ q + k − 1` lower-third | card | hold |
+| 09_1 | So use random byte amounts everywhere? Solving a system where every card uses every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, tens of trillions of steps. | K³/3 count-up: ≈4.2×10¹³ | count-up | |
+| 09_2 | Fast codes keep cards sparse. A few cards carry a single piece. About half carry two. A long tail carry many. | Graph labelled "pieces" / "packets"; degree histogram | graph prop | |
+| 09_3 | Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. | Peeling cascade on the 5-unknown toy (values, not y's): C, A, B, D, E; the ripple glows | **peeling cascade** | |
+| 09_4 | ⟨predict⟩ Lose the card that starts it. What happens? Nothing moves. | Graph freezes | stall | |
+| 09_5 | With exactly enough sparse cards, peeling usually collapses early. Even with a few percent extra, in our simulation it stalls around ninety-eight or ninety-nine percent. One run in five collapsed. | Progress bars stalling; "1 of 5 runs collapsed" | stall bars | |
+| 09_6 | *(for programmers)* Reed–Solomon codes are perfect: any K of N packets work. But you must pick N up front, and with byte-sized symbols it tops out near two fifty-six. A fountain never runs dry. | RS vs fountain card; `n ≤ q + k − 1` lower-third | card | hold |
 
 - **For programmers:** "keep, for every piece, a list of the cards that use
   it": the one data structure the peeler needs.
@@ -1809,17 +1814,17 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
   sparse code with that table leaves e^(−4.82) ≈ 0.81% of pieces untouched at
   N = K.
 
-#### 09_where_the_danger_lives (~85 s)
+#### 10_where_the_danger_lives (~85 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 09_1 | Here's RaptorQ's twist. Its packets never use byte amounts. Every packet is a plain ex-or. | XOR cards | — | |
-| 09_2 | Before sending, both sides agree on some bonus pieces, built from the real ones by fixed rules. They're never sent. They're free clues. Most clues are cheap ex-ors. Between ten and sixteen of them use byte amounts, even for a block of fifty-six thousand pieces. | Grid schematic: sparse XOR band, a thin gold band of byte rows, XOR packet rows; labelled counts (K′ = 10: a real 27 × 27 grid; K′ = 10,017: a schematic, not a zoom) | matrix schematic | |
-| 09_3 | ⟨predict⟩ Remember where the danger lives? The cheap ex-or equations fill almost the whole space and leave a few directions open. The byte clues close them. If those clues were ex-or instead, what would you expect? | Danger meter callback | prediction card | |
-| 09_4 | The ex-or lottery all over again. About seventy-one percent failure. With the byte clues, about six failures in a thousand. | Ablation counters: 70.7% vs 0.646% (blocks of 10 pieces) | **ablation counters** | |
-| 09_5 | Decoding mostly peels. When it gets stuck, it parks one stubborn piece, calls it c, and carries it along like the x in algebra class. | Inactivation on the toy: C becomes a ghost c; A = 2 ⊕ c, B = 6 ⊕ 2 ⊕ c, D = 6 ⊕ 6 ⊕ 2 (c cancels), E = 14 ⊕ D | ghost node | |
-| 09_6 | At the end, the leftover cards and the byte clues pin down the parked pieces. Here c is fifteen ex-or fourteen ex-or six, which is seven, and everything else follows. It's ordinary elimination in a clever order, so it works exactly when the equations are independent. | c = 7; back-substitution A=5, B=3, D=2, E=12 | live solve | |
-| 09_7 | Here's what one byte amount does to the loop that ex-or couldn't solve. Make the last card E plus two A. Walk around: with ex-or, A meets itself, and A plus A is zero. The loop says nothing. With the two, A plus two A is three A. Three A is fifteen, so A is five. | Pentagon walk, one edge per beat; `3A = 15 ⇒ A = 5` ("three times five is fifteen here too, but three times seven was nine") | **pentagon walk** | hold |
+| 10_1 | RaptorQ's twist: its packets never use byte amounts. Every one is a plain ex-or. | XOR cards | — | |
+| 10_2 | Before sending, both sides agree on bonus pieces, built from the real ones by fixed rules, never sent: free clues. Most are cheap ex-ors; only ten to sixteen use byte amounts, even for blocks of fifty-six thousand pieces. | Grid schematic: sparse XOR band, a thin gold band of byte rows, XOR packet rows; labelled counts (K′ = 10: a real 27 × 27 grid; K′ = 10,017: a schematic, not a zoom) | matrix schematic | |
+| 10_3 | Remember the danger meter? The ex-or equations fill almost the whole space and leave a few directions open; the byte clues close them. ⟨predict⟩ What if those clues were ex-or too? | Danger meter callback | prediction card | |
+| 10_4 | The ex-or lottery again: about seventy-one percent failure. With the byte clues, about six in a thousand. | Ablation counters: 70.7% vs 0.646% (blocks of 10 pieces) | **ablation counters** | |
+| 10_5 | Decoding mostly peels. When it's stuck, it parks one stubborn piece, calls it c, and carries it along like x in algebra. | Inactivation on the toy: C becomes a ghost c; A = 2 ⊕ c, B = 6 ⊕ 2 ⊕ c, D = 6 ⊕ 6 ⊕ 2 (c cancels), E = 14 ⊕ D | ghost node | |
+| 10_6 | At the end, the leftover cards and byte clues pin down the parked pieces: here c is fifteen ex-or fourteen ex-or six, which is seven. It's elimination in a clever order, so it works exactly when the equations are independent. | c = 7; back-substitution A=5, B=3, D=2, E=12 | live solve | |
+| 10_7 | Now the loop ex-or couldn't solve. Make the last card E plus two A, and walk around. With ex-or, A meets itself and cancels. With the two, A plus two A is three A. Three A is fifteen, so A is five. | Pentagon walk, one edge per beat; `3A = 15 ⇒ A = 5` ("three times five is fifteen here too, but three times seven was nine") | **pentagon walk** | hold |
 
 - **Lower-thirds:** "RaptorQ parks 158 pieces on purpose at 10,017 pieces;
   search: inactivation decoding"; "the sender also runs one solve, to send the
@@ -1830,16 +1835,16 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
   iff rank(A) = L, independent of elimination order (§5.4.2.1). A cycle
   aᵢxᵢ + bᵢxᵢ₊₁ is singular iff ∏(bᵢ/aᵢ) = 1 (Ruth P4); 3 here is 1 ⊕ 2.
 
-#### 10_two_packets (~75 s)
+#### 11_two_packets (~75 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 10_1 | We ran the real thing a million times, on small blocks of ten pieces. With exactly enough packets, it failed six thousand three hundred sixteen times. About six in a thousand. | Bar with K, trials, failures, interval | measured chart | |
-| 10_2 | One extra packet: twenty-four times. Two extra: once. Too rare for us to measure. | Ticks labelled "1 in 100 / 1 in 10,000 / 1 in a million" | log chart in words | |
-| 10_3 | The standard promises at most one in a hundred, one in ten thousand, and one in a million, for every block size. | RFC 6330 requirement overlaid | — | |
-| 10_4 | The originals go first, unchanged, so a phone with a clean connection does no decoding at all. | Systematic: originals then repair packets | — | |
-| 10_5 | It's in the standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in 2005. And the same byte field protects disk arrays that survive two dead drives. | Text cards (no logos) | cards | |
-| 10_6 | Two extra packets buy a million-to-one, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. | The 0x11D fold glows; the bucket fills; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256)) | |
+| 11_1 | We ran the real thing a million times, on small blocks of ten pieces. With exactly enough packets, it failed six thousand three hundred sixteen times. About six in a thousand. | Bar with K, trials, failures, interval | measured chart | |
+| 11_2 | ⟨predict⟩ And with one extra packet? Twenty-four times. Two extra: just once, too rare to measure precisely. | Ticks labelled "1 in 100 / 1 in 10,000 / 1 in a million" | log chart in words | |
+| 11_3 | The standard promises at most one in a hundred, one in ten thousand, and one in a million, for every block size it supports. | RFC 6330 requirement overlaid | — | |
+| 11_4 | The originals go first, unchanged, so a phone with a clean connection does no decoding at all. | Systematic: originals then repair packets | — | |
+| 11_5 | It's in the standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in 2005. And the same byte field protects disk arrays that survive two dead drives. | Text cards (no logos) | cards | |
+| 11_6 | Two extra packets buy a million-to-one, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. | The 0x11D fold glows; the bucket fills; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256)) | |
 
 - **Ruth:** the requirement is over uniformly random received packet sets
   (ESIs), at K′ (padded K); our measurement is K = K′ = 10 only (0.631% at 101,
@@ -1932,7 +1937,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | The hero pictures | (1) **Space-time lanes**, one per customer, time running left to right: reads are arrows in, writes arrows out, and the lanes double as a musical score. (2) **The progress square:** every order of two programs is a staircase; the bad orders pass through a red square. The lexicographic grid supports chapter 04. |
 | Worked examples | the 6 orders of two increments (4 lose a point); the 14-order sign (8 bad); the 8-step unwritten-ticket collision and the same order with the flag; "both see 5, both take 6"; slates 0, 3, 0, 0, 2 → customer 4 takes 4; a 4-customer run; garbage-read traces e1 and e3; the 12-step store-buffer failure |
 | Words | "customer" (lower-third "process"), "the room" (named "critical section" once), "order" (lower-third: counting each read, write and successful wait as one step), "slate" (register), "flag" (choosing), "ticket" |
-| Length | ~13 min, 10 chapters (D-05) |
+| Length | ~13 min, 11 chapters (D-05; 10 split at the G2 check) |
 | Out of scope | Paxos itself, bounded-bakery constructions, TLA+ |
 | Oracle | `oracle.py` imports `docs/research/bakery_algorithm/scripts/`; long sweeps are recorded outputs |
 
@@ -1966,7 +1971,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | I. The problem | 01 one plus one is one, 02 the room | a step is a read then a write; check-then-set fails; Dijkstra's problem and Knuth's addition; the harder question |
 | II. Building the bakery | 03 take a number, 04 same number, 05 the unwritten ticket, 06 one run | slates and tickets; ties → (ticket, name); unwritten tickets → the flag |
 | III. Why it works | 07 the proof, 08 garbage | three places a customer can be; the proof never trusts a read that overlaps a write |
-| IV. Costs and legacy | 09 fair at a price, 10 your CPU | FCFS, unbounded tickets, costs; outboxes and fences; clocks and Paxos |
+| IV. Costs and legacy | 09 fair at a price, 10 your CPU, 11 out of thin air | FCFS, unbounded tickets, costs; outboxes and fences; clocks and Paxos |
 
 ### 11.3 Color roles
 
@@ -2006,7 +2011,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 |---|---|---|---|---|
 | 02_1 | The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room. Computer scientists say critical section, and the rule is called mutual exclusion. | A room around the scoreboard | room prop | |
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, go in. | Sign | — | |
-| 02_3 | Same problem. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square | |
+| 02_3 | ⟨predict⟩ Does the sign work? Same problem. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square | |
 | 02_4 | Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who wanders off outside can't block everyone. And fast or slow, it still works. A year later Donald Knuth added one more. Everyone who wants in gets in eventually. | Rule cards | statement cards | |
 | 02_5 | Hardware usually cheats with a magic sign you can check and flip in one motion. Dijkstra showed an ordinary sign is enough, if nobody can ever catch it halfway through a flip. | Magic sign vs ordinary sign | — | |
 | 02_6 | Here's the harder question. What if a glance can catch the sign mid-flip, as a blur? Hold that thought. | Sign blurs | flicker | hold |
@@ -2052,9 +2057,9 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | 05_2 | Customer two takes ticket one, checks customer one's slate, sees zero, which means not in line, and walks in. | Customer 2 enters | — | |
 | 05_3 | Then customer one writes her one, sees a tie, wins it on her name, and walks in too. Both in the room. | Both inside; two motifs clash | 8-step trace (a) | listen 3 s (two motifs at once = the bug) |
 | 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, lower it after writing your ticket. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop | |
-| 05_5 | Same unlucky order, now with flags. Customer two sees customer one's flag up, and waits. | Scheduler slider replays the order with flags (15 steps) | toggle replay | |
+| 05_5 | Same unlucky order, now with flags. ⟨predict⟩ What does customer two do this time? She sees customer one's flag up, and waits. | Scheduler slider replays the order with flags (15 steps) | toggle replay | |
 | 05_6 | With two customers and one visit each, the version without flags has twenty-eight possible orders, and four of them put both in the room. With flags, three hundred twenty-two orders, and not one does. | Progress-square paths: 28 (4 through the red square) morph to 322 (none) | **path-set morph (S-6)** | |
-| 05_7 | The stretch between raising and lowering the flag is called the doorway. You can't close the gap between looking and writing. Lamport didn't try. He made the gap visible with the flag, and made every race harmless with the tie-breaker. | Doorway shading on the lanes; thesis card | statement card | hold |
+| 05_7 | The stretch between raising and lowering the flag is called the doorway. Lamport didn't try to close the gap between looking and writing. He made it visible with the flag, and made every race harmless with the tie-breaker. | Doorway shading on the lanes; thesis card | statement card | hold |
 
 - **Engine note:** blocked moves depend on history, so draw paths, not static
   walls. Optional 3D set piece (camera route, spike): for three customers the
@@ -2095,13 +2100,12 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero. Lamport went further. Assume a glance during a write can return anything at all. | Two-digit rewrite; then wild values | flicker | |
+| 08_1 | Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero. Lamport went further: a glance during a write may return anything at all. | Two-digit rewrite; then wild values | flicker | |
 | 08_2 | He called memory like that safe. A funny name, since it's the least safe kind. | "safe" card; atomic and regular on screen for Ruth | register zoo (screen) | |
-| 08_3 | Go back to the proof picture, and let every slate flicker while it's written. Every glance that crosses a write turns magenta. | 07's zones; magenta reads | **overlay on the proof zones** | |
-| 08_4 | Every magenta glance lands in the first case, where the proof never used the value. In the last case, the ticket was finished and nobody was touching it. Every read the proof trusts happens while nothing is being written. | Zone (a) shaded "value unused" | zones | |
-| 08_5 | Here a customer glances mid-write, gets seven, garbage, and takes eight. That only makes her later. Here a read in the middle of a write still sees the old zero, and lets a customer straight in. But the other customer is writing a brand-new ticket, so she started choosing after the first one finished. Fact one: her ticket will be bigger, so she waits. | Traces e1 and e3 | traces | |
-| 08_6 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. A colleague, Anatol Holt, refused to believe it. | Verbatim quote card (1974) | quote card | |
-| 08_7 | One caution, from Lamport himself. Read each slate exactly once when finding the biggest. Read one twice, and with three or more customers and garbage reads, it breaks. | Double-fetch trace (33 steps) | trace | hold |
+| 08_3 | Go back to the proof picture, and let every slate flicker while it's written. Every glance that crosses a write turns magenta. ⟨predict⟩ Where do the magenta glances land? | 07's zones; magenta reads | **overlay on the proof zones** | |
+| 08_4 | All in the first case, where the proof never used the value. In the last case, the ticket was finished and nobody was touching it. Every read the proof trusts happens while nothing is being written. | Zone (a) shaded "value unused" | zones | |
+| 08_5 | A glance mid-write that returns garbage, say seven, just makes a customer take eight and wait longer. A glance that catches the old zero mid-write lets her straight in. But the writer is taking a brand-new ticket, so she started choosing after the reader finished. By fact one, her ticket will be bigger, so she waits. | Traces e1 and e3 | traces | |
+| 08_6 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. A colleague, Anatol Holt, refused to believe it. | Verbatim quote card (1974) | quote card | hold |
 
 - **Ruth:** safe / regular / atomic per "On Interprocess Communication" (1986);
   the safe-register model check (N ≤ 3; 269,550 states at tickets ≤ 6, zero
@@ -2118,8 +2122,9 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | 09_1 | It's also fair. Finish taking your ticket before I start taking mine, and you're served first. Counted from when you finish choosing, not from when you walked up. If our doorways overlap, either of us may go first. | FCFS on the lanes | — | |
 | 09_2 | So nobody waits forever, as long as everyone in the room eventually leaves and nobody dies in the doorway. Each other customer can get ahead of you at most once. | Bounded bypass | — | |
 | 09_3 | The price: tickets keep growing as long as somebody is always in line. They reset only when the bakery empties. | Odometer 1, 2, 3, 4, 5, 6 | odometer | |
-| 09_4 | Lamport did the sum. At one customer a millisecond, after a year the tickets are still below about thirty-four billion, two to the thirty-five. That fits easily in an ordinary computer number. | 31,557,600,000 < 34,359,738,368 | arithmetic card | |
-| 09_5 | *(for programmers)* And it isn't cheap. | Costs card: N fixed in advance; 3(N−1) slate reads per entry even alone; spinning; a customer paused mid-doorway stalls everyone; one that dies with its flag up deadlocks everyone; slates sharing a cache line ping-pong (pad each); 2N shared variables, half unbounded, while any read/write lock needs at least N (Burns–Lynch) | card | hold |
+| 09_4 | ⟨predict⟩ Could tickets outgrow an ordinary computer number? Lamport did the sum. At one customer a millisecond, after a year they're still below about thirty-four billion, two to the thirty-five. That fits easily. | 31,557,600,000 < 34,359,738,368 | arithmetic card | |
+| 09_5 | *(for programmers)* And it isn't cheap. | Costs card: N fixed in advance; 3(N−1) slate reads per entry even alone; spinning; a customer paused mid-doorway stalls everyone; one that dies with its flag up deadlocks everyone; slates sharing a cache line ping-pong (pad each); 2N shared variables, half unbounded, while any read/write lock needs at least N (Burns–Lynch) | card | |
+| 09_6 | One more caution, from Lamport himself. Read each slate exactly once when finding the biggest. Read one twice, and with three or more customers and garbage reads, it breaks. | Double-fetch trace (33 steps) | trace | hold |
 
 - **Precisely:** "if i finishes its doorway before k starts its doorway, i
   enters first"; the 2³⁵ bound assumes "a read of number[i] can never obtain a
@@ -2131,12 +2136,9 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 10_1 | The proof is right. But run this on your laptop as written, and it can fail, because your laptop breaks one of the proof's promises. | The proof's promises from 07 as a short list; one ("a write is seen in order") flickers and breaks over a CPU outline | promise list | |
-| 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. They read the other slates, see no flags, and walk in. Main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
-| 10_3 | That's not the cache. Caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before you read anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — | |
-| 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | |
-| 10_5 | In practice people use the hardware's atomic instructions. But the bakery lock still ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card | |
-| 10_6 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback | |
-| 10_7 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card | |
+| 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. ⟨predict⟩ Then each reads the other's slate. What does it see? No flag. Both walk in, while main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
+| 10_3 | That's not the cache; caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — | |
+| 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | hold |
 
 ```rust
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering::SeqCst};
@@ -2164,6 +2166,15 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 - **Ruth:** "two fences per customer on x86" is the TSO model result for N ≤ 3
   (bounded), consistent with Abdulla et al. (TACAS 2012); "reappears" rather
   than "became" for the clock lineage (CHM p. 9 supports the counter link).
+
+#### 11_out_of_thin_air (~45 s)
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | In practice people use the hardware's atomic instructions. ⟨predict⟩ So does the bakery lock still run anywhere? It ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card | |
+| 11_2 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback | |
+| 11_3 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card | |
+
 - **Quotes (verbatim):** "I feel that I did not invent the bakery algorithm, I
   discovered it." (publications page); "the bakery algorithm, it just seemed to
   come out of thin air to me … perhaps that's why I'm proudest of it" (CHM oral
