@@ -389,16 +389,36 @@ pub fn table_cells(col_share: f64, row_share: f64) -> [Cell; 4] {
     ]
 }
 
+/// A rectangle on screen that a table or mosaic fills.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Panel {
+    pub c: Vec3,
+    pub w: f64,
+    pub h: f64,
+}
+
+/// The table's own rectangle (01, 03, 07, 08).
+pub const TABLE: Panel = Panel {
+    c: TABLE_C,
+    w: TABLE_W,
+    h: TABLE_H,
+};
+
 /// The mosaic of a table: areas in proportion, the marked column `marked`
 /// of `lake` wide and, in each column, the second catch's share on top.
 /// Returns the four cells as [`table_cells`] orders them; the two columns'
 /// top rows differ in height unless the table balances.
 pub fn mosaic_cells(lake: f64, marked: f64, twice: f64, second: f64) -> [Cell; 4] {
-    let (left, top) = (TABLE_C[0] - TABLE_W / 2.0, TABLE_C[1] + TABLE_H / 2.0);
-    let wm = TABLE_W * marked / lake;
-    let wu = TABLE_W - wm;
-    let hm = TABLE_H * twice / marked;
-    let hu = TABLE_H * (second - twice) / (lake - marked);
+    mosaic_in(TABLE, lake, marked, twice, second)
+}
+
+/// [`mosaic_cells`] filling `panel` instead of the table's rectangle.
+pub fn mosaic_in(panel: Panel, lake: f64, marked: f64, twice: f64, second: f64) -> [Cell; 4] {
+    let (left, top) = (panel.c[0] - panel.w / 2.0, panel.c[1] + panel.h / 2.0);
+    let wm = panel.w * marked / lake;
+    let wu = panel.w - wm;
+    let hm = panel.h * twice / marked;
+    let hu = panel.h * (second - twice) / (lake - marked);
     let cell = |x0: f64, y1: f64, w: f64, h: f64| Cell {
         c: v(x0 + w / 2.0, y1 - h / 2.0),
         w: (w - GAP).max(0.01),
@@ -406,9 +426,9 @@ pub fn mosaic_cells(lake: f64, marked: f64, twice: f64, second: f64) -> [Cell; 4
     };
     [
         cell(left, top, wm, hm),
-        cell(left, top - hm, wm, TABLE_H - hm),
+        cell(left, top - hm, wm, panel.h - hm),
         cell(left + wm, top, wu, hu),
-        cell(left + wm, top - hu, wu, TABLE_H - hu),
+        cell(left + wm, top - hu, wu, panel.h - hu),
     ]
 }
 
@@ -461,12 +481,14 @@ pub fn cell_backs(stage: &mut Stage<'_>, cells: &[Cell; 4]) -> fmn::Result<Mob> 
     Ok(stage.arena_mut().add(v_group(backs)))
 }
 
-/// Where the table's four header words sit for `cells`: the marked column's
-/// header (its left edge at the table's left), the unmarked one (centred
-/// over its column), and the two row words (right edges left of the table).
+/// Where the table's four header words sit for `cells` (wherever the table
+/// is): the marked column's header (its left edge at the table's left),
+/// the unmarked one (centred over its column), and the two row words (right
+/// edges left of the table).
 pub fn header_places(cells: &[Cell; 4]) -> [(Vec3, Vec3); 4] {
-    let top = TABLE_C[1] + TABLE_H / 2.0 + 0.35;
-    let left = TABLE_C[0] - TABLE_W / 2.0;
+    // the table's top-left corner, from its marked column's cells
+    let top = cells[0].c[1] + cells[0].h / 2.0 + GAP / 2.0 + 0.35;
+    let left = cells[0].c[0] - cells[0].w / 2.0 - GAP / 2.0;
     [
         (v(left, top), LEFT),
         (v(cells[2].c[0], top), ORIGIN),
@@ -695,6 +717,28 @@ mod tests {
         let w = c[0].w + c[2].w + 2.0 * GAP;
         assert!((w - TABLE_W).abs() < 1e-9);
         assert!(((c[0].w + GAP) / TABLE_W - 0.1).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_mosaic_fills_any_panel_and_its_headers_follow_it() {
+        let small = Panel {
+            c: v(3.0, 1.0),
+            w: 4.0,
+            h: 2.0,
+        };
+        let c = mosaic_in(small, 33.0, 10.0, 3.0, 10.0);
+        let left = c[0].c[0] - c[0].w / 2.0 - GAP / 2.0;
+        let right = c[2].c[0] + c[2].w / 2.0 + GAP / 2.0;
+        assert!((left - 1.0).abs() < 1e-9 && (right - 5.0).abs() < 1e-9);
+        let top = c[0].c[1] + c[0].h / 2.0 + GAP / 2.0;
+        assert!((top - 2.0).abs() < 1e-9);
+        // the headers sit over this panel, not over the table
+        let [(marked_at, _), _, _, _] = header_places(&c);
+        assert!((marked_at[0] - 1.0).abs() < 1e-9 && (marked_at[1] - 2.35).abs() < 1e-9);
+        // the table's own mosaic is the TABLE panel's
+        let a = mosaic_cells(10_000.0, 1_000.0, 100.0, 1_000.0);
+        let b = mosaic_in(TABLE, 10_000.0, 1_000.0, 100.0, 1_000.0);
+        assert!(a.iter().zip(&b).all(|(x, y)| x.c == y.c && x.w == y.w && x.h == y.h));
     }
 
     #[test]
