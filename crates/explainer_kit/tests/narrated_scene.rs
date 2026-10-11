@@ -41,6 +41,20 @@ impl SceneConstruct for Talk {
     }
 }
 
+/// A directory for this test's output that no run has used: the process id
+/// and the clock, skipping any path that already exists. Nothing is ever
+/// overwritten or deleted (AGENTS.md, rule 1); the OS's temp cleaning
+/// reclaims it.
+fn fresh_dir(tag: &str) -> std::path::PathBuf {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
+    (0u32..)
+        .map(|k| std::env::temp_dir().join(format!("explainer_kit_{tag}_{}_{nanos}_{k}", std::process::id())))
+        .find(|p| !p.exists())
+        .expect("an unused name")
+}
+
 fn write_line(path: &Path, seconds: f64) {
     let n = (seconds * 48_000.0) as usize;
     let m: Vec<f64> = (0..n).map(|i| 0.1 * (i as f64 * 0.05).sin()).collect();
@@ -49,7 +63,7 @@ fn write_line(path: &Path, seconds: f64) {
 
 #[test]
 fn the_narrator_places_lines_frame_exactly_and_logs_everything() {
-    let dir = std::env::temp_dir().join(format!("explainer_kit_narrated_{}", std::process::id()));
+    let dir = fresh_dir("narrated");
     std::fs::create_dir_all(&dir).unwrap();
     write_line(&dir.join("01_1.wav"), 0.25);
     write_line(&dir.join("01_2.wav"), 0.25);
@@ -108,12 +122,11 @@ fn the_narrator_places_lines_frame_exactly_and_logs_everything() {
     assert_eq!(bus.len(), 258 * 800);
     assert!(bus.l[76_790..76_800].iter().all(|x| *x == 0.0));
     assert!(bus.l[76_800..76_800 + 200].iter().any(|x| x.abs() > 0.01));
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 #[test]
 fn a_bad_cue_is_refused_when_placed() {
-    let dir = std::env::temp_dir().join(format!("explainer_kit_badcue_{}", std::process::id()));
+    let dir = fresh_dir("badcue");
     std::fs::create_dir_all(&dir).unwrap();
     write_line(&dir.join("01_1.wav"), 0.25);
     let script = Script::parse("01_1\tHello.\n02_1\tMissing.\n").unwrap();
@@ -148,7 +161,7 @@ impl SceneConstruct for Sonified {
 
 #[test]
 fn a_sonification_window_lets_the_scene_animate_and_holds_the_next_line() {
-    let dir = std::env::temp_dir().join(format!("explainer_kit_sonify_{}", std::process::id()));
+    let dir = fresh_dir("sonify");
     std::fs::create_dir_all(&dir).unwrap();
     write_line(&dir.join("01_1.wav"), 0.25);
     write_line(&dir.join("01_2.wav"), 0.25);
