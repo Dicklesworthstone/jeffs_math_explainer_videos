@@ -30,6 +30,6 @@ storyboard (`docs/storyboard.md`) is the source of the words and pictures, and
 | Oracle | `oracle.py` imports `docs/research/bakery_algorithm/scripts/`; long sweeps (the model checker's state counts) are recorded outputs (plan §11.1). |
 | Pronunciations | Lamport (with "Leslie", spoken from R2 at 03_1), Edsger Dijkstra (probe hard: only partially verified so far), Dekker, Knuth ("kuh-NOOTH", the K sounded), Peterson, Herlihy, Taubenfeld, Paxos, Anatol Holt, Arm, Macs, x86 ("ex eighty-six"), mutex, odometer (spoken from R2 at 11_5): each verified by the narration skill's probe before narration; the owner's pronunciation overrides. |
 | Render host | this Mac with x264 until the GPU host's NVENC is restored (default) |
-| franken_manim | git revision `e2eec6326cee490462e497509fce9289c8157bea` through the workspace pin |
+| franken_manim | git revision `a399d626c43ecc852a5c795288979f52b446bc5c` through the workspace pin (FRANKEN_MANIM.pin) |
 | Out of scope | Paxos itself, bounded-bakery constructions, TLA+ |
 | Assumptions | The rows marked `(default)`; the arc of plan §11.2. |

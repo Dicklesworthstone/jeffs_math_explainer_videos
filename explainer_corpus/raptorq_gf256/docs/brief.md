@@ -28,6 +28,6 @@ not a list of questions.
 | Oracle | `oracle.py` imports `docs/research/raptorq_gf256/scripts/`; measured RaptorQ counts are recorded outputs pinned as constants, not recomputed per build (plan §10.1). |
 | Pronunciations | RaptorQ ("raptor queue"), Galois, Reed–Solomon, Shokrollahi, Luby, Erdős, Borwein, ex-or, ATSC, RAID, "hex one D", polynomial, logarithm, Gaussian, Linux's (spoken at 17_6 from R2): each verified by the narration skill's probe before narration; the owner's pronunciation overrides. |
 | Render host | this Mac with x264 until the GPU host's NVENC is restored (default) |
-| franken_manim | git revision `e2eec6326cee490462e497509fce9289c8157bea` through the workspace pin; chapter 03's cube of GF(2)³ patterns runs on the camera route (spike S-5) |
+| franken_manim | git revision `a399d626c43ecc852a5c795288979f52b446bc5c` through the workspace pin (FRANKEN_MANIM.pin); chapter 03's cube of GF(2)³ patterns runs on the camera route (spike S-5) |
 | Out of scope | the RFC's tuple generator, systematic index tables, the robust-soliton derivation, LDPC row construction, Reed–Solomon decoding algorithms |
 | Assumptions | The rows marked `(default)`; the arc of plan §10.2 ("each fix exposes the next problem"). |

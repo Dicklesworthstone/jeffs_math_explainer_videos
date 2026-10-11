@@ -12,9 +12,12 @@ empty list, 2 on usage.
 Where `rch` is installed the build runs on a worker (nothing compiles on the
 owner's Mac): HEAD plus the changed and new tracked-or-unignored files as
 overlays, so gitignored renders are never synced. Set RUSTUP_TOOLCHAIN (see
-AGENTS.md, Toolchain). Elsewhere it is plain `cargo`.
+AGENTS.md, Toolchain). On a build machine that opts out of the fleet
+(RCH_SHIM_LOCAL_IDE set, as the build host's project.env does), and where rch
+is absent, it is plain `cargo`.
 """
 
+import os
 import pathlib
 import re
 import shutil
@@ -44,7 +47,7 @@ def parse(text):
 
 def cargo_prefix():
     """`cargo`, or `rch exec` on HEAD with every changed or new file overlaid."""
-    if not shutil.which("rch"):
+    if not shutil.which("rch") or os.environ.get("RCH_SHIM_LOCAL_IDE"):
         return ["cargo"]
     git = lambda *a: subprocess.run(["git", *a], cwd=ROOT, capture_output=True,
                                     text=True, check=True, timeout=60).stdout.split("\n")

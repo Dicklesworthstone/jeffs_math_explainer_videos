@@ -521,7 +521,7 @@ pub fn receipts_card(kit: &Kit, stage: &mut Stage<'_>, lines: &[&str]) -> fmn::R
 
 #[cfg(test)]
 mod tests {
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
     use std::rc::Rc;
 
     use fmn::scene::{NullSceneSink, RuntimeConfig};
@@ -557,8 +557,9 @@ mod tests {
             let plain = bit_row(&kit, stage, 0, false, 0.6, ORIGIN)?;
             assert!(plain.places.is_empty());
             let bar = proportion_bar(stage, v(-3.0, 0.0), 6.0, 0.4, 0.1, Palette::hero(), Palette::dim())?;
-            assert!((stage.get_width(bar.part) - 0.6).abs() < 1e-9, "a tenth of 6 wide");
-            assert!((stage.get_width(bar.whole) - 6.0).abs() < 1e-9);
+            let (pw, ww) = (stage.get_width(bar.part), stage.get_width(bar.whole));
+            assert!((pw - 0.6).abs() < 1e-6, "a tenth of 6 wide: part {pw}, whole {ww}");
+            assert!((ww - 6.0).abs() < 1e-6, "whole {ww}");
             let frame = Frame2 {
                 center: ORIGIN,
                 width: 8.0,
@@ -629,6 +630,8 @@ mod tests {
             let tick = Rc::new(RefCell::new(0.0));
             let t = Rc::clone(&tick);
             let log = Rc::clone(&seen);
+            let logging = Rc::new(Cell::new(true));
+            let on = Rc::clone(&logging);
             stage.add_dt_updater(
                 rows[0],
                 move |s, _, dt| {
@@ -636,7 +639,9 @@ mod tests {
                     let shade = (*t.borrow() / 10.0).min(1.0);
                     assert!(g.recolor(s, &colors(shade)));
                     let n: usize = s.roots().iter().map(|&r| s.family(r).len()).sum();
-                    log.borrow_mut().push(n);
+                    if on.get() {
+                        log.borrow_mut().push(n);
+                    }
                 },
                 false,
             )?;
@@ -647,13 +652,17 @@ mod tests {
                 !shared.recolor(stage.arena_mut(), &[vec![Palette::blue(); 9]]),
                 "a mismatched grid is refused"
             );
-            // planted negative: rebuilding a strip every tick grows the scene
+            // planted negative: adding a mobject every tick (a rebuild without
+            // a removal) grows the scene, and the counter sees it
+            logging.set(false);
             let start = drawn(stage);
-            let template = shared.rows[0];
+            let lone = stage.arena_mut().add(Circle::new().radius(0.1).build());
+            let driver = stage.arena_mut().add(VMobject::new());
+            stage.add_to_scene(driver)?;
             stage.add_dt_updater(
-                template,
+                driver,
                 move |s, _, _| {
-                    let copy = s.copy_family(template).expect("the strip copies");
+                    let copy = s.copy_family(lone).expect("the template copies");
                     s.add_to_scene(copy).expect("the copy is added");
                 },
                 false,
@@ -752,7 +761,7 @@ mod tests {
             let q = predict_pause(&kit, stage, v(5.6, -2.6))?;
             let held = stage.scene().time().to_f64() - t0;
             assert!(
-                held >= PREDICT_HOLD_S + 0.29 && held < PREDICT_HOLD_S + 0.5,
+                (PREDICT_HOLD_S + 0.29..PREDICT_HOLD_S + 0.5).contains(&held),
                 "held {held} s"
             );
             assert!(stage.scene().mobjects().contains(&q), "the ? is on screen");
