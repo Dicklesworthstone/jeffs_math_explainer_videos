@@ -17,7 +17,7 @@ use explainer_score::{FS, Stereo};
 use fmn::animation::replacement_transform;
 use fmn::prelude::*;
 
-use super::draw::{flat, line_style};
+use super::draw::{Role, flat, line_style};
 use crate::facts::FELLER;
 use crate::law::{ALPHA, FELLER_BET, Law, careful_range, range_tails};
 use crate::runs;
@@ -103,9 +103,9 @@ fn slice(law: &Law, frame: &Frame2, x0: f64, scale: f64, (lo, hi): (u64, u64)) -
         Polygon::new(pts).style(flat(color, opacity)).build()
     };
     [
-        piece(0, lo.saturating_sub(1), Palette::red(), 0.6),
+        piece(0, lo.saturating_sub(1), Role::bias(), 0.6),
         piece(lo, hi, chance(), 0.8),
-        piece(hi + 1, u64::MAX, Palette::red(), 0.6),
+        piece(hi + 1, u64::MAX, Role::bias(), 0.6),
     ]
 }
 
@@ -298,7 +298,7 @@ impl RingToss {
             .collect::<Result<_, _>>()
             .map_err(model)?;
 
-        let title = kit.text(stage, "the careful range", 36.0, Palette::teal(), v(0.0, 3.45))?;
+        let title = kit.text(stage, "the careful range", 36.0, Role::dark(), v(0.0, 3.45))?;
         let axis_y = frame.bottom();
         let ticks: Vec<f64> = (0..=5).map(|i| frame.x.0 + 2_000.0 * f64::from(i)).collect();
         let x_ax = x_axis(kit, stage, &frame, axis_y, &ticks, |t| thousands(t as u64))?;
@@ -306,7 +306,7 @@ impl RingToss {
             stage,
             "lake size",
             24.0,
-            Palette::teal(),
+            Role::dark(),
             v(frame.right() - 0.6, axis_y - 0.62),
         )?;
         let mut y_parts = vec![
@@ -333,14 +333,14 @@ impl RingToss {
             stage,
             "caught twice",
             24.0,
-            Palette::hero(),
+            Role::marked(),
             v(frame.left() - 0.6, frame.top() + 0.32),
         )?;
         // our catch: a gold line at k = 100
         let line_y = frame.p(0.0, fk as f64)[1];
         let ours = stage.arena_mut().add(
             Line::new(v(frame.left(), line_y), v(frame.right(), line_y))
-                .style(line_style(Palette::hero(), 4.0))
+                .style(line_style(Role::marked(), 4.0))
                 .build()?,
         );
         let ours_at = v(frame.right() - 0.05, line_y + 0.3);
@@ -348,7 +348,7 @@ impl RingToss {
             stage,
             &format!("our catch: {fk} caught twice"),
             24.0,
-            Palette::hero(),
+            Role::marked(),
             ours_at,
         )?;
         stage.move_to(ours_label, ours_at, RIGHT);
@@ -402,7 +402,7 @@ impl RingToss {
                 Rectangle::new()
                     .width((b - a).max(0.01))
                     .height(0.16)
-                    .style(flat(Palette::teal(), 0.95))
+                    .style(flat(Role::dark(), 0.95))
                     .build()
                     .map(|r| r.moved_to(v((a + b) / 2.0, axis_y + 0.12)))
                     .unwrap_or_else(|_| VMobject::new())
@@ -416,7 +416,7 @@ impl RingToss {
             let n = s.tracker_value(size).unwrap_or(frame.x.0).round() as u64;
             let inside = (lo..=hi).contains(&n);
             let p = frame.p(n as f64, fk as f64);
-            let c = if inside { Palette::teal() } else { Palette::red() };
+            let c = if inside { Role::dark() } else { Role::bias() };
             s.add(Dot::new().point(p).radius(0.08).color(c).build())
         });
         stage.add_to_scene(dot)?;
@@ -456,7 +456,7 @@ impl RingToss {
             let shape = stage.arena_mut().add(v_group(slice(&law, &frame, x0, scale, middle)));
             let base = stage.arena_mut().add(
                 Line::new(v(x0, frame.bottom()), frame.p(n as f64, 165.0))
-                    .style(line_style(Palette::teal(), 2.0))
+                    .style(line_style(Role::dark(), 2.0))
                     .build()?,
             );
             let pct = kit.text(
@@ -467,7 +467,7 @@ impl RingToss {
                 v(x0 + 0.55, frame.p(0.0, tail_k)[1]),
             )?;
             let at = v(x0, frame.bottom() + 0.45);
-            let tag = kit.text(stage, &thousands(n), 26.0, Palette::teal(), at)?;
+            let tag = kit.text(stage, &thousands(n), 26.0, Role::dark(), at)?;
             stage.move_to(tag, at, if n == lo { RIGHT } else { LEFT });
             ends.push((shape, base, pct, tag));
         }
@@ -525,7 +525,7 @@ impl RingToss {
                 .width(0.09)
                 .height(peg_h)
                 .corner_radius(0.04)
-                .style(flat(Palette::teal(), 1.0))
+                .style(flat(Role::dark(), 1.0))
                 .build()?
                 .moved_to(v(peg_x, floor + peg_h / 2.0)),
         );
@@ -533,7 +533,7 @@ impl RingToss {
             stage,
             &format!("true size: {}", thousands(lake)),
             26.0,
-            Palette::teal(),
+            Role::dark(),
             v(peg_x, floor + peg_h + 0.25),
         )?;
 
@@ -565,7 +565,7 @@ impl RingToss {
         let drop = 7.2;
         let (mut backs, mut fronts) = (Vec::new(), Vec::new());
         for (i, (&(a, b), &y)) in ranges.iter().zip(&rest).enumerate() {
-            let color = if rang[i] { Palette::teal() } else { Palette::red() };
+            let color = if rang[i] { Role::dark() } else { Role::bias() };
             let (xa, xb) = (xs(a as f64), xs(b as f64));
             backs.push(arc(xa, xb, y + drop, 0.0, color)?);
             fronts.push(arc(xa, xb, y + drop, std::f64::consts::PI, color)?);
@@ -686,7 +686,7 @@ impl RingToss {
             } else {
                 v(xs(b as f64) + 0.12, rest[i])
             };
-            let tag = kit.text(stage, &format!("run {}", i + 1), 22.0, Palette::red(), at)?;
+            let tag = kit.text(stage, &format!("run {}", i + 1), 22.0, Role::bias(), at)?;
             stage.move_to(tag, at, if left_of_peg { RIGHT } else { LEFT });
             miss_tags.push(tag);
         }
@@ -736,7 +736,7 @@ impl RingToss {
             stage,
             &format!("{middle_pct}% confidence interval"),
             38.0,
-            Palette::teal(),
+            Role::dark(),
             ORIGIN,
             true,
             false,
@@ -776,7 +776,7 @@ impl RingToss {
         let xs = |n: f64| frame.p(n, 0.0)[0];
         let ticks: Vec<f64> = (0..=5).map(|i| 6_000.0 + 2_000.0 * f64::from(i)).collect();
         let axis = x_axis(kit, stage, &frame, -2.55, &ticks, |t| thousands(t as u64))?;
-        let axis_title = kit.text(stage, "lake size", 24.0, Palette::teal(), v(xs(15_200.0), -2.2))?;
+        let axis_title = kit.text(stage, "lake size", 24.0, Role::dark(), v(xs(15_200.0), -2.2))?;
 
         // chapter 09's question: the lake fixed at 10,000, the catch moves;
         // each bar is one catch's soup guess, as tall as its chance
@@ -835,27 +835,27 @@ impl RingToss {
             v(xs(lo as f64), ours_y - 0.09),
             xs(hi as f64) - xs(lo as f64),
             0.18,
-            flat(Palette::teal(), 0.95),
+            flat(Role::dark(), 0.95),
         )?);
         let careful_lo = kit.text(
             stage,
             &thousands(lo),
             26.0,
-            Palette::teal(),
+            Role::dark(),
             v(xs(lo as f64) - 0.6, ours_y),
         )?;
         let careful_hi = kit.text(
             stage,
             &thousands(hi),
             26.0,
-            Palette::teal(),
+            Role::dark(),
             v(xs(hi as f64) + 0.65, ours_y),
         )?;
         let here = kit.text_left(
             stage,
             &format!("here: the catch fixed at {fk} caught twice, every lake size tried"),
             26.0,
-            Palette::teal(),
+            Role::dark(),
             v(-6.6, -0.75),
         )?;
 
@@ -925,7 +925,7 @@ impl RingToss {
                 .width((xb - xa).max(0.06))
                 .height(0.3)
                 .corner_radius(0.05)
-                .style(flat(Palette::teal(), 0.95))
+                .style(flat(Role::dark(), 0.95))
                 .build()?
                 .moved_to(v((xa + xb) / 2.0, bar_y)))
         };
@@ -933,9 +933,9 @@ impl RingToss {
         // 12_4: the range alone, and three knobs
         let range = stage.arena_mut().add(bar(lo, hi)?);
         let knobs: Vec<(&str, Srgb)> = vec![
-            ("marked", Palette::hero()),
-            ("second catch", Palette::green()),
-            ("caught twice", Palette::hero()),
+            ("marked", Role::marked()),
+            ("second catch", Role::second()),
+            ("caught twice", Role::marked()),
         ];
         let mut knob_mobs = Vec::new();
         for (i, (word, color)) in knobs.iter().enumerate() {
@@ -990,12 +990,12 @@ impl RingToss {
             let at = v(slider_x(k), track_y - 0.38);
             stop_labels.push(kit.text(stage, &word, 22.0, Palette::dim(), at)?);
         }
-        let slider_title = kit.text(stage, "expected caught twice", 26.0, Palette::hero(), v(0.0, 3.25))?;
+        let slider_title = kit.text(stage, "expected caught twice", 26.0, Role::marked(), v(0.0, 3.25))?;
         let knob = stage.arena_mut().add(
             Circle::new()
                 .radius(0.14)
                 .arc_center(v(slider_x(stops[0]), track_y))
-                .style(flat(Palette::hero(), 1.0))
+                .style(flat(Role::marked(), 1.0))
                 .build(),
         );
         let axis = x_axis(kit, stage, &frame, -0.75, &[-40.0, -20.0, 0.0, 20.0, 40.0, 60.0], |t| {
@@ -1003,7 +1003,7 @@ impl RingToss {
         })?;
         let truth_tick = stage.arena_mut().add(
             Line::new(v(xs(0.0), -0.75), v(xs(0.0), 0.5))
-                .style(line_style(Palette::teal(), 2.0))
+                .style(line_style(Role::dark(), 2.0))
                 .build()?,
         );
 
@@ -1047,7 +1047,7 @@ impl RingToss {
                     stage,
                     &format!("one size: {}", thousands(s.lo)),
                     30.0,
-                    Palette::teal(),
+                    Role::dark(),
                     v(0.0, -2.0),
                 )?;
                 stage.attach(g, one)?;
@@ -1057,7 +1057,7 @@ impl RingToss {
                     (signed_pct(pct(s.hi)), v(xs(pct(s.hi)) + 0.15, bar_y + 0.45), LEFT),
                 ];
                 for (word, at, edge) in ends {
-                    let m = kit.text(stage, &word, 26.0, Palette::teal(), at)?;
+                    let m = kit.text(stage, &word, 26.0, Role::dark(), at)?;
                     stage.move_to(m, at, edge);
                     stage.attach(g, m)?;
                 }
