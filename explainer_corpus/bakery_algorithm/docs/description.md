@@ -9,7 +9,7 @@ storyboard's notes send something to "the description".
 
 # The Algorithm Lamport Is Proudest Of
 
-In 1974 Leslie Lamport found a way for programs to take turns using only
+In 1974 Leslie Lamport published a way for programs to take turns using only
 memory that each of them writes alone: take a ticket bigger than any you see,
 break ties by customer number, and raise a flag while you choose. Its proof
 never trusts a read that overlaps a write, so the algorithm survives memory

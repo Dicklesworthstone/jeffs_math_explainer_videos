@@ -15,7 +15,7 @@
 02_6	A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually.
 02_7	Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip.
 02_8	Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.
-03_1	In nineteen seventy-four, Leslie Lamport found an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room.
+03_1	In nineteen seventy-four, Leslie Lamport published an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room.
 03_2	But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own.
 03_3	So each customer gets her own slate, and only she writes on it. A zero means not in line.
 03_4	To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads three, zero, zero, two. What does she write?

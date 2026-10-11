@@ -107,7 +107,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | In nineteen seventy-four, Leslie Lamport found an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
+| 03_1 | In nineteen seventy-four, Leslie Lamport published an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
 | 03_2 | But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own. | Dispenser with a drawn red ✗ (`exmark`) | statement card |  |
 | 03_3 | So each customer gets her own slate, and only she writes on it. A zero means not in line. | Five slates at the heads of the five lanes | slates prop |  |
 | 03_4 | ⟨predict⟩ To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads three, zero, zero, two. What does she write? | Read arrows from Blue's lane; slates 0, 3, 0, 0, 2 | prediction card |  |
@@ -118,6 +118,11 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 - **For programmers (lower-third at 03_7):** a ticket lock is the machine
   Lamport avoided: one atomic fetch-and-add (Linux x86 FIFO ticket spinlocks,
   introduced in 2008; dev-15).
+- **03_1 (Codex R2, 2026-10-11):** "published", not "found": the paper was
+  received in September 1973 and revised in January 1974 (CACM 17(8), printed
+  p. 455) and published in August 1974 (`C-F14.bakery_paper.year`); the card
+  "Leslie Lamport, 1974" is the publication's date. No discovery month is
+  inferred from the submission date.
 - **Facts to pin:** Blue (customer 1) reading 3, 0, 0, 2 → 4, served Pink,
   Green, Blue (M3 moved the reader off customer 4; C-F7 is recomputed for this
   example).
