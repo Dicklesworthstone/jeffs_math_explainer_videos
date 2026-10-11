@@ -27,18 +27,13 @@ STAGES = {
 
 
 def artifact(slug, name):
-    """The artifact's path: the crate's docs/ once scaffolded, else docs/'s staging copy."""
+    """The artifact's path in the video's crate."""
     crate = ROOT / "explainer_corpus" / slug
-    candidates = {
-        "brief": [crate / "docs/brief.md", ROOT / f"docs/briefs/{slug}.md"],
-        "storyboard": [crate / "docs/storyboard.md", ROOT / f"docs/storyboards/{slug}.md"],
-        "fact-sheet": [crate / "docs/fact-sheet.md", ROOT / f"docs/facts/{slug}/fact-sheet.md"],
-        "script": [crate / "script.tsv"],
-    }[name]
-    for p in candidates:
-        if p.is_file():
-            return p
-    sys.exit(f"review: no {name} for {slug} (looked in {', '.join(str(c.relative_to(ROOT)) for c in candidates)})")
+    path = crate / {"brief": "docs/brief.md", "storyboard": "docs/storyboard.md",
+                    "fact-sheet": "docs/fact-sheet.md", "script": "script.tsv"}[name]
+    if not path.is_file():
+        sys.exit(f"review: no {name} for {slug} ({path.relative_to(ROOT)})")
+    return path
 
 
 COMMON = """\

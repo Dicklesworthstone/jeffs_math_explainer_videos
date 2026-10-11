@@ -1,12 +1,12 @@
 # capture_recapture: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	A thousand fish are caught, marked, and let go. One week later, a second net catches a thousand. Of those, a hundred are marked.
+01_1	A thousand fish are caught, marked, and let go. A while later, a second net catches a thousand. Of those, a hundred are marked.
 01_2	Now look at the fish no net ever touched.
 01_3	There are about eight thousand one hundred of them. And we can say how sure we are.
 01_5	Why not count one patch and scale up? This net covers one hundredth of the lake. Four hundred fifty-one fish, times a hundred, is forty-five thousand one hundred.
 01_6	Try two other spots. Same answer?
 01_7	Not even close. In the weeds, eighty-eight thousand. In open water, two thousand eight hundred.
 01_8	The net knows it covered a hundredth of the water. It can't know what share of the fish that was.
-02_1	In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Biologists had been doing it for decades. His book never mentions them.
+02_1	In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Others had been using it for years, and his book never mentions them.
 02_2	Feller marked his fish with red spots. Ours glow, so you can see them.
 02_3	Here's the first way to read it. Of the thousand marked fish, the second net caught a hundred. One in ten.
 02_4	So the second net probably caught about one in ten of all the fish. It caught a thousand. A thousand is one tenth of how many?
@@ -42,7 +42,7 @@
 06_3	The chances from the netfuls. They add to one.
 06_4	Cut along at our three, and you get the score curve. Its heights add to sixteen and two thirds. Same mountains, two questions.
 07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it.
-07_2	In our small lake, the step from thirty-two to thirty-three comes down to two numbers, five twenty-nine against five twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five seventy-six against five seventy-eight, so it goes down.
+07_2	In our small lake, the step from thirty-two to thirty-three comes down to two numbers, five hundred twenty-nine against five hundred twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five hundred seventy-six against five hundred seventy-eight, so it goes down.
 07_3	So take the top minus the bottom, written with letters. Multiply it out. What survives?
 07_4	Marked times second catch, minus caught twice times lake size. While that's positive, the score is still rising.
 07_5	Now write it with the table's four cells. It becomes first catch only times second catch only, minus caught twice times the dark cell.
@@ -60,7 +60,7 @@
 09_6	Two lines of code. Always check a simulation against something you can compute exactly.
 10_1	With a smaller experiment it gets worse. In a lake of a thousand, mark fifty and catch fifty. How often does the second catch hold no marked fish at all?
 10_2	About one time in fourteen. Then the soup guess divides by zero.
-10_3	Douglas Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average.
+10_3	Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average.
 11_1	So far the lake was known, and we watched the estimates scatter. Now turn it around. We don't know the lake. Which sizes could plausibly have given us our hundred caught twice?
 11_2	Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros.
 11_3	A million fish? Then we'd expect to catch about one marked fish, not a hundred.
@@ -71,7 +71,7 @@
 12_3	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed and the lake moves.
 12_4	What makes the range tight?
 12_5	Mostly, more fish caught twice. Four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt.
-13_1	Every failure breaks one rule. In the second net, marked and unmarked fish must be equally likely to be caught. Then the catch is a fair copy.
+13_1	Every failure breaks one rule. The second catch must carry the same share of marked fish as the lake. Then it's a fair copy.
 13_2	Some fish are bold and easy to catch, both times. Will the estimate come out too big, or too small?
 13_3	Too small. Bold fish get caught twice more than their share, so the dark cell shrinks. In our lake, where three fish in ten are three times as easy to catch, the estimate comes out around seventy-seven fifty.
 13_4	Fish that learn to love the bait do the same. Fish that learn to avoid it push the estimate up.
@@ -84,7 +84,7 @@
 14_2	At his request, officials counted everyone in chosen towns across France. About two million people, with about seventy-two thousand births a year. That's one birth for every twenty-eight and a bit people. Taking France's births as a million a year, that's about twenty-eight point four million people.
 14_4	It counts bugs too. Say two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. How many are still hiding?
 14_5	Thirty times twenty-four, over twelve, is sixty. They found forty-two, so about eighteen. But twelve is a small number caught twice. An honest range is forty-seven to ninety-four bugs in all.
-14_6	Reviewers of different skill are fine. Bugs of different difficulty are not. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So read sixty as a floor.
+14_6	Reviewers of different skill are fine. Bugs of different difficulty are not. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So read sixty as probably too low.
 15_1	And it has counted the dead. In the war in Kosovo, in nineteen ninety-nine, several lists named about four thousand four hundred different victims between them. The names shared between lists estimated about ten thousand four hundred killed. Years later, a name-by-name count found nine thousand seven hundred ninety, inside the estimate's range.
 15_2	France, the bugs, Kosovo. What do they share?
 15_3	Each is a table with one cell nobody can see, filled in by the cells we can.

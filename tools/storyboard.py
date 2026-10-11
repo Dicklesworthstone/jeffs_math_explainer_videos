@@ -49,7 +49,9 @@ SHOWCASE = [
 
 
 def spoken(words):
-    text = re.sub(r"\*\([^)]*\)\*", " ", words)
+    # an annotation runs from "*(" to the next ")*" (it may hold parentheses);
+    # an unclosed one runs to the end; the same rule as storyboard.rs
+    text = re.sub(r"\*\((?:.*?\)\*|.*$)", " ", words)
     text = text.replace(MARK, " ")
     return " ".join(text.split())
 
@@ -78,7 +80,8 @@ def parse(path):
             if cur is None:
                 raise SystemExit(f"{path}:{n}: a beat before any chapter heading")
             # cells split on every pipe not escaped as \| (an empty cell may be "| |")
-            cols = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip())[1:-1]]
+            cells = re.split(r"(?<!\\)\|", line.strip())
+            cols = [c.strip() for c in (cells[1:-1] if line.strip().endswith("|") else cells[1:])]
             cols += [""] * (5 - len(cols))
             cur["rows"].append({"n": n, "id": cols[0], "words": cols[1], "picture": cols[2],
                                 "features": cols[3], "hold": cols[4]})

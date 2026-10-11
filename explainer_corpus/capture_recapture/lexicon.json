@@ -1,0 +1,225 @@
+{
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry.",
+ "words": {
+  "William": {
+   "respell": [
+    "WILL-ee-um",
+    "William",
+    "Will-ee-um"
+   ],
+   "say": "WILL-ee-um",
+   "ipa": "ˈwɪl.i.əm",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/William#English"
+   ],
+   "note": "said in 'William Feller' (02_1).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "WILL-ee-um",
+    "discriminates": true,
+    "results": {
+     "William": "control PASS 3/3",
+     "Will-ee-um": "candidate PASS 3/3",
+     "WILL-ee-um": "candidate PASS 3/3",
+     "WALL-ee-um": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Feller": {
+   "respell": [
+    "Feller",
+    "Fell-er",
+    "FELL-er"
+   ],
+   "say": "FELL-er",
+   "ipa": "ˈfɛlər",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/William_Feller"
+   ],
+   "note": "no source gives IPA.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Feller",
+    "discriminates": true,
+    "results": {
+     "Feller": "control PASS 3/3",
+     "Fell-er": "candidate PASS 3/3",
+     "Fellur": "candidate FAIL 1/3",
+     "FELL-er": "candidate PASS 3/3",
+     "FOLL-er": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Laplace": {
+   "respell": [
+    "La-plahss",
+    "Lah-plahss"
+   ],
+   "say": "lah-PLAHSS",
+   "ipa": "laplas",
+   "lang": "fr",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Pierre-Simon_Laplace",
+    "https://en.wiktionary.org/wiki/Laplace#English"
+   ],
+   "decoy": [
+    "lah-PLAYSS"
+   ],
+   "note": "UNVERIFIED by ASR: FrankenWhisper writes 'Laplace' for La-plahss, Lah-plahss and the decoy lah-PLAYSS alike (rounds 1-2, 2026-10-11), so it cannot tell /plɑs/ from /pleɪs/. Chosen from the IPA (/lə.plɑs/; English /ləˈplɑːs/); confirm by ear at R3. Said once (14_1)."
+  },
+  "Chapman": {
+   "respell": [
+    "Chapman",
+    "Chap-mun",
+    "Chapmun"
+   ],
+   "say": "CHAP-mun",
+   "ipa": "ˈtʃæpmən",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Chapman#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Chapman",
+    "discriminates": true,
+    "results": {
+     "Chapman": "control PASS 3/3",
+     "Chap-mun": "candidate PASS 3/3",
+     "Chapmun": "candidate PASS 3/3",
+     "CHAP-mun": "candidate PASS 3/3",
+     "CHEEP-mun": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Kosovo": {
+   "respell": [
+    "Kosovo",
+    "KOSS-uh-voh"
+   ],
+   "say": "KOSS-uh-voh",
+   "ipa": "ˈkɒsəvoʊ",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Kosovo",
+    "https://en.wiktionary.org/wiki/Kosovo#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Kosovo",
+    "discriminates": true,
+    "results": {
+     "Kosovo": "control PASS 3/3",
+     "Koss-uh-voh": "candidate PARTIAL 2/3",
+     "KOSS-uh-voh": "candidate PASS 3/3",
+     "KEESS-uh-voh": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "hypergeometric": {
+   "respell": [
+    "Hyper-jee-uh-met-rik",
+    "hypergeometric"
+   ],
+   "say": "Hyper-jee-uh-met-rik",
+   "ipa": "ˌhaɪpərˌdʒiːəˈmɛtrɪk",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/hypergeometric#English"
+   ],
+   "decoy": [
+    "Hopper-jee-uh-mot-rak"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Hyper-jee-uh-met-rik",
+    "discriminates": true,
+    "results": {
+     "hypergeometric": "control PASS 3/3",
+     "Hyper-jee-uh-met-rik": "candidate PASS 3/3",
+     "Hopper-jee-uh-mot-rak": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "likelihood": {
+   "respell": [
+    "likelihood",
+    "Like-lee-hood"
+   ],
+   "say": "LIKE-lee-hood",
+   "ipa": "ˈlaɪklihʊd",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/likelihood#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Like-lee-hood",
+    "discriminates": false,
+    "results": {
+     "likelihood": "control UNVERIFIED 0/3",
+     "Like-lee-hood": "candidate PASS 3/3",
+     "Likelyhood": "candidate UNVERIFIED 0/3",
+     "Like-lihood": "candidate PARTIAL 2/3",
+     "LIKE-lee-hood": "candidate UNVERIFIED 2/3",
+     "LAKE-lee-hood": "decoy FOOLED (heard as the target) 0/3"
+    }
+   },
+   "note": "Dictionary word. ASR heard the plain spelling as 'likelihood' in 3/3 carriers but cannot discriminate (the decoy LAKE-lee-hood was also heard as 'likelihood' once), so the plain spelling stays first; Like-lee-hood passed 3/3 (heard 'like Lee Hood', mapped back by phrases). Decision 2026-10-11."
+  },
+  "probabilist": {
+   "respell": [
+    "Prob-uh-bil-ist",
+    "PROB-uh-bil-ist"
+   ],
+   "say": "PROB-uh-bil-ist",
+   "ipa": "ˈprɒbəbɪlɪst",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/probabilist#English"
+   ],
+   "decoy": [
+    "PREEB-uh-bil-ist"
+   ],
+   "accept": [
+    "probabilis"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Prob-uh-bil-ist",
+    "discriminates": true,
+    "results": {
+     "probabilist": "control PARTIAL 2/3",
+     "Prob-uh-bil-ist": "candidate PASS 3/3",
+     "PROB-uh-bil-ist": "candidate PASS 3/3",
+     "PREEB-uh-bil-ist": "decoy OK (heard differently) 0/3"
+    }
+   }
+  }
+ },
+ "accept": {},
+ "phrases": {
+  "willie um": "william",
+  "willie young": "william",
+  "chap moon": "chapman",
+  "chap mundy": "chapman",
+  "chap munn": "chapman",
+  "like lee hood": "likelihood"
+ }
+}

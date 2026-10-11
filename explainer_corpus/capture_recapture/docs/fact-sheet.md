@@ -1,18 +1,21 @@
 # Video A fact sheet: How to Count Fish You've Never Seen (capture_recapture)
 
-Bead `mx-e-a-8y5.2` (P1). Every value below was printed by the independent oracle
-`docs/facts/capture_recapture/oracle.py`; the full precision value is on the named key.
+Bead `mx-e-a-8y5.2` (P1); the claim walk's keys were added for gate G3 on 2026-10-11. Every
+value below was printed by the independent oracle `explainer_corpus/capture_recapture/oracle.py`;
+the full precision value is on the named key.
 
-- **Run** from the repository root: `python3 -I docs/facts/capture_recapture/oracle.py`
-  (standard library plus numpy; tested with the system python3 3.14.6 and numpy 2.4.1).
-- **Measured:** 41.8–47.2 s wall clock over the last two runs on an Apple M4 Pro; **338 keys**, one
-  `KEY<TAB>VALUE` per line on stdout (runtime and key count go to stderr). Repeated runs give
-  byte-identical stdout. Every ledger row A-F1 … A-F32 has at least one key; 10 keys are
-  `.recorded.`; 69 are `A-CH03.*`.
+- **Run** from `explainer_corpus/capture_recapture/`, as `./x capture_recapture facts-check`
+  does: `uv run --quiet --no-project --with numpy python3 -I -B oracle.py` (standard library
+  plus numpy; last run with Python 3.14.0 and numpy 2.5.4 under uv).
+- **Measured:** 98.8 s and 93.4 s wall clock over the last two runs on an Apple M4 Pro
+  (2026-10-11); **451 keys**, one `KEY<TAB>VALUE` per line on stdout (runtime and key count go
+  to stderr). The two runs' stdout is byte-identical. Every ledger row A-F1 … A-F32 has at least
+  one key; 10 keys are `.recorded.`; 93 are `A-CH03.*`; 65 are the claim walk's `A-CH11.*`,
+  `A-CH12.*` and `A-CH14.*` (see "Claim walk (gate G3)" below).
 - **Seeds:** numpy `default_rng(20261009)` replays `verify2.py`'s exact call order, so the
   simulated numbers reproduce `docs/research/capture_recapture/scripts/outputs/verify2_out.txt`
   digit for digit. The A-F27 lake uses SplitMix64 seeded 20261009; chapter 03 uses
-  `default_rng([20261009, 3])`.
+  `default_rng([20261009, 3])`; the two-reviewer runs (A-CH14) use `default_rng([20261009, 14])`.
 - **Notation:** N lake size, M marked, n second catch, k caught twice; cells a = M − k,
   b = n − k, u = N − M − n + k.
 
@@ -91,6 +94,19 @@ Bead `mx-e-a-8y5.2` (P1). Every value below was printed by the independent oracl
     - **What to do:** prefer the `exact_*` keys on screen, and pin the sim values as
       labelled-model numbers or compare them at a Monte Carlo tolerance.
     - **Exception:** A-F27 is portable by design (SplitMix64 plus rejection; see below).
+    - **Also numpy-bound (claim walk):** `A-CH12.ring_toss.*` (A-F19's stream), `A-CH14.*`, and
+      the 03_6 insets and 03_5 trays (`A-CH03.inset.*`, `A-CH03.trays.*`), which are read from the
+      numpy chapter-03 run's t = 400 frame. A Rust chapter-03 scene with its own generator will
+      have different fish there; it must load these positions or re-pick its insets by the same
+      rule and pin its own counts.
+13. **Claim walk (G3) findings.** Details are in "Claim walk (gate G3)" below.
+    - **03_5 trays:** real nets of 10 or 20 fish do not sit near 10%. At the nine region centres
+      they hold 0–3 of 10 and 0–5 of 20 marked. The storyboard now tags the trays "illustration".
+    - **03_6 insets:** these are real squares, but they were chosen to match the spoken counts.
+    - **08_5 "floating point picks 10,000":** this holds for an lgamma log-likelihood, but a
+      float ratio scan ties exactly. The lower-third now names lgamma.
+    - **11_2 marker:** 5.35 × 10⁻ᶻ is still a nonzero float64 at Z = 324 and rounds to 0 from
+      Z = 325. The label now reads "rounds to zero past here".
 
 ## Facts ledger A-F1 … A-F32
 
@@ -242,6 +258,26 @@ The model's max/min is 11.43. The binomial SD of a region's marked fraction near
 - The flattening of the marked fraction does not depend on this fix. Marked and unmarked fish
   follow the same dynamics, so marks become independent of position whatever the stationary
   law is. That is Ruth's statement in 03's persona notes.
+
+## Claim walk (gate G3): keys for the storyboard's remaining claims
+
+The claim walk (`docs/claims.md`) found numbers that the storyboard shows or says but that no key
+covered. This table adds those keys, computed by the oracle, and checks them against the
+storyboard as it stands after the walk's fixes. The rules and seeds are in the comments above
+each function in `oracle.py`. The non-numeric claims are rows 13 and 14 of the next section.
+
+| beat | storyboard claim | keys | oracle value | status / how computed |
+|---|---|---|---|---|
+| 03_5 | trays: "each tray's marked share sits near 10%" | `A-CH03.trays.*` | Nets of the 10 fish nearest each of the nine region centres (t = 400) hold 1, 0, 3, 0, 0, 2, 2, 0, 0 marked. Nets of 20 hold 2, 0, 5, 0, 2, 5, 2, 1, 0. A random net of 10 holds exactly 1 marked with chance 0.388; a random net of 20 holds exactly 2 with chance 0.285 | NOTE: real nets this small do not sit near 10%, so pinning them would contradict the picture. The picture now tags the trays "illustration". |
+| 03_6 | "A crowded patch has fifty fish, five of them marked. A sparse one has ten, with one marked." | `A-CH03.inset.*` | Side 0.04; the lake-average square holds 16 fish. **Crowded:** x 0.32–0.36, y 0.76–0.80, 50 fish, 5 marked (3.125× average density). **Sparse:** x 0.48–0.52, y 0.46–0.50, 10 fish, 1 marked (0.625×). Of the 9,409 squares, 25 have 50 fish (8 of them with exactly 5 marked) and 185 have 10 fish (62 with exactly 1). A direct recount agrees | MATCH. These are real squares of the habitat run's t = 400 frame, **selected** to match the spoken counts. The rule (nearest the weed-bed centre and nearest the lake centre) is in the oracle. |
+| 08_5 | lower-third "exact fractions tie, … picks 10,000 by rounding" | `A-F9.lgamma_logL9999_minus_logL10000`, `.lgamma_prefers`, `.lgamma_scan_argmax`, `.float_ratio_L10000_over_L9999` | logL(9,999) − logL(10,000) = −7.276 × 10⁻¹² with `math.lgamma`, so it prefers 10,000, and the scan's argmax is 10,000. The float ratio 81,000,000/81,000,000 is exactly 1.0 | NOTE: which size wins in floats depends on the method. The lower-third now says "an lgamma log-likelihood picks 10,000 by rounding". |
+| 09_3 | "exact SD 9.0 (the runs' own SD is 8.9)" | `A-F15.sd_k_exact`, `A-F19.sim_k_sd` (existing) | 9.00045; 8.91199 (numpy `std`, ddof 0, of the 10,000 seeded k) | MATCH; no new key needed |
+| 10_3 notes | "At k = 0 Chapman still answers (2,600 here)" | `A-F21.chapman_at_k0` | (50 + 1)(50 + 1)/(0 + 1) − 1 = 2,600 | MATCH (exact) |
+| 11_2 | marker at the 324th zero; "smallest positive ≈ 4.9 × 10⁻³²⁴" | `A-F32.smallest_subnormal_*`, `A-F32.zeros.*` | The smallest subnormal is exactly 2⁻¹⁰⁷⁴ = 4.9407 × 10⁻³²⁴, so its first nonzero digit is at decimal place 324. P1900's mantissa 5.3515 × 10⁻ᶻ, converted to float64 with correct rounding, is nonzero up to Z = 324 and 0.0 for every Z from 325 to 430 | MATCH after the label fix: "a float64 rounds to zero **past** here" (at Z = 324 itself the value survives as 4.9 × 10⁻³²⁴). |
+| 11_3 | "we'd expect to catch about one marked fish" | `A-CH11.*` | E[K] = nM/N = 10⁶/10⁶ = 1. The formula is checked against the exact pmf for every 1 ≤ M, n ≤ N ≤ 25 | MATCH (exact) |
+| 12_2 | "97 clack on, 3 miss"; "all 10,000: 447 missed"; lower-third "95.45% at this one" | `A-CH12.ring_toss.*` | At N = 10,000 the rings catch the peg exactly for k = 83 … 118. Of the first 100 experiments, 97 ring and 3 miss (runs 40, 61 and 80). Of all 10,000, 447 miss, against 454.7 expected. Exact coverage is 0.9545281 (95.45%) | MATCH. The experiments are A-F19's seeded stream, which is the 09_6 panel's own k. The test is in exact integers, and `exact_ci` run at k = 82, 83, 118 and 119 agrees. |
+| 12_5 | "Four times as many halves the range"; picture "−16% / +21% at 100"; "catching all of it leaves no doubt" | `A-CH12.slider.*` | k = 25 / 100 / 400 (M = n = 500 / 1,000 / 2,000): ranges [6,936, 15,210] / [8,400, 12,073] / [9,254, 10,851], widths 8,274 / 3,673 / 1,597. Each fourfold step multiplies the width by 0.444, then 0.435. At 100 the ends are −16.00% and +20.73%. With the whole lake caught twice the range is [10,000, 10,000], since P(K ≥ 10,000) at N = 10,001 is 1/10,001 | MATCH. "Halves" is the 1/√k part; the growing share M/N narrows the range a little more, which is the next sentence's point. |
+| 14_6 | "Reviewers of different skill are fine. Bugs of different difficulty are not." | `A-CH14.reviewers.*` | **Skill** (60 alike bugs, chances 0.5 and 0.4): E = 30 / 24 / 12, and 30·24/12 = 60 exactly. Over 20,000 runs the median estimate is 60.0 (mean 61.80; no run with k = 0). **Difficulty** (30 easy bugs at 0.8 / 0.7, 30 hard at 0.2 / 0.1): E = 30 / 24, but 17.4 caught twice, so 1200/29 = 41.38. The median is 41.25, and 99.9% of runs fall below 60 | MATCH as a MODEL number (seeded, `default_rng([20261009, 14])`). The model's assumption is in row 14 below. |
 
 ## Non-numeric claims and their sources
 
@@ -424,3 +460,26 @@ source myself and found the sentence. "agent-verified" means only a research sub
       (https://www.hlc-rdc.org/wp-content/uploads/2015/03/Michael-_Spagat_Evaluation_of_the_Database_KMB_December_10_2014.pdf)
     - **Caveat:** 9,790 is inside the interval but below 10,356. "Right in the middle" is
       Spagat's phrase, not ours.
+13. **02_1 "Others had been using it for years" (claim walk, G3).** The line replaced
+    "Biologists had been doing it for decades", which no row supported. It rests on two rows
+    above, which were checked by this sheet's author; I did not re-read them for the walk.
+    - **Row 7, Schnabel (1938):** "The Estimation of Total Fish Population of a Lake", in the
+      *Monthly*, 12 years before Feller's 1950 edition. The row verifies the citation only; the
+      plan and storyboard describe it as a multi-census marking estimator.
+    - **Row 8, Goudie & Goudie (2007), abstract only:** "in the early years of the last century,
+      the modern use of the Petersen estimator grew from that of the fishing coefficient".
+    - **What they support:** "others" and "for years". "Biologists" and "decades" would need a
+      verified row for Lincoln (1930) or Dahl, and the sheet has none.
+    - **Row 2** covers "his book never mentions them" for the 1950 edition.
+14. **14_6 "Reviewers of different skill are fine": the model assumption (claim walk, G3).**
+    - **When it holds:** the reviewers read independently, without comparing notes, and each bug
+      is as findable as any other for a given reviewer. The reviewers' own chances may differ.
+      This is the M_t model in the storyboard's Dev note.
+    - **Derivation:** with chances p_A and p_B per bug, E[a] = N·p_A and E[b] = N·p_B, and
+      independence gives E[k] = N·p_A·p_B. So E[a]·E[b]/E[k] = N exactly, whatever p_A and p_B
+      are. `A-CH14.reviewers.skill` confirms it (median 60 of 60).
+    - **When it fails:** reviewers who compare notes break the independence. Bugs that are easier
+      for both reviewers swell k and bias the estimate low: `A-CH14.reviewers.difficulty`, and row
+      9 (Briand et al. 2000, PARTIAL) for software inspections.
+    - **Source:** none. No literature source was read for this row; it rests on the derivation
+      and the seeded simulation.

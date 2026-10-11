@@ -6,7 +6,7 @@
 01_6	Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted.
 01_7	Here's every order at once, as staircases from corner to corner. There are six. How many lose a point?
 01_8	Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle.
-01_9	Counting orders isn't measuring chances. A program almost always runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly.
+01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly.
 02_1	The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room.
 02_2	Put a sign on the door. Check that it says vacant, flip it to occupied, and go in.
 02_3	Does the sign work?
@@ -23,7 +23,7 @@
 03_6	Whoever is in the room plays their own tune, so only one tune sounds at a time.
 03_7	No shared ticket machine. Nobody ever writes on anyone else's slate.
 04_1	Can two customers get the same ticket?
-04_2	Yes. Purple and Teal read the slates at the same moment. Both see four as the biggest, and both write five.
+04_2	Yes. Before anyone is served, Purple and Teal read the slates at the same moment. Both see four as the biggest, and both write five.
 04_3	If equal tickets both go in, both end up in the room. Change the rule to wait for anyone with a smaller or equal ticket, and they both wait, bowing to each other forever. After you. No, after you.
 04_4	The fix is a tie-breaker. Compare tickets, and if they're equal, the lower customer number goes first, like a dictionary. Purple is three and Teal is four, so Purple goes first.
 04_5	Put every ticket on a grid, ticket across and customer number up, and sweep column by column. Blue holds ticket three. Teal holds ticket two. Who goes first?
@@ -36,14 +36,14 @@
 05_6	She sees Blue's flag up, and waits.
 05_7	Without flags, two customers visiting once have twenty-eight possible orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does.
 05_8	The time your flag is up is your choosing time. The flag isn't a lock. Nobody waits to raise their own, and many can be up at once.
-05_9	Lamport didn't try to close the gap between looking and writing. He made it visible with the flag, and settled equal tickets with the tie-breaker.
+05_9	The flag doesn't close the gap between looking and writing. It makes the gap visible, and the tie-breaker settles equal tickets.
 06_1	Now take three customers. The square becomes a cube. How many orders are there now?
 06_2	Over two billion. And not one of them puts two in the room.
 07_1	Here's one full run, fast.
 07_2	Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero.
 07_3	Teal sees one and one. What ticket does she take?
 07_4	Two. And the tie between Purple and Green goes to Green, the lower number.
-07_5	Blue arrives late, with the lowest number, and takes three. She waits behind ticket two. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly.
+07_5	Blue arrives late, with the lowest number, and takes three. She waits for Purple, then Teal. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly.
 08_1	Why can two customers never be in the room at once? Picture Blue inside, and Green holding a ticket.
 08_2	Fact one. If Blue finished choosing before Green started, and still holds that ticket, then Green's ticket is bigger. Green saw Blue's.
 08_3	Fact two. If Blue is in the room, everyone else holding a ticket has a bigger pair than hers. Why is that true?
@@ -56,28 +56,28 @@
 09_1	Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero.
 09_2	Lamport went further. A glance during a write may return any number the slate could hold. Even two thousand four hundred ninety-six.
 09_3	Twelve years later he named memory like that safe. A funny name, since it's the least safe kind.
-09_4	Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever rely on a glance that crosses a write?
-09_5	Never. It relies on just two glances. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate.
+09_4	Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever trust a ticket read that crosses a write?
+09_5	Never. It trusts just two ticket reads. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate.
 09_6	A glance that catches garbage, say seven, just makes a customer take eight and wait longer.
-10_1	And a glance that catches Green's old zero mid-write lets Blue straight in. Is that dangerous?
-10_2	No. Blue had already seen Green's flag down, and nobody writes a ticket with the flag down. So Green started choosing after Blue finished. By fact one, Green's ticket will be bigger, so Green waits.
+10_1	And a glance that catches Blue's old zero mid-write lets Green straight in. Is that dangerous?
+10_2	No. Green had already seen Blue's flag down, and nobody writes a ticket with the flag down. So Blue started choosing after Green finished. By fact one, Blue's ticket will be bigger, so Blue waits.
 10_3	Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. His colleague Anatol Holt refused to believe it.
 10_4	One caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. The obvious loop reads a slate twice, once to compare and once to copy, and a flicker between them can break it.
 11_1	It's also fair. Finish choosing your ticket before I start choosing mine, and you're served first. If we were choosing at the same time, either of us may go first.
 11_2	So nobody waits forever, as long as everyone in the room eventually leaves, and nobody stalls for good with a raised flag or a ticket. Once you've taken your ticket, each other customer can get ahead of you at most once.
 11_3	The price is that tickets keep growing as long as somebody is always in line. They reset only when the bakery empties.
 11_4	Lamport did the sum. At one customer a millisecond, how big do the tickets get in a year?
-11_5	Still below about thirty-four billion, two to the thirty-five. That's too big for a thirty-two bit number, which would wrap in about fifty days.
-11_6	A sixty-four bit number lasts over five hundred years, even at a billion tickets a second. As long as a glance never returns more than was ever written.
-11_7	And it isn't cheap. Even alone, a customer reads every other flag and slate, three times over. One customer frozen while choosing stalls everyone.
+11_5	Still below about thirty-four billion, two to the thirty-five. That's too big for a thirty-two bit number, which would wrap in under two months.
+11_6	A sixty-four bit number lasts centuries, even at a billion tickets a second. As long as a glance never returns more than was ever written.
+11_7	And it isn't cheap. Even alone, a customer makes three reads for every other customer. One customer frozen while choosing stalls everyone.
 12_1	The proof is right. But run this on your laptop as written, and it can fail, because your laptop breaks one of the proof's promises.
 12_2	Your laptop has several processors, called cores. Picture each one running a customer. Each core drops its writes in an outbox and keeps going.
 12_3	Both customers raise their flags and write their tickets, into their outboxes. Then each reads the other's slate. What does it see?
 12_4	No flag. Both walk in, while the real slates still say nobody is even choosing.
 12_5	The fix is a fence. Wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences each time you enter are enough, one after raising your flag, and one after lowering it.
-12_6	Arm chips, like the ones in recent Macs, reorder even more, so there the fences go in more places.
+12_6	Arm chips, like the ones in recent Macs, reorder even more, so they need more care.
 12_7	The easy, correct way everywhere is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read.
 13_1	In practice, people use the hardware's magic signs, called atomic instructions. So does the bakery still run anywhere?
-13_2	Yes. Inside many Arm chips, in the code that runs while a core wakes up with its data cache still off. Until it rejoins the others, the usual spinlocks can't be used, so it takes a ticket, bakery style.
+13_2	Yes. In Arm's own reference firmware, in the code that runs while a core wakes up with its data cache still off. Until it rejoins the others, the usual spinlocks can't be used, so it takes a ticket, bakery style.
 13_3	And its trick of taking a ticket bigger than any you've seen, with numbers to break ties, reappears in how Lamport later ordered events across whole networks. It's in the ballot numbers of Paxos too, the method that keeps copies of a database agreeing.
 13_4	Lamport says he didn't invent the bakery algorithm. He discovered it. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it.

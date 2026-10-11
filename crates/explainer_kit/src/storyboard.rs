@@ -87,9 +87,12 @@ fn split_cells(line: &str) -> Vec<&str> {
         prev = c;
     }
     cells.push(line[start..].trim());
-    // drop the text before the first pipe and after the last one
-    if cells.len() >= 2 {
+    // drop the text before the first pipe, and after the last one when the
+    // row closes with a pipe (a row may leave the closing pipe out)
+    if !cells.is_empty() {
         cells.remove(0);
+    }
+    if line.trim_end().ends_with('|') {
         cells.pop();
     }
     cells
@@ -272,6 +275,11 @@ marked, catch
         assert!(parse(&bad).unwrap_err().contains("does not end with its question"));
         let misplaced = MD.replace("| 02_1 |", "| 03_1 |");
         assert!(parse(&misplaced).unwrap_err().contains("is under chapter 02_the_marks"));
+        // an annotation may hold parentheses; a row may leave out its closing pipe
+        let paren = "## 01_x\n| 01_1 | Hi *(odds (tr. 1902), verbatim)* there. | p | f | listen 3 s\n";
+        let b = &parse(paren).unwrap()[0].beats[0];
+        assert_eq!(b.spoken().as_deref(), Some("Hi there."));
+        assert_eq!(b.listen_s(), Some(3.0));
         let dup = MD.replace("| 01_3 |", "| 01_1 |");
         assert!(parse(&dup).unwrap_err().contains("repeats"));
         assert!(

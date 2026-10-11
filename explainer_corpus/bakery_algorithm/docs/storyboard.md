@@ -55,7 +55,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 01_6 | Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
 | 01_7 | ⟨predict⟩ Here's every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
-| 01_9 | Counting orders isn't measuring chances. A program almost always runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
+| 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
 
 - **For programmers (lower-third):** even `add [x], 1` reads and writes
   separately unless it carries a lock prefix.
@@ -76,9 +76,9 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 
 - **Ruth:** the four rules as Lamport states Dijkstra's problem "as extended by
   Knuth"; "atomic" is defined once (one indivisible step) and never used
-  loosely. Before narration, a fact row must quote Dijkstra 1965's conditions
-  verbatim (R9: did his rules already require that somebody gets in?); the
-  words above make no claim either way.
+  loosely. Fact-sheet row C-S1 quotes Dijkstra 1965's conditions verbatim
+  (R9: his rule (d) already required that somebody gets in, so Knuth's
+  "everyone" is more); the words above make no claim either way.
 - **Pictograms (creative C-12):** rule 1 is ticked at 08_8 ("never two in the
   room: done"), rule 4 at 11_2.
 
@@ -105,8 +105,8 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | ⟨predict⟩ Can two customers get the same ticket? | 03's slates stay on screen: 4, 3, 0, 0, 2 | prediction card |  |
-| 04_2 | Yes. Purple and Teal read the slates at the same moment. Both see four as the biggest, and both write five. | Both read, both write 5 | step animation |  |
+| 04_1 | ⟨predict⟩ Can two customers get the same ticket? | Rewind to before anyone was served: 03's slates 4, 3, 0, 0, 2 | prediction card |  |
+| 04_2 | Yes. Before anyone is served, Purple and Teal read the slates at the same moment. Both see four as the biggest, and both write five. | Both read, both write 5 | step animation |  |
 | 04_3 | If equal tickets both go in, both end up in the room. Change the rule to wait for anyone with a smaller or equal ticket, and they both wait, bowing to each other forever. After you. No, after you. | Two traces: both in the room; then two customers bowing | traces | listen 3 s (two soft notes alternating politely, never resolving) |
 | 04_4 | The fix is a tie-breaker. Compare tickets, and if they're equal, the lower customer number goes first, like a dictionary. Purple is three and Teal is four, so Purple goes first. | (5, Purple 3) before (5, Teal 4): each pair drawn as a chalk ticket and a coloured badge, never two bare numerals | ordering card |  |
 | 04_5 | ⟨predict⟩ Put every ticket on a grid, ticket across and customer number up, and sweep column by column. Blue holds ticket three. Teal holds ticket two. Who goes first? | Lexicographic grid; the gold scanline waits before column 2 | **lexicographic grid sweep** |  |
@@ -116,8 +116,10 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
   distinct); every pair has finitely many predecessors. 04_6's claim is about
   customers holding tickets at the same time: a later run can serve a smaller
   pair after a bigger one once the first has left (R13; description).
-- **Facts:** 04_2's tickets are illustrative (F9): the replayed equal-ticket
-  traces are c (both take 1) and c′ (both see 1, both take 2).
+- **Facts:** 04_2's tickets are model-checked (`C-F7.model.tie.*`: from 4,
+  3, 0, 0, 2 Purple and Teal both read 4, 3, 0, 2 and write 5; every order
+  then serves Pink, Green, Blue, Purple, Teal); the replayed equal-ticket
+  traces c (both take 1) and c′ (both see 1, both take 2) are the small cases.
 
 ## 05_the_unwritten_ticket (~85 s)
 
@@ -131,7 +133,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 05_6 | She sees Blue's flag up, and waits. | Green waits | step-through |  |
 | 05_7 | Without flags, two customers visiting once have twenty-eight possible orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does. | The 28 staircases as strands, 4 through the red square; they collapse into a "28 orders, 4 bad" card; the lattice regrows to 7×7; the 322 draw in as edge ribbons with a lagged reveal and a counter (spike S-6); the both-inside point stays empty and pulses | **path sets (S-6 ribbons)** |  |
 | 05_8 | The time your flag is up is your choosing time. The flag isn't a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; on screen once, "Lamport calls this the doorway" | statement card |  |
-| 05_9 | Lamport didn't try to close the gap between looking and writing. He made it visible with the flag, and settled equal tickets with the tie-breaker. | Thesis card | statement card | hold |
+| 05_9 | The flag doesn't close the gap between looking and writing. It makes the gap visible, and the tie-breaker settles equal tickets. | Thesis card | statement card | hold |
 
 - **Ruth:** C-F3 (no flag 28 / 4 bad; flag 322 / 0), C-F4 (three customers
   2,126,816,238 / 0, chapter 06); one visit each, a wait counted once, when it succeeds
@@ -162,7 +164,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 07_2 | Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero. | Fast-forward, slowing at the beat | step clock |  |
 | 07_3 | ⟨predict⟩ Teal sees one and one. What ticket does she take? | Teal reading | prediction card |  |
 | 07_4 | Two. And the tie between Purple and Green goes to Green, the lower number. | (1, Green 2) before (1, Purple 3) | ordering card |  |
-| 07_5 | Blue arrives late, with the lowest number, and takes three. She waits behind ticket two. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; each entry plays its customer's "served" motif (C-2); chapter 01's scoreboard sits inside the room and ticks once per visit, 41 → 46, no point lost (Maya m6) | callback | hold |
+| 07_5 | Blue arrives late, with the lowest number, and takes three. She waits for Purple, then Teal. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; each entry plays its customer's "served" motif (C-2); chapter 01's scoreboard sits inside the room and ticks once per visit, 41 → 46, no point lost (Maya m6) | callback | hold |
 
 - **Engine:** slate values swap by replacement transforms at their step events, driven by the shared step clock, never redrawn every frame (E-C4).
 - **For programmers (a code panel after 07_5, or the description):** the
@@ -200,17 +202,17 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 09_1 | Remember the slate caught mid-stroke? Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen, or zero zero. | Two-digit rewrite, both write orders | flicker |  |
 | 09_2 | Lamport went further. A glance during a write may return any number the slate could hold. Even two thousand four hundred ninety-six. | Wild values; the 01_1 slate's 2496 | flicker |  |
 | 09_3 | Twelve years later he named memory like that safe. A funny name, since it's the least safe kind. | "safe" card; "regular" and "atomic" on screen for Ruth | register zoo (screen) |  |
-| 09_4 | ⟨predict⟩ Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever rely on a glance that crosses a write? | 07's zones, same layout and scale (C-16); glances that cross a write become white static | **overlay on the proof zones** | listen 3 s (a read that crosses a write smears its note with a slow tape bend) |
-| 09_5 | Never. It relies on just two glances. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used | zones |  |
+| 09_4 | ⟨predict⟩ Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever trust a ticket read that crosses a write? | 07's zones, same layout and scale (C-16); glances that cross a write become white static | **overlay on the proof zones** | listen 3 s (a read that crosses a write smears its note with a slow tape bend) |
+| 09_5 | Never. It trusts just two ticket reads. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used | zones |  |
 | 09_6 | A glance that catches garbage, say seven, just makes a customer take eight and wait longer. | Trace e1 inside the zones | trace |  |
 
 ## 10_the_old_zero (~55 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 10_1 | ⟨predict⟩ And a glance that catches Green's old zero mid-write lets Blue straight in. Is that dangerous? | Trace e3 | prediction card |  |
-| 10_2 | No. Blue had already seen Green's flag down, and nobody writes a ticket with the flag down. So Green started choosing after Blue finished. By fact one, Green's ticket will be bigger, so Green waits. | Green's choosing begins after Blue's ends | trace |  |
-| 10_3 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. His colleague Anatol Holt refused to believe it. | Quote cards, one source each: "The read may return any arbitrary value!" (CACM 17(8), 1974); "noticed after writing the proof", Holt (Lamport, publications page); 2496 flickers beside a calmly waiting customer: "Can computers take turns safely with memory like that? Yes." | quote card |  |
+| 10_1 | ⟨predict⟩ And a glance that catches Blue's old zero mid-write lets Green straight in. Is that dangerous? | Trace e3 | prediction card |  |
+| 10_2 | No. Green had already seen Blue's flag down, and nobody writes a ticket with the flag down. So Blue started choosing after Green finished. By fact one, Blue's ticket will be bigger, so Blue waits. | Blue's choosing begins after Green's ends | trace |  |
+| 10_3 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. His colleague Anatol Holt refused to believe it. | Quote cards, one source each: "The read may return any arbitrary value!" (CACM 17(8), 1974); "I discovered that the bakery algorithm had this property after writing a proof of its correctness" and "He refused to believe it could be true" (Lamport, publications page); 2496 flickers beside a calmly waiting customer: "Can computers take turns safely with memory like that? Yes." | quote card |  |
 | 10_4 | One caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. The obvious loop reads a slate twice, once to compare and once to copy, and a flicker between them can break it. | The two-line max loop that reads twice; then only the outcome: two lanes in the room, two tunes clashing (C-13) | trace | hold |
 
 - **Lower-thirds:** "a glance at a flag mid-raise counts as not yet choosing;
@@ -235,9 +237,9 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 11_2 | So nobody waits forever, as long as everyone in the room eventually leaves, and nobody stalls for good with a raised flag or a ticket. Once you've taken your ticket, each other customer can get ahead of you at most once. | Bounded bypass; pictogram rule 4 ticks | lanes |  |
 | 11_3 | The price is that tickets keep growing as long as somebody is always in line. They reset only when the bakery empties. | Odometer 1, 2, 3, 4, 5, 6 (digits slide and fade; no clip primitive, E-C3) | odometer |  |
 | 11_4 | ⟨predict⟩ Lamport did the sum. At one customer a millisecond, how big do the tickets get in a year? | 31,557,600,000 ms in a year | prediction card |  |
-| 11_5 | Still below about thirty-four billion, two to the thirty-five. That's too big for a thirty-two bit number, which would wrap in about fifty days. | 31,557,600,000 < 34,359,738,368; 2³² ms = 49.7 days | arithmetic card |  |
-| 11_6 | A sixty-four bit number lasts over five hundred years, even at a billion tickets a second. As long as a glance never returns more than was ever written. | 584.5 years at 10⁹/s; lower-third Lamport 1974 verbatim: "a read of number[i] can never obtain a value larger than one which has been written there" | arithmetic card |  |
-| 11_7 | And it isn't cheap. Even alone, a customer reads every other flag and slate, three times over. One customer frozen while choosing stalls everyone. | Three beats on the lanes: spinning (a waiting lane fills with soft repeated notes); a customer frozen mid-choosing, every other lane stalled behind it; two slates in one grey cache-line box bouncing between cores | lanes | listen 3 s (spinning) |
+| 11_5 | Still below about thirty-four billion, two to the thirty-five. That's too big for a thirty-two bit number, which would wrap in under two months. | 31,557,600,000 < 34,359,738,368; 2³² ms = 49.7 days | arithmetic card |  |
+| 11_6 | A sixty-four bit number lasts centuries, even at a billion tickets a second. As long as a glance never returns more than was ever written. | 584.5 years at 10⁹/s unsigned; 292.3 signed, as in Java; lower-third Lamport 1974 verbatim: "a read of number[i] can never obtain a value larger than one which has been written there" | arithmetic card |  |
+| 11_7 | And it isn't cheap. Even alone, a customer makes three reads for every other customer. One customer frozen while choosing stalls everyone. | Three beats on the lanes: spinning (a waiting lane fills with soft repeated notes); a customer frozen mid-choosing, every other lane stalled behind it; two slates in one grey cache-line box bouncing between cores | lanes | listen 3 s (spinning) |
 
 - **Costs card (for programmers, held at least 10 s, or in the description):**
   the number of customers fixed in advance; 3(N−1) reads of other customers'
@@ -263,7 +265,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 12_3 | ⟨predict⟩ Both customers raise their flags and write their tickets, into their outboxes. Then each reads the other's slate. What does it see? | Both outboxes full; the real slates still zero | **outbox x-ray** |  |
 | 12_4 | No flag. Both walk in, while the real slates still say nobody is even choosing. | Both enter (12 steps); memory frozen at zeros | outbox x-ray | listen 3 s (two tunes at once) |
 | 12_5 | The fix is a fence. Wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences each time you enter are enough, one after raising your flag, and one after lowering it. | A fence drains a tray with a whoosh; the two fence points marked on the lanes | fence |  |
-| 12_6 | Arm chips, like the ones in recent Macs, reorder even more, so there the fences go in more places. | Arm outline | statement card |  |
+| 12_6 | Arm chips, like the ones in recent Macs, reorder even more, so they need more care. | Arm outline | statement card |  |
 | 12_7 | *(for programmers)* The easy, correct way everywhere is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); the ticket store and the next `load(SeqCst)` of another slate highlighted while the voice says it; held at least 6 s; card: C, C++ and Rust plain shared variables are undefined behaviour and `volatile` doesn't help; Java `AtomicLongArray` works, a `volatile long[]` doesn't; then the panel slides away and the picture holds on the outbox draining | code panel | hold |
 
 ```rust
@@ -308,7 +310,7 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 13_1 | ⟨predict⟩ In practice, people use the hardware's magic signs, called atomic instructions. So does the bakery still run anywhere? | The magic sign from 02_7 | prediction card |  |
-| 13_2 | Yes. Inside many Arm chips, in the code that runs while a core wakes up with its data cache still off. Until it rejoins the others, the usual spinlocks can't be used, so it takes a ticket, bakery style. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card |  |
+| 13_2 | Yes. In Arm's own reference firmware, in the code that runs while a core wakes up with its data cache still off. Until it rejoins the others, the usual spinlocks can't be used, so it takes a ticket, bakery style. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card |  |
 | 13_3 | And its trick of taking a ticket bigger than any you've seen, with numbers to break ties, reappears in how Lamport later ordered events across whole networks. It's in the ballot numbers of Paxos too, the method that keeps copies of a database agreeing. | 04's grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback |  |
 | 13_4 | Lamport says he didn't invent the bakery algorithm. He discovered it. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it. | The five lanes taking turns in a calm loop, one "served" motif at a time in five timbres, the gold scanline sweeping; the quotes set as captions over it; receipts card | coda | listen 3 s (the motif resolves) |
 

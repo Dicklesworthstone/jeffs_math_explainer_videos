@@ -2,12 +2,15 @@
 """Independent oracle for Video A, "How to Count Fish You've Never Seen" (slug capture_recapture).
 
 Prints one line per fact, ``KEY<TAB>VALUE``, for every row A-F1 .. A-F32 of the facts ledger in
-docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md section 9.5, plus the chapter-03
-habitat-dynamics check (keys ``A-CH03.*``; that is not a ledger row).
+docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md section 9.5, plus keys that are
+not ledger rows, named by chapter: the chapter-03 habitat-dynamics check (``A-CH03.*``) and the
+claim-walk keys of gate G3 (``A-CH11.*``, ``A-CH12.*``, ``A-CH14.*``, and additions to A-F9, A-F21,
+A-F32 and A-CH03), each for a number the storyboard shows or says that no ledger row covered.
 
-Run from the repository root:
+Run it as ``./x capture_recapture facts-check`` does (tools/facts_check.py), from this crate's
+directory explainer_corpus/capture_recapture/:
 
-    python3 -I docs/facts/capture_recapture/oracle.py
+    uv run --quiet --no-project --with numpy python3 -I -B oracle.py
 
 Needs the Python 3 standard library and numpy (numpy only for the seeded simulations). Reads and
 writes no files. Prints its own runtime and key count on stderr, never on stdout.
@@ -35,6 +38,7 @@ Their model, parameters, spots and seeds were fixed before the first run and are
 ``LAKE`` / ``DYN`` below; nothing was re-run to reach a target value.
 """
 
+import itertools
 import math
 import sys
 import time
@@ -396,6 +400,17 @@ def af9_feller_best_size():
     emit("A-F9.L10001_lt_L10000", L(10001, M, n, k) < L10000)
     best_lgamma = max(range(1900, 40_001), key=lambda N: logL(N, M, n, k))
     emit("A-F9.lgamma_argmax_in_tie", best_lgamma in (9999, 10000))
+    # Claim walk (G3), 08_5 lower-third "floating point picks 10,000 by rounding" (D26): which side
+    # of the exact tie floats land on depends on the method. lgamma: the float difference
+    # logL(9,999) - logL(10,000) is pure rounding error; its sign picks the winner. The float ratio
+    # L(10,000)/L(9,999) = 81,000,000/81,000,000 has both integers exact in float64, so a ratio scan
+    # ties exactly, as the fractions do.
+    diff = logL(9999, M, n, k) - logL(10000, M, n, k)
+    emit("A-F9.lgamma_logL9999_minus_logL10000", diff)
+    emit("A-F9.lgamma_prefers", 10000 if diff < 0 else 9999 if diff > 0 else "tie")
+    emit("A-F9.lgamma_scan_argmax", best_lgamma)
+    N = 10000
+    emit("A-F9.float_ratio_L10000_over_L9999", float((N - M) * (N - n)) / float(N * (N - M - n + k)))
 
 
 def af10_feller_comparisons():
@@ -453,6 +468,7 @@ def af13_feller_interval():
     lo_f = next(N for N in range(1900, 20000) if P_le(N) > 0.025)
     hi_f = next(N for N in range(20000, 1900, -1) if P_ge(N) > 0.025)
     emit("A-F13.float_scan_agrees", (lo_f, hi_f) == (lo, hi))
+    return lo, hi
 
 
 def af14_feller_tails():
@@ -666,6 +682,9 @@ def af21_small_study_50():
     emit("A-F21.chapman_bias_pct", float(100 * (ch - N) / N))
     emit("A-F21.plain_mean_given_k_pos", law["mean"])
     emit("A-F21.plain_bias_pct_given_k_pos", float(100 * (law["mean"] - N) / N))
+    # Claim walk (G3), 10_3 notes "At k = 0 Chapman still answers (2,600 here)" (D12)
+    ch0 = F((M + 1) * (n + 1), 0 + 1) - 1
+    emit("A-F21.chapman_at_k0", ch0.numerator if ch0.denominator == 1 else ch0)
 
 
 def af22_failure_modes(fails):
@@ -1002,11 +1021,86 @@ def ch03_dynamics(xs0, ys0):
         emit(f"{pre}.count_max_over_min", float(avg.max() / avg.min()))
         emit(f"{pre}.max_abs_dev_vs_{'model' if with_drift else 'uniform'}_pct",
              float(100 * np.max(np.abs(avg - ref) / ref)))
-        return out
+        return out, x, y  # x, y: every fish's position at the last snapshot (t = 400)
 
-    run("habitat", True, True)
+    _, x400, y400 = run("habitat", True, True)
     run("contrast_no_drift", False, True)
     run("diag_no_circulation", True, False)
+    ch03_insets_and_trays(x400, y400, marked)
+
+
+# Claim walk (G3), 03_5 and 03_6: small catches and zoom insets in the habitat run's t = 400 frame
+# (the last snapshot above; all 10,000 fish, 1:1). The side 0.04 is the claim walk's example
+# (G3, 2026-10-11); the counts are the narration's. So the insets are SELECTED squares, and the
+# keys also say how common such squares are.
+#   * Insets (03_6): squares of side 0.04 made of 0.01 bins (a fish is in bin floor(100 x),
+#     floor(100 y)), every position on the 0.01 grid inside the lake. At side 0.04 the
+#     lake-average square holds 16 fish, so 50 is crowded (3.1x) and 10 is sparse (0.6x). The
+#     crowded inset is the square with exactly 50 fish and 5 marked whose centre is nearest the
+#     weed-bed centre; the sparse one has exactly 10 fish and 1 marked, nearest the lake centre
+#     (A-F27's open-water spot); ties go to the more southern, then the more western square.
+#   * Trays (03_5): a net of m fish at a point catches the m fish nearest it. One net of 10 and one
+#     of 20 at each of the nine 3 x 3 region centres (the regions A-CH03 reports, REGION_ORDER),
+#     plus the exact chance that a random net of 10 (20) from the lake holds exactly 1 (2) marked.
+INSET = {"bins": 100, "side_bins": 4,
+         "crowded": (50, 5, (0.25, 0.75)), "sparse": (10, 1, (0.5, 0.5))}
+TRAY_SIZES = (10, 20)
+
+
+def ch03_insets_and_trays(x, y, marked):
+    """A-CH03.inset.* and A-CH03.trays.* from the t = 400 frame (rules above)."""
+    G, w = INSET["bins"], INSET["side_bins"]
+    N = x.size
+    ix = np.minimum((x * G).astype(int), G - 1)
+    iy = np.minimum((y * G).astype(int), G - 1)
+    cnt = np.zeros((G, G), np.int64)  # [iy, ix]
+    mk = np.zeros((G, G), np.int64)
+    np.add.at(cnt, (iy, ix), 1)
+    np.add.at(mk, (iy, ix), marked.astype(np.int64))
+
+    def squares(a):
+        """[j, i] = sum of a over the w x w bins with south-west bin (i, j)."""
+        P = np.zeros((G + 1, G + 1), np.int64)
+        P[1:, 1:] = a.cumsum(0).cumsum(1)
+        return P[w:, w:] - P[:-w, w:] - P[w:, :-w] + P[:-w, :-w]
+
+    C, K = squares(cnt), squares(mk)
+    emit("A-CH03.inset.side", F(w, G))
+    emit("A-CH03.inset.squares_scanned", int(C.size))
+    emit("A-CH03.inset.lake_average_fish_per_square", F(N * w * w, G * G))
+    recount_ok = True
+    for name in ("crowded", "sparse"):
+        nf, nm, (px, py) = INSET[name]
+        same = C == nf
+        match = same & (K == nm)
+        js, is_ = np.nonzero(match)
+        # distances in half-bins (integers): square centre (2i + w, 2j + w), target (2G px, 2G py)
+        tx, ty = round(2 * G * px), round(2 * G * py)
+        d2 = (2 * is_ + w - tx) ** 2 + (2 * js + w - ty) ** 2
+        t = np.lexsort((is_, js, d2))[0]
+        i, j = int(is_[t]), int(js[t])
+        inside = (ix >= i) & (ix < i + w) & (iy >= j) & (iy < j + w)
+        recount_ok &= int(inside.sum()) == int(C[j, i]) and int((inside & marked).sum()) == int(K[j, i])
+        pre = f"A-CH03.inset.{name}"
+        emit(f"{pre}.square_x0_x1_y0_y1", f"{i / G:.2f},{(i + w) / G:.2f},{j / G:.2f},{(j + w) / G:.2f}")
+        emit(f"{pre}.fish", int(C[j, i]))
+        emit(f"{pre}.marked", int(K[j, i]))
+        emit(f"{pre}.marked_share", F(int(K[j, i]), int(C[j, i])))
+        emit(f"{pre}.density_vs_lake_average", F(int(C[j, i]) * G * G, N * w * w))
+        emit(f"{pre}.squares_with_{nf}_fish", int(same.sum()))
+        emit(f"{pre}.of_those_with_{nm}_marked", int(match.sum()))
+    emit("A-CH03.inset.direct_recount_agrees", recount_ok)
+    centres = [((2 * rx + 1) / 6, (2 * ry + 1) / 6) for ry in range(3) for rx in range(3)]
+    for m in TRAY_SIZES:
+        got = []
+        for px, py in centres:
+            nearest = np.argsort(np.hypot(x - px, y - py), kind="stable")[:m]
+            got.append(int(marked[nearest].sum()))
+        emit(f"A-CH03.trays.net{m}.marked_at_region_centres", ",".join(map(str, got)))
+        emit(f"A-CH03.trays.net{m}.marked_min_max", f"{min(got)},{max(got)}")
+    M = int(marked.sum())
+    for m in TRAY_SIZES:
+        emit(f"A-CH03.trays.P_random_net{m}_has_exactly_{m // 10}_marked", L(N, M, m, m // 10))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1080,6 +1174,149 @@ def af32_float64(p1900):
     emit("A-F32.float_of_exact_underflows_to_zero", float(p1900) == 0.0)
     emit("A-F32.exp_of_lgamma_underflows_to_zero",
          exp(2 * lgamma(1001) - lgamma(101) - lgamma(1901)) == 0.0)
+    # Claim walk (G3), 11_2 picture: the dashed marker at the 324th zero ("smallest positive
+    # ≈ 4.9 × 10⁻³²⁴"). The smallest subnormal is 2^-1074 exactly; its scientific form; the decimal
+    # place of its first nonzero digit. Then the scrolling zeros themselves: P1900's own mantissa
+    # (5.35...) over a one followed by Z zeros, converted to float64 (Fraction -> float rounds
+    # correctly): the last Z that stays nonzero and the first that rounds to 0.0.
+    tiny = F(1, 2 ** 1074)
+    emit("A-F32.smallest_subnormal_is_2_pow_minus_1074", F(math.ulp(0.0)) == tiny)
+    t_mant, t_ex = sci(tiny)
+    emit("A-F32.smallest_subnormal_mantissa", t_mant)
+    emit("A-F32.smallest_subnormal_exponent", t_ex)
+    emit("A-F32.smallest_subnormal_first_nonzero_decimal_place",
+         next(d for d in itertools.count(1) if tiny * 10 ** d >= 1))
+    m = p1900 * F(10) ** (-ex)
+    zero_at = [Z for Z in range(1, 431) if float(m / F(10) ** Z) == 0.0]
+    emit("A-F32.zeros.mantissa", float(m))
+    emit("A-F32.zeros.last_Z_float64_nonzero", min(zero_at) - 1)
+    emit("A-F32.zeros.first_Z_float64_zero", min(zero_at))
+    emit("A-F32.zeros.all_later_Z_zero", zero_at == list(range(min(zero_at), 431)))
+
+
+# ---------------------------------------------------------------------------------------------
+# Claim walk (gate G3, 2026-10-11): numbers the storyboard shows or says that no ledger row covered
+# ---------------------------------------------------------------------------------------------
+
+def ch11_one_marked_fish():
+    """A-CH11 (11_3 "we'd expect to catch about one marked fish"): E[K] = nM/N at a lake of
+    1,000,000 with Feller's catches. The formula is first checked exactly against the
+    hypergeometric pmf for every 1 <= M, n <= N <= 25."""
+    ok = all(sum(j * num(N, M, n, j) for j in range(min(M, n) + 1)) * N == n * M * comb(N, n)
+             for N in range(1, 26) for M in range(1, N + 1) for n in range(1, N + 1))
+    emit("A-CH11.mean_formula_exact_N_le_25", ok)
+    emit_exact("A-CH11.expected_k_N1000000", F(FM * FN_, 1_000_000))
+
+
+def ch12_ring_toss(sims):
+    """A-CH12.ring_toss (12_2): the rings are the exact 95% ranges (exact_ci) of A-F19's seeded
+    experiments (numpy default_rng(20261009), first draw: the 09_6 code panel's own k), in run
+    order; the peg is the true lake, 10,000. A range rings 10,000 exactly when both one-sided tests
+    at N = 10,000 keep the catch, P(K <= k) > 1/40 and P(K >= k) > 1/40 (exact integers), so the
+    ringing catches form an interval [k_lo, k_hi]; exact_ci itself is run at its four edges
+    (k_lo - 1, k_lo, k_hi, k_hi + 1) as a cross-check. Exact coverage = P(k_lo <= K <= k_hi)."""
+    N, M, n = FELLER_N_TRUE, FM, FN_
+    T = comb(N, n)
+    nums = [num(N, M, n, j) for j in range(n + 1)]
+    cum = list(itertools.accumulate(nums))  # cum[j] = C(N,n) * P(K <= j)
+    kept = [j for j in range(n + 1)
+            if cum[j] * 40 > T and (T - (cum[j - 1] if j else 0)) * 40 > T]
+    k_lo, k_hi = kept[0], kept[-1]
+    edges_ok = True
+    for j, rings in ((k_lo - 1, False), (k_lo, True), (k_hi, True), (k_hi + 1, False)):
+        lo, hi, _ = exact_ci(M, n, j)
+        edges_ok &= (lo <= N <= hi) == rings
+    ks = sims[(N, M, n)]
+    miss = (ks < k_lo) | (ks > k_hi)
+    cov = F(sum(nums[k_lo:k_hi + 1]), T)
+    pre = "A-CH12.ring_toss"
+    emit(f"{pre}.ringing_k", f"{k_lo},{k_hi}")
+    emit(f"{pre}.ringing_k_is_an_interval", kept == list(range(k_lo, k_hi + 1)))
+    emit(f"{pre}.edges_agree_with_exact_ci", edges_ok)
+    emit(f"{pre}.first100_ringed", int(100 - miss[:100].sum()))
+    emit(f"{pre}.first100_missed", int(miss[:100].sum()))
+    emit(f"{pre}.first100_missed_runs_1based", ",".join(str(int(r) + 1) for r in np.flatnonzero(miss[:100])))
+    emit(f"{pre}.all_runs", int(ks.size))
+    emit(f"{pre}.all_missed", int(miss.sum()))
+    emit(f"{pre}.exact_coverage_N10000", cov)
+    emit(f"{pre}.exact_coverage_N10000_pct_2dp", round(float(cov) * 100, 2))
+    emit(f"{pre}.expected_missed", float((1 - cov) * int(ks.size)))
+
+
+def ch12_slider(feller_ci):
+    """A-CH12.slider (12_5): the lake fixed at N = 10,000; for an expected caught-twice count k,
+    M = n = sqrt(10,000 k) (whole for k = 25, 100, 400) and the catch is that expectation. The exact
+    95% range (exact_ci; k = 100 is Feller's, reused from A-F13), its width and its ends in percent
+    of the lake, and the width ratio for each fourfold step in k. At k = 10,000 both catches are
+    the whole lake: P(K <= k) = 1 at N = 10,000, and P(K >= k) at N = 10,001 is computed (it only
+    falls with N), which gives the range."""
+    N = FELLER_N_TRUE
+    width = {}
+    for k in (25, 100, 400):
+        m = math.isqrt(N * k)
+        lo, hi = feller_ci if (m, k) == (FM, FK) else exact_ci(m, m, k)[:2]
+        width[k] = hi - lo
+        pre = f"A-CH12.slider.k{k}"
+        emit(f"{pre}.M_eq_n", m)
+        emit(f"{pre}.M_eq_n_is_whole", m * m == N * k)
+        emit(f"{pre}.ci95", f"{lo},{hi}")
+        emit(f"{pre}.width", hi - lo)
+        emit(f"{pre}.lo_pct", F(100 * (lo - N), N))
+        emit(f"{pre}.hi_pct", F(100 * (hi - N), N))
+    emit("A-CH12.slider.width_ratio_k25_to_k100", F(width[100], width[25]))
+    emit("A-CH12.slider.width_ratio_k100_to_k400", F(width[400], width[100]))
+    m = k = N
+    alpha = F(1, 40)
+    p_le = F(cdf_le_num(N, m, m, k), comb(N, m))
+    p_ge = {Nx: 1 - F(cdf_le_num(Nx, m, m, k - 1), comb(Nx, m)) for Nx in (N, N + 1)}
+    lo = m + m - k if p_le > alpha else None
+    hi = N if p_ge[N] > alpha >= p_ge[N + 1] else None
+    emit("A-CH12.slider.whole_lake.P_le_at_N10000", p_le)
+    emit_exact("A-CH12.slider.whole_lake.P_ge_at_N10001", p_ge[N + 1])
+    emit("A-CH12.slider.whole_lake.ci95", f"{lo},{hi}")
+
+
+# 14_6: two reviewers. Models fixed by the claim walk (G3): 'skill' = 60 alike bugs, reviewer A
+# finds each with chance 0.5 and B with 0.4, independently (expected 30, 24 and 12 caught twice:
+# 14_4's example). 'difficulty' = 30 easy bugs (A 0.8, B 0.7) and 30 hard (A 0.2, B 0.1): the same
+# expected 30 and 24. 20,000 runs each; numpy default_rng([20261009, 14]), skill first.
+REVIEW = {"bugs": 60, "runs": 20_000, "skill": (0.5, 0.4),
+          "easy": (0.8, 0.7), "hard": (0.2, 0.1), "seed": [SEED, 14]}
+
+
+def ch14_reviewers():
+    """A-CH14.reviewers: exact expected counts and the plain estimate a*b/k from those
+    expectations, then the seeded runs' median and mean of a*b/k over runs with k > 0."""
+    B, R = REVIEW["bugs"], REVIEW["runs"]
+    half = B // 2
+    models = {
+        "skill": ([REVIEW["skill"][0]] * B, [REVIEW["skill"][1]] * B),
+        "difficulty": ([REVIEW["easy"][0]] * half + [REVIEW["hard"][0]] * (B - half),
+                       [REVIEW["easy"][1]] * half + [REVIEW["hard"][1]] * (B - half)),
+    }
+    rng = np.random.default_rng(REVIEW["seed"])
+    emit("A-CH14.reviewers.params",
+         f"bugs={B};runs={R};skill={REVIEW['skill']};easy={REVIEW['easy']};hard={REVIEW['hard']};"
+         f"seed={REVIEW['seed']}")
+    for name, (pa, pb) in models.items():
+        fa = [F(str(p)) for p in pa]
+        fb = [F(str(p)) for p in pb]
+        ea, eb, ek = sum(fa), sum(fb), sum(x * y for x, y in zip(fa, fb))
+        a = rng.random((R, B)) < np.array(pa)
+        b = rng.random((R, B)) < np.array(pb)
+        na, nb, k = a.sum(axis=1), b.sum(axis=1), (a & b).sum(axis=1)
+        pos = k > 0
+        est = na[pos] * nb[pos] / k[pos]
+        pre = f"A-CH14.reviewers.{name}"
+        emit(f"{pre}.true_bugs", B)
+        emit_exact(f"{pre}.expected_a", ea)
+        emit_exact(f"{pre}.expected_b", eb)
+        emit_exact(f"{pre}.expected_caught_twice", ek)
+        emit_exact(f"{pre}.estimate_from_expected_counts", ea * eb / ek)
+        emit(f"{pre}.runs_k0", int((~pos).sum()))
+        emit(f"{pre}.sim_median_estimate", float(np.median(est)))
+        emit(f"{pre}.sim_mean_estimate", float(est.mean()))
+        emit(f"{pre}.sim_share_below_true", float((est < B).mean()))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1101,7 +1338,7 @@ def main():
     af10_feller_comparisons()
     p1900 = af11_minimum_lake()
     af12_relative_likelihoods()
-    af13_feller_interval()
+    feller_ci = af13_feller_interval()
     af14_feller_tails()
     af15_sd_of_k()
     law_feller = af16_spread_of_estimate()
@@ -1122,6 +1359,10 @@ def main():
     af30_coin()
     af31_bending()
     af32_float64(p1900)
+    ch11_one_marked_fish()
+    ch12_ring_toss(sims)
+    ch12_slider(feller_ci)
+    ch14_reviewers()
     ch03_dynamics(xs, ys)
     sys.stdout.flush()
     print(f"oracle: {len(_seen)} keys in {time.perf_counter() - T_START:.1f} s", file=sys.stderr)

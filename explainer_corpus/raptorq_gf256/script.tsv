@@ -2,7 +2,7 @@
 01_1	I'm sending this picture to a million phones. Each one randomly loses about one packet in a hundred.
 01_2	Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is an arithmetic where three times seven is nine.
 01_4	A file travels as thousands of packets, each carrying one small piece of it. Our picture is cut into ten thousand pieces. Lose some, and the usual fix is to ask again.
-01_5	With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. Broadcast TV can't ask at all.
+01_5	With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. A TV antenna can't ask at all.
 01_6	So send the file on a loop. Miss a piece, and you wait a whole loop for it. Most phones need two or three loops. The unluckiest of a million need five or six.
 01_7	Sending random pieces is worse. It's a sticker album. How many random pieces until you've seen all ten thousand?
 01_8	On average, about ninety-eight thousand. The last few take forever, because you keep getting doubles.
@@ -20,7 +20,7 @@
 03_6	Here's a fifth card. B ex-or C is four. Is it useful?
 03_7	No. You could make it yourself from cards one and three.
 03_8	A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same shuffled deck, so a packet's number tells the phone which pieces it mixed.
-03_9	The best fountain code today is called RaptorQ. This video is about the arithmetic inside it.
+03_9	The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven. This video is about the arithmetic inside it.
 04_1	Use three pieces for a moment. A card either uses a piece or it doesn't, so there are eight possible cards, from nothing at all to A, B and C together.
 04_2	Put them on the corners of a cube. One direction per piece. Step along A if the card uses A.
 04_3	With one useful card, A, you can make two things, nothing or A. Add B, and you can make four. Each useful card doubles what you can make.
@@ -34,7 +34,7 @@
 06_2	Nearly one time in four. The first spare takes it from seventy-one to forty-two percent, and each one after that roughly halves it. With a million phones, that's almost a quarter of a million stuck.
 06_3	Reaching one in a million takes about twenty spares. Ten halvings make about a thousand. Twenty make about a million.
 06_4	And sometimes it's structure, not luck. Five cards in a ring, each the ex-or of two neighbours. Every letter appears twice, so together they cancel to nothing. The five are worth only four.
-06_5	With only use it or don't, a card at the last slot is useless half the time, and the ring stays stuck. With two hundred fifty-six amounts to choose from, it would almost never be. So what if a card could scale a piece? Three times A, or a hundred times A?
+06_5	With only use it or don't, a card at the last slot is useless half the time, and the ring stays stuck. With two hundred fifty-six amounts, and the right arithmetic, it would almost never be. So what if a card could scale a piece? Three times A, or a hundred times A?
 06_6	Then multiplying a byte must give a byte, and we must be able to undo it.
 07_1	Bytes could wrap around at two fifty-six, like a clock. Mathematicians call that mod. But to undo times three, we must be able to divide.
 07_2	Try two times one twenty-eight on this clock. What do you get?
@@ -43,7 +43,7 @@
 07_5	Even amounts lose information, like two did. Odd ones never do. So with random byte amounts, only the last bit matters.
 07_6	That's ex-or's coin flip again. This lottery fails seventy-one percent of the time, just like ex-or.
 08_1	A prime number of hours fixes it. On a seven-hour clock, three times what is one?
-08_2	Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number has a partner that multiplies it back to one, and that lets you divide.
+08_2	Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide.
 08_3	Zero sneaks in at two fifty-six because two fifty-six is two times one twenty-eight. The nearest prime is two fifty-seven, but that clock needs an hour two fifty-six, which doesn't fit in a byte.
 08_4	A number system where you can add, subtract, multiply, and divide by anything but zero, with all the usual rules of algebra, is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in.
 09_1	We need something like a prime, with two hundred fifty-six members. Numbers can't do it. Polynomials can.
@@ -65,7 +65,7 @@
 11_4	Times two is one click around. A clock with two hundred fifty-five hours. Call it the byte clock.
 11_5	To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four. Seven clicks plus two is nine clicks. Fifty-eight.
 11_6	One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm.
-11_7	It's how a phone multiplies fast. Look up two click counts, add them, and look up the answer. And every byte's partner sits at its mirror image across the top.
+11_7	That's how the standard multiplies. Look up two click counts, add them, and look up the answer. And every byte's partner sits at its mirror image across the top.
 11_8	The wrong clock had two hundred fifty-six hours, and multiplying on it broke. The right one has two hundred fifty-five, and going around it is multiplying.
 12_1	Every pair at once. Here's the whole times table in byte order. It looks like noise.
 12_2	Sort the rows and the columns by clicks. What will the table look like?
@@ -74,23 +74,23 @@
 13_2	Remember the last slot. Half the corners were lit, so a random ex-or card was useless half the time.
 13_3	With random byte amounts, how often is a card useless at the last slot?
 13_4	Only one time in two fifty-six. Scaling by a nonzero byte reshuffles all two fifty-six values, so exactly one choice of amount lands in the lit part.
-13_5	So every extra card divides the risk by two fifty-six. With ex-or, each extra card only halves it.
+13_5	So every extra card divides the risk by two fifty-six. With ex-or, each extra card only roughly halves it.
 13_6	Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards almost never need even one.
 13_7	One subtlety. A bigger field gains nothing if the amounts are still only zeros and ones. All the gain comes from the other two fifty-four values.
-14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, that's about forty trillion steps. At a billion a second, half a day.
+14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day.
 14_2	Fast codes keep cards sparse. Each card mixes only a few pieces. About half mix two, and a few mix many.
 14_3	Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling.
 14_4	Lose the card that starts it. What happens?
 14_5	Nothing moves.
-14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with a few percent extra, it stalls around ninety-eight percent. That sounds great, but it's two hundred pieces missing, and the picture is broken.
-14_7	About one piece in a hundred and twenty isn't in any card at all. No decoder can find it.
-14_8	Reed-Solomon codes are ideal. Any ten thousand packets rebuild the picture. But the sender must decide in advance how many packets exist, and with byte arithmetic that tops out around two hundred fifty-six. A fountain never runs dry.
+14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs stall around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken.
+14_7	About one piece in a hundred and twenty isn't in any card. No decoder can find it.
+14_8	Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must decide in advance how many packets exist, and with byte arithmetic that tops out around two hundred fifty-six. A fountain never runs dry.
 15_1	RaptorQ's twist. Its packets never use byte amounts. Every one is a plain ex-or card.
 15_2	Before sending, both sides agree on extra cards that tie the pieces together by fixed rules. They're never sent, so the phone gets them free. Only ten to sixteen of them are byte cards, whatever the block size. In big blocks, hundreds of others are cheap ex-ors.
 15_3	Remember the danger meter. The ex-or cards fill the bucket to just short of full, before the danger starts. The byte cards fill the last ten to sixteen slots, where a card is useless only one time in two fifty-six.
 15_4	What if those last cards were ex-or too?
 15_5	The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand.
-16_1	Back to the stuck Sudoku. RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece. We don't know C, so call it little c, and carry it along like x in algebra.
+16_1	Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece. We don't know C, so call it little c, and carry it along like x in algebra.
 16_2	A is two ex-or c. B is six ex-or two ex-or c. D is six ex-or six ex-or two, so c cancels. And E follows from D.
 16_3	At the end, the leftover cards and the byte cards pin down the parked pieces. Here c is fifteen ex-or fourteen ex-or six, which is seven. It's elimination in a clever order, so it works exactly when the cards pin down every piece.
 16_4	Now the ring of five that ex-or couldn't solve. Let one byte card join it, E plus two times A is six. Walk around the ring. What do you get?
@@ -99,6 +99,6 @@
 17_2	Each extra card divides the risk by about two fifty-six. So with one extra packet, how many failures?
 17_3	Twenty-four. Two extra, just once. That's too rare to measure precisely, and the rare unlucky phone just waits for one more packet.
 17_4	The standard promises at most one in a hundred, one in ten thousand, and one in a million, averaged over random packets, for every block size it supports.
-17_5	The originals go first, unchanged, so a phone with a clean connection does no decoding at all.
+17_5	The originals can go first, unchanged, so a phone with a clean connection does no decoding at all.
 17_6	It's in the standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. And the same byte field protects disk arrays that survive two dead drives, and every QR code.
 17_7	Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine.

@@ -65,7 +65,7 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | A thousand fish are caught, marked, and let go. One week later, a second net catches a thousand. Of those, a hundred are marked. | Top-down lake with fixed landmarks (reeds in the north-west, a dark hole with contour lines in the south-east, a small dock on the south shore): 1,000 drawn fish; the first catch glows gold; the second catch gets green rings; the caught-twice fish are gold bodies in green rings. Key: "each fish drawn = 10 fish" | particle swarm, glow |  |
+| 01_1 | A thousand fish are caught, marked, and let go. A while later, a second net catches a thousand. Of those, a hundred are marked. | Top-down lake with fixed landmarks (reeds in the north-west, a dark hole with contour lines in the south-east, a small dock on the south shore): 1,000 drawn fish; the first catch glows gold; the second catch gets green rings; the caught-twice fish are gold bodies in green rings. Key: "each fish drawn = 10 fish" | particle swarm, glow |  |
 | 01_2 | Now look at the fish no net ever touched. | Everything else fades to dim silhouettes; the fish fly by placement into a four-cell table labelled in words: columns "first catch" / "not caught first", rows "in the second catch" / "not". Cells 100 caught twice, 900 first catch only, 900 second catch only, and a dark "?" | morph swarm → table |  |
 | 01_3 | There are about eight thousand one hundred of them. And we can say how sure we are. | "≈ 8,100" fills the dark cell; the table grows into the mosaic, areas in proportion, the dark cell ballooning to most of the frame, full of dim silhouettes | live number, morph |  |
 | 01_4 | *(title)* | **How to Count Fish You've Never Seen** | title card | listen 3 s (the motif, unresolved) |
@@ -86,14 +86,14 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 02_1 | In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Biologists had been doing it for decades. His book never mentions them. | Quote card, verified first-edition text: "Suppose that 1000 fish caught in a lake are marked by red spots…" (Feller 1950, p. 37) | Text card |  |
+| 02_1 | In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Others had been using it for years, and his book never mentions them. | Quote card, verified first-edition text: "Suppose that 1000 fish caught in a lake are marked by red spots…" (Feller 1950, p. 37) | Text card |  |
 | 02_2 | Feller marked his fish with red spots. Ours glow, so you can see them. | A red spot on one fish morphs into the gold glow | morph |  |
 | 02_3 | Here's the first way to read it. Of the thousand marked fish, the second net caught a hundred. One in ten. | Gold bar: "1,000 marked", a hundred of them lit "caught twice" | proportion bar prop |  |
 | 02_4 | ⟨predict⟩ So the second net probably caught about one in ten of all the fish. It caught a thousand. A thousand is one tenth of how many? | Green tray "1,000 in the second catch"; card "1,000 = one tenth of ?" | prediction card |  |
 | 02_5 | Ten thousand. The marked fish measured our net for us. It searched about a tenth of the fish. | The green catch is copied ten times; the copies stack into a 10,000-fish bar, the last 8,100 dimming to silhouettes; the dark cell = 10,000 − 1,900 = 8,100 | lagged reveal, table callback |  |
 | 02_6 | Read the same fact the other way. One fish in ten in the second catch is marked, so about one in ten in the lake is. | Two pictures side by side: the gold bar (100 of 1,000 marked caught again) and the green tray (100 of 1,000 caught are marked) | proportion bar prop |  |
 | 02_7 | Marked times second catch, over caught twice. A thousand times a thousand, over a hundred. Ten thousand. Call it the soup guess. | Numbers 1,000 × 1,000 / 100 = 10,000; then the letters under word labels: N̂ = M·n/k | TransformMatchingTex |  |
-| 02_8 | Why should that work? How sure can we be? And when does it fail? | Three question cards; each returns as an act title (03_1, 07_1, 09_1) | statement cards | hold |
+| 02_8 | Why should that work? How sure can we be? And when does it fail? | Three question cards; each returns as an act title (03_1, 09_1, 13_1) | statement cards | hold |
 
 - **Personas.** Maya: every thousand carries its colour and word (M5); the rule
   is said in words and numbers before 05 uses it (M6); "soup guess" is named
@@ -113,23 +113,28 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 | 03_1 | Think about tasting soup. Stir it, and one spoonful tells you how salty the whole pot is. | Act card "Why should that work?" (2 s); then the lake as the pot: a ladle-sized net dips once | act card, statement card |  |
 | 03_2 | We built this lake, so we can peek. The fisher can't. We marked the first thousand near the dock, and let them go there. | Label "only we can see this"; god's-eye view; the 100 gold fish cluster at the dock | label |  |
 | 03_3 | ⟨predict⟩ Watch them swim. Will the marks stay bunched up near the dock? | The lake, tinted in 3×3 regions by the share of fish that are marked: hot gold at the dock, dark elsewhere | prediction card |  |
-| 03_4 | The fish stay crowded where they like to be. But the marks spread out evenly among them. | One lake panel, time-lapse "≈ two weeks in 12 s": the fish stay clumped in the weeds and the deep end; the regions' gold tint evens out from 66% at the dock to about 10% everywhere (readout in the caption band); faint contour streamlines (short opaque pieces) carry the circling | **habitat-potential dynamics from 10,000 simulated fish; tinted regions recoloured in place** |  |
-| 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake's mix. | Nets of 10 and of 20 fish come up in different places; each tray's marked share sits near 10%; caption "listen: one bell for every ten notes" (R1 Maya m21) | repeated small catches | listen 5 s (one vibraphone note among every ten kalimba notes, the same beat for both nets) |
+| 03_4 | The fish stay crowded where they like to be. But the marks spread out evenly among them. | One lake panel, time-lapse: the fish stay clumped in the weeds and the deep end; the regions' gold tint evens out from 66% at the dock to about 10% everywhere (readout in the caption band); faint contour streamlines (short opaque pieces) carry the circling | **habitat-potential dynamics from 10,000 simulated fish; tinted regions recoloured in place** |  |
+| 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake's mix. | Nets of 10 and of 20 fish come up in different places, tagged "illustration" on screen (drawn, not simulation catches: real nets this small vary from 0% to 30% marked, A-CH03.trays.*); each tray's marked share sits near 10%; caption "listen: one bell for every ten notes" (R1 Maya m21) | repeated small catches | listen 5 s (one vibraphone note among every ten kalimba notes, the same beat for both nets) |
 | 03_6 | Zoom in. A crowded patch has fifty fish, five of them marked. A sparse one has ten, with one marked. Both are one in ten. | Two 1:1 insets from the simulation's own fish, labelled "every fish" | zoom insets |  |
 | 03_7 | That's what makes the table fair. Mixing makes being marked unrelated to where a fish swims. So the second net catches marked fish in their fair share. | The mosaic returns; its divider runs straight across both columns | callback |  |
 | 03_8 | That's what independent means here. The second net doesn't care which fish were caught before. | Label "marks mixed fairly = independent" under the straight divider | label | hold |
 
 - **Precisely (lower-third at 03_8):** "after mixing, being marked is
   independent of position; equal catchability is a separate assumption (chapter
-  9)" (R-04).
+  13)" (R-04).
 - **Ruth:** uniform density is not required. Dynamics: overdamped drift −∇U plus
   a circulation along U's contours plus noise; the left of the picture is
   labelled "simulated fish density", never "e^(−U)" (fact sheet option (c);
   R-26, D24). Visible fish follow smoothed paths ("time-lapse"; E-A3).
 - **Sound:** 03_4 widens a vibraphone shimmer from centre-south to full width as
   the marks spread; the 03_5 window lets the proportion be heard (creative A-4).
-- **Facts to pin (new oracle keys):** the 03_6 patch counts from a real
-  simulation frame, or the insets are tagged "illustration".
+- **Facts (oracle keys `A-CH03.inset.*`, `A-CH03.trays.*`):** the 03_6 insets
+  are real squares of side 0.04 in the habitat run's t = 400 frame: crowded
+  x 0.32–0.36, y 0.76–0.80 (50 fish, 5 marked) and sparse x 0.48–0.52,
+  y 0.46–0.50 (10 fish, 1 marked). They were chosen to match the spoken
+  counts: 8 of the 25 fifty-fish squares hold exactly 5 marked, and 62 of the
+  185 ten-fish squares exactly 1. The 03_5 trays are an illustration: real
+  nets of 10 and 20 at the nine region centres hold 0–3 and 0–5 marked.
 
 ## 04_netfuls: Every possible netful (~85 s)
 
@@ -197,7 +202,7 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 07_1 | Feller found the top score without drawing anything. Compare each lake size with the one just below it. | Two neighbouring bars from 05's score curve with a ">" between them | statement card |  |
-| 07_2 | In our small lake, the step from thirty-two to thirty-three comes down to two numbers, five twenty-nine against five twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five seventy-six against five seventy-eight, so it goes down. | The two fractions with live numbers; the larger side lights | live arithmetic |  |
+| 07_2 | In our small lake, the step from thirty-two to thirty-three comes down to two numbers, five hundred twenty-nine against five hundred twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five hundred seventy-six against five hundred seventy-eight, so it goes down. | The two fractions with live numbers; the larger side lights | live arithmetic |  |
 | 07_3 | ⟨predict⟩ So take the top minus the bottom, written with letters. Multiply it out. What survives? | `(N−M)(N−n) − N(N−M−n+k)` on one line | prediction card |  |
 | 07_4 | Marked times second catch, minus caught twice times lake size. While that's positive, the score is still rising. | Expanded on one line; the terms that cancel strike through in pairs (drawn strike lines): N², N·n, N·M; `Mn − kN` survives | **term-by-term cancellation** |  |
 | 07_5 | Now write it with the table's four cells. It becomes first catch only times second catch only, minus caught twice times the dark cell. | `Mn − kN = ab − k·u`; each letter flies to its mosaic cell (`parts_by_tex` + replacement transforms, E-A7) | TransformMatchingTex onto the table |  |
@@ -217,7 +222,8 @@ second catch over caught twice), **score** (likelihood, after it is named once),
   for N > M + n − k" (R-18); 08_4 "k·u = a·b: the table's odds ratio is 1, the
   2×2 picture of independence" (R-29); 08_5 "MLE = ⌊Mn/k⌋; a tie with Mn/k − 1
   when Mn/k is whole and k < min(M, n); none when k = 0; exact fractions tie,
-  floating point picks 10,000 by rounding" (D26); neighbouring ratios
+  an lgamma log-likelihood picks 10,000 by rounding" (D26; A-F9.lgamma_prefers;
+  a float ratio scan ties exactly, A-F9.float_ratio_L10000_over_L9999); neighbouring ratios
   80,982,001/80,981,901 and 81,018,001/81,018,101 (R-33).
 - **Ruth:** Mn − kN = (M−k)(n−k) − k·u is exact algebra (+100, 0, −100 at
   9,999 / 10,000 / 10,001; toy 49 − 48 = 1 → u = 16 → N = 33). The mosaic's
@@ -234,10 +240,10 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 |---|---|---|---|---|
 | 09_1 | Let's check this by cheating. Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times. | Act card "How sure can we be?" (2 s); a run counter "experiment 1 … 10,000"; a 100 × 100 grid of tiny round lakes, each lighting with its estimate (10,000 flat cells, E-A8; legend "each dot = one whole experiment") | **10,000 flat cells recoloured in place** | listen 5 s (twelve trials as separate plinks at the pitch of their caught-twice count, then a wash; the peak's note grows out of it) |
 | 09_2 | ⟨predict⟩ Where do the counts of fish caught twice pile up? | Empty histogram axes, "fish caught twice" | prediction card |  |
-| 09_3 | In a bell around a hundred. Most land within about nine of it. | Histogram of k (mean 100, SD 9.0) | histogram prop |  |
+| 09_3 | In a bell around a hundred. Most land within about nine of it. | Histogram of the seeded runs' k, labelled "exact SD 9.0" (the runs' own SD is 8.9) | histogram prop |  |
 | 09_4 | But the estimate divides by that count, and dividing bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many. | The k-bell's bars travel along the hyperbola N = Mn/k (05's crest curve) and stretch into a right-skewed histogram | **bars along a curve** |  |
 | 09_5 | Ninety-five percent of the estimates land from about eighty-five hundred to just over twelve thousand. Their average is about ten thousand and eighty, a little high. | Quantiles 8,475 / 10,000 / 12,048; mean ≈ 10,080 | live stats |  |
-| 09_6 | *(for programmers)* Two lines of code. Always check a simulation against something you can compute exactly. | Code panel (CM Typewriter): greyed setup `import numpy as np` / `rng = np.random.default_rng(20261009)` / `M = n = 1_000; N = 10_000`; then `k = rng.hypergeometric(M, N - M, n, size=10_000)` / `est = M * n / k`; then the exact line `p = [comb(M, k) * comb(N - M, n - k) / comb(N, n) for k in range(n + 1)]` | code panel slides in |  |
+| 09_6 | *(for programmers)* Two lines of code. Always check a simulation against something you can compute exactly. | Code panel (CM Typewriter): greyed setup `import numpy as np` / `from math import comb` / `rng = np.random.default_rng(20261009)` / `M = n = 1_000; N = 10_000`; then `k = rng.hypergeometric(M, N - M, n, size=10_000)` / `est = M * n / k`; then the exact line `p = [comb(M, k) * comb(N - M, n - k) / comb(N, n) for k in range(n + 1)]` | code panel slides in |  |
 
 - **Facts:** the seeded simulation (seed `20261009`) reproduces the fact sheet
   digit for digit (Dev ran the panel: mean 10,080.002; 8,474.58 / 10,000 /
@@ -249,7 +255,7 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 |---|---|---|---|---|
 | 10_1 | ⟨predict⟩ With a smaller experiment it gets worse. In a lake of a thousand, mark fifty and catch fifty. How often does the second catch hold no marked fish at all? | A small lake; the second net comes up | prediction card |  |
 | 10_2 | About one time in fourteen. Then the soup guess divides by zero. | P(k = 0) = 7.2%; an estimate flies off the edge | red |  |
-| 10_3 | Douglas Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average. | A ghost fish (dashed gold outline) drops into the caught-twice cell as M and n tick up by one; `(M+1)(n+1)/(k+1) − 1`; two needles on one gauge around 1,000: the plain soup guess at +24% (experiments that caught any) in red, Chapman at −6.5% | TransformMatchingTex | hold |
+| 10_3 | Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average. | A ghost fish (dashed gold outline) drops into the caught-twice cell as M and n tick up by one; `(M+1)(n+1)/(k+1) − 1`; two needles on one gauge around 1,000: the plain soup guess at +24% (experiments that caught any) in red, Chapman at −6.5% | TransformMatchingTex | hold |
 
 - **Precisely (lower-third at 10_3):** "E[N̂_C] = N − (N+1)·C(N−M, n+1)/C(N+1,
   n+1): exactly N when M + n ≥ N, and never low by more than N·e^(−Mn/N),
@@ -267,7 +273,7 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 11_1 | So far the lake was known, and we watched the estimates scatter. Now turn it around. We don't know the lake. Which sizes could plausibly have given us our hundred caught twice? | Score curve for Feller's numbers (relative to its top) | Axes + `c2p`, FunctionGraph |  |
-| 11_2 | Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen for 3 s; a dashed marker at the 308th zero, "a float64 gives up here" | scrolling digits |  |
+| 11_2 | Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros. | Zeros scroll across the screen for 3 s; a dashed marker at the 324th zero, "a float64 rounds to zero past here" (smallest positive ≈ 4.9 × 10⁻³²⁴) | scrolling digits |  |
 | 11_3 | A million fish? Then we'd expect to catch about one marked fish, not a hundred. | Marker far right | number line |  |
 | 11_4 | ⟨predict⟩ Even at the best size, catching exactly a hundred had only about a four percent chance. Is that a problem? | 4.43% at 10,000 | prediction card |  |
 | 11_5 | Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet it's the most likely count. | Coin inset: P(50 of 100) = 7.96% | inset histogram |  |
@@ -278,9 +284,9 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 |---|---|---|---|---|
 | 12_1 | Here's the careful range. For each lake size, ask whether a catch of a hundred would land in that lake's middle ninety-five percent. Keep the sizes where it would. | 05's fixed-size slices, both 2.5% tails shaded, at the two edges | interval construction |  |
 | 12_2 | Build that range for each experiment, and it rings the true size at least ninety-five times in a hundred, whatever the true size is. Like a ring toss. | A peg at 10,000; the first 100 seeded experiments' ranges drop as rings in a lagged cascade; 97 clack on, 3 miss in red; counter "all 10,000: 447 missed"; then the name **confidence interval** | ring toss | listen 3 s (wooden clacks) |
-| 12_3 | For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed and the lake moves. | [8,400, 12,073] shaded; 07's range (8,475–12,048) stacked under it, both labelled | shading |  |
+| 12_3 | For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed and the lake moves. | [8,400, 12,073] shaded; 09's range (8,475–12,048) stacked under it, both labelled | shading |  |
 | 12_4 | ⟨predict⟩ What makes the range tight? | The range on its own, with three knobs: marked, second catch, caught twice | prediction card |  |
-| 12_5 | Mostly, more fish caught twice. Four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt. | Slider on "expected caught twice" with the lake fixed at 10,000 and M = n = √(10,000·k); the range in percent: ±9% at 100 | tracker-driven interval | hold |
+| 12_5 | Mostly, more fish caught twice. Four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt. | Slider on "expected caught twice" with the lake fixed at 10,000 and M = n = √(10,000·k); the 95% range in percent, −16% / +21% at 100, with "typical error ±9%" beside it | tracker-driven interval | hold |
 
 - **Precisely (lower-thirds):** 11_2 "below float64's smallest positive
   (5 × 10⁻³²⁴), so code works in logarithms" (D15); 12_2 "exact test inversion;
@@ -296,15 +302,19 @@ second catch over caught twice), **score** (likelihood, after it is named once),
   delta method; the exact SD of Mn/K (given K > 0) is 924. Marking 2,000 and
   catching 500 is the same experiment as marking 500 and catching 2,000
   (Feller eq. 6.2): SD 894 both ways (one line, R-32).
-- **Facts to pin (new oracle keys):** misses among the first 100 seeded
-  experiments (3) and among all 10,000 (447); never pick a window to show a
-  miss (D2, R-22).
+- **Facts (oracle keys `A-CH12.ring_toss.*`, `A-CH12.slider.*`):** misses
+  among the first 100 seeded experiments (3: runs 40, 61 and 80) and among all
+  10,000 (447, against 454.7 expected at the exact coverage 95.45%); never pick
+  a window to show a miss (D2, R-22). The 12_5 slider's exact ranges are 8,274
+  / 3,673 / 1,597 wide at k = 25 / 100 / 400 (each fourfold step × 0.44, then
+  × 0.43: the 1/√k halving plus the growing share), and [10,000, 10,000] once
+  both catches are the whole lake.
 
 ## 13_one_rule_for_every_failure (~85 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 13_1 | Every failure breaks one rule. In the second net, marked and unmarked fish must be equally likely to be caught. Then the catch is a fair copy. | Act card "When does it fail?" (2 s); the true lake's mosaic with its divider straight; the estimate's needle on a gauge labelled "estimated lake size (truth: 10,000)" | gauge prop |  |
+| 13_1 | Every failure breaks one rule. The second catch must carry the same share of marked fish as the lake. Then it's a fair copy. | Act card "When does it fail?" (2 s); the true lake's mosaic with its divider straight; the estimate's needle on a gauge labelled "estimated lake size (truth: 10,000)" | gauge prop |  |
 | 13_2 | ⟨predict⟩ Some fish are bold and easy to catch, both times. Will the estimate come out too big, or too small? | Bold fish glow; quiz card | prediction card |  |
 | 13_3 | Too small. Bold fish get caught twice more than their share, so the dark cell shrinks. In our lake, where three fish in ten are three times as easy to catch, the estimate comes out around seventy-seven fifty. | The mosaic's divider bends; the estimate's mosaic straightens it by shrinking the dark cell; needle to ≈ 7,750; label "3 in 10 fish 3× as catchable, both times; median of 400 runs" | bent mosaic |  |
 | 13_4 | Fish that learn to love the bait do the same. Fish that learn to avoid it push the estimate up. | Down to ≈ 7,140, up to ≈ 14,490; labels "marked fish 1.5× as catchable" / "⅔×" | gauge |  |
@@ -331,7 +341,7 @@ second catch over caught twice), **score** (likelihood, after it is named once),
 | 14_3 | *(silent: the odds card)* | Laplace, *Essai philosophique* (tr. Truscott & Emory 1902, p. 67): "a bet of almost 300000 against 1" that he was within half a million; "his calculation; it treats the chosen towns as typical" | odds card | hold |
 | 14_4 | *(for programmers)* ⟨predict⟩ It counts bugs too. Say two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. How many are still hiding? | The glyphs morph into bug glyphs; two lists and a Venn (boolean ops) as an inset; no "for programmers" tag on screen here, the easiest prediction in the video (R1 Maya m26); lower-third: Mills, 1970: "'lake' is synonymous with 'system'…" (p. 73) | prediction card |  |
 | 14_5 | Thirty times twenty-four, over twelve, is sixty. They found forty-two, so about eighteen. But twelve is a small number caught twice. An honest range is forty-seven to ninety-four bugs in all. | Range bar 47–94 on the mosaic's estimate | range bar |  |
-| 14_6 | Reviewers of different skill are fine. Bugs of different difficulty are not. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So read sixty as a floor. | Callback to 13_3's bent mosaic | callback |  |
+| 14_6 | Reviewers of different skill are fine. Bugs of different difficulty are not. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So read sixty as probably too low. | Callback to 13_3's bent mosaic | callback |  |
 
 ## 15_counting_the_dead: Kosovo, and the coda (~40 s)
 
@@ -353,8 +363,9 @@ second catch over caught twice), **score** (likelihood, after it is named once),
   report, 1972; his collected papers date the article 1970) seeded bugs
   deliberately: painted fish (R-31).
 - **Dev:** two reviewers of different skill are the M_t model, which the
-  formula survives; bugs that differ in difficulty for everyone (M_h) bias it
-  low (D11; Briand et al. 2000, IEEE TSE 26(6), "underestimation may be
+  formula survives when they read independently (A-CH14.reviewers.skill:
+  median 60 for skills 0.5 / 0.4); bugs that differ in difficulty for everyone
+  (M_h) bias it low (A-CH14.reviewers.difficulty: median 41.25; D11; Briand et al. 2000, IEEE TSE 26(6), "underestimation may be
   substantial"). The 30 / 24 / 12 example is hypothetical (D10: "say").
   Exact 95% range [47, 94] by test inversion; Chapman 58.6 ± 8.4.
 - **Optional (cut first if long):** the German tank problem as a contrast

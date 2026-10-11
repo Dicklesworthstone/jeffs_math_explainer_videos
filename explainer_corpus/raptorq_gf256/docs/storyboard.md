@@ -55,10 +55,10 @@ agreed-in-advance equations).
 | 01_2 | Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is an arithmetic where three times seven is nine. | `3 × 7 = 9` in chalk | write |  |
 | 01_3 | *(title)* | **The Arithmetic Where 3 × 7 = 9** | title card | listen 3 s (the motif E–G♯–B–C♯) |
 | 01_4 | A file travels as thousands of packets, each carrying one small piece of it. Our picture is cut into ten thousand pieces. Lose some, and the usual fix is to ask again. | The picture slices into 10,000 pieces; each piece slides into its own packet | morph |  |
-| 01_5 | With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. Broadcast TV can't ask at all. | Request arrows (at most 300, by placement) flood the tower; then "no return channel" | arrow swarm |  |
+| 01_5 | With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. A TV antenna can't ask at all. | Request arrows (at most 300, by placement) flood the tower; then "no return channel" | arrow swarm |  |
 | 01_6 | So send the file on a loop. Miss a piece, and you wait a whole loop for it. Most phones need two or three loops. The unluckiest of a million need five or six. | A carousel; the phone field turns green in a wave at the end of each loop; after loop 3 a few red stragglers pulse; zoom on the last one, still waiting through loops 5 and 6, with a loop counter | carousel prop |  |
 | 01_7 | ⟨predict⟩ Sending random pieces is worse. It's a sticker album. How many random pieces until you've seen all ten thousand? | An album of 10,000 slots | prediction card |  |
-| 01_8 | On average, about ninety-eight thousand. The last few take forever, because you keep getting doubles. | Count-up to 97,876 labelled "average"; then three counts side by side: random ≈ 98,000, an average carousel phone ≈ 26,000, two extra packets 10,002 | count-up | hold |
+| 01_8 | On average, about ninety-eight thousand. The last few take forever, because you keep getting doubles. | Count-up to 97,876 labelled "average"; then three counts side by side, all packets a phone catches: random ≈ 98,000, an average carousel phone ≈ 23,500 (it finishes partway through its last loop), two extra packets 10,002 | count-up | hold |
 
 - **Ruth:** "about ten thousand" assumes 1% loss, each packet independently
   (description: "model: each phone loses each packet independently with
@@ -67,7 +67,11 @@ agreed-in-advance equations).
 - **Facts:** carousel at 1% loss, K = 10,000: mean 2.64 loops; all 10⁶ phones
   done 0.37 by 5 loops, 0.99 by 6 (B-F24). The cold open (01_1–01_3) is about
   20 s (creative B-14). The average carousel phone, 2.64 × 10,000 = 26,400:
-  pin it in the oracle before it goes on screen (Maya D1).
+  a phone stops partway through its last loop (claim walk). All three counts are packets caught: 97,876 (B-F1),
+  23,493 (B-F24.carousel_mean_packets_caught_until_done; 23,730 sent) and 10,002
+  (B-F24.fountain_packets_caught_K_plus_2); sent, they would be 98,865, 23,730 and 10,103 (fact sheet, G3 rows; Maya D1).
+  "The last few take forever": the last piece alone takes 10,000 draws, the last ten 29,290 (B-F1). After loop 3,
+  0.995% of phones still wait, about 10 of the 1,000 glyphs (B-F24).
 
 ## 02_bits_and_ex_or (~65 s)
 
@@ -98,7 +102,7 @@ agreed-in-advance equations).
 | 03_6 | ⟨predict⟩ Here's a fifth card. B ex-or C is four. Is it useful? | The card hovers over the full bucket | prediction card |  |
 | 03_7 | No. You could make it yourself from cards one and three. | The card bounces off | bounce |  |
 | 03_8 | A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same shuffled deck, so a packet's number tells the phone which pieces it mixed. | Fountain icon; "packet #48213 → pieces {…}" | statement card |  |
-| 03_9 | The best fountain code today is called RaptorQ. This video is about the arithmetic inside it. | **RaptorQ** spelled once | name card | hold |
+| 03_9 | The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven. This video is about the arithmetic inside it. | **RaptorQ** spelled once | name card | hold |
 
 - **Lower-thirds:** "each piece is really a chunk, about a kilobyte; every
   operation runs across all its bytes at once"; "lost, not corrupted:
@@ -141,7 +145,7 @@ agreed-in-advance equations).
 | 06_2 | Nearly one time in four. The first spare takes it from seventy-one to forty-two percent, and each one after that roughly halves it. With a million phones, that's almost a quarter of a million stuck. | Each ex-or spare steps the risk down one rung: 71 / 42 / 23 / 12% | risk ladder |  |
 | 06_3 | Reaching one in a million takes about twenty spares. Ten halvings make about a thousand. Twenty make about a million. | Twenty rungs | risk ladder |  |
 | 06_4 | And sometimes it's structure, not luck. Five cards in a ring, each the ex-or of two neighbours. Every letter appears twice, so together they cancel to nothing. The five are worth only four. | A ring of five cards; letters pair up and vanish | ring prop |  |
-| 06_5 | With only use it or don't, a card at the last slot is useless half the time, and the ring stays stuck. With two hundred fifty-six amounts to choose from, it would almost never be. So what if a card could scale a piece? Three times A, or a hundred times A? | Coefficients {0, 1} grow to 256 dots | statement card |  |
+| 06_5 | With only use it or don't, a card at the last slot is useless half the time, and the ring stays stuck. With two hundred fifty-six amounts, and the right arithmetic, it would almost never be. So what if a card could scale a piece? Three times A, or a hundred times A? | Coefficients {0, 1} grow to 256 dots | statement card |  |
 | 06_6 | Then multiplying a byte must give a byte, and we must be able to undo it. | "byte × byte → byte, and undo it" | statement card | hold |
 
 - **Ruth:** the factors are 1.68, 1.84, 1.92, 1.96 (71.1 → 42.2 → 23.0 → 12.0 →
@@ -168,7 +172,7 @@ agreed-in-advance equations).
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 08_1 | ⟨predict⟩ A prime number of hours fixes it. On a seven-hour clock, three times what is one? | The 7-hour clock | prediction card |  |
-| 08_2 | Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number has a partner that multiplies it back to one, and that lets you divide. | The 7-hour table; each row lights as a reshuffle | small table |  |
+| 08_2 | Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide. | The 7-hour table; each row lights as a reshuffle | small table |  |
 | 08_3 | Zero sneaks in at two fifty-six because two fifty-six is two times one twenty-eight. The nearest prime is two fifty-seven, but that clock needs an hour two fifty-six, which doesn't fit in a byte. | 256 = 2 × 128 beside the 2·128 = 0 card; then 256 is written into an 8-bit box and its ninth bit spills out, lit red | factor split, byte box |  |
 | 08_4 | A number system where you can add, subtract, multiply, and divide by anything but zero, with all the usual rules of algebra, is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in. | Name card "field"; the gutter bit lifts back | statement card | hold |
 
@@ -207,14 +211,14 @@ agreed-in-advance equations).
 | 10_1 | A product past x to the seventh doesn't fit in a byte. The simplest fold drops the fallen bit back in at the bottom. A rotation. | Rotation fold: the top bit wraps to bit 0 | fold animation |  |
 | 10_2 | ⟨predict⟩ But under that fold, what is three times two fifty-five? | `3 · 255` | prediction card |  |
 | 10_3 | Zero. The rotation secretly treats x to the eighth plus one as zero, and x to the eighth plus one splits into x plus one, times a long polynomial. That's three times two fifty-five. Two fifty-six was two times one twenty-eight all over again. | `(x + 1)(x⁷ + … + 1) = x⁸ + 1`, shown as "x⁸ → 1"; `3·255 = 0` | fold animation |  |
-| 10_4 | So we need a polynomial that can't split. A prime polynomial. RaptorQ's rule is that whenever an x to the eighth falls off, you swap in x to the fourth plus x cubed plus x squared plus one. | `x⁸ → x⁴ + x³ + x² + 1` (285 in decimal; 0x11D in hex beneath) | the fold |  |
+| 10_4 | So we need a polynomial that can't split. A prime polynomial. RaptorQ's rule is that whenever an x to the eighth falls off, you swap in x to the fourth plus x cubed plus x squared plus one. | `x⁸ → x⁴ + x³ + x² + 1`: the right side is 29 (0x1D in hex beneath); the whole polynomial x⁸ + x⁴ + x³ + x² + 1 is 285 (0x11D) | the fold |  |
 | 10_5 | Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero. | The same bit row, gutter and scale as 07_3: the fallen bit lands back as 00011101 with place values | **overflow-fold animation** | listen 3 s (the same slide as 07_3, now blooming into the 0x1D chord E–G♯–B–C♯) |
 | 10_6 | And every nonzero byte now has a partner. Two times one forty-two is exactly one. | 142 × 2 folded step by step; everything cancels except 1 | fold |  |
 | 10_7 | A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree. | Side-by-side: 87 · 131 = 49 here, 193 in AES (hex beneath: 0x57 · 0x83 = 0x31 vs 0xC1) | side-by-side | hold |
 
 - **Code panel (for programmers), pinned in a corner from 10_4 to 10_7:**
   `0x1D` lights orange as 10_5 folds 2·128 into 29; `mul(2, 142) == 1` lights at
-  10_6; at 10_7 `0x1D` swaps to `0x1B` and `0x31` flips to `0xC1` (D6, D20).
+  10_6; at 10_7 `0x1D` swaps to `0x1B`, `0x31` flips to `0xC1` and the comment `mul(2, 142) == 1` flips to `mul(2, 141) == 1` (AES's inverse of 2; claim walk) (D6, D20).
 
 ```rust
 fn xtime(a: u8) -> u8 { (a << 1) ^ if a & 0x80 != 0 { 0x1D } else { 0 } }
@@ -243,7 +247,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 | 11_4 | Times two is one click around. A clock with two hundred fifty-five hours. Call it the byte clock. | The clock face, 255 hours | byte clock | listen 3 s (a gold dot laps the clock with a 255-step glide that climbs one octave and lands home) |
 | 11_5 | To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four. Seven clicks plus two is nine clicks. Fifty-eight. | 2⁷·2² = 2⁹ = 58, read off the clock | slide-rule rings |  |
 | 11_6 | One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm. | Two concentric rings; the inner ring rotates 25 clicks (labels counter-rotate) | rings |  |
-| 11_7 | It's how a phone multiplies fast. Look up two click counts, add them, and look up the answer. And every byte's partner sits at its mirror image across the top. | The 127 mirror pairs drawn across the circle as string art (log a⁻¹ = 255 − log a) | string art |  |
+| 11_7 | That's how the standard multiplies. Look up two click counts, add them, and look up the answer. And every byte's partner sits at its mirror image across the top. | The 127 mirror pairs drawn across the circle as string art (log a⁻¹ = 255 − log a) | string art |  |
 | 11_8 | The wrong clock had two hundred fifty-six hours, and multiplying on it broke. The right one has two hundred fifty-five, and going around it is multiplying. | The two clocks side by side | rhyme |  |
 
 ## 12_the_times_table (~40 s)
@@ -277,27 +281,30 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 | 13_2 | Remember the last slot. Half the corners were lit, so a random ex-or card was useless half the time. | The danger meter returns at the last slot, blue | danger meter |  |
 | 13_3 | ⟨predict⟩ With random byte amounts, how often is a card useless at the last slot? | The meter turns gold | prediction card |  |
 | 13_4 | Only one time in two fifty-six. Scaling by a nonzero byte reshuffles all two fifty-six values, so exactly one choice of amount lands in the lit part. | A ghost copy of the file drifts down through the held cards; each ex-or card lets it through half the time, the first byte card stops it almost always (creative B-13) | ghost change |  |
-| 13_5 | So every extra card divides the risk by two fifty-six. With ex-or, each extra card only halves it. | The risk ladder: each byte spare drops eight rungs; labelled **model**: 0.39% / 0.0015% / 0.000006% | risk ladder |  |
-| 13_6 | Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards almost never need even one. | The race (blue left, gold right): histograms of spares needed with this run's own counts; "exact: 1.607 / 0.0039"; lower-third "average ex-or spares = 1 + 1/3 + 1/7 + 1/15 + … = 1.6067…; Erdős proved it irrational in 1948" | **Monte Carlo race** |  |
+| 13_5 | So every extra card divides the risk by two fifty-six. With ex-or, each extra card only roughly halves it. | The risk ladder: each byte spare drops eight rungs; labelled **model**: 0.39% / 0.0015% / 0.000006% | risk ladder |  |
+| 13_6 | Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards almost never need even one. | The race (blue left, gold right): histograms of spares needed with this run's own counts; "exact: 1.606 / 0.0039" (ten pieces; 1.607 is the many-piece limit); lower-third "average ex-or spares = 1 + 1/3 + 1/7 + 1/15 + … = 1.6067…; Erdős proved it irrational in 1948" | **Monte Carlo race** |  |
 | 13_7 | One subtlety. A bigger field gains nothing if the amounts are still only zeros and ones. All the gain comes from the other two fifty-four values. | The same 0/1 card in both fields: "same number of useful cards" | statement card | hold |
 
 - **Precisely (lower-third at 13_5):** "union bound: P(fail) < 256^−h/255.
   Exact: 3.9215×10⁻³, 1.5319×10⁻⁵, 5.984×10⁻⁸ at h = 0, 1, 2 (the bound 1/255
   is 3.9216×10⁻³)" (RB-22).
-- **Facts to pin:** the race's seed and its own counts (D15, RB-23).
+- **Facts:** the race is pinned in the oracle (D15, RB-23): B-F6.race_K10_seeded.*, CPython's
+  `random.Random(1306)`, 1,000 races per side; ex-or spares 0, 1, 2, … occur 297, 303, 171, 94, 65, 39, 17, 4, 7, 0,
+  2, 0, 0, 0, 0, 1 times (mean 1.603), byte spares 995, 5 (mean 0.005). The scene shows these counts as pinned
+  constants (as for B-F18). The exact 1.606 / 0.0039 are B-F6.mean_spares_gf2_K10 / _gf256_K10.
 
 ## 14_the_price_of_density (~85 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 14_1 | So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, that's about forty trillion steps. At a billion a second, half a day. | K³/3 count-up: ≈ 4.2×10¹³; "≈ 11.6 h at 10⁹/s" | count-up |  |
+| 14_1 | So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day. | K³/3 count-up: ≈ 4.2×10¹³; "≈ 11.6 h at 10⁹/s" | count-up |  |
 | 14_2 | Fast codes keep cards sparse. Each card mixes only a few pieces. About half mix two, and a few mix many. | Each card morphs into a dot joined to its pieces: the graph "pieces / packets"; degree histogram | graph prop |  |
 | 14_3 | Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling. | Peeling cascade on the five-piece toy: C, A, B, D, E; the ripple glows | **peeling cascade** | listen 3 s (each peeled piece a pluck stepping down the E pentatonic scale) |
 | 14_4 | ⟨predict⟩ Lose the card that starts it. What happens? | The starting card fades | prediction card |  |
 | 14_5 | Nothing moves. | The graph freezes; the music stops for 1.5 s | stall |  |
-| 14_6 | With exactly enough sparse cards, peeling usually gets stuck early. Even with a few percent extra, it stalls around ninety-eight percent. That sounds great, but it's two hundred pieces missing, and the picture is broken. | Progress bars stalling; caption "10,000 pieces, the standard's degree table, 5 seeded runs; one run with 2% extra stuck at 16%" | stall bars |  |
-| 14_7 | About one piece in a hundred and twenty isn't in any card at all. No decoder can find it. | Those pieces outlined red | highlight |  |
-| 14_8 | *(for programmers)* Reed-Solomon codes are ideal. Any ten thousand packets rebuild the picture. But the sender must decide in advance how many packets exist, and with byte arithmetic that tops out around two hundred fifty-six. A fountain never runs dry. | Reed–Solomon vs fountain card; lower-third "Reed–Solomon over GF(256): N ≤ 257 (q + 1); RaptorQ: up to 2²⁴ ≈ 16.8 million packets per block" | card | hold |
+| 14_6 | With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs stall around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken. | Progress bars stalling; caption "10,000 pieces, the standard's degree table, 5 seeded runs; one run with 2% extra stuck at 16%" | stall bars |  |
+| 14_7 | About one piece in a hundred and twenty isn't in any card. No decoder can find it. | Those pieces outlined red | highlight |  |
+| 14_8 | *(for programmers)* Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must decide in advance how many packets exist, and with byte arithmetic that tops out around two hundred fifty-six. A fountain never runs dry. | Reed–Solomon vs fountain card; lower-third "Reed–Solomon over GF(256): N ≤ 257 (q + 1); RaptorQ: up to 2²⁴ ≈ 16.8 million packets per block" | card | hold |
 
 - **For programmers (lower-third at 14_3):** "per piece, a list of the cards
   that use it; plus a queue of cards with one unknown left (the ripple)" (D19).
@@ -336,7 +343,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 16_1 | Back to the stuck Sudoku. RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece. We don't know C, so call it little c, and carry it along like x in algebra. | The frozen five-piece graph from 14_5; C's badge becomes a ghost "c" | ghost node |  |
+| 16_1 | Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece. We don't know C, so call it little c, and carry it along like x in algebra. | The frozen five-piece graph from 14_5; C's badge becomes a ghost "c" | ghost node |  |
 | 16_2 | A is two ex-or c. B is six ex-or two ex-or c. D is six ex-or six ex-or two, so c cancels. And E follows from D. | A = 2 ⊕ c, B = 6 ⊕ 2 ⊕ c, D = 6 ⊕ 6 ⊕ 2, E = 14 ⊕ D | peel with a ghost |  |
 | 16_3 | At the end, the leftover cards and the byte cards pin down the parked pieces. Here c is fifteen ex-or fourteen ex-or six, which is seven. It's elimination in a clever order, so it works exactly when the cards pin down every piece. | c = 7; back-substitution A = 5, B = 3, D = 2, E = 12 | live solve |  |
 | 16_4 | ⟨predict⟩ Now the ring of five that ex-or couldn't solve. Let one byte card join it, E plus two times A is six. Walk around the ring. What do you get? | The ring walk, one edge per beat; the fifth card is gold | **ring walk** |  |
@@ -351,7 +358,9 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 - **Dev (D5, open):** the dense part covers only the parked pieces (at 10,017
   pieces at least 158 + 11; about 1.6 million steps instead of 3.6×10¹¹); a
   measured inactivation count and decode time become oracle rows before any of
-  it is spoken.
+  it is spoken. The words of 16_1 ("In big blocks, RaptorQ's decoder mostly peels") rest on RFC 6330 §5.4.2.4,
+  not on a measurement: the rows solved one at a time are "generally much larger" in number than the parked
+  columns (fact sheet B-S3).
 
 ## 17_two_packets (~80 s)
 
@@ -361,7 +370,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 | 17_2 | ⟨predict⟩ Each extra card divides the risk by about two fifty-six. So with one extra packet, how many failures? | The risk ladder returns | prediction card |  |
 | 17_3 | Twenty-four. Two extra, just once. That's too rare to measure precisely, and the rare unlucky phone just waits for one more packet. | Ticks "1 in 100 / 1 in 10,000 / 1 in a million" on the ladder; the measured 6,316 / 24 / 1 beside them | log chart in words |  |
 | 17_4 | The standard promises at most one in a hundred, one in ten thousand, and one in a million, averaged over random packets, for every block size it supports. | RFC 6330 requirement overlaid; lower-third "RFC 6330 §5.8: averaged over randomly chosen packet IDs, for each padded block size K′" | statement card |  |
-| 17_5 | The originals go first, unchanged, so a phone with a clean connection does no decoding at all. | Originals then repair packets | statement card |  |
+| 17_5 | The originals can go first, unchanged, so a phone with a clean connection does no decoding at all. | Originals then repair packets | statement card |  |
 | 17_6 | It's in the standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. And the same byte field protects disk arrays that survive two dead drives, and every QR code. | Text cards, no logos: "ATSC 3.0 (A/331)", "3GPP MBMS, 2005 (Raptor)", "Linux RAID-6", "QR codes" | cards |  |
 | 17_7 | Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine. | The byte clock's mirror pairs; the fold glowing at the top; the bucket fills; the chalk `3 × 7 = 9` returns; the phone field turns green; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256)) | listen 3 s (the motif resolves) |
 
@@ -370,7 +379,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
   at K); the exact 95% interval for 1 failure in 10⁶ is 2.5×10⁻⁸–5.6×10⁻⁶.
   The trials drew packets from the first 20,000 IDs, not uniformly from 2²⁴
   (description; RB-29, D16).
-- **Dev (verify before narration):** ATSC 3.0 A/331 citing RFC 6330 is not yet
-  re-checked (D17); 3GPP chose Raptor (RFC 5053) for MBMS in 2005 (RaptorQ's
+- **Dev (verify before narration):** ATSC 3.0 A/331 citing RFC 6330 is checked
+  in A/331:2021 (normative reference [28], Annex A.4.2.4; fact sheet B-S1, D17); 3GPP chose Raptor (RFC 5053) for MBMS in 2005 (RaptorQ's
   adoption into TS 26.346 is unconfirmed, hence "older sibling"); RAID-6 uses
   0x11D (Anvin); QR codes use 0x11D (285) per the fact sheet.

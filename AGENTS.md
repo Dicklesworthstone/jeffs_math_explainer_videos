@@ -54,8 +54,8 @@ Every video is a Rust program written against **franken_manim**'s native `fmn` f
 
 ## Repository Shape
 
-- `explainer_corpus/<slug>/`: one Rust crate per video (its script, lexicon, oracle, docs, chapters). `hoeffding_d` is the first entry and is currently excluded from the planned root workspace (it has its own `[workspace]` until it is migrated).
-- `crates/explainer_kit` and `crates/explainer_score` (planned, §3 of the plan): the shared scene kit and the sound engine. Every explainer uses them instead of copying code.
+- `explainer_corpus/<slug>/`: one Rust crate per video (its script, lexicon, oracle, docs, chapters). `hoeffding_d` is the first entry; every crate here is a member of the root workspace (one lock, one franken_manim compile).
+- `crates/explainer_kit` and `crates/explainer_score` (§3 of the plan): the shared scene kit and the sound engine. Every explainer uses them instead of copying code.
 - `docs/`: the plan, the research memos and scripts, and review records.
 - `.beads/`: the work graph. Work is claimed and closed there.
 
@@ -133,7 +133,7 @@ We are in early development with **no users**. Do things the **RIGHT** way with 
 
 - Rust 2024 edition on the **exact pinned nightly** franken_manim uses (`nightly-2026-08-31`, in each `rust-toolchain.toml`); bump together with franken_manim.
 - `fmn` is a git dependency pinned by revision (`rev = …`); upgrading it is a deliberate commit that re-runs every explainer's tests and glyph probes and re-reads fresh contact sheets.
-- Builds through the RCH shim need `RCH_SHIM_LOCAL_IDE=1` and a known `CARGO_TARGET_DIR`. Every resolve prints `error: unclosed table` for an asupersync test fixture; cargo skips it, and so should you.
+- Nothing compiles on the owner's Mac: cargo goes to the rch worker fleet. Set `RUSTUP_TOOLCHAIN=nightly-2026-08-31` (rch cannot resolve the client toolchain without it) and run `rch exec --base HEAD --clean-overlay -o <each changed file> -- cargo …`, so the gitignored renders are never synced. Never set `RCH_SHIM_LOCAL_IDE` and never call cargo by absolute path. Every resolve prints `error: unclosed table` for an asupersync test fixture; cargo skips it, and so should you.
 - Python tools and research scripts run with `python3 -I`; numpy where a script says so (use `uv run --with numpy` or a virtualenv; never install into the system Python).
 
 ---

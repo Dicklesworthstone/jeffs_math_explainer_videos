@@ -1,14 +1,18 @@
 # Video B fact sheet: The Arithmetic Where 3 × 7 = 9
 
-This sheet covers bead `mx-e-b-qyy.2`. It checks every row B-F1 … B-F28 of the facts ledger in
-`docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md` §10.5 against
-`oracle.py` in this directory. It also records how each of the bead's open items (to verify) was resolved.
+This sheet covers bead `mx-e-b-qyy.2` and the claim walk of gate G3 (`claims.md` beside this file). It checks every
+row B-F1 … B-F28 of the facts ledger in `docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md` §10.5
+against `explainer_corpus/raptorq_gf256/oracle.py` (the crate root, one level up from this file). It also records how
+each of the bead's open items (to verify) was resolved, and the keys and source rows the claim walk asked for
+([Rows added at the claim walk](#rows-added-at-the-claim-walk-gate-g3)).
 
-**Run (from the repo root):** `python3 -I docs/facts/raptorq_gf256/oracle.py`
+**Run (from `explainer_corpus/raptorq_gf256/`):** `uv run --quiet --no-project --with numpy python3 -I -B oracle.py`,
+which is what `./x raptorq_gf256 facts-check` runs.
 
-The oracle needs only the standard library and numpy (2.4.1 was used). It prints one `KEY<TAB>VALUE` line per fact
-and writes a summary line to stderr. Final run (2026-10-10, CPython 3.14.6, this Mac): **297 keys, real 3.54 s** (`/usr/bin/time -p`). Four runs
-took 3.5–4.6 s. The output is byte-identical from run to run.
+The oracle needs only the standard library and numpy. It prints one `KEY<TAB>VALUE` line per fact and writes a summary
+line to stderr. Latest run (2026-10-11, CPython 3.14.0 and numpy 2.5.4 from uv, this Mac, under `nice -n 10`):
+**397 keys, real 11.0 s** (`/usr/bin/time -p`). A second run printed byte-identical output. The run of 2026-10-10
+(CPython 3.14.6, numpy 2.4.1) printed 297 keys in 3.5–4.6 s; the claim walk added 100 keys and changed none of the 297.
 
 ## How to read this sheet
 
@@ -29,7 +33,7 @@ took 3.5–4.6 s. The output is byte-identical from run to run.
   `rfc6330_data.py`.
 - Keys ending in `_ok` are internal checks. Most compare two independent routes to the same value. Some are
   structural, for example primality of S and W, monotonicity, or the transcription hash. `1` means the check passed.
-  All 22 of them print `1`.
+  All 37 of them print `1`.
 
 ## Ledger rows
 
@@ -70,6 +74,54 @@ took 3.5–4.6 s. The output is byte-identical from run to run.
 |---|---|---|---|---|---|
 | B-X1 | RAID-6 weights | 2ⁱ for i = 0…254 gives **255** distinct weights under 0x11D and **51** under 0x11B (2⁵¹ = 1 there). {02}⁸ = **0x1D**. The Horner loop of Linux `int.uc` (re-implemented byte by byte, not the kernel's SWAR code) equals Σ2ⁱ·Dᵢ on 200 random stripes | "Q = Σ 2ⁱ·Dᵢ in this exact field; with generator 2 under AES's polynomial, only 51 distinct weights exist" (§10.4 06) | MATCH (wording caveat below) | `bx1`. Anvin's paper and the Linux source are quoted below. |
 | B-X2 | QR-code field polynomial | 100011101₂ = **285** = 0x11D | "QR codes … same polynomial (285)" (§10.4 10) | MATCH | `bx2`. ISO/IEC 18004:2006 §6.5.2 is quoted below. |
+
+## Rows added at the claim walk (gate G3)
+
+The claim walk (`claims.md`, 2026-10-11, written against the script at `49ef758`) listed what the video says or shows
+without an oracle key or a cited row. The rows below close those items against the current storyboard; each names the
+beat it backs. Every new key is computed in `oracle.py`; a literal appears only for a sourced constant, and its key
+contains `sourced`. The sources were downloaded on 2026-10-11 into a scratch folder and read there; none is committed.
+
+### Keys added under existing rows
+
+| row | beat | keys and values | how computed |
+|---|---|---|---|
+| B-F1 | 01_8 "The last few take forever"; the 01_8 screen's units | the last piece alone takes **10,000** draws on average and the last ten **29,289.7**, which is **29.9%** of the 97,876; the first half of the pieces takes **6,931**. At 1% loss the 97,876 pieces caught cost **98,864.7** packets sent | with j pieces missing, the next new one takes K/j draws on average; exact `Fraction` sums. Sent = caught / 0.99 (Wald's identity) |
+| B-F6 | 13_6 screen "exact: 1.606 / 0.0039" (ten pieces) | Σ_{i ≤ 10} 1/(2ⁱ − 1) = **1.6057183**; Σ_{i ≤ 10} 1/(256ⁱ − 1) = **0.0039369**; a byte race needs any spare with probability **0.39215%** (`B-F6.mean_spares_gf*_K10`, `B-F6.p_any_spare_needed_gf256_K10`) | exact sums; a second route sums P(K + h cards leave a piece unpinned) over h (`…_K10_two_routes_ok`). 1.6067 is the many-piece limit (B-F6 above) |
+| B-F6 | 13_6 race "with this run's own counts" (D15, RB-23) | `random.Random(1306)`, 1,000 races per side: ex-or spares 0, 1, 2, … occur **297, 303, 171, 94, 65, 39, 17, 4, 7, 0, 2, 0, 0, 0, 0, 1** times (mean **1.603**); byte spares 0, 1 occur **995, 5** times (mean **0.005**). Both means are within 4 standard errors of the exact ones | uniform random cards (the zero card included, as in the model) until rank 10; the rank is tracked as a GF(2) basis and as GF(256) rows reduced at their pivots |
+| B-F9 | 16_5 lower-third "a loop of two-piece cards is stuck exactly when its amounts multiply to 1 going around"; 13_7 "the other two fifty-four values" | in 3,000 seeded random 5-cycles with nonzero amounts the rank is below 5 exactly when ∏ bᵢ/aᵢ = 1 (**12** stuck cycles, all on the rule); 256 − 2 = **254** | `rank_gf256_py`, `random.Random(1605)` |
+| B-F10 | 07_4 screen "2·131 = 262 → 6"; 07_6 lower-third "3 × 171 = 513 = 2·256 + 1" | **262**; 3⁻¹ mod 256 = **171**; 3·171 = **513** = 2·256 + 1 | exact |
+| B-F11 | 10_7 code panel; 10_5 "x to the eighth"; 12_4 lower-third "(x²+x+1)² = x⁴+x²+1 = 21" | under 0x11B: mul(2, 141) = **1** and mul(2, 142) = **7**, so the panel's comment must flip with the fold. The panel's own code with `0x1B` gives mul(2, 141) = 1 and mul(0x57, 0x83) = **193** (0xC1), and equals multiplication mod 0x11B for all 65,536 pairs. x·x⁷ = **256** = x⁸ before the fold; 7·7 carry-less = **21** (no fold) | `rust_mul(…, fold=0x1B)` against `gmul(…, 0x11B)`; `clmul` |
+| B-F12 | 12_4 lower-third "255 = (2+1)(2²+1)(2⁴+1); together they make 11111111₂ = 255" | (2+1)(2²+1)(2⁴+1) = **255**; the counts 1, 2, 4, …, 128 sum to **255** = 11111111₂ | exact |
+| B-F13 | 12_4 lower-third "7 × 7: 198 + 198 = 396 → 141 clicks → 21"; 11_7 picture (127 mirror pairs); 11_5 "two cubed times two to the fourth" | log 7 = **198**; 198 + 198 = **396**, mod 255 **141**; α¹⁴¹ = **21**. log a⁻¹ = 255 − log a for all 255 nonzero bytes: **127** mirror pairs, and **1** is its own partner. 2³·2⁴ = **128**, as integers and as bytes | exact |
+| B-F15 | 14_1 "about forty-two trillion steps. At a billion a second, half a day"; screen "≈ 11.6 h at 10⁹/s" | K³/3 = **41.67** trillion; at 10⁹ steps per second **41,666.7 s = 11.574 h = 0.482 days** | exact `Fraction` |
+| B-F18 | 14_6 "over a hundred pieces are missing" | the runs that did not collapse leave **116–176** pieces missing at 2% extra and **97–135** at 5% extra | from the existing seeded runs; no new draws |
+| B-F24 | 01_6 "Most phones need two or three loops"; picture "after loop 3 a few red stragglers" | P(a phone finishes in loop 2 or 3) = **0.99005**; after loop 3 **0.995%** of phones still wait: **9,950** of 10⁶, or **9.95** of the 1,000 glyphs if each glyph shows its share | the B-F24 formula |
+| B-F24 | 01_8 screen "an average carousel phone ≈ 23,500" (packets caught, like the other two counts); "two extra packets 10,002" | expected packets **sent** until a phone is done: **23,729.95**; **caught**: **23,492.65**. Whole loops × K would give 26,421.9: a phone finishes partway through its last loop. The fountain phone: **10,002** caught, **10,103.0** sent on average | exact: P(N ≤ mK + j) = (1 − p^(m+1))^j (1 − p^m)^(K−j), summed in closed form at 120 digits; a second route sums every term in floating point; a third, independent of the formula, simulates 4,000 phones (`random.Random(18)`): 23,738.6, within 4 standard errors. Caught = 0.99 × sent (Wald) |
+| B-F26 | 10_1 "The simplest fold drops the fallen bit back in at the bottom. A rotation." | ×2 mod x⁸ + 1 is an 8-bit rotate-left for all 256 bytes; 2·128 → **1** | exhaustive |
+
+### New extra rows
+
+| id | beat | keys and values | source and check |
+|---|---|---|---|
+| B-X3 | 14_8 lower-third "RaptorQ: up to 2²⁴ ≈ 16.8 million packets per block"; 03_8 "endless" | **SOURCED**: the ESI is 24 bits wide. Computed: 2²⁴ = **16,777,216** ESIs per source block = **16.78 million** | RFC 6330 §3.2 (quoted below). There is one ESI per encoding symbol, and a packet may carry several symbols (§4.4.2), so "packets" assumes one symbol per packet, as the video does |
+| B-X4 | 02_1–02_6, 06_3, 08_1–08_3, 09_2–09_5 (small arithmetic said aloud or shown) | place values 1, 2, 4, …, 128; 5 = 101, 7 = 111; 2⁸ − 1 = 255; 5 ⊕ 7 = 2 (010) and 2 ⊕ 7 = 5; (a ⊕ b) ⊕ b = a for all 65,536 byte pairs; 2¹⁰ = 1,024, 2²⁰ = 1,048,576; 3⁻¹ mod 7 = 5, rows 1–6 of the seven-hour table are reshuffles and 0 has no partner; 2·128 = 256 needs 9 bits; the primes either side of 256 are 251 and 257; 3 = x + 1, 7 = x² + x + 1, 128 = x⁷, 9 = x³ + 1 | exact |
+| B-X5 | 10_7 lower-third "CRC-8/SAE-J1850 uses this very 0x1D" | **SOURCED**: poly 0x1D (29), the low byte of 0x11D. Computed: the catalogue's 7 attested codewords from SAE J1850 Table 1 reproduce **7 of 7** with init 0xFF and xorout 0xFF, where each bit step is the code panel's xtime | reveng CRC catalogue (quoted below) |
+| B-X6 | 10_7 "A famous encryption standard picked a different prime polynomial" | **SOURCED**: m(x) = x⁸ + x⁴ + x³ + x + 1 = 0x11B (283). Computed: FIPS 197's worked example, {57}•{02}, {04}, … , {80} = {ae}, {47}, {8e}, {07}, {0e}, {1c}, {38}, and {57}•{13} = **{fe}** | FIPS 197-upd1 §4.2 (quoted below); 0x11B is irreducible (B-F12) |
+
+### Source rows (claims with no number to compute)
+
+| id | beat | claim | source (read 2026-10-11; quotes below) | status |
+|---|---|---|---|---|
+| B-S1 | 03_9 "The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven." (RFC Editor record: `"pub_date": "August 2011"`, read 2026-10-11; the wording avoids "the standard", see the caveat); 17_6 "It's in the standard for next-generation TV broadcasts." | RaptorQ is a current IETF standard fountain code, and ATSC 3.0 uses it | RFC 6330 header "Category: Standards Track" and §1; the RFC Editor's record `https://www.rfc-editor.org/rfc/rfc6330.json` gives `"status": "PROPOSED STANDARD"` and `"obsoleted_by": []`. ATSC A/331:2021 §1, normative reference [28], Annex A.3.5.2, A.4.2.4 and Figure A.1.2 | SOURCED. Caveat for "the standard": Raptor (RFC 5053) is also a Proposed Standard with `"obsoleted_by": []` (`rfc5053.json`), and 3GPP MBMS still specifies Raptor (open item 4). RFC 6330 calls RaptorQ "a next generation of the Raptor code", so "the standard fountain code today" holds as the current generation. Only A/331:2021 was read; later editions were not |
+| B-S2 | 11_7 "That's how the standard multiplies. Look up two click counts, add them, and look up the answer." | the standard defines multiplication through log and antilog tables | RFC 6330 §5.7.2; the click counts are OCT_LOG (B-F14) | SOURCED |
+| B-S3 | 16_1 "In big blocks, RaptorQ's decoder mostly peels." | in the standard's decoder, most intermediate symbols are solved one at a time in the sparse first phase, and few are parked | RFC 6330 §5.4.2.2 and §5.4.2.4 | SOURCED, qualitatively. §5.4.2.4 says the i rows solved in the first phase are "generally much larger" in number than the u parked (inactivated) columns. A first-phase step that is not a peel (r ≥ 2) adds r − 1 ≥ 1 to u, which starts at P, so there are at most u − P such steps; with u much smaller than i, most steps are peels. It fails at small K′: at K′ = 10, P = 10 of L = 27 symbols are parked from the start (B-F19), hence "in big blocks"; at K′ = 10,017, P = 158 of 10,269. The RFC gives no number, and the count of columns parked during decoding is still unmeasured (D5) |
+| B-S4 | 03_8 "a packet's number tells the phone which pieces it mixed"; lower-third "the ESI is the seed; the block size travels in a header" | the ESI fixes the mix through the standard's shared generator | RFC 6330 §5.3.1 (repair ISI = ESI + K′ − K), §5.3.4 and §5.3.5.4 (Tuple[K′, X] depends only on K′ and the ISI), §5.2 (the 1,024 fixed random numbers), §3.3.2 (F and T travel in the OTI) | SOURCED. The "pieces" are intermediate symbols (15_2 lower-third), and K′ follows from the header |
+| B-S5 | 03_8 "like water from a fountain, so these are called fountain codes" | the name comes from the fountain metaphor | Byers, Luby, Mitzenmacher and Rege, "A Digital Fountain Approach to Reliable Distribution of Bulk Data", ACM SIGCOMM '98, §III; RFC 6330 abstract | SOURCED |
+| B-S6 | 13_1 "This design really exists."; lower-third "random linear network coding" | cards with random amounts from a finite field are a real, named design | Ho, Médard, Koetter, Karger, Effros, Shi and Leong, "A Random Linear Network Coding Approach to Multicast", IEEE Trans. Inf. Theory 52(10), Oct. 2006, p. 4413 (abstract, Fig. 1); RFC 8681 (Standards Track, January 2020), abstract, §3.6, §3.7.1; RFC 8406 (IRTF, Informational) §2 and §4.1 | SOURCED. Ho et al. code at every network node; the video's sender-only case is what RFC 8406 calls End-to-End Coding, "a special case of Network Coding". RFC 8681's codes mix a sliding window rather than the whole file, over GF(2⁸) with the same polynomial x⁸ + x⁴ + x³ + x² + 1 |
+| B-S7 | 01_5 "the requests swamp the sender" (unchecked in the walk) | feedback implosion | RFC 3453 §1 (Informational, December 2002) | SOURCED |
+| B-S8 | lower-thirds 07_6 "it's why hash mixers use odd multipliers" and 08_4 "finite fields exist exactly for prime-power sizes" (unchecked in the walk) | standard facts | Wikipedia, fetched 2026-10-11: "Hash function" (Fibonacci hashing), "Universal hashing" (multiply-shift), "Finite field" | SOURCED from secondary sources only. The arithmetic beside them is computed (B-F10: 3·171 = 513; B-F12) |
+| B-S9 | 15_1, 15_2, 16_3, 17_5, 14_8 | the RFC sentences the walk asked to quote | RFC 6330 §5.2, §5.3.3.4.2, §5.4.2.1, §1, §4.4.2 | SOURCED |
 
 ## Open items from the bead
 
@@ -167,6 +219,115 @@ itself as an unofficial extract of the Intel SDM, so the official manual was not
 **RFC 6330 §5.6**, backing the B-F19 primality check: *"For each value of K', the corresponding values of S(K') and
 W(K') are prime numbers."*
 
+### Quotes added at the claim walk (gate G3)
+
+All RFC 6330 quotes are from https://www.rfc-editor.org/rfc/rfc6330.txt, re-downloaded on 2026-10-11 (sha256
+`87f6da89…21ace`, the same file as above); page numbers are the RFC's own.
+
+- **§3.2, p. 5** (B-X3): *"Encoding Symbol ID (ESI): 24-bit unsigned integer. A non-negative integer identifier for
+  the encoding symbols within the packet."*
+- **§4.4.2, p. 11** (B-X3, B-S9 for 14_8): *"A packet may contain any number of symbols from the same source block."*
+  and *"Note that it is not necessary for the receiver to know the total number of repair packets."*
+- **Header and §1, p. 1 and p. 4** (B-S1, B-S5, B-S9 for 17_5): *"Category: Standards Track"*; *"The RaptorQ code
+  described herein is a next generation of the Raptor code described in RFC 5053 [RFC5053]."*; *"RaptorQ is a
+  fountain code, i.e., as many encoding symbols as needed can be generated on the fly by the encoder from the source
+  symbols of a block."*; *"The code described in this document is a systematic code; that is, the original unmodified
+  source symbols, as well as a number of repair symbols, can be sent from sender to receiver."* The abstract (p. 1):
+  *"RaptorQ is also a fountain code, i.e., as many encoding symbols as needed can be generated on the fly by the
+  encoder from the source symbols of a source block of data."*
+- **RFC Editor records** (B-S1), `https://www.rfc-editor.org/rfc/rfc6330.json`: `"status": "PROPOSED STANDARD"`,
+  `"obsoleted_by": []`; `https://www.rfc-editor.org/rfc/rfc5053.json` (Raptor): `"status": "PROPOSED STANDARD"`,
+  `"obsoleted_by": []`.
+- **§5.7.2, p. 63** (B-S2): *"The multiplication of two octets is defined with the help of two tables OCT_EXP and
+  OCT_LOG, which are given in Section 5.7.3 and Section 5.7.4, respectively. … For two octets u and v, we define
+  u * v = 0, if either u or v are 0, OCT_EXP[OCT_LOG[u] + OCT_LOG[v]] otherwise."*
+- **§5.4.2.2, pp. 33–34** (B-S3): the parameters *"i and u, which are initialized to 0 and P, the number of PI
+  symbols"*; *"Let r be the minimum integer such that at least one row of A has exactly r nonzeros in V."*; *"Finally,
+  i is incremented by 1 and u is incremented by r-1, which completes the step."*
+- **§5.4.2.4, p. 35** (B-S3): *"The number of rows i of the submatrix U_upper is generally much larger than the number
+  of columns u of U_upper."*
+- **§5.2, p. 17** (B-S4, B-S9 for 15_1): *"The encoder produces repair symbols from the intermediate block using an
+  efficient process, where each such repair symbol is the exclusive-or of a small number of intermediate symbols from
+  the block."*; *"This generator is based on a fixed set of 1024 random numbers that must be available to both sender
+  and receiver."*
+- **§5.3.1, p. 19** (B-S4): *"a repair symbol ISI is simply the repair symbol ESI plus K'-K."*
+- **§5.3.4, p. 27** (B-S4): *"the repair symbol with ISI X (X >= K') is generated by applying the generator Enc[K',
+  (C[0], C[1], ..., C[L-1]), (d, a, b, d1, a1, b1)] defined in Section 5.3.5.3 to the L intermediate symbols C[0],
+  C[1], ..., C[L-1] using the tuple (d, a, b, d1, a1, b1)=Tuple[K',X]."*
+- **§5.3.5.4, p. 30** (B-S4): *"The tuple generator Tuple[K',X] takes the following inputs: K': the number of source
+  symbols in the extended source block; X: an ISI"* (list layout flattened).
+- **§3.3.2, p. 5** (B-S4): *"Transfer Length (F): 40-bit unsigned integer."* and *"Symbol Size (T): 16-bit unsigned
+  integer."*, both in the Common FEC Object Transmission Information.
+- **§5.3.3.4.2, p. 25** (B-S9 for 15_2): *"D denote the column vector consisting of S+H zero symbols followed by the K'
+  source symbols C'[0], C'[1], ..., C'[K'-1]."*
+- **§5.4.2.1, pp. 31–32** (B-S9 for 16_3): *"It is clear that C can be decoded if and only if the rank of A is L."* and
+  *"The order in which Gaussian elimination is performed to form the decoding schedule has no bearing on whether or
+  not the decoding is successful."*
+
+**ATSC A/331:2021**, "Signaling, Delivery, Synchronization, and Error Protection", 19 January 2021
+(https://www.atsc.org/wp-content/uploads/2021/01/A331-2021-Signaling-Delivery-Sync-FEC.pdf), backing B-S1:
+- §1: *"This document specifies protocols used for delivery and synchronization of media and non-timed data in the
+  ATSC 3.0 system."*
+- Normative reference [28]: *"IETF: RFC 6330, “RaptorQ Forward Error Correction Scheme for Object Delivery,” Internet
+  Engineering Task Force, Reston, VA, August, 2011."*
+- Annex A.3.5.2: *"In accordance with RFC 6330 [28] Section 3.2, the FEC Payload ID for the RaptorQ FEC Scheme used
+  for repair flows is composed of a Source Block Number (SBN) and an Encoding Symbol ID"*.
+- Annex A.4.2.4: *"The FEC building block is used according to RFC 6330 [28], but only repair packets are delivered."*
+  Figure A.1.2 labels the repair path *"FEC Scheme Raptor(Q) (RFC6330)"*. Annex A.4.1 says delivery objects *"may be
+  protected with FEC"*: the FEC is optional, and RaptorQ is the scheme it names.
+
+**Byers, Luby, Mitzenmacher and Rege**, "A Digital Fountain Approach to Reliable Distribution of Bulk Data", ACM
+SIGCOMM '98 (copy read: https://people.cs.rutgers.edu/~rmartin/teaching/fall04/cs552/readings/by98.pdf; the SIGCOMM '98
+programme page https://conferences2.sigcomm.org/sigcomm/1998/tp/abs_05.html lists the paper), §III, backing B-S5:
+*"We metaphorically describe the stream of encoding packets produced by the server in this idealized solution as a
+digital fountain. The digital fountain has properties similar to a fountain of water for quenching thirst: drinking a
+glass of water, irrespective of the particular drops that fill the glass, quenches one’s thirst."*
+
+**Ho et al. 2006**, IEEE Trans. Inf. Theory 52(10), 4413 (copy read: a co-author's,
+https://www.comp.nus.edu.sg/~bleong/publications/itrandom-final.pdf), backing B-S6: abstract, *"We present a
+distributed random linear network coding approach for transmission and compression of information in general
+multisource multicast networks. Network nodes independently and randomly select linear mappings from inputs onto output
+links over some field."*; Fig. 1 caption, *"the coefficients are randomly chosen elements of a finite field."*
+
+**RFC 8681** (Standards Track, January 2020; https://www.rfc-editor.org/rfc/rfc8681.txt), backing B-S6:
+- Abstract: *"This document describes two fully specified Forward Erasure Correction (FEC) Schemes for Sliding Window
+  Random Linear Codes (RLC), one for RLC over the Galois Field (a.k.a., Finite Field) GF(2), a second one for RLC over
+  the Galois Field GF(2^(8)), each time with the possibility of controlling the code density."*
+- §3.6: *"In particular, when DT equals 15 the function guaranties that all coefficients are nonzero (i.e., maximum
+  density)."*
+- §3.7.1: *"The following irreducible polynomial is used for GF(2^(8)): x^(8) + x^(4) + x^(3) + x^(2) + 1"*.
+
+**RFC 8406** (IRTF, Informational, June 2018; https://www.rfc-editor.org/rfc/rfc8406.txt), backing B-S6: §2, *"Network
+Coding: A system where coding can be performed at the source as well as at intermediate forwarding nodes (all or a
+subset of them). End-to-End Coding is regarded as a special case of Network Coding."*; §4.1, *"Random Linear Coding
+(RLC): Particular case of Linear Coding using a set of random coding coefficients."*
+
+**RFC 3453** (Informational, December 2002; https://www.rfc-editor.org/rfc/rfc3453.txt), §1, backing B-S7: *"However,
+for one-to-very-many reliability protocols, ARQ has limitations, including the feedback implosion problem because many
+receivers are transmitting back to the sender, and the need for a back channel to send these requests from the
+receiver."*
+
+**reveng CRC catalogue**, https://reveng.sourceforge.io/crc-catalogue/1-15.htm (page "Last updated 11 December 2024"),
+entry CRC-8/SAE-J1850, class "attested", backing B-X5: `width=8 poly=0x1d init=0xff refin=false refout=false
+xorout=0xff check=0x4b residue=0xc4 name="CRC-8/SAE-J1850"`, citing *"SAE Standard J1850 (15 May 1994), Excerpt"*,
+Section 5.4.1 for the definition and Table 1 for 7 codewords (`0000000059`, `F2018337`, `0FAA005579`, `00FF5511B8`,
+`332255AABBCCDDEEFFCB`, `926B558C`, `FFFFFFFF74`; the last byte of each is the CRC). The SAE standard itself was not
+opened.
+
+**FIPS 197-upd1**, Advanced Encryption Standard, "Published November 26, 2001; Updated May 9, 2023"
+(https://doi.org/10.6028/NIST.FIPS.197-upd1), §4.2, backing B-X6: *"the resulting polynomial is reduced modulo the
+following fixed polynomial: m(x) = x8 + x4 + x3 + x + 1. (4.3)"* (superscripts and the "fi" ligature lost in the text
+layer) and the worked
+example *"{57} • {13} = {57} • ({01} ⊕ {02} ⊕ {10}) = {57} ⊕ {ae} ⊕ {07} = {fe}. (4.7)"*.
+
+**Wikipedia** (secondary; raw wikitext fetched 2026-10-11), backing B-S8:
+- "Hash function", §Fibonacci hashing: *"The multiplier should be odd, so the least significant bit of the output is
+  invertible modulo 2^w."*
+- "Universal hashing", multiply-shift: *"the hash functions are parametrised over odd positive integers a < 2^w"* and
+  *"odd integers have inverses in the ring Z_{2^w}"* (markup removed).
+- "Finite field": *"A finite field of order q exists if and only if q is a prime power p^k (where p is a prime number
+  and k is a positive integer)."* (markup removed).
+
 ## Recorded values (not recomputed)
 
 | ledger row | pinned constant(s) | file under `docs/research/raptorq_gf256/scripts/` | produced by |
@@ -213,6 +374,10 @@ that the oracle's computations contradict or qualify.
   to the research reruns on CPython 3.14.6. A Rust binary cannot match these key by key unless it re-implements
   CPython's generator and sampling. Either pin them as constants, as with the recorded rows, or exclude them from the
   exact comparison.
+- **The claim walk's seeded keys have the same limit:** the 13_6 race (`B-F6.race_K10_seeded.*`,
+  `random.Random(1306)`), the loop rule (`B-F9.cycle_rule_*`, `random.Random(1605)`) and the carousel simulation
+  (`B-F24.carousel_mc_*`, `random.Random(18)`). The exact keys beside them (`B-F6.mean_spares_gf*_K10`,
+  `B-F24.carousel_mean_packets_*`) use no random numbers.
 - **B-F14, B-F16 and B-F19 depend on the RFC tables transcribed into `oracle.py`.** The transcription is guarded in
   three ways:
   - a sha256 of Table 2 (`B-F19.table2_transcription_hash_ok`);
@@ -223,7 +388,14 @@ that the oracle's computations contradict or qualify.
 ## Not done or not verified
 
 - **The recorded runs were not repeated** (B-F21, B-F22). Repeating them needs `raptorq==2.0.0` from PyPI and 15+ minutes.
-- **ATSC 3.0 (A/331) was not re-checked.** It underlies "It's in the standard for next-generation TV broadcasts". It was
-  not among this bead's open items; the memo §2.6 quotes A/331:2021.
+- **ATSC 3.0: only A/331:2021 was read** (at the claim walk, B-S1). Later editions of A/331 were not checked.
 - **Only the 2006 edition of ISO/IEC 18004 was read.** The 2024 edition was not checked.
 - **The official Intel SDM was not opened for GFNI.** The plan does not use GFNI.
+- **No key for the 03_8 picture "packet #48213 → pieces {…}".** The pieces would come from RFC 6330's Tuple[K′, X],
+  which needs the V0–V3 tables (§5.5); the oracle does not transcribe them.
+- **How many columns RaptorQ's decoder parks while decoding is unmeasured** (D5). B-S3 rests on the RFC's
+  qualitative "generally much larger"; only the P symbols parked from the start are computed (B-F19).
+- **The 15 "Model" note (random rows in RaptorQ's shape fail ≈ 0.49% at K′ = 10) has no key.** It is for the
+  description, not the screen.
+- **SAE J1850 itself and Williams's CRC paper were not opened**; B-X5 rests on the catalogue's attested entry and
+  its codewords.

@@ -1,0 +1,270 @@
+{
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry.",
+ "words": {
+  "RaptorQ": {
+   "respell": [
+    "Raptor Q",
+    "Raptor queue",
+    "Raptor-Q"
+   ],
+   "say": "RAP-tor-kyoo",
+   "ipa": "ˈræptər kjuː",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/raptor#English",
+    "https://en.wikipedia.org/wiki/Raptor_code"
+   ],
+   "decoy": [
+    "REEP-tor-kyoo"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Raptor Q",
+    "discriminates": true,
+    "results": {
+     "RaptorQ": "control PARTIAL 2/3",
+     "Raptor Q": "candidate PASS 3/3",
+     "Raptor queue": "candidate PASS 3/3",
+     "Raptor-Q": "candidate PASS 3/3",
+     "RAP-tor-kyoo": "candidate PARTIAL 2/3",
+     "REEP-tor-kyoo": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "ex-or": {
+   "respell": [
+    "ex-or",
+    "ex or"
+   ],
+   "say": "EKS-or",
+   "ipa": "ˈɛks ˈɔɹ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/XOR#English"
+   ],
+   "decoy": [
+    "Zor"
+   ],
+   "note": "The plain spelling passed 2/3 carriers (heard 'X or', 'ex or'; once 'exorfinity' sentence-final); 'ex or' 2/3; caps EKS-or was read as letters. The script tokenizes 'ex-or' as 'ex' + 'or', and ASR writes 'X or' / 'XOR', so phrases map those back to 'ex or'. Said 29 times: every sentence is ASR-gated anyway. Decision 2026-10-11; re-probe with new respellings if QA flags it."
+  },
+  "Ex-or": {
+   "respell": [
+    "Ex-or",
+    "Ex or"
+   ],
+   "say": "EKS-or",
+   "ipa": "ˈɛks ˈɔɹ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/XOR#English"
+   ],
+   "decoy": [
+    "Zor"
+   ],
+   "note": "The plain spelling passed 2/3 carriers (heard 'X or', 'ex or'; once 'exorfinity' sentence-final); 'ex or' 2/3; caps EKS-or was read as letters. The script tokenizes 'ex-or' as 'ex' + 'or', and ASR writes 'X or' / 'XOR', so phrases map those back to 'ex or'. Said 29 times: every sentence is ASR-gated anyway. Decision 2026-10-11; re-probe with new respellings if QA flags it."
+  },
+  "Reed-Solomon": {
+   "respell": [
+    "Reed-Solomon"
+   ],
+   "say": "Reed-Sol-uh-mun",
+   "ipa": "ˌriːd ˈsɒləmən",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Reed#English",
+    "https://en.wikipedia.org/wiki/Solomon",
+    "https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction"
+   ],
+   "decoy": [
+    "Rad-Seel-uh-mun"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Reed-Solomon",
+    "discriminates": true,
+    "results": {
+     "Reed-Solomon": "control PASS 3/3",
+     "Reed-Sol-uh-mun": "candidate PARTIAL 2/3",
+     "Rad-Seel-uh-mun": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Sudoku": {
+   "respell": [
+    "Soo-doh-koo",
+    "Sudoku"
+   ],
+   "say": "Soo-doh-koo",
+   "ipa": "suːˈdoʊkuː",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Sudoku",
+    "https://en.wiktionary.org/wiki/sudoku#English"
+   ],
+   "decoy": [
+    "soo-DEE-kah"
+   ],
+   "accept": [
+    "sudeikou"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Soo-doh-koo",
+    "discriminates": true,
+    "results": {
+     "Sudoku": "control PASS 3/3",
+     "Soo-doh-koo": "candidate PASS 3/3",
+     "soo-DEE-kah": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "logarithm": {
+   "respell": [
+    "logarithm",
+    "Log-uh-rith-um"
+   ],
+   "say": "Log-uh-rith-um",
+   "ipa": "ˈlɒɡ.ə.ɹɪ.ð(ə)m",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/logarithm#English"
+   ],
+   "decoy": [
+    "LEEG-uh-rith-um"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Log-uh-rith-um",
+    "discriminates": true,
+    "results": {
+     "logarithm": "control PARTIAL 2/3",
+     "Log-uh-rith-um": "candidate PASS 3/3",
+     "LEEG-uh-rith-um": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "Plain spelling PARTIAL 2/3 (once 'log aritham', mapped by phrases); Log-uh-rith-um PASS 3/3. Both are auditioned per sentence; the ASR-scored take wins."
+  },
+  "polynomial": {
+   "respell": [
+    "polynomial",
+    "Pol-ee-noh-mee-ul"
+   ],
+   "say": "Pol-ee-noh-mee-ul",
+   "ipa": "ˌpɑliˈnoʊmiəl",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/polynomial#English"
+   ],
+   "decoy": [
+    "Pal-ee-nee-mee-al"
+   ],
+   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+  },
+  "Polynomials": {
+   "respell": [
+    "Polynomials",
+    "Pol-ee-noh-mee-ulz"
+   ],
+   "say": "Pol-ee-noh-mee-ulz",
+   "ipa": "ˌpɑliˈnoʊmiəlz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/polynomial#English"
+   ],
+   "decoy": [
+    "puh-LIN-uh-mulz"
+   ],
+   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+  },
+  "QR": {
+   "respell": [
+    "QR",
+    "Q R",
+    "Q-R"
+   ],
+   "say": "kyoo-AR",
+   "ipa": "ˌkjuːˈɑːr",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/QR_code"
+   ],
+   "decoy": [
+    "Kwur"
+   ],
+   "accept": [
+    "qar"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "QR",
+    "discriminates": true,
+    "results": {
+     "QR": "control PASS 3/3",
+     "Q R": "candidate PASS 3/3",
+     "Q-R": "candidate PASS 3/3",
+     "kyoo-AR": "candidate PASS 3/3",
+     "Kwur": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "subtlety": {
+   "respell": [
+    "subtlety",
+    "Suttle-tee",
+    "Sut-ul-tee"
+   ],
+   "say": "SUT-ul-tee",
+   "ipa": "ˈsʌt(ə)lti",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/subtlety#English"
+   ],
+   "decoy": [
+    "SUB-tul-tee"
+   ],
+   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+  },
+  "nonzero": {
+   "respell": [
+    "nonzero",
+    "Non-zeer-oh"
+   ],
+   "say": "Non-zeer-oh",
+   "ipa": "ˌnɒnˈzɪəroʊ",
+   "lang": "en",
+   "decoy": [
+    "Non-zor-ah"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "nonzero",
+    "discriminates": true,
+    "results": {
+     "nonzero": "control PASS 3/3",
+     "Non-zeer-oh": "candidate PASS 3/3",
+     "Non-zor-ah": "decoy OK (heard differently) 0/3"
+    }
+   }
+  }
+ },
+ "accept": {},
+ "phrases": {
+  "sue do koo": "sudoku",
+  "log aritham": "logarithm",
+  "x or": "ex or",
+  "xor": "ex or",
+  "exor": "ex or"
+ }
+}

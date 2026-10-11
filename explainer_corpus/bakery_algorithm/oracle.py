@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Facts oracle for Video C, "The Algorithm Lamport Is Proudest Of" (bead mx-e-c-7v0.2).
 
-Run from the repository root:
+Run from the repository root (`./x bakery_algorithm facts-check` runs it from
+this folder):
 
-    python3 -I docs/facts/bakery_algorithm/oracle.py
+    python3 -I explainer_corpus/bakery_algorithm/oracle.py
 
 stdout: one `KEY<TAB>VALUE` line per fact, covering every row C-F1 ... C-F14 of
 the facts ledger in docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md
@@ -592,6 +593,13 @@ def row_cf6():
     emit("C-F6.d.tickets_taken", ",".join(f"P{p}:{t}" for p, t in tickets_taken(rows)))
     emit("C-F6.d.customer3_stopped_by_customer2_flag_at_step", stop)
     emit("C-F6.d.max_in_room", max_in_room(m, rows))
+    # 07_5 (claim walk, G3): the (ticket, customer) pairs customer 1 waits behind, in order
+    waits = []
+    for (p, lab, _, _) in rows:
+        w = re.match(r"L3: number\[(\d+)\]=(\d+), wait", lab)
+        if p == 1 and w and (not waits or waits[-1] != (int(w.group(2)), int(w.group(1)))):
+            waits.append((int(w.group(2)), int(w.group(1))))
+    emit("C-F6.d.customer1_waits_behind", "".join(f"({t},{j})" for t, j in waits))
     check("C-F6 d steps match scenarios_out.txt", scenario_steps_recorded("(d) ") == len(rows))
 
     # (e1) safe registers: a read overlapping a write returns garbage 7, ticket 8
@@ -653,7 +661,8 @@ def row_cf6():
 
 
 # ==========================================================================
-# C-F7  slates 0,3,0,0,2: customer 4 takes 4; served 5, 2, 4
+# C-F7  slates 0,3,0,0,2: customer 4 (plan) or customer 1 (video) takes 4;
+#       then customers 3 and 4 tie on 5 (04_2)
 # ==========================================================================
 def row_cf7():
     slates = [0, 3, 0, 0, 2]
@@ -688,14 +697,64 @@ def row_cf7():
     loc = [(bakery_mc.NCS, 0, 0, 0, 0)] * 5
     loc[1] = (bakery_mc.L2, 0, 0, 0, 0)
     loc[4] = (bakery_mc.L2, 0, 0, 0, 0)
-    st = (tuple(loc), (0,) * 5, (0, 3, 0, 0, 2), 0)
-    door_reads = []
-    for sub in ("choosing:=1", "read number[1]", "read number[2]", "read number[3]", "read number[5]",
-                "number[4]:=", "choosing:=0"):
-        (lab, st), = [(lab, ns) for (i, lab, ns) in m.successors(st) if i == 3 and lab.startswith(sub)]
+    seated = (tuple(loc), (0,) * 5, (0, 3, 0, 0, 2), 0)
+    st, door_reads = model_steps(m, seated, [(4, sub) for sub in DOORWAY_4])
+    orders = model_service_orders(m, st, {2, 4, 5})
+    emit("C-F7.model.customer4_reads", fmt_list(door_reads[4]))
+    emit("C-F7.model.customer4_ticket", st[2][3])
+    emit("C-F7.model.distinct_service_orders", len(orders))
+    emit("C-F7.model.service_order", fmt_orders(orders))
+
+    # Claim walk (G3): the video's reader is customer 1 (03_4-03_5), so the
+    # model check is repeated for her doorway from the same seated state.
+    st1, door_reads = model_steps(m, seated, [(1, sub) for sub in DOORWAY_1])
+    orders = model_service_orders(m, st1, {1, 2, 5})
+    emit("C-F7.model.customer1_reads", fmt_list(door_reads[1]))
+    emit("C-F7.model.customer1_ticket", st1[2][0])
+    emit("C-F7.model.customer1_distinct_service_orders", len(orders))
+    emit("C-F7.model.customer1_service_order", fmt_orders(orders))
+
+    # 04_1-04_4: back at 03's slates 4,3,0,0,2 before anyone is served,
+    # customers 3 and 4 run their doorways side by side (each read of one
+    # right after the same read of the other), both write the same ticket,
+    # then EVERY interleaving of all five (no new arrivals) is explored.
+    lockstep = [(3, "choosing:=1"), (4, "choosing:=1")]
+    for a, b in zip(DOORWAY_3[1:5], DOORWAY_4[1:5]):
+        lockstep += [(3, a), (4, b)]
+    lockstep += [(3, "number[3]:="), (4, "number[4]:="), (3, "choosing:=0"), (4, "choosing:=0")]
+    st2, door_reads = model_steps(m, st1, lockstep)
+    orders = model_service_orders(m, st2, {1, 2, 3, 4, 5})
+    emit("C-F7.model.tie.customer3_reads", fmt_list(door_reads[3]))
+    emit("C-F7.model.tie.customer4_reads", fmt_list(door_reads[4]))
+    emit("C-F7.model.tie.slates_after", fmt_list(st2[2]))
+    emit("C-F7.model.tie.distinct_service_orders", len(orders))
+    emit("C-F7.model.tie.service_order", fmt_orders(orders))
+
+
+# Doorways for N = 5 with the max read in index order (any_order=False).
+DOORWAY_1 = ("choosing:=1", "read number[2]", "read number[3]", "read number[4]", "read number[5]",
+             "number[1]:=", "choosing:=0")
+DOORWAY_3 = ("choosing:=1", "read number[1]", "read number[2]", "read number[4]", "read number[5]",
+             "number[3]:=", "choosing:=0")
+DOORWAY_4 = ("choosing:=1", "read number[1]", "read number[2]", "read number[3]", "read number[5]",
+             "number[4]:=", "choosing:=0")
+
+
+def model_steps(m, st, steps):
+    """Take each (customer, label prefix) step; exactly one transition must match.
+    Returns the final state and the ticket values each customer read."""
+    reads = {}
+    for (p, sub) in steps:
+        (lab, st), = [(lab, ns) for (i, lab, ns) in m.successors(st) if i == p - 1 and lab.startswith(sub)]
         if lab.startswith("read"):
-            door_reads.append(int(lab.split("=")[1]))
-    movers = {1, 3, 4}
+            reads.setdefault(p, []).append(int(lab.split("=")[1]))
+    return st, reads
+
+
+def model_service_orders(m, st, movers):
+    """Every interleaving of the movers (1-based; nobody leaves the
+    non-critical section again): the set of room-entry orders at the leaves."""
+    movers = {p - 1 for p in movers}
     seen = {(st, ())}
     q = deque([(st, ())])
     orders = set()
@@ -712,10 +771,11 @@ def row_cf7():
                 q.append((ns, seq2))
         if not moved:
             orders.add(seq)
-    emit("C-F7.model.customer4_reads", fmt_list(door_reads))
-    emit("C-F7.model.customer4_ticket", st[2][3])
-    emit("C-F7.model.distinct_service_orders", len(orders))
-    emit("C-F7.model.service_order", fmt_list(next(iter(orders))) if len(orders) == 1 else "|".join(map(fmt_list, sorted(orders))))
+    return orders
+
+
+def fmt_orders(orders):
+    return fmt_list(next(iter(orders))) if len(orders) == 1 else "|".join(map(fmt_list, sorted(orders)))
 
 
 # ==========================================================================
@@ -782,6 +842,8 @@ def row_cf10():
     emit("C-F10.ms_per_365_day_year", 365 * 86400 * 1000)
     # R1 (Dev dev-02): a 32-bit ticket at one per millisecond wraps in days
     emit("C-F10.u32_wrap_days_at_1_per_ms_1dp", round(2**32 / (86400 * 1000), 1))
+    # claim walk (G3): a signed 32-bit ticket (Java int, AtomicIntegerArray) overflows at 2^31
+    emit("C-F10.i32_wrap_days_at_1_per_ms_1dp", round(2**31 / (86400 * 1000), 1))
 
 
 def row_cf11():

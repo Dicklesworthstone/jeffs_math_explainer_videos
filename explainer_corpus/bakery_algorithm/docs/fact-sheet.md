@@ -4,23 +4,44 @@ Bead `mx-e-c-7v0.2`. This sheet covers every row C-F1 … C-F14 of the facts
 ledger (plan §11.5), the numbers spoken in plan §11.4 that belong to those
 rows, and three supplementary rows (C-X1 … C-X3) for narrated claims the
 ledger does not list. Every value in the table was copied from the oracle's
-actual output by a script, not typed by hand.
+actual output by a script, not typed by hand. The claim walk (gate G3,
+`docs/claims.md`, 2026-10-11) added 11 keys (C-F6, C-F7, C-F10) and the
+cited rows C-S1 … C-S17 below, for claims that rest on a source rather than
+on a computation.
+
+Line ids: the Findings, the open items and the plan-value column use the ids
+of plan §11.4 (revision 2), which the storyboard has since renumbered (plan
+02_3, for example, is storyboard 02_4). Rows added at the claim walk cite
+storyboard ids and say so. The video's slates example is read by customer 1
+(Blue; R1, M3): the `C-F7.customer4_*` and customer-4 `C-F7.model.*` rows are
+the plan's original example, kept for the record.
 
 ```
-python3 -I docs/facts/bakery_algorithm/oracle.py        # from the repo root
+python3 -I explainer_corpus/bakery_algorithm/oracle.py   # from the repo root
 ```
 
-- **Output:** 168 `KEY<TAB>VALUE` lines on stdout. Provenance and 53
+(`./x bakery_algorithm facts-check` runs it from the crate folder with
+`uv run --no-project --with numpy python3 -I -B oracle.py`.)
+
+- **Output:** 184 `KEY<TAB>VALUE` lines on stdout. Provenance and 53
   cross-checks go to stderr. The exit status is 1 if any cross-check fails.
-- **Last runs** (2026-10-10, Apple M4 Pro, CPython 3.14.6): 34.4 s and 34.0 s
+- **Runs on 2026-10-10** (Apple M4 Pro, CPython 3.14.6): 34.4 s and 34.0 s
   wall in two runs with byte-identical stdout; 168 keys; 53/53 cross-checks
   passed; exit 0. Peak memory is about 1.8 GB, almost
   all of it the live N = 4 sweep. The run writes nothing outside stdout and
   stderr (`sys.dont_write_bytecode` keeps `__pycache__` out of the scripts
   folder).
-- **Result against the plan:** 111 MATCH, 0 MISMATCH. 53 rows are n/a because
-  the plan states no value for them (supporting values). 1 WORDING and 3 NOTE
-  rows are explained under Findings.
+- **Runs on 2026-10-11** (same machine, the `uv` command above, which runs
+  CPython 3.14.0): the claim walker's, 397.7 s, 173 keys; after the G3
+  additions, 247.6 s, 184 keys, under a load average between about 20 and
+  100. Both: 53/53 cross-checks passed, exit 0, no key printed
+  twice. The live N = 4 sweep took 392.7 s and 239.3 s of those. The second
+  run's stdout differs from the first only by the 11 added lines: every
+  earlier key has the same value.
+- **Result against the plan:** 126 MATCH, 0 MISMATCH. 54 rows are n/a because
+  the plan (or, for the rows added at the claim walk, the storyboard) states
+  no value for them (supporting values). 1 WORDING and 3 NOTE rows are
+  explained under Findings.
 
 ## How the oracle gets its numbers
 
@@ -45,7 +66,8 @@ python3 -I docs/facts/bakery_algorithm/oracle.py        # from the repo root
   - `C-F8.n3_k6_safe.states.recorded` = 269550 comes from
     `outputs/sweep_big.txt:2`.
   - Both sweeps are also **recomputed live** in every run, in about 30 s and
-    2 s. The live counts equal the recordings, pruned counts included
+    2 s on an idle machine (239.3 s and 3.8 s in the loaded run of
+    2026-10-11). The live counts equal the recordings, pruned counts included
     (204,059 and 12,306). So none of the ledger's model-checker numbers rests
     on a recording alone.
   - `C-F13.tsc_version.recorded` and
@@ -55,6 +77,7 @@ python3 -I docs/facts/bakery_algorithm/oracle.py        # from the repo root
     `node comma_operator_check.js` (node v26.8.1) printed `(t[j], j) < (t[i],
     i) evaluates to true | j < i = true | lexicographic would be false`.
 - **Cited.** C-F14 values are pinned from the primary sources quoted below.
+  Claims with no number to compute rest on the cited rows C-S1 … C-S17.
 - **Checked against recordings.** Every other live value from the reused
   scripts is compared with the matching line of `outputs/` (file:line on
   stderr): `tree_count_out.txt`, `crosscheck_out.txt`, `scenarios_out.txt`,
@@ -132,7 +155,8 @@ and citations in the plan's draft script.
 - **F9, minor.**
   - 04_2's "both see five, both write six" uses illustrative numbers; the
     replayed equal-ticket traces are c (both take 1) and c′ (both see 1,
-    both take 2).
+    both take 2). (Storyboard 04_2 now says "both see four … both write
+    five", and the claim walk added keys for it: `C-F7.model.tie.*`.)
   - In the 1974 PDF, the bakery paper's own date line is "Received September
     1973; revised January 1974". The "Received July 1973" line near the top of
     the scan belongs to the preceding article.
@@ -244,6 +268,146 @@ by SHA matched `master`.
   Lamport's publications page. The 1965 and 1966 citations are as in
   references 4 and 1 of the 1974 paper.
 
+## Cited rows from the claim walk (C-S1 … C-S17)
+
+Storyboard claims that rest on a source, not on a computation. Line ids are
+the storyboard's. Every row was verified on 2026-10-11 during the claim walk
+(gate G3): "walker" means the claim walker read the source (`docs/claims.md`);
+"re-read" means it was downloaded again and read for the row the same day.
+Quotes are verbatim; "…" marks a cut. Third-party documents are not committed;
+each location is enough to find the passage.
+
+**C-S1. Dijkstra's conditions, 1965 (02_1, 02_5, 02_6, 02_7; R9).**
+E. W. Dijkstra, "Solution of a Problem in Concurrent Programming Control",
+CACM 8(9):569, September 1965 (one page; doi:10.1145/365559.365617).
+- "at any moment only one of these N cyclic processes is in its critical section. In order to effectuate this mutual exclusion of critical-section execution the computers can communicate with each other via a common store. Writing a word into or nondestructively reading a word from this store are undividable operations"
+- "(a) The solution must be symmetrical between the N computers; as a result we are not allowed to introduce a static priority."
+- "(b) Nothing may be assumed about the relative speeds of the N computers; we may not even assume their speeds to be constant in time."
+- "(c) If any of the computers is stopped well outside its critical section, this is not allowed to lead to potential blocking of the others."
+- "(d) If more than one computer is about to enter its critical section, it must be impossible to devise for them such finite speeds, that the decision to determine which one of them will enter its critical section first is postponed until eternity. In other words, constructions in which "After you"-"After you"-blocking is still possible, although improbable, are not to be regarded as valid solutions."
+- From his proof: "when none of the computers is in its critical section, of the computers looping … at least one—and therefore exactly one—will be allowed to enter its critical section in due time."
+- Lamport, "The Mutual Exclusion Problem Part II" (JACM 33(2), 1986; mutual2.pdf p. 6): "These two properties, mutual exclusion and deadlock freedom, were the requirements for a mutual exclusion solution originally stated by Dijkstra in [2]."
+- R9 answered: rule (d) already required that *somebody* gets in, so Knuth's 1966 "everyone" (`C-F14.knuth_eventual_entry`) is more, as 02_6 says. 02_5 voices mutual exclusion, (c) and (b); (a) and (d) are not voiced.
+- Verified: walker read a public scan of the page; re-read (a byte-identical copy) against the page image; mutual2.pdf re-read.
+
+**C-S2. "safe", named in 1986 (09_3).** Lamport, "On Interprocess
+Communication", Distributed Computing 1(2):77–101, 1986
+(`C-F14.interprocess_communication`).
+- Publications page (https://lamport.azurewebsites.net/pubs/pubs.html), that entry: "This paper introduced three classes of registers. The weakest class with which arbitrary synchronization is possible is called safe. The next strongest is called regular and the strongest, generally assumed by algorithm writers, is called atomic." The same entry: "I had obtained all the results presented here in the late 70s".
+- interprocess.pdf (the SRC Research Report 8 text, dated December 25, 1985), p. 19: "The weakest possibility is a safe register, in which it is assumed only that a read not concurrent with any write obtains the correct value—that is, the most recently written one. No assumption is made about the value obtained by a read that overlaps a write, except that it must obtain one of the possible values of the register."
+- "Twelve years later he named" (1974 → 1986) means named in print; the report is dated December 1985.
+- Verified: walker read the page; re-read; interprocess.pdf read for this row.
+
+**C-S3. Anatol Holt (10_3).** Publications page, entry "A New Solution of
+Dijkstra's Concurrent Programming Problem": "Perhaps the person who realized
+it better than anyone is Anatol Holt, a former colleague at Massachusetts
+Computer Associates. When I showed him the algorithm and its proof and pointed
+out its amazing property, he was shocked. He refused to believe it could be
+true." The page's CV lists "Massachusetts Computer Associates (1970-1977)".
+Verified: walker; re-read.
+
+**C-S4. The 10_3 quote card.** Same entry: "I didn't try to devise an
+algorithm with this property. I discovered that the bakery algorithm had this
+property after writing a proof of its correctness and noticing that the proof
+did not depend on what value is returned by a read that overlaps a write." The
+card quotes the second sentence up to "correctness", word for word; the voice's
+"noticed this only after writing the proof" paraphrases it. Verified: walker;
+re-read.
+
+**C-S5. Time, Clocks: a bigger clock, and ties broken by process (13_3).**
+time-clocks.pdf (CACM 21(7):558–565, July 1978).
+- p. 560, rule IR2: "(b) Upon receiving a message m, process Pj sets Cj greater than or equal to its present value and greater than Tm."
+- pp. 560–561: "We simply order the events by the times at which they occur. To break ties, we use any arbitrary total ordering < of the processes." p. 561: "a ⇒ b if and only if either (i) Ci(a) < Cj(b) or (ii) Ci(a) = Cj(b) and Pi < Pj."
+- The tie-break sentence itself is on p. 561 (claims.md says p. 560, where its paragraph begins).
+- Verified: walker; re-read against the page images (subscripts as printed).
+
+**C-S6. Paxos (13_3).**
+- Paxos Made Simple (ACM SIGACT News 32(4), December 2001, 51–58; paxos-simple.pdf, dated 01 Nov 2001), p. 7: "if it uses a proposal with number greater than any already used, then it will succeed in issuing a proposal that is accepted." p. 8: "Different proposers choose their numbers from disjoint sets of numbers, so two different proposers never issue a proposal with the same number."
+- p. 8, §3: "The server can be described as a deterministic state machine that performs client commands in some sequence." … "We therefore instead use a collection of servers, each one independently implementing the state machine."
+- "Ballot numbers": Paxos Made Simple says "proposal number". The Part-Time Parliament (ACM TOCS 16(2):133–169, May 1998; author's PDF lamport-paxos.pdf, p. 5, §2.1): "Ballot numbers were chosen from an unbounded ordered set of numbers."
+- Verified: walker read Paxos Made Simple; re-read; The Part-Time Parliament read for this row.
+
+**C-S7. 05_9 describes the algorithm.** "The flag doesn't close the gap
+between looking and writing. It makes the gap visible, and the tie-breaker
+settles equal tickets." Its subject is the flag; it says nothing about
+Lamport's intent (the walker's UNSOURCED item was the earlier "Lamport didn't
+try to close the gap"). Each clause has keys:
+- the gap stays open: with flags, two customers can still take the same ticket (`C-F6.c.tickets` = 1,1; `C-F6.c_three_customers.tickets` = 2,2,1; `C-F7.model.tie.slates_after` = 4,3,5,5,2);
+- the gap is visible: a customer who meets a raised flag waits (`C-F6.a_prime.customer2_stopped_by_flag_at_step` = 7; `C-F6.d.customer3_stopped_by_customer2_flag_at_step` = 12);
+- equal tickets are settled by the customer number (`C-F6.d.service_order` = (1,2)(1,3)(2,4)(3,1)(4,2); `C-F7.model.tie.service_order` = 5,2,1,3,4).
+- Verified: storyboard text and keys read for this row.
+
+**C-S8. Chapter 10 lower-third, "today's chips don't tear an aligned word".**
+Arm: open item 5 (TF-A: "the ARM architecture guarantees single-copy
+atomicity for aligned accesses regardless of status of address translation").
+x86:
+- Intel SDM Vol. 3A (order number 253668-093US, September 2026), §11.1.1 "Guaranteed Atomic Operations", p. 11-2: "The Intel486 processor (and newer processors since) guarantees that the following basic memory operations will always be carried out atomically: … Reading or writing a doubleword aligned on a 32-bit boundary." and "The Pentium processor (and newer processors since) guarantees that the following additional memory operations will always be carried out atomically: Reading or writing a quadword aligned on a 64-bit boundary."
+- AMD64 APM Vol. 2 (publication 24593, revision 3.45, July 2026), §7.3.2 "Access Atomicity", p. 196: "Cacheable, naturally-aligned single loads or stores of up to a quadword are atomic on any processor model".
+- So the lower-third holds for Arm and x86 (Intel and AMD), for aligned accesses up to 64 bits; no other architecture was checked.
+- Verified: read for this row.
+
+**C-S9. Chapter 01 lower-third, `add [x], 1` and the lock prefix.**
+- SDM Vol. 3A §11.1, p. 11-2: "The processor also supports bus locking for performing selected memory operations (such as a read-modify-write operation in a shared area of memory) that typically need to be handled atomically, but are not automatically handled this way."
+- §11.1.2.2, p. 11-4: "To explicitly force the LOCK semantics, software can use the LOCK prefix with the following instructions when they are used to modify a memory location." … "The following two-operand arithmetic and logical instructions: ADD, ADC, SUB, SBB, AND, OR, and XOR."
+- SDM Vol. 2A (253666-093US), "LOCK—Assert LOCK# Signal Prefix", p. 3-565: "Causes the processor’s LOCK# signal to be asserted during execution of the accompanying instruction (turns the instruction into an atomic instruction)."
+- Maranget, Sarkar and Sewell, "A Tutorial Introduction to the ARM and POWER Relaxed Memory Models" (2012), p. 5: "many x86 instructions involve multiple memory accesses, e.g. an x86 increment INC. By default, these are not guaranteed atomic (so two parallel increments of an initially 0 location might result in it holding 1)"; p. 8: "On x86 INC is not instruction-atomic whereas LOCK;INC is."
+- Verified: read for this row.
+
+**C-S10. Outboxes and fences on Intel and AMD (12_2–12_5).**
+- SDM Vol. 3A §11.2.2, p. 11-7: "Reads may be reordered with older writes to different locations but not with older writes to the same location." and "Reads cannot pass earlier LFENCE and MFENCE instructions." §11.2.3.4, p. 11-11, Example 11-3 (each processor stores to one location, then loads the other): "r1 = 0 and r2 = 0 is allowed".
+- AMD64 APM Vol. 2 §7.2 "Multiprocessor Memory Access Ordering", p. 191: "stores can be delayed arbitrarily by store buffering while the processor continues operation." "Non-overlapping Loads may pass stores." "Where sequential consistency is needed (for example in Dekker’s algorithm for mutual exclusion), an MFENCE instruction should be used between the store and the subsequent load, or a locked access, such as XCHG, should be used for the store."
+- So AMD documents the same store-buffer relaxation as Intel, which is the one the x86-TSO model (C-F9) has. The two fence points themselves rest on C-F9 (`f1_f2` holds, `f1_only` and `f2_only` fail), within its bounds.
+- Verified: read for this row.
+
+**C-S11. Arm reorders even more (12_6).**
+- Apple, "Addressing architectural differences in your macOS code" (developer.apple.com, Apple silicon documentation), section "Synchronize Access to Shared Data in Memory": "A strong memory-ordering model, like the one in Intel-based Mac computers, adds implicit memory barriers to prevent the processor from reordering load and store instructions in a way that might introduce race conditions. A weak memory ordering model, like the one in Apple silicon, gives the processor more flexibility to reorder memory instructions and improve performance, but doesn’t add implicit memory barriers. To ensure the correctness of your code on both platforms, add explicit synchronization primitives to your code."
+- That Apple silicon runs Arm code: Apple, "Building a universal macOS binary": "don’t assume that code intended for the `arm64` architecture runs only on an iOS device. That code also runs in your macOS app on an Apple silicon."
+- Maranget, Sarkar and Sewell (2012), p. 4: "In broad terms x86 and SPARC are similar, with relatively strong models based on the Total Store Ordering (TSO) model … ARM and POWER are much weaker than TSO (though broadly similar to each other)". p. 9, on message passing: "On x86-TSO or SPARC TSO that final outcome of r1=1 ∧ r2=0 is also forbidden … But on ARM and POWER, this final outcome is allowed in the architecture, and it is commonly observable on current processor implementations."
+- ARMv8 as revised: Pulte, Flur, Deacon, French, Sarkar and Sewell, "Simplifying ARM Concurrency" (PACMPL 2, POPL 2018, article 19), p. 19:1: "ARM has a relaxed memory model"; p. 19:7: "The remaining relaxed-memory effects (which are still subtle) are all due to thread-local out-of-order and speculative execution and thread-local buffering."
+- "Need more care": Apple's last sentence above, and C-S13's mapping page, which puts ordering instructions on Arm's sequentially consistent loads ("Load Seq Cst: LDAR" for AArch64) where x86 uses a plain load ("Load Seq_Cst: MOV (from memory)"). The repository has no Arm model, so nothing bakery-specific is checked for Arm.
+- Verified: read for this row.
+
+**C-S12. Sequentially consistent atomics are correct everywhere (12_7).**
+- C++ working draft (https://eel.is/c++draft/intro.races), [intro.races], note: "It can be shown that programs that correctly use mutexes and memory_order::seq_cst operations to prevent all data races and use no other synchronization operations behave as if the operations executed by their constituent threads were simply interleaved, with each value computation of an object being taken from the last side effect on that object in that interleaving. This is normally referred to as “sequential consistency”."
+- Rust, `std::sync::atomic` (docs for 1.99.0): "Rust atomics currently follow the same rules as C++20 atomics, specifically the rules from the intro.races section, without the “consume” memory ordering." `Ordering::SeqCst`: "Corresponds to memory_order_seq_cst in C++20."
+- Java, JLS SE 21 §17.4.5: "A program is correctly synchronized if and only if all sequentially consistent executions are free of data races. If a program is correctly synchronized, then all executions of the program will appear to be sequentially consistent (§17.4.3)."
+- So the 12_7 panel, which shares only SeqCst atomics, runs as an interleaving of its steps: the model the proof assumes (08_1). The panel is not model-checked as code here, and the c7v0.17 stress run is still to be recorded (storyboard 12, "Honest data").
+- Verified: read for this row.
+
+**C-S13. Acquire and release are not enough here (12_7).**
+- Cambridge, "C/C++11 mappings to processors" (https://www.cl.cam.ac.uk/~pes20/cpp/cpp0xmappings.html), x86: "Load Acquire: MOV (from memory)" and "Store Release: MOV (into memory)". The page describes itself as "collected for discussion, not as a definitive source".
+- So on x86 a release/acquire bakery is the unfenced program of the x86-TSO model, which fails in 12 steps (`C-F9.no_fence.violation_found` = 1, `C-F9.no_fence.shortest_violation_steps` = 12): a release store can still sit in its outbox when the next acquire load reads another slate.
+- C++ [atomics.order], note: "memory_order::seq_cst ensures sequential consistency only for a program that is free of data races and uses exclusively memory_order::seq_cst atomic operations. Any use of weaker ordering will invalidate this guarantee unless extreme care is used."
+- Not checked: what rustc emits (nothing was compiled for this row).
+- Verified: read for this row.
+
+**C-S14. Chapter 12 lower-third, "on x86 it fences every store".**
+- Cambridge mapping page, x86: "Store Seq Cst: (LOCK) XCHG // alternative: MOV (into memory),MFENCE" and "The parenthesised (LOCK) reflects the fact that the XCHG instruction on x86 has an implicit LOCK prefix." It also lists a mapping that fences sequentially consistent loads instead, and says "we strongly recommend to use the write-fencing mapping only."
+- SDM Vol. 3A §11.2.2, p. 11-7: "Reads or writes cannot be reordered with I/O instructions, locked instructions, or serializing instructions." SDM Vol. 2A, LOCK, p. 3-565: "The XCHG instruction always asserts the LOCK# signal regardless of the presence or absence of the LOCK prefix."
+- So under the recommended mapping every SeqCst store is a locked XCHG, or a MOV and an MFENCE: a full fence either way. Not checked: rustc's actual output.
+- Verified: read for this row.
+
+**C-S15. 12_7 card: plain shared variables and `volatile`.**
+- C++ [intro.races]: "The execution of a program contains a data race if it contains two potentially concurrent conflicting actions, at least one of which is not atomic, and neither happens before the other, except for the special case for signal handlers described below. Any such data race results in undefined behavior". A `volatile` object is not an atomic one; for C, see memo §8.
+- Rust, `std::sync::atomic`: "The most important aspect of this model is that data races are undefined behavior. A data race is defined as conflicting non-synchronized accesses where at least one of the accesses is non-atomic." `std::ptr::read_volatile`: "In particular, just like in C, whether an operation is volatile has no bearing whatsoever on questions involving concurrent accesses from multiple threads. Volatile accesses behave exactly like non-atomic accesses in that regard."
+- Java, `java.util.concurrent.atomic` package summary (Java 8): "These classes are also notable in providing volatile access semantics for their array elements, which is not supported for ordinary arrays." (Java 21 keeps the first half.) So `AtomicLongArray` works and a `volatile long[]` (a volatile reference to plain elements) doesn't; with every shared access volatile, C-S12's JLS guarantee applies.
+- Verified: read for this row.
+
+**C-S16. Signed tickets in Java (11_5, 11_6 picture, 11 costs card).**
+- JLS SE 21 §4.2.1: "The integral types are byte, short, int, and long, whose values are 8-bit, 16-bit, 32-bit and 64-bit signed two's-complement integers, respectively". `java.util.concurrent.atomic` (Java 21): "AtomicIntegerArray: An int array in which elements may be updated atomically." and "AtomicLongArray: A long array in which elements may be updated atomically."
+- So an `AtomicIntegerArray` ticket overflows after 2^31 entries, 24.9 days at one a millisecond (`C-F10.i32_wrap_days_at_1_per_ms_1dp`), and an `AtomicLongArray` ticket after 2^63, 292.3 years at 10^9 a second (`C-F11.i64_years_at_1e9_per_s_1dp`): "centuries", as 11_6 says. The Rust panel's `AtomicU64` gives 584.5 (`C-F11.u64_years_at_1e9_per_s_1dp`).
+- Verified: read for this row; the numbers are oracle keys.
+
+**C-S17. Arm's reference firmware (13_2).** TF-A at commit
+`510355478850fb9bb4b064554d3dc2416b8b4b96` (2026-10-05; still `master` on
+2026-10-11).
+- readme.rst: "Trusted Firmware-A (TF-A) is a reference implementation of secure world software for Arm A-Profile architectures (Armv8-A and Armv7-A), including an Exception Level 3 (EL3) Secure Monitor." and "Copyright (c) 2013-2025, Arm Limited and Contributors." The repository is github.com/ARM-software/arm-trusted-firmware; its documentation is published through trustedfirmware.org.
+- docs/design/firmware-design.rst L539–542 (open item 5): "BL31 accesses the state of a CPU or cluster immediately after reset and before the data cache is enabled in the warm boot path. It is not currently possible to use 'exclusive' based spinlocks, therefore BL31 uses locks based on Lamport's Bakery algorithm instead."
+- lib/psci/psci_private.h L190–236: "On systems where participant CPUs are cache-coherent, we can use spinlocks instead of bakery locks." and, under `HW_ASSISTED_COHERENCY == 0`, "Use bakery locks for state coordination as not all PSCI participants are cache coherent."
+- docs/getting_started/build-options.rst L344–352 (`HW_ASSISTED_COHERENCY`): "On most Arm systems to-date, platform-specific software operations are required for CPUs to enter and exit coherency." … "This option defaults to 0".
+- So "Arm's own reference firmware" holds (Arm's copyright on a reference implementation for Arm cores); the bakery lock runs only where `HW_ASSISTED_COHERENCY` is 0, as 13_2's "Precisely" lower-third says; nothing here counts platforms, and 13_2 no longer says "many".
+- Verified: walker (firmware-design.rst, psci_private.h); re-read; readme.rst and build-options.rst read for this row.
+
 ## The table
 
 One row per oracle key, in output order. Match is MATCH when the oracle value
@@ -264,8 +428,8 @@ last column means the method of the row above it.
 | C-F2 | check-then-flip sign: orders | `C-F2.orders` = `14` | 14 (ledger §11.5) | MATCH | `row_cf2`: explicit path enumeration, one step per read, write, successful wait; cross-checked: `tree_count.count` (reused) + `outputs/tree_count_out.txt`:2 |
 | C-F2 | orders that ever put both inside | `C-F2.orders_both_inside` = `8` | 8 (ledger §11.5) | MATCH | `row_cf2` |
 | C-F2 | staircases through the red square | `C-F2.orders_through_red_square` = `8` | 8 (02_3 picture) | MATCH | `row_cf2`: path visits the both-inside lattice point |
-| C-F2 | orders that END with both inside | `C-F2.orders_ending_with_both_inside` = `0` | "eight end with both in the room" (02_3 words) | WORDING | `row_cf2`: every order ends with both gone; the 8 have both inside at some point. See finding F1. |
 | C-F2 | orders that deadlock | `C-F2.orders_deadlocked` = `0` | — | n/a | `row_cf2` |
+| C-F2 | orders that END with both inside | `C-F2.orders_ending_with_both_inside` = `0` | "eight end with both in the room" (02_3 words) | WORDING | `row_cf2`: every order ends with both gone; the 8 have both inside at some point. See finding F1. |
 | C-F3 | 2 customers, no flag: orders | `C-F3.no_flag.orders` = `28` | 28 (ledger §11.5) | MATCH | `two_customer_counts`; cross-checked: path enumeration == avoidance DP == `tree_count.count`; `outputs/crosscheck_out.txt` |
 | C-F3 | no flag: both inside | `C-F3.no_flag.orders_both_inside` = `4` | 4 (ledger §11.5) | MATCH | same |
 | C-F3 | no flag: through red square | `C-F3.no_flag.orders_through_red_square` = `4` | 4 (05_6 picture) | MATCH | same |
@@ -306,6 +470,7 @@ last column means the method of the row above it.
 | C-F6 | trace d: tickets taken, in order | `C-F6.d.tickets_taken` = `P3:1,P2:1,P4:2,P1:3,P2:4` | 3 and 2 take 1; 4 takes 2; 1 takes 3; 2 returns, takes 4 (06_2–06_4) | MATCH | same; from the ticket-write steps |
 | C-F6 | trace d: customer 3 stopped by 2's flag at step | `C-F6.d.customer3_stopped_by_customer2_flag_at_step` = `12` | happens (06_2) | n/a | same |
 | C-F6 | trace d: most ever in the room | `C-F6.d.max_in_room` = `1` | — | n/a | same |
+| C-F6 | trace d: customer 1's waits, (ticket, customer) in order | `C-F6.d.customer1_waits_behind` = `(1,3)(2,4)` | Purple's 1, then Teal's 2 (storyboard 07_5: "She waits for Purple, then Teal") | MATCH | same; customer 1's L3 waits in step order (steps 49 and 54), repeats merged; added at the claim walk (G3) |
 | C-F6 | trace e1 length | `C-F6.e1.steps` = `18` | — (ledger §11.5 lists e1 without a length) | n/a | same (safe registers, K = 9) |
 | C-F6 | e1: value of the read that overlaps a write | `C-F6.e1.overlapping_read_value` = `7` | seven (08_5) | MATCH | same; checked: read overlaps a write and is neither 0 (old) nor 1 (new) |
 | C-F6 | e1: ticket taken | `C-F6.e1.ticket_taken_after_garbage` = `8` | eight (08_5) | MATCH | same |
@@ -331,10 +496,23 @@ last column means the method of the row above it.
 | C-F7 | customer 4 writes | `C-F7.customer4_ticket` = `4` | 4 (ledger §11.5) | MATCH | same |
 | C-F7 | slates after | `C-F7.slates_after` = `0,3,0,4,2` | 0, 3, 0, 4, 2 (ledger §11.5) | MATCH | same |
 | C-F7 | served | `C-F7.service_order` = `5,2,4` | 5, 2, 4 (ledger §11.5) | MATCH | same |
+| C-F7 | customer 1 (Blue) reads | `C-F7.customer1_reads` = `3,0,0,2` | three, zero, zero, two (storyboard 03_4) | MATCH | `row_cf7`: direct computation; the video's reader is customer 1 (R1, M3) |
+| C-F7 | customer 1 writes | `C-F7.customer1_ticket` = `4` | Four (storyboard 03_5) | MATCH | same |
+| C-F7 | slates after customer 1 | `C-F7.slates_after_customer1` = `4,3,0,0,2` | 4, 3, 0, 0, 2 (storyboard 03_5 picture, 04_1) | MATCH | same |
+| C-F7 | served | `C-F7.service_order_customer1` = `5,2,1` | Pink, Green, Blue (storyboard 03_5) | MATCH | same |
 | C-F7 | same, in the model: customer 4's reads | `C-F7.model.customer4_reads` = `0,3,0,2` | 0, 3, 0, 2 | MATCH | `row_cf7`: `bakery_mc` with N = 5, customers 2 and 5 pre-seated with 3 and 2; customer 4 runs its doorway |
 | C-F7 | model: customer 4's ticket | `C-F7.model.customer4_ticket` = `4` | 4 | MATCH | same |
 | C-F7 | model: distinct serving orders over ALL interleavings | `C-F7.model.distinct_service_orders` = `1` | one order ("Here that's customer five, then two, then four") | MATCH | `row_cf7`: BFS over every interleaving of 2, 4, 5 (no new arrivals) |
 | C-F7 | model: that serving order | `C-F7.model.service_order` = `5,2,4` | 5, 2, 4 | MATCH | same |
+| C-F7 | model: customer 1's reads | `C-F7.model.customer1_reads` = `3,0,0,2` | 3, 0, 0, 2 (storyboard 03_4) | MATCH | `row_cf7`: `bakery_mc` with N = 5, customers 2 and 5 seated with 3 and 2; customer 1 runs her doorway; added at the claim walk (G3) |
+| C-F7 | model: customer 1's ticket | `C-F7.model.customer1_ticket` = `4` | 4 (storyboard 03_5) | MATCH | same |
+| C-F7 | model: distinct serving orders over ALL interleavings | `C-F7.model.customer1_distinct_service_orders` = `1` | one order (storyboard 03_5) | MATCH | `row_cf7`: BFS over every interleaving of 1, 2, 5 (no new arrivals) |
+| C-F7 | model: that serving order | `C-F7.model.customer1_service_order` = `5,2,1` | Pink, Green, Blue (storyboard 03_5) | MATCH | same |
+| C-F7 | tie: customer 3 (Purple) reads | `C-F7.model.tie.customer3_reads` = `4,3,0,2` | "Both see four as the biggest" (storyboard 04_2) | MATCH | `row_cf7`: from the state after customer 1's doorway (slates 4, 3, 0, 0, 2, nobody served), customers 3 and 4 run their doorways side by side, read for read; added at the claim walk (G3) |
+| C-F7 | tie: customer 4 (Teal) reads | `C-F7.model.tie.customer4_reads` = `4,3,0,2` | same (storyboard 04_2) | MATCH | same |
+| C-F7 | tie: slates after both write | `C-F7.model.tie.slates_after` = `4,3,5,5,2` | "both write five" (storyboard 04_2) | MATCH | same |
+| C-F7 | tie: distinct serving orders over ALL interleavings | `C-F7.model.tie.distinct_service_orders` = `1` | — | n/a | `row_cf7`: BFS over every interleaving of all five (no new arrivals) |
+| C-F7 | tie: that serving order | `C-F7.model.tie.service_order` = `5,2,1,3,4` | Purple (3) before Teal (4) (storyboard 04_4) | MATCH | same; Pink, Green, Blue, then Purple, then Teal |
 | C-F8 | N=4, tickets ≤ 4, atomic: states (RECORDED) | `C-F8.n4_k4_atomic.states.recorded` = `3027633` | 3,027,633 (ledger §11.5; 07_7) | MATCH | RECORDED constant `REC_N4K4` from `outputs/sweep_big.txt:3` (711.7 s run); oracle checks the file still says so |
 | C-F8 | same, recomputed live | `C-F8.n4_k4_atomic.states` = `3027633` | 3,027,633 | MATCH | `row_cf8`: `explore(Bakery(4, 4, 'correct'))` (reused `bakery_mc`), about 30 s; pruned count also equals the recording (204,059) |
 | C-F8 | N=4 K=4: violation | `C-F8.n4_k4_atomic.violation_found` = `0` | no violation (07_7) | MATCH | same |
@@ -365,9 +543,11 @@ last column means the method of the row above it.
 | C-F10 | 2^34 | `C-F10.two_pow_34` = `17179869184` | — | n/a | same (2^35 is the least power of two that works) |
 | C-F10 | a year of ms < 2^34 | `C-F10.ms_per_year_below_two_pow_34` = `0` | — | n/a | same |
 | C-F10 | ms in a 365-day year | `C-F10.ms_per_365_day_year` = `31536000000` | — | n/a | same (also < 2^35) |
+| C-F10 | 2^32 ms in days, 1 decimal | `C-F10.u32_wrap_days_at_1_per_ms_1dp` = `49.7` | "2³² ms = 49.7 days" (storyboard 11_5 picture); "under two months" (11_5) | MATCH | `row_cf10`: arithmetic (R1, dev-02); unsigned 32-bit |
+| C-F10 | 2^31 ms in days, 1 decimal | `C-F10.i32_wrap_days_at_1_per_ms_1dp` = `24.9` | — (Java `int`, the `AtomicIntegerArray` the 11 costs card warns against) | n/a | same; signed 32-bit; added at the claim walk (G3) |
 | C-F11 | 2^64 tickets at 10^9/s, in years (365.25 d) | `C-F11.u64_years_at_1e9_per_s` = `584.5420460906264` | ≈584.5 (ledger §11.5) | n/a | `row_cf11`: arithmetic; full precision for the 1e-9 gate |
 | C-F11 | same, 1 decimal | `C-F11.u64_years_at_1e9_per_s_1dp` = `584.5` | ≈584.5 (ledger §11.5) | MATCH | same |
-| C-F11 | 2^63 (signed 64-bit), 1 decimal | `C-F11.i64_years_at_1e9_per_s_1dp` = `292.3` | — | n/a | same; the Rust panel uses AtomicU64, so 584.5 applies |
+| C-F11 | 2^63 (signed 64-bit), 1 decimal | `C-F11.i64_years_at_1e9_per_s_1dp` = `292.3` | "292.3 signed, as in Java" (storyboard 11_6 picture, from the claim walk) | MATCH | same; Java's `long` (`AtomicLongArray`, the 11 costs card) is signed, so 292.3 applies there; the Rust panel's AtomicU64 is unsigned, so 584.5 applies there |
 | C-F11 | 2^64 at 10^9/s in 365-day years | `C-F11.u64_years_at_1e9_per_s_365_day_years_1dp` = `584.9` | — | n/a | same |
 | C-F12 | reads of other slates, customer alone, N=2 | `C-F12.other_slate_reads_alone.model.n2` = `3` | 3(N−1) = 3 (ledger §11.5; 09_5) | MATCH | `model_reads_alone`: a lone customer stepped through `bakery_mc`; reads counted from the transition labels |
 | C-F12 | same, N=3 | `C-F12.other_slate_reads_alone.model.n3` = `6` | 3(N−1) = 6 | MATCH | same |

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Independent oracle for Video B ("The Arithmetic Where 3 x 7 = 9"): every row B-F1 ... B-F28 of the
 facts ledger in docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md section 10.5, plus
-extra rows B-X1 ... B-X2 for the open items (RAID-6, QR codes).
+extra rows B-X1 ... B-X2 for the open items (RAID-6, QR codes). The claim walk (gate G3) added keys under
+B-F1, B-F6, B-F9 ... B-F13, B-F15, B-F18, B-F24, B-F26 and the extra rows B-X3 ... B-X6 (ESI range,
+small arithmetic said aloud, CRC-8/SAE-J1850, FIPS 197's field); see docs/fact-sheet.md.
 
-Run from the repo root:   python3 -I docs/facts/raptorq_gf256/oracle.py
+Run from this directory:  uv run --quiet --no-project --with numpy python3 -I -B oracle.py
+(that is what `./x raptorq_gf256 facts-check` runs).
 Output: one line per fact, KEY<TAB>VALUE, on stdout. A run summary goes to stderr.
 
 Value conventions
@@ -35,7 +38,7 @@ import random
 import re
 import sys
 import time
-from decimal import Decimal, getcontext
+from decimal import Decimal, getcontext, localcontext
 from fractions import Fraction
 
 import numpy as np
@@ -250,16 +253,16 @@ def gmul(a, b, p=P_RQ):
     return pmod(clmul(a, b), p)
 
 
-def rust_xtime(a):  # the plan's code panel, 05: (a << 1) ^ if a & 0x80 != 0 { 0x1D } else { 0 }  (u8)
-    return ((a << 1) & 0xFF) ^ (0x1D if a & 0x80 else 0)
+def rust_xtime(a, fold=0x1D):  # the plan's code panel, 05: (a << 1) ^ if a & 0x80 != 0 { 0x1D } else { 0 }  (u8)
+    return ((a << 1) & 0xFF) ^ (fold if a & 0x80 else 0)
 
 
-def rust_mul(a, b):  # the plan's code panel, 05: shift-and-add, no tables
+def rust_mul(a, b, fold=0x1D):  # the plan's code panel, 05: shift-and-add, no tables (10_7 swaps 0x1D for 0x1B)
     acc = 0
     while b:
         if b & 1:
             acc ^= a
-        a = rust_xtime(a)
+        a = rust_xtime(a, fold)
         b >>= 1
     return acc
 
@@ -415,6 +418,16 @@ def bf1():
     emit("B-F1.K_times_H_K", KH)
     emit("B-F1.K_times_H_K_floor", KH.numerator // KH.denominator)
     emit("B-F1.ratio_H_K", H)
+    # 01_8 "the last few take forever": with j pieces still missing, the next new one takes K/j draws on average,
+    # so the last piece alone takes K draws and the last ten take K*H_10; the first half takes K*(H_K - H_{K/2}).
+    H10 = sum(Fraction(1, i) for i in range(1, 11))
+    emit("B-F1.draws_for_last_piece", Fraction(K, 1))
+    emit("B-F1.draws_for_last_10_pieces", K * H10)
+    emit("B-F1.last_10_pieces_share_of_all_draws", H10 / H)
+    emit("B-F1.draws_for_first_half_of_pieces", K * sum(Fraction(1, i) for i in range(K // 2 + 1, K + 1)))
+    # 01_8 screen: the count above is packets caught (each caught packet is one random piece); at 1% loss the
+    # expected packets sent is caught / 0.99 (Wald's identity: whether packet n arrives is independent of n <= N).
+    emit("B-F1.K_times_H_K_packets_sent_at_1pct_loss", KH / Fraction(99, 100))
 
 
 # ==============================================================================================
@@ -485,6 +498,66 @@ def bf6():
                 ndiv[b] += 1
         lam = sum(Fraction(ndiv[r], q ** r) for r in range(1, 241))   # tail < sum_{r>240} r/q^r < 2^-230
         emit(f"B-F6.erdos_lambert_identity_gf{q}_ok", abs(float(s) - float(lam)) < 1e-15)
+    # 13_6: the race is on ten pieces, so its exact means are the finite sums sum_{i=1..10} 1/(q^i - 1)
+    # (holding i useful cards, a uniform card is useful with probability 1 - q^(i-K)). Second route: the sum over h
+    # of P(K + h uniform cards leave a piece unpinned), truncated at h = 200 (q = 2; tail < 10 * 2^-200) or 25.
+    K = 10
+    for q in (2, 256):
+        s = mean_spares(q, K)
+        alt = sum(1 - p_full_finite(q, K, h) for h in range(0, 200 if q == 2 else 25))
+        emit(f"B-F6.mean_spares_gf{q}_K10", s)
+        emit(f"B-F6.mean_spares_gf{q}_K10_two_routes_ok", abs(float(s) - float(alt)) < 1e-15)
+    emit("B-F6.p_any_spare_needed_gf256_K10", 1 - p_full_finite(256, K, 0))
+    race_k10()
+
+
+def race_k10():
+    """13_6: the race itself, seeded. Uniform random cards over GF(2)^10 and GF(256)^10 (the zero card
+    included, as in the model) are added until the cards pin down all ten pieces, a thousand times per side;
+    the spares are the cards beyond ten. The rank is tracked incrementally: a GF(2) basis by leading bit,
+    and GF(256) rows reduced to 1 at their pivots."""
+    rng = random.Random(1306)   # ex-or races first, then byte races, from one stream
+    K, T = 10, 1000
+
+    def race_gf2():
+        basis, draws = {}, 0
+        while len(basis) < K:
+            v = rng.getrandbits(K)
+            draws += 1
+            while v:
+                hb = v.bit_length() - 1
+                if hb not in basis:
+                    basis[hb] = v
+                    break
+                v ^= basis[hb]
+        return draws - K
+
+    def race_gf256():
+        rows, draws = {}, 0
+        while len(rows) < K:
+            v = [rng.randrange(256) for _ in range(K)]
+            draws += 1
+            for c, r in rows.items():
+                if v[c]:
+                    m = MUL[v[c]]
+                    v = [x ^ m[y] for x, y in zip(v, r)]
+            c = next((i for i, x in enumerate(v) if x), None)
+            if c is not None:
+                s = MUL[INV[v[c]]]
+                rows[c] = [s[x] for x in v]
+        return draws - K
+
+    emit("B-F6.race_K10_seeded.seed", 1306)
+    emit("B-F6.race_K10_seeded.races_per_side", T)
+    within = True
+    for q, run in ((2, race_gf2), (256, race_gf256)):
+        sp = [run() for _ in range(T)]
+        mean = Fraction(sum(sp), T)
+        emit(f"B-F6.race_K10_seeded.gf{q}.spares_histogram_0_up", [sp.count(h) for h in range(max(sp) + 1)])
+        emit(f"B-F6.race_K10_seeded.gf{q}.mean_spares", mean)
+        var = sum((x - mean) ** 2 for x in sp) / (T - 1)
+        within &= abs(mean - mean_spares(q, K)) <= 4 * math.sqrt(float(var) / T)
+    emit("B-F6.race_K10_seeded.means_within_4se_of_exact_ok", within)
 
 
 # ==============================================================================================
@@ -530,6 +603,26 @@ def bf9():
     emit("B-F9.one_xor_two", 1 ^ 2)
     emit("B-F9.A_solved_15_div_3", gmul(y[4] ^ S, INV[3]))
     emit("B-F9.three_times_five", gmul(3, 5))
+    # 16_5 lower-third: a loop of two-piece cards a_i x_i + b_i x_(i+1) (five cards round five pieces) is stuck
+    # exactly when prod b_i / a_i = 1 going around. Seeded random nonzero amounts; both branches occur.
+    rng = random.Random(1605)
+    agree = stuck = 0
+    for _ in range(3000):
+        a = [rng.randrange(1, 256) for _ in range(5)]
+        b = [rng.randrange(1, 256) for _ in range(5)]
+        M = [[0] * 5 for _ in range(5)]
+        prod = 1
+        for i in range(5):
+            M[i][i], M[i][(i + 1) % 5] = a[i], b[i]
+            prod = gmul(prod, gmul(b[i], INV[a[i]]))
+        singular = rank_gf256_py(M) < 5
+        stuck += singular
+        agree += singular == (prod == 1)
+    emit("B-F9.cycle_rule_random_5cycles", 3000)
+    emit("B-F9.cycle_rule_random_5cycles_stuck", stuck)
+    emit("B-F9.cycle_rule_stuck_iff_prod_b_over_a_is_1_ok", agree == 3000 and stuck > 0)
+    # 13_7: the amounts other than 0 and 1
+    emit("B-F9.amounts_other_than_0_and_1", 256 - 2)
 
 
 # ==============================================================================================
@@ -546,6 +639,11 @@ def bf10():
     emit("B-F10.row_a_has_256_over_gcd_values_all_a_ok", ok)
     emit("B-F10.row2_distinct", len({2 * b % 256 for b in range(256)}))
     emit("B-F10.row128_distinct", len({128 * b % 256 for b in range(256)}))
+    # 07_4 screen "2·131 = 262 → 6"; 07_6 lower-third "3 × 171 = 513 = 2·256 + 1" (an odd multiplier undoes)
+    emit("B-F10.int_2x131", 2 * 131)
+    emit("B-F10.z256_inverse_of_3", pow(3, -1, 256))
+    emit("B-F10.int_3x171", 3 * 171)
+    emit("B-F10.int_3x171_divmod_256", list(divmod(3 * 171, 256)))
 
 
 # ==============================================================================================
@@ -571,6 +669,17 @@ def bf11():
     emit("B-F11.plan_rust_mul_0x57_0x83", rust_mul(0x57, 0x83))
     emit("B-F11.plan_rust_mul_2_142", rust_mul(2, 142))
     emit("B-F11.nonzero_rows_are_permutations_ok", all(len(set(MUL[a])) == 256 for a in range(1, 256)))
+    # 10_7 code panel: 0x1D swaps to 0x1B, so the comments must flip too (AES's inverse of 2 is 141, not 142)
+    emit("B-F11.mul_2_141_0x11B_AES", gmul(2, 141, P_AES))
+    emit("B-F11.mul_2_142_0x11B_AES", gmul(2, 142, P_AES))
+    emit("B-F11.plan_rust_mul_2_141_fold_0x1B", rust_mul(2, 141, 0x1B))
+    emit("B-F11.plan_rust_mul_0x57_0x83_fold_0x1B", rust_mul(0x57, 0x83, 0x1B))
+    emit("B-F11.plan_rust_mul_fold_0x1B_equals_poly_mul_0x11B_65536_ok",
+         all(rust_mul(u, v, 0x1B) == gmul(u, v, P_AES) for u in range(256) for v in range(256)))
+    # 10_5 "two times one twenty-eight is x to the eighth" (before the fold); 12_4 lower-third "by hand
+    # (x²+x+1)² = x⁴+x²+1 = 21" (carry-less: the cross terms cancel in pairs, no fold needed)
+    emit("B-F11.clmul_2_128_is_x8", clmul(2, 128))
+    emit("B-F11.clmul_7_7_no_fold", clmul(7, 7))
 
 
 # ==============================================================================================
@@ -600,6 +709,10 @@ def bf12():
         hist[o] = hist.get(o, 0) + 1
     emit("B-F12.element_orders_0x11D", sorted(hist))
     emit("B-F12.element_order_counts_0x11D", [hist[o] for o in sorted(hist)])
+    # 12_4 lower-third: "255 = (2+1)(2²+1)(2⁴+1); together they make 11111111₂ = 255"
+    emit("B-F12.product_(2+1)(2^2+1)(2^4+1)", (2 + 1) * (2 ** 2 + 1) * (2 ** 4 + 1))
+    emit("B-F12.sum_element_order_counts_0x11D", sum(hist.values()))
+    emit("B-F12.binary_11111111", int("11111111", 2))
 
 
 # ==============================================================================================
@@ -614,6 +727,19 @@ def bf13():
     emit("B-F13.exp_7_plus_2", EXP[7 + 2])
     emit("B-F13.log_ordered_table_is_hankel_ok",
          all(MUL[EXP[i]][EXP[j]] == EXP[(i + j) % 255] for i in range(255) for j in range(255)))
+    # 12_4 lower-third "7 × 7: 198 + 198 = 396 → 141 clicks → 21"
+    emit("B-F13.log_7", LOG[7])
+    emit("B-F13.log7_plus_log7", LOG[7] + LOG[7])
+    emit("B-F13.log7_plus_log7_mod_255", (LOG[7] + LOG[7]) % 255)
+    emit("B-F13.exp_141", EXP[141])
+    # 11_7 picture: each byte's partner sits at its mirror image, log a^-1 = 255 - log a (1 is its own mirror)
+    emit("B-F13.log_inverse_is_255_minus_log_all255_ok",
+         all(LOG[INV[a]] == (255 - LOG[a]) % 255 for a in range(1, 256)))
+    emit("B-F13.mirror_pairs_a_ne_inverse", len({frozenset((a, INV[a])) for a in range(1, 256) if INV[a] != a}))
+    emit("B-F13.bytes_that_are_their_own_inverse", [a for a in range(1, 256) if INV[a] == a])
+    # 11_5 "two cubed times two to the fourth is two to the seventh", as integers and as bytes
+    emit("B-F13.int_2^3_x_2^4", 2 ** 3 * 2 ** 4)
+    emit("B-F13.gf256_8_x_16", gmul(8, 16))
 
 
 # ==============================================================================================
@@ -637,6 +763,12 @@ def bf15():
     K = 50000
     emit("B-F15.K_cubed", K ** 3)
     emit("B-F15.K_cubed_over_3", Fraction(K ** 3, 3))
+    # 14_1 "about forty-two trillion steps. At a billion a second, half a day." (screen "≈ 11.6 h at 10⁹/s")
+    steps = Fraction(K ** 3, 3)
+    emit("B-F15.K_cubed_over_3_in_trillions", steps / 10 ** 12)
+    emit("B-F15.seconds_at_1e9_steps_per_s", steps / 10 ** 9)
+    emit("B-F15.hours_at_1e9_steps_per_s", steps / 10 ** 9 / 3600)
+    emit("B-F15.days_at_1e9_steps_per_s", steps / 10 ** 9 / 86400)
 
 
 # ==============================================================================================
@@ -723,6 +855,11 @@ def bf18():
         emit(f"B-F18.{tag}.max_recovered", max(res))
         if ok and len(ok) < len(res):
             emit(f"B-F18.{tag}.min_recovered_non_collapsed", min(ok))
+        # 14_6 "over a hundred pieces are missing": the pieces left when the runs that did not collapse stall
+        if tag != "eps000":
+            missing = [K - r * K for r in ok]
+            emit(f"B-F18.{tag}.missing_pieces_non_collapsed_min", min(missing))
+            emit(f"B-F18.{tag}.missing_pieces_non_collapsed_max", max(missing))
 
 
 # ==============================================================================================
@@ -922,6 +1059,71 @@ def bf24():
         emit(f"B-F24.P_phone_done_by_{m}_loops", P_le(m, K))
     for m in (4, 5, 6, 7):
         emit(f"B-F24.P_all_1e6_phones_done_by_{m}_loops", P_le(m, K * n_phones))
+    # 01_6 "Most phones need two or three loops"; picture "after loop 3 a few red stragglers" (the field has
+    # about 1,000 glyphs, each standing for 1,000 phones)
+    emit("B-F24.P_phone_done_in_loop_2_or_3", P_le(3, K) - P_le(1, K))
+    late = Decimal(1) - P_le(3, K)
+    emit("B-F24.P_phone_still_waiting_after_3_loops", late)
+    emit("B-F24.phones_of_1e6_still_waiting_after_3_loops", late * n_phones)
+    emit("B-F24.glyphs_of_1000_still_waiting_after_3_loops", late * 1000)
+    carousel_packets(K, p, mean)
+
+
+def carousel_packets(K, p, mean_loops):
+    """01_8 screen "an average carousel phone": the expected number of packets SENT until a phone holds every
+    piece. The carousel sends pieces 1..K, loop after loop; piece i first arrives in loop T_i (P(T_i <= m) =
+    1 - p^m, independently), and the phone is done at N = max_i ((T_i - 1) K + i). For n = mK + j, 0 <= j < K,
+    P(N <= n) = a^j b^(K-j) with a = 1 - p^(m+1), b = 1 - p^m, so E[N] = sum_n P(N > n) = sum_m (K - S_m) with
+    S_0 = 0 and S_m = sum_j a^j b^(K-j) = b (a^K - b^K) / (a - b). Loops m > 30 add < K^2 p^31 < 1e-53; the sum
+    runs at 120 digits because a - b = p^m (1 - p) cancels. A phone finishes partway through its last loop,
+    so E[N] is well below mean_loops * K (B-F24.mean_loops_per_phone = 2.642)."""
+    with localcontext() as ctx:
+        ctx.prec = 120
+        pd = Decimal(p)
+        en = Decimal(K)
+        for m in range(1, 31):
+            a, b = 1 - pd ** (m + 1), 1 - pd ** m
+            en += K - b * ((a.ln() * K).exp() - (b.ln() * K).exp()) / (a - b)
+        caught = en * Decimal(99) / Decimal(100)
+    emit("B-F24.carousel_mean_packets_sent_until_done", en)
+    # packets caught = 0.99 x sent on average (Wald's identity: packet n's arrival is independent of n <= N)
+    emit("B-F24.carousel_mean_packets_caught_until_done", caught)
+    emit("B-F24.carousel_whole_loops_x_K_for_contrast", mean_loops * K)
+    # second route, the same sum term by term in floating point (expm1/log1p), every n < 31 K
+    pf = float(p)
+    terms = [1.0] * K
+    for m in range(1, 31):
+        la, lb = math.log1p(-pf ** (m + 1)), math.log1p(-pf ** m)
+        terms.extend(-math.expm1(j * la + (K - j) * lb) for j in range(K))
+    emit("B-F24.carousel_mean_packets_sent_two_routes_ok", abs(math.fsum(terms) - float(en)) < 1e-6)
+    # third route, independent of the formula: a seeded simulation of 4,000 phones. The pieces still missing
+    # after loop t are a Bernoulli(p) thinning of those missing after loop t - 1 (loop 1 by geometric skips).
+    rng = random.Random(18)
+    lq = math.log1p(-pf)
+    sent = []
+    for _ in range(4000):
+        level, i = [], 0
+        while True:
+            i += 1 + int(math.log(1.0 - rng.random()) / lq)
+            if i > K:
+                break
+            level.append(i)
+        loops = 1
+        while level:
+            deeper = [j for j in level if rng.random() < pf]
+            loops += 1
+            if not deeper:
+                break
+            level = deeper
+        sent.append(K if loops == 1 else (loops - 1) * K + max(level))
+    mc = Fraction(sum(sent), len(sent))
+    sd = math.sqrt(sum((x - float(mc)) ** 2 for x in sent) / (len(sent) - 1))
+    emit("B-F24.carousel_mc_seeded_phones", len(sent))
+    emit("B-F24.carousel_mc_seeded_mean_packets_sent", mc)
+    emit("B-F24.carousel_mc_within_4se_of_exact_ok", abs(float(mc) - float(en)) <= 4 * sd / math.sqrt(len(sent)))
+    # the third count on the 01_8 screen: a fountain phone with two extra packets (caught), and the sent equivalent
+    emit("B-F24.fountain_packets_caught_K_plus_2", K + 2)
+    emit("B-F24.fountain_mean_packets_sent_for_K_plus_2_caught", Fraction(K + 2) / Fraction(99, 100))
 
 
 # ==============================================================================================
@@ -998,6 +1200,11 @@ def bf26():
     emit("B-F26.doubling_is_bijection_distinct_values", len({gmul(2, a, P_ROT) for a in range(256)}))
     emit("B-F26.zero_divisor_pairs_nonzero", sum(1 for a in range(1, 256) for b in range(1, 256)
                                                   if gmul(a, b, P_ROT) == 0))
+    # 10_1 "The simplest fold drops the fallen bit back in at the bottom. A rotation.": times 2 mod x^8 + 1 is
+    # an 8-bit rotate-left for every byte
+    emit("B-F26.mul2_mod_x8_plus_1_is_rotate_left_all256_ok",
+         all(gmul(2, a, P_ROT) == ((a << 1) | (a >> 7)) & 0xFF for a in range(256)))
+    emit("B-F26.mul2_mod_x8_plus_1_of_128", gmul(2, 128, P_ROT))
 
 
 # ==============================================================================================
@@ -1084,9 +1291,93 @@ def bx2():
     emit("B-X2.qr_modulus_equals_0x11D", v == P_RQ)
 
 
+# ==============================================================================================
+# B-X3  ESI range (14_8 lower-third "RaptorQ: up to 2^24 ≈ 16.8 million packets per block")
+#       SOURCED width: RFC 6330 section 3.2, "Encoding Symbol ID (ESI): 24-bit unsigned integer."
+# ==============================================================================================
+def bx3():
+    bits = 24   # SOURCED constant (RFC 6330 section 3.2); everything below is computed from it
+    emit("B-X3.sourced.rfc6330_s3.2_esi_bits", bits)
+    emit("B-X3.sourced.source", "RFC 6330 section 3.2 (FEC Payload IDs), page 5")
+    emit("B-X3.esi_values_per_source_block", 2 ** bits)
+    emit("B-X3.esi_values_per_source_block_in_millions", Fraction(2 ** bits, 10 ** 6))
+
+
+# ==============================================================================================
+# B-X4  small arithmetic said aloud or shown (02 bits and ex-or, 06_3, 08 prime clocks, 09 polynomials)
+# ==============================================================================================
+def bx4():
+    def exps(n):   # the powers of x a byte stands for, highest first (09: bits as polynomial terms)
+        return [i for i in range(7, -1, -1) if n >> i & 1]
+    emit("B-X4.place_values_8_bits", [2 ** i for i in range(8)])
+    emit("B-X4.bits_of_5", format(5, "b"))
+    emit("B-X4.bits_of_7", format(7, "b"))
+    emit("B-X4.byte_max_2^8_minus_1", 2 ** 8 - 1)
+    emit("B-X4.xor_5_7", 5 ^ 7)
+    emit("B-X4.bits_of_xor_5_7", format(5 ^ 7, "03b"))
+    emit("B-X4.xor_2_7", 2 ^ 7)
+    emit("B-X4.xor_twice_restores_all_65536_pairs_ok", all((a ^ b) ^ b == a for a in range(256) for b in range(256)))
+    emit("B-X4.halvings_2^10", 2 ** 10)
+    emit("B-X4.halvings_2^20", 2 ** 20)
+    # 08: the seven-hour clock; 256 does not fit in a byte; the primes either side of 256
+    emit("B-X4.z7_inverse_of_3", pow(3, -1, 7))
+    emit("B-X4.z7_nonzero_rows_are_permutations_ok",
+         all(sorted(a * b % 7 for b in range(7)) == list(range(7)) for a in range(1, 7)))
+    emit("B-X4.z7_zero_has_no_partner_ok", all(0 * b % 7 != 1 for b in range(7)))
+    emit("B-X4.int_2x128", 2 * 128)
+    emit("B-X4.bits_needed_for_256", (256).bit_length())
+    primes = [n for n in range(240, 270) if all(n % d for d in range(2, math.isqrt(n) + 1))]
+    emit("B-X4.nearest_primes_below_and_above_256",
+         [max(n for n in primes if n < 256), min(n for n in primes if n > 256)])
+    # 09: bytes as polynomials (powers of x with coefficient 1)
+    emit("B-X4.x_powers_of_3", exps(3))
+    emit("B-X4.x_powers_of_7", exps(7))
+    emit("B-X4.x_powers_of_128", exps(128))
+    emit("B-X4.x_powers_of_9", exps(9))
+
+
+# ==============================================================================================
+# B-X5  CRC-8/SAE-J1850 (10_7 lower-third "CRC-8/SAE-J1850 uses this very 0x1D")
+#       SOURCED parameters: reveng CRC catalogue, width=8 poly=0x1d init=0xff xorout=0xff (attested)
+# ==============================================================================================
+def bx5():
+    poly, init, xorout = 0x1D, 0xFF, 0xFF   # SOURCED constants (the catalogue's parameter line)
+
+    def crc8(data):   # MSB first; each bit step is the code panel's xtime with the same 0x1D
+        c = init
+        for byte in data:
+            c ^= byte
+            for _ in range(8):
+                c = rust_xtime(c, poly)
+        return c ^ xorout
+    # SOURCED codewords: SAE J1850 Table 1 as listed in the catalogue entry (data bytes, then the CRC byte)
+    words = ["0000000059", "F2018337", "0FAA005579", "00FF5511B8", "332255AABBCCDDEEFFCB", "926B558C",
+             "FFFFFFFF74"]
+    ok = [crc8(bytes.fromhex(w[:-2])) == int(w[-2:], 16) for w in words]
+    emit("B-X5.sourced.crc8_sae_j1850_poly", poly)
+    emit("B-X5.crc8_poly_equals_raptorq_fold_low_byte_ok", poly == P_RQ & 0xFF)
+    emit("B-X5.attested_codewords", len(words))
+    emit("B-X5.attested_codewords_reproduced", sum(ok))
+
+
+# ==============================================================================================
+# B-X6  AES's field (10_7 "A famous encryption standard picked a different prime polynomial")
+#       SOURCED: FIPS 197-upd1 section 4.2, eq. (4.3) m(x) = x^8 + x^4 + x^3 + x + 1; worked example (4.7)
+# ==============================================================================================
+def bx6():
+    emit("B-X6.sourced.fips197_m(x)", P_AES)
+    chain = [0x57]
+    for _ in range(7):
+        chain.append(gmul(chain[-1], 2, P_AES))
+    emit("B-X6.fips197_s4.2_57_times_01_02_04_08_10_20_40_80", chain)
+    emit("B-X6.fips197_s4.2_xtime_chain_matches_ok", chain == [0x57, 0xae, 0x47, 0x8e, 0x07, 0x0e, 0x1c, 0x38])
+    emit("B-X6.fips197_s4.2_57_times_13", gmul(0x57, 0x13, P_AES))
+    emit("B-X6.fips197_s4.2_57_times_13_is_0xfe_ok", gmul(0x57, 0x13, P_AES) == 0xFE)
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
-               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2):
+               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)

@@ -456,7 +456,8 @@ lto = "thin"
   `./x` must not treat stderr `error:` lines as failure. `./x doctor` diffs the
   crates.io versions in our lock against franken_manim's own `Cargo.lock` at
   the pin (zero mismatches at `e2eec632`).
-- **RCH:** builds through the RCH shim need `RCH_SHIM_LOCAL_IDE=1`. In git mode,
+- **RCH:** nothing compiles on the owner's Mac; builds run on rch workers
+  (`rch exec --base HEAD --clean-overlay -o <files>`, `RUSTUP_TOOLCHAIN` set). In git mode,
   each worker needs the ≈2 GB of git dependencies; test S-1 through `rch exec`
   too.
 - **Spike S-1** (now mostly answered by E1) confirms the end-to-end
