@@ -13,11 +13,13 @@ pub mod draw;
 // bucket and its danger meter, the risk ladder, the ring of five, the grid.
 pub mod bits;
 pub mod cards;
+pub mod cube;
 pub mod hook;
 pub mod lottery;
 pub mod picture;
 #[allow(dead_code)]
 pub mod props;
+pub mod spares;
 
 // Chapters 07–12 (lane B-2) and their props: the byte register with its
 // gutter, the n-hour clock, the byte-chord sonifications (fold.rs also
@@ -41,6 +43,7 @@ pub mod voice;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
+use explainer_kit::kit::CameraShot;
 
 use crate::STORYBOARD;
 
@@ -71,13 +74,26 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(cards::Cards { kit }),
             intensity: 0.45,
         },
-        animatic!("04_the_cube", 0.55),
+        Chapter {
+            key: "04_the_cube",
+            make: |kit| {
+                // the cube runs on the camera route (spike S-5), starting
+                // straight down, as the retained route sees it
+                kit.request_camera(CameraShot { theta: 0.0, phi: 0.0 });
+                Box::new(cube::Cube { kit })
+            },
+            intensity: 0.55,
+        },
         Chapter {
             key: "05_the_ex_or_lottery",
             make: |kit| Box::new(lottery::Lottery { kit }),
             intensity: 0.5,
         },
-        animatic!("06_spares_and_rings", 0.45),
+        Chapter {
+            key: "06_spares_and_rings",
+            make: |kit| Box::new(spares::Spares { kit }),
+            intensity: 0.45,
+        },
         Chapter {
             key: "07_why_not_wrap_around_at_256",
             make: |kit| Box::new(wrap256::Wrap256 { kit }),
