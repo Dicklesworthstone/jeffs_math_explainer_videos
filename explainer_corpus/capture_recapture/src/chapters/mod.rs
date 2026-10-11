@@ -5,6 +5,7 @@
 
 pub mod balance;
 pub mod cheating;
+pub mod comparison;
 pub mod curve;
 pub mod draw;
 pub mod everywhere;
@@ -63,7 +64,11 @@ pub fn registry() -> Vec<Chapter> {
             intensity: 0.5,
         },
         animatic!("06_the_landscape", 0.6),
-        animatic!("07_feller_s_comparison", 0.5),
+        Chapter {
+            key: "07_feller_s_comparison",
+            make: |kit| Box::new(comparison::Comparison { kit }),
+            intensity: 0.5,
+        },
         Chapter {
             key: "08_the_table_balances",
             make: |kit| Box::new(balance::Balance { kit }),
