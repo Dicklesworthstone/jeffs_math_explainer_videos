@@ -258,6 +258,7 @@ pub fn facts() -> Result<Facts, String> {
         "fact sheet B-F9 (3⁻¹ = 244)",
     )?;
     density(&mut f)?;
+    arithmetic(&mut f)?;
     Ok(f)
 }
 
@@ -435,6 +436,225 @@ fn density(f: &mut Facts) -> Result<(), String> {
     f.add(
         "B-X3.esi_values_per_source_block_in_millions",
         py((1u64 << ESI_BITS) as f64 / 1e6),
+    )?;
+    Ok(())
+}
+
+/// 07–11 (lane B-2): wrap-around and the race, the prime clocks, bytes as
+/// polynomials, the fold, the byte clock. Every key here is a number those
+/// chapters draw or say beyond the ones pinned above.
+fn arithmetic(f: &mut Facts) -> Result<(), String> {
+    use crate::model::clocks::{bits_needed, mul_mod, partner, primes_around};
+    use crate::model::poly::{exponents, foil, survivors};
+    use crate::model::wrap::{self, RACE_PIECES, RACE_ROUNDS, RACE_SEED, Race};
+    use crate::model::{exps, inv};
+    // 07: 3 and 131 both double to 6; 3's partner wrapped at 256
+    f.pin("B-F10.z256_2x3", wrap::mul(2, 3), "6", "fact sheet B-F10")?;
+    f.pin("B-F10.int_2x131", 2u32 * 131, "262", "fact sheet B-F10 (claim walk)")?;
+    let inv3 = wrap::inverse_odd(3);
+    f.pin("B-F10.z256_inverse_of_3", inv3, "171", "fact sheet B-F10 (claim walk)")?;
+    let big = 3u32 * u32::from(inv3);
+    f.pin("B-F10.int_3x171", big, "513", "fact sheet B-F10 (claim walk)")?;
+    f.pin(
+        "B-F10.int_3x171_divmod_256",
+        list([big / 256, big % 256]),
+        "2,1",
+        "fact sheet B-F10",
+    )?;
+    // 07_6: the race, seeded (oracle: numpy's PCG64DXSM(706))
+    let race = Race::draw();
+    let (xf, wf) = (race.xor_fails(), race.wrap_fails());
+    f.add("B-F25.race07.seed", RACE_SEED)?;
+    f.add("B-F25.race07.pieces", RACE_PIECES)?;
+    f.add("B-F25.race07.rounds_per_side", RACE_ROUNDS)?;
+    f.add("B-F25.race07.xor_failures", xf.iter().filter(|&&x| x).count())?;
+    f.add("B-F25.race07.wrap_failures", wf.iter().filter(|&&x| x).count())?;
+    f.add(
+        "B-F25.race07.first_rounds_xor_fail",
+        list(xf[..4].iter().map(|&x| u8::from(x))),
+    )?;
+    f.add(
+        "B-F25.race07.first_rounds_wrap_fail",
+        list(wf[..4].iter().map(|&x| u8::from(x))),
+    )?;
+    f.add("B-F25.race07.wrap_round1_amounts", list(race.wrap[0].iter().flatten()))?;
+    // 08: the seven-hour clock and why 256 is not prime
+    f.pin(
+        "B-X4.z7_inverse_of_3",
+        partner(3, 7).unwrap_or(0),
+        "5",
+        "fact sheet B-X4",
+    )?;
+    f.add("B-X4.z7_times_table", list((0..49).map(|i| mul_mod(i / 7, i % 7, 7))))?;
+    f.pin("B-X4.int_3x5", 3u32 * 5, "15", "fact sheet B-X4")?;
+    f.add("B-X4.int_3x5_divmod_7", list([15 / 7, 15 % 7]))?;
+    f.pin(
+        "B-X4.z7_nonzero_rows_are_permutations_ok",
+        u8::from((1..7).all(|a| {
+            (0..7)
+                .map(|b| mul_mod(a, b, 7))
+                .collect::<std::collections::HashSet<_>>()
+                .len()
+                == 7
+        })),
+        "1",
+        "fact sheet B-X4",
+    )?;
+    f.pin(
+        "B-X4.z7_zero_has_no_partner_ok",
+        u8::from(partner(0, 7).is_none()),
+        "1",
+        "fact sheet B-X4",
+    )?;
+    f.pin("B-X4.int_2x128", 2u32 * 128, "256", "fact sheet B-X4")?;
+    let (below, above) = primes_around(256);
+    f.pin(
+        "B-X4.nearest_primes_below_and_above_256",
+        list([below, above]),
+        "251,257",
+        "fact sheet B-X4",
+    )?;
+    f.pin("B-X4.bits_needed_for_256", bits_needed(256), "9", "fact sheet B-X4")?;
+    // 09: bytes as polynomials; 3 × 7 by FOIL
+    f.pin("B-X4.x_powers_of_3", list(exponents(3)), "1,0", "fact sheet B-X4")?;
+    f.pin("B-X4.x_powers_of_7", list(exponents(7)), "2,1,0", "fact sheet B-X4")?;
+    f.pin("B-X4.x_powers_of_9", list(exponents(9)), "3,0", "fact sheet B-X4")?;
+    f.add("B-X4.bits_of_9", format!("{:04b}", survivors(&foil(3, 7))))?;
+    f.add("B-F11.foil_3x7_terms", list(foil(3, 7)))?;
+    f.pin(
+        "B-F11.foil_3x7_carryless",
+        survivors(&foil(3, 7)),
+        "9",
+        "fact sheet B-F11",
+    )?;
+    // 10: the rotation fold (x⁸ → 1) and RaptorQ's
+    const ROTATE: u8 = 0x01;
+    f.pin(
+        "B-F26.mul2_mod_x8_plus_1_of_128",
+        mul(2, 128, ROTATE),
+        "1",
+        "fact sheet B-F26",
+    )?;
+    f.pin(
+        "B-F26.mul2_mod_x8_plus_1_of_255",
+        mul(2, 255, ROTATE),
+        "255",
+        "fact sheet B-F26",
+    )?;
+    // 10_3: 2 · 255 rotates to 255, ex-or 255 itself
+    f.pin("B-F26.xor_255_255", mul(2, 255, ROTATE) ^ 255, "0", "fact sheet B-F26")?;
+    f.pin(
+        "B-F26.mul_3_255_mod_x8_plus_1",
+        mul(3, 255, ROTATE),
+        "0",
+        "fact sheet B-F26",
+    )?;
+    let clmul = |a: u8, b: u8| foil(a, b).iter().fold(0u16, |acc, &e| acc ^ (1 << e));
+    f.pin(
+        "B-F26.carryless_3_255",
+        clmul(3, 255),
+        "257",
+        "fact sheet B-F26 (x⁸ + 1)",
+    )?;
+    f.pin("B-F11.fold_x8_residue", FOLD, "29", "fact sheet B-F11")?;
+    f.add("B-F11.fold_polynomial_0x11D_decimal", u16::from(FOLD) | 0x100)?;
+    f.pin(
+        "B-X5.sourced.crc8_sae_j1850_poly",
+        FOLD,
+        "29",
+        "fact sheet B-X5 (reveng catalogue)",
+    )?;
+    f.pin(
+        "B-F11.clmul_2_128_is_x8",
+        clmul(2, 128),
+        "256",
+        "fact sheet B-F11 (claim walk)",
+    )?;
+    f.pin("B-F11.inv_2", inv(2), "142", "fact sheet B-F11")?;
+    f.pin(
+        "B-F11.inv_2_under_0x11B",
+        (1..=255u8).find(|&b| mul(2, b, AES_FOLD) == 1).unwrap_or(0),
+        "141",
+        "fact sheet B-F11 (claim walk)",
+    )?;
+    // 11: the byte clock, the ruler, the slide rule, the lookup tables
+    let log = logs();
+    let exp = exps();
+    f.pin(
+        "B-F14.oct_exp_0_to_12_computed",
+        list(&exp[..13]),
+        "1,2,4,8,16,32,64,128,29,58,116,232,205",
+        "fact sheet B-F14",
+    )?;
+    f.pin("B-F13.log_4", log[4], "2", "fact sheet B-F13")?;
+    f.pin("B-F13.log_58", log[58], "9", "fact sheet B-F13")?;
+    f.pin("B-F13.exp_7_plus_2", exp[7 + 2], "58", "fact sheet B-F13")?;
+    f.pin("B-F13.exp_205", exp[205], "167", "fact sheet B-F13")?;
+    f.pin(
+        "B-F13.int_2^3_x_2^4",
+        (1u32 << 3) * (1u32 << 4),
+        "128",
+        "fact sheet B-F13 (claim walk)",
+    )?;
+    let l7 = u16::from(log[7]);
+    f.pin("B-F13.log_7", l7, "198", "fact sheet B-F13 (claim walk)")?;
+    f.pin("B-F13.log7_plus_log7", l7 + l7, "396", "fact sheet B-F13 (claim walk)")?;
+    f.pin(
+        "B-F13.log7_plus_log7_mod_255",
+        (l7 + l7) % 255,
+        "141",
+        "fact sheet B-F13 (claim walk)",
+    )?;
+    f.pin("B-F13.exp_141", exp[141], "21", "fact sheet B-F13 (claim walk)")?;
+    f.pin(
+        "B-F11.clmul_7_7_no_fold",
+        clmul(7, 7),
+        "21",
+        "fact sheet B-F11 (claim walk)",
+    )?;
+    let mirror = (1..=255u8).filter(|&a| inv(a) != a).count() / 2;
+    f.pin(
+        "B-F13.mirror_pairs_a_ne_inverse",
+        mirror,
+        "127",
+        "fact sheet B-F13 (claim walk)",
+    )?;
+    f.pin(
+        "B-F13.bytes_that_are_their_own_inverse",
+        list((1..=255u8).filter(|&a| inv(a) == a)),
+        "1",
+        "fact sheet B-F13 (claim walk)",
+    )?;
+    let (wraps, pairs) = wrap::u8_log_sum_wraps(&log);
+    f.pin("B-F13.nonzero_pairs", pairs, "65025", "fact sheet B-F13 (R2)")?;
+    f.pin(
+        "B-F13.nonzero_pairs_log_sum_ge_256_u8_overflow",
+        wraps,
+        "32131",
+        "fact sheet B-F13 (R2)",
+    )?;
+    let max_sum = (1..256)
+        .flat_map(|a| (1..256).map(move |b| (a, b)))
+        .map(|(a, b)| u16::from(log[a]) + u16::from(log[b]))
+        .max();
+    f.pin(
+        "B-F13.max_log_sum_nonzero_pairs",
+        max_sum.unwrap_or(0),
+        "508",
+        "fact sheet B-F13 (R2)",
+    )?;
+    f.pin(
+        "B-X1.raid6_distinct_weights_2^i_i0_254_under_0x11B",
+        (0..255)
+            .map(|i| (0..i).fold(1u8, |x, _| mul(x, 2, AES_FOLD)))
+            .collect::<std::collections::HashSet<_>>()
+            .len(),
+        "51",
+        "fact sheet B-X1",
+    )?;
+    f.add(
+        "B-F12.smallest_generator_0x11B",
+        (2..=255u8).find(|&g| order(g, AES_FOLD) == 255).unwrap_or(0),
     )?;
     Ok(())
 }

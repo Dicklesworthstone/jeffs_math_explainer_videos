@@ -1407,6 +1407,10 @@ def b2_drawn():
     p3 = [i for i in range(8) if 3 >> i & 1][::-1]
     p7 = [i for i in range(8) if 7 >> i & 1][::-1]
     emit("B-F11.foil_3x7_terms", [i + j for i in p3 for j in p7])
+    # 10_4: the whole fold polynomial x^8 + x^4 + x^3 + x^2 + 1 as a number (0x11D)
+    emit("B-F11.fold_polynomial_0x11D_decimal", P_RQ)
+    # 11_2 lower-third "(its hand is 3)": the smallest byte whose powers reach all 255 under AES's polynomial
+    emit("B-F12.smallest_generator_0x11B", next(g for g in range(2, 256) if order_of(g, P_AES) == 255))
 
 
 # ==============================================================================================
