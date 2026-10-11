@@ -148,6 +148,7 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
         dim.push(stage.prepare(a)?);
     }
     stage.play_prepared(dim)?;
+    stage.wait(1.0)?;
     // the two bars rise to the top left, the curve leaves
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
     for (&s, &b) in sizes.iter().zip(&bar_mobs) {
@@ -344,7 +345,7 @@ fn factor_labels(
 ) -> fmn::Result<Vec<Mob>> {
     let words = [
         ("unmarked fish", Role::unmarked(), true, 0.0),
-        ("fish the second net missed", Palette::ink(), true, 0.4),
+        ("fish the second net missed", Palette::ink(), true, 0.45),
         ("lake size", Role::dark(), false, 0.0),
         ("dark cell", Role::dark(), false, 0.0),
     ];
@@ -359,7 +360,7 @@ fn factor_labels(
         } else {
             stage.get_bottom(tex)[1] - 0.25
         };
-        out.push(kit.text(stage, s, 22.0, color, v(x, y))?);
+        out.push(kit.text(stage, s, 26.0, color, v(x, y))?);
     }
     Ok(out)
 }
@@ -417,9 +418,11 @@ fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapDa
     // one step past the top
     let (src_down, _, (num_down, den_down)) = step_src(lake + 1);
     let (down, down_spans) = kit.tex_spans(stage, &src_down, 56.0, Palette::ink(), &[], at)?;
-    let morph = TransformMatchingTex::new(stage.arena_mut(), up, down, &up_spans, &down_spans)?;
+    // new numbers, same shape: a crossfade in place (a glyph-matching
+    // morph slides unrelated digits into each other here)
     play!(stage;
-        morph.rt(1.2),
+        fade_out(stage.arena_mut(), up, ORIGIN, 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), down, ORIGIN, 1.0)?.rt(0.9),
         fade_out(stage.arena_mut(), verdict_up, ORIGIN, 1.0)?.rt(0.5),
     );
     let den_range = {

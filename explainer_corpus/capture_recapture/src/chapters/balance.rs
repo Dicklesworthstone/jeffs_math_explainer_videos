@@ -181,7 +181,6 @@ impl SceneConstruct for Balance {
         // the left panel: the lake size, the two green shares, the score
         let x0 = -6.8;
         let size_word = kit.text_left(stage, "lake size", 24.0, Palette::dim(), v(x0, 1.6))?;
-        let size_no = kit.live_count(stage, lake, 40.0, Role::dark(), v(x0 + 1.15, 1.05))?;
         let share_word = kit.text_left(stage, "green share", 24.0, Palette::dim(), v(x0, 0.3))?;
         let left_word = kit.text_left(stage, "marked column", 22.0, Role::marked(), v(x0, -0.12))?;
         let right_word = kit.text_left(stage, "unmarked column", 22.0, Palette::ink(), v(x0, -0.55))?;
@@ -193,19 +192,6 @@ impl SceneConstruct for Balance {
             v(0.0, -0.12),
         )?;
         stage.move_to(left_pct, v(-3.75, -0.12), RIGHT);
-        let right_no = kit.live_value(
-            stage,
-            move |s| {
-                let n_lake = s.tracker_value(lake).unwrap_or(start).round();
-                100.0 * (n - k) as f64 / (n_lake - m as f64)
-            },
-            1,
-            false,
-            28.0,
-            Role::second(),
-            v(-4.05, -0.55),
-            RIGHT,
-        )?;
         let right_pct = kit.text_left(stage, "%", 28.0, Role::second(), v(-4.0, -0.55))?;
         let sp = score_plot();
         let rel = Rc::new(relative_scores(FELLER, sp.x.0 as u64, sp.x.1 as u64));
@@ -237,8 +223,15 @@ impl SceneConstruct for Balance {
             )
         });
         kit.say(stage, "08_1")?;
+        // the opening picture fades in still; the live mosaic takes over
+        // (identical at this lake size) before anything moves
+        let still = stage.arena_mut().add(mosaic_picture(&book, start));
+        play!(stage;
+            fade_in(stage.arena_mut(), still, ORIGIN, 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), labels, ORIGIN, 1.0)?.rt(0.8),
+        );
+        stage.remove_from_scene(still);
         stage.add_to_scene(mosaic)?;
-        play!(stage; fade_in(stage.arena_mut(), labels, ORIGIN, 1.0)?.rt(0.6));
         let mut panel_in: Vec<Box<dyn Animation>> = Vec::new();
         for mm in [
             size_word,
@@ -255,6 +248,22 @@ impl SceneConstruct for Balance {
             panel_in.push(stage.prepare(a)?);
         }
         stage.play_prepared(panel_in)?;
+        // the live readouts join once their words are in (a redrawn number
+        // cannot fade)
+        let size_no = kit.live_count(stage, lake, 40.0, Role::dark(), v(x0 + 1.15, 1.05))?;
+        let right_no = kit.live_value(
+            stage,
+            move |s| {
+                let n_lake = s.tracker_value(lake).unwrap_or(start).round();
+                100.0 * (n - k) as f64 / (n_lake - m as f64)
+            },
+            1,
+            false,
+            28.0,
+            Role::second(),
+            v(-4.05, -0.55),
+            RIGHT,
+        )?;
         stage.add_to_scene(dot)?;
         let q = predict_pause(&kit, stage, v(4.9, -1.4))?;
 
@@ -335,6 +344,8 @@ impl SceneConstruct for Balance {
             let a = fade_out(stage.arena_mut(), mm, ORIGIN, 1.0)?;
             clear.push(stage.prepare(a)?);
         }
+        // the score thins the bed into the key line (music lane)
+        kit.mark(stage, "thin:08_4");
         kit.say(stage, "08_4")?;
         stage.play_prepared_with(
             clear,
