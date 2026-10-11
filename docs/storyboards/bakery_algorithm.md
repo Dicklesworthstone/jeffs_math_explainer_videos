@@ -203,6 +203,24 @@ Estimated **68 s**, plan ~85 s; 4 lines.
 | 10_3 | That's not the cache; caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — |  |
 | 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | hold |
 
+```rust
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering::SeqCst};
+pub fn lock(i: usize, choosing: &[AtomicBool], number: &[AtomicU64]) {
+    choosing[i].store(true, SeqCst);
+    let t = 1 + number.iter().map(|n| n.load(SeqCst)).max().unwrap(); // each slate read once
+    number[i].store(t, SeqCst);
+    choosing[i].store(false, SeqCst);
+    for j in (0..number.len()).filter(|&j| j != i) {
+        while choosing[j].load(SeqCst) { std::hint::spin_loop() }
+        loop {
+            let nj = number[j].load(SeqCst);
+            if nj == 0 || (nj, j) > (t, i) { break }
+            std::hint::spin_loop()
+        }
+    }
+}
+pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
+```
 - **Honest data:** "it can fail" is backed by the TSO model (12-step trace).
   A real-hardware experiment (Relaxed atomics on this Mac and on an x86 host,
   violations per million entries) is a bead; the narration claims a measured

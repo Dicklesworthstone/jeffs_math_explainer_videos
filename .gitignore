@@ -157,3 +157,4 @@ windsurf.mcp.json
 core
 core.*
 rustc-ice-*.txt
+docs/reviews/*/R*-packet.md

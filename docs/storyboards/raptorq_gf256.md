@@ -144,9 +144,14 @@ Estimated **83 s**, plan ~85 s; 9 lines.
   divisors + finitely many bytes ⇒ each row of the table is one-to-one ⇒ it
   contains a 1 (pigeonhole)".
 - **For programmers (code panel):**
+```rust
+fn xtime(a: u8) -> u8 { (a << 1) ^ if a & 0x80 != 0 { 0x1D } else { 0 } }
+fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
     let mut acc = 0;
     while b != 0 { if b & 1 != 0 { acc ^= a } a = xtime(a); b >>= 1 }
     acc                                   // mul(0x57, 0x83) == 0x31, mul(2, 142) == 1
+}
+```
 
 ## 07_the_byte_clock (~85 s)
 

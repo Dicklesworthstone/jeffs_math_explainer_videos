@@ -1,0 +1,110 @@
+<!-- R1 storyboard review, 2026-10-10, from the reviewer's final answer (packet tools/review.py; storyboards at e26ec36) -->
+
+# Maya, 14: review of R1 storyboard, *How to Count Fish You've Never Seen*
+
+## Comprehension check
+
+| ch | What I'd tell a friend |
+|---|---|
+| 01 | Two nets each catch 1,000 fish, and 100 fish get caught both times. The video says about 8,100 fish were never caught. Counting one patch and multiplying by 100 gives answers that are miles apart, because fish bunch up, so you need a better trick. |
+| 02 | The marked fish show what share of all the fish the second net caught: one in ten. So the lake is about ten times the catch, 10,000 fish, and 8,100 of them were never caught. |
+| 03 | Fish crowd into their favourite spots, but the marked ones mix in, so every net comes up about one-in-ten marked. The catch is a tiny copy of the lake, and that's why the chapter 2 trick is allowed. |
+| 04 | In a tiny 20-fish lake you can count all 4,845 possible netfuls. Most hold one marked fish, the same one-in-four as the lake. That goes from lake to catch, but we need to go from catch to lake. |
+| 05 | Flip the question: give each lake size a score for how likely our catch would be at that size. The top score is 33, same as the soup trick, and the scores aren't chances because they don't add to one. *(I couldn't say what the 3D mountain in 05_7–05_9 added.)* |
+| 06 | Compare each lake size with the one below it. The score keeps rising while marked × caught beats caught twice × lake size. On the table that means filling the dark cell until 100 × dark cell = 900 × 900, which gives 8,100. The careful way and the soup way agree. *(I didn't trust the cancelling step at 06_3.)* |
+| 07 | If you build a lake of exactly 10,000 and repeat the experiment many times, the guesses land between about 8,500 and 12,000 and come out a bit high on average, because dividing by a small count blows up. Tiny studies can even divide by zero, and Chapman's "add one" fixes that. |
+| 08 | Turn it around: which lake sizes could have given our catch? About 8,400 to 12,100, and ranges built this way catch the true size 95 times in 100. *(I'd ask "didn't we just get this range?")* |
+| 09 | The trick breaks when being caught once changes your chance of being caught again (bold fish, bait-lovers, bait-avoiders, marks that wash off, no mixing) or when new fish arrive. Deaths don't matter because death doesn't care about marks. |
+| 10 | The same table, with one cell nobody can see, estimated France's population, how many bugs reviewers missed, and how many people died in Kosovo. There the later full count landed inside the range. |
+
+No chapter has an empty or wrong sentence, so there are no blockers. 05 and 06 are shaky for me, and the findings below say why.
+
+## Rubric (1-5)
+
+Correctness here means two things: did the numbers I checked come out right, and did anything *sound* wrong to me? Ruth audits the maths.
+
+| ch | clarity | correctness | motivation | pacing | delight |
+|---|---|---|---|---|---|
+| 01 | 3 | 4 | 5 | 4 | 4 |
+| 02 | 3 | 5 | 4 | 4 | 4 |
+| 03 | 3 | 4 | 4 | 4 | 4 |
+| 04 | 3 | 4 | 4 | 3 | 4 |
+| 05 | 2 | 4 | 4 | 2 | 3 |
+| 06 | 2 | 3 | 4 | 3 | 4 |
+| 07 | 3 | 4 | 4 | 3 | 4 |
+| 08 | 3 | 3 | 4 | 3 | 4 |
+| 09 | 4 | 4 | 4 | 4 | 4 |
+| 10 | 4 | 4 | 5 | 4 | 4 |
+
+## Findings
+
+| id | persona | chapter/line | severity | what confused, bored, misled or delighted me (in my words) | suggested fix |
+|---|---|---|---|---|---|
+| M1 | maya_14 | 06_2–06_3 | major | Every algebra teacher I've had says you can't cross out terms on the top and bottom of a fraction when they're added. 06_3 strikes out matching terms between top and bottom, so it looks like the exact mistake I get marked down for, and I stop trusting the step. It's also letters before numbers, with N and n all over one line. | Do the numbers first with the small lake. At 33, top 23 × 23 = 529 and bottom 33 × 16 = 528, so the score goes up. At 34, 576 against 578, so it goes down (A-F6 already pins these). Then say "the score goes up when the top beats the bottom, so take top minus bottom." Show the *subtraction* expanded on one line and strike the pairs that subtract to zero (N², NM, Nn), leaving Mn − kN. Keep every N teal and every n green. |
+| M2 | maya_14 | 01_2; 03_6, 05_1, 06_5, 06_6, 08_7, 09_3, 10_5 | major | The table at 01_2 has no words on its rows or columns, so 100 / 900 / 900 / ? is a puzzle I can't read. Which 900 is which? Then one thing gets lots of names: "caught twice" (01, 07_2), "overlap" (03_6, 06_5, 06_6, 09_3, 10_5), "catching marked fish again" (08_7), "three were marked" (05_1). The cells become "marked-only", "caught-only" and "the two side cells" (06_5, 06_6). "Dark cell" isn't said aloud until 06_6. I'd think "overlap" and "caught twice" were two different things. | At 01_2, put words on the rows (marked / not marked) and columns (in net 2 / not in net 2). Name the four cells once aloud: "caught twice", "first net only", "second net only", and "the dark cell: no net touched them". Use only those names. Replace every "overlap" with "caught twice", 06_5 becomes "first-net-only times second-net-only, minus caught-twice times the dark cell", and 05_1 becomes "three were caught twice". |
+| M3 | maya_14 | 03_6, 06_7, 09_1 | major | "Independent" is never explained, but it carries 03_6, 06_7 and the whole of 09. 06_7 says the balance is "exactly what two independent catches look like" and then just moves on. I have to take it on faith. | At 03_6, define it in plain words using the video's own 10_4 phrase: "Independent means the second net doesn't care whether a fish was caught before, like two reviewers who don't compare notes." At 06_7, show the check: in net 2, 100 of 1,000 are marked (1 in 10). Among the fish net 2 missed, 900 of 9,000 are marked (1 in 10). Same share, so the catches are independent. I checked: 900/9,000 = 1/10. |
+| M4 | maya_14 | 01_5–01_6 | major | 01_5 says "this net covers one hundredth of the lake". Ten seconds later 01_6 says "a net can't tell you how much of the lake it really searched". That sounds like a contradiction, because you just told me how much. Also, 01_6's words never give the other two answers, so "not even close" has no numbers behind it. The picture cell still says "(one P1 number used everywhere)". | Change 01_6 to: "The net knows it covered a hundredth of the *water*. It can't know what share of the *fish* that was." Then 02_5's "the marked fish measured our net" pays it off ("they told us it caught one tenth of the fish"). Say the dips aloud: "In the weeds: eighty-eight thousand. In open water: two thousand eight hundred. About thirty times apart." Replace the placeholder with 31.4× (A-F27). |
+| M5 | maya_14 | 02_3, 02_4, 02_6 | major | Both catches are 1,000, so "100 of the 1,000 marked fish" and "100 of the 1,000 caught fish" look identical. At 02_6, "same equation, two readings" means nothing to me because both readings use the same numbers; I lost which thousand was which. And 02_4's ⟨predict⟩ "How many fish is that?" sounds like it's asking about the 1,000 the net caught, so my answer would be "a thousand", which is wrong. | Every 1,000 always carries its colour and word: "1,000 marked" in gold, "1,000 in net 2" in green. For the two readings, show two pictures: the gold bar ("100 of the 1,000 marked fish got caught again") and the green tray ("100 of the 1,000 fish in net 2 are marked"). Reword 02_4 to match the card: "Our second net caught a thousand fish. A thousand is one tenth of how many?" |
+| M6 | maya_14 | 02_6 → 05_1 | major | 05_1's ⟨predict⟩ asks "Ten times ten, over three?" and calls that the soup trick. But in 02 I worked out "1,000 is one tenth of ?", never "1,000 × 1,000 ÷ 100". I wouldn't know where "times, over" came from, and I'd feel I missed something. | End 02_6 with the rule in words and numbers: "lake size ≈ marked × caught ÷ caught twice = 1,000 × 1,000 ÷ 100 = 10,000." Then 05_1 says "marked times caught, over caught twice: ten times ten over three, about thirty-three." |
+| M7 | maya_14 | 03_3–03_4 | major | 03_3 already shows both patches at one in ten. Then 03_4 asks "will the marks stay bunched up where we let them go?", and I already know the answer, so the predict is spoiled. Also, nobody told me the marked fish were all let go in one place (the dock, per A-CH03). In 01_1 I just saw gold fish in the lake. | Open 03_4 with "We marked the first thousand near the dock and let them go there", showing the first net at the dock. Then ask the predict and show the mixing. Move 03_3's two patches (50 with 5 marked, 10 with 1) to *after* the mixing, as the zoom-in that proves it. |
+| M8 | maya_14 | 04_7 | major | While the voice reads percents, the 1,050 line turns into P_N(K=k) = C(M,k)C(N−M,n−k)/C(N,n): a capital K and a small k in one bracket, N and n, and six letters at once. That's where I'd feel stupid, and I can't listen and decode at the same time. | Let the percents finish with the bars. Then, in a separate beat, build the rule in words: "chance = (ways to pick the marked ones) × (ways to pick the unmarked ones) ÷ (all netfuls)", with the letters as small labels under each word. Put P_N(K = k) in a "precisely" lower-third. Numbers before letters (rule 22). |
+| M9 | maya_14 | 05_6–05_9 | major | The 3D landscape just *appears* (05_7). The words describe only one slice (05_8), but 05_9 says "same mountains, two questions" and I only heard one question. 05_6 has already told me "not chances, scores" before the picture that would *show* me why. Chapter 05 is the most crowded chapter, with too many ideas for 80 s. | Build the landscape by sliding the 05_3/05_4 histograms back into rows (the same object, changing). Say both slices aloud: "Cut across at one lake size: chapter 4's chances, and they add to one. Cut along at our three: the score curve, and it adds to about sixteen point seven." Move 05_6's sum here so the two totals sit on the two slices, and cut 05_6 to "the lake has one size; these are scores for comparing guesses." |
+| M10 | maya_14 | 07_4 vs 08_6 | major | 07_4: "between about eighty-five hundred and twelve thousand". 08_6: "from about eighty-four hundred to about twelve thousand one hundred". They're nearly the same, so I'd think one is a typo or that the video changed its mind. I wouldn't realise they answer different questions. | At 08_6, say the contrast: "Last chapter, with the lake known to be ten thousand, estimates landed from 8,500 to 12,000. Now the other way round: lake sizes from 8,400 to 12,100 could have given our catch. Close numbers, different questions." Stack the two bars on screen, labelled. Keep Feller's own 8,500–12,000 in the description only. |
+| M11 | maya_14 | 08_2 | major | "Only nineteen hundred fish? Then we caught every fish in it, and a catch like ours has a chance of…" sounds backwards. If we caught every fish, why is our catch nearly impossible? | Give the reason: "Then the second net must have scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that: about five in a one followed by four hundred thirty zeros." |
+| M12 | maya_14 | 05_6 (quote card) | major | Feller's card says "the probability that **n** is greater than, say, 6000". In this video n is the second catch, and 6000 is a big-lake number shown on top of the 33-fish example. One letter meaning two things is as bad as two words for one thing. The brief says Feller's letters are "mapped once in chapter 02", but no 02 line does it. | Bracket the quote: "the probability that [the lake size] is greater than, say, 6000". Or move the card to 06_8, where the lake is Feller's. Don't add a notation-mapping beat on my account. |
+| m1 | maya_14 | 08_5 | minor | "Build a range … the careful way." Which way? 08_1–08_3 ruled lake sizes out, but nothing tells me where to stop. | One sentence (Ruth to check the wording): "Keep every lake size for which a catch as low as ours, or as high as ours, would still happen at least once in forty tries." |
+| m2 | maya_14 | 05_2 / 05_6 | minor | "Seventeen" twice in one chapter: the smallest lake is 17 fish, and the scores add up to "about seventeen". I'd go looking for a connection that isn't there. | Say "about sixteen and two-thirds" (it's 16.67; I checked 100/6). |
+| m3 | maya_14 | 05_1, 05_3 | minor | 05_1 switches to a new lake without saying so, and then "here's twenty" sounds like the 20-fish lake from 04. The three stills don't tell me how tall the lit bar is. | Say "A new lake; we don't know its size" and fog the lake. Print the lit bar's height on each still. My numbers (not yet in the fact sheet, so pin them in the oracle): N = 20 → 7.8%, 33 → 31.8%, 60 → 15.9%. |
+| m4 | maya_14 | 06_4–06_6 | minor | 06_4 is the 33-fish lake and 06_6 is suddenly 900 × 900 ÷ 100, with no warning that we've gone back to Feller's lake. "Three times thirty-three is ninety-nine: still rising" could sound like 34 is higher still. 06_5's "it becomes" is just a morph I have to believe. | At 06_4, say "From thirty-two to thirty-three the score goes up; from thirty-three to thirty-four it goes down." At 06_5, check the identity on the small table first: 7 × 7 − 3 × 16 = 49 − 48 = 1, the same as 100 − 99. Then say "Back to Feller's lake" as his table returns. |
+| m5 | maya_14 | 06_6 | minor | The one picture is "the table balances", but the words say "nine hundred times nine hundred, over a hundred". I never actually hear the balance. | Say it: "A hundred times eight thousand one hundred is eight hundred ten thousand. So is nine hundred times nine hundred. The table balances." I checked both products: 810,000. |
+| m6 | maya_14 | 04_3 | minor | "Twenty-four different orders": why 24? I can't count 24 shuffles flashing past, and "twenty choose four" is on screen but never said aloud. | Add "four ways to pick which comes out first, then three, two, one: twenty-four". Show 116,280 before ÷ 24. Say once: "written twenty choose four: the ways to pick four from twenty." |
+| m7 | maya_14 | 05_1, 06_7, 07_3, 07_6, 07_7; 07_1 vs 07_6, 08_5 | minor | The guess has five names: "soup trick", "soup argument", "the estimate", "the formula", "the plain formula". The repeated experiment is both an "experiment" (07_1) and a "study" (07_6, 08_5). | Pick one name for each: "the soup guess" and "experiment". Use only those. |
+| m8 | maya_14 | 09_1, 09_3 | minor | The gauge sits *on the dark cell* and reads 7,750 "instead of ten thousand". But the dark cell was 8,100 and 10,000 was the whole lake, so I'd lose which number is which. | Put the gauge beside the table, labelled "estimated lake size (truth: 10,000)". |
+| m9 | maya_14 | 07_1 | minor | "A lake of exactly ten thousand fish … ten thousand times": two different ten-thousands. The 100 × 100 grid also looks like 01_5's grid of lake squares. | Show a run counter ("experiment 1 … 10,000") and a lake labelled "10,000 fish". Draw each tiny cell as a tiny round lake, with a legend: "each dot = one whole experiment". |
+| m10 | maya_14 | 04_7 | minor | The on-screen percents add to 100.1 (28.2 + 47.0 + 21.7 + 3.1 + 0.1; fact sheet note 9). Then 05_6 makes a big deal of chances adding to one. If I add them up, the video looks wrong. | Show whole percents that match the words: 28 / 47 / 22 / 3 / under 1, which sum to 100. Leave the decimals in the fact sheet. |
+| m11 | maya_14 | 04_6 | minor | "Plain ones" is a new word for unmarked fish, and I'm not told where 15 comes from. | Say "unmarked", and "twenty minus five: fifteen unmarked; fifteen times fourteen, halved: a hundred and five". |
+| m12 | maya_14 | 09_6 | minor | Is 12,120 a failure or the right answer? I don't know how many newcomers came, so I can't tell. | Say "Two thousand newcomers…". The gauge shows "lake at the second catch: 12,000", and 12,120 lands next to it. |
+| m13 | maya_14 | 09_7 | minor | "Nothing happens" when a third of the fish die? Something clearly happened. Also, the words say "a third" but A-F22 simulated 30% deaths (Ruth to confirm). | Say "The estimate doesn't move." Then either say "three in ten" or re-run the simulation at one third. |
+| m14 | maya_14 | 10_2 | minor | "One birth per twenty-eight people", then "twenty-eight point four million". Where did the point four come from? The fact sheet's correction ("départements", "communes") would add two French words I don't know. | Say "one birth for every twenty-eight and a bit people". For Ruth's correction in plain words: "Officials counted everyone in hand-picked towns spread across France." |
+| m15 | maya_14 | 07_2, 08_7 | minor | "SD 9.0" (07_2) and the relative-error formula with the square root (08_7) appear without words. | 07_2: "most land within about nine of a hundred". 08_7: label it "± about 9%" and show 0.9 × 0.9 ÷ 100, then √, giving 0.09 (I checked). Say "more fish caught twice", not "catching marked fish again". |
+| m16 | maya_14 | 07_7 | minor | "On average it's nearly exact" while the screen shows −6.5%. I'd think −6.5% is what "nearly exact" means. | Say the two numbers: "In this small study, Chapman's average is about six percent low; the plain formula's is twenty-four percent high." |
+| m17 | maya_14 | 09_1 | minor | "Every failure comes from one rule", then two conditions joined by "or". That sounds like two rules. | "One rule: the second net must treat marked and unmarked fish alike, in the same lake." |
+| m18 | maya_14 | 05_5 | minor | "Think of it as a score for each guess" doesn't say what the score measures. | Make the name card say "score of a lake size = how likely our catch would be if the lake were that size". |
+| m19 | maya_14 | 02_1 | minor | I hear "nineteen fifty" but the footnote card comes from a later edition (1968), so the dates fight. | "Years later he added a footnote: he hadn't known biologists were already doing this." |
+| m20 | maya_14 | 01_6 | minor | A "real answer: ?" box appears right after 01_3 gave me about 8,100. Didn't you just tell me? | Label the box "how many fish in all? (coming up)". |
+| m21 | maya_14 | 03_4 (listen) | minor | In the 3 s listen window I'd just hear music. I wouldn't know the one-in-ten rhythm was the point. | Add a cue before the window: "Listen: one bell for every ten notes." |
+| m22 | maya_14 | 04_8 | minor | "Its grown-up name" sounds like you're talking to a seven-year-old. | "Mathematicians call it the hypergeometric distribution." |
+| m23 | maya_14 | 10_1 | minor | Who is Laplace? | "Around 1800, the French mathematician Laplace…" |
+| m24 | maya_14 | 10_6 | minor | "Victims were named on several lists" sounds like every victim was on several lists. | "Four lists named about four thousand four hundred different victims between them." Label the 16 cells as "on or off each of four lists". |
+| m25 | maya_14 | 01_1 | minor | Caught-twice fish that "glow both" gold and green could read as a third colour. | Make them gold fish (still "marked") with a green ring (in net 2). |
+| m26 | maya_14 | 10_4 | minor | If "(for programmers)" is shown on screen, I'd tune out, but this is the easiest predict in the video. | Don't label 10_4 "for programmers" on screen. |
+| d1 | maya_14 | 01_2–01_3 | delight | The lake folding into 100 / 900 / 900 / ? and "≈ 8,100" landing in the dark cell. I want to know how, right away. | Keep it (with M2's labels). |
+| d2 | maya_14 | 02_5 | delight | "The marked fish measured our net for us" is the sentence I'd repeat to a friend. | Keep it, and make M4 set it up. |
+| d3 | maya_14 | 04_4–04_5 | delight | "Which pile is biggest?" I can reason one-in-four, so one marked fish, and be right: I feel clever. 4,845 netfuls streaming into piles. | Keep. |
+| d4 | maya_14 | 06_4 | delight | "Ten times ten is a hundred, three times thirty-three is ninety-nine" is checkable in my head. | Keep, and add 529 vs 528 (M1). |
+| d5 | maya_14 | 07_1, 07_3 | delight | "Check it by cheating", and "ten too few pushes harder than ten too many" (90 gives 11,111, 110 gives 9,091). | Keep. |
+| d6 | maya_14 | 08_2, 08_4 | delight | 430 zeros scrolling past, and the 100-coins 8% answer to "is 4% a problem?". | Keep (with M11's reason). |
+| d7 | maya_14 | 09_7, 09_8 | delight | Deaths don't move the estimate: a real "huh". And the 03 split view coming back *not* flattening. | Keep. |
+| d8 | maya_14 | 10_4–10_5 | delight | I can do 30 × 24 ÷ 12 = 60, found 42, so 18 hiding, before the video says it. The bold-fish callback. | Keep. |
+| d9 | maya_14 | 10_6 | delight | Kosovo is where the dark cell stops being fish. The silence makes it land. | Keep the silence and the plain typography. |
+
+## How I checked the numbers
+
+- **Recomputed in a scratch Python run (`math.comb`, exact `Fraction`) and all correct:**
+  - **Chapters 01–02:** 1,900; 45,100; 31.4×; 8,100; 5/50 and 1/10.
+  - **Chapter 04:**
+    - 116,280 ÷ 24 = 4,845.
+    - The piles 1,365 / 2,275 / 1,050 / 150 / 5 sum to 4,845.
+    - The percents sum to 100.1 at one decimal, and whole percents sum to 100.
+    - 10 × 105 = 1,050.
+  - **Chapter 05:** 33.3; 17; the best size is 33 with score 0.318; the area is 16.67.
+  - **Chapter 06:** 529/528 and 576/578; 100/99/102; 49 − 48; 900 × 900 = 100 × 8,100; Mn − kN = +100, 0, −100; the 9,999/10,000 tie.
+  - **Chapter 07:** 11,111 and 9,091; P(k = 0) = 7.20%, about 1 in 13.9; Chapman at Feller's numbers is 9,919.8.
+  - **Chapter 08:** 10⁻⁴²⁹·²⁷ ≈ 5.35 × 10⁻⁴³⁰; 1 marked fish at a million; L(10,000) = 4.43%; coin 7.96%; 1,600 below against 2,073 above; 9%, ±30% and ±10%.
+  - **Chapters 09–10:** 12,000; 28.35; 60, 42 and 18; 9,790 inside 9,002–12,122.
+- **New numbers I computed that the fact sheet doesn't have:** the 05_3 bar heights 7.8% / 31.8% / 15.9%, and 23.6% at N = 25. Pin them in the oracle before using them.
+- **Unchecked (compared against the fact sheet only):**
+  - the simulated values: 07_4's mean of 10,080, and the 09 failure medians;
+  - the exact interval [8,400, 12,073] and the Chapman small-study means 935 and 1,241;
+  - the bugs range [47, 94];
+  - the recorded Laplace and Kosovo inputs.
