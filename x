@@ -21,6 +21,8 @@
 #   ./x <slug> master                           the PCM master of renders/final/ (every chapter final)
 #   ./x <slug> captions                         SRT and WebVTT from renders/final/ and the narration
 #   ./x <slug> verify                           the delivery gates on the master (verify_video.sh)
+#   ./x <slug> watch [scored|narrated|draft]    one file to watch: those renders in chapter order,
+#                                               stream-copied to renders/<slug>_<kind>_watch.mp4
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
 #   ./x remote-wait [UNIT] [SECONDS]            wait (default 540 s) for UNIT (default the last
@@ -33,7 +35,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,33p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,35p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -215,6 +217,26 @@ case "$cmd" in
     [ -f "$master_mp4" ] || die "no master in $finals (run ./x $slug master)"
     export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0
     exec "$check" "$master_mp4" ;;
+  watch)
+    # every chapter's draft in chapter order, stream-copied into one file to watch
+    [ $# -le 1 ] || usage
+    kind="${1:-scored}"
+    case "$kind" in narrated|scored|draft) ;; *) usage ;; esac
+    src="$crate/renders/$kind"
+    build_binary
+    list="$src/watch.concat.txt"
+    : > "$list"
+    for k in $("$binary" chapters); do
+      [ -f "$src/$k.mp4" ] || die "no $k.mp4 in $src (render it: ./x $slug $kind $k)"
+      printf "file '%s'\n" "$k.mp4" >> "$list"
+    done
+    out="$crate/renders/${slug}_${kind}_watch.mp4"
+    if [ -e "$out" ]; then
+      mkdir -p "$crate/renders/previous"
+      mv "$out" "$crate/renders/previous/${slug}_${kind}_watch.$(date +%Y%m%d-%H%M%S).mp4"
+    fi
+    ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$list" -c copy -movflags +faststart "$out"
+    echo "x: $out ($(ffprobe -v error -show_entries format=duration -of csv=p=0 "$out" | cut -d. -f1) s)" ;;
   sheets)
     sheet="$SKILLS/franken-manim-mega-skill/scripts/contact_sheet.sh"
     [ -x "$sheet" ] || die "no contact_sheet.sh under $SKILLS (set SKILLS in project.env)"
