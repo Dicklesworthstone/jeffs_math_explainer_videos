@@ -1495,13 +1495,24 @@ fn thin(spans: impl Iterator<Item = (f64, f64)>, n: usize, (down, up): (f64, f64
     g
 }
 
-/// The melody bus: melody, answers and cues, with a plate.
+/// The melody bus: melody, answers, cues and rolls, through the score's warm
+/// top (a 4th-order low-pass at [`MELODY_TOP_HZ`]: a vibraphone or marimba
+/// bar in the cue register puts its upper mode past 8 kHz, which QA hears as
+/// a click when it is struck in a quiet moment, as A's reveal at 01's
+/// prediction was), with a plate.
 fn melody_bus(events: &[Event], n: usize) -> Stereo {
     let notes: Vec<&Event> = events
         .iter()
         .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue | Track::Roll))
         .collect();
     let mut dry = render_track(&notes, n);
+    for ch in [&mut dry.l, &mut dry.r] {
+        let lp = || Biquad::new(Kind::LowPass { q: 0.707 }, MELODY_TOP_HZ);
+        let (mut a, mut b) = (lp(), lp());
+        for v in ch.iter_mut() {
+            *v = b.process(a.process(*v));
+        }
+    }
     let wet = Plate::new(0.55, 5_500.0).run(&dry, 0.0);
     add_scaled(&mut dry, &wet, 0.3);
     dry
@@ -2370,6 +2381,8 @@ fn listen_sound(path: &Path, max: usize, settle: f64) -> io::Result<Stereo> {
 
 /// The top of a sonification as the score plays it (Hz).
 const LISTEN_TOP_HZ: f64 = 5_500.0;
+/// The top of the score's own melody bus (Hz).
+const MELODY_TOP_HZ: f64 = 6_000.0;
 /// A sonification's opening rise (s).
 const LISTEN_RISE: f64 = 0.01;
 
@@ -3541,6 +3554,58 @@ mod tests {
             Some(&crate::qa::ScoreFacts::chapter(&a, 0)),
         );
         assert_eq!(r.get("clicks").unwrap().pass, Some(true), "{:?}", r.get("clicks"));
+    }
+
+    #[test]
+    fn a_bright_bar_s_upper_mode_is_tamed_on_the_melody_bus() {
+        // A's 01: a reveal dyad on the vibraphone in the cue register, struck
+        // where the music had all but stopped, flagged a click (its 10x mode
+        // past 8 kHz; on the real stem the fix took the flagged frame from
+        // -68.2 to -72.2 dB and its rise from 21.2 to 15.5 dB). The bus's warm
+        // top takes the upper mode at least 12 dB further down against the
+        // note's own level than the raw bar
+        let n = (2.0 * FS) as usize;
+        // the loudest 5 ms above 8 kHz in the first 50 ms, re the whole note (dB)
+        let hf_onset = |x: &Stereo| {
+            // the upper mode's band alone: a steep (4th-order) 8.5 kHz high-pass
+            let (mut h1, mut h2) = (
+                Biquad::new(Kind::HighPass { q: 0.707 }, 8_500.0),
+                Biquad::new(Kind::HighPass { q: 0.707 }, 8_500.0),
+            );
+            let m: Vec<f64> =
+                x.l.iter()
+                    .zip(&x.r)
+                    .map(|(a, b)| h2.process(h1.process(a + b)))
+                    .collect();
+            let at = (0.5 * FS) as usize;
+            let hf = m[at..at + 2_400]
+                .chunks(240)
+                .map(|c| c.iter().map(|v| v * v).sum::<f64>() / 240.0)
+                .fold(0.0, f64::max);
+            let all: f64 = x.l.iter().zip(&x.r).map(|(a, b)| (a + b) * (a + b)).sum::<f64>() / n as f64;
+            10.0 * (hf / all).log10()
+        };
+        for (inst, pitch) in [(Instrument::Vibraphone, 81.0), (Instrument::Marimba, 84.0)] {
+            let e = Event {
+                start: 0.5,
+                hold: 1.0,
+                track: Track::Cue,
+                inst,
+                pitch,
+                velocity: 0.6,
+                seed: 3,
+                pan: 0.0,
+            };
+            let mut raw = Stereo::silence(n);
+            let mut note = Note::new(pitch, 0.6, 1.0, 3);
+            note.pan = 0.0;
+            raw.mix_in(&instr::render(inst, &note), (0.5 * FS) as usize, 1.0);
+            let (before, after) = (hf_onset(&raw), hf_onset(&melody_bus(&[e], n)));
+            assert!(
+                before - after >= 12.0,
+                "{inst:?} at {pitch}: {before:.1} -> {after:.1} dB"
+            );
+        }
     }
 
     #[test]
