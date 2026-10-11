@@ -38,11 +38,21 @@ pub fn sentence_shares(words: &str) -> Vec<f64> {
     shares
 }
 
+/// Where `phrase` starts in `words`, as a share of the whole (by
+/// characters); `None` when `words` does not hold it.
+pub fn phrase_share(words: &str, phrase: &str) -> Option<f64> {
+    let at = words.find(phrase)?;
+    let total = words.chars().count().max(1) as f64;
+    Some(words[..at].chars().count() as f64 / total)
+}
+
 /// A line being spoken: when it started, how long it lasts, and where its
 /// sentences begin.
 pub struct Spoken {
+    id: String,
     start: f64,
     len: f64,
+    words: String,
     shares: Vec<f64>,
 }
 
@@ -60,9 +70,11 @@ impl Spoken {
             .and_then(Beat::spoken)
             .unwrap_or_default();
         Ok(Self {
+            id: id.to_owned(),
             start,
             len,
             shares: sentence_shares(&words),
+            words,
         })
     }
 
@@ -75,6 +87,17 @@ impl Spoken {
     /// Wait until `share` of the line (0 to 1) has been spoken.
     pub fn at_share(&self, stage: &mut Stage<'_>, share: f64) -> fmn::Result<()> {
         self.until(stage, self.start + share.clamp(0.0, 1.0) * self.len)
+    }
+
+    /// Wait until the words `phrase` begin (their share of the line by
+    /// characters, as for sentences); an error when the line does not hold
+    /// them, so a reworded line cannot leave its picture behind silently.
+    pub fn at_phrase(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let share = phrase_share(&self.words, phrase).ok_or_else(|| {
+            let m = format!("line {} does not say {phrase:?}", self.id);
+            fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())))
+        })?;
+        self.at_share(stage, share)
     }
 
     fn until(&self, stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
@@ -100,6 +123,15 @@ mod tests {
         assert!(s.windows(2).all(|w| w[0] < w[1]));
         // a decimal point is not a sentence end
         assert_eq!(sentence_shares("About 4.82 on average.").len(), 1);
+    }
+
+    #[test]
+    fn a_phrase_starts_at_its_share_of_the_line() {
+        assert_eq!(phrase_share("One two. Three", "One"), Some(0.0));
+        assert_eq!(phrase_share("One two. Three", "Three"), Some(9.0 / 14.0));
+        // shares count characters, not bytes
+        assert_eq!(phrase_share("÷ two", "two"), Some(2.0 / 5.0));
+        assert_eq!(phrase_share("One two", "three"), None);
     }
 
     #[test]

@@ -7,9 +7,10 @@
 use explainer_kit::Facts;
 
 use crate::decoding::{
-    ABLATION_BYTES, ABLATION_EX_OR, BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, H_RANGE, LARGEST, PEEL_EXTRA_PERCENT,
-    PEEL_PIECES, PeelRun, RACE_PIECES, RACE_SEED, RACES, STEPS_PER_SECOND, TEN, TOY_CARDS, degree_mass, dense_steps,
-    dense_time, exact_mean_spares, expected_untouched, histogram, mean_degree, mean_spares,
+    ABLATION_BYTES, ABLATION_EX_OR, ATSC_A331_YEAR, BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, H_RANGE, LARGEST,
+    LT_CODES_YEAR, MBMS_RAPTOR_YEAR, MEASURED_K10, MEASURED_LARGER, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun,
+    RACE_PIECES, RACE_SEED, RACES, RFC_6330_YEAR, RFC_ONE_IN, STEPS_PER_SECOND, TEN, TOY_CARDS, degree_mass,
+    dense_steps, dense_time, exact_mean_spares, expected_untouched, histogram, mean_degree, mean_spares,
     one_amount_lights_exhaustive, peel_runs, peel_toy, pieces_per_packet, race, race_means_within_4se,
     random_byte_card,
 };
@@ -265,6 +266,7 @@ pub fn facts() -> Result<Facts, String> {
     byte_lottery(&mut f)?;
     danger(&mut f)?;
     parking(&mut f)?;
+    two_packets(&mut f)?;
     Ok(f)
 }
 
@@ -443,6 +445,69 @@ fn danger(f: &mut Facts) -> Result<(), String> {
             py(f64::from(fails) / f64::from(trials)),
         )?;
     }
+    Ok(())
+}
+
+/// 17: the measured decoder (RECORDED, fact sheet B-F22) with its exact
+/// intervals and the ÷ 256-twice prediction, the standard's promise
+/// (SOURCED, B-F23), and the years on the cards and credits.
+fn two_packets(f: &mut Facts) -> Result<(), String> {
+    for (h, (&(fails, trials), want)) in MEASURED_K10.iter().zip(["6316", "24", "1"]).enumerate() {
+        f.pin(
+            &format!("B-F22.recorded.K10.h{h}.failures"),
+            fails,
+            want,
+            "fact sheet B-F22 (original_rq_mc_K10_1e6trials.txt)",
+        )?;
+        f.add(&format!("B-F22.recorded.K10.h{h}.trials"), trials)?;
+        f.add(
+            &format!("B-F22.recorded.K10.h{h}.rate"),
+            py(f64::from(fails) / f64::from(trials)),
+        )?;
+    }
+    for (k, fails, trials) in MEASURED_LARGER {
+        f.add(&format!("B-F22.recorded.K{k}.h0.failures"), fails)?;
+        f.add(&format!("B-F22.recorded.K{k}.h0.trials"), trials)?;
+        f.add(
+            &format!("B-F22.recorded.K{k}.h0.rate"),
+            py(f64::from(fails) / f64::from(trials)),
+        )?;
+    }
+    let predicted = f64::from(MEASURED_K10[0].0) / 65_536.0;
+    f.add("B-F22.K10.h2_failures_predicted_by_div256_twice", py(predicted))?;
+    f.add(
+        "B-F22.K10.h2_P_at_least_one_if_poisson_mean_predicted",
+        py(-(-predicted).exp_m1()),
+    )?;
+    // what the chapter prints from them (the exact intervals agree with the
+    // oracle's to about nine digits, not bit for bit, so the printed
+    // roundings are what is checked)
+    let shown = crate::chapters::two_packets::shown();
+    f.add("B-CH17.shown.K10.h0.cp95_percent", shown.h0_interval_percent.join("–"))?;
+    f.add(
+        "B-CH17.shown.K10.h2.cp95_per_million",
+        shown.h2_interval_per_million.join("–"),
+    )?;
+    for ((k, _, _), percent) in MEASURED_LARGER.iter().zip(shown.larger_percent) {
+        f.add(&format!("B-CH17.shown.K{k}.h0.percent"), percent)?;
+    }
+    f.add("B-CH17.shown.K10.h2_predicted", shown.h2_predicted)?;
+    f.add(
+        "B-CH17.shown.K10.h2_P_at_least_one_percent",
+        shown.h2_at_least_one_percent,
+    )?;
+    for (h, (&one_in, want)) in RFC_ONE_IN.iter().zip(["0.01", "0.0001", "1e-06"]).enumerate() {
+        f.pin(
+            &format!("B-F23.sourced.rfc6330_s5.8_max_fail_Kprime_plus_{h}"),
+            py(1.0 / f64::from(one_in)),
+            want,
+            "RFC 6330 §5.8 (fact sheet B-F23)",
+        )?;
+    }
+    once(f, "B-S1.sourced.rfc6330_year", RFC_6330_YEAR)?;
+    f.add("B-CH17.sourced.lt_codes_year", LT_CODES_YEAR)?;
+    f.add("B-CH17.sourced.mbms_raptor_year", MBMS_RAPTOR_YEAR)?;
+    f.add("B-CH17.sourced.atsc_a331_year", ATSC_A331_YEAR)?;
     Ok(())
 }
 

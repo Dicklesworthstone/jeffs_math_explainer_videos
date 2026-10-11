@@ -450,6 +450,70 @@ pub fn schematic_packets(block: Block, n: usize, from: u32) -> (u32, Vec<Vec<usi
 pub const ABLATION_BYTES: (u32, u32) = (646, 100_000);
 pub const ABLATION_EX_OR: (u32, u32) = (7_066, 10_000);
 
+// ------------------------------------------------ the measured decoder, 17
+
+/// RECORDED (fact sheet B-F22; `rq_mc.py` with PyPI `raptorq` 2.0.0, the Rust
+/// decoder): failures and trials at ten pieces with exactly enough packets,
+/// one extra and two extra; and (pieces, failures, trials) with exactly
+/// enough at larger blocks. Not re-run here (the K = 10 run alone took
+/// 869 s with that package).
+pub const MEASURED_K10: [(u32, u32); 3] = [(6_316, 1_000_000), (24, 1_000_000), (1, 1_000_000)];
+pub const MEASURED_LARGER: [(u32, u32, u32); 2] = [(101, 1_262, 200_000), (1_002, 108, 20_000)];
+
+/// RFC 6330 §5.8 (SOURCED, fact sheet B-F23): a compliant decoder fails at
+/// most one time in this many with exactly enough packets, one extra, two
+/// extra (averaged over random packet IDs, for each padded block size K′).
+pub const RFC_ONE_IN: [u32; 3] = [100, 10_000, 1_000_000];
+
+/// SOURCED years on 17_6's cards and 17's credits: LT codes (RFC 6330
+/// §9.2, [LTCodes], November 2002; fact sheet B-S11), RFC 6330 itself
+/// (August 2011; B-S1), 3GPP's choice of Raptor for MBMS (SP-050246, June
+/// 2005; open item 4) and the ATSC 3.0 edition read (A/331:2021; B-S1).
+pub const LT_CODES_YEAR: u32 = 2002;
+pub const RFC_6330_YEAR: u32 = 2011;
+pub const MBMS_RAPTOR_YEAR: u32 = 2005;
+pub const ATSC_A331_YEAR: u32 = 2021;
+
+/// The exact (Clopper–Pearson) two-sided 95% interval for `x` failures in
+/// `n` trials, by bisection on the binomial tails (each term summed in log
+/// space); 0 is the lower end when x = 0.
+pub fn clopper_pearson(x: u32, n: u32) -> (f64, f64) {
+    // P(X ≤ k) for X ~ Binomial(n, p)
+    let cdf = |k: u32, p: f64| -> f64 {
+        if p <= 0.0 {
+            return 1.0;
+        }
+        if p >= 1.0 {
+            return if k < n { 0.0 } else { 1.0 };
+        }
+        let (lp, lq) = (p.ln(), (-p).ln_1p());
+        let mut log_c = 0.0; // log C(n, j)
+        let mut total = 0.0;
+        for j in 0..=k {
+            if j > 0 {
+                log_c += f64::from(n - j + 1).ln() - f64::from(j).ln();
+            }
+            total += (log_c + f64::from(j) * lp + f64::from(n - j) * lq).exp();
+        }
+        total
+    };
+    let solve = |f: &dyn Fn(f64) -> bool| {
+        let (mut lo, mut hi) = (0.0_f64, 1.0_f64);
+        for _ in 0..100 {
+            let mid = (lo + hi) / 2.0;
+            if f(mid) { hi = mid } else { lo = mid }
+        }
+        (lo + hi) / 2.0
+    };
+    let lower = if x == 0 {
+        0.0
+    } else {
+        solve(&|p| 1.0 - cdf(x - 1, p) >= 0.025)
+    };
+    let upper = solve(&|p| cdf(x, p) <= 0.025);
+    (lower, upper)
+}
+
 // ------------------------------------------------------ the peeling runs, 14_6
 
 /// The runs' seed and size (the oracle's `bf18`, from `lt_peel_sim.py`).
@@ -785,6 +849,26 @@ mod tests {
         let sizes = packet_sizes(1501, 400);
         let mean = sizes.iter().sum::<usize>() as f64 / sizes.len() as f64;
         assert!((mean - pieces_per_packet()).abs() < 0.8, "{mean}");
+    }
+
+    #[test]
+    fn clopper_pearson_agrees_with_the_fact_sheet() {
+        // fact sheet B-F22: 0.616–0.647%; 1.54–3.57e-5; 2.53e-8–5.57e-6
+        let (lo, hi) = clopper_pearson(6316, 1_000_000);
+        assert!(
+            (lo - 0.006_161_659).abs() < 1e-8 && (hi - 0.006_473_211).abs() < 1e-8,
+            "{lo} {hi}"
+        );
+        let (lo, hi) = clopper_pearson(24, 1_000_000);
+        assert!(
+            (lo - 1.537_731e-5).abs() < 1e-10 && (hi - 3.570_989e-5).abs() < 1e-10,
+            "{lo} {hi}"
+        );
+        let (lo, hi) = clopper_pearson(1, 1_000_000);
+        assert!(
+            (lo - 2.531_781e-8).abs() < 1e-13 && (hi - 5.571_631e-6).abs() < 1e-11,
+            "{lo} {hi}"
+        );
     }
 
     #[test]

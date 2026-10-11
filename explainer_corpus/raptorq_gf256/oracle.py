@@ -1725,10 +1725,35 @@ def ch13():
     emit("B-F6.sourced.erdos_irrationality_year", 1948)
 
 
+# ==============================================================================================
+# Chapter 17 (lane B-3): the years on 17_6's cards and 17's credits (SOURCED)
+# ==============================================================================================
+def ch17():
+    # what 17 prints from the recorded runs (B-F22): the exact 95% intervals rounded as shown (17_1 caption in
+    # percent to 3 digits, 17_3 "0.025 to 5.6 per million"), the other block sizes in percent to 2 digits, and the
+    # 17_3 lower-third "dividing by 256 twice predicts about 0.1 failures; one or more happens about 9% of the time"
+    lo, hi = clopper_pearson(6316, 10 ** 6)
+    emit("B-CH17.shown.K10.h0.cp95_percent", f"{100 * lo:.3g}\u2013{100 * hi:.3g}")
+    lo, hi = clopper_pearson(1, 10 ** 6)
+    emit("B-CH17.shown.K10.h2.cp95_per_million", f"{1e6 * lo:.2g}\u2013{1e6 * hi:.2g}")
+    emit("B-CH17.shown.K101.h0.percent", f"{100 * 1262 / 200000:.2g}")
+    emit("B-CH17.shown.K1002.h0.percent", f"{100 * 108 / 20000:.2g}")
+    pred = 6316 / 256 ** 2
+    emit("B-CH17.shown.K10.h2_predicted", f"{pred:.1g}")
+    emit("B-CH17.shown.K10.h2_P_at_least_one_percent", f"{-100 * math.expm1(-pred):.0f}")
+    # credits "LT codes: Luby, 2002" (RFC 6330 section 9.2 [LTCodes], November 2002; B-S11)
+    emit("B-CH17.sourced.lt_codes_year", 2002)
+    # 17_6 "its older sibling was chosen for mobile broadcast in two thousand five" (3GPP SP-050246, June 2005;
+    # fact sheet open item 4)
+    emit("B-CH17.sourced.mbms_raptor_year", 2005)
+    # 17_6 card "A/331:2021" (the only ATSC 3.0 edition read; B-S1)
+    emit("B-CH17.sourced.atsc_a331_year", 2021)
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
                bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8, bs_cards, ch13):
+               bx7, bx8, bs_cards, ch13, ch17):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)

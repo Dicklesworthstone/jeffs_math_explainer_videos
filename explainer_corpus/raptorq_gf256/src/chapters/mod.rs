@@ -1,7 +1,5 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (a bright hook, the algebra quieter, the payoff fullest at 15 and 17).
-//! Each chapter starts as its storyboard's animatic and is replaced by its
-//! real scene as it is built.
 
 // Video B's look, shared by every chapter: its helpers land ahead of the
 // chapters that use them (lanes B-1, B-2, B-3); drop the allow when all 17
@@ -40,23 +38,11 @@ pub mod byte_lottery;
 pub mod danger;
 pub mod density;
 pub mod parking;
+pub mod two_packets;
 pub mod voice;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
 use explainer_kit::kit::CameraShot;
-
-use crate::STORYBOARD;
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
-            intensity: $intensity,
-        }
-    };
-}
 
 pub fn registry() -> Vec<Chapter> {
     vec![
@@ -145,6 +131,10 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(parking::Parking { kit }),
             intensity: 0.55,
         },
-        animatic!("17_two_packets", 0.6),
+        Chapter {
+            key: "17_two_packets",
+            make: |kit| Box::new(two_packets::TwoPackets { kit }),
+            intensity: 0.6,
+        },
     ]
 }
