@@ -41,7 +41,7 @@
 06_2	Cut across at one lake size. And what do you get?
 06_3	The chances from counting each netful. They add to one.
 06_4	Cut along at our three, and you get the score curve. Its heights, out to every lake size, add to sixteen and two thirds. Same mountains, two questions. What catch will this lake give, and which lake gave our catch?
-07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it. Divide one score by the other, and almost everything cancels.
+07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it. Divide one score by the other, and almost everything cancels. That leftover fraction is also how code can walk the curve, one size at a time.
 07_2	In the mystery lake, the step from thirty-two to thirty-three leaves twenty-three times twenty-three, over thirty-three times sixteen. That's five hundred twenty-nine against five hundred twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five hundred seventy-six against five hundred seventy-eight, so it goes down.
 07_3	So take the top minus the bottom, written with letters. Multiply it out. And what survives?
 07_4	Marked times second catch, minus caught twice times lake size. In the mystery lake, ten times ten, minus three times thirty-three. One. While that's positive, the score is still rising.

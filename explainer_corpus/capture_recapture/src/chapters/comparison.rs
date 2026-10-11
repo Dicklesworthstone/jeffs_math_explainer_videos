@@ -401,16 +401,31 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
         v(0.0, -1.35),
     )?;
     play!(stage; fade_in(stage.arena_mut(), result, v(0.0, 0.2), 1.0)?.rt(0.8));
+    // "That leftover fraction is also how code can walk the curve": why the
+    // cancelling matters (R3 Dev D7, Maya maya-04)
+    kit.until_sentence(stage, "07_1", 3)?;
+    let step_word = kit.text(
+        stage,
+        "each score = the one before × this fraction",
+        28.0,
+        Role::score(),
+        v(0.0, -2.45),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), step_word, v(0.0, 0.2), 1.0)?.rt(0.6));
     let note = precisely(
         kit,
         stage,
-        "L(N)/L(N−1) = (N−M)(N−n) / (N(N−M−n+k)), for N > M + n − k; code walks the curve the same way, one \
-         multiply per step (in logs for big lakes, see chapter 11)",
+        "L(N)/L(N−1) = (N−M)(N−n) / (N(N−M−n+k)), for N > M + n − k; one multiply per step, in logs for big lakes \
+         (chapter 11)",
     )?;
     play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
     kit.hold(stage)?;
     let mut clear: Vec<Box<dyn Animation>> = Vec::new();
-    for mm in [line1, line2, note].into_iter().chain(strikes).chain(cut_mobs) {
+    for mm in [line1, line2, note, step_word]
+        .into_iter()
+        .chain(strikes)
+        .chain(cut_mobs)
+    {
         let a = fade_out(stage.arena_mut(), mm, ORIGIN, 1.0)?;
         clear.push(stage.prepare(a)?);
     }
