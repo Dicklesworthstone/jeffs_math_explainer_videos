@@ -75,27 +75,27 @@
 13_3	With random byte amounts, how often is a card useless at the last slot?
 13_4	Only one time in two fifty-six. Fix every amount but one. Scaling by a nonzero byte reshuffles all two fifty-six values, so exactly one choice of that amount lands in the lit part.
 13_5	So every extra byte card divides the risk by two fifty-six. With ex-or, each extra card only roughly halves it.
-13_6	Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards rarely need even one.
+13_6	Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. The byte cards rarely need even one.
 13_7	One subtlety. A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field. All the gain comes from the other two fifty-four amounts.
-14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day.
+14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day.
 14_2	Fast codes keep cards sparse. Each card mixes only a few pieces. About half mix two, and a few mix many.
 14_3	Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling.
 14_4	Lose the card that starts it. What happens?
 14_5	Nothing moves.
 14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs get stuck around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken.
 14_7	On average, about seventy of them aren't in any card. No decoder can find those.
-14_8	Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must fix the packet count in advance, and with byte arithmetic it tops out around two hundred fifty-six. A fountain never runs dry.
+14_8	Reed-Solomon codes are the ideal. Any set of exactly enough packets rebuilds the picture. But the sender must fix the packet count in advance, and with byte arithmetic it tops out around two hundred fifty-six. A fountain never runs dry.
 15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card, of about seven pieces on average.
-15_2	Before sending, the sender adds some extra pieces, picked so that certain fixed cards all have the result zero. These free cards are never sent, because both sides know them. And every piece is in some free card, so even a piece no packet mixed can still be worked out.
+15_2	Before sending, the sender adds some extra pieces, picked so that certain fixed cards all have the result zero. These free cards are never sent, because both sides know them. And every piece is in some free card, so even a piece that no packet mixed can still be worked out.
 15_6	Big files are cut into blocks, each solved on its own. In every block, only ten to sixteen free cards are byte cards. In big blocks, hundreds of others are cheap ex-ors.
 15_3	Remember the danger meter? Now the bucket has a slot for every piece, old and new, and it still doesn't care about order. Count the ex-or cards first, and they fill it up to the last ten to sixteen slots, before the danger starts. The byte cards fill those, where a card is useless only one time in two fifty-six.
-15_4	What if those last cards were ex-or too?
+15_4	What if those last cards were plain ex-or cards?
 15_5	The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand.
 16_1	Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece, here C. Call it little c, and carry it along like an unknown in algebra.
 16_2	Three of these are our cards from the start. A is two ex-or c, and B is six ex-or A. D is six ex-or B ex-or c, so the two c's cancel, and D is two. And E follows from D.
 16_3	At the end, the leftover cards and the byte cards pin down the parked pieces. Here the leftover card, B ex-or E is fifteen, gives c as seven. It's elimination in a clever order, so it works exactly when the cards pin down every piece.
-16_4	Now the ring of five that ex-or couldn't solve. Let a byte card replace the fifth card, E plus two times A is six. Walk around the ring. Does A cancel this time?
-16_5	With ex-or, A met itself and cancelled. Now A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five. The same A, B, C, and D as at the start.
+16_4	Now the ring of five that ex-or couldn't solve. Let a new byte card replace the fifth card, E plus two times A is six. Walk around the ring. This time, does the A cancel?
+16_5	With ex-or, A met itself and cancelled. Now one A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five. The same A, B, C, and D as at the start.
 17_1	We ran a real RaptorQ decoder a million times, on small blocks of ten pieces. With exactly enough packets, it failed six thousand three hundred sixteen times. About six in a thousand.
 17_2	One more ex-or packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six. So how many failures now?
 17_3	Twenty-four. Two extra, just once. That's too rare to measure precisely. An unlucky phone just waits for one more packet.
