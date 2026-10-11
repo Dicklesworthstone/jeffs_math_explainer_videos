@@ -10,6 +10,7 @@ pub mod scoreboard;
 pub mod three_customers;
 pub mod tickets;
 pub mod ties;
+pub mod why_never_two;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -55,7 +56,11 @@ pub fn registry() -> Vec<Chapter> {
             intensity: 0.65,
         },
         animatic!("07_one_run", 0.6),
-        animatic!("08_why_never_two", 0.4),
+        Chapter {
+            key: "08_why_never_two",
+            make: |kit| Box::new(why_never_two::WhyNeverTwo { kit }),
+            intensity: 0.4,
+        },
         animatic!("09_reading_garbage_safely", 0.45),
         animatic!("10_the_old_zero", 0.45),
         animatic!("11_fair_at_a_price", 0.5),

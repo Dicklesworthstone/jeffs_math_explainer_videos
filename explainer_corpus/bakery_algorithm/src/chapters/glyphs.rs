@@ -104,6 +104,9 @@ pub const TIME: &str = "time";
 pub const BLUE_CHOOSING: &str = "Blue choosing";
 pub const GREEN_CHOOSING: &str = "Green choosing";
 pub const BLUE_IN_ROOM: &str = "Blue in the room";
+pub const GREEN_IN_ROOM: &str = "Green in the room";
+/// 08_8: the supposition, before the algebra.
+pub const SUPPOSE_BOTH: &str = "suppose both are in the room";
 pub const LAST_LOOK: &str = "Blue's last look at Green's flag";
 /// "Green: {place}", the place one of the three below.
 pub const GREEN_AT: &str = "Green:";
@@ -229,6 +232,8 @@ pub const TEXT: &[&str] = &[
     BLUE_CHOOSING,
     GREEN_CHOOSING,
     BLUE_IN_ROOM,
+    GREEN_IN_ROOM,
+    SUPPOSE_BOTH,
     LAST_LOOK,
     GREEN_AT,
     NOT_YET,
