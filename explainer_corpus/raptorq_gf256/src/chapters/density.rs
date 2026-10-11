@@ -77,6 +77,8 @@ pub struct ToyGraph {
     pub results: Vec<Option<Mob>>,
     /// (card, piece, line).
     pub edges: Vec<(usize, usize, Mob)>,
+    /// Its size: 1 is the graph beside 14_2's histogram.
+    pub scale: f64,
 }
 
 /// Badge radius, dot radius and the rows' heights from the graph's centre.
@@ -85,28 +87,36 @@ const DOT_R: f64 = 0.15;
 const PIECE_DY: f64 = 1.3;
 const CARD_DY: f64 = -1.2;
 
-/// Where piece `i` and card `j` sit in a graph centred at `centre`.
-pub fn piece_pos(centre: Vec3, i: usize) -> Vec3 {
-    v(centre[0] + (i as f64 - 2.0) * 1.3, centre[1] + PIECE_DY)
+/// The graph's size when it is the picture (14_3–14_5, 16_1).
+pub const GRAPH_BIG: f64 = 1.45;
+
+/// Where piece `i` and card `j` sit in a graph centred at `centre`, of
+/// size `k`.
+pub fn piece_pos(centre: Vec3, i: usize, k: f64) -> Vec3 {
+    v(centre[0] + (i as f64 - 2.0) * 1.3 * k, centre[1] + PIECE_DY * k)
 }
-pub fn dot_pos(centre: Vec3, j: usize) -> Vec3 {
+pub fn dot_pos(centre: Vec3, j: usize, k: f64) -> Vec3 {
     // left to right: A ⊕ B, A ⊕ C, C, B ⊕ C ⊕ D, D ⊕ E, B ⊕ E
     const SLOT: [usize; 6] = [2, 1, 3, 0, 4, 5];
-    v(centre[0] + (SLOT[j] as f64 - 2.5) * 1.1, centre[1] + CARD_DY)
+    v(centre[0] + (SLOT[j] as f64 - 2.5) * 1.1 * k, centre[1] + CARD_DY * k)
 }
 
-/// The graph of `cards` (indices into `TOY_CARDS`), detached.
-pub fn toy_graph(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, cards: &[usize]) -> fmn::Result<ToyGraph> {
-    let piece_at: Vec<Vec3> = (0..5).map(|i| piece_pos(centre, i)).collect();
-    let dot_at: Vec<Vec3> = (0..TOY_CARDS.len()).map(|j| dot_pos(centre, j)).collect();
+/// The graph of `cards` (indices into `TOY_CARDS`) at size `k`, detached.
+pub fn toy_graph(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, k: f64, cards: &[usize]) -> fmn::Result<ToyGraph> {
+    let piece_at: Vec<Vec3> = (0..5).map(|i| piece_pos(centre, i, k)).collect();
+    let dot_at: Vec<Vec3> = (0..TOY_CARDS.len()).map(|j| dot_pos(centre, j, k)).collect();
     let mut all = Vec::new();
     let mut edges = Vec::new();
     for &j in cards {
         for p in pieces_of(TOY_CARDS[j]) {
-            let a = v(dot_at[j][0], dot_at[j][1] + DOT_R);
-            let b = v(piece_at[p][0], piece_at[p][1] - BADGE_R - 0.08);
+            let a = v(dot_at[j][0], dot_at[j][1] + DOT_R * k);
+            let b = v(piece_at[p][0], piece_at[p][1] - (BADGE_R + 0.08) * k);
             let line = Line::new(a, b)
-                .style(Style::default().fill(Role::card(), 0.0).stroke(Role::card(), 2.5, 0.7))
+                .style(
+                    Style::default()
+                        .fill(Role::card(), 0.0)
+                        .stroke(Role::card(), 2.5 * k, 0.7),
+                )
                 .build()?;
             let m = stage.arena_mut().add(line);
             edges.push((j, p, m));
@@ -115,14 +125,14 @@ pub fn toy_graph(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, cards: &[usize]
     }
     let mut badges = Vec::new();
     for (i, &at) in piece_at.iter().enumerate() {
-        let b = badge(kit, stage, i, BADGE_R, at)?;
+        let b = badge(kit, stage, i, BADGE_R * k, at)?;
         badges.push(b);
         all.push(b);
     }
     let (mut dots, mut results) = (vec![None; TOY_CARDS.len()], vec![None; TOY_CARDS.len()]);
     for &j in cards {
         let d = Circle::new()
-            .radius(DOT_R)
+            .radius(DOT_R * k)
             .arc_center(dot_at[j])
             .style(flat(Role::card(), 1.0))
             .build();
@@ -130,10 +140,10 @@ pub fn toy_graph(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, cards: &[usize]
         let r = kit.tex(
             stage,
             &result(TOY_CARDS[j]).to_string(),
-            34.0,
+            34.0 * k,
             Palette::ink(),
             &[],
-            v(dot_at[j][0], dot_at[j][1] - 0.45),
+            v(dot_at[j][0], dot_at[j][1] - 0.45 * k),
         )?;
         dots[j] = Some(d);
         results[j] = Some(r);
@@ -148,6 +158,7 @@ pub fn toy_graph(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, cards: &[usize]
         dot_at,
         results,
         edges,
+        scale: k,
     })
 }
 
@@ -170,6 +181,7 @@ impl Peeling {
     /// Start on `g`, whose cards are `cards`, with `parked` moved to the
     /// right side as c.
     pub fn new(stage: &mut Stage<'_>, g: &ToyGraph, cards: &[usize], parked: Option<usize>) -> fmn::Result<Self> {
+        let k = g.scale;
         let n = TOY_CARDS.len();
         let mut left = vec![Vec::new(); n];
         for &(j, p, m) in &g.edges {
@@ -192,7 +204,7 @@ impl Peeling {
                 with_c: parked.is_some_and(|p| card >> p & 1 == 1),
             };
             let ring = Circle::new()
-                .radius(DOT_R + 0.13)
+                .radius((DOT_R + 0.13) * k)
                 .arc_center(g.dot_at[j])
                 .style(Style::default().fill(Role::lit(), 0.18).stroke(Role::lit(), 4.0, 1.0))
                 .build();
@@ -257,10 +269,13 @@ impl Peeling {
         let label = kit.tex(
             stage,
             &affine_tex(step.value),
-            34.0,
+            34.0 * g.scale,
             Role::lit(),
             &[],
-            v(g.piece_at[step.piece][0], g.piece_at[step.piece][1] + BADGE_R + 0.32),
+            v(
+                g.piece_at[step.piece][0],
+                g.piece_at[step.piece][1] + (BADGE_R + 0.32) * g.scale,
+            ),
         )?;
         self.found[step.piece] = Some(label);
         play!(stage;
@@ -303,7 +318,7 @@ impl Peeling {
             self.value[j] = v_new;
             let old = self.labels[j].expect("a built card");
             let at = stage.get_center(old);
-            let new = kit.tex(stage, &affine_tex(v_new), 34.0, Palette::ink(), &[], at)?;
+            let new = kit.tex(stage, &affine_tex(v_new), 34.0 * g.scale, Palette::ink(), &[], at)?;
             let swap = fmn::animation::replacement_transform(old, new);
             anims.push(stage.prepare(swap.rt(rt))?);
             self.labels[j] = Some(new);
@@ -452,7 +467,7 @@ impl Density {
             60.0,
             Palette::ink(),
             &[("K", Role::byte())],
-            v(2.4, 2.35),
+            v(2.4, 2.6),
         )?;
         let k_is = kit.tex(
             stage,
@@ -460,7 +475,7 @@ impl Density {
             40.0,
             Role::byte(),
             &[],
-            v(2.4, 1.2),
+            v(2.4, 1.6),
         )?;
         let count = stage.add_value_tracker(0.0);
         let mantissa = steps / 10f64.powi(steps.log10().floor() as i32);
@@ -474,18 +489,25 @@ impl Density {
             40.0,
             Palette::dim(),
             &[],
-            v(2.4, -0.45),
+            v(2.4, 0.2),
         )?;
         let hours = dense_time(k, STEPS_PER_SECOND, 3600);
         let days = dense_time(k, STEPS_PER_SECOND, 86_400);
-        let pie_at = v(0.65, -1.8);
+        let pie_at = v(0.75, -1.3);
+        let pie_r = 0.85;
         let rim = Circle::new()
-            .radius(0.5)
+            .radius(pie_r)
             .arc_center(pie_at)
             .style(line_style(Palette::dim(), 2.5))
             .build();
         let rim = stage.arena_mut().add(rim);
-        let day_word = kit.text(stage, "one day", 22.0, Palette::dim(), v(pie_at[0] - 0.95, pie_at[1]))?;
+        let day_word = kit.text(
+            stage,
+            "one day",
+            28.0,
+            Palette::dim(),
+            v(pie_at[0], pie_at[1] - pie_r - 0.3),
+        )?;
         let at_speed = kit.tex_left(
             stage,
             &format!(
@@ -493,10 +515,10 @@ impl Density {
                 hours,
                 (STEPS_PER_SECOND as f64).log10().round() as i32
             ),
-            40.0,
+            46.0,
             Palette::ink(),
             &[],
-            v(1.4, -1.8),
+            v(1.95, -1.3),
         )?;
         let note = lower_third(
             kit,
@@ -519,7 +541,7 @@ impl Density {
         play!(stage; write(stage.arena(), formula).rt(1.2));
         line.at(stage, 2)?;
         play!(stage; fade_in(stage.arena_mut(), k_is, v(0.0, -0.15), 1.0)?.rt(0.6));
-        let live = kit.live_count(stage, count, 54.0, Role::byte(), v(2.4, 0.35))?;
+        let live = kit.live_count(stage, count, 58.0, Role::byte(), v(2.4, 0.9))?;
         let up = count
             .animate()
             .set_anim_args(AnimateArgs {
@@ -540,7 +562,7 @@ impl Density {
             fade_in(stage.arena_mut(), day_word, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), at_speed, ORIGIN, 1.0)?.rt(0.8),
         );
-        let pie = day_pie(stage, share, pie_at, 0.5)?;
+        let pie = day_pie(stage, share, pie_at, pie_r)?;
         stage.play(tween(share, days, 1.6)?)?;
         stage.clear_updaters(pie, true);
         stage.clear_updaters(live, true);
@@ -575,7 +597,7 @@ impl Density {
         let group = explainer_kit::lagged(stage, anims, 0.12)?;
         stage.play(group)?;
         line.at(stage, 1)?;
-        let g = toy_graph(kit, stage, left, &all)?;
+        let g = toy_graph(kit, stage, left, 1.0, &all)?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for (j, k) in cards.iter().enumerate() {
             let to = g.dot_at[j];
@@ -676,8 +698,8 @@ impl Density {
             anims.push(stage.prepare(a.rt(0.6))?);
         }
         stage.play_prepared(anims)?;
-        let centre = v(0.0, 0.25);
-        let shift = [centre[0] - left[0], centre[1] - left[1], 0.0];
+        // the graph becomes the picture: centred, and grown to GRAPH_BIG
+        let centre = v(0.0, 0.2);
         let a = g
             .group
             .animate()
@@ -685,11 +707,13 @@ impl Density {
                 run_time: Some(1.0),
                 ..AnimateArgs::default()
             })?
-            .shift(shift)?;
+            .shift([centre[0] - left[0], centre[1] - left[1], 0.0])?
+            .scale_about(GRAPH_BIG, Some(centre), None)?;
         stage.play(a)?;
         let g = ToyGraph {
-            piece_at: g.piece_at.iter().map(|p| v(p[0] + shift[0], p[1] + shift[1])).collect(),
-            dot_at: g.dot_at.iter().map(|p| v(p[0] + shift[0], p[1] + shift[1])).collect(),
+            piece_at: (0..5).map(|i| piece_pos(centre, i, GRAPH_BIG)).collect(),
+            dot_at: (0..TOY_CARDS.len()).map(|j| dot_pos(centre, j, GRAPH_BIG)).collect(),
+            scale: GRAPH_BIG,
             ..g
         };
         let (steps, _) = peel_toy(&all, None);
@@ -703,7 +727,7 @@ impl Density {
         peeling.remove(kit, stage, &g, &steps[0], 1.0)?;
         peeling.show_ripple(stage, 0.5)?;
         line.at(stage, 3)?;
-        let name = kit.text_styled(stage, "peeling", 44.0, Role::lit(), v(0.0, 3.25), false, true)?;
+        let name = kit.text_styled(stage, "peeling", 48.0, Role::lit(), v(-5.3, 3.4), false, true)?;
         play!(stage; write(stage.arena(), name).rt(0.8));
         let note = lower_third(
             kit,
@@ -738,7 +762,7 @@ impl Density {
 
         // 14_4: start again, and lose the card that starts it
         fade_all(stage, 0.7)?;
-        let g = toy_graph(kit, stage, centre, &all)?;
+        let g = toy_graph(kit, stage, centre, GRAPH_BIG, &all)?;
         play!(stage; fade_in(stage.arena_mut(), g.group, ORIGIN, 1.0)?.rt(0.7));
         let first = steps[0].card;
         let first_dot = g.dots[first].expect("built");
@@ -768,7 +792,7 @@ impl Density {
         } else {
             "a card still has one unknown left"
         };
-        let stuck = kit.text(stage, verdict, 30.0, Palette::dim(), v(0.0, -2.75))?;
+        let stuck = kit.text(stage, verdict, 32.0, Palette::dim(), v(0.0, -3.1))?;
         kit.say(stage, "14_5")?;
         play!(stage;
             fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
@@ -1012,61 +1036,61 @@ impl Density {
         stage: &mut Stage<'_>,
         board: &explainer_kit::storyboard::ChapterBoard,
     ) -> fmn::Result<()> {
-        let head = kit.text(stage, "for programmers", 26.0, Palette::dim(), v(0.0, 3.4))?;
-        let rs_title = kit.text(stage, "Reed–Solomon", 40.0, Palette::ink(), v(-3.6, 2.5))?;
-        let fo_title = kit.text(stage, "a fountain", 40.0, Palette::ink(), v(3.6, 2.5))?;
+        let rs_title = kit.text(stage, "Reed–Solomon", 48.0, Palette::ink(), v(-3.6, 2.75))?;
+        let fo_title = kit.text(stage, "a fountain", 48.0, Palette::ink(), v(3.6, 2.75))?;
         // Reed–Solomon: a fixed row of N packets; any K of them rebuild
-        let n_shown = 12usize;
+        let n_shown = 9usize;
+        let pw = 0.6;
+        let step = pw * 1.1;
+        let x0 = -3.6 - step * (n_shown - 1) as f64 / 2.0;
         let mut row = Vec::new();
-        let (pw, x0) = (0.46, -6.35);
         for i in 0..n_shown {
-            row.push(packet(pw, Role::card()).moved_to(v(x0 + pw * 1.1 * i as f64, 1.2)));
+            row.push(packet(pw, Role::card()).moved_to(v(x0 + step * i as f64, 1.55)));
         }
         let row = stage.arena_mut().add(v_group(row));
         let kids = explainer_kit::children(stage, row);
         let any_k = kit.text(
             stage,
             "any K of the N rebuild the picture",
-            26.0,
+            32.0,
             Palette::ink(),
-            v(-3.6, 0.45),
+            v(-3.6, 0.6),
         )?;
-        let fixed = kit.text(stage, "N is fixed before sending", 26.0, Palette::ink(), v(-3.6, -0.25))?;
+        let fixed = kit.text(stage, "N is fixed before sending", 32.0, Palette::ink(), v(-3.6, -0.2))?;
         let cap = kit.tex(
             stage,
             &format!(r"\text{{with bytes: }} N \le {}", crate::decoding::rs_max_packets()),
-            38.0,
+            46.0,
             Role::byte(),
             &[],
-            v(-3.6, -1.05),
+            v(-3.6, -1.15),
         )?;
-        let wall_x = x0 + pw * 1.1 * n_shown as f64 - 0.06;
-        let wall = Line::new(v(wall_x, 0.8), v(wall_x, 1.6))
-            .style(line_style(Role::lost(), 4.0))
+        let wall_x = x0 + step * (n_shown as f64 - 0.5) + 0.04;
+        let wall = Line::new(v(wall_x, 1.1), v(wall_x, 2.0))
+            .style(line_style(Role::lost(), 5.0))
             .build()?;
         let wall = stage.arena_mut().add(wall);
-        let never = kit.text(stage, "packets never run out", 26.0, Palette::ink(), v(3.6, -2.2))?;
+        let never = kit.text(stage, "packets never run out", 32.0, Palette::ink(), v(3.6, -2.25))?;
         let note = lower_third(
             kit,
             stage,
-            "precisely:",
+            "for programmers:",
             &format!(
-                "Reed–Solomon over GF(256): N ≤ {} (q + 1); RaptorQ: up to {} ≈ {:.1} million packets per block (24-bit IDs)",
+                "Reed–Solomon over GF(256): N ≤ {} = q + 1; RaptorQ: ≈ {:.1} million packets a block",
                 crate::decoding::rs_max_packets(),
-                thousands(1u64 << crate::decoding::ESI_BITS),
                 (1u64 << crate::decoding::ESI_BITS) as f64 / 1e6
             ),
         )?;
         let line = Spoken::say(kit, stage, board, "14_8")?;
         play!(stage;
-            fade_in(stage.arena_mut(), head, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), rs_title, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), row, ORIGIN, 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
         );
         line.at(stage, 1)?;
         // any K: light a scattered handful, then another
         play!(stage; fade_in(stage.arena_mut(), any_k, ORIGIN, 1.0)?.rt(0.5));
-        for pick in [[0usize, 3, 4, 8, 10], [1, 2, 6, 9, 11]] {
+        for pick in [[0usize, 2, 3, 6, 8], [1, 4, 5, 7, 8]] {
             let mut anims: Vec<Box<dyn Animation>> = Vec::new();
             for &i in &pick {
                 let a = fmn::animation::indicate(stage.arena_mut(), kids[i], 1.25, Some([0.36, 0.82, 0.70]))?;
@@ -1083,19 +1107,19 @@ impl Density {
         play!(stage; fade_in(stage.arena_mut(), cap, ORIGIN, 1.0)?.rt(0.5));
         line.at(stage, 3)?;
         // a fountain: packets leap from a spout and fall away, endlessly
-        let spout = v(3.6, -1.65);
+        let spout = v(3.6, -1.5);
         let basin = Arc::new()
-            .radius(1.1)
+            .radius(1.3)
             .start_angle(std::f64::consts::PI * 1.15)
             .angle(std::f64::consts::PI * 0.7)
-            .arc_center(v(spout[0], spout[1] + 0.85))
+            .arc_center(v(spout[0], spout[1] + 1.1))
             .style(line_style(Role::ex_or(), 4.0))
             .build()?;
         let basin = stage.arena_mut().add(basin);
-        let jets = 22usize;
+        let jets = 26usize;
         let mut drops = Vec::new();
         for _ in 0..jets {
-            drops.push(packet(0.26, Role::card()));
+            drops.push(packet(0.34, Role::card()));
         }
         let drops = stage.arena_mut().add(v_group(drops));
         let drop_kids = explainer_kit::children(stage, drops);
@@ -1105,8 +1129,8 @@ impl Density {
                 let phase = (time / 2.4 + i as f64 / jets as f64).fract();
                 // lanes spread across ±1, alternating sides
                 let lane = ((i * 9) % jets) as f64 / (jets - 1) as f64 * 2.0 - 1.0;
-                let x = spout[0] + 1.7 * lane * phase;
-                let y = spout[1] + 4.0 * 2.7 * phase * (1.0 - phase);
+                let x = spout[0] + 2.3 * lane * phase;
+                let y = spout[1] + 4.0 * 3.3 * phase * (1.0 - phase);
                 s.move_to(m, v(x, y), ORIGIN);
                 s.set_opacity(m, (phase * 8.0).min((1.0 - phase) * 4.0).clamp(0.0, 1.0), true);
             }
@@ -1127,7 +1151,6 @@ impl Density {
             fade_in(stage.arena_mut(), fo_title, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), basin, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
         );
         kit.hold(stage)?;
         Ok(())
