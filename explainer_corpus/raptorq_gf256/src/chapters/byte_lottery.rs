@@ -587,7 +587,13 @@ impl ByteLottery {
             fade_in(stage.arena_mut(), in_gf256, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), same, ORIGIN, 1.0)?.rt(0.5),
         );
+        // so our ring of five is still stuck (R3 Maya maya-16)
         line.at(stage, 2)?;
+        play!(stage;
+            fmn::animation::indicate(stage.arena_mut(), ring.group, 1.06, None)?.rt(0.9),
+            fmn::animation::indicate(stage.arena_mut(), in_gf256, 1.15, None)?.rt(0.9),
+        );
+        line.at(stage, 3)?;
         play!(stage;
             fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8).lag(0.003),
             fade_in(stage.arena_mut(), others, ORIGIN, 1.0)?.rt(0.6),

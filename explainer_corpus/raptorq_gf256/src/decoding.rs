@@ -465,13 +465,28 @@ pub const MEASURED_LARGER: [(u32, u32, u32); 2] = [(101, 1_262, 200_000), (1_002
 /// extra (averaged over random packet IDs, for each padded block size K′).
 pub const RFC_ONE_IN: [u32; 3] = [100, 10_000, 1_000_000];
 
+/// RECORDED (fact sheet B-F22, `rq_rust/src/bin/rq_stream.rs` on the
+/// raptorq 2.0.0 crate): the hook's stream at 1,002 pieces, where the
+/// sender sends the originals in order and then repair packets, each phone
+/// loses each packet with probability 1 in 100 and keeps the first K + h it
+/// receives: failures and phones for h = 0, 1, 2 (the same phones for each h).
+pub const STREAM_PIECES: u32 = 1_002;
+pub const MEASURED_STREAM: [(u32, u32); 3] = [(21_186, 5_000_000), (98, 5_000_000), (3, 5_000_000)];
+
+/// RECORDED (`rq_rust/src/bin/rq_cost.rs`, one core of an Apple M5 Ultra):
+/// one decode of a 50,000-piece block from K + 2 packets, the median of 5
+/// runs in ms, for 1% of the originals lost then replaced by repair packets
+/// and for repair packets only, in two sets of runs each: with 8-byte pieces
+/// and with 1,280-byte pieces.
+pub const DECODE_PIECES: u32 = 50_000;
+pub const DECODE_MS_8_BYTES: [f64; 4] = [112.868, 95.967, 126.986, 98.253];
+pub const DECODE_MS_1280_BYTES: [f64; 4] = [294.388, 224.698, 315.406, 246.471];
+
 /// SOURCED years on 17_6's cards and 17's credits: LT codes (RFC 6330
 /// §9.2, [LTCodes], November 2002; fact sheet B-S11), RFC 6330 itself
-/// (August 2011; B-S1), 3GPP's choice of Raptor for MBMS (SP-050246, June
-/// 2005; open item 4) and the ATSC 3.0 edition read (A/331:2021; B-S1).
+/// (August 2011; B-S1) and the ATSC 3.0 edition read (A/331:2021; B-S1).
 pub const LT_CODES_YEAR: u32 = 2002;
 pub const RFC_6330_YEAR: u32 = 2011;
-pub const MBMS_RAPTOR_YEAR: u32 = 2005;
 pub const ATSC_A331_YEAR: u32 = 2021;
 
 /// The exact (Clopper–Pearson) two-sided 95% interval for `x` failures in

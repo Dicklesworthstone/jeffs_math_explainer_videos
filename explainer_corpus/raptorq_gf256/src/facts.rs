@@ -7,12 +7,12 @@
 use explainer_kit::Facts;
 
 use crate::decoding::{
-    ABLATION_BYTES, ABLATION_EX_OR, ATSC_A331_YEAR, BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, H_RANGE, LARGEST,
-    LT_CODES_YEAR, MBMS_RAPTOR_YEAR, MEASURED_K10, MEASURED_LARGER, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun,
-    RACE_PIECES, RACE_SEED, RACES, RFC_6330_YEAR, RFC_ONE_IN, STEPS_PER_SECOND, TEN, TOY_CARDS, degree_mass,
-    dense_steps, dense_time, exact_mean_spares, expected_untouched, histogram, mean_degree, mean_spares,
-    one_amount_lights_exhaustive, peel_runs, peel_toy, pieces_per_packet, race, race_means_within_4se,
-    random_byte_card,
+    ABLATION_BYTES, ABLATION_EX_OR, ATSC_A331_YEAR, BIG, CARD_SEED, DECODE_MS_8_BYTES, DECODE_MS_1280_BYTES,
+    DECODE_PIECES, DENSE_PIECES, ERDOS_YEAR, H_RANGE, LARGEST, LT_CODES_YEAR, MEASURED_K10, MEASURED_LARGER,
+    MEASURED_STREAM, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, RACE_PIECES, RACE_SEED, RACES, RFC_6330_YEAR,
+    RFC_ONE_IN, STEPS_PER_SECOND, STREAM_PIECES, TEN, TOY_CARDS, degree_mass, dense_steps, dense_time,
+    exact_mean_spares, expected_untouched, histogram, mean_degree, mean_spares, one_amount_lights_exhaustive,
+    peel_runs, peel_toy, pieces_per_packet, race, race_means_within_4se, random_byte_card,
 };
 
 use crate::model::{
@@ -437,6 +437,15 @@ fn danger(f: &mut Facts) -> Result<(), String> {
     f.pin("B-F19.H_min", H_RANGE.0, "10", "RFC 6330 Table 2 (fact sheet B-F19)")?;
     f.pin("B-F19.H_max", H_RANGE.1, "16", "RFC 6330 Table 2 (fact sheet B-F19)")?;
     once(f, "B-F19.Kprime_max", LARGEST.k)?;
+    // 15_7: the extra piece on chapter 3's A, B, C, and the free card's result
+    let p = crate::chapters::danger::extra_piece();
+    f.add("B-CH15.free_card.extra_piece_P", p)?;
+    f.add("B-CH15.free_card.result", PIECES[0] ^ PIECES[1] ^ PIECES[2] ^ p)?;
+    // 15_5's lower-third: the shape model at ten pieces, as printed
+    f.add(
+        "B-CH15.shown.shape_model_K10_h0_percent",
+        crate::chapters::danger::shape_model_shown(),
+    )?;
     for (key, (fails, trials)) in [("K10_gf2_hdpc_h0", ABLATION_EX_OR), ("K10_rfc_hdpc_h0", ABLATION_BYTES)] {
         f.add(&format!("B-F21.recorded.{key}.fails"), fails)?;
         f.add(&format!("B-F21.recorded.{key}.trials"), trials)?;
@@ -504,9 +513,27 @@ fn two_packets(f: &mut Facts) -> Result<(), String> {
             "RFC 6330 §5.8 (fact sheet B-F23)",
         )?;
     }
+    // 17_4's lower-third: the hook's stream with the real decoder (RECORDED)
+    for (h, (fails, phones)) in MEASURED_STREAM.iter().enumerate() {
+        f.add(&format!("B-F22.stream.K{STREAM_PIECES}.h{h}.failures"), fails)?;
+        f.add(&format!("B-F22.stream.K{STREAM_PIECES}.h{h}.trials"), phones)?;
+    }
+    f.add(&format!("B-F22.stream.K{STREAM_PIECES}.provenance_check"), "match")?;
+    f.add("B-F22.recorded.K10.provenance_check", "match")?;
+    // 14_1's lower-third: one decode of a big block (RECORDED), as printed
+    f.add("B-F22.cost.pieces", DECODE_PIECES)?;
+    f.add("B-F22.cost.T8.median_ms", list(DECODE_MS_8_BYTES.map(py)))?;
+    f.add("B-F22.cost.T1280.median_ms", list(DECODE_MS_1280_BYTES.map(py)))?;
+    f.add(
+        "B-CH14.shown.decode_seconds_T8",
+        crate::chapters::density::seconds_shown(&DECODE_MS_8_BYTES),
+    )?;
+    f.add(
+        "B-CH14.shown.decode_seconds_T1280",
+        crate::chapters::density::seconds_shown(&DECODE_MS_1280_BYTES),
+    )?;
     once(f, "B-S1.sourced.rfc6330_year", RFC_6330_YEAR)?;
     f.add("B-CH17.sourced.lt_codes_year", LT_CODES_YEAR)?;
-    f.add("B-CH17.sourced.mbms_raptor_year", MBMS_RAPTOR_YEAR)?;
     f.add("B-CH17.sourced.atsc_a331_year", ATSC_A331_YEAR)?;
     Ok(())
 }

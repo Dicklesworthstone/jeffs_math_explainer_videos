@@ -18,8 +18,8 @@ use super::hook::{chalk, field, sweep};
 use super::props::{BucketProp, RiskLadder};
 use super::voice::{Spoken, board};
 use crate::decoding::{
-    ATSC_A331_YEAR, LT_CODES_YEAR, MBMS_RAPTOR_YEAR, MEASURED_K10, MEASURED_LARGER, RFC_6330_YEAR, RFC_ONE_IN, TEN,
-    clopper_pearson,
+    ATSC_A331_YEAR, LT_CODES_YEAR, MEASURED_K10, MEASURED_LARGER, MEASURED_STREAM, RFC_6330_YEAR, RFC_ONE_IN,
+    STREAM_PIECES, TEN, clopper_pearson,
 };
 
 const KEY: &str = "17_two_packets";
@@ -103,7 +103,7 @@ impl SceneConstruct for TwoPackets {
         self.measured(&kit, stage, &board)?;
         self.originals(&kit, stage, &board)?;
         self.coda(&kit, stage, &board)?;
-        fade_all(stage, 1.2)?;
+        fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
 }
@@ -391,10 +391,21 @@ impl TwoPackets {
                 fade_in(stage.arena_mut(), t, v(0.15, 0.0), 1.0)?.rt(0.5),
             );
         }
+        // the standard's average is not the hook's stream; that one was
+        // measured too (R3 Ruth R3-09, Dev D7)
+        let (f2s, phones) = MEASURED_STREAM[2];
         let note2 = precisely(
             kit,
             stage,
-            "RFC 6330 §5.8: averaged over randomly chosen packet IDs, for each padded block size K′",
+            &format!(
+                "RFC 6330 §5.8: averaged over randomly chosen packet IDs, for each padded block size K′. The hook's \
+                 stream, originals first with 1 packet in {} lost, measured with this decoder at {} pieces: {} \
+                 failures in {} phones with two extra",
+                crate::model::LOSS_ONE_IN,
+                thousands(u64::from(STREAM_PIECES)),
+                f2s,
+                thousands(u64::from(phones)),
+            ),
         )?;
         play!(stage;
             fade_out(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.4),
@@ -474,19 +485,14 @@ impl TwoPackets {
                 v(-3.5, 1.3),
             ),
             (
-                format!("3GPP MBMS, {MBMS_RAPTOR_YEAR}"),
-                "mobile broadcast chose its older sibling, Raptor".to_owned(),
-                v(3.5, 1.3),
-            ),
-            (
                 "Linux RAID-6".to_owned(),
                 "the same byte field: survives two dead drives".to_owned(),
-                v(-3.5, -0.9),
+                v(3.5, 1.3),
             ),
             (
                 "QR codes".to_owned(),
                 "the same byte field, in every one".to_owned(),
-                v(3.5, -0.9),
+                v(0.0, -0.9),
             ),
         ];
         let mut built = Vec::new();
@@ -506,8 +512,7 @@ impl TwoPackets {
         for (k, &c) in built.iter().enumerate() {
             match k {
                 1 => line.at(stage, 1)?,
-                2 => line.at(stage, 2)?,
-                3 => line.at_phrase(stage, "and every QR code")?,
+                2 => line.at_phrase(stage, "and every QR code")?,
                 _ => {}
             }
             play!(stage; fade_in(stage.arena_mut(), c, v(0.0, -0.2), 1.0)?.rt(0.5));
@@ -543,11 +548,6 @@ impl TwoPackets {
         // and that's because a polynomial refuses to factor
         line.at(stage, 1)?;
         let fold = prime_polynomial(kit, stage, v(2.1, 1.9))?;
-        play!(stage; fade_in(stage.arena_mut(), fold, v(0.0, -0.15), 1.0)?.rt(0.8));
-        // three times seven is nine
-        line.at(stage, 2)?;
-        let secret = chalk(kit, stage, 150.0, v(2.1, -0.5))?;
-        play!(stage; write(stage.arena(), secret).rt(1.2));
         let names = names_to_search(
             kit,
             stage,
@@ -564,24 +564,48 @@ impl TwoPackets {
                 "Gaussian elimination",
             ],
         )?;
-        play!(stage; fade_in(stage.arena_mut(), names, v(0.0, 0.2), 1.0)?.rt(0.6));
+        play!(stage;
+            fade_in(stage.arena_mut(), fold, v(0.0, -0.15), 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), names, v(0.0, 0.2), 1.0)?.rt(0.8),
+        );
+        // three times seven is nine
+        line.at(stage, 2)?;
+        let secret = chalk(kit, stage, 150.0, v(2.1, -0.5))?;
+        play!(stage; write(stage.arena(), secret).rt(1.2));
         kit.hold(stage)?;
-        // the motif resolves (the score's 17_7 listen window)
-        kit.listen(stage, 3.0, "17_7")?;
-        // the receipts: where every number came from
+        // the end card: the reason and the payoff stay, the receipts come in
+        // under them, and the motif resolves over all three (the score's 17_7
+        // listen window)
         let receipts = receipts_card(
             kit,
             stage,
             &[
                 "every number: computed in facts.rs, checked against an independent oracle.py",
                 "seeded runs (the race, the peeling) replay the oracle's own random draws",
-                "measured: raptorq 2.0.0 (Rust), a million decodes per point, ten pieces",
-                "the standard's promise: RFC 6330 §5.8; recorded runs labelled as such",
+                "measured: the raptorq 2.0.0 decoder (Rust), recorded runs labelled as such",
+                "the standard's promise: RFC 6330 §5.8",
             ],
         )?;
-        fade_all(stage, 0.6)?;
-        play!(stage; fade_in(stage.arena_mut(), receipts, ORIGIN, 1.0)?.rt(0.6));
-        stage.wait(3.0)?;
+        stage.move_to(receipts, v(0.0, -2.25), ORIGIN);
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for m in [clock.group, pairs, names] {
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.6))?);
+        }
+        for (m, to) in [(fold, v(0.0, 2.75)), (secret, v(0.0, 1.0))] {
+            let a = m
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(0.6),
+                    ..AnimateArgs::default()
+                })?
+                .move_to(to, ORIGIN)?;
+            anims.push(stage.prepare(a)?);
+        }
+        let a = fade_in(stage.arena_mut(), receipts, v(0.0, 0.2), 1.0)?;
+        anims.push(stage.prepare(a.rt(0.6))?);
+        stage.play_prepared(anims)?;
+        kit.listen(stage, 3.0, "17_7")?;
         Ok(())
     }
 }
@@ -612,6 +636,12 @@ mod tests {
         // 17_4: one in a hundred, ten thousand, a million; 17_7 "Two extra
         // packets buy the standard's one in a million"
         assert_eq!(RFC_ONE_IN, [100, 10_000, 1_000_000]);
+        // 01_2 "almost every phone that catches just two packets more than it
+        // needs": the hook's own stream, measured, stays under one in a million
+        // with two extra, and each extra packet cuts the failures
+        let [(s0, n), (s1, _), (s2, _)] = MEASURED_STREAM;
+        assert!(f64::from(s2) / f64::from(n) < 1e-6 && s2 < s1 && s1 < s0);
+        assert_eq!(crate::model::LOSS_ONE_IN, 100);
         // 17_7: "Three times seven is nine"
         assert_eq!(mul(3, 7, FOLD), 9);
         assert_eq!(per_million(f0, n0), "6,316 per million");

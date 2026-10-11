@@ -1079,6 +1079,8 @@ def shape_model():
     exor = 1 - math.prod((1 - Fraction(1, 2 ** i) for i in range(H + 1, L + 1)), start=Fraction(1))
     byte = 1 - p_full_finite(256, H)
     emit("B-F21.shape_model.K10.ex_or_part_h0", exor)
+    # 15_5 lower-third (R3 Dev D3): "even random rows of its shape fail 0.49%"
+    emit("B-CH15.shown.shape_model_K10_h0_percent", f"{100 * float(fails[0]):.2g}")
     emit("B-F21.shape_model.K10.byte_part_h0", byte)
     emit("B-F21.shape_model.K10.product_form_equals_rank_sum_h0_ok", 1 - (1 - exor) * (1 - byte) == fails[0])
     emit("B-F21.shape_model.K10.ratio_h0_over_h1", fails[0] / fails[1])
@@ -1126,6 +1128,34 @@ def _binom_cdf_log(x, n, p):
         tot += math.exp(math.lgamma(n + 1) - math.lgamma(j + 1) - math.lgamma(n - j + 1)
                         + j * math.log(p) + (n - j) * math.log1p(-p))
     return tot
+
+
+# The hook's stream (R3 Ruth R3-09, Dev D7) and one big decode's cost (R3 Dev D2), recorded with the raptorq 2.0.0
+# crate itself: docs/research/raptorq_gf256/scripts/rq_rust (rq_stream.rs, rq_cost.rs).
+RECORDED_STREAM = ("rq_rust_stream_K1002_R200_5e6.txt", 1002,
+                   [(0, 5000000, 21186), (1, 5000000, 98), (2, 5000000, 3)])
+RECORDED_COST = {8: ("rq_rust_cost_K50000_T8.txt", "rq_rust_cost_K50000_T8_rep2.txt"),
+                 1280: ("rq_rust_cost_K50000_T1280.txt", "rq_rust_cost_K50000_T1280_rep2.txt")}
+
+
+def recorded_stream_and_cost():
+    fname, K, rows = RECORDED_STREAM
+    for h, trials, fails in rows:
+        emit(f"B-F22.stream.K{K}.h{h}.failures", fails)
+        emit(f"B-F22.stream.K{K}.h{h}.trials", trials)
+    emit(f"B-F22.stream.K{K}.provenance_check",
+         recorded_check(fname, rf"K={K} recv=K\+(\d+) trials=(\d+): failures=(\d+)", rows))
+    emit("B-F22.cost.pieces", 50000)
+    for T, files in RECORDED_COST.items():
+        # the medians, realistic (1% of the originals lost) then repair-only, each from both sets of runs
+        ms = []
+        for kind in ("realistic", "repair_only"):
+            for f in files:
+                txt = open(os.path.join(RESULTS, f), encoding="utf-8").read()
+                ms.append(float(re.search(rf"^{kind} stream median_ms=([0-9.]+)", txt, re.M).group(1)))
+        emit(f"B-F22.cost.T{T}.median_ms", ms)
+        lo, hi = f"{min(ms) / 1000:.1g}", f"{max(ms) / 1000:.1g}"
+        emit(f"B-CH14.shown.decode_seconds_T{T}", lo if lo == hi else f"{lo}\u2013{hi}")
 
 
 def bf22():
@@ -1733,6 +1763,14 @@ def ch13():
 # ==============================================================================================
 # Chapter 17 (lane B-3): the years on 17_6's cards and 17's credits (SOURCED)
 # ==============================================================================================
+def ch15():
+    # 15_7 (R3 Maya maya-01): with chapter 3's A, B, C = 5, 3, 7, the extra piece P = A xor B xor C and the free
+    # card A xor B xor C xor P
+    a, b, c = 5, 3, 7
+    emit("B-CH15.free_card.extra_piece_P", a ^ b ^ c)
+    emit("B-CH15.free_card.result", a ^ b ^ c ^ (a ^ b ^ c))
+
+
 def ch17():
     # what 17 prints from the recorded runs (B-F22): the exact 95% intervals rounded as shown (17_1 caption in
     # percent to 3 digits, 17_3 "0.025 to 5.6 per million"), the other block sizes in percent to 2 digits, and the
@@ -1748,9 +1786,6 @@ def ch17():
     emit("B-CH17.shown.K10.h2_P_at_least_one_percent", f"{-100 * math.expm1(-pred):.0f}")
     # credits "LT codes: Luby, 2002" (RFC 6330 section 9.2 [LTCodes], November 2002; B-S11)
     emit("B-CH17.sourced.lt_codes_year", 2002)
-    # 17_6 "its older sibling was chosen for mobile broadcast in two thousand five" (3GPP SP-050246, June 2005;
-    # fact sheet open item 4)
-    emit("B-CH17.sourced.mbms_raptor_year", 2005)
     # 17_6 card "A/331:2021" (the only ATSC 3.0 edition read; B-S1)
     emit("B-CH17.sourced.atsc_a331_year", 2021)
 
@@ -1758,7 +1793,7 @@ def ch17():
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
                bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8, bs_cards, ch13, ch17):
+               bx7, bx8, bs_cards, ch13, ch15, ch17, recorded_stream_and_cost):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)

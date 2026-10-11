@@ -42,7 +42,11 @@ a 256-element byte field, where bytes multiply as polynomials folded by one that
 The standard's figures, and our runs, are for packets chosen at random: RFC 6330 §5.8 averages over packet IDs drawn
 independently and uniformly from the whole ID range, for each padded block size K′ of its Table 2, and our decoder
 runs drew from a fixed pool of the K originals and 20,000 repair packets. A phone that loses random packets from a
-stream that sends the originals first receives a different mix of packets, which neither covers.
+stream that sends the originals first receives a different mix of packets, which neither covers, so we measured that
+too: with the same decoder at 1,002 pieces, the originals sent first and then repair packets, each packet lost with
+probability 1 in 100, 3 of 5,000,000 phones failed with two packets more than they needed (98 with one, 21,186 with
+none). On one core, that decoder rebuilt a 50,000-piece block in about a tenth of a second (8-byte pieces; 0.2 to
+0.3 s with 1,280-byte pieces), where 14_1's dense cards would take about K³/3 = 4.2×10¹³ steps.
 
 ## Precisely
 
@@ -179,15 +183,19 @@ pieces of 15_2 are counted.
 
 **15_2** RaptorQ adds S + H extra unknowns tied to the pieces by S + H fixed equations whose right side is zero (RFC
 6330 §5.3.3.3: they "evaluate to zero"); packets are ex-or cards over all of them, and the sender solves for them all
-so the first K′ packets are the originals. Every one of the L = K′ + S + H unknowns appears in some free card, for every
+so the first K packets are the originals (the K′ − K padding pieces are known zeros and are never sent); each
+original is itself one more ex-or card over the unknowns, rebuilt after that solve. On three pieces (15_7), the extra
+piece P = A ⊕ B ⊕ C makes the card A ⊕ B ⊕ C ⊕ P = 0 for every file. Being in a free card puts a piece within reach;
+whether it is recovered depends on the rank of all the cards (16_3). Every one of the L = K′ + S + H unknowns appears in some free card, for every
 one of the standard's 477 block sizes. Model: with exactly K′ = 10,017 packets, about 85 of the 10,111 LT symbols are in
 no packet; the 252 free cards still reach them.
 
-**15_6** Big files are cut into blocks of up to 56,403 pieces; each block decodes on its own. H, the number of byte
+**Blocks** Big files are cut into blocks of up to 56,403 pieces; each block decodes on its own. H, the number of byte
 rows, is between 10 and 16 for all 477 block sizes; at 10,017 pieces there are S = 241 ex-or rows and H = 11 byte rows.
 
-**15_3** The ex-or rows always stop exactly H short of the unknowns: L − H = K′ + S, so 17 of 27 slots at ten pieces
-and 10,258 of 10,269 at 10,017. "One time in 256" is the model for uniform byte rows; the standard's byte rows are
+**15_3** The ex-or rows always number exactly H fewer than the unknowns: L − H = K′ + S, so 17 of 27 slots at ten
+pieces and 10,258 of 10,269 at 10,017. They almost always fill those slots: in the uniform model the ex-or rows fall
+short with probability 0.098% at ten pieces, and RaptorQ's sparse rows do so somewhat more often. "One time in 256" is the model for uniform byte rows; the standard's byte rows are
 structured (at ten pieces, uniform random byte rows failed 137 / 20,000 = 0.685% and the standard's 0.646%).
 
 **15 (model)** Random rows in RaptorQ's own shape at ten pieces (17 uniform 0/1 rows and 10 uniform byte rows over 27

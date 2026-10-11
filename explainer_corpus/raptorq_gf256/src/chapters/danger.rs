@@ -1,27 +1,27 @@
 //! Chapter 15, where the danger lives: RaptorQ's packets are plain ex-or
-//! cards of about seven pieces (15_1); the sender adds extra pieces so that
-//! fixed free cards all have the result zero, drawn as the ten-piece grid,
-//! 27 × 27 (15_2); big files are cut into blocks, each with only 10 to 16
-//! byte cards (15_6); the bucket fills with ex-or cards up to its last few
-//! slots, and the byte cards close them (15_3); with ex-or there instead
-//! (15_4), the lottery again: the recorded ablation, 70.7% against 0.646%
-//! (15_5).
+//! cards of about seven pieces (15_1); an extra piece P = A ⊕ B ⊕ C makes
+//! the card A ⊕ B ⊕ C ⊕ P zero for any file, a free card (15_7); the sender
+//! adds extra pieces so that fixed free cards all have the result zero,
+//! drawn as the ten-piece grid, 27 × 27 (15_2); the bucket fills with ex-or
+//! cards up to its last few slots, and the byte cards close them (15_3);
+//! with ex-or there instead (15_4), the lottery again: the recorded
+//! ablation, 70.7% against 0.646% (15_5).
 
-use explainer_kit::props::{RowStrips, lower_third, precisely, predict_pause};
+use explainer_kit::props::{RowStrips, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, thousands, v};
 use explainer_score::Stereo;
 use fmn::prelude::*;
 
-use super::draw::{OPLUS, Role, flat, group_of, line_style};
+use super::draw::{OPLUS, Role, badge, flat, group_of, line_style};
 use super::lottery::{Draw, rank_chord};
 use super::props::{BucketProp, DangerMeter};
 use super::sound;
 use super::voice::{Spoken, board};
 use crate::decoding::{
-    ABLATION_BYTES, ABLATION_EX_OR, BIG, Block, H_RANGE, LARGEST, RaceRun, TEN, ldpc_row, packet_sizes,
-    pieces_per_packet, race, schematic_packets,
+    ABLATION_BYTES, ABLATION_EX_OR, BIG, Block, RaceRun, TEN, ldpc_row, packet_sizes, pieces_per_packet, race,
+    schematic_packets,
 };
-use crate::model::{p_full, useless_chance};
+use crate::model::{PIECES, p_full, useless_chance};
 
 const KEY: &str = "15_where_the_danger_lives";
 /// The seed of 15_1's packets, and where 15_2's schematic search starts.
@@ -31,6 +31,82 @@ const GRID_SEED_FROM: u32 = 1502;
 /// An empty cell of the grid: a shade above the background.
 fn empty() -> Srgb {
     hex("#161B24")
+}
+
+/// 15_7's extra piece on three pieces: P = A ⊕ B ⊕ C, with chapter 3's
+/// values.
+pub fn extra_piece() -> u8 {
+    PIECES[0] ^ PIECES[1] ^ PIECES[2]
+}
+
+/// The shape model at ten pieces with exactly enough packets (fact sheet
+/// B-F21, the description's "15 (model)"): uniform 0/1 rows for the S + K′
+/// ex-or rows and uniform byte rows for the H byte rows, in Ruth's product
+/// form 1 − Π_{i=H+1..L} (1 − 2⁻ⁱ) · Π_{i=1..H} (1 − 256⁻ⁱ).
+pub fn shape_model_fail() -> f64 {
+    let b = TEN;
+    let ex_or: f64 = (b.h + 1..=b.l()).map(|i| 1.0 - 0.5f64.powi(i as i32)).product();
+    let bytes: f64 = (1..=b.h).map(|i| 1.0 - 256f64.powi(-(i as i32))).product();
+    1.0 - ex_or * bytes
+}
+
+/// 15_5's printed shape-model rate, in percent to two digits ("0.49").
+pub fn shape_model_shown() -> String {
+    super::byte_lottery::sig_digits(100.0 * shape_model_fail(), 2)
+}
+
+/// The extra piece's badge: a circle in the hero role with "P", `r` its size.
+fn extra_badge(kit: &Kit, stage: &mut Stage<'_>, r: f64, at: Vec3) -> fmn::Result<Mob> {
+    let ring = Circle::new()
+        .radius(r * 0.95)
+        .arc_center(at)
+        .style(
+            Style::default()
+                .fill(Palette::hero(), 0.10)
+                .stroke(Palette::hero(), (r * 9.0).max(1.5), 1.0),
+        )
+        .build();
+    let ring = stage.arena_mut().add(ring);
+    let letter = kit.text(stage, "P", r * 95.0, Palette::hero(), at)?;
+    group_of(stage, &[ring, letter])
+}
+
+/// 15_7's free card, `h` tall and centred at `at`: A ⊕ B ⊕ C ⊕ P = 0 in
+/// chapter 3's card style, the extra piece's badge last.
+fn free_card(kit: &Kit, stage: &mut Stage<'_>, h: f64, at: Vec3) -> fmn::Result<Mob> {
+    let (r, slot, gap) = (h * 0.27, h * 0.95, h * 0.55);
+    let eq = kit.tex(stage, "= 0", h * 52.0, Palette::ink(), &[], at)?;
+    let eq_w = stage.get_width(eq);
+    let w = h * 0.5 + 4.0 * slot + 3.0 * gap + h * 0.3 + eq_w;
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(h * 0.16)
+        .style(
+            Style::default()
+                .fill(super::draw::card_fill(), 0.96)
+                .stroke(Role::ex_or(), (h * 6.0).max(2.0), 1.0),
+        )
+        .build()?
+        .moved_to(at);
+    let mut all = vec![stage.arena_mut().add(back)];
+    let mut x = at[0] - w / 2.0 + h * 0.25;
+    for k in 0..4 {
+        if k > 0 {
+            all.push(kit.tex(stage, OPLUS, h * 52.0, Role::ex_or(), &[], v(x + gap / 2.0, at[1]))?);
+            x += gap;
+        }
+        let c = v(x + slot / 2.0, at[1]);
+        all.push(if k < 3 {
+            badge(kit, stage, k, r, c)?
+        } else {
+            extra_badge(kit, stage, r, c)?
+        });
+        x += slot;
+    }
+    stage.move_to(eq, v(x + h * 0.3, at[1]), LEFT);
+    all.push(eq);
+    group_of(stage, &all)
 }
 
 /// A packet as an ex-or card of `n` unnamed pieces (small squares joined by
@@ -139,8 +215,8 @@ impl SceneConstruct for Danger {
         let kit = self.kit.clone();
         let board = board(KEY)?;
         self.cheap(&kit, stage, &board)?;
+        self.free_card(&kit, stage, &board)?;
         self.grid(&kit, stage, &board)?;
-        self.blocks(&kit, stage, &board)?;
         // the 15_5 listen window is the chapter's breath: no second hold
         self.bucket(&kit, stage, &board)?;
         fade_all(stage, 1.0)?;
@@ -226,6 +302,15 @@ impl Danger {
             let p = at(0.0, (c0 + c1) / 2.0);
             labels.push(kit.text(stage, s, 26.0, *color, v(p[0], p[1] + 0.3))?);
         }
+        // every column is an unknown: the originals are cards over them too
+        let all = at(0.0, b.l() as f64 / 2.0);
+        labels.push(kit.text(
+            stage,
+            &format!("{} unknowns", b.l()),
+            30.0,
+            Palette::ink(),
+            v(all[0], all[1] + 0.72),
+        )?);
         let row_heads = [
             (format!("{} free ex-or cards", b.s), 0, b.s, Role::ex_or()),
             (format!("{} free byte cards", b.h), b.s, b.s + b.h, Role::byte()),
@@ -242,8 +327,7 @@ impl Danger {
             fade_in(stage.arena_mut(), strips.group, ORIGIN, 1.0)?.rt(1.0),
             fade_in(stage.arena_mut(), labels, ORIGIN, 1.0)?.rt(1.0),
         );
-        line.at_share(stage, 0.3)?;
-        // every free card's result is zero
+        // so that many fixed cards are zero like this
         let mut zeros = Vec::new();
         for r in 0..b.s + b.h {
             let p = at(r as f64 + 0.5, b.l() as f64);
@@ -251,11 +335,11 @@ impl Danger {
         }
         let zeros = group_of(stage, &zeros)?;
         play!(stage; fade_in(stage.arena_mut(), zeros, v(-0.2, 0.0), 1.0)?.rt(0.8).lag(0.05));
-        line.at(stage, 1)?;
-        let never = kit.text_left(stage, "never sent:", 28.0, Palette::dim(), v(3.25, 1.35))?;
+        let never = kit.text_left(stage, "free cards, never sent:", 28.0, Palette::dim(), v(3.25, 1.35))?;
         let know = kit.text_left(stage, "both sides know them", 28.0, Palette::dim(), v(3.25, 0.95))?;
         let never = group_of(stage, &[never, know])?;
         play!(stage; fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(0.5));
+        // even one that no packet mixed sits in an equation
         line.at(stage, 2)?;
         // a piece no packet mixed: its column is empty in every packet row...
         let col_x = at(0.0, out as f64)[0];
@@ -291,9 +375,9 @@ impl Danger {
         let note = precisely(
             kit,
             stage,
-            "RaptorQ adds S + H extra unknowns tied to the pieces by S + H fixed equations whose right side is \
-             zero; packets are ex-or cards over all of them; the sender solves for them all so the first K′ \
-             packets are the originals",
+            "RaptorQ adds S + H extra unknowns and S + H fixed equations with result zero; packets and originals \
+             alike are ex-or cards over all of them, so the sender solves once and sends the K originals first \
+             (the K′ − K padding pieces are known zeros, never sent)",
         )?;
         play!(stage;
             fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.5),
@@ -303,151 +387,87 @@ impl Danger {
         Ok(())
     }
 
-    /// 15_6: blocks, and a big block's few byte cards (schematic).
-    fn blocks(
+    /// 15_7: a free card on three pieces, checkable with chapter 3's values.
+    fn free_card(
         &self,
         kit: &Kit,
         stage: &mut Stage<'_>,
         board: &explainer_kit::storyboard::ChapterBoard,
     ) -> fmn::Result<()> {
-        let line = Spoken::say(kit, stage, board, "15_6")?;
+        let line = Spoken::say(kit, stage, board, "15_7")?;
         fade_all(stage, 0.6)?;
-        // a file, cut into blocks
-        let n = 5;
-        let (x0, w, y) = (-6.0, 12.0, 2.75);
-        let mut parts = Vec::new();
-        for i in 0..n {
-            let bw = w / n as f64;
-            parts.push(explainer_kit::rect(
-                v(x0 + bw * i as f64, y - 0.25),
-                bw,
-                0.5,
-                flat(Role::card(), 0.35),
-            )?);
-        }
-        let file = stage.arena_mut().add(v_group(parts));
-        let pieces = explainer_kit::children(stage, file);
-        let file_word = kit.text(stage, "a big file", 28.0, Palette::dim(), v(0.0, y + 0.5))?;
-        play!(stage;
-            fade_in(stage.arena_mut(), file, ORIGIN, 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), file_word, ORIGIN, 1.0)?.rt(0.6),
-        );
-        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        for (i, &p) in pieces.iter().enumerate() {
-            let a = p
-                .animate()
-                .set_anim_args(AnimateArgs {
-                    run_time: Some(0.8),
-                    ..AnimateArgs::default()
-                })?
-                .shift([(i as f64 - (n - 1) as f64 / 2.0) * 0.25, 0.0, 0.0])?;
-            anims.push(stage.prepare(a)?);
-        }
-        let blocks_word = kit.text(
-            stage,
-            "blocks, each solved on its own",
-            28.0,
-            Palette::dim(),
-            v(0.0, y + 0.5),
-        )?;
-        let a = fmn::animation::replacement_transform(file_word, blocks_word);
-        anims.push(stage.prepare(a.rt(0.8))?);
-        stage.play_prepared(anims)?;
-        line.at(stage, 1)?;
-        // one big block as a schematic: its columns and its rows, not to scale
-        let b = BIG;
-        let (cx, cy, side) = (0.6, -0.55, 3.6);
-        let (left, top) = (cx - side / 2.0, cy + side / 2.0);
-        let col_split = 0.78;
-        let bands = [
-            (0.0, 0.16, Role::ex_or(), 0.55),
-            (0.16, 0.23, Role::byte(), 0.85),
-            (0.23, 1.0, Role::ex_or(), 0.22),
-        ];
-        let mut rects = Vec::new();
-        for &(t0, t1, color, o) in &bands {
-            rects.push(explainer_kit::rect(
-                v(left, top - side * t1),
-                side,
-                side * (t1 - t0) - 0.03,
-                flat(color, o),
-            )?);
-        }
-        rects.push(
-            Line::new(v(left + side * col_split, top), v(left + side * col_split, top - side))
-                .style(line_style(Palette::ink(), 2.5))
-                .build()?,
-        );
-        let square = stage.arena_mut().add(v_group(rects));
-        let mut words = vec![
-            kit.text(
+        let p = extra_piece();
+        let [a, b, c, ..] = PIECES;
+        // the pieces A, B and C, with their values
+        let r = 0.36;
+        let mut row = Vec::new();
+        for (i, x) in [-5.6, -3.2, -0.8].into_iter().enumerate() {
+            let m = badge(kit, stage, i, r, v(x, 2.4))?;
+            let val = kit.text_left(
                 stage,
-                &format!("{} pieces", thousands(b.k as u64)),
-                24.0,
+                &format!("= {}", PIECES[i]),
+                40.0,
                 Palette::ink(),
-                v(left + side * col_split / 2.0, top + 0.3),
-            )?,
-            kit.text(
-                stage,
-                &format!("{} extra", b.extra()),
-                24.0,
-                Palette::ink(),
-                v(left + side * (1.0 + col_split) / 2.0, top + 0.3),
-            )?,
-        ];
-        let band_label = |t0: f64, t1: f64| v(left - 0.25, top - side * (t0 + t1) / 2.0);
-        for (s, (t0, t1, color, _)) in [
-            format!("{} free ex-or cards", b.s),
-            format!("{} free byte cards", b.h),
-            format!("{} packets", thousands(b.k as u64)),
-        ]
-        .iter()
-        .zip(bands)
-        {
-            let m = kit.text(
-                stage,
-                s,
-                24.0,
-                if color == Role::byte() { color } else { Palette::ink() },
-                ORIGIN,
+                v(x + 0.5, 2.4),
             )?;
-            stage.move_to(m, band_label(t0, t1), RIGHT);
-            words.push(m);
+            row.push(group_of(stage, &[m, val])?);
         }
-        words.push(kit.text(stage, "not to scale", 20.0, Palette::dim(), v(cx, top - side - 0.25))?);
-        let words = group_of(stage, &words)?;
-        let few = kit.text_left(
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in &row {
+            let a = fade_in(stage.arena_mut(), m, v(0.0, -0.2), 1.0)?;
+            anims.push(stage.prepare(a.rt(0.5))?);
+        }
+        let shown = explainer_kit::lagged(stage, anims, 0.15)?;
+        stage.play(shown)?;
+        // with three pieces, add P = A ⊕ B ⊕ C
+        line.at(stage, 1)?;
+        let pb = extra_badge(kit, stage, r, v(2.2, 2.4))?;
+        let pv = kit.text_left(stage, &format!("= {p}"), 40.0, Palette::hero(), v(2.7, 2.4))?;
+        let extra = kit.text(stage, "an extra piece", 26.0, Palette::dim(), v(2.6, 1.8))?;
+        let def = kit.tex(
             stage,
-            &format!("{} to {} in every block", H_RANGE.0, H_RANGE.1),
-            32.0,
-            Role::byte(),
-            v(left + side + 0.35, top - side * 0.195),
+            &format!(r"P = A \oplus B \oplus C = {a} \oplus {b} \oplus {c} = {p}"),
+            44.0,
+            Palette::ink(),
+            &[],
+            v(0.0, 0.9),
         )?;
         play!(stage;
-            fade_in(stage.arena_mut(), square, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), words, ORIGIN, 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), pb, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), pv, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), extra, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), def, v(0.0, 0.15), 1.0)?.rt(0.7),
         );
-        play!(stage; fade_in(stage.arena_mut(), few, v(-0.2, 0.0), 1.0)?.rt(0.6));
+        // then A ⊕ B ⊕ C ⊕ P is always zero
         line.at(stage, 2)?;
-        let cheap = kit.text_left(
+        let card = free_card(kit, stage, 0.9, v(0.0, -0.75))?;
+        let check = kit.tex(
             stage,
-            &format!("{} cheap ex-or cards", b.s),
-            32.0,
-            Role::ex_or(),
-            v(left + side + 0.35, top - side * 0.08),
+            &format!(r"{a} \oplus {b} \oplus {c} \oplus {p} = {}", a ^ b ^ c ^ p),
+            36.0,
+            Palette::dim(),
+            &[],
+            v(0.0, -1.75),
         )?;
-        let note = lower_third(
-            kit,
+        play!(stage; fade_in(stage.arena_mut(), card, v(0.0, 0.2), 1.0)?.rt(0.7));
+        play!(stage; fade_in(stage.arena_mut(), check, ORIGIN, 1.0)?.rt(0.5));
+        // both sides know that card, so it's never sent
+        line.at(stage, 3)?;
+        let never = kit.text(
             stage,
-            "precisely:",
-            &format!(
-                "big files are cut into blocks of up to {} pieces; each block decodes on its own",
-                thousands(LARGEST.k as u64)
-            ),
+            "both sides know this card, so it is never sent",
+            30.0,
+            Palette::dim(),
+            v(0.0, -2.55),
         )?;
+        play!(stage; fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(0.5));
+        // it's a free card
+        line.at(stage, 4)?;
+        let tag = kit.text(stage, "a free card", 40.0, Palette::hero(), v(0.0, 0.05))?;
         play!(stage;
-            fade_in(stage.arena_mut(), cheap, v(-0.2, 0.0), 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
+            fade_out(stage.arena_mut(), def, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.5),
+            fmn::animation::indicate(stage.arena_mut(), card, 1.08, None)?.rt(0.8),
         );
         Ok(())
     }
@@ -469,7 +489,7 @@ impl Danger {
         let meter = DangerMeter::on(kit, stage, &bucket, 0.0)?;
         let label = kit.text(
             stage,
-            &format!("the big block: {} slots", thousands(big.l() as u64)),
+            &format!("our picture's block: {} slots", thousands(big.l() as u64)),
             26.0,
             Palette::ink(),
             v(-2.4, -3.25),
@@ -611,27 +631,30 @@ impl Danger {
         ];
         let mut heads = Vec::new();
         for (title, color, x, _) in &sides {
-            heads.push(kit.text(stage, title, 38.0, *color, v(*x, 2.9))?);
+            heads.push(kit.text(stage, title, 36.0, *color, v(*x, 3.3))?);
         }
-        let caption = kit.text(
+        // why six in a thousand is a little worse than one in 256 (R3 Dev D3)
+        let caption = precisely(
+            kit,
             stage,
             &format!(
-                "{} pieces · {} / {} trials · our RFC 6330 implementation",
+                "{} pieces, {} and {} trials, our RFC 6330 implementation. Worse than 1 in {} because RaptorQ's \
+                 ex-or cards are sparse and fixed: even random rows of its shape fail {}%",
                 ten.k,
                 thousands(u64::from(ABLATION_EX_OR.1)),
-                thousands(u64::from(ABLATION_BYTES.1))
+                thousands(u64::from(ABLATION_BYTES.1)),
+                (1.0 / (1.0 - p_full(256, 1, 0))).round(),
+                shape_model_shown(),
             ),
-            24.0,
-            Palette::dim(),
-            v(0.0, -3.3),
         )?;
         play!(stage;
             fade_in(stage.arena_mut(), heads[0], ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), heads[1], ORIGIN, 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), caption, v(0.0, 0.2), 1.0)?.rt(0.5),
         );
         let t = stage.add_value_tracker(0.0);
         let mut live = Vec::new();
+        let mut counts = Vec::new();
         let bar_w = 4.4;
         for (_, color, x, (fails, trials)) in &sides {
             let share = f64::from(*fails) / f64::from(*trials);
@@ -665,16 +688,21 @@ impl Danger {
             let bar = explainer_kit::live_bar(stage, t, v(left, 0.4), bar_w * share, 0.3, Role::lost())?;
             play!(stage;
                 fade_in(stage.arena_mut(), sign, ORIGIN, 1.0)?.rt(0.4),
-                fade_in(stage.arena_mut(), of, ORIGIN, 1.0)?.rt(0.4),
                 fade_in(stage.arena_mut(), whole, ORIGIN, 1.0)?.rt(0.4),
             );
             live.extend([pct, bar]);
+            counts.push(of);
         }
         line.at(stage, 1)?;
         stage.play(explainer_kit::tween(t, 1.0, 1.6)?)?;
         for m in live {
             stage.clear_updaters(m, true);
         }
+        // the counts arrive with the percentages they make, never before
+        play!(stage;
+            fade_in(stage.arena_mut(), counts[0], ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), counts[1], ORIGIN, 1.0)?.rt(0.4),
+        );
         // the listen window: one run of each kind fills its last slots in time
         // with its rank chord: the ex-or run thuds and stops a slot short, the
         // byte run completes
@@ -800,14 +828,19 @@ mod tests {
                 "column {c} in a free card"
             );
         }
-        // 15_6: "only ten to sixteen free cards are byte cards"; "hundreds of
-        // others": the blocks drawn sit in H's range (facts pin the range and S)
-        for b in [TEN, BIG, LARGEST] {
-            assert!((H_RANGE.0..=H_RANGE.1).contains(&b.h), "{}", b.k);
-        }
-        assert!([BIG, LARGEST].iter().all(|b| b.s >= 100));
+        // 15_7: P = A ⊕ B ⊕ C makes A ⊕ B ⊕ C ⊕ P "always zero": for any
+        // values, not just chapter 3's
+        let p = extra_piece();
+        assert_eq!(PIECES[0] ^ PIECES[1] ^ PIECES[2] ^ p, 0);
+        assert!((0..=255u8).all(|a| (0..=255u8).all(|b| a ^ b ^ (a ^ b) == 0)));
         // 15_3: the ex-or cards fill all but the last ten to sixteen slots
-        for b in [TEN, BIG, LARGEST] {
+        // (H's range is pinned in facts)
+        for b in [TEN, BIG, crate::decoding::LARGEST] {
+            assert!(
+                (crate::decoding::H_RANGE.0..=crate::decoding::H_RANGE.1).contains(&b.h),
+                "{}",
+                b.k
+            );
             assert_eq!(b.l() - b.ex_or_slots(), b.h);
         }
         // 15_5: "About seventy-one percent failure"; "about six in a thousand"
@@ -815,6 +848,10 @@ mod tests {
         assert_eq!((x * 100.0).round(), 71.0);
         let b = f64::from(ABLATION_BYTES.0) / f64::from(ABLATION_BYTES.1);
         assert_eq!((b * 1000.0).round(), 6.0);
+        // 15_5's lower-third: the shape model sits between 1 in 256 and the measurement
+        let model = shape_model_fail();
+        assert!(1.0 - p_full(256, 1, 0) < model && model < b, "{model}");
+        assert_eq!(shape_model_shown(), "0.49");
         let s = last_slots_chord(TEN.k, 3.0);
         assert!(s.is_finite() && s.peak() > 0.0);
     }

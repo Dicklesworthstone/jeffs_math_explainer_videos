@@ -1,0 +1,18 @@
+[package]
+name = "rqmeasure"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# its own workspace: a research harness, not part of the repository's
+[workspace]
+
+[dependencies]
+raptorq = "=2.0.0"
+rand = "=0.8.5"
+rand_chacha = "=0.3.1"
+
+[profile.release]
+opt-level = 3
+debug = false
+strip = "none"

@@ -21,9 +21,19 @@ use super::draw::{OPLUS, Role, badge, card, flat, group_of, line_style};
 use super::picture::{SIDE, cell};
 use super::voice::{Spoken, board};
 use crate::decoding::{
-    Affine, DEGREE_TABLE, DENSE_PIECES, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, PeelStep, STEPS_PER_SECOND,
-    TOY_CARDS, degree_mass, dense_steps, dense_time, mean_degree, peel_runs, peel_toy,
+    Affine, DECODE_MS_8_BYTES, DECODE_MS_1280_BYTES, DECODE_PIECES, DEGREE_TABLE, DENSE_PIECES, PEEL_EXTRA_PERCENT,
+    PEEL_PIECES, PeelRun, PeelStep, STEPS_PER_SECOND, TOY_CARDS, degree_mass, dense_steps, dense_time, mean_degree,
+    peel_runs, peel_toy,
 };
+
+/// Recorded decode times (ms) as 14_1 prints them, in seconds to one digit:
+/// "0.1", or "0.2–0.3" when the runs round apart.
+pub fn seconds_shown(ms: &[f64]) -> String {
+    let s = |x: f64| super::byte_lottery::sig_digits(x / 1000.0, 1);
+    let lo = s(ms.iter().copied().fold(f64::INFINITY, f64::min));
+    let hi = s(ms.iter().copied().fold(0.0, f64::max));
+    if lo == hi { lo } else { format!("{lo}–{hi}") }
+}
 use crate::model::{pieces_of, result};
 
 const KEY: &str = "14_the_price_of_density";
@@ -524,10 +534,15 @@ impl Density {
             stage,
             "for programmers:",
             &format!(
-                "even ten times faster, still ≈ {:.1} h; the matrix alone is {:.1} GB; double the pieces, {}× the work",
+                "even ten times faster, still ≈ {:.1} h; the matrix alone is {:.1} GB; double the pieces, {}× the \
+                 work. Measured: the raptorq 2.0.0 decoder rebuilds a {}-piece block in about {} s on one core \
+                 ({} s with 1,280-byte pieces)",
                 dense_time(k, STEPS_PER_SECOND * 10, 3600),
                 (k * k) as f64 / 1e9,
                 (2 * k).pow(3) / k.pow(3),
+                thousands(u64::from(DECODE_PIECES)),
+                seconds_shown(&DECODE_MS_8_BYTES),
+                seconds_shown(&DECODE_MS_1280_BYTES),
             ),
         )?;
 
@@ -717,13 +732,26 @@ impl Density {
         };
         let (steps, _) = peel_toy(&all, None);
         let mut peeling = Peeling::new(stage, &g, &all, None)?;
+        // each dot is a card, and each line goes to a piece it uses (R3
+        // Maya maya-17): the leftmost dot, B ⊕ C ⊕ D, and its piece B
         line.at(stage, 1)?;
+        let (dot, piece) = (g.dot_at[3], g.piece_at[1]);
+        let card_word = kit.text(stage, "a card", 28.0, Palette::ink(), ORIGIN)?;
+        stage.move_to(card_word, v(dot[0] - 0.3, dot[1]), RIGHT);
+        let piece_word = kit.text(stage, "a piece", 28.0, Palette::ink(), v(piece[0], piece[1] + 0.62))?;
+        play!(stage; fade_in(stage.arena_mut(), card_word, ORIGIN, 1.0)?.rt(0.5));
+        play!(stage; fade_in(stage.arena_mut(), piece_word, ORIGIN, 1.0)?.rt(0.5));
+        line.at(stage, 2)?;
+        play!(stage;
+            fade_out(stage.arena_mut(), card_word, ORIGIN, 1.0)?.rt(0.4),
+            fade_out(stage.arena_mut(), piece_word, ORIGIN, 1.0)?.rt(0.4),
+        );
         peeling.show_ripple(stage, 0.5)?;
         peeling.give(kit, stage, &g, &steps[0], 1.0)?;
-        line.at(stage, 2)?;
+        line.at(stage, 3)?;
         peeling.remove(kit, stage, &g, &steps[0], 1.0)?;
         peeling.show_ripple(stage, 0.5)?;
-        line.at(stage, 3)?;
+        line.at(stage, 4)?;
         let name = kit.text_styled(stage, "peeling", 48.0, Role::lit(), v(-5.3, 3.4), false, true)?;
         play!(stage; write(stage.arena(), name).rt(0.8));
         let note = lower_third(
@@ -842,9 +870,11 @@ impl Density {
         fade_all(stage, 0.6)?;
         play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.6));
         let mut keep = Vec::new();
+        let mut extra_top = 0.0;
         for (g, top) in groups {
             if g == 1 {
                 line.at(stage, 1)?;
+                extra_top = top;
             }
             let pct = PEEL_EXTRA_PERCENT[g];
             let cards = runs[g][0].cards;
@@ -922,13 +952,27 @@ impl Density {
             missing.iter().max().copied().unwrap_or(0),
         );
         line.at(stage, 2)?;
+        // the range covers only the runs that kept going; a run that stalled
+        // early is marked at its own bar (R3 Ruth R3-05)
         let gap = kit.text(
             stage,
-            &format!("{lo} to {hi} pieces still missing"),
+            &format!(
+                "{} of {} runs: {lo} to {hi} pieces still missing",
+                missing.len(),
+                runs[1].len()
+            ),
             28.0,
             Role::lost(),
             v(BAR_X + BAR_W - 1.4, 0.0),
         )?;
+        let mut marks = vec![gap];
+        for (i, run) in runs[1].iter().enumerate() {
+            if k - run.recovered() >= k / 2 {
+                let y = extra_top - 0.5 - BAR_GAP * i as f64;
+                marks.push(kit.text_left(stage, "stalled", 26.0, Role::lost(), v(BAR_X + BAR_W + 1.05, y))?);
+            }
+        }
+        let gap = group_of(stage, &marks)?;
         play!(stage; fade_in(stage.arena_mut(), gap, ORIGIN, 1.0)?.rt(0.5));
         keep.push(gap);
         line.at_share(stage, 0.8)?;
@@ -1041,6 +1085,10 @@ mod tests {
     fn the_voice_of_14_matches_its_data() {
         // 14_1: "about forty-two trillion steps … At a billion a second, half a day"
         let steps = dense_steps(DENSE_PIECES);
+        // the measured decode in 14_1's lower-third is of the same block size
+        assert_eq!(u64::from(DECODE_PIECES), DENSE_PIECES);
+        assert_eq!(seconds_shown(&DECODE_MS_8_BYTES), "0.1");
+        assert_eq!(seconds_shown(&DECODE_MS_1280_BYTES), "0.2–0.3");
         assert_eq!((steps / 1e12).round(), 42.0);
         let days = dense_time(DENSE_PIECES, STEPS_PER_SECOND, 86_400);
         assert!((0.45..0.55).contains(&days), "half a day: {days}");
