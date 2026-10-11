@@ -397,87 +397,105 @@ fn three_kinds(kit: &Kit, stage: &mut Stage<'_>, gone: &[Mob]) -> fmn::Result<Ve
         fade_in(stage.arena_mut(), now, ORIGIN, 1.0)?.rt(0.8),
     );
 
-    // the three kinds, strongest on top; safe first
-    let rows = [
-        (glyphs::ATOMIC_KIND, glyphs::ATOMIC_READ, 1.55),
-        (glyphs::REGULAR_KIND, glyphs::REGULAR_READ, 0.6),
-        (glyphs::SAFE_KIND, glyphs::SAFE_READ, -0.35),
-    ];
-    let mut built = Vec::new();
-    let mut safe_name = None;
-    for (i, &(name, read, ry)) in rows.iter().enumerate() {
-        let safe = i == rows.len() - 1;
-        let back = Rectangle::new()
-            .width(11.7)
-            .height(0.74)
-            .corner_radius(0.1)
-            .style(Style::default().fill(explainer_kit::hex("#1A2130"), 0.94).stroke(
-                if safe { chalk() } else { Palette::faint() },
-                if safe { 2.5 } else { 1.5 },
-                1.0,
-            ))
-            .build()?
-            .moved_to(v(-0.3, ry));
-        let back = stage.arena_mut().add(back);
-        let n = kit.text_left(
-            stage,
-            name,
-            30.0,
-            if safe { chalk() } else { Palette::dim() },
-            v(-5.85, ry),
-        )?;
-        let r = kit.text_left(
-            stage,
-            read,
-            25.0,
-            if safe { chalk() } else { Palette::dim() },
-            v(-3.75, ry),
-        )?;
-        if safe {
-            safe_name = Some(n);
-        }
-        built.push(group(stage, &[back, n, r])?);
-    }
-    let safe_name = safe_name.ok_or_else(|| fail("09_3: no safe row".to_owned()))?;
-    let head = kit.text_left(stage, glyphs::OVERLAPPING_READ, 25.0, Palette::dim(), v(-5.85, 2.45))?;
-    let every = kit.text_left(stage, glyphs::NO_OVERLAP, 22.0, Palette::dim(), v(-5.85, -1.3))?;
+    // one card: what "safe" means, both halves of Lamport's definition; the
+    // two stronger kinds only by name, on a ladder above it (R3 maya-05:
+    // three definitions were too much to read under one sentence; the
+    // description keeps the rest)
+    let card_at = v(-0.25, 0.2);
+    let (card_w, card_h) = (10.5, 1.6);
+    let left = card_at[0] - card_w / 2.0;
+    let card = Rectangle::new()
+        .width(card_w)
+        .height(card_h)
+        .corner_radius(0.14)
+        .style(
+            Style::default()
+                .fill(explainer_kit::hex("#1A2130"), 0.94)
+                .stroke(chalk(), 2.5, 1.0),
+        )
+        .build()?
+        .moved_to(card_at);
+    let card = stage.arena_mut().add(card);
+    let safe_name = kit.text_left(stage, glyphs::SAFE_KIND, 36.0, chalk(), v(left + 0.35, card_at[1]))?;
+    let no_overlap = kit.text_left(
+        stage,
+        glyphs::NO_OVERLAP,
+        25.0,
+        Palette::dim(),
+        v(left + 2.05, card_at[1] + 0.3),
+    )?;
+    let overlap = kit.text_left(
+        stage,
+        glyphs::SAFE_READ,
+        25.0,
+        chalk(),
+        v(left + 2.05, card_at[1] - 0.3),
+    )?;
+    let safe = group(stage, &[card, safe_name, no_overlap, overlap])?;
     let source = kit.text_left(
         stage,
         &format!("{} {}", glyphs::INTERPROCESS_SOURCE, cited::INTERPROCESS_YEAR),
         22.0,
         Palette::dim(),
-        v(-5.85, -1.85),
+        v(left + 0.35, card_at[1] - card_h / 2.0 - 0.45),
     )?;
     line.wait_for(stage, "named memory")?;
     play!(stage;
-        fade_in(stage.arena_mut(), built[2], v(0.0, -0.1), 1.0)?.rt(0.7),
-        fade_in(stage.arena_mut(), head, ORIGIN, 1.0)?.rt(0.7),
-        fade_in(stage.arena_mut(), every, ORIGIN, 1.0)?.rt(0.7),
-        fade_in(stage.arena_mut(), source, ORIGIN, 1.0)?.rt(0.7),
+        fade_in(stage.arena_mut(), safe, v(0.0, -0.1), 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), source, ORIGIN, 1.0)?.rt(0.8),
     );
-    let up = Arrow::new(v(6.15, -0.6), v(6.15, 1.8))
-        .buff(0.0)
-        .thickness(2.5)
-        .style(
-            Style::default()
-                .fill(Palette::dim(), 1.0)
-                .stroke(Palette::dim(), 2.5, 1.0),
-        )
-        .build()?;
+    // the stronger kinds, names only, and the ladder's arrow
+    let mut kinds = Vec::new();
+    for (i, name) in [glyphs::REGULAR_KIND, glyphs::ATOMIC_KIND].into_iter().enumerate() {
+        let ky = card_at[1] + card_h / 2.0 + 0.55 + 0.75 * i as f64;
+        let back = Rectangle::new()
+            .width(2.6)
+            .height(0.56)
+            .corner_radius(0.1)
+            .style(
+                Style::default()
+                    .fill(explainer_kit::hex("#1A2130"), 0.94)
+                    .stroke(Palette::faint(), 1.5, 1.0),
+            )
+            .build()?
+            .moved_to(v(left + 1.3, ky));
+        let back = stage.arena_mut().add(back);
+        let n = kit.text_left(stage, name, 26.0, Palette::dim(), v(left + 0.35, ky))?;
+        kinds.push(group(stage, &[back, n])?);
+    }
+    let x_up = left + 2.95;
+    let up = Arrow::new(
+        v(x_up, card_at[1] + card_h / 2.0 + 0.1),
+        v(x_up, card_at[1] + card_h / 2.0 + 1.6),
+    )
+    .buff(0.0)
+    .thickness(2.5)
+    .style(
+        Style::default()
+            .fill(Palette::dim(), 1.0)
+            .stroke(Palette::dim(), 2.5, 1.0),
+    )
+    .build()?;
     let up = stage.arena_mut().add(up);
-    let stronger = kit.text(stage, glyphs::STRONGER, 20.0, Palette::dim(), v(6.15, 2.1))?;
+    let stronger = kit.text_left(
+        stage,
+        glyphs::STRONGER,
+        22.0,
+        Palette::dim(),
+        v(x_up + 0.25, card_at[1] + card_h / 2.0 + 0.85),
+    )?;
     line.wait_for(stage, "A funny name")?;
     play!(stage;
-        fade_in(stage.arena_mut(), built[1], v(0.0, -0.1), 1.0)?.rt(0.7),
-        fade_in(stage.arena_mut(), built[0], v(0.0, -0.1), 1.0)?.rt(0.9),
+        fade_in(stage.arena_mut(), kinds[0], v(0.0, -0.1), 1.0)?.rt(0.7),
+        fade_in(stage.arena_mut(), kinds[1], v(0.0, -0.1), 1.0)?.rt(0.9),
         fmn::animation::grow_arrow(stage.arena_mut(), up)?.rt(0.9),
         fade_in(stage.arena_mut(), stronger, ORIGIN, 1.0)?.rt(0.9),
     );
     line.wait_for(stage, "the least safe")?;
     play!(stage; pulse(stage, safe_name)?.rt(1.0));
     kit.hold(stage)?;
-    let mut out = vec![then, now, arrow, head, every, source, up, stronger];
-    out.extend(built);
+    let mut out = vec![then, now, arrow, safe, source, up, stronger];
+    out.extend(kinds);
     Ok(out)
 }
 

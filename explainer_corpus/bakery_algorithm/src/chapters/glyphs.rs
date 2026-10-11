@@ -392,16 +392,13 @@ pub const RECEIPT_REPO: &str = "    github.com/Dicklesworthstone/jeffs_math_expl
 /// 09_1: which digit a step of the two-digit rewrite writes.
 pub const TENS_DIGIT: &str = "tens digit";
 pub const ONES_DIGIT: &str = "ones digit";
-/// 09_3: Lamport's three kinds of memory ("On Interprocess Communication"),
-/// by what a read that overlaps a write returns.
-pub const OVERLAPPING_READ: &str = "a read that overlaps a write:";
+/// 09_3: Lamport's three kinds of memory ("On Interprocess Communication"):
+/// safe defined on its card, the two stronger kinds by name (R3 maya-05).
 pub const ATOMIC_KIND: &str = "atomic";
-pub const ATOMIC_READ: &str = "acts as if reads and writes happened one at a time";
 pub const REGULAR_KIND: &str = "regular";
-pub const REGULAR_READ: &str = "returns the old value or a value being written";
 pub const SAFE_KIND: &str = "safe";
-pub const SAFE_READ: &str = "may return any value the memory can hold";
-pub const NO_OVERLAP: &str = "all three: a read that overlaps no write returns the last value written";
+pub const NO_OVERLAP: &str = "a read that overlaps no write returns the last value written";
+pub const SAFE_READ: &str = "a read that overlaps a write may return any value the memory can hold";
 pub const STRONGER: &str = "stronger";
 /// "{source} {year}", the year from `facts::cited`.
 pub const INTERPROCESS_SOURCE: &str = "Leslie Lamport, On Interprocess Communication, Distributed Computing,";
@@ -699,11 +696,8 @@ pub const TEXT: &[&str] = &[
     RECEIPT_REPO,
     TENS_DIGIT,
     ONES_DIGIT,
-    OVERLAPPING_READ,
     ATOMIC_KIND,
-    ATOMIC_READ,
     REGULAR_KIND,
-    REGULAR_READ,
     SAFE_KIND,
     SAFE_READ,
     NO_OVERLAP,
