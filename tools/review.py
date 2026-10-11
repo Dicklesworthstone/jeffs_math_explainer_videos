@@ -118,7 +118,8 @@ def build(slug, stage):
     for name in reads:
         if name == "sheets":
             render = ROOT / "explainer_corpus" / slug / "renders" / "narrated"
-            sheets = sorted(render.glob("*.png")) if render.is_dir() else []
+            # cue sheets (./x narrated writes them under cue_sheets/) and any contact sheets
+            sheets = sorted(render.rglob("*.png")) if render.is_dir() else []
             if not sheets:
                 sys.exit(f"review: no contact or cue sheets in {render.relative_to(ROOT)} (run the narrated draft first)")
             out.append("## Sheets (open each image)\n\n" + "\n".join(f"- `{p.relative_to(ROOT)}`" for p in sheets) + "\n")
