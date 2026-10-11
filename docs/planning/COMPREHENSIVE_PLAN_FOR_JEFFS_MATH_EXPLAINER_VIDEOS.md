@@ -1231,9 +1231,20 @@ source of truth, this is its summary):
   resolution) lands in is that cue's: no roll there, the motif 1.2 s after
   it. The theme resolves once: after a resolved theme in the last chapter
   (A 15_3, B 17_7, C 13_4) the last gap only rolls the tonic home.
-- **On the real narration** (2026-10-11), C's 13 chapters (948.7 s) pass
-  every §7.6 metric: voice − music median 20.6–21.9 LU, p5 15.7–19.8, SII
-  loss ≤ 0.007, gap onsets ≤ 5 a second.
+- **Warm tops.** The score's melody bus runs through a 4th-order 6 kHz
+  low-pass and sonifications through 5.5 kHz, each entering with a 10 ms
+  rise: a bright bar struck in a quiet moment otherwise puts its upper mode
+  past 8 kHz, which QA's click gate hears. A sonified window is the scene's
+  sound, so QA's beating gate does not read its strikes as a steady tone.
+- **On the real narration** (2026-10-11, `./x <slug> score`, engine
+  `8973936`) every chapter of the three videos passes every §7.6 metric:
+  A 15/15 (1052 s), B 17/17 (1261 s), C 13/13 (951 s). Voice − music median
+  19.5–22.3 LU (A's 15 aside: its authored silence zeroes the music under
+  the Kosovo numbers), p5 13.5–19.9, SII loss ≤ 0.023, music/voice 1–4 kHz
+  ≤ −23.7 dB, gap onsets ≤ 5 a second, no clicks, beating ≤ 4.4 dB. Each
+  video's `stems/listen/` holds the listening protocol's material (full
+  chapter mixes at −16 LUFS, three blind 20 s A/B pairs per chapter); the
+  listening itself is a person's.
 
 ### 7.6 Score QA (computed per chapter, JSON report; failing metrics fail `./x score`)
 
