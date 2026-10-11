@@ -1,12 +1,12 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (rubato and quieter for the proof, the room's tunes fullest at 06 and
-//! 13). Each chapter starts as its storyboard's animatic and is replaced by
-//! its real scene as it is built.
+//! 13).
 
 pub mod cpu;
 pub mod draw;
 pub mod fair;
 pub mod flag;
+pub mod garbage;
 pub mod glyphs;
 pub mod old_zero;
 pub mod one_run;
@@ -20,19 +20,6 @@ pub mod tunes;
 pub mod why_never_two;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
-            intensity: $intensity,
-        }
-    };
-}
 
 pub fn registry() -> Vec<Chapter> {
     vec![
@@ -76,7 +63,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(why_never_two::WhyNeverTwo { kit }),
             intensity: 0.4,
         },
-        animatic!("09_reading_garbage_safely", 0.45),
+        Chapter {
+            key: "09_reading_garbage_safely",
+            make: |kit| Box::new(garbage::ReadingGarbage { kit }),
+            intensity: 0.45,
+        },
         Chapter {
             key: "10_the_old_zero",
             make: |kit| Box::new(old_zero::OldZero { kit }),

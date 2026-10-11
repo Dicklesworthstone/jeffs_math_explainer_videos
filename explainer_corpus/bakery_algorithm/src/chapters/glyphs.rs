@@ -388,6 +388,35 @@ pub const RECEIPT_FIRMWARE: &str = "Firmware: Trusted Firmware-A, lib/locks/bake
 pub const RECEIPT_CODE: &str = "Code, data and every number:";
 pub const RECEIPT_REPO: &str = "    github.com/Dicklesworthstone/jeffs_math_explainer_videos";
 
+// 09_reading_garbage_safely
+/// 09_1: which digit a step of the two-digit rewrite writes.
+pub const TENS_DIGIT: &str = "tens digit";
+pub const ONES_DIGIT: &str = "ones digit";
+/// 09_3: Lamport's three kinds of memory ("On Interprocess Communication"),
+/// by what a read that overlaps a write returns.
+pub const OVERLAPPING_READ: &str = "a read that overlaps a write:";
+pub const ATOMIC_KIND: &str = "atomic";
+pub const ATOMIC_READ: &str = "acts as if reads and writes happened one at a time";
+pub const REGULAR_KIND: &str = "regular";
+pub const REGULAR_READ: &str = "returns the old value or a value being written";
+pub const SAFE_KIND: &str = "safe";
+pub const SAFE_READ: &str = "may return any value the memory can hold";
+pub const NO_OVERLAP: &str = "all three: a read that overlaps no write returns the last value written";
+pub const STRONGER: &str = "stronger";
+/// "{source} {year}", the year from `facts::cited`.
+pub const INTERPROCESS_SOURCE: &str = "Leslie Lamport, On Interprocess Communication, Distributed Computing,";
+/// 09_5's lower-third (R13).
+pub const FLAGS_TAG: &str = "flags:";
+pub const FLAG_GLANCES: &str = "a glance at a flag mid-raise counts as not yet choosing; mid-lowering, as finished";
+/// 09_6: Green, after the garbage.
+pub const GREEN_WAITS: &str = "Green waits";
+/// 09_6's corner card (R14), around its numbers: "model: flickering slates
+/// and flags," / "{n} customers, tickets ≤ {k}: {states} states, never two
+/// in the room".
+pub const MODEL_A: &str = "model: flickering slates and flags,";
+pub const MODEL_B: &str = "customers, tickets ≤";
+pub const MODEL_C: &str = "states, never two in the room";
+
 /// Every string above, for the probe.
 pub const TEXT: &[&str] = &[
     DIGITS,
@@ -668,6 +697,24 @@ pub const TEXT: &[&str] = &[
     RECEIPT_FIRMWARE,
     RECEIPT_CODE,
     RECEIPT_REPO,
+    TENS_DIGIT,
+    ONES_DIGIT,
+    OVERLAPPING_READ,
+    ATOMIC_KIND,
+    ATOMIC_READ,
+    REGULAR_KIND,
+    REGULAR_READ,
+    SAFE_KIND,
+    SAFE_READ,
+    NO_OVERLAP,
+    STRONGER,
+    INTERPROCESS_SOURCE,
+    FLAGS_TAG,
+    FLAG_GLANCES,
+    GREEN_WAITS,
+    MODEL_A,
+    MODEL_B,
+    MODEL_C,
 ];
 
 /// Code, in CM Typewriter.
