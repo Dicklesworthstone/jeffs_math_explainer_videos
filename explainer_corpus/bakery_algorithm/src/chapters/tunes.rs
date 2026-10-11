@@ -40,22 +40,21 @@ pub fn served_degrees() -> Vec<i32> {
     identity().resolution.degrees
 }
 
-/// Customers served one after another, in `order`, each starting just after
-/// the last one's final note ends: the sound and, per turn, its notes'
-/// onsets from the start.
+/// How far apart the room's turns start (s): the last note of "served" holds
+/// to about 1.9 s and has decayed about 14 dB by 2.4 s (music lane), so the
+/// next customer's tune never overlaps a tail you can hear.
+pub const TURN_S: f64 = 2.4;
+
+/// Customers served one after another, in `order`, [`TURN_S`] apart: the
+/// sound and, per turn, its notes' onsets from the start.
 pub fn turns(order: &[usize]) -> (Stereo, Vec<Vec<f64>>) {
-    let beat = identity().beat_s;
     let mut parts = Vec::new();
-    let mut at = 0.0;
     let mut onsets = Vec::new();
-    for &k in order {
+    for (n, &k) in order.iter().enumerate() {
+        let at = TURN_S * n as f64;
         let (s, o) = served(k);
-        let length = o.last().copied().unwrap_or(0.0) + 1.5 * beat;
         onsets.push(o.iter().map(|t| t + at).collect());
         parts.push((s, at));
-        // the next customer starts a sixteenth after this one's last note
-        // ends, so only one tune ever sounds at a time
-        at += length + 0.25 * beat;
     }
     let total = parts
         .iter()
