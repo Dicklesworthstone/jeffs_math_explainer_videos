@@ -10,6 +10,17 @@
 #   ./x <slug> draft [CHAPTER...]               960x540@30 scratch-voice renders with the layout
 #                                               lint into explainer_corpus/<slug>/renders/draft/
 #   ./x <slug> sheets [CHAPTER...]              contact sheets (4x3) of those drafts, to read
+#   ./x <slug> narrated [CHAPTER...]            960x540@30 with the real narration (NARRATION, default
+#                                               narration/out) into renders/narrated/, then the cue
+#                                               check and cue sheets (renders/narrated/cue_sheets/)
+#   ./x <slug> score                            the music: every chapter's timeline at 60 fps from the
+#                                               narration, then the score with QA into stems/
+#   ./x <slug> scored [CHAPTER...]              960x540@60 with narration and stems, into renders/scored/
+#   ./x <slug> final [CHAPTER...]               3840x2160@60, x264 CRF 16 (preset slow), narration and
+#                                               stems, into renders/final/
+#   ./x <slug> master                           the PCM master of renders/final/ (every chapter final)
+#   ./x <slug> captions                         SRT and WebVTT from renders/final/ and the narration
+#   ./x <slug> verify                           the delivery gates on the master (verify_video.sh)
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
 #   ./x remote-wait [UNIT] [SECONDS]            wait (default 540 s) for UNIT (default the last
@@ -22,7 +33,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,33p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -106,6 +117,23 @@ pkg=$(sed -n 's/^name = "\(.*\)"$/\1/p' "$crate/Cargo.toml" | head -n 1)
 bin=$(awk '/^\[\[bin\]\]/ { f = 1 } f && /^name/ { gsub(/.*= *"|"/, ""); print; exit }' "$crate/Cargo.toml")
 binary="${CARGO_TARGET_DIR:-$here/target}/release/$bin"
 drafts="$crate/renders/draft"
+narration="${NARRATION:-$crate/narration/out}"
+finals="$crate/renders/final"
+
+# The release binary, built first.
+build_binary() {
+  cd "$here"
+  # shellcheck disable=SC2086  # CARGO_FLAGS is two flags
+  cargo build --release -p "$pkg" $CARGO_FLAGS
+  [ -x "$binary" ] || die "no binary at $binary after the build"
+}
+need_narration() {
+  [ -d "$narration" ] || die "no narration at $narration (set NARRATION, or run the narration pipeline)"
+}
+# The chapter keys as one comma-separated list: the arguments, or all of them.
+chapter_list() {
+  if [ $# -gt 0 ]; then printf '%s' "$*" | tr ' ' ','; else "$binary" chapters | paste -sd, -; fi
+}
 
 case "$cmd" in
   review)
@@ -131,13 +159,62 @@ case "$cmd" in
     cargo clippy --release -p "$pkg" --all-targets $CARGO_FLAGS -- -D warnings
     exec cargo fmt -p "$pkg" --check ;;
   draft)
-    cd "$here"
-    # shellcheck disable=SC2086
-    cargo build --release -p "$pkg" $CARGO_FLAGS
-    [ -x "$binary" ] || die "no binary at $binary after the build"
+    build_binary
     mkdir -p "$drafts"
     if [ $# -eq 0 ]; then set -- all; fi
     exec "$binary" render "$@" --res 960x540 --fps 30 --scratch-voice --lint --out "$drafts" ;;
+  narrated)
+    need_narration
+    build_binary
+    out="$crate/renders/narrated"
+    mkdir -p "$out"
+    keys=$(chapter_list "$@")
+    if [ $# -eq 0 ]; then set -- all; fi
+    "$binary" render "$@" --res 960x540 --fps 30 --narration "$narration" --lint --out "$out"
+    exec python3 -I "$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/cue_sheets.py" \
+      "$out" --script "$crate/script.tsv" --chapters "$keys" --sheets "$out/cue_sheets" ;;
+  score)
+    [ $# -eq 0 ] || usage
+    need_narration
+    build_binary
+    # pass 1: every chapter's timeline at the finals' 60 fps (64x36, no picture worth keeping)
+    "$binary" render all --timeline-only --fps 60 --narration "$narration" --out "$crate/renders/timeline"
+    # pass 2: the whole video's music from those timelines, sliced per chapter, with QA
+    exec "$binary" score --timelines "$crate/renders/timeline" --out "$crate" ;;
+  scored)
+    need_narration
+    [ -d "$crate/stems" ] || die "no stems in $crate/stems (run ./x $slug score)"
+    build_binary
+    out="$crate/renders/scored"
+    mkdir -p "$out"
+    if [ $# -eq 0 ]; then set -- all; fi
+    exec "$binary" render "$@" --res 960x540 --fps 60 --narration "$narration" --score "$crate/stems" --out "$out" ;;
+  final)
+    need_narration
+    [ -d "$crate/stems" ] || die "no stems in $crate/stems (run ./x $slug score)"
+    build_binary
+    mkdir -p "$finals"
+    if [ $# -eq 0 ]; then set -- all; fi
+    exec "$binary" render "$@" --res 3840x2160 --fps 60 --narration "$narration" --score "$crate/stems" \
+      --crf 16 --preset slow --out "$finals" ;;
+  master)
+    [ $# -eq 0 ] || usage
+    build_binary
+    exec "$binary" master --out "$finals" ;;
+  captions)
+    [ $# -eq 0 ] || usage
+    need_narration
+    build_binary
+    exec "$binary" captions --narration "$narration" --out "$finals" ;;
+  verify)
+    [ $# -eq 0 ] || usage
+    check="$SKILLS/franken-manim-mega-skill/scripts/verify_video.sh"
+    [ -x "$check" ] || die "no verify_video.sh under $SKILLS (set SKILLS in project.env)"
+    master_mp4="$finals/${bin}_master.mp4"
+    [ -f "$master_mp4" ] || master_mp4=$(ls "$finals"/*_master.mp4 2>/dev/null | head -n 1)
+    [ -f "$master_mp4" ] || die "no master in $finals (run ./x $slug master)"
+    export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0
+    exec "$check" "$master_mp4" ;;
   sheets)
     sheet="$SKILLS/franken-manim-mega-skill/scripts/contact_sheet.sh"
     [ -x "$sheet" ] || die "no contact_sheet.sh under $SKILLS (set SKILLS in project.env)"
