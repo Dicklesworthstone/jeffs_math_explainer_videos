@@ -7,9 +7,11 @@
 //! `model.rs`'s worked example (oracle B-F3); the deck's mixes are the toy
 //! deck (B-S4.toy_deck).
 
+use explainer_kit::layout::MARGIN;
 use explainer_kit::props::{Pose, Swarm, lower_third, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, children, fade_all, play, thousands, v};
 use fmn::animation::{indicate, replacement_transform};
+use fmn::core::constants::FRAME_X_RADIUS;
 use fmn::library::TransformMatchingTex;
 use fmn::prelude::*;
 
@@ -368,22 +370,54 @@ fn stage_pos(c: &Card, stage: &Stage<'_>) -> Vec3 {
     stage.get_center(c.back)
 }
 
+/// The cards of 03_5 in the order they arrive: the phone doesn't care.
+const ARRIVAL: [usize; 4] = [2, 0, 3, 1];
+/// The bucket of 03_5–03_7: centre, width, height.
+const BUCKET: (Vec3, f64, f64) = ([-0.2, -0.75, 0.0], 2.6, 4.0);
+/// Clearance between a waiting card and the bucket's wall.
+const WALL_GAP: f64 = 0.25;
+
+/// 03_5: where the cards wait beside the bucket until they drop, in arrival
+/// order, and the one scale they share: the widest card for its panel just
+/// fills it. A panel runs from a quarter unit inside the lint's safe edge
+/// to a bucket wall, so every waiting card shows its whole equation (R10
+/// P1: the four-piece card lost its A at the frame edge).
+fn waiting_layout(widths: [f64; 4]) -> (f64, [Vec3; 4]) {
+    let outer = FRAME_X_RADIUS - MARGIN - WALL_GAP;
+    let (centre, width, _) = BUCKET;
+    let left = (-outer, centre[0] - width / 2.0 - WALL_GAP);
+    let right = (centre[0] + width / 2.0 + WALL_GAP, outer);
+    // left, right, right, left: the four-piece card gets the wider side
+    let panels = [(left, 2.6), (right, 2.4), (right, 0.6), (left, 0.8)];
+    let scale = widths
+        .iter()
+        .zip(&panels)
+        .map(|(w, ((a, b), _))| (b - a) / w)
+        .fold(1.0, f64::min);
+    (scale, panels.map(|((a, b), y)| v((a + b) / 2.0, y)))
+}
+
 /// 03_5–03_7: the bucket fills one slot per useful card; a fifth card
 /// bounces off.
 fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
-    let b = BucketProp::build(stage, CARDS.len(), v(-0.2, -0.75), 2.6, 4.0)?;
+    let (centre, width, height) = BUCKET;
+    let b = BucketProp::build(stage, CARDS.len(), centre, width, height)?;
     let phone_mark = stage
         .arena_mut()
         .add(phone(Palette::dim(), 0.7).moved_to(v(-0.2, -3.25)));
     let label = kit.text(stage, "the phone", 28.0, Palette::dim(), v(0.75, -3.25))?;
     stage.move_to(label, v(0.25, -3.25), LEFT);
     // the cards arrive in another order: the phone doesn't care
-    let arrival = [2usize, 0, 3, 1];
-    let starts = [v(-5.0, 2.6), v(5.2, 2.4), v(-5.4, 0.8), v(5.0, 0.6)];
-    let flying: Vec<Card> = arrival
+    let widths = ARRIVAL.map(|k| card_width(pieces_of(CARDS[k]).len(), true, CARD_H));
+    let (waiting, starts) = waiting_layout(widths);
+    let flying: Vec<Card> = ARRIVAL
         .iter()
         .zip(starts)
-        .map(|(&k, at)| card(kit, stage, CARDS[k], Some(result(CARDS[k])), CARD_H, at))
+        .map(|(&k, at)| {
+            let c = card(kit, stage, CARDS[k], Some(result(CARDS[k])), CARD_H, at)?;
+            stage.scale(c.group, waiting);
+            Ok(c)
+        })
         .collect::<fmn::Result<_>>()?;
     kit.say(stage, "03_5")?;
     crossfade(stage, &[b.group, phone_mark, label], 0.9)?;
@@ -403,7 +437,8 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
                 ..AnimateArgs::default()
             })?
             .move_to(b.slot_centre(i), ORIGIN)?
-            .scale(0.45)?
+            // lands at 0.45 of a full card, whatever size it waited at
+            .scale(0.45 / waiting)?
             .set_opacity(0.0)?;
         play!(stage; drop);
         stage.remove_from_scene(c.group);
@@ -647,4 +682,39 @@ fn name_card(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     play!(stage; write(stage.arena(), name).rt(1.4), show_creation(rule).rt(1.0));
     play!(stage; fade_in(stage.arena_mut(), line, v(0.0, 0.15), 1.0)?.rt(0.8));
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_waiting_card_shows_its_whole_equation() {
+        let widths = ARRIVAL.map(|k| card_width(pieces_of(CARDS[k]).len(), true, CARD_H));
+        let (s, starts) = waiting_layout(widths);
+        let (centre, width, height) = BUCKET;
+        let walls = (centre[0] - width / 2.0, centre[0] + width / 2.0);
+        let safe = FRAME_X_RADIUS - MARGIN;
+        for (w, at) in widths.iter().zip(starts) {
+            let (l, r) = (at[0] - s * w / 2.0, at[0] + s * w / 2.0);
+            // inside the lint's safe area, clear of the bucket's walls
+            assert!(l >= -safe && r <= safe, "card at {at:?} spans {l:.2}..{r:.2}");
+            assert!(r <= walls.0 - WALL_GAP + 1e-9 || l >= walls.1 + WALL_GAP - 1e-9);
+            // and above the bucket's floor, below the frame's top
+            let top = fmn::core::constants::FRAME_Y_RADIUS - MARGIN;
+            assert!(at[1] + s * CARD_H / 2.0 < top && at[1] > centre[1] - height / 2.0);
+        }
+        // the four-piece card sets the scale, and it stays readable
+        assert!(widths.iter().any(|&w| w == card_width(4, true, CARD_H)));
+        assert!((0.8..1.0).contains(&s), "waiting scale {s}");
+        // no two waiting cards overlap
+        for i in 0..4 {
+            for j in i + 1..4 {
+                let (a, b) = (starts[i], starts[j]);
+                let apart_x = (a[0] - b[0]).abs() >= s * (widths[i] + widths[j]) / 2.0;
+                let apart_y = (a[1] - b[1]).abs() >= s * CARD_H;
+                assert!(apart_x || apart_y, "cards {i} and {j} overlap");
+            }
+        }
+    }
 }
