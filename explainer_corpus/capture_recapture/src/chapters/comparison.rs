@@ -205,7 +205,7 @@ fn falling(src: &mut Src, from: u64, to: u64) -> Vec<(u64, Range<usize>)> {
 /// The mystery lake's mosaic for 07_5–07_6, on the right.
 const TOY_PANEL: Panel = Panel {
     c: [3.5, -0.35, 0.0],
-    w: 5.4,
+    w: 6.2,
     h: 4.2,
 };
 
@@ -802,7 +802,8 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
     ];
     let mut name_mobs = Vec::new();
     for (c, (s, color)) in cells.iter().zip(names) {
-        let t = kit.text(stage, s, 18.0, color, v(c.c[0], c.c[1] + c.h / 2.0 - 0.2))?;
+        // phone-sized (R3 maya-18); the narrow marked column caps the width
+        let t = kit.text(stage, s, 24.0, color, v(c.c[0], c.c[1] + c.h / 2.0 - 0.22))?;
         let w = stage.get_width(t);
         if w > c.w - 0.1 {
             stage.set_width(t, c.w - 0.1, false);

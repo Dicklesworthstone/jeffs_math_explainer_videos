@@ -487,7 +487,7 @@ impl SceneConstruct for Balance {
             let head = kit.text(
                 stage,
                 &format!("{} vs {}", thousands(lake_n), thousands(lake_n - 1)),
-                20.0,
+                24.0,
                 Palette::dim(),
                 v(cx, y + 0.42),
             )?;
