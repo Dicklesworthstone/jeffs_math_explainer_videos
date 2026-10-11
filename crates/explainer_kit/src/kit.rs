@@ -343,6 +343,29 @@ impl Kit {
         Ok(m)
     }
 
+    /// Detached text centred at `at` with substrings coloured (`t2c`: each
+    /// occurrence of a key in its colour; the rest in `color`), e.g. names
+    /// in their roles' colours. `\n` breaks lines.
+    pub fn text_t2c(
+        &self,
+        stage: &mut Stage<'_>,
+        s: &str,
+        size: f64,
+        color: Srgb,
+        t2c: &[(&str, Srgb)],
+        at: Vec3,
+    ) -> fmn::Result<Mob> {
+        let t = Text::new(s)
+            .font_size(size)
+            .style(ink_style(color))
+            .t2c(t2c)
+            .build(&self.book)?;
+        let m = stage.arena_mut().add(t);
+        stage.move_to(m, at, ORIGIN);
+        self.note(m, s, TextKind::Text);
+        Ok(m)
+    }
+
     /// Detached code or hex (`0x1D`) in the bundled CM Typewriter, centred at
     /// `at`. fmn's TeX has no `\texttt` (spike S-7), so code is Text.
     pub fn mono(&self, stage: &mut Stage<'_>, s: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
