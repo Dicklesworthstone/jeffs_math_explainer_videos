@@ -553,13 +553,23 @@ impl SceneConstruct for TheByteClock {
         let top = click_point(C, R + 0.35, 0.0);
         let own = kit.text(stage, "its own partner", 24.0, Role::byte(), v(top[0] + 1.25, top[1]))?;
         let none = kit.text(stage, "0: none", 24.0, Palette::dim(), v(C[0], C[1] - 0.35))?;
-        let rule = kit.tex(
+        // the mirror rule wraps like the clock: one full turn is 0 clicks, so
+        // 1 (0 clicks) is its own partner (Codex R4: 255 - log a alone fails at 1)
+        let rule_tex = kit.tex(
             stage,
-            &format!(r"\log a^{{-1}} = {CLICKS} - \log a"),
+            &format!(r"\log a^{{-1}} \equiv -\log a \pmod{{{CLICKS}}}"),
             44.0,
             Role::byte(),
             &[],
-            v(4.1, 0.6),
+            v(4.1, 0.9),
+        )?;
+        let full_turn = kit.tex(
+            stage,
+            &format!(r"\text{{one full turn: }} {CLICKS} \text{{ clicks}} \equiv 0"),
+            34.0,
+            Palette::dim(),
+            &[],
+            v(4.1, 0.15),
         )?;
         kit.say(stage, "11_7")?;
         stage.clear_updaters(inner_labels, true);
@@ -583,7 +593,8 @@ impl SceneConstruct for TheByteClock {
         play!(stage;
             fade_in(stage.arena_mut(), own, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), none, ORIGIN, 1.0)?.rt(0.5),
-            write(stage.arena(), rule).rt(0.8),
+            write(stage.arena(), rule_tex).rt(0.8),
+            fade_in(stage.arena_mut(), full_turn, ORIGIN, 1.0)?.rt(0.8),
         );
         kit.hold(stage)?;
         stage.clear_updaters(hand, true);
@@ -822,4 +833,27 @@ fn table_code() -> Vec<Vec<Seg>> {
         plain("    EXP[(LOG[a as usize] + LOG[b as usize]) as usize]".to_owned()),
         plain("}".to_owned()),
     ]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::inv;
+
+    #[test]
+    fn every_partner_sits_at_minus_its_clicks_mod_255_and_1_is_its_own() {
+        // 11_7's rule, at the edge the reviewer named (a = 1: 0 clicks) and
+        // at all 254 other nonzero bytes
+        let log = logs();
+        for a in 1..=255u8 {
+            let mirror = (CLICKS - usize::from(log[a as usize])) % CLICKS;
+            assert_eq!(usize::from(log[inv(a) as usize]), mirror, "byte {a}");
+        }
+        assert_eq!((log[1], inv(1)), (0, 1), "1 is at the top and is its own partner");
+        assert_eq!(
+            CLICKS - usize::from(log[1]),
+            CLICKS,
+            "without the wrap the rule would say 255 at 1"
+        );
+    }
 }
