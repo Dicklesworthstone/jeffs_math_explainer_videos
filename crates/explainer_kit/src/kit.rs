@@ -5,13 +5,23 @@
 //! ([`Kit::registered`]): the layout lint checks those for clipping and
 //! collisions, the glyph probe checks their strings for missing glyphs.
 //!
-//! Engine rules (plan §6.6; engine review F-16, F-17):
-//! - `always_redraw` leaves one dead arena slot per redrawn frame that later
-//!   frames still walk (fm-92gu), so live readouts are for SMALL things: a
-//!   number, a bar. Never redraw a whole diagram every frame.
+//! Engine rules (plan §6.6; engine review F-16, F-17; spikes S-2, S-3, S-8):
+//! - `always_redraw` rebuilds, lays out and tessellates its content every
+//!   frame, so live readouts are for SMALL things: a number, a bar. Never
+//!   redraw a whole diagram every frame. (At the pin the replaced content is
+//!   deleted and its arena slot reused; S-8 measured no slowdown over 80 s.
+//!   The old leak, fm-92gu, needs a pinned entry, which native scenes never
+//!   make.)
 //! - Positional operations on a group dedupe its members in O(M²): never
 //!   transform a group of more than [`GROUP_TRANSFORM_LIMIT`] members per
 //!   frame; animate a few representatives, or split the group.
+//! - One flat fill per mobject. Differing per-point fills turn a shape into
+//!   a smooth colour field (neighbouring cells bleed, and every pixel pays
+//!   for every edge). A grid of coloured cells is per-point *stroke* colours
+//!   on polyline-tagged strips (S-3), or one flat mobject per colour class.
+//! - A stroke's cost per pixel grows with its segment count. Under moving
+//!   objects (dirty tiles) never draw long or closed strokes: cut them into
+//!   short pieces, and give big filled shapes no outline (S-2).
 
 use std::cell::RefCell;
 use std::path::PathBuf;

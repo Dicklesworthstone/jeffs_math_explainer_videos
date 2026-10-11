@@ -253,7 +253,7 @@ The capabilities this plan depends on, with the route each needs:
 | `Axes` with `c2p` following after `.moved_to` (since `33e2ba17`) | LIVE | retained | likelihood curves, histograms |
 | `VectorField`, `StreamLines`, `AnimatedStreamLines` | LIVE (library-proven) | retained | lake currents (A) |
 | particles: one `v_group` + one dt updater, motion by placement only (`shift`/`rotate`; no point rewrites) | LIVE pattern, **no many-object benchmark exists**; every frame snapshots every arena slot serially | retained | fish (A), packets and phones (B) |
-| `always_redraw` | LIVE, but each redraw leaves a dead arena slot that later frames still walk (fm-92gu), so per-frame cost grows over a chapter | retained | small readouts only; heat maps and grids are fixed mobjects recoloured in place |
+| `always_redraw` | LIVE; each redraw rebuilds and re-tessellates its content (the replaced content is deleted and its slot reused at e2eec632; S-8 measured no growth over 80 s) | retained | small readouts only; heat maps and grids are fixed mobjects recoloured in place |
 | positional ops on a group (shift/scale/rotate) | LIVE, but dedupe the family in O(M²) (`positional.rs:689-708`) | retained | never transform a group of more than ~2k members per frame; big tables are one multi-subpath VMobject per row strip |
 | stroke profiles (tapered, gradient), `v_highlight` glow, `VShowPassingFlash`, tapered `TracedPath` | LIVE | retained | glows, wakes, comets |
 | boolean ops, `ParametricCurve`, `ImplicitFunction` | LIVE | retained | shapes |
@@ -933,13 +933,13 @@ fallback.
 | Spike | Question | Fallback |
 |---|---|---|
 | S-1 | end-to-end build of a workspace member from the git pin over https, with shallow deps; timings on the Mac and the GPU host; through `rch exec` too | path dependency + pin file (same transitive cost) |
-| S-2 | 600 / 1,000 / 1,500 procedural fish (placement-only motion, tail as a rotated child, glow on marked fish only) plus faint streamlines | fewer fish (each stands for several) |
-| S-3 | a 256×256 table as 256 row-strip VMobjects with per-point fill; rows then columns reordered by moving strips | 64×64 legible block + the full table as a raster on the camera route; or GF(16)'s 16×16 table as the legible stand-in |
-| S-4 | 4,845 four-dot netful glyphs moved along precomputed paths by a dt updater (≈24k mobjects in the serial capture) | a representative stream of ~300 + exact count-ups |
+| S-2 | 600 / 1,000 / 1,500 procedural fish (placement-only motion, tail as a rotated child, glow on marked fish only) plus faint streamlines. **Done 2026-10-11** (`explainer_kit` example `spike_s2_fish`, on this Mac at load 80–800): 1,000 fish at 4K60 run 1.8–2.9 fps (~700 CPU-ms/frame), 600 run 2.5–4.8 fps; 4K costs only 1.2–1.4× 1080p (cost is per fish, not per pixel); 1,500 is 2.3× the CPU of 1,000 and stops reading (the deep end becomes a solid mass). Fish read as fish with a small gold halo. A long or closed stroke under moving fish cost 12× (the stroke shader checks every segment per pixel): streamlines are cut into 8-segment opaque pieces, big shapes get no outline. **Video A uses 1,000 fish, one per ten real fish** (100 marked, 100 in the second catch, 10 caught twice) | fewer fish (each stands for several) |
+| S-3 | a 256×256 table as 256 row-strip VMobjects with per-point fill; rows then columns reordered by moving strips. **Done 2026-10-11** (`spike_s3_table`): per-point *fill* is wrong at the pin (a varying fill becomes one smooth colour field: 64,221 of 65,025 cells off by up to 103 levels); per-point *stroke* colours on 255 polyline-tagged row strips are exact (every cell within 1 level of an independent check; the swap to 255 column strips is byte-identical), at 2.4 CPU-s/frame at 1080p and 6.6 at 4K (≈ 83 CPU-minutes per 12.5 s at 4K: render the 4K segment alone on a quiet machine). The byte-order table is not pure noise (its corner and centre cross show structure) | 64×64 legible block + the full table as a raster on the camera route; or GF(16)'s 16×16 table as the legible stand-in |
+| S-4 | 4,845 four-dot netful glyphs moved along precomputed paths by a dt updater (≈24k mobjects in the serial capture). **Done 2026-10-11** (`spike_s4_s6 s4`): all 4,845 `Dot` glyphs fly and stack at 11.5 fps at 4K60 (14.5 at 1080p); bins count up to exactly 1,365 / 2,275 / 1,050 / 150 / 5 (asserted); the fallback is not needed. Merge landed glyphs into strips so the holds stop paying for 24k records | a representative stream of ~300 + exact count-ups |
 | S-5 | a 10 s orbit around a lit 44 × 11 bar field at 4K60 on the camera route, **to MP4 with an `add_sound` cue**, through the kit's camera wrapper; compare the boundary frame against the retained route (AA parity) and decide 8-bit vs 10-bit (P010) for the corpus. **Done 2026-10-10** (`explainer_kit` example `spike_s5_camera`): MP4 + AAC works; 6.1 fps at 4K60 on a 14-core Mac under load (600 frames ≈ 100 s); parity PSNR 49.6 dB / SSIM 0.9998; no banding on the field; **8-bit H.264 stays** (H.264 High 10 is not playable in browsers). Colour: fmn's encode argv declares no colour space or range on its raw input, so ffmpeg converts the frames from its default matrix (#0E1116 lost 1.5 Cb codes; the Hoeffding yellow 3.7 Cr codes); the kit's encoder now declares them, and lossless renders decode to the exact BT.709 codes (corrected 2026-10-10: first blamed on fmn's NV12 conversion, which is exact) | shorter orbits; a crossfade at the boundary |
-| S-6 | 322 staircase paths growing and morphing, with a scaled "zoom" | prune to the decisive paths and show counts |
+| S-6 | 322 staircase paths growing and morphing, with a scaled "zoom". **Done 2026-10-11** (`spike_s4_s6 s6`, the real path sets exported from `tree_count.py`, 28/4 and 322/0 asserted): 322 individual strands run 0.38 fps at 4K (a dense-stroke cost cliff, 49× the 1080p cost); **edge ribbons** (102 edges, width ∝ the orders through each) run 21 fps at 4K and read better. Video C draws the 28 as strands and the 322 as ribbons | prune to the decisive paths and show counts |
 | S-7 | glyph probe of every planned string (§6.5). **Done 2026-10-10** (`explainer_kit` example `glyph_probe_s7`, at e2eec632): every planned string typesets except `\texttt` (unsupported), so code and hex are Text in CM Typewriter (`Kit::mono`); `\alpha` in math renders as an italic Latin *a*: Video B writes `\text{α}`; Unicode superscripts in Text fall back to a bold sans, so polynomials are TeX; `\prec` reads as a heavy `<`: Video C writes `<` and says "comes before"; `\binom` stays heavy (fm-u5sb); Feller's footnote must wrap | the fallbacks in §6.5 |
-| S-8 | arena growth: fps at t = 0 vs t = 80 s for chapter A-03's live maps (updaters vs `always_redraw`) | fixed mobjects recoloured in place (already the rule) |
+| S-8 | arena growth: fps at t = 0 vs t = 80 s for chapter A-03's live maps (updaters vs `always_redraw`). **Done 2026-10-11** (`spike_s2_fish grid`, 80 s, two 3×3 maps recoloured in place with 18 live numbers): CPU per frame 46 ms at the start, 36–37 ms at the end (two runs); no growth. At the pin `always_redraw` deletes what it replaces and reuses the slot (`fmn-mobject` `dynamics.rs` `always_redraw`, `stage.rs` `finalize_delete`); fm-92gu needs a pinned entry, which native scenes never make | fixed mobjects recoloured in place (already the rule) |
 | S-9 | a two-segment chapter (retained + camera) with a stem spanning the boundary → video-only concat join → PCM master via fmn's own `SoundMixer` → null test against fmn's captured `soundtrack.wav` (≈ −90 dBFS attainable) → frame count = Σ frames, audio samples = Σ frames × 800 | fix the join or master path before any final |
 
 ### 6.7 Looking at every frame
@@ -1581,8 +1581,8 @@ Vandermonde, Kosovo, Bayesian, binomial, départements.
   rewriting points; `v_highlight` glow on marked fish only. Spike S-2 sets the
   count.
 - **Maps and grids** (03_4, 07_1): fixed mobjects recoloured in place by
-  updaters (one VMobject per row), never `always_redraw` (arena slots are never
-  reclaimed; spike S-8 measures fps at t = 0 vs t = 80 s).
+  updaters (flat cells: one flat fill per mobject, S-3), never `always_redraw`
+  (it rebuilds every frame; S-8 measured no arena growth at the pin).
 - **4,845 netfuls** (S-4): dt-updater shifts along precomputed paths; fallback
   a representative stream with exact count-ups.
 - **3D landscape** (S-5): 44 × 11 lit bars; slice planes drawn last; orbit split
@@ -1722,8 +1722,9 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
   determinant is odd ⇔ it is invertible mod 2; uniform entries reduce to uniform
   bits, so success = ∏(1 − 2⁻ⁱ)" (B-F25); "finite fields exist exactly for
   prime-power sizes".
-- **Big tables** (S-3) are built as row strips (one multi-subpath VMobject per
-  row with per-point fill), never 65,536 separate mobjects.
+- **Big tables** (S-3) are built as row strips (one polyline-tagged VMobject
+  per row with per-point *stroke* colours; per-point fills bleed), never
+  65,536 separate mobjects.
 
 #### 06_bytes_are_polynomials (~85 s)
 
@@ -1900,8 +1901,10 @@ Borwein, ex-or, ATSC, RAID, "hex one D", polynomial, logarithm, Gaussian.
 
 ### 10.7 Engineering notes (from the engine review)
 
-- **Big tables (S-3):** one multi-subpath VMobject per row strip with per-point
-  `fill_rgba` (256 mobjects, not 65,536); reorder rows by moving strips with a
+- **Big tables (S-3, measured):** one polyline-tagged VMobject per row strip
+  with per-point `stroke_rgba` (one straight segment per cell, a zero-length
+  curve at each cell boundary, stroke width one cell, anti-alias 0.5 px; 255
+  mobjects, not 65,536; per-point `fill_rgba` bleeds); reorder rows by moving strips with a
   dt updater, swap to column strips at a hold, reorder columns. Never transform
   a group of more than ~2k members per frame (positional ops dedupe in O(M²)).
 - **Matrix zoom:** cut. A real 27 × 27 matrix for K′ = 10 plus a schematic of
@@ -2323,7 +2326,7 @@ the owner's go-ahead (Q9).**
 | U-8 | `\binom` delimiters; heavy big delimiters | fm-binom-delimiters-glyph-gaps-ed1k, fm-u5sb | `C(·,·)` |
 | U-9 | many-particle performance unmeasured | none | S-2 evidence becomes the bead's data |
 | U-10 | camera route has no tile cache; no 4K timing; Metal refused by the facade | fm-metal-route-native-render-pank, fm-sq8.6 | segments; S-5 evidence |
-| U-11 | the arena never frees removed mobjects (`always_redraw`-heavy chapters slow over time) | fm-92gu (in progress) | clear updaters; prefer dt updaters for particles |
+| U-11 | the arena never frees removed mobjects (`always_redraw`-heavy chapters slow over time) | fm-92gu: fixed for native scenes at e2eec632 (S-8); a pinned entry (the Python portal) still defers deletes | clear updaters; prefer dt updaters for particles |
 | U-12 | NumberPlane / ComplexPlane / ThreeDAxes placement with `c2p` following | fm-native-axes-reposition-n1yd | `Frame2`; build planes in place |
 | U-13 | Table and BarChart hard-code black rules and axes | none | build from primitives |
 | U-14 | every frame snapshots every arena slot serially, and the camera route re-materializes the stage per frame | fm-sq8.5 (serial capture) | fewer, larger mobjects (row strips) |
@@ -2469,7 +2472,7 @@ W0 ─┬─ W9 ─┬─ A:P0..P3r ─┐
 | R13 | private host names or local paths leak into the public repo | medium | medium | D-18; a CI grep for absolute home paths and the host's name; reviewed in every commit |
 | R14 | fmn git fetch is huge or slow | medium | low | S-1 fallback to path dependency |
 | R15 | third parties cannot narrate without the skills | high | low | document the prerequisite; Q4 |
-| R16 | arena growth from `always_redraw` slows long chapters (fm-92gu) | high | medium | the §6.6 rules; S-8 |
+| R16 | arena growth from `always_redraw` slows long chapters (fm-92gu) | retired by S-8 (no growth over 80 s at the pin) | — | the §6.6 rules still keep `always_redraw` small (per-frame rebuild cost) |
 | R17 | a camera segment encoded differently from its neighbours corrupts the stream-copy join | medium | high | one runner-wrapped capability for both routes; S-5, S-9 |
 | R18 | hosted CI cost of the fmn closure | high | low | CI runs std-only crates; fmn crates gate locally (§3.8) |
 
