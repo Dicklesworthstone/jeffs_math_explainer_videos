@@ -6,10 +6,12 @@
 pub mod cheating;
 pub mod draw;
 pub mod hook;
+pub mod how_sure;
 pub mod lake;
 pub mod marks;
 pub mod netfuls;
 pub mod ring_toss;
+pub mod small;
 pub mod spread;
 
 use explainer_kit::Chapter;
@@ -58,8 +60,16 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(cheating::Cheating { kit }),
             intensity: 0.55,
         },
-        animatic!("10_small_experiments", 0.5),
-        animatic!("11_how_sure", 0.5),
+        Chapter {
+            key: "10_small_experiments",
+            make: |kit| Box::new(small::Small { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "11_how_sure",
+            make: |kit| Box::new(how_sure::HowSure { kit }),
+            intensity: 0.5,
+        },
         Chapter {
             key: "12_the_ring_toss",
             make: |kit| Box::new(ring_toss::RingToss { kit }),

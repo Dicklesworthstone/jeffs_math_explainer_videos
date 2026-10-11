@@ -388,6 +388,34 @@ pub fn feller_ratio(lake: u64, (m, n, k): (u64, u64, u64)) -> (u64, u64) {
     ((lake - m) * (lake - n), lake * (lake + k - m - n))
 }
 
+/// Scores relative to the top one, L(N)/L(top), for N in `lo ..= hi`,
+/// walked from the top in logs with Feller's ratio, one step per lake size
+/// (07_1's lower-third: how code walks the curve). Zero below the smallest
+/// possible lake.
+pub fn relative_scores((m, n, k): (u64, u64, u64), lo: u64, hi: u64) -> Vec<f64> {
+    assert!(k > 0 && lo <= hi);
+    let smallest = m + n - k;
+    let top = (m * n / k).max(smallest);
+    let mut log = std::collections::HashMap::new();
+    log.insert(top, 0.0f64);
+    let mut l = 0.0;
+    for lake in top + 1..=hi.max(top) {
+        let (a, b) = feller_ratio(lake, (m, n, k));
+        l += (a as f64).ln() - (b as f64).ln();
+        log.insert(lake, l);
+    }
+    let mut l = 0.0;
+    for lake in (lo.max(smallest + 1)..=top).rev() {
+        // L(N − 1) = L(N) · den/num
+        let (a, b) = feller_ratio(lake, (m, n, k));
+        l += (b as f64).ln() - (a as f64).ln();
+        log.insert(lake - 1, l);
+    }
+    (lo..=hi)
+        .map(|lake| if lake < smallest { 0.0 } else { log[&lake].exp() })
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use explainer_kit::choose;
@@ -499,6 +527,32 @@ mod tests {
             let exact = hypergeometric(lake, (10, 10, 3)).div(hypergeometric(lake - 1, (10, 10, 3)));
             assert_eq!(exact.to_f64(), a as f64 / b as f64, "N {lake}");
         }
+    }
+
+    #[test]
+    fn the_walk_from_the_top_matches_exact_scores() {
+        let rel = relative_scores((10, 10, 3), 15, 60);
+        let top = hypergeometric(33, (10, 10, 3)).to_f64();
+        for (i, r) in rel.iter().enumerate() {
+            let lake = 15 + i as u64;
+            let want = hypergeometric(lake, (10, 10, 3)).to_f64() / top;
+            assert!((r - want).abs() < 1e-12, "N {lake}: {r} vs {want}");
+        }
+        assert_eq!(rel[0], 0.0);
+        assert_eq!(rel[1], 0.0, "16 < 17, the smallest lake");
+        // Feller's: the tie at 9,999 / 10,000, falling on both sides
+        let f = relative_scores((1_000, 1_000, 100), 9_998, 10_001);
+        assert_eq!(f[1], 1.0);
+        assert_eq!(f[2], 1.0);
+        assert!(f[0] < 1.0 && f[3] < 1.0);
+        // and far out, against exact double-doubles (12,000: A-F12's 0.152)
+        let wide = relative_scores((1_000, 1_000, 100), 1_900, 12_000);
+        let exact = hypergeometric(12_000, (1_000, 1_000, 100))
+            .div(hypergeometric(10_000, (1_000, 1_000, 100)))
+            .to_f64();
+        let got = wide[12_000 - 1_900];
+        assert!((got / exact - 1.0).abs() < 1e-9, "{got} vs {exact}");
+        assert_eq!(wide[0], 0.0, "the smallest lake's score underflows (5.4e-430)");
     }
 
     #[test]
