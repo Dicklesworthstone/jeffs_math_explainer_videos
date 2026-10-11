@@ -669,26 +669,16 @@ pub(crate) fn aes_contrast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<
     Ok(shown)
 }
 
-/// RaptorQ's fold rule in its role colour with a soft orange halo (17_7):
-/// x⁸ → x⁴ + x³ + x² + 1, centred at `at`, detached (fade it in).
-#[allow(dead_code)] // 17_7 (lane B-3, chapters/the_end) builds it; until then nothing here calls it
-pub fn fold_glow(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
-    let rule = kit.tex(stage, &fold_rule(FOLD), 56.0, Role::fold(), &[], at)?;
-    let (w, h) = (stage.get_width(rule), stage.get_height(rule));
-    let mut halo = Vec::new();
-    for k in 0..6 {
-        let grow = 0.12 * f64::from(k);
-        let layer = Rectangle::new()
-            .width(w + 0.4 + 2.0 * grow)
-            .height(h + 0.3 + 2.0 * grow)
-            .corner_radius(0.25 + grow)
-            .style(super::draw::flat(Role::fold(), 0.07))
-            .build()?
-            .moved_to(at);
-        halo.push(stage.arena_mut().add(layer));
-    }
-    halo.push(rule);
-    group_of(stage, &halo)
+/// RaptorQ's prime polynomial, whole, in its role colour, with "can't be
+/// factored" under it: what 17_7's "a polynomial refuses to factor" points
+/// at (the swap rule x⁸ → x⁴ + x³ + x² + 1 alone factors: Maya R3 maya-02).
+/// Centred at `at`, detached (fade it in). No halo: its stacked layers read
+/// as rings (Codex B R11 P2).
+pub fn prime_polynomial(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+    let poly = kit.tex(stage, &fold_poly(FOLD), 56.0, Role::fold(), &[], at)?;
+    let below = stage.get_bottom(poly)[1] - 0.3;
+    let note = kit.text(stage, "can't be factored", 28.0, Palette::dim(), v(at[0], below))?;
+    group_of(stage, &[poly, note])
 }
 
 #[cfg(test)]

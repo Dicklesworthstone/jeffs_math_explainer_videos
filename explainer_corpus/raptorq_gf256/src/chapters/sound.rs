@@ -23,8 +23,11 @@ pub const LEVEL_LUFS: f64 = -23.0;
 pub const LAP_TAIL_S: f64 = 1.1;
 /// The fade every sonification ends with, seconds.
 const TAIL_S: f64 = 0.25;
-/// The gliding bell's attack: the production rule's 12 ms (a 4 ms ramp clicked).
-const ATTACK_S: f64 = 0.012;
+/// The gliding bell's attack. Its high partials stand about 35 dB over the
+/// bed's at 10_5; the click gate allows a 20 dB rise per 5 ms frame, and a
+/// raised cosine's first 5 ms carry -30 dB of its energy at 30 ms (-14 dB at
+/// 12 ms, which still clicked: Codex B R11).
+const ATTACK_S: f64 = 0.030;
 
 fn frames(seconds: f64) -> usize {
     (seconds * FS).round() as usize
@@ -64,8 +67,7 @@ pub fn glide(from: f64, to: f64, glide_s: f64, vanish: bool, seconds: f64) -> St
         let f = midi_to_hz(from + (to - from) * s);
         phase += TAU * f / FS;
         let fade = if vanish { (1.0 - u).powi(2) } else { 1.0 };
-        // a 12 ms raised-cosine attack: a 4 ms linear one clicked in the
-        // stem's high band (Codex B R9)
+        // a raised-cosine attack (a 4 ms linear one clicked: Codex B R9)
         let a = (t / ATTACK_S).min(1.0);
         let env = (-t / 1.4).exp() * fade * 0.5 * (1.0 - (PI * a).cos());
         let idx = 0.9 * (-t / 0.5).exp() + 0.2;

@@ -13,7 +13,7 @@ use fmn::prelude::*;
 
 use super::byte_clock::ByteClock;
 use super::draw::{Role, card_fill, group_of, line_style, packet, phone, tower, tower_tip};
-use super::fold::fold_glow;
+use super::fold::prime_polynomial;
 use super::hook::{chalk, field, sweep};
 use super::props::{BucketProp, RiskLadder};
 use super::voice::{Spoken, board};
@@ -542,7 +542,7 @@ impl TwoPackets {
         play!(stage; show_creation(pairs).rt(1.4));
         // and that's because a polynomial refuses to factor
         line.at(stage, 1)?;
-        let fold = fold_glow(kit, stage, v(2.1, 1.9))?;
+        let fold = prime_polynomial(kit, stage, v(2.1, 1.9))?;
         play!(stage; fade_in(stage.arena_mut(), fold, v(0.0, -0.15), 1.0)?.rt(0.8));
         // three times seven is nine
         line.at(stage, 2)?;
