@@ -79,7 +79,7 @@ agreed-in-advance equations).
 |---|---|---|---|---|
 | 02_1 | First, how computers write numbers. Each spot holds a bit, a zero or a one, and each spot is worth double the one to its right. One, two, four, eight. | Place values under a row of eight bits | binary primer prop |  |
 | 02_2 | Five is four plus one, so it's one, zero, one. A byte is eight bits, so it holds zero to two fifty-five. | 101 lights; then 11111111 = 255 | bit row |  |
-| 02_3 | Now the trick. Don't send pieces. Send mixes of pieces. The mixing move is called ex-or. | Two pieces merge into one packet card | statement card |  |
+| 02_3 | Instead of sending pieces, we'll send mixes of pieces. The mixing move is called ex-or. | Two pieces merge into one packet card | statement card |  |
 | 02_4 | Line two numbers up in bits. Wherever the second has a one, flip that bit of the first, like a light switch. | Bit rows as light switches; 5 ⊕ 7 | bitwise animation |  |
 | 02_5 | ⟨predict⟩ Five is one, zero, one. Seven is one, one, one. What's five ex-or seven? | The two rows lined up | prediction card |  |
 | 02_6 | Zero, one, zero. Two. And flip twice, and you're back where you started. Two ex-or seven is five again. | 5 ⊕ 7 = 2; then 2 ⊕ 7 = 5 | bitwise animation | listen 3 s (a byte as a chord: each set bit a note; ex-or toggles notes) |
@@ -128,7 +128,7 @@ agreed-in-advance equations).
 |---|---|---|---|---|
 | 05_1 | ⟨predict⟩ So for three random cards in a row, how often are all three useful? | The cube's three steps as fractions to fill: ?/8 · ?/8 · ?/8 | prediction card |  |
 | 05_2 | Seven eighths, times six eighths, times four eighths. About one time in three, so it fails two times in three. With many pieces it fails seventy-one percent of the time. Call it the ex-or lottery. | Retained route: 7/8 · 6/8 · 4/8 = 0.328 → failure 0.672 → 0.7112 | live product |  |
-| 05_3 | Watch the danger as the bucket fills. Call this the danger meter. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots. | **The danger meter**: the 03 bucket's rim shows the chance the next card is useless: flat near zero, then rising | danger meter prop |  |
+| 05_3 | Watch this danger meter as the bucket fills. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots. | **The danger meter**: the 03 bucket's rim shows the chance the next card is useless: flat near zero, then rising | danger meter prop |  |
 | 05_4 | Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one in two. Ten pieces or ten million, the answer is about seventy-one percent. | The rim reads 1/8, 1/4, 1/2 | danger meter prop | listen 3 s (the rank chord: each useful card adds a tone, each useless one is a muted thud; the thuds crowd in at the end) |
 
 - **Ruth:** P(K uniform 0/1 cards all useful) = ∏(1 − 2⁻ⁱ), i = 1…K (lower-third
@@ -189,9 +189,9 @@ agreed-in-advance equations).
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 09_1 | We need something like a prime, with two hundred fifty-six members. Numbers can't do it. Polynomials can. | Goal card | statement card |  |
+| 09_1 | We need something like a prime, with two hundred fifty-six members. Whole numbers can't do it, but polynomials can. | Goal card | statement card |  |
 | 09_2 | Remember the place values, one, two, four, eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one. | 10000000 → x⁷; 00000011 → x + 1; the place values beneath morph into powers of x (bits typeset in TeX, E-B5) | bits → Tex morph |  |
-| 09_3 | One weird rule. The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again. | `x + x = 0`; column-wise ex-or | callback to 02 |  |
+| 09_3 | The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again. | `x + x = 0`; column-wise ex-or | callback to 02 |  |
 | 09_4 | ⟨predict⟩ Three is x plus one, and seven is x squared plus x plus one. Multiply them out, remembering that one plus one is zero. What do you get? | `(x + 1)(x² + x + 1)`; a "pause and try it" card | prediction card | hold |
 | 09_5 | Six terms, and two pairs match. x squared plus x squared vanishes, and so does x plus x. What's left is x cubed plus one, which is one, zero, zero, one. Nine. | FOIL one term at a time: x³ + x² + x + x² + x + 1; the matching pairs (never written "2x²") vanish; x³ + 1 = 1001 = 9 | **FOIL with vanishing terms** |  |
 | 09_6 | Three times seven is nine. | Chalk `3 × 7 = 9` (callback to 01) | write | listen 3 s (the chords of 3, then 7, then 9) |
@@ -319,7 +319,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 15_1 | RaptorQ's twist. Its packets never use byte amounts. Every one is a plain ex-or card. | Blue ex-or cards | cards |  |
+| 15_1 | RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card. | Blue ex-or cards | cards |  |
 | 15_2 | Before sending, both sides agree on extra cards that tie the pieces together by fixed rules. They're never sent, so the phone gets them free. Only ten to sixteen of them are byte cards, whatever the block size. In big blocks, hundreds of others are cheap ex-ors. | The grid for a small block: "7 ex-or rules + 10 byte rules + 10 packets" (a real 27 × 27 grid for 10 pieces); then a schematic big block: "241 ex-or + 11 byte rules" (not a zoom) | matrix schematic |  |
 | 15_3 | Remember the danger meter. The ex-or cards fill the bucket to just short of full, before the danger starts. The byte cards fill the last ten to sixteen slots, where a card is useless only one time in two fifty-six. | One bucket: blue water fills to the last slots, a thin gold layer seals the top | danger meter callback |  |
 | 15_4 | ⟨predict⟩ What if those last cards were ex-or too? | The gold layer turns blue | prediction card |  |

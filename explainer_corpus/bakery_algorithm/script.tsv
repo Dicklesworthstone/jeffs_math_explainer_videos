@@ -4,7 +4,7 @@
 01_4	Two programs, running at once, share a scoreboard that reads forty-one. Programmers write x equals x plus one. It isn't an equation. It means make x one bigger.
 01_5	That's two steps. Read the score, then write it back plus one.
 01_6	Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted.
-01_7	Here's every order at once, as staircases from corner to corner. There are six. How many lose a point?
+01_7	Draw every order at once, as staircases from corner to corner. There are six. How many lose a point?
 01_8	Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle.
 01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly.
 02_1	The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room.
@@ -14,7 +14,7 @@
 02_5	Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who wanders off outside can't block everyone. And fast or slow, it still works.
 02_6	A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually.
 02_7	Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip.
-02_8	Here's the harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.
+02_8	Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.
 03_1	Picture a bakery. Take a number, and the lowest number is served next. From now on, each program is a customer, and being served means going into the room.
 03_2	But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own.
 03_3	So each customer gets her own slate, and only she writes on it. A zero means not in line.
@@ -36,7 +36,7 @@
 05_6	She sees Blue's flag up, and waits.
 05_7	Without flags, two customers visiting once have twenty-eight possible orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does.
 05_8	The time your flag is up is your choosing time. The flag isn't a lock. Nobody waits to raise their own, and many can be up at once.
-05_9	The flag doesn't close the gap between looking and writing. It makes the gap visible, and the tie-breaker settles equal tickets.
+05_9	So the gap between looking and writing is still there. The flag makes it visible, and the tie-breaker settles equal tickets.
 06_1	Now take three customers. The square becomes a cube. How many orders are there now?
 06_2	Over two billion. And not one of them puts two in the room.
 07_1	Here's one full run, fast.

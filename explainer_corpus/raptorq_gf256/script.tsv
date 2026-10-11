@@ -8,7 +8,7 @@
 01_8	On average, about ninety-eight thousand. The last few take forever, because you keep getting doubles.
 02_1	First, how computers write numbers. Each spot holds a bit, a zero or a one, and each spot is worth double the one to its right. One, two, four, eight.
 02_2	Five is four plus one, so it's one, zero, one. A byte is eight bits, so it holds zero to two fifty-five.
-02_3	Now the trick. Don't send pieces. Send mixes of pieces. The mixing move is called ex-or.
+02_3	Instead of sending pieces, we'll send mixes of pieces. The mixing move is called ex-or.
 02_4	Line two numbers up in bits. Wherever the second has a one, flip that bit of the first, like a light switch.
 02_5	Five is one, zero, one. Seven is one, one, one. What's five ex-or seven?
 02_6	Zero, one, zero. Two. And flip twice, and you're back where you started. Two ex-or seven is five again.
@@ -28,7 +28,7 @@
 04_5	Four lit corners out of eight. Half.
 05_1	So for three random cards in a row, how often are all three useful?
 05_2	Seven eighths, times six eighths, times four eighths. About one time in three, so it fails two times in three. With many pieces it fails seventy-one percent of the time. Call it the ex-or lottery.
-05_3	Watch the danger as the bucket fills. Call this the danger meter. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots.
+05_3	Watch this danger meter as the bucket fills. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots.
 05_4	Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one in two. Ten pieces or ten million, the answer is about seventy-one percent.
 06_1	Spares help. With two spare cards, how often does the lottery still fail?
 06_2	Nearly one time in four. The first spare takes it from seventy-one to forty-two percent, and each one after that roughly halves it. With a million phones, that's almost a quarter of a million stuck.
@@ -46,9 +46,9 @@
 08_2	Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide.
 08_3	Zero sneaks in at two fifty-six because two fifty-six is two times one twenty-eight. The nearest prime is two fifty-seven, but that clock needs an hour two fifty-six, which doesn't fit in a byte.
 08_4	A number system where you can add, subtract, multiply, and divide by anything but zero, with all the usual rules of algebra, is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in.
-09_1	We need something like a prime, with two hundred fifty-six members. Numbers can't do it. Polynomials can.
+09_1	We need something like a prime, with two hundred fifty-six members. Whole numbers can't do it, but polynomials can.
 09_2	Remember the place values, one, two, four, eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one.
-09_3	One weird rule. The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again.
+09_3	The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again.
 09_4	Three is x plus one, and seven is x squared plus x plus one. Multiply them out, remembering that one plus one is zero. What do you get?
 09_5	Six terms, and two pairs match. x squared plus x squared vanishes, and so does x plus x. What's left is x cubed plus one, which is one, zero, zero, one. Nine.
 09_6	Three times seven is nine.
@@ -85,7 +85,7 @@
 14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs stall around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken.
 14_7	About one piece in a hundred and twenty isn't in any card. No decoder can find it.
 14_8	Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must decide in advance how many packets exist, and with byte arithmetic that tops out around two hundred fifty-six. A fountain never runs dry.
-15_1	RaptorQ's twist. Its packets never use byte amounts. Every one is a plain ex-or card.
+15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card.
 15_2	Before sending, both sides agree on extra cards that tie the pieces together by fixed rules. They're never sent, so the phone gets them free. Only ten to sixteen of them are byte cards, whatever the block size. In big blocks, hundreds of others are cheap ex-ors.
 15_3	Remember the danger meter. The ex-or cards fill the bucket to just short of full, before the danger starts. The byte cards fill the last ten to sixteen slots, where a card is useless only one time in two fifty-six.
 15_4	What if those last cards were ex-or too?

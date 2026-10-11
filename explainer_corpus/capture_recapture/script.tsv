@@ -8,7 +8,7 @@
 01_8	The net knows it covered a hundredth of the water. It can't know what share of the fish that was.
 02_1	In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Others had been using it for years, and his book never mentions them.
 02_2	Feller marked his fish with red spots. Ours glow, so you can see them.
-02_3	Here's the first way to read it. Of the thousand marked fish, the second net caught a hundred. One in ten.
+02_3	Read it one way first. Of the thousand marked fish, the second net caught a hundred. One in ten.
 02_4	So the second net probably caught about one in ten of all the fish. It caught a thousand. A thousand is one tenth of how many?
 02_5	Ten thousand. The marked fish measured our net for us. It searched about a tenth of the fish.
 02_6	Read the same fact the other way. One fish in ten in the second catch is marked, so about one in ten in the lake is.
@@ -20,7 +20,7 @@
 03_4	The fish stay crowded where they like to be. But the marks spread out evenly among them.
 03_5	Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake's mix.
 03_6	Zoom in. A crowded patch has fifty fish, five of them marked. A sparse one has ten, with one marked. Both are one in ten.
-03_7	That's what makes the table fair. Mixing makes being marked unrelated to where a fish swims. So the second net catches marked fish in their fair share.
+03_7	Mixing is what makes the table fair. Being marked becomes unrelated to where a fish swims, so the second net catches marked fish in their fair share.
 03_8	That's what independent means here. The second net doesn't care which fish were caught before.
 04_1	To see exactly why, shrink the lake. Twenty fish, five of them marked. Our net holds four.
 04_2	Random means every group of four is equally likely. How many groups are there?
@@ -60,13 +60,13 @@
 09_6	Two lines of code. Always check a simulation against something you can compute exactly.
 10_1	With a smaller experiment it gets worse. In a lake of a thousand, mark fifty and catch fifty. How often does the second catch hold no marked fish at all?
 10_2	About one time in fourteen. Then the soup guess divides by zero.
-10_3	Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average.
+10_3	Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average.
 11_1	So far the lake was known, and we watched the estimates scatter. Now turn it around. We don't know the lake. Which sizes could plausibly have given us our hundred caught twice?
 11_2	Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros.
 11_3	A million fish? Then we'd expect to catch about one marked fish, not a hundred.
 11_4	Even at the best size, catching exactly a hundred had only about a four percent chance. Is that a problem?
 11_5	Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet it's the most likely count.
-12_1	Here's the careful range. For each lake size, ask whether a catch of a hundred would land in that lake's middle ninety-five percent. Keep the sizes where it would.
+12_1	Now the careful range. For each lake size, ask whether a catch of a hundred would land in that lake's middle ninety-five percent. Keep the sizes where it would.
 12_2	Build that range for each experiment, and it rings the true size at least ninety-five times in a hundred, whatever the true size is. Like a ring toss.
 12_3	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed and the lake moves.
 12_4	What makes the range tight?

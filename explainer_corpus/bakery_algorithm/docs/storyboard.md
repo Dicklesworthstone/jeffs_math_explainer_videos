@@ -53,7 +53,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 01_4 | Two programs, running at once, share a scoreboard that reads forty-one. Programmers write x equals x plus one. It isn't an equation. It means make x one bigger. | Scoreboard; two lanes, Blue and Green; "time runs left to right; a read is an arrow in, a write is an arrow out" | **space-time lanes** |  |
 | 01_5 | That's two steps. Read the score, then write it back plus one. | Arrows on the lanes | step animation |  |
 | 01_6 | Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
-| 01_7 | ⟨predict⟩ Here's every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in | **progress square** |  |
+| 01_7 | ⟨predict⟩ Draw every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
 | 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back, so in a real machine the bad orders are rare. But at billions of steps a second, rare means constantly. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
 
@@ -72,7 +72,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 02_5 | Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who wanders off outside can't block everyone. And fast or slow, it still works. | Three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed lane outside the room that the other passes; lanes stretching in time | pictograms |  |
 | 02_6 | A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually. | Pictogram 4: every lane eventually reaches the room | pictograms |  |
 | 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, then several ordinary signs (never the single sign that just failed) | statement card |  |
-| 02_8 | Here's the harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
+| 02_8 | Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
 
 - **Ruth:** the four rules as Lamport states Dijkstra's problem "as extended by
   Knuth"; "atomic" is defined once (one indivisible step) and never used
@@ -133,7 +133,7 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 05_6 | She sees Blue's flag up, and waits. | Green waits | step-through |  |
 | 05_7 | Without flags, two customers visiting once have twenty-eight possible orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does. | The 28 staircases as strands, 4 through the red square; they collapse into a "28 orders, 4 bad" card; the lattice regrows to 7×7; the 322 draw in as edge ribbons with a lagged reveal and a counter (spike S-6); the both-inside point stays empty and pulses | **path sets (S-6 ribbons)** |  |
 | 05_8 | The time your flag is up is your choosing time. The flag isn't a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; on screen once, "Lamport calls this the doorway" | statement card |  |
-| 05_9 | The flag doesn't close the gap between looking and writing. It makes the gap visible, and the tie-breaker settles equal tickets. | Thesis card | statement card | hold |
+| 05_9 | So the gap between looking and writing is still there. The flag makes it visible, and the tie-breaker settles equal tickets. | Thesis card | statement card | hold |
 
 - **Ruth:** C-F3 (no flag 28 / 4 bad; flag 322 / 0), C-F4 (three customers
   2,126,816,238 / 0, chapter 06); one visit each, a wait counted once, when it succeeds
