@@ -82,4 +82,4 @@
 13_1	In practice, people use the hardware's magic signs, which check and flip in one motion. So does the bakery still run anywhere?
 13_2	Yes. Code that Arm itself publishes uses it while a core wakes up, before its fast memory is switched on. Until then, the magic signs aren't guaranteed to work, so the core takes a ticket, bakery style.
 13_3	And its trick of taking a ticket bigger than any you've seen, with customer numbers to break ties, reappears in how Lamport later ordered events across whole networks. It's in the ballot numbers of Paxos too, the method that keeps copies of a database agreeing.
-13_4	Lamport says he didn't invent the bakery algorithm. He discovered it. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it.
+13_4	Lamport says he didn't invent the bakery algorithm. He discovered it instead. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it.
