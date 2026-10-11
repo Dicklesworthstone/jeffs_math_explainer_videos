@@ -39,7 +39,7 @@ const SMALL_PICTURE: (f64, Vec3) = (1.3, [-5.7, 2.35, 0.0]);
 const SHOWN: usize = 300;
 
 /// Where glyph `i` sits.
-fn glyph_at(i: usize) -> Vec3 {
+pub fn glyph_at(i: usize) -> Vec3 {
     let (col, row) = (i % COLS, i / COLS);
     let dx = (FIELD_X.1 - FIELD_X.0) / COLS as f64;
     let dy = (FIELD_Y.1 - FIELD_Y.0) / ROWS as f64;
@@ -48,12 +48,12 @@ fn glyph_at(i: usize) -> Vec3 {
 
 /// The phone field: one group per phone, and each phone's body (the part
 /// that changes colour).
-struct Field {
-    group: Mob,
-    bodies: Vec<Mob>,
+pub struct Field {
+    pub group: Mob,
+    pub bodies: Vec<Mob>,
 }
 
-fn field(stage: &mut Stage<'_>) -> Field {
+pub fn field(stage: &mut Stage<'_>) -> Field {
     let phones: Vec<VMobject> = (0..GLYPHS)
         .map(|i| phone(Role::waiting(), PHONE_H).moved_to(glyph_at(i)))
         .collect();
@@ -67,7 +67,7 @@ fn field(stage: &mut Stage<'_>) -> Field {
 
 /// Recolour `bodies` to `color` in a sweep from the field's left edge to its
 /// right over `rt` seconds.
-fn sweep(stage: &mut Stage<'_>, bodies: &[Mob], color: Srgb, rt: f64) -> fmn::Result<()> {
+pub fn sweep(stage: &mut Stage<'_>, bodies: &[Mob], color: Srgb, rt: f64) -> fmn::Result<()> {
     let mut pending: Vec<(Mob, f64)> = bodies.iter().map(|&m| (m, stage.get_center(m)[0])).collect();
     let front = stage.add_value_tracker(FIELD_X.0 - 0.1);
     let driver = stage.arena_mut().add(VMobject::new());
@@ -90,6 +90,24 @@ fn sweep(stage: &mut Stage<'_>, bodies: &[Mob], color: Srgb, rt: f64) -> fmn::Re
     stage.clear_updaters(driver, false);
     stage.remove_from_scene(driver);
     Ok(())
+}
+
+/// The title's factors: three times seven, in the byte field (01, 17).
+pub const TITLE_FACTORS: (u8, u8) = (3, 7);
+
+/// The secret in chalk, `3 × 7 = 9` (01_2, 17_7), its product computed in
+/// the byte field (oracle B-F11.mul_3_7) and set in the byte role.
+pub fn chalk(kit: &Kit, stage: &mut Stage<'_>, size: f64, at: Vec3) -> fmn::Result<Mob> {
+    let (a, b) = TITLE_FACTORS;
+    let product = crate::model::mul(a, b, crate::model::FOLD).to_string();
+    kit.tex(
+        stage,
+        &format!(r"{a} \times {b} = {product}"),
+        size,
+        hex("#F4F0E6"),
+        &[(product.as_str(), Role::byte())],
+        at,
+    )
 }
 
 /// A swarm member's straight flight: from `from` to `to`, starting at
@@ -301,14 +319,7 @@ fn broadcast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
             ..PlayOverrides::default()
         },
     )?;
-    let chalk = kit.tex(
-        stage,
-        r"3 \times 7 = 9",
-        150.0,
-        hex("#F4F0E6"),
-        &[("9", Role::byte())],
-        v(0.0, -0.2),
-    )?;
+    let chalk = chalk(kit, stage, 150.0, v(0.0, -0.2))?;
     play!(stage; write(stage.arena(), chalk).rt(1.6));
     // no hold: the title forms while the line names the arithmetic
     Ok(chalk)
