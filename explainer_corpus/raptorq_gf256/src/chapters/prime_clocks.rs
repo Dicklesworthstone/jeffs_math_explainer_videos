@@ -73,15 +73,16 @@ impl SceneConstruct for PrimeClocks {
             prime(),
             v(3.2, 2.6),
         )?;
+        // "what times three is one?": the unknown first, ? × 3 = 1
         let lhs = kit.tex(
             stage,
-            &format!(r"{THREE} \times"),
+            &format!(r"\times {THREE}"),
             72.0,
             Palette::ink(),
             &[],
-            v(2.0, 0.6),
+            v(3.3, 0.6),
         )?;
-        let rhs = kit.tex(stage, "= 1", 72.0, Palette::ink(), &[], v(4.6, 0.6))?;
+        let rhs = kit.tex(stage, "= 1", 72.0, Palette::ink(), &[], v(4.75, 0.6))?;
         kit.say(stage, "08_1")?;
         play!(stage;
             show_creation(clock.ring).rt(1.0),
@@ -99,14 +100,14 @@ impl SceneConstruct for PrimeClocks {
             write(stage.arena(), lhs).rt(0.6),
             write(stage.arena(), rhs).rt(0.6),
         );
-        let q = predict_pause(&kit, stage, v(3.3, 0.6))?;
+        let q = predict_pause(&kit, stage, v(2.05, 0.6))?;
 
         // 08_2: five. The hand hops three hours five times and lands on one
         let at = stage.add_value_tracker(0.0);
         let hand = clock.hand(stage, at, prime());
         kit.say(stage, "08_2")?;
         stage.add_to_scene(hand)?;
-        let ans = kit.tex(stage, &five.to_string(), 72.0, prime(), &[], v(3.3, 0.6))?;
+        let ans = kit.tex(stage, &five.to_string(), 72.0, prime(), &[], v(2.05, 0.6))?;
         play!(stage;
             fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
             fade_in(stage.arena_mut(), ans, ORIGIN, 1.0)?.rt(0.3),
@@ -129,7 +130,7 @@ impl SceneConstruct for PrimeClocks {
         let one = clock.labels[1].1;
         let full = kit.tex(
             stage,
-            &format!(r"{THREE} \times {five} = {product} \equiv 1"),
+            &format!(r"{five} \times {THREE} = {product} \equiv 1"),
             48.0,
             Palette::ink(),
             &[],

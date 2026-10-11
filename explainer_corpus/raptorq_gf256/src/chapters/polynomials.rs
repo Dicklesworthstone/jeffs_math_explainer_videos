@@ -450,7 +450,7 @@ impl SceneConstruct for Polynomials {
         play!(stage; write(stage.arena(), chalk).rt(1.4));
         let wav = super::sound::wav(
             "09_6_chords",
-            &super::sound::chords(&[(THREE, 0.0, 0.8), (SEVEN, 1.0, 0.8), (nine, 2.0, 0.9)], LISTEN_S),
+            &super::sound::chords(&[(THREE, 0.0, 0.7), (SEVEN, 0.8, 0.7), (nine, 1.6, 1.2)], LISTEN_S),
         )?;
         kit.sonify(stage, LISTEN_S, "09_6", &wav)?;
         // each number lights with its chord: 3, then 7, then the product
@@ -465,7 +465,7 @@ impl SceneConstruct for Polynomials {
                 let a = indicate(stage.arena_mut(), g, 1.2, Some([1.0, 0.85, 0.4]))?;
                 lit.push(stage.prepare(a)?);
             }
-            together(stage, lit, 0.9)?;
+            together(stage, lit, 0.7)?;
             stage.wait(0.1)?;
         }
         kit.hold(stage)?;

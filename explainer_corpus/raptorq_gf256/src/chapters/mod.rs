@@ -29,6 +29,7 @@ pub mod polynomials;
 pub mod prime_clocks;
 pub mod register;
 pub mod sound;
+pub mod times_table;
 pub mod wrap256;
 
 // Chapters 13–17 (lane B-3): the toy graph and its peel (14, reused by 16),
@@ -102,7 +103,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(byte_clock::TheByteClock { kit }),
             intensity: 0.6,
         },
-        animatic!("12_the_times_table", 0.65),
+        Chapter {
+            key: "12_the_times_table",
+            make: |kit| Box::new(times_table::TimesTable { kit }),
+            intensity: 0.65,
+        },
         Chapter {
             key: "13_the_byte_lottery",
             make: |kit| Box::new(byte_lottery::ByteLottery { kit }),

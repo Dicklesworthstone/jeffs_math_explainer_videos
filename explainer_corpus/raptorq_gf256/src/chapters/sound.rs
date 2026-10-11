@@ -19,6 +19,8 @@ pub const BIT_PITCH: [f64; 8] = [76.0, 78.0, 80.0, 83.0, 85.0, 88.0, 90.0, 92.0]
 pub const OFF_THE_TOP: f64 = 95.0;
 /// A sonification's integrated loudness as written (the narration's).
 pub const LEVEL_LUFS: f64 = -23.0;
+/// How long before a lap's window ends its dot lands home (11_4).
+pub const LAP_TAIL_S: f64 = 1.1;
 /// The fade every sonification ends with, seconds.
 const TAIL_S: f64 = 0.25;
 
@@ -111,7 +113,8 @@ pub fn overflow(fold: Option<u8>, seconds: f64) -> Stereo {
 /// The byte clock's lap (11_4): one glassy grain per click, 255 of them,
 /// climbing one octave from E5, then the home bell (E6) as the dot lands.
 pub fn lap(clicks: usize, seconds: f64) -> Stereo {
-    let run = seconds - 0.6;
+    // the home bell lands before the score's fade of the window's last 0.8 s
+    let run = seconds - LAP_TAIL_S;
     let grains: Vec<Grain> = (0..clicks)
         .map(|k| {
             let u = k as f64 / clicks as f64;
@@ -126,6 +129,33 @@ pub fn lap(clicks: usize, seconds: f64) -> Stereo {
     let mut out = cloud(&grains, seconds + 4.0);
     let home = Note::new(BIT_PITCH[0] + 12.0, 0.7, 0.4, 11);
     out.mix_in(&render(Instrument::WarmGlass, &home), frames(run), 1.0);
+    finish(out, seconds)
+}
+
+/// The table's sort (12_3): a granular texture of the rows' chords (one
+/// grain per set bit of each row's byte, in the order the rows move), thinning
+/// as the rows and then the columns lock, settling into one held E chord
+/// (E5 G♯5 B5 E6) at `settle` seconds, before the window's faded last 0.8 s.
+pub fn settle(rows: &[u8], settle: f64, seconds: f64) -> Stereo {
+    let mut grains = Vec::new();
+    for (i, &byte) in rows.iter().enumerate() {
+        let u = i as f64 / rows.len() as f64;
+        // denser at the start, thinning toward the settle
+        let start = settle * (1.0 - (1.0 - u).powf(0.6));
+        for (bit, &pitch) in BIT_PITCH.iter().enumerate() {
+            if byte >> bit & 1 == 1 {
+                grains.push(Grain {
+                    start,
+                    pitch,
+                    pan: (bit as f64 - 3.5) / 3.5 * 0.5,
+                    amp: 0.18 * (1.0 - 0.6 * u),
+                });
+            }
+        }
+    }
+    let mut out = cloud(&grains, seconds + 4.0);
+    let e_chord = 0b0010_1101;
+    strike(&mut out, e_chord, settle, seconds - settle, 5);
     finish(out, seconds)
 }
 
@@ -179,6 +209,7 @@ mod tests {
             overflow(None, 3.0),
             overflow(Some(0x1D), 3.0),
             lap(255, 3.0),
+            settle(&(1..=255u8).collect::<Vec<_>>(), 2.0, 3.0),
         ] {
             assert_eq!(s.len(), frames(3.0));
             assert!(s.is_finite());

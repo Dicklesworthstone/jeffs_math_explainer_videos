@@ -367,7 +367,7 @@ impl SceneConstruct for TheByteClock {
         let lap = click
             .animate()
             .set_anim_args(AnimateArgs {
-                run_time: Some(LISTEN_S - 0.6),
+                run_time: Some(LISTEN_S - super::sound::LAP_TAIL_S),
                 rate_func: Some(fmn::core::rate::linear),
                 ..AnimateArgs::default()
             })?
@@ -547,23 +547,19 @@ impl SceneConstruct for TheByteClock {
         play!(stage; fade_in(stage.arena_mut(), logline, ORIGIN, 1.0)?.rt(0.5));
         kit.hold(stage)?;
 
-        // 11_7: the standard's lookup; every partner at its mirror image
-        let code = CodePanel::build(&kit, stage, &table_code(), 16.0, v(6.95, 3.6))?;
+        // 11_7: every nonzero byte's partner at its mirror image (the
+        // standard's table lookup moved to 12_0, and the rhyme to 12_6)
         let pairs = clock.mirror_pairs(stage, Role::byte())?;
         let top = click_point(C, R + 0.35, 0.0);
         let own = kit.text(stage, "its own partner", 24.0, Role::byte(), v(top[0] + 1.25, top[1]))?;
         let none = kit.text(stage, "0: none", 24.0, Palette::dim(), v(C[0], C[1] - 0.35))?;
-        let wraps = crate::model::wrap::u8_log_sum_wraps(&log);
-        let caption = kit.text(
+        let rule = kit.tex(
             stage,
-            &format!(
-                "a u8 sum wraps for {} of {} pairs",
-                explainer_kit::thousands(wraps.0 as u64),
-                explainer_kit::thousands(wraps.1 as u64)
-            ),
-            22.0,
-            Palette::dim(),
-            v(4.65, 0.85),
+            &format!(r"\log a^{{-1}} = {CLICKS} - \log a"),
+            44.0,
+            Role::byte(),
+            &[],
+            v(4.1, 0.6),
         )?;
         kit.say(stage, "11_7")?;
         stage.clear_updaters(inner_labels, true);
@@ -583,64 +579,102 @@ impl SceneConstruct for TheByteClock {
             ],
             0.5,
         )?;
-        play!(stage; fade_in(stage.arena_mut(), code.group, v(-1.0, 0.0), 1.0)?.rt(0.7));
-        play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.5));
-        stage.wait(1.4)?;
         play!(stage; fade_in(stage.arena_mut(), pairs, ORIGIN, 1.0)?.rt(2.0).lag(0.03));
         play!(stage;
             fade_in(stage.arena_mut(), own, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), none, ORIGIN, 1.0)?.rt(0.5),
+            write(stage.arena(), rule).rt(0.8),
         );
         kit.hold(stage)?;
-
-        // 11_8: the wrong clock counted bytes; the right one counts clicks
         stage.clear_updaters(hand, true);
-        fade_list(stage, &[code.group, caption, pairs, own, none, hand, one], 0.5)?;
-        let wrong = Clock::build(
-            &kit,
-            stage,
-            BYTE_HOURS,
-            v(-3.6, 0.2),
-            2.3,
-            Role::wrap(),
-            &[0, BYTE_HOURS / 4, BYTE_HOURS / 2, 3 * BYTE_HOURS / 4],
-            22.0,
-        )?;
-        let bytes_l = kit.text(stage, "bytes", 40.0, Role::wrap(), v(-3.6, -2.75))?;
-        let clicks_l = kit.text(stage, "clicks", 40.0, Role::byte(), v(3.6, -2.75))?;
-        kit.say(stage, "11_8")?;
-        // the clock as one group (its ring, dots and zero), moved aside
-        stage.add_to_scene(clock.group)?;
-        play!(stage; clock.group.animate().scale(2.3 / R)?.move_to(v(3.6, 0.2), ORIGIN)?);
-        play!(stage;
-            show_creation(wrong.ring).rt(0.8),
-            fade_in(stage.arena_mut(), wrong.ticks, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), bytes_l, ORIGIN, 1.0)?.rt(0.8),
-        );
-        let mut labels: Vec<Box<dyn Animation>> = Vec::new();
-        for &(_, l) in &wrong.labels {
-            let a = fade_in(stage.arena_mut(), l, ORIGIN, 1.0)?;
-            labels.push(stage.prepare(a)?);
-        }
-        let labels = explainer_kit::lagged(stage, labels, 0.15)?;
-        play!(stage; labels.rt(0.6));
-        let broke = kit.tex(stage, r"2 \times 128 \equiv 0", 40.0, Role::lost(), &[], v(-3.6, -3.35))?;
-        play!(stage; fade_in(stage.arena_mut(), broke, ORIGIN, 1.0)?.rt(0.5));
-        stage.wait(1.5)?;
-        play!(stage; fade_in(stage.arena_mut(), clicks_l, ORIGIN, 1.0)?.rt(0.6));
-        let lap_l = kit.tex(
-            stage,
-            &format!(r"{CLICKS} \text{{ clicks}}"),
-            40.0,
-            Role::byte(),
-            &[],
-            v(3.6, -3.35),
-        )?;
-        play!(stage; fade_in(stage.arena_mut(), lap_l, ORIGIN, 1.0)?.rt(0.5));
-        kit.hold(stage)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
     }
+}
+
+/// 12_0's for-programmers panel and its caption: multiplying by table
+/// lookup (the panel built off the top-right corner's spot, detached).
+pub(crate) fn lookup_panel(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
+    let code = CodePanel::build(kit, stage, &table_code(), 16.0, v(6.95, 3.6))?;
+    let (wraps, pairs) = crate::model::wrap::u8_log_sum_wraps(&logs());
+    let caption = kit.text(
+        stage,
+        &format!(
+            "a u8 sum wraps for {} of {} pairs",
+            explainer_kit::thousands(wraps as u64),
+            explainer_kit::thousands(pairs as u64)
+        ),
+        22.0,
+        Palette::dim(),
+        v(4.65, 0.85),
+    )?;
+    Ok((code.group, caption))
+}
+
+/// 12_6 (was 11_8): the wrong clock that counted bytes beside the byte clock
+/// that counts clicks; plays its own reveals and returns what it showed.
+pub(crate) fn two_clocks(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let wrong = Clock::build(
+        kit,
+        stage,
+        BYTE_HOURS,
+        v(-3.6, 0.2),
+        2.3,
+        Role::wrap(),
+        &[0, BYTE_HOURS / 4, BYTE_HOURS / 2, 3 * BYTE_HOURS / 4],
+        22.0,
+    )?;
+    let right = ByteClock::build(stage, v(3.6, 0.2), 2.3)?;
+    let bytes_l = kit.text(stage, "bytes", 40.0, Role::wrap(), v(-3.6, -2.75))?;
+    let clicks_l = kit.text(stage, "clicks", 40.0, Role::byte(), v(3.6, -2.75))?;
+    play!(stage;
+        show_creation(wrong.ring).rt(0.8),
+        fade_in(stage.arena_mut(), wrong.ticks, ORIGIN, 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), bytes_l, ORIGIN, 1.0)?.rt(0.8),
+    );
+    let mut labels: Vec<Box<dyn Animation>> = Vec::new();
+    for &(_, l) in &wrong.labels {
+        let a = fade_in(stage.arena_mut(), l, ORIGIN, 1.0)?;
+        labels.push(stage.prepare(a)?);
+    }
+    let labels = explainer_kit::lagged(stage, labels, 0.15)?;
+    play!(stage; labels.rt(0.6));
+    let half = BYTE_HOURS as u32 / 2;
+    let broke = kit.tex(
+        stage,
+        &format!(r"2 \times {half} \equiv {}", crate::model::wrap::mul(2, half as u8)),
+        40.0,
+        Role::lost(),
+        &[],
+        v(-3.6, -3.35),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), broke, ORIGIN, 1.0)?.rt(0.5));
+    stage.wait(1.5)?;
+    play!(stage;
+        show_creation(right.ring).rt(0.8),
+        fade_in(stage.arena_mut(), right.dots, ORIGIN, 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), right.zero, ORIGIN, 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), clicks_l, ORIGIN, 1.0)?.rt(0.8),
+    );
+    let lap_l = kit.tex(
+        stage,
+        &format!(r"{CLICKS} \text{{ clicks}}"),
+        40.0,
+        Role::byte(),
+        &[],
+        v(3.6, -3.35),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), lap_l, ORIGIN, 1.0)?.rt(0.5));
+    Ok(vec![
+        wrong.group,
+        right.ring,
+        right.dots,
+        right.zero,
+        bytes_l,
+        clicks_l,
+        broke,
+        lap_l,
+    ])
 }
 
 /// The hand of the byte clock at click `tracker`, rebuilt each frame.
@@ -769,7 +803,7 @@ impl Ruler {
     }
 }
 
-/// 11_7's for-programmers panel: multiplying by table lookup, the tables'
+/// 12_0's for-programmers panel: multiplying by table lookup, the tables'
 /// sizes from the field (EXP needs index 254 + 254; LOG sums need u16).
 fn table_code() -> Vec<Vec<Seg>> {
     let top = 2 * (CLICKS - 1);

@@ -769,6 +769,34 @@ fn arithmetic(f: &mut Facts) -> Result<(), String> {
         "51",
         "fact sheet B-X1",
     )?;
+    // 12_4's lower-third: the element orders and how many bytes have each
+    let mut orders: Vec<(u32, usize)> = Vec::new();
+    for x in 1..=255u8 {
+        let o = order(x, FOLD);
+        match orders.iter_mut().find(|(k, _)| *k == o) {
+            Some((_, c)) => *c += 1,
+            None => orders.push((o, 1)),
+        }
+    }
+    orders.sort_unstable();
+    f.pin(
+        "B-F12.element_orders_0x11D",
+        list(orders.iter().map(|&(o, _)| o)),
+        "1,3,5,15,17,51,85,255",
+        "fact sheet B-F12",
+    )?;
+    f.pin(
+        "B-F12.element_order_counts_0x11D",
+        list(orders.iter().map(|&(_, c)| c)),
+        "1,2,4,8,16,32,64,128",
+        "fact sheet B-F12",
+    )?;
+    f.pin(
+        "B-F12.product_(2+1)(2^2+1)(2^4+1)",
+        (2 + 1) * (4 + 1) * (16 + 1),
+        "255",
+        "fact sheet B-F12",
+    )?;
     f.add(
         "B-F12.smallest_generator_0x11B",
         (2..=255u8).find(|&g| order(g, AES_FOLD) == 255).unwrap_or(0),
