@@ -74,6 +74,20 @@ pub const FOR_PROGRAMMERS: &str = "for programmers:";
 pub const TICKET_LOCK: &str =
     "a ticket lock is the machine Lamport avoided: one atomic fetch-and-add (Linux's x86 FIFO ticket spinlocks)";
 
+// 04_same_number
+pub const RULE_SMALLER: &str = "rule: wait for anyone with a smaller ticket";
+pub const RULE_SMALLER_OR_EQUAL: &str = "rule: wait for anyone with a smaller or equal ticket";
+pub const AFTER_YOU: &str = "after you";
+pub const NO_AFTER_YOU: &str = "no, after you";
+pub const PAIR: &str = "pair";
+pub const CAT: &str = "cat";
+pub const COW: &str = "cow";
+pub const COMES_BEFORE: &str = "comes before";
+pub const TICKET_ACROSS: &str = "ticket";
+pub const CUSTOMER_NUMBER_UP: &str = "customer number";
+pub const SERVED: &str = "served";
+pub const TOTALLY_ORDERED: &str = "pairs are totally ordered, and each has finitely many ahead of it";
+
 /// Every string above, for the probe.
 pub const TEXT: &[&str] = &[
     DIGITS,
@@ -136,6 +150,18 @@ pub const TEXT: &[&str] = &[
     WAITS,
     FOR_PROGRAMMERS,
     TICKET_LOCK,
+    RULE_SMALLER,
+    RULE_SMALLER_OR_EQUAL,
+    AFTER_YOU,
+    NO_AFTER_YOU,
+    PAIR,
+    CAT,
+    COW,
+    COMES_BEFORE,
+    TICKET_ACROSS,
+    CUSTOMER_NUMBER_UP,
+    SERVED,
+    TOTALLY_ORDERED,
 ];
 
 /// Code, in CM Typewriter.

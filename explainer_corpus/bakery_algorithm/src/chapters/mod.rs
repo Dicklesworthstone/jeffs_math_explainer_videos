@@ -9,6 +9,7 @@ pub mod room;
 pub mod scoreboard;
 pub mod three_customers;
 pub mod tickets;
+pub mod ties;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -42,7 +43,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(tickets::TakeANumber { kit }),
             intensity: 0.5,
         },
-        animatic!("04_same_number", 0.5),
+        Chapter {
+            key: "04_same_number",
+            make: |kit| Box::new(ties::SameNumber { kit }),
+            intensity: 0.5,
+        },
         animatic!("05_the_unwritten_ticket", 0.55),
         Chapter {
             key: "06_three_customers",

@@ -67,8 +67,50 @@ pub struct Bakery {
     pub slates: Vec<Slate>,
 }
 
-fn figure_at(k: usize) -> Vec3 {
+pub fn figure_at(k: usize) -> Vec3 {
     v(FIG_X, LANE_Y[k - 1])
+}
+
+/// The bakery as 03 left it, built at once and detached (04 and 05 start
+/// from it): the five customers with their badges, slates showing
+/// `slates`, each slate edged in its owner's colour, the lanes and the
+/// room. Returns the bakery and the room's three parts.
+pub fn set_bakery(kit: &Kit, stage: &mut Stage<'_>, slates: &[u32]) -> fmn::Result<(Bakery, [Mob; 3])> {
+    let mut b = Bakery {
+        figures: Vec::new(),
+        lanes: Vec::new(),
+        slates: Vec::new(),
+    };
+    for (i, &t) in slates.iter().enumerate() {
+        let k = i + 1;
+        b.figures.push(figure(kit, stage, k, figure_at(k), FIG_SCALE)?);
+        let s = slate(kit, stage, t, v(SLATE_X, LANE_Y[i]), SLATE_SIZE)?;
+        stage.set_stroke(s.board, Some(customer(k)), Some(3.0), Some(1.0), None, true);
+        b.slates.push(s);
+        b.lanes
+            .push(stage.arena_mut().add(lane(LANE_X0, LANE_X1, LANE_Y[i], k)?));
+    }
+    let [tint, edge] = room(ROOM_W, ROOM_H, ROOM_C)?;
+    let tint = stage.arena_mut().add(tint);
+    let edge = stage.arena_mut().add(edge);
+    let label = kit.text(
+        stage,
+        g::THE_ROOM,
+        30.0,
+        room_red(),
+        v(ROOM_C[0], ROOM_C[1] + ROOM_H / 2.0 + 0.32),
+    )?;
+    Ok((b, [tint, edge, label]))
+}
+
+impl Bakery {
+    /// Every mobject of the bakery (for fades).
+    pub fn all(&self) -> Vec<Mob> {
+        let mut out: Vec<Mob> = self.figures.iter().map(|f| f.group).collect();
+        out.extend(&self.lanes);
+        out.extend(self.slates.iter().flat_map(Slate::parts));
+        out
+    }
 }
 
 // --------------------------------------------------------------------- 03_1
