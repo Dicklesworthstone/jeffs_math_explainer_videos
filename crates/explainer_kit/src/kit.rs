@@ -393,6 +393,40 @@ impl Kit {
         at: Vec3,
         edge: Vec3,
     ) -> fmn::Result<Mob> {
+        self.live_number_pinned(stage, tracker, places, sign, size, color, at, edge, false)
+    }
+
+    /// As [`Kit::live_number`], pinned to the screen while a 3-D camera moves
+    /// (engine review E-X3: labels over Video A's landscape, Video B's cube):
+    /// every rebuilt number is fixed in frame.
+    #[allow(clippy::too_many_arguments)]
+    pub fn live_number_hud(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        places: usize,
+        sign: bool,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+        edge: Vec3,
+    ) -> fmn::Result<Mob> {
+        self.live_number_pinned(stage, tracker, places, sign, size, color, at, edge, true)
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn live_number_pinned(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        places: usize,
+        sign: bool,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+        edge: Vec3,
+        fixed: bool,
+    ) -> fmn::Result<Mob> {
         let book = Rc::clone(&self.book);
         let m = stage.always_redraw(move |s| {
             let value = s.tracker_value(tracker).unwrap_or(0.0);
@@ -405,10 +439,21 @@ impl Kit {
                 .expect("bundled digits always lay out");
             let m = s.add(d.into_vmob());
             s.move_to(m, at, edge);
+            if fixed {
+                s.set_fixed_in_frame(m, 1.0, true);
+            }
             m
         });
         stage.add_to_scene(m)?;
         self.note(m, "live number", TextKind::Live);
+        Ok(m)
+    }
+
+    /// Detached text pinned to the screen while a 3-D camera moves (E-X3),
+    /// centred at `at`.
+    pub fn text_hud(&self, stage: &mut Stage<'_>, s: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
+        let m = self.text(stage, s, size, color, at)?;
+        stage.set_fixed_in_frame(m, 1.0, true);
         Ok(m)
     }
 

@@ -13,9 +13,6 @@ use crate::play::{Timed, fade_all};
 use crate::plot::v;
 use crate::storyboard::{Beat, ChapterBoard};
 
-/// Seconds a prediction question stays on screen before the answer (plan
-/// §5.1: 1.5–3 s).
-pub const PREDICT_S: f64 = 2.0;
 /// An authored music breath (a `hold` beat), seconds.
 pub const HOLD_S: f64 = 2.5;
 /// How long a silent card (a title) stays when it has no hold of its own.
@@ -116,15 +113,7 @@ impl SceneConstruct for Animatic {
             stage.play_prepared(anims)?;
             shown = card;
             if beat.predict() {
-                kit.hold(stage)?;
-                let q = kit.text(stage, "?", 90.0, Palette::hero(), v(5.6, -2.6))?;
-                let a = fade_in(stage.arena_mut(), q, ORIGIN, 1.0)?;
-                stage.play(a.rt(0.3))?;
-                crate::narration::wait_frames(
-                    stage,
-                    crate::narration::frames_covering(PREDICT_S, stage.scene().time().fps()),
-                )?;
-                shown.push(q);
+                shown.push(crate::props::predict_pause(&kit, stage, v(5.6, -2.6))?);
             }
             if let Some(s) = beat.listen_s() {
                 kit.listen(stage, s, &format!("{}:{}", board.key, beat.id))?;
