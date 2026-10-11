@@ -1031,7 +1031,11 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
   the author writes: `kit.music_breath(stage, 2.5)` at act boundaries and after
   big reveals, roughly once every 60–90 s.
 - **Key line.** At most twice per video, the music drops to silence 0.5 s
-  before a crucial sentence.
+  before a crucial sentence: `kit.mark(stage, "silence:<name>")` just before
+  the sentence (and `"silence_end:<name>"` where the music may return). The
+  same marks give a beat that must sound bare (A's Kosovo numbers, 15_1) and,
+  placed in a gap, a drop-out from the mark (A 13_8). The stem is exactly zero
+  inside (QA `authored_silence_peak`); `"thin:<name>"` only dips the bed.
 
 ### 7.3 Hard rules (rendering fails if violated)
 
@@ -1042,15 +1046,16 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
    the 95th percentile, and an upper voice's chorus needs room). The bass is
    the highest whole octave under the band (one octave, so every root has a
    bass note), and the upper voices start at the first semitone above it
-   (`Register::from_f0` in `theory.rs`). Measured 2026-10-11 on twelve
-   sentences of each script in its own voice (re-measured on the real takes):
+   (`Register::from_f0` in `theory.rs`). Measured 2026-10-11 over every take
+   of each video's assembled narration (89, 104 and 84 lines; twelve probe
+   sentences each had read 81–146, 107–190 and 83–178 Hz):
 
    | narrator | f0 5th–95th (median) | no-fly band | bass | upper voices from |
    |---|---|---|---|---|
    | `robert` (Hoeffding, v5 takes) | ≈105–216 Hz (≈136) | 95–250 Hz | E1–E♭2 (41–78 Hz) | C4 (262 Hz) |
-   | `matt` (A) | 81–146 Hz (100) | 72–173 Hz | D1–C♯2 (37–69 Hz) | F3 (175 Hz) |
-   | `leo` (B) | 107–190 Hz (139) | 95–227 Hz | G1–F♯2 (49–92 Hz) | B♭3 (233 Hz) |
-   | `michael` (C) | 83–178 Hz (114) | 74–211 Hz | E♭1–D2 (39–73 Hz) | A3 (220 Hz) |
+   | `matt` (A) | 77–151 Hz (101) | 69–179 Hz | C♯1–C2 (35–65 Hz) | F♯3 (185 Hz) |
+   | `leo` (B) | 107–205 Hz (140) | 95–244 Hz | G1–F♯2 (49–92 Hz) | B3 (247 Hz) |
+   | `michael` (C) | 76–163 Hz (107) | 68–194 Hz | C♯1–C2 (35–65 Hz) | G3 (196 Hz) |
 
    (`robert`'s row keeps the values this rule was first written with, which
    Hoeffding's v6 score was checked against.)
@@ -1217,6 +1222,18 @@ source of truth, this is its summary):
   measured V − 9.9 and V − 9.7 at its centre, plan §7.2's V − 10. No voicing,
   bed or roll, puts a tone a minor ninth over another (a new QA metric,
   `voicing_minor_ninths`).
+- **The bed's balance.** At unity the bass measured 4–6 LU over the pad in
+  every identity (K-weighted): the bed's level was mostly a 35–65 Hz hum, and
+  on small speakers, which lose it, a chord quieter than meant. A, B and C
+  set it 9 dB down (`bass_db`), so the pad leads by 3–6 LU; the bass thins
+  with the pad.
+- **One gesture per gap.** A gap an authored cue (reveal, pizzicato,
+  resolution) lands in is that cue's: no roll there, the motif 1.2 s after
+  it. The theme resolves once: after a resolved theme in the last chapter
+  (A 15_3, B 17_7, C 13_4) the last gap only rolls the tonic home.
+- **On the real narration** (2026-10-11), C's 13 chapters (948.7 s) pass
+  every §7.6 metric: voice − music median 20.6–21.9 LU, p5 15.7–19.8, SII
+  loss ≤ 0.007, gap onsets ≤ 5 a second.
 
 ### 7.6 Score QA (computed per chapter, JSON report; failing metrics fail `./x score`)
 
