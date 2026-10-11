@@ -71,6 +71,125 @@ fn centre((lo, hi): (Vec3, Vec3)) -> Vec3 {
     v((lo[0] + hi[0]) / 2.0, (lo[1] + hi[1]) / 2.0)
 }
 
+/// Wait until a share `frac` of the way through sentence `j` of line `id`
+/// (a phrase inside a sentence: its word position over the sentence's
+/// words); nothing without a narrator or once that moment has passed.
+fn until_within(kit: &Kit, stage: &mut Stage<'_>, id: &str, j: usize, frac: f64) -> fmn::Result<()> {
+    let Some(n) = kit.narrator.as_ref() else {
+        return Ok(());
+    };
+    let starts = n.sentence_starts(id);
+    let (Some(at), Some(len)) = (n.sentence_at(id, j), n.length(id)) else {
+        return Ok(());
+    };
+    let span = starts.get(j + 1).copied().unwrap_or(len) - starts.get(j).copied().unwrap_or(0.0);
+    let target = at + frac * span;
+    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
+    if target > now {
+        explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(target - now, fps))?;
+    }
+    Ok(())
+}
+
+/// Hide the glyphs of `tex` whose source lies in `range` (to reveal them
+/// later, with their words); returns them.
+fn hide(stage: &mut Stage<'_>, tex: Mob, spans: &SpanMapData, range: &Range<usize>) -> Vec<Mob> {
+    let kids = children(stage, tex);
+    let picked: Vec<Mob> = spans
+        .entries
+        .iter()
+        .zip(&kids)
+        .filter(|(e, _)| e.start >= range.start && e.end <= range.end)
+        .map(|(_, &k)| k)
+        .collect();
+    for &k in &picked {
+        stage.set_opacity(k, 0.0, true);
+    }
+    picked
+}
+
+/// Bring hidden glyphs back over `secs`.
+fn reveal(stage: &mut Stage<'_>, glyphs: &[Mob], secs: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &g in glyphs {
+        let a = g
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(secs),
+                ..AnimateArgs::default()
+            })?
+            .set_opacity(1.0)?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// The pair of neighbouring bars at the top left: lake sizes `lo` and
+/// `lo + 1`, heights in proportion to their scores (the taller of the
+/// chapter's two steps' tops is 1.5 units).
+struct Pair {
+    bars: [Mob; 2],
+    words: [Mob; 2],
+    ratio: Mob,
+}
+
+const PAIR_BASE: f64 = 1.45;
+
+fn pair_bar(lo: u64, i: usize) -> fmn::Result<VMobject> {
+    let unit = 1.5 / curve::score(top());
+    let size = lo + i as u64;
+    let h = unit * curve::score(size);
+    Ok(Rectangle::new()
+        .width(0.5)
+        .height(h)
+        .style(flat(Role::score(), 0.95))
+        .build()?
+        .moved_to(v(-6.15 + 0.75 * i as f64, PAIR_BASE + h / 2.0)))
+}
+
+fn pair_ratio_src(lo: u64) -> String {
+    format!(r"\frac{{\text{{score}}({})}}{{\text{{score}}({lo})}}", lo + 1)
+}
+
+fn pair_word_at(i: usize) -> Vec3 {
+    v(-6.15 + 0.75 * i as f64, PAIR_BASE - 0.22)
+}
+
+impl Pair {
+    /// Move the pair one size up, `lo` to `lo + 1`: the left bar leaves,
+    /// the right one slides into its place, the next size's bar grows, and
+    /// the words follow.
+    fn step_up(&mut self, kit: &Kit, stage: &mut Stage<'_>, lo: u64) -> fmn::Result<()> {
+        let next = lo + 1;
+        let slid = stage.arena_mut().add(pair_bar(next, 0)?);
+        let grown = stage.arena_mut().add(pair_bar(next, 1)?);
+        let w0 = kit.text(stage, &next.to_string(), 22.0, Palette::dim(), pair_word_at(0))?;
+        let w1 = kit.text(stage, &(next + 1).to_string(), 22.0, Palette::dim(), pair_word_at(1))?;
+        let ratio = kit.tex(stage, &pair_ratio_src(next), 40.0, Role::score(), &[], v(-2.6, 2.45))?;
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        let a = fade_out(stage.arena_mut(), self.bars[0], ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a)?);
+        anims.push(stage.prepare(Transform::new(self.bars[1], slid).rt(0.8))?);
+        let a = fmn::animation::grow_from_edge(stage.arena_mut(), grown, DOWN, None)?;
+        anims.push(stage.prepare(a)?);
+        anims.push(stage.prepare(fmn::animation::replacement_transform(self.words[0], w0).rt(0.8))?);
+        anims.push(stage.prepare(fmn::animation::replacement_transform(self.words[1], w1).rt(0.8))?);
+        anims.push(stage.prepare(fmn::animation::replacement_transform(self.ratio, ratio).rt(0.8))?);
+        stage.play_prepared(anims)?;
+        *self = Pair {
+            bars: [self.bars[1], grown],
+            words: [w0, w1],
+            ratio,
+        };
+        Ok(())
+    }
+
+    fn mobs(&self) -> [Mob; 5] {
+        [self.bars[0], self.bars[1], self.words[0], self.words[1], self.ratio]
+    }
+}
+
 /// `a·(a−1)·…·b` as TeX factors, each factor's range kept.
 fn falling(src: &mut Src, from: u64, to: u64) -> Vec<(u64, Range<usize>)> {
     let mut out = Vec::new();
@@ -118,7 +237,7 @@ impl SceneConstruct for Comparison {
 
 /// 07_1: the curve as 05 left it, two neighbouring bars, and the ratio of
 /// their counting formulas cancelling. Returns the survivors' fraction.
-fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, SpanMapData, Mob)> {
+fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, SpanMapData, Pair)> {
     let (m, n, k) = TOY;
     let f = curve::frame();
     let axis = curve::axis(kit, stage, &f)?;
@@ -160,33 +279,20 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
     }
     let a = fade_out(stage.arena_mut(), axis, ORIGIN, 1.0)?;
     out.push(stage.prepare(a)?);
-    // the two neighbours become a small pair of bars at the top left, their
-    // heights still in proportion to their scores
-    let inset_h = 1.5 / curve::score(lake).max(1e-9);
-    let mut pair_bars = Vec::new();
-    for (i, (&b, size)) in lit.iter().zip([lake - 1, lake]).enumerate() {
-        let h = inset_h * curve::score(size);
-        let x = -6.15 + 0.75 * i as f64;
-        let target = stage.arena_mut().add(
-            Rectangle::new()
-                .width(0.5)
-                .height(h)
-                .style(flat(Role::score(), 0.95))
-                .build()?
-                .moved_to(v(x, 1.45 + h / 2.0)),
-        );
+    // "Compare each lake size with the one just below it": the two
+    // neighbours become a small pair of bars at the top left, their heights
+    // still in proportion to their scores
+    kit.until_sentence(stage, "07_1", 1)?;
+    for (i, &b) in lit.iter().enumerate() {
+        let target = stage.arena_mut().add(pair_bar(lake - 1, i)?);
         out.push(stage.prepare(Transform::new(b, target).rt(1.0))?);
-        pair_bars.push(b);
     }
     stage.play_prepared(out)?;
-    let lo_word = kit.text(stage, &(lake - 1).to_string(), 22.0, Palette::dim(), v(0.0, 0.0))?;
-    let hi_word = kit.text(stage, &lake.to_string(), 22.0, Palette::dim(), v(0.0, 0.0))?;
-    let (b0, b1) = (stage.get_corner(lit[0], DOWN), stage.get_corner(lit[1], DOWN));
-    stage.move_to(lo_word, v(b0[0], b0[1] - 0.22), ORIGIN);
-    stage.move_to(hi_word, v(b1[0], b1[1] - 0.22), ORIGIN);
+    let lo_word = kit.text(stage, &(lake - 1).to_string(), 22.0, Palette::dim(), pair_word_at(0))?;
+    let hi_word = kit.text(stage, &lake.to_string(), 22.0, Palette::dim(), pair_word_at(1))?;
     let ratio_word = kit.tex(
         stage,
-        &format!(r"\frac{{\text{{score}}({lake})}}{{\text{{score}}({})}}", lake - 1),
+        &pair_ratio_src(lake - 1),
         40.0,
         Role::score(),
         &[],
@@ -197,7 +303,14 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
         fade_in(stage.arena_mut(), hi_word, ORIGIN, 1.0)?.rt(0.5),
         write(stage.arena(), ratio_word).rt(0.8),
     );
+    let pair = Pair {
+        bars: [lit[0], lit[1]],
+        words: [lo_word, hi_word],
+        ratio: ratio_word,
+    };
 
+    // "Divide one score by the other, and almost everything cancels"
+    kit.until_sentence(stage, "07_1", 2)?;
     // the counting formulas: C(10,3)·C(N−10, 7)/C(N, 10) at N and N − 1
     let binom = |a: u64, b: u64| format!(r"\binom{{{a}}}{{{b}}}");
     let mut s1 = Src::default();
@@ -309,11 +422,6 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
         },
     )?;
     // the survivors' fraction stays for 07_2, with the bars and the ratio
-    let pair = stage.arena_mut().add(VMobject::new());
-    for mm in pair_bars.into_iter().chain([lo_word, hi_word, ratio_word]) {
-        stage.attach(pair, mm)?;
-    }
-    stage.add_to_scene(pair)?;
     Ok((result, result_spans, pair))
 }
 
@@ -371,18 +479,60 @@ struct Step {
     verdict: Mob,
     labels: Vec<Mob>,
     /// The two bars and their ratio, top left (they leave at 07_3).
-    pair: Mob,
+    pair: Pair,
 }
 
-/// 07_2: 529 against 528 at the step to the top, 576 against 578 past it.
-fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapData, Mob)) -> fmn::Result<Step> {
-    let (survivors, survivor_spans, pair) = survivors;
+/// Box the bigger side of a step's fraction for a moment, with `verdict`
+/// (if any) arriving as the box does.
+fn box_winner(
+    stage: &mut Stage<'_>,
+    frac: Mob,
+    spans: &SpanMapData,
+    src: &str,
+    (num, den): (u64, u64),
+    verdict: Option<Mob>,
+) -> fmn::Result<()> {
+    let num_range = 6..6 + num.to_string().len();
+    let den_range = {
+        let start = src.find("}{").map_or(0, |i| i + 2);
+        start..start + den.to_string().len()
+    };
+    let winner = if num > den { &num_range } else { &den_range };
+    if let Some(bx) = glyph_box(stage, frac, spans, winner) {
+        let r = SurroundingRectangle::from_extent(Some(bx))
+            .buff(0.08)
+            .color(Palette::hero())
+            .build();
+        let ring = stage.arena_mut().add(r);
+        let mut anims: Vec<Box<dyn Animation>> = vec![stage.prepare(show_creation(ring).rt(0.5))?];
+        if let Some(m) = verdict {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.5);
+            anims.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(anims)?;
+        stage.wait(0.8)?;
+        play!(stage; fade_out(stage.arena_mut(), ring, ORIGIN, 1.0)?.rt(0.4));
+    }
+    Ok(())
+}
+
+/// 07_2, each picture on its sentence: the step to the top (its factors in
+/// table words), "529 against 528", "the top one wins, so the score goes
+/// up", then the step past the top, 576 against 578, "so it goes down".
+fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapData, Pair)) -> fmn::Result<Step> {
+    let (survivors, survivor_spans, mut pair) = survivors;
     let at = v(0.6, -0.2);
-    let (src_up, r_up, (num_up, den_up)) = step_src(lake);
+    let (src_up, r_up, up_pair) = step_src(lake);
     let (up, up_spans) = kit.tex_spans(stage, &src_up, 56.0, Palette::ink(), &[], at)?;
+    // the left side, 529/528, waits for its own sentence
+    let left_end = src_up.find(" = ").map_or(0, |i| i + 3);
+    let left = hide(stage, up, &up_spans, &(0..left_end));
     kit.say(stage, "07_2")?;
     let morph = TransformMatchingTex::new(stage.arena_mut(), survivors, up, &survivor_spans, &up_spans)?;
     play!(stage; morph.rt(1.2));
+    for &g in &left {
+        stage.set_opacity(g, 0.0, true);
+    }
     let labels = factor_labels(kit, stage, up, &up_spans, &r_up)?;
     let mut show: Vec<Box<dyn Animation>> = Vec::new();
     for &l in &labels {
@@ -390,23 +540,11 @@ fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapDa
         show.push(stage.prepare(a)?);
     }
     stage.play_prepared(show)?;
-    // the bigger side lights, and the score goes up
-    let num_range = 6..6 + num_up.to_string().len();
-    let den_range = {
-        let start = src_up.find("}{").map_or(0, |i| i + 2);
-        start..start + den_up.to_string().len()
-    };
-    let winner = if num_up > den_up { &num_range } else { &den_range };
-    if let Some(bx) = glyph_box(stage, up, &up_spans, winner) {
-        let r = SurroundingRectangle::from_extent(Some(bx))
-            .buff(0.08)
-            .color(Palette::hero())
-            .build();
-        let ring = stage.arena_mut().add(r);
-        play!(stage; show_creation(ring).rt(0.6));
-        stage.wait(0.3)?;
-        play!(stage; fade_out(stage.arena_mut(), ring, ORIGIN, 1.0)?.rt(0.4));
-    }
+    // "That's five hundred twenty-nine against five hundred twenty-eight."
+    kit.until_sentence(stage, "07_2", 1)?;
+    reveal(stage, &left, 0.7)?;
+    // "The top one wins, so the score goes up."
+    kit.until_sentence(stage, "07_2", 2)?;
     let verdict_up = kit.text(
         stage,
         &format!("{} → {}: the score goes up", lake - 1, lake),
@@ -414,33 +552,26 @@ fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapDa
         Palette::green(),
         v(0.6, -2.4),
     )?;
-    play!(stage; fade_in(stage.arena_mut(), verdict_up, ORIGIN, 1.0)?.rt(0.5));
-    // one step past the top
-    let (src_down, _, (num_down, den_down)) = step_src(lake + 1);
+    box_winner(stage, up, &up_spans, &src_up, up_pair, Some(verdict_up))?;
+    // "From thirty-three to thirty-four, it's five hundred seventy-six
+    // against five hundred seventy-eight, so it goes down."
+    kit.until_sentence(stage, "07_2", 3)?;
+    let (src_down, _, down_pair) = step_src(lake + 1);
     let (down, down_spans) = kit.tex_spans(stage, &src_down, 56.0, Palette::ink(), &[], at)?;
     // new numbers, same shape: a crossfade in place (a glyph-matching
-    // morph slides unrelated digits into each other here)
+    // morph slides unrelated digits into each other here); the pair at the
+    // top left steps up with it, to 33 and 34
     play!(stage;
         fade_out(stage.arena_mut(), up, ORIGIN, 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), down, ORIGIN, 1.0)?.rt(0.9),
         fade_out(stage.arena_mut(), verdict_up, ORIGIN, 1.0)?.rt(0.5),
     );
-    let den_range = {
-        let start = src_down.find("}{").map_or(0, |i| i + 2);
-        start..start + den_down.to_string().len()
-    };
-    let num_range = 6..6 + num_down.to_string().len();
-    let winner = if num_down > den_down { &num_range } else { &den_range };
-    if let Some(bx) = glyph_box(stage, down, &down_spans, winner) {
-        let r = SurroundingRectangle::from_extent(Some(bx))
-            .buff(0.08)
-            .color(Palette::hero())
-            .build();
-        let ring = stage.arena_mut().add(r);
-        play!(stage; show_creation(ring).rt(0.6));
-        stage.wait(0.3)?;
-        play!(stage; fade_out(stage.arena_mut(), ring, ORIGIN, 1.0)?.rt(0.4));
-    }
+    pair.step_up(kit, stage, lake - 1)?;
+    // "…against five hundred seventy-eight": the bigger side is the bottom
+    until_within(kit, stage, "07_2", 3, 0.6)?;
+    box_winner(stage, down, &down_spans, &src_down, down_pair, None)?;
+    // "…so it goes down"
+    until_within(kit, stage, "07_2", 3, 0.82)?;
     let verdict_down = kit.text(
         stage,
         &format!("{} → {}: the score goes down", lake, lake + 1),
@@ -481,7 +612,7 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
     let (frac_l, frac_spans) = kit.tex_spans(stage, &sf.0, 56.0, Palette::ink(), &colors, v(0.6, -0.2))?;
     kit.say(stage, "07_3")?;
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
-    for &l in labels.iter().chain([&verdict, &pair]) {
+    for &l in labels.iter().chain([&verdict]).chain(pair.mobs().iter()) {
         let a = fade_out(stage.arena_mut(), l, ORIGIN, 1.0)?;
         out.push(stage.prepare(a)?);
     }
@@ -560,7 +691,7 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
             ..PlayOverrides::default()
         },
     )?;
-    play!(stage; write(stage.arena(), exp).rt(1.2));
+    play!(stage; write(stage.arena(), exp).rt(0.8));
     let mut slashes = Vec::new();
     for (a, b) in [(&e1, &e5), (&e2, &e7), (&e3, &e6)] {
         let mut pair_anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -569,27 +700,33 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
                 let st = slash(stage, bx, Palette::red())?;
                 stage.add_to_scene(st)?;
                 slashes.push(st);
-                pair_anims.push(stage.prepare(show_creation(st).rt(0.35))?);
+                pair_anims.push(stage.prepare(show_creation(st).rt(0.3))?);
             }
         }
         stage.play_prepared(pair_anims)?;
     }
     let rest = kit.tex(stage, "= Mn - kN", 52.0, Palette::ink(), &colors, v(0.0, -1.0))?;
-    play!(stage; fade_in(stage.arena_mut(), rest, v(0.0, 0.2), 1.0)?.rt(0.7));
+    play!(stage; fade_in(stage.arena_mut(), rest, v(0.0, 0.2), 1.0)?.rt(0.5));
+    // "In the mystery lake, ten times ten, minus three times thirty-three."
+    kit.until_sentence(stage, "07_4", 1)?;
     let mn_value = (m * n) as i64 - (k * lake) as i64;
-    let numbers = kit.tex(
-        stage,
-        &format!(
-            r"{m} \times {n} - {k} \times {lake} = {} - {} = {mn_value}",
-            m * n,
-            k * lake
-        ),
-        44.0,
-        Palette::ink(),
-        &[],
-        v(0.0, -2.05),
-    )?;
+    let numbers_src = format!(
+        r"{m} \times {n} - {k} \times {lake} = {} - {} = {mn_value}",
+        m * n,
+        k * lake
+    );
+    let (numbers, numbers_spans) = kit.tex_spans(stage, &numbers_src, 44.0, Palette::ink(), &[], v(0.0, -2.05))?;
+    let one_at = numbers_src.rfind(" = ").unwrap_or(0);
+    let one = hide(stage, numbers, &numbers_spans, &(one_at..numbers_src.len()));
     play!(stage; write(stage.arena(), numbers).rt(1.0));
+    for &g in &one {
+        stage.set_opacity(g, 0.0, true);
+    }
+    // "One."
+    kit.until_sentence(stage, "07_4", 2)?;
+    reveal(stage, &one, 0.4)?;
+    // "While that's positive, the score is still rising."
+    kit.until_sentence(stage, "07_4", 3)?;
     let rising = kit.text(
         stage,
         "positive: the score is still rising",
@@ -670,7 +807,9 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
         .move_to(v(-3.6, 1.2), ORIGIN)?;
     appear.push(stage.prepare(slide)?);
     stage.play_prepared(appear)?;
-    // Mn − kN = ab − k·u, and each letter flies to its cell
+    // "It becomes first catch only times second catch only, minus caught
+    // twice times the dark cell": Mn − kN = ab − k·u, each letter to its cell
+    kit.until_sentence(stage, "07_5", 1)?;
     let mut sc = Src::default();
     sc.push("= ");
     let ca = sc.push("a");
@@ -751,9 +890,12 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
         v(-3.4, -2.0),
     )?;
     play!(stage; write(stage.arena(), cell_numbers).rt(1.0));
+    // "One, same as before."
+    kit.until_sentence(stage, "07_6", 1)?;
     play!(stage; fade_in(stage.arena_mut(), before, ORIGIN, 1.0)?.rt(0.6));
-    stage.wait(0.6)?;
-    // the toy table gives way to Feller's, as 08 opens on it
+    // "Back to Feller's lake.": the toy table gives way to Feller's, as 08
+    // opens on it
+    kit.until_sentence(stage, "07_6", 2)?;
     fade_all(stage, 0.8)?;
     let feller = stage.arena_mut().add(mosaic_picture(&kit.book, opening_lake() as f64));
     let words = fixed_labels(kit, stage)?;
