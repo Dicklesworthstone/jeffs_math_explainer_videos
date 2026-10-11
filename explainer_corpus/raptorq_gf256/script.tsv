@@ -85,10 +85,10 @@
 14_5	Nothing moves.
 14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs get stuck around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken.
 14_7	On average, about seventy of them aren't in any card. No decoder can find those.
-15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card, of about seven pieces on average.
-15_7	Before sending, the sender adds extra pieces. With three pieces, add P, equal to A ex-or B ex-or C. Then A ex-or B ex-or C ex-or P is always zero. Both sides know that card, so it's never sent. It's a free card.
-15_2	RaptorQ picks its extra pieces so that many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down.
-15_3	Remember the danger meter? Now the bucket has a slot for every piece, old and new, and it still doesn't care about order. Count the ex-or cards first, and they almost always fill it up to the last ten to sixteen slots, before the danger starts. The byte cards fill those, where a card is useless only one time in two fifty-six.
+15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Each is a plain ex-or card of about seven pieces on average.
+15_7	First, the sender adds extra pieces. With three pieces, add P, equal to A ex-or B ex-or C. Then A ex-or B ex-or C ex-or P is always zero. Both sides know that card, so it's never sent. It's a free card.
+15_2	RaptorQ picks its extra pieces so many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down.
+15_3	The bucket now has a slot for every piece, old and new, filled in any order. Count the ex-or cards first, and they almost always fill it up to the last ten to sixteen slots. The byte cards fill those, where a card is useless only one time in two fifty-six.
 15_4	What if those last cards were plain ex-or cards?
 15_5	The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand.
 16_1	Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece, here C. Call it little c, and carry it along like an unknown in algebra.

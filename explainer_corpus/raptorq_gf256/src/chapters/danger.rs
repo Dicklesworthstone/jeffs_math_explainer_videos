@@ -510,7 +510,7 @@ impl Danger {
             fade_in(stage.arena_mut(), inset_label, ORIGIN, 1.0)?.rt(0.6),
         );
         stage.add_to_scene(meter.fill)?;
-        line.at(stage, 2)?;
+        line.at(stage, 1)?;
         // ex-or cards first: they fill all but the last H slots
         let gold_from = 0.82;
         let blue = bucket.level(stage, 0.0, gold_from - 0.04, Role::ex_or())?;
@@ -550,7 +550,7 @@ impl Danger {
             fade_in(stage.arena_mut(), brk, ORIGIN, 1.0)?.rt(1.4),
             fade_in(stage.arena_mut(), blue_word, ORIGIN, 1.0)?.rt(1.4),
         );
-        line.at(stage, 3)?;
+        line.at(stage, 2)?;
         // the byte cards close the last H slots, where the danger lives
         let gold = bucket.level(stage, gold_from, 1.0, Role::byte())?;
         let mut inset_gold = Vec::new();
