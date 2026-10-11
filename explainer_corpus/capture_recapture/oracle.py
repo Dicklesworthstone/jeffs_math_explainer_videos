@@ -1292,6 +1292,13 @@ def af29_table_identity():
     emit_exact("A-F29.toy_ab_over_k", F(a * b, k))
     emit("A-F29.toy_u_hat", (a * b) // k)
     emit("A-F29.toy_N_hat", a + b + k + (a * b) // k)
+    # 07_5-07_6 (mx-e-a-8y5.9): the comparison from the table's cells at the mystery lake, 7 x 7 - 3 x 16
+    M, n = TOY[0], TOY[1]
+    emit("A-F29.toy_a", M - k)
+    emit("A-F29.toy_b", n - k)
+    emit("A-F29.toy_ab", a * b)
+    emit("A-F29.toy_k_times_u_hat", k * ((a * b) // k))
+    assert (M - k, n - k) == (a, b) and a * b - k * ((a * b) // k) == M * n - k * 33 == 1
 
 
 def af30_coin():
@@ -1602,6 +1609,17 @@ def ch09_panel():
     se = float(est.std(ddof=1)) / sqrt(est.size)
     emit(f"{pre}.sim_mean_standard_error", se)
     emit(f"{pre}.mean_gap_in_standard_errors", (float(est.mean()) - exact_line) / se)
+    # chapter 09's scene (mx-e-a-8y5.9): one key pins the whole stream of k, sum k_i 31^i mod 2^61 - 1,
+    # in run order; the histogram's range; "most land within about nine of it" (09_3)
+    P = (1 << 61) - 1
+    h, w = 0, 1
+    for v in k:
+        h = (h + int(v) * w) % P
+        w = w * 31 % P
+    emit(f"{pre}.k_polyhash", h)
+    emit(f"{pre}.k_min", int(k.min()))
+    emit(f"{pre}.k_max", int(k.max()))
+    emit(f"{pre}.k_within_9_of_100_share", float(((k >= 91) & (k <= 109)).mean()))
     # Dev D9 (description): in numpy, the soup guess at k = 0 is inf, with a RuntimeWarning
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")

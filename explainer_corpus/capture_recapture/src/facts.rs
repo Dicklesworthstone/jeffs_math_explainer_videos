@@ -6,8 +6,10 @@
 
 use explainer_kit::{Facts, choose};
 
+use crate::exact::{Dd, estimate_law, feller_ratio, hypergeometric};
 use crate::model::mixing::{self, Mixing};
 use crate::model::{Lake, SPOTS};
+use crate::panel;
 
 /// The second catch, marked count and caught-twice count of Feller's lake.
 pub const FELLER: (u64, u64, u64) = (1_000, 1_000, 100);
@@ -202,6 +204,7 @@ pub fn facts() -> Result<Facts, String> {
     )?;
     f.pin("A-F24.seen", 30u64 + 24 - 12, "42", "fact sheet A-F24")?;
     late_chapters(&mut f)?;
+    chapters_07_to_11(&mut f)?;
     Ok(f)
 }
 
@@ -443,6 +446,228 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
         "true",
         "Spagat 2014, p. 9",
     )?;
+    Ok(())
+}
+
+/// Chapters 07–11 (lane mx-e-a-8y5.9): Feller's comparison, the table's
+/// balance, the panel's 10,000 experiments, the small study, how sure.
+fn chapters_07_to_11(f: &mut Facts) -> Result<(), String> {
+    // 07: the comparison at the mystery lake's peak, factor by factor in
+    // table words (07_2) and Mn − kN (07_4)
+    let (m, n, k) = TOY;
+    for lake in [33u64, 34] {
+        let pre = format!("A-F6.N{lake}");
+        f.add(&format!("{pre}.unmarked_N_minus_M"), lake - m)?;
+        f.add(&format!("{pre}.missed_by_second_N_minus_n"), lake - n)?;
+        f.add(&format!("{pre}.dark_cell_u"), lake + k - m - n)?;
+        f.add(&format!("{pre}.Mn"), m * n)?;
+        f.add(&format!("{pre}.kN"), k * lake)?;
+        f.add(&format!("{pre}.Mn_minus_kN"), (m * n) as i64 - (k * lake) as i64)?;
+    }
+    // 07_5–07_6: the same number from the table's cells, 7 × 7 − 3 × 16
+    let (a, b) = (m - k, n - k);
+    let u = a * b / k;
+    f.pin("A-F29.toy_a", a, "7", "07_6 voice")?;
+    f.pin("A-F29.toy_b", b, "7", "07_6 voice")?;
+    f.pin("A-F29.toy_u_hat", u, "16", "fact sheet A-F29")?;
+    f.add("A-F29.toy_N_hat", a + b + k + u)?;
+    f.pin("A-F29.toy_ab", a * b, "49", "07_6 voice")?;
+    f.pin("A-F29.toy_k_times_u_hat", k * u, "48", "07_6 voice")?;
+    // 08: Feller's table at the balance, and the neighbouring ratios (08_5)
+    let (fm, fnn, fk) = FELLER;
+    f.add("A-F29.feller_a", fm - fk)?;
+    f.add("A-F29.feller_b", fnn - fk)?;
+    let truth = fm * fnn / fk;
+    f.add("A-F29.green_share_marked_column_N10000", py(fk as f64 / fm as f64))?;
+    f.add(
+        "A-F29.green_share_unmarked_column_N10000",
+        py((fnn - fk) as f64 / (truth - fm) as f64),
+    )?;
+    for (lake, (num_want, den_want)) in [
+        (9_999u64, ("80982001", "80981901")),
+        (10_000, ("81000000", "81000000")),
+        (10_001, ("81018001", "81018101")),
+    ] {
+        let (num, den) = feller_ratio(lake, FELLER);
+        f.pin(
+            &format!("A-F10.N{lake}.ratio_numerator"),
+            num,
+            num_want,
+            "fact sheet A-F10",
+        )?;
+        f.pin(
+            &format!("A-F10.N{lake}.ratio_denominator"),
+            den,
+            den_want,
+            "fact sheet A-F10",
+        )?;
+    }
+    // the soup guess at the mystery lake, 33⅓ → 33 (08_4)
+    let g = gcd((m * n) as u128, k as u128);
+    f.add("A-F5.soup", py((m * n) as f64 / k as f64))?;
+    f.pin(
+        "A-F5.soup.exact",
+        format!("{}/{}", (m * n) as u128 / g, k as u128 / g),
+        "100/3",
+        "fact sheet A-F5",
+    )?;
+    // 09: the code panel's 10,000 experiments (src/panel.rs replays numpy)
+    let panel = panel::run();
+    let s = panel.stats()?;
+    let pre = "A-CH09.panel";
+    f.pin(
+        &format!("{pre}.k_polyhash"),
+        panel::polyhash(&panel.k),
+        "746464907710603445",
+        "numpy 2.5.4 run of the panel",
+    )?;
+    f.add(&format!("{pre}.experiments"), panel.k.len())?;
+    f.add(
+        &format!("{pre}.k_zero_count"),
+        panel.k.iter().filter(|&&k| k == 0).count(),
+    )?;
+    f.pin(
+        &format!("{pre}.first12_k"),
+        panel.k[..12].iter().map(u32::to_string).collect::<Vec<_>>().join(","),
+        "101,103,91,97,94,103,100,91,108,101,90,107",
+        "fact sheet R2 (09_1 listen window)",
+    )?;
+    f.add(&format!("{pre}.k_min"), s.k_min)?;
+    f.add(&format!("{pre}.k_max"), s.k_max)?;
+    f.add(&format!("{pre}.k_within_9_of_100_share"), py(s.k_within_9_share))?;
+    f.add(&format!("{pre}.sim_k_mean"), py(s.k_mean))?;
+    f.pin(
+        &format!("{pre}.sim_k_sd"),
+        py(s.k_sd),
+        "8.960120782668056",
+        "fact sheet R2 (SD of k 8.960)",
+    )?;
+    f.add(&format!("{pre}.sim_mean"), py(s.mean))?;
+    f.pin(
+        &format!("{pre}.sim_mean_rounded_to_10"),
+        (s.mean / 10.0).round() as u64 * 10,
+        "10090",
+        "09_5 voice",
+    )?;
+    f.add(&format!("{pre}.sim_median"), py(s.median))?;
+    f.add(&format!("{pre}.sim_p2_5"), py(s.p2_5))?;
+    f.add(&format!("{pre}.sim_p97_5"), py(s.p97_5))?;
+    f.add(&format!("{pre}.exact_line_mean"), py(s.exact_mean))?;
+    f.pin(
+        &format!("{pre}.print_line"),
+        format!("{} {}", py(s.mean), py(s.exact_mean)),
+        "10088.586031204479 10082.498763370464",
+        "fact sheet R2 (the panel's printed line, numpy 2.5.4)",
+    )?;
+    f.add(&format!("{pre}.sim_mean_standard_error"), py(s.standard_error))?;
+    f.add(
+        &format!("{pre}.mean_gap_in_standard_errors"),
+        py(s.gap_in_standard_errors),
+    )?;
+    // the exact spread of k (09_3 "SD 9.0"): n·M(N−M)(N−n) / (N²(N−1))
+    let (vn, vd) = (
+        u128::from(fnn * fm) * u128::from(truth - fm) * u128::from(truth - fnn),
+        u128::from(truth * truth) * u128::from(truth - 1),
+    );
+    let g = gcd(vn, vd);
+    f.pin(
+        "A-F15.var_k_exact.exact",
+        format!("{}/{}", vn / g, vd / g),
+        "90000/1111",
+        "fact sheet A-F15",
+    )?;
+    f.add("A-F15.sd_k_exact", py(((vn / g) as f64 / (vd / g) as f64).sqrt()))?;
+    // 09_4: ten too few pushes harder than ten too many
+    let near = |c: u64| (fm * fnn + c / 2) / c;
+    f.pin("A-F31.excess_above_10000", near(90) - truth, "1111", "fact sheet A-F31")?;
+    f.pin(
+        "A-F31.shortfall_below_10000",
+        truth - near(110),
+        "909",
+        "fact sheet A-F31",
+    )?;
+    // 10: the small study, N = 1,000, M = n = 50 (all exact, then rounded once)
+    let (sn, sm) = (1_000u64, 50u64);
+    let law = estimate_law(sn, sm, sm);
+    f.pin(
+        "A-F21.P_k0",
+        py(law.p0),
+        "0.07197699188484312",
+        "fact sheet A-F21 (7.20%)",
+    )?;
+    f.add("A-F21.one_in", py(law.one_in))?;
+    f.add("A-F21.chapman_exact_mean", py(law.chapman_mean))?;
+    f.add("A-F21.chapman_bias_pct", py(law.chapman_bias_pct))?;
+    f.add("A-F21.plain_mean_given_k_pos", py(law.plain_mean))?;
+    f.add("A-F21.plain_bias_pct_given_k_pos", py(law.plain_bias_pct))?;
+    f.pin(
+        "A-F21.chapman_at_k0",
+        (sm + 1) * (sm + 1) - 1,
+        "2600",
+        "fact sheet claim walk (10_3 notes)",
+    )?;
+    let g = gcd(u128::from(sm * sm), u128::from(sn));
+    f.add("A-F21.expected_k", py((sm * sm) as f64 / sn as f64))?;
+    f.add(
+        "A-F21.expected_k.exact",
+        format!("{}/{}", u128::from(sm * sm) / g, u128::from(sn) / g),
+    )?;
+    f.add("A-F18.bound_pct_at_expected_k4", py(100.0 * (-4.0f64).exp()))?;
+    f.add("A-CH09.numpy_estimate_at_k0", py((sm * sm) as f64 / 0.0))?;
+    // 11: the smallest lake's chance, in scientific form and in zeros
+    let p1900 = hypergeometric(fm + fnn - fk, FELLER);
+    let (mant, ex) = p1900.sci10();
+    f.add("A-F11.P1900_exponent_exact", ex)?;
+    f.pin(
+        "A-F11.P1900_sci_2sf",
+        format!("{mant:.1}e{ex}"),
+        "5.4e-430",
+        "fact sheet A-F11",
+    )?;
+    let digits = p1900.mul(Dd::pow10(ex.unsigned_abs()));
+    let zero_at: Vec<u32> = (1..=ex.unsigned_abs())
+        .filter(|&z| digits.div(Dd::pow10(z)).to_f64() == 0.0)
+        .collect();
+    let first_zero = zero_at.first().copied().unwrap_or(0);
+    f.pin(
+        "A-F32.zeros.last_Z_float64_nonzero",
+        first_zero - 1,
+        "324",
+        "fact sheet claim walk (11_2 marker)",
+    )?;
+    f.add("A-F32.zeros.first_Z_float64_zero", first_zero)?;
+    f.add(
+        "A-F32.zeros.all_later_Z_zero",
+        zero_at == (first_zero..=ex.unsigned_abs()).collect::<Vec<_>>(),
+    )?;
+    f.add(
+        "A-F32.smallest_subnormal_first_nonzero_decimal_place",
+        -Dd::pow2(-1074).sci10().1,
+    )?;
+    // 11_3: a million fish, about one marked fish expected
+    let million = 1_000_000u64;
+    let g = gcd(u128::from(fm * fnn), u128::from(million));
+    f.add("A-CH11.expected_k_N1000000", py((fm * fnn) as f64 / million as f64))?;
+    f.add(
+        "A-CH11.expected_k_N1000000.exact",
+        format!("{}/{}", u128::from(fm * fnn) / g, u128::from(million) / g),
+    )?;
+    // 11_4: the top score; 11_5: fifty heads in a hundred flips
+    f.pin(
+        "A-F9.L_max",
+        py(hypergeometric(truth, FELLER).to_f64()),
+        "0.04428917172067476",
+        "fact sheet A-F9 (0.0442892)",
+    )?;
+    let coin = Dd::int128(choose(100, 50)).div(Dd::pow2(100)).to_f64();
+    f.add("A-F30.P50_of_100", py(coin))?;
+    f.pin(
+        "A-F30.P50_of_100_pct_2dp",
+        py(round_to(coin * 100.0, 2)),
+        "7.96",
+        "fact sheet A-F30",
+    )?;
+    f.add("A-F30.50_is_mode", (0..=100).all(|j| choose(100, 50) >= choose(100, j)))?;
     Ok(())
 }
 

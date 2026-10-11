@@ -14,10 +14,12 @@
 //! timelines, the score and the master run before the real scene exists.
 
 mod chapters;
+mod exact;
 mod facts;
 mod law;
 mod model;
 mod numpy;
+mod panel;
 mod runs;
 
 use explainer_kit::Explainer;
