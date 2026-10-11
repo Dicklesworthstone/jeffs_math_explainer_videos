@@ -14,7 +14,7 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    LaneLayout, LaneSpec, NAMES, Slots, Spoken, TraceLanes, chalk, fade_in_all, fail, group, order_gold, play_timed,
+    LaneLayout, LaneSpec, Slots, Spoken, TraceLanes, chalk, fade_in_all, fail, flat, group, order_gold, play_timed,
     room, room_red, say, scoreboard,
 };
 use super::glyphs;
@@ -24,8 +24,14 @@ use crate::model::{SCORE_START, Step, Trace};
 
 /// The lanes: Blue on top, Pink (idle) at the bottom.
 const LANE_Y: [f64; 5] = [1.75, 0.65, -0.45, -1.55, -2.65];
-/// How bright a glance stays once the run has moved past it.
-const PAST: f64 = 0.16;
+/// How bright a glance stays once the run has moved past it: gone (the
+/// renderer blends in linear light, so even a few percent reads as a
+/// haze); the dots, bands and room bars keep the history.
+const PAST: f64 = 0.0;
+/// How dark a lane goes while the voice is about other customers.
+const DIM: f64 = 0.72;
+/// In-trace values, scaled up from TraceLanes' chips.
+const CHIP_SCALE: f64 = 1.45;
 
 /// The 1-based step at which customer `who`'s label first starts with `pat`.
 fn step_of(steps: &[Step], who: usize, pat: &str) -> fmn::Result<usize> {
@@ -57,6 +63,11 @@ struct Run<'a> {
     done: usize,
     /// Steps from here on are still drawn at full strength.
     bright: usize,
+    /// Where the run has got to (scene x): the room bars grow to it.
+    front: Mob,
+    /// One dimmer per drawn lane, and the room bars, kept on top.
+    dimmers: Vec<Mob>,
+    bars: Vec<Mob>,
 }
 
 impl Run<'_> {
@@ -70,14 +81,15 @@ impl Run<'_> {
         // the last stretch's glances fade to a trace: dots and bands keep
         // the history, the new glances stand out
         for p in &self.lanes.parts[self.bright..self.done] {
-            for m in [p.arrow, p.chip, p.out, p.static_fx].into_iter().flatten() {
+            for (m, o) in [(p.arrow, PAST), (p.out, PAST), (p.static_fx, PAST), (p.chip, 0.0)] {
+                let Some(m) = m else { continue };
                 let a = m
                     .animate()
                     .set_anim_args(AnimateArgs {
                         run_time: Some(0.5),
                         ..AnimateArgs::default()
                     })?
-                    .set_opacity(PAST)?;
+                    .set_opacity(o)?;
                 anims.push(stage.prepare(a)?);
             }
         }
@@ -89,12 +101,14 @@ impl Run<'_> {
         let entries = self.steps[self.done..upto].iter().filter(|s| s.enters()).count() as u32;
         let clock = tween(self.clock, counted_upto(&self.steps, upto) as f64, run_time)?;
         anims.push(stage.prepare(clock)?);
-        for s in &self.steps[self.done..upto] {
-            if s.enters() {
-                self.kit.mark(stage, &format!("pizz:served_{}", NAMES[s.customer - 1]));
-            }
+        if let Some(x) = self.lanes.x(upto) {
+            let front = tween(self.front, x + self.lanes.slot_w() / 2.0, run_time)?;
+            anims.push(stage.prepare(front)?);
         }
         stage.play_prepared(anims)?;
+        // newly drawn steps go under the dimmers, the room bars over all
+        stage.scene_mut().bring_to_front(&self.dimmers)?;
+        stage.scene_mut().bring_to_front(&self.bars)?;
         if !heads.is_empty() {
             play_timed(stage, std::mem::take(&mut heads), 0.25)?;
         }
@@ -104,6 +118,46 @@ impl Run<'_> {
             play_timed(stage, tick.into(), 0.35)?;
         }
         self.done = upto;
+        Ok(())
+    }
+
+    /// Clear the last stretch's glances too (the run is over).
+    fn settle(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for p in &self.lanes.parts[self.bright..self.done] {
+            for m in [p.arrow, p.out, p.static_fx, p.chip].into_iter().flatten() {
+                let a = m
+                    .animate()
+                    .set_anim_args(AnimateArgs {
+                        run_time: Some(0.6),
+                        ..AnimateArgs::default()
+                    })?
+                    .set_opacity(PAST)?;
+                anims.push(stage.prepare(a)?);
+            }
+        }
+        self.bright = self.done;
+        if !anims.is_empty() {
+            stage.play_prepared(anims)?;
+        }
+        Ok(())
+    }
+
+    /// Light the lanes of `customers`, dim the rest (the voice's subject).
+    fn focus(&self, stage: &mut Stage<'_>, customers: &[usize]) -> fmn::Result<()> {
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for (k, &m) in self.dimmers.iter().enumerate() {
+            let o = if customers.contains(&(k + 1)) { 0.0 } else { DIM };
+            let a = m
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(0.5),
+                    ..AnimateArgs::default()
+                })?
+                .set_fill(None, Some(o))?;
+            anims.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(anims)?;
         Ok(())
     }
 
@@ -142,9 +196,36 @@ impl SceneConstruct for OneRun {
                 })
                 .collect(),
             slots: Slots::Counted,
-            slate_size: 0.42,
+            slate_size: 0.6,
         };
         let lanes = TraceLanes::build(&kit, stage, layout, &steps, &[])?;
+        for p in &lanes.parts {
+            if let Some(c) = p.chip {
+                stage.scale(c, CHIP_SCALE);
+            }
+        }
+        // the room bars: each visit, from its entry to its exit, grown to
+        // where the run has got; the brightest thing on the lanes
+        let front = stage.add_value_tracker(lanes.layout.x0);
+        let bars = room_bars(stage, &lanes, &steps, front)?;
+        // a dimmer over each drawn lane (Blue to Teal), clear for now
+        let mut dimmers = Vec::new();
+        for &y in &LANE_Y[..4] {
+            let d = Rectangle::new()
+                .width(lanes.layout.x1 - lanes.layout.head_x + 0.9)
+                .height(0.98)
+                .style(flat(explainer_kit::hex(explainer_kit::BACKGROUND), 0.0))
+                .build()?
+                .moved_to(v((lanes.layout.x1 + lanes.layout.head_x) / 2.0, y));
+            dimmers.push(stage.arena_mut().add(d));
+        }
+        let pink = kit.text_left(
+            stage,
+            glyphs::PINK_HOME,
+            22.0,
+            Palette::dim(),
+            v(lanes.layout.x0 + 0.1, LANE_Y[4] + 0.34),
+        )?;
 
         // the top band: the step clock, the room with 01's scoreboard
         let clock_label = kit.text_left(stage, glyphs::STEPS, 26.0, Palette::dim(), v(-6.75, 3.3))?;
@@ -157,13 +238,16 @@ impl SceneConstruct for OneRun {
         // 07_1: the run, fast
         let line = say(&kit, stage, "07_1")?;
         let mut base = lanes.base();
-        base.extend([clock_label, tint, edge, room_label, board.panel, board.value]);
+        base.extend([clock_label, tint, edge, room_label, board.panel, board.value, pink]);
         let mut show: Vec<Box<dyn Animation>> = Vec::new();
         for m in base {
             let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.8);
             show.push(stage.prepare(a)?);
         }
         stage.play_prepared(show)?;
+        for &m in dimmers.iter().chain(&bars) {
+            stage.add_to_scene(m)?;
+        }
         let readout = kit.live_number(stage, clock, 0, false, 30.0, chalk(), v(-5.65, 3.3), LEFT)?;
         let _ = line;
         let mut run = Run {
@@ -175,6 +259,9 @@ impl SceneConstruct for OneRun {
             served: 0,
             done: 0,
             bright: 0,
+            front,
+            dimmers,
+            bars,
         };
 
         // 07_2: Purple and Green choose together; Purple meets Green's flag
@@ -182,7 +269,8 @@ impl SceneConstruct for OneRun {
         let green_writes = step_of(&steps, 2, "number[2]:=1")?;
         let green_lowers = step_of(&steps, 2, "choosing:=0")?;
         let line = say(&kit, stage, "07_2")?;
-        run.to(stage, stopped - 1, 2.6)?;
+        run.focus(stage, &[2, 3])?;
+        run.to(stage, stopped - 1, 2.2)?;
         line.wait_for(stage, "finds Green's flag")?;
         run.to(stage, stopped, 0.6)?;
         let ring = highlight(&run.lanes, stage, stopped)?;
@@ -206,6 +294,7 @@ impl SceneConstruct for OneRun {
         let teal_reads_done = step_of(&steps, 4, "read number[3]=")?;
         let teal_writes = step_of(&steps, 4, "number[4]:=")?;
         let line = say(&kit, stage, "07_3")?;
+        run.focus(stage, &[2, 3, 4])?;
         run.at(stage, &line, "Teal sees", teal_reads_done, 1.6)?;
         let q = predict_pause(&kit, stage, v(1.6, 3.0))?;
 
@@ -243,6 +332,7 @@ impl SceneConstruct for OneRun {
         let green_again = step_of(&steps[green_out..], 2, "number[2]:=")? + green_out;
         let line = say(&kit, stage, "07_5")?;
         play!(stage; fade_out(stage.arena_mut(), tie, ORIGIN, 1.0)?.rt(0.4));
+        run.focus(stage, &[1, 2, 3, 4])?;
         run.to(stage, green_in, 1.4)?;
         run.at(stage, &line, "arrives late", blue_writes, 1.4)?;
         run.at(stage, &line, "Green is out", green_out, 0.6)?;
@@ -257,6 +347,7 @@ impl SceneConstruct for OneRun {
 
         // 07_6: five visits, five points, none lost; the order is the grid's
         let line = say(&kit, stage, "07_6")?;
+        run.settle(stage)?;
         let board = run.board.panel;
         play!(stage; indicate(stage.arena_mut(), board, 1.12, None)?.rt(0.9));
         line.wait_for(stage, "Who gets served")?;
@@ -269,6 +360,46 @@ impl SceneConstruct for OneRun {
 }
 
 use fmn::animation::indicate;
+
+/// The room's visits on the lanes: one bright red bar per visit, from the
+/// left of its entry's slot to the right of its exit's (or the lanes' end),
+/// redrawn so it reaches only as far as the run has got (`front`).
+fn room_bars(stage: &mut Stage<'_>, lanes: &TraceLanes, steps: &[Step], front: Mob) -> fmn::Result<Vec<Mob>> {
+    let w = lanes.slot_w();
+    let mut out = Vec::new();
+    for (e, s) in steps.iter().enumerate().filter(|(_, s)| s.enters()) {
+        let c = s.customer;
+        let exit = steps[e + 1..]
+            .iter()
+            .position(|t| t.customer == c && t.label.starts_with(&format!("number[{c}]:=0")))
+            .map(|k| e + 1 + k + 1);
+        let (Some(x0), Some(y)) = (lanes.x(e + 1), lanes.y(c)) else {
+            continue;
+        };
+        let x0 = x0 - w / 2.0;
+        let x1 = exit.and_then(|x| lanes.x(x)).map_or(lanes.layout.x1, |x| x + w / 2.0);
+        let bar = stage.always_redraw(move |st| {
+            let f = st.tracker_value(front).unwrap_or(x0);
+            let right = f.min(x1);
+            let piece = if right > x0 + 1e-6 {
+                Rectangle::new()
+                    .width(right - x0)
+                    .height(0.3)
+                    .corner_radius(0.06)
+                    .style(flat(room_red(), 0.9))
+                    .build()
+                    .expect("positive extents")
+                    .moved_to(v((x0 + right) / 2.0, y))
+            } else {
+                VMobject::new()
+            };
+            st.add(piece)
+        });
+        stage.remove_from_scene(bar);
+        out.push(bar);
+    }
+    Ok(out)
+}
 
 /// An `Srgb` as `indicate` takes it.
 fn rgb(c: Srgb) -> [f32; 3] {
@@ -305,7 +436,7 @@ fn tie_card(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<Mob
     }
     let at = v(0.0, 3.05);
     let first = pair_token(kit, stage, g, 2, v(at[0] - 2.0, at[1]), 0.8)?;
-    let before = kit.text(stage, glyphs::COMES_BEFORE, 28.0, Palette::dim(), at)?;
+    let before = kit.text(stage, glyphs::COMES_BEFORE, 30.0, chalk(), at)?;
     let second = pair_token(kit, stage, p, 3, v(at[0] + 2.0, at[1]), 0.8)?;
     group(stage, &[first, before, second])
 }

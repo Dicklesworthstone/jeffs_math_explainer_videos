@@ -104,6 +104,8 @@ pub const TRAILS_B: &str = "orders, not as a real machine runs them";
 pub const STEPS: &str = "steps";
 /// Green's slate when Purple meets her flag: no ticket written yet.
 pub const UNWRITTEN: &str = "not written yet";
+/// Pink's lane in 07: trace d has four customers.
+pub const PINK_HOME: &str = "Pink stays home this run";
 
 // 08_why_never_two
 pub const TIME: &str = "time";
@@ -252,6 +254,7 @@ pub const TEXT: &[&str] = &[
     TRAILS_B,
     STEPS,
     UNWRITTEN,
+    PINK_HOME,
     TIME,
     BLUE_CHOOSING,
     GREEN_CHOOSING,
