@@ -14,6 +14,10 @@
 //! timelines, the score and the master run before the real scene exists.
 
 mod chapters;
+// How cards get solved (13–16): lands ahead of the chapters that use all of
+// it; drop the allow when 13–16 are built.
+#[allow(dead_code)]
+mod decoding;
 mod facts;
 // The shared model lands ahead of the chapters that use all of it; drop the
 // allow when all 17 chapters are built.

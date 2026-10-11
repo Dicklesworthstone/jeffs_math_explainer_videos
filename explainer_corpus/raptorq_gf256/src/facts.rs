@@ -6,10 +6,15 @@
 
 use explainer_kit::Facts;
 
+use crate::decoding::{
+    DENSE_PIECES, ESI_BITS, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, STEPS_PER_SECOND, TOY_CARDS, degree_mass,
+    dense_steps, dense_time, expected_untouched, mean_degree, peel_runs, peel_toy, rs_max_packets,
+};
+
 use crate::model::{
-    AES_FOLD, CARDS, DECK_PACKETS, FIELD_SEED, FIFTH_CARD, FOLD, GLYPHS, HOOK_PIECES, LOSS_ONE_IN, PHONES, PIECES,
-    RING, album_mean, album_mean_floor, carousel_mean_caught, carousel_mean_sent, deck_mix, field_done_by_loop, logs,
-    mean_loops, mul, order, p_done_by, p_done_in_loop_2_or_3, p_fail, p_fail_limit, p_fail_limit_times, p_full,
+    AES_FOLD, CARDS, DECK_PACKETS, FIELD_SEED, FIFTH_CARD, FOLD, GLYPHS, HOOK_PIECES, LOSS_ONE_IN, PHONES, PIECE_NAMES,
+    PIECES, RING, album_mean, album_mean_floor, carousel_mean_caught, carousel_mean_sent, deck_mix, field_done_by_loop,
+    logs, mean_loops, mul, order, p_done_by, p_done_in_loop_2_or_3, p_fail, p_fail_limit, p_fail_limit_times, p_full,
     p_full_limit, p_waiting_after, rank_gf2, result, spares_for, unluckiest_of_a_million, useless_chance,
 };
 
@@ -252,6 +257,7 @@ pub fn facts() -> Result<Facts, String> {
         "5",
         "fact sheet B-F9 (3⁻¹ = 244)",
     )?;
+    density(&mut f)?;
     Ok(f)
 }
 
@@ -326,6 +332,110 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     f.add("B-F24.field.phones_per_glyph", PHONES / GLYPHS as u64)?;
     f.add("B-F24.field.glyphs_done_by_loop_1_to_6", list(field_done_by_loop()))?;
     f.add("B-F24.field.unluckiest_of_1e6_loops", unluckiest_of_a_million())?;
+    Ok(())
+}
+
+/// 14: dense solving, RFC 6330's degrees, the toy's peel, the scene's own
+/// seeded peeling runs, the pieces no card mixes, Reed–Solomon's bound and
+/// RaptorQ's packet IDs (`decoding.rs`; the chapter draws these values).
+fn density(f: &mut Facts) -> Result<(), String> {
+    let k = DENSE_PIECES;
+    f.add("B-F15.K_cubed", k * k * k)?;
+    f.add("B-F15.K_cubed_over_3", py(dense_steps(k)))?;
+    f.add("B-F15.K_cubed_over_3_in_trillions", py((k * k * k) as f64 / 3e12))?;
+    f.add(
+        "B-F15.hours_at_1e9_steps_per_s",
+        py(dense_time(k, STEPS_PER_SECOND, 3600)),
+    )?;
+    f.add(
+        "B-F15.days_at_1e9_steps_per_s",
+        py(dense_time(k, STEPS_PER_SECOND, 86_400)),
+    )?;
+    f.add("B-F15.matrix_bytes_K50000", k * k)?;
+    f.add(
+        "B-F15.hours_at_1e10_steps_per_s",
+        py(dense_time(k, STEPS_PER_SECOND * 10, 3600)),
+    )?;
+    f.add("B-F15.work_ratio_when_pieces_double", (2 * k).pow(3) / k.pow(3))?;
+    f.pin("B-F16.P_deg2", py(degree_mass(2)), "0.5", "RFC 6330 Table 1")?;
+    f.pin(
+        "B-F16.mean_degree",
+        py(mean_degree()),
+        "4.816641807556152",
+        "fact sheet B-F16",
+    )?;
+    // the toy's peel (14_3), and without its first card (14_5)
+    let all: Vec<usize> = (0..TOY_CARDS.len()).collect();
+    let (steps, _) = peel_toy(&all, None);
+    f.pin(
+        "B-F20.peel_order",
+        list(steps.iter().map(|s| PIECE_NAMES[s.piece])),
+        "C,A,B,D,E",
+        "fact sheet B-F20",
+    )?;
+    f.add("B-F20.ripple_sizes", list(steps.iter().map(|s| s.ripple)))?;
+    let all_right = steps.len() == PIECES.len()
+        && steps
+            .iter()
+            .all(|s| !s.value.with_c && s.value.constant == PIECES[s.piece]);
+    f.add("B-F20.peel_recovers_all_correctly_ok", u8::from(all_right))?;
+    let (stuck, _) = peel_toy(&all[1..], None);
+    f.pin("B-F20.recovered_without_y1", stuck.len(), "0", "fact sheet B-F20")?;
+    // the seeded runs (14_6): the oracle's lt_peel_sim, replayed
+    let runs = peel_runs();
+    for (g, &pct) in PEEL_EXTRA_PERCENT.iter().enumerate() {
+        let tag = format!("B-F18.eps{pct:03}");
+        let share = |r: &PeelRun| r.recovered() as f64 / PEEL_PIECES as f64;
+        f.add(
+            &format!("{tag}.recovered_fractions_5runs"),
+            list(runs[g].iter().map(|r| py(share(r)))),
+        )?;
+        let ok: Vec<&PeelRun> = runs[g].iter().filter(|r| 2 * r.recovered() >= PEEL_PIECES).collect();
+        f.add(&format!("{tag}.n_collapsed_below_50pct"), runs[g].len() - ok.len())?;
+        let shares: Vec<f64> = runs[g].iter().map(share).collect();
+        f.add(
+            &format!("{tag}.min_recovered"),
+            py(shares.iter().copied().fold(f64::INFINITY, f64::min)),
+        )?;
+        f.add(
+            &format!("{tag}.max_recovered"),
+            py(shares.iter().copied().fold(0.0, f64::max)),
+        )?;
+        if !ok.is_empty() && ok.len() < runs[g].len() {
+            let low = ok.iter().map(|r| share(r)).fold(f64::INFINITY, f64::min);
+            f.add(&format!("{tag}.min_recovered_non_collapsed"), py(low))?;
+        }
+        if pct != 0 {
+            let missing: Vec<usize> = ok.iter().map(|r| PEEL_PIECES - r.recovered()).collect();
+            f.add(
+                &format!("{tag}.missing_pieces_non_collapsed_min"),
+                missing.iter().min().copied().unwrap_or(0),
+            )?;
+            f.add(
+                &format!("{tag}.missing_pieces_non_collapsed_max"),
+                missing.iter().max().copied().unwrap_or(0),
+            )?;
+        }
+    }
+    f.add("B-F17.expected_untouched_K10000_N10200", py(expected_untouched()))?;
+    // 14_8: Reed–Solomon's bound over bytes, RaptorQ's 24-bit packet IDs
+    f.pin(
+        "B-X8.directions_in_gf256_squared",
+        rs_max_packets(),
+        "257",
+        "fact sheet B-X8",
+    )?;
+    f.pin(
+        "B-X3.sourced.rfc6330_s3.2_esi_bits",
+        ESI_BITS,
+        "24",
+        "RFC 6330 §3.2 (FEC Payload IDs)",
+    )?;
+    f.add("B-X3.esi_values_per_source_block", 1u64 << ESI_BITS)?;
+    f.add(
+        "B-X3.esi_values_per_source_block_in_millions",
+        py((1u64 << ESI_BITS) as f64 / 1e6),
+    )?;
     Ok(())
 }
 
