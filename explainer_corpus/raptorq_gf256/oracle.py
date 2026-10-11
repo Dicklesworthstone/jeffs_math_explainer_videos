@@ -1353,6 +1353,62 @@ def bf25():
     emit("B-F25.cert_explicit_inverse_mod256_verified", cert_inverse_ok)
 
 
+def race07():
+    """07_6: the race, seeded (lane B-2). Ten random ex-or cards against ten random wrap-around cards on ten pieces,
+    2,000 rounds a side, drawn from numpy's PCG64DXSM(706) (the scene draws the same words with franken_manim's
+    bit-exact Pcg64Dxsm): the ex-or rounds first, one word per card (its top 10 bits, bit i = piece i), then the
+    wrap-around rounds, one word per amount (its top byte), card by card. Ex-or fails when the GF(2) rank is below
+    10. Wrap-around is decided here by the exact integer determinant's parity (Bareiss), a route independent of the
+    scene's elimination mod 256 with odd pivots, and certified against the mod-2 rank on every round."""
+    def det_bareiss(M):
+        A = [row[:] for row in M]
+        n = len(A)
+        sign, prev = 1, 1
+        for k in range(n - 1):
+            if A[k][k] == 0:
+                sw = next((i for i in range(k + 1, n) if A[i][k] != 0), None)
+                if sw is None:
+                    return 0
+                A[k], A[sw] = A[sw], A[k]
+                sign = -sign
+            for i in range(k + 1, n):
+                for j in range(k + 1, n):
+                    A[i][j] = (A[i][j] * A[k][k] - A[i][k] * A[k][j]) // prev
+            prev = A[k][k]
+        return sign * A[n - 1][n - 1]
+
+    K, T, SHOWN = 10, 2000, 4
+    words = [int(w) for w in np.random.PCG64DXSM(706).random_raw(T * K + T * K * K)]
+    xor_rounds = [[w >> 54 for w in words[t * K:(t + 1) * K]] for t in range(T)]
+    base = T * K
+    wrap_rounds = [[[words[base + t * K * K + r * K + c] >> 56 for c in range(K)] for r in range(K)] for t in range(T)]
+    xor_fail = [rank_gf2([[(w >> c) & 1 for c in range(K)] for w in cards]) < K for cards in xor_rounds]
+    wrap_fail = [det_bareiss(M) % 2 == 0 for M in wrap_rounds]
+    agree = all(f == (rank_gf2([[x & 1 for x in row] for row in M]) < K) for f, M in zip(wrap_fail, wrap_rounds))
+    emit("B-F25.race07.seed", 706)
+    emit("B-F25.race07.pieces", K)
+    emit("B-F25.race07.rounds_per_side", T)
+    emit("B-F25.race07.xor_failures", sum(xor_fail))
+    emit("B-F25.race07.wrap_failures", sum(wrap_fail))
+    emit("B-F25.race07.first_rounds_xor_fail", [int(f) for f in xor_fail[:SHOWN]])
+    emit("B-F25.race07.first_rounds_wrap_fail", [int(f) for f in wrap_fail[:SHOWN]])
+    emit("B-F25.race07.wrap_round1_amounts", [x for row in wrap_rounds[0] for x in row])
+    emit("B-F25.race07.det_parity_equals_mod2_rank_all_rounds_ok", agree)
+
+
+def b2_drawn():
+    """Numbers chapters 08 and 09 draw beyond the ledger rows (lane B-2): the seven-hour times table (08_2), the
+    product the hand counts out, 3 x 5 = 15 = 2 * 7 + 1 (08_2), 1001 (09_5), and the six FOIL terms of (x + 1)(x^2 +
+    x + 1) as exponents, before the pairs cancel (09_5)."""
+    emit("B-X4.z7_times_table", [a * b % 7 for a in range(7) for b in range(7)])
+    emit("B-X4.int_3x5", 3 * 5)
+    emit("B-X4.int_3x5_divmod_7", list(divmod(3 * 5, 7)))
+    emit("B-X4.bits_of_9", format(9, "04b"))
+    p3 = [i for i in range(8) if 3 >> i & 1][::-1]
+    p7 = [i for i in range(8) if 7 >> i & 1][::-1]
+    emit("B-F11.foil_3x7_terms", [i + j for i in p3 for j in p7])
+
+
 # ==============================================================================================
 # B-F26  rotation fold (mod x^8 + 1)                               (verify_claims.py)
 # ==============================================================================================
@@ -1648,7 +1704,7 @@ def bs_cards():
 
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
-               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
+               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
                bx7, bx8, bs_cards):
         fn()
     sys.stdout.flush()

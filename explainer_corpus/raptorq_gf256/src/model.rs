@@ -618,6 +618,349 @@ pub fn loss_flecks(glyph: usize, shown: usize) -> Vec<usize> {
         .collect()
 }
 
+// ------------------------------------------- chapters 07–09 (lane B-2)
+
+/// Chapter 07: multiplication wrapped at 256, and the race of 07_6.
+pub mod wrap {
+    use fmn::prelude::Pcg64Dxsm;
+
+    use super::rank_gf2;
+
+    /// The race's pieces (cards per round) and rounds per side.
+    pub const RACE_PIECES: usize = 10;
+    pub const RACE_ROUNDS: usize = 2_000;
+    /// The race's seed (chapter 07, beat 6); numpy's `PCG64DXSM(706)` draws
+    /// the same words.
+    pub const RACE_SEED: u64 = 706;
+
+    /// Multiplication wrapped at 256.
+    pub fn mul(a: u8, b: u8) -> u8 {
+        a.wrapping_mul(b)
+    }
+
+    /// The partner of an odd byte under wrapped multiplication (`a × inv ≡
+    /// 1`): Newton's iteration, each step doubling the correct low bits.
+    ///
+    /// # Panics
+    /// If `a` is even: an even byte has no partner.
+    pub fn inverse_odd(a: u8) -> u8 {
+        assert!(a & 1 == 1, "{a} is even: it has no partner wrapped at 256");
+        let mut x = a;
+        for _ in 0..3 {
+            x = x.wrapping_mul(2u8.wrapping_sub(a.wrapping_mul(x)));
+        }
+        x
+    }
+
+    /// Can a table of byte amounts, wrapped at 256, be undone? Elimination
+    /// with odd pivots (the odd bytes are the ones with partners); the table
+    /// is undone exactly when every column finds one.
+    pub fn invertible<const N: usize>(table: &[[u8; N]; N]) -> bool {
+        let mut a = *table;
+        for c in 0..N {
+            let Some(p) = (c..N).find(|&r| a[r][c] & 1 == 1) else {
+                return false;
+            };
+            a.swap(c, p);
+            let inv = inverse_odd(a[c][c]);
+            for x in &mut a[c] {
+                *x = x.wrapping_mul(inv);
+            }
+            let pivot = a[c];
+            for (r, row) in a.iter_mut().enumerate() {
+                let f = row[c];
+                if r != c && f != 0 {
+                    for (x, &y) in row.iter_mut().zip(&pivot) {
+                        *x = x.wrapping_sub(f.wrapping_mul(y));
+                    }
+                }
+            }
+        }
+        true
+    }
+
+    /// The race of 07_6: rounds of ten random ex-or cards against rounds of
+    /// ten random wrap-around cards, from one stream: the ex-or rounds
+    /// first, one word per card (its top ten bits, bit i = piece i), then the
+    /// wrap-around rounds, one word per amount (its top byte), card by card.
+    pub struct Race {
+        pub xor: Vec<[u32; RACE_PIECES]>,
+        pub wrap: Vec<[[u8; RACE_PIECES]; RACE_PIECES]>,
+    }
+
+    impl Race {
+        pub fn draw() -> Self {
+            let mut rng = Pcg64Dxsm::from_seed(RACE_SEED);
+            let xor = (0..RACE_ROUNDS)
+                .map(|_| std::array::from_fn(|_| (rng.next_u64() >> (64 - RACE_PIECES)) as u32))
+                .collect();
+            let wrap = (0..RACE_ROUNDS)
+                .map(|_| std::array::from_fn(|_| std::array::from_fn(|_| (rng.next_u64() >> 56) as u8)))
+                .collect();
+            Self { xor, wrap }
+        }
+
+        /// Which ex-or rounds fail to pin down every piece.
+        pub fn xor_fails(&self) -> Vec<bool> {
+            self.xor.iter().map(|cards| rank_gf2(cards) < RACE_PIECES).collect()
+        }
+
+        /// Which wrap-around rounds fail.
+        pub fn wrap_fails(&self) -> Vec<bool> {
+            self.wrap.iter().map(|t| !invertible(t)).collect()
+        }
+
+        /// Round `i`'s ex-or cards as a grid: row = card, column = piece.
+        pub fn xor_bits(&self, i: usize) -> [[bool; RACE_PIECES]; RACE_PIECES] {
+            std::array::from_fn(|r| std::array::from_fn(|c| self.xor[i][r] >> c & 1 == 1))
+        }
+
+        /// Round `i`'s wrap-around amounts reduced to their last bits.
+        pub fn wrap_bits(&self, i: usize) -> [[bool; RACE_PIECES]; RACE_PIECES] {
+            std::array::from_fn(|r| std::array::from_fn(|c| self.wrap[i][r][c] & 1 == 1))
+        }
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn odd_bytes_have_partners_and_even_ones_collide() {
+            for a in (1..=255u8).step_by(2) {
+                assert_eq!(mul(a, inverse_odd(a)), 1, "{a}");
+                // an odd multiplier is a reshuffle of all 256 bytes
+                let mut seen = [false; 256];
+                for b in 0..=255u8 {
+                    seen[mul(a, b) as usize] = true;
+                }
+                assert!(seen.iter().all(|&s| s), "{a}");
+            }
+            for a in (0..=255u8).step_by(2) {
+                // an even multiplier sends two bytes to one: b and b + 128
+                for b in 0..128u8 {
+                    assert_eq!(mul(a, b), mul(a, b + 128), "{a} × {b}");
+                }
+            }
+            assert_eq!((mul(2, 3), mul(2, 131), mul(2, 128)), (6, 6, 0));
+        }
+
+        /// The inverse of a table, by the same elimination on [table | I].
+        fn inverse<const N: usize>(t: &[[u8; N]; N]) -> Option<[[u8; N]; N]> {
+            let mut a: Vec<Vec<u8>> = (0..N)
+                .map(|i| t[i].iter().copied().chain((0..N).map(|j| u8::from(i == j))).collect())
+                .collect();
+            for c in 0..N {
+                let p = (c..N).find(|&r| a[r][c] & 1 == 1)?;
+                a.swap(c, p);
+                let inv = inverse_odd(a[c][c]);
+                a[c].iter_mut().for_each(|x| *x = x.wrapping_mul(inv));
+                let pivot = a[c].clone();
+                for (r, row) in a.iter_mut().enumerate() {
+                    let f = row[c];
+                    if r != c {
+                        row.iter_mut()
+                            .zip(&pivot)
+                            .for_each(|(x, &y)| *x = x.wrapping_sub(f.wrapping_mul(y)));
+                    }
+                }
+            }
+            Some(std::array::from_fn(|i| std::array::from_fn(|j| a[i][N + j])))
+        }
+
+        #[test]
+        fn the_wrap_side_is_decided_by_the_last_bits_alone() {
+            // B-F25's theorem on every round of the race: a table wrapped at
+            // 256 can be undone exactly when its parity table can (over GF(2));
+            // and when it can, the inverse really undoes it
+            let race = Race::draw();
+            let fails = race.wrap_fails();
+            for (i, t) in race.wrap.iter().enumerate() {
+                let parity: Vec<u32> = race
+                    .wrap_bits(i)
+                    .iter()
+                    .map(|row| row.iter().rev().fold(0u32, |acc, &b| acc << 1 | u32::from(b)))
+                    .collect();
+                assert_eq!(fails[i], rank_gf2(&parity) < RACE_PIECES, "round {i}");
+                if let Some(inv) = inverse(t) {
+                    for (r, row) in t.iter().enumerate() {
+                        for c in 0..RACE_PIECES {
+                            let dot = row
+                                .iter()
+                                .zip(&inv)
+                                .fold(0u8, |acc, (&x, back)| acc.wrapping_add(x.wrapping_mul(back[c])));
+                            assert_eq!(dot, u8::from(r == c), "round {i}");
+                        }
+                    }
+                } else {
+                    assert!(fails[i], "round {i}");
+                }
+            }
+        }
+
+        #[test]
+        fn both_sides_fail_near_the_model_and_the_draws_are_numpys() {
+            let race = Race::draw();
+            // the first word of the stream is numpy's PCG64DXSM(706).random_raw()
+            let mut rng = Pcg64Dxsm::from_seed(RACE_SEED);
+            assert_eq!(race.xor[0][0], (rng.next_u64() >> 54) as u32);
+            let model = crate::model::p_fail(2, RACE_PIECES as u32, 0);
+            assert_eq!(model.to_string(), "0.710929701580251", "fact sheet B-F5, ten pieces");
+            let n = RACE_ROUNDS as f64;
+            let se = (model * (1.0 - model) / n).sqrt();
+            for fails in [race.xor_fails(), race.wrap_fails()] {
+                let share = fails.iter().filter(|&&f| f).count() as f64 / n;
+                assert!((share - model).abs() < 4.0 * se, "{share} vs {model}");
+            }
+        }
+    }
+}
+
+/// Chapter 08: clocks of a prime number of hours, and why 256 is not one.
+pub mod clocks {
+    /// Multiplication on a clock of `hours` hours.
+    pub fn mul_mod(a: u32, b: u32, hours: u32) -> u32 {
+        a * b % hours
+    }
+
+    /// The partner of `a` on a clock of `hours` hours (a × partner = 1), if it
+    /// has one.
+    pub fn partner(a: u32, hours: u32) -> Option<u32> {
+        (1..hours).find(|&b| mul_mod(a, b, hours) == 1)
+    }
+
+    pub fn is_prime(n: u32) -> bool {
+        n >= 2 && (2..).take_while(|d| d * d <= n).all(|d| !n.is_multiple_of(d))
+    }
+
+    /// The nearest primes below and above `n`.
+    pub fn primes_around(n: u32) -> (u32, u32) {
+        let below = (2..n).rev().find(|&p| is_prime(p)).expect("2 is prime");
+        let above = (n + 1..).find(|&p| is_prime(p)).expect("primes never end");
+        (below, above)
+    }
+
+    /// The bits `n` needs.
+    pub fn bits_needed(n: u32) -> u32 {
+        32 - n.leading_zeros()
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn the_seven_hour_clock_is_a_field_and_the_byte_clock_is_not() {
+            // 08_2: every row but zero's is a reshuffle, so every hour but 0 has
+            // a partner; three's is five
+            for a in 1..7 {
+                let mut row: Vec<u32> = (0..7).map(|b| mul_mod(a, b, 7)).collect();
+                row.sort_unstable();
+                assert_eq!(row, (0..7).collect::<Vec<_>>(), "row {a}");
+                assert!(partner(a, 7).is_some());
+            }
+            assert_eq!(partner(0, 7), None, "zero has no partner");
+            assert_eq!(partner(3, 7), Some(5));
+            // 08_3: on 256 hours, 2 × 128 is 0 and 2 has no partner
+            assert_eq!(mul_mod(2, 128, 256), 0);
+            assert_eq!(partner(2, 256), None);
+            assert_eq!(primes_around(256), (251, 257));
+            assert_eq!(bits_needed(256), 9);
+            assert_eq!(bits_needed(255), 8, "the eight factors of two in 256");
+        }
+    }
+}
+
+/// Chapter 09: bytes as polynomials, their sums and products.
+pub mod poly {
+    /// The set bits of `byte` from the top: the exponents of its polynomial.
+    pub fn exponents(byte: u8) -> Vec<u32> {
+        (0..8).rev().filter(|&e| byte >> e & 1 == 1).collect()
+    }
+
+    /// One power of x in TeX: 1, x, x^{e}.
+    pub fn power(e: u32) -> String {
+        match e {
+            0 => "1".into(),
+            1 => "x".into(),
+            _ => format!("x^{{{e}}}"),
+        }
+    }
+
+    /// A byte's polynomial in TeX, top power first ("x^{2} + x + 1" for 7).
+    pub fn poly(byte: u8) -> String {
+        exponents(byte).into_iter().map(power).collect::<Vec<_>>().join(" + ")
+    }
+
+    /// The terms of a carry-less product before anything cancels: each power
+    /// of the first times each power of the second, in FOIL order.
+    pub fn foil(a: u8, b: u8) -> Vec<u32> {
+        exponents(a)
+            .into_iter()
+            .flat_map(|i| exponents(b).into_iter().map(move |j| i + j))
+            .collect()
+    }
+
+    /// What survives: the powers that occur an odd number of times (the
+    /// matching pairs vanish, one plus one is zero), as a byte. Panics past
+    /// x⁷: such a product needs the fold of chapter 10.
+    pub fn survivors(terms: &[u32]) -> u8 {
+        terms
+            .iter()
+            .fold(0u16, |acc, &e| acc ^ (1 << e))
+            .try_into()
+            .expect("no fold needed")
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+        use crate::model::{FOLD, mul};
+
+        #[test]
+        fn the_foil_has_six_terms_two_pairs_vanish_and_nine_is_left() {
+            // 09_5's narration, on the data the scene draws
+            let terms = foil(3, 7);
+            assert_eq!(terms, vec![3, 2, 1, 2, 1, 0], "x³ + x² + x + x² + x + 1");
+            assert_eq!(terms.len(), 6, "six terms");
+            let pairs = (0..8)
+                .filter(|&e| terms.iter().filter(|&&t| t == e).count() == 2)
+                .count();
+            assert_eq!(pairs, 2, "two pairs match");
+            assert_eq!(survivors(&terms), 9, "x³ + 1 = 1001 = 9");
+            assert_eq!(poly(9), "x^{3} + 1");
+            assert_eq!(poly(3), "x + 1");
+            assert_eq!(poly(7), "x^{2} + x + 1");
+            // no fold: the product has degree 3, the same in the byte field
+            assert_eq!(mul(3, 7, FOLD), 9);
+        }
+
+        #[test]
+        fn adding_polynomials_is_ex_or_on_every_pair() {
+            // 09_3: coefficients add with 1 + 1 = 0, so the sum's set bits are
+            // the ex-or's, for all 65,536 pairs
+            for a in 0..=255u8 {
+                for b in 0..=255u8 {
+                    let mut terms = exponents(a);
+                    terms.extend(exponents(b));
+                    assert_eq!(survivors(&terms), a ^ b);
+                }
+            }
+            assert_eq!(5 ^ 7, 2);
+        }
+
+        #[test]
+        fn the_carryless_product_agrees_with_the_field_below_the_fold() {
+            // every product of degree < 8 needs no fold: FOIL alone is the field
+            for a in 0..16u8 {
+                for b in 0..16u8 {
+                    assert_eq!(survivors(&foil(a, b)), mul(a, b, FOLD), "{a} × {b}");
+                }
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

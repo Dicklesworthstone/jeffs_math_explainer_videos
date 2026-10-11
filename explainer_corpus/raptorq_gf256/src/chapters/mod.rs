@@ -9,6 +9,15 @@
 #[allow(dead_code)]
 pub mod draw;
 
+// Chapters 07–12 (lane B-2) and their props: the byte register with its
+// gutter, the n-hour clock, the byte-chord sonifications.
+pub mod clock;
+pub mod polynomials;
+pub mod prime_clocks;
+pub mod register;
+pub mod sound;
+pub mod wrap256;
+
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
 
@@ -32,9 +41,21 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("04_the_cube", 0.55),
         animatic!("05_the_ex_or_lottery", 0.5),
         animatic!("06_spares_and_rings", 0.45),
-        animatic!("07_why_not_wrap_around_at_256", 0.45),
-        animatic!("08_prime_clocks", 0.45),
-        animatic!("09_bytes_are_polynomials", 0.5),
+        Chapter {
+            key: "07_why_not_wrap_around_at_256",
+            make: |kit| Box::new(wrap256::Wrap256 { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "08_prime_clocks",
+            make: |kit| Box::new(prime_clocks::PrimeClocks { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "09_bytes_are_polynomials",
+            make: |kit| Box::new(polynomials::Polynomials { kit }),
+            intensity: 0.5,
+        },
         animatic!("10_the_fold", 0.55),
         animatic!("11_the_byte_clock", 0.6),
         animatic!("12_the_times_table", 0.65),
