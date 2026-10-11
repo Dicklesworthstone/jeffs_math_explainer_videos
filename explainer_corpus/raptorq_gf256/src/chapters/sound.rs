@@ -5,7 +5,7 @@
 //! E–G♯–B–C♯, the video's motif. A listen window's WAV is written at about
 //! the narration's level, [`LEVEL_LUFS`]; the score re-levels it.
 
-use std::f64::consts::TAU;
+use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
 
 use explainer_score::instr::{Instrument, Note, render};
@@ -23,6 +23,8 @@ pub const LEVEL_LUFS: f64 = -23.0;
 pub const LAP_TAIL_S: f64 = 1.1;
 /// The fade every sonification ends with, seconds.
 const TAIL_S: f64 = 0.25;
+/// The gliding bell's attack: the production rule's 12 ms (a 4 ms ramp clicked).
+const ATTACK_S: f64 = 0.012;
 
 fn frames(seconds: f64) -> usize {
     (seconds * FS).round() as usize
@@ -62,7 +64,10 @@ pub fn glide(from: f64, to: f64, glide_s: f64, vanish: bool, seconds: f64) -> St
         let f = midi_to_hz(from + (to - from) * s);
         phase += TAU * f / FS;
         let fade = if vanish { (1.0 - u).powi(2) } else { 1.0 };
-        let env = (-t / 1.4).exp() * fade * (t / 0.004).min(1.0);
+        // a 12 ms raised-cosine attack: a 4 ms linear one clicked in the
+        // stem's high band (Codex B R9)
+        let a = (t / ATTACK_S).min(1.0);
+        let env = (-t / 1.4).exp() * fade * 0.5 * (1.0 - (PI * a).cos());
         let idx = 0.9 * (-t / 0.5).exp() + 0.2;
         let y = (phase + idx * phase.sin()).sin() + 0.35 * (2.0 * phase + 0.6 * idx * (2.0 * phase).sin()).sin();
         out.push(0.3 * env * y);
