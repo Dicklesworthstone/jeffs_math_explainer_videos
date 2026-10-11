@@ -541,6 +541,12 @@ fn two_packets(f: &mut Facts) -> Result<(), String> {
 /// 16: the parked piece (the toy's peel with C parked, `decoding::peel_toy`),
 /// the big block's parameters, and the ring with a byte card.
 fn parking(f: &mut Facts) -> Result<(), String> {
+    // 16_5's lower-third: 15 ÷ 3 on the byte clock, in clicks
+    let fifteen = mul(3, PIECES[0], FOLD);
+    f.add(
+        "B-CH16.division_15_by_3_clicks",
+        list(crate::chapters::parking::division_clicks(fifteen, 3)),
+    )?;
     let cards: Vec<usize> = (1..TOY_CARDS.len()).collect();
     f.add(
         "B-F20.y_values_y2_to_y6",

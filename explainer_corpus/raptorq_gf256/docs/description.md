@@ -235,7 +235,7 @@ protected with FEC"). 3GPP chose Raptor (RFC 5053), RaptorQ's predecessor, for M
 editions were not checked).
 
 **17_7** Names to search: fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256),
-carry-less multiplication, primitive polynomial, Gaussian elimination. LT codes: Luby (2002); Raptor codes: Shokrollahi
+carry-less multiplication, irreducible polynomial, primitive polynomial, discrete logarithm, Gaussian elimination. LT codes: Luby (2002); Raptor codes: Shokrollahi
 and Luby; RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer and Minder.
 
 ## Sources

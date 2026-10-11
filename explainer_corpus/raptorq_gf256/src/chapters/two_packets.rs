@@ -560,7 +560,9 @@ impl TwoPackets {
                 "inactivation decoding",
                 "GF(256)",
                 "carry-less multiplication",
+                "irreducible polynomial",
                 "primitive polynomial",
+                "discrete logarithm",
                 "Gaussian elimination",
             ],
         )?;

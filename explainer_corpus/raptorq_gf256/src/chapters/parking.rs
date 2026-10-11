@@ -23,6 +23,14 @@ use crate::model::{A, B, C, D, FOLD, PIECE_NAMES, PIECES, RING, inv, mul, result
 
 const KEY: &str = "16_parking_a_piece";
 
+/// Dividing `total` by `by` on the byte clock (11's clicks): their logs,
+/// and the clicks of the quotient, log total − log by (mod 255).
+pub fn division_clicks(total: u8, by: u8) -> [u8; 3] {
+    let log = crate::model::logs();
+    let (lt, lb) = (log[usize::from(total)], log[usize::from(by)]);
+    [lt, lb, ((u16::from(lt) + 255 - u16::from(lb)) % 255) as u8]
+}
+
 /// The parked piece (C) and the colour its unknown c is written in.
 const PARKED: usize = 2;
 fn ghost() -> Srgb {
@@ -497,12 +505,16 @@ impl Parking {
             fade_in(stage.arena_mut(), same, v(0.0, 0.15), 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.7),
         );
+        // dividing is the byte clock's subtraction (R3 Dev D8)
+        let [lt, lb, d] = division_clicks(total, three);
         let note = lower_third(
             kit,
             stage,
             "precisely:",
-            "a ring of cards a·X ⊕ b·Y is stuck exactly when the ratios b/a multiply to 1 going around; with \
-             ex-or every ratio is 1",
+            &format!(
+                "{total} ÷ {three} on the byte clock: {lt} − {lb} = {d} clicks → {a_value}. A ring of cards a·X ⊕ b·Y \
+                 is stuck exactly when the ratios b/a multiply to 1 going around; with ex-or every ratio is 1"
+            ),
         )?;
         play!(stage;
             fade_out(stage.arena_mut(), byte_three, ORIGIN, 1.0)?.rt(0.4),
@@ -585,6 +597,10 @@ mod tests {
         assert_eq!(mul(total, inv(3), FOLD), PIECES[0], "A is five");
         assert_eq!(mul(3, 5, FOLD), 15);
         assert_eq!(mul(3, 7, FOLD), 9);
+        // the lower-third's division in clicks: 15 ÷ 3 = 5, no wrap shown
+        let [lt, lb, d] = division_clicks(total, 3);
+        assert!(lt >= lb && d == lt - lb);
+        assert_eq!(crate::model::exps()[usize::from(d)], PIECES[0]);
         // with the ex-or fifth card, A met itself: the ring is stuck
         assert_eq!(crate::model::rank_gf2(&RING), 4);
         // B, C, D as at the start (03's values)

@@ -1771,6 +1771,11 @@ def ch15():
     emit("B-CH15.free_card.result", a ^ b ^ c ^ (a ^ b ^ c))
 
 
+def ch16():
+    # 16_5 lower-third (R3 Dev D8): 15 / 3 on the byte clock, log 15 - log 3 = clicks of 5
+    emit("B-CH16.division_15_by_3_clicks", [LOG[15], LOG[3], (LOG[15] - LOG[3]) % 255])
+
+
 def ch17():
     # what 17 prints from the recorded runs (B-F22): the exact 95% intervals rounded as shown (17_1 caption in
     # percent to 3 digits, 17_3 "0.025 to 5.6 per million"), the other block sizes in percent to 2 digits, and the
@@ -1793,7 +1798,7 @@ def ch17():
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
                bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8, bs_cards, ch13, ch15, ch17, recorded_stream_and_cost):
+               bx7, bx8, bs_cards, ch13, ch15, ch16, ch17, recorded_stream_and_cost):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)
