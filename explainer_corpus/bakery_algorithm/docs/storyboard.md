@@ -82,7 +82,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, and go in. | Sign | sign prop |  |
 | 02_3 | ⟨predict⟩ Does the sign work? | The two lanes walk up to the sign | prediction card |  |
 | 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; lower-third "counting each read, write and successful wait as one step" | progress square |  |
-| 02_5 | Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works. | Three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed lane outside the room that the other passes; lanes stretching in time | pictograms |  |
+| 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed lane outside the room that the other passes; lanes stretching in time | pictograms |  |
 | 02_6 | A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually. | Pictogram 4: every lane eventually reaches the room | pictograms |  |
 | 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
 | 02_8 | Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
@@ -146,7 +146,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | Here's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
+| 05_1 | There's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
 | 05_2 | Green takes ticket one, checks Blue's slate, sees zero, which means not in line, and walks in. | Green enters | step-through |  |
 | 05_3 | Then Blue writes her one, sees a tie, wins it on her lower customer number, and walks in too. Both in the room. | Both inside | trace (a), 6 counted steps (`C-F6.a.steps_counted`; dev-10) | listen 3 s (two tunes at once: the bug) |
 | 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |

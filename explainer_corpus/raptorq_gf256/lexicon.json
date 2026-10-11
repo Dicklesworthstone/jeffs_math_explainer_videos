@@ -1,5 +1,5 @@
 {
- "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry.",
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. The piece name A has no entry on purpose: narrate.py treats every word key as a name, and the article 'a' would then be checked as one. Not respelled: the script also uses 'A' as the article ('A card', 'A row'), and a respelling would apply to both. The letter was heard as 'A' (letters: ay) in 2 of 3 carriers; in 'like A in algebra' ASR wrote a lowercase 'a', which cannot tell ay from uh (the decoy 'uh' was heard as nothing). Narration triage checks every sentence where A is a piece name (ASR casing, then the vowel's length and glide).",
  "words": {
   "RaptorQ": {
    "respell": [
@@ -257,6 +257,59 @@
      "Non-zor-ah": "decoy OK (heard differently) 0/3"
     }
    }
+  },
+  "x": {
+   "respell": [
+    "ex",
+    "X"
+   ],
+   "say": "ex",
+   "ipa": "ˈɛks",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/X",
+    "https://en.wiktionary.org/wiki/x#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "ex",
+    "discriminates": true,
+    "results": {
+     "x": "control PARTIAL 2/3",
+     "ex": "candidate PASS 3/3",
+     "X": "candidate PASS 3/3",
+     "ox": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "The polynomial variable. Probed 2026-10-11 in letter carriers ('{w} is the unknown here', 'Carry it along like {w} in algebra', 'So the unknown is {w}'): 'ex' and 'X' PASS 3/3, plain 'x' 2/3; the decoy 'ox' was heard differently."
+  },
+  "c": {
+   "respell": [
+    "c",
+    "C"
+   ],
+   "say": "see",
+   "ipa": "siː",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/c#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "c",
+    "discriminates": true,
+    "results": {
+     "c": "control PASS 3/3",
+     "see": "candidate PARTIAL 2/3",
+     "C": "candidate PASS 3/3",
+     "sah": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "The parked unknown (16_1, 'little c'). Plain 'c' PASS 3/3 in the letter carriers."
   }
  },
  "accept": {},

@@ -11,7 +11,7 @@
 02_2	Put a sign on the door. Check that it says vacant, flip it to occupied, and go in.
 02_3	Does the sign work?
 02_4	No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once.
-02_5	Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works.
+02_5	Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works.
 02_6	A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually.
 02_7	Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip.
 02_8	Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.
@@ -28,7 +28,7 @@
 04_4	The fix is a tie-breaker. Pair each ticket with its customer number, and compare tickets first. Only if they're equal, compare customer numbers, the way a dictionary checks the second letter only when the first letters match. Purple is three and Teal is four, so Purple goes first.
 04_5	Put every pair on a grid, ticket across and customer number up, and sweep column by column. Blue is customer number one. Does she go before Pink and Green?
 04_6	No. Blue's four still waits for Pink's two and Green's three. The customer number only breaks ties. The room always takes the smallest pair of everyone holding a ticket, so it goes Pink, Green, Blue, Purple, then Teal.
-05_1	Here's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet.
+05_1	There's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet.
 05_2	Green takes ticket one, checks Blue's slate, sees zero, which means not in line, and walks in.
 05_3	Then Blue writes her one, sees a tie, wins it on her lower customer number, and walks in too. Both in the room.
 05_4	The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down.
