@@ -1356,41 +1356,47 @@ def row_r2_misc():
          all(((tj, jj) < (ti, ii)) == (tj < ti or (tj == ti and jj < ii)) for tj, ti, jj, ii in grid))
 
 
-STRESS_RECORD = "bakery_stress_m5_ultra.txt"
+# The measured records of bead mx-e-c-7v0.17, by architecture: the tag, the
+# target the binary was built for (the record names it), the file.
+STRESS_RECORDS = (("arm", "aarch64", "bakery_stress_m5_ultra.txt"),
+                  ("x86", "x86_64", "bakery_stress_x86_threadripper.txt"))
 
 
 def row_c10_13():
-    """Chapters 10-13 (mx-e-c-7v0.10): the measured record of chapter 12, the
+    """Chapters 10-13 (mx-e-c-7v0.10): the measured records of chapter 12, the
     citation locators and the arithmetic their screens show."""
-    # C-M1 (RECORDED; bead mx-e-c-7v0.17): the 12_7 panel's lock on this Mac,
+    # C-M1 (RECORDED; bead mx-e-c-7v0.17): the 12_7 panel's lock on two machines,
     # read from the tool's own output, every line cross-checked
-    text = (OUTPUTS / STRESS_RECORD).read_text(encoding="utf-8")
-    cpus = re.findall(r"^# cpu: (.+?) \(", text, re.M)
-    check("C-M1 one CPU across the record", len(set(cpus)) == 1, f"{cpus}")
-    emit("C-M1.cpu", cpus[0])
-    blocks = re.split(r"^# bakery_stress:.*$", text, flags=re.M)[1:]
-    for block in blocks:
-        args = re.search(r"^# command: bakery_stress (.*)$", block, re.M).group(1).split()
-        opts = dict(zip(args[::2], args[1::2]))
-        threads, per, runs = int(opts["--threads"]), int(opts["--entries"]), int(opts["--runs"])
-        tag = f"n{threads}_r{runs}"
-        emit(f"C-M1.{tag}.threads", threads)
-        rows = [line.split("\t") for line in block.splitlines() if line and not line.startswith(("#", "mode"))]
-        for mode in dict.fromkeys(r[0] for r in rows):
-            mine = [r for r in rows if r[0] == mode]
-            each = [r for r in mine if r[3] != "total"]
-            total = [r for r in mine if r[3] == "total"]
-            check(f"C-M1 {tag} {mode}: {runs} runs and one total", len(each) == runs and len(total) == 1)
-            check(f"C-M1 {tag} {mode}: every line has lost = entries - score, and the command's sizes",
-                  all(int(r[6]) == int(r[4]) - int(r[5]) and int(r[1]) == threads and int(r[2]) == per for r in mine))
-            check(f"C-M1 {tag} {mode}: each run is threads x entries per thread",
-                  all(int(r[4]) == threads * per for r in each))
-            check(f"C-M1 {tag} {mode}: the total sums the runs",
-                  [int(x) for x in total[0][4:7]] == [sum(int(r[k]) for r in each) for k in (4, 5, 6)])
-            emit(f"C-M1.{tag}.{mode}.runs", len(each))
-            emit(f"C-M1.{tag}.{mode}.entries_per_run", threads * per)
-            emit(f"C-M1.{tag}.{mode}.entries", sum(int(r[4]) for r in each))
-            emit(f"C-M1.{tag}.{mode}.lost", sum(int(r[6]) for r in each))
+    for arch, target, fname in STRESS_RECORDS:
+        text = (OUTPUTS / fname).read_text(encoding="utf-8")
+        cpus = re.findall(r"^# cpu: (.+?) \((\S+?)-", text, re.M)
+        check(f"C-M1 {arch}: one CPU across the record, built for {target}",
+              len(set(cpus)) == 1 and cpus[0][1] == target, f"{cpus}")
+        emit(f"C-M1.{arch}.cpu", cpus[0][0])
+        blocks = re.split(r"^# bakery_stress:.*$", text, flags=re.M)[1:]
+        for block in blocks:
+            args = re.search(r"^# command: bakery_stress (.*)$", block, re.M).group(1).split()
+            opts = dict(zip(args[::2], args[1::2]))
+            threads, per, runs = int(opts["--threads"]), int(opts["--entries"]), int(opts["--runs"])
+            tag = f"{arch}.n{threads}_r{runs}"
+            emit(f"C-M1.{tag}.threads", threads)
+            rows = [line.split("\t") for line in block.splitlines() if line and not line.startswith(("#", "mode"))]
+            for mode in dict.fromkeys(r[0] for r in rows):
+                mine = [r for r in rows if r[0] == mode]
+                each = [r for r in mine if r[3] != "total"]
+                total = [r for r in mine if r[3] == "total"]
+                check(f"C-M1 {tag} {mode}: {runs} runs and one total", len(each) == runs and len(total) == 1)
+                check(f"C-M1 {tag} {mode}: every line has lost = entries - score, and the command's sizes",
+                      all(int(r[6]) == int(r[4]) - int(r[5]) and int(r[1]) == threads and int(r[2]) == per
+                          for r in mine))
+                check(f"C-M1 {tag} {mode}: each run is threads x entries per thread",
+                      all(int(r[4]) == threads * per for r in each))
+                check(f"C-M1 {tag} {mode}: the total sums the runs",
+                      [int(x) for x in total[0][4:7]] == [sum(int(r[k]) for r in each) for k in (4, 5, 6)])
+                emit(f"C-M1.{tag}.{mode}.runs", len(each))
+                emit(f"C-M1.{tag}.{mode}.entries_per_run", threads * per)
+                emit(f"C-M1.{tag}.{mode}.entries", sum(int(r[4]) for r in each))
+                emit(f"C-M1.{tag}.{mode}.lost", sum(int(r[6]) for r in each))
     # CITED locators (fact-sheet open item 3, C-S21, C-S26, C-S27; F4)
     emit("C-F14.bakery_paper.arbitrary_value_quote_page", 454)
     emit("C-F14.bakery_paper.never_larger_quote_page", 455)
