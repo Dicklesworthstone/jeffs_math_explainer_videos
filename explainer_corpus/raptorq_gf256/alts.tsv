@@ -3,8 +3,8 @@
 # a misparse, a word-boundary collision, a piece name A reduced to "it", a hesitation, or a rushed or stalled read.
 # A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
 01_2	1	The secret is a kind of arithmetic where three times seven is nine.
-02_3	1	Ex-or is the name of the mixing move.
-02_3	1	The mixing move is called ex-or, and it works like this.
+02_3	2	Ex-or is the name of the mixing move.
+02_3	2	The mixing move is called ex-or, and it works like this.
 02_4	0	Line up two numbers in bits.
 02_4	0	Line up the two numbers in bits.
 03_3	1	Ex-or card one with card three, and piece A cancels.
@@ -20,8 +20,6 @@
 13_6	3	The byte cards rarely need even one.
 14_1	1	If every card uses every piece, solving takes about the number of pieces, cubed, over three.
 14_1	1	Solving cards that each use every piece takes about the number of pieces cubed, over three.
-14_8	0	Reed-Solomon codes are the ideal.
-15_2	2	And every piece is in some free card, so even a piece that no packet mixed can still be worked out.
 16_4	1	Let a new byte card replace the fifth card, E plus two times A is six.
 16_4	3	Does piece A cancel this time?
 16_4	3	This time, does A cancel?
