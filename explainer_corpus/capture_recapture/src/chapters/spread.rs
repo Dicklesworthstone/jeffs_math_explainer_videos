@@ -6,6 +6,10 @@
 //! (03_5), two whole corners (03_6), and the mosaic's straight line
 //! (03_7–03_8).
 
+// TEMPORARY until chapters/mod.rs (reserved by another lane) registers it
+#[path = "listen.rs"]
+pub mod listen;
+
 use std::cell::{Cell as Shared, RefCell};
 use std::f64::consts::TAU;
 use std::rc::Rc;
@@ -22,9 +26,10 @@ use super::lake::{
 use crate::facts::FELLER;
 use crate::model::Lake;
 use crate::model::mixing::{self, Mixing};
+use listen::{Plink, SCORE_FADE_S, catch_sound, last_onset};
 
 /// The time-lapse: all 40,000 steps (t = 0 … 400) in this many seconds.
-const TIME_LAPSE_S: f64 = 9.5;
+const TIME_LAPSE_S: f64 = 8.0;
 /// How steeply the time-lapse clock speeds up (model time grows as
 /// e^(A·τ/T) − 1): it opens at about 15 steps a second, so the first
 /// marks visibly swim out of the dock region, and ends at the even mix.
@@ -439,29 +444,48 @@ impl SceneConstruct for Spread {
             );
             trays.push((members, tray_c));
         }
-        // the drawn fish of each net (one in ten) lift out in catch order,
-        // a note each (the score's kalimba; a bell for a marked one)
+        // the drawn fish of each net (one in ten) lift out in catch order:
+        // the open water's and the deep end's during the line, then the
+        // weed bed's in the listen window, a note for each as it lands (a
+        // bell for a marked one: the true sample heard, counted on screen)
         // the trays' cards were added after the fish: the fish go on top
         stage.scene_mut().bring_to_front(&[plain.group, gold.group])?;
+        let heads = (plain_heads.borrow().clone(), gold_heads.borrow().clone());
+        let drawn = Drawn {
+            plain: (&plain, &plain_ids),
+            gold: (&gold, &marked_ids),
+            heads: &heads,
+        };
+        let quiet = plan_flights(&m, &trays[1..], &small, &drawn, FLIGHT_GAP_S);
+        fly_flights(stage, quiet)?;
+        let heard = plan_flights(&m, &trays[..1], &small, &drawn, listen_gap(&trays[0].0));
+        let plinks = landings(&heard);
+        let bells = plinks.iter().filter(|p| p.marked).count();
+        let window = plinks.last().map_or(0.0, |p| p.at) + SCORE_FADE_S + 0.4;
+        assert!(
+            plinks.iter().all(|p| p.at <= last_onset(window)),
+            "03_5: a note in the score's fade"
+        );
         let listen_note = kit.text_left(
             stage,
-            "listen: about one bell for every ten notes",
+            &format!(
+                "listen: a note for each fish into the {} tray, a bell for each marked one ({bells} of {})",
+                NETS[0].1,
+                plinks.len()
+            ),
             24.0,
             Palette::dim(),
             v(-6.6, 3.45),
         )?;
+        let wav = catch_sound("a03_5_weeds_tray", &plinks, window).map_err(|e| {
+            fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+                format!("03_5 sonification: {e}").into_boxed_str(),
+            )))
+        })?;
         fade_in_all(stage, &[listen_note], 0.5)?;
-        let heads = (plain_heads.borrow().clone(), gold_heads.borrow().clone());
-        lift_into_trays(
-            stage,
-            &m,
-            &trays,
-            &small,
-            (&plain, &plain_ids),
-            (&gold, &marked_ids),
-            &heads,
-        )?;
-        kit.listen(stage, 5.0, "03_5")?;
+        kit.sonify(stage, window, "03_5", &wav)?;
+        fly_flights(stage, heard)?;
+        stage.wait(window)?;
         // every region's net, written where it was cast
         let mut counts = Vec::new();
         for (r, &count) in nets.iter().enumerate() {
@@ -592,53 +616,70 @@ impl SceneConstruct for Spread {
 }
 
 /// How long one fish of 03_5 takes to fly to its tray, and the gap between
-/// one fish's start and the next.
+/// one fish's start and the next (the trays filled during the line).
 const FLIGHT_S: f64 = 0.55;
 const FLIGHT_GAP_S: f64 = 0.016;
+/// How long the heard tray takes to fill, every fish a note.
+const LISTEN_FILL_S: f64 = 4.0;
+
+/// A net's drawn fish (one simulated fish in ten is drawn), in catch order.
+fn catch_order(members: &[usize]) -> Vec<usize> {
+    members
+        .iter()
+        .copied()
+        .filter(|i| i.is_multiple_of(PER_GLYPH))
+        .collect()
+}
+
+/// The heard tray's gap between fish: it fills in [`LISTEN_FILL_S`].
+fn listen_gap(members: &[usize]) -> f64 {
+    LISTEN_FILL_S / catch_order(members).len().max(1) as f64
+}
 /// Fish per tray row.
 const TRAY_ROW: usize = 25;
 
-/// One fish's flight to its tray: the member, from, to, its start time and
-/// the turn that brings it back to facing east.
+/// One fish's flight to its tray: the member, from, to, its start time,
+/// the turn that brings it back to facing east, and its mark.
 struct Flight {
     mob: Mob,
     from: Vec3,
     to: Vec3,
     start: f64,
     turn: f64,
+    marked: bool,
 }
 
-/// 03_5's lift: the drawn fish of each net leave the (shrunken) lake one
-/// after another in catch order, growing back to full size and turning to
-/// face east, and settle in their tray. One updater moves them all, by
-/// placement only. `heads` are the plain and the gold swarm's headings.
-fn lift_into_trays(
-    stage: &mut Stage<'_>,
+/// The swarms that draw 03_5's lake: the plain and the gold one, the
+/// simulated fish each member draws, and the members' headings.
+struct Drawn<'a> {
+    plain: (&'a Swarm, &'a [usize]),
+    gold: (&'a Swarm, &'a [usize]),
+    heads: &'a (Vec<f64>, Vec<f64>),
+}
+
+/// 03_5's flights for some trays: each net's drawn fish (one in ten) in
+/// catch order, from the (shrunken) lake to the tray's slots, starting
+/// `gap` seconds apart.
+fn plan_flights(
     m: &Mixing,
     trays: &[(Vec<usize>, Vec3)],
     small: &impl Fn(Vec3) -> Vec3,
-    (plain, plain_ids): (&Swarm, &[usize]),
-    (gold, marked_ids): (&Swarm, &[usize]),
-    heads: &(Vec<f64>, Vec<f64>),
-) -> fmn::Result<()> {
-    // which swarm member draws each simulated fish (drawn: one in ten), and
-    // which way it faces
+    drawn: &Drawn<'_>,
+    gap: f64,
+) -> Vec<Flight> {
     let member = |i: usize| -> Option<(Mob, f64)> {
-        if !i.is_multiple_of(PER_GLYPH) {
-            return None;
-        }
-        let (ids, swarm, h) = if m.marked[i] {
-            (marked_ids, gold, &heads.1)
+        let ((swarm, ids), h) = if m.marked[i] {
+            (drawn.gold, &drawn.heads.1)
         } else {
-            (plain_ids, plain, &heads.0)
+            (drawn.plain, &drawn.heads.0)
         };
         ids.binary_search(&i).ok().map(|k| (swarm.members[k], h[k]))
     };
     let mut flights: Vec<Flight> = Vec::new();
     for (members, tray_c) in trays {
-        let caught: Vec<(usize, Mob, f64)> = members
-            .iter()
-            .filter_map(|&i| member(i).map(|(mob, h)| (i, mob, h)))
+        let caught: Vec<(usize, Mob, f64)> = catch_order(members)
+            .into_iter()
+            .filter_map(|i| member(i).map(|(mob, h)| (i, mob, h)))
             .collect();
         for (slot, &(i, mob, heading)) in caught.iter().enumerate() {
             let (col, row) = (slot % TRAY_ROW, slot / TRAY_ROW);
@@ -649,11 +690,31 @@ fn lift_into_trays(
                     tray_c[0] - 2.82 + 0.235 * col as f64,
                     tray_c[1] + 0.5 - 0.25 * row as f64,
                 ),
-                start: FLIGHT_GAP_S * flights.len() as f64,
+                start: gap * flights.len() as f64,
                 turn: -fold(heading),
+                marked: m.marked[i],
             });
         }
     }
+    flights
+}
+
+/// When each flight lands, and whether it carries a marked fish: what the
+/// window plays.
+fn landings(flights: &[Flight]) -> Vec<Plink> {
+    flights
+        .iter()
+        .map(|f| Plink {
+            at: f.start + FLIGHT_S,
+            marked: f.marked,
+        })
+        .collect()
+}
+
+/// Fly the fish: each grows back to full size and turns to face east as it
+/// settles in its slot. One updater moves them all, by placement only; its
+/// clock starts now.
+fn fly_flights(stage: &mut Stage<'_>, flights: Vec<Flight>) -> fmn::Result<()> {
     let clock = stage.add_value_tracker(0.0);
     stage.add_to_scene(clock)?;
     let mut t = 0.0;
@@ -795,4 +856,50 @@ fn corners(kit: &Kit, stage: &mut Stage<'_>, m: &Mixing) -> fmn::Result<()> {
         );
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_heard_tray_is_the_weed_beds_drawn_catch_and_fits_its_window() {
+        let lake = Lake::draw();
+        let mut m = Mixing::start(&lake);
+        m.advance(mixing::STEPS);
+        let c = mixing::region_centres()[NETS[0].0];
+        let members = m.net_members(c, FELLER.1 as usize);
+        let heard = catch_order(&members);
+        // one note per drawn fish of the net, a bell per marked one: the
+        // drawn sample, not a made-up one in ten
+        assert_eq!(
+            heard.len(),
+            members.iter().filter(|&&i| i.is_multiple_of(PER_GLYPH)).count()
+        );
+        let bells = heard.iter().filter(|&&i| m.marked[i]).count();
+        let marked_drawn = members
+            .iter()
+            .filter(|&&i| i.is_multiple_of(PER_GLYPH) && m.marked[i])
+            .count();
+        assert_eq!(bells, marked_drawn);
+        // the true net's share (A-CH03.portable.nets1000: 105 of 1,000) and
+        // the drawn sample's stay near one in ten
+        assert_eq!(m.net_at(c, FELLER.1 as usize), 105);
+        assert!((5..=20).contains(&bells), "{bells} bells of {}", heard.len());
+        // every note starts before the score's fade
+        let gap = listen_gap(&members);
+        let last = gap * (heard.len() - 1) as f64 + FLIGHT_S;
+        let window = last + SCORE_FADE_S + 0.4;
+        assert!(last <= last_onset(window));
+        assert!((gap * heard.len() as f64 - LISTEN_FILL_S).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_time_lapse_clock_runs_from_zero_to_the_last_step() {
+        assert_eq!(model_time(0.0), 0.0);
+        assert!((model_time(TIME_LAPSE_S) - mixing::STEPS as f64 * mixing::DT).abs() < 1e-9);
+        // slow at first: under a step per frame at 60 fps
+        assert!(clock_rate(0.0) / mixing::DT < 60.0);
+        assert!(follow_time(clock_rate(0.0)) > 0.1 && follow_time(clock_rate(TIME_LAPSE_S)) == 0.0);
+    }
 }

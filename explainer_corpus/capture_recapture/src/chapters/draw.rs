@@ -27,6 +27,10 @@ impl Role {
     pub fn dark() -> Srgb {
         Palette::teal()
     }
+    /// Likelihood, "score": curves and the landscape's slice.
+    pub fn score() -> Srgb {
+        Palette::purple()
+    }
     /// Probability over k: histogram bars.
     pub fn chance() -> Srgb {
         hex("#8A93A3")

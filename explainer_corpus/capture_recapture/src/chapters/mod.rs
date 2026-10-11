@@ -5,6 +5,7 @@
 
 pub mod balance;
 pub mod cheating;
+pub mod curve;
 pub mod draw;
 pub mod everywhere;
 pub mod failures;
@@ -17,6 +18,7 @@ pub mod ring_toss;
 pub mod small;
 pub mod spread;
 pub mod the_dead;
+pub mod turning;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -55,7 +57,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(netfuls::Netfuls { kit }),
             intensity: 0.5,
         },
-        animatic!("05_turning_it_around", 0.5),
+        Chapter {
+            key: "05_turning_it_around",
+            make: |kit| Box::new(turning::Turning { kit }),
+            intensity: 0.5,
+        },
         animatic!("06_the_landscape", 0.6),
         animatic!("07_feller_s_comparison", 0.5),
         Chapter {

@@ -15,6 +15,7 @@ use fmn::prelude::*;
 
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{LAKE_C, LakeArt, PER_GLYPH, Shade, fade_in_all, fade_out_all, fold, lake_p, plated, shuffled};
+use super::spread::listen::{SCORE_FADE_S, last_onset, pour_sound};
 use crate::facts::NETFULS;
 use crate::model::{LAKE_FISH, Lake, SEED, SplitMix64};
 
@@ -509,6 +510,20 @@ impl SceneConstruct for Netfuls {
                 (glyphs[i], from, mid, to, j as f64 / total as f64 * SPREAD, bin, from)
             })
             .collect();
+        // the window's sound: a grain for every netful as it lands, at its
+        // pile's note; the window opens now and the pour starts with it
+        let pour: Vec<(f64, usize)> = flights.iter().map(|f| (f.4 + FLIGHT, f.5)).collect();
+        let window = SPREAD + FLIGHT + SCORE_FADE_S + 0.2;
+        assert!(
+            pour.iter().all(|&(at, _)| at <= last_onset(window)),
+            "04_5: a grain in the score's fade"
+        );
+        let wav = pour_sound("a04_5_pour", &pour, window).map_err(|e| {
+            fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+                format!("04_5 sonification: {e}").into_boxed_str(),
+            )))
+        })?;
+        kit.sonify(stage, window, "04_5", &wav)?;
         let arrived = Rc::new(RefCell::new([0usize; NET + 1]));
         let ctl = stage.add(VMobject::new())?;
         {
@@ -548,9 +563,7 @@ impl SceneConstruct for Netfuls {
                 false,
             )?;
         }
-        kit.mark(stage, "pour");
-        kit.listen(stage, SPREAD + FLIGHT - 0.4, "04_5")?;
-        stage.wait(0.5)?;
+        stage.wait(window)?;
         stage.clear_updaters(ctl, true);
         if *arrived.borrow() != counts {
             return Err(fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(

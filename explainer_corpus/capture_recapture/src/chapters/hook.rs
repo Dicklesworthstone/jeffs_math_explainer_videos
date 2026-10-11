@@ -7,13 +7,12 @@
 use explainer_kit::props::{Pose, RowStrips, Swarm, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, play, thousands, tween, v};
 use fmn::core::color::interpolate_color;
-use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
 use fmn::prelude::*;
 
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{
-    Cell, LAKE_H, LAKE_W, LakeArt, PER_GLYPH, Shade, Wander, behind, cell_backs, cell_numbers, cell_rect, fit, fly,
-    header_places, key, lake_p, mosaic_cells, places_in, plated, shuffled, table_cells, table_labels, wander,
+    Cell, LAKE_H, LAKE_W, LakeArt, PER_GLYPH, Shade, Wander, behind, cell_backs, cell_numbers, cell_rect, fade_out_all,
+    fit, fly, header_places, key, lake_p, mosaic_cells, places_in, plated, shuffled, table_cells, table_labels, wander,
 };
 use crate::facts::FELLER;
 use crate::model::{GRID, LAKE_FISH, Lake, SEED, SPOTS, SplitMix64, cell_of};
@@ -256,15 +255,19 @@ impl SceneConstruct for Hook {
         stage.play_prepared(morph)?;
         kit.hold(stage)?;
 
-        // 01_4: the title over the living lake, the motif unresolved
-        fade_all(stage, 1.0)?;
+        // 01_4: the title over the living lake, the motif unresolved (the
+        // lake comes in while the title writes; the title leaves under 01_5)
+        fade_all(stage, 0.5)?;
         let scene = DipLake::build(stage, &drawn)?;
+        // a veil over the lake (and its bank) so the title reads
         let veil = stage.arena_mut().add(
             Rectangle::new()
-                .width(2.0 * FRAME_X_RADIUS + 0.2)
-                .height(2.0 * FRAME_Y_RADIUS + 0.2)
+                .width(LAKE_W + 0.3)
+                .height(LAKE_H + 0.3)
+                .corner_radius(super::lake::WATER_R + 0.12)
                 .style(flat(hex("#0B0F14"), 0.62))
-                .build()?,
+                .build()?
+                .moved_to(super::lake::LAKE_C),
         );
         let title = kit.text_styled(
             stage,
@@ -279,21 +282,32 @@ impl SceneConstruct for Hook {
         if w > TITLE_MAX_W {
             stage.scale(title, TITLE_MAX_W / w);
         }
-        play!(stage;
-            fade_in(stage.arena_mut(), scene.art, ORIGIN, 1.0)?.rt(1.2),
-            fade_in(stage.arena_mut(), scene.school.group, ORIGIN, 1.0)?.rt(1.2),
-            fade_in(stage.arena_mut(), veil, ORIGIN, 1.0)?.rt(0.6),
-        );
+        // the school is moving, so it fades by opacity (never a Transform);
+        // the lake goes in first and fades by opacity too, under the fish (a
+        // fade_in would re-root it on top of them)
+        stage.add_to_scene(scene.art)?;
+        stage.set_opacity(scene.art, 0.0, true);
+        let school_shade = Shade::new(stage, &scene.school.members, &fish(Role::unmarked()).paints, 0.0)?;
+        stage.add_to_scene(scene.school.group)?;
         wander(stage, &scene.school, scene.wanders.clone(), 0.0)?;
-        play!(stage; write(stage.arena(), title).rt(1.8));
-        kit.listen(stage, 3.0, "01_4")?;
+        let art_in = scene
+            .art
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(1.2),
+                ..AnimateArgs::default()
+            })?
+            .set_opacity(1.0)?;
         play!(stage;
-            fade_out(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(0.8),
-            fade_out(stage.arena_mut(), veil, ORIGIN, 1.0)?.rt(1.0),
+            art_in,
+            school_shade.to(1.0, 1.2)?,
+            fade_in(stage.arena_mut(), veil, ORIGIN, 1.0)?.rt(0.6),
+            write(stage.arena(), title).rt(1.3),
         );
+        kit.listen(stage, 3.0, "01_4")?;
 
         // 01_5–01_8: a 10 × 10 grid, one net dipped
-        dips(&kit, stage, &lake, &scene)?;
+        dips(&kit, stage, &lake, &scene, [title, veil])?;
 
         kit.hold(stage)?;
         fade_all(stage, 1.0)?;
@@ -393,7 +407,7 @@ fn spot_centre(p: (f64, f64)) -> Vec3 {
 
 /// 01_5–01_8: count one patch and scale up; two other patches; the heat
 /// map that explains why one net cannot know its share of the fish.
-fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, scene: &DipLake) -> fmn::Result<()> {
+fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, scene: &DipLake, title: [Mob; 2]) -> fmn::Result<()> {
     let the_key = key(kit, stage)?;
     let grid = dip_grid(stage)?;
     let (_, cw, ch) = cell_rect(0, 0);
@@ -405,6 +419,7 @@ fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, scene: &DipLake) -> fmn::
     let deep_c = spot_centre(deep);
     stage.move_to(net, v(deep_c[0], deep_c[1] + 2.4), ORIGIN);
     kit.say(stage, "01_5")?;
+    fade_out_all(stage, &title, 0.8)?;
     play!(stage;
         fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), the_key, ORIGIN, 1.0)?.rt(0.8),
