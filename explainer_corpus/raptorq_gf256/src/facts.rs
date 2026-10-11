@@ -102,6 +102,13 @@ pub fn facts() -> Result<Facts, String> {
         "193",
         "fact sheet B-F11 (0xC1)",
     )?;
+    // 10_7: the panel's comment flips with the fold, AES's partner of 2 is 141
+    f.pin(
+        "B-F11.mul_2_141_0x11B_AES",
+        mul(2, 141, AES_FOLD),
+        "1",
+        "fact sheet B-F11 (claim walk)",
+    )?;
     // 11: the byte clock
     let log = logs();
     for (key, x, want) in [
