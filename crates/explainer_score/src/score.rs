@@ -30,6 +30,7 @@ use std::io;
 use std::path::Path;
 
 use crate::duck::{self, DuckShape};
+use crate::filter::{Biquad, Kind};
 use crate::fx::{Chorus, Fdn, Plate, Tape, Warmth, from_mid_side, mid_side, rcos};
 use crate::instr::{self, Instrument, Note};
 use crate::meter;
@@ -48,6 +49,32 @@ pub struct Palette {
     pub melody: Instrument,
     /// A soft dyad answering a phrase.
     pub answer: Instrument,
+    /// Spread two-hand voicings of the chord, rolled slowly, in the longer
+    /// gaps (breaths, titles, chapter ends), the pedal lifted before the
+    /// voice returns. None: no roll.
+    pub roll: Option<Instrument>,
+}
+
+/// A chapter's harmonic world (plan §7.5): the chords it cycles through,
+/// each held a seeded `chord_s` length, and an optional pedal the bass holds
+/// under every one of them (dense derivations sit on a pedal).
+#[derive(Clone, Debug, PartialEq)]
+pub struct Mood {
+    pub name: &'static str,
+    /// The chapters that play it, by the number their key starts with ("07").
+    pub chapters: Vec<&'static str>,
+    pub progression: Vec<Chord>,
+    /// A pitch class the bass holds under every chord.
+    pub pedal: Option<i32>,
+}
+
+/// What the score plays in a listen window it fills itself.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Theme {
+    /// The leitmotif as it is, left open (a title card).
+    Open,
+    /// The leitmotif and its resolution: the video's question answered.
+    Resolved,
 }
 
 /// The narrators' voiced f0, 5th and 95th percentiles (Hz), measured with
@@ -89,14 +116,66 @@ pub struct Identity {
     pub melody_lu: f64,
     /// Duck depth under speech (dB).
     pub duck_db: f64,
+    /// How long the music recedes at the end of an authored window before
+    /// the voice returns (s; 0: the duck's own attack, as Hoeffding was
+    /// scored): the duck's slower return, and a sonification's closing fade.
+    pub settle_s: f64,
+    /// How far the duck stays down (0..1 of `duck_db`) through a hold the
+    /// author did not write for music (a gap shorter than [`HOLD_MERGE`]);
+    /// authored breaths and listen windows release it fully.
+    pub hold_duck: f64,
     /// Sound-effect level relative to the voice (LU), for a reference whoosh.
     pub sfx_lu: f64,
     /// A listen window's sonification, relative to the voice (LU): V − 10 or
     /// louder (plan §7.2), so a sound that teaches is heard.
     pub listen_lu: f64,
+    /// Chapters' harmonic worlds; a chapter no mood names plays `progression`.
+    pub moods: Vec<Mood>,
+    /// The chord the bed holds under every listen window that carries a
+    /// sonification (None: the progression goes on). It has no two tones a
+    /// semitone apart, and a sonification whose pitches keep to
+    /// [`Identity::listen_scale`] is consonant over it.
+    pub listen_chord: Option<Chord>,
+    /// Soundless listen windows the score fills itself, by the label the
+    /// scene gave `kit.listen` (its storyboard id): the motif, open or resolved.
+    pub themes: Vec<(&'static str, Theme)>,
 }
 
 impl Identity {
+    /// The chords chapter `chapter` cycles through: its mood's (over the
+    /// mood's pedal), or the identity's own progression.
+    pub fn progression_for(&self, chapter: &str) -> Vec<Chord> {
+        let number = chapter.split('_').next().unwrap_or(chapter);
+        match self.moods.iter().find(|m| m.chapters.contains(&number)) {
+            Some(m) => m
+                .progression
+                .iter()
+                .map(|c| match m.pedal {
+                    Some(p) => c.clone().on(p),
+                    None => c.clone(),
+                })
+                .collect(),
+            None => self.progression.clone(),
+        }
+    }
+
+    /// The pitch classes a sonification may use: every one at least a whole
+    /// tone from each tone of the listen chord (or the key's, without one).
+    pub fn listen_scale(&self) -> Vec<i32> {
+        let chord = self
+            .listen_chord
+            .as_ref()
+            .map_or_else(|| self.key.pitch_classes(), Chord::pitch_classes);
+        (0..12)
+            .filter(|&pc| chord.iter().all(|&c| !matches!((pc - c).rem_euclid(12), 1 | 11)))
+            .collect()
+    }
+
+    /// The theme a soundless listen window labelled `label` asks for.
+    pub fn theme_for(&self, label: &str) -> Option<Theme> {
+        self.themes.iter().find(|t| t.0 == label).map(|t| t.1)
+    }
+
     /// Refuse an identity the engine cannot play: an empty progression, a
     /// chord too thin for a four-voice bed (fewer than three pitch classes),
     /// a motif or resolution of fewer than two notes, a non-positive beat, an
@@ -114,8 +193,37 @@ impl Identity {
         if let Err(e) = self.register.check() {
             return bad(e);
         }
-        if let Some(c) = self.progression.iter().find(|c| c.pitch_classes().len() < 3) {
+        let moods = self.moods.iter().flat_map(|m| &m.progression);
+        if let Some(c) = self
+            .progression
+            .iter()
+            .chain(moods)
+            .find(|c| c.pitch_classes().len() < 3)
+        {
             return bad(format!("{c:?} has fewer than three pitch classes"));
+        }
+        if let Some(m) = self
+            .moods
+            .iter()
+            .find(|m| m.progression.is_empty() || m.chapters.is_empty())
+        {
+            return bad(format!("mood {} has no chords or no chapters", m.name));
+        }
+        let mut numbers: Vec<&str> = self.moods.iter().flat_map(|m| m.chapters.iter().copied()).collect();
+        numbers.sort_unstable();
+        if let Some(w) = numbers.windows(2).find(|w| w[0] == w[1]) {
+            return bad(format!("chapter {} is in two moods", w[0]));
+        }
+        if let Some(c) = &self.listen_chord {
+            let scale = self.listen_scale();
+            if c.pitch_classes().len() < 3 || !c.pitch_classes().iter().all(|pc| scale.contains(pc)) {
+                return bad(format!("listen chord {c:?} is thin or has a semitone inside it"));
+            }
+        }
+        let mut labels: Vec<&str> = self.themes.iter().map(|t| t.0).collect();
+        labels.sort_unstable();
+        if labels.windows(2).any(|w| w[0] == w[1]) {
+            return bad("a listen window with two themes".into());
         }
         if self.motif.degrees.len() < 2 || self.resolution.degrees.len() < 2 {
             return bad("the motif and the resolution need at least two notes each".into());
@@ -136,12 +244,20 @@ impl Identity {
         {
             return bad("non-finite level or reverb time".into());
         }
+        if !(0.0..=2.0).contains(&self.settle_s) {
+            return bad(format!("settle {} s outside 0..2", self.settle_s));
+        }
+        if !(0.0..=1.0).contains(&self.hold_duck) {
+            return bad(format!("hold duck {} outside 0..1", self.hold_duck));
+        }
         Ok(())
     }
 
     /// Hoeffding's D, v6 (plan §7.5): D major, Dmaj9 → Bm9 → Gmaj9(♯11) →
     /// Asus4, felt piano over a Juno pad with a soft vibraphone answer, 72 BPM
     /// and free, the rising question 1̂–5̂–6̂–3̂ resolving 2̂–1̂ at the end.
+    /// (Its score was checked as it is: no moods, rolls, listen chord or
+    /// themes.)
     pub fn hoeffding() -> Self {
         Self {
             name: "hoeffding_d".into(),
@@ -156,6 +272,7 @@ impl Identity {
                 bed: Instrument::Pad { brightness: 0.3 },
                 melody: Instrument::FeltPiano,
                 answer: Instrument::Vibraphone,
+                roll: None,
             },
             chord_s: (6.0, 12.0),
             bed_t60: 2.5,
@@ -167,19 +284,36 @@ impl Identity {
             bed_lu: -12.0,
             melody_lu: -12.0,
             duck_db: 8.0,
+            hold_duck: 0.0,
+            settle_s: 0.0,
             sfx_lu: -16.0,
             // the 2,000 shuffles as a texture: clearly heard, still under the
             // voice that explains it a moment later
             listen_lu: -8.0,
+            moods: Vec::new(),
+            listen_chord: None,
+            themes: Vec::new(),
         }
     }
 
-    /// Video A, capture–recapture (plan §7.5; R1 creative review X-1: each
-    /// video its own harmonic language, never the corpus's I–vi–IV–V again):
-    /// F Lydian, still and modal, Fmaj9 → Gadd9 → Dm9 → Cmaj9 (the raised
-    /// fourth B♮ in the II and V chords); 6/8 at dotted quarter = 56; a Juno
-    /// "water" pad, the felt-piano motif 5̂–1̂–2̂–3̂ left open until the table
-    /// balances, vibraphone answers (the marked fish's instrument).
+    /// Video A, capture–recapture (plan §7.5; R1 X-1: each video its own
+    /// harmonic language). 6/8 at dotted quarter = 56 in F, in three moods:
+    /// - **the lake** (01 the hook, 08 the table balances, 15 the coda): the
+    ///   owner's planing major sevenths, moved from A♭ to F and given their
+    ///   ninths: Fmaj9, Gmaj9, Dmaj9/F♯, Fmaj9, Cmaj9/E, E♭maj9, Fmaj9, Em11,
+    ///   Gmaj9, F♯m11, home to Fmaj9 (held at the very end). The bass circles
+    ///   F by step, F G F♯ F E E♭ F E G F♯ F: water lapping at a shore;
+    /// - **home** (the method: 02–07, 09, 10, 12): F Lydian, still and modal,
+    ///   Fmaj9 → Gadd9 → Dm9 → Cmaj9 (the raised fourth B♮ in the II and V);
+    /// - **doubt** (how sure, every failure, the dark cell: 11, 13, 14): D
+    ///   Dorian, Dm9 → G13 → Cmaj9 → Am11.
+    ///
+    /// A Juno "water" pad under speech; in the gaps, slow felt-piano rolls of
+    /// the chord and the felt-piano motif 5̂–1̂–2̂–3̂ (C–F–G–A), open at the
+    /// title (01_4) and resolved 2̂–1̂ when the table balances (08_3, plan
+    /// §7.5 revision 2); vibraphone answers (the marked fish's instrument).
+    /// Sonifications keep to F major pentatonic (F G A C D) over the listen
+    /// chord, F6/9.
     pub fn capture_recapture() -> Self {
         Self {
             name: "capture_recapture".into(),
@@ -199,24 +333,71 @@ impl Identity {
                 bed: Instrument::Pad { brightness: 0.25 },
                 melody: Instrument::FeltPiano,
                 answer: Instrument::Vibraphone,
+                roll: Some(Instrument::FeltPiano),
             },
             chord_s: (8.0, 14.0),
             bed_t60: 2.8,
-            // Hoeffding's measured balance (see `hoeffding`): V − 12 before the duck
-            bed_lu: -12.0,
-            melody_lu: -12.0,
+            // a dB under Hoeffding's balance (see `hoeffding`): V − 21 under
+            // speech, and the gap music (motif and rolls over the released
+            // bed) near plan §7.2's V − 10, measured on matt's voice
+            bed_lu: -13.0,
+            melody_lu: -13.5,
             duck_db: 8.0,
+            hold_duck: 0.5,
+            settle_s: 0.8,
             sfx_lu: -16.0,
-            listen_lu: -8.0,
+            // plan §7.2's floor for a sound that teaches, over a bed thinned
+            // 4 dB under it: at V − 8 its window's edges measured under the
+            // 12 LU p5 gate on matt's and michael's voices
+            listen_lu: -10.0,
+            moods: vec![
+                Mood {
+                    name: "lake",
+                    chapters: vec!["01", "08", "15"],
+                    progression: vec![
+                        Chord::maj9(5),
+                        Chord::maj9(7),
+                        Chord::maj9(2).over(6),
+                        Chord::maj9(5),
+                        Chord::maj9(0).over(4),
+                        Chord::maj9(3),
+                        Chord::maj9(5),
+                        Chord::min11(4),
+                        Chord::maj9(7),
+                        Chord::min11(6),
+                    ],
+                    pedal: None,
+                },
+                Mood {
+                    name: "doubt",
+                    chapters: vec!["11", "13", "14"],
+                    progression: vec![Chord::min9(2), Chord::dom13(7), Chord::maj9(0), Chord::min11(9)],
+                    pedal: None,
+                },
+            ],
+            listen_chord: Some(Chord::six_nine(5)),
+            themes: vec![("01_4", Theme::Open), ("08_3", Theme::Resolved)],
         }
     }
 
-    /// Video B, RaptorQ's byte field (plan §7.5; R1 X-1): E Lydian with the
-    /// raised fourth (A♯) on the tonic chord, Emaj9(♯11) → G♯m7 → C♯m9 →
-    /// Amaj9 (I–iii–vi–IV); 90 BPM (R1 B-15: sixteenths at 96 were 6.4 notes
-    /// a second, over the 6 a second gaps allow); Solina strings under a warm-glass FM bell
-    /// motif E–G♯–B–C♯ (0x1D's set bits {0, 2, 3, 4} as degrees 1, 3, 5, 6),
-    /// Karplus–Strong answers.
+    /// Video B, RaptorQ's byte field (plan §7.5; R1 X-1). E, 90 BPM (R1 B-15:
+    /// sixteenths at 96 were 6.4 notes a second, over the 6 a second gaps
+    /// allow), one mood per act:
+    /// - **home** (packets as equations, 01–06, and the payoff, 17): E Lydian
+    ///   with the raised fourth (A♯) on the tonic, Emaj9(♯11) → G♯m7 → C♯m9
+    ///   → Amaj9 (I–iii–vi–IV);
+    /// - **the field** (building the number system, 07–12): the same colours
+    ///   on an E pedal, Emaj9 → F♯add9/E (the Lydian II over I) → C♯m9/E →
+    ///   Amaj9(♯11)/E, still enough for the algebra;
+    /// - **spending it** (13–16): off the pedal and darker, C♯m9 →
+    ///   Amaj9(♯11) → F♯m11 → B6sus4.
+    ///
+    /// Solina strings under speech; in the gaps, Karplus–Strong rolls of the
+    /// chord and the warm-glass FM bell motif E–G♯–B–C♯ (0x1D's set bits
+    /// {0, 2, 3, 4} as degrees 1, 3, 5, 6), open at the title (01_3),
+    /// resolved at the close (17_7); plucked answers. Sonifications keep to E
+    /// major pentatonic (E F♯ G♯ B C♯: a byte's eight bit-notes, plan §7.5)
+    /// over the listen chord, E6/9.
     pub fn raptorq_gf256() -> Self {
         Self {
             name: "raptorq_gf256".into(),
@@ -236,22 +417,63 @@ impl Identity {
                 bed: Instrument::Strings { brightness: 0.3 },
                 melody: Instrument::WarmGlass,
                 answer: Instrument::Pluck,
+                roll: Some(Instrument::Pluck),
             },
             chord_s: (6.0, 12.0),
             bed_t60: 2.2,
             bed_lu: -12.0,
             melody_lu: -12.0,
             duck_db: 8.0,
+            hold_duck: 0.5,
+            settle_s: 0.8,
             sfx_lu: -16.0,
             listen_lu: -8.0,
+            moods: vec![
+                Mood {
+                    name: "field",
+                    chapters: vec!["07", "08", "09", "10", "11", "12"],
+                    progression: vec![
+                        Chord::maj9(4),
+                        Chord::new(6, &[0, 4, 7, 14]),
+                        Chord::min9(1),
+                        Chord::maj9_sharp11(9),
+                    ],
+                    pedal: Some(4),
+                },
+                Mood {
+                    name: "spending",
+                    chapters: vec!["13", "14", "15", "16"],
+                    progression: vec![
+                        Chord::min9(1),
+                        Chord::maj9_sharp11(9),
+                        Chord::min11(6),
+                        Chord::six_sus4(11),
+                    ],
+                    pedal: None,
+                },
+            ],
+            listen_chord: Some(Chord::six_nine(4)),
+            themes: vec![("01_3", Theme::Open), ("17_7", Theme::Resolved)],
         }
     }
 
-    /// Video C, the bakery algorithm (plan §7.5; R1 X-1): B♭ major as a jazz
-    /// turnaround, B♭maj9 → G7♯5 → Cm9 → F13 (the augmented G7♯5 is the
-    /// race's tension); 104 BPM; a small room (T60 0.9 s); marimba plays
-    /// "take a number" 1̂–2̂–3̂ and resolves with "served" 5̂–4̂–2̂–1̂, the pluck
-    /// answers.
+    /// Video C, the bakery algorithm (plan §7.5; R1 X-1). B♭ major at 104
+    /// BPM in a small room (T60 0.9 s), one mood per act:
+    /// - **the bakery** (the problem and the building, 01–03, 06, 07, and
+    ///   the close, 13): a jazz turnaround, B♭maj9 → G7♯5 → Cm9 → F13;
+    /// - **the race** (same number, the unwritten ticket: 04, 05): augmented
+    ///   and whole-tone tension, Gm9 → E♭maj7♯5 → C9♯11 → D7♯5 (plan §7.5);
+    /// - **the proof** (why never two, garbage, the old zero: 08–10): a B♭
+    ///   pedal under the lemmas, B♭maj9 → E♭maj9/B♭ → Gm9/B♭ → Cm11/B♭;
+    /// - **the legacy** (costs and CPUs: 11, 12): Gm9 → E♭maj9 → B♭maj9/D →
+    ///   F7sus4.
+    ///
+    /// A pad under speech; in the gaps, felt-piano rolls of the chord and the
+    /// marimba motif "take a number" 1̂–2̂–3̂, open at the title (01_3) and
+    /// resolved with "served" 5̂–4̂–2̂–1̂ at the close (13_4); plucked answers.
+    /// Sonifications keep to B♭ C D E♭ F G (the motif's own notes and G)
+    /// over the listen chord, B♭6sus2 (B♭ C F G), which leaves room for both
+    /// the motif's D and its E♭.
     pub fn bakery_algorithm() -> Self {
         Self {
             name: "bakery_algorithm".into(),
@@ -260,7 +482,7 @@ impl Identity {
             tonic_midi: 58,
             progression: vec![
                 Chord::maj9(10),
-                Chord::new(7, &[0, 4, 8, 10]),
+                Chord::dom7_sharp5(7),
                 Chord::min9(0),
                 Chord::new(5, &[0, 4, 10, 14, 21]),
             ],
@@ -271,14 +493,53 @@ impl Identity {
                 bed: Instrument::Pad { brightness: 0.35 },
                 melody: Instrument::Marimba,
                 answer: Instrument::Pluck,
+                roll: Some(Instrument::FeltPiano),
             },
             chord_s: (6.0, 10.0),
             bed_t60: 0.9,
-            bed_lu: -12.0,
-            melody_lu: -12.0,
+            // as A: V − 21 under speech, the gap music near V − 10 (michael)
+            bed_lu: -13.0,
+            melody_lu: -13.5,
             duck_db: 8.0,
+            hold_duck: 0.5,
+            settle_s: 0.8,
             sfx_lu: -16.0,
-            listen_lu: -8.0,
+            // plan §7.2's floor for a sound that teaches, over a bed thinned
+            // 4 dB under it: at V − 8 its window's edges measured under the
+            // 12 LU p5 gate on matt's and michael's voices
+            listen_lu: -10.0,
+            moods: vec![
+                Mood {
+                    name: "race",
+                    chapters: vec!["04", "05"],
+                    progression: vec![
+                        Chord::min9(7),
+                        Chord::maj7_sharp5(3),
+                        Chord::dom9_sharp11(0),
+                        Chord::dom7_sharp5(2),
+                    ],
+                    pedal: None,
+                },
+                Mood {
+                    name: "proof",
+                    chapters: vec!["08", "09", "10"],
+                    progression: vec![Chord::maj9(10), Chord::maj9(3), Chord::min9(7), Chord::min11(0)],
+                    pedal: Some(10),
+                },
+                Mood {
+                    name: "legacy",
+                    chapters: vec!["11", "12"],
+                    progression: vec![
+                        Chord::min9(7),
+                        Chord::maj9(3),
+                        Chord::maj9(10).over(2),
+                        Chord::dom7sus4(5),
+                    ],
+                    pedal: None,
+                },
+            ],
+            listen_chord: Some(Chord::new(10, &[0, 2, 7, 9])),
+            themes: vec![("01_3", Theme::Open), ("13_4", Theme::Resolved)],
         }
     }
 }
@@ -307,6 +568,8 @@ pub enum Track {
     Answer,
     /// A reveal answering an authored mark.
     Cue,
+    /// The spread voicing rolled in a gap (`Palette::roll`).
+    Roll,
 }
 
 /// What an authored mark asks for, read from its label: `kind:name`, or a
@@ -438,6 +701,9 @@ const ONSET_GUARD: f64 = 0.15;
 const MIN_PAUSE: f64 = 0.2;
 /// The shortest gap a melodic phrase may play in.
 pub const MIN_PHRASE_GAP: f64 = 1.6;
+/// A gap in speech shorter than this, not authored as a breath or a listen
+/// window, is a hold: the duck stays partly down through it (s).
+pub const HOLD_MERGE: f64 = 4.0;
 
 /// Times where a chord may change: the start of the span and of each pause
 /// of ≥ 0.2 s (just after the voice stops), then every 0.5 s through the
@@ -468,6 +734,11 @@ pub fn change_candidates(fine: &[(f64, f64)], total: f64) -> Vec<f64> {
     c
 }
 
+/// Plan §7.5's limits on any chord (s): an identity's preferred range sits
+/// inside them; QA fails a chord longer than the longest.
+pub const SHORTEST_CHORD: f64 = 4.0;
+pub const LONGEST_CHORD: f64 = 16.0;
+
 /// Choose chord change times (the first is 0) so every chord lasts between
 /// `min` and `max` whenever the candidates allow: while more than `max`
 /// remains, the next change goes to the candidate nearest a seeded target in
@@ -485,7 +756,20 @@ pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng:
             .copied()
             .filter(|&c| c >= lo && c <= hi)
             .min_by(|a, b| (a - target).abs().total_cmp(&(b - target).abs()))
-            .or_else(|| candidates.iter().copied().find(|&c| c > hi && c <= total - min));
+            .or_else(|| candidates.iter().copied().find(|&c| c > hi && c <= total - min))
+            .or_else(|| {
+                // the end is near and no pause fits the preferred lengths: the
+                // most central pause that keeps both chords at least
+                // SHORTEST_CHORD long (plan §7.5's chords of 4–16 s), rather
+                // than one chord past 16 s
+                let mid = (t + total) / 2.0;
+                candidates
+                    .iter()
+                    .copied()
+                    .filter(|&c| c >= t + SHORTEST_CHORD && c <= total - SHORTEST_CHORD)
+                    .filter(|_| total - t > LONGEST_CHORD)
+                    .min_by(|a, b| (a - mid).abs().total_cmp(&(b - mid).abs()))
+            });
         match next {
             Some(c) => {
                 out.push(c);
@@ -495,6 +779,107 @@ pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng:
         }
     }
     out
+}
+
+/// A listen stretch shorter than this between two listen windows is not
+/// given its own chord: the listen chord holds across it (s).
+const MIN_FREE_STRETCH: f64 = 2.0;
+
+/// Chord changes for a chapter `total` seconds long whose listen spans (each
+/// `[start, until)`, chapter-relative) hold the listen chord: each span is
+/// one change flagged `true`, and every stretch between spans is planned by
+/// [`plan_changes`] on its own candidates (flagged `false`). A span starts
+/// where its window opens (the voice has stopped) and runs to the first
+/// change candidate at or after the window's end, so the progression comes
+/// back in a pause, never on a speech onset.
+pub fn plan_with_listens(
+    candidates: &[f64],
+    total: f64,
+    range: (f64, f64),
+    listens: &[(f64, f64)],
+    rng: &mut Rng,
+) -> Vec<(f64, bool)> {
+    let mut spans: Vec<(f64, f64)> = listens
+        .iter()
+        .filter(|s| s.0 < total)
+        .map(|&(s, u)| (s.max(0.0), u.min(total)))
+        .collect();
+    spans.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let mut out = Vec::new();
+    let free = |from: f64, to: f64, out: &mut Vec<(f64, bool)>, rng: &mut Rng| {
+        let local: Vec<f64> = candidates
+            .iter()
+            .filter(|&&x| x >= from && x < to)
+            .map(|x| x - from)
+            .collect();
+        out.extend(
+            plan_changes(&local, to - from, range, rng)
+                .into_iter()
+                .map(|x| (from + x, false)),
+        );
+    };
+    let mut from = 0.0;
+    for (s, u) in spans {
+        if s - from >= MIN_FREE_STRETCH || (out.is_empty() && s > 0.0) {
+            free(from, s, &mut out, rng);
+        }
+        if out.last().is_none_or(|l| !l.1) {
+            out.push((s, true));
+        }
+        from = from.max(u);
+    }
+    if total - from > 1e-9 {
+        free(from, total, &mut out, rng);
+    }
+    out
+}
+
+/// The roll's onsets are this far apart (s): five notes in 0.8 s, a slow
+/// harp-like unfolding inside the six onsets a second gaps allow (§7.6).
+const ROLL_STEP: f64 = 0.2;
+/// A gap needs this long for a roll (s).
+const ROLL_GAP: f64 = 2.4;
+/// The pedal is lifted this long before the voice returns (s): the felt
+/// piano's low notes are inside the narrator's band and must have died away.
+const PEDAL_CLEAR: f64 = 0.7;
+
+/// A spread two-hand voicing for the roll, low to high: the left hand's bass
+/// (the chord's bass note, C2–B2) and the next chord tone a fifth or more
+/// above it, then the right hand's three highest bed voices, lifted to E4 or
+/// above. In a gap only: the left hand sits in the narrator's band.
+pub fn roll_voicing(span: &ChordSpan) -> Vec<i32> {
+    let pcs = span.chord.pitch_classes();
+    let bass = 36 + (span.chord.bass - 36).rem_euclid(12);
+    let second = (bass + 7..bass + 19)
+        .find(|m| pcs.contains(&m.rem_euclid(12)) && m.rem_euclid(12) != span.chord.bass)
+        .unwrap_or(bass + 12);
+    // the right hand from E4, over the left: each tone lifted by octaves,
+    // then laid out rising, a whole tone or more apart and never a minor
+    // ninth over a lower note (E4 under F5 is harsh; F4 under E5 is a major
+    // seventh)
+    let floor = 64.max(second + 3);
+    let k = span.voicing.upper.len().saturating_sub(3);
+    let mut right: Vec<i32> = span.voicing.upper[k..]
+        .iter()
+        .map(|&m| m + 12 * ((floor - m + 11).max(0) / 12))
+        .collect();
+    right.sort_unstable();
+    right.dedup();
+    let mut out = vec![bass, second];
+    for mut p in right {
+        while p <= out[out.len() - 1] + 1 || out.iter().any(|&q| minor_ninth(q, p)) {
+            p += 12;
+        }
+        if p <= 88 {
+            out.push(p);
+        }
+    }
+    out
+}
+
+/// True when `hi` sits a minor ninth (or a compound of it) above `lo`.
+pub fn minor_ninth(lo: i32, hi: i32) -> bool {
+    hi - lo > 1 && (hi - lo).rem_euclid(12) == 1
 }
 
 /// The motif notes that fit a gap: (onset s, MIDI pitch, duration s). Onsets
@@ -583,10 +968,12 @@ pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key, low: i32) -> i32
     if !clashes(pitch) {
         return pitch;
     }
+    // the key's tones, or the chord's own (a mood may leave the key)
     let scale = key.pitch_classes();
-    for d in [1, -1, 2, -2, 3, -3] {
+    for d in [1, -1, 2, -2, 3, -3, 4, -4] {
         let p = pitch + d;
-        if (low..=88).contains(&p) && scale.contains(&p.rem_euclid(12)) && !clashes(p) {
+        let pc = p.rem_euclid(12);
+        if (low..=88).contains(&p) && (scale.contains(&pc) || tones.contains(&pc)) && !clashes(p) {
             return p;
         }
     }
@@ -609,6 +996,9 @@ const MIN_NOTE_S: f64 = 0.12;
 const CUE_MIN_GAP: f64 = 1.0;
 /// A cue note is released this long before the next speech onset (s).
 const CUE_CLEAR: f64 = 0.3;
+/// A gap's melody and answer notes are released this long before the voice
+/// returns (s): the music breathes out, then the narrator speaks.
+const GAP_CLEAR: f64 = 0.5;
 
 /// A reveal's dyad: the voicing's top two voices, up into the cue register
 /// (folding by octaves above E6), each moved off any minor ninth, since in a
@@ -813,16 +1203,25 @@ fn cue_allowed(kind: CueKind, t: f64, placed: &[(f64, CueKind)]) -> bool {
 /// resolution and recovering over the 1.5 s after it, so the reveal lands in
 /// a moment of space.
 fn thin_outs(reveals: &[f64], n: usize) -> Vec<f64> {
+    thin(reveals.iter().map(|&t| (t, t)), n, (1.0, 1.5))
+}
+
+/// The bed's gain under `spans` (start, end): 4 dB down from `ramps.0`
+/// seconds before each start to its end, back up over `ramps.1` seconds,
+/// raised-cosine all the way (a span of zero length is a reveal's dip).
+fn thin(spans: impl Iterator<Item = (f64, f64)>, n: usize, (down, up): (f64, f64)) -> Vec<f64> {
     let mut g = vec![1.0_f64; n];
     let depth = 1.0 - db_to_gain(-4.0);
-    for &t in reveals {
-        let (a, b) = (((t - 1.0).max(0.0) * FS) as usize, (((t + 1.5) * FS) as usize).min(n));
+    for (t0, t1) in spans {
+        let (a, b) = (((t0 - down).max(0.0) * FS) as usize, (((t1 + up) * FS) as usize).min(n));
         for (i, v) in g.iter_mut().enumerate().take(b).skip(a) {
             let s = i as f64 / FS;
-            let dip = if s < t {
-                rcos((s - (t - 1.0)) / 1.0)
+            let dip = if s < t0 {
+                rcos((s - (t0 - down)) / down)
+            } else if s <= t1 {
+                1.0
             } else {
-                1.0 - rcos((s - t) / 1.5)
+                1.0 - rcos((s - t1) / up)
             };
             *v = (*v).min(1.0 - depth * dip);
         }
@@ -834,7 +1233,7 @@ fn thin_outs(reveals: &[f64], n: usize) -> Vec<f64> {
 fn melody_bus(events: &[Event], n: usize) -> Stereo {
     let notes: Vec<&Event> = events
         .iter()
-        .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
+        .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue | Track::Roll))
         .collect();
     let mut dry = render_track(&notes, n);
     let wet = Plate::new(0.55, 5_500.0).run(&dry, 0.0);
@@ -1003,35 +1402,65 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let speech = duck::regions(&active, 1.2);
     let fine = duck::regions(&active, MIN_PAUSE);
 
-    // 3. harmony, planned inside each chapter: a chapter enters the
-    //    progression where its index puts it, so consecutive chapters keep
-    //    moving; the video's last chord is the tonic when the plan resolves
+    // 3. harmony, planned inside each chapter from its own progression (its
+    //    mood's or the identity's): the identity's is entered where the
+    //    chapter's index puts it, so consecutive chapters keep moving; a
+    //    mood's starts on its first chord. Under a listen window that carries
+    //    a sonification the bed holds the listen chord. The video's last
+    //    chord is the progression's first when the plan resolves
     let resolve = sections.last().is_some_and(|s| s.plan.resolve);
-    let len = identity.progression.len();
     let mut chords: Vec<ChordSpan> = Vec::new();
     let mut events = Vec::new();
     for (c, (name, a, b)) in chapters.iter().enumerate() {
         let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
+        let progression = identity.progression_for(name);
+        let len = progression.len();
+        let in_mood = progression != identity.progression;
         let local: Vec<(f64, f64)> = fine
             .iter()
             .filter(|r| r.1 > t0 && r.0 < t1)
             .map(|&(s, e)| (s.max(t0) - t0, e.min(t1) - t0))
             .collect();
         let cands = change_candidates(&local, t1 - t0);
+        let fps = f64::from(sections[c].timeline.fps);
+        let listens: Vec<(f64, f64)> = match identity.listen_chord {
+            Some(_) => sections[c]
+                .timeline
+                .listens
+                .iter()
+                .filter(|w| w.sound.is_some())
+                .map(|w| {
+                    let s = w.frame as f64 / fps;
+                    let until = cands.iter().copied().find(|&x| x >= s + w.seconds).unwrap_or(t1 - t0);
+                    (s, until)
+                })
+                .collect(),
+            None => Vec::new(),
+        };
         let mut rng = Rng::new(seed_for(&identity.name, name, "harmony", 0));
-        let changes = plan_changes(&cands, t1 - t0, identity.chord_s, &mut rng);
+        let changes = plan_with_listens(&cands, t1 - t0, identity.chord_s, &listens, &mut rng);
+        let steps = changes.iter().filter(|x| !x.1).count();
         // the resolving chapter enters the progression so that its last chord
         // is the tonic: the cycle is kept whole and nothing is merged
         let offset = if c + 1 == chapters.len() && resolve {
-            (1 + len * changes.len() - changes.len()) % len
+            (1 + len * steps - steps) % len
+        } else if in_mood {
+            0
         } else {
             c % len
         };
         let mut prev: Option<Voicing> = None;
         let mut mine: Vec<ChordSpan> = Vec::new();
-        for (k, &s) in changes.iter().enumerate() {
-            let (start, end) = (t0 + s, changes.get(k + 1).map_or(t1, |&x| t0 + x));
-            let chord = identity.progression[(offset + k) % len].clone();
+        let mut k = 0;
+        for (j, &(s, listen)) in changes.iter().enumerate() {
+            let (start, end) = (t0 + s, changes.get(j + 1).map_or(t1, |x| t0 + x.0));
+            let chord = match (&identity.listen_chord, listen) {
+                (Some(l), true) => l.clone(),
+                _ => {
+                    k += 1;
+                    progression[(offset + k - 1) % len].clone()
+                }
+            };
             // a progression that repeats a chord just holds it
             if let Some(p) = mine.last_mut().filter(|p| p.chord == chord) {
                 p.end = end;
@@ -1059,38 +1488,114 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             .expect("at least one chord")
     };
 
-    // 4. the leitmotif in gaps, numbered within each chapter
+    // 4. the gaps, numbered within each chapter. A gap that holds a
+    //    sonification is the sonification's (over the listen chord); a
+    //    soundless listen window the identity names gets its theme; the
+    //    video's last gap resolves when the plan does; any other gap gets the
+    //    leitmotif, varied, and a long one first a slow roll of the chord
     let mut phrases = Vec::new();
     let gaps = duck::gaps(&speech, total, MIN_PHRASE_GAP);
     let mut gap_index = vec![0usize; chapters.len()];
+    let theme_motif = || {
+        let mut m = identity.motif.clone();
+        m.degrees.extend(&identity.resolution.degrees);
+        m.durations.extend(&identity.resolution.durations);
+        m
+    };
     for (g, &(a, b)) in gaps.iter().enumerate() {
         let ch = chapter_at(a);
         let gi = gap_index[ch];
         gap_index[ch] += 1;
         let name = chapters[ch].0.as_str();
+        let fps = f64::from(sections[ch].timeline.fps);
+        let windows: Vec<&crate::timeline::Window> = sections[ch]
+            .timeline
+            .listens
+            .iter()
+            .filter(|w| {
+                let s = chapter_starts[ch] + w.frame as f64 / fps;
+                s >= a - 0.1 && s < b
+            })
+            .collect();
+        if windows.iter().any(|w| w.sound.is_some()) {
+            continue;
+        }
+        let theme = windows.iter().find_map(|w| identity.theme_for(&w.label));
         let mut prng = Rng::new(seed_for(&identity.name, name, "phrase", gi as u64));
         let final_gap = g + 1 == gaps.len() && resolve;
-        let motif = if final_gap {
-            let mut m = identity.motif.clone();
-            m.degrees.extend(&identity.resolution.degrees);
-            m.durations.extend(&identity.resolution.durations);
-            m
-        } else {
-            match prng.uniform() {
+        let resolving = final_gap || theme == Some(Theme::Resolved);
+        let motif = match theme {
+            Some(Theme::Open) => identity.motif.clone(),
+            _ if resolving => theme_motif(),
+            _ => match prng.uniform() {
                 u if u < 0.45 => identity.motif.clone(),
                 u if u < 0.65 => identity.motif.transposed(2),
                 u if u < 0.85 => identity.motif.inverted(),
                 _ => identity.motif.augmented(1.5),
-            }
+            },
         };
         // start once the voice has cleared; the last onset leaves room for
         // the duck to come down before the next line (pre-roll + attack)
-        let start = if a <= 0.0 { 0.9 } else { a + 0.35 };
+        let opening = if a <= 0.0 { 0.9 } else { a + 0.35 };
         let limit = if b >= total { total - 2.5 } else { b - 0.6 };
-        let mut notes = elastic_phrase(&motif, identity, start, limit, final_gap);
-        if final_gap && notes.len() < motif.degrees.len() {
+        // the pedal comes up before the voice returns
+        let lift = if b >= total { total - 0.5 } else { b - PEDAL_CLEAR };
+        let mut start = opening;
+        if let Some(inst) = identity.palette.roll.filter(|_| b - a >= ROLL_GAP) {
+            // a theme is struck over one soft block chord; otherwise the
+            // chord unfolds from the bass before the motif enters. Either
+            // enters with the harmony: on the gap's chord change, if one
+            // comes within its first 0.9 s (a theme) or 1.5 s (a roll).
+            // While the pedal is down, each later change of chord is struck
+            // again, softly, as a pianist changes pedal
+            let block = theme.is_some() || resolving;
+            let wait = if block { 0.9 } else { 1.5 };
+            let at = chords
+                .iter()
+                .map(|c| c.start)
+                .find(|&s| s >= opening && s < opening + wait)
+                .unwrap_or(opening);
+            let mut strikes = vec![at];
+            strikes.extend(
+                chords
+                    .iter()
+                    .map(|c| c.start)
+                    .filter(|&s| s > at + 0.5 && s < lift - 0.8),
+            );
+            for (j, &strike) in strikes.iter().enumerate() {
+                let span = chord_at(strike + 1e-6);
+                let release = span.end.min(lift);
+                if release - strike < 0.8 {
+                    continue;
+                }
+                let rolled = !block && j == 0;
+                for (i, p) in roll_voicing(span).into_iter().enumerate() {
+                    let t = if rolled { strike + ROLL_STEP * i as f64 } else { strike };
+                    let v = if rolled {
+                        [0.4, 0.34, 0.38, 0.4, 0.44][i.min(4)]
+                    } else {
+                        0.3
+                    };
+                    events.push(Event {
+                        start: t,
+                        hold: release - t,
+                        track: Track::Roll,
+                        inst,
+                        pitch: f64::from(p),
+                        velocity: v + 0.03 * prng.jitter(1.0),
+                        seed: seed_for(&identity.name, name, "roll", (gi * 32 + j * 8 + i) as u64),
+                        pan: if i < 2 { -0.25 } else { 0.1 + 0.08 * i as f64 },
+                    });
+                }
+                if j == 0 {
+                    start = if rolled { at + 5.0 * ROLL_STEP + 0.3 } else { at };
+                }
+            }
+        }
+        let mut notes = elastic_phrase(&motif, identity, start, limit, resolving);
+        if resolving && notes.len() < motif.degrees.len() {
             // no room for the whole closing phrase: the resolution alone, so
-            // the video still ends on the tonic it promised
+            // the question is still answered on the tonic it promised
             let res = elastic_phrase(&identity.resolution, identity, start, limit, true);
             if res.len() == identity.resolution.degrees.len() {
                 notes = res;
@@ -1113,17 +1618,19 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             });
         }
         phrases.push((notes[0].0, last_t));
-        // a soft answer: two chord tones an octave up, if there is room
+        // a soft answer: two chord tones an octave up (each kept off a
+        // minor ninth, as a reveal's are), if there is room
         let t = last_t + last_d + 0.25;
         if t + 0.4 <= limit {
-            for (i, &m) in top_two(&chord_at(t).voicing).iter().enumerate() {
-                let p = if m < 72 { m + 12 } else { m };
+            let span = chord_at(t);
+            let dyad = reveal_dyad(&span.voicing, &span.chord, &identity.key, identity.register.upper.0);
+            for (i, &p) in dyad.iter().enumerate() {
                 events.push(Event {
                     start: t + 0.03 * i as f64,
                     hold: 1.2,
                     track: Track::Answer,
                     inst: identity.palette.answer,
-                    pitch: f64::from(p.min(88)),
+                    pitch: f64::from(p),
                     velocity: 0.32,
                     seed: seed_for(&identity.name, name, "answer", (gi * 4 + i) as u64),
                     pan: if i == 0 { -0.4 } else { 0.4 },
@@ -1267,13 +1774,16 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     // would sound it over the clash, and a blip is no note)
     // (a cue note is also released before the next sentence begins)
     events.retain_mut(|e| {
-        if !matches!(e.track, Track::Melody | Track::Answer | Track::Cue) {
+        if !matches!(e.track, Track::Melody | Track::Answer | Track::Cue | Track::Roll) {
             return true;
         }
         e.hold = hold_until_clash(e.pitch.round() as i32, e.start, e.hold, &chords);
-        if e.track == Track::Cue {
-            e.hold = e.hold.min(next_onset(e.start) - e.start - CUE_CLEAR);
-        }
+        let clear = match e.track {
+            Track::Cue => CUE_CLEAR,
+            Track::Melody | Track::Answer => GAP_CLEAR,
+            _ => 0.0,
+        };
+        e.hold = e.hold.min(next_onset(e.start) - e.start - clear);
         e.hold >= MIN_NOTE_S
     });
 
@@ -1314,7 +1824,23 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         .filter(|c| matches!(CueKind::from_label(&c.1), CueKind::Reveal | CueKind::Resolve))
         .map(|c| c.0)
         .collect();
-    let mut sum = bed_bus(identity, &events, n, &send, &thin_outs(&reveals, n));
+    // the bed also makes room under every sonification (an identity with a
+    // listen chord: the new engine's), from just before its window to its end
+    let mut room = thin_outs(&reveals, n);
+    if identity.listen_chord.is_some() {
+        let spans = sections.iter().zip(&chapter_starts).flat_map(|(s, &t0)| {
+            let fps = f64::from(s.timeline.fps);
+            s.timeline
+                .listens
+                .iter()
+                .filter(|w| w.sound.is_some())
+                .map(move |w| (t0 + w.frame as f64 / fps, t0 + w.frame as f64 / fps + w.seconds))
+        });
+        for (r, x) in room.iter_mut().zip(thin(spans, n, (0.3, 1.0))) {
+            *r = r.min(x);
+        }
+    }
+    let mut sum = bed_bus(identity, &events, n, &send, &room);
     drop(send);
     sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed));
     let melody = melody_bus(&events, n);
@@ -1332,7 +1858,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             let Some(path) = &w.sound else { continue };
             let start = a + frame_to_sample(w.frame, s.timeline.fps) as usize;
             let end = (start + (w.seconds * FS).round() as usize).min(b);
-            let sound = listen_sound(path, end.saturating_sub(start))?;
+            let sound = listen_sound(path, end.saturating_sub(start), identity.settle_s.max(0.25))?;
             let lufs = meter::integrated(&sound);
             if !lufs.is_finite() {
                 return Err(io::Error::new(
@@ -1353,9 +1879,19 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         *v = tr.process(*v);
     }
 
-    // 7. the duck, with breaths and listen windows released
+    // 7. the duck, with breaths and listen windows released. In a hold the
+    //    author did not write for music (a gap under HOLD_MERGE s), the duck
+    //    lets the music up only part way (plan §7.2: the music answers fully
+    //    in the authored gaps); a 3 s window straddling such a hold's edge
+    //    otherwise hears the whole gap's music against half a window of voice
     let shape = DuckShape::default();
     let mut u = duck::duck_curve(&speech, n, shape);
+    if identity.hold_duck > 0.0 {
+        let held = duck::duck_curve(&duck::regions(&active, HOLD_MERGE), n, shape);
+        for (x, h) in u.iter_mut().zip(&held) {
+            *x = x.max(identity.hold_duck * h);
+        }
+    }
     let windows: Vec<(f64, f64)> = sections
         .iter()
         .zip(&chapter_starts)
@@ -1369,6 +1905,15 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         })
         .collect();
     duck::release_windows(&mut u, &windows, shape);
+    if identity.settle_s > 0.0 {
+        // an authored window the voice resumes from (within 0.5 s of its end)
+        let next = |t: f64| speech.iter().map(|r| r.0).find(|&s| s >= t - 0.05);
+        let resumes: Vec<f64> = windows
+            .iter()
+            .filter_map(|&(s, len)| next(s + len).filter(|&o| o - (s + len) < 0.5))
+            .collect();
+        duck::recede(&mut u, &resumes, identity.settle_s);
+    }
     let mut music = duck::apply(&sum, &u, identity.duck_db);
     drop(sum);
 
@@ -1410,9 +1955,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     })
 }
 
-/// A listen window's sonification: decoded, at 48 kHz, cut to `max` samples
-/// with a 0.25 s raised-cosine fade at the cut.
-fn listen_sound(path: &Path, max: usize) -> io::Result<Stereo> {
+/// A listen window's sonification: decoded, at 48 kHz, through the score's
+/// own top end (a 4th-order 5.5 kHz low-pass: a mallet or pluck struck in a
+/// quiet window otherwise lands its upper partials above 8 kHz as a click,
+/// §7.6), cut to `max` samples (the window) and faded over the window's
+/// last `settle` seconds, so it recedes before the voice returns.
+fn listen_sound(path: &Path, max: usize, settle: f64) -> io::Result<Stereo> {
     let d = crate::wav::read(path).map_err(|e| io::Error::new(e.kind(), format!("{}: {e}", path.display())))?;
     let to48 = |x: &[f64]| crate::resample::resample(x, d.rate, crate::SAMPLE_RATE);
     let mut s = match d.samples.as_slice() {
@@ -1425,18 +1973,28 @@ fn listen_sound(path: &Path, max: usize) -> io::Result<Stereo> {
             ));
         }
     };
-    if s.len() > max {
-        s.l.truncate(max);
-        s.r.truncate(max);
-        let fade = ((0.25 * FS) as usize).min(max);
-        for k in 0..fade {
-            let g = rcos(k as f64 / fade as f64);
-            s.l[max - 1 - k] *= g;
-            s.r[max - 1 - k] *= g;
+    for ch in [&mut s.l, &mut s.r] {
+        let lp = || Biquad::new(Kind::LowPass { q: 0.707 }, LISTEN_TOP_HZ);
+        let (mut a, mut b) = (lp(), lp());
+        for v in ch.iter_mut() {
+            *v = b.process(a.process(*v));
         }
+    }
+    // cut at the window's end, faded over its last `settle` seconds (to an
+    // exact zero at the end) wherever the sound still sounds there
+    s.l.truncate(max);
+    s.r.truncate(max);
+    let fade = ((settle * FS) as usize).clamp(1, max.max(1));
+    for i in max.saturating_sub(fade)..s.len() {
+        let g = rcos((max - 1 - i) as f64 / fade as f64);
+        s.l[i] *= g;
+        s.r[i] *= g;
     }
     Ok(s)
 }
+
+/// The top of a sonification as the score plays it (Hz).
+const LISTEN_TOP_HZ: f64 = 5_500.0;
 
 /// Sample index of a chapter-relative frame (for callers placing stems).
 pub fn frame_sample(frame: u64, fps: u32) -> usize {
@@ -1523,6 +2081,18 @@ mod tests {
         assert_eq!(ch, vec![0.0, 30.0, 60.0]);
         // a span shorter than the longest chord is one chord
         assert_eq!(plan_changes(&dense, 11.0, (6.0, 12.0), &mut Rng::new(3)), vec![0.0]);
+        // 16.25 s left and no pause where the preferred 8–14 s lengths want
+        // one (found on an audition's chapter end): the most central pause
+        // that leaves both chords 4 s or more, never one chord past 16 s
+        for seed in 0..16 {
+            let ch = plan_changes(&[0.0, 2.0, 6.5, 10.0, 14.0], 16.25, (8.0, 14.0), &mut Rng::new(seed));
+            assert_eq!(ch, vec![0.0, 6.5], "seed {seed}");
+        }
+        // 15.5 s with no pause in range: one chord, under the 16 s limit
+        assert_eq!(
+            plan_changes(&[0.0, 6.5], 15.5, (8.0, 14.0), &mut Rng::new(1)),
+            vec![0.0]
+        );
     }
 
     #[test]
@@ -1999,7 +2569,7 @@ mod tests {
         let offenders = |x: &Score| {
             x.events
                 .iter()
-                .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
+                .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue | Track::Roll))
                 .filter_map(|e| {
                     let over: Vec<String> = x
                         .chords
@@ -2042,7 +2612,16 @@ mod tests {
             })
             .collect();
         let son = dir.join("cloud.wav");
-        crate::wav::write(&son, &crate::sonify::cloud(&grains, 5.0), crate::wav::Format::F32).unwrap();
+        let cloud = crate::sonify::cloud(&grains, 5.0);
+        crate::wav::write(&son, &cloud, crate::wav::Format::F32).unwrap();
+        // the same cloud with its polarity flipped: a render with it differs
+        // from one with the cloud by exactly twice the cloud's part (the
+        // gap's other music is the same in both: a sonified gap gets no
+        // phrase of its own)
+        let flipped = dir.join("cloud_flipped.wav");
+        let mut neg = cloud.clone();
+        neg.scale(-1.0);
+        crate::wav::write(&flipped, &neg, crate::wav::Format::F32).unwrap();
         let window = |sound: Option<std::path::PathBuf>| crate::timeline::Window {
             frame: (12.4 * 60.0) as u64,
             seconds: 3.0,
@@ -2053,17 +2632,39 @@ mod tests {
         sections[0].timeline.listens = vec![window(None)];
         let quiet = render(&id, &sections, None).unwrap();
         let f_quiet = fingerprint(&id, &sections, None).unwrap();
+        sections[0].timeline.listens = vec![window(Some(flipped))];
+        let opposite = render(&id, &sections, None).unwrap();
         sections[0].timeline.listens = vec![window(Some(son.clone()))];
         let heard = render(&id, &sections, None).unwrap();
         assert_eq!(
-            (quiet.cap_db, heard.cap_db),
+            (opposite.cap_db, heard.cap_db),
             (0.0, 0.0),
             "no true-peak cap to confound the difference"
         );
         let diff = Stereo {
-            l: heard.music.l.iter().zip(&quiet.music.l).map(|(a, b)| a - b).collect(),
-            r: heard.music.r.iter().zip(&quiet.music.r).map(|(a, b)| a - b).collect(),
+            l: heard
+                .music
+                .l
+                .iter()
+                .zip(&opposite.music.l)
+                .map(|(a, b)| (a - b) / 2.0)
+                .collect(),
+            r: heard
+                .music
+                .r
+                .iter()
+                .zip(&opposite.music.r)
+                .map(|(a, b)| (a - b) / 2.0)
+                .collect(),
         };
+        // the soundless window's gap plays the motif; the sonified one does not
+        let in_gap = |x: &Score| {
+            x.events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start > 12.0 && e.start < 16.0)
+                .count()
+        };
+        assert!(in_gap(&quiet) > 0 && in_gap(&heard) == 0);
         let (start, end) = ((12.4 * FS) as usize, (15.4 * FS) as usize);
         let peak = diff.peak();
         assert!(peak > 0.0, "the sonification is in the stem");
@@ -2191,5 +2792,279 @@ mod tests {
         // deterministic: the same inputs give the same stem
         let again = render(&id, &sections, None).unwrap();
         assert_eq!(again.music, s.music);
+    }
+    #[test]
+    fn listen_spans_hold_the_listen_chord_and_the_progression_returns_in_a_pause() {
+        // candidates every 0.5 s except 20–30 s (one long sentence)
+        let cands: Vec<f64> = (0..120)
+            .map(|k| k as f64 * 0.5)
+            .filter(|t| !(20.0..30.0).contains(t))
+            .collect();
+        let mut rng = Rng::new(5);
+        // a window from 12 s to 15 s; the voice comes back at once, so the
+        // listen chord holds to 15 s (the next candidate); one at 50–53 s
+        let ch = plan_with_listens(&cands, 60.0, (6.0, 10.0), &[(12.0, 15.0), (50.0, 53.0)], &mut rng);
+        let listen: Vec<f64> = ch.iter().filter(|c| c.1).map(|c| c.0).collect();
+        assert_eq!(listen, vec![12.0, 50.0], "{ch:?}");
+        for w in ch.windows(2) {
+            assert!(w[1].0 > w[0].0, "in order: {ch:?}");
+            if w[0].1 {
+                assert!(w[1].0 >= w[0].0 + 3.0, "nothing inside a window: {ch:?}");
+            }
+        }
+        // every free change is a candidate, and none is inside 12–15 or 50–53
+        for &(t, l) in &ch {
+            if !l {
+                assert!(cands.iter().any(|&c| (c - t).abs() < 1e-9), "{t}");
+                assert!(!(12.0..15.0).contains(&t) && !(50.0..53.0).contains(&t), "{t}");
+            }
+        }
+        assert_eq!(ch[0], (0.0, false));
+        // two windows 1 s apart: the listen chord holds across the stretch
+        let ch = plan_with_listens(&cands, 40.0, (6.0, 10.0), &[(10.0, 13.0), (14.0, 17.0)], &mut rng);
+        assert_eq!(ch.iter().filter(|c| c.1).count(), 1, "{ch:?}");
+        assert!(!ch.iter().any(|c| c.0 > 10.0 && c.0 < 17.0), "{ch:?}");
+        // a window at the very start of a chapter
+        let ch = plan_with_listens(&cands, 40.0, (6.0, 10.0), &[(0.0, 3.0)], &mut rng);
+        assert_eq!(ch[0], (0.0, true), "{ch:?}");
+        assert!(ch[1].0 >= 3.0 && !ch[1].1, "{ch:?}");
+        // no windows: exactly plan_changes
+        let a = plan_with_listens(&cands, 40.0, (6.0, 10.0), &[], &mut Rng::new(9));
+        let b = plan_changes(&cands, 40.0, (6.0, 10.0), &mut Rng::new(9));
+        assert_eq!(a.iter().map(|c| c.0).collect::<Vec<_>>(), b);
+    }
+
+    #[test]
+    fn every_chord_of_every_identity_voices_without_a_minor_ninth() {
+        for id in [
+            Identity::hoeffding(),
+            Identity::capture_recapture(),
+            Identity::raptorq_gf256(),
+            Identity::bakery_algorithm(),
+        ] {
+            let mut progressions = vec![id.progression.clone()];
+            progressions.extend(
+                id.moods
+                    .iter()
+                    .map(|m| id.progression_for(&format!("{}_x", m.chapters[0]))),
+            );
+            progressions.extend(id.listen_chord.clone().map(|c| vec![c]));
+            for prog in progressions {
+                let mut prev: Option<Voicing> = None;
+                for _ in 0..3 {
+                    for c in &prog {
+                        let v = voice_lead(c, 4, prev.as_ref(), &id.register);
+                        let all: Vec<i32> = std::iter::once(v.bass).chain(v.upper.iter().copied()).collect();
+                        for (i, &lo) in all.iter().enumerate() {
+                            for &hi in &all[i + 1..] {
+                                assert!(!minor_ninth(lo, hi), "{}: {c:?} voiced {v:?}", id.name);
+                            }
+                        }
+                        let roll = roll_voicing(&ChordSpan {
+                            start: 0.0,
+                            end: 8.0,
+                            chord: c.clone(),
+                            voicing: v.clone(),
+                        });
+                        assert!(roll.len() >= 4, "{}: {c:?} rolls {roll:?}", id.name);
+                        for (i, &lo) in roll.iter().enumerate() {
+                            for &hi in &roll[i + 1..] {
+                                assert!(!minor_ninth(lo, hi), "{}: {c:?} rolls {roll:?}", id.name);
+                            }
+                        }
+                        prev = Some(v);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn a_roll_spreads_the_chord_up_from_its_bass() {
+        let reg = Register::from_f0(MATT_F0.0, MATT_F0.1);
+        let span = |chord: Chord| ChordSpan {
+            start: 0.0,
+            end: 8.0,
+            voicing: voice_lead(&chord, 4, None, &reg),
+            chord,
+        };
+        for chord in [
+            Chord::maj9(5),
+            Chord::maj9(2).over(6),
+            Chord::new(6, &[0, 4, 7, 14]).on(4),
+            Chord::min11(4),
+        ] {
+            let s = span(chord.clone());
+            let v = roll_voicing(&s);
+            assert_eq!(v.len(), 5, "{chord:?}: {v:?}");
+            assert!(v.windows(2).all(|w| w[1] > w[0]), "rising: {v:?}");
+            assert_eq!(v[0].rem_euclid(12), chord.bass, "{v:?}");
+            assert!((36..48).contains(&v[0]), "the left hand's bass in C2–B2: {v:?}");
+            assert!(v[1] - v[0] >= 7, "a fifth or more above it: {v:?}");
+            assert!(v[2..].iter().all(|m| (64..=88).contains(m)), "the right hand: {v:?}");
+            let pcs = chord.pitch_classes();
+            assert!(v[1..].iter().all(|m| pcs.contains(&m.rem_euclid(12))), "{v:?}");
+        }
+    }
+
+    #[test]
+    fn moods_follow_the_acts_and_sonification_scales_are_pentatonic() {
+        let a = Identity::capture_recapture();
+        assert_eq!(a.progression_for("01_hook")[0], Chord::maj9(5));
+        assert_eq!(a.progression_for("08_the_table_balances").len(), 10);
+        assert_eq!(a.progression_for("11_how_sure")[0], Chord::min9(2));
+        assert_eq!(a.progression_for("02_the_marks_measure_the_net"), a.progression);
+        // the lake's bass circles F by step: F G F♯ F E E♭ F E G F♯
+        let bass: Vec<i32> = a
+            .progression_for("15_counting_the_dead")
+            .iter()
+            .map(|c| c.bass)
+            .collect();
+        assert_eq!(bass, vec![5, 7, 6, 5, 4, 3, 5, 4, 7, 6]);
+        // B's field sits on an E pedal
+        let b = Identity::raptorq_gf256();
+        assert!(b.progression_for("10_the_fold").iter().all(|c| c.bass == 4));
+        assert!(b.progression_for("13_the_byte_lottery").iter().any(|c| c.bass != 4));
+        // the sonification scales: F and E major pentatonic, and for C the
+        // motif's own notes B♭ C D E♭ F with G
+        assert_eq!(a.listen_scale(), vec![0, 2, 5, 7, 9]);
+        assert_eq!(b.listen_scale(), vec![1, 4, 6, 8, 11]);
+        let c = Identity::bakery_algorithm();
+        assert_eq!(c.listen_scale(), vec![0, 2, 3, 5, 7, 10]);
+        let motif: Vec<i32> = c
+            .motif
+            .degrees
+            .iter()
+            .chain(&c.resolution.degrees)
+            .map(|&d| c.key.degree(d, c.tonic_midi).rem_euclid(12))
+            .collect();
+        assert!(motif.iter().all(|pc| c.listen_scale().contains(pc)), "{motif:?}");
+        // a byte's eight bit-notes (plan §7.5 B: E4 F♯4 G♯4 B4 C♯5 E5 F♯5 G♯5)
+        assert!(
+            [64, 66, 68, 71, 73, 76, 78, 80]
+                .iter()
+                .all(|m: &i32| b.listen_scale().contains(&m.rem_euclid(12)))
+        );
+        // every theme names a window, every mood real chords
+        for id in [a, b, c] {
+            id.validate().unwrap();
+            assert_eq!(id.themes.len(), 2, "{}", id.name);
+        }
+        // two moods claiming one chapter are refused
+        let mut bad = Identity::capture_recapture();
+        bad.moods[1].chapters.push("01");
+        assert!(bad.validate().is_err());
+        // a listen chord with a semitone inside is refused
+        let mut bad = Identity::capture_recapture();
+        bad.listen_chord = Some(Chord::maj7(5));
+        assert!(bad.validate().is_err());
+    }
+
+    #[test]
+    fn the_new_identities_roll_in_long_gaps_theme_their_windows_and_hold_still_under_sonifications() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_ids_{}", std::process::id()));
+        let base = synthetic_sections(&dir);
+        let son = dir.join("tones.wav");
+        let tones: Vec<crate::sonify::Grain> = (0..40)
+            .map(|k| crate::sonify::Grain {
+                start: k as f64 * 0.07,
+                pitch: 76.0,
+                pan: 0.0,
+                amp: 0.3,
+            })
+            .collect();
+        crate::wav::write(&son, &crate::sonify::cloud(&tones, 3.0), crate::wav::Format::F32).unwrap();
+        for (id, title) in [
+            (Identity::capture_recapture(), "01_4"),
+            (Identity::raptorq_gf256(), "01_3"),
+            (Identity::bakery_algorithm(), "01_3"),
+        ] {
+            let mut sections = base.clone();
+            // a soundless title window in 01_a's 12–16 s gap; a sonification
+            // in 02_b's 15–19 s gap (55–59 s in the video)
+            sections[0].timeline.listens = vec![crate::timeline::Window {
+                frame: (12.3 * 60.0) as u64,
+                seconds: 3.0,
+                label: title.into(),
+                sound: None,
+            }];
+            sections[1].timeline.listens = vec![crate::timeline::Window {
+                frame: (15.2 * 60.0) as u64,
+                seconds: 3.0,
+                label: "02_x".into(),
+                sound: Some(son.clone()),
+            }];
+            let s = render(&id, &sections, None).unwrap();
+            let name = &id.name;
+            // the title: the motif as it is, over one soft block chord
+            let title_notes: Vec<&Event> = s
+                .events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start > 12.0 && e.start < 16.0)
+                .collect();
+            assert_eq!(title_notes.len(), id.motif.degrees.len(), "{name}");
+            let block: Vec<&Event> = s
+                .events
+                .iter()
+                .filter(|e| e.track == Track::Roll && e.start > 12.0 && e.start < 16.0)
+                .collect();
+            assert!(block.len() >= 4, "{name}: {block:?}");
+            assert!(block.iter().all(|e| (e.start - block[0].start).abs() < 1e-9));
+            // the sonified gap: the listen chord, nothing melodic of its own
+            let listen = s.chords.iter().find(|c| c.start <= 55.3 && c.end > 58.0).unwrap();
+            assert_eq!(Some(&listen.chord), id.listen_chord.as_ref(), "{name}");
+            assert!(
+                !s.events
+                    .iter()
+                    .any(|e| e.track != Track::Bed && e.track != Track::Bass && e.start > 55.0 && e.start < 59.0),
+                "{name}"
+            );
+            // 01_a's closing 7 s gap: a slow roll, then the motif
+            let roll: Vec<&Event> = s
+                .events
+                .iter()
+                .filter(|e| e.track == Track::Roll && e.start > 33.0 && e.start < 40.0)
+                .collect();
+            assert_eq!(roll.len(), 5, "{name}: {roll:?}");
+            for w in roll.windows(2) {
+                assert!((w[1].start - w[0].start - ROLL_STEP).abs() < 1e-9, "{name}");
+            }
+            // the pedal is up before the voice returns, and so is every note
+            // that sits in the narrator's band
+            for e in s.events.iter().filter(|e| e.track == Track::Roll) {
+                let next = s
+                    .speech
+                    .iter()
+                    .map(|r| r.0)
+                    .find(|&a| a > e.start)
+                    .unwrap_or(f64::INFINITY);
+                assert!(e.start + e.hold <= next - PEDAL_CLEAR + 1e-9, "{name}: {e:?}");
+            }
+            // QA's note rules, chapter by chapter
+            for k in 0..2 {
+                let r = crate::qa::evaluate(
+                    &s.chapters[k].0,
+                    &s.chapter_voice(k),
+                    &s.chapter_music(k),
+                    s.chapter_music(k).len(),
+                    Some(&crate::qa::ScoreFacts::chapter(&s, k)),
+                );
+                for m in [
+                    "rule1_fundamentals_in_voice_band_in_speech",
+                    "rule7_minor_ninths",
+                    "rule8_phrases_start_in_speech",
+                    "onsets_per_s_speech",
+                    "onsets_per_s_gaps",
+                    "rough_voice_pairs",
+                ] {
+                    assert_eq!(r.get(m).unwrap().pass, Some(true), "{name} {k} {m}: {:?}", r.get(m));
+                }
+            }
+            // the video ends on the theme resolved, on its first chord
+            assert_eq!(
+                &s.chords.last().unwrap().chord,
+                &id.progression_for(&s.chapters[1].0)[0]
+            );
+        }
     }
 }

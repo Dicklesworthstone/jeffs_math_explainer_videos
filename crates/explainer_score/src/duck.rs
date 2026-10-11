@@ -155,6 +155,28 @@ pub fn release_windows(u: &mut [f64], windows: &[(f64, f64)], shape: DuckShape) 
     }
 }
 
+/// The duck is fully back this long before a voice that returns from an
+/// authored window (s).
+pub const RECEDE_LEAD: f64 = 0.2;
+
+/// Let the music recede before the voice returns at each of `onsets` (the
+/// ends of authored windows the narration resumes from): the duck comes
+/// back over `settle` seconds and is full [`RECEDE_LEAD`] before the onset,
+/// so a phrase or a sonification ends in space rather than under the first
+/// syllable. Never lifts the duck anywhere.
+pub fn recede(u: &mut [f64], onsets: &[f64], settle: f64) {
+    for &e in onsets {
+        let (a, b) = (e - RECEDE_LEAD - settle, e - RECEDE_LEAD);
+        let i0 = (a.max(0.0) * FS) as usize;
+        let i1 = ((e.max(0.0) * FS) as usize).min(u.len());
+        for (i, v) in u.iter_mut().enumerate().take(i1).skip(i0) {
+            let t = i as f64 / FS;
+            let w = if t >= b { 1.0 } else { rcos((t - a) / settle) };
+            *v = v.max(w);
+        }
+    }
+}
+
 /// The pocket EQ (zero phase): −3 dB 300 Hz–1 kHz on the mid channel only (the
 /// narrator's centre), then −5 dB around 2 kHz (≈1–4 kHz) and a 2.2 kHz
 /// low-pass on both channels: ≈ −9.5 dB at 2 kHz, ≥ 12 dB down from 2.5 kHz up.
@@ -291,6 +313,27 @@ mod tests {
         // fully ducked where the next line's pre-roll begins, and while it speaks
         assert!((at(7.42) - 1.0).abs() < 1e-9, "{}", at(7.42));
         assert!((at(7.5) - 1.0).abs() < 1e-9);
+        let max_step = u.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
+        assert!(max_step < 1e-3, "{max_step}");
+    }
+
+    #[test]
+    fn a_long_settle_lets_the_music_recede_before_the_voice_returns() {
+        // the breath of the test above with a 0.8 s settle: open as long as
+        // the ramps allow, half closed 0.4 s into the settle, fully back at
+        // the same point before the next line
+        let shape = DuckShape::default();
+        let n = (12.0 * FS) as usize;
+        let mut u = duck_curve(&[(0.5, 5.0), (7.5, 11.0)], n, shape);
+        release_windows(&mut u, &[(5.0, 2.5)], shape);
+        recede(&mut u, &[7.5], 0.8);
+        let at = |t: f64| u[(t * FS) as usize];
+        assert!(at(5.6) < 1e-9 && at(6.4) < 1e-9, "{} {}", at(5.6), at(6.4));
+        // the settle runs 6.5–7.3 (fully back RECEDE_LEAD before the voice)
+        assert!((at(6.9) - 0.5).abs() < 0.01, "{}", at(6.9));
+        assert!((at(7.3) - 1.0).abs() < 1e-3 && (at(7.5) - 1.0).abs() < 1e-9);
+        // the first line, untouched
+        assert!((at(3.0) - 1.0).abs() < 1e-9);
         let max_step = u.windows(2).map(|w| (w[1] - w[0]).abs()).fold(0.0, f64::max);
         assert!(max_step < 1e-3, "{max_step}");
     }

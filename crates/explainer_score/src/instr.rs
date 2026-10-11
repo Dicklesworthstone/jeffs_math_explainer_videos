@@ -420,6 +420,11 @@ fn pluck(note: &Note) -> Vec<f64> {
     // pick-position comb (β ≈ 0.15) to shape the harmonic series
     let exc_len = (0.0015 * FS) as usize;
     let beta = (0.15 * n_int as f64).round().max(1.0) as usize;
+    // the finger's softness: the noisy pulse through two one-pole low-passes
+    // (2.5 kHz soft to 5.5 kHz hard), so a pluck's first period carries no
+    // hiss above 8 kHz (QA's click detector heard the raw noise on every
+    // pluck in a listen window)
+    let (mut lp1, mut lp2) = (OnePole::new(2_500.0 + 3_000.0 * v), OnePole::new(2_500.0 + 3_000.0 * v));
     let mut exc: Vec<f64> = (0..n_int.max(exc_len))
         .map(|i| {
             let w = if i < exc_len {
@@ -427,7 +432,7 @@ fn pluck(note: &Note) -> Vec<f64> {
             } else {
                 0.0
             };
-            w * (0.8 + 0.4 * white.sample())
+            lp2.lp(lp1.lp(w * (0.8 + 0.4 * white.sample())))
         })
         .collect();
     for i in (beta..exc.len()).rev() {

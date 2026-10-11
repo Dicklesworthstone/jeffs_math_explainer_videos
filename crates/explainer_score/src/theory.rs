@@ -156,6 +156,12 @@ impl Chord {
         self.bass = bass;
         self
     }
+    /// The same chord over a pedal: the bass holds `pc` whether or not the
+    /// chord contains it (`F♯/E`, the Lydian II over an E pedal).
+    pub fn on(mut self, pc: i32) -> Self {
+        self.bass = pc.rem_euclid(12);
+        self
+    }
     pub fn maj7(root: i32) -> Self {
         Self::new(root, &[0, 4, 7, 11])
     }
@@ -176,6 +182,30 @@ impl Chord {
     }
     pub fn six_sus4(root: i32) -> Self {
         Self::new(root, &[0, 5, 7, 9])
+    }
+    pub fn min11(root: i32) -> Self {
+        Self::new(root, &[0, 3, 7, 10, 14, 17])
+    }
+    /// The major pentatonic as one chord (1 3 5 6 9): no two tones a
+    /// semitone apart, so any tone of that pentatonic sounds clean over it.
+    pub fn six_nine(root: i32) -> Self {
+        Self::new(root, &[0, 4, 7, 9, 14])
+    }
+    pub fn dom9(root: i32) -> Self {
+        Self::new(root, &[0, 4, 7, 10, 14])
+    }
+    pub fn dom13(root: i32) -> Self {
+        Self::new(root, &[0, 4, 10, 14, 21])
+    }
+    /// Augmented colour: the race's tension (whole-tone, plan §7.5 C).
+    pub fn dom7_sharp5(root: i32) -> Self {
+        Self::new(root, &[0, 4, 8, 10])
+    }
+    pub fn maj7_sharp5(root: i32) -> Self {
+        Self::new(root, &[0, 4, 8, 11])
+    }
+    pub fn dom9_sharp11(root: i32) -> Self {
+        Self::new(root, &[0, 4, 7, 10, 14, 18])
     }
 
     /// Distinct pitch classes of the chord.
@@ -258,7 +288,7 @@ pub fn voice_lead(chord: &Chord, voices: usize, prev: Option<&Voicing>, reg: &Re
     let mut best: Option<(i64, Vec<i32>)> = None;
     let mut stack = Vec::with_capacity(voices);
     search(&candidates, 0, voices, &mut stack, &mut |cand: &[i32]| {
-        let cost = voicing_cost(cand, &want, prev, reg.centre);
+        let cost = voicing_cost(cand, &want, prev, reg.centre, bass);
         if best.as_ref().is_none_or(|(c, _)| cost < *c) {
             best = Some((cost, cand.to_vec()));
         }
@@ -290,13 +320,23 @@ pub fn rough(a: i32, b: i32) -> bool {
     (15.0..=60.0).contains(&d)
 }
 
-fn voicing_cost(cand: &[i32], want: &[i32], prev: Option<&Voicing>, centre: i32) -> i64 {
+fn voicing_cost(cand: &[i32], want: &[i32], prev: Option<&Voicing>, centre: i32, bass: i32) -> i64 {
     let mut cost: i64 = 0;
     // cover the characteristic tones; the first (the third, or a sus chord's
     // fourth) says major or minor, so losing it costs more than a rough pair
     for (k, pc) in want.iter().enumerate() {
         if !cand.iter().any(|m| m.rem_euclid(12) == *pc) {
             cost += if k == 0 { 90 } else { 40 };
+        }
+    }
+    // no minor ninths (a semitone and octaves above any lower note, the bass
+    // included: E4 under F5 is harsh where F4 under E5 is a major seventh)
+    let all: Vec<i32> = std::iter::once(bass).chain(cand.iter().copied()).collect();
+    for (i, &lo) in all.iter().enumerate() {
+        for &hi in &all[i + 1..] {
+            if hi - lo > 1 && (hi - lo).rem_euclid(12) == 1 {
+                cost += 60;
+            }
         }
     }
     // no semitone clusters (they buzz), no rough pairs, and keep the voicing compact

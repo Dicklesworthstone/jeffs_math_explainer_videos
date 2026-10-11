@@ -1181,6 +1181,43 @@ lives inside it.
   the "two motifs at once = the bug" demonstrations in 05 and 10 get listen
   windows; spinning stays audible in 09, where it *is* the cost.
 
+**Revision 3** (music lane, 2026-10-11; `Identity` in `score.rs` is the
+source of truth, this is its summary):
+- **Moods per act.** A chapter plays its mood's progression (by chapter
+  number), else the identity's. A: *the lake* (01, 08, 15): the owner's
+  planing major sevenths moved from A♭ to F with their ninths, Fmaj9 Gmaj9
+  Dmaj9/F♯ Fmaj9 Cmaj9/E E♭maj9 Fmaj9 Em11 Gmaj9 F♯m11, the bass circling F
+  by step; *home* F Lydian; *doubt* (11, 13, 14) D Dorian, Dm9 G13 Cmaj9
+  Am11. B: *home* (01–06, 17); *the field* (07–12) on an E pedal; *spending
+  it* (13–16) C♯m9 Amaj9(♯11) F♯m11 B6sus4. C: *the bakery* turnaround;
+  *the race* (04, 05) Gm9 E♭maj7♯5 C9♯11 D7♯5; *the proof* (08–10) on a B♭
+  pedal; *the legacy* (11, 12) Gm9 E♭maj9 B♭maj9/D F7sus4.
+- **Listen chords.** Under a listen window that carries a sonification the
+  bed holds a chord with no semitone inside it and thins 4 dB, from the
+  window's start to the next pause: A F6/9, B E6/9, C B♭6sus2. A
+  sonification keeps to `Identity::listen_scale()`: A F G A C D, B E F♯ G♯
+  B C♯ (a byte's eight bit-notes), C B♭ C D E♭ F G (the whole bakery motif).
+  The score plays it through a 5.5 kHz low-pass (a mallet above E5 struck
+  in a quiet window otherwise trips the click gate) and fades its last
+  0.8 s.
+- **Themes.** Soundless listen windows the identity names by storyboard id
+  get the motif open (A 01_4, B 01_3, C 01_3) or resolved (A 08_3, B 17_7,
+  C 13_4), over a soft block chord; no lane needs a mark for them.
+- **The gaps.** A gap of 2.4 s or more first rolls a spread two-hand
+  voicing of the chord (felt piano for A and C, Karplus–Strong for B; five
+  notes 0.2 s apart, inside six onsets a second), entering on the gap's
+  chord change when one comes early, the pedal changed at each later change
+  and lifted 0.7 s before the voice; then the motif. Gap notes release 0.5 s
+  before the voice; after an authored window the music recedes over 0.8 s
+  and is fully ducked 0.2 s before the voice returns; through a hold the
+  author did not write for music (a gap under 4 s) the duck lifts only half
+  way. No phrase plays over a sonification.
+- **Levels.** A and C sit a dB under Hoeffding's balance (bed V − 13,
+  melody V − 13.5, listen V − 10): on the probe voices their gap music
+  measured V − 9.9 and V − 9.7 at its centre, plan §7.2's V − 10. No voicing,
+  bed or roll, puts a tone a minor ninth over another (a new QA metric,
+  `voicing_minor_ninths`).
+
 ### 7.6 Score QA (computed per chapter, JSON report; failing metrics fail `./x score`)
 
 | Metric | Threshold |

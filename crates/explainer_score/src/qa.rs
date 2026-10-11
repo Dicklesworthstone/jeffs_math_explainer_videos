@@ -644,6 +644,39 @@ pub fn evaluate(
         Some(rough == 0),
         "adjacent bed voices 15-60 Hz apart",
     );
+    // a chord as voiced (the bed with its bass, a roll's notes sounding
+    // together) never puts a tone a minor ninth over another: rule 7 judges
+    // a melody against the chord's pitch classes; this judges the voicing
+    let m9 = |lo: f64, hi: f64| crate::score::minor_ninth(lo.round() as i32, hi.round() as i32);
+    let bed_m9 = f
+        .chords
+        .iter()
+        .filter(|c| {
+            let all: Vec<i32> = std::iter::once(c.voicing.bass)
+                .chain(c.voicing.upper.iter().copied())
+                .collect();
+            all.iter().enumerate().any(|(i, &lo)| {
+                all[i + 1..]
+                    .iter()
+                    .any(|&hi| crate::score::minor_ninth(lo.min(hi), lo.max(hi)))
+            })
+        })
+        .count();
+    let rolls: Vec<&Event> = f.events.iter().filter(|e| e.track == Track::Roll).collect();
+    let roll_m9 = rolls
+        .iter()
+        .enumerate()
+        .flat_map(|(i, a)| rolls[i + 1..].iter().map(move |b| (*a, *b)))
+        .filter(|(a, b)| a.start < b.start + b.hold && b.start < a.start + a.hold)
+        .filter(|(a, b)| m9(a.pitch.min(b.pitch), a.pitch.max(b.pitch)))
+        .count();
+    r.push(
+        "voicing_minor_ninths",
+        (bed_m9 + roll_m9) as f64,
+        "= 0",
+        Some(bed_m9 + roll_m9 == 0),
+        format!("{bed_m9} bed voicings, {roll_m9} pairs of roll notes sounding together"),
+    );
     r
 }
 
@@ -985,5 +1018,49 @@ mod tests {
         assert_eq!(rule1(39.0, matt), Some(false));
         assert_eq!(rule1(57.0, robert), Some(false));
         assert_eq!(rule1(57.0, matt), Some(true));
+    }
+    #[test]
+    fn a_minor_ninth_inside_a_voicing_is_caught_and_a_major_seventh_is_not() {
+        let v = speech(&[(1.0, 9.0)], 10.0, 0.1);
+        let music = Stereo::silence(v.len());
+        let reg = crate::theory::Register::ROBERT;
+        let fmaj7 = crate::theory::Chord::maj7(5);
+        let facts = |upper: Vec<i32>, rolls: Vec<f64>| ScoreFacts {
+            events: rolls
+                .iter()
+                .enumerate()
+                .map(|(i, &p)| Event {
+                    start: 2.0,
+                    hold: 3.0,
+                    track: Track::Roll,
+                    inst: crate::instr::Instrument::FeltPiano,
+                    pitch: p,
+                    velocity: 0.3,
+                    seed: i as u64,
+                    pan: 0.0,
+                })
+                .collect(),
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 10.0,
+                chord: fmaj7.clone(),
+                voicing: crate::theory::Voicing { bass: 29, upper },
+            }],
+            phrases: vec![],
+            no_fly: reg.no_fly,
+        };
+        let m9 = |f: &ScoreFacts| {
+            evaluate("v", &v, &music, v.len(), Some(f))
+                .get("voicing_minor_ninths")
+                .unwrap()
+                .pass
+        };
+        // F4 A4 C5 E5 over F1: the seventh above the root, fine
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![])), Some(true));
+        // E4 A4 C5 F5: F5 a minor ninth over E4
+        assert_eq!(m9(&facts(vec![64, 69, 72, 77], vec![])), Some(false));
+        // a roll whose E4 and F5 sound together
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![41.0, 64.0, 77.0])), Some(false));
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![41.0, 65.0, 76.0])), Some(true));
     }
 }
