@@ -743,6 +743,13 @@ fn arithmetic(f: &mut Facts) -> Result<(), String> {
         "21",
         "fact sheet B-F11 (claim walk)",
     )?;
+    // 11_7's rule, log a⁻¹ ≡ −log a (mod 255), on every nonzero byte, 1 included
+    f.pin(
+        "B-F13.log_inverse_is_255_minus_log_all255_ok",
+        u8::from((1..=255u8).all(|a| u16::from(log[inv(a) as usize]) == (255 - u16::from(log[a as usize])) % 255)),
+        "1",
+        "fact sheet B-F13 (claim walk)",
+    )?;
     let mirror = (1..=255u8).filter(|&a| inv(a) != a).count() / 2;
     f.pin(
         "B-F13.mirror_pairs_a_ne_inverse",
