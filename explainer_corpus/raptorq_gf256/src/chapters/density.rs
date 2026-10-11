@@ -720,7 +720,6 @@ impl Density {
         line.at(stage, 1)?;
         peeling.show_ripple(stage, 0.5)?;
         peeling.give(kit, stage, &g, &steps[0], 1.0)?;
-        kit.mark(stage, "pizz:peel");
         line.at(stage, 2)?;
         peeling.remove(kit, stage, &g, &steps[0], 1.0)?;
         peeling.show_ripple(stage, 0.5)?;
@@ -790,6 +789,9 @@ impl Density {
             "a card still has one unknown left"
         };
         let stuck = kit.text(stage, verdict, 32.0, Palette::dim(), v(0.0, -3.1))?;
+        // the music stops with the graph: an authored silence from "Nothing
+        // moves." through the stall (the score fades it in the pause before)
+        kit.mark(stage, "silence:stall");
         kit.say(stage, "14_5")?;
         play!(stage;
             fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
@@ -801,6 +803,7 @@ impl Density {
             stage,
             explainer_kit::narration::frames_covering(1.5, stage.scene().time().fps()),
         )?;
+        kit.mark(stage, "silence_end:stall");
         Ok(())
     }
 }
