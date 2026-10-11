@@ -59,7 +59,7 @@
   "Laplace": {
    "respell": [
     "La-plahss",
-    "Lah-plahss"
+    "La Plahss"
    ],
    "say": "lah-PLAHSS",
    "ipa": "laplas",
@@ -71,7 +71,7 @@
    "decoy": [
     "lah-PLAYSS"
    ],
-   "note": "UNVERIFIED by ASR: FrankenWhisper writes 'Laplace' for La-plahss, Lah-plahss and the decoy lah-PLAYSS alike (rounds 1-2, 2026-10-11), so it cannot tell /plɑs/ from /pleɪs/. Chosen from the IPA (/lə.plɑs/; English /ləˈplɑːs/); confirm by ear at R3. Said once (14_1)."
+   "note": "ASR cannot verify it: FrankenWhisper writes 'Laplace' for La-plahss, Lah-plahss and the decoy lah-PLAYSS alike (rounds 1-2, 2026-10-11). Checked acoustically instead: LPC formants of the stressed vowel in the 'This is ___.' takes give F2 ≈ 1190 Hz for La-plahss, 1120 for La Plahss, 1070 for Luh-plahss, against 1640-1730 for the decoy (and 1460 for the plain spelling), so the respelling's vowel is the back /ɑ/ of /lə.plɑs/, not the /eɪ/ of 'place'. One carrier and a simple LPC: evidence, not proof; the owner's ear at R3 decides. Said once (14_1)."
   },
   "Chapman": {
    "respell": [

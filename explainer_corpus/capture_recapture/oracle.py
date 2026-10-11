@@ -5,7 +5,10 @@ Prints one line per fact, ``KEY<TAB>VALUE``, for every row A-F1 .. A-F32 of the 
 docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md section 9.5, plus keys that are
 not ledger rows, named by chapter: the chapter-03 habitat-dynamics check (``A-CH03.*``) and the
 claim-walk keys of gate G3 (``A-CH11.*``, ``A-CH12.*``, ``A-CH14.*``, and additions to A-F9, A-F21,
-A-F32 and A-CH03), each for a number the storyboard shows or says that no ledger row covered.
+A-F32 and A-CH03), each for a number the storyboard shows or says that no ledger row covered. The
+R2 review round (2026-10-11) added keys for its fixes (``A-CH06.*``, ``A-CH09.*``, ``A-CH13.*``,
+``A-CH12.coverage.*``, ``A-CH12.ring_toss_panel.*``, and additions to A-F6, A-F7, A-F18, A-F21,
+A-F29, A-CH03, A-CH12.slider and A-CH14); no earlier key's value changed.
 
 Run it as ``./x capture_recapture facts-check`` does (tools/facts_check.py), from this crate's
 directory explainer_corpus/capture_recapture/:
@@ -42,6 +45,7 @@ import itertools
 import math
 import sys
 import time
+import warnings
 from fractions import Fraction as F
 from math import comb, exp, factorial, lgamma, log, sqrt
 
@@ -1023,10 +1027,11 @@ def ch03_dynamics(xs0, ys0):
              float(100 * np.max(np.abs(avg - ref) / ref)))
         return out, x, y  # x, y: every fish's position at the last snapshot (t = 400)
 
-    _, x400, y400 = run("habitat", True, True)
+    out_h, x400, y400 = run("habitat", True, True)
     run("contrast_no_drift", False, True)
     run("diag_no_circulation", True, False)
     ch03_insets_and_trays(x400, y400, marked)
+    ch03_r2_corners_and_nets(out_h[400], x400, y400, marked)
 
 
 # Claim walk (G3), 03_5 and 03_6: small catches and zoom insets in the habitat run's t = 400 frame
@@ -1101,6 +1106,40 @@ def ch03_insets_and_trays(x, y, marked):
     M = int(marked.sum())
     for m in TRAY_SIZES:
         emit(f"A-CH03.trays.P_random_net{m}_has_exactly_{m // 10}_marked", L(N, M, m, m // 10))
+
+
+# R2 (2026-10-11; Ruth R4, Dev dev-06): the 03_6 insets above were selected to match the spoken
+# counts and the 03_5 trays were drawn, not caught. Their replacements, both from the same t = 400
+# frame and picked by rules that never look at the marks:
+#   * corners (03_6): the most and the least crowded of the nine 3 x 3 regions (by fish count;
+#     both happen to be corner regions), with every fish they hold.
+#   * nets (03_5): a net of 1,000 fish (the story's second catch, n) at each of the nine region
+#     centres, by the trays' rule (the m fish nearest the point). Nets of 10, 20, 50, 100, 200 and
+#     500 were looked at in a scratch run first: below a few hundred fish a net's marked share
+#     wobbles far from 10% (the 10- and 20-fish keys above), which is chapter 09's point, not 03's.
+R2_NET = 1000
+
+
+def ch03_r2_corners_and_nets(regions_t400, x, y, marked):
+    """A-CH03.corners.* and A-CH03.trays.net1000.* from the t = 400 frame (rules above)."""
+    cnt, mk = regions_t400
+    names = REGION_ORDER.split(",")
+    for tag, r in (("most_crowded", int(np.argmax(cnt))), ("least_crowded", int(np.argmin(cnt)))):
+        pre = f"A-CH03.corners.{tag}"
+        emit(f"{pre}.region", names[r])
+        emit(f"{pre}.fish", int(cnt[r]))
+        emit(f"{pre}.marked", int(mk[r]))
+        emit(f"{pre}.marked_share", F(int(mk[r]), int(cnt[r])))
+    emit("A-CH03.corners.unique_extremes", int((cnt == cnt.max()).sum()) == 1 and int((cnt == cnt.min()).sum()) == 1)
+    centres = [((2 * rx + 1) / 6, (2 * ry + 1) / 6) for ry in range(3) for rx in range(3)]
+    got = []
+    for px, py in centres:
+        nearest = np.argsort(np.hypot(x - px, y - py), kind="stable")[:R2_NET]
+        got.append(int(marked[nearest].sum()))
+    pre = f"A-CH03.trays.net{R2_NET}"
+    emit(f"{pre}.marked_at_region_centres", ",".join(map(str, got)))
+    emit(f"{pre}.marked_min_max", f"{min(got)},{max(got)}")
+    emit(f"{pre}.share_min_max", f"{min(got) / R2_NET},{max(got) / R2_NET}")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1226,7 +1265,7 @@ def ch12_ring_toss(sims):
     for j, rings in ((k_lo - 1, False), (k_lo, True), (k_hi, True), (k_hi + 1, False)):
         lo, hi, _ = exact_ci(M, n, j)
         edges_ok &= (lo <= N <= hi) == rings
-    ks = sims[(N, M, n)]
+    ks = sims[(N, M, n)]  # verify2.py's research stream; from R2 on the scene uses ch12_ring_toss_panel
     miss = (ks < k_lo) | (ks > k_hi)
     cov = F(sum(nums[k_lo:k_hi + 1]), T)
     pre = "A-CH12.ring_toss"
@@ -1241,6 +1280,7 @@ def ch12_ring_toss(sims):
     emit(f"{pre}.exact_coverage_N10000", cov)
     emit(f"{pre}.exact_coverage_N10000_pct_2dp", round(float(cov) * 100, 2))
     emit(f"{pre}.expected_missed", float((1 - cov) * int(ks.size)))
+    return k_lo, k_hi, cov
 
 
 def ch12_slider(feller_ci):
@@ -1317,6 +1357,250 @@ def ch14_reviewers():
         emit(f"{pre}.sim_median_estimate", float(np.median(est)))
         emit(f"{pre}.sim_mean_estimate", float(est.mean()))
         emit(f"{pre}.sim_share_below_true", float((est < B).mean()))
+        # R2 (Dev dev-05, Ruth R6): where the careful range (exact 95%, exact_ci on each run's own
+        # a, b, k) lands against the true count of bugs. Reads the runs above; draws nothing new.
+        ranges = {}
+        where = []
+        for x, y, z in zip(na[pos].tolist(), nb[pos].tolist(), k[pos].tolist()):
+            if (x, y, z) not in ranges:
+                ranges[(x, y, z)] = exact_ci(x, y, z)[:2]
+            lo, hi = ranges[(x, y, z)]
+            where.append(0 if lo <= B <= hi else -1 if hi < B else 1)
+        where = np.array(where)
+        emit(f"{pre}.ci95_contains_true_share", float((where == 0).mean()))
+        emit(f"{pre}.ci95_wholly_below_true_share", float((where == -1).mean()))
+        emit(f"{pre}.ci95_wholly_above_true_share", float((where == 1).mean()))
+
+
+# ---------------------------------------------------------------------------------------------
+# R2 review round (2026-10-11): numbers the R2 fixes show or say that no key covered
+# ---------------------------------------------------------------------------------------------
+
+def emit_q(key, fr):
+    """Emit a Fraction as an integer when it is whole, else as a float."""
+    emit(key, fr.numerator if fr.denominator == 1 else fr)
+
+
+TOY = (10, 10, 3)  # the mystery lake of chapter 05: M, n, k
+
+
+def r2_small_lake_keys():
+    """07_2 (Maya M3, Dev dev-04): Feller's ratio at the mystery lake's peak, factor by factor in
+    table words: (N - M) unmarked fish, (N - n) fish the second net missed, N the lake size,
+    u = N - M - n + k the dark cell; the product of the factors is checked against the exact
+    likelihood ratio L(N)/L(N-1). 05_7 (Maya M2): the scores' sum, 50/3, in percent, the unit
+    05_4 speaks. 03_7 (Maya M4): the second catch's share in each column of Feller's table at
+    N = 10,000. 10_3 (Ruth R17, Maya M18, Dev dev-03): the small study's expected caught-twice
+    count, and Chapman's bias bound N e^(-Mn/N) as a percent where 4 are expected."""
+    M, n, k = TOY
+    for N in (33, 34):
+        unmarked, missed, u = N - M, N - n, N - M - n + k
+        emit(f"A-F6.N{N}.unmarked_N_minus_M", unmarked)
+        emit(f"A-F6.N{N}.missed_by_second_N_minus_n", missed)
+        emit(f"A-F6.N{N}.dark_cell_u", u)
+        emit(f"A-F6.N{N}.factors_equal_exact_ratio", F(unmarked * missed, N * u) == L(N, M, n, k) / L(N - 1, M, n, k))
+    area_pct = F(M * n, k * (k - 1)) * 100
+    emit_exact("A-F7.toy_area_pct", area_pct)
+    emit("A-F7.toy_area_pct_rounded", round(area_pct))
+    b = FN_ - FK
+    emit("A-F29.unmarked_column_N10000", FELLER_N_TRUE - FM)
+    left, right = F(FK, FM), F(b, FELLER_N_TRUE - FM)
+    emit("A-F29.green_share_marked_column_N10000", left)
+    emit("A-F29.green_share_unmarked_column_N10000", right)
+    emit("A-F29.green_shares_equal_N10000", left == right)
+    emit_exact("A-F21.expected_k", F(50 * 50, 1000))
+    emit("A-F18.bound_pct_at_expected_k4", 100 * exp(-4))
+    emit("A-F18.bound_at_expected_k4_under_2pct", 100 * exp(-4) < 2)
+    # the bound itself (10_3 lower-third, R-08): Chapman is never low by more than N e^(-Mn/N).
+    # Proof: |bias| = (N+1) prod_{j=0..n} (N-M-j)/(N+1-j) <= (N+1)(1 - M/N)^(n+1) <= N e^(-Mn/N).
+    # Checked here with the exact bias (closed form, A-F18) on every 1 <= M, n <= N <= 40.
+    cases = held = 0
+    for N in range(1, 41):
+        for M in range(1, N + 1):
+            for n in range(1, N + 1):
+                cases += 1
+                held += float(-chapman_bias_closed(N, M, n)) <= N * exp(-M * n / N) * (1 + 1e-12)
+    emit("A-F18.bound_cases_N_le_40", cases)
+    emit("A-F18.bound_holds_N_le_40", held == cases)
+
+
+def ch06_row_mode_rule():
+    """A-CH06 (05/06 notes, Ruth R-27, routed to the description at R2): every fixed-size row
+    P_N(K = k) peaks at floor((n+1)(M+1)/(N+2)), tied with the count one below when that quotient
+    is whole. Brute force over every 1 <= N <= 40 and 0 <= M, n <= N (exact integers)."""
+    cases = bad = 0
+    for N in range(1, 41):
+        for M in range(N + 1):
+            for n in range(N + 1):
+                ps = [num(N, M, n, j) for j in range(min(M, n) + 1)]
+                top = max(ps)
+                modes = [j for j, v in enumerate(ps) if v == top]
+                q = F((n + 1) * (M + 1), N + 2)
+                fl = q.numerator // q.denominator
+                pred = [j for j in ([fl - 1, fl] if q.denominator == 1 else [fl])
+                        if 0 <= j <= min(M, n) and ps[j] > 0]
+                cases += 1
+                bad += modes != pred
+    emit("A-CH06.row_mode_rule.cases_N_le_40", cases)
+    emit("A-CH06.row_mode_rule.failures", bad)
+
+
+# 09_6 (R2, Dev dev-01, Ruth R20, Maya M17): the code panel nets fish instead of sampling the
+# hypergeometric law, so the check against the exact law tests chapter 04's claim; it names the
+# exact line's index j, not k; and it prints the check. The panel's lines, run verbatim here
+# (the lines in the order the panel shows them):
+#     import numpy as np
+#     from math import comb
+#     rng = np.random.default_rng(20261009)
+#     M = n = 1_000; N = 10_000
+#     marked = np.arange(N) < M
+#     k = np.array([marked[rng.choice(N, n, replace=False)].sum() for _ in range(10_000)])
+#     est = M * n / k
+#     p = [comb(M, j) * comb(N - M, n - j) / comb(N, n) for j in range(n + 1)]
+#     print(est.mean(), sum(M * n / j * p[j] for j in range(1, n + 1)))
+# A fresh generator with the project seed: verify2.py's stream (A-F19.sim_*, A-CH12.ring_toss.*)
+# is untouched and keeps its keys. The digits depend on numpy's Generator stream for
+# Generator.choice; the fact sheet records the numpy version they were printed with.
+
+def ch09_panel():
+    """A-CH09.panel: the 09_6 code panel's numbers (the panel above, verbatim)."""
+    rng = np.random.default_rng(SEED)
+    M = n = 1_000
+    N = 10_000
+    marked = np.arange(N) < M
+    k = np.array([marked[rng.choice(N, n, replace=False)].sum() for _ in range(10_000)])
+    est = M * n / k
+    p = [comb(M, j) * comb(N - M, n - j) / comb(N, n) for j in range(n + 1)]
+    exact_line = sum(M * n / j * p[j] for j in range(1, n + 1))
+    pre = "A-CH09.panel"
+    emit(f"{pre}.print_line", " ".join(str(v) for v in (est.mean(), exact_line)))
+    emit(f"{pre}.experiments", int(k.size))
+    emit(f"{pre}.k_zero_count", int((k == 0).sum()))
+    emit(f"{pre}.first12_k", ",".join(str(int(v)) for v in k[:12]))
+    emit(f"{pre}.sim_k_mean", float(k.mean()))
+    emit(f"{pre}.sim_k_sd", float(k.std()))
+    emit(f"{pre}.sim_mean", float(est.mean()))
+    emit(f"{pre}.sim_mean_rounded_to_10", int(round(float(est.mean()) / 10) * 10))
+    emit(f"{pre}.sim_median", float(np.median(est)))
+    q = np.percentile(est, [2.5, 97.5])
+    emit(f"{pre}.sim_p2_5", float(q[0]))
+    emit(f"{pre}.sim_p97_5", float(q[1]))
+    emit(f"{pre}.exact_line_mean", exact_line)
+    emit(f"{pre}.p_sum", sum(p))
+    emit(f"{pre}.p100", p[100])
+    se = float(est.std(ddof=1)) / sqrt(est.size)
+    emit(f"{pre}.sim_mean_standard_error", se)
+    emit(f"{pre}.mean_gap_in_standard_errors", (float(est.mean()) - exact_line) / se)
+    # Dev D9 (description): in numpy, the soup guess at k = 0 is inf, with a RuntimeWarning
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        z = M * n / np.array([0])
+    emit("A-CH09.numpy_estimate_at_k0", str(float(z[0])))
+    emit("A-CH09.numpy_k0_warns", any(issubclass(w.category, RuntimeWarning) for w in caught))
+    return k
+
+
+def ch12_ring_toss_panel(k, ring):
+    """A-CH12.ring_toss_panel (12_2 from R2): the ring toss on the 09_6 panel's own experiments,
+    in run order; a run rings the peg 10,000 exactly when its k is in A-CH12.ring_toss.ringing_k."""
+    k_lo, k_hi, cov = ring
+    miss = (k < k_lo) | (k > k_hi)
+    pre = "A-CH12.ring_toss_panel"
+    emit(f"{pre}.first100_ringed", int(100 - miss[:100].sum()))
+    emit(f"{pre}.first100_missed", int(miss[:100].sum()))
+    emit(f"{pre}.first100_missed_runs_1based", ",".join(str(int(r) + 1) for r in np.flatnonzero(miss[:100])))
+    emit(f"{pre}.all_runs", int(k.size))
+    emit(f"{pre}.all_missed", int(miss.sum()))
+    emit(f"{pre}.expected_missed", float((1 - cov) * int(k.size)))
+
+
+def ch12_coverage_over_N():
+    """A-CH12.coverage (12_2 "whatever the true size is"; Ruth R9): the exact 95% range's coverage
+    as a function of the true lake size, for M = n = 1,000. A range built from k rings N exactly
+    when P_N(K <= k) > 1/40 and P_N(K >= k) > 1/40 (as in ch12_ring_toss), so the coverage at N is
+    the sum of P_N(K = k) over those k. It is at least 95% for every N by construction (each
+    one-sided test rejects with chance at most 1/40, since P(F(K) <= a) <= a for a discrete cdf F);
+    this checks it numerically. Floats: log-pmf by the ratio recurrence, normalised; any N whose
+    tail sums sit within 1e-9 of 1/40, or whose coverage is within 1e-9 of 0.95, is recomputed in
+    exact integers, and so is the minimum. Grid: every N from 1,000 to 20,000, every 10th to
+    100,000, every 1,000th to 1,000,000."""
+    M = n = 1000
+    alpha = 1 / 40
+    grid = list(range(1000, 20001)) + list(range(20010, 100001, 10)) + list(range(101000, 1_000_001, 1000))
+
+    def exact(N):
+        T = comb(N, n)
+        nums = [num(N, M, n, j) for j in range(n + 1)]
+        cum = list(itertools.accumulate(nums))
+        return F(sum(nums[j] for j in range(n + 1)
+                     if cum[j] * 40 > T and (T - (cum[j - 1] if j else 0)) * 40 > T), T)
+
+    covs = {}
+    rechecked = 0
+    for N in grid:
+        lo, hi = max(0, M + n - N), min(M, n)
+        ks = np.arange(lo, hi + 1, dtype=float)
+        r = np.log((M - ks[:-1]) * (n - ks[:-1])) - np.log((ks[:-1] + 1) * (N - M - n + ks[:-1] + 1))
+        lp = np.concatenate([[0.0], np.cumsum(r)])
+        pmf = np.exp(lp - lp.max())
+        pmf /= pmf.sum()
+        le = np.cumsum(pmf)
+        ge = np.cumsum(pmf[::-1])[::-1]
+        c = float(pmf[(le > alpha) & (ge > alpha)].sum())
+        if (np.abs(le - alpha) < 1e-9).any() or (np.abs(ge - alpha) < 1e-9).any() or abs(c - 0.95) < 1e-9:
+            c = float(exact(N))
+            rechecked += 1
+        covs[N] = c
+    n_min = min(covs, key=covs.get)
+    c_min = exact(n_min)
+    assert abs(float(c_min) - covs[n_min]) < 1e-12
+    pre = "A-CH12.coverage"
+    emit(f"{pre}.M_eq_n", M)
+    emit(f"{pre}.grid", "every N 1000-20000; every 10th to 100000; every 1000th to 1000000")
+    emit(f"{pre}.lake_sizes_checked", len(grid))
+    emit(f"{pre}.rechecked_in_exact_integers", rechecked)
+    emit(f"{pre}.min", c_min)
+    emit(f"{pre}.min_pct_3dp", round(float(c_min) * 100, 3))
+    emit(f"{pre}.argmin_N", n_min)
+    emit(f"{pre}.all_at_least_95pct", float(c_min) >= 0.95)
+    emit(f"{pre}.at_N10000_float", covs[10_000])
+
+
+def ch12_slider_r2():
+    """A-CH12.slider additions (12_5 caption; Dev dev-11, R1 R-24 / D4): the typical error (1 SD,
+    the symmetric approximation sqrt((1 - M/N)(1 - n/N)/k)) at each slider point, beside the rule of
+    thumb 1/sqrt(k) it trims; and the planning card's 1/sqrt(k) at 10 and 100 caught twice."""
+    N = FELLER_N_TRUE
+    for k in (25, 100, 400):
+        m = math.isqrt(N * k)
+        pre = f"A-CH12.slider.k{k}"
+        emit(f"{pre}.typical_error_pct", round(100 * sqrt((1 - m / N) * (1 - m / N) / k), 6))
+        emit(f"{pre}.one_over_sqrt_k_pct", round(100 / sqrt(k), 6))
+    for k in (10, 100):
+        emit(f"A-CH12.planning.one_over_sqrt_k_pct_k{k}", 100 / sqrt(k))
+
+
+def ch13_targets():
+    """A-CH13 (the R2 blocker, Ruth R1 / Maya M1 / Dev dev-02; 13_1 lower-third, 13_6 and 13_8
+    gauge marks): what Mn/k aims at under A-F22's models, as Mn/E[k], with E[k] exact.
+    Ideal: E[k] = nM/N. Deaths: each fish dies with chance 3/10 between the catches, whatever its
+    mark, so by symmetry each fish of the second catch is marked with chance M/N: E[k] = nM/N, and
+    the target is the lake on marking day, while the lake at the second catch holds N(1 - 3/10) on
+    average. Newcomers: 2,000 unmarked fish join: E[k] = nM/(N + 2000), the lake at the second
+    catch. Marks lost: each mark is lost with chance 1/5: E[k] = n(4/5)M/N."""
+    N, M, n = FELLER_N_TRUE, FM, FN_
+    models = {
+        "ideal": F(n * M, N),
+        "deaths_30pct": F(n * M, N),
+        "newcomers_2000": F(n * M, N + 2000),
+        "marks_lost_20pct": F(n, 1) * F(4, 5) * F(M, N),
+    }
+    for name, ek in models.items():
+        emit_q(f"A-CH13.{name}.expected_k", ek)
+        emit(f"A-CH13.{name}.expected_marked_share_of_second_catch", ek / n)
+        emit_q(f"A-CH13.{name}.target_Mn_over_Ek", F(M * n) / ek)
+    emit_q("A-CH13.deaths_30pct.expected_lake_at_second_catch", N * (1 - F(3, 10)))
+    emit_q("A-CH13.newcomers_2000.lake_at_second_catch", F(N + 2000))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1360,10 +1644,18 @@ def main():
     af31_bending()
     af32_float64(p1900)
     ch11_one_marked_fish()
-    ch12_ring_toss(sims)
+    ring = ch12_ring_toss(sims)
     ch12_slider(feller_ci)
     ch14_reviewers()
     ch03_dynamics(xs, ys)
+    # R2 (2026-10-11)
+    r2_small_lake_keys()
+    ch06_row_mode_rule()
+    k_panel = ch09_panel()
+    ch12_ring_toss_panel(k_panel, ring)
+    ch12_coverage_over_N()
+    ch12_slider_r2()
+    ch13_targets()
     sys.stdout.flush()
     print(f"oracle: {len(_seen)} keys in {time.perf_counter() - T_START:.1f} s", file=sys.stderr)
 

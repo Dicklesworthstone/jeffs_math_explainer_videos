@@ -508,6 +508,8 @@ def bf6():
         emit(f"B-F6.mean_spares_gf{q}_K10", s)
         emit(f"B-F6.mean_spares_gf{q}_K10_two_routes_ok", abs(float(s) - float(alt)) < 1e-15)
     emit("B-F6.p_any_spare_needed_gf256_K10", 1 - p_full_finite(256, K, 0))
+    # R2 (13_6 lower-third, Ruth R7): with ten pieces the sum stops at its tenth term, 1/(2^10 - 1)
+    emit("B-F6.last_term_denominator_K10", 2 ** K - 1)
     race_k10()
 
 
@@ -569,6 +571,22 @@ def bf7():
     emit("B-F7.success_limit", p_full_limit(256, 0))
     emit("B-F7.decreasing_in_K_ok", all(seq[i] > seq[i + 1] for i in range(len(seq) - 1)))
     emit("B-F7.min_over_K_ge_0.996078_ok", p_full_limit(256, 0) >= Fraction(996078, 10 ** 6))
+    # R2 (13_4 "Fix every amount but one ... exactly one choice of that amount lands in the lit part"; Ruth R18,
+    # D1; Dev dev-12). Exhaustive at two pieces: the lit part at the last slot is a line through 0 in GF(256)^2
+    # (257 of them). For a piece whose own card is not on the line, fix the other amount: exactly one of the 256
+    # values of this amount puts the card on the line.
+    s = np.arange(256)
+    lines = [(1, t) for t in range(256)] + [(0, 1)]
+    ok = True
+    for u0, u1 in lines:
+        lit = np.zeros((256, 256), dtype=bool)          # lit[c1, c2]: the card (c1, c2) is on the line
+        lit[_NP_MUL[s, u0], _NP_MUL[s, u1]] = True
+        if u0:   # piece 2's own card (0, 1) is off the line: fix c1, vary c2
+            ok &= bool((lit.sum(axis=1) == 1).all())
+        if u1:   # piece 1's own card (1, 0) is off the line: fix c2, vary c1
+            ok &= bool((lit.sum(axis=0) == 1).all())
+    emit("B-F7.last_slot_lit_lines_checked_K2", len(lines))
+    emit("B-F7.last_slot_exactly_one_amount_lit_exhaustive_K2_ok", ok)
 
 
 # ==============================================================================================
@@ -623,6 +641,22 @@ def bf9():
     emit("B-F9.cycle_rule_stuck_iff_prod_b_over_a_is_1_ok", agree == 3000 and stuck > 0)
     # 13_7: the amounts other than 0 and 1
     emit("B-F9.amounts_other_than_0_and_1", 256 - 2)
+    # R2 (Ruth R3): the R1 wording "stuck exactly when its amounts multiply to 1" is false; the ring of cards
+    # 2X + 2Y is stuck (rank 4) although its ten amounts multiply to 2^10 = 116. The ratio rule holds (ratios 1).
+    ring2 = [[0] * 5 for _ in range(5)]
+    for i in range(5):
+        ring2[i][i], ring2[i][(i + 1) % 5] = 2, 2
+    emit("B-F9.all_2_ring_rank_gf256", rank_gf256_py(ring2))
+    emit("B-F9.all_2_ring_product_of_amounts", pow_g(2, 10, P_RQ))
+    emit("B-F9.all_2_ring_product_of_ratios", pow_g(gmul(2, INV[2]), 5, P_RQ))
+    # R2 (13_7, Ruth R18): a matrix of 0/1 amounts has the same rank over GF(2) and over GF(256), so a card
+    # with only zeros and ones gains nothing from the byte field (300 seeded random 6 x 6 matrices)
+    rng = random.Random(1307)
+    same = True
+    for _ in range(300):
+        M = [[rng.randrange(2) for _ in range(6)] for _ in range(6)]
+        same &= rank_gf2(M) == rank_gf256_py(M) == rank256_np(M)
+    emit("B-F9.rank_01_matrices_same_over_gf2_and_gf256_300_random_ok", same)
 
 
 # ==============================================================================================
@@ -644,6 +678,14 @@ def bf10():
     emit("B-F10.z256_inverse_of_3", pow(3, -1, 256))
     emit("B-F10.int_3x171", 3 * 171)
     emit("B-F10.int_3x171_divmod_256", list(divmod(3 * 171, 256)))
+    # R2 (07_6 lower-third "hash mixers use odd multipliers", Dev dev-14): Linux include/linux/hash.h "multiplies
+    # the input by a large odd number" (SOURCED constants, B-S10); odd, so multiplying by them is undone mod 2^w
+    g32, g64 = 0x61C88647, 0x61C8864680B583EB   # SOURCED: GOLDEN_RATIO_32 and GOLDEN_RATIO_64 in hash.h
+    emit("B-F10.sourced.linux_hash_h_GOLDEN_RATIO_32", g32)
+    emit("B-F10.sourced.linux_hash_h_GOLDEN_RATIO_64", g64)
+    emit("B-F10.linux_golden_ratios_odd_and_invertible_mod_2^w_ok",
+         g32 % 2 == 1 and g64 % 2 == 1 and g32 * pow(g32, -1, 2 ** 32) % 2 ** 32 == 1
+         and g64 * pow(g64, -1, 2 ** 64) % 2 ** 64 == 1)
 
 
 # ==============================================================================================
@@ -740,6 +782,15 @@ def bf13():
     # 11_5 "two cubed times two to the fourth is two to the seventh", as integers and as bytes
     emit("B-F13.int_2^3_x_2^4", 2 ** 3 * 2 ** 4)
     emit("B-F13.gf256_8_x_16", gmul(8, 16))
+    # R2 (11_7 table-multiply lower-third, Dev dev-03): EXP needs 510 entries (largest index 254 + 254 = 508);
+    # with LOG stored as u8, LOG[a] + LOG[b] wraps at 256 for these nonzero pairs (debug panics, release is wrong)
+    sums = [LOG[a] + LOG[b] for a in range(1, 256) for b in range(1, 256)]
+    emit("B-F13.nonzero_pairs", len(sums))
+    emit("B-F13.max_log_sum_nonzero_pairs", max(sums))
+    emit("B-F13.nonzero_pairs_log_sum_ge_256_u8_overflow", sum(1 for x in sums if x >= 256))
+    emit("B-F13.table_mul_u16_logs_equals_poly_mul_65536_ok",
+         all((0 if a == 0 or b == 0 else EXP[(LOG[a] + LOG[b]) & 0xFFFF]) == MUL[a][b]
+             for a in range(256) for b in range(256)))
 
 
 # ==============================================================================================
@@ -769,6 +820,10 @@ def bf15():
     emit("B-F15.seconds_at_1e9_steps_per_s", steps / 10 ** 9)
     emit("B-F15.hours_at_1e9_steps_per_s", steps / 10 ** 9 / 3600)
     emit("B-F15.days_at_1e9_steps_per_s", steps / 10 ** 9 / 86400)
+    # R2 (14_1 lower-third, Dev dev-09): one byte per amount; ten times faster; the cube when the pieces double
+    emit("B-F15.matrix_bytes_K50000", K * K)
+    emit("B-F15.hours_at_1e10_steps_per_s", steps / 10 ** 10 / 3600)
+    emit("B-F15.work_ratio_when_pieces_double", Fraction((2 * K) ** 3, K ** 3))
 
 
 # ==============================================================================================
@@ -805,6 +860,13 @@ def bf17():
     emit("B-F17.exp_minus_mean_degree", math.exp(-mean))
     K = 10000
     emit("B-F17.finite_K10000_(1-mean/K)^K", (1 - mean / K) ** K)
+    # R2 (14_7 "On average, about seventy of them aren't in any card", Ruth R6, Dev dev-04): at 2% extra
+    # (N = 10,200 cards), each card of degree d misses a given piece with probability 1 - d/K, independently
+    emit("B-F17.one_in_untouched_exp_N_eq_K", 1 / math.exp(-mean))
+    frac = (1 - mean / K) ** 10200
+    emit("B-F17.finite_K10000_N10200_fraction_untouched", frac)
+    emit("B-F17.expected_untouched_K10000_N10200", K * frac)
+    emit("B-F17.one_in_untouched_K10000_N10200", 1 / frac)
 
 
 # ==============================================================================================
@@ -962,6 +1024,56 @@ def bf21():
         emit(f"B-F21.recorded.{key}.source", "docs/research/raptorq_gf256/scripts/results/" + fname)
         pat = rf"K'={Kp} L=\d+(?: H=\d+)? mode={mode} N=K'\+{h} trials=(\d+): fails=(\d+)"
         emit(f"B-F21.recorded.{key}.provenance_check", recorded_check(fname, pat, [(trials, fails)]))
+    shape_model()
+
+
+def _p_rank_eq(q, m, n, r):
+    """P(an m x n uniform random matrix over GF(q) has rank exactly r), exact (the standard count of rank-r
+    matrices: prod_{i<r} (q^m - q^i)(q^n - q^i)/(q^r - q^i), over q^(mn))."""
+    if r < 0 or r > min(m, n):
+        return Fraction(0)
+    num = Fraction(1)
+    for i in range(r):
+        num *= Fraction((q ** m - q ** i) * (q ** n - q ** i), q ** r - q ** i)
+    return num / Fraction(q ** (m * n))
+
+
+def _p_span(q, m, d):
+    """P(m uniform random vectors span GF(q)^d) = prod_{i<d} (1 - q^(i-m)), exact."""
+    if m < d:
+        return Fraction(0)
+    p = Fraction(1)
+    for i in range(d):
+        p *= 1 - Fraction(q ** i, q ** m)
+    return p
+
+
+def shape_model():
+    """R2 (15 notes, description; Ruth R5) and 17_2 (Maya M1): RaptorQ's shape with random rows at K' = 10. The
+    S + K' + h ex-or rows are uniform 0/1 rows over the L unknowns and the H byte rows are uniform over GF(256).
+    The 0/1 rows have the same rank r over GF(2) and GF(256); the byte rows then fill the other L - r
+    directions with probability _p_span(256, H, L - r). Exact sum over r. At h = 0 it is Ruth's product form
+    1 - prod_{i=11..27}(1 - 2^-i) * prod_{i=1..10}(1 - 256^-i)."""
+    _, _, S, H, _ = {r[0]: r for r in RFC_TABLE2}[10]
+    Kp = 10
+    L = Kp + S + H
+    fails = []
+    for h in range(3):
+        m = S + Kp + h
+        ok = sum(_p_rank_eq(2, m, L, r) * _p_span(256, H, L - r) for r in range(min(m, L) + 1))
+        fails.append(1 - ok)
+        emit(f"B-F21.shape_model.K10.fail_h{h}", 1 - ok)
+    exor = 1 - math.prod((1 - Fraction(1, 2 ** i) for i in range(H + 1, L + 1)), start=Fraction(1))
+    byte = 1 - p_full_finite(256, H)
+    emit("B-F21.shape_model.K10.ex_or_part_h0", exor)
+    emit("B-F21.shape_model.K10.byte_part_h0", byte)
+    emit("B-F21.shape_model.K10.product_form_equals_rank_sum_h0_ok", 1 - (1 - exor) * (1 - byte) == fails[0])
+    emit("B-F21.shape_model.K10.ratio_h0_over_h1", fails[0] / fails[1])
+    m1 = S + Kp + 1
+    p_full = _p_rank_eq(2, m1, L, m1)   # the extra ex-or row takes one more slot: a byte card is left spare
+    emit("B-F21.shape_model.K10.h1_P_ex_or_rows_all_useful", p_full)
+    emit("B-F21.shape_model.K10.h1_share_of_failures_with_a_spare_byte_card",
+         p_full * (1 - _p_span(256, H, L - m1)) / fails[1])
 
 
 # ==============================================================================================
@@ -1024,6 +1136,17 @@ def bf22():
     emit("B-F22.K10.h0.clopper_pearson95_lower", lo)
     emit("B-F22.K10.h0.clopper_pearson95_upper", hi)
     emit("B-F22.K10.ratio_h0_over_h1", Fraction(6316, 24))
+    # R2 (17_3 lower-third, Dev dev-10): dividing by 256 twice predicts about 0.1 failures in 10^6 at K+2; with a
+    # Poisson count of that mean, one or more failures happen this often
+    pred = Fraction(6316, 256 ** 2)
+    emit("B-F22.K10.h2_failures_predicted_by_div256_twice", pred)
+    emit("B-F22.K10.h2_P_at_least_one_if_poisson_mean_predicted", -math.expm1(-float(pred)))
+    # R2 (Ruth R9): the two "six in a thousand" figures, 646 / 10^5 (B-F21, our RFC 6330 harness) and
+    # 6,316 / 10^6 (this decoder), agree: pooled two-proportion z
+    x1, n1, x2, n2 = 646, 10 ** 5, 6316, 10 ** 6
+    pp = Fraction(x1 + x2, n1 + n2)
+    emit("B-F22.K10_h0_vs_B-F21_rfc_rows_two_proportion_z",
+         float(Fraction(x1, n1) - Fraction(x2, n2)) / math.sqrt(float(pp * (1 - pp) * (Fraction(1, n1) + Fraction(1, n2)))))
 
 
 # ==============================================================================================
@@ -1205,6 +1328,11 @@ def bf26():
     emit("B-F26.mul2_mod_x8_plus_1_is_rotate_left_all256_ok",
          all(gmul(2, a, P_ROT) == ((a << 1) | (a >> 7)) & 0xFF for a in range(256)))
     emit("B-F26.mul2_mod_x8_plus_1_of_128", gmul(2, 128, P_ROT))
+    # R2 (10_2 hint "Three times a byte is double it, ex-or itself", Maya M4): 3a = 2a xor a under the rotation
+    # fold for every byte; doubling 255 rotates it to itself, and 255 xor 255 = 0
+    emit("B-F26.three_a_equals_two_a_xor_a_all256_ok", all(gmul(3, a, P_ROT) == gmul(2, a, P_ROT) ^ a for a in range(256)))
+    emit("B-F26.mul2_mod_x8_plus_1_of_255", gmul(2, 255, P_ROT))
+    emit("B-F26.xor_255_255", 255 ^ 255)
 
 
 # ==============================================================================================
@@ -1375,9 +1503,96 @@ def bx6():
     emit("B-X6.fips197_s4.2_57_times_13_is_0xfe_ok", gmul(0x57, 0x13, P_AES) == 0xFE)
 
 
+# ==============================================================================================
+# B-X7  the precode (R2: 15_1-15_3 and 15_6; Ruth R1, Maya M2/M13, Dev dev-01). RFC 6330 section 5.3.3.3:
+#       S LDPC and H HDPC relations among the L = K' + S + H intermediate symbols "evaluate to zero"
+# ==============================================================================================
+def _precode_cover_counts(Kp, S, H, W):
+    """Per intermediate symbol, the number of precode rows it sits in with a nonzero entry, from the LDPC loops
+    of section 5.3.3.3 (C[0..B-1] three times each, C[B..W-1] once each, the PI symbols in pairs) and the
+    identity part of the HDPC relations (C[L-H..L-1]); the dense MT * GAMMA part (C[0..K'+S-1]) is left out,
+    so this undercounts and the coverage below needs no V tables."""
+    L = Kp + S + H
+    P, B = L - W, W - S
+    rows = [dict() for _ in range(L)]          # symbol -> {row: parity}
+    for i in range(B):
+        a, b = 1 + i // S, i % S
+        for _ in range(3):
+            rows[i][b] = rows[i].get(b, 0) ^ 1
+            b = (b + a) % S
+    for i in range(S):
+        rows[B + i][i] = rows[B + i].get(i, 0) ^ 1
+        a, b = i % P, (i + 1) % P
+        rows[W + a][i] = rows[W + a].get(i, 0) ^ 1
+        rows[W + b][i] = rows[W + b].get(i, 0) ^ 1
+    for i in range(H):
+        rows[L - H + i][S + i] = 1
+    return [sum(r.values()) for r in rows]
+
+
+def bx7():
+    tab = {r[0]: r for r in RFC_TABLE2}
+    # first route: build the rows for the three block sizes the video names, and count
+    direct = {}
+    for Kp in (10, 10017, 56403):
+        _, _, S, H, W = tab[Kp]
+        direct[Kp] = min(_precode_cover_counts(Kp, S, H, W)) >= 1
+    emit("B-X7.precode_covers_every_intermediate_symbol_K10_K10017_K56403_direct_ok", all(direct.values()))
+    # second route, every row of Table 2: C[0..B-1] are added three times (odd, so never cancelled), the LDPC
+    # symbols once, the HDPC symbols once; PI symbol j < U is in an LDPC row iff j <= S (i % P or (i+1) % P, i < S)
+    cover_all, distinct_all = True, True
+    for Kp, _, S, H, W in RFC_TABLE2:
+        L = Kp + S + H
+        P, B = L - W, W - S
+        U = P - H
+        cover_all &= P >= 2 and U <= S + 1
+        # the three LDPC rows of C[i] are distinct iff S divides neither a nor 2a: S is an odd prime and a < S
+        distinct_all &= S % 2 == 1 and 1 + (B - 1) // S < S
+    emit("B-X7.precode_covers_every_intermediate_symbol_all_477_ok", cover_all)
+    emit("B-X7.ldpc_three_distinct_rows_per_symbol_all_477_ok", distinct_all)
+    for Kp in (10, 10017):
+        _, _, S, H, W = tab[Kp]
+        L = Kp + S + H
+        emit(f"B-X7.K{Kp}.extra_pieces_S_plus_H", S + H)
+        emit(f"B-X7.K{Kp}.ex_or_cards_L_minus_H", L - H)
+        emit(f"B-X7.K{Kp}.ldpc_max_a", 1 + (W - S - 1) // S)
+    # model: a received packet's LT part hits a given one of the W LT symbols with probability d/W (b uniform,
+    # the d indices distinct because W is prime); N = K' independent packets miss it with (1 - mean_d / W)^N
+    _, _, S, H, W = tab[10017]
+    mean = float(sum(d * w for d, w in _degree_masses().items()))
+    emit("B-X7.K10017.model_expected_LT_symbols_in_no_packet_N_eq_Kprime", W * (1 - mean / W) ** 10017)
+
+
+# ==============================================================================================
+# B-X8  Reed-Solomon over GF(256) (R2: 14_8 "Any set of exactly enough packets rebuilds the picture"; the
+#       lower-third "N <= 257 (q + 1)"; Ruth R18, Dev dev-14). Columns (1, a, a^2) for the 256 bytes a plus the
+#       point at infinity (0, 0, 1): the doubly extended code with K = 3 and N = 257
+# ==============================================================================================
+def bx8():
+    cols3 = [(1, a, gmul(a, a)) for a in range(256)] + [(0, 0, 1)]
+    rng = random.Random(1408)
+    ok3 = all(rank_gf256_py([list(cols3[i]) for i in rng.sample(range(257), 3)]) == 3 for _ in range(3000))
+    emit("B-X8.rs_K3_N257_seeded_triples_checked", 3000)
+    emit("B-X8.rs_K3_N257_every_seeded_triple_rebuilds_ok", ok3)
+    # K = 2: the columns (1, a) and (0, 1) are the 257 directions of GF(256)^2, so any two rebuild and no 258th
+    # column can be added
+    dirs = set()
+    for a in range(256):
+        for b in range(256):
+            if a or b:
+                s = INV[a] if a else INV[b]
+                dirs.add((gmul(a, s), gmul(b, s)))
+    emit("B-X8.directions_in_gf256_squared", len(dirs))
+    cols2 = [(1, a) for a in range(256)] + [(0, 1)]
+    emit("B-X8.rs_K2_N257_every_pair_rebuilds_ok",
+         all(gmul(cols2[i][0], cols2[j][1]) ^ gmul(cols2[i][1], cols2[j][0]) != 0
+             for i in range(257) for j in range(i + 1, 257)))
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
-               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6):
+               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
+               bx7, bx8):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)

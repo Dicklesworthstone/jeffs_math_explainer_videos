@@ -21,8 +21,9 @@ STAGES = {
     # stage: (round, reviewers, what to read)
     "storyboard": ("R1", ["maya_14", "dev_28", "ruth_45", "engine_feasibility", "creative_director"],
                    ["brief", "storyboard", "fact-sheet"]),
-    "script": ("R2", ["maya_14", "dev_28", "ruth_45 (with ruth_audit)"], ["brief", "script", "storyboard", "fact-sheet"]),
-    "draft": ("R3", ["maya_14", "dev_28", "ruth_45", "the owner"], ["script", "sheets"]),
+    "script": ("R2", ["maya_14", "dev_28", "ruth_45 (with ruth_audit)"],
+               ["brief", "script", "storyboard", "description", "fact-sheet"]),
+    "draft": ("R3", ["maya_14", "dev_28", "ruth_45", "the owner"], ["script", "description", "sheets"]),
 }
 
 
@@ -30,7 +31,8 @@ def artifact(slug, name):
     """The artifact's path in the video's crate."""
     crate = ROOT / "explainer_corpus" / slug
     path = crate / {"brief": "docs/brief.md", "storyboard": "docs/storyboard.md",
-                    "fact-sheet": "docs/fact-sheet.md", "script": "script.tsv"}[name]
+                    "description": "docs/description.md", "fact-sheet": "docs/fact-sheet.md",
+                    "script": "script.tsv"}[name]
     if not path.is_file():
         sys.exit(f"review: no {name} for {slug} ({path.relative_to(ROOT)})")
     return path
@@ -91,8 +93,9 @@ promises (takeaway, hook, pictures, vocabulary, notation, colour roles).
 You are reviewing the final script before narration is generated: every line
 is spoken exactly as written, one TTS call per sentence. Check it against the
 fact sheet (every number) and the storyboard (every persona note must reach
-the narration, a card, a lower-third or the description, or be dropped with a
-reason). Ruth also runs `tools/review_prompts/ruth_audit.md`.
+the narration, a card, a lower-third or the description draft, which is
+`docs/description.md` and is inlined below, or be dropped with a reason). Ruth
+also runs `tools/review_prompts/ruth_audit.md`.
 """,
     "draft": """\
 ## This stage: R3, the narrated draft

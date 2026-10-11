@@ -321,32 +321,34 @@ How these are counted: each shared read or write is a step, and a wait is one st
 - Write ≺ for lexicographic order on ℕ × {1..N}.
 - Fact 0: ≺ is a strict total order. Ids are distinct, so for i ≠ k exactly one of (nᵢ, i) ≺ (nₖ, k) or (nₖ, k) ≺ (nᵢ, i) holds. (Bonus: every pair has finitely many ≺-predecessors, i.e. order type ω.)
 
-**Definitions**
-- **Doorway Dᵢ:** from the start of the write choosing[i]:=1 to the end of choosing[i]:=0. It is loop-free, so it takes a bounded number of i's steps.
-- **Bakery Bᵢ:** from the end of Dᵢ to the end of the exit write number[i]:=0.
-- Throughout Bᵢ, number[i] is constant and ≥ 1.
+**Definitions** (corrected at R2, 2026-10-11; R1 Ruth R5, R2 Ruth R3)
+- **Doorway Dᵢ:** from the start of the write choosing[i]:=1 to the end of choosing[i]:=0. It is loop-free, so it takes a bounded number of i's steps. It contains i's ticket write.
+- **Ticket held, Tᵢ:** from the end of i's ticket write number[i]:=nᵢ to the *start* of its exit write number[i]:=0. Throughout Tᵢ, number[i] = nᵢ ≥ 1, and no write to number[i] overlaps Tᵢ.
+- **Bakery Bᵢ:** from the end of Dᵢ to the *start* of the exit write number[i]:=0. Bᵢ ⊂ Tᵢ, and it contains i's waiting loop and its CS. "i is in the bakery" means "the current time lies in Bᵢ"; both lemmas use only this definition. (An exit write that has begun is not "in the bakery": during it a safe read of number[i] may return anything.)
 
 **Assumption M** (Lamport 1983): if number[j] is not written during i's max computation, then i chooses a value > number[j]. It is met by reading each number[j] once.
 
-**Lemma 1 (doorway precedence).** If i is in the bakery and every read k makes of number[i] while choosing its current ticket happens after i finished writing number[i], then number[i] < number[k]. In particular this holds if Dᵢ ended before Dₖ began.
-*Proof.* Those reads don't overlap any write (number[i] is constant in Bᵢ), so by M, number[k] ≥ number[i] + 1.
+**Lemma 1 (doorway precedence).** If every read k makes of number[i] while choosing its current ticket lies inside Tᵢ, then nᵢ < nₖ. In particular this holds if Dᵢ ended before Dₖ began and i has not begun its exit write by the end of Dₖ (for example, i is still in the bakery then).
+*Proof.* Those reads overlap no write and return nᵢ, so by M, nₖ ≥ nᵢ + 1.
 
 **Lemma 2 (who is in front).** If i is in the CS and k ≠ i is in the bakery, then (nᵢ, i) ≺ (nₖ, k).
-*Proof.* Let r₂ be i's last read of choosing[k], which returned 0, and r₃ its later last read of number[k]. Compare them with Dₖ:
-- **(a)** Dₖ's opening write ended after r₂ began. Then all of k's reads of number[i] come after that write, hence after i finished writing number[i]. By Lemma 1, nᵢ < nₖ. *The value i read in r₃ is irrelevant.*
-- **(b)** Dₖ ended before r₂ ended. Then k's write of number[k] ended before r₃ began, and it hasn't changed since. So r₃ overlapped no write and returned the true nₖ ≥ 1. i left L3, so ¬((nₖ, k) ≺ (nᵢ, i)), and by Fact 0, (nᵢ, i) ≺ (nₖ, k).
-- If r₂ returned 0 while overlapping no write, Dₖ cannot contain r₂. If r₂ overlapped the write that opens Dₖ, we are in (a); if it overlapped the write that closes Dₖ, we are in (b). ∎
+*Proof.* Let r₂ be i's last read of choosing[k], which returned 0, and r₃ its later last read of number[k]. Let Dₖ be k's current doorway (k is in Bₖ, so Dₖ has ended). Split on Dₖ's opening write choosing[k]:=1:
+- **(a)** The opening write ended after r₂ began. All of k's reads of number[i] in Dₖ come after the opening write, hence after r₂ began, hence after i's ticket write ended (that write precedes i's waiting loop). They also end before now, and i, being in the CS now, has not begun its exit write. So they lie inside Tᵢ, and by Lemma 1, nᵢ < nₖ. *The value i read in r₃ is irrelevant.*
+- **(b)** The opening write ended before r₂ began. Then **Dₖ's closing write began before r₂ ended**: if r₂ overlapped no write, it read the committed value, which is 0 only after the closing write has ended; if r₂ overlapped a write, that write is the closing one, since the opening one was over. k's ticket write precedes its closing write, so it ended before r₂ ended, hence before r₃ began; and k is in Bₖ now, so its exit write has not begun. So r₃ lies inside Tₖ, overlapped no write, and returned the true nₖ ≥ 1. i left L3, so ¬((nₖ, k) ≺ (nᵢ, i)), and by Fact 0, (nᵢ, i) ≺ (nₖ, k).
+- The split is exhaustive: the opening write either ended before r₂ began or not. A flag read that overlaps the opening write (mid-raise) lands in (a); one that overlaps the closing write (mid-lowering) lands in (b). ∎
 
 **Theorem (mutual exclusion).** If i and k were both in the CS, Lemma 2 applied both ways gives (nᵢ, i) ≺ (nₖ, k) ≺ (nᵢ, i), contradicting asymmetry. ∎
 
-**Why garbage is harmless** (Lamport's observation, made visible): the only reads of number[·] whose values the proof uses are in case (b), where overlap is impossible. In case (a), whatever i read, *k* did the work. The proof never looks at an overlapped value.
+**Why garbage is harmless** (Lamport's observation, made visible): the proof uses the values of exactly two kinds of ticket read, k's max reads of number[i] in Lemma 1 and i's read r₃ in case (b), and both lie inside the reader's target's Tᵢ or Tₖ, where no write overlaps them. In case (a), whatever i read in r₃, *k* did the work. The proof never looks at an overlapped ticket value. It does use one flag read, r₂, which may overlap a write; the split above sends both possible overlaps to a case that works.
 
 **FCFS.** If Dᵢ ends before Dₖ begins, k does not enter the CS before i.
-*Proof.* Otherwise, Lemma 2 (with k in the CS) gives (nₖ, k) ≺ (nᵢ, i), while Lemma 1 gives nᵢ < nₖ. Contradiction.
-- Corollary (bounded bypass): once i has finished its doorway, each other process can enter the CS at most once ahead of it.
+*Proof.* Suppose k enters the CS while i has not yet entered. Then i is in Bᵢ (it has finished its doorway and not entered), so Lemma 2 (with k in the CS) gives (nₖ, k) ≺ (nᵢ, i). And k's doorway lies inside Tᵢ (it began after Dᵢ ended, and it ended before k entered, while i was still waiting), so Lemma 1 gives nᵢ < nₖ. Contradiction.
+
+**Corollary (bounded bypass, counted from the ticket write).** Once i's ticket write has ended, each other process k enters the CS at most once before i does.
+*Proof.* Suppose k enters twice while i waits. Between the entries k exits and runs a new doorway Dₖ′, which begins after k's first entry, so after i's ticket write ended; and i has not entered, so it has not begun its exit write. So Dₖ′'s reads of number[i] lie inside Tᵢ and Lemma 1 gives nᵢ < nₖ′. For k's second entry, k's last check of choosing[i] returned 0, so i's flag was down or coming down (i's ticket is already written, so its flag cannot be "not yet raised"); either way k's later read of number[i] lies inside Tᵢ and returns nᵢ, and k would pass L3 only if (nₖ′, k) ≺ (nᵢ, i), which is false. Contradiction. (This is what 11_2 says; model check `C-X5.bypass_from_ticket_write.*.worst` = 1.)
 
 **Deadlock-freedom** (Assertion 3). Suppose some process is trying, none is in the CS, and failures are finite. Doorways are bounded, so L2 waits end. The ≺-least process in the bakery passes every L3 check, because newcomers draw larger tickets (Lemma 1).
-- **Starvation-freedom:** FCFS + deadlock-freedom ⇒ lockout-freedom (Lamport 1986, Thm 1). It assumes every process in the CS eventually leaves and processes keep taking steps.
+- **Starvation-freedom:** FCFS + deadlock-freedom ⇒ lockout-freedom (Lamport 1986, Thm 1, mutual2.pdf p. 7). FCFS alone is not enough: "FCFS does not imply deadlock freedom" (same page); the `≤` variant has the same doorway, so the FCFS argument above goes through for it, yet it deadlocks (`C-F5.le_with_flag.orders_deadlocked`, `C-X3`). It assumes every process in the CS eventually leaves and processes keep taking steps.
 
 **One-line version for the 14-year-old:** "Either you picked your ticket after you could see mine, so yours is bigger; or you'd already finished picking when I looked, so I saw your real ticket, and mine was smaller."
 

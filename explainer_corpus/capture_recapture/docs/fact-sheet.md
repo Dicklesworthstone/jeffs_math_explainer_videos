@@ -1,17 +1,19 @@
 # Video A fact sheet: How to Count Fish You've Never Seen (capture_recapture)
 
-Bead `mx-e-a-8y5.2` (P1); the claim walk's keys were added for gate G3 on 2026-10-11. Every
-value below was printed by the independent oracle `explainer_corpus/capture_recapture/oracle.py`;
-the full precision value is on the named key.
+Bead `mx-e-a-8y5.2` (P1); the claim walk's keys were added for gate G3 on 2026-10-11, and the
+R2 review round's keys the same day (see "R2 review round" below). Every value below was printed
+by the independent oracle `explainer_corpus/capture_recapture/oracle.py`; the full precision value
+is on the named key.
 
 - **Run** from `explainer_corpus/capture_recapture/`, as `./x capture_recapture facts-check`
   does: `uv run --quiet --no-project --with numpy python3 -I -B oracle.py` (standard library
   plus numpy; last run with Python 3.14.0 and numpy 2.5.4 under uv).
-- **Measured:** 98.8 s and 93.4 s wall clock over the last two runs on an Apple M4 Pro
-  (2026-10-11); **451 keys**, one `KEY<TAB>VALUE` per line on stdout (runtime and key count go
-  to stderr). The two runs' stdout is byte-identical. Every ledger row A-F1 … A-F32 has at least
-  one key; 10 keys are `.recorded.`; 93 are `A-CH03.*`; 65 are the claim walk's `A-CH11.*`,
-  `A-CH12.*` and `A-CH14.*` (see "Claim walk (gate G3)" below).
+- **Measured (R2, 2026-10-11, Apple M4 Pro):** **547 keys**, one `KEY<TAB>VALUE` per line on
+  stdout (runtime and key count go to stderr); wall clock 49.2 s and 50.6 s on the last two runs,
+  whose stdout is byte-identical. Against the claim walk's 451 keys the R2 run adds 96 keys and
+  changes or drops none (checked key by key). Every ledger row A-F1 … A-F32 has at least one key;
+  10 keys are `.recorded.`; 105 are `A-CH03.*`; 65 are the claim walk's `A-CH11.*`, `A-CH12.*`
+  and `A-CH14.*` (see "Claim walk (gate G3)" below).
 - **Seeds:** numpy `default_rng(20261009)` replays `verify2.py`'s exact call order, so the
   simulated numbers reproduce `docs/research/capture_recapture/scripts/outputs/verify2_out.txt`
   digit for digit. The A-F27 lake uses SplitMix64 seeded 20261009; chapter 03 uses
@@ -99,6 +101,11 @@ the full precision value is on the named key.
       numpy chapter-03 run's t = 400 frame. A Rust chapter-03 scene with its own generator will
       have different fish there; it must load these positions or re-pick its insets by the same
       rule and pin its own counts.
+    - **Also numpy-bound (R2):** the 09_6 panel's runs (`A-CH09.panel.*`, and the ring toss on
+      them, `A-CH12.ring_toss_panel.*`), which depend on numpy's `Generator.choice` stream;
+      `A-CH03.corners.*` and `A-CH03.trays.net1000.*` (the same t = 400 frame); and the range
+      checks `A-CH14.reviewers.*.ci95_*` (the A-CH14 runs). The chapter-09 and chapter-12 scenes
+      must load the panel's 10,000 caught-twice counts, not draw their own.
 13. **Claim walk (G3) findings.** Details are in "Claim walk (gate G3)" below.
     - **03_5 trays:** real nets of 10 or 20 fish do not sit near 10%. At the nine region centres
       they hold 0–3 of 10 and 0–5 of 20 marked. The storyboard now tags the trays "illustration".
@@ -107,6 +114,18 @@ the full precision value is on the named key.
       float ratio scan ties exactly. The lower-third now names lgamma.
     - **11_2 marker:** 5.35 × 10⁻ᶻ is still a nonzero float64 at Z = 324 and rounds to 0 from
       Z = 325. The label now reads "rounds to zero past here".
+14. **R2 review round (2026-10-11).** Details are in "R2 review round" below.
+    - **The 13_1 rule was wrong** (Ruth R1, the R2 blocker): the share rule makes Mn/k aim at the
+      lake *on marking day*; deaths leave the needle at 10,000 while about 7,000 fish are left.
+      `A-CH13.*` pins both targets.
+    - **03_5 and 03_6 no longer use selected or drawn numbers.** The R1 insets (`A-CH03.inset.*`)
+      were picked to match the voice and the trays were drawn. Both are replaced by numbers read
+      from the t = 400 frame by rules that never look at the marks (`A-CH03.corners.*`,
+      `A-CH03.trays.net1000.*`). The old keys stay as the record.
+    - **The 09_6 panel nets fish.** The R1 panel sampled `rng.hypergeometric`, so its check could
+      only test numpy's sampler (Dev dev-01). The new panel's runs (`A-CH09.panel.*`) are what
+      chapter 09 and the 12_2 ring toss now show; A-F19's replay stream keeps its keys but is no
+      longer on screen.
 
 ## Facts ledger A-F1 … A-F32
 
@@ -278,6 +297,34 @@ each function in `oracle.py`. The non-numeric claims are rows 13 and 14 of the n
 | 12_2 | "97 clack on, 3 miss"; "all 10,000: 447 missed"; lower-third "95.45% at this one" | `A-CH12.ring_toss.*` | At N = 10,000 the rings catch the peg exactly for k = 83 … 118. Of the first 100 experiments, 97 ring and 3 miss (runs 40, 61 and 80). Of all 10,000, 447 miss, against 454.7 expected. Exact coverage is 0.9545281 (95.45%) | MATCH. The experiments are A-F19's seeded stream, which is the 09_6 panel's own k. The test is in exact integers, and `exact_ci` run at k = 82, 83, 118 and 119 agrees. |
 | 12_5 | "Four times as many halves the range"; picture "−16% / +21% at 100"; "catching all of it leaves no doubt" | `A-CH12.slider.*` | k = 25 / 100 / 400 (M = n = 500 / 1,000 / 2,000): ranges [6,936, 15,210] / [8,400, 12,073] / [9,254, 10,851], widths 8,274 / 3,673 / 1,597. Each fourfold step multiplies the width by 0.444, then 0.435. At 100 the ends are −16.00% and +20.73%. With the whole lake caught twice the range is [10,000, 10,000], since P(K ≥ 10,000) at N = 10,001 is 1/10,001 | MATCH. "Halves" is the 1/√k part; the growing share M/N narrows the range a little more, which is the next sentence's point. |
 | 14_6 | "Reviewers of different skill are fine. Bugs of different difficulty are not." | `A-CH14.reviewers.*` | **Skill** (60 alike bugs, chances 0.5 and 0.4): E = 30 / 24 / 12, and 30·24/12 = 60 exactly. Over 20,000 runs the median estimate is 60.0 (mean 61.80; no run with k = 0). **Difficulty** (30 easy bugs at 0.8 / 0.7, 30 hard at 0.2 / 0.1): E = 30 / 24, but 17.4 caught twice, so 1200/29 = 41.38. The median is 41.25, and 99.9% of runs fall below 60 | MATCH as a MODEL number (seeded, `default_rng([20261009, 14])`). The model's assumption is in row 14 below. |
+
+The 03_5, 03_6 and 12_2 rows above record the claim walk; R2 replaced what those beats show (next
+section), and the old keys keep their values.
+
+## R2 review round (2026-10-11): keys for the R2 fixes
+
+The R2 reviews (`docs/reviews/capture_recapture/R2-*.md`) and their dispositions (`R2.md`) changed
+the words and pictures below. Each new number has a key; the rule or model is in the comment above
+each function in `oracle.py`. The draft video description, `docs/description.md`, states only
+what this sheet and the oracle back.
+
+| beat | storyboard claim (after R2) | keys | oracle value | status / how computed |
+|---|---|---|---|---|
+| 01_8 | lower-third: "all 100 squares here average exactly 10,000 … only 22 of the 100 single dips land within 2×" | `A-F27.all_cells.mean_estimate`, `.share_of_dips_within_2x_of_truth` (existing) | 10,000.0; 0.22 | MATCH; no new key |
+| 03_5 | nets of a thousand at the weeds, open water and the deep end hold 97, 90, 109 marked; all nine region centres 90–112 | `A-CH03.trays.net1000.*` | 94, 97, 109, 106, 90, 106, 97, 99, 112 (SW … NE); 9.0%–11.2% | MATCH. The 1,000 fish nearest each region centre at t = 400. The size is the story's n; smaller nets were looked at first (the comment says so) |
+| 03_6 | "The fullest has twenty-seven hundred thirty-two fish, two hundred seventy-six of them marked. The emptiest has two hundred fourteen, twenty-three marked." | `A-CH03.corners.*` | SE 2,732 / 276 (10.1%); NE 214 / 23 (10.7%); both extremes unique | MATCH. Most and least crowded regions by fish count (existing `A-CH03.habitat.t400.count`) |
+| 03_7 | "In both columns, the second net takes the same one in ten" | `A-F29.green_share_*_N10000`, `A-F29.unmarked_column_N10000` | 100/1,000 = 900/9,000 = 0.1 | MATCH (exact) |
+| 05_7 | screen "16.67 = 1,667%" | `A-F7.toy_area_pct*` | 5000/3 % = 1,666.67%, shown 1,667% | MATCH (exact) |
+| 06_4 | description: each fixed-size row peaks at ⌊(n+1)(M+1)/(N+2)⌋, tied with one less when that is whole | `A-CH06.row_mode_rule.*` | 0 failures in 23,820 cases (every N ≤ 40, every M, n) | MATCH (exact brute force) |
+| 07_2 | "twenty-three times twenty-three, over thirty-three times sixteen"; screen 576 = 24 × 24 over 578 = 34 × 17 | `A-F6.N33.*`, `A-F6.N34.*` | 23, 23, 16; 24, 24, 17; factors equal the exact L(N)/L(N−1) | MATCH (exact) |
+| 09_3, 09_5, 09_6 | panel nets fish; "most land within about nine"; "their average is about ten thousand and ninety"; "they agree" | `A-CH09.panel.*` | SD of k 8.960 (exact 9.000); mean 10,088.586 (rounded to 10 = 10,090), standard error 9.21; exact mean on the panel's last line 10,082.499; gap 0.66 standard errors; quantiles 8,474.58 / 10,000 / 12,048.19; no k = 0; Σp = 1.0; p[100] = 0.0442892; printed line `10088.586031204479 10082.498763370464` | MATCH (seeded, `default_rng(20261009)`, `Generator.choice`). Printed with numpy 2.5.4; Dev's R2 review reports the same mean, misses (runs 13, 71) and 464 on numpy 2.4.1 (reviewer-reported) |
+| 10 notes | numpy: the soup guess at k = 0 | `A-CH09.numpy_*` | `inf`, with a RuntimeWarning | MATCH |
+| 10_3 | "Here we expect only two and a half caught twice … about six and a half percent low … within two percent" | `A-F21.expected_k`, `A-F21.chapman_bias_pct` (existing), `A-F18.bound_pct_at_expected_k4`, `A-F18.bound_holds_N_le_40` | 5/2; −6.48%; 100·e⁻⁴ = 1.83%; the bound \|bias\| ≤ N·e^(−Mn/N) holds on all 22,140 cases with N ≤ 40 | MATCH. Proof (Ruth, R1): \|bias\| = (N+1)·Π_{j=0..n} (N−M−j)/(N+1−j), each factor ≤ 1 − M/N, and (N+1)(1 − M/N)^(n+1) ≤ N·e^(−Mn/N) |
+| 10 notes | planning card: 1/√(caught twice) at 10 and 100 | `A-CH12.planning.*` | 31.6%; 10% | MATCH (the R1 card's "±30%" now reads "about ±32%") |
+| 12_2 | 98 ring, 2 miss (runs 13, 71); "all 10,000: 464 missed (455 expected)"; "in the long run … whatever that size is" | `A-CH12.ring_toss_panel.*`, `A-CH12.coverage.*` | 98 / 2 / 13,71 / 464; 454.7 expected. Coverage over 27,901 lake sizes from 1,000 to 1,000,000: minimum 95.007% at N = 10,967 (exact integers agree), never below 95%; 95.45% at 10,000 | MATCH. Coverage ≥ 95% holds for every N by construction (each one-sided test rejects with chance ≤ 2.5%, since P(F(K) ≤ a) ≤ a for a discrete cdf F); the grid confirms it. Ruth's own grid found 95.014% at 1,857, which this grid also contains |
+| 12_5 | caption "typical error ±9% … rule of thumb 1 ÷ √(caught twice) = 10%" (19 vs 20 at 25; 4 vs 5 at 400) | `A-CH12.slider.k*.typical_error_pct`, `.one_over_sqrt_k_pct` | 19 / 9 / 4%; 20 / 10 / 5% | MATCH (symmetric approximation √((1 − M/N)(1 − n/N)/k)) |
+| 13_1, 13_6, 13_8 | Mn/k aims at the lake on marking day; deaths leave 7,000 at the second catch; newcomers make it 12,000 | `A-CH13.*` | target Mn/E[k]: ideal 10,000; deaths 10,000; newcomers 12,000; marks lost 12,500. Expected marked share of the second catch 0.1 / 0.1 / 0.0833 / 0.08. Lake at the second catch: 7,000 (deaths, expected) and 12,000 (newcomers) | MATCH (exact, A-F22's models; deaths by symmetry: each fish of the second catch is marked with chance M/N) |
+| 14_5, 14_6 | "If every bug is equally easy to find, the careful range runs from forty-seven to ninety-four"; "expect sixty, and the range, to run low" | `A-CH14.reviewers.*.ci95_*` | skill: the range holds 60 in 97.2% of runs (1.5% wholly below, 1.2% above); difficulty: holds 60 in 22.9%, wholly below in 77.1%, never above | MATCH as a MODEL number (the A-CH14 runs; `exact_ci` on each run's own counts) |
 
 ## Non-numeric claims and their sources
 
@@ -460,6 +507,32 @@ source myself and found the sentence. "agent-verified" means only a research sub
       (https://www.hlc-rdc.org/wp-content/uploads/2015/03/Michael-_Spagat_Evaluation_of_the_Database_KMB_December_10_2014.pdf)
     - **Caveat:** 9,790 is inside the interval but below 10,356. "Right in the middle" is
       Spagat's phrase, not ours.
+    - **Scope and method, re-read in both PDFs for R2 (2026-10-11; Ruth R16, Dev dev-10).**
+      - Ball et al., *Killings and Refugee Flow in Kosovo, March–June 1999: A Report to the
+        International Criminal Tribunal for the Former Yugoslavia* (3 January 2002), printed
+        page numbers. p. 3: "The data on killings were drawn from four sources: interviews
+        conducted by the American Bar Association Central and East European Law Initiative
+        (ABA/CEELI) and its partners; interviews conducted by Human Rights Watch (HRW);
+        interviews conducted by the Organization for Security and Cooperation in Europe (OSCE);
+        and records of exhumations conducted by international teams on behalf of the
+        International Criminal Tribunal for the Former Yugoslavia (ICTY)";
+        "An estimated 10 356 Kosovar Albanians were killed". p. 4, footnote 5: "the analysis of
+        killings covers the period 20 March - 22 June". p. 6: the estimate "was generated by
+        means of a widely-used demographic statistical technique known as 'multiple systems
+        estimation'". p. 41 (appendix): "The hierarchical loglinear approach extends naturally to
+        allow for the modeling of more intricate dependencies among i lists", and "the 4-way
+        multiple systems estimation models fitted in this document".
+      - Spagat, *A Triumph of Remembering: Kosovo Memory Book* (10 December 2014). p. 8: BBSDA
+        "used a completely different method known as 'multiple systems estimation (MSE).'"
+        p. 9: "The BBSDA estimates cover the period from March 20, 1999 through June 20, 1999";
+        "For the sake of these comparisons we restrict KMBD to violent deaths"; and, on false
+        reports in the lists, "it would not be surprising if the BBSDA estimate was a bit too
+        high." (BBSDA is Spagat's name for Ball et al.; Spagat's end date, 20 June, differs from
+        Ball's own 22 June.)
+      - **So:** the estimate is of Kosovar Albanians killed, 20 March to 22 June 1999, from four
+        sources by log-linear multiple systems estimation; the later count is the Kosovo Memory
+        Book's violent deaths for the period as Spagat states it, and the comparison is
+        Spagat's.
 13. **02_1 "Others had been using it for years" (claim walk, G3).** The line replaced
     "Biologists had been doing it for decades", which no row supported. It rests on two rows
     above, which were checked by this sheet's author; I did not re-read them for the walk.

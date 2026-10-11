@@ -10,8 +10,10 @@ each of the bead's open items (to verify) was resolved, and the keys and source 
 which is what `./x raptorq_gf256 facts-check` runs.
 
 The oracle needs only the standard library and numpy. It prints one `KEY<TAB>VALUE` line per fact and writes a summary
-line to stderr. Latest run (2026-10-11, CPython 3.14.0 and numpy 2.5.4 from uv, this Mac, under `nice -n 10`):
-**397 keys, real 11.0 s** (`/usr/bin/time -p`). A second run printed byte-identical output. The run of 2026-10-10
+line to stderr. Latest run (2026-10-11, after R2; CPython 3.14.0 and numpy 2.5.4 from uv, this Mac, under
+`nice -n 10`): **447 keys, real 5.2 s** (`/usr/bin/time -p`). R2 added 50 keys
+([Rows added at R2](#rows-added-at-r2-2026-10-11)); a line diff against the claim walk's 397-key output shows only
+additions, and no key is printed twice. The claim walk's run printed 397 keys in 11.0 s; the run of 2026-10-10
 (CPython 3.14.6, numpy 2.4.1) printed 297 keys in 3.5–4.6 s; the claim walk added 100 keys and changed none of the 297.
 
 ## How to read this sheet
@@ -33,7 +35,7 @@ line to stderr. Latest run (2026-10-11, CPython 3.14.0 and numpy 2.5.4 from uv, 
   `rfc6330_data.py`.
 - Keys ending in `_ok` are internal checks. Most compare two independent routes to the same value. Some are
   structural, for example primality of S and W, monotonicity, or the transcription hash. `1` means the check passed.
-  All 37 of them print `1`.
+  All 48 of them print `1` (37 before R2).
 
 ## Ledger rows
 
@@ -89,7 +91,7 @@ contains `sourced`. The sources were downloaded on 2026-10-11 into a scratch fol
 | B-F1 | 01_8 "The last few take forever"; the 01_8 screen's units | the last piece alone takes **10,000** draws on average and the last ten **29,289.7**, which is **29.9%** of the 97,876; the first half of the pieces takes **6,931**. At 1% loss the 97,876 pieces caught cost **98,864.7** packets sent | with j pieces missing, the next new one takes K/j draws on average; exact `Fraction` sums. Sent = caught / 0.99 (Wald's identity) |
 | B-F6 | 13_6 screen "exact: 1.606 / 0.0039" (ten pieces) | Σ_{i ≤ 10} 1/(2ⁱ − 1) = **1.6057183**; Σ_{i ≤ 10} 1/(256ⁱ − 1) = **0.0039369**; a byte race needs any spare with probability **0.39215%** (`B-F6.mean_spares_gf*_K10`, `B-F6.p_any_spare_needed_gf256_K10`) | exact sums; a second route sums P(K + h cards leave a piece unpinned) over h (`…_K10_two_routes_ok`). 1.6067 is the many-piece limit (B-F6 above) |
 | B-F6 | 13_6 race "with this run's own counts" (D15, RB-23) | `random.Random(1306)`, 1,000 races per side: ex-or spares 0, 1, 2, … occur **297, 303, 171, 94, 65, 39, 17, 4, 7, 0, 2, 0, 0, 0, 0, 1** times (mean **1.603**); byte spares 0, 1 occur **995, 5** times (mean **0.005**). Both means are within 4 standard errors of the exact ones | uniform random cards (the zero card included, as in the model) until rank 10; the rank is tracked as a GF(2) basis and as GF(256) rows reduced at their pivots |
-| B-F9 | 16_5 lower-third "a loop of two-piece cards is stuck exactly when its amounts multiply to 1 going around"; 13_7 "the other two fifty-four values" | in 3,000 seeded random 5-cycles with nonzero amounts the rank is below 5 exactly when ∏ bᵢ/aᵢ = 1 (**12** stuck cycles, all on the rule); 256 − 2 = **254** | `rank_gf256_py`, `random.Random(1605)` |
+| B-F9 | 16_5 lower-third "a loop of two-piece cards is stuck exactly when its amounts multiply to 1 going around" (R2: that wording is false; the lower-third now states the ratio rule this key tests, see [R2](#rows-added-at-r2-2026-10-11)); 13_7 "the other two fifty-four values" | in 3,000 seeded random 5-cycles with nonzero amounts the rank is below 5 exactly when ∏ bᵢ/aᵢ = 1 (**12** stuck cycles, all on the rule); 256 − 2 = **254** | `rank_gf256_py`, `random.Random(1605)` |
 | B-F10 | 07_4 screen "2·131 = 262 → 6"; 07_6 lower-third "3 × 171 = 513 = 2·256 + 1" | **262**; 3⁻¹ mod 256 = **171**; 3·171 = **513** = 2·256 + 1 | exact |
 | B-F11 | 10_7 code panel; 10_5 "x to the eighth"; 12_4 lower-third "(x²+x+1)² = x⁴+x²+1 = 21" | under 0x11B: mul(2, 141) = **1** and mul(2, 142) = **7**, so the panel's comment must flip with the fold. The panel's own code with `0x1B` gives mul(2, 141) = 1 and mul(0x57, 0x83) = **193** (0xC1), and equals multiplication mod 0x11B for all 65,536 pairs. x·x⁷ = **256** = x⁸ before the fold; 7·7 carry-less = **21** (no fold) | `rust_mul(…, fold=0x1B)` against `gmul(…, 0x11B)`; `clmul` |
 | B-F12 | 12_4 lower-third "255 = (2+1)(2²+1)(2⁴+1); together they make 11111111₂ = 255" | (2+1)(2²+1)(2⁴+1) = **255**; the counts 1, 2, 4, …, 128 sum to **255** = 11111111₂ | exact |
@@ -122,6 +124,115 @@ contains `sourced`. The sources were downloaded on 2026-10-11 into a scratch fol
 | B-S7 | 01_5 "the requests swamp the sender" (unchecked in the walk) | feedback implosion | RFC 3453 §1 (Informational, December 2002) | SOURCED |
 | B-S8 | lower-thirds 07_6 "it's why hash mixers use odd multipliers" and 08_4 "finite fields exist exactly for prime-power sizes" (unchecked in the walk) | standard facts | Wikipedia, fetched 2026-10-11: "Hash function" (Fibonacci hashing), "Universal hashing" (multiply-shift), "Finite field" | SOURCED from secondary sources only. The arithmetic beside them is computed (B-F10: 3·171 = 513; B-F12) |
 | B-S9 | 15_1, 15_2, 16_3, 17_5, 14_8 | the RFC sentences the walk asked to quote | RFC 6330 §5.2, §5.3.3.4.2, §5.4.2.1, §1, §4.4.2 | SOURCED |
+
+## Rows added at R2 (2026-10-11)
+
+The R2 persona review (`docs/reviews/raptorq_gf256/R2.md`) changed words and pictures; every number those changes
+speak or show, and every exact version they send to the description (`description.md` beside this file), is keyed
+below. Every key is computed in `oracle.py`; the two literals are sourced constants with `sourced` in their keys.
+Nothing in the 397 earlier keys changed.
+
+### Keys added under existing rows
+
+| row | beat | keys and values | how computed |
+|---|---|---|---|
+| B-F6 | 13_6 lower-third "with ten pieces the sum stops at 1/1023: 1.6057" | `B-F6.last_term_denominator_K10` = **1023** (the screen's 1.6057 and 1.6067 are `B-F6.mean_spares_gf2_K10` and `B-F6.mean_spares_gf2`) | 2¹⁰ − 1 |
+| B-F7 | 13_4 "Fix every amount but one … exactly one choice of that amount lands in the lit part"; picture "255 land outside, 1 in" | exhaustive at two pieces: for all **257** lit lines of GF(256)², and each piece whose own card is off the line, every value of the other amount leaves exactly **1** of the 256 values of this one on the line (`B-F7.last_slot_exactly_one_amount_lit_exhaustive_K2_ok` = 1) | a 256 × 256 membership table per line (numpy) |
+| B-F9 | 16_5 lower-third, corrected (Ruth R3) | the ring of cards 2X + 2Y has rank **4** over GF(256) (stuck), its ten amounts multiply to 2¹⁰ = **116**, its ratios b/a to **1**: the R1 wording ("amounts multiply to 1") fails here, the ratio rule holds | `rank_gf256_py`; `pow_g` |
+| B-F9 | 13_7 "A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field" (Ruth R18) | 300 seeded random 6 × 6 0/1 matrices have the same rank over GF(2) and over GF(256), by three implementations (`…_300_random_ok` = 1) | `random.Random(1307)` |
+| B-F10 | 07_6 lower-third "it's why hash mixers use odd multipliers" (Dev dev-14) | **SOURCED** (B-S10): Linux's `GOLDEN_RATIO_32` = 0x61C88647 = **1,640,531,527** and `GOLDEN_RATIO_64` = 0x61C8864680B583EB; both are odd and have inverses mod 2³² and 2⁶⁴ (`…_ok` = 1) | `pow(g, -1, 2**w)` |
+| B-F13 | 11_7 table-multiply lower-third (Dev dev-03) | of the **65,025** nonzero pairs, the largest log sum is **508** (so EXP needs 510 entries) and **32,131** have LOG[a] + LOG[b] ≥ 256, where a `u8` sum wraps; the lower-third's multiply with `u16` logs equals the field on all 65,536 pairs (`…_ok` = 1) | exhaustive |
+| B-F15 | 14_1 lower-third "even ten times faster, still ≈ 1.2 h; the matrix alone is 2.5 GB; double the pieces, eight times the work" (Dev dev-09) | 50,000² = **2.5×10⁹** bytes; at 10¹⁰ steps a second **1.157 h**; (2K)³/K³ = **8** | exact |
+| B-F17 | 14_7 "On average, about seventy of them aren't in any card"; caption "≈ 70 of the 10,000 pieces" (Ruth R6, Dev dev-04) | at 2% extra, N = 10,200 cards: a piece is in no card with probability (1 − 4.816642/10,000)^10,200 = **0.7342%**, i.e. **73.42** pieces on average, one in **136.2**; at N = K (the old wording) one in **123.5** | each card of degree d misses a given piece with probability 1 − d/K, independently |
+| B-F21 | 15 "Model" note → description (Ruth R5); 17_2's reason → description (Maya M1) | the **shape model** at K′ = 10 (S + K′ + h uniform 0/1 rows and H = 10 uniform byte rows over L = 27 unknowns): failure **0.48939%**, **2.3576×10⁻⁵**, **1.2964×10⁻⁷** at h = 0, 1, 2; at h = 0 the ex-or part is **0.097624%** and the byte part **0.39215%**, and 1 − (1 − ex-or)(1 − byte) equals the rank sum exactly (`…_ok` = 1); h0/h1 = **207.6**; at h = 1 the extra ex-or row is useful with probability **0.99805**, and that case (a byte card left spare) is **64.85%** of the remaining failures | exact `Fraction` sum over the rank r of the 0/1 rows (the standard rank-r count), times P(H uniform byte rows span the other L − r directions) |
+| B-F22 | 17_3 lower-third (Dev dev-10); the description's two harnesses (Ruth R9) | dividing by 256 twice predicts 6,316/256² = **0.0964** failures in 10⁶ at K + 2; a Poisson count with that mean is ≥ 1 with probability **9.19%**; 646/10⁵ (B-F21) against 6,316/10⁶ (B-F22): pooled two-proportion z = **0.547** | exact; `expm1` |
+| B-F26 | 10_2 hint "Three times a byte is double it, ex-or itself"; 10_3 picture (Maya M4) | 3a = 2a ⊕ a under the rotation fold for all 256 bytes (`…_ok` = 1); 2·255 = **255** (11111111 rotates to itself); 255 ⊕ 255 = **0** | exhaustive |
+
+### New extra rows
+
+| id | beat | keys and values | source and check |
+|---|---|---|---|
+| B-X7 | 15_1–15_3, 15_6, 17_2: the precode (Ruth R1, Maya M2, M13, M22, Dev dev-01) | Every one of the L intermediate symbols ("every piece, old or new") has a nonzero entry in some precode row, for **all 477** K′ (`B-X7.precode_covers_every_intermediate_symbol_all_477_ok` = 1; built row by row for K′ = 10, 10,017 and 56,403 as a second route, `…_direct_ok` = 1). Each of C[0..B−1] goes into three **distinct** LDPC rows for all 477 K′ (S is an odd prime and a = 1 + ⌊i/S⌋ < S; the largest a is **2** at K′ = 10 and **41** at 10,017). Extra pieces S + H: **17** at ten pieces, **252** at 10,017; ex-or cards L − H: **17** of 27 and **10,258** of 10,269. Model: with exactly K′ = 10,017 packets, about **85.5** of the W = 10,111 LT symbols are in no packet (each packet's LT part hits a given one with probability d/W) | RFC 6330 §5.3.3.3 (quoted below). The dense HDPC part MT·Γ needs the V tables, which the oracle does not transcribe, so the coverage check leaves it out and is an undercount |
+| B-X8 | 14_8 "Any set of exactly enough packets rebuilds the picture"; lower-third "Reed–Solomon over GF(256): N ≤ 257 (q + 1)" (Ruth R18, Dev dev-14) | The doubly extended Reed–Solomon code with K = 3 and N = **257** columns, (1, a, a²) for the 256 bytes a and (0, 0, 1): **3,000** seeded triples of columns all have rank 3 (`random.Random(1408)`, `…_ok` = 1). At K = 2 the 257 columns (1, a), (0, 1) are all **257** directions of GF(256)², so every pair rebuilds (`…_ok` = 1) and no 258th column can be added | computed; no textbook was opened for the MDS bound (Dev's candidates are unverified and not cited) |
+
+### Source rows
+
+| id | beat | claim | source (read 2026-10-11) | status |
+|---|---|---|---|---|
+| B-S10 | 07_6 lower-third "it's why hash mixers use odd multipliers" (Dev dev-14) | real multiplicative hashes multiply by an odd constant | Linux `include/linux/hash.h` (https://github.com/torvalds/linux/blob/master/include/linux/hash.h; the latest commit touching it, `fd0a1462405b`, is dated 2022-01-20) | SOURCED, primary (code). Quoted below. It replaces B-S8's Wikipedia pages as the main source of this lower-third; B-S8 still backs "finite fields exist exactly for prime-power sizes". The file also cites Knuth vol. 3 §6.4 for the golden-ratio choice; Knuth was not opened and is not cited |
+| B-S11 | 17_7 credits lower-third "LT codes: Luby, 2002 · Raptor codes: Shokrollahi and Luby · RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer, Minder" (Ruth R20) | who made the codes | RFC 6330 header (p. 1) and §9.2 Informative References (p. 68), from the same file as above (sha256 `87f6da89…21ace`, re-downloaded 2026-10-11) | SOURCED as RFC 6330 cites them. The papers were not opened. RFC 6330's [RaptorCodes] is Shokrollahi and Luby's 2011 monograph, not the 2006 IEEE Trans. Inf. Theory paper Ruth named; that paper was not read and is not cited |
+
+### Quotes added at R2
+
+- **RFC 6330 §5.3.3.3, p. 22** (B-X7; 15_2 "picked so that some fixed cards all have the result zero"): *"The
+  pre-coding relationships amongst the L intermediate symbols are defined by requiring that a set of S+H linear
+  combinations of the intermediate symbols evaluate to zero."* and *"The P PI symbols consist of the H HDPC symbols
+  together with a set of U = P-H of the other K' intermediate symbols. The W LT symbols consist of the S LDPC symbols
+  together with W-S of the other K' intermediate symbols."* The LDPC loop, p. 23: *"a = 1 + floor(i/S)"*, *"b = i %
+  S"*, *"D[b] = D[b] + C[i]"*, *"b = (b + a) % S"* (three times), then for i = 0, …, S−1 *"D[i] = D[i] + C[W+a] +
+  C[W+b]"* with a = i % P, b = (i+1) % P. The HDPC relations, p. 24: *"Transpose[C[K'+S], ..., C[K'+S+H-1]] + MT *
+  GAMMA * Transpose[C[0], ..., C[K'+S-1]] = 0"*.
+- **RFC 6330 header, p. 1** (B-S11): authors *"M. Luby"*, *"A. Shokrollahi"*, *"M. Watson"*, *"T. Stockhammer"*, *"L.
+  Minder"*; *"August 2011"*. **§9.2, p. 68**: *"[LTCodes] Luby, M., "LT codes", Annual IEEE Symposium on Foundations
+  of Computer Science, pp. 271-280, November 2002."* and *"[RaptorCodes] Shokrollahi, A. and M. Luby, "Raptor Codes",
+  Foundations and Trends in Communications and Information Theory: Vol. 6: No. 3-4, pp. 213-322, 2011."*
+- **Linux `include/linux/hash.h`** (B-S10): *"This hash multiplies the input by a large odd number and takes the high
+  bits."*; *"Although a random odd number will do, it turns out that the golden ratio phi = (sqrt(5)-1)/2, or its
+  negative, has particularly nice properties."*; `#define GOLDEN_RATIO_32 0x61C88647` and `#define GOLDEN_RATIO_64
+  0x61C8864680B583EBull`.
+
+## Simplifications → exact (plan §5.1 rule 11; R2 Ruth R4)
+
+Every simplification the video speaks or shows, its exact version, and where a viewer finds it. "Description" means
+`description.md` beside this file, under the same beat id; the viewer-facing wording lives there.
+
+| beat | simplification | exact version | home | backing |
+|---|---|---|---|---|
+| 01_1 | "randomly loses about one packet in a hundred" | each phone loses each packet independently with probability 1% | description | B-F2, B-F24 |
+| 01_2, 17_4, 17_7 | "almost every phone that catches just two packets more than it needs" | RFC 6330 §5.8: at most 10⁻⁶ at K′ + 2, averaged over ESIs drawn uniformly from the whole range, for each K′ in Table 2; our runs drew from a fixed pool of the K originals and 20,000 repair packets; a phone that loses random packets from an originals-first stream holds a third mix that neither covers | 17_4 lower-third; description | B-F23, B-F22 |
+| 01_6 | "Most phones need two or three loops. The unluckiest of a million need five or six." | 99.005% of phones finish in loop 2 or 3; all 10⁶ are done by loop 5 with probability 0.3679 and by loop 6 with 0.9900 | description | B-F24 |
+| 01_8 | "about ninety-eight thousand", "≈ 23,500", "10,002" | K·H_K = 97,876.06 caught (98,864.7 sent); the carousel's 23,492.65 caught (23,729.95 sent); 10,002 caught (10,103.0 sent), all averages at 1% loss | screen ("average"); description | B-F1, B-F24 |
+| 03_5 | "useful" | linearly independent of the cards held; the bucket's filled slots are the rank | description | — |
+| 03_8 | "a packet's number tells the phone which pieces it mixed" | the ESI fixes the ISI, and Tuple[K′, ISI] fixes the mix | 03_8 lower-third | B-S4 |
+| 03_9 | "an internet standard since twenty eleven" | RFC 6330, IETF Proposed Standard, August 2011 | name card | B-S1 |
+| 05_2 | "With many pieces it fails seventy-one percent" | 1 − ∏(1 − 2⁻ⁱ), i = 1…K: 0.710930 at K = 10, 0.711212 in the limit (model: uniform 0/1 cards) | 05_2 lower-third; "model" label | B-F4, B-F5 |
+| 05_3, 05_4 | "Almost all the danger is in the last few slots" | the chance of failing outside the last three slots is 11.99% | description | B-F5.fail_gf2_h3 |
+| 06_2 | "each one after that roughly halves it" | 71.1% → 42.2% → 23.0% → 12.0%: factors 1.68, 1.84, 1.92, tending to 2 | description | B-F5 |
+| 06_3 | "about twenty spares" | the smallest h with failure ≤ 10⁻⁶ is 20 (9.54×10⁻⁷) | description | B-F28 |
+| 06_5 | "a card would hardly ever be useless" | with uniform amounts in a field, a last-slot card is useless with probability 1/256 (13_4); with wrap-around amounts it is still 1/2 (07) | description | B-F7, B-F25 |
+| 07_5, 07_6 | "only the last bit matters" | a matrix over Z/256 is invertible iff its determinant is odd iff it is invertible mod 2 | 07_6 lower-third | B-F25 |
+| 08_4 | "is called a field" | finite fields exist exactly for prime-power sizes | 08_4 lower-third | B-S8 |
+| 10_1, 10_3 | "the rotation" | reduction mod x⁸ + 1 = (x + 1)⁸, which has zero divisors (3·255 = 0) | description | B-F26 |
+| 10_4 | "a prime polynomial" | irreducible over GF(2); 0x11D is also primitive, 0x11B (AES) is not | 10 and 11_2 lower-thirds | B-F12 |
+| 10_6 | "So bytes form a field, the byte field" | GF(2)[x]/(x⁸ + x⁴ + x³ + x² + 1) ≅ GF(2⁸); all fields of order 256 are isomorphic; the polynomial is a choice of labels | 10_6 and 10 lower-thirds | B-F11, B-F12 |
+| 11_2 | "you visit every nonzero byte" | 2 is primitive under 0x11D; under 0x11B its order is 51 | 11_2 lower-third | B-F12 |
+| 11_7 | "That's how the standard multiplies" | RFC 6330 §5.7.2 defines × through OCT_EXP and OCT_LOG; implementations may use other kernels | description | B-S2 |
+| 11_7 | "every nonzero byte's partner sits at its mirror image" | log a⁻¹ ≡ 255 − log a (mod 255); 1 is its own partner; 0 has none | screen | B-F13 |
+| 13_4 | "Only one time in two fifty-six … exactly one choice of that amount" | fix the other amounts; for a piece whose own card is not lit, exactly one of its 256 amounts lands in the lit part | 13_4 lower-third | B-F7 (exhaustive at K = 2) |
+| 13_5 | "every extra byte card divides the risk by two fifty-six" | union bound 256⁻ʰ/255; exact 3.9215×10⁻³, 1.5319×10⁻⁵, 5.984×10⁻⁸ at h = 0, 1, 2 (model) | 13_5 lower-third | B-F8, B-F27 |
+| 13_6 | "Ex-or needs one or two spares on average" | 1.6057 at ten pieces; 1.6067 in the limit (Σ 1/(2ⁱ − 1), irrational, Erdős 1948); byte cards 0.0039 | screen; 13_6 lower-third | B-F6 |
+| 13_7 | "still an ex-or card, even in the byte field" | a 0/1 matrix has the same rank over GF(2) and over GF(256) | description | B-F9 |
+| 14_1 | "about the number of pieces, cubed, over three" | Gaussian elimination takes about K³/3 multiply-adds: 4.17×10¹³ at K = 50,000 | screen; 14_1 lower-third | B-F15 |
+| 14_2 | "About half mix two, and a few mix many" | RFC Table 1: P(2) = 1/2; P(d) ≈ 1/(d(d − 1)) for d = 2…29; mean 4.82 | 14_2 lower-third | B-F16 |
+| 14_6 | "most runs get stuck around ninety-eight percent"; "over a hundred pieces" | 5 seeded runs at 2% extra: 98.24–98.84% (one collapsed at 15.8%), 116–176 pieces missing | caption; description | B-F18 |
+| 14_7 | "On average, about seventy of them" | 10,000 (1 − 4.8166/10,000)^10,200 = 73.4 | description | B-F17 |
+| 14_8 | "Any set of exactly enough packets rebuilds"; "around two hundred fifty-six" | Reed–Solomon codes are MDS; over GF(256), N ≤ 257 (q + 1); RaptorQ allows 2²⁴ ESIs per block | 14_8 lower-third | B-X8, B-X3 |
+| 15_1 | "of about seven pieces on average" | 7.152 intermediate symbols per packet: Table 1's mean degree 4.82 plus 2.34 PI symbols (Rand[X, 3, 2] modelled as uniform) | screen; description | B-F16 |
+| 15_2 | "the sender adds some extra pieces … fixed cards all have the result zero" | S + H extra intermediate symbols; S LDPC and H HDPC relations evaluate to zero; packets are ex-or cards over all L symbols; the sender solves for all of them so the first K′ packets are the originals | 15_2 lower-third | B-S9, B-X7 |
+| 15_2 | "every piece is in some free card" | every intermediate symbol has a nonzero entry in a precode row, for all 477 K′; at 10,017 pieces about 85 of the 10,111 LT symbols are in no packet when exactly K′ arrive (model) | description | B-X7 |
+| 15_6 | "only ten to sixteen free cards are byte cards"; "hundreds of others" | H ∈ [10, 16] over the 477 K′ of Table 2; S = 241 at K′ = 10,017 | 15_6 lower-third (blocks); screen | B-F19 |
+| 15_3 | "they fill it up to the last ten to sixteen slots" | L − H = K′ + S ex-or rows at every K′: 17 of 27 at ten pieces, 10,258 of 10,269 at 10,017 | screen | B-X7 |
+| 15_3 | "useless only one time in two fifty-six" | model (uniform byte rows); the real HDPC rows are structured: random byte rows fail 0.685%, RFC rows 0.646% at K′ = 10 | description | B-F21 |
+| 15 | (description only) the shape model | random rows in RaptorQ's shape at K′ = 10 fail 0.489% = 1 − (1 − 0.0976%)(1 − 0.392%) | description | B-F21 |
+| 15_5 | "about six in a thousand" | 646 / 100,000 = 0.646% (our RFC 6330 constraint-matrix harness, ESIs uniform over 2²⁴); the decoder's 0.632% (17_1) agrees, z = 0.55 | caption; description | B-F21, B-F22 |
+| 16_1 | "In big blocks, RaptorQ's decoder mostly peels" | RFC §5.4.2.4: the rows solved one at a time are "generally much larger" in number than the inactivated columns | description | B-S3 |
+| 16_3 | "it works exactly when the cards pin down every piece" | decoding succeeds iff rank A = L, in any elimination order | 16_3 lower-third | B-S9 |
+| 16_5 | the ring | a ring of cards a·X + b·Y is stuck iff the ratios b/a multiply to 1 going around | 16_5 lower-third | B-F9 |
+| 17_1 | "a real RaptorQ decoder a million times" | raptorq 2.0.0 (Rust, cberner), K = 10, 10⁶ trials per h, packets drawn from a fixed pool of the 10 originals and 20,000 repair packets | caption; description | B-F22 |
+| 17_2 | "One more ex-or packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six" | shape model: the extra ex-or row is useful with probability 0.998, that case is 65% of the remaining failures, and the model's factor is 208; measured 6,316 / 24 = 263 | description | B-F21, B-F22 |
+| 17_3 | "too rare to measure precisely" | 1 in 10⁶, 95% interval 2.53×10⁻⁸ to 5.57×10⁻⁶; ÷256 twice predicts 0.096, and ≥ 1 happens 9.2% of the time | screen; 17_3 lower-third | B-F22, B-F23 |
+| 17_6 | "a standard for next-generation TV broadcasts"; "older sibling … two thousand five"; "Linux's disk arrays"; "every QR code" | ATSC A/331:2021 names RaptorQ, and its FEC is optional (Annex A.4.1); 3GPP chose Raptor (RFC 5053) for MBMS in 2005; Linux md RAID-6 (Anvin); ISO/IEC 18004:2006 §6.5.2 (only that edition read) | cards; description | B-S1, open items 2–4 |
+| 17_7 | "because a polynomial refuses to factor" | p irreducible ⇒ GF(2)[x]/(p) has no zero divisors ⇒ every nonzero row of the table is a reshuffle ⇒ it contains 1 | 10 lower-third | B-F11, B-F12 |
 
 ## Open items from the bead
 
@@ -378,6 +489,9 @@ that the oracle's computations contradict or qualify.
   `random.Random(1306)`), the loop rule (`B-F9.cycle_rule_*`, `random.Random(1605)`) and the carousel simulation
   (`B-F24.carousel_mc_*`, `random.Random(18)`). The exact keys beside them (`B-F6.mean_spares_gf*_K10`,
   `B-F24.carousel_mean_packets_*`) use no random numbers.
+- **R2's seeded keys, likewise:** `B-F9.rank_01_matrices_same_over_gf2_and_gf256_300_random_ok`
+  (`random.Random(1307)`) and `B-X8.rs_K3_N257_every_seeded_triple_rebuilds_ok` (`random.Random(1408)`). Both are
+  `_ok` checks that hold for any draw, so a Rust port may use its own generator.
 - **B-F14, B-F16 and B-F19 depend on the RFC tables transcribed into `oracle.py`.** The transcription is guarded in
   three ways:
   - a sha256 of Table 2 (`B-F19.table2_transcription_hash_ok`);
@@ -393,9 +507,17 @@ that the oracle's computations contradict or qualify.
 - **The official Intel SDM was not opened for GFNI.** The plan does not use GFNI.
 - **No key for the 03_8 picture "packet #48213 → pieces {…}".** The pieces would come from RFC 6330's Tuple[K′, X],
   which needs the V0–V3 tables (§5.5); the oracle does not transcribe them.
-- **How many columns RaptorQ's decoder parks while decoding is unmeasured** (D5). B-S3 rests on the RFC's
-  qualitative "generally much larger"; only the P symbols parked from the start are computed (B-F19).
-- **The 15 "Model" note (random rows in RaptorQ's shape fail ≈ 0.49% at K′ = 10) has no key.** It is for the
-  description, not the screen.
+- **How many columns RaptorQ's decoder parks while decoding is unmeasured, and so is its decode time** (D5; R2 Dev
+  dev-02, deferred to bead mx-e-b-qyy.10: the PyPI `raptorq` 2.0.0 harness is not installed on this machine). B-S3
+  rests on the RFC's qualitative "generally much larger"; only the P symbols parked from the start are computed
+  (B-F19). No RaptorQ decode cost is spoken; 15_1 states the packets' density (B-F16) instead.
+- **No run covers the phones' own packet mix** (R2 Ruth R2): originals first, each lost independently at 1%, then
+  repair packets. The standard's figures (B-F23) and our runs (B-F22, a fixed pool of the K originals and 20,000 repair packets) are
+  for other mixes; the description says so. The run (the existing `rq_mc.py` harness at K = 1,002 with that loss model) is
+  deferred to bead mx-e-b-qyy.10.
+- **The 15 "Model" note is keyed since R2** (`B-F21.shape_model.*`); it stays in the description, not on screen.
+- **Not opened, so not cited** (R2): Dev's RAID-DP / EVENODD papers (dev-07), Knuth's TAOCP vol. 3 and MacWilliams
+  and Sloane (dev-14), Ruth's "Shokrollahi, IEEE Trans. Inf. Theory 2006" (R20), and the LT and Raptor papers
+  themselves (B-S11 cites them only as RFC 6330 lists them).
 - **SAE J1850 itself and Williams's CRC paper were not opened**; B-X5 rests on the catalogue's attested entry and
   its codewords.

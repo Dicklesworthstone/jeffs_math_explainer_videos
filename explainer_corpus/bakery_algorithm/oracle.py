@@ -9,8 +9,9 @@ this folder):
 stdout: one `KEY<TAB>VALUE` line per fact, covering every row C-F1 ... C-F14 of
 the facts ledger in docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md
 section 11.5, plus supplementary rows C-X1 ... C-X3 for narrated claims the
-ledger does not list. Integers are printed without separators; lists are
-comma-separated strings; booleans are 1/0.
+ledger does not list, and (review round R2) the edge tests C-X4 ... C-X10 for
+the script's always/never sentences. Integers are printed without separators;
+lists are comma-separated strings; booleans are 1/0.
 
 stderr: provenance and cross-checks (lines starting with "#"), then a summary.
 The exit status is 1 if any cross-check failed. Values are never forced to
@@ -1038,8 +1039,327 @@ def row_cx3():
                   f"{where}; {secs:.1f}s")
 
 
+# ==========================================================================
+# R2 (2026-10-11): keys added for the R2 reviews. Every earlier key above is
+# unchanged; these rows run after them, so their output only appends.
+# ==========================================================================
+WAIT_LABEL = re.compile(r", wait$")
+
+
+def row_r2_counted_steps():
+    """dev-10: the traces counted the way the 02_4 lower-third counts (each read,
+    write and successful wait is one step): no 'start' moves, no blocked waits."""
+    for tag, variant, sched, N, K in (("a", "no_choosing", SCHED_A, 2, 5), ("a_prime", "correct", SCHED_A2, 2, 5),
+                                      ("d", "correct", SCHED_D, 4, 6)):
+        rows = run_schedule(Bakery(N, K, variant, any_order=(tag == "d")), sched)
+        counted = [lab for (_, lab, _, _) in rows if lab != "start" and not WAIT_LABEL.search(lab)]
+        emit(f"C-F6.{tag}.steps_counted", len(counted))
+        check(f"C-F6 {tag}: counted steps = all steps - start moves - blocked waits",
+              len(counted) == len(rows) - sum(1 for (_, lab, _, _) in rows if lab == "start" or WAIT_LABEL.search(lab)))
+    # 07_5 (M14): Green (2) is out of the room before Blue (1) checks her
+    rows = run_schedule(Bakery(4, 6, "correct", any_order=True), SCHED_D)
+    out2 = next(k for k, (p, lab, _, _) in enumerate(rows, 1) if p == 2 and lab.startswith("number[2]:=0"))
+    check1 = next(k for k, (p, lab, _, _) in enumerate(rows, 1) if p == 1 and lab.startswith("L2: choosing[2]"))
+    emit("C-F6.d.customer2_out_before_customer1_checks_her", out2 < check1)
+    # 10_2 (M6): Green (2) finished choosing, then saw Blue's (1) flag down, and only
+    # then did Blue start raising it for the ticket whose write Green glanced at
+    rows = run_schedule(Bakery(2, 9, "correct", safe=True, any_order=False), SCHED_E3)
+    done2 = next(k for k, (p, lab, _, _) in enumerate(rows, 1) if p == 2 and lab == "end choosing:=0")
+    saw = next(k for k, (p, lab, _, _) in enumerate(rows, 1) if p == 2 and lab == "L2: choosing[1]=0, pass")
+    raise1 = max(k for k, (p, lab, _, _) in enumerate(rows, 1) if p == 1 and lab == "begin choosing:=1")
+    emit("C-F6.e3.customer2_finished_choosing_at_step", done2)
+    emit("C-F6.e3.customer2_saw_customer1_flag_down_at_step", saw)
+    emit("C-F6.e3.customer1_began_raising_flag_again_at_step", raise1)
+
+
+def replay_tso(model, schedule):
+    """Replay (customer, label substring) steps on a store-buffer model; exactly one
+    of that customer's enabled transitions must match each step."""
+    st = model.initial()
+    for (p, sub) in schedule:
+        cands = [(lab, ns) for (i, lab, ns) in model.successors(st) if i == p - 1 and sub in lab]
+        if len(cands) != 1:
+            raise SystemExit(f"oracle: TSO replay step P{p} {sub!r} matched {len(cands)} transitions")
+        st = cands[0][1]
+    return st
+
+
+# 12_3-12_4 as voiced (R11): both raise flags, read, and write tickets into their
+# outboxes; then each checks the other's flag and slate. Nothing is ever flushed.
+SCHED_TSO_VOICED = [(1, "store choosing:=1"), (2, "store choosing:=1"),
+                    (1, "load number[2]=0"), (2, "load number[1]=0"),
+                    (1, "store number:=1"), (2, "store number:=1"),
+                    (1, "store choosing:=0"), (2, "store choosing:=0"),
+                    (1, "L2 load choosing[2]=0, pass"), (1, "L3 load number[2]=0, pass -> ENTER CS"),
+                    (2, "L2 load choosing[1]=0, pass"), (2, "L3 load number[1]=0, pass -> ENTER CS")]
+
+
+class OutOfOrderOutbox(bakery_tso.TSOBakery):
+    """dev-02 (description only): the x86-TSO model, except that an outbox may
+    deliver its stores to different slates in any order (stores to the same slate
+    stay in order). Not a model of Arm, which reorders in more ways."""
+
+    def successors(self, st):
+        out = list(super().successors(st))
+        loc, ch, nu, buf = st
+        for i in range(self.N):
+            for m in range(1, len(buf[i])):
+                kind, j, v = buf[i][m]
+                if any((k2, j2) == (kind, j) for (k2, j2, _) in buf[i][:m]):
+                    continue
+                ch2, nu2 = list(ch), list(nu)
+                (ch2 if kind == "c" else nu2)[j] = v
+                b2 = tuple(buf[i][:m] + buf[i][m + 1:] if k == i else buf[k] for k in range(self.N))
+                out.append((i, f"flush {'choosing' if kind == 'c' else 'number'}[{j+1}]={v} to memory (out of order)",
+                            (loc, tuple(ch2), tuple(nu2), b2)))
+        return out
+
+
+def row_r2_tso():
+    # R11: the voiced 12_3 order
+    m = bakery_tso.TSOBakery(2, 4, ())
+    st = replay_tso(m, SCHED_TSO_VOICED)
+    emit("C-F9.voiced.steps", len(SCHED_TSO_VOICED))
+    emit("C-F9.voiced.in_room_at_end", len(m.in_cs(st)))
+    emit("C-F9.voiced.memory_choosing_at_end", fmt_list(st[1]))
+    emit("C-F9.voiced.memory_tickets_at_end", fmt_list(st[2]))
+    emit("C-F9.voiced.outboxes_at_end", ";".join(",".join(f"{k}{j + 1}={v}" for (k, j, v) in b) for b in st[3]))
+    # dev-02: out-of-order delivery breaks the two x86 fences (model, not Arm)
+    for fences, tag in ((("F1", "F2"), "f1_f2"),):
+        mdl = OutOfOrderOutbox(2, 4, fences)
+        (n, bad, tr), secs = timed(bakery_tso.explore_tso, mdl)
+        emit(f"C-F9.ooo_outbox.{tag}.states", n)
+        emit(f"C-F9.ooo_outbox.{tag}.violation_found", bad is not None)
+        if bad is not None:
+            emit(f"C-F9.ooo_outbox.{tag}.shortest_violation_steps", len(tr))
+            # does someone pass on a flag that came down before that customer's ticket landed?
+            early = 0
+            for lab, s in tr:
+                mm = re.match(r"P(\d): flush choosing\[(\d)\]=0 to memory", lab)
+                if mm and any(k == "n" and v > 0 for (k, _, v) in s[3][int(mm.group(1)) - 1]):
+                    early = 1
+            emit(f"C-F9.ooo_outbox.{tag}.flag_lands_before_ticket_in_trace", early)
+        tso = bakery_tso.explore_tso(bakery_tso.TSOBakery(2, 4, fences))
+        check(f"C-F9 ooo {tag}: in-order delivery is a subset (x86-TSO {tag} still holds)",
+              tso[1] is None and n >= tso[0], f"x86-TSO {tso[0]:,} states, out of order {n:,}; {secs:.1f}s")
+
+
+def holders(model, st):
+    """Customers holding a ticket: a nonzero committed slate, not already mid-exit-write."""
+    return [k for k in range(model.N) if st[2][k] != 0 and not model._writing_number(st, k)]
+
+
+def row_r2_always_never():
+    """R4: always/never sentences tested at their edges, one BFS per bound.
+    C-X4 (08_3, 04_6): whoever is in the room holds the smallest pair of everyone
+    holding a ticket, flag still up included. C-X6 (05_8): all flags up at once is
+    reachable. C-X7 (11_3): the largest ticket held drops only to zero."""
+    for (N, K, safe) in ((3, 5, False), (3, 4, True)):
+        tag = f"n{N}_k{K}_{'safe' if safe else 'atomic'}"
+        m = Bakery(N, K, "correct", safe=safe)
+        init = m.initial()
+        seen, q = {init}, deque([init])
+        checks = viol = flags_up = drops = drops_nonzero = 0
+        t0 = time.time()
+
+        def top(s):
+            return max((s[2][k] for k in holders(m, s)), default=0)
+
+        while q:
+            s = q.popleft()
+            for c in m.in_cs(s):
+                for k in holders(m, s):
+                    if k != c:
+                        checks += 1
+                        viol += not ((s[2][c], c) < (s[2][k], k))
+            flags_up |= all(x == 1 for x in s[1])
+            h = top(s)
+            for (_, _, ns) in m.successors(s):
+                h2 = top(ns)
+                if h2 < h:
+                    drops += 1
+                    drops_nonzero += h2 != 0
+                if ns not in seen:
+                    seen.add(ns)
+                    q.append(ns)
+        emit(f"C-X4.fact_two_all_holders.{tag}.states", len(seen))
+        emit(f"C-X4.fact_two_all_holders.{tag}.checks", checks)
+        emit(f"C-X4.fact_two_all_holders.{tag}.violations", viol)
+        emit(f"C-X6.all_flags_up_at_once_reachable.{tag}", flags_up)
+        emit(f"C-X7.largest_ticket_drops.{tag}", drops)
+        emit(f"C-X7.largest_ticket_drops_to_nonzero.{tag}", drops_nonzero)
+        mm, where = recorded("sweep_safety.txt", rf"N={N} K={K} correct\s+{'safe' if safe else 'atomic'}\s+states=\s*([\d,]+)")
+        check(f"C-X4 {tag}: BFS state count equals the recorded safety sweep", num(mm.group(1)) == len(seen),
+              f"{where}; {time.time() - t0:.1f}s")
+
+
+TICKET_DONE = re.compile(r"^(?:end )?number\[(\d+)\]:=([1-9]\d*)$")
+
+
+def bypass_bfs(m):
+    """C-X5: BFS over (state, ghost) from the start. ghost = (active, counts): for
+    each customer i whose ticket write has finished and who has not yet entered,
+    counts[i][k] = room entries by k since then (capped at 2). Returns the number
+    of ghost states and the largest count reached."""
+    N = m.N
+    g0 = (tuple(0 for _ in range(N)), tuple(tuple(0 for _ in range(N)) for _ in range(N)))
+    seen = {(m.initial(), g0)}
+    q = deque(seen)
+    worst = 0
+    while q:
+        s, (active, counts) = q.popleft()
+        for (p, lab, ns) in m.successors(s):
+            if ns == s:
+                continue
+            a2, c2 = list(active), [list(r) for r in counts]
+            if TICKET_DONE.match(lab):
+                a2[p] = 1
+                c2[p] = [0] * N
+            if "ENTER CS" in lab:
+                for i in range(N):
+                    if i != p and a2[i]:
+                        c2[i][p] = min(2, c2[i][p] + 1)
+                        worst = max(worst, c2[i][p])
+                a2[p] = 0
+                c2[p] = [0] * N
+            g2 = (tuple(a2), tuple(tuple(r) for r in c2))
+            if (ns, g2) not in seen:
+                seen.add((ns, g2))
+                q.append((ns, g2))
+    return len(seen), worst
+
+
+def frozen_bfs(m, starts, c):
+    """C-X8, C-X9: customer c never moves again. BFS over (state, entries) from
+    every start state, where entries[k] counts k's room entries since the freeze
+    (capped at 2). Returns the number of ghost states, the largest count, and how
+    many room entries were by a customer whose pair is bigger than c's."""
+    N = m.N
+    g0 = tuple(0 for _ in range(N))
+    seen = {(s, g0) for s in starts}
+    q = deque(seen)
+    worst = behind = 0
+    while q:
+        s, g = q.popleft()
+        for (p, lab, ns) in m.successors(s):
+            if p == c or ns == s:
+                continue
+            g2 = g
+            if "ENTER CS" in lab:
+                behind += (ns[2][p], p) > (s[2][c], c)
+                g2 = g[:p] + (min(2, g[p] + 1),) + g[p + 1:]
+                worst = max(worst, g2[p])
+            if (ns, g2) not in seen:
+                seen.add((ns, g2))
+                q.append((ns, g2))
+    return len(seen), worst, behind
+
+
+def reachable(m):
+    init = m.initial()
+    seen, q = {init}, deque([init])
+    while q:
+        s = q.popleft()
+        for (_, _, ns) in m.successors(s):
+            if ns not in seen:
+                seen.add(ns)
+                q.append(ns)
+    return seen
+
+
+def row_r2_liveness_edges():
+    """R4 / dev-03. C-X5 (11_2): once your ticket is written, each other customer
+    enters at most once before you. C-X8 (11_7): customer 1 frozen with her flag up;
+    each other customer enters at most once more, then everyone stalls. C-X9 (11
+    costs card): customer 1 paused while waiting in line (past choosing, at L2 or
+    L3); nobody whose pair is bigger than hers ever enters."""
+    for (N, K, safe) in ((3, 4, False), (3, 3, True)):
+        tag = f"n{N}_k{K}_{'safe' if safe else 'atomic'}"
+        m = Bakery(N, K, "correct", safe=safe)
+        (n, worst), secs = timed(bypass_bfs, m)
+        emit(f"C-X5.bypass_from_ticket_write.{tag}.ghost_states", n)
+        emit(f"C-X5.bypass_from_ticket_write.{tag}.worst", worst)
+        note(f"C-X5 {tag}: {secs:.1f}s")
+        states = reachable(m)
+        check(f"C-X5 {tag}: reachable states equal the recorded safety sweep",
+              len(states) == num(recorded("sweep_safety.txt",
+                                          rf"N={N} K={K} correct\s+{'safe' if safe else 'atomic'}\s+states=\s*([\d,]+)")[0].group(1)))
+        doorway = (bakery_mc.RD, bakery_mc.RD2, bakery_mc.WN, bakery_mc.WC0)
+        choosing = [s for s in states if s[1][0] == 1 and s[0][0][0] in doorway]
+        in_line = [s for s in states if s[0][0][0] in (bakery_mc.L2, bakery_mc.L3)]
+        for label, starts in (("C-X8.frozen_while_choosing", choosing), ("C-X9.paused_in_line", in_line)):
+            (n2, worst2, behind), secs = timed(frozen_bfs, m, starts, 0)
+            emit(f"{label}.{tag}.start_states", len(starts))
+            emit(f"{label}.{tag}.worst_entries_per_other_customer", worst2)
+            if label == "C-X9.paused_in_line":
+                emit(f"{label}.{tag}.entries_by_customers_behind_her", behind)
+            note(f"{label} {tag}: {n2:,} ghost states, {secs:.1f}s")
+
+
+def row_r2_choosing_overlap():
+    """11_1: two customers, one visit each, the oracle's own engine. If their
+    choosing times overlap, either may enter first; if not, the one who finished
+    choosing first enters first."""
+    progs = bakery_progs(2, True, "lex")
+    tally = {"overlap": 0, "disjoint": 0, "disjoint_ok": True, "overlap_first": set()}
+
+    def go(pcs, mem, ms, overlapped, first, first_chooser):
+        moved = False
+        for i, p in enumerate(progs):
+            if pcs[i] >= len(p):
+                continue
+            r = apply_op(p[pcs[i]], i, 2, mem, ms[i])
+            if r is None:
+                continue
+            moved = True
+            p2 = list(pcs)
+            p2[i] += 1
+            ms2 = list(ms)
+            ms2[i] = r[1]
+            mem2 = r[0]
+            ov = overlapped or (mem2[0] == 1 and mem2[1] == 1)
+            fc = first_chooser if first_chooser is not None else (i if p[pcs[i]] == ("set_flag", 0) else None)
+            f2 = first if first is not None else (i if p2[i] == len(p) - 1 else None)
+            go(tuple(p2), mem2, tuple(ms2), ov, f2, fc)
+        if not moved:
+            if overlapped:
+                tally["overlap"] += 1
+                tally["overlap_first"].add(first + 1)
+            else:
+                tally["disjoint"] += 1
+                tally["disjoint_ok"] &= first == first_chooser
+
+    go((0, 0), (0, 0, 0, 0), (0, 0), False, None, None)
+    emit("C-X10.choosing_overlaps.n2_one_visit.orders", tally["overlap"])
+    emit("C-X10.choosing_overlaps.n2_one_visit.first_to_enter_can_be", fmt_list(sorted(tally["overlap_first"])))
+    emit("C-X10.choosing_disjoint.n2_one_visit.orders", tally["disjoint"])
+    emit("C-X10.choosing_disjoint.n2_one_visit.first_to_finish_choosing_enters_first", tally["disjoint_ok"])
+    progs_total = len(enumerate_paths(progs, 2, (0,) * 4))
+    check("C-X10 overlapping + disjoint orders = every order (C-F3.flag.orders)",
+          tally["overlap"] + tally["disjoint"] == progs_total, f"{progs_total} orders")
+
+
+def row_r2_misc():
+    # R4 / 11 "Precisely": the double-fetch max needs reads that can return garbage
+    for K in (4, 5):
+        r, secs = timed(explore, Bakery(3, K, "double_fetch"))
+        emit(f"C-F6.double_fetch.n3_k{K}_atomic.states", r["states"])
+        emit(f"C-F6.double_fetch.n3_k{K}_atomic.violation_found", r["bad"] is not None)
+        mm, where = recorded("sweep_safety.txt", rf"N=3 K={K} double_fetch\s+atomic\s+states=\s*([\d,]+) pruned=\s*([\d,]+) result=(\S+)")
+        check(f"C-F6 double-fetch N=3 K={K} atomic matches recording",
+              (num(mm.group(1)), mm.group(3) == "OK") == (r["states"], r["bad"] is None), f"{where}; {secs:.1f}s")
+    # M7 / R6: 11_5 says "up to about thirty-one and a half billion"
+    emit("C-F10.ms_per_year_billions_to_nearest_half", round(365.25 * 86400 * 1000 / 1e9 * 2) / 2)
+    # dev-08: Python's tuples compare in dictionary order on the C-F13 grid
+    grid = [(tj, ti, jj, ii) for tj, ti in product(range(5), repeat=2) for jj, ii in product(range(4), repeat=2) if jj != ii]
+    emit("C-F13.python_tuple_compare_equals_lexicographic_on_every_grid_case",
+         all(((tj, jj) < (ti, ii)) == (tj < ti or (tj == ti and jj < ii)) for tj, ti, jj, ii in grid))
+
+
 ROWS = [row_cf1, row_cf2, row_cf3, row_cf4, row_cf5, row_cf6, row_cf7, row_cf8, row_cf9,
-        row_cf10, row_cf11, row_cf12, row_cf13, row_cf14, row_cx1, row_cx2, row_cx3]
+        row_cf10, row_cf11, row_cf12, row_cf13, row_cf14, row_cx1, row_cx2, row_cx3,
+        row_r2_counted_steps, row_r2_tso, row_r2_always_never, row_r2_liveness_edges,
+        row_r2_choosing_overlap, row_r2_misc]
 
 if __name__ == "__main__":
     for row in ROWS:
