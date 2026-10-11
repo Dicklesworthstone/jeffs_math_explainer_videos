@@ -55,6 +55,36 @@ pub fn cloud(grains: &[Grain], seconds: f64) -> Stereo {
     out
 }
 
+/// A motif as a sonification: `motif`'s scale degrees in `identity`'s key
+/// (moved by `octaves`), at the identity's beat, each note on `inst` at
+/// `velocity` (round-robin variation from `seed`), in a buffer that rings
+/// one second past the last note. Every scene that sounds the video's tune
+/// (the bakery's "served" in each customer's timbre: `identity.resolution`)
+/// gets the very same notes this way. Returns the buffer and the onsets.
+pub fn motif(
+    identity: &crate::score::Identity,
+    motif: &crate::theory::Motif,
+    inst: crate::instr::Instrument,
+    octaves: i32,
+    velocity: f64,
+    seed: u64,
+) -> (Stereo, Vec<f64>) {
+    let pitches = motif.pitches(&identity.key, identity.tonic_midi + 12 * octaves);
+    let mut onsets = Vec::new();
+    let mut t = 0.0;
+    for d in &motif.durations {
+        onsets.push(t);
+        t += d * identity.beat_s;
+    }
+    let mut out = Stereo::silence(((t + 1.0) * FS).round() as usize);
+    for (k, (&p, &start)) in pitches.iter().zip(&onsets).enumerate() {
+        let hold = motif.durations[k] * identity.beat_s * 1.2;
+        let note = crate::instr::Note::new(f64::from(p), velocity, hold, seed.wrapping_add(k as u64));
+        out.mix_in(&crate::instr::render(inst, &note), (start * FS).round() as usize, 1.0);
+    }
+    (out, onsets)
+}
+
 /// The pitch nearest `pitch` whose pitch class is one of `classes` (0 = C);
 /// a tie goes down. Data mapped to pitch stays in the video's key this way.
 pub fn snap(pitch: f64, classes: &[u8]) -> f64 {
@@ -127,6 +157,40 @@ mod tests {
         let left = cloud(&[Grain { pan: -1.0, ..g(0.1) }], 0.5);
         assert!(left.r.iter().all(|&x| x.abs() < 1e-12));
         assert!(left.l.iter().any(|&x| x.abs() > 0.1));
+    }
+
+    #[test]
+    fn the_bakery_s_served_is_one_tune_in_every_timbre() {
+        use crate::instr::Instrument;
+        let id = crate::score::Identity::bakery_algorithm();
+        // "served" 5̂–4̂–2̂–1̂ from B♭3: F4 E♭4 C4 B♭3, eighths then a dotted quarter
+        assert_eq!(id.resolution.pitches(&id.key, id.tonic_midi), vec![65, 63, 60, 58]);
+        let scale = id.listen_scale();
+        assert!(
+            id.resolution
+                .pitches(&id.key, id.tonic_midi)
+                .iter()
+                .all(|p| scale.contains(&p.rem_euclid(12)))
+        );
+        let mut onsets = Vec::new();
+        for (k, inst) in [
+            Instrument::FeltPiano,
+            Instrument::Marimba,
+            Instrument::Pluck,
+            Instrument::FmEp,
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let (s, o) = motif(&id, &id.resolution, inst, 0, 0.5, 7 + k as u64);
+            assert!(s.is_finite() && s.peak() > 0.01, "{inst:?}");
+            let last = o.last().copied().unwrap();
+            assert!((s.len() as f64 / FS - (last + 1.5 * id.beat_s + 1.0)).abs() < 1e-3);
+            onsets.push(o);
+        }
+        // the same rhythm in every timbre
+        assert!(onsets.windows(2).all(|w| w[0] == w[1]));
+        assert!((onsets[0][1] - 0.5 * id.beat_s).abs() < 1e-12);
     }
 
     #[test]

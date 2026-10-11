@@ -171,9 +171,14 @@ impl Identity {
             .collect()
     }
 
-    /// The theme a soundless listen window labelled `label` asks for.
+    /// The theme a soundless listen window labelled `label` asks for: its
+    /// storyboard id alone (`13_4`) or with the chapter's key or a tag
+    /// around it (`13_proudest:13_4`, as the animatic writes).
     pub fn theme_for(&self, label: &str) -> Option<Theme> {
-        self.themes.iter().find(|t| t.0 == label).map(|t| t.1)
+        self.themes
+            .iter()
+            .find(|t| label.split(':').any(|part| part == t.0))
+            .map(|t| t.1)
     }
 
     /// Refuse an identity the engine cannot play: an empty progression, a
@@ -2945,6 +2950,12 @@ mod tests {
                 .iter()
                 .all(|m: &i32| b.listen_scale().contains(&m.rem_euclid(12)))
         );
+        // a window's label names its storyboard id alone or with its chapter
+        assert_eq!(c.theme_for("13_4"), Some(Theme::Resolved));
+        assert_eq!(c.theme_for("13_proudest:13_4"), Some(Theme::Resolved));
+        assert_eq!(c.theme_for("01_one_plus_one_is_one:01_3"), Some(Theme::Open));
+        assert_eq!(c.theme_for("13_proudest:13_40"), None);
+        assert_eq!(c.theme_for("03_take_a_number:03_6"), None);
         // every theme names a window, every mood real chords
         for id in [a, b, c] {
             id.validate().unwrap();
