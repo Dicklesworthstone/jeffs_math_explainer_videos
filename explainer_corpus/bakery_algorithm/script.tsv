@@ -11,7 +11,7 @@
 02_2	Put a sign on the door. Check that it says vacant, flip it to occupied, and go in.
 02_3	Does the sign work?
 02_4	No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once.
-02_5	Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works.
+02_5	Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who isn't trying to get in can stop without holding up anyone else. And fast or slow, it still works.
 02_6	A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually.
 02_7	Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip.
 02_8	Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.

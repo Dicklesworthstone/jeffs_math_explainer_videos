@@ -65,7 +65,11 @@ outside its critical section, this is not allowed to lead to potential
 blocking of the others." "(d) If more than one computer is about to enter its
 critical section, it must be impossible to devise for them such finite speeds,
 that the decision to determine which one of them will enter its critical
-section first is postponed until eternity." Rule (d) already asks that
+section first is postponed until eternity." "Stopped well outside its
+critical section" means stopped where it isn't trying to get in, Lamport's
+noncritical section (1974, condition 3, p. 454): a customer frozen while
+choosing, or paused in line, does hold up the others (chapter 11 and
+"Costs" below). Rule (d) already asks that
 somebody gets in; Knuth's 1966 addition is that everyone who wants in
 eventually gets in (Lamport 1986: "This requirement was first stated and
 satisfied by Knuth"). [C-S1, C-F14]

@@ -299,6 +299,18 @@ const PICTO_Y: f64 = -0.2;
 const PICTO_SIZE: f64 = 2.3;
 const PICTO_X: [f64; 4] = [-4.65, -1.55, 1.55, 4.65];
 
+/// A pictogram's caption under it, wrapped to two short centred lines so
+/// neighbours never touch.
+fn caption(kit: &Kit, stage: &mut Stage<'_>, text: &str, x: f64) -> fmn::Result<Mob> {
+    let lines = explainer_kit::animatic::wrap(text, 22, 2);
+    let top = PICTO_Y - PICTO_SIZE / 2.0 - 0.36;
+    let mut mobs = Vec::new();
+    for (i, l) in lines.iter().enumerate() {
+        mobs.push(kit.text(stage, l, 24.0, Palette::ink(), v(x, top - 0.34 * i as f64))?);
+    }
+    group(stage, &mobs)
+}
+
 fn rules(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let line = say(kit, stage, "02_5")?;
     let name = kit.text(
@@ -310,18 +322,12 @@ fn rules(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     )?;
     play!(stage; write(stage.arena(), name).rt(0.9));
     let captions = [g::RULE_1, g::RULE_2, g::RULE_3, g::RULE_4];
-    let phrases = ["Never two", "Someone who stops", "And fast or slow"];
+    let phrases = ["Never two", "Someone who isn't", "And fast or slow"];
     let mut pictures = Vec::new();
     for (i, phrase) in phrases.into_iter().enumerate() {
         line.wait_for(stage, phrase)?;
         let pic = pictogram(kit, stage, i + 1, v(PICTO_X[i], PICTO_Y), PICTO_SIZE)?;
-        let cap = kit.text(
-            stage,
-            captions[i],
-            24.0,
-            Palette::ink(),
-            v(PICTO_X[i], PICTO_Y - PICTO_SIZE / 2.0 - 0.38),
-        )?;
+        let cap = caption(kit, stage, captions[i], PICTO_X[i])?;
         play!(stage;
             fade_in(stage.arena_mut(), pic, v(0.0, 0.2), 0.9)?.rt(0.6),
             fade_in(stage.arena_mut(), cap, ORIGIN, 1.0)?.rt(0.6),
@@ -344,13 +350,7 @@ fn rules(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     );
     line.wait_for(stage, "Everyone who wants in")?;
     let pic = pictogram(kit, stage, 4, v(PICTO_X[3], PICTO_Y), PICTO_SIZE)?;
-    let cap = kit.text(
-        stage,
-        captions[3],
-        24.0,
-        Palette::ink(),
-        v(PICTO_X[3], PICTO_Y - PICTO_SIZE / 2.0 - 0.38),
-    )?;
+    let cap = caption(kit, stage, captions[3], PICTO_X[3])?;
     play!(stage;
         fade_in(stage.arena_mut(), pic, v(0.0, 0.2), 0.9)?.rt(0.6),
         fade_in(stage.arena_mut(), cap, ORIGIN, 1.0)?.rt(0.6),

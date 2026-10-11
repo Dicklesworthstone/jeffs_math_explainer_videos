@@ -87,7 +87,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, and go in. | Sign | sign prop |  |
 | 02_3 | ⟨predict⟩ Does the sign work? | The two lanes walk up to the sign | prediction card |  |
 | 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; lower-third "counting each read, write and successful wait as one step" | progress square |  |
-| 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed lane outside the room that the other passes; lanes stretching in time | pictograms |  |
+| 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who isn't trying to get in can stop without holding up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed, idle lane (not trying to get in) that the other passes; lanes stretching in time | pictograms |  |
 | 02_6 | A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually. | Pictogram 4: every lane eventually reaches the room | pictograms |  |
 | 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
 | 02_8 | Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
@@ -100,6 +100,12 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
   second rule is Dijkstra's (c), "not allowed to lead to potential blocking of
   the others", hence "anyone else" (R2 dev-07, R12); the description quotes
   (a)–(d).
+- **Rule 2 (Codex R9, 2026-10-11):** Dijkstra's "stopped well outside its
+  critical section" is Lamport's noncritical section (1974, condition 3,
+  p. 454), not everywhere outside the room: a customer frozen while choosing,
+  or paused in line, does stall the others (11_7, `C-X8`; the costs card,
+  `C-X9`). Hence "isn't trying to get in", and the pictogram's caption says
+  idle.
 - **Pictograms (creative C-12):** rule 1 is ticked at 08_8 ("never two in the
   room: done"), rule 4 at 11_2.
 
