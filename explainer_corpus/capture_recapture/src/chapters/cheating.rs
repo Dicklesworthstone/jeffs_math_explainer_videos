@@ -184,7 +184,8 @@ fn sonification(k: &[u32]) -> std::io::Result<std::path::PathBuf> {
         .max_by_key(|&v| k.iter().filter(|&&x| x == v).count())
         .unwrap_or(100);
     let swell = Note::new(pitch_of(mode), 0.55, 1.2, 977);
-    let at = ONE_BY_ONE as f64 * STEP_S + 0.6 * WASH_S;
+    // the note that matters sounds before the score's fade
+    let at = (ONE_BY_ONE as f64 * STEP_S + 0.6 * WASH_S).min(WINDOW_S - SCORE_FADE_S - 0.4);
     out.mix_in(&render(Instrument::Vibraphone, &swell), (at * fs) as usize, 0.6);
     let lufs = explainer_score::meter::integrated(&out);
     out.scale(10f64.powf((-23.0 - lufs) / 20.0));
