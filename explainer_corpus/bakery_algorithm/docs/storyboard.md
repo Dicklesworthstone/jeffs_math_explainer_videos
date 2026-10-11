@@ -231,7 +231,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 08_5 | There are three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15) | zones |  |
 | 08_6 | In the middle of choosing. Then Green's flag was up, and that check wouldn't have let Blue through. | Zone "choosing", forbidden | zones |  |
 | 08_7 | Finished choosing. Then Blue had read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. And that's fact two. | Zone "done" | zones |  |
-| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue); pictogram rule 1 ticks | TransformMatchingTex | hold |
+| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue); pictogram rule 1 ticks | TransformMatchingTex |  |
 | 08_9 | A computer search agrees, over every order, up to four customers, as long as tickets stay small. Only the proof covers every case. | Card "N = 4, tickets ≤ 4 (runs that would pass 4 are cut), indivisible reads and writes: 3,027,633 reachable states, no violation", then "every N" | card |  |
 
 - **Precisely (description, "Precisely" 08):** Lemma 1 and Lemma 2 exactly as
@@ -244,6 +244,8 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 - **R2:** 08_5 now says why fact one applies (M15); paid for by 08_9's shorter
   last sentence, so the chapter stays under the cap.
 - **Music:** swing drops out for 08–10 (rubato, a pedal under the lemmas).
+- **08_8 (G2, mx-e-c-7v0.9):** no music hold: rule 1's pictogram ticks
+  after "Impossible." (about 1 s), then 08_9; narrated 82.9 s.
 
 ## 09_reading_garbage_safely (~85 s)
 
