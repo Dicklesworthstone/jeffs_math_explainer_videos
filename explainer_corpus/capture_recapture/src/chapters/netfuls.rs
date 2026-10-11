@@ -38,7 +38,7 @@ const BIN_COLS: usize = 40;
 const BIN_GAP: f64 = 0.3;
 const BIN_FLOOR: f64 = -2.15;
 /// The pour: departures spread over this long, each flight this long.
-const SPREAD: f64 = 3.6;
+const SPREAD: f64 = 3.0;
 const FLIGHT: f64 = 0.8;
 
 /// Every netful of the toy lake, in lexicographic order.
@@ -286,6 +286,7 @@ impl SceneConstruct for Netfuls {
         let picks = flashes[flashes.len() - 1];
         let mut away = vec![net_words];
         away.extend(&shown);
+        kit.say(stage, "04_3")?;
         fade_out_all(stage, &away, 0.4)?;
         // the pond moves left
         let left = v(-4.35, 0.2);
@@ -302,7 +303,6 @@ impl SceneConstruct for Netfuls {
                 .shift([left[0] - pond_c[0], left[1] - pond_c[1], 0.0])?;
             moves.push(stage.prepare(a)?);
         }
-        kit.say(stage, "04_3")?;
         stage.play_prepared(moves)?;
         let small = |p: Vec3| v(left[0] + 0.62 * (p[0] - pond_c[0]), left[1] + 0.62 * (p[1] - pond_c[1]));
         // four slots, first to fourth; each pick's choices under it
@@ -437,7 +437,8 @@ impl SceneConstruct for Netfuls {
         kit.hold(stage)?;
 
         // 04_4: every netful, and five empty piles by marked fish
-        fade_all(stage, 0.6)?;
+        kit.say(stage, "04_4")?;
+        fade_all(stage, 0.5)?;
         let mut glyphs = Vec::with_capacity(total);
         for (i, net) in nets.iter().enumerate() {
             glyphs.push(stage.arena_mut().add(glyph(net, &marked, source_cell(i))));
@@ -476,7 +477,6 @@ impl SceneConstruct for Netfuls {
                 v(bin_centre(k) - 0.45, label_y),
             )?);
         }
-        kit.say(stage, "04_4")?;
         stage.add_many_to_scene(&glyphs)?;
         let mut intro = vec![title, bins];
         intro.extend(&bin_labels);
@@ -617,7 +617,13 @@ impl SceneConstruct for Netfuls {
         )?;
         fade_in_all(stage, &[vandermonde], 0.6)?;
         kit.hold(stage)?;
-        // the piles settle into solid bars of the same areas
+        // 04_7: the two-marked pile is 10 marked pairs times 105 unmarked
+        // pairs, like shirts and pants; the chart shrinks out of the way
+        let two = 2usize;
+        let pivot = v(0.0, -2.6);
+        let shrunk = 0.5;
+        kit.say(stage, "04_7")?;
+        // the piles settle into solid bars of the same areas (under the line)
         let mut blocks = Vec::new();
         for k in 0..=NET {
             blocks.push(stage.arena_mut().add(rect(
@@ -627,21 +633,14 @@ impl SceneConstruct for Netfuls {
                 flat(Role::chance(), 0.9),
             )?));
         }
-        fade_in_all(stage, &blocks, 0.6)?;
+        fade_in_all(stage, &blocks, 0.5)?;
         let mut gone: Vec<Mob> = glyphs.clone();
         gone.extend([glow, soup, vandermonde, title, bins]);
-        fade_out_all(stage, &gone, 0.4)?;
+        fade_out_all(stage, &gone, 0.3)?;
         let mut chart: Vec<Mob> = blocks.clone();
         chart.extend(&bin_labels);
         chart.extend(&count_tags);
-
-        // 04_7: the two-marked pile is 10 marked pairs times 105 unmarked
-        // pairs, like shirts and pants; the chart shrinks out of the way
-        let two = 2usize;
-        let pivot = v(0.0, -2.6);
-        let shrunk = 0.5;
         let others: Vec<Mob> = (0..=NET).filter(|&k| k != two).map(|k| blocks[k]).collect();
-        kit.say(stage, "04_7")?;
         let anims = rescale(stage, &chart, shrunk, pivot, (&others, 0.25), 0.8)?;
         stage.play_prepared(anims)?;
         let (mp, up) = (choose(MARKED as u64, 2), choose((LAKE - MARKED) as u64, 2));
@@ -732,8 +731,8 @@ impl SceneConstruct for Netfuls {
         kit.hold(stage)?;
 
         // 04_8: every pile over all the netfuls: the chances
-        fade_out_all(stage, &[marked_pairs, mp_label, up_tex, grid, shirts, pile_ring], 0.5)?;
         kit.say(stage, "04_8")?;
+        fade_out_all(stage, &[marked_pairs, mp_label, up_tex, grid, shirts, pile_ring], 0.5)?;
         let anims = rescale(stage, &chart, 1.0 / shrunk, pivot, (&others, 0.9), 0.8)?;
         stage.play_prepared(anims)?;
         let mut pcts = Vec::new();
@@ -760,9 +759,7 @@ impl SceneConstruct for Netfuls {
             v(0.0, 2.6),
         )?;
         fade_in_all(stage, &[over], 0.5)?;
-        for &p in &pcts {
-            fade_in_all(stage, &[p], 0.35)?;
-        }
+        fade_in_all(stage, &pcts, 0.5)?;
         let exact = precisely(
             &kit,
             stage,
@@ -782,8 +779,8 @@ impl SceneConstruct for Netfuls {
 
         // 04_9: the rule in words, its name, and the question it can't answer
         chart.extend(&pcts);
-        fade_out_all(stage, &[over, exact], 0.4)?;
         kit.say(stage, "04_9")?;
+        fade_out_all(stage, &[over, exact], 0.4)?;
         let anims = rescale(stage, &chart, 0.55, v(0.0, BIN_FLOOR), (&[], 1.0), 0.8)?;
         stage.play_prepared(anims)?;
         let to_corner: Vec<Box<dyn Animation>> = chart
@@ -848,9 +845,10 @@ impl SceneConstruct for Netfuls {
         let formula = precisely(&kit, stage, "P_N(K = k) = C(M,k)·C(N−M, n−k) / C(N,n)")?;
         fade_in_all(stage, &[formula], 0.6)?;
         fade_in_all(stage, &[back, ask], 0.6)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        // a short hold on the question (04 is mid-act: no full breath)
+        kit.music_breath(stage, 1.5)?;
         kit.hold(stage)?;
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
 }
