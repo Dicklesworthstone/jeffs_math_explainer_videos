@@ -209,12 +209,17 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 07_2 | Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero. | Fast-forward, slowing at the beat | step clock |  |
 | 07_3 | ⟨predict⟩ Next, Teal sees two ones. What ticket does she take? | Teal reading | prediction card |  |
 | 07_4 | Two. And the tie between Purple and Green goes to Green, customer two, ahead of Purple, customer three. | (1, Green 2) before (1, Purple 3) | ordering card |  |
-| 07_5 | Green goes in first. Blue, customer number one, arrives late and takes three. Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue. | The lanes in time order, as trace d runs (M14): Green enters, Blue takes 3, Green leaves before Blue's check of her (`C-F6.d.customer2_out_before_customer1_checks_her` = 1), Blue waits on Purple's 1 and Teal's 2 (`C-F6.d.customer1_waits_behind` = (1,3)(2,4)), Green takes 4 (`C-F6.d.tickets_taken`); each entry plays its customer's "served" motif (C-2) | step clock | |
+| 07_5 | Green goes in first. Blue, customer number one, arrives late and takes three. | The lanes in time order, as trace d runs (M14), Blue's and Green's lanes lit: Green enters; Blue takes 3 (`C-F6.d.tickets_taken`), then the run stops while Blue's slate 3 pulses (R3, maya-02); each entry plays its customer's "served" motif (C-2) | step clock | hold |
+| 07_7 | Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue. | All four lanes lit: Green leaves before Blue's check of her (`C-F6.d.customer2_out_before_customer1_checks_her` = 1), so the ring on that check finds Green's slate back at 0, and it pulses; Blue waits on Purple's 1 and Teal's 2 (`C-F6.d.customer1_waits_behind` = (1,3)(2,4)), Green takes 4 (`C-F6.d.tickets_taken`) | step clock | |
 | 07_6 | Five visits, five points on the scoreboard, none lost. Who gets served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; chapter 01's scoreboard sits inside the room and has ticked once per visit, 41 → 46, no point lost (Maya m6; `C-F6.d.room_entries` = 5, `C-F6.d.max_in_room` = 1) | callback | hold |
 
 - **Engine:** slate values swap by replacement transforms at their step events, driven by the shared step clock, never redrawn every frame (E-C4).
 - **New beat 07_6 (R2):** 07_5 now runs in time order (M14), so its payoff
   moved to a beat of its own; 07_6 is the chapter's next free id.
+- **07_5 split (R3, maya-02):** four events in one 16 s line over small
+  dots was too much to follow, so the line is cut after "takes three" and
+  the run holds on Blue's 3; the rest is 07_7 (the chapter's next free id),
+  played between 07_5 and 07_6. The words are unchanged.
 - **For programmers (the description, "Code"; decided at R2, dev-08):** the
   text there, verbatim: "The owner's TypeScript lock compared pairs with
   `(t[j], j) < (t[i], i)`. In JavaScript that is the comma operator: each
@@ -234,10 +239,10 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 08_2 | Fact one. If Blue finished choosing before Green started, and still holds that ticket, then Green's ticket is bigger. Green saw Blue's. | Fact one card, in colours | card |  |
 | 08_3 | Fact two. If Blue is in the room, every other ticket holder has a bigger pair than hers. Why is that true? | Fact two card | card |  |
 | 08_4 | ⟨predict⟩ Take the last time Blue checked Green's flag, the check that let her through. Where could Green have been? | Green's choosing interval slides along the time axis against Blue's last flag check (labelled) | **sliding interval with zones** |  |
-| 08_5 | There are three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15) | zones |  |
+| 08_5 | There are three places. Not yet choosing. Blue only checks flags after she's chosen, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15): her check comes after it, which is why she'd finished (R3, maya-09) | zones |  |
 | 08_6 | In the middle of choosing. Then Green's flag was up, and that check wouldn't have let Blue through. | Zone "choosing", forbidden | zones |  |
 | 08_7 | Finished choosing. Then Blue had read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. And that's fact two. | Zone "done" | zones |  |
-| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue); pictogram rule 1 ticks | TransformMatchingTex |  |
+| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue), with a key above it, n_B = Blue's ticket, n_G = Green's ticket (R3, maya-10); pictogram rule 1 ticks | TransformMatchingTex |  |
 | 08_9 | A computer search agrees, over every order, up to four customers, as long as tickets stay small. Only the proof covers every case. | Card "N = 4, tickets ≤ 4 (runs that would pass 4 are cut), indivisible reads and writes: 3,027,633 reachable states, no violation", then "every N" | card |  |
 
 - **Precisely (description, "Precisely" 08):** Lemma 1 and Lemma 2 exactly as

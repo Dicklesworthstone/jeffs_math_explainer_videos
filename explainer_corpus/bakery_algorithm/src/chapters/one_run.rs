@@ -5,9 +5,10 @@
 //! scoreboard sits in the room and ticks once per visit. Purple and Green
 //! choose together and Purple meets Green's raised flag (07_2); Teal reads
 //! two ones and takes two (07_3–07_4); the tie goes to Green; Blue arrives
-//! late, Green is out before Blue checks her, Blue waits for Purple then
-//! Teal, Green takes four (07_5); the serving order is the pair order
-//! (07_6). Everything shown is `Trace::D.steps()`, the replay the facts pin.
+//! late and takes three, and the run holds on her 3 (07_5); Green is out
+//! before Blue checks her, Blue waits for Purple then Teal, Green takes
+//! four (07_7); the serving order is the pair order (07_6). Everything
+//! shown is `Trace::D.steps()`, the replay the facts pin.
 
 use explainer_kit::props::predict_pause;
 use explainer_kit::{Kit, Palette, Timed, play, tween, v};
@@ -214,7 +215,8 @@ impl SceneConstruct for OneRun {
             slots: Slots::Counted,
             slate_size: 0.6,
         };
-        let lanes = TraceLanes::build(&kit, stage, layout, &steps, &[])?;
+        // the lane heads are the customers themselves (R3, maya-02)
+        let lanes = TraceLanes::build_with_faces(&kit, stage, layout, &steps, &[])?;
         for p in &lanes.parts {
             if let Some(c) = p.chip {
                 stage.scale(c, CHIP_SCALE);
@@ -224,15 +226,17 @@ impl SceneConstruct for OneRun {
         // where the run has got; the brightest thing on the lanes
         let front = stage.add_value_tracker(lanes.layout.x0);
         let bars = room_bars(stage, &lanes, &steps, front)?;
-        // a dimmer over each drawn lane (Blue to Teal), clear for now
+        // a dimmer over each drawn lane (Blue to Teal), clear for now; from
+        // the badge's left edge to the lane's end, inside the safe area
+        let (dim_l, dim_r) = (lanes.layout.head_x - 0.4, lanes.layout.x1 + 0.2);
         let mut dimmers = Vec::new();
         for &y in &LANE_Y[..4] {
             let d = Rectangle::new()
-                .width(lanes.layout.x1 - lanes.layout.head_x + 0.9)
+                .width(dim_r - dim_l)
                 .height(0.98)
                 .style(flat(explainer_kit::hex(explainer_kit::BACKGROUND), 0.0))
                 .build()?
-                .moved_to(v((lanes.layout.x1 + lanes.layout.head_x) / 2.0, y));
+                .moved_to(v((dim_l + dim_r) / 2.0, y));
             dimmers.push(stage.arena_mut().add(d));
         }
         let pink = kit.text_left(
@@ -325,12 +329,35 @@ impl SceneConstruct for OneRun {
         run.to(stage, purple_waits, 0.8)?;
         kit.hold(stage)?;
 
-        // 07_5: Green in first; Blue late with three; Green out before Blue
-        // checks her; Blue waits for Purple, then Teal; Green takes four
+        // 07_5: Green in first; Blue late with three, and the run holds on
+        // her 3 (R3, maya-02: four events in one line was too many)
         let green_in = step_of(&steps, 2, "L3: number[4]=2, pass")?;
         let blue_writes = step_of(&steps, 1, "number[1]:=")?;
+        let line = say(&kit, stage, "07_5")?;
+        play!(stage; fade_out(stage.arena_mut(), tie, ORIGIN, 1.0)?.rt(0.4));
+        run.focus(stage, &[1, 2])?;
+        run.to(stage, green_in, 1.4)?;
+        run.at(stage, &line, "arrives late", blue_writes, 1.4)?;
+        kit.hold(stage)?;
+        // a gold frame round her slate, and the 3 pulses (gold on the dark
+        // board: an indicated board would bury a gold numeral)
+        let (board, three) = (run.lanes.heads[0].slate.board, run.lanes.heads[0].slate.value);
+        let frame = SurroundingRectangle::from_extent(Some((stage.get_corner(board, DL), stage.get_corner(board, UR))))
+            .buff(0.08)
+            .color(order_gold())
+            .build();
+        let frame = stage.arena_mut().add(frame);
+        play!(stage;
+            show_creation(frame).rt(0.5),
+            indicate(stage.arena_mut(), three, 1.5, Some(rgb(order_gold())))?.rt(1.2),
+        );
+        stage.wait(0.3)?;
+        play!(stage; fade_out(stage.arena_mut(), frame, ORIGIN, 1.0)?.rt(0.3));
+
+        // 07_7: Green out before Blue checks her (her slate is back at 0);
+        // Blue waits for Purple, then Teal; Green takes four
         let green_out = step_of(&steps, 2, "number[2]:=0")?;
-        let blue_checks_green = step_of(&steps, 1, "L2: choosing[2]")?;
+        let blue_checks_green = step_of(&steps, 1, "L3: number[2]")?;
         let behind = waits_behind(&steps, 1);
         let wait_purple = steps
             .iter()
@@ -346,14 +373,13 @@ impl SceneConstruct for OneRun {
             )));
         }
         let green_again = step_of(&steps[green_out..], 2, "number[2]:=")? + green_out;
-        let line = say(&kit, stage, "07_5")?;
-        play!(stage; fade_out(stage.arena_mut(), tie, ORIGIN, 1.0)?.rt(0.4));
+        let line = say(&kit, stage, "07_7")?;
         run.focus(stage, &[1, 2, 3, 4])?;
-        run.to(stage, green_in, 1.4)?;
-        run.at(stage, &line, "arrives late", blue_writes, 1.4)?;
-        run.at(stage, &line, "Green is out", green_out, 0.6)?;
-        run.to(stage, blue_checks_green, 1.2)?;
+        run.to(stage, green_out, 0.5)?;
+        run.at(stage, &line, "before Blue checks", blue_checks_green, 0.9)?;
         let look = highlight(&run.lanes, stage, blue_checks_green)?;
+        let green = run.lanes.heads[1].slate.value;
+        play!(stage; indicate(stage.arena_mut(), green, 1.5, Some(rgb(order_gold())))?.rt(1.0));
         run.at(stage, &line, "waits for Purple", wait_purple, 0.9)?;
         run.at(stage, &line, "then Teal", wait_teal, 0.9)?;
         run.at(stage, &line, "Green gets back", green_again, 1.0)?;
@@ -562,12 +588,17 @@ mod tests {
         // 07_3-07_4: Teal sees two ones and takes two
         assert_eq!(crate::model::reads_by(&d, 4), [0, 1, 1]);
         assert_eq!(tickets[2], (4, 2));
-        // 07_5: Blue takes three, Green four; Blue waits behind Purple, then Teal
+        // 07_5, 07_7: Blue takes three, Green four; Blue waits behind
+        // Purple, then Teal
         assert_eq!(tickets[3..], [(1, 3), (2, 4)]);
         assert_eq!(waits_behind(&d, 1), [(1, 3), (2, 4)]);
+        // 07_7: Green is out before Blue checks her, so the ringed read
+        // finds her slate back at 0
         let out = step_of(&d, 2, "number[2]:=0").expect("out");
         let check = step_of(&d, 1, "L2: choosing[2]").expect("check");
-        assert!(out < check, "Green is out before Blue checks her");
+        let read = step_of(&d, 1, "L3: number[2]").expect("read");
+        assert!(out < check && check < read, "Green is out before Blue checks her");
+        assert_eq!(d[read - 1].before.number[1], 0, "Blue reads Green's 0");
         // 07_6: five visits, five points (41 to 46), never two inside
         let entries = d.iter().filter(|s| s.enters()).count() as u32;
         assert_eq!((entries, SCORE_START + entries), (5, 46));

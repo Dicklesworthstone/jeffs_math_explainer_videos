@@ -90,7 +90,9 @@ pub const TOTALLY_ORDERED: &str = "pairs are totally ordered, and each has finit
 
 // 06_three_customers
 pub const PURPLES_STEPS: &str = "Purple's steps";
-pub const TWO_INSIDE_KEY: &str = "red: two in the room at once";
+/// The 06 beams' key: where two would be inside, not that some order
+/// puts them there (R3, maya-13).
+pub const TWO_INSIDE_KEY: &str = "red: where two would be in the room";
 /// "{count} put two in the room", the count from `facts`.
 pub const PUT_TWO_IN: &str = "put two in the room";
 pub const TRAILS: &str = "trails:";
@@ -120,13 +122,17 @@ pub const LAST_LOOK: &str = "Blue's last look at Green's flag";
 pub const GREEN_AT: &str = "Green:";
 pub const NOT_YET: &str = "not yet choosing";
 pub const CHOOSING: &str = "choosing";
-pub const DONE_CHOOSING: &str = "done choosing";
+/// "finished", as the voice and the fact cards say it (R3, maya-09).
+pub const DONE_CHOOSING: &str = "finished choosing";
 pub const COUNTS_ON: &str = "the proof counts on:";
 pub const COUNTS_ON_TEXT: &str = "each customer's steps happen in order; a finished write is seen by every later read; \
      the biggest ticket is found by reading each slate once";
 pub const SEES_TICKET: &str = "Green sees Blue's ticket";
 pub const FACT_ONE: &str = "fact one";
-pub const FACT_ONE_TEXT: &str = "Blue finished choosing before Green started:\nGreen's ticket is bigger than Blue's";
+/// 08_2's card, up through 08_9: the proof's reference statement, so it
+/// keeps "and still holds that ticket" (R3, ruth-03: without it, it's false).
+pub const FACT_ONE_TEXT: &str =
+    "Blue finished choosing before Green started,\nand still holds that ticket: Green's is bigger";
 pub const FACT_TWO: &str = "fact two";
 pub const FACT_TWO_TEXT: &str = "Blue is in the room: everyone else holding\na ticket has a bigger pair than Blue's";
 pub const WHY: &str = "why?";
@@ -155,6 +161,8 @@ pub const EVERY_CASE: &str = "the proof: any number of customers, any tickets";
 pub const PAIRS_FOR_BLUE: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green})";
 pub const PAIRS_FOR_GREEN: &str = r"(n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
 pub const PAIRS_CHAIN: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
+/// What n_B and n_G stand for, above the pairs (R3, maya-10).
+pub const PAIRS_KEY: &str = r"n_B = \text{Blue's ticket},\quad n_G = \text{Green's ticket}";
 
 // 05_the_unwritten_ticket
 pub const FLAG_UP_WORD: &str = "up";
@@ -715,4 +723,4 @@ pub const TEXT: &[&str] = &[
 pub const MONO: &[&str] = &[CODE, X, MAX_CODE_1, MAX_CODE_2, MAX_CODE_3, MAX_CODE_4];
 
 /// Math, in TeX.
-pub const TEX: &[&str] = &[PAIRS_FOR_BLUE, PAIRS_FOR_GREEN, PAIRS_CHAIN];
+pub const TEX: &[&str] = &[PAIRS_FOR_BLUE, PAIRS_FOR_GREEN, PAIRS_CHAIN, PAIRS_KEY];

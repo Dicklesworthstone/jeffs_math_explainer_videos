@@ -43,13 +43,14 @@
 07_2	Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero.
 07_3	Next, Teal sees two ones. What ticket does she take?
 07_4	Two. And the tie between Purple and Green goes to Green, customer two, ahead of Purple, customer three.
-07_5	Green goes in first. Blue, customer number one, arrives late and takes three. Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue.
+07_5	Green goes in first. Blue, customer number one, arrives late and takes three.
+07_7	Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue.
 07_6	Five visits, five points on the scoreboard, none lost. Who gets served first follows the grid exactly.
 08_1	Why can two customers never be in the room at once? Picture Blue inside, and Green holding a ticket.
 08_2	Fact one. If Blue finished choosing before Green started, and still holds that ticket, then Green's ticket is bigger. Green saw Blue's.
 08_3	Fact two. If Blue is in the room, every other ticket holder has a bigger pair than hers. Why is that true?
 08_4	Take the last time Blue checked Green's flag, the check that let her through. Where could Green have been?
-08_5	There are three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger.
+08_5	There are three places. Not yet choosing. Blue only checks flags after she's chosen, so by fact one, Green's ticket will be bigger.
 08_6	In the middle of choosing. Then Green's flag was up, and that check wouldn't have let Blue through.
 08_7	Finished choosing. Then Blue had read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. And that's fact two.
 08_8	Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible.

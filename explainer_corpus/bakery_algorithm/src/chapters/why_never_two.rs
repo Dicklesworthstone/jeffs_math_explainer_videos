@@ -25,7 +25,7 @@ use crate::facts::recorded_sweep;
 
 use super::draw::{
     NAMES, access_arrow, badge, chalk, customer, faded_line, flag_amber, flat, group, lane, line_style, order_gold,
-    pictogram, room_red, rule_tick, say,
+    pictogram, rgb, room_red, rule_tick, say,
 };
 use super::glyphs;
 
@@ -406,7 +406,8 @@ impl SceneConstruct for WhyNeverTwo {
         }
         let q = predict_pause(&kit, stage, v(5.6, -1.6))?;
 
-        // 08_5: three places. Not yet: Blue had finished, so fact one
+        // 08_5: three places. Not yet: Blue checks only after choosing, so
+        // she had finished, and fact one applies
         let line = say(&kit, stage, "08_5")?;
         let legend = places_legend(&kit, stage)?;
         play!(stage;
@@ -423,7 +424,11 @@ impl SceneConstruct for WhyNeverTwo {
             .build()?
             .moved_to(v((BLUE_CHOOSING.0 + BLUE_CHOOSING.1) / 2.0, Y_BLUE));
         let lit_edge = stage.arena_mut().add(lit_edge);
-        line.wait_for(stage, "Blue had already")?;
+        // her check comes after her choosing: that's why she'd finished
+        // (R3, maya-09)
+        line.wait_for(stage, "Blue only checks")?;
+        play!(stage; indicate(stage.arena_mut(), pic.look, 1.15, Some(rgb(order_gold())))?.rt(0.8));
+        line.wait_for(stage, "after she's chosen")?;
         play!(stage; show_creation(lit_edge).rt(0.8));
         let xr = pic.green_read_x(Place::NotYet);
         let trusted = stage
@@ -579,9 +584,12 @@ impl SceneConstruct for WhyNeverTwo {
         let (for_green, _) = kit.tex_spans(stage, glyphs::PAIRS_FOR_GREEN, 44.0, chalk(), &colours, v(0.0, -0.3))?;
         let tag_b = kit.text(stage, glyphs::FOR_BLUE, 20.0, Palette::dim(), v(-4.9, 0.9))?;
         let tag_g = kit.text(stage, glyphs::FOR_GREEN, 20.0, Palette::dim(), v(-4.9, -0.3))?;
+        // what n_B and n_G stand for (R3, maya-10)
+        let (key, _) = kit.tex_spans(stage, glyphs::PAIRS_KEY, 30.0, Palette::dim(), &colours, v(0.0, 1.75))?;
         play!(stage;
             write(stage.arena(), for_blue).rt(1.0),
             fade_in(stage.arena_mut(), tag_b, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.8),
         );
         play!(stage;
             write(stage.arena(), for_green).rt(1.0),
