@@ -14,10 +14,11 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    LaneLayout, LaneSpec, NAMES, Slots, Spoken, TraceLanes, badge, chalk, fail, group, order_gold, play_timed, room,
-    room_red, say, scanline, scoreboard,
+    LaneLayout, LaneSpec, NAMES, Slots, Spoken, TraceLanes, chalk, fade_in_all, fail, group, order_gold, play_timed,
+    room, room_red, say, scoreboard,
 };
 use super::glyphs;
+use super::ties::{PairGrid, pair_token};
 use crate::facts::waits_behind;
 use crate::model::{SCORE_START, Step, Trace};
 
@@ -148,10 +149,10 @@ impl SceneConstruct for OneRun {
         // the top band: the step clock, the room with 01's scoreboard
         let clock_label = kit.text_left(stage, glyphs::STEPS, 26.0, Palette::dim(), v(-6.75, 3.3))?;
         let clock = stage.add_value_tracker(0.0);
-        let [tint, edge] = room(2.9, 1.25, v(5.25, 3.05))?;
+        let [tint, edge] = room(3.5, 1.25, v(4.95, 3.05))?;
         let (tint, edge) = (stage.arena_mut().add(tint), stage.arena_mut().add(edge));
-        let room_label = kit.text(stage, glyphs::THE_ROOM, 20.0, room_red(), v(5.25, 2.25))?;
-        let board = scoreboard(&kit, stage, SCORE_START, v(5.25, 3.05), 0.8)?;
+        let room_label = kit.text(stage, glyphs::THE_ROOM, 22.0, room_red(), v(3.8, 3.05))?;
+        let board = scoreboard(&kit, stage, SCORE_START, v(5.65, 3.05), 0.8)?;
 
         // 07_1: the run, fast
         let line = say(&kit, stage, "07_1")?;
@@ -259,7 +260,7 @@ impl SceneConstruct for OneRun {
         let board = run.board.panel;
         play!(stage; indicate(stage.arena_mut(), board, 1.12, None)?.rt(0.9));
         line.wait_for(stage, "Who gets served")?;
-        served_order(&kit, stage, &steps)?;
+        served_order(&kit, stage, &steps, &line)?;
         kit.hold(stage)?;
         stage.clear_updaters(readout, true);
         explainer_kit::fade_all(stage, 1.0)?;
@@ -293,14 +294,6 @@ fn highlight(lanes: &TraceLanes, stage: &mut Stage<'_>, step: usize) -> fmn::Res
     Ok(ring)
 }
 
-/// A pair as chalk ticket and badge: "(ticket, number)".
-fn pair(kit: &Kit, stage: &mut Stage<'_>, ticket: u32, k: usize, at: Vec3) -> fmn::Result<Mob> {
-    let t = kit.text(stage, &format!("({ticket},"), 36.0, chalk(), v(at[0] - 0.42, at[1]))?;
-    let b = badge(kit, stage, k, 0.21, v(at[0] + 0.15, at[1]))?;
-    let c = kit.text(stage, ")", 36.0, chalk(), v(at[0] + 0.52, at[1]))?;
-    group(stage, &[t, b, c])
-}
-
 /// 07_4's card: the tie between Purple and Green, settled by the customer
 /// number, from the tickets they hold at Purple's wait.
 fn tie_card(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<Mob> {
@@ -310,45 +303,94 @@ fn tie_card(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<Mob
     if g != p || g == 0 {
         return Err(fail(format!("07_4: Green and Purple should tie, hold {g} and {p}")));
     }
-    let at = v(0.9, 3.05);
-    let first = pair(kit, stage, g, 2, v(at[0] - 2.0, at[1]))?;
+    let at = v(0.0, 3.05);
+    let first = pair_token(kit, stage, g, 2, v(at[0] - 2.0, at[1]), 0.8)?;
     let before = kit.text(stage, glyphs::COMES_BEFORE, 28.0, Palette::dim(), at)?;
-    let second = pair(kit, stage, p, 3, v(at[0] + 2.0, at[1]))?;
+    let second = pair_token(kit, stage, p, 3, v(at[0] + 2.0, at[1]), 0.8)?;
     group(stage, &[first, before, second])
 }
 
-/// 07_6: the visits in the order they were served, as pairs, with the gold
-/// scanline sweeping them: the same order as sorting the pairs.
-fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<()> {
+/// 07_6: the five visits as pairs in the order they happened (across the
+/// top), then 04's grid over the finished run: its scanline sweeps column by
+/// column, and each pair it reaches lights the next visit, left to right.
+fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step], line: &Spoken) -> fmn::Result<()> {
     let entries: Vec<(u32, usize)> = steps
         .iter()
         .filter(|s| s.enters())
         .map(|s| (s.after.number[s.customer - 1], s.customer))
         .collect();
-    let mut sorted = entries.clone();
-    sorted.sort_unstable();
-    if sorted != entries {
+    let mut sweep = entries.clone();
+    sweep.sort_unstable();
+    if sweep != entries {
         return Err(fail("07_6: the serving order is not the pair order".to_owned()));
     }
-    let y = 3.05;
-    let x0 = -3.4;
-    let mut shown = Vec::new();
+    // the visits as they happened
+    let (y, x0, dx) = (3.05, -3.6, 1.45);
+    let mut tokens = Vec::new();
     for (i, &(t, k)) in entries.iter().enumerate() {
-        let at = v(x0 + 1.55 * i as f64, y);
-        let p = pair(kit, stage, t, k, at)?;
-        play!(stage; fade_in(stage.arena_mut(), p, v(0.0, -0.1), 1.0)?.rt(0.35));
-        shown.push(p);
+        tokens.push(pair_token(kit, stage, t, k, v(x0 + dx * i as f64, y), 0.75)?);
     }
-    let line = stage.arena_mut().add(scanline(x0 - 0.8, y - 0.35, y + 0.35)?);
-    let sweep = line
-        .animate()
-        .set_anim_args(AnimateArgs {
-            run_time: Some(1.6),
-            ..AnimateArgs::default()
-        })?
-        .shift([1.55 * entries.len() as f64 + 0.3, 0.0, 0.0])?;
-    stage.add_to_scene(line)?;
-    stage.play(sweep)?;
+    let mut ins: Vec<Box<dyn Animation>> = Vec::new();
+    for (i, &m) in tokens.iter().enumerate() {
+        let a = fade_in(stage.arena_mut(), m, v(0.0, -0.1), 1.0)?.rt(0.3 + 0.12 * i as f64);
+        ins.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(ins)?;
+    // 04's grid, on a card over the run
+    line.wait_for(stage, "follows the grid")?;
+    let top_ticket = entries.iter().map(|p| p.0).max().unwrap_or(1);
+    let top_customer = entries.iter().map(|p| p.1).max().unwrap_or(1);
+    let grid = PairGrid {
+        center: v(3.35, -0.55),
+        cell: 0.8,
+        tickets: top_ticket,
+        customers: top_customer,
+    };
+    let card = Rectangle::new()
+        .width(0.8 * f64::from(top_ticket) + 2.3)
+        .height(0.8 * top_customer as f64 + 1.9)
+        .corner_radius(0.15)
+        .style(
+            Style::default()
+                .fill(explainer_kit::hex("#0E1116"), 0.94)
+                .stroke(Palette::faint(), 1.5, 1.0),
+        )
+        .build()?
+        .moved_to(v(grid.center[0] - 0.35, grid.center[1] - 0.25));
+    let card = stage.arena_mut().add(card);
+    let lines = stage.arena_mut().add(grid.lines()?);
+    let labels = grid.labels(kit, stage, glyphs::TICKET_ACROSS, glyphs::CUSTOMER_NUMBER_UP)?;
+    let cells: Vec<Mob> = entries
+        .iter()
+        .map(|&(t, k)| grid.pair(kit, stage, t, k))
+        .collect::<fmn::Result<_>>()?;
+    let mut ins = vec![card, lines];
+    ins.extend(&labels);
+    ins.extend(&cells);
+    fade_in_all(stage, &ins, 0.5)?;
+    let scan = stage.arena_mut().add(grid.scanline(1.0)?);
+    play!(stage; fade_in(stage.arena_mut(), scan, ORIGIN, 1.0)?.rt(0.3));
+    let mut x_now = grid.before(1.0);
+    for (n, &(t, k)) in sweep.iter().enumerate() {
+        let x = grid.before(f64::from(t) + 1.0);
+        if x > x_now + 1e-9 {
+            let a = scan
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(0.35),
+                    ..AnimateArgs::default()
+                })?
+                .shift(v(x - x_now, 0.0))?;
+            stage.play(a)?;
+            x_now = x;
+        }
+        let cell = cells[entries.iter().position(|&e| e == (t, k)).unwrap_or(n)];
+        let gold = rgb(order_gold());
+        play!(stage;
+            indicate(stage.arena_mut(), cell, 1.35, Some(gold))?.rt(0.45),
+            indicate(stage.arena_mut(), tokens[n], 1.2, Some(gold))?.rt(0.45),
+        );
+    }
     Ok(())
 }
 
