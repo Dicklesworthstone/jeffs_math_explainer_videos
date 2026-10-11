@@ -27,6 +27,10 @@ impl Role {
     pub fn dark() -> Srgb {
         Palette::teal()
     }
+    /// Probability over k: histogram bars.
+    pub fn chance() -> Srgb {
+        hex("#8A93A3")
+    }
     /// Bias and failure (never the marks).
     pub fn bias() -> Srgb {
         Palette::red()

@@ -11,9 +11,8 @@ use fmn::animation::replacement_transform;
 use fmn::prelude::*;
 
 use super::draw::{Glyph, Role, fish, marked_fish, ring, spotted_fish};
-use super::lake::{PER_GLYPH, Shade, Tray, fade_in_all, key, shuffled};
+use super::lake::{PER_GLYPH, Shade, Tray, fade_in_all, key};
 use crate::facts::FELLER;
-use crate::model::{SEED, SplitMix64};
 
 /// A card behind text: the corpus's raised fill, a faint edge.
 fn card(w: f64, h: f64, at: Vec3) -> fmn::Result<VMobject> {
@@ -292,14 +291,20 @@ impl SceneConstruct for Marks {
             moves.push(stage.prepare(a)?);
         }
         stage.play_prepared(moves)?;
-        let copies: Vec<TrayFish> = (1..(lake / big_n) as usize)
-            .map(|j| {
+        // the nine copies are the rest of the lake (lake_trays: every slot
+        // has a fate, and the totals are pinned in the tests)
+        let trays_of_lake = lake_trays(dn, tenth_cols, (lake / big_n) as usize);
+        let copies: Vec<TrayFish> = trays_of_lake
+            .iter()
+            .enumerate()
+            .skip(1)
+            .map(|(j, t)| {
                 TrayFish::build(
                     stage,
                     tray(mini_at(j), mini),
                     dn,
-                    &first_columns(dn, tenth_cols),
-                    &(0..dn).collect::<Vec<_>>(),
+                    &t.gold,
+                    &t.ringed_slots(dn),
                     mini,
                     Role::second(),
                 )
@@ -321,9 +326,9 @@ impl SceneConstruct for Marks {
             stage.play_prepared(v)?;
         }
         fade_in_all(stage, &[total], 0.5)?;
-        // the copies are the rest of the lake: none of it was in the second
-        // catch (no rings), 900 of it is the first catch's marked fish
-        // (gold), and the other 8,100 nobody caught
+        // none of the copies was in the second catch (their rings go); their
+        // gold tenth is the rest of the first catch, 900 fish; everything
+        // else in them, 8,100 fish, nobody caught
         let never = kit.text(
             stage,
             &format!(
@@ -337,48 +342,17 @@ impl SceneConstruct for Marks {
             v(0.0, -2.75),
         )?;
         let mut rings_out = Vec::new();
-        let mut plain_members = Vec::new();
-        let mut gold_members = Vec::new();
+        let mut unseen = Vec::new();
         for c in &copies {
             rings_out.extend(c.rings.members.iter().copied());
-            plain_members.extend(c.plain.members.iter().copied());
-            gold_members.extend(c.gold.members.iter().copied());
+            unseen.extend(c.plain.members.iter().copied());
         }
-        // the copies' plain fish: which become the rest of the marked
-        // thousand (seeded, spread over the copies) and which stay unseen
-        let rest_marked = dm - dk;
-        let mut rng = SplitMix64::new(SEED ^ 0x0205);
-        let order = shuffled(plain_members.len(), &mut rng);
-        let turn_gold: Vec<usize> = order[..rest_marked].to_vec();
-        let unseen: Vec<Mob> = order[rest_marked..].iter().map(|&i| plain_members[i]).collect();
-        let copy_pose = |i: usize| -> Vec3 {
-            // the plain members of each copy fill its non-gold slots in order
-            let per = dn - first_columns(dn, tenth_cols).len();
-            let (c, s) = (i / per, i % per);
-            let slots: Vec<usize> = (0..dn).filter(|x| x % COLS >= tenth_cols).collect();
-            tray(mini_at(c + 1), mini).slot(slots[s])
-        };
-        let gold_poses: Vec<explainer_kit::props::Pose> = turn_gold
-            .iter()
-            .map(|&i| {
-                let p = copy_pose(i);
-                explainer_kit::props::Pose {
-                    x: p[0],
-                    y: p[1],
-                    heading: 0.0,
-                }
-            })
-            .collect();
-        let new_gold = Swarm::build(stage, &shrunk(marked_fish(), mini).mob, &gold_poses, None)?;
-        let gold_shade = Shade::new(stage, &new_gold.members, &marked_fish().paints, 0.0)?;
-        stage.add_to_scene(new_gold.group)?;
         let copy_rings = Shade::new(stage, &rings_out, &ring().paints, 1.0)?;
-        let copy_gold = Shade::new(stage, &gold_members, &marked_fish().paints, 1.0)?;
         let dim = Shade::new(stage, &unseen, &fish(Role::unmarked()).paints, 1.0)?;
-        play!(stage; copy_rings.to(0.0, 0.8)?, copy_gold.to(0.0, 0.8)?);
-        stage.play(gold_shade.to(1.0, 0.8)?)?;
+        stage.play(copy_rings.to(0.0, 0.8)?)?;
         play!(stage; dim.to(0.22, 1.2)?, fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(1.2));
         kit.hold(stage)?;
+        stage.wait(1.0)?;
 
         // 02_6: the other reading: one in ten of the second catch is marked,
         // so about one in ten of the lake; the marked fish copied ten times
@@ -413,8 +387,20 @@ impl SceneConstruct for Marks {
         )?;
         let tiny = 0.3;
         let tiny_at = |j: usize| v(-5.6 + 2.8 * (j % 5) as f64, 0.2 - 0.75 * (j / 5) as f64);
-        let marked_copies: Vec<TrayFish> = (0..(lake / big_m) as usize)
-            .map(|j| TrayFish::build(stage, tray(tiny_at(j), tiny), dm, &all_m, &[], tiny, Role::marked()))
+        // the lake ten times the marked thousand: the marked tray and nine
+        // trays like it of unmarked fish, so the gold stays one in ten
+        let lake_gold = marked_lake(dm, (lake / big_m) as usize);
+        let marked_copies: Vec<TrayFish> = lake_gold
+            .iter()
+            .enumerate()
+            .map(|(j, gold)| {
+                let edge = if gold.is_empty() {
+                    Role::unmarked()
+                } else {
+                    Role::marked()
+                };
+                TrayFish::build(stage, tray(tiny_at(j), tiny), dm, gold, &[], tiny, edge)
+            })
             .collect::<fmn::Result<_>>()?;
         let lake_words = kit.text(
             stage,
@@ -444,7 +430,7 @@ impl SceneConstruct for Marks {
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
         for c in &marked_copies {
             let mut v: Vec<Box<dyn Animation>> = Vec::new();
-            for g in [c.card, c.gold.group] {
+            for g in [c.card, c.gold.group, c.plain.group] {
                 let a = fade_in(stage.arena_mut(), g, v_shift(), 1.0)?.rt(0.3);
                 v.push(stage.prepare(a)?);
             }
@@ -524,6 +510,41 @@ impl SceneConstruct for Marks {
     }
 }
 
+/// One tray of 02_5's lake: which slots hold marked fish, and whether its
+/// fish were in the second catch (ringed).
+#[derive(Clone, Debug, PartialEq)]
+struct LakeTray {
+    gold: Vec<usize>,
+    ringed: bool,
+}
+
+impl LakeTray {
+    fn ringed_slots(&self, n: usize) -> Vec<usize> {
+        if self.ringed { (0..n).collect() } else { Vec::new() }
+    }
+}
+
+/// 02_5's lake as `copies` trays of `n` drawn fish: the first is the second
+/// catch (ringed; its first `tenth_cols` columns the caught twice), the
+/// others the rest of the lake (no rings; their first columns the rest of
+/// the first catch, the other slots fish nobody caught).
+fn lake_trays(n: usize, tenth_cols: usize, copies: usize) -> Vec<LakeTray> {
+    (0..copies)
+        .map(|j| LakeTray {
+            gold: first_columns(n, tenth_cols),
+            ringed: j == 0,
+        })
+        .collect()
+}
+
+/// 02_6's lake: `copies` trays of `n` drawn fish, the first all marked (the
+/// first catch), the rest unmarked; the gold slots of each.
+fn marked_lake(n: usize, copies: usize) -> Vec<Vec<usize>> {
+    (0..copies)
+        .map(|j| if j == 0 { (0..n).collect() } else { Vec::new() })
+        .collect()
+}
+
 /// The small drop a copied tray makes as it appears.
 fn v_shift() -> Vec3 {
     v(0.0, -0.12)
@@ -532,6 +553,35 @@ fn v_shift() -> Vec3 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_lake_of_02_5_holds_every_fish_once() {
+        // drawn glyphs: 1,000 in all; 100 marked, 900 not; 190 seen, 810 never
+        let (big_m, big_n, k) = FELLER;
+        let (dm, dn, dk) = (
+            big_m as usize / PER_GLYPH,
+            big_n as usize / PER_GLYPH,
+            k as usize / PER_GLYPH,
+        );
+        let lake = (big_m * big_n / k) as usize / PER_GLYPH;
+        let trays = lake_trays(dn, COLS * dk / dm, lake / dn);
+        let all = trays.len() * dn;
+        let gold: usize = trays.iter().map(|t| t.gold.len()).sum();
+        let seen: usize = trays.iter().map(|t| if t.ringed { dn } else { t.gold.len() }).sum();
+        assert_eq!((all, gold, all - gold, seen, all - seen), (1_000, 100, 900, 190, 810));
+        // in the tens of fish the labels say: 10,000 − 1,900 = 8,100
+        assert_eq!((seen * PER_GLYPH, (all - seen) * PER_GLYPH), (1_900, 8_100));
+    }
+
+    #[test]
+    fn the_lake_of_02_6_is_one_tenth_marked() {
+        let (big_m, big_n, k) = FELLER;
+        let dm = big_m as usize / PER_GLYPH;
+        let trays = marked_lake(dm, (big_m * big_n / k / big_m) as usize);
+        let gold: usize = trays.iter().map(Vec::len).sum();
+        assert_eq!(gold, big_m as usize / PER_GLYPH);
+        assert_eq!(trays.len() * dm, (big_m * big_n / k) as usize / PER_GLYPH);
+    }
 
     #[test]
     fn a_trays_first_two_columns_are_one_tenth_of_it() {

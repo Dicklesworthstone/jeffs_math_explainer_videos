@@ -15,6 +15,8 @@ use crate::panel;
 pub const FELLER: (u64, u64, u64) = (1_000, 1_000, 100);
 /// The toy likelihood: marked, caught, caught twice.
 pub const TOY: (u64, u64, u64) = (10, 10, 3);
+/// Chapter 04's toy lake: fish, marked, the net's size.
+pub const NETFULS: (u64, u64, u64) = (20, 5, 4);
 
 /// P_N(K = k) as an exact fraction (numerator, denominator).
 fn likelihood(n_lake: u64, (m, n, k): (u64, u64, u64)) -> (u128, u128) {
@@ -205,7 +207,70 @@ pub fn facts() -> Result<Facts, String> {
     f.pin("A-F24.seen", 30u64 + 24 - 12, "42", "fact sheet A-F24")?;
     late_chapters(&mut f)?;
     chapters_07_to_11(&mut f)?;
+    chapters_04_to_06(&mut f)?;
     Ok(f)
+}
+
+/// Chapters 04-06: the netfuls' chances, the mystery lake's stills and
+/// sums, all from the toy lakes' own counts.
+fn chapters_04_to_06(f: &mut Facts) -> Result<(), String> {
+    // 04: the five piles over every netful, exact and as the screen rounds
+    let (lake, marked, net) = NETFULS;
+    let all = choose(lake, net);
+    let falling: u64 = (0..net).map(|j| lake - j).product();
+    let orders: u64 = (1..=net).product();
+    f.pin("A-F1.falling_over_orders", falling / orders, "4845", "04_3 screen")?;
+    let whole = ["28", "47", "22", "3", "<1"];
+    for k in 0..=net {
+        let pile = choose(marked, k) * choose(lake - marked, net - k);
+        let g = gcd(pile, all);
+        f.add(&format!("A-F3.p{k}.exact"), format!("{}/{}", pile / g, all / g))?;
+        let pct = 100.0 * pile as f64 / all as f64;
+        let shown = if pct < 1.0 {
+            "<1".to_owned()
+        } else {
+            format!("{}", pct.round())
+        };
+        f.pin(
+            &format!("A-F3.screen_whole_pct{k}"),
+            shown,
+            whole[k as usize],
+            "04_8 voice",
+        )?;
+    }
+    // 05: the mystery lake's three stills and the partial sum the screen shows
+    let score = |n: u64| {
+        let (num, den) = likelihood(n, TOY);
+        num as f64 / den as f64
+    };
+    for (n, want) in [(20u64, "7.8"), (33, "31.8"), (60, "15.9")] {
+        f.pin(
+            &format!("A-F5.still_N{n}_pct"),
+            py(round_to(100.0 * score(n), 1)),
+            want,
+            "05_4 voice",
+        )?;
+    }
+    let (m, c, k) = TOY;
+    let first = m + c - k;
+    let partial: f64 = (first..=60).map(score).sum();
+    f.pin("A-F5.area_17_to_60", py(round_to(partial, 2)), "9.89", "05_7 screen")?;
+    // every size's score adds to Mn/(k(k−1)) when k ≥ 2 (A-F7; Ruth's proof)
+    let (num, den) = (m * c, k * (k - 1));
+    let g = gcd(u128::from(num), u128::from(den)) as u64;
+    f.pin(
+        "A-F7.toy_area_closed_form.exact",
+        format!("{}/{}", num / g, den / g),
+        "50/3",
+        "05_7 voice",
+    )?;
+    f.pin(
+        "A-F7.toy_area_pct_rounded",
+        (100.0 * num as f64 / den as f64).round(),
+        "1667",
+        "05_7 screen",
+    )?;
+    Ok(())
 }
 
 /// Laplace's 1802 figures, recorded from the *Essai philosophique* (tr.

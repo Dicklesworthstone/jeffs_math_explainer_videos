@@ -8,6 +8,7 @@ pub mod draw;
 pub mod hook;
 pub mod lake;
 pub mod marks;
+pub mod netfuls;
 pub mod ring_toss;
 pub mod spread;
 
@@ -43,7 +44,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(spread::Spread { kit }),
             intensity: 0.45,
         },
-        animatic!("04_netfuls", 0.5),
+        Chapter {
+            key: "04_netfuls",
+            make: |kit| Box::new(netfuls::Netfuls { kit }),
+            intensity: 0.5,
+        },
         animatic!("05_turning_it_around", 0.5),
         animatic!("06_the_landscape", 0.6),
         animatic!("07_feller_s_comparison", 0.5),
