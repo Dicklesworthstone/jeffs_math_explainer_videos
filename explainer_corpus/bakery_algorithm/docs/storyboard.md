@@ -162,8 +162,9 @@ step), **slate** (a register), **ticket** (never "number"), **customer number**
 | 07_2 | Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero. | Fast-forward, slowing at the beat | step clock |  |
 | 07_3 | ⟨predict⟩ Teal sees one and one. What ticket does she take? | Teal reading | prediction card |  |
 | 07_4 | Two. And the tie between Purple and Green goes to Green, the lower number. | (1, Green 2) before (1, Purple 3) | ordering card |  |
-| 07_5 | Blue arrives late, with the lowest number, and takes three. She waits behind ticket two. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes | callback | hold |
+| 07_5 | Blue arrives late, with the lowest number, and takes three. She waits behind ticket two. Green leaves, gets back in line, and takes four. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; each entry plays its customer's "served" motif (C-2); chapter 01's scoreboard sits inside the room and ticks once per visit, 41 → 46, no point lost (Maya m6) | callback | hold |
 
+- **Engine:** slate values swap by replacement transforms at their step events, driven by the shared step clock, never redrawn every frame (E-C4).
 - **For programmers (a code panel after 07_5, or the description):** the
   owner's TypeScript `(t[j], j) < (t[i], i)` is JavaScript's comma operator: it
   evaluates `j < i`; `tsc --strict` is silent (C-F13); tuple comparison in

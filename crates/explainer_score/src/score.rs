@@ -194,7 +194,8 @@ impl Identity {
 
     /// Video B, RaptorQ's byte field (plan §7.5; R1 X-1): E Lydian with the
     /// raised fourth (A♯) on the tonic chord, Emaj9(♯11) → G♯m7 → C♯m9 →
-    /// Amaj9 (I–iii–vi–IV); 96 BPM; Solina strings under a warm-glass FM bell
+    /// Amaj9 (I–iii–vi–IV); 90 BPM (R1 B-15: sixteenths at 96 were 6.4 notes
+    /// a second, over the 6 a second gaps allow); Solina strings under a warm-glass FM bell
     /// motif E–G♯–B–C♯ (0x1D's set bits {0, 2, 3, 4} as degrees 1, 3, 5, 6),
     /// Karplus–Strong answers.
     pub fn raptorq_gf256() -> Self {
@@ -210,7 +211,7 @@ impl Identity {
             ],
             motif: Motif::new(&[1, 3, 5, 6], &[0.5, 0.5, 0.5, 1.5]),
             resolution: Motif::new(&[5, 8], &[1.0, 2.0]),
-            beat_s: 60.0 / 96.0,
+            beat_s: 60.0 / 90.0,
             palette: Palette {
                 bed: Instrument::Strings { brightness: 0.3 },
                 melody: Instrument::WarmGlass,
