@@ -15,6 +15,10 @@
 
 mod chapters;
 mod facts;
+// The shared model lands ahead of the chapters that use all of it; drop the
+// allow when all 17 chapters are built.
+#[allow(dead_code)]
+mod model;
 
 use explainer_kit::Explainer;
 

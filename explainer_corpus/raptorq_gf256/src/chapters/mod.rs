@@ -3,6 +3,12 @@
 //! Each chapter starts as its storyboard's animatic and is replaced by its
 //! real scene as it is built.
 
+// Video B's look, shared by every chapter: its helpers land ahead of the
+// chapters that use them (lanes B-1, B-2, B-3); drop the allow when all 17
+// chapters are built.
+#[allow(dead_code)]
+pub mod draw;
+
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
 

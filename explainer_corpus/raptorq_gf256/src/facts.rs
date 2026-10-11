@@ -1,79 +1,191 @@
 //! Every number Video B shows or says, computed here and checked two ways:
 //! `pin` against a literal from the fact sheet, and `./x raptorq_gf256
 //! facts-check` against `oracle.py` (same keys). Chapters read their numbers
-//! from here; a typed number is a defect (doctrine 2).
+//! from here; a typed number is a defect (doctrine 2). The arithmetic and the
+//! data live in `model.rs`.
 
 use explainer_kit::Facts;
 
-/// RaptorQ's fold polynomial x⁸ + x⁴ + x³ + x² + 1 (0x11D), low byte.
-pub const FOLD: u8 = 0x1D;
-/// AES's polynomial x⁸ + x⁴ + x³ + x + 1 (0x11B), low byte.
-pub const AES_FOLD: u8 = 0x1B;
+use crate::model::{
+    AES_FOLD, CARDS, DECK_PACKETS, FIELD_SEED, FIFTH_CARD, FOLD, GLYPHS, HOOK_PIECES, LOSS_ONE_IN, PHONES, PIECES,
+    RING, album_mean, album_mean_floor, carousel_mean_caught, carousel_mean_sent, deck_mix, field_done_by_loop, logs,
+    mean_loops, mul, order, p_done_by, p_done_in_loop_2_or_3, p_fail, p_fail_limit, p_fail_limit_times, p_full,
+    p_full_limit, p_waiting_after, rank_gf2, result, spares_for, unluckiest_of_a_million, useless_chance,
+};
 
-/// Multiply by x (the byte 2): shift, and fold the bit that falls off.
-pub fn xtime(a: u8, fold: u8) -> u8 {
-    (a << 1) ^ if a & 0x80 != 0 { fold } else { 0 }
-}
-
-/// Byte multiplication, shift-and-add (the video's code panel).
-pub fn mul(mut a: u8, mut b: u8, fold: u8) -> u8 {
-    let mut acc = 0;
-    while b != 0 {
-        if b & 1 != 0 {
-            acc ^= a;
+/// A double as Python's `repr` prints it (oracle.py's format): the shortest
+/// digits that read back to the same double, in fixed notation from 10⁻⁴ up
+/// to 10¹⁶ and as d.ddde±XX outside it.
+pub fn py(x: f64) -> String {
+    if x == 0.0 {
+        return "0.0".to_owned();
+    }
+    let sci = format!("{x:e}");
+    let (mantissa, exp) = sci.split_once('e').expect("{:e} always has an exponent");
+    let exp: i32 = exp.parse().expect("an integer exponent");
+    let sign = if x < 0.0 { "-" } else { "" };
+    let digits: String = mantissa.chars().filter(char::is_ascii_digit).collect();
+    let n = digits.len() as i32;
+    if (-4..16).contains(&exp) {
+        if exp < 0 {
+            format!("{sign}0.{}{digits}", "0".repeat((-exp - 1) as usize))
+        } else if n <= exp + 1 {
+            format!("{sign}{digits}{}.0", "0".repeat((exp + 1 - n) as usize))
+        } else {
+            let (int, frac) = digits.split_at((exp + 1) as usize);
+            format!("{sign}{int}.{frac}")
         }
-        a = xtime(a, fold);
-        b >>= 1;
+    } else {
+        let (lead, rest) = digits.split_at(1);
+        let m = if rest.is_empty() {
+            lead.to_owned()
+        } else {
+            format!("{lead}.{rest}")
+        };
+        format!("{sign}{m}e{}{:02}", if exp < 0 { '-' } else { '+' }, exp.abs())
     }
-    acc
 }
 
-/// Discrete logs base 2 under RaptorQ's fold: `log[a]` for every nonzero byte.
-pub fn logs() -> [u8; 256] {
-    let mut log = [0u8; 256];
-    let mut a = 1u8;
-    for step in 0..255u16 {
-        log[a as usize] = step as u8;
-        a = xtime(a, FOLD);
-    }
-    log
-}
-
-/// The multiplicative order of `a` (the smallest k ≥ 1 with aᵏ = 1).
-pub fn order(a: u8, fold: u8) -> u32 {
-    let mut x = a;
-    let mut k = 1;
-    while x != 1 {
-        x = mul(x, a, fold);
-        k += 1;
-        assert!(k <= 255, "{a} is zero or not invertible");
-    }
-    k
+/// A list as the oracle prints it.
+fn list<T: ToString>(items: impl IntoIterator<Item = T>) -> String {
+    items.into_iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")
 }
 
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
+    hook(&mut f)?;
+    // 02: bits and ex-or (B-X4)
+    f.pin(
+        "B-X4.place_values_8_bits",
+        list((0..8).map(|i| 1u32 << i)),
+        "1,2,4,8,16,32,64,128",
+        "fact sheet B-X4",
+    )?;
+    f.pin("B-X4.bits_of_5", format!("{:b}", 5), "101", "fact sheet B-X4")?;
+    f.pin("B-X4.bits_of_7", format!("{:b}", 7), "111", "fact sheet B-X4")?;
+    f.pin("B-X4.byte_max_2^8_minus_1", u8::MAX, "255", "fact sheet B-X4")?;
+    f.pin("B-X4.xor_5_7", 5 ^ 7, "2", "fact sheet B-X4")?;
+    f.pin(
+        "B-X4.bits_of_xor_5_7",
+        format!("{:03b}", 5 ^ 7),
+        "010",
+        "fact sheet B-X4",
+    )?;
+    f.pin("B-X4.xor_2_7", 2 ^ 7, "5", "fact sheet B-X4")?;
     // 03: the cards, with A, B, C, D = 5, 3, 7, 2
-    let (a, b, c, d) = (5u8, 3u8, 7u8, 2u8);
-    f.pin("B-F3.A_xor_C", a ^ c, "2", "fact sheet B-F3")?;
-    f.pin("B-F3.B_xor_C_xor_D", b ^ c ^ d, "6", "fact sheet B-F3")?;
-    f.pin("B-F3.A_xor_B", a ^ b, "6", "fact sheet B-F3")?;
-    f.pin("B-F3.A_xor_B_xor_C_xor_D", a ^ b ^ c ^ d, "3", "fact sheet B-F3")?;
-    f.pin("B-F3.B_xor_C", b ^ c, "4", "fact sheet B-F3")?;
-    f.pin("B-F3.card1_xor_card3", (a ^ c) ^ (a ^ b), "4", "fact sheet B-F3")?;
+    let (a, b, c, d) = (PIECES[0], PIECES[1], PIECES[2], PIECES[3]);
+    f.pin("B-F3.A_xor_C", result(CARDS[0]), "2", "fact sheet B-F3")?;
+    f.pin("B-F3.B_xor_C_xor_D", result(CARDS[1]), "6", "fact sheet B-F3")?;
+    f.pin("B-F3.A_xor_B", result(CARDS[2]), "6", "fact sheet B-F3")?;
+    f.pin("B-F3.A_xor_B_xor_C_xor_D", result(CARDS[3]), "3", "fact sheet B-F3")?;
+    f.pin("B-F3.rank_gf2_4_cards", rank_gf2(&CARDS), "4", "fact sheet B-F3")?;
+    f.pin("B-F3.B_xor_C", result(FIFTH_CARD), "4", "fact sheet B-F3")?;
+    f.pin(
+        "B-F3.card1_xor_card3",
+        result(CARDS[0]) ^ result(CARDS[2]),
+        "4",
+        "fact sheet B-F3",
+    )?;
+    let mut five = CARDS.to_vec();
+    five.push(FIFTH_CARD);
+    f.pin(
+        "B-F3.rank_gf2_with_5th_card_BxC",
+        rank_gf2(&five),
+        "4",
+        "fact sheet B-F3",
+    )?;
     f.pin(
         "B-F3.D_from_card2_and_BxC",
-        (b ^ c ^ d) ^ (b ^ c),
+        result(CARDS[1]) ^ result(FIFTH_CARD),
         "2",
         "fact sheet B-F3",
     )?;
-    // 04–05: the lottery at three pieces, exact in binary fractions
+    // 03_8: the toy deck (a stand-in for RFC 6330's recipe, out of scope)
+    f.add("B-S4.toy_deck.packets", list(DECK_PACKETS))?;
+    f.add("B-S4.toy_deck.masks", list(DECK_PACKETS.map(deck_mix)))?;
+    // 03_9: the name card
+    f.pin("B-S1.sourced.rfc6330_number", 6330, "6330", "RFC 6330 header")?;
     f.pin(
-        "B-F4.success_K3",
-        7.0 / 8.0 * (6.0 / 8.0) * (4.0 / 8.0),
+        "B-S1.sourced.rfc6330_year",
+        2011,
+        "2011",
+        "RFC 6330 header, August 2011",
+    )?;
+    // 04–05: the lottery at three pieces, exact in binary fractions
+    for (k, want) in [(1, "0.5"), (2, "0.375"), (3, "0.328125")] {
+        f.pin(
+            &format!("B-F4.success_K{k}"),
+            py(p_full(2, k, 0)),
+            want,
+            "fact sheet B-F4",
+        )?;
+    }
+    f.pin(
+        "B-F4.success_K3_check_7_8x6_8x4_8",
+        py(7.0 / 8.0 * (6.0 / 8.0) * (4.0 / 8.0)),
         "0.328125",
         "fact sheet B-F4",
     )?;
+    f.pin("B-F4.fail_K3", py(p_fail(2, 3, 0)), "0.671875", "1 − 21/64")?;
+    f.pin(
+        "B-F4.success_limit",
+        py(p_full_limit(2, 0)),
+        "0.2887880950866024",
+        "fact sheet B-F4",
+    )?;
+    f.pin(
+        "B-F4.useless_prob_3pieces_2cards_held",
+        py(useless_chance(2, 3)),
+        "0.5",
+        "fact sheet B-F4",
+    )?;
+    // 05–06: the many-piece lottery and its spares
+    for (h, want) in [
+        (0, "0.7112119049133976"),
+        (1, "0.42242380982679517"),
+        (2, "0.22989841310239353"),
+        (3, "0.11988390068844976"),
+    ] {
+        f.pin(
+            &format!("B-F5.fail_gf2_h{h}"),
+            py(p_fail_limit(2, h)),
+            want,
+            "fact sheet B-F5",
+        )?;
+    }
+    f.pin(
+        "B-F5.fail_gf2_h0_K10",
+        py(p_fail(2, 10, 0)),
+        "0.710929701580251",
+        "fact sheet B-F5",
+    )?;
+    f.add(
+        "B-F5.danger_meter_K10",
+        list((0..10).map(|held| py(useless_chance(held, 10)))),
+    )?;
+    f.pin(
+        "B-F28.min_spares_for_fail_le_1e-6",
+        spares_for(1_000_000),
+        "20",
+        "fact sheet B-F28",
+    )?;
+    f.pin(
+        "B-F28.fail_gf2_h20",
+        py(p_fail_limit(2, 20)),
+        "9.536740132413907e-07",
+        "fact sheet B-F28",
+    )?;
+    f.pin(
+        "B-F28.phones_stuck_of_1e6_at_h2",
+        py(p_fail_limit_times(2, 2, 1_000_000)),
+        "229898.41310239353",
+        "fact sheet B-F28",
+    )?;
+    f.pin("B-X4.halvings_2^10", 1u32 << 10, "1024", "fact sheet B-X4")?;
+    f.pin("B-X4.halvings_2^20", 1u32 << 20, "1048576", "fact sheet B-X4")?;
+    // 06: the ring of five, and the byte's 256 amounts
+    f.pin("B-F9.rank_gf2", rank_gf2(&RING), "4", "fact sheet B-F9")?;
+    f.pin("B-X4.byte_values_2^8", 1u32 << 8, "256", "2⁸")?;
     // 07: wrap-around at 256
     f.pin("B-F10.z256_2x128", 2u16 * 128 % 256, "0", "fact sheet B-F10")?;
     f.pin("B-F10.z256_2x131", 2u16 * 131 % 256, "6", "fact sheet B-F10")?;
@@ -129,14 +241,9 @@ pub fn facts() -> Result<Facts, String> {
     f.pin("B-F12.ord2_under_0x11B", order(2, AES_FOLD), "51", "fact sheet B-F12")?;
     f.pin("B-F12.ord3_under_0x11B", order(3, AES_FOLD), "255", "fact sheet B-F12")?;
     // 06, 16: the ring of five and its byte card
-    let e = 12u8;
+    let e = PIECES[4];
     let ring = [a ^ b, b ^ c, c ^ d, d ^ e, e ^ mul(2, a, FOLD)];
-    f.pin(
-        "B-F9.card_values",
-        ring.iter().map(u8::to_string).collect::<Vec<_>>().join(","),
-        "6,4,5,14,6",
-        "fact sheet B-F9",
-    )?;
+    f.pin("B-F9.card_values", list(ring), "6,4,5,14,6", "fact sheet B-F9")?;
     let s = ring.iter().fold(0, |x, y| x ^ y);
     f.pin("B-F9.y5_xor_S_equals_3A", s, "15", "fact sheet B-F9")?;
     f.pin(
@@ -148,52 +255,111 @@ pub fn facts() -> Result<Facts, String> {
     Ok(f)
 }
 
+/// 01: a million phones, the carousel and the sticker album.
+fn hook(f: &mut Facts) -> Result<(), String> {
+    f.pin("B-F1.K", HOOK_PIECES, "10000", "fact sheet B-F1")?;
+    f.pin(
+        "B-F1.K_times_H_K",
+        py(album_mean(HOOK_PIECES)),
+        "97876.06036044382",
+        "fact sheet B-F1",
+    )?;
+    f.pin(
+        "B-F1.K_times_H_K_floor",
+        album_mean_floor(HOOK_PIECES),
+        "97876",
+        "fact sheet B-F1",
+    )?;
+    f.add("B-F2.phones", PHONES)?;
+    f.add("B-F2.loss_one_in", LOSS_ONE_IN)?;
+    f.pin(
+        "B-F2.expected_misses_per_packet",
+        PHONES / u64::from(LOSS_ONE_IN),
+        "10000",
+        "fact sheet B-F2",
+    )?;
+    for (m, want) in [(2, "0.36786104643292994"), (3, "0.9900498287989156")] {
+        f.pin(
+            &format!("B-F24.P_phone_done_by_{m}_loops"),
+            py(p_done_by(m, 1)),
+            want,
+            "fact sheet B-F24",
+        )?;
+    }
+    for (m, want) in [(5, "0.3678794411530483"), (6, "0.9900498337491631")] {
+        f.pin(
+            &format!("B-F24.P_all_1e6_phones_done_by_{m}_loops"),
+            py(p_done_by(m, PHONES)),
+            want,
+            "fact sheet B-F24",
+        )?;
+    }
+    f.pin(
+        "B-F24.mean_loops_per_phone",
+        py(mean_loops()),
+        "2.642190129869331",
+        "fact sheet B-F24",
+    )?;
+    f.add("B-F24.P_phone_done_in_loop_2_or_3", py(p_done_in_loop_2_or_3()))?;
+    f.add("B-F24.P_phone_still_waiting_after_3_loops", py(p_waiting_after(3)))?;
+    f.pin(
+        "B-F24.carousel_mean_packets_sent_until_done",
+        py(carousel_mean_sent()),
+        "23729.95434759208",
+        "fact sheet B-F24 (23,729.95)",
+    )?;
+    f.pin(
+        "B-F24.carousel_mean_packets_caught_until_done",
+        py(carousel_mean_caught()),
+        "23492.65480411616",
+        "fact sheet B-F24 (23,492.65)",
+    )?;
+    f.pin(
+        "B-F24.fountain_packets_caught_K_plus_2",
+        HOOK_PIECES + 2,
+        "10002",
+        "fact sheet B-F24",
+    )?;
+    // the drawn field: a seeded sample of 1,000 phones, and the unluckiest of a million
+    f.add("B-F24.field.seed", FIELD_SEED)?;
+    f.add("B-F24.field.glyphs", GLYPHS)?;
+    f.add("B-F24.field.phones_per_glyph", PHONES / GLYPHS as u64)?;
+    f.add("B-F24.field.glyphs_done_by_loop_1_to_6", list(field_done_by_loop()))?;
+    f.add("B-F24.field.unluckiest_of_1e6_loops", unluckiest_of_a_million())?;
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Carry-less multiply, then reduce by the full degree-8 polynomial: an
-    /// independent route to the same products.
-    fn clmul_reduce(a: u8, b: u8, poly: u16) -> u8 {
-        let mut p = 0u16;
-        for i in 0..8 {
-            if b >> i & 1 != 0 {
-                p ^= u16::from(a) << i;
-            }
-        }
-        for bit in (8..16).rev() {
-            if p >> bit & 1 != 0 {
-                p ^= poly << (bit - 8);
-            }
-        }
-        p as u8
-    }
-
     #[test]
-    fn the_panel_multiply_agrees_with_carryless_reduction_on_every_pair() {
-        for a in 0..=255u8 {
-            for b in 0..=255u8 {
-                assert_eq!(mul(a, b, FOLD), clmul_reduce(a, b, 0x11D), "{a} * {b}");
-                assert_eq!(mul(a, b, AES_FOLD), clmul_reduce(a, b, 0x11B), "{a} * {b} (AES)");
-            }
+    fn py_prints_doubles_as_python_repr_does() {
+        // repr() in CPython 3.14, for each case
+        for (x, want) in [
+            (0.0, "0.0"),
+            (0.5, "0.5"),
+            (2.0, "2.0"),
+            (97_876.060_360_443_82, "97876.06036044382"),
+            (0.0001, "0.0001"),
+            (0.000_015_318_626_537_905_112, "1.5318626537905112e-05"),
+            (1e-5, "1e-05"),
+            (9.536_740_132_413_907e-7, "9.536740132413907e-07"),
+            (2.248_774_849_816_482e-44, "2.248774849816482e-44"),
+            (1e15, "1000000000000000.0"),
+            (1e16, "1e+16"),
+            (1.5e300, "1.5e+300"),
+            (-0.25, "-0.25"),
+            (0.0009765625, "0.0009765625"),
+        ] {
+            assert_eq!(py(x), want, "{x:e}");
         }
     }
 
     #[test]
-    fn multiplying_is_adding_clicks_and_every_byte_has_a_partner() {
-        let log = logs();
-        let mut exp = [0u8; 255];
-        for a in 1..=255u8 {
-            exp[log[a as usize] as usize] = a;
-        }
-        for a in 1..=255u8 {
-            for b in 1..=255u8 {
-                let clicks = (u16::from(log[a as usize]) + u16::from(log[b as usize])) % 255;
-                assert_eq!(mul(a, b, FOLD), exp[clicks as usize]);
-            }
-            // the partner sits at the mirror image: log a⁻¹ = 255 − log a
-            let partner = exp[((255 - u16::from(log[a as usize])) % 255) as usize];
-            assert_eq!(mul(a, partner, FOLD), 1);
-        }
+    fn every_registered_number_passes_its_pin() {
+        let f = facts().unwrap();
+        f.self_check().unwrap();
+        assert_eq!(f.get("B-F5.danger_meter_K10").unwrap().split(',').count(), 10);
     }
 }

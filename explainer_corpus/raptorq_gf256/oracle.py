@@ -438,6 +438,9 @@ def bf2():
     emit("B-F2.expected_misses_per_packet", n * p)
     emit("B-F2.sd_misses_per_packet", math.sqrt(float(n * p * (1 - p))))
     emit("B-F2.ln_P_packet_reaches_all", n * math.log(0.99))
+    # 01_1, 01_5: the hook's model, as said (a million phones, one packet in a hundred lost)
+    emit("B-F2.phones", n)
+    emit("B-F2.loss_one_in", 1 / p)
 
 
 # ==============================================================================================
@@ -467,6 +470,8 @@ def bf4():
     emit("B-F4.success_K3_check_7_8x6_8x4_8", Fraction(7, 8) * Fraction(6, 8) * Fraction(4, 8))
     emit("B-F4.success_limit", p_full_limit(2, 0))
     emit("B-F4.useless_prob_3pieces_2cards_held", Fraction(4, 8))
+    # 05_2 screen: three random cards over three pieces fail 1 - 21/64 of the time
+    emit("B-F4.fail_K3", 1 - p_full_finite(2, 3))
 
 
 # ==============================================================================================
@@ -479,6 +484,9 @@ def bf5():
     f = [1 - p_full_limit(2, h) for h in range(5)]
     emit("B-F5.ratio_fail_h0_over_h1", f[0] / f[1])
     emit("B-F5.ratio_fail_h3_over_h4", f[3] / f[4])
+    # 05_3-05_4, the danger meter on a ten-slot bucket: holding r useful ex-or cards of ten, a uniform card is
+    # useless (one the bucket can already make) with probability 2^r / 2^10
+    emit("B-F5.danger_meter_K10", [Fraction(2 ** r, 2 ** 10) for r in range(10)])
 
 
 # ==============================================================================================
@@ -1190,6 +1198,39 @@ def bf24():
     emit("B-F24.phones_of_1e6_still_waiting_after_3_loops", late * n_phones)
     emit("B-F24.glyphs_of_1000_still_waiting_after_3_loops", late * 1000)
     carousel_packets(K, p, mean)
+    # the drawn field (01_1, 01_6): thresholds P(done by m) for one phone and for the last of a million, as doubles
+    phone_field([float(P_le(m, K)) for m in range(1, 13)], [float(P_le(m, K * n_phones)) for m in range(1, 13)])
+
+
+M64 = (1 << 64) - 1
+FIELD_SEED = 20261011   # the storyboard's date; never re-rolled for a nicer draw
+
+
+def splitmix64(seed):
+    """SplitMix64 (Steele, Lea & Flood 2014; Vigna's constants), the portable generator the video's model.rs
+    runs, so the scene draws the oracle's sample."""
+    state = seed
+    while True:
+        state = (state + 0x9E3779B97F4A7C15) & M64
+        z = state
+        z = ((z ^ (z >> 30)) * 0xBF58476D1CE4E5B9) & M64
+        z = ((z ^ (z >> 27)) * 0x94D049BB133111EB) & M64
+        yield z ^ (z >> 31)
+
+
+def phone_field(thr_phone, thr_million):
+    """01_6: the field draws a sample of 1,000 phones (one glyph per 1,000). Each finishes in the first loop m with
+    u < P(a phone is done by m), u uniform from the top 53 bits of SplitMix64(FIELD_SEED); the next draw gives the
+    loop the unluckiest of the million phones finishes in, by the same rule with P(all 10^6 done by m)."""
+    rng = splitmix64(FIELD_SEED)
+    uniform = lambda: (next(rng) >> 11) * (1.0 / 9007199254740992.0)
+    first = lambda u, thr: next((i + 1 for i, t in enumerate(thr) if u < t), len(thr) + 1)
+    loops = [first(uniform(), thr_phone) for _ in range(1000)]
+    emit("B-F24.field.seed", FIELD_SEED)
+    emit("B-F24.field.glyphs", len(loops))
+    emit("B-F24.field.phones_per_glyph", 10 ** 6 // len(loops))
+    emit("B-F24.field.glyphs_done_by_loop_1_to_6", [sum(t <= m for t in loops) for m in range(1, 7)])
+    emit("B-F24.field.unluckiest_of_1e6_loops", first(uniform(), thr_million))
 
 
 def carousel_packets(K, p, mean_loops):
@@ -1447,6 +1488,8 @@ def bx4():
     emit("B-X4.xor_twice_restores_all_65536_pairs_ok", all((a ^ b) ^ b == a for a in range(256) for b in range(256)))
     emit("B-X4.halvings_2^10", 2 ** 10)
     emit("B-X4.halvings_2^20", 2 ** 20)
+    # 06_5: a byte as the amount, 256 choices
+    emit("B-X4.byte_values_2^8", 2 ** 8)
     # 08: the seven-hour clock; 256 does not fit in a byte; the primes either side of 256
     emit("B-X4.z7_inverse_of_3", pow(3, -1, 7))
     emit("B-X4.z7_nonzero_rows_are_permutations_ok",
@@ -1589,10 +1632,24 @@ def bx8():
              for i in range(257) for j in range(i + 1, 257)))
 
 
+# ==============================================================================================
+# B-S1, B-S4  the 03_8 deck and the 03_9 name card
+# ==============================================================================================
+def bs_cards():
+    # 03_8: a toy deck stands in for RFC 6330's Tuple[K', ISI] (out of scope): a packet's number seeds SplitMix64,
+    # and its first draw picks a nonempty mix of A-D (bit i = piece i), the same on both sides
+    packets = [48213, 48214, 48215]
+    emit("B-S4.toy_deck.packets", packets)
+    emit("B-S4.toy_deck.masks", [1 + next(splitmix64(FIELD_SEED ^ n)) % 15 for n in packets])
+    # 03_9 name card "RFC 6330 · IETF Proposed Standard · August 2011" (RFC 6330 header, p. 1; B-S1)
+    emit("B-S1.sourced.rfc6330_number", 6330)
+    emit("B-S1.sourced.rfc6330_year", 2011)
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
                bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8):
+               bx7, bx8, bs_cards):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)
