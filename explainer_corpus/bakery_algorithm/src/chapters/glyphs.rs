@@ -154,6 +154,22 @@ pub const PAIRS_FOR_BLUE: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green})";
 pub const PAIRS_FOR_GREEN: &str = r"(n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
 pub const PAIRS_CHAIN: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
 
+// 05_the_unwritten_ticket
+pub const FLAG_UP_WORD: &str = "up";
+pub const FLAG_DOWN_WORD: &str = "down";
+pub const STEPS_WORD: &str = "steps";
+pub const FLAG_RULE_1: &str = "a flag says: I'm choosing, don't judge me yet";
+pub const FLAG_RULE_2: &str = "raise it before reading, lower it after writing";
+pub const FLAG_RULE_3: &str = "before comparing with someone, wait until their flag is down";
+pub const WAITS_WORD: &str = "waits";
+pub const WITHOUT_FLAGS: &str = "without flags";
+pub const WITH_FLAGS: &str = "with flags";
+pub const ONE_VISIT_EACH: &str = "two customers, one visit each; each read, write and successful wait is one step";
+pub const CHOOSING_TIME: &str = "choosing time";
+pub const DOORWAY: &str = "Lamport calls this the doorway";
+pub const A_LOCK: &str = "a lock: others wait";
+pub const THESIS: &str = "choosing at once is fine: the flag shows who's choosing, the pair settles ties";
+
 /// Every string above, for the probe.
 pub const TEXT: &[&str] = &[
     DIGITS,
@@ -272,6 +288,20 @@ pub const TEXT: &[&str] = &[
     A_VIOLATION,
     THE_PROOF,
     EVERY_CASE,
+    FLAG_UP_WORD,
+    FLAG_DOWN_WORD,
+    STEPS_WORD,
+    FLAG_RULE_1,
+    FLAG_RULE_2,
+    FLAG_RULE_3,
+    WAITS_WORD,
+    WITHOUT_FLAGS,
+    WITH_FLAGS,
+    ONE_VISIT_EACH,
+    CHOOSING_TIME,
+    DOORWAY,
+    A_LOCK,
+    THESIS,
 ];
 
 /// Code, in CM Typewriter.

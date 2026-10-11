@@ -6,6 +6,7 @@
 pub mod cpu;
 pub mod draw;
 pub mod fair;
+pub mod flag;
 pub mod glyphs;
 pub mod old_zero;
 pub mod one_run;
@@ -15,6 +16,7 @@ pub mod scoreboard;
 pub mod three_customers;
 pub mod tickets;
 pub mod ties;
+pub mod tunes;
 pub mod why_never_two;
 
 use explainer_kit::Chapter;
@@ -54,7 +56,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(ties::SameNumber { kit }),
             intensity: 0.5,
         },
-        animatic!("05_the_unwritten_ticket", 0.55),
+        Chapter {
+            key: "05_the_unwritten_ticket",
+            make: |kit| Box::new(flag::UnwrittenTicket { kit }),
+            intensity: 0.55,
+        },
         Chapter {
             key: "06_three_customers",
             make: |kit| Box::new(three_customers::ThreeCustomers { kit }),

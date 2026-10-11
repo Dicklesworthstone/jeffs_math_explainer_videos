@@ -16,7 +16,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Figure, badge, chalk, customer, fade_in_all, fade_out_all, fail, group, line_style, order_gold, room_red, say,
-    scanline,
+    scanline, wait_until,
 };
 use super::glyphs as g;
 use super::tickets::{Bakery, LANE_Y, ROOM_C, ROOM_W, SLATE_SIZE, SLATE_X, set_bakery};
@@ -182,11 +182,11 @@ impl SceneConstruct for SameNumber {
         let kit = self.kit.clone();
         let (mut b, room) = rewind(&kit, stage)?;
         let st2 = same_ticket(&kit, stage, &mut b)?;
-        no_tie_breaker(&kit, stage, &mut b, &st2)?;
-        let tokens = tie_breaker(&kit, stage, &mut b, &room, &st2)?;
+        let words = no_tie_breaker(&kit, stage, &mut b, &st2)?;
+        let tokens = tie_breaker(&kit, stage, &mut b, &room, &st2, words)?;
         sweep(&kit, stage, &b, &st2, tokens)?;
         kit.hold(stage)?;
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.5)?;
         kit.finish(stage)
     }
 }
@@ -341,7 +341,8 @@ fn walk(f: &Figure, to: Vec3, rt: f64) -> fmn::Result<AnimBuilder> {
 
 /// 04_3: tickets alone. With "smaller", both end up in the room; with
 /// "smaller or equal", both wait, bowing, forever.
-fn no_tie_breaker(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery, st2: &State) -> fmn::Result<()> {
+/// Returns the rule and the two "after you" labels, which 04_4 clears.
+fn no_tie_breaker(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery, st2: &State) -> fmn::Result<[Mob; 3]> {
     let line = say(kit, stage, "04_3")?;
     let rule = kit.text(stage, g::RULE_SMALLER, 28.0, Palette::ink(), v(-0.6, 3.3))?;
     play!(stage; fade_in(stage.arena_mut(), rule, v(0.0, 0.1), 1.0)?.rt(0.5));
@@ -395,39 +396,34 @@ fn no_tie_breaker(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery, st2: &State)
     line.wait_for(stage, "bowing")?;
     let after = kit.text(stage, g::AFTER_YOU, 24.0, Palette::dim(), v(door - 2.2, 0.75))?;
     let no_after = kit.text(stage, g::NO_AFTER_YOU, 24.0, Palette::dim(), v(door - 2.2, -0.75))?;
-    for round in 0..2 {
-        for (f, word) in [(purple, after), (teal, no_after)] {
-            let base = stage.get_center(f.body);
-            let pivot = v(base[0], base[1] - 0.35);
-            let tilt = if f.k == 3 { -0.32 } else { 0.32 };
-            let down = f
+    fade_in_all(stage, &[after, no_after], 0.4)?;
+    // "after you", "no, after you": they trade bows, a note each, forever
+    let notes = 4;
+    let (wav, secs) =
+        super::tunes::write("04_3", super::tunes::after_you(3, 4, notes)).map_err(|e| fail(e.to_string()))?;
+    let beat = 60.0 / 104.0;
+    kit.sonify(stage, secs, "04_3", &wav)?;
+    let t0 = stage.scene().time().to_f64();
+    for n in 0..notes {
+        let f = if n % 2 == 0 { purple } else { teal };
+        wait_until(stage, t0 + n as f64 * beat)?;
+        let base = stage.get_center(f.body);
+        let pivot = v(base[0], base[1] - 0.35);
+        let tilt = if f.k == 3 { -0.3 } else { 0.3 };
+        for (rt, angle) in [(0.24, tilt), (0.24, -tilt)] {
+            let bow = f
                 .group
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(0.45),
+                    run_time: Some(rt),
                     ..AnimateArgs::default()
                 })?
-                .rotate_about(tilt, OUT, Some(pivot))?;
-            if round == 0 {
-                let w = fade_in(stage.arena_mut(), word, ORIGIN, 1.0)?;
-                play!(stage; down, w.rt(0.45));
-            } else {
-                play!(stage; down);
-            }
-            let up = f
-                .group
-                .animate()
-                .set_anim_args(AnimateArgs {
-                    run_time: Some(0.45),
-                    ..AnimateArgs::default()
-                })?
-                .rotate_about(-tilt, OUT, Some(pivot))?;
-            play!(stage; up);
+                .rotate_about(angle, OUT, Some(pivot))?;
+            play!(stage; bow);
         }
     }
-    kit.listen(stage, 3.0, "04_same_number:04_3")?;
-    fade_out_all(stage, &[rule2, after, no_after], 0.4)?;
-    Ok(())
+    wait_until(stage, t0 + secs)?;
+    Ok([rule2, after, no_after])
 }
 
 /// 04_4: the tie-breaker. (5, Purple 3) before (5, Teal 4), like "cat"
@@ -438,8 +434,10 @@ fn tie_breaker(
     b: &mut Bakery,
     room: &[Mob; 3],
     st2: &State,
+    words: [Mob; 3],
 ) -> fmn::Result<[Mob; 2]> {
     let line = say(kit, stage, "04_4")?;
+    fade_out_all(stage, &words, 0.4)?;
     // back to 04_2's slates: the customers 04_3 served hold their
     // tickets again
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -585,6 +583,6 @@ fn sweep(kit: &Kit, stage: &mut Stage<'_>, b: &Bakery, st2: &State, tokens: [Mob
     let lower = lower_third(kit, stage, g::PRECISELY, g::TOTALLY_ORDERED)?;
     play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
-    kit.music_breath(stage, 2.0)?;
+    kit.music_breath(stage, 0.8)?;
     Ok(())
 }

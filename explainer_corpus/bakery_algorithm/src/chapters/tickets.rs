@@ -11,7 +11,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Figure, Slate, Spoken, chalk, chalk_number, customer, fade_in_all, fade_out_all, fail, figure, flat, lane,
-    line_style, order_gold, room, room_red, say, slate,
+    line_style, order_gold, room, room_red, say, slate, wait_until,
 };
 use super::glyphs as g;
 use crate::facts::{cited, take_ticket};
@@ -38,7 +38,7 @@ const READ_X: [f64; 4] = [-3.3, -2.35, -1.4, -0.45];
 const SUM_X: f64 = 0.75;
 /// The room's turns on the lanes (03_5–03_6): one stretch per customer
 /// served, one after another along time.
-const TURN_X: [(f64, f64); 3] = [(1.15, 1.95), (2.05, 2.85), (2.95, 3.65)];
+const TURN_X: [(f64, f64); 3] = [(1.0, 1.85), (1.9, 2.75), (2.8, 3.65)];
 
 impl SceneConstruct for TakeANumber {
     fn name(&self) -> &str {
@@ -531,35 +531,34 @@ fn tunes(kit: &Kit, stage: &mut Stage<'_>, reads: &Reads, turns: &Turns) -> fmn:
     let mut done = reads.chips.clone();
     done.extend(&reads.sum);
     fade_out_all(stage, &done, 0.4)?;
-    // the lanes become a stave: each turn grows note-heads in its colour
+    // the room's turns as one sound, each customer's "served" in her own
+    // timbre; the lanes become a stave and each note lands as it sounds
+    let (sound, onsets) = super::tunes::turns(&turns.order);
+    let (wav, secs) = super::tunes::write("03_6", sound).map_err(|e| fail(e.to_string()))?;
+    let degrees = super::tunes::served_degrees();
     let mut heads = Vec::new();
     for (turn, &k) in turns.order.iter().enumerate() {
         let (x0, x1) = TURN_X[turn];
         let y = LANE_Y[k - 1];
-        for (n, dy) in [0.0, 0.24, 0.47].into_iter().enumerate() {
-            let x = x0 + (x1 - x0) * (n as f64 + 0.5) / 3.0;
+        for (n, &d) in degrees.iter().enumerate() {
+            let x = x0 + (x1 - x0) * (n as f64 + 0.5) / degrees.len() as f64;
+            let at = v(x, y + 0.09 * f64::from(d - 1));
             let head = Ellipse::new()
-                .width(0.34)
-                .height(0.24)
+                .width(0.2)
+                .height(0.15)
                 .style(flat(customer(k), 1.0))
                 .build()
-                .moved_to(v(x, y + dy));
-            heads.push(stage.arena_mut().add(head));
+                .moved_to(at);
+            heads.push((onsets[turn][n], stage.arena_mut().add(head)));
         }
     }
-    let mut groups: Vec<Box<dyn Animation>> = Vec::new();
-    for chunk in heads.chunks(3) {
-        let notes: Vec<Box<dyn Animation>> = chunk
-            .iter()
-            .map(|&m| fade_in(stage.arena_mut(), m, v(0.0, 0.15), 0.6).map(|a| Box::new(a) as Box<dyn Animation>))
-            .collect::<Result<_, _>>()?;
-        groups.push(Box::new(
-            AnimationGroup::with_lag_ratio(stage.arena_mut(), notes, 0.5)?.with_run_time(0.9),
-        ));
+    kit.sonify(stage, secs, "03_6", &wav)?;
+    let t0 = stage.scene().time().to_f64();
+    for (t, head) in heads {
+        wait_until(stage, t0 + t)?;
+        play!(stage; fade_in(stage.arena_mut(), head, v(0.0, 0.12), 0.6)?.rt(0.15));
     }
-    let seq = Succession::new(stage.arena_mut(), groups)?;
-    stage.play(seq)?;
-    kit.listen(stage, 3.0, "03_take_a_number:03_6")?;
+    wait_until(stage, t0 + secs)?;
     Ok(())
 }
 
