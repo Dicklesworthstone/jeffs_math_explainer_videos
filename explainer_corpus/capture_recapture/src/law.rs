@@ -14,6 +14,19 @@
 
 /// The tail cut: 2.5% on each side.
 pub const ALPHA: f64 = 1.0 / 40.0;
+/// Feller's own range for his catch, recorded (1st ed. 1950, p. 38: "These
+/// figures would justify a bet that the true number n of fish lies
+/// somewhere between 8500 and 12,000").
+pub const FELLER_BET: (u64, u64) = (8_500, 12_000);
+
+/// The one-sided chances behind a range for a catch: P(K ≤ k) at its low
+/// end and P(K ≥ k) at its high end (for Feller's bet, oracle A-F14).
+pub fn range_tails(marked: u64, caught: u64, caught_twice: u64, (lo, hi): (u64, u64)) -> (f64, f64) {
+    (
+        Law::new(lo, marked, caught).le(caught_twice),
+        Law::new(hi, marked, caught).ge(caught_twice),
+    )
+}
 /// Closer to the cut than this and a float comparison is not trusted.
 pub const GUARD: f64 = 1e-9;
 

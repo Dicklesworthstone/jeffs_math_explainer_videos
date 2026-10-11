@@ -7,6 +7,7 @@ pub mod draw;
 pub mod hook;
 pub mod lake;
 pub mod marks;
+pub mod ring_toss;
 pub mod spread;
 
 use explainer_kit::Chapter;
@@ -49,7 +50,11 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("09_check_it_by_cheating", 0.55),
         animatic!("10_small_experiments", 0.5),
         animatic!("11_how_sure", 0.5),
-        animatic!("12_the_ring_toss", 0.55),
+        Chapter {
+            key: "12_the_ring_toss",
+            make: |kit| Box::new(ring_toss::RingToss { kit }),
+            intensity: 0.55,
+        },
         animatic!("13_one_rule_for_every_failure", 0.5),
         animatic!("14_the_dark_cell_everywhere", 0.45),
         animatic!("15_counting_the_dead", 0.25),

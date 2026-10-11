@@ -483,6 +483,10 @@ def af14_feller_tails():
     emit("A-F14.P8500_K_le_100", t1)
     emit("A-F14.P12000_K_ge_100", t2)
     emit("A-F14.coverage_8500_12000", 1 - t1 - t2)
+    # 12_3's lower-third (2026-10-11, chapters 12-15 lane): Feller's printed range (1st ed. p. 38,
+    # recorded) and the three chances to one decimal place, as the lower-third prints them
+    emit("A-F14.recorded.feller_bet_range", "8500,12000")
+    emit("A-F14.pct_1dp", f"{float(t1) * 100:.1f},{float(t2) * 100:.1f},{float(1 - t1 - t2) * 100:.1f}")
 
 
 def af15_sd_of_k():
@@ -1643,6 +1647,9 @@ def ch12_ring_toss_panel(k, ring):
     emit(f"{pre}.expected_missed", float((1 - cov) * int(k.size)))
     # 12_2's counter, "(455 expected)" (2026-10-11, chapters 12-15 lane)
     emit(f"{pre}.expected_missed_rounded", round((1 - cov) * int(k.size)))
+    # 12_2's first ring, labelled on screen: run 1's catch and its exact 95% range
+    lo1, hi1, _ = exact_ci(FM, FN_, int(k[0]))
+    emit(f"{pre}.run1_k_ci95", f"{int(k[0])},{lo1},{hi1}")
 
 
 def ch12_coverage_over_N():

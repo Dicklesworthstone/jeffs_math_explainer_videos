@@ -255,6 +255,19 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
     let (lo, hi) = careful_range(fm, fnn, fk)?;
     f.pin("A-F13.ci95_lo", lo, "8400", "fact sheet A-F13")?;
     f.pin("A-F13.ci95_hi", hi, "12073", "fact sheet A-F13")?;
+    // 12_3's lower-third: Feller's own range and its one-sided chances
+    let (bet_lo, bet_hi) = crate::law::FELLER_BET;
+    f.add("A-F14.recorded.feller_bet_range", format!("{bet_lo},{bet_hi}"))?;
+    let (low, high) = crate::law::range_tails(fm, fnn, fk, crate::law::FELLER_BET);
+    f.add(
+        "A-F14.pct_1dp",
+        format!(
+            "{:.1},{:.1},{:.1}",
+            100.0 * low,
+            100.0 * high,
+            100.0 * (1.0 - low - high)
+        ),
+    )?;
     let truth = Law::new(lake, fm, fnn);
     let (ring_lo, ring_hi) = truth.middle()?;
     f.pin(
@@ -283,6 +296,11 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
         first100_missed.join(","),
         "13,71",
         "storyboard 12_2",
+    )?;
+    let (run1_lo, run1_hi) = careful_range(fm, fnn, u64::from(panel[0]))?;
+    f.add(
+        &format!("{pre}.run1_k_ci95"),
+        format!("{},{run1_lo},{run1_hi}", panel[0]),
     )?;
     f.add(&format!("{pre}.all_runs"), panel.len())?;
     f.pin(
