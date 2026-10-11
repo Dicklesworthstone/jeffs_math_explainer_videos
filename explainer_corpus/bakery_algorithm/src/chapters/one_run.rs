@@ -72,13 +72,16 @@ struct Run<'a> {
 
 impl Run<'_> {
     /// Play steps `done + 1 ..= upto` over `run_time`: the lanes, the heads,
-    /// the clock, and a scoreboard tick per room entry.
+    /// the clock and the room bars. The stretch is cut at every room entry,
+    /// so each visit lands at its own moment: the scoreboard ticks once per
+    /// visit, and the score gets a `tick:` mark right on the entry (Codex
+    /// round 6, P2: one mark per batch put two visits at one instant).
     fn to(&mut self, stage: &mut Stage<'_>, upto: usize, run_time: f64) -> fmn::Result<()> {
         if upto <= self.done {
             return Ok(());
         }
-        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        // the last stretch's glances fade to a trace: dots and bands keep
+        let mut fades: Vec<Box<dyn Animation>> = Vec::new();
+        // the last stretch's glances clear: dots, bands and room bars keep
         // the history, the new glances stand out
         for p in &self.lanes.parts[self.bright..self.done] {
             for (m, o) in [(p.arrow, PAST), (p.out, PAST), (p.static_fx, PAST), (p.chip, 0.0)] {
@@ -90,34 +93,47 @@ impl Run<'_> {
                         ..AnimateArgs::default()
                     })?
                     .set_opacity(o)?;
-                anims.push(stage.prepare(a)?);
+                fades.push(stage.prepare(a)?);
             }
         }
         self.bright = self.done;
-        if let Some(r) = self.lanes.reveal(stage, self.done + 1..=upto, run_time)? {
-            anims.push(r);
+        // segments ending at each entry, then the rest
+        let mut ends: Vec<usize> = (self.done + 1..=upto).filter(|&k| self.steps[k - 1].enters()).collect();
+        if ends.last() != Some(&upto) {
+            ends.push(upto);
         }
-        let mut heads = self.lanes.heads_to(self.kit, stage, upto)?;
-        let entries = self.steps[self.done..upto].iter().filter(|s| s.enters()).count() as u32;
-        let clock = tween(self.clock, counted_upto(&self.steps, upto) as f64, run_time)?;
-        anims.push(stage.prepare(clock)?);
-        if let Some(x) = self.lanes.x(upto) {
-            let front = tween(self.front, x + self.lanes.slot_w() / 2.0, run_time)?;
-            anims.push(stage.prepare(front)?);
+        let per_step = run_time / (upto - self.done) as f64;
+        for end in ends {
+            let rt = per_step * (end - self.done) as f64;
+            let mut anims: Vec<Box<dyn Animation>> = std::mem::take(&mut fades);
+            if let Some(r) = self.lanes.reveal(stage, self.done + 1..=end, rt)? {
+                anims.push(r);
+            }
+            let clock = tween(self.clock, counted_upto(&self.steps, end) as f64, rt)?;
+            anims.push(stage.prepare(clock)?);
+            if let Some(x) = self.lanes.x(end) {
+                let front = tween(self.front, x + self.lanes.slot_w() / 2.0, rt)?;
+                anims.push(stage.prepare(front)?);
+            }
+            stage.play_prepared(anims)?;
+            // newly drawn steps go under the dimmers, the room bars over all
+            stage.scene_mut().bring_to_front(&self.dimmers)?;
+            stage.scene_mut().bring_to_front(&self.bars)?;
+            let heads = self.lanes.heads_to(self.kit, stage, end)?;
+            let enters = self.steps[end - 1].enters();
+            if enters {
+                self.kit.mark(stage, "tick:served");
+            }
+            if !heads.is_empty() {
+                play_timed(stage, heads, 0.25)?;
+            }
+            if enters {
+                self.served += 1;
+                let tick = self.board.show(self.kit, stage, SCORE_START + self.served)?;
+                play_timed(stage, tick.into(), 0.35)?;
+            }
+            self.done = end;
         }
-        stage.play_prepared(anims)?;
-        // newly drawn steps go under the dimmers, the room bars over all
-        stage.scene_mut().bring_to_front(&self.dimmers)?;
-        stage.scene_mut().bring_to_front(&self.bars)?;
-        if !heads.is_empty() {
-            play_timed(stage, std::mem::take(&mut heads), 0.25)?;
-        }
-        if entries > 0 {
-            self.served += entries;
-            let tick = self.board.show(self.kit, stage, SCORE_START + self.served)?;
-            play_timed(stage, tick.into(), 0.35)?;
-        }
-        self.done = upto;
         Ok(())
     }
 
