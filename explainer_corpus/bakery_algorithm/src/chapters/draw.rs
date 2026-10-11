@@ -195,15 +195,24 @@ pub struct Figure {
 
 /// The figure's height at scale 1.
 pub const FIGURE_H: f64 = 0.72;
+/// The figure's width at scale 1, and its rounded corners.
+const FIGURE_W: f64 = 0.56;
+const FIGURE_CORNER: f64 = 0.26;
+/// The figure's eyes: their height above its centre, and their radius.
+const EYE_Y: f64 = 0.17;
+const EYE_R: f64 = 0.075;
+/// The belly badge's radius and centre height at scale 1.
+const BADGE_R: f64 = 0.2;
+const BADGE_Y: f64 = -0.14;
 
 /// Customer `k` (1-based) standing at `at`, `scale` × the standard size.
 pub fn figure(kit: &Kit, stage: &mut Stage<'_>, k: usize, at: Vec3, scale: f64) -> fmn::Result<Figure> {
     let s = scale;
     let p = |x: f64, y: f64| v(at[0] + x * s, at[1] + y * s);
     let body = Rectangle::new()
-        .width(0.56 * s)
+        .width(FIGURE_W * s)
         .height(FIGURE_H * s)
-        .corner_radius(0.26 * s)
+        .corner_radius(FIGURE_CORNER * s)
         .style(flat(customer(k), 1.0))
         .build()?
         .moved_to(at);
@@ -212,8 +221,8 @@ pub fn figure(kit: &Kit, stage: &mut Stage<'_>, k: usize, at: Vec3, scale: f64) 
     let mut pupils = Vec::new();
     for side in [-1.0, 1.0] {
         let white = Circle::new()
-            .radius(0.075 * s)
-            .arc_center(p(0.11 * side, 0.17))
+            .radius(EYE_R * s)
+            .arc_center(p(0.11 * side, EYE_Y))
             .style(flat(chalk(), 1.0))
             .build();
         let pupil = Circle::new()
@@ -226,13 +235,15 @@ pub fn figure(kit: &Kit, stage: &mut Stage<'_>, k: usize, at: Vec3, scale: f64) 
         parts.push(pm);
         pupils.push(pm);
     }
+    // the badge as big as the belly allows, so the number reads on a phone
+    // (R3 maya-08): clear of the eyes above, inside the rounded body below
     let disc = Circle::new()
-        .radius(0.15 * s)
-        .arc_center(p(0.0, -0.13))
+        .radius(BADGE_R * s)
+        .arc_center(p(0.0, BADGE_Y))
         .style(flat(chalk(), 1.0))
         .build();
     let disc = stage.arena_mut().add(disc);
-    let num = kit.text(stage, &k.to_string(), 24.0 * s, dark(), p(0.0, -0.13))?;
+    let num = kit.text(stage, &k.to_string(), 160.0 * BADGE_R * s, dark(), p(0.0, BADGE_Y))?;
     let badge = group(stage, &[disc, num])?;
     parts.push(badge);
     let g = group(stage, &parts)?;
@@ -1132,6 +1143,30 @@ mod tests {
             }
         }
         assert!(worst >= 20.0);
+    }
+
+    #[test]
+    fn the_belly_badge_fits_the_figure() {
+        // clear of the eyes above
+        const { assert!(BADGE_Y + BADGE_R < EYE_Y - EYE_R) };
+        // every point of the disc inside the rounded body
+        let half_width = |d: f64| {
+            let r = FIGURE_CORNER;
+            if d >= r {
+                FIGURE_W / 2.0
+            } else {
+                FIGURE_W / 2.0 - r + (r * r - (r - d) * (r - d)).max(0.0).sqrt()
+            }
+        };
+        for i in 0..360 {
+            let t = f64::from(i).to_radians();
+            let (x, y) = (BADGE_R * t.cos(), BADGE_Y + BADGE_R * t.sin());
+            let d = y + FIGURE_H / 2.0;
+            assert!(
+                d > 0.0 && x.abs() < half_width(d),
+                "badge leaves the body at {i} degrees"
+            );
+        }
     }
 
     #[test]
