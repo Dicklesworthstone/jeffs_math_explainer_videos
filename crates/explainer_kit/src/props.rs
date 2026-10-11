@@ -432,8 +432,14 @@ pub struct CodePanel {
 
 impl CodePanel {
     /// The panel: a "for programmers" header and the code lines in the
-    /// bundled typewriter face, `size` points, left-aligned.
+    /// bundled typewriter face, `size` points, left-aligned, each line's
+    /// leading spaces kept as indentation (one column per space).
     pub fn build(kit: &Kit, stage: &mut Stage<'_>, code: &[&str], size: f64, width: f64) -> fmn::Result<Self> {
+        // one column's advance: twenty zeros minus ten zeros. A line placed by
+        // its first glyph would otherwise lose its indentation.
+        let ten = kit.mono(stage, &"0".repeat(10), size, Palette::ink(), ORIGIN)?;
+        let twenty = kit.mono(stage, &"0".repeat(20), size, Palette::ink(), ORIGIN)?;
+        let col = (stage.get_width(twenty) - stage.get_width(ten)) / 10.0;
         let line_h = size / 48.0 * 0.5;
         let h = 0.9 + line_h * code.len() as f64;
         let centre = v(FRAME_X_RADIUS + width / 2.0 + 0.1, 0.0);
@@ -444,8 +450,10 @@ impl CodePanel {
         let mut lines = Vec::with_capacity(code.len());
         for (i, line) in code.iter().enumerate() {
             let y = top - 0.5 - line_h * i as f64;
-            let m = kit.mono(stage, line, size, Palette::ink(), v(left, y))?;
-            stage.move_to(m, v(left, y), LEFT);
+            let lead = line.chars().take_while(|&c| c == ' ').count();
+            let x = left + col * lead as f64;
+            let m = kit.mono(stage, line.trim_start(), size, Palette::ink(), v(x, y))?;
+            stage.move_to(m, v(x, y), LEFT);
             lines.push(m);
         }
         let mut all = vec![back, header];
@@ -749,6 +757,30 @@ mod tests {
             );
             let receipts = receipts_card(&kit, stage, &["every number: facts.rs, checked by oracle.py"])?;
             assert_eq!(children(stage, receipts).len(), 3);
+            Ok(())
+        });
+    }
+
+    #[test]
+    fn the_code_panel_keeps_indentation() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            // every line starts with the same glyph, so left edges differ by indentation only
+            let code = ["x = 0", "    x = 1", "        x = 2", "x = 3"];
+            let panel = CodePanel::build(&kit, stage, &code, 30.0, 6.0)?;
+            let ten = kit.mono(stage, &"0".repeat(10), 30.0, Palette::ink(), ORIGIN)?;
+            let twenty = kit.mono(stage, &"0".repeat(20), 30.0, Palette::ink(), ORIGIN)?;
+            let col = (stage.get_width(twenty) - stage.get_width(ten)) / 10.0;
+            assert!(col > 0.05, "a column has width: {col}");
+            let left = |i: usize| stage.get_bounding_box_point(panel.lines[i], LEFT)[0];
+            let base = left(0);
+            for (i, spaces) in [(1, 4.0), (2, 8.0), (3, 0.0)] {
+                let shift = left(i) - base;
+                assert!(
+                    (shift - spaces * col).abs() < 1e-6,
+                    "line {i} sits {shift} right of line 0, want {spaces} columns of {col}"
+                );
+            }
             Ok(())
         });
     }
