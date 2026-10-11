@@ -40,7 +40,7 @@ const ONE_FIFTY: u8 = 150;
 const THREE: u8 = 3;
 
 /// The colour of a product: a ramp over the 256 bytes, blue to red.
-fn palette() -> Vec<Srgb> {
+pub(crate) fn palette() -> Vec<Srgb> {
     color_gradient(
         &[
             "#2B3A8C", "#3D7FD9", "#58C4DD", "#83C167", "#FFD866", "#F0AC5F", "#FC6255",

@@ -120,6 +120,7 @@ fn a_chapter_can_ask_for_the_camera_route() {
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
         line_owner: None,
+        thumbnail: None,
     };
     let argv = format!("render --res 64x36 --fps 10 --silent --out {}", out.display());
     let code = explainer_kit::cli::run(&e, argv.split_whitespace().map(str::to_owned));

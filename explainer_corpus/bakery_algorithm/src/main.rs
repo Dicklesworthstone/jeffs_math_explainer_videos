@@ -35,6 +35,7 @@ const EXPLAINER: Explainer = Explainer {
     identity: explainer_score::score::Identity::bakery_algorithm,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_owner: None,
+    thumbnail: None,
 };
 
 fn main() {

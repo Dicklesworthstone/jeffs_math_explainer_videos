@@ -29,6 +29,7 @@ pub mod polynomials;
 pub mod prime_clocks;
 pub mod register;
 pub mod sound;
+pub mod thumbnail;
 pub mod times_table;
 pub mod wrap256;
 

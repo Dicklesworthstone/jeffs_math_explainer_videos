@@ -23,6 +23,7 @@
 #   ./x <slug> verify                           the delivery gates on the master (verify_video.sh)
 #   ./x <slug> watch [scored|narrated|draft]    one file to watch: those renders in chapter order,
 #                                               stream-copied to renders/<slug>_<kind>_watch.mp4
+#   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
 #   ./x remote-wait [UNIT] [SECONDS]            wait (default 540 s) for UNIT (default the last
@@ -35,7 +36,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,35p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,36p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -217,6 +218,10 @@ case "$cmd" in
     [ -f "$master_mp4" ] || die "no master in $finals (run ./x $slug master)"
     export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0
     exec "$check" "$master_mp4" ;;
+  thumbnail)
+    [ $# -eq 0 ] || usage
+    build_binary
+    exec "$binary" thumbnail --res 1280x720 --out "$crate/renders" ;;
   watch)
     # every chapter's draft in chapter order, stream-copied into one file to watch
     [ $# -le 1 ] || usage

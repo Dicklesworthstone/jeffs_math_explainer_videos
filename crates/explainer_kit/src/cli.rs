@@ -59,6 +59,9 @@ pub struct Explainer {
     /// The chapter a script line belongs to, for line ids that do not follow
     /// `NN_k` (None: the line's `NN_` prefix names its chapter).
     pub line_owner: Option<fn(&str) -> Option<&'static str>>,
+    /// The video's thumbnail: its central picture and a short title, held
+    /// still (None: the video has none yet). `thumbnail` renders it.
+    pub thumbnail: Option<fn(Kit) -> Box<dyn SceneConstruct>>,
 }
 
 const USAGE: &str = "\
@@ -75,6 +78,8 @@ commands:
   master                   the PCM master: every chapter's cues replayed through fmn's own mixer and
                            null-tested against the soundtrack it muxed (renders made with --crf),
                            joined to OUT/CRATE_master.mp4 without re-encoding the video
+  thumbnail                the video's thumbnail scene as one PNG, OUT/CRATE_thumbnail.png, at
+                           --res (YouTube: 1280x720)
   captions                 OUT/CRATE.en.srt and .vtt, sentence by sentence, from the chapters'
                            timelines in OUT and the narration's report.json (--narration DIR)
   help                     show this text
@@ -321,6 +326,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
             "score" => return score_video(e, &args),
             "master" => return master_video(e, &args),
             "captions" => return captions_video(e, &args),
+            "thumbnail" => return thumbnail(e, &args),
             other => return Err(format!("unknown command {other}").into()),
         }
         Ok(0)
@@ -808,6 +814,30 @@ fn master_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         eprintln!("master gates failed: frames {frames} vs {total_frames}, audio {secs:.3} s vs {picture:.3} s");
     }
     Ok(i32::from(!ok))
+}
+
+/// The `thumbnail` command: the video's thumbnail scene as one PNG,
+/// `OUT/<crate>_thumbnail.png` at `--res`. The scene ends on a one-second
+/// hold, which at 1 fps is exactly one frame; an earlier thumbnail is moved
+/// aside, never overwritten.
+fn thumbnail(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    let make = e.thumbnail.ok_or("this video has no thumbnail scene yet")?;
+    std::fs::create_dir_all(&args.out)?;
+    let frames = args.out.join("thumbnail");
+    set_aside(&frames)?;
+    let mut scene = make(Kit::new()?);
+    let report = render(scene.as_mut(), options(frames, RenderFormat::PngSequence, args.res, 1)?)?;
+    let mut pngs: Vec<PathBuf> = std::fs::read_dir(&report.artifact.path)?
+        .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+        .filter(|p| p.extension().is_some_and(|x| x == "png"))
+        .collect();
+    pngs.sort();
+    let last = pngs.last().ok_or("the thumbnail scene drew no frame")?;
+    let png = args.out.join(format!("{}_thumbnail.png", e.crate_name));
+    set_aside(&png)?;
+    std::fs::copy(last, &png)?;
+    println!("thumbnail {}x{} -> {}", args.res.0, args.res.1, png.display());
+    Ok(0)
 }
 
 /// The `glyphs` command: every Text and Tex string the video uses, on PNG

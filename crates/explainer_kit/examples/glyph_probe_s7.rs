@@ -140,6 +140,7 @@ fn explainer(
         identity: Identity::hoeffding,
         narration_gain_db: 0.0,
         line_owner: None,
+        thumbnail: None,
     }
 }
 

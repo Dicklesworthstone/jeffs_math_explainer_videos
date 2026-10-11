@@ -77,7 +77,55 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
         line_owner: None,
+        thumbnail: None,
     }
+}
+
+/// A thumbnail: one picture and a title, held for the one captured frame.
+struct ToyThumbnail {
+    kit: Kit,
+}
+
+impl SceneConstruct for ToyThumbnail {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let disc = Circle::new()
+            .radius(2.0)
+            .style(Style::default().fill(Palette::hero(), 1.0))
+            .build();
+        stage.add(disc)?;
+        let title = self.kit.text(stage, "toy", 60.0, Palette::ink(), v(0.0, -3.0))?;
+        stage.add_to_scene(title)?;
+        stage.wait(1.0)?;
+        Ok(())
+    }
+}
+
+/// Width and height from a PNG's IHDR chunk.
+fn png_size(path: &Path) -> (u32, u32) {
+    let b = std::fs::read(path).unwrap();
+    assert_eq!(&b[..8], b"\x89PNG\r\n\x1a\n", "{} is a PNG", path.display());
+    let be = |i: usize| u32::from_be_bytes([b[i], b[i + 1], b[i + 2], b[i + 3]]);
+    (be(16), be(20))
+}
+
+#[test]
+fn the_thumbnail_is_one_png_at_the_asked_size() {
+    let out = std::env::temp_dir().join(format!("explainer_kit_thumbnail_{}", std::process::id()));
+    let mut e = explainer(good_facts);
+    let argv = |s: &str| args(&format!("{s} --out {}", out.display()));
+    // a video without a thumbnail scene says so
+    assert_ne!(explainer_kit::cli::run(&e, argv("thumbnail --res 320x180")), 0);
+    e.thumbnail = Some(|kit| Box::new(ToyThumbnail { kit }));
+    assert_eq!(explainer_kit::cli::run(&e, argv("thumbnail --res 320x180")), 0);
+    let png = out.join("toy_thumbnail.png");
+    assert_eq!(png_size(&png), (320, 180));
+    // a second run moves the first aside instead of overwriting it
+    assert_eq!(explainer_kit::cli::run(&e, argv("thumbnail --res 640x360")), 0);
+    assert_eq!(png_size(&png), (640, 360));
+    assert!(
+        out.join("previous/toy_thumbnail.v1.png").is_file(),
+        "the first thumbnail kept"
+    );
 }
 
 fn args(s: &str) -> Vec<String> {
