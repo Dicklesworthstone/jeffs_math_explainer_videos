@@ -218,6 +218,10 @@ impl SceneConstruct for TheDead {
             later_at,
         )?;
         stage.move_to(later_words, later_at, RIGHT);
+        // silence under the numbers (storyboard 15_1): the score fades the
+        // music out in the pause before this line and keeps the stem at zero
+        // until the end mark below
+        kit.mark(stage, "silence:kosovo");
         let line = Spoken::say(&kit, stage, "15_1")?;
         let mut show: Vec<Box<dyn Animation>> = Vec::new();
         for &m in cells.iter().chain([title, key, nobody].iter()) {
@@ -245,6 +249,8 @@ impl SceneConstruct for TheDead {
         let note = lower_third(&kit, stage, "sources:", SOURCES)?;
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
         kit.hold(stage)?;
+        // the line is over: the music may return, before 15_2 and the coda
+        kit.mark(stage, "silence_end:kosovo");
         stage.wait(1.0)?;
         fade_all(stage, 1.0)?;
 
