@@ -26,7 +26,7 @@ const THETA: f64 = 0.55;
 const PHI: f64 = 1.05;
 /// The seed of 04_4's random cards: the hook's seed, this chapter's stream.
 const DART_SEED: u64 = crate::model::FIELD_SEED ^ 0x0404;
-const DARTS: usize = 10;
+const DARTS: usize = 8;
 
 /// A card's corner in the cube: one direction per piece.
 fn corner(c: u32) -> Vec3 {
@@ -301,13 +301,13 @@ impl SceneConstruct for Cube {
             fade_in(stage.arena_mut(), dark_row, ORIGIN, 1.0)?.rt(0.5),
         );
         let (mut lit_n, mut dark_n) = (0, 0);
-        for (k, &t) in targets.iter().enumerate() {
+        for &t in &targets {
             let d = ball(stage, Role::card(), 0.1, source);
             stage.add_to_scene(d)?;
             let fly = d
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(0.55),
+                    run_time: Some(0.35),
                     ..AnimateArgs::default()
                 })?
                 .move_to(corner(t), ORIGIN)?;
@@ -326,12 +326,9 @@ impl SceneConstruct for Cube {
             let rgb = [landed.r as f32, landed.g as f32, landed.b as f32];
             play!(stage;
                 fade_out(stage.arena_mut(), d, ORIGIN, 1.0)?.rt(0.3),
-                fmn::animation::indicate(stage.arena_mut(), balls[t as usize], 1.6, Some(rgb))?.rt(0.45),
+                fmn::animation::indicate(stage.arena_mut(), balls[t as usize], 1.6, Some(rgb))?.rt(0.3),
                 fade_in(stage.arena_mut(), tally, ORIGIN, 1.6)?.rt(0.3),
             );
-            if k == 3 {
-                stage.wait(0.2)?;
-            }
         }
         // the prediction pause, its "?" pinned to the screen
         kit.hold(stage)?;

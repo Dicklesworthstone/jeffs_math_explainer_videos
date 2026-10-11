@@ -83,12 +83,31 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
 
     // 06_2: each spare a rung down; two spares, nearly one in four
     kit.say(stage, "06_2")?;
-    play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
+    // the answer first, as the line gives it: two spares, nearly one in four
+    let p2 = p_fail_limit(2, 2);
+    let answer = kit.text(
+        stage,
+        &format!("2 spares: {}, nearly 1 in {:.0}", pct(p2), 1.0 / p2),
+        34.0,
+        Role::ex_or(),
+        v(3.9, 3.35),
+    )?;
+    play!(stage;
+        fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
+        fade_in(stage.arena_mut(), answer, v(0.0, -0.15), 1.0)?.rt(0.6),
+    );
+    stage.wait(0.9)?;
+    let spares_label = |h: u32| {
+        format!(
+            "{} spare{}: {}",
+            h,
+            if h == 1 { "" } else { "s" },
+            pct(p_fail_limit(2, h))
+        )
+    };
     let mut marker = none;
     for h in 1..=3u32 {
-        let p = p_fail_limit(2, h);
-        let label = format!("{} spare{}: {}", h, if h == 1 { "" } else { "s" }, pct(p));
-        let next = l.marker(kit, stage, p, &label, Role::ex_or())?;
+        let next = l.marker(kit, stage, p_fail_limit(2, h), &spares_label(h), Role::ex_or())?;
         play!(stage;
             fade_in(stage.arena_mut(), rungs[h as usize], ORIGIN, 1.0)?.rt(0.4),
             replacement_transform(marker, next).rt(0.8),
@@ -96,6 +115,11 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         marker = next;
         stage.wait(0.5)?;
     }
+    // back to two spares: the phone panel is that case, and the ladder
+    // must say the same (Codex round 5)
+    let two = l.marker(kit, stage, p2, &spares_label(2), Role::ex_or())?;
+    play!(stage; replacement_transform(marker, two).rt(0.6));
+    marker = two;
     // a million phones at two spares: about a quarter stuck (model)
     let stuck = p_fail_limit_times(2, 2, PHONES as u32);
     let drawn_stuck = (p_fail_limit(2, 2) * f64::from(DRAWN)).round() as usize;
@@ -106,7 +130,7 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         order.swap(i, j);
     }
     let (cols, cell) = (40usize, 0.13);
-    let origin = v(1.5, 2.3);
+    let origin = v(0.9, 2.3);
     let mut red = vec![false; DRAWN as usize];
     for &i in &order[..drawn_stuck] {
         red[i] = true;
@@ -130,11 +154,11 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let field_note = kit.text(
         stage,
         &format!(
-            "≈ {} of {} phones stuck (model)",
+            "with 2 spares: ≈ {} of {} phones stuck (model)",
             thousands((stuck / 10_000.0).round() as u64 * 10_000),
             thousands(PHONES)
         ),
-        28.0,
+        26.0,
         Role::lost(),
         v(origin[0] + cell * cols as f64 / 2.0, origin[1] - cell * 25.0 - 0.35),
     )?;
@@ -158,7 +182,7 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // 06_3: twenty rungs to one in a million; ten halvings, twenty halvings
     kit.say(stage, "06_3")?;
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
-    for m in [ok_group, red_group, field_note, key] {
+    for m in [ok_group, red_group, field_note, key, answer] {
         let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
         out.push(stage.prepare(a)?);
     }
