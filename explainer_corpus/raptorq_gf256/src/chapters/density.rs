@@ -566,8 +566,7 @@ impl Density {
         stage.play(tween(share, days, 1.6)?)?;
         stage.clear_updaters(pie, true);
         stage.clear_updaters(live, true);
-        kit.hold(stage)?;
-        fade_all(stage, 0.8)
+        Ok(())
     }
 }
 
@@ -589,6 +588,7 @@ impl Density {
             cards.push(card(kit, stage, c, Some(result(c)), 0.62, at)?);
         }
         let line = Spoken::say(kit, stage, board, "14_2")?;
+        fade_all(stage, 0.6)?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for k in &cards {
             let a = fade_in(stage.arena_mut(), k.group, v(0.0, -0.2), 1.0)?;
@@ -688,9 +688,9 @@ impl Density {
             &format!("RFC 6330's degrees: P(d) ≈ 1/(d(d−1)) for d = 2…{last}, the ideal soliton; mean {mean:.2}"),
         )?;
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
-        kit.hold(stage)?;
 
         // 14_3: peeling, a chain reaction; the graph moves to the middle
+        let line = Spoken::say(kit, stage, board, "14_3")?;
         let degree_mobs = [hist, axis, ticks_g, title, half, mean_line, mean_label, note];
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for m in degree_mobs {
@@ -718,7 +718,6 @@ impl Density {
         };
         let (steps, _) = peel_toy(&all, None);
         let mut peeling = Peeling::new(stage, &g, &all, None)?;
-        let line = Spoken::say(kit, stage, board, "14_3")?;
         line.at(stage, 1)?;
         peeling.show_ripple(stage, 0.5)?;
         peeling.give(kit, stage, &g, &steps[0], 1.0)?;
@@ -751,24 +750,23 @@ impl Density {
                 format!("14_3 plucks: {e}").into_boxed_str(),
             )))
         })?;
-        kit.sonify(stage, listen, "14_3:peel", &wav)?;
+        kit.sonify(stage, listen, "14_3", &wav)?;
         for step in &steps[1..] {
             peeling.give(kit, stage, &g, step, per * 0.45)?;
             peeling.remove(kit, stage, &g, step, per * 0.35)?;
             peeling.show_ripple(stage, per * 0.2)?;
         }
         peeling.clear_ripple(stage, 0.3)?;
-        kit.hold(stage)?;
 
         // 14_4: start again, and lose the card that starts it
-        fade_all(stage, 0.7)?;
         let g = toy_graph(kit, stage, centre, GRAPH_BIG, &all)?;
-        play!(stage; fade_in(stage.arena_mut(), g.group, ORIGIN, 1.0)?.rt(0.7));
         let first = steps[0].card;
         let first_dot = g.dots[first].expect("built");
         let first_label = g.results[first].expect("built");
         let first_edges: Vec<Mob> = g.edges.iter().filter(|e| e.0 == first).map(|e| e.2).collect();
         let line = Spoken::say(kit, stage, board, "14_4")?;
+        fade_all(stage, 0.4)?;
+        play!(stage; fade_in(stage.arena_mut(), g.group, ORIGIN, 1.0)?.rt(0.4));
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for &m in first_edges.iter().chain([&first_dot, &first_label]) {
             let a = recolor(m, Role::lost(), 0.6)?;
@@ -804,7 +802,7 @@ impl Density {
             stage,
             explainer_kit::narration::frames_covering(1.5, stage.scene().time().fps()),
         )?;
-        fade_all(stage, 0.8)
+        Ok(())
     }
 }
 
@@ -839,6 +837,7 @@ impl Density {
             v(0.0, -3.45),
         )?;
         let line = Spoken::say(kit, stage, board, "14_6")?;
+        fade_all(stage, 0.6)?;
         play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.6));
         let mut keep = Vec::new();
         for (g, top) in groups {
@@ -1025,8 +1024,7 @@ impl Density {
         );
         line.at(stage, 1)?;
         play!(stage; fmn::animation::indicate(stage.arena_mut(), rings, 1.08, Some([0.99, 0.38, 0.33]))?.rt(1.2));
-        kit.hold(stage)?;
-        fade_all(stage, 0.8)
+        Ok(())
     }
 
     /// 14_8 (for programmers): Reed–Solomon's fixed count against a fountain.
@@ -1082,6 +1080,7 @@ impl Density {
             ),
         )?;
         let line = Spoken::say(kit, stage, board, "14_8")?;
+        fade_all(stage, 0.6)?;
         play!(stage;
             fade_in(stage.arena_mut(), rs_title, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), row, ORIGIN, 1.0)?.rt(0.8),

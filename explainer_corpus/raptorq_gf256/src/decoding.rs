@@ -12,7 +12,7 @@
 //! - RFC 6330's degree table (Table 1), the rows of Table 2 the video names,
 //!   and the LDPC rows of the ten-piece grid (15_2).
 
-use crate::model::{A, B, Bucket, C, D, E, FOLD, inv, mul, result};
+use crate::model::{A, B, Bucket, C, D, Dd, E, FOLD, inv, mul, result};
 
 // ------------------------------------------------------------- CPython's RNG
 
@@ -181,6 +181,84 @@ pub fn race() -> Race {
         })
         .collect();
     Race { ex_or, byte }
+}
+
+/// The exact mean spares with `k` pieces over GF(2^bits): Σ 1/(q^i − 1),
+/// i = 1…k (a uniform card is useful with chance 1 − q^(i−k) holding i
+/// useful cards), in double-double, rounded once.
+pub fn exact_mean_spares(bits: u32, k: u32) -> f64 {
+    (1..=k)
+        .fold(Dd::ZERO, |acc, i| acc.add(inv_pow2_minus_1(bits * i)))
+        .to_f64()
+}
+
+/// 1/(2^e − 1) in double-double: exact division below 2⁵³, else the series
+/// 2^−e + 2^−2e (the next term is below 2^−3e, far past a double-double).
+fn inv_pow2_minus_1(e: u32) -> Dd {
+    if e <= 52 {
+        Dd::recip(((1u64 << e) - 1) as f64)
+    } else {
+        Dd::new(2f64.powi(-(e as i32))).add(Dd::new(2f64.powi(-2 * e as i32)))
+    }
+}
+
+/// The sample spread check the oracle prints: each side's mean is within
+/// four standard errors of the exact mean.
+pub fn race_means_within_4se(race: &Race) -> bool {
+    [(1u32, &race.ex_or), (8, &race.byte)].iter().all(|&(bits, runs)| {
+        let n = runs.len() as f64;
+        let mean = mean_spares(runs);
+        let var = runs.iter().map(|r| (r.spares() as f64 - mean).powi(2)).sum::<f64>() / (n - 1.0);
+        (mean - exact_mean_spares(bits, RACE_PIECES as u32)).abs() <= 4.0 * (var / n).sqrt()
+    })
+}
+
+/// Erdős proved Σ 1/(2^i − 1) irrational in 1948 (J. Indian Math. Soc. 12,
+/// 63–66; fact sheet, open item 1), the sum 13_6's lower-third names.
+pub const ERDOS_YEAR: u32 = 1948;
+
+// ------------------------------------------------- one amount at the last slot, 13
+
+/// 13_1's card: random byte amounts (1–255) for the pieces A–E, drawn by
+/// CPython's `random.Random(1301).randrange(1, 256)`.
+pub const CARD_SEED: u32 = 1301;
+
+pub fn random_byte_card() -> [u8; 5] {
+    let mut rng = PyRandom::new(CARD_SEED);
+    [0u8; 5].map(|_| 1 + rng.randrange(255) as u8)
+}
+
+/// At two pieces the lit part at the last slot is a line through 0 of
+/// GF(256)² (one of 257). For every line and every piece whose own card is
+/// off it, fix the other amount: exactly one of the 256 values of this
+/// amount puts the card on the line. Returns (lines checked, all held).
+pub fn one_amount_lights_exhaustive() -> (usize, bool) {
+    let lines: Vec<(u8, u8)> = (0..=255u8).map(|t| (1, t)).chain([(0, 1)]).collect();
+    let mut ok = true;
+    for &(u0, u1) in &lines {
+        let mut lit = vec![[false; 256]; 256];
+        for s in 0..=255u8 {
+            lit[mul(s, u0, FOLD) as usize][mul(s, u1, FOLD) as usize] = true;
+        }
+        if u0 != 0 {
+            // piece 2's own card (0, 1) is off the line: fix c1, vary c2
+            ok &= lit.iter().all(|row| row.iter().filter(|&&x| x).count() == 1);
+        }
+        if u1 != 0 {
+            // piece 1's own card (1, 0) is off the line: fix c2, vary c1
+            ok &= (0..256).all(|c2| lit.iter().filter(|row| row[c2]).count() == 1);
+        }
+    }
+    (lines.len(), ok)
+}
+
+/// 13_4's instance: the bucket holds A ⊕ t·B (the line through (1, t)); the
+/// new card's A amount is `c1`. The values of its B amount that land in the
+/// lit part (exactly one: c1·t).
+pub fn lit_values(t: u8, c1: u8) -> Vec<u8> {
+    (0..=255u8)
+        .filter(|&c2| (0..=255u8).any(|s| s == c1 && mul(s, t, FOLD) == c2))
+        .collect()
 }
 
 // ------------------------------------------------------ dense solving, 14_1
@@ -624,6 +702,19 @@ mod tests {
         }
         // ten pieces: 7 free ex-or rows over 27 columns
         assert_eq!((TEN.l(), TEN.extra(), TEN.p()), (27, 17, 10));
+    }
+
+    #[test]
+    fn exact_means_and_the_one_amount_rule() {
+        // ten pieces: 1 + 1/3 + 1/7 + … + 1/1023, and the bytes' 1/255 + …
+        assert!((exact_mean_spares(1, 10) - 1.605_718_271_890_746).abs() < 1e-15);
+        assert!((exact_mean_spares(8, 10) - 0.003_936_887_487_739_71).abs() < 1e-17);
+        assert!(race_means_within_4se(&race()));
+        assert_eq!(one_amount_lights_exhaustive(), (257, true));
+        for (t, c1) in [(3u8, 7u8), (1, 1), (200, 99)] {
+            assert_eq!(lit_values(t, c1), [mul(c1, t, FOLD)]);
+        }
+        assert!(random_byte_card().iter().all(|&a| a >= 1));
     }
 
     #[test]
