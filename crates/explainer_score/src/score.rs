@@ -636,13 +636,15 @@ impl CueKind {
 }
 
 /// An authored silence (`kit.mark(stage, "silence:<name>")`, optionally
-/// closed by `"silence_end:<name>"`), in seconds from the video's start. The
-/// music fades out in the pause before the next sentence (`fade_start` to
-/// `fade_end`: up to [`SILENCE_FADE`] long, ending up to [`KEY_LEAD`] before
-/// that sentence, never starting before the previous one has ended), is
-/// exactly zero from `fade_end` to `back`, and fades in again over
-/// [`RETURN_FADE`] from `back`: the first pause at or after the end mark,
-/// or, without one, where the voice next pauses for good (a gap of 1.2 s or
+/// closed by `"silence_end:<name>"`), in seconds from the video's start.
+/// Placed at a sentence (just before `kit.say`), the music fades out in the
+/// pause before it (`fade_start` to `fade_end`: up to [`SILENCE_FADE`] long,
+/// ending up to [`KEY_LEAD`] before that sentence, never starting before the
+/// previous one has ended). Placed in a gap a second or more before the next
+/// sentence, it drops out from the mark itself. It is exactly zero from
+/// `fade_end` to `back`, and fades in again over [`RETURN_FADE`] from
+/// `back`: the end mark (or the end of the sentence it falls in), or,
+/// without one, where the voice next pauses for good (a gap of 1.2 s or
 /// more).
 #[derive(Clone, Debug, PartialEq)]
 pub struct SilenceSpan {
@@ -660,6 +662,9 @@ pub const KEY_LEAD: f64 = 0.5;
 pub const SILENCE_FADE: f64 = 1.2;
 /// The shortest: a key line between two sentences drops out this fast (s).
 const MIN_SILENCE_FADE: f64 = 0.1;
+/// A `silence:` mark this far or more before the next sentence, in a gap,
+/// drops the music out from the mark itself (s).
+const DROP_ROOM: f64 = 1.0;
 /// The music's return after an authored silence (s).
 pub const RETURN_FADE: f64 = 1.5;
 
@@ -690,17 +695,8 @@ fn authored_silences(
                 .find(|&o| o >= t - ONSET_GUARD)
                 .unwrap_or(total);
             let prev_end = fine.iter().map(|r| r.1).filter(|&e| e <= onset).fold(0.0, f64::max);
-            let lead = (onset - prev_end - 0.1).clamp(0.05, KEY_LEAD);
-            let fade_end = onset - lead;
-            let fade = (fade_end - prev_end - 0.05).clamp(MIN_SILENCE_FADE, SILENCE_FADE);
-            if fade < SILENCE_FADE {
-                notes.push(format!(
-                    "silence:{name}: a {:.2} s pause before its sentence, so a {fade:.2} s fade",
-                    onset - prev_end
-                ));
-            }
-            // the return: at the end mark, or the end of the sentence it falls
-            // in; without one, where the voice next pauses for good
+            // the return: at the end mark (or the end of the sentence it falls
+            // in); without one, where the voice next pauses for good
             let end_mark = s
                 .timeline
                 .marks
@@ -717,9 +713,35 @@ fn authored_silences(
                     .map_or(onset, |r| r.1 + 0.05),
             }
             .min(total);
+            let (fade_start, fade_end) = if t >= prev_end && onset - t >= DROP_ROOM {
+                // a mark in a gap, with room before the next sentence: the
+                // music drops out from the mark (A's 13_8, "the music drops out
+                // for 1.5 s after the beat"), over a third of the silence when
+                // it is short, never over SILENCE_FADE, and gone by KEY_LEAD
+                // before the next sentence
+                let fade = (SILENCE_FADE.min((back - t) / 3.0))
+                    .min(onset - KEY_LEAD - t)
+                    .max(MIN_SILENCE_FADE);
+                (t, t + fade)
+            } else {
+                // a mark at its sentence: the fade fits the pause before it,
+                // ending up to KEY_LEAD before the sentence (plan §7.2's key
+                // line; A's 15_1), never starting before the previous sentence
+                // has ended
+                let lead = (onset - prev_end - 0.1).clamp(0.05, KEY_LEAD);
+                let fade_end = onset - lead;
+                let fade = (fade_end - prev_end - 0.05).clamp(MIN_SILENCE_FADE, SILENCE_FADE);
+                if fade < SILENCE_FADE {
+                    notes.push(format!(
+                        "silence:{name}: a {:.2} s pause before its sentence, so a {fade:.2} s fade",
+                        onset - prev_end
+                    ));
+                }
+                (fade_end - fade, fade_end)
+            };
             spans.push(SilenceSpan {
                 name,
-                fade_start: fade_end - fade,
+                fade_start,
                 fade_end,
                 back: back.max(fade_end),
                 back_end: (back.max(fade_end) + RETURN_FADE).min(total),
@@ -3285,6 +3307,33 @@ mod tests {
         assert_eq!(r.get("onsets_per_s_gaps").unwrap().pass, Some(true));
         // the other chapter's closing gap still rolls
         assert!(s.events.iter().any(|e| e.track == Track::Roll && e.start > 40.0));
+    }
+
+    #[test]
+    fn a_silence_marked_in_a_gap_drops_out_from_the_mark_for_as_long_as_asked() {
+        // A's 13_8: "the music drops out for 1.5 s after the beat". 01_a is
+        // silent 12–16 s and 33–40 s: drop out at 12.5 s until 14.0 s
+        let dir = std::env::temp_dir().join(format!("explainer_score_drop_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let mark = |label: &str, secs: f64| crate::timeline::Mark {
+            label: label.into(),
+            frame: (secs * 60.0) as u64,
+        };
+        sections[0].timeline.marks = vec![mark("silence:13_8", 12.5), mark("silence_end:13_8", 14.0)];
+        let s = render(&Identity::capture_recapture(), &sections, None).unwrap();
+        let sp = s.silences[0].clone();
+        assert!((sp.fade_start - 12.5).abs() < 0.02, "from the mark: {sp:?}");
+        assert!((sp.fade_end - 13.0).abs() < 0.02, "a third of the 1.5 s: {sp:?}");
+        assert!((sp.back - 14.0).abs() < 0.02, "{sp:?}");
+        let (i, j) = (((sp.fade_end * FS).ceil()) as usize, (sp.back * FS) as usize);
+        assert!(s.music.l[i..j].iter().chain(&s.music.r[i..j]).all(|&x| x == 0.0));
+        assert!(
+            s.music.l[(15.6 * FS) as usize..(15.9 * FS) as usize]
+                .iter()
+                .any(|&x| x != 0.0),
+            "back before the voice"
+        );
+        assert!(s.notes.is_empty(), "{:?}", s.notes);
     }
 
     #[test]
