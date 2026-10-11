@@ -1,0 +1,53 @@
+# CI (plan §3.8): the checks that need no franken_manim. Explainer crates,
+# the kit and the renders are gated on the build host (a cold franken_manim
+# closure is ~1.7 GB fetched and ~8 GB checked out); local gates stay
+# authoritative.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No private machines, accounts or paths (public repository)
+        env:
+          PRIVATE_PATTERNS: ${{ secrets.PRIVATE_PATTERNS }}
+        run: tools/scan_private.sh
+      - name: Every script.tsv is what its storyboard generates
+        run: python3 -I tools/storyboard.py --check
+      - name: Python tools and oracles compile
+        run: python3 -m py_compile tools/*.py explainer_corpus/*/oracle.py
+
+  score:
+    # explainer_score is std only; built outside the workspace, whose other
+    # members pull franken_manim
+    runs-on: ubuntu-latest
+    env:
+      TOOLCHAIN: nightly-2026-08-31
+    steps:
+      - uses: actions/checkout@v4
+      - name: The pinned nightly
+        run: rustup toolchain install "$TOOLCHAIN" --profile minimal --component rustfmt,clippy
+      - name: explainer_score as a standalone crate
+        run: |
+          d="$RUNNER_TEMP/explainer_score"
+          cp -R crates/explainer_score "$d"
+          cp rustfmt.toml "$d/"
+          sed -e 's/^edition\.workspace = true$/edition = "2024"/' \
+              -e 's/^publish\.workspace = true$/publish = false/' \
+              crates/explainer_score/Cargo.toml > "$d/Cargo.toml"
+          printf '\n[workspace]\n\n[profile.test]\nopt-level = 2\n' >> "$d/Cargo.toml"
+          grep -q '^edition = "2024"$' "$d/Cargo.toml"
+      - name: fmt
+        working-directory: ${{ runner.temp }}/explainer_score
+        run: cargo +"$TOOLCHAIN" fmt --check
+      - name: clippy
+        working-directory: ${{ runner.temp }}/explainer_score
+        run: cargo +"$TOOLCHAIN" clippy --all-targets -- -D warnings
+      - name: tests
+        working-directory: ${{ runner.temp }}/explainer_score
+        run: cargo +"$TOOLCHAIN" test

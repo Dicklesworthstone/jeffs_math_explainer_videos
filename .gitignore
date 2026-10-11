@@ -78,6 +78,8 @@ project.env
 !.env.example
 !project.env.example
 .claude/settings.local.json
+# private machine/account names for tools/scan_private.sh (naming them here would publish them)
+.private_patterns
 
 # --- Profiling captures -----------------------------------------------------
 # macOS `sample` output embeds the host's process list and local paths.
