@@ -110,9 +110,6 @@ GF(2⁸) = GF(2)[x]/(p) for any irreducible p of degree 8; all fields of order 2
 a choice of labels. The byte field is GF(256), also written GF(2⁸). RaptorQ's p is x⁸ + x⁴ + x³ + x² + 1 (285, 0x11D).
 For programmers: CRC-8/SAE-J1850 uses this very 0x1D (its 7 attested codewords reproduce with the panel's `xtime`).
 
-**10_7** AES (FIPS 197) folds by x⁸ + x⁴ + x³ + x + 1 (283, 0x11B): 87 · 131 is 49 under RaptorQ's polynomial and 193
-under AES's, and AES's partner of 2 is 141, not 142.
-
 **11_2** Under 0x11D, 2 reaches all 255 nonzero bytes (0x11D is primitive: 16 of the 30 irreducible degree-8
 polynomials are). Every finite field has such a clock. Under AES's polynomial, times two comes back to 1 after 51
 steps; its hand is 3.
@@ -123,13 +120,18 @@ those weights would differ.
 **11_5, 11_6** 7 × 7: 198 + 198 = 396, which is 141 clicks after one lap, and α¹⁴¹ = 21; by hand
 (x² + x + 1)² = x⁴ + x² + 1 = 21. 150 × 3: 180 + 25 = 205 clicks, α²⁰⁵ = 167.
 
-**11_7** RFC 6330 §5.7.2 defines multiplication through two tables, OCT_EXP and OCT_LOG; implementations may compute it
-other ways. A byte's partner sits at 255 − its clicks (mod 255): 127 mirror pairs, and 1 is its own partner; 0 has
-none. The code is below.
+**11_7** A byte's partner sits at minus its clicks, mod 255 (255 − its clicks, with a full turn counting as 0): 127
+mirror pairs, and 1 is its own partner; 0 has none.
+
+**12_0** RFC 6330 §5.7.2 defines multiplication through two tables, OCT_EXP and OCT_LOG; implementations may compute it
+other ways. The code is below.
 
 **12_4** The log-sorted times table is constant along anti-diagonals (a Hankel matrix). Element orders 1, 3, 5, 15, 17,
 51, 85, 255 occur 1, 2, 4, …, 128 times; each count is a power of 2 because 255 = (2 + 1)(2² + 1)(2⁴ + 1), and
 together they make 11111111₂ = 255.
+
+**12_5** AES (FIPS 197) folds by x⁸ + x⁴ + x³ + x + 1 (283, 0x11B): 87 · 131 is 49 under RaptorQ's polynomial and 193
+under AES's, and AES's partner of 2 is 141, not 142.
 
 **13_1** Cards with random amounts from a finite field are random linear network coding (Ho et al., 2006).
 
