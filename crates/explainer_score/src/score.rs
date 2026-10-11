@@ -66,6 +66,8 @@ pub struct Mood {
     pub progression: Vec<Chord>,
     /// A pitch class the bass holds under every chord.
     pub pedal: Option<i32>,
+    /// The mood's own swing (None: the identity's).
+    pub swing: Option<f64>,
 }
 
 /// What the score plays in a listen window it fills itself.
@@ -139,6 +141,9 @@ pub struct Identity {
     /// A listen window's sonification, relative to the voice (LU): V − 10 or
     /// louder (plan §7.2), so a sound that teaches is heard.
     pub listen_lu: f64,
+    /// The phrases' swing: the share of a beat its first eighth takes (0.5
+    /// straight; plan §7.5 gives C a light 56%).
+    pub swing: f64,
     /// Chapters' harmonic worlds; a chapter no mood names plays `progression`.
     pub moods: Vec<Mood>,
     /// The chord the bed holds under every listen window that carries a
@@ -167,6 +172,16 @@ impl Identity {
                 .collect(),
             None => self.progression.clone(),
         }
+    }
+
+    /// The swing chapter `chapter` plays: its mood's, or the identity's.
+    pub fn swing_for(&self, chapter: &str) -> f64 {
+        let number = chapter.split('_').next().unwrap_or(chapter);
+        self.moods
+            .iter()
+            .find(|m| m.chapters.contains(&number))
+            .and_then(|m| m.swing)
+            .unwrap_or(self.swing)
     }
 
     /// The pitch classes a sonification may use: every one at least a whole
@@ -260,6 +275,10 @@ impl Identity {
         {
             return bad("non-finite level or reverb time".into());
         }
+        let swings = std::iter::once(self.swing).chain(self.moods.iter().filter_map(|m| m.swing));
+        if let Some(sw) = swings.into_iter().find(|sw| !(0.5..=0.75).contains(sw)) {
+            return bad(format!("swing {sw} outside 0.5..0.75"));
+        }
         if !(0.0..=2.0).contains(&self.settle_s) {
             return bad(format!("settle {} s outside 0..2", self.settle_s));
         }
@@ -307,6 +326,7 @@ impl Identity {
             // the 2,000 shuffles as a texture: clearly heard, still under the
             // voice that explains it a moment later
             listen_lu: -8.0,
+            swing: 0.5,
             moods: Vec::new(),
             listen_chord: None,
             themes: Vec::new(),
@@ -369,6 +389,7 @@ impl Identity {
             // 4 dB under it: at V − 8 its window's edges measured under the
             // 12 LU p5 gate on matt's and michael's voices
             listen_lu: -10.0,
+            swing: 0.5,
             moods: vec![
                 Mood {
                     name: "lake",
@@ -386,12 +407,14 @@ impl Identity {
                         Chord::min11(6),
                     ],
                     pedal: None,
+                    swing: None,
                 },
                 Mood {
                     name: "doubt",
                     chapters: vec!["11", "13", "14"],
                     progression: vec![Chord::min9(2), Chord::dom13(7), Chord::maj9(0), Chord::min11(9)],
                     pedal: None,
+                    swing: None,
                 },
             ],
             listen_chord: Some(Chord::six_nine(5)),
@@ -452,6 +475,7 @@ impl Identity {
             settle_s: 0.8,
             sfx_lu: -16.0,
             listen_lu: -8.0,
+            swing: 0.5,
             moods: vec![
                 Mood {
                     name: "field",
@@ -463,6 +487,7 @@ impl Identity {
                         Chord::maj9_sharp11(9),
                     ],
                     pedal: Some(4),
+                    swing: None,
                 },
                 Mood {
                     name: "spending",
@@ -474,6 +499,7 @@ impl Identity {
                         Chord::six_sus4(11),
                     ],
                     pedal: None,
+                    swing: None,
                 },
             ],
             listen_chord: Some(Chord::six_nine(4)),
@@ -492,7 +518,8 @@ impl Identity {
     /// - **the legacy** (costs and CPUs: 11, 12): Gm9 → E♭maj9 → B♭maj9/D →
     ///   F7sus4.
     ///
-    /// A pad under speech; in the gaps, felt-piano rolls of the chord and the
+    /// Phrases swing lightly (56%), straight in the proof (plan §7.5). A pad
+    /// under speech; in the gaps, felt-piano rolls of the chord and the
     /// marimba motif "take a number" 1̂–2̂–3̂, open at the title (01_3) and
     /// resolved with "served" 5̂–4̂–2̂–1̂ at the close (13_4); plucked answers.
     /// Sonifications keep to B♭ C D E♭ F G (the motif's own notes and G)
@@ -533,6 +560,7 @@ impl Identity {
             // 4 dB under it: at V − 8 its window's edges measured under the
             // 12 LU p5 gate on matt's and michael's voices
             listen_lu: -10.0,
+            swing: 0.56,
             moods: vec![
                 Mood {
                     name: "race",
@@ -544,12 +572,14 @@ impl Identity {
                         Chord::dom7_sharp5(2),
                     ],
                     pedal: None,
+                    swing: None,
                 },
                 Mood {
                     name: "proof",
                     chapters: vec!["08", "09", "10"],
                     progression: vec![Chord::maj9(10), Chord::maj9(3), Chord::min9(7), Chord::min11(0)],
                     pedal: Some(10),
+                    swing: Some(0.5),
                 },
                 Mood {
                     name: "legacy",
@@ -561,6 +591,7 @@ impl Identity {
                         Chord::dom7sus4(5),
                     ],
                     pedal: None,
+                    swing: None,
                 },
             ],
             listen_chord: Some(Chord::new(10, &[0, 2, 7, 9])),
@@ -1132,9 +1163,10 @@ pub fn elastic_phrase(
     start: f64,
     limit: f64,
     closing: bool,
+    swing: f64,
 ) -> Vec<(f64, i32, f64)> {
     let fit = |beat: f64| {
-        fit_phrase(
+        let mut notes = fit_phrase(
             motif,
             &identity.key,
             identity.tonic_midi,
@@ -1142,7 +1174,9 @@ pub fn elastic_phrase(
             start,
             limit,
             identity.register.upper.0,
-        )
+        );
+        swing_notes(&mut notes, start, beat, swing);
+        notes
     };
     let whole = motif.degrees.len();
     if closing {
@@ -1159,6 +1193,27 @@ pub fn elastic_phrase(
         }
     }
     nominal
+}
+
+/// Swing a phrase: a note on an off-beat eighth (half a beat after a beat)
+/// comes `(swing − 0.5)` of a beat late, the note before it that much
+/// longer and itself that much shorter. `notes` are (onset s, pitch,
+/// duration s) from `start`, at `beat_s`.
+pub fn swing_notes(notes: &mut [(f64, i32, f64)], start: f64, beat_s: f64, swing: f64) {
+    let delay = (swing - 0.5) * beat_s;
+    if delay.abs() < 1e-12 {
+        return;
+    }
+    for i in 0..notes.len() {
+        let pos = (notes[i].0 - start) / beat_s;
+        if (pos.fract() - 0.5).abs() < 1e-6 {
+            notes[i].0 += delay;
+            notes[i].2 -= delay;
+            if i > 0 {
+                notes[i - 1].2 += delay;
+            }
+        }
+    }
 }
 
 /// Move `pitch` off a minor ninth (a semitone from any chord tone, hard rule
@@ -1850,11 +1905,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         if coda {
             continue;
         }
-        let mut notes = elastic_phrase(&motif, identity, start, limit, resolving);
+        let swing = identity.swing_for(name);
+        let mut notes = elastic_phrase(&motif, identity, start, limit, resolving, swing);
         if resolving && notes.len() < motif.degrees.len() {
             // no room for the whole closing phrase: the resolution alone, so
             // the question is still answered on the tonic it promised
-            let res = elastic_phrase(&identity.resolution, identity, start, limit, true);
+            let res = elastic_phrase(&identity.resolution, identity, start, limit, true, swing);
             if res.len() == identity.resolution.degrees.len() {
                 notes = res;
             }
@@ -2001,6 +2057,8 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                         f64::INFINITY,
                         identity.register.upper.0,
                     );
+                    let mut notes = notes;
+                    swing_notes(&mut notes, when, identity.beat_s, identity.swing_for(name));
                     for (j, (nt, np, nd)) in notes.into_iter().enumerate() {
                         events.push(Event {
                             start: nt,
@@ -2415,17 +2473,17 @@ mod tests {
         let id = Identity::hoeffding();
         let b = id.beat_s;
         // onsets at 0, 1, 2, 3 beats: the last at 3 b; 2.85 b fits only tightened
-        let tight = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.85 * b, false);
+        let tight = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.85 * b, false, 0.5);
         assert_eq!(tight.len(), 4);
         assert!((tight[3].0 - (10.0 + 3.0 * 0.92 * b)).abs() < 1e-9);
         // 2.7 b fits neither way: the prefix at tempo
-        let short = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.7 * b, false);
+        let short = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.7 * b, false, 0.5);
         assert_eq!(short.len(), 3);
         assert!((short[2].0 - (10.0 + 2.0 * b)).abs() < 1e-9);
         // plenty of room: at tempo, unless it is the closing phrase (relaxed)
-        let free = elastic_phrase(&id.motif, &id, 10.0, 30.0, false);
+        let free = elastic_phrase(&id.motif, &id, 10.0, 30.0, false, 0.5);
         assert!((free[3].0 - (10.0 + 3.0 * b)).abs() < 1e-9);
-        let closing = elastic_phrase(&id.motif, &id, 10.0, 30.0, true);
+        let closing = elastic_phrase(&id.motif, &id, 10.0, 30.0, true, 0.5);
         assert!((closing[3].0 - (10.0 + 3.0 * 1.08 * b)).abs() < 1e-9);
     }
 
@@ -3390,6 +3448,31 @@ mod tests {
                 .count()
                 >= id.resolution.degrees.len()
         );
+    }
+
+    #[test]
+    fn c_swings_lightly_except_in_its_proof_and_a_and_b_play_straight() {
+        let c = Identity::bakery_algorithm();
+        assert_eq!(c.swing_for("01_one_plus_one_is_one"), 0.56);
+        assert_eq!(c.swing_for("09_reading_garbage_safely"), 0.5, "rubato under the lemmas");
+        assert_eq!(Identity::capture_recapture().swing_for("03_x"), 0.5);
+        assert_eq!(Identity::raptorq_gf256().swing_for("10_x"), 0.5);
+        // "take a number" 1̂–2̂–3̂ in eighths, eighths, quarter at 104 BPM:
+        // the off-beat eighth comes 6% of a beat late, the note before it
+        // that much longer
+        let b = c.beat_s;
+        let mut notes = vec![(10.0, 58, 0.5 * b), (10.0 + 0.5 * b, 60, 0.5 * b), (10.0 + b, 62, b)];
+        swing_notes(&mut notes, 10.0, b, 0.56);
+        assert!((notes[1].0 - (10.0 + 0.56 * b)).abs() < 1e-12);
+        assert!((notes[0].2 - 0.56 * b).abs() < 1e-12 && (notes[1].2 - 0.44 * b).abs() < 1e-12);
+        assert!((notes[2].0 - (10.0 + b)).abs() < 1e-12, "the beat stays on the beat");
+        // straight is untouched
+        let before = notes.clone();
+        swing_notes(&mut notes, 10.0, b, 0.5);
+        assert_eq!(notes, before);
+        let mut bad = Identity::bakery_algorithm();
+        bad.swing = 0.9;
+        assert!(bad.validate().is_err());
     }
 
     #[test]

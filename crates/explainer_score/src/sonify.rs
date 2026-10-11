@@ -60,7 +60,8 @@ pub fn cloud(grains: &[Grain], seconds: f64) -> Stereo {
 /// `velocity` (round-robin variation from `seed`), in a buffer that rings
 /// one second past the last note. Every scene that sounds the video's tune
 /// (the bakery's "served" in each customer's timbre: `identity.resolution`)
-/// gets the very same notes this way. Returns the buffer and the onsets.
+/// gets the very same notes this way, swung as the identity's phrases are
+/// (C's light 56%). Returns the buffer and the onsets.
 pub fn motif(
     identity: &crate::score::Identity,
     motif: &crate::theory::Motif,
@@ -76,10 +77,17 @@ pub fn motif(
         onsets.push(t);
         t += d * identity.beat_s;
     }
+    // the identity's swing, as the score's own phrases have it
+    let mut swung: Vec<(f64, i32, f64)> = onsets
+        .iter()
+        .zip(&motif.durations)
+        .map(|(&o, &d)| (o, 0, d * identity.beat_s))
+        .collect();
+    crate::score::swing_notes(&mut swung, 0.0, identity.beat_s, identity.swing);
+    let onsets: Vec<f64> = swung.iter().map(|n| n.0).collect();
     let mut out = Stereo::silence(((t + 1.0) * FS).round() as usize);
-    for (k, (&p, &start)) in pitches.iter().zip(&onsets).enumerate() {
-        let hold = motif.durations[k] * identity.beat_s * 1.2;
-        let note = crate::instr::Note::new(f64::from(p), velocity, hold, seed.wrapping_add(k as u64));
+    for (k, (&p, &(start, _, d))) in pitches.iter().zip(&swung).enumerate() {
+        let note = crate::instr::Note::new(f64::from(p), velocity, d * 1.2, seed.wrapping_add(k as u64));
         out.mix_in(&crate::instr::render(inst, &note), (start * FS).round() as usize, 1.0);
     }
     (out, onsets)
@@ -184,13 +192,19 @@ mod tests {
         {
             let (s, o) = motif(&id, &id.resolution, inst, 0, 0.5, 7 + k as u64);
             assert!(s.is_finite() && s.peak() > 0.01, "{inst:?}");
-            let last = o.last().copied().unwrap();
-            assert!((s.len() as f64 / FS - (last + 1.5 * id.beat_s + 1.0)).abs() < 1e-3);
+            // the buffer rings a second past the motif's written end (swing
+            // moves notes inside it, never past it)
+            let written: f64 = id.resolution.durations.iter().sum::<f64>() * id.beat_s;
+            assert!((s.len() as f64 / FS - (written + 1.0)).abs() < 1e-3);
+            assert!(o.last().copied().unwrap() < written);
             onsets.push(o);
         }
         // the same rhythm in every timbre
         assert!(onsets.windows(2).all(|w| w[0] == w[1]));
-        assert!((onsets[0][1] - 0.5 * id.beat_s).abs() < 1e-12);
+        // swung as C's phrases are: the off-beat eighths 6% of a beat late
+        assert!((onsets[0][1] - 0.56 * id.beat_s).abs() < 1e-12);
+        assert!((onsets[0][2] - id.beat_s).abs() < 1e-12);
+        assert!((onsets[0][3] - 1.56 * id.beat_s).abs() < 1e-12);
     }
 
     #[test]
