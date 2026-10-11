@@ -20,15 +20,23 @@ use crate::panel::{self, Stats};
 use crate::runs::{CAUGHT, LAKE, MARKED};
 
 /// The listen window (09_1): the first runs light one at a time, each with
-/// its plink, then the rest wash in, inside these five seconds.
+/// its plink, then the rest wash in, all before the score's fade over the
+/// window's last 0.8 s.
 const WINDOW_S: f64 = 5.0;
 const ONE_BY_ONE: usize = 12;
-const STEP_S: f64 = 0.25;
-const WASH_S: f64 = 1.8;
-/// The pitch of a run that caught the expected hundred (the video's tonic,
-/// F4); each fish more or fewer is a semitone, snapped into F Lydian.
-const TONIC_MIDI: f64 = 65.0;
-const LYDIAN_F: [u8; 7] = [5, 7, 9, 11, 0, 2, 4];
+const STEP_S: f64 = 0.22;
+const WASH_S: f64 = 1.3;
+/// The score's own fade at the end of a listen window (music lane).
+const SCORE_FADE_S: f64 = 0.8;
+/// The pitch of a run that caught the expected hundred (C4, in the key's
+/// pentatonic); each fish more or fewer moves it 0.4 of a semitone,
+/// snapped to F major pentatonic (the listen windows' scale) and kept
+/// within the mallets' range: at most D5, the scale's highest note at or
+/// below E5 (the music lane's limit).
+const CENTRE_MIDI: f64 = 60.0;
+const SEMITONES_PER_FISH: f64 = 0.4;
+const MALLET_TOP_MIDI: f64 = 74.0;
+const PENTATONIC_F: [u8; 5] = [0, 2, 5, 7, 9];
 /// The grid: side on screen and centre.
 const GRID_SIDE: f64 = 6.2;
 const GRID_C: Vec3 = [-3.0, -0.25, 0.0];
@@ -137,9 +145,10 @@ fn lit_time(i: usize, runs: usize) -> f64 {
     }
 }
 
-/// The run's note: a semitone per fish caught twice away from a hundred.
+/// The run's note: higher for more fish caught twice.
 fn pitch_of(k: u32) -> f64 {
-    explainer_score::sonify::snap(TONIC_MIDI + (f64::from(k) - 100.0), &LYDIAN_F)
+    let p = CENTRE_MIDI + SEMITONES_PER_FISH * (f64::from(k) - 100.0);
+    explainer_score::sonify::snap(p, &PENTATONIC_F).min(MALLET_TOP_MIDI)
 }
 
 /// The listen window's sound (storyboard 09_1): the first twelve runs as
@@ -382,8 +391,9 @@ fn lighting(kit: &Kit, stage: &mut Stage<'_>, run: &panel::Panel) -> fmn::Result
     for m in [run_no, k_no, g_no] {
         stage.clear_updaters(m, true);
     }
-    kit.hold(stage)?;
-    // clear the right-hand panel; the grid shrinks into a corner
+    // 09_2's question starts as the right-hand panel clears and the grid
+    // hands over to a small copy in the corner
+    kit.say(stage, "09_2")?;
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
     for m in [
         lake_words,
@@ -445,7 +455,8 @@ struct Histogram {
     axis: Mob,
 }
 
-/// 09_2–09_3: empty axes, the question, then the bell.
+/// 09_2–09_3 (the question is already being asked): empty axes, the
+/// pause, then the bell.
 fn pile_up(kit: &Kit, stage: &mut Stage<'_>, run: &panel::Panel, stats: &Stats) -> fmn::Result<Histogram> {
     let f = plot();
     let counts: Vec<(u32, u32)> = (stats.k_min..=stats.k_max)
@@ -487,7 +498,6 @@ fn pile_up(kit: &Kit, stage: &mut Stage<'_>, run: &panel::Panel, stats: &Stats) 
     )?;
     stage.attach(axis, title)?;
 
-    kit.say(stage, "09_2")?;
     play!(stage; fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.8));
     let q = predict_pause(kit, stage, v(4.6, 1.6))?;
 
@@ -1044,9 +1054,16 @@ mod tests {
         }
         assert_eq!(lit_at(ONE_BY_ONE as f64 * STEP_S + WASH_S, runs), runs);
         assert!(
-            ONE_BY_ONE as f64 * STEP_S + WASH_S < WINDOW_S,
-            "the wash ends inside the window"
+            ONE_BY_ONE as f64 * STEP_S + WASH_S < WINDOW_S - SCORE_FADE_S,
+            "the wash ends before the score's fade"
         );
+        // every note on the listen scale and within the mallets' range
+        for k in 0..=1_000u32 {
+            let p = pitch_of(k);
+            assert!(p <= MALLET_TOP_MIDI, "k {k}: {p}");
+            assert!(PENTATONIC_F.contains(&((p as i64).rem_euclid(12) as u8)), "k {k}: {p}");
+        }
+        assert!(pitch_of(108) > pitch_of(100) && pitch_of(100) > pitch_of(90));
         // each run's plink or grain sounds as its cell lights
         for i in [0, 5, 11, 12, 100, 5_000, 9_999] {
             let t = lit_time(i, runs);
