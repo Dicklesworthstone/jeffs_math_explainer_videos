@@ -881,6 +881,9 @@ pub struct Score {
     pub cap_db: f64,
     /// The authored silences (seconds), where the stem is exactly zero.
     pub silences: Vec<SilenceSpan>,
+    /// The listen windows that carry a sonification (start, end; seconds):
+    /// the scene's sound, not the score's, there.
+    pub sonified: Vec<(f64, f64)>,
     /// What the score could not do as authored (a silence's fade shortened).
     pub notes: Vec<String>,
 }
@@ -2191,6 +2194,18 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         let effects = sfx_bus(&sfx, n);
         add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
     }
+    let sonified: Vec<(f64, f64)> = sections
+        .iter()
+        .zip(&chapter_starts)
+        .flat_map(|(s, &t0)| {
+            let fps = f64::from(s.timeline.fps);
+            s.timeline
+                .listens
+                .iter()
+                .filter(|w| w.sound.is_some())
+                .map(move |w| (t0 + w.frame as f64 / fps, t0 + w.frame as f64 / fps + w.seconds))
+        })
+        .collect();
     // listen windows' sonifications at V + listen_lu, each cut at its
     // window's end with a short fade so it never runs into the next line
     for (c, s) in sections.iter().enumerate() {
@@ -2303,6 +2318,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         cap_db,
         silences,
         notes,
+        sonified,
     })
 }
 
@@ -2331,6 +2347,14 @@ fn listen_sound(path: &Path, max: usize, settle: f64) -> io::Result<Stereo> {
             *v = b.process(a.process(*v));
         }
     }
+    // no sonification enters with a step: a 10 ms raised-cosine rise (B's
+    // 07_3 opened on a 4 ms linear attack, which QA heard as a click)
+    let rise = ((LISTEN_RISE * FS) as usize).min(s.len());
+    for k in 0..rise {
+        let g = rcos(k as f64 / rise as f64);
+        s.l[k] *= g;
+        s.r[k] *= g;
+    }
     // cut at the window's end, faded over its last `settle` seconds (to an
     // exact zero at the end) wherever the sound still sounds there
     s.l.truncate(max);
@@ -2346,6 +2370,8 @@ fn listen_sound(path: &Path, max: usize, settle: f64) -> io::Result<Stereo> {
 
 /// The top of a sonification as the score plays it (Hz).
 const LISTEN_TOP_HZ: f64 = 5_500.0;
+/// A sonification's opening rise (s).
+const LISTEN_RISE: f64 = 0.01;
 
 /// Sample index of a chapter-relative frame (for callers placing stems).
 pub fn frame_sample(frame: u64, fps: u32) -> usize {
@@ -3473,6 +3499,48 @@ mod tests {
         let mut bad = Identity::bakery_algorithm();
         bad.swing = 0.9;
         assert!(bad.validate().is_err());
+    }
+
+    #[test]
+    fn a_sonification_that_starts_with_a_step_enters_smoothly() {
+        // B's 07_3 opened on a 4 ms linear attack and QA flagged a click
+        let dir = std::env::temp_dir().join(format!("explainer_score_rise_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let n = (2.0 * FS) as usize;
+        let square: Vec<f64> = (0..n).map(|i| if (i / 55) % 2 == 0 { 0.3 } else { -0.3 }).collect();
+        let (son, flip) = (dir.join("step.wav"), dir.join("step_flipped.wav"));
+        crate::wav::write(&son, &Stereo::from_mono(&square), crate::wav::Format::F32).unwrap();
+        let neg: Vec<f64> = square.iter().map(|x| -x).collect();
+        crate::wav::write(&flip, &Stereo::from_mono(&neg), crate::wav::Format::F32).unwrap();
+        let window = |p: std::path::PathBuf| crate::timeline::Window {
+            frame: (12.4 * 60.0) as u64,
+            seconds: 3.0,
+            label: "step".into(),
+            sound: Some(p),
+        };
+        let id = Identity::raptorq_gf256();
+        sections[0].timeline.listens = vec![window(son)];
+        let a = render(&id, &sections, None).unwrap();
+        sections[0].timeline.listens = vec![window(flip)];
+        let b = render(&id, &sections, None).unwrap();
+        let part: Vec<f64> = a.music.l.iter().zip(&b.music.l).map(|(x, y)| (x - y) / 2.0).collect();
+        let at = (12.4 * FS) as usize;
+        // (the duck opens over its first 0.3 s too, so compare the first
+        // millisecond with the 10–20 ms just after the rise)
+        let level = |a: usize, b: usize| part[a..b].iter().fold(0.0_f64, |m, x| m.max(x.abs()));
+        let (first_ms, after) = (level(at, at + 48), level(at + 480, at + 960));
+        assert!(
+            after > 0.0 && first_ms < 0.1 * after,
+            "{first_ms:e} in the first ms, {after:e} after the rise"
+        );
+        let r = crate::qa::evaluate(
+            "01_a",
+            &a.chapter_voice(0),
+            &a.chapter_music(0),
+            a.chapter_music(0).len(),
+            Some(&crate::qa::ScoreFacts::chapter(&a, 0)),
+        );
+        assert_eq!(r.get("clicks").unwrap().pass, Some(true), "{:?}", r.get("clicks"));
     }
 
     #[test]

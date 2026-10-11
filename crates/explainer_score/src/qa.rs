@@ -128,6 +128,9 @@ pub struct ScoreFacts {
     /// Authored silences inside the chapter: where the stem must be exactly
     /// zero (from each fade's end to the music's return).
     pub silences: Vec<(f64, f64)>,
+    /// Listen windows carrying a scene's sonification: its notes come and go
+    /// there (it is not the score's steady sound).
+    pub sonified: Vec<(f64, f64)>,
 }
 
 impl ScoreFacts {
@@ -139,6 +142,12 @@ impl ScoreFacts {
         let (t0, t1) = (a as f64 / FS, b as f64 / FS);
         Self {
             no_fly: score.register.no_fly,
+            sonified: score
+                .sonified
+                .iter()
+                .filter(|w| w.1 > t0 && w.0 < t1)
+                .map(|w| (w.0.max(t0) - t0, w.1.min(t1) - t0))
+                .collect(),
             silences: score
                 .silences
                 .iter()
@@ -358,7 +367,7 @@ pub fn max_repeats(music: &Stereo) -> usize {
 /// stem's first and last 3 s, and above −60 dBFS. Depth is the p95/p5 ratio
 /// of the 25 ms RMS envelope divided by its 1 s moving mean. `None` when no
 /// window qualifies.
-pub fn exposed_beating_db(music: &Stereo, onsets: &[f64], speech: &[(f64, f64)]) -> Option<f64> {
+pub fn exposed_beating_db(music: &Stereo, onsets: &[f64], speech: &[(f64, f64)], busy: &[(f64, f64)]) -> Option<f64> {
     let m = mono(music);
     let frame = (0.025 * FS) as usize;
     let env: Vec<f64> = m
@@ -371,7 +380,10 @@ pub fn exposed_beating_db(music: &Stereo, onsets: &[f64], speech: &[(f64, f64)])
     let steady = |a: f64, b: f64| {
         let in_speech = speech.iter().any(|&(s, e)| a >= s + 0.4 && b <= e);
         let in_gap = !speech.iter().any(|&(s, e)| s < b + 0.4 && e + 1.5 > a);
-        (in_speech || in_gap) && a >= 3.0 && b <= total - 3.0 && !onsets.iter().any(|&t| t > a - 3.0 && t < b)
+        // a sonification's strikes and closing fade are onsets and decays,
+        // as the score's own are, not beating
+        let quiet = !busy.iter().any(|&(s, e)| a < e + 1.0 && b > s - 0.5);
+        (in_speech || in_gap) && quiet && a >= 3.0 && b <= total - 3.0 && !onsets.iter().any(|&t| t > a - 3.0 && t < b)
     };
     let mut worst: Option<f64> = None;
     let mut a = 0.0;
@@ -621,7 +633,7 @@ pub fn evaluate(
         }
     }
     r.push("rule6_identical_notes_10s", rule6 as f64, "= 0", Some(rule6 == 0), "");
-    match exposed_beating_db(music, &onsets(&f.events), &speech) {
+    match exposed_beating_db(music, &onsets(&f.events), &speech, &f.sonified) {
         Some(d) => r.push(
             "exposed_beating_db",
             d,
@@ -828,6 +840,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            sonified: vec![],
         };
         let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
         let m = r.get("longest_chord_s").unwrap();
@@ -872,6 +885,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            sonified: vec![],
         };
         let rule7 = |hold: f64| {
             evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
@@ -894,7 +908,7 @@ mod tests {
                 0.1 * ((TAU * 220.0 * t).sin() + 0.6 * (TAU * 220.0 * 1.003 * t).sin())
             })
             .collect();
-        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[]).unwrap();
+        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &[]).unwrap();
         assert!(d > 6.0, "{d:.1} dB");
         // eight steady harmonics: no slow modulation at all
         let steady: Vec<f64> = (0..n)
@@ -905,11 +919,18 @@ mod tests {
                     .sum()
             })
             .collect();
-        let d = exposed_beating_db(&Stereo::from_mono(&steady), &[], &[]).unwrap();
+        let d = exposed_beating_db(&Stereo::from_mono(&steady), &[], &[], &[]).unwrap();
         assert!(d < 1.0, "{d:.2} dB");
         // an onset 1 s before every window leaves nothing steady to measure
         let onsets: Vec<f64> = (0..30).map(|k| k as f64).collect();
-        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &onsets, &[]), None);
+        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &onsets, &[], &[]), None);
+        // a sonified window is the scene's sound: not measured, and the beat
+        // outside it still is
+        let busy = [(0.0, 30.0)];
+        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &busy), None);
+        let part = [(5.0, 12.0)];
+        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &part).unwrap();
+        assert!(d > 6.0, "{d:.1} dB outside the window");
     }
 
     #[test]
@@ -984,6 +1005,7 @@ mod tests {
             phrases: vec![(9.5, 10.2)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            sonified: vec![],
         };
         let r = evaluate("clean", &v, &music, v.len(), Some(&clean));
         for m in [
@@ -1014,6 +1036,7 @@ mod tests {
             phrases: vec![(3.0, 3.0)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            sonified: vec![],
         };
         let r = evaluate("bad", &v, &music, v.len(), Some(&bad));
         for m in [
@@ -1051,6 +1074,7 @@ mod tests {
                 phrases: vec![],
                 no_fly: reg.no_fly,
                 silences: vec![],
+                sonified: vec![],
             };
             let r = evaluate("band", &v, &music, v.len(), Some(&f));
             r.get("rule1_fundamentals_in_voice_band_in_speech").unwrap().pass
@@ -1092,6 +1116,7 @@ mod tests {
             phrases: vec![],
             no_fly: reg.no_fly,
             silences: vec![],
+            sonified: vec![],
         };
         let m9 = |f: &ScoreFacts| {
             evaluate("v", &v, &music, v.len(), Some(f))
