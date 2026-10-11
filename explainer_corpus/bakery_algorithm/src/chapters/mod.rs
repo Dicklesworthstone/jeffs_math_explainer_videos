@@ -7,7 +7,6 @@ pub mod draw;
 pub mod glyphs;
 pub mod room;
 pub mod scoreboard;
-pub mod three_customers;
 pub mod tickets;
 
 use explainer_kit::Chapter;
@@ -44,11 +43,7 @@ pub fn registry() -> Vec<Chapter> {
         },
         animatic!("04_same_number", 0.5),
         animatic!("05_the_unwritten_ticket", 0.55),
-        Chapter {
-            key: "06_three_customers",
-            make: |kit| Box::new(three_customers::ThreeCustomers { kit }),
-            intensity: 0.65,
-        },
+        animatic!("06_three_customers", 0.65),
         animatic!("07_one_run", 0.6),
         animatic!("08_why_never_two", 0.4),
         animatic!("09_reading_garbage_safely", 0.45),

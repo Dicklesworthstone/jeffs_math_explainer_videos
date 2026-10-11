@@ -43,8 +43,10 @@ const LARGE: u8 = 131;
 const THREE: u8 = 3;
 /// The listen windows (storyboard: 3 s).
 const LISTEN_S: f64 = 3.0;
-/// How many race rounds are drawn one at a time before the counters run.
+/// How many race rounds are drawn one at a time before the counters run,
+/// and how long the counters then take to reach every round.
 const SHOWN_ROUNDS: usize = 4;
+const RACE_S: f64 = 5.0;
 
 /// A grid of square cells, one per entry, as two flat groups: the lit cells
 /// and the dark ones (one fill per mobject).
@@ -214,7 +216,7 @@ fn counters(
         m
     });
     stage.add_to_scene(count)?;
-    play!(stage; fade_in(stage.arena_mut(), sign, ORIGIN, 1.0)?.rt(0.4));
+    // the "% fail" label is returned detached: both sides fade theirs in together
     Ok(vec![whole, bar, percent, sign, count])
 }
 
@@ -471,12 +473,22 @@ impl SceneConstruct for Wrap256 {
         let bytes = ByteTable::build(stage, amounts, v(0.0, -0.25))?;
         play!(stage; fade_in(stage.arena_mut(), header, ORIGIN, 1.0)?.rt(0.5));
         bytes.show(stage, 1.4)?;
-        let last = kit.text(stage, "only the last bit: odd or even", 30.0, purple(), v(0.0, -2.75))?;
+        let last = kit.text(stage, "only the last bit: odd or even", 30.0, purple(), v(0.0, 1.9))?;
         play!(stage;
             bytes.high_lit.animate().set_anim_args(AnimateArgs { run_time: Some(1.4), ..AnimateArgs::default() })?
                 .set_fill(Some(Palette::faint()), Some(0.9))?,
             fade_in(stage.arena_mut(), last, ORIGIN, 1.0)?.rt(1.0),
         );
+        // precisely: what "only the last bit matters" means
+        let note = precisely(
+            &kit,
+            stage,
+            &format!(
+                "a table of amounts wrapped at {HOURS} can be undone exactly when its determinant is odd, exactly when its \
+                 last bits alone can be undone; random amounts give random last bits, so the odds are ex-or's"
+            ),
+        )?;
+        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
         kit.hold(stage)?;
 
         // 07_6: the race: ex-or on the left, wrap-around on the right
@@ -547,6 +559,10 @@ impl SceneConstruct for Wrap256 {
         let rounds = stage.add_value_tracker(SHOWN_ROUNDS as f64);
         let mut live = counters(&kit, stage, left_side, cum(&xor_fails), rounds)?;
         live.extend(counters(&kit, stage, right_side, cum(&wrap_fails), rounds)?);
+        play!(stage;
+            fade_in(stage.arena_mut(), live[3], ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), live[8], ORIGIN, 1.0)?.rt(0.4),
+        );
         let model = crate::model::p_fail(2, RACE_PIECES as u32, 0);
         let ticks = [
             model_tick(&kit, stage, left_side, model)?,
@@ -568,26 +584,8 @@ impl SceneConstruct for Wrap256 {
                 ..PlayOverrides::default()
             },
         )?;
-        let run = rounds
-            .animate()
-            .set_anim_args(AnimateArgs {
-                run_time: Some(8.0),
-                rate_func: Some(fmn::core::rate::rush_into),
-                ..AnimateArgs::default()
-            })?
-            .set_value(RACE_ROUNDS as f64)?;
-        stage.play(run)?;
-        kit.hold(stage)?;
-        let note = precisely(
-            &kit,
-            stage,
-            &format!(
-                "a table of amounts wrapped at {HOURS} can be undone exactly when its determinant is odd, exactly when its \
-                 last bits alone can be undone; random amounts give random last bits, so the odds are ex-or's"
-            ),
-        )?;
-        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
-        stage.wait(4.5)?;
+        // the counters run while the for-programmers lower-third replaces
+        // 07_5's precisely one
         let inv3 = wrap::inverse_odd(THREE);
         let big = u32::from(THREE) * u32::from(inv3);
         let dev = lower_third(
@@ -601,12 +599,21 @@ impl SceneConstruct for Wrap256 {
                 big % HOURS as u32
             ),
         )?;
+        let run = rounds
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(RACE_S),
+                rate_func: Some(fmn::core::rate::rush_into),
+                ..AnimateArgs::default()
+            })?
+            .set_value(RACE_ROUNDS as f64)?;
         play!(stage;
-            fade_out(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.4),
+            run,
+            fade_out(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), dev, v(0.0, 0.2), 1.0)?.rt(0.6),
         );
-        stage.wait(4.5)?;
         kit.hold(stage)?;
+        stage.wait(1.5)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
     }
