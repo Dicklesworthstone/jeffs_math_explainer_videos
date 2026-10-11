@@ -323,6 +323,9 @@ fn any_value(kit: &Kit, stage: &mut Stage<'_>, clock: Mob, gone: &[Mob], e: &E1)
         fade_in(stage.arena_mut(), s.value, ORIGIN, 1.0)?.rt(0.5),
         half,
     );
+    // the rubbed nine and the half-drawn ten are one torn numeral (the
+    // layout lint then reads them as one text, not two overlapping)
+    stage.attach(s.value, ten)?;
     // the glance, crossing the write, and what it reads
     line.wait_for(stage, "A glance during")?;
     let read_at = v(3.0, 0.85);
@@ -367,7 +370,7 @@ fn any_value(kit: &Kit, stage: &mut Stage<'_>, clock: Mob, gone: &[Mob], e: &E1)
     let quote = quote_card(kit, stage, &words, glyphs::TURING_SOURCE, v(0.0, -2.35), 66)?;
     play!(stage; fade_in(stage.arena_mut(), quote, v(0.0, 0.15), 1.0)?.rt(0.8));
     kit.hold(stage)?;
-    let mut out = vec![s.board, s.value, ten, glance, reading, fx, quote];
+    let mut out = vec![s.board, s.value, glance, reading, fx, quote];
     out.extend(numerals);
     Ok(out)
 }
