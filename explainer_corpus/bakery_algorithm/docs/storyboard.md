@@ -65,14 +65,19 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 01_6 | Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
 | 01_7 | ⟨predict⟩ Draw every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in; lower-third "6 = C(4, 2): pick which 2 of the 4 steps are Blue's" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
-| 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back, so a bad order needs unlucky timing. But at billions of steps a second, unlucky timing happens constantly. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
+| 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
 
 - **For programmers (lower-third):** even `add [x], 1` reads and writes
   separately unless it carries a lock prefix.
 - **Ruth:** six orders = C(4,2) interleavings of two 2-step programs (R11; on
   screen at 01_7 since R2, R14).
-- **01_9 (R2 dev-06):** no frequency claim: nothing in the repository measures
-  how often a hot counter loses updates (bead mx-e-c-7v0.17 is the measurement).
+- **01_9 (R2 dev-06; Codex R1, 2026-10-11):** no frequency claim: nothing in
+  the repository measures how often a hot counter loses updates (bead
+  mx-e-c-7v0.17 is the measurement), so the line ends on the correctness
+  point instead ("a fix has to work in every order"), not on how often the
+  unlucky orders happen; the strip shows the back-to-back visits and the
+  rare interleavings, so "a bad order needs unlucky timing" left the words
+  (01 ran 94 s narrated).
 
 ## 02_the_room (~80 s)
 

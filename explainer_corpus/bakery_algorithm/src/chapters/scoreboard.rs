@@ -56,7 +56,7 @@ impl SceneConstruct for OnePlusOne {
         let square = staircases(&kit, stage, race)?;
         strip(&kit, stage, square)?;
         kit.hold(stage)?;
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.7)?;
         kit.finish(stage)
     }
 }
@@ -198,11 +198,11 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
 // --------------------------------------------------------------------- 01_3
 
 fn title(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
-    fade_all(stage, 0.8)?;
+    fade_all(stage, 0.5)?;
     let t = kit.text_styled(stage, g::TITLE, 60.0, Palette::hero(), v(0.0, 0.2), true, false)?;
-    play!(stage; write(stage.arena(), t).rt(1.8));
+    play!(stage; write(stage.arena(), t).rt(1.2));
     kit.listen(stage, 3.0, "01_one_plus_one_is_one:01_3")?;
-    fade_all(stage, 0.8)?;
+    fade_all(stage, 0.5)?;
     Ok(())
 }
 
@@ -560,7 +560,7 @@ fn strip_ticks(seed: u64, count: usize) -> Vec<(usize, bool)> {
     let mut out = Vec::with_capacity(count + 4);
     while out.len() < count {
         let who = (rng.next_u64() % 2) as usize;
-        if rng.next_u64() % 100 < 9 {
+        if rng.next_u64() % 100 < 5 {
             // the unlucky timing: read, read, write, write
             out.extend([(who, true), (1 - who, true), (who, true), (1 - who, true)]);
         } else {
@@ -692,7 +692,7 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
     )?;
     play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
-    kit.music_breath(stage, 2.0)?;
+    kit.music_breath(stage, 1.5)?;
     stage.clear_updaters(anchor, true);
     Ok(())
 }

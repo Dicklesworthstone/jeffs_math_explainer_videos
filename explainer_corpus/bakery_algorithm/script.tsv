@@ -6,7 +6,7 @@
 01_6	Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted.
 01_7	Draw every order at once, as staircases from corner to corner. There are six. How many lose a point?
 01_8	Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle.
-01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back, so a bad order needs unlucky timing. But at billions of steps a second, unlucky timing happens constantly.
+01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order.
 02_1	The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room.
 02_2	Put a sign on the door. Check that it says vacant, flip it to occupied, and go in.
 02_3	Does the sign work?
