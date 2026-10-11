@@ -327,8 +327,9 @@ impl Identity {
     ///
     /// A Juno "water" pad under speech; in the gaps, slow felt-piano rolls of
     /// the chord and the felt-piano motif 5̂–1̂–2̂–3̂ (C–F–G–A), open at the
-    /// title (01_4) and resolved 2̂–1̂ when the table balances (08_3, plan
-    /// §7.5 revision 2); vibraphone answers (the marked fish's instrument).
+    /// title (01_4), resolved 2̂–1̂ when the table balances (08_3, plan §7.5
+    /// revision 2) and again in the coda (15_3); vibraphone answers (the
+    /// marked fish's instrument).
     /// Sonifications keep to F major pentatonic (F G A C D) over the listen
     /// chord, F6/9.
     pub fn capture_recapture() -> Self {
@@ -394,7 +395,11 @@ impl Identity {
                 },
             ],
             listen_chord: Some(Chord::six_nine(5)),
-            themes: vec![("01_4", Theme::Open), ("08_3", Theme::Resolved)],
+            themes: vec![
+                ("01_4", Theme::Open),
+                ("08_3", Theme::Resolved),
+                ("15_3", Theme::Resolved),
+            ],
         }
     }
 
@@ -1702,6 +1707,9 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let mut phrases = Vec::new();
     let gaps = duck::gaps(&speech, total, MIN_PHRASE_GAP);
     let mut gap_index = vec![0usize; chapters.len()];
+    // the theme resolves once: after a resolved theme in the last chapter,
+    // the video's last gap only rolls the tonic home
+    let mut resolved_at_the_end = false;
     // where the authored note cues (reveal, pizzicato, resolution) will land:
     // on the mark, or at the end of the sentence it falls in (as step 5
     // places them). A gap one lands in is that cue's: no roll there, and the
@@ -1758,7 +1766,11 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         let theme = windows.iter().find_map(|w| identity.theme_for(&w.label));
         let mut prng = Rng::new(seed_for(&identity.name, name, "phrase", gi as u64));
         let final_gap = g + 1 == gaps.len() && resolve;
-        let resolving = final_gap || theme == Some(Theme::Resolved);
+        let coda = final_gap && resolved_at_the_end && theme.is_none();
+        let resolving = (final_gap && !coda) || theme == Some(Theme::Resolved);
+        if theme == Some(Theme::Resolved) && ch + 1 == chapters.len() {
+            resolved_at_the_end = true;
+        }
         let motif = match theme {
             Some(Theme::Open) => identity.motif.clone(),
             _ if resolving => theme_motif(),
@@ -1834,6 +1846,9 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                     start = if rolled { at + 5.0 * ROLL_STEP + 0.3 } else { at };
                 }
             }
+        }
+        if coda {
+            continue;
         }
         let mut notes = elastic_phrase(&motif, identity, start, limit, resolving);
         if resolving && notes.len() < motif.degrees.len() {
@@ -3337,6 +3352,47 @@ mod tests {
     }
 
     #[test]
+    fn the_theme_resolves_once_at_the_end() {
+        // a resolved theme in the last chapter's window (B 17_7, C 13_4, A
+        // 15_3): the video's last gap then rolls the tonic and plays no
+        // second resolution
+        let dir = std::env::temp_dir().join(format!("explainer_score_once_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        sections[1].timeline.listens = vec![crate::timeline::Window {
+            frame: (15.2 * 60.0) as u64,
+            seconds: 3.0,
+            label: "17_two_packets:17_7".into(),
+            sound: None,
+        }];
+        let id = Identity::raptorq_gf256();
+        let s = render(&id, &sections, None).unwrap();
+        let theme_notes = id.motif.degrees.len() + id.resolution.degrees.len();
+        let melody = |a: f64, b: f64| {
+            s.events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start >= a && e.start < b)
+                .count()
+        };
+        assert_eq!(melody(55.0, 59.0), theme_notes, "the resolution in 17_7");
+        assert_eq!(melody(66.0, 70.0), 0, "no second one in the last gap");
+        assert!(
+            s.events.iter().any(|e| e.track == Track::Roll && e.start >= 66.0),
+            "the tonic rolled home"
+        );
+        assert_eq!(&s.chords.last().unwrap().chord, &id.progression_for("02_b")[0]);
+        // without a resolved theme, the last gap resolves as before
+        let plain = render(&id, &synthetic_sections(&dir), None).unwrap();
+        assert!(
+            plain
+                .events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start >= 66.0)
+                .count()
+                >= id.resolution.degrees.len()
+        );
+    }
+
+    #[test]
     fn a_thin_mark_dips_the_bed_and_places_no_cue_of_its_own() {
         let dir = std::env::temp_dir().join(format!("explainer_score_thin_{}", std::process::id()));
         let mut sections = synthetic_sections(&dir);
@@ -3471,7 +3527,7 @@ mod tests {
         // every theme names a window, every mood real chords
         for id in [a, b, c] {
             id.validate().unwrap();
-            assert_eq!(id.themes.len(), 2, "{}", id.name);
+            assert!(id.themes.len() >= 2, "{}", id.name);
         }
         // two moods claiming one chapter are refused
         let mut bad = Identity::capture_recapture();
