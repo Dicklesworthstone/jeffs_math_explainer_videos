@@ -341,6 +341,115 @@ pub fn waves(tip: Vec3, r0: f64, step: f64, n: usize, color: Srgb) -> fmn::Resul
     Ok(v_group(arcs))
 }
 
+/// A byte card on screen: a [`Card`] whose pieces carry byte amounts.
+pub struct ByteCard {
+    pub card: Card,
+    /// The amounts shown before their badges (an amount of 1 is left out),
+    /// with their pieces.
+    pub amounts: Vec<(usize, Mob)>,
+}
+
+/// A byte card of height `h` centred at `at`: each term's amount in byte
+/// gold before its piece's badge (an amount of 1 is left out, as in
+/// E ⊕ 2A), joined by ⊕, then `= result` when given; the paper's edge in
+/// the byte role (13_1's random amounts, 16_4's E ⊕ 2A = 6).
+pub fn card_with_amounts(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    terms: &[(usize, u8)],
+    result: Option<u8>,
+    h: f64,
+    at: Vec3,
+) -> fmn::Result<ByteCard> {
+    let (r, slot, gap, pad) = (h * 0.27, h * 0.95, h * 0.55, h * 0.06);
+    // the amounts first, to measure them
+    let mut amounts = Vec::new();
+    let mut widths = Vec::new();
+    for &(p, a) in terms {
+        if a == 1 {
+            widths.push(0.0);
+            continue;
+        }
+        let m = kit.text(stage, &a.to_string(), h * 64.0, Role::byte(), at)?;
+        widths.push(stage.get_width(m) + pad);
+        amounts.push((p, m));
+    }
+    // the result, measured too: "=" then the number, left-aligned
+    let num = match result {
+        Some(value) => Some(kit.text(stage, &value.to_string(), h * 64.0, Palette::ink(), at)?),
+        None => None,
+    };
+    let num_w = num.map_or(0.0, |m| stage.get_width(m));
+    let n = terms.len() as f64;
+    let lead = h * 0.12;
+    let w = h * 0.5
+        + n * slot
+        + (n - 1.0).max(0.0) * gap
+        + widths
+            .iter()
+            .map(|&a| if a > 0.0 { a + lead } else { 0.0 })
+            .sum::<f64>()
+        + if result.is_some() { h * 0.9 + num_w } else { 0.0 };
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(h * 0.16)
+        .style(
+            Style::default()
+                .fill(card_fill(), 0.96)
+                .stroke(Role::byte(), (h * 6.0).max(2.0), 1.0),
+        )
+        .build()?
+        .moved_to(at);
+    let back = stage.arena_mut().add(back);
+    let mut all = vec![back];
+    let (mut badges, mut ops) = (Vec::new(), Vec::new());
+    let mut x = at[0] - w / 2.0 + h * 0.25;
+    let mut shown = amounts.iter();
+    for (k, &(p, a)) in terms.iter().enumerate() {
+        if k > 0 {
+            let o = kit.tex(stage, OPLUS, h * 52.0, Role::ex_or(), &[], v(x + gap / 2.0, at[1]))?;
+            ops.push(o);
+            all.push(o);
+            x += gap;
+        }
+        if a != 1 {
+            let &(_, m) = shown.next().expect("one amount per term other than 1");
+            x += lead;
+            stage.move_to(m, v(x, at[1]), LEFT);
+            all.push(m);
+            x += widths[k];
+        }
+        let b = badge(kit, stage, p, r, v(x + slot / 2.0, at[1]))?;
+        badges.push((p, b));
+        all.push(b);
+        x += slot;
+    }
+    let result = match num {
+        Some(num) => {
+            let eq_x = x + h * 0.32;
+            let eq = kit.tex(stage, "=", h * 52.0, Palette::dim(), &[], v(eq_x, at[1]))?;
+            stage.move_to(num, v(eq_x + h * 0.3, at[1]), LEFT);
+            all.extend([eq, num]);
+            Some((eq, num))
+        }
+        None => None,
+    };
+    let group = group_of(stage, &all)?;
+    Ok(ByteCard {
+        card: Card {
+            group,
+            back,
+            badges,
+            ops,
+            result,
+            width: w,
+            height: h,
+        },
+        amounts,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use fmn::scene::{NullSceneSink, RuntimeConfig};

@@ -7,15 +7,17 @@
 use explainer_kit::Facts;
 
 use crate::decoding::{
-    DENSE_PIECES, ESI_BITS, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, STEPS_PER_SECOND, TOY_CARDS, degree_mass,
-    dense_steps, dense_time, expected_untouched, mean_degree, peel_runs, peel_toy, rs_max_packets,
+    BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, ESI_BITS, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, RACE_PIECES,
+    RACE_SEED, RACES, STEPS_PER_SECOND, TOY_CARDS, degree_mass, dense_steps, dense_time, exact_mean_spares,
+    expected_untouched, histogram, mean_degree, mean_spares, one_amount_lights_exhaustive, peel_runs, peel_toy, race,
+    race_means_within_4se, random_byte_card, rs_max_packets,
 };
 
 use crate::model::{
     AES_FOLD, CARDS, DECK_PACKETS, FIELD_SEED, FIFTH_CARD, FOLD, GLYPHS, HOOK_PIECES, LOSS_ONE_IN, PHONES, PIECE_NAMES,
     PIECES, RING, album_mean, album_mean_floor, carousel_mean_caught, carousel_mean_sent, deck_mix, field_done_by_loop,
     logs, mean_loops, mul, order, p_done_by, p_done_in_loop_2_or_3, p_fail, p_fail_limit, p_fail_limit_times, p_full,
-    p_full_limit, p_waiting_after, rank_gf2, result, spares_for, unluckiest_of_a_million, useless_chance,
+    p_full_limit, p_waiting_after, rank_gf2, rank_gf256, result, spares_for, unluckiest_of_a_million, useless_chance,
 };
 
 /// A double as Python's `repr` prints it (oracle.py's format): the shortest
@@ -259,6 +261,8 @@ pub fn facts() -> Result<Facts, String> {
     )?;
     density(&mut f)?;
     arithmetic(&mut f)?;
+    byte_lottery(&mut f)?;
+    parking(&mut f)?;
     Ok(f)
 }
 
@@ -333,6 +337,119 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     f.add("B-F24.field.phones_per_glyph", PHONES / GLYPHS as u64)?;
     f.add("B-F24.field.glyphs_done_by_loop_1_to_6", list(field_done_by_loop()))?;
     f.add("B-F24.field.unluckiest_of_1e6_loops", unluckiest_of_a_million())?;
+    Ok(())
+}
+
+/// A key more than one chapter registers (the same value from the same
+/// code): added the first time; a later registration must agree.
+fn once(f: &mut Facts, key: &str, value: impl ToString) -> Result<(), String> {
+    let value = value.to_string();
+    match f.get(key) {
+        Some(v) if v == value => Ok(()),
+        Some(v) => Err(format!("{key}: {value} here, {v} where first registered")),
+        None => f.add(key, value).map(|_| ()),
+    }
+}
+
+/// 13: the byte card, the last slot at one in 256, the ladder's ÷ 256, the
+/// seeded race on ten pieces (`decoding::race`, the oracle's draws), and the
+/// 0/1 ring in either field.
+fn byte_lottery(f: &mut Facts) -> Result<(), String> {
+    let amounts = random_byte_card();
+    f.add("B-CH13.byte_card.seed", CARD_SEED)?;
+    f.add("B-CH13.byte_card.amounts_A_to_E", list(amounts))?;
+    let value = amounts.iter().zip(PIECES).fold(0, |acc, (&a, p)| acc ^ mul(a, p, FOLD));
+    f.add("B-CH13.byte_card.result", value)?;
+    f.pin(
+        "B-F7.success_K1",
+        py(p_full(256, 1, 0)),
+        "0.99609375",
+        "fact sheet B-F7 (255/256)",
+    )?;
+    let (lines, ok) = one_amount_lights_exhaustive();
+    f.add("B-F7.last_slot_lit_lines_checked_K2", lines)?;
+    f.add("B-F7.last_slot_exactly_one_amount_lit_exhaustive_K2_ok", u8::from(ok))?;
+    for h in 0..3 {
+        f.add(&format!("B-F8.fail_gf256_h{h}"), py(p_fail_limit(256, h)))?;
+    }
+    f.add("B-F27.h0.union_bound", py(1.0 / 255.0))?;
+    let race = race();
+    f.pin("B-F6.race_K10_seeded.seed", RACE_SEED, "1306", "fact sheet B-F6")?;
+    f.add("B-F6.race_K10_seeded.races_per_side", RACES)?;
+    f.pin(
+        "B-F6.race_K10_seeded.gf2.spares_histogram_0_up",
+        list(histogram(&race.ex_or)),
+        "297,303,171,94,65,39,17,4,7,0,2,0,0,0,0,1",
+        "fact sheet B-F6 (race)",
+    )?;
+    f.add("B-F6.race_K10_seeded.gf2.mean_spares", py(mean_spares(&race.ex_or)))?;
+    f.pin(
+        "B-F6.race_K10_seeded.gf256.spares_histogram_0_up",
+        list(histogram(&race.byte)),
+        "995,5",
+        "fact sheet B-F6 (race)",
+    )?;
+    f.add("B-F6.race_K10_seeded.gf256.mean_spares", py(mean_spares(&race.byte)))?;
+    f.add(
+        "B-F6.race_K10_seeded.means_within_4se_of_exact_ok",
+        u8::from(race_means_within_4se(&race)),
+    )?;
+    let k = RACE_PIECES as u32;
+    f.add("B-F6.mean_spares_gf2_K10", py(exact_mean_spares(1, k)))?;
+    f.add("B-F6.mean_spares_gf256_K10", py(exact_mean_spares(8, k)))?;
+    f.add("B-F6.mean_spares_gf2", py(exact_mean_spares(1, 100)))?;
+    f.add("B-F6.last_term_denominator_K10", (1u32 << k) - 1)?;
+    f.pin(
+        "B-F6.sourced.erdos_irrationality_year",
+        ERDOS_YEAR,
+        "1948",
+        "Erdős, J. Indian Math. Soc. 12 (1948)",
+    )?;
+    let rows: Vec<Vec<u8>> = RING
+        .iter()
+        .map(|&c| (0..5).map(|p| u8::from(c >> p & 1 == 1)).collect())
+        .collect();
+    f.add("B-F9.rank_gf256_same_01_matrix", rank_gf256(&rows))?;
+    f.add("B-F9.amounts_other_than_0_and_1", (1u32 << 8) - 2)?;
+    Ok(())
+}
+
+/// 16: the parked piece (the toy's peel with C parked, `decoding::peel_toy`),
+/// the big block's parameters, and the ring with a byte card.
+fn parking(f: &mut Facts) -> Result<(), String> {
+    let cards: Vec<usize> = (1..TOY_CARDS.len()).collect();
+    f.add(
+        "B-F20.y_values_y2_to_y6",
+        list(cards.iter().map(|&j| result(TOY_CARDS[j]))),
+    )?;
+    let parked = 2;
+    let (steps, leftover) = peel_toy(&cards, Some(parked));
+    // the leftover card B ⊕ E with D ⊕ E and B ⊕ C ⊕ D: all but C cancel
+    let c = [5usize, 4, 2].iter().fold(0, |acc, &j| acc ^ result(TOY_CARDS[j]));
+    let cancel = [5usize, 4, 2].iter().fold(0, |acc, &j| acc ^ TOY_CARDS[j]);
+    if cancel != 1 << parked || leftover != [5] {
+        return Err(format!("16_3: the cards ex-or to {cancel:#b}, leftover {leftover:?}"));
+    }
+    f.pin("B-F20.c_equals_y6_xor_y5_xor_y3", c, "7", "fact sheet B-F20")?;
+    // every c consistent with the leftover card, B ⊕ E = 15, given the peel
+    let value = |p: usize, cc: u8| {
+        let s = steps.iter().find(|s| s.piece == p).expect("peeled");
+        s.value.constant ^ if s.value.with_c { cc } else { 0 }
+    };
+    let fits: Vec<u8> = (0..=255u8)
+        .filter(|&cc| value(1, cc) ^ value(4, cc) == result(TOY_CARDS[5]))
+        .collect();
+    f.add("B-F20.unique_c_consistent_with_y6", list(&fits))?;
+    f.add(
+        "B-F20.back_substituted_A_B_D_E",
+        list([0, 1, 3, 4].map(|p| value(p, c))),
+    )?;
+    for (key, v) in [("S", BIG.s), ("H", BIG.h), ("W", BIG.w), ("L", BIG.l()), ("P", BIG.p())] {
+        once(f, &format!("B-F19.K10017.{key}"), v)?;
+    }
+    once(f, "B-F9.one_xor_two", 1 ^ 2)?;
+    once(f, "B-F9.three_times_five", mul(3, 5, FOLD))?;
+    once(f, "B-F11.mul_3_7", mul(3, 7, FOLD))?;
     Ok(())
 }
 

@@ -33,7 +33,9 @@ pub mod wrap256;
 
 // Chapters 13–17 (lane B-3): the toy graph and its peel (14, reused by 16),
 // and pictures that land on the voice's sentences.
+pub mod byte_lottery;
 pub mod density;
+pub mod parking;
 pub mod voice;
 
 use explainer_kit::Chapter;
@@ -101,14 +103,22 @@ pub fn registry() -> Vec<Chapter> {
             intensity: 0.6,
         },
         animatic!("12_the_times_table", 0.65),
-        animatic!("13_the_byte_lottery", 0.55),
+        Chapter {
+            key: "13_the_byte_lottery",
+            make: |kit| Box::new(byte_lottery::ByteLottery { kit }),
+            intensity: 0.55,
+        },
         Chapter {
             key: "14_the_price_of_density",
             make: |kit| Box::new(density::Density { kit }),
             intensity: 0.5,
         },
         animatic!("15_where_the_danger_lives", 0.65),
-        animatic!("16_parking_a_piece", 0.55),
+        Chapter {
+            key: "16_parking_a_piece",
+            make: |kit| Box::new(parking::Parking { kit }),
+            intensity: 0.55,
+        },
         animatic!("17_two_packets", 0.6),
     ]
 }

@@ -1706,10 +1706,29 @@ def bs_cards():
     emit("B-S1.sourced.rfc6330_year", 2011)
 
 
+# ==============================================================================================
+# Chapter 13 (lane B-3): 13_1's byte card and the year 13_6's lower-third names
+# ==============================================================================================
+def ch13():
+    # 13_1: one card with random byte amounts on the pieces A-E: random.Random(1301).randrange(1, 256) five
+    # times, its result over GF(256) under RaptorQ's fold
+    rng = random.Random(1301)
+    amounts = [rng.randrange(1, 256) for _ in range(5)]
+    r = 0
+    for a, piece in zip(amounts, (5, 3, 7, 2, 12)):
+        r ^= gmul(a, piece)
+    emit("B-CH13.byte_card.seed", 1301)
+    emit("B-CH13.byte_card.amounts_A_to_E", amounts)
+    emit("B-CH13.byte_card.result", r)
+    # 13_6 lower-third "Erdos proved the full sum irrational in 1948" (J. Indian Math. Soc. 12, 63-66; fact sheet,
+    # open item 1, VERIFIED)
+    emit("B-F6.sourced.erdos_irrationality_year", 1948)
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
                bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8, bs_cards):
+               bx7, bx8, bs_cards, ch13):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)
