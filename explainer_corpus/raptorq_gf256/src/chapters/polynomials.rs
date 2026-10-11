@@ -7,7 +7,7 @@
 
 use std::ops::Range;
 
-use explainer_kit::props::predict_pause;
+use explainer_kit::props::{lower_third, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, play, stroke_style, v};
 use fmn::animation::{indicate, replacement_transform};
 use fmn::library::{SpanMapData, TransformMatchingTex};
@@ -437,6 +437,14 @@ impl SceneConstruct for Polynomials {
         together(stage, swap, 0.8)?;
         play!(stage; fade_in(stage.arena_mut(), bits, ORIGIN, 1.0)?.rt(0.5));
         play!(stage; write(stage.arena(), is_nine).rt(0.6));
+        // the name a programmer would search (Dev R3 D12)
+        let clmul = lower_third(
+            &kit,
+            stage,
+            "for programmers:",
+            "this is carry-less multiplication: shift and ex-or, never carry",
+        )?;
+        play!(stage; fade_in(stage.arena_mut(), clmul, v(0.0, 0.2), 1.0)?.rt(0.5));
         kit.hold(stage)?;
 
         // 09_6: three times seven is nine, in chalk; the chords of 3, 7, 9

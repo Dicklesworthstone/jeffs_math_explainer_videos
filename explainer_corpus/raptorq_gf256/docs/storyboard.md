@@ -86,7 +86,7 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 |---|---|---|---|---|
 | 02_1 | First, how computers write numbers. Each spot holds a bit, a zero or a one, and each spot is worth double the one to its right. One, two, four, eight. | Place values under a row of eight bits | binary primer prop |  |
 | 02_2 | Five is four plus one, so it's one, zero, one. A byte is eight bits, so it holds zero to two fifty-five. | 101 lights; then 11111111 = 255 | bit row |  |
-| 02_3 | Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. The mixing move is called ex-or, and it works like this. | Two pieces merge into one packet card | statement card |  |
+| 02_3 | Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. A piece of the picture is just numbers, so mixing pieces means mixing numbers. The mixing move is called ex-or, and it works like this. | Two pieces merge into one packet card | statement card |  |
 | 02_4 | Line up the two numbers in bits. Wherever the second has a one, flip that bit of the first, like a light switch. | Bit rows as light switches; 5 ⊕ 7 | bitwise animation |  |
 | 02_5 | ⟨predict⟩ Five is one, zero, one. Seven is one, one, one. What's five ex-or seven? | The two rows lined up | prediction card |  |
 | 02_6 | Zero, one, zero. Two. And flip twice, and you're back where you started. Two ex-or seven is five again. | 5 ⊕ 7 = 2; then 2 ⊕ 7 = 5 | bitwise animation | listen 3 s (a byte as a chord: each set bit a note; ex-or toggles notes) |
@@ -108,13 +108,13 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 | 03_5 | The phone is just a bucket. It doesn't care which cards arrive, or in what order. It needs as many useful cards as there are pieces. Useful means it tells you something you couldn't already work out. | A bucket of four slots; it fills one slot per useful card | bucket prop |  |
 | 03_6 | ⟨predict⟩ Here's a fifth card. B ex-or C is four. Is it useful? | The card hovers over the full bucket | prediction card |  |
 | 03_7 | No. You could make it yourself from cards one and three. | The card bounces off | bounce |  |
-| 03_8 | A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same shuffled deck, so a packet's number tells the phone which pieces it mixed. | Fountain icon; "packet #48213 → pieces {…}" | statement card |  |
+| 03_8 | A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same recipe book, so a packet's number tells the phone which pieces it mixed. | Fountain icon; "packet #48213 → pieces {…}" | statement card |  |
 | 03_9 | The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven. This video is about the arithmetic inside it. | **RaptorQ** spelled once; beneath it "RFC 6330 · IETF Proposed Standard · August 2011" (R2 Ruth R15, Dev dev-08) | name card | hold |
 
 - **Lower-thirds:** "each piece is really a chunk, about a kilobyte; every
   operation runs across all its bytes at once"; "lost, not corrupted:
   checksums throw bad packets away; one that slipped through would poison the
-  decode" (D23 keeps both); 03_8: "the deck is a fixed recipe written into the
+  decode" (D23 keeps both); 03_8: "the recipe book is written into the
   standard (RFC 6330's packet number, the ESI, is the seed); the block size
   travels in a header" (D10).
 - **For programmers:** RAID-5 parity is one of these cards.

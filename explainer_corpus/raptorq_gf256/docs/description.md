@@ -69,7 +69,8 @@ two extra 10,002 (10,103.0 sent). Of the 97,876, the last piece alone takes 10,0
 **03_5** "Useful" means linearly independent of the cards already held; the bucket's filled slots are the rank.
 
 **03_8** The deck is a fixed recipe written into the standard: a packet's ID (the ESI) fixes its internal index, and
-RFC 6330's Tuple[K′, X] fixes which pieces it mixes; the block size travels in a header.
+RFC 6330's Tuple[K′, X] fixes which pieces it mixes; the block size travels in a header. "Endless" exactly: RaptorQ's
+packet IDs are 24 bits, so one block can send 16,777,216 different packets.
 
 **03_9** RaptorQ is RFC 6330, an IETF Proposed Standard published in August 2011.
 
@@ -168,8 +169,9 @@ the 10,000 on average (one in 136). With exactly enough cards it is one in 124.
 **14_8** For programmers (this aside left the video to keep chapter 14 under 85 s): Reed–Solomon codes are the ideal.
 Any set of exactly enough packets rebuilds the picture, but the sender must fix the packet count in advance, and with
 byte arithmetic it tops out at 257. A fountain never runs dry. Precisely: Reed–Solomon codes are MDS: any K of the N
-packets rebuild the data. Over GF(256), N is at most 257 (q + 1, with the point at infinity); checked for K = 3 on
-3,000 random triples of the 257 columns. RaptorQ's packet IDs are 24 bits: 16,777,216 per block.
+packets rebuild the data. A Reed–Solomon code over GF(256) has at most 257 packets (q + 1, with the point at
+infinity); 3,000 random triples of its 257 columns check that all of them work at K = 3. (That bound is Reed–Solomon's,
+not every code's: at K = 3 a hyperoval, a conic plus its nucleus, gives 258 columns over GF(2⁸), any 3 independent.) RaptorQ's packet IDs are 24 bits: 16,777,216 per block.
 
 **15_1** "About seven pieces": a packet is the ex-or of 7.152 intermediate symbols on average, Table 1's mean degree
 4.82 plus 2.34 of the permanently inactivated symbols (modelling the standard's Rand[X, 3, 2] as uniform). The extra
@@ -268,8 +270,9 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 }
 ```
 
-The table multiply from chapter 11, as the standard writes it down. The log table needs 16-bit entries: with 8-bit
-logs, LOG[a] + LOG[b] wraps at 256 for 32,131 of the 65,025 nonzero pairs, chapter 7's broken clock again (a panic in
+The table multiply from chapter 11, as the standard writes it down. Logs fit in a u8 (0 to 254); it is their sum
+that must be widened. Added as u8s, LOG[a] + LOG[b] wraps at 256 for 32,131 of the 65,025 nonzero pairs (the panel
+stores LOG as u16 so the sum cannot wrap), chapter 7's broken clock again (a panic in
 a debug build, a wrong product in a release build). EXP has 510 entries because the largest index is 254 + 254 = 508,
 so no `% 255` is needed.
 

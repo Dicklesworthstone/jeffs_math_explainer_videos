@@ -324,14 +324,7 @@ fn amounts(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let mini = RingProp::build(kit, stage, v(-2.4, 2.15), 1.0, 0.4, false)?;
     let mini_groups: Vec<Mob> = mini.cards.iter().map(|c| c.group).collect();
     let mini = group_of(stage, &mini_groups)?;
-    let set01 = kit.tex(
-        stage,
-        r"\text{amount} \in \{0, 1\}",
-        64.0,
-        Role::ex_or(),
-        &[],
-        v(2.2, 2.0),
-    )?;
+    let set01 = kit.tex(stage, r"\text{amount: 0 or 1}", 64.0, Role::ex_or(), &[], v(2.2, 2.0))?;
     let mut bucket_parts = vec![b.group, m.group, reading];
     bucket_parts.extend(&filled);
     let bucket_all = group_of(stage, &bucket_parts)?;

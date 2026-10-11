@@ -651,8 +651,8 @@ fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         kit,
         stage,
         "precisely:",
-        "the deck is a fixed recipe written into the standard (RFC 6330's packet number, the ESI, is the seed); \
-         the block size travels in a header",
+        "the recipe book is written into the standard (RFC 6330's packet number, the ESI, is the seed); the \
+         block size travels in a header",
     )?;
     play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
     kit.hold(stage)?;
