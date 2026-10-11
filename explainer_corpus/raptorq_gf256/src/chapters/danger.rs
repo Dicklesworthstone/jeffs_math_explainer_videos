@@ -7,7 +7,6 @@
 //! (15_4), the lottery again: the recorded ablation, 70.7% against 0.646%
 //! (15_5).
 
-use explainer_kit::animatic::HOLD_S;
 use explainer_kit::props::{RowStrips, lower_third, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, thousands, v};
 use explainer_score::Stereo;
@@ -142,8 +141,8 @@ impl SceneConstruct for Danger {
         self.cheap(&kit, stage, &board)?;
         self.grid(&kit, stage, &board)?;
         self.blocks(&kit, stage, &board)?;
+        // the 15_5 listen window is the chapter's breath: no second hold
         self.bucket(&kit, stage, &board)?;
-        kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
     }
