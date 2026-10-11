@@ -25,7 +25,7 @@ use crate::facts::recorded_sweep;
 
 use super::draw::{
     NAMES, access_arrow, badge, chalk, customer, faded_line, flag_amber, flat, group, lane, line_style, order_gold,
-    pictogram, room_red, rule_tick,
+    pictogram, room_red, rule_tick, say,
 };
 use super::glyphs;
 
@@ -359,7 +359,10 @@ impl SceneConstruct for WhyNeverTwo {
 
         // 08_2: fact one. Blue finished choosing before Green started, so
         // Green's look at Blue's slate saw Blue's ticket
-        kit.say(stage, "08_2")?;
+        let line = say(&kit, stage, "08_2")?;
+        let one = fact_card(&kit, stage, glyphs::FACT_ONE, glyphs::FACT_ONE_TEXT, true)?;
+        play!(stage; fade_in(stage.arena_mut(), one, v(0.0, -0.2), 1.0)?.rt(0.9));
+        line.wait_for(stage, "If Blue finished")?;
         play!(stage; fade_in(stage.arena_mut(), pic.blue_choosing, ORIGIN, 1.0)?.rt(1.0));
         let xr = pic.green_read_x(Place::NotYet);
         let read = stage
@@ -373,13 +376,12 @@ impl SceneConstruct for WhyNeverTwo {
             &[("Green", customer(2)), ("Blue", customer(1))],
             v(xr + 1.55, 0.0),
         )?;
+        line.wait_for(stage, "Green saw")?;
         play!(stage; show_creation(read).rt(0.8), fade_in(stage.arena_mut(), saw, ORIGIN, 1.0)?.rt(0.8));
-        let one = fact_card(&kit, stage, glyphs::FACT_ONE, glyphs::FACT_ONE_TEXT, true)?;
-        play!(stage; fade_in(stage.arena_mut(), one, v(0.0, -0.2), 1.0)?.rt(0.9));
         kit.hold(stage)?;
 
         // 08_3: fact two, and the question
-        kit.say(stage, "08_3")?;
+        let line = say(&kit, stage, "08_3")?;
         play!(stage;
             fade_out(stage.arena_mut(), counts_on, ORIGIN, 1.0)?.rt(0.6),
             fade_out(stage.arena_mut(), read, ORIGIN, 1.0)?.rt(0.6),
@@ -388,27 +390,30 @@ impl SceneConstruct for WhyNeverTwo {
         let two = fact_card(&kit, stage, glyphs::FACT_TWO, glyphs::FACT_TWO_TEXT, false)?;
         play!(stage; fade_in(stage.arena_mut(), two, v(0.0, -0.2), 1.0)?.rt(0.9));
         let why = kit.text(stage, glyphs::WHY, 26.0, Palette::hero(), v(6.35, 2.6))?;
+        line.wait_for(stage, "Why is that")?;
         play!(stage; fade_in(stage.arena_mut(), why, ORIGIN, 1.0)?.rt(0.5));
 
         // 08_4: Blue's last look at Green's flag; slide Green's choosing past it
-        kit.say(stage, "08_4")?;
+        let line = say(&kit, stage, "08_4")?;
         play!(stage;
             show_creation(pic.look).rt(0.9),
             fade_in(stage.arena_mut(), pic.look_label, ORIGIN, 1.0)?.rt(0.9),
             tween(pic.probe_alpha, 1.0, 0.9)?,
         );
-        for (x, rt) in [(-3.4, 2.4), (2.2, 2.6)] {
+        line.wait_for(stage, "the check that let")?;
+        for (x, rt) in [(-3.4, 2.0), (2.2, 2.2)] {
             stage.play(pic.slide(x, rt)?)?;
         }
         let q = predict_pause(&kit, stage, v(5.6, -1.6))?;
 
         // 08_5: three places. Not yet: Blue had finished, so fact one
-        kit.say(stage, "08_5")?;
+        let line = say(&kit, stage, "08_5")?;
         let legend = places_legend(&kit, stage)?;
         play!(stage;
             fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
             fade_in(stage.arena_mut(), legend.group, v(0.0, 0.1), 1.0)?.rt(0.8),
         );
+        line.wait_for(stage, "Not yet choosing")?;
         stage.play(pic.slide(Place::NotYet.green_start(), 1.0)?)?;
         let lit_edge = Rectangle::new()
             .width(BLUE_CHOOSING.1 - BLUE_CHOOSING.0 + 0.2)
@@ -418,6 +423,7 @@ impl SceneConstruct for WhyNeverTwo {
             .build()?
             .moved_to(v((BLUE_CHOOSING.0 + BLUE_CHOOSING.1) / 2.0, Y_BLUE));
         let lit_edge = stage.arena_mut().add(lit_edge);
+        line.wait_for(stage, "Blue had already")?;
         play!(stage; show_creation(lit_edge).rt(0.8));
         let xr = pic.green_read_x(Place::NotYet);
         let trusted = stage
@@ -431,18 +437,22 @@ impl SceneConstruct for WhyNeverTwo {
             &[("Green", customer(2)), ("Blue", customer(1))],
             v(4.6, Y_GREEN - 0.55),
         )?;
+        line.wait_for(stage, "by fact one")?;
         play!(stage;
             show_creation(trusted).rt(0.7),
             indicate(stage.arena_mut(), one, 1.06, None)?.rt(1.0),
         );
-        play!(stage; fade_in(stage.arena_mut(), bigger, ORIGIN, 1.0)?.rt(0.6));
+        line.wait_for(stage, "Green's ticket will")?;
         let ok_not_yet = stage.arena_mut().add(verdict_mark(true, 0.3, legend.mark_at[0]));
-        play!(stage; fade_in(stage.arena_mut(), ok_not_yet, ORIGIN, 1.4)?.rt(0.5));
+        play!(stage;
+            fade_in(stage.arena_mut(), bigger, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), ok_not_yet, ORIGIN, 1.4)?.rt(0.5),
+        );
         kit.hold(stage)?;
 
         // 08_6: in the middle of choosing: her flag was up at the look,
         // so that look would have made Blue wait
-        kit.say(stage, "08_6")?;
+        let line = say(&kit, stage, "08_6")?;
         play!(stage;
             fade_out(stage.arena_mut(), lit_edge, ORIGIN, 1.0)?.rt(0.4),
             fade_out(stage.arena_mut(), trusted, ORIGIN, 1.0)?.rt(0.4),
@@ -453,22 +463,25 @@ impl SceneConstruct for WhyNeverTwo {
         let no = stage
             .arena_mut()
             .add(verdict_mark(false, 0.42, v(X_CHECK + 0.4, -0.05)));
+        line.wait_for(stage, "Then Green's flag")?;
+        play!(stage; fade_in(stage.arena_mut(), up, ORIGIN, 1.0)?.rt(0.6));
+        line.wait_for(stage, "wouldn't have")?;
+        let no_choosing = stage.arena_mut().add(verdict_mark(false, 0.3, legend.mark_at[1]));
         play!(stage;
             fade_in(stage.arena_mut(), no, ORIGIN, 1.4)?.rt(0.5),
-            fade_in(stage.arena_mut(), up, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), no_choosing, ORIGIN, 1.4)?.rt(0.5),
         );
-        let no_choosing = stage.arena_mut().add(verdict_mark(false, 0.3, legend.mark_at[1]));
-        play!(stage; fade_in(stage.arena_mut(), no_choosing, ORIGIN, 1.4)?.rt(0.5));
         kit.hold(stage)?;
 
         // 08_7: finished choosing: Blue's later glance read Green's real
         // ticket, and passed only because Blue's pair was smaller
-        kit.say(stage, "08_7")?;
+        let line = say(&kit, stage, "08_7")?;
         play!(stage;
             fade_out(stage.arena_mut(), no, ORIGIN, 1.0)?.rt(0.4),
             fade_out(stage.arena_mut(), up, ORIGIN, 1.0)?.rt(0.4),
         );
         stage.play(pic.slide(Place::Done.green_start(), 1.2)?)?;
+        line.wait_for(stage, "Then Blue had read")?;
         play!(stage; show_creation(pic.glance).rt(0.5));
         let glance = stage
             .arena_mut()
@@ -493,20 +506,23 @@ impl SceneConstruct for WhyNeverTwo {
             show_creation(glance).rt(0.7),
             fade_in(stage.arena_mut(), real, ORIGIN, 1.0)?.rt(0.6),
         );
+        line.wait_for(stage, "only because")?;
         play!(stage; fade_in(stage.arena_mut(), smaller, ORIGIN, 1.0)?.rt(0.6));
+        line.wait_for(stage, "Either way")?;
         let ok_done = stage.arena_mut().add(verdict_mark(true, 0.3, legend.mark_at[2]));
         play!(stage; fade_in(stage.arena_mut(), ok_done, ORIGIN, 1.4)?.rt(0.5));
         // either way, Green's pair is bigger: fact two
         let proved = stage.arena_mut().add(verdict_mark(true, 0.42, v(6.35, 2.6)));
+        line.wait_for(stage, "And that's fact two")?;
         play!(stage;
-            fade_out(stage.arena_mut(), why, ORIGIN, 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), proved, ORIGIN, 1.4)?.rt(0.6),
-            indicate(stage.arena_mut(), two, 1.06, None)?.rt(1.0),
+            fade_out(stage.arena_mut(), why, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), proved, ORIGIN, 1.4)?.rt(0.5),
+            indicate(stage.arena_mut(), two, 1.06, None)?.rt(0.7),
         );
         kit.hold(stage)?;
 
         // 08_8: both in the room: fact two, both ways round
-        kit.say(stage, "08_8")?;
+        let line = say(&kit, stage, "08_8")?;
         // first the picture: suppose Green were in the room too
         let keep = [one, two, proved, pic.lanes, pic.blue_room, pic.blue_choosing, pic.green];
         stage.clear_updaters(pic.probe, true);
@@ -534,8 +550,8 @@ impl SceneConstruct for WhyNeverTwo {
             fade_in(stage.arena_mut(), g_label, ORIGIN, 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), suppose, ORIGIN, 1.0)?.rt(0.7),
         );
-        stage.wait(0.6)?;
         // then fact two, both ways round
+        line.wait_for(stage, "Then fact two says")?;
         stage.clear_updaters(pic.green, true);
         let lanes_away = [
             pic.lanes,
@@ -572,6 +588,7 @@ impl SceneConstruct for WhyNeverTwo {
             fade_in(stage.arena_mut(), tag_g, ORIGIN, 1.0)?.rt(0.6),
         );
         // one chain: a pair smaller than itself
+        line.wait_for(stage, "Like me being")?;
         let (chain, chain_spans) = kit.tex_spans(stage, glyphs::PAIRS_CHAIN, 44.0, chalk(), &colours, v(0.0, 0.3))?;
         let morph = TransformMatchingTex::new(stage.arena_mut(), for_blue, chain, &for_blue_spans, &chain_spans)?;
         play!(stage;
@@ -586,24 +603,23 @@ impl SceneConstruct for WhyNeverTwo {
             .build();
         let ends = stage.arena_mut().add(ends);
         let impossible = kit.text(stage, glyphs::IMPOSSIBLE_PAIR, 26.0, room_red(), v(0.0, -0.75))?;
-        play!(stage;
-            show_creation(ends).rt(0.8),
-            fade_in(stage.arena_mut(), impossible, ORIGIN, 1.0)?.rt(0.8),
-        );
+        line.wait_for(stage, "Impossible")?;
         // Dijkstra's rule 1 (02_5's pictogram), proved: ticked
         let (at, size) = (v(-2.2, -2.2), 1.2);
         let rule = pictogram(&kit, stage, 1, at, size)?;
         let words = kit.text_left(stage, glyphs::RULE_1, 28.0, chalk(), v(-1.3, -2.2))?;
-        play!(stage;
-            fade_in(stage.arena_mut(), rule, ORIGIN, 1.0)?.rt(0.7),
-            fade_in(stage.arena_mut(), words, ORIGIN, 1.0)?.rt(0.7),
-        );
         let tick = stage.arena_mut().add(rule_tick(at, size));
-        play!(stage; fade_in(stage.arena_mut(), tick, ORIGIN, 1.5)?.rt(0.6));
+        play!(stage;
+            show_creation(ends).rt(0.6),
+            fade_in(stage.arena_mut(), impossible, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), rule, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), words, ORIGIN, 1.0)?.rt(0.6),
+        );
+        play!(stage; fade_in(stage.arena_mut(), tick, ORIGIN, 1.5)?.rt(0.5));
         kit.hold(stage)?;
 
         // 08_9: the search agrees, within its bounds; the proof covers all
-        kit.say(stage, "08_9")?;
+        let line = say(&kit, stage, "08_9")?;
         let (n, k) = SEARCH;
         // the recorded search the facts pin (C-F8.n4_k4_atomic.*)
         let (states, clean) = recorded_sweep(n, k, false).ok_or(fmn::Error::Scene(SceneError::InvalidConfig(
@@ -645,6 +661,7 @@ impl SceneConstruct for WhyNeverTwo {
             &[(glyphs::THE_PROOF, order_gold())],
             v(0.0, -0.95),
         )?;
+        line.wait_for(stage, "Only the proof")?;
         play!(stage; fade_in(stage.arena_mut(), every, ORIGIN, 1.0)?.rt(0.8));
         kit.hold(stage)?;
         fade_all(stage, 1.0)?;
