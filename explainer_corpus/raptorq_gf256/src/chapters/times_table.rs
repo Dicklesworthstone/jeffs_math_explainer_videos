@@ -7,14 +7,16 @@
 //! labels for the same field (12_5); and the two clocks that close act II
 //! (12_6).
 
-use explainer_kit::props::{RowStrips, predict_pause};
+use explainer_kit::props::{RowStrips, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, stroke_style, tween, v};
+use fmn::animation::indicate;
 use fmn::core::color::color_gradient;
 use fmn::prelude::*;
 
 use super::byte_clock::{ByteClock, click_point, lookup_panel, two_clocks};
 use super::draw::{Role, flat, group_of};
-use super::fold::{aes_contrast, fade_list, math_lower_third};
+use super::fold::{aes_contrast, fade_list};
+use super::voice::{Spoken, board};
 use crate::model::{FOLD, exps, logs, mul, order};
 
 /// The table's cells: 3 px at 1080p, 6 px at 4K (cell edges on pixel edges
@@ -121,7 +123,8 @@ impl SceneConstruct for TimesTable {
         let cc = v(-3.9, 0.0);
         let rc = 2.1;
         let clock = ByteClock::build(stage, cc, rc)?;
-        let (code, caption) = lookup_panel(&kit, stage)?;
+        let board = board("12_the_times_table")?;
+        let code = lookup_panel(&kit, stage)?;
         let (k150, k3) = (usize::from(log[ONE_FIFTY as usize]), usize::from(log[THREE as usize]));
         let product = exp[(k150 + k3) % 255];
         let look = kit.tex(
@@ -157,22 +160,35 @@ impl SceneConstruct for TimesTable {
                 .build();
             s.add(v_group([line, dot]))
         });
-        kit.say(stage, "12_0")?;
+        let line = Spoken::say(&kit, stage, &board, "12_0")?;
         play!(stage;
             show_creation(clock.ring).rt(0.7),
             fade_in(stage.arena_mut(), clock.dots, ORIGIN, 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), clock.zero, ORIGIN, 1.0)?.rt(0.7),
-            fade_in(stage.arena_mut(), code, v(-1.0, 0.0), 1.0)?.rt(0.7),
         );
         stage.add_to_scene(hand)?;
-        play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.4), tween(at, k150 as f64, 0.8)?);
+        play!(stage; tween(at, k150 as f64, 0.8)?);
         play!(stage; write(stage.arena(), look).rt(0.8), tween(at, (k150 + k3) as f64, 0.8)?);
         play!(stage; write(stage.arena(), answer).rt(0.6));
+        // the code, alone, centred and large while the line says its two
+        // traps (Dev R3 D1): the zero guard, and EXP twice round the clock
+        line.at(stage, 2)?;
+        stage.clear_updaters(hand, true);
+        fade_list(stage, &[clock.group, hand, look, answer], 0.5)?;
+        stage.scale(code.group, 27.0 / 16.0);
+        stage.move_to(code.group, v(0.0, 0.1), ORIGIN);
+        play!(stage; fade_in(stage.arena_mut(), code.group, ORIGIN, 1.0)?.rt(0.6));
+        let glow = Some([1.0, 0.85, 0.4]);
+        line.at_phrase(stage, "check it first")?;
+        let zero = code.get("zero");
+        play!(stage; indicate(stage.arena_mut(), zero, 1.12, glow)?.rt(1.0));
+        line.at_phrase(stage, "twice as long")?;
+        let exp_line = code.get("exp");
+        play!(stage; indicate(stage.arena_mut(), exp_line, 1.12, glow)?.rt(1.0));
         kit.hold(stage)?;
 
         // 12_1: every pair at once, in byte order: it looks like noise
-        stage.clear_updaters(hand, true);
-        fade_list(stage, &[clock.group, hand, code, caption, look, answer], 0.5)?;
+        fade_list(stage, &[code.group], 0.5)?;
         let rows: Vec<Vec<Srgb>> = (1..=255u8)
             .map(|a| (1..=255u8).map(|b| pal[mul(a, b, FOLD) as usize]).collect())
             .collect();
@@ -291,13 +307,16 @@ impl SceneConstruct for TimesTable {
         )?;
         stage.set_width(total, 3.4, false);
         let counts = element_orders();
-        let orders_tex = format!(
-            r"\text{{orders }} {} \text{{ occur }} {} \text{{ times;}}\; {} = (2+1)(2^{{2}}+1)(2^{{4}}+1)",
+        // "order" said in the video's words, not used as a term of art (Maya
+        // R3 maya-04, Dev D11); the counts Ruth kept as a delight stay
+        let orders_text = format!(
+            "a byte's order: how many of its steps lead back to 1. Orders {} occur {} times \
+             ({} = (2+1)(4+1)(16+1))",
             counts.iter().map(|(o, _)| o.to_string()).collect::<Vec<_>>().join(", "),
             counts.iter().map(|(_, c)| c.to_string()).collect::<Vec<_>>().join(", "),
             counts.last().map_or(0, |&(o, _)| o)
         );
-        let orders = math_lower_third(&kit, stage, "precisely:", &orders_tex)?;
+        let orders = precisely(&kit, stage, &orders_text)?;
         kit.say(stage, "12_4")?;
         play!(stage; show_creation(stripe).rt(0.9), fade_in(stage.arena_mut(), total, ORIGIN, 1.0)?.rt(0.9));
         play!(stage; fade_in(stage.arena_mut(), orders, v(0.0, 0.2), 1.0)?.rt(0.5));
@@ -317,9 +336,9 @@ impl SceneConstruct for TimesTable {
             total,
             orders,
         ];
-        kit.say(stage, "12_5")?;
+        let line = Spoken::say(&kit, stage, &board, "12_5")?;
         fade_list(stage, &table_parts, 0.6)?;
-        let aes = aes_contrast(&kit, stage)?;
+        let aes = aes_contrast(&kit, stage, &line)?;
         kit.hold(stage)?;
 
         // 12_6: the wrong clock counted bytes; the right one counts clicks

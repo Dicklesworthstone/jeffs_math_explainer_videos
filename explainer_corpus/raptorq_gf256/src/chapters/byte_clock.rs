@@ -18,8 +18,8 @@ use fmn::prelude::*;
 
 use super::clock::Clock;
 use super::draw::{Role, group_of};
-use super::fold::{CodePanel, Seg, fade_list, math_lower_third};
-use crate::model::{AES_FOLD, exps, logs, order};
+use super::fold::{CodePanel, Seg, fade_list, hexw, math_lower_third};
+use crate::model::{AES_FOLD, FOLD, exps, logs, order};
 
 /// The byte clock's hours: the order of 2 under RaptorQ's fold.
 pub const CLICKS: usize = 255;
@@ -271,8 +271,10 @@ impl SceneConstruct for TheByteClock {
             &kit,
             stage,
             &format!(
-                "under AES's polynomial, times two comes back to 1 after {aes} steps (its hand is {}); every finite \
-                 field has such a clock",
+                "{} is primitive: 2 reaches all {CLICKS}. AES's {} is irreducible but not primitive: times two comes \
+                 back to 1 after {aes} steps (its hand is {}); every finite field has such a clock",
+                hexw(0x100 | u16::from(FOLD)),
+                hexw(0x100 | u16::from(AES_FOLD)),
                 (2..=255u8)
                     .find(|&g| order(g, AES_FOLD) as usize == CLICKS)
                     .expect("AES's field has a generator")
@@ -511,15 +513,18 @@ impl SceneConstruct for TheByteClock {
         )?;
         let gives = kit.tex(stage, &format!(r"\to {p}"), 52.0, Role::byte(), &[], v(4.1, 0.55))?;
         let logname = kit.text_styled(stage, "logarithm", 48.0, Role::byte(), v(4.1, -0.7), true, false)?;
+        // the byte field's log, not the school one (log₂ 150 ≈ 7.2; Ruth R3-10)
         let logline = kit.tex(
             stage,
-            &format!(r"\log_{{2}} {ONE_FIFTY} = {k150}"),
+            &format!(r"\log {ONE_FIFTY} = {k150}"),
             44.0,
             Palette::ink(),
             &[],
             v(4.1, -1.5),
         )?;
-        kit.say(stage, "11_6")?;
+        let logcap = kit.text(stage, "in the byte field (base 2)", 24.0, Palette::dim(), v(4.1, -2.1))?;
+        let board = super::voice::board("11_the_byte_clock")?;
+        let line = super::voice::Spoken::say(&kit, stage, &board, "11_6")?;
         let mut gone = ruler.all.clone();
         gone.extend([powers, ints, ask, hop1, hop2, sum, dd]);
         fade_list(stage, &gone, 0.5)?;
@@ -544,7 +549,70 @@ impl SceneConstruct for TheByteClock {
             write(stage.arena(), gives).rt(0.5),
         );
         play!(stage; write(stage.arena(), logname).rt(0.7));
-        play!(stage; fade_in(stage.arena_mut(), logline, ORIGIN, 1.0)?.rt(0.5));
+        play!(stage;
+            fade_in(stage.arena_mut(), logline, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), logcap, ORIGIN, 1.0)?.rt(0.5),
+        );
+        // one fifty times itself goes past the top: 360 clicks, less one full
+        // turn of 255, is 105 clicks: 26 (Dev R3 D4: the % 255 a programmer
+        // must not write as % 256)
+        let k_sq = 2 * k150;
+        let k_wrapped = k_sq % CLICKS;
+        let sq = exp[k_wrapped];
+        assert_eq!(sq, crate::model::mul(ONE_FIFTY, ONE_FIFTY, FOLD));
+        let ask3 = kit.tex(
+            stage,
+            &format!(r"{ONE_FIFTY} \times {ONE_FIFTY}"),
+            52.0,
+            Palette::ink(),
+            &[],
+            v(4.1, 2.4),
+        )?;
+        let sum3 = kit.tex(
+            stage,
+            &format!(r"{k150} + {k150} = {k_sq} \text{{ clicks}}"),
+            44.0,
+            Palette::ink(),
+            &[],
+            v(4.1, 1.4),
+        )?;
+        let turn3 = kit.tex(
+            stage,
+            &format!(r"{k_sq} - {CLICKS} = {k_wrapped} \text{{ clicks}}"),
+            44.0,
+            Palette::ink(),
+            &[],
+            v(4.1, 0.45),
+        )?;
+        let gives3 = kit.tex(stage, &format!(r"\to {sq}"), 52.0, Role::byte(), &[], v(4.1, -0.45))?;
+        let o_sq = outer(&kit, stage, sq)?;
+        line.at_phrase(stage, "One fifty times itself")?;
+        stage.clear_updaters(inner_labels, true);
+        fade_list(
+            stage,
+            &[
+                o3,
+                o167,
+                inner_ring,
+                inner_labels,
+                ask2,
+                clicks_line,
+                gives,
+                logname,
+                logline,
+                logcap,
+            ],
+            0.5,
+        )?;
+        play!(stage; write(stage.arena(), ask3).rt(0.6), tween(click, k150 as f64, 0.6)?);
+        line.at_phrase(stage, "Three hundred sixty clicks")?;
+        play!(stage; write(stage.arena(), sum3).rt(0.7));
+        play!(stage; tween(click, k_sq as f64, 2.0)?);
+        play!(stage; write(stage.arena(), turn3).rt(0.7));
+        play!(stage;
+            fade_in(stage.arena_mut(), o_sq, ORIGIN, 1.0)?.rt(0.5),
+            write(stage.arena(), gives3).rt(0.5),
+        );
         kit.hold(stage)?;
 
         // 11_7: every nonzero byte's partner at its mirror image (the
@@ -572,23 +640,7 @@ impl SceneConstruct for TheByteClock {
             v(4.1, 0.15),
         )?;
         kit.say(stage, "11_7")?;
-        stage.clear_updaters(inner_labels, true);
-        fade_list(
-            stage,
-            &[
-                o3,
-                o150,
-                o167,
-                inner_ring,
-                inner_labels,
-                ask2,
-                clicks_line,
-                gives,
-                logname,
-                logline,
-            ],
-            0.5,
-        )?;
+        fade_list(stage, &[o150, o_sq, ask3, sum3, turn3, gives3], 0.5)?;
         play!(stage; fade_in(stage.arena_mut(), pairs, ORIGIN, 1.0)?.rt(2.0).lag(0.03));
         play!(stage;
             fade_in(stage.arena_mut(), own, ORIGIN, 1.0)?.rt(0.5),
@@ -603,23 +655,12 @@ impl SceneConstruct for TheByteClock {
     }
 }
 
-/// 12_0's for-programmers panel and its caption: multiplying by table
-/// lookup (the panel built off the top-right corner's spot, detached).
-pub(crate) fn lookup_panel(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
-    let code = CodePanel::build(kit, stage, &table_code(), 16.0, v(6.95, 3.6))?;
-    let (wraps, pairs) = crate::model::wrap::u8_log_sum_wraps(&logs());
-    let caption = kit.text(
-        stage,
-        &format!(
-            "a u8 sum wraps for {} of {} pairs",
-            explainer_kit::thousands(wraps as u64),
-            explainer_kit::thousands(pairs as u64)
-        ),
-        22.0,
-        Palette::dim(),
-        v(4.65, 0.85),
-    )?;
-    Ok((code.group, caption))
+/// 12_0's for-programmers panel: multiplying by table lookup, how often a
+/// u8 sum of clicks would wrap in its comments (Maya R3 maya-14), the zero
+/// guard keyed "zero" and EXP's length "exp" (built off the top-right
+/// corner's spot, detached).
+pub(crate) fn lookup_panel(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<CodePanel> {
+    CodePanel::build(kit, stage, &table_code(), 16.0, v(6.95, 3.6))
 }
 
 /// 12_6 (was 11_8): the wrong clock that counted bytes beside the byte clock
@@ -819,17 +860,26 @@ impl Ruler {
 fn table_code() -> Vec<Vec<Seg>> {
     let top = 2 * (CLICKS - 1);
     let plain = |s: String| -> Vec<Seg> { vec![(s, None)] };
+    let (wraps, pairs) = crate::model::wrap::u8_log_sum_wraps(&logs());
     vec![
-        plain(format!("static EXP: [u8; {}] = [/* 2^0 … 2^{} */];", top + 2, top + 1)),
+        vec![(
+            format!("static EXP: [u8; {}] = [/* 2^0 … 2^{} */];", top + 2, top + 1),
+            Some("exp"),
+        )],
         plain(format!(
             "// largest index {} + {} = {top}: no % {CLICKS}",
             CLICKS - 1,
             CLICKS - 1
         )),
         plain("static LOG: [u16; 256] = [/* LOG[0] unused */];".to_owned()),
-        plain("// u16: a u8 sum wraps at 256 (chapter 7's bug)".to_owned()),
+        plain("// u16: a u8 sum wraps at 256 (chapter 7's bug),".to_owned()),
+        plain(format!(
+            "// for {} of the {} nonzero pairs",
+            explainer_kit::thousands(wraps as u64),
+            explainer_kit::thousands(pairs as u64)
+        )),
         plain("fn mul(a: u8, b: u8) -> u8 {".to_owned()),
-        plain("    if a == 0 || b == 0 { return 0 }".to_owned()),
+        vec![("    if a == 0 || b == 0 { return 0 }".to_owned(), Some("zero"))],
         plain("    EXP[(LOG[a as usize] + LOG[b as usize]) as usize]".to_owned()),
         plain("}".to_owned()),
     ]

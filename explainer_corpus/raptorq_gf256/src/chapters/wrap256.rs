@@ -484,8 +484,8 @@ impl SceneConstruct for Wrap256 {
             &kit,
             stage,
             &format!(
-                "a table of amounts wrapped at {HOURS} can be undone exactly when its determinant is odd, exactly when its \
-                 last bits alone can be undone; random amounts give random last bits, so the odds are ex-or's"
+                "wrap-around cards can be solved exactly when their last bits alone can be (the amounts wrap at {HOURS}); \
+                 random amounts give random last bits, so the odds are ex-or's"
             ),
         )?;
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
@@ -593,8 +593,8 @@ impl SceneConstruct for Wrap256 {
             stage,
             "for programmers:",
             &format!(
-                "{THREE} × {inv3} = {big} = {} · {HOURS} + {}: multiplying by an odd constant can be undone, which is \
-                 why hash mixers multiply by odd numbers",
+                "{THREE} × {inv3} = {big} = {} · {HOURS} + {}: an odd multiplier can be undone; that's why hash mixers \
+                 multiply by odd numbers",
                 big / HOURS as u32,
                 big % HOURS as u32
             ),

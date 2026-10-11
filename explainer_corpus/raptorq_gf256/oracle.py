@@ -782,6 +782,11 @@ def bf13():
     emit("B-F13.log7_plus_log7", LOG[7] + LOG[7])
     emit("B-F13.log7_plus_log7_mod_255", (LOG[7] + LOG[7]) % 255)
     emit("B-F13.exp_141", EXP[141])
+    # 11_6 (R3, Dev D4): one fifty times itself goes past the top: 180 + 180 = 360 clicks, less 255, is 105: 26
+    emit("B-F13.log150_plus_log150", LOG[150] + LOG[150])
+    emit("B-F13.log150_plus_log150_mod_255", (LOG[150] + LOG[150]) % 255)
+    emit("B-F13.exp_105", EXP[105])
+    emit("B-F13.mul_150_150", gmul(150, 150))
     # 11_7 picture: each byte's partner sits at its mirror image, log a^-1 = 255 - log a (1 is its own mirror)
     emit("B-F13.log_inverse_is_255_minus_log_all255_ok",
          all(LOG[INV[a]] == (255 - LOG[a]) % 255 for a in range(1, 256)))

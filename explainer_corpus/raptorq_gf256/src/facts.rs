@@ -786,6 +786,17 @@ fn arithmetic(f: &mut Facts) -> Result<(), String> {
     f.pin("B-F13.log_58", log[58], "9", "fact sheet B-F13")?;
     f.pin("B-F13.exp_7_plus_2", exp[7 + 2], "58", "fact sheet B-F13")?;
     f.pin("B-F13.exp_205", exp[205], "167", "fact sheet B-F13")?;
+    // 11_6 (R3, Dev D4): 150 × 150 goes past the top of the clock
+    let l150 = u16::from(log[150]);
+    f.pin("B-F13.log150_plus_log150", l150 + l150, "360", "fact sheet B-F13 (R3)")?;
+    f.pin(
+        "B-F13.log150_plus_log150_mod_255",
+        (l150 + l150) % 255,
+        "105",
+        "fact sheet B-F13 (R3)",
+    )?;
+    f.pin("B-F13.exp_105", exp[105], "26", "fact sheet B-F13 (R3)")?;
+    f.pin("B-F13.mul_150_150", mul(150, 150, FOLD), "26", "fact sheet B-F13 (R3)")?;
     f.pin(
         "B-F13.int_2^3_x_2^4",
         (1u32 << 3) * (1u32 << 4),

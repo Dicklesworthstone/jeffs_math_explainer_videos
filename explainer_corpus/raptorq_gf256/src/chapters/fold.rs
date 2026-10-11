@@ -1,9 +1,10 @@
 //! Chapter 10, the fold: the rotation (10_1) and its failure, 3 × 255 = 0
-//! (10_2–10_3: x⁸ + 1 = (x + 1)(x⁷ + … + 1)); a prime polynomial, x⁸ →
-//! x⁴ + x³ + x² + 1 (10_4, the code panel slides in); 2 × 128 folds to 29
-//! (10_5, the 07_3 slide again, blooming into the 0x1D chord); 2 × 142 = 1
-//! and the byte field (10_6); AES's polynomial, 87 × 131 = 49 here and 193
-//! there, the panel's fold and comments flipping (10_7).
+//! (10_2–10_3: x⁸ + 1 = (x + 1)(x⁷ + … + 1)); a prime polynomial, said and
+//! shown whole, x⁸ + x⁴ + x³ + x² + 1, treated as zero: x⁸ → x⁴ + x³ + x² + 1
+//! (10_4); 2 × 128 folds to 29 (10_5, the 07_3 slide again, blooming into
+//! the 0x1D chord); 2 × 142 = 1 and the byte field (10_6). The shift-and-add
+//! code panel and AES's polynomial, 87 × 131 = 49 here and 193 there, are
+//! 12_5's ([`aes_contrast`]).
 
 use explainer_kit::props::{lower_third, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, play, v};
@@ -30,6 +31,11 @@ const LISTEN_S: f64 = 3.0;
 /// A byte in the code's hex.
 fn hexb(b: u8) -> String {
     format!("{b:#04X}").replace("0X", "0x")
+}
+
+/// A degree-8 polynomial's nine bits in hex, lower-case 0x: 0x11D.
+pub(crate) fn hexw(w: u16) -> String {
+    format!("{w:#05X}").replace("0X", "0x")
 }
 
 /// The orange [`Kit::tex`] lines of the fold: "x^{8} \to …" from a fold byte.
@@ -74,8 +80,8 @@ fn code_lines(fold: u8) -> Vec<Vec<Seg>> {
         plain("fn mul(mut a: u8, mut b: u8) -> u8 { // no tables"),
         plain("    let mut acc = 0;"),
         plain("    while b != 0 {"),
-        plain("        if b & 1 != 0 { acc ^= a }"),
-        plain("        a = xtime(a);"),
+        vec![("        if b & 1 != 0 { acc ^= a }".into(), Some("pick"))],
+        vec![("        a = xtime(a);".into(), Some("double"))],
         plain("        b >>= 1;"),
         plain("    }"),
         vec![
@@ -159,7 +165,7 @@ impl CodePanel {
         Ok(Self { group, keyed, size })
     }
 
-    fn get(&self, key: &str) -> Mob {
+    pub(crate) fn get(&self, key: &str) -> Mob {
         self.keyed
             .iter()
             .find(|(k, _)| *k == key)
@@ -448,46 +454,47 @@ impl SceneConstruct for Fold {
         play!(stage; fade_in(stage.arena_mut(), again, ORIGIN, 1.0)?.rt(0.6));
         kit.hold(stage)?;
 
-        // 10_4: a prime polynomial; RaptorQ's fold; the code panel
+        // 10_4: a prime polynomial, said and shown whole (it stays up through
+        // 10_6); treated as zero, its x⁸ becomes the fold rule (Maya R3
+        // maya-02: the rule's right side alone factors). The code panel
+        // waits for 12_5, where it gets a beat of its own (Dev R3 D1).
         fade_list(stage, &[answer, to_one, to_zero, fac, three, all, again], 0.5)?;
-        let panel = CodePanel::build(&kit, stage, &code_lines(FOLD), 17.0, v(6.95, 3.6))?;
+        let board = super::voice::board("10_the_fold")?;
         let prime = kit.text(
             stage,
             "a prime polynomial: it can't be factored",
             32.0,
             Role::fold(),
-            v(-2.4, 2.95),
+            v(0.0, 3.3),
         )?;
-        let rule = kit.tex(stage, &fold_rule(FOLD), 64.0, Role::fold(), &[], v(-2.4, 1.85))?;
-        let residue = kit.tex(stage, &format!("= {FOLD}"), 48.0, Role::fold(), &[], v(-3.5, 1.0))?;
-        let residue_hex = kit.mono(stage, &hexb(FOLD), 30.0, Role::fold(), v(-1.6, 1.0))?;
         let whole = u16::from(FOLD) | 0x100;
-        let poly_line = kit.tex(
-            stage,
-            &format!("{} = {whole}", fold_poly(FOLD)),
-            44.0,
-            Palette::dim(),
-            &[],
-            v(-2.4, 0.2),
-        )?;
-        let poly_hex = kit.mono(
-            stage,
-            &format!("{whole:#05X}").replace("0X", "0x"),
-            26.0,
-            Palette::dim(),
-            v(-2.4, -0.4),
-        )?;
-        kit.say(stage, "10_4")?;
+        let poly = kit.tex(stage, &fold_poly(FOLD), 60.0, Role::fold(), &[], v(-1.2, 2.45))?;
+        let poly_x = stage.get_right(poly)[0] + 0.3;
+        let poly_val = kit.tex(stage, &format!("= {whole}"), 44.0, Palette::dim(), &[], v(poly_x, 2.45))?;
+        stage.move_to(poly_val, v(poly_x, 2.45), LEFT);
+        let hex_at = v(stage.get_right(poly_val)[0] + 0.25, 2.42);
+        let poly_hex = kit.mono(stage, &hexw(whole), 26.0, Palette::dim(), hex_at)?;
+        stage.move_to(poly_hex, hex_at, LEFT);
+        let rule = kit.tex(stage, &fold_rule(FOLD), 60.0, Role::fold(), &[], v(-1.2, 1.3))?;
+        let rule_x = stage.get_right(rule)[0] + 0.3;
+        let residue = kit.tex(stage, &format!("= {FOLD}"), 44.0, Role::fold(), &[], v(rule_x, 1.3))?;
+        stage.move_to(residue, v(rule_x, 1.3), LEFT);
+        let hex_at = v(stage.get_right(residue)[0] + 0.25, 1.27);
+        let residue_hex = kit.mono(stage, &hexb(FOLD), 26.0, Role::fold(), hex_at)?;
+        stage.move_to(residue_hex, hex_at, LEFT);
+        let line = super::voice::Spoken::say(&kit, stage, &board, "10_4")?;
         play!(stage; fade_in(stage.arena_mut(), prime, ORIGIN, 1.0)?.rt(0.6));
-        play!(stage; fade_in(stage.arena_mut(), panel.group, v(-1.0, 0.0), 1.0)?.rt(0.8));
+        line.at(stage, 1)?;
+        play!(stage; write(stage.arena(), poly).rt(1.4));
+        play!(stage;
+            fade_in(stage.arena_mut(), poly_val, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), poly_hex, ORIGIN, 1.0)?.rt(0.5),
+        );
+        line.at_phrase(stage, "Treat it as zero")?;
         play!(stage; write(stage.arena(), rule).rt(1.2));
         play!(stage;
             fade_in(stage.arena_mut(), residue, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), residue_hex, ORIGIN, 1.0)?.rt(0.5),
-        );
-        play!(stage;
-            fade_in(stage.arena_mut(), poly_line, ORIGIN, 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), poly_hex, ORIGIN, 1.0)?.rt(0.5),
         );
         kit.hold(stage)?;
 
@@ -496,11 +503,6 @@ impl SceneConstruct for Fold {
         let doubled_src = format!(r"{TWO} \times {X7} = x^{{8}}");
         let ask = kit.tex(stage, &doubled_src, 52.0, Palette::ink(), &[], v(-0.9, 0.2))?;
         kit.say(stage, "10_5")?;
-        play!(stage;
-            fade_out(stage.arena_mut(), prime, ORIGIN, 1.0)?.rt(0.5),
-            fade_out(stage.arena_mut(), poly_line, ORIGIN, 1.0)?.rt(0.5),
-            fade_out(stage.arena_mut(), poly_hex, ORIGIN, 1.0)?.rt(0.5),
-        );
         reg.show(stage, 0.5)?;
         play!(stage; write(stage.arena(), ask).rt(0.6));
         let fallen = reg.double(&kit, stage, 0.9)?;
@@ -523,11 +525,7 @@ impl SceneConstruct for Fold {
         // the listen window: the 07_3 slide again, blooming into 0x1D's chord
         let wav = super::sound::wav("10_5_fold", &super::sound::overflow(Some(FOLD), LISTEN_S))?;
         kit.sonify(stage, LISTEN_S, "10_5", &wav)?;
-        let fold_seg = panel.get("fold");
-        play!(stage;
-            indicate(stage.arena_mut(), fold_seg, 1.5, Some([0.94, 0.68, 0.37]))?.rt(1.0),
-            indicate(stage.arena_mut(), rule, 1.08, Some([0.94, 0.68, 0.37]))?.rt(1.0),
-        );
+        play!(stage; indicate(stage.arena_mut(), rule, 1.08, Some([0.94, 0.68, 0.37]))?.rt(1.0));
         let lit: Vec<Mob> = (0..8).filter(|&k| reg.bits[k]).map(|k| reg.tiles[k]).collect();
         let mut pulse: Vec<Box<dyn Animation>> = Vec::new();
         for &t in &lit {
@@ -586,8 +584,6 @@ impl SceneConstruct for Fold {
             v(stage.get_right(ask2)[0] + 0.35, 0.2),
         )?;
         play!(stage; write(stage.arena(), is_one).rt(0.4));
-        let partner_seg = panel.get("partner");
-        play!(stage; indicate(stage.arena_mut(), partner_seg, 1.6, Some([1.0, 0.85, 0.4]))?.rt(0.9));
         let field = kit.text_styled(stage, "the byte field", 56.0, Role::byte(), v(4.7, 0.2), true, false)?;
         play!(stage; write(stage.arena(), field).rt(0.8));
         let name = math_lower_third(&kit, stage, "names to search:", r"\text{GF}(256) = \text{GF}(2^{8})")?;
@@ -596,8 +592,8 @@ impl SceneConstruct for Fold {
         let why = precisely(
             &kit,
             stage,
-            "the polynomial can't be factored, so no two nonzero bytes multiply to 0; so each row of the times \
-             table has no repeats, so it contains 1",
+            "the polynomial is irreducible over GF(2) (no factors with 0/1 coefficients), so no two nonzero bytes \
+             multiply to 0; so each row of the times table has no repeats, so it contains 1",
         )?;
         play!(stage;
             fade_out(stage.arena_mut(), name, ORIGIN, 1.0)?.rt(0.4),
@@ -613,11 +609,14 @@ impl SceneConstruct for Fold {
     }
 }
 
-/// 12_5 (was 10_7): RaptorQ's and AES's prime polynomials side by side, 87 ×
-/// 131 = 49 here and 193 there; chapter 10's code panel returns and its 0x1D,
-/// 0x31 and 142 flip to 0x1B, 0xC1 and 141; the labels lower-third. Call it
-/// after saying the line; it returns what it put on screen.
-pub(crate) fn aes_contrast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+/// 12_5 (was 10_7): first the shift-and-add code panel alone, centred and
+/// large while the line says what it does (Dev R3 D1), its fold byte lit at
+/// "the fold"; then, from the line's third sentence, it shrinks to the corner
+/// beside RaptorQ's and AES's prime polynomials, 87 × 131 = 49 here and 193
+/// there, and its 0x1D, 0x31 and 142 flip to 0x1B, 0xC1 and 141; the labels
+/// lower-third. Call it once `line` (12_5) has started; it returns what it
+/// put on screen.
+pub(crate) fn aes_contrast(kit: &Kit, stage: &mut Stage<'_>, line: &super::voice::Spoken) -> fmn::Result<Vec<Mob>> {
     let ours = mul(LEFT_BYTE, RIGHT_BYTE, FOLD);
     let theirs = mul(LEFT_BYTE, RIGHT_BYTE, AES_FOLD);
     let col =
@@ -641,13 +640,37 @@ pub(crate) fn aes_contrast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<
             )?;
             group_of(stage, &[n, p, m, h])
         };
+    // built at its corner size and spot, shown centred at about 27 pt
     let mut panel = CodePanel::build(kit, stage, &code_lines(FOLD), 17.0, v(6.95, 3.6))?;
+    let corner = stage.get_center(panel.group);
+    let big = 27.0 / 17.0;
+    stage.scale(panel.group, big);
+    stage.move_to(panel.group, v(0.0, 0.2), ORIGIN);
+    play!(stage; fade_in(stage.arena_mut(), panel.group, ORIGIN, 1.0)?.rt(0.6));
+    let glow = Some([0.94, 0.68, 0.37]);
+    line.at_phrase(stage, "Keep doubling with the fold")?;
+    let (fold_seg, double) = (panel.get("fold"), panel.get("double"));
+    play!(stage;
+        indicate(stage.arena_mut(), fold_seg, 1.5, glow)?.rt(1.0),
+        indicate(stage.arena_mut(), double, 1.15, glow)?.rt(1.0),
+    );
+    line.at_phrase(stage, "ex-or together")?;
+    let pick = panel.get("pick");
+    play!(stage; indicate(stage.arena_mut(), pick, 1.15, glow)?.rt(1.0));
+    line.at(stage, 2)?;
+    let back = panel
+        .group
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(0.8),
+            ..AnimateArgs::default()
+        })?
+        .scale(1.0 / big)?
+        .move_to(corner, ORIGIN)?;
+    play!(stage; back);
     let here = col(kit, stage, -4.6, "RaptorQ", FOLD, ours, Role::byte())?;
     let aes = col(kit, stage, -0.5, "AES", AES_FOLD, theirs, Palette::ink())?;
-    play!(stage;
-        fade_in(stage.arena_mut(), panel.group, v(-1.0, 0.0), 1.0)?.rt(0.6),
-        fade_in(stage.arena_mut(), here, v(0.0, -0.15), 1.0)?.rt(0.6),
-    );
+    play!(stage; fade_in(stage.arena_mut(), here, v(0.0, -0.15), 1.0)?.rt(0.6));
     play!(stage; fade_in(stage.arena_mut(), aes, v(0.0, -0.15), 1.0)?.rt(0.6));
     let aes_partner = (1..=255u8)
         .find(|&b| mul(TWO, b, AES_FOLD) == 1)

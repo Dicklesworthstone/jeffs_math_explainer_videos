@@ -40,7 +40,7 @@
 07_2	Try two times one twenty-eight on this clock. What do you get?
 07_3	The top bit slides off the end, and it's gone. Zero.
 07_4	So a card saying two times A is six can't tell you A. It could be three, or one thirty-one.
-07_5	Even amounts lose information, like two did. Odd ones never do. So with random byte amounts, only the last bit matters.
+07_5	Even amounts lose information, like two did. Odd ones never do. And a number is odd exactly when its last bit is one. So with random byte amounts, only the last bit matters.
 07_6	That's the coin flip from ex-or again. This lottery fails seventy-one percent of the time, just like ex-or.
 08_1	A prime number of hours fixes it. On a seven-hour clock, what times three is one?
 08_2	Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide.
@@ -55,7 +55,7 @@
 10_1	A product past x to the seventh doesn't fit in a byte. The simplest fold drops the fallen bit back in at the bottom. A rotation.
 10_2	Three times a byte is double it, ex-or itself. Under that fold, what's three times two fifty-five?
 10_3	Zero. The rotation turns x to the eighth into one, so x to the eighth plus one is zero. And it factors into x plus one, which is three, times a long polynomial, two fifty-five. Two fifty-six was two times one twenty-eight all over again.
-10_4	So we need a polynomial that can't be factored, a prime polynomial. Whenever an x to the eighth falls off, RaptorQ swaps in x to the fourth plus x cubed plus x squared plus one.
+10_4	So we need a polynomial that can't be factored, a prime polynomial. RaptorQ's is x to the eighth plus x to the fourth plus x cubed plus x squared plus one. Treat it as zero. Then whenever an x to the eighth falls off, swap in x to the fourth plus x cubed plus x squared plus one.
 10_5	Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero.
 10_6	And every nonzero byte now has a partner. Two times one forty-two is exactly one. So bytes form a field, the byte field.
 11_1	Start at one and keep multiplying by two. One, two, four, eight, sixteen, thirty-two, sixty-four, one twenty-eight. What comes next?
@@ -63,13 +63,13 @@
 11_3	Now move every nonzero byte to the step where it was reached. The star untangles into a circle.
 11_4	Times two is one click around. A clock with two hundred fifty-five hours. Call it the byte clock.
 11_5	To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four. Seven clicks plus two is nine clicks. Fifty-eight.
-11_6	One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm.
+11_6	One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm. One fifty times itself goes past the top. Three hundred sixty clicks, less one full turn of two fifty-five, is a hundred five clicks. Twenty-six.
 11_7	And every nonzero byte's partner sits at its mirror image across the top.
-12_0	That's how the standard multiplies. Look up two click counts, add them, and look up the answer.
+12_0	That's how the standard multiplies. Look up two click counts, add them, and look up the answer. In code, zero has no clicks, so check it first. And two click counts can add up past two fifty-five, so the answer table is twice as long.
 12_1	Every pair at once. Here's the whole times table in byte order. Each square's colour is its answer. And it looks like noise.
 12_2	Sort the rows and the columns by clicks. What will the table look like?
 12_4	Sorted by clicks, it's perfect diagonal stripes. Each stripe holds one total of clicks.
-12_5	A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree.
+12_5	Here's the whole multiply as code. Keep doubling with the fold, and ex-or together the doublings that the other byte's bits pick. A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree.
 12_6	The wrong clock counted bytes, and multiplying on it broke. The right one counts clicks, two hundred fifty-five of them, and going around it is multiplying.
 13_1	Now give every card random byte amounts. This design really exists. RaptorQ does something cheaper, but first see why it's so good.
 13_2	Remember the last slot. Half the corners were lit, so a random ex-or card was useless half the time.
