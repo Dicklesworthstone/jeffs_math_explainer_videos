@@ -11,8 +11,9 @@
 //!    where a chord may change.
 //! 3. Harmony: each chord lasts a seeded `chord_s` length; it changes only in
 //!    a pause of ≥ 0.2 s or a gap, never within 150 ms after a speech onset,
-//!    preferring chapter starts; voices are led by the solver (bass E1–E♭2,
-//!    upper voices from C4, out of the narrator's band).
+//!    preferring chapter starts; voices are led by the solver inside the
+//!    identity's [`Register`] (a bass octave under the narrator's measured
+//!    pitch band, upper voices over it).
 //! 4. Notes: the bed holds each chord (Juno chorus, FDN), the bass roots it,
 //!    and the leitmotif plays only in gaps of ≥ 1.6 s (no melody under
 //!    speech, hard rule 8), its notes moved off any minor ninth against the
@@ -33,7 +34,7 @@ use crate::fx::{Chorus, Fdn, Plate, Tape, Warmth, from_mid_side, mid_side, rcos}
 use crate::instr::{self, Instrument, Note};
 use crate::meter;
 use crate::rng::{Rng, seed_for};
-use crate::theory::{Chord, Key, Motif, UPPER_LOW, Voicing, voice_lead};
+use crate::theory::{Chord, Key, Motif, Register, Voicing, voice_lead};
 use crate::timeline::ChapterTimeline;
 use crate::units::{db_to_gain, frame_to_sample, midi_to_hz};
 use crate::{FS, Stereo};
@@ -49,12 +50,25 @@ pub struct Palette {
     pub answer: Instrument,
 }
 
+/// The narrators' voiced f0, 5th and 95th percentiles (Hz), measured with
+/// `docs/research/sound_design/scripts/yin2.py` (YIN on 8 kHz audio) from
+/// twelve sentences of each video's own script read by its own voice
+/// (ftts, seed 7; 2026-10-11): `matt` (A) median 100 Hz over 625 voiced
+/// frames, `leo` (B) median 139 Hz over 1,278, `michael` (C) median 114 Hz
+/// over 605. Re-measured on the real takes as they land.
+pub const MATT_F0: (f64, f64) = (80.8, 145.5);
+pub const LEO_F0: (f64, f64) = (106.7, 190.5);
+pub const MICHAEL_F0: (f64, f64) = (83.3, 177.8);
+
 /// A video's fixed musical identity; variation lives inside it (plan §7.5).
 #[derive(Clone, Debug)]
 pub struct Identity {
     /// Seeds every random choice (with chapter, track and event index).
     pub name: String,
     pub key: Key,
+    /// Where the music may sit around this video's narrator, from the
+    /// narrator's measured pitch (plan §7.3 hard rule 1).
+    pub register: Register,
     /// MIDI pitch of the motif's tonic (degree 1).
     pub tonic_midi: i32,
     /// Chords in order, cycled.
@@ -97,6 +111,9 @@ impl Identity {
         if self.progression.is_empty() {
             return bad("empty progression".into());
         }
+        if let Err(e) = self.register.check() {
+            return bad(e);
+        }
         if let Some(c) = self.progression.iter().find(|c| c.pitch_classes().len() < 3) {
             return bad(format!("{c:?} has fewer than three pitch classes"));
         }
@@ -129,6 +146,7 @@ impl Identity {
         Self {
             name: "hoeffding_d".into(),
             key: Key::new(2, crate::theory::IONIAN),
+            register: Register::ROBERT,
             tonic_midi: 62,
             progression: vec![Chord::maj9(2), Chord::min9(11), Chord::maj9_sharp11(7), Chord::sus4(9)],
             motif: Motif::new(&[1, 5, 6, 3], &[1.0, 1.0, 1.0, 2.0]),
@@ -166,6 +184,7 @@ impl Identity {
         Self {
             name: "capture_recapture".into(),
             key: Key::new(5, crate::theory::LYDIAN),
+            register: Register::from_f0(MATT_F0.0, MATT_F0.1),
             tonic_midi: 65,
             progression: vec![
                 Chord::maj9(5),
@@ -202,6 +221,7 @@ impl Identity {
         Self {
             name: "raptorq_gf256".into(),
             key: Key::new(4, crate::theory::LYDIAN),
+            register: Register::from_f0(LEO_F0.0, LEO_F0.1),
             tonic_midi: 64,
             progression: vec![
                 Chord::maj9_sharp11(4),
@@ -236,6 +256,7 @@ impl Identity {
         Self {
             name: "bakery_algorithm".into(),
             key: Key::new(10, crate::theory::IONIAN),
+            register: Register::from_f0(MICHAEL_F0.0, MICHAEL_F0.1),
             tonic_midi: 58,
             progression: vec![
                 Chord::maj9(10),
@@ -361,6 +382,8 @@ pub struct ChordSpan {
 pub struct Score {
     /// The music stem for the whole video, ducked and at its final level.
     pub music: Stereo,
+    /// The register it was scored in (QA judges hard rule 1 against its band).
+    pub register: Register,
     /// The voice bus it was scored against.
     pub voice: Stereo,
     pub events: Vec<Event>,
@@ -476,7 +499,8 @@ pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng:
 
 /// The motif notes that fit a gap: (onset s, MIDI pitch, duration s). Onsets
 /// run from `start`; the longest prefix whose last onset is ≤ `limit` is
-/// kept, if it has at least two notes.
+/// kept, if it has at least two notes. Notes fold by octaves into `low`..=C6
+/// (`low`: the register's lowest upper voice, above the narrator's band).
 pub fn fit_phrase(
     motif: &Motif,
     key: &Key,
@@ -484,6 +508,7 @@ pub fn fit_phrase(
     beat_s: f64,
     start: f64,
     limit: f64,
+    low: i32,
 ) -> Vec<(f64, i32, f64)> {
     let pitches = motif.pitches(key, tonic_midi);
     let mut out = Vec::new();
@@ -492,9 +517,9 @@ pub fn fit_phrase(
         if t > limit {
             break;
         }
-        // keep the melody in its register: C4..C6
+        // keep the melody in its register, over the narrator's band
         let mut p = p;
-        while p < UPPER_LOW {
+        while p < low {
             p += 12;
         }
         while p > 84 {
@@ -517,7 +542,17 @@ pub fn elastic_phrase(
     limit: f64,
     closing: bool,
 ) -> Vec<(f64, i32, f64)> {
-    let fit = |beat: f64| fit_phrase(motif, &identity.key, identity.tonic_midi, beat, start, limit);
+    let fit = |beat: f64| {
+        fit_phrase(
+            motif,
+            &identity.key,
+            identity.tonic_midi,
+            beat,
+            start,
+            limit,
+            identity.register.upper.0,
+        )
+    };
     let whole = motif.degrees.len();
     if closing {
         let relaxed = fit(identity.beat_s * 1.08);
@@ -537,8 +572,8 @@ pub fn elastic_phrase(
 
 /// Move `pitch` off a minor ninth (a semitone from any chord tone, hard rule
 /// 7) to the nearest key tone that clashes with nothing and stays in the
-/// melody's register (C4 up: never into the narrator's band).
-pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key) -> i32 {
+/// melody's register (`low` up: never into the narrator's band).
+pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key, low: i32) -> i32 {
     let tones = chord.pitch_classes();
     let clashes = |p: i32| {
         tones
@@ -551,7 +586,7 @@ pub fn avoid_minor_ninths(pitch: i32, chord: &Chord, key: &Key) -> i32 {
     let scale = key.pitch_classes();
     for d in [1, -1, 2, -2, 3, -3] {
         let p = pitch + d;
-        if (UPPER_LOW..=88).contains(&p) && scale.contains(&p.rem_euclid(12)) && !clashes(p) {
+        if (low..=88).contains(&p) && scale.contains(&p.rem_euclid(12)) && !clashes(p) {
             return p;
         }
     }
@@ -579,14 +614,14 @@ const CUE_CLEAR: f64 = 0.3;
 /// (folding by octaves above E6), each moved off any minor ninth, since in a
 /// ninth chord one chord tone can clash with another (Bm9's D against its
 /// C♯); a tone with no safe neighbour is left out, and a repeat is dropped.
-fn reveal_dyad(v: &Voicing, chord: &Chord, key: &Key) -> Vec<i32> {
+fn reveal_dyad(v: &Voicing, chord: &Chord, key: &Key, low: i32) -> Vec<i32> {
     let mut dyad: Vec<i32> = Vec::new();
     for &mp in &top_two(v) {
         let mut p = if mp < 72 { mp + 12 } else { mp };
         while p > 88 {
             p -= 12;
         }
-        let p = avoid_minor_ninths(p, chord, key);
+        let p = avoid_minor_ninths(p, chord, key, low);
         if !clashes(p, chord) && !dyad.contains(&p) {
             dyad.push(p);
         }
@@ -831,6 +866,7 @@ fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
         identity.beat_s,
         start,
         f64::INFINITY,
+        identity.register.upper.0,
     )
     .into_iter()
     .enumerate()
@@ -858,7 +894,7 @@ pub fn reference_levels(identity: &Identity) -> (f64, f64) {
     let span = ChordSpan {
         start: 0.0,
         end: 9.0,
-        voicing: voice_lead(&chord, 4, None),
+        voicing: voice_lead(&chord, 4, None, &identity.register),
         chord,
     };
     let bed = bed_bus(
@@ -1001,7 +1037,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 p.end = end;
                 continue;
             }
-            let voicing = voice_lead(&chord, 4, prev.as_ref());
+            let voicing = voice_lead(&chord, 4, prev.as_ref(), &identity.register);
             prev = Some(voicing.clone());
             mine.push(ChordSpan {
                 start,
@@ -1064,7 +1100,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             continue;
         };
         for (i, &(t, p, d)) in notes.iter().enumerate() {
-            let p = avoid_minor_ninths(p, &chord_at(t).chord, &identity.key);
+            let p = avoid_minor_ninths(p, &chord_at(t).chord, &identity.key, identity.register.upper.0);
             events.push(Event {
                 start: t,
                 hold: d * 1.4,
@@ -1136,7 +1172,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             let (v, chord) = (&chord_at(when).voicing, &chord_at(when).chord);
             match kind {
                 CueKind::Reveal => {
-                    let dyad = reveal_dyad(v, chord, &identity.key);
+                    let dyad = reveal_dyad(v, chord, &identity.key, identity.register.upper.0);
                     if dyad.is_empty() {
                         skipped_marks.push(format!("{name}/{}", m.label));
                         continue;
@@ -1156,7 +1192,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 }
                 CueKind::Pizz => {
                     let p = v.upper[v.upper.len() / 2];
-                    let p = avoid_minor_ninths(if p < 67 { p + 12 } else { p }, chord, &identity.key);
+                    let p = avoid_minor_ninths(
+                        if p < 67 { p + 12 } else { p },
+                        chord,
+                        &identity.key,
+                        identity.register.upper.0,
+                    );
                     if clashes(p, chord) {
                         skipped_marks.push(format!("{name}/{}", m.label));
                         continue;
@@ -1180,6 +1221,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                         identity.beat_s,
                         when,
                         f64::INFINITY,
+                        identity.register.upper.0,
                     );
                     for (j, (nt, np, nd)) in notes.into_iter().enumerate() {
                         events.push(Event {
@@ -1187,7 +1229,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                             hold: nd * 1.4,
                             track: Track::Cue,
                             inst: identity.palette.melody,
-                            pitch: f64::from(avoid_minor_ninths(np, &chord_at(nt).chord, &identity.key)),
+                            pitch: f64::from(avoid_minor_ninths(
+                                np,
+                                &chord_at(nt).chord,
+                                &identity.key,
+                                identity.register.upper.0,
+                            )),
                             velocity: 0.55,
                             seed: seed("resolve", j),
                             pan: 0.1,
@@ -1347,6 +1394,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
 
     Ok(Score {
         music,
+        register: identity.register,
         voice,
         events,
         chords,
@@ -1481,18 +1529,22 @@ mod tests {
     fn phrases_fit_their_gap_and_stay_in_register() {
         let key = Key::new(2, IONIAN);
         let m = Motif::new(&[1, 5, 6, 3], &[1.0, 1.0, 1.0, 2.0]);
-        let all = fit_phrase(&m, &key, 62, 0.8, 10.0, 20.0);
+        let all = fit_phrase(&m, &key, 62, 0.8, 10.0, 20.0, 60);
         assert_eq!(all.iter().map(|n| n.1).collect::<Vec<_>>(), vec![62, 69, 71, 66]);
         assert!((all[3].0 - 12.4).abs() < 1e-9);
         // only three onsets fit before 11.7 s
-        assert_eq!(fit_phrase(&m, &key, 62, 0.8, 10.0, 11.7).len(), 3);
+        assert_eq!(fit_phrase(&m, &key, 62, 0.8, 10.0, 11.7, 60).len(), 3);
         assert!(
-            fit_phrase(&m, &key, 62, 0.8, 10.0, 10.5).is_empty(),
+            fit_phrase(&m, &key, 62, 0.8, 10.0, 10.5, 60).is_empty(),
             "one note is not a phrase"
         );
-        // a low motif is lifted to C4 or above
-        let low = fit_phrase(&m.transposed(-7), &key, 62, 0.8, 0.0, 9.0);
-        assert!(low.iter().all(|n| n.1 >= UPPER_LOW));
+        // a low motif is lifted to the register's floor or above: C4 for
+        // robert, F3 for matt's lower voice (so A3 stays where it is)
+        let low = fit_phrase(&m.transposed(-7), &key, 62, 0.8, 0.0, 9.0, 60);
+        assert!(low.iter().all(|n| n.1 >= 60), "{low:?}");
+        let matt = fit_phrase(&m.transposed(-7), &key, 62, 0.8, 0.0, 9.0, 53);
+        assert!(matt.iter().all(|n| n.1 >= 53), "{matt:?}");
+        assert!(matt.iter().any(|n| n.1 < 60), "{matt:?}");
     }
 
     #[test]
@@ -1530,7 +1582,7 @@ mod tests {
         let key = Key::new(2, IONIAN);
         let d = Chord::maj9(2); // D F♯ A C♯ E
         // G (67) is a semitone above F♯: moved to a safe D-major tone
-        let p = avoid_minor_ninths(67, &d, &key);
+        let p = avoid_minor_ninths(67, &d, &key, 60);
         assert_ne!(p, 67);
         assert!(key.pitch_classes().contains(&p.rem_euclid(12)));
         assert!(
@@ -1539,11 +1591,11 @@ mod tests {
                 .all(|&c| (p - c).rem_euclid(12) != 1 && (c - p).rem_euclid(12) != 1)
         );
         // a chord tone stays
-        assert_eq!(avoid_minor_ninths(66, &d, &key), 66);
+        assert_eq!(avoid_minor_ninths(66, &d, &key, 60), 66);
         // never moved down into the narrator's band: C♯4 clashes with D, and
-        // B3 (246.9 Hz) is not an option
-        let p = avoid_minor_ninths(61, &d, &key);
-        assert!(p >= UPPER_LOW, "{p}");
+        // B3 (246.9 Hz) is not an option under robert's register
+        let p = avoid_minor_ninths(61, &d, &key, 60);
+        assert!(p >= 60, "{p}");
     }
 
     #[test]
@@ -1552,7 +1604,7 @@ mod tests {
         let mk = |start: f64, end: f64, chord: Chord| ChordSpan {
             start,
             end,
-            voicing: voice_lead(&chord, 4, None),
+            voicing: voice_lead(&chord, 4, None, &Register::ROBERT),
             chord,
         };
         // F♯4 over Bm9 is fine; from 11 s, Gmaj9♯11 has G a semitone above it
@@ -1872,7 +1924,7 @@ mod tests {
         let span = ChordSpan {
             start: 0.0,
             end: 8.0,
-            voicing: voice_lead(&chord, 4, None),
+            voicing: voice_lead(&chord, 4, None, &id.register),
             chord,
         };
         let bed = |i: f64| {
@@ -1898,7 +1950,7 @@ mod tests {
             upper: vec![61, 66, 69, 74],
         };
         assert!(clashes(74, &bm9), "the old dyad's D5");
-        assert_eq!(reveal_dyad(&v, &bm9, &key), vec![81, 76], "A5 and E5");
+        assert_eq!(reveal_dyad(&v, &bm9, &key, 60), vec![81, 76], "A5 and E5");
         // every chord of the synthetic progression, every inversion's top two
         for chord in Identity::hoeffding().progression {
             for top in 60..84 {
@@ -1906,7 +1958,7 @@ mod tests {
                     bass: 40,
                     upper: vec![top - 7, top],
                 };
-                for p in reveal_dyad(&v, &chord, &key) {
+                for p in reveal_dyad(&v, &chord, &key, 60) {
                     assert!(!clashes(p, &chord) && p <= 88, "{p} over {chord:?}");
                 }
             }
@@ -2121,8 +2173,7 @@ mod tests {
                 );
             }
             if e.track == Track::Bed {
-                let f = hz(e.pitch);
-                assert!(!(95.0..250.0).contains(&f), "{e:?}");
+                assert!(!s.register.in_band(hz(e.pitch)), "{e:?}");
             }
         }
         assert!(!s.phrases.is_empty(), "the 4 s gaps get phrases");

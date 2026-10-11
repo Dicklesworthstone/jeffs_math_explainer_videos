@@ -1035,9 +1035,25 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
 
 ### 7.3 Hard rules (rendering fails if violated)
 
-1. No sustained music fundamentals between 95 and 250 Hz during speech (the v5
-   narrator's 5th–95th percentile pitch is ≈105–216 Hz); bass stays below
-   95 Hz, upper voices from C4 (262 Hz) up (B3, at 247 Hz, would sit inside the band).
+1. No sustained music fundamentals inside the narrator's pitch band during
+   speech. The band is measured afresh for each narrator: the 5th–95th
+   percentile of f0 over voiced frames (`docs/research/sound_design/scripts/yin2.py`),
+   widened two semitones down and a minor third up (stressed words rise past
+   the 95th percentile, and an upper voice's chorus needs room). The bass is
+   the highest whole octave under the band (one octave, so every root has a
+   bass note), and the upper voices start at the first semitone above it
+   (`Register::from_f0` in `theory.rs`). Measured 2026-10-11 on twelve
+   sentences of each script in its own voice (re-measured on the real takes):
+
+   | narrator | f0 5th–95th (median) | no-fly band | bass | upper voices from |
+   |---|---|---|---|---|
+   | `robert` (Hoeffding, v5 takes) | ≈105–216 Hz (≈136) | 95–250 Hz | E1–E♭2 (41–78 Hz) | C4 (262 Hz) |
+   | `matt` (A) | 81–146 Hz (100) | 72–173 Hz | D1–C♯2 (37–69 Hz) | F3 (175 Hz) |
+   | `leo` (B) | 107–190 Hz (139) | 95–227 Hz | G1–F♯2 (49–92 Hz) | B♭3 (233 Hz) |
+   | `michael` (C) | 83–178 Hz (114) | 74–211 Hz | E♭1–D2 (39–73 Hz) | A3 (220 Hz) |
+
+   (`robert`'s row keeps the values this rule was first written with, which
+   Hoeffding's v6 score was checked against.)
 2. Under speech, music content above 2.5 kHz is at least 12 dB down (low-pass
    plus pocket).
 3. No pure-sine voices above 100 Hz: at least three partials, chorus or noise.
@@ -1129,10 +1145,10 @@ lives inside it.
 
 - **Harmonic plan per chapter:** chords of 4–16 s; changes only in gaps or in
   intra-sentence pauses ≥ 0.2 s, never within 150 ms after a speech onset; a
-  voice-leading solver minimizes total motion with the bass in E1–E♭2 (one
-  octave, so every root has a bass note; E1–D2 left E♭ chords without one) and upper
-  voices from C4 (262 Hz) up, holding common tones; pedal points under dense
-  derivations.
+  voice-leading solver minimizes total motion inside the narrator's register
+  (§7.3 rule 1: a one-octave bass under the measured band, so every root has a
+  bass note, and upper voices over it), holding common tones; pedal points
+  under dense derivations.
 - **Intensity arc per chapter (0–1)** drives density, cutoff, register spread
   and reverb send: intro motif at V − 6 then down to the bed at the first line;
   development at density 1–2; thin out 1 s before each reveal; reveal cue in the

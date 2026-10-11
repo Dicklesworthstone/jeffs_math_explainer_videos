@@ -117,12 +117,14 @@ fn json_str(s: &str) -> String {
     out
 }
 
-/// What a score played inside one chapter, in chapter-relative seconds.
-#[derive(Clone, Debug, Default)]
+/// What a score played inside one chapter, in chapter-relative seconds, and
+/// the narrator's band it had to keep out of (Hz).
+#[derive(Clone, Debug)]
 pub struct ScoreFacts {
     pub events: Vec<Event>,
     pub chords: Vec<ChordSpan>,
     pub phrases: Vec<(f64, f64)>,
+    pub no_fly: (f64, f64),
 }
 
 impl ScoreFacts {
@@ -133,6 +135,7 @@ impl ScoreFacts {
         let (_, a, b) = score.chapters[k];
         let (t0, t1) = (a as f64 / FS, b as f64 / FS);
         Self {
+            no_fly: score.register.no_fly,
             events: score
                 .events
                 .iter()
@@ -552,18 +555,19 @@ pub fn evaluate(
     let (bs, bg) = (max_per_second(&in_speech), max_per_second(&in_gaps));
     r.push("onsets_per_s_speech", bs as f64, "<= 2", Some(bs <= 2), "");
     r.push("onsets_per_s_gaps", bg as f64, "<= 6", Some(bg <= 6), "");
+    let (lo, hi) = f.no_fly;
     let rule1 = f
         .events
         .iter()
-        .filter(|e| e.hold >= 1.0 && (95.0..250.0).contains(&midi_to_hz(e.pitch)))
+        .filter(|e| e.hold >= 1.0 && (lo..hi).contains(&midi_to_hz(e.pitch)))
         .filter(|e| speech.iter().any(|&(a, b)| e.start < b && e.start + e.hold > a))
         .count();
     r.push(
-        "rule1_fundamentals_95_250hz_in_speech",
+        "rule1_fundamentals_in_voice_band_in_speech",
         rule1 as f64,
         "= 0",
         Some(rule1 == 0),
-        "sustained notes in the narrator's band",
+        format!("sustained notes in the narrator's band, {lo:.0}-{hi:.0} Hz"),
     );
     let rule8 = f.phrases.iter().filter(|p| inside(p.0, &speech)).count();
     r.push(
@@ -746,10 +750,12 @@ mod tests {
             chords: vec![ChordSpan {
                 start: 0.0,
                 end: 90.0,
-                voicing: crate::theory::voice_lead(&chord, 4, None),
+                voicing: crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT),
                 chord,
             }],
-            ..Default::default()
+            events: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
         };
         let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
         let m = r.get("longest_chord_s").unwrap();
@@ -773,7 +779,7 @@ mod tests {
         let mk = |start: f64, end: f64, chord: crate::theory::Chord| ChordSpan {
             start,
             end,
-            voicing: crate::theory::voice_lead(&chord, 4, None),
+            voicing: crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT),
             chord,
         };
         let facts = |hold: f64| ScoreFacts {
@@ -792,6 +798,7 @@ mod tests {
                 mk(11.0, 20.0, crate::theory::Chord::maj9_sharp11(7)),
             ],
             phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
         };
         let rule7 = |hold: f64| {
             evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
@@ -879,7 +886,7 @@ mod tests {
         let v = speech(&[(1.0, 9.0), (11.0, 19.0)], total, 0.1);
         let music = Stereo::silence(v.len());
         let chord = crate::theory::Chord::maj9(2);
-        let voicing = crate::theory::voice_lead(&chord, 4, None);
+        let voicing = crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT);
         let ev = |start: f64, hold: f64, track: Track, pitch: f64, seed: u64| Event {
             start,
             hold,
@@ -902,10 +909,11 @@ mod tests {
                 voicing: voicing.clone(),
             }],
             phrases: vec![(9.5, 10.2)],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
         };
         let r = evaluate("clean", &v, &music, v.len(), Some(&clean));
         for m in [
-            "rule1_fundamentals_95_250hz_in_speech",
+            "rule1_fundamentals_in_voice_band_in_speech",
             "rule8_phrases_start_in_speech",
             "rule7_minor_ninths",
             "rule6_identical_notes_10s",
@@ -930,10 +938,11 @@ mod tests {
                 voicing,
             }],
             phrases: vec![(3.0, 3.0)],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
         };
         let r = evaluate("bad", &v, &music, v.len(), Some(&bad));
         for m in [
-            "rule1_fundamentals_95_250hz_in_speech",
+            "rule1_fundamentals_in_voice_band_in_speech",
             "rule8_phrases_start_in_speech",
             "rule7_minor_ninths",
             "rule6_identical_notes_10s",
@@ -941,5 +950,40 @@ mod tests {
         ] {
             assert_eq!(r.get(m).unwrap().pass, Some(false), "{m}: {:?}", r.get(m));
         }
+    }
+
+    #[test]
+    fn rule_1_judges_each_narrator_s_own_band() {
+        // E♭2 (77.8 Hz), robert's top bass note, sustained under speech: clear
+        // of robert's 95–250 Hz, inside matt's 72–173 Hz (his voice sits
+        // lower); A3 (220 Hz) the other way round
+        let v = speech(&[(1.0, 9.0)], 10.0, 0.1);
+        let music = Stereo::silence(v.len());
+        let note = |pitch: f64| Event {
+            start: 2.0,
+            hold: 4.0,
+            track: Track::Bed,
+            inst: crate::instr::Instrument::Pad { brightness: 0.3 },
+            pitch,
+            velocity: 0.5,
+            seed: 1,
+            pan: 0.0,
+        };
+        let rule1 = |pitch: f64, reg: crate::theory::Register| {
+            let f = ScoreFacts {
+                events: vec![note(pitch)],
+                chords: vec![],
+                phrases: vec![],
+                no_fly: reg.no_fly,
+            };
+            let r = evaluate("band", &v, &music, v.len(), Some(&f));
+            r.get("rule1_fundamentals_in_voice_band_in_speech").unwrap().pass
+        };
+        let matt = crate::theory::Register::from_f0(80.8, 145.5);
+        let robert = crate::theory::Register::ROBERT;
+        assert_eq!(rule1(39.0, robert), Some(true));
+        assert_eq!(rule1(39.0, matt), Some(false));
+        assert_eq!(rule1(57.0, robert), Some(false));
+        assert_eq!(rule1(57.0, matt), Some(true));
     }
 }
