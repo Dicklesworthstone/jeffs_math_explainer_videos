@@ -157,8 +157,70 @@ fn landings(n: usize, fall: f64) -> Vec<f64> {
         .collect()
 }
 
+/// A narration line as it is spoken: when it started and how long it is
+/// (the take's length, or the scratch voice's estimate), so a beat can wait
+/// for a phrase of it instead of a guessed number of seconds. A phrase is
+/// placed at its share of the line's words.
+pub(super) struct Spoken {
+    start: f64,
+    len: f64,
+    words: Vec<String>,
+}
+
+/// Words as the beats compare them: letters and digits only, lower case.
+fn plain(word: &str) -> String {
+    word.chars()
+        .filter(|c| c.is_alphanumeric())
+        .collect::<String>()
+        .to_lowercase()
+}
+
+impl Spoken {
+    /// Speak line `id` (`Kit::say`) and remember when it started.
+    pub(super) fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Self> {
+        kit.say(stage, id)?;
+        let script = explainer_kit::Script::parse(crate::SCRIPT).map_err(model)?;
+        let text = script
+            .text(id)
+            .ok_or_else(|| model(format!("no line {id} in script.tsv")))?;
+        let words: Vec<String> = text.split_whitespace().map(plain).collect();
+        let estimate = words.len() as f64 / explainer_kit::narration::SCRATCH_WPS + 0.4;
+        let len = kit.narrator.as_ref().and_then(|n| n.length(id)).unwrap_or(estimate);
+        Ok(Self {
+            start: stage.scene().time().to_f64(),
+            len,
+            words,
+        })
+    }
+
+    /// Seconds into the line at which `phrase` starts.
+    fn offset(&self, phrase: &str) -> Result<f64, String> {
+        let want: Vec<String> = phrase.split_whitespace().map(plain).collect();
+        let at = (0..self.words.len())
+            .find(|&i| self.words[i..].starts_with(&want))
+            .ok_or_else(|| format!("{phrase:?} is not in the line"))?;
+        Ok(self.len * at as f64 / self.words.len() as f64)
+    }
+
+    /// Wait until `phrase` is spoken (no wait if that is already past).
+    pub(super) fn at(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let due = self.start + self.offset(phrase).map_err(model)?;
+        let now = stage.scene().time().to_f64();
+        if due - now > 1e-3 {
+            stage.wait(due - now)?;
+        }
+        Ok(())
+    }
+
+    /// Seconds from now until `phrase` is spoken (at least `floor`).
+    pub(super) fn until(&self, stage: &Stage<'_>, phrase: &str, floor: f64) -> fmn::Result<f64> {
+        let due = self.start + self.offset(phrase).map_err(model)?;
+        Ok((due - stage.scene().time().to_f64()).max(floor))
+    }
+}
+
 /// Scene error from a model error (a careful range refused by the guard).
-fn model(e: String) -> fmn::Error {
+pub(super) fn model(e: String) -> fmn::Error {
     fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(e.into_boxed_str())))
 }
 
@@ -271,17 +333,17 @@ impl RingToss {
             ours_at,
         )?;
         stage.move_to(ours_label, ours_at, RIGHT);
-        kit.say(stage, "12_1")?;
-        play!(stage; write(stage.arena(), title).rt(0.8));
+        let line = Spoken::say(kit, stage, "12_1")?;
         play!(stage;
-            fade_in(stage.arena_mut(), x_ax, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), y_ax, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), x_title, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), y_title, ORIGIN, 1.0)?.rt(0.8),
+            write(stage.arena(), title).rt(0.7),
+            fade_in(stage.arena_mut(), x_ax, ORIGIN, 1.0)?.rt(0.7),
+            fade_in(stage.arena_mut(), y_ax, ORIGIN, 1.0)?.rt(0.7),
+            fade_in(stage.arena_mut(), x_title, ORIGIN, 1.0)?.rt(0.7),
+            fade_in(stage.arena_mut(), y_title, ORIGIN, 1.0)?.rt(0.7),
         );
         play!(stage;
-            fmn::animation::grow_from_edge(stage.arena_mut(), ours, LEFT, None)?.rt(0.9),
-            fade_in(stage.arena_mut(), ours_label, ORIGIN, 1.0)?.rt(0.9),
+            fmn::animation::grow_from_edge(stage.arena_mut(), ours, LEFT, None)?.rt(0.7),
+            fade_in(stage.arena_mut(), ours_label, ORIGIN, 1.0)?.rt(0.7),
         );
 
         // the sweep: a tracker walks the lake size; the slice, the band it
@@ -346,11 +408,13 @@ impl RingToss {
             chance(),
             frame.p(12_900.0, 186.0),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), band_label, ORIGIN, 1.0)?.rt(0.6));
+        line.at(stage, "For each lake size")?;
+        play!(stage; fade_in(stage.arena_mut(), band_label, ORIGIN, 1.0)?.rt(0.5));
+        let sweep_s = line.until(stage, "Keep the sizes", 3.5)? + 1.2;
         let sweep = size
             .animate()
             .set_anim_args(AnimateArgs {
-                run_time: Some(7.5),
+                run_time: Some(sweep_s),
                 rate_func: Some(fmn::core::rate::linear),
                 ..AnimateArgs::default()
             })?
@@ -506,14 +570,12 @@ impl RingToss {
             Palette::ink(),
             v(-6.8, 3.45),
         )?;
-        kit.say(stage, "12_2")?;
+        let line = Spoken::say(kit, stage, "12_2")?;
         play!(stage;
-            fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), ground, ORIGIN, 1.0)?.rt(0.8),
-        );
-        play!(stage;
-            fmn::animation::grow_from_edge(stage.arena_mut(), peg, DOWN, None)?.rt(0.9),
-            fade_in(stage.arena_mut(), peg_label, ORIGIN, 1.0)?.rt(0.9),
+            fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), ground, ORIGIN, 1.0)?.rt(0.6),
+            fmn::animation::grow_from_edge(stage.arena_mut(), peg, DOWN, None)?.rt(0.8),
+            fade_in(stage.arena_mut(), peg_label, ORIGIN, 1.0)?.rt(0.8),
         );
         // draw order: back arcs, the peg, front arcs
         stage.add_to_scene(back)?;
@@ -525,8 +587,8 @@ impl RingToss {
         for m in [back_rings[0], front_rings[0]] {
             stage.shift(m, v(0.0, lift));
         }
-        play!(stage; fade_in(stage.arena_mut(), run1, ORIGIN, 1.0)?.rt(0.8));
-        stage.wait(1.2)?;
+        play!(stage; fade_in(stage.arena_mut(), run1, ORIGIN, 1.0)?.rt(0.6));
+        line.at(stage, "In the long run")?;
         let mut falls = Vec::new();
         for m in [back_rings[0], front_rings[0]] {
             let c = stage.get_center(m);
@@ -558,7 +620,7 @@ impl RingToss {
         let mut moving: Vec<(Mob, Mob, f64, bool, f64)> = (1..tossed)
             .map(|i| {
                 if i < quiet {
-                    (back_rings[i], front_rings[i], 0.8 * i as f64 - 0.4, false, 0.0)
+                    (back_rings[i], front_rings[i], 0.7 * i as f64 - 0.4, false, 0.0)
                 } else {
                     (back_rings[i], front_rings[i], land[i - quiet] - fall, true, 0.0)
                 }
@@ -590,8 +652,7 @@ impl RingToss {
         )?;
         kit.sonify(stage, window, "12_2", &wav)?;
         opened.set(clock.get());
-        stage.wait(window)?;
-        stage.clear_updaters(back, true);
+        stage.wait(window - 0.7)?;
 
         // the tally: the first hundred, then all ten thousand (a run's range
         // rings the true size exactly when its catch is in that lake's
@@ -642,13 +703,14 @@ impl RingToss {
             v(-6.8, 3.0),
         )?;
         let mut tally: Vec<Box<dyn Animation>> = vec![stage.prepare(replacement_transform(run1, first100).rt(0.7))?];
+        let a = fade_in(stage.arena_mut(), all, v(0.0, 0.1), 1.0)?.rt(0.7);
+        tally.push(stage.prepare(a)?);
         for &t in &miss_tags {
             let a = fade_in(stage.arena_mut(), t, ORIGIN, 1.0)?.rt(0.7);
             tally.push(stage.prepare(a)?);
         }
         stage.play_prepared(tally)?;
-        play!(stage; fade_in(stage.arena_mut(), all, v(0.0, 0.1), 1.0)?.rt(0.7));
-        stage.wait(0.5)?;
+        stage.clear_updaters(back, true);
 
         // the name, on a card in the top right, above the stack
         let name = kit.text_styled(
@@ -676,9 +738,10 @@ impl RingToss {
                 100.0 * coverage
             ),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
+        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.7));
+        stage.wait(1.0)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.8)
+        fade_all(stage, 0.6)
     }
 
     /// 12_3: Feller's careful range beside chapter 09's spread of estimates.
@@ -777,7 +840,7 @@ impl RingToss {
             v(-6.6, -0.75),
         )?;
 
-        kit.say(stage, "12_3")?;
+        let line = Spoken::say(kit, stage, "12_3")?;
         play!(stage;
             fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), axis_title, ORIGIN, 1.0)?.rt(0.7),
@@ -787,8 +850,7 @@ impl RingToss {
             fade_in(stage.arena_mut(), careful_lo, ORIGIN, 1.0)?.rt(1.0),
             fade_in(stage.arena_mut(), careful_hi, ORIGIN, 1.0)?.rt(1.0),
         );
-        // "close to the range we watched when the lake was known"
-        stage.wait(3.4)?;
+        line.at(stage, "Close to the range")?;
         let grow = explainer_kit::props::grow_histogram(stage, bars, 0.02)?;
         play!(stage; grow.rt(1.6));
         play!(stage;
@@ -796,14 +858,12 @@ impl RingToss {
             fade_in(stage.arena_mut(), spread_lo, ORIGIN, 1.0)?.rt(0.8),
             fade_in(stage.arena_mut(), spread_hi, ORIGIN, 1.0)?.rt(0.8),
         );
-        // "there the lake was fixed and the catch moved"
-        stage.wait(2.8)?;
+        line.at(stage, "There the lake")?;
         play!(stage;
             fade_in(stage.arena_mut(), there, v(0.0, -0.1), 1.0)?.rt(0.7),
             fmn::animation::indicate(stage.arena_mut(), bars, 1.04, None)?.rt(1.2),
         );
-        // "here the catch is fixed, and we try every lake size"
-        stage.wait(2.2)?;
+        line.at(stage, "Here the catch")?;
         play!(stage;
             fade_in(stage.arena_mut(), here, v(0.0, 0.1), 1.0)?.rt(0.7),
             fmn::animation::indicate(stage.arena_mut(), careful_bar, 1.08, None)?.rt(1.2),
@@ -1001,7 +1061,7 @@ impl RingToss {
             }
             Ok(g)
         };
-        kit.say(stage, "12_5")?;
+        let line = Spoken::say(kit, stage, "12_5")?;
         play!(stage;
             fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
             fade_out(stage.arena_mut(), knob_mobs[0], ORIGIN, 1.0)?.rt(0.5),
@@ -1024,8 +1084,9 @@ impl RingToss {
             replacement_transform(range, first_bar).rt(0.9),
             fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?.rt(0.9),
         );
-        stage.wait(1.4)?;
+        let cues = ["Four times as many", "Catching a bigger share", "catching all of it"];
         for i in 1..stop_data.len() {
+            line.at(stage, cues[i - 1])?;
             let next_bar = stage.arena_mut().add(bar(stop_data[i].lo, stop_data[i].hi)?);
             let next_info = info(kit, stage, i)?;
             let slide = knob
@@ -1053,7 +1114,7 @@ impl RingToss {
                     v(4.9, bar_y + 0.95),
                 )?;
                 play!(stage; fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.5));
-                stage.wait(1.4)?;
+                stage.wait(1.0)?;
                 play!(stage; fade_out(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.4));
             }
         }
@@ -1142,6 +1203,42 @@ mod tests {
             .collect();
         assert!(trim[0] > trim[1] && trim[1] > trim[2]);
         assert_eq!(careful_range(lake, lake, lake), Ok((lake, lake)));
+    }
+
+    /// The phrases this chapter's beats wait for, by line (checked by a test).
+    const BEATS: [(&str, &str); 9] = [
+        ("12_1", "For each lake size"),
+        ("12_1", "Keep the sizes"),
+        ("12_2", "In the long run"),
+        ("12_3", "Close to the range"),
+        ("12_3", "There the lake"),
+        ("12_3", "Here the catch"),
+        ("12_5", "Four times as many"),
+        ("12_5", "Catching a bigger share"),
+        ("12_5", "catching all of it"),
+    ];
+
+    #[test]
+    fn a_phrase_sits_at_its_share_of_the_line() {
+        let spoken = Spoken {
+            start: 10.0,
+            len: 8.0,
+            words: "one two three, four".split_whitespace().map(plain).collect(),
+        };
+        assert_eq!(spoken.offset("one"), Ok(0.0));
+        assert_eq!(spoken.offset("Three four"), Ok(4.0));
+        assert!(spoken.offset("five").is_err());
+        // every phrase this chapter waits for is in its line
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        for (id, phrase) in BEATS {
+            let words: Vec<String> = script.text(id).unwrap().split_whitespace().map(plain).collect();
+            let s = Spoken {
+                start: 0.0,
+                len: 1.0,
+                words,
+            };
+            assert!(s.offset(phrase).is_ok(), "{id}: {phrase:?}");
+        }
     }
 
     #[test]
