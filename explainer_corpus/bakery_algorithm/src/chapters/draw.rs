@@ -1170,6 +1170,25 @@ mod tests {
     }
 
     #[test]
+    fn lane_head_faces_fit_between_lanes_and_beside_the_slate() {
+        for spacing in [0.6, 0.9, 1.1, 1.35, 2.0] {
+            let ys = [0.0, spacing, 2.0 * spacing];
+            let s = face_scale(&ys);
+            // neighbouring faces never touch
+            assert!(s * FIGURE_H < spacing, "faces touch at spacing {spacing}");
+            // the face ends before the slate begins (slates up to 0.6 tall)
+            let face_right = s * FIGURE_W / 2.0;
+            let slate_left = 0.72 + FACE_SHIFT - 0.7 * 0.6;
+            assert!(
+                face_right + 0.1 < slate_left,
+                "face meets the slate at spacing {spacing}"
+            );
+        }
+        // 07's lanes (1.1 apart) get the largest face
+        assert!((face_scale(&[1.75, 0.65, -0.45, -1.55, -2.65]) - FACE_SCALE_MAX).abs() < 1e-12);
+    }
+
+    #[test]
     fn the_lattice_maps_corners_to_corners() {
         let l = Lattice {
             center: v(1.0, -0.5),
@@ -1387,6 +1406,22 @@ pub fn bands_at(before: &State, after: &State, c: usize) -> Bands {
     }
 }
 
+/// A lane head drawn as the customer herself ([`TraceLanes::build_with_faces`]):
+/// her figure as tall as this share of the closest two lanes' spacing, at
+/// most [`FACE_SCALE_MAX`], with the slate, flag and lane moved right by
+/// [`FACE_SHIFT`] to make room.
+const FACE_SHARE: f64 = 0.8;
+const FACE_SCALE_MAX: f64 = 1.2;
+const FACE_SHIFT: f64 = 0.2;
+
+/// The figure scale of a lane head drawn as a face, for lanes at heights `ys`.
+fn face_scale(ys: &[f64]) -> f64 {
+    let mut sorted = ys.to_vec();
+    sorted.sort_by(f64::total_cmp);
+    let spacing = sorted.windows(2).map(|w| w[1] - w[0]).fold(f64::INFINITY, f64::min);
+    (FACE_SHARE * spacing / FIGURE_H).min(FACE_SCALE_MAX)
+}
+
 impl TraceLanes {
     /// The lanes for `steps`, with the steps in `hidden` (1-based) left out.
     pub fn build(
@@ -1395,6 +1430,30 @@ impl TraceLanes {
         layout: LaneLayout,
         steps: &[Step],
         hidden: &[usize],
+    ) -> fmn::Result<Self> {
+        Self::build_heads(kit, stage, layout, steps, hidden, false)
+    }
+
+    /// The same lanes with each head drawn as the customer's figure (her
+    /// face and numbered badge, as in 02–05) instead of a bare badge (R3
+    /// maya-02: the lanes keep the customers Maya knows).
+    pub fn build_with_faces(
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        layout: LaneLayout,
+        steps: &[Step],
+        hidden: &[usize],
+    ) -> fmn::Result<Self> {
+        Self::build_heads(kit, stage, layout, steps, hidden, true)
+    }
+
+    fn build_heads(
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        layout: LaneLayout,
+        steps: &[Step],
+        hidden: &[usize],
+        faces: bool,
     ) -> fmn::Result<Self> {
         let mut slot = Vec::with_capacity(steps.len());
         let mut n = 0;
@@ -1423,21 +1482,37 @@ impl TraceLanes {
         }
         let start = steps.first().map(|s| s.before.clone());
         let mut heads = Vec::new();
+        let ys: Vec<f64> = layout.lanes.iter().map(|l| l.y).collect();
+        let (scale, dx) = if faces {
+            (face_scale(&ys), FACE_SHIFT)
+        } else {
+            (0.0, 0.0)
+        };
         for spec in &layout.lanes {
             let k = spec.customer;
             let dim = if spec.idle { 0.3 } else { 1.0 };
             let line = stage.arena_mut().add(
-                Line::new(v(layout.head_x + 1.7, spec.y), v(layout.x1 + 0.1, spec.y))
+                Line::new(v(layout.head_x + 1.7 + dx, spec.y), v(layout.x1 + 0.1, spec.y))
                     .style(faded_line(customer(k), 4.0, 0.6 * dim))
                     .build()?,
             );
-            let b = badge(kit, stage, k, 0.2, v(layout.head_x, spec.y))?;
+            let b = if faces {
+                figure(kit, stage, k, v(layout.head_x, spec.y), scale)?.group
+            } else {
+                badge(kit, stage, k, 0.2, v(layout.head_x, spec.y))?
+            };
             let value = start
                 .as_ref()
                 .map_or(0, |st| st.number.get(k - 1).copied().unwrap_or(0));
-            let sl = slate(kit, stage, value, v(layout.head_x + 0.72, spec.y), layout.slate_size)?;
+            let sl = slate(
+                kit,
+                stage,
+                value,
+                v(layout.head_x + 0.72 + dx, spec.y),
+                layout.slate_size,
+            )?;
             let raised = start.as_ref().is_some_and(|st| st.choosing.get(k - 1) == Some(&1));
-            let fl = flag(stage, v(layout.head_x + 1.32, spec.y - 0.22), 0.44, raised)?;
+            let fl = flag(stage, v(layout.head_x + 1.32 + dx, spec.y - 0.22), 0.44, raised)?;
             if spec.idle {
                 for m in [b, sl.board, sl.value, fl.pole, fl.pennant] {
                     stage.set_opacity(m, 0.3, true);
