@@ -1385,3 +1385,758 @@ mod tests {
         assert_eq!(orders.into_iter().collect::<Vec<_>>(), [vec![5, 2, 1]]);
     }
 }
+
+// ------------------------------------------- liveness and the largest ticket
+
+/// Every state reachable from the start, breadth first.
+pub fn reachable(model: &Bakery) -> Vec<State> {
+    let init = model.initial();
+    let mut seen = HashSet::from([init.clone()]);
+    let mut out = vec![init.clone()];
+    let mut q = VecDeque::from([init]);
+    while let Some(s) = q.pop_front() {
+        for (_, _, ns) in model.successors(&s) {
+            if seen.insert(ns.clone()) {
+                out.push(ns.clone());
+                q.push_back(ns);
+            }
+        }
+    }
+    out
+}
+
+/// A finished nonzero ticket write, `number[i]:=t` or `end number[i]:=t`
+/// with t > 0 (the oracle's `TICKET_DONE`): not a `begin`, not an exit.
+fn ticket_done(label: &str) -> bool {
+    let rest = label.strip_prefix("end ").unwrap_or(label);
+    rest.strip_prefix("number[")
+        .and_then(|r| r.split_once("]:="))
+        .is_some_and(|(i, t)| {
+            i.bytes().all(|b| b.is_ascii_digit())
+                && t.bytes().all(|b| b.is_ascii_digit())
+                && t.parse::<u32>().is_ok_and(|t| t > 0)
+        })
+}
+
+/// C-X5 (11_2, "each other customer can get ahead of you at most once"):
+/// a breadth-first search over (state, ghost), where for each customer whose
+/// ticket write has finished and who has not yet gone in, the ghost counts
+/// every other customer's room entries since then (capped at 2). Returns the
+/// ghost states and the largest count reached (the oracle's `bypass_bfs`).
+pub fn bypass_bfs(model: &Bakery) -> (usize, u8) {
+    let n = model.n;
+    let start = (model.initial(), vec![false; n], vec![vec![0u8; n]; n]);
+    let mut seen = HashSet::from([start.clone()]);
+    let mut q = VecDeque::from([start]);
+    let mut worst = 0;
+    while let Some((s, active, counts)) = q.pop_front() {
+        for (p, label, ns) in model.successors(&s) {
+            if ns == s {
+                continue;
+            }
+            let (mut a, mut c) = (active.clone(), counts.clone());
+            if ticket_done(&label) {
+                a[p] = true;
+                c[p] = vec![0; n];
+            }
+            if label.contains("ENTER CS") {
+                for i in (0..n).filter(|&i| i != p && a[i]) {
+                    c[i][p] = (c[i][p] + 1).min(2);
+                    worst = worst.max(c[i][p]);
+                }
+                a[p] = false;
+                c[p] = vec![0; n];
+            }
+            let key = (ns, a, c);
+            if !seen.contains(&key) {
+                seen.insert(key.clone());
+                q.push_back(key);
+            }
+        }
+    }
+    (seen.len(), worst)
+}
+
+/// What [`frozen_bfs`] found.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Frozen {
+    pub ghost_states: usize,
+    /// The most room entries by any one other customer after the freeze.
+    pub worst: u8,
+    /// Room entries by a customer whose pair is bigger than the frozen one's.
+    pub behind: usize,
+}
+
+/// C-X8, C-X9 (11_7, the costs card): customer `c` (0-based) never moves
+/// again, from every state in `starts`; the others move freely. A
+/// breadth-first search over (state, entries since the freeze, capped at 2)
+/// (the oracle's `frozen_bfs`).
+pub fn frozen_bfs(model: &Bakery, starts: &[State], c: usize) -> Frozen {
+    let n = model.n;
+    let mut seen: HashSet<(State, Vec<u8>)> = HashSet::new();
+    let mut q = VecDeque::new();
+    for s in starts {
+        let key = (s.clone(), vec![0u8; n]);
+        if seen.insert(key.clone()) {
+            q.push_back(key);
+        }
+    }
+    let (mut worst, mut behind) = (0, 0);
+    while let Some((s, g)) = q.pop_front() {
+        for (p, label, ns) in model.successors(&s) {
+            if p == c || ns == s {
+                continue;
+            }
+            let mut g2 = g.clone();
+            if label.contains("ENTER CS") {
+                behind += usize::from((ns.number[p], p) > (s.number[c], c));
+                g2[p] = (g2[p] + 1).min(2);
+                worst = worst.max(g2[p]);
+            }
+            let key = (ns, g2);
+            if !seen.contains(&key) {
+                seen.insert(key.clone());
+                q.push_back(key);
+            }
+        }
+    }
+    Frozen {
+        ghost_states: seen.len(),
+        worst,
+        behind,
+    }
+}
+
+/// The states where customer 1 is choosing (flag up, in her doorway): C-X8's
+/// starts. And those where she is past choosing, waiting in line: C-X9's.
+pub fn customer1_choosing_and_in_line(states: &[State]) -> (Vec<State>, Vec<State>) {
+    let choosing = states
+        .iter()
+        .filter(|s| s.choosing[0] == 1 && matches!(s.local[0].pc, Pc::Rd | Pc::Rd2 | Pc::Wn | Pc::Wc0))
+        .cloned()
+        .collect();
+    let in_line = states
+        .iter()
+        .filter(|s| matches!(s.local[0].pc, Pc::L2 | Pc::L3))
+        .cloned()
+        .collect();
+    (choosing, in_line)
+}
+
+/// C-X7 (11_3, "they reset only when the bakery empties"): over every
+/// reachable state's moves, how often the largest ticket held (a nonzero
+/// slate not in the middle of its exit write) drops, and how often it drops
+/// to a value other than zero.
+pub fn largest_ticket_drops(model: &Bakery) -> (usize, usize) {
+    let top = |s: &State| {
+        (0..model.n)
+            .filter(|&k| s.number[k] != 0 && !(s.local[k].wp && matches!(s.local[k].pc, Pc::Wn | Pc::Cs)))
+            .map(|k| s.number[k])
+            .max()
+            .unwrap_or(0)
+    };
+    let (mut drops, mut to_nonzero) = (0, 0);
+    for s in reachable(model) {
+        let h = top(&s);
+        for (_, _, ns) in model.successors(&s) {
+            let h2 = top(&ns);
+            if h2 < h {
+                drops += 1;
+                to_nonzero += usize::from(h2 != 0);
+            }
+        }
+    }
+    (drops, to_nonzero)
+}
+
+#[cfg(test)]
+mod liveness_tests {
+    use super::*;
+
+    /// The checker's default: the max reads the other slates in any order.
+    const ATOMIC_3_4: Bakery = Bakery::new(3, 4, Variant::Correct, false, true);
+
+    #[test]
+    fn the_bypass_and_frozen_searches_match_the_oracle() {
+        // C-X5.bypass_from_ticket_write.n3_k4_atomic.{ghost_states, worst}
+        assert_eq!(bypass_bfs(&ATOMIC_3_4), (45_868, 1));
+        let states = reachable(&ATOMIC_3_4);
+        let (choosing, in_line) = customer1_choosing_and_in_line(&states);
+        // C-X8.frozen_while_choosing.n3_k4_atomic.*
+        assert_eq!(choosing.len(), 9_763);
+        let f = frozen_bfs(&ATOMIC_3_4, &choosing, 0);
+        assert_eq!(f.worst, 1);
+        // C-X9.paused_in_line.n3_k4_atomic.*
+        assert_eq!(in_line.len(), 7_098);
+        let p = frozen_bfs(&ATOMIC_3_4, &in_line, 0);
+        assert_eq!((p.worst, p.behind), (1, 0));
+    }
+
+    #[test]
+    fn the_largest_ticket_drops_only_to_zero() {
+        // C-X7.largest_ticket_drops{,_to_nonzero}.n3_k5_atomic
+        assert_eq!(
+            largest_ticket_drops(&Bakery::new(3, 5, Variant::Correct, false, true)),
+            (545, 0)
+        );
+    }
+
+    #[test]
+    fn a_finished_ticket_write_is_told_from_the_rest() {
+        assert!(ticket_done("number[2]:=3"));
+        assert!(ticket_done("end number[1]:=12"));
+        assert!(!ticket_done("begin number[1]:=3"));
+        assert!(!ticket_done("number[1]:=0 (exit)"));
+        assert!(!ticket_done("end number[1]:=0 (exit)"));
+        assert!(!ticket_done("read number[2]=3"));
+    }
+}
+
+// ------------------------------------------------------ store buffers (12)
+
+pub mod tso {
+    //! The bakery algorithm under an x86-TSO memory model, ported from
+    //! `bakery_tso.py` (Owens, Sarkar and Sewell's model): each customer's core
+    //! has a FIFO outbox (store buffer); a store joins its own outbox; a load
+    //! reads the newest store to that slate in its own outbox, else memory; at
+    //! any time an outbox may deliver its oldest store to memory; a fence waits
+    //! until its own outbox is empty. Fences F1 (after raising the flag) and F2
+    //! (after lowering it) are optional. Tickets above `k` are pruned and an
+    //! outbox holds at most `b` stores (a store waits while it is full), so a
+    //! violation found is real and "none" means none within the bounds.
+    //!
+    //! Chapter 12 replays the oracle's voiced order on it (`SCHED_TSO_VOICED`),
+    //! and `facts` pins the model's own state counts against the oracle's.
+
+    use std::collections::{HashMap, VecDeque};
+
+    /// Where a customer is in her program.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub enum Pc {
+        /// Not in line.
+        Outside,
+        /// Fence F1, after raising the flag.
+        Fence1,
+        /// Reading the other slates for the biggest ticket.
+        Reading,
+        /// Writing her ticket.
+        WriteTicket,
+        /// Lowering her flag.
+        LowerFlag,
+        /// Fence F2, after lowering the flag.
+        Fence2,
+        /// Waiting for customer `j`'s flag to be down.
+        WaitFlag,
+        /// Waiting while customer `j`'s pair comes before hers.
+        WaitTicket,
+        /// In the room.
+        Room,
+    }
+
+    /// A flag or a slate.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub enum Var {
+        Flag,
+        Slate,
+    }
+
+    /// A store waiting in an outbox: `var` of customer `owner` := `value`.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct Store {
+        pub var: Var,
+        pub owner: usize,
+        pub value: u32,
+    }
+
+    impl Store {
+        /// As the record writes it: `c1=1`, `n2=0` (customers from 1).
+        pub fn short(&self) -> String {
+            let k = if self.var == Var::Flag { 'c' } else { 'n' };
+            format!("{k}{}={}", self.owner + 1, self.value)
+        }
+    }
+
+    /// One customer's program state. In `Reading`, `arg` is the mask of slates
+    /// still to read and `max` the biggest so far; in the waits, `arg` is `j`.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct Local {
+        pub pc: Pc,
+        pub arg: u32,
+        pub max: u32,
+    }
+
+    /// The whole machine: programs, memory (flags and slates) and outboxes.
+    #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+    pub struct State {
+        pub local: Vec<Local>,
+        pub flags: Vec<u32>,
+        pub slates: Vec<u32>,
+        pub outbox: Vec<Vec<Store>>,
+    }
+
+    /// What one transition does (customers from 0; labels from 1).
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    pub enum Move {
+        /// An outbox delivers its oldest store to memory.
+        Deliver(Store),
+        /// A reordering outbox delivers a later store first (only when no
+        /// earlier store to the same slate waits ahead of it).
+        DeliverEarly(Store),
+        /// A store joins the customer's outbox.
+        Buffer(Store),
+        /// A fence passes (the outbox is empty).
+        Fence,
+        /// A read of slate `j` during the biggest-ticket loop.
+        ReadSlate { j: usize, value: u32 },
+        /// A glance at customer `j`'s flag: `up` means wait.
+        CheckFlag { j: usize, up: bool },
+        /// A glance at customer `j`'s slate: wait, pass, or pass into the room.
+        CheckSlate {
+            j: usize,
+            value: u32,
+            wait: bool,
+            enter: bool,
+        },
+    }
+
+    impl Move {
+        /// The oracle's label (`bakery_tso.py`), so its schedules replay as written.
+        pub fn label(&self) -> String {
+            match *self {
+                Move::Deliver(s) => format!(
+                    "flush {}[{}]={} to memory",
+                    if s.var == Var::Flag { "choosing" } else { "number" },
+                    s.owner + 1,
+                    s.value
+                ),
+                Move::DeliverEarly(s) => format!(
+                    "flush {}[{}]={} to memory (out of order)",
+                    if s.var == Var::Flag { "choosing" } else { "number" },
+                    s.owner + 1,
+                    s.value
+                ),
+                Move::Buffer(Store {
+                    var: Var::Flag, value, ..
+                }) => format!("store choosing:={value} (buffered)"),
+                Move::Buffer(Store {
+                    var: Var::Slate,
+                    value: 0,
+                    ..
+                }) => "store number:=0 (exit, buffered)".into(),
+                Move::Buffer(Store {
+                    var: Var::Slate, value, ..
+                }) => format!("store number:={value} (buffered)"),
+                Move::Fence => "mfence".into(),
+                Move::ReadSlate { j, value } => format!("load number[{}]={value}", j + 1),
+                Move::CheckFlag { j, up } => {
+                    format!(
+                        "L2 load choosing[{}]={}, {}",
+                        j + 1,
+                        u8::from(up),
+                        if up { "wait" } else { "pass" }
+                    )
+                }
+                Move::CheckSlate { j, value, wait, enter } => format!(
+                    "L3 load number[{}]={value}, {}",
+                    j + 1,
+                    match (wait, enter) {
+                        (true, _) => "wait",
+                        (false, false) => "pass",
+                        (false, true) => "pass -> ENTER CS",
+                    }
+                ),
+            }
+        }
+    }
+
+    /// The model: `n` customers, tickets up to `k`, outboxes of `b`, fences.
+    #[derive(Clone, Copy, Debug)]
+    pub struct Tso {
+        pub n: usize,
+        pub k: u32,
+        pub b: usize,
+        pub fence1: bool,
+        pub fence2: bool,
+        /// Outboxes may deliver stores to different slates out of order (the
+        /// oracle's `OutOfOrderOutbox`, R2 dev-02): a model of a weaker
+        /// machine, not a model of Arm, which reorders in more ways.
+        pub reorder: bool,
+    }
+
+    impl Tso {
+        /// `bakery_tso.TSOBakery(n, k, fences)` with its default outbox of 4.
+        pub fn new(n: usize, k: u32, fence1: bool, fence2: bool) -> Self {
+            Self {
+                n,
+                k,
+                b: 4,
+                fence1,
+                fence2,
+                reorder: false,
+            }
+        }
+
+        pub fn initial(&self) -> State {
+            State {
+                local: vec![
+                    Local {
+                        pc: Pc::Outside,
+                        arg: 0,
+                        max: 0
+                    };
+                    self.n
+                ],
+                flags: vec![0; self.n],
+                slates: vec![0; self.n],
+                outbox: vec![Vec::new(); self.n],
+            }
+        }
+
+        /// Customer `i` loads `var` of `j`: her own newest buffered store to
+        /// it, else memory.
+        pub fn load(&self, st: &State, i: usize, var: Var, j: usize) -> u32 {
+            st.outbox[i]
+                .iter()
+                .rev()
+                .find(|s| s.var == var && s.owner == j)
+                .map_or_else(
+                    || if var == Var::Flag { st.flags[j] } else { st.slates[j] },
+                    |s| s.value,
+                )
+        }
+
+        /// Every enabled move, in the oracle's order: per customer, the
+        /// delivery first, then the program step. A blocked wait is a move
+        /// that leaves the state as it was.
+        pub fn successors(&self, st: &State) -> Vec<(usize, Move, State)> {
+            let mut out = Vec::new();
+            for i in 0..self.n {
+                let Local { pc, arg, max } = st.local[i];
+                let others: Vec<usize> = (0..self.n).filter(|&j| j != i).collect();
+                if let Some(&oldest) = st.outbox[i].first() {
+                    let mut ns = st.clone();
+                    match oldest.var {
+                        Var::Flag => ns.flags[oldest.owner] = oldest.value,
+                        Var::Slate => ns.slates[oldest.owner] = oldest.value,
+                    }
+                    ns.outbox[i].remove(0);
+                    out.push((i, Move::Deliver(oldest), ns));
+                }
+                let full = st.outbox[i].len() >= self.b;
+                if full && matches!(pc, Pc::Outside | Pc::WriteTicket | Pc::LowerFlag | Pc::Room) {
+                    continue;
+                }
+                let goto = |pc: Pc, arg: u32, max: u32, store: Option<Store>| {
+                    let mut ns = st.clone();
+                    ns.local[i] = Local { pc, arg, max };
+                    if let Some(s) = store {
+                        ns.outbox[i].push(s);
+                    }
+                    ns
+                };
+                let own = |var, value| Store { var, owner: i, value };
+                let first_wait = (Pc::WaitFlag, others[0] as u32, 0);
+                match pc {
+                    Pc::Outside => {
+                        let mask = others.iter().map(|&j| 1u32 << j).sum();
+                        let next = if self.fence1 { Pc::Fence1 } else { Pc::Reading };
+                        let s = own(Var::Flag, 1);
+                        out.push((i, Move::Buffer(s), goto(next, mask, 0, Some(s))));
+                    }
+                    Pc::Fence1 | Pc::Fence2 => {
+                        if st.outbox[i].is_empty() {
+                            let (p, a, m) = if pc == Pc::Fence1 {
+                                (Pc::Reading, arg, 0)
+                            } else {
+                                first_wait
+                            };
+                            out.push((i, Move::Fence, goto(p, a, m, None)));
+                        }
+                    }
+                    Pc::Reading => {
+                        let j = arg.trailing_zeros() as usize;
+                        let value = self.load(st, i, Var::Slate, j);
+                        let rest = arg & !(1 << j);
+                        let m = max.max(value);
+                        let ns = if rest != 0 {
+                            goto(Pc::Reading, rest, m, None)
+                        } else {
+                            goto(Pc::WriteTicket, 0, m, None)
+                        };
+                        out.push((i, Move::ReadSlate { j, value }, ns));
+                    }
+                    Pc::WriteTicket => {
+                        let t = max + 1;
+                        if t <= self.k {
+                            let s = own(Var::Slate, t);
+                            out.push((i, Move::Buffer(s), goto(Pc::LowerFlag, 0, 0, Some(s))));
+                        }
+                    }
+                    Pc::LowerFlag => {
+                        let (p, a, m) = if self.fence2 { (Pc::Fence2, 0, 0) } else { first_wait };
+                        let s = own(Var::Flag, 0);
+                        out.push((i, Move::Buffer(s), goto(p, a, m, Some(s))));
+                    }
+                    Pc::WaitFlag => {
+                        let j = arg as usize;
+                        let up = self.load(st, i, Var::Flag, j) != 0;
+                        let ns = if up {
+                            st.clone()
+                        } else {
+                            goto(Pc::WaitTicket, arg, 0, None)
+                        };
+                        out.push((i, Move::CheckFlag { j, up }, ns));
+                    }
+                    Pc::WaitTicket => {
+                        let j = arg as usize;
+                        let nj = self.load(st, i, Var::Slate, j);
+                        let ni = self.load(st, i, Var::Slate, i);
+                        let wait = nj != 0 && (nj, j) < (ni, i);
+                        let k = others.iter().position(|&o| o == j).expect("j is another customer");
+                        let enter = !wait && k + 1 == others.len();
+                        let ns = if wait {
+                            st.clone()
+                        } else if enter {
+                            goto(Pc::Room, 0, 0, None)
+                        } else {
+                            goto(Pc::WaitFlag, others[k + 1] as u32, 0, None)
+                        };
+                        out.push((
+                            i,
+                            Move::CheckSlate {
+                                j,
+                                value: nj,
+                                wait,
+                                enter,
+                            },
+                            ns,
+                        ));
+                    }
+                    Pc::Room => {
+                        let s = own(Var::Slate, 0);
+                        out.push((i, Move::Buffer(s), goto(Pc::Outside, 0, 0, Some(s))));
+                    }
+                }
+            }
+            if self.reorder {
+                for i in 0..self.n {
+                    for m in 1..st.outbox[i].len() {
+                        let s = st.outbox[i][m];
+                        if st.outbox[i][..m].iter().any(|e| e.var == s.var && e.owner == s.owner) {
+                            continue;
+                        }
+                        let mut ns = st.clone();
+                        match s.var {
+                            Var::Flag => ns.flags[s.owner] = s.value,
+                            Var::Slate => ns.slates[s.owner] = s.value,
+                        }
+                        ns.outbox[i].remove(m);
+                        out.push((i, Move::DeliverEarly(s), ns));
+                    }
+                }
+            }
+            out
+        }
+
+        /// The customers in the room.
+        pub fn in_room(&self, st: &State) -> usize {
+            st.local.iter().filter(|l| l.pc == Pc::Room).count()
+        }
+
+        /// Replay `(customer from 1, label substring)` steps: exactly one of
+        /// that customer's enabled moves must match each. Returns every state,
+        /// the initial one first, and the moves between them.
+        pub fn replay(&self, schedule: &[(usize, &str)]) -> Result<(Vec<State>, Vec<Move>), String> {
+            let mut states = vec![self.initial()];
+            let mut moves = Vec::new();
+            for &(p, sub) in schedule {
+                let st = states.last().expect("starts with the initial state");
+                let found: Vec<(Move, State)> = self
+                    .successors(st)
+                    .into_iter()
+                    .filter(|(i, m, _)| *i + 1 == p && m.label().contains(sub))
+                    .map(|(_, m, s)| (m, s))
+                    .collect();
+                let [(m, s)] = <[_; 1]>::try_from(found)
+                    .map_err(|f: Vec<_>| format!("step P{p} {sub:?} matched {} moves", f.len()))?;
+                moves.push(m);
+                states.push(s);
+            }
+            Ok((states, moves))
+        }
+
+        /// Breadth-first search of every reachable state: (states, the length
+        /// of the shortest run that puts two in the room, if any).
+        pub fn explore(&self) -> (usize, Option<usize>) {
+            let init = self.initial();
+            let mut depth: HashMap<State, usize> = HashMap::from([(init.clone(), 0)]);
+            let mut queue = VecDeque::from([init]);
+            let mut shortest = None;
+            while let Some(st) = queue.pop_front() {
+                let d = depth[&st];
+                for (_, _, ns) in self.successors(&st) {
+                    if !depth.contains_key(&ns) {
+                        if shortest.is_none() && self.in_room(&ns) >= 2 {
+                            shortest = Some(d + 1);
+                        }
+                        depth.insert(ns.clone(), d + 1);
+                        queue.push_back(ns);
+                    }
+                }
+            }
+            (depth.len(), shortest)
+        }
+    }
+
+    /// 12_3–12_4 as voiced (the oracle's `SCHED_TSO_VOICED`, R11): both raise
+    /// their flags, read, and write their tickets into their outboxes; then each
+    /// checks the other's flag and slate. Nothing is ever delivered.
+    pub const VOICED: [(usize, &str); 12] = [
+        (1, "store choosing:=1"),
+        (2, "store choosing:=1"),
+        (1, "load number[2]=0"),
+        (2, "load number[1]=0"),
+        (1, "store number:=1"),
+        (2, "store number:=1"),
+        (1, "store choosing:=0"),
+        (2, "store choosing:=0"),
+        (1, "L2 load choosing[2]=0, pass"),
+        (1, "L3 load number[2]=0, pass -> ENTER CS"),
+        (2, "L2 load choosing[1]=0, pass"),
+        (2, "L3 load number[1]=0, pass -> ENTER CS"),
+    ];
+
+    /// 12_5's fix on the same race: both fences, so each outbox is delivered
+    /// before its customer reads; both choose at once, take 1, and the tie goes
+    /// to Blue while Green waits.
+    pub const FENCED: [(usize, &str); 22] = [
+        (1, "store choosing:=1"),
+        (2, "store choosing:=1"),
+        (1, "flush choosing[1]=1"),
+        (1, "mfence"),
+        (2, "flush choosing[2]=1"),
+        (2, "mfence"),
+        (1, "load number[2]=0"),
+        (2, "load number[1]=0"),
+        (1, "store number:=1"),
+        (2, "store number:=1"),
+        (1, "store choosing:=0"),
+        (2, "store choosing:=0"),
+        (1, "flush number[1]=1"),
+        (1, "flush choosing[1]=0"),
+        (1, "mfence"),
+        (2, "flush number[2]=1"),
+        (2, "flush choosing[2]=0"),
+        (2, "mfence"),
+        (1, "L2 load choosing[2]=0, pass"),
+        (1, "L3 load number[2]=1, pass -> ENTER CS"),
+        (2, "L2 load choosing[1]=0, pass"),
+        (2, "L3 load number[1]=1, wait"),
+    ];
+
+    /// 12_6 on the reordering model, both fences in place: Blue's lowered flag
+    /// reaches memory before her ticket, Green sees no flag and no ticket and
+    /// walks in (05_2's crack), then Blue's ticket lands, wins the tie, and she
+    /// walks in too.
+    pub const REORDERED: [(usize, &str); 22] = [
+        (1, "store choosing:=1"),
+        (1, "flush choosing[1]=1"),
+        (1, "mfence"),
+        (1, "load number[2]=0"),
+        (1, "store number:=1"),
+        (1, "store choosing:=0"),
+        (1, "flush choosing[1]=0 to memory (out of order)"),
+        (2, "store choosing:=1"),
+        (2, "flush choosing[2]=1"),
+        (2, "mfence"),
+        (2, "load number[1]=0"),
+        (2, "store number:=1"),
+        (2, "store choosing:=0"),
+        (2, "flush number[2]=1"),
+        (2, "flush choosing[2]=0"),
+        (2, "mfence"),
+        (2, "L2 load choosing[1]=0, pass"),
+        (2, "L3 load number[1]=0, pass -> ENTER CS"),
+        (1, "flush number[1]=1"),
+        (1, "mfence"),
+        (1, "L2 load choosing[2]=0, pass"),
+        (1, "L3 load number[2]=1, pass -> ENTER CS"),
+    ];
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        fn list(v: &[u32]) -> String {
+            v.iter().map(ToString::to_string).collect::<Vec<_>>().join(",")
+        }
+
+        #[test]
+        fn the_voiced_order_puts_both_in_the_room_with_memory_still_zero() {
+            let m = Tso::new(2, 4, false, false);
+            let (states, moves) = m.replay(&VOICED).unwrap();
+            let end = states.last().unwrap();
+            assert_eq!(moves.len(), 12);
+            assert_eq!(m.in_room(end), 2);
+            assert_eq!(list(&end.flags), "0,0");
+            assert_eq!(list(&end.slates), "0,0");
+            let boxes: Vec<String> = end
+                .outbox
+                .iter()
+                .map(|b| b.iter().map(Store::short).collect::<Vec<_>>().join(","))
+                .collect();
+            assert_eq!(boxes.join(";"), "c1=1,n1=1,c1=0;c2=1,n2=1,c2=0");
+            assert!(moves.iter().all(|m| !matches!(m, Move::Deliver(_))));
+        }
+
+        #[test]
+        fn the_state_counts_match_the_python_model() {
+            // outputs/bakery_tso_out.txt and tso3.txt, via the oracle's C-F9 keys
+            assert_eq!(Tso::new(2, 4, false, false).explore(), (48_646, Some(12)));
+            assert_eq!(Tso::new(2, 4, true, false).explore(), (2_298, Some(18)));
+            assert_eq!(Tso::new(2, 4, false, true).explore(), (7_484, Some(20)));
+            assert_eq!(Tso::new(2, 4, true, true).explore(), (1_135, None));
+            assert_eq!(Tso::new(2, 6, true, true).explore(), (1_811, None));
+            let mut n3 = Tso::new(3, 3, true, true);
+            n3.b = 3;
+            assert_eq!(n3.explore(), (37_580, None));
+        }
+
+        #[test]
+        fn with_both_fences_the_same_race_lets_one_in() {
+            let m = Tso::new(2, 4, true, true);
+            let (states, _) = m.replay(&FENCED).unwrap();
+            let end = states.last().unwrap();
+            assert_eq!(m.in_room(end), 1);
+            assert_eq!(end.local[0].pc, Pc::Room);
+            assert_eq!(end.local[1].pc, Pc::WaitTicket);
+            assert!(states.iter().all(|s| m.in_room(s) <= 1));
+        }
+
+        #[test]
+        fn a_reordering_outbox_breaks_the_two_fences() {
+            // C-F9.ooo_outbox.f1_f2.*: 1,673 states, a 22-step shortest failure
+            let mut ooo = Tso::new(2, 4, true, true);
+            ooo.reorder = true;
+            assert_eq!(ooo.explore(), (1_673, Some(22)));
+            let (states, moves) = ooo.replay(&REORDERED).unwrap();
+            assert_eq!(moves.len(), 22);
+            assert_eq!(ooo.in_room(states.last().unwrap()), 2);
+            // Green walks in while Blue's ticket is still in her outbox
+            let green_in = states.iter().position(|s| s.local[1].pc == Pc::Room).unwrap();
+            let s = &states[green_in];
+            assert_eq!((s.flags[0], s.slates[0]), (0, 0));
+            assert!(s.outbox[0].iter().any(|e| e.var == Var::Slate && e.value == 1));
+            // the in-order model refuses the overtaking delivery
+            assert!(Tso::new(2, 4, true, true).replay(&REORDERED).is_err());
+        }
+
+        #[test]
+        fn a_replay_refuses_a_step_that_is_not_enabled() {
+            let m = Tso::new(2, 4, false, false);
+            assert!(m.replay(&[(1, "load number[2]=0")]).is_err());
+            // a fence step does not exist without fences
+            assert!(m.replay(&[(1, "store choosing:=1"), (1, "mfence")]).is_err());
+        }
+    }
+}

@@ -12,10 +12,94 @@
 //! same time, so a prop may land before the chapter that first draws it.
 #![allow(dead_code, reason = "shared props land before the chapters that draw them")]
 
-use explainer_kit::{Kit, Palette, hex, v};
+use explainer_kit::animatic::wrap;
+use explainer_kit::narration::{frames_covering, wait_frames};
+use explainer_kit::{Kit, Palette, Script, Timed, hex, v};
+use explainer_score::rng::SplitMix64;
+use fmn::animation::UpdateFromFunc;
 use fmn::prelude::*;
 
 use crate::model::Order;
+
+/// A scene error carrying `message` (a missing phrase, a broken invariant).
+pub fn fail(message: String) -> fmn::Error {
+    fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+        message.into_boxed_str(),
+    )))
+}
+
+// ------------------------------------------------------------ line timing
+
+/// Words a second for a line with no narrator (visual-only renders), as the
+/// kit's scratch voice estimates them.
+const SILENT_WPS: f64 = 2.6;
+
+/// A line being spoken: when it began and how long it runs, so a picture
+/// can land on the phrase it illustrates. A phrase's moment is its share of
+/// the line's characters (the voice reads at a nearly even rate); the cue
+/// sheets of the narrated draft check the result.
+pub struct Spoken {
+    pub id: String,
+    pub start: f64,
+    pub len: f64,
+    text: String,
+}
+
+/// Speak line `id` now (after the previous line), as `Kit::say`.
+pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
+    kit.say(stage, id)?;
+    let script = Script::parse(crate::SCRIPT).map_err(fail)?;
+    let text = script
+        .text(id)
+        .ok_or_else(|| fail(format!("narration line {id} is not in script.tsv")))?
+        .to_owned();
+    let words = text.split_whitespace().count() as f64;
+    let len = kit
+        .narrator
+        .as_ref()
+        .and_then(|n| n.length(id))
+        .unwrap_or(words / SILENT_WPS + 0.4);
+    Ok(Spoken {
+        id: id.to_owned(),
+        start: stage.scene().time().to_f64(),
+        len,
+        text,
+    })
+}
+
+impl Spoken {
+    /// When `phrase` begins (scene seconds).
+    pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
+        let i = self
+            .text
+            .find(phrase)
+            .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        let before = self.text[..i].chars().count() as f64;
+        let all = self.text.chars().count().max(1) as f64;
+        Ok(self.start + self.len * before / all)
+    }
+
+    /// When the line ends.
+    pub fn end(&self) -> f64 {
+        self.start + self.len
+    }
+
+    /// Wait (if need be) until `phrase` begins.
+    pub fn wait_for(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let t = self.at(phrase)?;
+        wait_until(stage, t)
+    }
+}
+
+/// Wait (if need be) until scene time `t`.
+pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
+    let now = stage.scene().time().to_f64();
+    if t > now {
+        let fps = stage.scene().time().fps();
+        wait_frames(stage, frames_covering(t - now, fps))?;
+    }
+    Ok(())
+}
 
 // ------------------------------------------------------------- colour roles
 
@@ -230,7 +314,140 @@ impl Slate {
     }
 }
 
+/// Numerals stacked in one place, for a glance that catches a write: one
+/// chalk numeral per value, all detached; [`flicker`] shows one at a time.
+pub fn flicker_numerals(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    values: &[u32],
+    at: Vec3,
+    size: f64,
+) -> fmn::Result<Vec<Mob>> {
+    values.iter().map(|&x| chalk_number(kit, stage, x, at, size)).collect()
+}
+
+/// `secs` of flicker over `mobs` at `hz` changes a second, in a seeded
+/// jittery order, ending on `mobs[last]` (the others hidden).
+pub fn flicker(stage: &mut Stage<'_>, mobs: &[Mob], secs: f64, hz: f64, last: usize, seed: u64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    for &m in mobs {
+        stage.set_opacity(m, 0.0, true);
+        stage.add_to_scene(m)?;
+    }
+    let mut rng = SplitMix64::new(seed);
+    let changes = (secs * hz).ceil().max(1.0) as usize;
+    let mut order = Vec::with_capacity(changes);
+    let mut prev = usize::MAX;
+    for _ in 0..changes {
+        let mut k = (rng.next_u64() % mobs.len() as u64) as usize;
+        if k == prev {
+            k = (k + 1) % mobs.len();
+        }
+        order.push(k);
+        prev = k;
+    }
+    let shown: Vec<Mob> = mobs.to_vec();
+    let anchor = stage.add(VMobject::new())?;
+    let run = UpdateFromFunc::new_alpha(anchor, move |s, _, alpha| {
+        let slot = ((alpha * changes as f64) as usize).min(changes - 1);
+        let k = if alpha >= 1.0 { last } else { order[slot] };
+        for (i, &m) in shown.iter().enumerate() {
+            s.set_opacity(m, if i == k { 1.0 } else { 0.0 }, true);
+        }
+    });
+    stage.play_prepared_with(
+        vec![Box::new(run)],
+        PlayOverrides {
+            run_time: Some(secs),
+            rate_func: Some(RateFunc::linear()),
+            ..PlayOverrides::default()
+        },
+    )?;
+    stage.remove_from_scene(anchor);
+    Ok(())
+}
+
+// ------------------------------------------------------------------- quotes
+
+/// A quote on a card: the words verbatim in italics, wrapped to `chars` a
+/// line, and its source beneath in dim type. Detached, centred at `at`.
+pub fn quote_card(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    words: &str,
+    source: &str,
+    at: Vec3,
+    chars: usize,
+) -> fmn::Result<Mob> {
+    let lines = wrap(words, chars, 6);
+    let line_h = 0.46;
+    let h = 0.55 + line_h * lines.len() as f64 + 0.42;
+    let mut mobs = Vec::new();
+    let top = at[1] + h / 2.0 - 0.3 - line_h / 2.0;
+    let mut widest: f64 = 0.0;
+    for (i, l) in lines.iter().enumerate() {
+        let m = kit.text_styled(
+            stage,
+            l,
+            30.0,
+            Palette::ink(),
+            v(at[0], top - line_h * i as f64),
+            false,
+            true,
+        )?;
+        widest = widest.max(stage.get_width(m));
+        mobs.push(m);
+    }
+    let src = kit.text(stage, source, 22.0, Palette::dim(), v(at[0], at[1] - h / 2.0 + 0.32))?;
+    widest = widest.max(stage.get_width(src));
+    let back = Rectangle::new()
+        .width(widest + 0.8)
+        .height(h)
+        .corner_radius(0.14)
+        .style(
+            Style::default()
+                .fill(hex("#1A2130"), 0.94)
+                .stroke(Palette::faint(), 1.5, 1.0),
+        )
+        .build()?
+        .moved_to(at);
+    let back = stage.arena_mut().add(back);
+    let mut all = vec![back];
+    all.extend(mobs);
+    all.push(src);
+    group(stage, &all)
+}
+
+/// Bring several detached mobjects in together with a fade, `rt` seconds.
+pub fn fade_in_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut v: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        v.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(v)?;
+    Ok(())
+}
+
+/// Fade several mobjects out together, `rt` seconds.
+pub fn fade_out_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut v: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        v.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(v)?;
+    Ok(())
+}
+
 // ----------------------------------------------------------------- the room
+
+/// The room's tint. The renderer blends in linear light, so a fill this
+/// faint already reads as a clear warm wash on the dark background.
+pub const ROOM_TINT: f64 = 0.045;
 
 /// The room: a warm red tinted space with a red outline (no outline under
 /// moving things: the outline is a separate, still mobject).
@@ -239,7 +456,7 @@ pub fn room(w: f64, h: f64, at: Vec3) -> fmn::Result<[VMobject; 2]> {
         .width(w)
         .height(h)
         .corner_radius(0.22)
-        .style(flat(room_red(), 0.13))
+        .style(flat(room_red(), ROOM_TINT))
         .build()?
         .moved_to(at);
     let edge = Rectangle::new()
@@ -304,6 +521,276 @@ impl Flag {
         let target = stage.arena_mut().add(pennant_shape(self.foot, self.height, raised));
         Transform::new(self.pennant, target)
     }
+}
+
+// ------------------------------------------------------------ the door sign
+
+/// The sign on the room's door (02): "vacant" in chalk or "occupied" in
+/// red, on a small board hung from a nail. The magic sign (02_7, 13_1) is
+/// the same board with a gold edge.
+pub struct Sign {
+    pub board: Mob,
+    pub hanger: Mob,
+    pub text: Mob,
+    pub center: Vec3,
+    pub size: f64,
+    pub occupied: bool,
+}
+
+/// The sign's words, by state.
+pub const VACANT: &str = "vacant";
+pub const OCCUPIED: &str = "occupied";
+
+fn sign_text(kit: &Kit, stage: &mut Stage<'_>, occupied: bool, at: Vec3, size: f64) -> fmn::Result<Mob> {
+    let (word, color) = if occupied {
+        (OCCUPIED, room_red())
+    } else {
+        (VACANT, chalk())
+    };
+    kit.text(stage, word, 30.0 * size, color, at)
+}
+
+/// A door sign `size` × the standard size, centred at `at`; `magic` gives it
+/// the gold edge of an atomic check-and-flip.
+pub fn sign(kit: &Kit, stage: &mut Stage<'_>, occupied: bool, at: Vec3, size: f64, magic: bool) -> fmn::Result<Sign> {
+    let (w, h) = (1.9 * size, 0.62 * size);
+    let edge = if magic { order_gold() } else { hardware() };
+    let b = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.1 * size)
+        .style(
+            Style::default()
+                .fill(board(), 1.0)
+                .stroke(edge, if magic { 4.0 } else { 2.5 }, 1.0),
+        )
+        .build()?
+        .moved_to(at);
+    let board = stage.arena_mut().add(b);
+    let top = at[1] + h / 2.0;
+    let nail = v(at[0], top + 0.3 * size);
+    let mut parts = Vec::new();
+    for dx in [-0.55, 0.55] {
+        parts.push(
+            Line::new(v(at[0] + dx * size, top), nail)
+                .style(line_style(Palette::dim(), 2.0))
+                .build()?,
+        );
+    }
+    parts.push(
+        Circle::new()
+            .radius(0.05 * size)
+            .arc_center(nail)
+            .style(flat(Palette::dim(), 1.0))
+            .build(),
+    );
+    let hanger = stage.arena_mut().add(v_group(parts));
+    let text = sign_text(kit, stage, occupied, at, size)?;
+    Ok(Sign {
+        board,
+        hanger,
+        text,
+        center: at,
+        size,
+        occupied,
+    })
+}
+
+impl Sign {
+    pub fn parts(&self) -> [Mob; 3] {
+        [self.hanger, self.board, self.text]
+    }
+
+    /// Flip the sign to `occupied` (or back): the board turns edge-on, the
+    /// words change, and it turns back, `rt` seconds in all.
+    pub fn flip(&mut self, kit: &Kit, stage: &mut Stage<'_>, occupied: bool, rt: f64) -> fmn::Result<()> {
+        let half = rt / 2.0;
+        let narrow = |m: Mob| -> fmn::Result<AnimBuilder> {
+            Ok(m.animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(half),
+                    rate_func: Some(fmn::core::rate::rush_into),
+                    ..AnimateArgs::default()
+                })?
+                .stretch(0.04, 0)?)
+        };
+        let (b, t) = (narrow(self.board)?, narrow(self.text)?);
+        play_two(stage, b, t)?;
+        let old = self.text;
+        let new = sign_text(kit, stage, occupied, self.center, self.size)?;
+        stage.stretch_about(new, 0.04, 0, Some(self.center), None);
+        stage.remove_from_scene(old);
+        stage.add_to_scene(new)?;
+        self.text = new;
+        self.occupied = occupied;
+        let widen = |m: Mob, f: f64| -> fmn::Result<AnimBuilder> {
+            Ok(m.animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(half),
+                    rate_func: Some(fmn::core::rate::rush_from),
+                    ..AnimateArgs::default()
+                })?
+                .stretch(f, 0)?)
+        };
+        let (b, t) = (widen(self.board, 25.0)?, widen(new, 25.0)?);
+        play_two(stage, b, t)?;
+        Ok(())
+    }
+}
+
+fn play_two(stage: &mut Stage<'_>, a: AnimBuilder, b: AnimBuilder) -> fmn::Result<()> {
+    let a = stage.prepare(a)?;
+    let b = stage.prepare(b)?;
+    stage.play_prepared(vec![a, b])?;
+    Ok(())
+}
+
+// ------------------------------------------------- Dijkstra's four rules
+
+/// The four rules (02_5–02_6) as numbered pictograms, so 08_8 can tick rule
+/// 1 and 11_2 rule 4 on the same pictures:
+/// 1. never two in the room: the progress square's red middle, walled off;
+/// 2. someone stopped outside can't hold up anyone else: a dimmed, halted
+///    lane while the other passes into the room;
+/// 3. fast or slow, it still works: a sparse lane and a dense one, both in;
+/// 4. everyone who wants in gets in eventually: each lane reaches the room.
+pub fn pictogram(kit: &Kit, stage: &mut Stage<'_>, rule: usize, at: Vec3, size: f64) -> fmn::Result<Mob> {
+    let u = size / 2.0;
+    let p = |x: f64, y: f64| v(at[0] + x * u, at[1] + y * u);
+    let frame = Rectangle::new()
+        .width(size)
+        .height(size)
+        .corner_radius(0.12 * size)
+        .style(
+            Style::default()
+                .fill(hex("#151B24"), 1.0)
+                .stroke(Palette::faint(), 2.0, 1.0),
+        )
+        .build()?
+        .moved_to(at);
+    let mut shapes = vec![frame];
+    let lane_w = (4.0 * size).max(1.5);
+    let room_band = |x0: f64, x1: f64| -> fmn::Result<VMobject> {
+        Ok(Rectangle::new()
+            .width((x1 - x0) * u)
+            .height(1.2 * u)
+            .style(flat(room_red(), 0.35))
+            .build()?
+            .moved_to(p((x0 + x1) / 2.0, -0.05)))
+    };
+    let dots = |stage_shapes: &mut Vec<VMobject>, k: usize, y: f64, xs: &[f64]| {
+        for &x in xs {
+            stage_shapes.push(
+                Dot::new()
+                    .point(p(x, y))
+                    .radius(0.035 * size)
+                    .color(customer(k))
+                    .build(),
+            );
+        }
+    };
+    match rule {
+        1 => {
+            let l = Lattice {
+                center: p(0.05, -0.08),
+                side: 1.15 * u,
+                steps: 2,
+            };
+            for i in 0..=2 {
+                let f = i as f64;
+                shapes.push(
+                    Line::new(l.p(f, 0.0), l.p(f, 2.0))
+                        .style(line_style(Palette::faint(), 1.5))
+                        .build()?,
+                );
+                shapes.push(
+                    Line::new(l.p(0.0, f), l.p(2.0, f))
+                        .style(line_style(Palette::faint(), 1.5))
+                        .build()?,
+                );
+            }
+            shapes.push(l.mark(1, 1, room_red()));
+            shapes.push(
+                polyline([l.p(0.0, 0.0), l.p(2.0, 0.0), l.p(2.0, 2.0)])
+                    .style(line_style(chalk(), lane_w))
+                    .build(),
+            );
+        }
+        2 => {
+            shapes.push(room_band(0.35, 0.75)?);
+            shapes.push(
+                Line::new(p(-0.8, 0.3), p(0.75, 0.3))
+                    .style(line_style(customer(1), lane_w))
+                    .build()?,
+            );
+            shapes.push(
+                Line::new(p(-0.8, -0.35), p(-0.2, -0.35))
+                    .style(faded_line(customer(2), lane_w, 0.35))
+                    .build()?,
+            );
+            for dx in [-0.08, 0.04] {
+                shapes.push(
+                    Line::new(p(-0.1 + dx, -0.5), p(-0.1 + dx, -0.2))
+                        .style(line_style(customer(2), lane_w))
+                        .build()?,
+                );
+            }
+        }
+        3 => {
+            shapes.push(room_band(0.35, 0.75)?);
+            shapes.push(
+                Line::new(p(-0.8, 0.3), p(0.6, 0.3))
+                    .style(faded_line(customer(1), lane_w, 0.6))
+                    .build()?,
+            );
+            shapes.push(
+                Line::new(p(-0.8, -0.35), p(0.6, -0.35))
+                    .style(faded_line(customer(2), lane_w, 0.6))
+                    .build()?,
+            );
+            dots(&mut shapes, 1, 0.3, &[-0.7, -0.15, 0.45]);
+            dots(
+                &mut shapes,
+                2,
+                -0.35,
+                &[-0.7, -0.52, -0.34, -0.16, 0.02, 0.2, 0.38, 0.56],
+            );
+        }
+        _ => {
+            for (k, y, x0) in [(1, 0.3, -0.55), (2, -0.35, 0.15)] {
+                shapes.push(
+                    Line::new(p(-0.8, y), p(0.8, y))
+                        .style(faded_line(customer(k), lane_w, 0.6))
+                        .build()?,
+                );
+                shapes.push(
+                    Rectangle::new()
+                        .width(0.42 * u)
+                        .height(0.24 * u)
+                        .style(flat(room_red(), 0.8))
+                        .build()?
+                        .moved_to(p(x0 + 0.21, y)),
+                );
+            }
+        }
+    }
+    let body = stage.arena_mut().add(v_group(shapes));
+    let num = kit.text(
+        stage,
+        &rule.to_string(),
+        34.0 * size / 2.0,
+        order_gold(),
+        p(-0.78, 0.76),
+    )?;
+    group(stage, &[body, num])
+}
+
+/// A tick for a pictogram whose rule has been proved (08_8, 11_2), at its
+/// upper-right corner.
+pub fn rule_tick(at: Vec3, size: f64) -> VMobject {
+    fmn::library::matchers::checkmark(Palette::green())
+        .scaled_about(0.5 * size / 0.4, ORIGIN)
+        .moved_to(v(at[0] + 0.36 * size, at[1] + 0.36 * size))
 }
 
 // --------------------------------------------------------------- scoreboard
@@ -439,7 +926,9 @@ impl Lattice {
 
     /// An order's staircase, through its corners, pushed `offset` along the
     /// anti-diagonal so that a bundle of staircases fans out instead of
-    /// collapsing onto shared edges (spike S-6).
+    /// collapsing onto shared edges (spike S-6). Draw [`Lattice::ends`] over
+    /// the bundle so every staircase visibly leaves one corner and reaches
+    /// the other.
     pub fn staircase(&self, order: &Order, offset: f64, style: Style) -> VMobject {
         let d = offset * std::f64::consts::FRAC_1_SQRT_2;
         polyline(order.corners().into_iter().map(|(i, j)| {
@@ -448,6 +937,20 @@ impl Lattice {
         }))
         .style(style)
         .build()
+    }
+
+    /// The start and end of every order: a disc at each corner, wide enough
+    /// to cover a bundle fanned over `fan_width` (see [`fan`]).
+    pub fn ends(&self, fan_width: f64) -> [VMobject; 2] {
+        let r = 0.5 * fan_width * std::f64::consts::FRAC_1_SQRT_2 + 0.1;
+        let n = self.steps as f64;
+        [(0.0, Palette::dim()), (n, Palette::dim())].map(|(c, color)| {
+            Circle::new()
+                .radius(r)
+                .arc_center(self.p(c, c))
+                .style(Style::default().fill(hex("#151B24"), 1.0).stroke(color, 2.5, 1.0))
+                .build()
+        })
     }
 }
 

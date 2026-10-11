@@ -4,6 +4,10 @@
 //! its real scene as it is built.
 
 pub mod draw;
+pub mod glyphs;
+pub mod room;
+pub mod scoreboard;
+pub mod tickets;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -22,9 +26,21 @@ macro_rules! animatic {
 
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_one_plus_one_is_one", 0.35),
-        animatic!("02_the_room", 0.4),
-        animatic!("03_take_a_number", 0.5),
+        Chapter {
+            key: "01_one_plus_one_is_one",
+            make: |kit| Box::new(scoreboard::OnePlusOne { kit }),
+            intensity: 0.35,
+        },
+        Chapter {
+            key: "02_the_room",
+            make: |kit| Box::new(room::TheRoom { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "03_take_a_number",
+            make: |kit| Box::new(tickets::TakeANumber { kit }),
+            intensity: 0.5,
+        },
         animatic!("04_same_number", 0.5),
         animatic!("05_the_unwritten_ticket", 0.55),
         animatic!("06_three_customers", 0.65),
