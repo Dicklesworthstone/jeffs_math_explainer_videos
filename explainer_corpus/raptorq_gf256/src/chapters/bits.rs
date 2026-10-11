@@ -347,7 +347,7 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
             listen,
         ),
     )?;
-    let flip_all = |top: &mut Row, stage: &mut Stage<'_>| -> fmn::Result<()> {
+    let flip_all = |top: &mut Row, stage: &mut Stage<'_>, rt: f64| -> fmn::Result<()> {
         let mut flips = Vec::new();
         for k in 0..n {
             if bottom.bits[k] {
@@ -356,10 +356,10 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
             }
         }
         let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), flips, 0.35)?;
-        stage.play(g.rt(1.2))?;
+        stage.play(g.rt(rt))?;
         Ok(())
     };
-    flip_all(&mut top, stage)?;
+    flip_all(&mut top, stage, 1.2)?;
     let two = kit.text(
         stage,
         &top.value().to_string(),
@@ -371,10 +371,9 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         replacement_transform(five, two).rt(0.6),
         write(stage.arena(), first).rt(1.0),
     );
-    stage.wait(1.4)?;
-    // flip twice: the same switches again
-    kit.sonify(stage, listen, "02_6", &wav)?;
-    flip_all(&mut top, stage)?;
+    stage.wait(0.8)?;
+    // flip twice: the same switches again, while the line says so
+    flip_all(&mut top, stage, 1.2)?;
     let back = kit.text(
         stage,
         &top.value().to_string(),
@@ -397,5 +396,17 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         .build()?;
     let rule = stage.arena_mut().add(rule);
     play!(stage; show_creation(rule).rt(0.4));
+    // the listen window: five, two, five again as chords, the switches
+    // flipping in step with them
+    kit.sonify(stage, listen, "02_6", &wav)?;
+    // chords at 0, 1 and 2 s: each flip lands as its chord strikes
+    let mut value = back;
+    for (wait, color) in [(0.7, Role::ex_or()), (0.5, Palette::ink())] {
+        stage.wait(wait)?;
+        flip_all(&mut top, stage, 0.3)?;
+        let next = kit.text(stage, &top.value().to_string(), 56.0, color, v(label_x, top.centre[1]))?;
+        play!(stage; replacement_transform(value, next).rt(0.2));
+        value = next;
+    }
     Ok(())
 }

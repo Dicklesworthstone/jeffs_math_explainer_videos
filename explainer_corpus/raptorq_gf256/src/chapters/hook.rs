@@ -302,7 +302,7 @@ fn broadcast(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
         v(0.0, -0.2),
     )?;
     play!(stage; write(stage.arena(), chalk).rt(1.6));
-    kit.hold(stage)?;
+    // no hold: the title forms while the line names the arithmetic
     Ok(chalk)
 }
 
@@ -912,7 +912,7 @@ fn album(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let run = n
         .animate()
         .set_anim_args(AnimateArgs {
-            run_time: Some(3.4),
+            run_time: Some(2.6),
             rate_func: Some(fmn::core::rate::linear),
             ..AnimateArgs::default()
         })?
@@ -969,6 +969,6 @@ fn album(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let panel = group_of(stage, &bars)?;
     play!(stage; fade_in(stage.arena_mut(), panel, ORIGIN, 1.0)?.rt(1.2).lag(0.15));
     // the storyboard's hold: let the three counts land
-    stage.wait(1.8)?;
+    stage.wait(2.6)?;
     Ok(())
 }
