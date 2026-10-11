@@ -9,6 +9,13 @@
 #[allow(dead_code)]
 pub mod draw;
 
+// Chapters 01–06 (lane B-1) and the props later chapters call back to: the
+// bucket and its danger meter, the risk ladder, the ring of five, the grid.
+pub mod hook;
+pub mod picture;
+#[allow(dead_code)]
+pub mod props;
+
 // Chapters 07–12 (lane B-2) and their props: the byte register with its
 // gutter, the n-hour clock, the byte-chord sonifications.
 pub mod clock;
@@ -35,7 +42,11 @@ macro_rules! animatic {
 
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_hook", 0.35),
+        Chapter {
+            key: "01_hook",
+            make: |kit| Box::new(hook::Hook { kit }),
+            intensity: 0.35,
+        },
         animatic!("02_bits_and_ex_or", 0.4),
         animatic!("03_cards", 0.45),
         animatic!("04_the_cube", 0.55),
