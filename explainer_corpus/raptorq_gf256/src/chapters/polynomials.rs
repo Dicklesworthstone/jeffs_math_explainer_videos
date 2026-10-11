@@ -207,8 +207,12 @@ impl SceneConstruct for Polynomials {
         );
         // the numbers in front are the bits: zero or one
         let mut flash: Vec<Box<dyn Animation>> = Vec::new();
+        // the numbers in front: each tile's digit (its 0 or 1) pulses in the
+        // byte role's warm gold; the tiles keep their own fill, so a 0 never
+        // looks lit
         for &t in &reg.tiles {
-            let a = indicate(stage.arena_mut(), t, 1.2, None)?;
+            let digit = children(stage, t).get(1).copied().unwrap_or(t);
+            let a = indicate(stage.arena_mut(), digit, 1.6, Some([1.0, 0.85, 0.4]))?;
             flash.push(stage.prepare(a)?);
         }
         let flash = explainer_kit::lagged(stage, flash, 0.1)?;
