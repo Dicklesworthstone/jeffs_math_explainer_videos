@@ -701,6 +701,8 @@ def af22_failure_modes(fails):
     for key in ("ideal", "bold_fish", "trap_happy", "trap_shy", "marks_lost_20pct", "newcomers_2000",
                 "deaths_30pct", "release_site", "far_side"):
         emit(f"A-F22.median.{key}", fails[key])
+        # 13's gauge reads each median to the nearest ten ("≈ 7,750"; chapters 12-15 lane)
+        emit(f"A-F22.median_rounded_10.{key}", int(round(fails[key] / 10)) * 10)
     # the models' parameters as verify2_replay runs them (the gauge labels of 13_3-13_9 quote
     # them; added 2026-10-11 by the chapters 12-15 lane): bold fish = 3 in 10 fish 3x as
     # catchable both times; marked fish 1.5x / 2/3x as catchable the second time; each mark lost
@@ -733,6 +735,9 @@ def af23_laplace():
     est = ratio * 1_000_000
     emit("A-F23.population_estimate", est)
     emit("A-F23.population_estimate_rounded", round(est))
+    # 14_2's screen (chapters 12-15 lane): "≈ 28.35 people per birth", "≈ 28.4 million people"
+    emit("A-F23.ratio_2dp", f"{float(ratio):.2f}")
+    emit("A-F23.population_estimate_millions_1dp", f"{float(est) / 1e6:.1f}")
     emit("A-F23.recorded.odds_quote", "almost 300000 against 1 that the error is not half a million")
 
 
@@ -755,6 +760,9 @@ def af24_two_reviewers():
     ch = F((M + 1) * (n + 1), k + 1) - 1
     emit_exact("A-F24.chapman", ch)
     emit("A-F24.chapman_se", sqrt(float(F((M + 1) * (n + 1) * (M - k) * (n - k), (k + 1) ** 2 * (k + 2)))))
+    # 14_4's table cells (chapters 12-15 lane): found by A only, by B only
+    emit("A-F24.a_only", M - k)
+    emit("A-F24.b_only", n - k)
 
 
 def af25_kosovo():
@@ -1492,6 +1500,8 @@ def ch14_reviewers():
         emit(f"{pre}.ci95_contains_true_share", float((where == 0).mean()))
         emit(f"{pre}.ci95_wholly_below_true_share", float((where == -1).mean()))
         emit(f"{pre}.ci95_wholly_above_true_share", float((where == 1).mean()))
+        # 14_6's card (chapters 12-15 lane): the range missed the true count in this percent of runs
+        emit(f"{pre}.ci95_missed_pct_0dp", int(round(float((where != 0).mean()) * 100)))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1718,6 +1728,29 @@ def ch12_slider_r2():
         emit(f"A-CH12.planning.one_over_sqrt_k_pct_k{k}", 100 / sqrt(k))
 
 
+def ch12_zero_catch():
+    """A-CH12.zero_catch (Codex review A-3 R1): the careful range for a catch with nobody caught
+    twice, Feller's 1,000 and 1,000. P_N(K >= 0) = 1 for every N, so there is no upper end; the lower
+    end is the smallest N with P_N(K <= 0) = C(N - M, n) / C(N, n) > 1/40, in exact integers (the
+    chance only rises with N, so bisection finds it). At a lake of a million that catch has chance
+    C(999000, 1000) / C(1000000, 1000)."""
+    M = n = 1000
+    ok = lambda N: 40 * comb(N - M, n) > comb(N, n)
+    bad, good = M + n, 2 * (M + n)
+    while not ok(good):
+        bad, good = good, 2 * good
+    while good - bad > 1:
+        mid = (good + bad) // 2
+        if ok(mid):
+            good = mid
+        else:
+            bad = mid
+    assert ok(good) and not ok(good - 1)
+    emit("A-CH12.zero_catch.ci95_lo", good)
+    emit("A-CH12.zero_catch.ci95_hi", "none")
+    emit("A-CH12.zero_catch.P_k0_at_N1000000", F(comb(10 ** 6 - M, n), comb(10 ** 6, n)))
+
+
 def ch13_targets():
     """A-CH13 (the R2 blocker, Ruth R1 / Maya M1 / Dev dev-02; 13_1 lower-third, 13_6 and 13_8
     gauge marks): what Mn/k aims at under A-F22's models, as Mn/E[k], with E[k] exact.
@@ -1795,6 +1828,7 @@ def main():
     ch12_coverage_over_N()
     ch12_slider_r2()
     ch13_targets()
+    ch12_zero_catch()
     sys.stdout.flush()
     print(f"oracle: {len(_seen)} keys in {time.perf_counter() - T_START:.1f} s", file=sys.stderr)
 

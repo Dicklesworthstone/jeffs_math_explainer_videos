@@ -27,8 +27,13 @@ pub fn range_tails(marked: u64, caught: u64, caught_twice: u64, (lo, hi): (u64, 
         Law::new(hi, marked, caught).ge(caught_twice),
     )
 }
-/// Closer to the cut than this and a float comparison is not trusted.
-pub const GUARD: f64 = 1e-9;
+/// Closer to the cut than this and a float comparison is not trusted. The
+/// law's tails are accurate to about 1e-13 (they match the exact law to
+/// 1e-12 on every small lake, a test below), so 1e-11 leaves a hundredfold
+/// margin; it must also be small, because far out (catch 1's upper end is
+/// near 39.5 million fish) neighbouring lake sizes differ in tail by only
+/// about 6e-10.
+pub const GUARD: f64 = 1e-11;
 
 /// P_N(K = k) over the possible k, from `first` up.
 #[derive(Clone, Debug)]
@@ -180,12 +185,19 @@ impl Law {
     }
 }
 
-/// The careful range for a catch: every lake size whose middle 95% keeps
-/// `caught_twice`. P_N(K ≤ k) only rises with N and P_N(K ≥ k) only falls,
-/// so each end is found by bisection (as the oracle's `exact_ci`) and then
-/// checked on both sides.
-pub fn careful_range(marked: u64, caught: u64, caught_twice: u64) -> Result<(u64, u64), String> {
-    assert!(caught_twice > 0, "no range from nobody caught twice");
+/// The careful range for any catch: every lake size whose middle 95% keeps
+/// `caught_twice`, as (low end, high end). P_N(K ≤ k) only rises with N and
+/// P_N(K ≥ k) only falls, so each end is found by bisection (as the
+/// oracle's `exact_ci`) and then checked on both sides. With nobody caught
+/// twice the high end is `None`: P_N(K ≥ 0) = 1 for every lake, so no lake
+/// is too big and the range is open above (chapter 10's division by zero,
+/// seen from here). Coverage counts these catches too.
+pub fn careful_range_any(marked: u64, caught: u64, caught_twice: u64) -> Result<(u64, Option<u64>), String> {
+    if caught_twice > marked.min(caught) {
+        return Err(format!(
+            "{caught_twice} caught twice of {marked} marked and {caught} caught"
+        ));
+    }
     let fewest = marked + caught - caught_twice;
     let le_ok = |lake: u64| -> Result<bool, String> {
         let tail = Law::new(lake, marked, caught).le(caught_twice);
@@ -214,6 +226,14 @@ pub fn careful_range(marked: u64, caught: u64, caught_twice: u64) -> Result<(u64
         }
         good
     };
+    let low_checks = (lo == fewest || !le_ok(lo - 1)?) && le_ok(lo)?;
+    if caught_twice == 0 {
+        return if low_checks {
+            Ok((lo, None))
+        } else {
+            Err("nobody caught twice: the low end does not check".to_owned())
+        };
+    }
     // upper end: the largest lake where the catch is not too many
     let mut good = fewest.max(marked * caught / caught_twice);
     if !ge_ok(good)? {
@@ -233,11 +253,20 @@ pub fn careful_range(marked: u64, caught: u64, caught_twice: u64) -> Result<(u64
         }
     }
     let hi = good;
-    let edges = (lo == fewest || !le_ok(lo - 1)?) && le_ok(lo)? && ge_ok(hi)? && !ge_ok(hi + 1)?;
-    if !edges {
+    if !(low_checks && ge_ok(hi)? && !ge_ok(hi + 1)?) {
         return Err(format!("catch {caught_twice}: the range's ends do not check"));
     }
-    Ok((lo, hi))
+    Ok((lo, Some(hi)))
+}
+
+/// The careful range for a catch with someone caught twice: both ends
+/// finite. Nobody caught twice is an error here; `careful_range_any` gives
+/// that catch its open range.
+pub fn careful_range(marked: u64, caught: u64, caught_twice: u64) -> Result<(u64, u64), String> {
+    match careful_range_any(marked, caught, caught_twice)? {
+        (lo, Some(hi)) => Ok((lo, hi)),
+        (lo, None) => Err(format!("nobody caught twice: the range is {lo} and up, open above")),
+    }
 }
 
 fn guarded(lake: u64, tail: f64) -> Result<bool, String> {
@@ -311,6 +340,38 @@ mod tests {
             let (lo, hi) = careful_range(1_000, 1_000, k).unwrap();
             assert_eq!((lo..=hi).contains(&10_000), (83..=118).contains(&k), "catch {k}");
         }
+    }
+
+    #[test]
+    fn the_ranges_themselves_cover_every_lake_size_zero_catches_included() {
+        // Build every catch's range for M = n = 1,000 (0 to 1,000 caught
+        // twice), then add up the chance of the catches whose range holds
+        // each lake size. Nobody caught twice gives 272,086 and up (exact
+        // integers: 40·C(N − 1,000, 1,000) > C(N, 1,000) first at 272,086;
+        // Codex review A-3 R1), and is common in big lakes: 36.75% at a
+        // million.
+        let (m, n) = (1_000u64, 1_000u64);
+        let ranges: Vec<(u64, Option<u64>)> = (0..=n).map(|k| careful_range_any(m, n, k).unwrap()).collect();
+        assert_eq!(ranges[0], (272_086, None), "A-CH12.zero_catch.ci95_lo");
+        assert_eq!(
+            careful_range(m, n, 0),
+            Err("nobody caught twice: the range is 272086 and up, open above".to_owned())
+        );
+        assert!((Law::new(1_000_000, m, n).at(0) - 0.367_511_500_417_011_25).abs() < 1e-12);
+        let holds = |&(lo, hi): &(u64, Option<u64>), lake: u64| lo <= lake && hi.is_none_or(|hi| lake <= hi);
+        for lake in [
+            2_000u64, 3_100, 8_400, 10_000, 10_967, 12_073, 100_000, 272_085, 272_086, 1_000_000,
+        ] {
+            let law = Law::new(lake, m, n);
+            let cover: f64 = (law.first..=law.last())
+                .filter(|&k| holds(&ranges[k as usize], lake))
+                .map(|k| law.at(k))
+                .sum();
+            assert!(cover >= 0.95, "lake {lake}: the ranges cover {cover}");
+            assert!((cover - law.middle_mass().unwrap()).abs() < 1e-9, "lake {lake}");
+        }
+        // impossible catches are refused, not ranged
+        assert!(careful_range_any(m, n, n + 1).is_err());
     }
 
     #[test]

@@ -123,10 +123,12 @@ the three dip squares were fixed before the first run, and nothing was re-run to
 - **12_1–12_2.** The careful range is an exact test inversion: its lower end is the smallest N
   with P_N(K ≤ 100) > 2.5%, its upper end the largest N with P_N(K ≥ 100) > 2.5%, giving
   [8,400, 12,073]. Each one-sided test rejects a true lake size with chance at most 2.5%, so the
-  procedure covers the true size at least 95% of the time, for every true size. Checked on 27,901
-  lake sizes from 1,000 to 1,000,000 (with M = n = 1,000): the lowest coverage is 95.007%, at
-  10,967; at 10,000 it is 95.45%. In the panel's 10,000 runs, 464 ranges missed 10,000, against
-  454.7 expected.
+  procedure covers the true size at least 95% of the time, for every true size. That count
+  includes the catch with nobody caught twice (chapter 10's division by zero): no lake is too big
+  for it, so its range is open above, from 272,086 fish up with these catches. In a lake of a
+  million that catch comes up 36.8% of the time. Checked on 27,901 lake sizes from 1,000 to
+  1,000,000 (with M = n = 1,000): the lowest coverage is 95.007%, at 10,967; at 10,000 it is
+  95.45%. In the panel's 10,000 runs, 464 ranges missed 10,000, against 454.7 expected.
 - **12_3.** Feller (1950, p. 38): "These figures would justify a bet that the true number n of fish
   lies somewhere between 8500 and 12,000." Exactly, the tails at 8,500 and 12,000 are 3.47% and
   2.89%, so his range is a 93.6% range. A probability for the lake size itself needs a starting

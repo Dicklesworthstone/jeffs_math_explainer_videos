@@ -219,6 +219,25 @@ impl Spoken {
     }
 }
 
+/// Every (line, phrase) a chapter's beats wait for is in its line of
+/// script.tsv (a reworded line must not leave a beat waiting for nothing).
+#[cfg(test)]
+pub(super) fn beats_are_spoken(beats: &[(&str, &str)]) -> Result<(), String> {
+    let script = explainer_kit::Script::parse(crate::SCRIPT)?;
+    for &(id, phrase) in beats {
+        let text = script.text(id).ok_or_else(|| format!("no line {id}"))?;
+        let words = text.split_whitespace().map(plain).collect();
+        Spoken {
+            start: 0.0,
+            len: 1.0,
+            words,
+        }
+        .offset(phrase)
+        .map_err(|e| format!("{id}: {e}"))?;
+    }
+    Ok(())
+}
+
 /// Scene error from a model error (a careful range refused by the guard).
 pub(super) fn model(e: String) -> fmn::Error {
     fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(e.into_boxed_str())))
@@ -1233,16 +1252,7 @@ mod tests {
         assert_eq!(spoken.offset("Three four"), Ok(4.0));
         assert!(spoken.offset("five").is_err());
         // every phrase this chapter waits for is in its line
-        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
-        for (id, phrase) in BEATS {
-            let words: Vec<String> = script.text(id).unwrap().split_whitespace().map(plain).collect();
-            let s = Spoken {
-                start: 0.0,
-                len: 1.0,
-                words,
-            };
-            assert!(s.offset(phrase).is_ok(), "{id}: {phrase:?}");
-        }
+        beats_are_spoken(&BEATS).unwrap();
     }
 
     #[test]

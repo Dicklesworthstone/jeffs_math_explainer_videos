@@ -5,14 +5,15 @@
 
 pub mod cheating;
 pub mod draw;
+pub mod everywhere;
+pub mod failures;
 pub mod hook;
-pub mod how_sure;
 pub mod lake;
 pub mod marks;
 pub mod netfuls;
 pub mod ring_toss;
-pub mod small;
 pub mod spread;
+pub mod the_dead;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -60,23 +61,27 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(cheating::Cheating { kit }),
             intensity: 0.55,
         },
-        Chapter {
-            key: "10_small_experiments",
-            make: |kit| Box::new(small::Small { kit }),
-            intensity: 0.5,
-        },
-        Chapter {
-            key: "11_how_sure",
-            make: |kit| Box::new(how_sure::HowSure { kit }),
-            intensity: 0.5,
-        },
+        animatic!("10_small_experiments", 0.5),
+        animatic!("11_how_sure", 0.5),
         Chapter {
             key: "12_the_ring_toss",
             make: |kit| Box::new(ring_toss::RingToss { kit }),
             intensity: 0.55,
         },
-        animatic!("13_one_rule_for_every_failure", 0.5),
-        animatic!("14_the_dark_cell_everywhere", 0.45),
-        animatic!("15_counting_the_dead", 0.25),
+        Chapter {
+            key: "13_one_rule_for_every_failure",
+            make: |kit| Box::new(failures::Failures { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "14_the_dark_cell_everywhere",
+            make: |kit| Box::new(everywhere::Everywhere { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "15_counting_the_dead",
+            make: |kit| Box::new(the_dead::TheDead { kit }),
+            intensity: 0.25,
+        },
     ]
 }

@@ -320,6 +320,18 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
     let (lo, hi) = careful_range(fm, fnn, fk)?;
     f.pin("A-F13.ci95_lo", lo, "8400", "fact sheet A-F13")?;
     f.pin("A-F13.ci95_hi", hi, "12073", "fact sheet A-F13")?;
+    // a catch with nobody caught twice: open above (Codex review A-3 R1)
+    let (zero_lo, zero_hi) = crate::law::careful_range_any(fm, fnn, 0)?;
+    f.pin(
+        "A-CH12.zero_catch.ci95_lo",
+        zero_lo,
+        "272086",
+        "Codex review A-3 R1 (exact integers)",
+    )?;
+    f.add(
+        "A-CH12.zero_catch.ci95_hi",
+        zero_hi.map_or_else(|| "none".to_owned(), |hi| hi.to_string()),
+    )?;
     // 12_3's lower-third: Feller's own range and its one-sided chances
     let (bet_lo, bet_hi) = crate::law::FELLER_BET;
     f.add("A-F14.recorded.feller_bet_range", format!("{bet_lo},{bet_hi}"))?;
@@ -442,6 +454,11 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
             want,
             "fact sheet A-F22 (verify2_out.txt section F)",
         )?;
+        // the gauge's reading (13)
+        f.add(
+            &format!("A-F22.median_rounded_10.{}", failure.key),
+            ((failure.median() / 10.0).round() * 10.0) as u64,
+        )?;
     }
     // what the soup guess aims at under each model: Mn/E[k], E[k] exact
     for (name, (num, den)) in runs::targets() {
@@ -489,11 +506,22 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
         "28352845",
         "Laplace's printed 28352845 (Essai)",
     )?;
+    // 14_2's screen: "≈ 28.35 people per birth", "≈ 28.4 million people"
+    f.add(
+        "A-F23.ratio_2dp",
+        format!("{:.2}", (3 * people) as f64 / births3 as f64),
+    )?;
+    f.add(
+        "A-F23.population_estimate_millions_1dp",
+        format!("{:.1}", est as f64 / 1e6),
+    )?;
     // the two reviewers (A-F24) and the careful range for them
     let (ra, rb, rk) = REVIEWERS;
     f.add("A-F24.reviewer_a", ra)?;
     f.add("A-F24.reviewer_b", rb)?;
     f.add("A-F24.shared", rk)?;
+    f.add("A-F24.a_only", ra - rk)?;
+    f.add("A-F24.b_only", rb - rk)?;
     let (lo, hi) = careful_range(ra, rb, rk)?;
     f.pin("A-F24.ci95_lo", lo, "47", "fact sheet A-F24")?;
     f.pin("A-F24.ci95_hi", hi, "94", "fact sheet A-F24")?;
@@ -514,6 +542,10 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("{pre}.ci95_wholly_below_true_share"), share(sides[0]))?;
         f.add(&format!("{pre}.ci95_contains_true_share"), share(sides[1]))?;
         f.add(&format!("{pre}.ci95_wholly_above_true_share"), share(sides[2]))?;
+        f.add(
+            &format!("{pre}.ci95_missed_pct_0dp"),
+            (100.0 * (sides[0] + sides[2]) as f64 / found.len() as f64).round() as u64,
+        )?;
     }
 
     // 15: Kosovo (recorded, A-F25)

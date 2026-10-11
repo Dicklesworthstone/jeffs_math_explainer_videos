@@ -93,17 +93,25 @@ pub fn median(values: &[f64]) -> f64 {
     }
 }
 
-/// One failure mode's experiments: each run's soup guess (∞ when nobody
-/// was caught twice).
+/// One failure mode's experiments: each run's caught-twice count and soup
+/// guess (∞ when nobody was caught twice).
 #[derive(Clone, Debug)]
 pub struct Failure {
     pub key: &'static str,
+    pub caught_twice: Vec<usize>,
     pub estimates: Vec<f64>,
 }
 
 impl Failure {
     pub fn median(&self) -> f64 {
         median(&self.estimates)
+    }
+
+    /// The median caught-twice count (the mosaic of a typical run; the
+    /// median soup guess is M·n over it when the middle two runs agree).
+    pub fn median_caught_twice(&self) -> f64 {
+        let k: Vec<f64> = self.caught_twice.iter().map(|&k| k as f64).collect();
+        median(&k)
     }
 }
 
@@ -119,6 +127,15 @@ pub struct Verify2 {
     /// trap_shy, marks_lost_20pct, newcomers_2000, deaths_30pct,
     /// release_site, far_side.
     pub failures: Vec<Failure>,
+}
+
+impl Verify2 {
+    pub fn failure(&self, key: &str) -> &Failure {
+        self.failures
+            .iter()
+            .find(|f| f.key == key)
+            .unwrap_or_else(|| panic!("no failure mode {key}"))
+    }
 }
 
 /// The indices of the `m` largest keys (`np.argpartition(-keys, m)[:m]`
@@ -143,6 +160,7 @@ fn record(key: &'static str, runs: Vec<usize>) -> Failure {
     Failure {
         key,
         estimates: runs.iter().map(|&k| soup(k)).collect(),
+        caught_twice: runs,
     }
 }
 
