@@ -24,7 +24,7 @@ use fmn::prelude::*;
 use crate::captions;
 use crate::encode::{self, Quality};
 use crate::facts::Facts;
-use crate::kit::Kit;
+use crate::kit::{CameraShot, Kit};
 use crate::layout::Linter;
 use crate::narration::{Narrator, Script};
 use crate::palette::{BACKGROUND, Palette, ink_style};
@@ -342,6 +342,69 @@ fn options(path: PathBuf, format: RenderFormat, res: (u32, u32), fps: u32) -> Re
     Ok(o)
 }
 
+/// A scene borrowed for the camera route, whose factory returns its program
+/// by value.
+struct Borrowed<'a>(&'a mut dyn SceneConstruct);
+
+impl SceneConstruct for Borrowed<'_> {
+    fn name(&self) -> &str {
+        self.0.name()
+    }
+    fn tex_preflight(&self) -> Vec<TypesetRequest<'_>> {
+        self.0.tex_preflight()
+    }
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.0.construct(stage)
+    }
+}
+
+/// A chapter that asked for the camera route ([`Kit::request_camera`]):
+/// rendered through [`encode::render_camera`] with `opts` (see
+/// [`camera_options`]); the rig starts at the shot's angles and reaches the
+/// scene through the kit.
+fn render_camera_chapter(
+    kit: &Kit,
+    shot: CameraShot,
+    scene: &mut dyn SceneConstruct,
+    opts: RenderOptions,
+) -> Result<fmn::rendering::RenderReport, fmn::rendering::RenderError> {
+    encode::render_camera(
+        |s, base| {
+            let mut start = base.clone();
+            start
+                .frame
+                .set_euler_angles(Some(shot.theta), Some(shot.phi), None)
+                .map_err(fmn::scene::SceneError::from)?;
+            let rig = fmn::scene::CameraRig::new(s, &start)?;
+            kit.bind_camera(rig, start);
+            Ok((Borrowed(scene), rig))
+        },
+        opts,
+    )
+}
+
+/// A camera-route chapter's options: the kit's runner-wrapped encoder, as
+/// a delivery render on the retained route has it. A draft (no `--crf`) gets
+/// fmn's own default rate control, x264 CRF 23 at preset medium, through
+/// that runner: the camera route installs no ffmpeg of its own.
+fn camera_options(path: &Path, opts: RenderOptions) -> Result<RenderOptions, Box<dyn Error>> {
+    if opts.ffmpeg.is_some() {
+        return Ok(opts);
+    }
+    let mut o = encode::delivery_options(
+        path.to_path_buf(),
+        RenderFormat::Mp4,
+        Quality {
+            quality: 23,
+            preset: "medium",
+            ..Quality::delivery()
+        },
+    )?;
+    o.config = opts.config;
+    o.max_frames = opts.max_frames;
+    Ok(o)
+}
+
 fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Box<dyn Error>> {
     let all = (e.chapters)();
     let keys: Vec<&str> = all.iter().map(|c| c.key).collect();
@@ -414,6 +477,8 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 kit.stem = Some(dir.join(format!("{}.music.f32.wav", c.key)));
             }
             let finished = Rc::clone(&kit.finished);
+            // shares the kit's camera slot: `make` may ask for the camera route
+            let camera = kit.clone();
             let mut scene = (c.make)(kit);
             let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
             if let Some(n) = args.threads {
@@ -445,7 +510,14 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 o.max_frames = opts.max_frames;
                 opts = o;
             }
-            match render(scene.as_mut(), opts) {
+            let rendered = match camera.camera_shot() {
+                None => render(scene.as_mut(), opts),
+                Some(shot) => {
+                    let opts = camera_options(&path, opts)?;
+                    render_camera_chapter(&camera, shot, scene.as_mut(), opts)
+                }
+            };
+            match rendered {
                 Ok(report) => break (report, finished.borrow().clone()),
                 Err(error) if attempt < encode::RENDER_ATTEMPTS && encode::is_transient_eperm(&error) => {
                     // the race clusters under heavy host load: back off

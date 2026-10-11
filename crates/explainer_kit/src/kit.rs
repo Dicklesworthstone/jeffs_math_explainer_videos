@@ -31,6 +31,8 @@ use explainer_score::timeline::ChapterTimeline;
 
 use fmn::library::TextMobjectError;
 use fmn::prelude::*;
+use fmn::rendering::CameraConfig;
+use fmn::scene::CameraRig;
 
 use crate::layout::Linter;
 use crate::narration::Narrator;
@@ -91,6 +93,24 @@ pub struct Registered {
     pub kind: TextKind,
 }
 
+/// A chapter's request for franken_manim's camera route (plan §6.3), made in
+/// its `make` with [`Kit::request_camera`]: where the camera starts, as Euler
+/// angles in radians (`phi` = 0 looks straight down the z axis, as the
+/// retained route does; `theta` turns about z).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct CameraShot {
+    pub theta: f64,
+    pub phi: f64,
+}
+
+/// The camera request and, once the CLI has built it, the rig with the
+/// shot's starting configuration.
+#[derive(Default)]
+struct CameraSlot {
+    shot: Option<CameraShot>,
+    rig: Option<(CameraRig, CameraConfig)>,
+}
+
 /// Shared, cheaply clonable resources for one scene.
 #[derive(Clone)]
 pub struct Kit {
@@ -106,6 +126,7 @@ pub struct Kit {
     pub stem: Option<PathBuf>,
     /// Where [`Kit::finish`] leaves the chapter's timeline for the CLI.
     pub finished: Rc<RefCell<Option<ChapterTimeline>>>,
+    camera: Rc<RefCell<CameraSlot>>,
 }
 
 impl Kit {
@@ -119,7 +140,55 @@ impl Kit {
             chapter: String::new(),
             stem: None,
             finished: Rc::new(RefCell::new(None)),
+            camera: Rc::new(RefCell::new(CameraSlot::default())),
         })
+    }
+
+    /// Ask for the camera route (call it in the chapter's `make`, before the
+    /// scene runs): the CLI then renders this chapter through
+    /// [`crate::encode::render_camera`] with the same encoder as every other
+    /// chapter (so the stream-copy join holds), the camera starting at
+    /// `shot`, and hands the scene its rig ([`Kit::camera`]). `fade_all`
+    /// takes the rig's paint-free root out of the scene too, so a camera
+    /// move after it fails: move the camera first.
+    pub fn request_camera(&self, shot: CameraShot) {
+        self.camera.borrow_mut().shot = Some(shot);
+    }
+
+    /// The chapter's camera request, if it made one.
+    pub fn camera_shot(&self) -> Option<CameraShot> {
+        self.camera.borrow().shot
+    }
+
+    /// The camera rig and the shot's starting configuration: `Some` only on
+    /// the camera route, once the CLI has built the rig.
+    pub fn camera(&self) -> Option<(CameraRig, CameraConfig)> {
+        self.camera.borrow().rig.clone()
+    }
+
+    /// Hand the scene the rig the camera route built (the CLI calls it).
+    pub(crate) fn bind_camera(&self, rig: CameraRig, start: CameraConfig) {
+        self.camera.borrow_mut().rig = Some((rig, start));
+    }
+
+    /// A camera move to `(theta, phi)`, to play like any animation (set its
+    /// run time with `.rt`). The rig interpolates quaternions linearly, so
+    /// keep each move's turn under π (plan E-C2): split a long orbit into
+    /// arcs.
+    ///
+    /// # Errors
+    /// Off the camera route, or for angles the camera refuses.
+    pub fn camera_to(&self, stage: &mut Stage<'_>, theta: f64, phi: f64) -> fmn::Result<Transform> {
+        let fail = |m: &'static str| fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(m));
+        let (rig, start) = self
+            .camera()
+            .ok_or_else(|| fail("camera_to: the chapter is not on the camera route (Kit::request_camera)"))?;
+        let mut target = start;
+        target
+            .frame
+            .set_euler_angles(Some(theta), Some(phi), None)
+            .map_err(fmn::scene::SceneError::from)?;
+        Ok(rig.animate_to(stage.scene_mut(), &target)?)
     }
 
     /// End the chapter (call it last in `construct`): let the last line
@@ -466,6 +535,31 @@ impl Kit {
         color: Srgb,
         at: Vec3,
     ) -> fmn::Result<Mob> {
+        self.live_count_pinned(stage, tracker, size, color, at, false)
+    }
+
+    /// As [`Kit::live_count`], pinned to the screen while a 3-D camera moves
+    /// (E-X3; Video C's cube counts its orders).
+    pub fn live_count_hud(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+    ) -> fmn::Result<Mob> {
+        self.live_count_pinned(stage, tracker, size, color, at, true)
+    }
+
+    fn live_count_pinned(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+        fixed: bool,
+    ) -> fmn::Result<Mob> {
         let book = Rc::clone(&self.book);
         let m = stage.always_redraw(move |s| {
             let value = s.tracker_value(tracker).unwrap_or(0.0).round();
@@ -478,6 +572,9 @@ impl Kit {
                 .expect("bundled digits always lay out");
             let m = s.add(d.into_vmob());
             s.move_to(m, at, ORIGIN);
+            if fixed {
+                s.set_fixed_in_frame(m, 1.0, true);
+            }
             m
         });
         stage.add_to_scene(m)?;
