@@ -163,9 +163,11 @@ collapsed at 15.8%; at 5% extra, 98.65–99.03%. Peeling is not elimination: it 
 **14_7** At 2% extra (10,200 cards), a piece is in no card with probability (1 − 4.8166/10,000)^10,200 = 0.734%: 73.4 of
 the 10,000 on average (one in 136). With exactly enough cards it is one in 124.
 
-**14_8** Reed–Solomon codes are MDS: any K of the N packets rebuild the data. Over GF(256), N is at most 257 (q + 1,
-with the point at infinity); checked for K = 3 on 3,000 random triples of the 257 columns. RaptorQ's packet IDs are 24
-bits: 16,777,216 per block.
+**14_8** For programmers (this aside left the video to keep chapter 14 under 85 s): Reed–Solomon codes are the ideal.
+Any set of exactly enough packets rebuilds the picture, but the sender must fix the packet count in advance, and with
+byte arithmetic it tops out at 257. A fountain never runs dry. Precisely: Reed–Solomon codes are MDS: any K of the N
+packets rebuild the data. Over GF(256), N is at most 257 (q + 1, with the point at infinity); checked for K = 3 on
+3,000 random triples of the 257 columns. RaptorQ's packet IDs are 24 bits: 16,777,216 per block.
 
 **15_1** "About seven pieces": a packet is the ex-or of 7.152 intermediate symbols on average, Table 1's mean degree
 4.82 plus 2.34 of the permanently inactivated symbols (modelling the standard's Rand[X, 3, 2] as uniform). The extra

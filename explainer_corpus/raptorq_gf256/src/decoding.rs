@@ -382,16 +382,73 @@ pub fn ldpc_row(block: Block, i: usize) -> Vec<usize> {
     cols
 }
 
-/// RFC 6330 §3.2: the encoding symbol ID is 24 bits wide, so a block can
-/// send 2²⁴ different packets (one symbol per packet, as the video assumes).
-pub const ESI_BITS: u32 = 24;
+// ------------------------------------------------- RaptorQ's shape, 15
 
-/// The most packets a Reed–Solomon code over bytes can have at two pieces:
-/// the directions of GF(256)², (256² − 1)/(256 − 1) = q + 1 (B-X8).
-pub fn rs_max_packets() -> u64 {
-    let q = 256u64;
-    (q * q - 1) / (q - 1)
+/// A packet's mix in the standard's shape: its degree d from Table 1
+/// (`randrange(2²⁰)`, bisected), and d1 PI symbols, 2 + a fair coin when
+/// d < 4, else 2 (RFC 6330 §5.3.5.4, Rand[X, 3, 2] taken as a coin).
+fn packet_shape(rng: &mut PyRandom) -> (usize, usize) {
+    let r = rng.randrange(1 << 20);
+    let d = DEGREE_TABLE.partition_point(|&f| f <= r);
+    let d1 = 2 + if d < 4 { rng.randrange(2) as usize } else { 0 };
+    (d, d1)
 }
+
+/// How many pieces each of `n` packets mixes (d + d1), drawn from `seed`:
+/// 15_1's cards.
+pub fn packet_sizes(seed: u32, n: usize) -> Vec<usize> {
+    let mut rng = PyRandom::new(seed);
+    (0..n)
+        .map(|_| {
+            let (d, d1) = packet_shape(&mut rng);
+            d + d1
+        })
+        .collect()
+}
+
+/// The first seed from `from` whose `n` packet rows over `block` (d of the
+/// W LT columns, d1 of the P PI columns, distinct) leave some original piece
+/// (a column below K′) in no packet: 15_2's schematic grid. Returns the
+/// seed, the rows (sorted columns) and that piece.
+pub fn schematic_packets(block: Block, n: usize, from: u32) -> (u32, Vec<Vec<usize>>, usize) {
+    for seed in from.. {
+        let mut rng = PyRandom::new(seed);
+        let rows: Vec<Vec<usize>> = (0..n)
+            .map(|_| {
+                let (d, d1) = packet_shape(&mut rng);
+                let mut cols = Vec::new();
+                while cols.len() < d.min(block.w) {
+                    let c = rng.randrange(block.w as u32) as usize;
+                    if !cols.contains(&c) {
+                        cols.push(c);
+                    }
+                }
+                let mut pi = Vec::new();
+                while pi.len() < d1.min(block.p()) {
+                    let c = block.w + rng.randrange(block.p() as u32) as usize;
+                    if !pi.contains(&c) {
+                        pi.push(c);
+                    }
+                }
+                cols.extend(pi);
+                cols.sort_unstable();
+                cols
+            })
+            .collect();
+        if let Some(c) = (0..block.k).find(|c| rows.iter().all(|r| !r.contains(c))) {
+            return (seed, rows, c);
+        }
+    }
+    unreachable!("a seed leaves a piece out")
+}
+
+/// 15_5's ablation, RECORDED (fact sheet B-F21; `rq_ablate.py` on our RFC
+/// 6330 constraint matrix at ten pieces, exactly enough packets): failures
+/// and trials with the standard's byte rows, and with those rows replaced by
+/// random ex-or rows. Not re-run here: the harness needs RFC 6330's random
+/// tables, which this repository does not carry.
+pub const ABLATION_BYTES: (u32, u32) = (646, 100_000);
+pub const ABLATION_EX_OR: (u32, u32) = (7_066, 10_000);
 
 // ------------------------------------------------------ the peeling runs, 14_6
 
@@ -715,6 +772,19 @@ mod tests {
             assert_eq!(lit_values(t, c1), [mul(c1, t, FOLD)]);
         }
         assert!(random_byte_card().iter().all(|&a| a >= 1));
+    }
+
+    #[test]
+    fn the_schematic_grid_leaves_a_piece_out_and_the_ldpc_rows_hold_it() {
+        let (seed, rows, out) = schematic_packets(TEN, TEN.k, 1502);
+        assert!(seed >= 1502 && out < TEN.k);
+        assert_eq!(rows.len(), TEN.k);
+        assert!(rows.iter().all(|r| r.iter().all(|&c| c < TEN.l())));
+        // the piece no packet mixed is in some free ex-or card
+        assert!((0..TEN.s).any(|i| ldpc_row(TEN, i).contains(&out)));
+        let sizes = packet_sizes(1501, 400);
+        let mean = sizes.iter().sum::<usize>() as f64 / sizes.len() as f64;
+        assert!((mean - pieces_per_packet()).abs() < 0.8, "{mean}");
     }
 
     #[test]

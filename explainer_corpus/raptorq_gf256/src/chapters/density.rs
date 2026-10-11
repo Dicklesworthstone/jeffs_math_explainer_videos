@@ -3,8 +3,8 @@
 //! degrees (14_2); the five-piece toy peels C, A, B, D, E (14_3), and stalls
 //! without its first card (14_4–14_5); the scene's own seeded runs of a
 //! plain sparse code stall short of the picture, the hook's picture with
-//! holes in it (14_6–14_7); and Reed–Solomon against a fountain, for
-//! programmers (14_8).
+//! holes in it (14_6–14_7). (14_8, Reed–Solomon against a fountain for
+//! programmers, is in the description: it kept the chapter over 85 s.)
 //!
 //! The toy graph is built here and reused by chapter 16 (`toy_graph`).
 
@@ -17,7 +17,7 @@ use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, hex, play, sound_file
 use explainer_score::sonify::{Grain, cloud};
 use fmn::prelude::*;
 
-use super::draw::{OPLUS, Role, badge, card, flat, group_of, line_style, packet};
+use super::draw::{OPLUS, Role, badge, card, flat, group_of, line_style};
 use super::picture::{SIDE, cell};
 use super::voice::{Spoken, board};
 use crate::decoding::{
@@ -436,7 +436,6 @@ impl SceneConstruct for Density {
         self.dense(&kit, stage, &board)?;
         self.peel(&kit, stage, &board)?;
         self.stall(&kit, stage, &board)?;
-        self.reed_solomon(&kit, stage, &board)?;
         kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
@@ -1026,140 +1025,12 @@ impl Density {
         play!(stage; fmn::animation::indicate(stage.arena_mut(), rings, 1.08, Some([0.99, 0.38, 0.33]))?.rt(1.2));
         Ok(())
     }
-
-    /// 14_8 (for programmers): Reed–Solomon's fixed count against a fountain.
-    fn reed_solomon(
-        &self,
-        kit: &Kit,
-        stage: &mut Stage<'_>,
-        board: &explainer_kit::storyboard::ChapterBoard,
-    ) -> fmn::Result<()> {
-        let rs_title = kit.text(stage, "Reed–Solomon", 48.0, Palette::ink(), v(-3.6, 2.75))?;
-        let fo_title = kit.text(stage, "a fountain", 48.0, Palette::ink(), v(3.6, 2.75))?;
-        // Reed–Solomon: a fixed row of N packets; any K of them rebuild
-        let n_shown = 9usize;
-        let pw = 0.6;
-        let step = pw * 1.1;
-        let x0 = -3.6 - step * (n_shown - 1) as f64 / 2.0;
-        let mut row = Vec::new();
-        for i in 0..n_shown {
-            row.push(packet(pw, Role::card()).moved_to(v(x0 + step * i as f64, 1.55)));
-        }
-        let row = stage.arena_mut().add(v_group(row));
-        let kids = explainer_kit::children(stage, row);
-        let any_k = kit.text(
-            stage,
-            "any K of the N rebuild the picture",
-            32.0,
-            Palette::ink(),
-            v(-3.6, 0.6),
-        )?;
-        let fixed = kit.text(stage, "N is fixed before sending", 32.0, Palette::ink(), v(-3.6, -0.2))?;
-        let cap = kit.tex(
-            stage,
-            &format!(r"\text{{with bytes: }} N \le {}", crate::decoding::rs_max_packets()),
-            46.0,
-            Role::byte(),
-            &[],
-            v(-3.6, -1.15),
-        )?;
-        let wall_x = x0 + step * (n_shown as f64 - 0.5) + 0.04;
-        let wall = Line::new(v(wall_x, 1.1), v(wall_x, 2.0))
-            .style(line_style(Role::lost(), 5.0))
-            .build()?;
-        let wall = stage.arena_mut().add(wall);
-        let never = kit.text(stage, "packets never run out", 32.0, Palette::ink(), v(3.6, -2.25))?;
-        let note = lower_third(
-            kit,
-            stage,
-            "for programmers:",
-            &format!(
-                "Reed–Solomon over GF(256): N ≤ {} = q + 1; RaptorQ: ≈ {:.1} million packets a block",
-                crate::decoding::rs_max_packets(),
-                (1u64 << crate::decoding::ESI_BITS) as f64 / 1e6
-            ),
-        )?;
-        let line = Spoken::say(kit, stage, board, "14_8")?;
-        fade_all(stage, 0.6)?;
-        play!(stage;
-            fade_in(stage.arena_mut(), rs_title, ORIGIN, 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), row, ORIGIN, 1.0)?.rt(0.8),
-            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
-        );
-        line.at(stage, 1)?;
-        // any K: light a scattered handful, then another
-        play!(stage; fade_in(stage.arena_mut(), any_k, ORIGIN, 1.0)?.rt(0.5));
-        for pick in [[0usize, 2, 3, 6, 8], [1, 4, 5, 7, 8]] {
-            let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-            for &i in &pick {
-                let a = fmn::animation::indicate(stage.arena_mut(), kids[i], 1.25, Some([0.36, 0.82, 0.70]))?;
-                anims.push(stage.prepare(a.rt(0.9))?);
-            }
-            stage.play_prepared(anims)?;
-        }
-        line.at(stage, 2)?;
-        play!(stage;
-            show_creation(wall).rt(0.5),
-            fade_in(stage.arena_mut(), fixed, ORIGIN, 1.0)?.rt(0.5),
-        );
-        line.at_share(stage, 0.75)?;
-        play!(stage; fade_in(stage.arena_mut(), cap, ORIGIN, 1.0)?.rt(0.5));
-        line.at(stage, 3)?;
-        // a fountain: packets leap from a spout and fall away, endlessly
-        let spout = v(3.6, -1.5);
-        let basin = Arc::new()
-            .radius(1.3)
-            .start_angle(std::f64::consts::PI * 1.15)
-            .angle(std::f64::consts::PI * 0.7)
-            .arc_center(v(spout[0], spout[1] + 1.1))
-            .style(line_style(Role::ex_or(), 4.0))
-            .build()?;
-        let basin = stage.arena_mut().add(basin);
-        let jets = 26usize;
-        let mut drops = Vec::new();
-        for _ in 0..jets {
-            drops.push(packet(0.34, Role::card()));
-        }
-        let drops = stage.arena_mut().add(v_group(drops));
-        let drop_kids = explainer_kit::children(stage, drops);
-        let clock = Rc::new(Cell::new(0.0f64));
-        let place = move |s: &mut fmn::mobject::Stage, time: f64| {
-            for (i, &m) in drop_kids.iter().enumerate() {
-                let phase = (time / 2.4 + i as f64 / jets as f64).fract();
-                // lanes spread across ±1, alternating sides
-                let lane = ((i * 9) % jets) as f64 / (jets - 1) as f64 * 2.0 - 1.0;
-                let x = spout[0] + 2.3 * lane * phase;
-                let y = spout[1] + 4.0 * 3.3 * phase * (1.0 - phase);
-                s.move_to(m, v(x, y), ORIGIN);
-                s.set_opacity(m, (phase * 8.0).min((1.0 - phase) * 4.0).clamp(0.0, 1.0), true);
-            }
-        };
-        place(stage.arena_mut(), 0.0);
-        let tick = Rc::clone(&clock);
-        stage.add_dt_updater(
-            drops,
-            move |s, _, dt| {
-                tick.set(tick.get() + dt);
-                place(s, tick.get());
-            },
-            false,
-        )?;
-        // the drops' updater sets their opacities every frame
-        stage.add_to_scene(drops)?;
-        play!(stage;
-            fade_in(stage.arena_mut(), fo_title, ORIGIN, 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), basin, ORIGIN, 1.0)?.rt(0.6),
-            fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(0.6),
-        );
-        kit.hold(stage)?;
-        Ok(())
-    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::decoding::{ESI_BITS, PEEL_RUNS, rs_max_packets};
+    use crate::decoding::PEEL_RUNS;
 
     /// Narration truth: every verdict 14's voice speaks, on the data the
     /// chapter draws.
@@ -1198,8 +1069,5 @@ mod tests {
         for r in &runs[1] {
             assert!(r.untouched.iter().all(|i| !r.order.contains(i)));
         }
-        // 14_8: "it tops out around two hundred fifty-six"; "16.8 million"
-        assert!(rs_max_packets().abs_diff(256) <= 1);
-        assert_eq!(format!("{:.1}", (1u64 << ESI_BITS) as f64 / 1e6), "16.8");
     }
 }

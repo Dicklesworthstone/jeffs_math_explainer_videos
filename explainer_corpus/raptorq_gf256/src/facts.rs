@@ -7,10 +7,11 @@
 use explainer_kit::Facts;
 
 use crate::decoding::{
-    BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, ESI_BITS, PEEL_EXTRA_PERCENT, PEEL_PIECES, PeelRun, RACE_PIECES,
-    RACE_SEED, RACES, STEPS_PER_SECOND, TOY_CARDS, degree_mass, dense_steps, dense_time, exact_mean_spares,
-    expected_untouched, histogram, mean_degree, mean_spares, one_amount_lights_exhaustive, peel_runs, peel_toy, race,
-    race_means_within_4se, random_byte_card, rs_max_packets,
+    ABLATION_BYTES, ABLATION_EX_OR, BIG, CARD_SEED, DENSE_PIECES, ERDOS_YEAR, H_RANGE, LARGEST, PEEL_EXTRA_PERCENT,
+    PEEL_PIECES, PeelRun, RACE_PIECES, RACE_SEED, RACES, STEPS_PER_SECOND, TEN, TOY_CARDS, degree_mass, dense_steps,
+    dense_time, exact_mean_spares, expected_untouched, histogram, mean_degree, mean_spares,
+    one_amount_lights_exhaustive, peel_runs, peel_toy, pieces_per_packet, race, race_means_within_4se,
+    random_byte_card,
 };
 
 use crate::model::{
@@ -262,6 +263,7 @@ pub fn facts() -> Result<Facts, String> {
     density(&mut f)?;
     arithmetic(&mut f)?;
     byte_lottery(&mut f)?;
+    danger(&mut f)?;
     parking(&mut f)?;
     Ok(f)
 }
@@ -414,6 +416,36 @@ fn byte_lottery(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 15: RaptorQ's shape (Table 2's rows for ten pieces, the big block and the
+/// largest; H's range), a packet's pieces, and the recorded ablation.
+fn danger(f: &mut Facts) -> Result<(), String> {
+    f.pin(
+        "B-F16.mean_symbols_per_repair",
+        py(pieces_per_packet()),
+        "7.152475357055664",
+        "fact sheet B-F16 (7.152)",
+    )?;
+    for (k, b) in [(10, TEN), (10_017, BIG)] {
+        for (key, v) in [("S", b.s), ("H", b.h), ("W", b.w), ("L", b.l()), ("P", b.p())] {
+            once(f, &format!("B-F19.K{k}.{key}"), v)?;
+        }
+        f.add(&format!("B-X7.K{k}.extra_pieces_S_plus_H"), b.extra())?;
+        f.add(&format!("B-X7.K{k}.ex_or_cards_L_minus_H"), b.ex_or_slots())?;
+    }
+    f.pin("B-F19.H_min", H_RANGE.0, "10", "RFC 6330 Table 2 (fact sheet B-F19)")?;
+    f.pin("B-F19.H_max", H_RANGE.1, "16", "RFC 6330 Table 2 (fact sheet B-F19)")?;
+    once(f, "B-F19.Kprime_max", LARGEST.k)?;
+    for (key, (fails, trials)) in [("K10_gf2_hdpc_h0", ABLATION_EX_OR), ("K10_rfc_hdpc_h0", ABLATION_BYTES)] {
+        f.add(&format!("B-F21.recorded.{key}.fails"), fails)?;
+        f.add(&format!("B-F21.recorded.{key}.trials"), trials)?;
+        f.add(
+            &format!("B-F21.recorded.{key}.rate"),
+            py(f64::from(fails) / f64::from(trials)),
+        )?;
+    }
+    Ok(())
+}
+
 /// 16: the parked piece (the toy's peel with C parked, `decoding::peel_toy`),
 /// the big block's parameters, and the ring with a byte card.
 fn parking(f: &mut Facts) -> Result<(), String> {
@@ -454,8 +486,8 @@ fn parking(f: &mut Facts) -> Result<(), String> {
 }
 
 /// 14: dense solving, RFC 6330's degrees, the toy's peel, the scene's own
-/// seeded peeling runs, the pieces no card mixes, Reed–Solomon's bound and
-/// RaptorQ's packet IDs (`decoding.rs`; the chapter draws these values).
+/// seeded peeling runs and the pieces no card mixes (`decoding.rs`; the
+/// chapter draws these values).
 fn density(f: &mut Facts) -> Result<(), String> {
     let k = DENSE_PIECES;
     f.add("B-F15.K_cubed", k * k * k)?;
@@ -536,24 +568,6 @@ fn density(f: &mut Facts) -> Result<(), String> {
         }
     }
     f.add("B-F17.expected_untouched_K10000_N10200", py(expected_untouched()))?;
-    // 14_8: Reed–Solomon's bound over bytes, RaptorQ's 24-bit packet IDs
-    f.pin(
-        "B-X8.directions_in_gf256_squared",
-        rs_max_packets(),
-        "257",
-        "fact sheet B-X8",
-    )?;
-    f.pin(
-        "B-X3.sourced.rfc6330_s3.2_esi_bits",
-        ESI_BITS,
-        "24",
-        "RFC 6330 §3.2 (FEC Payload IDs)",
-    )?;
-    f.add("B-X3.esi_values_per_source_block", 1u64 << ESI_BITS)?;
-    f.add(
-        "B-X3.esi_values_per_source_block_in_millions",
-        py((1u64 << ESI_BITS) as f64 / 1e6),
-    )?;
     Ok(())
 }
 
