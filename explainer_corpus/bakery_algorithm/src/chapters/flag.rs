@@ -628,7 +628,7 @@ fn every_order(kit: &Kit, stage: &mut Stage<'_>, s5: &Stage05) -> fmn::Result<Ve
     let live = kit.live_count(stage, tracker, 36.0, flag_amber(), v(panel_x + 0.45, -1.1))?;
     let orders_word = kit.text_left(stage, g::ORDERS, 36.0, flag_amber(), v(panel_x + 1.2, -1.1))?;
     play!(stage; fade_in(stage.arena_mut(), orders_word, ORIGIN, 1.0)?.rt(0.3));
-    let ribbons = ribbons(stage, l7, &flagged, 0.3, 2.0, tracker)?;
+    let ribbons = ribbons(stage, l7, &flagged, 0.3, 1.5, tracker)?;
     stage.set_tracker_value(tracker, flagged.len() as f64)?;
     let none = flagged.iter().filter(|o| o.both_inside).count();
     let bad_b = kit.text_left(
@@ -642,9 +642,10 @@ fn every_order(kit: &Kit, stage: &mut Stage<'_>, s5: &Stage05) -> fmn::Result<Ve
     // the both-inside point stays empty: it pulses on top
     stage.scene_mut().bring_to_front(&[mark])?;
     let pulse = fmn::animation::indicate(stage.arena_mut(), mark, 1.4, None)?;
-    stage.play(pulse.rt(0.6))?;
+    // the note fades in while the point pulses
     let note = precisely(kit, stage, g::ONE_VISIT_EACH)?;
-    play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
+    let note_in = fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?;
+    play!(stage; pulse.rt(0.5), note_in.rt(0.4));
     kit.hold(stage)?;
     let mut out: Vec<Mob> = lines4;
     out.extend(new_lines);
