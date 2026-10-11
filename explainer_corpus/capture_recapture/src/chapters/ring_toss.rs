@@ -261,8 +261,8 @@ impl SceneConstruct for RingToss {
         let tail_pct = 100.0 * ALPHA;
 
         self.careful(stage, &kit, (lo, hi), middle_pct, tail_pct)?;
-        self.toss(stage, &kit, lake, middle_pct)?;
-        self.compare(stage, &kit, lake, (lo, hi))?;
+        let named = self.toss(stage, &kit, lake, middle_pct)?;
+        self.compare(stage, &kit, lake, (lo, hi), named)?;
         self.tighten(stage, &kit, lake, (lo, hi))?;
 
         kit.hold(stage)?;
@@ -485,7 +485,9 @@ impl RingToss {
 
     /// 12_2: chapter 09's experiments, each tossed as its careful range at
     /// the true size.
-    fn toss(&self, stage: &mut Stage<'_>, kit: &Kit, lake: u64, middle_pct: f64) -> fmn::Result<()> {
+    /// Returns the name, its card and the line under it, which stay up into
+    /// 12_3 (its first sentence says the name).
+    fn toss(&self, stage: &mut Stage<'_>, kit: &Kit, lake: u64, middle_pct: f64) -> fmn::Result<[Mob; 3]> {
         let (fm, fnn, _) = FELLER;
         let panel = runs::panel();
         let tossed = 100usize;
@@ -760,11 +762,44 @@ impl RingToss {
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.7));
         stage.wait(1.0)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.6)
+        // everything but the name goes
+        let rest: Vec<Mob> = stage
+            .scene()
+            .mobjects()
+            .iter()
+            .copied()
+            .filter(|&m| m != name && m != name_card)
+            .collect();
+        let mut out: Vec<Box<dyn Animation>> = Vec::new();
+        for m in rest {
+            stage.clear_updaters(m, true);
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.6);
+            out.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(out)?;
+        // the catch with none caught twice is counted too (R3 Dev D1)
+        let no_top_at = v(6.9, centre[1] - h / 2.0 - 0.35);
+        let no_top = kit.text(
+            stage,
+            "with none caught twice, the range has no top",
+            22.0,
+            Palette::dim(),
+            no_top_at,
+        )?;
+        stage.move_to(no_top, no_top_at, RIGHT);
+        play!(stage; fade_in(stage.arena_mut(), no_top, v(0.0, 0.1), 1.0)?.rt(0.6));
+        Ok([name, name_card, no_top])
     }
 
     /// 12_3: Feller's careful range beside chapter 09's spread of estimates.
-    fn compare(&self, stage: &mut Stage<'_>, kit: &Kit, lake: u64, (lo, hi): (u64, u64)) -> fmn::Result<()> {
+    fn compare(
+        &self,
+        stage: &mut Stage<'_>,
+        kit: &Kit,
+        lake: u64,
+        (lo, hi): (u64, u64),
+        named: [Mob; 3],
+    ) -> fmn::Result<()> {
         let (fm, fnn, fk) = FELLER;
         let frame = Frame2 {
             center: v(0.3, 0.0),
@@ -859,7 +894,16 @@ impl RingToss {
             v(-6.6, -0.75),
         )?;
 
+        // "Statisticians call it a ninety-five percent confidence interval",
+        // said with the name alone on screen
         let line = Spoken::say(kit, stage, "12_3")?;
+        line.at(stage, "For Feller's catch")?;
+        let mut out: Vec<Box<dyn Animation>> = Vec::new();
+        for m in named {
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.6);
+            out.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(out)?;
         play!(stage;
             fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), axis_title, ORIGIN, 1.0)?.rt(0.7),
@@ -1095,18 +1139,17 @@ impl RingToss {
             fade_in(stage.arena_mut(), knob, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), truth_tick, ORIGIN, 1.0)?.rt(0.6),
+            // the bar follows the dot from the first frame (R3 Ruth 06)
+            replacement_transform(range, first_bar).rt(0.6),
+            fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?.rt(0.6),
         );
         for l in &stop_labels {
             play!(stage; fade_in(stage.arena_mut(), *l, ORIGIN, 1.0)?.rt(0.25));
         }
-        play!(stage;
-            replacement_transform(range, first_bar).rt(0.9),
-            fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?.rt(0.9),
-        );
         let cues = [
             "Four times as many",
             "Catching a bigger share",
-            "catching the whole lake",
+            "when every fish is caught twice",
         ];
         for i in 1..stop_data.len() {
             line.at(stage, cues[i - 1])?;
@@ -1229,7 +1272,7 @@ mod tests {
     }
 
     /// The phrases this chapter's beats wait for, by line (checked by a test).
-    const BEATS: [(&str, &str); 9] = [
+    const BEATS: [(&str, &str); 10] = [
         ("12_1", "For each lake size"),
         ("12_1", "Keep the sizes"),
         ("12_2", "In the long run"),
@@ -1238,7 +1281,8 @@ mod tests {
         ("12_3", "Here the catch"),
         ("12_5", "Four times as many"),
         ("12_5", "Catching a bigger share"),
-        ("12_5", "catching the whole lake"),
+        ("12_5", "when every fish is caught twice"),
+        ("12_3", "For Feller's catch"),
     ];
 
     #[test]

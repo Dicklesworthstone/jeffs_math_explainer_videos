@@ -250,7 +250,7 @@ fn gauge(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
         )?;
         stage.attach(g, m)?;
     }
-    let caption = kit.text(stage, "estimated lake size", 26.0, Palette::ink(), v(GAUGE_C[0], -1.1))?;
+    let caption = kit.text(stage, "the soup guess, Mn/k", 26.0, Palette::ink(), v(GAUGE_C[0], -1.1))?;
     let truth_line = kit.text(
         stage,
         &format!("truth on marking day: {}", thousands(LAKE as u64)),
@@ -601,8 +601,8 @@ impl SceneConstruct for Failures {
         let line = Spoken::say(&kit, stage, "13_4")?;
         for (c, cue) in [(&happy, "Fish that learn to love"), (&shy, "Fish that learn to avoid")] {
             line.at(stage, cue)?;
-            bench.relabel(&kit, stage, c)?;
             bench.reset(&kit, stage, ideal.twice)?;
+            bench.relabel(&kit, stage, c)?;
             go(stage, &[(mos.twice, c.twice)], 0.7)?;
             bench.straighten(&kit, stage, c)?;
         }
@@ -615,8 +615,8 @@ impl SceneConstruct for Failures {
             format!("model: {} of marks lost; {per_runs}", pct(LOSS)),
         );
         let line = Spoken::say(&kit, stage, "13_5")?;
-        bench.relabel(&kit, stage, &lost)?;
         bench.reset(&kit, stage, ideal.twice)?;
+        bench.relabel(&kit, stage, &lost)?;
         go(stage, &[(mos.twice, lost.twice)], 0.9)?;
         line.at(stage, "That pushes it up")?;
         bench.straighten(&kit, stage, &lost)?;
@@ -636,8 +636,8 @@ impl SceneConstruct for Failures {
         let strip_x = MOS_X + (LAKE as f64 + NEWCOMERS as f64 / 2.0) * PER_FISH;
         let new_word = kit.text(stage, "newcomers", 20.0, Role::unmarked(), v(strip_x, -1.9))?;
         let line = Spoken::say(&kit, stage, "13_6")?;
-        bench.relabel(&kit, stage, &new)?;
         bench.reset(&kit, stage, ideal.twice)?;
+        bench.relabel(&kit, stage, &new)?;
         go(
             stage,
             &[
@@ -668,8 +668,8 @@ impl SceneConstruct for Failures {
             fade_out(stage.arena_mut(), mark_12k, ORIGIN, 1.0)?.rt(0.4),
             fade_out(stage.arena_mut(), new_word, ORIGIN, 1.0)?.rt(0.4),
         );
-        bench.relabel(&kit, stage, &deaths)?;
         bench.reset(&kit, stage, ideal.twice)?;
+        bench.relabel(&kit, stage, &deaths)?;
         let dead_share = DEATHS.0 as f64 / DEATHS.1 as f64;
         let died_x = MOS_X + (MARKED as f64 + (LAKE - MARKED) as f64 * (1.0 - dead_share / 2.0)) * PER_FISH;
         let died_word = kit.text(stage, "died", 22.0, Palette::dim(), v(died_x, -1.9))?;
@@ -797,9 +797,11 @@ impl Failures {
             out.push(stage.prepare(a)?);
         }
         stage.play_prepared(out)?;
-        bench.relabel(kit, stage, &mixed)?;
+        // the needle and the reading go back to the truth before the new name
+        // goes up, so no name ever sits over the last case's number (R3)
         go(stage, &[(bench.estimate, mixed.median)], 0.5)?;
         bench.read(kit, stage, mixed.median)?;
+        bench.relabel(kit, stage, &mixed)?;
         play!(stage;
             fade_in(stage.arena_mut(), lake, ORIGIN, 1.0)?.rt(0.8),
             fade_in(stage.arena_mut(), marks_here, ORIGIN, 1.0)?.rt(0.8),
@@ -827,6 +829,16 @@ impl Failures {
         kit.mark(stage, "tick:needle");
         bench.read(kit, stage, far.median())?;
         kit.hold(stage)?;
+        // what two catches cannot do (R3, Dev D2): the counts alone never say
+        // which rule broke; more lists let some of it be checked (15_1)
+        let two = kit.text_left(
+            stage,
+            "two catches alone can't show which rule broke; more lists let you check some of it (chapter 15)",
+            22.0,
+            Palette::ink(),
+            v(MOS_X, -2.45),
+        )?;
+        play!(stage; fade_in(stage.arena_mut(), two, ORIGIN, 1.0)?.rt(0.6));
         // Feller's caveat, silent
         let caveat = lower_third(
             kit,
@@ -858,14 +870,14 @@ mod tests {
         // 13_3: "Too small", "around seventy-seven fifty"
         assert!(m("bold_fish") < truth);
         assert_eq!(reading(m("bold_fish")), "≈ 7,750");
-        // 13_4: love the bait "do the same"; avoid it "push the estimate up"
+        // 13_4: love the bait "do the same"; avoid it "push the guess up"
         assert!(m("trap_happy") < truth && m("trap_shy") > truth);
         // 13_5: "That pushes it up too"
         assert!(m("marks_lost_20pct") > truth);
         // 13_6: "you count the lake at the second catch": within 2% of it
         let grown = (LAKE + NEWCOMERS) as f64;
         assert!((m("newcomers_2000") - grown).abs() / grown < 0.02);
-        // 13_8: "The estimate doesn't move", "not the seven thousand left"
+        // 13_8: "The guess doesn't move", "not the seven thousand left"
         assert_eq!(m("deaths_30pct"), truth);
         assert_eq!(runs::deaths_left(), (7 * LAKE as u64, 10));
         // 13_9: "sixty-two fifty", "twenty-five thousand"

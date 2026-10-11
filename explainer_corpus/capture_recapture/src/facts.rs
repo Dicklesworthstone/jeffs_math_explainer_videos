@@ -292,6 +292,9 @@ pub const LAPLACE: (u64, u64, u64, u64) = (2_037_615, 110_312, 105_287, 1_000_00
 /// named victims, the estimate killed, its 95% range, the later
 /// name-by-name count.
 pub const KOSOVO: (u64, u64, (u64, u64), u64) = (4_400, 10_356, (9_002, 12_122), 9_790);
+/// Kosovo's lists, recorded (Ball et al. 2002, p. 3: "four sources"); a
+/// table of them has one cell per mix of lists, `1 << KOSOVO_LISTS`.
+pub const KOSOVO_LISTS: u64 = 4;
 /// The two reviewers of 14_4 (a made-up example): bugs found by each, and
 /// by both.
 pub const REVIEWERS: (u64, u64, u64) = (30, 24, 12);
@@ -535,6 +538,10 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
     let (lo, hi) = careful_range(ra, rb, rk)?;
     f.pin("A-F24.ci95_lo", lo, "47", "fact sheet A-F24")?;
     f.pin("A-F24.ci95_hi", hi, "94", "fact sheet A-F24")?;
+    // 14_5's screen: the careful range less the 42 found, still hiding
+    let seen = ra + rb - rk;
+    f.add("A-F24.hiding_lo", lo - seen)?;
+    f.add("A-F24.hiding_hi", hi - seen)?;
     // 14_6: the reviewers' models, run as the oracle runs them
     f.add("A-CH14.reviewers.params", runs::review_params())?;
     for (name, reviews) in runs::reviewers() {
@@ -565,6 +572,8 @@ fn late_chapters(f: &mut Facts) -> Result<(), String> {
     f.add("A-F25.recorded.ci95_lo", k_lo)?;
     f.add("A-F25.recorded.ci95_hi", k_hi)?;
     f.add("A-F25.recorded.later_count_kmb", later)?;
+    f.add("A-F25.recorded.lists", KOSOVO_LISTS)?;
+    f.add("A-F25.table_cells", 1u64 << KOSOVO_LISTS)?;
     f.pin(
         "A-F25.later_count_inside_interval",
         (k_lo..=k_hi).contains(&later),

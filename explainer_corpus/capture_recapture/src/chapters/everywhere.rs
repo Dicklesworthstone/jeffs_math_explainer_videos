@@ -464,7 +464,7 @@ impl SceneConstruct for Everywhere {
             Role::marked(),
             v(c[0][0], TABLE_C[1] + CELL_H + 0.27),
         )?;
-        line.at(stage, "About two million people")?;
+        line.at(stage, "Just over two million people")?;
         play!(stage; fade_in(stage.arena_mut(), counted, v(0.0, -0.1), 1.0)?.rt(0.7));
         line.at(stage, "about seventy-two thousand")?;
         play!(stage; fade_in(stage.arena_mut(), births, ORIGIN, 1.0)?.rt(0.7));
@@ -716,7 +716,11 @@ impl SceneConstruct for Everywhere {
         )?);
         let range_words = kit.text_left(
             stage,
-            &format!("careful range: {lo} to {hi} bugs, if every bug is equally easy to find"),
+            &format!(
+                "careful range for all the bugs: {lo} to {hi}, so {} to {} still hiding",
+                lo - seen,
+                hi - seen
+            ),
             24.0,
             Role::dark(),
             v(x0, y + 0.5),
@@ -777,6 +781,14 @@ impl SceneConstruct for Everywhere {
             Role::bias(),
             v(2.9, -1.58),
         )?;
+        // the opposite case, so "no trouble" is not over-read (R3: Dev D12, Ruth 11)
+        let specialists = kit.text_left(
+            stage,
+            "specialist reviewers: guess runs high",
+            20.0,
+            Palette::dim(),
+            v(2.9, -1.94),
+        )?;
         let line = Spoken::say(&kit, stage, "14_6")?;
         let mut swap: Vec<Box<dyn Animation>> = Vec::new();
         for m in [venn, venn_a, venn_b, venn_k] {
@@ -786,7 +798,10 @@ impl SceneConstruct for Everywhere {
         stage.play_prepared(swap)?;
         play!(stage; fade_in(stage.arena_mut(), skill_ok, ORIGIN, 1.0)?.rt(0.6));
         line.at(stage, "Bugs of different difficulty")?;
-        play!(stage; fade_in(stage.arena_mut(), hard_no, ORIGIN, 1.0)?.rt(0.6));
+        play!(stage;
+            fade_in(stage.arena_mut(), hard_no, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), specialists, ORIGIN, 1.0)?.rt(0.6),
+        );
         stage.add_to_scene(picture)?;
         // the true 60, dashed, so the estimate's shrinking shows
         let ghost = {
@@ -810,9 +825,9 @@ impl SceneConstruct for Everywhere {
             fade_in(stage.arena_mut(), ghost, ORIGIN, 1.0)?.rt(0.6),
         );
         // easy bugs: both reviewers find them, so the caught-twice cell swells
-        line.at(stage, "Easy bugs swell")?;
+        line.at(stage, "Bugs that are easy")?;
         go(stage, &[(mos.twice, ek)], 1.2)?;
-        line.at(stage, "pull the estimate down")?;
+        line.at(stage, "pull the guess down")?;
         // the estimate: the lake of bugs that straightens it, short of 60
         go(stage, &[(mos.unmarked, ea * eb / ek - ea)], 1.2)?;
         let card = kit.text_left(
@@ -889,7 +904,7 @@ mod tests {
         beats_are_spoken(&[
             ("14_1", "to count France"),
             ("14_1", "each newborn"),
-            ("14_2", "About two million people"),
+            ("14_2", "Just over two million people"),
             ("14_2", "about seventy-two thousand"),
             ("14_2", "That's one birth"),
             ("14_2", "Taking France's births"),
@@ -898,8 +913,8 @@ mod tests {
             ("14_5", "They found forty-two"),
             ("14_5", "If every bug"),
             ("14_6", "Bugs of different difficulty"),
-            ("14_6", "Easy bugs swell"),
-            ("14_6", "pull the estimate down"),
+            ("14_6", "Bugs that are easy"),
+            ("14_6", "pull the guess down"),
             ("14_6", "So expect sixty"),
         ])
         .unwrap();

@@ -69,23 +69,23 @@
 11_5	Flip a hundred coins. Exactly fifty heads comes up only about eight percent of the time, yet it's the most likely count.
 12_1	Now the careful range. For each lake size, ask whether a hundred caught twice would land in that lake's middle ninety-five percent. Keep the sizes where it would.
 12_2	Build that range for every experiment. In the long run, it rings the true size at least ninety-five times in a hundred, whatever that size is. Like a ring toss.
-12_3	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed, and we try every lake size.
+12_3	Statisticians call it a ninety-five percent confidence interval. For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed, and we try every lake size.
 12_4	What makes the range tight?
-12_5	Mostly, more fish caught twice, which means marking more and catching more. Four times as many roughly halves the range. Catching a bigger share of the lake helps more and more, and catching the whole lake shrinks the range to a single size.
+12_5	Mostly, more fish caught twice, which means marking more and catching more. Four times as many roughly halves the range. Catching a bigger share of the lake helps more and more, and when every fish is caught twice, the range shrinks to a single size.
 13_1	Every failure breaks one rule. On average, the second catch must hold the same share of marked fish that the lake held on marking day.
-13_2	Some fish are bold and easy to catch, both times. Will the estimate be too big, or too small?
-13_3	Too small. Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks. If three fish in ten are three times as easy to catch, the estimate comes out around seventy-seven fifty.
-13_4	Fish that learn to love the bait do the same. Fish that learn to avoid it push the estimate up.
+13_2	Some fish are bold and easy to catch, both times. Will the guess be too big, or too small?
+13_3	Too small. Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks. If three fish in ten are three times as easy to catch, the guess comes out around seventy-seven fifty.
+13_4	Fish that learn to love the bait do the same. Fish that learn to avoid it push the guess up.
 13_5	If marks wash off, marked fish look unmarked. That pushes it up too.
 13_6	Two thousand newcomers dilute the marks, so you count the lake at the second catch.
 13_7	What if three fish out of ten die between the catches?
-13_8	The estimate doesn't move. Death doesn't care about marks, so the share stays one in ten. But it counts the lake on marking day, not the seven thousand left.
+13_8	The guess doesn't move. Death doesn't care about marks, so the share stays one in ten. But it counts the lake on marking day, not the seven thousand left.
 13_9	If the marks never mix, the answer depends on where you fish. Near the dock you'd say sixty-two fifty, on the far side twenty-five thousand.
 14_1	Around eighteen hundred, the French mathematician Laplace used the same table to count France. Births were written down, so in our table, each newborn is a marked fish.
-14_2	At his request, officials counted everyone in chosen towns across France. About two million people, with about seventy-two thousand births a year. That's one birth for every twenty-eight and a bit people. Taking France's births as a million a year, that's about twenty-eight point four million people.
+14_2	At his request, officials counted everyone in chosen towns across France. Just over two million people, with about seventy-two thousand births a year. That's one birth for every twenty-eight and a bit people. Taking France's births as a million a year, that's about twenty-eight point four million people.
 14_4	It counts bugs as well. Say two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. How many are still hiding?
-14_5	Thirty times twenty-four, over twelve, is sixty. They found forty-two, so about eighteen are still hiding. But only twelve were caught twice, and that's not many. If every bug is equally easy to find, the careful range runs from forty-seven to ninety-four.
-14_6	Reviewers of different skill cause no trouble. Bugs of different difficulty do. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So expect sixty, and the range, to run low.
-15_1	And it has counted the dead. In nineteen ninety-nine, in the war in Kosovo, several lists named about four thousand four hundred different victims between them. From the names shared between lists, researchers estimated about ten thousand four hundred killed. Years later, a name-by-name count found nine thousand seven hundred ninety, inside the estimate's range.
+14_5	Thirty times twenty-four, over twelve, is sixty. They found forty-two, so about eighteen are still hiding. But only twelve were caught twice, and that's not many. If every bug is equally easy to find, the careful range for all the bugs runs from forty-seven to ninety-four.
+14_6	Reviewers of different skill cause no trouble. Bugs of different difficulty do. Bugs that are easy for both reviewers swell the caught-twice cell and pull the guess down, like the bold fish. So expect sixty, and the range, to run low.
+15_1	And it has counted the dead. Between March and June of nineteen ninety-nine, in the war in Kosovo, four lists named about four thousand four hundred different victims between them. Together they make a table of sixteen cells, one for each mix of lists, and one cell holds the people on no list. From how the lists overlap, researchers estimated about ten thousand four hundred Kosovar Albanians killed in those months. With four lists, they could also allow for lists that lean on each other, which two catches can never do. Years later, a name-by-name count for the same months found nine thousand seven hundred ninety, inside their range.
 15_2	France, the bugs, Kosovo. What do they share?
 15_3	Each is a table with one cell nobody can see, filled in by the cells we can.

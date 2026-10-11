@@ -16,7 +16,7 @@ use super::lake::{
     Cell, LakeArt, PER_GLYPH, Shade, Wander, cell_backs, fly, lake_p, mosaic_cells, places_in, shuffled, wander,
 };
 use super::ring_toss::Spoken;
-use crate::facts::{FELLER, KOSOVO};
+use crate::facts::{FELLER, KOSOVO, KOSOVO_LISTS};
 use crate::model::{LAKE_FISH, Lake, SEED, SplitMix64};
 
 /// The four-list table: its top-left corner and each cell's size.
@@ -218,29 +218,57 @@ impl SceneConstruct for TheDead {
             later_at,
         )?;
         stage.move_to(later_words, later_at, RIGHT);
+        // what four lists buy (R3 Dev D2; 13_9 points here), right-aligned
+        // under the later count, clear of "on no list"
+        let four_at = v(LINE_X.1, -1.05);
+        let four_buy = kit.text(
+            stage,
+            &format!("{KOSOVO_LISTS} lists: the model can let lists lean on each other"),
+            22.0,
+            Palette::ink(),
+            four_at,
+        )?;
+        stage.move_to(four_buy, four_at, RIGHT);
+        let two_at = v(LINE_X.1, -1.45);
+        let two_cant = kit.text(
+            stage,
+            "two catches: it has to assume they don't",
+            22.0,
+            Palette::dim(),
+            two_at,
+        )?;
+        stage.move_to(two_cant, two_at, RIGHT);
         // silence under the numbers (storyboard 15_1): the score fades the
         // music out in the pause before this line and keeps the stem at zero
         // until the end mark below
         kit.mark(stage, "silence:kosovo");
         let line = Spoken::say(&kit, stage, "15_1")?;
-        let mut show: Vec<Box<dyn Animation>> = Vec::new();
-        for &m in cells.iter().chain([title, key, nobody].iter()) {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(1.2);
-            show.push(stage.prepare(a)?);
-        }
-        stage.play_prepared(show)?;
-        line.at(stage, "several lists named")?;
+        play!(stage; fade_in(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(1.0));
+        line.at(stage, "four lists named")?;
         play!(stage;
             fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.8),
             fmn::animation::grow_from_edge(stage.arena_mut(), named_bar, LEFT, None)?.rt(1.0),
             fade_in(stage.arena_mut(), named_words, ORIGIN, 1.0)?.rt(1.0),
         );
+        line.at(stage, "make a table")?;
+        let mut show: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in cells.iter().chain([key].iter()) {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(1.2);
+            show.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(show)?;
+        line.at(stage, "on no list")?;
+        play!(stage; fade_in(stage.arena_mut(), nobody, v(-0.2, 0.0), 1.0)?.rt(0.6));
         line.at(stage, "researchers estimated")?;
         play!(stage;
             fmn::animation::grow_from_center(stage.arena_mut(), band, None)?.rt(1.0),
             fade_in(stage.arena_mut(), est_tick, ORIGIN, 1.0)?.rt(1.0),
             fade_in(stage.arena_mut(), est_words, ORIGIN, 1.0)?.rt(1.0),
         );
+        line.at(stage, "With four lists")?;
+        play!(stage; fade_in(stage.arena_mut(), four_buy, ORIGIN, 1.0)?.rt(0.8));
+        line.at(stage, "which two catches")?;
+        play!(stage; fade_in(stage.arena_mut(), two_cant, ORIGIN, 1.0)?.rt(0.6));
         line.at(stage, "a name-by-name count")?;
         play!(stage;
             fmn::animation::grow_from_edge(stage.arena_mut(), later_tick, DOWN, None)?.rt(0.8),
@@ -405,5 +433,38 @@ impl TheDead {
         wander(stage, &gold, ws_marked, 0.0)?;
         wander(stage, &rings, ws_second, 0.0)?;
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::chapters::ring_toss::beats_are_spoken;
+
+    #[test]
+    fn the_table_has_a_cell_for_each_mix_of_lists() {
+        let mut seen = std::collections::BTreeSet::new();
+        for r in 0..4 {
+            for c in 0..4 {
+                seen.insert(pattern(r, c));
+            }
+        }
+        assert_eq!(seen.len() as u64, 1 << KOSOVO_LISTS);
+        assert_eq!(pattern(3, 3), [false; 4], "the dark cell is the bottom-right one");
+    }
+
+    #[test]
+    fn every_beat_is_spoken() {
+        beats_are_spoken(&[
+            ("15_1", "four lists named"),
+            ("15_1", "make a table"),
+            ("15_1", "on no list"),
+            ("15_1", "researchers estimated"),
+            ("15_1", "With four lists"),
+            ("15_1", "which two catches"),
+            ("15_1", "a name-by-name count"),
+            ("15_3", "filled in by the cells"),
+        ])
+        .unwrap();
     }
 }

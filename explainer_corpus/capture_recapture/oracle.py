@@ -774,6 +774,9 @@ def af25_kosovo():
     emit("A-F25.recorded.ci95_lo", lo)
     emit("A-F25.recorded.ci95_hi", hi)
     emit("A-F25.recorded.later_count_kmb", later)
+    lists = 4  # Ball et al. 2002, p. 3: "four sources"
+    emit("A-F25.recorded.lists", lists)
+    emit("A-F25.table_cells", len(list(itertools.product((False, True), repeat=lists))))
     emit("A-F25.later_count_inside_interval", lo <= later <= hi)
     emit("A-F25.estimate_over_named", est / named)
 
