@@ -99,6 +99,12 @@ pub const TRAILS: &str = "trails:";
 pub const TRAILS_A: &str = "drawn uniformly at random from all";
 pub const TRAILS_B: &str = "orders, not as a real machine runs them";
 
+// 07_one_run
+/// The step clock's label (counted the 02_4 way), beside its number.
+pub const STEPS: &str = "steps";
+/// Green's slate when Purple meets her flag: no ticket written yet.
+pub const UNWRITTEN: &str = "not written yet";
+
 // 08_why_never_two
 pub const TIME: &str = "time";
 pub const BLUE_CHOOSING: &str = "Blue choosing";
@@ -228,6 +234,8 @@ pub const TEXT: &[&str] = &[
     TRAILS,
     TRAILS_A,
     TRAILS_B,
+    STEPS,
+    UNWRITTEN,
     TIME,
     BLUE_CHOOSING,
     GREEN_CHOOSING,

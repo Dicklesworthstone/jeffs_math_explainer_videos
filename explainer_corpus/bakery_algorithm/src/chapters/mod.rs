@@ -8,6 +8,7 @@ pub mod draw;
 pub mod fair;
 pub mod glyphs;
 pub mod old_zero;
+pub mod one_run;
 pub mod proudest;
 pub mod room;
 pub mod scoreboard;
@@ -59,7 +60,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(three_customers::ThreeCustomers { kit }),
             intensity: 0.65,
         },
-        animatic!("07_one_run", 0.6),
+        Chapter {
+            key: "07_one_run",
+            make: |kit| Box::new(one_run::OneRun { kit }),
+            intensity: 0.6,
+        },
         Chapter {
             key: "08_why_never_two",
             make: |kit| Box::new(why_never_two::WhyNeverTwo { kit }),
