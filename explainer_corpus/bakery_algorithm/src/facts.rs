@@ -69,6 +69,47 @@ pub mod cited {
     pub fn turing_journal() -> &'static str {
         journal(TURING_CITATION)
     }
+    /// "On Interprocess Communication" names safe, regular and atomic
+    /// registers (Distributed Computing 1(2), 1986).
+    pub const INTERPROCESS_YEAR: u32 = 1986;
+}
+
+/// The model checker's two big sweeps as `run_sweep.py big` recorded them
+/// (`outputs/sweep_big.txt`; N = 4 took 711.7 s in Python).
+const SWEEP_BIG: &str = include_str!("../../../docs/research/bakery_algorithm/scripts/outputs/sweep_big.txt");
+
+/// The recorded sweep of Lamport's algorithm with `n` customers, tickets at
+/// most `k`, atomic or safe slates: (reachable states, no violation).
+pub fn recorded_sweep(n: usize, k: u32, safe: bool) -> Option<(usize, bool)> {
+    let head = format!("N={n} K={k} correct");
+    let kind = if safe { "safe" } else { "atomic" };
+    let line = SWEEP_BIG
+        .lines()
+        .find(|l| l.starts_with(&head) && l[head.len()..].trim_start().starts_with(kind))?;
+    let states = line
+        .split("states=")
+        .nth(1)?
+        .split_whitespace()
+        .next()?
+        .replace(',', "");
+    Some((states.parse().ok()?, line.contains("result=OK")))
+}
+
+/// 09_1: rewrite the two-digit slate `old` as `new` one digit at a time, in
+/// either order: what a glance between the two digit writes reads.
+pub fn torn_two_digit_reads(old: u32, new: u32) -> Vec<String> {
+    let (old, new) = (format!("{old:02}"), format!("{new:02}"));
+    let mut between: Vec<String> = [0, 1]
+        .into_iter()
+        .map(|first| {
+            let mut cur: Vec<char> = old.chars().collect();
+            cur[first] = new.as_bytes()[first] as char;
+            cur.into_iter().collect()
+        })
+        .collect();
+    between.sort();
+    between.dedup();
+    between
 }
 
 /// Customer `me` (1-based) takes 1 + the biggest other slate (the chalk rule
@@ -191,6 +232,26 @@ pub fn facts() -> Result<Facts, String> {
         )?;
         f.pin(&format!("C-F3.{tag}.orders_deadlocked"), dead, "0", "fact sheet C-F3")?;
     }
+    // 06: three customers, one visit each, counted (not listed) by the model
+    for (flag, tag, want) in [
+        (false, "no_flag", ["792987", "312492"]),
+        (true, "flag", ["2126816238", "0"]),
+    ] {
+        let t = model::bakery_count(3, flag, Cmp::Lex).total();
+        f.pin(&format!("C-F4.{tag}.orders"), t.orders, want[0], "fact sheet C-F4")?;
+        f.pin(
+            &format!("C-F4.{tag}.orders_two_or_more_inside"),
+            t.two_inside,
+            want[1],
+            "fact sheet C-F4",
+        )?;
+        f.pin(
+            &format!("C-F4.{tag}.orders_deadlocked"),
+            t.deadlocked,
+            "0",
+            "fact sheet C-F4",
+        )?;
+    }
     for (cmp, tag) in [(Cmp::Strict, "strict_lt_with_flag"), (Cmp::Le, "le_with_flag")] {
         let (all, both, _, dead, _) = tally(&bakery_orders(true, cmp), bakery_program(2, 0, true, cmp).len());
         f.add(&format!("C-F5.{tag}.orders"), all)?;
@@ -283,6 +344,30 @@ pub fn facts() -> Result<Facts, String> {
         d.iter().filter(|s| s.counted()).count(),
         "64",
         "fact sheet C-F6 (07_1)",
+    )?;
+    // 07_2, 07_5: who stops whom, and when (1-based steps)
+    let at = |who: usize, pat: &str| {
+        d.iter()
+            .position(|s| s.customer == who && s.label.starts_with(pat))
+            .map_or(0, |k| k + 1)
+    };
+    f.pin(
+        "C-F6.d.customer3_stopped_by_customer2_flag_at_step",
+        at(3, "L2: choosing[2]=1, wait"),
+        "12",
+        "fact sheet C-F6 (07_2)",
+    )?;
+    f.pin(
+        "C-F6.d.customer2_out_before_customer1_checks_her",
+        bit(at(2, "number[2]:=0") < at(1, "L2: choosing[2]")),
+        "1",
+        "fact sheet C-F6 (07_5, M14)",
+    )?;
+    f.pin(
+        "C-F6.d.customer1_waits_behind",
+        pairs(&waits_behind(&d, 1)),
+        "(1,3)(2,4)",
+        "fact sheet C-F6 (07_5)",
     )?;
     let e1 = Trace::E1.steps();
     f.add("C-F6.e1.steps", e1.len())?;
@@ -517,7 +602,72 @@ pub fn facts() -> Result<Facts, String> {
         "Turing lecture (F8)",
     )?;
     facts_10_13(&mut f)?;
+    f.pin(
+        "C-F14.interprocess_communication.year",
+        cited::INTERPROCESS_YEAR,
+        "1986",
+        "Distributed Computing 1(2):77",
+    )?;
+    // 09_1: the torn two-digit rewrite of 01_1's slate
+    f.pin(
+        "C-X1.rewrite_09_as_10.reads_in_between",
+        torn_two_digit_reads(cited::TORN_FROM, cited::TORN_TO).join(","),
+        "00,19",
+        "claim walk (09_1)",
+    )?;
+    // 08_9: four customers, atomic, tickets at most 4: recorded (711.7 s in
+    // Python, about 7 s here), recounted live by the test below
+    let (n4, ok4) = recorded_sweep(4, 4, false).ok_or("sweep_big.txt has no N=4 K=4 atomic line")?;
+    f.pin(
+        "C-F8.n4_k4_atomic.states.recorded",
+        n4,
+        "3027633",
+        "outputs/sweep_big.txt:3",
+    )?;
+    f.pin(
+        "C-F8.n4_k4_atomic.violation_found",
+        bit(!ok4),
+        "0",
+        "outputs/sweep_big.txt:3",
+    )?;
+    // 09_6: three customers, flickering slates and flags, tickets at most 6
+    let safe = model::explore(&model::Bakery::new(3, 6, Variant::Correct, true, true));
+    let (n3, _) = recorded_sweep(3, 6, true).ok_or("sweep_big.txt has no N=3 K=6 safe line")?;
+    f.pin("C-F8.n3_k6_safe.states", safe.states, "269550", "fact sheet C-F8")?;
+    f.pin(
+        "C-F8.n3_k6_safe.states.recorded",
+        n3,
+        "269550",
+        "outputs/sweep_big.txt:2",
+    )?;
+    f.pin(
+        "C-F8.n3_k6_safe.violation_found",
+        bit(safe.violation.is_some()),
+        "0",
+        "fact sheet C-F8",
+    )?;
     Ok(f)
+}
+
+/// The (ticket, customer) pairs customer `who` waits behind in a run, in
+/// order, repeats merged (07_5: Blue waits on Purple's 1, then Teal's 2).
+pub fn waits_behind(steps: &[Step], who: usize) -> Vec<(u32, usize)> {
+    let mut out: Vec<(u32, usize)> = Vec::new();
+    for s in steps.iter().filter(|s| s.customer == who && s.blocked()) {
+        let Some(j) = s
+            .label
+            .strip_prefix("L3: number[")
+            .and_then(|r| r.split(']').next())
+            .and_then(|j| j.parse::<usize>().ok())
+        else {
+            continue;
+        };
+        let w = (s.before.number[j - 1], j);
+        if out.last() != Some(&w) {
+            out.push(w);
+        }
+    }
+    out
 }
 
 #[cfg(test)]
@@ -548,6 +698,24 @@ mod tests {
         let tie = purple_and_teal_tie();
         let st2 = &tie.last().expect("steps").after;
         assert_eq!(service_order(&st2.number), [5, 2, 1, 3, 4]);
+    }
+
+    #[test]
+    fn the_recorded_four_customer_search_recounts_live() {
+        // 08_9's card: the recording the facts print, recounted by the model
+        let r = model::explore(&model::Bakery::new(4, 4, Variant::Correct, false, true));
+        assert_eq!(Some((r.states, r.violation.is_none())), recorded_sweep(4, 4, false));
+        assert_eq!(r.states, 3_027_633);
+        assert!(recorded_sweep(5, 4, false).is_none(), "only recorded sweeps are found");
+    }
+
+    #[test]
+    fn a_torn_two_digit_rewrite_reads_one_digit_of_each() {
+        assert_eq!(torn_two_digit_reads(9, 10), ["00", "19"]);
+        // a digit that does not change gives no torn value
+        assert_eq!(torn_two_digit_reads(10, 11), ["10", "11"]);
+        assert_eq!(torn_two_digit_reads(19, 20), ["10", "29"]);
+        assert_eq!(torn_two_digit_reads(5, 5), ["05"]);
     }
 }
 
