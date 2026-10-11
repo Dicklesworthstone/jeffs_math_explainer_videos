@@ -652,6 +652,19 @@ pub mod wrap {
         x
     }
 
+    /// Chapter 7's bug in a table multiply (11_7): of the nonzero pairs
+    /// (a, b), how many have LOG[a] + LOG[b] ≥ 256, where a `u8` sum wraps;
+    /// and how many pairs there are.
+    pub fn u8_log_sum_wraps(log: &[u8; 256]) -> (usize, usize) {
+        let mut wraps = 0;
+        for a in 1..256 {
+            for b in 1..256 {
+                wraps += usize::from(u16::from(log[a]) + u16::from(log[b]) >= 256);
+            }
+        }
+        (wraps, 255 * 255)
+    }
+
     /// Can a table of byte amounts, wrapped at 256, be undone? Elimination
     /// with odd pivots (the odd bytes are the ones with partners); the table
     /// is undone exactly when every column finds one.
@@ -724,6 +737,12 @@ pub mod wrap {
     #[cfg(test)]
     mod tests {
         use super::*;
+
+        #[test]
+        fn a_u8_log_sum_wraps_for_about_half_the_pairs() {
+            // 11_7's caption, against the oracle's count (B-F13)
+            assert_eq!(u8_log_sum_wraps(&crate::model::logs()), (32_131, 65_025));
+        }
 
         #[test]
         fn odd_bytes_have_partners_and_even_ones_collide() {

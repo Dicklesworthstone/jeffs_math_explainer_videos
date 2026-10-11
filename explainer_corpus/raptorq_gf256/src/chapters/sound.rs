@@ -9,6 +9,7 @@ use std::f64::consts::TAU;
 use std::path::PathBuf;
 
 use explainer_score::instr::{Instrument, Note, render};
+use explainer_score::sonify::{Grain, cloud};
 use explainer_score::units::midi_to_hz;
 use explainer_score::{FS, Stereo};
 
@@ -107,6 +108,27 @@ pub fn overflow(fold: Option<u8>, seconds: f64) -> Stereo {
     finish(out, seconds)
 }
 
+/// The byte clock's lap (11_4): one glassy grain per click, 255 of them,
+/// climbing one octave from E5, then the home bell (E6) as the dot lands.
+pub fn lap(clicks: usize, seconds: f64) -> Stereo {
+    let run = seconds - 0.6;
+    let grains: Vec<Grain> = (0..clicks)
+        .map(|k| {
+            let u = k as f64 / clicks as f64;
+            Grain {
+                start: u * run,
+                pitch: BIT_PITCH[0] + 12.0 * u,
+                pan: (u * 2.0 - 1.0) * 0.5,
+                amp: 0.5,
+            }
+        })
+        .collect();
+    let mut out = cloud(&grains, seconds + 4.0);
+    let home = Note::new(BIT_PITCH[0] + 12.0, 0.7, 0.4, 11);
+    out.mix_in(&render(Instrument::WarmGlass, &home), frames(run), 1.0);
+    finish(out, seconds)
+}
+
 /// Write a sonification where the narrator and the score read it; the
 /// error is a scene error.
 pub fn wav(label: &str, s: &Stereo) -> fmn::Result<PathBuf> {
@@ -156,6 +178,7 @@ mod tests {
             chords(&[(3, 0.0, 0.8), (7, 1.0, 0.8), (9, 2.0, 0.9)], 3.0),
             overflow(None, 3.0),
             overflow(Some(0x1D), 3.0),
+            lap(255, 3.0),
         ] {
             assert_eq!(s.len(), frames(3.0));
             assert!(s.is_finite());

@@ -17,8 +17,11 @@ pub mod picture;
 pub mod props;
 
 // Chapters 07–12 (lane B-2) and their props: the byte register with its
-// gutter, the n-hour clock, the byte-chord sonifications.
+// gutter, the n-hour clock, the byte-chord sonifications (fold.rs also
+// holds the code panel and the math lower-third 11 reuses).
+pub mod byte_clock;
 pub mod clock;
+pub mod fold;
 pub mod polynomials;
 pub mod prime_clocks;
 pub mod register;
@@ -72,8 +75,16 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(polynomials::Polynomials { kit }),
             intensity: 0.5,
         },
-        animatic!("10_the_fold", 0.55),
-        animatic!("11_the_byte_clock", 0.6),
+        Chapter {
+            key: "10_the_fold",
+            make: |kit| Box::new(fold::Fold { kit }),
+            intensity: 0.55,
+        },
+        Chapter {
+            key: "11_the_byte_clock",
+            make: |kit| Box::new(byte_clock::TheByteClock { kit }),
+            intensity: 0.6,
+        },
         animatic!("12_the_times_table", 0.65),
         animatic!("13_the_byte_lottery", 0.55),
         Chapter {

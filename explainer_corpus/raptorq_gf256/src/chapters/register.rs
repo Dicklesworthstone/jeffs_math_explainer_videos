@@ -211,6 +211,111 @@ impl Register {
         self.bits[7] = false;
         Ok(fallen)
     }
+
+    /// The rotation fold (10_1, 10_3): the fallen one swings back under the
+    /// row into the ones place, which it fills (the fresh zero there fades).
+    pub fn rotate_in(&mut self, stage: &mut Stage<'_>, fallen: Mob, run_time: f64) -> fmn::Result<()> {
+        let old = self.tiles[7];
+        let swing = fallen
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(run_time),
+                path_arc: Some(1.1),
+                ..AnimateArgs::default()
+            })?
+            .move_to(self.slot(7), ORIGIN)?
+            .set_color(self.lit)?;
+        let gone = fade_out(stage.arena_mut(), old, ORIGIN, 1.0)?;
+        play!(stage; swing, gone.rt(run_time * 0.6));
+        self.tiles[7] = fallen;
+        self.bits[7] = true;
+        Ok(())
+    }
+
+    /// A fold (10_5, 10_6): the fallen one rises out of the gutter as the
+    /// fold's bits, a row of `color` tiles above the slots of `fold`'s set
+    /// bits, which drop in and ex-or into the byte: each slot they land on
+    /// flips.
+    pub fn fold_in(
+        &mut self,
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        fallen: Mob,
+        fold: u8,
+        color: Srgb,
+        run_time: f64,
+    ) -> fmn::Result<()> {
+        let lift = 1.25 * self.cell;
+        let slots: Vec<usize> = (0..8).filter(|&k| fold >> (7 - k) & 1 == 1).collect();
+        let mut row = Vec::new();
+        for &k in &slots {
+            let s = self.slot(k);
+            row.push(tile(kit, stage, true, self.cell, color, v(s[0], s[1] + lift))?);
+        }
+        // the fallen bit turns into the fold's bits above the row
+        let mut rise: Vec<Box<dyn Animation>> = Vec::new();
+        let above = v(self.slot(0)[0] - 0.2 * self.cell, self.centre[1] + lift);
+        let a = fallen
+            .animate()
+            .set_anim_args(AnimateArgs {
+                path_arc: Some(-0.8),
+                ..AnimateArgs::default()
+            })?
+            .move_to(above, ORIGIN)?
+            .set_color(color)?;
+        rise.push(stage.prepare(a)?);
+        for &t in &row {
+            let a = fade_in(stage.arena_mut(), t, v(0.0, 0.25 * self.cell), 1.0)?;
+            rise.push(stage.prepare(a)?);
+        }
+        stage.play_prepared_with(
+            rise,
+            PlayOverrides {
+                run_time: Some(run_time),
+                ..PlayOverrides::default()
+            },
+        )?;
+        // they drop in, and every slot they land on flips
+        let mut drop: Vec<Box<dyn Animation>> = Vec::new();
+        let a = fade_out(stage.arena_mut(), fallen, ORIGIN, 1.0)?;
+        drop.push(stage.prepare(a)?);
+        for (&t, &k) in row.iter().zip(&slots) {
+            let a = fade_out(stage.arena_mut(), t, v(0.0, -lift), 1.0)?;
+            drop.push(stage.prepare(a)?);
+            let flipped = tile(kit, stage, !self.bits[k], self.cell, self.lit, self.slot(k))?;
+            drop.push(stage.prepare(fmn::animation::replacement_transform(self.tiles[k], flipped))?);
+            self.tiles[k] = flipped;
+            self.bits[k] = !self.bits[k];
+        }
+        stage.play_prepared_with(
+            drop,
+            PlayOverrides {
+                run_time: Some(run_time),
+                ..PlayOverrides::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    /// Show another byte: every tile cross-fades to the new value's.
+    pub fn set_value(&mut self, kit: &Kit, stage: &mut Stage<'_>, value: u8, run_time: f64) -> fmn::Result<()> {
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for k in 0..8 {
+            let one = value >> (7 - k) & 1 == 1;
+            let t = tile(kit, stage, one, self.cell, self.lit, self.slot(k))?;
+            anims.push(stage.prepare(fmn::animation::replacement_transform(self.tiles[k], t))?);
+            self.tiles[k] = t;
+            self.bits[k] = one;
+        }
+        stage.play_prepared_with(
+            anims,
+            PlayOverrides {
+                run_time: Some(run_time),
+                ..PlayOverrides::default()
+            },
+        )?;
+        Ok(())
+    }
 }
 
 fn sub(a: Vec3, b: Vec3) -> Vec3 {
