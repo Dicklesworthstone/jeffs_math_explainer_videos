@@ -12,14 +12,16 @@ jobs:
   hygiene:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: No private machines, accounts or paths (public repository)
         env:
           PRIVATE_PATTERNS: ${{ secrets.PRIVATE_PATTERNS }}
         run: tools/scan_private.sh
       - name: Every script.tsv is what its storyboard generates
+        if: success() || failure()
         run: python3 -I tools/storyboard.py --check
       - name: Python tools and oracles compile
+        if: success() || failure()
         run: python3 -m py_compile tools/*.py explainer_corpus/*/oracle.py
 
   score:
@@ -29,7 +31,7 @@ jobs:
     env:
       TOOLCHAIN: nightly-2026-08-31
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: The pinned nightly
         run: rustup toolchain install "$TOOLCHAIN" --profile minimal --component rustfmt,clippy
       - name: explainer_score as a standalone crate
