@@ -30,7 +30,7 @@ const EXPLAINER: Explainer = Explainer {
     chapters: chapters::registry,
     facts: facts::facts,
     glyph_text: chapters::glyphs::TEXT,
-    glyph_tex: &[],
+    glyph_tex: chapters::glyphs::TEX,
     glyph_mono: chapters::glyphs::MONO,
     identity: explainer_score::score::Identity::bakery_algorithm,
     narration_gain_db: explainer_kit::narration::GAIN_DB,

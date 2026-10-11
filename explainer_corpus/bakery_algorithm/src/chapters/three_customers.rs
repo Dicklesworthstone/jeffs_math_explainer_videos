@@ -16,7 +16,11 @@ use explainer_kit::{Kit, Palette, Timed, play, thousands, tween, v};
 use explainer_score::rng::{SplitMix64, seed_for};
 use fmn::prelude::*;
 
-use super::draw::{Lattice, NAMES, badge, customer, group, order_gold, room_red};
+use super::draw::{Lattice, badge, customer, group, order_gold, room_red};
+use super::glyphs::{
+    BLUES_STEPS, GREENS_STEPS, ORDERS, PURPLES_STEPS, PUT_TWO_IN, TRAILS as TRAILS_LABEL, TRAILS_A, TRAILS_B,
+    TWO_INSIDE_KEY,
+};
 use crate::model::{Cmp, OrderCount, bakery_count, bakery_program};
 
 /// 05_7's last frame, which 06 opens on (ChartreuseLotus's square).
@@ -46,11 +50,14 @@ const SCALE: f64 = 0.37;
 const CENTER: (f64, f64) = (0.25, -0.25);
 
 /// The view, all trackers: spin about the vertical (Purple's) axis, tilt
-/// back, scene units per step, the cube centre's place, and how far the
-/// trails have drawn.
+/// back, scene units per step, the cube centre's place, how far the trails
+/// have drawn, and how fast the view turns on its own (rad/s; the orbit
+/// keeps going while other animations play, and stops at the end of its
+/// arc).
 #[derive(Clone, Copy)]
 struct View {
     spin: Mob,
+    turning: Mob,
     tilt: Mob,
     scale: Mob,
     cx: Mob,
@@ -109,6 +116,7 @@ impl Cube {
     fn new(stage: &mut Stage<'_>, steps: usize) -> Self {
         let view = View {
             spin: stage.add_value_tracker(0.0),
+            turning: stage.add_value_tracker(0.0),
             tilt: stage.add_value_tracker(0.0),
             scale: stage.add_value_tracker(SQUARE.side / steps as f64),
             cx: stage.add_value_tracker(SQUARE.center[0]),
@@ -211,6 +219,19 @@ impl Cube {
             },
             true,
         )?;
+        // the orbit: spin advances at the turning rate, within its arc
+        let (lo, hi) = (SPIN.min(SPIN + TURN), SPIN.max(SPIN + TURN));
+        stage.add_dt_updater(
+            anchor,
+            move |s, _, dt| {
+                let w = s.tracker_value(view.turning).unwrap_or(0.0);
+                if w != 0.0 && dt > 0.0 {
+                    let now = s.tracker_value(view.spin).unwrap_or(SPIN);
+                    let _ = s.set_tracker_value(view.spin, (now + w * dt).clamp(lo, hi));
+                }
+            },
+            false,
+        )?;
         Ok(view)
     }
 }
@@ -218,18 +239,6 @@ impl Cube {
 /// A stroke and no fill.
 fn stroke(c: Srgb, w: f64, o: f64) -> Style {
     Style::default().fill(c, 0.0).stroke(c, w, o)
-}
-
-/// Tween a tracker at a constant rate (an orbit).
-fn steady(tracker: Mob, value: f64, run_time: f64) -> fmn::Result<AnimBuilder> {
-    Ok(tracker
-        .animate()
-        .set_anim_args(AnimateArgs {
-            run_time: Some(run_time),
-            rate_func: Some(fmn::core::rate::linear),
-            ..AnimateArgs::default()
-        })?
-        .set_value(value)?)
 }
 
 pub struct ThreeCustomers {
@@ -351,11 +360,12 @@ impl SceneConstruct for ThreeCustomers {
         let grid_ten = stage.arena_mut().add(ten.grid()?);
         let mark_ten = stage.arena_mut().add(ten.mark(steps - 1, steps - 1, room_red()));
         play!(stage;
-            Transform::new(old_grid, grid_ten).rt(1.2),
+            fade_out(stage.arena_mut(), old_grid, ORIGIN, 1.0)?.rt(1.0),
+            fade_in(stage.arena_mut(), grid_ten, ORIGIN, 1.0)?.rt(1.2),
             Transform::new(old_mark, mark_ten).rt(1.2),
         );
         // the drawn cube takes over, on exactly those lines
-        stage.remove_from_scene(old_grid);
+        stage.remove_from_scene(grid_ten);
         stage.remove_from_scene(old_mark);
         for &m in &world {
             stage.add_to_scene(m)?;
@@ -374,7 +384,7 @@ impl SceneConstruct for ThreeCustomers {
         }
         stage.play(tween(beams_on, 1.0, 1.2)?)?;
         stage.remove_from_scene(mark);
-        let key = kit.text(stage, "red: two in the room at once", 22.0, room_red(), v(4.95, 0.9))?;
+        let key = kit.text(stage, TWO_INSIDE_KEY, 22.0, room_red(), v(4.95, 0.9))?;
         play!(stage; fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.6));
         let q = predict_pause(&kit, stage, v(4.95, 2.1))?;
 
@@ -387,9 +397,13 @@ impl SceneConstruct for ThreeCustomers {
         }
         // the beams stay drawn last, over every trail
         stage.scene_mut().bring_to_front(&beams)?;
-        play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
+        // the view starts turning, and keeps turning under what follows
+        play!(stage;
+            fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
+            tween(view.turning, TURN / 8.0, 1.0)?,
+        );
         let readout = kit.live_count(stage, count, 52.0, order_gold(), v(0.0, 3.3))?;
-        let unit = kit.text(stage, "orders", 28.0, Palette::dim(), v(0.0, 2.75))?;
+        let unit = kit.text(stage, ORDERS, 28.0, Palette::dim(), v(0.0, 2.75))?;
         stage.add_to_scene(unit)?;
         let full = TRAILS as f64 * TRAIL_LAG + TRAIL_SPAN;
         let climb = count
@@ -400,37 +414,35 @@ impl SceneConstruct for ThreeCustomers {
                 ..AnimateArgs::default()
             })?
             .set_value(total.orders as f64)?;
-        play!(stage; climb, tween(view.reveal, full, 5.0)?);
-        // and the beams stay empty: not one order passes through them
+        // the trails draw while the count climbs; at "not one of them" the
+        // verdict lands and the beams flash, still empty
+        play!(stage; climb, tween(view.reveal, 0.45 * full, 1.9)?);
         let none = kit.text(
             stage,
-            &format!("{} put two in the room", thousands(total.two_inside)),
+            &format!("{} {PUT_TWO_IN}", thousands(total.two_inside)),
             26.0,
             room_red(),
             v(4.95, 0.4),
         )?;
-        play!(stage;
-            fade_in(stage.arena_mut(), none, v(0.0, -0.1), 1.0)?.rt(0.6),
-            tween(beams_on, 1.8, 0.4)?,
-        );
-        stage.play(tween(beams_on, 1.0, 0.6)?)?;
         let note = lower_third(
             &kit,
             stage,
-            "trails:",
-            &format!(
-                "drawn uniformly at random from all {} orders, not as a real machine runs them",
-                thousands(total.orders)
-            ),
+            TRAILS_LABEL,
+            &format!("{TRAILS_A} {} {TRAILS_B}", thousands(total.orders)),
         )?;
         play!(stage;
-            steady(view.spin, SPIN + TURN, 7.0)?,
+            tween(view.reveal, full, 2.3)?,
+            fade_in(stage.arena_mut(), none, v(0.0, -0.1), 1.0)?.rt(0.6),
+            tween(beams_on, 1.8, 0.5)?,
             fade_in(stage.arena_mut(), note, v(0.0, 0.15), 1.0)?.rt(0.8),
         );
+        stage.play(tween(beams_on, 1.0, 0.7)?)?;
         kit.hold(stage)?;
+        kit.music_breath(stage, 1.0)?;
+        stage.play(tween(view.turning, 0.0, 0.6)?)?;
         stage.clear_updaters(readout, true);
         stage.clear_updaters(anchor, true);
-        explainer_kit::fade_all(stage, 1.0)?;
+        explainer_kit::fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
 }
@@ -466,7 +478,7 @@ fn legend(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 3]> {
         let b = badge(kit, stage, k, 0.17, v(-6.55, y))?;
         let t = kit.text_left(
             stage,
-            &format!("{}'s steps", NAMES[k - 1]),
+            [BLUES_STEPS, GREENS_STEPS, PURPLES_STEPS][k - 1],
             26.0,
             customer(k),
             v(-6.25, y),

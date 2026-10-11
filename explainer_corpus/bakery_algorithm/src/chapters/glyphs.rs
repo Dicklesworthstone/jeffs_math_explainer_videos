@@ -88,6 +88,63 @@ pub const CUSTOMER_NUMBER_UP: &str = "customer number";
 pub const SERVED: &str = "served";
 pub const TOTALLY_ORDERED: &str = "pairs are totally ordered, and each has finitely many ahead of it";
 
+// 06_three_customers
+pub const PURPLES_STEPS: &str = "Purple's steps";
+pub const TWO_INSIDE_KEY: &str = "red: two in the room at once";
+/// "{count} put two in the room", the count from `facts`.
+pub const PUT_TWO_IN: &str = "put two in the room";
+pub const TRAILS: &str = "trails:";
+/// "drawn uniformly at random from all {orders} orders, not as a real
+/// machine runs them" (R15), around the count.
+pub const TRAILS_A: &str = "drawn uniformly at random from all";
+pub const TRAILS_B: &str = "orders, not as a real machine runs them";
+
+// 08_why_never_two
+pub const TIME: &str = "time";
+pub const BLUE_CHOOSING: &str = "Blue choosing";
+pub const GREEN_CHOOSING: &str = "Green choosing";
+pub const BLUE_IN_ROOM: &str = "Blue in the room";
+pub const LAST_LOOK: &str = "Blue's last look at Green's flag";
+/// "Green: {place}", the place one of the three below.
+pub const GREEN_AT: &str = "Green:";
+pub const NOT_YET: &str = "not yet choosing";
+pub const CHOOSING: &str = "choosing";
+pub const DONE_CHOOSING: &str = "done choosing";
+pub const COUNTS_ON: &str = "the proof counts on:";
+pub const COUNTS_ON_TEXT: &str = "each customer's steps happen in order; a finished write is seen by every later read; \
+     the biggest ticket is found by reading each slate once";
+pub const SEES_TICKET: &str = "Green sees Blue's ticket";
+pub const FACT_ONE: &str = "fact one";
+pub const FACT_ONE_TEXT: &str = "Blue finished choosing before Green started:\nGreen's ticket is bigger than Blue's";
+pub const FACT_TWO: &str = "fact two";
+pub const FACT_TWO_TEXT: &str = "Blue is in the room: everyone else holding\na ticket has a bigger pair than Blue's";
+pub const WHY: &str = "why?";
+pub const GREEN_BIGGER: &str = "Green's ticket > Blue's";
+pub const FLAG_UP: &str = "flag up: Blue would wait";
+pub const REAL_TICKET: &str = "Blue reads Green's real ticket";
+pub const PAIR_SMALLER: &str = "Blue's pair < Green's pair";
+pub const FOR_BLUE: &str = "fact two, for Blue";
+pub const FOR_GREEN: &str = "fact two, for Green";
+pub const IMPOSSIBLE_PAIR: &str = "a pair smaller than itself: impossible";
+/// 08_9's card, around its numbers (from `facts` and the search's key):
+/// "computer search: {n} customers, tickets up to {k} (runs that would pass
+/// {k} are cut)," / "indivisible reads and writes: {states} reachable
+/// states, no violation".
+pub const SEARCH_A: &str = "computer search:";
+pub const SEARCH_B: &str = "customers, tickets up to";
+pub const SEARCH_C: &str = "(runs that would pass";
+pub const SEARCH_D: &str = "are cut),";
+pub const SEARCH_E: &str = "indivisible reads and writes:";
+pub const SEARCH_F: &str = "reachable states,";
+pub const NO_VIOLATION: &str = "no violation";
+pub const A_VIOLATION: &str = "a violation";
+pub const THE_PROOF: &str = "the proof:";
+pub const EVERY_CASE: &str = "the proof: any number of customers, any tickets";
+/// 08_8's pairs (TeX).
+pub const PAIRS_FOR_BLUE: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green})";
+pub const PAIRS_FOR_GREEN: &str = r"(n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
+pub const PAIRS_CHAIN: &str = r"(n_B,\ \text{Blue}) < (n_G,\ \text{Green}) < (n_B,\ \text{Blue})";
+
 /// Every string above, for the probe.
 pub const TEXT: &[&str] = &[
     DIGITS,
@@ -162,7 +219,50 @@ pub const TEXT: &[&str] = &[
     CUSTOMER_NUMBER_UP,
     SERVED,
     TOTALLY_ORDERED,
+    PURPLES_STEPS,
+    TWO_INSIDE_KEY,
+    PUT_TWO_IN,
+    TRAILS,
+    TRAILS_A,
+    TRAILS_B,
+    TIME,
+    BLUE_CHOOSING,
+    GREEN_CHOOSING,
+    BLUE_IN_ROOM,
+    LAST_LOOK,
+    GREEN_AT,
+    NOT_YET,
+    CHOOSING,
+    DONE_CHOOSING,
+    COUNTS_ON,
+    COUNTS_ON_TEXT,
+    SEES_TICKET,
+    FACT_ONE,
+    FACT_ONE_TEXT,
+    FACT_TWO,
+    FACT_TWO_TEXT,
+    WHY,
+    GREEN_BIGGER,
+    FLAG_UP,
+    REAL_TICKET,
+    PAIR_SMALLER,
+    FOR_BLUE,
+    FOR_GREEN,
+    IMPOSSIBLE_PAIR,
+    SEARCH_A,
+    SEARCH_B,
+    SEARCH_C,
+    SEARCH_D,
+    SEARCH_E,
+    SEARCH_F,
+    NO_VIOLATION,
+    A_VIOLATION,
+    THE_PROOF,
+    EVERY_CASE,
 ];
 
 /// Code, in CM Typewriter.
 pub const MONO: &[&str] = &[CODE, X];
+
+/// Math, in TeX.
+pub const TEX: &[&str] = &[PAIRS_FOR_BLUE, PAIRS_FOR_GREEN, PAIRS_CHAIN];
