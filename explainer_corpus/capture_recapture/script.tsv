@@ -43,7 +43,7 @@
 06_4	Cut along at our three, and you get the score curve. Its heights, out to every lake size, add to sixteen and two thirds. Same mountains, two questions. What catch will this lake give, and which lake gave our catch?
 07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it. Divide one score by the other, and almost everything cancels.
 07_2	In the mystery lake, the step from thirty-two to thirty-three leaves twenty-three times twenty-three, over thirty-three times sixteen. That's five hundred twenty-nine against five hundred twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five hundred seventy-six against five hundred seventy-eight, so it goes down.
-07_3	So take the top minus the bottom, written with letters. Multiply it out. What survives?
+07_3	So take the top minus the bottom, written with letters. Multiply it out. And what survives?
 07_4	Marked times second catch, minus caught twice times lake size. In the mystery lake, ten times ten, minus three times thirty-three. One. While that's positive, the score is still rising.
 07_5	Now write it with the table's four cells. It becomes first catch only times second catch only, minus caught twice times the dark cell.
 07_6	In the mystery lake, seven times seven, minus three times sixteen. One, same as before. Back to Feller's lake.
@@ -54,18 +54,18 @@
 08_5	At Feller's numbers the line goes exactly straight at ten thousand. So the step up from nine thousand nine hundred ninety-nine changes nothing, and the two tie for the top score. Feller just says ten thousand.
 09_1	Let's check this by cheating. Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.
 09_2	Where do the counts of fish caught twice pile up?
-09_3	In a bell around a hundred. Most land within about nine of it.
-09_4	But the estimate divides by that count, and dividing bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many.
+09_3	They pile up in a bell around a hundred. Most land within about nine of it.
+09_4	But the estimate divides by that count, and division bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many.
 09_5	Ninety-five percent of the estimates land from about eighty-five hundred to just over twelve thousand. Their average is about ten thousand and ninety, a little high.
-09_6	Two lines of code run the experiments. The last line checks their average against the exact one, built from the same rule as the netfuls. They agree, within the simulation's own wobble. Always check a simulation against something you can compute exactly.
-10_1	With a smaller experiment it gets worse. In a lake of a thousand, mark fifty and catch fifty. How often does the second catch hold no marked fish at all?
+09_6	Two lines of code run all the experiments. The last line checks their average against the exact one, built by the same rule as each netful. They agree, within the simulation's own wobble. Always check a simulation against something you can compute exactly.
+10_1	With a smaller experiment it gets worse. In a lake of a thousand fish, mark fifty and catch fifty. How often does the second catch hold no marked fish at all?
 10_2	About one time in fourteen. Then the soup guess divides by zero.
 10_3	Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. It never divides by zero. Here we expect only two and a half caught twice, so it still runs about six and a half percent low. Once you expect four or more, it's within two percent on average.
 11_1	So far the lake was known, and we watched the estimates scatter. Now turn it around. We don't know the lake. Which sizes could plausibly have given us our hundred caught twice?
 11_2	Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros.
 11_3	A million fish? Then we'd expect to catch about one marked fish, not a hundred.
 11_4	Even at the best size, catching exactly a hundred had only about a four percent chance. Is that a problem?
-11_5	Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet it's the most likely count.
+11_5	Flip a hundred coins. Exactly fifty heads comes up only about eight percent of the time, yet it's the most likely count.
 12_1	Now the careful range. For each lake size, ask whether a hundred caught twice would land in that lake's middle ninety-five percent. Keep the sizes where it would.
 12_2	Build that range for every experiment. In the long run, it rings the true size at least ninety-five times in a hundred, whatever that size is. Like a ring toss.
 12_3	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed, and we try every lake size.
