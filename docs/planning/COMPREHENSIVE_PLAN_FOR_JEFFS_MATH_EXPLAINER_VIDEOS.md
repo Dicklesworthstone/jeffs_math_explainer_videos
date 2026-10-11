@@ -1310,7 +1310,7 @@ chapter has one or two.
 | 01_2 | Between the two nets we've seen nineteen hundred different fish. Now look at the fish no net ever touched. | Everything else fades to dark silhouettes; the lake reorganizes into a 2×2 table **100 \| 900 / 900 \| ?** | morph swarm → table | |
 | 01_3 | We can say there are about eight thousand one hundred of them, and we can say how sure we are. | The dark cell fills with "≈ 8,100" | live number | listen 2 s (motif, unresolved) |
 | 01_4 | *(title)* | **How to Count Fish You've Never Seen** | title card | hold |
-| 01_5 | Why not just count one patch and scale up? This net covers one hundredth of the lake. Four hundred fish, times a hundred, is forty thousand. *(values from P1)* | A net drops; a 10×10 grid with one square lit; the arithmetic | net sweep, live count | |
+| 01_5 | Why not just count one patch and scale up? This net covers one hundredth of the lake. Four hundred and fifty-one fish, times a hundred, is forty-five thousand one hundred. *(the deep-end spot of the seeded lake, A-F27)* | A net drops; a 10×10 grid with one square lit; the arithmetic | net sweep, live count | |
 | 01_6 | Try two other spots, and you get wildly different answers. Fish crowd into weeds and the deep end, and avoid open water. A net can't tell you how much of the lake it really searched. | Three estimates on a plain number line spanning ≥ 30× (one P1 number used everywhere); a density heat map fades in; a "real answer: ?" box | heat map, `indicate` | |
 
 - **Personas.** Maya: the table is a puzzle she can see; the patch arithmetic
@@ -1503,12 +1503,15 @@ chapter has one or two.
 | 10_6 | And it has counted the dead. During the war in Kosovo, in nineteen ninety-nine, about four thousand four hundred victims were named across several lists. The overlaps between lists estimated about ten thousand four hundred. Years later a full count found nine thousand seven hundred ninety, inside the estimate's range. | Sober typography only; numbers; the range 9,002–12,122; a four-list table with sixteen cells, one dark | quiet card, **silence** under the numbers | hold |
 | 10_7 | France, the bugs, Kosovo. Each is the same table, with one cell nobody can see, filled in by the cells we can. | Final lake; the table; motif resolves | coda; receipts card ("every number in this video was computed by code: link") | |
 
-- **Ruth:** Laplace's sample was selected communes spread over thirty
-  départements (2,037,615 people; 215,599 births in 3 years = 71,866⅓ a year;
-  ratio 28.352845; 28,352,845 for 1,000,000 births, which Laplace *assumed*);
-  not a census *(wording to confirm against the Essai in P1)*. Kosovo used
+- **Ruth:** Laplace's sample: thirty départements spread evenly over France,
+  and within them the communes with the most reliable records, counted by the
+  government at his request (2,037,615 people; 215,599 births in 3 years =
+  71,866⅓ a year; ratio 28.352845; 28,352,845 for 1,000,000 births, which
+  Laplace *assumed*); not a census (checked against the Essai in P1:
+  docs/facts/capture_recapture/fact-sheet.md). Kosovo used
   multiple-systems estimation with log-linear models on four lists, not a
-  two-list formula. Mills (1972) seeded bugs deliberately: painted fish
+  two-list formula. Mills (IBM report, 1972; his collected papers date the
+  article 1970) seeded bugs deliberately: painted fish
   (description).
 - **Dev:** the two-reviewer formula survives reviewers of different skill (the
   M_t model); it is bugs that differ in difficulty for everyone (M_h) that bias
@@ -1540,14 +1543,14 @@ chapter has one or two.
 | A-F17 | Chapman (Feller's data) | 9,919.8; SE 883 | exact |
 | A-F18 | Chapman bias identity | E[N̂_C] = N − (N+1)·C(N−M, n+1)/C(N+1, n+1) | **proved** + exact fractions |
 | A-F19 | simulated quantiles (Feller's lake) | 8,475 / 10,000 / 12,048 (k = 118 / 100 / 83); sim mean 10,080.0 (exact 10,082.5) | seeded sim + exact |
-| A-F20 | small study N = 1,000, M = n = 100 | 625 / 1,000 / 2,000; mean 1,103 | sim + exact |
+| A-F20 | small study N = 1,000, M = n = 100 | 625 / 1,000 / 2,000; mean 1,102 (exact; the seeded sim gives 1,103) | sim + exact |
 | A-F21 | small study N = 1,000, M = n = 50 | P(k = 0) = 7.20% (1 in 13.9); Chapman exact mean 935.2 (−6.5%); plain formula given k > 0: 1,241 (+24%) | exact |
 | A-F22 | failure-mode medians | bold fish 7,752; trap-happy 7,143; trap-shy 14,493; marks lost 20% 12,500; +2,000 newcomers 12,122; 30% deaths 10,000; release site 6,250; far side 25,000 | seeded sims |
 | A-F23 | Laplace 1802 | 2,037,615 people; 215,599 births / 3 yr = 71,866⅓ / yr; ratio 28.352845; 28,352,845; odds "almost 300000 against 1" | arithmetic + memo quote |
 | A-F24 | two reviewers | 30, 24, 12 → 42 seen; estimate 60; 18 hiding; exact 95% [47, 94] (5–52 hiding); Chapman 58.6 ± 8.4 | exact |
 | A-F25 | Kosovo | ≈4,400 named; estimate 10,356 (95% 9,002–12,122); later count 9,790 | Ball et al. 2002; Spagat 2014 |
 | A-F26 | Bayesian aside (flat prior) | 8,536–12,186; posterior mean (M−1)(n−1)/(k−2) = 10,183.7 | numeric + closed form |
-| A-F27 | dip estimates (01) | computed in P1 from the seeded clustered lake; one number used everywhere | *(P1)* |
+| A-F27 | dip estimates (01) | one net = 1/100 of the lake: weed bed 880 → 88,000; open water 28 → 2,800; deep end 451 → 45,100 (31.4× apart) | seeded clustered lake, fixed spots (docs/facts/capture_recapture/oracle.py) |
 | A-F28 | split symmetry | M = 2,000, n = 500 and M = 500, n = 2,000: exact SD 894 both | exact pushforward |
 | A-F29 | table identity | Mn − kN = ab − k·u; Feller û = ⌊900·900/100⌋ = 8,100; toy û = ⌊49/3⌋ = 16 | algebra + exact |
 | A-F30 | coin analogy | P(50 heads of 100) = 7.96% | exact |
@@ -1557,8 +1560,10 @@ chapter has one or two.
 Non-numeric claims (cite in the fact sheet): Feller's example letter and pages
 by edition; footnote 13 wording; "an unknown fixed number" (Feller 3rd ed.) and
 the 1950 "meaningless to ask" sentence (A-F35, quoted with its edition);
-maximum likelihood "developed and named by Fisher (1912–1922), with earlier
-versions by Bernoulli, Lambert and Gauss" (Stigler 2007) *(P1 to cite)*;
+maximum likelihood developed and named by Fisher (1912–1922, the span of
+Aldrich 1997's title), with earlier versions by Lagrange, Daniel Bernoulli,
+Laplace and Gauss (Stigler 2007, who says Lambert "got what was arguably the
+wrong answer"; checked in P1);
 Chapman (1951) and Bailey (1951) cited by Feller; Schnabel 1938 in the
 *Monthly*; Petersen (1896) did **not** compute Mn/k himself (Goudie & Goudie
 2007), so the video never says "Petersen's formula"; Briand et al. (2000) found
@@ -1760,13 +1765,15 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 - **Ruth:** primitive vs irreducible (16 of the 30 degree-8 irreducibles are
   primitive; 0x11D is, 0x11B is not: ord 2 = 51, ord 3 = 255); log of 0 is
   undefined (the code checks zero first); the RFC ships 510-entry OCT_EXP so no
-  `mod 255` is needed; element orders are all powers of 2 because 255 = 3·5·17
+  `mod 255` is needed; the number of elements of each order (1, 2, 4, …, 128) is a power of 2,
+  because 255 = 3·5·17 (the orders themselves are 1, 3, 5, 15, 17, 51, 85, 255)
   (delight, lower-third).
 - **Cut:** the torus from revision 1 (vertex-coloured surfaces smear the
   diagonals; the byte clock carries the idea better).
 - **For programmers (verify before narrating):** Linux RAID-6 computes
-  Q = Σ 2ⁱ·Dᵢ in this exact field; with generator 2 under AES's polynomial,
-  only 51 distinct weights exist.
+  Q = Σ 2ⁱ·Dᵢ in this exact field; under AES's polynomial 2 is not a
+  generator: its powers give only 51 distinct weights (Anvin, "The
+  mathematics of RAID-6").
 
 #### 07_the_byte_lottery (~85 s)
 
@@ -1779,7 +1786,7 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 | 07_5 | Let's race them. Keep adding random cards until the system is solvable, a thousand times over. | Histograms of spares needed: XOR spread (mean 1.6), bytes almost all at zero (mean 0.004) | **Monte Carlo race** | |
 | 07_6 | One subtlety. A bigger field gains nothing if the amounts are still only zeros and ones. All the gain comes from the other two fifty-four values. | Same 0/1 card in both fields: same rank | Ruth beat | hold |
 
-- **Precisely:** "union bound: P(fail) < 256^−h/255; exact values 0.39216% /
+- **Precisely:** "union bound: P(fail) < 256^−h/255; exact values 0.39215% (the bound, 1/255, is 0.39216%) /
   1.5319×10⁻⁵ / 5.984×10⁻⁸ agree to three digits"; "rank is unchanged by
   extending the field".
 
@@ -1999,7 +2006,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 |---|---|---|---|---|
 | 02_1 | The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room. Computer scientists say critical section, and the rule is called mutual exclusion. | A room around the scoreboard | room prop | |
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, go in. | Sign | — | |
-| 02_3 | Same problem. Both read vacant before either flips it. Of the fourteen orders, eight end with both in the room. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square | |
+| 02_3 | Same problem. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; 14 paths, 8 cross it | progress square | |
 | 02_4 | Edsger Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who wanders off outside can't block everyone. And fast or slow, it still works. A year later Donald Knuth added one more. Everyone who wants in gets in eventually. | Rule cards | statement cards | |
 | 02_5 | Hardware usually cheats with a magic sign you can check and flip in one motion. Dijkstra showed an ordinary sign is enough, if nobody can ever catch it halfway through a flip. | Magic sign vs ordinary sign | — | |
 | 02_6 | Here's the harder question. What if a glance can catch the sign mid-flip, as a blur? Hold that thought. | Sign blurs | flicker | hold |
@@ -2092,7 +2099,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | 08_2 | He called memory like that safe. A funny name, since it's the least safe kind. | "safe" card; atomic and regular on screen for Ruth | register zoo (screen) | |
 | 08_3 | Go back to the proof picture, and let every slate flicker while it's written. Every glance that crosses a write turns magenta. | 07's zones; magenta reads | **overlay on the proof zones** | |
 | 08_4 | Every magenta glance lands in the first case, where the proof never used the value. In the last case, the ticket was finished and nobody was touching it. Every read the proof trusts happens while nothing is being written. | Zone (a) shaded "value unused" | zones | |
-| 08_5 | Here a customer glances mid-write, gets seven, garbage, and takes eight. That only makes her later. Here a garbage zero lets a customer straight in. But the other customer is writing a brand-new ticket, so she started choosing after the first one finished. Fact one: her ticket will be bigger, so she waits. | Traces e1 and e3 | traces | |
+| 08_5 | Here a customer glances mid-write, gets seven, garbage, and takes eight. That only makes her later. Here a read in the middle of a write still sees the old zero, and lets a customer straight in. But the other customer is writing a brand-new ticket, so she started choosing after the first one finished. Fact one: her ticket will be bigger, so she waits. | Traces e1 and e3 | traces | |
 | 08_6 | Lamport noticed this only after writing the proof. In his words, the read may return any arbitrary value. A colleague, Anatol Holt, refused to believe it. | Verbatim quote card (1974) | quote card | |
 | 08_7 | One caution, from Lamport himself. Read each slate exactly once when finding the biggest. Read one twice, and with three or more customers and garbage reads, it breaks. | Double-fetch trace (33 steps) | trace | hold |
 
@@ -2127,7 +2134,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. They read the other slates, see no flags, and walk in. Main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
 | 10_3 | That's not the cache. Caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before you read anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — | |
 | 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | |
-| 10_5 | In practice people use the hardware's compare-and-swap. But the bakery lock still ships in Arm's trusted firmware, for the moments at boot when caches are off and compare-and-swap isn't guaranteed to work. | — | — | |
+| 10_5 | In practice people use the hardware's atomic instructions. But the bakery lock still ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | — | — | |
 | 10_6 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback | |
 | 10_7 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card | |
 
@@ -2160,7 +2167,7 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 - **Quotes (verbatim):** "I feel that I did not invent the bakery algorithm, I
   discovered it." (publications page); "the bakery algorithm, it just seemed to
   come out of thin air to me … perhaps that's why I'm proudest of it" (CHM oral
-  history, p. 9).
+  history: the question on p. 9, the answer on p. 10).
 
 ### 11.5 Facts ledger (verified in `docs/research/bakery_algorithm/scripts/` and `docs/reviews/plan_r1/`)
 
