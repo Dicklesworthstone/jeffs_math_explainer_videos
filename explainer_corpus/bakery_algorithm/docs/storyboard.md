@@ -173,12 +173,17 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 06_1 | ⟨predict⟩ Now take three customers. The square becomes a cube. How many orders are there now? | The 7×7 square extrudes into a 10×10×10 cube; "two inside" beams, translucent, drawn last | **3D cube, orbit < π** |  |
-| 06_2 | Over two billion. And not one of them puts two in the room. | Sampled staircases thread the cube as glowing trails (sampled uniformly over orders, E-C2) while a counter climbs to 2,126,816,238; the beams stay dark; caption "trails: orders drawn uniformly at random from all 2,126,816,238, not as a real machine would run them" (R15) | **3D cube, orbit < π** | hold |
+| 06_2 | Over two billion. And not one of them puts two in the room. | Sampled staircases thread the cube as glowing trails (sampled uniformly over orders, E-C2) while a counter climbs to 2,126,816,238; the beams stay dark; caption "trails: drawn uniformly at random from all 2,126,816,238 orders, not as a real machine runs them" (R15; one line in the lower-third band) | **3D cube, orbit < π** | hold |
 
-- **Engine:** about 30 s on the camera route (≈ 5 min at S-5's 6.1 fps); about
-  200 sampled polylines on the 10×10×10 lattice; beams are depth-tested
-  translucent prisms drawn last; arcs under π (E-C2). Cut it first if the
-  video runs long: 05_7's ribbons carry the claim.
+- **Engine (as built):** the retained route, drawn orthographically: every
+  shape keeps its lattice coordinates and one updater re-projects them from
+  the view's trackers (spin, tilt, scale, place, trail reveal), so the tilt
+  and the orbit are tracker tweens. The camera route was tried first and
+  dropped: its per-pixel 3-D stroke sampling produced no frame of 200 trails
+  in 6 minutes at 540p. 200 sampled polylines on the 10×10×10 lattice; beams
+  are translucent faces drawn last; the orbit (0.75 rad) stays clear of the
+  face-on views. About 24 s. Cut it first if the video runs long: 05_7's
+  ribbons carry the claim.
 
 ## 07_one_run (~60 s)
 
@@ -186,10 +191,10 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 |---|---|---|---|---|
 | 07_1 | Here's one full run, fast. | The five lanes with their slates at the heads, Pink's lane dimmed (she stays home: trace d has four customers; dev-10); a step clock counting reads, writes and successful waits the 02_4 way, ending at 64 (`C-F6.d.steps_counted`) (no code panel during the run, C-7) | lanes + step clock |  |
 | 07_2 | Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero. | Fast-forward, slowing at the beat | step clock |  |
-| 07_3 | ⟨predict⟩ Teal sees one and one. What ticket does she take? | Teal reading | prediction card |  |
+| 07_3 | ⟨predict⟩ Next, Teal sees two ones. What ticket does she take? | Teal reading | prediction card |  |
 | 07_4 | Two. And the tie between Purple and Green goes to Green, customer two, ahead of Purple, customer three. | (1, Green 2) before (1, Purple 3) | ordering card |  |
 | 07_5 | Green goes in first. Blue, customer number one, arrives late and takes three. Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue. | The lanes in time order, as trace d runs (M14): Green enters, Blue takes 3, Green leaves before Blue's check of her (`C-F6.d.customer2_out_before_customer1_checks_her` = 1), Blue waits on Purple's 1 and Teal's 2 (`C-F6.d.customer1_waits_behind` = (1,3)(2,4)), Green takes 4 (`C-F6.d.tickets_taken`); each entry plays its customer's "served" motif (C-2) | step clock | |
-| 07_6 | Five visits, five points on the scoreboard, none lost. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; chapter 01's scoreboard sits inside the room and has ticked once per visit, 41 → 46, no point lost (Maya m6; `C-F6.d.room_entries` = 5, `C-F6.d.max_in_room` = 1) | callback | hold |
+| 07_6 | Five visits, five points on the scoreboard, none lost. Who gets served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; chapter 01's scoreboard sits inside the room and has ticked once per visit, 41 → 46, no point lost (Maya m6; `C-F6.d.room_entries` = 5, `C-F6.d.max_in_room` = 1) | callback | hold |
 
 - **Engine:** slate values swap by replacement transforms at their step events, driven by the shared step clock, never redrawn every frame (E-C4).
 - **New beat 07_6 (R2):** 07_5 now runs in time order (M14), so its payoff
@@ -211,11 +216,11 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 |---|---|---|---|---|
 | 08_1 | Why can two customers never be in the room at once? Picture Blue inside, and Green holding a ticket. | Lanes; Blue and Green; lower-third "the proof counts on: each customer's steps happen in order; a finished write is seen by every later read; the biggest ticket is found by reading each slate once" (M17: 12_1 calls it back in the same words) | lanes |  |
 | 08_2 | Fact one. If Blue finished choosing before Green started, and still holds that ticket, then Green's ticket is bigger. Green saw Blue's. | Fact one card, in colours | card |  |
-| 08_3 | Fact two. If Blue is in the room, everyone else holding a ticket has a bigger pair than hers. Why is that true? | Fact two card | card |  |
+| 08_3 | Fact two. If Blue is in the room, every other ticket holder has a bigger pair than hers. Why is that true? | Fact two card | card |  |
 | 08_4 | ⟨predict⟩ Take the last time Blue checked Green's flag, the check that let her through. Where could Green have been? | Green's choosing interval slides along the time axis against Blue's last flag check (labelled) | **sliding interval with zones** |  |
-| 08_5 | Three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15) | zones |  |
+| 08_5 | There are three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15) | zones |  |
 | 08_6 | In the middle of choosing. Then Green's flag was up, and that check wouldn't have let Blue through. | Zone "choosing", forbidden | zones |  |
-| 08_7 | Finished choosing. Then Blue read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. That's fact two. | Zone "done" | zones |  |
+| 08_7 | Finished choosing. Then Blue had read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. And that's fact two. | Zone "done" | zones |  |
 | 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue); pictogram rule 1 ticks | TransformMatchingTex | hold |
 | 08_9 | A computer search agrees, over every order, up to four customers, as long as tickets stay small. Only the proof covers every case. | Card "N = 4, tickets ≤ 4 (runs that would pass 4 are cut), indivisible reads and writes: 3,027,633 reachable states, no violation", then "every N" | card |  |
 
@@ -238,7 +243,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 09_2 | Lamport went further. A glance during a write may return any number the slate could hold. Even two thousand four hundred ninety-six. | Wild values; the 01_1 slate's 2496 | flicker |  |
 | 09_3 | Twelve years later he named memory like that safe. A funny name, since it's the least safe kind. | "safe" card; "regular" and "atomic" on screen for Ruth | register zoo (screen) |  |
 | 09_4 | ⟨predict⟩ Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever trust a glance at a slate while it's being written? | 08's zones (08_4–08_7), same layout and scale (C-16; M22); glances that cross a write become white static | **overlay on the proof zones** | listen 3 s (a read that crosses a write smears its note with a slow tape bend) |
-| 09_5 | Never. It trusts just two glances at slates. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used; lower-third "a glance at a flag mid-raise counts as not yet choosing; mid-lowering, as finished" (R2, dev-11; pinned here at R2, R13) | zones |  |
+| 09_5 | Never. It trusts only two glances at slates. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used; lower-third "a glance at a flag mid-raise counts as not yet choosing; mid-lowering, as finished" (R2, dev-11; pinned here at R2, R13) | zones |  |
 | 09_6 | A glance that catches garbage, say seven, just makes a customer take eight and wait longer. | Trace e1 inside the zones; corner card "model: flickering slates and flags, 3 customers, tickets ≤ 6: 269,550 states, never two in the room" (`C-F8.n3_k6_safe.states`, `.violation_found` = 0; R14) | trace |  |
 
 ## 10_the_old_zero (~55 s)
