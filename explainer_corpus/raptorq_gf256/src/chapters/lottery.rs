@@ -348,6 +348,7 @@ fn meter(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // one card at a time: a useful card fills a slot, a useless one bounces
     let drop_from = v(b.centre[0] + 2.2, b.rim() + 1.6);
     let mut bars: Vec<Mob> = Vec::new();
+    let mut waters: Vec<Mob> = Vec::new();
     let mut play_draw = |stage: &mut Stage<'_>, d: &Draw, fast: f64| -> fmn::Result<()> {
         if d.held as usize >= bars.len() {
             let bar = bar_for(stage, d.held)?;
@@ -361,6 +362,7 @@ fn meter(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         stage.add_to_scene(glyph)?;
         if d.useful {
             let water = b.water(stage, d.held as usize, Role::ex_or())?;
+            waters.push(water);
             let fall = glyph
                 .animate()
                 .set_anim_args(AnimateArgs {
@@ -433,9 +435,18 @@ fn meter(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     )?;
     play!(stage; fade_in(stage.arena_mut(), either, ORIGIN, 1.0)?.rt(0.7));
     // the listen window: the run again, as sound
-    let step = 2.6 / draws.len() as f64;
+    // every card sounds before the score's fade (the window's last 0.8 s)
+    let step = 1.8 / draws.len() as f64;
     let wav = sound::wav("05_4_rank_chord", &rank_chord(&draws, step, 3.0))?;
     kit.sonify(stage, 3.0, "05_4", &wav)?;
+    // the run again, in step with the sound: a slot glows with each tone,
+    // the rim with each thud
+    stage.wait(0.15)?;
+    for d in &draws {
+        let target = if d.useful { waters[d.held as usize] } else { m.track };
+        let pulse = fmn::animation::indicate(stage.arena_mut(), target, 1.08, Some([1.0, 1.0, 1.0]))?;
+        stage.play(pulse.rt(step))?;
+    }
     Ok(())
 }
 

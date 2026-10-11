@@ -463,27 +463,44 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         .move_to(v(-4.4, 2.6), ORIGIN)?
         .rotate(0.35)?;
     play!(stage; off);
+    // the reason, on two lines in the clear left of the bucket (its wall
+    // stands at x = -1.5)
+    let ex = [(r"\oplus", Role::ex_or())];
+    let which = kit.tex(
+        stage,
+        r"\text{card 1} \oplus \text{card 3}",
+        44.0,
+        Palette::ink(),
+        &ex,
+        v(-4.4, 1.15),
+    )?;
     let made = kit.tex(
         stage,
         &format!(
-            r"\text{{card 1}} \oplus \text{{card 3}}:\ {} \oplus {} = {}",
+            r"{} \oplus {} = {}",
             result(CARDS[0]),
             result(CARDS[2]),
             result(FIFTH_CARD)
         ),
         44.0,
         Palette::ink(),
-        &[(r"\oplus", Role::ex_or())],
-        v(-4.0, 0.9),
+        &ex,
+        v(-4.4, 0.3),
     )?;
-    play!(stage; write(stage.arena(), made).rt(1.0));
+    play!(stage; write(stage.arena(), which).rt(0.7));
+    play!(stage; write(stage.arena(), made).rt(0.7));
+    // the programmers' note takes the foot of the frame from the phone's mark
     let raid = lower_third(
         kit,
         stage,
         "for programmers:",
         "RAID-5 parity is one of these cards: the parity block is the ex-or of the data blocks",
     )?;
-    play!(stage; fade_in(stage.arena_mut(), raid, v(0.0, 0.2), 1.0)?.rt(0.6));
+    play!(stage;
+        fade_out(stage.arena_mut(), phone_mark, ORIGIN, 1.0)?.rt(0.5),
+        fade_out(stage.arena_mut(), label, ORIGIN, 1.0)?.rt(0.5),
+        fade_in(stage.arena_mut(), raid, v(0.0, 0.2), 1.0)?.rt(0.6),
+    );
     kit.hold(stage)?;
     Ok(())
 }
