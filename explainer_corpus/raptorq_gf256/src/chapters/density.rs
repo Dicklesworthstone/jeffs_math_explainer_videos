@@ -603,6 +603,15 @@ impl Density {
         }
         let line = Spoken::say(kit, stage, board, "14_2")?;
         fade_all(stage, 0.6)?;
+        // why not small dense blocks (R3 Dev D6)
+        let small = lower_third(
+            kit,
+            stage,
+            "for programmers:",
+            "why not small dense blocks? Each recovered byte then costs a byte multiply-add per piece of its block, \
+             and a phone must finish every block, so its unluckiest block sets the pace",
+        )?;
+        play!(stage; fade_in(stage.arena_mut(), small, v(0.0, 0.2), 1.0)?.rt(0.6));
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for k in &cards {
             let a = fade_in(stage.arena_mut(), k.group, v(0.0, -0.2), 1.0)?;
@@ -701,7 +710,10 @@ impl Density {
             stage,
             &format!("RFC 6330's degrees: P(d) ≈ 1/(d(d−1)) for d = 2…{last}, the ideal soliton; mean {mean:.2}"),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6));
+        play!(stage;
+            fade_out(stage.arena_mut(), small, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
+        );
 
         // 14_3: peeling, a chain reaction; the graph moves to the middle
         let line = Spoken::say(kit, stage, board, "14_3")?;
