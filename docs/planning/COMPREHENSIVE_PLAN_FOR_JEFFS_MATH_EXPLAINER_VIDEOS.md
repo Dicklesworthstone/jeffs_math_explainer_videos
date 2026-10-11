@@ -1710,7 +1710,7 @@ Magic of Liquid Data" (jeffreyemanuel.com/writing/raptorq) and his X post.*
 | 04_4 | So a card that says two times A is six can't tell you A. It could be three. It could be one thirty-one. | 2·3 = 6 and 2·131 = 262 → 6 | — | |
 | 04_5 | Run the lottery with random byte amounts and this arithmetic, and it fails seventy-one percent of the time. Exactly as often as plain ex-or. Only the last bit of each amount was doing anything. | Two counters (XOR and wrap-around) converge to 71% | **lottery race** | |
 | 04_6 | A clock with a prime number of hours doesn't have this problem. ⟨predict⟩ On a seven-hour clock, three times what is one? Five. Every row of its times table, except zero's, is a reshuffle of every value. | 7-hour table; then 16-hour vs 7-hour heat maps | small tables | |
-| 04_7 | Zero sneaks in because two fifty-six splits into two times one twenty-eight. Seven can't split. But two fifty-seven doesn't fit in a byte. | — | — | |
+| 04_7 | Zero sneaks in because two fifty-six splits into two times one twenty-eight. Seven can't split. But two fifty-seven doesn't fit in a byte. | 256 splits into 2 × 128 beside the 2·128 = 0 card; 257 is written into an 8-bit box and its ninth bit spills out, lit red | factor split, byte box | |
 | 04_8 | A number system where you can add, subtract, multiply, and divide by anything but zero is called a field. We need one with exactly two hundred fifty-six members. So catch the falling bit, and fold it back in. | Name card "field"; the gutter bit lifts back | statement card | hold |
 
 - **Precisely (lower-thirds):** "a K×K matrix over Z/256 is invertible ⇔ its
@@ -1987,13 +1987,13 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 01_1 | A slate reads nine. Someone is rewriting it as ten. Glance at it mid-stroke, and you might read nine, or ten, or, Lamport says, two thousand four hundred ninety-six. | A chalk slate frozen mid-stroke; flickering digits; quote card (Turing lecture) | flicker prop | |
-| 01_2 | Could computers take turns safely with memory like that? In nineteen seventy-three, that was considered impossible. | — | — | |
+| 01_2 | Could computers take turns safely with memory like that? In nineteen seventy-three, that was considered impossible. | Two lanes reach for the same slate; a dated card "1973: considered impossible" (Lamport's Turing lecture, verbatim) | quote card | |
 | 01_3 | *(title)* | **The Algorithm Lamport Is Proudest Of** | title card | hold |
 | 01_4 | Two programs, running at once, share a scoreboard that reads forty-one. Programmers write x equals x plus one. It isn't an equation. It means make x one bigger. | Scoreboard; two lanes (blue, green); "time runs left to right; a read is an arrow in, a write is an arrow out" | **space-time lanes** | |
 | 01_5 | That's two steps. Read the score, then write it back plus one. Here's one unlucky order. Both read forty-one. Both write forty-two. Two points scored, one counted. | Arrows on the lanes; x ends at 42 | step animation | |
 | 01_6 | Here's every order at once. Program one's progress runs across, program two's runs up. Every order is a staircase from corner to corner. Six of them. ⟨predict⟩ How many lose a point? | **Progress square**: 2×2 grid, 6 staircases | progress-square prop | |
 | 01_7 | Four. Exactly the ones that pass through the middle, where both have read and neither has written. A lock's job is to wall off the middle. | The 4 paths through (1,1) turn red | — | |
-| 01_8 | In a real machine the bad orders are rare. But at billions of steps a second, rare means constantly, and the computer can pause either program between any two steps. | — | — | hold |
+| 01_8 | In a real machine the bad orders are rare. But at billions of steps a second, rare means constantly, and the computer can pause either program between any two steps. | The six orders shrink into one long strip of steps racing past; red flecks (bad orders) appear along it again and again | time strip | hold |
 
 - **For programmers:** even `add [x], 1` reads and writes separately unless it
   carries a lock prefix.
@@ -2026,7 +2026,7 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 | 03_3 | So each customer gets their own slate, and only they write on it. A zero means not in line. | Five slates, five colors | slates prop | |
 | 03_4 | To take a number, read every other slate, one at a time, and write one more than the biggest. ⟨predict⟩ Customer four reads zero, three, zero, two. What does she write? | Read arrows; slates 0, 3, 0, 0, 2 | prediction card | |
 | 03_5 | Four. Then wait until nobody with a smaller number is still in line. Here that's customer five, then customer two, then customer four. | Slates now 0, 3, 0, 4, 2 (pointed at, not read aloud); service order 5 → 2 → 4 | queue | |
-| 03_6 | No shared counter. Nobody ever writes on anyone else's slate. | — | — | hold |
+| 03_6 | No shared counter. Nobody ever writes on anyone else's slate. | Each lane's own slate glows in its customer's colour; every arrow from another lane is a read, none a write | lanes, slates | hold |
 
 - **For programmers:** a ticket lock is the machine Lamport avoided: one atomic
   fetch-and-add (Linux x86 FIFO ticket spinlocks, 2008).
@@ -2130,11 +2130,11 @@ a new hero (space-time lanes plus the progress square). The owner's source:
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 10_1 | The proof is right. But run this on your laptop as written, and it can fail, because your laptop breaks one of the proof's promises. | — | — | |
+| 10_1 | The proof is right. But run this on your laptop as written, and it can fail, because your laptop breaks one of the proof's promises. | The proof's promises from 07 as a short list; one ("a write is seen in order") flickers and breaks over a CPU outline | promise list | |
 | 10_2 | Each core puts its writes in an outbox and keeps going. Both customers raise their flags and write their tickets, into their outboxes. They read the other slates, see no flags, and walk in. Main memory still says nobody is even choosing. | Store-buffer "outboxes"; memory bar frozen at zeros; both enter (12 steps) | **outbox x-ray** | listen 3 s (two motifs) |
 | 10_3 | That's not the cache. Caches agree with each other. It's the queue in front of them. The fix is a fence: wait until your outbox is delivered before you read anyone else's slate. On an Intel or AMD chip, two fences per customer are enough. Arm chips, like the ones in recent Macs, reorder more and need more. | Fence drains a tray with a whoosh | — | |
 | 10_4 | *(for programmers)* The easy, correct way is sequentially consistent atomics. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below); card: C/C++/Rust plain shared variables are undefined behaviour, `volatile` doesn't help; Java `AtomicIntegerArray` works, `volatile int[]` doesn't | code panel | |
-| 10_5 | In practice people use the hardware's atomic instructions. But the bakery lock still ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | — | — | |
+| 10_5 | In practice people use the hardware's atomic instructions. But the bakery lock still ships in Arm's trusted firmware: on chips without hardware cache coherence, a core waking up with its data cache still off can't use the usual spinlocks. | Text card: Arm Trusted Firmware, "bakery lock: a core waking with its cache off" (no logos) | card | |
 | 10_6 | And its trick of a counter, with names to break ties, reappears in how Lamport later ordered events across whole networks, and in the ballot numbers of Paxos, the protocol that keeps replicated databases agreeing. | The 04 grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback | |
 | 10_7 | Lamport says he didn't invent the bakery algorithm. He discovered it. And it just seemed to come out of thin air. Perhaps, he says, that's why he's proudest of it. | Verbatim quote cards | coda; receipts card | |
 
