@@ -14,7 +14,7 @@ use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, play, thousand
 use fmn::animation::indicate;
 use fmn::prelude::*;
 
-use super::draw::{Role, flat, group_of, line_style, packet, phone, tower, tower_tip, waves};
+use super::draw::{Role, crossfade, flat, group_of, line_style, packet, phone, tower, tower_tip, waves};
 use super::picture::{self, SIDE};
 use crate::model::{
     GLYPHS, HOOK_PIECES, LOSS_ONE_IN, PHONES, SplitMix64, album_filled, album_mean, album_mean_floor,
@@ -132,33 +132,6 @@ fn launch(stage: &mut Stage<'_>, template: &VMobject, flights: Vec<Flight>) -> f
         }
     })?;
     Ok(swarm)
-}
-
-/// Fade out everything on screen while `incoming` fades in: one move in
-/// place of a wipe and then a fade-in. The old picture is mostly gone
-/// before the new one shows, so the two never read as one.
-fn crossfade(stage: &mut Stage<'_>, incoming: &[Mob], rt: f64) -> fmn::Result<()> {
-    let outgoing: Vec<Mob> = stage.scene().mobjects().to_vec();
-    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-    for m in outgoing {
-        stage.clear_updaters(m, true);
-        let mut a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-        a.update_rate_info(None, Some(RateFunc::smooth().squish(0.0, 0.6)), None);
-        anims.push(stage.prepare(a)?);
-    }
-    for &m in incoming {
-        let mut a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-        a.update_rate_info(None, Some(RateFunc::smooth().squish(0.4, 1.0)), None);
-        anims.push(stage.prepare(a)?);
-    }
-    stage.play_prepared_with(
-        anims,
-        PlayOverrides {
-            run_time: Some(rt),
-            ..PlayOverrides::default()
-        },
-    )?;
-    Ok(())
 }
 
 /// A small arrow pointing along +x (a request).

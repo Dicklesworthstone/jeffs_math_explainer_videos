@@ -11,7 +11,10 @@ pub mod draw;
 
 // Chapters 01–06 (lane B-1) and the props later chapters call back to: the
 // bucket and its danger meter, the risk ladder, the ring of five, the grid.
+pub mod bits;
+pub mod cards;
 pub mod hook;
+pub mod lottery;
 pub mod picture;
 #[allow(dead_code)]
 pub mod props;
@@ -55,10 +58,22 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(hook::Hook { kit }),
             intensity: 0.35,
         },
-        animatic!("02_bits_and_ex_or", 0.4),
-        animatic!("03_cards", 0.45),
+        Chapter {
+            key: "02_bits_and_ex_or",
+            make: |kit| Box::new(bits::Bits { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "03_cards",
+            make: |kit| Box::new(cards::Cards { kit }),
+            intensity: 0.45,
+        },
         animatic!("04_the_cube", 0.55),
-        animatic!("05_the_ex_or_lottery", 0.5),
+        Chapter {
+            key: "05_the_ex_or_lottery",
+            make: |kit| Box::new(lottery::Lottery { kit }),
+            intensity: 0.5,
+        },
         animatic!("06_spares_and_rings", 0.45),
         Chapter {
             key: "07_why_not_wrap_around_at_256",
