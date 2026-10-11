@@ -3,6 +3,8 @@
 //! 13). Each chapter starts as its storyboard's animatic and is replaced by
 //! its real scene as it is built.
 
+pub mod draw;
+
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
 

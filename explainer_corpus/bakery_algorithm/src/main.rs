@@ -15,6 +15,7 @@
 
 mod chapters;
 mod facts;
+mod model;
 
 use explainer_kit::Explainer;
 
