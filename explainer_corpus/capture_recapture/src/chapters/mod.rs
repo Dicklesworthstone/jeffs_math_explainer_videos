@@ -3,6 +3,7 @@
 //! Each chapter starts as its storyboard's animatic and is replaced by its
 //! real scene as it is built (01–03 are built).
 
+pub mod cheating;
 pub mod draw;
 pub mod hook;
 pub mod lake;
@@ -47,7 +48,11 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("06_the_landscape", 0.6),
         animatic!("07_feller_s_comparison", 0.5),
         animatic!("08_the_table_balances", 0.7),
-        animatic!("09_check_it_by_cheating", 0.55),
+        Chapter {
+            key: "09_check_it_by_cheating",
+            make: |kit| Box::new(cheating::Cheating { kit }),
+            intensity: 0.55,
+        },
         animatic!("10_small_experiments", 0.5),
         animatic!("11_how_sure", 0.5),
         Chapter {
