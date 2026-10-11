@@ -19,7 +19,7 @@ use explainer_score::rng::SplitMix64;
 use fmn::animation::UpdateFromFunc;
 use fmn::prelude::*;
 
-use crate::model::Order;
+use crate::model::{Order, Pc, State, Step};
 
 /// A scene error carrying `message` (a missing phrase, a broken invariant).
 pub fn fail(message: String) -> fmn::Error {
@@ -1095,4 +1095,517 @@ mod tests {
         assert!((fan(0, 3, 0.6) + fan(2, 3, 0.6)).abs() < 1e-12);
         assert_eq!(fan(0, 1, 0.6), 0.0);
     }
+}
+// ------------------------------------------------------- traces on lanes
+
+/// White static with colour fringing around `at` (a glance that overlaps a
+/// write, storyboard §3): short chalk strokes over two offset copies in
+/// the fringe colours. Deterministic in `seed`.
+pub fn static_burst(at: Vec3, size: f64, seed: u64) -> VMobject {
+    let mut s = seed.wrapping_mul(0x9E37_79B9_7F4A_7C15) | 1;
+    let mut next = move || {
+        s ^= s << 13;
+        s ^= s >> 7;
+        s ^= s << 17;
+        (s % 10_000) as f64 / 10_000.0
+    };
+    let mut strokes = Vec::new();
+    for _ in 0..9 {
+        let (x, y) = ((next() - 0.5) * size, (next() - 0.5) * size * 0.8);
+        let len = (0.25 + 0.5 * next()) * size * 0.45;
+        let tilt = (next() - 0.5) * 0.5;
+        strokes.push((
+            v(at[0] + x - len / 2.0, at[1] + y - tilt * len / 2.0),
+            v(at[0] + x + len / 2.0, at[1] + y + tilt * len / 2.0),
+        ));
+    }
+    let layer = |dx: f64, color: Srgb, o: f64, w: f64| -> Vec<VMobject> {
+        strokes
+            .iter()
+            .filter_map(|&(a, b)| {
+                Line::new(v(a[0] + dx, a[1]), v(b[0] + dx, b[1]))
+                    .style(faded_line(color, w, o))
+                    .build()
+                    .ok()
+            })
+            .collect()
+    };
+    let mut all = layer(-0.025 * size, hex("#FF5A6E"), 0.55, 2.5);
+    all.extend(layer(0.025 * size, hex("#4FD6FF"), 0.55, 2.5));
+    all.extend(layer(0.0, chalk(), 0.95, 2.5));
+    v_group(all)
+}
+
+/// One lane on screen: whose, where, and whether it sits idle (dimmed,
+/// never moving: Pink in 07, who stays home).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct LaneSpec {
+    /// 1-based.
+    pub customer: usize,
+    pub y: f64,
+    pub idle: bool,
+}
+
+/// How steps take slots along the time axis.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Slots {
+    /// Every shown step has its own slot (step numbers match the replay's).
+    EveryStep,
+    /// Counted the 02_4 way: a blocked wait takes no slot and no dot (the
+    /// waiting stretch shows it), so slots number the counted steps.
+    Counted,
+}
+
+/// Where the lanes go.
+#[derive(Clone, Debug, PartialEq)]
+pub struct LaneLayout {
+    /// The badge's x; the slate and the flag follow it.
+    pub head_x: f64,
+    /// The time axis: slot 1 starts at `x0`, the last slot ends at `x1`.
+    pub x0: f64,
+    pub x1: f64,
+    pub lanes: Vec<LaneSpec>,
+    pub slots: Slots,
+    /// The slate's height at a lane's head.
+    pub slate_size: f64,
+}
+
+/// A lane's head: badge, slate and flag, updated from the replayed states.
+pub struct Head {
+    pub badge: Mob,
+    pub slate: Slate,
+    pub flag: Flag,
+    pub line: Mob,
+}
+
+/// What one step adds to the picture (all detached until revealed).
+#[derive(Clone, Debug, Default)]
+pub struct StepParts {
+    /// The step's dot on the mover's lane (none for a blocked wait in
+    /// `Slots::Counted`, or a hidden step).
+    pub dot: Option<Mob>,
+    /// A read: the arrow from the owner's lane into the reader's.
+    pub arrow: Option<Mob>,
+    /// What a read saw, or what a write wrote (`:=` value), in chalk.
+    pub chip: Option<Mob>,
+    /// The out-arrow of a ticket (or exit) write.
+    pub out: Option<Mob>,
+    /// White static on a read that overlaps the owner's write.
+    pub static_fx: Option<Mob>,
+    /// Band pieces at this step's slot: choosing (amber), the room (red),
+    /// waiting (dim), a write in progress (chalk), on every lane that has one.
+    pub bands: Vec<Mob>,
+}
+
+impl StepParts {
+    /// Every mobject of the step, for highlights and recolouring.
+    pub fn all(&self) -> Vec<Mob> {
+        self.bands
+            .iter()
+            .copied()
+            .chain(
+                [self.dot, self.out, self.arrow, self.chip, self.static_fx]
+                    .into_iter()
+                    .flatten(),
+            )
+            .collect()
+    }
+}
+
+/// A replayed trace (`model::Step`s) drawn on space-time lanes: time runs
+/// left to right, reads are arrows in, writes arrows out; choosing is an
+/// amber band, the room a red band, waiting a dim one. Built detached;
+/// [`TraceLanes::reveal`] returns the animations that show a range of steps
+/// (to play with the scene's own), and [`TraceLanes::heads_to`] those that
+/// bring the slates and flags at the lane heads up to a step.
+pub struct TraceLanes {
+    pub layout: LaneLayout,
+    pub steps: Vec<Step>,
+    /// Each step's slot (1-based), or `None`: hidden, or a blocked wait in
+    /// `Slots::Counted` (it shares the next drawn step's slot).
+    pub slot: Vec<Option<usize>>,
+    pub slot_count: usize,
+    pub heads: Vec<Head>,
+    pub parts: Vec<StepParts>,
+    /// The step the heads show (0 = the start).
+    shown: usize,
+}
+
+/// Who a step's label reads, and the value read: `read number[j]=v`,
+/// `re-fetch number[j]=v`, `L2: choosing[j]=v`, `L3: number[j]=v`.
+fn read_of(label: &str) -> Option<(usize, bool, u32)> {
+    let flag = label.starts_with("L2: choosing[");
+    let rest = label
+        .strip_prefix("read number[")
+        .or_else(|| label.strip_prefix("re-fetch number["))
+        .or_else(|| label.strip_prefix("L2: choosing["))
+        .or_else(|| label.strip_prefix("L3: number["))?;
+    let (j, rest) = rest.split_once("]=")?;
+    let v: String = rest.chars().take_while(char::is_ascii_digit).collect();
+    Some((j.parse::<usize>().ok()?, flag, v.parse().ok()?))
+}
+
+/// A ticket (or exit) write that lands in this step: `number[i]:=t`,
+/// `end number[i]:=t`, `number[i]:=0 (exit)`.
+fn write_of(label: &str) -> Option<u32> {
+    let rest = label.strip_prefix("end ").unwrap_or(label).strip_prefix("number[")?;
+    let (_, value) = rest.split_once("]:=")?;
+    let t: String = value.chars().take_while(char::is_ascii_digit).collect();
+    t.parse().ok()
+}
+
+/// Customer `c` (0-based) is choosing in `st`: her flag is up, or being
+/// raised.
+fn choosing_in(st: &State, c: usize) -> bool {
+    let l = st.local[c];
+    st.choosing[c] == 1 || (l.pc == Pc::Ncs && l.wp)
+}
+
+/// Customer `c` is writing her slate in `st` (a safe-slate write between
+/// its begin and end).
+fn writing_slate(st: &State, c: usize) -> bool {
+    let l = st.local[c];
+    l.wp && matches!(l.pc, Pc::Wn | Pc::Cs)
+}
+
+/// Customer `c` is writing her flag in `st`.
+fn writing_flag(st: &State, c: usize) -> bool {
+    let l = st.local[c];
+    l.wp && matches!(l.pc, Pc::Ncs | Pc::Wc0)
+}
+
+impl TraceLanes {
+    /// The lanes for `steps`, with the steps in `hidden` (1-based) left out.
+    pub fn build(
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        layout: LaneLayout,
+        steps: &[Step],
+        hidden: &[usize],
+    ) -> fmn::Result<Self> {
+        let mut slot = Vec::with_capacity(steps.len());
+        let mut n = 0;
+        let mut pending = Vec::new();
+        for (i, s) in steps.iter().enumerate() {
+            let shown = !hidden.contains(&(i + 1));
+            if shown && (layout.slots == Slots::EveryStep || !s.blocked()) {
+                n += 1;
+                for p in pending.drain(..) {
+                    slot[p] = Some(n);
+                }
+                slot.push(Some(n));
+            } else {
+                if shown {
+                    pending.push(i);
+                }
+                slot.push(None);
+            }
+        }
+        // a trailing run of blocked waits takes one last slot
+        if !pending.is_empty() {
+            n += 1;
+            for p in pending {
+                slot[p] = Some(n);
+            }
+        }
+        let start = steps.first().map(|s| s.before.clone());
+        let mut heads = Vec::new();
+        for spec in &layout.lanes {
+            let k = spec.customer;
+            let dim = if spec.idle { 0.3 } else { 1.0 };
+            let line = stage.arena_mut().add(
+                Line::new(v(layout.head_x + 1.7, spec.y), v(layout.x1 + 0.1, spec.y))
+                    .style(faded_line(customer(k), 4.0, 0.6 * dim))
+                    .build()?,
+            );
+            let b = badge(kit, stage, k, 0.2, v(layout.head_x, spec.y))?;
+            let value = start
+                .as_ref()
+                .map_or(0, |st| st.number.get(k - 1).copied().unwrap_or(0));
+            let sl = slate(kit, stage, value, v(layout.head_x + 0.72, spec.y), layout.slate_size)?;
+            let raised = start.as_ref().is_some_and(|st| st.choosing.get(k - 1) == Some(&1));
+            let fl = flag(stage, v(layout.head_x + 1.32, spec.y - 0.22), 0.44, raised)?;
+            if spec.idle {
+                for m in [b, sl.board, sl.value, fl.pole, fl.pennant] {
+                    stage.set_opacity(m, 0.3, true);
+                }
+            }
+            heads.push(Head {
+                badge: b,
+                slate: sl,
+                flag: fl,
+                line,
+            });
+        }
+        let mut lanes = Self {
+            layout,
+            steps: steps.to_vec(),
+            slot,
+            slot_count: n,
+            heads,
+            parts: Vec::new(),
+            shown: 0,
+        };
+        for i in 0..steps.len() {
+            let p = lanes.build_step(kit, stage, i)?;
+            lanes.parts.push(p);
+        }
+        Ok(lanes)
+    }
+
+    /// The width of one slot.
+    pub fn slot_w(&self) -> f64 {
+        (self.layout.x1 - self.layout.x0) / self.slot_count.max(1) as f64
+    }
+
+    /// The centre of slot `s` (1-based).
+    pub fn slot_x(&self, s: usize) -> f64 {
+        self.layout.x0 + (s as f64 - 0.5) * self.slot_w()
+    }
+
+    /// Step `step`'s time position (1-based), if it has a slot.
+    pub fn x(&self, step: usize) -> Option<f64> {
+        self.slot.get(step - 1).copied().flatten().map(|s| self.slot_x(s))
+    }
+
+    /// Customer `k`'s lane height (1-based), if she has a lane.
+    pub fn y(&self, k: usize) -> Option<f64> {
+        self.layout.lanes.iter().find(|l| l.customer == k).map(|l| l.y)
+    }
+
+    /// The step's mobjects (1-based), for highlights.
+    pub fn step_mobs(&self, step: usize) -> Vec<Mob> {
+        self.parts[step - 1].all()
+    }
+
+    /// The lanes and their heads, for a fade in.
+    pub fn base(&self) -> Vec<Mob> {
+        self.heads
+            .iter()
+            .flat_map(|h| {
+                [
+                    h.line,
+                    h.badge,
+                    h.slate.board,
+                    h.slate.value,
+                    h.flag.pole,
+                    h.flag.pennant,
+                ]
+            })
+            .collect()
+    }
+
+    fn build_step(&self, kit: &Kit, stage: &mut Stage<'_>, i: usize) -> fmn::Result<StepParts> {
+        let mut p = StepParts::default();
+        let Some(s) = self.slot[i] else {
+            return Ok(p);
+        };
+        let x = self.slot_x(s);
+        let w = self.slot_w();
+        let step = &self.steps[i];
+        // band pieces on every lane, from the states around the step
+        for spec in self.layout.lanes.iter().filter(|l| !l.idle) {
+            let c = spec.customer - 1;
+            let (b, a) = (&step.before, &step.after);
+            let mut piece = |color: Srgb, o: f64, h: f64| -> fmn::Result<()> {
+                let r = Rectangle::new()
+                    .width(w * 1.02)
+                    .height(h)
+                    .style(flat(color, o))
+                    .build()?
+                    .moved_to(v(x, spec.y));
+                p.bands.push(stage.arena_mut().add(r));
+                Ok(())
+            };
+            let inside = |st: &State| st.local[c].pc == Pc::Cs;
+            let waiting = |st: &State| matches!(st.local[c].pc, Pc::L2 | Pc::L3);
+            if choosing_in(b, c) || choosing_in(a, c) {
+                piece(flag_amber(), 0.1, 0.34)?;
+            }
+            if inside(b) || inside(a) {
+                piece(room_red(), 0.24, 0.34)?;
+            }
+            if waiting(b) && waiting(a) {
+                piece(customer(c + 1), 0.08, 0.22)?;
+            }
+            if writing_slate(b, c) || writing_slate(a, c) {
+                piece(chalk(), 0.16, 0.14)?;
+            }
+        }
+        let Some(y) = self.y(step.customer) else {
+            return Ok(p);
+        };
+        let k = step.customer;
+        if step.blocked() {
+            let ring = Circle::new()
+                .radius(0.075)
+                .arc_center(v(x, y))
+                .style(line_style(customer(k), 2.5))
+                .build();
+            p.dot = Some(stage.arena_mut().add(ring));
+        } else {
+            p.dot = Some(stage.arena_mut().add(step_dot(v(x, y), k)));
+        }
+        if let Some((j, is_flag, value)) = read_of(&step.label) {
+            if let Some(yj) = self.y(j) {
+                let dir = if yj > y { 1.0 } else { -1.0 };
+                let arrow = access_arrow(v(x, yj - dir * 0.12), v(x, y + dir * 0.1), k)?;
+                p.arrow = Some(stage.arena_mut().add(arrow));
+                // what a slate read saw, just beyond the reader's lane (on the
+                // far side from the arrow, clear of neighbouring chips); a flag
+                // read needs none: a pass is a dot, a wait a ring
+                if !is_flag {
+                    let at = v(x, y - dir * 0.32);
+                    p.chip = Some(kit.text(stage, &value.to_string(), 18.0, chalk(), at)?);
+                }
+                let overlapped = if is_flag {
+                    writing_flag(&step.before, j - 1)
+                } else {
+                    writing_slate(&step.before, j - 1)
+                };
+                if overlapped {
+                    let fx = static_burst(v(x, (y + yj) / 2.0), 0.5, i as u64 + 1);
+                    p.static_fx = Some(stage.arena_mut().add(fx));
+                }
+            }
+        } else if let Some(t) = write_of(&step.label) {
+            let out = access_arrow(v(x, y + 0.08), v(x, y + 0.5), k)?;
+            p.out = Some(stage.arena_mut().add(out));
+            p.chip = Some(kit.text(stage, &format!(":={t}"), 18.0, chalk(), v(x, y + 0.64))?);
+        }
+        Ok(p)
+    }
+
+    /// The animations that show steps `range` (1-based) in order over
+    /// `run_time` seconds, as one prepared lagged group (`None` if the
+    /// range draws nothing). Play it alone or with the scene's own.
+    pub fn reveal(
+        &self,
+        stage: &mut Stage<'_>,
+        range: std::ops::RangeInclusive<usize>,
+        run_time: f64,
+    ) -> fmn::Result<Option<Box<dyn Animation>>> {
+        let mut per_step: Vec<Box<dyn Animation>> = Vec::new();
+        for step in range {
+            let p = &self.parts[step - 1];
+            let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+            for &m in &p.bands {
+                let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+                anims.push(stage.prepare(a)?);
+            }
+            if let Some(d) = p.dot {
+                let a = fade_in(stage.arena_mut(), d, ORIGIN, 0.4)?;
+                anims.push(stage.prepare(a)?);
+            }
+            for m in [p.arrow, p.out].into_iter().flatten() {
+                let a = fmn::animation::grow_arrow(stage.arena_mut(), m)?;
+                anims.push(stage.prepare(a)?);
+            }
+            for m in [p.chip, p.static_fx].into_iter().flatten() {
+                let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+                anims.push(stage.prepare(a)?);
+            }
+            if !anims.is_empty() {
+                per_step.push(Box::new(AnimationGroup::new(stage.arena_mut(), anims)?));
+            }
+        }
+        if per_step.is_empty() {
+            return Ok(None);
+        }
+        // lag 1: each step starts as the one before it finishes
+        let mut g = AnimationGroup::with_lag_ratio(stage.arena_mut(), per_step, 1.0)?;
+        g.update_rate_info(Some(run_time), None, None);
+        Ok(Some(Box::new(g)))
+    }
+
+    /// The animations that bring every head's slate and flag to the state
+    /// after `step` (0 = the start): only what changed since the last call.
+    pub fn heads_to(&mut self, kit: &Kit, stage: &mut Stage<'_>, step: usize) -> fmn::Result<Vec<Box<dyn Animation>>> {
+        let st = if step == 0 {
+            self.steps[0].before.clone()
+        } else {
+            self.steps[step - 1].after.clone()
+        };
+        let before = if self.shown == 0 {
+            self.steps[0].before.clone()
+        } else {
+            self.steps[self.shown - 1].after.clone()
+        };
+        self.shown = step;
+        let mut out: Vec<Box<dyn Animation>> = Vec::new();
+        for (h, spec) in self.heads.iter_mut().zip(&self.layout.lanes) {
+            if spec.idle {
+                continue;
+            }
+            let c = spec.customer - 1;
+            if st.number[c] != before.number[c] {
+                out.extend(h.slate.rewrite(kit, stage, st.number[c])?);
+            }
+            let raised = st.choosing[c] == 1;
+            if raised != h.flag.raised {
+                let t = h.flag.set(stage, raised);
+                out.push(stage.prepare(t)?);
+            }
+        }
+        Ok(out)
+    }
+}
+
+// ------------------------------------------------------------- hardware
+
+/// A chip outline with pins, `side` units square, `label` in its middle:
+/// a processor (12), a core waking with its cache off (13).
+pub fn chip_outline(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, side: f64, label: &str) -> fmn::Result<Mob> {
+    let body = stage.arena_mut().add(
+        Rectangle::new()
+            .width(side)
+            .height(side)
+            .corner_radius(0.12 * side)
+            .style(Style::default().fill(board(), 0.9).stroke(hardware(), 3.0, 1.0))
+            .build()?
+            .moved_to(at),
+    );
+    let mut parts = vec![body];
+    let pins = 5;
+    for i in 0..pins {
+        let t = (i as f64 + 0.5) / pins as f64 - 0.5;
+        let d = side * t * 0.8;
+        let e = side / 2.0;
+        let l = 0.14 * side;
+        for (a, b) in [
+            (v(at[0] + d, at[1] + e), v(at[0] + d, at[1] + e + l)),
+            (v(at[0] + d, at[1] - e), v(at[0] + d, at[1] - e - l)),
+            (v(at[0] - e, at[1] + d), v(at[0] - e - l, at[1] + d)),
+            (v(at[0] + e, at[1] + d), v(at[0] + e + l, at[1] + d)),
+        ] {
+            let pin = Line::new(a, b).style(line_style(hardware(), 3.0)).build()?;
+            parts.push(stage.arena_mut().add(pin));
+        }
+    }
+    // legible on a small chip too
+    parts.push(kit.text(stage, label, (30.0 * side / 2.6).max(24.0), Palette::ink(), at)?);
+    group(stage, &parts)
+}
+
+/// An `Srgb` as the `[f32; 3]` that `indicate` and its kin take.
+pub fn rgb(c: Srgb) -> [f32; 3] {
+    let h = c.to_hex();
+    let ch = |i: usize| u8::from_str_radix(&h[i..i + 2], 16).map_or(0.0, |x| f32::from(x) / 255.0);
+    [ch(1), ch(3), ch(5)]
+}
+
+/// Play prepared animations together, every one of them `run_time` seconds
+/// (a slate's rewrite or a flag's turn otherwise keeps its own default).
+pub fn play_timed(stage: &mut Stage<'_>, anims: Vec<Box<dyn Animation>>, run_time: f64) -> fmn::Result<()> {
+    if anims.is_empty() {
+        return Ok(());
+    }
+    stage.play_prepared_with(
+        anims,
+        PlayOverrides {
+            run_time: Some(run_time),
+            ..PlayOverrides::default()
+        },
+    )?;
+    Ok(())
 }

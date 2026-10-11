@@ -55,17 +55,14 @@ pub mod cited {
     pub const CHM_PAGES: &str = "9-10";
 
     /// The journal part of a citation: "CACM 17(8)".
-    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     fn journal(citation: &'static str) -> &'static str {
         citation.split(':').next().unwrap_or(citation)
     }
 
-    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     pub fn bakery_journal() -> &'static str {
         journal(BAKERY_CITATION)
     }
 
-    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
     pub fn turing_journal() -> &'static str {
         journal(TURING_CITATION)
     }
@@ -727,7 +724,6 @@ mod tests {
 /// # Panics
 /// On a key the facts do not register (every chapter's keys are covered by
 /// the tests), or if the facts fail their own pins.
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn fact(key: &str) -> &'static str {
     static FACTS: std::sync::OnceLock<Facts> = std::sync::OnceLock::new();
     FACTS
@@ -737,7 +733,6 @@ pub fn fact(key: &str) -> &'static str {
 }
 
 /// The same, parsed as a number.
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn fact_u64(key: &str) -> u64 {
     fact(key)
         .parse()
@@ -837,13 +832,10 @@ pub struct MeasuredMode {
 /// The whole record of one machine: its CPU and every block's modes.
 #[derive(Clone, Debug)]
 pub struct Measured {
-    #[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
-    pub arch: Arch,
     pub cpu: String,
     pub modes: Vec<MeasuredMode>,
 }
 
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 impl Measured {
     /// `mode` in the ten-run block with `threads` customers.
     ///
@@ -907,7 +899,7 @@ pub fn measured(arch: Arch) -> Measured {
             }
         }
     }
-    Measured { arch, cpu, modes }
+    Measured { cpu, modes }
 }
 
 /// Two customers, one visit each, over every order: how many orders have
@@ -969,13 +961,11 @@ pub fn choosing_order(orders: &[Order]) -> ChoosingOrder {
 }
 
 /// 11_2's "at most once" (C-X5, three customers, tickets ≤ 4, atomic).
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn bypass_worst() -> u8 {
     model::bypass_bfs(&model::Bakery::new(3, 4, Variant::Correct, false, true)).1
 }
 
 /// 11_7's "after at most one more visit each" (C-X8, the same bound).
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn frozen_worst() -> u8 {
     let m = model::Bakery::new(3, 4, Variant::Correct, false, true);
     let (choosing, _) = model::customer1_choosing_and_in_line(&model::reachable(&m));
@@ -984,7 +974,6 @@ pub fn frozen_worst() -> u8 {
 
 /// 13_3's grid: the pairs of 04_2's tie (slates 4, 3, 5, 5, 2), as
 /// (ticket, customer number).
-#[expect(dead_code, reason = "chapters 10-13 call it; they register next (mx-e-c-7v0.10)")]
 pub fn tie_pairs() -> Vec<(u32, usize)> {
     let steps = purple_and_teal_tie();
     let last = &steps.last().expect("the tie runs").after;

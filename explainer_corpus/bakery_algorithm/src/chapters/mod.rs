@@ -3,8 +3,12 @@
 //! 13). Each chapter starts as its storyboard's animatic and is replaced by
 //! its real scene as it is built.
 
+pub mod cpu;
 pub mod draw;
+pub mod fair;
 pub mod glyphs;
+pub mod old_zero;
+pub mod proudest;
 pub mod room;
 pub mod scoreboard;
 pub mod three_customers;
@@ -62,9 +66,25 @@ pub fn registry() -> Vec<Chapter> {
             intensity: 0.4,
         },
         animatic!("09_reading_garbage_safely", 0.45),
-        animatic!("10_the_old_zero", 0.45),
-        animatic!("11_fair_at_a_price", 0.5),
-        animatic!("12_your_cpu", 0.55),
-        animatic!("13_proudest", 0.4),
+        Chapter {
+            key: "10_the_old_zero",
+            make: |kit| Box::new(old_zero::OldZero { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "11_fair_at_a_price",
+            make: |kit| Box::new(fair::FairAtAPrice { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "12_your_cpu",
+            make: |kit| Box::new(cpu::YourCpu { kit }),
+            intensity: 0.55,
+        },
+        Chapter {
+            key: "13_proudest",
+            make: |kit| Box::new(proudest::Proudest { kit }),
+            intensity: 0.4,
+        },
     ]
 }
