@@ -1,16 +1,16 @@
 # capture_recapture: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	A thousand fish are caught, marked, and let go. A while later, a second net catches a thousand. Of those, a hundred are marked.
-01_2	Now look at the fish no net ever touched.
+01_2	Now look at all the fish no net ever touched.
 01_3	Our best guess for this dark cell is eight thousand one hundred. And we can say how sure we are.
 01_5	Why not count one patch and scale up? This net covers one hundredth of the lake. Four hundred fifty-one fish, times a hundred, is forty-five thousand one hundred.
 01_6	Try two other spots. Same answer?
-01_7	Not even close. In the weeds, eighty-eight thousand. In open water, two thousand eight hundred.
+01_7	Not even close. In the weeds, eighty-eight thousand. In open water, only two thousand eight hundred.
 01_8	The net knows it covered a hundredth of the water. It can't know what share of the fish that was.
 02_1	In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Others had been using it for years, and his first edition never mentions them.
 02_2	Feller marked his fish with red spots. Ours glow, so you can see them.
 02_3	Read the catch one way first. Of the thousand marked fish, the second net caught a hundred. One in ten.
 02_4	So guess that the second net caught about one in ten of all the fish. It caught a thousand. A thousand is one tenth of how many?
-02_5	Ten thousand. The marked fish measured our net for us. It searched about a tenth of the fish.
+02_5	Ten thousand. The marked fish have measured our net for us. It searched about a tenth of the fish.
 02_6	Read the same fact the other way. One fish in ten in the second catch is marked, so about one in ten in the lake is. We marked a thousand, so the lake holds about ten times that.
 02_7	Marked times second catch, over caught twice. A thousand times a thousand, over a hundred. Ten thousand. Call it the soup guess.
 02_8	Why should that work? How sure can we be? And when does it fail?
@@ -19,10 +19,10 @@
 03_3	Watch them swim. Will the marks stay bunched up near the dock?
 03_4	The fish stay crowded where they like to be. But the marks spread out evenly among them.
 03_5	Wherever the second net goes, about one fish in ten it catches is marked. The catch is a small copy of the lake's mix.
-03_6	The fullest corner has twenty-eight hundred eleven fish, two hundred eighty-two marked, and the emptiest has two hundred four, twenty-five marked. Both are near one in ten, and the small one wobbles more.
+03_6	The fullest corner has twenty-eight hundred eleven fish, two hundred eighty-two marked, and the emptiest has two hundred four, twenty-five marked. Both sit near one in every ten, and the small one wobbles more.
 03_7	Mixing is what makes the table fair. Being marked becomes unrelated to where a fish swims. In both columns, the second net takes the same one in ten, so the line across the table runs straight.
 03_8	That's what independent means here. The second net doesn't care which fish were caught before, as long as every fish is as easy to catch.
-04_1	To see exactly why, shrink the lake. Twenty fish, five of them marked. Our net holds four.
+04_1	To see exactly why, shrink the lake. Twenty fish, five of them marked. And our net holds four.
 04_2	Random means every group of four is equally likely. How many groups are there?
 04_3	Twenty choices for the first fish, nineteen for the second, then eighteen, then seventeen. But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful. So divide by twenty-four. Four thousand eight hundred forty-five.
 04_4	Sort them by how many marked fish they hold. Which pile is biggest?
@@ -31,15 +31,15 @@
 04_8	Divide every pile by all four thousand eight hundred forty-five, and you get the chances. About twenty-eight percent, forty-seven, twenty-two, three, and under one.
 04_9	Mathematicians call it the hypergeometric distribution. If we know the lake, we know the chances of every catch. But we only know the catch.
 05_1	A new lake, and we don't know its size. Call it the mystery lake. We marked ten, caught ten, and three were marked.
-05_2	The soup guess first. Ten times ten, over three?
+05_2	Let's try the soup guess first. Ten times ten, over three?
 05_3	About thirty-three. Now check it properly. What's the smallest the lake could be? We've already seen seventeen different fish.
 05_4	For each possible lake size, ask how likely it is to see exactly three marked. A lake of twenty, about eight percent. Thirty-three, about thirty-two percent. Sixty, about sixteen.
 05_5	Now sweep through every size.
 05_6	The curve peaks at thirty-three, just as the soup guess said. It's called the likelihood. Think of it as a score for each lake size. How likely our catch would be, if the lake were that size.
 05_7	Add up every height, out to lakes as big as you like, and you get about sixteen and two thirds. Real chances would add up to one, a hundred percent. The lake has one size, so these aren't chances that it's a certain size. They're scores for comparing guesses.
 06_1	Here's every lake size and every possible count at once.
-06_2	Cut across at one lake size. What do you get?
-06_3	The chances from the netfuls. They add to one.
+06_2	Cut across at one lake size. And what do you get?
+06_3	The chances from counting each netful. They add to one.
 06_4	Cut along at our three, and you get the score curve. Its heights, out to every lake size, add to sixteen and two thirds. Same mountains, two questions. What catch will this lake give, and which lake gave our catch?
 07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it. Divide one score by the other, and almost everything cancels.
 07_2	In the mystery lake, the step from thirty-two to thirty-three leaves twenty-three times twenty-three, over thirty-three times sixteen. That's five hundred twenty-nine against five hundred twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five hundred seventy-six against five hundred seventy-eight, so it goes down.
