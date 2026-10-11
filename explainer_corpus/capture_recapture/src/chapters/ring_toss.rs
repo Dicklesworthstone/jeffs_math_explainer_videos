@@ -119,7 +119,7 @@ fn clacks(events: &[(f64, bool)], seconds: f64) -> Stereo {
         let seed = i as u64 + 1;
         let (inst, mut note) = if rang {
             // the same knock each time, a little brighter as the stack grows
-            (Instrument::Marimba, Note::new(79.0, 0.55, 0.12, seed))
+            (Instrument::Marimba, Note::new(72.0, 0.6, 0.12, seed))
         } else {
             (Instrument::Pluck, Note::new(43.0, 0.9, 0.5, seed))
         };
@@ -1084,7 +1084,11 @@ impl RingToss {
             replacement_transform(range, first_bar).rt(0.9),
             fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?.rt(0.9),
         );
-        let cues = ["Four times as many", "Catching a bigger share", "catching all of it"];
+        let cues = [
+            "Four times as many",
+            "Catching a bigger share",
+            "catching the whole lake",
+        ];
         for i in 1..stop_data.len() {
             line.at(stage, cues[i - 1])?;
             let next_bar = stage.arena_mut().add(bar(stop_data[i].lo, stop_data[i].hi)?);
@@ -1215,7 +1219,7 @@ mod tests {
         ("12_3", "Here the catch"),
         ("12_5", "Four times as many"),
         ("12_5", "Catching a bigger share"),
-        ("12_5", "catching all of it"),
+        ("12_5", "catching the whole lake"),
     ];
 
     #[test]
