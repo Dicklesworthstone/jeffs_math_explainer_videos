@@ -184,7 +184,7 @@ impl SceneConstruct for TimesTable {
         play!(stage; indicate(stage.arena_mut(), zero, 1.12, glow)?.rt(1.0));
         line.at_phrase(stage, "twice as long")?;
         let exp_line = code.get("exp");
-        play!(stage; indicate(stage.arena_mut(), exp_line, 1.12, glow)?.rt(1.0));
+        play!(stage; indicate(stage.arena_mut(), exp_line, 1.12, glow)?.rt(0.6));
         kit.hold(stage)?;
 
         // 12_1: every pair at once, in byte order: it looks like noise
@@ -321,7 +321,8 @@ impl SceneConstruct for TimesTable {
         play!(stage; show_creation(stripe).rt(0.9), fade_in(stage.arena_mut(), total, ORIGIN, 1.0)?.rt(0.9));
         play!(stage; fade_in(stage.arena_mut(), orders, v(0.0, 0.2), 1.0)?.rt(0.5));
         kit.hold(stage)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        // a short breath: 12_5's code beat (R3, Dev D1) took the rest
+        kit.music_breath(stage, 1.0)?;
 
         // 12_5: AES's prime polynomial: the same field, other labels
         let table_parts = [
