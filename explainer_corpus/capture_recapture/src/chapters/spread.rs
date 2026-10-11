@@ -6,10 +6,6 @@
 //! (03_5), two whole corners (03_6), and the mosaic's straight line
 //! (03_7–03_8).
 
-// TEMPORARY until chapters/mod.rs (reserved by another lane) registers it
-#[path = "listen.rs"]
-pub mod listen;
-
 use std::cell::{Cell as Shared, RefCell};
 use std::f64::consts::TAU;
 use std::rc::Rc;
@@ -23,13 +19,13 @@ use super::lake::{
     GAP, LAKE_C, LAKE_H, LAKE_W, LakeArt, PER_GLYPH, Regions, Shade, TABLE_C, TABLE_W, behind, cell_backs, fade_in_all,
     fade_out_all, fold, key, lake_p, mosaic_cells, plated, region_centre, table_labels,
 };
+use super::listen::{Plink, SCORE_FADE_S, catch_sound, last_onset};
 use crate::facts::FELLER;
 use crate::model::Lake;
 use crate::model::mixing::{self, Mixing};
-use listen::{Plink, SCORE_FADE_S, catch_sound, last_onset};
 
 /// The time-lapse: all 40,000 steps (t = 0 … 400) in this many seconds.
-const TIME_LAPSE_S: f64 = 8.0;
+const TIME_LAPSE_S: f64 = 7.0;
 /// How steeply the time-lapse clock speeds up (model time grows as
 /// e^(A·τ/T) − 1): it opens at about 15 steps a second, so the first
 /// marks visibly swim out of the dock region, and ends at the even mix.
@@ -251,6 +247,13 @@ impl SceneConstruct for Spread {
 
         // 03_2: only we can see this: the marked thousand, let go at the dock
         let peek = kit.text_left(stage, "only we can see this", 28.0, Palette::dim(), v(-6.6, 3.45))?;
+        let share_words = kit.text_left(
+            stage,
+            "each region's number: the share of its fish that are marked",
+            24.0,
+            Role::marked(),
+            v(-6.6, 3.1),
+        )?;
         let gold_glyph = marked_fish();
         let gold = Swarm::build(stage, &gold_glyph.mob, &poses_of(&sim.borrow(), &marked_ids), None)?;
         kit.say(stage, "03_2")?;
@@ -301,7 +304,9 @@ impl SceneConstruct for Spread {
             .set_opacity(1.0)?;
         play!(stage; tween(tint_level, 1.0, 1.2)?, border_in);
         let plates: Vec<Mob> = readouts.iter().map(|r| r.0).collect();
-        fade_in_all(stage, &plates, 0.6)?;
+        let mut plates_in = plates.clone();
+        plates_in.push(share_words);
+        fade_in_all(stage, &plates_in, 0.6)?;
         for &(_, live) in &readouts {
             stage.add_to_scene(live)?;
         }
@@ -336,6 +341,9 @@ impl SceneConstruct for Spread {
             line_shade.to(1.0, 1.2)?,
         );
         stage.add_to_scene(clock)?;
+        // a second at t = 0 first, so the dock's starting share is seen (R3
+        // Ruth 04: the oracle's t0 shares, 66% at the dock)
+        stage.wait(1.0)?;
         let drive = Rc::clone(&sim);
         let clock_tau = Rc::clone(&tau);
         let plain_heads = follow(stage, &plain, Rc::clone(&sim), plain_ids.clone(), move |dt| {
@@ -366,7 +374,15 @@ impl SceneConstruct for Spread {
         let m = sim.borrow().clone();
         let centres = mixing::region_centres();
         let nets: Vec<u32> = centres.iter().map(|&c| m.net_at(c, FELLER.1 as usize)).collect();
-        let mut gone = vec![regions.group, borders, lines.group, clock, clock_label, peek];
+        let mut gone = vec![
+            regions.group,
+            borders,
+            lines.group,
+            clock,
+            clock_label,
+            peek,
+            share_words,
+        ];
         for &(plate, live) in &readouts {
             gone.push(plate);
             gone.push(live);

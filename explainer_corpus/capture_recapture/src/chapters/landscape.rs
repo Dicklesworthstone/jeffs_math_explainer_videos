@@ -32,10 +32,24 @@ pub const SIDE: CameraShot = CameraShot {
     theta: 0.0,
     phi: FRAC_PI_2,
 };
-const THREE_QUARTER: (f64, f64) = (0.32, 1.15);
-/// Facing the fixed-size slice from the large-lake end (its bars are
-/// short, so they hide little).
-const ACROSS: (f64, f64) = (0.15 - FRAC_PI_2, 1.2);
+/// A camera view: its angles, how much more of the world than the side
+/// view's frame it shows (zoom out above 1), and the point it looks at.
+#[derive(Clone, Copy, Debug)]
+struct View {
+    theta: f64,
+    phi: f64,
+    zoom: f64,
+    centre: Vec3,
+}
+
+/// Above and in front of the field, a little from the small-lake side, far
+/// enough back that the whole field fits.
+const THREE_QUARTER: View = View {
+    theta: 0.3,
+    phi: 1.12,
+    zoom: 1.48,
+    centre: [0.6, 0.9, -1.0],
+};
 /// The fixed-size slice of 06_2–06_3.
 const SLICE: u64 = 33;
 
@@ -101,10 +115,6 @@ impl Field {
         self.bars.iter().filter(|b| b.1 != k).map(|b| b.3).collect()
     }
 
-    fn size(&self, n: u64) -> Vec<Mob> {
-        self.bars.iter().filter(|b| b.0 == n).map(|b| b.3).collect()
-    }
-
     fn not_size(&self, n: u64) -> Vec<Mob> {
         self.bars.iter().filter(|b| b.0 != n).map(|b| b.3).collect()
     }
@@ -126,9 +136,27 @@ fn opacity(stage: &mut Stage<'_>, mobs: &[Mob], to: f64, secs: f64) -> fmn::Resu
         .collect()
 }
 
-/// A camera move to `(theta, phi)` over `secs`, prepared.
-fn turn(kit: &Kit, stage: &mut Stage<'_>, (theta, phi): (f64, f64), secs: f64) -> fmn::Result<Box<dyn Animation>> {
-    let t = kit.camera_to(stage, theta, phi)?.rt(secs);
+/// A camera move to `view` over `secs`, prepared: from the shot's own
+/// configuration, its frame scaled by the zoom (width and height together,
+/// so the aspect never changes) and centred on the view's point. `None` is
+/// the side view exactly as the chapter began (05's last frame, 07's first).
+fn turn(kit: &Kit, stage: &mut Stage<'_>, view: Option<View>, secs: f64) -> fmn::Result<Box<dyn Animation>> {
+    let fail = |m: &'static str| fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(m));
+    let camera = |e| fmn::Error::Scene(fmn::scene::SceneError::from(e));
+    let (rig, start) = kit
+        .camera()
+        .ok_or_else(|| fail("06 runs on the camera route (Kit::request_camera)"))?;
+    let mut target = start.clone();
+    if let Some(v) = view {
+        let (w, h) = (start.frame.width(), start.frame.height());
+        target
+            .frame
+            .set_euler_angles(Some(v.theta), Some(v.phi), None)
+            .map_err(camera)?;
+        target.frame.set_shape([w * v.zoom, h * v.zoom]).map_err(camera)?;
+        target.frame.set_center(v.centre).map_err(camera)?;
+    }
+    let t = rig.animate_to(stage.scene_mut(), &target)?.rt(secs);
     stage.prepare(t)
 }
 
@@ -199,9 +227,9 @@ impl SceneConstruct for Landscape {
         let legend = plated(
             &kit,
             stage,
-            "across: lake size, 17 to 60   ·   deep: caught twice, 0 to 10   ·   height: chance",
-            22.0,
-            Palette::dim(),
+            "left to right: lake size, 17 to 60   ·   front to back: caught twice, 0 to 10   ·   height: chance",
+            24.0,
+            Palette::ink(),
             v(0.0, 3.55),
         )?;
         hud(stage, legend);
@@ -213,10 +241,12 @@ impl SceneConstruct for Landscape {
             stage.set_opacity(b, 0.0, true);
         }
         let mut rise = opacity(stage, &others, 1.0, 2.0)?;
-        rise.push(turn(&kit, stage, THREE_QUARTER, 2.4)?);
+        rise.push(turn(&kit, stage, Some(THREE_QUARTER), 2.4)?);
         stage.play_prepared(rise)?;
         fade_in_all(stage, &[legend], 0.4)?;
         kit.hold(stage)?;
+        // a beat to take in the landscape before the first cut (R3 maya-01)
+        stage.wait(1.0)?;
 
         // 06_2: cut across at one lake size
         let slice_x = frame.p(SLICE as f64, 0.0)[0];
@@ -234,26 +264,39 @@ impl SceneConstruct for Landscape {
                 frame.bottom() + frame.height / 2.0,
             ],
         );
-        let this_lake = field.size(SLICE);
         let rest = field.not_size(SLICE);
         kit.say(stage, "06_2")?;
-        // the other sizes dim as the camera turns to face the slice
-        let mut swing = opacity(stage, &rest, 0.18, 2.6)?;
-        swing.push(turn(&kit, stage, ACROSS, 2.6)?);
-        stage.play_prepared(swing)?;
+        // every other lake size goes, the camera holds still, and the one
+        // lake's row stands alone in its plane (R3 maya-01)
         stage.add_to_scene(plane)?;
-        let q = predict_hud(&kit, stage, v(5.6, 2.2))?;
+        stage.set_opacity(plane, 0.0, true);
+        let mut cut = opacity(stage, &rest, 0.0, 1.4)?;
+        cut.extend(opacity(stage, &[plane], 0.16, 1.4)?);
+        stage.play_prepared(cut)?;
+        let q = predict_hud(&kit, stage, v(5.9, 0.6))?;
 
         // 06_3: that slice is the chances of every count for that lake;
         // they add to one
+        // lifted out flat beside the landscape: 05_4's chart of one lake's
+        // catch, for this lake
         let sum: f64 = (0..=COUNTS).map(|k| Law::new(SLICE, TOY.0, TOY.1).at(k)).sum();
+        let chart_f = Frame2 {
+            width: 6.0,
+            height: 2.6,
+            y: (0.0, 0.45),
+            ..curve::catch_frame(v(3.5, 0.9))
+        };
+        let chart = stage.arena_mut().add(curve::catch_bars(&chart_f, SLICE)?);
+        let chart_axis = curve::catch_axis(&kit, stage, &chart_f)?;
+        hud(stage, chart);
+        hud(stage, chart_axis);
         let sigma = plated(
             &kit,
             stage,
             &format!("lake of {SLICE}: the chances add to {}", sum.round()),
             28.0,
             Role::chance(),
-            v(-3.6, 2.6),
+            v(chart_f.center[0], chart_f.top() + 0.45),
         )?;
         hud(stage, sigma);
         let question1 = plated(
@@ -267,25 +310,29 @@ impl SceneConstruct for Landscape {
         hud(stage, question1);
         kit.say(stage, "06_3")?;
         fade_out_all(stage, &[q], 0.3)?;
-        let light = opacity(stage, &this_lake, 1.0, 0.6)?;
-        stage.play_prepared(light)?;
+        play!(stage;
+            fade_in(stage.arena_mut(), chart, v(1.2, 0.0), 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), chart_axis, v(1.2, 0.0), 1.0)?.rt(0.8),
+        );
         fade_in_all(stage, &[sigma], 0.5)?;
         kit.hold(stage)?;
+        // time to read it, the camera still
+        stage.wait(1.5)?;
 
         // 06_4: cut along at our three: the score curve. The crest is the
         // ridge over the tops; then back to the side view and the flat curve
         let crest = crest_ridge(stage, &frame)?;
         kit.say(stage, "06_4")?;
-        fade_out_all(stage, &[sigma, plane], 0.4)?;
+        fade_out_all(stage, &[sigma, plane, chart, chart_axis], 0.4)?;
         let mut back = opacity(stage, &rest, 1.0, 1.0)?;
-        back.push(turn(&kit, stage, THREE_QUARTER, 2.2)?);
+        back.push(turn(&kit, stage, Some(THREE_QUARTER), 2.2)?);
         stage.play_prepared(back)?;
         play!(stage; fmn::animation::show_creation(crest).rt(1.4));
         // the other counts fall away; our row stays, side-on
         let mut gone = others.clone();
         gone.push(crest);
         let mut cut = opacity(stage, &gone, 0.0, 1.6)?;
-        cut.push(turn(&kit, stage, (SIDE.theta, SIDE.phi), 2.6)?);
+        cut.push(turn(&kit, stage, None, 2.6)?);
         stage.play_prepared(cut)?;
         let first = *curve::sizes().start();
         let to60: f64 = curve::sizes().map(curve::score).sum();

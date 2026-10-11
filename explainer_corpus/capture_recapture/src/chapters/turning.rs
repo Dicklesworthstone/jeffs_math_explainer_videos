@@ -17,7 +17,6 @@ use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{LakeArt, Shade, fade_in_all, fade_out_all, plated, shuffled};
 use super::listen::{Plink, SCORE_FADE_S, catch_sound, last_onset, sweep_sound};
 use crate::facts::{TOY, best_sizes};
-use crate::law::Law;
 use crate::model::{SEED, SplitMix64};
 
 /// The three stills of 05_4.
@@ -26,64 +25,18 @@ const STILLS: [u64; 3] = [20, 33, 60];
 /// 0.015 more; "all sizes" is the closed form, A-F7).
 const SUM_TO: u64 = 2_000;
 
-/// The histogram panel over the curve: k = 0 … 10 for one lake size.
+/// 05_4's chart of one lake's catch (curve::catch_*), over the curve's
+/// right half.
 fn hist_frame() -> Frame2 {
-    Frame2 {
-        center: v(3.6, 2.6),
-        width: 4.6,
-        height: 1.4,
-        x: (-0.6, TOY.1 as f64 + 0.6),
-        y: (0.0, 0.6),
-    }
+    curve::catch_frame(v(3.6, 2.6))
 }
 
-/// One bar of the histogram for lake size `lake`: k's chance.
 fn hist_bars(lake: u64) -> fmn::Result<VMobject> {
-    let f = hist_frame();
-    let law = Law::new(lake, TOY.0, TOY.1);
-    let w = 0.72 * f.width / (f.x.1 - f.x.0);
-    let bars: Vec<VMobject> = (0..=TOY.1)
-        .map(|k| {
-            let (base, top) = (f.p(k as f64, 0.0), f.p(k as f64, law.at(k)));
-            let c = if k == TOY.2 { Role::score() } else { Role::chance() };
-            rect(
-                v(base[0] - w / 2.0, base[1]),
-                w,
-                (top[1] - base[1]).max(0.004),
-                flat(c, 0.9),
-            )
-        })
-        .collect::<fmn::Result<_>>()?;
-    Ok(v_group(bars))
+    curve::catch_bars(&hist_frame(), lake)
 }
 
-/// The histogram's floor and its k labels, detached.
 fn hist_axis(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
-    let f = hist_frame();
-    let floor = Line::new(v(f.left(), f.bottom()), v(f.right(), f.bottom()))
-        .style(line_style(Palette::dim(), 2.0))
-        .build()?;
-    let g = stage.arena_mut().add(floor);
-    for k in [0, TOY.2, TOY.1] {
-        let c = if k == TOY.2 { Role::score() } else { Palette::dim() };
-        let m = kit.text(
-            stage,
-            &k.to_string(),
-            20.0,
-            c,
-            v(f.p(k as f64, 0.0)[0], f.bottom() - 0.2),
-        )?;
-        stage.attach(g, m)?;
-    }
-    let word = kit.text(
-        stage,
-        "caught twice",
-        20.0,
-        Palette::dim(),
-        v(f.center[0], f.bottom() - 0.48),
-    )?;
-    stage.attach(g, word)?;
-    Ok(g)
+    curve::catch_axis(kit, stage, &hist_frame())
 }
 
 /// Every lake size's score summed from the smallest up to `to`.
@@ -604,7 +557,7 @@ impl SceneConstruct for Turning {
         )?;
         let feller_cite = kit.text(
             stage,
-            "Feller (1950); his n is our lake size",
+            "Feller (1950); his n means the lake size, not our second catch",
             20.0,
             Palette::dim(),
             v(0.0, 2.8),

@@ -23,7 +23,7 @@ pub const WATER_R: f64 = 0.45;
 /// One fish drawn per this many in the lake (the key says so on screen).
 pub const PER_GLYPH: usize = 10;
 /// The key's place: under the lake's south-east corner, inside the safe area.
-pub const KEY_AT: Vec3 = [5.0, -3.6, 0.0];
+pub const KEY_AT: Vec3 = [4.7, -3.6, 0.0];
 /// The table of catches (01_2) and the mosaic it grows into (01_3).
 pub const TABLE_C: Vec3 = [1.0, -0.55, 0.0];
 pub const TABLE_W: f64 = 9.2;
@@ -192,8 +192,8 @@ pub fn key(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
     kit.text(
         stage,
         &format!("each fish drawn = {PER_GLYPH} fish"),
-        24.0,
-        Palette::dim(),
+        28.0,
+        Palette::ink(),
         KEY_AT,
     )
 }

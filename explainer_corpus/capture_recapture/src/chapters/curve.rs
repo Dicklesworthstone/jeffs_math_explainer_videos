@@ -108,6 +108,67 @@ pub fn axis(kit: &Kit, stage: &mut Stage<'_>, frame: &Frame2) -> fmn::Result<Mob
     Ok(g)
 }
 
+/// One lake's catch chart (05_4's "if the lake had N fish", 06_3's lifted
+/// slice): the chance of every caught-twice count 0 … 10, the k = 3 bar in
+/// the score's purple; a frame 4.6 × 1.4 centred at `center`.
+pub fn catch_frame(center: Vec3) -> Frame2 {
+    Frame2 {
+        center,
+        width: 4.6,
+        height: 1.4,
+        x: (-0.6, TOY.1 as f64 + 0.6),
+        y: (0.0, 0.6),
+    }
+}
+
+/// The catch chart's bars for lake size `lake`, standing on `f`'s floor.
+pub fn catch_bars(f: &Frame2, lake: u64) -> fmn::Result<VMobject> {
+    let law = Law::new(lake, TOY.0, TOY.1);
+    let w = 0.72 * f.width / (f.x.1 - f.x.0);
+    let bars: Vec<VMobject> = (0..=TOY.1)
+        .map(|k| {
+            let (base, top) = (f.p(k as f64, 0.0), f.p(k as f64, law.at(k)));
+            let c = if k == TOY.2 { Role::score() } else { Role::chance() };
+            rect(
+                v(base[0] - w / 2.0, base[1]),
+                w,
+                (top[1] - base[1]).max(0.004),
+                flat(c, 0.9),
+            )
+        })
+        .collect::<fmn::Result<_>>()?;
+    Ok(v_group(bars))
+}
+
+/// The catch chart's floor, its 0 / 3 / 10 labels and "caught twice",
+/// detached.
+pub fn catch_axis(kit: &Kit, stage: &mut Stage<'_>, f: &Frame2) -> fmn::Result<Mob> {
+    let floor = Line::new(v(f.left(), f.bottom()), v(f.right(), f.bottom()))
+        .style(line_style(Palette::dim(), 2.0))
+        .build()?;
+    let g = stage.arena_mut().add(floor);
+    for k in [0, TOY.2, TOY.1] {
+        let c = if k == TOY.2 { Role::score() } else { Palette::dim() };
+        let m = kit.text(
+            stage,
+            &k.to_string(),
+            20.0,
+            c,
+            v(f.p(k as f64, 0.0)[0], f.bottom() - 0.2),
+        )?;
+        stage.attach(g, m)?;
+    }
+    let word = kit.text(
+        stage,
+        "caught twice",
+        20.0,
+        Palette::dim(),
+        v(f.center[0], f.bottom() - 0.48),
+    )?;
+    stage.attach(g, word)?;
+    Ok(g)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

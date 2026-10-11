@@ -5,7 +5,7 @@
 //! answers (02_8).
 
 use explainer_kit::animatic::HOLD_S;
-use explainer_kit::props::{Swarm, precisely, predict_pause};
+use explainer_kit::props::{Swarm, names_to_search, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, thousands, v};
 use fmn::animation::replacement_transform;
 use fmn::prelude::*;
@@ -266,7 +266,20 @@ impl SceneConstruct for Marks {
         // 02_5: ten thousand. The second catch copied ten times stacks into
         // the lake; of its fish we have seen 1,900, and the rest dim
         kit.say(stage, "02_5")?;
-        let mut away = vec![q, ask, second_label, twice_label, one_in, marked_label];
+        // the answer lands on the first word (R3 Ruth 14)
+        let answer = kit.text(
+            stage,
+            &format!("{} = one tenth of {}", thousands(big_n), thousands(lake)),
+            40.0,
+            Palette::ink(),
+            v(0.0, -2.75),
+        )?;
+        play!(stage;
+            replacement_transform(ask, answer).rt(0.4),
+            fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
+        );
+        stage.wait(0.6)?;
+        let mut away = vec![answer, second_label, twice_label, one_in, marked_label];
         away.extend(marked_tray.parts());
         let mut fades: Vec<Box<dyn Animation>> = Vec::new();
         for m in away {
@@ -486,6 +499,9 @@ impl SceneConstruct for Marks {
             play!(stage; fade_in(stage.arena_mut(), w, v(0.0, 0.15), 1.0)?.rt(0.4));
         }
         play!(stage; fade_in(stage.arena_mut(), name, ORIGIN, 1.0)?.rt(0.6));
+        // its textbook name, so it can be looked up (R3 Dev D3)
+        let names = names_to_search(&kit, stage, &["Lincoln–Petersen estimator", "capture–recapture"])?;
+        play!(stage; fade_in(stage.arena_mut(), names, v(0.0, 0.2), 1.0)?.rt(0.6));
         kit.hold(stage)?;
 
         // 02_8: the three questions; each returns as an act title
