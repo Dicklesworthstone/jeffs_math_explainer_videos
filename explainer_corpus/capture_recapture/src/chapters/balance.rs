@@ -77,6 +77,22 @@ pub fn mosaic_picture(book: &FontBook, lake: f64) -> VMobject {
     {
         parts.push(r.moved_to(dark.c));
     }
+    // both second-catch cells carry a green edge, so the marked column
+    // shows its "green part" too (R3 Maya maya-06)
+    for c in [cells[0], cells[2]] {
+        if let Ok(r) = Rectangle::new()
+            .width(c.w)
+            .height(c.h)
+            .style(
+                Style::default()
+                    .fill(Role::second(), 0.0)
+                    .stroke(Role::second(), 2.5, 0.85),
+            )
+            .build()
+        {
+            parts.push(r.moved_to(c.c));
+        }
+    }
     let (yl, yr) = dividers(&cells);
     let straight = (yl - yr).abs() < 0.004;
     let (color, width) = if straight {
@@ -271,7 +287,19 @@ impl SceneConstruct for Balance {
         // unmarked column's divider climbs toward the marked one's
         kit.say(stage, "08_2")?;
         play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
-        stage.play(tween(lake, truth as f64, 8.5)?)?;
+        // "While the green share in the unmarked column is bigger...": the
+        // sweep runs through the rest of the line
+        kit.until_sentence(stage, "08_2", 1)?;
+        let sweep_s = kit
+            .narrator
+            .as_ref()
+            .and_then(|nr| {
+                let starts = nr.sentence_starts("08_2");
+                Some(nr.length("08_2")? - starts.get(1).copied()? - 0.2)
+            })
+            .unwrap_or(8.5)
+            .max(3.0);
+        stage.play(tween(lake, truth as f64, sweep_s)?)?;
         kit.hold(stage)?;
 
         // 08_3: the cross products, and the line goes straight
@@ -313,6 +341,8 @@ impl SceneConstruct for Balance {
             show_creation(ku).rt(0.8),
             fade_in(stage.arena_mut(), ku_word, ORIGIN, 1.0)?.rt(0.8),
         );
+        // "So is nine hundred times nine hundred."
+        kit.until_sentence(stage, "08_3", 1)?;
         play!(stage;
             fade_out(stage.arena_mut(), ku, ORIGIN, 1.0)?.rt(0.5),
             show_creation(ab).rt(0.8),
@@ -328,7 +358,8 @@ impl SceneConstruct for Balance {
         stage.clear_updaters(right_no, true);
         let mut clear: Vec<Box<dyn Animation>> = Vec::new();
         for mm in [
-            ku,
+            size_word,
+            size_no,
             ab,
             share_word,
             left_word,
@@ -354,10 +385,24 @@ impl SceneConstruct for Balance {
                 ..PlayOverrides::default()
             },
         )?;
-        // the two cards, then one
+        // "A straight line is what two independent catches look like on
+        // average.": the line glows
+        let (yl, _) = dividers(&cells);
+        let x_left = cells[0].c[0] - cells[0].w / 2.0;
+        let x_right = cells[2].c[0] + cells[2].w / 2.0;
+        let glow_line = stage.arena_mut().add(
+            Line::new(v(x_left, yl), v(x_right, yl))
+                .style(line_style(Palette::hero(), 9.0))
+                .build()?,
+        );
+        stage.add_to_scene(glow_line)?;
+        play!(stage; fmn::animation::indicate(stage.arena_mut(), glow_line, 1.0, None)?.rt(1.2));
+        // "So the size with the top score and the soup guess agree...": two
+        // cards, then one
+        kit.until_sentence(stage, "08_4", 1)?;
         let cx = -5.1;
         let top_card = stage.arena_mut().add(card(3.5, 1.0, v(cx, 0.55), Palette::purple())?);
-        let top_t1 = kit.text(stage, "top score", 24.0, Palette::purple(), v(cx, 0.75))?;
+        let top_t1 = kit.text(stage, "best size (top score)", 24.0, Palette::purple(), v(cx, 0.75))?;
         let top_t2 = kit.text(stage, &thousands(truth), 30.0, Palette::ink(), v(cx, 0.33))?;
         let soup_card = stage.arena_mut().add(card(3.5, 1.0, v(cx, -0.75), Role::dark())?);
         let soup_t1 = kit.text(stage, "soup guess", 24.0, Role::dark(), v(cx, -0.55))?;
@@ -402,17 +447,6 @@ impl SceneConstruct for Balance {
                 ..PlayOverrides::default()
             },
         )?;
-        // the line glows; the mystery lake rounds down
-        let (yl, _) = dividers(&cells);
-        let x_left = cells[0].c[0] - cells[0].w / 2.0;
-        let x_right = cells[2].c[0] + cells[2].w / 2.0;
-        let glow_line = stage.arena_mut().add(
-            Line::new(v(x_left, yl), v(x_right, yl))
-                .style(line_style(Palette::hero(), 9.0))
-                .build()?,
-        );
-        stage.add_to_scene(glow_line)?;
-        play!(stage; fmn::animation::indicate(stage.arena_mut(), glow_line, 1.0, None)?.rt(1.2));
         let (tm, tn, tk) = TOY;
         let toy_best = best_sizes(TOY).last().copied().unwrap_or(0);
         let toy_word = kit.text(stage, "the mystery lake", 22.0, Palette::dim(), v(cx, -1.25))?;
@@ -491,12 +525,12 @@ impl SceneConstruct for Balance {
             &kit,
             stage,
             "the top score's size is ⌊Mn/k⌋; a tie with Mn/k − 1 when Mn/k is whole and k < min(M, n); none \
-             when k = 0; exact fractions tie, an lgamma log-likelihood picks 10,000 by rounding",
+             when k = 0; exact fractions tie; Python's math.lgamma happens to pick 10,000, another lgamma may pick \
+             9,999",
         )?;
         kit.say(stage, "08_5")?;
         let mut swap: Vec<Box<dyn Animation>> = Vec::new();
-        stage.clear_updaters(size_no, true);
-        for mm in [agree_card, agree_t1, agree_t2, toy, note, size_word, size_no] {
+        for mm in [agree_card, agree_t1, agree_t2, toy, note] {
             let a = fade_out(stage.arena_mut(), mm, ORIGIN, 1.0)?;
             swap.push(stage.prepare(a)?);
         }
@@ -507,6 +541,9 @@ impl SceneConstruct for Balance {
                 ..PlayOverrides::default()
             },
         )?;
+        // "So the step up from nine thousand nine hundred ninety-nine changes
+        // nothing, and the two tie for the top score."
+        kit.until_sentence(stage, "08_5", 1)?;
         for pair in rows.chunks(2) {
             play!(stage;
                 fade_in(stage.arena_mut(), pair[0], ORIGIN, 1.0)?.rt(0.5),

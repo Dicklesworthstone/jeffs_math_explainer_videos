@@ -162,6 +162,8 @@ fn score_curve(kit: &Kit, stage: &mut Stage<'_>, points: &[(f64, f64)]) -> fmn::
         intro.push(stage.prepare(a)?);
     }
     stage.play_prepared(intro)?;
+    // "Which sizes could plausibly have given us our hundred caught twice?"
+    kit.until_sentence(stage, "11_1", 3)?;
     play!(stage; show_creation(line).rt(2.0));
     play!(stage; fade_in(stage.arena_mut(), peak_word, v(0.0, -0.1), 1.0)?.rt(0.6));
     kit.hold(stage)?;
@@ -230,11 +232,17 @@ fn smallest_lake(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Smallest> {
         show_creation(marker).rt(0.6),
         fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.6),
     );
+    // "Then the second net scooped up all nine hundred unmarked fish and
+    // only a hundred of the thousand marked ones."
+    kit.until_sentence(stage, "11_2", 1)?;
     play!(stage;
         fade_in(stage.arena_mut(), line1, ORIGIN, 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), line2, ORIGIN, 1.0)?.rt(0.6),
     );
     play!(stage; fade_in(stage.arena_mut(), line3, ORIGIN, 1.0)?.rt(0.6));
+    // "The chance of that is about five in a one followed by four hundred
+    // thirty zeros." The chance, then the zeros under the words (R3 Dev D4)
+    kit.until_sentence(stage, "11_2", 2)?;
     play!(stage; write(stage.arena(), chance).rt(0.8));
     // the zeros: 0.000…0535…, the dashed line where float64 gives up
     let zeros = ex.unsigned_abs() as usize - 1;
@@ -256,18 +264,19 @@ fn smallest_lake(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Smallest> {
             .style(line_style(Palette::hero(), 3.0))
             .build()?,
     );
+    // the label stays put over the middle while the cut is held there
     let cut_word = kit.text(
         stage,
         "a computer's everyday numbers (float64) round to zero past here",
-        22.0,
+        24.0,
         Palette::hero(),
-        v(cut_x, y + 0.55),
+        v(0.0, y + 0.6),
     )?;
     let reel = stage.arena_mut().add(VMobject::new());
-    for m in [strip, cut, cut_word] {
+    for m in [strip, cut] {
         stage.attach(reel, m)?;
     }
-    stage.add_to_scene(reel)?;
+    play!(stage; fade_in(stage.arena_mut(), reel, ORIGIN, 1.0)?.rt(0.4));
     // scroll: bring the cut to the middle, let it be read, run to the end
     let travel = (start_left + w) - 6.6;
     let to_cut = cut_x;
@@ -284,7 +293,9 @@ fn smallest_lake(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Smallest> {
         Ok(())
     };
     leg(stage, to_cut, 1.6)?;
-    stage.wait(1.0)?;
+    play!(stage; fade_in(stage.arena_mut(), cut_word, v(0.0, -0.1), 1.0)?.rt(0.4));
+    stage.wait(2.6)?;
+    play!(stage; fade_out(stage.arena_mut(), cut_word, ORIGIN, 1.0)?.rt(0.4));
     leg(stage, travel - to_cut, 1.4)?;
     play!(stage; fade_out(stage.arena_mut(), reel, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
@@ -391,6 +402,8 @@ fn a_million(
         show_creation(far).rt(0.6),
         fade_in(stage.arena_mut(), far_tag, ORIGIN, 1.0)?.rt(0.6),
     );
+    // "Then we'd expect to catch about one marked fish, not a hundred."
+    kit.until_sentence(stage, "11_3", 1)?;
     play!(stage;
         fade_in(stage.arena_mut(), expect_word, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), spike_word, ORIGIN, 1.0)?.rt(0.8),
@@ -545,6 +558,8 @@ fn not_a_problem(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         show.push(stage.prepare(a)?);
     }
     stage.play_prepared(show)?;
+    // "Exactly fifty heads comes up only about eight percent of the time..."
+    kit.until_sentence(stage, "11_5", 1)?;
     play!(stage;
         fade_in(stage.arena_mut(), chot, ORIGIN, 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), half_word, ORIGIN, 1.0)?.rt(0.6),

@@ -172,13 +172,17 @@ fn pond(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
         fade_in(stage.arena_mut(), bank, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), water, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), blue.group, ORIGIN, 1.0)?.rt(1.0),
-        fade_in(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.8),
     );
+    // "In a lake of a thousand fish, mark fifty and catch fifty."
+    kit.until_sentence(stage, "10_1", 1)?;
     play!(stage;
+        fade_in(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), gold.group, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), mark, ORIGIN, 1.0)?.rt(0.8),
     );
+    // "How often does the second catch hold no marked fish at all?"
+    kit.until_sentence(stage, "10_1", 2)?;
     stage.add_to_scene(net)?;
     let rise = net
         .animate()
@@ -240,7 +244,8 @@ fn nothing_caught_twice(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw, pon
         fade_in(stage.arena_mut(), one_in, v(0.0, -0.15), 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), exact, ORIGIN, 1.0)?.rt(0.8),
     );
-    // the soup guess, M·n over nothing: the guess flies off the screen
+    // "Then the soup guess divides by zero.": the guess flies off the screen
+    kit.until_sentence(stage, "10_2", 1)?;
     let zero = kit.tex(
         stage,
         &format!(r"\frac{{{marked} \times {caught}}}{{0}} = \;?"),
@@ -268,10 +273,26 @@ fn nothing_caught_twice(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw, pon
         .move_to(v(8.0, -2.6), ORIGIN)?;
     stage.play(off)?;
     stage.remove_from_scene(dot);
+    // what chapter 09's code does here (R3 Dev D6)
+    let inf = crate::facts::py((marked * caught) as f64 / 0.0);
+    let code_note = kit.text(
+        stage,
+        &format!(
+            "for programmers: chapter 9's est = M * n / k gives {inf} here (a RuntimeWarning), so est.mean() is {inf} too"
+        ),
+        24.0,
+        Palette::ink(),
+        v(0.6, -3.4),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), code_note, ORIGIN, 1.0)?.rt(0.5));
     kit.hold(stage)?;
     // clear the stage for Chapman, keeping nothing
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
-    for m in pond.into_iter().filter(|&m| m != q).chain([one_in, exact, zero]) {
+    for m in pond
+        .into_iter()
+        .filter(|&m| m != q)
+        .chain([one_in, exact, zero, code_note])
+    {
         if m == none {
             continue;
         }
@@ -418,7 +439,8 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
     play!(stage; write(stage.arena(), plain).rt(0.8));
     let morph = TransformMatchingTex::new(stage.arena_mut(), plain, chap, &plain_spans, &chap_spans)?;
     play!(stage; morph.rt(1.6));
-    // it never divides by zero: with none caught twice it still answers
+    // "It never divides by zero.": with none caught twice it still answers
+    kit.until_sentence(stage, "10_3", 1)?;
     let at_zero = kit.text(
         stage,
         &format!(
@@ -428,10 +450,23 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
             thousands((marked + 1) * (caught + 1) - 1)
         ),
         24.0,
-        Palette::dim(),
+        Palette::ink(),
         v(-3.4, -2.45),
     )?;
     play!(stage; fade_in(stage.arena_mut(), at_zero, ORIGIN, 1.0)?.rt(0.6));
+    // "...a number, not an answer." (R3 Dev D1)
+    kit.until_sentence(stage, "10_3", 2)?;
+    let caveat = kit.text(
+        stage,
+        "a number, not an answer: chapter 12's range has no top",
+        24.0,
+        Palette::red(),
+        v(-3.4, -2.95),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), caveat, ORIGIN, 1.0)?.rt(0.6));
+    kit.hold(stage)?;
+    // 10_4 (split from 10_3, R3 Maya maya-13): the gauge
+    kit.say(stage, "10_4")?;
 
     // the gauge: the average guess against the true size
     let mut parts = vec![
@@ -492,6 +527,10 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
             .build()?;
         Ok(stage.arena_mut().add(r))
     };
+    // "Over the experiments that catch any, the soup guess runs about
+    // twenty-four percent high, and Chapman's runs about six and a half
+    // percent low."
+    kit.until_sentence(stage, "10_4", 1)?;
     let plain_needle = needle(stage, law.plain_bias_pct, Palette::red())?;
     let chap_needle = needle(stage, law.chapman_bias_pct, Palette::teal())?;
     let hub = stage.arena_mut().add(
@@ -543,9 +582,9 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
         fade_in(stage.arena_mut(), chap_note, ORIGIN, 1.0)?.rt(0.8),
     );
     stage.scene_mut().bring_to_front(&[hub])?;
-    // once four or more are expected caught twice: within 2% (the voice
-    // gets there after "six and a half percent low")
-    stage.wait(2.0)?;
+    // "Once you expect four or more, its average lands within two percent
+    // of the truth, though any one guess still scatters widely."
+    kit.until_sentence(stage, "10_4", 2)?;
     let bound = 100.0 * (-EXPECT_ENOUGH).exp();
     let band = stage.arena_mut().add(
         AnnularSector::new()
@@ -561,17 +600,23 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
     let band_word = kit.text(
         stage,
         &format!(
-            "expect {} or more caught twice: within {}%",
+            "expect {} or more caught twice: the average within {}%",
             EXPECT_ENOUGH,
             bound.ceil()
         ),
         24.0,
         Palette::green(),
-        v(GAUGE_C[0], GAUGE_C[1] - 1.8),
+        v(GAUGE_C[0], GAUGE_C[1] - 1.15),
     )?;
     play!(stage;
         fade_in(stage.arena_mut(), band, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), band_word, ORIGIN, 1.0)?.rt(0.8),
+        fade_out(stage.arena_mut(), at_zero, ORIGIN, 1.0)?.rt(0.5),
+        fade_out(stage.arena_mut(), caveat, ORIGIN, 1.0)?.rt(0.5),
+        // the legend has done its work; the band's words take its place,
+        // clear of the lower-third below
+        fade_out(stage.arena_mut(), plain_note, ORIGIN, 1.0)?.rt(0.4),
+        fade_out(stage.arena_mut(), chap_note, ORIGIN, 1.0)?.rt(0.4),
     );
     stage.scene_mut().bring_to_back(&[band])?;
     let note = precisely(
@@ -579,9 +624,11 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
         stage,
         &format!(
             "Chapman's average = N − (N+1)·C(N−M, n+1)/C(N+1, n+1): exactly N when M + n ≥ N, never low by \
-             more than N·e^(−Mn/N), under {}% once you expect {} caught twice",
+             more than N·e^(−Mn/N), under {}% once you expect {} caught twice. That bounds the bias; one \
+             guess's typical error there is still about ±{}% (chapter 12's rule of thumb).",
             bound.ceil(),
-            EXPECT_ENOUGH
+            EXPECT_ENOUGH,
+            (100.0 / EXPECT_ENOUGH.sqrt()).round()
         ),
     )?;
     play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
@@ -612,6 +659,10 @@ mod tests {
         assert_eq!(bound.ceil(), 2.0);
         // Chapman at k = 0 (the description's 2,600)
         assert_eq!((marked + 1) * (caught + 1) - 1, 2_600);
+        // the precisely note's one-guess error at 4 expected: 1 ÷ √4 = 50%
+        assert_eq!((100.0 / EXPECT_ENOUGH.sqrt()).round(), 50.0);
+        // 10_2's note: chapter 9's code divides by zero to inf
+        assert_eq!(py((marked * caught) as f64 / 0.0), "inf");
     }
 
     #[test]

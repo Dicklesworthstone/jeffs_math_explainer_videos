@@ -524,6 +524,8 @@ fn pile_up(kit: &Kit, stage: &mut Stage<'_>, run: &panel::Panel, stats: &Stats) 
     let grow = grow_histogram(stage, group, 0.02)?;
     play!(stage; grow.rt(1.6));
     // within nine of a hundred: the band, its share, the spread
+    // "Most land within about nine of it."
+    kit.until_sentence(stage, "09_3", 1)?;
     let (lo, hi) = (f.p(90.5, f.y.0), f.p(109.5, f.y.0));
     let band = stage.arena_mut().add(rect(
         v(lo[0], f.bottom()),
@@ -542,10 +544,13 @@ fn pile_up(kit: &Kit, stage: &mut Stage<'_>, run: &panel::Panel, stats: &Stats) 
     let exact_sd = exact_sd_of_k();
     let spread = kit.text_left(
         stage,
-        &format!("SD {exact_sd:.1}   (exact {exact_sd:.2}; these runs {:.2})", stats.k_sd),
-        24.0,
+        &format!(
+            "typically about {exact_sd:.0} from 100 · SD {exact_sd:.2} (these runs {:.2})",
+            stats.k_sd
+        ),
+        22.0,
         Palette::dim(),
-        v(f.center[0] + 1.6, f.bottom() + band_h + 0.05),
+        v(f.center[0] + 0.6, f.bottom() + band_h + 0.05),
     )?;
     play!(stage; fade_in(stage.arena_mut(), band, ORIGIN, 1.0)?.rt(0.6));
     stage.scene_mut().bring_to_back(&[band])?;
@@ -722,7 +727,12 @@ fn bend(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats, hist: Histogram) -> fmn
     );
     let near = |c: u64| ((MARKED * CAUGHT) as u64 + c / 2) / c;
     let mut guides = Vec::new();
-    for (k, color) in [(90u64, Palette::red()), (110, Palette::blue())] {
+    for (j, (k, color)) in [(90u64, Palette::red()), (110, Palette::blue())]
+        .into_iter()
+        .enumerate()
+    {
+        // "Ninety caught twice gives…" / "A hundred and ten gives…"
+        kit.until_sentence(stage, "09_4", 1 + j)?;
         let g = near(k);
         let foot = f.p(k as f64, f.y.0);
         let hit = f.p(k as f64, guess(k as f64));
@@ -752,7 +762,9 @@ fn bend(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats, hist: Histogram) -> fmn
         );
         guides.extend([up, across, k_tag, g_tag]);
     }
-    // the two pushes, side by side on the guess axis
+    // "Ten too few pushes harder than ten too many.": the two pushes, side
+    // by side on the guess axis
+    kit.until_sentence(stage, "09_4", 3)?;
     let (above, below) = (near(90) - LAKE as u64, LAKE as u64 - near(110));
     let x_arrow = f.right() - 3.2;
     let (y90, y110) = (f.p(f.x.0, near(90) as f64)[1], f.p(f.x.0, near(110) as f64)[1]);
@@ -879,6 +891,8 @@ fn bend(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats, hist: Histogram) -> fmn
     }
     stage.play_prepared(reveal)?;
     stage.scene_mut().bring_to_back(&[band])?;
+    // "Their average is about ten thousand and ninety, a little high."
+    kit.until_sentence(stage, "09_5", 1)?;
     let mean_y = f.p(f.x.0, stats.mean)[1];
     let mean_line = stage.arena_mut().add(
         Line::new(v(f.left(), mean_y), v(f.right(), mean_y))
@@ -952,20 +966,22 @@ fn code(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats) -> fmn::Result<()> {
         let hi_b = stage.get_corner(b, UR);
         let hi = v(hi_a[0].max(hi_b[0]), hi_a[1]);
         let r = SurroundingRectangle::from_extent(Some((lo, hi)))
-            .buff(0.05)
+            .buff(0.12)
             .color(color)
             .build();
         Ok(stage.arena_mut().add(r))
     };
     let run_box = box_around(stage, panel.lines[5], panel.lines[6], Palette::hero())?;
     play!(stage; show_creation(run_box).rt(0.8));
-    stage.wait(1.4)?;
+    // "The last line checks their average against the exact one…"
+    kit.until_sentence(stage, "09_6", 1)?;
     let check_box = box_around(stage, panel.lines[7], panel.lines[8], Palette::teal())?;
     play!(stage;
         fade_out(stage.arena_mut(), run_box, ORIGIN, 1.0)?.rt(0.5),
         show_creation(check_box).rt(0.8),
     );
-    // the printed line, under the panel
+    // "They agree, within the simulation's own wobble.": the printed line
+    kit.until_sentence(stage, "09_6", 2)?;
     let last = panel.lines[8];
     let left = stage.get_left(last)[0];
     let y = stage.get_bottom(panel.group)[1] - 0.45;
@@ -1006,6 +1022,15 @@ fn code(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats) -> fmn::Result<()> {
         fade_in(stage.arena_mut(), exact, ORIGIN, 1.0)?.rt(0.5),
     );
     play!(stage; fade_in(stage.arena_mut(), gap, ORIGIN, 1.0)?.rt(0.6));
+    // why the last line is exact here and not in every language (R3 Dev D5)
+    let ints = kit.text(
+        stage,
+        "exact only because Python's integers never overflow; with floats, sum exp(lgamma(…)) instead",
+        22.0,
+        Palette::dim(),
+        v(0.0, y - 1.45),
+    )?;
+    play!(stage; fade_in(stage.arena_mut(), ints, ORIGIN, 1.0)?.rt(0.6));
     Ok(())
 }
 

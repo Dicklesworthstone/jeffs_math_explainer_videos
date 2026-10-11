@@ -405,7 +405,7 @@ fn cancel(kit: &Kit, stage: &mut Stage<'_>, lake: u64) -> fmn::Result<(Mob, Span
         kit,
         stage,
         "L(N)/L(N−1) = (N−M)(N−n) / (N(N−M−n+k)), for N > M + n − k; code walks the curve the same way, one \
-         multiply per step (in logs for big lakes, see 11_2)",
+         multiply per step (in logs for big lakes, see chapter 11)",
     )?;
     play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.8));
     kit.hold(stage)?;
@@ -589,6 +589,32 @@ fn steps(kit: &Kit, stage: &mut Stage<'_>, lake: u64, survivors: (Mob, SpanMapDa
     })
 }
 
+/// The key to the letters, top left: each letter in its colour, then its
+/// meaning in words.
+fn letter_key(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    let entries = [
+        ("N", "lake size", Role::dark()),
+        ("M", "marked", Role::marked()),
+        ("n", "second catch", Role::second()),
+        ("k", "caught twice", Role::marked()),
+    ];
+    let (mut x, y) = (-6.8, 3.45);
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for (letter, word, color) in entries {
+        let l = kit.tex(stage, letter, 36.0, color, &[], v(x, y))?;
+        stage.move_to(l, v(x, y), LEFT);
+        let lw = stage.get_width(l);
+        let w = kit.text_left(stage, word, 24.0, color, v(x + lw + 0.12, y))?;
+        x += lw + 0.12 + stage.get_width(w) + 0.45;
+        for m in [l, w] {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a)?);
+        }
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
 /// 07_3–07_6: letters, the expansion, the table's cells, and back.
 fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
     let (m, n, k) = TOY;
@@ -623,6 +649,9 @@ fn letters(kit: &Kit, stage: &mut Stage<'_>, prev: Step) -> fmn::Result<()> {
             ..PlayOverrides::default()
         },
     )?;
+    // the letters' key stays in the top left through 07_6, in the same
+    // colours (R3 Maya maya-02: capital N and small n side by side)
+    letter_key(kit, stage)?;
     // the numbers give way to the letters they stand for, in place
     play!(stage;
         fade_out(stage.arena_mut(), frac, ORIGIN, 1.0)?.rt(0.7),
