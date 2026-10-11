@@ -15,7 +15,10 @@
 
 mod chapters;
 mod facts;
+mod law;
 mod model;
+mod numpy;
+mod runs;
 
 use explainer_kit::Explainer;
 

@@ -697,6 +697,12 @@ def af22_failure_modes(fails):
     for key in ("ideal", "bold_fish", "trap_happy", "trap_shy", "marks_lost_20pct", "newcomers_2000",
                 "deaths_30pct", "release_site", "far_side"):
         emit(f"A-F22.median.{key}", fails[key])
+    # the models' parameters as verify2_replay runs them (the gauge labels of 13_3-13_9 quote
+    # them; added 2026-10-11 by the chapters 12-15 lane): bold fish = 3 in 10 fish 3x as
+    # catchable both times; marked fish 1.5x / 2/3x as catchable the second time; each mark lost
+    # with chance 1/5; 2,000 newcomers; each fish dies with chance 3/10; 800 / 200 from the halves
+    emit("A-F22.params", "runs=400;bold=3/10 x3.0;happy=x1.5;shy=x2/3;lost=1/5;newcomers=2000;"
+                         "deaths=3/10;halves=800/200")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1617,6 +1623,8 @@ def ch12_ring_toss_panel(k, ring):
     emit(f"{pre}.all_runs", int(k.size))
     emit(f"{pre}.all_missed", int(miss.sum()))
     emit(f"{pre}.expected_missed", float((1 - cov) * int(k.size)))
+    # 12_2's counter, "(455 expected)" (2026-10-11, chapters 12-15 lane)
+    emit(f"{pre}.expected_missed_rounded", round((1 - cov) * int(k.size)))
 
 
 def ch12_coverage_over_N():
