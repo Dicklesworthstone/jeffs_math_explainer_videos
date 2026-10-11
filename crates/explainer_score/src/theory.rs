@@ -7,7 +7,7 @@
 //! there roughens and masks the voice as its harmonics glide past. The band
 //! is measured afresh for every narrator ([`Register::from_f0`]): `robert`
 //! (Hoeffding) speaks at ≈ 105–216 Hz (5th–95th percentile), `matt` (video A)
-//! at 81–146 Hz, `leo` (B) at 107–190 Hz and `michael` (C) at 83–178 Hz, so
+//! at 77–151 Hz, `leo` (B) at 107–205 Hz and `michael` (C) at 76–163 Hz, so
 //! each identity carries its own [`Register`]: a bass octave below the band
 //! and upper voices above it.
 

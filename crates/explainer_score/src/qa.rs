@@ -125,6 +125,9 @@ pub struct ScoreFacts {
     pub chords: Vec<ChordSpan>,
     pub phrases: Vec<(f64, f64)>,
     pub no_fly: (f64, f64),
+    /// Authored silences inside the chapter: where the stem must be exactly
+    /// zero (from each fade's end to the music's return).
+    pub silences: Vec<(f64, f64)>,
 }
 
 impl ScoreFacts {
@@ -136,6 +139,12 @@ impl ScoreFacts {
         let (t0, t1) = (a as f64 / FS, b as f64 / FS);
         Self {
             no_fly: score.register.no_fly,
+            silences: score
+                .silences
+                .iter()
+                .filter(|s| s.back > t0 && s.fade_end < t1)
+                .map(|s| (s.fade_end.max(t0) - t0, s.back.min(t1) - t0))
+                .collect(),
             events: score
                 .events
                 .iter()
@@ -670,6 +679,35 @@ pub fn evaluate(
         .filter(|(a, b)| a.start < b.start + b.hold && b.start < a.start + a.hold)
         .filter(|(a, b)| m9(a.pitch.min(b.pitch), a.pitch.max(b.pitch)))
         .count();
+    // an authored silence is silence: every sample exactly zero
+    if f.silences.is_empty() {
+        r.push(
+            "authored_silence_peak",
+            f64::NAN,
+            "= 0",
+            None,
+            "no authored silence here",
+        );
+    } else {
+        let peak = f
+            .silences
+            .iter()
+            .flat_map(|&(a, b)| {
+                let (i, j) = (
+                    ((a * FS).ceil() as usize).min(music.len()),
+                    ((b * FS) as usize).min(music.len()),
+                );
+                music.l[i..j].iter().chain(&music.r[i..j])
+            })
+            .fold(0.0_f64, |m, x| m.max(x.abs()));
+        r.push(
+            "authored_silence_peak",
+            peak,
+            "= 0",
+            Some(peak == 0.0),
+            format!("{} span(s) that must be exactly zero", f.silences.len()),
+        );
+    }
     r.push(
         "voicing_minor_ninths",
         (bed_m9 + roll_m9) as f64,
@@ -789,6 +827,7 @@ mod tests {
             events: vec![],
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
         };
         let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
         let m = r.get("longest_chord_s").unwrap();
@@ -832,6 +871,7 @@ mod tests {
             ],
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
         };
         let rule7 = |hold: f64| {
             evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
@@ -943,6 +983,7 @@ mod tests {
             }],
             phrases: vec![(9.5, 10.2)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
         };
         let r = evaluate("clean", &v, &music, v.len(), Some(&clean));
         for m in [
@@ -972,6 +1013,7 @@ mod tests {
             }],
             phrases: vec![(3.0, 3.0)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
         };
         let r = evaluate("bad", &v, &music, v.len(), Some(&bad));
         for m in [
@@ -1008,6 +1050,7 @@ mod tests {
                 chords: vec![],
                 phrases: vec![],
                 no_fly: reg.no_fly,
+                silences: vec![],
             };
             let r = evaluate("band", &v, &music, v.len(), Some(&f));
             r.get("rule1_fundamentals_in_voice_band_in_speech").unwrap().pass
@@ -1048,6 +1091,7 @@ mod tests {
             }],
             phrases: vec![],
             no_fly: reg.no_fly,
+            silences: vec![],
         };
         let m9 = |f: &ScoreFacts| {
             evaluate("v", &v, &music, v.len(), Some(f))

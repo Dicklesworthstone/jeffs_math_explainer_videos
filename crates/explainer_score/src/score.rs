@@ -78,14 +78,19 @@ pub enum Theme {
 }
 
 /// The narrators' voiced f0, 5th and 95th percentiles (Hz), measured with
-/// `docs/research/sound_design/scripts/yin2.py` (YIN on 8 kHz audio) from
-/// twelve sentences of each video's own script read by its own voice
-/// (ftts, seed 7; 2026-10-11): `matt` (A) median 100 Hz over 625 voiced
-/// frames, `leo` (B) median 139 Hz over 1,278, `michael` (C) median 114 Hz
-/// over 605. Re-measured on the real takes as they land.
-pub const MATT_F0: (f64, f64) = (80.8, 145.5);
-pub const LEO_F0: (f64, f64) = (106.7, 190.5);
-pub const MICHAEL_F0: (f64, f64) = (83.3, 177.8);
+/// `docs/research/sound_design/scripts/yin2.py` (YIN on 8 kHz audio) over
+/// every take of each video's assembled narration (2026-10-11): `matt` (A)
+/// 89 lines, 18,284 voiced frames, median 101 Hz; `leo` (B) 104 lines,
+/// 36,442 frames, median 140 Hz; `michael` (C) 84 lines, 12,483 frames,
+/// median 107 Hz. (Twelve probe sentences each had read 81–146, 107–190
+/// and 83–178 Hz: the real takes reach lower for matt and michael and
+/// higher for leo.)
+pub const MATT_F0: (f64, f64) = (76.9, 150.9);
+pub const LEO_F0: (f64, f64) = (106.7, 205.1);
+pub const MICHAEL_F0: (f64, f64) = (76.2, 163.3);
+
+/// The new identities' bass against their pad (dB): about 4 LU under it.
+pub const BASS_UNDER_PAD_DB: f64 = -9.0;
 
 /// A video's fixed musical identity; variation lives inside it (plan §7.5).
 #[derive(Clone, Debug)]
@@ -112,6 +117,11 @@ pub struct Identity {
     pub bed_t60: f64,
     /// Bed level relative to the voice's integrated loudness, before the duck (LU).
     pub bed_lu: f64,
+    /// The bass against the pad inside the bed (dB): at 0 the bass measured
+    /// 4–6 LU over the pad in every identity, so the bed's level was mostly a
+    /// 35–65 Hz hum under the voice (and, on small speakers, which lose it, a
+    /// chord quieter than meant); the pad should carry the bed.
+    pub bass_db: f64,
     /// Melody level relative to the voice while it plays (LU).
     pub melody_lu: f64,
     /// Duck depth under speech (dB).
@@ -239,6 +249,7 @@ impl Identity {
         if ![
             self.bed_t60,
             self.bed_lu,
+            self.bass_db,
             self.melody_lu,
             self.duck_db,
             self.sfx_lu,
@@ -287,6 +298,7 @@ impl Identity {
             // median sat at 16.7-17.5 LU, and short speech regions fell
             // under the 16 LU gate)
             bed_lu: -12.0,
+            bass_db: 0.0,
             melody_lu: -12.0,
             duck_db: 8.0,
             hold_duck: 0.0,
@@ -346,6 +358,7 @@ impl Identity {
             // speech, and the gap music (motif and rolls over the released
             // bed) near plan §7.2's V − 10, measured on matt's voice
             bed_lu: -13.0,
+            bass_db: BASS_UNDER_PAD_DB,
             melody_lu: -13.5,
             duck_db: 8.0,
             hold_duck: 0.5,
@@ -427,6 +440,7 @@ impl Identity {
             chord_s: (6.0, 12.0),
             bed_t60: 2.2,
             bed_lu: -12.0,
+            bass_db: BASS_UNDER_PAD_DB,
             melody_lu: -12.0,
             duck_db: 8.0,
             hold_duck: 0.5,
@@ -504,6 +518,7 @@ impl Identity {
             bed_t60: 0.9,
             // as A: V − 21 under speech, the gap music near V − 10 (michael)
             bed_lu: -13.0,
+            bass_db: BASS_UNDER_PAD_DB,
             melody_lu: -13.5,
             duck_db: 8.0,
             hold_duck: 0.5,
@@ -593,6 +608,15 @@ pub enum CueKind {
     Pizz,
     /// A noise whoosh centred on the mark (a scene change).
     Whoosh,
+    /// The bed thins 4 dB into the mark and recovers after it, with no cue
+    /// of its own (a line that needs space, not an answer).
+    Thin,
+    /// Silence from the next sentence on (plan §7.2's key line, or a beat
+    /// that must sound bare): see [`SilenceSpan`].
+    Silence,
+    /// The music may return (at the next pause) after a `silence:` mark of
+    /// the same name.
+    SilenceEnd,
 }
 
 impl CueKind {
@@ -603,9 +627,130 @@ impl CueKind {
             Some("tick") => Self::Tick,
             Some("pizz") => Self::Pizz,
             Some("whoosh") => Self::Whoosh,
+            Some("thin") => Self::Thin,
+            Some("silence") => Self::Silence,
+            Some("silence_end") => Self::SilenceEnd,
             _ => Self::Reveal,
         }
     }
+}
+
+/// An authored silence (`kit.mark(stage, "silence:<name>")`, optionally
+/// closed by `"silence_end:<name>"`), in seconds from the video's start. The
+/// music fades out in the pause before the next sentence (`fade_start` to
+/// `fade_end`: up to [`SILENCE_FADE`] long, ending up to [`KEY_LEAD`] before
+/// that sentence, never starting before the previous one has ended), is
+/// exactly zero from `fade_end` to `back`, and fades in again over
+/// [`RETURN_FADE`] from `back`: the first pause at or after the end mark,
+/// or, without one, where the voice next pauses for good (a gap of 1.2 s or
+/// more).
+#[derive(Clone, Debug, PartialEq)]
+pub struct SilenceSpan {
+    pub name: String,
+    pub fade_start: f64,
+    pub fade_end: f64,
+    pub back: f64,
+    pub back_end: f64,
+}
+
+/// The music is gone this long before the sentence an authored silence is
+/// for, when the pause before it allows (s; plan §7.2's key line).
+pub const KEY_LEAD: f64 = 0.5;
+/// The longest fade into an authored silence (s; A's storyboard, 15_1).
+pub const SILENCE_FADE: f64 = 1.2;
+/// The shortest: a key line between two sentences drops out this fast (s).
+const MIN_SILENCE_FADE: f64 = 0.1;
+/// The music's return after an authored silence (s).
+pub const RETURN_FADE: f64 = 1.5;
+
+/// The authored silences of a video: each `silence:` mark's span (see
+/// [`SilenceSpan`]), and a note for each that could not have the fade it
+/// asked for (a pause too short for 1.2 s).
+fn authored_silences(
+    sections: &[Section],
+    starts: &[f64],
+    fine: &[(f64, f64)],
+    coarse: &[(f64, f64)],
+    total: f64,
+) -> (Vec<SilenceSpan>, Vec<String>) {
+    let mut spans = Vec::new();
+    let mut notes = Vec::new();
+    for (s, &t0) in sections.iter().zip(starts) {
+        let fps = f64::from(s.timeline.fps);
+        let at = |m: &crate::timeline::Mark| t0 + m.frame as f64 / fps;
+        for m in &s.timeline.marks {
+            if CueKind::from_label(&m.label) != CueKind::Silence {
+                continue;
+            }
+            let name = m.label.split_once(':').map_or("", |x| x.1).to_string();
+            let t = at(m);
+            let onset = fine
+                .iter()
+                .map(|r| r.0)
+                .find(|&o| o >= t - ONSET_GUARD)
+                .unwrap_or(total);
+            let prev_end = fine.iter().map(|r| r.1).filter(|&e| e <= onset).fold(0.0, f64::max);
+            let lead = (onset - prev_end - 0.1).clamp(0.05, KEY_LEAD);
+            let fade_end = onset - lead;
+            let fade = (fade_end - prev_end - 0.05).clamp(MIN_SILENCE_FADE, SILENCE_FADE);
+            if fade < SILENCE_FADE {
+                notes.push(format!(
+                    "silence:{name}: a {:.2} s pause before its sentence, so a {fade:.2} s fade",
+                    onset - prev_end
+                ));
+            }
+            // the return: at the end mark, or the end of the sentence it falls
+            // in; without one, where the voice next pauses for good
+            let end_mark = s
+                .timeline
+                .marks
+                .iter()
+                .filter(|e| CueKind::from_label(&e.label) == CueKind::SilenceEnd)
+                .filter(|e| e.label.split_once(':').map_or("", |x| x.1) == name)
+                .map(at)
+                .find(|&e| e > t);
+            let back = match end_mark {
+                Some(e) => fine.iter().find(|r| e >= r.0 && e < r.1).map_or(e, |r| r.1 + 0.05),
+                None => coarse
+                    .iter()
+                    .find(|r| onset >= r.0 && onset < r.1)
+                    .map_or(onset, |r| r.1 + 0.05),
+            }
+            .min(total);
+            spans.push(SilenceSpan {
+                name,
+                fade_start: fade_end - fade,
+                fade_end,
+                back: back.max(fade_end),
+                back_end: (back.max(fade_end) + RETURN_FADE).min(total),
+            });
+        }
+    }
+    (spans, notes)
+}
+
+/// The gain the authored silences leave the music (1 outside them, raised
+/// cosine fades, exactly 0 inside).
+fn silence_gain(spans: &[SilenceSpan], n: usize) -> Vec<f64> {
+    let mut g = vec![1.0_f64; n];
+    for sp in spans {
+        let (a, b) = (
+            (sp.fade_start.max(0.0) * FS) as usize,
+            ((sp.back_end * FS).ceil() as usize).min(n),
+        );
+        for (i, v) in g.iter_mut().enumerate().take(b).skip(a) {
+            let t = i as f64 / FS;
+            let x = if t < sp.fade_end {
+                1.0 - rcos((t - sp.fade_start) / (sp.fade_end - sp.fade_start))
+            } else if t < sp.back {
+                0.0
+            } else {
+                rcos((t - sp.back) / (sp.back_end - sp.back).max(1e-9))
+            };
+            *v = v.min(x);
+        }
+    }
+    g
 }
 
 /// A sound effect (noise or tick) placed by the score.
@@ -676,6 +821,10 @@ pub struct Score {
     pub true_peak_db: f64,
     /// Gain the true-peak cap applied (dB; 0 when the cap did not bind).
     pub cap_db: f64,
+    /// The authored silences (seconds), where the stem is exactly zero.
+    pub silences: Vec<SilenceSpan>,
+    /// What the score could not do as authored (a silence's fade shortened).
+    pub notes: Vec<String>,
 }
 
 impl Score {
@@ -856,12 +1005,13 @@ pub fn roll_voicing(span: &ChordSpan) -> Vec<i32> {
     let pcs = span.chord.pitch_classes();
     let bass = 36 + (span.chord.bass - 36).rem_euclid(12);
     let second = (bass + 7..bass + 19)
-        .find(|m| pcs.contains(&m.rem_euclid(12)) && m.rem_euclid(12) != span.chord.bass)
+        .find(|&m| pcs.contains(&m.rem_euclid(12)) && m.rem_euclid(12) != span.chord.bass && !minor_ninth(bass, m))
         .unwrap_or(bass + 12);
     // the right hand from E4, over the left: each tone lifted by octaves,
-    // then laid out rising, a whole tone or more apart and never a minor
-    // ninth over a lower note (E4 under F5 is harsh; F4 under E5 is a major
-    // seventh)
+    // then laid out rising, a whole tone or more apart, up to E6. A tone a
+    // minor ninth over a lower one (E under F, at any octave: lifting it
+    // never helps, the pitch classes are the problem) is left out, so F4
+    // under E5, a major seventh, stays and E4 under F5 does not happen
     let floor = 64.max(second + 3);
     let k = span.voicing.upper.len().saturating_sub(3);
     let mut right: Vec<i32> = span.voicing.upper[k..]
@@ -871,16 +1021,38 @@ pub fn roll_voicing(span: &ChordSpan) -> Vec<i32> {
     right.sort_unstable();
     right.dedup();
     let mut out = vec![bass, second];
-    for mut p in right {
-        while p <= out[out.len() - 1] + 1 || out.iter().any(|&q| minor_ninth(q, p)) {
+    let place = |out: &[i32], mut p: i32| {
+        while p <= out[out.len() - 1] + 1 && p <= ROLL_TOP {
             p += 12;
         }
-        if p <= 88 {
+        (p <= ROLL_TOP && !out.iter().any(|&q| minor_ninth(q, p))).then_some(p)
+    };
+    for p in right {
+        if let Some(p) = place(&out, p) {
+            out.push(p);
+        }
+    }
+    // a voice left out is replaced by another chord tone that sits clean
+    // over everything below it, the lowest first, while there is room
+    let mut spare: Vec<i32> = pcs
+        .iter()
+        .filter(|&&pc| pc != span.chord.bass && !out[2..].iter().any(|m| m.rem_euclid(12) == pc))
+        .map(|&pc| floor + (pc - floor).rem_euclid(12))
+        .collect();
+    spare.sort_unstable();
+    for p in spare {
+        if out.len() >= 5 {
+            break;
+        }
+        if let Some(p) = place(&out, p) {
             out.push(p);
         }
     }
     out
 }
+
+/// The roll's highest note (E6).
+const ROLL_TOP: i32 = 88;
 
 /// True when `hi` sits a minor ninth (or a compound of it) above `lo`.
 pub fn minor_ninth(lo: i32, hi: i32) -> bool {
@@ -1146,9 +1318,10 @@ fn chord_events(identity: &Identity, span: &ChordSpan, intensity: f64, chapter: 
 }
 
 /// The bed bus: pads (Juno chorus on the mid, the voices' spread kept on the
-/// side) scaled by `gain` (per sample: the thin-outs before reveals), an FDN
-/// room fed at `send` (per sample: more room at higher intensity), and the
-/// bass through gentle warmth.
+/// side) and the bass (through gentle warmth, at the identity's `bass_db`),
+/// both scaled by `gain` (per sample: the thin-outs before reveals and under
+/// sonifications), with an FDN room fed from the pads at `send` (per sample:
+/// more room at higher intensity).
 fn bed_bus(identity: &Identity, events: &[Event], n: usize, send: &[f64], gain: &[f64]) -> Stereo {
     let of = |t: Track| events.iter().filter(|e| e.track == t).collect::<Vec<_>>();
     let dry = render_track(&of(Track::Bed), n);
@@ -1168,14 +1341,15 @@ fn bed_bus(identity: &Identity, events: &[Event], n: usize, send: &[f64], gain: 
     add_scaled(&mut bed, &wet, 1.0);
     let bass = render_track(&of(Track::Bass), n);
     let mut w = Warmth::new(1.3, 0.12);
-    let warm: Vec<f64> = bass.l.iter().map(|&x| w.process(x)).collect();
+    // the bass thins with the pad (a reveal's space is the whole bed's)
+    let warm: Vec<f64> = bass.l.iter().zip(gain).map(|(&x, g)| g * w.process(x)).collect();
     add_scaled(
         &mut bed,
         &Stereo {
             r: warm.clone(),
             l: warm,
         },
-        1.0,
+        db_to_gain(identity.bass_db),
     );
     bed
 }
@@ -1406,6 +1580,9 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let active = duck::vad(&voice);
     let speech = duck::regions(&active, 1.2);
     let fine = duck::regions(&active, MIN_PAUSE);
+    // authored silences: no note starts inside one, and the stem is zero there
+    let (silences, notes) = authored_silences(sections, &chapter_starts, &fine, &speech, total);
+    let silent = |t: f64| silences.iter().any(|s| t >= s.fade_start && t < s.back);
 
     // 3. harmony, planned inside each chapter from its own progression (its
     //    mood's or the identity's): the identity's is entered where the
@@ -1511,6 +1688,9 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         let ch = chapter_at(a);
         let gi = gap_index[ch];
         gap_index[ch] += 1;
+        if silent(a + 0.35) {
+            continue;
+        }
         let name = chapters[ch].0.as_str();
         let fps = f64::from(sections[ch].timeline.fps);
         let windows: Vec<&crate::timeline::Window> = sections[ch]
@@ -1662,6 +1842,19 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         for (i, m) in s.timeline.marks.iter().enumerate() {
             let t = t0 + m.frame as f64 / f64::from(s.timeline.fps);
             let kind = CueKind::from_label(&m.label);
+            match kind {
+                // the silences are planned above; a thin is the bed's alone
+                CueKind::Silence | CueKind::SilenceEnd => continue,
+                CueKind::Thin if !silent(t) => {
+                    cues.push((t, m.label.clone()));
+                    continue;
+                }
+                _ if silent(t) => {
+                    skipped_marks.push(format!("{name}/{}", m.label));
+                    continue;
+                }
+                _ => {}
+            }
             let seed = |track: &str, j: usize| seed_for(&identity.name, name, track, (i * 8 + j) as u64);
             let when = match kind {
                 CueKind::Swell | CueKind::Whoosh | CueKind::Tick => Some(t),
@@ -1768,10 +1961,17 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                     kind: SfxKind::Tick { hz: 700.0 },
                     seed: seed("tick", 0),
                 }),
+                // handled before the cue is placed
+                CueKind::Thin | CueKind::Silence | CueKind::SilenceEnd => {}
             }
             cues.push((when, m.label.clone()));
         }
     }
+    // nothing of the score's own starts inside an authored silence (a phrase
+    // that began before it was faded and then zeroed)
+    events.retain(|e| matches!(e.track, Track::Bed | Track::Bass) || !silent(e.start));
+    sfx.retain(|f| !silent(f.start));
+    phrases.retain(|p: &(f64, f64)| !silent(p.0));
 
     // rule 7 for as long as a note sounds: a melody, answer or cue note held
     // into a chord it would clash with is released at that chord's change;
@@ -1826,7 +2026,12 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     let send = crate::fx::Automation::new(&send_points).render(n);
     let reveals: Vec<f64> = cues
         .iter()
-        .filter(|c| matches!(CueKind::from_label(&c.1), CueKind::Reveal | CueKind::Resolve))
+        .filter(|c| {
+            matches!(
+                CueKind::from_label(&c.1),
+                CueKind::Reveal | CueKind::Resolve | CueKind::Thin
+            )
+        })
         .map(|c| c.0)
         .collect();
     // the bed also makes room under every sonification (an identity with a
@@ -1921,6 +2126,14 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     }
     let mut music = duck::apply(&sum, &u, identity.duck_db);
     drop(sum);
+    // the authored silences, applied to everything (bed, notes, tails,
+    // sonifications): exactly zero inside
+    if !silences.is_empty() {
+        for (i, g) in silence_gain(&silences, n).into_iter().enumerate() {
+            music.l[i] *= g;
+            music.r[i] *= g;
+        }
+    }
 
     // 8. the video's edges: a 1 s fade-in, a 3 s fade-out
     let fade_in = (1.0 * FS) as usize;
@@ -1957,6 +2170,8 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         voice_lufs,
         true_peak_db,
         cap_db,
+        silences,
+        notes,
     })
 }
 
@@ -2881,6 +3096,179 @@ mod tests {
                     }
                 }
             }
+        }
+    }
+
+    #[test]
+    fn an_authored_silence_is_exact_zero_faded_in_the_gap_before_it_and_the_music_returns() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_silence_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let mark = |label: &str, secs: f64| crate::timeline::Mark {
+            label: label.into(),
+            frame: (secs * 60.0) as u64,
+        };
+        // 01_a speaks 0.6–6, 6.6–12, 16–24, 24.6–33: silence for the sentence
+        // at 16 s (after a 4 s gap; A's 15_1), the music back after 24.3 s;
+        // and a key line at 6.6 s, after a 0.6 s pause, with no end mark
+        sections[0].timeline.marks = vec![
+            mark("silence:numbers", 15.9),
+            mark("silence_end:numbers", 24.3),
+            mark("silence:key", 6.55),
+        ];
+        // a reveal asked for inside the silence is not played
+        sections[0].timeline.marks.push(mark("reveal_inside", 20.0));
+        for id in [Identity::capture_recapture(), Identity::hoeffding()] {
+            let s = render(&id, &sections, None).unwrap();
+            let sp = |name: &str| s.silences.iter().find(|x| x.name == name).unwrap().clone();
+            let (numbers, key) = (sp("numbers"), sp("key"));
+            // 15_1: a 1.2 s fade ending 0.5 s before the sentence, after 12 s
+            assert!((numbers.fade_end - 15.5).abs() < 0.05, "{numbers:?}");
+            assert!((numbers.fade_end - numbers.fade_start - SILENCE_FADE).abs() < 1e-9);
+            assert!(numbers.fade_start > 12.0, "never mid-sentence: {numbers:?}");
+            assert!(numbers.back >= 24.0 && numbers.back < 24.6, "{numbers:?}");
+            // the key line drops out in its 0.6 s pause, from the previous
+            // sentence's end, and stays out to the end of the region (12 s)
+            assert!(key.fade_start >= 5.99 && key.fade_end <= 6.6 - 0.09, "{key:?}");
+            assert!(key.back >= 12.0 && key.back < 12.2, "{key:?}");
+            assert!(s.notes.iter().any(|n| n.contains("silence:key")), "{:?}", s.notes);
+            // exactly zero inside both, sound on either side
+            let zero = |a: f64, b: f64| {
+                let (i, j) = (((a * FS).ceil()) as usize, (b * FS) as usize);
+                s.music.l[i..j].iter().chain(&s.music.r[i..j]).all(|&x| x == 0.0)
+            };
+            assert!(
+                zero(numbers.fade_end, numbers.back) && zero(key.fade_end, key.back),
+                "{}",
+                id.name
+            );
+            let loud = |a: f64, b: f64| {
+                let seg = Stereo {
+                    l: s.music.l[(a * FS) as usize..(b * FS) as usize].to_vec(),
+                    r: s.music.r[(a * FS) as usize..(b * FS) as usize].to_vec(),
+                };
+                meter::integrated(&seg).is_finite()
+            };
+            assert!(loud(2.0, 5.5) && loud(13.0, 14.0) && loud(26.5, 32.0), "{}", id.name);
+            // no note of the score's own starts inside, and the reveal is skipped
+            assert!(
+                s.events
+                    .iter()
+                    .filter(|e| !matches!(e.track, Track::Bed | Track::Bass))
+                    .all(|e| !(e.start >= numbers.fade_start && e.start < numbers.back)),
+                "{}",
+                id.name
+            );
+            assert!(
+                s.skipped_marks.contains(&"01_a/reveal_inside".to_string()),
+                "{:?}",
+                s.skipped_marks
+            );
+            // QA: the chapter's silences are exactly zero, and a planted sample fails
+            let facts = crate::qa::ScoreFacts::chapter(&s, 0);
+            assert_eq!(facts.silences.len(), 2);
+            let mut music = s.chapter_music(0);
+            let r = crate::qa::evaluate("01_a", &s.chapter_voice(0), &music, music.len(), Some(&facts));
+            assert_eq!(r.get("authored_silence_peak").unwrap().pass, Some(true));
+            music.l[(20.0 * FS) as usize] = 1e-6;
+            let r = crate::qa::evaluate("01_a", &s.chapter_voice(0), &music, music.len(), Some(&facts));
+            assert_eq!(r.get("authored_silence_peak").unwrap().pass, Some(false));
+        }
+    }
+
+    #[test]
+    fn the_pad_carries_the_bed_and_the_bass_supports_it() {
+        // at unity the bass measured 4–6 LU over the pad in every identity
+        // (K-weighted); the new identities keep it at least 3 LU under
+        for id in [
+            Identity::capture_recapture(),
+            Identity::raptorq_gf256(),
+            Identity::bakery_algorithm(),
+        ] {
+            let n = (10.0 * FS) as usize;
+            let chord = id.progression[0].clone();
+            let span = ChordSpan {
+                start: 0.0,
+                end: 9.0,
+                voicing: voice_lead(&chord, 4, None, &id.register),
+                chord,
+            };
+            let ev = chord_events(&id, &span, 0.5, "", 0);
+            let level = |track: Track| {
+                let only: Vec<Event> = ev.iter().filter(|e| e.track == track).cloned().collect();
+                let b = bed_bus(&id, &only, n, &vec![reverb_send(0.5); n], &vec![1.0; n]);
+                let (a, c) = ((3.0 * FS) as usize, (8.0 * FS) as usize);
+                meter::integrated(&Stereo {
+                    l: b.l[a..c].to_vec(),
+                    r: b.r[a..c].to_vec(),
+                })
+            };
+            let (pad, bass) = (level(Track::Bed), level(Track::Bass));
+            assert!(pad - bass >= 3.0, "{}: pad {pad:.1}, bass {bass:.1} LUFS", id.name);
+            assert!(
+                pad - bass <= 6.0,
+                "{}: the bass still supports it ({pad:.1}, {bass:.1})",
+                id.name
+            );
+        }
+    }
+
+    #[test]
+    fn a_thin_mark_dips_the_bed_and_places_no_cue_of_its_own() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_thin_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let plain = render(&Identity::capture_recapture(), &sections, None).unwrap();
+        sections[0].timeline.marks = vec![crate::timeline::Mark {
+            label: "thin:08_4".into(),
+            frame: (20.0 * 60.0) as u64,
+        }];
+        let thin = render(&Identity::capture_recapture(), &sections, None).unwrap();
+        assert_eq!(plain.events.len(), thin.events.len(), "no notes of its own");
+        let level = |x: &Score, a: f64, b: f64| {
+            meter::integrated(&Stereo {
+                l: x.music.l[(a * FS) as usize..(b * FS) as usize].to_vec(),
+                r: x.music.r[(a * FS) as usize..(b * FS) as usize].to_vec(),
+            })
+        };
+        // mid-sentence, where only the (ducked) bed sounds
+        let dip = level(&plain, 19.6, 20.6) - level(&thin, 19.6, 20.6);
+        assert!(dip > 1.5, "the bed thins around the mark: {dip:.2} dB");
+        assert!((level(&plain, 2.0, 10.0) - level(&thin, 2.0, 10.0)).abs() < 0.01);
+    }
+
+    #[test]
+    fn a_roll_over_a_bass_a_semitone_under_a_chord_tone_drops_that_tone_and_ends() {
+        // found by the test profile's overflow checks: F over an E pedal is a
+        // minor ninth at every octave, and the search lifted it forever (in
+        // release it wrapped round i32 and left with a wrong pitch class)
+        let cases = [
+            // Fmaj7 over an E pedal: E2 under F, A, C, E
+            (Chord::maj7(5).on(4), vec![65, 69, 72, 76]),
+            // the right hand's own E then F (a semitone cluster's tones)
+            (Chord::new(4, &[0, 1, 7, 11]), vec![64, 65, 71, 75]),
+            // every upper tone in conflict with the bass's pitch class
+            (Chord::new(4, &[0, 1, 13]).on(4), vec![65, 77, 89]),
+        ];
+        for (chord, upper) in cases {
+            let span = ChordSpan {
+                start: 0.0,
+                end: 8.0,
+                voicing: Voicing { bass: 40, upper },
+                chord: chord.clone(),
+            };
+            let v = roll_voicing(&span);
+            assert!(v.len() >= 2, "{chord:?}: {v:?}");
+            assert!(v.windows(2).all(|w| w[1] > w[0]), "rising: {v:?}");
+            assert!(v.iter().all(|&m| (36..=ROLL_TOP).contains(&m)), "{v:?}");
+            for (i, &lo) in v.iter().enumerate() {
+                for &hi in &v[i + 1..] {
+                    assert!(!minor_ninth(lo, hi), "{chord:?}: {lo} under {hi} in {v:?}");
+                }
+            }
+            let pcs = chord.pitch_classes();
+            assert!(
+                v[1..].iter().all(|m| pcs.contains(&m.rem_euclid(12))),
+                "{chord:?}: {v:?}"
+            );
         }
     }
 
