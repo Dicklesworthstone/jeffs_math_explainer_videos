@@ -3,7 +3,7 @@
 01_2	Could computers take turns safely with memory like that? In nineteen seventy-three, that was considered impossible.
 01_4	Two programs, running at once, share a scoreboard that reads forty-one. Programmers call it x, and write x equals x plus one. It isn't an equation. It means make x one bigger.
 01_5	That's two steps. Read the score, then write it back plus one.
-01_6	Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted.
+01_6	Here's one unlucky order. Each reads forty-one, and each writes forty-two. Two points scored, one counted.
 01_7	Draw every order at once, as staircases from corner to corner. There are six. How many lose a point?
 01_8	Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle.
 01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order.
@@ -15,28 +15,28 @@
 02_6	A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually.
 02_7	Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip.
 02_8	Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought.
-03_1	In nineteen seventy-four, Leslie Lamport published an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room.
-03_2	But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own.
-03_3	So each customer gets her own slate, and only she writes on it. A zero means not in line.
-03_4	To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads three, zero, zero, two. What does she write?
+03_1	In nineteen seventy-four, Leslie Lamport published an answer. Now picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room.
+03_2	But the ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own.
+03_3	So each customer gets her own slate, and only she writes on it. A zero means she's not in line.
+03_4	To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads a three, a zero, a zero, and a two. What does she write?
 03_5	Four. Then she waits until nobody with a smaller ticket is still in line. Here that's Pink, with two, then Green, with three, then Blue.
 03_6	Whoever is in the room plays their own tune, so only one tune sounds at a time.
-03_7	No shared ticket machine. Nobody ever writes on anyone else's slate.
+03_7	There's no shared ticket machine. Nobody ever writes on anyone else's slate.
 04_1	Can two customers get the same ticket?
 04_2	Yes. Before anyone is served, Purple and Teal read at the same moment. Both see four as the biggest, and both write five.
 04_3	Our rule only waits for smaller tickets, so both can end up in the room at once. Change the rule to wait for anyone with a smaller or equal ticket, and they both wait, bowing to each other forever. After you. No, after you.
 04_4	The fix is a tie-breaker. Pair each ticket with its customer number, and compare tickets first. Only if they're equal, compare customer numbers, the way a dictionary checks the second letter only when the first letters match. Purple is three and Teal is four, so Purple goes first.
 04_5	Put every pair on a grid, ticket across and customer number up, and sweep column by column. Blue is customer number one. Does she go before Pink and Green?
 04_6	No. Blue's four still waits for Pink's two and Green's three. The customer number only breaks ties. The room always takes the smallest pair of everyone holding a ticket, so it goes Pink, Green, Blue, Purple, then Teal.
-05_1	There's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet.
+05_1	But there's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. She hasn't written it yet.
 05_2	Green takes ticket one, checks Blue's slate, sees zero, which means not in line, and walks in.
 05_3	Then Blue writes her one, sees a tie, wins it on her lower customer number, and walks in too. Both in the room.
-05_4	The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down.
+05_4	The fix is a flag that says, I'm choosing, don't judge me yet. You raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down.
 05_5	Same unlucky order, now with flags. What does Green do this time?
 05_6	She sees Blue's flag up, and waits.
 05_7	Without flags, two customers visiting once have twenty-eight orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does.
-05_8	The time your flag is up is your choosing time. Unlike the door sign, the flag isn't a lock. Nobody waits to raise their own, and many can be up at once.
-05_9	So two customers can still choose at once. The flag just shows everyone who's choosing, and the tie-breaker settles equal tickets.
+05_8	The time your flag is up is your choosing time. Unlike the door sign, the flag is not a lock. Nobody waits to raise their own, and many can be up at once.
+05_9	So two customers can still choose at once. The flag just shows who's choosing, and the tie-breaker settles equal tickets.
 06_1	Now take three customers. The square becomes a cube. How many orders are there now?
 06_2	Over two billion. And not one of them puts two in the room.
 07_1	Here's one full run, fast.

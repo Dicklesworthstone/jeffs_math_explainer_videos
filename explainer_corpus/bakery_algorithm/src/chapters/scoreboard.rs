@@ -51,12 +51,12 @@ impl SceneConstruct for OnePlusOne {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
         torn_slate(&kit, stage)?;
-        title(&kit, stage)?;
-        let race = race(&kit, stage)?;
+        let t = title(&kit, stage)?;
+        let race = race(&kit, stage, t)?;
         let square = staircases(&kit, stage, race)?;
         strip(&kit, stage, square)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.7)?;
+        fade_all(stage, 0.5)?;
         kit.finish(stage)
     }
 }
@@ -197,13 +197,22 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
 
 // --------------------------------------------------------------------- 01_3
 
-fn title(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
-    fade_all(stage, 0.5)?;
+/// 01_3: the title writes itself in as the cold open fades (one move, no
+/// gap), then holds through the "take a number" motif; 01_4's picture
+/// fades it out as it comes in.
+fn title(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
     let t = kit.text_styled(stage, g::TITLE, 60.0, Palette::hero(), v(0.0, 0.2), true, false)?;
-    play!(stage; write(stage.arena(), t).rt(1.2));
-    kit.listen(stage, 3.0, "01_one_plus_one_is_one:01_3")?;
-    fade_all(stage, 0.5)?;
-    Ok(())
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for m in stage.scene().mobjects().to_vec() {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(0.6))?);
+    }
+    let w = write(stage.arena(), t);
+    anims.push(stage.prepare(w.rt(1.2))?);
+    stage.play_prepared(anims)?;
+    kit.listen(stage, 3.0, "01_3")?;
+    Ok(t)
 }
 
 // --------------------------------------------------------------- 01_4–01_6
@@ -243,7 +252,7 @@ fn replay_scores(order: &Order) -> Vec<(usize, Op, u32)> {
 
 /// 01_4–01_6: two programs share a scoreboard; x = x + 1 is a read and a
 /// write; one unlucky order loses a point.
-fn race(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Race> {
+fn race(kit: &Kit, stage: &mut Stage<'_>, title: Mob) -> fmn::Result<Race> {
     let mut rest = Vec::new();
     // 01_4: two lanes, the scoreboard, x, the code, the caption
     let line = say(kit, stage, "01_4")?;
@@ -254,7 +263,11 @@ fn race(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Race> {
     }
     let blue_lane = stage.arena_mut().add(lane(LANE_X0, LANE_X1, BLUE_Y, 1)?);
     let green_lane = stage.arena_mut().add(lane(LANE_X0, LANE_X1, GREEN_Y, 2)?);
-    fade_in_all(stage, &[blue.group, green.group], 0.6)?;
+    play!(stage;
+        fade_out(stage.arena_mut(), title, v(0.0, 0.3), 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), blue.group, ORIGIN, 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), green.group, ORIGIN, 1.0)?.rt(0.6),
+    );
     play!(stage; show_creation(blue_lane).rt(1.0), show_creation(green_lane).rt(1.0));
     line.wait_for(stage, "share a scoreboard")?;
     let mut board = scoreboard(kit, stage, SCORE_START, v(HEAD_X, 0.0), BOARD)?;
@@ -324,9 +337,9 @@ fn race(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Race> {
     let mut plus = Vec::new();
     for (k, &(i, op, value)) in steps.iter().enumerate() {
         if k == 0 {
-            line.wait_for(stage, "Both read")?;
+            line.wait_for(stage, "Each reads")?;
         } else if k == 2 {
-            line.wait_for(stage, "both write")?;
+            line.wait_for(stage, "each writes")?;
         }
         let x = SLOTS[k];
         let y = lane_y(i);
@@ -692,7 +705,6 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
     )?;
     play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
-    kit.music_breath(stage, 1.5)?;
     stage.clear_updaters(anchor, true);
     Ok(())
 }

@@ -133,7 +133,7 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
         figures.push(f);
     }
     fade_in_all(stage, &[figures[0].group, figures[1].group], 0.6)?;
-    line.wait_for(stage, "Picture a bakery")?;
+    line.wait_for(stage, "picture a bakery")?;
     let [tint, edge] = room(ROOM_W, ROOM_H, ROOM_C)?;
     let tint = stage.arena_mut().add(tint);
     let edge = stage.arena_mut().add(edge);

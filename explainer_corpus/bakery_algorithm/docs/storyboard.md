@@ -62,7 +62,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 01_3 | *(title)* | **The Algorithm Lamport Is Proudest Of** | title card | listen 3 s (the "take a number" motif) |
 | 01_4 | Two programs, running at once, share a scoreboard that reads forty-one. Programmers call it x, and write x equals x plus one. It isn't an equation. It means make x one bigger. | Scoreboard; it takes the label "x" as the voice names it (M21); two lanes, Blue and Green; "time runs left to right; a read is an arrow in, a write is an arrow out" | **space-time lanes** |  |
 | 01_5 | That's two steps. Read the score, then write it back plus one. | Arrows on the lanes | step animation |  |
-| 01_6 | Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
+| 01_6 | Here's one unlucky order. Each reads forty-one, and each writes forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
 | 01_7 | ⟨predict⟩ Draw every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in; lower-third "6 = C(4, 2): pick which 2 of the 4 steps are Blue's" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
 | 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
@@ -107,13 +107,13 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | In nineteen seventy-four, Leslie Lamport published an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
-| 03_2 | But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own. | Dispenser with a drawn red ✗ (`exmark`) | statement card |  |
-| 03_3 | So each customer gets her own slate, and only she writes on it. A zero means not in line. | Five slates at the heads of the five lanes | slates prop |  |
-| 03_4 | ⟨predict⟩ To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads three, zero, zero, two. What does she write? | Read arrows from Blue's lane; slates 0, 3, 0, 0, 2 | prediction card |  |
+| 03_1 | In nineteen seventy-four, Leslie Lamport published an answer. Now picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
+| 03_2 | But the ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own. | Dispenser with a drawn red ✗ (`exmark`) | statement card |  |
+| 03_3 | So each customer gets her own slate, and only she writes on it. A zero means she's not in line. | Five slates at the heads of the five lanes | slates prop |  |
+| 03_4 | ⟨predict⟩ To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads a three, a zero, a zero, and a two. What does she write? | Read arrows from Blue's lane; slates 0, 3, 0, 0, 2 | prediction card |  |
 | 03_5 | Four. Then she waits until nobody with a smaller ticket is still in line. Here that's Pink, with two, then Green, with three, then Blue. | Slates now 4, 3, 0, 0, 2; served in turn: Pink → Green → Blue | queue |  |
 | 03_6 | Whoever is in the room plays their own tune, so only one tune sounds at a time. | Each served customer's lane grows note-heads as it plays: the lanes become a stave | lanes as a score | listen 3 s ("served" in Pink's, Green's and Blue's timbres, one after another) |
-| 03_7 | No shared ticket machine. Nobody ever writes on anyone else's slate. | Each lane's own slate glows in its colour; every arrow from another lane is a read, none a write | lanes, slates | hold |
+| 03_7 | There's no shared ticket machine. Nobody ever writes on anyone else's slate. | Each lane's own slate glows in its colour; every arrow from another lane is a read, none a write | lanes, slates | hold |
 
 - **For programmers (lower-third at 03_7):** a ticket lock is the machine
   Lamport avoided: one atomic fetch-and-add (Linux x86 FIFO ticket spinlocks,
@@ -156,15 +156,15 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | There's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
+| 05_1 | But there's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. She hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
 | 05_2 | Green takes ticket one, checks Blue's slate, sees zero, which means not in line, and walks in. | Green enters | step-through |  |
 | 05_3 | Then Blue writes her one, sees a tie, wins it on her lower customer number, and walks in too. Both in the room. | Both inside | trace (a), 6 counted steps (`C-F6.a.steps_counted`; dev-10) | listen 3 s (two tunes at once: the bug) |
-| 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |
+| 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. You raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |
 | 05_5 | ⟨predict⟩ Same unlucky order, now with flags. What does Green do this time? | Scheduler slider replays the order: trace a's six steps in place, the flag steps slotted in, amber; any step count shown is 13, counted the 02_4 way (`C-F6.a_prime.steps_counted`; dev-10) | toggle replay |  |
 | 05_6 | She sees Blue's flag up, and waits. | Green waits | step-through |  |
 | 05_7 | Without flags, two customers visiting once have twenty-eight orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does. | The 28 staircases as strands, 4 through the red square; they collapse into a "28 orders, 4 bad" card; the lattice regrows to 7×7; the 322 draw in as edge ribbons with a lagged reveal and a counter (spike S-6); the both-inside point stays empty and pulses | **path sets (S-6 ribbons)** |  |
-| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag isn't a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); on screen once, "Lamport calls this the doorway"; "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
-| 05_9 | So two customers can still choose at once. The flag just shows everyone who's choosing, and the tie-breaker settles equal tickets. | Thesis card; two flags up together, then two equal tickets settled by their badges | statement card | hold |
+| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag is not a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); on screen once, "Lamport calls this the doorway"; "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
+| 05_9 | So two customers can still choose at once. The flag just shows who's choosing, and the tie-breaker settles equal tickets. | Thesis card; two flags up together, then two equal tickets settled by their badges | statement card | hold |
 
 - **Ruth:** C-F3 (no flag 28 / 4 bad; flag 322 / 0), C-F4 (three customers
   2,126,816,238 / 0, chapter 06); one visit each, a wait counted once, when it succeeds
