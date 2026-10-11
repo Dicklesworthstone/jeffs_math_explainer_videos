@@ -109,6 +109,16 @@ pub fn facts() -> Result<Facts, String> {
         "90,93,103,100,94,100,105,100,99",
         "03_5 picture",
     )?;
+    // 03_5's heard tray: the weed bed's net (the north-west centre) as the
+    // scene draws it, one fish in ten; the caption counts its notes and bells
+    let weed_net = mix.net_members(mixing::region_centres()[6], 1_000);
+    let per = crate::chapters::lake::PER_GLYPH;
+    let drawn: Vec<usize> = weed_net.iter().copied().filter(|i| i.is_multiple_of(per)).collect();
+    f.add("A-CH03.portable.nets1000.heard_tray.drawn", drawn.len())?;
+    f.add(
+        "A-CH03.portable.nets1000.heard_tray.drawn_marked",
+        drawn.iter().filter(|&&i| mix.marked[i]).count(),
+    )?;
     // 04: the toy lake, 20 fish, 5 marked, nets of 4
     f.pin("A-F1.C20_4", choose(20, 4), "4845", "fact sheet A-F1")?;
     f.pin(

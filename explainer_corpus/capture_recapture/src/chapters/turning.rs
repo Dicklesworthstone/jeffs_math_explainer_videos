@@ -15,7 +15,7 @@ use fmn::prelude::*;
 use super::curve;
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{LakeArt, Shade, fade_in_all, fade_out_all, plated, shuffled};
-use super::spread::listen::{Plink, SCORE_FADE_S, catch_sound, last_onset, sweep_sound};
+use super::listen::{Plink, SCORE_FADE_S, catch_sound, last_onset, sweep_sound};
 use crate::facts::{TOY, best_sizes};
 use crate::law::Law;
 use crate::model::{SEED, SplitMix64};
@@ -306,8 +306,11 @@ impl SceneConstruct for Turning {
         kit.say(stage, "05_4")?;
         fade_out_all(stage, &[seen], 0.3)?;
         fade_in_all(stage, &[hist_axis], 0.4)?;
+        // each lake comes in as its own sentence begins ("A lake of twenty,
+        // …"), before its number is said, and stays until the next is named
         let mut still_bars = Vec::new();
-        for &lake in &STILLS {
+        let mut on_show: Vec<Mob> = Vec::new();
+        for (j, &lake) in STILLS.iter().enumerate() {
             let h = stage.arena_mut().add(hist_bars(lake)?);
             let title = kit.text(
                 stage,
@@ -328,7 +331,12 @@ impl SceneConstruct for Turning {
                     hist_frame().p(0.0, score)[1] + 0.25,
                 ),
             )?;
-            fade_in_all(stage, &[h, title, pct], 0.5)?;
+            kit.until_sentence(stage, "05_4", j + 1)?;
+            if !on_show.is_empty() {
+                fade_out_all(stage, &on_show, 0.2)?;
+            }
+            fade_in_all(stage, &[h, title, pct], 0.3)?;
+            on_show = vec![h, title, pct];
             // the k = 3 bar drops onto the curve at this size
             let landed = stage.arena_mut().add(curve::bar(&frame, lake, score)?);
             let from = hist_frame().p(TOY.2 as f64, 0.0);
@@ -342,11 +350,9 @@ impl SceneConstruct for Turning {
                 v(to[0], frame.p(0.0, score)[1] + 0.25),
             )?;
             play!(stage;
-                fade_in(stage.arena_mut(), landed, v(to[0] - from[0], to[1] - from[1]), 1.0)?.rt(0.8),
+                fade_in(stage.arena_mut(), landed, v(to[0] - from[0], to[1] - from[1]), 1.0)?.rt(0.7),
             );
             fade_in_all(stage, &[tag], 0.3)?;
-            stage.wait(0.5)?;
-            fade_out_all(stage, &[h, title, pct], 0.3)?;
             still_bars.push((landed, tag));
         }
         kit.hold(stage)?;
@@ -403,7 +409,7 @@ impl SceneConstruct for Turning {
         kit.say(stage, "05_5")?;
         stage.add_to_scene(live_hist)?;
         stage.add_to_scene(live_title)?;
-        let mut stills_out = Vec::new();
+        let mut stills_out = on_show.clone();
         for &(b, t) in &still_bars {
             stills_out.extend([b, t]);
         }
@@ -603,7 +609,7 @@ impl SceneConstruct for Turning {
             Palette::dim(),
             v(0.0, 2.8),
         )?;
-        fade_in_all(stage, &[feller, feller_cite], 0.8)?;
+        fade_in_all(stage, &[feller, feller_cite], 0.5)?;
         let note = precisely(
             &kit,
             stage,
@@ -613,11 +619,11 @@ impl SceneConstruct for Turning {
                 (k * (k - 1)) / gcd(m * n, k * (k - 1))
             ),
         )?;
-        fade_in_all(stage, &[note], 0.6)?;
+        fade_in_all(stage, &[note], 0.4)?;
         kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
         kit.hold(stage)?;
         // back to the curve itself, 17 to 60: where chapter 06 begins
-        fade_all(stage, 0.6)?;
+        fade_all(stage, 0.4)?;
         let axis = curve::axis(&kit, stage, &frame)?;
         let bars: Vec<Mob> = curve::bars(&frame)?
             .into_iter()
@@ -625,7 +631,7 @@ impl SceneConstruct for Turning {
             .collect();
         let mut last = vec![axis];
         last.extend(bars);
-        fade_in_all(stage, &last, 0.6)?;
+        fade_in_all(stage, &last, 0.4)?;
         kit.finish(stage)
     }
 }

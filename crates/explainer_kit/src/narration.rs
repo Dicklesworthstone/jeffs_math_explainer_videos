@@ -179,6 +179,11 @@ pub struct Narrator {
     dir: Option<PathBuf>,
     files: HashMap<String, CueFile>,
     lengths: HashMap<String, f64>,
+    /// Where each sentence of a line starts in it (seconds from the line's
+    /// start): from the narration's `report.json`, or estimated.
+    starts: HashMap<String, Vec<f64>>,
+    /// When each line said in this chapter started (scene seconds).
+    said_at: RefCell<HashMap<String, f64>>,
     gain_db: f64,
     busy_until: Cell<f64>,
     log: RefCell<Log>,
@@ -207,6 +212,79 @@ pub fn wait_frames(stage: &mut Stage<'_>, k: u64) -> fmn::Result<()> {
     Ok(())
 }
 
+/// The sentences of a line's text: split after `.`, `?` or `!` followed by
+/// a space (or the end).
+fn sentences(text: &str) -> Vec<&str> {
+    let mut out = Vec::new();
+    let mut from = 0;
+    let b = text.as_bytes();
+    for (i, &c) in b.iter().enumerate() {
+        if matches!(c, b'.' | b'?' | b'!') && (i + 1 == b.len() || b[i + 1] == b' ') {
+            let s = text[from..=i].trim();
+            if !s.is_empty() {
+                out.push(s);
+            }
+            from = i + 1;
+        }
+    }
+    let rest = text[from..].trim();
+    if !rest.is_empty() {
+        out.push(rest);
+    }
+    out
+}
+
+/// A line's sentence onsets when only its length is known: each sentence
+/// starts at its share of `len` by characters before it.
+fn estimated_starts(text: &str, len: f64) -> Vec<f64> {
+    let parts = sentences(text);
+    let total: usize = parts.iter().map(|s| s.chars().count()).sum::<usize>().max(1);
+    let mut before = 0usize;
+    parts
+        .iter()
+        .map(|s| {
+            let at = len * before as f64 / total as f64;
+            before += s.chars().count();
+            at
+        })
+        .collect()
+}
+
+/// Every line's sentence onsets and total length (seconds) from the
+/// narration skill's `report.json` (`meta.rate`; per sentence
+/// `out_samples` and `gap_after_samples`, the take assembled in order).
+pub fn report_starts(json: &str) -> io::Result<HashMap<String, (Vec<f64>, f64)>> {
+    let bad = |m: String| io::Error::new(io::ErrorKind::InvalidData, m);
+    let v: serde_json::Value = serde_json::from_str(json).map_err(|e| bad(format!("report.json: {e}")))?;
+    let rate = v
+        .pointer("/meta/rate")
+        .and_then(serde_json::Value::as_f64)
+        .ok_or_else(|| bad("report.json: no meta.rate".into()))?;
+    let lines = v
+        .get("lines")
+        .and_then(serde_json::Value::as_object)
+        .ok_or_else(|| bad("report.json: no lines".into()))?;
+    let mut out = HashMap::new();
+    for (id, list) in lines {
+        let Some(list) = list.as_array() else {
+            return Err(bad(format!("report.json: line {id} is not a list")));
+        };
+        let mut t = 0usize;
+        let mut starts = Vec::with_capacity(list.len());
+        for (k, s) in list.iter().enumerate() {
+            let n = |name: &str| {
+                s.get(name)
+                    .and_then(serde_json::Value::as_u64)
+                    .ok_or_else(|| bad(format!("report.json: {id} sentence {k}: no {name}")))
+            };
+            starts.push(t as f64 / rate);
+            t += (n("out_samples")? + n("gap_after_samples")?) as usize;
+        }
+        out.insert(id.clone(), (starts, t as f64 / rate));
+    }
+    Ok(out)
+}
+
 impl Narrator {
     /// Real narration from `dir/<id>.wav` for every line of `script`, placed
     /// at `gain_db` ([`GAIN_DB`] under the new score). Every file is checked
@@ -219,10 +297,27 @@ impl Narrator {
             lengths.insert(id.clone(), f.seconds());
             files.insert(id.clone(), f);
         }
+        // sentence onsets from the report, where it accounts for the take
+        // to within 50 ms; otherwise the estimate
+        let report = std::fs::read_to_string(dir.join("report.json"))
+            .ok()
+            .and_then(|t| report_starts(&t).ok())
+            .unwrap_or_default();
+        let mut starts = HashMap::new();
+        for (id, text) in script.lines() {
+            let len = lengths.get(id).copied().unwrap_or(0.0);
+            let real = report
+                .get(id)
+                .filter(|(_, total)| (total - len).abs() < 0.05)
+                .map(|(s, _)| s.clone());
+            starts.insert(id.clone(), real.unwrap_or_else(|| estimated_starts(text, len)));
+        }
         Ok(Rc::new(Self {
             dir: Some(dir.to_path_buf()),
             files,
             lengths,
+            starts,
+            said_at: RefCell::new(HashMap::new()),
             gain_db,
             busy_until: Cell::new(0.0),
             log: RefCell::new(Log::default()),
@@ -231,15 +326,23 @@ impl Narrator {
 
     /// A scratch voice for drafts: lengths from word counts, no audio.
     pub fn estimate(script: &Script) -> Rc<Self> {
+        let speech = |text: &str| text.split_whitespace().count() as f64 / SCRATCH_WPS;
         let lengths = script
             .lines()
             .iter()
-            .map(|(id, text)| (id.clone(), text.split_whitespace().count() as f64 / SCRATCH_WPS + 0.4))
+            .map(|(id, text)| (id.clone(), speech(text) + 0.4))
+            .collect();
+        let starts = script
+            .lines()
+            .iter()
+            .map(|(id, text)| (id.clone(), estimated_starts(text, speech(text))))
             .collect();
         Rc::new(Self {
             dir: None,
             files: HashMap::new(),
             lengths,
+            starts,
+            said_at: RefCell::new(HashMap::new()),
             gain_db: GAIN_DB,
             busy_until: Cell::new(0.0),
             log: RefCell::new(Log::default()),
@@ -250,6 +353,21 @@ impl Narrator {
     pub fn reset(&self) {
         self.busy_until.set(0.0);
         *self.log.borrow_mut() = Log::default();
+        self.said_at.borrow_mut().clear();
+    }
+
+    /// Where each sentence of line `id` starts, seconds from the line's
+    /// start (the first is 0): the narration report's exact sample counts,
+    /// or, for the scratch voice, shares of the line by sentence length.
+    pub fn sentence_starts(&self, id: &str) -> Vec<f64> {
+        self.starts.get(id).cloned().unwrap_or_default()
+    }
+
+    /// The scene time sentence `j` of line `id` starts at, once the line has
+    /// been said in this chapter.
+    pub fn sentence_at(&self, id: &str, j: usize) -> Option<f64> {
+        let at = self.said_at.borrow().get(id).copied()?;
+        self.starts.get(id)?.get(j).map(|s| at + s)
     }
 
     /// Whether this narrator places real audio (false for the scratch voice).
@@ -287,6 +405,7 @@ impl Narrator {
         );
         self.hold(stage)?;
         let (frame, _, now) = clock(stage);
+        self.said_at.borrow_mut().insert(id.to_owned(), now);
         if let (Some(dir), Some(file)) = (&self.dir, self.files.get(id)) {
             let path = dir.join(format!("{id}.wav"));
             self.place(stage, file.clone(), 0.0, Some(self.gain_db))?;
@@ -445,6 +564,33 @@ impl Narrator {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn sentence_onsets_come_from_the_report_or_from_shares_of_the_line() {
+        // Video A's 05_4 as the narration report records it (24 kHz)
+        let json = r#"{"meta": {"rate": 24000}, "lines": {"05_4": [
+            {"out_samples": 125520, "gap_after_samples": 9120},
+            {"out_samples": 56401, "gap_after_samples": 9600},
+            {"out_samples": 45121, "gap_after_samples": 9600},
+            {"out_samples": 49442, "gap_after_samples": 0}]}}"#;
+        let r = report_starts(json).unwrap();
+        let (starts, total) = &r["05_4"];
+        let want = [0.0, 5.61, 8.36, 10.64];
+        assert!(
+            starts.iter().zip(want).all(|(a, b)| (a - b).abs() < 0.005),
+            "{starts:?}"
+        );
+        assert!((total - 12.7).abs() < 0.001, "{total}");
+        // the estimate: sentences split at their ends, onsets by length
+        let text = "One two. Three four five? Six!";
+        assert_eq!(sentences(text), ["One two.", "Three four five?", "Six!"]);
+        let est = estimated_starts(text, 6.0);
+        assert_eq!(est.len(), 3);
+        assert_eq!(est[0], 0.0);
+        assert!(est[1] < est[2] && est[2] < 6.0);
+        // a decimal point is not a sentence end
+        assert_eq!(sentences("It is 2.5 fish. Yes.").len(), 2);
+    }
 
     #[test]
     fn malformed_scripts_are_refused_with_their_line_number() {

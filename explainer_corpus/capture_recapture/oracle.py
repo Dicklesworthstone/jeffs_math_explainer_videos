@@ -1263,6 +1263,14 @@ def ch03_portable(xs0, ys0):
         got.append(int(marked[near].sum()))
     emit(f"A-CH03.portable.nets{R2_NET}.marked_at_region_centres", ",".join(map(str, got)))
     emit(f"A-CH03.portable.nets{R2_NET}.marked_min_max", f"{min(got)},{max(got)}")
+    # 03_5's heard tray: the weed bed's net (the north-west region's centre)
+    # as the scene draws it, one fish in ten (every fish whose index is a
+    # multiple of 10 is drawn); one note per drawn fish, a bell per marked one
+    ex, ey = x - centres[6][0], y - centres[6][1]
+    near = np.lexsort((np.arange(n), ex * ex + ey * ey))[:R2_NET]
+    drawn = near[near % 10 == 0]
+    emit(f"A-CH03.portable.nets{R2_NET}.heard_tray.drawn", int(drawn.size))
+    emit(f"A-CH03.portable.nets{R2_NET}.heard_tray.drawn_marked", int(marked[drawn].sum()))
 
 
 # ---------------------------------------------------------------------------------------------

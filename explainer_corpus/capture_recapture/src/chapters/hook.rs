@@ -488,6 +488,8 @@ fn dips(kit: &Kit, stage: &mut Stage<'_>, lake: &Lake, scene: &DipLake, title: [
             v(c[0], c[1] + ch / 2.0 + 0.3),
         )?;
         if i > 0 {
+            // "In the weeds, …", "In open water, …": each hop on its words
+            kit.until_sentence(stage, "01_7", i)?;
             let hop = net
                 .animate()
                 .set_anim_args(AnimateArgs {

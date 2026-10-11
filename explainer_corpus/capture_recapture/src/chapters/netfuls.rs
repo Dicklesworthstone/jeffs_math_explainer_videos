@@ -15,7 +15,7 @@ use fmn::prelude::*;
 
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
 use super::lake::{LAKE_C, LakeArt, PER_GLYPH, Shade, fade_in_all, fade_out_all, fold, lake_p, plated, shuffled};
-use super::spread::listen::{SCORE_FADE_S, last_onset, pour_sound};
+use super::listen::{SCORE_FADE_S, last_onset, pour_sound};
 use crate::facts::NETFULS;
 use crate::model::{LAKE_FISH, Lake, SEED, SplitMix64};
 
@@ -373,7 +373,9 @@ impl SceneConstruct for Netfuls {
             v(2.75, 0.85),
         )?;
         play!(stage; write(stage.arena(), product).rt(1.0));
-        // the same four fish, in order after order
+        // the same four fish, in order after order ("But the same four fish
+        // come out in twenty-four orders, …")
+        kit.until_sentence(stage, "04_3", 1)?;
         let orders: u64 = (1..=NET as u64).product();
         let mut perm_rng = SplitMix64::new(SEED ^ 0x0404);
         for _ in 0..6 {
@@ -409,6 +411,8 @@ impl SceneConstruct for Netfuls {
             v(2.75, -0.35),
         )?;
         play!(stage; write(stage.arena(), orders_tex).rt(0.9));
+        // "So divide by twenty-four."
+        kit.until_sentence(stage, "04_3", 2)?;
         let netful_count = falling / orders;
         let divide = kit.tex(
             stage,
@@ -845,10 +849,9 @@ impl SceneConstruct for Netfuls {
         let formula = precisely(&kit, stage, "P_N(K = k) = C(M,k)·C(N−M, n−k) / C(N,n)")?;
         fade_in_all(stage, &[formula], 0.6)?;
         fade_in_all(stage, &[back, ask], 0.6)?;
-        // a short hold on the question (04 is mid-act: no full breath)
-        kit.music_breath(stage, 1.5)?;
+        // 04 is mid-act: no music breath after the question (chapter cap)
         kit.hold(stage)?;
-        fade_all(stage, 0.8)?;
+        fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
 }

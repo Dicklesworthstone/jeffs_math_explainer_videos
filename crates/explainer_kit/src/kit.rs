@@ -269,6 +269,29 @@ impl Kit {
         }
     }
 
+    /// Where each sentence of line `id` starts, seconds from the line's
+    /// start (see `Narrator::sentence_starts`); empty without a narrator.
+    pub fn sentence_starts(&self, id: &str) -> Vec<f64> {
+        self.narrator
+            .as_ref()
+            .map(|n| n.sentence_starts(id))
+            .unwrap_or_default()
+    }
+
+    /// Wait until sentence `j` of line `id` (already said) begins, so its
+    /// picture lands with its words; nothing if that moment has passed, or
+    /// without a narrator.
+    pub fn until_sentence(&self, stage: &mut Stage<'_>, id: &str, j: usize) -> fmn::Result<()> {
+        let Some(at) = self.narrator.as_ref().and_then(|n| n.sentence_at(id, j)) else {
+            return Ok(());
+        };
+        let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
+        if at > now {
+            crate::narration::wait_frames(stage, crate::narration::frames_covering(at - now, fps))?;
+        }
+        Ok(())
+    }
+
     /// An authored moment the score may answer (see `Narrator::mark`).
     pub fn mark(&self, stage: &Stage<'_>, label: &str) {
         if let Some(n) = &self.narrator {

@@ -1,7 +1,6 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (a quiet hook, a fuller middle, the main result at 08, a sober close).
-//! Each chapter starts as its storyboard's animatic and is replaced by its
-//! real scene as it is built (01–03 are built).
+//! Every chapter is a real scene (each began as its storyboard's animatic).
 
 pub mod balance;
 pub mod cheating;
@@ -13,6 +12,8 @@ pub mod failures;
 pub mod hook;
 pub mod how_sure;
 pub mod lake;
+pub mod landscape;
+pub mod listen;
 pub mod marks;
 pub mod netfuls;
 pub mod ring_toss;
@@ -22,19 +23,6 @@ pub mod the_dead;
 pub mod turning;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
-            intensity: $intensity,
-        }
-    };
-}
 
 pub fn registry() -> Vec<Chapter> {
     vec![
@@ -63,7 +51,11 @@ pub fn registry() -> Vec<Chapter> {
             make: |kit| Box::new(turning::Turning { kit }),
             intensity: 0.5,
         },
-        animatic!("06_the_landscape", 0.6),
+        Chapter {
+            key: "06_the_landscape",
+            make: |kit| Box::new(landscape::Landscape::new(kit)),
+            intensity: 0.6,
+        },
         Chapter {
             key: "07_feller_s_comparison",
             make: |kit| Box::new(comparison::Comparison { kit }),
