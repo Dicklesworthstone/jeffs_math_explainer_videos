@@ -13,9 +13,12 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    LaneLayout, LaneSpec, Slots, TraceLanes, chalk, customer, fade_in_all, fade_out_all, figure, flag_amber, flicker,
-    flicker_numerals, line_style, play_timed, quote_card, rgb, room_red, say, slate, static_burst,
+    LaneLayout, LaneSpec, Slots, TraceLanes, customer, fade_in_all, fade_out_all, fail, figure, flag_amber, flicker,
+    flicker_numerals, line_style, play_timed, quote_card, rgb, room_red, say, slate, static_burst, wait_until,
 };
+use super::glyphs;
+use super::tunes;
+use super::why_never_two::fact_card;
 use crate::facts::{cited, e3_moments};
 use crate::model::{Bakery, Trace, Variant, explore};
 
@@ -72,6 +75,21 @@ pub fn double_fetch_failure() -> Vec<crate::model::Step> {
     explore(&m)
         .violation
         .expect("the double-fetch max lets two in with three customers and flickering slates")
+}
+
+/// 10_4's two tunes at once (s), as 12_4's.
+const CLASH_S: f64 = 3.0;
+
+/// The two customers (1-based) in the room as the failure ends.
+fn in_room_at_end(failure: &[crate::model::Step]) -> fmn::Result<[usize; 2]> {
+    let m = Bakery::new(3, 3, Variant::DoubleFetch, true, true);
+    let last = failure
+        .last()
+        .ok_or_else(|| fail("the double-fetch run is empty".to_owned()))?;
+    let inside: Vec<usize> = m.in_room(&last.after).into_iter().map(|i| i + 1).collect();
+    inside
+        .try_into()
+        .map_err(|v: Vec<usize>| fail(format!("10_4 needs two in the room, the model has {v:?}")))
 }
 
 pub struct OldZero {
@@ -157,7 +175,13 @@ impl SceneConstruct for OldZero {
                 .style(line_style(customer(who), 2.0))
                 .build()?;
             let g = stage.arena_mut().add(guide);
-            let label = kit.text(stage, &format!("step {s}"), 22.0, customer(who), v(x, AXIS_Y - 0.32))?;
+            let label = kit.text(
+                stage,
+                &format!("{} {s}", glyphs::STEP),
+                22.0,
+                customer(who),
+                v(x, AXIS_Y - 0.32),
+            )?;
             play!(stage;
                 show_creation(g).rt(0.45),
                 fade_in(stage.arena_mut(), label, v(0.0, 0.1), 1.0)?.rt(0.45),
@@ -165,7 +189,13 @@ impl SceneConstruct for OldZero {
             guides.extend([g, label]);
         }
         line.wait_for(stage, "That's fact one")?;
-        let fact = fact_one_swapped(&kit, stage, v(0.0, 2.75))?;
+        let fact = fact_card(
+            &kit,
+            stage,
+            glyphs::FACT_ONE_SWAPPED,
+            glyphs::FACT_ONE_SWAPPED_TEXT,
+            true,
+        )?;
         play!(stage; fade_in(stage.arena_mut(), fact, v(0.0, -0.15), 1.0)?.rt(0.7));
         // Blue's write lands: 9; her flag comes down; she checks Green and
         // waits behind Green's smaller pair
@@ -195,32 +225,23 @@ impl SceneConstruct for OldZero {
         old.extend(guides);
         old.extend([fact, pairs]);
         let cards = [
+            (glyphs::QUOTE_DISCOVERED, glyphs::PUBLICATIONS_SOURCE.to_owned()),
             (
-                "I discovered that the bakery algorithm had this property after writing a proof of its correctness",
-                "Leslie Lamport, publications page".to_owned(),
-            ),
-            (
-                "The read may return any arbitrary value!",
+                glyphs::QUOTE_ARBITRARY,
                 format!(
-                    "Lamport, {}, {}, p. {}",
+                    "{}, {}, {}, {} {}",
+                    glyphs::LAMPORT_SURNAME,
                     cited::bakery_journal(),
                     cited::BAKERY_YEAR,
+                    glyphs::PAGE,
                     cited::ARBITRARY_VALUE_PAGE
                 ),
             ),
-            (
-                "He refused to believe it could be true.",
-                "Lamport on Anatol Holt, publications page".to_owned(),
-            ),
+            (glyphs::QUOTE_REFUSED, glyphs::HOLT_SOURCE.to_owned()),
         ];
         let line = say(&kit, stage, "10_3")?;
         fade_out_all(stage, &old, 0.7)?;
-        let chips = lower_third(
-            &kit,
-            stage,
-            "precisely:",
-            "today's chips don't tear an aligned word; the proof just doesn't need that",
-        )?;
+        let chips = lower_third(&kit, stage, glyphs::PRECISELY, glyphs::CHIPS_DONT_TEAR)?;
         let mut shown: Option<Mob> = None;
         for (i, (words, source)) in cards.iter().enumerate() {
             if i == 1 {
@@ -248,10 +269,10 @@ impl SceneConstruct for OldZero {
         // 10_4: the max that reads a slate twice, then only the outcome: the
         // model's shortest failure, two in the room at once
         let code = [
-            "t = 0",
-            "for k in others:",
-            "    if number[k] > t:",
-            "        t = number[k]",
+            glyphs::MAX_CODE_1,
+            glyphs::MAX_CODE_2,
+            glyphs::MAX_CODE_3,
+            glyphs::MAX_CODE_4,
         ];
         let line = say(&kit, stage, "10_4")?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -271,7 +292,7 @@ impl SceneConstruct for OldZero {
         fade_in_all(stage, &code_mobs, 0.6)?;
         line.wait_for(stage, "The obvious way")?;
         // the two reads of number[k]: compare, then copy
-        let reads = [(2usize, "compare"), (3usize, "copy")];
+        let reads = [(2usize, glyphs::COMPARE), (3usize, glyphs::COPY)];
         let mut tags = Vec::new();
         for (row, word) in reads {
             let m = code_mobs[row];
@@ -292,21 +313,32 @@ impl SceneConstruct for OldZero {
         play!(stage; fade_in(stage.arena_mut(), fx, ORIGIN, 1.2)?.rt(0.3));
         // the outcome, on three lanes, fast
         let failure = double_fetch_failure();
-        let df = TraceLanes::build(&kit, stage, double_fetch_layout(), &failure, &[])?;
+        let mut df = TraceLanes::build(&kit, stage, double_fetch_layout(), &failure, &[])?;
         let mut away = code_mobs.clone();
         away.extend(tags);
         away.push(fx);
         fade_out_all(stage, &away, 0.5)?;
         fade_in_all(stage, &df.base(), 0.5)?;
-        if let Some(a) = df.reveal(stage, 1..=failure.len(), 3.0)? {
-            stage.play_prepared(vec![a])?;
+        // the run in four stretches, the slates and flags at the lane heads
+        // following it, so the heads end on the model's final state
+        let n = failure.len();
+        let cuts = [n / 4, n / 2, 3 * n / 4, n];
+        let mut from = 1;
+        for &to in &cuts {
+            let mut all: Vec<Box<dyn Animation>> = df.reveal(stage, from..=to, 0.75)?.into_iter().collect();
+            all.extend(df.heads_to(&kit, stage, to)?);
+            play_timed(stage, all, 0.75)?;
+            from = to + 1;
         }
         let model_note = kit.text(
             stage,
             &format!(
-                "model: {} customers, flickering slates, read twice: two in the room after {} steps",
+                "{} {} {} {} {}",
+                glyphs::MODEL_NOTE_A,
                 df.layout.lanes.len(),
-                failure.len()
+                glyphs::MODEL_NOTE_B,
+                failure.len(),
+                glyphs::MODEL_STEPS
             ),
             24.0,
             Palette::dim(),
@@ -314,27 +346,31 @@ impl SceneConstruct for OldZero {
         )?;
         let cite = kit.text(
             stage,
-            &format!(
-                "Lamport, Reasoning About Nonatomic Operations, POPL {}",
-                cited::NONATOMIC_OPERATIONS_YEAR
-            ),
+            &format!("{} {}", glyphs::NONATOMIC_SOURCE, cited::NONATOMIC_OPERATIONS_YEAR),
             24.0,
             Palette::dim(),
             v(0.0, 2.6),
         )?;
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for m in [model_note, cite] {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.6))?);
+        }
+        stage.play_prepared(anims)?;
+        // two in the room at once: the two inside play their tunes together
+        // in their own window, as their room bands pulse
+        let [a, b] = in_room_at_end(&failure)?;
+        let (wav, secs) = tunes::write("10_4", tunes::clash(a, b, CLASH_S)).map_err(|e| fail(e.to_string()))?;
+        kit.sonify(stage, secs, "10_the_old_zero:10_4", &wav)?;
+        let t0 = stage.scene().time().to_f64();
         let both: Vec<Mob> = df.parts[failure.len() - 1].bands.clone();
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for m in both {
             let a = fmn::animation::indicate(stage.arena_mut(), m, 1.2, Some(rgb(room_red())))?;
             anims.push(stage.prepare(a.rt(0.9))?);
         }
-        for m in [model_note, cite] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.6))?);
-        }
         stage.play_prepared(anims)?;
-        // two in the room at once: the clash gets its own listen window
-        kit.listen(stage, 3.0, "10_the_old_zero:10_4")?;
+        wait_until(stage, t0 + secs)?;
         kit.hold(stage)?;
 
         // 10_5: the opening question, answered
@@ -342,13 +378,7 @@ impl SceneConstruct for OldZero {
         fade_all(stage, 0.6)?;
         let board = slate(&kit, stage, cited::TORN_FROM, v(-2.4, 0.4), 1.5)?;
         let blue = figure(&kit, stage, 1, v(1.4, 0.3), 1.6)?;
-        let ask = kit.text(
-            stage,
-            "Could computers take turns safely with memory like that?",
-            36.0,
-            Palette::ink(),
-            v(0.0, 2.6),
-        )?;
+        let ask = kit.text(stage, glyphs::COULD_COMPUTERS, 36.0, Palette::ink(), v(0.0, 2.6))?;
         play!(stage;
             fade_in(stage.arena_mut(), board.board, ORIGIN, 0.9)?.rt(0.6),
             fade_in(stage.arena_mut(), blue.group, v(0.0, -0.1), 1.0)?.rt(0.6),
@@ -365,7 +395,7 @@ impl SceneConstruct for OldZero {
         // garbage; as the answer comes, the write lands and she still waits
         let until_yes = line.at("Yes")? - stage.scene().time().to_f64();
         flicker(stage, &digits, until_yes.max(1.0), 9.0, 2, u64::from(cited::TORN_VALUE))?;
-        let yes = kit.text_styled(stage, "Yes.", 64.0, Palette::green(), v(0.0, -2.2), true, false)?;
+        let yes = kit.text_styled(stage, glyphs::YES, 64.0, Palette::green(), v(0.0, -2.2), true, false)?;
         play!(stage; fade_in(stage.arena_mut(), yes, v(0.0, 0.2), 1.1)?.rt(0.5));
         kit.music_breath(stage, HOLD_S)?;
         kit.hold(stage)?;
@@ -374,30 +404,30 @@ impl SceneConstruct for OldZero {
     }
 }
 
-/// Fact one with Blue and Green swapped (08_2's card, M6): Green finished
-/// choosing before Blue started, so Blue's ticket is bigger.
-fn fact_one_swapped(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
-    let parts = [
-        ("Fact one, the other way round:", Palette::dim()),
-        ("Green", customer(2)),
-        ("finished choosing before", chalk()),
-        ("Blue", customer(1)),
-        ("started, so", chalk()),
-        ("Blue's", customer(1)),
-        ("ticket is bigger", chalk()),
-    ];
-    let mut mobs = Vec::new();
-    let mut x = 0.0;
-    for (s, c) in parts {
-        let m = kit.text(stage, s, 28.0, c, ORIGIN)?;
-        let w = stage.get_width(m);
-        stage.move_to(m, v(x + w / 2.0, at[1]), ORIGIN);
-        x += w + 0.16;
-        mobs.push(m);
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_double_fetch_failure_ends_with_two_in_the_room() {
+        // C-F6.double_fetch.n3_k3_safe.shortest_violation_steps = 33
+        let f = double_fetch_failure();
+        assert_eq!(f.len(), 33);
+        let m = Bakery::new(3, 3, Variant::DoubleFetch, true, true);
+        let last = &f.last().unwrap().after;
+        assert_eq!(m.in_room(last).len(), 2);
+        // the clash plays those two
+        let [a, b] = in_room_at_end(&f).unwrap();
+        assert_eq!(m.in_room(last), vec![a - 1, b - 1]);
+        // no step before the last has two inside
+        assert!(f[..f.len() - 1].iter().all(|s| m.in_room(&s.after).len() <= 1));
     }
-    let shift = at[0] - (x - 0.16) / 2.0;
-    for &m in &mobs {
-        stage.shift(m, v(shift, 0.0));
+
+    #[test]
+    fn the_e3_moments_come_in_the_order_the_voice_gives() {
+        let at = e3_moments(&Trace::E3.steps());
+        assert!(at.green_done_choosing < at.green_saw_flag_down);
+        assert!(at.green_saw_flag_down < at.blue_raises_again);
+        assert!(at.blue_raises_again < at.glance);
     }
-    super::draw::group(stage, &mobs)
 }

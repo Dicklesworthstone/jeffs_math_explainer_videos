@@ -13,8 +13,10 @@ use fmn::prelude::*;
 
 use super::draw::{
     badge, chip_outline, customer, fade_in_all, fade_out_all, faded_line, fail, flat, line_style, order_gold,
-    quote_card, room_red, say, scanline, sign, slate,
+    quote_card, room_red, say, scanline, sign, slate, wait_until,
 };
+use super::glyphs;
+use super::tunes;
 use crate::facts::{self, Arch, cited, measured};
 use crate::model::{Bakery, FIVE, Pc, State};
 
@@ -90,12 +92,7 @@ impl SceneConstruct for Proudest {
         let line = say(&kit, stage, "13_1")?;
         // 02_7's magic sign, called back: it checks and flips in one motion
         let mut magic = sign(&kit, stage, false, v(-3.6, 0.6), 1.5, true)?;
-        let rmw = lower_third(
-            &kit,
-            stage,
-            "atomic read-modify-write instructions:",
-            "test-and-set, compare-and-swap, fetch-and-add",
-        )?;
+        let rmw = lower_third(&kit, stage, glyphs::RMW, glyphs::RMW_TEXT)?;
         fade_in_all(stage, &magic.parts(), 0.6)?;
         play!(stage; fade_in(stage.arena_mut(), rmw, v(0.0, 0.2), 1.0)?.rt(0.7));
         line.wait_for(stage, "check and flip in one motion")?;
@@ -104,11 +101,13 @@ impl SceneConstruct for Proudest {
         let quote = quote_card(
             &kit,
             stage,
-            "Although of little if any practical use, the bakery algorithm…",
+            glyphs::QUOTE_LITTLE_USE,
             &format!(
-                "Lamport, Turing lecture, {}, {}, §{}",
+                "{}, {}, {}, {}{}",
+                glyphs::TURING_LECTURE_SOURCE,
                 cited::turing_journal(),
                 cited::TURING_LECTURE_YEAR,
+                glyphs::SECTION_SIGN,
                 cited::PRACTICAL_USE_SECTION
             ),
             v(2.4, 1.0),
@@ -122,45 +121,26 @@ impl SceneConstruct for Proudest {
         let mut old: Vec<Mob> = magic.parts().to_vec();
         old.extend([quote, rmw, q]);
         fade_out_all(stage, &old, 0.5)?;
-        let title = kit.text(stage, "Trusted Firmware-A (TF-A)", 40.0, Palette::ink(), v(0.0, 2.3))?;
-        let sub = kit.text(
-            stage,
-            "a bakery lock for a core waking with its cache off",
-            30.0,
-            Palette::dim(),
-            v(0.0, 1.6),
-        )?;
+        let title = kit.text(stage, glyphs::TF_A, 40.0, Palette::ink(), v(0.0, 2.3))?;
+        let sub = kit.text(stage, glyphs::TF_A_WHY, 30.0, Palette::dim(), v(0.0, 1.6))?;
         play!(stage;
             fade_in(stage.arena_mut(), title, v(0.0, -0.1), 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), sub, v(0.0, -0.1), 1.0)?.rt(0.6),
         );
         line.wait_for(stage, "while a core wakes up")?;
-        let core = chip_outline(&kit, stage, v(-2.6, -0.3), 2.0, "core")?;
-        let cache = kit.text(stage, "data cache: off", 26.0, room_red(), v(-2.6, -1.75))?;
+        let core = chip_outline(&kit, stage, v(-2.6, -0.3), 2.0, glyphs::CORE)?;
+        let cache = kit.text(stage, glyphs::CACHE_OFF, 26.0, room_red(), v(-2.6, -1.75))?;
         play!(stage;
             fade_in(stage.arena_mut(), core, ORIGIN, 0.9)?.rt(0.6),
             fade_in(stage.arena_mut(), cache, ORIGIN, 1.0)?.rt(0.6),
         );
         line.wait_for(stage, "the magic signs aren't guaranteed")?;
-        let no_sign = kit.text(
-            stage,
-            "exclusive-access spinlocks: not guaranteed",
-            26.0,
-            Palette::dim(),
-            v(2.6, 0.3),
-        )?;
+        let no_sign = kit.text(stage, glyphs::NOT_GUARANTEED, 26.0, Palette::dim(), v(2.6, 0.3))?;
         play!(stage; fade_in(stage.arena_mut(), no_sign, ORIGIN, 1.0)?.rt(0.5));
         line.wait_for(stage, "so the core takes a ticket")?;
         let ticket = slate(&kit, stage, 1, v(2.6, -0.8), 0.8)?;
         let tb = badge(&kit, stage, 1, 0.22, v(1.6, -0.8))?;
-        let precisely = lower_third(
-            &kit,
-            stage,
-            "precisely:",
-            "TF-A takes the bakery lock right after reset, before the data cache is on (warm boot), and only on \
-             platforms without hardware coherency (HW_ASSISTED_COHERENCY off): exclusive-access spinlocks need \
-             cacheable memory; the bakery lock needs only plain loads and stores",
-        )?;
+        let precisely = lower_third(&kit, stage, glyphs::PRECISELY, glyphs::TF_A_PRECISELY)?;
         play!(stage;
             fade_in(stage.arena_mut(), ticket.board, ORIGIN, 0.9)?.rt(0.5),
             write(stage.arena(), ticket.value).rt(0.6),
@@ -192,9 +172,9 @@ impl SceneConstruct for Proudest {
         line.wait_for(stage, "reappears in how Lamport")?;
         grid.relabel(&kit, stage)?;
         let years = [
-            (cited::BAKERY_YEAR.to_string(), "the bakery"),
-            (cited::TIME_CLOCKS_YEAR.to_string(), "Time, Clocks"),
-            ("Paxos".to_owned(), "ballot numbers"),
+            (cited::BAKERY_YEAR.to_string(), glyphs::THE_BAKERY),
+            (cited::TIME_CLOCKS_YEAR.to_string(), glyphs::TIME_CLOCKS),
+            (glyphs::PAXOS.to_owned(), glyphs::BALLOT_NUMBERS),
         ];
         let mut timeline = Vec::new();
         let axis = stage.arena_mut().add(
@@ -251,37 +231,48 @@ impl SceneConstruct for Proudest {
         play!(stage; fade_in(stage.arena_mut(), sweep, ORIGIN, 1.0)?.rt(0.4));
         let captions = [
             (
-                "I feel that I did not invent the bakery algorithm, I discovered it.",
-                "Lamport, publications page".to_owned(),
+                glyphs::QUOTE_DID_NOT_INVENT,
+                glyphs::PUBLICATIONS_SOURCE_SHORT.to_owned(),
                 "He discovered it",
             ),
             (
-                "the bakery algorithm, it just seemed to come out of thin air to me … perhaps that's why I'm proudest of it",
+                glyphs::QUOTE_THIN_AIR,
                 format!(
-                    "Lamport, Computer History Museum oral history ({}), pp. {}",
+                    "{} ({}), {} {}",
+                    glyphs::CHM_SOURCE,
                     cited::CHM_YEAR,
-                    cited::CHM_PAGES.replace('-', "–")
+                    glyphs::PAGES,
+                    cited::CHM_PAGES.replace('-', glyphs::EN_DASH)
                 ),
                 "It just seemed",
             ),
         ];
-        let span = 11.0 / order.len() as f64;
+        // Lamport's words, each on its phrase
         let mut caption: Option<Mob> = None;
-        let mut bands = Vec::new();
-        for (n, &(_, k)) in order.iter().enumerate() {
-            if let Some((words, source, phrase)) = captions.get(n.min(1)).filter(|_| n == 0 || n == 2) {
-                line.wait_for(stage, phrase)?;
-                let c = quote_card(&kit, stage, words, source, v(0.0, -2.85), 70)?;
-                let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-                if let Some(old) = caption.take() {
-                    let a = fade_out(stage.arena_mut(), old, ORIGIN, 1.0)?;
-                    anims.push(stage.prepare(a.rt(0.5))?);
-                }
-                let a = fade_in(stage.arena_mut(), c, v(0.0, 0.15), 1.0)?;
-                anims.push(stage.prepare(a.rt(0.6))?);
-                stage.play_prepared(anims)?;
-                caption = Some(c);
+        for (words, source, phrase) in &captions {
+            line.wait_for(stage, phrase)?;
+            let c = quote_card(&kit, stage, words, source, v(0.0, -2.85), 70)?;
+            let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+            if let Some(old) = caption.take() {
+                let a = fade_out(stage.arena_mut(), old, ORIGIN, 1.0)?;
+                anims.push(stage.prepare(a.rt(0.5))?);
             }
+            let a = fade_in(stage.arena_mut(), c, v(0.0, 0.15), 1.0)?;
+            anims.push(stage.prepare(a.rt(0.6))?);
+            stage.play_prepared(anims)?;
+            caption = Some(c);
+        }
+        // then, after the voice, the coda's sound: each customer's "served" in
+        // her own timbre, one at a time, in the run's service order; her room
+        // band lights and the scanline reaches it as her tune starts
+        let customers: Vec<usize> = order.iter().map(|&(_, k)| k).collect();
+        let (sound, onsets) = tunes::turns(&customers);
+        let (wav, secs) = tunes::write("13_4", sound).map_err(|e| fail(e.to_string()))?;
+        let span = 11.0 / order.len() as f64;
+        let mut bands = Vec::new();
+        kit.sonify(stage, secs, "13_proudest:13_4", &wav)?;
+        let t0 = stage.scene().time().to_f64();
+        for (n, &k) in customers.iter().enumerate() {
             let x = -4.4 + span * (n as f64 + 0.5);
             let band = stage.arena_mut().add(
                 Rectangle::new()
@@ -292,10 +283,11 @@ impl SceneConstruct for Proudest {
                     .build()?
                     .moved_to(v(x, ys[k - 1])),
             );
+            wait_until(stage, t0 + onsets[n][0])?;
             let go = sweep
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(0.9),
+                    run_time: Some(0.6),
                     ..AnimateArgs::default()
                 })?
                 .set_x(x + span * 0.45)?;
@@ -305,7 +297,7 @@ impl SceneConstruct for Proudest {
             );
             bands.push(band);
         }
-        kit.listen(stage, 3.0, "13_proudest:13_4")?;
+        wait_until(stage, t0 + secs)?;
         kit.hold(stage)?;
         let (arm, x86) = (measured(Arch::Arm), measured(Arch::X86));
         let seq = arm.mode("seqcst", 2);
@@ -314,32 +306,38 @@ impl SceneConstruct for Proudest {
             stage,
             &[
                 &format!(
-                    "Counts and traces: a model checker of Lamport's {} algorithm",
-                    cited::BAKERY_YEAR
+                    "{} {} {}",
+                    glyphs::RECEIPT_COUNTS_A,
+                    cited::BAKERY_YEAR,
+                    glyphs::RECEIPT_COUNTS_B
                 ),
                 &format!(
-                    "Outboxes: the x86-TSO model, checked up to {} customers",
-                    facts::TSO_CHECKED_CUSTOMERS
+                    "{} {} {}",
+                    glyphs::RECEIPT_OUTBOXES,
+                    facts::TSO_CHECKED_CUSTOMERS,
+                    glyphs::CUSTOMERS
                 ),
                 &format!(
-                    "Measured, {} customers, {} visits per kind of lock:",
+                    "{} {} {}, {} {}",
+                    glyphs::RECEIPT_MEASURED,
                     seq.threads,
-                    thousands(seq.entries)
+                    glyphs::CUSTOMERS,
+                    thousands(seq.entries),
+                    glyphs::VISITS_PER_LOCK
                 ),
                 &format!("    {}; {}", arm.cpu, x86.cpu),
                 &format!(
-                    "Quotes: Lamport, {}, {}; Turing lecture, {};",
+                    "{} {}, {}; {} {};",
+                    glyphs::RECEIPT_QUOTES,
                     cited::bakery_journal(),
                     cited::BAKERY_YEAR,
+                    glyphs::RECEIPT_TURING,
                     cited::TURING_LECTURE_YEAR
                 ),
-                &format!(
-                    "    his publications page; Computer History Museum oral history, {}",
-                    cited::CHM_YEAR
-                ),
-                "Firmware: Trusted Firmware-A, lib/locks/bakery",
-                "Code, data and every number:",
-                "    github.com/Dicklesworthstone/jeffs_math_explainer_videos",
+                &format!("    {} {}", glyphs::RECEIPT_ORAL_HISTORY, cited::CHM_YEAR),
+                glyphs::RECEIPT_FIRMWARE,
+                glyphs::RECEIPT_CODE,
+                glyphs::RECEIPT_REPO,
             ],
         )?;
         let mut away: Vec<Mob> = base.clone();
@@ -394,14 +392,14 @@ impl PairAxes {
         );
         let x_label = kit.text(
             stage,
-            "ticket",
+            glyphs::TICKET_ACROSS,
             26.0,
             Palette::dim(),
             v(origin[0] + Self::W / 2.0, origin[1] - 0.4),
         )?;
         let y_label = kit.text(
             stage,
-            "customer number",
+            glyphs::CUSTOMER_NUMBER_UP,
             26.0,
             Palette::dim(),
             v(origin[0] - 0.4, origin[1] + Self::H / 2.0),
@@ -433,14 +431,14 @@ impl PairAxes {
         let o = self.origin;
         let x = kit.text(
             stage,
-            "clock value",
+            glyphs::CLOCK_VALUE_ACROSS,
             26.0,
             order_gold(),
             v(o[0] + Self::W / 2.0, o[1] - 0.4),
         )?;
         let y = kit.text(
             stage,
-            "process",
+            glyphs::PROCESS_UP,
             26.0,
             order_gold(),
             v(o[0] - 0.4, o[1] + Self::H / 2.0),
@@ -461,6 +459,21 @@ impl PairAxes {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_coda_plays_one_tune_at_a_time_in_service_order() {
+        let order = coda_service(&FIVE, &ARRIVALS).unwrap();
+        let customers: Vec<usize> = order.iter().map(|&(_, k)| k).collect();
+        let (sound, onsets) = tunes::turns(&customers);
+        let secs = sound.len() as f64 / explainer_score::FS;
+        assert_eq!(onsets.len(), 5);
+        // each tune starts after the last one's final note
+        for w in onsets.windows(2) {
+            assert!(w[1][0] > *w[0].last().unwrap());
+        }
+        // the fifth's last note sounds before the score's 0.8 s window fade
+        assert!(*onsets[4].last().unwrap() < secs - 0.8);
+    }
 
     #[test]
     fn the_coda_serves_everyone_once_lowest_ticket_first() {

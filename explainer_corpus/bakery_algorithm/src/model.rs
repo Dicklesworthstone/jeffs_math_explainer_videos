@@ -775,8 +775,10 @@ const SCHED_E1: &[(usize, &str)] = &[
     (2, "L2: choosing[1]=0, pass"),
     (2, "L3: number[1]=1, wait"),
 ];
+/// (e2): the glance that overlaps the exit write (the checker's scenario;
+/// no chapter replays it, the tests do).
 #[cfg(test)]
-const SCHED_E2_TAIL: &[(usize, &str)] = &[
+pub(crate) const SCHED_E2_TAIL: &[(usize, &str)] = &[
     (1, "begin number[1]:=0"),
     (2, "L3: number[1]=9, pass"),
     (1, "end number[1]:=0"),

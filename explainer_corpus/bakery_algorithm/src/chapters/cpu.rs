@@ -11,16 +11,17 @@
 
 use std::collections::VecDeque;
 
-use explainer_kit::animatic::HOLD_S;
 use explainer_kit::props::{CodePanel, lower_third, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, thousands, v};
 use fmn::core::constants::FRAME_X_RADIUS;
 use fmn::prelude::*;
 
 use super::draw::{
-    Flag, Slate, access_arrow, badge, board, chalk, chip_outline, customer, fade_in_all, fail, flag, flag_amber, flat,
-    group, hardware, line_style, play_timed, room, room_red, say, slate, wait_until,
+    Flag, Slate, access_arrow, badge, board, chalk, chip_outline, customer, fail, flag, flag_amber, flat, group,
+    hardware, line_style, play_timed, rgb, room, room_red, say, slate, wait_until,
 };
+use super::glyphs;
+use super::tunes;
 use crate::facts::{Arch, Measured, measured};
 use crate::model::tso::{self, Move, Store, Tso, Var};
 
@@ -31,7 +32,14 @@ const MEM_Y: f64 = 0.05;
 /// Stations along a lane: start, flag up, read, ticket, flag down, check
 /// flag, check slate.
 const STATION_X: [f64; 7] = [-5.4, -4.6, -3.4, -2.2, -1.0, 0.6, 1.9];
-const STATION_NAMES: [&str; 6] = ["flag up", "read", "ticket", "flag down", "check flag", "check slate"];
+const STATION_NAMES: [&str; 6] = [
+    glyphs::STATION_FLAG_UP,
+    glyphs::STATION_READ,
+    glyphs::STATION_TICKET,
+    glyphs::STATION_FLAG_DOWN,
+    glyphs::STATION_CHECK_FLAG,
+    glyphs::STATION_CHECK_SLATE,
+];
 /// The fences: F1 after raising the flag, F2 after lowering it.
 const FENCE_X: [f64; 2] = [-4.0, -0.2];
 /// Each tray's right end (the oldest letter waits there); slots run left.
@@ -145,15 +153,6 @@ fn slot(k: usize, i: usize) -> Vec3 {
     v(TRAY_RIGHT[k] - SLOT_W * (i as f64 + 0.5), TRAY_Y[k])
 }
 
-/// Customer `k`'s (0-based) store to her own flag.
-fn own_flag(k: usize, value: u32) -> Store {
-    Store {
-        var: Var::Flag,
-        owner: k,
-        value,
-    }
-}
-
 /// A chip icon at the top right with a caption under it: which machine
 /// the beat is about.
 fn machine_badge(kit: &Kit, stage: &mut Stage<'_>, label: &str, caption: &str) -> fmn::Result<Mob> {
@@ -210,7 +209,7 @@ impl XRay {
         for k in 0..2 {
             let core = frame_box(10.0, 0.9, v(-1.05, LANE_Y[k]), 0.35)?;
             frame.push(stage.arena_mut().add(core));
-            frame.push(kit.text(stage, "core", 22.0, Palette::dim(), v(-6.55, LANE_Y[k]))?);
+            frame.push(kit.text(stage, glyphs::CORE, 22.0, Palette::dim(), v(-6.55, LANE_Y[k]))?);
             let lane = Line::new(v(STATION_X[0], LANE_Y[k]), v(3.95, LANE_Y[k]))
                 .style(
                     Style::default()
@@ -240,13 +239,13 @@ impl XRay {
         // each tray's label at its left end, clear of the room
         for (k, &right) in TRAY_RIGHT.iter().enumerate() {
             let left = right - SLOT_W * SLOTS as f64;
-            let label = kit.text(stage, "outbox", 22.0, Palette::dim(), v(left - 0.2, TRAY_Y[k]))?;
+            let label = kit.text(stage, glyphs::OUTBOX, 22.0, Palette::dim(), v(left - 0.2, TRAY_Y[k]))?;
             stage.move_to(label, v(left - 0.2, TRAY_Y[k]), RIGHT);
             frame.push(label);
         }
         let mem = frame_box(8.6, 1.05, v(-0.8, MEM_Y), 0.6)?;
         frame.push(stage.arena_mut().add(mem));
-        frame.push(kit.text(stage, "memory", 24.0, Palette::dim(), v(-5.85, MEM_Y))?);
+        frame.push(kit.text(stage, glyphs::MEMORY, 24.0, Palette::dim(), v(-5.85, MEM_Y))?);
         let mut flags = Vec::new();
         let mut slates = Vec::new();
         for (k, cells) in CELL_X.iter().enumerate() {
@@ -261,7 +260,13 @@ impl XRay {
         let [tint, edge] = room(2.4, 3.2, ROOM_AT)?;
         frame.push(stage.arena_mut().add(tint));
         frame.push(stage.arena_mut().add(edge));
-        frame.push(kit.text(stage, "the room", 26.0, room_red(), v(ROOM_AT[0], ROOM_AT[1] + 1.25))?);
+        frame.push(kit.text(
+            stage,
+            glyphs::THE_ROOM,
+            26.0,
+            room_red(),
+            v(ROOM_AT[0], ROOM_AT[1] + 1.25),
+        )?);
         let markers = [
             badge(kit, stage, 1, 0.22, station(0, 0))?,
             badge(kit, stage, 2, 0.22, station(1, 0))?,
@@ -290,7 +295,7 @@ impl XRay {
     fn add_fences(&mut self, kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
         let mut out = Vec::new();
         for (k, &y) in LANE_Y.iter().enumerate() {
-            for (f, &x) in FENCE_X.iter().enumerate() {
+            for (&x, name) in FENCE_X.iter().zip([glyphs::F1, glyphs::F2]) {
                 let gate = Rectangle::new()
                     .width(0.14)
                     .height(0.7)
@@ -300,7 +305,7 @@ impl XRay {
                     .moved_to(v(x, y));
                 let g = stage.arena_mut().add(gate);
                 let dy = if k == 0 { -0.56 } else { 0.56 };
-                let t = kit.text(stage, &format!("F{}", f + 1), 22.0, flag_amber(), v(x, y + dy))?;
+                let t = kit.text(stage, name, 22.0, flag_amber(), v(x, y + dy))?;
                 out.extend([g, t]);
             }
         }
@@ -407,7 +412,7 @@ impl XRay {
                     stage,
                     k,
                     cell(Var::Flag, j),
-                    if up { "up" } else { "down" },
+                    if up { glyphs::UP } else { glyphs::DOWN },
                     rt * 0.65,
                 )?;
             }
@@ -561,9 +566,9 @@ fn measured_table(
     w: f64,
 ) -> fmn::Result<Mob> {
     let rows = [
-        ("Relaxed", "relaxed"),
-        ("Release/Acquire", "relacq"),
-        ("SeqCst", "seqcst"),
+        (glyphs::RELAXED, "relaxed"),
+        (glyphs::RELEASE_ACQUIRE, "relacq"),
+        (glyphs::SEQCST, "seqcst"),
     ];
     let cols = [left + 0.6 * w, left + 0.84 * w];
     let row_h = 0.62;
@@ -573,17 +578,20 @@ fn measured_table(
     parts.push(kit.text_left(
         stage,
         &format!(
-            "measured: points lost in {} visits, {} customers",
+            "{} {} {}, {} {}",
+            glyphs::POINTS_LOST_IN,
             thousands(visits),
-            x86.mode("seqcst", 2).threads
+            glyphs::VISITS,
+            x86.mode("seqcst", 2).threads,
+            glyphs::CUSTOMERS
         ),
         26.0,
         Palette::dim(),
         v(left + 0.4, y),
     )?);
     y -= row_h;
-    parts.push(kit.text(stage, "x86", 28.0, Palette::dim(), v(cols[0], y))?);
-    parts.push(kit.text(stage, "Arm", 28.0, Palette::dim(), v(cols[1], y))?);
+    parts.push(kit.text(stage, glyphs::X86, 28.0, Palette::dim(), v(cols[0], y))?);
+    parts.push(kit.text(stage, glyphs::ARM, 28.0, Palette::dim(), v(cols[1], y))?);
     for (name, mode) in rows {
         y -= row_h;
         parts.push(kit.text_left(stage, name, 30.0, Palette::ink(), v(left + 0.4, y))?);
@@ -594,12 +602,15 @@ fn measured_table(
             parts.push(kit.text(stage, &thousands(r.lost), 34.0, c, v(x, y))?);
         }
     }
-    let mut note = format!("x86: {}. Arm: {}", x86.cpu, arm.cpu);
+    let mut note = format!("{} {}. {} {}", glyphs::X86_COLON, x86.cpu, glyphs::ARM_COLON, arm.cpu);
     if let Some(long) = arm.long_relacq() {
         note.push_str(&format!(
-            "; there Release/Acquire lost {} of {} in a longer run",
+            "{} {} {} {} {}",
+            glyphs::LONGER_RUN_A,
             thousands(long.lost),
-            thousands(long.entries)
+            glyphs::LONGER_RUN_B,
+            thousands(long.entries),
+            glyphs::LONGER_RUN_C
         ));
     }
     note.push('.');
@@ -636,23 +647,11 @@ impl SceneConstruct for YourCpu {
 
         // 12_1: the proof's promises return; the second breaks over a chip;
         // beside it, the failure measured on this machine
-        let promises = lower_third(
-            &kit,
-            stage,
-            "the proof counts on:",
-            "each customer's steps happen in order; a finished write is seen by every later read; the biggest \
-             ticket is found by reading each slate once",
-        )?;
-        let chip = chip_outline(&kit, stage, v(-3.6, 0.2), 2.6, "CPU")?;
-        let promise = kit.text(
-            stage,
-            "a finished write is seen by every later read",
-            32.0,
-            Palette::ink(),
-            v(-3.0, 2.55),
-        )?;
-        let left = kit.text(stage, "a finished write is seen", 32.0, Palette::ink(), ORIGIN)?;
-        let right = kit.text(stage, "by every later read", 32.0, Palette::ink(), ORIGIN)?;
+        let promises = lower_third(&kit, stage, glyphs::COUNTS_ON, glyphs::COUNTS_ON_TEXT)?;
+        let chip = chip_outline(&kit, stage, v(-3.6, 0.2), 2.6, glyphs::CPU)?;
+        let promise = kit.text(stage, glyphs::PROMISE, 32.0, Palette::ink(), v(-3.0, 2.55))?;
+        let left = kit.text(stage, glyphs::PROMISE_LEFT, 32.0, Palette::ink(), ORIGIN)?;
+        let right = kit.text(stage, glyphs::PROMISE_RIGHT, 32.0, Palette::ink(), ORIGIN)?;
         let (wl, wr) = (stage.get_width(left), stage.get_width(right));
         let gap = stage.get_width(promise) - wl - wr;
         let x0 = -3.0 - stage.get_width(promise) / 2.0;
@@ -663,34 +662,33 @@ impl SceneConstruct for YourCpu {
             &kit,
             stage,
             &[
-                ("measured, run as written", 26.0, Palette::dim()),
+                (glyphs::MEASURED_AS_WRITTEN, 26.0, Palette::dim()),
                 (
                     &format!(
-                        "{} customers · {} runs × {} visits",
+                        "{} {} {} {} {} {}",
                         arm_relaxed.threads,
+                        glyphs::CUSTOMERS_DOT,
                         arm_relaxed.runs,
-                        thousands(arm_relaxed.entries_per_run)
+                        glyphs::RUNS_TIMES,
+                        thousands(arm_relaxed.entries_per_run),
+                        glyphs::VISITS
                     ),
                     24.0,
                     Palette::ink(),
                 ),
-                (&format!("x86: {}", x86.cpu), 20.0, Palette::dim()),
+                (&format!("{} {}", glyphs::X86_COLON, x86.cpu), 20.0, Palette::dim()),
                 (
-                    &format!("{} points lost", thousands(x86_relaxed.lost)),
+                    &format!("{} {}", thousands(x86_relaxed.lost), glyphs::POINTS_LOST),
                     34.0,
                     room_red(),
                 ),
-                (&format!("Arm: {}", arm.cpu), 20.0, Palette::dim()),
+                (&format!("{} {}", glyphs::ARM_COLON, arm.cpu), 20.0, Palette::dim()),
                 (
-                    &format!("{} points lost", thousands(arm_relaxed.lost)),
+                    &format!("{} {}", thousands(arm_relaxed.lost), glyphs::POINTS_LOST),
                     34.0,
                     room_red(),
                 ),
-                (
-                    "Rust, Relaxed loads and stores; the scoreboard sits in the room",
-                    18.0,
-                    Palette::dim(),
-                ),
+                (glyphs::RUST_RELAXED, 18.0, Palette::dim()),
             ],
             0.4,
             2.25,
@@ -764,12 +762,7 @@ impl SceneConstruct for YourCpu {
             cores.push(stage.prepare(a.rt(1.0))?);
         }
         stage.play_prepared(cores)?;
-        let buffer_note = lower_third(
-            &kit,
-            stage,
-            "programmers say store buffer:",
-            "it's not the cache; caches agree with each other. It's the queue in front of them.",
-        )?;
+        let buffer_note = lower_third(&kit, stage, glyphs::STORE_BUFFER, glyphs::STORE_BUFFER_TEXT)?;
         play!(stage; fade_in(stage.arena_mut(), buffer_note, v(0.0, 0.2), 1.0)?.rt(0.6));
         kit.hold(stage)?;
 
@@ -793,9 +786,9 @@ impl SceneConstruct for YourCpu {
             &kit,
             stage,
             &[
-                "x86-TSO model:",
-                &format!("{} steps,", moves.len()),
-                "nothing delivered",
+                glyphs::TSO_MODEL,
+                &format!("{} {},", moves.len(), glyphs::MODEL_STEPS),
+                glyphs::NOTHING_DELIVERED,
             ],
             22.0,
             ROOM_AT[0],
@@ -811,19 +804,32 @@ impl SceneConstruct for YourCpu {
         let s = fade_in(stage.arena_mut(), steps, ORIGIN, 1.0)?;
         zeros.push(stage.prepare(s.rt(0.6))?);
         stage.play_prepared(zeros)?;
-        kit.listen(stage, 3.0, "12_your_cpu:12_4")?;
+        // both in the room: their two tunes at once, the bug you can hear
+        let [a, b] = in_room_after_voiced()?;
+        let (wav, secs) = tunes::write("12_4", tunes::clash(a, b, CLASH_S)).map_err(|e| fail(e.to_string()))?;
+        kit.sonify(stage, secs, "12_your_cpu:12_4", &wav)?;
+        let t0 = stage.scene().time().to_f64();
+        let mut both: Vec<Box<dyn Animation>> = Vec::new();
+        for k in [a, b] {
+            let m = x.markers[k - 1];
+            let i = fmn::animation::indicate(stage.arena_mut(), m, 1.3, Some(rgb(room_red())))?;
+            both.push(stage.prepare(i.rt(0.9))?);
+        }
+        stage.play_prepared(both)?;
+        wait_until(stage, t0 + secs)?;
         kit.hold(stage)?;
 
         // 12_5: fences; the same race, both fenced, lets one in
-        let x86_chip = machine_badge(&kit, stage, "x86", "Intel, AMD")?;
+        let x86_chip = machine_badge(&kit, stage, glyphs::X86, glyphs::INTEL_AMD)?;
         let fence_note = lower_third(
             &kit,
             stage,
-            "x86:",
+            glyphs::X86_COLON,
             &format!(
-                "MFENCE, or a locked instruction such as XCHG. In the x86-TSO model, checked up to {} customers, F1 \
-                 and F2 suffice, as Abdulla et al. found ({}).",
+                "{} {} {} ({}).",
+                glyphs::FENCE_NOTE_A,
                 crate::facts::TSO_CHECKED_CUSTOMERS,
+                glyphs::FENCE_NOTE_B,
                 crate::facts::cited::ABDULLA_TACAS
             ),
         )?;
@@ -860,11 +866,11 @@ impl SceneConstruct for YourCpu {
 
         // 12_6: an outbox that may reorder: Blue's lowered flag lands before
         // her ticket, and Green walks in on it
-        let arm_chip = machine_badge(&kit, stage, "Arm", "recent Macs")?;
+        let arm_chip = machine_badge(&kit, stage, glyphs::ARM, glyphs::RECENT_MACS)?;
         let model_tag = stacked(
             &kit,
             stage,
-            &["model: an outbox", "that may deliver", "out of order"],
+            &[glyphs::REORDER_1, glyphs::REORDER_2, glyphs::REORDER_3],
             22.0,
             ROOM_AT[0],
             ROOM_AT[1] - 1.9,
@@ -878,7 +884,7 @@ impl SceneConstruct for YourCpu {
         play!(stage; fade_in(stage.arena_mut(), model_tag, ORIGIN, 1.0)?.rt(0.5));
         let mut reorder = Tso::new(2, 4, true, true);
         reorder.reorder = true;
-        x.replay(&kit, stage, &reorder, &REORDERED, 1..=22, 0.34, &[7, 17, 18], 1.0)?;
+        x.replay(&kit, stage, &reorder, &REORDERED, 1..=22, 0.3, &[7, 17, 18], 0.85)?;
         kit.hold(stage)?;
 
         // 12_7: the SeqCst panel, F1 and F2 marked; what not to do; then the
@@ -891,7 +897,7 @@ impl SceneConstruct for YourCpu {
         let [(f1a, f1b), (f2a, f2b)] = fence_lines(&code)?;
         let bx = PANEL_LEFT - 0.15;
         let mut marks = Vec::new();
-        for (name, a, b) in [("F1", f1a, f1b), ("F2", f2a, f2b)] {
+        for (name, a, b) in [(glyphs::F1, f1a, f1b), (glyphs::F2, f2a, f2b)] {
             let (ya, yb) = (stage.get_center(panel.lines[a])[1], stage.get_center(panel.lines[b])[1]);
             let bracket = polyline([
                 v(bx + 0.2, ya + 0.09),
@@ -909,24 +915,19 @@ impl SceneConstruct for YourCpu {
             &kit,
             stage,
             &[
-                ("C, C++ and Rust:", 22.0, Palette::ink()),
-                ("plain shared variables are", 22.0, Palette::ink()),
-                ("undefined behaviour;", 22.0, Palette::ink()),
-                ("volatile doesn't help.", 22.0, Palette::ink()),
-                ("Java: AtomicLongArray works;", 22.0, Palette::ink()),
-                ("a volatile long[] doesn't.", 22.0, Palette::ink()),
+                (glyphs::UB_1, 22.0, Palette::ink()),
+                (glyphs::UB_2, 22.0, Palette::ink()),
+                (glyphs::UB_3, 22.0, Palette::ink()),
+                (glyphs::UB_4, 22.0, Palette::ink()),
+                (glyphs::UB_5, 22.0, Palette::ink()),
+                (glyphs::UB_6, 22.0, Palette::ink()),
             ],
             -6.95,
             2.2,
             4.15,
         )?;
         let table = measured_table(&kit, stage, &arm, &x86, -4.9, 2.6, 9.8)?;
-        let cost_note = lower_third(
-            &kit,
-            stage,
-            "for programmers:",
-            "SeqCst is the easy way, not the cheapest: on x86 it fences every store.",
-        )?;
+        let cost_note = lower_third(&kit, stage, glyphs::FOR_PROGRAMMERS, glyphs::SEQCST_COST)?;
         // the x-ray steps back while the code is on screen
         let xray: Vec<Mob> = stage
             .scene()
@@ -968,29 +969,34 @@ impl SceneConstruct for YourCpu {
         }
         stage.play_prepared(out)?;
         play!(stage; fade_in(stage.arena_mut(), table, v(0.0, -0.2), 1.0)?.rt(0.7));
+        // the chapter ends on what was measured (Codex R5: the closing drain
+        // of 12_5's x-ray again cost the chapter its 85 s; 12_5 shows it)
         kit.hold(stage)?;
-        stage.wait(1.0)?;
-        // the last picture: the x-ray again, an outbox draining in order
-        play!(stage;
-            fade_out(stage.arena_mut(), table, ORIGIN, 1.0)?.rt(0.5),
-            fade_out(stage.arena_mut(), cost_note, ORIGIN, 1.0)?.rt(0.5),
-        );
-        fade_in_all(stage, &xray, 0.5)?;
-        x.reset(&kit, stage, 0.5)?;
-        for k in 0..2 {
-            x.play_move(&kit, stage, k, Move::Buffer(own_flag(k, 1)), 0.45)?;
-        }
-        for k in 0..2 {
-            while let Some(l) = x.trays[k].front() {
-                let s = l.store;
-                x.play_move(&kit, stage, k, Move::Deliver(s), 0.45)?;
-            }
-        }
-        kit.music_breath(stage, HOLD_S)?;
-        kit.hold(stage)?;
-        fade_all(stage, 1.0)?;
+        stage.wait(0.2)?;
+        fade_all(stage, 0.5)?;
         kit.finish(stage)
     }
+}
+
+/// 12_4's two tunes at once (s): the music lane's 3.0 s window, which holds
+/// `tunes::clash`'s second tune (half a beat late) to its last note before
+/// the score's 0.8 s fade.
+const CLASH_S: f64 = 3.0;
+
+/// The customers (1-based) in the room once the voiced order has run: both.
+fn in_room_after_voiced() -> fmn::Result<[usize; 2]> {
+    let m = Tso::new(2, 4, false, false);
+    let (states, _) = m.replay(&tso::VOICED).map_err(fail)?;
+    let last = states
+        .last()
+        .ok_or_else(|| fail("the voiced order is empty".to_owned()))?;
+    let inside: Vec<usize> = (0..2)
+        .filter(|&i| last.local[i].pc == tso::Pc::Room)
+        .map(|i| i + 1)
+        .collect();
+    inside
+        .try_into()
+        .map_err(|v: Vec<usize>| fail(format!("12_4 needs both in the room, the model has {v:?}")))
 }
 
 /// `replacement_transform` as a value for `play!`.
@@ -1000,6 +1006,11 @@ fn replacement_transform_anim(a: Mob, b: Mob) -> Transform {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn the_voiced_order_puts_both_in_the_room_for_12_4s_clash() {
+        assert_eq!(super::in_room_after_voiced().unwrap(), [1, 2]);
+    }
+
     use super::*;
 
     #[test]

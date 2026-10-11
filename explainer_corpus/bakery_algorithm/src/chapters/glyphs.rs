@@ -172,6 +172,222 @@ pub const DOORWAY: &str = "Lamport calls this the doorway";
 pub const A_LOCK: &str = "a lock: others wait";
 pub const THESIS: &str = "choosing at once is fine: the flag shows who's choosing, the pair settles ties";
 
+// 10_the_old_zero
+/// "step {s}" under the time axis, the step number from trace e3.
+pub const STEP: &str = "step";
+/// 10_2's card (08_2's fact one with Blue and Green swapped).
+pub const FACT_ONE_SWAPPED: &str = "fact one, the other way round";
+pub const FACT_ONE_SWAPPED_TEXT: &str =
+    "Green finished choosing before Blue started:\nBlue's ticket is bigger than Green's";
+pub const CHIPS_DONT_TEAR: &str = "today's chips don't tear an aligned word; the proof just doesn't need that";
+/// "Leslie Lamport, publications page".
+pub const QUOTE_DISCOVERED: &str =
+    "I discovered that the bakery algorithm had this property after writing a proof of its correctness";
+pub const PUBLICATIONS_SOURCE: &str = "Leslie Lamport, publications page";
+/// The bakery paper, p. 454; its source "Lamport, {journal}, {year}, p.
+/// {page}" around the citation from `facts::cited` (also 11_6's).
+pub const QUOTE_ARBITRARY: &str = "The read may return any arbitrary value!";
+pub const LAMPORT_SURNAME: &str = "Lamport";
+pub const PAGE: &str = "p.";
+/// "Lamport on Anatol Holt, publications page".
+pub const QUOTE_REFUSED: &str = "He refused to believe it could be true.";
+pub const HOLT_SOURCE: &str = "Lamport on Anatol Holt, publications page";
+/// 10_4's max that reads a slate twice (code, indented as shown).
+pub const MAX_CODE_1: &str = "t = 0";
+pub const MAX_CODE_2: &str = "for k in others:";
+pub const MAX_CODE_3: &str = "    if number[k] > t:";
+pub const MAX_CODE_4: &str = "        t = number[k]";
+/// The two reads of number[k].
+pub const COMPARE: &str = "compare";
+pub const COPY: &str = "copy";
+/// "model: {n} customers, flickering slates, read twice: two in the room
+/// after {len} steps", the counts from the model's shortest failure.
+pub const MODEL_NOTE_A: &str = "model:";
+pub const MODEL_NOTE_B: &str = "customers, flickering slates, read twice: two in the room after";
+pub const MODEL_STEPS: &str = "steps";
+/// "Lamport, Reasoning About Nonatomic Operations, POPL {year}".
+pub const NONATOMIC_SOURCE: &str = "Lamport, Reasoning About Nonatomic Operations, POPL";
+pub const COULD_COMPUTERS: &str = "Could computers take turns safely with memory like that?";
+pub const YES: &str = "Yes.";
+
+// 11_fair_at_a_price
+pub const BLUE_FINISHES_FIRST: &str = "Blue finishes choosing first";
+pub const BLUE_SERVED_FIRST: &str = "Blue is served first";
+/// "{name} first", the name from `draw::NAMES`.
+pub const FIRST: &str = "first";
+/// "two customers, one visit each: in all {disjoint} orders where one
+/// finishes choosing before the other starts, she goes in first; in the
+/// other {overlap}, either may", the counts from `facts`.
+pub const FCFS_A: &str = "two customers, one visit each: in all";
+pub const FCFS_B: &str = "orders where one finishes choosing before the other starts, she goes in first; in the other";
+pub const FCFS_C: &str = ", either may";
+pub const BLUES_TICKET_WRITTEN: &str = "Blue's ticket written";
+pub const ONCE: &str = "once";
+/// "each other customer ahead of Blue at most {n}".
+pub const AHEAD_AT_MOST: &str = "each other customer ahead of Blue at most";
+pub const BIGGEST_TICKET: &str = "biggest ticket";
+/// The words of 11_4–11_7's sums, set in TeX's `\text{…}` around numbers
+/// from `facts`.
+pub const ONE_TICKET_A_MS: &str = "one ticket a millisecond";
+pub const ONE_YEAR: &str = "one year";
+pub const DAYS: &str = "days";
+pub const MS: &str = "ms";
+/// Rate × time is a count: one ticket a millisecond for a year is this many.
+pub const TICKETS: &str = "tickets";
+pub const BILLION: &str = "billion";
+pub const LAMPORTS_BOUND: &str = "Lamport's bound";
+pub const SIGNED_JAVA_INT: &str = "signed, as Java's int";
+pub const BILLION_A_SECOND: &str = "tickets at a billion a second:";
+pub const YEARS: &str = "years";
+pub const JAVA_LONG: &str = "as Java's long";
+pub const READS: &str = "reads";
+/// "a {bits}-bit slate".
+pub const BIT_SLATE_A: &str = "a";
+pub const BIT_SLATE_B: &str = "-bit slate";
+/// The bakery paper, p. 455 (its source as 10_3's).
+pub const QUOTE_NEVER_LARGER: &str =
+    "a read of number[i] can never obtain a value larger than one which has been written there";
+pub const GLANCE_MID_WRITE: &str = "a glance mid-write reads";
+/// "next ticket: {n}".
+pub const NEXT_TICKET: &str = "next ticket:";
+/// 11_7's costs card.
+pub const FOR_PROGRAMMERS_TITLE: &str = "for programmers";
+pub const COST_FIXED: &str = "Customers fixed in advance";
+pub const COST_PAUSED: &str = "Paused in line → everyone behind waits";
+pub const COST_DEAD: &str = "A dead customer's slate stays set:";
+pub const COST_RESET: &str = "    resetting it is your job";
+pub const COST_PAD: &str = "Pad each slate to its own cache line";
+/// "{bits}-bit tickets (Java: AtomicLongArray)".
+pub const WIDE_TICKETS: &str = "-bit tickets (Java: AtomicLongArray)";
+pub const FROZEN_TAG: &str = "frozen";
+/// "everyone else: at most {n} more visit, then stuck".
+pub const STALL_A: &str = "everyone else: at most";
+pub const STALL_B: &str = "more visit, then stuck";
+
+// 12_your_cpu
+/// The x-ray: stations along a lane, the frames, the fences, what a flag
+/// check saw.
+pub const STATION_FLAG_UP: &str = "flag up";
+pub const STATION_READ: &str = "read";
+pub const STATION_TICKET: &str = "ticket";
+pub const STATION_FLAG_DOWN: &str = "flag down";
+pub const STATION_CHECK_FLAG: &str = "check flag";
+pub const STATION_CHECK_SLATE: &str = "check slate";
+pub const CORE: &str = "core";
+pub const OUTBOX: &str = "outbox";
+pub const MEMORY: &str = "memory";
+pub const F1: &str = "F1";
+pub const F2: &str = "F2";
+pub const UP: &str = "up";
+pub const DOWN: &str = "down";
+/// 12_1: the chip, the promise that breaks, and the measured card.
+pub const CPU: &str = "CPU";
+pub const PROMISE: &str = "a finished write is seen by every later read";
+pub const PROMISE_LEFT: &str = "a finished write is seen";
+pub const PROMISE_RIGHT: &str = "by every later read";
+pub const MEASURED_AS_WRITTEN: &str = "measured, run as written";
+/// "{n} customers · {runs} runs × {visits} visits".
+pub const CUSTOMERS_DOT: &str = "customers ·";
+pub const RUNS_TIMES: &str = "runs ×";
+pub const VISITS: &str = "visits";
+pub const CUSTOMERS: &str = "customers";
+/// "x86: {cpu}", "Arm: {cpu}", the CPUs from `facts::measured`.
+pub const X86_COLON: &str = "x86:";
+pub const ARM_COLON: &str = "Arm:";
+/// "{n} points lost".
+pub const POINTS_LOST: &str = "points lost";
+pub const RUST_RELAXED: &str = "Rust, Relaxed loads and stores; the scoreboard sits in the room";
+pub const STORE_BUFFER: &str = "programmers say store buffer:";
+pub const STORE_BUFFER_TEXT: &str =
+    "it's not the cache; caches agree with each other. It's the queue in front of them.";
+/// "x86-TSO model:" / "{n} steps," / "nothing delivered".
+pub const TSO_MODEL: &str = "x86-TSO model:";
+pub const NOTHING_DELIVERED: &str = "nothing delivered";
+/// The machine badges (chip label, caption).
+pub const X86: &str = "x86";
+pub const ARM: &str = "Arm";
+pub const INTEL_AMD: &str = "Intel, AMD";
+pub const RECENT_MACS: &str = "recent Macs";
+/// "MFENCE, … checked up to {n} customers, F1 and F2 suffice, as Abdulla et
+/// al. found ({venue})." (the venue from `facts::cited`).
+pub const FENCE_NOTE_A: &str = "MFENCE, or a locked instruction such as XCHG. In the x86-TSO model, checked up to";
+pub const FENCE_NOTE_B: &str = "customers, F1 and F2 suffice, as Abdulla et al. found";
+pub const REORDER_1: &str = "model: an outbox";
+pub const REORDER_2: &str = "that may deliver";
+pub const REORDER_3: &str = "out of order";
+/// 12_7: what not to do, and the cost.
+pub const UB_1: &str = "C, C++ and Rust:";
+pub const UB_2: &str = "plain shared variables are";
+pub const UB_3: &str = "undefined behaviour;";
+pub const UB_4: &str = "volatile doesn't help.";
+pub const UB_5: &str = "Java: AtomicLongArray works;";
+pub const UB_6: &str = "a volatile long[] doesn't.";
+pub const SEQCST_COST: &str = "SeqCst is the easy way, not the cheapest: on x86 it fences every store.";
+/// 12_7's measured table: "measured: points lost in {visits} visits, {n}
+/// customers", the locks, and "x86: {cpu}. Arm: {cpu}; there
+/// Release/Acquire lost {lost} of {entries} in a longer run."
+pub const POINTS_LOST_IN: &str = "measured: points lost in";
+pub const RELAXED: &str = "Relaxed";
+pub const RELEASE_ACQUIRE: &str = "Release/Acquire";
+pub const SEQCST: &str = "SeqCst";
+pub const LONGER_RUN_A: &str = "; there Release/Acquire lost";
+pub const LONGER_RUN_B: &str = "of";
+pub const LONGER_RUN_C: &str = "in a longer run";
+
+// 13_proudest
+pub const RMW: &str = "atomic read-modify-write instructions:";
+pub const RMW_TEXT: &str = "test-and-set, compare-and-swap, fetch-and-add";
+/// The Turing lecture, its source "Lamport, Turing lecture, {journal},
+/// {year}, §{section}" around the citation from `facts::cited`.
+pub const QUOTE_LITTLE_USE: &str = "Although of little if any practical use, the bakery algorithm…";
+pub const TURING_LECTURE_SOURCE: &str = "Lamport, Turing lecture";
+pub const SECTION_SIGN: &str = "§";
+/// 13_2: Arm's firmware.
+pub const TF_A: &str = "Trusted Firmware-A (TF-A)";
+pub const TF_A_WHY: &str = "a bakery lock for a core waking with its cache off";
+pub const CACHE_OFF: &str = "data cache: off";
+pub const NOT_GUARANTEED: &str = "exclusive-access spinlocks: not guaranteed";
+pub const TF_A_PRECISELY: &str = "TF-A takes the bakery lock right after reset, before the data cache is on (warm boot), \
+     and only on platforms without hardware coherency (HW_ASSISTED_COHERENCY off): exclusive-access spinlocks need \
+     cacheable memory; the bakery lock needs only plain loads and stores";
+/// 13_3: the timeline beneath its years, and the pair grid relabelled.
+pub const THE_BAKERY: &str = "the bakery";
+pub const TIME_CLOCKS: &str = "Time, Clocks";
+pub const PAXOS: &str = "Paxos";
+pub const BALLOT_NUMBERS: &str = "ballot numbers";
+pub const CLOCK_VALUE_ACROSS: &str = "clock value";
+pub const PROCESS_UP: &str = "process";
+/// "Lamport, publications page".
+pub const QUOTE_DID_NOT_INVENT: &str = "I feel that I did not invent the bakery algorithm, I discovered it.";
+pub const PUBLICATIONS_SOURCE_SHORT: &str = "Lamport, publications page";
+/// The Computer History Museum oral history, its source "Lamport, Computer
+/// History Museum oral history ({year}), pp. {pages}", the pages' hyphen
+/// an en dash.
+pub const QUOTE_THIN_AIR: &str =
+    "the bakery algorithm, it just seemed to come out of thin air to me … perhaps that's why I'm proudest of it";
+pub const CHM_SOURCE: &str = "Lamport, Computer History Museum oral history";
+pub const PAGES: &str = "pp.";
+pub const EN_DASH: &str = "–";
+/// The receipts card's title, drawn by `explainer_kit::props::receipts_card`
+/// (listed for the probe; the chapter does not pass it).
+pub const RECEIPTS: &str = "Receipts";
+/// The receipts: "Counts and traces: a model checker of Lamport's {year}
+/// algorithm", "Outboxes: the x86-TSO model, checked up to {n} customers",
+/// "Measured, {n} customers, {visits} visits per kind of lock:", "Quotes:
+/// Lamport, {journal}, {year}; Turing lecture, {year};", "    his
+/// publications page; Computer History Museum oral history, {year}".
+pub const RECEIPT_COUNTS_A: &str = "Counts and traces: a model checker of Lamport's";
+pub const RECEIPT_COUNTS_B: &str = "algorithm";
+pub const RECEIPT_OUTBOXES: &str = "Outboxes: the x86-TSO model, checked up to";
+pub const RECEIPT_MEASURED: &str = "Measured,";
+pub const VISITS_PER_LOCK: &str = "visits per kind of lock:";
+pub const RECEIPT_QUOTES: &str = "Quotes: Lamport,";
+pub const RECEIPT_TURING: &str = "Turing lecture,";
+pub const RECEIPT_ORAL_HISTORY: &str = "his publications page; Computer History Museum oral history,";
+pub const RECEIPT_FIRMWARE: &str = "Firmware: Trusted Firmware-A, lib/locks/bakery";
+pub const RECEIPT_CODE: &str = "Code, data and every number:";
+pub const RECEIPT_REPO: &str = "    github.com/Dicklesworthstone/jeffs_math_explainer_videos";
+
 /// Every string above, for the probe.
 pub const TEXT: &[&str] = &[
     DIGITS,
@@ -305,10 +521,157 @@ pub const TEXT: &[&str] = &[
     DOORWAY,
     A_LOCK,
     THESIS,
+    // 10_the_old_zero
+    STEP,
+    FACT_ONE_SWAPPED,
+    FACT_ONE_SWAPPED_TEXT,
+    CHIPS_DONT_TEAR,
+    QUOTE_DISCOVERED,
+    PUBLICATIONS_SOURCE,
+    QUOTE_ARBITRARY,
+    LAMPORT_SURNAME,
+    PAGE,
+    QUOTE_REFUSED,
+    HOLT_SOURCE,
+    COMPARE,
+    COPY,
+    MODEL_NOTE_A,
+    MODEL_NOTE_B,
+    MODEL_STEPS,
+    NONATOMIC_SOURCE,
+    COULD_COMPUTERS,
+    YES,
+    // 11_fair_at_a_price
+    BLUE_FINISHES_FIRST,
+    BLUE_SERVED_FIRST,
+    FIRST,
+    FCFS_A,
+    FCFS_B,
+    FCFS_C,
+    BLUES_TICKET_WRITTEN,
+    ONCE,
+    AHEAD_AT_MOST,
+    BIGGEST_TICKET,
+    ONE_TICKET_A_MS,
+    ONE_YEAR,
+    DAYS,
+    MS,
+    TICKETS,
+    BILLION,
+    LAMPORTS_BOUND,
+    SIGNED_JAVA_INT,
+    BILLION_A_SECOND,
+    YEARS,
+    JAVA_LONG,
+    READS,
+    BIT_SLATE_A,
+    BIT_SLATE_B,
+    QUOTE_NEVER_LARGER,
+    GLANCE_MID_WRITE,
+    NEXT_TICKET,
+    FOR_PROGRAMMERS_TITLE,
+    COST_FIXED,
+    COST_PAUSED,
+    COST_DEAD,
+    COST_RESET,
+    COST_PAD,
+    WIDE_TICKETS,
+    FROZEN_TAG,
+    STALL_A,
+    STALL_B,
+    // 12_your_cpu
+    STATION_FLAG_UP,
+    STATION_READ,
+    STATION_TICKET,
+    STATION_FLAG_DOWN,
+    STATION_CHECK_FLAG,
+    STATION_CHECK_SLATE,
+    CORE,
+    OUTBOX,
+    MEMORY,
+    F1,
+    F2,
+    UP,
+    DOWN,
+    CPU,
+    PROMISE,
+    PROMISE_LEFT,
+    PROMISE_RIGHT,
+    MEASURED_AS_WRITTEN,
+    CUSTOMERS_DOT,
+    RUNS_TIMES,
+    VISITS,
+    CUSTOMERS,
+    X86_COLON,
+    ARM_COLON,
+    POINTS_LOST,
+    RUST_RELAXED,
+    STORE_BUFFER,
+    STORE_BUFFER_TEXT,
+    TSO_MODEL,
+    NOTHING_DELIVERED,
+    X86,
+    ARM,
+    INTEL_AMD,
+    RECENT_MACS,
+    FENCE_NOTE_A,
+    FENCE_NOTE_B,
+    REORDER_1,
+    REORDER_2,
+    REORDER_3,
+    UB_1,
+    UB_2,
+    UB_3,
+    UB_4,
+    UB_5,
+    UB_6,
+    SEQCST_COST,
+    POINTS_LOST_IN,
+    RELAXED,
+    RELEASE_ACQUIRE,
+    SEQCST,
+    LONGER_RUN_A,
+    LONGER_RUN_B,
+    LONGER_RUN_C,
+    // 13_proudest
+    RMW,
+    RMW_TEXT,
+    QUOTE_LITTLE_USE,
+    TURING_LECTURE_SOURCE,
+    SECTION_SIGN,
+    TF_A,
+    TF_A_WHY,
+    CACHE_OFF,
+    NOT_GUARANTEED,
+    TF_A_PRECISELY,
+    THE_BAKERY,
+    TIME_CLOCKS,
+    PAXOS,
+    BALLOT_NUMBERS,
+    CLOCK_VALUE_ACROSS,
+    PROCESS_UP,
+    QUOTE_DID_NOT_INVENT,
+    PUBLICATIONS_SOURCE_SHORT,
+    QUOTE_THIN_AIR,
+    CHM_SOURCE,
+    PAGES,
+    EN_DASH,
+    RECEIPTS,
+    RECEIPT_COUNTS_A,
+    RECEIPT_COUNTS_B,
+    RECEIPT_OUTBOXES,
+    RECEIPT_MEASURED,
+    VISITS_PER_LOCK,
+    RECEIPT_QUOTES,
+    RECEIPT_TURING,
+    RECEIPT_ORAL_HISTORY,
+    RECEIPT_FIRMWARE,
+    RECEIPT_CODE,
+    RECEIPT_REPO,
 ];
 
 /// Code, in CM Typewriter.
-pub const MONO: &[&str] = &[CODE, X];
+pub const MONO: &[&str] = &[CODE, X, MAX_CODE_1, MAX_CODE_2, MAX_CODE_3, MAX_CODE_4];
 
 /// Math, in TeX.
 pub const TEX: &[&str] = &[PAIRS_FOR_BLUE, PAIRS_FOR_GREEN, PAIRS_CHAIN];

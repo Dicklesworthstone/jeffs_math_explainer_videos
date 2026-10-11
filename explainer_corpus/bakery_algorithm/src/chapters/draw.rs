@@ -980,6 +980,58 @@ pub fn scanline(x: f64, y0: f64, y1: f64) -> fmn::Result<VMobject> {
 mod tests {
     use super::*;
 
+    #[test]
+    fn a_room_band_is_the_models_room() {
+        use crate::model::Trace;
+        // every trace in which the model never has two in the room: never two
+        // red bands at one step, and a band wherever the model counts her in
+        for t in [
+            Trace::APrime,
+            Trace::C,
+            Trace::CThree,
+            Trace::D,
+            Trace::E1,
+            Trace::E3,
+            Trace::Leapfrog,
+        ] {
+            check(&t.model(), &t.steps(), &format!("{t:?}"));
+        }
+        // e2: the checker's scenario, E1 then a glance during Blue's exit write
+        let m = Trace::E1.model();
+        let mut e2 = Trace::E1.schedule();
+        e2.extend(crate::model::SCHED_E2_TAIL.iter().map(|&(p, s)| (p, s.to_owned())));
+        let e2 = crate::model::replay(&m, m.initial(), &e2).expect("e2 replays");
+        check(&m, &e2, "E2");
+        // e2 has the handoff the predicate must get right: Blue mid-way through
+        // her exit write (out of the room) while Green is in
+        let h = e2
+            .iter()
+            .find(|s| {
+                let (b, g) = (s.after.local[0], s.after.local[1]);
+                b.pc == Pc::Cs && b.wp && g.pc == Pc::Cs && !g.wp
+            })
+            .expect("trace e2 hands the room over mid-exit");
+        assert!(!bands_at(&h.after, &h.after, 0).room);
+        assert!(bands_at(&h.after, &h.after, 1).room);
+    }
+
+    /// At most one red band at every step of `steps`, and a band wherever
+    /// the model counts a customer in the room.
+    fn check(m: &crate::model::Bakery, steps: &[Step], name: &str) {
+        for (i, s) in steps.iter().enumerate() {
+            let red: Vec<usize> = (0..m.n).filter(|&c| bands_at(&s.before, &s.after, c).room).collect();
+            assert!(red.len() <= 1, "{name} step {}: red bands for {red:?}", i + 1);
+            for c in m.in_room(&s.after) {
+                assert!(
+                    red.contains(&c),
+                    "{name} step {}: customer {} in the room, no band",
+                    i + 1,
+                    c + 1
+                );
+            }
+        }
+    }
+
     /// CIE L*a*b* (D65) of an sRGB colour.
     fn lab(c: Srgb) -> [f64; 3] {
         let h = c.to_hex();
@@ -1274,6 +1326,32 @@ fn writing_flag(st: &State, c: usize) -> bool {
     l.wp && matches!(l.pc, Pc::Ncs | Pc::Wc0)
 }
 
+/// The bands customer `c` (0-based) shows at a step from `before` to `after`.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Bands {
+    /// Her flag is up, or going up or down.
+    pub choosing: bool,
+    /// She is in the room as the model counts it (`Bakery::in_room`): in
+    /// the critical section and not yet writing her exit; once her exit
+    /// write begins she has left, and the next customer may go in.
+    pub room: bool,
+    /// She waits in line through the whole step.
+    pub waiting: bool,
+    /// A safe-slate write of hers is in progress (a ticket or the exit).
+    pub writing: bool,
+}
+
+pub fn bands_at(before: &State, after: &State, c: usize) -> Bands {
+    let inside = |st: &State| st.local[c].pc == Pc::Cs && !st.local[c].wp;
+    let waiting = |st: &State| matches!(st.local[c].pc, Pc::L2 | Pc::L3);
+    Bands {
+        choosing: choosing_in(before, c) || choosing_in(after, c),
+        room: inside(before) || inside(after),
+        waiting: waiting(before) && waiting(after),
+        writing: writing_slate(before, c) || writing_slate(after, c),
+    }
+}
+
 impl TraceLanes {
     /// The lanes for `steps`, with the steps in `hidden` (1-based) left out.
     pub fn build(
@@ -1417,18 +1495,17 @@ impl TraceLanes {
                 p.bands.push(stage.arena_mut().add(r));
                 Ok(())
             };
-            let inside = |st: &State| st.local[c].pc == Pc::Cs;
-            let waiting = |st: &State| matches!(st.local[c].pc, Pc::L2 | Pc::L3);
-            if choosing_in(b, c) || choosing_in(a, c) {
+            let on = bands_at(b, a, c);
+            if on.choosing {
                 piece(flag_amber(), 0.1, 0.34)?;
             }
-            if inside(b) || inside(a) {
+            if on.room {
                 piece(room_red(), 0.24, 0.34)?;
             }
-            if waiting(b) && waiting(a) {
+            if on.waiting {
                 piece(customer(c + 1), 0.08, 0.22)?;
             }
-            if writing_slate(b, c) || writing_slate(a, c) {
+            if on.writing {
                 piece(chalk(), 0.16, 0.14)?;
             }
         }

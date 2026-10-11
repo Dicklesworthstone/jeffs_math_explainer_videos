@@ -15,6 +15,7 @@ use super::draw::{
     LaneLayout, LaneSpec, Slots, TraceLanes, board, chalk, customer, fade_in_all, fade_out_all, fail, group, hardware,
     line_style, play_timed, quote_card, room_red, say, static_burst,
 };
+use super::glyphs;
 use crate::facts::{self, cited, fact, fact_u64};
 use crate::model::{Bakery, State, Step, Trace, Variant, replay};
 
@@ -383,11 +384,11 @@ impl SceneConstruct for FairAtAPrice {
             &steps,
             &[],
         )?;
-        let tag_a = kit.text(stage, "Blue finishes choosing first", 26.0, customer(1), v(1.0, 2.35))?;
+        let tag_a = kit.text(stage, glyphs::BLUE_FINISHES_FIRST, 26.0, customer(1), v(1.0, 2.35))?;
         fade_in_all(stage, &d.base(), 0.6)?;
         play!(stage; fade_in(stage.arena_mut(), tag_a, ORIGIN, 1.0)?.rt(0.5));
         walk(&kit, stage, &mut d, 1..=steps.len(), 0.22)?;
-        let served = kit.text(stage, "Blue is served first", 26.0, customer(1), v(1.0, -2.05))?;
+        let served = kit.text(stage, glyphs::BLUE_SERVED_FIRST, 26.0, customer(1), v(1.0, -2.05))?;
         play!(stage; fade_in(stage.arena_mut(), served, v(0.0, 0.1), 1.0)?.rt(0.5));
         line.wait_for(stage, "If we choose at the same time")?;
         let mut old = lane_mobs(&d);
@@ -403,7 +404,7 @@ impl SceneConstruct for FairAtAPrice {
         for (l, n) in [(&mut top, g.len()), (&mut bot, b.len())] {
             walk(&kit, stage, l, 1..=n, 0.12)?;
         }
-        let first = |k: usize| format!("{} first", super::draw::NAMES[k - 1]);
+        let first = |k: usize| format!("{} {}", super::draw::NAMES[k - 1], glyphs::FIRST);
         let (gk, bk) = (
             first_in(&g).ok_or_else(|| fail("someone enters".into()))?,
             first_in(&b).ok_or_else(|| fail("someone enters".into()))?,
@@ -413,11 +414,14 @@ impl SceneConstruct for FairAtAPrice {
         let note = lower_third(
             &kit,
             stage,
-            "precisely:",
+            glyphs::PRECISELY,
             &format!(
-                "two customers, one visit each: in all {} orders where one finishes choosing before the other starts, \
-                 she goes in first; in the other {}, either may",
-                fcfs.disjoint, fcfs.overlap
+                "{} {} {} {}{}",
+                glyphs::FCFS_A,
+                fcfs.disjoint,
+                glyphs::FCFS_B,
+                fcfs.overlap,
+                glyphs::FCFS_C
             ),
         )?;
         play!(stage;
@@ -458,7 +462,7 @@ impl SceneConstruct for FairAtAPrice {
                 .style(line_style(customer(1), 2.0))
                 .build()?,
         );
-        let mark_t = kit.text(stage, "Blue's ticket written", 22.0, customer(1), v(tx, 2.55))?;
+        let mark_t = kit.text(stage, glyphs::BLUES_TICKET_WRITTEN, 22.0, customer(1), v(tx, 2.55))?;
         play!(stage;
             show_creation(mark).rt(0.4),
             fade_in(stage.arena_mut(), mark_t, ORIGIN, 1.0)?.rt(0.4),
@@ -471,7 +475,7 @@ impl SceneConstruct for FairAtAPrice {
             if st.enters() && st.customer != 1 {
                 let x = l.x(s).ok_or_else(|| fail("entry has a slot".into()))?;
                 let y = l.y(st.customer).ok_or_else(|| fail("lane".into()))?;
-                let once = kit.text(stage, "once", 22.0, customer(st.customer), v(x + 0.15, y - 0.42))?;
+                let once = kit.text(stage, glyphs::ONCE, 22.0, customer(st.customer), v(x + 0.15, y - 0.42))?;
                 play!(stage; fade_in(stage.arena_mut(), once, v(0.0, 0.1), 1.0)?.rt(0.35));
                 ahead.push(once);
             }
@@ -479,7 +483,7 @@ impl SceneConstruct for FairAtAPrice {
         line.wait_for(stage, "So nobody waits forever")?;
         let tick = kit.text(
             stage,
-            &format!("each other customer ahead of Blue at most {}", facts::bypass_worst()),
+            &format!("{} {}", glyphs::AHEAD_AT_MOST, facts::bypass_worst()),
             26.0,
             Palette::green(),
             v(1.2, -2.45),
@@ -508,7 +512,7 @@ impl SceneConstruct for FairAtAPrice {
             &[],
         )?;
         let mut odo = Odometer::build(&kit, stage, 1, 0, v(5.4, 0.15), 1.4)?;
-        let odo_t = kit.text(stage, "biggest ticket", 24.0, Palette::dim(), v(5.4, 1.4))?;
+        let odo_t = kit.text(stage, glyphs::BIGGEST_TICKET, 24.0, Palette::dim(), v(5.4, 1.4))?;
         let mut intro = lf.base();
         intro.extend(odo.parts());
         intro.push(odo_t);
@@ -532,8 +536,11 @@ impl SceneConstruct for FairAtAPrice {
         let sum = kit.tex(
             stage,
             &format!(
-                r"\text{{one ticket a millisecond}} \times \text{{one year}}\ ({}\ \text{{days}})",
-                fact("C-F10.days_per_year")
+                r"\text{{{}}} \times \text{{{}}}\ ({}\ \text{{{}}})",
+                glyphs::ONE_TICKET_A_MS,
+                glyphs::ONE_YEAR,
+                fact("C-F10.days_per_year"),
+                glyphs::DAYS
             ),
             44.0,
             Palette::ink(),
@@ -549,9 +556,11 @@ impl SceneConstruct for FairAtAPrice {
         let answer = kit.tex(
             stage,
             &format!(
-                r"= {}\ \text{{ms}} \approx {}\ \text{{billion}}",
+                r"= {}\ \text{{{}}} \approx {}\ \text{{{}}}",
                 tex_thousands(fact_u64("C-F10.ms_per_year")),
-                fact("C-F10.ms_per_year_billions_to_nearest_half")
+                glyphs::TICKETS,
+                fact("C-F10.ms_per_year_billions_to_nearest_half"),
+                glyphs::BILLION
             ),
             44.0,
             Palette::hero(),
@@ -562,9 +571,10 @@ impl SceneConstruct for FairAtAPrice {
         let bound = kit.tex(
             stage,
             &format!(
-                r"< 2^{{{}}} = {}\quad\text{{Lamport's bound}}",
+                r"< 2^{{{}}} = {}\quad\text{{{}}}",
                 p35.trailing_zeros(),
-                tex_thousands(p35)
+                tex_thousands(p35),
+                glyphs::LAMPORTS_BOUND
             ),
             36.0,
             Palette::ink(),
@@ -583,7 +593,7 @@ impl SceneConstruct for FairAtAPrice {
         let mut odo32 = Odometer::build(&kit, stage, top32.to_string().len(), top32, v(0.0, -1.35), 0.62)?;
         let label32 = kit.text(
             stage,
-            &format!("a {bits32}-bit slate"),
+            &format!("{} {bits32}{}", glyphs::BIT_SLATE_A, glyphs::BIT_SLATE_B),
             24.0,
             Palette::dim(),
             v(0.0, -0.7),
@@ -596,11 +606,14 @@ impl SceneConstruct for FairAtAPrice {
         let wrap = kit.tex(
             stage,
             &format!(
-                r"2^{{{}}}\ \text{{ms}} = {}\ \text{{days}}\quad (2^{{{}}}: {},\ \text{{signed, as Java's int}})",
+                r"2^{{{}}}\ \text{{{}}} = {}\ \text{{{}}}\quad (2^{{{}}}: {},\ \text{{{}}})",
                 bits32,
+                glyphs::MS,
                 fact("C-F10.u32_wrap_days_at_1_per_ms_1dp"),
+                glyphs::DAYS,
                 bits32 - 1,
-                fact("C-F10.i32_wrap_days_at_1_per_ms_1dp")
+                fact("C-F10.i32_wrap_days_at_1_per_ms_1dp"),
+                glyphs::SIGNED_JAVA_INT
             ),
             30.0,
             Palette::ink(),
@@ -621,11 +634,14 @@ impl SceneConstruct for FairAtAPrice {
         let years = kit.tex(
             stage,
             &format!(
-                r"2^{{{}}}\ \text{{tickets at a billion a second: }} {}\ \text{{years}}\quad (2^{{{}}}: {},\ \text{{as Java's long}})",
+                r"2^{{{}}}\ \text{{{} }} {}\ \text{{{}}}\quad (2^{{{}}}: {},\ \text{{{}}})",
                 bits64,
+                glyphs::BILLION_A_SECOND,
                 fact("C-F11.u64_years_at_1e9_per_s_1dp"),
+                glyphs::YEARS,
                 bits64 - 1,
-                fact("C-F11.i64_years_at_1e9_per_s_1dp")
+                fact("C-F11.i64_years_at_1e9_per_s_1dp"),
+                glyphs::JAVA_LONG
             ),
             36.0,
             Palette::ink(),
@@ -637,11 +653,13 @@ impl SceneConstruct for FairAtAPrice {
         let quote = quote_card(
             &kit,
             stage,
-            "a read of number[i] can never obtain a value larger than one which has been written there",
+            glyphs::QUOTE_NEVER_LARGER,
             &format!(
-                "Lamport, {}, {}, p. {}",
+                "{}, {}, {}, {} {}",
+                glyphs::LAMPORT_SURNAME,
                 cited::bakery_journal(),
                 cited::BAKERY_YEAR,
+                glyphs::PAGE,
                 cited::NEVER_LARGER_PAGE
             ),
             v(0.0, -2.55),
@@ -660,14 +678,18 @@ impl SceneConstruct for FairAtAPrice {
                 .build()?
                 .moved_to(v(0.0, 0.1)),
         );
-        let slate_t = kit.text(stage, "a glance mid-write reads", 24.0, Palette::dim(), v(0.0, 0.9))?;
+        let slate_t = kit.text(stage, glyphs::GLANCE_MID_WRITE, 24.0, Palette::dim(), v(0.0, 0.9))?;
         fade_in_all(stage, &[well, slate_t], 0.4)?;
         let fx = stage.arena_mut().add(static_burst(v(0.0, 0.1), 1.1, 6));
         play!(stage; fade_in(stage.arena_mut(), fx, ORIGIN, 1.2)?.rt(0.3));
         let huge = kit.text(stage, &thousands(glance), 40.0, room_red(), v(0.0, 0.1))?;
         let next = kit.text(
             stage,
-            &format!("next ticket: {}", thousands(fact_u64("C-F11.ticket_after_huge_glance"))),
+            &format!(
+                "{} {}",
+                glyphs::NEXT_TICKET,
+                thousands(fact_u64("C-F11.ticket_after_huge_glance"))
+            ),
             32.0,
             Palette::ink(),
             v(0.0, -0.8),
@@ -684,17 +706,17 @@ impl SceneConstruct for FairAtAPrice {
         let line = say(&kit, stage, "11_7")?;
         fade_out_all(stage, &[years, quote, well, slate_t, huge, next], 0.5)?;
         let bits64 = fact_u64("C-F11.huge_glance").trailing_zeros() + 1;
-        let wide_tickets = format!("{bits64}-bit tickets (Java: AtomicLongArray)");
+        let wide_tickets = format!("{bits64}{}", glyphs::WIDE_TICKETS);
         let costs = card(
             &kit,
             stage,
-            "for programmers",
+            glyphs::FOR_PROGRAMMERS_TITLE,
             &[
-                "Customers fixed in advance",
-                "Paused in line → everyone behind waits",
-                "A dead customer's slate stays set:",
-                "    resetting it is your job",
-                "Pad each slate to its own cache line",
+                glyphs::COST_FIXED,
+                glyphs::COST_PAUSED,
+                glyphs::COST_DEAD,
+                glyphs::COST_RESET,
+                glyphs::COST_PAD,
                 &wide_tickets,
             ],
             1.75,
@@ -719,9 +741,10 @@ impl SceneConstruct for FairAtAPrice {
         let count = kit.tex(
             stage,
             &format!(
-                r"{} = 3 \times ({} - 1)\ \text{{reads}}",
+                r"{} = 3 \times ({} - 1)\ \text{{{}}}",
                 reads,
-                five.layout.lanes.len()
+                five.layout.lanes.len(),
+                glyphs::READS
             ),
             34.0,
             Palette::hero(),
@@ -748,15 +771,12 @@ impl SceneConstruct for FairAtAPrice {
             .ok_or_else(|| fail("Purple moves once".into()))?
             + 1;
         walk(&kit, stage, &mut fl, 1..=freeze_at, 0.08)?;
-        let pause = kit.text(stage, "frozen", 24.0, customer(3), v(-5.2, -1.3))?;
+        let pause = kit.text(stage, glyphs::FROZEN_TAG, 24.0, customer(3), v(-5.2, -1.3))?;
         play!(stage; fade_in(stage.arena_mut(), pause, ORIGIN, 1.0)?.rt(0.4));
         walk(&kit, stage, &mut fl, freeze_at + 1..=frozen.len(), 0.1)?;
         let stall = kit.text(
             stage,
-            &format!(
-                "everyone else: at most {} more visit, then stuck",
-                facts::frozen_worst()
-            ),
+            &format!("{} {} {}", glyphs::STALL_A, facts::frozen_worst(), glyphs::STALL_B),
             24.0,
             Palette::ink(),
             v(-1.6, -2.0),
