@@ -124,8 +124,8 @@ sentence; letters live on screen under word labels.
 | 03_2 | We built this lake, so we can peek. We marked the first thousand near the dock, and let them go there. | Label "only we can see this" (it carries the old "The fisher can't", cut at R2 for length); god's-eye view; the 100 gold fish cluster at the dock | label |  |
 | 03_3 | ⟨predict⟩ Watch them swim. Will the marks stay bunched up near the dock? | The lake, tinted in 3×3 regions by the share of fish that are marked: hot gold at the dock, dark elsewhere | prediction card |  |
 | 03_4 | The fish stay crowded where they like to be. But the marks spread out evenly among them. | One lake panel, time-lapse: the fish stay clumped in the weeds and the deep end; the regions' gold tint evens out from 66% at the dock to about 10% everywhere (readout in the caption band); faint contour streamlines (short opaque pieces) carry the circling | **habitat-potential dynamics from 10,000 simulated fish; tinted regions recoloured in place** |  |
-| 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a small copy of the lake's mix. | Real catches from the simulation's t = 400 frame (R2 Ruth R4, Dev dev-06): nets of a thousand fish, the story's second catch, come up at the weeds, open water and the deep end (the region centres NW, C, SE) holding 97, 90 and 109 marked; a strip under them lists all nine region centres, 90 to 112 marked (9.0% to 11.2%). Each net's fish are drawn one per ten, so a tray shows about a hundred fish and about ten gold; the label carries the true count. Caption "listen: about one bell for every ten notes" (R1 Maya m21) | repeated catches, counters | listen 5 s (each drawn fish of a tray is a kalimba note, each marked one a vibraphone note, in catch order) |
-| 03_6 | Zoom in on two corners. The fullest has twenty-seven hundred thirty-two fish, two hundred seventy-six of them marked. The emptiest has two hundred fourteen, twenty-three marked. Both are about one in ten. | Two insets of whole 3×3 regions at t = 400, every fish drawn 1:1 and labelled "every fish in this corner": the most crowded region (SE, the deep end: 2,732 fish, 276 marked) and the least crowded (NE: 214 fish, 23 marked); picked by fish count alone, never by marks | zoom insets, counters |  |
+| 03_5 | Wherever the second net goes, about one fish in ten it catches is marked. The catch is a small copy of the lake's mix. | Real catches from the simulation's t = 400 frame (R2 Ruth R4, Dev dev-06): nets of a thousand fish, the story's second catch, come up at the weeds, open water and the deep end (the region centres NW, C, SE) holding 105, 94 and 103 marked; a strip under them lists all nine region centres, 90 to 105 marked (9.0% to 10.5%). Each net's fish are drawn one per ten, so a tray shows about a hundred fish and about ten gold; the label carries the true count. Caption "listen: about one bell for every ten notes" (R1 Maya m21) | repeated catches, counters | listen 5 s (each drawn fish of a tray is a kalimba note, each marked one a vibraphone note, in catch order) |
+| 03_6 | The fullest corner has twenty-eight hundred eleven fish, two hundred eighty-two marked, and the emptiest has two hundred four, twenty-five marked. Both are near one in ten, and the small one wobbles more. | Two insets of whole 3×3 regions at t = 400, every fish drawn 1:1 and labelled "every fish in this corner": the most crowded region (SE, the deep end: 2,811 fish, 282 marked, 10.0%) and the least crowded (NE: 204 fish, 25 marked, 12.3%); picked by fish count alone, never by marks | zoom insets, counters |  |
 | 03_7 | Mixing is what makes the table fair. Being marked becomes unrelated to where a fish swims. In both columns, the second net takes the same one in ten, so the line across the table runs straight. | The mosaic returns, columns labelled "marked (first catch)" and "unmarked"; each column's green share counts up (100 of 1,000; 900 of 9,000) and the divider runs straight across both (R2 Maya M4) | callback, counters |  |
 | 03_8 | That's what independent means here. The second net doesn't care which fish were caught before, as long as every fish is as easy to catch. | Label "marks mixed fairly = independent" under the straight divider; the lower-third's "(chapter 13)" points ahead to equal catchability | label | hold |
 
@@ -142,13 +142,17 @@ sentence; letters live on screen under word labels.
 - **Sound:** 03_4 widens a vibraphone shimmer from centre-south to full width as
   the marks spread; the 03_5 window lets the proportion be heard (creative A-4;
   score bead mx-e-a-8y5.13).
-- **Facts (oracle keys `A-CH03.trays.net1000.*`, `A-CH03.corners.*`; R2):**
-  every number in 03_5 and 03_6 is read from the habitat run's t = 400 frame by
-  a rule that never looks at the marks. 03_5: a net of 1,000 (the story's n)
-  at each of the nine region centres catches the 1,000 nearest fish; they hold
-  94, 97, 109, 106, 90, 106, 97, 99, 112 marked (SW … NE). 03_6: the most
-  crowded region (SE, 2,732 fish, 276 marked) and the least crowded (NE, 214,
-  23). The R1 insets (side-0.04 squares with 50/5 and 10/1, `A-CH03.inset.*`)
+- **Facts (oracle keys `A-CH03.portable.*`; the scene runs the same mixing in
+  `model.rs`, bit for bit):** every number in 03_4–03_6 is read from the
+  portable run's frames (SplitMix64 noise, so the scene and the oracle draw the
+  same fish; the numpy runs `A-CH03.habitat.*` stay as the research record) by a
+  rule that never looks at the marks. 03_4: the dock region starts at 65.9%
+  marked, every region is 8.6–12.3% at t = 400. 03_5: a net of 1,000 (the
+  story's n) at each of the nine region centres catches the 1,000 nearest fish;
+  they hold 90, 93, 103, 100, 94, 100, 105, 100, 99 marked (SW … NE). 03_6: the
+  most crowded region (SE, 2,811 fish, 282 marked) and the least crowded (NE,
+  204, 25); 12.3% is within the binomial wobble of a 204-fish region (SD 2.1
+  points), which the voice says. The R1 insets (side-0.04 squares with 50/5 and 10/1, `A-CH03.inset.*`)
   were selected to match the voice and the R1 trays were drawn; both are
   retired (R2 Ruth R4, Dev dev-06), and their keys stay in the oracle as the
   record. Nets of 10 and 20 hold 0–3 and 0–5 marked (`A-CH03.trays.net10/20`):
