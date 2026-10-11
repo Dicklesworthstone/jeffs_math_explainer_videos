@@ -14,6 +14,7 @@ use fmn::prelude::*;
 use fmn::rendering::CameraConfig;
 
 use super::draw::{Role, line_style};
+use super::fold::fade_list;
 use crate::model::{A, B, Bucket, PIECE_NAMES, SplitMix64, useless_chance};
 
 /// Pieces: the cube's dimensions.
@@ -301,6 +302,7 @@ impl SceneConstruct for Cube {
             fade_in(stage.arena_mut(), dark_row, ORIGIN, 1.0)?.rt(0.5),
         );
         let (mut lit_n, mut dark_n) = (0, 0);
+        let mut marks = vec![lit_row, dark_row];
         for &t in &targets {
             let d = ball(stage, Role::card(), 0.1, source);
             stage.add_to_scene(d)?;
@@ -323,6 +325,7 @@ impl SceneConstruct for Cube {
             *n += 1;
             let tally = stage.arena_mut().add(tally);
             stage.set_fixed_in_frame(tally, 1.0, true);
+            marks.push(tally);
             let rgb = [landed.r as f32, landed.g as f32, landed.b as f32];
             play!(stage;
                 fade_out(stage.arena_mut(), d, ORIGIN, 1.0)?.rt(0.3),
@@ -344,17 +347,18 @@ impl SceneConstruct for Cube {
         let half = kit.text_hud(
             stage,
             &format!(
-                "{lit} lit of {total}: useless {:.0}% of the time",
+                "{lit} lit of {total}: in the long run, useless {:.0}% of the time",
                 useless_chance(2, PIECES) * 100.0
             ),
             38.0,
             Role::lit(),
             v(0.0, -3.35),
         )?;
-        play!(stage;
-            fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
-            fade_in(stage.arena_mut(), half, ORIGIN, 1.0)?.rt(0.8),
-        );
+        // the eight throws' tally leaves as the long-run half arrives, so
+        // the frame never sets 3 of 8 against 4 of 8 (Maya R3 maya-08, Dev D9)
+        play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
+        fade_list(stage, &marks, 0.4)?;
+        play!(stage; fade_in(stage.arena_mut(), half, ORIGIN, 1.0)?.rt(0.8));
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)

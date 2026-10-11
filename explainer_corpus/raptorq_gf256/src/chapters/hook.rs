@@ -924,21 +924,24 @@ fn album(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     kit.live_count(stage, n, 64.0, Palette::ink(), v(3.9, 2.35))?;
     let average = kit.text_styled(stage, "on average", 28.0, Palette::dim(), v(3.9, 1.65), false, true)?;
     kit.say(stage, "01_8")?;
+    // "on average" from the counter's first frame: it runs the expected
+    // curve, not one album (Ruth R3-04); it lands as the voice says the
+    // number (Maya R3 maya-15)
     play!(stage;
         fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
         fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.5),
+        fade_in(stage.arena_mut(), average, ORIGIN, 1.0)?.rt(0.5),
     );
     let run = n
         .animate()
         .set_anim_args(AnimateArgs {
-            run_time: Some(2.6),
+            run_time: Some(1.8),
             rate_func: Some(fmn::core::rate::linear),
             ..AnimateArgs::default()
         })?
         .set_value(total as f64)?;
     stage.play(run)?;
     stage.clear_updaters(driver, false);
-    play!(stage; fade_in(stage.arena_mut(), average, ORIGIN, 1.0)?.rt(0.4));
     // three counts side by side: packets a phone catches, on average
     let rows = [
         (

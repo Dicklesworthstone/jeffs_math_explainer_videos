@@ -123,6 +123,7 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // a million phones at two spares: about a quarter stuck (model)
     let stuck = p_fail_limit_times(2, 2, PHONES as u32);
     let drawn_stuck = (p_fail_limit(2, 2) * f64::from(DRAWN)).round() as usize;
+    let mut red_bodies = Vec::new();
     let mut rng = SplitMix64::new(crate::model::FIELD_SEED ^ 0x0602);
     let mut order: Vec<usize> = (0..DRAWN as usize).collect();
     for i in (1..order.len()).rev() {
@@ -135,22 +136,22 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     for &i in &order[..drawn_stuck] {
         red[i] = true;
     }
-    let mut ok_dots = Vec::new();
-    let mut red_dots = Vec::new();
-    for (i, &is_red) in red.iter().enumerate() {
-        let p = v(
-            origin[0] + cell * (i % cols) as f64,
-            origin[1] - cell * (i / cols) as f64,
-        );
-        let d = Dot::new().point(p).radius(0.045);
-        if is_red {
-            red_dots.push(d.color(Role::lost()).build());
-        } else {
-            ok_dots.push(d.color(Role::done()).build());
+    // the hook's own phone field (01_1, 01_6, 17_7), 40 × 25 glyphs, scaled
+    // into the same 5.2 × 3.3 block: the million phones come back as
+    // themselves, green with the picture, red stuck
+    let phones = super::hook::field(stage);
+    stage.scale(phones.group, 0.52);
+    stage.move_to(
+        phones.group,
+        v(origin[0] + cell * 39.0 / 2.0, origin[1] - cell * 24.0 / 2.0),
+        ORIGIN,
+    );
+    for (i, &body) in phones.bodies.iter().enumerate() {
+        stage.set_fill(body, Some(Role::done()), None, None, false);
+        if red[i] {
+            red_bodies.push(body);
         }
     }
-    let ok_group = stage.arena_mut().add(v_group(ok_dots));
-    let red_group = stage.arena_mut().add(v_group(red_dots));
     let field_note = kit.text(
         stage,
         &format!(
@@ -164,25 +165,25 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     )?;
     let key = kit.text(
         stage,
-        &format!("each dot = {} phones", thousands(PHONES / u64::from(DRAWN))),
+        &format!("each phone drawn = {} phones", thousands(PHONES / u64::from(DRAWN))),
         22.0,
         Palette::dim(),
         v(origin[0] + cell * cols as f64 / 2.0, origin[1] + 0.35),
     )?;
     play!(stage;
-        fade_in(stage.arena_mut(), ok_group, ORIGIN, 1.0)?.rt(0.8),
+        fade_in(stage.arena_mut(), phones.group, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.8),
     );
-    play!(stage;
-        fade_in(stage.arena_mut(), red_group, ORIGIN, 1.0)?.rt(0.8),
-        fade_in(stage.arena_mut(), field_note, ORIGIN, 1.0)?.rt(0.8),
-    );
+    // the stuck quarter turns red, swept by an updater (animating each body
+    // would re-add it and split the field's group)
+    super::hook::sweep(stage, &red_bodies, Role::lost(), 0.8)?;
+    play!(stage; fade_in(stage.arena_mut(), field_note, ORIGIN, 1.0)?.rt(0.8));
     kit.hold(stage)?;
 
     // 06_3: twenty rungs to one in a million; ten halvings, twenty halvings
     kit.say(stage, "06_3")?;
     let mut out: Vec<Box<dyn Animation>> = Vec::new();
-    for m in [ok_group, red_group, field_note, key, answer] {
+    for m in [phones.group, field_note, key, answer] {
         let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
         out.push(stage.prepare(a)?);
     }
@@ -203,10 +204,14 @@ fn ladder(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         &format!("{rungs_to} spares: about 1 in {}", thousands(ONE_IN)),
         Role::ex_or(),
     )?;
+    // the marker leaves, the rungs come in, and the new label is written
+    // where it stops: no letters drawn over letters on the way down (Maya
+    // R3 maya-09)
     play!(stage;
         fade_in(stage.arena_mut(), rest, ORIGIN, 1.0)?.rt(1.8).lag(0.4),
-        replacement_transform(marker, end).rt(1.8),
+        fade_out(stage.arena_mut(), marker, ORIGIN, 1.0)?.rt(0.4),
     );
+    play!(stage; fade_in(stage.arena_mut(), end, v(0.0, 0.3), 1.0)?.rt(0.6));
     let tex_at = |y: f64| v(2.8, y);
     let half = rungs_to / 2;
     let ten = kit.tex(

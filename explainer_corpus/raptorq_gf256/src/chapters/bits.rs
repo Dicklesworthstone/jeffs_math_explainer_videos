@@ -347,7 +347,9 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
             listen,
         ),
     )?;
-    let flip_all = |top: &mut Row, stage: &mut Stage<'_>, rt: f64| -> fmn::Result<()> {
+    // the switches' flips, built (not played) so the row's number changes
+    // with them, never after (Ruth R3-11: a paused frame read "5 = 010")
+    let flip_all = |top: &mut Row, stage: &mut Stage<'_>| -> fmn::Result<AnimationGroup> {
         let mut flips = Vec::new();
         for k in 0..n {
             if bottom.bits[k] {
@@ -355,11 +357,9 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
                 flips.push(top.set(kit, stage, k, !now)?);
             }
         }
-        let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), flips, 0.35)?;
-        stage.play(g.rt(rt))?;
-        Ok(())
+        Ok(AnimationGroup::with_lag_ratio(stage.arena_mut(), flips, 0.35)?)
     };
-    flip_all(&mut top, stage, 1.2)?;
+    let flips = flip_all(&mut top, stage)?;
     let two = kit.text(
         stage,
         &top.value().to_string(),
@@ -367,13 +367,11 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         Role::ex_or(),
         v(label_x, top.centre[1]),
     )?;
-    play!(stage;
-        replacement_transform(five, two).rt(0.6),
-        write(stage.arena(), first).rt(1.0),
-    );
+    play!(stage; flips.rt(1.2), replacement_transform(five, two).rt(1.2));
+    play!(stage; write(stage.arena(), first).rt(1.0));
     stage.wait(0.8)?;
     // flip twice: the same switches again, while the line says so
-    flip_all(&mut top, stage, 1.2)?;
+    let flips = flip_all(&mut top, stage)?;
     let back = kit.text(
         stage,
         &top.value().to_string(),
@@ -381,10 +379,8 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         Palette::ink(),
         v(label_x, top.centre[1]),
     )?;
-    play!(stage;
-        replacement_transform(two, back).rt(0.6),
-        write(stage.arena(), second).rt(1.0),
-    );
+    play!(stage; flips.rt(1.2), replacement_transform(two, back).rt(1.2));
+    play!(stage; write(stage.arena(), second).rt(1.0));
     let note = precisely(
         kit,
         stage,
@@ -403,9 +399,9 @@ fn switches(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let mut value = back;
     for (wait, color) in [(0.7, Role::ex_or()), (0.5, Palette::ink())] {
         stage.wait(wait)?;
-        flip_all(&mut top, stage, 0.3)?;
+        let flips = flip_all(&mut top, stage)?;
         let next = kit.text(stage, &top.value().to_string(), 56.0, color, v(label_x, top.centre[1]))?;
-        play!(stage; replacement_transform(value, next).rt(0.2));
+        play!(stage; flips.rt(0.3), replacement_transform(value, next).rt(0.3));
         value = next;
     }
     Ok(())
