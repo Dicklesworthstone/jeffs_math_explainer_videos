@@ -155,6 +155,110 @@ impl Identity {
             listen_lu: -8.0,
         }
     }
+
+    /// Video A, capture–recapture (plan §7.5; R1 creative review X-1: each
+    /// video its own harmonic language, never the corpus's I–vi–IV–V again):
+    /// F Lydian, still and modal, Fmaj9 → Gadd9 → Dm9 → Cmaj9 (the raised
+    /// fourth B♮ in the II and V chords); 6/8 at dotted quarter = 56; a Juno
+    /// "water" pad, the felt-piano motif 5̂–1̂–2̂–3̂ left open until the table
+    /// balances, vibraphone answers (the marked fish's instrument).
+    pub fn capture_recapture() -> Self {
+        Self {
+            name: "capture_recapture".into(),
+            key: Key::new(5, crate::theory::LYDIAN),
+            tonic_midi: 65,
+            progression: vec![
+                Chord::maj9(5),
+                Chord::new(7, &[0, 4, 7, 14]),
+                Chord::min9(2),
+                Chord::maj9(0),
+            ],
+            motif: Motif::new(&[-2, 1, 2, 3], &[0.5, 1.0, 0.5, 1.5]),
+            resolution: Motif::new(&[2, 1], &[1.0, 2.0]),
+            beat_s: 60.0 / 56.0,
+            palette: Palette {
+                bed: Instrument::Pad { brightness: 0.25 },
+                melody: Instrument::FeltPiano,
+                answer: Instrument::Vibraphone,
+            },
+            chord_s: (8.0, 14.0),
+            bed_t60: 2.8,
+            // Hoeffding's measured balance (see `hoeffding`): V − 12 before the duck
+            bed_lu: -12.0,
+            melody_lu: -12.0,
+            duck_db: 8.0,
+            sfx_lu: -16.0,
+            listen_lu: -8.0,
+        }
+    }
+
+    /// Video B, RaptorQ's byte field (plan §7.5; R1 X-1): E Lydian with the
+    /// raised fourth (A♯) on the tonic chord, Emaj9(♯11) → G♯m7 → C♯m9 →
+    /// Amaj9 (I–iii–vi–IV); 96 BPM; Solina strings under a warm-glass FM bell
+    /// motif E–G♯–B–C♯ (0x1D's set bits {0, 2, 3, 4} as degrees 1, 3, 5, 6),
+    /// Karplus–Strong answers.
+    pub fn raptorq_gf256() -> Self {
+        Self {
+            name: "raptorq_gf256".into(),
+            key: Key::new(4, crate::theory::LYDIAN),
+            tonic_midi: 64,
+            progression: vec![
+                Chord::maj9_sharp11(4),
+                Chord::new(8, &[0, 3, 7, 10]),
+                Chord::min9(1),
+                Chord::maj9(9),
+            ],
+            motif: Motif::new(&[1, 3, 5, 6], &[0.5, 0.5, 0.5, 1.5]),
+            resolution: Motif::new(&[5, 8], &[1.0, 2.0]),
+            beat_s: 60.0 / 96.0,
+            palette: Palette {
+                bed: Instrument::Strings { brightness: 0.3 },
+                melody: Instrument::WarmGlass,
+                answer: Instrument::Pluck,
+            },
+            chord_s: (6.0, 12.0),
+            bed_t60: 2.2,
+            bed_lu: -12.0,
+            melody_lu: -12.0,
+            duck_db: 8.0,
+            sfx_lu: -16.0,
+            listen_lu: -8.0,
+        }
+    }
+
+    /// Video C, the bakery algorithm (plan §7.5; R1 X-1): B♭ major as a jazz
+    /// turnaround, B♭maj9 → G7♯5 → Cm9 → F13 (the augmented G7♯5 is the
+    /// race's tension); 104 BPM; a small room (T60 0.9 s); marimba plays
+    /// "take a number" 1̂–2̂–3̂ and resolves with "served" 5̂–4̂–2̂–1̂, the pluck
+    /// answers.
+    pub fn bakery_algorithm() -> Self {
+        Self {
+            name: "bakery_algorithm".into(),
+            key: Key::new(10, crate::theory::IONIAN),
+            tonic_midi: 58,
+            progression: vec![
+                Chord::maj9(10),
+                Chord::new(7, &[0, 4, 8, 10]),
+                Chord::min9(0),
+                Chord::new(5, &[0, 4, 10, 14, 21]),
+            ],
+            motif: Motif::new(&[1, 2, 3], &[0.5, 0.5, 1.0]),
+            resolution: Motif::new(&[5, 4, 2, 1], &[0.5, 0.5, 0.5, 1.5]),
+            beat_s: 60.0 / 104.0,
+            palette: Palette {
+                bed: Instrument::Pad { brightness: 0.35 },
+                melody: Instrument::Marimba,
+                answer: Instrument::Pluck,
+            },
+            chord_s: (6.0, 10.0),
+            bed_t60: 0.9,
+            bed_lu: -12.0,
+            melody_lu: -12.0,
+            duck_db: 8.0,
+            sfx_lu: -16.0,
+            listen_lu: -8.0,
+        }
+    }
 }
 
 /// What one chapter asks of the score.
@@ -1458,6 +1562,41 @@ mod tests {
         // a note that is safe over both keeps its hold
         assert_eq!(hold_until_clash(71, 10.0, 2.5, &chords), 2.5);
         let _ = key;
+    }
+
+    #[test]
+    fn every_corpus_identity_plays_and_none_repeats_another_s_harmony() {
+        let ids = [
+            Identity::hoeffding(),
+            Identity::capture_recapture(),
+            Identity::raptorq_gf256(),
+            Identity::bakery_algorithm(),
+        ];
+        for id in &ids {
+            id.validate().unwrap();
+        }
+        // R1 X-1: the corpus played one I–vi–IV–V loop in four keys; the root
+        // motion (each root relative to the first) must differ between videos
+        let motion = |id: &Identity| -> Vec<i32> {
+            let r0 = id.progression[0].root;
+            id.progression.iter().map(|c| (c.root - r0).rem_euclid(12)).collect()
+        };
+        for (i, a) in ids.iter().enumerate() {
+            for b in &ids[i + 1..] {
+                assert_ne!(motion(a), motion(b), "{} and {} share a progression", a.name, b.name);
+            }
+        }
+        // B's motif is 0x1D's set bits as E–G♯–B–C♯; A's opens on 5̂ below the tonic
+        let b = Identity::raptorq_gf256();
+        let pcs: Vec<i32> = b
+            .motif
+            .degrees
+            .iter()
+            .map(|&d| b.key.degree(d, b.tonic_midi).rem_euclid(12))
+            .collect();
+        assert_eq!(pcs, [4, 8, 11, 1]);
+        let a = Identity::capture_recapture();
+        assert_eq!(a.key.degree(a.motif.degrees[0], a.tonic_midi), a.tonic_midi - 5);
     }
 
     #[test]

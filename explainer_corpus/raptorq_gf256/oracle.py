@@ -68,7 +68,9 @@ def emit(key, value):
     print(f"{key}\t{s}")
 
 
-REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# the repository root: the nearest ancestor holding docs/research (the oracle
+# lives in explainer_corpus/<slug>/)
+REPO = next(str(d) for d in __import__("pathlib").Path(__file__).resolve().parents if (d / "docs" / "research").is_dir())
 RESULTS = os.path.join(REPO, "docs", "research", "raptorq_gf256", "scripts", "results")
 
 # ----------------------------------------------------------------------------------------------

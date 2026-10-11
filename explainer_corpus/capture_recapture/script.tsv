@@ -1,0 +1,90 @@
+# capture_recapture: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	A thousand fish are caught, marked, and let go. One week later, a second net catches a thousand. Of those, a hundred are marked.
+01_2	Now look at the fish no net ever touched.
+01_3	There are about eight thousand one hundred of them. And we can say how sure we are.
+01_5	Why not count one patch and scale up? This net covers one hundredth of the lake. Four hundred fifty-one fish, times a hundred, is forty-five thousand one hundred.
+01_6	Try two other spots. Same answer?
+01_7	Not even close. In the weeds, eighty-eight thousand. In open water, two thousand eight hundred.
+01_8	The net knows it covered a hundredth of the water. It can't know what share of the fish that was.
+02_1	In nineteen fifty, the probabilist William Feller put this puzzle in his famous textbook. Biologists had been doing it for decades. His book never mentions them.
+02_2	Feller marked his fish with red spots. Ours glow, so you can see them.
+02_3	Here's the first way to read it. Of the thousand marked fish, the second net caught a hundred. One in ten.
+02_4	So the second net probably caught about one in ten of all the fish. It caught a thousand. A thousand is one tenth of how many?
+02_5	Ten thousand. The marked fish measured our net for us. It searched about a tenth of the fish.
+02_6	Read the same fact the other way. One fish in ten in the second catch is marked, so about one in ten in the lake is.
+02_7	Marked times second catch, over caught twice. A thousand times a thousand, over a hundred. Ten thousand. Call it the soup guess.
+02_8	Why should that work? How sure can we be? And when does it fail?
+03_1	Think about tasting soup. Stir it, and one spoonful tells you how salty the whole pot is.
+03_2	We built this lake, so we can peek. The fisher can't. We marked the first thousand near the dock, and let them go there.
+03_3	Watch them swim. Will the marks stay bunched up near the dock?
+03_4	The fish stay crowded where they like to be. But the marks spread out evenly among them.
+03_5	Wherever the second net goes, about one fish in ten it catches is marked. The catch is a tiny copy of the lake's mix.
+03_6	Zoom in. A crowded patch has fifty fish, five of them marked. A sparse one has ten, with one marked. Both are one in ten.
+03_7	That's what makes the table fair. Mixing makes being marked unrelated to where a fish swims. So the second net catches marked fish in their fair share.
+03_8	That's what independent means here. The second net doesn't care which fish were caught before.
+04_1	To see exactly why, shrink the lake. Twenty fish, five of them marked. Our net holds four.
+04_2	Random means every group of four is equally likely. How many groups are there?
+04_3	Twenty choices for the first fish, nineteen for the second, then eighteen, then seventeen. But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful. So divide by twenty-four. Four thousand eight hundred forty-five.
+04_4	Sort them by how many marked fish they hold. Which pile is biggest?
+04_6	One marked fish. One in four, same as the lake. The soup again.
+04_7	Take the pile with two marked fish. Ten ways to pick two of the five marked ones. For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants. One thousand fifty.
+04_8	Divide every pile by all four thousand eight hundred forty-five, and you get the chances. About twenty-eight percent, forty-seven, twenty-two, three, and under one.
+04_9	Mathematicians call it the hypergeometric distribution. If we know the lake, we know the chances of every catch. But we only know the catch.
+05_1	A new lake, and we don't know its size. We marked ten, caught ten, and three were marked.
+05_2	The soup guess first. Ten times ten, over three?
+05_3	About thirty-three. Now check it properly. What's the smallest the lake could be? We've already seen seventeen different fish.
+05_4	For each possible lake size, ask how likely it is to see exactly three marked. A lake of twenty, about eight percent. Thirty-three, about thirty-two percent. Sixty, about sixteen.
+05_5	Now sweep through every size.
+05_6	The curve peaks at thirty-three, just as the soup guess said. It's called the likelihood. Think of it as a score for each lake size. How likely our catch would be, if the lake were that size.
+05_7	Add up every height, out to lakes as big as you like, and you get about sixteen and two thirds, not one. The lake has one size. These aren't chances that it's a certain size. They're scores for comparing guesses.
+06_1	Here's every lake size and every possible count at once.
+06_2	Cut across at one lake size. What do you get?
+06_3	The chances from the netfuls. They add to one.
+06_4	Cut along at our three, and you get the score curve. Its heights add to sixteen and two thirds. Same mountains, two questions.
+07_1	Feller found the top score without drawing anything. Compare each lake size with the one just below it.
+07_2	In our small lake, the step from thirty-two to thirty-three comes down to two numbers, five twenty-nine against five twenty-eight. The top one wins, so the score goes up. From thirty-three to thirty-four, it's five seventy-six against five seventy-eight, so it goes down.
+07_3	So take the top minus the bottom, written with letters. Multiply it out. What survives?
+07_4	Marked times second catch, minus caught twice times lake size. While that's positive, the score is still rising.
+07_5	Now write it with the table's four cells. It becomes first catch only times second catch only, minus caught twice times the dark cell.
+07_6	In the small lake, seven times seven, minus three times sixteen. One, same as before. Back to Feller's lake.
+08_1	So start with a small dark cell and let it grow. Where does the climb stop?
+08_2	In each column, the green part is what the second net caught. While the unmarked side's green share is bigger, the score keeps climbing.
+08_3	A hundred times eight thousand one hundred is eight hundred ten thousand. So is nine hundred times nine hundred. The shares match, the line is straight, and the table balances.
+08_4	A straight line is exactly what two independent catches look like. So the careful argument and the soup guess give the same answer, rounded down to a whole fish.
+08_5	At Feller's numbers the line is perfectly straight at ten thousand, so lakes of nine thousand nine hundred ninety-nine and ten thousand tie for the top score. Feller just says ten thousand.
+09_1	Let's check this by cheating. Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.
+09_2	Where do the counts of fish caught twice pile up?
+09_3	In a bell around a hundred. Most land within about nine of it.
+09_4	But the estimate divides by that count, and dividing bends things. Ninety caught twice gives about eleven thousand one hundred. A hundred and ten gives about nine thousand one hundred. Ten too few pushes harder than ten too many.
+09_5	Ninety-five percent of the estimates land from about eighty-five hundred to just over twelve thousand. Their average is about ten thousand and eighty, a little high.
+09_6	Two lines of code. Always check a simulation against something you can compute exactly.
+10_1	With a smaller experiment it gets worse. In a lake of a thousand, mark fifty and catch fifty. How often does the second catch hold no marked fish at all?
+10_2	About one time in fourteen. Then the soup guess divides by zero.
+10_3	Douglas Chapman's fix is to add one to each count, and subtract one at the end, as if one imaginary fish had been caught both times. The ones aren't a fudge. They're what makes the average come out right. It never divides by zero, and once you expect four or more caught twice, it's nearly exact on average.
+11_1	So far the lake was known, and we watched the estimates scatter. Now turn it around. We don't know the lake. Which sizes could plausibly have given us our hundred caught twice?
+11_2	Only nineteen hundred fish? Then the second net scooped up all nine hundred unmarked fish and only a hundred of the thousand marked ones. The chance of that is about five in a one followed by four hundred thirty zeros.
+11_3	A million fish? Then we'd expect to catch about one marked fish, not a hundred.
+11_4	Even at the best size, catching exactly a hundred had only about a four percent chance. Is that a problem?
+11_5	Flip a hundred coins. Exactly fifty heads happens only about eight percent of the time, yet it's the most likely count.
+12_1	Here's the careful range. For each lake size, ask whether a catch of a hundred would land in that lake's middle ninety-five percent. Keep the sizes where it would.
+12_2	Build that range for each experiment, and it rings the true size at least ninety-five times in a hundred, whatever the true size is. Like a ring toss.
+12_3	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed and the lake moves.
+12_4	What makes the range tight?
+12_5	Mostly, more fish caught twice. Four times as many halves the range. Catching a big share of the lake helps a little, and catching all of it leaves no doubt.
+13_1	Every failure breaks one rule. In the second net, marked and unmarked fish must be equally likely to be caught. Then the catch is a fair copy.
+13_2	Some fish are bold and easy to catch, both times. Will the estimate come out too big, or too small?
+13_3	Too small. Bold fish get caught twice more than their share, so the dark cell shrinks. In our lake, where three fish in ten are three times as easy to catch, the estimate comes out around seventy-seven fifty.
+13_4	Fish that learn to love the bait do the same. Fish that learn to avoid it push the estimate up.
+13_5	Marks that wash off make marked fish look unmarked. That pushes it up too.
+13_6	Two thousand newcomers between the catches dilute the marks. Then you've counted the lake as it is at the second catch.
+13_7	What if three fish in ten die between the catches?
+13_8	The estimate doesn't move. Death doesn't care about marks, so the rule still holds.
+13_9	And if the marks never mix, everything depends on where you fish. Fish near the release site, and you'd say sixty-two fifty. Fish the far side, and you'd say twenty-five thousand.
+14_1	Around eighteen hundred, the French mathematician Laplace used the same table to count France. Births were written down, so in our table, each newborn is a marked fish.
+14_2	At his request, officials counted everyone in chosen towns across France. About two million people, with about seventy-two thousand births a year. That's one birth for every twenty-eight and a bit people. Taking France's births as a million a year, that's about twenty-eight point four million people.
+14_4	It counts bugs too. Say two reviewers read the same code without comparing notes. One finds thirty bugs, the other twenty-four, and twelve are the same. How many are still hiding?
+14_5	Thirty times twenty-four, over twelve, is sixty. They found forty-two, so about eighteen. But twelve is a small number caught twice. An honest range is forty-seven to ninety-four bugs in all.
+14_6	Reviewers of different skill are fine. Bugs of different difficulty are not. Easy bugs swell the caught-twice cell and pull the estimate down, like the bold fish. So read sixty as a floor.
+15_1	And it has counted the dead. In the war in Kosovo, in nineteen ninety-nine, several lists named about four thousand four hundred different victims between them. The names shared between lists estimated about ten thousand four hundred killed. Years later, a name-by-name count found nine thousand seven hundred ninety, inside the estimate's range.
+15_2	France, the bugs, Kosovo. What do they share?
+15_3	Each is a table with one cell nobody can see, filled in by the cells we can.

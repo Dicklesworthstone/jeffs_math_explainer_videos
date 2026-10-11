@@ -12,6 +12,7 @@
 //! `score`, `render --score`) and the PCM master (`master`: cues replayed
 //! through fmn's own mixer, null-tested, joined without re-encoding).
 
+pub mod animatic;
 pub mod captions;
 pub mod cli;
 pub mod encode;
@@ -24,6 +25,7 @@ pub mod palette;
 pub mod play;
 pub mod plot;
 pub mod stats;
+pub mod storyboard;
 
 pub use cli::{Chapter, Explainer};
 pub use facts::{Fact, Facts, choose, oracle_diff};

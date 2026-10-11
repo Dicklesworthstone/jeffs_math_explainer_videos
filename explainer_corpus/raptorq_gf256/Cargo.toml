@@ -1,0 +1,17 @@
+[package]
+name = "raptorq_gf256_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "The Arithmetic Where 3 x 7 = 9: the finite field under RaptorQ fountain codes; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "gf256"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

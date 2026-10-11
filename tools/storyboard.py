@@ -1,37 +1,38 @@
-"""Build docs/storyboards/<video>.md from the plan's chapters-and-beats tables
-(plan sections 9.4, 10.4, 11.4), with the checks gate G2 needs: each chapter's
-estimated length (at most 85 s), a picture for every line, a prediction pause
-in every chapter, and the skill's showcase checklist ticked with the beats
-that use each device.
+"""Check a video's storyboard (gate G2) and write its script from it.
 
-    python3 -I docs/storyboards/build.py
+    python3 -I tools/storyboard.py [--check] [SLUG ...]   (default: every video with a storyboard)
 
-Re-run after editing the plan; the storyboards are generated, the plan is the
-source. Exit status 1 if any check fails (the files are written either way).
+The storyboard, explainer_corpus/<slug>/docs/storyboard.md, is the hand-edited
+source of the video's words and pictures (from R1 on; plan §9.4, §10.4 and
+§11.4 hold the revision-2 drafts it started from). Per chapter (a `## NN_key`
+heading), one row per beat: `| id | words | picture | features | hold/listen |`.
 
-Length estimate per line: the draft words at the narrator's 2.68 words a
-second (measured: Hoeffding's 1,182 words took 440.9 s), plus its 0.6 s breath, plus 2 s for a
-prediction pause, plus the hold/listen column (an authored hold counts 2.5 s,
-"listen N s" counts N). Titles and silent beats count their hold only.
+Checks (exit 1 if any fails):
+- every chapter's estimated length is at most 85 s (plan D-05);
+- every beat has a picture (a card may stand in only if the features say so);
+- every chapter has a prediction pause (⟨predict⟩), and a ⟨predict⟩ beat ends
+  with its question (the answer is the next beat, so the picture can hold);
+- ids are unique and sit under their own chapter.
+
+It writes explainer_corpus/<slug>/script.tsv (id, spoken words) unless
+--check, which instead fails when the file on disk differs from what the
+storyboard says (a stale script). The Rust side parses the same format
+(crates/explainer_kit/src/storyboard.rs); keep the two in step.
+
+Length estimate per beat: the spoken words at 2.68 words a second (Hoeffding's
+measured rate: 1,182 words took 440.9 s), plus a 0.6 s breath, plus 2 s for a
+prediction pause, plus the hold (2.5 s) or listen window ("listen N s").
 """
 
 import pathlib
 import re
 import sys
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-PLAN = ROOT / "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md"
-OUT = ROOT / "docs/storyboards"
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+CORPUS = ROOT / "explainer_corpus"
 WPS, BREATH, PREDICT, HOLD = 2.68, 0.6, 2.0, 2.5
-# plan D-05's pacing cap; its first reason, fmn's 64 GiB raw-output cap
-# (about 92 s of 4K60), no longer binds: the kit raised it to 256 GiB (~369 s)
 CAP = 85.0
-
-VIDEOS = [
-    ("capture_recapture", "How to Count Fish You've Never Seen", "9"),
-    ("raptorq_gf256", "The Arithmetic Where 3 × 7 = 9", "10"),
-    ("bakery_algorithm", "The Algorithm Lamport Is Proudest Of", "11"),
-]
+MARK = "⟨predict⟩"
 
 # the skill's showcase checklist, with the words that show a beat uses it
 SHOWCASE = [
@@ -41,22 +42,16 @@ SHOWCASE = [
     ("data windows (plots, histograms, number lines)", r"histogram|curve|plot|number line|axis|axes|bars?\b"),
     ("lagged group reveals", r"lagged|one by one|cascade|ripple"),
     ("highlights (`indicate`, surrounding boxes, flashes, glow)", r"indicate|box|flash|glow|highlight"),
-    ("sound that teaches (listen windows, the score engine)", r"listen|sonif|rings|tick|chord"),
-    ("tables and grids built from primitives", r"table|grid|matrix"),
+    ("sound that teaches (listen windows, the score engine)", r"listen"),
+    ("tables and grids built from primitives", r"table|grid|matrix|mosaic"),
     ("the camera route (3D, orbits)", r"\(camera\)|3D|orbit"),
 ]
 
 
-def section(lines, start, end):
-    i = next(k for k, l in enumerate(lines) if l.startswith(start))
-    j = next(k for k, l in enumerate(lines) if k > i and l.startswith(end))
-    return lines[i:j]
-
-
-def words(text):
-    text = re.sub(r"\*\([^)]*\)\*", " ", text)  # *(annotations)*
-    text = text.replace("⟨predict⟩", " ")
-    return len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’,.\-]*", text))
+def spoken(words):
+    text = re.sub(r"\*\([^)]*\)\*", " ", words)
+    text = text.replace(MARK, " ")
+    return " ".join(text.split())
 
 
 def hold_seconds(cell):
@@ -66,101 +61,103 @@ def hold_seconds(cell):
     return HOLD if re.search(r"\bhold\b", cell) else 0.0
 
 
-def build(slug, title, sec):
-    lines = PLAN.read_text().splitlines()
-    problems = []
-    beats = section(lines, f"### {sec}.4", f"### {sec}.5")
-    intro = section(lines, f"### {sec}.2", f"### {sec}.4")
+def parse(path):
     chapters, cur, fence = [], None, False
-    for l in beats:
-        # fenced blocks (code panels) are copied verbatim into the chapter's notes
-        if l.startswith("```"):
+    for n, line in enumerate(path.read_text().splitlines(), 1):
+        if line.startswith("```"):
             fence = not fence
-            if cur is not None:
-                cur["notes"].append(l)
             continue
         if fence:
-            if cur is not None:
-                cur["notes"].append(l)
             continue
-        h = re.match(r"#### (\d\d_[^\s(:]+)[:\s]*(.*)", l)
+        h = re.match(r"## (\d\d_[^\s:(]+)[:\s]*(.*)", line)
         if h:
-            planned = re.search(r"~(\d+)\s*s", l)
-            cur = {"key": h.group(1), "heading": l[5:], "planned": planned and int(planned.group(1)), "rows": [], "notes": []}
+            cur = {"key": h.group(1), "title": h.group(2), "rows": []}
             chapters.append(cur)
             continue
-        if cur is None:
-            continue
-        if re.match(r"\| \d\d_\d+", l):
-            cols = [c.strip() for c in l.strip().strip("|").split(" | ")]
+        if re.match(r"\| \d\d_", line):
+            if cur is None:
+                raise SystemExit(f"{path}:{n}: a beat before any chapter heading")
+            # cells split on every pipe not escaped as \| (an empty cell may be "| |")
+            cols = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip())[1:-1]]
             cols += [""] * (5 - len(cols))
-            cur["rows"].append(cols[:5])
-        elif l.startswith("- ") or (cur["notes"] and l.startswith("  ")):
-            cur["notes"].append(l)
+            cur["rows"].append({"n": n, "id": cols[0], "words": cols[1], "picture": cols[2],
+                                "features": cols[3], "hold": cols[4]})
     if fence:
-        problems.append(f"{slug}: an unclosed ``` block in plan §{sec}.4")
-    out = []
-    out.append(f"# Storyboard — {title}\n")
-    out.append(f"Generated by `docs/storyboards/build.py` from plan §{sec}.4 (revision 2) — edit the plan, then re-run. "
-               f"Facts: `docs/facts/{slug}/fact-sheet.md`; brief: `docs/briefs/{slug}.md`.\n")
-    out.append("Length estimates: draft words at 2.68 words/s (Hoeffding's measured rate) + 0.6 s per line + 2 s per ⟨predict⟩ + holds (2.5 s) and listen windows. "
-               "The 85 s cap is plan D-05's pacing rule; the raw-output limit that first motivated it no longer binds (the kit allows ~369 s of 4K60).\n")
-    out.append("\n".join(intro).replace(f"### {sec}.", "## ") + "\n")
-    # the vocabulary (one word per idea, plan rule 21) from the brief's Words row
-    brief = section(lines, f"### {sec}.1", f"### {sec}.2")
-    vocab = next((l for l in brief if l.startswith("| Words")), None)
-    if vocab is None:
-        problems.append(f"{slug}: no Words row in plan §{sec}.1 (the vocabulary)")
-    else:
-        out.append("## Vocabulary (one word per idea)\n\n" + vocab.strip().strip("|").split(" | ", 1)[1].strip() + "\n")
-    total = 0.0
+        raise SystemExit(f"{path}: an unclosed ``` block")
+    return chapters
+
+
+def check(slug, chapters):
+    problems, seen, total = [], set(), 0.0
     showcase = {name: [] for name, _ in SHOWCASE}
+    report = []
     for ch in chapters:
         est = 0.0
-        for cid, draft, picture, features, hold in ch["rows"]:
-            est += words(draft) / WPS + BREATH + hold_seconds(hold)
-            est += PREDICT if "⟨predict⟩" in draft else 0.0
-            # a beat may show only a card the features column names
-            if (not picture or picture in ("—", "-")) and not re.search(r"card", features, re.I):
+        for r in ch["rows"]:
+            cid = r["id"]
+            if cid in seen:
+                problems.append(f"{slug} {cid}: id repeats")
+            seen.add(cid)
+            if not cid.startswith(ch["key"][:3]):
+                problems.append(f"{slug} {cid}: sits under chapter {ch['key']}")
+            words = spoken(r["words"])
+            est += len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’,.\-]*", words)) / WPS + BREATH + hold_seconds(r["hold"])
+            if MARK in r["words"]:
+                est += PREDICT
+                if not words.endswith("?"):
+                    problems.append(f"{slug} {cid}: ⟨predict⟩ but the beat does not end with its question")
+            if (not r["picture"] or r["picture"] in ("—", "-")) and not re.search(r"card", r["features"], re.I):
                 problems.append(f"{slug} {cid}: no picture (G2)")
             for name, pat in SHOWCASE:
-                if re.search(pat, picture + " " + features + " " + hold, re.I):
+                if re.search(pat, r["picture"] + " " + r["features"] + " " + r["hold"], re.I):
                     showcase[name].append(cid)
         total += est
         if est > CAP:
             problems.append(f"{slug} {ch['key']}: estimated {est:.1f} s > {CAP:.0f} s")
-        if not any("⟨predict⟩" in r[1] for r in ch["rows"]):
+        if not any(MARK in r["words"] for r in ch["rows"]):
             problems.append(f"{slug} {ch['key']}: no prediction pause")
-        planned = f", plan ~{ch['planned']} s" if ch["planned"] else ""
-        out.append(f"## {ch['heading']}\n\nEstimated **{est:.0f} s**{planned}; {len(ch['rows'])} lines.\n")
-        out.append("| id | draft words | picture | features | hold/listen |\n|---|---|---|---|---|")
-        out.extend("| " + " | ".join(r) + " |" for r in ch["rows"])
-        out.append("")
-        out.extend(ch["notes"])
-        out.append("")
-    out.append(f"## Totals and checks\n\nEstimated total: **{total / 60:.1f} min** over {len(chapters)} chapters.\n")
-    out.append("Showcase checklist (the skill's, ticked with the beats that use each device):\n")
+        report.append(f"  {ch['key']:34} {est:5.1f} s  {len(ch['rows'])} beats")
+    report.append(f"  total {total / 60:.1f} min over {len(chapters)} chapters")
     for name, _ in SHOWCASE:
         ids = showcase[name]
-        tick = "x" if ids else " "
-        out.append(f"- [{tick}] {name}" + (f": {', '.join(ids[:8])}{' …' if len(ids) > 8 else ''}" if ids else ""))
-    out.append("\nChecks (G2): " + ("none failed." if not [p for p in problems if p.startswith(slug)] else ""))
-    out.extend(f"- {p}" for p in problems if p.startswith(slug))
-    (OUT / f"{slug}.md").write_text("\n".join(out) + "\n")
-    return problems, total, len(chapters)
+        report.append(f"  [{'x' if ids else ' '}] {name}" + (f": {', '.join(ids[:6])}{' …' if len(ids) > 6 else ''}" if ids else ""))
+    return problems, report
 
 
-def main():
-    OUT.mkdir(parents=True, exist_ok=True)
-    failed = []
-    for slug, title, sec in VIDEOS:
-        problems, total, n = build(slug, title, sec)
-        print(f"{slug}: {n} chapters, {total / 60:.1f} min estimated, {len(problems)} problems")
+def script_text(slug, chapters):
+    lines = [f"# {slug}: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file"]
+    for ch in chapters:
+        for r in ch["rows"]:
+            words = spoken(r["words"])
+            if words:
+                lines.append(f"{r['id']}\t{words}")
+    return "\n".join(lines) + "\n"
+
+
+def main(argv):
+    check_only = "--check" in argv
+    slugs = [a for a in argv if not a.startswith("--")] or sorted(
+        p.parent.parent.name for p in CORPUS.glob("*/docs/storyboard.md"))
+    failed = False
+    for slug in slugs:
+        board = CORPUS / slug / "docs/storyboard.md"
+        chapters = parse(board)
+        problems, report = check(slug, chapters)
+        print(f"{slug}:")
+        print("\n".join(report))
+        script = CORPUS / slug / "script.tsv"
+        text = script_text(slug, chapters)
+        if check_only:
+            if not script.is_file() or script.read_text() != text:
+                problems.append(f"{slug}: script.tsv is stale (run tools/storyboard.py {slug})")
+        else:
+            script.write_text(text)
+            print(f"  wrote {script.relative_to(ROOT)} ({text.count(chr(10)) - 1} lines)")
         for p in problems:
-            print("  " + p)
-        failed += problems
+            print("  PROBLEM " + p)
+        failed |= bool(problems)
     return 1 if failed else 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

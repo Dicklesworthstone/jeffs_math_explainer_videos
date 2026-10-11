@@ -269,7 +269,20 @@ def af3_netful_probabilities():
         emit(f"A-F3.screen_pct{k}", pct)
         total_pct += F(str(pct))
     emit("A-F3.screen_pct_sum", float(total_pct))
+    # R1 (Maya m10, Dev D21): the screen shows whole percents, the last as "<1"
+    for k in range(5):
+        pct = L(20, 5, 4, k) * 100
+        emit(f"A-F3.screen_whole_pct{k}", "<1" if pct < 1 else round(pct))
     emit("A-F3.sum_4dp", round(sum(round(float(L(20, 5, 4, k)), 4) for k in range(5)), 4))
+
+
+def af5_toy_stills():
+    """R1 (Maya m3): the three stills of 05_4, P_N(K = 3) for (10, 10, 3) at
+    N = 20, 33, 60, as percents to one decimal; and the partial area 17..60
+    against the whole area 50/3 (R-06, D13)."""
+    for N in (20, 33, 60):
+        emit(f"A-F5.still_N{N}_pct", round(float(L(N, 10, 10, 3)) * 100, 1))
+    emit("A-F5.area_17_to_60", round(float(sum(L(N, 10, 10, 3) for N in range(17, 61))), 2))
 
 
 def af4_k2_decomposition():
@@ -1028,6 +1041,9 @@ def af29_table_identity():
     emit("A-F29.feller_u_hat", (a * b) // k)
     emit("A-F29.feller_ab_over_k_whole", (a * b) % k == 0)
     emit("A-F29.feller_N_hat", a + b + k + (a * b) // k)
+    # the balance the voice says (08_3): k·u = a·b = 810,000 (R1 Maya m5)
+    emit("A-F29.feller_ab", a * b)
+    emit("A-F29.feller_k_times_u_hat", k * ((a * b) // k))
     a, b, k = 7, 7, 3
     emit_exact("A-F29.toy_ab_over_k", F(a * b, k))
     emit("A-F29.toy_u_hat", (a * b) // k)
@@ -1074,6 +1090,7 @@ def main():
     af3_netful_probabilities()
     af4_k2_decomposition()
     af5_toy_best_size()
+    af5_toy_stills()
     af6_toy_comparisons()
     # Feller's likelihood on N = 1,900..400,000 (lgamma), shared by A-F7 and A-F26
     Ns = np.arange(1900, 400_001)

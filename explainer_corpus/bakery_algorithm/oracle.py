@@ -46,7 +46,7 @@ from pathlib import Path
 
 T0 = time.time()
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]
+REPO = next(d for d in HERE.parents if (d / "docs" / "research").is_dir())  # explainer_corpus/<slug>/ -> root
 SCRIPTS = REPO / "docs" / "research" / "bakery_algorithm" / "scripts"
 OUTPUTS = SCRIPTS / "outputs"
 sys.path.insert(0, str(SCRIPTS))
@@ -668,6 +668,18 @@ def row_cf7():
     emit("C-F7.customer4_ticket", ticket)
     emit("C-F7.slates_after", fmt_list(after))
     emit("C-F7.service_order", fmt_list(order))
+    # R1 (Maya M3): the video's reader is Blue, customer 1, so a ticket is
+    # never confused with a customer number (4 reading and writing 4)
+    me = 1
+    reads1 = [slates[k - 1] for k in range(1, 6) if k != me]
+    ticket1 = 1 + max(reads1)
+    after1 = list(slates)
+    after1[me - 1] = ticket1
+    order1 = [k for (_, k) in sorted((t, k) for k, t in enumerate(after1, 1) if t)]
+    emit("C-F7.customer1_reads", fmt_list(reads1))
+    emit("C-F7.customer1_ticket", ticket1)
+    emit("C-F7.slates_after_customer1", fmt_list(after1))
+    emit("C-F7.service_order_customer1", fmt_list(order1))
 
     # Same example in the bakery_mc model: customers 2 and 5 already hold 3 and 2
     # (waiting at L2); customer 4 runs its doorway; then EVERY interleaving of
@@ -768,6 +780,8 @@ def row_cf10():
     emit("C-F10.two_pow_34", 2 ** 34)
     emit("C-F10.ms_per_year_below_two_pow_34", ms_year < 2 ** 34)
     emit("C-F10.ms_per_365_day_year", 365 * 86400 * 1000)
+    # R1 (Dev dev-02): a 32-bit ticket at one per millisecond wraps in days
+    emit("C-F10.u32_wrap_days_at_1_per_ms_1dp", round(2**32 / (86400 * 1000), 1))
 
 
 def row_cf11():
