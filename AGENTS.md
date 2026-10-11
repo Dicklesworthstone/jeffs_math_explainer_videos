@@ -40,7 +40,7 @@ If I tell you to do something, even if it goes against what follows below, YOU M
 
 This repository makes narrated, 3Blue1Brown-style 4K math explainer videos that explain deep mathematics so clearly that a curious 14-year-old follows them, a working programmer could implement the idea afterwards, and a professional mathematician finds nothing incorrect or misleading. Never by dumbing down: by the right picture, the right tiny example, the right order, and formulas that are earned.
 
-Every video is a Rust program written against **franken_manim**'s native `fmn` facade (native TeX, no LaTeX, no Python), narrated by **FrankenTTS** (`ftts`, voice `robert`) with every take scored by **FrankenWhisper** (`fw`), and scored by this repository's own procedural sound engine. Every number is computed and oracle-checked; every frame is looked at; nothing is announced until it passes its gate.
+Every video is a Rust program written against **franken_manim**'s native `fmn` facade (native TeX, no LaTeX, no Python), narrated by **FrankenTTS** (`ftts`; one preset voice per video, the owner's choice: `matt` for capture_recapture, `leo` for raptorq_gf256, `michael` for bakery_algorithm, `robert` for hoeffding_d) with every take scored by **FrankenWhisper** (`fw`), and scored by this repository's own procedural sound engine. Every number is computed and oracle-checked; every frame is looked at; nothing is announced until it passes its gate.
 
 **The single source of truth for what we are building and why is [`docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md`](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md)** (revision 2). Read §0, §1, §3, §4 and the section for the video you are working on before touching it. The research behind every number is in `docs/research/`; review round 1 of the plan is in `docs/reviews/plan_r1/`.
 
@@ -73,13 +73,27 @@ These come from the explainer skills and from the incidents that produced them. 
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
 8. **Chapters stay ≤ ~85 s** (editorial pacing; the kit raises the engine's byte caps).
-9. **Music never fights the voice:** the bed sits 18 LU under speech, melody only in gaps, no sustained music between 95 and 250 Hz during speech, the duck baked into the stem offline; never use franken_manim's `gain_to_background`.
+9. **Music never fights the voice:** the bed sits 18 LU under speech, melody only in gaps, no sustained music inside the narrator's pitch band during speech (95–250 Hz for `robert`; measured afresh from each video's own narration), the duck baked into the stem offline; never use franken_manim's `gain_to_background`.
 10. **`/de-slopify` the final script, then re-apply the voice rules.**
 11. **Verify before announcing:** `verify_video.sh` with the EXPECT_* gates (3840×2160, 60 fps, BT.709, −16 LUFS ±1, ≤ −1.0 dBTP, A/V ≤ 0.2 s), contact sheet read, md5 checked after every copy.
 
 ### Never change franken_manim from here
 
 Work around engine gaps in this repository and record them (§14 of the plan). Filing beads in franken_manim's tracker is outward-facing work in another repository and needs the owner's go-ahead. The shared franken_manim working tree holds other agents' uncommitted work: a render that used `--fmn-local` or a dirty tree is never a final (G8 refuses it).
+
+---
+
+## Working in the Swarm (the build host)
+
+The three videos are built in parallel by an NTM swarm on the build host: Claude Code lanes write chapters, narration and music; Codex lanes review. The orchestrator assigns lanes through beads.
+
+- **Your own worktree.** Each agent works only in its NTM worktree (branch `ntm/<session>/<agent>`), never in the base checkout, and builds into its own `CARGO_TARGET_DIR` (set in your pane's environment).
+- **Landing work.** Commit on your branch with the bead id in the message; `git fetch origin && git rebase origin/main`; re-run your crate's checks (fmt, clippy, tests, facts-check) on the rebased tree; `git push origin HEAD:main`. If the push is rejected, fetch, rebase and re-check again. Never force-push `main`. Land small and often: a chapter that compiles, passes its checks and has been looked at is a landing; a half-written one stays on your branch.
+- **Shared files** (a video's `chapters/mod.rs`, `facts.rs`, `model.rs`, `oracle.py`, `glyphs`, the storyboard; anything in `crates/`, `tools/`, `x`) change additively: add your function, register your chapter, pin your facts. Reserve them through Agent Mail while you edit them and land those edits quickly. Never rewrite another lane's chapter; send its owner a message.
+- **Beads** live in the base checkout: `BEADS_DB` in your environment points there. Mark your bead `in_progress`, comment with evidence (the commit, the commands run and their results, the sheets read). The orchestrator closes beads.
+- **Agent Mail** project key: the base checkout's absolute path (`$JMEV_BASE`). Thread id = the bead id. Check your inbox when you finish a unit of work.
+- **Shared outputs** that other lanes consume (narration takes and line WAVs, score stems) live under `$JMEV_SHARED/<slug>/` on the build host, outside every worktree: `narration/out/` is what `--narration` points at, `score/` is what `--score` points at. Renders stay in your worktree's gitignored `renders/`, where reviewers read them by absolute path.
+- **Reviews.** A Codex reviewer per video reads every landing for its video: correctness against the oracle, the storyboard and the pedagogy rules, the contact and cue sheets, the narration QA and the score QA. Findings arrive by Agent Mail, ranked by severity; fix them (or answer with evidence why not) and land the fix. Reviewers report defects; they do not rewrite your chapter.
 
 ---
 
@@ -133,7 +147,8 @@ We are in early development with **no users**. Do things the **RIGHT** way with 
 
 - Rust 2024 edition on the **exact pinned nightly** franken_manim uses (`nightly-2026-08-31`, in each `rust-toolchain.toml`); bump together with franken_manim.
 - `fmn` is a git dependency pinned by revision (`rev = …`); upgrading it is a deliberate commit that re-runs every explainer's tests and glyph probes and re-reads fresh contact sheets.
-- Nothing compiles on the owner's Mac: cargo goes to the rch worker fleet. Set `RUSTUP_TOOLCHAIN=nightly-2026-08-31` (rch cannot resolve the client toolchain without it) and run `rch exec --base HEAD --clean-overlay -o <each changed file> -- cargo …`, so the gitignored renders are never synced. Never set `RCH_SHIM_LOCAL_IDE` and never call cargo by absolute path. Every resolve prints `error: unclosed table` for an asupersync test fixture; cargo skips it, and so should you.
+- **The build host** (the owner's big Mac, `REMOTE_HOST` in project.env) is where builds, renders, narration, scoring and the agent swarm run (the owner, 2026-10-11). There cargo runs locally: `RCH_SHIM_LOCAL_IDE=1`, `RUSTUP_TOOLCHAIN=nightly-2026-08-31` and a `CARGO_TARGET_DIR` of your own (never shared with another agent: cargo's lock serializes you, and another tree's half-written file is not your build).
+- Nothing compiles on the owner's laptop: there cargo goes to the rch worker fleet. Set `RUSTUP_TOOLCHAIN=nightly-2026-08-31` (rch cannot resolve the client toolchain without it) and run `rch exec --base HEAD --clean-overlay -o <each changed file> -- cargo …`, so the gitignored renders are never synced. Never set `RCH_SHIM_LOCAL_IDE` and never call cargo by absolute path. Every resolve prints `error: unclosed table` for an asupersync test fixture; cargo skips it, and so should you.
 - Python tools and research scripts run with `python3 -I`; numpy where a script says so (use `uv run --with numpy` or a virtualenv; never install into the system Python).
 
 ---

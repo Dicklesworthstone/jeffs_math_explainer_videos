@@ -72,7 +72,8 @@ way:
 
 - the picture is written in Rust against `franken_manim`'s native facade (`fmn`),
   which typesets TeX natively, with no LaTeX and no Python;
-- the voice is FrankenTTS (`ftts`, voice `robert`), produced one sentence at a
+- the voice is FrankenTTS (`ftts`; one preset voice per video: `matt` for A,
+  `leo` for B, `michael` for C, `robert` for Hoeffding), produced one sentence at a
   time, scored by FrankenWhisper (`fw`) ASR, and never time-stretched;
 - every number on screen or in the narration is computed by the scene and pinned
   against an independent oracle;
@@ -1227,8 +1228,11 @@ every concat join. The new master rebuilds the soundtrack from sources instead:
 The narration skill's pipeline is reused unchanged; only the driver and paths
 change.
 
-- **Voice:** FrankenTTS `robert` for every video (continuity across the corpus;
-  D-06, open question Q2).
+- **Voice:** one FrankenTTS preset per video (the owner, 2026-10-11): A
+  `matt`, B `leo`, C `michael`; Hoeffding keeps `robert` (D-06, Q2). Every
+  lexicon respelling was probed with `robert` and is re-probed with the new
+  voice before its narration runs; the music's no-fly band (§7.3 rule 1) is
+  re-measured from each narrator's real pitch.
 - **Pipeline:** `script.tsv` → lint (`lint_script.py`) → lexicon (lookup,
   respell, probe with control and decoy, lock) → `run_pipeline.sh` on the GPU
   host (plan → TTS one call per sentence → fw ASR → choose takes) → triage with
@@ -2488,7 +2492,7 @@ W0 ─┬─ W9 ─┬─ A:P0..P3r ─┐
 | D-03 | Extract shared crates from the skill template, not from Hoeffding's older copies | the template is a superset (layout lint, script.tsv, stats kit, never-overwrite outputs) |
 | D-04 | Import Hoeffding faithfully first, migrate it later as v6 | v5 stays reproducible from this repo; the migration is a separate, reviewable step |
 | D-05 | ~13 min per new video, 10 chapters ≤ 85 s (the skill's default is 6–9 min) | these topics need the room to be deep without rushing; the cap per chapter keeps 4K renders under the raw-byte limit; owner may veto (Q1) |
-| D-06 | Voice `robert` for every video | continuity across the corpus; proven pipeline (Q2) |
+| D-06 | One preset voice per video: A `matt`, B `leo`, C `michael` (Hoeffding `robert`) | the owner's choice, 2026-10-11 (Q2); every name re-probed per voice |
 | D-07 | Notation: N, M, n, k and table cells a, b, u (fish); `\binom` (fixed upstream) with C(·,·) as fallback; α via `\mathsf{\alpha}` or `\text{α}` in one Tex | glyph safety; consistency with Feller via one mapping card |
 | D-08 | Music is ducked offline into the stem; `gain_to_background` is never used | the engine's duck is a step gain on the whole mix with no ramps |
 | D-09 | Music stems are f32 stereo 48 kHz WAV, frame-aligned (800 samples per 60 fps frame) | lossless; no dither needed; ≤ 174.8 s per file fits ≤ 85 s chapters |
@@ -2518,7 +2522,7 @@ These have working defaults (in brackets); none blocks pre-production.
 
 - **Q1.** Is ~13 minutes per video right, or should any of the three be split
   into two shorter videos? [keep ~13 min]
-- **Q2.** Keep the `robert` voice, or enroll or choose another? [robert]
+- **Q2.** Keep the `robert` voice, or enroll or choose another? [answered 2026-10-11: `matt`, `leo`, `michael` for A, B, C]
 - **Q3.** Production order after Hoeffding v6: A, then B and C? [yes]
 - **Q4.** Vendor the narration skill's scripts into `tools/`, or keep
   referencing the installed skills? [reference]
