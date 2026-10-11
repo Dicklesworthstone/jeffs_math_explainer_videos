@@ -1,5 +1,5 @@
 {
- "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. The piece name A has no entry on purpose: narrate.py treats every word key as a name, and the article 'a' would then be checked as one. Not respelled: the script also uses 'A' as the article ('A card', 'A row'), and a respelling would apply to both. The letter was heard as 'A' (letters: ay) in 2 of 3 carriers; in 'like A in algebra' ASR wrote a lowercase 'a', which cannot tell ay from uh (the decoy 'uh' was heard as nothing). Narration triage checks every sentence where A is a piece name (ASR casing, then the vowel's length and glide).",
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write, first with robert on the GPU host and again on the build host with this video's voice, leo (2026-10-11, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. The piece name A has no entry on purpose: narrate.py treats every word key as a name, and the article 'a' would then be checked as one. Not respelled: the script also uses 'A' as the article ('A card', 'A row'), and a respelling would apply to both. The letter was heard as 'A' (letters: ay) in 2 of 3 carriers; in 'like A in algebra' ASR wrote a lowercase 'a', which cannot tell ay from uh (the decoy 'uh' was heard as nothing). Narration triage checks every sentence where A is a piece name (ASR casing, then the vowel's length and glide). Top-level accept and the digit phrases (narration pass 1, leo, 2026-10-11) normalize what ASR writes for the same sound: byte/bite, British spellings, the letter X for 'ex', and byte values in the script's spoken form ('two fifty-six'), since the scorer would read 256 as 'two hundred and fifty six'.",
  "words": {
   "RaptorQ": {
    "respell": [
@@ -19,24 +19,28 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
     "winner": "Raptor Q",
     "discriminates": true,
     "results": {
-     "RaptorQ": "control PARTIAL 2/3",
+     "RaptorQ": "control PASS 3/3",
      "Raptor Q": "candidate PASS 3/3",
      "Raptor queue": "candidate PASS 3/3",
      "Raptor-Q": "candidate PASS 3/3",
-     "RAP-tor-kyoo": "candidate PARTIAL 2/3",
+     "RAP-tor-kyoo": "candidate PASS 3/3",
      "REEP-tor-kyoo": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "accept": [
+    "raptorqu"
+   ],
+   "note": "leo, 2026-10-11: Raptor Q, Raptor queue and Raptor-Q heard 'Raptor Q' 3/3 (decoy REEP-tor-kyoo 'Reap Torque'); the plain spelling was heard 'raptor cube' once, so it is not read, and 'raptor cube' is not accepted."
   },
   "ex-or": {
    "respell": [
-    "ex-or",
-    "ex or"
+    "ex or",
+    "ex-or"
    ],
    "say": "EKS-or",
    "ipa": "ˈɛks ˈɔɹ",
@@ -47,7 +51,23 @@
    "decoy": [
     "Zor"
    ],
-   "note": "The plain spelling passed 2/3 carriers (heard 'X or', 'ex or'; once 'exorfinity' sentence-final); 'ex or' 2/3; caps EKS-or was read as letters. The script tokenizes 'ex-or' as 'ex' + 'or', and ASR writes 'X or' / 'XOR', so phrases map those back to 'ex or'. Said 29 times: every sentence is ASR-gated anyway. Decision 2026-10-11; re-probe with new respellings if QA flags it."
+   "note": "leo, 2026-10-11: plain and 'ex or' PASS 3/3 (heard 'X or', 'XOR'; decoy Zor 'Zor'); caps EKS-or read as letters. The script tokenizes 'ex-or' as 'ex' + 'or'; phrases map 'x or', 'xor', 'exor' back.",
+   "accept": [
+    "xor"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "ex or",
+    "discriminates": true,
+    "results": {
+     "ex-or": "control PASS 3/3",
+     "ex or": "candidate PASS 3/3",
+     "EKS-or": "candidate FAIL 0/3",
+     "Zor": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Ex-or": {
    "respell": [
@@ -63,7 +83,23 @@
    "decoy": [
     "Zor"
    ],
-   "note": "The plain spelling passed 2/3 carriers (heard 'X or', 'ex or'; once 'exorfinity' sentence-final); 'ex or' 2/3; caps EKS-or was read as letters. The script tokenizes 'ex-or' as 'ex' + 'or', and ASR writes 'X or' / 'XOR', so phrases map those back to 'ex or'. Said 29 times: every sentence is ASR-gated anyway. Decision 2026-10-11; re-probe with new respellings if QA flags it."
+   "note": "leo, 2026-10-11: plain and 'ex or' PASS 3/3 (heard 'X or', 'XOR'; decoy Zor 'Zor'); caps EKS-or read as letters. The script tokenizes 'ex-or' as 'ex' + 'or'; phrases map 'x or', 'xor', 'exor' back.",
+   "accept": [
+    "xor"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "Ex-or",
+    "discriminates": true,
+    "results": {
+     "Ex-or": "control PASS 3/3",
+     "Ex or": "candidate PASS 3/3",
+     "EKS-or": "candidate FAIL 0/3",
+     "Zor": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Reed-Solomon": {
    "respell": [
@@ -82,21 +118,22 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
-    "winner": "Reed-Solomon",
+    "winner": "Reed-Sol-uh-mun",
     "discriminates": true,
     "results": {
      "Reed-Solomon": "control PASS 3/3",
-     "Reed-Sol-uh-mun": "candidate PARTIAL 2/3",
+     "Reed-Sol-uh-mun": "candidate PASS 3/3",
      "Rad-Seel-uh-mun": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "note": "leo, 2026-10-11: plain PASS 3/3 (decoy 'Rad Silamun'); Reed-Sol-uh-mun was heard 'Reed Sol Amon' and 'Reed Soleiman' (a wrong vowel) and is not read."
   },
   "Sudoku": {
    "respell": [
-    "Soo-doh-koo",
-    "Sudoku"
+    "Sudoku",
+    "Soo-doh-koo"
    ],
    "say": "Soo-doh-koo",
    "ipa": "suːˈdoʊkuː",
@@ -113,16 +150,17 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
-    "winner": "Soo-doh-koo",
+    "winner": "Sudoku",
     "discriminates": true,
     "results": {
      "Sudoku": "control PASS 3/3",
      "Soo-doh-koo": "candidate PASS 3/3",
      "soo-DEE-kah": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "note": "leo, 2026-10-11: plain and Soo-doh-koo PASS 3/3 (decoy soo-DEE-kah 'Sudi Ka')."
   },
   "logarithm": {
    "respell": [
@@ -140,22 +178,21 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
-    "winner": "Log-uh-rith-um",
+    "winner": "logarithm",
     "discriminates": true,
     "results": {
-     "logarithm": "control PARTIAL 2/3",
+     "logarithm": "control PASS 3/3",
      "Log-uh-rith-um": "candidate PASS 3/3",
      "LEEG-uh-rith-um": "decoy OK (heard differently) 0/3"
     }
    },
-   "note": "Plain spelling PARTIAL 2/3 (once 'log aritham', mapped by phrases); Log-uh-rith-um PASS 3/3. Both are auditioned per sentence; the ASR-scored take wins."
+   "note": "leo, 2026-10-11: plain and Log-uh-rith-um PASS 3/3 (decoy 'League, a rhythm')."
   },
   "polynomial": {
    "respell": [
-    "polynomial",
-    "Pol-ee-noh-mee-ul"
+    "polynomial"
    ],
    "say": "Pol-ee-noh-mee-ul",
    "ipa": "ˌpɑliˈnoʊmiəl",
@@ -166,7 +203,24 @@
    "decoy": [
     "Pal-ee-nee-mee-al"
    ],
-   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+   "note": "leo, 2026-10-11: plain heard 'polynomial' 3/3 while the decoy was heard differently ('polynimio', 'Pauline, Amy, Al'); the probe scores it UNVERIFIED only because the English spelling sits under its sound threshold against the respelling. Pol-ee-noh-mee-ul was heard 'poly-know-me-all' and is not read.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": true,
+    "carriers": [
+     "This is {w}.",
+     "{w} showed something deeper.",
+     "The idea came from {w}, in the end."
+    ],
+    "results": {
+     "polynomial": "control UNVERIFIED 0/3",
+     "Pol-ee-noh-mee-ul": "candidate FAIL 0/3",
+     "Pal-ee-nee-mee-al": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Polynomials": {
    "respell": [
@@ -182,7 +236,22 @@
    "decoy": [
     "puh-LIN-uh-mulz"
    ],
-   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+   "note": "Matches no script text (09_1 writes 'polynomials'); kept for a capitalized use. leo, 2026-10-11: plain heard 'Polynomials' 3/3, Pol-ee-noh-mee-ulz PASS 3/3.",
+   "accept": [
+    "polinomials"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "Pol-ee-noh-mee-ulz",
+    "discriminates": true,
+    "results": {
+     "Polynomials": "control UNVERIFIED 0/3",
+     "Pol-ee-noh-mee-ulz": "candidate PASS 3/3",
+     "puh-LIN-uh-mulz": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "QR": {
    "respell": [
@@ -204,7 +273,7 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
     "winner": "QR",
     "discriminates": true,
@@ -215,13 +284,13 @@
      "kyoo-AR": "candidate PASS 3/3",
      "Kwur": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "note": "leo, 2026-10-11: QR, Q R and Q-R heard 'QR' 3/3 (decoy Kwur 'core')."
   },
   "subtlety": {
    "respell": [
-    "subtlety",
     "Suttle-tee",
-    "Sut-ul-tee"
+    "subtlety"
    ],
    "say": "SUT-ul-tee",
    "ipa": "ˈsʌt(ə)lti",
@@ -230,9 +299,29 @@
     "https://en.wiktionary.org/wiki/subtlety#English"
    ],
    "decoy": [
-    "SUB-tul-tee"
+    "Seet-ul-tee"
    ],
-   "note": "Dictionary word; the plain spelling stays first. ASR heard the plain spelling as itself in 3/3 carriers; the probe scored it UNVERIFIED only because it compares against the respelling. The respellings were heard as other words (e.g. 'Polino Miola'). Decision 2026-10-11."
+   "note": "leo, 2026-10-11: the plain spelling garbled in name carriers ('SUBTLTY HISTORY', 'Sublity') but read right in the script's own 'One subtlety.'; Suttle-tee PASS 3/3 in noun carriers ('One {w}.' as 13_7) against a vowel decoy Seet-ul-tee ('CTLT'); the round-1 decoy SUB-tul-tee differs only in the /b/, which ASR folds into 'subtlety'. A spelling without a b cannot sound one. Both are read in 13_7.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "Suttle-tee",
+    "discriminates": true,
+    "results": {
+     "subtlety": "control FAIL 0/3",
+     "Suttle-tee": "candidate PASS 3/3",
+     "Sut-ul-tee": "candidate PARTIAL 2/3",
+     "Suttul-tee": "candidate PARTIAL 2/3",
+     "SUT-ul-tee": "candidate PARTIAL 2/3",
+     "Seet-ul-tee": "decoy OK (heard differently) 0/3"
+    },
+    "carriers": [
+     "One {w}.",
+     "{w} matters here.",
+     "There is a {w} in the end."
+    ]
+   }
   },
   "nonzero": {
    "respell": [
@@ -247,7 +336,7 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
     "winner": "nonzero",
     "discriminates": true,
@@ -256,11 +345,12 @@
      "Non-zeer-oh": "candidate PASS 3/3",
      "Non-zor-ah": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "note": "leo, 2026-10-11: plain and Non-zeer-oh PASS 3/3 (decoy 'non-Zorah')."
   },
   "x": {
    "respell": [
-    "ex",
+    "x",
     "X"
    ],
    "say": "ex",
@@ -272,23 +362,23 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
-    "winner": "ex",
+    "winner": "x",
     "discriminates": true,
     "results": {
-     "x": "control PARTIAL 2/3",
+     "x": "control PASS 3/3",
      "ex": "candidate PASS 3/3",
      "X": "candidate PASS 3/3",
      "ox": "decoy OK (heard differently) 0/3"
     }
    },
-   "note": "The polynomial variable. Probed 2026-10-11 in letter carriers ('{w} is the unknown here', 'Carry it along like {w} in algebra', 'So the unknown is {w}'): 'ex' and 'X' PASS 3/3, plain 'x' 2/3; the decoy 'ox' was heard differently."
+   "note": "The polynomial variable. leo, 2026-10-11, letter carriers ('{w} is the unknown here.', 'Carry it along like {w} in algebra.', 'So the unknown is {w}.'): x and X PASS 3/3, decoy 'ox' heard 'Ox'. 'ex' is not read: it would alias the 'ex' of every ex-or."
   },
   "c": {
    "respell": [
-    "c",
-    "C"
+    "C",
+    "c"
    ],
    "say": "see",
    "ipa": "siː",
@@ -298,26 +388,165 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "leo",
     "asr": "fw",
-    "winner": "c",
+    "winner": "C",
     "discriminates": true,
     "results": {
-     "c": "control PASS 3/3",
-     "see": "candidate PARTIAL 2/3",
+     "c": "control PARTIAL 2/3",
      "C": "candidate PASS 3/3",
+     "see": "candidate PASS 3/3",
      "sah": "decoy OK (heard differently) 0/3"
     }
    },
-   "note": "The parked unknown (16_1, 'little c'). Plain 'c' PASS 3/3 in the letter carriers."
+   "note": "The parked unknown (16_1, 'little c'). leo, 2026-10-11, letter carriers: C PASS 3/3, plain c 2/3 (sentence-initial 'sees'), decoy 'sah' heard 'Sa'. 'see' is neither read nor accepted: 13_1 says 'see why'."
+  },
+  "TV": {
+   "respell": [
+    "TV",
+    "T V",
+    "Tee-vee"
+   ],
+   "say": "tee-VEE",
+   "ipa": "ˌtiːˈviː",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/TV#English"
+   ],
+   "decoy": [
+    "tay-VAY"
+   ],
+   "note": "Letters (the English reading). leo, 2026-10-11: TV, T V and Tee-vee heard 'TV' 3/3 (decoy tay-VAY 'Teve'); caps tee-VEE was heard 'TVE' (an extra vowel), so it is not read and 'tve' is not accepted. Said twice (01_5, 17_6).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "TV",
+    "discriminates": true,
+    "results": {
+     "TV": "control PASS 3/3",
+     "T V": "candidate PASS 3/3",
+     "Tee-vee": "candidate PASS 3/3",
+     "tee-VEE": "candidate PASS 3/3",
+     "tay-VAY": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "polynomials": {
+   "respell": [
+    "polynomials",
+    "Pol-ee-noh-mee-ulz"
+   ],
+   "say": "Pol-ee-noh-mee-ulz",
+   "ipa": "ˌpɑliˈnoʊmiəlz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/polynomial#English"
+   ],
+   "decoy": [
+    "puh-LIN-uh-mulz"
+   ],
+   "note": "leo, 2026-10-11: plain heard 'polynomials' 3/3. Its respelling and decoy probes have the same text as the 'Polynomials' entry's, and on this case-insensitive filesystem the tags differ only by case, so they are the same WAV files: Pol-ee-noh-mee-ulz PASS 3/3, decoy puh-LIN-uh-mulz heard differently ('Polina Moles') — see the Polynomials record. Said once (09_1).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "Pol-ee-noh-mee-ulz",
+    "discriminates": true,
+    "carriers": [
+     "This is {w}.",
+     "{w} showed something deeper.",
+     "The idea came from {w}, in the end."
+    ],
+    "results": {
+     "Polynomials": "control UNVERIFIED 0/3",
+     "Pol-ee-noh-mee-ulz": "candidate PASS 3/3",
+     "puh-LIN-uh-mulz": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "ex-ors": {
+   "respell": [
+    "ex-ors",
+    "ex ors"
+   ],
+   "say": "EKS-orz",
+   "ipa": "ˈɛks ˈɔɹz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/XOR#English"
+   ],
+   "decoy": [
+    "Zorz"
+   ],
+   "note": "leo, 2026-10-11: in 15_6's own sentence the plain spelling was heard 'cheap XORs', and 'X-ORs', 'ex-ors' elsewhere (decoy Zorz 'Zors'); the probe scores 'xors' low only because it reads the x as a letter. 'ex ors' PASS 3/3. Phrases map 'xors' and 'x ors' to 'ex ors'.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "leo",
+    "asr": "fw",
+    "winner": "ex ors",
+    "discriminates": true,
+    "carriers": [
+     "In big blocks, hundreds of others are cheap {w}.",
+     "{w} are cheap.",
+     "Some are {w}, in the end."
+    ],
+    "results": {
+     "ex-ors": "control FAIL 1/3",
+     "ex ors": "candidate PASS 3/3",
+     "ex orz": "candidate PARTIAL 2/3",
+     "ex-orz": "candidate FAIL 1/3",
+     "EKS-orz": "candidate FAIL 0/3",
+     "Zorz": "decoy OK (heard differently) 0/3"
+    }
+   }
   }
  },
- "accept": {},
+ "accept": {
+  "byte": [
+   "bite"
+  ],
+  "colour": [
+   "color"
+  ],
+  "neighbours": [
+   "neighbors"
+  ],
+  "cancelled": [
+   "canceled"
+  ],
+  "ex": [
+   "x"
+  ]
+ },
  "phrases": {
   "sue do koo": "sudoku",
   "log aritham": "logarithm",
   "x or": "ex or",
   "xor": "ex or",
-  "exor": "ex or"
+  "exor": "ex or",
+  "rap torku": "raptorq",
+  "reed sol amon": "reed-solomon",
+  "subtle tea": "subtlety",
+  "xors": "ex ors",
+  "x ors": "ex ors",
+  "non zero": "nonzero",
+  "128": "one twenty eight",
+  "131": "one thirty one",
+  "142": "one forty two",
+  "150": "one fifty",
+  "167": "one sixty seven",
+  "254": "two fifty four",
+  "255": "two fifty five",
+  "256": "two fifty six",
+  "257": "two fifty seven",
+  "180": "one hundred eighty",
+  "205": "two hundred five",
+  "2011": "twenty eleven",
+  "8th": "eighth",
+  "7th": "seventh",
+  "4th": "fourth",
+  "read solomon": "reed solomon",
+  "2x128": "two times one twenty eight"
  }
 }

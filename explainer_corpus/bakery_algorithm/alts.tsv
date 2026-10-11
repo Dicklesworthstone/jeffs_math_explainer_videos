@@ -1,0 +1,33 @@
+# Director alternates for the narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Each keeps the sentence's meaning and its on-screen claims. Pass 1 with michael (2026-10-11) flagged the base reads:
+# a misheard word that flips the meaning, a tense read wrong (read /rɛd/ vs /riːd/), a collision, hesitations, or a rushed read.
+# A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
+01_2	1	Back in nineteen seventy-three, that was considered impossible.
+01_6	1	Each reads forty-one, and each writes forty-two.
+01_6	1	Both of them read forty-one, and both write forty-two.
+03_1	1	Now picture a bakery.
+03_2	0	But the ticket machine is shared.
+03_2	0	But a ticket machine is shared by everyone.
+03_3	1	A zero means she's not in line.
+03_4	1	Blue reads a three, a zero, a zero, and a two.
+03_7	0	There's no shared ticket machine.
+05_4	1	You raise it before reading, and lower it after writing.
+05_8	1	Unlike the door sign, the flag is not a lock.
+07_3	0	Teal sees a one, and another one.
+07_3	0	Teal sees two ones.
+07_6	1	Who gets served first follows the grid exactly.
+08_3	1	If Blue is in the room, every other ticket holder has a bigger pair than hers.
+08_5	0	There are three places.
+08_5	0	Three possible places.
+08_7	1	Then Blue had read Green's real ticket, and went in only because her pair was smaller.
+08_7	1	Then Blue saw Green's real ticket, and went in only because her pair was smaller.
+08_7	3	And that's fact two.
+09_4	1	Now let every slate and every flag flicker while it's being written.
+09_5	1	The proof trusts just two glances at slates.
+09_5	1	It trusts only two glances at slates.
+11_5	0	The tickets climb to about thirty-one and a half billion, one per millisecond.
+11_5	1	That is too big for a thirty-two bit slate.
+13_4	1	He discovered it instead.
+07_3	0	Then Teal sees one and one.
+07_3	0	Next, Teal sees two ones.
+05_1	0	But there's a sneakier crack.

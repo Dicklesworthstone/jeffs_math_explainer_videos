@@ -1,0 +1,37 @@
+# Director alternates for the narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Each keeps the sentence's meaning and its on-screen claims. Pass 1 with leo (2026-10-11) flagged the base reads:
+# a misparse, a word-boundary collision, a piece name A reduced to "it", a hesitation, or a rushed or stalled read.
+# A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
+01_2	1	The secret is a kind of arithmetic where three times seven is nine.
+02_3	1	Ex-or is the name of the mixing move.
+02_3	1	The mixing move is called ex-or, and it works like this.
+02_4	0	Line up two numbers in bits.
+02_4	0	Line up the two numbers in bits.
+03_3	1	Ex-or card one with card three, and piece A cancels.
+03_3	1	Ex-or card one with card three, and the A cancels.
+03_6	2	Is this one useful?
+08_1	1	On a seven-hour clock, three times which number is one?
+08_1	1	On a seven-hour clock, what times three is one?
+09_1	0	So we need a field with two hundred fifty-six members.
+09_2	0	Remember the place values, one, two, four, and eight?
+12_1	3	And it looks like noise.
+12_1	3	It just looks like noise.
+12_4	1	Each stripe holds one total of clicks.
+13_6	3	The byte cards rarely need even one.
+14_1	1	If every card uses every piece, solving takes about the number of pieces, cubed, over three.
+14_1	1	Solving cards that each use every piece takes about the number of pieces cubed, over three.
+14_8	0	Reed-Solomon codes are the ideal.
+15_2	2	And every piece is in some free card, so even a piece that no packet mixed can still be worked out.
+16_4	1	Let a new byte card replace the fifth card, E plus two times A is six.
+16_4	3	Does piece A cancel this time?
+16_4	3	This time, does A cancel?
+16_5	0	With ex-or, piece A met itself and cancelled.
+16_5	1	Now one A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three.
+05_4	2	At the last slot, one time in two.
+07_6	0	That's the coin flip from ex-or again.
+13_6	3	Cards with byte amounts rarely need even one.
+16_4	3	Does the A cancel this time?
+16_4	3	This time, does the A cancel?
+16_5	0	With ex-or, the A met itself and cancelled.
+15_4	0	What if those last cards were ex-or cards as well?
+15_4	0	What if those last cards were plain ex-or cards?

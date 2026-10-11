@@ -1,0 +1,54 @@
+# Director alternates for the narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Each keeps the sentence's meaning and its on-screen numbers. Pass 1 with matt (2026-10-11) flagged the base reads:
+# a dropped or repeated word, a misparse, a word-boundary collision, hesitations, or a rising end on a statement.
+# A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
+01_2	0	Now look at the fish that no net ever touched.
+01_2	0	Now look at all the fish no net ever touched.
+01_7	2	And in open water, two thousand eight hundred.
+01_7	2	In open water, only two thousand eight hundred.
+02_5	1	So the marked fish measured our net for us.
+02_5	1	The marked fish have measured our net for us.
+03_6	1	Both are close to one in ten, and the small one wobbles more.
+03_6	1	Both sit near one in every ten, and the small one wobbles more.
+04_1	1	Twenty fish, and five of them are marked.
+04_1	2	Our net holds four fish.
+04_1	2	And our net holds four.
+05_2	0	First, the soup guess.
+05_2	0	The soup guess comes first.
+06_2	1	And what do you get?
+07_3	2	So what survives?
+07_3	2	And what survives?
+09_3	0	In a bell, around a hundred.
+09_3	0	They pile up in a bell around a hundred.
+09_4	0	But the estimate divides by that count, and division bends things.
+09_4	0	But the estimate divides by that count, and dividing bends the results.
+09_5	1	Their average is about ten thousand and ninety, which is a little high.
+09_6	0	Two lines of code run all the experiments.
+09_6	0	Two lines of code run every experiment.
+10_1	1	In a lake of a thousand fish, mark fifty and catch fifty.
+11_5	1	Getting exactly fifty heads happens only about eight percent of the time, yet it's the most likely count.
+11_5	1	Exactly fifty heads comes up only about eight percent of the time, yet it's the most likely count.
+12_5	2	Catching a bigger share of the lake helps more and more, and catching the whole lake shrinks the range to a single size.
+13_1	1	On average, the second catch must hold the same share of marked fish that the lake held on marking day.
+13_5	0	If marks wash off, marked fish look unmarked.
+13_5	0	Marks that wash off make a marked fish look unmarked.
+13_7	0	What if three in every ten fish die between the catches?
+13_7	0	What if three fish out of ten die between the catches?
+13_9	0	If the marks never mix, it all depends on where you go fishing.
+13_9	1	Near the dock you'd estimate sixty-two fifty, and on the far side, twenty-five thousand.
+13_9	1	Near the dock you'd get sixty-two fifty, and on the far side twenty-five thousand.
+14_4	0	It counts bugs as well.
+14_4	0	It can count bugs, too.
+14_5	1	They found forty-two, so about eighteen are still hiding.
+14_6	0	Reviewers of different skill cause no trouble.
+14_6	0	Reviewers of different skill are fine here.
+15_1	1	In the war in Kosovo in nineteen ninety-nine, several lists named about four thousand four hundred different victims between them.
+15_1	1	In nineteen ninety-nine, in the war in Kosovo, several lists named about four thousand four hundred different victims between them.
+06_3	0	These are the chances from counting every netful.
+06_3	0	The chances from counting each netful.
+09_6	1	The last line checks their average against the exact one, built by the same rule as each netful.
+05_2	0	Start with the soup guess.
+05_2	0	Let's try the soup guess first.
+05_2	0	First comes the soup guess.
+13_9	0	If the marks never mix, it all depends on where you put the net.
+13_9	0	If the marks never mix, the answer depends on where you fish.

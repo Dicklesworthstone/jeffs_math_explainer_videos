@@ -1,10 +1,10 @@
 {
- "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write on the GPU host, 2026-10-11 (voice robert, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries without a probe winner carry the decision and its reason. Edsger is not spoken (02_5 says 'Dijkstra'; ftts reads 'Edsger' as 'edger'). Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry.",
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write, first with robert on the GPU host and again on the build host with this video's voice, michael (2026-10-11, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries without a probe winner carry the decision and its reason. Edsger is not spoken (02_5 says 'Dijkstra'; ftts reads 'Edsger' as 'edger'). Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. Digit phrases (narration pass 2, 2026-10-11) map the ASR's digit spellings of numbers the script says ('31.5') to the script's own words, since the scorer would read them as 'thirty one point five'.",
  "words": {
   "Lamport": {
    "respell": [
-    "Lam-port",
-    "LAM-port"
+    "Lamport",
+    "Lam-port"
    ],
    "say": "LAM-port",
    "ipa": "ˈlæmpɔːrt",
@@ -15,21 +15,26 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "michael",
     "asr": "fw",
-    "winner": "Lam-port",
+    "winner": "Lamport",
     "discriminates": true,
     "results": {
-     "Lamport": "control PARTIAL 2/3",
+     "Lamport": "control PASS 3/3",
      "Lam-port": "candidate PASS 3/3",
      "LAM-port": "candidate PASS 3/3",
-     "LEEM-port": "decoy OK (heard differently) 0/3"
+     "Loom-port": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "decoy": [
+    "Loom-port"
+   ],
+   "note": "michael, 2026-10-11: plain, Lam-port, LAM-port PASS 3/3 against the decoy Loom-port ('Loomport'); round 1's decoy LEEM-port came back 'Liam Port', which the metric scores as Lam, so it was replaced."
   },
   "Dijkstra": {
    "respell": [
-    "Dakestrah"
+    "DAYK-strah",
+    "Daykstrah"
    ],
    "say": "DAYK-strah",
    "ipa": "ˈdɛikstraː",
@@ -46,29 +51,43 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "michael",
     "asr": "fw",
-    "winner": "Dakestrah",
+    "winner": null,
     "discriminates": true,
+    "carriers": [
+     "{w} posed the problem properly in nineteen sixty-five.",
+     "{w} showed that ordinary signs are enough.",
+     "The proof came from {w}, in the end."
+    ],
     "results": {
      "Dijkstra": "control FAIL 0/3",
-     "Dayk-strah": "candidate PARTIAL 2/3",
+     "Dayk-strah": "candidate FAIL 1/3",
+     "DAYK-strah": "candidate FAIL 1/3",
      "Daykstrah": "candidate PARTIAL 2/3",
-     "Dake-strah": "candidate PARTIAL 2/3",
-     "Dakestrah": "candidate PASS 3/3",
-     "Dake-stra": "candidate FAIL 1/3",
+     "Dake-strah": "candidate FAIL 1/3",
      "Dayk-stra": "candidate PARTIAL 2/3",
-     "Daik-strah": "candidate PARTIAL 2/3",
-     "Dayke-strah": "candidate FAIL 1/3",
-     "DAYK-strah": "candidate FAIL 0/3",
+     "Daik-strah": "candidate FAIL 1/3",
      "DYKE-struh": "decoy OK (heard differently) 0/3"
+    },
+    "acoustic": {
+     "method": "LPC formants and a front/back index (dB of 1.6-2.6 kHz minus 0.5-1.4 kHz) over the ASR-timed word, 11.025 kHz, 25 ms frames; evidence for a listener, not proof",
+     "measure": "F2 at the first vowel's onset (DAYK /ɛi/ starts front, ≈ 1600-1900 Hz; DYKE /aɪ/ dips to ≈ 1150)",
+     "carrier": "{w} posed the problem properly in nineteen sixty-five. (02_5's wording; ASR writes 'Dijkstra' for the decoy here)",
+     "Daykstrah": "1681 rising to 2432 Hz; 1774->1993 and 1604->1829 in the other two carriers",
+     "DAYK-strah": "1833-1885 Hz; 1858-1900 in carrier 1",
+     "Dayk-stra": "1552-1757 Hz; 1578->2100 in carrier 1",
+     "plain and decoy": "plain 'Dijkstra' 1248 dipping to 1171; decoy DYKE-struh 1605 dipping to 1127, then rising (the /aɪ/ glide)",
+     "verdict": "the three respellings start front and never dip below ~1550 Hz: DAYK, not DYKE; the plain spelling is read DYKE",
+     "script sentences": "02_5 and 02_7 takes (pass 2): DAYK-strah F1 497/477, F2 1847-1885 Hz (front-mid, clearest); Daykstrah F1 535/619, F2 1650-1690 rising to 2400+ (an /eɪ/ glide); Dayk-stra F1 660, F2 1552-1757 (between /ɛ/ and the /a/ of DYKE), the chooser's pick on ASR score alone, so it is no longer read"
     }
-   }
+   },
+   "note": "michael, 2026-10-11: plain is read the English way ('Dykstra' 3/3 in the script's sentences). In the script's own carriers Daykstrah and Dayk-stra were heard 'Dijkstra' where the decoy DYKE-struh was heard 'D.I. Strauss'/'Dykstra'; in '... in nineteen sixty-five' ASR writes 'Dijkstra' for the decoy too, so that carrier is checked acoustically (probe.acoustic). Dakestrah (robert's winner) was heard 'decastrophe'. Pass 2 (2026-10-11): in 02_5 and 02_7 ASR writes 'Dijkstra' for all three respellings, so the chooser cannot rank them; the acoustic check on those takes keeps DAYK-strah and Daykstrah."
   },
   "Knuth": {
    "respell": [
-    "Kuh-nooth",
-    "Ka-nooth"
+    "Ka-nooth",
+    "Kuh-nooth"
    ],
    "say": "kuh-NOOTH",
    "ipa": "kəˈnuːθ",
@@ -85,7 +104,26 @@
     "kunuth",
     "kanuth"
    ],
-   "note": "Knuth's own pronunciation sounds the K (ka-NOOTH). The plain spelling is read with a silent K: heard 'new', 'Newth', 'Nooth' (2026-10-11). The probe tool scored the respellings FAIL/UNVERIFIED, but its transcripts discriminate: Kuh-nooth was heard 'Knuth', 'Knuth', 'Kunuth', and the decoy Nooth 'news', 'Newth', 'Newth', so ASR writes 'Knuth' only when it hears the K. Decision 2026-10-11."
+   "note": "Knuth's own pronunciation sounds the K (ka-NOOTH). michael, 2026-10-11: the plain spelling drops the K ('Newth', 'Newt', 'Noose'). In the script's own sentence ('A year later, Donald {w} asked for more.') Ka-nooth was heard 'Knuth' and the K-less decoy Nooth 'Newth'; every K respelling came back with a K ('Knuth', 'Canuth', 'Coonuth', 'Kunuth'), so ASR writes 'Knuth' only when it hears the K. The probe's FOOLED verdict is its metric scoring 'Newth' near kuh-NOOTH.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": [
+     "A year later, Donald {w} asked for more.",
+     "{w} asked for more.",
+     "The question came from {w}, in the end."
+    ],
+    "results": {
+     "Knuth": "control FAIL 0/3",
+     "Kuh-nooth": "candidate FAIL 0/3",
+     "Ka-nooth": "candidate FAIL 0/3",
+     "kuh-NOOTH": "candidate FAIL 0/3",
+     "Nooth": "decoy FOOLED (heard as the target) 3/3"
+    }
+   }
   },
   "Donald": {
    "respell": [
@@ -102,16 +140,17 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "michael",
     "asr": "fw",
     "winner": "Donald",
     "discriminates": true,
     "results": {
      "Donald": "control PASS 3/3",
-     "Don-uld": "candidate FAIL 1/3",
+     "Don-uld": "candidate PARTIAL 2/3",
      "DEEN-uld": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "note": "michael, 2026-10-11: plain PASS 3/3 (decoy DEEN-uld 'Dienald'); Don-uld was heard 'Dongled. Dongled.' and is not read."
   },
   "Anatol": {
    "respell": [
@@ -127,7 +166,20 @@
    "accept": [
     "anatole"
    ],
-   "note": "Plain spelling heard as 'Anatole' in 3/3 carriers (the same name, AN-uh-tole); the probe scored it UNVERIFIED because the decoy OON-uh-tohl was once heard as 'Anatole'. Spoken once, mid-sentence (10_3)."
+   "note": "michael, 2026-10-11: plain and Anna-tole heard 'Anatole' 3/3 (decoy 'Unatoll'); AN-uh-tohl was heard 'an atoll'.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Anatol",
+    "discriminates": true,
+    "results": {
+     "Anatol": "control PASS 3/3",
+     "Anna-tole": "candidate PASS 3/3",
+     "AN-uh-tohl": "candidate PARTIAL 2/3",
+     "OON-uh-tohl": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Holt": {
    "respell": [
@@ -143,7 +195,24 @@
    "decoy": [
     "Heelt"
    ],
-   "note": "Plain spelling PARTIAL 2/3: the miss was sentence-final ('This is Holt.' heard as 'hope'); the decoy Heelt was heard differently. The script says it mid-sentence (10_3, 'Anatol Holt refused')."
+   "note": "michael, 2026-10-11: in the script's sentence ('His colleague Anatol {w} refused to believe it.') and two more carriers, plain and Hohlt were heard 'Holt' 3/3 and the decoy Heelt 'Healt'/'Hilt'; the probe marks the script carrier damaged only because ASR writes Anatol as 'Anatole' (an accepted spelling). The sentence-final 'This is Holt.' was heard 'hope' (round 1); the script never puts it last.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": true,
+    "carriers": [
+     "His colleague Anatol {w} refused to believe it.",
+     "{w} refused to believe it.",
+     "The doubt came from {w}, in the end."
+    ],
+    "results": {
+     "Holt": "control PARTIAL 2/3",
+     "Hohlt": "candidate PARTIAL 2/3",
+     "Heelt": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Paxos": {
    "respell": [
@@ -159,21 +228,26 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "michael",
     "asr": "fw",
     "winner": "Paxos",
     "discriminates": true,
     "results": {
      "Paxos": "control PASS 3/3",
      "Pak-sohs": "candidate PASS 3/3",
-     "PAK-sohs": "candidate FAIL 1/3",
+     "PAK-sohs": "candidate PASS 3/3",
      "PEEK-sohs": "decoy OK (heard differently) 0/3"
     }
-   }
+   },
+   "accept": [
+    "paxoz"
+   ],
+   "note": "michael, 2026-10-11: plain, Pak-sohs, PAK-sohs PASS 3/3 (decoy PEEK-sohs 'Pixos')."
   },
   "Arm": {
    "respell": [
-    "Arm"
+    "Arm",
+    "Ahrm"
    ],
    "say": "Arm",
    "ipa": "ɑːrm",
@@ -185,7 +259,32 @@
    "decoy": [
     "A R M"
    ],
-   "note": "The company name is said like the word 'arm', which is how ftts reads it; ASR cannot tell the decoy A-R-M from it, so the probe is uninformative. Plain spelling."
+   "note": "The company name is said like the word 'arm'. michael, 2026-10-11: ASR writes 'ARM'/'Arm' for the word and for the decoy spelled A R M alike (script carriers), so the read is checked by the word's duration (probe.acoustic).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": [
+     "{w} chips shuffle more than an outbox does.",
+     "Code that {w} itself publishes uses it.",
+     "The code came from {w}, in the end."
+    ],
+    "results": {
+     "Arm": "control UNVERIFIED 0/3",
+     "Ahrm": "candidate UNVERIFIED 0/3",
+     "A R M": "decoy FOOLED (heard as the target) 0/3"
+    },
+    "acoustic": {
+     "method": "LPC formants and a front/back index (dB of 1.6-2.6 kHz minus 0.5-1.4 kHz) over the ASR-timed word, 11.025 kHz, 25 ms frames; evidence for a listener, not proof",
+     "measure": "first vowel (the word arm starts with back /ɑ/, F2 ≈ 1000; spelled A R M starts with /eɪ/, F2 ≈ 1800)",
+     "Arm": "F2 882, 1070, 1033 Hz in the 3 script carriers (front index -25, -24, -24 dB)",
+     "Ahrm": "F2 1028, 925, 947 Hz (front index -23, -21, -30 dB)",
+     "decoy A R M": "F2 1837, 1744, 1852 Hz, falling after the A (front index -7, -4, -6 dB)",
+     "verdict": "plain and Ahrm are read as the word in every carrier, including sentence-initial 'Arm chips' (12_6)"
+    }
+   }
   },
   "AMD": {
    "respell": [
@@ -201,14 +300,26 @@
    "decoy": [
     "Amd"
    ],
-   "note": "Said as letters. Plain spelling heard as 'AMD' in 2/3 carriers; spoken once (12_5)."
+   "note": "Said as letters. michael, 2026-10-11: AMD and A M D PASS 3/3 (decoy Amd 'Andy'); caps ay-em-DEE was heard 'IMDEE'.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "AMD",
+    "discriminates": true,
+    "results": {
+     "AMD": "control PASS 3/3",
+     "A M D": "candidate PASS 3/3",
+     "ay-em-DEE": "candidate FAIL 0/3",
+     "Amd": "decoy OK (heard differently) 0/3"
+    }
+   }
   },
   "Leslie": {
    "say": "LEZZ-lee",
    "respell": [
     "Leslie",
-    "Lezz-lee",
-    "LEZZ-lee"
+    "Lezz-lee"
    ],
    "ipa": "ˈlɛzli",
    "lang": "en",
@@ -220,7 +331,7 @@
    ],
    "probe": {
     "date": "2026-10-11",
-    "voice": "robert",
+    "voice": "michael",
     "asr": "fw",
     "winner": "Leslie",
     "discriminates": true,
@@ -230,12 +341,131 @@
      "LEZZ-lee": "candidate PASS 3/3",
      "Lee-slee": "decoy OK (heard differently) 0/3"
     }
+   },
+   "note": "michael, 2026-10-11: plain, Lezz-lee, LEZZ-lee PASS 3/3 (decoy Lee-slee 'Leesley')."
+  },
+  "Intel": {
+   "respell": [
+    "Intel",
+    "In-tel"
+   ],
+   "say": "IN-tel",
+   "ipa": "ˈɪntɛl",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Intel#English"
+   ],
+   "note": "Said once (12_5). michael, 2026-10-11: Intel and In-tel PASS 3/3 (decoy AN-tel 'Antel'); caps IN-tel was once spelled out ('I.N.T.E.L.') and is not read.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Intel",
+    "discriminates": true,
+    "results": {
+     "Intel": "control PASS 3/3",
+     "In-tel": "candidate PASS 3/3",
+     "IN-tel": "candidate PASS 3/3",
+     "AN-tel": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Macs": {
+   "respell": [
+    "Macs",
+    "Maks"
+   ],
+   "say": "Maks",
+   "ipa": "mæks",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/macs#English"
+   ],
+   "note": "Said once (12_6). michael, 2026-10-11: Macs and Maks heard 'Max' 3/3 (a homophone; decoy Meeks 'Meeks'), so 'max' is accepted; the script never says 'max'.",
+   "accept": [
+    "max"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Macs",
+    "discriminates": true,
+    "results": {
+     "Macs": "control PASS 3/3",
+     "Maks": "candidate PASS 3/3",
+     "Meeks": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "odometer": {
+   "respell": [
+    "odometer"
+   ],
+   "say": "oh-DAH-muh-ter",
+   "ipa": "oʊˈdɑːmətɚ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/odometer#English"
+   ],
+   "note": "US pronunciation (Wiktionary also gives RP /əʊˈdɒmətə/). michael, 2026-10-11: plain heard 'odometer' 3/3 while the decoy oh-DEE-muh-ter was heard as letters ('O-D-E-M-U-T-A'); the probe scores it UNVERIFIED only because the spelling sits under its sound threshold. Both respellings read badly ('ODAH Mutter', 'Odarmuta') and are not read. Said once (11_5).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": true,
+    "carriers": [
+     "This is {w}.",
+     "{w} showed something deeper.",
+     "The idea came from {w}, in the end."
+    ],
+    "results": {
+     "odometer": "control UNVERIFIED 0/3",
+     "Oh-dah-muh-ter": "candidate FAIL 1/3",
+     "oh-DAH-muh-ter": "candidate FAIL 0/3",
+     "oh-DEE-muh-ter": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "x": {
+   "respell": [
+    "x",
+    "ex"
+   ],
+   "say": "ex",
+   "ipa": "ˈɛks",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/X",
+    "https://en.wiktionary.org/wiki/x#English"
+   ],
+   "note": "The program variable (01_4, said three times). michael, 2026-10-11, letter carriers ('{w} is the score here.', 'Programmers call it {w}, and write it down.', 'So the score is {w}.'): x, ex, X PASS 3/3; decoy 'ox' heard 'Ox'.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "x",
+    "discriminates": true,
+    "results": {
+     "x": "control PASS 3/3",
+     "ex": "candidate PASS 3/3",
+     "X": "candidate PASS 3/3",
+     "ox": "decoy OK (heard differently) 0/3"
+    }
    }
   }
  },
- "accept": {},
+ "accept": {
+  "write": [
+   "right"
+  ]
+ },
  "phrases": {
   "pak soj": "paxos",
-  "spin lock": "spinlocks"
+  "spin lock": "spinlocks",
+  "31.5": "thirty one and a half",
+  "2,496": "two thousand four hundred ninety six",
+  "2496": "two thousand four hundred ninety six"
  }
 }
