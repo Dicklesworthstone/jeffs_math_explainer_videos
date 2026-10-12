@@ -10,7 +10,7 @@
 15_4	0	What if those last cards were plain ex oar cards?	ex-or: about 0.21 s here; 0.15 s in the read the score chose
 16_2	1	“A is two ex oar c, and B is six ex oar A.”	ex-or: 0.21 and 0.24 s here; 0.19 and 0.15 s in the read the score chose
 16_2	2	D is six ex oar B ex oar c, so the two c's cancel, and D is two.	ex-or: about 0.27 s twice here, no long pause; 0.17 and 0.19 s in the read the score chose
-16_5	0	“With ex-oar, A met itself and cancelled.”	ex-or 0.41 s and the piece name A a front vowel of 0.13 s; the read the score chose was heard "I met itself"
+16_5	0	With ex-oar, A… met itself and cancelled.	the audit (19:18) asks for a clear AY: here A is 0.37 s with its second formant rising from 1.6 to 2.2 kHz, set off by pauses the editor shortens; in the read chosen before it was a level 0.17 s vowel at 1.9 kHz. ex-or: 0.33 s
 17_2	0	“One more ex-oar packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six.”	ex-or: about 0.19 s here; 0.15 s in the read the score chose; "byte card" heard right
 03_6	2	(Is it useful?)	the only read that is neither cut at "-ful" nor said in 0.65 s (this one takes 0.82 s)
 14_4	1	‘What happens?’	"happens" keeps its z here (0.13 s, to the end of the take); the two reads that are not flagged have no z at all, and the line ASR heard "happened"
@@ -21,3 +21,5 @@
 09_5	1	X squared plus X squared vanishes, and so does X plus X.	nothing follows the last "x" here (its s runs 0.19 s); the quoted read the score chose keeps a burst 0.1 s after it
 03_9	1	This video is about the arithmetic inside it.	nothing sounds before "This" here; the quoted read the score chose opens with 0.2 s of breath, 10 dB under the speech
 13_6	0	(Let's race them on ten pieces.)	the final z of "pieces" runs 0.25 s here; 0.07 s, still rising, into the last sample in the read the score chose
+16_1	1	“In big blocks, Raptor Q's decoder, mostly peels.”	the z of "peels" is here (0.15 s of frication at the end) and the name is said right; every read scored higher ends on "pee-l" with no z (the owner's complaint, final s/z check), and the reads in other marks that kept it said "Rabtorch" or "Raptor's"
+16_3	0	"At the end, the leftover cards and the byte cards pin down the parked pieces."	audit 18:48, the -ed of "parked": here both the k and the t are released (two bursts, 40 ms apart) before "pieces"; in the read the score chose only a faint k release, then silence. Its 1 s pause after "At the end," is at the comma and the editor shortens it
