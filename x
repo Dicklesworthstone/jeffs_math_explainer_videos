@@ -221,7 +221,9 @@ case "$cmd" in
     # One ftts build for every read. A take is keyed by its text and voice, not by the engine that
     # made it, so another build first on someone's PATH mixes its reads in unseen (262 of the fish
     # video's takes once came from an old one). FTTS in project.env names the binary to use.
-    FTTS="${FTTS:-ftts}"
+    FTTS=$(command -v "${FTTS:-ftts}") || die "ftts not found: set FTTS in project.env or put it on PATH"
+    # The batch consumes FTTS as a filename after we cd into the crate.
+    FTTS="$(cd "$(dirname "$FTTS")" && pwd)/$(basename "$FTTS")"
     ftts_is=$("$FTTS" --version 2>&1 | head -n 1) || true
     [ "$ftts_is" = "ftts ${FTTS_VERSION:-0.1.11}" ] ||
       die "$FTTS is '$ftts_is', not ftts ${FTTS_VERSION:-0.1.11}: set FTTS in project.env to that build"
