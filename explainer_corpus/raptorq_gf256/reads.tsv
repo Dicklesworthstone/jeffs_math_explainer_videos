@@ -246,3 +246,11 @@
 16_1	1	“In big blocks, Raptor Q's decoder, mostly peels.”
 16_1	1	(In big blocks, Raptor Q's decoder mostly peels.)
 16_1	1	“In big blocks, Raptor queue's decoder mostly peels…”
+# 09_5/0 (2026-10-12, final ch/sh check): "match" ends on its vowel in both reads, no ch (heard "mat").
+09_5	0	‘Six terms, and two pairs match.’
+09_5	0	«Six terms, and two pairs match.»
+09_5	0	"Six terms, and two pairs match."
+09_5	0	(Six terms, and two pairs match.)
+09_5	0	Six terms, and two pairs match…
+09_5	0	“Six terms, and two pairs match…”
+09_5	0	Six terms, and two pairs, match.
