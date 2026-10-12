@@ -44,8 +44,9 @@ own speech level:
   that is not the sentence and is dropped.
 - A read starts and ends at the nearest real silence (0.12 s of it: less is
   a stop consonant's closure), so a soft first or last consonant stays
-  whole; with no silence within reach, at the quietest point nearby, with
-  a longer fade.
+  whole; with no silence within reach (a breath or the voice's hiss runs
+  into the word), 120 ms out or where the sound is faint, with a longer
+  fade. The report says how much it kept (`lead_s`, `tail_s`).
 - A pause is still measured the way narrate.py measured it, so the rates
   and the score mean what they meant. It is shortened only when it is
   plainly too long, never to within 90 ms of the words beside it, and a
@@ -70,6 +71,7 @@ HOP = 0.005                # s per level frame (15 ms window)
 NUCLEUS = 18.0             # dB under the take's speech level: a syllable is at least this loud
 PAUSE = 20.0               # dB under: a stretch below this is a pause (narrate.py's -48 dBFS, for these voices)
 AUDIBLE = 46.0             # dB under (or 6 dB over the take's noise floor): below this is silence
+FAINT = 28.0               # dB under: a breath or hiss this far down can take a fade without a seam
 SENTENCE_GAP = 0.30        # s of no syllable that ends the sentence once the ASR's last word is behind
 HOLD = 0.12                # s of silence that is a pause; shorter is a stop consonant's closure
 ONSET_REACH = 0.45         # s before the first syllable searched for that silence
@@ -110,11 +112,11 @@ def runs(mask, bridge):
     return out
 
 
-def edge(db, audible, start, step, reach, skip):
+def edge(db, audible, faint, start, step, reach, skip):
     """Walk outward from the frame beside a syllable to the nearest HOLD of
     silence: (the silent frame next to the sound, True). The take's own edge
     counts when the sound stops before it. With no silence within reach:
-    (the nearest frame within 3 dB of the quietest one, False)."""
+    (a frame under `faint`, or the quietest, False)."""
     i, quiet, hold = start, 0, frames(HOLD)
     while 0 <= i < len(db) and abs(i - start) < reach + hold:
         quiet = quiet + 1 if db[i] < audible else 0
@@ -123,9 +125,24 @@ def edge(db, audible, start, step, reach, skip):
         i += step
     if not 0 <= i < len(db):  # ran off the take: clean only if it had gone quiet (20 ms) before its edge
         return (i - step * quiet, quiet >= 4) if quiet else (i - step, False)
+    # sound all the way: past `skip`, which keeps a soft consonant. A level that holds steady out
+    # there is the voice's hiss, not a word (syllables swing by far more than 3 dB): cut at `skip`.
+    # Otherwise the nearest frame that is faint next to speech; failing that, the quietest.
     span = [k for k in range(start + step * skip, start + step * reach, step) if 0 <= k < len(db)] or [start]
-    low = min(db[k] for k in span)
-    return next(k for k in span if db[k] <= low + 3.0), False
+    if len(span) > 8 and float(np.std(db[span])) < 3.0:
+        return span[0], False
+    return next((k for k in span if db[k] < faint), min(span, key=lambda k: db[k])), False
+
+
+def voiced_run(seg, rate, top):
+    """The longest run of voiced 10 ms frames in a stretch, judged by periodicity alone: the
+    stretch is raised to speech level first, because f0_track calls anything under -40 dBFS
+    unvoiced and a weak first word is under that."""
+    best = run = 0
+    for voiced in ~np.isnan(nr.f0_track(seg * 10 ** ((-3.0 - top) / 20), rate)):
+        run = run + 1 if voiced else 0
+        best = max(best, run)
+    return best
 
 
 def hear(x, rate, last_word_end):
@@ -145,10 +162,16 @@ def hear(x, rate, last_word_end):
     kept = [p for p in phrases if p[0] <= limit] or phrases[:1]
     first, last = kept[0][0], kept[-1][1]
     junk_after = sum((b - a + 1) * HOP for a, b in phrases[len(kept):])
-    cut_in, clean_in = edge(db, audible, first - 1, -1, frames(ONSET_REACH), frames(0.06))
-    cut_out, clean_out = edge(db, audible, last + 1, 1, frames(TAIL_REACH), frames(0.10))
+    cut_in, clean_in = edge(db, audible, top - FAINT, first - 1, -1, frames(ONSET_REACH), frames(0.12))
+    cut_out, clean_out = edge(db, audible, top - FAINT, last + 1, 1, frames(TAIL_REACH), frames(0.12))
     cut_in = min(first, max(0, cut_in - (4 if clean_in else 0)))
     cut_out = max(last, min(len(db) - 1, cut_out + (6 if clean_out else 0)))
+    # A long lead-in with no voice in it is a breath or hiss before the sentence, not its first
+    # word: start 120 ms out, which is what a soft consonant can take.
+    if first - cut_in > frames(0.18):
+        a, b = int(cut_in * HOP * rate), int((first - frames(0.12)) * HOP * rate)
+        if voiced_run(x[a:b], rate, top) < 4:
+            cut_in, clean_in = first - frames(0.12), False
     # ftts stopped inside the last sound: the sentence runs to the WAV's end, which is still loud
     # (its last 40 ms, leaving out the two frames whose window hangs over the end)
     ending = 10 * np.log10(np.mean(10 ** (db[-10:-2] / 10))) if len(db) > 12 else top
@@ -228,7 +251,8 @@ def analyze(path, asr, target_text):
         "hesitations": len(hesitations), "pitch_std_st": round(pitch_std, 2), "final_st": round(final_st, 2),
         "start": round(h["cut_in"], 4), "end": round(h["cut_out"], 4), "heard": asr.get("text", ""),
         "cuts": cuts, "clean_in": h["clean_in"], "clean_out": h["clean_out"], "junk_after_s": h["junk_after_s"],
-        "cut_short": h["cut_short"], "stalls": stalls, "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
+        "cut_short": h["cut_short"], "stalls": stalls,
+        "lead_s": round(h["first"] - h["cut_in"], 3), "tail_s": round(h["cut_out"] - h["last"], 3), "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
     }
 
 
