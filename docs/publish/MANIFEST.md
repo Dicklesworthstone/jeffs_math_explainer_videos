@@ -11,10 +11,18 @@ being corrected (review 2): the chooser now detects a missing final s/z from the
 docs/publish/codex-tts-audit-20261012.md.
 
 Channel: Jeff's Math Explainers (confirmed). Paths are relative to the repository root on the
-owner's Mac; renders and captions are not in git, the text files are. Every master listed as
-verified was rendered at 3840×2160, 60 fps, BT.709 and passed `verify_video.sh` with the delivery
-gates; its md5 here equals the verified master's on the build host. Originals and every uploaded
-review cut are kept: a corrected cut always goes to a new path.
+owner's Mac; renders and captions are not in git, the text files are. Listed master candidates
+were rendered at 3840×2160, 60 fps, BT.709 and have recorded `verify_video.sh` results under their
+configured gates; each md5 here equals the checked master's on the build host. Originals and every
+uploaded review cut are kept: a corrected cut always goes to a new path.
+
+**Loudness qualification** (restored from 5c4975e and 64a0497, which a later rewrite of this file
+dropped): every michael master here passed `VERIFY PASS` through the fixed-gain quiet-peak
+exception, at −17.6 to −18.2 LUFS with the true peak at the −1.5 dBTP ceiling. That is outside
+`AGENTS.md`'s literal −16 LUFS ±1 gate. The owner's disposition of the quieter level, and human
+narration, score and full-watch acceptance, remain open for every cut; review-2 repairs need fresh
+qualification. "Ready" here means available for a Private review upload; it does not establish
+owner acceptance or permission to publish publicly.
 
 ## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
