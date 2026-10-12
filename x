@@ -193,6 +193,34 @@ build_binary() {
 need_narration() {
   [ -d "$narration" ] || die "no narration at $narration (set NARRATION, or run the narration pipeline)"
 }
+# Both score passes must consume the same audio. A replacement take can keep
+# its filename, length and mtime, so compare the WAV bytes, not file metadata.
+narration_fingerprint() {
+  python3 -I - "$narration" <<'PY'
+import hashlib
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+paths = sorted(root.glob("*.wav"))
+if not paths:
+    sys.exit("x: no narration WAVs to score")
+digest = hashlib.sha256()
+for path in paths:
+    digest.update(path.name.encode("utf-8") + b"\0")
+    file_digest = hashlib.sha256()
+    with path.open("rb") as audio:
+        for chunk in iter(lambda: audio.read(1024 * 1024), b""):
+            file_digest.update(chunk)
+    digest.update(file_digest.digest())
+print(digest.hexdigest())
+PY
+}
+unchanged_narration() {
+  current_narration_fingerprint=$(narration_fingerprint) || exit $?
+  [ "$score_narration_fingerprint" = "$current_narration_fingerprint" ] ||
+    die "narration changed during $1; keep the partial output aside, freeze the narration, and rerun ./x $slug score"
+}
 # The chapter keys as one comma-separated list: the arguments, or all of them.
 chapter_list() {
   if [ $# -gt 0 ]; then printf '%s' "$*" | tr ' ' ','; else "$binary" chapters | paste -sd, -; fi
@@ -293,10 +321,14 @@ case "$cmd" in
     [ $# -eq 0 ] || usage
     need_narration
     build_binary
+    score_narration_fingerprint=$(narration_fingerprint) || exit $?
     # pass 1: every chapter's timeline at the finals' 60 fps (64x36, no picture worth keeping)
     "$binary" render all --timeline-only --fps 60 --narration "$narration" --out "$base/renders/timeline"
+    unchanged_narration "the score timeline pass"
     # pass 2: the whole video's music from those timelines, sliced per chapter, with QA
-    exec "$binary" score --timelines "$base/renders/timeline" --out "$base" ;;
+    "$binary" score --timelines "$base/renders/timeline" --out "$base"
+    unchanged_narration "the music score pass"
+    echo "x: score used unchanged narration ($score_narration_fingerprint)" ;;
   scored)
     need_narration
     [ -d "$stems" ] || die "no stems in $stems (run ./x $slug score)"

@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+import wave
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -135,6 +136,97 @@ class Driver(unittest.TestCase):
         path.write_text(source, encoding="utf-8")
         path.chmod(0o755)
         return path
+
+    def score_dispatch(self, mutate=None, voice=None, override=False, failure=0):
+        # Dispatch unit test only: real PCM WAVs and the real driver/hash check,
+        # with a command fixture instead of compiling/rendering the corpus.
+        crate = self.crate("capture_recapture")
+        (crate / "Cargo.toml").write_text(
+            '[package]\nname = "capture_recapture"\n[[bin]]\nname = "video"\n',
+            encoding="utf-8",
+        )
+        primary = crate / "narration" / "out"
+        selected = crate / "variants" / voice / "narration" / "out" if voice else primary
+        if override:
+            selected = self.root / "custom narration"
+        for directory in dict.fromkeys((primary, selected)):
+            directory.mkdir(parents=True)
+            with wave.open(str(directory / "line.wav"), "wb") as audio:
+                audio.setparams((1, 2, 16000, 0, "NONE", "not compressed"))
+                audio.writeframes(b"\x00\x00" * 160)
+        binary_dir = self.root / "score tools"
+        binary_dir.mkdir()
+        target = self.root / "score target"
+        (target / "release").mkdir(parents=True)
+        calls = self.root / "score-calls.txt"
+        output = self.root / "score-output.txt"
+        self.dispatch_executable(binary_dir, "cargo", "#!/bin/sh\nexit 0\n")
+        self.dispatch_executable(
+            target / "release", "video",
+            "#!/usr/bin/env python3\nimport os, sys\nfrom pathlib import Path\n"
+            f"calls = Path({str(calls)!r})\n"
+            "with calls.open('a') as log: log.write(sys.argv[1] + '\\n')\n"
+            f"stage = {mutate!r}\n"
+            "if stage == sys.argv[1] or (stage == 'primary' and sys.argv[1] == 'render'):\n"
+            f"    path = Path({str(primary / 'line.wav')!r} if stage == 'primary' else {str(selected / 'line.wav')!r})\n"
+            "    before = path.stat()\n"
+            "    data = bytearray(path.read_bytes()); data[-2] = 1\n"
+            "    path.write_bytes(data)\n"
+            "    os.utime(path, ns=(before.st_atime_ns, before.st_mtime_ns))\n"
+            "if sys.argv[1] == 'score':\n"
+            f"    Path({str(output)!r}).write_text('dispatch output, not media\\n')\n"
+            f"    raise SystemExit({failure})\n",
+        )
+        env = dict(os.environ, SKILLS=str(self.root / "missing skills"),
+                   CARGO_TARGET_DIR=str(target),
+                   PATH=str(binary_dir) + os.pathsep + os.environ["PATH"])
+        for key in ("VOICE", "NARRATION"):
+            env.pop(key, None)
+        if voice:
+            env["VOICE"] = voice
+        if override:
+            env["NARRATION"] = str(selected)
+        result = self.run_x("capture_recapture", "score", env=env)
+        return result, calls.read_text().splitlines(), output
+
+    def test_score_runs_both_passes_with_unchanged_narration(self):
+        result, calls, output = self.score_dispatch()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(calls, ["render", "score"])
+        self.assertTrue(output.exists())
+        self.assertIn("score used unchanged narration", result.stdout)
+
+    def test_score_refuses_a_same_size_same_mtime_wave_change_before_music(self):
+        result, calls, output = self.score_dispatch(mutate="render")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(calls, ["render"])
+        self.assertFalse(output.exists())
+        self.assertIn("narration changed during the score timeline pass", result.stderr)
+
+    def test_score_refuses_a_change_during_music_and_keeps_partial_output(self):
+        result, calls, output = self.score_dispatch(mutate="score")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(calls, ["render", "score"])
+        self.assertTrue(output.exists())
+        self.assertIn("narration changed during the music score pass", result.stderr)
+        self.assertNotIn("score used unchanged narration", result.stdout)
+
+    def test_score_variant_does_not_watch_the_primary_voice(self):
+        result, calls, _ = self.score_dispatch(mutate="primary", voice="michael")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(calls, ["render", "score"])
+
+    def test_score_watches_an_explicit_narration_override(self):
+        result, calls, _ = self.score_dispatch(mutate="render", override=True)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(calls, ["render"])
+        self.assertIn("narration changed", result.stderr)
+
+    def test_score_keeps_the_original_music_failure_status(self):
+        result, calls, _ = self.score_dispatch(failure=17)
+        self.assertEqual(result.returncode, 17, result.stderr)
+        self.assertEqual(calls, ["render", "score"])
+        self.assertNotIn("score used unchanged narration", result.stdout)
 
     def watch_dispatch(self, slug, voice, kind):
         # Only the driver is real: stop at an encoder recorder, with text markers
