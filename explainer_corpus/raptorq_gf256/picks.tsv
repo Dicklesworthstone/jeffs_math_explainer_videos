@@ -1,0 +1,21 @@
+# The director's picks (tools/narration.py, director_files): <line_id> TAB <sentence index> TAB <ftts input> TAB <why>.
+# That read wins whatever its score. Director pass 2026-10-12, voice leo. The lengths were read from 0-4 kHz
+# crops of each take: from the end of the ks to where the second formant leaves the band under 1.3 kHz.
+03_3	2	B ex-oar C is four.	ex-or: the vowel after the ks lasts 0.40 s here; 0.17 s in the quoted read the score chose, which also jumps to 215 Hz on ex-or
+03_6	1	B ex-oar C is four.	ex-or: the vowel after the ks lasts 0.40 s here; 0.17 s in the quoted read the score chose
+02_5	2	What's five ex-oar seven?	ex-or: the vowel after the ks lasts 0.22 s here, the longest of the four reads (0.10-0.20 s in the others)
+02_6	3	Two ex-oar seven is five again.	ex-or: the vowel after the ks lasts 0.40 s here; 0.22 s in the read the score chose
+15_7	1	“With three pieces, add P, equal to A ex-oar B ex-oar C.”	ex-or: 0.25 s and 0.30 s here; the colon read the score chose has 0.16 s before C and its final C stops dead
+15_7	2	Then A ex-oar B ex-oar C ex-oar P is always zero.	ex-or: 0.32, 0.27 and 0.28 s here; 0.25, 0.20 and 0.20 s in the read the score chose
+16_3	1	“Here the leftover card — B ex oar E is fifteen — gives c as seven.”	ex-or: the vowel after the ks lasts 0.28 s here; 0.17 s in the read the score chose, which the ASR also heard as "Hear the leftover card."
+17_2	0	One more ex-oar packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six.	ex-or: the vowel after the ks lasts 0.35 s here; about 0.20 s in the read the score chose; "byte card" is also heard right here
+# Round 2 (fourth build): an ending, a rate and a letter.
+17_6	0	It's in a standard for next-generation TV broadcasts.	the final s of "broadcasts" is whole here and decays; the quoted read the score chose ends in a 50 ms stub of it at the end of the take, and the line ASR heard "broadcast"
+12_2	1	‘What will the table look like?’	rate: 5.3 syllables a second here, 6.7 in the read the score chose (rushed)
+16_5	0	“With ex-oar, A, met itself and cancelled.”	the piece name A is a full "ay" here (0.3 s, the second formant arcing up to 2.6 kHz; the ASR writes a capital A); in every other read it is a 70 ms "uh" before the m of "met", and with those the line ASR wrote "With XOR, met itself". ex-or: the vowel after the ks lasts 0.25 s. Cost: a 0.15 s break after A, and the sentence ends 1.8 semitones up
+# Round 3 (sheets of the seventh build): starts, a pause, an ending and a rate.
+03_6	2	“Is it useful?”	"Is it" takes 0.25 s here and nothing sounds before it; the plain read the score chose says the whole question in 0.70 s ("Is it" in 0.15 s) after 0.1 s of haze
+03_9	1	(This video is about the arithmetic inside it.)	nothing sounds before "This" here; the read the score chose keeps a 0.06 s blip at speech level and a hole of silence before the first word
+10_6	2	“So bytes form a field: the byte field.”	0.12 s is kept before "So" here; the read the score chose keeps 0.4 s of the noise bed before it, about 20 dB under the speech
+10_2	1	“Under that fold: what's three times two fifty-five?”	the pause after "fold" is 0.56 s here; 0.83 s, filled with haze, in the read the score chose
+07_4	0	“So a card saying ‘two times A is six’ can't tell you A.”	the final A decays to silence here; in the read the score chose it stops as a hard edge, and hiss runs into "So"

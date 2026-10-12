@@ -2,34 +2,81 @@
 # Each keeps the sentence's meaning and its on-screen claims. Pass 1 with leo (2026-10-11) flagged the base reads:
 # a misparse, a word-boundary collision, a piece name A reduced to "it", a hesitation, or a rushed or stalled read.
 # A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
+#
+# Director pass, 2026-10-12: an alternate keeps EVERY word of its script sentence, in order; only punctuation
+# that is still correct written English changes. The renderer refuses narration whose words differ from
+# script.tsv, and three reworded alternates had won their slots (08_1/1, 15_4/0, 16_5/0). The pass-1 rows
+# that change a word are retired below (kept as comments; their takes stay on disk).
 01_2	1	The secret is a kind of arithmetic where three times seven is nine.
-02_3	2	Ex-or is the name of the mixing move.
 02_3	2	The mixing move is called ex-or, and it works like this.
-02_4	0	Line up two numbers in bits.
 02_4	0	Line up the two numbers in bits.
-03_3	1	Ex-or card one with card three, and piece A cancels.
 03_3	1	Ex-or card one with card three, and the A cancels.
-03_6	2	Is this one useful?
-08_1	1	On a seven-hour clock, three times which number is one?
 08_1	1	On a seven-hour clock, what times three is one?
 09_1	0	So we need a field with two hundred fifty-six members.
 09_2	0	Remember the place values, one, two, four, and eight?
 12_1	3	And it looks like noise.
-12_1	3	It just looks like noise.
 12_4	1	Each stripe holds one total of clicks.
 13_6	3	The byte cards rarely need even one.
-14_1	1	If every card uses every piece, solving takes about the number of pieces, cubed, over three.
 14_1	1	Solving cards that each use every piece takes about the number of pieces cubed, over three.
 16_4	1	Let a new byte card replace the fifth card, E plus two times A is six.
-16_4	3	Does piece A cancel this time?
-16_4	3	This time, does A cancel?
-16_5	0	With ex-or, piece A met itself and cancelled.
 16_5	1	Now one A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three.
 05_4	2	At the last slot, one time in two.
 07_6	0	That's the coin flip from ex-or again.
-13_6	3	Cards with byte amounts rarely need even one.
-16_4	3	Does the A cancel this time?
 16_4	3	This time, does the A cancel?
-16_5	0	With ex-or, the A met itself and cancelled.
-15_4	0	What if those last cards were ex-or cards as well?
 15_4	0	What if those last cards were plain ex-or cards?
+#
+# Retired (a changed word):
+# 02_3	2	Ex-or is the name of the mixing move.
+# 02_4	0	Line up two numbers in bits.
+# 03_3	1	Ex-or card one with card three, and piece A cancels.
+# 03_6	2	Is this one useful?
+# 08_1	1	On a seven-hour clock, three times which number is one?
+# 12_1	3	It just looks like noise.
+# 14_1	1	If every card uses every piece, solving takes about the number of pieces, cubed, over three.
+# 16_4	3	Does piece A cancel this time?
+# 16_4	3	This time, does A cancel?
+# 16_4	3	Does the A cancel this time?
+# 16_5	0	With ex-or, piece A met itself and cancelled.
+# 16_5	0	With ex-or, the A met itself and cancelled.
+# 13_6	3	Cards with byte amounts rarely need even one.
+# 15_4	0	What if those last cards were ex-or cards as well?
+#
+# Director pass, round 1 (2026-10-12, new engine: every read also auditioned in quotation marks).
+# Reads that ftts stopped inside the last word (cut_short): another read of the same words.
+07_3	0	The top bit slides off the end — and it's gone.
+07_3	0	The top bit slides off the end and it's gone.
+07_4	0	So, a card saying two times A is six can't tell you A.
+07_4	0	So a card saying ‘two times A is six’ can't tell you A.
+08_2	1	Every row of its times table — except zero's — is a reshuffle of all seven values.
+08_2	1	Every row of its times table (except zero's) is a reshuffle of all seven values.
+10_2	1	Under that fold: what's three times two fifty-five?
+13_5	0	So, every extra byte card divides the risk by two fifty-six.
+14_3	1	Each dot is a card — and each line goes to a piece it uses.
+14_3	1	Each dot is a card and each line goes to a piece it uses.
+14_3	4	This is called ‘peeling’.
+17_2	1	So, how many failures now?
+17_5	0	The originals can go first — unchanged — so a phone with a clean connection does no decoding at all.
+17_5	0	The originals can go first, unchanged; so a phone with a clean connection does no decoding at all.
+# Lines whose ASR repeated a clause at the end of the line (15_3), or heard a wrong word (05_4 "and two").
+15_3	2	The byte cards fill those — where a card is useless only one time in two fifty-six.
+15_3	1	Count the ex-or cards first — and they almost always fill it up to the last ten to sixteen slots.
+05_4	2	At the last slot: one time in two.
+# ex-or with a short second syllable (the vowel after the ks under 0.22 s in the chosen read): more reads.
+15_7	1	With three pieces, add P: equal to A ex-or B ex-or C.
+16_3	1	Here the leftover card — B ex-or E is fifteen — gives c as seven.
+16_5	1	Now one A plus two A is three A — because adding amounts is ex-or too, and one ex-or two is three.
+16_2	2	D is six ex-or B ex-or c; so the two c's cancel, and D is two.
+13_7	1	A card whose amounts are only zeros and ones is still an ex-or card — even in the byte field.
+17_2	0	One more ex-or packet usually fills one more slot — leaving a byte card spare — and that divides the risk by about two fifty-six.
+# Flat, rushed or wrongly rising reads.
+05_2	3	Call it: the ex-or lottery.
+10_6	2	So bytes form a field: the byte field.
+17_3	1	Two extra: just once.
+16_4	3	This time — does the A cancel?
+06_6	0	Then a byte times a byte must give a byte — and we must be able to undo it.
+07_5	0	Even amounts lose information — like two did.
+04_5	0	Four lit corners, out of eight.
+# Round 2 (sheets of the second build): a stall after "so" with no break at the comma; a rushed second half; a level number.
+16_3	2	It's elimination in a clever order — so it works exactly when the cards pin down every piece.
+16_1	3	Call it little c, and carry it along, like an unknown in algebra.
+01_8	0	On average — about ninety-eight thousand.

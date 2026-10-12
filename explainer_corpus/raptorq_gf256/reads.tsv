@@ -1,0 +1,106 @@
+# Extra ftts inputs (tools/narration.py, director_files): <line_id> TAB <sentence index> TAB <ftts input>.
+# The input goes to ftts only; the sentence's text stays the script's. Director pass 2026-10-12, voice leo:
+# sentences with no punctuation variant that is correct English, read again inside other marks.
+# 04_4/3: cut short: the s of "useless" is 0.1 s and stops dead
+04_4	3	‘What's the chance it's useless?’
+04_4	3	"What's the chance it's useless?"
+04_4	3	(What's the chance it's useless?)
+# 06_1/0: flagged cut short
+06_1	0	‘Spares help.’
+06_1	0	"Spares help."
+06_1	0	(Spares help.)
+# 09_5/3: flagged cut short
+09_5	3	‘Nine.’
+09_5	3	"Nine."
+09_5	3	(Nine.)
+# 12_0/0: cut short inside "multiplies" (no final s), and a murmur before "That's"
+12_0	0	‘That's how the standard multiplies.’
+12_0	0	"That's how the standard multiplies."
+12_0	0	(That's how the standard multiplies.)
+# 13_1/1: the s of "exists" stops dead
+13_1	1	‘This design really exists.’
+13_1	1	"This design really exists."
+13_1	1	(This design really exists.)
+# 13_4/0: the s of "six" runs into the end of the take
+13_4	0	‘Only one time in two fifty-six.’
+13_4	0	"Only one time in two fifty-six."
+13_4	0	(Only one time in two fifty-six.)
+# 13_5/0: the s of "six" runs into the end of the take
+13_5	0	‘So every extra byte card divides the risk by two fifty-six.’
+13_5	0	"So every extra byte card divides the risk by two fifty-six."
+13_5	0	(So every extra byte card divides the risk by two fifty-six.)
+# 14_2/1: the s of "pieces" stops dead
+14_2	1	‘Each card mixes only a few pieces.’
+14_2	1	"Each card mixes only a few pieces."
+14_2	1	(Each card mixes only a few pieces.)
+# 15_2/2: flagged cut short
+15_2	2	‘Even one that no packet mixed sits in an equation that can pin it down.’
+15_2	2	"Even one that no packet mixed sits in an equation that can pin it down."
+15_2	2	(Even one that no packet mixed sits in an equation that can pin it down.)
+# 06_3/2: "million" cut at full level, and it ends rising
+06_3	2	‘Twenty make about a million.’
+06_3	2	"Twenty make about a million."
+06_3	2	(Twenty make about a million.)
+# 16_2/3: the final "D" cut at full level
+16_2	3	‘And E follows from D.’
+16_2	3	"And E follows from D."
+16_2	3	(And E follows from D.)
+# 13_7/3: "amounts" has no final ts
+13_7	3	‘All the gain comes from the other two fifty-four amounts.’
+13_7	3	"All the gain comes from the other two fifty-four amounts."
+13_7	3	(All the gain comes from the other two fifty-four amounts.)
+# 11_6/6: the s of "six" holds full level to the last sample
+11_6	6	‘Twenty-six.’
+11_6	6	"Twenty-six."
+11_6	6	(Twenty-six.)
+# 10_3/3: a low burst after "again" is kept
+10_3	3	‘Two fifty-six was two times one twenty-eight all over again.’
+10_3	3	"Two fifty-six was two times one twenty-eight all over again."
+10_3	3	(Two fifty-six was two times one twenty-eight all over again.)
+# 03_9/1: rushed: 15 syllables in 2.25 s
+03_9	1	‘This video is about the arithmetic inside it.’
+03_9	1	"This video is about the arithmetic inside it."
+03_9	1	(This video is about the arithmetic inside it.)
+# 07_2/1: rushed: four words in 0.6 s (also 09_4/2)
+07_2	1	‘What do you get?’
+07_2	1	"What do you get?"
+07_2	1	(What do you get?)
+# 11_4/0: "around" rises 150 to 220 Hz: sounds like a question
+11_4	0	‘Times two is one click around.’
+11_4	0	"Times two is one click around."
+11_4	0	(Times two is one click around.)
+# 11_5/3: rushed beside its sibling answers
+11_5	3	‘Fifty-eight.’
+11_5	3	"Fifty-eight."
+11_5	3	(Fifty-eight.)
+# 12_2/1: rushed
+12_2	1	‘What will the table look like?’
+12_2	1	"What will the table look like?"
+12_2	1	(What will the table look like?)
+# 15_7/4: rushed
+15_7	4	‘It's a free card.’
+15_7	4	"It's a free card."
+15_7	4	(It's a free card.)
+# 16_2/2: the second ex-or (before C) is 0.14-0.16 s in every read so far: a comma after B for ftts only.
+16_2	2	“D is six ex-oar B, ex-oar C, so the two C's cancel, and D is two.”
+16_2	2	“D is six, ex-oar B, ex-oar C, so the two C's cancel, and D is two.”
+# Round 2 (third build).
+# 17_2/1: "now" is cut at full level in the chosen read and ends rising.
+17_2	1	‘So how many failures now?’
+17_2	1	"So how many failures now?"
+17_2	1	(So how many failures now?)
+# 17_6/0: the final s of "broadcasts" is a 50 ms stub at the end of the take; the line ASR heard "broadcast".
+17_6	0	‘It's in a standard for next-generation TV broadcasts.’
+17_6	0	"It's in a standard for next-generation TV broadcasts."
+17_6	0	(It's in a standard for next-generation TV broadcasts.)
+# 03_2/1: the final s of "piece" ends as a hard edge.
+03_2	1	‘A row per card, and a dot where it uses a piece.’
+03_2	1	"A row per card, and a dot where it uses a piece."
+# 15_7/1: the final "C" stops dead at full level in both reads with the long ex-or vowels.
+15_7	1	‘With three pieces, add P, equal to A ex-oar B ex-oar C.’
+15_7	1	"With three pieces, add P, equal to A ex-oar B ex-oar C."
+15_7	1	(With three pieces, add P, equal to A ex-oar B ex-oar C.)
+# 16_5/0: the piece name A is a 70 ms "uh" in the chosen read (the ASR writes "a met itself" for every read).
+16_5	0	With ex-oar, ‘A’ met itself and cancelled.
+16_5	0	“With ex-oar, A, met itself and cancelled.”
+16_5	0	“With ex-oar: A met itself and cancelled.”

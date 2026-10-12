@@ -68,6 +68,14 @@
      "EKS-or": "candidate FAIL 0/3",
      "Zor": "decoy OK (heard differently) 0/3"
     }
+   },
+   "acoustic": {
+    "date": "2026-10-12",
+    "voice": "leo",
+    "method": "0-4 kHz spectrogram crops of every occurrence in the chosen reads (37 in 31 sentences), read by eye in each of three builds; a band-energy track (80-1300 Hz against 1300-4000 Hz, 5 ms frames) beside them as a pointer. Length = from the end of the ks to where the second formant leaves the band under 1.3 kHz (the next sound). Evidence for the eye, about +-0.04 s.",
+    "seen": "With ex-oar and ex oar the second vowel is an 'oar' everywhere: its energy stays under 1.3 kHz for its whole length, the third formant falling at its end; no read has the 'er' of the first cut. Its length depends on the sentence, not on the spelling: 0.23-0.45 s in running sentences, 0.15-0.20 s in some reads of tight formulas ('B ex-or C', 'one ex-or two', 'B ex-or E'). Hyphen and space each win in some sentences. Quoted reads are often shorter (quoted 'B ex-oar C is four.' 0.17 s, plain 0.40 s).",
+    "probe": "Eight other spellings in three quoted carriers ('B _ C is four.', 'Then A _ B _ C _ P is always zero.', \"What's five _ seven?\"): ex-ore, ex ore, ex-orr, ecks-ore, ex-awr, ex OR, ex-OR, ex-OAR. None was reliably longer than ex-oar; ex-orr and ecks-ore added pauses, ex-awr was heard 'XR', ex-OAR was read with extra syllables. The respellings stay ex-oar and ex oar.",
+    "fix": "The chooser's rate term prefers the faster read, which is the one with the short vowel. Where a longer read existed it is named in picks.tsv (8 sentences). What stays under 0.22 s is listed in the director's report."
    }
   },
   "Ex-or": {
@@ -565,6 +573,12 @@
   "7th": "seventh",
   "4th": "fourth",
   "read solomon": "reed solomon",
-  "2x128": "two times one twenty eight"
- }
+  "2x128": "two times one twenty eight",
+  "two fifty six, and they fill it up to the last 10 to 16 slots.": "two fifty six.",
+  "7/8": "seven eighths",
+  "6/8": "six eighths",
+  "4/8": "four eighths",
+  "is it useful? is it useful?": "is it useful?"
+ },
+ "_phrases_note": "Director pass, leo, 2026-10-12. The last phrase undoes a repeat that fw adds at the end of line 15_3: after '...one time in 256' the line transcript goes on ', and they fill it up to the last 10 to 16 slots.', a clause of the sentence before. The sheet shows one utterance (the last sentence is 5.0 s for its 22 syllables) and every repeated word has a 1 ms time at the last sample of the file (17.242-17.251 s); the take's own transcript has no repeat. The same thing happened on 03_6 ('Is it useful? Is it useful?', the second copy at 4.700-4.702 s of a 4.75 s line) until another read of its middle sentence was chosen; no phrase was needed there. The fractions 7/8, 6/8 and 4/8 are how fw writes 05_2's 'Seven eighths, times six eighths, times four eighths.'; the edges gate looked for the word 'eighths' at the sentence's end. In the take the last word is whole: its 'ths' runs 0.15 s and decays about 20 dB before the file ends. 'is it useful? is it useful?': with the quoted read of 03_6's last sentence fw writes the question twice, the second copy with 1 ms word times at the last sample of the line (4.700-4.702 s of 4.75 s); the sheet shows one utterance of 0.9 s."
 }
