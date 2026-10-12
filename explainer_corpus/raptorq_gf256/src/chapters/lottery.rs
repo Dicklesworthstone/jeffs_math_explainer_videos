@@ -325,9 +325,9 @@ fn meter(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let x_label = kit.text(
         stage,
         "slots already filled",
-        24.0,
-        Palette::dim(),
-        v(chart.center[0], chart.bottom() - 0.35),
+        48.0,
+        Palette::ink(),
+        v(chart.center[0], chart.bottom() - 0.5),
     )?;
     let axis = group_of(stage, &[base, x_label])?;
     let bar_for = |stage: &mut Stage<'_>, held: u32| -> fmn::Result<Mob> {

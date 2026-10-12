@@ -279,20 +279,8 @@ impl SceneConstruct for Cube {
         let targets: Vec<u32> = (0..DARTS).map(|_| (rng.next_u64() % 8) as u32).collect();
         // a tally of where they land, dots and no digits: lit, or dark
         let tally_x = 3.2;
-        let lit_row = kit.text_hud(
-            stage,
-            "lands on a lit corner (useless):",
-            26.0,
-            Role::lit(),
-            v(tally_x, 1.2),
-        )?;
-        let dark_row = kit.text_hud(
-            stage,
-            "on a dark corner (useful):",
-            26.0,
-            Role::ex_or(),
-            v(tally_x, 0.4),
-        )?;
+        let lit_row = kit.text_hud(stage, "lit corner:\nuseless", 52.0, Role::lit(), v(tally_x, 1.5))?;
+        let dark_row = kit.text_hud(stage, "dark corner:\nuseful", 52.0, Role::ex_or(), v(tally_x, -0.45))?;
         for m in [lit_row, dark_row] {
             let y = stage.get_center(m)[1];
             stage.move_to(m, v(tally_x, y), LEFT);
@@ -316,7 +304,11 @@ impl SceneConstruct for Cube {
             play!(stage; fly);
             let useless = bucket.can_make(t);
             let landed = if useless { Role::lit() } else { Role::ex_or() };
-            let (row, n) = if useless { (1.2, &mut lit_n) } else { (0.4, &mut dark_n) };
+            let (row, n) = if useless {
+                (1.2, &mut lit_n)
+            } else {
+                (-0.75, &mut dark_n)
+            };
             let tally = Dot::new()
                 .point(v(tally_x + 0.25 + 0.32 * f64::from(*n), row - 0.4))
                 .radius(0.09)

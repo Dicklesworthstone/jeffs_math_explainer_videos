@@ -31,8 +31,8 @@ const TWO: u8 = 2;
 const FOUR: u8 = 4;
 const THREE: u8 = 3;
 const ONE_FIFTY: u8 = 150;
-/// The clicks the ruler of 11_5 shows: 0 … 12.
-const RULER: usize = 13;
+/// The clicks the ruler of 11_5 shows: 0 … 10, one past its answer.
+const RULER: usize = 11;
 /// The doubling steps 11_1 names before asking what comes next.
 const NAMED: usize = 8;
 
@@ -428,6 +428,7 @@ impl SceneConstruct for TheByteClock {
         );
         play!(stage; write(stage.arena(), powers).rt(0.9), fade_in(stage.arena_mut(), ints, ORIGIN, 1.0)?.rt(0.9));
         ruler.show(stage)?;
+        kit.until_sentence(stage, "11_5", 1)?;
         let ask = kit.tex(
             stage,
             &format!(r"{a} \times {b}"),
@@ -436,12 +437,20 @@ impl SceneConstruct for TheByteClock {
             &[],
             v(4.1, -1.15),
         )?;
-        play!(stage; write(stage.arena(), ask).rt(0.6));
+        play!(stage;
+            write(stage.arena(), ask).rt(0.6),
+            fade_out(stage.arena_mut(), powers, ORIGIN, 1.0)?.rt(0.4),
+            fade_out(stage.arena_mut(), ints, ORIGIN, 1.0)?.rt(0.4),
+        );
+        kit.until_sentence(stage, "11_5", 2)?;
+        ruler.focus(stage, ka)?;
         let hop1 = ruler.hop(&kit, stage, 0, ka, &format!("{ka} clicks"))?;
         play!(stage; tween(click, ka as f64, 1.0)?, show_creation(hop1).rt(1.0));
+        ruler.focus(stage, kb)?;
         let hop2 = ruler.hop(&kit, stage, ka, ka + kb, &format!("+{kb}"))?;
         play!(stage; tween(click, (ka + kb) as f64, 0.7)?, show_creation(hop2).rt(0.7));
-        play!(stage; indicate(stage.arena_mut(), ruler.bytes[ka + kb], 1.5, Some([1.0, 0.85, 0.4]))?.rt(0.8));
+        ruler.focus(stage, ka + kb)?;
+        kit.until_sentence(stage, "11_5", 3)?;
         let sum = kit.tex(
             stage,
             &format!(r"{ka} + {kb} = {} \text{{ clicks}} \to {product}", ka + kb),
@@ -788,9 +797,10 @@ fn inner_marks(kit: &Kit, stage: &mut Stage<'_>, tracker: Mob, marks: &[(u8, usi
     })
 }
 
-/// 11_5's ruler: clicks 0 … 12 over the bytes they reach (OCT_EXP's first
-/// thirteen entries), magnifying the top of the clock.
+/// 11_5's ruler: clicks 0 … 10 over the bytes they reach (OCT_EXP's first
+/// eleven entries), magnifying the top of the clock.
 struct Ruler {
+    clicks: Vec<Mob>,
     bytes: Vec<Mob>,
     all: Vec<Mob>,
     x0: f64,
@@ -801,26 +811,29 @@ const RULER_Y: f64 = 0.7;
 
 impl Ruler {
     fn build(kit: &Kit, stage: &mut Stage<'_>, exp: &[u8; 255]) -> fmn::Result<Self> {
-        let (x0, step) = (1.45, 0.43);
+        let (x0, step) = (0.98, 0.58);
         let (mut clicks, mut bytes, mut all) = (Vec::new(), Vec::new(), Vec::new());
+        let log = logs();
+        let (ka, kb) = (
+            usize::from(log[exp[NAMED - 1] as usize]),
+            usize::from(log[FOUR as usize]),
+        );
+        let named = [ka, kb, ka + kb];
         for (k, byte) in exp.iter().take(RULER).enumerate() {
             let x = x0 + step * k as f64;
-            clicks.push(kit.text(stage, &k.to_string(), 22.0, Palette::dim(), v(x, RULER_Y + 0.3))?);
-            bytes.push(kit.text(stage, &byte.to_string(), 22.0, Role::byte(), v(x, RULER_Y - 0.3))?);
+            // Enlarge the columns this example reads; the neighbours keep
+            // the ruler's context without crowding a three-digit byte.
+            let size = if named.contains(&k) { 44.0 } else { 22.0 };
+            clicks.push(kit.text(stage, &k.to_string(), size, Palette::ink(), v(x, RULER_Y + 0.4))?);
+            bytes.push(kit.text(stage, &byte.to_string(), size, Role::byte(), v(x, RULER_Y - 0.4))?);
         }
-        let line = Line::new(v(x0 - 0.25, RULER_Y), v(x0 + step * (RULER - 1) as f64 + 0.25, RULER_Y))
+        let line = Line::new(v(x0 - 0.25, RULER_Y), v(x0 + step * (RULER - 1) as f64 + 0.12, RULER_Y))
             .style(stroke_style(Palette::faint(), 2.0))
             .build()?;
         let line = stage.arena_mut().add(line);
         // the row title sits past the hops' arcs (they end at click 9)
-        let head_c = kit.text(
-            stage,
-            "clicks",
-            22.0,
-            Palette::dim(),
-            v(x0 + step * 11.0, RULER_Y + 0.7),
-        )?;
-        let head_b = kit.text(stage, "bytes", 22.0, Role::byte(), v(x0 + step * 6.0, RULER_Y - 0.7))?;
+        let head_c = kit.text(stage, "clicks", 44.0, Palette::ink(), v(x0 + step * 9.0, RULER_Y + 1.8))?;
+        let head_b = kit.text(stage, "bytes", 44.0, Role::byte(), v(x0 + step * 6.0, RULER_Y - 0.85))?;
         // the magnifier: the clock's first clicks point to the ruler's left
         // end; a line to its right end ran through the digit row (R4 M1)
         let lens_to = v(x0 - 0.25, RULER_Y);
@@ -834,7 +847,23 @@ impl Ruler {
         all.extend(&clicks);
         all.extend(&bytes);
         all.extend([line, head_c, head_b, lens_a, lens_b]);
-        Ok(Self { bytes, all, x0, step })
+        Ok(Self {
+            clicks,
+            bytes,
+            all,
+            x0,
+            step,
+        })
+    }
+
+    /// Light both the click count and the byte it reaches, so the viewer
+    /// reads a column rather than confusing clicks with byte values.
+    fn focus(&self, stage: &mut Stage<'_>, k: usize) -> fmn::Result<()> {
+        play!(stage;
+            indicate(stage.arena_mut(), self.clicks[k], 1.08, Some([1.0, 0.85, 0.4]))?.rt(0.45),
+            indicate(stage.arena_mut(), self.bytes[k], 1.08, Some([1.0, 0.85, 0.4]))?.rt(0.45),
+        );
+        Ok(())
     }
 
     fn show(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -864,7 +893,7 @@ impl Ruler {
         let arc = stage.arena_mut().add(arc);
         // the arc's height over its chord (sagitta) for a 1.4 rad arc
         let rise = (b - a) / 2.0 * (1.4f64 / 4.0).tan();
-        let l = kit.text(stage, label, 22.0, Role::byte(), v((a + b) / 2.0, y + rise + 0.2))?;
+        let l = kit.text(stage, label, 44.0, Role::byte(), v((a + b) / 2.0, y + rise + 0.3))?;
         group_of(stage, &[arc, l])
     }
 }
@@ -903,6 +932,46 @@ fn table_code() -> Vec<Vec<Seg>> {
 mod tests {
     use super::*;
     use crate::model::inv;
+
+    #[test]
+    fn ruler_columns_are_legible_without_touching_their_neighbours() {
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let exp = exps();
+                let r = Ruler::build(&kit, stage, &exp)?;
+                for row in [&r.clicks, &r.bytes] {
+                    for pair in row.windows(2) {
+                        assert!(
+                            stage.get_right(pair[0])[0] + 0.10 < stage.get_left(pair[1])[0],
+                            "ruler digits need a readable gap"
+                        );
+                    }
+                }
+                let log = logs();
+                let (ka, kb) = (
+                    usize::from(log[exp[NAMED - 1] as usize]),
+                    usize::from(log[FOUR as usize]),
+                );
+                for k in [ka, kb, ka + kb] {
+                    assert!(
+                        stage.get_height(r.clicks[k]) > 0.25,
+                        "spoken click must read on a phone"
+                    );
+                    assert!(stage.get_height(r.bytes[k]) > 0.25, "spoken byte must read on a phone");
+                }
+                Ok(())
+            }
+        }
+        fmn::run_scene(
+            &mut Probe,
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("real ruler geometry");
+    }
 
     #[test]
     fn every_partner_sits_at_minus_its_clicks_mod_255_and_1_is_its_own() {

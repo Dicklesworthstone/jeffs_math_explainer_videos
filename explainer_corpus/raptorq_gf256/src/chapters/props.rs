@@ -172,10 +172,10 @@ impl DangerMeter {
         });
         let title = kit.text(
             stage,
-            "danger: chance a new card is useless",
-            22.0,
-            Palette::dim(),
-            v(bucket.centre[0], y + 0.36),
+            "chance of a\nuseless card",
+            44.0,
+            Palette::ink(),
+            v(bucket.centre[0], y + 0.72),
         )?;
         let group = group_of(stage, &[track, title])?;
         Ok(Self {
@@ -245,7 +245,9 @@ impl RiskLadder {
             } else {
                 format!("1/{}", explainer_kit::thousands(10u64.pow(d)))
             };
-            parts.push(kit.text_left(stage, &label, 22.0, Palette::dim(), v(x - 1.85, y))?);
+            let text = kit.text(stage, &label, 44.0, Palette::ink(), v(x - 0.35, y))?;
+            stage.move_to(text, v(x - 0.35, y), RIGHT);
+            parts.push(text);
         }
         parts.push(kit.text_styled(stage, "model", 24.0, Palette::dim(), v(x, top + 0.4), false, true)?);
         let group = group_of(stage, &parts)?;
@@ -288,7 +290,7 @@ impl RiskLadder {
                 .style(line_style(Palette::ink(), 3.0))
                 .build()?,
         );
-        let text = kit.text(stage, label, 24.0, Palette::ink(), v(self.x - 0.6, y))?;
+        let text = kit.text(stage, label, 48.0, Palette::ink(), v(self.x - 0.6, y))?;
         stage.move_to(text, v(self.x - 0.4, y), RIGHT);
         group_of(stage, &[line, text])
     }
@@ -461,6 +463,11 @@ mod tests {
             let kit = Kit::new()?;
             let b = BucketProp::build(stage, 10, v(0.0, -0.5), 2.0, 4.0)?;
             let m = DangerMeter::on(&kit, stage, &b, 0.0)?;
+            let title = explainer_kit::children(stage, m.group)[1];
+            assert!(
+                stage.get_bottom(title)[1] > stage.get_top(m.track)[1] + 0.08,
+                "the explanation needs daylight above the meter"
+            );
             stage.add_to_scene(m.fill)?;
             stage.play(m.to(0.5, 0.3)?)?;
             assert!((stage.tracker_value(m.chance).unwrap() - 0.5).abs() < 1e-9);
@@ -480,6 +487,19 @@ mod tests {
             // a halving is the same step anywhere on the scale
             let step = |p: f64| l.y(p) - l.y(p / 2.0);
             assert!((step(0.5) - step(1e-4)).abs() < 1e-12);
+            Ok(())
+        });
+    }
+
+    #[test]
+    fn large_ladder_labels_fit_the_narrowest_chapter_margin() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            for (x, decades) in [(-3.5, 6), (-1.6, 8)] {
+                let l = RiskLadder::build(&kit, stage, v(x, 0.0), 5.8, decades)?;
+                assert!(stage.get_left(l.group)[0] > -7.0, "risk fractions leave the frame");
+                assert!(stage.get_right(l.group)[0] < 7.0);
+            }
             Ok(())
         });
     }

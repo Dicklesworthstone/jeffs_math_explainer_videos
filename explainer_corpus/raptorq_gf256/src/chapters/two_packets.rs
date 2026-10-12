@@ -375,7 +375,7 @@ impl TwoPackets {
             v(ladder.x - 3.0, ladder.top + 0.4),
         )?;
         play!(stage; fade_in(stage.arena_mut(), promise, ORIGIN, 1.0)?.rt(0.5));
-        let tags = ["exactly enough", "one extra", "two extra"];
+        let tags = ["exactly\nenough", "one\nextra", "two\nextra"];
         for (k, (&one_in, tag)) in RFC_ONE_IN.iter().zip(tags).enumerate() {
             match k {
                 1 => line.at(stage, 1)?,
@@ -384,8 +384,8 @@ impl TwoPackets {
             }
             let p = 1.0 / f64::from(one_in);
             let rung = ladder.rung(stage, p, Role::byte())?;
-            let t = kit.text(stage, tag, 26.0, Role::byte(), ORIGIN)?;
-            stage.move_to(t, v(ladder.x - 2.05, ladder.y(p)), RIGHT);
+            let t = kit.text(stage, tag, 44.0, Role::byte(), ORIGIN)?;
+            stage.move_to(t, v(ladder.x - 3.2, ladder.y(p)), RIGHT);
             play!(stage;
                 show_creation(rung).rt(0.5),
                 fade_in(stage.arena_mut(), t, v(0.15, 0.0), 1.0)?.rt(0.5),
@@ -572,8 +572,8 @@ impl TwoPackets {
         );
         // three times seven is nine
         line.at(stage, 2)?;
-        let secret = chalk(kit, stage, 150.0, v(2.1, -0.5))?;
-        play!(stage; write(stage.arena(), secret).rt(1.2));
+        let title_equation = chalk(kit, stage, 150.0, v(2.1, -0.5))?;
+        play!(stage; write(stage.arena(), title_equation).rt(1.2));
         kit.hold(stage)?;
         // the end card: the reason and the payoff stay, the receipts come in
         // under them, and the motif resolves over all three (the score's 17_7
@@ -594,7 +594,7 @@ impl TwoPackets {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             anims.push(stage.prepare(a.rt(0.6))?);
         }
-        for (m, to) in [(fold, v(0.0, 2.75)), (secret, v(0.0, 1.0))] {
+        for (m, to) in [(fold, v(0.0, 2.75)), (title_equation, v(0.0, 1.0))] {
             let a = m
                 .animate()
                 .set_anim_args(AnimateArgs {
