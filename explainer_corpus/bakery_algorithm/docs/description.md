@@ -382,8 +382,9 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 `(nj, j) > (t, i)` compares in dictionary order (Rust's documentation: "in
 PartialOrd and Ord, the elements are compared sequentially until the first
 non-equal set is found"), and the pairs never tie because j ≠ i. The maximum reads every slate once, its own included
-(it holds 0 at that point), so an entry makes 3N − 2 loads, 3(N − 1) of them of
-other customers' flags and slates. [C-S29, C-F12]
+(it holds 0 at that point), so an uncontended entry makes 3N − 2 loads,
+3(N − 1) of them of other customers' flags and slates. Waiting adds further
+loads as the loops repeat. [C-S29, C-F12]
 
 A trap from a TypeScript version of this lock: it compared pairs with
 `(t[j], j) < (t[i], i)`. In JavaScript that is the comma operator: each
@@ -396,9 +397,9 @@ C-S29]
 
 - **Customers are fixed in advance:** one flag and one slate per customer, 2N
   shared variables, N of them unbounded tickets.
-- **Every entry reads a lot, even alone:** each other customer's slate twice
-  (for the maximum and in the wait loop) and her flag once, 3(N − 1) reads.
-  [C-F12]
+- **Even an uncontended entry reads a lot:** each other customer's slate twice
+  (for the maximum and one wait-loop check) and her flag once, 3(N − 1) reads.
+  Waiting repeats the checks and adds reads. [C-F12]
 - **Waiting is spinning:** a waiting customer keeps re-reading.
 - **A customer frozen while choosing stalls everyone:** each other customer
   gets in at most once more, then nobody does. [C-X8]
