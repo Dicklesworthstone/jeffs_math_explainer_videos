@@ -1,5 +1,5 @@
 {
- "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write, first with robert on the GPU host and again on the build host with this video's voice, michael (2026-10-11, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries without a probe winner carry the decision and its reason. Edsger is not spoken (02_5 says 'Dijkstra'; ftts reads 'Edsger' as 'edger'). Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. Digit phrases (narration pass 2, 2026-10-11) map the ASR's digit spellings of numbers the script says ('31.5') to the script's own words, since the scorer would read them as 'thirty one point five'.",
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write, first with robert on the GPU host and again on the build host with this video's voice, michael (2026-10-11, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries without a probe winner carry the decision and its reason. Edsger is not spoken (02_5 says 'Dijkstra'; ftts reads 'Edsger' as 'edger'). Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. Digit phrases (narration pass 2, 2026-10-11) map the ASR's digit spellings of numbers the script says ('31.5') to the script's own words, since the scorer would read them as 'thirty one point five'. Edge phrases (director pass, 2026-10-12, read in the takes sheets): 01_7's second sentence starts on a voiced B with its pitch harmonics from the first frame, and the s of 'Blue's' runs into the s of 'steps', so the ASR writes 'Blue steps' or 'Lou's steps' for 'Blue's steps'; 08_7's 'fact two' is whole and the ASR writes the homophone 'fact too'.",
  "words": {
   "Lamport": {
    "respell": [
@@ -47,7 +47,8 @@
     "DYKE-struh"
    ],
    "accept": [
-    "dextra"
+    "dextra",
+    "deichstra"
    ],
    "probe": {
     "date": "2026-10-11",
@@ -79,7 +80,8 @@
      "Dayk-stra": "1552-1757 Hz; 1578->2100 in carrier 1",
      "plain and decoy": "plain 'Dijkstra' 1248 dipping to 1171; decoy DYKE-struh 1605 dipping to 1127, then rising (the /aɪ/ glide)",
      "verdict": "the three respellings start front and never dip below ~1550 Hz: DAYK, not DYKE; the plain spelling is read DYKE",
-     "script sentences": "02_5 and 02_7 takes (pass 2): DAYK-strah F1 497/477, F2 1847-1885 Hz (front-mid, clearest); Daykstrah F1 535/619, F2 1650-1690 rising to 2400+ (an /eɪ/ glide); Dayk-stra F1 660, F2 1552-1757 (between /ɛ/ and the /a/ of DYKE), the chooser's pick on ASR score alone, so it is no longer read"
+     "script sentences": "02_5 and 02_7 takes (pass 2): DAYK-strah F1 497/477, F2 1847-1885 Hz (front-mid, clearest); Daykstrah F1 535/619, F2 1650-1690 rising to 2400+ (an /eɪ/ glide); Dayk-stra F1 660, F2 1552-1757 (between /ɛ/ and the /a/ of DYKE), the chooser's pick on ASR score alone, so it is no longer read",
+     "line gate 2026-10-12": "The assembled 02_5 failed the line gate on the name: the take's ASR wrote 'Dijkstra', the line's ASR wrote 'Deichstra' for the same DAYK-strah read. Read in a spectrogram of the shipped line (0-4 kHz, 20 ms window): the first vowel holds F1 near 450-500 Hz with F2 starting about 1.9 kHz and rising to 2.3-2.5 kHz, a front /e\u026a/ (DAYK), not the /a\u026a/ of DYKE (F1 near 800, F2 near 1150); then k-s frication, t, and a full last vowel. 02_7's is the same (F2 1.85 rising to 2.5 kHz). So 'deichstra' is accepted as an ASR spelling; the ASR cannot tell DAYK from DYKE in this carrier either way (it writes 'Dijkstra' for the decoy), so the evidence for this name is the formants, not the gate."
     }
    },
    "note": "michael, 2026-10-11: plain is read the English way ('Dykstra' 3/3 in the script's sentences). In the script's own carriers Daykstrah and Dayk-stra were heard 'Dijkstra' where the decoy DYKE-struh was heard 'D.I. Strauss'/'Dykstra'; in '... in nineteen sixty-five' ASR writes 'Dijkstra' for the decoy too, so that carrier is checked acoustically (probe.acoustic). Dakestrah (robert's winner) was heard 'decastrophe'. Pass 2 (2026-10-11): in 02_5 and 02_7 ASR writes 'Dijkstra' for all three respellings, so the chooser cannot rank them; the acoustic check on those takes keeps DAYK-strah and Daykstrah."
@@ -462,6 +464,9 @@
   ]
  },
  "phrases": {
+  "blue steps": "blue's steps",
+  "lou's steps": "blue's steps",
+  "fact too": "fact two",
   "pak soj": "paxos",
   "spin lock": "spinlocks",
   "31.5": "thirty one and a half",
