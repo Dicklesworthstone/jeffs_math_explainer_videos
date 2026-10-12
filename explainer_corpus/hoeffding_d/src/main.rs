@@ -75,7 +75,7 @@ const EXPLAINER: Explainer = Explainer {
     identity: explainer_score::score::Identity::hoeffding,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_owner: Some(line_owner),
-    thumbnail: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 /// The same video with the v5 sound (see [`v5_sound`]).

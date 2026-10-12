@@ -11,6 +11,7 @@ pub mod outro;
 pub mod quadruples;
 pub mod ranks;
 pub mod shuffle;
+pub mod thumbnail;
 
 use explainer_kit::Chapter;
 
