@@ -4,9 +4,9 @@
 01_4	Two programs, running at once, share a scoreboard that reads forty-one. Programmers call it x, and write x equals x plus one. It isn't an equation. It means make x one bigger.
 01_5	That's two steps. Read the score, then write it back plus one.
 01_6	Here's one unlucky order. Each reads forty-one, and each writes forty-two. Two points scored, one counted.
-01_7	Draw every order at once, as staircases from corner to corner. There are six. How many lose a point?
+01_7	Draw every order at once, as staircases. Blue's steps go across, Green's go up, and the order we just saw is this staircase. There are six. How many lose a point?
 01_8	Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle.
-01_9	Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order.
+01_9	Counting orders isn't measuring chances, but a fix has to work in every order.
 02_1	The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room.
 02_2	Put a sign on the door. Check that it says vacant, flip it to occupied, and go in.
 02_3	Does the sign work?

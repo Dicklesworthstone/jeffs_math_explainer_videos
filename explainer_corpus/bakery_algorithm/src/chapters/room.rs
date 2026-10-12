@@ -5,7 +5,7 @@
 //! the hardware's magic sign and Dijkstra's ordinary ones (02_7), and the
 //! harder question: a sign caught mid-flip (02_8).
 
-use explainer_kit::props::{lower_third, predict_pause};
+use explainer_kit::props::{lower_third, names_to_search, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
@@ -282,8 +282,24 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
     let g_bad: Box<dyn Animation> = Box::new(g_bad);
     stage.play_prepared(vec![g_bad, tick])?;
     stage.scene_mut().bring_to_front(&ends)?;
+    // why 14 and not every way to mix 3 + 3 steps (R3 maya-07): a check
+    // that finds "occupied" waits, so some mixes can't run
+    let (mixes, runnable) = crate::facts::step_mixes(&sign_program());
+    if runnable != n {
+        return Err(super::draw::fail(format!(
+            "{runnable} mixes can run, but there are {n} orders"
+        )));
+    }
+    let why_1 = format!("{mixes} {}", g::MIXES_A);
+    let why_2 = format!("{} {} {}", g::MIXES_B, mixes - runnable, g::MIXES_C);
+    let why_1 = kit.text_left(stage, &why_1, 24.0, Palette::ink(), v(1.2, -0.45))?;
+    let why_2 = kit.text_left(stage, &why_2, 24.0, Palette::ink(), v(1.2, -0.83))?;
     let lower = lower_third(kit, stage, g::COUNTING, g::COUNTING_RULE)?;
-    play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6));
+    play!(stage;
+        fade_in(stage.arena_mut(), why_1, ORIGIN, 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), why_2, ORIGIN, 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6),
+    );
     kit.hold(stage)?;
     fade_all(stage, 0.7)?;
     Ok(())
@@ -387,6 +403,9 @@ fn magic(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let mut magic = sign(kit, stage, false, v(-3.6, 0.6), 1.15, true)?;
     let caption = kit.text(stage, g::MAGIC, 26.0, order_gold(), v(-3.6, -0.55))?;
     fade_in_all(stage, &magic.parts(), 0.6)?;
+    // what to type to find it (R3 dev-08)
+    let names = names_to_search(kit, stage, &[g::TEST_AND_SET, g::COMPARE_AND_SWAP])?;
+    play!(stage; fade_in(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.5));
     line.wait_for(stage, "check and flip")?;
     play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.4));
     magic.flip(kit, stage, true, 0.5)?;
@@ -403,7 +422,10 @@ fn magic(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     play!(stage; fade_in(stage.arena_mut(), plain, ORIGIN, 1.0)?.rt(0.4));
     line.wait_for(stage, "as long as nobody")?;
     let atomic = lower_third(kit, stage, g::THE_WORD, g::ATOMIC)?;
-    play!(stage; fade_in(stage.arena_mut(), atomic, ORIGIN, 1.0)?.rt(0.6));
+    play!(stage;
+        fade_out(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.4),
+        fade_in(stage.arena_mut(), atomic, ORIGIN, 1.0)?.rt(0.6),
+    );
     kit.hold(stage)?;
 
     // 02_8: a glance that catches a sign mid-flip, as a blur
@@ -454,7 +476,12 @@ fn magic(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         stage.set_opacity(gm, 0.35, true);
         ghosts.push(gm);
     }
-    let blur = group(stage, &ghosts)?;
+    // the ghosts are one blurred word: each nests in the one before, so the
+    // layout lint reads one text
+    for pair in ghosts.windows(2) {
+        stage.attach(pair[0], pair[1])?;
+    }
+    let blur = ghosts[0];
     play!(stage;
         fade_out(stage.arena_mut(), last.text, ORIGIN, 1.0)?.rt(0.4),
         fade_in(stage.arena_mut(), blur, ORIGIN, 1.0)?.rt(0.6),

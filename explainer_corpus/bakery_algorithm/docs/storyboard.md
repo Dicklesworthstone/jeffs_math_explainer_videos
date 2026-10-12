@@ -46,8 +46,8 @@ storage, "a thirty-two bit slate"), **ticket** (never "number"), **customer
 number** (always in full: bare "number" appears only in "take a number"; R2 M3,
 R8; customers are named by colour aloud), **pair** (a ticket with its
 customer number, defined aloud at 04_4), **glance** (a read), **flag**,
-**choosing** (the time a flag is up; Lamport's "doorway" appears once, on
-screen), **served** (going into the room), **outbox** (a store buffer; the
+**choosing** (the time a flag is up; Lamport's "doorway" is in the
+description only, R3 maya-11), **served** (going into the room), **outbox** (a store buffer; the
 real name once, on screen, at 12_2). **Atomic** is never spoken loosely: the
 02_7 lower-third defines it once ("a step nobody can catch halfway is called
 atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
@@ -63,14 +63,20 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 01_4 | Two programs, running at once, share a scoreboard that reads forty-one. Programmers call it x, and write x equals x plus one. It isn't an equation. It means make x one bigger. | Scoreboard; it takes the label "x" as the voice names it (M21); two lanes, Blue and Green; "time runs left to right; a read is an arrow in, a write is an arrow out" | **space-time lanes** |  |
 | 01_5 | That's two steps. Read the score, then write it back plus one. | Arrows on the lanes | step animation |  |
 | 01_6 | Here's one unlucky order. Each reads forty-one, and each writes forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
-| 01_7 | ⟨predict⟩ Draw every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in; lower-third "6 = C(4, 2): pick which 2 of the 4 steps are Blue's" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
+| 01_7 | ⟨predict⟩ Draw every order at once, as staircases. Blue's steps go across, Green's go up, and the order we just saw is this staircase. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the bottom side pulses on "across" and the left side on "up"; the order just shown is drawn as the first staircase and pulses, then the other five draw in (R3 maya-01); lower-third "6 ways to pick which 2 of the 4 steps are Blue's: C(4, 2)" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
-| 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back. But a fix has to work in every order. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
+| 01_9 | Counting orders isn't measuring chances, but a fix has to work in every order. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
 
 - **For programmers (lower-third):** even `add [x], 1` reads and writes
   separately unless it carries a lock prefix.
 - **Ruth:** six orders = C(4,2) interleavings of two 2-step programs (R11; on
   screen at 01_7 since R2, R14).
+- **01_7 (R3 maya-01):** the words now say how to read a staircase (Blue's
+  steps go across, Green's go up) and that the order just shown is one of
+  them; "from corner to corner" left the words to pay for it.
+- **01_9 (R3 ruth-06):** "Each program usually runs both steps back to
+  back" was an unmeasured rate; the sentence is cut (the strip still shows
+  the visits, labelled an illustration).
 - **01_9 (R2 dev-06; Codex R1, 2026-10-11):** no frequency claim: nothing in
   the repository measures how often a hot counter loses updates (bead
   mx-e-c-7v0.17 is the measurement), so the line ends on the correctness
@@ -86,10 +92,10 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 02_1 | The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room. | A room around the scoreboard; lower-third "critical section; the rule is called mutual exclusion" | room prop |  |
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, and go in. | Sign | sign prop |  |
 | 02_3 | ⟨predict⟩ Does the sign work? | The two lanes walk up to the sign | prediction card |  |
-| 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; lower-third "counting each read, write and successful wait as one step" | progress square |  |
+| 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; under the counts, a note "20 ways to mix the steps, but a check that finds occupied waits, so 6 can't happen" (`C-F2.step_mixes`, `C-F2.step_mixes_that_cannot_run`; R3 maya-07); lower-third "counting each read, write and successful wait as one step" | progress square |  |
 | 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who isn't trying to get in can stop without holding up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed, idle lane (not trying to get in) that the other passes; lanes stretching in time | pictograms |  |
 | 02_6 | A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually. | Pictogram 4: every lane eventually reaches the room | pictograms |  |
-| 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
+| 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, with the lower-third "names to search: test-and-set, compare-and-swap" (R3 dev-08), then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
 | 02_8 | Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
 
 - **Ruth:** the four rules as Lamport states Dijkstra's problem "as extended by
@@ -129,6 +135,10 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
   p. 455) and published in August 1974 (`C-F14.bakery_paper.year`); the card
   "Leslie Lamport, 1974" is the publication's date. No discovery month is
   inferred from the submission date.
+- **R3 (maya-08):** as the badges appear at 03_1, each customer's name and
+  number rolls in beside her ("Blue 1" … "Pink 5", on screen: a voiced roll
+  call would pass the chapter's cap); 04_4 shows a rewind mark while Pink,
+  Green and Blue get 04_2's tickets back.
 - **Facts to pin:** Blue (customer 1) reading 3, 0, 0, 2 → 4, served Pink,
   Green, Blue (M3 moved the reader off customer 4; C-F7 is recomputed for this
   example).
@@ -169,7 +179,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 05_5 | ⟨predict⟩ Same unlucky order, now with flags. What does Green do this time? | Scheduler slider replays the order: trace a's six steps in place, the flag steps slotted in, amber; any step count shown is 13, counted the 02_4 way (`C-F6.a_prime.steps_counted`; dev-10) | toggle replay |  |
 | 05_6 | She sees Blue's flag up, and waits. | Green waits | step-through |  |
 | 05_7 | Without flags, two customers visiting once have twenty-eight orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does. | The 28 staircases as strands, 4 through the red square; they collapse into a "28 orders, 4 bad" card; the lattice regrows to 7×7; the 322 draw in as edge ribbons with a lagged reveal and a counter (spike S-6); the both-inside point stays empty and pulses | **path sets (S-6 ribbons)** |  |
-| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag is not a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); on screen once, "Lamport calls this the doorway"; "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
+| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag is not a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); Lamport's word "doorway" stays in the description (one name per idea; R3 maya-11); "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
 | 05_9 | So two customers can still choose at once. The flag just shows who's choosing, and the tie-breaker settles equal tickets. | Thesis card; two flags up together, then two equal tickets settled by their badges | statement card | hold |
 
 - **Ruth:** C-F3 (no flag 28 / 4 bad; flag 322 / 0), C-F4 (three customers

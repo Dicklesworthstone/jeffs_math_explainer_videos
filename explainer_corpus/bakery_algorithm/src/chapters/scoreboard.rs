@@ -56,7 +56,7 @@ impl SceneConstruct for OnePlusOne {
         let square = staircases(&kit, stage, race)?;
         strip(&kit, stage, square)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.5)?;
+        fade_all(stage, 0.3)?;
         kit.finish(stage)
     }
 }
@@ -109,6 +109,9 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         })?
         .set_opacity(0.35)?;
     play!(stage; half, rub);
+    // the rubbed nine and the half-drawn ten are one numeral from here on
+    // (they move together, and the layout lint reads one text)
+    stage.attach(s.value, ten)?;
     // the glance
     line.wait_for(stage, "Glance at it")?;
     let eye_at = v(-4.7, 0.75);
@@ -160,7 +163,6 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     play!(stage;
         s.board.animate().shift(shift)?,
         s.value.animate().shift(shift)?,
-        ten.animate().shift(shift)?,
     );
     let blue = figure(kit, stage, 1, v(-5.4, at[1]), 1.3)?;
     let green = figure(kit, stage, 2, v(5.4, at[1]), 1.3)?;
@@ -209,7 +211,7 @@ fn title(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
         anims.push(stage.prepare(a.rt(0.6))?);
     }
     let w = write(stage.arena(), t);
-    anims.push(stage.prepare(w.rt(1.2))?);
+    anims.push(stage.prepare(w.rt(0.8))?);
     stage.play_prepared(anims)?;
     kit.listen(stage, 3.0, "01_3")?;
     Ok(t)
@@ -476,7 +478,18 @@ fn staircases(kit: &Kit, stage: &mut Stage<'_>, race: Race) -> fmn::Result<Squar
     let [start, end] = l.ends(FAN);
     let ends = [stage.arena_mut().add(start), stage.arena_mut().add(end)];
     fade_in_all(stage, &ends, 0.4)?;
-    play!(stage; show_creation(stairs[first]).rt(1.4));
+    // how to read it (R3 maya-01): Blue's steps go across, Green's go up,
+    // and the order just shown is this staircase
+    line.wait_for(stage, "Blue's steps go across")?;
+    let across = fmn::animation::indicate(stage.arena_mut(), race.blue_lane, 1.06, None)?;
+    stage.play(across.rt(0.8))?;
+    line.wait_for(stage, "Green's go up")?;
+    let up = fmn::animation::indicate(stage.arena_mut(), race.green_lane, 1.06, None)?;
+    stage.play(up.rt(0.8))?;
+    line.wait_for(stage, "the order we just saw")?;
+    play!(stage; show_creation(stairs[first]).rt(1.2));
+    let pulse = fmn::animation::indicate(stage.arena_mut(), stairs[first], 1.08, None)?;
+    stage.play(pulse.rt(0.8))?;
     stage.scene_mut().bring_to_front(&ends)?;
     line.wait_for(stage, "There are six")?;
     let others: Vec<Box<dyn Animation>> = (0..n)
@@ -490,7 +503,8 @@ fn staircases(kit: &Kit, stage: &mut Stage<'_>, race: Race) -> fmn::Result<Squar
     play!(stage; write(stage.arena(), count).rt(0.6));
     let total = steps * 2;
     let why = format!(
-        "{n} = C({total}, {steps}): {} {steps} {} {total} {}",
+        "{n} {} {} {steps} {} {total} {}: C({total}, {steps})",
+        g::WAYS_TO,
         g::PICK_A,
         g::PICK_B,
         g::PICK_C
@@ -696,7 +710,7 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
     )?;
     let note = kit.text(stage, g::STRIP_NOTE, 22.0, Palette::dim(), v(0.0, -0.45))?;
     play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.8));
-    line.wait_for(stage, "Each program usually")?;
+    line.wait_for(stage, "but a fix")?;
     let lower = lower_third(
         kit,
         stage,

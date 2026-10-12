@@ -33,6 +33,7 @@ pub const GREENS_STEPS: &str = "Green's steps";
 pub const ORDERS: &str = "orders";
 pub const LOSE_A_POINT: &str = "lose a point";
 pub const WHY_SIX: &str = "why six:";
+pub const WAYS_TO: &str = "ways to";
 pub const PICK_A: &str = "pick which";
 pub const PICK_B: &str = "of the";
 pub const PICK_C: &str = "steps are Blue's";
@@ -53,6 +54,13 @@ pub const BOTH_INSIDE: &str = "both inside";
 pub const PUT_BOTH_IN: &str = "put both in the room";
 pub const COUNTING: &str = "counting:";
 pub const COUNTING_RULE: &str = "each read, write and successful wait is one step";
+/// "{20} ways to mix the steps, but a check that / finds occupied waits, so
+/// {6} can't happen" (R3 maya-07), around its two counts.
+pub const MIXES_A: &str = "ways to mix the steps, but a check that";
+pub const MIXES_B: &str = "finds occupied waits, so";
+pub const MIXES_C: &str = "can't happen";
+pub const TEST_AND_SET: &str = "test-and-set";
+pub const COMPARE_AND_SWAP: &str = "compare-and-swap";
 pub const DIJKSTRA: &str = "Edsger W. Dijkstra";
 pub const KNUTH: &str = "Donald E. Knuth";
 pub const RULE_1: &str = "never two in the room";
@@ -457,6 +465,7 @@ pub const TEXT: &[&str] = &[
     ORDERS,
     LOSE_A_POINT,
     WHY_SIX,
+    WAYS_TO,
     PICK_A,
     PICK_B,
     PICK_C,
@@ -478,6 +487,11 @@ pub const TEXT: &[&str] = &[
     PUT_BOTH_IN,
     COUNTING,
     COUNTING_RULE,
+    MIXES_A,
+    MIXES_B,
+    MIXES_C,
+    TEST_AND_SET,
+    COMPARE_AND_SWAP,
     DIJKSTRA,
     KNUTH,
     RULE_1,
