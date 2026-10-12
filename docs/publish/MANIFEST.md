@@ -11,10 +11,14 @@ being corrected (review 2): the chooser now detects a missing final s/z from the
 docs/publish/codex-tts-audit-20261012.md.
 
 Channel: Jeff's Math Explainers (confirmed). Paths are relative to the repository root on the
-owner's Mac; renders and captions are not in git, the text files are. Every master listed as
-verified was rendered at 3840×2160, 60 fps, BT.709 and passed `verify_video.sh` with the delivery
-gates; its md5 here equals the verified master's on the build host. Originals and every uploaded
+owner's Mac; renders and captions are not in git, the text files are. Listed master candidates
+were rendered at 3840×2160, 60 fps, BT.709 and have recorded `verify_video.sh` results under their
+configured gates; each md5 here equals the checked master's on the build host. Originals and every uploaded
 review cut are kept: a corrected cut always goes to a new path.
+
+Bakery review 1's `VERIFY PASS` used the fixed-gain quiet-peak exception: −17.6 LUFS at −1.5 dBTP.
+This falls outside `AGENTS.md`'s literal −16 LUFS ±1 gate. Its quiet-level disposition and human
+narration/score listening and full-watch acceptance remain open; review-2 repairs require fresh qualification.
 
 ## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
