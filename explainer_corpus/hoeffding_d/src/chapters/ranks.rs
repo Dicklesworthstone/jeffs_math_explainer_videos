@@ -155,6 +155,10 @@ impl SceneConstruct for Ranks {
         }
         kit.say(stage, "r3")?;
         for (row, src, dst) in [(2usize, &xs, &rs), (3, &ys, &ss)] {
+            if row == 3 {
+                // "Then we do the same for weight."
+                kit.until_sentence(stage, "r3", 4)?;
+            }
             let (w, s) = row_labels[row];
             play!(stage; fade_in(stage.arena_mut(), w, ORIGIN, 1.0)?.rt(0.5), fade_in(stage.arena_mut(), s, ORIGIN, 1.0)?.rt(0.5));
             let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -165,7 +169,6 @@ impl SceneConstruct for Ranks {
             let g = lagged(stage, anims, 0.1)?;
             play!(stage; g.rt(1.8));
         }
-        stage.wait(0.5)?;
 
         // ---- ties share the average rank
         let tie_box_x = SurroundingRectangle::from_extent(Some((
@@ -267,6 +270,8 @@ impl SceneConstruct for Ranks {
         let mover = raw_dots[4];
         let moved = mover.animate().move_to(raw.p(HEIGHTS[4], wild), ORIGIN)?;
         kit.say(stage, "r6")?;
+        // "Push one person's weight way up, and their raw point jumps."
+        kit.until_sentence(stage, "r6", 1)?;
         play!(stage, 1.6;
             replacement_transform(ys[4], new_y),
             moved,
@@ -279,12 +284,13 @@ impl SceneConstruct for Ranks {
             v(0.1, -0.3),
         )?;
         play!(stage; fade_out(stage.arena_mut(), same, ORIGIN, 1.0)?.rt(0.4));
+        // "But their rank stays at seven."
+        kit.until_sentence(stage, "r6", 2)?;
         play!(stage;
             indicate(stage.arena_mut(), ss[4], 1.4, None)?.rt(1.4),
             indicate(stage.arena_mut(), rank_dots[4], 1.8, None)?.rt(1.4),
             fade_in(stage.arena_mut(), robust, v(0.0, 0.2), 1.0)?.rt(1.0),
         );
-        stage.wait(1.4)?;
         let moral = kit.text(
             stage,
             "Ranks keep only the order, so no single value can dominate.",
