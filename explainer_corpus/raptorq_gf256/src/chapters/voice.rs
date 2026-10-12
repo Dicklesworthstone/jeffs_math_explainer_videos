@@ -1,9 +1,10 @@
 //! Pictures that land on the voice's sentences. `kit.say` starts a line;
-//! [`Spoken`] also knows where each of the line's sentences begins (its share
-//! of the line by characters: a read keeps a near-even pace), so a chapter
+//! [`Spoken`] uses the narrator's assembled sentence offsets, so a chapter
 //! waits for "sentence 3" instead of guessing seconds, and the picture stays
-//! with the voice when a real take replaces the scratch voice. The line's
-//! length is the narrator's: the take's, or the scratch voice's estimate.
+//! with the voice when a real take replaces the scratch voice. Phrase cues
+//! interpolate within that sentence, not across differently paced reads.
+//! Scratch narration supplies estimated offsets; phrase timing is still an
+//! estimate, not word alignment.
 
 use explainer_kit::Kit;
 use explainer_kit::narration::{frames_covering, wait_frames};
@@ -54,11 +55,12 @@ pub struct Spoken {
     len: f64,
     words: String,
     shares: Vec<f64>,
+    starts: Vec<f64>,
 }
 
 impl Spoken {
     /// Say line `id` of `board` (after the previous line, as `kit.say`
-    /// does), noting where its sentences fall.
+    /// does), using its measured (or scratch-estimated) sentence starts.
     pub fn say(kit: &Kit, stage: &mut Stage<'_>, board: &ChapterBoard, id: &str) -> fmn::Result<Self> {
         kit.say(stage, id)?;
         let start = stage.scene().time().to_f64();
@@ -69,19 +71,37 @@ impl Spoken {
             .find(|b| b.id == id)
             .and_then(Beat::spoken)
             .unwrap_or_default();
+        let shares = sentence_shares(&words);
+        let starts = if kit.narrator.is_some() {
+            let starts = kit.sentence_starts(id);
+            if starts.len() != shares.len() {
+                let m = format!(
+                    "line {id} has {} sentences but {} narrator sentence offsets",
+                    shares.len(),
+                    starts.len()
+                );
+                return Err(fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+                    m.into_boxed_str(),
+                ))));
+            }
+            starts
+        } else {
+            vec![0.0; shares.len()]
+        };
         Ok(Self {
             id: id.to_owned(),
             start,
             len,
-            shares: sentence_shares(&words),
+            shares,
+            starts,
             words,
         })
     }
 
     /// Wait until sentence `k` (from 0) begins; no wait once it has.
     pub fn at(&self, stage: &mut Stage<'_>, k: usize) -> fmn::Result<()> {
-        let share = self.shares.get(k).copied().unwrap_or(1.0);
-        self.until(stage, self.start + share * self.len)
+        let offset = self.starts.get(k).copied().unwrap_or(self.len);
+        self.until(stage, self.start + offset)
     }
 
     /// Wait until `share` of the line (0 to 1) has been spoken.
@@ -89,15 +109,21 @@ impl Spoken {
         self.until(stage, self.start + share.clamp(0.0, 1.0) * self.len)
     }
 
-    /// Wait until the words `phrase` begin (their share of the line by
-    /// characters, as for sentences); an error when the line does not hold
-    /// them, so a reworded line cannot leave its picture behind silently.
+    /// Estimate a phrase's start within its own sentence. Sentence boundaries
+    /// come from the narrator; characters interpolate only between adjacent
+    /// boundaries. An absent phrase fails rather than leaving a stale cue.
     pub fn at_phrase(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
         let share = phrase_share(&self.words, phrase).ok_or_else(|| {
             let m = format!("line {} does not say {phrase:?}", self.id);
             fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())))
         })?;
-        self.at_share(stage, share)
+        let k = self.shares.partition_point(|&s| s <= share).saturating_sub(1);
+        let left = self.shares[k];
+        let right = self.shares.get(k + 1).copied().unwrap_or(1.0);
+        let from = self.starts[k];
+        let to = self.starts.get(k + 1).copied().unwrap_or(self.len);
+        let offset = from + (to - from) * (share - left) / (right - left);
+        self.until(stage, self.start + offset)
     }
 
     fn until(&self, stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
@@ -132,6 +158,75 @@ mod tests {
         // shares count characters, not bytes
         assert_eq!(phrase_share("÷ two", "two"), Some(2.0 / 5.0));
         assert_eq!(phrase_share("One two", "three"), None);
+    }
+
+    #[test]
+    fn scene_cues_use_assembled_offsets_for_uneven_sentence_reads() {
+        use explainer_kit::narration::{Narrator, Script};
+        use explainer_score::{Stereo, wav};
+
+        // Real WAV/report loading and native stage timing, using a private
+        // silence fixture. This does not generate or qualify spoken audio.
+        let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let dir = std::env::temp_dir().join(format!("gf256_sentence_cues_{}_{nanos}", std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        wav::write(&dir.join("01_1.wav"), &Stereo::silence(72_000), wav::Format::F32).unwrap();
+        let report = r#"{"meta":{"rate":48000},"lines":{"01_1":[
+            {"sentence":"One.","out_samples":48000,"gap_after_samples":12000},
+            {"sentence":"Two.","out_samples":12000,"gap_after_samples":0}]}}"#;
+        std::fs::write(dir.join("report.json"), report).unwrap();
+        let script = Script::parse("01_1\tOne. Two.\n").unwrap();
+        let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
+        assert_eq!(narrator.sentence_starts("01_1"), [0.0, 1.25]);
+        let kit = Kit::new().unwrap().with_narrator(narrator);
+        let board = explainer_kit::storyboard::parse(
+            "## 01_test\n| id | words | picture | features | hold/listen |\n\
+             |---|---|---|---|---|\n| 01_1 | One. Two. | | | |\n",
+        )
+        .unwrap()
+        .remove(0);
+        struct Probe {
+            kit: Kit,
+            board: ChapterBoard,
+        }
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let line = Spoken::say(&self.kit, stage, &self.board, "01_1")?;
+                let origin = stage.scene().time().frames();
+                line.at(stage, 1)?;
+                let t = stage.scene().time();
+                assert_eq!(
+                    t.frames() - origin,
+                    75,
+                    "second sentence starts at 1.25 s, not its text share"
+                );
+                line.at_phrase(stage, "Two")?;
+                assert_eq!(
+                    stage.scene().time().frames() - origin,
+                    75,
+                    "sentence-opening phrase is exact"
+                );
+                line.at_phrase(stage, "wo")?;
+                assert_eq!(
+                    stage.scene().time().frames() - origin,
+                    79,
+                    "phrase interpolates inside sentence two"
+                );
+                line.at(stage, 0)?;
+                assert_eq!(stage.scene().time().frames() - origin, 79, "past cues never rewind");
+                assert!(line.at_phrase(stage, "Missing").is_err(), "stale phrase must refuse");
+                Ok(())
+            }
+        }
+        let config = fmn::scene::RuntimeConfig {
+            fps: 60,
+            ..Default::default()
+        };
+        fmn::run_scene(&mut Probe { kit, board }, config, 7, &mut fmn::scene::NullSceneSink)
+            .expect("real sentence-cue scene");
     }
 
     #[test]

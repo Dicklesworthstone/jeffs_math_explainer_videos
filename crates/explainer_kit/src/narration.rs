@@ -356,24 +356,30 @@ fn check_report_script(json: &str, script: &Script) -> io::Result<()> {
             .join(" ")
     };
     for (id, text) in script.lines() {
-        let sentences = lines
+        let expected = sentences(text);
+        let recorded = lines
             .get(id)
             .and_then(serde_json::Value::as_array)
             .ok_or_else(|| bad(format!("report.json: no sentence list for scripted line {id}")))?;
-        let spoken = sentences
-            .iter()
-            .enumerate()
-            .map(|(k, s)| {
-                s.get("sentence")
-                    .and_then(serde_json::Value::as_str)
-                    .ok_or_else(|| bad(format!("report.json: {id} sentence {k}: no display text")))
-            })
-            .collect::<io::Result<Vec<_>>>()?
-            .join(" ");
-        if normalize(text) != normalize(&spoken) {
+        if expected.len() != recorded.len() {
             return Err(bad(format!(
-                "report.json: narration text for {id} differs from script.tsv; reassemble this line from the current script before rendering"
+                "report.json: {id} has {} scripted sentences but {} recorded sentences; reassemble this line from the current script before rendering",
+                expected.len(),
+                recorded.len()
             )));
+        }
+        // Offsets belong to individual assembled reads. Joined words can
+        // agree while punctuation moves a word across a sentence boundary.
+        for (k, (expected, recorded)) in expected.iter().zip(recorded).enumerate() {
+            let spoken = recorded
+                .get("sentence")
+                .and_then(serde_json::Value::as_str)
+                .ok_or_else(|| bad(format!("report.json: {id} sentence {k}: no display text")))?;
+            if normalize(expected) != normalize(spoken) {
+                return Err(bad(format!(
+                    "report.json: narration text for {id} sentence {k} differs from script.tsv; reassemble this line from the current script before rendering"
+                )));
+            }
         }
     }
     Ok(())
@@ -738,6 +744,27 @@ mod tests {
             assert!(
                 check_report_script(&report, &script).is_err(),
                 "{expected} vs {selected}"
+            );
+        }
+    }
+
+    #[test]
+    fn report_sentence_boundaries_match_the_script_even_when_joined_words_agree() {
+        let script = Script::parse("01_1\tOne two. Three four.\n").unwrap();
+        let complete = r#"{"lines":{"01_1":[
+            {"sentence":"1 two!"},{"sentence":"Three 4?"}]}}"#;
+        check_report_script(complete, &script).unwrap();
+        for report in [
+            r#"{"lines":{"01_1":[{"sentence":"One."},{"sentence":"Two three four."}]}}"#,
+            r#"{"lines":{"01_1":[{"sentence":"One two three."},{"sentence":"Four."}]}}"#,
+            r#"{"lines":{"01_1":[{"sentence":"One two. Three four."}]}}"#,
+        ] {
+            assert!(
+                check_report_script(report, &script)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("01_1"),
+                "shifted or merged sentence boundaries must refuse: {report}"
             );
         }
     }

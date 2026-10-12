@@ -161,7 +161,7 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     kit.hold(stage)?;
 
     // 02_2: five is four plus one; a byte holds 0 … 255
-    kit.say(stage, "02_2")?;
+    let line = Spoken::say(kit, stage, &board, "02_2")?;
     let mut flips = Vec::new();
     for k in 0..8 {
         let one = FIVE >> (7 - k) & 1 == 1;
@@ -185,7 +185,10 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         v(0.0, -1.3),
     )?;
     play!(stage; write(stage.arena(), sum).rt(1.0));
-    stage.wait(1.6)?;
+    line.at(stage, 1)?;
+    // Five's calculation describes the current bits. Clear it before the
+    // byte fills with ones, then label the completed row with its range.
+    play!(stage; fade_out(stage.arena_mut(), sum, ORIGIN, 1.0)?.rt(0.25));
     let mut flips = Vec::new();
     for k in 0..8 {
         if !row.bits[k] {
@@ -203,7 +206,7 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         &[],
         v(0.0, -1.3),
     )?;
-    play!(stage; replacement_transform(sum, range).rt(0.9));
+    play!(stage; fade_in(stage.arena_mut(), range, ORIGIN, 1.0)?.rt(0.9));
     kit.hold(stage)?;
     fade_all(stage, 0.6)?;
     Ok(())
