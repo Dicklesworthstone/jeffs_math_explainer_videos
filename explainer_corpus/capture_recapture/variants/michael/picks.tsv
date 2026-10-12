@@ -10,10 +10,7 @@
 10_1	2	“How often does the second catch hold no marked fish at all?”	no 0.63 s gap inside the question
 10_4	2	“Once you expect four or more, its average lands within two percent of the truth, though any one guess still scatters widely.”	says "four or more, its average"; the score's choice adds a word ("more of its")
 12_5	0	Mostly: more fish caught twice, which means marking more and catching more.	finishes; the score's choice stops inside "more"
-12_5	1	Four times as many roughly halves the range.	no 0.47 s gap inside the phrase
-12_5	2	“Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.”	no stall; the score's choice stalls 1.3 s mid-sentence
 13_4	1	“Fish that learn to avoid it — push the guess up.”	finishes; the score's choice stops inside "up"
-13_6	0	“Two thousand newcomers dilute the marks; so you count the lake at the second catch.”	finishes; the score's choice stops inside "catch"
 13_8	0	“The guess doesn't move.”	no 0.59 s gap after "guess"
 15_1	5	Years later, a name-by-name count for the same months found nine thousand seven hundred ninety — inside their range.	says "a name-by-name count"; the score's choice says "and name by name"
 09_3	0	They pile up in a bell around a hundred.	no 0.54 s gap before "around"
@@ -25,8 +22,6 @@
 08_5	2	Feller just says ten thousand.	plain spelling: starts on a clean F and finishes (seen); the Fell-er reads are heard "The fella just says"
 12_3	1	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred.	plain spelling of Feller, same measures as the Fell-er read; pinned as above
 08_3	1	"So is nine hundred times nine hundred."	finishes (seen); the score's choice stops inside "hundred". It ends 4.3 st up: the least bad of six
-03_7	1	"Being marked becomes unrelated to where a fish swims."	has the s of "swims" (seen: 40 ms of it); the plain and curly-quoted reads stop on the m
-07_5	0	Now write it with the table's four cells. …	has the s of "cells" (seen); the score's choice stops on the l
 09_6	1	The last line checks their average against the exact one, built by the same rule as each netful.	heard "their average"; the quoted read is heard "the average"
 # Round 3: after the reads added in round 2 were made; each looked at in a zoomed spectrogram of the take.
 11_3	0	«A million fish?»	no lead-in (the score's choice opens on 0.44 s of hum) and it rises at the end (+6 st); complete, its sh dies away
@@ -36,3 +31,18 @@
 # read ends "time-" without the s. Endings below looked at in zoomed spectrograms of the takes.
 04_7	2	«For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants.»	finishes "pants" with 0.28 s of s; the score's choice stops inside the last word
 09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.” …	ends with 0.13 s of s that dies away (seen); the score's choice keeps 35 ms of it before the WAV stops
+# v3 (2026-10-12, after Codex's audit of the v2 master and tools/narration.py 92d4953): sentence-final s, z and ch that were
+# missing or only a 10-40 ms blip. Each ending below was looked at in a spectrogram of the take at the editor's kept end.
+13_6	0	"Two thousand newcomers dilute the marks, so you count the lake at the second catch."	"catch" ends with its closure and 0.2 s of ch; the v2 read ended on the vowel (the audit heard "second cat")
+12_5	2	Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single, size.	"size" ends with 0.2 s of z that dies away; the v2 read had two clicks after its z
+04_9	1	If we know the lake, we know the chances of every catch. …	"catch" ends with its closure and 0.2 s of ch; the v2 read ended on the vowel with a 10 ms blip (the audit heard "every cat")
+07_1	2	"Divide one score by the other, and almost everything cancels."	"cancels" ends with 0.13 s of z; the v2 read ended "cancel" plus a blip (the audit heard "cancelled")
+07_3	0	«So take the top minus the bottom, written with letters.»	"letters" ends with 0.15 s of s; the v2 read ended "letter" plus a blip (the audit heard "letter"). A 0.98 s silent stall after "bottom" is cut to 0.19 s by the editor
+07_5	0	‘Now write it with the table's four cells.’	"cells" ends with 0.16 s of z, no click; the v2 pick had 60 ms of faint z
+13_7	0	What if three fish out of ten die between the catches!	"catches" ends with 0.17 s of z; the v2 read ended on the vowel of "-es"
+05_6	3	How likely our catch would be, if the lake were that size. …	"size" ends with 0.2 s of z; the v2 read ended on the vowel ("sigh")
+05_1	0	"A new lake, and we don't know its size."	"size" ends with 0.17 s of z; the v2 read ended on the vowel with a blip
+03_7	1	Being marked becomes unrelated to where a fish swims!	"swims" ends with 0.13 s of z; the v2 pick had a 25 ms blip
+03_5	1	‘The catch is a small copy of the lake's mix.’	"mix" ends with its k closure and 0.2 s of s; the v2 read had 40 ms of s
+13_3	1	«Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.»	"shrinks" ends with a full s (long, 0.38 s); the v2 read had 40 ms of s. Its 0.9 s pause at the comma is cut to 0.4 s
+12_5	1	“Four times as many, roughly, halves the range.”	"range" ends with 0.16 s of its final j sound; the v2 pick ended on the n (the line transcript wrote "rain")

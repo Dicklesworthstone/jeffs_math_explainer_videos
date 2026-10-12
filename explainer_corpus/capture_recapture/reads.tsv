@@ -274,3 +274,91 @@
 09_1	1	«Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times.»
 09_1	1	‘Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times.’
 09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times. …
+# michael variant, v3 (2026-10-12, tools/narration.py 92d4953: final ch/sh and +5 dB of frication): 12_5 s2 "size" and
+# 13_6 s0 "catch" flagged; 04_9 s1 "every catch", 07_3 s0 "letters", 07_1 s2 "cancels" from the audit of the v2 master.
+13_6	0	‘Two thousand newcomers dilute the marks, so you count the lake at the second catch.’
+13_6	0	"Two thousand newcomers dilute the marks, so you count the lake at the second catch."
+13_6	0	«Two thousand newcomers dilute the marks, so you count the lake at the second catch.»
+13_6	0	Two thousand newcomers dilute the marks, so you count the lake at the second catch. …
+13_6	0	“Two thousand newcomers dilute the marks, so you count the lake at the second catch.” …
+13_6	0	Two thousand newcomers dilute the marks, so you count the lake at the second, catch.
+13_6	0	“Two thousand newcomers dilute the marks, so you count the lake at the second, catch.”
+13_6	0	Two thousand newcomers dilute the marks, so you count the lake at the second catch!
+12_5	2	‘Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.’
+12_5	2	"Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size."
+12_5	2	«Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.»
+12_5	2	Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size. …
+12_5	2	“Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.” …
+12_5	2	Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single, size.
+12_5	2	“Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single, size.”
+12_5	2	Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size!
+04_9	1	‘If we know the lake, we know the chances of every catch.’
+04_9	1	"If we know the lake, we know the chances of every catch."
+04_9	1	«If we know the lake, we know the chances of every catch.»
+04_9	1	If we know the lake, we know the chances of every catch. …
+04_9	1	“If we know the lake, we know the chances of every catch.” …
+04_9	1	If we know the lake, we know the chances of every, catch.
+04_9	1	“If we know the lake, we know the chances of every, catch.”
+04_9	1	If we know the lake, we know the chances of every catch!
+07_3	0	“So take the top minus the bottom, written with letters.” …
+07_3	0	So take the top minus the bottom, written with, letters.
+07_3	0	“So take the top minus the bottom, written with, letters.”
+07_3	0	So take the top minus the bottom, written with letters!
+07_1	2	‘Divide one score by the other, and almost everything cancels.’
+07_1	2	"Divide one score by the other, and almost everything cancels."
+07_1	2	«Divide one score by the other, and almost everything cancels.»
+07_1	2	Divide one score by the other, and almost everything cancels. …
+07_1	2	“Divide one score by the other, and almost everything cancels.” …
+07_1	2	Divide one score by the other, and almost everything, cancels.
+07_1	2	“Divide one score by the other, and almost everything, cancels.”
+07_1	2	Divide one score by the other, and almost everything cancels!
+# michael variant, v3: sentence-final hiss that is only a 10-30 ms blip in the chosen take (seen in the take's last 0.45 s;
+# the tool's check passes a blip): 13_7 s0 "catches", 05_6 s3 "size", 05_1 s0 "size", 03_7 s1 "swims".
+13_7	0	‘What if three fish out of ten die between the catches?’
+13_7	0	"What if three fish out of ten die between the catches?"
+13_7	0	«What if three fish out of ten die between the catches?»
+13_7	0	What if three fish out of ten die between the catches? …
+13_7	0	“What if three fish out of ten die between the catches?” …
+13_7	0	What if three fish out of ten die between the, catches?
+13_7	0	“What if three fish out of ten die between the, catches?”
+13_7	0	What if three fish out of ten die between the catches!
+05_6	3	‘How likely our catch would be, if the lake were that size.’
+05_6	3	"How likely our catch would be, if the lake were that size."
+05_6	3	«How likely our catch would be, if the lake were that size.»
+05_6	3	How likely our catch would be, if the lake were that size. …
+05_6	3	“How likely our catch would be, if the lake were that size.” …
+05_6	3	How likely our catch would be, if the lake were that, size.
+05_6	3	“How likely our catch would be, if the lake were that, size.”
+05_6	3	How likely our catch would be, if the lake were that size!
+05_1	0	“A new lake, and we don't know its size.” …
+05_1	0	A new lake, and we don't know its, size.
+05_1	0	“A new lake, and we don't know its, size.”
+05_1	0	A new lake, and we don't know its size!
+03_7	1	“Being marked becomes unrelated to where a fish swims.” …
+03_7	1	Being marked becomes unrelated to where a fish, swims.
+03_7	1	“Being marked becomes unrelated to where a fish, swims.”
+03_7	1	Being marked becomes unrelated to where a fish swims!
+# michael variant, v3: 07_3 s0 "letters", 13_3 s1 "shrinks", 03_5 s1 "mix": no read yet both finishes its hiss and has no stall.
+07_3	0	So take the top minus the bottom — written with letters.
+07_3	0	“So take the top minus the bottom — written with letters.”
+07_3	0	So take the top minus the bottom; written with letters.
+07_3	0	“So take the top minus the bottom, written with letters!”
+07_3	0	So take the top minus the bottom, written with letters…
+07_3	0	(So take the top minus the bottom, written with letters.)
+13_3	1	Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks!
+13_3	1	Bold fish land in the caught-twice cell more than their share, so the dark cell, shrinks.
+13_3	1	“Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.” …
+13_3	1	Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks…
+03_5	1	The catch is a small copy of the lake's mix!
+03_5	1	“The catch is a small copy of the lake's mix.” …
+03_5	1	The catch is a small copy of the lake's, mix.
+03_5	1	(The catch is a small copy of the lake's mix.)
+# michael variant, v3: 12_1 s0 "range": the chosen read has 40 ms of its final j sound; the longer ones stop inside it.
+12_1	0	‘Now the careful range.’
+12_1	0	"Now the careful range."
+12_1	0	«Now the careful range.»
+12_1	0	Now the careful range. …
+12_1	0	“Now the careful range.” …
+12_1	0	Now the careful range!
+12_1	0	“Now, the careful range.” …
+12_1	0	«Now, the careful range.»
