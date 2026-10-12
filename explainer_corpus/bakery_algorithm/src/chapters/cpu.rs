@@ -1009,9 +1009,10 @@ impl SceneConstruct for YourCpu {
         stage.play_prepared(out)?;
         play!(stage; fade_in(stage.arena_mut(), table, v(0.0, -0.2), 1.0)?.rt(0.7));
         // the chapter ends on what was measured (Codex R5: the closing drain
-        // of 12_5's x-ray again cost the chapter its 85 s; 12_5 shows it)
+        // of 12_5's x-ray again cost the chapter its 85 s; 12_5 shows it).
+        // No extra wait after the breath: review 2's longer 12_7 read put the
+        // chapter one frame over 85 s with it
         kit.hold(stage)?;
-        stage.wait(0.2)?;
         fade_all(stage, 0.5)?;
         kit.finish(stage)
     }
