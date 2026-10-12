@@ -174,3 +174,75 @@
 04_5	1	‘Half.’
 04_5	1	"Half."
 04_5	1	(Half.)
+#
+# Owner review 2 (michael, 2026-10-12): endings the owner or the audit found missing, read again in other marks;
+# the words never change.
+# 01_1/0: final s of "phones" missing (the owner heard "a million phone")
+01_1	0	‘I'm sending this picture to a million phones.’
+01_1	0	«I'm sending this picture to a million phones.»
+01_1	0	"I'm sending this picture to a million phones."
+01_1	0	I'm sending this picture to a million phones…
+01_1	0	“I'm sending this picture to a million phones…”
+01_1	0	I'm sending this picture to a million, phones.
+# 12_1/0: final s of "once" missing (b8253f1)
+12_1	0	‘Every pair at once.’
+12_1	0	«Every pair at once.»
+12_1	0	"Every pair at once."
+12_1	0	Every pair at once…
+12_1	0	“Every pair at once…”
+12_1	0	Every pair at, once.
+# 14_7/1: final z of "those" missing (b8253f1)
+14_7	1	‘No decoder can find those.’
+14_7	1	«No decoder can find those.»
+14_7	1	"No decoder can find those."
+14_7	1	No decoder can find those…
+14_7	1	“No decoder can find those…”
+14_7	1	No decoder can find, those.
+# 16_1/1: final z of "peels" missing (b8253f1)
+16_1	1	‘In big blocks, RaptorQ's decoder mostly peels.’
+16_1	1	«In big blocks, RaptorQ's decoder mostly peels.»
+16_1	1	"In big blocks, RaptorQ's decoder mostly peels."
+16_1	1	In big blocks, RaptorQ's decoder mostly peels…
+16_1	1	“In big blocks, RaptorQ's decoder mostly peels…”
+16_1	1	In big blocks, RaptorQ's decoder mostly, peels.
+# 03_8/0: audit 3:24: "fountain codes"
+03_8	0	‘A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes.’
+03_8	0	«A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes.»
+03_8	0	"A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes."
+03_8	0	A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes…
+03_8	0	“A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes…”
+03_8	0	A sender can make endless fresh mixes, like water from a fountain, so these are called fountain, codes.
+# 15_3/1: audit 17:44: "ten to sixteen slots"
+15_3	1	‘Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen slots.’
+15_3	1	«Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen slots.»
+15_3	1	"Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen slots."
+15_3	1	Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen slots…
+15_3	1	“Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen slots…”
+15_3	1	Count the ex-oar cards first, and they almost always fill it up to the last ten to sixteen, slots.
+# 16_3/0: audit 18:48: "the parked pieces" (the -ed)
+16_3	0	‘At the end, the leftover cards and the byte cards pin down the parked pieces.’
+16_3	0	«At the end, the leftover cards and the byte cards pin down the parked pieces.»
+16_3	0	"At the end, the leftover cards and the byte cards pin down the parked pieces."
+16_3	0	At the end, the leftover cards and the byte cards pin down the parked pieces…
+16_3	0	“At the end, the leftover cards and the byte cards pin down the parked pieces…”
+16_3	0	At the end, the leftover cards and the byte cards pin down the parked, pieces.
+# 16_5/0: audit 19:18, the letter A must be a clear AY; set off so it is said in full.
+16_5	0	«With ex-oar, A met itself and cancelled.»
+16_5	0	“With ex-oar, A… met itself and cancelled.”
+16_5	0	With ex-oar, A… met itself and cancelled.
+16_5	0	"With ex-oar, A, met itself and cancelled."
+# 16_1/1: every read ends without the z of "peels" except none yet; the name respelled as the lexicon does (Raptor Q's).
+16_1	1	‘In big blocks, Raptor Q's decoder mostly peels.’
+16_1	1	«In big blocks, Raptor Q's decoder mostly peels.»
+16_1	1	"In big blocks, Raptor Q's decoder mostly peels."
+16_1	1	In big blocks, Raptor Q's decoder mostly peels…
+16_1	1	“In big blocks, Raptor Q's decoder mostly peels…”
+16_1	1	«In big blocks, Raptor-Q's decoder mostly peels.»
+# 16_1/1, second round: the reads that kept the z said the name wrong ("Rabtorch", "Raptor's"); the same sound spelled
+# for the voice (peals, peelz) and the comma moved, with the name respelled.
+16_1	1	“In big blocks, Raptor Q's decoder mostly peals.”
+16_1	1	In big blocks, Raptor Q's decoder mostly peals.
+16_1	1	‘In big blocks, Raptor Q's decoder mostly peelz.’
+16_1	1	“In big blocks, Raptor Q's decoder, mostly peels.”
+16_1	1	(In big blocks, Raptor Q's decoder mostly peels.)
+16_1	1	“In big blocks, Raptor queue's decoder mostly peels…”
