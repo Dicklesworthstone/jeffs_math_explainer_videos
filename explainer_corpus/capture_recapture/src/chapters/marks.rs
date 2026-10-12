@@ -365,7 +365,7 @@ impl SceneConstruct for Marks {
         stage.play(copy_rings.to(0.0, 0.8)?)?;
         play!(stage; dim.to(0.22, 1.2)?, fade_in(stage.arena_mut(), never, ORIGIN, 1.0)?.rt(1.2));
         kit.hold(stage)?;
-        stage.wait(1.0)?;
+        stage.wait(0.4)?;
 
         // 02_6: the other reading: one in ten of the second catch is marked,
         // so about one in ten of the lake; the marked fish copied ten times

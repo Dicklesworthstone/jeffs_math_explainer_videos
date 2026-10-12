@@ -38,7 +38,7 @@ const BIN_COLS: usize = 40;
 const BIN_GAP: f64 = 0.3;
 const BIN_FLOOR: f64 = -2.15;
 /// The pour: departures spread over this long, each flight this long.
-const SPREAD: f64 = 3.0;
+const SPREAD: f64 = 2.4;
 const FLIGHT: f64 = 0.8;
 
 /// Every netful of the toy lake, in lexicographic order.

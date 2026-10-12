@@ -770,23 +770,26 @@ impl RingToss {
             .copied()
             .filter(|&m| m != name && m != name_card)
             .collect();
+        // the rest leaves as the name takes the middle of the frame, in one
+        // move (no dead air before 12_3); the line under it arrives with
+        // 12_3's first words
+        let mid = v(0.0, 0.6);
+        let glide = AnimateArgs {
+            run_time: Some(0.8),
+            ..AnimateArgs::default()
+        };
         let mut out: Vec<Box<dyn Animation>> = Vec::new();
         for m in rest {
             stage.clear_updaters(m, true);
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.6);
             out.push(stage.prepare(a)?);
         }
-        stage.play_prepared(out)?;
-        // the name takes the middle of the frame it now has to itself; and
-        // the catch with none caught twice is counted too (R3 Dev D1)
-        let mid = v(0.0, 0.6);
-        let glide = AnimateArgs {
-            run_time: Some(0.8),
-            ..AnimateArgs::default()
-        };
         let name_in = name.animate().set_anim_args(glide)?.move_to(mid, ORIGIN)?;
+        out.push(stage.prepare(name_in)?);
         let card_in = name_card.animate().set_anim_args(glide)?.move_to(mid, ORIGIN)?;
-        play!(stage; name_in, card_in);
+        out.push(stage.prepare(card_in)?);
+        stage.play_prepared(out)?;
+        // the catch with none caught twice is counted too (R3 Dev D1)
         let no_top = kit.text(
             stage,
             "with none caught twice, the range has no top",
@@ -794,7 +797,6 @@ impl RingToss {
             Palette::dim(),
             v(0.0, mid[1] - h / 2.0 - 0.55),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), no_top, v(0.0, 0.1), 1.0)?.rt(0.6));
         Ok([name, name_card, no_top])
     }
 
@@ -904,6 +906,7 @@ impl RingToss {
         // "Statisticians call it a ninety-five percent confidence interval",
         // said with the name alone on screen
         let line = Spoken::say(kit, stage, "12_3")?;
+        play!(stage; fade_in(stage.arena_mut(), named[2], v(0.0, 0.1), 1.0)?.rt(0.6));
         line.at(stage, "For Feller's catch")?;
         let mut out: Vec<Box<dyn Animation>> = Vec::new();
         for m in named {
