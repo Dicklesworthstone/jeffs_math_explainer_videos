@@ -8,12 +8,12 @@ Chapters
 5:24 The unwritten ticket
 6:47 Three customers
 7:03 One run
-8:02 Why never two
+8:03 Why never two
 9:26 Reading garbage safely
 10:27 The old zero
-11:37 Fair at a price
-13:02 Your CPU
-14:26 Proudest
+11:38 Fair at a price
+13:03 Your CPU
+14:27 Proudest
 
 What it costs
 The customers are fixed in advance, with one flag and one ticket slate each. An uncontended entry reads each other customer's slate twice and her flag once. Waiting means spinning and re-reading. A customer frozen with her choosing flag raised stalls the others after at most one more turn each, and a dead customer's slate stays set until something resets it. Run with plain loads and stores on today's processors, it can fail: use sequentially consistent atomics, or fences placed for your architecture, and 64-bit tickets.
