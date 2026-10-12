@@ -71,7 +71,7 @@
 12_2	Build that range for every experiment. In the long run, it rings the true size at least ninety-five times in a hundred, whatever that size is. Like a ring toss.
 12_3	Statisticians call it a ninety-five percent confidence interval. For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred. Close to the range we watched when the lake was known, but a different question. There the lake was fixed and the catch moved. Here the catch is fixed, and we try every lake size.
 12_4	What makes the range tight?
-12_5	Mostly, more fish caught twice, which means marking more and catching more. Four times as many roughly halves the range. Catching a bigger share of the lake helps more and more, and when every fish is caught twice, the range shrinks to a single size.
+12_5	Mostly, more fish caught twice, which means marking more and catching more. Four times as many roughly halves the range. Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.
 13_1	Every failure breaks one rule. On average, the second catch must hold the same share of marked fish that the lake held on marking day.
 13_2	Some fish are bold and easy to catch, both times. Will the guess be too big, or too small?
 13_3	Too small. Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks. If three fish in ten are three times as easy to catch, the guess comes out around seventy-seven fifty.

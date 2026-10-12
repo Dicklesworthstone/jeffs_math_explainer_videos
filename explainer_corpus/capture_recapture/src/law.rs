@@ -381,4 +381,15 @@ mod tests {
         assert!((law.ge(10_000) - 1.0 / 10_001.0).abs() < 1e-15);
         assert_eq!(careful_range(10_000, 10_000, 10_000), Ok((10_000, 10_000)));
     }
+
+    #[test]
+    fn complete_overlap_can_leave_unseen_fish_in_small_lakes() {
+        // Independently checked with the oracle's exact integer inversion.
+        // All twenty observed fish can recur in a twenty-one-fish lake:
+        // its chance is 1/21, above the 1/40 upper-tail cutoff.
+        assert!(Law::new(21, 20, 20).ge(20) > ALPHA);
+        for (count, range) in [(5, (5, 7)), (20, (20, 21)), (40, (40, 40))] {
+            assert_eq!(careful_range(count, count, count), Ok(range), "all {count} fish recur");
+        }
+    }
 }
