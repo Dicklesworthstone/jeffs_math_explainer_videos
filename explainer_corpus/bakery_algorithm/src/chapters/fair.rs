@@ -7,7 +7,7 @@
 //! twelve reads alone, a frozen chooser stalling everyone, the costs card
 //! (11_7). Every lane shows a run replayed on the model.
 
-use explainer_kit::props::{lower_third, predict_pause};
+use explainer_kit::props::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, thousands, v};
 use fmn::prelude::*;
 
@@ -425,9 +425,9 @@ impl SceneConstruct for FairAtAPrice {
             ),
         )?;
         play!(stage;
-            fade_in(stage.arena_mut(), t1, v(-0.1, 0.0), 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), t2, v(-0.1, 0.0), 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), t1, v(-0.1, 0.0), 1.0)?.rt(0.3),
+            fade_in(stage.arena_mut(), t2, v(-0.1, 0.0), 1.0)?.rt(0.3),
+            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.35),
         );
         kit.hold(stage)?;
 
@@ -550,7 +550,13 @@ impl SceneConstruct for FairAtAPrice {
         )?;
         // the sum is written as Lamport "did the sum"; the question follows
         play!(stage; write(stage.arena(), sum).rt(1.4));
-        let q = predict_pause(&kit, stage, v(0.0, 0.7))?;
+        // the prediction pause, held 1.4 s rather than the kit's 2 s: with the
+        // director's reads 11 runs 75 s of voice, and 85 s is the cap
+        kit.hold(stage)?;
+        kit.mark(stage, "predict");
+        let q = kit.text(stage, glyphs::QUESTION, 90.0, Palette::hero(), v(0.0, 0.7))?;
+        play!(stage; fade_in(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
+        stage.wait(PREDICT_HOLD)?;
 
         // 11_5: about 31.5 billion, under Lamport's 2^35; too big for 32 bits
         let line = say(&kit, stage, "11_5")?;
@@ -799,10 +805,10 @@ impl SceneConstruct for FairAtAPrice {
             .position(|s| s.customer == 3)
             .ok_or_else(|| fail("Purple moves once".into()))?
             + 1;
-        walk(&kit, stage, &mut fl, 1..=freeze_at, 0.06)?;
+        walk(&kit, stage, &mut fl, 1..=freeze_at, 0.04)?;
         let pause = kit.text(stage, glyphs::FROZEN_TAG, 24.0, customer(3), v(-5.2, -1.3))?;
         play!(stage; fade_in(stage.arena_mut(), pause, ORIGIN, 1.0)?.rt(0.4));
-        walk(&kit, stage, &mut fl, freeze_at + 1..=frozen.len(), 0.075)?;
+        walk(&kit, stage, &mut fl, freeze_at + 1..=frozen.len(), 0.05)?;
         let stall = kit.text(
             stage,
             &format!("{} {} {}", glyphs::STALL_A, facts::frozen_worst(), glyphs::STALL_B),
@@ -810,9 +816,10 @@ impl SceneConstruct for FairAtAPrice {
             Palette::ink(),
             v(-1.6, -2.0),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), stall, v(0.0, 0.1), 1.0)?.rt(0.5));
-        // spinning: the stalled lanes glance again and again; then the listen
-        // window holds on them
+        // spinning: the stalled lanes glance again and again as the stall is
+        // named; then the listen window holds on them
+        let stall_in = fade_in(stage.arena_mut(), stall, v(0.0, 0.1), 1.0)?.rt(0.5);
+        let stall_in = stage.prepare(stall_in)?;
         let spin_y = [fl.y(1), fl.y(2)];
         let mut rings: Vec<Box<dyn Animation>> = Vec::new();
         for k in 0..18 {
@@ -830,9 +837,9 @@ impl SceneConstruct for FairAtAPrice {
         }
         let mut spin = AnimationGroup::with_lag_ratio(stage.arena_mut(), rings, 0.5)?;
         spin.update_rate_info(Some(0.8), None, None);
-        stage.play_prepared(vec![Box::new(spin)])?;
-        kit.listen(stage, 3.0, "11_fair_at_a_price:11_7")?;
-        fade_all(stage, 0.6)?;
+        stage.play_prepared(vec![stall_in, Box::new(spin)])?;
+        kit.listen(stage, SPIN_LISTEN_S, "11_fair_at_a_price:11_7")?;
+        fade_all(stage, 0.4)?;
         kit.finish(stage)
     }
 }
@@ -846,6 +853,11 @@ fn is_read(label: &str) -> bool {
 /// Where 11_7's frozen lanes end: their nine spinning rings (0.1 apart)
 /// stop at 1.57, left of the costs card's edge at 1.75.
 const FROZEN_X1: f64 = 0.6;
+
+/// 11's pauses, cut to fit 85 s around the director's reads (75 s of voice):
+/// the prediction hold after 11_4, the spinning listen window after 11_7.
+const PREDICT_HOLD: f64 = 1.4;
+const SPIN_LISTEN_S: f64 = 2.2;
 const _: () = assert!(FROZEN_X1 + 0.12 + 0.1 * 8.0 + 0.05 < 1.75 - 0.1);
 
 fn tex_thousands(n: u64) -> String {

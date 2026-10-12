@@ -408,23 +408,25 @@ impl SceneConstruct for OldZero {
             fade_in(stage.arena_mut(), fx, ORIGIN, 1.2)?.rt(0.3),
             fade_in(stage.arena_mut(), how, v(0.0, 0.1), 1.0)?.rt(0.5),
         );
-        stage.wait(0.5)?;
-        // the outcome, on three lanes, fast; the caption stays under them
+        // the outcome, on three lanes, fast; the caption stays under them.
+        // It plays under the line's last words and ends with them, so the
+        // clash follows the voice (it ran 3 s past the sentence: 5.8 s
+        // without the voice before 10_5)
         let mut df = TraceLanes::build(&kit, stage, double_fetch_layout(), &failure, &[])?;
         let mut away = code_mobs.clone();
         away.extend(tags);
         away.extend([fx, header]);
-        fade_out_all(stage, &away, 0.5)?;
-        fade_in_all(stage, &df.base(), 0.5)?;
+        fade_out_all(stage, &away, 0.35)?;
+        fade_in_all(stage, &df.base(), 0.35)?;
         // the run in four stretches, the slates and flags at the lane heads
         // following it, so the heads end on the model's final state
         let n = failure.len();
         let cuts = [n / 4, n / 2, 3 * n / 4, n];
         let mut from = 1;
         for &to in &cuts {
-            let mut all: Vec<Box<dyn Animation>> = df.reveal(stage, from..=to, 0.75)?.into_iter().collect();
+            let mut all: Vec<Box<dyn Animation>> = df.reveal(stage, from..=to, 0.45)?.into_iter().collect();
             all.extend(df.heads_to(&kit, stage, to)?);
-            play_timed(stage, all, 0.75)?;
+            play_timed(stage, all, 0.45)?;
             from = to + 1;
         }
         let model_note = kit.text(
@@ -441,7 +443,7 @@ impl SceneConstruct for OldZero {
             Palette::dim(),
             v(0.0, -2.9),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), model_note, ORIGIN, 1.0)?.rt(0.6));
+        play!(stage; fade_in(stage.arena_mut(), model_note, ORIGIN, 1.0)?.rt(0.4));
         // two in the room at once: the two inside play their tunes together
         // in their own window, as their room bands pulse
         let [a, b] = in_room_at_end(&failure)?;

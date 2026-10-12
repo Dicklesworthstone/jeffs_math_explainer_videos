@@ -662,6 +662,8 @@ impl SceneConstruct for WhyNeverTwo {
             fade_out(stage.arena_mut(), impossible, ORIGIN, 1.0)?.rt(0.5),
             fade_out(stage.arena_mut(), ends, ORIGIN, 1.0)?.rt(0.5),
             fade_out(stage.arena_mut(), chain, ORIGIN, 1.0)?.rt(0.5),
+            // the key goes with the pairs it explains
+            fade_out(stage.arena_mut(), key, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), card, v(0.0, 0.2), 1.0)?.rt(0.9),
         );
         let every = kit.text_t2c(
