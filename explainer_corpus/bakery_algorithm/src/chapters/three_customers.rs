@@ -391,32 +391,39 @@ impl SceneConstruct for ThreeCustomers {
         // 06_2: the count, and the orders themselves as trails drawn
         // uniformly from all of them
         let count = stage.add_value_tracker(0.0);
-        kit.say(stage, "06_2")?;
+        let line = super::draw::say(&kit, stage, "06_2")?;
         for &t in &trails {
             stage.add_to_scene(t)?;
         }
         // the beams stay drawn last, over every trail
         stage.scene_mut().bring_to_front(&beams)?;
-        // the view starts turning, and keeps turning under what follows
-        play!(stage;
-            fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
-            tween(view.turning, TURN / 8.0, 1.0)?,
-        );
         let readout = kit.live_count(stage, count, 52.0, order_gold(), v(0.0, 3.3))?;
         let unit = kit.text(stage, ORDERS, 28.0, Palette::dim(), v(0.0, 2.75))?;
         stage.add_to_scene(unit)?;
         let full = TRAILS as f64 * TRAIL_LAG + TRAIL_SPAN;
+        // the count is the answer the voice opens with, so it lands as "Over
+        // two billion" is said (it used to start a second in and take three:
+        // 26 million on screen under the words, the total after the sentence)
+        let landed = line.at("And not one")? - line.start;
         let climb = count
             .animate()
             .set_anim_args(AnimateArgs {
-                run_time: Some(3.0),
+                run_time: Some(landed.clamp(0.8, 1.4)),
                 rate_func: Some(fmn::core::rate::rush_into),
                 ..AnimateArgs::default()
             })?
             .set_value(total.orders as f64)?;
-        // the trails draw while the count climbs; at "not one of them" the
-        // verdict lands and the beams flash, still empty
-        play!(stage; climb, tween(view.reveal, 0.45 * full, 1.9)?);
+        // the view starts turning, and keeps turning under what follows; the
+        // trails draw while the count climbs
+        play!(stage;
+            fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3),
+            tween(view.turning, TURN / 8.0, 1.0)?,
+            climb,
+            tween(view.reveal, 0.45 * full, landed.clamp(0.8, 1.4))?,
+        );
+        // at "not one of them" the verdict lands and the beams flash, still
+        // empty
+        line.wait_for(stage, "And not one")?;
         let none = kit.text(
             stage,
             &format!("{} {PUT_TWO_IN}", thousands(total.two_inside)),
@@ -431,7 +438,7 @@ impl SceneConstruct for ThreeCustomers {
             &format!("{TRAILS_A} {} {TRAILS_B}", thousands(total.orders)),
         )?;
         play!(stage;
-            tween(view.reveal, full, 2.3)?,
+            tween(view.reveal, full, 1.8)?,
             fade_in(stage.arena_mut(), none, v(0.0, -0.1), 1.0)?.rt(0.6),
             tween(beams_on, 1.8, 0.5)?,
             fade_in(stage.arena_mut(), note, v(0.0, 0.15), 1.0)?.rt(0.8),

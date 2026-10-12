@@ -20,7 +20,7 @@
 //! crosses a write when its moment falls inside the other customer's write
 //! of the slate or flag it reads.
 
-use explainer_kit::props::{lower_third, predict_pause};
+use explainer_kit::props::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, thousands, tween, v};
 use explainer_score::instr::{Note, render, shape_edges};
 use explainer_score::score::Identity;
@@ -980,7 +980,13 @@ impl SceneConstruct for ReadingGarbage {
         play!(stage; tween(over.writes, 1.0, 0.8)?);
         line.wait_for(stage, "Does the proof")?;
         stage.play(pic.slide(DONE_E1, 4.0)?)?;
-        let q = predict_pause(&kit, stage, v(5.2, 2.6))?;
+        // the prediction: the "?" comes up and the listen window is the time
+        // to think (the kit's pause would hold 2 s of silence first, 6.5 s
+        // without the voice in all)
+        kit.hold(stage)?;
+        kit.mark(stage, "predict");
+        let q = kit.text(stage, glyphs::QUESTION, 90.0, Palette::hero(), v(5.2, 2.6))?;
+        play!(stage; fade_in(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
         // listen: the playhead sounds each glance; the crossed one smears
         let (wav, secs) = tunes::write("09_4", listen_sound(DONE_E1)).map_err(|e| fail(e.to_string()))?;
         kit.sonify(stage, secs, "09_4", &wav)?;

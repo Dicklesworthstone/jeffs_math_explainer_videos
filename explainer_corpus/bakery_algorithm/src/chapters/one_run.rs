@@ -384,16 +384,19 @@ impl SceneConstruct for OneRun {
         run.at(stage, &line, "then Teal", wait_teal, 0.9)?;
         run.at(stage, &line, "Green gets back", green_again, 1.0)?;
         play!(stage; fade_out(stage.arena_mut(), look, ORIGIN, 1.0)?.rt(0.4));
-        run.to(stage, n, 2.2)?;
         kit.hold(stage)?;
 
-        // 07_6: five visits, five points, none lost; the order is the grid's
+        // 07_6: five visits, five points, none lost; the order is the grid's.
+        // The last visits play under "Five visits, five points on the
+        // scoreboard", so the score ticks up as it is said (they used to
+        // play in 4 s of silence before the line)
         let line = say(&kit, stage, "07_6")?;
+        run.to(stage, n, 1.8)?;
         run.settle(stage)?;
         let board = run.board.panel;
         play!(stage; indicate(stage.arena_mut(), board, 1.12, None)?.rt(0.9));
         line.wait_for(stage, "Who gets served")?;
-        served_order(&kit, stage, &steps, &line)?;
+        served_order(&kit, stage, &steps)?;
         kit.hold(stage)?;
         stage.clear_updaters(readout, true);
         explainer_kit::fade_all(stage, 1.0)?;
@@ -486,7 +489,7 @@ fn tie_card(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<Mob
 /// 07_6: the five visits as pairs in the order they happened (across the
 /// top), then 04's grid over the finished run: its scanline sweeps column by
 /// column, and each pair it reaches lights the next visit, left to right.
-fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step], line: &Spoken) -> fmn::Result<()> {
+fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step]) -> fmn::Result<()> {
     let entries: Vec<(u32, usize)> = steps
         .iter()
         .filter(|s| s.enters())
@@ -509,8 +512,9 @@ fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step], line: &Spoken)
         ins.push(stage.prepare(a)?);
     }
     stage.play_prepared(ins)?;
-    // 04's grid, on a card over the run
-    line.wait_for(stage, "follows the grid")?;
+    // 04's grid, on a card over the run, straight after the pairs, so its
+    // sweep ends near the voice (waiting for "follows the grid" left the
+    // sweep running 3 s past the sentence)
     let top_ticket = entries.iter().map(|p| p.0).max().unwrap_or(1);
     let top_customer = entries.iter().map(|p| p.1).max().unwrap_or(1);
     let grid = PairGrid {
@@ -550,7 +554,7 @@ fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step], line: &Spoken)
             let a = scan
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(0.35),
+                    run_time: Some(0.25),
                     ..AnimateArgs::default()
                 })?
                 .shift(v(x - x_now, 0.0))?;
@@ -560,8 +564,8 @@ fn served_order(kit: &Kit, stage: &mut Stage<'_>, steps: &[Step], line: &Spoken)
         let cell = cells[entries.iter().position(|&e| e == (t, k)).unwrap_or(n)];
         let gold = rgb(order_gold());
         play!(stage;
-            indicate(stage.arena_mut(), cell, 1.35, Some(gold))?.rt(0.45),
-            indicate(stage.arena_mut(), tokens[n], 1.2, Some(gold))?.rt(0.45),
+            indicate(stage.arena_mut(), cell, 1.35, Some(gold))?.rt(0.35),
+            indicate(stage.arena_mut(), tokens[n], 1.2, Some(gold))?.rt(0.35),
         );
     }
     Ok(())
