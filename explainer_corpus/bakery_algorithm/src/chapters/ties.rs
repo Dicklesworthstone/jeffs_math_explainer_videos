@@ -181,12 +181,12 @@ impl SceneConstruct for SameNumber {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
         let (mut b, room) = rewind(&kit, stage)?;
-        let st2 = same_ticket(&kit, stage, &mut b)?;
-        let words = no_tie_breaker(&kit, stage, &mut b, &st2)?;
+        let (st2, chips) = same_ticket(&kit, stage, &mut b)?;
+        let words = no_tie_breaker(&kit, stage, &mut b, &st2, &chips)?;
         let tokens = tie_breaker(&kit, stage, &mut b, &room, &st2, words)?;
         sweep(&kit, stage, &b, &st2, tokens)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.5)?;
+        fade_all(stage, 0.3)?;
         kit.finish(stage)
     }
 }
@@ -215,7 +215,7 @@ fn rewind(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Bakery, [Mob; 3])> {
 
 /// 04_2: Purple and Teal run their doorways side by side, replayed on the
 /// model: the same reads, the same biggest ticket, the same ticket.
-fn same_ticket(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery) -> fmn::Result<State> {
+fn same_ticket(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery) -> fmn::Result<(State, Vec<Mob>)> {
     let line = say(kit, stage, "04_2")?;
     let steps = purple_and_teal_tie();
     let st2 = steps
@@ -308,9 +308,9 @@ fn same_ticket(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery) -> fmn::Result<
     }
     stage.play_prepared(anims)?;
     kit.hold(stage)?;
+    // the reads and sums leave as 04_3 begins (no wait of their own)
     chips.extend(sums);
-    fade_out_all(stage, &chips, 0.4)?;
-    Ok(st2)
+    Ok((st2, chips))
 }
 
 fn rgb_gold() -> [f32; 3] {
@@ -356,10 +356,23 @@ fn walk(f: &Figure, to: Vec3, rt: f64) -> fmn::Result<AnimBuilder> {
 /// 04_3: tickets alone. With "smaller", both end up in the room; with
 /// "smaller or equal", both wait, bowing, forever.
 /// Returns the rule and the two "after you" labels, which 04_4 clears.
-fn no_tie_breaker(kit: &Kit, stage: &mut Stage<'_>, b: &mut Bakery, st2: &State) -> fmn::Result<[Mob; 3]> {
+fn no_tie_breaker(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    b: &mut Bakery,
+    st2: &State,
+    chips: &[Mob],
+) -> fmn::Result<[Mob; 3]> {
     let line = say(kit, stage, "04_3")?;
     let rule = kit.text(stage, g::RULE_SMALLER, 28.0, Palette::ink(), v(-0.6, 3.3))?;
-    play!(stage; fade_in(stage.arena_mut(), rule, v(0.0, 0.1), 1.0)?.rt(0.5));
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in chips {
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(0.4))?);
+    }
+    let a = fade_in(stage.arena_mut(), rule, v(0.0, 0.1), 1.0)?;
+    anims.push(stage.prepare(a.rt(0.5))?);
+    stage.play_prepared(anims)?;
     // under either rule, everyone with a smaller ticket goes first (the
     // model's order from 04_2's slates); then Purple and Teal are left
     let door = ROOM_C[0] - ROOM_W / 2.0;
@@ -580,7 +593,7 @@ fn sweep(kit: &Kit, stage: &mut Stage<'_>, b: &Bakery, st2: &State, tokens: [Mob
         // the scanline passes this pair's column; then the pair is served
         let x = grid.before(f64::from(t) + 1.0);
         if x > x_now + 1e-9 {
-            play!(stage; scan.animate().set_anim_args(AnimateArgs { run_time: Some(0.5), ..AnimateArgs::default() })?
+            play!(stage; scan.animate().set_anim_args(AnimateArgs { run_time: Some(0.4), ..AnimateArgs::default() })?
                 .shift(v(x - x_now, 0.0))?);
             x_now = x;
         }
@@ -594,17 +607,17 @@ fn sweep(kit: &Kit, stage: &mut Stage<'_>, b: &Bakery, st2: &State, tokens: [Mob
         let a = copy
             .animate()
             .set_anim_args(AnimateArgs {
-                run_time: Some(0.6),
+                run_time: Some(0.45),
                 ..AnimateArgs::default()
             })?
             .move_to(to, ORIGIN)?;
         let flash = fmn::animation::indicate(stage.arena_mut(), m, 1.3, Some(rgb_gold()))?;
         stage.add_to_scene(copy)?;
-        play!(stage; a, flash.rt(0.6));
+        play!(stage; a, flash.rt(0.45));
     }
     let lower = lower_third(kit, stage, g::PRECISELY, g::TOTALLY_ORDERED)?;
-    play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6));
+    play!(stage; fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.5));
     kit.hold(stage)?;
-    kit.music_breath(stage, 0.8)?;
+    kit.music_breath(stage, 0.4)?;
     Ok(())
 }

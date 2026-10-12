@@ -182,16 +182,17 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
         reads.push(stage.arena_mut().add(a));
     }
     play!(stage;
-        fmn::animation::grow_arrow(stage.arena_mut(), reads[0])?.rt(0.5),
-        fmn::animation::grow_arrow(stage.arena_mut(), reads[1])?.rt(0.5),
+        fmn::animation::grow_arrow(stage.arena_mut(), reads[0])?.rt(0.4),
+        fmn::animation::grow_arrow(stage.arena_mut(), reads[1])?.rt(0.4),
     );
+    // (brisk: the sentence after this one needs the square on screen)
     line.wait_for(stage, "before either flips")?;
-    fade_out_all(stage, &reads, 0.3)?;
-    scene.door.flip(kit, stage, true, 0.4)?;
-    scene.door.flip(kit, stage, true, 0.4)?;
+    fade_out_all(stage, &reads, 0.2)?;
+    scene.door.flip(kit, stage, true, 0.3)?;
+    scene.door.flip(kit, stage, true, 0.3)?;
     play!(stage;
-        walk(&scene.blue, v(INSIDE_X, BLUE_Y), 0.7)?,
-        walk(&scene.green, v(INSIDE_X, GREEN_Y), 0.7)?,
+        walk(&scene.blue, v(INSIDE_X, BLUE_Y), 0.5)?,
+        walk(&scene.green, v(INSIDE_X, GREEN_Y), 0.5)?,
     );
     // two in the room
     let flash = Rectangle::new()
@@ -202,15 +203,16 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
         .build()?
         .moved_to(ROOM_C);
     let flash = stage.arena_mut().add(flash);
-    play!(stage; fmn::animation::indicate(stage.arena_mut(), flash, 1.05, None)?.rt(0.6));
+    play!(stage; fmn::animation::indicate(stage.arena_mut(), flash, 1.05, None)?.rt(0.4));
     stage.remove_from_scene(flash);
 
-    // every order: the progress square with its both-inside point
+    // every order: the progress square with its both-inside point, its
+    // counting rule under it
     line.wait_for(stage, "Of the fourteen")?;
     let mut out = scene.mobs.clone();
     out.extend([scene.blue.group, scene.green.group]);
     out.extend(scene.door.parts());
-    fade_out_all(stage, &out, 0.6)?;
+    fade_out_all(stage, &out, 0.3)?;
     let orders = sign_orders();
     let steps = sign_program().len();
     let red = red_point(steps);
@@ -245,43 +247,12 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
     )?;
     let [start, end] = l.ends(FAN);
     let ends = [stage.arena_mut().add(start), stage.arena_mut().add(end)];
-    let mut ins = vec![grid, mark, both, ends[0], ends[1]];
+    let lower = lower_third(kit, stage, g::COUNTING, g::COUNTING_RULE)?;
+    let mut ins = vec![grid, mark, both, ends[0], ends[1], lower];
     ins.extend(&labels);
-    fade_in_all(stage, &ins, 0.6)?;
+    fade_in_all(stage, &ins, 0.4)?;
     let n = orders.len();
     let n_bad = orders.iter().filter(|o| o.visits(red)).count();
-    let count = kit.text_left(stage, &format!("{n} {}", g::ORDERS), 40.0, Palette::ink(), v(1.2, 1.3))?;
-    play!(stage; write(stage.arena(), count).rt(0.5));
-    let calm = Style::default().fill(chalk(), 0.0).stroke(chalk(), 3.0, 0.75);
-    let hot = Style::default().fill(room_red(), 0.0).stroke(room_red(), 3.5, 1.0);
-    // the safe orders first, then the eight through the red square, counted
-    let (bad, good): (Vec<_>, Vec<_>) = orders.iter().enumerate().partition(|(_, o)| o.visits(red));
-    let mut stairs = Vec::new();
-    let mut grow: Vec<Box<dyn Animation>> = Vec::new();
-    for &(r, o) in &good {
-        let m = stage.arena_mut().add(l.staircase(o, fan(r, n, FAN), calm));
-        grow.push(Box::new(show_creation(m)));
-        stairs.push(m);
-    }
-    let g_good = AnimationGroup::with_lag_ratio(stage.arena_mut(), grow, 0.3)?.with_run_time(1.4);
-    stage.play(g_good)?;
-    stage.scene_mut().bring_to_front(&ends)?;
-    let tracker = stage.add_value_tracker(0.0);
-    kit.live_number(stage, tracker, 0, false, 36.0, room_red(), v(1.2, 0.65), LEFT)?;
-    let in_room = kit.text_left(stage, g::PUT_BOTH_IN, 30.0, room_red(), v(1.85, 0.65))?;
-    play!(stage; fade_in(stage.arena_mut(), in_room, ORIGIN, 1.0)?.rt(0.3));
-    let mut grow: Vec<Box<dyn Animation>> = Vec::new();
-    for &(r, o) in &bad {
-        let m = stage.arena_mut().add(l.staircase(o, fan(r, n, FAN), hot));
-        grow.push(Box::new(show_creation(m)));
-        stairs.push(m);
-    }
-    let g_bad = AnimationGroup::with_lag_ratio(stage.arena_mut(), grow, 0.35)?.with_run_time(2.4);
-    let tick = tween(tracker, n_bad as f64, 2.4)?;
-    let tick = stage.prepare(tick)?;
-    let g_bad: Box<dyn Animation> = Box::new(g_bad);
-    stage.play_prepared(vec![g_bad, tick])?;
-    stage.scene_mut().bring_to_front(&ends)?;
     // why 14 and not every way to mix 3 + 3 steps (R3 maya-07): a check
     // that finds "occupied" waits, so some mixes can't run
     let (mixes, runnable) = crate::facts::step_mixes(&sign_program());
@@ -294,12 +265,47 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
     let why_2 = format!("{} {} {}", g::MIXES_B, mixes - runnable, g::MIXES_C);
     let why_1 = kit.text_left(stage, &why_1, 24.0, Palette::ink(), v(1.2, -0.45))?;
     let why_2 = kit.text_left(stage, &why_2, 24.0, Palette::ink(), v(1.2, -0.83))?;
-    let lower = lower_third(kit, stage, g::COUNTING, g::COUNTING_RULE)?;
-    play!(stage;
-        fade_in(stage.arena_mut(), why_1, ORIGIN, 1.0)?.rt(0.6),
-        fade_in(stage.arena_mut(), why_2, ORIGIN, 1.0)?.rt(0.6),
-        fade_in(stage.arena_mut(), lower, ORIGIN, 1.0)?.rt(0.6),
-    );
+    let count = kit.text_left(stage, &format!("{n} {}", g::ORDERS), 40.0, Palette::ink(), v(1.2, 1.3))?;
+    let calm = Style::default().fill(chalk(), 0.0).stroke(chalk(), 3.0, 0.75);
+    let hot = Style::default().fill(room_red(), 0.0).stroke(room_red(), 3.5, 1.0);
+    // the safe orders first, then the eight through the red square, counted
+    let (bad, good): (Vec<_>, Vec<_>) = orders.iter().enumerate().partition(|(_, o)| o.visits(red));
+    let mut stairs = Vec::new();
+    let mut grow: Vec<Box<dyn Animation>> = Vec::new();
+    for &(r, o) in &good {
+        let m = stage.arena_mut().add(l.staircase(o, fan(r, n, FAN), calm));
+        grow.push(Box::new(show_creation(m)));
+        stairs.push(m);
+    }
+    // "fourteen orders": the count, the safe staircases and why it is 14
+    let g_good: Box<dyn Animation> =
+        Box::new(AnimationGroup::with_lag_ratio(stage.arena_mut(), grow, 0.3)?.with_run_time(0.8));
+    let mut together = vec![g_good, stage.prepare(write(stage.arena(), count).rt(0.4))?];
+    for m in [why_1, why_2] {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        together.push(stage.prepare(a.rt(0.5))?);
+    }
+    stage.play_prepared(together)?;
+    stage.scene_mut().bring_to_front(&ends)?;
+    // "eight put both in the room": the red ones, counted as they are said
+    line.wait_for(stage, "eight put both")?;
+    let tracker = stage.add_value_tracker(0.0);
+    kit.live_number(stage, tracker, 0, false, 36.0, room_red(), v(1.2, 0.65), LEFT)?;
+    let in_room = kit.text_left(stage, g::PUT_BOTH_IN, 30.0, room_red(), v(1.85, 0.65))?;
+    let label = fade_in(stage.arena_mut(), in_room, ORIGIN, 1.0)?;
+    let label = stage.prepare(label.rt(0.3))?;
+    let mut grow: Vec<Box<dyn Animation>> = Vec::new();
+    for &(r, o) in &bad {
+        let m = stage.arena_mut().add(l.staircase(o, fan(r, n, FAN), hot));
+        grow.push(Box::new(show_creation(m)));
+        stairs.push(m);
+    }
+    let g_bad = AnimationGroup::with_lag_ratio(stage.arena_mut(), grow, 0.35)?.with_run_time(1.4);
+    let tick = tween(tracker, n_bad as f64, 1.4)?;
+    let tick = stage.prepare(tick)?;
+    let g_bad: Box<dyn Animation> = Box::new(g_bad);
+    stage.play_prepared(vec![g_bad, tick, label])?;
+    stage.scene_mut().bring_to_front(&ends)?;
     kit.hold(stage)?;
     fade_all(stage, 0.7)?;
     Ok(())
