@@ -19,3 +19,5 @@
 10_6	2	“So bytes form a field: the byte field.”	0.12 s is kept before "So" here; the read the score chose keeps 0.4 s of the noise bed before it, about 20 dB under the speech
 10_2	1	“Under that fold: what's three times two fifty-five?”	the pause after "fold" is 0.56 s here; 0.83 s, filled with haze, in the read the score chose
 07_4	0	“So a card saying ‘two times A is six’ can't tell you A.”	the final A decays to silence here; in the read the score chose it stops as a hard edge, and hiss runs into "So"
+# Round 4 (final audio): the start of the video's last line.
+17_7	0	Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by.	the line starts clean here; the quoted read the score chose opens with a 0.07 s blip and 0.3 s of low hum before "Two" (the first sound of the line)
