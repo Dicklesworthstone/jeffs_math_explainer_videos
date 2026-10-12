@@ -123,3 +123,12 @@
 13_3	1	‘Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.’
 13_3	1	"Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks."
 13_3	1	«Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.»
+# 02_7 s3 (after the 0.1.11 regeneration): the reads that finish are heard "guest" or "guests"; the others
+# stop 0.12 s into the final s of "guess".
+02_7	3	‘Call it the soup guess.’
+02_7	3	"Call it the soup guess."
+02_7	3	«Call it the soup guess.»
+02_7	3	Call it the soup guess. …
+# 02_5 s2: the only read that finishes runs at 6.0 syl/s.
+02_5	2	‘It searched — about a tenth of the fish.’
+02_5	2	"It searched: about a tenth of the fish."

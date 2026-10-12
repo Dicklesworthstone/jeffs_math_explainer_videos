@@ -258,7 +258,9 @@
 04_9	0	Mathematicians call it: the hypergeometric distribution.
 04_9	0	Mathematicians call it — the hypergeometric distribution.
 04_9	1	If we know the lake — we know the chances of every catch.
-04_9	1	If we know the lake: we know the chances of every catch.
+# (04_9 s1 with a colon was tried and taken out: its plain read stalls 2.5 s after "lake", which the editor
+# no longer shortens, and outscores every other read. The script's sentence in quotation marks pauses 0.4 s
+# at the comma and finishes.)
 # 09_6 s3: the quoted read runs at 7.3 syl/s.
 09_6	3	Always check a simulation, against something you can compute exactly.
 09_6	3	Always check a simulation — against something you can compute exactly.
@@ -282,3 +284,11 @@
 # the whole line's transcript still begins "The old fish". Two more forms, for a read with a plainer "B".
 13_3	1	Bold fish land in the caught-twice cell more than their share — so the dark cell shrinks.
 13_3	1	Bold fish land in the caught twice cell more than their share, so the dark cell shrinks.
+# Round 5 (2026-10-12, after every take was regenerated with the pinned ftts 0.1.11; rounds 2 to 4 above
+# were judged partly on takes from ftts 0.1.5, and 86 of those 262 takes came out different).
+# 05_3 s3: the reads that finish run at 6.2 to 6.9 syl/s.
+05_3	3	We've already seen: seventeen different fish.
+05_3	3	We've already seen — seventeen different fish.
+# 03_5 s1: every read but one stops its final s at speech level, and that one opens on 0.45 s of hum.
+03_5	1	The catch is a small copy — of the lake's mix.
+03_5	1	The catch is: a small copy of the lake's mix.
