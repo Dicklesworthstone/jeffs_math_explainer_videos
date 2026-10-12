@@ -30,6 +30,8 @@
 #   ./x <slug> watch [scored|narrated|draft]    one file to watch: those renders in chapter order,
 #                                               stream-copied to renders/<slug>_<kind>_watch.mp4
 #   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
+#   ./x <slug> chapters                         where each chapter starts in the final cut (M:SS key),
+#                                               from renders/final/'s timelines, for the description
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
 #   ./x remote-wait [UNIT] [SECONDS]            wait (default 540 s) for UNIT (default the last
@@ -42,7 +44,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,42p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,44p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -259,6 +261,14 @@ case "$cmd" in
     [ $# -eq 0 ] || usage
     build_binary
     exec "$binary" thumbnail --res 1280x720 --out "$crate/renders" ;;
+  chapters)
+    # A start is rounded down to the second: a link must never land after the chapter began.
+    [ $# -eq 0 ] || usage
+    ls "$finals"/*.timeline.tsv >/dev/null 2>&1 || die "no timelines in $finals (run ./x $slug final)"
+    for f in "$finals"/*.timeline.tsv; do
+      printf '%s\t%s\n' "$(basename "$f" .timeline.tsv)" "$(awk -F'\t' '$1 == "fps" { fps = $2 } $1 == "frames" { n = $2 } END { print n / fps }' "$f")"
+    done | awk -F'\t' '{ s = int(t); printf "%d:%02d %s\n", s / 60, s % 60, $1; t += $2 }'
+    exit 0 ;;
   watch)
     # every chapter's draft in chapter order, stream-copied into one file to watch
     [ $# -le 1 ] || usage
