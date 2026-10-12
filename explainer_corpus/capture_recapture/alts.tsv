@@ -1,54 +1,284 @@
-# Director alternates for the narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
-# Each keeps the sentence's meaning and its on-screen numbers. Pass 1 with matt (2026-10-11) flagged the base reads:
-# a dropped or repeated word, a misparse, a word-boundary collision, hesitations, or a rising end on a statement.
-# A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
-01_2	0	Now look at the fish that no net ever touched.
+# Director alternates for the narration: <line_id> TAB <sentence index, 0-based> TAB <text>.
+# An alternate keeps EVERY WORD of the script's sentence at that index, in order. Only punctuation that is
+# still correct written English, or how a number is spelled for the voice, may differ: a different text is
+# a different read (ftts is deterministic). The script's words are the storyboard's; change them there.
+# Director pass 2 (2026-10-12, voice matt) removed 26 pass-1 alternates that reworded their sentence. Four
+# were winning their slots with words the script no longer has: 01_2 s0, 09_4 s0 ("estimate"), 13_9 s0 and
+# s1. Two for 15_1 s1 said "several lists" and left out the months, which review R3 had corrected.
 01_2	0	Now look at all the fish no net ever touched.
-01_7	2	And in open water, two thousand eight hundred.
 01_7	2	In open water, only two thousand eight hundred.
-02_5	1	So the marked fish measured our net for us.
 02_5	1	The marked fish have measured our net for us.
-03_6	1	Both are close to one in ten, and the small one wobbles more.
 03_6	1	Both sit near one in every ten, and the small one wobbles more.
-04_1	1	Twenty fish, and five of them are marked.
-04_1	2	Our net holds four fish.
 04_1	2	And our net holds four.
-05_2	0	First, the soup guess.
-05_2	0	The soup guess comes first.
 06_2	1	And what do you get?
-07_3	2	So what survives?
 07_3	2	And what survives?
-09_3	0	In a bell, around a hundred.
 09_3	0	They pile up in a bell around a hundred.
-09_4	0	But the estimate divides by that count, and division bends things.
-09_4	0	But the estimate divides by that count, and dividing bends the results.
-09_5	1	Their average is about ten thousand and ninety, which is a little high.
 09_6	0	Two lines of code run all the experiments.
-09_6	0	Two lines of code run every experiment.
 10_1	1	In a lake of a thousand fish, mark fifty and catch fifty.
-11_5	1	Getting exactly fifty heads happens only about eight percent of the time, yet it's the most likely count.
 11_5	1	Exactly fifty heads comes up only about eight percent of the time, yet it's the most likely count.
-12_5	2	Catching a bigger share of the lake helps more and more, and catching the whole lake shrinks the range to a single size.
 13_1	1	On average, the second catch must hold the same share of marked fish that the lake held on marking day.
 13_5	0	If marks wash off, marked fish look unmarked.
-13_5	0	Marks that wash off make a marked fish look unmarked.
-13_7	0	What if three in every ten fish die between the catches?
 13_7	0	What if three fish out of ten die between the catches?
-13_9	0	If the marks never mix, it all depends on where you go fishing.
-13_9	1	Near the dock you'd estimate sixty-two fifty, and on the far side, twenty-five thousand.
-13_9	1	Near the dock you'd get sixty-two fifty, and on the far side twenty-five thousand.
 14_4	0	It counts bugs as well.
-14_4	0	It can count bugs, too.
 14_5	1	They found forty-two, so about eighteen are still hiding.
 14_6	0	Reviewers of different skill cause no trouble.
-14_6	0	Reviewers of different skill are fine here.
-15_1	1	In the war in Kosovo in nineteen ninety-nine, several lists named about four thousand four hundred different victims between them.
-15_1	1	In nineteen ninety-nine, in the war in Kosovo, several lists named about four thousand four hundred different victims between them.
-06_3	0	These are the chances from counting every netful.
 06_3	0	The chances from counting each netful.
 09_6	1	The last line checks their average against the exact one, built by the same rule as each netful.
-05_2	0	Start with the soup guess.
 05_2	0	Let's try the soup guess first.
-05_2	0	First comes the soup guess.
-13_9	0	If the marks never mix, it all depends on where you put the net.
 13_9	0	If the marks never mix, the answer depends on where you fish.
+# Pass 2 alternates: punctuation only (a comma, dash, colon or semicolon at a phrase boundary; a hyphenated
+# fraction). Each note says what the base read's sheet or report showed.
+# 01_2 s0: a 0.22 s pause inside "the fish | no net".
+01_2	0	Now, look at all the fish no net ever touched.
+# 01_5 s1: the ASR heard "a hundredth" for "one hundredth".
+01_5	1	This net covers one-hundredth of the lake.
+# 01_8 s0: the take ends at speech level (no decay after "water").
+01_8	0	The net knows: it covered a hundredth of the water.
+# 02_3 s1: two pauses inside "caught | a | hundred".
+02_3	1	Of the thousand marked fish the second net caught a hundred.
+# 02_4 s2: a 0.30 s pause with no punctuation.
+02_4	2	A thousand is one-tenth of how many?
+# 02_6 s0: a statement that ends 3.6 st up.
+02_6	0	Read the same fact, the other way.
+02_6	0	Read the same fact — the other way.
+# 02_6 s2: a 0.6 s stall at the comma, cut by the editor.
+02_6	2	We marked a thousand; so the lake holds about ten times that.
+02_6	2	We marked a thousand — so the lake holds about ten times that.
+# 02_7 s1: ends at speech level.
+02_7	1	A thousand times a thousand over a hundred.
+# 03_1 s0: a 0.40 s pause inside "how salty | the whole pot".
+03_1	0	Stir soup and one spoonful tells you how salty the whole pot is.
+03_1	0	Stir soup — and one spoonful tells you how salty the whole pot is.
+# 03_2 s0: a 0.54 s stall at the comma, and the end rises 2 st.
+03_2	0	We built this lake — so we can peek.
+03_2	0	We built this lake; so we can peek.
+# 03_8 s1: the ASR lost the second "as" of "is as easy".
+03_8	1	The second net doesn't care which fish were caught before — as long as every fish is as easy to catch.
+03_8	1	The second net doesn't care which fish were caught before; as long as every fish is as easy to catch.
+# 04_7 s2: a 0.36 s pause inside "five ways | to pick".
+04_7	2	For each: a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants.
+04_7	2	For each, a hundred and five ways to pick two of the fifteen unmarked ones — like shirts and pants.
+# 04_9 s1: starts and ends at speech level.
+04_9	1	If we know the lake we know the chances of every catch.
+# 05_1 s2: two cuts and a 0.40 s pause inside "three | were marked".
+05_1	2	We marked ten, caught ten — and three were marked.
+05_1	2	We marked ten; caught ten; and three were marked.
+# 05_2 s1: a yes/no question that falls 2.3 st.
+05_2	1	Ten times ten over three?
+# 05_3 s1, 05_5 s0: statements that end 3.4 and 4.4 st up.
+05_3	1	Now, check it properly.
+05_5	0	Now, sweep through every size.
+# 05_6 s3: a 0.29 s pause with no punctuation.
+05_6	3	How likely our catch would be if the lake were that size.
+# 05_7 s0: a 0.6 s stall, and the statement ends 4.3 st up.
+05_7	0	Add up every height — out to lakes as big as you like — and you get about sixteen and two thirds.
+05_7	0	Add up every height, out to lakes as big as you like, and you get about sixteen and two-thirds.
+05_7	0	Add up every height out to lakes as big as you like, and you get about sixteen and two thirds.
+# 05_7 s1: the ASR heard no break before "a hundred percent".
+05_7	1	Real chances would add up to one: a hundred percent.
+05_7	1	Real chances would add up to one — a hundred percent.
+# 06_1 s0: 5.8 syl/s with a 0.44 s pause before "at once".
+06_1	0	Here's every lake size, and every possible count, at once.
+06_1	0	Here's every lake size and every possible count, at once.
+# 06_2 s0: ends at speech level.
+06_2	0	Cut across, at one lake size.
+# 06_4 s2: ends at speech level, 3.4 st up.
+06_4	2	Same mountains; two questions.
+06_4	2	Same mountains: two questions.
+06_4	2	Same mountains — two questions.
+# 07_2 s3: 6.1 syl/s through four numbers.
+07_2	3	From thirty-three to thirty-four, it's five hundred seventy-six, against five hundred seventy-eight; so it goes down.
+07_2	3	From thirty-three to thirty-four: it's five hundred seventy-six against five hundred seventy-eight, so it goes down.
+# 07_3 s0: two cuts, a 0.52 s pause inside "the top | minus".
+07_3	0	So, take the top minus the bottom, written with letters.
+07_3	0	So take the top, minus the bottom, written with letters.
+# 07_5 s0: flat (1.0 st).
+07_5	0	Now, write it with the table's four cells.
+# 08_1 s0: ends 3.7 st up, with a 0.27 s pause before "and let it grow".
+08_1	0	So start with a small dark cell, and let it grow.
+08_1	0	So, start with a small dark cell, and let it grow.
+# 08_2 s0: a 0.34 s pause inside "the second net | caught".
+08_2	0	In each column the green part is what the second net caught.
+# 09_3 s0: 7.1 syl/s.
+09_3	0	They pile up in a bell, around a hundred.
+09_3	0	They pile up, in a bell, around a hundred.
+# 09_5 s1: 7.1 syl/s.
+09_5	1	Their average is about ten thousand and ninety: a little high.
+09_5	1	Their average is about ten thousand and ninety — a little high.
+# 10_1 s2: the ASR heard "this second catch".
+10_1	2	How often does the second catch hold no marked fish, at all?
+# 10_3 s2: a 0.26 s pause with no punctuation after "twice".
+10_3	2	With none caught twice, it still answers two thousand six hundred: a number, not an answer.
+10_3	2	With none caught twice it still answers two thousand six hundred — a number, not an answer.
+# 10_4 s0: 6.3 syl/s, ends 2.2 st up.
+10_4	0	Here, we expect only two and a half caught twice.
+10_4	0	Here we expect only two-and-a-half caught twice.
+# 10_4 s1: a stall, two cuts, ends at speech level.
+10_4	1	Over the experiments that catch any, the soup guess runs about twenty-four percent high; and Chapman's runs about six and a half percent low.
+10_4	1	Over the experiments that catch any, the soup guess runs about twenty-four percent high and Chapman's runs about six and a half percent low.
+10_4	1	Over the experiments that catch any: the soup guess runs about twenty-four percent high, and Chapman's runs about six-and-a-half percent low.
+# 10_4 s2: flat (1.5 st), two cuts; the ASR heard "anyone guess".
+10_4	2	Once you expect four or more, its average lands within two percent of the truth — though any one guess still scatters widely.
+10_4	2	Once you expect four or more its average lands within two percent of the truth, though any one guess still scatters widely.
+# 11_1 s3: ends at speech level.
+11_1	3	Which sizes could, plausibly, have given us our hundred caught twice?
+# 11_4 s0: a 0.27 s pause with no punctuation.
+11_4	0	Even at the best size catching exactly a hundred had only about a four percent chance.
+11_4	0	Even at the best size, catching exactly a hundred had only about a four-percent chance.
+# 12_1 s0: 6.0 syl/s.
+12_1	0	Now, the careful range.
+12_1	0	Now: the careful range.
+# 12_1 s1: a 0.31 s pause with no punctuation.
+12_1	1	For each lake size ask whether a hundred caught twice would land in that lake's middle ninety-five percent.
+# 12_3 s0: 6.4 syl/s.
+12_3	0	Statisticians call it a ninety-five-percent confidence interval.
+# 12_5 s1: the take stops inside "range" (the ASR wrote "rain"), 4.8 st up.
+12_5	1	Four times as many, roughly, halves the range.
+# 13_3 s1: no alternate. Two were tried and taken out: with commas round "more than their share" the read
+# won its slot (0.928) and was heard "The old fish land"; with a semicolon it was heard "cot twice". The
+# script's own sentence in quotation marks is heard right (0.921).
+# 13_4 s1: the plain read draws "Fish" out and stalls 0.86 s before "the guess up" (ASR 0.70). A dash
+# before "up" was tried and taken out: it won (0.834) with a 0.52 s pause and was heard "push the gas up".
+13_4	1	Fish that learn to avoid it — push the guess up.
+# 13_5 s0: ends at speech level, a 0.26 s pause with no punctuation.
+13_5	0	If marks wash off — marked fish look unmarked.
+# 13_5 s1: 6.0 syl/s.
+13_5	1	That pushes it up, too.
+# 13_6 s0: a statement that ends 4.0 st up.
+13_6	0	Two thousand newcomers dilute the marks; so you count the lake at the second catch.
+13_6	0	Two thousand newcomers dilute the marks — so you count the lake at the second catch.
+# 13_8 s0: the take stops inside "move" (steady harmonics to the last sample).
+13_8	0	The guess — doesn't move.
+# 13_9 s0: ends at speech level.
+13_9	0	If the marks never mix the answer depends on where you fish.
+# 14_1 s0: ends at speech level.
+14_1	0	Around eighteen hundred the French mathematician Laplace used the same table to count France.
+14_1	0	Around eighteen hundred, the French mathematician, Laplace, used the same table to count France.
+# 14_2 s2: 6.1 syl/s, ends 3.2 st up.
+14_2	2	That's one birth for every twenty-eight-and-a-bit people.
+14_2	2	That's one birth, for every twenty-eight and a bit people.
+# 14_4 s0: flat (1.1 st). 14_4 s1: ends at speech level.
+14_4	0	It counts bugs, as well.
+14_4	1	Say two reviewers read the same code, without comparing notes.
+# 14_6 s2: a 0.36 s pause with no punctuation; the ASR heard "guests".
+14_6	2	Bugs that are easy for both reviewers swell the caught-twice cell, and pull the guess down, like the bold fish.
+14_6	2	Bugs that are easy for both reviewers swell the caught-twice cell and pull the guess down — like the bold fish.
+# 15_1 s5: pauses of 0.19 and 0.33 s with no punctuation.
+15_1	5	Years later, a name-by-name count for the same months found nine thousand seven hundred ninety — inside their range.
+# 01_1 s2: ends 1.5 st up, ASR confidence 0.71.
+01_1	2	Of those — a hundred are marked.
+01_1	2	Of those a hundred are marked.
+# 04_1 s1: ends 2.8 st up after a 0.64 s pause at the comma.
+04_1	1	Twenty fish; five of them marked.
+04_1	1	Twenty fish — five of them marked.
+# 04_8 s1: a list of five numbers at 5.9 syl/s.
+04_8	1	About twenty-eight percent; forty-seven; twenty-two; three; and under one.
+# 05_4 s1, s2: 5.7 and 5.9 syl/s on the numbers the screen is showing.
+05_4	1	A lake of twenty: about eight percent.
+05_4	2	Thirty-three: about thirty-two percent.
+# 05_7 s3: the ASR heard "Their score is for".
+05_7	3	They're scores, for comparing guesses.
+# 07_2 s1: 5.4 syl/s through two six-syllable numbers.
+07_2	1	That's five hundred twenty-nine, against five hundred twenty-eight.
+# 08_3 s0: the ASR lost a word in the product.
+08_3	0	A hundred times eight thousand one hundred, is eight hundred ten thousand.
+# 12_5 s0: a 0.59 s pause at the second comma.
+12_5	0	Mostly: more fish caught twice, which means marking more and catching more.
+12_5	0	Mostly, more fish caught twice — which means marking more and catching more.
+# 13_2 s1: the ASR heard "guests".
+13_2	1	Will the guess be too big or too small?
+# 13_8 s1: starts and ends at speech level.
+13_8	1	Death doesn't care about marks; so the share stays one in ten.
+13_8	1	Death doesn't care about marks — so the share stays one in ten.
+# Round 2 (after the engine began reading every sentence in quotation marks too): the reads ftts still cut
+# short inside their last word, plain and quoted both. Each alternate moves a comma or sets a clause off.
+01_6	0	Try two other spots…
+01_7	0	Not even close!
+02_7	3	Call it: the soup guess.
+02_7	3	Call it — the soup guess.
+03_4	0	The fish stay crowded, where they like to be.
+03_4	0	The fish stay crowded — where they like to be.
+04_1	2	And our net holds: four.
+04_1	2	And our net holds — four.
+04_6	0	One marked fish!
+04_8	0	Divide every pile by all four thousand eight hundred forty-five — and you get the chances.
+04_8	0	Divide every pile by all four thousand eight hundred forty-five and you get the chances.
+04_8	0	Divide every pile, by all four thousand eight hundred forty-five, and you get the chances.
+04_9	2	But we only know — the catch.
+04_9	2	But we only know: the catch.
+05_6	1	It's called: the likelihood.
+05_6	1	It's called — the likelihood.
+07_2	0	In the mystery lake the step from thirty-two to thirty-three leaves twenty-three times twenty-three, over thirty-three times sixteen.
+07_2	0	In the mystery lake, the step from thirty-two to thirty-three leaves: twenty-three times twenty-three, over thirty-three times sixteen.
+07_2	0	In the mystery lake, the step from thirty-two to thirty-three leaves twenty-three times twenty-three over thirty-three times sixteen.
+07_3	2	And, what survives?
+07_5	1	It becomes: first catch only times second catch only, minus caught twice times the dark cell.
+07_5	1	It becomes first catch only, times second catch only, minus caught twice, times the dark cell.
+07_5	1	It becomes first catch only times second catch only — minus caught twice times the dark cell.
+07_6	1	One — same as before.
+07_6	1	One: same as before.
+07_6	1	One; same as before.
+07_6	2	Back, to Feller's lake.
+10_1	0	With a smaller experiment, it gets worse.
+10_1	0	With a smaller experiment — it gets worse.
+12_2	1	In the long run it rings the true size at least ninety-five times in a hundred, whatever that size is.
+12_2	1	In the long run, it rings the true size at least ninety-five times in a hundred — whatever that size is.
+12_2	1	In the long run, it rings the true size, at least ninety-five times in a hundred, whatever that size is.
+12_3	4	Here, the catch is fixed, and we try every lake size.
+12_3	4	Here the catch is fixed; and we try every lake size.
+12_3	4	Here the catch is fixed and we try every lake size.
+14_2	1	Just over two million people — with about seventy-two thousand births a year.
+14_2	1	Just over two million people with about seventy-two thousand births a year.
+14_2	1	Just over two million people; with about seventy-two thousand births a year.
+14_4	2	One finds thirty bugs; the other twenty-four; and twelve are the same.
+14_4	2	One finds thirty bugs, the other twenty-four — and twelve are the same.
+14_4	2	One finds thirty bugs, the other twenty-four and twelve are the same.
+# 05_7 s1: the quoted read runs "one, a hundred percent" together (heard "add up to 100%").
+05_7	1	Real chances would add up to one; a hundred percent.
+05_7	1	Real chances would add up to one (a hundred percent).
+# Round 3 (sheets of the build with quoted reads).
+# 07_3 s2: still cut short in every form tried (plain, quoted, a comma after "And").
+07_3	2	And — what survives?
+07_3	2	And… what survives?
+# 01_5 s1: the plain read wins (0.887) and says "a hundredth": 0.1 s of vowel between "covers" and
+# "hundredth", no "w" glide. The quoted read says "one" (0.832) and loses.
+01_5	1	This net covers: one hundredth of the lake.
+01_5	1	This net covers — one hundredth of the lake.
+# 05_7 s1: the quoted read says "one" and "a hundred" 60 ms apart, with no break (heard "add up to 100%").
+05_7	1	Real chances would add up to one… a hundred percent.
+# (retired: "per cent" in two words is not the script's "percent", and the renderer compares the words;
+# it had won its slot. A curly apostrophe in 07_6 s2's "Feller's" was retired for the same reason.)
+# 02_3 s1: pauses of 0.19 and 0.29 s round "caught" with no punctuation there.
+02_3	1	Of the thousand marked fish — the second net caught a hundred.
+02_3	1	Of the thousand marked fish: the second net caught a hundred.
+# 02_5 s2: 6.1 syl/s.
+02_5	2	It searched — about a tenth of the fish.
+02_5	2	It searched: about a tenth of the fish.
+# 04_9 s0, s1: the quoted reads run at 6.9 and 6.7 syl/s.
+04_9	0	Mathematicians call it: the hypergeometric distribution.
+04_9	0	Mathematicians call it — the hypergeometric distribution.
+04_9	1	If we know the lake — we know the chances of every catch.
+04_9	1	If we know the lake: we know the chances of every catch.
+# 09_6 s3: the quoted read runs at 7.3 syl/s.
+09_6	3	Always check a simulation, against something you can compute exactly.
+09_6	3	Always check a simulation — against something you can compute exactly.
+09_6	3	Always: check a simulation against something you can compute exactly.
+# 12_3 s0: 6.4 syl/s.
+12_3	0	Statisticians call it: a ninety-five percent confidence interval.
+12_3	0	Statisticians call it — a ninety-five percent confidence interval.
+# 14_2 s2: the hyphenated alternate won and runs at 7.0 syl/s.
+14_2	2	That's one birth for every twenty-eight, and a bit, people.
+14_2	2	That's one birth — for every twenty-eight and a bit people.
+# Round 4.
+# 15_1 s0: the chosen (quoted) read opens on a creaky "And" that the editor leaves out; the line ships
+# as "It has counted the dead."
+15_1	0	And, it has counted the dead.
+15_1	0	And — it has counted the dead.
+# 07_3 s2: the reads that finish have a long pause after "And" and lose to the plain read, which stops
+# inside "survives".
+07_3	2	And... what survives?
+07_3	2	And: what survives?
+# 13_3 s1: the quoted script sentence is the chosen read and its own transcript begins "Bold fish", but
+# the whole line's transcript still begins "The old fish". Two more forms, for a read with a plainer "B".
+13_3	1	Bold fish land in the caught-twice cell more than their share — so the dark cell shrinks.
+13_3	1	Bold fish land in the caught twice cell more than their share, so the dark cell shrinks.

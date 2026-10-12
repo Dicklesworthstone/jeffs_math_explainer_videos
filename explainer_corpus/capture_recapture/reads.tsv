@@ -1,0 +1,125 @@
+# Director reads for the narration: <line_id> TAB <sentence index, 0-based> TAB <ftts input>.
+# Extra inputs for ftts only (tools/narration.py director_files): the sentence's text stays the script's.
+# Yes/no questions whose every read so far falls at the end like a statement (report.json final_st:
+# 01_6 s1 -2.6 st, 05_2 s1 -3.1, 11_2 s0 -2.3, 11_3 s0 -1.4): the same words with a more marked question.
+01_6	1	Same answer?!
+01_6	1	“Same answer?!”
+01_6	1	Same answer??
+05_2	1	Ten times ten, over three?!
+05_2	1	“Ten times ten, over three?!”
+11_2	0	Only nineteen hundred fish?!
+11_2	0	“Only nineteen hundred fish?!”
+11_2	0	Only nineteen hundred fish??
+11_3	0	A million fish?!
+11_3	0	“A million fish?!”
+11_3	0	A million fish??
+# Sentences whose every read so far stops inside its last sound (report.json cut_short, build of 04:16;
+# seen in the takes: 'One in ten' ends on a level n, 'one rule' on a level l, 'those months' in its s, each
+# a hard vertical edge). The script's sentence inside other closing marks, which ftts may read to the end.
+02_3	2	‘One in ten.’
+02_3	2	"One in ten."
+02_3	2	«One in ten.»
+02_3	2	One in ten. …
+02_4	0	‘So guess that the second net caught about one in ten of all the fish.’
+02_4	0	"So guess that the second net caught about one in ten of all the fish."
+02_4	0	«So guess that the second net caught about one in ten of all the fish.»
+02_4	0	So guess that the second net caught about one in ten of all the fish. …
+02_7	0	‘Marked times second catch, over caught twice.’
+02_7	0	"Marked times second catch, over caught twice."
+02_7	0	«Marked times second catch, over caught twice.»
+02_7	0	Marked times second catch, over caught twice. …
+03_1	1	‘Our second catch is the spoonful.’
+03_1	1	"Our second catch is the spoonful."
+03_1	1	«Our second catch is the spoonful.»
+03_1	1	Our second catch is the spoonful. …
+03_3	0	‘Watch them swim.’
+03_3	0	"Watch them swim."
+03_3	0	«Watch them swim.»
+03_3	0	Watch them swim. …
+03_5	1	‘The catch is a small copy of the lake's mix.’
+03_5	1	"The catch is a small copy of the lake's mix."
+03_5	1	«The catch is a small copy of the lake's mix.»
+03_5	1	The catch is a small copy of the lake's mix. …
+04_3	1	‘But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful.’
+04_3	1	"But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful."
+04_3	1	«But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful.»
+04_3	1	But the same four fish come out in twenty-four orders, four times three times two times one, and that's still one netful. …
+04_4	1	‘Which pile is biggest?’
+04_4	1	"Which pile is biggest?"
+04_4	1	«Which pile is biggest?»
+04_4	1	Which pile is biggest? …
+04_7	0	‘Take the pile with two marked fish.’
+04_7	0	"Take the pile with two marked fish."
+04_7	0	«Take the pile with two marked fish.»
+04_7	0	Take the pile with two marked fish. …
+05_2	0	‘Let's try the soup guess first.’
+05_2	0	"Let's try the soup guess first."
+05_2	0	«Let's try the soup guess first.»
+05_2	0	Let's try the soup guess first. …
+05_3	3	‘We've already seen seventeen different fish.’
+05_3	3	"We've already seen seventeen different fish."
+05_3	3	«We've already seen seventeen different fish.»
+05_3	3	We've already seen seventeen different fish. …
+05_7	3	‘They're scores for comparing guesses.’
+05_7	3	"They're scores for comparing guesses."
+05_7	3	«They're scores for comparing guesses.»
+05_7	3	They're scores for comparing guesses. …
+06_2	0	‘Cut across at one lake size.’
+06_2	0	"Cut across at one lake size."
+06_2	0	«Cut across at one lake size.»
+06_2	0	Cut across at one lake size. …
+06_4	1	‘Its heights, out to every lake size, add to sixteen and two thirds.’
+06_4	1	"Its heights, out to every lake size, add to sixteen and two thirds."
+06_4	1	«Its heights, out to every lake size, add to sixteen and two thirds.»
+06_4	1	Its heights, out to every lake size, add to sixteen and two thirds. …
+07_3	2	‘And what survives?’
+07_3	2	"And what survives?"
+07_3	2	«And what survives?»
+07_3	2	And what survives? …
+07_4	0	‘Marked times second catch, minus caught twice times lake size.’
+07_4	0	"Marked times second catch, minus caught twice times lake size."
+07_4	0	«Marked times second catch, minus caught twice times lake size.»
+07_4	0	Marked times second catch, minus caught twice times lake size. …
+08_4	1	‘So the size with the top score and the soup guess agree, rounded down to a whole fish, like thirty-three from thirty-three and a third.’
+08_4	1	"So the size with the top score and the soup guess agree, rounded down to a whole fish, like thirty-three from thirty-three and a third."
+08_4	1	«So the size with the top score and the soup guess agree, rounded down to a whole fish, like thirty-three from thirty-three and a third.»
+08_4	1	So the size with the top score and the soup guess agree, rounded down to a whole fish, like thirty-three from thirty-three and a third. …
+10_1	1	‘In a lake of a thousand fish, mark fifty and catch fifty.’
+10_1	1	"In a lake of a thousand fish, mark fifty and catch fifty."
+10_1	1	«In a lake of a thousand fish, mark fifty and catch fifty.»
+10_1	1	In a lake of a thousand fish, mark fifty and catch fifty. …
+10_2	0	‘About one time in fourteen.’
+10_2	0	"About one time in fourteen."
+10_2	0	«About one time in fourteen.»
+10_2	0	About one time in fourteen. …
+13_1	0	‘Every failure breaks one rule.’
+13_1	0	"Every failure breaks one rule."
+13_1	0	«Every failure breaks one rule.»
+13_1	0	Every failure breaks one rule. …
+14_4	3	‘How many are still hiding?’
+14_4	3	"How many are still hiding?"
+14_4	3	«How many are still hiding?»
+14_4	3	How many are still hiding? …
+14_6	3	‘So expect sixty, and the range, to run low.’
+14_6	3	"So expect sixty, and the range, to run low."
+14_6	3	«So expect sixty, and the range, to run low.»
+14_6	3	So expect sixty, and the range, to run low. …
+15_1	3	‘From how the lists overlap, researchers estimated about ten thousand four hundred Kosovar Albanians killed in those months.’
+15_1	3	"From how the lists overlap, researchers estimated about ten thousand four hundred Kosovar Albanians killed in those months."
+15_1	3	«From how the lists overlap, researchers estimated about ten thousand four hundred Kosovar Albanians killed in those months.»
+15_1	3	From how the lists overlap, researchers estimated about ten thousand four hundred Kosovar Albanians killed in those months. …
+# 01_6 s1, 11_2 s0: the reads that rise are cut short and the ones that finish fall (the tool's final_st on
+# every candidate, and their pitch tracks drawn). The same question inside other closing marks.
+01_6	1	‘Same answer?’
+01_6	1	"Same answer?"
+01_6	1	«Same answer?»
+01_6	1	Same answer? …
+11_2	0	‘Only nineteen hundred fish?’
+11_2	0	"Only nineteen hundred fish?"
+11_2	0	«Only nineteen hundred fish?»
+11_2	0	Only nineteen hundred fish? …
+# 13_3 s1: the chosen read's own transcript begins "Bold fish", the whole line's begins "The old fish":
+# its B has almost no burst. More reads to find one with a plain B.
+13_3	1	‘Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.’
+13_3	1	"Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks."
+13_3	1	«Bold fish land in the caught-twice cell more than their share, so the dark cell shrinks.»

@@ -304,8 +304,17 @@
    }
   }
  },
- "accept": {},
+ "_homophones": "Director pass, 2026-10-12, voice matt: ASR spellings of words that are said right, each looked at in a spectrogram of the chosen take. size/sighs (05_5 'every size': the take's own transcript writes 'size', the line's 'sighs'; the sheet shows one syllable ending in a sibilant). peek/peak (03_2 'so we can peek': p burst and the ee vowel are there; the final k has no visible release). too/to (13_5 'pushes it up too': t burst, then 0.24 s of vowel decaying to silence; the take's own transcript says 'too', the line's says 'to'). they're/their (05_7 'They're scores': a 0.12 s voiced syllable before the s of 'scores'; the take's transcript writes 'their scores', the line's 'There are scores'). Not accepted, because the sound is in doubt: 'guest' heard for 'guess' in 05_6, 13_2, 13_8 and 14_6.",
+ "accept": {
+  "size": [
+   "sighs"
+  ]
+ },
  "phrases": {
+  "so we can peak": "so we can peek",
+  "pushes it up to": "pushes it up too",
+  "their scores for comparing": "they're scores for comparing",
+  "there are scores for comparing": "they're scores for comparing",
   "willie um": "william",
   "willie young": "william",
   "chap moon": "chapman",
