@@ -1,3 +1,4 @@
+# leo's picks (until 2026-10-12, when the owner moved this video to michael), kept as a record; ./x narrate reads picks.tsv only
 # The director's picks (tools/narration.py, director_files): <line_id> TAB <sentence index> TAB <ftts input> TAB <why>.
 # That read wins whatever its score. Director pass 2026-10-12, voice leo. The lengths were read from 0-4 kHz
 # crops of each take: from the end of the ks to where the second formant leaves the band under 1.3 kHz.

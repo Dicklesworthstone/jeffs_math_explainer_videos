@@ -212,7 +212,7 @@ case "$cmd" in
     # michael peak higher over their loudness than leo and robert do.
     case "$slug" in
       capture_recapture) voice=matt headroom=17 ;;
-      raptorq_gf256) voice=leo headroom=15 ;;
+      raptorq_gf256) voice=michael headroom=18 ;;
       bakery_algorithm) voice=michael headroom=18 ;;
       hoeffding_d) voice=robert headroom=15 ;;
       *) die "no voice chosen for $slug (add it to ./x narrate)" ;;
