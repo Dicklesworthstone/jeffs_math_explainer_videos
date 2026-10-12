@@ -294,12 +294,7 @@ impl SceneConstruct for Landscape {
         // lifted out flat beside the landscape: 05_4's chart of one lake's
         // catch, for this lake
         let sum: f64 = (0..=COUNTS).map(|k| Law::new(SLICE, TOY.0, TOY.1).at(k)).sum();
-        let chart_f = Frame2 {
-            width: 6.0,
-            height: 2.6,
-            y: (0.0, 0.45),
-            ..curve::catch_frame(v(3.5, 0.9))
-        };
+        let chart_f = slice_chart_frame();
         let chart = stage.arena_mut().add(curve::catch_bars(&chart_f, SLICE)?);
         let chart_axis = curve::catch_axis(&kit, stage, &chart_f)?;
         hud(stage, chart);
@@ -310,7 +305,7 @@ impl SceneConstruct for Landscape {
             &format!("lake of {SLICE}: the chances add to {}", sum.round()),
             28.0,
             Role::chance(),
-            v(chart_f.center[0], chart_f.top() + 0.45),
+            slice_caption_at(&chart_f),
         )?;
         hud(stage, sigma);
         let question1 = plated(
@@ -418,6 +413,22 @@ fn crest_ridge(stage: &mut Stage<'_>, frame: &Frame2) -> fmn::Result<Mob> {
         .add(polyline(pts).style(line_style(Palette::ink(), 4.0)).build()))
 }
 
+/// 06_3's lifted chart, beside the landscape and low enough that its
+/// caption clears the axis headings above it.
+fn slice_chart_frame() -> Frame2 {
+    Frame2 {
+        width: 6.0,
+        height: 2.6,
+        y: (0.0, 0.45),
+        ..curve::catch_frame(v(3.5, 0.4))
+    }
+}
+
+/// Where 06_3's caption sits: centred just above its chart.
+fn slice_caption_at(chart: &Frame2) -> Vec3 {
+    v(chart.center[0], chart.top() + 0.45)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -466,6 +477,25 @@ mod tests {
                 }
                 for pair in labels.windows(2) {
                     assert!(stage.get_right(pair[0])[0] + 0.1 < stage.get_left(pair[1])[0]);
+                }
+                // 06_3's caption sits clear below every heading (R4 final cut:
+                // its plate cut through "chance")
+                let chart = slice_chart_frame();
+                let caption = plated(
+                    &kit,
+                    stage,
+                    &format!("lake of {SLICE}: the chances add to 1"),
+                    28.0,
+                    Role::chance(),
+                    slice_caption_at(&chart),
+                )?;
+                let top = stage.get_top(caption)[1];
+                for &label in &labels {
+                    let bottom = stage.get_bottom(label)[1];
+                    assert!(
+                        top + 0.2 < bottom,
+                        "caption top {top} against a heading's bottom {bottom}"
+                    );
                 }
                 Ok(())
             }
