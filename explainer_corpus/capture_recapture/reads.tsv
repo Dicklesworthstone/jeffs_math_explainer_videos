@@ -233,3 +233,44 @@
 11_5	0	“Flip a hundred coins!”
 08_3	1	So is nine hundred, times nine hundred.
 08_3	1	“So is nine hundred, times nine hundred.”
+# michael variant, review 2 (2026-10-12, tools/narration.py b8253f1): sentences whose every michael read so far
+# drops its final s/z or stops inside the last word. Other closing marks, a trailing ellipsis, a comma before the last word.
+05_7	2	The lake has one size, so these aren't chances that it's a certain, size.
+05_7	2	“The lake has one size, so these aren't chances that it's a certain, size.”
+09_4	0	‘But the guess divides by that count, and division bends things.’
+09_4	0	"But the guess divides by that count, and division bends things."
+09_4	0	«But the guess divides by that count, and division bends things.»
+09_4	0	But the guess divides by that count, and division bends things. …
+09_4	0	But the guess divides by that count, and division bends, things.
+09_4	0	“But the guess divides by that count, and division bends, things.”
+04_7	2	‘For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants.’
+04_7	2	"For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants."
+04_7	2	«For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants.»
+04_7	2	For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants. …
+04_7	2	For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and, pants.
+04_7	2	“For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and, pants.”
+05_5	0	‘Now sweep through every size.’
+05_5	0	"Now sweep through every size."
+05_5	0	«Now sweep through every size.»
+05_5	0	Now sweep through every size. …
+05_5	0	Now sweep through every, size.
+05_5	0	“Now sweep through every, size.”
+09_1	1	‘Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.’
+09_1	1	"Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times."
+09_1	1	«Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.»
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times. …
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand, times.
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand, times.”
+# 09_1 s1, review 2: every read so far ends "time-" (a 15 ms blip where the s should be, then the WAV ends).
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times!
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times!”
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it, ten thousand times.
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times.”
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times…
+09_1	1	Build a lake of exactly ten thousand fish; and run Feller's experiment on it ten thousand times.
+# 09_1 s1: the best read so far ("on it — ten thousand times") keeps only 35 ms of its s before the WAV ends.
+09_1	1	(Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.)
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.” …
+09_1	1	«Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times.»
+09_1	1	‘Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times.’
+09_1	1	Build a lake of exactly ten thousand fish, and run Feller's experiment on it — ten thousand times. …
