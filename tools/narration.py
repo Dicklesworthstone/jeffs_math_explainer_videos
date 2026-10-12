@@ -67,6 +67,7 @@ Nothing is stretched: sample positions are cut or kept, as before.
 """
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -273,12 +274,15 @@ def director_files(script, work, command):
                around a short sentence that ftts keeps cutting short, a number spelled another way.
     picks.tsv  `<line_id> TAB <sentence index> TAB <ftts input> TAB <why>`: that read wins whatever
                its score, because the director saw in the sheets what the score cannot (the report
-               says `picked`). The why is required."""
+               says `picked`). The why is required. NARRATION_PICKS names another picks file: a
+               variant read by another voice has its own (the script's picks name reads in the
+               video's own voice)."""
     here = Path(script).parent
     lines = {lid: nr.sentences(text) for lid, text in nr.checked_script(script)}
 
     def rows(name, columns):
-        path = here / name
+        path = Path(os.environ["NARRATION_PICKS"]) if name == "picks.tsv" and os.environ.get("NARRATION_PICKS") \
+            else here / name
         for n, row in enumerate(path.read_text().splitlines() if path.exists() else [], 1):
             if row.strip() and not row.startswith("#"):
                 cells = row.split("\t")

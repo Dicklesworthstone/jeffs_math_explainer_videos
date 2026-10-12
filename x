@@ -35,6 +35,12 @@
 #   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
 #   ./x <slug> chapters                         where each chapter starts in the final cut (M:SS key),
 #                                               from renders/final/'s timelines, for the description
+#
+#   VOICE=<voice> ./x <slug> ...                the same commands for a variant of the video read by
+#                                               another voice: its narration, music and renders live in
+#                                               explainer_corpus/<slug>/variants/<voice>/ (picks.tsv
+#                                               there is the variant's own), so the video's own cut,
+#                                               in the voice AGENTS.md names, is never touched
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
 #   ./x remote-wait [UNIT] [SECONDS]            wait (default 540 s) for UNIT (default the last
@@ -146,8 +152,28 @@ pkg=$(sed -n 's/^name = "\(.*\)"$/\1/p' "$crate/Cargo.toml" | head -n 1)
 bin=$(awk '/^\[\[bin\]\]/ { f = 1 } f && /^name/ { gsub(/.*= *"|"/, ""); print; exit }' "$crate/Cargo.toml")
 binary="${CARGO_TARGET_DIR:-$here/target}/release/$bin"
 drafts="$crate/renders/draft"
-narration="${NARRATION:-$crate/narration/out}"
-finals="$crate/renders/final"
+# Each video's voice is the owner's choice (AGENTS.md). The headroom is the voice's own: the
+# limiter's ceiling over speech loudness, the lowest at which it turns down more than 1 dB of about
+# 1% of samples (the narration skill's criterion, which the chooser enforces).
+case "$slug" in
+  capture_recapture) own_voice=matt ;;
+  raptorq_gf256|bakery_algorithm) own_voice=michael ;;
+  hoeffding_d) own_voice=robert ;;
+  *) own_voice= ;;
+esac
+voice="${VOICE:-$own_voice}"
+case "$voice" in
+  matt) headroom=17 ;;
+  michael) headroom=18 ;;
+  leo|robert) headroom=15 ;;
+  *) headroom= ;;
+esac
+# a variant in another voice keeps everything it makes apart from the video's own cut
+base="$crate"
+if [ -n "$voice" ] && [ "$voice" != "$own_voice" ]; then base="$crate/variants/$voice"; fi
+narration="${NARRATION:-$base/narration/out}"
+finals="$base/renders/final"
+stems="$base/stems"
 
 # The release binary, built first.
 build_binary() {
@@ -206,17 +232,8 @@ case "$cmd" in
     exec "$binary" render "$@" --res 960x540 --fps 30 --scratch-voice --lint --out "$drafts" ;;
   narrate)
     [ $# -eq 0 ] || usage
-    # The voice is the owner's choice per video (AGENTS.md). The headroom is the voice's own: the
-    # limiter's ceiling over speech loudness, the lowest at which it turns down more than 1 dB of
-    # about 1% of samples (the narration skill's criterion, which the chooser enforces). matt and
-    # michael peak higher over their loudness than leo and robert do.
-    case "$slug" in
-      capture_recapture) voice=matt headroom=17 ;;
-      raptorq_gf256) voice=michael headroom=18 ;;
-      bakery_algorithm) voice=michael headroom=18 ;;
-      hoeffding_d) voice=robert headroom=15 ;;
-      *) die "no voice chosen for $slug (add it to ./x narrate)" ;;
-    esac
+    [ -n "$voice" ] || die "no voice chosen for $slug (add it to the voice table at the top of ./x)"
+    [ -n "$headroom" ] || die "no limiter headroom measured for voice $voice (add it to ./x; limiter_sweep.py)"
     N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
     # One ftts build for every read. A take is keyed by its text and voice, not by the engine that
     # made it, so another build first on someone's PATH mixes its reads in unseen (262 of the fish
@@ -228,11 +245,13 @@ case "$cmd" in
     [ "$ftts_is" = "ftts ${FTTS_VERSION:-0.1.11}" ] ||
       die "$FTTS is '$ftts_is', not ftts ${FTTS_VERSION:-0.1.11}: set FTTS in project.env to that build"
     export FTTS
-    work=narration/work
-    out=narration/out
+    work="$base/narration/work"
+    out="$base/narration/out"
     py() { uv run --quiet --no-project --with numpy python3 -I "$@"; }
     cd "$crate"
     mkdir -p "$work"
+    # a variant's director picks are its own: the video's picks name reads in another voice
+    if [ "$base" != "$crate" ]; then export NARRATION_PICKS="$base/picks.tsv"; fi
     py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}"
     python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
@@ -247,11 +266,11 @@ case "$cmd" in
   narration-sheets)
     cd "$crate"
     exec uv run --quiet --no-project --with numpy --with matplotlib python3 -I "$here/tools/narration_sheets.py" \
-      "$SKILLS/natural-sounding-narration-with-frankentts/scripts" narration narration/sheets "$@" ;;
+      "$SKILLS/natural-sounding-narration-with-frankentts/scripts" "$base/narration" "$base/narration/sheets" "$@" ;;
   narrated)
     need_narration
     build_binary
-    out="$crate/renders/narrated"
+    out="$base/renders/narrated"
     mkdir -p "$out"
     keys=$(chapter_list "$@")
     if [ $# -eq 0 ]; then set -- all; fi
@@ -263,24 +282,24 @@ case "$cmd" in
     need_narration
     build_binary
     # pass 1: every chapter's timeline at the finals' 60 fps (64x36, no picture worth keeping)
-    "$binary" render all --timeline-only --fps 60 --narration "$narration" --out "$crate/renders/timeline"
+    "$binary" render all --timeline-only --fps 60 --narration "$narration" --out "$base/renders/timeline"
     # pass 2: the whole video's music from those timelines, sliced per chapter, with QA
-    exec "$binary" score --timelines "$crate/renders/timeline" --out "$crate" ;;
+    exec "$binary" score --timelines "$base/renders/timeline" --out "$base" ;;
   scored)
     need_narration
-    [ -d "$crate/stems" ] || die "no stems in $crate/stems (run ./x $slug score)"
+    [ -d "$stems" ] || die "no stems in $stems (run ./x $slug score)"
     build_binary
-    out="$crate/renders/scored"
+    out="$base/renders/scored"
     mkdir -p "$out"
     if [ $# -eq 0 ]; then set -- all; fi
-    exec "$binary" render "$@" --res 960x540 --fps 60 --narration "$narration" --score "$crate/stems" --out "$out" ;;
+    exec "$binary" render "$@" --res 960x540 --fps 60 --narration "$narration" --score "$stems" --out "$out" ;;
   final)
     need_narration
-    [ -d "$crate/stems" ] || die "no stems in $crate/stems (run ./x $slug score)"
+    [ -d "$stems" ] || die "no stems in $stems (run ./x $slug score)"
     build_binary
     mkdir -p "$finals"
     if [ $# -eq 0 ]; then set -- all; fi
-    exec "$binary" render "$@" --res 3840x2160 --fps 60 --narration "$narration" --score "$crate/stems" \
+    exec "$binary" render "$@" --res 3840x2160 --fps 60 --narration "$narration" --score "$stems" \
       --crf 16 --preset slow --out "$finals" ;;
   master)
     [ $# -eq 0 ] || usage
