@@ -1,5 +1,5 @@
 {
- "_comment": "Hoeffding's D lexicon for the michael comparison variant (2026-10-12; robert's cut keeps ../../lexicon.json). ./x uses this file when VOICE=michael. Only respell and accept change narration; the rest is the pronunciation record. Voice michael (non-rhotic), ftts 0.1.11, fw 0.10.0; the name probed with probe_names.py (control + decoy, three carriers, then five possessive carriers from the script) and judged by formants; the other names probed with three carriers.",
+ "_comment": "Hoeffding's D lexicon for the michael comparison variant (2026-10-12; robert's cut keeps ../../lexicon.json). ./x uses this file when VOICE=michael. Only respell and accept change narration; the rest is the pronunciation record. Voice michael (non-rhotic), ftts 0.1.11, fw 0.10.0; the name probed with probe_names.py (control + decoy, three carriers, then five possessive carriers from the script) and judged by formants; the other names probed with three carriers. 'add' heard 'at' is not accepted here: in michael's first cut c6.2 really read 'at a quarter' (short vowel, voiceless stop), found by the owner's audit.",
  "words": {
   "Hoeffding": {
    "respell": [
@@ -183,9 +183,6 @@
   ],
   "sit": [
    "sits"
-  ],
-  "add": [
-   "at"
   ]
  },
  "phrases": {

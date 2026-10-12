@@ -325,3 +325,25 @@ g4	0	Now — bend it into a parabola.
 g4	0	“Now — bend it into a parabola.”
 g9	0	And finally: genuinely independent noise.
 s9	3	It's the gap between the real pattern — and independence.
+# michael variant, owner audit: c6.2 needs a read with a voiced 'add' AND a finished 'each' (2026-10-12 18:06)
+c6	2	“Its two twins add a quarter each...”
+c6	2	‘Its two twins add a quarter each...’
+c6	2	«Its two twins add a quarter each...»
+c6	2	Its two twins add a quarter each...
+c6	2	(Its two twins add a quarter each.)
+c6	2	"Its two twins add a quarter each..."
+c6	2	„Its two twins add a quarter each...“
+c6	2	[Its two twins add a quarter each...]
+c6	2	“Its two twins add a quarter each”
+c6	2	“Its two twins add a quarter each”.
+c6	2	‘Its two twins add a quarter each’.
+c6	2	«Its two twins add a quarter each».
+c6	2	“Its two twins add a quarter each —”
+c6	2	Its two twins add a quarter each —
+c6	2	'Its two twins add a quarter each.'
+c6	2	“Its two twins add a quarter each."
+c6	2	“Its two twins add a quarter each.’
+c6	2	“Its two twins add a quarter each.»
+c6	2	“ Its two twins add a quarter each. ”
+c6	2	““Its two twins add a quarter each.””
+c6	2	“Its two twins add a quarter each.” —
