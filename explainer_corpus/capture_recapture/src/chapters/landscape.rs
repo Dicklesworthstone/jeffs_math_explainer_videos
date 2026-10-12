@@ -53,13 +53,21 @@ const THREE_QUARTER: View = View {
 /// The fixed-size slice of 06_2–06_3.
 const SLICE: u64 = TOY.0 * TOY.1 / TOY.2;
 
-fn field_legend() -> String {
+fn field_legend() -> [String; 3] {
     let sizes = curve::sizes();
-    format!(
-        "left to right: lake size, {} to {}   ·   front to back: caught twice, 0 to {COUNTS}   ·   height: chance",
-        sizes.start(),
-        sizes.end()
-    )
+    [
+        format!("left to right\nlake size: {} to {}", sizes.start(), sizes.end()),
+        format!("front to back\ncaught twice: 0 to {COUNTS}"),
+        "height\nchance".to_owned(),
+    ]
+}
+
+fn legend_labels(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    field_legend()
+        .iter()
+        .zip([-4.4, 0.0, 4.4])
+        .map(|(text, x)| plated(kit, stage, text, 40.0, Palette::ink(), v(x, 3.2)))
+        .collect()
 }
 
 /// Where count `k`'s row lies (y): our caught-twice count's row in the
@@ -233,7 +241,11 @@ impl SceneConstruct for Landscape {
         }
 
         // 06_1: every lake size and every count at once
-        let legend = plated(&kit, stage, &field_legend(), 24.0, Palette::ink(), v(0.0, 3.55))?;
+        let labels = legend_labels(&kit, stage)?;
+        let legend = stage.arena_mut().add(VMobject::new());
+        for &label in &labels {
+            stage.attach(legend, label)?;
+        }
         hud(stage, legend);
         kit.say(stage, "06_1")?;
         // the flat curve gives way to its row in the landscape
@@ -438,5 +450,32 @@ mod tests {
         for n in curve::sizes() {
             assert!(peak >= curve::score(n), "slice {SLICE} misses the highest score at {n}");
         }
+    }
+
+    #[test]
+    fn the_axis_headings_fit_without_touching_each_other() {
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let labels = legend_labels(&kit, stage)?;
+                for &label in &labels {
+                    assert!(stage.get_top(label)[1] < 3.85, "top: {:?}", stage.get_top(label));
+                    assert!(stage.get_left(label)[0] > -6.96, "left: {:?}", stage.get_left(label));
+                    assert!(stage.get_right(label)[0] < 6.96, "right: {:?}", stage.get_right(label));
+                }
+                for pair in labels.windows(2) {
+                    assert!(stage.get_right(pair[0])[0] + 0.1 < stage.get_left(pair[1])[0]);
+                }
+                Ok(())
+            }
+        }
+        fmn::run_scene(
+            &mut Probe,
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("actual landscape axis labels");
     }
 }
