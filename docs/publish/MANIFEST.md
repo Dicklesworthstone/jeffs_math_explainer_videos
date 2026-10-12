@@ -8,9 +8,15 @@ Channel: Jeff's Math Explainers, https://www.youtube.com/channel/UCOcp8GDWZvkg-x
 (confirmed by the owner).
 
 Paths are relative to the repository root on the owner's Mac. Renders and captions are not in git;
-the text files are. Every master listed as ready was rendered at 3840×2160, 60 fps, BT.709 and
-passed `verify_video.sh` with the delivery gates; its md5 on this Mac equals the verified master's
-on the build host. Originals are never overwritten: a new cut goes to its own path.
+the text files are. Listed master candidates were rendered at 3840×2160, 60 fps, BT.709 and have
+recorded `verify_video.sh` results under their configured gates; each md5 on this Mac equals
+the checked master's on the build host. Originals are never overwritten: a new cut goes to its own path.
+
+Video C's `VERIFY PASS` used the fixed-gain quiet-peak exception: −17.6 LUFS at −1.5 dBTP.
+That falls outside `AGENTS.md`'s literal −16 LUFS ±1 loudness gate. The owner's quiet-level
+disposition and human narration/score listening and full-watch acceptance remain open.
+"Ready" in this review set means available for a Private review upload; it does not establish
+owner acceptance or permission to publish publicly.
 
 Settings for every review upload: Private; Education; "not made for kids"; altered or synthetic
 content "No" (a generic synthetic narrator; each description says the narration is synthetic);
@@ -22,7 +28,7 @@ English captions from the .srt "with timing"; the custom thumbnail.
 |---|---|---|---|---|---|---|
 | Hoeffding's D | robert | original | ready; uploaded Private (Codex) | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | 8:46 |
 | Hoeffding's D | michael | comparison | narration and director pass running | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (when ready) | | |
-| The bakery algorithm | michael | original (its own voice) | ready | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | 15:42 |
+| The bakery algorithm | michael | original (its own voice) | candidate; quiet-level and listening acceptance open | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | 15:42 |
 | The fish video | matt | original | ready | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | 17:37 |
 | The fish video | michael | alternative | rendering (4K) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` (when ready) | | |
 | RaptorQ | michael | the owner's 11:30 choice ("replace the leo voice ... with the michael voice") | ready | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | 21:01 |
