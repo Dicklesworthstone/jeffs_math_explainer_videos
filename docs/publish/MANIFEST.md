@@ -1,42 +1,57 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 16:45 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 17:00 EDT)
 
-**Nothing is public, and nothing may be published.** The owner will hear every cut before
-anything is posted. He thinks he wants michael's voice everywhere but must hear it first. Upload
-ready cuts as **Private** only, with titles or notes that say the voice, and give him review links.
+**Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
-Channel: Jeff's Math Explainers, https://www.youtube.com/channel/UCOcp8GDWZvkg-xu-U2aeppA
-(confirmed by the owner).
+**The owner's choice: michael's voice for all four videos.** RaptorQ and the bakery video are
+michael already; the fish video and Hoeffding get their michael versions (Hoeffding said
+"HERF-ding"). He heard RaptorQ open with "a million phone" for "phones": michael's reads sometimes
+drop a final s/z, and the ASR writes the word in full, so the gates passed it. Every michael cut is
+being corrected (review 2): the chooser now detects a missing final s/z from the spectrum
+(tools/narration.py, b8253f1), and each video's director replaces what remains, plus the items in
+docs/publish/codex-tts-audit-20261012.md.
 
-Paths are relative to the repository root on the owner's Mac. Renders and captions are not in git;
-the text files are. Every master listed as ready was rendered at 3840×2160, 60 fps, BT.709 and
-passed `verify_video.sh` with the delivery gates; its md5 on this Mac equals the verified master's
-on the build host. Originals are never overwritten: a new cut goes to its own path.
+Channel: Jeff's Math Explainers (confirmed). Paths are relative to the repository root on the
+owner's Mac; renders and captions are not in git, the text files are. Every master listed as
+verified was rendered at 3840×2160, 60 fps, BT.709 and passed `verify_video.sh` with the delivery
+gates; its md5 here equals the verified master's on the build host. Originals and every uploaded
+review cut are kept: a corrected cut always goes to a new path.
 
-Settings for every review upload: Private; Education; "not made for kids"; altered or synthetic
-content "No" (a generic synthetic narrator; each description says the narration is synthetic);
-English captions from the .srt "with timing"; the custom thumbnail.
+## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
-## The review set, by video and voice
+| Cut | Link | Master | md5 | Status |
+|---|---|---|---|---|
+| Hoeffding robert (original) | https://youtu.be/savJOtXm7AQ | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | kept; michael chosen instead |
+| bakery michael, review 1 | https://youtu.be/PpmO9Gato2w | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | being corrected: "reads and writes" lost its s |
+| fish matt (original) | https://youtu.be/fUXsjbWsgNg | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | kept; michael chosen instead |
+| RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | being corrected: "phones", "once", "those", "peels" lost their s; audit items |
 
-| Video | Voice | Role | Status | Master | md5 | Length |
-|---|---|---|---|---|---|---|
-| Hoeffding's D | robert | original | ready; uploaded Private (Codex) | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | 8:46 |
-| Hoeffding's D | michael | comparison | narration and director pass running | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (when ready) | | |
-| The bakery algorithm | michael | original (its own voice) | ready | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | 15:42 |
-| The fish video | matt | original | ready | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | 17:37 |
-| The fish video | michael | alternative | rendering (4K) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` (when ready) | | |
-| RaptorQ | michael | the owner's 11:30 choice ("replace the leo voice ... with the michael voice") | ready | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | 21:01 |
-| RaptorQ | leo | the original voice, for comparison | ready | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4` | `130493a0d35ce4e4f61eeb39047b6b73` | 21:14 |
+When a corrected review 2 of the bakery video or RaptorQ is copied here, the review-1 files above
+move to `renders/final_review1/` in the same crate (never deleted), and this table says so.
 
-Loudness: the bakery (−17.6 LUFS), fish matt (−16.8) and RaptorQ michael (−18.0) masters are
-quieter than −16 because the fixed master gain stops when the true peak reaches −1.5 dBTP (the
-designed behaviour for voices with sharp peaks; no compression). Hoeffding robert and RaptorQ leo are −16.0.
+## Ready, not uploaded
 
-## Text, captions and thumbnails per ready cut
+| Cut | Master | md5 | Length | Status |
+|---|---|---|---|---|
+| RaptorQ leo (the original voice, a comparison) | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4` | `130493a0d35ce4e4f61eeb39047b6b73` | 21:14, −16.0 LUFS | verified; the owner chose michael, so upload only if he asks to compare |
+| fish michael, v1 (preliminary) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
 
-Title, description (with this cut's chapter times) and tags are plain text: copy them exactly.
-For a private review upload, add the voice to the title (for example "… [michael]") so the owner
-can tell the cuts apart; take it out again before anything is made public.
+RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
+captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
+(`96fc2e5c…`); thumbnail `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png`.
+
+## In progress (review 2, michael)
+
+| Cut | Lands at | Being fixed |
+|---|---|---|
+| RaptorQ michael | `explainer_corpus/raptorq_gf256/renders/final/` | phones, once, those, peels; fountain codes, ten to sixteen slots, parked pieces, the letter A |
+| bakery michael | `explainer_corpus/bakery_algorithm/renders/final/` | writes; Green's slate, the other's |
+| fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/` | size, times, things; "Marked times second catch", "five in a one", "pull the guess down" |
+| Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/` | HERF-ding in all nine places; noise; dependence, rank coordinates, outliers |
+
+Each gets its own `publish/michael/` text (the fish and Hoeffding variants: chapter times differ),
+captions in its `renders/final/`, and the video's thumbnail. Added here when verified and copied.
+
+## Text, captions and thumbnails of the uploaded cuts
 
 | Cut | Text files | Captions (md5) | Thumbnail, 1280×720 (md5) |
 |---|---|---|---|
@@ -44,15 +59,8 @@ can tell the cuts apart; take it out again before anything is made public.
 | bakery michael | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`27f50dfe…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` (`4be9ed65…`) |
 | fish matt | `explainer_corpus/capture_recapture/publish/matt/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/renders/final/capture_recapture.en.srt` (`1f2df8ca…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` (`bce2cbc9…`) |
 | RaptorQ michael | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`cb8b968c…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` (`ab3727ca…`) |
-| RaptorQ leo | `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt` | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt` (`96fc2e5c…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` (`ab3727ca…`, the same pictures) |
-
-Each variant gets its own `publish/<voice>/` text (its chapter times differ), its captions in its
-`renders/final/`, and the video's thumbnail (the pictures do not depend on the voice). They are
-added here when verified and copied.
 
 ## Preserved, never to be uploaded (last night's cuts, narration the owner rejected)
-
-Moved aside, not deleted, on this Mac:
 
 | Video | File | md5 |
 |---|---|---|
@@ -64,10 +72,7 @@ Moved aside, not deleted, on this Mac:
 
 The build host keeps its own copies under each crate's `renders/final_before_rework/`.
 
-## Uploads so far
-
-| Cut | Video ID / URL | Visibility | Processing | Reported by |
-|---|---|---|---|---|
-| Hoeffding robert | (Codex to fill in) | Private | | Codex |
-
-A cut is done only with its video ID and processing state recorded.
+Settings for every review upload: Private; Education; "not made for kids"; altered or synthetic
+content "No" (each description says the narration is synthetic); English captions from the .srt
+"with timing"; the custom thumbnail; the voice in the review title. A cut is done only with its
+video ID and processing state recorded.
