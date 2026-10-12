@@ -11,9 +11,9 @@
 #                                               lint into explainer_corpus/<slug>/renders/draft/
 #   ./x <slug> sheets [CHAPTER...]              contact sheets (4x3) of those drafts, to read
 #   ./x <slug> narrate                          the narration into narration/{work,out}: new reads
-#                                               only (ftts), every take transcribed (fw), the chooser
-#                                               that listens to what it cuts (tools/narration_choose.py),
-#                                               then the line gate and the release gates
+#                                               only (ftts), every take transcribed (fw), reads that
+#                                               finish their last word and an editor that listens to
+#                                               what it cuts (tools/narration.py), then the gates
 #   ./x <slug> narration-sheets [--takes] [LINE...]   spectrograms of the narration to read as images,
 #                                               into narration/sheets/ (tools/narration_sheets.py)
 #   ./x <slug> narrated [CHAPTER...]            960x540@30 with the real narration (NARRATION, default
@@ -191,10 +191,10 @@ case "$cmd" in
     py() { uv run --quiet --no-project --with numpy python3 -I "$@"; }
     cd "$crate"
     mkdir -p "$work"
-    py "$N/narrate.py" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}"
+    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}"
     python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
-    py "$here/tools/narration_choose.py" "$N" script.tsv "$work" "$out" --limit-headroom "$headroom"
+    py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom"
     python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
     py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json"
     py "$N/validate_narration.py" "$out"

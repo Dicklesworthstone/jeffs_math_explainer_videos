@@ -1,16 +1,29 @@
 #!/usr/bin/env python3
-"""The narration skill's `choose`, with an editor that listens to what it cuts.
+"""The narration skill's `plan` and `choose`, with reads that finish their last
+word and an editor that listens to what it cuts.
 
-    uv run --no-project --with numpy python3 -I tools/narration_choose.py SKILL_SCRIPTS \
+    uv run --no-project --with numpy python3 -I tools/narration.py SKILL_SCRIPTS plan \
+        SCRIPT.tsv WORK [--alts alts.tsv] [--lexicon lexicon.json] [--voice V] [--model M]
+    uv run --no-project --with numpy python3 -I tools/narration.py SKILL_SCRIPTS choose \
         SCRIPT.tsv WORK OUT [--lexicon lexicon.json] [--sentence-lufs -23] [--limit-headroom 15]
 
-Exit 1 when the limiter had to work harder than LIMITER_MAX (the lines are still written).
+`choose` exits 1 when the limiter had to work harder than LIMITER_MAX (the lines are still written).
 
 SKILL_SCRIPTS is the narration skill's scripts directory (narrate.py lives
-there). Everything but the ear is narrate.py's own `choose`: the candidates,
+there). Everything else is narrate.py's own: the respellings and alternates,
 the score's weights, the gaps, the limiter, the report and its length proof.
 
-Why the ear is replaced. narrate.py calls a frame silent when it is under
+Why every sentence is also read in quotation marks (`plan`). ftts often stops
+a plain sentence inside its last word: of the fish video's 241 chosen reads,
+158 were still within 25 dB of speech level 50 ms before the WAV ended, and
+48 within 15 dB ("...halves the range." stopped on a rising "rai-", "...red
+spots." in the middle of its "s"). Whisper writes the whole word anyway. The
+same sentence inside “ ” is read to its end, with a falling close and
+silence after it. So each read is planned twice, plain and quoted (the quotes
+go to ftts only, like a respelling: the spoken text and the captions do not
+change), and `choose` marks a read that ftts cut short and scores it down.
+
+Why the ear is replaced (`choose`). narrate.py calls a frame silent when it is under
 -48 dBFS and ends a read at its last frame above that. ftts voices sit near
 -34 LUFS, so that line is about 20 dB under the vowels, and three things
 followed, each seen in spectrograms of the chosen takes:
@@ -40,6 +53,7 @@ own speech level:
 
 Nothing is stretched: sample positions are cut or kept, as before.
 """
+import json
 import math
 import sys
 from pathlib import Path
@@ -49,6 +63,8 @@ import numpy as np
 sys.dont_write_bytecode = True  # importing narrate must leave no __pycache__ in the skill
 sys.path.insert(0, sys.argv[1])
 import narrate as nr  # noqa: E402
+
+respellings = nr.tts_variants  # narrate.py's own, before main() puts tts_variants in its place
 
 HOP = 0.005                # s per level frame (15 ms window)
 NUCLEUS = 18.0             # dB under the take's speech level: a syllable is at least this loud
@@ -64,6 +80,8 @@ MIN_PAUSE = 0.12
 CAPS = {"punct": ((0.42, 0.40), (0.52, 0.44)), "none": ((0.22, 0.18), (0.34, 0.24)),
         "unknown": ((0.34, 0.30), (0.52, 0.40))}
 STALL = 0.90               # a pause this long is the model stalling, whatever is in it
+CUT_SHORT = 25.0           # dB under speech level: a WAV that ends louder than this ended inside a sound
+FINISHERS = (("“", "”"),)  # every read is also auditioned inside these; ftts then finishes the sentence
 # The limiter is for plosives. More work than this and it is flattening the stressed syllables: raise
 # the headroom (the narration skill's criterion; its limiter_sweep.py shows each ceiling's cost).
 LIMITER_MAX = (1.5, 0.15)  # % of samples it may turn down by more than 1 dB, and by more than 3 dB
@@ -103,8 +121,8 @@ def edge(db, audible, start, step, reach, skip):
         if quiet >= hold:
             return i - step * (hold - 1), True
         i += step
-    if not 0 <= i < len(db):
-        return (i - step * quiet, True) if quiet else (i - step, False)
+    if not 0 <= i < len(db):  # ran off the take: clean only if it had gone quiet (20 ms) before its edge
+        return (i - step * quiet, quiet >= 4) if quiet else (i - step, False)
     span = [k for k in range(start + step * skip, start + step * reach, step) if 0 <= k < len(db)] or [start]
     low = min(db[k] for k in span)
     return next(k for k in span if db[k] <= low + 3.0), False
@@ -131,6 +149,10 @@ def hear(x, rate, last_word_end):
     cut_out, clean_out = edge(db, audible, last + 1, 1, frames(TAIL_REACH), frames(0.10))
     cut_in = min(first, max(0, cut_in - (4 if clean_in else 0)))
     cut_out = max(last, min(len(db) - 1, cut_out + (6 if clean_out else 0)))
+    # ftts stopped inside the last sound: the sentence runs to the WAV's end, which is still loud
+    # (its last 40 ms, leaving out the two frames whose window hangs over the end)
+    ending = 10 * np.log10(np.mean(10 ** (db[-10:-2] / 10))) if len(db) > 12 else top
+    cut_short = bool((len(db) - 1 - cut_out) * HOP < 0.06 and ending > top - CUT_SHORT)
     pauses = []
     for a, b in runs(db[first:last + 1] < top - PAUSE, 0):
         a, b = a + first, b + first
@@ -139,7 +161,13 @@ def hear(x, rate, last_word_end):
             pauses.append({"a": a * HOP, "b": (b + 1) * HOP, "silent": bool(len(inner) == 0 or inner.max() < audible)})
     return {"cut_in": cut_in * HOP, "cut_out": (cut_out + 1) * HOP, "clean_in": clean_in, "clean_out": clean_out,
             "first": first * HOP, "last": (last + 1) * HOP, "pauses": pauses, "junk_after_s": round(junk_after, 2),
-            "top_db": round(top, 1), "floor_db": round(floor, 1)}
+            "cut_short": cut_short, "top_db": round(top, 1), "floor_db": round(floor, 1)}
+
+
+def tts_variants(text):
+    """narrate.py's respellings of one sentence, each also inside quotation marks (FINISHERS)."""
+    plain = respellings(text)
+    return plain + [f"{a}{v}{b}" for a, b in FINISHERS for v in plain]
 
 
 def analyze(path, asr, target_text):
@@ -189,16 +217,18 @@ def analyze(path, asr, target_text):
     score -= nr.NAME_PENALTY * names_missed + nr.HESITATION_PENALTY * len(hesitations)
     if ratio < 0.85:
         score -= 0.5
-    # what the old ear could not hear: a read that ran on, stalled, or has no clean way in or out
+    # what the old ear could not hear: a read that ran on, stalled, has no clean way in or out,
+    # or (the worst of them: the last word is not all there) was cut short by ftts
     stalls = sum(1 for p in pauses if p["len"] >= STALL)
     score -= 0.02 * (h["junk_after_s"] > 0) + 0.04 * stalls + 0.02 * (not h["clean_in"]) + 0.02 * (not h["clean_out"])
+    score -= 0.12 * h["cut_short"]
     return {
         "score": round(score, 4), "asr_ratio": round(ratio, 3), "misheard_names": names_missed,
         "conf": round(float(np.mean(probs)), 3), "syl_rate": round(syl_rate, 2), "pauses": pauses,
         "hesitations": len(hesitations), "pitch_std_st": round(pitch_std, 2), "final_st": round(final_st, 2),
         "start": round(h["cut_in"], 4), "end": round(h["cut_out"], 4), "heard": asr.get("text", ""),
         "cuts": cuts, "clean_in": h["clean_in"], "clean_out": h["clean_out"], "junk_after_s": h["junk_after_s"],
-        "stalls": stalls, "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
+        "cut_short": h["cut_short"], "stalls": stalls, "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
     }
 
 
@@ -245,9 +275,18 @@ def main():
         worked[2] += len(x)
         return y, frac, max_db
 
-    nr.analyze, nr.edit, nr.limit_peaks = analyze, edit, counted_limit
-    sys.argv = [str(Path(sys.argv[1]) / "narrate.py"), "choose", *sys.argv[2:]]
+    if len(sys.argv) < 3 or sys.argv[2] not in ("plan", "choose"):
+        sys.exit(__doc__)
+    command, out = sys.argv[2], Path(sys.argv[5]) if len(sys.argv) > 5 else None
+    nr.tts_variants, nr.analyze, nr.edit, nr.limit_peaks = tts_variants, analyze, edit, counted_limit
+    sys.argv = [str(Path(sys.argv[1]) / "narrate.py"), *sys.argv[2:]]
     nr.main()
+    if command == "plan":
+        return
+    reads = [s for line in json.loads((out / "report.json").read_text())["lines"].values() for s in line]
+    print(f"endings: {sum(s['cut_short'] for s in reads)} of {len(reads)} chosen reads were cut short by ftts "
+          f"(the WAV ends inside the last sound); {sum(s['tts'].startswith(FINISHERS[0][0]) for s in reads)} "
+          f"are the read in quotation marks")
     over1, over3 = (100 * w / max(1, worked[2]) for w in worked[:2])
     ok = over1 <= LIMITER_MAX[0] and over3 <= LIMITER_MAX[1]
     print(f"limiter: turned down >1 dB for {over1:.2f}% of samples, >3 dB for {over3:.3f}% "
