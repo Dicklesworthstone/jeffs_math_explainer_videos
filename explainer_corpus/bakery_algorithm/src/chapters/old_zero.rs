@@ -80,6 +80,9 @@ pub fn double_fetch_failure() -> Vec<crate::model::Step> {
 /// 10_4's two tunes at once (s), as 12_4's.
 const CLASH_S: f64 = 3.0;
 
+/// 10_3's quote cards against the kit's size: the frame holds nothing else.
+const QUOTE_SCALE: f64 = 1.5;
+
 /// The two customers (1-based) in the room as the failure ends.
 fn in_room_at_end(failure: &[crate::model::Step]) -> fmn::Result<[usize; 2]> {
     let m = Bakery::new(3, 3, Variant::DoubleFetch, true, true);
@@ -287,7 +290,9 @@ impl SceneConstruct for OldZero {
             } else if i == 2 {
                 line.wait_for(stage, "His colleague")?;
             }
-            let card = quote_card(&kit, stage, words, source, v(0.0, 0.5), 46)?;
+            // the quote is the beat's one object: large, in the middle
+            let card = quote_card(&kit, stage, words, source, v(0.0, 0.5), 40)?;
+            stage.scale(card, QUOTE_SCALE);
             let mut anims: Vec<Box<dyn Animation>> = Vec::new();
             if let Some(s) = shown.take() {
                 let a = fade_out(stage.arena_mut(), s, v(0.0, 0.3), 1.0)?;

@@ -91,7 +91,9 @@ impl SceneConstruct for Proudest {
         // 13_1: the magic signs, and Lamport on the bakery's practical use
         let line = say(&kit, stage, "13_1")?;
         // 02_7's magic sign, called back: it checks and flips in one motion
-        let mut magic = sign(&kit, stage, false, v(-3.6, 0.6), 1.5, true)?;
+        // the sign is the beat's one object: large, left of centre, the quote
+        // beside it
+        let mut magic = sign(&kit, stage, false, v(-3.0, 0.9), 2.6, true)?;
         let rmw_text = format!("{}. {}", glyphs::RMW_TEXT, glyphs::RMW_WHY);
         let rmw = lower_third(&kit, stage, glyphs::RMW, &rmw_text)?;
         fade_in_all(stage, &magic.parts(), 0.6)?;
@@ -111,8 +113,8 @@ impl SceneConstruct for Proudest {
                 glyphs::SECTION_SIGN,
                 cited::PRACTICAL_USE_SECTION
             ),
-            v(2.4, 1.0),
-            28,
+            v(3.6, 0.9),
+            26,
         )?;
         play!(stage; fade_in(stage.arena_mut(), quote, v(-0.2, 0.0), 1.0)?.rt(0.7));
         let q = predict_pause(&kit, stage, v(0.0, -1.3))?;
@@ -129,18 +131,19 @@ impl SceneConstruct for Proudest {
             fade_in(stage.arena_mut(), sub, v(0.0, -0.1), 1.0)?.rt(0.6),
         );
         line.wait_for(stage, "while a core wakes up")?;
-        let core = chip_outline(&kit, stage, v(-2.6, -0.3), 2.0, glyphs::CORE)?;
-        let cache = kit.text(stage, glyphs::CACHE_OFF, 26.0, room_red(), v(-2.6, -1.75))?;
+        // the waking core, large; its labels at body size
+        let core = chip_outline(&kit, stage, v(-3.1, -0.35), 2.4, glyphs::CORE)?;
+        let cache = kit.text(stage, glyphs::CACHE_OFF, 28.0, room_red(), v(-3.1, -2.1))?;
         play!(stage;
             fade_in(stage.arena_mut(), core, ORIGIN, 0.9)?.rt(0.6),
             fade_in(stage.arena_mut(), cache, ORIGIN, 1.0)?.rt(0.6),
         );
         line.wait_for(stage, "the magic signs aren't guaranteed")?;
-        let no_sign = kit.text(stage, glyphs::NOT_GUARANTEED, 26.0, Palette::dim(), v(2.6, 0.3))?;
+        let no_sign = kit.text(stage, glyphs::NOT_GUARANTEED, 30.0, Palette::ink(), v(2.9, 0.55))?;
         play!(stage; fade_in(stage.arena_mut(), no_sign, ORIGIN, 1.0)?.rt(0.5));
         line.wait_for(stage, "so the core takes a ticket")?;
-        let ticket = slate(&kit, stage, 1, v(2.6, -0.8), 0.8)?;
-        let tb = badge(&kit, stage, 1, 0.22, v(1.6, -0.8))?;
+        let ticket = slate(&kit, stage, 1, v(3.3, -0.85), 1.25)?;
+        let tb = badge(&kit, stage, 1, 0.36, v(1.85, -0.85))?;
         let precisely = lower_third(&kit, stage, glyphs::PRECISELY, glyphs::TF_A_PRECISELY)?;
         play!(stage;
             fade_in(stage.arena_mut(), ticket.board, ORIGIN, 0.9)?.rt(0.5),
@@ -168,7 +171,7 @@ impl SceneConstruct for Proudest {
             ],
             0.5,
         )?;
-        let mut grid = PairAxes::build(&kit, stage, v(-2.4, 0.6))?;
+        let mut grid = PairAxes::build(&kit, stage, v(0.0, 0.85))?;
         fade_in_all(stage, &grid.all(), 0.7)?;
         line.wait_for(stage, "reappears in how Lamport")?;
         grid.relabel(&kit, stage)?;
@@ -179,7 +182,7 @@ impl SceneConstruct for Proudest {
         ];
         let mut timeline = Vec::new();
         let axis = stage.arena_mut().add(
-            Line::new(v(-5.2, -2.3), v(5.2, -2.3))
+            Line::new(v(-5.2, TIMELINE_Y), v(5.2, TIMELINE_Y))
                 .style(line_style(Palette::faint(), 2.5))
                 .build()?,
         );
@@ -190,11 +193,15 @@ impl SceneConstruct for Proudest {
                 line.wait_for(stage, "Paxos")?;
             }
             let x = -4.2 + 4.2 * i as f64;
-            let dot = stage
-                .arena_mut()
-                .add(Dot::new().point(v(x, -2.3)).radius(0.09).color(order_gold()).build());
-            let top = kit.text(stage, when, 28.0, order_gold(), v(x, -1.9))?;
-            let bottom = kit.text(stage, what, 24.0, Palette::dim(), v(x, -2.7))?;
+            let dot = stage.arena_mut().add(
+                Dot::new()
+                    .point(v(x, TIMELINE_Y))
+                    .radius(0.12)
+                    .color(order_gold())
+                    .build(),
+            );
+            let top = kit.text(stage, when, 34.0, order_gold(), v(x, TIMELINE_Y + 0.45))?;
+            let bottom = kit.text(stage, what, 28.0, Palette::dim(), v(x, TIMELINE_Y - 0.45))?;
             play!(stage;
                 fade_in(stage.arena_mut(), dot, ORIGIN, 0.5)?.rt(0.4),
                 fade_in(stage.arena_mut(), top, v(0.0, -0.1), 1.0)?.rt(0.4),
@@ -354,8 +361,11 @@ impl SceneConstruct for Proudest {
     }
 }
 
-/// 04's pair grid in miniature, for the callback: ticket across, customer
-/// number up, five pairs as badges; relabelled (clock value, process).
+/// 13_3's timeline, under the pair grid.
+const TIMELINE_Y: f64 = -2.65;
+
+/// 04's pair grid, for the callback: ticket across, customer number up,
+/// five pairs as badges; relabelled (clock value, process).
 struct PairAxes {
     x_axis: Mob,
     y_axis: Mob,
@@ -366,8 +376,12 @@ struct PairAxes {
 }
 
 impl PairAxes {
-    const W: f64 = 5.2;
-    const H: f64 = 3.0;
+    /// Centred and large: the grid is 13_3's one object.
+    const W: f64 = 7.6;
+    const H: f64 = 3.6;
+    /// One ticket across, one customer number up.
+    const DX: f64 = Self::W / 6.5;
+    const DY: f64 = Self::H / 6.0;
 
     fn build(kit: &Kit, stage: &mut Stage<'_>, center: Vec3) -> fmn::Result<Self> {
         let origin = v(center[0] - Self::W / 2.0, center[1] - Self::H / 2.0);
@@ -394,22 +408,25 @@ impl PairAxes {
         let x_label = kit.text(
             stage,
             glyphs::TICKET_ACROSS,
-            26.0,
+            32.0,
             Palette::dim(),
-            v(origin[0] + Self::W / 2.0, origin[1] - 0.4),
+            v(origin[0] + Self::W / 2.0, origin[1] - 0.45),
         )?;
         let y_label = kit.text(
             stage,
             glyphs::CUSTOMER_NUMBER_UP,
-            26.0,
+            32.0,
             Palette::dim(),
-            v(origin[0] - 0.4, origin[1] + Self::H / 2.0),
+            v(origin[0] - 0.45, origin[1] + Self::H / 2.0),
         )?;
         stage.rotate(y_label, std::f64::consts::FRAC_PI_2, [0.0, 0.0, 1.0], None, None);
         let mut dots = Vec::new();
         for (ticket, k) in crate::facts::tie_pairs() {
-            let p = v(origin[0] + 0.8 * f64::from(ticket), origin[1] + 0.5 * k as f64);
-            dots.push(badge(kit, stage, k, 0.18, p)?);
+            let p = v(
+                origin[0] + Self::DX * f64::from(ticket),
+                origin[1] + Self::DY * k as f64,
+            );
+            dots.push(badge(kit, stage, k, 0.27, p)?);
         }
         Ok(Self {
             x_axis,
@@ -433,16 +450,16 @@ impl PairAxes {
         let x = kit.text(
             stage,
             glyphs::CLOCK_VALUE_ACROSS,
-            26.0,
+            32.0,
             order_gold(),
-            v(o[0] + Self::W / 2.0, o[1] - 0.4),
+            v(o[0] + Self::W / 2.0, o[1] - 0.45),
         )?;
         let y = kit.text(
             stage,
             glyphs::PROCESS_UP,
-            26.0,
+            32.0,
             order_gold(),
-            v(o[0] - 0.4, o[1] + Self::H / 2.0),
+            v(o[0] - 0.45, o[1] + Self::H / 2.0),
         )?;
         stage.rotate(y, std::f64::consts::FRAC_PI_2, [0.0, 0.0, 1.0], None, None);
         play!(stage;

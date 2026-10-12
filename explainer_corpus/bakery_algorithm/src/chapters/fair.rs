@@ -470,7 +470,7 @@ impl SceneConstruct for FairAtAPrice {
         line.wait_for(stage, "Once you've taken your ticket")?;
         let mut ahead = Vec::new();
         for s in ticket + 1..=steps.len() {
-            walk(&kit, stage, &mut l, s..=s, 0.17)?;
+            walk(&kit, stage, &mut l, s..=s, 0.15)?;
             let st = &steps[s - 1];
             if st.enters() && st.customer != 1 {
                 let x = l.x(s).ok_or_else(|| fail("entry has a slot".into()))?;
@@ -511,18 +511,19 @@ impl SceneConstruct for FairAtAPrice {
             &all_steps,
             &[],
         )?;
-        let mut odo = Odometer::build(&kit, stage, 1, 0, v(5.4, 0.15), 1.4)?;
-        let odo_t = kit.text(stage, glyphs::BIGGEST_TICKET, 24.0, Palette::dim(), v(5.4, 1.4))?;
+        // the counter the question is about, large beside the lanes
+        let mut odo = Odometer::build(&kit, stage, 1, 0, v(5.3, 0.0), 2.1)?;
+        let odo_t = kit.text(stage, glyphs::BIGGEST_TICKET, 30.0, Palette::dim(), v(5.3, 1.45))?;
         let mut intro = lf.base();
         intro.extend(odo.parts());
         intro.push(odo_t);
         fade_in_all(stage, &intro, 0.5)?;
-        let rt = (line.end() - stage.scene().time().to_f64() - 1.2).max(4.0) / all_steps.len() as f64;
+        let rt = (line.end() - stage.scene().time().to_f64() - 1.4).max(3.2) / all_steps.len() as f64;
         for s in 1..=all_steps.len() {
             walk(&kit, stage, &mut lf, s..=s, rt)?;
             let b = biggest(&all_steps[s - 1].after);
             if b != odo.value {
-                odo.roll_to(&kit, stage, b, 0.3)?;
+                odo.roll_to(&kit, stage, b, 0.22)?;
             }
         }
         kit.hold(stage)?;
@@ -597,13 +598,14 @@ impl SceneConstruct for FairAtAPrice {
         // a 32-bit slate's top, its digits one wheel each
         let top32 = fact_u64("C-F10.u32_max");
         let bits32 = (top32 + 1).trailing_zeros();
-        let mut odo32 = Odometer::build(&kit, stage, top32.to_string().len(), top32, v(0.0, -1.35), 0.62)?;
+        // large enough to read its ten digits on a phone
+        let mut odo32 = Odometer::build(&kit, stage, top32.to_string().len(), top32, v(0.0, -1.45), 1.05)?;
         let label32 = kit.text(
             stage,
             &format!("{} {bits32}{}", glyphs::BIT_SLATE_A, glyphs::BIT_SLATE_B),
-            24.0,
+            28.0,
             Palette::dim(),
-            v(0.0, -0.7),
+            v(0.0, -0.55),
         )?;
         let mut intro = odo32.parts();
         intro.push(label32);
@@ -622,10 +624,10 @@ impl SceneConstruct for FairAtAPrice {
                 fact("C-F10.i32_wrap_days_at_1_per_ms_1dp"),
                 glyphs::SIGNED_JAVA_INT
             ),
-            30.0,
+            32.0,
             Palette::ink(),
             &[],
-            v(0.0, -2.35),
+            v(0.0, -2.65),
         )?;
         play!(stage; fade_in(stage.arena_mut(), wrap, v(-0.15, 0.0), 1.0)?.rt(0.6));
         kit.hold(stage)?;
@@ -797,10 +799,10 @@ impl SceneConstruct for FairAtAPrice {
             .position(|s| s.customer == 3)
             .ok_or_else(|| fail("Purple moves once".into()))?
             + 1;
-        walk(&kit, stage, &mut fl, 1..=freeze_at, 0.08)?;
+        walk(&kit, stage, &mut fl, 1..=freeze_at, 0.06)?;
         let pause = kit.text(stage, glyphs::FROZEN_TAG, 24.0, customer(3), v(-5.2, -1.3))?;
         play!(stage; fade_in(stage.arena_mut(), pause, ORIGIN, 1.0)?.rt(0.4));
-        walk(&kit, stage, &mut fl, freeze_at + 1..=frozen.len(), 0.1)?;
+        walk(&kit, stage, &mut fl, freeze_at + 1..=frozen.len(), 0.075)?;
         let stall = kit.text(
             stage,
             &format!("{} {} {}", glyphs::STALL_A, facts::frozen_worst(), glyphs::STALL_B),
@@ -827,7 +829,7 @@ impl SceneConstruct for FairAtAPrice {
             rings.push(stage.prepare(a)?);
         }
         let mut spin = AnimationGroup::with_lag_ratio(stage.arena_mut(), rings, 0.5)?;
-        spin.update_rate_info(Some(1.1), None, None);
+        spin.update_rate_info(Some(0.8), None, None);
         stage.play_prepared(vec![Box::new(spin)])?;
         kit.listen(stage, 3.0, "11_fair_at_a_price:11_7")?;
         fade_all(stage, 0.6)?;
