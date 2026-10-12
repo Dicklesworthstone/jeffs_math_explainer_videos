@@ -309,7 +309,20 @@ fn check_report_script(json: &str, script: &Script) -> io::Result<()> {
     // Keep the words, internal apostrophes/decimal points, and number signs
     // exact: "don't" must not become "do", nor -1 become 1.
     let normalize = |text: &str| {
-        text.split_whitespace()
+        // A director may write "ticket-holder" for "ticket holder".
+        // Split only a dash between letters, never a numeric minus sign.
+        let mut words = String::new();
+        let mut chars = text.chars().peekable();
+        let mut previous: Option<char> = None;
+        while let Some(c) = chars.next() {
+            let between_letters = matches!(c, '-' | '‐' | '‑' | '–' | '—')
+                && previous.is_some_and(char::is_alphabetic)
+                && chars.peek().is_some_and(|next| next.is_alphabetic());
+            words.push(if between_letters { ' ' } else { c });
+            previous = Some(c);
+        }
+        words
+            .split_whitespace()
             .map(|word| word.trim_matches(|c: char| !c.is_alphanumeric() && !matches!(c, '-' | '+' | '−')))
             .filter(|word| !word.is_empty())
             .collect::<Vec<_>>()
@@ -635,6 +648,9 @@ mod tests {
         let report = r#"{"lines":{"01_1":[{"sentence":"Leslie  Lamport!","tts":"Leslie Lam-port."}],
             "01_2":[{"sentence":"One,"},{"sentence":"Two."}]}}"#;
         check_report_script(report, &script).unwrap();
+        let hyphenated = Script::parse("01_1\tA ticket holder has thirty-one.\n").unwrap();
+        let report_hyphen = r#"{"lines":{"01_1":[{"sentence":"A ticket-holder has thirty one!"}]}}"#;
+        check_report_script(report_hyphen, &hyphenated).unwrap();
         let changed = Script::parse("01_1\tLeslie Lamport.\n01_2\tOne. Three.\n").unwrap();
         assert!(
             check_report_script(report, &changed)
