@@ -132,3 +132,104 @@
 # 02_5 s2: the only read that finishes runs at 6.0 syl/s.
 02_5	2	‘It searched — about a tenth of the fish.’
 02_5	2	"It searched: about a tenth of the fish."
+# michael variant, round 1 (2026-10-12): sentences where every michael read so far is cut short, says a wrong
+# word or stalls. The script's sentence inside other closing marks; these only add candidates.
+01_7	0	‘Not even close.’
+01_7	0	"Not even close."
+01_7	0	«Not even close.»
+01_7	0	Not even close. …
+02_2	0	‘Feller marked his fish with red spots.’
+02_2	0	"Feller marked his fish with red spots."
+02_2	0	«Feller marked his fish with red spots.»
+02_2	0	Feller marked his fish with red spots. …
+05_7	2	‘The lake has one size, so these aren't chances that it's a certain size.’
+05_7	2	"The lake has one size, so these aren't chances that it's a certain size."
+05_7	2	«The lake has one size, so these aren't chances that it's a certain size.»
+05_7	2	The lake has one size, so these aren't chances that it's a certain size. …
+07_1	3	‘That leftover fraction is also how code can walk the curve, one size at a time.’
+07_1	3	"That leftover fraction is also how code can walk the curve, one size at a time."
+07_1	3	«That leftover fraction is also how code can walk the curve, one size at a time.»
+07_1	3	That leftover fraction is also how code can walk the curve, one size at a time. …
+07_2	2	‘The top one wins, so the score goes up.’
+07_2	2	"The top one wins, so the score goes up."
+07_2	2	«The top one wins, so the score goes up.»
+07_2	2	The top one wins, so the score goes up. …
+07_3	0	‘So take the top minus the bottom, written with letters.’
+07_3	0	"So take the top minus the bottom, written with letters."
+07_3	0	«So take the top minus the bottom, written with letters.»
+07_3	0	So take the top minus the bottom, written with letters. …
+08_3	1	‘So is nine hundred times nine hundred.’
+08_3	1	"So is nine hundred times nine hundred."
+08_3	1	«So is nine hundred times nine hundred.»
+08_3	1	So is nine hundred times nine hundred. …
+08_3	2	‘The shares match, the line is straight, and the table balances.’
+08_3	2	"The shares match, the line is straight, and the table balances."
+08_3	2	«The shares match, the line is straight, and the table balances.»
+08_3	2	The shares match, the line is straight, and the table balances. …
+08_4	0	‘A straight line is what two independent catches look like on average.’
+08_4	0	"A straight line is what two independent catches look like on average."
+08_4	0	«A straight line is what two independent catches look like on average.»
+08_4	0	A straight line is what two independent catches look like on average. …
+09_6	0	‘Two lines of code run all the experiments.’
+09_6	0	"Two lines of code run all the experiments."
+09_6	0	«Two lines of code run all the experiments.»
+09_6	0	Two lines of code run all the experiments. …
+11_1	3	‘Which sizes could plausibly have given us our hundred caught twice?’
+11_1	3	"Which sizes could plausibly have given us our hundred caught twice?"
+11_1	3	«Which sizes could plausibly have given us our hundred caught twice?»
+11_1	3	Which sizes could plausibly have given us our hundred caught twice? …
+11_3	0	‘A million fish?’
+11_3	0	"A million fish?"
+11_3	0	«A million fish?»
+11_3	0	A million fish? …
+11_5	0	‘Flip a hundred coins.’
+11_5	0	"Flip a hundred coins."
+11_5	0	«Flip a hundred coins.»
+11_5	0	Flip a hundred coins. …
+13_1	1	‘On average, the second catch must hold the same share of marked fish that the lake held on marking day.’
+13_1	1	"On average, the second catch must hold the same share of marked fish that the lake held on marking day."
+13_1	1	«On average, the second catch must hold the same share of marked fish that the lake held on marking day.»
+13_1	1	On average, the second catch must hold the same share of marked fish that the lake held on marking day. …
+14_1	1	‘Births were written down, so in our table, each newborn is a marked fish.’
+14_1	1	"Births were written down, so in our table, each newborn is a marked fish."
+14_1	1	«Births were written down, so in our table, each newborn is a marked fish.»
+14_1	1	Births were written down, so in our table, each newborn is a marked fish. …
+02_4	1	‘It caught a thousand.’
+02_4	1	"It caught a thousand."
+02_4	1	«It caught a thousand.»
+02_4	1	It caught a thousand. …
+04_6	1	‘One in four, same as the lake.’
+04_6	1	"One in four, same as the lake."
+04_6	1	«One in four, same as the lake.»
+04_6	1	One in four, same as the lake. …
+05_1	0	‘A new lake, and we don't know its size.’
+05_1	0	"A new lake, and we don't know its size."
+05_1	0	«A new lake, and we don't know its size.»
+05_1	0	A new lake, and we don't know its size. …
+14_4	1	‘Say two reviewers read the same code without comparing notes.’
+14_4	1	"Say two reviewers read the same code without comparing notes."
+14_4	1	«Say two reviewers read the same code without comparing notes.»
+14_4	1	Say two reviewers read the same code without comparing notes. …
+15_1	2	‘Together they make a table of sixteen cells, one for each mix of lists, and one cell holds the people on no list.’
+15_1	2	"Together they make a table of sixteen cells, one for each mix of lists, and one cell holds the people on no list."
+15_1	2	«Together they make a table of sixteen cells, one for each mix of lists, and one cell holds the people on no list.»
+15_1	2	Together they make a table of sixteen cells, one for each mix of lists, and one cell holds the people on no list. …
+06_1	0	‘Here's every lake size and every possible count at once.’
+06_1	0	"Here's every lake size and every possible count at once."
+06_1	0	«Here's every lake size and every possible count at once.»
+06_1	0	Here's every lake size and every possible count at once. …
+07_5	0	‘Now write it with the table's four cells.’
+07_5	0	"Now write it with the table's four cells."
+07_5	0	«Now write it with the table's four cells.»
+07_5	0	Now write it with the table's four cells. …
+03_7	1	‘Being marked becomes unrelated to where a fish swims.’
+03_7	1	"Being marked becomes unrelated to where a fish swims."
+03_7	1	«Being marked becomes unrelated to where a fish swims.»
+03_7	1	Being marked becomes unrelated to where a fish swims. …
+# michael variant, round 2: more inputs for three sentences whose complete reads rise or mishear a word.
+05_2	0	Let's try the soup guess, first.
+05_2	0	“Let's try the soup guess, first.”
+11_5	0	Flip a hundred coins!
+11_5	0	“Flip a hundred coins!”
+08_3	1	So is nine hundred, times nine hundred.
+08_3	1	“So is nine hundred, times nine hundred.”
