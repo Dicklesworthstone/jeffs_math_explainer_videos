@@ -306,7 +306,8 @@ fn check_report_script(json: &str, script: &Script) -> io::Result<()> {
         .and_then(serde_json::Value::as_object)
         .ok_or_else(|| bad("report.json: no lines".into()))?;
     // Director reads may change sentence punctuation, including quotes.
-    // Keep the words, internal apostrophes/decimal points, and number signs
+    // Small integers may be written as words or digits in a selected read.
+    // Keep other words, internal apostrophes/decimal points, and number signs
     // exact: "don't" must not become "do", nor -1 become 1.
     let normalize = |text: &str| {
         // A director may write "ticket-holder" for "ticket holder".
@@ -325,6 +326,32 @@ fn check_report_script(json: &str, script: &Script) -> io::Result<()> {
             .split_whitespace()
             .map(|word| word.trim_matches(|c: char| !c.is_alphanumeric() && !matches!(c, '-' | '+' | '−')))
             .filter(|word| !word.is_empty())
+            // Exact standalone spellings only: no ASR homophones, compound
+            // number parsing, sign removal, or decimal rounding. In particular,
+            // "two", "02", "2.0" and "-2" are not all the same spoken text.
+            .map(|word| match word.to_ascii_lowercase().as_str() {
+                "zero" => "0".to_owned(),
+                "one" => "1".to_owned(),
+                "two" => "2".to_owned(),
+                "three" => "3".to_owned(),
+                "four" => "4".to_owned(),
+                "five" => "5".to_owned(),
+                "six" => "6".to_owned(),
+                "seven" => "7".to_owned(),
+                "eight" => "8".to_owned(),
+                "nine" => "9".to_owned(),
+                "ten" => "10".to_owned(),
+                "eleven" => "11".to_owned(),
+                "twelve" => "12".to_owned(),
+                "thirteen" => "13".to_owned(),
+                "fourteen" => "14".to_owned(),
+                "fifteen" => "15".to_owned(),
+                "sixteen" => "16".to_owned(),
+                "seventeen" => "17".to_owned(),
+                "eighteen" => "18".to_owned(),
+                "nineteen" => "19".to_owned(),
+                _ => word.to_owned(),
+            })
             .collect::<Vec<_>>()
             .join(" ")
     };
@@ -675,6 +702,43 @@ mod tests {
             let script = Script::parse(&format!("01_1\t{expected}\n")).unwrap();
             let report = serde_json::json!({"lines": {"01_1": [{"sentence": heard}]}}).to_string();
             assert!(check_report_script(&report, &script).is_err(), "{expected} vs {heard}");
+        }
+    }
+
+    #[test]
+    fn number_spelling_does_not_require_a_different_take_or_hide_a_changed_claim() {
+        // Video C 08_1's selected director read uses "2"; its ASR transcript
+        // and the current script use "two". Keep that read and its metadata.
+        let script = Script::parse(
+            "08_1\tWhy can two customers never be in the room at once? Picture Blue inside, and Green holding a ticket.\n",
+        )
+        .unwrap();
+        let report = r#"{"lines":{"08_1":[
+            {"sentence":"Why can 2 customers never be in the room at once?","tts":"Why can 2 customers never be in the room at once?"},
+            {"sentence":"Picture Blue inside, and Green holding a ticket."}]}}"#;
+        check_report_script(report, &script).unwrap();
+        for (expected, selected) in [("Zero.", "0."), ("10.", "Ten."), ("Nineteen.", "19.")] {
+            let script = Script::parse(&format!("01_1\t{expected}\n")).unwrap();
+            let report = serde_json::json!({"lines": {"01_1": [{"sentence": selected}]}}).to_string();
+            check_report_script(&report, &script).unwrap();
+        }
+        for (expected, selected) in [
+            ("Two.", "3."),
+            ("Two.", "-2."),
+            ("Two.", "+2."),
+            ("Two.", "02."),
+            ("Two.", "2.0."),
+            ("Two.", "too."),
+            ("Four.", "for."),
+            ("One hundred.", "100."),
+            ("Two never enter.", "2 enter."),
+        ] {
+            let script = Script::parse(&format!("01_1\t{expected}\n")).unwrap();
+            let report = serde_json::json!({"lines": {"01_1": [{"sentence": selected}]}}).to_string();
+            assert!(
+                check_report_script(&report, &script).is_err(),
+                "{expected} vs {selected}"
+            );
         }
     }
 
