@@ -86,6 +86,8 @@ impl SceneConstruct for Turning {
         let name = kit.text(stage, "the mystery lake", 30.0, Role::dark(), v(0.0, 3.5))?;
         kit.say(stage, "05_1")?;
         fade_in_all(stage, &[art, fog, mystery], 1.0)?;
+        // "Call it the mystery lake.": the name as it is given
+        kit.until_sentence(stage, "05_1", 1)?;
         fade_in_all(stage, &[name], 0.6)?;
         // the second catch comes up: ten fish in a row, three of them marked,
         // in catch order (seeded)
@@ -146,6 +148,9 @@ impl SceneConstruct for Turning {
             Palette::ink(),
             v(0.0, row_y + 0.95),
         )?;
+        // "We marked ten, caught ten, and three were marked.": the numbers
+        // with their words
+        kit.until_sentence(stage, "05_1", 2)?;
         fade_in_all(stage, &[card, data], 0.6)?;
         // one fish at a time through the listen window (the score: seven
         // kalimba notes, three bells)
@@ -431,7 +436,11 @@ impl SceneConstruct for Turning {
         kit.say(stage, "05_6")?;
         fade_out_all(stage, &[live_hist, live_title, hist_axis], 0.4)?;
         fade_in_all(stage, &[crown, peak_tag], 0.6)?;
+        // "It's called the likelihood." then "Think of it as a score for
+        // each lake size.": the name and its meaning, each as it is said
+        kit.until_sentence(stage, "05_6", 1)?;
         fade_in_all(stage, &[likelihood], 0.6)?;
+        kit.until_sentence(stage, "05_6", 2)?;
         fade_in_all(stage, &[name_card], 0.6)?;
         kit.hold(stage)?;
 
