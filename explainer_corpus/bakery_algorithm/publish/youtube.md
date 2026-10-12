@@ -1,0 +1,56 @@
+# The Algorithm Lamport Is Proudest Of: YouTube package
+
+What goes on the upload page. The description is cut from `docs/description.md` (whose
+statements rest on fact-sheet rows and oracle keys) and links back to it for the full notes;
+the chapter times come from the final cut (`./x bakery_algorithm chapters`).
+
+- Title: The Algorithm Lamport Is Proudest Of
+- Visibility: unlisted until the owner has listened to it, then public
+- Category: Education. Audience: not made for kids.
+- Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
+- Thumbnail: `renders/bakery_algorithm_thumbnail.png` (`./x bakery_algorithm thumbnail`)
+- Captions: English, `renders/final/bakery_algorithm.en.srt` (`./x bakery_algorithm captions`)
+- Tags: bakery algorithm, Leslie Lamport, mutual exclusion, concurrency, concurrent programming, Dijkstra, memory model, atomics, multithreading, critical section, distributed systems, computer science, math explainer
+
+## Description
+
+```text
+In 1974 Leslie Lamport published a way for programs to take turns using only memory that each of them writes alone: take a ticket bigger than any you see, break ties by customer number, and raise a flag while you choose. Its proof never trusts a read that overlaps a write, so the algorithm survives memory that returns garbage. This video builds the bakery algorithm, proves it, and shows what it costs on a real computer.
+
+Chapters
+0:00 One plus one is one
+1:23 The room
+2:39 Take a number
+4:00 Same number
+5:24 The unwritten ticket
+6:47 Three customers
+7:03 One run
+8:02 Why never two
+9:26 Reading garbage safely
+10:27 The old zero
+11:37 Fair at a price
+13:02 Your CPU
+14:26 Proudest
+
+What it costs
+The customers are fixed in advance, with one flag and one ticket slate each. Every entry reads each other customer's slate twice and her flag once, even when nobody else wants in. A waiting customer spins. A customer frozen while choosing stalls everyone after one more turn each, and a dead customer's slate stays set until something resets it. Run with plain loads and stores on today's processors, it can fail: use sequentially consistent atomics, or fences placed for your architecture, and 64-bit tickets.
+
+The measured numbers in the video carry their sample sizes. The exact version of every simplification, every source, and the code that computes each number:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bakery_algorithm/docs/description.md
+
+Sources
+E. W. Dijkstra, "Solution of a Problem in Concurrent Programming Control", CACM 8(9):569, 1965
+L. Lamport, "A New Solution of Dijkstra's Concurrent Programming Problem", CACM 17(8):453–455, 1974: https://lamport.azurewebsites.net/pubs/bakery.pdf
+L. Lamport, "The Computer Science of Concurrency: The Early Years" (Turing lecture), CACM 58(6):71–76, 2015: https://lamport.azurewebsites.net/pubs/turing.pdf
+L. Lamport, publications page, the entry for the 1974 paper: https://lamport.azurewebsites.net/pubs/pubs.html
+Oral History of Leslie Lamport, interviewed by Roy Levin, Computer History Museum, 2016
+Trusted Firmware-A, lib/locks/bakery: https://github.com/ARM-software/arm-trusted-firmware
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
+```
+
+## Chapter titles (in order; the times come from the final cut)
+
+One plus one is one | The room | Take a number | Same number | The unwritten ticket |
+Three customers | One run | Why never two | Reading garbage safely | The old zero |
+Fair at a price | Your CPU | Proudest
