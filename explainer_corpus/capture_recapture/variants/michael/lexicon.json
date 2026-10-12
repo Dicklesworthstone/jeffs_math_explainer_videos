@@ -1,0 +1,358 @@
+{
+ "_comment": "Pronunciation lexicon (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write, first with robert on the GPU host and again on the build host with this video's voice, matt (2026-10-11, ftts 0.1.11, FrankenWhisper, 3 carriers, control + decoy). Entries whose probe found no winner carry a note with the decision and its reason. Re-probe when the voice or ftts version changes; the owner's pronunciation overrides every entry. Digit phrases (narration pass 2, 2026-10-11) map the ASR's digit spellings of numbers the script says ('2.5', '62.50', '2811') to the script's own words, since the scorer would read them as 'two point five', 'sixty two point five zero', 'two thousand eight hundred and eleven'.",
+ "words": {
+  "William": {
+   "respell": [
+    "William"
+   ],
+   "say": "WILL-ee-um",
+   "ipa": "ˈwɪl.i.əm",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/William#English"
+   ],
+   "note": "matt, 2026-10-11: the plain spelling PASS 3/3 (heard 'William'); both respellings were heard split ('Willie Um', 'Willie M', 'Willie Elm'), so only the plain spelling is read. Said in 'William Feller' (02_1).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "WILL-ee-um",
+    "discriminates": true,
+    "results": {
+     "William": "control PASS 3/3",
+     "WILL-ee-um": "candidate PASS 3/3",
+     "Will-ee-um": "candidate PASS 3/3",
+     "WALL-ee-um": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Feller": {
+   "respell": [
+    "Feller"
+   ],
+   "say": "FELL-er",
+   "ipa": "ˈfɛlər",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/William_Feller"
+   ],
+   "note": "matt, 2026-10-11: plain, Fell-er and FELL-er all heard 'Feller' 3/3, the decoy FOLL-er 'Faller'/'Fuller'. Two spellings give the chooser two takes.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "Feller",
+    "discriminates": true,
+    "results": {
+     "Feller": "control PASS 3/3",
+     "Fell-er": "candidate PASS 3/3",
+     "FELL-er": "candidate PASS 3/3",
+     "FOLL-er": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "accept": [
+    "fella",
+    "fela"
+   ],
+   "note_michael": "michael, 2026-10-12 (ftts 0.1.11, probes in variants/michael/narration/probes_michael): michael does not sound his r. 'Feller' is 'Fell-uh'; the ASR writes Fella or Fela in 8 of 9 probes. In 'Feller showed something deeper.' the end of Feller and the end of deeper have the same formants (F3 near 2.5 kHz, no dip): his accent, not a misread. The respelling Fell-er is dropped for him: at a sentence start it was heard 'Bella' (probe) and 'The fella' (08_5 takes)."
+  },
+  "Laplace": {
+   "respell": [
+    "La-plahss",
+    "La Plahss"
+   ],
+   "say": "lah-PLAHSS",
+   "ipa": "laplas",
+   "lang": "fr",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Pierre-Simon_Laplace",
+    "https://en.wiktionary.org/wiki/Laplace#English"
+   ],
+   "decoy": [
+    "La-plays"
+   ],
+   "note": "matt, 2026-10-11: ASR writes 'Laplace' for La-plahss, La Plahss, the plain spelling and the decoys (lah-PLAYSS round 1, La-plays round 2) alike, so ASR cannot check the vowel; checked acoustically (see probe.acoustic). Earlier (robert): LPC F2 of the stressed vowel 1070-1190 Hz for the respellings vs 1640-1730 for the decoy. Said once (14_1).",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": [
+     "This is {w}.",
+     "{w} showed something deeper.",
+     "The idea came from {w}, in the end."
+    ],
+    "results": {
+     "Laplace": "control UNVERIFIED 0/3",
+     "La-plahss": "candidate UNVERIFIED 1/3",
+     "La Plahss": "candidate UNVERIFIED 1/3",
+     "lah-PLAHSS": "candidate FAIL 1/3",
+     "La-plays": "decoy FOOLED (heard as the target) 0/3"
+    },
+    "acoustic": {
+     "method": "LPC formants and a front/back index (dB of 1.6-2.6 kHz minus 0.5-1.4 kHz) over the ASR-timed word, 11.025 kHz, 25 ms frames; evidence for a listener, not proof",
+     "measure": "F2 of the stressed final vowel (back /ɑ/ ≈ 800-1100 Hz, the /eɪ/ of 'place' glides up past 1500)",
+     "La-plahss": "steady F2 873, 1025, 1069 Hz (3 carriers)",
+     "La Plahss": "steady F2 1011, 807, 776 Hz (3 carriers)",
+     "decoys": "La-plays glides 1387->1910 and 642->1690 Hz (2 of 3); lah-PLAYSS 754->1524 Hz",
+     "verdict": "both respellings read the back vowel of lah-PLAHSS in every carrier"
+    }
+   }
+  },
+  "Chapman": {
+   "respell": [
+    "Chapman",
+    "Chapmun"
+   ],
+   "say": "CHAP-mun",
+   "ipa": "ˈtʃæpmən",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Chapman#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "Chap-mun",
+    "discriminates": true,
+    "results": {
+     "Chapman": "control PASS 3/3",
+     "Chap-mun": "candidate PASS 3/3",
+     "Chapmun": "candidate PASS 3/3",
+     "CHAP-mun": "candidate PASS 3/3",
+     "CHEEP-mun": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "matt, 2026-10-11: plain and Chapmun heard 'Chapman' 3/3 (decoy CHEEP-mun 'Cheapman'); Chap-mun and CHAP-mun were heard split ('Chap Munn') and are not read."
+  },
+  "Kosovo": {
+   "respell": [
+    "Kosovo"
+   ],
+   "say": "KOSS-uh-voh",
+   "ipa": "ˈkɒsəvoʊ",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Kosovo",
+    "https://en.wiktionary.org/wiki/Kosovo#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "KOSS-uh-voh",
+    "discriminates": true,
+    "results": {
+     "Kosovo": "control PASS 3/3",
+     "KOSS-uh-voh": "candidate PASS 3/3",
+     "KEESS-uh-voh": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "matt, 2026-10-11: plain PASS 3/3 (decoy KEESS-uh-voh 'Kisevo'); KOSS-uh-voh was heard split ('Kos of O', 'Kos Avo') and is not read."
+  },
+  "hypergeometric": {
+   "respell": [
+    "hypergeometric"
+   ],
+   "say": "Hyper-jee-uh-met-rik",
+   "ipa": "ˌhaɪpərˌdʒiːəˈmɛtrɪk",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/hypergeometric#English"
+   ],
+   "decoy": [
+    "Hopper-jee-uh-mot-rak"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "Hyper-jee-uh-met-rik",
+    "discriminates": true,
+    "results": {
+     "hypergeometric": "control PASS 3/3",
+     "Hyper-jee-uh-met-rik": "candidate PASS 3/3",
+     "Hopper-jee-uh-mot-rak": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "matt, 2026-10-11: plain PASS 3/3; Hyper-jee-uh-met-rik was heard split ('Hyper-G metric') and is not read."
+  },
+  "likelihood": {
+   "respell": [
+    "likelihood"
+   ],
+   "say": "LIKE-lee-hood",
+   "ipa": "ˈlaɪklihʊd",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/likelihood#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "Like-lee-hood",
+    "discriminates": false,
+    "results": {
+     "likelihood": "control UNVERIFIED 0/3",
+     "Like-lee-hood": "candidate PASS 3/3",
+     "LIKE-lee-hood": "candidate UNVERIFIED 2/3",
+     "LAKE-lee-hood": "decoy FOOLED (heard as the target) 0/3"
+    }
+   },
+   "note": "matt, 2026-10-11: plain heard 'likelihood' 3/3; the decoy LAKE-lee-hood was heard differently in 2 of 3 carriers ('Blakely Hood', 'Glalie Hood'), so in those carriers ASR does discriminate and the plain read is right. Like-lee-hood passed by the metric but was heard as three words ('like Lee Hood') and is not read. Said once (05_6)."
+  },
+  "probabilist": {
+   "respell": [
+    "probabilist",
+    "PROB-uh-bil-ist"
+   ],
+   "say": "PROB-uh-bil-ist",
+   "ipa": "ˈprɒbəbɪlɪst",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/probabilist#English"
+   ],
+   "decoy": [
+    "PREEB-uh-bil-ist"
+   ],
+   "accept": [
+    "probabilis"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": "PROB-uh-bil-ist",
+    "discriminates": true,
+    "results": {
+     "probabilist": "control PARTIAL 2/3",
+     "Prob-uh-bil-ist": "candidate PARTIAL 2/3",
+     "PROB-uh-bil-ist": "candidate PASS 3/3",
+     "PREEB-uh-bil-ist": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "matt, 2026-10-11: plain PARTIAL 2/3 ('probabilist', once 'Pro-Babylists' sentence-initially; the script says it mid-sentence, 02_1); PROB-uh-bil-ist PASS 3/3 but twice heard split ('Probe, a billist'). Both are read; the ASR-scored take wins."
+  },
+  "netful": {
+   "respell": [
+    "netful"
+   ],
+   "say": "NET-fool",
+   "ipa": "ˈnɛtfʊl",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/-ful#English"
+   ],
+   "decoy": [
+    "Net-fawl"
+   ],
+   "note": "No dictionary or encyclopedia gives a pronunciation; the target is net + the suffix -ful as in 'handful' (/ˈhændfʊl/). matt read 'netfuls' as 'net falls' in 06_3 (pass 1), which is the decoy. Said once (04_3). matt, 2026-10-11: every spelling was heard 'net full' 3/3 and the decoy Net-fawl 'net fall' 3/3, so ASR does tell the vowels apart (the probe's FOOLED verdict is its metric scoring 'net fall' near NET-fool); the plain spelling is read, and the phrase 'net full' maps back.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": [
+     "And that's still one {w}.",
+     "Each {w} holds four fish.",
+     "It all fits in one {w}, in the end."
+    ],
+    "results": {
+     "netful": "control UNVERIFIED 0/3",
+     "net-full": "candidate UNVERIFIED 0/3",
+     "Net-full": "candidate UNVERIFIED 0/3",
+     "NET-fool": "candidate UNVERIFIED 0/3",
+     "Net-fawl": "decoy FOOLED (heard as the target) 3/3"
+    }
+   },
+   "accept": [
+    "netfall"
+   ],
+   "note_michael": "michael, 2026-10-12: the ASR writes Netfall for the plain spelling, for NET-fool and for the decoy Net-fawl alike, and writes his 'fall' as 'full of'. Measured instead (LPC, one take each), F2 of the last vowel: handful 849, spoonful 855, full 825 Hz; 'a netful' 889, netful 797, NET-fool 825; fall 687, Net-fawl 756. The plain spelling sits with full."
+  },
+  "netfuls": {
+   "respell": [
+    "netfuls",
+    "NET-foolz"
+   ],
+   "say": "NET-foolz",
+   "ipa": "ˈnɛtfʊlz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/-ful#English"
+   ],
+   "decoy": [
+    "Net-fawls"
+   ],
+   "note": "No dictionary or encyclopedia gives a pronunciation; the target is net + the suffix -ful as in 'handful' (/ˈhændfʊl/). matt read 'netfuls' as 'net falls' in 06_3 (pass 1), which is the decoy. Said twice (06_3, 09_6). matt, 2026-10-11: sentence-final, the plain spelling and every short-vowel respelling (net-fulls, Net-fullz, Netfullz, net fulls) were heard 'net falls', like the decoy; mid-sentence the plain spelling was heard 'Netfuls'. NET-foolz was heard 'net fools' 3/3 (a slightly long vowel, the right word). Both script uses are sentence-final, so alternates end on the singular instead (alts.tsv 06_3, 09_6); NET-foolz is the fallback read.",
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "matt",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": [
+     "The chances from the {w}.",
+     "{w} come in many sizes.",
+     "Built from the same rule as the {w}."
+    ],
+    "results": {
+     "netfuls": "control UNVERIFIED 0/3",
+     "Net-fullz": "candidate UNVERIFIED 0/3",
+     "Netfullz": "candidate UNVERIFIED 0/3",
+     "net fulls": "candidate UNVERIFIED 0/3",
+     "Net-fuhlz": "candidate FAIL 0/3",
+     "NET-foolz": "candidate UNVERIFIED 0/3",
+     "Net-fawls": "decoy FOOLED (heard as the target) 3/3"
+    }
+   }
+  }
+ },
+ "_homophones": "Director pass, 2026-10-12, voice matt: ASR spellings of words that are said right, each looked at in a spectrogram of the chosen take. size/sighs (05_5 'every size': the take's own transcript writes 'size', the line's 'sighs'; the sheet shows one syllable ending in a sibilant). peek/peak (03_2 'so we can peek': p burst and the ee vowel are there; the final k has no visible release). too/to (13_5 'pushes it up too': t burst, then 0.24 s of vowel decaying to silence; the take's own transcript says 'too', the line's says 'to'). they're/their (05_7 'They're scores': a 0.12 s voiced syllable before the s of 'scores'; the take's transcript writes 'their scores', the line's 'There are scores'). Not accepted, because the sound is in doubt: 'guest' heard for 'guess' in 05_6, 13_2, 13_8 and 14_6.",
+ "accept": {
+  "size": [
+   "sighs"
+  ]
+ },
+ "phrases": {
+  "so we can peak": "so we can peek",
+  "pushes it up to": "pushes it up too",
+  "their scores for comparing": "they're scores for comparing",
+  "there are scores for comparing": "they're scores for comparing",
+  "willie um": "william",
+  "willie young": "william",
+  "chap moon": "chapman",
+  "chap mundy": "chapman",
+  "chap munn": "chapman",
+  "like lee hood": "likelihood",
+  "prohba billist": "probabilist",
+  "net full": "netful",
+  "net fools": "netfuls",
+  "net fulls": "netfuls",
+  "2.5": "two and a half",
+  "6.5": "six and a half",
+  "62.50": "sixty two fifty",
+  "62,50": "sixty two fifty",
+  "77.50": "seventy seven fifty",
+  "2811": "twenty eight hundred eleven",
+  "2,811": "twenty eight hundred eleven",
+  "282": "two hundred eighty two",
+  "204": "two hundred four",
+  "8,500": "eighty five hundred",
+  "8500": "eighty five hundred",
+  "529": "five hundred twenty nine",
+  "528": "five hundred twenty eight",
+  "576": "five hundred seventy six",
+  "578": "five hundred seventy eight",
+  "1,050": "one thousand fifty",
+  "1050": "one thousand fifty",
+  "net fall": "netful",
+  "there's scores for comparing": "they're scores for comparing",
+  "16 and 2/3": "sixteen and two thirds"
+ },
+ "_variant": "The michael variant's lexicon: the shared lexicon.json plus what michael's accent needs (Feller, netful). Not read by ./x until it passes --lexicon for a variant. Phrases added for michael: \"there's scores for comparing\" (05_7: the line transcript writes his r-less They're that way; the take's own transcript writes Their) and \"16 and 2/3\" (06_4: the ASR's way of writing sixteen and two thirds)."
+}

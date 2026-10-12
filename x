@@ -39,7 +39,8 @@
 #   VOICE=<voice> ./x <slug> ...                the same commands for a variant of the video read by
 #                                               another voice: its narration, music and renders live in
 #                                               explainer_corpus/<slug>/variants/<voice>/ (picks.tsv
-#                                               there is the variant's own), so the video's own cut,
+#                                               and lexicon.json there are the variant's own when
+#                                               present), so the video's own cut,
 #                                               in the voice AGENTS.md names, is never touched
 #   ./x remote <slug> COMMAND [ARGS]            sync this tree to REMOTE_HOST:REMOTE_DIR and run
 #                                               `./x <slug> COMMAND` there as a systemd unit
@@ -259,16 +260,20 @@ case "$cmd" in
     mkdir -p "$work"
     # a variant's director picks are its own: the video's picks name reads in another voice
     if [ "$base" != "$crate" ]; then export NARRATION_PICKS="$base/picks.tsv"; fi
-    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}"
+    # and so may its lexicon be: a voice's accent can need its own accepted spellings (michael is
+    # non-rhotic: "Feller" is heard "Fella"), which must not loosen the video's own voice
+    lexicon="$crate/lexicon.json"
+    if [ "$base" != "$crate" ] && [ -f "$base/lexicon.json" ]; then lexicon="$base/lexicon.json"; fi
+    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon"
     python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
-    py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom"
+    py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon"
     python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
     # every gate runs, so one build shows everything that is wrong
     status=0
-    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" || status=1
+    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" --lexicon "$lexicon" || status=1
     py "$N/validate_narration.py" "$out" || status=1
-    py "$here/tools/narration.py" "$N" edges script.tsv "$out" || status=1
+    py "$here/tools/narration.py" "$N" edges script.tsv "$out" --lexicon "$lexicon" || status=1
     exit $status ;;
   narration-sheets)
     cd "$crate"

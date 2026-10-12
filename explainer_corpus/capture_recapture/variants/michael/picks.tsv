@@ -1,0 +1,35 @@
+# Director picks for the michael variant of capture_recapture: <line_id> TAB <sentence index> TAB <ftts input> TAB <why>.
+# Round 1 (2026-10-12): chosen from the tool's own analysis of every candidate take; see the director's mail for which were also looked at.
+03_5	0	“Wherever the second net goes, about one fish in ten it catches is marked.”	the plain read says "catches his mark"; this one says "is marked"
+03_6	0	The fullest corner has twenty-eight hundred eleven fish, two hundred eighty-two marked, and the emptiest has two hundred four, twenty-five marked.	the quoted read garbles "two hundred four, twenty-five" (heard "two ovo 425"); this one says the numbers
+05_1	2	“We marked ten, caught ten — and three were marked.”	finishes; the score's choice stops inside "marked"
+05_3	1	Now check it properly.	even pace; the score's choice has a 0.75 s gap after "Now" and then runs at 8.7 syl/s
+05_4	2	Thirty-three: about thirty-two percent.	no stall; the score's choice stalls 2.3 s after "Thirty-three"
+05_6	1	“It's called — the likelihood.”	no 0.8 s gap before "the likelihood"
+07_5	1	“It becomes first catch only times second catch only, minus caught twice times the dark cell.”	no 0.77 s gap inside the phrase
+10_1	2	“How often does the second catch hold no marked fish at all?”	no 0.63 s gap inside the question
+10_4	2	“Once you expect four or more, its average lands within two percent of the truth, though any one guess still scatters widely.”	says "four or more, its average"; the score's choice adds a word ("more of its")
+12_5	0	Mostly: more fish caught twice, which means marking more and catching more.	finishes; the score's choice stops inside "more"
+12_5	1	Four times as many roughly halves the range.	no 0.47 s gap inside the phrase
+12_5	2	“Catching a bigger share of the lake helps more and more, and when every fish is caught twice in this lake, the range shrinks to a single size.”	no stall; the score's choice stalls 1.3 s mid-sentence
+13_4	1	“Fish that learn to avoid it — push the guess up.”	finishes; the score's choice stops inside "up"
+13_6	0	“Two thousand newcomers dilute the marks; so you count the lake at the second catch.”	finishes; the score's choice stops inside "catch"
+13_8	0	“The guess doesn't move.”	no 0.59 s gap after "guess"
+15_1	5	Years later, a name-by-name count for the same months found nine thousand seven hundred ninety — inside their range.	says "a name-by-name count"; the score's choice says "and name by name"
+09_3	0	They pile up in a bell around a hundred.	no 0.54 s gap before "around"
+# Round 2: Feller sentences pinned to the plain spelling; endings looked at in zoomed spectrograms of the takes.
+02_2	0	“Feller marked his fish with red spots.”	the only read of this sentence that finishes its "spots"; plain spelling of Feller (seen: complete, a 0.3 s gap after "marked")
+07_1	0	“Feller found the top score without drawing anything.”	plain spelling of Feller; the Fell-er reads of a sentence-initial Feller add a sound before the F in michael's voice
+07_6	2	“Back to Feller's lake.”	plain spelling of Feller, complete; pinned so the choice does not depend on how the ASR spells michael's r-less Feller
+08_5	0	“At Feller's numbers the line goes exactly straight at ten thousand.”	plain spelling of Feller, complete; pinned as above
+08_5	2	Feller just says ten thousand.	plain spelling: starts on a clean F and finishes (seen); the Fell-er reads are heard "The fella just says"
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.”	no 0.67 s gap inside the phrase; plain spelling of Feller
+12_3	1	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred.	plain spelling of Feller, same measures as the Fell-er read; pinned as above
+08_3	1	"So is nine hundred times nine hundred."	finishes (seen); the score's choice stops inside "hundred". It ends 4.3 st up: the least bad of six
+03_7	1	"Being marked becomes unrelated to where a fish swims."	has the s of "swims" (seen: 40 ms of it); the plain and curly-quoted reads stop on the m
+07_5	0	Now write it with the table's four cells. …	has the s of "cells" (seen); the score's choice stops on the l
+09_6	1	The last line checks their average against the exact one, built by the same rule as each netful.	heard "their average"; the quoted read is heard "the average"
+# Round 3: after the reads added in round 2 were made; each looked at in a zoomed spectrogram of the take.
+11_3	0	«A million fish?»	no lead-in (the score's choice opens on 0.44 s of hum) and it rises at the end (+6 st); complete, its sh dies away
+11_5	0	“Flip a hundred coins!”	the only read that finishes "coins" with no gap after "Flip"; falls 5.5 st (the «» read picked in round 2 had a 0.3 s gap with hum in it)
+05_2	0	“Let's try the soup guess, first.”	complete and heard "soup guess first"; a 0.35 s pause before "first". The other complete reads are heard "soup guests"
