@@ -1,0 +1,44 @@
+# Hoeffding's D director alternates, voice robert (narration lane, 2026-10-12): line_id\tsentence_index\talternate.
+# Each is auditioned beside the script sentence and only kept if it reads better. Every alternate here is fit to
+# show as a caption (captions print what was spoken) and exists because the script wording's own take had a
+# defect in pass 1 (misheard, rushed, two unlicensed breaks, or a rising end on a statement).
+h1	0	Here are a hundred and fifty measurements of two quantities: X and Y.
+h2	0	So, are they related?
+h4	0	All three of them come back at essentially zero.
+h5	1	These points all lie on a circle.
+h5	2	Knowing X narrows Y down, to just two possibilities.
+h7	0	One of the most elegant is known as Hoeffding's D.
+h7	1	Wassily Hoeffding introduced it in nineteen forty eight.
+h7	1	Wassily Hoeffding introduced it in 1948.
+h7	1	It was introduced by Wassily Hoeffding in nineteen forty-eight.
+g4	3	Hoeffding's D, though, barely moves.
+g5	1	The correlations all sit right inside the noise.
+g5	1	Here, the correlations sit right inside the noise.
+g6	1	It has detected the dependence.
+g9	1	This time, every measure stays under its ceiling; D included.
+g9	3	It only finds them when they're really there.
+g9	3	It finds them only when they really are there.
+q1	0	So, why can D see shapes that correlations miss?
+q1	1	It comes down to how many points you look at, all at once.
+q3	1	Rank correlations like Spearman's and Kendall's capture any curve that keeps heading the same way.
+r1	0	Let's work through a small example using the heights and weights of ten people.
+r1	0	Let's work through a small example: the heights and weights of ten people.
+r2	0	Here they are, as a scatter plot.
+r3	4	Then we do the same thing for weight.
+r7	0	Only the order matters, so no one extreme value can dominate.
+c1	0	Step two is the heart of this method.
+c1	0	Step two is the heart of the whole method.
+c3	0	Take the person ranked seventh, in both height and weight.
+c3	0	Take the person who's ranked seventh in both height and weight.
+c4	0	If height and weight were unrelated, we would expect only about five.
+f2	0	D two uses just the ranks.
+f8	0	Keep in mind: D lives on its own scale.
+f8	0	Keep in mind that D lives on a scale of its own.
+s6	0	Now look at the tick marks.
+s6	0	Look at those tick marks.
+s6	3	Only the pairing itself is gone.
+s7	0	Put the pairs back, and D comes right back too.
+s9	0	Our observed value is far beyond anything that shuffling ever produced.
+s9	1	So, X and Y are dependent.
+s9	1	So X and Y really are dependent.
+s9	2	In the end D measures exactly what shuffling destroys.

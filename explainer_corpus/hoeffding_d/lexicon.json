@@ -1,0 +1,172 @@
+{
+ "_comment": "Hoeffding's D explainer lexicon (2026-10-12 redo, the name read HERF-ding at the owner's request). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the pronunciation record. Voice robert, ftts 0.1.11, FrankenWhisper (fw 0.10.0); the name probed with probe_names.py (control + decoy, three carriers, then five possessive carriers from the script). Re-probe when the voice or the ftts version changes.",
+ "words": {
+  "Hoeffding": {
+   "respell": [
+    "Herf-ding",
+    "Hurfding"
+   ],
+   "accept": [
+    "herfding",
+    "herfting"
+   ],
+   "say": "HERF-ding",
+   "ipa": "ˈhœfdɪŋ",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Wassily_Hoeffding",
+    "https://en.wikipedia.org/wiki/H%C3%B8ffding"
+   ],
+   "decoy": [
+    "HEFF-ding"
+   ],
+   "note": "The owner's pronunciation (2026-10-12), which overrides every source: closer to HERF-ding, the rounded vowel of German ö. lookup_pronunciation.py (context 'statistician Wassily Hoeffding') finds no IPA in any source (the two Wikipedia pages listed); its rule-based reading of the German spelling is /ˈhœfdɪŋ/, and English has no /œ/, whose nearest vowel is the one in 'her'. Voice robert, ftts 0.1.11. The v5 narration said HEFF-ding, kept here as the decoy. Not read: the plain spelling (robert says HOFF-ding; heard 'hofting', 'Hoefding'), Herfding (weak f; heard 'curveding', 'Hervding', 'Herbding') and HERF-ding in capitals (split in two script sentences: 'Hurf, Dings, D', 'Herf Dings'). accept holds only the two ASR spellings of the HERF read, so a HEFF or HOFF read ('hefting', 'hofting') counts as a misheard name.",
+   "probe": {
+    "date": "2026-10-12",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "Herf-ding",
+    "discriminates": true,
+    "carriers": [
+     "This is {w}.",
+     "{w} showed something deeper.",
+     "The idea came from {w}, in the end."
+    ],
+    "results": {
+     "Hoeffding": "control FAIL 0/3",
+     "Herf-ding": "candidate PASS 3/3",
+     "Hurfding": "candidate PASS 3/3",
+     "HERF-ding": "candidate PASS 3/3",
+     "Herfding": "candidate PASS 3/3",
+     "HEFF-ding": "decoy OK (heard differently) 0/3"
+    },
+    "heard": {
+     "Hoeffding": "hofting x3",
+     "Herf-ding": "Herfding, Herf Ding, herfting",
+     "Hurfding": "herfting x3",
+     "HERF-ding": "herfting, Herfding, Herf Ding",
+     "Herfding": "herfting, curveding, herfting",
+     "HEFF-ding": "hefting, Hefting, Hefding"
+    },
+    "possessive": {
+     "carriers": [
+      "{w}'s D asks a deeper question.",
+      "One of the most elegant is called {w}'s D.",
+      "And this is {w}'s D, recomputed live from the dots on every single frame.",
+      "{w}'s trick is to never list them at all.",
+      "But {w}'s D barely moves."
+     ],
+     "results": {
+      "Hoeffding": "control FAIL 0/5",
+      "Herf-ding": "candidate PASS 5/5",
+      "Hurfding": "candidate PASS 5/5",
+      "HERF-ding": "candidate PARTIAL 4/5",
+      "HEFF-ding": "decoy OK (heard differently) 0/5"
+     }
+    },
+    "script": "every take of the 9 script sentences with the name: Herf-ding 9/9 heard Herfding/Herfting, Hurfding 8/9 (h7 once 'Herfning'); HERF-ding 7/9, dropped"
+   }
+  },
+  "Wassily": {
+   "respell": [
+    "Vassily"
+   ],
+   "accept": [
+    "vasily",
+    "vassily",
+    "vasilly",
+    "vasili",
+    "vassili"
+   ],
+   "say": "VASS-ih-lee",
+   "lang": "ru",
+   "note": "Russian Vasily; the owner's reading."
+  },
+  "Spearman": {
+   "respell": [
+    "Speerman"
+   ],
+   "accept": [
+    "speerman",
+    "spearmen"
+   ],
+   "say": "SPEER-mun",
+   "ipa": "ˈspɪərmən",
+   "lang": "en"
+  },
+  "Pearson": {
+   "respell": [
+    "Peerson",
+    "Pearson",
+    "Peer-son"
+   ],
+   "accept": [
+    "pierson",
+    "peerson",
+    "pearsons"
+   ],
+   "say": "PEER-sun",
+   "ipa": "ˈpɪərsən",
+   "lang": "en",
+   "note": "Plain 'Pearson' is heard as 'Person'."
+  },
+  "manim": {
+   "respell": [
+    "Man-im"
+   ],
+   "accept": [
+    "manam",
+    "mannam",
+    "manum",
+    "manim",
+    "mannim"
+   ],
+   "say": "MAN-im",
+   "decoy": [
+    "Men-em"
+   ],
+   "note": "Coined name (math animation library): the project's own usage. 'Mannheim' is a wrong read."
+  },
+  "tau": {
+   "respell": [
+    "tau",
+    "tao"
+   ],
+   "accept": [
+    "tao",
+    "tow",
+    "taue"
+   ],
+   "say": "TOW (rhymes with cow)",
+   "ipa": "taʊ",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Tau"
+   ],
+   "note": "Kendall's tau. English /taʊ/ (Wikipedia: Tau). Voice robert, 2026-10-12: sentence-final in h3 the plain read was once written 'tile' by the ASR, so a second spelling is auditioned and a misheard tau now counts as a misheard name."
+  }
+ },
+ "accept": {
+  "franken": [
+   "frankin"
+  ],
+  "y": [
+   "why"
+  ],
+  "tied": [
+   "tide"
+  ],
+  "see": [
+   "c"
+  ]
+ },
+ "phrases": {
+  "frank and": "franken",
+  "frank in": "franken",
+  "4x4": "four by four",
+  "herf ding": "hoeffding",
+  "herf dings": "hoeffdings",
+  "herf ding's": "hoeffding's",
+  "1/2": "a half"
+ }
+}
