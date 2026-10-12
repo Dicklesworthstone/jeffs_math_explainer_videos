@@ -39,9 +39,10 @@
   },
   "ex-or": {
    "respell": [
-    "ex or",
-    "ex-or"
+    "ex-oar",
+    "ex oar"
    ],
+   "owner": "2026-10-12, after the first cut: 'ex-or' sounded like 'exer'. Both syllables are full: EKS-OR, the second as in 'oar'. The ASR heard 'X or' for the reduced reading too, so it cannot judge this; spectrograms do. In 'B ___ C is four.' the vowel after the 'ks' lasts 440 ms with its energy under 1 kHz for 'ex-oar'; 'X-or' and 'ecks-or' gave 135 ms. 'ex or' and 'ex-or' are no longer read.",
    "say": "EKS-or",
    "ipa": "ˈɛks ˈɔɹ",
    "lang": "en",
@@ -71,9 +72,10 @@
   },
   "Ex-or": {
    "respell": [
-    "Ex-or",
-    "Ex or"
+    "Ex-oar",
+    "Ex oar"
    ],
+   "owner": "2026-10-12: see 'ex-or'. Both syllables full, the second as in 'oar'.",
    "say": "EKS-or",
    "ipa": "ˈɛks ˈɔɹ",
    "lang": "en",
@@ -467,9 +469,10 @@
   },
   "ex-ors": {
    "respell": [
-    "ex-ors",
-    "ex ors"
+    "ex-oars",
+    "ex oars"
    ],
+   "owner": "2026-10-12: see 'ex-or'. Both syllables full, the second as in 'oars'.",
    "say": "EKS-orz",
    "ipa": "ˈɛks ˈɔɹz",
    "lang": "en",
@@ -525,6 +528,10 @@
   "x or": "ex or",
   "xor": "ex or",
   "exor": "ex or",
+  "ex oar": "ex or",
+  "x oar": "ex or",
+  "ex oars": "ex ors",
+  "x oars": "ex ors",
   "rap torku": "raptorq",
   "reed sol amon": "reed-solomon",
   "subtle tea": "subtlety",

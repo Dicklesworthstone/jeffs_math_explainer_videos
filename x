@@ -10,6 +10,12 @@
 #   ./x <slug> draft [CHAPTER...]               960x540@30 scratch-voice renders with the layout
 #                                               lint into explainer_corpus/<slug>/renders/draft/
 #   ./x <slug> sheets [CHAPTER...]              contact sheets (4x3) of those drafts, to read
+#   ./x <slug> narrate                          the narration into narration/{work,out}: new reads
+#                                               only (ftts), every take transcribed (fw), the chooser
+#                                               that listens to what it cuts (tools/narration_choose.py),
+#                                               then the line gate and the release gates
+#   ./x <slug> narration-sheets [--takes] [LINE...]   spectrograms of the narration to read as images,
+#                                               into narration/sheets/ (tools/narration_sheets.py)
 #   ./x <slug> narrated [CHAPTER...]            960x540@30 with the real narration (NARRATION, default
 #                                               narration/out) into renders/narrated/, then the cue
 #                                               check and cue sheets (renders/narrated/cue_sheets/)
@@ -36,7 +42,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,36p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,42p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -166,6 +172,37 @@ case "$cmd" in
     mkdir -p "$drafts"
     if [ $# -eq 0 ]; then set -- all; fi
     exec "$binary" render "$@" --res 960x540 --fps 30 --scratch-voice --lint --out "$drafts" ;;
+  narrate)
+    [ $# -eq 0 ] || usage
+    # The voice is the owner's choice per video (AGENTS.md). The headroom is the voice's own: the
+    # limiter's ceiling over speech loudness, the lowest at which it turns down more than 1 dB of
+    # about 1% of samples (the narration skill's criterion, which the chooser enforces). matt and
+    # michael peak higher over their loudness than leo and robert do.
+    case "$slug" in
+      capture_recapture) voice=matt headroom=17 ;;
+      raptorq_gf256) voice=leo headroom=15 ;;
+      bakery_algorithm) voice=michael headroom=18 ;;
+      hoeffding_d) voice=robert headroom=15 ;;
+      *) die "no voice chosen for $slug (add it to ./x narrate)" ;;
+    esac
+    N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
+    work=narration/work
+    out=narration/out
+    py() { uv run --quiet --no-project --with numpy python3 -I "$@"; }
+    cd "$crate"
+    mkdir -p "$work"
+    py "$N/narrate.py" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}"
+    python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
+    python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
+    py "$here/tools/narration_choose.py" "$N" script.tsv "$work" "$out" --limit-headroom "$headroom"
+    python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
+    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json"
+    py "$N/validate_narration.py" "$out"
+    exit 0 ;;
+  narration-sheets)
+    cd "$crate"
+    exec uv run --quiet --no-project --with numpy --with matplotlib python3 -I "$here/tools/narration_sheets.py" \
+      "$SKILLS/natural-sounding-narration-with-frankentts/scripts" narration narration/sheets "$@" ;;
   narrated)
     need_narration
     build_binary
