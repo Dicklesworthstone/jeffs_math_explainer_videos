@@ -419,50 +419,103 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
             Ok(c)
         })
         .collect::<fmn::Result<_>>()?;
-    kit.say(stage, "03_5")?;
+    // 03_5 on its sentences (the owner's note on 3:00: the bucket filled in
+    // six seconds and then sat still for nine): two cards go in as the line
+    // says "which cards, what order", two as it says "as many useful cards
+    // as there are pieces", and the definition waits for its own sentence
+    let board = super::voice::board("03_cards")?;
+    let line = super::voice::Spoken::say(kit, stage, &board, "03_5")?;
     crossfade(stage, &[b.group, phone_mark, label], 0.9)?;
     let flying_group: Vec<Mob> = flying.iter().map(|c| c.group).collect();
+    // each waiting card says which card it is: they go in as 3, 1, 4, 2
+    let tags: Vec<Mob> = ARRIVAL
+        .iter()
+        .zip(&flying_group)
+        .map(|(&k, &g)| {
+            let top = stage.get_top(g);
+            kit.text(
+                stage,
+                &format!("card {}", k + 1),
+                24.0,
+                Palette::dim(),
+                v(top[0], top[1] + 0.26),
+            )
+        })
+        .collect::<fmn::Result<_>>()?;
     let fg = group_of(stage, &flying_group)?;
-    play!(stage; fade_in(stage.arena_mut(), fg, ORIGIN, 1.0)?.rt(0.8).lag(0.2));
+    let tg = group_of(stage, &tags)?;
+    play!(stage;
+        fade_in(stage.arena_mut(), fg, ORIGIN, 1.0)?.rt(0.8).lag(0.2),
+        fade_in(stage.arena_mut(), tg, ORIGIN, 1.0)?.rt(0.8).lag(0.2),
+    );
     let k = CARDS.len();
-    let mut count = kit.text(stage, &format!("useful: 0 of {k}"), 30.0, Role::ex_or(), v(3.6, -0.75))?;
-    stage.add_to_scene(count)?;
+    let count_at = v(3.9, -0.75);
+    let mut count = kit.text(stage, &format!("useful: 0 of {k}"), 34.0, Role::ex_or(), count_at)?;
+    play!(stage; fade_in(stage.arena_mut(), count, ORIGIN, 1.0)?.rt(0.4));
+    // the pieces the bucket must pin down, one badge each, under the count
+    let piece_row: Vec<Mob> = (0..k)
+        .map(|i| {
+            let x = count_at[0] + (i as f64 - (k as f64 - 1.0) / 2.0) * 0.72;
+            badge(kit, stage, i, 0.27, v(x, count_at[1] - 0.95))
+        })
+        .collect::<fmn::Result<_>>()?;
+    let pieces_word = kit.text(
+        stage,
+        &format!("{k} pieces"),
+        28.0,
+        Palette::dim(),
+        v(count_at[0], count_at[1] - 1.6),
+    )?;
     for (i, c) in flying.iter().enumerate() {
+        // two cards per sentence: sentence 1 (which cards, what order), then
+        // sentence 2 (as many useful cards as there are pieces)
+        if i % 2 == 0 {
+            line.at(stage, 1 + i / 2)?;
+        }
         let water = b.water(stage, i, Role::ex_or())?;
         let drop = c
             .group
             .animate()
             .set_anim_args(AnimateArgs {
-                run_time: Some(0.9),
+                run_time: Some(0.8),
                 ..AnimateArgs::default()
             })?
             .move_to(b.slot_centre(i), ORIGIN)?
             // lands at 0.45 of a full card, whatever size it waited at
             .scale(0.45 / waiting)?
             .set_opacity(0.0)?;
-        play!(stage; drop);
+        play!(stage; drop, fade_out(stage.arena_mut(), tags[i], ORIGIN, 1.0)?.rt(0.4));
         stage.remove_from_scene(c.group);
         let next = kit.text(
             stage,
             &format!("useful: {} of {k}", i + 1),
-            30.0,
+            34.0,
             Role::ex_or(),
-            v(3.6, -0.75),
+            count_at,
         )?;
         play!(stage;
-            fmn::animation::grow_from_edge(stage.arena_mut(), water, DOWN, None)?.rt(0.5),
+            fmn::animation::grow_from_edge(stage.arena_mut(), water, DOWN, None)?.rt(0.4),
             replacement_transform(count, next).rt(0.4),
         );
         count = next;
     }
+    // as many useful cards as there are pieces: the four pieces arrive
+    // under the count, and the count answers them
+    let pieces = group_of(stage, &piece_row)?;
+    play!(stage;
+        fade_in(stage.arena_mut(), pieces, v(0.0, 0.2), 1.0)?.rt(0.6).lag(0.15),
+        fade_in(stage.arena_mut(), pieces_word, ORIGIN, 1.0)?.rt(0.6),
+    );
+    play!(stage; fmn::animation::indicate(stage.arena_mut(), count, 1.2, Some([0.35, 0.77, 0.87]))?.rt(0.6));
+    line.at(stage, 3)?;
     let useful = kit.text(
         stage,
         "useful: it tells you something you couldn't already work out",
-        28.0,
+        32.0,
         Palette::ink(),
         v(0.0, 3.3),
     )?;
-    play!(stage; fade_in(stage.arena_mut(), useful, ORIGIN, 1.0)?.rt(0.8));
+    play!(stage; fade_in(stage.arena_mut(), useful, v(0.0, -0.15), 1.0)?.rt(0.8));
     kit.hold(stage)?;
 
     // 03_6: a fifth card over the full bucket

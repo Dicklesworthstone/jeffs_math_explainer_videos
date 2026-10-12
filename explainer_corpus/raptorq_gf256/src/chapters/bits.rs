@@ -14,7 +14,8 @@ use fmn::prelude::*;
 use super::draw::{OPLUS, Role, badge, card, group_of, line_style};
 use super::register::tile;
 use super::sound;
-use crate::model::{A, B};
+use super::voice::Spoken;
+use crate::model::{A, C, PIECES};
 
 /// 02_2 and 02_4's examples: five, and seven to mix in.
 const FIVE: u32 = 5;
@@ -125,17 +126,37 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         })
         .collect::<fmn::Result<_>>()?;
 
-    kit.say(stage, "02_1")?;
+    // 02_1 on its words: a bit shows both its values as the line says "a
+    // zero or a one"; the place values arrive from the right, doubling, as
+    // it says so; one, two, four, eight light as they are counted
+    let board = super::voice::board("02_bits_and_ex_or")?;
+    let line = Spoken::say(kit, stage, &board, "02_1")?;
     play!(stage; fade_in(stage.arena_mut(), tiles, v(0.0, -0.2), 1.0)?.rt(1.0).lag(0.08));
-    let all_places = group_of(stage, &places)?;
-    play!(stage; fade_in(stage.arena_mut(), all_places, v(0.0, -0.1), 1.0)?.rt(1.2).lag(0.1));
-    let all_doubles = group_of(stage, &doubles)?;
-    play!(stage; fade_in(stage.arena_mut(), all_doubles, ORIGIN, 1.0)?.rt(1.4).lag(0.12));
-    stage.wait(1.8)?;
+    line.at_phrase(stage, "a zero or a one")?;
+    for one in [true, false] {
+        let flip = row.set(kit, stage, 7, one)?;
+        stage.play_prepared_with(
+            vec![flip],
+            PlayOverrides {
+                run_time: Some(0.35),
+                ..PlayOverrides::default()
+            },
+        )?;
+        stage.wait(0.3)?;
+    }
+    line.at_phrase(stage, "each spot is worth double")?;
+    let from_right = |m: &[Mob]| m.iter().rev().copied().collect::<Vec<_>>();
+    let all_places = group_of(stage, &from_right(&places))?;
+    let all_doubles = group_of(stage, &from_right(&doubles))?;
+    play!(stage;
+        fade_in(stage.arena_mut(), all_places, v(0.0, -0.1), 1.0)?.rt(1.4).lag(0.12),
+        fade_in(stage.arena_mut(), all_doubles, ORIGIN, 1.0)?.rt(1.8).lag(0.15),
+    );
     // "One, two, four, eight": the four lowest places, from the right
+    line.at(stage, 2)?;
     for k in (4..8).rev() {
         let a = indicate(stage.arena_mut(), places[k], 1.5, Some([1.0, 1.0, 1.0]))?;
-        stage.play(a.rt(0.6))?;
+        stage.play(a.rt(0.5))?;
     }
     kit.hold(stage)?;
 
@@ -188,23 +209,38 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     Ok(())
 }
 
-/// 02_3: two pieces mixed into one packet; the mixing move is ex-or.
+/// 02_3: two pieces mixed into one packet; a piece is numbers, so the mix
+/// is a mix of numbers; the mixing move is ex-or. The pieces are A and C,
+/// five and seven: the two numbers 02_4 goes on to mix, and chapter 03's
+/// first card.
 fn mixing(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
-    let left = badge(kit, stage, 0, 0.7, v(-4.2, 0.5))?;
-    let right = badge(kit, stage, 1, 0.7, v(4.2, 0.5))?;
-    let packet = card(kit, stage, A | B, None, 2.4, v(0.0, 0.5))?;
+    let (pa, pc) = (0usize, 2usize);
+    assert_eq!(
+        (u32::from(PIECES[pa]), u32::from(PIECES[pc])),
+        (FIVE, SEVEN),
+        "02_4's five and seven are pieces A and C"
+    );
+    let y = 0.9;
+    let left = badge(kit, stage, pa, 0.7, v(-4.2, y))?;
+    let right = badge(kit, stage, pc, 0.7, v(4.2, y))?;
+    let packet = card(kit, stage, A | C, None, 2.4, v(0.0, y))?;
     let [(_, ba), (_, bb)] = [packet.badges[0], packet.badges[1]];
-    let name = kit.tex(stage, r"\oplus\ \text{ex-or}", 84.0, Role::ex_or(), &[], v(0.0, -1.9))?;
-    kit.say(stage, "02_3")?;
+    let op = packet.ops[0];
+    let (ta, tb) = (stage.get_center(ba), stage.get_center(bb));
+    let ny = y - 2.0;
+    let na = kit.tex(stage, &PIECES[pa].to_string(), 84.0, Palette::ink(), &[], v(ta[0], ny))?;
+    let nc = kit.tex(stage, &PIECES[pc].to_string(), 84.0, Palette::ink(), &[], v(tb[0], ny))?;
+    let mix = kit.tex(stage, OPLUS, 84.0, Role::ex_or(), &[], v(stage.get_center(op)[0], ny))?;
+    let name = kit.tex(stage, r"\oplus\ \text{ex-or}", 72.0, Role::ex_or(), &[], v(0.0, -2.75))?;
+    let board = super::voice::board("02_bits_and_ex_or")?;
+    let line = Spoken::say(kit, stage, &board, "02_3")?;
     play!(stage;
         fade_in(stage.arena_mut(), left, v(-0.3, 0.0), 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), right, v(0.3, 0.0), 1.0)?.rt(0.8),
     );
-    stage.wait(2.6)?;
-    // the two pieces slide together onto one card, its paper and ⊕ arriving
-    // under them; then the card takes over its own badges
-    let (ta, tb) = (stage.get_center(ba), stage.get_center(bb));
-    let op = packet.ops[0];
+    // "mixes of pieces": the two pieces slide together onto one card, its
+    // paper and ⊕ arriving under them; then the card takes over its badges
+    line.at_phrase(stage, "mixes of pieces")?;
     play!(stage;
         left.animate().set_anim_args(AnimateArgs { run_time: Some(1.2), ..AnimateArgs::default() })?.move_to(ta, ORIGIN)?,
         right.animate().set_anim_args(AnimateArgs { run_time: Some(1.2), ..AnimateArgs::default() })?.move_to(tb, ORIGIN)?,
@@ -215,8 +251,17 @@ fn mixing(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         stage.remove_from_scene(m);
     }
     stage.add_to_scene(packet.group)?;
-    stage.wait(2.0)?;
-    play!(stage; write(stage.arena(), name).rt(1.2));
+    // "a piece of the picture is just numbers": each piece's number drops
+    // out under it; "mixing numbers": the ⊕ joins them
+    line.at(stage, 1)?;
+    play!(stage;
+        fade_in(stage.arena_mut(), na, v(0.0, -0.3), 1.0)?.rt(0.6),
+        fade_in(stage.arena_mut(), nc, v(0.0, -0.3), 1.0)?.rt(0.6).lag(0.3),
+    );
+    line.at_phrase(stage, "mixing numbers")?;
+    play!(stage; write(stage.arena(), mix).rt(0.6));
+    line.at(stage, 2)?;
+    play!(stage; write(stage.arena(), name).rt(1.0));
     kit.hold(stage)?;
     fade_all(stage, 0.6)?;
     Ok(())
