@@ -254,3 +254,41 @@
 09_5	0	Six terms, and two pairs match…
 09_5	0	“Six terms, and two pairs match…”
 09_5	0	Six terms, and two pairs, match.
+#
+# Owner review 2c (michael, 2026-10-12): endings an end-of-word hiss measure flagged and the spectrum confirmed;
+# the same words in other marks.
+# 17_1/0: "pieces" ends "piece-ih": no final z
+17_1	0	‘We ran a real Raptor Q decoder a million times, on small blocks of ten pieces.’
+17_1	0	«We ran a real Raptor Q decoder a million times, on small blocks of ten pieces.»
+17_1	0	"We ran a real Raptor Q decoder a million times, on small blocks of ten pieces."
+17_1	0	(We ran a real Raptor Q decoder a million times, on small blocks of ten pieces.)
+17_1	0	We ran a real Raptor Q decoder a million times, on small blocks of ten pieces…
+17_1	0	“We ran a real Raptor Q decoder a million times, on small blocks of ten pieces…”
+17_1	0	We ran a real Raptor Q decoder a million times, on small blocks of ten, pieces.
+# 14_2/1: "pieces" ends on a creaky vowel, no final z
+14_2	1	«Each card mixes only a few pieces.»
+14_2	1	Each card mixes only a few pieces…
+14_2	1	“Each card mixes only a few pieces…”
+14_2	1	Each card mixes only a few, pieces.
+# 01_8/1: "doubles": the z is a 30 ms hiss after a 0.2 s l
+01_8	1	‘The last few take forever, because you keep getting doubles.’
+01_8	1	«The last few take forever, because you keep getting doubles.»
+01_8	1	"The last few take forever, because you keep getting doubles."
+01_8	1	(The last few take forever, because you keep getting doubles.)
+01_8	1	The last few take forever, because you keep getting doubles…
+01_8	1	“The last few take forever, because you keep getting doubles…”
+01_8	1	The last few take forever, because you keep getting, doubles.
+# 03_2/1: the s of "piece" is a 30 ms stub
+03_2	1	«A row per card, and a dot where it uses a piece.»
+03_2	1	(A row per card, and a dot where it uses a piece.)
+03_2	1	A row per card, and a dot where it uses a piece…
+03_2	1	“A row per card, and a dot where it uses a piece…”
+03_2	1	A row per card, and a dot where it uses a, piece.
+# 07_5/3: "matters" ends on its second vowel, no z
+07_5	3	‘So with random byte amounts, only the last bit matters.’
+07_5	3	«So with random byte amounts, only the last bit matters.»
+07_5	3	"So with random byte amounts, only the last bit matters."
+07_5	3	(So with random byte amounts, only the last bit matters.)
+07_5	3	So with random byte amounts, only the last bit matters…
+07_5	3	“So with random byte amounts, only the last bit matters…”
+07_5	3	So with random byte amounts, only the last bit, matters.
