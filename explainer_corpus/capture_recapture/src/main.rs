@@ -41,7 +41,7 @@ const EXPLAINER: Explainer = Explainer {
     identity: explainer_score::score::Identity::capture_recapture,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_owner: None,
-    thumbnail: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {

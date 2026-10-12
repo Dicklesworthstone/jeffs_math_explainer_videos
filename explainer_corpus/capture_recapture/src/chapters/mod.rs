@@ -20,6 +20,7 @@ pub mod ring_toss;
 pub mod small;
 pub mod spread;
 pub mod the_dead;
+pub mod thumbnail;
 pub mod turning;
 
 use explainer_kit::Chapter;
