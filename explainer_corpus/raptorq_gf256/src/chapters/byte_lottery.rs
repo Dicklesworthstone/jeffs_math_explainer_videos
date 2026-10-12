@@ -206,6 +206,10 @@ impl ByteLottery {
         }
         let a = fade_out(stage.arena_mut(), half, ORIGIN, 1.0)?;
         anims.push(stage.prepare(a)?);
+        // Once the amounts are bytes, the old two-choice ex-or panel no
+        // longer describes the experiment. Clear it before the question.
+        let a = fade_out(stage.arena_mut(), two_g, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a)?);
         stage.play_prepared_with(
             anims,
             PlayOverrides {
@@ -239,7 +243,6 @@ impl ByteLottery {
             v(grid_at[0], grid_at[1] + size / 2.0 + 0.4),
         )?;
         play!(stage;
-            fade_out(stage.arena_mut(), two_g, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8).lag(0.004),
             fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.8),
         );

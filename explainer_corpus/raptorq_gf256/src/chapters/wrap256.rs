@@ -398,6 +398,9 @@ impl SceneConstruct for Wrap256 {
             fade_out(stage.arena_mut(), lost, ORIGIN, 1.0)?.rt(0.6),
             fade_out(stage.arena_mut(), answer, ORIGIN, 1.0)?.rt(0.6),
             fade_out(stage.arena_mut(), hand, ORIGIN, 1.0)?.rt(0.6),
+            // The clock has delivered its zero; its 128 label would now
+            // collide with the left register's 128 place value.
+            fade_out(stage.arena_mut(), clock.group, ORIGIN, 1.0)?.rt(0.6),
         );
         let card = amount_card(&kit, stage, TWO, six, v(0.6, 2.75))?;
         let mut left = Register::build(&kit, stage, SMALL, 0.62, v(-3.25, 0.3), purple(), true)?;

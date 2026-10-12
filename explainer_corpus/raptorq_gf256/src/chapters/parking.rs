@@ -47,6 +47,14 @@ fn edge(m: Mob, c: Srgb, rt: f64) -> fmn::Result<AnimBuilder> {
         .set_stroke(Some(c), None, None)?)
 }
 
+/// Pulse only the paper's edge: recolouring a whole card hides its
+/// equation against its fill. Keep every symbol in its semantic colour.
+fn pulse_edge(stage: &mut Stage<'_>, back: Mob, restore: Srgb, rt: f64) -> fmn::Result<()> {
+    stage.play(edge(back, Palette::ink(), rt / 2.0)?)?;
+    stage.play(edge(back, restore, rt / 2.0)?)?;
+    Ok(())
+}
+
 /// `x ⊕ y ⊕ …` as TeX.
 fn xor_tex<I: IntoIterator<Item = String>>(terms: I) -> String {
     terms.into_iter().collect::<Vec<_>>().join(&format!(r" {OPLUS} "))
@@ -357,14 +365,14 @@ impl Parking {
             fade_out(stage.arena_mut(), ring.cards[4].group, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), byte.card.group, ORIGIN, 1.0)?.rt(0.6),
         );
-        play!(stage; fmn::animation::indicate(stage.arena_mut(), byte.card.group, 1.12, Some([1.0, 0.85, 0.4]))?.rt(0.9));
+        pulse_edge(stage, byte.card.back, Role::byte(), 0.9)?;
         line.at(stage, 2)?;
         // the walk: each card names its next piece in terms of A
         let x0 = 1.75;
         let mut expr = vec!["A".to_owned()];
         let mut walk = Vec::new();
-        let mut cards: Vec<Mob> = ring.cards.iter().take(4).map(|c| c.group).collect();
-        cards.push(byte.card.group);
+        let mut cards: Vec<Mob> = ring.cards.iter().take(4).map(|c| c.back).collect();
+        cards.push(byte.card.back);
         for k in 0..4 {
             // card k is (piece k) ⊕ (piece k+1) = r: piece k+1 = r ⊕ piece k
             let r = result(RING[k]);
@@ -373,7 +381,7 @@ impl Parking {
             let y = 2.6 - 0.75 * k as f64;
             let m = kit.tex_left(stage, &text, 40.0, Palette::ink(), &[("A", Role::byte())], v(x0, y))?;
             play!(stage;
-                fmn::animation::indicate(stage.arena_mut(), cards[k], 1.08, Some([0.36, 0.82, 0.70]))?.rt(0.7),
+                edge(cards[k], Palette::ink(), 0.7)?,
                 fade_in(stage.arena_mut(), m, v(0.2, 0.0), 1.0)?.rt(0.7),
             );
             walk.push(m);
@@ -384,7 +392,7 @@ impl Parking {
         let y = 2.6 - 0.75 * 4.0;
         let m = kit.tex_left(stage, &close, 40.0, Palette::ink(), &[("A", Role::byte())], v(x0, y))?;
         play!(stage;
-            fmn::animation::indicate(stage.arena_mut(), cards[4], 1.08, Some([1.0, 0.85, 0.4]))?.rt(0.7),
+            edge(cards[4], Palette::ink(), 0.7)?,
             fade_in(stage.arena_mut(), m, v(0.2, 0.0), 1.0)?.rt(0.7),
         );
         walk.push(m);

@@ -300,7 +300,8 @@ impl SceneConstruct for PrimeClocks {
             &format!("{BYTE_HOURS} members, one for every byte"),
             32.0,
             Role::byte(),
-            v(-1.2, 0.45),
+            // Leave room below the caption for the caught ninth bit.
+            v(-1.2, 0.9),
         )?;
         let side = (BYTE_HOURS as f64).sqrt() as usize;
         let dots: Vec<VMobject> = (0..BYTE_HOURS as usize)
