@@ -122,7 +122,7 @@ fn byte(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let doubles: Vec<Mob> = (0..7)
         .map(|k| {
             let (a, b) = (row.at(k), row.at(k + 1));
-            kit.text(stage, "×2", 22.0, Palette::dim(), v((a[0] + b[0]) / 2.0, a[1] + 1.45))
+            kit.text(stage, "×2", 28.0, Palette::dim(), v((a[0] + b[0]) / 2.0, a[1] + 1.45))
         })
         .collect::<fmn::Result<_>>()?;
 

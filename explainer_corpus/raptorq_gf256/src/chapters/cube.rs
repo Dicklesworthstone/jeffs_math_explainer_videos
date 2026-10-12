@@ -215,7 +215,7 @@ impl SceneConstruct for Cube {
             let tag = kit.text_hud(
                 stage,
                 &format!("use {}", PIECE_NAMES[i as usize]),
-                28.0,
+                34.0,
                 Role::ex_or(),
                 at,
             )?;
@@ -226,7 +226,7 @@ impl SceneConstruct for Cube {
         // 04_3: one useful card lights two corners; two light four
         kit.say(stage, "04_3")?;
         let mut bucket = Bucket::new();
-        let can_make = kit.text_hud(stage, "can make: 1", 34.0, Role::lit(), v(-5.0, 3.2))?;
+        let can_make = kit.text_hud(stage, "can make: 1", 48.0, Role::lit(), v(-4.9, 3.2))?;
         stage.add_to_scene(can_make)?;
         let mut shown = can_make;
         let light = |stage: &mut Stage<'_>, b: Mob| -> fmn::Result<Box<dyn Animation>> {
@@ -256,9 +256,9 @@ impl SceneConstruct for Cube {
             let next = kit.text_hud(
                 stage,
                 &format!("can make: {}", span.len()),
-                34.0,
+                48.0,
                 Role::lit(),
-                v(-5.0, 3.2),
+                v(-4.9, 3.2),
             )?;
             play!(stage; fmn::animation::replacement_transform(shown, next).rt(0.4));
             shown = next;
@@ -342,7 +342,7 @@ impl SceneConstruct for Cube {
                 "{lit} lit of {total}: in the long run, useless {:.0}% of the time",
                 useless_chance(2, PIECES) * 100.0
             ),
-            38.0,
+            44.0,
             Role::lit(),
             v(0.0, -3.35),
         )?;

@@ -38,6 +38,13 @@ const CARD_X0: f64 = -6.75;
 /// One grid pitch between rows, so the grid's rows line up with the cards.
 const PITCH: f64 = 1.1;
 const ROWS_Y: [f64; 4] = [1.55, 1.55 - PITCH, 1.55 - 2.0 * PITCH, 1.55 - 3.0 * PITCH];
+/// 03_1's stack, alone on stage: this much larger than in its column.
+const STACK_BIG: f64 = 1.45;
+/// The elimination's working cards (03_3–03_4): this much larger than the
+/// column's, centred on `WORK_XC`; the column steps aside at `SIDE_K`.
+const WORK_K: f64 = 1.35;
+const SIDE_K: f64 = 0.7;
+const WORK_XC: f64 = 2.65;
 
 /// Where a card of `mask` sits with its left edge at `x0`, height `h`.
 fn left_aligned(mask: u32, with_result: bool, h: f64, x0: f64, y: f64) -> Vec3 {
@@ -95,6 +102,17 @@ fn equations(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Card>> {
             )
         })
         .collect::<fmn::Result<_>>()?;
+    // 03_1 shows the stack alone, centred and large (about two thirds of
+    // the frame's width); 03_2 settles it at the left to make room for the
+    // grid. Each card is scaled and placed about the stack's middle.
+    let home: Vec<Vec3> = cards.iter().map(|c| stage.get_center(c.back)).collect();
+    let widest = cards.iter().map(|c| c.width).fold(0.0, f64::max);
+    let mid = v(CARD_X0 + widest / 2.0, (ROWS_Y[0] + ROWS_Y[3]) / 2.0);
+    for (c, h) in cards.iter().zip(&home) {
+        stage.scale(c.group, STACK_BIG);
+        let big = v(STACK_BIG * (h[0] - mid[0]), STACK_BIG * (h[1] - mid[1]) - 0.1);
+        stage.move_to(c.group, big, ORIGIN);
+    }
     // a packet arrives and opens into the first card
     let first = &cards[0];
     let glyph = stage.arena_mut().add(packet(2.2, Role::card()).moved_to(v(0.5, 0.3)));
@@ -113,8 +131,8 @@ fn equations(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Card>> {
             ..AnimateArgs::default()
         })?
         .move_to(to, ORIGIN)?
-        .set_width(first.width, true)?
-        .set_height(first.height, true)?
+        .set_width(STACK_BIG * first.width, true)?
+        .set_height(STACK_BIG * first.height, true)?
         .set_opacity(0.0)?;
     play!(stage;
         open,
@@ -125,7 +143,8 @@ fn equations(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Card>> {
     stage.wait(1.2)?;
     let rest: Vec<Mob> = cards[1..].iter().map(|c| c.group).collect();
     let rest = group_of(stage, &rest)?;
-    let keep = [first.group, rest];
+    let mut keep: Vec<Mob> = cards.iter().map(|c| c.group).collect();
+    keep.push(rest);
     play!(stage; fade_in(stage.arena_mut(), rest, v(0.0, -0.2), 1.0)?.rt(1.4).lag(0.3));
     kit.hold(stage)?;
 
@@ -138,6 +157,21 @@ fn equations(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Card>> {
         .filter(|m| !in_rows(m))
         .collect();
     kit.say(stage, "03_2")?;
+    // the stack settles into its column
+    let mut settle: Vec<Box<dyn Animation>> = Vec::new();
+    for (c, h) in cards.iter().zip(&home) {
+        let a = c
+            .group
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(0.9),
+                ..AnimateArgs::default()
+            })?
+            .scale(1.0 / STACK_BIG)?
+            .move_to(*h, ORIGIN)?;
+        settle.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(settle)?;
     let heads = group_of(stage, &frame)?;
     play!(stage; fade_in(stage.arena_mut(), heads, v(0.0, -0.15), 1.0)?.rt(0.9).lag(0.1));
     for (r, (dots, res)) in grid.rows.iter().enumerate() {
@@ -199,10 +233,25 @@ fn combine(stage: &mut Stage<'_>, top: &Card, bottom: &Card, target: &Card, rt: 
         let (a, b) = (badge_of(top, p), badge_of(bottom, p));
         let (ca, cb) = (stage.get_center(a), stage.get_center(b));
         let mid = v((ca[0] + cb[0]) / 2.0, (ca[1] + cb[1]) / 2.0);
-        meet.push(move_to(stage, a, mid, rt * 0.5)?);
-        meet.push(move_to(stage, b, mid, rt * 0.5)?);
+        meet.push(move_to(stage, a, mid, rt * 0.45)?);
+        meet.push(move_to(stage, b, mid, rt * 0.45)?);
     }
     stage.play_prepared(meet)?;
+    // they flash in the ex-or colour where they meet, then vanish
+    let mut flash: Vec<Box<dyn Animation>> = Vec::new();
+    for &p in &shared {
+        for m in [badge_of(top, p), badge_of(bottom, p)] {
+            let a = indicate(stage.arena_mut(), m, 1.5, Some([0.35, 0.77, 0.87]))?;
+            flash.push(stage.prepare(a)?);
+        }
+    }
+    stage.play_prepared_with(
+        flash,
+        PlayOverrides {
+            run_time: Some(rt * 0.15),
+            ..PlayOverrides::default()
+        },
+    )?;
     let mut vanish: Vec<Box<dyn Animation>> = Vec::new();
     for &p in &shared {
         for m in [badge_of(top, p), badge_of(bottom, p)] {
@@ -213,7 +262,7 @@ fn combine(stage: &mut Stage<'_>, top: &Card, bottom: &Card, target: &Card, rt: 
     stage.play_prepared_with(
         vanish,
         PlayOverrides {
-            run_time: Some(rt * 0.4),
+            run_time: Some(rt * 0.3),
             ..PlayOverrides::default()
         },
     )?;
@@ -261,34 +310,93 @@ fn copy_of(kit: &Kit, stage: &mut Stage<'_>, c: u32, at: Vec3) -> fmn::Result<Ca
     card(kit, stage, c, Some(result(c)), CARD_H, at)
 }
 
+/// A copy of `original` lifting off it: built on it at its size, then
+/// growing to the working size as it travels to `to`.
+fn lift(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    original: &Card,
+    mask: u32,
+    to: Vec3,
+    rt: f64,
+) -> fmn::Result<(Card, Box<dyn Animation>)> {
+    let at = stage_pos(original, stage);
+    let copy = copy_of(kit, stage, mask, at)?;
+    stage.scale(copy.group, SIDE_K);
+    stage.add_to_scene(copy.group)?;
+    let a = copy
+        .group
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(rt),
+            ..AnimateArgs::default()
+        })?
+        .scale(WORK_K / SIDE_K)?
+        .move_to(to, ORIGIN)?;
+    let a = stage.prepare(a)?;
+    Ok((copy, a))
+}
+
 /// 03_3–03_4: card one ex-or card three; card two then gives D; the rest.
+/// The column steps aside, smaller, and the cards being ex-ored take the
+/// stage at `WORK_K` (the owner's note on 02–04: the working objects were
+/// small, with half the frame empty).
 fn eliminate(kit: &Kit, stage: &mut Stage<'_>, cards: &[Card]) -> fmn::Result<()> {
-    let x0 = 0.9;
-    let (y1, y2, y3) = (ROWS_Y[0], ROWS_Y[1], ROWS_Y[2] - 0.35);
-    // copies of cards one and three, lifted from the column to the right
-    let (p1, p3) = (stage_pos(&cards[0], stage), stage_pos(&cards[2], stage));
-    let one = copy_of(kit, stage, CARDS[0], p1)?;
-    let three = copy_of(kit, stage, CARDS[2], p3)?;
+    let h = CARD_H * WORK_K;
+    let (y1, y2, y3) = (2.05, 0.65, -1.15);
+    // two-piece cards, centred on the working area
+    let x0 = WORK_XC - card_width(2, true, h) / 2.0;
     let bc = card(
         kit,
         stage,
         FIFTH_CARD,
         Some(result(FIFTH_CARD)),
-        CARD_H,
-        left_aligned(FIFTH_CARD, true, CARD_H, x0, y3),
+        h,
+        left_aligned(FIFTH_CARD, true, h, x0, y3),
     )?;
     kit.say(stage, "03_3")?;
-    // the copies lift off the originals
-    stage.add_to_scene(one.group)?;
-    stage.add_to_scene(three.group)?;
-    let lifts = vec![
-        move_to(stage, one.group, left_aligned(CARDS[0], true, CARD_H, x0, y1), 1.0)?,
-        move_to(stage, three.group, left_aligned(CARDS[2], true, CARD_H, x0, y2), 1.0)?,
-    ];
-    stage.play_prepared(lifts)?;
-    let plus = kit.tex(stage, OPLUS, 56.0, Role::ex_or(), &[], v(x0 - 0.5, y2))?;
+    // the column steps aside
+    let anchor = v(CARD_X0, (ROWS_Y[0] + ROWS_Y[3]) / 2.0);
+    let mut aside: Vec<Box<dyn Animation>> = Vec::new();
+    for c in cards {
+        let at = stage_pos(c, stage);
+        let to = v(
+            anchor[0] + SIDE_K * (at[0] - anchor[0]),
+            anchor[1] + SIDE_K * (at[1] - anchor[1]),
+        );
+        let a = c
+            .group
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(0.6),
+                ..AnimateArgs::default()
+            })?
+            .scale(SIDE_K)?
+            .move_to(to, ORIGIN)?;
+        aside.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(aside)?;
+    // copies of cards one and three lift off the originals and grow
+    let (one, up1) = lift(
+        kit,
+        stage,
+        &cards[0],
+        CARDS[0],
+        left_aligned(CARDS[0], true, h, x0, y1),
+        1.0,
+    )?;
+    let (three, up3) = lift(
+        kit,
+        stage,
+        &cards[2],
+        CARDS[2],
+        left_aligned(CARDS[2], true, h, x0, y2),
+        1.0,
+    )?;
+    stage.play_prepared(vec![up1, up3])?;
+    let plus = kit.tex(stage, OPLUS, 72.0, Role::ex_or(), &[], v(x0 - 0.6, y2))?;
     play!(stage; fade_in(stage.arena_mut(), plus, ORIGIN, 1.0)?.rt(0.4));
-    stage.wait(0.6)?;
+    stage.wait(0.4)?;
     combine(stage, &one, &three, &bc, 2.8)?;
     play!(stage; fade_out(stage.arena_mut(), plus, ORIGIN, 1.0)?.rt(0.3));
     // the algebra underneath: the A's cancel, two ex-or six is four
@@ -296,8 +404,9 @@ fn eliminate(kit: &Kit, stage: &mut Stage<'_>, cards: &[Card]) -> fmn::Result<()
     let raw = format!(r"A \oplus C \oplus A \oplus B = {r1} \oplus {r3}");
     let done = format!(r"B \oplus C = {r13}");
     let color = [(r"\oplus", Role::ex_or())];
-    let (m_raw, s_raw) = kit.tex_spans(stage, &raw, 46.0, Palette::ink(), &color, v(3.7, -2.5))?;
-    let (m_done, s_done) = kit.tex_spans(stage, &done, 46.0, Palette::ink(), &color, v(3.7, -2.5))?;
+    let algebra_at = v(WORK_XC, -2.6);
+    let (m_raw, s_raw) = kit.tex_spans(stage, &raw, 56.0, Palette::ink(), &color, algebra_at)?;
+    let (m_done, s_done) = kit.tex_spans(stage, &done, 56.0, Palette::ink(), &color, algebra_at)?;
     play!(stage; write(stage.arena(), m_raw).rt(1.0));
     stage.wait(0.5)?;
     let morph = TransformMatchingTex::new(stage.arena_mut(), m_raw, m_done, &s_raw, &s_done)?;
@@ -305,49 +414,44 @@ fn eliminate(kit: &Kit, stage: &mut Stage<'_>, cards: &[Card]) -> fmn::Result<()
     kit.hold(stage)?;
 
     // 03_4: into card two: D is two; then everything else
-    let p2 = stage_pos(&cards[1], stage);
-    let two = copy_of(kit, stage, CARDS[1], p2)?;
+    let (ya, yb) = (1.75, 0.35);
+    // card two is the wide one: both are left-aligned on it, so the
+    // matching B's and C's sit one over the other
+    let x2 = WORK_XC - card_width(3, true, h) / 2.0;
     let d_card = card(
         kit,
         stage,
         D,
         Some(result(CARDS[1]) ^ result(FIFTH_CARD)),
-        CARD_H,
-        left_aligned(D, true, CARD_H, x0, y3),
+        h,
+        v(WORK_XC, (ya + yb) / 2.0),
     )?;
     kit.say(stage, "03_4")?;
-    stage.add_to_scene(two.group)?;
-    let lifts = vec![
-        move_to(
-            stage,
-            two.group,
-            left_aligned(CARDS[1], true, CARD_H, x0, y2 - 0.55),
-            0.9,
-        )?,
-        move_to(
-            stage,
-            bc.group,
-            left_aligned(FIFTH_CARD, true, CARD_H, x0, y3 - 0.35),
-            0.9,
-        )?,
-    ];
+    let (two, up2) = lift(
+        kit,
+        stage,
+        &cards[1],
+        CARDS[1],
+        left_aligned(CARDS[1], true, h, x2, ya),
+        0.9,
+    )?;
+    let down = move_to(stage, bc.group, left_aligned(FIFTH_CARD, true, h, x2, yb), 0.9)?;
     let gone = fade_out(stage.arena_mut(), m_done, ORIGIN, 1.0)?;
-    let mut lifts = lifts;
-    lifts.push(stage.prepare(gone)?);
-    stage.play_prepared(lifts)?;
+    let gone = stage.prepare(gone)?;
+    stage.play_prepared(vec![up2, down, gone])?;
     combine(stage, &two, &bc, &d_card, 1.8)?;
-    // and so on: A, B, C, D fill in
+    // and so on: A, B, C, D fill in, large, under the card that found D
     let knowns: Vec<Mob> = (0..4)
         .map(|p| {
-            let at = v(0.7 + 1.55 * p as f64, -3.3);
-            let b = badge(kit, stage, p, 0.26, v(at[0] - 0.35, at[1]))?;
+            let at = v(WORK_XC + (p as f64 - 1.5) * 2.0, -1.55);
+            let b = badge(kit, stage, p, 0.34, v(at[0] - 0.6, at[1]))?;
             let eq = kit.tex(
                 stage,
                 &format!("= {}", PIECES[p]),
-                44.0,
+                60.0,
                 Palette::ink(),
                 &[],
-                v(at[0] + 0.3, at[1]),
+                v(at[0] + 0.35, at[1]),
             )?;
             group_of(stage, &[b, eq])
         })
@@ -405,7 +509,7 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let phone_mark = stage
         .arena_mut()
         .add(phone(Palette::dim(), 0.7).moved_to(v(-0.2, -3.25)));
-    let label = kit.text(stage, "the phone", 28.0, Palette::dim(), v(0.75, -3.25))?;
+    let label = kit.text(stage, "the phone", 36.0, Palette::dim(), v(0.75, -3.25))?;
     stage.move_to(label, v(0.25, -3.25), LEFT);
     // the cards arrive in another order: the phone doesn't care
     let widths = ARRIVAL.map(|k| card_width(pieces_of(CARDS[k]).len(), true, CARD_H));
@@ -450,7 +554,7 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     );
     let k = CARDS.len();
     let count_at = v(3.9, -0.75);
-    let mut count = kit.text(stage, &format!("useful: 0 of {k}"), 34.0, Role::ex_or(), count_at)?;
+    let mut count = kit.text(stage, &format!("useful: 0 of {k}"), 40.0, Role::ex_or(), count_at)?;
     play!(stage; fade_in(stage.arena_mut(), count, ORIGIN, 1.0)?.rt(0.4));
     // the pieces the bucket must pin down, one badge each, under the count
     let piece_row: Vec<Mob> = (0..k)
@@ -462,7 +566,7 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let pieces_word = kit.text(
         stage,
         &format!("{k} pieces"),
-        28.0,
+        32.0,
         Palette::dim(),
         v(count_at[0], count_at[1] - 1.6),
     )?;
@@ -489,7 +593,7 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let next = kit.text(
             stage,
             &format!("useful: {} of {k}", i + 1),
-            34.0,
+            40.0,
             Role::ex_or(),
             count_at,
         )?;
@@ -597,7 +701,7 @@ fn bucket(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
 /// the same deck, so a packet's number names its mix.
 fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // the fountain: cards arcing out of a spout and falling away, endlessly
-    let spout = v(-4.0, -2.1);
+    let spout = v(-4.0, -1.55);
     let bowl = |dx: f64| {
         v(
             spout[0] + dx,
@@ -627,9 +731,9 @@ fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let caption = kit.text(
         stage,
         "fountain codes: endless fresh mixes",
-        32.0,
+        40.0,
         Palette::ink(),
-        v(-4.0, 3.3),
+        v(-3.3, 3.3),
     )?;
     kit.say(stage, "03_8")?;
     crossfade(stage, &[basin, caption], 0.8)?;
@@ -651,10 +755,10 @@ fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     })?;
     stage.wait(3.4)?;
     // the shared deck: the same recipe on both sides
-    let sender_at = v(0.9, 1.5);
-    let phone_at = v(4.7, 1.5);
-    let sender = kit.text(stage, "sender", 30.0, Palette::dim(), v(sender_at[0], 2.75))?;
-    let receiver = kit.text(stage, "phone", 30.0, Palette::dim(), v(phone_at[0], 2.75))?;
+    let sender_at = v(0.9, 1.8);
+    let phone_at = v(4.7, 1.8);
+    let sender = kit.text(stage, "sender", 36.0, Palette::dim(), v(sender_at[0], 2.75))?;
+    let receiver = kit.text(stage, "phone", 36.0, Palette::dim(), v(phone_at[0], 2.75))?;
     let deck = |stage: &mut Stage<'_>, at: Vec3| -> fmn::Result<Mob> {
         let mut layers = Vec::new();
         for k in 0..5 {
@@ -683,12 +787,12 @@ fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     );
     // three packet numbers, each naming the same mix on both sides
     for (k, &number) in DECK_PACKETS.iter().enumerate() {
-        let y = 0.25 - 1.3 * k as f64;
+        let y = 0.5 - 1.25 * k as f64;
         let mix = deck_mix(number);
         let tag = kit.text(
             stage,
             &format!("packet #{}", thousands(number)),
-            28.0,
+            32.0,
             Palette::ink(),
             v((sender_at[0] + phone_at[0]) / 2.0, y + 0.66),
         )?;
@@ -712,10 +816,11 @@ fn fountain(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     Ok(())
 }
 
-/// 03_9: RaptorQ, spelled once, and its standard.
+/// 03_9: RaptorQ, spelled once, and its standard; then, on "the arithmetic
+/// inside it", the title's sum in chalk under the name (the hook's 3 × 7 = 9).
 fn name_card(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
-    let name = kit.text_styled(stage, "RaptorQ", 120.0, Palette::ink(), v(0.0, 0.5), true, false)?;
-    let line = kit.text(
+    let name = kit.text_styled(stage, "RaptorQ", 120.0, Palette::ink(), v(0.0, 1.5), true, false)?;
+    let standard = kit.text(
         stage,
         &format!(
             "RFC {} · IETF Proposed Standard · August {}",
@@ -724,16 +829,21 @@ fn name_card(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         ),
         34.0,
         Palette::dim(),
-        v(0.0, -0.75),
+        v(0.0, 0.25),
     )?;
-    let rule = Line::new(v(-3.2, -0.15), v(3.2, -0.15))
+    let rule = Line::new(v(-3.2, 0.85), v(3.2, 0.85))
         .style(line_style(Palette::faint(), 2.0))
         .build()?;
     let rule = stage.arena_mut().add(rule);
-    kit.say(stage, "03_9")?;
+    let secret = super::hook::chalk(kit, stage, 110.0, v(0.0, -1.7))?;
+    let board = super::voice::board("03_cards")?;
+    let line = super::voice::Spoken::say(kit, stage, &board, "03_9")?;
     crossfade(stage, &[], 0.5)?;
     play!(stage; write(stage.arena(), name).rt(1.4), show_creation(rule).rt(1.0));
-    play!(stage; fade_in(stage.arena_mut(), line, v(0.0, 0.15), 1.0)?.rt(0.8));
+    line.at_phrase(stage, "an internet standard")?;
+    play!(stage; fade_in(stage.arena_mut(), standard, v(0.0, 0.15), 1.0)?.rt(0.8));
+    line.at(stage, 1)?;
+    play!(stage; write(stage.arena(), secret).rt(1.2));
     Ok(())
 }
 

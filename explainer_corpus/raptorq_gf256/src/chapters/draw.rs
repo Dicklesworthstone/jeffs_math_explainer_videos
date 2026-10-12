@@ -53,9 +53,10 @@ impl Role {
     }
 }
 
-/// A card's paper: a warm dark, a shade above the background.
+/// A card's paper: a warm dark panel, clearly lighter than the background
+/// (the owner's note on 02–04: thin outlines on near-black read as plain).
 pub fn card_fill() -> Srgb {
-    hex("#221F1C")
+    hex("#2F2A24")
 }
 
 /// A flat fill and no outline.
@@ -139,7 +140,7 @@ pub fn badge(kit: &Kit, stage: &mut Stage<'_>, piece: usize, r: f64, at: Vec3) -
     let shape = badge_shape(
         piece,
         r,
-        Style::default().fill(ink, 0.10).stroke(ink, (r * 9.0).max(1.5), 1.0),
+        Style::default().fill(ink, 0.22).stroke(ink, (r * 9.0).max(1.5), 1.0),
         at,
     );
     let shape = stage.arena_mut().add(shape);
