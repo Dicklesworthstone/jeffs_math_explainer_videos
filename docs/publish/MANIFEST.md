@@ -1,4 +1,4 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 17:10 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 18:20 EDT)
 
 **Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
@@ -33,7 +33,7 @@ move to `renders/final_review1/` in the same crate (never deleted), and this tab
 | Cut | Master | md5 | Length | Status |
 |---|---|---|---|---|
 | RaptorQ leo (the original voice, a comparison) | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4` | `130493a0d35ce4e4f61eeb39047b6b73` | 21:14, −16.0 LUFS | verified; the owner chose michael, so upload only if he asks to compare |
-| fish michael, v1 (preliminary) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
+| fish michael, v1 (superseded by v2) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
 
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
@@ -44,8 +44,18 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | Cut | Master | md5 | Length | Text | Captions (md5) | Thumbnail |
 |---|---|---|---|---|---|---|
 | Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `6898620cebc142bc28292ec8df995a9d` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`d993b6f5…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
+| fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 
-Hoeffding michael evidence: VERIFY PASS (A/V 0.001 s, both decodes clean), music QA 8/8, cue check
+Fish michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean), music QA 15/15, cue
+check PASS (13 warnings, all authored pauses or end holds, as in matt's cut); narration gates PASS
+with 0 dropped final s/z and 0 cut short; "size", "times", "things" fixed; the audit's three fish
+items checked in the takes ("Marked times", "five in a one", "pull the guess down": present).
+Michael reads about 3% slower than matt, so chapters 04, 05 and 14 run 86-89 s, over our ~85 s
+pacing guideline (not a render limit): for the owner's ear.
+
+Hoeffding michael evidence (Codex's audit then found two candidates, "An exact twin" and "add a
+quarter each"; its narration owner is checking them, and a v2 follows if a read changes; this cut
+would then move to `variants/michael/renders/final_v1/`): VERIFY PASS (A/V 0.001 s, both decodes clean), music QA 8/8, cue check
 PASS (one warning: the authored 5.2 s listening pause before s9, as in robert's cut); narration
 gates PASS with 0 dropped final s/z and 0 cut short; "Hoeffding" read as HERF-ding in all nine
 places and the possessives (checked by formants), spelled Hoeffding in the captions.
@@ -56,7 +66,6 @@ places and the possessives (checked by formants), spelled Hoeffding in the capti
 |---|---|---|
 | RaptorQ michael | `explainer_corpus/raptorq_gf256/renders/final/` | phones, once, those, peels; fountain codes, ten to sixteen slots, parked pieces, the letter A |
 | bakery michael | `explainer_corpus/bakery_algorithm/renders/final/` | writes; Green's slate, the other's |
-| fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/` | size, times, things; "Marked times second catch", "five in a one", "pull the guess down" |
 
 Each gets its own `publish/michael/` text (the fish and Hoeffding variants: chapter times differ),
 captions in its `renders/final/`, and the video's thumbnail. Added here when verified and copied.
