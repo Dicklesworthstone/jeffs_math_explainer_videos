@@ -1,4 +1,4 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 18:20 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 18:35 EDT)
 
 **Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
@@ -29,7 +29,7 @@ owner acceptance or permission to publish publicly.
 | Cut | Link | Master | md5 | Status |
 |---|---|---|---|---|
 | Hoeffding robert (original) | https://youtu.be/savJOtXm7AQ | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | kept; michael chosen instead |
-| bakery michael, review 1 | https://youtu.be/PpmO9Gato2w | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | being corrected: "reads and writes" lost its s |
+| bakery michael, review 1 | https://youtu.be/PpmO9Gato2w | `explainer_corpus/bakery_algorithm/renders/final_review1/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | superseded by review 2 (below) |
 | fish matt (original) | https://youtu.be/fUXsjbWsgNg | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | kept; michael chosen instead |
 | RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | being corrected: "phones", "once", "those", "peels" lost their s; audit items |
 
@@ -53,6 +53,13 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 |---|---|---|---|---|---|---|
 | Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `6898620cebc142bc28292ec8df995a9d` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`d993b6f5…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
 | fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
+| bakery michael, review 2 | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `7df3679f4f52d3e5844425fb7b868048` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, 9f743ed) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`7048a44c…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
+
+Bakery review 2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean, the quiet-peak
+exception above), music QA 13/13 after a re-score, cue check PASS (4 authored warnings), longest
+chapter 84.8 s; "writes", "other's" and "Green's slate" fixed; Codex's fw pass on this exact master
+transcribes all three correctly. Review 1 (uploaded https://youtu.be/PpmO9Gato2w) is kept at
+`explainer_corpus/bakery_algorithm/renders/final_review1/` (md5 `19f2e859…`).
 
 Fish michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean), music QA 15/15, cue
 check PASS (13 warnings, all authored pauses or end holds, as in matt's cut); narration gates PASS
@@ -73,7 +80,6 @@ places and the possessives (checked by formants), spelled Hoeffding in the capti
 | Cut | Lands at | Being fixed |
 |---|---|---|
 | RaptorQ michael | `explainer_corpus/raptorq_gf256/renders/final/` | phones, once, those, peels; fountain codes, ten to sixteen slots, parked pieces, the letter A |
-| bakery michael | `explainer_corpus/bakery_algorithm/renders/final/` | writes; Green's slate, the other's |
 
 Each gets its own `publish/michael/` text (the fish and Hoeffding variants: chapter times differ),
 captions in its `renders/final/`, and the video's thumbnail. Added here when verified and copied.
