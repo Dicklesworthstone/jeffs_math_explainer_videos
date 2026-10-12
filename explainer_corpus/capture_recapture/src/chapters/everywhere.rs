@@ -500,9 +500,18 @@ impl SceneConstruct for Everywhere {
         play!(stage; replacement_transform(question, dark_total).rt(0.8));
         kit.hold(stage)?;
 
-        // 14_3: the odds card, silent
+        // 14_3: the odds card, silent. It gets the frame to itself (R4
+        // A-R4-2): a backdrop in the background's own colour covers the
+        // table and the map while the card is up, and the card is opaque
         let bet_lines = explainer_kit::animatic::wrap(LAPLACE_BET, 64, 4);
         let card_h = 0.5 * bet_lines.len() as f64 + 1.3;
+        let backdrop = stage.arena_mut().add(
+            Rectangle::new()
+                .width(2.0 * FRAME_X_RADIUS + 1.0)
+                .height(2.0 * FRAME_Y_RADIUS + 1.0)
+                .style(flat(hex(explainer_kit::BACKGROUND), 1.0))
+                .build()?,
+        );
         let back = stage.arena_mut().add(
             Rectangle::new()
                 .width(11.6)
@@ -510,7 +519,7 @@ impl SceneConstruct for Everywhere {
                 .corner_radius(0.12)
                 .style(
                     Style::default()
-                        .fill(hex("#1A2130"), 0.97)
+                        .fill(hex("#1A2130"), 1.0)
                         .stroke(Palette::faint(), 1.5, 1.0),
                 )
                 .build()?
@@ -540,17 +549,9 @@ impl SceneConstruct for Everywhere {
             Palette::dim(),
             v(0.0, 0.2 - card_h / 2.0 + 0.35),
         )?);
-        let mut show: Vec<Box<dyn Animation>> = Vec::new();
-        for &m in &card {
-            let a = fade_in(stage.arena_mut(), m, v(0.0, -0.15), 1.0)?.rt(0.8);
-            show.push(stage.prepare(a)?);
-        }
-        stage.play_prepared(show)?;
-        // the odds card's breath, trimmed with the closing fade to keep 14
-        // under 85 s narrated
-        kit.music_breath(stage, 3.2)?;
-        let mut hide: Vec<Box<dyn Animation>> = Vec::new();
-        for m in card.iter().copied().chain([
+        // the backdrop first, then the card over it; France's own labels
+        // leave under the backdrop, so only the bare table comes back
+        let france = [
             outline,
             towns,
             counted,
@@ -559,11 +560,29 @@ impl SceneConstruct for Everywhere {
             per_birth,
             total,
             dark_total,
-        ]) {
+        ];
+        play!(stage; fade_in(stage.arena_mut(), backdrop, ORIGIN, 1.0)?.rt(0.5));
+        let mut show: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in &card {
+            let a = fade_in(stage.arena_mut(), m, v(0.0, -0.15), 1.0)?.rt(0.6);
+            show.push(stage.prepare(a)?);
+        }
+        for m in france {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.6);
+            show.push(stage.prepare(a)?);
+        }
+        stage.play_prepared(show)?;
+        // the odds card's breath, trimmed with the closing fade to keep 14
+        // under 85 s narrated
+        kit.music_breath(stage, 2.7)?;
+        // the card goes first, so the table never shows through the quote
+        let mut hide: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in &card {
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.35);
             hide.push(stage.prepare(a)?);
         }
         stage.play_prepared(hide)?;
+        play!(stage; fade_out(stage.arena_mut(), backdrop, ORIGIN, 1.0)?.rt(0.45));
 
         // 14_4: it counts bugs too
         let (ra, rb, rk) = REVIEWERS;

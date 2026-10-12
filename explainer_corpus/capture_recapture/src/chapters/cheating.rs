@@ -959,23 +959,31 @@ fn code(kit: &Kit, stage: &mut Stage<'_>, stats: &Stats) -> fmn::Result<()> {
     kit.say(stage, "09_6")?;
     stage.add_to_scene(panel.group)?;
     play!(stage; panel.slide_in(1.0)?);
-    // the two lines that run the experiments
-    let box_around = |stage: &mut Stage<'_>, a: Mob, b: Mob, color: Srgb| -> fmn::Result<Mob> {
-        let lo = stage.get_corner(b, DL);
-        let hi_a = stage.get_corner(a, UR);
-        let hi_b = stage.get_corner(b, UR);
-        let hi = v(hi_a[0].max(hi_b[0]), hi_a[1]);
-        let r = SurroundingRectangle::from_extent(Some((lo, hi)))
-            .buff(0.12)
+    // the two lines that run the experiments. A box's top and bottom edges
+    // sit halfway into the gaps to the neighbouring lines, so no stroke runs
+    // through code (R4 A-R4-1)
+    let box_around = |stage: &mut Stage<'_>, first: usize, last: usize, color: Srgb| -> fmn::Result<Mob> {
+        let (a, b) = (panel.lines[first], panel.lines[last]);
+        let top_of = |stage: &Stage<'_>, m: Mob| stage.get_top(m)[1];
+        let bottom_of = |stage: &Stage<'_>, m: Mob| stage.get_bottom(m)[1];
+        let above = (bottom_of(stage, panel.lines[first - 1]) + top_of(stage, a)) / 2.0;
+        let below = match panel.lines.get(last + 1) {
+            Some(&next) => (bottom_of(stage, b) + top_of(stage, next)) / 2.0,
+            None => bottom_of(stage, b) - (above - top_of(stage, a)),
+        };
+        let left = stage.get_left(a)[0].min(stage.get_left(b)[0]) - 0.12;
+        let right = stage.get_right(a)[0].max(stage.get_right(b)[0]) + 0.12;
+        let r = SurroundingRectangle::from_extent(Some((v(left, below), v(right, above))))
+            .buff(0.0)
             .color(color)
             .build();
         Ok(stage.arena_mut().add(r))
     };
-    let run_box = box_around(stage, panel.lines[5], panel.lines[6], Palette::hero())?;
+    let run_box = box_around(stage, 5, 6, Palette::hero())?;
     play!(stage; show_creation(run_box).rt(0.8));
     // "The last line checks their average against the exact one…"
     kit.until_sentence(stage, "09_6", 1)?;
-    let check_box = box_around(stage, panel.lines[7], panel.lines[8], Palette::teal())?;
+    let check_box = box_around(stage, 7, 8, Palette::teal())?;
     play!(stage;
         fade_out(stage.arena_mut(), run_box, ORIGIN, 1.0)?.rt(0.5),
         show_creation(check_box).rt(0.8),
