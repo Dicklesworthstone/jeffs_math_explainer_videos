@@ -249,6 +249,14 @@ def hear(x, rate, last_word_end):
             "cut_short": cut_short, "top_db": round(top, 1), "floor_db": round(floor, 1)}
 
 
+class Picked(float):
+    """The measured score of a read the director picked. narrate.py ranks candidates by `-score`;
+    this one sorts first, and stays the measured number in the report and in the weak-read flags."""
+
+    def __neg__(self):
+        return float("-inf")
+
+
 def tts_variants(text):
     """narrate.py's respellings of one sentence, each also inside quotation marks (FINISHERS)."""
     plain = respellings(text)
@@ -348,9 +356,11 @@ def analyze(path, asr, target_text):
     score -= 0.02 * (h["junk_after_s"] > 0) + 0.04 * stalls + 0.02 * (not h["clean_in"]) + 0.02 * (not h["clean_out"])
     score -= 0.12 * h["cut_short"]
     picked = PICKS.get(Path(path).stem)
-    score += 1.0 * (picked is not None)
+    score = round(score, 4)
+    if picked is not None:
+        score = Picked(score)
     return {
-        "score": round(score, 4), "asr_ratio": round(ratio, 3), "misheard_names": names_missed,
+        "score": score, "asr_ratio": round(ratio, 3), "misheard_names": names_missed,
         "conf": round(float(np.mean(probs)), 3), "syl_rate": round(syl_rate, 2), "pauses": pauses,
         "hesitations": len(hesitations), "pitch_std_st": round(pitch_std, 2), "final_st": round(final_st, 2),
         "start": round(h["cut_in"], 4), "end": round(h["cut_out"], 4), "heard": asr.get("text", ""),
