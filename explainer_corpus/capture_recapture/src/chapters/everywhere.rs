@@ -434,7 +434,7 @@ impl SceneConstruct for Everywhere {
         let towns = kit.text(
             stage,
             "chosen towns across France",
-            22.0,
+            26.0,
             Role::second(),
             v(INSET_C[0], INSET_C[1] - 2.0),
         )?;

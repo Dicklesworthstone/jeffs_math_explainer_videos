@@ -777,16 +777,23 @@ impl RingToss {
             out.push(stage.prepare(a)?);
         }
         stage.play_prepared(out)?;
+        // the name takes the middle of the frame it now has to itself; and
         // the catch with none caught twice is counted too (R3 Dev D1)
-        let no_top_at = v(6.9, centre[1] - h / 2.0 - 0.35);
+        let mid = v(0.0, 0.6);
+        let glide = AnimateArgs {
+            run_time: Some(0.8),
+            ..AnimateArgs::default()
+        };
+        let name_in = name.animate().set_anim_args(glide)?.move_to(mid, ORIGIN)?;
+        let card_in = name_card.animate().set_anim_args(glide)?.move_to(mid, ORIGIN)?;
+        play!(stage; name_in, card_in);
         let no_top = kit.text(
             stage,
             "with none caught twice, the range has no top",
-            22.0,
+            28.0,
             Palette::dim(),
-            no_top_at,
+            v(0.0, mid[1] - h / 2.0 - 0.55),
         )?;
-        stage.move_to(no_top, no_top_at, RIGHT);
         play!(stage; fade_in(stage.arena_mut(), no_top, v(0.0, 0.1), 1.0)?.rt(0.6));
         Ok([name, name_card, no_top])
     }

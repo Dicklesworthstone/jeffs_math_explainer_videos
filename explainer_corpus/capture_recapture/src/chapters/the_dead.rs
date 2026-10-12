@@ -9,6 +9,7 @@
 
 use explainer_kit::props::{Pose, Swarm, lower_third, predict_pause, receipts_card};
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, thousands, v};
+use fmn::animation::replacement_transform;
 use fmn::prelude::*;
 
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
@@ -114,7 +115,10 @@ impl SceneConstruct for TheDead {
         let (named, estimate, (lo, hi), later) = KOSOVO;
 
         // 15_1: the four lists' table, the named, the estimate, the later count
+        // the title opens large and centred, alone, and travels to its corner
+        // when the first picture arrives
         let title = kit.text_left(stage, "Kosovo, 1999", 30.0, Palette::dim(), v(GRID_X, 3.3))?;
+        let title_card = kit.text(stage, "Kosovo, 1999", 56.0, Palette::ink(), v(0.0, 0.5))?;
         let mut cells = Vec::new();
         for r in 0..4 {
             for c in 0..4 {
@@ -124,7 +128,7 @@ impl SceneConstruct for TheDead {
         let key = kit.text_left(
             stage,
             "each cell: which of the four lists name a person (filled = on it)",
-            20.0,
+            24.0,
             Palette::dim(),
             v(GRID_X, GRID_TOP - 4.0 * CELL - 0.3),
         )?;
@@ -132,8 +136,8 @@ impl SceneConstruct for TheDead {
         let nobody = kit.text_left(
             stage,
             "on no list",
-            20.0,
-            Palette::dim(),
+            26.0,
+            Palette::ink(),
             v(GRID_X + 4.0 * CELL + 0.15, dark_at[1]),
         )?;
         // the line of people
@@ -154,9 +158,9 @@ impl SceneConstruct for TheDead {
             let m = kit.text(
                 stage,
                 &thousands(t as u64),
-                20.0,
+                24.0,
                 Palette::dim(),
-                v(people_x(t), LINE_Y - 0.3),
+                v(people_x(t), LINE_Y - 0.34),
             )?;
             stage.attach(axis, m)?;
         }
@@ -243,9 +247,10 @@ impl SceneConstruct for TheDead {
         // until the end mark below
         kit.mark(stage, "silence:kosovo");
         let line = Spoken::say(&kit, stage, "15_1")?;
-        play!(stage; fade_in(stage.arena_mut(), title, ORIGIN, 1.0)?.rt(1.0));
+        play!(stage; fade_in(stage.arena_mut(), title_card, ORIGIN, 1.0)?.rt(1.0));
         line.at(stage, "four lists named")?;
         play!(stage;
+            replacement_transform(title_card, title).rt(0.8),
             fade_in(stage.arena_mut(), axis, ORIGIN, 1.0)?.rt(0.8),
             fmn::animation::grow_from_edge(stage.arena_mut(), named_bar, LEFT, None)?.rt(1.0),
             fade_in(stage.arena_mut(), named_words, ORIGIN, 1.0)?.rt(1.0),
@@ -284,14 +289,14 @@ impl SceneConstruct for TheDead {
 
         // 15_2: France, the bugs, Kosovo: three tables, one dark cell each
         let tables = [
-            (small_table(2, 2, 0.9, v(-4.4, 0.3))?, "France", v(-4.4, -1.1)),
-            (small_table(2, 2, 0.9, v(0.0, 0.3))?, "the bugs", v(0.0, -1.1)),
-            (small_table(4, 4, 0.45, v(4.4, 0.3))?, "Kosovo", v(4.4, -1.1)),
+            (small_table(2, 2, 1.5, v(-4.6, 0.3))?, "France", v(-4.6, -1.75)),
+            (small_table(2, 2, 1.5, v(0.0, 0.3))?, "the bugs", v(0.0, -1.75)),
+            (small_table(4, 4, 0.75, v(4.6, 0.3))?, "Kosovo", v(4.6, -1.75)),
         ];
         let mut parts = Vec::new();
         for (t, word, at) in tables {
             parts.push(stage.arena_mut().add(t));
-            parts.push(kit.text(stage, word, 28.0, Palette::ink(), at)?);
+            parts.push(kit.text(stage, word, 36.0, Palette::ink(), at)?);
         }
         Spoken::say(&kit, stage, "15_2")?;
         for pair in parts.chunks(2) {
@@ -300,7 +305,7 @@ impl SceneConstruct for TheDead {
                 fade_in(stage.arena_mut(), pair[1], ORIGIN, 1.0)?.rt(0.5),
             );
         }
-        let q = predict_pause(&kit, stage, v(0.0, 2.3))?;
+        let q = predict_pause(&kit, stage, v(0.0, 2.9))?;
         let gone = fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.4);
         let mut darks: Vec<Box<dyn Animation>> = vec![stage.prepare(gone)?];
         for &table in parts.iter().step_by(2) {
