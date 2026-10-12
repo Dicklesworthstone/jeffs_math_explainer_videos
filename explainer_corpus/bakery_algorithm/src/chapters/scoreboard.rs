@@ -480,12 +480,23 @@ fn staircases(kit: &Kit, stage: &mut Stage<'_>, race: Race) -> fmn::Result<Squar
     fade_in_all(stage, &ends, 0.4)?;
     // how to read it (R3 maya-01): Blue's steps go across, Green's go up,
     // and the order just shown is this staircase
+    // (her side pulses and she bobs with it)
+    let bob = |who: Mob| -> fmn::Result<AnimBuilder> {
+        Ok(who
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(0.8),
+                rate_func: Some(fmn::core::rate::there_and_back),
+                ..AnimateArgs::default()
+            })?
+            .scale(1.35)?)
+    };
     line.wait_for(stage, "Blue's steps go across")?;
     let across = fmn::animation::indicate(stage.arena_mut(), race.blue_lane, 1.06, None)?;
-    stage.play(across.rt(0.8))?;
+    play!(stage; across.rt(0.8), bob(race.blue.group)?);
     line.wait_for(stage, "Green's go up")?;
     let up = fmn::animation::indicate(stage.arena_mut(), race.green_lane, 1.06, None)?;
-    stage.play(up.rt(0.8))?;
+    play!(stage; up.rt(0.8), bob(race.green.group)?);
     line.wait_for(stage, "the order we just saw")?;
     play!(stage; show_creation(stairs[first]).rt(1.2));
     let pulse = fmn::animation::indicate(stage.arena_mut(), stairs[first], 1.08, None)?;
