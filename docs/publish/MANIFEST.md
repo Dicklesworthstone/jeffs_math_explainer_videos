@@ -58,7 +58,11 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 Bakery review 2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean, the quiet-peak
 exception above), music QA 13/13 after a re-score, cue check PASS (4 authored warnings), longest
 chapter 84.8 s; "writes", "other's" and "Green's slate" fixed; Codex's fw pass on this exact master
-transcribes all three correctly. Review 1 (uploaded https://youtu.be/PpmO9Gato2w) is kept at
+transcribes all three correctly. Codex's residual ASR candidates, judged by its director in
+spectrograms (no read changed): "Blue's steps" has its z; "lost point" has a natural unreleased t;
+"a glance" is "a"; "car's odometer" (12:33) has its z but a weak r, so it may be heard "Carl's":
+**for the owner's ear**. The last 20.6 s (after 15:22.69) are music only. Cleared for a Private
+review upload. Review 1 (uploaded https://youtu.be/PpmO9Gato2w) is kept at
 `explainer_corpus/bakery_algorithm/renders/final_review1/` (md5 `19f2e859…`).
 
 **Fish michael v2 is on hold; do not upload it.** The stricter final-hiss check (92d4953, ch and
