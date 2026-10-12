@@ -430,10 +430,18 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
     if args.crf.is_none() && (args.preset.is_some() || args.gpu.is_some()) {
         eprintln!("note: --preset and --gpu take effect only together with --crf");
     }
+    // A lane can review its finished chapter while another chapter awaits
+    // new narration. The full render still validates every scripted line.
+    let script = script.select(|id| {
+        wanted.iter().any(|c| match e.line_owner {
+            Some(owner) => owner(id) == Some(c.key),
+            None => c.key.starts_with(&format!("{}_", id.split('_').next().unwrap_or(id))),
+        })
+    });
     std::fs::create_dir_all(&args.out)?;
     let narrator = match (&args.narration, args.scratch_voice) {
-        (Some(dir), _) => Some(Narrator::load(script, dir, e.narration_gain_db)?),
-        (None, true) => Some(Narrator::estimate(script)),
+        (Some(dir), _) => Some(Narrator::load(&script, dir, e.narration_gain_db)?),
+        (None, true) => Some(Narrator::estimate(&script)),
         _ => None,
     };
     let (res, profiling) = if args.timeline_only {

@@ -87,6 +87,13 @@ impl Script {
     pub fn text(&self, id: &str) -> Option<&str> {
         self.lines.iter().find(|l| l.0 == id).map(|l| l.1.as_str())
     }
+
+    /// The requested lines in script order, for a partial chapter render.
+    pub fn select(&self, keep: impl Fn(&str) -> bool) -> Self {
+        Self {
+            lines: self.lines.iter().filter(|(id, _)| keep(id)).cloned().collect(),
+        }
+    }
 }
 
 // ----------------------------------------------------------------- cues
@@ -260,6 +267,9 @@ pub fn report_starts(json: &str) -> io::Result<HashMap<String, (Vec<f64>, f64)>>
         .pointer("/meta/rate")
         .and_then(serde_json::Value::as_f64)
         .ok_or_else(|| bad("report.json: no meta.rate".into()))?;
+    if !rate.is_finite() || rate <= 0.0 {
+        return Err(bad("report.json: meta.rate must be positive and finite".into()));
+    }
     let lines = v
         .get("lines")
         .and_then(serde_json::Value::as_object)
@@ -285,10 +295,56 @@ pub fn report_starts(json: &str) -> io::Result<HashMap<String, (Vec<f64>, f64)>>
     Ok(out)
 }
 
+/// Bind the report's display text to the script, not its pronunciation
+/// respellings (`tts`). Existing WAV names alone do not identify a read:
+/// rewording a line keeps its id, so it must require new narration.
+fn check_report_script(json: &str, script: &Script) -> io::Result<()> {
+    let bad = |m: String| io::Error::new(io::ErrorKind::InvalidData, m);
+    let report: serde_json::Value = serde_json::from_str(json).map_err(|e| bad(format!("report.json: {e}")))?;
+    let lines = report
+        .get("lines")
+        .and_then(serde_json::Value::as_object)
+        .ok_or_else(|| bad("report.json: no lines".into()))?;
+    // Director reads may change sentence punctuation, including quotes.
+    // Keep the words, internal apostrophes/decimal points, and number signs
+    // exact: "don't" must not become "do", nor -1 become 1.
+    let normalize = |text: &str| {
+        text.split_whitespace()
+            .map(|word| word.trim_matches(|c: char| !c.is_alphanumeric() && !matches!(c, '-' | '+' | '−')))
+            .filter(|word| !word.is_empty())
+            .collect::<Vec<_>>()
+            .join(" ")
+    };
+    for (id, text) in script.lines() {
+        let sentences = lines
+            .get(id)
+            .and_then(serde_json::Value::as_array)
+            .ok_or_else(|| bad(format!("report.json: no sentence list for scripted line {id}")))?;
+        let spoken = sentences
+            .iter()
+            .enumerate()
+            .map(|(k, s)| {
+                s.get("sentence")
+                    .and_then(serde_json::Value::as_str)
+                    .ok_or_else(|| bad(format!("report.json: {id} sentence {k}: no display text")))
+            })
+            .collect::<io::Result<Vec<_>>>()?
+            .join(" ");
+        if normalize(text) != normalize(&spoken) {
+            return Err(bad(format!(
+                "report.json: narration text for {id} differs from script.tsv; reassemble this line from the current script before rendering"
+            )));
+        }
+    }
+    Ok(())
+}
+
 impl Narrator {
     /// Real narration from `dir/<id>.wav` for every line of `script`, placed
     /// at `gain_db` ([`GAIN_DB`] under the new score). Every file is checked
     /// now: a missing or unusable line is an error before anything renders.
+    /// The report must describe this script and account for each WAV's
+    /// length, so a reworded line cannot silently reuse an old read.
     pub fn load(script: &Script, dir: &Path, gain_db: f64) -> io::Result<Rc<Self>> {
         let mut files = HashMap::new();
         let mut lengths = HashMap::new();
@@ -297,20 +353,26 @@ impl Narrator {
             lengths.insert(id.clone(), f.seconds());
             files.insert(id.clone(), f);
         }
-        // sentence onsets from the report, where it accounts for the take
-        // to within 50 ms; otherwise the estimate
-        let report = std::fs::read_to_string(dir.join("report.json"))
-            .ok()
-            .and_then(|t| report_starts(&t).ok())
-            .unwrap_or_default();
+        let report_path = dir.join("report.json");
+        let report = std::fs::read_to_string(&report_path)
+            .map_err(|e| io::Error::new(e.kind(), format!("{}: {e}", report_path.display())))?;
+        check_report_script(&report, script)?;
+        let report = report_starts(&report)?;
         let mut starts = HashMap::new();
-        for (id, text) in script.lines() {
+        for (id, _) in script.lines() {
             let len = lengths.get(id).copied().unwrap_or(0.0);
-            let real = report
-                .get(id)
-                .filter(|(_, total)| (total - len).abs() < 0.05)
-                .map(|(s, _)| s.clone());
-            starts.insert(id.clone(), real.unwrap_or_else(|| estimated_starts(text, len)));
+            let (onsets, total) = report.get(id).ok_or_else(|| {
+                io::Error::new(io::ErrorKind::InvalidData, format!("report.json: no timing for {id}"))
+            })?;
+            if (total - len).abs() >= 0.05 {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    format!(
+                        "report.json: {id} accounts for {total:.3} s, but its WAV is {len:.3} s; reassemble narration before rendering"
+                    ),
+                ));
+            }
+            starts.insert(id.clone(), onsets.clone());
         }
         Ok(Rc::new(Self {
             dir: Some(dir.to_path_buf()),
@@ -390,19 +452,21 @@ impl Narrator {
     /// Speak line `id` now, once the previous line has finished. Call it
     /// before the animations that illustrate the line.
     ///
-    /// # Panics
+    /// # Errors
     /// If `id` is not in the script (a typo must fail the render, never drop
     /// a line silently), or was already said in this chapter (line ids are
     /// the join keys of the timeline, captions and QA: give a repeat its own
     /// id in script.tsv).
     pub fn say(&self, stage: &mut Stage<'_>, id: &str) -> fmn::Result<()> {
+        let fail = |text: String| fmn::Error::Scene(SceneError::InvalidConfig(Box::leak(text.into_boxed_str())));
         let len = self
             .length(id)
-            .unwrap_or_else(|| panic!("narration line {id:?} is not in script.tsv"));
-        assert!(
-            !self.log.borrow().lines.iter().any(|l| l.id == id),
-            "narration line {id:?} is said twice in one chapter; give the repeat its own id in script.tsv"
-        );
+            .ok_or_else(|| fail(format!("narration line {id:?} is not in script.tsv")))?;
+        if self.said_at.borrow().contains_key(id) {
+            return Err(fail(format!(
+                "narration line {id:?} is said twice in one chapter; give the repeat its own id in script.tsv"
+            )));
+        }
         self.hold(stage)?;
         let (frame, _, now) = clock(stage);
         self.said_at.borrow_mut().insert(id.to_owned(), now);
@@ -564,6 +628,62 @@ impl Narrator {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_report_binds_every_displayed_line_and_ignores_tts_respellings() {
+        let script = Script::parse("01_1\tLeslie Lamport.\n01_2\tOne. Two.\n").unwrap();
+        let report = r#"{"lines":{"01_1":[{"sentence":"Leslie  Lamport!","tts":"Leslie Lam-port."}],
+            "01_2":[{"sentence":"One,"},{"sentence":"Two."}]}}"#;
+        check_report_script(report, &script).unwrap();
+        let changed = Script::parse("01_1\tLeslie Lamport.\n01_2\tOne. Three.\n").unwrap();
+        assert!(
+            check_report_script(report, &changed)
+                .unwrap_err()
+                .to_string()
+                .contains("01_2")
+        );
+        for report in [
+            r#"{"lines":{"01_1":[{"sentence":"Leslie Lamport."}]}}"#,
+            r#"{"lines":{"01_1":[{"sentence":"Leslie Lamport."}],"01_2":[]}}"#,
+            r#"{"lines":{"01_1":[{"sentence":"Leslie Lamport."}],"01_2":[{"tts":"One. Two."}]}}"#,
+        ] {
+            assert!(
+                check_report_script(report, &script)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("01_2")
+            );
+        }
+        assert!(check_report_script("not JSON", &script).is_err());
+        for (expected, heard) in [("-1.", "1."), ("Don't.", "Do."), ("2.5.", "25.")] {
+            let script = Script::parse(&format!("01_1\t{expected}\n")).unwrap();
+            let report = serde_json::json!({"lines": {"01_1": [{"sentence": heard}]}}).to_string();
+            assert!(check_report_script(&report, &script).is_err(), "{expected} vs {heard}");
+        }
+    }
+
+    #[test]
+    fn matching_audio_file_keeps_the_assembled_sentence_onsets() {
+        let dir = tmp("sentence_onsets");
+        std::fs::create_dir_all(&dir).unwrap();
+        wav::write(
+            &dir.join("01_1.wav"),
+            &explainer_score::Stereo::silence(36_000),
+            wav::Format::F32,
+        )
+        .unwrap();
+        let report = r#"{"meta":{"rate":48000},"lines":{"01_1":[
+            {"sentence":"One.","tts":"Wun.","out_samples":12000,"gap_after_samples":6000},
+            {"sentence":"Two.","out_samples":18000,"gap_after_samples":0}]}}"#;
+        std::fs::write(dir.join("report.json"), report).unwrap();
+        let script = Script::parse("01_1\tOne. Two.\n").unwrap();
+        let n = Narrator::load(&script, &dir, 0.0).unwrap();
+        assert_eq!(n.starts["01_1"], [0.0, 0.375]);
+        assert_eq!(n.lengths["01_1"], 0.75);
+        for rate in [0, -1] {
+            assert!(report_starts(&format!(r#"{{"meta":{{"rate":{rate}}},"lines":{{}}}}"#)).is_err());
+        }
+    }
 
     #[test]
     fn sentence_onsets_come_from_the_report_or_from_shares_of_the_line() {

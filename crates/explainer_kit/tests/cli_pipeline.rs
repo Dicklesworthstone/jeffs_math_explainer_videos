@@ -149,6 +149,27 @@ fn write_line(path: &Path, seed: u64) {
     wav::write(path, &Stereo::from_mono(&m), wav::Format::F32).unwrap();
 }
 
+/// Metadata for the four synthetic 2.5 s lines, not live narration QA.
+fn write_report(dir: &Path) {
+    let lines: serde_json::Map<String, serde_json::Value> = SCRIPT
+        .lines()
+        .map(|line| {
+            let (id, text) = line.split_once('\t').unwrap();
+            (
+                id.to_owned(),
+                serde_json::json!([{
+                    "sentence": text, "out_samples": 120_000, "gap_after_samples": 0
+                }]),
+            )
+        })
+        .collect();
+    std::fs::write(
+        dir.join("report.json"),
+        serde_json::json!({"meta": {"rate": 48_000}, "lines": lines}).to_string(),
+    )
+    .unwrap();
+}
+
 #[test]
 fn the_two_pass_score_runs_end_to_end_through_the_cli() {
     assert!(
@@ -165,9 +186,56 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
     for (k, id) in ["01_1", "01_2", "02_1", "02_2"].iter().enumerate() {
         write_line(&narration.join(format!("{id}.wav")), k as u64 + 1);
     }
+    write_report(&narration);
     let e = explainer(good_facts);
     let o = out.display().to_string();
     let n = narration.display().to_string();
+
+    // An unchanged WAV name cannot hide a changed script; nothing renders.
+    let mut stale = explainer(good_facts);
+    stale.script = "01_1\tOne.\n01_2\tChanged.\n02_1\tThree.\n02_2\tFour.\n";
+    let stale_out = root.join("stale_out");
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render --timeline-only --narration {n} --out {}",
+                stale_out.display()
+            ))
+        ),
+        1
+    );
+    assert!(
+        !stale_out.join("timeline/01_first.mp4").exists(),
+        "no stale chapter published"
+    );
+
+    // Stale text in an unrequested chapter does not block a finished one.
+    stale.script = "01_1\tOne.\n01_2\tTwo.\n02_1\tThree.\n02_2\tChanged.\n";
+    let partial_out = root.join("partial_out");
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render 01_first --timeline-only --narration {n} --out {}",
+                partial_out.display()
+            ))
+        ),
+        0
+    );
+    assert!(partial_out.join("timeline/01_first.mp4").is_file());
+    assert!(!partial_out.join("timeline/02_second.mp4").exists());
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render all --timeline-only --narration {n} --out {}",
+                stale_out.display()
+            ))
+        ),
+        1,
+        "the full render still refuses stale narration"
+    );
 
     // a wrong pinned fact stops every command before it starts
     assert_eq!(explainer_kit::cli::run(&explainer(bad_facts), args("chapters")), 1);
@@ -277,6 +345,7 @@ fn the_pcm_master_replays_nulls_and_joins() {
     for (k, id) in ["01_1", "01_2", "02_1", "02_2"].iter().enumerate() {
         write_line(&narration.join(format!("{id}.wav")), k as u64 + 11);
     }
+    write_report(&narration);
     let e = explainer(good_facts);
     let (o, n) = (out.display().to_string(), narration.display().to_string());
     let run = |s: &str| explainer_kit::cli::run(&e, args(s));

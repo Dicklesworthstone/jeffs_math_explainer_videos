@@ -61,6 +61,27 @@ fn write_line(path: &Path, seconds: f64) {
     wav::write(path, &Stereo::from_mono(&m), wav::Format::F32).unwrap();
 }
 
+/// Metadata for these synthetic 0.25 s test lines, not an ASR result.
+fn write_report(dir: &Path, script: &Script) {
+    let lines: serde_json::Map<String, serde_json::Value> = script
+        .lines()
+        .iter()
+        .map(|(id, text)| {
+            (
+                id.clone(),
+                serde_json::json!([{
+                    "sentence": text, "out_samples": 12_000, "gap_after_samples": 0
+                }]),
+            )
+        })
+        .collect();
+    std::fs::write(
+        dir.join("report.json"),
+        serde_json::json!({"meta": {"rate": 48_000}, "lines": lines}).to_string(),
+    )
+    .unwrap();
+}
+
 #[test]
 fn the_narrator_places_lines_frame_exactly_and_logs_everything() {
     let dir = fresh_dir("narrated");
@@ -69,6 +90,7 @@ fn the_narrator_places_lines_frame_exactly_and_logs_everything() {
     write_line(&dir.join("01_2.wav"), 0.25);
     write_line(&dir.join("01_3.wav"), 0.25);
     let script = Script::parse("01_1\tHello.\n01_2\tAgain.\n01_3\tOnce more.\n").unwrap();
+    write_report(&dir, &script);
     let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
     let stem = dir.join("stem.wav");
     // a stem exactly the scene's length
@@ -135,6 +157,73 @@ fn a_bad_cue_is_refused_when_placed() {
     assert!(err.to_string().contains("02_1.wav"), "{err}");
 }
 
+#[test]
+fn rewording_a_line_with_the_same_id_requires_new_narration() {
+    let dir = fresh_dir("stale_read");
+    std::fs::create_dir_all(&dir).unwrap();
+    write_line(&dir.join("01_1.wav"), 0.25);
+    write_line(&dir.join("01_2.wav"), 0.25);
+    let original = Script::parse("01_1\tHello.\n01_2\tAgain.\n").unwrap();
+    write_report(&dir, &original);
+    Narrator::load(&original, &dir, 0.0).expect("matching text and audio load");
+    let changed = Script::parse("01_1\tHello.\n01_2\tSomething else.\n").unwrap();
+    let err = Narrator::load(&changed, &dir, 0.0).err().expect("old read refused");
+    assert_eq!(err.kind(), std::io::ErrorKind::InvalidData);
+    assert!(err.to_string().contains("01_2"), "{err}");
+    assert!(err.to_string().contains("differs from script.tsv"), "{err}");
+}
+
+#[test]
+fn real_audio_requires_its_report_and_matching_timing() {
+    let script = Script::parse("01_1\tHello.\n").unwrap();
+    let absent = fresh_dir("missing_report");
+    std::fs::create_dir_all(&absent).unwrap();
+    write_line(&absent.join("01_1.wav"), 0.25);
+    let err = Narrator::load(&script, &absent, 0.0).err().expect("report required");
+    assert!(err.to_string().contains("report.json"), "{err}");
+
+    let mistimed = fresh_dir("mistimed_report");
+    std::fs::create_dir_all(&mistimed).unwrap();
+    write_line(&mistimed.join("01_1.wav"), 0.5);
+    write_report(&mistimed, &script); // claims 0.25 s for a 0.5 s WAV
+    let err = Narrator::load(&script, &mistimed, 0.0)
+        .err()
+        .expect("wrong timing refused");
+    assert!(err.to_string().contains("01_1 accounts for"), "{err}");
+}
+
+struct WrongLine {
+    kit: Kit,
+    duplicate: bool,
+}
+
+impl SceneConstruct for WrongLine {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        if self.duplicate {
+            self.kit.say(stage, "01_1")?;
+        }
+        self.kit.say(stage, if self.duplicate { "01_1" } else { "missing" })
+    }
+}
+
+#[test]
+fn an_unknown_or_repeated_line_returns_a_render_error() {
+    let script = Script::parse("01_1\tOne.\n").unwrap();
+    for duplicate in [false, true] {
+        let dir = fresh_dir("wrong_line");
+        let mut scene = WrongLine {
+            kit: Kit::new().unwrap().with_narrator(Narrator::estimate(&script)),
+            duplicate,
+        };
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).unwrap();
+        opts.config.camera.resolution = (32, 18);
+        opts.config.camera.fps = 60;
+        let err = fmn::render(&mut scene, opts).expect_err("bad line refuses the render");
+        let reason = if duplicate { "said twice" } else { "missing" };
+        assert!(err.to_string().contains(reason), "{err}");
+    }
+}
+
 /// A sonification window: it opens after the line and its breath, does not
 /// wait (the scene animates through it), and holds the next line off until
 /// it ends.
@@ -168,6 +257,7 @@ fn a_sonification_window_lets_the_scene_animate_and_holds_the_next_line() {
     let sound = dir.join("cloud.wav");
     write_line(&sound, 3.0);
     let script = Script::parse("01_1\tHello.\n01_2\tAfter the cloud.\n").unwrap();
+    write_report(&dir, &script);
     for with_stem in [false, true] {
         let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
         let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));

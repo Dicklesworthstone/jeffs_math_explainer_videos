@@ -163,6 +163,16 @@ fn a_two_route_chapter_masters_with_its_stem_spanning_the_cut() {
     write_line(&narration.join("01_1.wav"), 1.2, 3);
     write_line(&narration.join("01_2.wav"), 1.0, 4);
     let script = Script::parse("01_1\tOne.\n01_2\tTwo.\n").unwrap();
+    // Metadata for the synthetic speech above, not an ASR acceptance claim.
+    std::fs::write(
+        narration.join("report.json"),
+        serde_json::json!({"meta": {"rate": 48_000}, "lines": {
+            "01_1": [{"sentence": "One.", "out_samples": 57_600, "gap_after_samples": 0}],
+            "01_2": [{"sentence": "Two.", "out_samples": 48_000, "gap_after_samples": 0}]
+        }})
+        .to_string(),
+    )
+    .unwrap();
     let narrators = || {
         [
             Narrator::load(&script, &narration, 0.0).unwrap(),
@@ -216,7 +226,8 @@ fn a_two_route_chapter_masters_with_its_stem_spanning_the_cut() {
         let cues = master::parse_cue_log(&narrator.cue_log()).unwrap();
         let replay = master::replay(&cues, frames[k], 60).unwrap();
         let captured = std::fs::read(captures[k].join("soundtrack_0.wav")).unwrap();
-        master::null_test(&replay, &captured).unwrap_or_else(|e| panic!("segment {k}: {e}"));
+        let null = master::null_test(&replay, &captured);
+        assert!(null.is_ok(), "segment {k} must null against its soundtrack: {null:?}");
         let audio = master::to_stereo(&replay);
         programme.l.extend(&audio.l);
         programme.r.extend(&audio.r);
