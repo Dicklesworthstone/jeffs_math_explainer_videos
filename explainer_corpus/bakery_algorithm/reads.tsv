@@ -569,3 +569,31 @@
 05_1	1	Blue reads Greens slate, sees zero, and decides on ticket one.
 05_1	1	“Blue reads Greens slate, sees zero, and decides on ticket one.”
 05_1	1	«Blue reads Greens slate, sees zero, and decides on ticket one.»
+# Owner review 3 (2026-10-12, end-of-word hiss): 01_7 'staircases' ends without its final -es (50 ms of murmur, no hiss);
+# 04_6 'ties' has 25-50 ms of final s. Other quotation marks and a trailing ellipsis, for a read that finishes the word.
+01_7	0	"Draw every order at once, as staircases."
+01_7	0	‘Draw every order at once, as staircases.’
+01_7	0	«Draw every order at once, as staircases.»
+01_7	0	Draw every order at once, as staircases. …
+01_7	0	“Draw every order at once, as staircases.” …
+01_7	0	Draw every order at once, as staircases…
+01_7	0	— Draw every order at once, as staircases.
+01_7	0	Draw every order at once, as staircases. —
+01_7	0	«Draw every order at once, as staircases.» …
+01_7	0	Draw every order at once — as staircases.
+01_7	0	Draw every order at once as staircases.
+01_7	0	“Draw every order at once — as staircases.”
+01_7	0	“Draw every order at once as staircases.”
+04_6	2	"The customer number only breaks ties."
+04_6	2	‘The customer number only breaks ties.’
+04_6	2	«The customer number only breaks ties.»
+04_6	2	The customer number only breaks ties. …
+04_6	2	“The customer number only breaks ties.” …
+04_6	2	The customer number only breaks ties…
+04_6	2	— The customer number only breaks ties.
+04_6	2	The customer number only breaks ties. —
+04_6	2	«The customer number only breaks ties.» …
+04_6	2	The customer number only breaks — ties.
+04_6	2	The customer number, only, breaks ties.
+04_6	2	“The customer number only breaks — ties.”
+04_6	2	“The customer number, only, breaks ties.”
