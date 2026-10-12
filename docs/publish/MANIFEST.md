@@ -1,4 +1,4 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 17:00 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 17:10 EDT)
 
 **Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
@@ -11,14 +11,10 @@ being corrected (review 2): the chooser now detects a missing final s/z from the
 docs/publish/codex-tts-audit-20261012.md.
 
 Channel: Jeff's Math Explainers (confirmed). Paths are relative to the repository root on the
-owner's Mac; renders and captions are not in git, the text files are. Listed master candidates
-were rendered at 3840×2160, 60 fps, BT.709 and have recorded `verify_video.sh` results under their
-configured gates; each md5 here equals the checked master's on the build host. Originals and every uploaded
+owner's Mac; renders and captions are not in git, the text files are. Every master listed as
+verified was rendered at 3840×2160, 60 fps, BT.709 and passed `verify_video.sh` with the delivery
+gates; its md5 here equals the verified master's on the build host. Originals and every uploaded
 review cut are kept: a corrected cut always goes to a new path.
-
-Bakery review 1's `VERIFY PASS` used the fixed-gain quiet-peak exception: −17.6 LUFS at −1.5 dBTP.
-This falls outside `AGENTS.md`'s literal −16 LUFS ±1 gate. Its quiet-level disposition and human
-narration/score listening and full-watch acceptance remain open; review-2 repairs require fresh qualification.
 
 ## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
@@ -43,6 +39,17 @@ RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,descripti
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
 (`96fc2e5c…`); thumbnail `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png`.
 
+## Ready for review upload (review 2, michael)
+
+| Cut | Master | md5 | Length | Text | Captions (md5) | Thumbnail |
+|---|---|---|---|---|---|---|
+| Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `6898620cebc142bc28292ec8df995a9d` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`d993b6f5…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
+
+Hoeffding michael evidence: VERIFY PASS (A/V 0.001 s, both decodes clean), music QA 8/8, cue check
+PASS (one warning: the authored 5.2 s listening pause before s9, as in robert's cut); narration
+gates PASS with 0 dropped final s/z and 0 cut short; "Hoeffding" read as HERF-ding in all nine
+places and the possessives (checked by formants), spelled Hoeffding in the captions.
+
 ## In progress (review 2, michael)
 
 | Cut | Lands at | Being fixed |
@@ -50,7 +57,6 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | RaptorQ michael | `explainer_corpus/raptorq_gf256/renders/final/` | phones, once, those, peels; fountain codes, ten to sixteen slots, parked pieces, the letter A |
 | bakery michael | `explainer_corpus/bakery_algorithm/renders/final/` | writes; Green's slate, the other's |
 | fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/` | size, times, things; "Marked times second catch", "five in a one", "pull the guess down" |
-| Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/` | HERF-ding in all nine places; noise; dependence, rank coordinates, outliers |
 
 Each gets its own `publish/michael/` text (the fish and Hoeffding variants: chapter times differ),
 captions in its `renders/final/`, and the video's thumbnail. Added here when verified and copied.
