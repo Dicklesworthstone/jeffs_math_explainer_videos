@@ -104,3 +104,73 @@
 16_5	0	With ex-oar, ‘A’ met itself and cancelled.
 16_5	0	“With ex-oar, A, met itself and cancelled.”
 16_5	0	“With ex-oar: A met itself and cancelled.”
+#
+# michael (2026-10-12): sentences whose chosen read the sheets showed cut, noisy or flat, read again in other marks.
+# 03_6/2: "useful?" stops at full level (take ends there); the question is one 0.74 s blob
+03_6	2	‘Is it useful?’
+03_6	2	"Is it useful?"
+03_6	2	(Is it useful?)
+# 04_3/1: "four" ends as a vertical edge
+04_3	1	‘Add B, and you can make four.’
+04_3	1	"Add B, and you can make four."
+04_3	1	(Add B, and you can make four.)
+# 02_1/0: the z of "numbers" is 0.11 s into the end of the take
+02_1	0	‘First, how computers write numbers.’
+02_1	0	"First, how computers write numbers."
+02_1	0	(First, how computers write numbers.)
+# 12_4/0: the s of "stripes" is 0.09 s at peak level into the last sample
+12_4	0	‘Sorted by clicks, it's perfect diagonal stripes.’
+12_4	0	"Sorted by clicks, it's perfect diagonal stripes."
+12_4	0	(Sorted by clicks, it's perfect diagonal stripes.)
+# 13_6/0: the s of "pieces" is 0.10 s and stops as an edge
+13_6	0	‘Let's race them on ten pieces.’
+13_6	0	"Let's race them on ten pieces."
+13_6	0	(Let's race them on ten pieces.)
+# 14_4/1: the z of "happens" is 0.11 s at full level into the last frame
+14_4	1	‘What happens?’
+14_4	1	"What happens?"
+14_4	1	(What happens?)
+# 17_4/0: "packets" ends "packe-": no t burst, no s; the line ASR hears "packet"
+17_4	0	‘Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets.’
+17_4	0	"Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets."
+17_4	0	(Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets.)
+# 17_3/0: a burst at speech level opens the line, 0.24 s before "Twenty-four"
+17_3	0	‘Twenty-four.’
+17_3	0	"Twenty-four."
+17_3	0	(Twenty-four.)
+# 09_5/1: a full-band column 0.1 s after the last word is kept
+09_5	1	‘x squared plus x squared vanishes, and so does x plus x.’
+09_5	1	"x squared plus x squared vanishes, and so does x plus x."
+09_5	1	(x squared plus x squared vanishes, and so does x plus x.)
+# 13_7/2: 0.10 s of breath kept before "So"
+13_7	2	‘So our ring of five is still stuck.’
+13_7	2	"So our ring of five is still stuck."
+13_7	2	(So our ring of five is still stuck.)
+# 02_1/2: all four words level at 78-93 Hz
+02_1	2	‘One, two, four, eight.’
+02_1	2	"One, two, four, eight."
+02_1	2	(One, two, four, eight.)
+# 11_5/2: the quoted read rides at 210-240 Hz and drags (8 syllables in 3.4 s)
+11_5	2	‘Seven clicks plus two is nine clicks.’
+11_5	2	"Seven clicks plus two is nine clicks."
+11_5	2	(Seven clicks plus two is nine clicks.)
+# 12_1/1: "order" may be clipped (0.06 s fall)
+12_1	1	‘Here's the whole times table in byte order.’
+12_1	1	"Here's the whole times table in byte order."
+12_1	1	(Here's the whole times table in byte order.)
+# 13_6/2: the "-ge" of "average" is 0.07 s into the last sample
+13_6	2	‘Ex-or needs one or two spares on average.’
+13_6	2	"Ex-or needs one or two spares on average."
+13_6	2	(Ex-or needs one or two spares on average.)
+# 16_4/1: the s of "six" is 0.10 s and ends as an edge
+16_4	1	‘Let a new byte card replace the fifth card, E plus two times A is six.’
+16_4	1	"Let a new byte card replace the fifth card, E plus two times A is six."
+16_4	1	(Let a new byte card replace the fifth card, E plus two times A is six.)
+# 02_6/0: a click in the pause between "one," and "zero"
+02_6	0	‘Zero, one, zero.’
+02_6	0	"Zero, one, zero."
+02_6	0	(Zero, one, zero.)
+# 04_5/1: no f after the vowel of "Half"
+04_5	1	‘Half.’
+04_5	1	"Half."
+04_5	1	(Half.)

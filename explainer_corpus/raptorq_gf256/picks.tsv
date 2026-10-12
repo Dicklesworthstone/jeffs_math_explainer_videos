@@ -1,0 +1,23 @@
+# The director's picks for michael (tools/narration.py, director_files): <line_id> TAB <sentence index> TAB <ftts input> TAB <why>.
+# Director pass 2026-10-12, voice michael. ex-or lengths: from the end of the ks to where the band under 1.3 kHz stops
+# dominating (band levels beside a 0-8 kHz spectrogram of each take), about +-0.03 s. leo's picks are in picks_leo.tsv.
+02_5	2	“What's five ex oar seven?”	ex-or: the vowel after the ks lasts 0.23 s here; 0.07-0.12 s in the read the score chose
+02_6	3	“Two ex-oar seven is five again.”	ex-or: about 0.23 s here by the band levels; the ASR could not place it in the read the score chose ("2x at all")
+03_3	1	“Ex-oar card one with card three, and the A cancels.”	ex-or: 0.19 s here; 0.14 s in the read the score chose
+15_1	2	“Each is a plain ex-oar card of about seven pieces on average.”	ex-or: about 0.24 s here; 0.16 s in the read the score chose
+15_7	1	With three pieces, add P, equal to A ex oar B ex oar C.	ex-or: 0.25 and 0.20 s here, pauses under 0.25 s; the read the score chose has 0.13 s before C; the plain ex-oar read has 1 s pauses
+15_7	2	Then A ex-oar B ex-oar C ex-oar P is always zero.	the piece name A is said here (the ASR drops it in the read the score chose and in the quoted ex-oar read); ex-or 0.17, 0.20 and 0.15 s, no better in any read
+15_4	0	What if those last cards were plain ex oar cards?	ex-or: about 0.21 s here; 0.15 s in the read the score chose
+16_2	1	“A is two ex oar c, and B is six ex oar A.”	ex-or: 0.21 and 0.24 s here; 0.19 and 0.15 s in the read the score chose
+16_2	2	D is six ex oar B ex oar c, so the two c's cancel, and D is two.	ex-or: about 0.27 s twice here, no long pause; 0.17 and 0.19 s in the read the score chose
+16_5	0	“With ex-oar, A met itself and cancelled.”	ex-or 0.41 s and the piece name A a front vowel of 0.13 s; the read the score chose was heard "I met itself"
+17_2	0	“One more ex-oar packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six.”	ex-or: about 0.19 s here; 0.15 s in the read the score chose; "byte card" heard right
+03_6	2	(Is it useful?)	the only read that is neither cut at "-ful" nor said in 0.65 s (this one takes 0.82 s)
+14_4	1	‘What happens?’	"happens" keeps its z here (0.13 s, to the end of the take); the two reads that are not flagged have no z at all, and the line ASR heard "happened"
+12_4	0	‘Sorted by clicks, it's perfect diagonal stripes.’	the s of "stripes" runs 0.2 s and decays here; 0.09 s into the last sample in the read the score chose; no stall at the comma
+# 03_3/2 and 03_6/1 'B ex-or C is four.': no pick. The score takes the plain ex oar read: ex-or 0.37 s after a 0.12 s gap, 'four' decays.
+# (The plain ex-oar read has 0.29 s but its 'four' holds full level for 0.37 s and stops as a hard edge.)
+13_7	3	(All the gain comes from the other two fifty-four amounts.)	"amounts" has its ts here (0.19 s); the quoted read the score chose ends on a creaky vowel with no ts
+09_5	1	X squared plus X squared vanishes, and so does X plus X.	nothing follows the last "x" here (its s runs 0.19 s); the quoted read the score chose keeps a burst 0.1 s after it
+03_9	1	This video is about the arithmetic inside it.	nothing sounds before "This" here; the quoted read the score chose opens with 0.2 s of breath, 10 dB under the speech
+13_6	0	(Let's race them on ten pieces.)	the final z of "pieces" runs 0.25 s here; 0.07 s, still rising, into the last sample in the read the score chose
