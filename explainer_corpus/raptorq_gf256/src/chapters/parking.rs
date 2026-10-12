@@ -8,7 +8,6 @@
 //! with C parked) and the ring's own cards, so what is written is what is
 //! computed.
 
-use explainer_kit::animatic::HOLD_S;
 use explainer_kit::props::{lower_third, precisely, predict_pause};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
 use fmn::library::TransformMatchingTex;
@@ -113,7 +112,9 @@ impl SceneConstruct for Parking {
         let board = board(KEY)?;
         self.park(&kit, stage, &board)?;
         self.ring(&kit, stage, &board)?;
-        kit.music_breath(stage, HOLD_S)?;
+        // a short breath: with michael's review-2 reads the chapter ran 86.7 s
+        // (Codex B review 2, P2); 0.8 s keeps it at 85
+        kit.music_breath(stage, 0.8)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
     }

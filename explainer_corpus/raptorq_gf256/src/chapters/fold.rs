@@ -602,8 +602,10 @@ impl SceneConstruct for Fold {
         kit.hold(stage)?;
 
         // the byte field: a big reveal, a breath for the music (10_7, AES's
-        // contrast, moved to 12_5 to keep this chapter under the gate)
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        // contrast, moved to 12_5 to keep this chapter under the gate); 1.3 s,
+        // not the kit's 2.5, keeps it at 85 s with michael's reads (Codex B
+        // review 2, P2: 86.15 s)
+        kit.music_breath(stage, 1.3)?;
         fade_all(stage, 1.0)?;
         kit.finish(stage)
     }

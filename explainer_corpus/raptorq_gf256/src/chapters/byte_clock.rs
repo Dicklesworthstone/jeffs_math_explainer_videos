@@ -673,7 +673,9 @@ impl SceneConstruct for TheByteClock {
         );
         kit.hold(stage)?;
         stage.clear_updaters(hand, true);
-        fade_all(stage, 1.0)?;
+        // 0.9 s: with michael's reads the chapter ran 4 frames past 85 s
+        // (Codex B review 2, P2)
+        fade_all(stage, 0.9)?;
         kit.finish(stage)
     }
 }
