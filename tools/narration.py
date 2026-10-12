@@ -402,14 +402,27 @@ def edit(path, m, sentence_lufs):
 
 
 def edges(script, out, lexicon):
-    """Every sentence's first and last word against the transcript of its assembled line. A script
-    line with no sentences in the report, or no transcript, fails too: nothing to check is not a pass."""
+    """Bind every ordered sentence to the canonical script, then check its first and last word
+    against the assembled line's transcript. Nothing to check is not a pass."""
     nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
     report = json.loads((out / "report.json").read_text())["lines"]
     heard = json.loads((out / "lines_asr.json").read_text())
-    missing = [f"{lid}: {what}" for lid, _ in nr.checked_script(script) for what, absent in (
-        ("no sentences in report.json", not report.get(lid)),
-        ("no transcript in lines_asr.json", not heard.get(lid, {}).get("text", "").strip())) if absent]
+    scripted = dict(nr.checked_script(script))
+    missing = [f"{lid}: not in the script" for lid in report if lid not in scripted]
+    for lid, text in scripted.items():
+        expected = nr.sentences(text)
+        sents = report.get(lid, [])
+        if len(sents) != len(expected):
+            missing.append(f"{lid}: report has {len(sents)} sentences, script has {len(expected)}")
+        for j, (sentence, recorded) in enumerate(zip(expected, sents)):
+            if recorded.get("j") != j:
+                missing.append(f"{lid}.{j}: report sentence index is {recorded.get('j')!r}")
+            want = [t for t, _ in nr.tokens(sentence)]
+            have = [t for t, _ in nr.tokens(recorded.get("sentence", ""))]
+            if have != want:
+                missing.append(f"{lid}.{j}: report sentence differs from the script | {sentence}")
+        if not heard.get(lid, {}).get("text", "").strip():
+            missing.append(f"{lid}: no transcript in lines_asr.json")
     for lid, sents in report.items():
         want, spans = [], []
         for s in sents:
@@ -423,7 +436,7 @@ def edges(script, out, lexicon):
                     for j, a, b, sentence in spans for k, which in ((a, "first"), (b, "last")) if k not in hit]
     for m in missing:
         print("  ", m)
-    print(f"edges: {len(missing)} first or last words missing from the line transcripts -> "
+    print(f"edges: {len(missing)} coverage or first/last-word failures -> "
           f"{'FAIL (look at the sheet: cut off, misread, or the ASR spelling, which goes in the lexicon)' if missing else 'PASS'}")
     sys.exit(1 if missing else 0)
 
