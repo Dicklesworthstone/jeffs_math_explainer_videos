@@ -14,6 +14,7 @@ pub mod proudest;
 pub mod room;
 pub mod scoreboard;
 pub mod three_customers;
+pub mod thumbnail;
 pub mod tickets;
 pub mod ties;
 pub mod tunes;
