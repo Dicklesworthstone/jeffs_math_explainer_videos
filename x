@@ -228,9 +228,12 @@ case "$cmd" in
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
     py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom"
     python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
-    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json"
-    py "$N/validate_narration.py" "$out"
-    exit 0 ;;
+    # every gate runs, so one build shows everything that is wrong
+    status=0
+    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" || status=1
+    py "$N/validate_narration.py" "$out" || status=1
+    py "$here/tools/narration.py" "$N" edges script.tsv "$out" || status=1
+    exit $status ;;
   narration-sheets)
     cd "$crate"
     exec uv run --quiet --no-project --with numpy --with matplotlib python3 -I "$here/tools/narration_sheets.py" \

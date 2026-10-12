@@ -7,7 +7,13 @@ word and an editor that listens to what it cuts.
     uv run --no-project --with numpy python3 -I tools/narration.py SKILL_SCRIPTS choose \
         SCRIPT.tsv WORK OUT [--lexicon lexicon.json] [--sentence-lufs -23] [--limit-headroom 15]
 
+    uv run --no-project --with numpy python3 -I tools/narration.py SKILL_SCRIPTS edges \
+        SCRIPT.tsv OUT [--lexicon lexicon.json]
+
 `choose` exits 1 when the limiter had to work harder than LIMITER_MAX (the lines are still written).
+`edges` (after asr_batch.py has written OUT/lines_asr.json) exits 1 when a sentence's first or
+last word is missing from its line's transcript: the words an edit can cut off, and one word in
+a long line does not fail the line gate.
 
 SKILL_SCRIPTS is the narration skill's scripts directory (narrate.py lives
 there). Everything else is narrate.py's own: the respellings and alternates,
@@ -382,6 +388,30 @@ def edit(path, m, sentence_lufs):
     return seg, round((span - len(seg)) / rate, 3), round(lufs, 1), proof
 
 
+def edges(out, lexicon):
+    """Every sentence's first and last word against the transcript of its assembled line."""
+    nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
+    report = json.loads((out / "report.json").read_text())["lines"]
+    heard = json.loads((out / "lines_asr.json").read_text())
+    missing = []
+    for lid, sents in report.items():
+        want, spans = [], []
+        for s in sents:
+            words = [t for t, _ in nr.tokens(s["sentence"])]
+            if words:
+                spans.append((s["j"], len(want), len(want) + len(words) - 1, s["sentence"]))
+                want += words
+        text = heard.get(lid, {}).get("text", "").replace("%", " percent")  # the ASR writes the sign
+        _, _, hit = nr.align(want, [t for t, _ in nr.tokens(text)])
+        missing += [f"{lid}.{j}: {which} word {want[k]!r} is not in the line's transcript | {sentence}"
+                    for j, a, b, sentence in spans for k, which in ((a, "first"), (b, "last")) if k not in hit]
+    for m in missing:
+        print("  ", m)
+    print(f"edges: {len(missing)} first or last words missing from the line transcripts -> "
+          f"{'FAIL (look at the sheet: cut off, misread, or the ASR spelling, which goes in the lexicon)' if missing else 'PASS'}")
+    sys.exit(1 if missing else 0)
+
+
 def main():
     worked = [0, 0, 0]  # samples turned down by more than 1 dB, by more than 3 dB, and all of them
     limit = nr.limit_peaks
@@ -395,6 +425,8 @@ def main():
         worked[2] += len(x)
         return y, frac, max_db
 
+    if len(sys.argv) >= 5 and sys.argv[2] == "edges":
+        edges(Path(sys.argv[4]), sys.argv[sys.argv.index("--lexicon") + 1] if "--lexicon" in sys.argv else None)
     if len(sys.argv) < 3 or sys.argv[2] not in ("plan", "choose"):
         sys.exit(__doc__)
     command, out = sys.argv[2], Path(sys.argv[5]) if len(sys.argv) > 5 else None
