@@ -314,9 +314,9 @@ fn race(kit: &Kit, stage: &mut Stage<'_>, title: Mob) -> fmn::Result<Race> {
     let caption = kit.text(
         stage,
         &format!("{}   ·   {}", g::TIME_RUNS, g::ARROWS),
-        24.0,
+        30.0,
         Palette::dim(),
-        v(0.4, -3.45),
+        v(0.4, -3.3),
     )?;
     play!(stage; fade_in(stage.arena_mut(), caption, ORIGIN, 1.0)?.rt(0.6));
     rest.extend([board.panel, track, x, code, caption]);
