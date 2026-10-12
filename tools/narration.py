@@ -154,6 +154,24 @@ def voiced_run(seg, rate, top):
     return best
 
 
+def noise(seg, rate):
+    """A stretch is breath or hiss, not a word: its energy is spread over the band. A voice, even
+    a creaky one with no pitch to track, puts its energy under 1 kHz (20 dB and more over what it
+    has above 2 kHz); breath and hiss stay within a few dB of level."""
+    if len(seg) < int(0.03 * rate):
+        return False
+    power = np.abs(np.fft.rfft(seg * np.hanning(len(seg)))) ** 2
+    f = np.fft.rfftfreq(len(seg), 1 / rate)
+    low, high = power[(f >= 80) & (f < 1000)].sum(), power[(f >= 2000) & (f < 8000)].sum()
+    return bool(10 * np.log10((low + 1e-12) / (high + 1e-12)) < 10.0)
+
+
+def steady(level):
+    """A stretch whose level holds within 3 dB for 0.15 s or more: a hum (leo leads into sentences
+    with up to 0.4 s of one, all under 500 Hz, so `noise` passes it). A word attacks and decays."""
+    return bool(len(level) >= frames(0.15) and float(np.std(level)) < 3.0)
+
+
 def first_voiced(x, rate, top):
     """Seconds to the take's first 40 ms of voiced sound (None if it has none), judged like voiced_run."""
     run = 0
@@ -184,8 +202,12 @@ def hear(x, rate, last_word_end):
     # A syllable has a voice in it. Sound this loud that starts more than 0.2 s (a loud "s" or
     # "sh" takes less) before the take's first voiced stretch is a noise bed, not the first word
     # (robert opens takes with up to 0.8 s of it, 12 dB under the speech).
+    # The stretch must also sound like noise (see `noise`): a creaky "And" has no pitch the tracker
+    # can follow, and this rule once took one for a bed and dropped the word.
     voiced = first_voiced(x, rate, top)
-    if voiced is not None and first < frames(voiced - 0.20):
+    if voiced is not None and first < frames(voiced - 0.20) and (
+            noise(x[int(first * HOP * rate):int((voiced - 0.20) * rate)], rate)
+            or steady(db[first:frames(voiced - 0.20)])):
         first = min(last, next((i for i in range(frames(voiced - 0.20), len(db)) if db[i] >= top - NUCLEUS), first))
     # Nor is a hum: a steady, modest tone that opens the take and gives way before the first
     # syllable (robert: about 0.4 s near 300 Hz, 18 to 21 dB under the speech). It is periodic, so
@@ -202,7 +224,7 @@ def hear(x, rate, last_word_end):
     # word: start 120 ms out, which is what a soft consonant can take.
     if first - cut_in > frames(0.18):
         a, b = int(cut_in * HOP * rate), int((first - frames(0.12)) * HOP * rate)
-        if voiced_run(x[a:b], rate, top) < 4:
+        if steady(db[cut_in:first - frames(0.12)]) or (voiced_run(x[a:b], rate, top) < 4 and noise(x[a:b], rate)):
             cut_in, clean_in = first - frames(0.12), False
     # ftts stopped inside the last sound: over its last 80 ms the sound still runs near speech
     # level (a sound that decays ends 19 dB or more under it, and a final "t" or "k" is mostly its
