@@ -347,3 +347,29 @@ c6	2	“Its two twins add a quarter each.»
 c6	2	“ Its two twins add a quarter each. ”
 c6	2	““Its two twins add a quarter each.””
 c6	2	“Its two twins add a quarter each.” —
+# michael variant: reads for sentences whose final s or z came out under 70 ms of hiss (2026-10-12 18:55)
+f1	1	«The first one, D one, runs over the Q values.»
+f1	1	‘The first one, D one, runs over the Q values.’
+f1	1	"The first one, D one, runs over the Q values."
+f1	1	„The first one, D one, runs over the Q values.“
+f1	1	[The first one, D one, runs over the Q values.]
+o3	3	«And that's a trade well worth making, whenever the shape of a relationship matters.»
+o3	3	‘And that's a trade well worth making, whenever the shape of a relationship matters.’
+o3	3	"And that's a trade well worth making, whenever the shape of a relationship matters."
+o3	3	„And that's a trade well worth making, whenever the shape of a relationship matters.“
+o3	3	[And that's a trade well worth making, whenever the shape of a relationship matters.]
+o4	1	«And the narration you're hearing was spoken by franken T T S.»
+o4	1	‘And the narration you're hearing was spoken by franken T T S.’
+o4	1	"And the narration you're hearing was spoken by franken T T S."
+o4	1	„And the narration you're hearing was spoken by franken T T S.“
+o4	1	[And the narration you're hearing was spoken by franken T T S.]
+o3	2	«The trade-off is that it looks at groups of points, rather than pairs.»
+o3	2	‘The trade-off is that it looks at groups of points, rather than pairs.’
+o3	2	"The trade-off is that it looks at groups of points, rather than pairs."
+o3	2	„The trade-off is that it looks at groups of points, rather than pairs.“
+o3	2	[The trade-off is that it looks at groups of points, rather than pairs.]
+g3	1	«All four measures are far above the noise.»
+g3	1	‘All four measures are far above the noise.’
+g3	1	"All four measures are far above the noise."
+g3	1	„All four measures are far above the noise.“
+g3	1	[All four measures are far above the noise.]
