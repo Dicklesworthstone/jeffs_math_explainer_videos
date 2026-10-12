@@ -352,6 +352,9 @@ pub const X86_PLAIN_MOVES: &str =
 // 13_proudest
 pub const RMW: &str = "atomic read-modify-write instructions:";
 pub const RMW_TEXT: &str = "test-and-set, compare-and-swap, fetch-and-add";
+/// 13_1, after the instructions: why production locks use them (R3 dev-03).
+pub const RMW_WHY: &str =
+    "A ticket lock takes its number with one fetch-and-add; on x86 the SeqCst bakery fences every store.";
 /// The Turing lecture, its source "Lamport, Turing lecture, {journal},
 /// {year}, §{section}" around the citation from `facts::cited`.
 pub const QUOTE_LITTLE_USE: &str = "Although of little if any practical use, the bakery algorithm…";
@@ -680,6 +683,7 @@ pub const TEXT: &[&str] = &[
     // 13_proudest
     RMW,
     RMW_TEXT,
+    RMW_WHY,
     QUOTE_LITTLE_USE,
     TURING_LECTURE_SOURCE,
     SECTION_SIGN,

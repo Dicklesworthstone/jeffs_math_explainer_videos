@@ -553,13 +553,20 @@ impl SceneConstruct for FairAtAPrice {
 
         // 11_5: about 31.5 billion, under Lamport's 2^35; too big for 32 bits
         let line = say(&kit, stage, "11_5")?;
+        // said "thirty-one and a half": shown as the same mixed number, not as a
+        // decimal that reads as 31.5 against 31.56 (R3 ruth-02)
+        let billions = fact("C-F10.ms_per_year_billions_to_nearest_half");
+        let billions = match billions.strip_suffix(".5") {
+            Some(whole) => format!(r"{whole}\tfrac{{1}}{{2}}"),
+            None => billions.to_owned(),
+        };
         let answer = kit.tex(
             stage,
             &format!(
                 r"= {}\ \text{{{}}} \approx {}\ \text{{{}}}",
                 tex_thousands(fact_u64("C-F10.ms_per_year")),
                 glyphs::TICKETS,
-                fact("C-F10.ms_per_year_billions_to_nearest_half"),
+                billions,
                 glyphs::BILLION
             ),
             44.0,

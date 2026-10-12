@@ -281,10 +281,17 @@ impl SceneConstruct for OldZero {
             anims.push(stage.prepare(a.rt(0.5))?);
         }
         stage.play_prepared(anims)?;
+        // each line starts one column per leading space in: the loop's body is
+        // indented, as the code needs (R3 dev-02); a column is the typewriter
+        // face's advance, twenty zeros minus ten
+        let ten = kit.mono(stage, &"0".repeat(10), 40.0, Palette::ink(), ORIGIN)?;
+        let twenty = kit.mono(stage, &"0".repeat(20), 40.0, Palette::ink(), ORIGIN)?;
+        let col = (stage.get_width(twenty) - stage.get_width(ten)) / 10.0;
         let mut code_mobs = Vec::new();
         for (i, l) in code.iter().enumerate() {
-            let at_ = v(-2.9, 1.0 - 0.62 * i as f64);
-            let m = kit.mono(stage, l, 40.0, Palette::ink(), at_)?;
+            let lead = l.chars().take_while(|&c| c == ' ').count();
+            let at_ = v(-2.9 + col * lead as f64, 1.0 - 0.62 * i as f64);
+            let m = kit.mono(stage, l.trim_start(), 40.0, Palette::ink(), at_)?;
             stage.move_to(m, at_, LEFT);
             code_mobs.push(m);
         }

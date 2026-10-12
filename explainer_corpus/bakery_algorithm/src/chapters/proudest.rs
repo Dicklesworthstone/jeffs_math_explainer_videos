@@ -92,7 +92,8 @@ impl SceneConstruct for Proudest {
         let line = say(&kit, stage, "13_1")?;
         // 02_7's magic sign, called back: it checks and flips in one motion
         let mut magic = sign(&kit, stage, false, v(-3.6, 0.6), 1.5, true)?;
-        let rmw = lower_third(&kit, stage, glyphs::RMW, glyphs::RMW_TEXT)?;
+        let rmw_text = format!("{}. {}", glyphs::RMW_TEXT, glyphs::RMW_WHY);
+        let rmw = lower_third(&kit, stage, glyphs::RMW, &rmw_text)?;
         fade_in_all(stage, &magic.parts(), 0.6)?;
         play!(stage; fade_in(stage.arena_mut(), rmw, v(0.0, 0.2), 1.0)?.rt(0.7));
         line.wait_for(stage, "check and flip in one motion")?;
