@@ -510,3 +510,15 @@
 02_8	2	“Hold that thought.” …
 02_8	2	— Hold that thought.
 02_8	2	Hold that thought…
+# 05_6 'She sees Blue's flag up, and waits.': its plain read opens with a thump (65 ms at speech level, then 0.27 s of
+# silence) that the editor takes for 'She'; its “ ” read is cut short. More reads to choose a clean one from.
+05_6	0	"She sees Blue's flag up, and waits."
+05_6	0	‘She sees Blue's flag up, and waits.’
+05_6	0	«She sees Blue's flag up, and waits.»
+05_6	0	She sees Blue's flag up, and waits. …
+05_6	0	— She sees Blue's flag up, and waits.
+05_6	0	She sees Blue's flag up and waits.
+05_6	0	“She sees Blue's flag up and waits.”
+05_6	0	She sees Blue's flag up — and waits.
+05_6	0	“She sees Blue's flag up — and waits.”
+05_6	0	“She sees Blue's flag up, and waits.” …
