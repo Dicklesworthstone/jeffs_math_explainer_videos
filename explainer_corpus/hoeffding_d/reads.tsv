@@ -222,3 +222,106 @@ q1	1	„It comes down to how many points you look at, at once.“
 f2	0	(D two uses only the ranks.)
 f2	0	[D two uses only the ranks.]
 f2	0	„D two uses only the ranks.“
+# finishing reads for sentences michael stops inside their last sound (comparison variant, 2026-10-12 16:38)
+g3	0	‘For a straight line, everyone agrees.’
+g3	0	"For a straight line, everyone agrees."
+g3	0	«For a straight line, everyone agrees.»
+g3	0	[For a straight line, everyone agrees.]
+g3	0	„For a straight line, everyone agrees.“
+g4	1	‘The three correlations collapse into the noise.’
+g4	1	"The three correlations collapse into the noise."
+g4	1	«The three correlations collapse into the noise.»
+g4	1	[The three correlations collapse into the noise.]
+g4	1	„The three correlations collapse into the noise.“
+g7	0	‘Now, an X shape, made of two lines with opposite slopes.’
+g7	0	"Now, an X shape, made of two lines with opposite slopes."
+g7	0	«Now, an X shape, made of two lines with opposite slopes.»
+g7	0	[Now, an X shape, made of two lines with opposite slopes.]
+g7	0	„Now, an X shape, made of two lines with opposite slopes.“
+g8	1	‘Same story.’
+g8	1	"Same story."
+g8	1	«Same story.»
+g8	1	[Same story.]
+g8	1	„Same story.“
+q4	0	‘But to see a turn, where a curve rises and then falls back down, you need at least four points.’
+q4	0	"But to see a turn, where a curve rises and then falls back down, you need at least four points."
+q4	0	«But to see a turn, where a curve rises and then falls back down, you need at least four points.»
+q4	0	[But to see a turn, where a curve rises and then falls back down, you need at least four points.]
+q4	0	„But to see a turn, where a curve rises and then falls back down, you need at least four points.“
+c4	1	‘Seeing seven tells us these points cluster together, more than chance allows.’
+c4	1	"Seeing seven tells us these points cluster together, more than chance allows."
+c4	1	«Seeing seven tells us these points cluster together, more than chance allows.»
+c4	1	[Seeing seven tells us these points cluster together, more than chance allows.]
+c4	1	„Seeing seven tells us these points cluster together, more than chance allows.“
+c5	1	‘So Q is four.’
+c5	1	"So Q is four."
+c5	1	«So Q is four.»
+c5	1	[So Q is four.]
+c5	1	„So Q is four.“
+c6	0	‘Now take one of the tied people, ranked ninth in both.’
+c6	0	"Now take one of the tied people, ranked ninth in both."
+c6	0	«Now take one of the tied people, ranked ninth in both.»
+c6	0	[Now take one of the tied people, ranked ninth in both.]
+c6	0	„Now take one of the tied people, ranked ninth in both.“
+c6	2	‘Its two twins add a quarter each.’
+c6	2	"Its two twins add a quarter each."
+c6	2	«Its two twins add a quarter each.»
+c6	2	[Its two twins add a quarter each.]
+c6	2	„Its two twins add a quarter each.“
+c6	4	‘That's eight and a half.’
+c6	4	"That's eight and a half."
+c6	4	«That's eight and a half.»
+c6	4	[That's eight and a half.]
+c6	4	„That's eight and a half.“
+s5	0	‘Now watch what happens when we shuffle the Y values among the points.’
+s5	0	"Now watch what happens when we shuffle the Y values among the points."
+s5	0	«Now watch what happens when we shuffle the Y values among the points.»
+s5	0	[Now watch what happens when we shuffle the Y values among the points.]
+s5	0	„Now watch what happens when we shuffle the Y values among the points.“
+o1	1	‘Peerson's correlation sees straight lines.’
+o1	1	"Peerson's correlation sees straight lines."
+o1	1	«Peerson's correlation sees straight lines.»
+o1	1	[Peerson's correlation sees straight lines.]
+o1	1	„Peerson's correlation sees straight lines.“
+o3	0	‘It's symmetric.’
+o3	0	"It's symmetric."
+o3	0	«It's symmetric.»
+o3	0	[It's symmetric.]
+o3	0	„It's symmetric.“
+# michael comparison variant: reads for statements michael ends on a rise (2026-10-12 16:45)
+c5	1	So, Q is four.
+c5	1	“So, Q is four.”
+c5	1	So Q is — four.
+c5	1	So Q is 4.
+c6	1	Seven points sit strictly below, and to the left.
+c6	1	“Seven points sit strictly below, and to the left.”
+c6	1	Seven points sit strictly below — and to the left.
+g4	2	The falling left half cancels out — the rising right half.
+g4	2	‘The falling left half cancels out the rising right half.’
+g4	2	“The falling left half cancels out — the rising right half.”
+o3	1	It's built on ranks; so it shrugs off outliers.
+o3	1	“It's built on ranks; so it shrugs off outliers.”
+o3	1	‘It's built on ranks, so it shrugs off outliers.’
+# michael comparison variant, owner review fixes: a cut-short ending (s9.3), a lost final s (g9.0 noise), 'bend it' heard 'bended' (g4.0) (2026-10-12 16:47)
+s9	3	‘It's the gap between the real pattern, and independence.’
+s9	3	«It's the gap between the real pattern, and independence.»
+s9	3	"It's the gap between the real pattern, and independence."
+s9	3	[It's the gap between the real pattern, and independence.]
+s9	3	It's the gap between the real pattern, and independence...
+s9	3	“It's the gap between the real pattern, and independence...”
+g9	0	‘And finally, genuinely independent noise.’
+g9	0	«And finally, genuinely independent noise.»
+g9	0	"And finally, genuinely independent noise."
+g9	0	[And finally, genuinely independent noise.]
+g9	0	And finally, genuinely independent noise...
+g9	0	“And finally, genuinely independent noise...”
+g4	0	‘Now, bend it into a parabola.’
+g4	0	«Now, bend it into a parabola.»
+g4	0	"Now, bend it into a parabola."
+g4	0	[Now, bend it into a parabola.]
+g4	0	Now, bend it into a parabola...
+g4	0	“Now, bend it into a parabola...”
+g4	0	Now — bend it into a parabola.
+g4	0	“Now — bend it into a parabola.”
+g9	0	And finally: genuinely independent noise.
+s9	3	It's the gap between the real pattern — and independence.

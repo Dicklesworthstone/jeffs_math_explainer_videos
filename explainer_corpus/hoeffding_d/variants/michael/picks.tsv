@@ -1,0 +1,6 @@
+# Hoeffding's D, michael comparison variant: reads the director chose against the score, with what the sheets show (narration lane, 2026-10-12).
+# line_id\tsentence_index\tftts_input\twhy
+g3	0	«For a straight line, everyone agrees.»	the top-scored straight-quote read ends 'agrees' with a weak z and the line transcript hears 'agreed' (edges FAIL); this read ends the z cleanly and the line is heard whole
+r4	0	Three people are tied at seventy-eight.	the top-scored quoted read ends 'seventy-eight' on a rise (+2.9 st); this read ends level (+0.9) and is heard whole
+g4	0	‘Now, bend it into a parabola.’	the top-scored read («…») loses its first word: the line transcript hears 'Bend it into a parabola' (edges FAIL); this read keeps 'Now,' and is heard whole
+h7	1	Vassily Herf-ding introduced it in nineteen forty-eight.	the name sentence: the top-scored read rushes at 6.3 syllables a second; the quoted reads put the name's vowel at F2 1620 Hz, near v5's HEFF (1700 in the same voice); this read has the NURSE vowel (F1 654, F2 1470 Hz, like the Herf-ding probe's 612/1411), releases the t of eight, and the +3.9 st end is the tracker on that t (the voiced eight falls; h7.png)
