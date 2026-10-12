@@ -96,6 +96,7 @@ CAPS = {"punct": ((0.42, 0.40), (0.52, 0.44)), "none": ((0.22, 0.18), (0.34, 0.2
 STALL = 0.90               # a pause this long is the model stalling, whatever is in it
 CUT_SHORT = 16.0           # dB under speech level: a last sound that stops louder than this was cut off
 SIBILANT_TAIL = 0.30       # s of kept speech searched for the final s/z of a word that ends in one
+SIBILANT_MIN = 5.0         # dB: the final frication must carry this much more energy above 4 kHz than under 2 kHz
 FINISHERS = (("“", "”"),)  # every read is also auditioned inside these; ftts then finishes the sentence
 EXTRA = {}                 # script sentence -> the director's extra ftts inputs for it (reads.tsv)
 PICKS = {}                 # read tag -> why the director chose it over the score (picks.tsv)
@@ -181,19 +182,20 @@ def steady(level):
 
 
 def wants_sibilant(sentence):
-    """The sentence's last word ends in an s or z sound in its spelling: phones, codes, writes, other's,
-    once, those, box (every ending the owner and the audit heard dropped was one of these)."""
+    """The sentence's last word ends in a hissing sound in its spelling: s or z (phones, codes, writes,
+    other's, once, those, box) or ch/sh (catch, which the audit heard as "cat"; wash)."""
     words = sentence.split()
     last = "".join(c for c in (words[-1] if words else "").lower() if c.isalpha() or c == "'").rstrip("'")
-    return last.endswith(("s", "x", "ce", "se", "ze"))
+    return last.endswith(("s", "x", "ce", "se", "ze", "ch", "sh"))
 
 
 def sibilant_missing(x, rate, end):
     """No frication at the end of a read whose last word ends in s/z: over the last SIBILANT_TAIL s
     before `end`, even the 15 ms frame with the most 4-10 kHz energy has more energy under 2 kHz.
     ftts drops a final s/z ("a million phone"); Whisper writes the word in full, so only the
-    spectrum shows it. Calibrated on 113 reads: every missing ending had this ratio below 0 dB
-    (-7 to -31), every present one above +13."""
+    spectrum shows it. Calibrated on 166 reads of three videos: every ending heard or seen missing
+    had this ratio at -7 dB or below, every present one at +9 or above; SIBILANT_MIN sits between
+    (a +1.6 dB "size" 28 dB under speech level, heard faint, falls below it)."""
     seg = x[max(0, int((end - SIBILANT_TAIL) * rate)):int(end * rate)]
     n, h = int(0.015 * rate), int(HOP * rate)
     if len(seg) < n:
@@ -206,7 +208,7 @@ def sibilant_missing(x, rate, end):
         hf, lf = 10 * np.log10(power[hi].sum() + 1e-12), 10 * np.log10(power[lo].sum() + 1e-12)
         if hf > best_hf:
             best_hf, ratio = hf, hf - lf
-    return bool(ratio < 0.0)
+    return bool(ratio < SIBILANT_MIN)
 
 
 def first_voiced(x, rate, top):
