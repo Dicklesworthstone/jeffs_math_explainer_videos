@@ -25,7 +25,7 @@ use crate::model::Lake;
 use crate::model::mixing::{self, Mixing};
 
 /// The time-lapse: all 40,000 steps (t = 0 … 400) in this many seconds.
-const TIME_LAPSE_S: f64 = 7.0;
+const TIME_LAPSE_S: f64 = 6.0;
 /// How steeply the time-lapse clock speeds up (model time grows as
 /// e^(A·τ/T) − 1): it opens at about 15 steps a second, so the first
 /// marks visibly swim out of the dock region, and ends at the even mix.
@@ -588,6 +588,9 @@ impl SceneConstruct for Spread {
             back_in,
             fade_in(stage.arena_mut(), headers, ORIGIN, 1.0)?.rt(0.8),
         );
+        // "In both columns, the second net takes the same one in ten…": the
+        // shares count up as they are said, not two sentences early
+        kit.until_sentence(stage, "03_7", 2)?;
         fade_in_all(stage, &counters, 0.5)?;
         let mut climbs = Vec::new();
         let mut tails = Vec::new();
