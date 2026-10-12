@@ -51,7 +51,16 @@ const THREE_QUARTER: View = View {
     centre: [0.6, 0.9, -1.0],
 };
 /// The fixed-size slice of 06_2–06_3.
-const SLICE: u64 = 33;
+const SLICE: u64 = TOY.0 * TOY.1 / TOY.2;
+
+fn field_legend() -> String {
+    let sizes = curve::sizes();
+    format!(
+        "left to right: lake size, {} to {}   ·   front to back: caught twice, 0 to {COUNTS}   ·   height: chance",
+        sizes.start(),
+        sizes.end()
+    )
+}
 
 /// Where count `k`'s row lies (y): our caught-twice count's row in the
 /// focal plane (y = 0), smaller counts nearer the side camera.
@@ -224,14 +233,7 @@ impl SceneConstruct for Landscape {
         }
 
         // 06_1: every lake size and every count at once
-        let legend = plated(
-            &kit,
-            stage,
-            "left to right: lake size, 17 to 60   ·   front to back: caught twice, 0 to 10   ·   height: chance",
-            24.0,
-            Palette::ink(),
-            v(0.0, 3.55),
-        )?;
+        let legend = plated(&kit, stage, &field_legend(), 24.0, Palette::ink(), v(0.0, 3.55))?;
         hud(stage, legend);
         kit.say(stage, "06_1")?;
         // the flat curve gives way to its row in the landscape
@@ -427,5 +429,14 @@ mod tests {
             .flat_map(|n| (0..=COUNTS).map(move |k| Law::new(n, TOY.0, TOY.1).at(k)))
             .fold(0.0, f64::max);
         assert!(frame.bottom() + bar_height(&frame, tallest) < 3.4, "{tallest}");
+    }
+
+    #[test]
+    fn the_chosen_slice_cuts_the_peak_of_the_score_curve() {
+        assert!(curve::sizes().contains(&SLICE));
+        let peak = curve::score(SLICE);
+        for n in curve::sizes() {
+            assert!(peak >= curve::score(n), "slice {SLICE} misses the highest score at {n}");
+        }
     }
 }
