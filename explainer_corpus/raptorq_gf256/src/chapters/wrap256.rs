@@ -202,15 +202,13 @@ fn counters(
     let f = Rc::clone(&fails);
     let count = stage.always_redraw(move |s| {
         let n = s.tracker_value(tracker).unwrap_or(0.0).round() as usize;
-        let t = Text::new(&format!(
-            "{} of {} rounds failed",
-            thousands(f[n] as u64),
-            thousands(n as u64)
-        ))
-        .font_size(24.0)
-        .style(explainer_kit::ink_style(Palette::dim()))
-        .build(&book)
-        .expect("bundled text always lays out");
+        let source = format!("{} of {} rounds failed", thousands(f[n] as u64), thousands(n as u64));
+        explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+        let t = Text::new(&source)
+            .font_size(24.0)
+            .style(explainer_kit::ink_style(Palette::dim()))
+            .build(&book)
+            .expect("bundled text always lays out");
         let m = s.add(t);
         s.move_to(m, v(side.x, COUNT_Y), ORIGIN);
         m

@@ -77,10 +77,12 @@ pub fn sound_file(label: &str, sound: &explainer_score::Stereo) -> std::io::Resu
 pub const DRAFT_SONIFY_DB: f64 = -8.0;
 
 /// What kind of text-like mobject a registry entry is.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum TextKind {
     Text,
     Tex,
+    /// Code and hex set in CM Typewriter.
+    Mono,
     /// A live readout, rebuilt every frame from a tracker.
     Live,
 }
@@ -350,6 +352,7 @@ impl Kit {
     }
 
     fn note(&self, mob: Mob, source: &str, kind: TextKind) {
+        crate::glyphs::record(kind, source);
         self.registry.borrow_mut().push(Registered {
             mob,
             source: source.to_owned(),
@@ -399,7 +402,7 @@ impl Kit {
             .build(&self.book)?;
         let m = stage.arena_mut().add(t);
         stage.move_to(m, at, ORIGIN);
-        self.note(m, s, TextKind::Text);
+        self.note(m, s, TextKind::Mono);
         Ok(m)
     }
 
@@ -552,6 +555,7 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, edge);
             if fixed {
@@ -616,6 +620,7 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, ORIGIN);
             if fixed {
@@ -651,6 +656,7 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, edge);
             m

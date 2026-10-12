@@ -2,11 +2,14 @@
 # ./x: the corpus driver (plan §3.6; bead W1 .11 grows it into the full
 # corpus-aware port of the template's driver). Commands so far:
 #
+#   ./x list                                  the corpus: slug, package and README title
 #   ./x <slug> review storyboard|script|draft   persona review packet (plan §5.2)
 #   ./x <slug> facts-check                      every video number against its oracle.py (G1)
 #   ./x <slug> storyboard                       G2 checks; writes script.tsv from the storyboard
 #   ./x <slug> build                            release build of the video's binary
 #   ./x <slug> test                             its tests, clippy -D warnings and fmt --check
+#   ./x <slug> lint                             narration script lint and chapter ownership
+#   ./x <slug> probe [OUT_DIR]                  collect real scene glyphs and render probe pages
 #   ./x <slug> draft [CHAPTER...]               960x540@30 scratch-voice renders with the layout
 #                                               lint into explainer_corpus/<slug>/renders/draft/
 #   ./x <slug> sheets [CHAPTER...]              contact sheets (4x3) of those drafts, to read
@@ -44,7 +47,7 @@
 # Settings (per machine, gitignored): project.env, see project.env.example.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
-usage() { sed -n '2,44p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,/^# Cargo /p' "$0" | sed '$d; s/^# \{0,1\}//'; exit 2; }
 die() { echo "x: $*" >&2; exit 2; }
 [ -f "$here/project.env" ] && . "$here/project.env"
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
@@ -64,6 +67,21 @@ sync_to_remote() {
 }
 
 case "${1:-}" in
+  list)
+    [ $# -eq 1 ] || usage
+    printf 'slug\tpackage\ttitle\n'
+    for entry in "$here"/explainer_corpus/*; do
+      [ -f "$entry/Cargo.toml" ] || continue
+      package=$(sed -n 's/^name = "\(.*\)"$/\1/p' "$entry/Cargo.toml" | head -n 1)
+      title=""
+      if [ -f "$entry/README.md" ]; then
+        title=$(sed -n 's/^# //p' "$entry/README.md" | head -n 1)
+      elif [ -f "$entry/docs/brief.md" ]; then
+        title=$(sed -n 's/^# Brief — //p' "$entry/docs/brief.md" | head -n 1)
+      fi
+      printf '%s\t%s\t%s\n' "${entry##*/}" "$package" "$title"
+    done
+    exit 0 ;;
   remote)
     shift
     [ $# -ge 2 ] || usage
@@ -147,6 +165,18 @@ chapter_list() {
 }
 
 case "$cmd" in
+  lint)
+    [ $# -eq 0 ] || usage
+    lint="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/lint_script.py"
+    [ -f "$lint" ] || die "no lint_script.py under SKILLS (set SKILLS in project.env)"
+    build_binary
+    exec python3 -I "$lint" "$crate/script.tsv" --bin "$binary" ;;
+  probe)
+    [ $# -le 1 ] || usage
+    build_binary
+    out="${1:-$crate/renders/glyphs_probe}"
+    "$binary" glyphs "$out" --res 1920x1080
+    echo "x: READ every PNG under $out/pages; sources: $out/registry.tsv" ;;
   review)
     [ $# -eq 1 ] || usage
     exec python3 -I "$here/tools/review.py" "$slug" "$1" ;;

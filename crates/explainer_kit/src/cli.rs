@@ -27,8 +27,7 @@ use crate::facts::Facts;
 use crate::kit::{CameraShot, Kit};
 use crate::layout::Linter;
 use crate::narration::{Narrator, Script};
-use crate::palette::{BACKGROUND, Palette, ink_style};
-use crate::plot::v;
+use crate::palette::BACKGROUND;
 
 /// One chapter: its key (`NN_name`), its scene, and how intense its music is.
 pub struct Chapter {
@@ -46,7 +45,8 @@ pub struct Explainer {
     pub chapters: fn() -> Vec<Chapter>,
     /// Every number the video shows or says; `self_check` runs first, always.
     pub facts: fn() -> Result<Facts, String>,
-    /// Every Text and Tex string the video uses, for the glyph probe.
+    /// Supplemental sources built outside chapter scenes. The probe also
+    /// captures every chapter's actual kit/updater strings automatically.
     pub glyph_text: &'static [&'static str],
     pub glyph_tex: &'static [&'static str],
     /// Code and hex the video shows, set in CM Typewriter (`Kit::mono`).
@@ -321,7 +321,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
                     println!("{}", c.key);
                 }
             }
-            "glyphs" => return glyphs(e, &args),
+            "glyphs" => return crate::glyphs::probe(e, &args),
             "render" => render_chapters(e, &args, &script)?,
             "score" => return score_video(e, &args),
             "master" => return master_video(e, &args),
@@ -340,7 +340,12 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
     }
 }
 
-fn options(path: PathBuf, format: RenderFormat, res: (u32, u32), fps: u32) -> Result<RenderOptions, Box<dyn Error>> {
+pub(crate) fn options(
+    path: PathBuf,
+    format: RenderFormat,
+    res: (u32, u32),
+    fps: u32,
+) -> Result<RenderOptions, Box<dyn Error>> {
     let mut o = RenderOptions::with_format(path, format)?;
     o.config.camera.resolution = res;
     o.config.camera.fps = fps;
@@ -368,7 +373,7 @@ impl SceneConstruct for Borrowed<'_> {
 /// rendered through [`encode::render_camera`] with `opts` (see
 /// [`camera_options`]); the rig starts at the shot's angles and reaches the
 /// scene through the kit.
-fn render_camera_chapter(
+pub(crate) fn render_camera_chapter(
     kit: &Kit,
     shot: CameraShot,
     scene: &mut dyn SceneConstruct,
@@ -846,110 +851,6 @@ fn thumbnail(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     std::fs::copy(last, &png)?;
     println!("thumbnail {}x{} -> {}", args.res.0, args.res.1, png.display());
     Ok(0)
-}
-
-/// The `glyphs` command: every Text and Tex string the video uses, on PNG
-/// pages; each failure reported by name, exit 1 if any (the pages are written
-/// either way). A string can typeset and still be wrong (math ρ/θ draw as
-/// ϱ/ϑ), so look at every page.
-fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
-    let out = args.targets.first().cloned().unwrap_or_else(|| "glyphs".into());
-    set_aside(Path::new(&out))?;
-    let mut scene = Glyphs {
-        kit: Kit::new()?,
-        text: e.glyph_text,
-        tex: e.glyph_tex,
-        mono: e.glyph_mono,
-        failures: Vec::new(),
-    };
-    let report = render(&mut scene, options(out.into(), RenderFormat::PngSequence, args.res, 1)?)?;
-    println!("glyph sheet -> {}", report.artifact.path.display());
-    if scene.failures.is_empty() {
-        Ok(0)
-    } else {
-        eprintln!(
-            "glyph probe: {} of {} strings failed to typeset:",
-            scene.failures.len(),
-            e.glyph_text.len() + e.glyph_tex.len() + e.glyph_mono.len()
-        );
-        for line in &scene.failures {
-            eprintln!("  {line}");
-        }
-        Ok(1)
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Row {
-    Text,
-    Tex,
-    Mono,
-}
-
-struct Glyphs {
-    kit: Kit,
-    text: &'static [&'static str],
-    tex: &'static [&'static str],
-    mono: &'static [&'static str],
-    failures: Vec<String>,
-}
-
-impl SceneConstruct for Glyphs {
-    fn name(&self) -> &str {
-        "glyphs"
-    }
-
-    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
-        const TOP: f64 = 3.5;
-        const BOTTOM: f64 = -3.3;
-        self.failures.clear();
-        let mut y = TOP;
-        let rows = self
-            .text
-            .iter()
-            .map(|s| (Row::Text, *s, 0.8))
-            .chain(self.tex.iter().map(|s| (Row::Tex, *s, 1.25)))
-            .chain(self.mono.iter().map(|s| (Row::Mono, *s, 0.8)));
-        for (row, s, step) in rows {
-            if y < BOTTOM {
-                // page full: capture it (1 s at the probe's 1 fps is one PNG)
-                stage.wait(1.0)?;
-                stage.scene_mut().clear();
-                y = TOP;
-            }
-            let added = if row == Row::Tex {
-                match Tex::new(s)
-                    .font_size(36.0)
-                    .style(ink_style(Palette::ink()))
-                    .build(stage.tex_engine()?)
-                {
-                    Ok(t) => Some(stage.add(t)?),
-                    Err(err) => {
-                        self.failures.push(format!("TEX FAIL {s:?}: {err}"));
-                        None
-                    }
-                }
-            } else {
-                let mut t = Text::new(s).font_size(34.0).style(ink_style(Palette::ink()));
-                if row == Row::Mono {
-                    t = t.font(crate::kit::MONO_FAMILY);
-                }
-                match t.build(&self.kit.book) {
-                    Ok(t) => Some(stage.add(t)?),
-                    Err(err) => {
-                        self.failures.push(format!("{row:?} FAIL {s:?}: {err}"));
-                        None
-                    }
-                }
-            };
-            if let Some(m) = added {
-                stage.move_to(m, v(-6.8, y), LEFT);
-            }
-            y -= step;
-        }
-        stage.wait(1.0)?;
-        Ok(())
-    }
 }
 
 #[cfg(test)]

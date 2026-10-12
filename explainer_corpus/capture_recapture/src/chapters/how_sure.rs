@@ -351,7 +351,9 @@ fn a_million(
         for q in 0..=4 {
             let x = w * f64::from(q) / 4.0;
             let p = f.p(x, 0.0);
-            if let Ok(t) = Text::new(&tick_word(x))
+            let source = tick_word(x);
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+            if let Ok(t) = Text::new(&source)
                 .font_size(22.0)
                 .style(ink_style(Palette::dim()))
                 .build(&book)

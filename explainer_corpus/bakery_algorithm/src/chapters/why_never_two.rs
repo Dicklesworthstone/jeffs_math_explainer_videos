@@ -232,6 +232,7 @@ impl ProofLanes {
             if let Ok(h) = holding(x + GREEN_W - 0.25, X1, Y_GREEN, 0.55 * o) {
                 ms.push(h);
             }
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, glyphs::GREEN_CHOOSING);
             let label = Text::new(glyphs::GREEN_CHOOSING)
                 .font_size(20.0)
                 .style(Style::default().fill(flag_amber(), o).stroke(flag_amber(), 0.0, o))
@@ -253,7 +254,9 @@ impl ProofLanes {
                 .color(c)
                 .build()
                 .with_style(flat(c, o));
-            let words = Text::new(&format!("{} {}", glyphs::GREEN_AT, place.words()))
+            let source = format!("{} {}", glyphs::GREEN_AT, place.words());
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+            let words = Text::new(&source)
                 .font_size(20.0)
                 .style(Style::default().fill(c, o).stroke(c, 0.0, o))
                 .build(&book)

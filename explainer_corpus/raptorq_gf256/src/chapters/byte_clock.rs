@@ -778,7 +778,9 @@ fn inner_marks(kit: &Kit, stage: &mut Stage<'_>, tracker: Mob, marks: &[(u8, usi
             .style(stroke_style(Palette::ink(), 3.0))
             .build()
             .expect("a tick has length");
-            let label = Text::new(&b.to_string())
+            let source = b.to_string();
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+            let label = Text::new(&source)
                 .font_size(28.0)
                 .style(explainer_kit::ink_style(Palette::ink()))
                 .build(&book)

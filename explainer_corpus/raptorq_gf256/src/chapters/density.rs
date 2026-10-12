@@ -929,6 +929,7 @@ impl Density {
                         .color(Palette::ink())
                         .build(&book)
                         .expect("bundled digits always lay out");
+                    explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &format!("{}%", d.num_string()));
                     let m = s.add(d.into_vmob());
                     s.move_to(m, v(BAR_X + BAR_W + 0.2, y), LEFT);
                     m

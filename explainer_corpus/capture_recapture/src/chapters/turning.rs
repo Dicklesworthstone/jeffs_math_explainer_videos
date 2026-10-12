@@ -322,7 +322,9 @@ impl SceneConstruct for Turning {
         let book = Rc::clone(&kit.book);
         let live_title = stage.always_redraw(move |s| {
             let lake = s.tracker_value(sweep).unwrap_or(first as f64).round();
-            let t = Text::new(&format!("if the lake had {lake} fish"))
+            let source = format!("if the lake had {lake} fish");
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+            let t = Text::new(&source)
                 .font_size(24.0)
                 .style(explainer_kit::ink_style(Palette::ink()))
                 .build(&book)
@@ -447,7 +449,9 @@ impl SceneConstruct for Turning {
             let r = s.tracker_value(reach).unwrap_or(60.0).round() as u64;
             let i = (r.max(first) - first) as usize;
             let total = sums_live[i.min(sums_live.len() - 1)];
-            let t = Text::new(&format!("{first} to {}: {:.2}", thousands(r), total))
+            let source = format!("{first} to {}: {:.2}", thousands(r), total);
+            explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &source);
+            let t = Text::new(&source)
                 .font_size(30.0)
                 .style(explainer_kit::ink_style(Role::score()))
                 .build(&book)

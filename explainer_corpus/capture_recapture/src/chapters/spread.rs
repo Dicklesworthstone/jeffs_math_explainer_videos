@@ -185,6 +185,7 @@ fn live_percent(
             .color(color)
             .build(&book)
             .expect("bundled digits always lay out");
+        explainer_kit::glyphs::record(explainer_kit::TextKind::Text, &format!("{}%", d.num_string()));
         let m = s.add(d.into_vmob());
         s.move_to(m, at, ORIGIN);
         m

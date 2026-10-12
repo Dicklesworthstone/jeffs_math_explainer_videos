@@ -17,6 +17,7 @@ pub mod captions;
 pub mod cli;
 pub mod encode;
 pub mod facts;
+pub mod glyphs;
 pub mod kit;
 pub mod layout;
 pub mod master;

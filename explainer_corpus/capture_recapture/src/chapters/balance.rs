@@ -48,6 +48,7 @@ fn dividers(cells: &[Cell; 4]) -> (f64, f64) {
 
 /// A text glyph group from the kit's fonts (for redrawn pictures).
 fn text_vm(book: &FontBook, s: &str, size: f64, color: Srgb) -> Option<VMobject> {
+    explainer_kit::glyphs::record(explainer_kit::TextKind::Text, s);
     Text::new(s)
         .font_size(size)
         .style(ink_style(color))
