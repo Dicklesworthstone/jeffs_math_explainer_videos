@@ -23,7 +23,6 @@
 07_6	2	“Back to Feller's lake.”	plain spelling of Feller, complete; pinned so the choice does not depend on how the ASR spells michael's r-less Feller
 08_5	0	“At Feller's numbers the line goes exactly straight at ten thousand.”	plain spelling of Feller, complete; pinned as above
 08_5	2	Feller just says ten thousand.	plain spelling: starts on a clean F and finishes (seen); the Fell-er reads are heard "The fella just says"
-09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.”	no 0.67 s gap inside the phrase; plain spelling of Feller
 12_3	1	For Feller's catch it runs from about eighty-four hundred to about twelve thousand one hundred.	plain spelling of Feller, same measures as the Fell-er read; pinned as above
 08_3	1	"So is nine hundred times nine hundred."	finishes (seen); the score's choice stops inside "hundred". It ends 4.3 st up: the least bad of six
 03_7	1	"Being marked becomes unrelated to where a fish swims."	has the s of "swims" (seen: 40 ms of it); the plain and curly-quoted reads stop on the m
@@ -33,3 +32,7 @@
 11_3	0	«A million fish?»	no lead-in (the score's choice opens on 0.44 s of hum) and it rises at the end (+6 st); complete, its sh dies away
 11_5	0	“Flip a hundred coins!”	the only read that finishes "coins" with no gap after "Flip"; falls 5.5 st (the «» read picked in round 2 had a 0.3 s gap with hum in it)
 05_2	0	“Let's try the soup guess, first.”	complete and heard "soup guess first"; a 0.35 s pause before "first". The other complete reads are heard "soup guests"
+# Review 2 (2026-10-12, tools/narration.py b8253f1, final s/z check): the 09_1 s1 pick above is retired, its
+# read ends "time-" without the s. Endings below looked at in zoomed spectrograms of the takes.
+04_7	2	«For each, a hundred and five ways to pick two of the fifteen unmarked ones, like shirts and pants.»	finishes "pants" with 0.28 s of s; the score's choice stops inside the last word
+09_1	1	“Build a lake of exactly ten thousand fish, and run Feller's experiment on it ten thousand times.” …	ends with 0.13 s of s that dies away (seen); the score's choice keeps 35 ms of it before the WAV stops
