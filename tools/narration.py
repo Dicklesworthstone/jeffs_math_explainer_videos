@@ -401,12 +401,15 @@ def edit(path, m, sentence_lufs):
     return seg, round((span - len(seg)) / rate, 3), round(lufs, 1), proof
 
 
-def edges(out, lexicon):
-    """Every sentence's first and last word against the transcript of its assembled line."""
+def edges(script, out, lexicon):
+    """Every sentence's first and last word against the transcript of its assembled line. A script
+    line with no sentences in the report, or no transcript, fails too: nothing to check is not a pass."""
     nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
     report = json.loads((out / "report.json").read_text())["lines"]
     heard = json.loads((out / "lines_asr.json").read_text())
-    missing = []
+    missing = [f"{lid}: {what}" for lid, _ in nr.checked_script(script) for what, absent in (
+        ("no sentences in report.json", not report.get(lid)),
+        ("no transcript in lines_asr.json", not heard.get(lid, {}).get("text", "").strip())) if absent]
     for lid, sents in report.items():
         want, spans = [], []
         for s in sents:
@@ -439,7 +442,8 @@ def main():
         return y, frac, max_db
 
     if len(sys.argv) >= 5 and sys.argv[2] == "edges":
-        edges(Path(sys.argv[4]), sys.argv[sys.argv.index("--lexicon") + 1] if "--lexicon" in sys.argv else None)
+        edges(sys.argv[3], Path(sys.argv[4]),
+              sys.argv[sys.argv.index("--lexicon") + 1] if "--lexicon" in sys.argv else None)
     if len(sys.argv) < 3 or sys.argv[2] not in ("plan", "choose"):
         sys.exit(__doc__)
     command, out = sys.argv[2], Path(sys.argv[5]) if len(sys.argv) > 5 else None
