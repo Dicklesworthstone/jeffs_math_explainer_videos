@@ -2,6 +2,7 @@
 """Corpus-driver metadata and argument checks. Fixtures exercise dispatch only;
 the real corpus lint/probe runs are separate acceptance checks. Nothing is deleted."""
 
+import json
 import os
 from pathlib import Path
 import shutil
@@ -128,6 +129,129 @@ class Driver(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("not ftts 0.1.11", result.stderr)
         self.assertFalse(observed.exists())
+
+    def dispatch_executable(self, directory, name, source):
+        path = directory / name
+        path.write_text(source, encoding="utf-8")
+        path.chmod(0o755)
+        return path
+
+    def watch_dispatch(self, slug, voice, kind):
+        # Only the driver is real: stop at an encoder recorder, with text markers
+        # in place of media. No compiler, speech synthesis, or encoder runs.
+        crate = self.crate(slug)
+        (crate / "Cargo.toml").write_text(
+            f'[package]\nname = "{slug}_explainer"\n[[bin]]\nname = "video"\n',
+            encoding="utf-8",
+        )
+        binary_dir = self.root / "dispatch tools"
+        binary_dir.mkdir()
+        target = self.root / "dispatch target"
+        (target / "release").mkdir(parents=True)
+        self.dispatch_executable(target / "release", "video", "#!/bin/sh\nprintf '01_hook\\n'\n")
+        self.dispatch_executable(binary_dir, "cargo", "#!/bin/sh\nexit 0\n")
+        observed = self.root / "encoder-args.json"
+        self.dispatch_executable(
+            binary_dir, "ffmpeg",
+            "#!/usr/bin/env python3\nimport json, sys\nfrom pathlib import Path\n"
+            f"Path({str(observed)!r}).write_text(json.dumps(sys.argv[1:]))\n"
+            "raise SystemExit(17)\n",
+        )
+        own_voice = "matt" if slug == "capture_recapture" else "michael"
+        base = crate / "variants" / voice \
+            if voice and voice != own_voice and kind != "draft" else crate
+        primary = crate / "renders"
+        selected = base / "renders"
+        for directory in dict.fromkeys((primary, selected)):
+            (directory / kind).mkdir(parents=True)
+            (directory / kind / "01_hook.mp4").write_text("chapter marker\n", encoding="utf-8")
+            (directory / f"{slug}_{kind}_watch.mp4").write_text("watch marker\n", encoding="utf-8")
+        env = dict(os.environ, SKILLS=str(self.root / "missing skills"),
+                   CARGO_TARGET_DIR=str(target),
+                   PATH=str(binary_dir) + os.pathsep + os.environ["PATH"])
+        env.pop("VOICE", None)
+        if voice:
+            env["VOICE"] = voice
+        result = self.run_x(slug, "watch", kind, env=env)
+        self.assertEqual(result.returncode, 17, result.stderr)
+        args = json.loads(observed.read_text(encoding="utf-8"))
+        self.assertEqual(Path(args[args.index("-i") + 1]), selected / kind / "watch.concat.txt")
+        self.assertEqual(Path(args[-1]), selected / f"{slug}_{kind}_watch.mp4")
+        self.assertEqual((selected / kind / "watch.concat.txt").read_text(), "file '01_hook.mp4'\n")
+        archived = list((selected / "previous").glob("*.mp4"))
+        self.assertEqual(len(archived), 1)
+        self.assertEqual(archived[0].read_text(), "watch marker\n")
+        if base != crate:
+            self.assertEqual((primary / f"{slug}_{kind}_watch.mp4").read_text(), "watch marker\n")
+            self.assertFalse((primary / kind / "watch.concat.txt").exists())
+            self.assertFalse((primary / "previous").exists())
+
+    def test_variant_watch_keeps_primary_inputs_output_and_archive_untouched(self):
+        for slug, voice, kind in (("capture_recapture", "michael", "narrated"),
+                                  ("raptorq_gf256", "leo", "scored")):
+            with self.subTest(slug=slug, voice=voice, kind=kind):
+                case = Driver()
+                case.setUp()
+                case.watch_dispatch(slug, voice, kind)
+
+    def test_default_and_same_voice_watch_use_primary_cut(self):
+        for slug, voice, kind in (("capture_recapture", None, "narrated"),
+                                  ("raptorq_gf256", "michael", "scored"),
+                                  ("raptorq_gf256", "leo", "draft")):
+            with self.subTest(slug=slug, voice=voice, kind=kind):
+                case = Driver()
+                case.setUp()
+                case.watch_dispatch(slug, voice, kind)
+
+    def remote_dispatch(self, voice):
+        # Exercise the actual ssh command locally: the fixture ssh invokes sh,
+        # and systemd-run records its argv then exits before any worker starts.
+        remote = self.root / "remote"
+        remote.mkdir()
+        binary_dir = self.root / "remote dispatch tools"
+        binary_dir.mkdir()
+        self.dispatch_executable(binary_dir, "git", "#!/bin/sh\nprintf 'x\\n'\n")
+        self.dispatch_executable(binary_dir, "rsync", "#!/bin/sh\ncat >/dev/null\n")
+        self.dispatch_executable(
+            binary_dir, "ssh",
+            "#!/usr/bin/env python3\nimport subprocess, sys\n"
+            "raise SystemExit(subprocess.run(['/bin/sh', '-c', sys.argv[2]], check=False).returncode)\n",
+        )
+        observed = self.root / "unit-args.json"
+        self.dispatch_executable(
+            binary_dir, "systemd-run",
+            "#!/usr/bin/env python3\nimport json, sys\nfrom pathlib import Path\n"
+            f"Path({str(observed)!r}).write_text(json.dumps(sys.argv[1:]))\n"
+            "raise SystemExit(17)\n",
+        )
+        env = dict(os.environ, SKILLS=str(self.root / "missing skills"),
+                   REMOTE_HOST="dispatch-fixture", REMOTE_DIR=str(remote),
+                   PATH=str(binary_dir) + os.pathsep + os.environ["PATH"])
+        env.pop("VOICE", None)
+        if voice is not None:
+            env["VOICE"] = voice
+        result = self.run_x("remote", "capture_recapture", "narrate", env=env)
+        return result, observed
+
+    def test_remote_forwards_variant_voice_to_the_unit(self):
+        result, observed = self.remote_dispatch("michael")
+        self.assertEqual(result.returncode, 17, result.stderr)
+        self.assertIn("--setenv=VOICE=michael", json.loads(observed.read_text()))
+
+    def test_remote_default_clears_a_worker_voice_override(self):
+        result, observed = self.remote_dispatch(None)
+        self.assertEqual(result.returncode, 17, result.stderr)
+        self.assertIn("--setenv=VOICE=", json.loads(observed.read_text()))
+
+    def test_remote_rejects_unsupported_or_path_like_voice_before_dispatch(self):
+        for voice in ("unknown", "../primary", "michael;echo injected"):
+            with self.subTest(voice=voice):
+                case = Driver()
+                case.setUp()
+                result, observed = case.remote_dispatch(voice)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn("unsupported VOICE", result.stderr)
+                self.assertFalse(observed.exists())
 
 
 if __name__ == "__main__":

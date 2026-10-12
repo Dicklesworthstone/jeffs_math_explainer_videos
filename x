@@ -60,6 +60,12 @@ export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
 SKILLS="${SKILLS:-$HOME/.claude/skills}"
 CARGO_FLAGS="-Zgit=shallow-deps -Zgitoxide=fetch"
 
+# VOICE is also a path component and crosses the remote shell boundary.
+case "${VOICE:-}" in
+  ''|matt|michael|leo|robert) ;;
+  *) die "unsupported VOICE '${VOICE}' (choose matt, michael, leo or robert)" ;;
+esac
+
 need_remote() {
   [ -n "${REMOTE_HOST:-}" ] && [ -n "${REMOTE_DIR:-}" ] || die "set REMOTE_HOST and REMOTE_DIR in project.env"
 }
@@ -99,6 +105,7 @@ case "${1:-}" in
     ssh "$REMOTE_HOST" "cd '$REMOTE_DIR' && mkdir -p logs && systemd-run --user --unit='$unit' --collect \
       --property=MemoryHigh=infinity --working-directory='$REMOTE_DIR' \
       --setenv=PATH=\$HOME/.rch/shims:\$HOME/.cargo/bin:\$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin \
+      --setenv=VOICE=${VOICE:-} \
       /bin/sh -c \"./x $quoted > logs/$unit.log 2>&1; echo \\\"== exit \\\$?\\\" >> logs/$unit.log\""
     mkdir -p "$here/.x"
     echo "$unit" > "$here/.x/remote.last"
@@ -336,7 +343,10 @@ case "$cmd" in
     [ $# -le 1 ] || usage
     kind="${1:-scored}"
     case "$kind" in narrated|scored|draft) ;; *) usage ;; esac
-    src="$crate/renders/$kind"
+    watch_base="$base"
+    # Scratch-voice drafts are shared pictures; narrated/scored cuts have a voice.
+    [ "$kind" != draft ] || watch_base="$crate"
+    src="$watch_base/renders/$kind"
     build_binary
     list="$src/watch.concat.txt"
     : > "$list"
@@ -344,10 +354,10 @@ case "$cmd" in
       [ -f "$src/$k.mp4" ] || die "no $k.mp4 in $src (render it: ./x $slug $kind $k)"
       printf "file '%s'\n" "$k.mp4" >> "$list"
     done
-    out="$crate/renders/${slug}_${kind}_watch.mp4"
+    out="$watch_base/renders/${slug}_${kind}_watch.mp4"
     if [ -e "$out" ]; then
-      mkdir -p "$crate/renders/previous"
-      mv "$out" "$crate/renders/previous/${slug}_${kind}_watch.$(date +%Y%m%d-%H%M%S).mp4"
+      mkdir -p "$watch_base/renders/previous"
+      mv "$out" "$watch_base/renders/previous/${slug}_${kind}_watch.$(date +%Y%m%d-%H%M%S).mp4"
     fi
     ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$list" -c copy -movflags +faststart "$out"
     echo "x: $out ($(ffprobe -v error -show_entries format=duration -of csv=p=0 "$out" | cut -d. -f1) s)" ;;
