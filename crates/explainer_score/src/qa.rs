@@ -194,13 +194,7 @@ fn inside(t: f64, regions: &[(f64, f64)]) -> bool {
 }
 
 fn percentile(v: &[f64], p: f64) -> f64 {
-    if v.is_empty() {
-        return f64::NAN;
-    }
-    let mut s = v.to_vec();
-    s.sort_by(f64::total_cmp);
-    let i = ((s.len() - 1) as f64 * p / 100.0).round() as usize;
-    s[i]
+    meter::percentile(v, p)
 }
 
 /// Speech regions of a voice bus, as the duck sees them.
@@ -211,14 +205,7 @@ pub fn speech_regions(voice: &Stereo) -> Vec<(f64, f64)> {
 /// Voice minus music short-term (3 s) loudness, one value per 0.1 s window
 /// whose centre lies in speech. Silent music counts as −120 LUFS.
 pub fn voice_minus_music(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
-    let v = meter::windowed(voice, 3.0, 0.1);
-    let m = meter::windowed(music, 3.0, 0.1);
-    v.iter()
-        .zip(&m)
-        .enumerate()
-        .filter(|(k, _)| inside(*k as f64 * 0.1 + 1.5, speech))
-        .map(|(_, (&a, &b))| a - b.max(-120.0))
-        .collect()
+    meter::voice_minus_music(voice, music, speech)
 }
 
 /// The music's loudest momentary (400 ms) loudness during speech minus the

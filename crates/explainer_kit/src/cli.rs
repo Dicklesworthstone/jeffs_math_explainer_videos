@@ -698,6 +698,14 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         );
         std::fs::write(stems.join("voice_profile.tsv"), p.to_text())?;
     }
+    if s.bed_trim_db < 0.0 {
+        // the open-loop bed sat too close to this voice: set by measurement
+        println!(
+            "bed lowered {:.2} dB to hold the music {:.0} LU under speech (median over the whole video)",
+            -s.bed_trim_db,
+            score::UNDER_SPEECH_LU
+        );
+    }
     let mut failed = Vec::new();
     for (k, c) in chapters.iter().enumerate() {
         let music = s.chapter_music(k);

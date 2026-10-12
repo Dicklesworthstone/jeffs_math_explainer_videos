@@ -1008,6 +1008,22 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
 | any cue during speech, loudest 400 ms | ≤ the speech's loudest 400 ms − 18 LU, low-passed ≤ 2.2 kHz, panned ≥ 30% off centre |
 | music stem true peak | ≤ −12 dBTP (the voice, at −7.5 dBTP, always sets the master gain) |
 
+The level under speech is set by measurement, not only by design. Each
+identity's bed level is an open-loop number (so many LU under V before the
+duck) set against one reference chord, and it lands at V − 18 LU for the
+voice the identity was tuned with; for another voice it may not (in a lower
+register Hoeffding's tonic chord loses its bass to 37 Hz, reads 3 dB quiet as
+the reference, and the bed comes out 2.5 dB hot). So `score::render` measures
+the finished stem as QA does (the median of voice minus music over 3 s windows
+centred in speech, whole video, after the true-peak cap) and, when it is
+under 18 LU by more than 0.05, lowers the bed bus alone by the shortfall and
+mixes again (`Score::bed_trim_db`; at most 6 dB). A cut that holds 18 LU is
+not touched. The true-peak cap stays one gain on the whole stem, so the
+video's loudest instant can still make the music quieter everywhere (by
+0.19 dB in Hoeffding's own cut), but never closer to the voice than the
+target; a sonification whose own peak would pass −12 dBTP is turned down by
+itself first.
+
 - **Duck offline with perfect look-ahead.** The narration timeline is known
   before the score is synthesized. Voice activity per placed line (10 ms frames,
   active when RMS > line loudness − 25 dB, dilated ±30 ms) gives speech

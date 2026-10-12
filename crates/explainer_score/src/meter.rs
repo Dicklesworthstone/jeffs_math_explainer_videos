@@ -58,6 +58,35 @@ pub fn integrated(audio: &Stereo) -> f64 {
     lufs(gated.iter().sum::<f64>() / gated.len() as f64)
 }
 
+/// The `p`-th percentile (0–100) of `v` by nearest rank; NaN for no values.
+pub fn percentile(v: &[f64], p: f64) -> f64 {
+    if v.is_empty() {
+        return f64::NAN;
+    }
+    let mut s = v.to_vec();
+    s.sort_by(f64::total_cmp);
+    let i = ((s.len() - 1) as f64 * p / 100.0).round() as usize;
+    s[i]
+}
+
+/// Voice minus music short-term (3 s) loudness (LU), one value per 0.1 s
+/// window whose centre lies in one of the `speech` regions (seconds). Silent
+/// music counts as −120 LUFS. QA's level gate judges these, and the score
+/// sets its bed by their median.
+pub fn voice_minus_music(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
+    let v = windowed(voice, 3.0, 0.1);
+    let m = windowed(music, 3.0, 0.1);
+    v.iter()
+        .zip(&m)
+        .enumerate()
+        .filter(|(k, _)| {
+            let t = *k as f64 * 0.1 + 1.5;
+            speech.iter().any(|&(a, b)| t >= a && t < b)
+        })
+        .map(|(_, (&a, &b))| a - b.max(-120.0))
+        .collect()
+}
+
 /// Loudness in sliding windows of `window_s` seconds, one value per `hop_s`
 /// (momentary = 0.4 s, short-term = 3 s). Values are LUFS.
 pub fn windowed(audio: &Stereo, window_s: f64, hop_s: f64) -> Vec<f64> {

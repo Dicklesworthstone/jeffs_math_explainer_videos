@@ -100,6 +100,22 @@ pub const MATT_F0: (f64, f64) = (76.9, 150.9);
 pub const LEO_F0: (f64, f64) = (106.7, 205.1);
 pub const MICHAEL_F0: (f64, f64) = (76.2, 163.3);
 
+/// Where the music sits under speech (plan §7.2): the median of voice minus
+/// music over 3 s windows centred in speech, in LU. The allowed range is 16
+/// to 22; QA fails a chapter under 16.
+pub const UNDER_SPEECH_LU: f64 = 18.0;
+/// The highest a sonification's own true peak may sit in the stem (dBTP):
+/// the stem's ceiling (QA: ≤ −12 dBTP).
+const LISTEN_PEAK_DBTP: f64 = -12.0;
+/// A stem within this of the target is left as it is (LU).
+const TRIM_TOLERANCE_LU: f64 = 0.05;
+/// The most the bed is lowered to reach the target (dB): past this the cut
+/// has another problem, and QA should say so.
+const BED_TRIM_MAX_DB: f64 = 6.0;
+/// Mixdowns allowed after the first to settle the trim (the cap moves a
+/// little as the bed comes down, so one step can fall a hair short).
+const TRIM_PASSES: usize = 4;
+
 /// The new identities' bass against their pad (dB): about 4 LU under it.
 pub const BASS_UNDER_PAD_DB: f64 = -9.0;
 
@@ -881,6 +897,9 @@ pub struct Score {
     pub true_peak_db: f64,
     /// Gain the true-peak cap applied (dB; 0 when the cap did not bind).
     pub cap_db: f64,
+    /// What the bed bus was lowered by to hold [`UNDER_SPEECH_LU`] under
+    /// speech (dB, ≤ 0; 0 when the open-loop level already held it).
+    pub bed_trim_db: f64,
     /// The authored silences (seconds), where the stem is exactly zero.
     pub silences: Vec<SilenceSpan>,
     /// The listen windows that carry a sonification (start, end; seconds):
@@ -2216,58 +2235,6 @@ fn compose(
             ),
         ));
     }
-    // per-sample reverb send from each chapter's intensity, moving over the
-    // first 2 s of a chapter (like a tail, a change reaches forward over a
-    // cut, never back), and the thin-outs before reveals
-    let mut send_points = Vec::new();
-    for (c, (_, a, b)) in chapters.iter().enumerate() {
-        let s = reverb_send(sections[c].plan.intensity);
-        let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
-        if c == 0 {
-            send_points.push((t0, s));
-        } else {
-            let prev = reverb_send(sections[c - 1].plan.intensity);
-            send_points.push((t0, prev));
-            send_points.push(((t0 + 2.0).min(t1), s));
-        }
-    }
-    let send = crate::fx::Automation::new(&send_points).render(n);
-    let reveals: Vec<f64> = cues
-        .iter()
-        .filter(|c| {
-            matches!(
-                CueKind::from_label(&c.1),
-                CueKind::Reveal | CueKind::Resolve | CueKind::Thin
-            )
-        })
-        .map(|c| c.0)
-        .collect();
-    // the bed also makes room under every sonification (an identity with a
-    // listen chord: the new engine's), from just before its window to its end
-    let mut room = thin_outs(&reveals, n);
-    if identity.listen_chord.is_some() {
-        let spans = sections.iter().zip(&chapter_starts).flat_map(|(s, &t0)| {
-            let fps = f64::from(s.timeline.fps);
-            s.timeline
-                .listens
-                .iter()
-                .filter(|w| w.sound.is_some())
-                .map(move |w| (t0 + w.frame as f64 / fps, t0 + w.frame as f64 / fps + w.seconds))
-        });
-        for (r, x) in room.iter_mut().zip(thin(spans, n, (0.3, 1.0))) {
-            *r = r.min(x);
-        }
-    }
-    let mut sum = bed_bus(identity, &events, n, &send, &room);
-    drop(send);
-    sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed));
-    let melody = melody_bus(&events, n);
-    add_scaled(&mut sum, &melody, db_to_gain(v_ref + identity.melody_lu - ref_mel));
-    drop(melody);
-    if !sfx.is_empty() {
-        let effects = sfx_bus(&sfx, n);
-        add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
-    }
     let sonified: Vec<(f64, f64)> = sections
         .iter()
         .zip(&chapter_starts)
@@ -2280,99 +2247,195 @@ fn compose(
                 .map(move |w| (t0 + w.frame as f64 / fps, t0 + w.frame as f64 / fps + w.seconds))
         })
         .collect();
-    // listen windows' sonifications at V + listen_lu, each cut at its
-    // window's end with a short fade so it never runs into the next line
-    for (c, s) in sections.iter().enumerate() {
-        let (a, b) = (chapters[c].1, chapters[c].2);
-        for w in &s.timeline.listens {
-            let Some(path) = &w.sound else { continue };
-            let start = a + frame_to_sample(w.frame, s.timeline.fps) as usize;
-            let end = (start + (w.seconds * FS).round() as usize).min(b);
-            let sound = listen_sound(path, end.saturating_sub(start), identity.settle_s.max(0.25))?;
-            let lufs = meter::integrated(&sound);
-            if !lufs.is_finite() {
-                return Err(io::Error::new(
-                    io::ErrorKind::InvalidData,
-                    format!("{}: a silent sonification", path.display()),
-                ));
+    // Steps 6 to 9 are one mixdown of the buses, made again only when the
+    // bed's level has to come down (below): `bed_trim_db` moves the bed bus
+    // alone, and at 0 dB the mix is the open-loop one, sample for sample.
+    let mixdown = |bed_trim_db: f64| -> io::Result<(Stereo, f64, f64)> {
+        // per-sample reverb send from each chapter's intensity, moving over the
+        // first 2 s of a chapter (like a tail, a change reaches forward over a
+        // cut, never back), and the thin-outs before reveals
+        let mut send_points = Vec::new();
+        for (c, (_, a, b)) in chapters.iter().enumerate() {
+            let s = reverb_send(sections[c].plan.intensity);
+            let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
+            if c == 0 {
+                send_points.push((t0, s));
+            } else {
+                let prev = reverb_send(sections[c - 1].plan.intensity);
+                send_points.push((t0, prev));
+                send_points.push(((t0 + 2.0).min(t1), s));
             }
-            sum.mix_in(&sound, start, db_to_gain(v_ref + identity.listen_lu - lufs));
         }
-    }
-    // tape glue: one transport, so both channels share the wow and flutter
-    let tape_seed = seed_for(&identity.name, "", "tape", 0);
-    let (mut tl, mut tr) = (Tape::new(tape_seed), Tape::new(tape_seed));
-    for v in &mut sum.l {
-        *v = tl.process(*v);
-    }
-    for v in &mut sum.r {
-        *v = tr.process(*v);
-    }
-
-    // 7. the duck, with breaths and listen windows released. In a hold the
-    //    author did not write for music (a gap under HOLD_MERGE s), the duck
-    //    lets the music up only part way (plan §7.2: the music answers fully
-    //    in the authored gaps); a 3 s window straddling such a hold's edge
-    //    otherwise hears the whole gap's music against half a window of voice
-    let shape = DuckShape::default();
-    let mut u = duck::duck_curve(&speech, n, shape);
-    if identity.hold_duck > 0.0 {
-        let held = duck::duck_curve(&duck::regions(&active, HOLD_MERGE), n, shape);
-        for (x, h) in u.iter_mut().zip(&held) {
-            *x = x.max(identity.hold_duck * h);
-        }
-    }
-    let windows: Vec<(f64, f64)> = sections
-        .iter()
-        .zip(&chapter_starts)
-        .flat_map(|(s, &t0)| {
-            let fps = f64::from(s.timeline.fps);
-            s.timeline
-                .breaths
-                .iter()
-                .chain(&s.timeline.listens)
-                .map(move |w| (t0 + w.frame as f64 / fps, w.seconds))
-        })
-        .collect();
-    duck::release_windows(&mut u, &windows, shape);
-    if identity.settle_s > 0.0 {
-        // an authored window the voice resumes from (within 0.5 s of its end)
-        let next = |t: f64| speech.iter().map(|r| r.0).find(|&s| s >= t - 0.05);
-        let resumes: Vec<f64> = windows
+        let send = crate::fx::Automation::new(&send_points).render(n);
+        let reveals: Vec<f64> = cues
             .iter()
-            .filter_map(|&(s, len)| next(s + len).filter(|&o| o - (s + len) < 0.5))
+            .filter(|c| {
+                matches!(
+                    CueKind::from_label(&c.1),
+                    CueKind::Reveal | CueKind::Resolve | CueKind::Thin
+                )
+            })
+            .map(|c| c.0)
             .collect();
-        duck::recede(&mut u, &resumes, identity.settle_s);
-    }
-    let mut music = duck::apply(&sum, &u, identity.duck_db);
-    drop(sum);
-    // the authored silences, applied to everything (bed, notes, tails,
-    // sonifications): exactly zero inside
-    if !silences.is_empty() {
-        for (i, g) in silence_gain(&silences, n).into_iter().enumerate() {
+        // the bed also makes room under every sonification (an identity with a
+        // listen chord: the new engine's), from just before its window to its end
+        let mut room = thin_outs(&reveals, n);
+        if identity.listen_chord.is_some() {
+            let spans = sections.iter().zip(&chapter_starts).flat_map(|(s, &t0)| {
+                let fps = f64::from(s.timeline.fps);
+                s.timeline
+                    .listens
+                    .iter()
+                    .filter(|w| w.sound.is_some())
+                    .map(move |w| (t0 + w.frame as f64 / fps, t0 + w.frame as f64 / fps + w.seconds))
+            });
+            for (r, x) in room.iter_mut().zip(thin(spans, n, (0.3, 1.0))) {
+                *r = r.min(x);
+            }
+        }
+        let mut sum = bed_bus(identity, &events, n, &send, &room);
+        drop(send);
+        sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed + bed_trim_db));
+        let melody = melody_bus(&events, n);
+        add_scaled(&mut sum, &melody, db_to_gain(v_ref + identity.melody_lu - ref_mel));
+        drop(melody);
+        if !sfx.is_empty() {
+            let effects = sfx_bus(&sfx, n);
+            add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
+        }
+        // listen windows' sonifications at V + listen_lu, each cut at its
+        // window's end with a short fade so it never runs into the next line
+        for (c, s) in sections.iter().enumerate() {
+            let (a, b) = (chapters[c].1, chapters[c].2);
+            for w in &s.timeline.listens {
+                let Some(path) = &w.sound else { continue };
+                let start = a + frame_to_sample(w.frame, s.timeline.fps) as usize;
+                let end = (start + (w.seconds * FS).round() as usize).min(b);
+                let sound = listen_sound(path, end.saturating_sub(start), identity.settle_s.max(0.25))?;
+                let lufs = meter::integrated(&sound);
+                if !lufs.is_finite() {
+                    return Err(io::Error::new(
+                        io::ErrorKind::InvalidData,
+                        format!("{}: a silent sonification", path.display()),
+                    ));
+                }
+                let level_db = v_ref + identity.listen_lu - lufs;
+                // a sparse sound (a click, one strike) can be quiet by
+                // loudness and still peak past the stem's ceiling. It alone
+                // pays for that, here: otherwise the true-peak cap, one gain
+                // on the whole stem, would turn the entire video down for it
+                let over = meter::true_peak_db(&sound) + level_db - LISTEN_PEAK_DBTP;
+                let gain_db = if over > 0.0 { level_db - over } else { level_db };
+                sum.mix_in(&sound, start, db_to_gain(gain_db));
+            }
+        }
+        // tape glue: one transport, so both channels share the wow and flutter
+        let tape_seed = seed_for(&identity.name, "", "tape", 0);
+        let (mut tl, mut tr) = (Tape::new(tape_seed), Tape::new(tape_seed));
+        for v in &mut sum.l {
+            *v = tl.process(*v);
+        }
+        for v in &mut sum.r {
+            *v = tr.process(*v);
+        }
+
+        // 7. the duck, with breaths and listen windows released. In a hold the
+        //    author did not write for music (a gap under HOLD_MERGE s), the duck
+        //    lets the music up only part way (plan §7.2: the music answers fully
+        //    in the authored gaps); a 3 s window straddling such a hold's edge
+        //    otherwise hears the whole gap's music against half a window of voice
+        let shape = DuckShape::default();
+        let mut u = duck::duck_curve(&speech, n, shape);
+        if identity.hold_duck > 0.0 {
+            let held = duck::duck_curve(&duck::regions(&active, HOLD_MERGE), n, shape);
+            for (x, h) in u.iter_mut().zip(&held) {
+                *x = x.max(identity.hold_duck * h);
+            }
+        }
+        let windows: Vec<(f64, f64)> = sections
+            .iter()
+            .zip(&chapter_starts)
+            .flat_map(|(s, &t0)| {
+                let fps = f64::from(s.timeline.fps);
+                s.timeline
+                    .breaths
+                    .iter()
+                    .chain(&s.timeline.listens)
+                    .map(move |w| (t0 + w.frame as f64 / fps, w.seconds))
+            })
+            .collect();
+        duck::release_windows(&mut u, &windows, shape);
+        if identity.settle_s > 0.0 {
+            // an authored window the voice resumes from (within 0.5 s of its end)
+            let next = |t: f64| speech.iter().map(|r| r.0).find(|&s| s >= t - 0.05);
+            let resumes: Vec<f64> = windows
+                .iter()
+                .filter_map(|&(s, len)| next(s + len).filter(|&o| o - (s + len) < 0.5))
+                .collect();
+            duck::recede(&mut u, &resumes, identity.settle_s);
+        }
+        let mut music = duck::apply(&sum, &u, identity.duck_db);
+        drop(sum);
+        // the authored silences, applied to everything (bed, notes, tails,
+        // sonifications): exactly zero inside
+        if !silences.is_empty() {
+            for (i, g) in silence_gain(&silences, n).into_iter().enumerate() {
+                music.l[i] *= g;
+                music.r[i] *= g;
+            }
+        }
+
+        // 8. the video's edges: a 1 s fade-in, a 3 s fade-out
+        let fade_in = (1.0 * FS) as usize;
+        let fade_out = (3.0 * FS) as usize;
+        for i in 0..n {
+            let g = rcos(i as f64 / fade_in as f64) * rcos((n - 1 - i) as f64 / fade_out as f64);
             music.l[i] *= g;
             music.r[i] *= g;
         }
-    }
 
-    // 8. the video's edges: a 1 s fade-in, a 3 s fade-out
-    let fade_in = (1.0 * FS) as usize;
-    let fade_out = (3.0 * FS) as usize;
-    for i in 0..n {
-        let g = rcos(i as f64 / fade_in as f64) * rcos((n - 1 - i) as f64 / fade_out as f64);
-        music.l[i] *= g;
-        music.r[i] *= g;
-    }
+        // 9. the true-peak cap: a fixed gain, never a limiter
+        let mut true_peak_db = meter::true_peak_db(&music);
+        let mut cap_db = 0.0;
+        // a 0.5 dB margin: a chapter's slice re-measured alone can read a hair
+        // higher than the whole (the interpolator sees a cut edge)
+        if true_peak_db > -12.5 {
+            cap_db = -12.5 - true_peak_db;
+            music.scale(db_to_gain(cap_db));
+            true_peak_db += cap_db;
+        }
+        Ok((music, true_peak_db, cap_db))
+    };
+    let (mut music, mut true_peak_db, mut cap_db) = mixdown(0.0)?;
 
-    // 9. the true-peak cap: a fixed gain, never a limiter
-    let mut true_peak_db = meter::true_peak_db(&music);
-    let mut cap_db = 0.0;
-    // a 0.5 dB margin: a chapter's slice re-measured alone can read a hair
-    // higher than the whole (the interpolator sees a cut edge)
-    if true_peak_db > -12.5 {
-        cap_db = -12.5 - true_peak_db;
-        music.scale(db_to_gain(cap_db));
-        true_peak_db += cap_db;
+    // 10. the level under speech, by measurement. Plan §7.2 puts the music at
+    //     V − 18 LU under speech. The bed's open-loop level lands there for
+    //     the voices the identities were tuned with, but not for every voice:
+    //     the bed bus is set against one reference chord, and in another
+    //     narrator's register that chord can read well under the rest (its
+    //     bass falls to the bottom of the bass octave, where K-weighting hears
+    //     little), which lifts every other chord. So the finished stem is
+    //     measured as QA measures it (the median of voice minus music over 3 s
+    //     windows centred in speech, whole video) and, when it falls short,
+    //     the bed bus alone comes down by the shortfall and the mix is made
+    //     again. A cut that holds the target is not touched. The measurement
+    //     is taken after the true-peak cap: that cap is one gain set by the
+    //     video's single loudest instant, so without this a peak that moves
+    //     anywhere would move the music under speech everywhere.
+    let mut bed_trim_db = 0.0;
+    for _ in 0..TRIM_PASSES {
+        let gaps = meter::voice_minus_music(&voice, &music, &speech);
+        if gaps.is_empty() {
+            break;
+        }
+        let short = UNDER_SPEECH_LU - meter::percentile(&gaps, 50.0);
+        if short <= TRIM_TOLERANCE_LU || bed_trim_db <= -BED_TRIM_MAX_DB {
+            break;
+        }
+        bed_trim_db = (bed_trim_db - short).max(-BED_TRIM_MAX_DB);
+        // the old mix is freed before the next is made (a long video's is a gigabyte)
+        drop(std::mem::take(&mut music));
+        (music, true_peak_db, cap_db) = mixdown(bed_trim_db)?;
     }
 
     Ok(Score {
@@ -2391,6 +2454,7 @@ fn compose(
         voice_lufs,
         true_peak_db,
         cap_db,
+        bed_trim_db,
         silences,
         notes,
         sonified,
@@ -4100,5 +4164,112 @@ mod tests {
         broken.bass = (28, 45);
         let e = render_in(&id, &sections, None, broken).unwrap_err();
         assert_eq!(e.kind(), io::ErrorKind::InvalidInput);
+    }
+    /// The whole video's median gap between voice and music under speech (LU).
+    fn under_speech(s: &Score) -> f64 {
+        meter::percentile(&meter::voice_minus_music(&s.voice, &s.music, &s.speech), 50.0)
+    }
+
+    /// Chapter `k`'s, as QA measures it on the chapter's own slices.
+    fn under_speech_in(s: &Score, k: usize) -> f64 {
+        let (v, m) = (s.chapter_voice(k), s.chapter_music(k));
+        meter::percentile(&meter::voice_minus_music(&v, &m, &crate::qa::speech_regions(&v)), 50.0)
+    }
+
+    #[test]
+    fn the_bed_comes_down_only_when_the_level_under_speech_falls_short() {
+        let base = std::env::temp_dir().join(format!("explainer_score_trim_{}", std::process::id()));
+        let id = Identity::hoeffding();
+        // a low voice: the register's bass octave drops to C♯1–C2, the tonic's
+        // bass lands on D1 (37 Hz) and the reference chord reads quiet, so
+        // the open-loop bed is hot under speech and has to come down
+        let low = super::render(&id, &voiced_sections(&base.join("low"), (77.0, 163.0)), None).unwrap();
+        assert!(
+            (-BED_TRIM_MAX_DB..-1.0).contains(&low.bed_trim_db),
+            "trim {} dB",
+            low.bed_trim_db
+        );
+        let gap = under_speech(&low);
+        assert!(
+            (UNDER_SPEECH_LU - TRIM_TOLERANCE_LU..UNDER_SPEECH_LU + 0.2).contains(&gap),
+            "{gap} LU after the trim"
+        );
+        // QA's own gate, per chapter, with room to spare
+        for k in 0..low.chapters.len() {
+            let music = low.chapter_music(k);
+            let r = crate::qa::evaluate(&low.chapters[k].0, &low.chapter_voice(k), &music, music.len(), None);
+            let m = r.get("voice_minus_music_median_lu").unwrap();
+            assert!(m.pass == Some(true) && m.value >= 17.0, "chapter {k}: {m:?}");
+        }
+        // the voice this identity was written for holds the target open loop:
+        // nothing is trimmed, so its stem is the one it always was
+        let high = super::render(&id, &voiced_sections(&base.join("high"), (104.0, 216.0)), None).unwrap();
+        assert_eq!(high.bed_trim_db, 0.0);
+        assert!(under_speech(&high) >= UNDER_SPEECH_LU);
+        // and so does an identity whose bass sits under its pad, in either register
+        let other = Identity::capture_recapture();
+        let s = super::render(&other, &voiced_sections(&base.join("other"), (77.0, 163.0)), None).unwrap();
+        assert_eq!(s.bed_trim_db, 0.0);
+        assert!(under_speech(&s) >= UNDER_SPEECH_LU);
+    }
+
+    #[test]
+    fn a_lower_peak_cannot_bring_the_music_closer_to_the_voice() {
+        // Hoeffding's michael variant, 2026-10-12: two sentences changed, the
+        // video's loudest instant (a sonification over a chord) came out
+        // 0.5 dB lower, the true-peak cap (one gain on the whole stem) let
+        // everything up by that much, and five chapters fell under the level
+        // gate that the first version had passed. Here: one cut with a click
+        // in a listen window (the cap binds on it) and without (it does not)
+        let base = std::env::temp_dir().join(format!("explainer_score_peak_{}", std::process::id()));
+        let id = Identity::hoeffding();
+        let capless_sections = voiced_sections(&base, (77.0, 163.0));
+        let mut capped_sections = capless_sections.clone();
+        let click: Vec<f64> = (0..3 * 48_000)
+            .map(|k| {
+                let t = k as f64 / FS;
+                let level = if (1.5..1.504).contains(&t) { 0.9 } else { 0.002 };
+                level * (std::f64::consts::TAU * 600.0 * t).sin()
+            })
+            .collect();
+        let sound = base.join("click.wav");
+        crate::wav::write(&sound, &Stereo::from_mono(&click), crate::wav::Format::F32).unwrap();
+        // in 02's gap at 15–19 s
+        capped_sections[1].timeline.listens = vec![crate::timeline::Window {
+            frame: (15.5 * 60.0) as u64,
+            seconds: 3.0,
+            label: "click".into(),
+            sound: Some(sound),
+        }];
+        let capless = super::render(&id, &capless_sections, None).unwrap();
+        let capped = super::render(&id, &capped_sections, None).unwrap();
+        // the click is the video's peak. By loudness alone it would stand
+        // 4.7 dB over the stem's ceiling; it is brought to the ceiling by
+        // itself, and the cap takes only what the bed adds under it
+        assert_eq!(capless.cap_db, 0.0);
+        assert!((-3.0..-0.5).contains(&capped.cap_db), "cap {} dB", capped.cap_db);
+        assert!((capped.true_peak_db + 12.5).abs() < 1e-6);
+        // the cap turns the whole stem down, which here is enough to hold the
+        // target under speech; without the click nothing does that, and the
+        // open-loop bed is over a decibel hot (what failed QA)
+        assert_eq!(capped.bed_trim_db, 0.0);
+        assert!(capless.bed_trim_db < -1.0, "trim {} dB", capless.bed_trim_db);
+        // so the level under speech is set by measurement, and holds in both:
+        // whole video, and chapter by chapter at QA's own gate
+        for s in [&capless, &capped] {
+            let gap = under_speech(s);
+            assert!(
+                gap >= UNDER_SPEECH_LU - TRIM_TOLERANCE_LU,
+                "{gap} LU, cap {} dB",
+                s.cap_db
+            );
+            for k in 0..s.chapters.len() {
+                let here = under_speech_in(s, k);
+                assert!(here >= 17.0, "chapter {k}: {here} LU, cap {} dB", s.cap_db);
+            }
+        }
+        // the peak can still make the music quieter everywhere (the cap is one
+        // gain), never closer to the voice than the target
+        assert!(under_speech(&capped) > under_speech(&capless));
     }
 }
