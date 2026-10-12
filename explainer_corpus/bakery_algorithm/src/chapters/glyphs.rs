@@ -341,6 +341,13 @@ pub const SEQCST: &str = "SeqCst";
 pub const LONGER_RUN_A: &str = "; there Release/Acquire lost";
 pub const LONGER_RUN_B: &str = "of";
 pub const LONGER_RUN_C: &str = "in a longer run";
+/// Under a zero cell that the memory model allows to fail (R3 dev-01, ruth-01).
+pub const NONE_SEEN: &str = "none seen; not promised";
+/// The table note's last two sentences: what a zero does and does not show,
+/// and why x86 fails where Arm happened not to.
+pub const ZERO_IS_NOT_PROOF: &str = "A zero is none seen in these runs, never a proof that two can't be in the room.";
+pub const X86_PLAIN_MOVES: &str =
+    "On x86, Release and Acquire are plain moves, so a later read can still overtake the doorway's write.";
 
 // 13_proudest
 pub const RMW: &str = "atomic read-modify-write instructions:";
@@ -667,6 +674,9 @@ pub const TEXT: &[&str] = &[
     LONGER_RUN_A,
     LONGER_RUN_B,
     LONGER_RUN_C,
+    NONE_SEEN,
+    ZERO_IS_NOT_PROOF,
+    X86_PLAIN_MOVES,
     // 13_proudest
     RMW,
     RMW_TEXT,

@@ -598,8 +598,13 @@ fn measured_table(
         for (m, &x) in [x86, arm].into_iter().zip(&cols) {
             let r = m.mode(mode, 2);
             debug_assert_eq!(r.entries, visits, "every cell counts the same visits");
-            let c = if r.lost > 0 { room_red() } else { Palette::green() };
+            // a zero is not a green light: only SeqCst's is promised by the
+            // memory model (R3 dev-01, ruth-01), so zeros stay in plain ink
+            let c = if r.lost > 0 { room_red() } else { Palette::ink() };
             parts.push(kit.text(stage, &thousands(r.lost), 34.0, c, v(x, y))?);
+            if r.lost == 0 && mode != "seqcst" {
+                parts.push(kit.text(stage, glyphs::NONE_SEEN, 17.0, Palette::dim(), v(x, y - 0.3))?);
+            }
         }
     }
     let mut note = format!("{} {}. {} {}", glyphs::X86_COLON, x86.cpu, glyphs::ARM_COLON, arm.cpu);
@@ -613,9 +618,9 @@ fn measured_table(
             glyphs::LONGER_RUN_C
         ));
     }
-    note.push('.');
+    note.push_str(&format!(". {} {}", glyphs::ZERO_IS_NOT_PROOF, glyphs::X86_PLAIN_MOVES));
     y -= 0.3;
-    for l in explainer_kit::animatic::wrap(&note, 76, 3) {
+    for l in explainer_kit::animatic::wrap(&note, 76, 5) {
         y -= 0.38;
         parts.push(kit.text_left(stage, &l, 22.0, Palette::dim(), v(left + 0.4, y))?);
     }
