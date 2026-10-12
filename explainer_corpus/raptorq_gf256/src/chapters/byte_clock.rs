@@ -445,7 +445,11 @@ impl SceneConstruct for TheByteClock {
         kit.until_sentence(stage, "11_5", 2)?;
         ruler.focus(stage, ka)?;
         let hop1 = ruler.hop(&kit, stage, 0, ka, &format!("{ka} clicks"))?;
-        play!(stage; tween(click, ka as f64, 1.0)?, show_creation(hop1).rt(1.0));
+        play!(stage;
+            tween(click, ka as f64, 1.0)?,
+            show_creation(hop1).rt(1.0),
+            fade_out(stage.arena_mut(), ruler.head_c, ORIGIN, 1.0)?.rt(0.4),
+        );
         ruler.focus(stage, kb)?;
         let hop2 = ruler.hop(&kit, stage, ka, ka + kb, &format!("+{kb}"))?;
         play!(stage; tween(click, (ka + kb) as f64, 0.7)?, show_creation(hop2).rt(0.7));
@@ -804,6 +808,9 @@ fn inner_marks(kit: &Kit, stage: &mut Stage<'_>, tracker: Mob, marks: &[(u8, usi
 struct Ruler {
     clicks: Vec<Mob>,
     bytes: Vec<Mob>,
+    /// The top row's title; it leaves when the first hop's "7 clicks" label
+    /// takes over naming the row.
+    head_c: Mob,
     all: Vec<Mob>,
     x0: f64,
     step: f64,
@@ -833,8 +840,11 @@ impl Ruler {
             .style(stroke_style(Palette::faint(), 2.0))
             .build()?;
         let line = stage.arena_mut().add(line);
-        // the row title sits past the hops' arcs (they end at click 9)
-        let head_c = kit.text(stage, "clicks", 44.0, Palette::ink(), v(x0 + step * 9.0, RULER_Y + 1.8))?;
+        // the row title sits over its own row, as "bytes" sits under its
+        // row. At the height of "8 × 16 = 128" it read "128 clicks" (final
+        // cut, 11_5); the hops' arcs cross this spot, so it leaves with the
+        // first hop.
+        let head_c = kit.text(stage, "clicks", 44.0, Palette::ink(), v(x0 + step * 6.0, RULER_Y + 1.1))?;
         let head_b = kit.text(stage, "bytes", 44.0, Role::byte(), v(x0 + step * 6.0, RULER_Y - 0.85))?;
         // the magnifier: the clock's first clicks point to the ruler's left
         // end; a line to its right end ran through the digit row (R4 M1)
@@ -848,10 +858,11 @@ impl Ruler {
         let (lens_a, lens_b) = (stage.arena_mut().add(lens_a), stage.arena_mut().add(lens_b));
         all.extend(&clicks);
         all.extend(&bytes);
-        all.extend([line, head_c, head_b, lens_a, lens_b]);
+        all.extend([line, head_b, lens_a, lens_b]);
         Ok(Self {
             clicks,
             bytes,
+            head_c,
             all,
             x0,
             step,
@@ -870,7 +881,7 @@ impl Ruler {
 
     fn show(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        for &m in &self.all {
+        for &m in self.all.iter().chain([&self.head_c]) {
             let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
             anims.push(stage.prepare(a)?);
         }

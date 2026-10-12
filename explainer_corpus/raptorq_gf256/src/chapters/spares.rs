@@ -321,7 +321,9 @@ fn amounts(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         .map(|i| b.water(stage, i, Role::ex_or()))
         .collect::<fmn::Result<_>>()?;
     let reading = m.readout(kit, stage, &format!("1/{:.0}", 1.0 / useless_chance(3, 4)))?;
-    let mini = RingProp::build(kit, stage, v(-2.4, 2.15), 1.0, 0.4, false)?;
+    // the stuck ring, small, over the bucket's column: beside the meter its
+    // lower cards ran into the label "chance of a useless card" (final cut)
+    let mini = RingProp::build(kit, stage, v(-4.7, 2.68), 0.9, 0.33, false)?;
     let mini_groups: Vec<Mob> = mini.cards.iter().map(|c| c.group).collect();
     let mini = group_of(stage, &mini_groups)?;
     let set01 = kit.tex(stage, r"\text{amount: 0 or 1}", 64.0, Role::ex_or(), &[], v(2.2, 2.0))?;
