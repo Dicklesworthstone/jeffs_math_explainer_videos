@@ -157,14 +157,33 @@ fn landings(n: usize, fall: f64) -> Vec<f64> {
         .collect()
 }
 
-/// A narration line as it is spoken: when it started and how long it is
-/// (the take's length, or the scratch voice's estimate), so a beat can wait
-/// for a phrase of it instead of a guessed number of seconds. A phrase is
-/// placed at its share of the line's words.
+/// A narration line as it is spoken: when it started, how long it is (the
+/// take's length, or the scratch voice's estimate) and where each of its
+/// sentences starts (the narration report's onsets), so a beat can wait for
+/// a phrase of it instead of a guessed number of seconds. A phrase is
+/// placed inside its own sentence, at its share of that sentence's words;
+/// without sentence onsets, at its share of the line's words.
 pub(super) struct Spoken {
     start: f64,
     len: f64,
     words: Vec<String>,
+    /// The index of each sentence's first word (always starts with 0).
+    firsts: Vec<usize>,
+    /// Each sentence's onset, seconds into the line; empty when unknown.
+    onsets: Vec<f64>,
+}
+
+/// The index of the first word of each sentence of `text`: a sentence ends
+/// at a word ending in `.`, `?` or `!` (as the narration splits a line).
+fn sentence_firsts(text: &str) -> Vec<usize> {
+    let mut firsts = vec![0];
+    let n = text.split_whitespace().count();
+    for (i, w) in text.split_whitespace().enumerate() {
+        if w.ends_with(['.', '?', '!']) && i + 1 < n {
+            firsts.push(i + 1);
+        }
+    }
+    firsts
 }
 
 /// Words as the beats compare them: letters and digits only, lower case.
@@ -190,6 +209,8 @@ impl Spoken {
             start: stage.scene().time().to_f64(),
             len,
             words,
+            firsts: sentence_firsts(text),
+            onsets: kit.sentence_starts(id),
         })
     }
 
@@ -199,7 +220,16 @@ impl Spoken {
         let at = (0..self.words.len())
             .find(|&i| self.words[i..].starts_with(&want))
             .ok_or_else(|| format!("{phrase:?} is not in the line"))?;
-        Ok(self.len * at as f64 / self.words.len() as f64)
+        if self.onsets.len() != self.firsts.len() {
+            return Ok(self.len * at as f64 / self.words.len() as f64);
+        }
+        // inside its sentence: from that sentence's onset to the next one's
+        let j = self.firsts.iter().rposition(|&f| f <= at).unwrap_or(0);
+        let first = self.firsts[j];
+        let next = self.firsts.get(j + 1).copied().unwrap_or(self.words.len());
+        let from = self.onsets[j];
+        let to = self.onsets.get(j + 1).copied().unwrap_or(self.len);
+        Ok(from + (to - from) * (at - first) as f64 / (next - first).max(1) as f64)
     }
 
     /// Wait until `phrase` is spoken (no wait if that is already past).
@@ -231,6 +261,8 @@ pub(super) fn beats_are_spoken(beats: &[(&str, &str)]) -> Result<(), String> {
             start: 0.0,
             len: 1.0,
             words,
+            firsts: sentence_firsts(text),
+            onsets: Vec::new(),
         }
         .offset(phrase)
         .map_err(|e| format!("{id}: {e}"))?;
@@ -747,10 +779,6 @@ impl RingToss {
         let centre = v(6.9 - w / 2.0, 3.2);
         stage.move_to(name, centre, ORIGIN);
         let name_card = stage.arena_mut().add(card(w, h, centre)?);
-        play!(stage;
-            fade_in(stage.arena_mut(), name_card, ORIGIN, 1.0)?.rt(0.5),
-            write(stage.arena(), name).rt(0.8),
-        );
         let note = precisely(
             kit,
             stage,
@@ -759,8 +787,13 @@ impl RingToss {
                 100.0 * coverage
             ),
         )?;
-        play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.7));
-        stage.wait(1.0)?;
+        // the name and its exact version together: no wait between them
+        play!(stage;
+            fade_in(stage.arena_mut(), name_card, ORIGIN, 1.0)?.rt(0.5),
+            write(stage.arena(), name).rt(0.8),
+            fade_in(stage.arena_mut(), note, v(0.0, 0.2), 1.0)?.rt(0.7),
+        );
+        stage.wait(0.8)?;
         kit.hold(stage)?;
         // everything but the name goes
         let rest: Vec<Mob> = stage
@@ -1301,10 +1334,34 @@ mod tests {
             start: 10.0,
             len: 8.0,
             words: "one two three, four".split_whitespace().map(plain).collect(),
+            firsts: vec![0],
+            onsets: Vec::new(),
         };
         assert_eq!(spoken.offset("one"), Ok(0.0));
         assert_eq!(spoken.offset("Three four"), Ok(4.0));
         assert!(spoken.offset("five").is_err());
+        // with sentence onsets, a phrase sits inside its own sentence: a
+        // sentence's first words are at its onset, later ones at their share
+        // of the span to the next onset (or to the line's end)
+        let text = "One two. Three four five six? Seven eight.";
+        let timed = Spoken {
+            start: 0.0,
+            len: 12.0,
+            words: text.split_whitespace().map(plain).collect(),
+            firsts: sentence_firsts(text),
+            onsets: vec![0.0, 1.0, 9.0],
+        };
+        assert_eq!(timed.firsts, [0, 2, 6]);
+        assert_eq!(timed.offset("three"), Ok(1.0));
+        assert_eq!(timed.offset("five six"), Ok(5.0));
+        assert_eq!(timed.offset("seven"), Ok(9.0));
+        assert_eq!(timed.offset("eight"), Ok(10.5));
+        // onsets that don't match the sentences are not trusted
+        let odd = Spoken {
+            onsets: vec![0.0, 1.0],
+            ..timed
+        };
+        assert_eq!(odd.offset("seven"), Ok(12.0 * 6.0 / 8.0));
         // every phrase this chapter waits for is in its line
         beats_are_spoken(&BEATS).unwrap();
     }

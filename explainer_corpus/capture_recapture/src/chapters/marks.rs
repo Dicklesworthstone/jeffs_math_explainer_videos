@@ -260,6 +260,8 @@ impl SceneConstruct for Marks {
         let mut second = caught_tray.parts().to_vec();
         second.push(second_label);
         fade_in_all(stage, &second, 0.8)?;
+        // "A thousand is one tenth of how many?": written as it is asked
+        kit.until_sentence(stage, "02_4", 2)?;
         play!(stage; write(stage.arena(), ask).rt(1.0));
         let q = predict_pause(&kit, stage, v(5.4, -2.75))?;
 

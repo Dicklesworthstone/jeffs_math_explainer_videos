@@ -12,6 +12,7 @@ use fmn::library::{AnnularSector, TransformMatchingTex, dashed_vmobject};
 use fmn::prelude::*;
 
 use super::draw::{Role, fish, flat, line_style, marked_fish, ring};
+use super::ring_toss::Spoken;
 use crate::exact::{EstimateLaw, estimate_law};
 use crate::model::SplitMix64;
 
@@ -466,7 +467,7 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
     play!(stage; fade_in(stage.arena_mut(), caveat, ORIGIN, 1.0)?.rt(0.6));
     kit.hold(stage)?;
     // 10_4 (split from 10_3, R3 Maya maya-13): the gauge
-    kit.say(stage, "10_4")?;
+    let line = Spoken::say(kit, stage, "10_4")?;
 
     // the gauge: the average guess against the true size
     let mut parts = vec![
@@ -576,6 +577,8 @@ fn chapman(kit: &Kit, stage: &mut Stage<'_>, law: &EstimateLaw) -> fmn::Result<(
         fade_in(stage.arena_mut(), plain_note, ORIGIN, 1.0)?.rt(0.8),
         fade_in(stage.arena_mut(), hub, ORIGIN, 1.0)?.rt(0.8),
     );
+    // Chapman's needle waits for its own clause
+    line.at(stage, "and Chapman's runs")?;
     play!(stage;
         fmn::animation::grow_arrow(stage.arena_mut(), chap_needle)?.rt(0.8),
         fade_in(stage.arena_mut(), chap_tag, ORIGIN, 1.0)?.rt(0.8),

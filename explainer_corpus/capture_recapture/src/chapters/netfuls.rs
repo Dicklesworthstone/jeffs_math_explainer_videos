@@ -696,7 +696,11 @@ impl SceneConstruct for Netfuls {
             }
         }
         let grid = stage.arena_mut().add(v_group(cells));
+        // each count arrives with its sentence: "Ten ways to pick two of the
+        // five marked ones." "For each, a hundred and five ways…"
+        kit.until_sentence(stage, "04_7", 1)?;
         fade_in_all(stage, &[marked_pairs, mp_label], 0.6)?;
+        kit.until_sentence(stage, "04_7", 2)?;
         play!(stage; write(stage.arena(), up_tex).rt(1.0));
         play!(stage; fmn::animation::grow_from_edge(stage.arena_mut(), grid, LEFT, None)?.rt(1.4));
         let product = mp * up;
@@ -711,6 +715,13 @@ impl SceneConstruct for Netfuls {
             &[],
             v(0.6, 0.3),
         )?;
+        // "One thousand fifty.": the product finishes as it is said
+        if let Some(at) = kit.narrator.as_ref().and_then(|n| n.sentence_at("04_7", 3)) {
+            let lead = at - 0.9 - stage.scene().time().to_f64();
+            if lead > 1e-3 {
+                stage.wait(lead)?;
+            }
+        }
         play!(stage; write(stage.arena(), shirts).rt(1.2));
         // and that is the two-marked pile's count
         let small = |p: Vec3| {
@@ -763,6 +774,8 @@ impl SceneConstruct for Netfuls {
             v(0.0, 2.6),
         )?;
         fade_in_all(stage, &[over], 0.5)?;
+        // "About twenty-eight percent, forty-seven, …": the labels with their words
+        kit.until_sentence(stage, "04_8", 1)?;
         fade_in_all(stage, &pcts, 0.5)?;
         let exact = precisely(
             &kit,
