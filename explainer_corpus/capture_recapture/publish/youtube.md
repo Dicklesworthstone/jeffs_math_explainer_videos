@@ -18,7 +18,21 @@ chapter times come from the final cut (`./x capture_recapture chapters`).
 Mark a thousand fish, let them go, and catch a thousand more: the hundred caught twice tell you roughly how many fish no net ever touched. Starting from William Feller's 1950 textbook puzzle, this video builds the four-cell table, the exact best guess, a 95% range that keeps its promise, the ways the method fails, and its uses from Laplace's France to software bugs and the war dead of Kosovo.
 
 Chapters
-{CHAPTERS}
+0:00 The fish nobody caught
+0:58 The marks measure the net
+2:14 Why the marks spread
+3:38 Every possible netful
+5:00 Turning it around
+6:24 Same mountains, two questions
+7:00 Is the score still rising?
+8:20 The table balances
+9:22 Ten thousand lakes
+10:31 Dividing by zero
+11:31 Turning it around again
+12:27 A range that keeps its promise
+13:41 One rule for every failure
+15:04 France and the bugs
+16:28 Kosovo, and the coda
 
 Names to search: capture-recapture (mark-recapture), closed population, the hypergeometric distribution, maximum likelihood, the Lincoln-Petersen estimator, Chapman's estimator, confidence intervals by test inversion, multiple systems estimation.
 

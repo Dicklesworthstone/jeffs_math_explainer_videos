@@ -1,0 +1,1 @@
+bakery algorithm, Leslie Lamport, mutual exclusion, concurrency, concurrent programming, Dijkstra, memory model, atomics, multithreading, critical section, distributed systems, computer science, math explainer

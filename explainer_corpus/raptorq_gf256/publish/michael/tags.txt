@@ -1,0 +1,1 @@
+RaptorQ, fountain code, erasure code, finite field, Galois field, GF(256), XOR, polynomials, error correction, RFC 6330, Reed-Solomon, network coding, linear algebra, math explainer
