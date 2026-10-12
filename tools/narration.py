@@ -314,7 +314,10 @@ def analyze(path, asr, target_text):
         limit, cap = CAPS[kind][0 if p["silent"] else 1]
         if length >= STALL:
             limit, cap = STALL, CAPS[kind][0][1]
-        if length > limit:
+        # A pause with sound in it may hold a weak word ("go up, and ... the order"): what the cut
+        # would remove must have no voice in it, or the pause stays as long as it is.
+        if length > limit and (p["silent"] or voiced_run(
+                x[int((a + cap / 2) * rate):int((p["b"] - cap / 2) * rate)], rate, h["top_db"]) < 4):
             cuts.append([round(a + cap / 2, 4), round(p["b"] - cap / 2, 4), 0.01 if p["silent"] else 0.04])
         pauses.append({"at": round(a, 2), "len": round(length, 2), "punct": punct, "silent": p["silent"]})
     hesitations = [p for p in pauses if p["punct"] == "" and p["len"] >= 0.22]
