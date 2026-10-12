@@ -522,3 +522,50 @@
 05_6	0	She sees Blue's flag up — and waits.
 05_6	0	“She sees Blue's flag up — and waits.”
 05_6	0	“She sees Blue's flag up, and waits.” …
+# Owner review 2 (2026-10-12, codex-tts-audit): 12_7 'writes' ends without its s (final s/z check); 08_8 'other's' is cut
+# inside its s; 05_1 'Green's slate' (audit 5:26); 07_2 now cut short. Other quotation marks and a trailing ellipsis.
+12_7	0	"For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes."
+12_7	0	‘For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.’
+12_7	0	«For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.»
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes. …
+12_7	0	“For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.” …
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes…
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads, and writes.
+12_7	0	“For programmers, the easy, correct way everywhere is sequentially consistent atomic reads, and writes.”
+08_8	1	"Then fact two says each one's pair is smaller than the other's."
+08_8	1	‘Then fact two says each one's pair is smaller than the other's.’
+08_8	1	«Then fact two says each one's pair is smaller than the other's.»
+08_8	1	Then fact two says each one's pair is smaller than the other's. …
+08_8	1	“Then fact two says each one's pair is smaller than the other's.” …
+08_8	1	Then fact two says each one's pair is smaller than the other's…
+08_8	1	Then fact two says each one's pair is smaller than — the other's.
+08_8	1	“Then fact two says each one's pair is smaller than — the other's.”
+05_1	1	"Blue reads Green's slate, sees zero, and decides on ticket one."
+05_1	1	‘Blue reads Green's slate, sees zero, and decides on ticket one.’
+05_1	1	«Blue reads Green's slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Green's slate, sees zero, and decides on ticket one. …
+05_1	1	“Blue reads Green's slate, sees zero, and decides on ticket one.” …
+05_1	1	Blue reads Green's slate, sees zero, and decides on ticket one…
+05_1	1	Blue reads Green's slate — sees zero, and decides on ticket one.
+05_1	1	Blue reads Green's slate; sees zero, and decides on ticket one.
+05_1	1	“Blue reads Green's slate — sees zero, and decides on ticket one.”
+05_1	1	“Blue reads Green's slate; sees zero, and decides on ticket one.”
+07_2	1	"Purple finishes first and finds Green's flag still up, so she waits."
+07_2	1	‘Purple finishes first and finds Green's flag still up, so she waits.’
+07_2	1	«Purple finishes first and finds Green's flag still up, so she waits.»
+07_2	1	Purple finishes first and finds Green's flag still up, so she waits. …
+07_2	1	“Purple finishes first and finds Green's flag still up, so she waits.” …
+07_2	1	Purple finishes first and finds Green's flag still up, so she waits…
+07_2	1	Purple finishes first and finds Green's flag still up — so she waits.
+07_2	1	“Purple finishes first and finds Green's flag still up — so she waits.”
+# 05_1 'Green's slate': in the n-to-s join of 03_3 'her own slate' (no z) the sibilant lasts 125-140 ms; most 05_1 reads
+# give 110-170 ms, so the possessive z is merged away. ftts-only respellings of the possessive, to make the z its own sound.
+05_1	1	Blue reads Greenz slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Greenz slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Greenz slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Green-z slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Green-z slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Green-z slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Greens slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Greens slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Greens slate, sees zero, and decides on ticket one.»
