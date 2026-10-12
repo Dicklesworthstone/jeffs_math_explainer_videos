@@ -255,7 +255,10 @@ writes: one to each 32-bit half. This can result in a situation where a thread
 sees the first 32 bits of a 64-bit value from one write, and the second 32 bits
 from another write." But "Writes and reads of volatile long and double values
 are always atomic." (JLS SE 21 §17.7), and `AtomicLongArray` gives its
-elements volatile access. [C-S22, C-S15]
+elements volatile access. [C-S22, C-S15] Lamport's garbage tolerance (10_5)
+assumes slates that can hold any integer: on a b-bit slate a glance may return
+2ᵇ − 1 and the next ticket overflows, so in practice it is paired with reads
+that never exceed what was written, which untorn aligned words give.
 
 **12_1–12_5.** The outbox is the store buffer. Intel: "Reads may be reordered
 with older writes to different locations but not with older writes to the same
@@ -310,8 +313,11 @@ algorithm [11] has become a popular example of a mutual exclusion algorithm."
 cluster immediately after reset and before the data cache is enabled in the
 warm boot path. It is not currently possible to use 'exclusive' based
 spinlocks, therefore BL31 uses locks based on Lamport's Bakery algorithm
-instead." It uses them only on platforms that are not hardware-coherent
-(`HW_ASSISTED_COHERENCY == 0`); exclusive instructions "have defined behavior
+instead." Its PSCI code uses them only on platforms that are not
+hardware-coherent (`HW_ASSISTED_COHERENCY == 0`), while the power controller's
+lock (`arm_lock`) is a bakery lock in BL31 either way; the lock code still
+issues barriers (`dmbish`, `dsb`) and packs the choosing flag and the ticket
+into one word written by one store; exclusive instructions "have defined behavior
 only on certain memory types (cacheable and Normal memory in particular …)".
 [fact sheet open item 5, F2, C-S17]
 

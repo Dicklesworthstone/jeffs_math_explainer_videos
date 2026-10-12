@@ -320,8 +320,9 @@ pub const RECENT_MACS: &str = "recent Macs";
 /// al. found ({venue})." (the venue from `facts::cited`).
 pub const FENCE_NOTE_A: &str = "MFENCE, or a locked instruction such as XCHG. In the x86-TSO model, checked up to";
 pub const FENCE_NOTE_B: &str = "customers, F1 and F2 suffice, as Abdulla et al. found";
-pub const REORDER_1: &str = "model: an outbox";
-pub const REORDER_2: &str = "that may deliver";
+/// A toy model, said so: it is not how Arm works (R3 dev-09).
+pub const REORDER_1: &str = "toy model, not Arm itself:";
+pub const REORDER_2: &str = "an outbox that may deliver";
 pub const REORDER_3: &str = "out of order";
 /// 12_7: what not to do, and the cost.
 pub const UB_1: &str = "C, C++ and Rust:";
@@ -365,9 +366,9 @@ pub const TF_A: &str = "Trusted Firmware-A (TF-A)";
 pub const TF_A_WHY: &str = "a bakery lock for a core waking with its cache off";
 pub const CACHE_OFF: &str = "data cache: off";
 pub const NOT_GUARANTEED: &str = "exclusive-access spinlocks: not guaranteed";
-pub const TF_A_PRECISELY: &str = "TF-A takes the bakery lock right after reset, before the data cache is on (warm boot), \
-     and only on platforms without hardware coherency (HW_ASSISTED_COHERENCY off): exclusive-access spinlocks need \
-     cacheable memory; the bakery lock needs only plain loads and stores";
+pub const TF_A_PRECISELY: &str = "TF-A takes a bakery lock right after reset, before the data cache is on; its PSCI code \
+     does so only when HW_ASSISTED_COHERENCY is 0. Exclusive-access spinlocks need cacheable memory; a bakery \
+     lock needs only aligned loads, stores and barriers";
 /// 13_3: the timeline beneath its years, and the pair grid relabelled.
 pub const THE_BAKERY: &str = "the bakery";
 pub const TIME_CLOCKS: &str = "Time, Clocks";
