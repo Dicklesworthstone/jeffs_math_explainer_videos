@@ -227,8 +227,7 @@ impl Parking {
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for (i, &j) in cards.iter().enumerate() {
             if from_03.contains(&TOY_CARDS[j]) {
-                let a = fmn::animation::indicate(stage.arena_mut(), shown[i].group, 1.06, None)?;
-                anims.push(stage.prepare(a.rt(0.9))?);
+                anims.push(super::draw::swell(stage, shown[i].group, 1.12, 0.9)?);
             }
         }
         stage.play_prepared(anims)?;

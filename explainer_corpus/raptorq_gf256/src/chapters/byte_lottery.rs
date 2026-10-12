@@ -592,10 +592,12 @@ impl ByteLottery {
         );
         // so our ring of five is still stuck (R3 Maya maya-16)
         line.at(stage, 2)?;
-        play!(stage;
-            fmn::animation::indicate(stage.arena_mut(), ring.group, 1.06, None)?.rt(0.9),
-            fmn::animation::indicate(stage.arena_mut(), in_gf256, 1.15, None)?.rt(0.9),
-        );
+        let glow = fmn::animation::indicate(stage.arena_mut(), in_gf256, 1.15, None)?;
+        let anims = vec![
+            super::draw::swell(stage, ring.group, 1.08, 0.9)?,
+            stage.prepare(glow.rt(0.9))?,
+        ];
+        stage.play_prepared(anims)?;
         line.at(stage, 3)?;
         play!(stage;
             fade_in(stage.arena_mut(), grid, ORIGIN, 1.0)?.rt(0.8).lag(0.003),

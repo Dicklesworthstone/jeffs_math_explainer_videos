@@ -464,11 +464,16 @@ impl Danger {
         // it's a free card
         line.at(stage, 4)?;
         let tag = kit.text(stage, "a free card", 40.0, Palette::hero(), v(0.0, 0.05))?;
-        play!(stage;
-            fade_out(stage.arena_mut(), def, ORIGIN, 1.0)?.rt(0.4),
-            fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.5),
-            fmn::animation::indicate(stage.arena_mut(), card, 1.08, None)?.rt(0.8),
-        );
+        // the card swells in its own colours under its new name (0.8 s, as
+        // before: the chapter's length is the stems')
+        let out = fade_out(stage.arena_mut(), def, ORIGIN, 1.0)?;
+        let name = fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?;
+        let anims = vec![
+            stage.prepare(out.rt(0.4))?,
+            stage.prepare(name.rt(0.5))?,
+            super::draw::swell(stage, card, 1.12, 0.8)?,
+        ];
+        stage.play_prepared(anims)?;
         Ok(())
     }
 

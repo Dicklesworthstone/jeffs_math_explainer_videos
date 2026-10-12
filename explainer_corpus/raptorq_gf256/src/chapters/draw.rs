@@ -106,6 +106,22 @@ pub fn crossfade(stage: &mut Stage<'_>, incoming: &[Mob], rt: f64) -> fmn::Resul
     Ok(())
 }
 
+/// A swell to `scale` and back over `rt` seconds, with no recolouring
+/// (prepared). `indicate` with no colour turns everything it touches the
+/// engine's default yellow, and a card's paper floods solid yellow over its
+/// equation (the 4K final: 13_7's ring, 15_7's free card, 16_2's cards).
+pub fn swell(stage: &mut Stage<'_>, mob: Mob, scale: f64, rt: f64) -> fmn::Result<Box<dyn Animation>> {
+    let a = mob
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(rt),
+            rate_func: Some(fmn::core::rate::there_and_back),
+            ..AnimateArgs::default()
+        })?
+        .scale(scale)?;
+    stage.prepare(a)
+}
+
 /// The vertices of a regular `n`-gon of circumradius `r` round `at`, the
 /// first at angle `start`.
 fn ngon(n: usize, r: f64, start: f64, at: Vec3) -> Vec<Vec3> {

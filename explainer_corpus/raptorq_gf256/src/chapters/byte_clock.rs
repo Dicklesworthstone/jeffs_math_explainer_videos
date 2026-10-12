@@ -539,7 +539,9 @@ impl SceneConstruct for TheByteClock {
         let board = super::voice::board("11_the_byte_clock")?;
         let line = super::voice::Spoken::say(&kit, stage, &board, "11_6")?;
         let mut gone = ruler.all.clone();
-        gone.extend([powers, ints, ask, hop1, hop2, sum, dd]);
+        // not `powers` and `ints`: they left before the hops, and fading a
+        // mobject out twice flashes it back for the length of the fade
+        gone.extend([ask, hop1, hop2, sum, dd]);
         fade_list(stage, &gone, 0.5)?;
         play!(stage; write(stage.arena(), ask2).rt(0.6), tween(click, 0.0, 0.5)?);
         play!(stage;
