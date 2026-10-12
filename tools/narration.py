@@ -95,6 +95,7 @@ CAPS = {"punct": ((0.42, 0.40), (0.52, 0.44)), "none": ((0.22, 0.18), (0.34, 0.2
         "unknown": ((0.34, 0.30), (0.52, 0.40))}
 STALL = 0.90               # a pause this long is the model stalling, whatever is in it
 CUT_SHORT = 16.0           # dB under speech level: a last sound that stops louder than this was cut off
+SIBILANT_TAIL = 0.30       # s of kept speech searched for the final s/z of a word that ends in one
 FINISHERS = (("“", "”"),)  # every read is also auditioned inside these; ftts then finishes the sentence
 EXTRA = {}                 # script sentence -> the director's extra ftts inputs for it (reads.tsv)
 PICKS = {}                 # read tag -> why the director chose it over the score (picks.tsv)
@@ -177,6 +178,35 @@ def steady(level):
     """A stretch whose level holds within 3 dB for 0.15 s or more: a hum (leo leads into sentences
     with up to 0.4 s of one, all under 500 Hz, so `noise` passes it). A word attacks and decays."""
     return bool(len(level) >= frames(0.15) and float(np.std(level)) < 3.0)
+
+
+def wants_sibilant(sentence):
+    """The sentence's last word ends in an s or z sound in its spelling: phones, codes, writes, other's,
+    once, those, box (every ending the owner and the audit heard dropped was one of these)."""
+    words = sentence.split()
+    last = "".join(c for c in (words[-1] if words else "").lower() if c.isalpha() or c == "'").rstrip("'")
+    return last.endswith(("s", "x", "ce", "se", "ze"))
+
+
+def sibilant_missing(x, rate, end):
+    """No frication at the end of a read whose last word ends in s/z: over the last SIBILANT_TAIL s
+    before `end`, even the 15 ms frame with the most 4-10 kHz energy has more energy under 2 kHz.
+    ftts drops a final s/z ("a million phone"); Whisper writes the word in full, so only the
+    spectrum shows it. Calibrated on 113 reads: every missing ending had this ratio below 0 dB
+    (-7 to -31), every present one above +13."""
+    seg = x[max(0, int((end - SIBILANT_TAIL) * rate)):int(end * rate)]
+    n, h = int(0.015 * rate), int(HOP * rate)
+    if len(seg) < n:
+        return False
+    win, f = np.hanning(n), np.fft.rfftfreq(n, 1 / rate)
+    hi, lo = (f >= 4000) & (f < 10000), (f >= 100) & (f < 2000)
+    best_hf, ratio = -np.inf, -np.inf
+    for i in range(0, len(seg) - n + 1, h):
+        power = np.abs(np.fft.rfft(seg[i:i + n] * win)) ** 2
+        hf, lf = 10 * np.log10(power[hi].sum() + 1e-12), 10 * np.log10(power[lo].sum() + 1e-12)
+        if hf > best_hf:
+            best_hf, ratio = hf, hf - lf
+    return bool(ratio < 0.0)
 
 
 def first_voiced(x, rate, top):
@@ -359,6 +389,8 @@ def analyze(path, asr, target_text):
     stalls = sum(1 for p in pauses if p["len"] >= STALL)
     score -= 0.02 * (h["junk_after_s"] > 0) + 0.04 * stalls + 0.02 * (not h["clean_in"]) + 0.02 * (not h["clean_out"])
     score -= 0.12 * h["cut_short"]
+    no_s = wants_sibilant(target_text) and sibilant_missing(x, rate, h["cut_out"])
+    score -= 0.12 * no_s  # a dropped final s/z changes the word ("phone" for "phones")
     picked = PICKS.get(Path(path).stem)
     score = round(score, 4)
     if picked is not None:
@@ -369,7 +401,7 @@ def analyze(path, asr, target_text):
         "hesitations": len(hesitations), "pitch_std_st": round(pitch_std, 2), "final_st": round(final_st, 2),
         "start": round(h["cut_in"], 4), "end": round(h["cut_out"], 4), "heard": asr.get("text", ""),
         "cuts": cuts, "clean_in": h["clean_in"], "clean_out": h["clean_out"], "junk_after_s": h["junk_after_s"],
-        "cut_short": h["cut_short"], "stalls": stalls,
+        "cut_short": h["cut_short"], "sibilant_missing": no_s, "stalls": stalls,
         "lead_s": round(h["first"] - h["cut_in"], 3), "tail_s": round(h["cut_out"] - h["last"], 3),
         **({"picked": picked} if picked else {}), "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
     }
@@ -474,6 +506,9 @@ def main():
     print(f"endings: {sum(s['cut_short'] for s in reads)} of {len(reads)} chosen reads were cut short by ftts "
           f"(the last sound stops at speech level); {sum(s['tts'].startswith(FINISHERS[0][0]) for s in reads)} "
           f"are the read in quotation marks; {sum('picked' in s for s in reads)} were picked by the director")
+    missing = [f"{s['read'].split('__')[0]}.{s['j']} {s['sentence'].split()[-1]}" for s in reads if s.get("sibilant_missing")]
+    print(f"final s/z: {len(missing)} chosen reads end without the s or z their last word needs"
+          + (f" (each needs another read or a pick: {', '.join(missing)})" if missing else ""))
     over1, over3 = (100 * w / max(1, worked[2]) for w in worked[:2])
     ok = over1 <= LIMITER_MAX[0] and over3 <= LIMITER_MAX[1]
     print(f"limiter: turned down >1 dB for {over1:.2f}% of samples, >3 dB for {over3:.3f}% "
