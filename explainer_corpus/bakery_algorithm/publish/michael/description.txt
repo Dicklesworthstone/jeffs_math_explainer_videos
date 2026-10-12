@@ -16,7 +16,7 @@ Chapters
 14:26 Proudest
 
 What it costs
-The customers are fixed in advance, with one flag and one ticket slate each. Even with nobody else waiting, an entry reads each other customer's slate twice and her flag once; waiting repeats those reads. A waiting customer spins. A customer frozen while choosing stalls everyone after one more turn each, and a dead customer's slate stays set until something resets it. Run with plain loads and stores on today's processors, it can fail: use sequentially consistent atomics, or fences placed for your architecture, and 64-bit tickets.
+The customers are fixed in advance, with one flag and one ticket slate each. An uncontended entry reads each other customer's slate twice and her flag once. Waiting means spinning and re-reading. A customer frozen with her choosing flag raised stalls the others after at most one more turn each, and a dead customer's slate stays set until something resets it. Run with plain loads and stores on today's processors, it can fail: use sequentially consistent atomics, or fences placed for your architecture, and 64-bit tickets.
 
 The measured numbers in the video carry their sample sizes. The exact version of every simplification, every source, and the code that computes each number:
 https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bakery_algorithm/docs/description.md
