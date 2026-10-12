@@ -954,7 +954,8 @@ fn album(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
             Palette::dim(),
         ),
         (
-            "carousel",
+            // the screen's own word for it, "loop 1 … loop 6" (R4 M3)
+            "the loop",
             format!("≈ {}", thousands((carousel_mean_caught() / 100.0).round() as u64 * 100)),
             carousel_mean_caught(),
             Palette::dim(),

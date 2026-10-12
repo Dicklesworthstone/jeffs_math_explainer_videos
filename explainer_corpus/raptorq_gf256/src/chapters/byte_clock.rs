@@ -620,7 +620,15 @@ impl SceneConstruct for TheByteClock {
         let pairs = clock.mirror_pairs(stage, Role::byte())?;
         let top = click_point(C, R + 0.35, 0.0);
         let own = kit.text(stage, "its own partner", 24.0, Role::byte(), v(top[0] + 1.25, top[1]))?;
-        let none = kit.text(stage, "0: none", 24.0, Palette::dim(), v(C[0], C[1] - 0.35))?;
+        // beside the full-turn note, clear of the hand and the mirror lines
+        // that cross the centre (R4 M2)
+        let none = kit.text(
+            stage,
+            "0, at the centre: no partner",
+            28.0,
+            Palette::dim(),
+            v(4.1, -0.5),
+        )?;
         // the mirror rule wraps like the clock: one full turn is 0 clicks, so
         // 1 (0 clicks) is its own partner (Codex R4: 255 - log a alone fails at 1)
         let rule_tex = kit.tex(
@@ -804,18 +812,24 @@ impl Ruler {
             .style(stroke_style(Palette::faint(), 2.0))
             .build()?;
         let line = stage.arena_mut().add(line);
-        let head_c = kit.text(stage, "clicks", 22.0, Palette::dim(), v(x0 + step * 6.0, RULER_Y + 0.7))?;
+        // the row title sits past the hops' arcs (they end at click 9)
+        let head_c = kit.text(
+            stage,
+            "clicks",
+            22.0,
+            Palette::dim(),
+            v(x0 + step * 11.0, RULER_Y + 0.7),
+        )?;
         let head_b = kit.text(stage, "bytes", 22.0, Role::byte(), v(x0 + step * 6.0, RULER_Y - 0.7))?;
-        // the magnifier: the clock's first clicks fan out to the ruler
-        let lens_a = Line::new(click_point(C, R, 0.0), v(x0 - 0.25, RULER_Y))
+        // the magnifier: the clock's first clicks point to the ruler's left
+        // end; a line to its right end ran through the digit row (R4 M1)
+        let lens_to = v(x0 - 0.25, RULER_Y);
+        let lens_a = Line::new(click_point(C, R, 0.0), lens_to)
             .style(stroke_style(Palette::faint(), 1.5))
             .build()?;
-        let lens_b = Line::new(
-            click_point(C, R, (RULER - 1) as f64),
-            v(x0 + step * (RULER - 1) as f64 + 0.25, RULER_Y),
-        )
-        .style(stroke_style(Palette::faint(), 1.5))
-        .build()?;
+        let lens_b = Line::new(click_point(C, R, (RULER - 1) as f64), lens_to)
+            .style(stroke_style(Palette::faint(), 1.5))
+            .build()?;
         let (lens_a, lens_b) = (stage.arena_mut().add(lens_a), stage.arena_mut().add(lens_b));
         all.extend(&clicks);
         all.extend(&bytes);
