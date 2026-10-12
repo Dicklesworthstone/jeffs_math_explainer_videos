@@ -69,7 +69,7 @@
      "method": "LPC formants (order 12 at 11.025 kHz, 25 ms frames) of the name's first vowel, median over the middle of the voiced run, read beside a wideband spectrogram; evidence for the eye, not proof",
      "measure": "an r-coloured vowel (HERF) has F3 pulled down next to F2; the vowel of HEFF keeps F3 near 2.4 kHz with F2 near 1.75 kHz; HOFF has F2 under 1 kHz",
      "references": "in \"{w}'s D asks a deeper question.\": plain Hoeffding F2 832 / F3 2275 Hz; HEFF-ding F2 1741 / F3 2428; Herf-ding F2 1160 / F3 1503; Hurfding F2 1323 / F3 1472",
-     "script": "the take chosen for each of the 9 name sentences on 2026-10-12 03:13 (5 Hurfding, 4 Herf-ding): F2 1131-1318 Hz, F3 1314-1586 Hz, all r-coloured. Where the name starts a sentence the /h/ is kept."
+     "script": "the read chosen for each of the 9 name sentences in the build of 2026-10-12 04:09 (tools/narration.py at df974cd; 7 Hurfding, 2 Herf-ding): the name's vowel has F2 1005-1318 Hz and F3 1304-1586 Hz, r-coloured in all nine. Where the name starts a sentence (g10, q8, c8, f4) the /h/ is in the shipped line."
     }
    }
   },
@@ -163,6 +163,17 @@
    "ipa": "ˈskætər",
    "lang": "en",
    "note": "Ordinary word, here because robert's read of r2 'as a scatter plot' was written 'statter plot' by the ASR at take and line level (2026-10-12): the k is weak. A second spelling is auditioned, and a 'statter' read now counts as a miss."
+  },
+  "D": {
+   "respell": [
+    "D"
+   ],
+   "accept": [
+    "dee"
+   ],
+   "say": "DEE",
+   "lang": "en",
+   "note": "The statistic's letter. Listed only so that a misheard D counts as a miss: q1 'why can D see shapes' was read so that the ASR wrote 'these C shapes' (2026-10-12), and that read was being chosen. No respelling; nothing else changes."
   }
  },
  "accept": {
@@ -180,6 +191,12 @@
   ],
   "dependence": [
    "dependents"
+  ],
+  "sit": [
+   "sits"
+  ],
+  "add": [
+   "at"
   ]
  },
  "phrases": {
@@ -190,6 +207,8 @@
   "herf dings": "hoeffdings",
   "herf ding's": "hoeffding's",
   "1/2": "a half",
-  "scatterplot": "scatter plot"
+  "scatterplot": "scatter plot",
+  "dc": "d see",
+  "d.c.": "d see"
  }
 }
