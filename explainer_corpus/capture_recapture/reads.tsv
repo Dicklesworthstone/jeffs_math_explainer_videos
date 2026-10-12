@@ -362,3 +362,12 @@
 12_1	0	Now the careful range!
 12_1	0	“Now, the careful range.” …
 12_1	0	«Now, the careful range.»
+# michael variant, v3: 04_7 s1 "ones": the chosen read's z runs 70 ms into the end of the WAV and stops there.
+04_7	1	‘Ten ways to pick two of the five marked ones.’
+04_7	1	"Ten ways to pick two of the five marked ones."
+04_7	1	«Ten ways to pick two of the five marked ones.»
+04_7	1	Ten ways to pick two of the five marked ones. …
+04_7	1	“Ten ways to pick two of the five marked ones.” …
+04_7	1	Ten ways to pick two of the five marked ones!
+04_7	1	Ten ways to pick two of the five marked, ones.
+04_7	1	Ten ways, to pick two of the five marked ones.
