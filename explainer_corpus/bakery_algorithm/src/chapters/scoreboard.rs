@@ -90,6 +90,15 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     let at = v(1.3, 0.75);
     let size = 2.5;
     let s = slate(kit, stage, cited::TORN_FROM, at, size)?;
+    // the opening shot is the slate alone, large and centred; it steps
+    // aside to `at` when the glance needs the room
+    let (open_at, open_scale) = (v(0.0, 0.3), 1.5);
+    let open = |stage: &mut Stage<'_>, m: Mob| {
+        stage.scale_about(m, open_scale, Some(at), None);
+        stage.shift(m, v(open_at[0] - at[0], open_at[1] - at[1]));
+    };
+    open(stage, s.board);
+    open(stage, s.value);
     let line = say(kit, stage, "01_1")?;
     play!(stage;
         fade_in(stage.arena_mut(), s.board, ORIGIN, 1.0)?.rt(0.8),
@@ -98,13 +107,14 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // "Someone is rewriting it as ten": the nine rubbed out, the ten half drawn
     line.wait_for(stage, "Someone is rewriting")?;
     let ten = chalk_number(kit, stage, cited::TORN_TO, at, size)?;
+    open(stage, ten);
     let mut half = write(stage.arena(), ten);
-    half.update_rate_info(Some(1.8), Some(RateFunc::smooth().not_quite_there(0.5)), None);
+    half.update_rate_info(Some(1.5), Some(RateFunc::smooth().not_quite_there(0.5)), None);
     let rub = s
         .value
         .animate()
         .set_anim_args(AnimateArgs {
-            run_time: Some(1.8),
+            run_time: Some(1.5),
             ..AnimateArgs::default()
         })?
         .set_opacity(0.35)?;
@@ -112,7 +122,17 @@ fn torn_slate(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     // the rubbed nine and the half-drawn ten are one numeral from here on
     // (they move together, and the layout lint reads one text)
     stage.attach(s.value, ten)?;
-    // the glance
+    // the slate steps aside for the glance
+    let aside = |m: Mob| -> fmn::Result<AnimBuilder> {
+        Ok(m.animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(0.7),
+                ..AnimateArgs::default()
+            })?
+            .scale_about(1.0 / open_scale, Some(open_at), None)?
+            .shift(v(at[0] - open_at[0], at[1] - open_at[1]))?)
+    };
+    play!(stage; aside(s.board)?, aside(s.value)?);
     line.wait_for(stage, "Glance at it")?;
     let eye_at = v(-4.7, 0.75);
     let the_eye = eye(stage, eye_at)?;
@@ -654,7 +674,9 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
         anims.push(stage.prepare(a.rt(0.9))?);
     }
     stage.play_prepared(anims)?;
-    let (y, pitch, speed) = (0.4, 0.2, 2.6);
+    // ticks you can count on a phone: a third of the frame's height between
+    // the flecks above and the note below
+    let (y, pitch, speed) = (0.55, 0.42, 4.6);
     let (x0, x1, fade) = (-6.7, 6.7, 1.2);
     let layout = strip_layout(&strip_ticks(0x0109, 900), pitch);
     let slots = ((x1 - x0) / pitch) as usize + 4;
@@ -663,7 +685,7 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
         .collect::<fmn::Result<_>>()?;
     let fleck_pool: Vec<Mob> = (0..8)
         .map(|_| {
-            let f = Polygon::new([v(-0.13, 0.52), v(0.13, 0.52), v(0.0, 0.32)])
+            let f = Polygon::new([v(-0.24, 0.42), v(0.24, 0.42), v(0.0, 0.0)])
                 .style(flat(room_red(), 1.0))
                 .build();
             stage.arena_mut().add(f)
@@ -708,7 +730,7 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
                 match layout.flecks.get(f0 + p) {
                     Some(&fx) if fx <= left + (x1 - x0) => {
                         let x = screen(fx);
-                        s.move_to(m, v(x, y + 0.42), ORIGIN);
+                        s.move_to(m, v(x, y + 0.95), ORIGIN);
                         s.set_opacity(m, alpha(x), true);
                     }
                     _ => {
@@ -719,7 +741,7 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
         },
         true,
     )?;
-    let note = kit.text(stage, g::STRIP_NOTE, 22.0, Palette::dim(), v(0.0, -0.45))?;
+    let note = kit.text(stage, g::STRIP_NOTE, 30.0, Palette::dim(), v(0.0, -0.75))?;
     play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.8));
     line.wait_for(stage, "but a fix")?;
     let lower = lower_third(
@@ -737,9 +759,9 @@ fn strip(kit: &Kit, stage: &mut Stage<'_>, square: SquareMobs) -> fmn::Result<()
 /// One step on the strip, in its program's colour.
 fn tick(who: usize, x: f64, y: f64) -> fmn::Result<VMobject> {
     Ok(Rectangle::new()
-        .width(0.13)
-        .height(0.42)
-        .corner_radius(0.04)
+        .width(0.27)
+        .height(1.0)
+        .corner_radius(0.08)
         .style(flat(customer(who + 1), 0.95))
         .build()?
         .moved_to(v(x, y)))

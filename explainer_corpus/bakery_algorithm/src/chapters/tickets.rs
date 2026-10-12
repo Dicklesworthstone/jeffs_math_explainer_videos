@@ -115,6 +115,14 @@ impl Bakery {
 
 // --------------------------------------------------------------------- 03_1
 
+/// Where the five customers stand while they are introduced (a row, large,
+/// left of the room), before they walk to the heads of their lanes.
+const ROLL_X: [f64; 5] = [-5.3, -3.3, -1.3, 0.7, 2.7];
+const ROLL_Y: f64 = 0.15;
+const ROLL_SCALE: f64 = 2.3;
+/// How much bigger 03_1's three chalk tickets are than a slate's.
+const FIRST_TICKETS: f64 = 1.45;
+
 fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
     let line = say(kit, stage, "03_1")?;
     let dated = kit.text(
@@ -128,7 +136,7 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
     // Blue and Green, as in 01–02, then three more customers
     let mut figures = Vec::new();
     for k in 1..=5 {
-        let f = figure(kit, stage, k, figure_at(k), FIG_SCALE)?;
+        let f = figure(kit, stage, k, v(ROLL_X[k - 1], ROLL_Y), ROLL_SCALE)?;
         stage.set_opacity(f.badge, 0.0, true);
         figures.push(f);
     }
@@ -151,7 +159,7 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
         anims.push(stage.prepare(a.rt(0.8))?);
     }
     for (i, &m) in joining.iter().enumerate() {
-        let a = fade_in(stage.arena_mut(), m, v(-0.4, 0.0), 1.0)?;
+        let a = fade_in(stage.arena_mut(), m, v(0.0, -0.4), 1.0)?;
         anims.push(stage.prepare(a.rt(0.6 + 0.2 * i as f64))?);
     }
     stage.play_prepared(anims)?;
@@ -160,9 +168,14 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
     line.wait_for(stage, "Take a number")?;
     let mut held = [0u32; 5];
     let mut tickets = Vec::new();
-    for (i, x) in [-0.62, 0.0, 0.62].into_iter().enumerate() {
+    for (i, x) in [-0.8, 0.0, 0.8].into_iter().enumerate() {
         held[i] = take_ticket(&held, i + 1);
-        tickets.push(ticket(kit, stage, held[i], v(ROOM_C[0] + x, ROOM_C[1] - 1.55), false)?);
+        let at = v(ROOM_C[0] + x, ROOM_C[1] - 1.55);
+        let t = ticket(kit, stage, held[i], at, false)?;
+        for m in t {
+            stage.scale_about(m, FIRST_TICKETS, Some(at), None);
+        }
+        tickets.push(t);
     }
     let parts: Vec<Mob> = tickets.iter().flatten().copied().collect();
     fade_in_all(stage, &parts, 0.5)?;
@@ -189,15 +202,37 @@ fn bakery(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Bakery> {
             .set_opacity(1.0)?;
         anims.push(stage.prepare(a)?);
         let name = format!("{} {}", super::draw::NAMES[f.k - 1], f.k);
-        let tag = kit.text_left(stage, &name, 28.0, customer(f.k), v(FIG_X + 0.5, LANE_Y[f.k - 1]))?;
-        let t = fade_in(stage.arena_mut(), tag, v(-0.15, 0.0), 1.0)?;
+        let under = v(
+            ROLL_X[f.k - 1],
+            ROLL_Y - 0.5 * super::draw::FIGURE_H * ROLL_SCALE - 0.45,
+        );
+        let tag = kit.text(stage, &name, 36.0, customer(f.k), under)?;
+        let t = fade_in(stage.arena_mut(), tag, v(0.0, 0.15), 1.0)?;
         anims.push(stage.prepare(t.rt(0.6))?);
         roll.push(tag);
     }
     let g_roll = fmn::animation::lagged_start(stage.arena_mut(), anims)?;
     stage.play(g_roll)?;
+    // each customer walks to the head of her lane
     line.wait_for(stage, "From now on")?;
-    fade_out_all(stage, &roll, 0.4)?;
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &tag in &roll {
+        let a = fade_out(stage.arena_mut(), tag, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(0.4))?);
+    }
+    for f in &figures {
+        let a = f
+            .group
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(1.0),
+                ..AnimateArgs::default()
+            })?
+            .scale(FIG_SCALE / ROLL_SCALE)?
+            .move_to(figure_at(f.k), ORIGIN)?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
     let names = lower_third(kit, stage, g::NAMES, g::PROCESS)?;
     play!(stage;
         fade_in(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.5),

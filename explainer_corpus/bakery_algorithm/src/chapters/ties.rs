@@ -475,9 +475,12 @@ fn tie_breaker(
     // the slates stay on screen (M4), the pairs appear beside them
     line.wait_for(stage, "Pair each ticket")?;
     let (t3, t4) = (st2.number[2], st2.number[3]);
-    let first = pair_token(kit, stage, t3, 3, v(-3.2, 1.0), 1.4)?;
-    let second = pair_token(kit, stage, t4, 4, v(1.4, 1.0), 1.4)?;
-    let pair_word = kit.text(stage, g::PAIR, 28.0, Palette::dim(), v(-3.45, 0.0))?;
+    // the two pairs are the picture: large, side by side, the dictionary's
+    // two words under them letter for number
+    let (x1, x2, y, size) = (-2.3, 3.2, 0.65, 2.0);
+    let first = pair_token(kit, stage, t3, 3, v(x1, y), size)?;
+    let second = pair_token(kit, stage, t4, 4, v(x2, y), size)?;
+    let pair_word = kit.text(stage, g::PAIR, 30.0, Palette::dim(), v(x1 - 0.4, y - 1.1))?;
     play!(stage;
         fade_in(stage.arena_mut(), first, v(0.0, 0.2), 1.0)?.rt(0.6),
         fade_in(stage.arena_mut(), pair_word, ORIGIN, 1.0)?.rt(0.6),
@@ -485,12 +488,14 @@ fn tie_breaker(
     play!(stage; fade_in(stage.arena_mut(), second, v(0.0, 0.2), 1.0)?.rt(0.6));
     // tickets first; only on a tie, customer numbers (a dictionary)
     line.wait_for(stage, "the way a dictionary")?;
-    let cat = kit.text(stage, g::CAT, 44.0, Palette::ink(), v(4.7, 1.35))?;
-    let cow = kit.text(stage, g::COW, 44.0, Palette::ink(), v(4.7, 0.45))?;
+    let cat = kit.text(stage, g::CAT, 72.0, Palette::ink(), v(x1, y - 2.1))?;
+    let cow = kit.text(stage, g::COW, 72.0, Palette::ink(), v(x2, y - 2.1))?;
     fade_in_all(stage, &[cat, cow], 0.5)?;
     line.wait_for(stage, "Purple is three")?;
-    let before = kit.text(stage, g::COMES_BEFORE, 30.0, order_gold(), v(-0.9, 1.2))?;
-    let lt = Arrow::new(v(-1.5, 0.75), v(-0.3, 0.75))
+    // between the first pair's badge and the second pair's ticket
+    let mid = (x1 + x2) / 2.0 - 0.06;
+    let before = kit.text(stage, g::COMES_BEFORE, 34.0, order_gold(), v(mid, y + 0.45))?;
+    let lt = Arrow::new(v(mid - 0.75, y - 0.05), v(mid + 0.75, y - 0.05))
         .buff(0.0)
         .thickness(3.0)
         .style(Style::default().fill(order_gold(), 1.0).stroke(order_gold(), 3.0, 1.0))

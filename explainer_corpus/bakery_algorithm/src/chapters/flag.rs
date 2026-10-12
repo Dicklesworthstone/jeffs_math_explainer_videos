@@ -64,6 +64,8 @@ struct Stage05 {
     room: [Mob; 3],
     flags: Vec<Flag>,
     marks: Vec<Mob>,
+    /// 05_4's card (the flag, large, and its rule), cleared as 05_5 begins.
+    demo: Vec<Mob>,
 }
 
 impl Stage05 {
@@ -205,6 +207,7 @@ fn crack(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Stage05> {
         room,
         flags: Vec::new(),
         marks: Vec::new(),
+        demo: Vec::new(),
     };
     let mut all = s5.bakery.all();
     all.extend(s5.room);
@@ -291,6 +294,57 @@ fn crack(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Stage05> {
 
 // --------------------------------------------------------------------- 05_4
 
+/// The card 05_4 and 05_9 lay over the middle of the lanes: its centre's x
+/// and its width (clear of the slates' flags on the left and of the room).
+const CARD_X: f64 = -0.05;
+const CARD_W: f64 = 7.3;
+
+/// A card over the lanes, `h` tall, centred at height `y`.
+fn card(stage: &mut Stage<'_>, y: f64, h: f64) -> fmn::Result<Mob> {
+    let card = Rectangle::new()
+        .width(CARD_W)
+        .height(h)
+        .corner_radius(0.16)
+        .style(
+            Style::default()
+                .fill(explainer_kit::hex("#1A2130"), 0.96)
+                .stroke(Palette::faint(), 1.5, 1.0),
+        )
+        .build()?
+        .moved_to(v(CARD_X, y));
+    Ok(stage.arena_mut().add(card))
+}
+
+/// One of the flag's rules beside the large flag, at body size, on two
+/// centred lines broken at its comma.
+fn big_rule(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Vec<Mob>> {
+    let lines = match text.split_once(", ") {
+        Some((a, b)) => vec![format!("{a},"), b.to_string()],
+        None => vec![text.to_string()],
+    };
+    let top = 0.32 * (lines.len() as f64 - 1.0);
+    lines
+        .iter()
+        .enumerate()
+        .map(|(i, l)| kit.text(stage, l, 32.0, Palette::ink(), v(0.95, top - 0.64 * i as f64)))
+        .collect()
+}
+
+/// Cross-fade one rule's lines for the next.
+fn swap_rule(stage: &mut Stage<'_>, old: &[Mob], new: &[Mob]) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in old {
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(0.3))?);
+    }
+    for &m in new {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(0.3))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
 fn the_flag(kit: &Kit, stage: &mut Stage<'_>, s5: &mut Stage05) -> fmn::Result<()> {
     let line = say(kit, stage, "05_4")?;
     // back to the start: both out of the room, the marks cleared
@@ -325,26 +379,35 @@ fn the_flag(kit: &Kit, stage: &mut Stage<'_>, s5: &mut Stage05) -> fmn::Result<(
         stage.set_opacity(f.pole, 0.25, true);
         stage.set_opacity(f.pennant, 0.25, true);
     }
-    let rule = kit.text(stage, g::FLAG_RULE_1, 28.0, Palette::ink(), v(0.0, 3.35))?;
-    play!(stage; fade_in(stage.arena_mut(), rule, ORIGIN, 1.0)?.rt(0.4));
+    // the flag itself, large on a card, with each rule beside it as it is
+    // said: up in amber while she chooses, down when her ticket is written
+    let panel = card(stage, 0.0, 3.2)?;
+    let mut hero = flag(stage, v(-3.1, -1.1), 2.2, false)?;
+    stage.set_stroke(hero.pole, Some(Palette::dim()), Some(7.0), Some(1.0), None, true);
+    let rule = big_rule(kit, stage, g::FLAG_RULE_1)?;
+    let mut ins = vec![panel, hero.pole, hero.pennant];
+    ins.extend(&rule);
+    fade_in_all(stage, &ins, 0.4)?;
+    line.wait_for(stage, "I'm choosing")?;
+    let (big, small) = (hero.set(stage, true), s5.flags[0].set(stage, true));
+    play!(stage; big.rt(0.5), small.rt(0.5));
     line.wait_for(stage, "raise it before")?;
-    let t = s5.flags[0].set(stage, true);
-    stage.play(t.rt(0.5))?;
-    let rule2 = kit.text(stage, g::FLAG_RULE_2, 28.0, Palette::ink(), v(0.0, 3.35))?;
-    play!(stage;
-        fade_out(stage.arena_mut(), rule, ORIGIN, 1.0)?.rt(0.3),
-        fade_in(stage.arena_mut(), rule2, ORIGIN, 1.0)?.rt(0.3),
-    );
+    let rule2 = big_rule(kit, stage, g::FLAG_RULE_2)?;
+    swap_rule(stage, &rule, &rule2)?;
     line.wait_for(stage, "lower it")?;
-    let t = s5.flags[0].set(stage, false);
-    stage.play(t.rt(0.5))?;
+    let (big, small) = (hero.set(stage, false), s5.flags[0].set(stage, false));
+    play!(stage; big.rt(0.5), small.rt(0.5));
+    // someone else's flag: up, so you wait; down, so you may compare
     line.wait_for(stage, "Before comparing")?;
-    let rule3 = kit.text(stage, g::FLAG_RULE_3, 28.0, Palette::ink(), v(0.0, 3.35))?;
-    play!(stage;
-        fade_out(stage.arena_mut(), rule2, ORIGIN, 1.0)?.rt(0.3),
-        fade_in(stage.arena_mut(), rule3, ORIGIN, 1.0)?.rt(0.3),
-    );
-    s5.marks.push(rule3);
+    let rule3 = big_rule(kit, stage, g::FLAG_RULE_3)?;
+    swap_rule(stage, &rule2, &rule3)?;
+    let up = hero.set(stage, true);
+    stage.play(up.rt(0.4))?;
+    line.wait_for(stage, "their flag")?;
+    let down = hero.set(stage, false);
+    stage.play(down.rt(0.4))?;
+    s5.demo = vec![panel, hero.pole, hero.pennant];
+    s5.demo.extend(rule3);
     Ok(())
 }
 
@@ -353,9 +416,8 @@ fn the_flag(kit: &Kit, stage: &mut Stage<'_>, s5: &mut Stage05) -> fmn::Result<(
 /// 05_5–05_6: the same order, with flags: trace a′ until Green waits.
 fn same_order(kit: &Kit, stage: &mut Stage<'_>, s5: &mut Stage05) -> fmn::Result<()> {
     say(kit, stage, "05_5")?;
-    if let Some(rule) = s5.marks.pop() {
-        play!(stage; fade_out(stage.arena_mut(), rule, ORIGIN, 1.0)?.rt(0.3));
-    }
+    let demo = std::mem::take(&mut s5.demo);
+    fade_out_all(stage, &demo, 0.3)?;
     let steps = Trace::APrime.steps();
     let stop = steps
         .iter()
@@ -744,24 +806,14 @@ fn choosing_time(kit: &Kit, stage: &mut Stage<'_>, square: &[Mob]) -> fmn::Resul
         anims.push(b);
     }
     stage.play_prepared(anims)?;
-    let thesis = kit.text(stage, g::THESIS, 28.0, Palette::ink(), v(0.0, 3.35))?;
+    let thesis = kit.text(stage, g::THESIS, 32.0, Palette::ink(), v(-0.6, 3.35))?;
     play!(stage; fade_in(stage.arena_mut(), thesis, v(0.0, 0.1), 1.0)?.rt(0.5));
     line.wait_for(stage, "the tie-breaker")?;
-    let card = Rectangle::new()
-        .width(5.2)
-        .height(1.9)
-        .corner_radius(0.16)
-        .style(
-            Style::default()
-                .fill(explainer_kit::hex("#1A2130"), 0.96)
-                .stroke(Palette::faint(), 1.5, 1.0),
-        )
-        .build()?
-        .moved_to(v(1.7, -0.55));
-    let card = stage.arena_mut().add(card);
-    let first = pair_token(kit, stage, tickets[0], 1, v(0.4, -0.75), 1.2)?;
-    let second = pair_token(kit, stage, tickets[1], 2, v(3.0, -0.75), 1.2)?;
-    let before = kit.text(stage, g::COMES_BEFORE, 26.0, order_gold(), v(1.7, 0.05))?;
+    // the two equal tickets as pairs, large on the card under their lanes
+    let card = card(stage, -0.8, 2.9)?;
+    let first = pair_token(kit, stage, tickets[0], 1, v(-2.0, -1.05), 1.6)?;
+    let second = pair_token(kit, stage, tickets[1], 2, v(2.05, -1.05), 1.6)?;
+    let before = kit.text(stage, g::COMES_BEFORE, 32.0, order_gold(), v(CARD_X, 0.25))?;
     play!(stage; fade_in(stage.arena_mut(), card, ORIGIN, 1.0)?.rt(0.4));
     play!(stage;
         fade_in(stage.arena_mut(), first, v(0.0, 0.2), 1.0)?.rt(0.5),
