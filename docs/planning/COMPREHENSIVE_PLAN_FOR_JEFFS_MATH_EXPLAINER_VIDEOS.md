@@ -1040,25 +1040,39 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
 ### 7.3 Hard rules (rendering fails if violated)
 
 1. No sustained music fundamentals inside the narrator's pitch band during
-   speech. The band is measured afresh for each narrator: the 5th–95th
-   percentile of f0 over voiced frames (`docs/research/sound_design/scripts/yin2.py`),
-   widened two semitones down and a minor third up (stressed words rise past
-   the 95th percentile, and an upper voice's chorus needs room). The bass is
-   the highest whole octave under the band (one octave, so every root has a
-   bass note), and the upper voices start at the first semitone above it
-   (`Register::from_f0` in `theory.rs`). Measured 2026-10-11 over every take
-   of each video's assembled narration (89, 104 and 84 lines; twelve probe
-   sentences each had read 81–146, 107–190 and 83–178 Hz):
+   speech. The band belongs to the voice that reads a cut, not to the video
+   (a video's narrator can change, and `VOICE=<voice> ./x` makes variants in
+   other voices), so every score measures the narration it is mixed with:
+   `score::render` tracks the pitch of every narration line the timelines
+   place (`voice.rs`: YIN at 8 kHz, 30 ms frames every 10 ms, as
+   `docs/research/sound_design/scripts/yin2.py` does) and takes the 5th–95th
+   percentile of f0 over voiced frames, widened two semitones down and a
+   minor third up (stressed words rise past the 95th percentile, and an upper
+   voice's chorus needs room). The bass is the highest whole octave under the
+   band (one octave, so every root has a bass note), and the upper voices
+   start at the first semitone above it (`Register::from_f0` in `theory.rs`).
+   Nothing is looked up by a voice's name. Narration with no measurable pitch,
+   or with lines from more than one directory, is refused; QA judges this
+   rule against the measured band whatever register the music was written in
+   (`Score::voice_band`), and `./x <slug> score` leaves the measurement in
+   `stems/voice_profile.tsv`. Measured from each cut's narration on
+   2026-10-12 (61, 90, 104 and 85 lines):
 
-   | narrator | f0 5th–95th (median) | no-fly band | bass | upper voices from |
+   | cut (voice) | f0 5th–95th (median) | no-fly band | bass | upper voices from |
    |---|---|---|---|---|
-   | `robert` (Hoeffding, v5 takes) | ≈105–216 Hz (≈136) | 95–250 Hz | E1–E♭2 (41–78 Hz) | C4 (262 Hz) |
-   | `matt` (A) | 77–151 Hz (101) | 69–179 Hz | C♯1–C2 (35–65 Hz) | F♯3 (185 Hz) |
-   | `leo` (B) | 107–205 Hz (140) | 95–244 Hz | G1–F♯2 (49–92 Hz) | B3 (247 Hz) |
-   | `michael` (C) | 76–163 Hz (107) | 68–194 Hz | C♯1–C2 (35–65 Hz) | G3 (196 Hz) |
+   | Hoeffding (`robert`) | 104–216 Hz (138) | 93–257 Hz | G1–F♯2 (49–92 Hz) | C4 (262 Hz) |
+   | A (`matt`) | 76–143 Hz (100) | 68–170 Hz | C♯1–C2 (35–65 Hz) | F3 (175 Hz) |
+   | B (`michael`) | 76–167 Hz (107) | 68–198 Hz | C♯1–C2 (35–65 Hz) | G♯3 (208 Hz) |
+   | C (`michael`) | 76–160 Hz (107) | 67–190 Hz | C♯1–C2 (35–65 Hz) | G3 (196 Hz) |
 
-   (`robert`'s row keeps the values this rule was first written with, which
-   Hoeffding's v6 score was checked against.)
+   (Until 2026-10-12 each identity carried a register fixed from its first
+   narrator's takes: `robert` 95–250 Hz by hand, `matt` 69–179, `leo` 95–244,
+   `michael` 68–194. When B moved from `leo` to `michael`, a score would
+   have kept `leo`'s register and QA would have judged it against `leo`'s
+   band: a false pass. The constants remain in `score.rs` as reference
+   registers for tests only. Under the measured
+   registers C's and Hoeffding's stems come out byte for byte as before:
+   their notes sit in the same octaves.)
 2. Under speech, music content above 2.5 kHz is at least 12 dB down (low-pass
    plus pocket).
 3. No pure-sine voices above 100 Hz: at least three partials, chorus or noise.
@@ -1313,7 +1327,7 @@ change.
   `matt`, B `leo`, C `michael`; Hoeffding keeps `robert` (D-06, Q2). Every
   lexicon respelling was probed with `robert` and is re-probed with the new
   voice before its narration runs; the music's no-fly band (§7.3 rule 1) is
-  re-measured from each narrator's real pitch.
+  measured by the score from the narration it is given, every time.
 - **Pipeline:** `script.tsv` → lint (`lint_script.py`) → lexicon (lookup,
   respell, probe with control and decoy, lock) → `run_pipeline.sh` on the GPU
   host (plan → TTS one call per sentence → fw ASR → choose takes) → triage with

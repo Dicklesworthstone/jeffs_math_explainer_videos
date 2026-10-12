@@ -141,7 +141,7 @@ impl ScoreFacts {
         let (_, a, b) = score.chapters[k];
         let (t0, t1) = (a as f64 / FS, b as f64 / FS);
         Self {
-            no_fly: score.register.no_fly,
+            no_fly: score.voice_band(),
             sonified: score
                 .sonified
                 .iter()

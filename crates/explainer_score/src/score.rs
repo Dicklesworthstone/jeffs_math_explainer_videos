@@ -12,8 +12,10 @@
 //! 3. Harmony: each chord lasts a seeded `chord_s` length; it changes only in
 //!    a pause of ≥ 0.2 s or a gap, never within 150 ms after a speech onset,
 //!    preferring chapter starts; voices are led by the solver inside the
-//!    identity's [`Register`] (a bass octave under the narrator's measured
-//!    pitch band, upper voices over it).
+//!    cut's [`Register`] (a bass octave under the narrator's pitch band,
+//!    upper voices over it), which [`render`] measures from the very
+//!    narration it scores ([`VoiceProfile`]): the identity is the video's,
+//!    the register is the voice's.
 //! 4. Notes: the bed holds each chord (Juno chorus, FDN), the bass roots it,
 //!    and the leitmotif plays only in gaps of ≥ 1.6 s (no melody under
 //!    speech, hard rule 8), its notes moved off any minor ninth against the
@@ -38,6 +40,7 @@ use crate::rng::{Rng, seed_for};
 use crate::theory::{Chord, Key, Motif, Register, Voicing, voice_lead};
 use crate::timeline::ChapterTimeline;
 use crate::units::{db_to_gain, frame_to_sample, midi_to_hz};
+use crate::voice::VoiceProfile;
 use crate::{FS, Stereo};
 
 /// Which instrument plays which role.
@@ -79,6 +82,12 @@ pub enum Theme {
     Resolved,
 }
 
+/// Reference measurements, not inputs: no score reads these. A score's
+/// register is measured from the narration it is mixed with ([`render`]),
+/// because a video's narrator can change and a variant is read by another
+/// voice. These are the registers the identities were written and auditioned
+/// in, kept for tests.
+///
 /// The narrators' voiced f0, 5th and 95th percentiles (Hz), measured with
 /// `docs/research/sound_design/scripts/yin2.py` (YIN on 8 kHz audio) over
 /// every take of each video's assembled narration (2026-10-11): `matt` (A)
@@ -100,9 +109,6 @@ pub struct Identity {
     /// Seeds every random choice (with chapter, track and event index).
     pub name: String,
     pub key: Key,
-    /// Where the music may sit around this video's narrator, from the
-    /// narrator's measured pitch (plan §7.3 hard rule 1).
-    pub register: Register,
     /// MIDI pitch of the motif's tonic (degree 1).
     pub tonic_midi: i32,
     /// Chords in order, cycled.
@@ -220,9 +226,6 @@ impl Identity {
         if self.progression.is_empty() {
             return bad("empty progression".into());
         }
-        if let Err(e) = self.register.check() {
-            return bad(e);
-        }
         let moods = self.moods.iter().flat_map(|m| &m.progression);
         if let Some(c) = self
             .progression
@@ -297,7 +300,6 @@ impl Identity {
         Self {
             name: "hoeffding_d".into(),
             key: Key::new(2, crate::theory::IONIAN),
-            register: Register::ROBERT,
             tonic_midi: 62,
             progression: vec![Chord::maj9(2), Chord::min9(11), Chord::maj9_sharp11(7), Chord::sus4(9)],
             motif: Motif::new(&[1, 5, 6, 3], &[1.0, 1.0, 1.0, 2.0]),
@@ -356,7 +358,6 @@ impl Identity {
         Self {
             name: "capture_recapture".into(),
             key: Key::new(5, crate::theory::LYDIAN),
-            register: Register::from_f0(MATT_F0.0, MATT_F0.1),
             tonic_midi: 65,
             progression: vec![
                 Chord::maj9(5),
@@ -448,7 +449,6 @@ impl Identity {
         Self {
             name: "raptorq_gf256".into(),
             key: Key::new(4, crate::theory::LYDIAN),
-            register: Register::from_f0(LEO_F0.0, LEO_F0.1),
             tonic_midi: 64,
             progression: vec![
                 Chord::maj9_sharp11(4),
@@ -529,7 +529,6 @@ impl Identity {
         Self {
             name: "bakery_algorithm".into(),
             key: Key::new(10, crate::theory::IONIAN),
-            register: Register::from_f0(MICHAEL_F0.0, MICHAEL_F0.1),
             tonic_midi: 58,
             progression: vec![
                 Chord::maj9(10),
@@ -853,8 +852,11 @@ pub struct ChordSpan {
 pub struct Score {
     /// The music stem for the whole video, ducked and at its final level.
     pub music: Stereo,
-    /// The register it was scored in (QA judges hard rule 1 against its band).
+    /// The register it was scored in.
     pub register: Register,
+    /// The narrator as measured from this cut's narration; `None` only when
+    /// [`render_in`] was given narration with no measurable pitch.
+    pub profile: Option<VoiceProfile>,
     /// The voice bus it was scored against.
     pub voice: Stereo,
     pub events: Vec<Event>,
@@ -889,6 +891,15 @@ pub struct Score {
 }
 
 impl Score {
+    /// The band QA judges hard rule 1 against (Hz): the measured narrator's,
+    /// whatever register the music was written in. A score written in
+    /// another voice's register is caught here, not passed.
+    pub fn voice_band(&self) -> (f64, f64) {
+        self.profile
+            .as_ref()
+            .map_or(self.register.no_fly, |p| p.register().no_fly)
+    }
+
     /// Chapter `k`'s stem: exactly its scene's length.
     pub fn chapter_music(&self, k: usize) -> Stereo {
         let (_, a, b) = self.chapters[k];
@@ -1163,21 +1174,14 @@ pub fn fit_phrase(
 pub fn elastic_phrase(
     motif: &Motif,
     identity: &Identity,
+    low: i32,
     start: f64,
     limit: f64,
     closing: bool,
     swing: f64,
 ) -> Vec<(f64, i32, f64)> {
     let fit = |beat: f64| {
-        let mut notes = fit_phrase(
-            motif,
-            &identity.key,
-            identity.tonic_midi,
-            beat,
-            start,
-            limit,
-            identity.register.upper.0,
-        );
+        let mut notes = fit_phrase(motif, &identity.key, identity.tonic_midi, beat, start, limit, low);
         swing_notes(&mut notes, start, beat, swing);
         notes
     };
@@ -1534,7 +1538,7 @@ fn sfx_bus(sfx: &[Sfx], n: usize) -> Stereo {
 
 /// The melody's note events for a phrase starting at `start` (all notes at
 /// the reference velocity): used to calibrate the melody bus.
-fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
+fn reference_phrase(identity: &Identity, low: i32, start: f64) -> Vec<Event> {
     fit_phrase(
         &identity.motif,
         &identity.key,
@@ -1542,7 +1546,7 @@ fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
         identity.beat_s,
         start,
         f64::INFINITY,
-        identity.register.upper.0,
+        low,
     )
     .into_iter()
     .enumerate()
@@ -1563,14 +1567,14 @@ fn reference_phrase(identity: &Identity, start: f64) -> Vec<Event> {
 /// measured over its sustained middle) and of a reference phrase (the motif)
 /// through their buses at unity gain. Levels are set against these fixed
 /// points, never against the video's own music, so one chapter's plan cannot
-/// move another chapter's level.
-pub fn reference_levels(identity: &Identity) -> (f64, f64) {
+/// move another chapter's level. Both are voiced in the cut's `register`.
+pub fn reference_levels(identity: &Identity, register: &Register) -> (f64, f64) {
     let n = (10.0 * FS) as usize;
     let chord = identity.progression[0].clone();
     let span = ChordSpan {
         start: 0.0,
         end: 9.0,
-        voicing: voice_lead(&chord, 4, None, &identity.register),
+        voicing: voice_lead(&chord, 4, None, register),
         chord,
     };
     let bed = bed_bus(
@@ -1585,7 +1589,7 @@ pub fn reference_levels(identity: &Identity) -> (f64, f64) {
         l: bed.l[a..b].to_vec(),
         r: bed.r[a..b].to_vec(),
     });
-    let phrase = reference_phrase(identity, 0.5);
+    let phrase = reference_phrase(identity, register.upper.0, 0.5);
     let len = phrase.last().map_or(1.0, |e| e.start + e.hold) + 3.0;
     let mel_lufs = meter::integrated(&melody_bus(&phrase, (len * FS) as usize));
     (bed_lufs, mel_lufs)
@@ -1604,13 +1608,14 @@ pub fn reference_sfx_level(identity: &Identity) -> f64 {
 
 /// The engine's own source: any change to how notes are chosen or sounds are
 /// made changes every fingerprint, so a stale stem is never reused.
-const ENGINE_SOURCE: [&str; 14] = [
+const ENGINE_SOURCE: [&str; 15] = [
     include_str!("score.rs"),
     include_str!("instr.rs"),
     include_str!("fx.rs"),
     include_str!("filter.rs"),
     include_str!("osc.rs"),
     include_str!("theory.rs"),
+    include_str!("voice.rs"),
     include_str!("duck.rs"),
     include_str!("timeline.rs"),
     include_str!("resample.rs"),
@@ -1623,8 +1628,11 @@ const ENGINE_SOURCE: [&str; 14] = [
 
 /// A digest of everything a render depends on: the engine's source and
 /// version, the identity, each chapter's timeline and plan, the bytes of
-/// every narration WAV, and the voice gain. A cached stem is reused only
-/// under the same fingerprint.
+/// every narration WAV, and the voice gain. The register is not a separate
+/// input: [`render`] measures it from those same narration bytes with the
+/// engine source digested here ([`VoiceProfile`]), so another voice's
+/// narration is another fingerprint. A cached stem is reused only under the
+/// same fingerprint.
 pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<u64> {
     let mut bytes = Vec::new();
     bytes.extend(env!("CARGO_PKG_VERSION").as_bytes());
@@ -1654,8 +1662,60 @@ pub fn fingerprint(identity: &Identity, sections: &[Section], voice_gain_db: Opt
 /// set against [`reference_levels`]. Only tails that ring across a cut (a
 /// few seconds of release and reverb) and the true-peak cap, if it ever
 /// binds, reach a neighbour.
+///
+/// The register is measured, never looked up: every narration line the
+/// timelines place is read and its pitch tracked ([`voice_profile`]), and the
+/// music is written around that voice. Narration with no measurable pitch
+/// (or none at all, or lines from two directories) is refused.
 pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<Score> {
+    let profile = voice_profile(sections)?;
+    compose(identity, sections, voice_gain_db, profile.register(), Some(profile))
+}
+
+/// Score in a `register` the caller chose (an audition of a register, a
+/// test): the narration is still measured when it can be, and QA still judges
+/// hard rule 1 against the measured voice ([`Score::voice_band`]), so a
+/// register taken from another narrator fails there. `./x <slug> score`
+/// never comes this way.
+pub fn render_in(
+    identity: &Identity,
+    sections: &[Section],
+    voice_gain_db: Option<f64>,
+    register: Register,
+) -> io::Result<Score> {
+    compose(
+        identity,
+        sections,
+        voice_gain_db,
+        register,
+        voice_profile(sections).ok(),
+    )
+}
+
+/// The narrator of `sections`, measured from every narration line their
+/// timelines place (in order).
+pub fn voice_profile(sections: &[Section]) -> io::Result<VoiceProfile> {
+    let lines: Vec<&Path> = sections
+        .iter()
+        .flat_map(|s| s.timeline.lines.iter().map(|l| l.wav.as_path()))
+        .collect();
+    VoiceProfile::measure(&lines)
+}
+
+fn compose(
+    identity: &Identity,
+    sections: &[Section],
+    voice_gain_db: Option<f64>,
+    register: Register,
+    profile: Option<VoiceProfile>,
+) -> io::Result<Score> {
     identity.validate()?;
+    if let Err(e) = register.check() {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            format!("identity {}: register {e}", identity.name),
+        ));
+    }
     if sections.is_empty() {
         return Err(io::Error::new(io::ErrorKind::InvalidInput, "no chapters to score"));
     }
@@ -1746,7 +1806,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 p.end = end;
                 continue;
             }
-            let voicing = voice_lead(&chord, 4, prev.as_ref(), &identity.register);
+            let voicing = voice_lead(&chord, 4, prev.as_ref(), &register);
             prev = Some(voicing.clone());
             mine.push(ChordSpan {
                 start,
@@ -1920,11 +1980,19 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             continue;
         }
         let swing = identity.swing_for(name);
-        let mut notes = elastic_phrase(&motif, identity, start, limit, resolving, swing);
+        let mut notes = elastic_phrase(&motif, identity, register.upper.0, start, limit, resolving, swing);
         if resolving && notes.len() < motif.degrees.len() {
             // no room for the whole closing phrase: the resolution alone, so
             // the question is still answered on the tonic it promised
-            let res = elastic_phrase(&identity.resolution, identity, start, limit, true, swing);
+            let res = elastic_phrase(
+                &identity.resolution,
+                identity,
+                register.upper.0,
+                start,
+                limit,
+                true,
+                swing,
+            );
             if res.len() == identity.resolution.degrees.len() {
                 notes = res;
             }
@@ -1933,7 +2001,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             continue;
         };
         for (i, &(t, p, d)) in notes.iter().enumerate() {
-            let p = avoid_minor_ninths(p, &chord_at(t).chord, &identity.key, identity.register.upper.0);
+            let p = avoid_minor_ninths(p, &chord_at(t).chord, &identity.key, register.upper.0);
             events.push(Event {
                 start: t,
                 hold: d * 1.4,
@@ -1951,7 +2019,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
         let t = last_t + last_d + 0.25;
         if t + 0.4 <= limit {
             let span = chord_at(t);
-            let dyad = reveal_dyad(&span.voicing, &span.chord, &identity.key, identity.register.upper.0);
+            let dyad = reveal_dyad(&span.voicing, &span.chord, &identity.key, register.upper.0);
             for (i, &p) in dyad.iter().enumerate() {
                 events.push(Event {
                     start: t + 0.03 * i as f64,
@@ -2020,7 +2088,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
             let (v, chord) = (&chord_at(when).voicing, &chord_at(when).chord);
             match kind {
                 CueKind::Reveal => {
-                    let dyad = reveal_dyad(v, chord, &identity.key, identity.register.upper.0);
+                    let dyad = reveal_dyad(v, chord, &identity.key, register.upper.0);
                     if dyad.is_empty() {
                         skipped_marks.push(format!("{name}/{}", m.label));
                         continue;
@@ -2040,12 +2108,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                 }
                 CueKind::Pizz => {
                     let p = v.upper[v.upper.len() / 2];
-                    let p = avoid_minor_ninths(
-                        if p < 67 { p + 12 } else { p },
-                        chord,
-                        &identity.key,
-                        identity.register.upper.0,
-                    );
+                    let p = avoid_minor_ninths(if p < 67 { p + 12 } else { p }, chord, &identity.key, register.upper.0);
                     if clashes(p, chord) {
                         skipped_marks.push(format!("{name}/{}", m.label));
                         continue;
@@ -2069,7 +2132,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                         identity.beat_s,
                         when,
                         f64::INFINITY,
-                        identity.register.upper.0,
+                        register.upper.0,
                     );
                     let mut notes = notes;
                     swing_notes(&mut notes, when, identity.beat_s, identity.swing_for(name));
@@ -2083,7 +2146,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
                                 np,
                                 &chord_at(nt).chord,
                                 &identity.key,
-                                identity.register.upper.0,
+                                register.upper.0,
                             )),
                             velocity: 0.55,
                             seed: seed("resolve", j),
@@ -2142,7 +2205,7 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
     // a video with no narration still gets music, set against the level a
     // narrated sentence would have (−23 LUFS, the narration doctrine's)
     let v_ref = if voice_lufs.is_finite() { voice_lufs } else { -23.0 };
-    let (ref_bed, ref_mel) = reference_levels(identity);
+    let (ref_bed, ref_mel) = reference_levels(identity, &register);
     let ref_sfx = reference_sfx_level(identity);
     if !(ref_bed.is_finite() && ref_mel.is_finite() && ref_sfx.is_finite()) {
         return Err(io::Error::new(
@@ -2314,7 +2377,8 @@ pub fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f
 
     Ok(Score {
         music,
-        register: identity.register,
+        register,
+        profile,
         voice,
         events,
         chords,
@@ -2400,6 +2464,23 @@ pub fn hz(pitch: f64) -> f64 {
 mod tests {
     use super::*;
     use crate::theory::IONIAN;
+
+    /// The register each identity was written and auditioned in (the
+    /// reference takes of 2026-10-11). Most tests here are about the music,
+    /// not about who reads it, so they compose in this fixed register over an
+    /// unpitched synthetic narration; the measured route has its own tests.
+    fn test_register(id: &Identity) -> Register {
+        match id.name.as_str() {
+            "capture_recapture" => Register::from_f0(MATT_F0.0, MATT_F0.1),
+            "raptorq_gf256" => Register::from_f0(LEO_F0.0, LEO_F0.1),
+            "bakery_algorithm" => Register::from_f0(MICHAEL_F0.0, MICHAEL_F0.1),
+            _ => Register::ROBERT,
+        }
+    }
+
+    fn render(identity: &Identity, sections: &[Section], voice_gain_db: Option<f64>) -> io::Result<Score> {
+        compose(identity, sections, voice_gain_db, test_register(identity), None)
+    }
 
     #[test]
     fn candidates_respect_pauses_and_onsets() {
@@ -2512,17 +2593,33 @@ mod tests {
         let id = Identity::hoeffding();
         let b = id.beat_s;
         // onsets at 0, 1, 2, 3 beats: the last at 3 b; 2.85 b fits only tightened
-        let tight = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.85 * b, false, 0.5);
+        let tight = elastic_phrase(
+            &id.motif,
+            &id,
+            test_register(&id).upper.0,
+            10.0,
+            10.0 + 2.85 * b,
+            false,
+            0.5,
+        );
         assert_eq!(tight.len(), 4);
         assert!((tight[3].0 - (10.0 + 3.0 * 0.92 * b)).abs() < 1e-9);
         // 2.7 b fits neither way: the prefix at tempo
-        let short = elastic_phrase(&id.motif, &id, 10.0, 10.0 + 2.7 * b, false, 0.5);
+        let short = elastic_phrase(
+            &id.motif,
+            &id,
+            test_register(&id).upper.0,
+            10.0,
+            10.0 + 2.7 * b,
+            false,
+            0.5,
+        );
         assert_eq!(short.len(), 3);
         assert!((short[2].0 - (10.0 + 2.0 * b)).abs() < 1e-9);
         // plenty of room: at tempo, unless it is the closing phrase (relaxed)
-        let free = elastic_phrase(&id.motif, &id, 10.0, 30.0, false, 0.5);
+        let free = elastic_phrase(&id.motif, &id, test_register(&id).upper.0, 10.0, 30.0, false, 0.5);
         assert!((free[3].0 - (10.0 + 3.0 * b)).abs() < 1e-9);
-        let closing = elastic_phrase(&id.motif, &id, 10.0, 30.0, true, 0.5);
+        let closing = elastic_phrase(&id.motif, &id, test_register(&id).upper.0, 10.0, 30.0, true, 0.5);
         assert!((closing[3].0 - (10.0 + 3.0 * 1.08 * b)).abs() < 1e-9);
     }
 
@@ -2884,7 +2981,7 @@ mod tests {
         let span = ChordSpan {
             start: 0.0,
             end: 8.0,
-            voicing: voice_lead(&chord, 4, None, &id.register),
+            voicing: voice_lead(&chord, 4, None, &test_register(&id)),
             chord,
         };
         let bed = |i: f64| {
@@ -3243,7 +3340,7 @@ mod tests {
                 let mut prev: Option<Voicing> = None;
                 for _ in 0..3 {
                     for c in &prog {
-                        let v = voice_lead(c, 4, prev.as_ref(), &id.register);
+                        let v = voice_lead(c, 4, prev.as_ref(), &test_register(&id));
                         let all: Vec<i32> = std::iter::once(v.bass).chain(v.upper.iter().copied()).collect();
                         for (i, &lo) in all.iter().enumerate() {
                             for &hi in &all[i + 1..] {
@@ -3359,7 +3456,7 @@ mod tests {
             let span = ChordSpan {
                 start: 0.0,
                 end: 9.0,
-                voicing: voice_lead(&chord, 4, None, &id.register),
+                voicing: voice_lead(&chord, 4, None, &test_register(&id)),
                 chord,
             };
             let ev = chord_events(&id, &span, 0.5, "", 0);
@@ -3861,5 +3958,147 @@ mod tests {
                 &id.progression_for(&s.chapters[1].0)[0]
             );
         }
+    }
+    /// The synthetic chapters with sentences a pitch can be measured from:
+    /// each noise burst replaced by a voiced line gliding across `f0` (Hz).
+    fn voiced_sections(dir: &std::path::Path, f0: (f64, f64)) -> Vec<Section> {
+        let sections = synthetic_sections(dir);
+        for (c, s) in sections.iter().enumerate() {
+            for (i, l) in s.timeline.lines.iter().enumerate() {
+                let d = crate::wav::read(&l.wav).unwrap();
+                let seconds = d.frames() as f64 / f64::from(d.rate);
+                let m = crate::voice::voiced_line(seconds, f0, (10 * c + i) as u64);
+                crate::wav::write(&l.wav, &Stereo::from_mono(&m), crate::wav::Format::F32).unwrap();
+            }
+        }
+        sections
+    }
+
+    const RULE_1: &str = "rule1_fundamentals_in_voice_band_in_speech";
+
+    /// Chapter `k`'s rule 1 verdict from the real QA, judged against `band`
+    /// when given (else against what the score itself reports).
+    fn rule_1(s: &Score, k: usize, band: Option<(f64, f64)>) -> bool {
+        let mut facts = crate::qa::ScoreFacts::chapter(s, k);
+        if let Some(b) = band {
+            facts.no_fly = b;
+        }
+        let music = s.chapter_music(k);
+        let r = crate::qa::evaluate(&s.chapters[k].0, &s.chapter_voice(k), &music, music.len(), Some(&facts));
+        r.get(RULE_1).unwrap().pass == Some(true)
+    }
+
+    #[test]
+    fn a_cut_is_scored_around_the_voice_that_reads_it() {
+        // one video, two cuts: its own (a low voice) and a variant read by a
+        // higher voice, each with its own narration directory
+        let base = std::env::temp_dir().join(format!("explainer_score_cuts_{}", std::process::id()));
+        let own = voiced_sections(&base.join("narration/out"), (77.0, 163.0));
+        let variant = voiced_sections(&base.join("variants/leo/narration/out"), (107.0, 205.0));
+        let id = Identity::raptorq_gf256();
+        let a = super::render(&id, &own, None).unwrap();
+        let b = super::render(&id, &variant, None).unwrap();
+        for (s, sections) in [(&a, &own), (&b, &variant)] {
+            // the register is the one measured from this cut's own lines
+            let p = s.profile.as_ref().expect("measured");
+            assert_eq!(*p, voice_profile(sections).unwrap());
+            assert_eq!(p.dir, sections[0].timeline.lines[0].wav.parent().unwrap());
+            assert_eq!(p.lines, sections.iter().map(|x| x.timeline.lines.len()).sum::<usize>());
+            assert_eq!(s.register, p.register());
+            assert_eq!(s.voice_band(), s.register.no_fly);
+            // and the music keeps out of that voice's band: by the notes, and by QA
+            for e in s.events.iter().filter(|e| matches!(e.track, Track::Bed | Track::Bass)) {
+                assert!(!s.register.in_band(hz(e.pitch)), "{e:?} in {:?}", s.register.no_fly);
+            }
+            for k in 0..s.chapters.len() {
+                assert!(rule_1(s, k, None), "chapter {k}");
+            }
+        }
+        // two voices, two registers: the low voice's bass and upper voices sit lower
+        assert!(
+            a.register.bass.1 < b.register.bass.1 && a.register.upper.0 < b.register.upper.0,
+            "{:?} {:?}",
+            a.register,
+            b.register
+        );
+        // the video's identity is the same in both: its chords, in its order
+        assert_eq!(a.chords[0].chord, b.chords[0].chord);
+        // another voice's narration is another fingerprint: no stem is shared
+        assert_ne!(
+            fingerprint(&id, &own, None).unwrap(),
+            fingerprint(&id, &variant, None).unwrap()
+        );
+    }
+
+    #[test]
+    fn a_register_from_another_narrator_fails_rule_1() {
+        // B's music written around leo (the 2026-10-11 reference takes),
+        // under a cut read by a lower voice: what a pinned register did when
+        // the narrator changed
+        let dir = std::env::temp_dir().join(format!("explainer_score_wrong_voice_{}", std::process::id()));
+        let sections = voiced_sections(&dir, (77.0, 163.0));
+        let id = Identity::raptorq_gf256();
+        let leo = Register::from_f0(LEO_F0.0, LEO_F0.1);
+        let wrong = render_in(&id, &sections, None, leo).unwrap();
+        assert_eq!(wrong.register, leo);
+        let heard = wrong
+            .profile
+            .as_ref()
+            .expect("the narration is measured all the same")
+            .register();
+        assert_eq!(wrong.voice_band(), heard.no_fly);
+        // leo's bass octave reaches into the low voice's band
+        let low_bass: Vec<i32> = wrong
+            .events
+            .iter()
+            .filter(|e| e.track == Track::Bass && heard.in_band(hz(e.pitch)))
+            .map(|e| e.pitch as i32)
+            .collect();
+        assert!(
+            !low_bass.is_empty(),
+            "no bass note of {leo:?} inside {:?}",
+            heard.no_fly
+        );
+        assert!(low_bass.iter().all(|&m| !leo.in_band(hz(f64::from(m)))));
+        // judged against the register it was written in (all QA knew before),
+        // every chapter passes: the false pass …
+        let chapters = 0..wrong.chapters.len();
+        assert!(chapters.clone().all(|k| rule_1(&wrong, k, Some(leo.no_fly))));
+        // … and judged against the voice actually in the mix, it fails
+        let failing: Vec<usize> = chapters.filter(|&k| !rule_1(&wrong, k, None)).collect();
+        assert!(
+            !failing.is_empty(),
+            "QA passed a score written in another narrator's register"
+        );
+        // the measured route writes the same video around the voice it hears
+        let right = super::render(&id, &sections, None).unwrap();
+        assert_eq!(right.register, heard);
+        assert!((0..right.chapters.len()).all(|k| rule_1(&right, k, None)));
+    }
+
+    #[test]
+    fn narration_with_no_pitch_to_measure_is_refused() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_unvoiced_{}", std::process::id()));
+        let sections = synthetic_sections(&dir);
+        let id = Identity::hoeffding();
+        // noise bursts are not a voice: there is no register to place
+        let e = super::render(&id, &sections, None).unwrap_err();
+        assert_eq!(e.kind(), io::ErrorKind::InvalidData);
+        assert!(e.to_string().contains("voiced frames"), "{e}");
+        // nor is a video with no narration at all
+        let mut mute = synthetic_sections(&dir);
+        for s in &mut mute {
+            s.timeline.lines.clear();
+        }
+        assert!(super::render(&id, &mute, None).is_err());
+        // a chosen register still scores them, and says it measured nothing
+        let s = render_in(&id, &sections, None, Register::ROBERT).unwrap();
+        assert!(s.profile.is_none());
+        assert_eq!(s.voice_band(), Register::ROBERT.no_fly);
+        // a register the engine cannot play is refused, not played
+        let mut broken = Register::ROBERT;
+        broken.bass = (28, 45);
+        let e = render_in(&id, &sections, None, broken).unwrap_err();
+        assert_eq!(e.kind(), io::ErrorKind::InvalidInput);
     }
 }

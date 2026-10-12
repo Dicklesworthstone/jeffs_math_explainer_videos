@@ -5,17 +5,18 @@
 //! The registral rule (plan §7.3 hard rule 1): during speech no sustained
 //! music fundamental sits in the narrator's pitch band, because a fixed tone
 //! there roughens and masks the voice as its harmonics glide past. The band
-//! is measured afresh for every narrator ([`Register::from_f0`]): `robert`
-//! (Hoeffding) speaks at ≈ 105–216 Hz (5th–95th percentile), `matt` (video A)
-//! at 77–151 Hz, `leo` (B) at 107–205 Hz and `michael` (C) at 76–163 Hz, so
-//! each identity carries its own [`Register`]: a bass octave below the band
-//! and upper voices above it.
+//! belongs to the voice that reads a cut, not to the video: each score
+//! measures its own narration ([`crate::voice::VoiceProfile`]) and takes its
+//! [`Register`] from that ([`Register::from_f0`]): a bass octave below the
+//! band and upper voices above it. (For scale: `robert` speaks at about
+//! 104–216 Hz, 5th–95th percentile, `matt` and `michael` at about 76–165 Hz,
+//! `leo` at about 107–205 Hz.)
 
 /// Where the music may sit around one narrator (plan §7.3 hard rule 1).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Register {
     /// The narrator's f0 over voiced frames, 5th and 95th percentiles (Hz),
-    /// as measured (`docs/research/sound_design/scripts/yin2.py`).
+    /// as measured ([`crate::voice::VoiceProfile`]).
     pub f0: (f64, f64),
     /// No sustained music fundamental in `[no_fly.0, no_fly.1)` Hz during speech.
     pub no_fly: (f64, f64),
@@ -32,8 +33,10 @@ pub struct Register {
 pub const UPPER_TOP: i32 = 79;
 
 impl Register {
-    /// `robert`, Hoeffding's narrator, as plan §7.3 fixed it from the v5
-    /// takes (≈ 105–216 Hz): no music fundamental in 95–250 Hz under speech,
+    /// `robert` as plan §7.3 first fixed it by hand from Hoeffding's v5 takes
+    /// (≈ 105–216 Hz), kept as a reference register for tests and auditions
+    /// (a score's own register is measured from its narration): no music
+    /// fundamental in 95–250 Hz under speech,
     /// the bass in E1–E♭2 (41–78 Hz) and the upper voices from C4 (261.6 Hz;
     /// B3 at 246.9 Hz would sit inside the band) to G5.
     pub const ROBERT: Self = Self {

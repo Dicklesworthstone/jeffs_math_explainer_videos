@@ -684,6 +684,20 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         // deep in a sentence, at the very end, or too close to another cue
         println!("marks the score could not answer: {:?}", s.skipped_marks);
     }
+    // the register is the voice's, measured from this cut's own narration
+    // (never the video's by name): the record of what was measured
+    if let Some(p) = &s.profile {
+        let (lo, hi) = s.voice_band();
+        println!(
+            "narrator measured from {} lines in {}: f0 {:.1}-{:.1} Hz (median {:.1}); the music keeps out of {lo:.1}-{hi:.1} Hz",
+            p.lines,
+            p.dir.display(),
+            p.p5,
+            p.p95,
+            p.median
+        );
+        std::fs::write(stems.join("voice_profile.tsv"), p.to_text())?;
+    }
     let mut failed = Vec::new();
     for (k, c) in chapters.iter().enumerate() {
         let music = s.chapter_music(k);

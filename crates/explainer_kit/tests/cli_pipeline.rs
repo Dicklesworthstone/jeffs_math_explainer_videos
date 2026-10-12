@@ -132,11 +132,22 @@ fn args(s: &str) -> Vec<String> {
     s.split_whitespace().map(str::to_owned).collect()
 }
 
-/// A speech-like line: 2.5 s of pink noise low-passed near 4 kHz (roughly
-/// the long-term spectrum of speech: white noise would put most of its
-/// energy where speech has little, and the SII-lite gate would rightly judge
-/// it masked) with a 4 Hz syllable envelope, as a 48 kHz f32 file.
+/// A voice-like line: 2.5 s of a pulse train whose pitch glides between 95
+/// and 180 Hz, harmonics falling 6 dB per octave under 3.4 kHz (roughly the
+/// long-term spectrum of speech), with a 4 Hz syllable envelope, as a 48 kHz
+/// f32 file. The score measures its register from the narration it is given
+/// and refuses narration with no pitch, so a line has to be voiced.
 fn write_line(path: &Path, seed: u64) {
+    write_voice(path, (95.0, 180.0), seed);
+}
+
+fn write_voice(path: &Path, f0: (f64, f64), seed: u64) {
+    let m = explainer_score::voice::voiced_line(2.5, f0, seed);
+    wav::write(path, &Stereo::from_mono(&m), wav::Format::F32).unwrap();
+}
+
+/// 2.5 s of speech-shaped noise: loud enough to be speech, with no pitch.
+fn write_noise(path: &Path, seed: u64) {
     let mut pink = explainer_score::osc::Pink::new(seed);
     let mut lp = explainer_score::filter::OnePole::new(4_000.0);
     let n = (2.5 * 48_000.0) as usize;
@@ -270,6 +281,20 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
         assert!(stems.join(format!("qa/{key}.json")).exists());
     }
     let fp = std::fs::read_to_string(stems.join("score.fingerprint")).unwrap();
+    // the register was measured from this cut's own narration, and the record says so
+    let field = |text: &str, key: &str| {
+        let line = text.lines().find(|l| l.split('\t').next() == Some(key));
+        assert!(line.is_some(), "no {key} in {text}");
+        line.unwrap_or_default().to_owned()
+    };
+    let profile = std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap();
+    assert_eq!(
+        std::fs::canonicalize(field(&profile, "narration_dir").split('\t').nth(1).unwrap()).unwrap(),
+        std::fs::canonicalize(&narration).unwrap()
+    );
+    assert_eq!(field(&profile, "lines"), "lines\t4");
+    let p5: f64 = field(&profile, "f0_p5_hz").split('\t').nth(1).unwrap().parse().unwrap();
+    assert!((90.0..105.0).contains(&p5), "the lines glide from 95 Hz: {profile}");
     assert_eq!(
         explainer_kit::cli::run(&e, args(&format!("score --out {o}"))),
         0,
@@ -327,6 +352,35 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
         1
     );
     assert!(!wout.join("01_first.mp4").exists(), "nothing published");
+
+    // another voice reads the same lines (the narrator changed, or this is a
+    // variant of the cut): the score is written again around the voice it
+    // now hears, not around the one the video had before
+    let ids = ["01_1", "01_2", "02_1", "02_2"];
+    for (k, id) in ids.iter().enumerate() {
+        write_voice(&narration.join(format!("{id}.wav")), (150.0, 262.0), k as u64 + 1);
+    }
+    assert_eq!(explainer_kit::cli::run(&e, args(&format!("score --out {o}"))), 0);
+    let higher = std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap();
+    let fp_higher = std::fs::read_to_string(stems.join("score.fingerprint")).unwrap();
+    assert_ne!(fp_higher, fp);
+    assert_ne!(field(&higher, "narration_sha256"), field(&profile, "narration_sha256"));
+    assert_ne!(field(&higher, "no_fly_hz"), field(&profile, "no_fly_hz"));
+    assert_ne!(field(&higher, "bass_midi"), field(&profile, "bass_midi"));
+    // narration with no pitch to measure is refused: no register is assumed
+    // for it, and the last score stands untouched
+    for (k, id) in ids.iter().enumerate() {
+        write_noise(&narration.join(format!("{id}.wav")), k as u64 + 1);
+    }
+    assert_eq!(explainer_kit::cli::run(&e, args(&format!("score --out {o}"))), 1);
+    assert_eq!(
+        std::fs::read_to_string(stems.join("score.fingerprint")).unwrap(),
+        fp_higher
+    );
+    assert_eq!(
+        std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap(),
+        higher
+    );
 }
 
 #[test]

@@ -196,7 +196,10 @@ fn a_two_route_chapter_masters_with_its_stem_spanning_the_cut() {
             resolve: true,
         },
     };
-    let s = score::render(&Identity::hoeffding(), &[section], None).unwrap();
+    // 2.2 s of noise is no voice to measure a register from, and the route
+    // segments are the point here: a chosen register
+    let robert = explainer_score::theory::Register::ROBERT;
+    let s = score::render_in(&Identity::hoeffding(), &[section], None, robert).unwrap();
     let stem = s.chapter_music(0);
     let cut = explainer_score::units::frame_to_sample(fa, 60) as usize;
     assert_eq!(stem.len(), chapter.samples());
