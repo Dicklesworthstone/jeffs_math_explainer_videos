@@ -1,4 +1,4 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 18:35 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 19:55 EDT)
 
 **Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
@@ -51,7 +51,7 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 
 | Cut | Master | md5 | Length | Text | Captions (md5) | Thumbnail |
 |---|---|---|---|---|---|---|
-| Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `6898620cebc142bc28292ec8df995a9d` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`d993b6f5…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
+| Hoeffding michael v2 | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` (v2 chapter times) | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`b643a09d…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
 | fish michael v2 (HOLD: v3 follows) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | bakery michael, review 2 | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `7df3679f4f52d3e5844425fb7b868048` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, 9f743ed) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`7048a44c…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
 
@@ -77,12 +77,11 @@ items checked in the takes ("Marked times", "five in a one", "pull the guess dow
 Michael reads about 3% slower than matt, so chapters 04, 05 and 14 run 86-89 s, over our ~85 s
 pacing guideline (not a render limit): for the owner's ear.
 
-Hoeffding michael evidence (Codex's audit then found two candidates, "An exact twin" and "add a
-quarter each"; its narration owner is checking them, and a v2 follows if a read changes; this cut
-would then move to `variants/michael/renders/final_v1/`): VERIFY PASS (A/V 0.001 s, both decodes clean), music QA 8/8, cue check
-PASS (one warning: the authored 5.2 s listening pause before s9, as in robert's cut); narration
-gates PASS with 0 dropped final s/z and 0 cut short; "Hoeffding" read as HERF-ding in all nine
-places and the possessives (checked by formants), spelled Hoeffding in the captions.
+Hoeffding michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean, the quiet-peak
+exception above), music QA 8/8 on score engine ed882b6, built at 7767d25 from the frozen narration
+(e69d2d2, ec27646: "An exact twin", "add a quarter each" and six endings repaired: noise, values,
+marks, matters, lines, coordinates). Codex's full fw on this exact master is clear, with HERF-ding in
+all nine places. v1 (`6898620c…`, superseded) is kept at `variants/michael/renders/final_v1/`.
 
 ## In progress (review 2, michael)
 

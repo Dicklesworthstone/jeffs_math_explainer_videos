@@ -5,10 +5,10 @@ Chapters
 0:47 Six shapes, four measures
 2:17 Why a turn takes four points
 3:23 Ranks
-4:15 The count Q
+4:16 The count Q
 5:35 Three sums and one formula
 6:45 What shuffling destroys
-8:17 Recap
+8:18 Recap
 
 Names to search: Hoeffding's D, Hoeffding's test of independence, Pearson's correlation coefficient, Spearman's rank correlation, Kendall's tau, rank statistics, U-statistic, permutation test.
 
