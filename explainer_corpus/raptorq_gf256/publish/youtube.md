@@ -5,7 +5,7 @@ numbers are oracle keys and fact-sheet rows) and links back to it for the full n
 chapter times come from the final cut (`./x raptorq_gf256 chapters`).
 
 - Title: The Arithmetic Where 3 × 7 = 9
-- Visibility: unlisted until the owner has listened to it, then public
+- Visibility: Private, for the owner's review. Public only after his explicit approval, with his listening, full-watch and quiet-level acceptance recorded.
 - Category: Education. Audience: not made for kids.
 - Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
 - Thumbnail: `renders/raptorq_gf256_thumbnail.png` (`./x raptorq_gf256 thumbnail`)

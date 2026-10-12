@@ -5,7 +5,7 @@ number there is printed by `hoeffding stats`) and links back to it; the chapter 
 from the final cut (`./x hoeffding_d chapters`).
 
 - Title: Hoeffding's D: The Ring That Correlation Can't See
-- Visibility: unlisted until the owner has listened to it, then public
+- Visibility: Private, for the owner's review. Public only after his explicit approval, with his listening, full-watch and quiet-level acceptance recorded.
 - Category: Education. Audience: not made for kids.
 - Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
 - Thumbnail: `renders/hoeffding_thumbnail.png` (`./x hoeffding_d thumbnail`)

@@ -5,7 +5,7 @@ numbers are oracle keys and fact-sheet rows) and links back to it for the full n
 chapter times come from the final cut (`./x capture_recapture chapters`).
 
 - Title: How to Count Fish You've Never Seen
-- Visibility: unlisted until the owner has listened to it, then public
+- Visibility: Private, for the owner's review. Public only after his explicit approval, with his listening, full-watch and quiet-level acceptance recorded.
 - Category: Education. Audience: not made for kids.
 - Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
 - Thumbnail: `renders/capture_recapture_thumbnail.png` (`./x capture_recapture thumbnail`)

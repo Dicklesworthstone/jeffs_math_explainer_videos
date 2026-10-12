@@ -5,7 +5,7 @@ statements rest on fact-sheet rows and oracle keys) and links back to it for the
 the chapter times come from the final cut (`./x bakery_algorithm chapters`).
 
 - Title: The Algorithm Lamport Is Proudest Of
-- Visibility: unlisted until the owner has listened to it, then public
+- Visibility: Private, for review. Public only after the owner's explicit approval, with the listening, the full watch and the quiet level (−17.6 LUFS) accepted and recorded.
 - Category: Education. Audience: not made for kids.
 - Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
 - Thumbnail: `renders/bakery_algorithm_thumbnail.png` (`./x bakery_algorithm thumbnail`)

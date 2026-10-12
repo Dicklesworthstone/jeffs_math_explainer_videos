@@ -94,7 +94,7 @@ captions in its `renders/final/`, and the video's thumbnail. Added here when ver
 | Cut | Text files | Captions (md5) | Thumbnail, 1280×720 (md5) |
 |---|---|---|---|
 | Hoeffding robert | `explainer_corpus/hoeffding_d/publish/robert/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/renders/final/hoeffding.en.srt` (`d8cb9445…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` (`568b42df…`) |
-| bakery michael | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`27f50dfe…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` (`4be9ed65…`) |
+| bakery michael, review 1 | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (as uploaded: 7736fdd; the files now carry review 2's chapter times) | `explainer_corpus/bakery_algorithm/renders/final_review1/bakery_algorithm.en.srt` (`27f50dfe…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` (`4be9ed65…`) |
 | fish matt | `explainer_corpus/capture_recapture/publish/matt/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/renders/final/capture_recapture.en.srt` (`1f2df8ca…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` (`bce2cbc9…`) |
 | RaptorQ michael | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`cb8b968c…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` (`ab3727ca…`) |
 
