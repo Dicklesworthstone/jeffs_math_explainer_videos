@@ -145,6 +145,16 @@ def voiced_run(seg, rate, top):
     return best
 
 
+def first_voiced(x, rate, top):
+    """Seconds to the take's first 40 ms of voiced sound (None if it has none), judged like voiced_run."""
+    run = 0
+    for i, voiced in enumerate(~np.isnan(nr.f0_track(x * 10 ** ((-3.0 - top) / 20), rate))):
+        run = run + 1 if voiced else 0
+        if run == 4:
+            return (i - 3) * 0.01
+    return None
+
+
 def hear(x, rate, last_word_end):
     """Where the sentence is inside the take: its cut-in and cut-out, whether
     each lands in silence, and the pauses between its syllables."""
@@ -162,6 +172,12 @@ def hear(x, rate, last_word_end):
     kept = [p for p in phrases if p[0] <= limit] or phrases[:1]
     first, last = kept[0][0], kept[-1][1]
     junk_after = sum((b - a + 1) * HOP for a, b in phrases[len(kept):])
+    # A syllable has a voice in it. Sound this loud that starts more than 0.2 s (a loud "s" or
+    # "sh" takes less) before the take's first voiced stretch is a noise bed, not the first word
+    # (robert opens takes with up to 0.8 s of it, 12 dB under the speech).
+    voiced = first_voiced(x, rate, top)
+    if voiced is not None and first < frames(voiced - 0.20):
+        first = min(last, next((i for i in range(frames(voiced - 0.20), len(db)) if db[i] >= top - NUCLEUS), first))
     cut_in, clean_in = edge(db, audible, top - FAINT, first - 1, -1, frames(ONSET_REACH), frames(0.12))
     cut_out, clean_out = edge(db, audible, top - FAINT, last + 1, 1, frames(TAIL_REACH), frames(0.12))
     cut_in = min(first, max(0, cut_in - (4 if clean_in else 0)))
