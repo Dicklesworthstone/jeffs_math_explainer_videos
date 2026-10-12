@@ -92,6 +92,37 @@ fn in_room_at_end(failure: &[crate::model::Step]) -> fmn::Result<[usize; 2]> {
         .map_err(|v: Vec<usize>| fail(format!("10_4 needs two in the room, the model has {v:?}")))
 }
 
+/// The double read that breaks the max: what the compare saw, what the
+/// copy got, and the biggest ticket the customer had already read, which
+/// the copy drops her below.
+#[derive(Debug, PartialEq, Eq)]
+pub struct BadCopy {
+    pub compare: u32,
+    pub copy: u32,
+    pub had: u32,
+}
+
+/// The first re-read in `failure` that leaves a customer's running maximum
+/// below what it was (the model's labels: "read number[k]=x (> t: re-fetch)",
+/// then her "re-fetch number[k]=y -> t").
+pub fn bad_copy(failure: &[crate::model::Step]) -> Option<BadCopy> {
+    failure.iter().enumerate().find_map(|(i, first)| {
+        let compare = first
+            .label
+            .strip_suffix(" (> t: re-fetch)")?
+            .rsplit('=')
+            .next()?
+            .parse()
+            .ok()?;
+        let c = first.customer - 1;
+        let second = failure[i + 1..]
+            .iter()
+            .find(|s| s.customer == first.customer && s.label.starts_with("re-fetch"))?;
+        let (had, copy) = (first.before.local[c].m, second.after.local[c].m);
+        (copy < had).then_some(BadCopy { compare, copy, had })
+    })
+}
+
 pub struct OldZero {
     pub kit: Kit,
 }
@@ -134,27 +165,9 @@ impl SceneConstruct for OldZero {
         // 10_2: read the lanes
         let line = say(&kit, stage, "10_2")?;
         play!(stage; fade_out(stage.arena_mut(), q, ORIGIN, 1.0)?.rt(0.3));
-        line.wait_for(stage, "Blue's flag is up")?;
-        let blue_band: Vec<Mob> = (at.blue_raises_again..=at.glance)
-            .flat_map(|s| lanes.parts[s - 1].bands.clone())
-            .filter(|&m| stage.get_center(m)[1] > (BLUE_Y + GREEN_Y) / 2.0)
-            .collect();
-        let mut hi: Vec<Box<dyn Animation>> = Vec::new();
-        for m in blue_band.iter().copied().chain([lanes.heads[0].flag.pennant]) {
-            let a = fmn::animation::indicate(stage.arena_mut(), m, 1.15, Some(rgb(flag_amber())))?;
-            hi.push(stage.prepare(a.rt(1.0))?);
-        }
-        stage.play_prepared(hi)?;
-        line.wait_for(stage, "Green had already seen it down")?;
-        let saw: Vec<Mob> = lanes.step_mobs(at.green_saw_flag_down);
-        let mut hi: Vec<Box<dyn Animation>> = Vec::new();
-        for m in saw {
-            let a = fmn::animation::indicate(stage.arena_mut(), m, 1.3, None)?;
-            hi.push(stage.prepare(a.rt(1.0))?);
-        }
-        stage.play_prepared(hi)?;
-        // the three moments, in order along the time axis
-        line.wait_for(stage, "So Blue raised it")?;
+        // the three moments along a time axis, each as the voice says its
+        // step (R3 maya-03): Green done choosing, Green seeing Blue's flag
+        // down, then Blue raising it
         let axis = stage.arena_mut().add(
             Line::new(v(e3_layout().x0, AXIS_Y), v(e3_layout().x1, AXIS_Y))
                 .style(line_style(Palette::faint(), 2.0))
@@ -162,11 +175,34 @@ impl SceneConstruct for OldZero {
         );
         play!(stage; show_creation(axis).rt(0.5));
         let mut guides = vec![axis];
-        for (s, who) in [
-            (at.green_done_choosing, 2),
-            (at.green_saw_flag_down, 2),
-            (at.blue_raises_again, 1),
+        for (s, who, phrase) in [
+            (at.green_done_choosing, 2, "Green finished choosing"),
+            (at.green_saw_flag_down, 2, "at step seventeen"),
+            (at.blue_raises_again, 1, "Blue raised it"),
         ] {
+            line.wait_for(stage, phrase)?;
+            // what the step shows: Green's glance at the lowered flag; Blue's
+            // flag going up, and up until the glance
+            let marked: Vec<(Mob, Option<Srgb>)> = if s == at.green_saw_flag_down {
+                lanes.step_mobs(s).into_iter().map(|m| (m, None)).collect()
+            } else if s == at.blue_raises_again {
+                (at.blue_raises_again..=at.glance)
+                    .flat_map(|s| lanes.parts[s - 1].bands.clone())
+                    .filter(|&m| stage.get_center(m)[1] > (BLUE_Y + GREEN_Y) / 2.0)
+                    .chain([lanes.heads[0].flag.pennant])
+                    .map(|m| (m, Some(flag_amber())))
+                    .collect()
+            } else {
+                Vec::new()
+            };
+            let mut hi: Vec<Box<dyn Animation>> = Vec::new();
+            for (m, c) in marked {
+                let a = fmn::animation::indicate(stage.arena_mut(), m, 1.2, c.map(rgb))?;
+                hi.push(stage.prepare(a.rt(0.9))?);
+            }
+            if !hi.is_empty() {
+                stage.play_prepared(hi)?;
+            }
             let x = lanes
                 .x(s)
                 .ok_or_else(|| super::draw::fail(format!("step {s} has a slot")))?;
@@ -175,12 +211,14 @@ impl SceneConstruct for OldZero {
                 .style(line_style(customer(who), 2.0))
                 .build()?;
             let g = stage.arena_mut().add(guide);
+            // the first two steps sit close: the middle label drops a row
+            let drop = if s == at.green_saw_flag_down { 0.42 } else { 0.0 };
             let label = kit.text(
                 stage,
                 &format!("{} {s}", glyphs::STEP),
-                22.0,
+                30.0,
                 customer(who),
-                v(x, AXIS_Y - 0.32),
+                v(x, AXIS_Y - 0.4 - drop),
             )?;
             play!(stage;
                 show_creation(g).rt(0.45),
@@ -199,7 +237,7 @@ impl SceneConstruct for OldZero {
         play!(stage; fade_in(stage.arena_mut(), fact, v(0.0, -0.15), 1.0)?.rt(0.7));
         // Blue's write lands: 9; her flag comes down; she checks Green and
         // waits behind Green's smaller pair
-        line.wait_for(stage, "so Blue's ticket will be bigger")?;
+        line.wait_for(stage, "Green holds")?;
         for s in at.glance + 1..=steps.len() {
             if let Some(a) = lanes.reveal(stage, s..=s, 0.4)? {
                 let mut all = vec![a];
@@ -211,7 +249,7 @@ impl SceneConstruct for OldZero {
         let pairs = kit.tex(
             stage,
             &format!(r"({},\ 2) < ({},\ 1)", end.number[1], end.number[0]),
-            40.0,
+            54.0,
             Palette::ink(),
             &[],
             v(4.6, -2.6),
@@ -275,10 +313,30 @@ impl SceneConstruct for OldZero {
             glyphs::MAX_CODE_4,
         ];
         let line = say(&kit, stage, "10_4")?;
+        // Lamport's paper and "for programmers" come in as the line starts, so
+        // "one caution" is never said over an empty frame (R3 dev-05, maya-04)
+        let cite = kit.text(
+            stage,
+            &format!("{} {}", glyphs::NONATOMIC_SOURCE, cited::NONATOMIC_OPERATIONS_YEAR),
+            24.0,
+            Palette::dim(),
+            v(0.0, 2.6),
+        )?;
+        let header = kit.text_left(
+            stage,
+            glyphs::FOR_PROGRAMMERS_TITLE,
+            26.0,
+            Palette::dim(),
+            v(-2.9, 1.75),
+        )?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for m in shown.into_iter().chain([chips]) {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             anims.push(stage.prepare(a.rt(0.5))?);
+        }
+        for m in [cite, header] {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.6))?);
         }
         stage.play_prepared(anims)?;
         // each line starts one column per leading space in: the loop's body is
@@ -295,9 +353,12 @@ impl SceneConstruct for OldZero {
             stage.move_to(m, at_, LEFT);
             code_mobs.push(m);
         }
+        // the code's name for a slate, said once (R3 maya-04)
+        let slate_k = kit.text_left(stage, glyphs::NUMBER_IS_SLATE, 24.0, Palette::dim(), v(-2.9, -1.5))?;
+        code_mobs.push(slate_k);
         line.wait_for(stage, "Find the biggest")?;
         fade_in_all(stage, &code_mobs, 0.6)?;
-        line.wait_for(stage, "The obvious way")?;
+        line.wait_for(stage, "Reading it twice")?;
         // the two reads of number[k]: compare, then copy
         let reads = [(2usize, glyphs::COMPARE), (3usize, glyphs::COPY)];
         let mut tags = Vec::new();
@@ -310,20 +371,44 @@ impl SceneConstruct for OldZero {
             play!(stage; a.rt(0.7), fade_in(stage.arena_mut(), tag, ORIGIN, 1.0)?.rt(0.5));
             tags.push(tag);
         }
-        line.wait_for(stage, "a flicker between them")?;
+        line.wait_for(stage, "a flicker between the two reads")?;
         let between = {
             let a = stage.get_left(code_mobs[2]);
             let b = stage.get_left(code_mobs[3]);
             v(a[0] - 0.55, (a[1] + b[1]) / 2.0)
         };
         let fx = stage.arena_mut().add(static_burst(between, 0.7, 41));
-        play!(stage; fade_in(stage.arena_mut(), fx, ORIGIN, 1.2)?.rt(0.3));
-        // the outcome, on three lanes, fast
+        // how it breaks, in the model's own failing reads (R3 dev-05): the
+        // copy returns less than the compare saw, and the running maximum
+        // drops below a ticket already read
         let failure = double_fetch_failure();
+        let bad = bad_copy(&failure).ok_or_else(|| fail("the double-fetch run has no dropped maximum".to_owned()))?;
+        let how = kit.text_left(
+            stage,
+            &format!(
+                "{} {}{} {}{} {} {}",
+                glyphs::BAD_COPY_A,
+                bad.compare,
+                glyphs::BAD_COPY_B,
+                bad.copy,
+                glyphs::BAD_COPY_C,
+                bad.had,
+                glyphs::BAD_COPY_D
+            ),
+            26.0,
+            flag_amber(),
+            v(-2.9, -2.15),
+        )?;
+        play!(stage;
+            fade_in(stage.arena_mut(), fx, ORIGIN, 1.2)?.rt(0.3),
+            fade_in(stage.arena_mut(), how, v(0.0, 0.1), 1.0)?.rt(0.5),
+        );
+        stage.wait(0.5)?;
+        // the outcome, on three lanes, fast; the caption stays under them
         let mut df = TraceLanes::build(&kit, stage, double_fetch_layout(), &failure, &[])?;
         let mut away = code_mobs.clone();
         away.extend(tags);
-        away.push(fx);
+        away.extend([fx, header]);
         fade_out_all(stage, &away, 0.5)?;
         fade_in_all(stage, &df.base(), 0.5)?;
         // the run in four stretches, the slates and flags at the lane heads
@@ -349,21 +434,9 @@ impl SceneConstruct for OldZero {
             ),
             24.0,
             Palette::dim(),
-            v(0.0, -2.55),
+            v(0.0, -2.9),
         )?;
-        let cite = kit.text(
-            stage,
-            &format!("{} {}", glyphs::NONATOMIC_SOURCE, cited::NONATOMIC_OPERATIONS_YEAR),
-            24.0,
-            Palette::dim(),
-            v(0.0, 2.6),
-        )?;
-        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        for m in [model_note, cite] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.6))?);
-        }
-        stage.play_prepared(anims)?;
+        play!(stage; fade_in(stage.arena_mut(), model_note, ORIGIN, 1.0)?.rt(0.6));
         // two in the room at once: the two inside play their tunes together
         // in their own window, as their room bands pulse
         let [a, b] = in_room_at_end(&failure)?;
@@ -436,5 +509,81 @@ mod tests {
         assert!(at.green_done_choosing < at.green_saw_flag_down);
         assert!(at.green_saw_flag_down < at.blue_raises_again);
         assert!(at.blue_raises_again < at.glance);
+    }
+
+    /// A number below a hundred as the script spells it.
+    fn words(n: usize) -> String {
+        const ONES: [&str; 20] = [
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen",
+        ];
+        const TENS: [&str; 10] = [
+            "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
+        ];
+        match n {
+            0..20 => ONES[n].to_owned(),
+            _ if n.is_multiple_of(10) => TENS[n / 10].to_owned(),
+            _ => format!("{}-{}", TENS[n / 10], ONES[n % 10]),
+        }
+    }
+
+    #[test]
+    fn the_10_2_line_says_the_models_steps_and_tickets() {
+        let steps = Trace::E3.steps();
+        let at = e3_moments(&steps);
+        let row = crate::STORYBOARD
+            .lines()
+            .find(|l| l.starts_with("| 10_2 |"))
+            .expect("the storyboard has 10_2");
+        let end = &steps.last().unwrap().after;
+        let (blue, green) = (end.number[0] as usize, end.number[1] as usize);
+        for (n, said) in [
+            (at.green_done_choosing, "Green finished choosing at step"),
+            (at.green_saw_flag_down, "and at step"),
+            (at.blue_raises_again, "Blue raised it at step"),
+            (green, "Green holds"),
+            (blue, "comes out"),
+        ] {
+            let phrase = format!("{said} {}", words(n));
+            assert!(row.contains(&phrase), "10_2 should say {phrase:?}");
+        }
+    }
+
+    #[test]
+    fn the_burst_caption_is_the_failures_own_double_read() {
+        // Blue had read Green's 1; her compare of Purple's flickering slate
+        // saw 2, her copy got 0
+        let f = double_fetch_failure();
+        assert_eq!(
+            bad_copy(&f),
+            Some(BadCopy {
+                compare: 2,
+                copy: 0,
+                had: 1
+            })
+        );
+        // the checker's own record of that run says the same
+        let record = include_str!("../../../../docs/research/bakery_algorithm/scripts/outputs/df_trace_out.txt");
+        assert!(record.contains("P1: read number[3]=2 (> t: re-fetch)"));
+        assert!(record.contains("P1: re-fetch number[3]=0 -> t"));
+        assert!(record.contains("P1: re-fetch number[2]=1 -> t"));
     }
 }

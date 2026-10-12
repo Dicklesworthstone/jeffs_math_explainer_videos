@@ -193,8 +193,9 @@ pub const THESIS: &str = "choosing at once is fine: the flag shows who's choosin
 pub const STEP: &str = "step";
 /// 10_2's card (08_2's fact one with Blue and Green swapped).
 pub const FACT_ONE_SWAPPED: &str = "fact one, the other way round";
+/// As 08_2's card, with the hypothesis fact one needs (R3 ruth-03).
 pub const FACT_ONE_SWAPPED_TEXT: &str =
-    "Green finished choosing before Blue started:\nBlue's ticket is bigger than Green's";
+    "Green finished choosing before Blue started,\nand still holds that ticket: Blue's is bigger";
 pub const CHIPS_DONT_TEAR: &str = "today's chips don't tear an aligned word; the proof just doesn't need that";
 /// "Leslie Lamport, publications page".
 pub const QUOTE_DISCOVERED: &str =
@@ -216,6 +217,14 @@ pub const MAX_CODE_4: &str = "        t = number[k]";
 /// The two reads of number[k].
 pub const COMPARE: &str = "compare";
 pub const COPY: &str = "copy";
+/// The code's name for a slate (R3 maya-04).
+pub const NUMBER_IS_SLATE: &str = "number[k] is customer k's slate";
+/// "compare saw {x}, copy got {y}: t drops below the {m} already read", the
+/// numbers from the model's failing run (R3 dev-05).
+pub const BAD_COPY_A: &str = "compare saw";
+pub const BAD_COPY_B: &str = ", copy got";
+pub const BAD_COPY_C: &str = ": t drops below the";
+pub const BAD_COPY_D: &str = "already read";
 /// "model: {n} customers, flickering slates, read twice: two in the room
 /// after {len} steps", the counts from the model's shortest failure.
 pub const MODEL_NOTE_A: &str = "model:";
@@ -256,6 +265,11 @@ pub const SIGNED_JAVA_INT: &str = "signed, as Java's int";
 pub const BILLION_A_SECOND: &str = "tickets at a billion a second:";
 pub const YEARS: &str = "years";
 pub const JAVA_LONG: &str = "as Java's long";
+/// "real case: a {64}-bit ticket written in two {32}-bit halves (Java's
+/// plain long)", 11_6 (R3 dev-07).
+pub const REAL_CASE_A: &str = "real case: a";
+pub const REAL_CASE_B: &str = "-bit ticket written in two";
+pub const REAL_CASE_C: &str = "-bit halves (Java's plain long)";
 pub const READS: &str = "reads";
 /// "a {bits}-bit slate".
 pub const BIT_SLATE_A: &str = "a";
@@ -339,6 +353,8 @@ pub const UB_3: &str = "undefined behaviour;";
 pub const UB_4: &str = "volatile doesn't help.";
 pub const UB_5: &str = "Java: AtomicLongArray works;";
 pub const UB_6: &str = "a volatile long[] doesn't.";
+/// Under the shown panel, which leaves out the `use` line and the comments.
+pub const FULL_CODE: &str = "full code: in the description";
 pub const SEQCST_COST: &str = "SeqCst is the easy way, not the cheapest: on x86 it fences every store.";
 /// 12_7's measured table: "measured: points lost in {visits} visits, {n}
 /// customers", the locks, and "x86: {cpu}. Arm: {cpu}; there
@@ -372,7 +388,8 @@ pub const SECTION_SIGN: &str = "§";
 /// 13_2: Arm's firmware.
 pub const TF_A: &str = "Trusted Firmware-A (TF-A)";
 pub const TF_A_WHY: &str = "a bakery lock for a core waking with its cache off";
-pub const CACHE_OFF: &str = "data cache: off";
+/// The voice's "fast memory" and the card's "data cache" as one thing (R3 maya-16).
+pub const CACHE_OFF: &str = "fast memory (data cache): off";
 pub const NOT_GUARANTEED: &str = "exclusive-access spinlocks: not guaranteed";
 pub const TF_A_PRECISELY: &str = "TF-A takes a bakery lock right after reset, before the data cache is on; its PSCI code \
      does so only when HW_ASSISTED_COHERENCY is 0. Exclusive-access spinlocks need cacheable memory; a bakery \
@@ -594,6 +611,11 @@ pub const TEXT: &[&str] = &[
     HOLT_SOURCE,
     COMPARE,
     COPY,
+    NUMBER_IS_SLATE,
+    BAD_COPY_A,
+    BAD_COPY_B,
+    BAD_COPY_C,
+    BAD_COPY_D,
     MODEL_NOTE_A,
     MODEL_NOTE_B,
     MODEL_STEPS,
@@ -622,6 +644,9 @@ pub const TEXT: &[&str] = &[
     BILLION_A_SECOND,
     YEARS,
     JAVA_LONG,
+    REAL_CASE_A,
+    REAL_CASE_B,
+    REAL_CASE_C,
     READS,
     BIT_SLATE_A,
     BIT_SLATE_B,
@@ -684,6 +709,7 @@ pub const TEXT: &[&str] = &[
     UB_4,
     UB_5,
     UB_6,
+    FULL_CODE,
     SEQCST_COST,
     POINTS_LOST_IN,
     RELAXED,

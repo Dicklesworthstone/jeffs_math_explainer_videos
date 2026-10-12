@@ -305,6 +305,19 @@ shared variables race, and "Any such data race results in undefined behavior";
 `volatile` does not change that. In Java, `AtomicLongArray` works and a
 `volatile long[]` does not. [C-S15, C-S23]
 
+**12_1, 12_7 (measured).** `cargo run --release --bin bakery_stress`, the
+12_7 lock on two customers, each run 3,000,000 visits per customer, ten runs
+per kind of lock: 60,000,000 visits each. Points lost (a point is lost when
+two customers' read-then-write of the scoreboard interleave): AMD Ryzen
+Threadripper PRO 5995WX, SeqCst 0, Release/Acquire 1,173,616, Relaxed
+1,006,846; Apple M5 Ultra, SeqCst 0, Release/Acquire 0, Relaxed 2,314,899
+(and Release/Acquire 0 of 600,000,000 in a hundred runs; with four customers,
+SeqCst 0, Release/Acquire 0, Relaxed 6,694,918). A zero means none were seen
+in these runs, not that none are possible: no language promises
+Release/Acquire is enough here, and zero lost points never proves "never two
+in the room". The proof and sequential consistency do that, for SeqCst. A
+positive count does prove a failure. [C-M1, C-S12, C-S13]
+
 **13_1.** Lamport himself: "Although of little if any practical use, the bakery
 algorithm [11] has become a popular example of a mutual exclusion algorithm."
 (Turing lecture, 2015) [C-S26]

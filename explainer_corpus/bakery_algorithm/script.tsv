@@ -62,15 +62,15 @@
 09_5	Never. It trusts only two glances at slates. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate.
 09_6	A glance that catches garbage, say seven, just makes a customer take eight and wait longer.
 10_1	And a glance that catches Blue's old zero mid-write lets Green straight in. Is that dangerous?
-10_2	No. Blue's flag is up while she takes a ticket, and Green had already seen it down. So Blue raised it after Green finished choosing. That's fact one the other way round, so Blue's ticket will be bigger, and she waits.
+10_2	No. Green finished choosing at step fourteen. Only then did she check Blue's flag, and at step seventeen she saw it down. Blue raised it at step twenty-one, after Green was done. That's fact one the other way round. Green holds eight, so Blue's ticket comes out nine, and she waits.
 10_3	Lamport noticed that the algorithm survives garbage only after writing the proof. In his words, the read may return any arbitrary value. His colleague Anatol Holt refused to believe it.
-10_4	One caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. The obvious way reads a slate twice, once to compare and once to copy, and a flicker between them can break it.
+10_4	For programmers, one caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. Reading it twice, once to compare and once to copy, lets a flicker between the two reads break it.
 10_5	So, could computers take turns safely with memory like that? Yes.
 11_1	It's also fair. Finish choosing your ticket before I start choosing mine, and you're served first. If we choose at the same time, either of us may go first.
 11_2	As long as everyone in the room comes out, and nobody stalls for good with a raised flag or a ticket, whoever holds the smallest pair gets through. Once you've taken your ticket, each other customer can get ahead of you at most once. So nobody waits forever.
 11_3	The price is that tickets keep growing while somebody is always in line. They reset only when the bakery empties.
 11_4	Lamport did the sum. At one customer a millisecond, how big do the tickets get in a year?
-11_5	Up to about thirty-one and a half billion, one per millisecond. That's too big for a thirty-two bit slate. Like the odometer, it could roll over in under two months.
+11_5	Up to about thirty-one and a half billion. A thirty-two bit slate stops at about four billion, then rolls back to zero like a car's odometer, in under two months.
 11_6	A sixty-four bit slate lasts centuries, even at a billion tickets a second. That sum assumes a glance never returns more than was really written. One huge glance makes the tickets after it huge too.
 11_7	And it isn't cheap. Even alone, a customer makes three reads for every other customer. One customer frozen while choosing stalls everyone.
 12_1	The proof is right, but run as written on your laptop, the algorithm can fail. A finished write isn't always seen by every later read.
@@ -78,7 +78,7 @@
 12_3	Both customers raise their flags and write their tickets, into their outboxes. Then each checks the other's flag and slate. What does she see?
 12_4	No flag, and no ticket. Both walk in, while the real flags and slates still say nobody is even choosing.
 12_5	The fix is a fence. Wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences each time you enter are enough, one after raising your flag, and one after lowering it.
-12_6	Arm chips, like the ones in recent Macs, shuffle more than an outbox does. Others can see your flag come down before your ticket lands, which is chapter five's bug again.
+12_6	Arm chips, like the ones in recent Macs, shuffle more than an outbox does. Others can see your flag come down before your ticket lands, the unwritten ticket again.
 12_7	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes. Acquire and release are not enough here, because this needs your write to land before your next read.
 13_1	In practice, people use the hardware's magic signs, which check and flip in one motion. So does the bakery still run anywhere?
 13_2	Yes. Code that Arm itself publishes uses it while a core wakes up, before its fast memory is switched on. Until then, the magic signs aren't guaranteed to work, so the core takes a ticket, bakery style.

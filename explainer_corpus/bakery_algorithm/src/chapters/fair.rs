@@ -593,7 +593,7 @@ impl SceneConstruct for FairAtAPrice {
             write(stage.arena(), answer).rt(1.2),
         );
         play!(stage; fade_in(stage.arena_mut(), bound, v(0.0, 0.1), 1.0)?.rt(0.7));
-        line.wait_for(stage, "too big")?;
+        line.wait_for(stage, "A thirty-two bit slate")?;
         // a 32-bit slate's top, its digits one wheel each
         let top32 = fact_u64("C-F10.u32_max");
         let bits32 = (top32 + 1).trailing_zeros();
@@ -608,7 +608,7 @@ impl SceneConstruct for FairAtAPrice {
         let mut intro = odo32.parts();
         intro.push(label32);
         fade_in_all(stage, &intro, 0.5)?;
-        line.wait_for(stage, "roll over")?;
+        line.wait_for(stage, "then rolls back")?;
         odo32.roll_to(&kit, stage, 0, 0.6)?;
         let wrap = kit.tex(
             stage,
@@ -705,14 +705,32 @@ impl SceneConstruct for FairAtAPrice {
             fade_out(stage.arena_mut(), fx, ORIGIN, 1.0)?.rt(0.4),
             fade_in(stage.arena_mut(), huge, ORIGIN, 0.8)?.rt(0.5),
         );
-        play!(stage; fade_in(stage.arena_mut(), next, v(0.0, 0.15), 1.0)?.rt(0.5));
+        // where a huge glance comes from on real hardware (R3 dev-07): a wide
+        // ticket written in two halves (JLS §17.7; fact sheet C-S22)
+        let bits64 = fact_u64("C-F11.huge_glance").trailing_zeros() + 1;
+        let real_case = kit.text(
+            stage,
+            &format!(
+                "{} {bits64}{} {}{}",
+                glyphs::REAL_CASE_A,
+                glyphs::REAL_CASE_B,
+                bits64 / 2,
+                glyphs::REAL_CASE_C
+            ),
+            22.0,
+            Palette::dim(),
+            v(0.0, -1.3),
+        )?;
+        play!(stage;
+            fade_in(stage.arena_mut(), next, v(0.0, 0.15), 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), real_case, v(0.0, 0.1), 1.0)?.rt(0.5),
+        );
         kit.hold(stage)?;
 
         // 11_7: the costs: twelve reads alone; a frozen chooser stalls
         // everyone; the card stays through the listen window
         let line = say(&kit, stage, "11_7")?;
-        fade_out_all(stage, &[years, quote, well, slate_t, huge, next], 0.5)?;
-        let bits64 = fact_u64("C-F11.huge_glance").trailing_zeros() + 1;
+        fade_out_all(stage, &[years, quote, well, slate_t, huge, next, real_case], 0.5)?;
         let wide_tickets = format!("{bits64}{}", glyphs::WIDE_TICKETS);
         let costs = card(
             &kit,
@@ -767,7 +785,9 @@ impl SceneConstruct for FairAtAPrice {
         let mut fl = TraceLanes::build(
             &kit,
             stage,
-            lanes(&[(1, 1.6), (2, 0.4), (3, -0.8)], -4.4, 1.3, 0.46),
+            // the lanes and their spinning rings end left of the costs card,
+            // which starts at x = 1.75 (R3 dev-06)
+            lanes(&[(1, 1.6), (2, 0.4), (3, -0.8)], -4.4, FROZEN_X1, 0.46),
             &frozen,
             &[],
         )?;
@@ -795,7 +815,7 @@ impl SceneConstruct for FairAtAPrice {
         let mut rings: Vec<Box<dyn Animation>> = Vec::new();
         for k in 0..18 {
             let y = spin_y[k % 2].unwrap_or(0.0);
-            let x = 1.45 + 0.1 * (k / 2) as f64;
+            let x = FROZEN_X1 + 0.12 + 0.1 * (k / 2) as f64;
             let ring = stage.arena_mut().add(
                 Circle::new()
                     .radius(0.05)
@@ -807,10 +827,10 @@ impl SceneConstruct for FairAtAPrice {
             rings.push(stage.prepare(a)?);
         }
         let mut spin = AnimationGroup::with_lag_ratio(stage.arena_mut(), rings, 0.5)?;
-        spin.update_rate_info(Some(1.4), None, None);
+        spin.update_rate_info(Some(1.1), None, None);
         stage.play_prepared(vec![Box::new(spin)])?;
         kit.listen(stage, 3.0, "11_fair_at_a_price:11_7")?;
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
 }
@@ -821,6 +841,11 @@ fn is_read(label: &str) -> bool {
 }
 
 /// A number with TeX-safe thousands separators.
+/// Where 11_7's frozen lanes end: their nine spinning rings (0.1 apart)
+/// stop at 1.57, left of the costs card's edge at 1.75.
+const FROZEN_X1: f64 = 0.6;
+const _: () = assert!(FROZEN_X1 + 0.12 + 0.1 * 8.0 + 0.05 < 1.75 - 0.1);
+
 fn tex_thousands(n: u64) -> String {
     thousands(n).replace(',', "{,}")
 }
@@ -828,6 +853,19 @@ fn tex_thousands(n: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_11_5_line_rounds_the_32_bit_top_as_the_fact_does() {
+        // "stops at about four billion": 4,294,967,295 to the nearest billion
+        let top = fact_u64("C-F10.u32_max");
+        assert_eq!((top as f64 / 1e9).round() as u64, 4);
+        let row = crate::STORYBOARD
+            .lines()
+            .find(|l| l.starts_with("| 11_5 |"))
+            .expect("the storyboard has 11_5");
+        assert!(row.contains("A thirty-two bit slate stops at about four billion"));
+        assert_eq!((top + 1).trailing_zeros(), 32);
+    }
 
     #[test]
     fn every_schedule_replays_and_does_what_the_voice_says() {

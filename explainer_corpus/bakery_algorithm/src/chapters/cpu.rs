@@ -54,8 +54,8 @@ const ROOM_SEAT: [Vec3; 2] = [[5.2, 0.55, 0.0], [6.1, -0.45, 0.0]];
 
 /// The code panel: its type size and width (the longest line fits), and its
 /// left edge once it has slid in (`CodePanel::slide_in`).
-const PANEL_PT: f64 = 16.0;
-const PANEL_W: f64 = 8.6;
+const PANEL_PT: f64 = 18.0;
+const PANEL_W: f64 = 8.9;
 const PANEL_LEFT: f64 = FRAME_X_RADIUS - PANEL_W - 0.35;
 
 /// 12_5's fix on the same race: both fences, so each outbox is delivered
@@ -509,6 +509,28 @@ pub fn panel_code() -> Vec<&'static str> {
         .collect()
 }
 
+/// The panel as shown: the storyboard's lock without its `use` line and its
+/// comments (the description has the whole code), and `unlock`'s one-line
+/// body on its own line, so the type can be larger (R3 dev-04, maya-12).
+pub fn screen_code(code: &[&str]) -> Vec<String> {
+    let mut out = Vec::new();
+    for l in code {
+        let t = l.trim_start();
+        if t.starts_with("use ") || t.starts_with("//") {
+            continue;
+        }
+        match t.strip_prefix("pub fn unlock").and_then(|_| t.split_once("{ ")) {
+            Some((head, body)) => {
+                out.push(format!("{head}{{"));
+                out.push(format!("    {}", body.trim_end_matches('}').trim_end()));
+                out.push("}".to_owned());
+            }
+            None => out.push((*l).to_owned()),
+        }
+    }
+    out
+}
+
 /// The panel's lines bracketed by a fence: F1 from raising the flag to the
 /// max's loads, F2 from the ticket store to the first flag check (dev-04).
 pub fn fence_lines(code: &[&str]) -> fmn::Result<[(usize, usize); 2]> {
@@ -877,7 +899,8 @@ impl SceneConstruct for YourCpu {
             stage,
             &[glyphs::REORDER_1, glyphs::REORDER_2, glyphs::REORDER_3],
             22.0,
-            ROOM_AT[0],
+            // its first line is wider than the room: kept inside the safe area
+            ROOM_AT[0] - 0.15,
             ROOM_AT[1] - 1.9,
         )?;
         kit.say(stage, "12_6")?;
@@ -897,7 +920,8 @@ impl SceneConstruct for YourCpu {
         // (the panel is built once the line starts: it waits off the frame's
         // right edge only for the instant before it slides in)
         let line = say(&kit, stage, "12_7")?;
-        let code = panel_code();
+        let shown = screen_code(&panel_code());
+        let code: Vec<&str> = shown.iter().map(String::as_str).collect();
         let panel = CodePanel::build(&kit, stage, &code, PANEL_PT, PANEL_W)?;
         let [(f1a, f1b), (f2a, f2b)] = fence_lines(&code)?;
         let bx = PANEL_LEFT - 0.15;
@@ -929,8 +953,15 @@ impl SceneConstruct for YourCpu {
             ],
             -6.95,
             2.2,
-            4.15,
+            3.95,
         )?;
+        // the shown panel leaves out the `use` line and the comments
+        let full = {
+            let at = v(FRAME_X_RADIUS - 0.4, stage.get_bottom(panel.group)[1] - 0.28);
+            let m = kit.text(stage, glyphs::FULL_CODE, 22.0, Palette::dim(), at)?;
+            stage.move_to(m, at, RIGHT);
+            m
+        };
         let table = measured_table(&kit, stage, &arm, &x86, -4.9, 2.6, 9.8)?;
         let cost_note = lower_third(&kit, stage, glyphs::FOR_PROGRAMMERS, glyphs::SEQCST_COST)?;
         // the x-ray steps back while the code is on screen
@@ -950,6 +981,7 @@ impl SceneConstruct for YourCpu {
         stage.add_to_scene(panel.group)?;
         stage.play(panel.slide_in(1.0)?)?;
         let panel_in = stage.scene().time().to_f64();
+        play!(stage; fade_in(stage.arena_mut(), full, ORIGIN, 1.0)?.rt(0.3));
         for (bm, label) in &marks {
             play!(stage;
                 show_creation(*bm).rt(0.6),
@@ -961,14 +993,16 @@ impl SceneConstruct for YourCpu {
             fade_in(stage.arena_mut(), ub, v(0.2, 0.0), 1.0)?.rt(0.7),
             fade_in(stage.arena_mut(), cost_note, v(0.0, 0.2), 1.0)?.rt(0.7),
         );
-        // the panel stays at least six seconds; then, as the voice says why
-        // Acquire and release fall short, the measured table takes the stage
+        // the panel stays through its own sentence, six and a half seconds at
+        // least; then, as the voice says why Acquire and release fall short,
+        // the measured table takes the stage (the table belongs to that
+        // sentence, and the chapter has no time for both after the line)
         line.wait_for(stage, "Acquire and release")?;
-        wait_until(stage, panel_in + 6.0)?;
+        wait_until(stage, panel_in + 6.5)?;
         // the panel slides a little way right as it fades, ending in frame
         let away = fade_out(stage.arena_mut(), panel.group, v(1.2, 0.0), 1.0)?;
         let mut out: Vec<Box<dyn Animation>> = vec![stage.prepare(away.rt(0.7))?];
-        for m in [ub].into_iter().chain(marks.iter().flat_map(|(a, b)| [*a, *b])) {
+        for m in [ub, full].into_iter().chain(marks.iter().flat_map(|(a, b)| [*a, *b])) {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             out.push(stage.prepare(a.rt(0.5))?);
         }
@@ -1027,6 +1061,30 @@ mod tests {
         assert!(a1 < b1 && b1 < a2 && a2 < b2);
         assert!(code[a1 + 1].trim() == "// each slate read once");
         assert!(code[a2 + 1].contains("choosing[i].store(false"));
+    }
+
+    #[test]
+    fn the_shown_panel_is_the_lock_without_its_use_line_and_comments() {
+        let code = panel_code();
+        let shown = screen_code(&code);
+        let tokens =
+            |ls: &mut dyn Iterator<Item = &str>| ls.flat_map(str::split_whitespace).collect::<Vec<_>>().join(" ");
+        let kept = tokens(&mut code.iter().copied().filter(|l| {
+            let t = l.trim_start();
+            !t.starts_with("use ") && !t.starts_with("//")
+        }));
+        assert_eq!(tokens(&mut shown.iter().map(String::as_str)), kept);
+        assert_eq!(shown.len(), code.len() - 4 + 2, "four lines dropped; unlock on three");
+        assert!(shown.iter().all(|l| !l.contains("//") && !l.starts_with("use ")));
+        // the fences bracket the same code lines
+        let refs: Vec<&str> = shown.iter().map(String::as_str).collect();
+        let [(a1, b1), (a2, b2)] = fence_lines(&refs).unwrap();
+        assert_eq!((b1, a2), (a1 + 1, b1 + 1));
+        assert!(refs[b2].contains("while choosing[j].load"));
+        // unlock keeps its indentation
+        let u = refs.iter().position(|l| l.starts_with("pub fn unlock")).unwrap();
+        assert_eq!((refs[u + 1].trim(), refs[u + 2]), ("number[i].store(0, SeqCst)", "}"));
+        assert!(refs[u + 1].starts_with("    "));
     }
 
     #[test]
