@@ -52,7 +52,7 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | Cut | Master | md5 | Length | Text | Captions (md5) | Thumbnail |
 |---|---|---|---|---|---|---|
 | Hoeffding michael | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `6898620cebc142bc28292ec8df995a9d` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`d993b6f5…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
-| fish michael v2 | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
+| fish michael v2 (HOLD: v3 follows) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | bakery michael, review 2 | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `7df3679f4f52d3e5844425fb7b868048` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, 9f743ed) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`7048a44c…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
 
 Bakery review 2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean, the quiet-peak
@@ -60,6 +60,11 @@ exception above), music QA 13/13 after a re-score, cue check PASS (4 authored wa
 chapter 84.8 s; "writes", "other's" and "Green's slate" fixed; Codex's fw pass on this exact master
 transcribes all three correctly. Review 1 (uploaded https://youtu.be/PpmO9Gato2w) is kept at
 `explainer_corpus/bakery_algorithm/renders/final_review1/` (md5 `19f2e859…`).
+
+**Fish michael v2 is on hold; do not upload it.** The stricter final-hiss check (92d4953, ch and
+sh too) flags 12_5 "size" and 13_6 "catch", and Codex's audit heard "letters", "cancels" and two
+"catch"es weakly; its director is fixing them for a v3 (v2 will be kept at
+`variants/michael/renders/final_v2/`).
 
 Fish michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean), music QA 15/15, cue
 check PASS (13 warnings, all authored pauses or end holds, as in matt's cut); narration gates PASS
