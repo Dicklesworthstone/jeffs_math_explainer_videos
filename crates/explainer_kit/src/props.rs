@@ -483,16 +483,33 @@ const LOWER_THIRD_LINES: usize = 3;
 /// A lower-third band at the foot of the frame: a `label` in the hero role
 /// ("precisely:", "names to search:") and the wrapped `text` beside it.
 pub fn lower_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, text: &str) -> fmn::Result<Mob> {
-    let lines = wrap(text, LOWER_THIRD_CHARS, LOWER_THIRD_LINES);
+    let w = 2.0 * FRAME_X_RADIUS - 0.8;
+    let left = -w / 2.0 + 0.25;
+    let tag = kit.text_left(stage, label, 26.0, Palette::hero(), v(left, 0.0))?;
+    let indent = left + stage.get_width(tag) + 0.2;
+    // the text wraps at LOWER_THIRD_CHARS unless a line would run past the
+    // band beside a long label; then narrower, until every line fits
+    let room = w / 2.0 - 0.25 - indent;
+    let mut chars = LOWER_THIRD_CHARS;
+    let mut lines = wrap(text, chars, LOWER_THIRD_LINES);
+    loop {
+        let mut widest: f64 = 0.0;
+        for l in &lines {
+            let m = kit.text(stage, l, 26.0, Palette::ink(), ORIGIN)?;
+            widest = widest.max(stage.get_width(m));
+        }
+        if widest <= room || chars <= 16 {
+            break;
+        }
+        chars -= 4;
+        lines = wrap(text, chars, LOWER_THIRD_LINES);
+    }
     let line_h = 0.36;
     let h = 0.3 + line_h * lines.len().max(1) as f64;
-    let w = 2.0 * FRAME_X_RADIUS - 0.8;
     let centre = v(0.0, -FRAME_Y_RADIUS + 0.2 + h / 2.0);
     let back = stage.arena_mut().add(card(w, h, centre)?);
-    let left = -w / 2.0 + 0.25;
     let top = centre[1] + h / 2.0 - 0.15 - line_h / 2.0;
-    let tag = kit.text_left(stage, label, 26.0, Palette::hero(), v(left, top))?;
-    let indent = left + stage.get_width(tag) + 0.2;
+    stage.move_to(tag, v(left, top), LEFT);
     let mut all = vec![back, tag];
     for (i, l) in lines.iter().enumerate() {
         all.push(kit.text_left(stage, l, 26.0, Palette::ink(), v(indent, top - line_h * i as f64))?);
@@ -781,6 +798,29 @@ mod tests {
                     "line {i} sits {shift} right of line 0, want {spaces} columns of {col}"
                 );
             }
+            Ok(())
+        });
+    }
+
+    #[test]
+    fn a_long_label_wraps_its_text_inside_the_band() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let text = "test-and-set, compare-and-swap, fetch-and-add. A ticket lock takes its number with one \
+                        fetch-and-add; on x86 the SeqCst bakery fences every store.";
+            let long = lower_third(&kit, stage, "atomic read-modify-write instructions:", text)?;
+            let parts = children(stage, long);
+            let band_right = stage.get_bounding_box_point(parts[0], RIGHT)[0];
+            for &m in &parts[2..] {
+                let r = stage.get_bounding_box_point(m, RIGHT)[0];
+                assert!(
+                    r <= band_right - 0.1,
+                    "a line ends at {r}, past the band's edge {band_right}"
+                );
+            }
+            // a short label leaves the full width: the same text takes fewer lines
+            let short = lower_third(&kit, stage, "precisely:", text)?;
+            assert!(children(stage, short).len() < parts.len(), "the long label wraps more");
             Ok(())
         });
     }
