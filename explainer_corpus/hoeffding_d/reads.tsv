@@ -1,0 +1,224 @@
+# Hoeffding's D: extra ftts inputs per sentence, voice robert (narration lane, 2026-10-12).
+# line_id\tsentence_index\tftts_input. Each row is one more read of that script sentence; the input goes to ftts
+# only, and the sentence's text (captions, the renderer's script binding) stays the script's. Every row keeps the
+# script's words in order: only punctuation differs (a comma, colon or dash to shape the read, quotation marks so
+# ftts finishes the sentence) or a lexicon respelling is already applied (Hurfding, Speerman, Peerson, Vassily).
+h1	0	Here are a hundred and fifty measurements of two quantities: X and Y.
+h1	0	“Here are a hundred and fifty measurements of two quantities: X and Y.”
+h2	0	Are they — related?
+h2	0	“Are they — related?”
+h2	0	Are they... related?
+h2	0	“Are they... related?”
+h3	0	Let's ask the usual suspects:
+h3	0	“Let's ask the usual suspects:”
+h4	1	As far as they can tell there's no relationship here at all.
+h4	1	“As far as they can tell there's no relationship here at all.”
+h4	1	As far as they can tell: there's no relationship here at all.
+h4	1	“As far as they can tell: there's no relationship here at all.”
+h5	1	These points lie — on a circle.
+h5	1	“These points lie — on a circle.”
+h5	2	Knowing X narrows Y down, to just two possibilities.
+h5	2	“Knowing X narrows Y down, to just two possibilities.”
+h7	1	Vassily Herf-ding introduced it in nineteen forty eight.
+h7	1	Vassily Hurfding introduced it in nineteen forty eight.
+h7	1	“Vassily Herf-ding introduced it in nineteen forty eight.”
+h7	1	“Vassily Hurfding introduced it in nineteen forty eight.”
+g2	1	To estimate chance, we shuffle Y three hundred times and recompute.
+g2	1	“To estimate chance, we shuffle Y three hundred times and recompute.”
+g4	1	The three correlations collapse — into the noise.
+g4	1	“The three correlations collapse — into the noise.”
+g4	3	But Herf-ding's D — barely moves.
+g4	3	But Hurfding's D — barely moves.
+g4	3	“But Herf-ding's D — barely moves.”
+g4	3	“But Hurfding's D — barely moves.”
+g5	0	Next: a ring.
+g5	0	“Next: a ring.”
+g5	0	Next — a ring.
+g5	0	“Next — a ring.”
+g5	1	The correlations sit — right inside the noise.
+g5	1	“The correlations sit — right inside the noise.”
+g5	1	The correlations sit, right inside the noise.
+g5	1	“The correlations sit, right inside the noise.”
+g6	1	It has found the dependence!
+g6	1	“It has found the dependence!”
+g6	1	It has found — the dependence.
+g6	1	“It has found — the dependence.”
+g7	2	D sees it — clearly.
+g7	2	“D sees it — clearly.”
+g7	2	D sees it... clearly.
+g7	2	“D sees it... clearly.”
+g8	0	A wave: rising and falling twice.
+g8	0	“A wave: rising and falling twice.”
+g8	0	A wave rising and falling twice.
+g8	0	“A wave rising and falling twice.”
+g9	1	This time, every measure stays under its ceiling; D included.
+g9	1	“This time, every measure stays under its ceiling; D included.”
+g9	3	It finds them — only when they're really there.
+g9	3	“It finds them — only when they're really there.”
+q1	0	So, why can D see shapes that correlations miss?
+q1	0	“So, why can D see shapes that correlations miss?”
+q1	0	So — why can D see shapes that correlations miss?
+q1	0	“So — why can D see shapes that correlations miss?”
+q1	0	So, why can D see shapes — that correlations miss?
+q1	0	“So, why can D see shapes — that correlations miss?”
+q1	1	It comes down to how many points you look at — at once.
+q1	1	“It comes down to how many points you look at — at once.”
+q1	1	It comes down to how many points you look at at once.
+q1	1	“It comes down to how many points you look at at once.”
+q1	1	It comes down to: how many points you look at, at once.
+q1	1	“It comes down to: how many points you look at, at once.”
+q3	0	Three points can reveal — a bend.
+q3	0	“Three points can reveal — a bend.”
+q5	0	Rings, crosses and waves all turn.
+q5	0	“Rings, crosses and waves all turn.”
+q5	0	Rings, crosses, and waves — all turn.
+q5	0	“Rings, crosses, and waves — all turn.”
+q5	0	Rings, crosses, and waves, all turn.
+q5	0	“Rings, crosses, and waves, all turn.”
+q5	1	So, detecting them means reasoning about groups of four.
+q5	1	“So, detecting them means reasoning about groups of four.”
+q6	0	The trouble is: the number of groups of four grows ferociously fast.
+q6	0	“The trouble is: the number of groups of four grows ferociously fast.”
+q6	0	The trouble is, the number of groups of four grows — ferociously fast.
+q6	0	“The trouble is, the number of groups of four grows — ferociously fast.”
+q6	0	The trouble is the number of groups of four grows ferociously fast.
+q6	0	“The trouble is the number of groups of four grows ferociously fast.”
+q8	2	We'll call that count: Q.
+q8	2	“We'll call that count: Q.”
+q8	2	We'll call that count — Q.
+q8	2	“We'll call that count — Q.”
+r1	0	Let's work through a small example using the heights and weights of ten people.
+r1	0	“Let's work through a small example using the heights and weights of ten people.”
+r1	0	Let's work through a small example — using the heights and weights of ten people.
+r1	0	“Let's work through a small example — using the heights and weights of ten people.”
+r2	0	Here they are, as a scatter plot.
+r2	0	Here they are, as a skatter plot.
+r2	0	“Here they are, as a scatter plot.”
+r2	0	“Here they are, as a skatter plot.”
+r3	1	Forget the raw values and keep only their order.
+r3	1	“Forget the raw values and keep only their order.”
+r3	1	Forget the raw values — and keep only their order.
+r3	1	“Forget the raw values — and keep only their order.”
+r3	4	Then, we do the same for weight.
+r3	4	“Then, we do the same for weight.”
+r3	4	Then we do the same — for weight.
+r3	4	“Then we do the same — for weight.”
+r3	4	Then we do the same, for weight.
+r3	4	“Then we do the same, for weight.”
+r5	0	Plotting rank against rank gives us the same people in new coordinates.
+r5	0	“Plotting rank against rank gives us the same people in new coordinates.”
+r5	0	Plotting rank against rank gives us the same people — in new coordinates.
+r5	0	“Plotting rank against rank gives us the same people — in new coordinates.”
+r5	0	Plotting rank against rank gives us the same people: in new coordinates.
+r5	0	“Plotting rank against rank gives us the same people: in new coordinates.”
+r6	1	Push one person's weight way up and their raw point jumps.
+r6	1	“Push one person's weight way up and their raw point jumps.”
+r6	1	Push one person's weight way up — and their raw point jumps.
+r6	1	“Push one person's weight way up — and their raw point jumps.”
+c2	1	A point tied in one coordinate earns — half credit.
+c2	1	“A point tied in one coordinate earns — half credit.”
+c3	0	Take the person ranked seventh, in both height and weight.
+c3	0	“Take the person ranked seventh, in both height and weight.”
+c4	0	If height and weight were unrelated we'd expect only about five.
+c4	0	“If height and weight were unrelated we'd expect only about five.”
+c4	0	If height and weight were unrelated, we'd expect — only about five.
+c4	0	“If height and weight were unrelated, we'd expect — only about five.”
+c4	1	Seeing seven tells us these points cluster together — more than chance allows.
+c4	1	“Seeing seven tells us these points cluster together — more than chance allows.”
+c6	2	Its two twins add a quarter, each.
+c6	2	“Its two twins add a quarter, each.”
+c6	2	Its two twins add — a quarter each.
+c6	2	“Its two twins add — a quarter each.”
+c6	2	Its two twins add a quarter — each.
+c6	2	“Its two twins add a quarter — each.”
+c6	2	Its two twins add a quarter each:
+c6	2	“Its two twins add a quarter each:”
+c7	0	Repeat this for everyone and we get the full list of Q values.
+c7	0	“Repeat this for everyone and we get the full list of Q values.”
+c7	0	Repeat this for everyone — and we get the full list of Q values.
+c7	0	“Repeat this for everyone — and we get the full list of Q values.”
+f1	1	The first one — D one — runs over the Q values.
+f1	1	“The first one — D one — runs over the Q values.”
+f2	0	D two uses — only the ranks.
+f2	0	“D two uses — only the ranks.”
+f2	0	D-two uses only the ranks.
+f2	0	“D-two uses only the ranks.”
+f2	0	D two uses only the ranks:
+f2	0	“D two uses only the ranks:”
+f6	0	The numerator works out to — four hundred and fourteen.
+f6	0	“The numerator works out to — four hundred and fourteen.”
+f8	0	Keep in mind that D lives — on its own scale.
+f8	0	“Keep in mind that D lives — on its own scale.”
+f8	2	And it never drops below — minus one half.
+f8	2	“And it never drops below — minus one half.”
+s2	0	These tick marks, along the edges, are called the marginals.
+s2	0	“These tick marks, along the edges, are called the marginals.”
+s2	0	These tick marks along the edges are called — the marginals.
+s2	0	“These tick marks along the edges are called — the marginals.”
+s3	1	If X and Y were independent, every cell would hold — about three.
+s3	1	“If X and Y were independent, every cell would hold — about three.”
+s6	0	Look at the tick marks!
+s6	0	“Look at the tick marks!”
+s6	0	Look — at the tick marks.
+s6	0	“Look — at the tick marks.”
+s6	0	Look at the tick-marks.
+s6	0	“Look at the tick-marks.”
+s6	0	Look at the tick marks:
+s6	0	“Look at the tick marks:”
+s6	1	They haven't changed — at all.
+s6	1	“They haven't changed — at all.”
+s6	3	Only the pairing — is gone.
+s6	3	“Only the pairing — is gone.”
+s7	0	Put the pairs back together — and D comes right back.
+s7	0	“Put the pairs back together — and D comes right back.”
+s8	0	That gives us — a test.
+s8	0	“That gives us — a test.”
+s8	1	We shuffle two thousand times and record D each time.
+s8	1	“We shuffle two thousand times and record D each time.”
+s8	2	Chance alone produces this narrow pile, near zero.
+s8	2	“Chance alone produces this narrow pile, near zero.”
+s8	2	Chance alone produces this narrow pile — near zero.
+s8	2	“Chance alone produces this narrow pile — near zero.”
+s9	0	Our observed value is far beyond — anything shuffling ever produced.
+s9	0	“Our observed value is far beyond — anything shuffling ever produced.”
+s9	1	So, X and Y are dependent.
+s9	1	“So, X and Y are dependent.”
+s9	2	In the end D measures exactly what shuffling destroys.
+s9	2	“In the end D measures exactly what shuffling destroys.”
+s9	2	In the end, D measures exactly — what shuffling destroys.
+s9	2	“In the end, D measures exactly — what shuffling destroys.”
+o1	2	Speerman and Kendall see — any monotone curve.
+o1	2	“Speerman and Kendall see — any monotone curve.”
+o2	1	Rings, crosses and waves.
+o2	1	“Rings, crosses and waves.”
+o2	1	Rings, crosses — and waves.
+o2	1	“Rings, crosses — and waves.”
+o2	1	Rings; crosses; and waves.
+o2	1	“Rings; crosses; and waves.”
+o3	1	It's built on ranks — so it shrugs off outliers.
+o3	1	“It's built on ranks — so it shrugs off outliers.”
+o3	1	It's built on ranks so it shrugs off outliers.
+o3	1	“It's built on ranks so it shrugs off outliers.”
+# other quotation marks, for sentences whose reads all stop at full level in the final s (2026-10-12 04:22)
+q1	1	"It comes down to how many points you look at, at once."
+q1	1	‘It comes down to how many points you look at, at once.’
+q1	1	«It comes down to how many points you look at, at once.»
+f2	0	"D two uses only the ranks."
+f2	0	‘D two uses only the ranks.’
+f2	0	«D two uses only the ranks.»
+f1	0	"Step three folds everything into three separate sums."
+f1	0	‘Step three folds everything into three separate sums.’
+f1	0	«Step three folds everything into three separate sums.»
+s6	0	"Look at the tick marks."
+s6	0	‘Look at the tick marks.’
+s6	0	«Look at the tick marks.»
+h3	0	"Let's ask the usual suspects."
+h3	0	‘Let's ask the usual suspects.’
+h3	0	«Let's ask the usual suspects.»
+# brackets and low quotes for the two sentences still flagged cut short (2026-10-12 04:30)
+q1	1	(It comes down to how many points you look at, at once.)
+q1	1	[It comes down to how many points you look at, at once.]
+q1	1	„It comes down to how many points you look at, at once.“
+f2	0	(D two uses only the ranks.)
+f2	0	[D two uses only the ranks.]
+f2	0	„D two uses only the ranks.“

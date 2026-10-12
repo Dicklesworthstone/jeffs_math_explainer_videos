@@ -1,0 +1,6 @@
+# Hoeffding's D: reads the director chose against the score, with what the sheets show (narration lane, 2026-10-12).
+# line_id\tsentence_index\tftts_input\twhy
+q5	0	“Rings, crosses and waves all turn.”	the top-scored plain read opens with 0.38 s of a steady 336 Hz hum, 18 dB under the speech, kept as the first word (q5.takes.png); this read starts from silence, is heard whole and decays at the end
+s2	0	“These tick marks along the edges are called the marginals.”	the top-scored plain read opens with 0.48 s of a steady 299 Hz hum kept as the first word (s2.takes.png); this read starts from silence and flows with no comma pause
+r3	4	Then we do the same — for weight.	the top-scored plain read is rushed (eight syllables in 1.1 s, pitch flat); the quoted read is a flat line that ends on a rise (+3.8 st on weight) and the comma read stops for 0.6 s; this read has shape (pitch moves 2.2 st), a 0.35 s beat before 'for weight' and a falling close (r3.png)
+h7	1	“Vassily Hurfding introduced it in nineteen forty-eight.”	the top-scored read stops inside the vowel of eight: full brightness to the last sample of the file, no decay and no t (zoom of the take tail; last 30 ms 12 dB under speech); this read ends the word (24 dB under), flows with no gap after the name, and its name vowel is r-coloured (F2 1197, F3 1492 Hz)
