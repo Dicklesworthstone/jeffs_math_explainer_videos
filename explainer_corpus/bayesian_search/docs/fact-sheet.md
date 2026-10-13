@@ -8,10 +8,11 @@ at the end was copied from the oracle's output by a script, not typed.
 ./x bayesian_search facts-check        # search facts == oracle.py, key by key
 ```
 
-- **Result, 2026-10-13** (the build host; CPython 3.14, NumPy via uv):
-  `facts-check bayesian_search: 263 video facts against 263 oracle keys:
-  PASS`. The oracle passes 36 of 36 of its own cross-checks.
-- **Rust side:** `./x bayesian_search test`: 15 tests pass, clippy
+- **Result, 2026-10-13** (the build host; CPython 3.14, NumPy via uv), with
+  the storyboard: `facts-check bayesian_search: 274 video facts against 274
+  oracle keys: PASS`. The oracle passes 38 of 38 of its own cross-checks.
+  (At G1, before the storyboard: 263 of 263.)
+- **Rust side:** `./x bayesian_search test`: 19 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** F-M the four-cell sea; F-U the rules for where to search next;
   F-R the 1968 map and the model search over it; F-H the hook's arithmetic;
@@ -235,32 +236,45 @@ repository and are never committed.
 
 ## Terms (the jargon ledger)
 
-Line ids are in the storyboard; this table is the contract for the words.
-
-| Term | As spoken, the first time | On screen |
-|---|---|---|
-| map; cell | "a map of the sea, cut into cells" | the grid |
-| story; weight | "a story of what might have happened", "how much each story is believed" | "scenario" once, in a lower-third |
-| dot | "one place it could be" | "replication" (1968) and "particle" (the Coast Guard) once each |
-| chance | used throughout | "probability" where the formal names are given; "prior" and "posterior" once, in a lower-third |
-| the chance of seeing it | "if it is there, how often does a search see it?" | "detection probability" once |
-| the chance of a find | "the chance it is there, times the chance of seeing it" | p × d with word labels |
-| comes back empty; a miss | "the search comes back empty"; "it was there, and the search did not see it" | never swapped |
-| update | "redraw the map" | "Bayes' rule" when named |
-| track; strip | "the path the searcher travels", "the band it sees" | "sweep width" once |
-| coverage | "enough track to pass over the cell once" | W × L ÷ A |
-| drift | "the wind and the current carry it" | "leeway" once |
+| Term | First said at | As spoken | On screen |
+|---|---|---|---|
+| strip | 02_5 | "the sled that carried the search gear saw a strip only two hundred feet wide" | the strip drawn to scale; "sweep width" once, at 10_3 |
+| map; cell | 03_1, 03_2 | "a map of how likely each place is"; "a sea of four cells" | the grid; "prior" once, at 03_8 |
+| story; weight | 03_2, 03_5 | "two stories of what might have happened"; "People who know submarines weigh the stories" | "scenario" and "credence" once, at 04_1 |
+| dot | 03_5 | "Each dot is one place she could be." | "replication" at 04_2 and "particle" at 11_1, once each |
+| chance | 03_6 | "What is the chance she is in cell A?" | "probability" only in lower-thirds |
+| the chance of seeing her | 05_2 | "a search there sees the wreck only one time in four" | "seen 1 in 4"; "detection probability" once, at 05_6 |
+| the chance of a find | 05_3, 05_6 | "How likely is one search of a cell to find her?"; "the chance she is there, times the chance of seeing her" | p × d with word labels |
+| comes back empty; miss | 06_1, 06_4 | "the search comes back empty"; "because a search can miss" | "empty"; never swapped |
+| update; Bayes' rule | 07_1, 07_6 | "That move has a name. Bayes' rule"; "Update." | "prior" and "posterior" at 07_1 |
+| lanes; track; pass | 09_3, 09_4 | "enough track to pass over a cell once"; "Each pass finds less than the one before." | "coverage" and the random search formula at 09_4 |
+| drift | 10_2 | "The map drifts, and it spreads." | "leeway" once, at 10_1 |
 
 ## Simplification → exact
 
 | Said | Exact | Where the exact form is |
 |---|---|---|
-| "the chance it is there times the chance of seeing it" | P(find in cell i) = pᵢ dᵢ | lower-third, with the Coast Guard's POS = POC × POD |
-| "the searched cell loses dots, and every other cell's share rises" | pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ); pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) | on screen when the rule is named; as printed in 1971 in the last chapter |
-| "search where the next search is most likely to find it" | maximize pᵢdᵢ per unit of effort; with equal costs, P[N > n] is least for every n (Chew 1967) | lower-third and the description |
-| "63 percent after one full coverage" | 1 − e^(−WL/A), Koopman (1946), eq. (40), under his three assumptions | lower-third |
-| "the chances are what we know" | the distribution is subjective (S3 p. 71); the wreck is in one place | spoken |
-| "the map moves and spreads" | each dot is moved by its own wind and current before the update | spoken; "model" on the cloud |
+| "the chance she is there, times the chance of seeing her" (05_6) | P(find in cell i) = pᵢ dᵢ, with dᵢ conditional on the wreck being in cell i | lower-third at 05_6, with the Coast Guard's POS = POC × POD |
+| "The cell you searched drops. Every other cell rises." (07_3) | pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ); pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) | on screen at 07_3; as printed in 1971 at 13_1 |
+| "Always search where the next search is most likely to find her." (08_1) | maximize pᵢdᵢ; with equal costs P[N > n] is least for every n (Chew 1967, Theorem 2.1); with unequal costs, maximize pᵢdᵢ ÷ cᵢ for the least expected cost (Blackwell; Black 1965) | lower-third at 08_2; the description |
+| "on average the same track covers sixty-three percent" (09_3) | 1 − e^(−WL/A) at WL = A, Koopman (1946), eq. (40), under his three assumptions; hundred-to-a-cell lanes average 63.4 | lower-third at 09_4 |
+| "a strip only a tenth of a mile wide" (10_3) | sweep width 0.1 nautical mile: an effective width (the area under the lateral range curve), not a hard edge | lower-third at 10_3 |
+| "The map drifts, and it spreads." (10_2) | each particle is moved by its own draw of wind and current, then reweighted; the cloud need not stay round | "model" on the cloud; the description |
+| "ninety-four went out" (13_2) | the factor 1 − E applied to that cell before the map is divided by 1 − SEP | the 1971 formula at 13_1 |
+| "say what you believe" (14_7) | the distribution is subjective: "The probability distribution on which the search is based is therefore a subjective one" (S3 p. 71) | the description |
+
+## Always sentences and their edge tests
+
+| Sentence (line) | Test | Range, and the edge |
+|---|---|---|
+| "Every cell we did not search went up, by the same factor." (06_8) | `an_update_keeps_the_total_and_moves_chance_the_right_way` (`src/model.rs`); the oracle's "every unsearched cell rises by the same factor" | fifteen updates in a row over all four cells; the factor is 1 ÷ (1 − pᵢdᵢ), which is 1 only for a search that cannot see |
+| "The cell you searched drops. Every other cell rises." (07_3) | the same test | the searched cell falls strictly while its chance of being seen is above zero |
+| "No other order of searches is ever ahead." (08_2) | `no_order_of_searches_beats_the_rule`; `F-U.brute.rule_is_best` | every order of 1 to 8 searches (65,536 at 8); the three other rules over 12 searches; ties (the sweep is level at 3, 5 and 6) are why the word is "ahead" |
+| "Each pass finds less than the one before." (09_4) | `lanes_sweep_what_the_formula_says_on_average`; `F-K.formula.*` | the formula's gains 63.2, 23.3, 8.5; a single seeded run can break it lane by lane, so the sentence sits on the formula's curve, not the run's |
+| "No number of passes makes it certain." (09_6) | `no_number_of_passes_makes_it_certain` | 1 to 20 passes at one in four, two in three and nine in ten; the edge is a search that cannot miss, which is certain in one |
+| "An empty search only tells you something if it could have found what you were looking for." (13_6) | `a_blind_search_changes_nothing_and_a_perfect_one_empties_its_cell` | a chance of seeing of zero leaves all four chances exactly as they were; a chance of one empties the cell |
+| every countdown is a quiz with the same seconds | `every_countdown_is_a_quiz_and_every_quiz_has_its_countdown` (`src/main.rs`); the oracle reads the storyboard too | all 6 |
+| every number the script speaks | `the_script_s_spoken_numbers` (`src/facts.rs`) | 85 phrases, each with the fact it rests on |
 
 ## The numbers
 
@@ -332,6 +346,7 @@ keys and values.
 | `F-R.shading` | 80, 71, 19, 2 |
 | `F-R.E5` | 1250 |
 | `F-R.E5.percent` | 12.5 |
+| `F-R.E5.one_in` | 8 |
 | `F-R.B7` | 1096 |
 | `F-R.top_two.percent` | 23 |
 | `F-R.F6` | 85 |
@@ -342,6 +357,7 @@ keys and values.
 | `F-R.grid.cells` | 180 |
 | `F-R.cell.miles` | 1x0.84 |
 | `F-R.grid.area` | 151.2 |
+| `F-R.grid.miles` | 12x12.6 |
 | `F-R.grid.points` | 8900 |
 | `F-R.outside.points` | 1100 |
 | `F-R.model.seeing` | 2/3 |
@@ -379,18 +395,18 @@ keys and values.
 | `F-K.coverage.canyon` | 0.29 |
 | `F-K.lanes.seed` | 1946 |
 | `F-K.lanes.side` | 200 |
-| `F-K.lanes.share.percent` | 2 |
-| `F-K.lanes.per_coverage` | 50 |
+| `F-K.lanes.share.percent` | 1 |
+| `F-K.lanes.per_coverage` | 100 |
 | `F-K.lanes.runs` | 1000 |
-| `F-K.lanes.one_run.1` | 63.8 |
-| `F-K.lanes.mean.1` | 63.6 |
-| `F-K.lanes.exact.1` | 63.6 |
-| `F-K.lanes.one_run.2` | 89.5 |
-| `F-K.lanes.mean.2` | 86.8 |
-| `F-K.lanes.exact.2` | 86.7 |
-| `F-K.lanes.one_run.3` | 96.6 |
-| `F-K.lanes.mean.3` | 95.2 |
-| `F-K.lanes.exact.3` | 95.2 |
+| `F-K.lanes.one_run.1` | 66.5 |
+| `F-K.lanes.mean.1` | 63.4 |
+| `F-K.lanes.exact.1` | 63.4 |
+| `F-K.lanes.one_run.2` | 87.6 |
+| `F-K.lanes.mean.2` | 86.7 |
+| `F-K.lanes.exact.2` | 86.6 |
+| `F-K.lanes.one_run.3` | 95.3 |
+| `F-K.lanes.mean.3` | 95.1 |
+| `F-K.lanes.exact.3` | 95.1 |
 | `F-K.lanes.first` | v149, v190, h161, h182 |
 | `F-D.seed` | 2013 |
 | `F-D.dots` | 2000 |
@@ -511,6 +527,9 @@ keys and values.
 | `F-C.aldridge.in_water.hours` | 11.5 |
 | `F-C.aldridge.rerun` | 08:30 |
 | `F-C.aldridge.rerun.hours_after_fall` | 5 |
+| `F-C.aldridge.guess` | 21:30-23:30 |
+| `F-C.aldridge.guess.middle` | 22:30 |
+| `F-C.aldridge.hours_off` | 5 |
 | `F-C.aldridge.miles_south` | 30 |
 | `F-C.aldridge.miles_offshore` | 40-43 |
 | `F-N.koopman` | 1946 |
@@ -522,15 +541,21 @@ keys and values.
 | `F-N.paper.years_after` | 3 |
 | `F-Q.count` | 6 |
 | `F-Q.names` | stories, first_search, after_empty, next_search, two_searches, radius_doubles |
+| `F-Q.stories.line` | 03_6 |
 | `F-Q.stories.seconds` | 6 |
 | `F-Q.stories.answer` | 40 |
+| `F-Q.first_search.line` | 05_4 |
 | `F-Q.first_search.seconds` | 6 |
 | `F-Q.first_search.answer` | B |
+| `F-Q.after_empty.line` | 06_5 |
 | `F-Q.after_empty.seconds` | 6 |
 | `F-Q.after_empty.answer` | 12.5 |
+| `F-Q.next_search.line` | 07_4 |
 | `F-Q.next_search.seconds` | 6 |
 | `F-Q.next_search.answer` | C |
+| `F-Q.two_searches.line` | 09_5 |
 | `F-Q.two_searches.seconds` | 5 |
 | `F-Q.two_searches.answer` | 8/9 |
+| `F-Q.radius_doubles.line` | 10_4 |
 | `F-Q.radius_doubles.seconds` | 5 |
 | `F-Q.radius_doubles.answer` | 1/4 |

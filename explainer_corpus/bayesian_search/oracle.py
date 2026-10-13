@@ -325,6 +325,8 @@ def map_1968():
     check("E5 is the only cell with more points than B7", sorted(MAP.values())[-2:] == [b7, e5])
     emit("F-R.E5", e5)
     emit("F-R.E5.percent", percent(F(e5, total), 1))
+    emit("F-R.E5.one_in", frac(F(total, e5)))
+    check("E5 holds exactly one dot in eight", e5 * 8 == total)
     emit("F-R.B7", b7)
     emit("F-R.top_two.percent", percent(F(e5 + b7, total), 0))
     check("the paper's '23 percent' for E5 and B7", percent(F(e5 + b7, total), 0) == "23")
@@ -336,6 +338,7 @@ def map_1968():
     emit("F-R.grid.cells", len(GRID_ROWS) * len(GRID_COLS))
     emit("F-R.cell.miles", "1x0.84")
     emit("F-R.grid.area", fixed(len(GRID_ROWS) * len(GRID_COLS) * F(84, 100), 1))
+    emit("F-R.grid.miles", f"{len(GRID_ROWS)}x{fixed(len(GRID_COLS) * F(84, 100), 1)}")
     inside = sum(v for (r, c), v in MAP.items() if r in GRID_ROWS and c in GRID_COLS)
     emit("F-R.grid.points", inside)
     emit("F-R.outside.points", total - inside)
@@ -384,7 +387,7 @@ def hook():
 # --------------------------------------------------------------------------
 # F-K: Koopman's random search formula, and the lanes
 # --------------------------------------------------------------------------
-LANE_SEED, SIDE, WIDTH, RUNS = 1946, 200, 4, 1000
+LANE_SEED, SIDE, WIDTH, RUNS = 1946, 200, 2, 1000
 PER_COVERAGE = SIDE // WIDTH
 
 
@@ -661,6 +664,12 @@ def coast_guard():
     check("'almost twelve hours' in the water", 11 * 60 < minutes < 12 * 60)
     emit("F-C.aldridge.rerun", rerun.strftime("%H:%M"))
     emit("F-C.aldridge.rerun.hours_after_fall", fixed(F(int((rerun - fell).total_seconds()), 3600), 0))
+    # the first guess, the evening before: 9:30 to 11:30 p.m.
+    guess = (datetime.datetime(2013, 7, 23, 21, 30), datetime.datetime(2013, 7, 23, 23, 30))
+    middle = guess[0] + (guess[1] - guess[0]) / 2
+    emit("F-C.aldridge.guess", f"{guess[0]:%H:%M}-{guess[1]:%H:%M}")
+    emit("F-C.aldridge.guess.middle", f"{middle:%H:%M}")
+    emit("F-C.aldridge.hours_off", frac(F(int((fell - middle).total_seconds()), 3600)))
     emit("F-C.aldridge.miles_south", 30)
     emit("F-C.aldridge.miles_offshore", "40-43")
 
@@ -679,18 +688,32 @@ def names():
 # F-Q: the quizzes
 # --------------------------------------------------------------------------
 QUIZZES = [
-    ("stories", 6),
-    ("first_search", 6),
-    ("after_empty", 6),
-    ("next_search", 6),
-    ("two_searches", 5),
-    ("radius_doubles", 5),
+    ("stories", "03_6", 6),
+    ("first_search", "05_4", 6),
+    ("after_empty", "06_5", 6),
+    ("next_search", "07_4", 6),
+    ("two_searches", "09_5", 5),
+    ("radius_doubles", "10_4", 5),
 ]
+
+
+def storyboard_countdowns():
+    """(line, seconds) of every countdown beat in docs/storyboard.md."""
+    import pathlib
+    import re
+    out = []
+    for row in pathlib.Path(__file__).with_name("docs").joinpath("storyboard.md").read_text().splitlines():
+        cells = [c.strip() for c in row.split("|")]
+        if len(cells) > 5 and re.fullmatch(r"\d\d_\d+", cells[1]) and "countdown" in cells[5]:
+            out.append((cells[1], int(re.search(r"listen (\d+) s", cells[5]).group(1))))
+    return out
 
 
 def quizzes():
     emit("F-Q.count", len(QUIZZES))
-    emit("F-Q.names", join(name for name, _ in QUIZZES))
+    emit("F-Q.names", join(name for name, _, _ in QUIZZES))
+    check("the storyboard's countdowns are exactly the quizzes",
+          storyboard_countdowns() == [(line, seconds) for _, line, seconds in QUIZZES])
     dots = lit_dots()
     # A's chance from the two stories, as the card works it: 60% of a half plus 40% of a quarter
     stories_answer = F(60, 100) * F(1, 2) + F(40, 100) * F(1, 4)
@@ -711,7 +734,8 @@ def quizzes():
         "two_searches": frac(seen_twice),
         "radius_doubles": frac(F(1, 2) ** 2),
     }
-    for name, seconds in QUIZZES:
+    for name, line, seconds in QUIZZES:
+        emit(f"F-Q.{name}.line", line)
         emit(f"F-Q.{name}.seconds", seconds)
         emit(f"F-Q.{name}.answer", answers[name])
 

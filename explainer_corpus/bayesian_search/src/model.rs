@@ -221,10 +221,15 @@ pub mod sea {
     /// searched cell keeps only its misses, and every cell is divided by
     /// the chance that the search would come back empty.
     pub fn update(p: &[Q; 4], cell: usize) -> [Q; 4] {
-        let d = seeing();
-        let empty = Q::ONE - p[cell] * d[cell];
+        bayes(p, cell, seeing()[cell])
+    }
+
+    /// The same update for a search that sees what is in `cell` with
+    /// chance `seen`, whatever the cell's terrain.
+    pub fn bayes(p: &[Q; 4], cell: usize, seen: Q) -> [Q; 4] {
+        let empty = Q::ONE - p[cell] * seen;
         let mut out = p.map(|x| x / empty);
-        out[cell] = p[cell] * (Q::ONE - d[cell]) / empty;
+        out[cell] = p[cell] * (Q::ONE - seen) / empty;
         out
     }
 
@@ -590,8 +595,8 @@ pub mod koopman {
     pub const SEED: u64 = 1946;
     /// The cell as a lattice of SIDE × SIDE points.
     pub const SIDE: usize = 200;
-    /// A lane's width in lattice points: 2% of the cell's side.
-    pub const WIDTH: usize = 4;
+    /// A lane's width in lattice points: 1% of the cell's side.
+    pub const WIDTH: usize = 2;
     /// Lanes that would cover the cell exactly once if none overlapped.
     pub const LANES_PER_COVERAGE: usize = SIDE / WIDTH;
     /// Runs averaged for the mean curve.
@@ -869,46 +874,34 @@ pub enum Ask {
     RadiusDoubles,
 }
 
-/// One quiz: its name in the fact keys, its countdown, and what it asks.
+/// One quiz: its name in the fact keys, the storyboard line that asks it,
+/// its countdown, and what it asks.
 #[derive(Clone, Copy, Debug)]
 pub struct Quiz {
     pub name: &'static str,
+    pub line: &'static str,
     pub seconds: u32,
     pub ask: Ask,
 }
 
-/// Every quiz of the video, in order.
+const fn quiz(name: &'static str, line: &'static str, seconds: u32, ask: Ask) -> Quiz {
+    Quiz {
+        name,
+        line,
+        seconds,
+        ask,
+    }
+}
+
+/// Every quiz of the video, in order. The storyboard's countdown beats are
+/// exactly these lines (a test in `main.rs`).
 pub const QUIZZES: &[Quiz] = &[
-    Quiz {
-        name: "stories",
-        seconds: 6,
-        ask: Ask::Stories,
-    },
-    Quiz {
-        name: "first_search",
-        seconds: 6,
-        ask: Ask::FirstSearch,
-    },
-    Quiz {
-        name: "after_empty",
-        seconds: 6,
-        ask: Ask::AfterEmpty,
-    },
-    Quiz {
-        name: "next_search",
-        seconds: 6,
-        ask: Ask::NextSearch,
-    },
-    Quiz {
-        name: "two_searches",
-        seconds: 5,
-        ask: Ask::TwoSearches,
-    },
-    Quiz {
-        name: "radius_doubles",
-        seconds: 5,
-        ask: Ask::RadiusDoubles,
-    },
+    quiz("stories", "03_6", 6, Ask::Stories),
+    quiz("first_search", "05_4", 6, Ask::FirstSearch),
+    quiz("after_empty", "06_5", 6, Ask::AfterEmpty),
+    quiz("next_search", "07_4", 6, Ask::NextSearch),
+    quiz("two_searches", "09_5", 5, Ask::TwoSearches),
+    quiz("radius_doubles", "10_4", 5, Ask::RadiusDoubles),
 ];
 
 #[cfg(test)]
@@ -997,6 +990,40 @@ mod tests {
                 assert!(ours.found_by >= theirs.found_by, "{rule:?}");
             }
         }
+    }
+
+    /// The edge of "an empty search only tells you something if it could
+    /// have found what you were looking for": a search that cannot see
+    /// leaves the map exactly as it was, and one that cannot miss empties
+    /// its cell.
+    #[test]
+    fn a_blind_search_changes_nothing_and_a_perfect_one_empties_its_cell() {
+        let p = sea::prior();
+        for cell in 0..4 {
+            assert_eq!(sea::bayes(&p, cell, Q::ZERO), p);
+            let sure = sea::bayes(&p, cell, Q::ONE);
+            assert_eq!(sure[cell], Q::ZERO);
+            assert_eq!(sure.into_iter().fold(Q::ZERO, |a, b| a + b), Q::ONE);
+        }
+    }
+
+    /// The edge of "no number of passes makes it certain": for a search
+    /// that can miss, every further pass helps and none reaches one.
+    #[test]
+    fn no_number_of_passes_makes_it_certain() {
+        for each in [q(1, 4), q(2, 3), q(9, 10)] {
+            let mut last = Q::ZERO;
+            for passes in 1..=20 {
+                let seen = sea::seen_within(each, passes);
+                assert!(last < seen && seen < Q::ONE, "{each} after {passes}");
+                last = seen;
+            }
+        }
+        assert_eq!(
+            sea::seen_within(Q::ONE, 1),
+            Q::ONE,
+            "only a search that cannot miss is certain"
+        );
     }
 
     #[test]

@@ -29,9 +29,10 @@ where hours do matter.
 
 The viewer gets six "your turn" quizzes, each with a visible countdown.
 
-**Status: in production.** The brief, the facts and their oracle are done
-(`./x bayesian_search facts-check` passes); the storyboard, script, scenes
-and drafts follow. Nothing has been narrated, scored or rendered at 4K yet.
+**Status: in production.** The brief, the facts and their oracle and the
+storyboard are done (`./x bayesian_search facts-check` passes; 14 chapters,
+about 15 minutes); the review of the storyboard, the script, the scenes and
+the drafts follow. Nothing has been narrated, scored or rendered at 4K yet.
 
 ```bash
 ./x bayesian_search test          # tests, clippy -D warnings, fmt --check

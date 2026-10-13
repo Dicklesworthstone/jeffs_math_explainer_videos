@@ -120,6 +120,10 @@ pub mod cited {
     pub const ALDRIDGE_LAST_TRACK: u32 = 14 * 60 + 46;
     pub const ALDRIDGE_MINUTES_TO_SIGHTING: u32 = 12;
     pub const ALDRIDGE_RERUN: u32 = 8 * 60 + 30;
+    /// The first map's guess at when he fell, the evening before:
+    /// "between 9:30 p.m. and 11:30 p.m."; "Aldridge did not fall in the
+    /// water at 10:30 p.m.; he fell in at 3:30 a.m."
+    pub const ALDRIDGE_GUESS: (u32, u32) = (21 * 60 + 30, 23 * 60 + 30);
     pub const ALDRIDGE_MILES_SOUTH: u32 = 30;
     pub const ALDRIDGE_MILES_OFFSHORE: (u32, u32) = (40, 43);
 
@@ -330,6 +334,7 @@ fn map_1968(f: &mut Facts) -> Result<(), String> {
     let (e5, b7, f6) = (points("E5")?, points("B7")?, points("F6")?);
     f.pin("F-R.E5", e5, "1250", paper)?;
     f.add("F-R.E5.percent", share(e5).percent(1))?;
+    f.add("F-R.E5.one_in", Q::ONE / share(e5))?;
     f.pin("F-R.B7", b7, "1096", paper)?;
     f.pin(
         "F-R.top_two.percent",
@@ -350,6 +355,14 @@ fn map_1968(f: &mut Facts) -> Result<(), String> {
         "p. 143",
     )?;
     f.add("F-R.grid.area", y1968::grid_area().fixed(1))?;
+    f.add(
+        "F-R.grid.miles",
+        format!(
+            "{}x{}",
+            (Q::int(y1968::GRID_ROWS.len() as i128) * y1968::CELL_MILES.0).fixed(0),
+            (Q::int(y1968::GRID_COLS.len() as i128) * y1968::CELL_MILES.1).fixed(1)
+        ),
+    )?;
     f.add("F-R.grid.points", y1968::in_grid())?;
     f.add("F-R.outside.points", y1968::total() - y1968::in_grid())?;
 
@@ -753,6 +766,19 @@ fn coast_guard(f: &mut Facts) -> Result<(), String> {
         "F-C.aldridge.rerun.hours_after_fall",
         q(i128::from(cited::ALDRIDGE_RERUN - cited::ALDRIDGE_FELL), 60).fixed(0),
     )?;
+    f.pin(
+        "F-C.aldridge.guess",
+        format!("{}-{}", clock(cited::ALDRIDGE_GUESS.0), clock(cited::ALDRIDGE_GUESS.1)),
+        "21:30-23:30",
+        times,
+    )?;
+    // the guess's middle is the evening before: minutes before midnight count back from the fall
+    let middle = (cited::ALDRIDGE_GUESS.0 + cited::ALDRIDGE_GUESS.1) / 2;
+    f.pin("F-C.aldridge.guess.middle", clock(middle), "22:30", times)?;
+    f.add(
+        "F-C.aldridge.hours_off",
+        q(i128::from(24 * 60 - middle + cited::ALDRIDGE_FELL), 60),
+    )?;
     f.pin("F-C.aldridge.miles_south", cited::ALDRIDGE_MILES_SOUTH, "30", times)?;
     f.pin(
         "F-C.aldridge.miles_offshore",
@@ -812,6 +838,7 @@ fn quizzes(f: &mut Facts) -> Result<(), String> {
     let run = sea::run(sea::Rule::Best, 2);
     for quiz in QUIZZES {
         let key = format!("F-Q.{}", quiz.name);
+        f.add(&format!("{key}.line"), quiz.line)?;
         f.add(&format!("{key}.seconds"), quiz.seconds)?;
         let answer = match quiz.ask {
             Ask::Stories => p[0].percent(0),
@@ -836,6 +863,172 @@ mod tests {
     #[test]
     fn every_pin_holds() {
         facts().unwrap().self_check().unwrap();
+    }
+
+    /// Narration truth: every number the script speaks, as the words that
+    /// speak it, against the fact it rests on. A rewording that drops the
+    /// words, or a model change that moves the number, fails here.
+    #[test]
+    fn the_script_s_spoken_numbers() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let f = facts().unwrap();
+        let rows: &[(&str, &str, &str, &str)] = &[
+            ("02_1", "ninety-nine men", "F-S.crew", "99"),
+            ("02_2", "on the twenty-seventh", "F-S.due", "1968-05-27"),
+            ("02_2", "For nine days", "F-S.days.due_to_presumed", "9"),
+            ("02_3", "five days before", "F-S.days.sank_to_due", "5"),
+            ("02_3", "about two miles deep", "F-S.depth.miles", "1.9"),
+            ("02_3", "All ninety-nine men", "F-S.crew", "99"),
+            ("02_5", "twelve miles on a side", "F-R.grid.miles", "12x12.6"),
+            ("02_5", "two hundred feet", "F-H.strip.feet", "200"),
+            ("02_5", "forty-six hundred miles", "F-H.once.hundreds", "46"),
+            ("02_5", "By the end of October", "F-S.found", "1968-10-28"),
+            ("02_5", "managed a thousand", "F-H.track.miles", "1026"),
+            ("03_5", "sixty to forty", "F-M.story1.weight", "60"),
+            ("03_5", "forty from the second", "F-M.story2.weight", "40"),
+            ("03_5", "a hundred dots", "F-M.dots", "100"),
+            ("03_6", "half of its dots", "F-M.story1.share", "1/2,1/3,1/6,0"),
+            ("03_6", "a quarter of its dots", "F-M.story2.share", "1/4,1/4,1/4,1/4"),
+            ("03_7", "Half of sixty is thirty", "F-M.story1.dots", "30,20,10,0"),
+            ("03_7", "A quarter of forty is ten", "F-M.story2.dots", "10,10,10,10"),
+            ("03_7", "Forty percent", "F-Q.stories.answer", "40"),
+            ("03_8", "Forty, thirty, twenty, ten", "F-M.prior.percent", "40,30,20,10"),
+            ("04_1", "In July", "F-S.scenarios_set", "1968-07-18"),
+            ("04_1", "nine stories", "F-S.scenarios", "9"),
+            ("04_2", "ten thousand times", "F-R.replications", "10000"),
+            ("04_4", "one dot in every eight", "F-R.E5.one_in", "8"),
+            ("04_5", "two hundred and sixty yards", "F-S.yards", "260"),
+            ("04_6", "five months", "F-S.months.due_to_found", "5"),
+            ("05_1", "Forty percent", "F-M.prior.percent", "40,30,20,10"),
+            ("05_2", "one time in four", "F-M.seeing", "1/4,2/3,2/3,2/3"),
+            ("05_2", "two times in three", "F-M.seeing", "1/4,2/3,2/3,2/3"),
+            ("05_5", "Cell B", "F-Q.first_search.answer", "B"),
+            (
+                "05_5",
+                "A quarter of forty is ten",
+                "F-M.find.percent",
+                "10.0,20.0,13.3,6.7",
+            ),
+            (
+                "05_5",
+                "Two thirds of thirty is twenty",
+                "F-M.find.percent",
+                "10.0,20.0,13.3,6.7",
+            ),
+            ("05_5", "Twice the chance", "F-M.first.over_likeliest", "2"),
+            ("06_2", "Twenty dots", "F-M.empty1.dots_out", "20"),
+            ("06_4", "Eighty dots are left", "F-M.empty1.dots_left", "80"),
+            ("06_4", "Ten are still in B", "F-M.empty1.cell_dots_left", "10"),
+            ("06_6", "Twelve and a half percent", "F-Q.after_empty.answer", "12.5"),
+            (
+                "06_7",
+                "forty out of eighty is one half",
+                "F-M.empty1.after.fraction",
+                "1/2,1/8,1/4,1/8",
+            ),
+            ("06_8", "by the same factor", "F-M.empty1.rise", "5/4"),
+            ("07_1", "seventeen sixty-one", "F-N.bayes.died", "1761"),
+            (
+                "07_4",
+                "half the chance",
+                "F-M.empty1.after.percent",
+                "50.0,12.5,25.0,12.5",
+            ),
+            ("07_5", "Cell C", "F-Q.next_search.answer", "C"),
+            (
+                "07_5",
+                "twelve and a half percent",
+                "F-M.second.find.percent",
+                "12.5,8.3,16.7,8.3",
+            ),
+            (
+                "07_5",
+                "nearly seventeen",
+                "F-M.second.find.percent",
+                "12.5,8.3,16.7,8.3",
+            ),
+            ("08_2", "nineteen sixty-seven", "F-N.chew", "1967"),
+            (
+                "08_2",
+                "No other order of searches is ever ahead",
+                "F-U.brute.rule_is_best",
+                "true",
+            ),
+            ("08_3", "two times in three", "F-R.model.seeing", "2/3"),
+            (
+                "08_4",
+                "less than one chance in a hundred",
+                "F-R.model.sweep.found_by.20",
+                "0.8",
+            ),
+            ("08_4", "better than one in two", "F-R.model.best.found_by.20", "52.7"),
+            ("08_5", "thirty-fifth", "F-R.model.best.F6_search", "35"),
+            ("08_5", "eighty-first", "F-R.model.sweep.F6_search", "81"),
+            ("09_1", "two times in three", "F-M.seeing", "1/4,2/3,2/3,2/3"),
+            ("09_3", "sixty-three percent", "F-K.formula.1", "63.2"),
+            ("09_3", "on average", "F-K.lanes.mean.1", "63.4"),
+            ("09_4", "eighty-six percent", "F-K.formula.2", "86.5"),
+            ("09_4", "ninety-five", "F-K.formula.3", "95.0"),
+            ("09_6", "Eight in nine", "F-Q.two_searches.answer", "8/9"),
+            ("10_3", "a tenth of a mile", "F-D.strip", "0.1"),
+            ("10_5", "a quarter", "F-Q.radius_doubles.answer", "1/4"),
+            ("10_5", "four times the area", "F-D.double.area_factor", "4"),
+            (
+                "10_6",
+                "ninety-three times in a hundred after one hour",
+                "F-D.h1.seeing",
+                "93",
+            ),
+            (
+                "10_6",
+                "thirteen times in a hundred after twelve",
+                "F-D.h12.seeing",
+                "13",
+            ),
+            ("11_1", "nineteen seventy-four", "F-C.casp", "1974"),
+            ("11_2", "July of twenty thirteen", "F-C.aldridge.date", "2013-07-24"),
+            ("11_2", "about forty miles", "F-C.aldridge.miles_offshore", "40-43"),
+            ("11_3", "the evening before", "F-C.aldridge.guess", "21:30-23:30"),
+            ("11_3", "almost thirty miles", "F-C.aldridge.miles_south", "30"),
+            ("11_6", "almost twelve hours", "F-C.aldridge.in_water", "11h28"),
+            ("12_1", "June, two thousand nine", "F-A.lost", "2009-06-01"),
+            ("12_1", "two hundred and twenty-eight", "F-A.aboard", "228"),
+            ("12_2", "forty nautical miles", "F-A.circle.nm", "40"),
+            ("12_2", "nearly two years", "F-A.months", "22"),
+            ("12_3", "thirty-five, thirty-five and thirty", "F-A.weights", "35,35,30"),
+            ("13_1", "nineteen sixty-eight", "F-S.map_arrived", "1968-08-12"),
+            (
+                "13_1",
+                "in August, two months into the search",
+                "F-S.months.search_to_map",
+                "2",
+            ),
+            ("13_2", "ninety-four percent", "F-S.F6.searched.at_sea", "65,94,99"),
+            ("13_2", "ninety-four went out", "F-S.F6.left.at_sea.percent", "6"),
+            ("13_4", "eight hundred feet", "F-S.sweep.at_sea", "800,400"),
+            ("13_4", "it got zero", "F-S.sweep.after", "185,220,0"),
+            ("13_4", "about two hundred feet each", "F-S.sweep.after", "185,220,0"),
+            ("13_4", "sixty-five percent", "F-S.F6.searched.after", "47,65,74"),
+            ("13_5", "twenty-eighth of October", "F-S.found", "1968-10-28"),
+            ("14_2", "nineteen sixty-six", "F-P.date", "1966-01-17"),
+            ("14_6", "five hours off", "F-C.aldridge.hours_off", "5"),
+            ("14_8", "ninety-nine men", "F-S.crew", "99"),
+        ];
+        let mut bad = Vec::new();
+        for (line, words, key, value) in rows {
+            match script.text(line) {
+                Some(text) if text.contains(words) => {}
+                Some(_) => bad.push(format!("{line}: the script no longer says {words:?}")),
+                None => bad.push(format!("{line}: no such line")),
+            }
+            if f.get(key) != Some(value) {
+                bad.push(format!(
+                    "{line}: {key} is {:?}, the words {words:?} say {value}",
+                    f.get(key)
+                ));
+            }
+        }
+        assert!(bad.is_empty(), "{}", bad.join("\n"));
     }
 
     /// Narration truth for the cited sums the script leans on.
