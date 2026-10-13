@@ -28,7 +28,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("03_three_angles", 0.4),
         animatic!("04_halfway", 0.6),
         animatic!("05_spin", 0.55),
-        animatic!("06_the_base", 0.5),
+        animatic!("06_the_platform", 0.5),
         animatic!("07_screws", 0.6),
         animatic!("08_seven_screws", 0.6),
         animatic!("09_by_hand", 0.5),
@@ -36,7 +36,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("11_lost_directions", 0.4),
         animatic!("12_the_spare_joint", 0.5),
         animatic!("13_steps", 0.55),
-        animatic!("14_the_straight_path", 0.5),
+        animatic!("14_the_steady_path", 0.5),
         animatic!("15_everywhere", 0.65),
     ]
 }

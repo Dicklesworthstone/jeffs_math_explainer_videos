@@ -390,18 +390,18 @@ def main():
           all(np.allclose(f[:2, 3], 0) for f in frames))
 
     # ------------------------------------------------------------ G-B the book
-    # x runs left to right, y away from the viewer, z up. "Tip": a quarter
-    # turn about x, the far edge rising. "Wheel": a quarter turn about y,
-    # clockwise for the viewer. Turns are made about the fixed axes, so the
-    # later turn multiplies on the left.
-    tip, roll = rotx(90 * DEG), roty(90 * DEG)
-    tw = roll @ tip  # tip, then roll
-    wt = tip @ roll  # roll, then tip
-    emit("G-B.tip_then_roll.R", grid(tw))
-    emit("G-B.roll_then_tip.R", grid(wt))
-    emit("G-B.tip_then_roll.cover", ints(tw @ [0, 0, 1]))
-    emit("G-B.roll_then_tip.cover", ints(wt @ [0, 0, 1]))
-    for name, r in (("tip_then_roll", tw), ("roll_then_tip", wt)):
+    # x runs left to right, y away from the viewer, z up. "Tilt": a quarter
+    # turn about x, the far edge rising. "Roll": a quarter turn about y,
+    # clockwise for the viewer. Turns are made about the fixed axes (two
+    # lines on the table), so the later turn multiplies on the left.
+    tilt, roll = rotx(90 * DEG), roty(90 * DEG)
+    tw = roll @ tilt  # tilt, then roll
+    wt = tilt @ roll  # roll, then tilt
+    emit("G-B.tilt_then_roll.R", grid(tw))
+    emit("G-B.roll_then_tilt.R", grid(wt))
+    emit("G-B.tilt_then_roll.cover", ints(tw @ [0, 0, 1]))
+    emit("G-B.roll_then_tilt.cover", ints(wt @ [0, 0, 1]))
+    for name, r in (("tilt_then_roll", tw), ("roll_then_tilt", wt)):
         a, ax = angle_axis(r)
         emit(f"G-B.{name}.angle", fx(a))
         emit(f"G-B.{name}.axis", vec(ax))
@@ -433,6 +433,7 @@ def main():
     def ypr(yaw, pitch, roll):
         return rotz(yaw * DEG) @ roty(pitch * DEG) @ rotx(roll * DEG)
 
+    emit("G-E.rings.order", "z,y,x")
     emit("G-E.lock.same", fx(np.abs(ypr(30, 90, 0) - ypr(0, 90, -30)).max()))
     emit("G-E.free.differ", fx(np.abs(ypr(30, 0, 0) - ypr(0, 0, -30)).max()))
     # how much of the third direction is left: the three ring axes, as the
@@ -476,7 +477,7 @@ def main():
     emit("G-R.diag.rate_deg", ints([rate]))
     emit("G-R.diag.R", grid(spun))
     emit("G-R.diag.arrow", vec(diagonal * rate * DEG))
-    emit("G-R.diag.is_roll_then_tip", int(np.allclose(spun, wt)))
+    emit("G-R.diag.is_roll_then_tilt", int(np.allclose(spun, wt)))
     emit("G-R.diag.edges", ";".join(ints(spun @ e) for e in np.eye(3)))
     p = np.array([1.0, 0, 0])
     along = (p @ diagonal) * diagonal
@@ -511,6 +512,9 @@ def main():
     emit("G-P.arc_length", fx(v * t))
     emit("G-P.full_circle_t", ints([360 / w_deg]))
     emit("G-P.full.end", vec(planar(v, 0, w, 360 / w_deg)[:2, 2]))
+    # the same six seconds at other spins: the quiz's two other choices
+    emit("G-P.spin0.end", vec(planar(v, 0, 0.0, t)[:2, 2]))
+    emit("G-P.spin60.end", vec(planar(v, 0, 60 * DEG, t)[:2, 2]))
     # the same motion in 60,000 small steps
     x = y = heading = 0.0
     dt = t / 60000
@@ -583,15 +587,33 @@ def main():
     stretch = degs(0, 90, 0, 0, 0, 0, 0)
     elbow_straight = degs(0, 60, 0, 0, 0, 60, 0)
     swing = degs(0, 90, 0, 90, 0, 60, 0)
+    elbow_only = degs(0, 0, 0, 90, 0, 0, 0)
+    ell_wrist_turned = degs(0, 90, 0, 90, 90, 0, 0)  # the L shape, joint 5 a quarter turn, wrist straight
     for name, q in (("home", np.zeros(N)), ("stretch", stretch), ("elbow_straight", elbow_straight),
-                    ("ell", ell), ("swing", swing)):
+                    ("elbow_only", elbow_only), ("ell", ell), ("ell_wrist_turned", ell_wrist_turned),
+                    ("swing", swing)):
         emit(f"G-J.rank.{name}", rank(space_jacobian(q)))
-    emit("G-J.stretch.p", vec(fk(stretch)[:3, 3]))
-    # can the stretched arm slide along its own length? least-squares residual
-    along_arm = np.concatenate([np.zeros(3), [1.0, 0, 0]])
-    js = space_jacobian(stretch)
-    resid = js @ np.linalg.lstsq(js, along_arm, rcond=None)[0] - along_arm
-    emit("G-J.stretch.along_arm_missing", fx(np.linalg.norm(resid)))
+    emit("G-J.elbow_straight.p", vec(fk(elbow_straight)[:3, 3]))
+    emit("G-J.elbow_only.reach", fx(np.linalg.norm(chain(elbow_only)[1][5][:3, 3] - chain(elbow_only)[1][1][:3, 3])))
+
+    def push_along_arm(q, h=1e-6):
+        """The most any one joint, turning at one radian a second, moves the
+        wrist along the line from shoulder to wrist (m/s): by moving each
+        joint a little and watching the wrist."""
+        _, f = chain(q)
+        along = f[5][:3, 3] - f[1][:3, 3]
+        along = along / np.linalg.norm(along)
+        most = 0.0
+        for i in range(N):
+            d = np.zeros(N)
+            d[i] = h
+            moved = (chain(q + d)[1][5][:3, 3] - chain(q - d)[1][5][:3, 3]) / (2 * h)
+            most = max(most, abs(float(moved @ along)))
+        return most
+
+    emit("G-J.elbow_straight.push_along_arm", fx(push_along_arm(elbow_straight)))
+    emit("G-J.swing.push_along_arm", fx(push_along_arm(swing)))
+    js = space_jacobian(elbow_straight)
     # the elbow's speed for the tip to pull straight back at 0.1 m/s, from the
     # triangle shoulder, elbow, wrist alone: d^2 = a^2 + b^2 + 2ab cos(bend)
     upper = float(np.linalg.norm(frames[3][:3, 3] - frames[1][:3, 3]))
@@ -602,6 +624,17 @@ def main():
         d = math.sqrt(upper**2 + fore**2 + 2 * upper * fore * math.cos(bend * DEG))
         emit(f"G-J.blowup.{bend}", fx(pull * d / (upper * fore * math.sin(bend * DEG)) / DEG, 2))
     emit("G-J.blowup.limit", SPEED_DEG_S[3])
+
+    def elbow_speed(bend):
+        d_ = math.sqrt(upper**2 + fore**2 + 2 * upper * fore * math.cos(bend * DEG))
+        return pull * d_ / (upper * fore * math.sin(bend * DEG)) / DEG
+
+    lo, hi = 10.0, 30.0  # the speed falls as the bend grows
+    for _ in range(60):
+        mid_ = (lo + hi) / 2
+        lo, hi = (mid_, hi) if elbow_speed(mid_) > SPEED_DEG_S[3] else (lo, mid_)
+    emit("G-J.blowup.bend_at_limit", fx(lo, 1))
+    emit("G-J.blowup.1.turns_per_s", fx(elbow_speed(1) / 360, 2))
     # the elbow's circle for the swing pose: the triangle's height (Heron)
     _, f_swing = chain(swing)
     d = float(np.linalg.norm(f_swing[5][:3, 3] - f_swing[1][:3, 3]))
@@ -649,6 +682,11 @@ def main():
     emit("G-I.screw.slide", fx(slide))
     blend = (t_start[:3, :3] + t_goal[:3, :3]) / 2
     emit("G-I.blend.det", fx(np.linalg.det(blend)))
+    # a quarter of the way: the blend, repaired to the nearest turn (the polar
+    # part, from a singular value decomposition), against the screw
+    quarter = 0.75 * t_start[:3, :3] + 0.25 * t_goal[:3, :3]
+    u_, _, vt_ = np.linalg.svd(quarter)
+    emit("G-I.blend.quarter_turned", fx(angle_axis(t_start[:3, :3].T @ (u_ @ vt_))[0]))
     whole = logm(t_goal @ np.linalg.inv(t_start))
     bow = 0.0
     for k in range(101):
@@ -660,6 +698,7 @@ def main():
     mid = expm(whole * 0.5) @ t_start
     emit("G-I.screw.mid.det", fx(np.linalg.det(mid[:3, :3])))
     emit("G-I.screw.mid.turned", fx(angle_axis(t_start[:3, :3].T @ mid[:3, :3])[0]))
+    emit("G-I.screw.quarter_turned", fx(angle_axis(t_start[:3, :3].T @ (expm(whole * 0.25) @ t_start)[:3, :3])[0]))
     samples += [whole]
 
     # ------------------------------------------------------------ G-C the coda
@@ -676,6 +715,7 @@ def main():
     emit("G-C.drift.dt", fx(dt, 2))
     emit("G-C.drift.add", fx(np.linalg.det(added)))
     emit("G-C.drift.exp", fx(np.linalg.det(stepped)))
+    emit("G-C.drift.width", fx(np.linalg.svd(added, compute_uv=False)[0]))
     check("adding the spin swells the body by (1 + dt^2) per step", abs(np.linalg.det(added) - (1 + dt * dt) ** steps) < 1e-9)
 
     # ------------------------------------------------------------ G-X the edges
@@ -696,7 +736,7 @@ def main():
     while grew:
         grew = False
         for a_ in list(cube):
-            for g in (tip, roll):
+            for g in (tilt, roll):
                 c = np.round(g @ a_)
                 if not any(np.array_equal(c, b_) for b_ in cube):
                     cube.append(c)
@@ -742,7 +782,20 @@ def main():
                 held += int(ok)
     emit("G-X5.floor", f"{held}/{total}")
     # near gimbal lock the three ring axes never span the full volume
-    emit("G-X6.left_below_one", int(all(abs(math.cos(p * DEG)) < 1 for p in range(1, 91))))
+    # every order of three rings loses a direction at some middle angle: the
+    # twelve orders with neighbouring rings about different axes
+    about = {"x": rotx, "y": roty, "z": rotz}
+    unit_of = {"x": np.array([1.0, 0, 0]), "y": np.array([0, 1.0, 0]), "z": np.array([0, 0, 1.0])}
+    orders = [(a, b, c) for a in "xyz" for b in "xyz" for c in "xyz" if a != b and b != c]
+    locked, where = 0, {}
+    for a, b, c in orders:
+        flat = [m for m in range(0, 181)
+                if abs(np.linalg.det(np.column_stack([unit_of[a], unit_of[b], about[b](m * DEG) @ unit_of[c]]))) < 1e-9]
+        locked += int(bool(flat))
+        where["".join((a, b, c))] = flat
+    emit("G-X6.ring_orders", f"{locked}/{len(orders)}")
+    emit("G-X6.bad_angle.zyx", ",".join(str(m) for m in where["zyx"]))
+    emit("G-X6.bad_angle.zyz", ",".join(str(m) for m in where["zyz"]))
 
     # ------------------------------------------------------------ G-Q the quizzes
     quiz = {
@@ -751,16 +804,16 @@ def main():
         "03_2": (4, "same" if np.allclose(ypr(30, 90, 0), ypr(0, 90, -30)) else "different"),
         "04_2": (5, ints([abs(halfway)])),
         "05_4": (5, "next" if np.allclose(spun @ np.eye(3)[0], np.eye(3)[1]) else "other"),
-        "06_2": (5, "beside" if abs(end[0, 2]) < 1e-9 and end[1, 2] > 1 else "other"),
-        "07_6": (4, 6),
+        "06_2": (6, "beside" if abs(end[0, 2]) < 1e-9 and end[1, 2] > 1 else "other"),
+        "07_1": (4, 6),
         "08_3": (4, "past" if moved == ["5", "6", "7", "tip"] else "other"),
-        "09_5": (4, "side" if abs(fk(degs(90, 90, 0, 90, 0, 0, 0))[0, 3]) < 1e-9 else "other"),
+        "09_4": (4, "side" if abs(fk(degs(90, 90, 0, 90, 0, 0, 0))[0, 3]) < 1e-9 else "other"),
         "10_4": (5, 1 + int(np.argmax([point_line(tip_p, f[:3, 3], f[:3, 2]) for f in f_ell]))),
         "11_2": (4, "lost" if rank(js) < 6 else "all"),
-        "12_2": (5, "moves" if N - rank(space_jacobian(swing)) >= 1 else "fixed"),
-        "13_4": (5, len(dist) - 1),
+        "12_2": (6, "moves" if N - rank(space_jacobian(swing)) >= 1 else "fixed"),
+        "13_5": (5, len(dist) - 1),
         "14_2": (4, "pose" if abs(np.linalg.det(blend) - 1) < 1e-9 else "not"),
-        "15_3": (4, "differ" if angle_axis((roty(DEG) @ rotx(DEG)) @ (rotx(DEG) @ roty(DEG)).T)[0] > 0 else "same"),
+        "15_2": (4, "differ" if angle_axis((roty(DEG) @ rotx(DEG)) @ (rotx(DEG) @ roty(DEG)).T)[0] > 0 else "same"),
     }
     for line, (seconds, answer) in quiz.items():
         emit(f"G-Q.{line}.seconds", seconds)

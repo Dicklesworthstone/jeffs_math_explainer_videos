@@ -12,7 +12,7 @@ follows that one fact from a book to a seven-joint arm:
 - **The way out**: the space of orientations is curved, so do the arithmetic
   on the flat space of spins that touches it, and roll the answer back on
   with the exponential.
-- **Screws**: a mobile base on a floor turns about a point; in space every
+- **Screws**: a mobile platform on a floor turns about a point; in space every
   motion is one screw, a turn about an axis with a slide along it.
 - **The arm** (a KUKA LBR iiwa 14 R820, with the lengths of its own
   description file) is seven screws, and its gripper's pose is a product of
@@ -28,8 +28,9 @@ Every chapter has a quiz with a visible countdown before its answer (15 in
 all).
 
 **Status: in production.** The brief, the facts and their oracle and the
-storyboard are done (`./x lie_robotics facts-check` passes); the review,
-script, scenes and drafts follow. Nothing has been narrated, scored or
+storyboard are done and reviewed (`./x lie_robotics facts-check` passes;
+review R1 is in `docs/reviews/lie_robotics/`); the script, scenes and drafts
+follow. Nothing has been narrated, scored or
 rendered at 4K yet.
 
 ```bash

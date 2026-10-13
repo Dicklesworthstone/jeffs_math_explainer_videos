@@ -11,9 +11,9 @@ use explainer_kit::Facts;
 
 use crate::model::{
     self, Arm, CUBE_AXES, DEG, I3, M3, N, Pose, QUIZZES, SWEEP_DEG, V3, X, Y, Z, add, along_screw, angle_axis, apply,
-    column, degrees, det, exp6, gap, goal, halfway_deg, hat, leftover, missing, mul, norm, planar_centre, planar_exp,
-    poses, rank, rings, rings_left, roll_then_tip, roll_turn, scale, screw_of, still_speeds, sub, tip_then_roll,
-    tip_turn, transpose, turn, twist, twist_from, unit, wheel_speeds, wrap_deg,
+    column, degrees, det, exp6, gap, goal, halfway_deg, hat, leftover, mul, norm, planar_centre, planar_exp, poses,
+    rank, rings, rings_left, roll_then_tilt, roll_turn, scale, screw_of, still_speeds, sub, tilt_then_roll, tilt_turn,
+    transpose, turn, twist, twist_from, unit, wheel_speeds, wrap_deg,
 };
 
 /// Numbers quoted from the sources (fact sheet rows G-L; the oracle prints
@@ -213,22 +213,22 @@ fn the_arm(f: &mut Facts, arm: &Arm) -> Result<(), String> {
 
 fn the_book(f: &mut Facts) -> Result<(), String> {
     let quarter = PI / 2.0;
-    let (tw, wt) = (tip_then_roll(quarter), roll_then_tip(quarter));
-    f.add("G-B.tip_then_roll.R", grid(&tw)?)?;
-    f.add("G-B.roll_then_tip.R", grid(&wt)?)?;
+    let (tw, wt) = (tilt_then_roll(quarter), roll_then_tilt(quarter));
+    f.add("G-B.tilt_then_roll.R", grid(&tw)?)?;
+    f.add("G-B.roll_then_tilt.R", grid(&wt)?)?;
     f.pin(
-        "G-B.tip_then_roll.cover",
+        "G-B.tilt_then_roll.cover",
         ints(&apply(&tw, Z))?,
         "0,-1,0",
         "the cover faces the viewer",
     )?;
     f.pin(
-        "G-B.roll_then_tip.cover",
+        "G-B.roll_then_tilt.cover",
         ints(&apply(&wt, Z))?,
         "1,0,0",
         "the cover faces the viewer's right",
     )?;
-    for (name, r) in [("tip_then_roll", &tw), ("roll_then_tip", &wt)] {
+    for (name, r) in [("tilt_then_roll", &tw), ("roll_then_tilt", &wt)] {
         let (a, axis) = angle_axis(r);
         f.pin(
             &format!("G-B.{name}.angle"),
@@ -261,6 +261,7 @@ fn the_book(f: &mut Facts) -> Result<(), String> {
 }
 
 fn three_angles(f: &mut Facts) -> Result<(), String> {
+    f.add("G-E.rings.order", "z,y,x")?;
     let (a, b) = shown::LOCKED;
     f.pin(
         "G-E.lock.same",
@@ -319,8 +320,8 @@ fn spins(f: &mut Facts) -> Result<(), String> {
     f.add("G-R.diag.R", grid(&spun)?)?;
     f.add("G-R.diag.arrow", vec(&scale(axis, rate * DEG), 4))?;
     f.pin(
-        "G-R.diag.is_roll_then_tip",
-        flag(gap(&spun, &roll_then_tip(PI / 2.0)) < 1e-9),
+        "G-R.diag.is_roll_then_tilt",
+        flag(gap(&spun, &roll_then_tilt(PI / 2.0)) < 1e-9),
         "1",
         "both send each edge to the next",
     )?;
@@ -367,6 +368,11 @@ fn the_base(f: &mut Facts) -> Result<(), String> {
     f.add("G-P.full_circle_t", ints(&[round])?)?;
     let (x, y, _) = planar_exp(v, 0.0, spin, round);
     f.add("G-P.full.end", vec(&[x, y], 4))?;
+    // the same six seconds at other spins: the quiz's two other choices
+    let (x, y, _) = planar_exp(v, 0.0, 0.0, t);
+    f.add("G-P.spin0.end", vec(&[x, y], 4))?;
+    let (x, y, _) = planar_exp(v, 0.0, 60.0 * DEG, t);
+    f.add("G-P.spin60.end", vec(&[x, y], 4))?;
     let signs = |u: [f64; 4]| u.map(|s| if s > 0.0 { "+" } else { "-" }).join(",");
     f.add("G-P.wheels.forward", signs(wheel_speeds(1.0, 0.0, 0.0, 1.0, 1.0, 1.0)))?;
     f.add("G-P.wheels.sideways", signs(wheel_speeds(0.0, 1.0, 0.0, 1.0, 1.0, 1.0)))?;
@@ -453,16 +459,37 @@ fn velocities(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         ("home", poses::HOME),
         ("stretch", poses::STRETCH),
         ("elbow_straight", poses::ELBOW_STRAIGHT),
+        ("elbow_only", poses::ELBOW_ONLY),
         ("ell", poses::ELL),
+        ("ell_wrist_turned", poses::ELL_WRIST_TURNED),
         ("swing", poses::SWING),
     ] {
         f.add(&format!("G-J.rank.{name}"), rank(&arm.jacobian(&degrees(q))))?;
     }
-    let stretch = degrees(poses::STRETCH);
-    f.add("G-J.stretch.p", vec(&arm.tip(&stretch).p, 4))?;
+    let straight = degrees(poses::ELBOW_STRAIGHT);
+    f.add("G-J.elbow_straight.p", vec(&arm.tip(&straight).p, 4))?;
+    let only = degrees(poses::ELBOW_ONLY);
+    f.pin(
+        "G-J.elbow_only.reach",
+        fx(
+            norm(sub(
+                arm.joint(&only, model::WRIST).0,
+                arm.joint(&only, model::SHOULDER).0,
+            )),
+            4,
+        ),
+        "0.5800",
+        "a right triangle with legs 0.42 and 0.40: inside the reach of 0.82",
+    )?;
+    f.pin(
+        "G-J.elbow_straight.push_along_arm",
+        fx(arm.push_along_arm(&straight), 4),
+        "0.0000",
+        "with the elbow straight no joint moves the wrist along the arm",
+    )?;
     f.add(
-        "G-J.stretch.along_arm_missing",
-        fx(missing(&arm.jacobian(&stretch), twist([0.0; 3], X)), 4),
+        "G-J.swing.push_along_arm",
+        fx(arm.push_along_arm(&degrees(poses::SWING)), 4),
     )?;
     f.add("G-J.blowup.pull", fx(shown::PULL, 1))?;
     for bend in shown::BENDS {
@@ -471,7 +498,23 @@ fn velocities(f: &mut Facts, arm: &Arm) -> Result<(), String> {
             fx(arm.elbow_speed_to_pull(bend, shown::PULL), 2),
         )?;
     }
-    f.add("G-J.blowup.limit", whole(model::SPEED_DEG_S[model::ELBOW])?)?;
+    let limit = model::SPEED_DEG_S[model::ELBOW];
+    f.add("G-J.blowup.limit", whole(limit)?)?;
+    // the bend at which the elbow's speed meets its limit (it falls as the bend grows)
+    let (mut lo, mut hi) = (10.0, 30.0);
+    for _ in 0..60 {
+        let mid = (lo + hi) / 2.0;
+        if arm.elbow_speed_to_pull(mid, shown::PULL) > limit {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+    }
+    f.add("G-J.blowup.bend_at_limit", fx(lo, 1))?;
+    f.add(
+        "G-J.blowup.1.turns_per_s",
+        fx(arm.elbow_speed_to_pull(1.0, shown::PULL) / 360.0, 2),
+    )?;
     let swing = degrees(poses::SWING);
     f.add("G-J.elbow.radius", fx(arm.elbow_radius(&swing), 4))?;
     f.add("G-J.spare", N - rank(&arm.jacobian(&swing)))?;
@@ -522,6 +565,13 @@ fn steps_and_paths(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         "0.5000",
         "cos squared of half a quarter turn",
     )?;
+    // a quarter of the way: the blend repaired to the nearest turn, against the screw
+    f.pin(
+        "G-I.blend.quarter_turned",
+        fx(model::blend_turned(screw.angle, 0.25) / DEG, 4),
+        "18.4349",
+        "atan of one third, in degrees",
+    )?;
     let bow = (0..=100)
         .map(|k| {
             let s = f64::from(k) / 100.0;
@@ -537,13 +587,19 @@ fn steps_and_paths(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         "G-I.screw.mid.turned",
         fx(angle_axis(&mul(&transpose(&start.r), &mid.r)).0 / DEG, 4),
     )?;
+    let quarter = along_screw(&screw, 0.25).then(&start);
+    f.add(
+        "G-I.screw.quarter_turned",
+        fx(angle_axis(&mul(&transpose(&start.r), &quarter.r)).0 / DEG, 4),
+    )?;
     Ok(())
 }
 
 /// A body spinning at one radian a second about its diagonal, stepped two
 /// ways: the spin added onto the nine numbers, and the exponential of the
-/// spin applied. The determinants after the last step.
-pub fn drift() -> (f64, f64) {
+/// spin applied. The determinants after the last step, and how much wider
+/// the first body has grown across its axis.
+pub fn drift() -> (f64, f64, f64) {
     let (steps, dt) = shown::DRIFT;
     let spin = hat(unit([1.0, 1.0, 1.0]));
     let one = turn(unit([1.0, 1.0, 1.0]), dt);
@@ -553,7 +609,8 @@ pub fn drift() -> (f64, f64) {
         added = std::array::from_fn(|i| std::array::from_fn(|k| added[i][k] + dt * d[i][k]));
         stepped = mul(&one, &stepped);
     }
-    (det(&added), det(&stepped))
+    let across = unit([1.0, -1.0, 0.0]);
+    (det(&added), det(&stepped), norm(apply(&added, across)))
 }
 
 fn coda(f: &mut Facts) -> Result<(), String> {
@@ -561,7 +618,7 @@ fn coda(f: &mut Facts) -> Result<(), String> {
     f.add("G-C.g1.velocity", 6 + cited::G1_JOINTS)?;
     f.add("G-C.g1.stored", 3 + 4 + cited::G1_JOINTS)?;
     let (steps, dt) = shown::DRIFT;
-    let (added, stepped) = drift();
+    let (added, stepped, width) = drift();
     f.add("G-C.drift.steps", steps)?;
     f.add("G-C.drift.dt", fx(dt, 2))?;
     f.pin(
@@ -571,6 +628,7 @@ fn coda(f: &mut Facts) -> Result<(), String> {
         "(1 + 0.0001) to the power 1000",
     )?;
     f.pin("G-C.drift.exp", fx(stepped, 4), "1.0000", "a turn keeps volume")?;
+    f.add("G-C.drift.width", fx(width, 4))?;
     Ok(())
 }
 
@@ -628,9 +686,9 @@ fn edges(f: &mut Facts) -> Result<(), String> {
         "120/576",
         "24 turns times the 5 classes of the cube's turns",
     )?;
-    let (a, b) = (tip_turn(40.0 * DEG), tip_turn(70.0 * DEG));
+    let (a, b) = (tilt_turn(40.0 * DEG), tilt_turn(70.0 * DEG));
     f.add("G-X2.same_axis_swap", flag(gap(&mul(&a, &b), &mul(&b, &a)) < 1e-9))?;
-    let (a, b) = (tip_turn(PI), roll_turn(PI));
+    let (a, b) = (tilt_turn(PI), roll_turn(PI));
     f.add("G-X2.half_turns_swap", flag(gap(&mul(&a, &b), &mul(&b, &a)) < 1e-9))?;
     // every pose is one screw
     let slides: [V3; 4] = [[0.0, 0.0, 0.0], [0.3, 0.0, 0.0], [0.2, -0.1, 0.4], [-0.5, 0.25, 0.1]];
@@ -693,16 +751,51 @@ fn edges(f: &mut Facts) -> Result<(), String> {
         "45/45",
         "a turn about a point, or a slide",
     )?;
-    f.add(
-        "G-X6.left_below_one",
-        flag((1..=90).all(|p| rings_left(f64::from(p) * DEG) < 1.0)),
+    // every order of three rings loses a direction at some middle angle: the
+    // twelve orders with neighbouring rings about different axes
+    let named = [("x", X), ("y", Y), ("z", Z)];
+    let (mut locked, mut total) = (0, 0);
+    let mut where_flat = std::collections::BTreeMap::new();
+    for (na, a) in named {
+        for (nb, b) in named {
+            for (nc, c) in named {
+                if na == nb || nb == nc {
+                    continue;
+                }
+                total += 1;
+                let flat: Vec<String> = (0..=180)
+                    .filter(|m| model::rings_span(a, b, c, f64::from(*m) * DEG) < 1e-9)
+                    .map(|m| m.to_string())
+                    .collect();
+                locked += usize::from(!flat.is_empty());
+                where_flat.insert(format!("{na}{nb}{nc}"), flat.join(","));
+            }
+        }
+    }
+    f.pin(
+        "G-X6.ring_orders",
+        format!("{locked}/{total}"),
+        "12/12",
+        "no order of three rings is free of a bad spot",
+    )?;
+    f.pin(
+        "G-X6.bad_angle.zyx",
+        &where_flat["zyx"],
+        "90",
+        "the video's rings lock at a quarter turn",
+    )?;
+    f.pin(
+        "G-X6.bad_angle.zyz",
+        &where_flat["zyz"],
+        "0,180",
+        "rings with a repeated axis lock when straight",
     )?;
     Ok(())
 }
 
 fn quizzes(f: &mut Facts, arm: &Arm) -> Result<(), String> {
     let quarter = PI / 2.0;
-    let (tw, wt) = (tip_then_roll(quarter), roll_then_tip(quarter));
+    let (tw, wt) = (tilt_then_roll(quarter), roll_then_tilt(quarter));
     let (a, b) = shown::LOCKED;
     let (h1, h2) = shown::HEADINGS;
     let spun = turn(unit(shown::DIAGONAL), shown::DIAGONAL_RATE * DEG);
@@ -746,7 +839,7 @@ fn quizzes(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         }
         .into(),
         (best + 1).to_string(),
-        if rank(&arm.jacobian(&degrees(poses::STRETCH))) < 6 {
+        if rank(&arm.jacobian(&degrees(poses::ELBOW_STRAIGHT))) < 6 {
             "lost"
         } else {
             "all"

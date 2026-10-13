@@ -1,6 +1,6 @@
 //! Why Robot Arms Think in Lie Groups — Video G of the corpus: two quarter
 //! turns of a book in two orders, why three angles and averaged headings
-//! fail, the flat piece of spins and the exponential, a mobile base's arc,
+//! fail, the flat piece of spins and the exponential, a mobile platform's arc,
 //! screws, a KUKA LBR iiwa 14 as a product of seven exponentials, its
 //! Jacobian, lost directions and spare joint, Newton's method on the group
 //! and the screw between two poses, with a quiz and a countdown in every
@@ -21,6 +21,8 @@
 mod chapters;
 mod facts;
 mod model;
+#[allow(dead_code)] // the scenes use it; they land chapter by chapter
+mod palette;
 mod score;
 
 use explainer_kit::Explainer;

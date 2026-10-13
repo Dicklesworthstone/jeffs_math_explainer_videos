@@ -288,6 +288,19 @@ pub fn rings_left(pitch: f64) -> f64 {
     pitch.cos().abs()
 }
 
+/// The volume three rings' axes span, for any order of rings: the outer
+/// about `a`, the middle about `b` turned by `middle`, the inner about `c`.
+pub fn rings_span(a: V3, b: V3, c: V3, middle: f64) -> f64 {
+    let inner = apply(&turn(b, middle), c);
+    det(&[[a[0], b[0], inner[0]], [a[1], b[1], inner[1]], [a[2], b[2], inner[2]]]).abs()
+}
+
+/// How far the nearest turn to a blend has turned: two turns that differ by
+/// `angle` about one axis, mixed with weights `1 − s` and `s`.
+pub fn blend_turned(angle: f64, s: f64) -> f64 {
+    (s * angle.sin()).atan2(1.0 - s + s * angle.cos())
+}
+
 /// An angle in degrees brought into (−180, 180].
 pub fn wrap_deg(a: f64) -> f64 {
     let w = (a + 180.0).rem_euclid(360.0) - 180.0;
@@ -321,8 +334,9 @@ pub fn planar_centre(vx: f64, vy: f64, spin: f64) -> (f64, f64) {
 }
 
 /// Mecanum wheel speeds, front left, front right, rear left, rear right
-/// (Lynch and Park eq. 13.10): `a` and `b` are the half length and half
-/// track between wheel centres, `r` the wheel radius.
+/// (Lynch and Park eq. 13.10, whose wheels are numbered round the chassis:
+/// these are its wheels 1, 2, 4 and 3): `a` and `b` are the half length
+/// and half track between wheel centres, `r` the wheel radius.
 pub fn wheel_speeds(vx: f64, vy: f64, spin: f64, a: f64, b: f64, r: f64) -> [f64; 4] {
     let k = (a + b) * spin;
     [
@@ -454,6 +468,20 @@ impl Arm {
     pub fn lever(&self, q: &Q, i: usize) -> f64 {
         let col = column(&self.jacobian(q), i);
         norm(add(slide_of(col), cross(spin_of(col), self.tip(q).p)))
+    }
+
+    /// The most any one joint, turning at one radian a second, moves the
+    /// wrist along the line from shoulder to wrist (m/s). Zero means the
+    /// gripper cannot slide along the arm, out or back.
+    pub fn push_along_arm(&self, q: &Q) -> f64 {
+        let (s, w) = (self.joint(q, SHOULDER).0, self.joint(q, WRIST).0);
+        let along = unit(sub(w, s));
+        (0..WRIST)
+            .map(|i| {
+                let (point, axis) = self.joint(q, i);
+                dot(cross(axis, sub(w, point)), along).abs()
+            })
+            .fold(0.0, f64::max)
     }
 
     /// The radius of the circle the elbow can swing on while the tip holds
@@ -602,18 +630,6 @@ pub fn rank(j: &Jac) -> usize {
     independent(j).len()
 }
 
-/// How much of the twist `want` no set of joint speeds can produce.
-pub fn missing(j: &Jac, want: V6) -> f64 {
-    let mut rest = want;
-    for b in independent(j) {
-        let d: f64 = rest.iter().zip(&b).map(|(x, y)| x * y).sum();
-        for (x, y) in rest.iter_mut().zip(&b) {
-            *x -= d * y;
-        }
-    }
-    rest.iter().map(|x| x * x).sum::<f64>().sqrt()
-}
-
 /// Solve a square system by elimination with row pivoting.
 fn solve6(mut a: [[f64; 6]; 6], mut b: V6) -> V6 {
     for c in 0..6 {
@@ -716,6 +732,9 @@ pub mod poses {
     pub const ELL: [f64; N] = [0.0, 90.0, 0.0, 90.0, 0.0, 0.0, 0.0];
     /// Only the elbow bent, the arm otherwise straight up.
     pub const ELBOW_ONLY: [f64; N] = [0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0];
+    /// The L shape with joint 5 a quarter turn round and the wrist straight:
+    /// here the wrist's two aligned axes do cost a direction.
+    pub const ELL_WRIST_TURNED: [f64; N] = [0.0, 90.0, 0.0, 90.0, 90.0, 0.0, 0.0];
     /// The L shape swung a quarter turn about the base.
     pub const QUARTER: [f64; N] = [90.0, 90.0, 0.0, 90.0, 0.0, 0.0, 0.0];
     /// Stretched straight out.
@@ -744,10 +763,11 @@ pub fn goal(arm: &Arm) -> Pose {
     }
 }
 
-/// The book's two turns: tip (a quarter turn about x, the far edge rising)
+/// The book's two turns: tilt (a quarter turn about x, the far edge rising)
 /// and roll (a quarter turn about y, clockwise for the viewer). Turns are
-/// made about the room's axes, so the later one multiplies on the left.
-pub fn tip_turn(angle: f64) -> M3 {
+/// made about the room's axes (two lines on the table), so the later one
+/// multiplies on the left.
+pub fn tilt_turn(angle: f64) -> M3 {
     turn(X, angle)
 }
 
@@ -755,17 +775,17 @@ pub fn roll_turn(angle: f64) -> M3 {
     turn(Y, angle)
 }
 
-pub fn tip_then_roll(angle: f64) -> M3 {
-    mul(&roll_turn(angle), &tip_turn(angle))
+pub fn tilt_then_roll(angle: f64) -> M3 {
+    mul(&roll_turn(angle), &tilt_turn(angle))
 }
 
-pub fn roll_then_tip(angle: f64) -> M3 {
-    mul(&tip_turn(angle), &roll_turn(angle))
+pub fn roll_then_tilt(angle: f64) -> M3 {
+    mul(&tilt_turn(angle), &roll_turn(angle))
 }
 
 /// The turn that separates the two orders' results.
 pub fn leftover(angle: f64) -> M3 {
-    mul(&tip_then_roll(angle), &transpose(&roll_then_tip(angle)))
+    mul(&tilt_then_roll(angle), &transpose(&roll_then_tilt(angle)))
 }
 
 /// The thirteen axes through a cube's faces, edges and corners.
@@ -800,7 +820,7 @@ pub fn cube_turns() -> Vec<[[i32; 3]; 3]> {
         }
         out
     };
-    let makers = [whole(&tip_turn(PI / 2.0)), whole(&roll_turn(PI / 2.0))];
+    let makers = [whole(&tilt_turn(PI / 2.0)), whole(&roll_turn(PI / 2.0))];
     let mut all = vec![whole(&I3)];
     let mut at = 0;
     while at < all.len() {
@@ -821,67 +841,26 @@ pub struct Quiz {
     pub seconds: u32,
 }
 
+const fn quiz(line: &'static str, seconds: u32) -> Quiz {
+    Quiz { line, seconds }
+}
+
 pub const QUIZZES: &[Quiz] = &[
-    Quiz {
-        line: "01_1",
-        seconds: 5,
-    },
-    Quiz {
-        line: "02_2",
-        seconds: 5,
-    },
-    Quiz {
-        line: "03_2",
-        seconds: 4,
-    },
-    Quiz {
-        line: "04_2",
-        seconds: 5,
-    },
-    Quiz {
-        line: "05_4",
-        seconds: 5,
-    },
-    Quiz {
-        line: "06_2",
-        seconds: 5,
-    },
-    Quiz {
-        line: "07_6",
-        seconds: 4,
-    },
-    Quiz {
-        line: "08_3",
-        seconds: 4,
-    },
-    Quiz {
-        line: "09_5",
-        seconds: 4,
-    },
-    Quiz {
-        line: "10_4",
-        seconds: 5,
-    },
-    Quiz {
-        line: "11_2",
-        seconds: 4,
-    },
-    Quiz {
-        line: "12_2",
-        seconds: 5,
-    },
-    Quiz {
-        line: "13_4",
-        seconds: 5,
-    },
-    Quiz {
-        line: "14_2",
-        seconds: 4,
-    },
-    Quiz {
-        line: "15_3",
-        seconds: 4,
-    },
+    quiz("01_1", 5),
+    quiz("02_2", 5),
+    quiz("03_2", 4),
+    quiz("04_2", 5),
+    quiz("05_4", 5),
+    quiz("06_2", 6),
+    quiz("07_1", 4),
+    quiz("08_3", 4),
+    quiz("09_4", 4),
+    quiz("10_4", 5),
+    quiz("11_2", 4),
+    quiz("12_2", 6),
+    quiz("13_5", 5),
+    quiz("14_2", 4),
+    quiz("15_2", 4),
 ];
 
 #[cfg(test)]
