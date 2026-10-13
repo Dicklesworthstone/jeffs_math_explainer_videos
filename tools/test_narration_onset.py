@@ -86,6 +86,24 @@ class CutIn(unittest.TestCase):
         kept, h = self.onset_kept(x, onset)
         self.assertTrue(kept, f"the t was cut: cut-in {h['cut_in']:.3f} s, onset {onset} s")
 
+    def test_a_long_continuous_onset_at_speech_level_is_kept(self):
+        # "Subtracting": s, a vowel the tracker misses, the b's closure (20 ms), the tr, more creak: 0.35 s
+        # of sound at speech level with no pause in it before the tracker hears a voice
+        onset = 0.50
+        x = take(silence(onset), hiss(0.12, -24), creak(0.13, -24), silence(0.02), hiss(0.06, -24, 1500, 9000),
+                 creak(0.22, -25), vowel(0.6, -22), silence(0.3))
+        kept, h = self.onset_kept(x, onset)
+        self.assertTrue(kept, f"the onset was cut: cut-in {h['cut_in']:.3f} s, onset {onset} s")
+
+    def test_a_blip_set_apart_by_a_pause_is_left_out_and_the_word_kept(self):
+        # a click at the take's start, half a second of silence, then the word's s and voice
+        word = 0.80
+        x = take(silence(0.2), hiss(0.03, -24, 300, 9000), silence(0.57), hiss(0.15, -24), creak(0.20, -25),
+                 vowel(0.6, -22), silence(0.3))
+        h = tool.hear(x, RATE, None)
+        self.assertGreater(h["cut_in"], 0.25, f"the blip was kept: cut-in {h['cut_in']:.3f} s")
+        self.assertLessEqual(h["cut_in"], word + 0.01, f"the word was cut: cut-in {h['cut_in']:.3f} s")
+
     def test_a_long_bed_under_the_speech_is_still_left_out(self):
         # robert: 0.6 s of noise about 12 dB under the speech before the first word
         # (the rule keeps the last 0.2 s before the voice and starts 120 ms before that: a soft

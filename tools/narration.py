@@ -87,8 +87,9 @@ FAINT = 28.0               # dB under: a breath or hiss this far down can take a
 SENTENCE_GAP = 0.30        # s of no syllable that ends the sentence once the ASR's last word is behind
 HOLD = 0.12                # s of silence that is a pause; shorter is a stop consonant's closure
 ONSET_REACH = 0.45         # s before the first syllable searched for that silence
-BED_MIN = 0.30             # s: sound before the first voiced stretch that is shorter than this and
-BED_UNDER = 9.0            # comes within this many dB of speech level is the first syllable, not a bed
+BED_UNDER = 9.0            # dB: sound before the first voiced stretch that comes within this of speech
+BED_MIN = 0.30             # level, runs into the voice without a pause, and is shorter than this (s) or
+                           # has some voice in it, is the first word's onset, not a bed
 TAIL_REACH = 0.50          # s after the last syllable searched for it
 MIN_PAUSE = 0.12
 # kind of pause: ((longest a silent one may be, what it is cut to), (the same for one with a breath
@@ -177,6 +178,25 @@ def noise(seg, rate):
     return bool(10 * np.log10((low + 1e-12) / (high + 1e-12)) < 10.0)
 
 
+def voice_in(seg, rate, top):
+    """Some of a voice in a stretch the pitch tracker calls unvoiced: 30 ms of 10 ms frames, audible
+    (within 30 dB of speech level), whose energy sits under 1 kHz the way `noise` defines a voice (a
+    creaky vowel is such a frame; an s, a t's aspiration, a breath or a hiss is not)."""
+    n = int(0.010 * rate)
+    f = np.fft.rfftfreq(n, 1 / rate)
+    low, high = (f >= 80) & (f < 1000), (f >= 2000) & (f < 8000)
+    run = 0
+    for i in range(0, len(seg) - n + 1, n):
+        frame = seg[i:i + n]
+        power = np.abs(np.fft.rfft(frame * np.hanning(n))) ** 2
+        voiced = (10 * np.log10(np.mean(frame ** 2) + 1e-12) > top - 30
+                  and 10 * np.log10((power[low].sum() + 1e-12) / (power[high].sum() + 1e-12)) >= 20.0)
+        run = run + 1 if voiced else 0
+        if run >= 3:
+            return True
+    return False
+
+
 def steady(level):
     """A stretch whose level holds within 3 dB for 0.15 s or more: a hum (leo leads into sentences
     with up to 0.4 s of one, all under 500 Hz, so `noise` passes it). A word attacks and decays."""
@@ -253,17 +273,19 @@ def hear(x, rate, last_word_end):
     # "sh" takes less) before the take's first voiced stretch is a noise bed, not the first word
     # (robert opens takes with up to 0.8 s of it, 12 dB under the speech).
     # The stretch must also sound like noise (see `noise`): a creaky "And" has no pitch the tracker
-    # can follow, and this rule once took one for a bed and dropped the word. And it must be long or
-    # quiet: michael opens words with an aspirated t, an s or a creaky vowel that sound like noise and
-    # come up to 0.28 s before the tracker hears a voice, at speech level ("Take its rate" was cut
-    # to "ake its rate", heard as "It gets rate"; "That's" and "At" lost the same way). robert's beds
-    # run 0.3 to 0.8 s, about 12 dB under the speech.
+    # can follow, and this rule once took one for a bed and dropped the word. Nor is the first word's
+    # own onset: at speech level, running into the voice without a pause, and short or with some
+    # voice in it. michael opens words with an s, an aspirated t or a vowel the tracker does not hear
+    # as voiced for up to 0.45 s ("Take its rate" was cut to "ake its rate", heard "It gets rate";
+    # "Subtracting" to "tracting", heard "attracting"). A bed is quieter (robert's: about 12 dB
+    # under), set apart from the word by a pause (a blip at the take's start), or a hiss with no voice.
     voiced = first_voiced(x, rate, top)
     bed_end = frames(voiced - 0.20) if voiced is not None else 0
-    if voiced is not None and first < bed_end and (
-            (bed_end - first) * HOP >= BED_MIN or db[first:bed_end].max() < top - BED_UNDER) and (
-            noise(x[int(first * HOP * rate):int((voiced - 0.20) * rate)], rate)
-            or steady(db[first:bed_end])):
+    stretch = x[int(first * HOP * rate):int((voiced - 0.20) * rate)] if voiced is not None else x[:0]
+    onset = (bed_end > first and db[first:bed_end].max() >= top - BED_UNDER
+             and not any(b - a + 1 >= frames(HOLD) for a, b in runs(db[first:bed_end] < audible, 0))
+             and ((bed_end - first) * HOP < BED_MIN or voice_in(stretch, rate, top)))
+    if voiced is not None and first < bed_end and not onset and (noise(stretch, rate) or steady(db[first:bed_end])):
         first = min(last, next((i for i in range(frames(voiced - 0.20), len(db)) if db[i] >= top - NUCLEUS), first))
     # Nor is a hum: a steady, modest tone that opens the take and gives way before the first
     # syllable (robert: about 0.4 s near 300 Hz, 18 to 21 dB under the speech). It is periodic, so
