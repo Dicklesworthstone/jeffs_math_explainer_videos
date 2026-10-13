@@ -541,12 +541,16 @@ impl SceneConstruct for Percents {
         };
         let ten_labels = column_labels(&kit, stage, 0, b.ten)?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        anims.push(stage.prepare(dim(last, 0.25, 0.5)?)?);
+        anims.push(stage.prepare(dim(last, 0.0, 0.5)?)?);
         for m in ten_labels {
             let a = fade_in(stage.arena_mut(), m, v(0.0, 0.15), 1.0)?;
             anims.push(stage.prepare(a.rt(0.5))?);
         }
         stage.play_prepared(anims)?;
+        // the bar is still the whole bill: its own amount comes back over it
+        // once the tenth has its label (R2, M2)
+        let bill_label = eq(&kit, stage, &dollars(b.cents), PLACES_PT, v(0.0, PLACES_Y))?;
+        swap(stage, &places.mobs(), &[bill_label], 0.5)?;
 
         // 06_2: half of the tenth, and the tenth and the half side by side
         let line = say(&kit, stage, "06_2")?;
@@ -572,8 +576,9 @@ impl SceneConstruct for Percents {
         ins.extend(fifteen_labels);
         fade_in_all(stage, &ins, 0.4)?;
 
-        // 06_3: twenty percent is the tenth doubled; seventeen is four pieces
-        say(&kit, stage, "06_3")?;
+        // 06_3: twenty percent is the tenth doubled; seventeen is four pieces,
+        // said aloud as where the trick stops paying (R2, M15)
+        let line = say(&kit, stage, "06_3")?;
         lift(
             stage,
             &[
@@ -601,6 +606,7 @@ impl SceneConstruct for Percents {
         );
         let aside = grey_line(&kit, stage, &aside_src, v(0.0, GREY_Y))?;
         fit_width(stage, aside, GREY_ROOM);
+        line.wait_sentence(stage, 1)?;
         play!(stage; fade_in(stage.arena_mut(), aside, ORIGIN, 1.0)?.rt(0.5));
         // a moment to read the aside before the quiz
         kit.hold(stage)?;
@@ -657,7 +663,7 @@ impl SceneConstruct for Percents {
         }
         play!(stage; fmn::animation::indicate(stage.arena_mut(), card.answer, 1.12, Some(rgb(ink)))?.rt(0.6));
 
-        // 06_6: a stranger one: eight percent of twenty-five dollars, a card
+        // 06_6: eight percent of twenty-five dollars, a card
         // with no ring
         let line = say(&kit, stage, "06_6")?;
         fade_all(stage, 0.5)?;

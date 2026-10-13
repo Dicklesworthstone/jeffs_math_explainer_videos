@@ -16,7 +16,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, Lens, NOTE_PT, NumberLine1, QuizCard, QuizLook, SIDE_PT, Side, Strip, Turn, cut_style, eq, fade_in_all,
     fade_out_all, fail, fifty_board, fit_width, flat, fly, glyphs, gone, grey_line, hundreds, line_style,
-    lower_third_tex, middle_of, num, quiz_at, repaint, say, strip, swap, the_move, why_card, why_pause,
+    lower_third_tex, middle_of, num, quiz_at, repaint, say, strip, swap, why_card, why_pause,
 };
 use crate::facts::shown;
 use crate::model::{Ask, Pair, pair};
@@ -41,9 +41,6 @@ const LINE_Y: f64 = 0.1;
 const LINE_X: (f64, f64) = (-5.5, 5.5);
 /// How high the bows of the distance rise over the line.
 const BOW_LIFT: f64 = 0.9;
-/// Where the bows wait while the number line becomes the picture (08_3):
-/// clear of the square, until they become the strip and the gap.
-const BOWS_ASIDE: f64 = 2.4;
 /// The column of the working beside the figure: the problem at its head,
 /// then the rows, their left edges lined up.
 const HEAD_LEFT: f64 = 1.9;
@@ -71,17 +68,6 @@ const ASIDE_Y: f64 = -2.25;
 /// The two numbers `(x, y)` worked from their middle, or a scene error.
 fn pair_of((x, y): (u64, u64)) -> fmn::Result<Pair> {
     pair(x, y).ok_or_else(|| fail(format!("{x} and {y} have no whole middle")))
-}
-
-/// Slide `mob` by `by`, `rt` seconds.
-fn slide(mob: Mob, by: Vec3, rt: f64) -> fmn::Result<AnimBuilder> {
-    Ok(mob
-        .animate()
-        .set_anim_args(AnimateArgs {
-            run_time: Some(rt),
-            ..AnimateArgs::default()
-        })?
-        .shift(by)?)
 }
 
 /// A bow from `a` to `b` that bulges `out` to the left of the way from `a`
@@ -284,9 +270,13 @@ impl SceneConstruct for TheMiddle {
         let fifty_top = board.label(&kit, stage, &num(p.middle), square, Side::Above, SIDE_PT, ink)?;
         let head_scale = ROW_PT / PROBLEM_PT;
         let head_at = v(HEAD_LEFT + stage.get_width(problem) * head_scale / 2.0, ROW_YS[0]);
+        // the bows leave with the line: the brackets that carry their threes
+        // come with the words that name them (R2, M4: waiting to one side,
+        // they floated unattached for six seconds)
         let mut leaving = on_line.clone();
         leaving.extend(dots);
         leaving.extend([low_mark, high_mark, mid_mark, mid_words, distance_words]);
+        leaving.extend([below_bow, below_three, above_bow, above_three]);
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for &m in &leaving {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
@@ -296,9 +286,6 @@ impl SceneConstruct for TheMiddle {
         let a = fade_in(stage.arena_mut(), fifty_top, ORIGIN, 1.0)?;
         anims.push(stage.prepare(a.rt(1.1))?);
         anims.push(stage.prepare(fly(problem, head_at, head_scale, 1.1)?)?);
-        for m in [below_bow, below_three, above_bow, above_three] {
-            anims.push(stage.prepare(slide(m, v(BOWS_ASIDE, 0.0), 1.1)?)?);
-        }
         stage.play_prepared(anims)?;
         line.wait_for(stage, "lay the rectangle")?;
         // the strip is the moving strip from the start: standing at the
@@ -331,9 +318,10 @@ impl SceneConstruct for TheMiddle {
             line_style(strip(), 3.0),
         );
         let strip_three_at = v(board.p(mid + d / 2.0, 0.0)[0], bottom - 0.42);
+        let above_three = kit.text(stage, &num(p.distance), SIDE_PT, strip(), strip_three_at)?;
         play!(stage;
-            replacement_transform(above_bow, strip_bow).rt(0.9),
-            fly(above_three, strip_three_at, 1.0, 0.9)?.set_color(strip())?,
+            show_creation(strip_bow).rt(0.9),
+            fade_in(stage.arena_mut(), above_three, ORIGIN, 1.0)?.rt(0.9),
             repaint(moving.fill, strip(), 1.0, 0.9)?,
         );
         // and falls short by three at the top: the bow below it becomes
@@ -349,9 +337,10 @@ impl SceneConstruct for TheMiddle {
             line_style(gone(), 3.0),
         );
         let gap_three_at = v(left - 0.45, board.p(0.0, low + d / 2.0)[1]);
+        let below_three = kit.text(stage, &num(p.distance), SIDE_PT, gone(), gap_three_at)?;
         play!(stage;
-            replacement_transform(below_bow, gap_bow).rt(0.9),
-            fly(below_three, gap_three_at, 1.0, 0.9)?.set_color(gone())?,
+            show_creation(gap_bow).rt(0.9),
+            fade_in(stage.arena_mut(), below_three, ORIGIN, 1.0)?.rt(0.9),
             fade_in(stage.arena_mut(), gap, ORIGIN, 1.0)?.rt(0.9),
         );
         stage.scene_mut().bring_to_front(&[outline])?;
@@ -363,14 +352,16 @@ impl SceneConstruct for TheMiddle {
         )?;
 
         // 08_4: the one move, backwards: the strip lifts off the side,
-        // turns and lies in the gap along the top (the narrator waits for
-        // it, between the lines); a hole three by three is left in the
-        // corner, and a magnifier shows it
-        the_move(&kit, stage, &[&moving], 0.0, "08_4")?;
+        // turns and lies in the gap along the top, on the words that ask for
+        // it (R2, M3: played in the silence before the line, it moved before
+        // it was asked to); a hole three by three is left in the corner, and
+        // a magnifier shows it
+        let line = say(&kit, stage, "08_4")?;
+        stage.scene_mut().bring_to_front(&[moving.fill, moving.edge])?;
+        play!(stage; moving.turn_to(0.0)?);
         let seam = board.line(stage, [0.0, low], [turn.len, low], cut_style());
         stage.add_to_scene(seam)?;
         stage.scene_mut().bring_to_front(&[outline])?;
-        let line = say(&kit, stage, "08_4")?;
         line.wait_sentence(stage, 2)?;
         let hole = [low, low, d, d];
         let hole_edge = board.rect(stage, hole, line_style(gone(), 4.0));

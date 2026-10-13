@@ -64,6 +64,8 @@ const SQUARE_PT: f64 = 72.0;
 const SLOW_STOPS: usize = 3;
 /// 03_6: the line of numbers and the line in letters.
 const FORMULA_PT: f64 = 80.0;
+/// The number split into its tens and its five, under the formula.
+const SPLIT_PT: f64 = 52.0;
 const FORMULA_Y: f64 = 0.7;
 const FORMULA_ROOM: f64 = 12.6;
 /// 03_7: the waiting card, large in the middle before it goes to its
@@ -579,6 +581,13 @@ impl SceneConstruct for YourTurn {
         let mut gone = sweep.all.clone();
         gone.extend(readouts.last().into_iter().flatten());
         swap(stage, &gone, &[numbers], 0.6)?;
+        // where 10n + 5 comes from, under the numbers before they turn into
+        // letters (R2, M7)
+        let ten = (five.number - five.number % 10) / five.n;
+        let split_src = format!(r"{} = {ten} \times {front} + {}", five.number, five.number % 10);
+        let split_at = v(0.0, stage.get_bottom(numbers)[1] - 0.7);
+        let split = kit.tex(stage, &split_src, SPLIT_PT, ink, &[(&front, blue)], split_at)?;
+        play!(stage; fade_in(stage.arena_mut(), split, v(0.0, 0.1), 1.0)?.rt(0.5));
         line.wait_for(stage, "front n")?;
         let morph = TransformMatchingTex::new(
             stage.arena_mut(),
@@ -587,7 +596,10 @@ impl SceneConstruct for YourTurn {
             &numbers_spans,
             &fresh_keys(&letters_spans, &LETTERS_NEW)?,
         )?;
-        play!(stage; morph.rt(1.5));
+        play!(stage;
+            morph.rt(1.5),
+            fade_out(stage.arena_mut(), split, ORIGIN, 1.0)?.rt(0.6),
+        );
         let all = glyphs(stage, letters);
         let pick = |idx: &[usize]| idx.iter().filter_map(|&i| all.get(i).copied()).collect::<Vec<Mob>>();
         let first_n = pick(&letter_at[..1.min(letter_at.len())]);

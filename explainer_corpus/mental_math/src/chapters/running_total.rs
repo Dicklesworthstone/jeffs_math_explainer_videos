@@ -35,6 +35,8 @@ const BETWEEN_STEPS: &str = "between steps:";
 const AFTER_BLOCK: &str = "after the block: between";
 const AND: &str = "and";
 const FOR_PROGRAMMERS: &str = "for programmers:";
+/// The music alone after 05_3, to read its stretch and its note.
+const NOTE_READ_S: f64 = 1.5;
 const ANYTIME: &str = "an anytime answer: stop after any step and you have a floor that only rises. The price: a later piece can change a digit you already said";
 const PIECES_ARE: &str = "pieces = digits × digits:";
 const HERE: &str = "here,";
@@ -758,6 +760,9 @@ impl SceneConstruct for RunningTotal {
         let anytime = format!("{ANYTIME} ({} → {})", p.running[1], p.running[2]);
         let note = lower_third(&kit, stage, FOR_PROGRAMMERS, &anytime)?;
         play!(stage; fade_in(stage.arena_mut(), note, v(0.0, 0.15), 1.0)?.rt(0.5));
+        // a breath of music to read the stretch and the note before the quiz
+        // (R2, M8: too much to read in the line alone)
+        kit.music_breath(stage, NOTE_READ_S)?;
 
         // 05_4: your turn: six times forty-three; the lower-third stays
         // while "your turn" is said

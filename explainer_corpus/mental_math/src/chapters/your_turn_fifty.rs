@@ -11,8 +11,9 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, play, props, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, QuizLook, QuoteCard, corner, cut_style, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fifty_board,
-    flat, fly, glyphs, gone, group, hundreds, line_style, middle_of, num, quiz_at, say, strip, your_turn,
+    Board, QuizLook, QuoteCard, corner, cut_style, eq, fade_from_black, fade_in_all, fade_in_lagged, fade_out_all,
+    fail, fifty_board, flat, fly, glyphs, gone, group, hundreds, line_style, middle_of, num, quiz_at, say, strip,
+    your_turn,
 };
 use crate::facts::{cited, digit_pairs_range, shown};
 use crate::model::{Ask, FIFTY, near_fifty};
@@ -212,6 +213,9 @@ impl SceneConstruct for YourTurnFifty {
         stage.add_to_scene(outline)?;
         let name = eq(&kit, stage, &format!("{}^2", first.number), NAME_PT, NAME_AT)?;
         stage.add_to_scene(name)?;
+        // chapter 10 ends on its rows, faded out: this picture comes up from
+        // the dark rather than appearing whole on the first frame (R2, M12)
+        fade_from_black(stage, 0.5)?;
 
         // 11_1: your turn: forty-six squared, the card at the right
         let card = your_turn(&kit, stage, "11_1", QuizLook::at(CARD_AT, CARD_SCALE))?;
@@ -414,6 +418,10 @@ impl SceneConstruct for YourTurnFifty {
 
         // 11_4: what made it easy for Bethe, in Feynman's words
         let line = say(&kit, stage, "11_4")?;
+        // the picture of 62 squared stays while the story goes on; the
+        // card comes with "what made that easy", so its words are not read
+        // ahead of the voice (R2, M11)
+        line.wait_sentence(stage, 2)?;
         fade_all(stage, 0.6)?;
         let year_line = format!("{SOURCE_BOOK} ({}), {SOURCE_CHAPTER}", cited::FEYNMAN_YEAR);
         let quote = QuoteCard::build(&kit, stage, QUOTE, &[SOURCE_WHO, &year_line], QUOTE_AT, QUOTE_CHARS, 3)?;

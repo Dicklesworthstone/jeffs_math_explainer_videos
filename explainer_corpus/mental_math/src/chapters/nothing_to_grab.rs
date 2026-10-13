@@ -12,7 +12,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, Calculator, CutRect, NOTE_PT, NumberLine1, QuizLook, SIDE_PT, Sheet, Side, TileKind, WHICH_TRICK, eq,
     fade_in_all, fade_out_all, fail, fit_width, fly, glyphs, gone, grey_line, line_style, middle_of, num, paper_ink,
-    pause, quiz_at, repaint, say, slate, swap, tag, tiles_out_and_clear, tiles_top, your_turn,
+    pause, quiz_at, repaint, say, slate, swap, tag, tiles_rest_and_clear, tiles_top, your_turn,
 };
 use crate::facts::shown;
 use crate::model::{Ask, by_parts, estimate, pair, parts, round_then_fix};
@@ -41,7 +41,10 @@ const RECT_ROOM: (f64, f64) = (5.8, 4.95);
 /// A piece's area written on it: the block, and the thinner pieces.
 const BLOCK_PT: f64 = 52.0;
 /// The pause between two steps of the running total.
-const STEP_S: f64 = 0.45;
+const STEP_S: f64 = 1.0;
+/// The tag under the steps while they are a running total, not the answer
+/// (R2, M13).
+const RUNNING: &str = "running total";
 /// The sheet of paper (13_4) and the calculator beside it.
 const SHEET_AT: Vec3 = [1.6, -0.7, 0.0];
 const SHEET_PT: f64 = 52.0;
@@ -94,13 +97,13 @@ impl SceneConstruct for NothingToGrab {
         let (round_a, round_b, about) = estimate(a, b);
 
         // the six tiles along the top from the first frame, where chapter 12
-        // leaves them, all dark
+        // leaves them, all at rest: none is put out before the viewer has
+        // thought (R2, M14)
         let tiles = tiles_top(stage)?;
         for t in &tiles {
             for m in t.mobs() {
                 stage.add_to_scene(m)?;
             }
-            t.put_out(stage);
         }
 
         // 13_1: the last quiz of the round; the ring empties into silence
@@ -149,6 +152,12 @@ impl SceneConstruct for NothingToGrab {
         fit_width(stage, aside, 6.6);
         stage.move_to(aside, v(NOTES_LEFT, NOTE_YS[2]), LEFT);
         let notes = [no_five, half, aside];
+        // nothing to grab: every tile goes dark on the line's first words
+        let mut anims = Vec::new();
+        for t in &tiles {
+            anims.extend(t.light(stage, false, 0.6)?);
+        }
+        stage.play_prepared(anims)?;
         for (j, &note) in notes.iter().enumerate() {
             line.wait_sentence(stage, j + 1)?;
             play!(stage; fade_in(stage.arena_mut(), note, v(-0.25, 0.0), 1.0)?.rt(0.5));
@@ -182,11 +191,16 @@ impl SceneConstruct for NothingToGrab {
         rect_mobs.extend(sides);
         fade_in_all(stage, &rect_mobs, 0.6)?;
         let mut shown_total: Option<Mob> = None;
+        let at = card.answer_at();
+        let running = tag(&kit, stage, RUNNING, v(at[0], at[1] - 0.95), 28.0)?;
         for (i, step) in steps.iter().enumerate() {
             if i + 1 == steps.len() {
                 line.wait_sentence(stage, 1)?;
+                play!(stage; fade_out(stage.arena_mut(), running, ORIGIN, 1.0)?.rt(0.3));
             } else if i > 0 {
                 pause(stage, STEP_S)?;
+            } else {
+                play!(stage; fade_in(stage.arena_mut(), running, ORIGIN, 1.0)?.rt(0.3));
             }
             let size = if i == 0 { BLOCK_PT } else { NOTE_PT };
             let area = kit.text(stage, &num(by.pieces[i].area()), size, paper_ink(), cut.centre(i))?;
@@ -304,8 +318,8 @@ impl SceneConstruct for NothingToGrab {
             fade_in(stage.arena_mut(), answer_dot, ORIGIN, 1.0)?.rt(0.9),
         );
         kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
-        // the tiles stay, all put out, for chapter 14
-        tiles_out_and_clear(stage, &tiles, &[], 0.8)?;
+        // the tiles stay, all at rest, for chapter 14's quiz
+        tiles_rest_and_clear(stage, &tiles, &[], 0.8)?;
         kit.finish(stage)
     }
 }

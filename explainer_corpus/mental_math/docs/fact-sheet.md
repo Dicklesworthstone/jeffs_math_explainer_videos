@@ -251,7 +251,6 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 |---|---|---|---|---|---|
 | 01_1 | 85^2 | 4 s | ends_in_five | 8, 9, 72 | 7225 |
 | 03_1 | 25^2 | 5 s | ends_in_five | 2, 3, 6 | 625 |
-| 03_3 | 105^2 | 6 s | ends_in_five | 10, 11, 110 | 11025 |
 | 05_4 | 6x43 | 5 s | by_parts | 240, 258 | 258 |
 | 05_6 | 13x14 | 6 s | by_parts | 100, 140, 170, 182 | 182 |
 | 06_4 | 15% of $60.00 | 5 s | percent_blocks | 6.00, 3.00 | 9.00 |

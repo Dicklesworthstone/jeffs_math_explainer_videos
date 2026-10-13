@@ -13,7 +13,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Calculator, MoveFigure, QuoteCard, SIDE_PT, Side, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fifty_board,
-    fly, glyphs, line_style, middle_of, num, panel, pause, quiz, repaint, say, slate, swap, wait_until, why_pause,
+    fly, glyphs, line_style, middle_of, num, panel, pause, quiz, repaint, say, slate, swap, tween_linear, wait_until,
+    why_pause,
 };
 use super::sound;
 use crate::facts::cited;
@@ -321,18 +322,19 @@ impl SceneConstruct for Bethe {
             stage.set_opacity(m, 0.0, true);
             stage.add_to_scene(m)?;
         }
-        // the digits run on their own while the voice goes on: one updater
-        // shows one reading at a time, by the time since they started
+        // the digits run while the voice goes on: one updater shows the
+        // reading a tracker counts to, and the tracker is tweened at an even
+        // rate through every wait (a dt updater only ran while something
+        // else animated, so a reading sat still for a second: R2, M9)
         let runner = stage.arena_mut().add(VMobject::new());
         stage.add_to_scene(runner)?;
+        let count = stage.add_value_tracker(0.0);
         let loop_of = shown.clone();
-        let mut elapsed = 0.0;
         let mut last = usize::MAX;
-        stage.add_dt_updater(
+        stage.add_updater(
             runner,
-            move |s, _, dt| {
-                elapsed += dt;
-                let now = (elapsed / RUN_STEP) as usize % loop_of.len();
+            move |s, _| {
+                let now = s.tracker_value(count).unwrap_or(0.0) as usize % loop_of.len();
                 if now != last {
                     for (k, &m) in loop_of.iter().enumerate() {
                         s.set_opacity(m, if k == now { 1.0 } else { 0.0 }, true);
@@ -342,9 +344,19 @@ impl SceneConstruct for Bethe {
             },
             true,
         )?;
-        line.wait_for(stage, "twenty-three oh four")?;
+        let mut counted = 0.0;
+        let mut run_until = |stage: &mut Stage<'_>, t_end: f64| -> fmn::Result<()> {
+            let span = t_end - stage.scene().time().to_f64();
+            if span > 0.0 {
+                counted += span / RUN_STEP;
+                stage.play(tween_linear(count, counted, span)?)?;
+            }
+            Ok(())
+        };
+        run_until(stage, line.at("twenty-three oh four")?)?;
         let four = eq(&kit, stage, &format!("{:02}", exact % 100), ANSWER_PT, back_at)?;
         swap(stage, &[zeros], &[four], 0.5)?;
+        run_until(stage, line.end() + explainer_kit::narration::BREATH)?;
         // the window: the narrator silent, dry ticks that slow, one a change
         let times = stopping_times();
         let ticks = sound::ticks(&times, MACHINE_S)?;
@@ -384,9 +396,13 @@ impl SceneConstruct for Bethe {
         let mut first = vec![card.back];
         first.extend(&card.lines);
         fade_in_all(stage, &first, 0.6)?;
-        kit.music_breath(stage, HOLD_S)?;
+        // the source comes in as the question ends, so it is up for the
+        // whole hold (R2, M10: after the hold it showed for a second and a
+        // half)
+        kit.hold(stage)?;
         fade_in_all(stage, &card.source, 0.5)?;
-        pause(stage, 1.1)?;
+        kit.music_breath(stage, HOLD_S)?;
+        pause(stage, 0.6)?;
 
         // 09_5: fifty squared, and the square of forty-eight inside it; the
         // question, held

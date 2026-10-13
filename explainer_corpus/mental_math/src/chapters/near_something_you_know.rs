@@ -61,7 +61,7 @@ const LETTERS_PT: f64 = 96.0;
 const STACK_PT: f64 = 64.0;
 const STACK_Y: [f64; 3] = [1.15, -0.2, -1.55];
 const LETTERS_AT: Vec3 = [0.0, -0.2, 0.0];
-const MIDDLE_PT: f64 = 48.0;
+const MIDDLE_PT: f64 = 60.0;
 const NAME_PT: f64 = 34.0;
 /// The number line of 14_5 and the sentence above it.
 const LINE_Y: f64 = -1.7;
@@ -299,12 +299,12 @@ impl SceneConstruct for NearSomethingYouKnow {
             return Err(fail(format!("the two tricks disagree on {twist} squared")));
         }
 
-        // 14_1: the tiles along the top, there from the first frame and
-        // dark; the quiz card under them, at the left
+        // 14_1: the tiles along the top, there from the first frame and at
+        // rest, as chapter 13 leaves them (none hints at the answer during
+        // the ring: R2, M14); the quiz card under them, at the left
         let tiles = tiles_top(stage)?;
         let fills: Vec<Vec<bool>> = tiles.iter().map(|t| fills_of(stage, t)).collect();
         for t in &tiles {
-            t.put_out(stage);
             for m in t.mobs() {
                 stage.add_to_scene(m)?;
             }
@@ -325,6 +325,8 @@ impl SceneConstruct for NearSomethingYouKnow {
         for (t, f) in tiles.iter().zip(&fills) {
             if matches!(t.kind, TileKind::Strip | TileKind::Fifty) {
                 anims.extend(tile_light(stage, t, f, 0.6)?);
+            } else {
+                anims.extend(t.light(stage, false, 0.6)?);
             }
         }
         stage.play_prepared(anims)?;
@@ -598,7 +600,9 @@ impl SceneConstruct for NearSomethingYouKnow {
                 v(stage.get_center(letter_glyphs[last_b])[0], under),
             )?,
         ];
-        let middle = kit.tex(stage, MIDDLE_LINE, MIDDLE_PT, Palette::dim(), &[], v(0.0, 1.55))?;
+        // the middle trick's line in ink and large enough to recognise (it
+        // was a lower-third at 08_5: R2, M17)
+        let middle = kit.tex(stage, MIDDLE_LINE, MIDDLE_PT, ink, &[], v(0.0, 1.55))?;
         line.wait_for(stage, "the middle trick")?;
         fade_in_all(stage, &[middle, names[0], names[1]], 0.6)?;
         line.wait_for(stage, "the small square")?;
@@ -607,8 +611,12 @@ impl SceneConstruct for NearSomethingYouKnow {
             .iter()
             .rposition(|&s| s == "+")
             .ok_or_else(|| fail(format!("{LETTERS} has no plus")))?;
+        // and the minus b squared of the middle line it came from, pulsed
+        // with it (its last three glyphs: the minus, b and the 2)
+        let middle_glyphs = glyphs(stage, middle);
+        let moved_from = &middle_glyphs[middle_glyphs.len().saturating_sub(3)..];
         let mut pulse: Vec<Box<dyn Animation>> = Vec::new();
-        for &g in &letter_glyphs[last_plus..k] {
+        for &g in letter_glyphs[last_plus..k].iter().chain(moved_from) {
             let a = fmn::animation::indicate(stage.arena_mut(), g, 1.2, Some(rgb(orange)))?;
             pulse.push(stage.prepare(a.rt(1.0))?);
         }
@@ -704,6 +712,21 @@ impl SceneConstruct for NearSomethingYouKnow {
             if let Some((_, bows)) = k.checked_sub(1).and_then(|j| drops.get(j)) {
                 for &b in bows {
                     step.push(stage.prepare(show_creation(b).rt(0.3))?);
+                }
+            }
+            // the bow before it fades back, so the newest one is the bright
+            // one where they crowd round fifty (R2, M18); a stroke's own
+            // opacity, so a bow never fills
+            if let Some((_, older)) = k.checked_sub(2).and_then(|j| drops.get(j)) {
+                for &b in older {
+                    let a = b
+                        .animate()
+                        .set_anim_args(AnimateArgs {
+                            run_time: Some(0.3),
+                            ..AnimateArgs::default()
+                        })?
+                        .set_stroke(None, None, Some(0.35))?;
+                    step.push(stage.prepare(a)?);
                 }
             }
             stage.play_prepared(step)?;

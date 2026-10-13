@@ -332,6 +332,24 @@ pub fn fade_all_but(stage: &mut Stage<'_>, keep: &[Mob], rt: f64) -> fmn::Result
     fade_out_all(stage, &leaving, rt)
 }
 
+/// Bring up what is already in the scene from the dark, `rt` seconds: a
+/// veil in the background's colour over the whole frame fades away. It
+/// works on pictures redrawn every frame, which a fade-in cannot reach.
+pub fn fade_from_black(stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+    let veil = Rectangle::new()
+        .width(2.0 * FRAME_X_RADIUS)
+        .height(2.0 * FRAME_Y_RADIUS)
+        .style(flat(ground(), 1.0))
+        .build()?;
+    let veil = stage.arena_mut().add(veil);
+    stage.add_to_scene(veil)?;
+    stage.scene_mut().bring_to_front(&[veil])?;
+    let a = fade_out(stage.arena_mut(), veil, ORIGIN, 1.0)?;
+    stage.play(a.rt(rt))?;
+    stage.remove_from_scene(veil);
+    Ok(())
+}
+
 /// Bring detached mobjects in one after another (a lagged reveal), the whole
 /// taking `rt` seconds.
 pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<()> {
@@ -1623,11 +1641,22 @@ impl Tile {
     /// Light the tile (`on`) or put it out: its frame brightens or fades
     /// and its picture with it. Animations to play together.
     pub fn light(&self, stage: &mut Stage<'_>, on: bool, rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
-        let (edge, k) = if on {
-            (Palette::ink(), 1.0)
+        if on {
+            self.look(stage, Palette::ink(), 1.0, rt)
         } else {
-            (Palette::faint(), TILE_DARK)
-        };
+            self.look(stage, Palette::faint(), TILE_DARK, rt)
+        }
+    }
+
+    /// The tile as it was built, neither lit nor put out: how every tile
+    /// waits while a quiz of the mixed round counts down, so no tile hints
+    /// at the answer (R2, M14). Animations to play together.
+    pub fn rest(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
+        self.look(stage, Palette::faint(), 1.0, rt)
+    }
+
+    /// The frame edged in `edge` and the picture at `k` of its own alphas.
+    fn look(&self, stage: &mut Stage<'_>, edge: Srgb, k: f64, rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         let frame = self
             .frame
@@ -1651,15 +1680,6 @@ impl Tile {
         }
         Ok(anims)
     }
-
-    /// Put the tile out at once (a chapter that starts with the tiles dark).
-    pub fn put_out(&self, stage: &mut Stage<'_>) {
-        stage.set_stroke(self.frame, Some(Palette::faint()), None, Some(1.0), None, false);
-        for (&m, &(fill, stroke)) in self.parts.iter().zip(&self.base) {
-            stage.set_fill(m, None, Some(fill * TILE_DARK), None, false);
-            stage.set_stroke(m, None, None, Some(stroke * TILE_DARK), None, false);
-        }
-    }
 }
 
 /// The six tiles in a row centred on x = 0 at height `y`, each `size`
@@ -1674,10 +1694,11 @@ pub fn tile_row(stage: &mut Stage<'_>, y: f64, size: f64, gap: f64) -> fmn::Resu
         .collect()
 }
 
-/// The end of a chapter of the mixed round: every tile put out and kept
-/// (with `keep`), everything else faded, `rt` seconds. The next chapter
-/// starts from the tiles put out ([`Tile::put_out`]).
-pub fn tiles_out_and_clear(stage: &mut Stage<'_>, tiles: &[Tile], keep: &[Mob], rt: f64) -> fmn::Result<()> {
+/// The end of a chapter of the mixed round: every tile back at rest and
+/// kept (with `keep`), everything else faded, `rt` seconds. The next
+/// chapter starts from the tiles as built, which is the same look
+/// ([`Tile::rest`]).
+pub fn tiles_rest_and_clear(stage: &mut Stage<'_>, tiles: &[Tile], keep: &[Mob], rt: f64) -> fmn::Result<()> {
     let mut kept = keep.to_vec();
     kept.extend(tiles.iter().flat_map(Tile::mobs));
     let leaving: Vec<Mob> = stage
@@ -1689,7 +1710,7 @@ pub fn tiles_out_and_clear(stage: &mut Stage<'_>, tiles: &[Tile], keep: &[Mob], 
         .collect();
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for t in tiles {
-        anims.extend(t.light(stage, false, rt)?);
+        anims.extend(t.rest(stage, rt)?);
     }
     for m in leaving {
         stage.clear_updaters(m, true);

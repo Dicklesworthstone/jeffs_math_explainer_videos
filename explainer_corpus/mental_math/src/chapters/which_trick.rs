@@ -11,7 +11,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     NumberLine1, QuizCard, QuizLook, Tile, TileKind, WHICH_TRICK, bow, dollars, eq, fade_in_lagged, fail, flat, fly,
-    glyphs, group, middle_of, num, say, tiles_out_and_clear, tiles_top, your_turn,
+    glyphs, group, middle_of, num, say, tiles_rest_and_clear, tiles_top, your_turn,
 };
 use crate::model::{Ask, blocks, money, pair};
 
@@ -315,8 +315,8 @@ impl SceneConstruct for WhichTrick {
         play!(stage; fade_in(stage.arena_mut(), working[2], v(0.0, -0.12), 1.0)?.rt(0.4));
         land(&kit, stage, &product, working[2], &num(p.product))?;
         kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
-        // the tiles stay, all put out, for chapter 13
-        tiles_out_and_clear(stage, &tiles, &tile_mobs, 0.8)?;
+        // the tiles stay, all at rest, for chapter 13's quiz
+        tiles_rest_and_clear(stage, &tiles, &tile_mobs, 0.8)?;
         kit.finish(stage)
     }
 }

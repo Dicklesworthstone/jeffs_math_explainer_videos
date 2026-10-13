@@ -10,7 +10,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, MoveFigure, QUIZ_AT, QuizLook, Sheet, corner, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fly,
-    glyphs, hundreds, in_your_head, line_style, middle_of, num, panel, paper_ink, quiz, say, strip, tile_row,
+    glyphs, hundreds, in_your_head, line_style, middle_of, num, panel, paper_ink, quiz, rgb, say, strip, tile_row,
     your_turn,
 };
 use super::glyphs::TITLE;
@@ -34,7 +34,7 @@ const TITLE_BREAK: &str = " That ";
 const WORK_PT: f64 = 64.0;
 /// The type on the sheet of paper, and its small carried digits.
 const SHEET_PT: f64 = 56.0;
-const CARRY_PT: f64 = 30.0;
+const CARRY_PT: f64 = 40.0;
 
 impl SceneConstruct for EightyFiveSquared {
     fn name(&self) -> &str {
@@ -129,7 +129,8 @@ impl SceneConstruct for EightyFiveSquared {
         let rows = [num(hook), times, num(p.rows[0]), num(p.rows[1]), num(p.product)];
         let row_refs: Vec<&str> = rows.iter().map(String::as_str).collect();
         let sheet = Sheet::build(&kit, stage, v(-2.4, 0.0), &row_refs, &[1, 3], SHEET_PT)?;
-        line.wait_sentence(stage, 1)?;
+        // the sheet comes in with the line, not a sentence later (R2, M5:
+        // the screen stood empty after the title)
         fade_in_all(stage, &[sheet.back, sheet.rows[0], sheet.rows[1], sheet.rules[0]], 0.6)?;
         line.wait_sentence(stage, 2)?;
         // the carries, small, where school writes them: the two of the rows
@@ -139,9 +140,11 @@ impl SceneConstruct for EightyFiveSquared {
         let small =
             |kit: &Kit, stage: &mut Stage<'_>, d: u64, at: Vec3| kit.mono(stage, &num(d), CARRY_PT, paper_ink(), at);
         let over = sheet.row_ys[0] + 0.68 * sheet.line_h;
+        // the two of the rows stand well apart, so they do not read as one
+        // number (R2, M6)
         let carried = [
-            small(&kit, stage, p.carried[0], v(column(1.0) - 0.3 * digit_w, over))?,
-            small(&kit, stage, p.carried[1], v(column(1.0) + 0.3 * digit_w, over))?,
+            small(&kit, stage, p.carried[0], v(column(1.0) - 0.5 * digit_w, over))?,
+            small(&kit, stage, p.carried[1], v(column(1.0) + 0.5 * digit_w, over))?,
             small(
                 &kit,
                 stage,
@@ -165,6 +168,10 @@ impl SceneConstruct for EightyFiveSquared {
             v(counts_x, -0.55),
         )?;
         play!(stage; fade_in(stage.arena_mut(), carry_count, v(-0.2, 0.0), 1.0)?.rt(0.4));
+        // the three carries, counted one by one
+        for &c in &carried {
+            play!(stage; fmn::animation::indicate(stage.arena_mut(), c, 1.6, Some(rgb(paper_ink())))?.rt(0.45));
+        }
 
         // 01_5: in your head there is no paper to remember the rows
         let line = say(&kit, stage, "01_5")?;

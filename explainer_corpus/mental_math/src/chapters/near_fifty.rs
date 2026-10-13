@@ -491,7 +491,11 @@ impl SceneConstruct for NearFifty {
         line.wait_for(stage, "and six columns")?;
         let lit_rect = [fifty, 0.0, cols as f64, fifty];
         let lit = board.rect(stage, lit_rect, flat(ink, LIT_OPACITY));
-        let wide53 = board.label(&kit, stage, &num(m53.wide()), rect53, Side::Below, SIDE_PT, ink)?;
+        // the width in its two parts, fifty under the outline and six under
+        // the columns past it (one label for all 56 under the whole read as
+        // 56 + 6: R2, M1)
+        let fifty_rect = [0.0, 0.0, fifty, fifty];
+        let wide53 = board.label(&kit, stage, &num(FIFTY), fifty_rect, Side::Below, SIDE_PT, ink)?;
         let cols_label = board.label(&kit, stage, &num(cols), lit_rect, Side::Below, SIDE_PT, ink)?;
         fade_in_all(stage, &[lit, wide53, cols_label], 0.6)?;
         outline_on_top(stage, outline)?;
