@@ -103,8 +103,9 @@
    ],
    "note": "Michel Chasles, French [ʃal] (Wikipedia's lead): the s is silent. Spoken at 07_6.",
    "accept": [
-    "Shal",
-    "Schaal"
+    "Chau",
+    "Schaal",
+    "Shal"
    ],
    "probe": {
     "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
@@ -273,9 +274,48 @@
     "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
     "verdict": "Plain word: heard as gimbal 3/3 (hard g, GIM-bul, Merriam-Webster's first reading). The tool's winner JIM-bul was heard as Jimbo, Jimble, Jim Bull, which would fail the line gate at 03_1, 03_3, 03_5 and 11_6, so it is not used; the owner may prefer JIM-bul."
    }
+  },
+  "Michel": {
+   "say": "mee-SHELL",
+   "respell": [
+    "Meeshell",
+    "Mee-shell"
+   ],
+   "ipa": "mi.ʃɛl",
+   "lang": "fr",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Michel_Chasles",
+    "https://en.wiktionary.org/wiki/Michel#French"
+   ],
+   "decoy": [
+    "MY-kul"
+   ],
+   "accept": [
+    "Michelle"
+   ],
+   "note": "Michel Chasles (07_6.0). The first narration read the plain spelling as the English Michael (heard 'Michael Schaal'); added after that pass, not yet probed: the next narration's line gate is its check."
+  },
+  "Giulio": {
+   "say": "JOOL-yoh",
+   "respell": [
+    "Giulio"
+   ],
+   "ipa": "ˈdʒuːljo",
+   "lang": "it",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Giulio#Italian"
+   ],
+   "decoy": [
+    "gee-OO-lee-oh"
+   ],
+   "accept": [
+    "Julio"
+   ],
+   "note": "Giulio Mozzi (07_6.1). Read right as written: heard 'Giulio' in its take and 'Julio' (the same sound) in the line."
   }
  },
  "phrases": {
-  "jim bull": "gimbal"
+  "jim bull": "gimbal",
+  "bad spots": "bad spot"
  }
 }
