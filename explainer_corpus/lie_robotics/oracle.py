@@ -593,6 +593,9 @@ def main():
                     ("elbow_only", elbow_only), ("ell", ell), ("ell_wrist_turned", ell_wrist_turned),
                     ("swing", swing)):
         emit(f"G-J.rank.{name}", rank(space_jacobian(q)))
+    # the L shape with one joint taken away: a six-joint arm
+    for k in (3, 7):
+        emit(f"G-J.rank.ell.without_{k}", rank(np.delete(space_jacobian(ell), k - 1, axis=1)))
     emit("G-J.elbow_straight.p", vec(fk(elbow_straight)[:3, 3]))
     emit("G-J.elbow_only.reach", fx(np.linalg.norm(chain(elbow_only)[1][5][:3, 3] - chain(elbow_only)[1][1][:3, 3])))
 
@@ -746,25 +749,25 @@ def main():
     emit("G-X2.order_free_pairs", f"{swaps}/{len(cube) ** 2}")
     emit("G-X2.same_axis_swap", int(np.allclose(rotx(40 * DEG) @ rotx(70 * DEG), rotx(70 * DEG) @ rotx(40 * DEG))))
     emit("G-X2.half_turns_swap", int(np.allclose(rotx(PI) @ roty(PI), roty(PI) @ rotx(PI))))
-    # every pose is one screw: turns of 0 to 150 degrees about 13 axes, with 4 slides
+    # every pose is one screw: turns of 30 to 150 degrees about 13 axes and no
+    # turn (counted once: it is the same for every axis), with 4 slides
+    distinct = [(CUBE_AXES[0], 0)] + [(axis, a) for axis in CUBE_AXES for a in angles if a != 0]
     slides = [(0, 0, 0), (0.3, 0, 0), (0.2, -0.1, 0.4), (-0.5, 0.25, 0.1)]
     held = total = 0
-    for axis in CUBE_AXES:
-        for a in angles:
-            for s in slides:
-                t_ = pose(turn(axis, a), s)
-                total += 1
-                held += int(np.abs(from_screw(*screw_of(t_)) - t_).max() < 1e-9)
+    for axis, a in distinct:
+        for s in slides:
+            t_ = pose(turn(axis, a), s)
+            total += 1
+            held += int(np.abs(from_screw(*screw_of(t_)) - t_).max() < 1e-9)
     emit("G-X3.one_screw", f"{held}/{total}")
     emit("G-X3.pure_slide.turn", fx(screw_of(pose(np.eye(3), (0.3, 0, 0)))[0]))
     # a blend of two turns is a turn only when the two are the same
     held = total = 0
-    for axis in CUBE_AXES:
-        for a in angles:
-            r = turn(axis, a)
-            d = np.linalg.det((np.eye(3) + r) / 2)
-            total += 1
-            held += int(abs(d - math.cos(a * DEG / 2) ** 2) < 1e-12 and (d < 1 - 1e-12) == (a != 0))
+    for axis, a in distinct:
+        r = turn(axis, a)
+        d = np.linalg.det((np.eye(3) + r) / 2)
+        total += 1
+        held += int(abs(d - math.cos(a * DEG / 2) ** 2) < 1e-12 and (d < 1 - 1e-12) == (a != 0))
     emit("G-X4.blend", f"{held}/{total}")
     # on a floor, a steady velocity is a turn about a point, or a slide
     held = total = 0

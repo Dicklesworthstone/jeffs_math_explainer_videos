@@ -466,6 +466,16 @@ fn velocities(f: &mut Facts, arm: &Arm) -> Result<(), String> {
     ] {
         f.add(&format!("G-J.rank.{name}"), rank(&arm.jacobian(&degrees(q))))?;
     }
+    // the L shape with one joint taken away: a six-joint arm
+    let ell_j = arm.jacobian(&degrees(poses::ELL));
+    for k in [3, 7] {
+        let without = ell_j.map(|row| {
+            let mut r = row;
+            r[k - 1] = 0.0;
+            r
+        });
+        f.add(&format!("G-J.rank.ell.without_{k}"), rank(&without))?;
+    }
     let straight = degrees(poses::ELBOW_STRAIGHT);
     f.add("G-J.elbow_straight.p", vec(&arm.tip(&straight).p, 4))?;
     let only = degrees(poses::ELBOW_ONLY);
@@ -655,6 +665,19 @@ fn sweep() -> Vec<(V3, f64, M3)> {
         .collect()
 }
 
+/// The sweep with no turn counted once (it is the same turn for every axis).
+fn distinct_turns() -> Vec<(V3, f64, M3)> {
+    let mut seen_nothing = false;
+    sweep()
+        .into_iter()
+        .filter(|(_, a, _)| {
+            let first = *a != 0.0 || !seen_nothing;
+            seen_nothing |= *a == 0.0;
+            first
+        })
+        .collect()
+}
+
 fn edges(f: &mut Facts) -> Result<(), String> {
     let turns = sweep();
     // a turn after a turn is one turn about one axis
@@ -693,7 +716,8 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     // every pose is one screw
     let slides: [V3; 4] = [[0.0, 0.0, 0.0], [0.3, 0.0, 0.0], [0.2, -0.1, 0.4], [-0.5, 0.25, 0.1]];
     let (mut held, mut total) = (0, 0);
-    for (_, _, r) in &turns {
+    let distinct = distinct_turns();
+    for (_, _, r) in &distinct {
         for p in slides {
             let t = Pose { r: *r, p };
             total += 1;
@@ -703,8 +727,8 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     f.pin(
         "G-X3.one_screw",
         format!("{held}/{total}"),
-        "312/312",
-        "Chasles's theorem",
+        "264/264",
+        "Chasles's theorem: 66 different turns times 4 slides",
     )?;
     f.add(
         "G-X3.pure_slide.turn",
@@ -712,7 +736,7 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     )?;
     // a blend of two turns is a turn only when the two are the same
     let (mut held, mut total) = (0, 0);
-    for (_, a, r) in &turns {
+    for (_, a, r) in &distinct {
         let blend: M3 = std::array::from_fn(|i| std::array::from_fn(|k| (I3[i][k] + r[i][k]) / 2.0));
         let d = det(&blend);
         total += 1;
@@ -721,7 +745,7 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     f.pin(
         "G-X4.blend",
         format!("{held}/{total}"),
-        "78/78",
+        "66/66",
         "det = cos squared of half the angle",
     )?;
     // on a floor, a steady velocity is a turn about a point, or a slide

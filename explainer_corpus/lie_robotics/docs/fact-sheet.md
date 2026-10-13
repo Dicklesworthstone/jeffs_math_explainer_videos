@@ -9,8 +9,8 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy 2.5.4):
-  `facts-check lie_robotics: 225 video facts against 225 oracle keys: PASS`.
-  The oracle prints 225 keys and passes 11 of 11 of its own cross-checks, 14
+  `facts-check lie_robotics: 227 video facts against 227 oracle keys: PASS`.
+  The oracle prints 227 keys and passes 11 of 11 of its own cross-checks, 14
   of 14 with SciPy 1.18.1 present, 18 of 18 with SciPy and the owner's
   source files present (`CMAES_EXPLAINER_DIR`).
 - **Rust side:** `./x lie_robotics test`: 21 tests pass, clippy
@@ -101,9 +101,10 @@ distances are printed to 0.01 mm for that reason).
    method on a matrix that cannot be diagonalized) and needed 7 to 22
    steps; the fix is the generic logarithm described above, checked against
    SciPy.
-8. **This arm does have a closed-form inverse kinematics** (it is a
-   shoulder, elbow, wrist design with a one-parameter family of solutions),
-   so the narration says "there is rarely a tidy formula", not "never".
+8. **Whether this arm has a closed-form inverse kinematics was not checked
+   from a source.** Designs with a shoulder, elbow and spherical wrist are
+   believed to have one, but no paper on it was opened, so the video makes
+   no claim about it (the claim walk removed it from 13_6's tag).
 9. **A straight wrist does not always cost this arm a direction, and
    sometimes does.** With joint 6 at zero, joints 5 and 7 share an axis
    (the gimbal of chapter 03). In the L shape the Jacobian still has rank
@@ -116,7 +117,7 @@ distances are printed to 0.01 mm for that reason).
     upstream**, and that project's pages cite a different file
     (`g1_29dof_mode_11.urdf`). Both have 29 revolute joints; the video uses
     only that count and the root link's name.
-11. **The length is over the default.** 16.3 min by the G2 estimate
+11. **The length is over the default.** 16.5 min by the G2 estimate
     against "12–16 min" (19.4 at the first draft; 16.1 before R1, whose
     fixes added words). Fifteen countdowns are 1.2 min of it. The corpus's
     three published `michael` cuts ran 4 to 5% longer than their G2
@@ -157,7 +158,7 @@ distances are printed to 0.01 mm for that reason).
 | Jacobian | 10_3 | "a grid, six rows by seven columns" | `V = J(q) q̇`; "the map from joint speeds to the gripper's twist" |
 | direction | 11_1 | "six independent directions for the gripper" | "directions: 6" |
 | singularity | 11_4 | "a pose like this" (a direction is lost) | singularity |
-| spare joint | 12_1 | "seven joints, six directions: one joint is spare" | 7 − 6 = 1; "the null space of the Jacobian" |
+| spare joint | 12_1 | "Seven joints for six directions leaves one joint spare." | 7 − 6 = 1; "the null space of the Jacobian" |
 | leftover | 15_3 | "that leftover is itself a turn" | the wedge between the two books |
 | the Lie bracket | 15_4 | "a rule of its own" that the leftover follows on the flat piece | "[x, y] = z" |
 
@@ -168,30 +169,30 @@ space, the logarithm, product of exponentials, SE(3), commutator.
 
 | Line | Said | Exact |
 |---|---|---|
-| 01_4 | "Positions add. Orientations don't." | Translations form the commutative group R³; the turns of space, SO(3), do not commute in general (Lynch and Park Prop. 3.5). These two turns do not: `G-B.turns.same` = 0. About the book's own edges instead of the table's lines the two outcomes are exchanged. |
+| 01_4 | "So positions add, and orientations don't." | Translations form the commutative group R³; the turns of space, SO(3), do not commute in general (Lynch and Park Prop. 3.5). These two turns do not: `G-B.turns.same` = 0. About the book's own edges instead of the table's lines the two outcomes are exchanged. |
 | 02_4 | "Any turn followed by any turn is one turn about one axis." | Euler's theorem: every element of SO(3) fixes an axis; SO(3) is closed under products. The turn may be the zero turn. |
 | 02_5 | "combine any two, and undo any one"; "order usually matters" | A group: closed, associative, with an identity and inverses. Of the 576 ordered pairs of a cube's 24 turns, 120 commute (24 times the 5 conjugacy classes). |
-| 03_6 | "Name every orientation with just three numbers, and somewhere there is a bad spot." | Theorem: no continuous one-to-one map sends all of SO(3) into R³. SO(3) is a compact 3-manifold without boundary, so by invariance of domain its image would be an open and compact subset of R³, which does not exist. Hence any three-number naming is many-to-one or discontinuous somewhere. For angles of nested rings the failure is a lost direction: all twelve orders have one (`G-X6.ring_orders`). Lynch and Park, footnote 4, p. 28: three-parameter representations "are subject to singularities". |
-| 03_6 | "The spare ones are the price." | Nine numbers with six constraints (R Rᵀ = I, det = 1), or four with one (unit length; q and −q are the same orientation: a double cover). Both are free of singularities; neither is a set of independent coordinates. |
-| 04_3 | "The honest halfway is a hundred and eighty." | The midpoint of the shorter arc between the two headings; unique because they are not opposite. |
+| 03_6 | "Name every orientation with only three, and somewhere there is a bad spot." | Theorem: no continuous one-to-one map sends all of SO(3) into R³. SO(3) is a compact 3-manifold without boundary, so by invariance of domain its image would be an open and compact subset of R³, which does not exist. Hence any three-number naming is many-to-one or discontinuous somewhere. For angles of nested rings the failure is a lost direction: all twelve orders have one (`G-X6.ring_orders`). Lynch and Park, footnote 4, p. 28: three-parameter representations "are subject to singularities". |
+| 03_6 | "the extra ones buy a naming with no bad spot" | Nine numbers with six constraints (R Rᵀ = I, det = 1), or four with one (unit length; q and −q are the same orientation: a double cover). Both are free of singularities; neither is a set of independent coordinates. |
+| 04_3 | "The true halfway is a hundred and eighty." | The midpoint of the shorter arc between the two headings; unique because they are not opposite. |
 | 04_5 | "Do the arithmetic on the flat piece that touches it." | On a circle the tangent line's arithmetic is exact for any step under a half turn. In space it is exact along a single axis and first-order otherwise, which is why chapter 13 iterates. |
-| 05_2 | "Arrows are easy to stretch, to average and to add. But adding two spins is not one turn then another." | so(3) is a vector space. exp(a + b) is the turn about both at once: for the two quarter turns, 127.28° about (1, 1, 0)/√2 (`G-B.both_at_once`), neither exp(a) exp(b) nor exp(b) exp(a). The exponential is onto but folds over: turns of π about opposite axes agree. |
+| 05_2 | "Add these two spins, and you get both turns at once, a third answer." | so(3) is a vector space. exp(a + b) is the turn about both at once: for the two quarter turns, 127.28° about (1, 1, 0)/√2 (`G-B.both_at_once`), neither exp(a) exp(b) nor exp(b) exp(a). The exponential is onto but folds over: turns of π about opposite axes agree. |
 | 05_3 | "from the flat piece back to the curved space" | exp: so(3) → SO(3), `e^{[ω]t}` with ω a unit axis and t the angle in radians. |
 | 05_7 | "A group of motions that is smooth like this" | A Lie group: a smooth manifold with smooth group operations (Solà et al., §II-A). Its Lie algebra is the tangent space at the identity. |
 | 06_4 | "the same three meters bend around a fixed point" (lower third: every steady motion is a turn about a point, or a slide) | Every one-parameter subgroup of SE(2) is a rotation about a fixed point or a translation; the path length is speed times time either way (`G-P.arc_length`). Tested on 45 velocities (`G-X5.floor`). |
 | 07_2 | "Three slides and three turns." | SE(3) is six-dimensional: a pose can change in six independent ways. (Naming every pose needs more than six numbers, by 03_6.) |
-| 07_5 | "One screw would have carried it there. Every time." | The Chasles–Mozzi theorem: every rigid displacement is a screw displacement; with no turn the screw is a pure slide and its axis is only a direction. Tested on 312 poses (`G-X3.one_screw`). |
+| 07_5 | "One screw would have carried it there, every time." | The Chasles–Mozzi theorem: every rigid displacement is a screw displacement; with no turn the screw is a pure slide and its axis is only a direction. Tested on 264 different poses (`G-X3.one_screw`). |
 | 08_6 | "a product of seven exponentials" | The space form of the product of exponentials, `T(q) = e^{[S1]q1} ⋯ e^{[S7]q7} M` (Lynch and Park eq. 4.14). |
 | 10_2 | "twists live on the flat piece, so they add" | The spatial twist is linear in the joint velocities: `V = J(q) q̇` (eq. 5.10). Its slide part is the velocity of the point at the room's origin. |
 | 11_3 | "Five of the six directions are left." | rank J = 5 at q = (0, 60°, 0, 0, 0, 60°, 0). No joint moves the wrist along the line from shoulder to wrist (`G-J.elbow_straight.push_along_arm` = 0), so the gripper cannot translate along it without turning. |
 | 11_5 | "it must turn at fifty-four degrees per second" | The elbow's rate for the wrist to approach the shoulder at 0.1 m/s with the gripper not turning: `v d / (a b sin ε)` with a = 0.42, b = 0.40, d the shoulder to wrist distance and ε the bend. Kinematics only. It meets the 75°/s limit at ε = 21.5°. |
-| 11_6 | "A six-joint arm would lose a direction here. The seventh joint covers for it." | In the L shape rank J = 6 with joints 5 and 7 collinear. Not in every pose with a straight wrist: `G-J.rank.ell_wrist_turned` = 5. |
+| 11_6 | "A six-joint arm, with two joints at the shoulder, would lose a direction here. This arm has a third, and it covers." | In the L shape rank J = 6 with joints 5 and 7 collinear; without any one of joints 1 to 3 it is 5 (`G-J.rank.ell.without_3`), without joint 7 still 6 (`G-J.rank.ell.without_7`). Not in every pose with a straight wrist: `G-J.rank.ell_wrist_turned` = 5. |
 | 12_3 | "your arm has seven joints too" | The usual kinematic model: a ball joint at the shoulder (3), a hinge at the elbow (1), three at the wrist. Lynch and Park, Exercises 2.2 and 2.3. |
-| 13_6 | "From this start, three." | Newton–Raphson on SE(3) (Lynch and Park §6.2.2) from q = (0, 30°, 0, −60°, 0, 90°, 0) to the stated goal, stopping at 0.001 rad and 10⁻⁴ m. From other starts the count differs and the method can fail. A closed-form solution exists for this arm. |
+| 13_6 | "From here, three." | Newton–Raphson on SE(3) (Lynch and Park §6.2.2) from q = (0, 30°, 0, −60°, 0, 90°, 0) to the stated goal, stopping at 0.001 rad and 10⁻⁴ m. From other starts the count differs and the method can fail. A closed-form solution exists for this arm. |
 | 13_2 | "Yet two of their three ring angles differ by ninety." | ZYX angles (0, 89°, 0) and (90°, 89°, 90°): the orientations are 1.414° apart. |
-| 14_3 | "squashed to half its volume" (lower third: a blend of two different turns is never a turn) | det((1 − s) R₀ + s R₁) = 1 − 2s(1 − s)(1 − cos a) for turns that differ by the angle a; less than 1 whenever 0 < s < 1 and a is not a multiple of 360°. At s = ½ it is cos²(a/2) (`G-X4.blend`). The nearest turn to the blend at s = ¼ has turned 18.43°, not 22.5°. |
+| 14_3 | "squashed to half its volume" (lower third: a blend of two different turns is never a turn) | det((1 − s) R₀ + s R₁) = 1 − 2s(1 − s)(1 − cos a) for turns that differ by the angle a; less than 1 whenever 0 < s < 1 and a is not a multiple of 360°. At s = ½ it is cos²(a/2) (`G-X4.blend`, 66 different turns). The nearest turn to the blend at s = ¼ has turned 18.43°, not 22.5°. |
 | 14_4 | "every pose on the way is a true pose" | X(s) = exp(s log(X_end X_start⁻¹)) X_start lies in SE(3) for every s (Lynch and Park eq. 9.6, there in the body form). |
-| 15_1 | "so it stays rigid" | A product of exponentials of twists is in SE(3). Adding dt [ω] R to R instead gives det = (1 + dt²) per step at one radian a second: 1.1052 after 1,000 steps of 0.01 s, 5.1% wider across the axis. |
+| 15_1 | "so the body stays rigid" | A product of exponentials of twists is in SE(3). Adding dt [ω] R to R instead gives det = (1 + dt²) per step at one radian a second: 1.1052 after 1,000 steps of 0.01 s, 5.1% wider across the axis. |
 | 15_3, 15_4 | "that leftover is itself a turn, almost exactly about the one axis neither turn used"; "shrinks a hundredfold" | The leftover is the group commutator of the two turns. For turns by a and b about perpendicular axes it is a turn by ab + O(3) radians about an axis that tends to the third one (0.7° off at 1°, 7° at 10°). The Lie bracket is the corresponding rule on so(3): `[x, y] = z`, the cross product. |
 
 ## The always and never sentences, and their edges
@@ -202,10 +203,10 @@ space, the logarithm, product of exponentials, SE(3), commutator.
 | 02_5 | "order usually matters" (lower third: about one axis, order never matters) | every ordered pair of a cube's 24 turns; two turns about one axis; two half turns about perpendicular axes | `G-X2.order_free_pairs` 120/576; `G-X2.same_axis_swap` 1; `G-X2.half_turns_swap` 1 |
 | 03_6 | "somewhere there is a bad spot" | a theorem (see above); and for rings, all twelve orders: the middle angle at which the three axes span no volume | `G-X6.ring_orders` 12/12; `G-X6.bad_angle.zyx` 90; `G-X6.bad_angle.zyz` 0,180 |
 | 06_4 | "every steady motion is a turn about a point, or a slide" (on screen) | 45 velocities (forward and sideways −0.5, 0, 0.5 m/s; spin −60° to 60° a second), five times each: on a circle about the centre, or on a line when the spin is zero | `G-X5.floor` 45/45 |
-| 07_5 | "One screw would have carried it there. Every time." | 312 poses: 13 axes, turns 0° to 150°, four slides including none; a pure slide reads as a screw with no turn | `G-X3.one_screw` 312/312; `G-X3.pure_slide.turn` 0.0000 |
+| 07_5 | "One screw would have carried it there, every time." | 264 different poses: no turn, and turns of 30° to 150° about 13 axes, each with four slides including none; a pure slide reads as a screw with no turn | `G-X3.one_screw` 264/264; `G-X3.pure_slide.turn` 0.0000 |
 | 11_3 | "every joint's push on the wrist is zero" (along the arm) | each joint's push on the wrist along the line from shoulder to wrist, at the pose with the elbow straight; and, so that the test can fail, at a bent pose | `G-J.elbow_straight.push_along_arm` 0.0000; `G-J.swing.push_along_arm` 0.2897 |
 | 12_4 | "its gripper holds one pose" | the twist produced by the joint speeds that swing the elbow; along the whole swing the pose holds to 10⁻⁹ and the radius is constant (test `the_spare_joint_s_speeds_move_nothing`) | `G-J.swing.null_twist` 0.0000 |
-| 14_3 | "a blend of two different turns is never a turn" (on screen) | 78 turns blended half and half with doing nothing: the determinant is cos²(a/2), and below one exactly when the angle is not zero | `G-X4.blend` 78/78 |
+| 14_3 | "a blend of two different turns is never a turn" (on screen) | 66 different turns blended half and half with doing nothing: the determinant is cos²(a/2), and below one exactly when the angle is not zero | `G-X4.blend` 66/66 |
 
 ## Sources
 
@@ -282,7 +283,11 @@ numbers and pages shifted by two).
   orientations". Appendix B.1: at 90° of the middle angle "there exists a
   one-parameter family of solutions".
 - Exercises 2.2 and 2.3, p. 38: the palm on the table; the arm as a serial
-  chain is a model.
+  chain is a model. §5.1.6, p. 190: "if you consider your arm from your
+  shoulder to your palm as a seven-joint open chain, when you place your
+  palm at a fixed configuration in space (e.g., on the surface of a table),
+  you still have one internal degree of freedom corresponding to the
+  position of your elbow."
 - Brockett's foreword, pp. ix–x: "In 1983 I was invited to speak at the
   triennial Mathematical Theory of Networks and Systems Conference in Beer
   Sheva, Israel"; "the practical utility of the 150-year-old ideas of the
@@ -345,7 +350,10 @@ numbers and pages shifted by two).
   GLOCKMON (listing p. 147): "ABS(MGA) GREATER THAN 70 DEGREES AND LESS THAN
   OR EQUAL TO 85 DEGREES -- GIMBAL LOCK LAMP TURNED ON." and "ABS(MGA)
   GREATER THAN 85 DEGREES -- ISS PUT IN COARSE ALIGN AND NO ATT LAMP TURNED
-  ON." The quote: NASA, *Apollo 11 Technical Air-to-Ground Voice
+  ON." And for the lunar module, Paul Fjeld on the ALSJ gimbals page: "the
+  computer flashed a 'gimbal lock' warning at 70 degrees and froze the IMU
+  at 85 degrees, flashing an unfriendly 'no att' light. Then it waited for
+  a realignment." The quote: NASA, *Apollo 11 Technical Air-to-Ground Voice
   Transcription*, tape 67/11, p. 337: "04 09 00 30 CMP (COLUMBIA) How about
   sending me a fourth gimbal for Christmas." (105 hours and 30 seconds of
   ground elapsed time; Michael Collins; the capsule communicator answered
@@ -356,7 +364,13 @@ numbers and pages shifted by two).
   "Planar and free-floating joints are meant to be employed as the basis of
   kinematic tree of mobile robots (humanoids, …)"); Lee, Leok and
   McClamroch, "Geometric tracking control of a quadrotor UAV on SE(3)",
-  CDC 2010, pp. 5420–5425 (record only).
+  CDC 2010, pp. 5420–5425 (record only), and their companion paper
+  arXiv:1003.2005, abstract: "A mathematical model of the quadrotor UAV
+  rigid body dynamics, defined on the configuration space SE(3), is
+  introduced as a basis for the analysis"; GTSAM ("smoothing and mapping
+  (SAM) in robotics and vision"), whose `Pose3.h` reads "3D Pose manifold
+  SO(3) x R^3 and group SE(3)" (for 15_1's "Mapping robots estimate
+  them").
 
 **Not verified** (and so not said): the hardback's page numbers; the text
 of Brockett 1984, of Ceccarelli 2000, of Chasles's 1830 note and of
@@ -521,7 +535,7 @@ G-K: the arm's poses (metres; joint angles in degrees).
 | `G-K.quarter.p` | 0.0000,0.4200,0.8860 |
 | `G-K.elbow.moves` | 5,6,7,tip |
 
-G-J: velocities. Levers in metres; ranks of the Jacobian; each joint's largest push on the wrist along the arm (m/s per rad/s); the elbow's speed in degrees per second for a pull of 0.1 m/s at each bend, and the bend at which it meets its limit.
+G-J: velocities. Levers in metres; ranks of the Jacobian (and of the L shape's with joint 3 or joint 7 taken away); each joint's largest push on the wrist along the arm (m/s per rad/s); the elbow's speed in degrees per second for a pull of 0.1 m/s at each bend, and the bend at which it meets its limit.
 
 | Key | Value |
 |---|---|
@@ -541,6 +555,8 @@ G-J: velocities. Levers in metres; ranks of the Jacobian; each joint's largest p
 | `G-J.rank.ell` | 6 |
 | `G-J.rank.ell_wrist_turned` | 5 |
 | `G-J.rank.swing` | 6 |
+| `G-J.rank.ell.without_3` | 5 |
+| `G-J.rank.ell.without_7` | 6 |
 | `G-J.elbow_straight.p` | 0.8193,0.0000,0.7070 |
 | `G-J.elbow_only.reach` | 0.5800 |
 | `G-J.elbow_straight.push_along_arm` | 0.0000 |
@@ -606,9 +622,9 @@ G-X: the edges of the always sentences (held / checked).
 | `G-X2.order_free_pairs` | 120/576 |
 | `G-X2.same_axis_swap` | 1 |
 | `G-X2.half_turns_swap` | 1 |
-| `G-X3.one_screw` | 312/312 |
+| `G-X3.one_screw` | 264/264 |
 | `G-X3.pure_slide.turn` | 0.0000 |
-| `G-X4.blend` | 78/78 |
+| `G-X4.blend` | 66/66 |
 | `G-X5.floor` | 45/45 |
 | `G-X6.ring_orders` | 12/12 |
 | `G-X6.bad_angle.zyx` | 90 |
