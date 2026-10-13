@@ -85,10 +85,10 @@ const LINE_X: [f64; 2] = [-5.5, 5.5];
 const LINE_Y: f64 = -2.35;
 const LINE_DAYS: f64 = 15.0;
 /// The ring of the 99, and the inset cell of 02_5.
-const RING_AT: [f64; 2] = [0.0, 0.6];
-const RING_R: f64 = 0.5;
+pub const RING_AT: [f64; 2] = [0.0, 0.6];
+pub const RING_R: f64 = 0.5;
 /// How far under the ring's centre the number stands.
-const NUMBER_DROP: f64 = 1.3;
+pub const NUMBER_DROP: f64 = 1.3;
 const INSET_AT: [f64; 2] = [4.4, 0.6];
 const INSET_W: f64 = 2.2;
 /// The right-hand column of 02_5 and 02_6, its middle and the widest a line

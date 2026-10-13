@@ -860,26 +860,23 @@ impl Lattice {
     }
 
     /// The printed number of every cell that holds dots, centred in its
-    /// cell, one text each, detached (04_4's "the map they printed"). A
+    /// cell, one text each, detached (04_4's "the map they printed"), the
+    /// middle first so a lagged reveal ripples outward like the dots. A
     /// cell is a third of a unit wide, so each is shrunk to fit it.
     pub fn numbers(&self, kit: &Kit, stage: &mut Stage<'_>, size: f64) -> fmn::Result<Vec<Mob>> {
-        let mut out = Vec::new();
+        let mut placed: Vec<(f64, Mob)> = Vec::new();
         for (i, &n) in self.counts.lit[0].iter().enumerate() {
             if n == 0 {
                 continue;
             }
             let (x0, y0, x1, y1) = self.cell_rect(i / LAT_COLS, i % LAT_COLS);
-            let m = kit.text(
-                stage,
-                &n.to_string(),
-                size,
-                Palette::ink(),
-                v((x0 + x1) / 2.0, (y0 + y1) / 2.0),
-            )?;
+            let at = v((x0 + x1) / 2.0, (y0 + y1) / 2.0);
+            let m = kit.text(stage, &n.to_string(), size, Palette::ink(), at)?;
             fit_width(stage, m, 0.88 * self.cell_w);
-            out.push(m);
+            placed.push(((at[0] - self.centre[0]).hypot(at[1] - self.centre[1]), m));
         }
-        Ok(out)
+        placed.sort_by(|a, b| a.0.total_cmp(&b.0));
+        Ok(placed.into_iter().map(|(_, m)| m).collect())
     }
 
     /// Search number `k` of the plan, the whole move: the search's mark for

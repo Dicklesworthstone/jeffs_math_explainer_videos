@@ -25,7 +25,10 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 const SCRIPT: &str = include_str!("../script.tsv");
-/// The storyboard: words, pictures, holds and listen windows per beat.
+/// The storyboard: words, pictures, holds and listen windows per beat. Every
+/// chapter is a real scene now, so only the tests that check it against the
+/// script, the registry and the quizzes read it.
+#[cfg(test)]
 pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {
