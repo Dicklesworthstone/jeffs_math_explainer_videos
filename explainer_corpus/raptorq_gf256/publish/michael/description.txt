@@ -4,22 +4,22 @@ Every packet is an equation: some pieces of the file, mixed with ex-or (XOR). Wi
 
 Chapters
 0:00 A million phones
-1:12 Bits and ex-or
-2:26 Packets are equations
-3:48 The cube
-4:33 The ex-or lottery
-5:29 Spares and rings
-6:45 Why not wrap around at 256?
-7:46 Prime clocks
-8:45 Bytes are polynomials
-9:59 The fold
+1:13 Bits and ex-or
+2:27 Packets are equations
+3:50 The cube
+4:34 The ex-or lottery
+5:30 Spares and rings
+6:46 Why not wrap around at 256?
+7:47 Prime clocks
+8:47 Bytes are polynomials
+10:00 The fold
 11:25 The byte clock
 12:50 The times table
-14:10 The byte lottery
-15:29 The price of density
+14:11 The byte lottery
+15:30 The price of density
 16:53 Where the danger lives
-18:14 Parking a piece
-19:38 Two packets
+18:16 Parking a piece
+19:41 Two packets
 
 What the promise averages over
 RFC 6330 says a decoder fails at most 1 time in 100 with exactly enough packets, 1 in 10,000 with one extra and 1 in 1,000,000 with two. Those are averages over packets chosen at random. A phone that receives the originals first and loses random packets gets a different mix, so we measured that case too: with 1,002 pieces, each packet lost with probability 1 in 100, 3 of 5,000,000 simulated phones failed with two packets more than they needed (98 with one extra, 21,186 with none). Numbers marked "model" in the video are computed under stated assumptions; measured numbers carry their sample sizes.
