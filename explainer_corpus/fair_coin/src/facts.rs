@@ -33,8 +33,10 @@ pub mod cited {
     pub const HOEFFDING_SIMONS_YEAR: u32 = 1970;
     /// Elias, Ann. Math. Statist. 43(3).
     pub const ELIAS_YEAR: u32 = 1972;
-    /// Blum, Combinatorica 6(2) (first at FOCS 1984).
+    /// Blum, Combinatorica 6(2); first at the 25th FOCS, which is the text
+    /// this video's claims were checked against and the year it shows.
     pub const BLUM_YEAR: u32 = 1986;
+    pub const BLUM_FOCS_YEAR: u32 = 1984;
     /// Dijkstra, EWD 1071; Information Processing Letters 36(4): a roulette
     /// with 37 equally likely outcomes from a possibly biased coin.
     pub const DIJKSTRA_YEAR: u32 = 1990;
@@ -276,6 +278,11 @@ fn breaks(f: &mut Facts) -> Result<(), String> {
     let (after_h, after_t) = (m.pair_after(Face::H), m.pair_after(Face::T));
     let (ht, th) = (after_h.prob(Face::H, Face::T), after_h.prob(Face::T, Face::H));
     f.add("E-F6.sticky.repeat_percent", m.after_h.percent(0))?;
+    // "count this one's heads and it looks fair"
+    f.add(
+        "E-F6.sticky.long_run_heads.exact",
+        m.long_run_heads().ok_or("the sticky coin locks")?.exact(),
+    )?;
     f.add("E-F6.sticky.after_heads.ht", ht.decimal(2))?;
     f.add("E-F6.sticky.after_heads.th", th.decimal(2))?;
     f.add("E-F6.sticky.after_heads.ht_percent", ht.percent(0))?;
@@ -514,6 +521,11 @@ fn edges(f: &mut Facts) -> Result<(), String> {
 /// E-S: the seeded runs.
 fn seeded(f: &mut Facts) -> Result<(), String> {
     f.add("E-S0.seed", model::SEED)?;
+    // what a viewer needs to replay the runs: the generator's own seeds, run 1 to run 9
+    f.add(
+        "E-S0.seeds",
+        format!("{}-{}", model::SEED * 100 + 1, model::SEED * 100 + 9),
+    )?;
     let s1 = call_it_run();
     f.add("E-S1.call_it.tosses", s1.len())?;
     f.add("E-S1.call_it.heads", heads(&s1))?;
@@ -652,6 +664,12 @@ fn sources(f: &mut Facts) -> Result<(), String> {
         "Ann. Math. Statist. 43(3):865-870",
     )?;
     f.pin("E-C2.blum.year", cited::BLUM_YEAR, "1986", "Combinatorica 6(2):97-108")?;
+    f.pin(
+        "E-C2.blum.focs_year",
+        cited::BLUM_FOCS_YEAR,
+        "1984",
+        "25th FOCS, pp. 425-433 (the text that was read)",
+    )?;
     f.pin(
         "E-C2.dijkstra.year",
         cited::DIJKSTRA_YEAR,

@@ -140,6 +140,9 @@ def coin_facts():
     emit("E-F4.p99.expected_tosses_rounded", dec(1 / (F(99, 100) * F(1, 100)), 0))
     emit("E-F4.p50.expected_tosses.exact", exact(1 / (F(1, 2) * F(1, 2))))
     emit("E-F4.p90.ht_percent", pct(F(9, 10) * F(1, 10)))
+    # 02_8's caption: "a perfectly fair game rarely comes out 500 each"
+    even = F(math.comb(1000, 500), 2**1000)
+    check("1,000 fair games come out exactly 500 each about one time in forty", F(1, 45) < even < F(1, 35))
     emit("E-F2.fair_band.games1000", band(1000, F(1, 2)))
 
 
@@ -316,6 +319,8 @@ def breaks_facts():
     emit("E-F6.sticky.after_tails.heads_first_percent", pct(after_tt["HT"] / (after_tt["HT"] + after_tt["TH"])))
     # the long-run share of heads solves h = h*after_h + (1 - h)*after_t
     long_h = (1 - s) / ((1 - s) + (1 - s))
+    check("the sticky coin's long-run share of heads solves h = h s + (1 - h)(1 - s)", long_h == long_h * s + (1 - long_h) * (1 - s))
+    emit("E-F6.sticky.long_run_heads.exact", exact(long_h))
     first = pair_chances(long_h, s, 1 - s)
     check("sticky: the first pair of a long run is fair", first["HT"] == first["TH"])
     emit("E-F6.sticky.long_run_first_pair.heads_first.exact", exact(first["HT"] / (first["HT"] + first["TH"])))
@@ -674,6 +679,7 @@ def elias(seq, n):
 
 def run_facts():
     emit("E-S0.seed", SEED)
+    emit("E-S0.seeds", f"{Stream(1).seed}-{Stream(9).seed}")
     # S1: just call it
     s1 = Stream(1).tosses(1000, P)
     emit("E-S1.call_it.tosses", len(s1))
@@ -786,6 +792,7 @@ def cited_facts():
     emit("E-C2.hoeffding_simons.year", 1970)
     emit("E-C2.elias.year", 1972)
     emit("E-C2.blum.year", 1986)
+    emit("E-C2.blum.focs_year", 1984)
     emit("E-C2.dijkstra.year", 1990)
     emit("E-C2.dijkstra.outcomes", 37)
     emit("E-C2.peres.year", 1992)

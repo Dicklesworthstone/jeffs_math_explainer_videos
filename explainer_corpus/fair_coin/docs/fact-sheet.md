@@ -21,8 +21,12 @@ at the end was copied from the oracle's output by a script, not typed.
   square, the two-standard-error bands, the cube of three tosses, four
   different rolls and the entropy to one decimal: `272 video facts against
   272 oracle keys: PASS`.
-- **Rust side:** `./x fair_coin test`: 21 tests pass, clippy `-D warnings`
-  and `fmt --check` clean.
+- **After the claim walk (P3), the same day:** three keys added (the seeds
+  a viewer needs to replay the runs, the year of Blum's conference paper, the
+  sticky coin's long-run share of heads): `275 video facts against 275 oracle
+  keys: PASS`.
+- **Rust side:** `./x fair_coin test`: 22 tests pass, clippy `-D warnings`
+  and `fmt --check` clean. One of them ties 51 spoken phrases to their facts.
 - **Rows:** E-F computed chances and costs; E-X edges of always/never
   sentences that are counts; E-S seeded runs; E-C cited literals.
 
@@ -74,8 +78,10 @@ whose running total of twentieths exceeds the draw.
    independent tosses of *different* coins break it (0.40 against 0.10);
    a coin with memory, taken from a long run, keeps the first pair fair
    (`E-F6.sticky.long_run_first_pair`) and breaks only what follows a
-   thrown-away pair. The script's wording is "the same chance on both
-   tosses, and neither toss affects the other".
+   thrown-away pair. The script says the trick leans on two things (03_7):
+   "The coin's chance is the same on both tosses of a pair. And one toss
+   doesn't affect the next, which is what independent means"; its lower-third
+   says "enough", not "precisely".
 4. **Samuelson's rule is exactly fair only when played to the end.** Under a
    deadline ("stop after N tosses") the two orders of a pair complete at
    different times, so the truncated game leans: for the sticky coin, of the
@@ -86,7 +92,8 @@ whose running total of twentieths exceeds the draw.
 5. **A die from four tosses is not cheap.** With the 80% coin it works 15.4%
    of the time, 26.0 tosses a die on average; three tosses that are not all
    alike (a fair choice among three) plus one coin trick cost 12.5. The
-   script says "this is the simplest way, not the cheapest".
+   script says "It isn't cheap" and "There are cheaper rules built on the same
+   idea" (07_4, 07_5); the cheaper one is in the description.
 6. **Which pair counts as heads differs between sources.** Von Neumann's
    text takes the first toss of the differing pair (heads-tails → heads);
    Peres, Hoeffding and Simons, Intel and the NIST draft take the second;
@@ -132,13 +139,14 @@ or by its research agent, and re-checked by a search for the quoted words.
 | S16 | Noam Nisan and David Zuckerman, "Randomness is Linear in Space", *JCSS* 52(1), 1996, 43–52 | Zuckerman's posted copy, p. 2 | the word "extractor" |
 | S17 | NIST SP 800-90B, second draft (January 2016) and final (January 2018) | both, searched in full | finding 7 |
 | S18 | Hongchao Zhou and Jehoshua Bruck, "Efficient Generation of Random Bits from Finite State Markov Chains", arXiv 1012.5339 | pp. 1–8 | finding 4; a second description of S5's algorithm B |
+| S19 | D. Eastlake, J. Schiller, S. Crocker, "Randomness Requirements for Security", RFC 4086, June 2005 | abstract, §4.2 | "generating secret quantities for passwords, cryptographic keys, and similar quantities" (11_1); also describes von Neumann's technique |
 
 ### Passages quoted or leaned on (verbatim)
 
 - **S1, p. 36** (the whole passage): "To cite a human example, for
   simplicity, in tossing a coin it is probably easier to make two consecutive
   tosses independent than to toss heads with probability exactly one-half. If
-  independence of successive tosses is assumed, we can reconstruct a 50-50
+  independence of successive tosses is assumed, we can reconstruct a 50–50
   chance out of even a badly biased coin by tossing twice. If we get
   heads-heads or tails-tails, we reject the tosses and try again. If we get
   heads-tails (or tails-heads), we accept the result as heads (or tails). The
@@ -206,18 +214,18 @@ repeats each as a cross-check.
 
 | Sentence | Test | The edge |
 |---|---|---|
-| "Heads-tails and tails-heads are equally likely, whatever the coin's chance of heads" | `edge_heads_tails_equals_tails_heads_for_every_chance` | true at every chance, 0 and 1 included (both areas are then zero); but at 0 and 1 no pair ever decides, so the *game* needs a coin that can land both ways |
-| "At least half the pairs are thrown away" | `edge_at_least_half_the_pairs_are_thrown_away` | exactly half only for a fair coin |
-| "It never costs fewer than four tosses on average" | `edge_expected_tosses_bottom_out_at_four` | four only for a fair coin; no upper limit near 0 or 1 (over 1,000 at 99.9%) |
-| "With two different coins it is fair only if they match" | `edge_two_coins_are_fair_only_when_they_match` | every pair of 29 chances (0, 1, 1/1000, 999/1000, the twentieths and the sevenths); a fair second coin returns the first coin's chance exactly |
-| "No rule that stops after a fixed number of tosses is fair for every coin" | `edge_no_fixed_length_rule_is_fair_for_every_coin`, `E-X1.*` | every rule on 1 to 5 tosses; the check does accept rules that are fair for one coin |
-| "A coin with memory breaks the rule after a thrown-away pair, but the first pair of a long run is still fair" | `edge_memory_breaks_the_plain_rule_but_not_the_first_long_run_pair` | every pair of the same 29 chances as a memory; fair from both starts exactly when there is no memory |
-| "Pairing only the tosses that follow a head is fair for any coin that remembers one toss" | `edge_after_only_rule_is_fair_for_every_memory` | fails exactly when heads can never be followed by both faces, or heads never recurs |
-| "Announce at once and it is wrong; announce on return and it is right" (Blum) | `blum_at_once_is_bad_and_on_return_is_good` | even when every exit is a fair toss (ε = 1/2), announcing at once leans |
-| "For tosses like ours, with the same chance every time and no memory, order never changes a chance" (06_3) | `edge_same_counts_same_chance_without_memory` | every pattern of 1 to 6 tosses at the 29 chances; and the fence is needed: for the coin with memory, heads-tails and tails-heads after a head are 4/25 and 1/25 |
-| "The n! orders of n different rolls are equally likely" | `edge_every_order_of_different_rolls_is_equally_likely` | three dice (loaded, fair, 1:2:3:4:5:6), n = 2 and 3 by full listing (the oracle adds n = 4) |
-| "No rule beats the entropy; Peres's and Elias's climb toward it" | `edge_rates_climb_to_the_entropy_and_never_pass_it` | six chances, depths 1–10, blocks 2–64: always below, always rising |
-| "The output is fair tosses" (all three procedures) | `the_procedures_give_fair_output_on_every_short_run` | every run of 8 tosses of the 80% coin: outputs of equal length are exactly equally likely |
+| "Equal for every p" (03_5); "One block is always the mirror image of the other" (03_4) | `edge_heads_tails_equals_tails_heads_for_every_chance` | true at every chance, 0 and 1 included (both areas are then zero); but at 0 and 1 no pair ever decides, so the *game* needs a coin that can land both ways |
+| "With our coin, most pairs get thrown away" (04_1); not voiced: at least half are, for every coin | `edge_at_least_half_the_pairs_are_thrown_away` | exactly half only for a fair coin |
+| "A fair coin still averages four tosses" (04_5): the least any coin can average | `edge_expected_tosses_bottom_out_at_four` | four only for a fair coin; no upper limit near 0 or 1 (over 1,000 at 99.9%) |
+| "One cut moved and the other didn't, so the blocks aren't mirror images any more" (05_2) | `edge_two_coins_are_fair_only_when_they_match` | every pair of 29 chances (0, 1, 1/1000, 999/1000, the twentieths and the sevenths); a fair second coin returns the first coin's chance exactly |
+| lower-third at 04_6: "no rule that always names a winner within a fixed number of tosses is fair for every coin" (the spoken "No fair rule can promise an end" failed for a fair coin and was cut at the claim walk) | `edge_no_fixed_length_rule_is_fair_for_every_coin`, `E-X1.*` | every rule on 1 to 5 tosses; the check does accept rules that are fair for one coin |
+| "After two heads … heads then tails is four times as likely, and after two tails it's the other way round" (05_3); not voiced: the first pair of a long run is still fair | `edge_memory_breaks_the_plain_rule_but_not_the_first_long_run_pair` | every pair of the same 29 chances as a memory; fair from both starts exactly when there is no memory |
+| "Each of those has the same chance, whatever came before it. So they behave like a plain unfair coin" (05_4) | `edge_after_only_rule_is_fair_for_every_memory` | fails exactly when heads can never be followed by both faces, or heads never recurs |
+| description: "announcing it at once is wrong" (Blum) | `blum_at_once_is_bad_and_on_return_is_good` | even when every exit is a fair toss (ε = 1/2), announcing at once leans |
+| "For tosses like ours, with the same chance every time and no memory, order never changes a chance" (06_4) | `edge_same_counts_same_chance_without_memory` | every pattern of 1 to 6 tosses at the 29 chances; and the fence is needed: for the coin with memory, heads-tails and tails-heads after a head are 4/25 and 1/25 |
+| "when three rolls all differ, the order they came in is a fair choice among six" (09_4); "exactly as likely" (08_4) | `edge_every_order_of_different_rolls_is_equally_likely` | three dice (loaded, fair, 1:2:3:4:5:6), n = 2 and 3 by full listing (the oracle adds n = 4) |
+| "The most any rule can average is just over seventy-two" (10_3); "however far you go, they stop just short of it" (10_4) | `edge_rates_climb_to_the_entropy_and_never_pass_it` | six chances, depths 1–10, rows 2–64: always below the entropy; rising with every round, and along the doublings shown (Elias's rate does not rise from every row to the next: the row for 3 tosses gives less than the row for 2). A rule whose rows grow without end attains the entropy in the limit (Elias, Theorem 2) |
+| "fair ones" (10_2), "a fair die" (07_3, 09_5): the output of all three procedures | `the_procedures_give_fair_output_on_every_short_run` | every run of 8 tosses of the 80% coin: outputs of equal length are exactly equally likely |
 
 ## Simplification → exact (plan §5.1 rule 11)
 
@@ -225,14 +233,12 @@ repeats each as a cross-check.
 |---|---|
 | "the coin's chance of heads" stays the same | the two tosses of a pair are independent and identically distributed; more generally, it is enough that swapping the two tosses leaves the pair's chance unchanged (exchangeability) |
 | "every coin" | every chance of heads strictly between 0 and 1 |
-| "sooner or later a pair decides" | with probability one; the number of pairs is geometric with success chance 2p(1 − p), unbounded |
 | "6.25 tosses on average" | the expectation 1/(p(1 − p)) at p = 4/5 |
 | "a coin that remembers its last toss" | a stationary two-state Markov chain with P(H after H) = P(T after T) = 4/5 |
 | "fair tosses per hundred unfair ones" | output bits per input bit, times 100; in the limit of long runs for Peres and long blocks for Elias |
-| "at most 72" | the binary entropy h(4/5) = 0.7219… bits per toss, an upper bound on any such rule's long-run rate (Elias 1972, Theorem 1) |
-| "The order is perfectly fair" (06_7), "order never changes a chance" for tosses with one chance and no memory (06_3) | given the counts, every arrangement with those counts is equally likely, for independent tosses of one coin |
+| "The order is perfectly fair" (06_7), "order never changes a chance" for tosses with one chance and no memory (06_4) | given the counts, every arrangement with those counts is equally likely, for independent tosses of one coin |
 | "the most any rule can average is just over seventy-two" (10_3) | the binary entropy h(4/5) = 0.7219… bounds the long-run average output per input toss of any rule whose output is exactly fair; a single run of 100 tosses can give more |
-| "keep what the trick ignored, which pairs matched and what the matching pairs showed" (10_4) | Peres's Ψ_ν(x) = Ψ_1(x) ∗ Ψ_{ν−1}(u) ∗ Ψ_{ν−1}(v), with u_j = x_{2j−1} ⊕ x_{2j} for every pair and v the common value of each matching pair; reusing v alone levels off near 18 per hundred, u alone near 39 (R1: D1, R1) |
+| "run the trick again and again on the two things it ignored" (10_4; the picture labels them "which pairs matched" and "what the matching pairs showed") | Peres's Ψ_ν(x) = Ψ_1(x) ∗ Ψ_{ν−1}(u) ∗ Ψ_{ν−1}(v), with u_j = x_{2j−1} ⊕ x_{2j} for every pair and v the common value of each matching pair; reusing v alone levels off near 18 per hundred, u alone near 39 (R1: D1, R1) |
 | "nobody can promise when a game will stop" (04_6) | the game ends with probability one; for every n it is still going after n pairs with chance 0.68ⁿ > 0 |
 
 ## The table
@@ -339,6 +345,7 @@ repeats each as a cross-check.
 | `E-F6.sticky.after_heads.ratio` | 4 |
 | `E-F6.sticky.after_heads.heads_first_percent` | 80 |
 | `E-F6.sticky.after_tails.heads_first_percent` | 20 |
+| `E-F6.sticky.long_run_heads.exact` | 1/2 |
 | `E-F6.sticky.long_run_first_pair.heads_first.exact` | 1/2 |
 | `E-F6.sticky.plain_rule.after_heads_percent` | 61.5 |
 | `E-F6.sticky.plain_rule.after_tails_percent` | 38.5 |
@@ -482,6 +489,7 @@ repeats each as a cross-check.
 | key | value |
 |---|---|
 | `E-S0.seed` | 1951 |
+| `E-S0.seeds` | 195101-195109 |
 
 **E-S1.** Run 1: 1,000 tosses of the 80% coin, just calling it.
 
@@ -604,6 +612,7 @@ repeats each as a cross-check.
 | `E-C2.hoeffding_simons.year` | 1970 |
 | `E-C2.elias.year` | 1972 |
 | `E-C2.blum.year` | 1986 |
+| `E-C2.blum.focs_year` | 1984 |
 | `E-C2.dijkstra.year` | 1990 |
 | `E-C2.dijkstra.outcomes` | 37 |
 | `E-C2.peres.year` | 1992 |
