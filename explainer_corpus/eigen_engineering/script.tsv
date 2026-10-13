@@ -1,89 +1,84 @@
 # eigen_engineering: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	London, June two thousand. Under nothing but footsteps, a new footbridge sways sideways by about seven centimetres. Two days later it is closed. And it had been checked.
-01_2	Every structure has ways of moving that are all its own. So does the air in a room, and so does an economy. One calculation finds them all.
+01_2	A bridge has ways of moving that are all its own. So does the air in a room, and so does an economy. One calculation finds them all.
 01_4	Its designers had checked how it would bounce. The British code they worked to said nothing of walkers pushing a bridge sideways.
 01_5	So what does a bridge have, besides strength, that footsteps can find?
 01_6	A way of moving all its own. This one swings sideways between half a swing and one swing a second. And a walker's weight shifts from side to side about once a second.
-02_1	Start small. Two carts between two walls, joined by three springs. Each spring pushes back one newton, the weight of an apple, for every centimetre it is stretched or squeezed.
+02_1	Two carts between two walls, joined by three springs. Each spring pushes back one newton, the weight of an apple, for every centimetre it is stretched or squeezed.
 02_2	Slide the left cart one centimetre to the right, and hold the right cart still.
-02_3	Two springs now fight the left cart, so that hand pushes with two newtons. The middle spring also shoves the right cart, so the other hand pulls back with one, a push of minus one.
-02_4	You moved one cart, and had to push two. In every structure each part is tied to its neighbours, so no part can be worked out alone.
-02_5	So there is a rule that turns the two moves into the two pushes. Write it as a table. Along each row, multiply each number by its move, and add. A table like this is called a matrix.
+02_3	Two springs fight the left cart, so that hand pushes with two newtons. The middle spring shoves the right cart, so the other hand pulls back with one, a push of minus one.
+02_4	You moved one cart, and had to push two. Each part is tied to its neighbours.
+02_5	So there is a rule that turns the two moves into the two pushes. Write it as a table, called a matrix. Along each row, multiply each number by its move, and add.
 02_6	Your turn. Pause if you want more time. Slide both carts one centimetre to the right. What are the two pushes?
 02_7	One and one. The middle spring is not stretched at all. The pushes come back in the same pattern as the moves.
 03_1	Now slide them one centimetre toward each other. What pushes does that take?
-03_2	Three and minus three. The middle spring is squeezed from both ends, so it counts double. The same pattern as the moves, three times the size.
-03_3	Draw the moves as one arrow, the left cart's move across and the right cart's up. Each direction of the arrow is one way to move the carts. Draw the pushes the same way.
+03_2	Three and minus three. The middle spring is squeezed from both ends, so it counts double. The same pattern, three times the size.
+03_3	Draw the moves as one arrow, the left cart's move across and the right cart's up. Each direction is one way to move the carts. Draw the pushes the same way.
 03_4	Swing the move round, and the push runs ahead of it or falls behind. They line up along two lines only. Both carts together, and the carts against each other.
 03_5	These are the system's own patterns. Move the carts in one of them, and the pushes it takes come in that same pattern. Only the size changes.
 03_6	An own pattern is called an eigenvector, and its size change an eigenvalue. Eigen is German for own. For the carts, the eigenvalues are one and three.
-04_1	So far the moves came first. In real life you know the push and want the moves. Push the left cart with one newton and leave the right one free. Where do the carts end up?
+04_1	In real life you know the push and want the moves. Push the left cart with one newton and leave the right one free. Where do the carts end up?
 04_2	That push is a mix of the two patterns. Half of together, plus half of against.
-04_3	Each pattern answers by itself, and for springs its eigenvalue has a plain name, stiffness. Together has stiffness one, so its half stays a half. Against has stiffness three, so its half shrinks to a sixth.
-04_4	Add the answers. The left cart moves two thirds of a centimetre, and the right cart, which nobody pushed, one third. Put them back through the table, and out comes the push of one.
+04_3	Each pattern answers by itself, and for springs its eigenvalue is called stiffness. Together has stiffness one, so its half stays a half. Against has stiffness three, so its half shrinks to a sixth.
+04_4	Add the answers. The left cart moves two thirds of a centimetre, and the right cart, which nobody pushed, one third.
 04_5	Your turn. Push the right cart instead. Where do they end up?
 04_6	One third and two thirds. The same answer, turned round.
-04_7	Two tangled equations have become two divisions. Seen in its own patterns, a system falls apart into pieces that ignore each other.
-05_1	Now a steel truss bridge, a frame of steel triangles twenty-four metres long. One end is pinned, the other sits on a roller so the steel can stretch.
+04_7	Two tangled equations have become two divisions. Seen in its own patterns, a system like this falls apart into pieces that ignore each other.
+05_1	Now a steel truss bridge, a frame of triangles twenty-four metres long. One end is pinned, the other sits on a roller.
 05_2	Each member is a spring. This bottom one takes three hundred kilonewtons, the weight of about thirty tonnes, to stretch it one millimetre.
 05_3	Each joint can move sideways and up or down. Twelve joints make twenty-four moves, and the supports hold three, so twenty-one are left.
-05_4	So the rule is a table again, twenty-one by twenty-one. Each member writes its spring only into its own two joints' rows, so most of the table stays empty.
-05_5	Hang a hundred kilonewtons, the weight of about ten tonnes, on one joint. Will only that joint move, its neighbours, or every joint?
-05_6	Every joint. Each is tied only to its neighbours, and still everything moves.
-05_7	Load all five deck joints, and solve the twenty-one equations together. The middle sags eighteen millimetres, less than a finger's width.
-05_8	Each member's force follows from how far its ends moved apart. The top is squeezed hardest, four hundred fifty kilonewtons, under a third of what makes its steel yield.
-06_1	Test the truss as we tested the carts. The move one load caused is held by a single push at a single joint, a different pattern.
+05_4	So the rule is a table again, twenty-one by twenty-one, and most of it stays empty.
+05_5	Hang a hundred kilonewtons on one joint. Will only that joint move, its neighbours, or every joint?
+05_6	Every joint but the pinned one. Each is tied only to its neighbours, and still they all move.
+05_7	Load all five deck joints. The middle sags eighteen millimetres, less than a finger's width.
+05_8	The top is squeezed hardest, a force of four hundred fifty kilonewtons, under a third of what makes its steel yield.
+06_1	Test the truss as we tested the carts. The move one load caused is held by a push at a single joint, a different pattern.
 06_2	But some moves come back as themselves. This table has twenty-one own patterns, its eigenvectors, each with a stiffness of its own.
 06_3	Your turn. Which is the softest? The whole span sagging as one, or neighbouring joints moving opposite ways?
-06_4	The single sag. It is the carts again. Moving together stretches little, and moving against stretches a lot. The stiffest pattern is nearly four hundred times stiffer.
-06_5	Now split the load into the patterns, as with the carts. Each share is divided by its stiffness, so the soft ones win.
+06_4	The single sag. Moving together stretches little, and moving against stretches a lot. The stiffest pattern is nearly four hundred times stiffer.
+06_5	Now split the load into the patterns, as with the carts. Each share is divided by its stiffness, so here the soft ones win.
 06_6	The softest pattern alone lands within half a percent of the sag at the middle. Good enough for how far it sags.
-06_7	Not for what is inside it. A force is a stretch times a stiffness, which puts back what the division took out. With one pattern the worst force is off by eighty-two kilonewtons. So a few patterns tell you how a structure moves, not everything inside it.
-07_1	That was a bridge standing still. Modes matter most when it moves. Give every joint its mass, and the own patterns shift a little into the structure's modes, each swinging at a frequency of its own.
+06_7	Not for what is inside it. A force puts the stiffness back in, so the stiff patterns count, and with one pattern the worst force is off by eighty-two kilonewtons.
+07_1	That was a bridge standing still. Now give every joint its mass, and the own patterns shift a little into the structure's modes, each swinging at a frequency of its own.
 07_2	With a four tonne deck at every deck joint, the lowest mode swings five point nine times a second. Five point nine hertz.
-07_3	The next two come at eleven point eight and fourteen point nine hertz. One mostly slides the deck along its length, the other mostly bends it into an S.
+07_3	The next two come at eleven point eight and fourteen point nine hertz.
 07_4	Your turn. Make the deck twice as heavy. Does the lowest mode get faster, slower, or stay the same?
-07_5	Slower, four point three hertz. The same springs have more mass to move.
-07_6	Any motion of the bridge is a mix of its modes, each keeping its own time. So an engineer finds the lowest few, and asks what could feed them.
+07_5	Slower, four point three hertz.
+07_6	Any small motion of the bridge is a mix of its modes, each keeping its own time. So an engineer finds the lowest few, and asks what could feed them.
 08_1	Tacoma Narrows, November nineteen forty. A suspension bridge four months old twists itself apart in a wind of about forty miles an hour.
 08_2	You might guess the wind puffed in time with the bridge. It did not. Its puffs would come about once a second, and the bridge twisted once every five.
 08_3	What grew was one twisting mode. As the deck twisted, the wind's push followed the motion, and on every swing it gave more than it took back.
 08_4	So what was feeding London's footbridge?
-08_5	Its sideways modes sit between half a swing and one swing a second. A walker pushes sideways about once a second. And the more the deck moved, the harder walkers pushed, to keep their balance.
-08_6	In tests, one span stayed steady under a hundred fifty-six walkers. Ten more, and it began to swing.
+08_5	Its sideways modes sit in the range where walkers push. And the more the deck moved, the harder walkers pushed, to keep their balance.
 08_7	Neither bridge's trouble was strength. Each had a mode, and something that pushed along with it. Engineers call that negative damping.
-09_1	The same idea, with nothing solid in it. Cut the air in a tube into thin slices. Each slice has mass, and squeezed air pushes back like a spring.
-09_2	So a tube of air is a row of carts and springs. The same table as before, only longer.
+09_1	The same idea, with nothing solid in it. Cut the air in a tube into thin slices, each with mass, and squeezed air pushes back like a spring.
+09_2	So a tube of air is a row of carts and springs.
 09_3	Push one slice out of place, and the push comes back jagged. One smooth hump comes back as itself. These own patterns slosh in place, one hump, two, three, each with its own tone.
 09_4	One swing is a round trip, there and back at the speed of sound. Your turn. A bathroom is two and a half metres long, so a round trip is five metres. How many round trips a second?
-09_5	About seventy. Sixty-eight point six hertz, too low for most voices. But hum a slow slide upward in a tiled bathroom, and near a hundred and seven hertz, and again near a hundred thirty-seven, the room hums back.
-10_1	A room has three directions, so a mode counts half-waves along the length, the width and the height. One formula gives every tone of a box with hard walls. Where the air moves least, at the walls, it is squeezed most.
-10_2	Now a concert hall, a box forty-five metres by twenty-three by eighteen, about the volume of Boston's Symphony Hall. Its lowest mode is three point eight hertz, far below hearing.
+09_5	About seventy. Sixty-eight point six hertz, too low for most voices. But hum a slow slide upward in a tiled bathroom, and near a hundred and seven hertz the room hums back.
+10_1	A room has three directions, so a mode counts half-waves along the length, the width and the height. One formula gives every tone of a box with hard walls.
+10_2	Now a concert hall, a box about the volume of Boston's Symphony Hall, with its lowest mode far below hearing.
 10_3	How many modes do you think it has below a thousand hertz?
-10_4	Nearly two million. And already two thousand two hundred forty-six below a hundred hertz.
-10_5	Sound in this hall takes about two seconds to die away, and a note that dies away is never one exact pitch. Each mode is blurred about a hertz wide.
+10_4	Nearly two million.
+10_5	Sound here takes about two seconds to die away, so no mode is one exact pitch. Each is blurred about a hertz wide.
 10_6	Where three or more modes crowd into one blur, they merge. The crossover is called the Schroeder frequency, and for this hall it is about twenty hertz, the bottom edge of hearing.
-11_1	So every note you can hear in a hall lies above the crossover. Halls are designed with statistics, which began with Wallace Sabine. The bigger the room, the longer a sound lingers, and the more it soaks up, the shorter.
-11_2	Single modes rule in small rooms. For a room about five metres by four, the crossover climbs to two hundred hertz, and below it sixty-seven modes carry all the bass.
-11_3	A room booms when several modes land on one tone. Your turn. Which room piles its tones up most? A long narrow one, an ordinary one, or a perfect cube?
-11_4	The cube. Its three sides match, so three modes share its lowest tone. In a three metre cube that is fifty-seven point two hertz, three times over.
+11_1	So almost every note you can hear in a hall lies above the crossover. Halls are designed with statistics, which began with Wallace Sabine.
+11_3	Single modes rule in small rooms, where the crossover climbs to two hundred hertz. A room booms when several modes land on one tone. Your turn. Which piles its tones up most, a long narrow room, an ordinary one, or a perfect cube?
+11_4	The cube. Its three sides match, so three modes share its lowest tone.
 11_5	And real rooms are rarely boxes, so there is no formula. Cut the air into cells, build the table, and ask for its eigenvectors. The same calculation as the bridge.
 12_1	The last system has no springs. Farms make food, workshops make tools, and making things uses things up. A unit of food takes four tenths of food and two tenths of tools. A unit of tools takes three tenths of food and five tenths of tools.
 12_2	This rule works like the carts', along each row. Your turn. Make ten units of each. How much of each is used up?
-12_3	Seven of each. Four plus three, and two plus five. The same pattern comes back, seven tenths the size.
-12_4	So equal amounts of each is an eigenvector of this table, with eigenvalue seven tenths. Making that mix, the economy uses up seventy percent of what it makes, and keeps thirty.
-12_5	Swing the arrow as before. The other own pattern, with eigenvalue two tenths, needs a negative amount of one good. A table with no negative numbers always has an own pattern with none, and it carries the largest eigenvalue.
-13_1	People want twenty-four of food and twenty-four of tools. What is made must cover what making it uses up, plus what people take.
-13_2	Making twenty-four of each uses up sixteen point eight of each. So make those as well, and that uses up seven tenths again.
+12_3	Seven of each. The same pattern comes back, seven tenths the size.
+12_4	So equal amounts of each is an eigenvector, with eigenvalue seven tenths. Making that mix, the economy uses up seventy percent of what it makes, and keeps thirty.
+12_5	Swing the arrow as before. The other own pattern, with eigenvalue two tenths, needs a negative amount of one good.
+13_1	People want twenty-four of food and twenty-four of tools. Making twenty-four of each uses up sixteen point eight of each, so make those too, and so on, round after round.
 13_3	The economy keeps three tenths of what it makes. So to keep twenty-four, make twenty-four divided by three tenths. Eighty of each.
-13_4	Now a lopsided order, thirty of food and ten of tools. It is a mix of both own patterns, and each round shrinks each part by its own eigenvalue. The small part dies fast, so the rounds swing onto the even mix.
-13_5	A hungrier economy uses up one point one of each for every one of each it makes. What happens to the rounds?
-13_6	They grow, and the total never arrives. That economy cannot feed itself.
-13_7	So the test is one number. With the largest eigenvalue below one, every demand can be met. At one or more, the economy cannot keep up.
+13_4	Now a lopsided order, thirty of food and ten of tools. It is a mix of both own patterns, and each round shrinks each part by its own eigenvalue. So the rounds swing onto the even mix.
+13_5	A hungrier economy uses up one point one of each for every one it makes. What happens to the rounds?
+13_7	They grow, and the total never arrives. So the test is one number. With the largest eigenvalue below one, every demand can be met. At one or more, some demand cannot.
 14_1	So why does one calculation serve a bridge, a room and an economy? Each is a rule in a table. And in its own patterns, when it has enough of them, a table only multiplies.
-14_2	The bridge's table and the room's are symmetric, the same on both sides of the diagonal. Such a table always has a full set of own patterns, at right angles.
-14_3	The economy's table is not symmetric, but its eigenvalues differ, so it still splits. Having nothing negative makes the pattern with the largest eigenvalue one you can make.
+14_3	Tables like the bridge's and the room's are symmetric, so they always have enough. The economy's is not, but its eigenvalues differ, so it still splits. Having nothing negative makes the pattern with the largest eigenvalue one you can make.
 14_4	And where does the idea stop?
-14_5	A quarter turn has no own pattern you can draw. A hall has too many modes to tell apart. Steel bent too far stops answering in proportion. And some questions about scarce resources are not eigenproblems at all.
+14_5	A quarter turn has no own pattern you can draw. Steel bent too far stops answering in proportion. And some questions about scarce resources are not eigenproblems at all.
 14_6	London's footbridge reopened in two thousand two. Its engineers had known how it would move. What no code had asked was what would push along with it.
 14_7	So there are three questions. How strong is it. How does it want to move. And what will push along with it.

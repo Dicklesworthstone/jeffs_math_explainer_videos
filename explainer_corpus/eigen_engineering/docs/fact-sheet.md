@@ -148,7 +148,8 @@ at the end was copied from the oracle's output by a script, not typed.
     largest eigenvalue is below one (equivalently the Hawkins–Simon
     condition). When it is one or more, an economy whose table has no zero
     entry can meet no demand at all; a table that splits into separate parts
-    may still meet some. The lower-third of 13_6 carries the condition.
+    may still meet some. The lower-third of 13_7 carries the condition, and
+    the spoken line (after the P3 claim walk) says "some demand cannot".
 14. **His first image's seven-zone energy model is not used as a
     calculation.** It is a toy with no source for its numbers. Its true
     cousin, Sabine's statistics, carries 11_1 instead.
@@ -163,18 +164,18 @@ After review R1 (line ids are the revised storyboard's).
 
 | Term | First defined | As spoken | On screen |
 |---|---|---|---|
-| table, matrix | 02_5 | "a rule that turns the two moves into the two pushes. Write it as a table… A table like this is called a matrix" | the 2 by 2 table; "matrix" small |
+| table, matrix | 02_5 | "a rule that turns the two moves into the two pushes. Write it as a table, called a matrix" | the 2 by 2 table; "matrix" small |
 | pattern | 02_7 | "the pushes come back in the same pattern as the moves" | the two lists pulsing together |
 | own pattern | 03_5 | "Move the carts in one of them, and the pushes it takes come in that same pattern. Only the size changes." | gold lines in the arrow plane |
 | eigenvector, eigenvalue | 03_6 | "An own pattern is called an eigenvector, and its size change an eigenvalue" | names on the picture; K q = λ q |
 | mix | 04_2 | "That push is a mix of the two patterns" | the split; "superposition" in a lower-third |
-| stiffness | 04_3 | "for springs its eigenvalue has a plain name, stiffness" | two rungs, ÷ 1 and ÷ 3 |
+| stiffness | 04_3 | "for springs its eigenvalue is called stiffness" | two rungs, ÷ 1 and ÷ 3 |
 | member, joint | 05_1 to 05_3 | "a frame of steel triangles"; "Each joint can move sideways and up or down" | the truss drawing itself |
 | mode | 07_1 | "the own patterns shift a little into the structure's modes" | K's pattern 1 ghosted under the first mode |
 | hertz | 07_2 | "swings five point nine times a second. Five point nine hertz." | 5.9 Hz |
 | negative damping | 08_7 | "something that pushed along with it. Engineers call that negative damping." | both bridges' modes in gold; "aeroelastic flutter" in a lower-third at 08_3 |
 | Schroeder frequency | 10_6 | "Where three or more modes crowd into one blur, they merge. The crossover is called the Schroeder frequency" | a marker at 20 Hz |
-| symmetric | 14_2 | "symmetric, the same on both sides of the diagonal" | the carts' table with its mirror line (first shown at 05_4) |
+| symmetric | 14_3 | "Tables like the bridge's and the room's are symmetric, so they always have enough" (after P3, decisions D-49; the gloss is the lower-third) | the carts' table with its mirror line (first shown at 05_4), "the same on both sides of the diagonal" |
 
 "Standing wave" and "linear programming" are on screen only (09_3, 14_5).
 
@@ -184,7 +185,7 @@ After review R1 (line ids are the revised storyboard's).
 |---|---|
 | "between half a swing and one swing a second" (01_6) | measured lateral modes at 0.48, 0.80, 0.95 and 1.03 Hz (`K-B2.lateral_hz`); lateral footfall force at half the walking rate of about 2.0 Hz; the effect possible on any bridge with a lateral frequency below about 1.3 Hz (`K-B2.risk_below_hz`) |
 | "an own pattern" as an arrow | a direction: any non-zero multiple, either sign; the gold marks are lines |
-| "at right angles" (14_2) | for K's own patterns, qᵢ·qⱼ = 0 (`K-P1.at_right_angles`); for vibration modes, φᵢᵀMφⱼ = 0 and not φᵢ·φⱼ = 0 (`K-V1.at_right_angles_with_mass` true, `K-V1.at_right_angles_without` false); with a repeated eigenvalue the patterns are not unique but can be chosen at right angles (`K-X1.repeated`) |
+| "at right angles" (14_3, lower-third) | for K's own patterns, qᵢ·qⱼ = 0 (`K-P1.at_right_angles`); for vibration modes, φᵢᵀMφⱼ = 0 and not φᵢ·φⱼ = 0 (`K-V1.at_right_angles_with_mass` true, `K-V1.at_right_angles_without` false); with a repeated eigenvalue the patterns are not unique but can be chosen at right angles (`K-X1.repeated`) |
 | the split's formula (06_5) | the share is (qᵢ·f)/(λᵢ qᵢ·qᵢ); it reduces to qᵢ·f/λᵢ only for patterns of length one, as in K = QΛQᵀ |
 | "lands within half a percent of the sag" (06_6) | 99.6% of the midspan sag under this load, from two larger terms that cancel: the readout runs 99.6, 102.0, 101.8, 99.1, 98.9, then 99.1 at ten and 100.0 at fifteen (`K-P2.sag_percent.*`); the largest error anywhere in the moves is 1.2 mm (`K-P2.move_error_mm.1`) |
 | "each swinging at a frequency of its own" (07_1) | for the undamped linear model; with damping that is not proportional the modes couple |
@@ -193,8 +194,8 @@ After review R1 (line ids are the revised storyboard's).
 | "nearly two million" (10_4) | 1,964,040 at or below 1,000 Hz; the textbook estimate gives 1,964,120 |
 | "about two seconds" (10_5) | 1.9 s, occupied, mid frequencies (Beranek); a mode's half-power width 1.2 Hz |
 | "about twenty hertz" (10_6) | 2000·√(1.9/18,630) = 20.2 Hz, about three modes per width (1962; Schroeder's 1954 figure was ten); a crossover, not a wall |
-| "a table with no negative numbers always has an own pattern with none" (12_5) | Perron–Frobenius: for A ≥ 0 the spectral radius is an eigenvalue with an eigenvector x ≥ 0, x ≠ 0; if A is irreducible that eigenvector is positive and unique up to scale |
-| "every demand can be met … the economy cannot keep up" (13_7) | every demand d ≥ 0 has a plan x ≥ 0 with x = Cx + d exactly when the largest eigenvalue of C ≥ 0 is below 1; at one or more some demand fails, and every demand when C is irreducible (as here) |
+| "a table with no negative numbers always has an own pattern with none" (12_5 lower-third; "Having nothing negative makes the pattern with the largest eigenvalue one you can make", 14_3, spoken) | Perron–Frobenius: for A ≥ 0 the spectral radius is an eigenvalue with an eigenvector x ≥ 0, x ≠ 0; if A is irreducible that eigenvector is positive and unique up to scale |
+| "every demand can be met … at one or more, some demand cannot" (13_7) | every demand d ≥ 0 has a plan x ≥ 0 with x = Cx + d exactly when the largest eigenvalue of C ≥ 0 is below 1; at one or more some demand fails, and every demand when C is irreducible (as here) |
 | "the Nobel prize in economics" (13_7, on screen) | the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel, 1973 |
 | "when it has enough of them, a table only multiplies" (14_1) | diagonalizable; a symmetric table always is, the economy's is because its eigenvalues differ |
 | "A quarter turn has no own pattern you can draw" (14_5) | no real eigenvector; its eigenvalues are ±i |
@@ -205,15 +206,32 @@ After review R1 (line ids are the revised storyboard's).
 | Line | Sentence | Edge test | Result |
 |---|---|---|---|
 | 03_4 | "They line up along two lines only." | a sweep of the whole circle in steps of 0.1° (`carts::sweep`), and the discriminant in the oracle | 45°, 135°, 225°, 315°: two lines (`K-A2.lined_up_deg`, `K-A2.directions`) |
-| 05_6 | "Every joint." | every free move under the lone load compared with zero | 21 of 21 (`K-T3.moving`) |
-| 12_5 | "A table with no negative numbers always has an own pattern with none, and it carries the largest eigenvalue." | 1,000 seeded tables of positive entries; 1,004 with zeros (30% of entries), among them a shear, a swap, a table that sends everything to zero and diag(1, 2) | 1,000 of 1,000 and 1,004 of 1,004 (`K-X6.*`); the general theorem is cited (Horn and Johnson) |
-| 13_7 | "With the largest eigenvalue below one, every demand can be met. At one or more, the economy cannot keep up." | the video's table scaled by k/20, k = 1 to 40, and by 10/7 (largest eigenvalue exactly one), against the inverse and against the Hawkins–Simon minors | 41 of 41 agree; 28 feed themselves; at exactly one it does not (`K-X7.*`) |
-| 14_2 | "Such a table always has a full set of own patterns, at right angles." | 1,000 seeded symmetric tables of sizes 2 to 6, and two with repeated eigenvalues: QΛQᵀ gives the table back and QᵀQ = I | 1,000 of 1,000 and 2 of 2 (`K-X1.*`); the edge the other way is 14_5 |
+| 05_6 | "Every joint but the pinned one." (it was "Every joint.") | every free move under the lone load compared with zero; the supports as the edge | 21 of 21 (`K-T3.moving`); the pinned joint is held in both directions, so the first wording failed there (P3 claim walk, decisions D-52) |
+| 12_5 (lower-third) and 14_3 | "A table with no negative numbers always has an own pattern with none, and it carries the largest eigenvalue." and "Having nothing negative makes the pattern with the largest eigenvalue one you can make." | 1,000 seeded tables of positive entries; 1,004 with zeros (30% of entries), among them a shear, a swap, a table that sends everything to zero and diag(1, 2) | 1,000 of 1,000 and 1,004 of 1,004 (`K-X6.*`); the general theorem is cited (Horn and Johnson) |
+| 13_7 | "With the largest eigenvalue below one, every demand can be met. At one or more, some demand cannot." | the video's table scaled by k/20, k = 1 to 40, and by 10/7 (largest eigenvalue exactly one), against the inverse and against the Hawkins–Simon minors | 41 of 41 agree; 28 feed themselves; at exactly one it does not (`K-X7.*`) |
+| 14_3 | "Tables like the bridge's and the room's are symmetric, so they always have enough" (a full set of own patterns, at right angles, in the lower-third) | 1,000 seeded symmetric tables of sizes 2 to 6, and two with repeated eigenvalues: QΛQᵀ gives the table back and QᵀQ = I | 1,000 of 1,000 and 2 of 2 (`K-X1.*`); the edge the other way is 14_5 |
 | 14_5 | "A quarter turn has no own pattern you can draw." (and the shear's one, on screen) | the same sweep on [[0, −1], [1, 0]] and [[1, 1], [0, 1]] | 0 and 1 (`K-X2.quarter_turn`, `K-X2.shear`) |
 | 14_5 | (shown) the factory's best plan at a corner | all 1,361 allowed whole-number plans tried | the best is (40, 20), a corner (`K-X5.*`) |
 | 06_5 | (shown) the split's formula | all 21 patterns against the direct solve | equal to rounding (`K-X4.rebuilt`) |
 | 05_4 | (shown) the table is symmetric; it can be solved | entry by entry; unsupported, exactly three eigenvalues of zero | `K-T2.symmetric`, `K-X3.unsupported_zero` |
 | 11_4 | "three modes share its lowest tone" | every mode below 200 Hz of the three rooms, tones compared in whole numbers | the cube 36 of 38 on shared tones, the other rooms 0 (`K-R5.*`) |
+| 11_3, 11_4 | "Which piles its tones up most … The cube." | the P3 claim walk's own enumeration, tones within a window of 0.5, 2 and 4.4 Hz (4.4 Hz is the small room's own mode width, 2.2 ÷ 0.5 s), below 100 and below 200 Hz | most modes in one window below 200 Hz: cube 6, 6, 6; narrow 2, 4, 6; ordinary 2, 4, 6. Below 100 Hz: cube 3, 3, 3; narrow 1, 1, 3; ordinary 1, 2, 3. The cube is never worse, is strictly worse for exact coincidence and for windows up to 2 Hz, and ties the others at the room's own mode width; the video says "share its lowest tone", which is exact |
+
+Edges found by the P3 claim walk (2026-10-13), the claim-walk script's own
+recomputation from first principles, not `facts.rs` or `oracle.py`; each
+sentence below is as spoken after the walk, and the decisions row says what
+the first wording was.
+
+| Line | Sentence | Edge test | Result |
+|---|---|---|---|
+| 02_4 | "Each part is tied to its neighbours." | the first wording ("in every structure each part is tied … so no part can be worked out alone") against a table with no off-diagonal entries | fails there (two parts that do not touch can be worked out alone); for the carts the tie is the −1: `K · (1, 0) = (2, −1)` (D-18) |
+| 04_7 | "a system like this falls apart into pieces that ignore each other" | QᵀKQ diagonal for the carts, the truss's 21 by 21 table and the 40-slice tube; V⁻¹CV for the economy; a shear | holds for all four; a shear has one own direction and does not decouple, hence "like this" and 14_1's "when it has enough of them" (D-24) |
+| 06_5 | "so here the soft ones win" | share ÷ stiffness of the five 100 kN loads, and a load shaped like pattern 2 | pattern 1's is 4.5·10⁻² against 2.2·10⁻³ for the next; a load with no share in pattern 1 would not make it win, hence "here" (D-27) |
+| 07_6 | "Any small motion of the bridge is a mix of its modes" | the 21 modes against the mass table; plain right angles with mass | φᵀMφ = I, so they are a basis; plain φᵀφ is not diagonal (`K-V1.at_right_angles_without`); "small" because 14_5 says steel bent too far stops answering in proportion (D-32) |
+| 10_5 | "so no mode is one exact pitch" | half-power width 2.2 ÷ T60 at the hall's 1.9 s | 1.16 Hz, above zero; an undamped mode would be exact, and this hall's decay is the premise (D-40) |
+| 11_1 | "almost every note you can hear in a hall lies above the crossover" | the crossover 2000 √(1.9 ÷ 18,630) against the 20 Hz bottom of hearing | 20.20 Hz, a hair above, and organ notes go lower still; "every" failed, "almost" holds (D-42) |
+| 13_7 | "At one or more, some demand cannot." | the table [[1.1, 0], [0.3, 0.2]], which splits and has largest eigenvalue 1.1, against the demand (0, 1) | it meets it, with plan (0, 1.25); the first wording ("the economy cannot keep up") failed for tables that split (D-48) |
+| 09_5 | "near a hundred and seven hertz the room hums back" (the picture) | every tone of the 2.5 × 1.6 × 2.4 m bathroom from 60 to 150 Hz | nine: 68.6, 71.5, 99.1, 107.2, 127.3, 128.8, 137.2, 142.9, 146.0. The words are true; the first picture named four as if they were the list (D-53) |
 
 ## Sources
 

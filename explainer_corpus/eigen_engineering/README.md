@@ -26,8 +26,11 @@ problems.
 **Status: in production.** The brief, the facts and their oracle, the
 storyboard and its first review (R1, every finding disposed in
 `docs/reviews/eigen_engineering/R1.md`) are done; `./x eigen_engineering
-facts-check` passes. The script, scenes and drafts follow. Nothing has been
-narrated, scored or rendered at 4K yet.
+facts-check` passes. The script is done as far as P3 goes: a claim walk over
+every spoken number and always or never sentence (`docs/fact-sheet.md`), and a
+cut from 17.6 to 14.98 minutes by the G2 estimate, every cut a row of
+`docs/decisions.md`. Review R2, the scenes and the drafts follow. Nothing has
+been narrated, scored or rendered at 4K yet.
 
 - `docs/protected.tsv`: the words every revision keeps, checked with the
   skill's `protected_check.py` after every script change.
