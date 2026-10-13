@@ -305,3 +305,14 @@ Also confirmed though not on screen: the palette's nine roles are at least
 ΔE2000 20 apart (my CIEDE2000: least 20.7, pink against violet; 20.8 orange
 against gold); the storyboard's note figures 0.29 m/s, 0.58 m, 0.82 m, rank 4
 stretched out, 0.7° and 7° off, 5.1% wider all recompute.
+
+## Names (P3 probe, 2026-10-13, michael)
+
+Probed with `probe_names.py run --voice michael` (three carriers, a control and a decoy each);
+`lexicon.json` keeps each name's respelling and what the ASR heard. Respelled because the plain
+spelling is misread: Lie as "Lee", Euler as "Oiler", Sophus as "Soofus", Chasles as "Shahl"
+(plain: "Chassels"), Mozzi as "Motsee" (plain: "Mozzie"), KUKA as "Kuka" (the capitals read
+unsteadily). Read as written, heard right: Apollo, Collins, Newton, Brockett, Jacobian, gimbal (hard
+g; "JIM-bul" was heard as "Jim Bull") and Rodrigues ("rod-REE-gez" took a soft g). For the owner's
+ear or the narration sheets: Rodrigues (05_6), Chasles and Mozzi (07_6), Brockett's stress (08_6),
+KUKA (01_5, 06_1), Sophus (05_7, the English SOH-fus is the alternative) and gimbal's g.

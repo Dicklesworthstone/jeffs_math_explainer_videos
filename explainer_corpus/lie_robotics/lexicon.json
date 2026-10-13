@@ -1,0 +1,281 @@
+{
+ "_comment": "Pronunciation lexicon for Video G (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Names and terms the script speaks: Lie, Sophus, Euler, Rodrigues, Chasles, Mozzi, Brockett, KUKA, Apollo, Collins, Jacobian, Newton, gimbal. On screen only, not here: quaternion, iiwa (no source of record for its pronunciation). Lie and Euler copied from Video J's record; the rest looked up with lookup_pronunciation.py and corrected by hand where it guessed (Sophus, KUKA, Mozzi), each note says how. Probed with probe_names.py run --voice michael on 2026-10-13; each entry's probe.verdict says what the ASR heard and why that respelling was kept (plain spellings where michael reads the word right). The owner's pronunciation overrides every entry.",
+ "words": {
+  "Lie": {
+   "say": "Lee",
+   "respell": [
+    "Lee"
+   ],
+   "ipa": "liː",
+   "lang": "no",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Sophus_Lie",
+    "https://en.wiktionary.org/wiki/lie#English"
+   ],
+   "decoy": [
+    "Lye"
+   ],
+   "note": "Sophus Lie, Norwegian [liː]: 'Lee'. Spoken at 15_4 ('Lie algebra', 'Lie group'). The ordinary spelling is not offered to the voice: it is the English word 'lie'. Copied from Video J's lexicon (same voice and ftts build); in this video spoken at 05_7 ('Sophus Lie'), 15_4 and 15_5 ('Lie group').",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "VERIFIED as in Video J: 'Lee' heard as Lee 3/3; the plain spelling and the decoy 'Lye' heard as lie/Lye/Lai. The tool says UNVERIFIED only because the decoy's 'lie' is the name's own spelling."
+   }
+  },
+  "Euler": {
+   "say": "OY-ler",
+   "respell": [
+    "Oiler",
+    "OY-ler"
+   ],
+   "ipa": "ˈɔʏlər",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Leonhard_Euler",
+    "https://en.wiktionary.org/wiki/Euler#English",
+    "https://en.wiktionary.org/wiki/Euler#German"
+   ],
+   "decoy": [
+    "YOO-ler"
+   ],
+   "note": "English usage; Wikipedia's lead notes that 'YOO-ler' is considered incorrect. Copied from Video J's lexicon (same voice and ftts build); in this video spoken at 02_4. The plain spelling fails in michael (heard YOO-ler, control 0/3), so the respelling matters.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: Oiler and OY-ler heard as Euler 3/3; the plain spelling heard as EULA/Eula (YOO-ler) 2/3; the decoy YOO-ler heard differently."
+   }
+  },
+  "Sophus": {
+   "say": "SOO-fus",
+   "respell": [
+    "Soofus"
+   ],
+   "ipa": "ˈsûːfʉs",
+   "lang": "no",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Sophus_Lie"
+   ],
+   "decoy": [
+    "SOFF-us"
+   ],
+   "note": "Marius Sophus Lie, Norwegian [ˈsûːfʉs] (Wikipedia's lead). English speakers often say SOH-fus; the owner's ear decides. The lookup tool returned 'Lee' here, the IPA of the surname, corrected by hand. Spoken at 05_7 ('Sophus Lie').",
+   "accept": [
+    "Sufus",
+    "Sufis",
+    "Sophus"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: Soofus heard as Sufus/Sufis 3/3, the SOO-fus target; the plain spelling read as Sofit/Sofa/Sophos; SOO-fus was read as letters. The owner may prefer the English SOH-fus."
+   }
+  },
+  "Rodrigues": {
+   "say": "rod-REE-gez",
+   "respell": [
+    "Rodrigues"
+   ],
+   "ipa": "rɒˈdriːɡɛz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Rodrigues#Spanish",
+    "https://en.wiktionary.org/wiki/Rodrigues#Portuguese",
+    "https://en.wikipedia.org/wiki/Olinde_Rodrigues"
+   ],
+   "decoy": [
+    "ROD-ri-gooz"
+   ],
+   "note": "Olinde Rodrigues was French (Bordeaux), of a Portuguese-Jewish family; French [ʁɔdʁiɡ] is roh-DREEG. English usage for 'Rodrigues' formula' keeps the final s, close to the Spanish /roˈdɾiɡes/ in Wiktionary; no written source gives the English usage. Partial, for the owner's ear. Spoken at 05_6.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL, for the owner's ear: the plain spelling heard as Rodrigues 2/3 (Roderick once); the respelling rod-REE-gez was read with a soft g (Rod Regis, Rejez), so it is dropped; the decoy ROD-ri-gooz was also heard once as Rodrigues, so the ASR does not settle the vowel. Check the 05_6 narration sheet."
+   }
+  },
+  "Chasles": {
+   "say": "Shahl",
+   "respell": [
+    "Shahl"
+   ],
+   "ipa": "ʃal",
+   "lang": "fr",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Michel_Chasles"
+   ],
+   "decoy": [
+    "CHASS-ulz"
+   ],
+   "note": "Michel Chasles, French [ʃal] (Wikipedia's lead): the s is silent. Spoken at 07_6.",
+   "accept": [
+    "Shal",
+    "Schaal"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL 2/3: Shahl heard as Shal, Schaal (and Charles once); the plain spelling is read wrongly with the s sounded (Chassels, Chaz all); Shall was read as 'shall'. Check the 07_6 sheet."
+   }
+  },
+  "Mozzi": {
+   "say": "MOHT-see",
+   "respell": [
+    "Motsee",
+    "MOHT-see"
+   ],
+   "ipa": "ˈmottsi",
+   "lang": "it",
+   "sources": [],
+   "decoy": [
+    "MOZZ-ee"
+   ],
+   "note": "Giulio Mozzi, Italian; no article with a pronunciation was found. Italian orthography: zz between vowels is a long ts. Guessed from spelling, low confidence: for the owner's ear. Spoken at 07_6.",
+   "accept": [
+    "Motsi",
+    "Motzi",
+    "Moatsi"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL, low-confidence target (from Italian spelling): Motsee heard as MOTSI, Motzi, Motsi 3/3 (the tool counts 2/3); MOHT-see as Moatsy, Moatsi and once Mutt-C; the plain spelling is read MOZZ-ee (Mozzie, Muzzy), the decoy's sound. For the owner's ear."
+   }
+  },
+  "Brockett": {
+   "say": "BROCK-it",
+   "respell": [
+    "Brockett"
+   ],
+   "ipa": "ˈbrɒkɪt",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Roger_W._Brockett"
+   ],
+   "decoy": [
+    "bro-KET"
+   ],
+   "note": "Roger Brockett, American; an English surname with regular spelling, stress first. No source gives its pronunciation. Spoken at 08_6.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain spelling: heard as Brockett 2/3 (Rocket once, in the middle carrier); an ordinary English surname read as written. The ASR does not tell BROCK-it from bro-KET, so the stress is for the owner's ear."
+   }
+  },
+  "KUKA": {
+   "say": "KOO-kah",
+   "respell": [
+    "Kuka"
+   ],
+   "ipa": "ˈkuːka",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/KUKA"
+   ],
+   "decoy": [
+    "K U K A"
+   ],
+   "accept": [
+    "Kuka",
+    "Kukka"
+   ],
+   "note": "The German robot maker; the name began as an acronym (Keller und Knappich Augsburg) and is said as a word, KOO-kah, in German and in English trade use. The lookup tool assumed letters; the letters reading is the decoy. Spoken at 01_5 and 06_1.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL: 'Kuka' heard as Kuka 2/3 (Hookah once), the word reading KOO-kah; the capitals KUKA were read unsteadily (Kukka, Kyugah) and the letters decoy was heard as KUKA, so the capitals are not offered to the voice. Check the 01_5 and 06_1 sheets."
+   }
+  },
+  "Apollo": {
+   "say": "uh-POL-oh",
+   "respell": [
+    "Apollo"
+   ],
+   "ipa": "əˈpɒləʊ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Apollo#English"
+   ],
+   "decoy": [
+    "APP-uh-loh"
+   ],
+   "note": "Apollo 11's guidance computer and gimbal lock. Spoken at 03_4 and 03_5.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: the plain word heard as Apollo 3/3; the decoy APP-uh-loh heard differently."
+   }
+  },
+  "Collins": {
+   "say": "KOL-inz",
+   "respell": [
+    "Collins"
+   ],
+   "ipa": "ˈkɒlɪnz",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Collins#English",
+    "https://en.wikipedia.org/wiki/Michael_Collins_(astronaut)"
+   ],
+   "decoy": [
+    "Colleens"
+   ],
+   "note": "Michael Collins, Apollo 11's command module pilot. Spoken at 03_5.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word: heard as Collins 2/3 (Colin once); KOL-inz was worse (Cullen, Cole Innes). An ordinary English name."
+   }
+  },
+  "Jacobian": {
+   "say": "juh-KOH-bee-un",
+   "respell": [
+    "Jacobian"
+   ],
+   "ipa": "dʒəˈkoʊbiən",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant",
+    "https://en.wiktionary.org/wiki/Jacobian#English"
+   ],
+   "decoy": [
+    "JAY-cob-ee-un"
+   ],
+   "note": "A term of art (some say yuh-KOH-bee-un, after Jacobi). Spoken at 10_3 and 13_4.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word: heard as Jacobian 2/3 (once garbled mid-sentence); the respelling juh-KOH-bee-un was read as letters (Jocko H.B.). Check the 10_3 and 13_4 sheets."
+   }
+  },
+  "Newton": {
+   "say": "NOO-tun",
+   "respell": [
+    "Newton"
+   ],
+   "ipa": "ˈnuːtən",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Isaac_Newton",
+    "https://en.wiktionary.org/wiki/Newton#English"
+   ],
+   "decoy": [
+    "Nooton"
+   ],
+   "note": "Newton's method at 13_6; US speech drops the y (NOO-tun), British keeps it (NYOO-tun).",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word: heard as Newton 3/3. The tool says UNVERIFIED because the plain spelling heard as itself proves nothing about the vowel; NOO-tun and NYOO-tun are both standard."
+   }
+  },
+  "gimbal": {
+   "say": "GIM-bul",
+   "respell": [
+    "gimbal"
+   ],
+   "ipa": "ˈd͡ʒɪmbəl",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/gimbal#English"
+   ],
+   "decoy": [
+    "gamble"
+   ],
+   "note": "Both JIM-bul (Wiktionary) and GIM-bul (Merriam-Webster's first) are standard; the ASR spells both 'gimbal', so the reading heard is for the owner's ear. Spoken at 03_1, 03_3, 03_5, 11_6.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word: heard as gimbal 3/3 (hard g, GIM-bul, Merriam-Webster's first reading). The tool's winner JIM-bul was heard as Jimbo, Jimble, Jim Bull, which would fail the line gate at 03_1, 03_3, 03_5 and 11_6, so it is not used; the owner may prefer JIM-bul."
+   }
+  }
+ },
+ "phrases": {
+  "jim bull": "gimbal"
+ }
+}
