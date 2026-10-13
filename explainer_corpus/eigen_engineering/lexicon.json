@@ -1,0 +1,121 @@
+{
+ "_comment": "Pronunciation lexicon for Video K (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Names and terms the script speaks (script.tsv of 63291ba): Tacoma, Schroeder, Wallace Sabine, eigenvalue(s), eigenvector(s), Eigen; London, Boston and Wallace are ordinary English and not listed. The brief's other names (Leontief, Helmholtz, Perron, Frobenius, Hilbert, Lanczos, Eigentöne) are not spoken in this script: add them if a revision speaks them. eigenvalue copied from Video J's record; the rest looked up and corrected by hand where the tool guessed, each note says how. Probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. The owner's pronunciation overrides every entry.",
+ "words": {
+  "eigenvalue": {
+   "say": "EYE-gen-val-yoo",
+   "ipa": "ˈaɪɡənˌvæljuː",
+   "lang": "en",
+   "respell": [
+    "eigenvalue"
+   ],
+   "decoy": [
+    "EE-jen-value"
+   ],
+   "sources": [
+    "https://en.wiktionary.org/wiki/eigenvalue#English"
+   ],
+   "note": "Copied from Video J's lexicon (same voice and ftts build). Its probe: the plain word is heard right mid-sentence and at the end, and as 'Egin value' at a sentence start; this script never opens a sentence with it (03_6, 04_3, 12_4, 12_5, 13_4, 13_7, 14_3).",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL, as in Video J: the plain word heard as eigenvalue at the start and end carriers and as 'Egin value' in the middle one; EYE-gen-val-yoo was read as letters (iiGen, I Gen); the decoy EE-jen-value heard differently. Check the narration sheets of its lines."
+   }
+  },
+  "eigenvector": {
+   "say": "EYE-gen-vek-ter",
+   "respell": [
+    "eigenvector"
+   ],
+   "ipa": "ˈaɪɡənˌvɛktə",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/eigenvector#English"
+   ],
+   "decoy": [
+    "EE-jen-vector"
+   ],
+   "note": "The lookup tool returned the Dutch IPA; the English is EYE-gen. Spoken at 03_6, 06_2, 11_5, 12_4.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL: the plain word heard as eigenvector 2/3 ('Egon Vector' once, mid-sentence); EYE-gen-vek-ter was read as letters (iGen Vector); the decoy heard differently."
+   }
+  },
+  "Eigen": {
+   "say": "EYE-gen",
+   "respell": [
+    "Eigen"
+   ],
+   "ipa": "ˈaɪɡən",
+   "lang": "de",
+   "sources": [
+    "https://en.wiktionary.org/wiki/eigen#German"
+   ],
+   "decoy": [
+    "EE-jen"
+   ],
+   "note": "German 'own'. 03_6 opens a sentence with it ('Eigen is German for own.'), the position where 'eigenvalue' failed in Video J's probe, so it is probed on its own.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word: heard as Eigen 3/3, including at a sentence start (the position 03_6 uses); EYE-gen was heard as iGen. The tool says UNVERIFIED because a plain spelling heard as itself proves nothing about the vowel, but the decoy EE-jen was heard differently (EEGEN, E.E. Jen)."
+   }
+  },
+  "Schroeder": {
+   "say": "SHROH-der",
+   "respell": [
+    "Schroeder"
+   ],
+   "ipa": "ˈʃroʊdər",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Manfred_R._Schroeder"
+   ],
+   "decoy": [
+    "SHRAY-der"
+   ],
+   "note": "Manfred Schroeder (German-born, at Bell Labs in the US for decades); German Schröder [ˈʃʁøːdɐ]. SHROH-der is the usual American reading of this spelling; no source gives his own usage, and the lookup tool returned Portuguese readings. Partial, for the owner's ear. Spoken at 10_6.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: the plain spelling heard as Schroeder 3/3 and the decoy SHRAY-der as Schrader 2/3, so the read is not SHRAY-der; SHROH-der as a respelling was garbled (Roshta). Still for the owner's ear (no source for his own usage)."
+   }
+  },
+  "Sabine": {
+   "say": "SAY-bine",
+   "respell": [
+    "SAY-bine"
+   ],
+   "ipa": "ˈseɪbaɪn",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Sabine#English",
+    "https://www.merriam-webster.com/dictionary/sabin"
+   ],
+   "decoy": [
+    "suh-BEEN"
+   ],
+   "note": "Wallace Clement Sabine. Wiktionary's General American reading of the name is SAY-bine; the unit named after him, the sabin, is SAY-bin in Merriam-Webster. No source gives the physicist's own usage: partial, for the owner's ear. Spoken at 11_1 ('Wallace Sabine').",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: SAY-bine heard as Sabine 3/3; SAY-bin heard as Sabin 3/3 (the unit's reading, kept as the alternative for the owner); the decoy suh-BEEN heard differently. For the owner's ear."
+   }
+  },
+  "Tacoma": {
+   "say": "tuh-KOH-muh",
+   "respell": [
+    "Tacoma"
+   ],
+   "ipa": "təˈkoʊmə",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Tacoma,_Washington",
+    "https://en.wiktionary.org/wiki/Tacoma#English"
+   ],
+   "decoy": [
+    "TACK-uh-muh"
+   ],
+   "note": "The Tacoma Narrows Bridge, 1940. Spoken at 08_1.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PASS: the plain word heard as Tacoma 3/3; tuh-KOH-muh as a respelling was garbled."
+   }
+  }
+ }
+}
