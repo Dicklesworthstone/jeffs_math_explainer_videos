@@ -121,26 +121,30 @@ fn six(text: &str) -> String {
     text.replace('-', "−")
 }
 
-/// The goal's marker, a dot and the three axes of its orientation, in the
-/// goal's pink.
-pub fn goal_frame(goal: &Pose, len: f64) -> Vec<Shape> {
-    let pink = palette::goal();
+/// A pose's marker: a dot at its position and the three axes of its
+/// orientation, `len` long, in `color`.
+pub fn pose_frame(pose: &Pose, len: f64, color: Srgb) -> Vec<Shape> {
     let mut frame = vec![Shape::Dot {
-        at: goal.p,
-        color: pink,
+        at: pose.p,
+        color,
         radius: 0.13,
     }];
     for k in 0..3 {
-        let c = [goal.r[0][k], goal.r[1][k], goal.r[2][k]];
+        let c = [pose.r[0][k], pose.r[1][k], pose.r[2][k]];
         frame.push(Shape::Arrow {
-            from: goal.p,
-            to: add(goal.p, scale(c, len)),
-            color: pink,
+            from: pose.p,
+            to: add(pose.p, scale(c, len)),
+            color,
             width: 5.0,
             head: 0.2,
         });
     }
     frame
+}
+
+/// The goal's marker, in the goal's pink.
+pub fn goal_frame(goal: &Pose, len: f64) -> Vec<Shape> {
+    pose_frame(goal, len, palette::goal())
 }
 
 /// The gimbal's three frames for ring angles (degrees): the outer ring turns
