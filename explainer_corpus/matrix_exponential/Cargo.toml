@@ -1,0 +1,17 @@
+[package]
+name = "matrix_exponential_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "What Does It Mean to Raise e to a Matrix?: the exponential as a rule for tiny steps, the matrix power series and why it always converges, what e^{tA} means for tanks, networks and chance, and the doorway to Lie theory; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "expm"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

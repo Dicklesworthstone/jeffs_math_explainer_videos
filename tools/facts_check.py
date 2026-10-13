@@ -3,10 +3,11 @@
     ./x <slug> facts-check            (python3 -I tools/facts_check.py <slug>)
 
 Runs the video's `facts` command (cargo run --release; the binary is named in
-explainer_corpus/<slug>/Cargo.toml) and its `oracle.py` (with numpy, via uv),
-then compares: every key the video prints must appear in the oracle's output
-with the identical value. The oracle may print more (research rows the video
-does not show). Exit 1 on any missing key, differing value, repeated key or an
+explainer_corpus/<slug>/Cargo.toml) and its `oracle.py` (with numpy, via uv;
+an oracle that needs more names it in a `# oracle-packages: scipy` line among
+its first ten lines), then compares: every key the video prints must appear in
+the oracle's output with the identical value. The oracle may print more
+(research rows the video does not show). Exit 1 on any missing key, differing value, repeated key or an
 empty list, 2 on usage.
 
 Where `rch` is installed the build runs on a worker (nothing compiles on the
@@ -57,6 +58,20 @@ def cargo_prefix():
     return ["rch", "exec", "--base", "HEAD", "--clean-overlay", *overlays, "--", "cargo"]
 
 
+def oracle_packages(oracle):
+    """numpy, then whatever the oracle's `# oracle-packages: a b` line names."""
+    packages = ["numpy"]
+    for line in oracle.read_text().splitlines()[:10]:
+        m = re.match(r"#\s*oracle-packages:\s*(.*)$", line)
+        if m:
+            for name in m.group(1).split():
+                if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", name):
+                    sys.exit(f"facts-check: bad package name {name!r} in {oracle.name}")
+                if name not in packages:
+                    packages.append(name)
+    return packages
+
+
 def main(argv):
     if len(argv) != 1:
         sys.exit(__doc__)
@@ -73,7 +88,9 @@ def main(argv):
         sys.stderr.write(video.stderr)
         sys.exit(f"facts-check: {binary} facts failed ({video.returncode})")
     oracle = subprocess.run(
-        ["uv", "run", "--quiet", "--no-project", "--with", "numpy", "python3", "-I", "-B", "oracle.py"],
+        ["uv", "run", "--quiet", "--no-project",
+         *(arg for name in oracle_packages(crate / "oracle.py") for arg in ("--with", name)),
+         "python3", "-I", "-B", "oracle.py"],
         cwd=crate, capture_output=True, text=True, timeout=ORACLE_TIMEOUT_S)
     if oracle.returncode != 0:
         sys.stderr.write(oracle.stderr[-4000:])
