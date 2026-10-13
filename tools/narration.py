@@ -87,6 +87,8 @@ FAINT = 28.0               # dB under: a breath or hiss this far down can take a
 SENTENCE_GAP = 0.30        # s of no syllable that ends the sentence once the ASR's last word is behind
 HOLD = 0.12                # s of silence that is a pause; shorter is a stop consonant's closure
 ONSET_REACH = 0.45         # s before the first syllable searched for that silence
+BED_MIN = 0.30             # s: sound before the first voiced stretch that is shorter than this and
+BED_UNDER = 9.0            # comes within this many dB of speech level is the first syllable, not a bed
 TAIL_REACH = 0.50          # s after the last syllable searched for it
 MIN_PAUSE = 0.12
 # kind of pause: ((longest a silent one may be, what it is cut to), (the same for one with a breath
@@ -251,11 +253,17 @@ def hear(x, rate, last_word_end):
     # "sh" takes less) before the take's first voiced stretch is a noise bed, not the first word
     # (robert opens takes with up to 0.8 s of it, 12 dB under the speech).
     # The stretch must also sound like noise (see `noise`): a creaky "And" has no pitch the tracker
-    # can follow, and this rule once took one for a bed and dropped the word.
+    # can follow, and this rule once took one for a bed and dropped the word. And it must be long or
+    # quiet: michael opens words with an aspirated t, an s or a creaky vowel that sound like noise and
+    # come up to 0.28 s before the tracker hears a voice, at speech level ("Take its rate" was cut
+    # to "ake its rate", heard as "It gets rate"; "That's" and "At" lost the same way). robert's beds
+    # run 0.3 to 0.8 s, about 12 dB under the speech.
     voiced = first_voiced(x, rate, top)
-    if voiced is not None and first < frames(voiced - 0.20) and (
+    bed_end = frames(voiced - 0.20) if voiced is not None else 0
+    if voiced is not None and first < bed_end and (
+            (bed_end - first) * HOP >= BED_MIN or db[first:bed_end].max() < top - BED_UNDER) and (
             noise(x[int(first * HOP * rate):int((voiced - 0.20) * rate)], rate)
-            or steady(db[first:frames(voiced - 0.20)])):
+            or steady(db[first:bed_end])):
         first = min(last, next((i for i in range(frames(voiced - 0.20), len(db)) if db[i] >= top - NUCLEUS), first))
     # Nor is a hum: a steady, modest tone that opens the take and gives way before the first
     # syllable (robert: about 0.4 s near 300 Hz, 18 to 21 dB under the speech). It is periodic, so
