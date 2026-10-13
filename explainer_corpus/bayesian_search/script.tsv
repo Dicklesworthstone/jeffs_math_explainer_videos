@@ -1,23 +1,23 @@
 # bayesian_search: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	A nuclear sub has gone missing. Men are trapped, and time is running out. How can we possibly find them in time?
-01_2	Start with a strange idea. A search that finds nothing has still told you something.
+01_2	Watch a search that finds nothing. It has still told you something.
 02_1	In May of nineteen sixty-eight the United States Navy had to ask that question for real. The U S S Scorpion, a nuclear submarine, was heading home across the Atlantic with ninety-nine men aboard.
 02_2	She was due at Norfolk, Virginia, on the twenty-seventh, and did not arrive. For nine days the Navy searched the ocean, as if her crew might still be saved.
 02_3	They could not be. She had gone down five days before she was due, in more than ten thousand feet of water. All ninety-nine men were lost.
-02_4	Nobody knew that yet. And even to find the wreck, the Navy faced the first question of any search. Where do you look?
-02_5	Not everywhere. The search had narrowed to a patch of sea about twelve miles on a side. But the search gear rode a sled, towed just above the sea floor, and saw a strip about two hundred feet wide.
-02_6	One pass over the whole patch meant forty-six hundred miles of towing, more than four times what the sled managed in the whole search.
+02_4	Nobody could be sure of that yet. And even to find the wreck, the Navy faced the first question of any search. Where do you look?
+02_5	Not everywhere. The search had narrowed to a patch of sea about twelve miles on a side. But the search gear rode a sled, towed just above the sea floor. It saw a strip about two hundred feet wide.
+02_6	One pass over the whole patch meant thousands of miles of towing. That is several times all the open-sea searching the sled did before the find.
 02_7	So where would you look first?
-03_1	The natural answer is, wherever it most likely is. So you need a map of how likely each place is.
+03_1	The natural answer is, the likeliest place. So you need a map that gives every place its chance.
 03_2	Start small, with a made-up sea. Four cells, a lost ship, and two stories of what might have happened to it.
-03_3	In the first story it kept to its route, so the wreck is most likely in cell A, maybe in B, less likely in C. In the second it strayed, and the wreck could be anywhere.
-03_4	Experts weigh the two stories. Say sixty to forty. Now picture a hundred dots, sixty from the first story and forty from the second. Each dot is one place the wreck could be.
+03_3	In the first story it kept to its route. Then the wreck is most likely in cell A, maybe in B, less likely in C. In the second it strayed, and the wreck could be anywhere.
+03_4	Now weigh the two stories by how much you believe each one. Say sixty to forty. Then picture a hundred dots, sixty from the first story and forty from the second. Each dot is one place the wreck could be.
 03_5	The first story puts half of its dots in cell A. The second puts a quarter of its dots there. What is the chance the wreck is in cell A?
 03_6	Half of sixty is thirty. A quarter of forty is ten. Forty dots in a hundred. Forty percent.
 03_7	Count every cell that way and you have the map. Forty, thirty, twenty, ten.
-04_1	The Navy's map was made the same way. John Craven, a Navy scientist, had first tried the idea two years earlier, searching for a hydrogen bomb lost in the sea off Palomares, in Spain.
-04_2	That bomb was found near where a fisherman watched it fall, but the idea stayed. In July of sixty-eight, Craven and a colleague named Andrews set out nine stories of how the Scorpion might have been lost, and gave each a weight.
-04_3	A mathematician, Henry Richardson, had a computer play those stories out ten thousand times. Ten thousand dots.
+04_1	The Navy's map was made the same way. A Navy scientist, John Craven, had first tried the idea two years earlier. He was searching for a hydrogen bomb, lost in the sea off Palomares, in Spain.
+04_2	That bomb was found near where a fisherman watched it fall, but the idea stayed. In July of sixty-eight, Craven and a colleague named Andrews set out nine stories of how the Scorpion might have been lost. They gave each story a weight.
+04_3	An analyst, Henry Richardson, had a computer play those stories out ten thousand times. Ten thousand dots.
 04_4	Then he counted the dots in every cell. This is the map they printed.
 04_5	One cell stands out, with one dot in every eight. They called it E five. Was she there?
 04_6	Almost. The wreck lay in a neighbouring cell, within two hundred and sixty yards of the edge of E five.
@@ -29,7 +29,7 @@
 05_5	Cell B. A quarter of forty is ten. Two thirds of thirty is twenty. Twice the chance.
 05_6	The chance of a find is the chance it is there, times the chance of seeing it. So the best cell to search is not always the likeliest.
 06_1	So we search cell B. And the search comes back empty.
-06_2	That is not nothing. Look at the dots. Thirty are in B, and this search would have caught two out of every three. Twenty dots.
+06_2	That is not nothing. Look at the dots. Thirty are in B, and the search would have caught two out of every three. Twenty dots.
 06_3	If the wreck were at any of those twenty, we would have it. We do not. So they go out.
 06_4	Eighty dots are left, and the wreck is at one of them. Ten are still in B, because a search can miss.
 06_5	Ten dots out of eighty. What is the chance it is in cell B now?
@@ -39,45 +39,45 @@
 07_1	That move has a name. Bayes' rule, after Thomas Bayes, an English minister who died in seventeen sixty-one.
 07_2	As a recipe. Multiply each cell's chance by the chance that the search would come back empty if the wreck were there. One third for cell B, and one for every other cell. Then divide by what is left, eighty, so the map adds up to a hundred again.
 07_3	Here is the new map. Cell A has half the chance now. But A is the canyon. Where do you search next?
-07_4	Cell C. In dots, nothing has changed for A or C. A search of A would still catch ten, and a search of C thirteen. Only B has fallen.
+07_4	Cell C. In dots, nothing has changed for A or C. A search of A would still catch ten, and a search of C thirteen and a third. Only B has fallen.
 07_5	Search. Come back empty. Update. Choose again. That loop is the whole method.
 08_1	Always search where the next search is most likely to find it. Is that really the best you can do?
-08_2	Yes, and you can see why. Each search of a cell puts out a fixed slice of the first hundred dots, whatever was searched in between. And a cell's slices only shrink.
-08_3	So the best eight searches are just the eight biggest slices, and the rule takes them biggest first. For a wreck that stays put, and searches that are fresh tries of equal effort, no other order is ever ahead.
+08_2	Yes. Each search of a cell puts out a fixed slice of the first hundred dots. It does not matter what was searched in between. And a cell's slices only shrink.
+08_3	So the best eight searches are the eight biggest slices, and the rule takes them biggest first. For a wreck that stays put, and searches that are fresh tries of equal effort, no other order is ever ahead.
 08_4	On the Navy's map the difference is large. Suppose every search sees a wreck in its cell two times in three. One plan has no map, and goes row by row. The other follows the rule.
-08_5	By the map's own reckoning, twenty searches row by row have less than one chance in a hundred of a find. Twenty by the rule, about one in two.
+08_5	By the map's own reckoning, twenty searches row by row have less than one chance in a hundred of a find. Twenty by the rule, about one in two. And most of that is the map itself.
 09_1	Why would a search see a wreck only two times in three? In the Second World War, hunting submarines, Bernard Koopman and his colleagues asked how much of an area a searcher really covers.
 09_2	With perfect strips, laid side by side, enough track to pass over a cell once would cover all of it.
 09_3	But if your strips land at random, some overlap and some leave gaps. The same track then covers, on average, sixty-three percent.
 09_4	Koopman's formula gives that number, and the rest of the curve. A little more track, and you are at two in three. That is one search of a flat cell.
 09_5	Run that search twice over one cell. The first pass catches six dots of nine. The second is a fresh try, and catches two in three of what is left. How many of the nine are caught?
 09_6	Eight. One dot in nine is still there, and a third pass leaves one in twenty-seven. Each pass finds less than the one before, and no number of passes makes it certain.
-10_1	A wreck stays where it is. A person in the water does not. Wind and current carry them, and nobody knows either one exactly.
+10_1	A wreck stays where it is. A person in the water does not. Wind and current carry that person along, and nobody knows either one exactly.
 10_2	So every dot moves with its own guess at the wind and the current. The map drifts, and it spreads. What does that do to a search?
-10_3	And a person is hard to see. From a helicopter, the Coast Guard counts on spotting someone in the water within a strip only a tenth of a mile wide.
-10_4	Twice the radius is four times the area, so each square mile gets a quarter of the track. In this model, a flight that would find the person ninety-three times in a hundred after one hour finds them thirteen times in a hundred after twelve. That is why hours matter.
-11_1	The United States Coast Guard has had software that searches this way since nineteen seventy-four. It moves thousands of dots, each a possible drifting person or boat, and updates them by Bayes' rule after every empty search.
+10_3	And a person is hard to see. From a helicopter, the Coast Guard counts on spotting someone in the water only inside a narrow strip. It is a tenth of a mile wide.
+10_4	Twice the radius is four times the area, so each square mile gets a quarter of the track. In this model, one hour in, a flight would find the person ninety-three times in a hundred. Twelve hours in, the same flight would find that person thirteen times in a hundred. That is why hours matter.
+11_1	The United States Coast Guard has had software that plans searches this way since nineteen seventy-four. It moves thousands of dots, each a possible drifting person or boat, and updates them by Bayes' rule after every empty search.
 11_2	In July of twenty thirteen, a lobsterman named John Aldridge fell off his boat at night, about forty miles off Long Island. Nobody saw him go.
 11_3	The searchers had to guess when he fell, and guessed the evening before. So the first map put its dots almost thirty miles too far north.
 11_4	The map was wrong because its story was wrong. What could fix it?
-11_5	Evidence. On deck, his partner found an open hatch and pumps running, work Aldridge would not have started until far offshore. He had fallen hours later.
-11_6	The Coast Guard ran the map again, and the dots moved south. That afternoon a helicopter flying through them spotted him, alive, clinging to a lobster buoy, after almost twelve hours in the water.
+11_5	Evidence. On deck, his partner found an open hatch, and pumps running. That was work Aldridge usually left until the boat was far offshore. He had fallen hours later.
+11_6	The Coast Guard ran the map again, and the dots moved south. That afternoon a helicopter flying through those dots spotted him. He was alive, clinging to two lobster buoys, after almost twelve hours in the water.
 12_1	June, two thousand nine. Air France flight four four seven, from Rio to Paris, went down in the Atlantic. All two hundred and twenty-eight people aboard were killed.
 12_2	The wreck had to lie inside a circle forty nautical miles in radius. In nearly two years, three underwater searches found nothing.
-12_3	Then a team of search analysts built a map from three smaller maps, weighted thirty-five, thirty-five and thirty, the way we weighted two stories, and updated it for every empty search.
+12_3	Then a team of search analysts built a map from three separate maps. They weighted the three thirty-five, thirty-five and thirty, the way we weighted two stories. And they updated the map for every empty search.
 12_4	One search needed a decision. For a month, ships had listened for the beacons on the plane's black boxes, and heard nothing. How much should that silence count?
 12_5	If the beacons worked, a great deal. If they were broken, not at all. So the analysts drew the map twice, once counting the silence, and once leaving it out.
-12_6	Both maps put their weight near the centre of the circle. The search resumed there, and found the wreck after about a week, in a high-chance part of the second map, and in water the listening ships had already crossed.
-13_1	The Navy had faced the same question in nineteen sixty-eight. Its map reached the search ship in August, two months into the search, and every pass of the sled since June was scored against it.
+12_6	Both maps put their weight near the centre of the circle. The search resumed there, and found the wreck after about a week. It lay in a high-chance part of the second map, in water the listening ships had already crossed.
+13_1	The Navy had faced the same question in nineteen sixty-eight. Its map reached the search ship in August, two months into the search. Every pass of the sled since June was then scored against it.
 13_2	By October, the ship's numbers said one cell had been searched ninety-four percent thoroughly. Of every hundred dots there, ninety-four went out. It was the cell with the wreck in it.
 13_3	The wreck was there, and the sled had been over that water. What went wrong?
 13_4	The estimate of how well they were looking. At sea, they believed the sonar could see a strip eight hundred feet wide.
-13_5	Measured afterwards against the wreck itself, the sonar that passed her had not seen her at all. The camera and the magnetic detector saw about two hundred feet.
-13_6	So the true figure for that cell was sixty-five percent, not ninety-four. And ten more passes with that sonar would have changed nothing.
-13_7	She was found at the end of October, when the sled went back to where a scrap of metal had been photographed that summer, beside the map's top cell.
+13_5	Estimated afterwards against the wreck itself, the sonar that passed her had not seen her at all. The camera and the magnetic detector saw about two hundred feet.
+13_6	So the better estimate for that cell was sixty-five percent, not ninety-four. And at that width, ten more passes with that sonar would have found nothing.
+13_7	She was found at the end of October. The sled had gone back to where a scrap of metal was photographed that summer, beside the map's top cell.
 14_1	An empty search only tells you something if it could have found what you were looking for.
-14_2	Four searches, each against its map. Palomares, found near where a fisherman watched it fall. Scorpion, beside the map's top cell. Air France, near the centre both maps pointed to. John Aldridge, inside the dots, once the story was put right.
-14_3	A strip believed too wide. A silence that might have meant nothing. A story five hours off. So what does the method ask of you?
-14_4	Not a first map that is right. A first map that leaves room for the truth. An honest account of how well you looked. And a new map, when new evidence says a story was wrong.
+14_2	Four searches, and where each one ended. Palomares, found near where a fisherman watched it fall. Scorpion, beside the map's top cell. Air France, near the centre both maps pointed to. John Aldridge, inside the dots, once the story was put right.
+14_3	The strip was believed too wide. The silence might have meant nothing. The story was five hours off. So what does the method ask of you?
+14_4	The first map does not have to be right. It has to leave room for the truth. You have to judge how well you really looked. And you need a new map when new evidence says a story was wrong.
 14_5	The ninety-nine men of the Scorpion could not be saved.
 14_6	The method that searched for them now searches for people who can.

@@ -1,0 +1,221 @@
+{
+ "_comment": "Pronunciation lexicon for Video H (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py, then the targets set by hand where the tool guessed another language (it offered French for Scorpion, Portuguese for Azores, Dutch for Koopman), and probed with probe_names.py in this video's voice, michael (ftts 0.1.11, FrankenWhisper), first in three generic carriers and then in the script's own sentences. Locked by sound: Koopman (plain), Palomares (Paloh-mah-ress), Aldridge (Alldridge). Scorpion, Craven, Bayes and Norfolk keep their plain spelling and are UNVERIFIED: the ASR writes the name for the decoy too. The script speaks Scorpion, Craven, Palomares, Koopman, Bayes, Norfolk and Aldridge; Azores is on screen only and is here because the order names it. Not in this file, as ordinary English names the voice reads without help: Andrews, Richardson, Thomas, Henry, Bernard, John, Virginia, Atlantic, Long Island, Air France, Rio, Paris. Re-probe when the voice or the ftts version changes; the owner's pronunciation overrides every entry.",
+ "words": {
+  "Scorpion": {
+   "say": "SKOR-pee-un",
+   "respell": [
+    "Scorpion"
+   ],
+   "ipa": "ˈskɔːpiən",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/scorpion#English"
+   ],
+   "decoy": [
+    "Skor-pie-on"
+   ],
+   "note": "The English word; the ship is named for it. UNVERIFIED by ASR: plain spelling kept; to be judged by spectrogram on the narration sheets (P6) and by the owner's ear.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Scorpion": "control heard as 'Scorpion' in all three of the script's sentences; the decoy Skor-pie-on was heard as the name too, so the ASR cannot verify it (the tool's FAIL counts come from numbers it wrote as digits, '99', '1761', '27th', \"'68\", which it scores as damaged carrier words)"
+    }
+   }
+  },
+  "Craven": {
+   "say": "KRAY-vun",
+   "respell": [
+    "Craven"
+   ],
+   "ipa": "ˈkɹeɪ.vən",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/craven#English"
+   ],
+   "decoy": [
+    "Krav-en"
+   ],
+   "note": "John P. Craven. No recording of his own reading was looked for beyond the dictionary form of the surname. UNVERIFIED by ASR: plain spelling kept; to be judged by spectrogram on the narration sheets (P6) and by the owner's ear.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Craven": "control heard as 'Craven' in all three (once 'Kraven'); the decoy Krav-en was heard as the name too, so the ASR cannot verify it (the tool's FAIL counts come from numbers it wrote as digits, '99', '1761', '27th', \"'68\", which it scores as damaged carrier words)"
+    }
+   }
+  },
+  "Palomares": {
+   "say": "pah-loh-MAH-ress",
+   "respell": [
+    "Paloh-mah-ress",
+    "Palomares"
+   ],
+   "ipa": "paloˈmaɾes",
+   "lang": "es",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Palomares#Spanish",
+    "https://en.wikipedia.org/wiki/Palomares,_Almer%C3%ADa"
+   ],
+   "decoy": [
+    "Pal-oh-mairs"
+   ],
+   "note": "The Spanish village; the target is the Spanish stress (on MA) in English sounds.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Paloh-mah-ress",
+    "discriminates": true,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Paloh-mah-ress": "candidate PASS 3/3 in the script's sentences",
+     "Palomares": "control FAIL 0/3 (heard Palomiras, Palomaris)",
+     "Pah-lo-mah-ress": "FAIL 1/3",
+     "Pal-oh-mairs": "decoy OK (heard differently)"
+    }
+   }
+  },
+  "Azores": {
+   "say": "uh-ZORZ",
+   "respell": [
+    "Azores"
+   ],
+   "ipa": "əˈzɔːz",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Azores",
+    "https://en.wiktionary.org/wiki/Azores#English"
+   ],
+   "decoy": [
+    "Az-oh-ress"
+   ],
+   "note": "English usage (Wikipedia's lead; AY-zorz is also heard in the United States). On screen only in this script. Probed once with generic carriers: uh-Zorz and uh-ZORZ PARTIAL 2/3 (the first syllable lost). Not spoken, so not probed further."
+  },
+  "Koopman": {
+   "say": "KOOP-mun",
+   "respell": [
+    "Koopman",
+    "Koop-man"
+   ],
+   "ipa": "ˈkuːpmən",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Bernard_Koopman"
+   ],
+   "decoy": [
+    "Kop-man"
+   ],
+   "note": "Bernard Osgood Koopman, an American born in Paris. No recording or written note of how he said his own name was found; this is the reading English-speaking mathematicians use for the Koopman operator. The Dutch word is KOHP-mahn. Unsourced: the owner's call if he knows better.",
+   "accept": [
+    "coopman"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Koopman",
+    "discriminates": true,
+    "results": {
+     "Koopman": "control PASS 3/3",
+     "Koop-man": "candidate PASS 3/3",
+     "KOOP-mun": "candidate FAIL 1/3",
+     "Kop-man": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Bayes": {
+   "say": "BAYZ",
+   "respell": [
+    "Bayes"
+   ],
+   "ipa": "beɪz",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Thomas_Bayes"
+   ],
+   "decoy": [
+    "Bay-ess"
+   ],
+   "note": "One syllable. The script says \"Bayes' rule\" and \"Thomas Bayes\". UNVERIFIED by ASR: plain spelling kept; to be judged by spectrogram on the narration sheets (P6) and by the owner's ear.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Bayes": "control heard as 'Bayes' or 'Bays' in all three; the decoy Bay-ess was heard as the name too, so the ASR cannot verify it (the tool's FAIL counts come from numbers it wrote as digits, '99', '1761', '27th', \"'68\", which it scores as damaged carrier words)"
+    }
+   }
+  },
+  "Norfolk": {
+   "say": "NOR-fuk",
+   "respell": [
+    "Norfolk"
+   ],
+   "ipa": "ˈnɔːrfək",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Norfolk,_Virginia"
+   ],
+   "decoy": [
+    "Nor-folk"
+   ],
+   "note": "Norfolk, Virginia: the second syllable is reduced, not \"folk\". UNVERIFIED by ASR: plain spelling kept; to be judged by spectrogram on the narration sheets (P6) and by the owner's ear.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Norfolk": "control heard as 'Norfolk' in all three; the decoy Nor-folk was heard as the name too, so the ASR cannot verify it (the tool's FAIL counts come from numbers it wrote as digits, '99', '1761', '27th', \"'68\", which it scores as damaged carrier words)"
+    }
+   }
+  },
+  "Aldridge": {
+   "say": "AWL-drij",
+   "respell": [
+    "Alldridge",
+    "Aldridge"
+   ],
+   "ipa": "ˈɔːldɹɪdʒ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Aldridge"
+   ],
+   "decoy": [
+    "Al-dry-je"
+   ],
+   "note": "John Aldridge, the lobsterman of chapter 11.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Alldridge",
+    "discriminates": true,
+    "carriers": "the script's own sentences (second run), after three generic carriers",
+    "results": {
+     "Alldridge": "candidate PASS 3/3",
+     "Aldridge": "control UNVERIFIED (heard 'Aldridge', not provable)",
+     "AWL-drij": "FAIL 0/3 (read as letters)",
+     "Al-dry-je": "decoy OK"
+    }
+   }
+  }
+ },
+ "phrases": {
+  "coop man": "koopman"
+ }
+}
