@@ -11,7 +11,7 @@ use std::cell::Cell;
 use std::rc::Rc;
 
 use explainer_kit::props::{precisely, predict_pause};
-use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, hex, play, sound_file, thousands, v};
+use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, hex, lagged, play, sound_file, thousands, v};
 use explainer_score::instr::{Instrument, Note, render};
 use explainer_score::{FS, Stereo};
 use fmn::animation::replacement_transform;
@@ -273,6 +273,58 @@ pub(super) fn beats_are_spoken(beats: &[(&str, &str)]) -> Result<(), String> {
 /// Scene error from a model error (a careful range refused by the guard).
 pub(super) fn model(e: String) -> fmn::Error {
     fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(e.into_boxed_str())))
+}
+
+/// 12_5's slide, which every stop's change lasts: the knob, the bar, and the
+/// values' swap (half out, half in).
+const SLIDE_S: f64 = 1.2;
+
+/// One info line of 12_5 split into its words and its value. The line is
+/// drawn as one text, so the value sits on the words' baseline, and its
+/// glyphs are shared out between two groups. With no anchor the line is
+/// centred at its place; with one, the line's first glyph goes to the anchor,
+/// so a later stop's value lands beside the words already on screen. Returns
+/// the words, the value and the anchor (the first glyph's lower-left corner).
+fn split_line(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    (words, value, size, color, at): (&str, String, f64, Srgb, Vec3),
+    anchor: Option<Vec3>,
+) -> fmn::Result<(Mob, Mob, Vec3)> {
+    let full = format!("{words}{value}");
+    let line = kit.text(stage, &full, size, color, at)?;
+    let glyphs = explainer_kit::children(stage, line);
+    let visible = |s: &str| s.chars().filter(|c| !c.is_whitespace()).count();
+    // one child per visible character, in reading order (fmn's Text)
+    if glyphs.len() != visible(&full) {
+        return Err(model(format!(
+            "{full:?}: {} glyphs for {} visible characters",
+            glyphs.len(),
+            visible(&full)
+        )));
+    }
+    let first = stage.get_corner(glyphs[0], DL);
+    if let Some(a) = anchor {
+        stage.shift(line, v(a[0] - first[0], a[1] - first[1]));
+    }
+    let words_g = stage.arena_mut().add(VMobject::new());
+    let value_g = stage.arena_mut().add(VMobject::new());
+    for (k, &g) in glyphs.iter().enumerate() {
+        stage.attach(if k < visible(words) { words_g } else { value_g }, g)?;
+    }
+    Ok((words_g, value_g, anchor.unwrap_or(first)))
+}
+
+/// Half of a value swap: a fade out (or in) over half the slide, drifting by
+/// `shift` (a fade in arrives from `-shift`).
+fn swap_fade(stage: &mut Stage<'_>, m: Mob, shift: Vec3, arriving: bool) -> fmn::Result<Box<dyn Animation>> {
+    if arriving {
+        let a = fade_in(stage.arena_mut(), m, shift, 1.0)?.rt(SLIDE_S / 2.0);
+        stage.prepare(a)
+    } else {
+        let a = fade_out(stage.arena_mut(), m, shift, 1.0)?.rt(SLIDE_S / 2.0);
+        stage.prepare(a)
+    }
 }
 
 pub struct RingToss {
@@ -1118,54 +1170,54 @@ impl RingToss {
             })
             .collect::<Result<_, String>>()
             .map_err(model)?;
-        let info = |kit: &Kit, stage: &mut Stage<'_>, i: usize| -> fmn::Result<Mob> {
-            let s = &stop_data[i];
-            let g = stage.arena_mut().add(VMobject::new());
-            let catches = kit.text(
-                stage,
-                &format!("marked = second catch = {}", thousands(s.m)),
+        // Each stop's numbers. The words around them ("marked = second catch =",
+        // "typical error ±", "rule of thumb: …") are drawn once and never move
+        // (R67): only the values change, by a crossfade.
+        let catches_line = |s: &Stop| {
+            (
+                "marked = second catch = ",
+                thousands(s.m),
                 26.0,
                 Palette::ink(),
                 v(0.0, 1.5),
-            )?;
-            stage.attach(g, catches)?;
-            if s.lo == s.hi {
-                let one = kit.text(
-                    stage,
-                    &format!("one size: {}", thousands(s.lo)),
-                    30.0,
-                    Role::dark(),
-                    v(0.0, -2.0),
-                )?;
-                stage.attach(g, one)?;
-            } else {
-                let ends = [
-                    (signed_pct(pct(s.lo)), v(xs(pct(s.lo)) - 0.15, bar_y + 0.45), RIGHT),
-                    (signed_pct(pct(s.hi)), v(xs(pct(s.hi)) + 0.15, bar_y + 0.45), LEFT),
-                ];
-                for (word, at, edge) in ends {
-                    let m = kit.text(stage, &word, 26.0, Role::dark(), at)?;
-                    stage.move_to(m, at, edge);
-                    stage.attach(g, m)?;
-                }
-                let typical = kit.text(
-                    stage,
-                    &format!("typical error ±{:.0}%", s.typical),
-                    28.0,
-                    Palette::ink(),
-                    v(0.0, -2.0),
-                )?;
-                let thumb = kit.text(
-                    stage,
-                    &format!("rule of thumb: 1 ÷ √(caught twice) = {:.0}%", s.thumb),
-                    24.0,
-                    Palette::dim(),
-                    v(0.0, -2.55),
-                )?;
-                stage.attach(g, typical)?;
-                stage.attach(g, thumb)?;
+            )
+        };
+        let typical_line = |s: &Stop| {
+            (
+                "typical error ±",
+                format!("{:.0}%", s.typical),
+                28.0,
+                Palette::ink(),
+                v(0.0, -2.0),
+            )
+        };
+        let thumb_line = |s: &Stop| {
+            (
+                "rule of thumb: 1 ÷ √(caught twice) = ",
+                format!("{:.0}%", s.thumb),
+                24.0,
+                Palette::dim(),
+                v(0.0, -2.55),
+            )
+        };
+        // where a stop's two bar-end labels sit, and the edge each is held by
+        let end_places = |s: &Stop| {
+            [
+                (v(xs(pct(s.lo)) - 0.15, bar_y + 0.45), RIGHT),
+                (v(xs(pct(s.hi)) + 0.15, bar_y + 0.45), LEFT),
+            ]
+        };
+        let ends_of = |kit: &Kit, stage: &mut Stage<'_>, s: &Stop| -> fmn::Result<Vec<Mob>> {
+            let mut out = Vec::new();
+            for (word, (at, edge)) in [signed_pct(pct(s.lo)), signed_pct(pct(s.hi))]
+                .into_iter()
+                .zip(end_places(s))
+            {
+                let m = kit.text(stage, &word, 26.0, Role::dark(), at)?;
+                stage.move_to(m, at, edge);
+                out.push(m);
             }
-            Ok(g)
+            Ok(out)
         };
         let line = Spoken::say(kit, stage, "12_5")?;
         play!(stage;
@@ -1175,7 +1227,12 @@ impl RingToss {
             fade_out(stage.arena_mut(), knob_mobs[2], ORIGIN, 1.0)?.rt(0.5),
         );
         let mut first_bar = stage.arena_mut().add(bar(stop_data[0].lo, stop_data[0].hi)?);
-        let mut shown = info(kit, stage, 0)?;
+        // the first stop's three lines, centred as before; the later stops'
+        // values sit where the first stop put each line's first glyph
+        let (catches_label, mut catches_value, catches_at) = split_line(kit, stage, catches_line(&stop_data[0]), None)?;
+        let (typical_label, mut typical_value, typical_at) = split_line(kit, stage, typical_line(&stop_data[0]), None)?;
+        let (thumb_label, mut thumb_value, thumb_at) = split_line(kit, stage, thumb_line(&stop_data[0]), None)?;
+        let mut ends = ends_of(kit, stage, &stop_data[0])?;
         play!(stage;
             fade_in(stage.arena_mut(), track, ORIGIN, 1.0)?.rt(0.6),
             fade_in(stage.arena_mut(), slider_title, ORIGIN, 1.0)?.rt(0.6),
@@ -1184,7 +1241,14 @@ impl RingToss {
             fade_in(stage.arena_mut(), truth_tick, ORIGIN, 1.0)?.rt(0.6),
             // the bar follows the dot from the first frame (R3 Ruth 06)
             replacement_transform(range, first_bar).rt(0.6),
-            fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), catches_label, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), catches_value, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), ends[0], ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), ends[1], ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), typical_label, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), typical_value, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), thumb_label, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), thumb_value, ORIGIN, 1.0)?.rt(0.6),
         );
         for l in &stop_labels {
             play!(stage; fade_in(stage.arena_mut(), *l, ORIGIN, 1.0)?.rt(0.25));
@@ -1196,22 +1260,69 @@ impl RingToss {
         ];
         for i in 1..stop_data.len() {
             line.at(stage, cues[i - 1])?;
-            let next_bar = stage.arena_mut().add(bar(stop_data[i].lo, stop_data[i].hi)?);
-            let next_info = info(kit, stage, i)?;
+            let (s, last) = (&stop_data[i], stop_data[i].lo == stop_data[i].hi);
+            let next_bar = stage.arena_mut().add(bar(s.lo, s.hi)?);
+            // the values swap inside the slide: the old ones fade over its first
+            // half, the new ones over its second, so no two numbers overlap
+            let (_, next_catches, _) = split_line(kit, stage, catches_line(s), Some(catches_at))?;
+            let mut outs = vec![swap_fade(stage, catches_value, ORIGIN, false)?];
+            let mut ins = vec![swap_fade(stage, next_catches, ORIGIN, true)?];
+            // the bar-end labels ride with the bar's ends: the old ones out to
+            // where the ends are halfway through, the new ones in from there
+            let next_ends = if last { Vec::new() } else { ends_of(kit, stage, s)? };
+            for (k, (&(a, _), &(b, _))) in end_places(&stop_data[i - 1]).iter().zip(&end_places(s)).enumerate() {
+                let mid = v((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0);
+                outs.push(swap_fade(stage, ends[k], v(mid[0] - a[0], mid[1] - a[1]), false)?);
+                if let Some(&m) = next_ends.get(k) {
+                    ins.push(swap_fade(stage, m, v(b[0] - mid[0], b[1] - mid[1]), true)?);
+                }
+            }
+            let mut next_values = None;
+            if last {
+                // one size left: the range's lines give way to it
+                for m in [typical_label, typical_value, thumb_label, thumb_value] {
+                    outs.push(swap_fade(stage, m, ORIGIN, false)?);
+                }
+                let one = kit.text(
+                    stage,
+                    &format!("one size: {}", thousands(s.lo)),
+                    30.0,
+                    Role::dark(),
+                    v(0.0, -2.0),
+                )?;
+                ins.push(swap_fade(stage, one, ORIGIN, true)?);
+            } else {
+                let (_, t, _) = split_line(kit, stage, typical_line(s), Some(typical_at))?;
+                let (_, r, _) = split_line(kit, stage, thumb_line(s), Some(thumb_at))?;
+                outs.push(swap_fade(stage, typical_value, ORIGIN, false)?);
+                outs.push(swap_fade(stage, thumb_value, ORIGIN, false)?);
+                ins.push(swap_fade(stage, t, ORIGIN, true)?);
+                ins.push(swap_fade(stage, r, ORIGIN, true)?);
+                next_values = Some((t, r));
+            }
+            let outs = lagged(stage, outs, 0.0)?;
+            let outs = stage.prepare(outs)?;
+            let ins = lagged(stage, ins, 0.0)?;
+            let ins = stage.prepare(ins)?;
+            let swap = lagged(stage, vec![outs, ins], 1.0)?;
             let slide = knob
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(1.2),
+                    run_time: Some(SLIDE_S),
                     ..AnimateArgs::default()
                 })?
                 .move_to(v(slider_x(stops[i]), track_y), ORIGIN)?;
             play!(stage;
                 slide,
-                replacement_transform(first_bar, next_bar).rt(1.2),
-                replacement_transform(shown, next_info).rt(1.2),
+                replacement_transform(first_bar, next_bar).rt(SLIDE_S),
+                swap,
             );
             first_bar = next_bar;
-            shown = next_info;
+            catches_value = next_catches;
+            ends = next_ends;
+            if let Some((t, r)) = next_values {
+                (typical_value, thumb_value) = (t, r);
+            }
             if i < stop_data.len() - 1 {
                 let ratio =
                     (stop_data[i].hi - stop_data[i].lo) as f64 / (stop_data[i - 1].hi - stop_data[i - 1].lo) as f64;
