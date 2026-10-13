@@ -22,7 +22,7 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::sound;
-use crate::model::{Ask, OneMove, QUIZZES, Quiz, Trick, by_parts, money};
+use crate::model::{Ask, OneMove, QUIZZES, Quiz, Trick, by_parts, ends_in_five, money};
 
 /// A scene error carrying `message` (a missing phrase, a broken invariant).
 pub fn fail(message: String) -> fmn::Error {
@@ -1623,6 +1623,52 @@ pub fn tile_row(stage: &mut Stage<'_>, y: f64, size: f64, gap: f64) -> fmn::Resu
         .enumerate()
         .map(|(i, &kind)| Tile::build(stage, kind, v(left + step * i as f64, y), size))
         .collect()
+}
+
+/// Where the tiles sit along the top of the mixed round (chapters 12 to
+/// 14): the row's height, each tile's size and the gap between them.
+pub const TILES_TOP: (f64, f64, f64) = (3.05, 1.35, 0.3);
+
+/// The six tiles along the top of the frame, as the mixed round shows them.
+/// Detached.
+pub fn tiles_top(stage: &mut Stage<'_>) -> fmn::Result<Vec<Tile>> {
+    tile_row(stage, TILES_TOP.0, TILES_TOP.1, TILES_TOP.2)
+}
+
+// ------------------------------------------- pictures that cross chapters
+
+/// Scene units per one for the pictures on a square of fifty (chapters 09
+/// to 11 and 14): the square of fifty is 4 tall, and a strip of a square of
+/// fifty-three turns inside the frame.
+pub const FIFTY_UNIT: f64 = 0.08;
+
+/// The board the squares near fifty stand on, the same in every chapter.
+pub fn fifty_board() -> Board {
+    Board::new(FIGURE_AT, FIFTY_UNIT)
+}
+
+/// Where the card that waits for thirteen times fourteen sits (03_7 to
+/// 05_7): the top right corner.
+pub const WAITING_AT: Vec3 = [5.0, 3.3, 0.0];
+
+/// The card left waiting at 03_7 and filled in at 05_7: the square that
+/// needs a product the viewer cannot do yet, with a question mark for it
+/// (135²: 13 × 14 = ?). `number` ends in five. Returns the card's back and
+/// its line of mathematics, both detached; chapters 04 and 05 draw it again
+/// where 03_7 leaves it.
+pub fn waiting_card(kit: &Kit, stage: &mut Stage<'_>, number: u64) -> fmn::Result<[Mob; 2]> {
+    let five = ends_in_five(number).ok_or_else(|| fail(format!("{number} does not end in five")))?;
+    let src = format!(r"{}^2:\quad {} \times {} = \;?", five.number, five.n, five.n + 1);
+    let math = eq(kit, stage, &src, 38.0, WAITING_AT)?;
+    let (w, h) = (stage.get_width(math), stage.get_height(math));
+    let back = Rectangle::new()
+        .width(w + 0.5)
+        .height(h + 0.4)
+        .corner_radius(0.1)
+        .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(WAITING_AT);
+    Ok([stage.arena_mut().add(back), math])
 }
 
 // ----------------------------------------------------- what is in your head
