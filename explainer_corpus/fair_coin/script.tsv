@@ -2,7 +2,7 @@
 01_1	This coin isn't fair. It lands heads four times in five. Alice and Bob need it to settle a bet, and each suspects the other knows the coin better. They can still do it, perfectly fairly, using nothing but this coin.
 01_3	The obvious way is to call it. One toss, heads or tails. But whoever gets heads wins about four bets in five.
 01_4	So a call is fair only if the caller has no idea which side the coin favours. And neither of them can check what the other knows.
-01_5	An ordinary coin, tossed and caught, can't be weighted to do this. But a spun coin can be this unfair, and so can a loaded die.
+01_5	An ordinary coin, tossed and caught, can't be weighted to do this. But a spun coin can lean well to one side, and a loaded die as far as you like.
 01_6	So how could they make the bet fair, whatever either of them knows about the coin?
 02_1	Toss the coin twice, and look at the two results as a pair.
 02_2	A pair can be four things. Two heads, two tails, heads then tails, or tails then heads.

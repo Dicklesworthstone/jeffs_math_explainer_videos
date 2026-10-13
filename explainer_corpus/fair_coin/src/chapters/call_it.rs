@@ -1092,7 +1092,7 @@ impl SceneConstruct for CallIt {
         // a loaded die, and with it (far more mildly) a computer's noise:
         // both come in together, so the third card is up as long as the
         // other two
-        line.wait_for(stage, "and so can a loaded die")?;
+        line.wait_for(stage, "and a loaded die")?;
         let card = picture_card(stage, v(0.0, card_y))?;
         let die = die_face(stage, 6, v(0.0, picture_y), 1.2, Palette::ink(), hex(DARK))?;
         stage.rotate(die, -0.2, OUT, None, None);

@@ -1,0 +1,6 @@
+# The director's picks for Video E's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input, exactly as planned> TAB <why>. The named read wins whatever its score.
+# Each was looked at as a spectrogram of the take beside the read the score chose (CloudyMink, 2026-10-13, voice michael, ftts 0.1.11).
+03_7	0	“The trick does lean on two things.”	The score's choice («») ends 'things' with about 60 ms of hiss (choose's final s/z flag). This read has a clear s block of about 120 ms above 4 kHz after the vowel, dying away before the file ends.
+09_4	3	If any two match, roll three fresh ones.	The score's choice (‘’) ends 'ones' with about 60 ms of frication (flagged). The plain read has about 120 ms of hiss after the n and ends 0.1 s before the file does.
+08_2	0	‘Alice and Bob want to settle their bet with it.’	The score's choice (“”) is the only one of four reads the ASR hears as 'Elise': its first vowel runs about 0.33 s and its s about 0.3 s, a stress on the second syllable. This read's first syllable is short and its s brief, and the ASR hears 'Alice', as it does for the other two.

@@ -1,0 +1,45 @@
+# Extra ftts inputs for Video E's narration (tools/narration.py, director_files): <line_id> TAB <sentence index, 0-based> TAB <ftts input>.
+# An input here is one more read of that sentence; the sentence's text, and so the captions, stay script.tsv's.
+# Pass 1 (2026-10-13, voice michael): 13 chosen reads ended without the s or z of their last word (choose's final s/z list);
+# each gets the sentence inside guillemets and inside single quotes, which ftts tends to read to the end.
+02_2	1	«Two heads, two tails, heads then tails, or tails then heads.»
+02_2	1	‘Two heads, two tails, heads then tails, or tails then heads.’
+02_3	1	«The first toss cuts it in two, with four fifths of the width for heads.»
+02_3	1	‘The first toss cuts it in two, with four fifths of the width for heads.’
+02_5	0	«A block's share of the square is its pair's chance.»
+02_5	0	‘A block's share of the square is its pair's chance.’
+02_7	2	«If the pair matches, throw it away and toss two fresh ones.»
+02_7	2	‘If the pair matches, throw it away and toss two fresh ones.’
+03_7	0	«The trick does lean on two things.»
+03_7	0	‘The trick does lean on two things.’
+03_7	1	«The coin's chance is the same on both tosses.»
+03_7	1	‘The coin's chance is the same on both tosses.’
+06_2	0	«Try three tosses.»
+06_2	0	‘Try three tosses.’
+06_4	3	«For tosses like ours, with the same chance every time and no memory, order never changes a chance.»
+06_4	3	‘For tosses like ours, with the same chance every time and no memory, order never changes a chance.’
+07_1	2	«What else has six equally likely results?»
+07_1	2	‘What else has six equally likely results?’
+07_2	3	«If not, toss four fresh ones.»
+07_2	3	‘If not, toss four fresh ones.’
+08_3	1	«If the two rolls match, roll two fresh ones.»
+08_3	1	‘If the two rolls match, roll two fresh ones.’
+09_4	3	«If any two match, roll three fresh ones.»
+09_4	3	‘If any two match, roll three fresh ones.’
+11_1	0	«Computers need fair tosses too, for passwords and secret codes.»
+11_1	0	‘Computers need fair tosses too, for passwords and secret codes.’
+# 02_3.0: the line ASR lost its first word "Picture" (edges); 08_2.0: the line ASR heard "Elise" for "Alice" (edges).
+02_3	0	«Picture every way the two tosses could go as a square.»
+02_3	0	‘Picture every way the two tosses could go as a square.’
+08_2	0	«Alice and Bob want to settle their bet with it.»
+08_2	0	‘Alice and Bob want to settle their bet with it.’
+# 07_2.3: every read so far ends "ones" with 40-80 ms of hiss and the engine flags all it has chosen; two more inputs.
+07_2	3	[If not, toss four fresh ones.]
+07_2	3	(If not, toss four fresh ones.)
+# Pass 5: chosen reads cut short by ftts on a sound that is not a hiss (one, that, die): two more inputs each.
+02_5	2	«Two heads has sixteen of the twenty-five, and two tails has one.»
+02_5	2	‘Two heads has sixteen of the twenty-five, and two tails has one.’
+05_5	2	«So they behave like a plain unfair coin, and the trick handles that.»
+05_5	2	‘So they behave like a plain unfair coin, and the trick handles that.’
+07_3	0	«Twenty-four thousand tosses of our unfair coin made nine hundred forty-nine rolls of a fair die.»
+07_3	0	‘Twenty-four thousand tosses of our unfair coin made nine hundred forty-nine rolls of a fair die.’
