@@ -1,0 +1,6 @@
+# The director's picks for Video H's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input, exactly as planned> TAB <why>. The named read wins whatever its score.
+# Each was checked with word_spectro.py's frication strip and the take's own transcript beside the read the score chose (GreenCarp, 2026-10-13, voice michael).
+05_1	1	“Forty percent says search cell A first.”	heard as 'search, sell, a first' (cell A as two words); the chosen read ran them into 'seller', heard so on its own too
+09_3	0	But if your strips land at random, some overlap and some leave gaps.	final s of 'gaps' 85 ms of frication (word_spectro); the chosen read's was 40 ms, under the final s/z check's 45
+11_1	1	It moves thousands of dots, each a possible drifting person or boat, and updates them by Bayes' rule after every empty search.	final ch of 'search' present (closure, then 110 ms of frication); the chosen read and the third end in silence

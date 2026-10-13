@@ -156,7 +156,11 @@
     "results": {
      "Bayes": "control heard as 'Bayes' or 'Bays' in all three; the decoy Bay-ess was heard as the name too, so the ASR cannot verify it (the tool's FAIL counts come from numbers it wrote as digits, '99', '1761', '27th', \"'68\", which it scores as damaged carrier words)"
     }
-   }
+   },
+   "accept": [
+    "Bay's",
+    "Bays"
+   ]
   },
   "Norfolk": {
    "say": "NOR-fuk",
@@ -216,6 +220,19 @@
   }
  },
  "phrases": {
-  "coop man": "koopman"
+  "coop man": "koopman",
+  "made up c": "made up sea",
+  "palo mores": "palomares"
+ },
+ "accept": {
+  "route": [
+   "root"
+  ],
+  "centre": [
+   "center"
+  ],
+  "cell": [
+   "sell"
+  ]
  }
 }
