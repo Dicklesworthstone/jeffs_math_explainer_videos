@@ -46,6 +46,9 @@ pub mod cited {
     pub const FORECAST_DAYS: (u32, u32) = (35, 45);
     pub const MILES_TO_REACH_F6: u32 = 153;
     pub const CRUISES: u32 = 5;
+    /// The page that prints the update, L′ = L (1 − E) ÷ (1 − SEP) (13_1's
+    /// "Richardson and Stone, 1971, p. 146").
+    pub const UPDATE_PAGE: u32 = 146;
     /// Sweep widths in feet. Assumed at sea: "typically 800 feet and 400
     /// feet for sonar and magnetometer" (p. 151). Estimated afterwards
     /// against the wreck as found (Table 2): camera 185, magnetometer 220,
@@ -106,6 +109,10 @@ pub mod cited {
     /// April and May 2010 (the first of the four was the search of the
     /// surface).
     pub const AF447_UNDERWATER_SEARCHES: u32 = 3;
+    /// The years of those three searches, in the order they were made: June
+    /// and July 2009, August 2009, April and May 2010 (12_2 labels each
+    /// searched area with its year).
+    pub const AF447_SEARCH_YEARS: [u32; 3] = [2009, 2009, 2010];
 
     /// The US Coast Guard. Kratzke, Stone and Frost (2010): CASP in
     /// service 1974, SAROPS "operational since January, 2007"; 2,500,
@@ -117,6 +124,9 @@ pub mod cited {
     pub const SAROPS_YEAR: u32 = 2007;
     pub const SAROPS_DOTS: [u32; 3] = [2500, 5000, 10_000];
     pub const NO_SEARCH_PERCENT: u32 = 90;
+    /// Table H-15's row for helicopters at altitudes of 300 to 500 feet: a
+    /// person in the water is 0.1 NM at 300 feet, at every visibility.
+    pub const HELICOPTER_FEET: u32 = 300;
     /// John Aldridge, 24 July 2013. Paul Tough, "A Speck in the Sea", The
     /// New York Times Magazine, January 2014: overboard "about 3:30
     /// a.m."; the first map assumed 9:30 to 11:30 the evening before;
@@ -619,6 +629,12 @@ fn cloud(f: &mut Facts) -> Result<(), String> {
         "US Coast Guard Addendum (COMDTINST M16130.2F), Table H-15",
     )?;
     f.add("F-D.strip.metres", (drift::STRIP * Q::int(METRES_PER_NM)).fixed(0))?;
+    f.pin(
+        "F-D.strip.altitude.feet",
+        cited::HELICOPTER_FEET,
+        "300",
+        "US Coast Guard Addendum (COMDTINST M16130.2F), Table H-15: person in the water, helicopter at 300 feet",
+    )?;
     f.add("F-D.swept", drift::swept())?;
     let dots = drift::cloud();
     for h in drift::hours() {
@@ -693,6 +709,7 @@ fn scorpion(f: &mut Facts) -> Result<(), String> {
     )?;
     f.add("F-S.days.map_to_found", days::between(cited::MAP_ARRIVED, cited::FOUND))?;
     f.pin("F-S.cruises", cited::CRUISES, "5", paper)?;
+    f.pin("F-S.update.page", cited::UPDATE_PAGE, "146", paper)?;
     f.pin("F-S.yards", cited::YARDS_FROM_TOP_CELL, "260", paper)?;
     f.add(
         "F-S.yards.metres",
@@ -840,6 +857,12 @@ fn air_france(f: &mut Facts) -> Result<(), String> {
     f.pin("F-A.points", cited::AF447_POINTS, "75000", paper)?;
     f.pin("F-A.empty_searches", cited::AF447_EMPTY_SEARCHES, "4", paper)?;
     f.pin("F-A.underwater_searches", cited::AF447_UNDERWATER_SEARCHES, "3", paper)?;
+    f.pin(
+        "F-A.underwater_searches.years",
+        list(cited::AF447_SEARCH_YEARS),
+        "2009,2009,2010",
+        bea,
+    )?;
 
     // the beacon search, as the paper works it (pp. 76-77)
     let hundredths = |n: u32| q(i128::from(n), 100);

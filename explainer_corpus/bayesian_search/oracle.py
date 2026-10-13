@@ -574,6 +574,8 @@ def cloud():
     emit("F-D.track", frac(TRACK))
     emit("F-D.strip", fixed(STRIP, 1))
     emit("F-D.strip.metres", fixed(STRIP * 1852, 0))
+    # Table H-15, "Helicopters for Altitudes 300-500 Feet": person in water 0.1 at 300 ft
+    emit("F-D.strip.altitude.feet", 300)
     swept = TRACK * STRIP
     emit("F-D.swept", frac(swept))
     dots = cloud_dots()
@@ -648,6 +650,7 @@ def scorpion():
     emit("F-S.months.search_to_map", months_between(began, map_arrived))
     emit("F-S.days.map_to_found", (found - map_arrived).days)
     emit("F-S.cruises", 5)
+    emit("F-S.update.page", 146)  # the page that prints L' = L (1 - E) / (1 - SEP)
     emit("F-S.yards", 260)
     emit("F-S.yards.metres", fixed(260 * 3 * FOOT, 0))
     emit("F-S.miles_from_azores", 400)
@@ -727,6 +730,11 @@ def air_france():
     emit("F-A.empty_searches", 4)
     # of the paper's four steps, the first is the surface search
     emit("F-A.underwater_searches", 4 - 1)
+    # the listening search of June-July 2009, the sonar search of August 2009,
+    # the sonar search of April-May 2010
+    underwater_years = (2009, 2009, 2010)
+    check("one year for each underwater search", len(underwater_years) == 4 - 1)
+    emit("F-A.underwater_searches.years", join(underwater_years))
     # the paper's own sum, p. 76: (1 − 0.1²)(0.8)² + 0.9 · 2(0.8)(0.2)
     cap, survives = F(9, 10), F(8, 10)
     independent = (1 - (1 - cap) ** 2) * survives**2 + cap * 2 * survives * (1 - survives)
