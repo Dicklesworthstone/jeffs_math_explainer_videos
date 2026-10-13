@@ -4,6 +4,7 @@
 //! failures and the computing chapter). A chapter not yet built stands in as
 //! its storyboard's animatic, and is replaced by its real scene as it lands.
 
+pub mod a_matrix_in;
 pub mod draw;
 pub mod e_to_a_matrix;
 pub mod flow;
@@ -52,7 +53,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("04_the_series", 0.55, the_series::TheSeries),
         scene!("05_one_function", 0.5, one_function::OneFunction),
         scene!("06_turning", 0.6, turning::Turning),
-        animatic!("07_a_matrix_in", 0.65),
+        scene!("07_a_matrix_in", 0.65, a_matrix_in::AMatrixIn),
         animatic!("08_does_it_settle", 0.5),
         scene!("09_follow_the_arrows", 0.65, follow_the_arrows::FollowTheArrows),
         scene!("10_two_tanks", 0.5, two_tanks::TwoTanks),
