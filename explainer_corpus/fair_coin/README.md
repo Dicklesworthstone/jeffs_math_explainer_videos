@@ -9,9 +9,11 @@ breaks (two different coins, a coin with memory), how the same idea makes a
 fair die from an unfair coin or a loaded die, and how much fairness an unfair
 coin holds in the first place.
 
-**Status: in production.** The brief, the facts and their oracle are done
-(`./x fair_coin facts-check` passes); the storyboard, script, scenes and
-drafts follow. Nothing has been narrated, scored or rendered at 4K yet.
+**Status: in production.** The brief, the facts and their oracle, the
+storyboard, the script and all eleven scenes are done (`./x fair_coin
+facts-check` and `./x fair_coin test` pass), and the scratch-voice drafts
+have been read as contact and cue sheets. Nothing has been narrated, scored
+or rendered at 4K yet.
 
 ```bash
 ./x fair_coin test          # tests, clippy -D warnings, fmt --check

@@ -659,6 +659,10 @@ impl Square {
             let value = 100.0 * view.pose(s).share(b);
             // one decimal only where a whole percent would hide the block (99% heads)
             let places = usize::from(value < 3.0);
+            // the engine's number cuts off the digits it does not show, so
+            // round here (a share of 15.999… must read 16%)
+            let scale = if places == 1 { 10.0 } else { 1.0 };
+            let value = (value * scale).round() / scale;
             let d = DecimalNumber::new(value)
                 .num_decimal_places(places)
                 .unit("%")

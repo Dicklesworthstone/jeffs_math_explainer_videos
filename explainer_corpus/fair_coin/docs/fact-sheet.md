@@ -25,6 +25,9 @@ at the end was copied from the oracle's output by a script, not typed.
   a viewer needs to replay the runs, the year of Blum's conference paper, the
   sticky coin's long-run share of heads): `275 video facts against 275 oracle
   keys: PASS`.
+- **With the scenes (P4):** two keys added for the strip chapter 10 shows
+  (the heads and the fair tosses in the first hundred tosses of run 9, 77 and
+  15): `277 video facts against 277 oracle keys: PASS`.
 - **Rust side:** `./x fair_coin test`: 22 tests pass, clippy `-D warnings`
   and `fmt --check` clean. One of them ties 51 spoken phrases to their facts.
 - **Rows:** E-F computed chances and costs; E-X edges of always/never
@@ -578,6 +581,8 @@ repeats each as a cross-check.
 |---|---|
 | `E-S9.squeeze.tosses` | 100000 |
 | `E-S9.squeeze.heads` | 80042 |
+| `E-S9.squeeze.first_hundred.heads` | 77 |
+| `E-S9.squeeze.first_hundred.fair_tosses` | 15 |
 | `E-S9.squeeze.von_neumann.fair_tosses` | 16114 |
 | `E-S9.squeeze.von_neumann.heads` | 8047 |
 | `E-S9.squeeze.von_neumann.per_hundred` | 16.1 |

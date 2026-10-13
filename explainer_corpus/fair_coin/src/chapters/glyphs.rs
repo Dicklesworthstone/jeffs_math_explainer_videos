@@ -1,16 +1,17 @@
-//! Every fixed on-screen string of Video E, for the glyph probe (`coin
-//! glyphs`): the chapters build their text from these constants, and a
-//! string that carries a number is built from its fixed parts here and a
-//! value from `facts` (the probe covers the digits through [`DIGITS`]).
+//! Extra strings for the glyph probe (`coin glyphs`). The probe collects
+//! every string the real scenes typeset, and each chapter keeps its fixed
+//! words as constants at the top of its own file; what is listed here is
+//! only what a scene builds at run time from a value in `facts` (the digits
+//! and separators numbers are printed with) and the title.
 
 /// The digits and separators numbers are printed with.
-pub const DIGITS: &str = "0123456789 , . % + − × = ( )";
+pub const DIGITS: &str = "0123456789 , . % + − × ÷ = ( ) / ?";
 
 pub const TITLE: &str = "How to Make a Fair Coin Out of an Unfair One";
 
-/// Plain text (IBM Plex Sans).
+/// Plain text, in the kit's text face.
 pub const TEXT: &[&str] = &[DIGITS, TITLE];
-/// Mathematics (Computer Modern, native TeX).
+/// Mathematics (native TeX).
 pub const TEX: &[&str] = &[];
-/// Code, set in CM Typewriter.
+/// Code, in the typewriter face.
 pub const MONO: &[&str] = &[];

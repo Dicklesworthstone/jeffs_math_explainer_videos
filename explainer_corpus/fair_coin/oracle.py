@@ -771,6 +771,8 @@ def run_facts():
     s9 = Stream(9).tosses(100000, P)
     emit("E-S9.squeeze.tosses", len(s9))
     emit("E-S9.squeeze.heads", s9.count("H"))
+    emit("E-S9.squeeze.first_hundred.heads", s9[:100].count("H"))
+    emit("E-S9.squeeze.first_hundred.fair_tosses", len(von_neumann(s9[:100])))
     for name, out in (("von_neumann", von_neumann(s9)), ("peres2", peres(s9, 2)), ("peres3", peres(s9, 3)),
                       ("peres_all", peres(s9, 40)), ("elias16", elias(s9, 16))):
         emit(f"E-S9.squeeze.{name}.fair_tosses", len(out))

@@ -626,6 +626,10 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
     let run = squeeze_run();
     f.add("E-S9.squeeze.tosses", run.len())?;
     f.add("E-S9.squeeze.heads", heads(&run))?;
+    // the run's first hundred tosses are the strip chapter 10 shows
+    let shown = &run[..100];
+    f.add("E-S9.squeeze.first_hundred.heads", heads(shown))?;
+    f.add("E-S9.squeeze.first_hundred.fair_tosses", von_neumann(shown).len())?;
     for (name, out) in [
         ("von_neumann", von_neumann(&run)),
         ("peres2", peres(&run, 2)),
