@@ -9,8 +9,8 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy and SciPy
-  through uv): `facts-check matrix_exponential: 353 video facts against 353
-  oracle keys: PASS`. The oracle prints 353 keys, passes 115 of 115 of its
+  through uv): `facts-check matrix_exponential: 354 video facts against 354
+  oracle keys: PASS`. The oracle prints 354 keys, passes 115 of 115 of its
   own cross-checks, and compares 202 exact exponentials with SciPy's `expm`.
 - **Rust side:** `./x matrix_exponential test`: 25 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
@@ -151,7 +151,8 @@ sides, so the two routes cannot round differently (none is).
     bracket's sign while the picture would not have (R1: D6, R9, C5). The
     words name no sign; the strips do. One small loop leaves too little to
     see (0.2 radian tips leave 2.28°), so the cube's loop is repeated twenty
-    times: 45.7° about an axis 5.7° off the z axis.
+    times: 45.7° about an axis 8.1° off the z axis
+    (`F-L.creep.axis_off_z_degrees`).
 16. **A thousand straight steps buy three digits, not five.** The error of
     n steps on the tanks is about 13.5/n grams (`F-T.off_by.*`): ten times
     the steps, one more digit.
@@ -578,6 +579,7 @@ A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T
 | `F-L.creep.one.axis` | 0.099,-0.099,-0.990 |
 | `F-L.creep.total.degrees` | 45.7 |
 | `F-L.creep.total.axis` | 0.099,-0.099,-0.990 |
+| `F-L.creep.axis_off_z_degrees` | 8.1 |
 | `F-L.creep.direction` | backwards about z |
 | `F-L.spins.n2` | 1 |
 | `F-L.spins.n3` | 3 |
@@ -655,27 +657,27 @@ One pair of rows per quiz, keyed by the storyboard line that asks it: the second
 | key | value |
 |---|---|
 | `F-Q.count` | 11 |
-| `F-Q.03_3.seconds` | 5 |
+| `F-Q.03_3.seconds` | 4 |
 | `F-Q.03_3.answer` | no: it settles at 2.71828 |
 | `F-Q.04_4.seconds` | 5 |
 | `F-Q.04_4.answer` | x^3/6 |
-| `F-Q.05_5.seconds` | 6 |
+| `F-Q.05_5.seconds` | 5 |
 | `F-Q.05_5.answer` | 2.718 |
 | `F-Q.06_3.seconds` | 4 |
 | `F-Q.06_3.answer` | a circle of radius 1.000 |
-| `F-Q.07_3.seconds` | 5 |
+| `F-Q.07_3.seconds` | 4 |
 | `F-Q.07_3.answer` | -1,0;0,-1 |
-| `F-Q.08_3.seconds` | 5 |
+| `F-Q.08_3.seconds` | 4 |
 | `F-Q.08_3.answer` | they shrink: true |
-| `F-Q.10_5.seconds` | 5 |
+| `F-Q.10_5.seconds` | 4 |
 | `F-Q.10_5.answer` | 50,50 |
-| `F-Q.11_3.seconds` | 5 |
+| `F-Q.11_3.seconds` | 4 |
 | `F-Q.11_3.answer` | 3 |
-| `F-Q.14_3.seconds` | 5 |
+| `F-Q.14_3.seconds` | 4 |
 | `F-Q.14_3.answer` | no: 1,1;1,2 against 2,1;1,1 |
 | `F-Q.15_2.seconds` | 4 |
 | `F-Q.15_2.answer` | no: off by 2.28 degrees |
-| `F-Q.16_3.seconds` | 6 |
+| `F-Q.16_3.seconds` | 5 |
 | `F-Q.16_3.answer` | a rotation by 1 radian: 0.540, -0.841 ; 0.841, 0.540 |
 
 ### F-V: the numbers as said and shown

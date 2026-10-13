@@ -1019,6 +1019,11 @@ fn lie(f: &mut Facts) -> Result<(), String> {
     let (total, total_axis) = angle_axis(&one.pow(shown::CREEP_LOOPS));
     f.add("F-L.creep.total.degrees", dec(total.to_degrees(), 1)?)?;
     f.add("F-L.creep.total.axis", row(&total_axis, 3)?)?;
+    // how far that axis leans from the z axis, in degrees
+    f.add(
+        "F-L.creep.axis_off_z_degrees",
+        dec(total_axis[2].abs().min(1.0).acos().to_degrees(), 1)?,
+    )?;
     f.add(
         "F-L.creep.direction",
         if total_axis[2] < 0.0 {

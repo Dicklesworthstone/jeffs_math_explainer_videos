@@ -859,6 +859,8 @@ def lie_facts():
     total, total_axis = angle_axis(np.linalg.matrix_power(one, 20))
     emit("F-L.creep.total.degrees", dec(math.degrees(total), 1))
     emit("F-L.creep.total.axis", row(total_axis, 3))
+    lean = math.degrees(math.atan2(math.hypot(total_axis[0], total_axis[1]), abs(total_axis[2])))
+    emit("F-L.creep.axis_off_z_degrees", dec(lean, 1))
     emit("F-L.creep.direction", "backwards about z" if total_axis[2] < 0 else "forwards about z")
     check("twenty loops turn twenty times as far about the same axis", abs(total - 20 * angle) < 1e-9)
     check("scipy.expm gives the same loop", np.abs(
@@ -1112,8 +1114,8 @@ def named_facts():
 
 # ---------------------------------------------------------------- F-Q
 
-QUIZ_SECONDS = [("03_3", 5), ("04_4", 5), ("05_5", 6), ("06_3", 4), ("07_3", 5), ("08_3", 5),
-                ("10_5", 5), ("11_3", 5), ("14_3", 5), ("15_2", 4), ("16_3", 6)]
+QUIZ_SECONDS = [("03_3", 4), ("04_4", 5), ("05_5", 5), ("06_3", 4), ("07_3", 4), ("08_3", 4),
+                ("10_5", 4), ("11_3", 4), ("14_3", 4), ("15_2", 4), ("16_3", 5)]
 
 
 def quiz_facts():

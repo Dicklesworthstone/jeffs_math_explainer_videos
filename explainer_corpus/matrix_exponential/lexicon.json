@@ -1,0 +1,293 @@
+{
+ "_comment": "Pronunciation lexicon for Video J (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py (two of its guesses, for Moler and Van Loan, were wrong and are replaced by hand, as each note says) and probed with probe_names.py run --write in this video's voice, michael. The script speaks Moler and Van Loan (13_1), Padé (13_5) and Lie (15_4), and the terms commutator, communicability and eigenvalue; Euler, Baker, Campbell, Hausdorff and Estrada are on screen only and are probed because the order lists them. Not in this file because the video only shows them: Bernoulli, Laguerre, Peano, Hatano, Higham, Al-Mohy. Single letters (e, i, t, k, J, A, B) are not lexicon entries: sentences are worded so that a letter never opens one as 'A', and the letter-heavy lines are checked by transcription (docs/claims.md, 'letters'). Re-probe when the voice or the ftts version changes; the owner's pronunciation overrides every entry.",
+ "words": {
+  "Euler": {
+   "say": "OY-ler",
+   "respell": [
+    "Oiler",
+    "OY-ler"
+   ],
+   "ipa": "ˈɔʏlər",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Leonhard_Euler",
+    "https://en.wiktionary.org/wiki/Euler#English",
+    "https://en.wiktionary.org/wiki/Euler#German"
+   ],
+   "decoy": [
+    "YOO-ler"
+   ],
+   "note": "English usage; Wikipedia's lead notes that 'YOO-ler' is considered incorrect. On screen only in this script (who-and-when strips at 05 and 06).",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Oiler",
+    "discriminates": true,
+    "results": {
+     "Euler": "control FAIL 0/3",
+     "Oiler": "candidate PASS 3/3",
+     "OY-ler": "candidate PASS 3/3",
+     "YOO-ler": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Lie": {
+   "say": "Lee",
+   "respell": [
+    "Lee"
+   ],
+   "ipa": "liː",
+   "lang": "no",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Sophus_Lie",
+    "https://en.wiktionary.org/wiki/lie#English"
+   ],
+   "decoy": [
+    "Lye"
+   ],
+   "note": "Sophus Lie, Norwegian [liː]: 'Lee'. Spoken at 15_4 ('Lie algebra', 'Lie group'). The ordinary spelling is not offered to the voice: it is the English word 'lie'.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "VERIFIED by transcript and spectrogram: 'Lee' heard as Lee 3/3; the plain spelling and the decoy 'Lye' heard as lie/lye/Lai. The probe tool marked it UNVERIFIED only because the decoy's 'lie' is the name's own spelling. Spectrograms of 'This is Lee.' against 'This is Lye.' and 'This is Lie.': Lee ends on a second formant rising into a steady high band (/iː/); both others show the crossing formants of /aɪ/."
+   }
+  },
+  "Baker": {
+   "say": "BAY-ker",
+   "respell": [
+    "BAY-ker"
+   ],
+   "ipa": "ˈbeɪkɚ",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Baker#English"
+   ],
+   "decoy": [
+    "Backer"
+   ],
+   "note": "Ordinary English. On screen only (the Baker-Campbell-Hausdorff strip at 14_6).",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "BAY-ker",
+    "discriminates": true,
+    "results": {
+     "Baker": "control UNVERIFIED 0/3",
+     "BAY-ker": "candidate PASS 3/3",
+     "Backer": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Campbell": {
+   "say": "KAM-bul",
+   "respell": [
+    "Campbell"
+   ],
+   "ipa": "ˈkæmbəl",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Campbell#English"
+   ],
+   "decoy": [
+    "Camp-BELL"
+   ],
+   "note": "Ordinary English. On screen only (14_6).",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "UNVERIFIED, not spoken: the ASR writes Campbell for every read, the decoy too. On screen only (14_6)."
+   }
+  },
+  "Hausdorff": {
+   "say": "HOWS-dorf",
+   "respell": [
+    "Hows-dorf",
+    "HOWS-dorf"
+   ],
+   "ipa": "ˈhaʊsdɔːrf",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Felix_Hausdorff",
+    "https://en.wiktionary.org/wiki/Hausdorff#English"
+   ],
+   "decoy": [
+    "HAWZ-droff"
+   ],
+   "note": "English usage as Wikipedia's lead gives it. On screen only (14_6).",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Hows-dorf",
+    "discriminates": true,
+    "results": {
+     "Hausdorff": "control FAIL 0/3",
+     "Hows-dorf": "candidate PASS 3/3",
+     "HOWS-dorf": "candidate PASS 3/3",
+     "HAWZ-droff": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Estrada": {
+   "say": "es-TRAH-dah",
+   "respell": [
+    "Estrada"
+   ],
+   "ipa": "esˈtɾaða",
+   "lang": "es",
+   "sources": [
+    "https://en.wiktionary.org/wiki/Estrada#Spanish"
+   ],
+   "decoy": [
+    "ES-truh-duh"
+   ],
+   "note": "Ernesto Estrada is Cuban-Spanish; the Spanish reading with an English-friendly spelling. Nothing specific to him was found (research notes, item 11). On screen only (11_6).",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Estrada",
+    "discriminates": true,
+    "results": {
+     "Estrada": "control PASS 3/3",
+     "Es-trah-dah": "candidate PARTIAL 2/3",
+     "es-TRAH-dah": "candidate PARTIAL 2/3",
+     "ES-truh-duh": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "Moler": {
+   "say": "MOH-ler",
+   "respell": [
+    "Mohler"
+   ],
+   "ipa": "ˈmoʊlər",
+   "lang": "en",
+   "sources": [],
+   "decoy": [
+    "MOLL-er"
+   ],
+   "note": "Cleve Moler, American. The lookup tool matched the Spanish verb 'moler', which is wrong here and was discarded. No written source for his own pronunciation was found; MOH-ler is the conventional reading in numerical analysis talks. Spoken at 13_1: ask the owner if he knows better.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "PARTIAL, needs an ear: 'Mohler' heard as 'Mola' 3/3, which is MOH-luh in this non-rhotic voice; the decoy MOLL-er heard as 'mole', 'Moller', 'Moller'; the plain spelling was unstable (Muller, Mollis, Mola) and the hyphenated MOH-ler splits into two chunks. The spectrogram comparison was not conclusive. The owner, or the narration director's sheet for 13_1, should confirm the long o."
+   }
+  },
+  "Van Loan": {
+   "say": "van LOHN",
+   "respell": [
+    "Van Lone",
+    "Van Loan"
+   ],
+   "ipa": "væn ˈloʊn",
+   "lang": "en",
+   "note": "Charles Van Loan, American. The lookup tool guessed a Dutch reading from the spelling, which was discarded. No written source was found; 'van LOHN', like the English word loan, is the conventional reading. Spoken at 13_1: ask the owner if he knows better.",
+   "decoy": [
+    "Van LOO-an"
+   ],
+   "sources": [],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "VERIFIED by transcript: 'Van Lone' heard as Van Lone 3/3 and the plain spelling as Van Lone 2/3 (the third a carrier slip); the decoy 'Van LOO-an' heard as Van Lohan, Van Lowen, Van Luanen. The tool cannot verify a real-word respelling, hence its UNVERIFIED."
+   }
+  },
+  "Padé": {
+   "say": "pah-DAY",
+   "respell": [
+    "Pah-day",
+    "pah-DAY"
+   ],
+   "ipa": "pade",
+   "lang": "fr",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Henri_Pad%C3%A9"
+   ],
+   "decoy": [
+    "PAYD"
+   ],
+   "note": "Henri Padé, French [pade]. Spoken at 13_5 ('a Padé approximant').",
+   "accept": [
+    "pardai",
+    "parday",
+    "parde"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Pah-day",
+    "discriminates": true,
+    "results": {
+     "Padé": "control PARTIAL 2/3",
+     "Pah-day": "candidate PASS 3/3",
+     "pah-DAY": "candidate PASS 3/3",
+     "PAYD": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "commutator": {
+   "say": "KOM-yoo-tay-ter",
+   "ipa": "ˈkɒmjʊteɪtə",
+   "lang": "en",
+   "respell": [
+    "commutator"
+   ],
+   "decoy": [
+    "commuter"
+   ],
+   "sources": [
+    "https://en.wiktionary.org/wiki/commutator#English"
+   ],
+   "note": "A term of art, spoken at 14_6 and 15_3, 15_4; the risk is a read that drops a syllable and lands on 'commuter'.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "VERIFIED by transcript: the plain word heard as 'commutator' 3/3 in every position; the decoy 'commuter' heard as 'commuter' 3/3, so the ASR does tell the two apart (the tool's similarity score called the decoy a match)."
+   }
+  },
+  "communicability": {
+   "say": "kuh-MYOO-ni-kuh-BIL-i-tee",
+   "lang": "en",
+   "respell": [
+    "communicability"
+   ],
+   "decoy": [
+    "communicable"
+   ],
+   "sources": [
+    "https://en.wiktionary.org/wiki/communicability#English"
+   ],
+   "note": "Estrada and Hatano's term, spoken once at 11_6; a seven-syllable word the voice may hurry.",
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "communicability",
+    "discriminates": true,
+    "results": {
+     "communicability": "control PASS 3/3",
+     "kuh-MYOO-ni-kuh-BIL-i-tee": "candidate FAIL 0/3",
+     "communicable": "decoy OK (heard differently) 0/3"
+    }
+   }
+  },
+  "eigenvalue": {
+   "say": "EYE-gen-val-yoo",
+   "ipa": "ˈaɪɡənˌvæljuː",
+   "lang": "en",
+   "respell": [
+    "eigenvalue"
+   ],
+   "decoy": [
+    "EE-jen-value"
+   ],
+   "sources": [
+    "https://en.wiktionary.org/wiki/eigenvalue#English"
+   ],
+   "note": "Spoken once at 13_5 ('the eigenvalue video'); Video K owns the word.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy",
+    "verdict": "PARTIAL: the plain word heard as 'eigenvalue' in the medial and final carriers and as 'Egin value' at a sentence start; the respelling EYE-gen-val-yoo failed (heard as letters). The script says it once, mid-sentence (13_5), so the plain word stands; the narration sheet for 13_5 should be checked."
+   }
+  }
+ }
+}

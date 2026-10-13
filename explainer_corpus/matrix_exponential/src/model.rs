@@ -609,7 +609,7 @@ pub struct Quiz {
 pub const QUIZZES: &[Quiz] = &[
     Quiz {
         line: "03_3",
-        seconds: 5,
+        seconds: 4,
         asks: "does compounding ever finer grow without limit",
     },
     Quiz {
@@ -619,7 +619,7 @@ pub const QUIZZES: &[Quiz] = &[
     },
     Quiz {
         line: "05_5",
-        seconds: 6,
+        seconds: 5,
         asks: "five percent a year, growing all the time, for twenty years",
     },
     Quiz {
@@ -629,27 +629,27 @@ pub const QUIZZES: &[Quiz] = &[
     },
     Quiz {
         line: "07_3",
-        seconds: 5,
+        seconds: 4,
         asks: "the quarter turn, squared",
     },
     Quiz {
         line: "08_3",
-        seconds: 5,
+        seconds: 4,
         asks: "what the terms of e to five quarter turns do next",
     },
     Quiz {
         line: "10_5",
-        seconds: 5,
+        seconds: 4,
         asks: "where the salt ends up",
     },
     Quiz {
         line: "11_3",
-        seconds: 5,
+        seconds: 4,
         asks: "two-step walks from node three back to node three",
     },
     Quiz {
         line: "14_3",
-        seconds: 5,
+        seconds: 4,
         asks: "A then B against B then A: the square in the same place",
     },
     Quiz {
@@ -659,7 +659,7 @@ pub const QUIZZES: &[Quiz] = &[
     },
     Quiz {
         line: "16_3",
-        seconds: 6,
+        seconds: 5,
         asks: "e to the quarter turn, and why",
     },
 ];
