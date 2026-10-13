@@ -31,11 +31,13 @@ pub fn identity() -> Identity {
         },
         chord_s: (6.0, 12.0),
         bed_t60: 1.6,
-        // the corpus's balance on michael's voice (Video C): V − 21 under
-        // speech, the gap music near V − 10
-        bed_lu: -13.0,
+        // the corpus's balance on michael's voice (Video C), 1 LU lower:
+        // at -13 / -13.5 the 3 s windows at the edges of 12's short quiz
+        // questions measured 11.5 LU over the music (QA p5, limit 12) once
+        // 09's ticks stopped capping the whole stem (2026-10-13)
+        bed_lu: -14.0,
         bass_db: BASS_UNDER_PAD_DB,
-        melody_lu: -13.5,
+        melody_lu: -14.5,
         duck_db: 8.0,
         hold_duck: 0.5,
         settle_s: 0.8,

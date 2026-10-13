@@ -7,7 +7,8 @@
 
 use std::path::PathBuf;
 
-use explainer_score::instr::{Instrument, Note, render, tick};
+use explainer_score::filter::{Biquad, Kind};
+use explainer_score::instr::{Instrument, Note, render};
 use explainer_score::{FS, Stereo};
 
 use super::draw::fail;
@@ -16,6 +17,13 @@ use super::draw::fail;
 const LEVEL_LUFS: f64 = -23.0;
 /// The fade every sound ends with, seconds.
 const TAIL_S: f64 = 0.25;
+/// Every sound's top, a 4th-order low-pass. The score's own 5.5 kHz top
+/// still let the mallet's upper partials and the ticks' edges past 8 kHz at
+/// about -60 dB, which its QA counts as clicks where the bed is quiet (the
+/// 46² countdown just after 11 opens, the machine at 09_3; 2026-10-13).
+const TOP_HZ: f64 = 3_000.0;
+/// The pitch of the machine's knock at 09_3.
+const KNOCK_HZ: f64 = 400.0;
 
 /// D, E, F sharp, A and B above the tonic, low to high: the only notes a
 /// countdown plays.
@@ -31,9 +39,16 @@ fn frames(seconds: f64) -> usize {
     (seconds * FS).round() as usize
 }
 
-/// Cut `s` to `seconds`, fade its last [`TAIL_S`] to an exact zero, and
-/// scale it to [`LEVEL_LUFS`].
+/// Take `s` under [`TOP_HZ`], cut it to `seconds`, fade its last [`TAIL_S`]
+/// to an exact zero, and scale it to [`LEVEL_LUFS`].
 fn finish(mut s: Stereo, seconds: f64) -> Stereo {
+    for ch in [&mut s.l, &mut s.r] {
+        let lp = || Biquad::new(Kind::LowPass { q: 0.707 }, TOP_HZ);
+        let (mut a, mut b) = (lp(), lp());
+        for v in ch.iter_mut() {
+            *v = b.process(a.process(*v));
+        }
+    }
     let n = frames(seconds);
     s.l.resize(n, 0.0);
     s.r.resize(n, 0.0);
@@ -95,11 +110,31 @@ pub fn the_move() -> fmn::Result<PathBuf> {
     wav("the_move", &finish(out, MOVE_S))
 }
 
+/// One dry knock of the machine: [`KNOCK_HZ`] dying in about 30 ms, over a
+/// 3 ms raised-cosine rise. The score's `tick` (500 Hz at its lowest, with a
+/// partial at 2.3 times that and a 1 ms edge) is the loudest sound in 09, so
+/// QA's 8 kHz high-pass still caught each one as a click over the quiet bed
+/// (2026-10-13).
+fn knock() -> Vec<f64> {
+    let rise = frames(0.003);
+    (0..frames(0.05))
+        .map(|i| {
+            let t = i as f64 / FS;
+            let g = if i < rise {
+                0.5 - 0.5 * (std::f64::consts::PI * i as f64 / rise as f64).cos()
+            } else {
+                1.0
+            };
+            g * (-t / 0.008).exp() * (std::f64::consts::TAU * KNOCK_HZ * t).sin()
+        })
+        .collect()
+}
+
 /// Dry ticks that slow to a stop: `times` are the seconds each one sounds.
 pub fn ticks(times: &[f64], seconds: f64) -> fmn::Result<PathBuf> {
     let mut out = Stereo::silence(frames(seconds + 1.0));
-    for (k, &at) in times.iter().enumerate() {
-        let t = Stereo::from_mono(&tick(700.0, k as u64 + 3));
+    let t = Stereo::from_mono(&knock());
+    for &at in times {
         out.mix_in(&t, frames(at), 0.8);
     }
     wav("machine_ticks", &finish(out, seconds))
