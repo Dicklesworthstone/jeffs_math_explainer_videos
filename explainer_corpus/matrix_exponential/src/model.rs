@@ -492,6 +492,110 @@ pub fn su_dim(n: u32) -> u32 {
     n * n - 1
 }
 
+/// The power series summed in 64-bit arithmetic until a term no longer
+/// changes the running total, in the same order of operations as
+/// [`series_f32`]: the total, and the number of the first term that changed
+/// nothing.
+pub fn series_f64(a: &[[f64; 2]; 2]) -> ([[f64; 2]; 2], u32) {
+    let mut term = [[1.0, 0.0], [0.0, 1.0]];
+    let mut total = term;
+    let mut k = 0_u32;
+    loop {
+        k += 1;
+        let mut product = [[0.0_f64; 2]; 2];
+        for i in 0..2 {
+            for j in 0..2 {
+                product[i][j] = term[i][0] * a[0][j] + term[i][1] * a[1][j];
+            }
+        }
+        let mut next = total;
+        for i in 0..2 {
+            for j in 0..2 {
+                term[i][j] = product[i][j] / f64::from(k);
+                next[i][j] = total[i][j] + term[i][j];
+            }
+        }
+        if next == total {
+            return (total, k);
+        }
+        total = next;
+    }
+}
+
+/// The angle (radians, 0 to π) and the unit axis of a rotation of space,
+/// from its trace and its skew part.
+pub fn angle_axis(r: &Mat) -> (f64, [f64; 3]) {
+    let angle = ((r.trace() - 1.0) / 2.0).clamp(-1.0, 1.0).acos();
+    let twice_sin = 2.0 * angle.sin();
+    let axis = [
+        (r.get(2, 1) - r.get(1, 2)) / twice_sin,
+        (r.get(0, 2) - r.get(2, 0)) / twice_sin,
+        (r.get(1, 0) - r.get(0, 1)) / twice_sin,
+    ];
+    (angle, axis)
+}
+
+/// The Laplacian of a path: n nodes in a line, each linked to the next.
+pub fn path_laplacian(n: usize) -> Mat {
+    let mut l = Mat::zeros(n);
+    for i in 0..n - 1 {
+        l.set(i, i + 1, -1.0);
+        l.set(i + 1, i, -1.0);
+        l.set(i, i, l.get(i, i) + 1.0);
+        l.set(i + 1, i + 1, l.get(i + 1, i + 1) + 1.0);
+    }
+    l
+}
+
+/// Heat on a square grid network of `side` by `side` nodes (each linked to
+/// its neighbours across and down), a time `t` after one unit was placed on
+/// the node at (`row`, `column`): the heat at every node, row by row. The
+/// grid's Laplacian is the sum of two commuting pieces, one per direction,
+/// so its exponential is the product of two path exponentials: the heat at
+/// (r, c) is h[r][row] × h[c][column]. (The oracle exponentiates the whole
+/// 400 by 400 matrix instead.)
+pub fn grid_heat(side: usize, t: f64, row: usize, column: usize) -> Vec<f64> {
+    let h = expm_t(&path_laplacian(side), -t);
+    (0..side * side)
+        .map(|node| h.get(node / side, row) * h.get(node % side, column))
+        .collect()
+}
+
+/// The links of that grid network.
+pub fn grid_links(side: usize) -> usize {
+    2 * side * (side - 1)
+}
+
+/// The number of walks of exactly `steps` links from one corner of the grid
+/// network to the opposite corner, by adding one link at a time.
+pub fn grid_corner_walks(side: usize, steps: u32) -> u128 {
+    let mut count = vec![0_u128; side * side];
+    count[0] = 1;
+    for _ in 0..steps {
+        let mut next = vec![0_u128; side * side];
+        for (node, &ways) in count.iter().enumerate() {
+            if ways == 0 {
+                continue;
+            }
+            let (r, c) = (node / side, node % side);
+            if r > 0 {
+                next[node - side] += ways;
+            }
+            if r + 1 < side {
+                next[node + side] += ways;
+            }
+            if c > 0 {
+                next[node - 1] += ways;
+            }
+            if c + 1 < side {
+                next[node + 1] += ways;
+            }
+        }
+        count = next;
+    }
+    count[side * side - 1]
+}
+
 /// A "your turn" quiz: the storyboard beat that asks it and the seconds of
 /// its countdown. The answers are the `F-Q.<line>.answer` facts.
 #[derive(Clone, Copy, Debug)]
@@ -504,11 +608,6 @@ pub struct Quiz {
 /// Every quiz of the video, in order.
 pub const QUIZZES: &[Quiz] = &[
     Quiz {
-        line: "01_1",
-        seconds: 5,
-        asks: "e to the quarter turn",
-    },
-    Quiz {
         line: "03_3",
         seconds: 5,
         asks: "does compounding ever finer grow without limit",
@@ -516,12 +615,17 @@ pub const QUIZZES: &[Quiz] = &[
     Quiz {
         line: "04_4",
         seconds: 5,
-        asks: "the piece after x cubed over six",
+        asks: "the piece after half of x squared",
     },
     Quiz {
         line: "05_5",
         seconds: 6,
-        asks: "five percent a year, continuously, for twenty years",
+        asks: "five percent a year, growing all the time, for twenty years",
+    },
+    Quiz {
+        line: "06_3",
+        seconds: 4,
+        asks: "the path traced by pushes at right angles",
     },
     Quiz {
         line: "07_3",
@@ -544,19 +648,19 @@ pub const QUIZZES: &[Quiz] = &[
         asks: "two-step walks from node three back to node three",
     },
     Quiz {
-        line: "12_3",
-        seconds: 6,
-        asks: "the hopper's most likely node after a long time",
-    },
-    Quiz {
-        line: "14_2",
+        line: "14_3",
         seconds: 5,
-        asks: "does the rule of exponents hold for two matrices",
+        asks: "A then B against B then A: the square in the same place",
     },
     Quiz {
-        line: "15_3",
+        line: "15_2",
+        seconds: 4,
+        asks: "tip about x, about y, undo each: back where you began",
+    },
+    Quiz {
+        line: "16_3",
         seconds: 6,
-        asks: "independent spins in four dimensions",
+        asks: "e to the quarter turn, and why",
     },
 ];
 
@@ -629,6 +733,80 @@ mod tests {
                 assert!((total - 1.0).abs() < 1e-12);
                 assert!(heat.column(j).iter().all(|&x| x > 0.0));
             }
+        }
+    }
+
+    #[test]
+    fn grid_heat_is_the_exponential_of_the_whole_grid_laplacian() {
+        // a 3 by 3 grid, exponentiated whole, against the product of two paths
+        let side = 3;
+        let mut l = Mat::zeros(side * side);
+        let mut link = |a: usize, b: usize| {
+            l.set(a, b, -1.0);
+            l.set(b, a, -1.0);
+            l.set(a, a, l.get(a, a) + 1.0);
+            l.set(b, b, l.get(b, b) + 1.0);
+        };
+        for r in 0..side {
+            for c in 0..side {
+                if c + 1 < side {
+                    link(r * side + c, r * side + c + 1);
+                }
+                if r + 1 < side {
+                    link(r * side + c, (r + 1) * side + c);
+                }
+            }
+        }
+        let whole = expm_t(&l, -0.7);
+        let heat = grid_heat(side, 0.7, 1, 2);
+        for (node, h) in heat.iter().enumerate() {
+            assert!((h - whole.get(node, side + 2)).abs() < 1e-13, "node {node}");
+        }
+        assert!((heat.iter().sum::<f64>() - 1.0).abs() < 1e-13);
+        assert_eq!(grid_links(side), 12);
+    }
+
+    #[test]
+    fn corner_walks_on_a_small_grid() {
+        // 2 by 2: a square of four nodes; corner to opposite corner in 2 steps, two ways
+        assert_eq!(grid_corner_walks(2, 2), 2);
+        assert_eq!(grid_corner_walks(2, 3), 0);
+        assert_eq!(grid_corner_walks(2, 4), 8);
+        // 3 by 3: the shortest walks are the 6 monotone ones
+        assert_eq!(grid_corner_walks(3, 4), 6);
+    }
+
+    #[test]
+    fn angle_and_axis_of_a_known_rotation() {
+        let v = [0.2, -0.4, 0.5];
+        let length = v.iter().map(|x| x * x).sum::<f64>().sqrt();
+        let (angle, axis) = angle_axis(&expm(&hat(v)));
+        assert!((angle - length).abs() < 1e-12);
+        for (a, x) in axis.iter().zip(&v) {
+            assert!((a - x / length).abs() < 1e-12);
+        }
+    }
+
+    #[test]
+    fn the_sixty_four_bit_series_agrees_with_the_thirty_two_bit_one_on_a_tame_matrix() {
+        let (wide, _) = series_f64(&[[0.5, -0.25], [0.125, 1.0]]);
+        let (narrow, _) = series_f32(&[[0.5, -0.25], [0.125, 1.0]]);
+        for i in 0..2 {
+            for j in 0..2 {
+                assert!((wide[i][j] - f64::from(narrow[i][j])).abs() < 1e-6);
+            }
+        }
+    }
+
+    /// 06_2: the push is at right angles to where you stand, and as long
+    /// as your distance from the centre.
+    #[test]
+    fn the_quarter_turn_pushes_at_right_angles() {
+        let j = quarter_turn();
+        for p in [[1.0, 0.0], [0.3, -2.0], [-4.5, 0.25], [0.0, 0.0]] {
+            let push = j.apply(&p);
+            assert_eq!(push[0] * p[0] + push[1] * p[1], 0.0);
+            assert_eq!(push[0] * push[0] + push[1] * push[1], p[0] * p[0] + p[1] * p[1]);
         }
     }
 

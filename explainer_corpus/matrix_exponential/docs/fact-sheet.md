@@ -9,16 +9,18 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy and SciPy
-  through uv): `facts-check matrix_exponential: 302 video facts against 302
-  oracle keys: PASS`. The oracle prints 302 keys, passes 92 of 92 of its own
-  cross-checks, and compares 77 exact exponentials with SciPy's `expm`.
-- **Rust side:** `./x matrix_exponential test`: 18 tests pass, clippy
+  through uv): `facts-check matrix_exponential: 353 video facts against 353
+  oracle keys: PASS`. The oracle prints 353 keys, passes 115 of 115 of its
+  own cross-checks, and compares 202 exact exponentials with SciPy's `expm`.
+- **Rust side:** `./x matrix_exponential test`: 25 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** F-N the number exponential; F-H the hook; F-J the quarter turn;
   F-S does the series settle; F-T two tanks; F-G walks on a network; F-D
   spreading (heat, chance, a two-state quantum system); F-C computing it;
-  F-O order matters; F-L the doorway to Lie theory; F-X the edges of the
-  always sentences, each as "how many hold of how many checked"; F-B cited
+  F-O order matters; F-L the doorway to Lie theory; F-M the machine and the
+  rules drawn as fields; F-X the edges of the always sentences, each as "how
+  many hold of how many checked", on seeded cases and on named degenerate
+  ones; F-B cited
   literals; F-Q the quizzes (countdown seconds and answers); F-V every
   number the narration says, at the precision it is said and shown.
 
@@ -33,6 +35,9 @@ at the end was copied from the oracle's output by a script, not typed.
 | the two-state quantum system | the exponential of the real 4 by 4 matrix that acts as −iH on (real parts, imaginary parts) | the amplitudes (1 ± e^{−2it})/2 from the eigenvalues 0 and 2; SciPy's complex `expm` as a check |
 | the 32-bit runs | Rust `f32`, each operation rounded | NumPy `float32` scalars, the same operations in the same order (so the two agree bit for bit) |
 | Padé approximants at x = 1 | integer coefficients (2m − j)!/(j!(m − j)!), reduced | the rational function evaluated in fractions; its first error term checked for m = 1 to 6 |
+| heat on the 400-node grid | the product of two 20 by 20 path exponentials (the grid's Laplacian is a sum of two commuting pieces) | SciPy's `expm` of the whole 400 by 400 Laplacian; the two routes compared entry by entry |
+| the two loops (the square's, the cube's) | four exponentials multiplied in the order played, the later motion on the left | the same order: exact fractions for the square (and the closed form 1 − t², −t³; t³, 1 + t² + t⁴); Rodrigues' formula for the cube, its axis from the eigenvector that does not move |
+| the named degenerate cases (zero, identity, a nilpotent block, a defective shear, turns, the singular tank matrix, Moler and Van Loan's, a 1 by 1, a spin, the network's two matrices, two planes in four dimensions) | `model::expm`, with a loose tolerance where a 64-bit sum of the series loses digits | exact fractions throughout: the series summed until its remainder is below 10⁻³⁰, determinants by elimination |
 | the edges of the always sentences | 200 seeded matrix pairs (PCG64DXSM, seed 20261013; sizes 2, 3, 4; entries in [−3, 3)), judged with `model::expm` | the same 200 pairs from NumPy's PCG64DXSM, judged with SciPy's `expm` and NumPy's norms |
 | cited numbers | constants in `facts::cited`; the ones the video also computes are pinned against its own arithmetic (e to 15 places against Euler's digits; e^A for Moler and Van Loan's matrix against their six printed places; its eigenvalues; 8 + 3 + 1 against the count of force carriers) | the same literals, typed from the sources; plus Moler and Van Loan's printed sixteenth term and their factorization, both checked exactly |
 
@@ -53,17 +58,26 @@ sides, so the two routes cannot round differently (none is).
    `edge_the_gap_is_half_t_squared_times_the_commutator`). The script says
    "when they commute, it holds; when they don't, it can fail", with the
    exact statement on screen; it never says "only when".
-2. **Moler and Van Loan's famous wrong answer cannot be reproduced on a
-   modern machine, and ours differs from theirs.** Their series run (1978,
+2. **Moler and Van Loan's famous wrong answer is theirs; ours differs, and
+   depends on the order of operations.** Their series run (1978,
    pp. 807–808) used IBM 370 hexadecimal short arithmetic: 59 terms, two
-   entries with the wrong sign. The same series in IEEE 32-bit arithmetic
-   (`F-C.mvl.f32.*`, computed here and repeated operation for operation in
-   NumPy) takes 62 terms and returns four numbers of which none is right to two
-   digits (`F-V.13_5.entries_right_to_two_digits`) and one has the wrong
-   sign, the worst off by 1.94. Halved eight times first, the same 32 bits
-   give all four right to three decimal places (`F-V.13_6.*`). The video
-   shows its own run and labels it; their printed digits are quoted as
-   theirs (`F-B.mvl.ibm.*`) and only in the description.
+   entries with the wrong sign. Those digits cannot be reproduced in IEEE
+   arithmetic (a reviewer's emulation of base-16 chopped arithmetic matched
+   the first row of their result and not the second: R1, D28). The same
+   series in IEEE 32-bit arithmetic, as this video runs it (term × A, then
+   ÷ k, stopping when a term changes nothing: `F-C.mvl.f32.*`, repeated
+   operation for operation in NumPy), stops at k = 62 and returns four
+   numbers of which none is right to two digits
+   (`F-V.13_3.entries_right_to_two_digits`) and one has the wrong sign, the
+   worst off by 1.94. Other equally natural orders give other wrong answers
+   (R1, R12), so the strip names the order. Halved eight times first, the
+   same 32 bits give all four right to three decimal places
+   (`F-V.13_4.*`). The video shows its own run and labels it; their printed
+   digits are quoted as theirs (`F-B.mvl.ibm.*`) and only in the
+   description. Two limits the strip also carries: in 64-bit arithmetic this
+   matrix survives the series (right to six places, `F-C.mvl.f64.*`) and its
+   double does not; and more halvings are not better (twenty leave two
+   digits, `F-C.mvl.f32.halvings.*`).
 3. **They name no best method.** "Thus, we see perhaps three or four
    candidates for 'best' method" (1978, Conclusions); scaling and squaring
    is "the only generally competitive series method". The 2003 revisit
@@ -95,12 +109,15 @@ sides, so the two routes cannot round differently (none is).
    with the carriers as usually listed (8 gluons, W⁺, W⁻, Z, photon); the
    W's, Z and photon are mixtures of the SU(2) and U(1) fields, which the
    description says.
-8. **The hub is not favoured.** For a hopper that leaves along each link at
-   rate one (the rule −L), the long-run chance is one quarter at every node
-   of the four-node network (`F-D.chance.from_hub.settles`), hub or tail.
-   The familiar "proportional to the number of links" answer belongs to the
-   discrete walk that takes one step per tick. The quiz says which hopper it
-   means.
+8. **The hub is not favoured, for one kind of hopper.** For a hopper that
+   leaves along each link at rate one (the rule −L), the long-run chance is
+   one quarter at every node of the four-node network
+   (`F-D.chance.from_hub.settles`). For the walk that takes one hop per
+   tick it is proportional to the number of links: 3/8 at the busy node
+   (`F-D.chance.per_tick`). The first storyboard asked this as a quiz
+   without saying which hopper; three reviewers marked it (a blocker). It
+   is no longer a quiz, and the strip at 12_3 names the hopper and gives
+   both answers.
 9. **Two Laplacians.** Heat on a network as e^{−tL} with L = D − A is
    Kondor and Lafferty's form (2002). Chung's *Spectral Graph Theory* uses
    the normalized Laplacian; it is not cited for this formula.
@@ -125,7 +142,20 @@ sides, so the two routes cannot round differently (none is).
     found one page reporting that Cleve Moler died in May 2026; it was not
     confirmed from a second source, and the script's wording does not
     depend on it either way (the paper is "Moler and Van Loan's", 1978).
-15. **Every pronunciation is from a secondary source**, and four names
+15. **Both loops leave minus the commutator.** Multiplied in the order they
+    are played (the later motion on the left), the square taken round A, B,
+    undo A, undo B returns as I − t²[A, B] + … (`F-O.loop.*`), and the cube
+    tipped about x, about y, back about x, back about y turns by about t²
+    about minus z (`F-L.loop.*`, `F-L.creep.*`). The first draft's facts
+    multiplied the four factors in the other order and so agreed with the
+    bracket's sign while the picture would not have (R1: D6, R9, C5). The
+    words name no sign; the strips do. One small loop leaves too little to
+    see (0.2 radian tips leave 2.28°), so the cube's loop is repeated twenty
+    times: 45.7° about an axis 5.7° off the z axis.
+16. **A thousand straight steps buy three digits, not five.** The error of
+    n steps on the tanks is about 13.5/n grams (`F-T.off_by.*`): ten times
+    the steps, one more digit.
+17. **Every pronunciation is from a secondary source**, and four names
     (Moler, Van Loan, Hatano, Laguerre) have no written source at all. They
     are probed in the voice in P3; the owner's pronunciation overrides.
 
@@ -171,54 +201,76 @@ e^X · e^Y = e^{X+Y}".
 
 | The video says | Exactly |
 |---|---|
-| "its rate equals its size" | f′ = f, f(0) = 1; the only such function (if g′ = g too, then (g/f)′ = 0) |
+| "rate equals amount", "the one curve that starts at one" | f′ = f, f(0) = 1; the only such function: if g′ = g too, then g(x)·f(−x) has rate zero, so it is constant; with g = f, f(x)f(−x) = 1, so f is never zero; then g = g(0)·f |
 | "e to the t A is where you end up" | x(t) = e^{tA}x(0) is the unique solution of x′ = Ax with that start |
 | "the size of a matrix: the most it can stretch any arrow" | the operator 2-norm, max ‖Ax‖/‖x‖; any submultiplicative norm gives the same proof |
 | "the series settles for every square matrix" | it converges absolutely, entry by entry, for every real or complex square matrix, since ‖A^k/k!‖ ≤ ‖A‖^k/k! and Σ‖A‖^k/k! = e^{‖A‖} |
 | "when they commute, the rule holds; when they don't, it can fail" | AB = BA ⇒ e^{A+B} = e^A e^B; and e^{t(A+B)} = e^{tA}e^{tB} for all t ⇔ AB = BA; for short times the gap is ½t²[A, B] + O(t³) |
 | "the first correction is half the commutator" | log(e^X e^Y) = X + Y + ½[X, Y] + (1/12)[X, [X, Y]] − (1/12)[Y, [X, Y]] + … (Baker–Campbell–Hausdorff; converges for small X, Y) |
 | "the exponential of a skew matrix is a rotation, and every rotation comes from one" | exp maps so(n) onto SO(n); not one-to-one |
-| "a Lie group is a smooth family of motions; its Lie algebra is its tiny steps" | a group that is also a smooth manifold with smooth multiplication and inverse; its Lie algebra is the tangent space at the identity with the bracket [X, Y] = XY − YX (for matrix groups) |
+| "add two spins, or take their commutator, and you still have a spin: a Lie algebra"; "follow one rotation by another, or undo one: a Lie group" | a group that is also a smooth manifold with smooth multiplication and inverse; its Lie algebra is the tangent space at the identity with the bracket [X, Y] = XY − YX (for matrix groups) |
 | "the forces of the Standard Model are built on SU(3) × SU(2) × U(1)" | a gauge theory with that Lie algebra; the global form of the group is the product modulo a subgroup of Z₆ not yet fixed by experiment |
 | "a two-state quantum system" | ψ′ = −iHψ with ħ = 1 and H the Laplacian of two linked nodes; the chances are cos²t and sin²t |
 | "equal chance at every node in the long run" | for the continuous-time walk with generator −L on a connected network; the discrete-time walk's stationary chances are proportional to the degrees |
-| "Padé: a ratio of two polynomials that matches the series as far as it can" | the [m/m] approximant agrees with e^x through x^{2m}; error term (m!)²/((2m)!(2m+1)!) x^{2m+1} |
+| "a ratio of two polynomials, a Padé approximant" | the [m/m] approximant agrees with e^x through x^{2m}; leading error term (−1)^m (m!)²/((2m)!(2m+1)!) x^{2m+1} as x → 0 (at x = 1, m = 3, the true error is 0.0000280, 2.8 times that term) |
+| "salt leaves each tank at a rate of one tenth of what it holds, per minute" | x₁′ = −0.1x₁ + 0.1x₂, x₂′ = 0.1x₁ − 0.1x₂, each tank kept well stirred; in the first minute 9.06 g net crosses, not 10 |
+| "each link carries heat from its hotter end to its cooler end, as fast as the difference between them" | u′ = −Lu with L = D − A: the flow along a link equals the difference of its ends |
+| "a computer keeps about seven digits" | IEEE 32-bit floats: 24 binary digits, about 7.2 decimal ones |
+| "a product of exponentials, one per joint" | T = e^{[S₁]q₁} ⋯ e^{[Sₙ]qₙ} M, with M the arm's home pose (Video G) |
+| "each point is carried to its finish" | x(t) = e^{tA}x(0); points with Ax = 0 do not move (the centre never does) |
+| "both rules at once, a tiny step of each, over and over" | e^{A+B} = lim (e^{A/n} e^{B/n})^n (the Lie product formula) |
+| "what's left over is set by AB minus BA" | e^{−tB}e^{−tA}e^{tB}e^{tA} = I − t²[A, B] + O(t³), in the order played |
 
 ## The always sentences and their edge tests
 
-| Sentence (as the script may say it) | Tested | Result |
+Two families of cases. **Seeded:** 200 random pairs (interior cases; with
+probability one none is defective, nilpotent, singular or large).
+**Named:** thirteen degenerate matrices judged in exact fractions by the
+oracle: zero, the identity, a nilpotent block, a defective shear, the
+quarter turn and five of them, the tanks (singular), Moler and Van Loan's
+(large, far from normal), a 1 by 1, a spin, the network's adjacency matrix
+and minus its Laplacian, and two planes in four dimensions.
+
+| Sentence (as the script says it) | Tested | Result |
 |---|---|---|
-| the series settles for every square matrix, and no term is larger than size(A)^k/k! | 200 seeded matrices, 41 terms each against the bound, the 120-term total against the exponential (`F-X.series_settles`; Rust test `edge_every_always_sentence_holds_on_every_case`) | 200 of 200 |
-| the size of a product is at most the product of the sizes | 200 seeded pairs (`F-X.sizes_multiply`); the shear, where it is strict (2.414 < 2.618), and the nilpotent matrix, whose square is zero (`F-S.shear.*`, `F-S.nil.*`) | 200 of 200 |
-| running for s and then for t is running for s + t | 200 seeded (A, s, t) (`F-X.flow_adds`) | 200 of 200 |
-| if A and B commute, e^{A+B} = e^A e^B | 200 seeded commuting pairs (B a polynomial in A) (`F-X.commuting_rule_holds`) | 200 of 200 |
-| if they do not commute it can fail | fails on all 200 seeded generic pairs (`F-X.generic_rule_fails`); but holds for the 3, 4, 5 turns (`F-O.turns.*`): "can", never "must" | 200 of 200 fail; 1 exception shown |
-| the exponential of a skew matrix is a rotation | 200 seeded skew matrices of sizes 2, 3, 4: RᵀR = I and det R = 1 (`F-X.skew_gives_rotation`) | 200 of 200 |
-| e to a matrix can always be undone (by e to minus it), and its determinant is e to the trace, never zero | 200 seeded matrices (`F-X.exponential_undone`) | 200 of 200 |
-| heat on a network: the total never changes and nothing goes negative | both networks, 50 times each (`F-X.heat_conserves`) | 100 of 100 |
-| the quantum pair's total chance stays one | 50 times (`F-X.quantum_total_one`) | 50 of 50 |
-| the entries of A^k count the walks of length k | lengths 0 to 8 on the four-node network, by listing every walk (oracle cross-checks; Rust test `walk_counts_are_the_powers_of_the_adjacency_matrix`) | 9 of 9 lengths |
+| "it works for every square matrix … the k-th term is at most the size to the k, over k factorial … the total settles. Every time." (08_5) | seeded: 41 terms each against the ceiling, the 120-term total against the exponential (`F-X.series_settles`); named, exactly (`F-X.named.series_settles`); the shear-like matrix where the bound is strict and 5J where it is attained (`F-S.strict.*`, `F-S.terms`). The oracle also shows a 64-bit sum failing on the 1 by 1 matrix (−40) while the exact series does not: the sentence is about the mathematics | 200 of 200; 13 of 13 |
+| the size of a product is at most the product of the sizes (the strip at 08_5) | seeded pairs (`F-X.sizes_multiply`); all 64 ordered pairs of the named 2 by 2 matrices (`F-X.named.sizes_multiply`) | 200 of 200; 64 of 64 |
+| "one rule, run twice, is one longer run" (09_6) | seeded (A, s, t) (`F-X.flow_adds`); named (`F-X.named.flow_adds`) | 200 of 200; 13 of 13 |
+| "when those agree, the matrices commute, and for those, the rule holds" (14_5) | seeded commuting pairs, B a polynomial in A (`F-X.commuting_rule_holds`); named pairs that are not polynomials in each other: zero and a shear, the identity and Moler and Van Loan's, two diagonals, a nilpotent with itself (`F-X.named.commuting_rule_holds`) | 200 of 200; 6 of 6 |
+| the rule can fail without commuting, and can hold without it ("precisely" strip at 14_5) | fails on all 200 seeded generic pairs (`F-X.generic_rule_fails`); holds for the 3, 4, 5 turns (`F-O.turns.*`): "can", never "must" | 200 of 200 fail; 1 exception shown |
+| "follow a spin, and you get a rotation" (15_1) | seeded skew matrices of sizes 2, 3, 4 (`F-X.skew_gives_rotation`); named: zero, the turns, a spin, two planes (`F-X.named.skew_gives_rotation`) | 200 of 200; 5 of 5 |
+| "every rotation comes from a spin" (strip at 15_1) | cited (Hall 2015, Cor. 11.10: exp is onto for a compact connected group); not tested here. A reviewer found a real skew logarithm for 200 random rotations in dimensions 2 to 6 (R1, R22) | cited |
+| e to a matrix can always be undone, and its determinant is e to the trace (description) | seeded and named (`F-X.exponential_undone`, `F-X.named.exponential_undone`) | 200 of 200; 13 of 13 |
+| heat: "the heat spreads, and levels out" with the total unchanged (12_2) | both networks, 50 times each (`F-X.heat_conserves`); the oracle checks that on a network in two pieces heat levels only within each piece, which is why "levels out" is said of this connected network | 100 of 100 |
+| "the chance sloshes across, and back, for ever" with total chance one (12_6) | 50 times (`F-X.quantum_total_one`); all across at π/2, all back at π (`F-D.pair.quantum.*`) | 50 of 50 |
+| the entries of the k-th power count the walks of k steps (11_5) | lengths 0 to 8 on the four-node network, by listing every walk; 38, 39 and 40 steps on the 400-node grid against C(38, 19), zero and the count shown (oracle cross-checks; Rust tests) | 9 of 9 lengths |
+| "a push sideways, at right angles to where you stand, and as long as your distance from the centre" (06_2) | an identity: the quarter turn of an arrow has the same length and zero dot product with it (Rust test `the_quarter_turn_pushes_at_right_angles`) | identity |
+| "the one curve that starts at one, with rate equal to amount"; "only one curve can" (03_6, 05_2) | the uniqueness argument in the table above; without "starts at one" the sentence is false (2e^x), and the words carry the start | proved |
+| "spins don't commute" is no longer said; 15_3 says the commutator of two spins is a third spin | the three brackets (`F-L.bracket.*`); in four dimensions spins in separate planes do commute, which is why the sentence was cut | 3 of 3 |
 
 ## Terms (the jargon ledger)
 
-The line ids of the defining beats are filled in with the storyboard
-(P2).
-
-| Term (spoken) | Plain-language definition as spoken | On-screen label |
-|---|---|---|
-| rate | how fast something is changing right now | "rate"; f′ once, with "the derivative" in a lower-third |
-| tiny step | what the rule does in a very short time | the teal arrow |
-| matrix | a grid of numbers that turns one arrow into another | "matrix" |
-| the state | the list of numbers that describes the system now | x(t) |
-| the rule / the result | the matrix that says where each point is headed / where it ends up | A / e^{tA} |
-| running total, settles | the sum so far; it stops changing in every digit you care to look at | "converges", said once |
-| size (of a matrix) | the most it can stretch any arrow | "operator norm" in a lower-third |
-| walk | a route along links, repeats allowed | "walk of length k" |
-| commute | the order does not matter | AB = BA |
-| the commutator | AB minus BA: what is left over when the order is swapped | [A, B] |
-| skew | flip the grid across its diagonal and every sign changes | Aᵀ = −A |
-| Lie group | a smooth family of motions | SO(3) |
-| Lie algebra | its tiny steps | so(3) |
+| Term (spoken) | First defined | Plain-language definition as spoken | On-screen label |
+|---|---|---|---|
+| matrix | 01_4 | a grid of numbers that works as a machine: feed it an arrow, and it hands back a new arrow | the grid |
+| e | 02_1, 03_4 | a number, about 2.718; the total that finer and finer compounding settles on | e = 2.71828… |
+| rate, amount | 03_5 | your gain per year; what you have | "f′ means: the rate of f" |
+| series, term | 04_6 | an endless sum like this; its pieces | e^x = 1 + x + x²/2! + … |
+| factorial | 04_5 | each bottom number is the last one times the next whole number | 4! = 1 × 2 × 3 × 4 |
+| share | 05_3 | the fixed fraction of the amount that the rate is | r |
+| radian | 06_4 | an arc as long as the radius | "1 radian" on the arc |
+| exponential (noun) | 07_2 | e to a matrix, defined by the series | e^A |
+| cosine, sine | 07_6 | the across part and the up part of a point on the circle | cos t, sin t |
+| running total, settles; converges | 08_1 | the sum so far stops changing, in every entry | "converges", said once |
+| size (of a matrix) | 08_5 | its biggest stretch of any arrow | "the operator norm" in a strip |
+| rule (a matrix as a rule) | 09_1 | feed it your position, and what comes back is your velocity | "A: the rule" |
+| walk | 11_2 | a route along links that may double back | "walk of k steps" |
+| communicability | 11_6 | every walk between two nodes added up, long ones counting less | e^A |
+| commute | 14_5 | multiply the two grids in either order, and they agree | AB = BA |
+| the commutator | 14_6 | what is left over when a loop does not close: AB minus BA | [A, B] |
+| spin | 15_1 | a matrix whose signs all change when flipped across its diagonal, used as a rule | "skew: A^T = −A" in a strip |
+| Lie algebra | 15_4 | add two spins, or take their commutator, and you still have a spin | so(3) |
+| Lie group | 15_4 | follow one rotation by another, or undo one, and you still have a rotation | SO(3) |
 
 ## The numbers
 
@@ -298,7 +350,7 @@ Powers of J (rows separated by `;`), its period, and e^{tJ} at a quarter, a half
 
 ### F-S: does the series settle? (e to five quarter turns)
 
-`terms`: the size of each term of the series for e^{5J}, k = 0 to 20 (exactly 5^k/k!). `total.kK`: where the running total sends the arrow (1, 0) after term K. `farthest.*`: the running total's greatest distance from the origin. `limit`: (cos 5, sin 5). `bound`: e⁵, the sum of all the sizes. `shear.*`, `nil.*`: the size of a product against the product of the sizes.
+`terms`: the size of each term of the series for e^{5J}, k = 0 to 20 (exactly 5^k/k!). `total.kK`: where the running total sends the arrow (1, 0) after term K. `farthest.*`: the running total's greatest distance from the origin. `limit`: (cos 5, sin 5). `bound`: e⁵, the sum of all the sizes. `shear.*`, `nil.*`: the size of a product against the product of the sizes. `strict.*`: three times a shear, whose terms sit strictly under their ceilings (k = 0 to 12).
 
 | key | value |
 |---|---|
@@ -339,10 +391,16 @@ Powers of J (rows separated by `;`), its period, and e^{tJ} at a quarter, a half
 | `F-S.shear.size.squared` | 2.618034 |
 | `F-S.nil.size` | 1.000000 |
 | `F-S.nil.squared` | 0,0;0,0 |
+| `F-S.strict.matrix` | 3,3;0,3 |
+| `F-S.strict.size` | 4.854 |
+| `F-S.strict.terms` | 1.000, 4.854, 10.864, 14.862, 14.297, 10.515, 6.239, 3.098, 1.322, 0.494, 0.164, 0.049, 0.013 |
+| `F-S.strict.ceilings` | 1.000, 4.854, 11.781, 19.062, 23.133, 22.458, 18.169, 12.599, 7.645, 4.123, 2.001, 0.883, 0.357 |
+| `F-S.strict.bound` | 128.3 |
+| `F-S.strict.below_from_k2` | true |
 
 ### F-T: two tanks
 
-100 litres each, 10 litres a minute each way, 100 g of salt in the first. `at.tT`: grams in each tank at minute T, e^{TA} applied to the start. `steps.nN`: the same ten minutes taken as N straight steps, (I + (10/N)A)^N. `within_a_gram.minutes`: when the first tank is within a gram of its final 50.
+100 litres each, 10 litres a minute each way, 100 g of salt in the first. `at.tT`: grams in each tank at minute T, e^{TA} applied to the start. `steps.nN`: the same ten minutes taken as N straight steps, (I + (10/N)A)^N. `within_a_gram.minutes`: when the first tank is within a gram of its final 50. `off_by.nN`: how far N straight steps are from the exponential, in grams.
 
 | key | value |
 |---|---|
@@ -363,6 +421,8 @@ Powers of J (rows separated by `;`), its period, and e^{tJ} at a quarter, a half
 | `F-T.settles` | 50.0000,50.0000 |
 | `F-T.eigenvalues` | -0.200000,0.000000 |
 | `F-T.within_a_gram.minutes` | 19.5601 |
+| `F-T.off_by.n10` | 1.40 |
+| `F-T.off_by.n1000` | 0.014 |
 
 ### F-G: walks on a network
 
@@ -384,7 +444,7 @@ The four-node network (a triangle 1, 2, 3 with a tail 4). `walks.kK`: the number
 
 ### F-D: spreading (heat, chance, one letter i)
 
-`L`: the Laplacian of the network. `heat.tT`: one unit of heat placed on node 4, after time T, at nodes 1 to 4 (a column of e^{−TL}). `chance.*`: the hopper's rule is −L; a row of e^{−tL} is where a hopper that started at the hub is likely to be. `pair.*`: two linked nodes; `pair.heat.tT` settles toward one half, `pair.quantum.tT` (e^{−iTL}, squared sizes) goes back and forth: all at the other node at time π/2 (`half`), all back at π (`full`).
+`L`: the Laplacian of the network. `heat.tT`: one unit of heat placed on node 4, after time T, at nodes 1 to 4 (a column of e^{−TL}). `chance.*`: the hopper's rule is −L; a row of e^{−tL} is where a hopper that started at the hub is likely to be. `pair.*`: two linked nodes; `pair.heat.tT` settles toward one half, `pair.quantum.tT` (e^{−iTL}, squared sizes) goes back and forth: all at the other node at time π/2 (`half`), all back at π (`full`). `chance.per_tick`: the long-run chances of a hopper that takes one hop per tick. `big.*`: the grid network of 20 by 20 nodes, one unit of heat placed at row 10, column 10, read at time 2; `big.walks`: the 40-step walks from one corner to the opposite corner.
 
 | key | value |
 |---|---|
@@ -409,10 +469,18 @@ The four-node network (a triangle 1, 2, 3 with a tail 4). `walks.kK`: the number
 | `F-D.pair.quantum.quarter` | 0.500000,0.500000 |
 | `F-D.pair.quantum.half` | 0.000000,1.000000 |
 | `F-D.pair.quantum.full` | 1.000000,0.000000 |
+| `F-D.chance.per_tick` | 0.250,0.250,0.375,0.125 |
+| `F-D.big.nodes` | 400 |
+| `F-D.big.links` | 760 |
+| `F-D.big.heat.source` | 0.0428 |
+| `F-D.big.heat.neighbour` | 0.0370 |
+| `F-D.big.heat.total` | 1.000000 |
+| `F-D.big.heat.above_a_thousandth` | 97 |
+| `F-D.big.walks` | 4988731519200 |
 
 ### F-C: computing it
 
-`mvl.*`: Moler and Van Loan's matrix. `exact`: e^A. `term.k16`, `term.k17`: the sixteenth and seventeenth terms of the series (millions, opposite signs). `f32.series`, `f32.terms`: the series summed in 32-bit arithmetic until a term changes nothing, and the number of that term. `f32.scaled.*`: the same 32 bits with the matrix halved eight times, eight terms, squared eight times. `pade.mM`: the [M/M] Padé approximant of e^x at x = 1. `diag.*`: the tanks' eigenvalues exponentiated. `nil.exp.t3`: a matrix that cannot be diagonalized, whose series ends by itself.
+`mvl.*`: Moler and Van Loan's matrix. `exact`: e^A. `term.k16`, `term.k17`: the sixteenth and seventeenth terms of the series (millions, opposite signs). `f32.series`, `f32.terms`: the series summed in 32-bit arithmetic until a term changes nothing, and the number of that term. `f32.scaled.*`: the same 32 bits with the matrix halved eight times, eight terms, squared eight times. `pade.mM`: the [M/M] Padé approximant of e^x at x = 1. `diag.*`: the tanks' eigenvalues exponentiated. `nil.exp.t3`: a matrix that cannot be diagonalized, whose series ends by itself. `f64.*`: the same series in 64 bits, on the matrix and on its double. `f32.halvings.hH`: the worst error of scaling and squaring with H halvings.
 
 | key | value |
 |---|---|
@@ -446,10 +514,19 @@ The four-node network (a triangle 1, 2, 3 with a tail 4). `walks.kK`: the number
 | `F-C.diag.tanks.exp_eigenvalues.t10` | 0.135335,1.000000 |
 | `F-C.diag.tanks.rebuilt` | true |
 | `F-C.nil.exp.t3` | 1,3;0,1 |
+| `F-C.mvl.f64.terms` | 75 |
+| `F-C.mvl.f64.right_to_six_places` | true |
+| `F-C.mvl.f64.doubled.entries_right_to_two_digits` | 0 |
+| `F-C.mvl.f32.halvings.h4` | 0.000007 |
+| `F-C.mvl.f32.halvings.h8` | 0.000034 |
+| `F-C.mvl.f32.halvings.h12` | 0.001002 |
+| `F-C.mvl.f32.halvings.h16` | 0.009639 |
+| `F-C.mvl.f32.halvings.h20` | 0.018969 |
+| `F-C.mvl.f32.halvings.h20.result` | -0.727,0.545;-1.453,1.089 |
 
 ### F-O: order matters
 
-A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T²/2, which tends to the commutator. `commuting.*`: a pair that commutes. `turns.*`: three and four full turns about two axes: the rule holds without commuting.
+A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T²/2, which tends to the commutator. `commuting.*`: a pair that commutes. `turns.*`: three and four full turns about two axes: the rule holds without commuting. `loop.*`: the square taken round A, B, undo A, undo B; `loop.scaled`: what is left, divided by t². `alternate.nN`: N tiny steps of each rule in turn.
 
 | key | value |
 |---|---|
@@ -473,10 +550,15 @@ A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T
 | `F-O.turns.sum_is_identity` | true |
 | `F-O.turns.sum_full_turns` | 5.000000 |
 | `F-O.turns.commute` | false |
+| `F-O.loop.t0.5` | 0.7500,-0.1250;0.1250,1.3125 |
+| `F-O.loop.scaled.t0.01` | -1.000,-0.010;0.010,1.000 |
+| `F-O.loop.is_minus_commutator` | true |
+| `F-O.alternate.n10` | 1.484,1.173;1.173,1.601 |
+| `F-O.alternate.n1000` | 1.542,1.175;1.175,1.544 |
 
 ### F-L: the doorway to Lie theory
 
-`bracket.*`: the three spins about the axes and their commutators. `loop.tT`: a small turn about x, then y, then back about x, then back about y, minus the identity, divided by T²: it tends to the spin about z. `spins.nN`: independent spins in N dimensions. `su3`, `su2`, `u1`: independent tiny steps of each group.
+`bracket.*`: the three spins about the axes and their commutators. `loop.tT`: a small tip about x, then y, then back about x, then back about y, in the order played, minus the identity, divided by T²: it tends to minus the spin about z. `creep.*`: that loop with tips of 0.2 radians, once and twenty times: the angle turned and the axis. `spins.nN`: independent spins in N dimensions. `su3`, `su2`, `u1`: independent tiny steps of each group.
 
 | key | value |
 |---|---|
@@ -486,8 +568,17 @@ A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T
 | `F-L.bracket.yz_is_x` | true |
 | `F-L.bracket.zx_is_y` | true |
 | `F-L.exp.Lz.t1` | 0.540302, -0.841471, 0.000000 ; 0.841471, 0.540302, 0.000000 ; 0.000000, 0.000000, 1.000000 |
-| `F-L.loop.t0.1` | -0.005, -0.997, -0.050 ; 0.997, -0.005, -0.050 ; 0.050, 0.050, 0.000 |
-| `F-L.loop.t0.01` | 0.000, -1.000, -0.005 ; 1.000, 0.000, -0.005 ; 0.005, 0.005, 0.000 |
+| `F-L.loop.t0.1` | -0.005, 0.997, -0.050 ; -0.997, -0.005, -0.050 ; 0.050, 0.050, 0.000 |
+| `F-L.loop.t0.01` | 0.000, 1.000, -0.005 ; -1.000, 0.000, -0.005 ; 0.005, 0.005, 0.000 |
+| `F-L.loop.is_minus_z_spin` | true |
+| `F-L.creep.tip` | 0.2 |
+| `F-L.creep.tip_degrees` | 11.5 |
+| `F-L.creep.loops` | 20 |
+| `F-L.creep.one.degrees` | 2.28 |
+| `F-L.creep.one.axis` | 0.099,-0.099,-0.990 |
+| `F-L.creep.total.degrees` | 45.7 |
+| `F-L.creep.total.axis` | 0.099,-0.099,-0.990 |
+| `F-L.creep.direction` | backwards about z |
 | `F-L.spins.n2` | 1 |
 | `F-L.spins.n3` | 3 |
 | `F-L.spins.n4` | 6 |
@@ -498,9 +589,21 @@ A and B are the two shears. `gap.tT`: (e^{TA}e^{TB} − e^{T(A+B)}) divided by T
 | `F-L.standard_model.steps` | 12 |
 | `F-L.full_turn_is_identity` | true |
 
+### F-M: the machine, and a second rule
+
+`machine.*`: the arrow fed to J at 01_4 and the arrow that comes out. `spiral.*`: the rule of 09_3 whose arrows spiral inward; following it for one unit of time turns by one radian and shrinks the distance from the centre by `shrink_per_unit_time`.
+
+| key | value |
+|---|---|
+| `F-M.machine.in` | 2,1 |
+| `F-M.machine.out` | -1,2 |
+| `F-M.spiral.rule` | -0.3,-1.0;1.0,-0.3 |
+| `F-M.spiral.exp.t1` | 0.400,-0.623;0.623,0.400 |
+| `F-M.spiral.shrink_per_unit_time` | 0.741 |
+
 ### F-X: the edges of the always sentences
 
-How many of the seeded cases satisfy each sentence, of how many checked (see the table above).
+How many of the seeded cases, and of the named degenerate cases (`named.*`), satisfy each sentence, of how many checked (see the table above).
 
 | key | value |
 |---|---|
@@ -514,6 +617,12 @@ How many of the seeded cases satisfy each sentence, of how many checked (see the
 | `F-X.exponential_undone` | 200 of 200 |
 | `F-X.heat_conserves` | 100 of 100 |
 | `F-X.quantum_total_one` | 50 of 50 |
+| `F-X.named.series_settles` | 13 of 13 |
+| `F-X.named.flow_adds` | 13 of 13 |
+| `F-X.named.exponential_undone` | 13 of 13 |
+| `F-X.named.sizes_multiply` | 64 of 64 |
+| `F-X.named.commuting_rule_holds` | 6 of 6 |
+| `F-X.named.skew_gives_rotation` | 5 of 5 |
 
 ### F-B: cited literals
 
@@ -546,14 +655,14 @@ One pair of rows per quiz, keyed by the storyboard line that asks it: the second
 | key | value |
 |---|---|
 | `F-Q.count` | 11 |
-| `F-Q.01_1.seconds` | 5 |
-| `F-Q.01_1.answer` | 0.540,-0.841;0.841,0.540 |
 | `F-Q.03_3.seconds` | 5 |
 | `F-Q.03_3.answer` | no: it settles at 2.71828 |
 | `F-Q.04_4.seconds` | 5 |
-| `F-Q.04_4.answer` | x^4/24 |
+| `F-Q.04_4.answer` | x^3/6 |
 | `F-Q.05_5.seconds` | 6 |
 | `F-Q.05_5.answer` | 2.718 |
+| `F-Q.06_3.seconds` | 4 |
+| `F-Q.06_3.answer` | a circle of radius 1.000 |
 | `F-Q.07_3.seconds` | 5 |
 | `F-Q.07_3.answer` | -1,0;0,-1 |
 | `F-Q.08_3.seconds` | 5 |
@@ -562,12 +671,12 @@ One pair of rows per quiz, keyed by the storyboard line that asks it: the second
 | `F-Q.10_5.answer` | 50,50 |
 | `F-Q.11_3.seconds` | 5 |
 | `F-Q.11_3.answer` | 3 |
-| `F-Q.12_3.seconds` | 6 |
-| `F-Q.12_3.answer` | none: 0.25,0.25,0.25,0.25 |
-| `F-Q.14_2.seconds` | 5 |
-| `F-Q.14_2.answer` | false |
-| `F-Q.15_3.seconds` | 6 |
-| `F-Q.15_3.answer` | 6 |
+| `F-Q.14_3.seconds` | 5 |
+| `F-Q.14_3.answer` | no: 1,1;1,2 against 2,1;1,1 |
+| `F-Q.15_2.seconds` | 4 |
+| `F-Q.15_2.answer` | no: off by 2.28 degrees |
+| `F-Q.16_3.seconds` | 6 |
+| `F-Q.16_3.answer` | a rotation by 1 radian: 0.540, -0.841 ; 0.841, 0.540 |
 
 ### F-V: the numbers as said and shown
 
@@ -575,8 +684,8 @@ Keyed by the storyboard line. Each is the model's value at the precision the nar
 
 | key | value |
 |---|---|
-| `F-V.01_2.degrees` | 57 |
 | `F-V.01_2.degrees.shown` | 57.3 |
+| `F-V.02_1.e` | 2.718 |
 | `F-V.03_2.two_steps` | 2.25 |
 | `F-V.03_3.four_steps` | 2.44 |
 | `F-V.03_3.twelve_steps` | 2.61 |
@@ -584,6 +693,8 @@ Keyed by the storyboard line. Each is the model's value at the precision the nar
 | `F-V.03_4.million` | 2.71828 |
 | `F-V.03_4.e` | 2.71828 |
 | `F-V.05_1.running` | 2.000,2.500,2.667,2.708,2.717,2.718 |
+| `F-V.05_1.settles` | 2.71828 |
+| `F-V.05_3.share` | 0.05 |
 | `F-V.05_6.rate_times_time` | 1 |
 | `F-V.05_6.factor` | 2.718 |
 | `F-V.06_4.four_steps` | -2.32,1.20 |
@@ -594,10 +705,8 @@ Keyed by the storyboard line. Each is the model's value at the precision the nar
 | `F-V.08_2.swings_past` | 21 |
 | `F-V.08_4.term20.tens_of_millionths` | 4 |
 | `F-V.08_4.home` | 0.284,-0.959 |
-| `F-V.08_5.shear` | 1.618,2.414,2.618 |
-| `F-V.08_6.bound` | 148.4 |
+| `F-V.08_5.bound` | 148.4 |
 | `F-V.10_3.one_step` | 0,100 |
-| `F-V.10_4.ten_steps.said` | 55 |
 | `F-V.10_4.ten_steps` | 55.37 |
 | `F-V.10_4.thousand_steps` | 56.75 |
 | `F-V.10_4.exact` | 56.77 |
@@ -607,17 +716,18 @@ Keyed by the storyboard line. Each is the model's value at the precision the nar
 | `F-V.11_6.one_to_three` | 2.62 |
 | `F-V.11_6.one_to_two` | 2.42 |
 | `F-V.12_2.level` | 0.25,0.25,0.25,0.25 |
-| `F-V.13_3.millions` | 9 |
-| `F-V.13_3.exact` | -0.736,0.552;-1.472,1.104 |
-| `F-V.13_3.all_smaller_than_two` | true |
-| `F-V.13_5.series` | -0.789,1.314;-0.126,-0.839 |
-| `F-V.13_5.terms` | 62 |
-| `F-V.13_5.entries_right_to_two_digits` | 0 |
-| `F-V.13_6.scaled` | -0.736,0.552;-1.472,1.104 |
-| `F-V.13_6.right_to_three_places` | true |
-| `F-V.13_7.series` | 2.71806 |
-| `F-V.13_7.pade` | 2.71831 |
-| `F-V.13_7.times_closer` | 8 |
+| `F-V.12_4.nodes` | 400 |
+| `F-V.13_2.millions` | 9 |
+| `F-V.13_2.exact` | -0.736,0.552;-1.472,1.104 |
+| `F-V.13_2.all_smaller_than_two` | true |
+| `F-V.13_3.series` | -0.789,1.314;-0.126,-0.839 |
+| `F-V.13_3.stopped_at_k` | 62 |
+| `F-V.13_3.entries_right_to_two_digits` | 0 |
+| `F-V.13_4.scaled` | -0.736,0.552;-1.472,1.104 |
+| `F-V.13_4.right_to_three_places` | true |
+| `F-V.13_5.series` | 2.71806 |
+| `F-V.13_5.pade` | 2.71831 |
+| `F-V.13_5.times_closer` | 8 |
 | `F-V.14_4.both_at_once` | 1.543,1.175;1.175,1.543 |
-| `F-V.15_4.spins` | 3,6 |
+| `F-V.15_1.spins` | 3,6 |
 | `F-V.16_2.steps` | 8,3,1,12 |

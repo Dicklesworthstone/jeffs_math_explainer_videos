@@ -12,8 +12,9 @@ stdout: one `KEY<TAB>VALUE` line per fact, the same keys `expm facts` prints
 exponential), F-H (the hook), F-J (the quarter turn), F-S (does the series
 settle), F-T (two tanks), F-G (walks on a network), F-D (spreading), F-C
 (computing it), F-O (order matters), F-L (the doorway to Lie theory), F-X
-(the edges of the always sentences), F-B (cited), F-Q (the quizzes) and F-V
-(the numbers as the narration says them and the screen shows them).
+(the edges of the always sentences), F-M (the machine and the rules drawn as
+fields), F-B (cited), F-Q (the quizzes) and F-V (the numbers as the
+narration says them and the screen shows them).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -32,7 +33,13 @@ every exponential by scaling and squaring in 64-bit floats):
     follow links;
   * the 32-bit runs repeated operation for operation in NumPy float32;
   * the edge cases drawn from the same PCG64DXSM stream and judged with
-    SciPy's `expm` and NumPy's norms;
+    SciPy's `expm` and NumPy's norms; the named degenerate cases (zero, a
+    nilpotent block, a defective shear, a large non-normal matrix, …)
+    judged in exact fractions;
+  * heat on the 400-node grid by exponentiating its whole 400 by 400
+    Laplacian with SciPy (the video multiplies two 20 by 20 exponentials);
+  * the loops (the square's and the cube's) multiplied in the order they
+    are played, the cube's from Rodrigues' formula;
   * CITED literals typed from the sources listed in docs/fact-sheet.md.
 """
 import itertools
@@ -383,6 +390,21 @@ def settle_facts():
     nil = fmat([[0, 1], [0, 0]])
     emit("F-S.nil.size", dec(size(nil), 6))
     emit("F-S.nil.squared", whole(mpow(nil, 2)))
+    strict = fmat([[3, 3], [0, 3]])
+    sz = size(strict)
+    steps = series(strict, 12)
+    terms = [size(term) for _, term, _ in steps]
+    ceilings = [sz**k / math.factorial(k) for k in range(13)]
+    emit("F-S.strict.matrix", whole(strict))
+    emit("F-S.strict.size", dec(sz, 3))
+    emit("F-S.strict.terms", row(terms, 3))
+    emit("F-S.strict.ceilings", row(ceilings, 3))
+    emit("F-S.strict.bound", dec(math.exp(sz), 1))
+    emit("F-S.strict.below_from_k2", all(t < c * 0.999 for t, c in list(zip(terms, ceilings))[2:]))
+    # three times the shear (1, k; 0, 1): its k-th power has a closed-form size
+    for k in range(13):
+        closed = 3**k * math.sqrt((k * k + 2 + k * math.sqrt(k * k + 4)) / 2) / math.factorial(k)
+        check(f"term {k} of the strict matrix has the closed-form size", abs(terms[k] - closed) < 1e-9 * max(1.0, closed))
 
 
 # ---------------------------------------------------------------- F-T
@@ -417,6 +439,11 @@ def tank_facts():
     eig = sorted(np.linalg.eigvalsh(as_np(TANKS)).tolist())
     emit("F-T.eigenvalues", row(eig, 6))
     emit("F-T.within_a_gram.minutes", dec(math.log(50) / 0.2, 4))
+    exact = F(tank_closed(10)[0])
+    emit("F-T.off_by.n10", dec(exact - apply(tiny_steps(TANKS, 10, 10), START)[0], 2))
+    emit("F-T.off_by.n1000", dec(exact - apply(tiny_steps(TANKS, 10, 1000), START)[0], 3))
+    check("ten times the steps buys one more digit: the error is about 13.5/n grams",
+          all(abs(float(exact - apply(tiny_steps(TANKS, 10, n), START)[0]) * n / 13.53 - 1) < 0.1 for n in (10, 100, 1000)))
     check("at that minute the first tank holds 51 grams", abs(tank_closed(math.log(50) / 0.2)[0] - 51) < 1e-12)
 
 
@@ -483,6 +510,55 @@ def quantum_pair(t):
     return [abs((1 + z) / 2) ** 2, abs((1 - z) / 2) ** 2]
 
 
+def big_facts():
+    """The 20 by 20 grid network: its whole Laplacian exponentiated by SciPy,
+    and corner-to-corner walks counted over its list of neighbours."""
+    side, source, t, steps = 20, (9, 9), 2.0, 40
+    node = lambda r, c: r * side + c
+    links = [(node(r, c), node(r, c + 1)) for r in range(side) for c in range(side - 1)]
+    links += [(node(r, c), node(r + 1, c)) for r in range(side - 1) for c in range(side)]
+    lap = np.zeros((side * side, side * side))
+    for a, b in links:
+        lap[a, b] -= 1
+        lap[b, a] -= 1
+        lap[a, a] += 1
+        lap[b, b] += 1
+    heat = scipy_expm(-t * lap)[:, node(*source)]
+    emit("F-D.big.nodes", side * side)
+    emit("F-D.big.links", len(links))
+    emit("F-D.big.heat.source", dec(float(heat[node(*source)]), 4))
+    emit("F-D.big.heat.neighbour", dec(float(heat[node(source[0], source[1] + 1)]), 4))
+    emit("F-D.big.heat.total", dec(float(heat.sum()), 6))
+    emit("F-D.big.heat.above_a_thousandth", int((heat > 0.001).sum()))
+    neighbours = {n: [] for n in range(side * side)}
+    for a, b in links:
+        neighbours[a].append(b)
+        neighbours[b].append(a)
+    def corner_walks(length):
+        count = {0: 1}
+        for _ in range(length):
+            nxt = {}
+            for n, ways in count.items():
+                for m in neighbours[n]:
+                    nxt[m] = nxt.get(m, 0) + ways
+            count = nxt
+        return count.get(side * side - 1, 0)
+
+    emit("F-D.big.walks", corner_walks(steps))
+    check("no walk of 39 steps joins opposite corners, and the 38-step ones are the C(38, 19) shortest routes",
+          corner_walks(39) == 0 and corner_walks(38) == math.comb(38, 19))
+    # the video's route: the grid's exponential is the product of two path exponentials
+    path = np.zeros((side, side))
+    for i in range(side - 1):
+        path[i, i + 1] -= 1
+        path[i + 1, i] -= 1
+        path[i, i] += 1
+        path[i + 1, i + 1] += 1
+    h = scipy_expm(-t * path)
+    check("the whole grid's exponential is the product of two path exponentials",
+          np.abs(np.kron(h, h)[:, node(*source)] - heat).max() < 1e-12)
+
+
 def spreading_facts():
     lap = laplacian(NODES, LINKS)
     emit("F-D.L", whole(lap))
@@ -511,6 +587,16 @@ def spreading_facts():
     emit("F-D.pair.quantum.quarter", row(quantum_pair(PI / 4), 6))
     emit("F-D.pair.quantum.half", row(quantum_pair(PI / 2), 6))
     emit("F-D.pair.quantum.full", row(quantum_pair(PI), 6))
+    # a hopper that takes one hop per tick: the long-run chances are the
+    # left eigenvector of its transition matrix
+    adj = as_np(ADJ)
+    step = adj / adj.sum(axis=1, keepdims=True)
+    vals, vecs = np.linalg.eig(step.T)
+    still = np.real(vecs[:, np.argmin(np.abs(vals - 1))])
+    still = still / still.sum()
+    emit("F-D.chance.per_tick", row(still.tolist(), 3))
+    check("the per-tick hopper's long-run chance at the busy node is 3/8", abs(still[2] - 3 / 8) < 1e-12)
+    big_facts()
     for t in [0.5, 1.0, 2.0, PI / 4]:
         u = scipy_expm(-1j * t * as_np(pair))
         theirs = (np.abs(u[:, 0]) ** 2).tolist()
@@ -537,6 +623,22 @@ def series_f32(a):
         k += 1
         product = f32_mul(term, a)
         term = [[product[i][j] / np.float32(k) for j in range(2)] for i in range(2)]
+        nxt = [[total[i][j] + term[i][j] for j in range(2)] for i in range(2)]
+        if nxt == total:
+            return total, k
+        total = nxt
+
+
+def series_f64(a):
+    """The same loop in 64-bit floats (Python's own), same order."""
+    a = [[float(x) for x in r] for r in a]
+    term = [[1.0, 0.0], [0.0, 1.0]]
+    total = [r[:] for r in term]
+    k = 0
+    while True:
+        k += 1
+        product = [[term[i][0] * a[0][j] + term[i][1] * a[1][j] for j in range(2)] for i in range(2)]
+        term = [[product[i][j] / float(k) for j in range(2)] for i in range(2)]
         nxt = [[total[i][j] + term[i][j] for j in range(2)] for i in range(2)]
         if nxt == total:
             return total, k
@@ -627,6 +729,17 @@ def computing_facts():
     emit("F-C.diag.tanks.rebuilt", bool(np.abs(rebuilt - as_np(expm_t(TANKS, 10))).max() < 1e-12))
     nil = fmat([[0, 1], [0, 0]])
     emit("F-C.nil.exp.t3", whole(expm_t(nil, 3)))
+    once, once_terms = series_f64(MVL)
+    emit("F-C.mvl.f64.terms", once_terms)
+    emit("F-C.mvl.f64.right_to_six_places", mat([[F(x) for x in r] for r in once], 6) == mat(exact, 6))
+    twice, _ = series_f64([[2 * x for x in r] for r in MVL])
+    twice_exact = expm_exact(mscale(a, F(2)))
+    emit("F-C.mvl.f64.doubled.entries_right_to_two_digits",
+         sum(1 for r, t in zip(twice, twice_exact) for x, y in zip(r, t) if f"{x:.1e}" == f"{float(y):.1e}"))
+    for h in [4, 8, 12, 16, 20]:
+        got = [[F(float(x)) for x in r] for r in scale_square_f32(MVL, h, 8)]
+        emit(f"F-C.mvl.f32.halvings.h{h}", dec(max(abs(x) for r in msub(got, exact) for x in r), 6))
+    emit("F-C.mvl.f32.halvings.h20.result", mat([[F(float(x)) for x in r] for r in scale_square_f32(MVL, 20, 8)], 3))
     check("the series for the nilpotent matrix stops after two terms", mpow(nil, 2) == fmat([[0, 0], [0, 0]]))
 
 
@@ -681,6 +794,21 @@ def order_facts():
     emit("F-O.turns.sum_full_turns", dec(math.sqrt(sum(v * v for v in both)) / TAU, 6))
     hx, hy = np.array(hat(x)), np.array(hat(y))
     emit("F-O.turns.commute", bool(np.abs(hx @ hy - hy @ hx).max() < 1e-9))
+    # the square round a loop, in the order played: A, B, undo A, undo B
+    def square_loop(t):
+        t = F(t)
+        return mmul(mmul(mmul(expm_t(b, -t), expm_t(a, -t)), expm_t(b, t)), expm_t(a, t))
+
+    emit("F-O.loop.t0.5", mat(square_loop("0.5"), 4))
+    t = F("0.01")
+    leftover = mscale(msub(square_loop(t), ident(2)), 1 / (t * t))
+    emit("F-O.loop.scaled.t0.01", mat(leftover, 3))
+    emit("F-O.loop.is_minus_commutator", max(abs(x) for r in madd(leftover, commutator(a, b)) for x in r) < F(2, 100))
+    check("the square's loop is exactly (1 - t^2, -t^3; t^3, 1 + t^2 + t^4)",
+          square_loop(t) == [[1 - t**2, -(t**3)], [t**3, 1 + t**2 + t**4]])
+    for n in [10, 1000]:
+        step = mmul(expm_t(b, F(1, n)), expm_t(a, F(1, n)))
+        emit(f"F-O.alternate.n{n}", mat(mpow(step, n), 3))
     for v in (x, y, both):
         check("scipy.expm of the spin agrees with Rodrigues' formula",
               np.abs(scipy_expm(np.array(hat(v), dtype=np.float64)) - rodrigues(v)).max() < 1e-9)
@@ -699,12 +827,42 @@ def lie_facts():
     emit("F-L.exp.Lz.t1", mat(rodrigues([0, 0, 1]).tolist(), 6))
     check("the exact series for e^(Lz) is the rotation about z by one radian",
           np.abs(as_np(expm_exact(lz)) - rodrigues([0, 0, 1])).max() < 1e-15)
+    def cube_loop(t):
+        """Tip about x, about y, undo x, undo y, about the fixed axes, in
+        the order played (later motion on the left), by Rodrigues' formula."""
+        return rodrigues([0, -t, 0]) @ rodrigues([-t, 0, 0]) @ rodrigues([0, t, 0]) @ rodrigues([t, 0, 0])
+
     for eps in ["0.1", "0.01"]:
-        e = F(eps)
-        there = mmul(expm_t(lx, e), expm_t(ly, e))
-        back = mmul(expm_t(lx, -e), expm_t(ly, -e))
-        around = mscale(msub(mmul(there, back), ident(3)), 1 / (e * e))
-        emit(f"F-L.loop.t{eps}", mat(around, 3))
+        t = float(eps)
+        emit(f"F-L.loop.t{eps}", mat(((cube_loop(t) - np.eye(3)) / (t * t)).tolist(), 3))
+    small = (cube_loop(0.001) - np.eye(3)) * 1e6
+    emit("F-L.loop.is_minus_z_spin", bool(np.abs(small + as_np(lz)).max() < 0.01))
+
+    def angle_axis(r):
+        """Angle from the trace; axis as the eigenvector that does not move,
+        signed by the skew part."""
+        angle = math.acos(max(-1.0, min(1.0, (np.trace(r) - 1) / 2)))
+        vals, vecs = np.linalg.eig(r)
+        axis = np.real(vecs[:, np.argmin(np.abs(vals - 1))])
+        skew = np.array([r[2, 1] - r[1, 2], r[0, 2] - r[2, 0], r[1, 0] - r[0, 1]])
+        if float(axis @ skew) < 0:
+            axis = -axis
+        return angle, (axis / np.linalg.norm(axis)).tolist()
+
+    one = cube_loop(0.2)
+    angle, axis = angle_axis(one)
+    emit("F-L.creep.tip", "0.2")
+    emit("F-L.creep.tip_degrees", dec(math.degrees(0.2), 1))
+    emit("F-L.creep.loops", 20)
+    emit("F-L.creep.one.degrees", dec(math.degrees(angle), 2))
+    emit("F-L.creep.one.axis", row(axis, 3))
+    total, total_axis = angle_axis(np.linalg.matrix_power(one, 20))
+    emit("F-L.creep.total.degrees", dec(math.degrees(total), 1))
+    emit("F-L.creep.total.axis", row(total_axis, 3))
+    emit("F-L.creep.direction", "backwards about z" if total_axis[2] < 0 else "forwards about z")
+    check("twenty loops turn twenty times as far about the same axis", abs(total - 20 * angle) < 1e-9)
+    check("scipy.expm gives the same loop", np.abs(
+        scipy_expm(-0.2 * as_np(ly)) @ scipy_expm(-0.2 * as_np(lx)) @ scipy_expm(0.2 * as_np(ly)) @ scipy_expm(0.2 * as_np(lx)) - one).max() < 1e-13)
     for n in range(2, 6):
         emit(f"F-L.spins.n{n}", len(list(itertools.combinations(range(n), 2))))
     emit("F-L.su3", su_dim(3))
@@ -838,27 +996,147 @@ def cited_facts():
     emit("F-B.bosons", "8,2,1,1")
 
 
+# ---------------------------------------------------------------- F-M
+
+
+def machine_facts():
+    arrow = [F(2), F(1)]
+    emit("F-M.machine.in", row(arrow, 0))
+    emit("F-M.machine.out", row(apply(J, arrow), 0))
+    spiral = fmat([[F(-3, 10), -1], [1, F(-3, 10)]])
+    emit("F-M.spiral.rule", mat(spiral, 1))
+    # -0.3 I and J commute, so e^{t(-0.3 I + J)} = e^{-0.3 t} times the rotation by t
+    shrink = math.exp(-0.3)
+    closed = [[shrink * math.cos(1), -shrink * math.sin(1)], [shrink * math.sin(1), shrink * math.cos(1)]]
+    emit("F-M.spiral.exp.t1", mat(closed, 3))
+    emit("F-M.spiral.shrink_per_unit_time", dec(shrink, 3))
+    check("the exact series for the spiral rule is the shrunken rotation",
+          np.abs(as_np(expm_exact(spiral)) - np.array(closed)).max() < 1e-15)
+
+
+# ---------------------------------------------------------------- F-X, named
+
+
+def fdet(m):
+    """The determinant of a matrix of Fractions, by elimination."""
+    m = [r[:] for r in m]
+    n, det = len(m), F(1)
+    for c in range(n):
+        pivot = next((r for r in range(c, n) if m[r][c] != 0), None)
+        if pivot is None:
+            return F(0)
+        if pivot != c:
+            m[c], m[pivot] = m[pivot], m[c]
+            det = -det
+        det *= m[c][c]
+        for r in range(c + 1, n):
+            factor = m[r][c] / m[c][c]
+            m[r] = [x - factor * y for x, y in zip(m[r], m[c])]
+    return det
+
+
+def near(a, b, tol=F(1, 10**20)):
+    return max(abs(x) for r in msub(a, b) for x in r) < tol
+
+
+def named_facts():
+    lap = laplacian(NODES, LINKS)
+    cases = {
+        "zero": fmat([[0, 0], [0, 0]]),
+        "identity": ident(2),
+        "nilpotent": fmat([[0, 1], [0, 0]]),
+        "defective": fmat([[1, 1], [0, 1]]),
+        "quarter_turn": J,
+        "five_quarter_turns": mscale(J, F(5)),
+        "tanks": TANKS,
+        "moler_van_loan": fmat(MVL),
+        "one_by_one": fmat([[-4]]),
+        "spin": fmat(hat([1, 2, 3])),
+        "network": ADJ,
+        "minus_laplacian": mscale(lap, F(-1)),
+        "two_planes": fmat([[0, -1, 0, 0], [1, 0, 0, 0], [0, 0, 0, -2], [0, 0, 2, 0]]),
+    }
+
+    def settles(a):
+        sz = size(a)
+        under = all(size(term) <= sz**k / math.factorial(k) * (1 + 1e-9) + 1e-12 for k, term, _ in series(a, 40))
+        before = len(_FAILED)
+        expm_exact(a)  # the exact series, summed until its remainder is below 1e-30, against scipy.expm
+        return under and len(_FAILED) == before
+
+    def undone(a):
+        a = mscale(a, F(1, 4))
+        e = expm_exact(a)
+        trace = sum(a[i][i] for i in range(len(a)))
+        return near(mmul(e, expm_exact(mscale(a, F(-1)))), ident(len(a))) and abs(fdet(e) - exp_fraction(trace)) < F(1, 10**20)
+
+    def rotation(a):
+        r = expm_exact(a)
+        return near(mmul(transpose(r), r), ident(len(a))) and abs(fdet(r) - 1) < F(1, 10**20)
+
+    n = len(cases)
+    emit("F-X.named.series_settles", f"{sum(1 for a in cases.values() if settles(a))} of {n}")
+    emit("F-X.named.flow_adds",
+         f"{sum(1 for a in cases.values() if near(expm_t(a, 2), mmul(expm_t(a, F(1, 2)), expm_t(a, F(3, 2)))))} of {n}")
+    emit("F-X.named.exponential_undone", f"{sum(1 for a in cases.values() if undone(a))} of {n}")
+    two = [a for a in cases.values() if len(a) == 2]
+    emit("F-X.named.sizes_multiply",
+         f"{sum(1 for a in two for b in two if size(mmul(a, b)) <= size(a) * size(b) * (1 + 1e-12) + 1e-12)} of {len(two) ** 2}")
+    pairs = [
+        (cases["zero"], cases["defective"]),
+        (cases["identity"], cases["moler_van_loan"]),
+        (cases["quarter_turn"], cases["five_quarter_turns"]),
+        (cases["nilpotent"], cases["nilpotent"]),
+        (cases["tanks"], cases["identity"]),
+        (fmat([[1, 0], [0, 2]]), fmat([[3, 0], [0, -1]])),
+    ]
+    holds = sum(1 for a, b in pairs
+                if commutator(a, b) == fmat([[0, 0], [0, 0]]) and near(expm_exact(madd(a, b)), mmul(expm_exact(a), expm_exact(b))))
+    emit("F-X.named.commuting_rule_holds", f"{holds} of {len(pairs)}")
+    skews = ["zero", "quarter_turn", "five_quarter_turns", "spin", "two_planes"]
+    emit("F-X.named.skew_gives_rotation", f"{sum(1 for name in skews if rotation(cases[name]))} of {len(skews)}")
+    # where the exact version bites: a network in two pieces levels only within each piece
+    split = mscale(laplacian(4, [(0, 1), (2, 3)]), F(-1))
+    late = column(expm_t(split, 40), 0)
+    check("on a network in two pieces, heat levels only within its own piece (1/2, 1/2, 0, 0)",
+          near([late], [[F(1, 2), F(1, 2), F(0), F(0)]], F(1, 10**20)))
+    # the 1 by 1 matrix (-40): the exact series is right where a 64-bit sum is not
+    exact = exp_fraction(-40, 60)
+    total, term = 1.0, 1.0
+    for k in range(1, 400):
+        term = term * -40.0 / k
+        total += term
+    check("for the 1 by 1 matrix (-40) a 64-bit sum of the series is wrong and the exact series is not",
+          abs(total - float(exact)) > 1.0 and abs(float(exact) - math.exp(-40)) < 1e-30)
+
+
 # ---------------------------------------------------------------- F-Q
 
-QUIZ_SECONDS = [("01_1", 5), ("03_3", 5), ("04_4", 5), ("05_5", 6), ("07_3", 5), ("08_3", 5),
-                ("10_5", 5), ("11_3", 5), ("12_3", 6), ("14_2", 5), ("15_3", 6)]
+QUIZ_SECONDS = [("03_3", 5), ("04_4", 5), ("05_5", 6), ("06_3", 4), ("07_3", 5), ("08_3", 5),
+                ("10_5", 5), ("11_3", 5), ("14_3", 5), ("15_2", 4), ("16_3", 6)]
 
 
 def quiz_facts():
     a, b = fmat([[0, 1], [0, 0]]), fmat([[0, 0], [1, 0]])
+    ea, eb = expm_exact(a), expm_exact(b)
+    a_then_b, b_then_a = mmul(eb, ea), mmul(ea, eb)
     sizes = [F(5**k, math.factorial(k)) for k in range(61)]
+    worst = max(abs(abs(complex(math.cos(0.1 * m), math.sin(0.1 * m))) - 1) for m in range(1, 63))
+    one = (rodrigues([0, -0.2, 0]) @ rodrigues([-0.2, 0, 0]) @ rodrigues([0, 0.2, 0]) @ rodrigues([0.2, 0, 0]))
+    off = math.degrees(math.acos((np.trace(one) - 1) / 2))
+    rotation_by_one = mat([[math.cos(1), -math.sin(1)], [math.sin(1), math.cos(1)]], 3)
     answers = {
-        "01_1": mat([[math.cos(1), -math.sin(1)], [math.sin(1), math.cos(1)]], 3),
         "03_3": f"no: it settles at {dec(E_EXACT, 5)}",
-        "04_4": f"x^4/{math.factorial(4)}",
+        "04_4": f"x^3/{math.factorial(3)}",
         "05_5": dec(exp_fraction(F(5, 100) * 20), 3),
+        "06_3": f"a circle of radius {dec(1 + worst, 3)}",
         "07_3": whole(mpow(J, 2)),
         "08_3": "they shrink: " + ("true" if all(sizes[k + 1] < sizes[k] for k in range(5, 60)) else "false"),
         "10_5": row(tank_closed(1000), 0),
         "11_3": count_walks(2)[2][2],
-        "12_3": "none: " + row([F(1, 4)] * 4, 2),
-        "14_2": "true" if expm_exact(madd(a, b)) == mmul(expm_exact(a), expm_exact(b)) else "false",
-        "15_3": len(list(itertools.combinations("xyzw", 2))),
+        "14_3": f"{'yes' if a_then_b == b_then_a else 'no'}: {whole(a_then_b)} against {whole(b_then_a)}",
+        "15_2": f"{'yes' if off < 1e-7 else 'no'}: off by {dec(off, 2)} degrees",
+        "16_3": f"a rotation by 1 radian: {rotation_by_one}",
     }
     emit("F-Q.count", len(QUIZ_SECONDS))
     for line, seconds in QUIZ_SECONDS:
@@ -870,8 +1148,8 @@ def quiz_facts():
 
 
 def spoken_facts():
-    emit("F-V.01_2.degrees", dec(180 / PI, 0))
     emit("F-V.01_2.degrees.shown", dec(180 / PI, 1))
+    emit("F-V.02_1.e", dec(E_EXACT, 3))
     emit("F-V.03_2.two_steps", dec(F(3, 2) ** 2, 2))
     emit("F-V.03_3.four_steps", dec(F(5, 4) ** 4, 2))
     emit("F-V.03_3.twelve_steps", dec(F(13, 12) ** 12, 2))
@@ -879,10 +1157,12 @@ def spoken_facts():
     emit("F-V.03_4.million", dec(compound(F(1), 1_000_000), 5))
     emit("F-V.03_4.e", dec(E_EXACT, 5))
     running, total = [], F(1)
-    for k in range(1, 7):
+    for k in range(1, 10):
         total += F(1, math.factorial(k))
         running.append(total)
-    emit("F-V.05_1.running", row(running, 3))
+    emit("F-V.05_1.running", row(running[:6], 3))
+    emit("F-V.05_1.settles", dec(running[8], 5))
+    emit("F-V.05_3.share", "0.05")
     emit("F-V.05_6.rate_times_time", dec(F(5, 100) * 20, 0))
     emit("F-V.05_6.factor", dec(exp_fraction(F(5, 100) * 20), 3))
     for name, n in (("four", 4), ("hundred", 100)):
@@ -897,13 +1177,9 @@ def spoken_facts():
     emit("F-V.08_2.swings_past", dec(math.floor(far), 0))
     emit("F-V.08_4.term20.tens_of_millionths", dec(sizes[20] * 10**5, 0))
     emit("F-V.08_4.home", row([math.cos(5), math.sin(5)], 3))
-    shear = fmat([[1, 1], [0, 1]])
-    emit("F-V.08_5.shear", row([size(shear), size(mpow(shear, 2)), size(shear) ** 2], 3))
-    emit("F-V.08_6.bound", dec(exp_fraction(5), 1))
+    emit("F-V.08_5.bound", dec(exp_fraction(5), 1))
     emit("F-V.10_3.one_step", row(apply(tiny_steps(TANKS, 10, 1), START), 0))
-    ten = apply(tiny_steps(TANKS, 10, 10), START)[0]
-    emit("F-V.10_4.ten_steps.said", dec(ten, 0))
-    emit("F-V.10_4.ten_steps", dec(ten, 2))
+    emit("F-V.10_4.ten_steps", dec(apply(tiny_steps(TANKS, 10, 10), START)[0], 2))
     emit("F-V.10_4.thousand_steps", dec(apply(tiny_steps(TANKS, 10, 1000), START)[0], 2))
     emit("F-V.10_4.exact", dec(tank_closed(10)[0], 2))
     emit("F-V.10_6.minutes.said", dec(math.log(50) / 0.2, 0))
@@ -913,26 +1189,27 @@ def spoken_facts():
     emit("F-V.11_6.one_to_three", dec(comm[0][2], 2))
     emit("F-V.11_6.one_to_two", dec(comm[0][1], 2))
     emit("F-V.12_2.level", row([F(1, 4)] * 4, 2))
+    emit("F-V.12_4.nodes", 20 * 20)
     exact = expm_exact(MVL)
     largest = max(abs(x) for _, term, _ in series(MVL, 80) for r in term for x in r)
-    emit("F-V.13_3.millions", dec(math.floor(largest / 10**6), 0))
-    emit("F-V.13_3.exact", mat(exact, 3))
-    emit("F-V.13_3.all_smaller_than_two", max(abs(x) for r in exact for x in r) < 2)
+    emit("F-V.13_2.millions", dec(math.floor(largest / 10**6), 0))
+    emit("F-V.13_2.exact", mat(exact, 3))
+    emit("F-V.13_2.all_smaller_than_two", max(abs(x) for r in exact for x in r) < 2)
     wrong, terms = series_f32(MVL)
     wrong = [[F(float(x)) for x in r] for r in wrong]
-    emit("F-V.13_5.series", mat(wrong, 3))
-    emit("F-V.13_5.terms", terms)
-    emit("F-V.13_5.entries_right_to_two_digits",
+    emit("F-V.13_3.series", mat(wrong, 3))
+    emit("F-V.13_3.stopped_at_k", terms)
+    emit("F-V.13_3.entries_right_to_two_digits",
          sum(1 for r, t in zip(wrong, exact) for x, y in zip(r, t) if f"{float(x):.1e}" == f"{float(y):.1e}"))
     scaled = [[F(float(x)) for x in r] for r in scale_square_f32(MVL, 8, 8)]
-    emit("F-V.13_6.scaled", mat(scaled, 3))
-    emit("F-V.13_6.right_to_three_places", mat(scaled, 3) == mat(exact, 3))
+    emit("F-V.13_4.scaled", mat(scaled, 3))
+    emit("F-V.13_4.right_to_three_places", mat(scaled, 3) == mat(exact, 3))
     taylor6 = sum(F(1, math.factorial(k)) for k in range(7))
-    emit("F-V.13_7.series", dec(taylor6, 5))
-    emit("F-V.13_7.pade", dec(pade(3, F(1)), 5))
-    emit("F-V.13_7.times_closer", dec(abs(taylor6 - E_EXACT) / abs(pade(3, F(1)) - E_EXACT), 0))
+    emit("F-V.13_5.series", dec(taylor6, 5))
+    emit("F-V.13_5.pade", dec(pade(3, F(1)), 5))
+    emit("F-V.13_5.times_closer", dec(abs(taylor6 - E_EXACT) / abs(pade(3, F(1)) - E_EXACT), 0))
     emit("F-V.14_4.both_at_once", mat([[math.cosh(1), math.sinh(1)], [math.sinh(1), math.cosh(1)]], 3))
-    emit("F-V.15_4.spins", f"{len(list(itertools.combinations('xyz', 2)))},{len(list(itertools.combinations('xyzw', 2)))}")
+    emit("F-V.15_1.spins", f"{len(list(itertools.combinations('xyz', 2)))},{len(list(itertools.combinations('xyzw', 2)))}")
     emit("F-V.16_2.steps", f"{su_dim(3)},{su_dim(2)},1,{su_dim(3) + su_dim(2) + 1}")
 
 
@@ -947,7 +1224,9 @@ def main():
     computing_facts()
     order_facts()
     lie_facts()
+    machine_facts()
     edge_facts()
+    named_facts()
     cited_facts()
     quiz_facts()
     spoken_facts()

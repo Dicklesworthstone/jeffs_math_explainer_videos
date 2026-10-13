@@ -9,7 +9,8 @@
 //! F-J the quarter turn; F-S does the series settle; F-T two tanks; F-G
 //! walks on a network; F-D spreading (heat, chance, a two-state quantum
 //! system); F-C computing it; F-O order matters; F-L the doorway to Lie
-//! theory; F-X the edges of the always sentences; F-B cited literals; F-Q
+//! theory; F-M the machine and the rules drawn as fields; F-X the edges of
+//! the always sentences; F-B cited literals; F-Q
 //! the quizzes; F-V the numbers as the narration says them and the screen
 //! shows them.
 
@@ -17,8 +18,9 @@ use explainer_kit::Facts;
 use explainer_kit::stats::Data;
 
 use crate::model::{
-    self, KITE, M2f, Mat, PAIR, compound, exp_partial, expm, expm_t, factorial, hat, pade_at_one, quarter_turn,
-    rotation_defect, series, spins, su_dim, symmetric_eigenvalues, tiny_steps,
+    self, KITE, M2f, Mat, PAIR, angle_axis, compound, exp_partial, expm, expm_t, factorial, grid_corner_walks,
+    grid_heat, grid_links, hat, pade_at_one, quarter_turn, rotation_defect, series, spins, su_dim,
+    symmetric_eigenvalues, tiny_steps,
 };
 
 /// Numbers and strings quoted from the sources (fact sheet rows F-B; the
@@ -98,8 +100,29 @@ pub mod shown {
     pub const SCALED_DEGREE: u32 = 8;
     /// The gap between the two sides of the broken rule, at these times.
     pub const GAP_TIMES: [f64; 3] = [1.0, 0.1, 0.01];
-    /// The little loop of four spins.
+    /// The little loop of four spins, for the leftover divided by t².
     pub const LOOP_ANGLES: [f64; 2] = [0.1, 0.01];
+    /// The arrow fed to the machine at 01_4.
+    pub const MACHINE_ARROW: [f64; 2] = [2.0, 1.0];
+    /// The second matrix of 08_5, whose terms sit under their ceilings:
+    /// three times a shear.
+    pub const STRICT_TERMS: u32 = 12;
+    /// The big network of 12_4: a grid of 20 by 20 nodes, heat dropped on
+    /// one node near the middle, read at this time; and the length of the
+    /// walks counted from corner to corner.
+    pub const BIG_SIDE: usize = 20;
+    pub const BIG_SOURCE: (usize, usize) = (9, 9);
+    pub const BIG_TIME: f64 = 2.0;
+    pub const BIG_WALK_STEPS: u32 = 40;
+    /// The square taken round A, B, undo A, undo B, for this time each.
+    pub const SQUARE_LOOP_TIME: f64 = 0.5;
+    /// "Both rules at once" as alternating tiny steps: this many of each.
+    pub const ALTERNATIONS: [u32; 2] = [10, 1000];
+    /// The cube's loop: tips of this many radians, this many loops.
+    pub const CREEP_TIP: f64 = 0.2;
+    pub const CREEP_LOOPS: u32 = 20;
+    /// Scaling and squaring with too few and too many halvings.
+    pub const HALVINGS_SWEEP: [u32; 5] = [4, 8, 12, 16, 20];
 }
 
 /// The edge tests draw their cases from this seed (the oracle draws the
@@ -213,6 +236,38 @@ fn widen(a: &M2f) -> Mat {
 /// The three spins about the axes.
 pub fn spin_axes() -> [Mat; 3] {
     [hat([1.0, 0.0, 0.0]), hat([0.0, 1.0, 0.0]), hat([0.0, 0.0, 1.0])]
+}
+
+/// The rule whose arrows spiral inward (09_3).
+pub fn spiral_rule() -> Mat {
+    Mat::from_rows(&[&[-0.3, -1.0], &[1.0, -0.3]])
+}
+
+/// Three times a shear: a matrix whose series terms sit strictly under
+/// their ceilings (08_5).
+pub fn strict_matrix() -> Mat {
+    Mat::from_rows(&[&[3.0, 3.0], &[0.0, 3.0]])
+}
+
+/// One loop of the cube: tip about x, tip about y, undo the x tip, undo the
+/// y tip, each by `t` radians about the fixed axes, in the order played
+/// (the later motion is written on the left).
+pub fn cube_loop(t: f64) -> Mat {
+    let [lx, ly, _] = spin_axes();
+    expm_t(&ly, -t)
+        .mul(&expm_t(&lx, -t))
+        .mul(&expm_t(&ly, t))
+        .mul(&expm_t(&lx, t))
+}
+
+/// The square taken round A, B, undo A, undo B for a time `t` each, in the
+/// order played.
+pub fn square_loop(t: f64) -> Mat {
+    let (a, b) = (shear_right(), shear_up());
+    expm_t(&b, -t)
+        .mul(&expm_t(&a, -t))
+        .mul(&expm_t(&b, t))
+        .mul(&expm_t(&a, t))
 }
 
 /// The real 2n by 2n matrix that acts as −iH on (real parts, imaginary
@@ -372,6 +427,112 @@ pub fn edge_counts() -> Vec<(&'static str, usize, usize)> {
     out
 }
 
+/// The degenerate matrices the seeded cases never draw: zero, the
+/// identity, a nilpotent block, a defective shear, turns, the tanks (a
+/// singular matrix), a large non-normal matrix, and bigger ones.
+pub fn named_cases() -> Vec<(&'static str, Mat)> {
+    vec![
+        ("zero", Mat::zeros(2)),
+        ("identity", Mat::identity(2)),
+        ("nilpotent", shear_right()),
+        ("defective", Mat::from_rows(&[&[1.0, 1.0], &[0.0, 1.0]])),
+        ("quarter_turn", quarter_turn()),
+        ("five_quarter_turns", quarter_turn().scale(5.0)),
+        ("tanks", model::tanks(shown::TANK_LITRES, shown::TANK_PUMPED)),
+        ("moler_van_loan", mvl()),
+        ("one_by_one", Mat::from_rows(&[&[-4.0]])),
+        ("spin", hat([1.0, 2.0, 3.0])),
+        ("network", KITE.adjacency()),
+        ("minus_laplacian", KITE.laplacian().scale(-1.0)),
+        (
+            "two_planes",
+            Mat::from_rows(&[
+                &[0.0, -1.0, 0.0, 0.0],
+                &[1.0, 0.0, 0.0, 0.0],
+                &[0.0, 0.0, 0.0, -2.0],
+                &[0.0, 0.0, 2.0, 0.0],
+            ]),
+        ),
+    ]
+}
+
+/// The always sentences on the named degenerate cases: `(name, holds,
+/// checked)`.
+pub fn named_counts() -> Vec<(&'static str, usize, usize)> {
+    let cases = named_cases();
+    let get = |name: &str| {
+        cases
+            .iter()
+            .find(|(n, _)| *n == name)
+            .map(|(_, m)| m.clone())
+            .expect("a named case")
+    };
+    let settles = cases
+        .iter()
+        .filter(|(_, a)| {
+            let size = a.size();
+            let steps = series(a, 400);
+            let under = steps
+                .iter()
+                .take(41)
+                .all(|s| s.term.size() <= size.powi(s.k as i32) / factorial(s.k) as f64 * (1.0 + 1e-9) + 1e-12);
+            // a 64-bit sum of a large matrix loses digits (chapter 13), so
+            // this check is loose here; the oracle's is exact
+            under && same(&steps.last().expect("a last term").total, &expm(a), 1e-6)
+        })
+        .count();
+    let flow = cases
+        .iter()
+        .filter(|(_, a)| same(&expm_t(a, 2.0), &expm_t(a, 0.5).mul(&expm_t(a, 1.5)), 1e-9))
+        .count();
+    let undone = cases
+        .iter()
+        .filter(|(_, a)| {
+            let a = a.scale(0.25);
+            let e = expm(&a);
+            same(&e.mul(&expm(&a.scale(-1.0))), &Mat::identity(a.n()), 1e-9)
+                && (e.det() - a.trace().exp()).abs() <= 1e-9 * a.trace().exp().max(1.0)
+        })
+        .count();
+    let two: Vec<&Mat> = cases.iter().filter(|(_, m)| m.n() == 2).map(|(_, m)| m).collect();
+    let sizes = two
+        .iter()
+        .flat_map(|a| two.iter().map(move |b| (a, b)))
+        .filter(|(a, b)| a.mul(b).size() <= a.size() * b.size() * (1.0 + 1e-12) + 1e-12)
+        .count();
+    let pairs = [
+        (get("zero"), get("defective")),
+        (get("identity"), get("moler_van_loan")),
+        (get("quarter_turn"), get("five_quarter_turns")),
+        (get("nilpotent"), get("nilpotent")),
+        (get("tanks"), get("identity")),
+        (
+            Mat::from_rows(&[&[1.0, 0.0], &[0.0, 2.0]]),
+            Mat::from_rows(&[&[3.0, 0.0], &[0.0, -1.0]]),
+        ),
+    ];
+    let commuting = pairs
+        .iter()
+        .filter(|(a, b)| a.commutator(b).max_abs() == 0.0 && same(&expm(&a.add(b)), &expm(a).mul(&expm(b)), 1e-9))
+        .count();
+    let skews = ["zero", "quarter_turn", "five_quarter_turns", "spin", "two_planes"];
+    let rotations = skews
+        .iter()
+        .filter(|name| {
+            let (defect, det) = rotation_defect(&expm(&get(name)));
+            defect < 1e-11 && (det - 1.0).abs() < 1e-11
+        })
+        .count();
+    vec![
+        ("series_settles", settles, cases.len()),
+        ("flow_adds", flow, cases.len()),
+        ("exponential_undone", undone, cases.len()),
+        ("sizes_multiply", sizes, two.len() * two.len()),
+        ("commuting_rule_holds", commuting, pairs.len()),
+        ("skew_gives_rotation", rotations, skews.len()),
+    ]
+}
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     number(&mut f)?;
@@ -384,6 +545,7 @@ pub fn facts() -> Result<Facts, String> {
     computing(&mut f)?;
     order(&mut f)?;
     lie(&mut f)?;
+    machine(&mut f)?;
     edges(&mut f)?;
     sources(&mut f)?;
     quizzes(&mut f)?;
@@ -518,6 +680,24 @@ fn settles(f: &mut Facts) -> Result<(), String> {
     let nil = shear_right();
     f.add("F-S.nil.size", dec(nil.size(), 6)?)?;
     f.add("F-S.nil.squared", whole(&nil.pow(2))?)?;
+    // a matrix whose terms sit strictly under their ceilings
+    let strict = strict_matrix();
+    let size = strict.size();
+    let steps = series(&strict, shown::STRICT_TERMS);
+    let terms: Vec<f64> = steps.iter().map(|s| s.term.size()).collect();
+    let ceilings: Vec<f64> = steps
+        .iter()
+        .map(|s| size.powi(s.k as i32) / factorial(s.k) as f64)
+        .collect();
+    f.add("F-S.strict.matrix", whole(&strict)?)?;
+    f.add("F-S.strict.size", dec(size, 3)?)?;
+    f.add("F-S.strict.terms", row(&terms, 3)?)?;
+    f.add("F-S.strict.ceilings", row(&ceilings, 3)?)?;
+    f.add("F-S.strict.bound", dec(size.exp(), 1)?)?;
+    f.add(
+        "F-S.strict.below_from_k2",
+        terms.iter().zip(&ceilings).skip(2).all(|(t, c)| t < &(c * 0.999)),
+    )?;
     Ok(())
 }
 
@@ -540,6 +720,11 @@ fn two_tanks(f: &mut Facts) -> Result<(), String> {
     f.add("F-T.eigenvalues", row(&symmetric_eigenvalues(&a), 6)?)?;
     // the first tank is within a gram of its final 50 when 50 e^{-0.2 t} = 1
     f.add("F-T.within_a_gram.minutes", dec(50.0_f64.ln() / 0.2, 4)?)?;
+    // how far the straight steps are from the exponential, in grams
+    let exact = expm_t(&a, shown::TANK_STEP_TIME).apply(&start)[0];
+    let off = |n: u32| exact - tiny_steps(&a, shown::TANK_STEP_TIME, n).apply(&start)[0];
+    f.add("F-T.off_by.n10", dec(off(10), 2)?)?;
+    f.add("F-T.off_by.n1000", dec(off(1000), 3)?)?;
     Ok(())
 }
 
@@ -604,6 +789,27 @@ fn spreading(f: &mut Facts) -> Result<(), String> {
     f.add("F-D.pair.quantum.quarter", row(&quantum_pair(pi / 4.0), 6)?)?;
     f.add("F-D.pair.quantum.half", row(&quantum_pair(pi / 2.0), 6)?)?;
     f.add("F-D.pair.quantum.full", row(&quantum_pair(pi), 6)?)?;
+    // a hopper that takes one hop per tick: long-run chance in proportion to links
+    let links: Vec<f64> = (0..KITE.n).map(|i| KITE.degree(i) as f64).collect();
+    let total: f64 = links.iter().sum();
+    f.add(
+        "F-D.chance.per_tick",
+        row(&links.iter().map(|d| d / total).collect::<Vec<_>>(), 3)?,
+    )?;
+    // four hundred nodes
+    let side = shown::BIG_SIDE;
+    let (r0, c0) = shown::BIG_SOURCE;
+    let heat = grid_heat(side, shown::BIG_TIME, r0, c0);
+    f.add("F-D.big.nodes", side * side)?;
+    f.add("F-D.big.links", grid_links(side))?;
+    f.add("F-D.big.heat.source", dec(heat[r0 * side + c0], 4)?)?;
+    f.add("F-D.big.heat.neighbour", dec(heat[r0 * side + c0 + 1], 4)?)?;
+    f.add("F-D.big.heat.total", dec(heat.iter().sum(), 6)?)?;
+    f.add(
+        "F-D.big.heat.above_a_thousandth",
+        heat.iter().filter(|&&h| h > 0.001).count(),
+    )?;
+    f.add("F-D.big.walks", grid_corner_walks(side, shown::BIG_WALK_STEPS))?;
     Ok(())
 }
 
@@ -692,6 +898,39 @@ fn computing(f: &mut Facts) -> Result<(), String> {
     // a matrix that cannot be diagonalized: its series stops by itself
     let nil = shear_right();
     f.add("F-C.nil.exp.t3", whole(&expm_t(&nil, 3.0))?)?;
+    // the same series in 64 bits: this matrix survives; doubled, it fails again
+    let m = cited::MVL_MATRIX;
+    let wide = |x: &[[f64; 2]; 2]| Mat::from_rows(&[&x[0], &x[1]]);
+    let (once, once_terms) = model::series_f64(&m);
+    f.add("F-C.mvl.f64.terms", once_terms)?;
+    f.add(
+        "F-C.mvl.f64.right_to_six_places",
+        mat(&wide(&once), 6)? == mat(&exact, 6)?,
+    )?;
+    let doubled = [[2.0 * m[0][0], 2.0 * m[0][1]], [2.0 * m[1][0], 2.0 * m[1][1]]];
+    let (twice, _) = model::series_f64(&doubled);
+    let twice_exact = expm(&a.scale(2.0));
+    let two_digits = |x: f64| format!("{x:.1e}");
+    f.add(
+        "F-C.mvl.f64.doubled.entries_right_to_two_digits",
+        wide(&twice)
+            .entries()
+            .iter()
+            .zip(twice_exact.entries())
+            .filter(|(w, x)| two_digits(**w) == two_digits(**x))
+            .count(),
+    )?;
+    // scaling and squaring in 32 bits: more halvings are not better
+    for h in shown::HALVINGS_SWEEP {
+        let got = widen(&model::scale_square_f32(&mvl_f32(), h, shown::SCALED_DEGREE));
+        f.add(
+            &format!("F-C.mvl.f32.halvings.h{h}"),
+            dec(got.sub(&exact).max_abs(), 6)?,
+        )?;
+    }
+    let most = *shown::HALVINGS_SWEEP.last().expect("a sweep");
+    let got = widen(&model::scale_square_f32(&mvl_f32(), most, shown::SCALED_DEGREE));
+    f.add(&format!("F-C.mvl.f32.halvings.h{most}.result"), mat(&got, 3)?)?;
     Ok(())
 }
 
@@ -733,6 +972,21 @@ fn order(f: &mut Facts) -> Result<(), String> {
         dec((3.0_f64.powi(2) + 4.0_f64.powi(2)).sqrt(), 6)?,
     )?;
     f.add("F-O.turns.commute", x.commutator(&y).max_abs() < 1e-9)?;
+    // the square round a loop: A, B, undo A, undo B, in the order played
+    f.add("F-O.loop.t0.5", mat(&square_loop(shown::SQUARE_LOOP_TIME), 4)?)?;
+    let t = 0.01;
+    let leftover = square_loop(t).sub(&Mat::identity(2)).scale(1.0 / (t * t));
+    f.add("F-O.loop.scaled.t0.01", mat(&leftover, 3)?)?;
+    // … which is minus the commutator: the sign this order gives
+    f.add(
+        "F-O.loop.is_minus_commutator",
+        leftover.add(&a.commutator(&b)).max_abs() < 0.02,
+    )?;
+    // both rules at once, as a tiny step of each, over and over
+    for n in shown::ALTERNATIONS {
+        let step = expm_t(&b, 1.0 / f64::from(n)).mul(&expm_t(&a, 1.0 / f64::from(n)));
+        f.add(&format!("F-O.alternate.n{n}"), mat(&step.pow(n), 3)?)?;
+    }
     Ok(())
 }
 
@@ -745,12 +999,34 @@ fn lie(f: &mut Facts) -> Result<(), String> {
     f.add("F-L.bracket.yz_is_x", ly.commutator(&lz) == lx)?;
     f.add("F-L.bracket.zx_is_y", lz.commutator(&lx) == ly)?;
     f.add("F-L.exp.Lz.t1", mat(&expm(&lz), 6)?)?;
-    for eps in shown::LOOP_ANGLES {
-        let there = expm_t(&lx, eps).mul(&expm_t(&ly, eps));
-        let back = expm_t(&lx, -eps).mul(&expm_t(&ly, -eps));
-        let around = there.mul(&back).sub(&Mat::identity(3)).scale(1.0 / (eps * eps));
-        f.add(&format!("F-L.loop.t{}", tkey(eps)), mat(&around, 3)?)?;
+    // the loop as played (x, y, undo x, undo y): what is left, over t²
+    for t in shown::LOOP_ANGLES {
+        let around = cube_loop(t).sub(&Mat::identity(3)).scale(1.0 / (t * t));
+        f.add(&format!("F-L.loop.t{}", tkey(t)), mat(&around, 3)?)?;
     }
+    // for small tips that is minus the z-spin: this loop runs the bracket backwards
+    let small = cube_loop(0.001).sub(&Mat::identity(3)).scale(1e6);
+    f.add("F-L.loop.is_minus_z_spin", small.add(&lz).max_abs() < 0.01)?;
+    // the loop repeated, with tips large enough to see
+    let tip = shown::CREEP_TIP;
+    let one = cube_loop(tip);
+    let (angle, axis) = angle_axis(&one);
+    f.add("F-L.creep.tip", tip)?;
+    f.add("F-L.creep.tip_degrees", dec(tip.to_degrees(), 1)?)?;
+    f.add("F-L.creep.loops", shown::CREEP_LOOPS)?;
+    f.add("F-L.creep.one.degrees", dec(angle.to_degrees(), 2)?)?;
+    f.add("F-L.creep.one.axis", row(&axis, 3)?)?;
+    let (total, total_axis) = angle_axis(&one.pow(shown::CREEP_LOOPS));
+    f.add("F-L.creep.total.degrees", dec(total.to_degrees(), 1)?)?;
+    f.add("F-L.creep.total.axis", row(&total_axis, 3)?)?;
+    f.add(
+        "F-L.creep.direction",
+        if total_axis[2] < 0.0 {
+            "backwards about z"
+        } else {
+            "forwards about z"
+        },
+    )?;
     for n in 2..=5 {
         f.add(&format!("F-L.spins.n{n}"), spins(n))?;
     }
@@ -773,12 +1049,32 @@ fn lie(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// F-M: the machine, and the rules drawn as fields.
+fn machine(f: &mut Facts) -> Result<(), String> {
+    let j = quarter_turn();
+    f.add("F-M.machine.in", row(&shown::MACHINE_ARROW, 0)?)?;
+    f.add("F-M.machine.out", row(&j.apply(&shown::MACHINE_ARROW), 0)?)?;
+    let spiral = spiral_rule();
+    f.add("F-M.spiral.rule", mat(&spiral, 1)?)?;
+    f.add("F-M.spiral.exp.t1", mat(&expm(&spiral), 3)?)?;
+    // following it for one unit of time turns by one radian and shrinks by this factor
+    let carried = expm(&spiral).apply(&[1.0, 0.0]);
+    f.add(
+        "F-M.spiral.shrink_per_unit_time",
+        dec(carried.iter().map(|x| x * x).sum::<f64>().sqrt(), 3)?,
+    )?;
+    Ok(())
+}
+
 /// F-X: the edges of the always sentences, as "how many hold of how many
 /// checked".
 fn edges(f: &mut Facts) -> Result<(), String> {
     f.add("F-X.seed", EDGE_SEED)?;
     for (name, holds, checked) in edge_counts() {
         f.add(&format!("F-X.{name}"), format!("{holds} of {checked}"))?;
+    }
+    for (name, holds, checked) in named_counts() {
+        f.add(&format!("F-X.named.{name}"), format!("{holds} of {checked}"))?;
     }
     Ok(())
 }
@@ -812,10 +1108,19 @@ fn sources(f: &mut Facts) -> Result<(), String> {
 fn quiz_answer(line: &str) -> Result<String, String> {
     let j = quarter_turn();
     Ok(match line {
-        "01_1" => mat(&expm(&j), 3)?,
         "03_3" => format!("no: it settles at {}", dec(std::f64::consts::E, 5)?),
-        "04_4" => format!("x^4/{}", factorial(4)),
+        "04_4" => format!("x^3/{}", factorial(3)),
         "05_5" => dec((shown::GROWTH.0 * shown::GROWTH.1).exp(), 3)?,
+        "06_3" => {
+            // following the rule keeps the distance from the centre at one
+            let worst = (1..=62)
+                .map(|m| {
+                    let p = expm_t(&j, 0.1 * f64::from(m)).apply(&[1.0, 0.0]);
+                    ((p[0] * p[0] + p[1] * p[1]).sqrt() - 1.0).abs()
+                })
+                .fold(0.0, f64::max);
+            format!("a circle of radius {}", dec(1.0 + worst, 3)?)
+        }
         "07_3" => whole(&j.pow(2))?,
         "08_3" => {
             let sizes: Vec<f64> = series(&j.scale(shown::SETTLE_T), 60)
@@ -830,12 +1135,18 @@ fn quiz_answer(line: &str) -> Result<String, String> {
             row(&expm_t(&a, 1000.0).apply(&shown::TANK_START), 0)?
         }
         "11_3" => KITE.walks(2)[2][2].to_string(),
-        "12_3" => format!("none: {}", row(expm_t(&KITE.laplacian(), -200.0).row(2), 2)?),
-        "14_2" => {
-            let (a, b) = (shear_right(), shear_up());
-            format!("{}", same(&expm(&a.add(&b)), &expm(&a).mul(&expm(&b)), 1e-9))
+        "14_3" => {
+            let (ea, eb) = (expm(&shear_right()), expm(&shear_up()));
+            let (a_then_b, b_then_a) = (eb.mul(&ea), ea.mul(&eb));
+            let answer = if same(&a_then_b, &b_then_a, 1e-9) { "yes" } else { "no" };
+            format!("{answer}: {} against {}", whole(&a_then_b)?, whole(&b_then_a)?)
         }
-        "15_3" => spins(4).to_string(),
+        "15_2" => {
+            let (angle, _) = angle_axis(&cube_loop(shown::CREEP_TIP));
+            let answer = if angle.abs() < 1e-9 { "yes" } else { "no" };
+            format!("{answer}: off by {} degrees", dec(angle.to_degrees(), 2)?)
+        }
+        "16_3" => format!("a rotation by 1 radian: {}", mat(&expm(&j), 3)?),
         other => return Err(format!("no answer for quiz {other}")),
     })
 }
@@ -854,8 +1165,8 @@ fn quizzes(f: &mut Facts) -> Result<(), String> {
 /// shown (keys carry the line id).
 fn spoken(f: &mut Facts) -> Result<(), String> {
     let e = std::f64::consts::E;
-    f.add("F-V.01_2.degrees", dec(1.0_f64.to_degrees(), 0)?)?;
     f.add("F-V.01_2.degrees.shown", dec(1.0_f64.to_degrees(), 1)?)?;
+    f.add("F-V.02_1.e", dec(e, 3)?)?;
     f.add("F-V.03_2.two_steps", dec(compound(1.0, 2), 2)?)?;
     f.add("F-V.03_3.four_steps", dec(compound(1.0, 4), 2)?)?;
     f.add("F-V.03_3.twelve_steps", dec(compound(1.0, 12), 2)?)?;
@@ -866,6 +1177,8 @@ fn spoken(f: &mut Facts) -> Result<(), String> {
         "F-V.05_1.running",
         row(&(1..=6).map(|k| exp_partial(1.0, k)).collect::<Vec<_>>(), 3)?,
     )?;
+    f.add("F-V.05_1.settles", dec(exp_partial(1.0, 9), 5)?)?;
+    f.add("F-V.05_3.share", shown::GROWTH.0)?;
     f.add("F-V.05_6.rate_times_time", dec(shown::GROWTH.0 * shown::GROWTH.1, 0)?)?;
     f.add("F-V.05_6.factor", dec((shown::GROWTH.0 * shown::GROWTH.1).exp(), 3)?)?;
     let j = quarter_turn();
@@ -882,23 +1195,14 @@ fn spoken(f: &mut Facts) -> Result<(), String> {
         .map(|s| s.total.column(0).iter().map(|x| x * x).sum::<f64>().sqrt())
         .fold(0.0, f64::max);
     f.add("F-V.08_2.swings_past", dec(far.floor(), 0)?)?;
-    // "about forty millionths": the twentieth term in tens of millionths
+    // "about forty millionths": the term with k = 20, in tens of millionths
     f.add("F-V.08_4.term20.tens_of_millionths", dec(sizes[20] * 1e5, 0)?)?;
     f.add("F-V.08_4.home", row(&expm(&j.scale(shown::SETTLE_T)).column(0), 3)?)?;
-    let shear = Mat::from_rows(&[&[1.0, 1.0], &[0.0, 1.0]]);
-    f.add(
-        "F-V.08_5.shear",
-        row(&[shear.size(), shear.pow(2).size(), shear.size().powi(2)], 3)?,
-    )?;
-    f.add("F-V.08_6.bound", dec(shown::SETTLE_T.exp(), 1)?)?;
+    f.add("F-V.08_5.bound", dec(shown::SETTLE_T.exp(), 1)?)?;
     let tank = model::tanks(shown::TANK_LITRES, shown::TANK_PUMPED);
     let start = shown::TANK_START;
     let t = shown::TANK_STEP_TIME;
     f.add("F-V.10_3.one_step", row(&tiny_steps(&tank, t, 1).apply(&start), 0)?)?;
-    f.add(
-        "F-V.10_4.ten_steps.said",
-        dec(tiny_steps(&tank, t, 10).apply(&start)[0], 0)?,
-    )?;
     f.add("F-V.10_4.ten_steps", dec(tiny_steps(&tank, t, 10).apply(&start)[0], 2)?)?;
     f.add(
         "F-V.10_4.thousand_steps",
@@ -915,16 +1219,17 @@ fn spoken(f: &mut Facts) -> Result<(), String> {
         "F-V.12_2.level",
         row(&expm_t(&KITE.laplacian(), -200.0).column(shown::HEAT_START), 2)?,
     )?;
+    f.add("F-V.12_4.nodes", shown::BIG_SIDE * shown::BIG_SIDE)?;
     let exact = expm(&mvl());
     let largest = series(&mvl(), 80).iter().map(|s| s.term.max_abs()).fold(0.0, f64::max);
-    f.add("F-V.13_3.millions", dec((largest / 1e6).floor(), 0)?)?;
-    f.add("F-V.13_3.exact", mat(&exact, 3)?)?;
-    f.add("F-V.13_3.all_smaller_than_two", exact.max_abs() < 2.0)?;
+    f.add("F-V.13_2.millions", dec((largest / 1e6).floor(), 0)?)?;
+    f.add("F-V.13_2.exact", mat(&exact, 3)?)?;
+    f.add("F-V.13_2.all_smaller_than_two", exact.max_abs() < 2.0)?;
     let (wrong, terms) = model::series_f32(&mvl_f32());
     let wrong = widen(&wrong);
-    f.add("F-V.13_5.series", mat(&wrong, 3)?)?;
-    f.add("F-V.13_5.terms", terms)?;
-    // "wrong in every entry": none of the four agrees with the truth to two digits
+    f.add("F-V.13_3.series", mat(&wrong, 3)?)?;
+    f.add("F-V.13_3.stopped_at_k", terms)?;
+    // "every entry comes out wrong": none of the four agrees with the truth to two digits
     let two_digits = |x: f64| format!("{x:.1e}");
     let agree = wrong
         .entries()
@@ -932,24 +1237,24 @@ fn spoken(f: &mut Facts) -> Result<(), String> {
         .zip(exact.entries())
         .filter(|(w, x)| two_digits(**w) == two_digits(**x))
         .count();
-    f.add("F-V.13_5.entries_right_to_two_digits", agree)?;
+    f.add("F-V.13_3.entries_right_to_two_digits", agree)?;
     let scaled = widen(&model::scale_square_f32(
         &mvl_f32(),
         shown::HALVINGS,
         shown::SCALED_DEGREE,
     ));
-    f.add("F-V.13_6.scaled", mat(&scaled, 3)?)?;
-    f.add("F-V.13_6.right_to_three_places", mat(&scaled, 3)? == mat(&exact, 3)?)?;
+    f.add("F-V.13_4.scaled", mat(&scaled, 3)?)?;
+    f.add("F-V.13_4.right_to_three_places", mat(&scaled, 3)? == mat(&exact, 3)?)?;
     let (p3, q3) = pade_at_one(3);
-    f.add("F-V.13_7.series", dec(exp_partial(1.0, 6), 5)?)?;
-    f.add("F-V.13_7.pade", dec(p3 as f64 / q3 as f64, 5)?)?;
+    f.add("F-V.13_5.series", dec(exp_partial(1.0, 6), 5)?)?;
+    f.add("F-V.13_5.pade", dec(p3 as f64 / q3 as f64, 5)?)?;
     f.add(
-        "F-V.13_7.times_closer",
+        "F-V.13_5.times_closer",
         dec((exp_partial(1.0, 6) - e).abs() / (p3 as f64 / q3 as f64 - e).abs(), 0)?,
     )?;
     let (a, b) = (shear_right(), shear_up());
     f.add("F-V.14_4.both_at_once", mat(&expm(&a.add(&b)), 3)?)?;
-    f.add("F-V.15_4.spins", format!("{},{}", spins(3), spins(4)))?;
+    f.add("F-V.15_1.spins", format!("{},{}", spins(3), spins(4)))?;
     f.add(
         "F-V.16_2.steps",
         format!("{},{},{},{}", su_dim(3), su_dim(2), 1, su_dim(3) + su_dim(2) + 1),
@@ -1024,36 +1329,70 @@ mod tests {
         let f = facts().unwrap();
         // an unknown key fails the test, naming the key
         let said = |key: &str| f.get(key).map(str::to_owned).ok_or(key).unwrap();
-        assert_eq!(said("F-V.01_2.degrees"), "57"); // "about fifty-seven degrees"
+        assert_eq!(said("F-V.02_1.e"), "2.718"); // "about two point seven one eight"
         assert_eq!(said("F-V.03_2.two_steps"), "2.25"); // "two twenty-five"
         assert_eq!(said("F-V.03_3.four_steps"), "2.44");
         assert_eq!(said("F-V.03_3.twelve_steps"), "2.61");
         assert_eq!(said("F-V.03_4.daily"), "2.715");
         assert_eq!(said("F-V.03_4.million"), "2.71828");
         assert_eq!(said("F-V.03_4.e"), "2.71828");
-        assert!(said("F-V.05_1.running").ends_with("2.718")); // "climbs to two point seven one eight"
+        assert_eq!(said("F-V.05_1.settles"), "2.71828"); // "climbs to two point seven one eight two eight"
+        assert_eq!(said("F-V.05_3.share"), "0.05"); // "e to the zero point zero five t"
         assert_eq!(said("F-V.05_6.rate_times_time"), "1");
         assert_eq!(said("F-V.05_6.factor"), "2.718");
-        assert_eq!(said("F-V.08_2.near"), "26"); // "entries near twenty-six"
+        assert_eq!(said("F-V.08_2.near"), "26"); // "near twenty-six"
         assert_eq!(said("F-V.08_4.term20.tens_of_millionths"), "4"); // "about forty millionths"
         assert_eq!(said("F-V.10_3.one_step"), "0,100"); // "all hundred grams change tanks"
-        assert_eq!(said("F-V.10_4.ten_steps.said"), "55"); // "about fifty-five grams stay"
-        assert_eq!(said("F-V.10_4.thousand_steps"), "56.75");
         assert_eq!(said("F-V.10_4.exact"), "56.77");
         assert_eq!(said("F-V.10_6.minutes.said"), "20"); // "about twenty minutes"
-        assert_eq!(said("F-V.13_3.millions"), "9"); // "swell past nine million"
-        assert_eq!(said("F-V.13_3.all_smaller_than_two"), "true");
-        assert_eq!(said("F-V.13_5.entries_right_to_two_digits"), "0"); // "wrong in every entry"
-        assert_eq!(said("F-C.mvl.f32.wrong_signs"), "1"); // "one even has the wrong sign"
-        assert_eq!(said("F-V.13_6.right_to_three_places"), "true");
-        assert_eq!(said("F-V.13_7.times_closer"), "8");
-        assert_eq!(said("F-V.15_4.spins"), "3,6");
-        assert_eq!(said("F-V.16_2.steps"), "8,3,1,12"); // "eight, three, and one. Twelve in all."
-        assert_eq!(said("F-Q.11_3.answer"), "3");
-        assert_eq!(said("F-Q.10_5.answer"), "50,50");
-        assert_eq!(said("F-Q.12_3.answer"), "none: 0.25,0.25,0.25,0.25"); // "A quarter each."
-        assert_eq!(said("F-Q.14_2.answer"), "false");
+        assert_eq!(said("F-V.12_2.level"), "0.25,0.25,0.25,0.25"); // "a quarter on each node"
+        assert_eq!(said("F-V.12_4.nodes"), "400"); // "on four hundred"
+        assert_eq!(said("F-V.13_2.millions"), "9"); // "swell past nine million"
+        assert_eq!(said("F-V.13_3.entries_right_to_two_digits"), "0"); // "every entry comes out wrong"
+        assert_eq!(said("F-C.mvl.f32.wrong_signs"), "1"); // "one with the wrong sign"
+        assert_eq!(said("F-C.mvl.f32.scaled.halvings"), "8"); // "halve the matrix eight times"
+        assert_eq!(said("F-V.13_4.right_to_three_places"), "true");
+        assert_eq!(said("F-V.15_1.spins"), "3,6"); // "in three dimensions there are three"
+        assert_eq!(said("F-V.16_2.steps"), "8,3,1,12"); // "eight, three, and one … twelve"
+        assert_eq!(said("F-Q.04_4.answer"), "x^3/6"); // "x cubed over six"
         assert_eq!(said("F-Q.07_3.answer"), "-1,0;0,-1"); // "minus the matrix that changes nothing"
+        assert_eq!(said("F-Q.10_5.answer"), "50,50"); // "fifty grams in each"
+        assert_eq!(said("F-Q.11_3.answer"), "3");
+        assert!(said("F-Q.14_3.answer").starts_with("no:")); // "No."
+        assert!(said("F-Q.15_2.answer").starts_with("no:")); // "No."
+        // 11_6: "one and three score higher" than one and two
+        let (far, near): (f64, f64) = (
+            said("F-V.11_6.one_to_three").parse().unwrap(),
+            said("F-V.11_6.one_to_two").parse().unwrap(),
+        );
+        assert!(far > near);
+    }
+
+    /// The always sentences on the named degenerate cases.
+    #[test]
+    fn edge_every_always_sentence_holds_on_the_named_cases() {
+        for (name, holds, checked) in named_counts() {
+            assert_eq!(holds, checked, "{name}");
+        }
+    }
+
+    /// The loops are multiplied in the order they are played, and both
+    /// leave minus the commutator: the square's leftover is −t²[A, B], the
+    /// cube's is a spin about minus z.
+    #[test]
+    fn the_loops_leave_minus_the_commutator_in_the_order_played() {
+        let t = 1e-3;
+        let (a, b) = (shear_right(), shear_up());
+        let square = square_loop(t).sub(&Mat::identity(2)).scale(1.0 / (t * t));
+        assert!(square.add(&a.commutator(&b)).max_abs() < 5e-3);
+        let [lx, ly, lz] = spin_axes();
+        let cube = cube_loop(t).sub(&Mat::identity(3)).scale(1.0 / (t * t));
+        assert!(cube.add(&lx.commutator(&ly)).max_abs() < 5e-3);
+        assert_eq!(lx.commutator(&ly), lz);
+        // twenty loops of 0.2 radian tips creep the cube by about 45.7 degrees
+        let (total, axis) = angle_axis(&cube_loop(shown::CREEP_TIP).pow(shown::CREEP_LOOPS));
+        assert!((total.to_degrees() - 45.7).abs() < 0.3, "{}", total.to_degrees());
+        assert!(axis[2] < -0.9, "{axis:?}");
     }
 
     /// The quantum pair sloshes: all the chance is back at the start after

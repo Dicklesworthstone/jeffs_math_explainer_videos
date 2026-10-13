@@ -1,96 +1,88 @@
 # matrix_exponential: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	This is e, raised to the power of a matrix. A grid of four numbers, sitting where an exponent should be. What could that possibly equal?
-01_2	It equals this. A rotation of the whole plane, by exactly one radian. That's about fifty-seven degrees. By the end, you'll see why it couldn't be anything else.
-01_4	First, what is a matrix? A grid of numbers that works as a rule. Feed it an arrow, and it hands back a new arrow.
-01_5	This particular grid turns every arrow a quarter turn. We'll call it J, and it comes back later.
-02_1	E squared is e times e. But e, multiplied by itself a matrix number of times? That means nothing.
-02_2	So try the obvious repair. Raise e to each entry, one at a time.
-02_3	Test the guess on the easiest matrix of all, four zeros. E to the zero is one, so the guess gives four ones. Is that right?
-02_4	No. E to the zero should change nothing. And the matrix that changes nothing has ones on its diagonal, and zeros everywhere else.
-02_5	Four ones do something violent. They squash the whole plane onto a single line.
-02_6	So the guess is dead. To find the real meaning, we have to ask what e to the x has meant all along.
+01_2	A rotation of the whole plane, by exactly one radian. By the end, you'll see why it couldn't be anything else.
+01_4	First, what is a matrix? A grid of numbers that works as a machine. Feed it an arrow, and it hands back a new arrow. Each row mixes the arrow's two numbers into one new number.
+01_5	This one turns every arrow a quarter turn. We'll call it J.
+02_1	E is a number, about two point seven one eight. E squared is e times e. But e times itself, a matrix number of times? Meaningless.
+02_2	So try the obvious repair. Raise e to each entry. Test it on the easiest matrix of all, four zeros. E to the zero is one, so the guess gives four ones. Is that right?
+02_3	No. E to the zero is one, and multiplying by one changes nothing. Its matrix twin has ones on the diagonal, zeros elsewhere, and leaves every arrow alone.
+02_4	Four ones do something violent. They squash the whole plane onto a single line.
+02_5	So the guess is dead. What has e to the x meant all along?
 03_1	Start with money. One dollar, in a bank that pays a hundred percent a year. After one year, two dollars.
-03_2	Now split the year in two. Fifty percent, twice. The second step earns on the first, so you end with two twenty-five.
-03_3	Your turn, and pause the video whenever you want longer. Four steps give two forty-four. Twelve give two sixty-one. Keep cutting the year finer. Does the total grow without limit?
-03_4	No. It settles. A step every day gives two point seven one five. A million steps give two point seven one eight two eight. That number is called e.
-03_5	Every step followed one rule. Grow by a share of what you have. Shrink the steps to nothing, and the rule becomes this. Your rate of growth equals your size.
-03_6	That's the first face of e to the x. The one curve whose steepness, everywhere, equals its height.
-04_1	Here's a second way to reach that curve. Build it piece by piece, so that its rate equals itself.
-04_2	Start with one. Its rate is zero, and we need one. So add x, which climbs at a rate of one.
+03_2	Split the year in two. Fifty percent, twice. The second step earns on the first, so you end with two twenty-five.
+03_3	Your turn. Pause whenever you want longer. Four steps give two forty-four. Twelve, two sixty-one. Keep cutting the year finer. Does the total grow without limit?
+03_4	No. It settles. A step every day gives two point seven one five. A million steps give two point seven one eight two eight. That number is e.
+03_5	Every step followed one rule. In a thousandth of a year, you gain a thousandth of what you have. So your gain per year, your rate, equals your amount.
+03_6	Grow like that for a year, and a dollar becomes e. Two years, e times e. X years, e to the x. The one curve that starts at one, with rate equal to amount.
+04_1	A second way to reach that curve. Build it piece by piece, so its rate equals itself.
+04_2	Start with one, our first dollar. Its rate is zero, and we need one. So add x, which climbs at a rate of one.
 04_3	Now x needs a partner whose rate is x. That's half of x squared, the area under the line. An area grows as fast as its leading edge is tall.
-04_4	To match that one, add x cubed over six. Every new piece supplies the rate of the piece before it. So what comes after x cubed over six?
-04_5	X to the fourth, over twenty-four. Each bottom number is the one before, times the next whole number. One, two, six, twenty-four. The factorials.
-04_6	Carry on for ever, and the sum is its own rate. Each piece turns into the piece before it, so the whole row slides one place over, and nothing is lost.
-05_1	Try it at x equals one. One, plus one, plus a half, plus a sixth. The running total climbs to two point seven one eight. The same number the bank gave us.
-05_2	That's no coincidence. The tiny steps and the series obey the same rule, rate equals size, from the same start. Only one curve can.
-05_3	And this is why e to the x simplifies so much. Whenever a rate is proportional to an amount, the answer is e, to the rate times the time.
-05_4	Savings, bacteria, radioactive decay, a cooling cup of coffee. One function handles them all.
-05_5	Your turn. Something grows at five percent a year, continuously, for twenty years. How many times bigger does it get?
+04_4	Your turn. Each new piece must have the one before it as its rate. Raise the power by one, and divide by the new power. What comes after half of x squared?
+04_5	X cubed over six. Then x to the fourth over twenty-four. Each bottom number is the last one, times the next whole number. The factorials.
+04_6	An endless sum like this is called a series. Take its rate, and each term turns into the term before it. The whole row slides one place over, and nothing is lost.
+05_1	Try the series at x equals one. One, plus one, plus a half, plus a sixth. The running total climbs to two point seven one eight two eight. The bank's number.
+05_2	No coincidence. Both obey rate equals amount, from the same start, and only one curve can.
+05_3	Now loosen the rule. Let the rate be a fixed share of the amount, say five percent a year. The answer is the same curve, stretched. E to the zero point zero five t.
+05_4	Turn the dial. Savings, bacteria, radioactive decay, a cooling cup of coffee. One function handles them all.
+05_5	Your turn. Five percent a year, growing all the time, for twenty years. How many times bigger?
 05_6	Five percent times twenty is one. So it grows by e to the one. Two point seven one eight times.
-05_7	Last, grow for a while, then a while longer, and the factors multiply. E to the a plus b equals e to the a, times e to the b. Remember that rule. It's going to break.
-06_1	Now feed that function something strange. The number i. Forget square roots for a moment. Multiplying by i means one thing. Turn a quarter turn.
-06_2	So make your rate i times your position. That's a push sideways. Always at right angles to where you stand.
-06_3	Follow that rule in tiny steps, each one a small push sideways. What path do you trace?
-06_4	A circle. Four big steps drift outward. A hundred hug the circle. In the limit you stay on it exactly, and after a time t, you have turned through an angle t.
-06_5	Run it for a time pi, half a turn, and you land on minus one. E to the i pi equals minus one. Growth, pushed sideways, is rotation.
-07_1	Back to the matrix. Look at what the series asks of x. Multiply it by itself. Divide by whole numbers. Add.
-07_2	A square matrix can do all three. So put a matrix where the x was. That is the definition of e to a matrix.
-07_3	Your turn. Try it on J, the quarter turn. The series needs J times J, which means, do a quarter turn, twice. What is J squared?
+06_1	Now feed that function something strange. The number i. Set aside square roots. Multiplying by i means one thing. Turn a quarter turn.
+06_2	So let your rate be i times your position. That's a push sideways, at right angles to where you stand, and as long as your distance from the centre.
+06_3	Your turn. Follow that rule in tiny steps, each one a small push sideways. What path do you trace?
+06_4	A circle. Four big steps drift outward. A hundred hug it. Shrink the steps to nothing and you stay on it, moving at speed one. So after a time t, you've covered an arc of length t. That's an angle of t radians.
+06_5	That point is called e to the i t. Run it for a time pi, the length of a half circle, and you land on minus one.
+07_1	Back to the matrix. The series asks three things of x. Multiply it by itself, divide by whole numbers, and add. A square matrix can do all three.
+07_2	So put a matrix where the x was. That is the definition of e to a matrix, also called its exponential.
+07_3	Your turn. Try it on J, the quarter turn. The series needs J times J. A quarter turn, twice. What is J squared?
 07_4	A half turn. Every arrow reversed. That's minus the matrix that changes nothing. So J behaves exactly like i.
-07_5	So the series sorts itself into two piles. The even powers are plain numbers. The odd powers are numbers times J.
-07_6	Those two piles are the cosine and the sine. So e to the t J is the rotation by the angle t. And at t equals one, it's the matrix from the very start.
-08_1	But an endless sum of matrices? What would it mean for that to have an answer? That the running total settles, in every entry. Mathematicians say the series converges.
-08_2	Here's a worrying case. E to five times J. Its terms get big. Two of them have entries near twenty-six.
+07_5	Now run J for a time t. The terms take turns, one along the arrow, the next at right angles, and they spiral in to a point on the circle.
+07_6	Its across part is the cosine of t, its up part the sine. So e to the t J is the rotation by t radians. At t equals one, it's the matrix from the start.
+08_1	But an endless sum of matrices? For it to have an answer, the running total has to settle, in every entry. Mathematicians say the series converges.
+08_2	Here's a worrying case. E to five J. It must land five radians round the circle. But look at its terms. Two of them are near twenty-six.
 08_3	Your turn. Each new term multiplies by five again, and divides by the next whole number. What happens to the terms from here?
-08_4	They collapse. Once you're dividing by six, seven, eight, the factorial wins. By the twentieth term, about forty millionths. And the running total spirals home, to a point on the circle.
-08_5	And that works for every square matrix. Measure a matrix by its size, the most it can stretch any arrow. Multiply two matrices, and their sizes at most multiply.
-08_6	So the k-th term is never bigger than the size to the k, over k factorial. Those numbers add up to e to the size, which is finite. The matrix series sits underneath, so it settles. Every time.
-09_1	So e to a matrix exists. But what does it mean? Go back to tiny steps.
-09_2	Read the matrix as a rule for motion. Wherever you are, apply the matrix to your position, and that's your velocity. Where you're headed, right now.
-09_3	Now follow the arrows for a time t. Every point lands somewhere new. The matrix that carries each start to its finish is e to the t A.
-09_4	Follow them for a time s. Then for a time t more. What single matrix does the whole trip?
-09_5	E to the s plus t, times A. Run, and run again, is one longer run. The rule of exponents, kept.
-09_6	The matrix is the rule for tiny steps. Its exponential is the result.
+08_4	They collapse. Once you're dividing by six, seven, eight, the factorial wins. By k equals twenty, about forty millionths. And the running total spirals home.
+08_5	It works for every square matrix. Call a matrix's biggest stretch of any arrow its size. The k-th term is at most the size to the k, over k factorial, and the factorial always wins. So what's still to come keeps shrinking, and the total settles. Every time.
+09_1	So e to a matrix exists. What does it mean? Read the matrix a new way. Feed it your position, and what comes back is your velocity.
+09_2	Take tiny steps along those arrows. Four. Sixteen. Shrink them to nothing, and each point traces a smooth path.
+09_3	Follow the arrows for a time t, and each point is carried to its finish. The matrix that does the carrying is e to the t A.
+09_4	Why that series? Take its rate. Every term slides one place over, and leaves one A out front. Its rate is A, times itself. Velocity is the matrix applied to position.
+09_5	Follow the arrows for a time s. Then for a time t more. What single matrix does the whole trip?
+09_6	E to the A, followed for s plus t. One rule, run twice, is one longer run. The matrix is the rule. Its exponential is where the rule takes you.
 10_1	A real one. Two tanks, a hundred litres each, with pumps swapping ten litres a minute. Stir a hundred grams of salt into the left tank.
-10_2	Every minute, a tenth of each tank's salt crosses over. Two equations, one for each tank. Together they are one matrix.
-10_3	Where is the salt after ten minutes? Take it as one big step, and the rule says all hundred grams change tanks. Absurd.
-10_4	Ten steps say about fifty-five grams stay. A thousand steps say fifty-six point seven five. E to the ten A gives the answer in one stroke. Fifty-six point seven seven.
+10_2	Salt leaves each tank at a rate of one tenth of what it holds, per minute, and arrives in the other. Two equations. Together, one matrix.
+10_3	Where is the salt after ten minutes? Take one big step, and all hundred grams change tanks. Absurd. The right tank would have been sending salt back.
+10_4	Ten steps do better. A thousand, better still. It's the bank's trick again, and e to the ten A is where those steps are heading. Fifty-six point seven seven grams.
 10_5	Your turn. Leave the pumps running for hours. Where does the salt end up?
 10_6	Fifty grams in each. And the exponential says how fast. Within a gram of even, after about twenty minutes.
-11_1	A matrix can also be a map. Four nodes, some of them linked. Write a one where two nodes are linked, and a zero where they aren't.
-11_2	Multiply that matrix by itself, and each entry counts something. The number of two-step walks between a pair of nodes.
+11_1	A matrix can also record who is linked to whom. Four nodes. Write a one where two nodes are linked, and a zero where they aren't.
+11_2	A walk is a route along links, and it may double back. Multiply that matrix by itself, and each entry counts the two-step walks between a pair of nodes.
 11_3	Your turn. Start at node three. How many two-step walks bring you back to node three?
 11_4	Three. Out along any of its three links, and straight back. The matrix agrees.
-11_5	The k-th power counts walks of k steps. So e to this matrix adds up every walk of every length, and divides a walk of k steps by k factorial. Long walks count for less. Infinitely many walks, one function.
-11_6	Network scientists call that number communicability. How well two nodes are connected, counting every route between them, and not only the shortest.
-12_1	Now let something flow along the links. Put heat on node four. Each link carries heat from its hotter end to its cooler end.
-12_2	That rule is a matrix too, so the answer is its exponential. Watch the heat spread, and level out. A quarter on each node.
-12_3	Your turn. Same network, new meaning. A hopper jumps along the links at random. After a long time, which node is it most likely to be on?
-12_4	None of them. A quarter each. The busy node in the middle gets more visitors, and loses them just as fast.
-12_5	And the two tanks were this all along. Two nodes, one link, settling at half and half.
-12_6	Now put the letter i into the exponent. The same two nodes never settle. The chance sloshes across, and back, for ever. That is how quantum physics moves in time.
-13_1	So how does a computer find e to a matrix? Surely it adds up the series.
-13_2	Try this matrix, from a famous paper. Nineteen Dubious Ways to Compute the Exponential of a Matrix.
-13_3	Its terms swell past nine million, with alternating signs. They have to cancel down to four numbers smaller than two.
-13_4	A computer that keeps about seven digits adds up that series, until the total stops changing. How good is its answer?
-13_5	Wrong in every entry. One even has the wrong sign. The mathematics is fine. The digits that mattered were thrown away long before the end.
-13_6	The cure is the oldest idea in this video. Tiny steps. Halve the matrix eight times, so its series is short and tame. Then square the result, eight times.
-13_7	Real libraries do exactly that, with a sharper stand-in for the short series. A ratio of two polynomials, called a Padé approximant.
-13_8	And when a matrix untangles into separate rates, you exponentiate each rate alone. That's the eigenvalue story, which has a video of its own.
-14_1	Remember the rule we said would break? E to the a plus b equals e to the a, times e to the b.
-14_2	Your turn. Swap the numbers for two matrices, A and B. Does the rule still hold?
-14_3	Take two shears. A pushes the top of a square to the right. B pushes its right side upward.
-14_4	Follow A, then B. Now B, then A. Now both rules at once. Three different shapes.
-14_5	The rule broke because order matters. A then B is not B then A. When the order makes no difference, we say two matrices commute, and for those, the rule holds.
-14_6	And the failure can be measured. Take one order away from the other. A B, minus B A. That leftover is called the commutator, and it is the first correction to the broken rule.
-15_1	That leftover is a doorway. Go back to rotations. The quarter turn J has a special shape. Flip it across its diagonal, and every sign changes.
-15_2	Every matrix of that shape exponentiates to a rotation, and every rotation comes from one. In three dimensions there are three basic ones. A spin about each axis.
-15_3	Your turn. Three dimensions, three independent spins. How many are there in four dimensions?
-15_4	Six. A spin doesn't really happen around an axis. It happens in a plane, and four axes make six pairs.
-15_5	And spins don't commute. Tip a little about x, a little about y, then undo each one. You are not back where you began. What's left over is a small spin about z. The commutator of two spins is a third spin.
-15_6	The spins, with that commutator, form a Lie algebra. The rotations they generate form a Lie group. And the exponential is the bridge from one to the other.
-16_1	Lie groups are the mathematics of smooth motion. A robot arm's pose is a product of exponentials, one for every joint. That's the companion video, on Lie groups and robotics.
-16_2	And in particle physics, the forces of the Standard Model are built on three Lie groups. Their independent tiny steps number eight, three, and one. Twelve in all. What might those twelve be?
-16_3	The particles that carry the forces. Eight gluons. The W plus, the W minus, and the Z. And the photon.
-16_4	So that's what it means to raise e to a matrix. The matrix is a rule for tiny steps. E to the matrix is where that rule takes you.
-16_5	Growth, turning, heat, chance, rotation. One function, following one rule. Its rate is itself.
+11_5	The k-th power counts walks of k steps. So e to this matrix adds up every walk of every length, a walk of k steps divided by k factorial. Infinitely many walks, one function.
+11_6	Network scientists call that number communicability. Nodes one and two are linked. So are one and three. But one and three score higher. Three has more ways round.
+12_1	Now let something flow. Put heat on node four. Each link carries heat from its hotter end to its cooler end, as fast as the difference between them.
+12_2	That rule is a matrix, so the answer is its exponential. The heat spreads, and levels out. A quarter on each node.
+12_3	Call the amber heat, or the chance of finding a random hopper. Same matrix.
+12_4	On four nodes you could do this by hand. On four hundred, the exponential still answers in one stroke.
+12_5	The two tanks were this all along. Two nodes, one link, settling at half and half. Now put the letter i into the exponent. Does it still settle?
+12_6	Never. Remember what i did to growth. The slide toward even becomes a circle. The chance sloshes across, and back, for ever. That is how quantum physics moves in time.
+13_1	How does a computer find e to a matrix? Surely it adds up the series. Try this one, from a famous paper. Nineteen Dubious Ways to Compute the Exponential of a Matrix.
+13_2	Its terms swell past nine million, with alternating signs, like five J, only worse. A computer keeps about seven digits. Can anything after the decimal point survive?
+13_3	No. Every entry comes out wrong, one with the wrong sign. The mathematics is fine. The digits that mattered were thrown away along the way.
+13_4	The cure is tiny steps again. Half the time, run twice, is the whole time. So halve the matrix eight times, until its series is short and tame. Then square the result, eight times.
+13_5	The programs scientists use do exactly that, with a ratio of two polynomials, a Padé approximant, for the short series. And when a matrix untangles into separate rates, that's the eigenvalue story, in its own video.
+14_1	Numbers obey one more rule. Grow at two shares at once, or at one after the other. Same result. E to the a plus b is e to the a, times e to the b.
+14_2	Now two matrices. Two shears. A pushes the top of a square to the right. B pushes its right side upward.
+14_3	Your turn. Follow A, then B. Or B, then A. Does the square end up in the same place?
+14_4	No. They're mirror images. And both rules at once, a tiny step of each, over and over, lands between them. Three different results.
+14_5	The rule broke because order matters. Multiply the two grids in either order, A B, and B A. When those agree, the matrices commute, and for those, the rule holds.
+14_6	And the failure can be measured. Go round a loop. A, then B, then undo each. The square doesn't come back. What's left over is set by A B minus B A. The commutator.
+15_1	That leftover is a doorway. Take the quarter turn J. Flip it across its diagonal, and every sign changes. Use a matrix of that shape as a rule, and call it a spin. Follow a spin, and you get a rotation. In three dimensions there are three, one for each pair of axes.
+15_2	Your turn. Tip the cube a little about x. Then about y. Then undo each one. Are you back where you began?
+15_3	No. Repeat that loop, and the cube creeps round the third axis. The commutator of two spins is a third spin.
+15_4	Add two spins, or take their commutator, and you still have a spin. A set closed like that is a Lie algebra. Follow one rotation by another, or undo one, and you still have a rotation. That is a Lie group. The exponential is the bridge between them.
+16_1	Lie groups are the mathematics of smooth motion. A robot arm's pose is a product of exponentials, one per joint. That's the companion video.
+16_2	In particle physics, the forces of the Standard Model are built on three Lie groups, with eight, three, and one independent tiny steps. Twelve, and twelve particles carry those forces.
+16_3	One last time, and now it's your turn. E, raised to the quarter turn J. What does it equal, and why?
+16_4	A rotation by one radian. The rule J moves every point at a speed equal to its distance from the centre. So in one unit of time, each point travels an arc as long as its radius. One radian.
+16_5	The matrix is a rule for tiny steps. E to the matrix is where that rule takes you. One function, one rule. Its rate is the rule, applied to itself.

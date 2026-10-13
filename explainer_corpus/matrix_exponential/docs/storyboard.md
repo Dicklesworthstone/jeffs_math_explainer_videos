@@ -16,11 +16,15 @@ next beat answers it.
 quiz is a `⟨predict⟩` beat whose last column says `listen N s`: a violet
 card with the problem, a ring that drains over N seconds with the seconds
 left in its middle, the line "pause for more time" under it, the narration
-silent and the music alone (one soft note a second). The next beat works the
-answer in the same place on screen. The owner asked for quizzes with pauses
-before the answers, so eleven of the sixteen prediction pauses are quizzes
-on a countdown. Every quiz is a row of `model::QUIZZES`, and its answer is
-the `F-Q.<line>.*` facts.
+silent and the music alone (the motif's rising steps, left unresolved until
+the answer lands). The next beat works the answer in the same place on
+screen. Eleven quizzes on a countdown; every one is a row of
+`model::QUIZZES`, and its answer is the `F-Q.<line>.*` facts. Five further
+prediction pauses hold for a moment without a ring.
+
+**Lower-thirds** are tagged so a viewer knows which she may let go by:
+"precisely" (the exact statement), "for programmers", "who and when". One
+occupies the foot of the frame at a time.
 
 ## 2 The arc
 
@@ -30,24 +34,25 @@ matrix in, the motion of a whole linked system out.
 
 | Act | Chapters | Spine |
 |---|---|---|
-| I. The question | 01 e to a matrix, 02 the obvious guess | a quiz before anything is taught, answered at once (a rotation); what a matrix is; the entry-by-entry guess fails on the matrix of zeros |
-| II. What e to the x has meant all along | 03 growth, 04 the series, 05 one function, 06 turning | compound interest in tiny steps settles at e; the series earned piece by piece from "its rate equals its size"; they are one function, and it solves every "rate proportional to amount" equation; a rate of i pushes sideways: a circle |
-| III. Put a matrix in | 07 a matrix in, 08 does it settle | the series only needs adding, multiplying and dividing by whole numbers; the quarter turn J behaves like i, so e^{tJ} is a rotation; why the series settles for every square matrix |
-| IV. What it means | 09 follow the arrows, 10 two tanks, 11 walks, 12 heat and chance | the matrix is a rule for motion and its exponential is the result; salt between two tanks; powers count walks and e^A adds them all; heat and chance spread by the same matrix; one letter i and it never settles |
+| I. The question | 01 e to a matrix, 02 the obvious guess | the question, answered at once (a rotation by one radian) with the dots already following their arrows; what a matrix is; the entry-by-entry guess fails on the matrix of zeros |
+| II. What e to the x has meant all along | 03 growth, 04 the series, 05 one function, 06 turning | compound interest in tiny steps settles at e; the series earned piece by piece from "rate equals amount"; they are one function, and one dial of it handles every "rate is a share of the amount" problem; a rate of i pushes sideways: a circle, at speed one |
+| III. Put a matrix in | 07 a matrix in, 08 does it settle | the series only needs multiplying, dividing by whole numbers and adding; the quarter turn J behaves like i, so the series for e^{tJ} is a spiral that lands on the circle; why the series settles for every square matrix |
+| IV. What it means | 09 follow the arrows, 10 two tanks, 11 walks, 12 heat and chance | the matrix read as a rule for motion, and why the series is that motion (its rate is A times itself); salt between two tanks as a dot on the same plane; powers count walks and e^A adds them all; heat and chance by one matrix, on four nodes and on four hundred; one letter i and it never settles |
 | V. Computing it | 13 how computers do it | the series is right and a poor algorithm; halve, sum a short series, square back; a ratio of polynomials; eigenvalues point to Video K |
-| VI. The rule that breaks | 14 order matters, 15 the doorway, 16 where it leads | e^{A+B} = e^A e^B needs A and B to commute; the leftover is the commutator; skew matrices, spins, a Lie algebra and its Lie group; robots (Video G) and the Standard Model's twelve force carriers; back to the opening card |
+| VI. The rule that breaks | 14 order matters, 15 the doorway, 16 where it leads | two rules at once is not one after the other unless they commute; a loop that does not close leaves the commutator; spins, their loop, a Lie algebra and its Lie group; robots (Video G) and the Standard Model's twelve force carriers; the opening card again, as the last quiz, answered in one sentence |
 
 ## 3 Color roles
 
-One colour per idea for the whole video (plan §6.1); a highlight never uses
-a data colour.
+One colour per idea for the whole video (plan §6.1). Role beats kind:
+whatever sits in an exponent is teal, whatever the exponential returns is
+gold. A highlight never uses a data colour.
 
 | Idea | Color |
 |---|---|
-| the rule: a rate, a tiny step, the matrix in the exponent, its powers, velocity arrows | teal `#5CD0B3` |
-| the result: e^{tA}, the running total, a path traced, where a point ends up | `hero` gold `#FFD866` |
-| turning: i, the quarter turn J, skew matrices, rotations | blue `#58C4DD` |
-| the stuff that flows: money, salt, heat, chance | amber `#F0AC5F` |
+| the rule: a rate, a tiny step, the matrix in the exponent, its powers and terms, velocity arrows, spins | teal `#5CD0B3` |
+| the result: e^{tA}, the running total, a path traced, where a point ends up, a rotation reached | `hero` gold `#FFD866` |
+| the act of turning drawn as geometry: the fan of arrows, the dial of powers, an arc | blue `#58C4DD` |
+| a substance in a container or on a node: money, salt, heat, chance | amber `#F0AC5F` |
 | the second rule B, where order matters | rose `#E48BB5` |
 | the guess that fails, a broken rule, digits lost | `warn` red `#FC6255` |
 | a confirmed answer | `good` green `#83C167` |
@@ -58,372 +63,399 @@ before drafts, as Video C's customers and Video F's pieces were.
 
 ## Vocabulary (one word per idea)
 
-**rate** (how fast something is changing right now; never "derivative"
-aloud); **tiny step**; **the rule** (the matrix, read as what says where
-each point is headed) and **the result** (where it ends up); **arrow** (never
-"vector" aloud); **matrix** (a grid of numbers that works as a rule: feed it
-an arrow, it hands back a new arrow); **running total** and **settles** (the
-word "converges" is said once, at 08_1, where it is defined); **size** of a
-matrix (the most it can stretch any arrow); **quarter turn**, **half turn**;
-**walk**, **node**, **link**; **spin** (a steady turning about one axis, as
-in Video G); **order matters**, then **commute**; **the commutator**; **Lie
-algebra** and **Lie group**, named only after the spins and the rotations
-have been shown; **your turn** (every quiz after the cold open). Letters said
-aloud: e, x, t, i, J, A, B, k only where the screen shows them. Never
-"simply", "just", "obviously", "it turns out", "magic".
+**matrix**: a grid of numbers that works as a machine (feed it an arrow, it
+hands back an arrow). A matrix is used two ways, and the words keep them
+apart: as a **move** (the arrow that comes out is where you land: the
+quarter turn, a rotation, "the matrix that changes nothing") and as a
+**rule** (the arrow that comes out is your velocity: where you are headed).
+The exponential takes a rule and returns a move. **rate**: how fast an
+amount is changing right now; **amount**: how much there is ("rate equals
+amount"; never "size" for this); **share**: the fixed fraction r in "the
+rate is a share of the amount". **tiny step**. **arrow** (never "vector"
+aloud). **series**, **term** (introduced at 04_6; "piece" only before it);
+**running total** and **settles** ("converges" is said once, at 08_1).
+**size** of a matrix only: its biggest stretch. **exponential**, as a noun
+for "e to the matrix", from 07_2 on. **quarter turn**, **half turn**;
+**radian**, defined at 06_4 (an arc as long as the radius). **walk** (a
+route along links that may double back), **node**, **link**. **spin**: a
+skew matrix used as a rule (as in Video G); **rotation**: the move it leads
+to. **commute**; **the commutator**; **Lie algebra** and **Lie group**, named
+only after the spins and the rotations have been shown. **your turn** (every
+quiz). Terms are numbered by k, and the screen shows k under the bars.
+Letters said aloud: e, x, t, i, J, A, B, k, only where the screen shows
+them. Never "simply", "just", "obviously", "it turns out", "magic".
 
-## 01_e_to_a_matrix (~50 s)
+## 4 Showcase (which feature carries which idea)
+
+| Feature | Beats | The idea it carries |
+|---|---|---|
+| a dot field placed every frame at e^{tA} applied to each start, with arrows and trails | 01_2, 09_1 to 09_3, 10_2 to 10_6, 16_4 | the central picture: a rule for tiny steps, followed |
+| live recomputation from a tracker (entries of e^{tA}, grams, heat, chance) | 01_2, 07_6, 10, 12 | the number on screen is the picture on screen |
+| a row of TeX terms sliding one place onto itself | 04_6, 09_4 | the series is its own rate; with A, its rate is A times itself |
+| a spiral of terms that swells and still lands on the circle; its steps stand up as bars | 07_5, 08_2, 08_4 | the series for e^{tJ}; big terms that cancel |
+| a network of four hundred nodes recoloured from one tracker | 12_4 | what would be hopeless by hand |
+| a small projected cube turned by the model | 15_1 to 15_3 | spins, and the loop that does not close |
+| morphs that keep identity (network to tanks; machine to velocity field) | 12_5, 09_1 | the same object under a new reading |
+| sound that teaches (for the score bead) | 08_4, 12_6, every countdown | the terms heard swelling and collapsing; two pitches that settle or trade places; the motif left unresolved until the answer |
+
+No beat needs the camera route.
+
+## 01_e_to_a_matrix
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | ⟨predict⟩ This is e, raised to the power of a matrix. A grid of four numbers, sitting where an exponent should be. What could that possibly equal? | The quiz card, cold: e with the grid 0, −1; 1, 0 as its exponent, "= ?", the ring draining from 5, "pause for more time" (`F-Q.01_1.*`) | **the quiz card**; countdown ring on a tracker | listen 5 s (the countdown: the music alone, one soft note a second) |
-| 01_2 | It equals this. A rotation of the whole plane, by exactly one radian. That's about fifty-seven degrees. By the end, you'll see why it couldn't be anything else. | The answer grid builds where the ring was: 0.540, −0.841; 0.841, 0.540 (`F-H.J.true`); behind it a plane of faint dots turns through an arc labelled "1 radian ≈ 57.3°" (`F-N.turn.radian_degrees`) | TeX equation; a dot field moved by placement | |
+| 01_1 | ⟨predict⟩ This is e, raised to the power of a matrix. A grid of four numbers, sitting where an exponent should be. What could that possibly equal? | e with the grid 0, −1; 1, 0 as its exponent, "= ?"; a small label under the e, "e = 2.718…"; behind it a plane of faint dots stirs | **the grid in an exponent**; dot field | |
+| 01_2 | A rotation of the whole plane, by exactly one radian. By the end, you'll see why it couldn't be anything else. | The answer grid builds, 0.540, −0.841; 0.841, 0.540 (`F-H.J.true`), and shrinks to a corner as the plane takes the stage: every dot carries a small teal arrow at right angles to its position and travels a gold arc for one unit of time; an arc label "1 radian = 57.3°" (`F-V.01_2.degrees.shown`) | dot field placed from a tracker; trails | |
 | 01_3 | *(title)* | **What Does It Mean to Raise e to a Matrix?** | title card | listen 3 s (the motif: one step, three times, each a little higher) |
-| 01_4 | First, what is a matrix? A grid of numbers that works as a rule. Feed it an arrow, and it hands back a new arrow. | A grid of four numbers on the left; an arrow goes in, and a new arrow comes out; then a fan of eight arrows, all carried to their new places at once | **the rule machine**; morph that keeps identity | |
-| 01_5 | This particular grid turns every arrow a quarter turn. We'll call it J, and it comes back later. | The fan turns a quarter turn, in blue; the grid takes the label "J: the quarter turn" | highlight | hold |
+| 01_4 | First, what is a matrix? A grid of numbers that works as a machine. Feed it an arrow, and it hands back a new arrow. Each row mixes the arrow's two numbers into one new number. | The grid 0, −1; 1, 0; the arrow (2, 1) goes in; row one gives 0 × 2 − 1 × 1 = −1, row two gives 1 × 2 + 0 × 1 = 2; the arrow (−1, 2) comes out (`F-M.machine.*`) | **the machine**: rows lighting in turn | |
+| 01_5 | This one turns every arrow a quarter turn. We'll call it J. | A fan of eight arrows goes in and comes out turned a quarter turn, in blue; the grid takes the label "J: the quarter turn" | morph that keeps identity | hold |
 
-- **Cold open** (plan rule 20): a puzzle the viewer cannot answer, answered
-  in three short sentences with the plane turning, then the title, then the
-  honest failure of the obvious guess (chapter 02).
-- **Maya:** a matrix is given to her in two sentences and one picture, as a
-  rule that moves arrows, before anything is done with one. "Radian" comes
-  with its size in degrees.
-- **Ruth:** e^J is the rotation by one radian (`F-H.J.true`; the oracle's
-  exact series against cos 1 and sin 1).
-- **Engine:** the dot field is about 120 dots moved by placement from a
-  tracker; arrows are fixed mobjects rotated in place.
+- **Cold open** (plan rule 20): the question, then the answer with the
+  central picture already running (the dots follow their arrows), then the
+  title at about twenty seconds. The ring that this question deserves is at
+  16_3, when the viewer can answer it.
+- **Maya:** a matrix is given to her as a machine, with one arrow worked
+  through its rows, before anything else is done with one.
+- **Ruth:** e^J is the rotation by one radian (`F-H.J.true`).
+- **Engine:** about 120 dots placed by one updater from one tracker; the
+  grid is the shared grid prop (numbers and drawn brackets), which can sit
+  in an exponent, tick and be pointed at.
 
-## 02_the_obvious_guess (~55 s)
+## 02_the_obvious_guess
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 02_1 | E squared is e times e. But e, multiplied by itself a matrix number of times? That means nothing. | e² = e · e; then e with the grid as its exponent = e · e · … · e, with "how many times?" under the dots in red | TeX equation; highlight | |
-| 02_2 | So try the obvious repair. Raise e to each entry, one at a time. | Each entry of J gets its own little e: the guess 1, 0.368; 2.718, 1 (`F-H.J.guess`), outlined in red as "the guess" | lagged reveal | |
-| 02_3 | ⟨predict⟩ Test the guess on the easiest matrix of all, four zeros. E to the zero is one, so the guess gives four ones. Is that right? | The matrix of zeros; the guess turns it into four ones (`F-H.zero.guess`); the question as a card | prediction card | hold |
-| 02_4 | No. E to the zero should change nothing. And the matrix that changes nothing has ones on its diagonal, and zeros everywhere else. | The identity matrix beside a plane of dots that stays exactly where it is (`F-H.zero.true`); label "changes nothing" | the rule machine | |
-| 02_5 | Four ones do something violent. They squash the whole plane onto a single line. | The matrix of four ones acts on the same plane of dots: every dot slides onto the diagonal line; a red cross on the guess; small "determinant 0" (`F-H.zero.guess.det`) | dot field moved by placement; highlight | |
-| 02_6 | So the guess is dead. To find the real meaning, we have to ask what e to the x has meant all along. | The guess fades; e^x stands alone, large, with a question mark | morph | hold |
+| 02_1 | E is a number, about two point seven one eight. E squared is e times e. But e times itself, a matrix number of times? Meaningless. | e = 2.718…; e² = e · e; then e with the grid as its exponent = e · e · … · e with "how many times?" under the dots in red | TeX equation; highlight | |
+| 02_2 | ⟨predict⟩ So try the obvious repair. Raise e to each entry. Test it on the easiest matrix of all, four zeros. E to the zero is one, so the guess gives four ones. Is that right? | Each entry of J gets its own little e (the guess, outlined in red: `F-H.J.guess`); then the matrix of zeros becomes four ones (`F-H.zero.guess`); the question as a card; for programmers: "this guess is np.exp(A); the real thing is scipy.linalg.expm(A)" | lagged reveal; prediction card | |
+| 02_3 | No. E to the zero is one, and multiplying by one changes nothing. Its matrix twin has ones on the diagonal, zeros elsewhere, and leaves every arrow alone. | 1 × anything = the same thing; beside it the grid 1, 0; 0, 1 and a plane of dots that stays exactly where it is (`F-H.zero.true`), label "the matrix that changes nothing" | the machine; dot field | |
+| 02_4 | Four ones do something violent. They squash the whole plane onto a single line. | The grid of four ones acts on the same dots: each lands at (x + y, x + y), on the diagonal line; the squash plays out, then a red cross lands on the guess | dot field placed from a tracker | |
+| 02_5 | So the guess is dead. What has e to the x meant all along? | The guess fades; e^x stands alone, large, with a question mark | morph | hold |
 
 - **The hook** (plan rule 2): the obvious repair fails on exact arithmetic,
   the simplest matrix there is; nothing is cherry-picked.
+- **Why "should":** one is the number that changes nothing when you
+  multiply; its matrix twin is the identity.
 - **Misconception defused:** "a function of a matrix acts on each entry".
 - **Ruth:** the guess also breaks "run twice equals run for twice as long"
-  (`F-H.twice.*`: its square has 2 on the diagonal where the guess for 2J
-  has 1); one failure is enough on screen, the second is in the fact sheet.
-- **Dev:** this is the difference between `np.exp(A)` and
-  `scipy.linalg.expm(A)`; a "for programmers" lower-third says so at 02_2.
+  (`F-H.twice.*`); one failure is enough on screen.
 
-## 03_growth (~65 s)
+## 03_growth
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | Start with money. One dollar, in a bank that pays a hundred percent a year. After one year, two dollars. | An amber bar of height 1 grows to 2 in one step along a year-long axis; "100% a year" (`F-N.compound.n1`) | bar on a tracker | |
-| 03_2 | Now split the year in two. Fifty percent, twice. The second step earns on the first, so you end with two twenty-five. | Two steps: 1, then 1.5, then 2.25 (`F-N.compound.n2`); each step's gain drawn as a teal slice on top of the bar | staircase; lagged reveal | |
-| 03_3 | ⟨predict⟩ Your turn, and pause the video whenever you want longer. Four steps give two forty-four. Twelve give two sixty-one. Keep cutting the year finer. Does the total grow without limit? | The staircase with 4 steps, then 12; totals 2.44 and 2.61 (`F-N.compound.n4`, `.n12`); the quiz card, ring from 5 (`F-Q.03_3.*`) | the quiz card; staircase | listen 5 s (countdown) |
-| 03_4 | No. It settles. A step every day gives two point seven one five. A million steps give two point seven one eight two eight. That number is called e. | n = 365: 2.715; n = 1,000,000: 2.71828 (`F-N.compound.n365`, `.n1000000`); the staircase is now a smooth curve; "e = 2.71828…" (`F-N.e`); lower-third "Jacob Bernoulli asked this question in 1690" (`F-B.bernoulli.year`) | live number; morph | |
-| 03_5 | Every step followed one rule. Grow by a share of what you have. Shrink the steps to nothing, and the rule becomes this. Your rate of growth equals your size. | On the smooth curve a point slides, carrying a slope triangle; two live readouts, "height" and "steepness", stay equal all the way along; lower-third "precisely: f′ = f, with f(0) = 1" | **the rule, made smooth**; live readouts recomputed from the curve | |
-| 03_6 | That's the first face of e to the x. The one curve whose steepness, everywhere, equals its height. | The curve takes its label e^x; under it "rate = size" in teal | highlight | hold |
+| 03_1 | Start with money. One dollar, in a bank that pays a hundred percent a year. After one year, two dollars. | An amber bar of height 1 grows to 2 in one step along a year-long axis (`F-N.compound.n1`) | bar on a tracker | |
+| 03_2 | Split the year in two. Fifty percent, twice. The second step earns on the first, so you end with two twenty-five. | Two steps: 1, 1.5, 2.25; each step's gain a teal slice on top of the bar; beside it (1 + 1/2)² = 2.25 (`F-V.03_2.two_steps`) | staircase; TeX equation | |
+| 03_3 | ⟨predict⟩ Your turn. Pause whenever you want longer. Four steps give two forty-four. Twelve, two sixty-one. Keep cutting the year finer. Does the total grow without limit? | The quiz card keeps all four totals in view: 2, 2.25, (1 + 1/4)⁴ = 2.44, (1 + 1/12)¹² = 2.61 (`F-V.03_3.*`); ring from 5 (`F-Q.03_3.*`) | **the quiz card**; countdown ring | listen 5 s (countdown) |
+| 03_4 | No. It settles. A step every day gives two point seven one five. A million steps give two point seven one eight two eight. That number is e. | 365 steps: 2.715; 1,000,000 steps: 2.71828 (`F-V.03_4.*`); the staircase is now a smooth gold curve; who and when: "Jacob Bernoulli asked this in 1690" (`F-B.bernoulli.year`) | live number; morph | |
+| 03_5 | Every step followed one rule. In a thousandth of a year, you gain a thousandth of what you have. So your gain per year, your rate, equals your amount. | On the curve a point slides, carrying a slope triangle whose run is exactly one year; its rise and the point's height are two verticals that stay the same length all the way along; on the main frame "f′ means: the rate of f"; precisely: "f′ = f, and f(0) = 1" | **steepness equals height**, two lines from one tracker | |
+| 03_6 | Grow like that for a year, and a dollar becomes e. Two years, e times e. X years, e to the x. The one curve that starts at one, with rate equal to amount. | Marks on the curve at 1, 2 and x years: e, e · e, e^x; the curve takes its label; "rate = amount" in teal | highlight | hold |
 
-- **Maya:** no calculus is assumed. "Rate" is the steepness of a curve she
-  can see, and it arrives as the limit of steps she has just counted.
-- **Misconception defused:** "compounding more often grows without limit"
-  (03_3). It is the first quiz, and the first place she is told she may
-  pause.
-- **Ruth:** (1 + 1/n)^n is exact for each n shown (fractions in the oracle;
-  a million compoundings in 60-digit decimals). The limit exists and is e;
-  the picture does not prove it, and the script does not say it does.
-- **"Huh":** Bernoulli's question is from 1690 (the often-quoted 1683 has
-  no document behind it; fact sheet, finding 4).
+- **Maya:** no calculus is assumed. "Rate" is a gain per year she can
+  compute for a thousandth of a year, and then the steepness of a curve she
+  can see. The quiz is hers: the jumps shrink (2, 2.25, 2.44, 2.61).
+- **Why the curve is called e to the x:** 03_6, by years.
+- **Ruth:** (1 + 1/n)^n is exact for each n shown. "The one curve" carries
+  its start at one (without it, 2e^x and the zero line qualify too).
+- **Later:** the bracket (1 + 1/n)^n on screen here is what 09_2 puts a
+  matrix into.
 
-## 04_the_series (~70 s)
+## 04_the_series
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | Here's a second way to reach that curve. Build it piece by piece, so that its rate equals itself. | The target written small at the top, "rate of f = f"; below it f(x) = with an empty row waiting | TeX equation | |
-| 04_2 | Start with one. Its rate is zero, and we need one. So add x, which climbs at a rate of one. | The piece 1 as a flat line, "rate 0" in red; then + x, the line with steepness 1, and the mismatch clears | plots in small windows; highlight | |
-| 04_3 | Now x needs a partner whose rate is x. That's half of x squared, the area under the line. An area grows as fast as its leading edge is tall. | The triangle under the line y = x, shaded teal, its area labelled x²/2; a thin strip at its right edge, as tall as the line there, slides outward as x grows | **area grows at the height of its edge**; live shading | |
-| 04_4 | ⟨predict⟩ To match that one, add x cubed over six. Every new piece supplies the rate of the piece before it. So what comes after x cubed over six? | 1 + x + x²/2 + x³/6 + ?; a small arrow labelled "rate of" from each piece back to the one before; the quiz card, ring from 5 (`F-Q.04_4.*`) | the quiz card; lagged reveal | listen 5 s (countdown) |
-| 04_5 | X to the fourth, over twenty-four. Each bottom number is the one before, times the next whole number. One, two, six, twenty-four. The factorials. | x⁴/24 lands; under the bottoms, 2 × 3 = 6 and 6 × 4 = 24 (`F-N.factorials`); lower-third "k! = 1 × 2 × … × k" | TeX equation; highlight | |
-| 04_6 | Carry on for ever, and the sum is its own rate. Each piece turns into the piece before it, so the whole row slides one place over, and nothing is lost. | The row e^x = 1 + x + x²/2! + x³/3! + …; "take the rate" slides every piece one place to the left and the row lands on itself | **TransformMatchingTex**: the row onto itself | hold |
+| 04_1 | A second way to reach that curve. Build it piece by piece, so its rate equals itself. | The target at the top, f′ = f; below it f(x) = with an empty row waiting | TeX equation | |
+| 04_2 | Start with one, our first dollar. Its rate is zero, and we need one. So add x, which climbs at a rate of one. | The piece 1 as a flat line, "rate 0" in red; then + x, a line of steepness 1, and the mismatch clears | plots in small windows | |
+| 04_3 | Now x needs a partner whose rate is x. That's half of x squared, the area under the line. An area grows as fast as its leading edge is tall. | The triangle under the line y = x, shaded teal, area x²/2; a thin strip at its right edge, as tall as the line there, slides outward as x grows | **area grows at the height of its edge** | |
+| 04_4 | ⟨predict⟩ Your turn. Each new piece must have the one before it as its rate. Raise the power by one, and divide by the new power. What comes after half of x squared? | The quiz card: 1, x, x²/2, ?; the bottoms written 1, 1 × 2; a small arrow "its rate" from each piece back to the one before; ring from 5 (`F-Q.04_4.*`) | the quiz card | listen 5 s (countdown) |
+| 04_5 | X cubed over six. Then x to the fourth over twenty-four. Each bottom number is the last one, times the next whole number. The factorials. | x³/(2 × 3), then x⁴/(2 × 3 × 4); under the arrow back from x³/6, "3 · x²/6 = x²/2"; on the main frame 4! = 1 × 2 × 3 × 4 = 24 (`F-N.factorials`) | TeX equation; highlight | |
+| 04_6 | An endless sum like this is called a series. Take its rate, and each term turns into the term before it. The whole row slides one place over, and nothing is lost. | First five terms only: take the rate and the last one has nothing to come from (a gap, in red); then the endless row e^x = 1 + x + x²/2! + x³/3! + …, which slides one place and lands on itself | **the row slides onto itself** (term-to-term pairs) | hold |
 
-- **Earned, not stated** (plan rule 6): the series is built to satisfy the
-  rule of chapter 03, one piece at a time, and the viewer predicts a piece.
-- **Maya:** the only fact about rates she needs is in the picture at 04_3:
-  an area grows as fast as its leading edge is tall.
-- **Ruth:** term-by-term differentiation of a power series is legitimate
-  inside its radius of convergence, which here is infinite; the description
-  says so. The picture is the fundamental theorem of calculus, not a proof
-  of convergence (that is chapter 08).
+- **Earned, not stated** (plan rule 6): each piece is there to have the one
+  before it as its rate, and the viewer derives the third.
+- **Maya:** the one fact about rates she needs is the picture at 04_3.
+- **Ruth:** the five-term sum fails and the endless one does not: that is
+  the exact reason only the series is its own rate. Term-by-term rates are
+  legitimate here (the series converges everywhere; chapter 08, and the
+  description).
+- **Thread:** this slide returns at 09_4 with a matrix in it.
 
-## 05_one_function (~75 s)
+## 05_one_function
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | Try it at x equals one. One, plus one, plus a half, plus a sixth. The running total climbs to two point seven one eight. The same number the bank gave us. | The pieces at x = 1; a running total ticks 2, 2.5, 2.667, 2.708, 2.717, 2.718 (`F-N.series.k1` to `.k6`); beside it the bank's 2.71828 from chapter 03 | live number; count-up | |
-| 05_2 | That's no coincidence. The tiny steps and the series obey the same rule, rate equals size, from the same start. Only one curve can. | The staircase of chapter 03 and the growing sum of pieces both close in on one curve; lower-third "precisely: if two functions both have rate = size and start at 1, their ratio never changes"; lower-third "Euler, 1748: the series and the limit" (`F-B.euler.year`) | morphs onto one curve | |
-| 05_3 | And this is why e to the x simplifies so much. Whenever a rate is proportional to an amount, the answer is e, to the rate times the time. | The rule y′ = r y on the left; its result y(t) = y(0) e^{rt} on the right; lower-third "a differential equation: a rule for the rate" | TeX derivation: rule → result | |
-| 05_4 | Savings, bacteria, radioactive decay, a cooling cup of coffee. One function handles them all. | Four small plots appear in turn, each a stretched or flipped copy of the same curve, labelled with its sign of r: growing, growing, decaying, decaying | lagged reveal; plots | |
-| 05_5 | ⟨predict⟩ Your turn. Something grows at five percent a year, continuously, for twenty years. How many times bigger does it get? | The quiz card: "5% a year, for 20 years", ring from 6 (`F-Q.05_5.*`) | the quiz card | listen 6 s (countdown) |
-| 05_6 | Five percent times twenty is one. So it grows by e to the one. Two point seven one eight times. | 0.05 × 20 = 1; e¹ = 2.718 (`F-N.growth.*`) | TeX equation; highlight | |
-| 05_7 | Last, grow for a while, then a while longer, and the factors multiply. E to the a plus b equals e to the a, times e to the b. Remember that rule. It's going to break. | A time axis cut into a stretch a and a stretch b; e^{a+b} = e^a · e^b in a gold box, which stays in a corner | highlight; box | hold |
+| 05_1 | Try the series at x equals one. One, plus one, plus a half, plus a sixth. The running total climbs to two point seven one eight two eight. The bank's number. | The terms at x = 1; a running total ticks 2, 2.5, 2.667, 2.708 and on to 2.71828 at k = 9 (`F-V.05_1.running`, `F-N.series.k9`) beside the bank's 2.71828 | live number; count-up | |
+| 05_2 | No coincidence. Both obey rate equals amount, from the same start, and only one curve can. | The staircase and the growing sum close in on one gold curve; precisely: "if g′ = g too, then g(x) · f(−x) never changes, so g = f" | morphs onto one curve | |
+| 05_3 | Now loosen the rule. Let the rate be a fixed share of the amount, say five percent a year. The answer is the same curve, stretched. E to the zero point zero five t. | One curve with a dial marked r, set at 0.05; the rule y′ = 0.05 y above it, the result e^{0.05 t} beside the curve for a start of one; then the letters, with the start put back: y′ = r y, y = y(0) e^{rt}, "times whatever you start with" | **one curve on a dial**; TeX rule and result | |
+| 05_4 | Turn the dial. Savings, bacteria, radioactive decay, a cooling cup of coffee. One function handles them all. | The dial sweeps: the curve steepens, flattens at r = 0 and flips to decay for negative r; one label swaps in place at four stops (savings, bacteria, decay, "coffee: its difference from the room"); precisely: "a differential equation: a rule for the rate" | live curve from a tracker | |
+| 05_5 | ⟨predict⟩ Your turn. Five percent a year, growing all the time, for twenty years. How many times bigger? | The quiz card over the same picture: the dial at 0.05, a marker at 20 years; ring from 6 (`F-Q.05_5.*`) | the quiz card | listen 6 s (countdown) |
+| 05_6 | Five percent times twenty is one. So it grows by e to the one. Two point seven one eight times. | 0.05 × 20 = 1; e¹ = 2.718 (`F-V.05_6.*`); the marker's height reads 2.718 | TeX equation; highlight | hold |
 
 - **The owner's point**, in his words: the exponential "vastly simplifies
-  things" and "solves so many differential equations". 05_3 is the whole
-  family y′ = ry, numbers first at 05_5.
-- **Ruth:** uniqueness is on screen with its one-line reason. y′ = ry has
-  the solutions y(0)e^{rt} and no others. "Cooling" is Newton's law for the
-  difference from room temperature; the plot's label says "difference from
-  the room".
-- **Dev:** continuous growth at 5% a year means rate 0.05 per year, not 5%
-  compounded once a year; the card says "continuously".
-- **Thread:** 05_7's boxed rule is the one that breaks at 14_2.
+  things" and "solves so many differential equations". One curve on a dial
+  is the whole family y′ = ry; numbers come first (five percent), then the
+  letters.
+- **Ruth:** the starting amount is kept on screen as y(0); "rate" is the
+  gain per year and "share" is r, never the same word for both. Cooling is
+  Newton's law for the difference from room temperature, and the label says
+  so.
+- **Dev:** "growing all the time" is continuous growth at rate 0.05, not 5%
+  added once a year.
 
-## 06_turning (~60 s)
+## 06_turning
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 06_1 | Now feed that function something strange. The number i. Forget square roots for a moment. Multiplying by i means one thing. Turn a quarter turn. | The number plane; the arrow to 1; times i turns it to point straight up; times i again, and it points at −1; lower-third "so i × i = −1" | **the quarter turn**, in blue | |
-| 06_2 | So make your rate i times your position. That's a push sideways. Always at right angles to where you stand. | A point at 1 with a teal velocity arrow pointing straight up; as the point moves, the arrow stays at right angles to its position | velocity arrow recomputed from the point | |
-| 06_3 | ⟨predict⟩ Follow that rule in tiny steps, each one a small push sideways. What path do you trace? | Four straight steps, then sixteen, each at right angles to the arrow from the centre (`F-N.turn.steps.n4`, `.n16`); the question as a card | prediction card; path growing | hold |
-| 06_4 | A circle. Four big steps drift outward. A hundred hug the circle. In the limit you stay on it exactly, and after a time t, you have turned through an angle t. | The four-step path ends far outside; the hundred-step path ends at −1.05 (`F-N.turn.steps.n100`); then the smooth circle, a gold point at angle t, labelled e^{it} | paths; live angle | |
-| 06_5 | Run it for a time pi, half a turn, and you land on minus one. E to the i pi equals minus one. Growth, pushed sideways, is rotation. | The gold point travels the upper half circle and lands on −1 (`F-N.turn.pi`); e^{iπ} = −1; lower-third "Euler, 1748" | TeX equation; highlight | hold |
+| 06_1 | Now feed that function something strange. The number i. Set aside square roots. Multiplying by i means one thing. Turn a quarter turn. | The number plane; the arrow to 1; times i turns it straight up; times i again and it points at −1; on the main frame i × i = −1, "two quarter turns" | **the quarter turn**, in blue | |
+| 06_2 | So let your rate be i times your position. That's a push sideways, at right angles to where you stand, and as long as your distance from the centre. | A point at 1 with a teal velocity arrow straight up, the same length as the arrow from the centre; as the point is dragged about, the velocity arrow stays at right angles and matches its length | velocity arrow recomputed from the point | |
+| 06_3 | ⟨predict⟩ Your turn. Follow that rule in tiny steps, each one a small push sideways. What path do you trace? | The quiz card over the plane: one step drawn, the rest to come; ring from 4 (`F-Q.06_3.*`) | the quiz card | listen 4 s (countdown) |
+| 06_4 | A circle. Four big steps drift outward. A hundred hug it. Shrink the steps to nothing and you stay on it, moving at speed one. So after a time t, you've covered an arc of length t. That's an angle of t radians. | Four straight steps end at −2.32, 1.20; a hundred end at −1.05 (`F-V.06_4.*`); then the smooth circle, a gold point at arc length t; an arc as long as the radius is marked "1 radian"; who and when: "Euler, 1748: e^{v√−1} = cos v + √−1 sin v" | paths; live arc length | |
+| 06_5 | That point is called e to the i t. Run it for a time pi, the length of a half circle, and you land on minus one. | The gold point takes the label e^{it} (the rule of 05_3 with i as the share); it travels the upper half circle, arc length π, and lands on −1 (`F-N.turn.pi`): e^{iπ} = −1 | TeX equation; highlight | hold |
 
-- **Maya:** i is given to her as an action, a quarter turn, which is all the
-  video ever uses. "i × i = −1" is then something she can see: two quarter
-  turns.
-- **The picture is honest about tiny steps:** four straight steps end at
-  −2.32 + 1.20i, well off the circle; the overshoot shrinks as the steps do
+- **Maya:** i is an action, a quarter turn; "i × i = −1" is two quarter
+  turns she can see. A radian is defined on the picture: an arc as long as
+  the radius. Half a circle of radius one is π long.
+- **The reason for the cold open is planted here:** speed equals distance
+  from the centre, so on the unit circle a time t is an arc of length t.
+- **Honest about tiny steps:** four straight steps end well off the circle
   (fact sheet, finding 11).
-- **Ruth:** Euler's own formula reads e^{v√−1} = cos v + √−1 sin v
-  (*Introductio*, §138); the lower-third names him and the year, and the
-  description gives his notation.
-- **Notation:** the angle is the time t. No θ anywhere (the engine draws it
-  as ϑ; Video G uses t as well).
+- **Ruth:** Euler's credit sits on the general formula, in his notation
+  (*Introductio*, §138), not on the case with π.
+- **Notation:** the angle is the time t. No θ anywhere.
 
-## 07_a_matrix_in (~65 s)
+## 07_a_matrix_in
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | Back to the matrix. Look at what the series asks of x. Multiply it by itself. Divide by whole numbers. Add. | The series for e^x; three tags light in turn over it: "multiply by itself", "divide by a whole number", "add" | highlight | |
-| 07_2 | A square matrix can do all three. So put a matrix where the x was. That is the definition of e to a matrix. | Every x turns into A, and the leading 1 into I, "the matrix that changes nothing": e^A = I + A + A²/2! + A³/3! + …; lower-third "Laguerre, 1867; Peano, 1888" (`F-B.laguerre.year`, `F-B.peano.year`) | **TransformMatchingTex**: x → A | |
-| 07_3 | ⟨predict⟩ Your turn. Try it on J, the quarter turn. The series needs J times J, which means, do a quarter turn, twice. What is J squared? | The quiz card: J² = ?, with the little fan of arrows beside it, ring from 5 (`F-Q.07_3.*`) | the quiz card | listen 5 s (countdown) |
-| 07_4 | A half turn. Every arrow reversed. That's minus the matrix that changes nothing. So J behaves exactly like i. | The fan turns twice and points backwards; J² = −I (`F-J.power.k2`); the powers J, −I, −J, I go round a small dial (`F-J.power.*`, `F-J.period`) beside i, −1, −i, 1 | the rule machine; dial | |
-| 07_5 | So the series sorts itself into two piles. The even powers are plain numbers. The odd powers are numbers times J. | The terms of e^{tJ} drop into two columns: I × (1 − t²/2! + t⁴/4! − …) and J × (t − t³/3! + …) | lagged regrouping of TeX pieces | |
-| 07_6 | Those two piles are the cosine and the sine. So e to the t J is the rotation by the angle t. And at t equals one, it's the matrix from the very start. | The piles become cos t and sin t (at t = 1: `F-J.split.even`, `.odd`); e^{tJ} = the grid cos t, −sin t; sin t, cos t; the dot plane turns as t runs to 1 and the entries read 0.540, −0.841, 0.841, 0.540 | live entries from a tracker; dot field | hold |
+| 07_1 | Back to the matrix. The series asks three things of x. Multiply it by itself, divide by whole numbers, and add. A square matrix can do all three. | The series for e^x with three tags lighting in turn; under them three small demonstrations on the machine: A · A as "through the machine twice", A/2 as "the arrow that comes out, halved", A + B as "the two arrows that come out, added"; "square: as many rows as columns" | highlight; the machine | |
+| 07_2 | So put a matrix where the x was. That is the definition of e to a matrix, also called its exponential. | Every x turns into A, and the leading 1 into the grid 1, 0; 0, 1, which then shrinks to the letter I: e^A = I + A + A²/2! + A³/3! + …; who and when: "Laguerre, 1867" (`F-B.laguerre.year`) | **x becomes A** (term-to-term pairs) | |
+| 07_3 | ⟨predict⟩ Your turn. Try it on J, the quarter turn. The series needs J times J. A quarter turn, twice. What is J squared? | The quiz card: J² = ?, with the fan of arrows beside it; ring from 5 (`F-Q.07_3.*`) | the quiz card | listen 5 s (countdown) |
+| 07_4 | A half turn. Every arrow reversed. That's minus the matrix that changes nothing. So J behaves exactly like i. | The fan turns twice and points backwards; J² = −I (`F-J.power.k2`); the powers J, −I, −J, I go round a dial (`F-J.power.*`, `F-J.period`) beside i, −1, −i, 1 | the machine; dial of powers | |
+| 07_5 | Now run J for a time t. The terms take turns, one along the arrow, the next at right angles, and they spiral in to a point on the circle. | The terms of e^{tJ} applied to the arrow (1, 0), drawn head to tail at t = 1: 1 along, t up, t²/2 back, t³/6 down, …: a right-angle spiral that closes on the point at one radian | **the spiral of terms** | |
+| 07_6 | Its across part is the cosine of t, its up part the sine. So e to the t J is the rotation by t radians. At t equals one, it's the matrix from the start. | The spiral's across moves add up to cos t and its up moves to sin t (`F-J.split.*` at t = 1); e^{tJ} = the grid cos t, −sin t; sin t, cos t; the dot plane turns as t runs to 1 and the entries read 0.540, −0.841, 0.841, 0.540 (`F-V.07_6.at_one`) | live entries from a tracker; dot field | hold |
 
-- **The step the owner asked for:** "directly introducing how that leads to
-  the matrix exponential function using square matrices instead of
-  real/complex numbers in the power series".
-- **Numbers before letters:** the first matrix exponential is worked on J,
-  whose powers the viewer can do by turning arrows.
-- **Ruth:** the definition is Laguerre's (1867), who already remarks that
-  e^X e^Y = e^{X+Y} fails in general; Peano (1888) is the one who solves
-  x′ = Rx with it. "Why may we do this?" is chapter 08's job, and 07_2 does
-  not claim the series converges.
-- **Maya:** cosine and sine appear as the two coordinates of a point on the
-  circle from chapter 06, drawn beside the grid.
+- **The step the owner asked for:** "square matrices instead of real/complex
+  numbers in the power series".
+- **Maya:** the three operations are shown on the machine before the
+  definition uses them; cosine and sine arrive as "across" and "up".
+- **Numbers before letters:** the first exponential is worked on J, whose
+  powers the viewer can do by turning arrows.
+- **Ruth:** the definition is Laguerre's (1867); Peano's use of it (1888,
+  first in Italian in 1887) is credited at 09_6. "Why may we add up endlessly?" is chapter 08's job.
 
-## 08_does_it_settle (~80 s)
+## 08_does_it_settle
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | But an endless sum of matrices? What would it mean for that to have an answer? That the running total settles, in every entry. Mathematicians say the series converges. | A running-total matrix for e^J with four live entries ticking as terms are added; they slow and stop on 0.540, −0.841, 0.841, 0.540 | live entries; count-up | |
-| 08_2 | Here's a worrying case. E to five times J. Its terms get big. Two of them have entries near twenty-six. | A = 5J; bars for the size of each term rise: 1, 5, 12.5, 20.8, 26.0, 26.0 (`F-S.terms`, `F-S.peak`); beside them the running total's arrow swings out past 21 (`F-S.total.k0` to `.k5`, `F-S.farthest.*`) | bars growing from data; path | |
-| 08_3 | ⟨predict⟩ Your turn. Each new term multiplies by five again, and divides by the next whole number. What happens to the terms from here? | The bars so far, "× 5, then ÷ k" over the next gap; the quiz card, ring from 5 (`F-Q.08_3.*`) | the quiz card | listen 5 s (countdown) |
-| 08_4 | They collapse. Once you're dividing by six, seven, eight, the factorial wins. By the twentieth term, about forty millionths. And the running total spirals home, to a point on the circle. | The bars fall away to 0.0000392 at k = 20 (`F-S.term.k20`); the path of running totals spirals in to (0.284, −0.959), on the unit circle (`F-S.total.*`, `F-S.limit`) | bars; spiral path | |
-| 08_5 | And that works for every square matrix. Measure a matrix by its size, the most it can stretch any arrow. Multiply two matrices, and their sizes at most multiply. | A matrix turns the unit circle into an ellipse; its longest arrow is the size; a second matrix stretches again; lower-third "the operator norm: ‖AB‖ ≤ ‖A‖ ‖B‖"; small example, a shear of size 1.618 whose square has size 2.414, under 2.618 (`F-S.shear.*`) | circle to ellipse; highlight | |
-| 08_6 | So the k-th term is never bigger than the size to the k, over k factorial. Those numbers add up to e to the size, which is finite. The matrix series sits underneath, so it settles. Every time. | The term bars sit under taller outline bars size^k/k!; the outlines add up to e^{size} (for 5J: 148.4, `F-S.bound`); "for programmers: ‖A^k/k!‖ ≤ ‖A‖^k/k!, and those sum to e^{‖A‖}"; small "checked on 200 random matrices" (`F-X.series_settles`) | bars under bars; lower-third | hold |
+| 08_1 | But an endless sum of matrices? For it to have an answer, the running total has to settle, in every entry. Mathematicians say the series converges. | The running-total grid for e^J with four live entries ticking as terms are added; they slow and stop on 0.540, −0.841, 0.841, 0.540 | live entries | |
+| 08_2 | Here's a worrying case. E to five J. It must land five radians round the circle. But look at its terms. Two of them are near twenty-six. | The spiral of 07_5 with t on a tracker, run from 1 to 5: it swells out past 21 (`F-V.08_2.swings_past`); its steps straighten and stand up as bars with k under them: 1, 5, 12.5, 20.8, 26.0, 26.0 (`F-V.08_2.bars`) | spiral on a tracker; **steps become bars** | |
+| 08_3 | ⟨predict⟩ Your turn. Each new term multiplies by five again, and divides by the next whole number. What happens to the terms from here? | The bars so far, a live ratio "5 ÷ k" under the next gap; the quiz card, ring from 5 (`F-Q.08_3.*`) | the quiz card | listen 5 s (countdown) |
+| 08_4 | They collapse. Once you're dividing by six, seven, eight, the factorial wins. By k equals twenty, about forty millionths. And the running total spirals home. | The ratio drops below 1 and the bars fall away; the last visible bar labelled with its value, k = 20: 0.0000392 (`F-S.term.k20`); an inset zooms fifteen times onto the unit circle, where the spiral lands at 0.284, −0.959 (`F-V.08_4.home`) | bars; inset zoom by group scaling | |
+| 08_5 | It works for every square matrix. Call a matrix's biggest stretch of any arrow its size. The k-th term is at most the size to the k, over k factorial, and the factorial always wins. So what's still to come keeps shrinking, and the total settles. Every time. | A matrix turns the unit circle into an ellipse; its longest arrow is marked "size"; then outline bars size^k/k! as ceilings: 5J's bars fill theirs exactly ("this one touches its ceiling"), and a second matrix's bars sit visibly lower (`F-S.strict.*`); the ceilings add to e^{size} (for 5J: 148.4, `F-V.08_5.bound`); precisely: "the operator norm, ‖AB‖ ≤ ‖A‖ ‖B‖"; for programmers: "np.linalg.norm(A, 2); the proof: ‖A^k/k!‖ ≤ ‖A‖^k/k!, so the tail is smaller than the tail of e^{‖A‖}" | circle to ellipse; bars under ceilings | hold |
 
 - **The owner's question:** "what it means for a matrix power series to
   converge", and the order's "show partial sums converging on a 2x2
   example". The example is chosen to worry: big terms that cancel.
-- **Dev:** the proof sketch is the "for programmers" lower-third; it is the
-  comparison test.
-- **Ruth:** "settles in every entry" is convergence in any norm (all norms
-  on matrices are equivalent); the bound holds for every submultiplicative
-  norm; the claim is for real and complex square matrices of any size. For
-  5J the bound is attained (the size of the k-th term is exactly 5^k/k!),
-  and the shear shows it need not be.
-- **Thread:** big terms that must cancel are the villain of chapter 13.
+- **Maya:** one short beat: the biggest stretch, and the factorial still
+  wins. The norm's name and the proof are tagged strips.
+- **Dev:** the proof sketch is the comparison test, said as "what is still
+  to come keeps shrinking" (the tail), not only "sits underneath".
+- **Ruth:** for 5J the bound is attained, and the picture says so; the
+  second matrix shows it need not be. The claim is for real and complex
+  square matrices of any size, in any submultiplicative norm.
+- **For the score bead:** a listen window at 08_4 where each term is a note
+  as loud as its bar.
 
-## 09_follow_the_arrows (~60 s)
+## 09_follow_the_arrows
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 09_1 | So e to a matrix exists. But what does it mean? Go back to tiny steps. | (1 + x/n)^n, and under it (I + A/n)^n, the same shape with a matrix in it | TeX equation | |
-| 09_2 | Read the matrix as a rule for motion. Wherever you are, apply the matrix to your position, and that's your velocity. Where you're headed, right now. | A plane of dots; each grows a small teal arrow, the matrix applied to its position (first J: arrows at right angles; then a second rule whose arrows spiral inward) | **follow the arrows**: velocity field recomputed from positions | |
-| 09_3 | Now follow the arrows for a time t. Every point lands somewhere new. The matrix that carries each start to its finish is e to the t A. | The dots flow along their arrows for a time t, leaving gold trails; faint rings mark where they began; a gold arrow from one start to its finish, labelled e^{tA} | dots moved by placement from a tracker; trails | |
-| 09_4 | ⟨predict⟩ Follow them for a time s. Then for a time t more. What single matrix does the whole trip? | The flow run in two stages, s and then t, with a pause between; the question as a card | prediction card | hold |
-| 09_5 | E to the s plus t, times A. Run, and run again, is one longer run. The rule of exponents, kept. | e^{tA} e^{sA} = e^{(s+t)A}; lower-third "precisely: x′ = Ax has the solution x(t) = e^{tA} x(0)"; small "checked on 200 random cases" (`F-X.flow_adds`) | TeX equation; lower-third | |
-| 09_6 | The matrix is the rule for tiny steps. Its exponential is the result. | Two cards side by side: "A: the rule" in teal, "e^{tA}: the result" in gold, an arrow from one to the other | card | hold |
+| 09_1 | So e to a matrix exists. What does it mean? Read the matrix a new way. Feed it your position, and what comes back is your velocity. | The machine of 01_4 again, with J: for a dozen positions, each output arrow slides to sit on the tip of its input, shrinks, and turns teal: a field of velocity arrows; caption "what comes out is not where you land. It is where you are headed" | **the machine becomes a field** | |
+| 09_2 | Take tiny steps along those arrows. Four. Sixteen. Shrink them to nothing, and each point traces a smooth path. | One dot: four straight steps, sixteen, then the smooth gold trail; small beside it, (I + tA/n)^n, the bank's bracket with a matrix in it | paths; TeX | |
+| 09_3 | Follow the arrows for a time t, and each point is carried to its finish. The matrix that does the carrying is e to the t A. | All the dots flow for a time t with gold trails, the dot at the centre visibly still; then the rule's four entries slide on trackers from the turn to an inward spiral (the rule −0.3, −1; 1, −0.3: `F-M.spiral.*`) and the arrows and trails re-form; the entries of e^{tA} tick beside them | **follow the arrows**: dots placed at e^{tA} from a tracker; precomputed trails | |
+| 09_4 | Why that series? Take its rate. Every term slides one place over, and leaves one A out front. Its rate is A, times itself. Velocity is the matrix applied to position. | The row e^{tA} = I + tA + t²A²/2! + …; "take the rate" slides every term one place, as at 04_6, and one A is left in front of the whole row; precisely: "x′ = Ax has the solution x(t) = e^{tA} x(0), and no other" | **the row slides, leaving A in front** | |
+| 09_5 | ⟨predict⟩ Follow the arrows for a time s. Then for a time t more. What single matrix does the whole trip? | The flow run in two stages, s and then t, beside one run of s + t starting from the same dots | prediction card | |
+| 09_6 | E to the A, followed for s plus t. One rule, run twice, is one longer run. The matrix is the rule. Its exponential is where the rule takes you. | The two stagings end on the same dots; e^{tA} e^{sA} = e^{(s+t)A} with a green tick; then two cards, "A: the rule" in teal and "e^{tA}: where it takes you" in gold, an arrow between; who and when: "Peano, 1888: solving x′ = Ax this way" (`F-B.peano.year`) | highlight; card | hold |
 
-- **The central picture** (brief): a rule for tiny steps, followed. It
-  returns in chapters 10, 12 and 15.
+- **The central picture** (brief): a rule for tiny steps, followed. It was
+  running in the cold open, is built here from the machine, and returns in
+  chapters 10 and 16.
 - **The owner's question:** "what does it mean INTUITIVELY to take the
-  exponential of it?" Answer: follow the rule for a time t.
-- **Ruth:** e^{(s+t)A} = e^{sA}e^{tA} always holds, because sA and tA
-  commute. That is why this chapter's rule survives and chapter 14's does
-  not.
-- **Engine:** about 80 dots placed each frame at e^{tA} applied to their
-  start, with t on a tracker; the arrows are fixed mobjects rotated and
-  scaled in place.
+  exponential of it?"
+- **Why the series is the flow** (the claim the title rests on): 09_4, the
+  slide of 04_6 with one A left in front.
+- **Two readings of a matrix, kept apart:** as a move at 01_4, as a rule
+  here; e^{tA} is the move you get by following the rule A for a time t.
+- **Ruth:** "each point is carried to its finish" (some do not move: the
+  centre never does). e^{(s+t)A} = e^{sA}e^{tA} always holds because sA and
+  tA commute: one rule, two durations. Chapter 14 is two rules.
+- **Engine:** about 80 dots offset by half a step so none sits on the
+  centre except one drawn on purpose; trails are precomputed polylines
+  revealed in step with the dots.
 
-## 10_two_tanks (~65 s)
+## 10_two_tanks
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 10_1 | A real one. Two tanks, a hundred litres each, with pumps swapping ten litres a minute. Stir a hundred grams of salt into the left tank. | Two tanks joined by two pipes with arrows, "10 L/min" each way; the left tank's water turns amber; readouts 100 g and 0 g (`F-T.start`) | **the tanks**; live readouts | |
-| 10_2 | Every minute, a tenth of each tank's salt crosses over. Two equations, one for each tank. Together they are one matrix. | The two rate equations, x₁′ = −0.1 x₁ + 0.1 x₂ and x₂′ = 0.1 x₁ − 0.1 x₂; their four numbers lift out into the grid A (`F-T.rule`) | TeX morph: equations → matrix | |
-| 10_3 | Where is the salt after ten minutes? Take it as one big step, and the rule says all hundred grams change tanks. Absurd. | One step of ten minutes: the readouts jump to 0 g and 100 g (`F-T.steps.n1`), flagged in red | highlight | |
-| 10_4 | Ten steps say about fifty-five grams stay. A thousand steps say fifty-six point seven five. E to the ten A gives the answer in one stroke. Fifty-six point seven seven. | A small table: 10 steps, 55.37; 1,000 steps, 56.75; e^{10A}, 56.77 (`F-T.steps.n10`, `.n1000`, `F-T.at.t10`); the tanks' levels follow | table; live readouts | |
-| 10_5 | ⟨predict⟩ Your turn. Leave the pumps running for hours. Where does the salt end up? | The quiz card: the two tanks, "after a long time?", ring from 5 (`F-Q.10_5.*`) | the quiz card | listen 5 s (countdown) |
-| 10_6 | Fifty grams in each. And the exponential says how fast. Within a gram of even, after about twenty minutes. | Two curves, the grams in each tank against minutes, close on 50 (`F-T.at.*`, `F-T.settles`); a marker at 19.6 min, "within 1 g" (`F-T.within_a_gram.minutes`); "total: 100 g, always" (`F-T.total`) | curves from the model; highlight | hold |
+| 10_1 | A real one. Two tanks, a hundred litres each, with pumps swapping ten litres a minute. Stir a hundred grams of salt into the left tank. | Left half: two tanks joined by two pipes, "10 L/min" each way; the left tank's water turns amber; readouts 100 g and 0 g (`F-T.start`) | **the tanks**; live readouts | |
+| 10_2 | Salt leaves each tank at a rate of one tenth of what it holds, per minute, and arrives in the other. Two equations. Together, one matrix. | The equations in words, "rate of left = −0.1 × left + 0.1 × right", then in letters; their four numbers lift into the grid (`F-T.rule`); right half: chapter 09's plane, "grams left" across and "grams right" up, a gold dot at (100, 0) and the rule's teal arrows, which all point along one diagonal toward the line of equal salt | TeX morph; the plane of 09 | |
+| 10_3 | Where is the salt after ten minutes? Take one big step, and all hundred grams change tanks. Absurd. The right tank would have been sending salt back. | One step of ten minutes throws the dot along its arrow, clean through the balance line, to (0, 100) (`F-V.10_3.one_step`); the readouts jump; then the red mark | highlight | |
+| 10_4 | Ten steps do better. A thousand, better still. It's the bank's trick again, and e to the ten A is where those steps are heading. Fifty-six point seven seven grams. | Ten steps as a teal polyline, then the gold trail stopping at 56.77; a small table: 10 steps, 55.37, off by 1.40 g; 1,000 steps, 56.75, off by 0.014 g; e^{10A}, 56.77 (`F-V.10_4.*`, `F-T.off_by.*`) | paths; table | |
+| 10_5 | ⟨predict⟩ Your turn. Leave the pumps running for hours. Where does the salt end up? | The quiz card: the two tanks, "after a long time?"; ring from 5 (`F-Q.10_5.*`) | the quiz card | listen 5 s (countdown) |
+| 10_6 | Fifty grams in each. And the exponential says how fast. Within a gram of even, after about twenty minutes. | The dot comes to rest on the balance line, where the arrows have no length; the tanks level; a marker at 19.6 min, "within 1 g" (`F-V.10_6.*`); "total: 100 g, always" (`F-T.total`) | dot placed from a tracker | hold |
 
-- **The order's "real example":** two coupled tanks. The system of linear
+- **The order's "real example":** two coupled tanks; the system of linear
   equations and its matrix are on screen together (the owner: "each square
   matrix is a system of linear equations").
-- **"Hopeless otherwise":** a thousand matrix steps for five digits, against
-  one evaluation that is exact at any time.
-- **Ruth:** the one-step answer is Euler's method with a step far too
-  large; the n-step numbers are exact (`50(1 + (1 − 2/n)^n)`, checked in the
-  oracle). The mixing model assumes each tank is stirred.
-- **Maya:** the quiz needs no formula: the salt evens out.
+- **The central picture, with numbers on it:** the pair of readings is one
+  dot on chapter 09's plane.
+- **"Hopeless otherwise", first taste:** a thousand steps buy three digits
+  (each ten times more steps buys one more); the exponential is exact at
+  any time.
+- **Ruth:** the rate is stated as a rate ("one tenth of what it holds, per
+  minute"), not as "a tenth crosses every minute", which is the one-minute
+  step the chapter refutes. The n-step numbers are exact
+  (`50(1 + (1 − 2/n)^n)`). Each tank is assumed stirred.
 
-## 11_walks (~65 s)
+## 11_walks
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 11_1 | A matrix can also be a map. Four nodes, some of them linked. Write a one where two nodes are linked, and a zero where they aren't. | A network of four nodes, a triangle 1, 2, 3 with a tail to 4 (`F-G.links`); its grid of ones and zeros fills in as each link glows; lower-third "the adjacency matrix" | **the network**; grid built from primitives | |
-| 11_2 | Multiply that matrix by itself, and each entry counts something. The number of two-step walks between a pair of nodes. | The squared grid (`F-G.walks.k2`); its entry for nodes 1 and 4 is 1, and the one walk, 1 to 3 to 4, is traced on the network | grid; path traced | |
-| 11_3 | ⟨predict⟩ Your turn. Start at node three. How many two-step walks bring you back to node three? | The quiz card: the network with node 3 glowing, ring from 5 (`F-Q.11_3.*`) | the quiz card | listen 5 s (countdown) |
-| 11_4 | Three. Out along any of its three links, and straight back. The matrix agrees. | Three out-and-back walks traced one after another; the squared grid's entry for 3 and 3 lights: 3 | paths traced; highlight | |
-| 11_5 | The k-th power counts walks of k steps. So e to this matrix adds up every walk of every length, and divides a walk of k steps by k factorial. Long walks count for less. Infinitely many walks, one function. | For nodes 1 and 4, the counts 0, 0, 1, 1, 4, 6, 17 … (`F-G.walks.one_to_four`) each divided by its factorial; the running total climbs 0.5, 0.667, 0.833, … to 0.92 (`F-G.exp.one_to_four.running`, `F-G.exp`); lower-third "a walk may revisit nodes and links" | count-up; lagged reveal | |
-| 11_6 | Network scientists call that number communicability. How well two nodes are connected, counting every route between them, and not only the shortest. | e^A as a grid shaded by value (`F-G.exp`): 2.62 for nodes 1 and 3, 0.92 for nodes 1 and 4; lower-third "Estrada and Hatano, 2008" (`F-B.estrada_hatano.year`) | shaded grid | hold |
+| 11_1 | A matrix can also record who is linked to whom. Four nodes. Write a one where two nodes are linked, and a zero where they aren't. | Four nodes, a triangle 1, 2, 3 with a tail to 4 (`F-G.links`); the grid of ones and zeros fills in as each link lights; precisely: "the adjacency matrix" | **the network**; the grid | |
+| 11_2 | A walk is a route along links, and it may double back. Multiply that matrix by itself, and each entry counts the two-step walks between a pair of nodes. | Row 1 and column 4 light; the four products under them, with the single 1 × 1 under node 3, "a middle node counts when both links exist"; the walk 1 to 3 to 4 travelled by a token (`F-G.walks.k2`) | grid; a token that travels | |
+| 11_3 | ⟨predict⟩ Your turn. Start at node three. How many two-step walks bring you back to node three? | The quiz card: the network with node 3 lit; ring from 5 (`F-Q.11_3.*`) | the quiz card | listen 5 s (countdown) |
+| 11_4 | Three. Out along any of its three links, and straight back. The matrix agrees. | A token goes out and back three times, each out leg and back leg as two shallow arcs either side of the link; the squared grid's entry for 3 and 3 lights: 3 | token; highlight | |
+| 11_5 | The k-th power counts walks of k steps. So e to this matrix adds up every walk of every length, a walk of k steps divided by k factorial. Infinitely many walks, one function. | From node 1 to node 4, each walk drawn as a trace whose brightness is 1/k!: one of two steps, bright; one of three, dimmer; four of four, fainter (`F-G.walks.one_to_four`); what piles up at node 4 counts to 0.92 (`F-V.11_5.one_to_four`); for programmers: "1/k! is one choice of discount; it always settles, and it gives e^A" | traces weighted by 1/k!; count-up | |
+| 11_6 | Network scientists call that number communicability. Nodes one and two are linked. So are one and three. But one and three score higher. Three has more ways round. | e^A as a grid shaded by value (`F-G.exp`): 2.62 for nodes 1 and 3, 2.42 for nodes 1 and 2 (`F-V.11_6.*`); who and when: "Estrada and Hatano, 2008"; for programmers: "scipy.linalg.expm(A)[0, 2]" | shaded grid | hold |
 
 - **The owner's question:** "and also the adjacency matrix of a graph".
-- **Ruth:** walks, not paths, repeats allowed (Stanley, Theorem 1.1). The
-  oracle lists every walk up to length 8 and compares with the powers.
-- **Dev:** `scipy.linalg.expm(A)[0, 3]` for a graph's adjacency matrix; the
-  diagonal is Estrada's subgraph centrality. (Description.)
-- **"Huh":** nodes 1 and 3 communicate more than nodes 1 and 2 (2.62
-  against 2.42), though both pairs are directly linked: node 3 has more
-  routes.
+- **Maya:** "walk" is defined, with doubling back, before the quiz needs
+  it; the surprise (one and three beat one and two) is spoken.
+- **Ruth:** walks, not paths (Stanley, Theorem 1.1); the oracle lists every
+  walk up to length 8.
 
-## 12_heat_and_chance (~70 s)
+## 12_heat_and_chance
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 12_1 | Now let something flow along the links. Put heat on node four. Each link carries heat from its hotter end to its cooler end. | The network; node 4 glows amber, the others dark; small arrows along the links from hot to cool; the rule as a grid, −L (`F-D.L`) | the network; node glow | |
-| 12_2 | That rule is a matrix too, so the answer is its exponential. Watch the heat spread, and level out. A quarter on each node. | The nodes' glow follows e^{−tL} as t runs 0.25, 0.5, 1, 2, 5 (`F-D.heat.*`); four amber bars beside them level at 0.25; "total: 1, always" | node colours and bars from a tracker | |
-| 12_3 | ⟨predict⟩ Your turn. Same network, new meaning. A hopper jumps along the links at random. After a long time, which node is it most likely to be on? | A small hopper jumping from node to node; the amber now reads "chance"; the quiz card, ring from 6 (`F-Q.12_3.*`) | the quiz card; hopper | listen 6 s (countdown) |
-| 12_4 | None of them. A quarter each. The busy node in the middle gets more visitors, and loses them just as fast. | The same four bars, now "chance of finding the hopper", settle at 0.25 each (`F-D.chance.from_hub.*`); lower-third "a hopper that leaves along each link at rate one; in probability this is written e^{tQ}" | bars; lower-third | |
-| 12_5 | And the two tanks were this all along. Two nodes, one link, settling at half and half. | The network shrinks to two nodes and a link, and the two tanks fade in over them (`F-D.pair.is_the_tanks`, `F-D.pair.heat.*`) | morph that keeps identity | |
-| 12_6 | Now put the letter i into the exponent. The same two nodes never settle. The chance sloshes across, and back, for ever. That is how quantum physics moves in time. | Two rows: e^{−tL}, two bars settling at ½ and ½; e^{−itL}, two bars swapping, all of it across at time π/2 and all back at π (`F-D.pair.quantum.*`); lower-third "a two-state quantum system, with ħ = 1: e^{−iHt}" | bars from a tracker; contrast | hold |
+| 12_1 | Now let something flow. Put heat on node four. Each link carries heat from its hotter end to its cooler end, as fast as the difference between them. | Chapter 11's grid stays, and its empty diagonal fills with minus the number of links at each node as small arrows leave along them: the rule −L (`F-D.L`); node 4 lit amber, the others dark | **the grid gains its diagonal**; node discs | |
+| 12_2 | That rule is a matrix, so the answer is its exponential. The heat spreads, and levels out. A quarter on each node. | The nodes' amber follows e^{−tL} as t runs to 5 (`F-D.heat.*`); four bars beside them level at 0.25 (`F-V.12_2.level`); "total: 1, always" | node discs and bars from a tracker | |
+| 12_3 | Call the amber heat, or the chance of finding a random hopper. Same matrix. | The same bars, relabelled "chance"; a small hopper jumps along the links; precisely: "a hopper that leaves along each link at rate one (probability writes e^{tQ}); one that takes one hop per tick would favour the busy node, 3/8" (`F-D.chance.*`) | relabel in place | |
+| 12_4 | On four nodes you could do this by hand. On four hundred, the exponential still answers in one stroke. | Pull back to a grid network of four hundred nodes (`F-D.big.*`); heat dropped on one node spreads as t runs, every node's amber one entry of a column of e^{−tL}; a counter runs up to the number of 40-step walks from one corner to the opposite one, 4,988,731,519,200 (`F-D.big.walks`) | **four hundred nodes recoloured from one tracker**; count-up | |
+| 12_5 | ⟨predict⟩ The two tanks were this all along. Two nodes, one link, settling at half and half. Now put the letter i into the exponent. Does it still settle? | The network shrinks to two nodes that land on the two tanks, the link on the pipes (`F-D.pair.is_the_tanks`); a dot slides along a line toward zero as the two bars level (`F-D.pair.heat.*`); then an i appears in the exponent | morph that keeps identity; prediction card | |
+| 12_6 | Never. Remember what i did to growth. The slide toward even becomes a circle. The chance sloshes across, and back, for ever. That is how quantum physics moves in time. | Left, e^{−tL}: the dot slides to zero, the bars level. Right, e^{−itL}: the same dot goes round a circle and the bars trade places, all across at π/2, all back at π (`F-D.pair.quantum.*`); precisely: "a two-state quantum system, ħ = 1: e^{−iHt} moves two complex numbers; each bar is the squared size of one" | bars from a tracker; contrast | hold |
 
 - **Three fields, one function:** heat (e^{−tL}), chance (e^{tQ}), quantum
   (e^{−iHt}), as the order lists them.
-- **Misconception defused:** "the hopper ends up mostly at the busy node"
-  (12_3). For this hopper the long-run chance is equal; the degree-weighted
-  answer belongs to the walk that takes one step per tick (fact sheet,
-  finding 8), and the lower-third says which hopper this is.
+- **"Hopeless otherwise":** four hundred nodes, one evaluation; and a walk
+  count no one could reach by hand.
+- **Which hopper** is on screen where the claim is made: this one leaves
+  along each link at rate one and levels at a quarter each; the one-hop-per-
+  tick walk would favour the busy node (3/8). It is no longer a quiz.
 - **Ruth:** L = D − A (Kondor and Lafferty's form). The quantum beat claims
-  only a two-state system with ħ = 1; the chances are cos²t and sin²t, and
-  the total stays one (`F-X.quantum_total_one`).
+  a two-state system with ħ = 1; the bars are squared sizes of complex
+  amplitudes, and the strip says so.
 - **Thread:** the i of chapter 06 turns settling into turning.
 
-## 13_how_computers_do_it (~80 s)
+## 13_how_computers_do_it
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 13_1 | So how does a computer find e to a matrix? Surely it adds up the series. | The series with a small "compute" tag and a cursor | highlight | |
-| 13_2 | Try this matrix, from a famous paper. Nineteen Dubious Ways to Compute the Exponential of a Matrix. | The matrix −49, 24; −64, 31 (`F-C.mvl.A`); the paper's title as a card: Moler and Van Loan, SIAM Review, 1978 (`F-B.mvl.year`, `F-B.mvl.ways`) | card; quote | |
-| 13_3 | Its terms swell past nine million, with alternating signs. They have to cancel down to four numbers smaller than two. | Bars for the largest entry of each term climb to 9,303,002 at terms 16 and 17 (`F-C.mvl.term.*`); far below, the true e^A: −0.736, 0.552, −1.472, 1.104 (`F-C.mvl.exact`) | bars from data; contrast of scale | |
-| 13_4 | ⟨predict⟩ A computer that keeps about seven digits adds up that series, until the total stops changing. How good is its answer? | "32-bit numbers: about 7 digits"; the series running; the question as a card | prediction card | hold |
-| 13_5 | Wrong in every entry. One even has the wrong sign. The mathematics is fine. The digits that mattered were thrown away long before the end. | Our 32-bit result, −0.789, 1.314, −0.126, −0.839 (`F-C.mvl.f32.series`), in red beside the true one; "after 62 terms" (`F-C.mvl.f32.terms`); lower-third "this video's own run, in 32-bit arithmetic" | contrast; highlight | |
-| 13_6 | The cure is the oldest idea in this video. Tiny steps. Halve the matrix eight times, so its series is short and tame. Then square the result, eight times. | A ÷ 256 (`F-C.mvl.f32.scaled.divisor`); a short series of 8 terms; then eight squarings back up; the same 32 bits now give −0.736, 0.552, −1.472, 1.104, the true answer to three decimal places (`F-V.13_6.*`, `F-C.mvl.f32.scaled`), green; label "scaling and squaring" | **halve, then square back**: lagged chain | |
-| 13_7 | Real libraries do exactly that, with a sharper stand-in for the short series. A ratio of two polynomials, called a Padé approximant. | At x = 1: the series through x⁶ gives 2.71806; the ratio of two cubics gives 193/71 = 2.71831, eight times closer to e (`F-C.pade.m3.*`, `F-C.series.k6.error`); lower-third "MATLAB and SciPy: Higham 2005; Al-Mohy and Higham 2009" (`F-B.higham.year`, `F-B.al_mohy_higham.year`) | TeX equation; lower-third | |
-| 13_8 | And when a matrix untangles into separate rates, you exponentiate each rate alone. That's the eigenvalue story, which has a video of its own. | The tanks' matrix untangled into two rates, 0 and −0.2 a minute; e^{0·t} and e^{−0.2t} (`F-C.diag.*`); a pointer card to the eigendecomposition video | pointer card | hold |
+| 13_1 | How does a computer find e to a matrix? Surely it adds up the series. Try this one, from a famous paper. Nineteen Dubious Ways to Compute the Exponential of a Matrix. | The matrix −49, 24; −64, 31 (`F-C.mvl.A`); the paper's title as a card: Moler and Van Loan, SIAM Review, 1978 (`F-B.mvl.year`, `F-B.mvl.ways`) | card | |
+| 13_2 | ⟨predict⟩ Its terms swell past nine million, with alternating signs, like five J, only worse. A computer keeps about seven digits. Can anything after the decimal point survive? | Bars for the largest entry of each term, k under them, climbing to 9,303,002 at k = 16 and 17 (`F-C.mvl.term.*`); a labelled hairline far below for the true entries, shown as a grid of numbers: −0.736, 0.552, −1.472, 1.104 (`F-V.13_2.exact`); on one card "9,303,002" and "about 7 digits" | bars from data; prediction card | |
+| 13_3 | No. Every entry comes out wrong, one with the wrong sign. The mathematics is fine. The digits that mattered were thrown away along the way. | Our 32-bit result, −0.789, 1.314, −0.126, −0.839 (`F-V.13_3.series`), in red beside the true one; for programmers: "this video's own run, 32-bit, term × A then ÷ k, stopped at k = 62; catastrophic cancellation. In 64-bit this matrix survives; doubled, it fails again" (`F-C.mvl.f64.*`) | contrast; highlight | |
+| 13_4 | The cure is tiny steps again. Half the time, run twice, is the whole time. So halve the matrix eight times, until its series is short and tame. Then square the result, eight times. | e^A = (e^{A/2})², the rule of 09_6; A ÷ 256 (`F-C.mvl.f32.scaled.divisor`); a series through the eighth power; eight squarings back up; the same 32 bits now give −0.736, 0.552, −1.472, 1.104, right to three decimal places (`F-V.13_4.*`), green; "scaling and squaring"; for programmers: "not too many halvings: twenty leave two digits" (`F-C.mvl.f32.halvings.*`) | **halve, then square back**: lagged chain | |
+| 13_5 | The programs scientists use do exactly that, with a ratio of two polynomials, a Padé approximant, for the short series. And when a matrix untangles into separate rates, that's the eigenvalue story, in its own video. | At x = 1: the series through x⁶ gives 2.71806; a ratio of two cubics gives 193/71 = 2.71831, eight times closer (`F-V.13_5.*`); who and when: "MATLAB and SciPy: Higham 2005; Al-Mohy and Higham 2009"; then the tanks' two rates, 0 and −0.2 a minute, and a pointer card to the eigendecomposition video (`F-C.diag.*`) | TeX equation; pointer card | hold |
 
-- **The order:** "how e^A is computed in practice: diagonalize when possible
-  (one beat, point to K), otherwise scaling and squaring with Padé
-  approximants; cite Moler and Van Loan".
+- **The order:** "diagonalize when possible (one beat, point to K),
+  otherwise scaling and squaring with Padé approximants; cite Moler and Van
+  Loan".
 - **Honest about whose wrong answer:** the red numbers are this video's own
-  32-bit run (62 terms, one wrong sign). Moler and Van Loan's printed run
-  was on an IBM 370 (59 terms, two wrong signs); it is quoted in the
-  description, not shown as ours (fact sheet, finding 2).
-- **Ruth:** the paper names no best method ("perhaps three or four
-  candidates"); the script says what libraries use, which is verified.
-  Diagonalizing fails for matrices such as the shear of chapter 14, whose
-  series stops by itself (`F-C.nil.exp.t3`); the description says so.
-- **Dev:** this chapter is his: catastrophic cancellation, `expm` versus a
-  hand-rolled series, degree-13 Padé in double precision.
-- **Thread:** "tiny steps" a third time: (e^{A/256})^{256}.
+  32-bit run, with its order of operations on the strip (other orders give
+  other wrong answers). Moler and Van Loan's printed run is quoted in the
+  description only.
+- **Dev:** the strip says what he needs: 32-bit, the loop, cancellation,
+  and that 64-bit only postpones it. The cure's reason is on screen:
+  e^A = (e^{A/2})². More halvings are not better.
+- **Ruth:** the paper names no best method; the script says what programs
+  use, which is verified. Diagonalizing fails for matrices such as the
+  shear of chapter 14 and is unreliable when the directions nearly line up
+  (description).
+- **Thread:** "tiny steps" a third time.
 
-## 14_order_matters (~65 s)
+## 14_order_matters
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 14_1 | Remember the rule we said would break? E to the a plus b equals e to the a, times e to the b. | The gold box from 05_7 comes out of its corner to the centre | box | |
-| 14_2 | ⟨predict⟩ Your turn. Swap the numbers for two matrices, A and B. Does the rule still hold? | The quiz card: e^{A+B} = e^A e^B ?, ring from 5 (`F-Q.14_2.*`) | the quiz card | listen 5 s (countdown) |
-| 14_3 | Take two shears. A pushes the top of a square to the right. B pushes its right side upward. | A unit square; the rule A in teal slides its top edge right; the rule B in rose slides its right edge up; their grids beside them (`F-O.A`, `F-O.B`) | **the square, sheared**; morph | |
-| 14_4 | Follow A, then B. Now B, then A. Now both rules at once. Three different shapes. | Three squares side by side become three different parallelograms, each with its grid: 1, 1; 1, 2 for A then B; 2, 1; 1, 1 for B then A; 1.543, 1.175; 1.175, 1.543 for both at once (`F-O.expB_expA`, `F-O.expA_expB`, `F-O.exp_sum`) | three morphs; grids | |
-| 14_5 | The rule broke because order matters. A then B is not B then A. When the order makes no difference, we say two matrices commute, and for those, the rule holds. | AB and BA as two different grids (`F-O.AB`, `F-O.BA`); "commute: AB = BA"; lower-third "precisely: e^{t(A+B)} = e^{tA} e^{tB} for every time t exactly when AB = BA" | highlight; lower-third | |
-| 14_6 | And the failure can be measured. Take one order away from the other. A B, minus B A. That leftover is called the commutator, and it is the first correction to the broken rule. | [A, B] = AB − BA = the grid 1, 0; 0, −1 (`F-O.commutator`); under it e^{tA} e^{tB} = e^{t(A+B) + ½t²[A, B] + …}; lower-third "the Baker–Campbell–Hausdorff formula" | TeX equation; lower-third | hold |
+| 14_1 | Numbers obey one more rule. Grow at two shares at once, or at one after the other. Same result. E to the a plus b is e to the a, times e to the b. | One amber bar grows through a stretch at share a and then a stretch at share b; beside it a bar grown under a + b together; they end level; e^{a+b} = e^a · e^b with a green tick | two runs against one | |
+| 14_2 | Now two matrices. Two shears. A pushes the top of a square to the right. B pushes its right side upward. | A unit square; the rule A in teal, its arrows growing with height; the rule B in rose, its arrows growing to the right; their grids (`F-O.A`, `F-O.B`) | **the square, sheared**, driven by the model | |
+| 14_3 | ⟨predict⟩ Your turn. Follow A, then B. Or B, then A. Does the square end up in the same place? | The quiz card over the two squares, each about to move; ring from 5 (`F-Q.14_3.*`) | the quiz card | listen 5 s (countdown) |
+| 14_4 | No. They're mirror images. And both rules at once, a tiny step of each, over and over, lands between them. Three different results. | Three parallelograms form and slide onto one origin: A then B (the grid 1, 1; 1, 2), B then A (2, 1; 1, 1), and both at once (1.543, 1.175; 1.175, 1.543) between them (`F-O.expB_expA`, `F-O.expA_expB`, `F-V.14_4.both_at_once`); one grid at a time under the shape being named | three shapes driven by the model | |
+| 14_5 | The rule broke because order matters. Multiply the two grids in either order, A B, and B A. When those agree, the matrices commute, and for those, the rule holds. | AB and BA as two different grids (`F-O.AB`, `F-O.BA`); "commute: AB = BA"; precisely: "e^{t(A+B)} = e^{tA} e^{tB} for every time t exactly when AB = BA. One pair can still obey it without commuting: 3 full turns about x, 4 about y, 5 about the 3-4-5 axis" (`F-O.turns.*`) | highlight; lower-third | |
+| 14_6 | And the failure can be measured. Go round a loop. A, then B, then undo each. The square doesn't come back. What's left over is set by A B minus B A. The commutator. | The square taken round the four moves for a time 0.5 each: it returns squeezed one way and stretched the other (`F-O.loop.*`); the leftover drawn as a new teal rule, a field of stretch-and-squeeze arrows; [A, B] = AB − BA = the grid 1, 0; 0, −1 (`F-O.commutator`), "leftover ≈ −t² [A, B] for short times"; who and when: "the Baker–Campbell–Hausdorff formula"; for programmers: "update A's effect, then B's, and this is your error per step" | the loop that does not close | hold |
 
 - **The order:** "e^{A+B} = e^A e^B only when A and B commute; the
   commutator measures the failure (the first term of
   Baker–Campbell–Hausdorff)". **Corrected:** the script never says "only
-  when". Commuting is enough; for all times it is also necessary; a single
-  pair can obey the rule without commuting (three, four and five full turns:
-  `F-O.turns.*`). 14_5 says "for those, the rule holds", and the exact
-  statement is on screen.
+  when". 14_5 says "for those, the rule holds", and the strip carries the
+  exact statement and the 3-4-5 exception.
+- **The rule that breaks is the right rule:** two shares at once against
+  one after the other (14_1), which is what two matrices at once against
+  one after the other fails. One rule run for two durations (09_6) is a
+  different statement and never fails.
 - **Convention on screen:** "A, then B" means A's motion first, so the
-  matrix is e^B e^A (the later motion is written on the left). Each grid is
-  shown under the shape it makes, and the caption names the order in words.
-- **Ruth:** the gap, divided by t²/2, tends to the commutator (`F-O.gap.*`).
-- **Sibling:** Video G keeps the book quiz for "rotations don't commute";
-  this chapter uses shears, so the two do not repeat each other.
+  matrix is e^B e^A (the later motion is written on the left). Each grid
+  sits under the shape it makes. The loop's leftover is computed in the
+  order it is played, and the sign on the strip is the one that comes out.
+- **"Both at once"** is defined by the video's own idea: a tiny step of
+  each, over and over (`F-O.alternate.*`).
+- **Sibling:** Video G keeps the book quiz for rotations; this chapter uses
+  shears.
 
-## 15_the_doorway (~75 s)
-
-| id | words | picture | features | hold/listen |
-|---|---|---|---|---|
-| 15_1 | That leftover is a doorway. Go back to rotations. The quarter turn J has a special shape. Flip it across its diagonal, and every sign changes. | J; its entries swap across the diagonal and change sign; lower-third "skew: Aᵀ = −A" | highlight; morph | |
-| 15_2 | Every matrix of that shape exponentiates to a rotation, and every rotation comes from one. In three dimensions there are three basic ones. A spin about each axis. | Three 3 by 3 skew grids, one per axis; a wireframe cube turns about x, then y, then z as e^{t·spin} runs (`F-L.exp.Lz.t1`, `F-X.skew_gives_rotation`); lower-third "a full turn and no turn are the same rotation" (`F-L.full_turn_is_identity`) | wireframe redrawn from the model; grids | |
-| 15_3 | ⟨predict⟩ Your turn. Three dimensions, three independent spins. How many are there in four dimensions? | The quiz card: "3 dimensions: 3 spins. 4 dimensions: ?", ring from 6 (`F-Q.15_3.*`) | the quiz card | listen 6 s (countdown) |
-| 15_4 | Six. A spin doesn't really happen around an axis. It happens in a plane, and four axes make six pairs. | Three axes and their three pairs, each pair a small turning plane; a fourth axis joins and three more pairs light: 6 (`F-L.spins.*`) | lagged reveal; count-up | |
-| 15_5 | And spins don't commute. Tip a little about x, a little about y, then undo each one. You are not back where you began. What's left over is a small spin about z. The commutator of two spins is a third spin. | The cube: a small turn about x, about y, back about x, back about y; it ends slightly turned about z, shown by a ghost of where it started; [x-spin, y-spin] = z-spin (`F-L.bracket.*`, `F-L.loop.*`) | wireframe; ghost; TeX equation | |
-| 15_6 | The spins, with that commutator, form a Lie algebra. The rotations they generate form a Lie group. And the exponential is the bridge from one to the other. | Left, a flat sheet of teal arrows, "tiny steps: a Lie algebra, so(3)"; right, a curved surface in blue, "motions: a Lie group, SO(3)"; a straight line on the sheet is carried by exp onto a curve on the surface; lower-third "Sophus Lie, 1842–1899" (`F-B.lie.*`) | **the bridge**: line onto curve | hold |
-
-- **Show, then name:** "Lie algebra" and "Lie group" are said only after
-  the spins, their commutator and the rotations are on screen.
-- **Ruth:** exp maps skew matrices onto the rotations (compact and
-  connected), not one-to-one; both halves are on screen. A Lie algebra is a
-  vector space closed under the bracket; "the spins with that commutator"
-  is so(3). The general definition (a smooth manifold that is a group) is in
-  the description.
-- **Maya:** the four-dimension quiz is a counting question she can do:
-  pairs of axes.
-- **Sibling:** this is the formal version of Video G's last picture; G
-  writes a turn as e^{[ω]t}, shown once at 16_1.
-
-## 16_where_it_leads (~65 s)
+## 15_the_doorway
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 16_1 | Lie groups are the mathematics of smooth motion. A robot arm's pose is a product of exponentials, one for every joint. That's the companion video, on Lie groups and robotics. | A sphere turning and a dial going round; then an arm drawn as a chain of joints, each tagged with its own exponential, written Video G's way, e^{[ω]t}; a pointer card to the Lie groups and robotics video | pointer card; lagged reveal | |
-| 16_2 | ⟨predict⟩ And in particle physics, the forces of the Standard Model are built on three Lie groups. Their independent tiny steps number eight, three, and one. Twelve in all. What might those twelve be? | SU(3) × SU(2) × U(1) with 8, 3 and 1 under them (`F-L.su3`, `F-L.su2`, `F-L.u1`); 8 + 3 + 1 = 12; the question as a card | prediction card; count-up | hold |
-| 16_3 | The particles that carry the forces. Eight gluons. The W plus, the W minus, and the Z. And the photon. | Twelve tiles fill in: 8 gluons, W⁺, W⁻, Z, the photon (`F-B.bosons`, `F-L.standard_model.steps`); lower-third "the fine print is in the description" | grid of tiles; lagged reveal | |
-| 16_4 | So that's what it means to raise e to a matrix. The matrix is a rule for tiny steps. E to the matrix is where that rule takes you. | A strip of four pairs, rule to result: a rate, growth; i, turning; a matrix, flow; a spin, rotation | recap strip | |
-| 16_5 | Growth, turning, heat, chance, rotation. One function, following one rule. Its rate is itself. | The opening quiz card returns with its answer filled in and the plane turning one radian; then the receipts card, "every number in this video was computed by code", with the repository link and names to search: matrix exponential, Baker–Campbell–Hausdorff, Lie algebra | the quiz card, answered; receipts card | hold |
+| 15_1 | That leftover is a doorway. Take the quarter turn J. Flip it across its diagonal, and every sign changes. Use a matrix of that shape as a rule, and call it a spin. Follow a spin, and you get a rotation. In three dimensions there are three, one for each pair of axes. | J; its entries swap across the diagonal and change sign (precisely: "skew: A^T = −A"); then one 3 by 3 skew grid at a time, lit while a small cube with one coloured face turns about that axis under e^{t·spin} (`F-L.exp.Lz.t1`); the three pairs of axes, xy, yz, zx, each a spin turning one axis toward the other; precisely: "every rotation comes from a spin; a full turn and no turn are the same rotation. Four axes would make six pairs" (`F-L.spins.*`, `F-L.full_turn_is_identity`) | projected cube turned by the model; grids | |
+| 15_2 | ⟨predict⟩ Your turn. Tip the cube a little about x. Then about y. Then undo each one. Are you back where you began? | The quiz card: the cube and the four moves listed; ring from 4 (`F-Q.15_2.*`) | the quiz card | listen 4 s (countdown) |
+| 15_3 | No. Repeat that loop, and the cube creeps round the third axis. The commutator of two spins is a third spin. | Seen from along z: the loop of four tips about the fixed x and y axes, twenty times; the cube creeps round by 45.7°, backwards about z (`F-L.creep.*`), a live readout of the leftover angle, a ghost marking the start; then the bracket of the x-spin and the y-spin = the z-spin (`F-L.bracket.*`), with the note "this loop runs it backwards" (`F-L.loop.is_minus_z_spin`) | cube turned by the model; ghost; live angle | |
+| 15_4 | Add two spins, or take their commutator, and you still have a spin. A set closed like that is a Lie algebra. Follow one rotation by another, or undo one, and you still have a rotation. That is a Lie group. The exponential is the bridge between them. | Two panels. Left, "spins: add them, bracket them" with the three grids, labelled "a Lie algebra, so(3)". Right, "rotations: follow one by another, undo one" with the cube, labelled "a Lie group, SO(3)". A gold arrow marked exp from left to right | two panels; lagged reveal | hold |
 
-- **Honestly scoped** (the order): one line, one picture. "Built on three
-  Lie groups" is the gauge group SU(3) × SU(2) × U(1); the twelve tiny
-  steps are the dimensions of the three Lie algebras; the twelve carriers
-  are as the Particle Data Group lists them. The description carries the
-  fine print (the W's, Z and photon are mixtures; the group may be a
-  quotient by a subgroup of Z₆; nothing is said about gravity).
-- **Hand-off:** 16_1 points to Video G in G's own notation.
-- **End on the rigorous form of the opening picture** (plan rule 15): the
-  opening card, now answerable in one sentence, and the bridge of 15_6.
+- **Show, then name:** "spin", "Lie algebra" and "Lie group" are said only
+  after the thing is on screen; the property that makes each one is in the
+  sentence that names it.
+- **Rule and move, again:** a spin is a rule, a rotation is a move.
+- **The loop is pinned:** tips are about the fixed x and y axes, played in
+  the order spoken; the facts multiply in that order (later motion on the
+  left), and the creep's direction is whatever comes out. Twenty loops of
+  0.2 radian tips, because one small loop leaves too little to see.
+- **Ruth:** exp maps the spins onto the rotations (compact and connected),
+  not one-to-one; both halves are on the strip. "Spins don't commute" is
+  said of three dimensions only (in four, spins in separate planes do).
+- **Sibling:** this is the formal version of Video G's last picture; G was
+  told this loop is on a cube and theirs is an order swap on a book.
+
+## 16_where_it_leads
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 16_1 | Lie groups are the mathematics of smooth motion. A robot arm's pose is a product of exponentials, one per joint. That's the companion video. | An arm of three joints on three trackers, each tag lighting as its joint turns, written Video G's way, e^{[S₁]q₁} e^{[S₂]q₂} e^{[S₃]q₃} M; a pointer card; who and when: "Sophus Lie, 1842–1899"; a strip of names: "also: spacecraft attitude, computer graphics, quantum gates" | pointer card; lagged reveal | |
+| 16_2 | In particle physics, the forces of the Standard Model are built on three Lie groups, with eight, three, and one independent tiny steps. Twelve, and twelve particles carry those forces. | SU(3) × SU(2) × U(1) with 8, 3 and 1 under them (`F-V.16_2.steps`); twelve tiles: 8 gluons under SU(3); one brace over "SU(2) × U(1): 3 + 1 = 4" holding W⁺, W⁻, Z and the photon (`F-B.bosons`); precisely: "the fine print is in the description" | grid of tiles; lagged reveal | |
+| 16_3 | ⟨predict⟩ One last time, and now it's your turn. E, raised to the quarter turn J. What does it equal, and why? | The opening card returns unanswered, now as a quiz card; ring from 6 (`F-Q.16_3.*`) | the quiz card | listen 6 s (countdown) |
+| 16_4 | A rotation by one radian. The rule J moves every point at a speed equal to its distance from the centre. So in one unit of time, each point travels an arc as long as its radius. One radian. | A teal ruler of tiny steps with a tick at 1 wraps onto the gold circle; the tick lands at an arc of length one and the dot plane turns under it; labels "a line of tiny steps: the Lie algebra" and "a circle of rotations: the Lie group"; the ruler keeps wrapping past a full turn | **the line wraps onto the circle**; dot field | |
+| 16_5 | The matrix is a rule for tiny steps. E to the matrix is where that rule takes you. One function, one rule. Its rate is the rule, applied to itself. | A strip of four small live panes, each a rule in teal and its result in gold: a share, growth; i, turning; a matrix, flow; a spin, rotation; then, after the hold, the receipts card, "every number in this video was computed by code; every dot was placed by e^{tA}", the repository link and names to search: matrix exponential, Baker–Campbell–Hausdorff, Lie algebra | recap strip; receipts card | hold |
+
+- **Honestly scoped** (the order): one line, one picture. Twelve tiny steps
+  are the dimensions of the three Lie algebras; twelve carriers as the
+  Particle Data Group lists them, with the brace showing that the W's, the
+  Z and the photon come from the three and the one together. The
+  description carries the rest (a possible quotient by a subgroup of Z₆;
+  nothing about gravity).
+- **Hand-off:** 16_1 points to Video G in G's notation, with the home pose M.
+- **The ending makes the opening inevitable** (plan rules 15 and 19): the
+  opening card is the last quiz, and its answer is one sentence that the
+  viewer has owned since 06_4. The picture under it is the exact bridge for
+  this example: a line of tiny steps (multiples of J) wrapped onto a circle
+  of rotations, many times over.
+- **The last line is true of everything in the recap:** the rate of e^{tA}
+  is A applied to it.
 - **Receipts card** and names to search (plan rule 26).
