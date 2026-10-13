@@ -1,0 +1,41 @@
+# Extra ftts inputs for Video F's narration (tools/narration.py, director_files): <line_id> TAB <sentence index, 0-based> TAB <ftts input>.
+# An input here is one more read of that sentence; the sentence's text, and so the captions, stay script.tsv's.
+# Pass 1 (2026-10-13, voice michael, ftts 0.1.11): five chosen reads ended without the s or z of their last word
+# (choose's final s/z list); 04_1's read turned "Take" into a short burst the editor dropped; 01_4 and 06_3 lost a
+# first or last word in their lines; 13_3 ran "Parts still" into one s; 06_2 was heard "$7.40" in its line (both
+# takes alone were heard "$7.20"); 10_2 was heard "better as". Each gets other quotation marks, a comma, or digits.
+01_4	2	«For this one, that's two rows of digits and three carries.»
+01_4	2	‘For this one, that's two rows of digits and three carries.’
+04_1	1	«Take twenty-three times forty-six.»
+04_1	1	Take 23 times 46.
+04_2	1	«A rectangle, twenty-three by forty-six.»
+04_2	1	A rectangle, 23 by 46.
+04_5	2	«Tens times tens are hundreds.»
+04_5	2	‘Tens times tens are hundreds.’
+06_2	2	«Together, seven dollars twenty.»
+06_2	2	Together, $7.20.
+06_3	0	«And twenty percent is the tenth, doubled.»
+06_3	0	And 20 percent is the tenth, doubled.
+06_5	1	«Half of that is three dollars.»
+06_5	1	Half of that is $3.
+06_7	2	«Two dollars.»
+06_7	2	‘Two dollars.’
+07_5	3	«Then give back four cents.»
+07_5	3	Then give back 4 cents.
+10_2	2	«And that's Bayta's twenty-three hundred.»
+10_2	2	And that's Bayta's, twenty-three hundred.
+13_3	0	«Parts still works, in four slow steps.»
+13_3	0	Parts, still works, in four slow steps.
+# Pass 5 (2026-10-13): the fastest chosen reads (6.3 to 7.2 syllables a second against michael's usual 4 to 5, read
+# off the line sheets), each given a comma or « » to slow it.
+14_5	0	You don't need a gift for numbers, for any of this.
+14_5	0	«You don't need a gift for numbers for any of this.»
+07_5	0	Take a price, just under a round number.
+07_5	0	«Take a price just under a round number.»
+07_7	1	«Give back three cents.»
+13_2	2	Its middle is seventy-two, and a half.
+13_2	2	«Its middle is seventy-two and a half.»
+08_2	0	«It's fifty, the middle.»
+01_4	0	«If that took you longer than four seconds, there's a likely reason.»
+07_7	1	Give back 3 cents.
+07_7	1	‘Give back three cents.’

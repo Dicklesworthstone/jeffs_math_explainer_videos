@@ -1,0 +1,14 @@
+# The director's picks for Video F's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input, exactly as planned> TAB <why>. The named read wins whatever its score.
+# Pass 2 (2026-10-13, voice michael, ftts 0.1.11), from the take sheets and a measure of each read's final hiss
+# (the longest run of 20 ms frames in the last 350 ms with energy over 4 kHz at least 5 dB above energy under 2 kHz;
+# a full final s of michael runs 80 ms or more): the score's choice and the reason it was overruled, each.
+04_5	2	“Tens times tens are hundreds.”	The score's choice («») ends with no s on 'hundreds' (0 ms of hiss; choose flags it). This read has 160 ms of hiss at its end, and fw hears every word.
+07_5	3	“Then give back four cents.”	The score's choice (plain) is flagged for a missing final s on 'cents'. This read has 200 ms of hiss at its end, the longest of the four, and fw hears every word.
+13_3	0	«Parts still works, in four slow steps.»	The score's choice (“”) is cut short and runs 'Parts still' into one s, heard 'Part still'. This read is the only one fw hears as 'Parts' without the comma's pause, and it ends with 200 ms of hiss on 'steps'.
+06_2	2	«Together, seven dollars twenty.»	The score's choice (plain) keeps 0.3-2.17 s and drops a voiced stretch at 2.6-3.0 s as run-on; its line was heard '$7.40', so the end of 'twenty' may be lost. This read is quoted, which ftts reads to its end.
+06_3	0	«And twenty percent is the tenth, doubled.»	The score's choice (“”) loses its last word in the line ('double', not 'doubled'). fw hears this read whole, 'tenth' as a word, not '10th'.
+10_2	2	And that's Bayta's, twenty-three hundred.	The score's choice (plain) is heard 'betas' alone but 'better as' in its line, a name the gate cannot accept. In this read a comma keeps the name apart from the number; fw hears it 'Betas', the spelling it gives BAY-tuh everywhere in this video.
+10_7	5	Then write the distance squared, as two digits.	The score's choice (“”) is cut short with 80 ms of hiss on 'digits'. This read ends on a full ts, 160 ms of hiss decaying, and fw hears every word.
+07_5	0	«Take a price just under a round number.»	The score's choice (“”) runs ten syllables in 1.8 s of speech, rushed on the line sheet. This read takes 2.4 s with a 0.33 s breath after 'price', and fw hears every word.
+13_2	2	“Its middle is seventy-two and a half.”	The score's choice (plain) runs eleven syllables in 1.8 s, rushed on the line sheet. This read takes 2.2 s with no stall, and fw hears every word.
