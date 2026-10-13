@@ -576,7 +576,14 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 // a scratch-voice draft: its estimated line times, so the
                 // draft's cue sheets can be read before any narration exists
                 // (never the exact log or a timeline: nothing is scored or
-                // mastered from estimates)
+                // mastered from estimates). The scratch voice places no
+                // audio, so its lines are not in the timeline: take the
+                // moment each was said.
+                let cues: String = n
+                    .said()
+                    .iter()
+                    .map(|(id, at)| format!("{id}\t{at:.3}\t{:.3}\n", n.length(id).unwrap_or(0.0)))
+                    .collect();
                 let p = out_of("cues.tsv");
                 set_aside(&p)?;
                 std::fs::write(&p, cues)?;

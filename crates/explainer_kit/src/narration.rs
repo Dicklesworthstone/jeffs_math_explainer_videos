@@ -464,6 +464,15 @@ impl Narrator {
         self.said_at.borrow_mut().clear();
     }
 
+    /// The lines said in this chapter so far and the scene time each began,
+    /// in order: what a scratch-voice draft's cue sheets are made from (a
+    /// narrated render has the exact frames in its timeline instead).
+    pub fn said(&self) -> Vec<(String, f64)> {
+        let mut said: Vec<(String, f64)> = self.said_at.borrow().iter().map(|(id, &at)| (id.clone(), at)).collect();
+        said.sort_by(|a, b| a.1.total_cmp(&b.1).then_with(|| a.0.cmp(&b.0)));
+        said
+    }
+
     /// Where each sentence of line `id` starts, seconds from the line's
     /// start (the first is 0): the narration report's exact sample counts,
     /// or, for the scratch voice, shares of the line by sentence length.
