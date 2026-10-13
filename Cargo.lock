@@ -1397,6 +1397,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78"
 
 [[package]]
+name = "lie_robotics_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
