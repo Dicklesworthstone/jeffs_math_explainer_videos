@@ -10,6 +10,7 @@ pub mod glyphs;
 pub mod halfway;
 pub mod lost_directions;
 pub mod one_turn;
+pub mod screws;
 pub mod spin;
 pub mod steps;
 pub mod the_book;
@@ -51,7 +52,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("04_halfway", 0.6, halfway::Halfway),
         scene!("05_spin", 0.55, spin::Spin),
         scene!("06_the_platform", 0.5, the_platform::ThePlatform),
-        animatic!("07_screws", 0.6),
+        scene!("07_screws", 0.6, screws::Screws),
         animatic!("08_seven_screws", 0.6),
         scene!("09_by_hand", 0.5, by_hand::ByHand),
         scene!("10_velocities_add", 0.5, velocities_add::VelocitiesAdd),

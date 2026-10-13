@@ -353,6 +353,41 @@ pub fn tween_linear(tracker: Mob, value: f64, rt: f64) -> fmn::Result<AnimBuilde
         .set_value(value)?)
 }
 
+// -------------------------------------------------------- the four words
+
+/// The four words, one card (storyboard, "Four words, one card"): a turn is
+/// how far, turning only; a spin is how fast, turning only; a screw is how
+/// far, turning and sliding; a twist is how fast, turning and sliding. Shown
+/// at 07_3 and brought back small at 10_2 and 13_3 (`scale` below 1). All the
+/// parts, detached, back first.
+pub fn four_words(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, scale: f64) -> fmn::Result<Vec<Mob>> {
+    let (w, h) = (5.8 * scale, 3.7 * scale);
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.16 * scale)
+        .style(Style::default().fill(panel(), 0.96).stroke(Palette::faint(), 2.0, 1.0))
+        .build()?
+        .moved_to(at);
+    let mut out = vec![stage.arena_mut().add(back)];
+    let word = (40.0 * scale).max(22.0);
+    let note = (22.0 * scale).max(15.0);
+    let (dx, dy) = (1.5 * scale, 0.95 * scale);
+    // each cell: the word, and under it what it measures
+    let cells = [
+        ("turn", "how far,\nturning only", palette::turn(), -1.0, 1.0),
+        ("spin", "how fast,\nturning only", palette::flat(), 1.0, 1.0),
+        ("screw", "how far,\nturning and sliding", palette::screw(), -1.0, -1.0),
+        ("twist", "how fast,\nturning and sliding", palette::flat(), 1.0, -1.0),
+    ];
+    for (words, what, color, cx, cy) in cells {
+        let (x, y) = (at[0] + cx * dx, at[1] + cy * dy);
+        out.push(kit.text(stage, words, word, color, v(x, y + 0.3 * scale))?);
+        out.push(kit.text(stage, what, note, Palette::dim(), v(x, y - 0.35 * scale))?);
+    }
+    Ok(out)
+}
+
 // ---------------------------------------------------------------- the badge
 
 /// Where the badge sits in a corner whenever the one move is being made
