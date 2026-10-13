@@ -3,18 +3,20 @@
 //! the matching pairs thrown away, and the corrector Intel built on the
 //! trick (11_2); then the picture of the video once more, the square at
 //! four fifths with its mirror line, opening once into the loaded die's
-//! thirty-six blocks, and the receipts (11_3). The noise is the uniform
+//! thirty-six blocks, held for the resolved motif, and then smaller at the
+//! left with the receipts beside it to the last frame (11_3). The noise is
+//! the uniform
 //! draws behind run 2 (`facts::trick_draws`), read against a threshold; the
 //! pairs are filtered by `model::von_neumann`.
 
-use explainer_kit::props::{predict_pause, receipts_card};
-use explainer_kit::{Kit, Palette, Timed, children, fade_all, hex, lagged, play, tween, v};
+use super::draw::predict_pause;
+use explainer_kit::{Kit, Palette, Timed, hex, lagged, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Block, COLUMN_MID, QuoteCard, SQUARE_AT, SQUARE_SIDE, Square, alice, bob, die_face, face_color, fade_in_all,
-    fade_in_lagged, fade_out_all, faded_line, fail, flat, gold, group, line_style, pair_tile, panel, rgb, say, tag,
-    thrown, wait_until,
+    fade_in_lagged, fade_out_all, faded_line, fail, flat, gold, group, line_style, pair_tile, panel, pause, rgb, say,
+    tag, thrown, wait_until,
 };
 use crate::facts::{cited, facts, trick_draws};
 use crate::model::{Face, LOADED, PairLaw, Q, bent, die, von_neumann};
@@ -27,6 +29,8 @@ pub struct TheFairCoinInside {
 const PASSWORDS: &str = "passwords";
 const CODES_CHIP: &str = "secret codes";
 const READINGS: &str = "readings";
+const LIKE_A_COIN: &str = "a one or a zero, like heads or tails";
+const NEEDS: &str = "needs readings that don't affect each other (chapter 5)";
 const EXAGGERATED: &str = "unfairness exaggerated";
 const FAIR_TOSSES: &str = "fair tosses";
 const CORRECTOR: &str = "corrector";
@@ -42,6 +46,7 @@ const BOB: &str = "Bob";
 const ROLLED_TWICE: &str = "a loaded die, rolled twice";
 const COUNTS_CARRY: &str = "The counts carry the unfairness.";
 const ORDER_FAIR: &str = "The order is perfectly fair.";
+const RECEIPTS: &str = "Receipts";
 const RECEIPT_COMPUTED: &str = "Every count and chance in this video was computed by code; quoted numbers are cited";
 const RECEIPT_CODE: &str = "Code, data and every number:";
 const RECEIPT_REPO: &str = "github.com/Dicklesworthstone/jeffs_math_explainer_videos";
@@ -87,8 +92,23 @@ const TRACE_H: f64 = 1.05;
 const DIGITS_Y: f64 = 1.15;
 const DIGIT_SIZE: f64 = 34.0;
 const BAND_Y: f64 = 0.45;
-const OUT_Y: f64 = -0.6;
+/// The tag under the readings (11_1) and the one under the corrector (11_2).
+const LIKE_Y: f64 = 0.5;
+const NEEDS_Y: f64 = -0.05;
+const OUT_Y: f64 = -0.95;
 const OUT_STEP: f64 = 0.5;
+
+/// The last picture (11_3, after the listen): the square, smaller, at the
+/// left, and the receipts card beside it, both centred on this height.
+const END_LEFT: f64 = -6.7;
+const END_SIDE: f64 = 3.0;
+const END_Y: f64 = 0.0;
+/// The receipts card's right edge, its type size and line spacing.
+const CARD_RIGHT: f64 = 6.85;
+const CARD_TEXT: f64 = 22.0;
+const CARD_LINE: f64 = 0.36;
+/// How long the receipts hold beside the square, to the last frame.
+const RECEIPTS_HOLD_S: f64 = 8.3;
 
 fn args(rt: f64) -> AnimateArgs {
     AnimateArgs {
@@ -340,6 +360,42 @@ impl DieSquare {
     }
 }
 
+/// The receipts as a card that fits beside the square (the kit's
+/// `receipts_card` spans the frame): "Receipts" in the hero role and the
+/// lines left-aligned, its right edge at [`CARD_RIGHT`], centred on
+/// [`END_Y`]. A card that would reach `room_left` is an error, never a
+/// clipped line. Detached parts, the back first.
+fn receipts_beside(kit: &Kit, stage: &mut Stage<'_>, lines: &[String], room_left: f64) -> fmn::Result<Vec<Mob>> {
+    let mut texts = Vec::new();
+    let mut widest: f64 = 0.0;
+    for l in lines {
+        let t = kit.text(stage, l, CARD_TEXT, Palette::ink(), ORIGIN)?;
+        widest = widest.max(stage.get_width(t));
+        texts.push(t);
+    }
+    let (w, h) = (widest + 0.8, 1.05 + CARD_LINE * lines.len() as f64);
+    let (left, top) = (CARD_RIGHT - w, END_Y + h / 2.0);
+    if left < room_left {
+        return Err(fail(format!(
+            "the receipts card is {w:.2} wide and would reach x = {left:.2}, past {room_left:.2}"
+        )));
+    }
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.12)
+        .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(v(left + w / 2.0, END_Y));
+    let mut parts = vec![stage.arena_mut().add(back)];
+    parts.push(kit.text(stage, RECEIPTS, 34.0, gold(), v(left + w / 2.0, top - 0.42))?);
+    for (i, &t) in texts.iter().enumerate() {
+        stage.move_to(t, v(left + 0.4, top - 0.95 - CARD_LINE * i as f64), LEFT);
+        parts.push(t);
+    }
+    Ok(parts)
+}
+
 /// Two die faces side by side on a small card, as `draw::pair_tile` sets
 /// two results. Detached, one group.
 fn dice_tile(stage: &mut Stage<'_>, rolls: (usize, usize), at: Vec3) -> fmn::Result<Mob> {
@@ -431,7 +487,10 @@ impl SceneConstruct for TheFairCoinInside {
         fade_in_lagged(stage, &landing, 2.0, 0.25)?;
         let exaggerated = kit.text(stage, EXAGGERATED, 22.0, Palette::dim(), ORIGIN)?;
         stage.move_to(exaggerated, v(right, 3.38), RIGHT);
-        fade_in_all(stage, &[exaggerated], 0.4)?;
+        // what a reading is, in the video's words
+        let pairs_mid = TRACE_X + TRACE_STEP * (READINGS_N - 1) as f64 / 2.0;
+        let like = tag(&kit, stage, LIKE_A_COIN, v(pairs_mid, LIKE_Y), 22.0)?;
+        fade_in_all(stage, &[exaggerated, like], 0.4)?;
         let q = predict_pause(&kit, stage, v(0.6, OUT_Y))?;
 
         // 11_2: pair the readings up, throw away the pairs that match; in
@@ -470,7 +529,10 @@ impl SceneConstruct for TheFairCoinInside {
             greying.push(stage.prepare(a.rt(0.5))?);
         }
         let greying = lagged(stage, greying, 0.12)?.with_run_time(1.0);
-        stage.play(greying)?;
+        // the tag under the readings makes way for the fair tosses' fall
+        let mut making_way = fading_out(stage, &[like], 0.4)?;
+        making_way.push(Box::new(greying));
+        stage.play_prepared(making_way)?;
         if deciding.len() != kept.len() {
             return Err(fail(format!(
                 "{} pairs differ but the rule kept {}",
@@ -513,8 +575,8 @@ impl SceneConstruct for TheFairCoinInside {
         fade_in_all(stage, &ins, 0.6)?;
         // a corrector, built into the generator
         line.wait_for(stage, "built a corrector")?;
-        // as wide as the row of pairs it stands under
-        let pairs_mid = TRACE_X + TRACE_STEP * (READINGS_N - 1) as f64 / 2.0;
+        // as wide as the row of pairs it stands under, with what it needs
+        // under it
         let band = Rectangle::new()
             .width(TRACE_STEP * READINGS_N as f64 - 0.1)
             .height(0.42)
@@ -524,9 +586,12 @@ impl SceneConstruct for TheFairCoinInside {
             .moved_to(v(pairs_mid, BAND_Y));
         let band = stage.arena_mut().add(band);
         let name = kit.text(stage, CORRECTOR, 22.0, Palette::ink(), v(pairs_mid, BAND_Y))?;
-        fade_in_all(stage, &[band, name], 0.5)?;
+        let needs = tag(&kit, stage, NEEDS, v(pairs_mid, NEEDS_Y), 20.0)?;
+        fade_in_all(stage, &[band, name, needs], 0.5)?;
         line.wait_for(stage, "into its random number generator")?;
-        let (top, bottom) = (3.72, BAND_Y - 0.45);
+        // the generator holds the corrector and its condition; the fair
+        // tosses come out under it
+        let (top, bottom) = (3.72, NEEDS_Y - 0.36);
         let walls = Rectangle::new()
             .width(13.7)
             .height(top - bottom)
@@ -603,7 +668,10 @@ impl SceneConstruct for TheFairCoinInside {
             stage.add_to_scene(m)?;
         }
         stage.scene_mut().bring_to_front(&[diagonal])?;
-        let mut coin_words = edges.mobs();
+        // (the edges' anchor stays: a fade would clear the updater that
+        // keeps the stretches on the square when it moves at the end)
+        let mut coin_words = edges.stretches.to_vec();
+        coin_words.extend(edges.words);
         coin_words.extend([first_toss, second_toss]);
         let rolled = kit.text(stage, ROLLED_TWICE, 22.0, Palette::dim(), v(mid_x, SQUARE_AT[1] - 0.45))?;
         let (six, five) = (chances.len(), chances.len() - 1);
@@ -640,7 +708,8 @@ impl SceneConstruct for TheFairCoinInside {
         let order = kit.text(stage, ORDER_FAIR, 28.0, gold(), v(COLUMN_MID, words_y - 0.55))?;
         fade_in_all(stage, &[order], 0.5)?;
         pulse(stage)?;
-        kit.hold(stage)?;
+        // the motif resolves over the held square, with nothing arriving
+        kit.listen(stage, 4.0, "11_the_fair_coin_inside:11_3")?;
 
         // the receipts
         let all = facts().map_err(fail)?;
@@ -670,23 +739,41 @@ impl SceneConstruct for TheFairCoinInside {
                 cited::JUELS_YEAR
             ),
         ];
-        let lines: Vec<&str> = lines.iter().map(String::as_str).collect();
-        let receipts = receipts_card(&kit, stage, &lines)?;
-        // a line that runs past the card is an error, never a clipped word
-        let parts = children(stage, receipts);
-        let edge = stage.get_bounding_box_point(parts[0], RIGHT)[0] - 0.3;
-        for (&m, l) in parts[2..].iter().zip(&lines) {
-            if stage.get_bounding_box_point(m, RIGHT)[0] > edge {
-                return Err(fail(format!("a receipts line does not fit its card: {l}")));
-            }
+        let receipts = receipts_beside(&kit, stage, &lines, END_LEFT + END_SIDE + 0.3)?;
+        // the square slides to the left, smaller, with its gold line; its
+        // words and the tiles beside it go, and the receipts come in beside
+        // it. The square stays to the last frame.
+        let mut keep = square.mobs();
+        keep.push(edges.anchor);
+        keep.extend(edges.stretches);
+        keep.push(diagonal);
+        let leaving: Vec<Mob> = stage
+            .scene()
+            .mobjects()
+            .iter()
+            .copied()
+            .filter(|m| !keep.contains(m))
+            .collect();
+        let pose = square.pose(stage);
+        let end_bottom = END_Y - END_SIDE / 2.0;
+        let shrink = END_SIDE / pose.side;
+        let follow = diagonal
+            .animate()
+            .set_anim_args(args(1.0))?
+            .scale_about(shrink, Some(v(pose.left, pose.bottom)), None)?
+            .shift(v(END_LEFT - pose.left, end_bottom - pose.bottom))?;
+        let mut slide = fading_out(stage, &leaving, 0.4)?;
+        for (t, value) in [
+            (square.view.left, END_LEFT),
+            (square.view.bottom, end_bottom),
+            (square.view.side, END_SIDE),
+        ] {
+            slide.push(stage.prepare(tween(t, value, 1.0)?)?);
         }
-        let leaving: Vec<Mob> = stage.scene().mobjects().to_vec();
-        let outs_now = fading_out(stage, &leaving, 0.5)?;
-        let card_in = fade_in(stage.arena_mut(), receipts, v(0.0, -0.1), 1.0)?;
-        let ins = vec![stage.prepare(card_in.rt(0.8))?];
-        swap(stage, outs_now, ins)?;
-        kit.listen(stage, 4.0, "11_the_fair_coin_inside:11_3")?;
-        fade_all(stage, 1.2)?;
+        slide.push(stage.prepare(follow)?);
+        let ins = fading_in(stage, &receipts, 0.7)?;
+        swap(stage, slide, ins)?;
+        pause(stage, RECEIPTS_HOLD_S)?;
         kit.finish(stage)
     }
 }

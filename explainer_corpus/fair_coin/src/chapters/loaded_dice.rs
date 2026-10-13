@@ -6,17 +6,17 @@
 //! flips onto its twin, then all fifteen as one sheet (08_4); and the cuts
 //! slide together until the thirty-six blocks are the coin's four (08_5).
 
-use explainer_kit::props::predict_pause;
+use super::draw::predict_pause;
 use explainer_kit::{BACKGROUND, Kit, Palette, Timed, fade_all, hex, play, thousands, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
     COLUMN_LEFT, COLUMN_MID, SQUARE_AT, SQUARE_SIDE, alice, block_grey, bob, caption, column, die_face, fade_in_all,
-    fade_out_all, faded_line, fail, flat, gold, group, heads, lettered_disc, line_style, panel, pause, say, tag, tails,
-    thrown, wait_until,
+    fade_out_all, faded_line, fail, flat, gold, group, heads, lettered_disc, line_style, pair_tile, panel, pause, say,
+    tag, tails, thrown, wait_until,
 };
 use crate::facts::loaded_run;
-use crate::model::{Face, LOADED, Q, bent, die, tally};
+use crate::model::{Face, LOADED, PairLaw, Q, bent, die, tally};
 
 pub struct LoadedDice {
     pub kit: Kit,
@@ -38,7 +38,11 @@ const SECOND_ROLL: &str = "second roll";
 const ALICE_WINS: &str = "Alice: the first roll is bigger";
 const BOB_WINS: &str = "Bob: the second roll is bigger";
 const MATCH: &str = "a match: roll two fresh ones";
-const THEN: &str = "then";
+/// The same three rows while the picture is the coin's (08_5).
+const ALICE_COIN: &str = "Alice: heads then tails";
+const BOB_COIN: &str = "Bob: tails then heads";
+const MATCH_COIN: &str = "a match: toss two fresh ones";
+const EQUALS: &str = "=";
 const PAIRS_OF_ROLLS: &str = "pairs of rolls:";
 const FOR_ALICE: &str = "for Alice,";
 const FOR_BOB: &str = "for Bob,";
@@ -59,6 +63,17 @@ const HEAD_Y: f64 = 1.6;
 // the square's edges: how far outside the square a stretch lies, and its thickness
 const EDGE_OFF: f64 = 0.065;
 const EDGE_THICK: f64 = 0.07;
+// the two pairs beside the square (08_4, 08_5), as chapter 11 sets them:
+// one tile each side of a gold "=", its chance under it
+const TILE_L: f64 = COLUMN_MID - 1.25;
+const TILE_R: f64 = COLUMN_MID + 1.25;
+const TILES_Y: f64 = 0.2;
+const SHARE_DY: f64 = 0.68;
+/// How long the cuts take to close into the coin's (eased), how long the
+/// coin's square is held, and how long they take to open again (08_5).
+const CLOSE_S: f64 = 2.0;
+const COIN_HOLD_S: f64 = 3.0;
+const OPEN_S: f64 = 1.2;
 
 /// Where the chart's bar for `face` (1 to 6) stands.
 fn chart_x(face: usize, faces: usize) -> f64 {
@@ -337,6 +352,52 @@ impl Grid {
     }
 }
 
+/// Two die faces side by side on a small card, as `draw::pair_tile` sets
+/// two results (chapter 11 draws its dice the same way). Detached, one group.
+fn dice_tile(stage: &mut Stage<'_>, rolls: (usize, usize), at: Vec3) -> fmn::Result<Mob> {
+    let back = Rectangle::new()
+        .width(1.38)
+        .height(0.82)
+        .corner_radius(0.1)
+        .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(at);
+    let mut parts = vec![stage.arena_mut().add(back)];
+    for (value, dx) in [(rolls.0, -0.32), (rolls.1, 0.32)] {
+        parts.push(die_face(
+            stage,
+            value,
+            v(at[0] + dx, at[1]),
+            0.5,
+            Palette::ink(),
+            hex(BACKGROUND),
+        )?);
+    }
+    group(stage, &parts)
+}
+
+/// Swap words for words in the same places over `rt` seconds, never both at
+/// once: the old leave in the first third, the new arrive in the last.
+fn swap_words(stage: &mut Stage<'_>, old: &[Mob], new: &[Mob], rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
+    let mut out: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in old {
+        let mut a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        a.update_rate_info(Some(rt), Some(RateFunc::smooth().squish(0.0, 0.33)), None);
+        out.push(stage.prepare(a)?);
+    }
+    for &m in new {
+        let mut a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        a.update_rate_info(Some(rt), Some(RateFunc::smooth().squish(0.67, 1.0)), None);
+        out.push(stage.prepare(a)?);
+    }
+    Ok(out)
+}
+
+/// Where a legend row's words start and sit.
+fn legend_at(row: usize) -> Vec3 {
+    v(COLUMN_LEFT + 0.7, 2.45 - 0.55 * row as f64)
+}
+
 /// One row of the legend beside the square: a swatch and its words.
 fn legend_row(
     kit: &Kit,
@@ -346,15 +407,15 @@ fn legend_row(
     words: &str,
     ink: Srgb,
 ) -> fmn::Result<[Mob; 2]> {
-    let (x, y) = (COLUMN_LEFT + 0.3, 2.45 - 0.55 * row as f64);
+    let words_at = legend_at(row);
     let swatch = Rectangle::new()
         .width(0.36)
         .height(0.36)
         .style(flat(color, 1.0))
         .build()?
-        .moved_to(v(x, y));
+        .moved_to(v(words_at[0] - 0.4, words_at[1]));
     let swatch = stage.arena_mut().add(swatch);
-    let text = kit.text_left(stage, words, 26.0, ink, v(x + 0.4, y))?;
+    let text = kit.text_left(stage, words, 26.0, ink, words_at)?;
     Ok([swatch, text])
 }
 
@@ -385,7 +446,7 @@ impl SceneConstruct for LoadedDice {
         );
         let model = tag(&kit, stage, MODEL_DIE, v(DIE_AT[0], DIE_AT[1] + DIE / 2.0 + 0.42), 22.0)?;
         play!(stage; fade_in(stage.arena_mut(), model, ORIGIN, 1.0)?.rt(0.5));
-        line.wait_for(stage, "This one shows")?;
+        line.wait_for(stage, "This one is loaded")?;
         let mut bars = Vec::new();
         let mut feet = Vec::new();
         let mut percents = Vec::new();
@@ -515,17 +576,20 @@ impl SceneConstruct for LoadedDice {
         };
         let (matches, first_bigger, second_bigger) = (pick(|a, b| a == b), pick(|a, b| a > b), pick(|a, b| b > a));
         line.wait_for(stage, "If the two rolls match")?;
-        let row = legend_row(&kit, stage, 2, thrown(), MATCH, Palette::dim())?;
-        fade_in_all(stage, &row, 0.4)?;
+        let match_row = legend_row(&kit, stage, 2, thrown(), MATCH, Palette::dim())?;
+        fade_in_all(stage, &match_row, 0.4)?;
         grid.paint(stage, &matches, thrown(), 0.9)?;
         line.wait_for(stage, "Alice wins")?;
-        let row = legend_row(&kit, stage, 0, alice(), ALICE_WINS, Palette::ink())?;
-        fade_in_all(stage, &row, 0.4)?;
+        let alice_row = legend_row(&kit, stage, 0, alice(), ALICE_WINS, Palette::ink())?;
+        fade_in_all(stage, &alice_row, 0.4)?;
         grid.paint(stage, &first_bigger, alice(), 1.3)?;
         line.wait_for(stage, "and Bob wins")?;
-        let row = legend_row(&kit, stage, 1, bob(), BOB_WINS, Palette::ink())?;
-        fade_in_all(stage, &row, 0.4)?;
+        let bob_row = legend_row(&kit, stage, 1, bob(), BOB_WINS, Palette::ink())?;
+        fade_in_all(stage, &bob_row, 0.4)?;
         grid.paint(stage, &second_bigger, bob(), 1.3)?;
+        // the legend's words, which 08_5 swaps for the coin's while the
+        // picture is the coin's square
+        let die_words = [alice_row[1], bob_row[1], match_row[1]];
         // the gold diagonal returns
         let diagonal = DashedLine::new(at(0.0, 0.0), at(1.0, 1.0))
             .dash_length(0.16)
@@ -538,31 +602,35 @@ impl SceneConstruct for LoadedDice {
         // 08_4: the coin trick again: every block has an equal twin
         let line = say(&kit, stage, "08_4")?;
         let w = |face: usize| chances[face - 1];
-        let twin_row = |kit: &Kit, stage: &mut Stage<'_>, y: f64, (a, b): (usize, usize)| -> fmn::Result<Vec<Mob>> {
-            let x = COLUMN_LEFT + 0.6;
+        // a pair of rolls as a tile, its chance under it
+        let twin = |kit: &Kit, stage: &mut Stage<'_>, x: f64, (a, b): (usize, usize)| -> fmn::Result<[Mob; 2]> {
             let chance = format!("{}%", (w(a) * w(b)).percent(0));
-            Ok(vec![
-                die_face(stage, a, v(x, y), 0.5, Palette::ink(), dark)?,
-                kit.text(stage, THEN, 24.0, Palette::dim(), v(x + 0.82, y))?,
-                die_face(stage, b, v(x + 1.64, y), 0.5, Palette::ink(), dark)?,
-                kit.text_left(stage, &chance, 30.0, Palette::ink(), v(x + 2.25, y))?,
+            Ok([
+                dice_tile(stage, (a, b), v(x, TILES_Y))?,
+                kit.text(stage, &chance, 26.0, Palette::ink(), v(x, TILES_Y - SHARE_DY))?,
             ])
         };
         line.wait_for(stage, "A six then a five")?;
         let (first, second) = TWIN;
         let [ghost, mirror] = grid.ghost_and_mirror(stage, first, second, alice(), 3.0);
-        let there = twin_row(&kit, stage, 0.35, (first, second))?;
+        let there = twin(&kit, stage, TILE_L, (first, second))?;
         let mut lifts = vec![ghost];
-        lifts.extend(&there);
+        lifts.extend(there);
         fade_in_all(stage, &lifts, 0.5)?;
         stage.scene_mut().bring_to_front(&[diagonal])?;
         pause(stage, 0.5)?;
         wait_until(stage, line.at("as a five then a six")? - 1.5)?;
         play!(stage; Transform::new(ghost, mirror).rt(1.5));
-        let back = twin_row(&kit, stage, -0.4, (second, first))?;
-        fade_in_all(stage, &back, 0.5)?;
+        let back = twin(&kit, stage, TILE_R, (second, first))?;
+        let equals = kit.text(stage, EQUALS, 44.0, gold(), v(COLUMN_MID, TILES_Y))?;
+        let mut arrives = back.to_vec();
+        arrives.push(equals);
+        fade_in_all(stage, &arrives, 0.5)?;
         pause(stage, 0.5)?;
         fade_out_all(stage, &[ghost], 0.4)?;
+        // the column beside the square, as it stands for the die
+        let mut dice_column = there.to_vec();
+        dice_column.extend(arrives);
         // then the whole green triangle, as one sheet
         line.wait_for(stage, "and across the diagonal")?;
         let (mut sheet, mut turns) = (Vec::new(), Vec::new());
@@ -592,37 +660,59 @@ impl SceneConstruct for LoadedDice {
         play!(stage; fade_in(stage.arena_mut(), counted, ORIGIN, 1.0)?.rt(0.6));
         fade_out_all(stage, &sheet, 0.5)?;
 
-        // 08_5: a coin is a die with two faces: the cuts slide together
-        let line = say(&kit, stage, "08_5")?;
+        dice_column.push(counted);
+
+        // 08_5: a coin is a die with two faces: the cuts close into the
+        // coin's one cut on each side, and everything beside the square
+        // becomes the coin's while the picture is the coin's
+        say(&kit, stage, "08_5")?;
         let p = bent().f64();
-        let mut coin_edges = Vec::new();
+        let mut coin = Vec::new();
         for left in [false, true] {
-            coin_edges.push(stage.arena_mut().add(edge_bar((0.0, p), left, heads())));
-            coin_edges.push(stage.arena_mut().add(edge_bar((p, 1.0), left, tails())));
+            coin.push(stage.arena_mut().add(edge_bar((0.0, p), left, heads())));
+            coin.push(stage.arena_mut().add(edge_bar((p, 1.0), left, tails())));
         }
         let (below, beside) = (SQUARE_AT[1] - 0.4, SQUARE_AT[0] - 0.55);
-        coin_edges.extend([
+        coin.extend([
             kit.text(stage, HEADS, 24.0, heads(), v(at(p / 2.0, 0.0)[0], below))?,
             kit.text(stage, TAILS, 24.0, tails(), v(at((1.0 + p) / 2.0, 0.0)[0], below))?,
             kit.text(stage, HEADS, 24.0, heads(), v(beside, at(0.0, p / 2.0)[1]))?,
             kit.text(stage, TAILS, 24.0, tails(), v(beside, at(0.0, (1.0 + p) / 2.0)[1]))?,
         ]);
-        fade_out_all(stage, &die_edges, 0.3)?;
-        play!(stage; tween(grid.merge, 1.0, 1.3)?);
-        fade_in_all(stage, &coin_edges, 0.4)?;
-        // hold on the coin's four blocks; then out again, with what both squares say
-        wait_until(stage, line.end() - 0.3)?;
-        let same = kit.text(stage, SAME_TWO, 28.0, gold(), v(COLUMN_MID, -1.3))?;
-        let mut outs: Vec<Box<dyn Animation>> = Vec::new();
-        for &m in &coin_edges {
-            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            outs.push(stage.prepare(a.rt(0.3))?);
+        // the coin's two pairs that decide, where the die's two stood
+        let law = PairLaw::same_coin(bent());
+        for (pair, x) in [((Face::H, Face::T), TILE_L), ((Face::T, Face::H), TILE_R)] {
+            let parts = pair_tile(&kit, stage, pair, v(x, TILES_Y), 1.0)?;
+            coin.push(group(stage, &parts)?);
+            let share = format!("{}%", law.prob(pair.0, pair.1).percent(0));
+            coin.push(kit.text(stage, &share, 26.0, Palette::ink(), v(x, TILES_Y - SHARE_DY))?);
         }
-        outs.push(stage.prepare(tween(grid.merge, 0.0, 1.3)?)?);
+        coin.push(kit.text(stage, EQUALS, 44.0, gold(), v(COLUMN_MID, TILES_Y))?);
+        let mut coin_words = Vec::new();
+        for (row, words) in [ALICE_COIN, BOB_COIN, MATCH_COIN].into_iter().enumerate() {
+            let ink = if row == 2 { Palette::dim() } else { Palette::ink() };
+            coin_words.push(kit.text_left(stage, words, 26.0, ink, legend_at(row))?);
+        }
+        // the die's readouts leave before the picture moves (rule 3); the
+        // legend's words turn into the coin's while the cuts close
+        let mut die_side = die_edges.clone();
+        die_side.extend(&dice_column);
+        fade_out_all(stage, &die_side, 0.3)?;
+        let mut closing = vec![stage.prepare(tween(grid.merge, 1.0, CLOSE_S)?)?];
+        closing.extend(swap_words(stage, &die_words, &coin_words, CLOSE_S)?);
+        stage.play_prepared(closing)?;
+        fade_in_all(stage, &coin, 0.4)?;
+        // hold on the coin's four blocks
+        pause(stage, COIN_HOLD_S - 0.4)?;
+        // then out again, with what both squares say
+        fade_out_all(stage, &coin, 0.3)?;
+        let same = kit.text(stage, SAME_TWO, 28.0, gold(), v(COLUMN_MID, -1.3))?;
+        let mut opening = vec![stage.prepare(tween(grid.merge, 0.0, OPEN_S)?)?];
         let a = fade_in(stage.arena_mut(), same, ORIGIN, 1.0)?;
-        outs.push(stage.prepare(a.rt(1.3))?);
-        stage.play_prepared(outs)?;
-        fade_in_all(stage, &die_edges, 0.4)?;
+        opening.push(stage.prepare(a.rt(OPEN_S))?);
+        opening.extend(swap_words(stage, &coin_words, &die_words, OPEN_S)?);
+        stage.play_prepared(opening)?;
+        fade_in_all(stage, &die_side, 0.4)?;
         kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)

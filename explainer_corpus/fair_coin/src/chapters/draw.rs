@@ -105,6 +105,70 @@ pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
     wait_frames(stage, frames_covering(seconds, fps))
 }
 
+// --------------------------------------------------------------- think time
+
+/// How long the viewer gets to think after a ⟨predict⟩ question, the
+/// narration silent (the owner's quiz rule: 4 to 6 s, with a visible
+/// countdown).
+pub const THINK_S: f64 = 4.0;
+const THINK_R: f64 = 0.62;
+const PAUSE_NOTE: &str = "pause for more time";
+
+/// The prediction pause with think time, in place of the kit's two-second
+/// one: let the question finish, mark the moment for the score, bring in a
+/// large "?" at `at` inside a gold ring that drains over [`THINK_S`] with
+/// "pause for more time" under it; at zero the ring and the note go.
+/// Returns the "?", which the scene clears with the answer.
+pub fn predict_pause(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+    kit.hold(stage)?;
+    kit.mark(stage, "predict");
+    let q = kit.text(stage, "?", 90.0, Palette::hero(), at)?;
+    // beside the ring, not under it: under it sits on the coin (01_6) or
+    // the die (08_2)
+    let note = kit.text_left(stage, PAUSE_NOTE, 18.0, Palette::dim(), v(at[0] + THINK_R + 0.2, at[1]))?;
+    // the ring: what is left of the think time, clockwise from the top
+    let arc = move |f: f64| -> Vec<Vec3> {
+        let f = f.clamp(0.002, 1.0);
+        let n = (96.0 * f).ceil() as usize + 2;
+        (0..n)
+            .map(|i| {
+                let a = std::f64::consts::FRAC_PI_2 - std::f64::consts::TAU * f * i as f64 / (n - 1) as f64;
+                v(at[0] + THINK_R * a.cos(), at[1] + THINK_R * a.sin())
+            })
+            .collect()
+    };
+    let left = stage.add_value_tracker(1.0);
+    let ring = stage
+        .arena_mut()
+        .add(polyline(arc(1.0)).style(line_style(gold(), 4.0)).build());
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let mut last = None;
+    stage.add_updater(
+        anchor,
+        move |s, _| {
+            let f = s.tracker_value(left).unwrap_or(0.0);
+            if last == Some(f) {
+                return;
+            }
+            let _ = s.set_points(ring, polyline(arc(f)).build().points());
+            last = Some(f);
+        },
+        true,
+    )?;
+    fade_in_all(stage, &[anchor, ring, q, note], 0.3)?;
+    let drain = left
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(THINK_S),
+            rate_func: Some(fmn::core::rate::linear),
+            ..AnimateArgs::default()
+        })?
+        .set_value(0.0)?;
+    stage.play(drain)?;
+    fade_out_all(stage, &[anchor, ring, note], 0.25)?;
+    Ok(q)
+}
+
 // ------------------------------------------------------------- colour roles
 
 /// Heads; for a die, the stretch of a bigger roll (drawn nearer the corner).
@@ -213,6 +277,21 @@ pub fn fade_out_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result
     }
     stage.play_prepared(anims)?;
     Ok(())
+}
+
+/// Fade out every top-level mobject except `keep`, `rt` seconds: how a
+/// chapter ends when the next one opens on the same picture, so the picture
+/// stays through the cut. `keep` must be top-level mobjects themselves (a
+/// kept member of a group that fades would fade with it).
+pub fn fade_all_but(stage: &mut Stage<'_>, keep: &[Mob], rt: f64) -> fmn::Result<()> {
+    let leaving: Vec<Mob> = stage
+        .scene()
+        .mobjects()
+        .iter()
+        .copied()
+        .filter(|m| !keep.contains(m))
+        .collect();
+    fade_out_all(stage, &leaving, rt)
 }
 
 /// Bring detached mobjects in one after another (a lagged reveal), the whole
@@ -900,18 +979,25 @@ impl CubePose {
 }
 
 /// One box of the cube on stage: three trackers move it (a shift in unit
-/// coordinates, for sliding it out), one turns it about its own centre, and
-/// its six faces are placed by the cube's updater.
+/// coordinates, for sliding it out), one turns it about its own centre, two
+/// light it and show it, and its six faces are placed by the cube's updater.
 #[derive(Clone, Copy, Debug)]
 pub struct CubeBox {
     pub spec: BoxSpec,
     pub shift: [Mob; 3],
     /// 0 to 1: how far the box has turned towards `turned` (its sides
-    /// permuted), about its own centre.
+    /// permuted), about its own centre, by the smallest rotation that does
+    /// it (a box never folds flat on the way).
     pub turn: Mob,
     /// Which of the box's own sides lies along the first, second and third
     /// direction once it has turned (identity: no turn).
     pub turned: [usize; 3],
+    /// 0 to 1: from its plain colour to the lit one with a gold edge.
+    pub light: Mob,
+    /// 0 to 1: how present the box is (1 solid, 0 gone).
+    pub shown: Mob,
+    /// Its own colour (the cube's `tint` shows it).
+    pub color: Srgb,
     pub faces: [Mob; 6],
 }
 
@@ -924,12 +1010,43 @@ pub struct CubeView {
     pub depth: Mob,
 }
 
-/// Boxes drawn in a parallel projection from trackers: the square with a
-/// third side.
+/// Solid boxes drawn in a parallel projection from trackers: the square with
+/// a third side. A face is opaque: its shade is drawn as colour (the box's
+/// colour darkened towards the background), so nothing shows through a box.
 pub struct Cube {
     pub view: CubeView,
     pub boxes: Vec<CubeBox>,
     pub anchor: Mob,
+    /// 1: every box in its own colour; 0: every box in `base`.
+    pub tint: Mob,
+    /// 1: a lit box wears a gold edge; 0: no gold anywhere.
+    pub rim: Mob,
+    pub base: Srgb,
+    pub lit: Srgb,
+}
+
+/// A piece of a cube nobody has named yet, and one that has.
+pub fn piece_grey() -> Srgb {
+    hex("#3E4A60")
+}
+
+pub fn piece_lit() -> Srgb {
+    hex("#8191AE")
+}
+
+/// `a` mixed towards `b` by `t` (0 to 1), channel by channel.
+pub fn mix(a: Srgb, b: Srgb, t: f64) -> Srgb {
+    let t = t.clamp(0.0, 1.0);
+    Srgb {
+        r: a.r + (b.r - a.r) * t,
+        g: a.g + (b.g - a.g) * t,
+        b: a.b + (b.b - a.b) * t,
+    }
+}
+
+/// The background, for shading towards.
+fn ground() -> Srgb {
+    hex("#0E1116")
 }
 
 /// A unit box's eight corners, bit `i` of the index choosing the high end
@@ -988,13 +1105,12 @@ impl Cube {
                 .total_cmp(&reference.far(specs[a].0.center()))
         });
         let mut boxes = Vec::with_capacity(specs.len());
-        let mut colors = Vec::with_capacity(specs.len());
         for &i in &order {
             let (spec, color) = specs[i];
             let faces: [Mob; 6] = std::array::from_fn(|_| {
                 stage.arena_mut().add(
                     Polygon::new(unit_quad())
-                        .style(Style::default().fill(color, 1.0).stroke(hex("#0E1116"), 1.6, 0.9))
+                        .style(Style::default().fill(color, 1.0).stroke(ground(), 1.6, 0.9))
                         .build(),
                 )
             });
@@ -1003,12 +1119,29 @@ impl Cube {
                 shift: [0, 1, 2].map(|_| stage.add_value_tracker(0.0)),
                 turn: stage.add_value_tracker(0.0),
                 turned: [0, 1, 2],
+                light: stage.add_value_tracker(0.0),
+                shown: stage.add_value_tracker(1.0),
+                color,
                 faces,
             });
-            colors.push(color);
         }
         let anchor = stage.arena_mut().add(VMobject::new());
-        Ok(Self { view, boxes, anchor })
+        Ok(Self {
+            view,
+            boxes,
+            anchor,
+            tint: stage.add_value_tracker(1.0),
+            rim: stage.add_value_tracker(1.0),
+            base: piece_grey(),
+            lit: piece_lit(),
+        })
+    }
+
+    /// The plain and the lit colour of every box (default `piece_grey` and
+    /// `piece_lit`). Call before [`Cube::install`].
+    pub fn set_look(&mut self, base: Srgb, lit: Srgb) {
+        self.base = base;
+        self.lit = lit;
     }
 
     /// The box built from `spec` (boxes are stored back to front, not in
@@ -1028,15 +1161,24 @@ impl Cube {
     pub fn install(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let view = self.view;
         let boxes = self.boxes.clone();
+        let rotations: Vec<Rotation> = boxes.iter().map(|b| Rotation::of(b.turned)).collect();
+        let (tint, rim, base, lit) = (self.tint, self.rim, self.base, self.lit);
         let mut last: Option<Vec<f64>> = None;
         stage.add_updater(
             self.anchor,
             move |s, _| {
                 let val = |m: Mob| s.tracker_value(m).unwrap_or(0.0);
-                let mut now = vec![val(view.left), val(view.bottom), val(view.side), val(view.depth)];
+                let mut now = vec![
+                    val(view.left),
+                    val(view.bottom),
+                    val(view.side),
+                    val(view.depth),
+                    val(tint),
+                    val(rim),
+                ];
                 for b in &boxes {
                     now.extend(b.shift.map(val));
-                    now.push(val(b.turn));
+                    now.extend([val(b.turn), val(b.light), val(b.shown)]);
                 }
                 if last.as_ref() == Some(&now) {
                     return;
@@ -1047,10 +1189,18 @@ impl Cube {
                     side: now[2],
                     depth: now[3],
                 };
+                let (tint, rim) = (now[4], now[5].clamp(0.0, 1.0));
                 for (k, b) in boxes.iter().enumerate() {
-                    let at = 4 + 4 * k;
-                    let (shift, turn) = ([now[at], now[at + 1], now[at + 2]], now[at + 3]);
-                    place_box(s, &pose, b, shift, turn);
+                    let at = 6 + 6 * k;
+                    let shift = [now[at], now[at + 1], now[at + 2]];
+                    let (turn, light, shown) = (now[at + 3], now[at + 4].clamp(0.0, 1.0), now[at + 5]);
+                    let look = Look {
+                        paint: mix(mix(base, b.color, tint), lit, light),
+                        edge: mix(ground(), gold(), light * rim),
+                        width: 1.6 + 1.4 * light * rim,
+                        shown: shown.clamp(0.0, 1.0),
+                    };
+                    place_box(s, &pose, b, &rotations[k], shift, turn, look);
                 }
                 last = Some(now);
             },
@@ -1074,22 +1224,136 @@ impl Cube {
     }
 }
 
+/// How one box is painted this frame.
+#[derive(Clone, Copy)]
+struct Look {
+    paint: Srgb,
+    edge: Srgb,
+    width: f64,
+    shown: f64,
+}
+
+/// The turn that takes a box from its place in the cube to `turned`, as a
+/// rotation: a unit quaternion (w, x, y, z). A box looks the same with any of
+/// its sides reversed, so of the rotations that land each side on its new
+/// direction (either way along it) this is the one through the smallest
+/// angle; a turn interpolated along it keeps the box a box (a side-by-side
+/// slerp would fold it flat halfway through a swap).
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct Rotation {
+    q: [f64; 4],
+}
+
+impl Rotation {
+    fn of(turned: [usize; 3]) -> Self {
+        // column `own` of the matrix: where the box's own side goes
+        let dest = |own: usize| turned.iter().position(|&x| x == own).unwrap_or(own);
+        let mut best: Option<([[f64; 3]; 3], f64)> = None;
+        for signs in 0..8u32 {
+            let mut m = [[0.0; 3]; 3];
+            for own in 0..3 {
+                m[dest(own)][own] = if signs >> own & 1 == 1 { -1.0 } else { 1.0 };
+            }
+            let det = m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
+                - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+                + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+            if det < 0.0 {
+                continue;
+            }
+            let trace = m[0][0] + m[1][1] + m[2][2];
+            if best.is_none_or(|(_, t)| trace > t + 1e-9) {
+                best = Some((m, trace));
+            }
+        }
+        let (m, _) = best.unwrap_or(([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]], 3.0));
+        Self { q: quaternion(m) }
+    }
+
+    /// `v` turned `t` of the way (0 to 1).
+    fn apply(&self, v: [f64; 3], t: f64) -> [f64; 3] {
+        let [w, x, y, z] = self.q;
+        let angle = 2.0 * w.clamp(-1.0, 1.0).acos();
+        let s = (angle / 2.0).sin();
+        if s.abs() < 1e-9 {
+            return v;
+        }
+        let axis = [x / s, y / s, z / s];
+        let half = angle * t.clamp(0.0, 1.0) / 2.0;
+        let (qw, sh) = (half.cos(), half.sin());
+        let a = axis.map(|c| c * sh);
+        let cross = |p: [f64; 3], q: [f64; 3]| {
+            [
+                p[1] * q[2] - p[2] * q[1],
+                p[2] * q[0] - p[0] * q[2],
+                p[0] * q[1] - p[1] * q[0],
+            ]
+        };
+        let av = cross(a, v);
+        let aav = cross(a, av);
+        [0, 1, 2].map(|i| v[i] + 2.0 * qw * av[i] + 2.0 * aav[i])
+    }
+}
+
+/// A rotation matrix (columns are images of the axes) as a unit quaternion
+/// with w ≥ 0 (Shepperd's method).
+fn quaternion(m: [[f64; 3]; 3]) -> [f64; 4] {
+    let tr = m[0][0] + m[1][1] + m[2][2];
+    let q = if tr > 0.0 {
+        let s = (tr + 1.0).sqrt() * 2.0;
+        [
+            0.25 * s,
+            (m[2][1] - m[1][2]) / s,
+            (m[0][2] - m[2][0]) / s,
+            (m[1][0] - m[0][1]) / s,
+        ]
+    } else if m[0][0] > m[1][1] && m[0][0] > m[2][2] {
+        let s = (1.0 + m[0][0] - m[1][1] - m[2][2]).sqrt() * 2.0;
+        [
+            (m[2][1] - m[1][2]) / s,
+            0.25 * s,
+            (m[0][1] + m[1][0]) / s,
+            (m[0][2] + m[2][0]) / s,
+        ]
+    } else if m[1][1] > m[2][2] {
+        let s = (1.0 + m[1][1] - m[0][0] - m[2][2]).sqrt() * 2.0;
+        [
+            (m[0][2] - m[2][0]) / s,
+            (m[0][1] + m[1][0]) / s,
+            0.25 * s,
+            (m[1][2] + m[2][1]) / s,
+        ]
+    } else {
+        let s = (1.0 + m[2][2] - m[0][0] - m[1][1]).sqrt() * 2.0;
+        [
+            (m[1][0] - m[0][1]) / s,
+            (m[0][2] + m[2][0]) / s,
+            (m[1][2] + m[2][1]) / s,
+            0.25 * s,
+        ]
+    };
+    if q[0] < 0.0 { q.map(|c| -c) } else { q }
+}
+
 /// Place one box's faces: its corners, turned `turn` of the way towards its
-/// final orientation about its own centre, shifted, projected; faces that
-/// point away from the viewer are hidden.
-fn place_box(s: &mut fmn::mobject::Stage, pose: &CubePose, b: &CubeBox, shift: [f64; 3], turn: f64) {
+/// final orientation about its own centre, shifted, projected, and painted
+/// solid; faces that point away from the viewer are hidden.
+fn place_box(
+    s: &mut fmn::mobject::Stage,
+    pose: &CubePose,
+    b: &CubeBox,
+    rotation: &Rotation,
+    shift: [f64; 3],
+    turn: f64,
+    look: Look,
+) {
     let c = b.spec.center();
     let half = b.spec.size.map(|x| x / 2.0);
-    // the box's own three half-sides, as vectors: unturned they lie along the
-    // directions; fully turned, side `turned[i]` lies along direction i
+    // the box's own three half-sides, as vectors, turned together
     let mut sides = [[0.0; 3]; 3];
     for (own, side) in sides.iter_mut().enumerate() {
-        let to = b.turned.iter().position(|&x| x == own).unwrap_or(own);
-        let mut from_dir = [0.0; 3];
-        from_dir[own] = 1.0;
-        let mut to_dir = [0.0; 3];
-        to_dir[to] = 1.0;
-        *side = slerp(from_dir, to_dir, turn).map(|x| x * half[own]);
+        let mut dir = [0.0; 3];
+        dir[own] = half[own];
+        *side = rotation.apply(dir, turn);
     }
     let point = |k: usize| -> [f64; 3] {
         let mut p = [c[0] + shift[0], c[1] + shift[1], c[2] + shift[2]];
@@ -1111,9 +1375,16 @@ fn place_box(s: &mut fmn::mobject::Stage, pose: &CubePose, b: &CubeBox, shift: [
         let seen = away < -1e-6;
         let quad = corners.map(|k| pose.project(point(k)));
         let _ = s.set_points(m, Polygon::new(quad).build().points());
-        let shade = face_shade(n);
-        s.set_fill(m, None, Some(if seen { shade } else { 0.0 }), None, false);
-        s.set_stroke(m, None, None, Some(if seen { 0.9 } else { 0.0 }), None, false);
+        // shading grows with the depth: a cube with no depth is the square
+        let shade = 1.0 - pose.depth.clamp(0.0, 1.0) * (1.0 - face_shade(n));
+        let fill = mix(ground(), look.paint, shade);
+        let (fill_o, line_o) = if seen {
+            (look.shown, 0.9 * look.shown)
+        } else {
+            (0.0, 0.0)
+        };
+        s.set_fill(m, Some(fill), Some(fill_o), None, false);
+        s.set_stroke(m, Some(look.edge), Some(look.width), Some(line_o), None, false);
     }
 }
 
@@ -1155,6 +1426,541 @@ pub fn cut_boxes(cuts: [&[f64]; 3]) -> Vec<(BoxSpec, [usize; 3])> {
         }
     }
     out
+}
+
+// --------------------------------------------- the glass box and its edges
+
+/// The side of the cube once it stands (06 and 09): its front face's
+/// lower-left corner stays at the square's home, `SQUARE_AT`.
+pub const CUBE_SIDE: f64 = 3.0;
+
+/// Where a cube's third edge lies on screen, away from the cube: at right
+/// angles to the third direction, down and to the right.
+fn third_out() -> (f64, f64) {
+    let len = DEPTH_DIR.0.hypot(DEPTH_DIR.1);
+    (DEPTH_DIR.1 / len, -DEPTH_DIR.0 / len)
+}
+
+fn cube_pose(s: &fmn::mobject::Stage, view: CubeView) -> CubePose {
+    let val = |m: Mob| s.tracker_value(m).unwrap_or(0.0);
+    CubePose {
+        left: val(view.left),
+        bottom: val(view.bottom),
+        side: val(view.side),
+        depth: val(view.depth),
+    }
+}
+
+impl CubeView {
+    /// This frame's pose.
+    pub fn pose(&self, stage: &Stage<'_>) -> CubePose {
+        cube_pose(stage.arena(), *self)
+    }
+}
+
+/// The glass box a cube's pieces stand in: its three far faces (the back,
+/// the left side and the floor) as dark panels carrying the cuts, their
+/// edges, and the three edges nearest the viewer drawn faintly, all
+/// following the cube's trackers. Add it before the cube's pieces.
+pub struct CubeRoom {
+    pub anchor: Mob,
+    /// The back, the left side, the floor.
+    pub walls: [Mob; 3],
+    pub cuts: Vec<Mob>,
+    pub edges: Vec<Mob>,
+    pub near: Vec<Mob>,
+}
+
+impl CubeRoom {
+    /// The room for a cube on `view`, cut at `cuts` along each direction (the
+    /// running totals from 0 to 1, as for [`cut_boxes`]). Detached.
+    pub fn build(stage: &mut Stage<'_>, view: CubeView, cuts: [&[f64]; 3]) -> fmn::Result<Self> {
+        let wall_quads = [
+            [[0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [1.0, 1.0, 1.0], [0.0, 1.0, 1.0]],
+            [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 1.0], [0.0, 1.0, 0.0]],
+            [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 0.0, 1.0], [0.0, 0.0, 1.0]],
+        ];
+        let tones = ["#1B2332", "#161D29", "#222C3D"];
+        let walls: [Mob; 3] = std::array::from_fn(|i| {
+            stage
+                .arena_mut()
+                .add(Polygon::new(unit_quad()).style(flat(hex(tones[i]), 1.0)).build())
+        });
+        let inner = |a: usize| cuts[a].get(1..cuts[a].len().saturating_sub(1)).unwrap_or(&[]).to_vec();
+        let mut cut_ends: Vec<[[f64; 3]; 2]> = Vec::new();
+        for c in inner(0) {
+            cut_ends.push([[c, 0.0, 1.0], [c, 1.0, 1.0]]);
+            cut_ends.push([[c, 0.0, 0.0], [c, 0.0, 1.0]]);
+        }
+        for c in inner(1) {
+            cut_ends.push([[0.0, c, 1.0], [1.0, c, 1.0]]);
+            cut_ends.push([[0.0, c, 0.0], [0.0, c, 1.0]]);
+        }
+        for c in inner(2) {
+            cut_ends.push([[0.0, 0.0, c], [0.0, 1.0, c]]);
+            cut_ends.push([[0.0, 0.0, c], [1.0, 0.0, c]]);
+        }
+        // the edges of the three far faces, then the three nearest the viewer
+        let corner = |k: usize| [0, 1, 2].map(|a| f64::from(u8::from(k >> a & 1 == 1)));
+        let (mut edge_ends, mut near_ends) = (Vec::new(), Vec::new());
+        for k in 0..8usize {
+            for a in 0..3 {
+                if k >> a & 1 == 1 {
+                    continue;
+                }
+                let ends = [corner(k), corner(k | 1 << a)];
+                let far = ends.iter().all(|p| p[2] == 1.0)
+                    || ends.iter().all(|p| p[0] == 0.0)
+                    || ends.iter().all(|p| p[1] == 0.0);
+                if far {
+                    edge_ends.push(ends);
+                } else {
+                    near_ends.push(ends);
+                }
+            }
+        }
+        let mut lines = |n: usize, style: Style| -> Vec<Mob> {
+            (0..n)
+                .map(|_| {
+                    stage
+                        .arena_mut()
+                        .add(polyline(vec![v(0.0, 0.0), v(1.0, 0.0)]).style(style).build())
+                })
+                .collect()
+        };
+        let cut_mobs = lines(cut_ends.len(), line_style(hex("#465269"), 1.5));
+        let edge_mobs = lines(edge_ends.len(), faded_line(Palette::dim(), 2.0, 0.85));
+        let near_mobs = lines(near_ends.len(), faded_line(Palette::dim(), 1.5, 0.35));
+        let all_lines: Vec<(Mob, [[f64; 3]; 2])> = cut_mobs
+            .iter()
+            .chain(&edge_mobs)
+            .chain(&near_mobs)
+            .copied()
+            .zip(cut_ends.into_iter().chain(edge_ends).chain(near_ends))
+            .collect();
+        let quads: Vec<(Mob, [[f64; 3]; 4])> = walls.iter().copied().zip(wall_quads).collect();
+        let anchor = stage.arena_mut().add(VMobject::new());
+        let mut last: Option<CubePose> = None;
+        stage.add_updater(
+            anchor,
+            move |s, _| {
+                let mut pose = cube_pose(s, view);
+                // never quite flat: a face with no width is not a shape
+                pose.depth = pose.depth.max(0.004);
+                if last == Some(pose) {
+                    return;
+                }
+                for &(m, quad) in &quads {
+                    let _ = s.set_points(m, Polygon::new(quad.map(|p| pose.project(p))).build().points());
+                }
+                for &(m, ends) in &all_lines {
+                    let _ = s.set_points(m, polyline(ends.map(|p| pose.project(p)).to_vec()).build().points());
+                }
+                last = Some(pose);
+            },
+            true,
+        )?;
+        Ok(Self {
+            anchor,
+            walls,
+            cuts: cut_mobs,
+            edges: edge_mobs,
+            near: near_mobs,
+        })
+    }
+
+    /// Everything, back to front.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut out = vec![self.anchor];
+        out.extend(self.walls);
+        out.extend(self.cuts.iter().chain(&self.edges).chain(&self.near));
+        out
+    }
+}
+
+/// One edge of a [`CubeRuler`]: its stretches (from, to, colour) along the
+/// direction from the front corner, a word for each stretch (or none), and
+/// the edge's name.
+pub struct RulerEdge {
+    pub stretches: Vec<(f64, f64, Srgb)>,
+    pub words: Vec<Option<String>>,
+    /// The words' colour; `None` paints each in its stretch's colour.
+    pub word_color: Option<Srgb>,
+    pub word_size: f64,
+    /// How far beside the second edge its words sit (the square's own
+    /// "heads" and "tails" sit 0.55 out; digits 0.38).
+    pub word_out: f64,
+    pub name: Option<String>,
+}
+
+/// Coloured stretches just outside a cube's three nearest edges, as the
+/// square has along two (the same 7-point bar, 0.1 out): under the front's
+/// bottom edge (the first toss or roll), beside its left edge (the second),
+/// and along the floor's right edge going back (the third), which grows as
+/// the cube gains depth. Words and names follow the cube's trackers.
+pub struct RulerParts {
+    pub anchor: Mob,
+    pub stretches: [Vec<Mob>; 3],
+    pub words: [Vec<Mob>; 3],
+    pub names: Vec<Mob>,
+}
+
+impl RulerParts {
+    /// Everything, back to front.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut out = vec![self.anchor];
+        out.extend(self.stretches.iter().flatten());
+        out.extend(self.words.iter().flatten());
+        out.extend(&self.names);
+        out
+    }
+}
+
+/// Build the ruler for a cube on `view`; `gap` (scene units) is left at each
+/// end of every stretch (0: one unbroken bar, as the square's). Detached.
+pub fn cube_ruler(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    view: CubeView,
+    edges: [RulerEdge; 3],
+    gap: f64,
+) -> fmn::Result<RulerParts> {
+    let mut stretches: [Vec<Mob>; 3] = Default::default();
+    let mut words: [Vec<Mob>; 3] = Default::default();
+    let mut names = Vec::new();
+    // (mob, edge, from, to) for the bars; (mob, edge, at along, align) for text
+    let mut bar_spots: Vec<(Mob, usize, f64, f64)> = Vec::new();
+    let mut text_spots: Vec<(Mob, usize, f64, f64, bool)> = Vec::new();
+    for (a, edge) in edges.iter().enumerate() {
+        for (i, &(from, to, color)) in edge.stretches.iter().enumerate() {
+            let bar = polyline(vec![v(0.0, 0.0), v(1.0, 0.0)])
+                .style(line_style(color, 7.0))
+                .build();
+            let bar = stage.arena_mut().add(bar);
+            stretches[a].push(bar);
+            bar_spots.push((bar, a, from, to));
+            if let Some(Some(word)) = edge.words.get(i) {
+                let ink = edge.word_color.unwrap_or(color);
+                let m = kit.text(stage, word, edge.word_size, ink, ORIGIN)?;
+                words[a].push(m);
+                text_spots.push((m, a, (from + to) / 2.0, edge.word_out, false));
+            }
+        }
+        if let Some(name) = &edge.name {
+            let m = kit.text(stage, name, 22.0, Palette::dim(), ORIGIN)?;
+            names.push(m);
+            text_spots.push((m, a, 0.5, -1.0, true));
+        }
+    }
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let (ox, oy) = third_out();
+    let mut last: Option<CubePose> = None;
+    stage.add_updater(
+        anchor,
+        move |s, _| {
+            let pose = cube_pose(s, view);
+            // the bars only when the cube has moved; the words every frame,
+            // since a fade that brings one in would otherwise leave it where
+            // the fade began
+            let moved = last != Some(pose);
+            // a point along edge `a`, `t` of the way from the front corner,
+            // and the way out from that edge (unit)
+            let along = |a: usize, t: f64| -> Vec3 {
+                match a {
+                    0 => pose.project([t, 0.0, 0.0]),
+                    1 => pose.project([0.0, t, 0.0]),
+                    _ => pose.project([1.0, 0.0, t]),
+                }
+            };
+            let out = |a: usize| -> (f64, f64) {
+                match a {
+                    0 => (0.0, -1.0),
+                    1 => (-1.0, 0.0),
+                    _ => (ox, oy),
+                }
+            };
+            for &(m, a, from, to) in bar_spots.iter().filter(|_| moved) {
+                let (p, q) = (along(a, from), along(a, to));
+                let (dx, dy) = (q[0] - p[0], q[1] - p[1]);
+                let len = dx.hypot(dy);
+                let trim = if len > 2.0 * gap + 1e-3 { gap / len } else { 0.0 };
+                let (u, w) = out(a);
+                let end = |f: f64| v(p[0] + dx * f + 0.1 * u, p[1] + dy * f + 0.1 * w);
+                let (start, mut finish) = (end(trim), end(1.0 - trim));
+                // a stretch with no length (the third edge of a flat cube) is a dot
+                if len < 1e-4 {
+                    finish = v(start[0] + 1e-4, start[1] + 1e-4);
+                }
+                let _ = s.set_points(m, polyline(vec![start, finish]).build().points());
+            }
+            for &(m, a, t, word_out, is_name) in &text_spots {
+                let p = along(a, t);
+                let (u, w) = out(a);
+                let (at, edge) = match (a, is_name) {
+                    (0, false) => (v(p[0], pose.bottom - 0.38), ORIGIN),
+                    (0, true) => (v(p[0], pose.bottom - 0.8), ORIGIN),
+                    (1, false) => (v(pose.left - word_out, p[1]), ORIGIN),
+                    (1, true) => (v(pose.left - 0.95, pose.project([0.0, 1.0, 0.0])[1] + 0.32), LEFT),
+                    (_, false) => (v(p[0] + 0.45 * u, p[1] + 0.45 * w), ORIGIN),
+                    (_, true) => (v(p[0] + 0.72 * u, p[1] + 0.72 * w), LEFT),
+                };
+                s.move_to(m, at, edge);
+            }
+            last = Some(pose);
+        },
+        true,
+    )?;
+    Ok(RulerParts {
+        anchor,
+        stretches,
+        words,
+        names,
+    })
+}
+
+// ------------------------------------------------- the row for four tosses
+
+/// From one group's centre to the next in a row of groups, and a group's box.
+pub const ROW_PITCH: f64 = 2.6;
+pub const ROW_BOX_W: f64 = 2.5;
+/// The row for four tosses (06_6 to 07_4): the height of its boxes' centres,
+/// their height, where the counts ("4 heads") sit over them and the group
+/// sizes under them.
+pub const FOUR_ROW_Y: f64 = -1.65;
+pub const FOUR_ROW_BOX_H: f64 = 1.2;
+pub const FOUR_ROW_COUNT_Y: f64 = -0.82;
+pub const FOUR_ROW_SIZE_Y: f64 = -2.55;
+/// The bars over the row: their foot, their width, and how tall a chance of
+/// one would be.
+pub const FOUR_ROW_BAR_FOOT: f64 = -0.55;
+pub const FOUR_ROW_BAR_W: f64 = 1.3;
+pub const FOUR_ROW_BAR_UNIT: f64 = 7.4;
+
+const HEADS_WORD: &str = "heads";
+const HEAD_WORD: &str = "head";
+const TOSSES_WORD: &str = "tosses";
+
+/// The x of group `k` (how many tails; all heads on the left) in the row for
+/// `n` tosses, the rows centred on x = 0.
+pub fn row_x(n: usize, k: usize) -> f64 {
+    ROW_PITCH * (k as f64 - n as f64 / 2.0)
+}
+
+/// "3 heads", "1 head", "0 heads".
+pub fn heads_count(heads: usize) -> String {
+    format!("{heads} {}", if heads == 1 { HEAD_WORD } else { HEADS_WORD })
+}
+
+/// A group's box: a rounded panel, drawn behind whatever stands in it.
+/// Detached.
+pub fn group_box(stage: &mut Stage<'_>, at: Vec3, height: f64) -> fmn::Result<Mob> {
+    let back = Rectangle::new()
+        .width(ROW_BOX_W)
+        .height(height)
+        .corner_radius(0.12)
+        .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(at);
+    Ok(stage.arena_mut().add(back))
+}
+
+/// A pattern of four tosses as a small tile: its discs on a back, centred at
+/// `at`. Detached, one group (the back first).
+pub fn pattern_tile(stage: &mut Stage<'_>, pattern: &[Face], at: Vec3) -> fmn::Result<Mob> {
+    let back = Rectangle::new()
+        .width(1.04)
+        .height(0.3)
+        .corner_radius(0.07)
+        .style(flat(hex("#2A3447"), 1.0))
+        .build()?
+        .moved_to(at);
+    let mut parts = vec![stage.arena_mut().add(back)];
+    let step = 0.23;
+    let left = v(at[0] - step * (pattern.len() as f64 - 1.0) / 2.0, at[1]);
+    parts.extend(disc_row(stage, pattern, left, 0.09, step));
+    group(stage, &parts)
+}
+
+/// The row for four tosses, one drawing for chapters 06 and 07: five boxes
+/// side by side, one per count of heads (four heads on the left), each
+/// holding its patterns as tiles (two to a line); the counts over the boxes,
+/// the group sizes (Pascal's row, `model::pascal_row`) under them, and "4
+/// tosses" to the left of the sizes. Index `k` is the number of tails.
+pub struct FourRow {
+    pub boxes: [Mob; 5],
+    /// Each group's patterns, in `model::patterns` order.
+    pub tiles: [Vec<Mob>; 5],
+    pub patterns: [Vec<Vec<Face>>; 5],
+    /// "4 heads" … "0 heads".
+    pub counts: [Mob; 5],
+    /// 1, 4, 6, 4, 1.
+    pub sizes: [Mob; 5],
+    /// "4 tosses".
+    pub name: Mob,
+}
+
+impl FourRow {
+    /// Build the row at its one place (`FOUR_ROW_*`). Detached: bring in
+    /// [`FourRow::mobs`] (back to front), or any part of it.
+    pub fn build(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Self> {
+        let n = 4usize;
+        let sizes_q = crate::model::pascal_row(n as u32);
+        let mut boxes = Vec::new();
+        let mut tiles: [Vec<Mob>; 5] = Default::default();
+        let mut patterns: [Vec<Vec<Face>>; 5] = Default::default();
+        let mut counts = Vec::new();
+        let mut sizes = Vec::new();
+        for k in 0..=n {
+            let at = Self::center(k);
+            boxes.push(group_box(stage, at, FOUR_ROW_BOX_H)?);
+            let group_patterns = crate::model::patterns(n as u32, (n - k) as u32);
+            let cols = group_patterns.len().min(2);
+            let lines = group_patterns.len().div_ceil(cols);
+            for (i, pattern) in group_patterns.iter().enumerate() {
+                let dx = 1.12 * ((i % cols) as f64 - (cols as f64 - 1.0) / 2.0);
+                let dy = 0.36 * ((lines as f64 - 1.0) / 2.0 - (i / cols) as f64);
+                tiles[k].push(pattern_tile(stage, pattern, v(at[0] + dx, at[1] + dy))?);
+            }
+            patterns[k] = group_patterns;
+            let count = heads_count(n - k);
+            counts.push(kit.text(stage, &count, 20.0, Palette::dim(), v(at[0], FOUR_ROW_COUNT_Y))?);
+            let size = sizes_q[n - k].to_string();
+            sizes.push(kit.text(stage, &size, 40.0, Palette::ink(), v(at[0], FOUR_ROW_SIZE_Y))?);
+        }
+        let name = format!("{n} {TOSSES_WORD}");
+        let name = kit.text(stage, &name, 22.0, Palette::dim(), v(0.0, FOUR_ROW_SIZE_Y))?;
+        stage.move_to(name, v(row_x(n, 0) - 0.45, FOUR_ROW_SIZE_Y), RIGHT);
+        let five = |v: Vec<Mob>| -> fmn::Result<[Mob; 5]> {
+            v.try_into()
+                .map_err(|_| fail("the row for four tosses has five groups".into()))
+        };
+        Ok(Self {
+            boxes: five(boxes)?,
+            tiles,
+            patterns,
+            counts: five(counts)?,
+            sizes: five(sizes)?,
+            name,
+        })
+    }
+
+    /// The centre of box `k` on screen.
+    pub fn center(k: usize) -> Vec3 {
+        v(row_x(4, k), FOUR_ROW_Y)
+    }
+
+    /// The height of the top edge of every box.
+    pub fn top() -> f64 {
+        FOUR_ROW_Y + FOUR_ROW_BOX_H / 2.0
+    }
+
+    /// Every tile, group by group.
+    pub fn all_tiles(&self) -> Vec<Mob> {
+        self.tiles.iter().flatten().copied().collect()
+    }
+
+    /// Everything, back to front: boxes, tiles, counts, sizes, name.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut out = self.boxes.to_vec();
+        out.extend(self.all_tiles());
+        out.extend(self.counts);
+        out.extend(self.sizes);
+        out.push(self.name);
+        out
+    }
+
+    /// The bars over the boxes for a coin whose chance of heads is the
+    /// tracker `chance`: bar `k` is the chance of landing in group `k`, and
+    /// its label prints it to two decimals ("40.96%"), computed exactly by
+    /// the model at the tracker's value taken to a whole percent (the chance
+    /// a slider beside it shows), never read off the bar. Detached; see
+    /// [`RowBars`].
+    pub fn bars(&self, kit: &Kit, stage: &mut Stage<'_>, chance: Mob) -> fmn::Result<RowBars> {
+        let bars: [Mob; 5] = std::array::from_fn(|k| {
+            let bar = column(v(row_x(4, k), FOUR_ROW_BAR_FOOT), FOUR_ROW_BAR_W, 0.004, Palette::dim());
+            stage.arena_mut().add(bar)
+        });
+        let anchor = stage.arena_mut().add(VMobject::new());
+        let mut last = None;
+        stage.add_updater(
+            anchor,
+            move |s, _| {
+                let c = s.tracker_value(chance).unwrap_or(0.0);
+                if last == Some(c) {
+                    return;
+                }
+                for (k, &m) in bars.iter().enumerate() {
+                    let h = FOUR_ROW_BAR_UNIT * group_chance(c, k).f64();
+                    let bar = column(v(row_x(4, k), FOUR_ROW_BAR_FOOT), FOUR_ROW_BAR_W, h, Palette::dim());
+                    let _ = s.set_points(m, bar.points());
+                }
+                last = Some(c);
+            },
+            true,
+        )?;
+        let labels: [Mob; 5] = std::array::from_fn(|k| {
+            let book = std::rc::Rc::clone(&kit.book);
+            stage.always_redraw(move |s| {
+                let c = s.tracker_value(chance).unwrap_or(0.0);
+                let q = group_chance(c, k);
+                // the printed chance is the model's at the whole percent a
+                // slider shows, so 50% reads 6.25% even as the slider leaves it
+                let shown = group_chance((c * 100.0).round() / 100.0, k);
+                let value: f64 = shown.percent(2).parse().unwrap_or(0.0);
+                let d = DecimalNumber::new(value)
+                    .num_decimal_places(2)
+                    .unit("%")
+                    .font_size(22.0)
+                    .color(Palette::ink())
+                    .build(&book)
+                    .expect("bundled digits always lay out");
+                let m = s.add(d.into_vmob());
+                let top = FOUR_ROW_BAR_FOOT + FOUR_ROW_BAR_UNIT * q.f64();
+                s.move_to(m, v(row_x(4, k), top + 0.1), DOWN);
+                m
+            })
+        });
+        Ok(RowBars {
+            chance,
+            anchor,
+            bars,
+            labels,
+        })
+    }
+}
+
+/// The chance of landing in group `k` (k tails in four tosses) for a coin
+/// with chance `c` of heads, exactly, with `c` taken to a hundredth of a
+/// percent.
+pub fn group_chance(c: f64, k: usize) -> crate::model::Q {
+    let p = crate::model::Q::new((c.clamp(0.0, 1.0) * 10_000.0).round() as i128, 10_000);
+    crate::model::count_chance(p, 4, (4 - k.min(4)) as u32)
+}
+
+/// The bars over a [`FourRow`]: one updater (on `anchor`) sizes all five from
+/// the `chance` tracker. Bring in [`RowBars::mobs`] with a fade; the labels
+/// are live readouts, so add them with `stage.add_to_scene` when they should
+/// show (they appear at once), and fade them with `fade_out_all` (which
+/// clears their updaters first).
+pub struct RowBars {
+    pub chance: Mob,
+    pub anchor: Mob,
+    pub bars: [Mob; 5],
+    pub labels: [Mob; 5],
+}
+
+impl RowBars {
+    /// The anchor and the bars, back to front (not the labels).
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut out = vec![self.anchor];
+        out.extend(self.bars);
+        out
+    }
+
+    /// The top of bar `k` on screen at chance `c` of heads.
+    pub fn top(k: usize, c: f64) -> f64 {
+        FOUR_ROW_BAR_FOOT + FOUR_ROW_BAR_UNIT * group_chance(c, k).f64()
+    }
 }
 
 // ---------------------------------------------------------------------- dice
@@ -1445,5 +2251,50 @@ mod tests {
         let half = slerp([1.0, 0.0, 0.0], [0.0, 0.0, 1.0], 0.5);
         assert!((half[0] - half[2]).abs() < 1e-12 && half[1].abs() < 1e-12);
         assert_eq!(slerp([0.0, 1.0, 0.0], [0.0, 1.0, 0.0], 0.7), [0.0, 1.0, 0.0]);
+    }
+
+    /// A turning box stays a box: its three sides stay at right angles and
+    /// keep their lengths all the way, and it lands with each side along its
+    /// new direction (either way along it), for every one of the six orders.
+    #[test]
+    fn a_turning_box_never_folds_flat() {
+        let dot = |a: [f64; 3], b: [f64; 3]| a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+        let orders = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]];
+        for turned in orders {
+            let r = Rotation::of(turned);
+            for step in 0..=10 {
+                let t = f64::from(step) / 10.0;
+                let sides = [0, 1, 2].map(|own| {
+                    let mut d = [0.0; 3];
+                    d[own] = 1.0;
+                    r.apply(d, t)
+                });
+                for i in 0..3 {
+                    assert!((dot(sides[i], sides[i]) - 1.0).abs() < 1e-9, "{turned:?} at {t}");
+                    for j in i + 1..3 {
+                        assert!(dot(sides[i], sides[j]).abs() < 1e-9, "{turned:?} folds at {t}");
+                    }
+                }
+                if step == 10 {
+                    for (dir, &own) in turned.iter().enumerate() {
+                        assert!(
+                            (sides[own][dir].abs() - 1.0).abs() < 1e-9,
+                            "{turned:?}: side {own} not along {dir}"
+                        );
+                    }
+                }
+            }
+        }
+        // a swap of two sides is a quarter turn, not a half
+        let w = Rotation::of([2, 1, 0]).q[0];
+        assert!((w - (std::f64::consts::FRAC_PI_4).cos()).abs() < 1e-9, "{w}");
+    }
+
+    /// The row's labels print the model's chances to two decimals.
+    #[test]
+    fn the_row_prints_two_decimals_from_the_model() {
+        let at = |c: f64| (0..5).map(|k| group_chance(c, k).percent(2)).collect::<Vec<_>>();
+        assert_eq!(at(0.8), ["40.96", "40.96", "15.36", "2.56", "0.16"]);
+        assert_eq!(at(0.5), ["6.25", "25.00", "37.50", "25.00", "6.25"]);
     }
 }

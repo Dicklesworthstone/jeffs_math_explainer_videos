@@ -6,13 +6,14 @@
 //! thousand seeded games land in the square as dots (02_8), and the coin's
 //! own tally sits over the game's (02_9).
 
-use explainer_kit::props::{lower_third, predict_pause};
-use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, tween, v};
+use super::draw::predict_pause;
+use explainer_kit::props::lower_third;
+use explainer_kit::{Kit, Palette, Timed, hex, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Block, COLUMN_LEFT, COLUMN_MID, SQUARE_AT, SQUARE_SIDE, SplitBar, Square, alice, bob, caption, disc, dot_batches,
-    fade_in_all, fade_out_all, flat, group, heads, line_style, pair_tile, say, tails, thrown, tween_all,
+    fade_all_but, fade_in_all, fade_out_all, flat, group, heads, line_style, pair_tile, say, tails, thrown, tween_all,
 };
 use crate::facts::{call_it_run, runs, trick_draws, trick_run};
 use crate::model::{Face, PairLaw, Q, bent, heads_first_wins, two_sigma_band};
@@ -35,7 +36,9 @@ const MATCH: &str = "a matching pair: toss two fresh ones";
 const PROGRAMMERS: &str = "for programmers:";
 const FRESH: &str =
     "fresh tosses for every pair. Reuse a toss from a thrown-away pair and you get plain heads-or-tails back";
-const GAMES_CAPTION: &str = "games, the same unfair coin";
+const GAMES_CAPTION: &str = "games of our coin,";
+const PAIRS_CAPTION: &str = "pairs, one dot each:";
+const THROWN_CAPTION: &str = "thrown away";
 const THE_COIN: &str = "the coin:";
 const THE_GAME: &str = "the game:";
 const TOSSES: &str = "tosses";
@@ -125,7 +128,6 @@ impl SceneConstruct for TossTwice {
         let line = say(&kit, stage, "02_2")?;
         let mut gone = big.clone();
         gone.push(word);
-        fade_out_all(stage, &gone, 0.4)?;
         let said = [Block::HH, Block::TT, Block::HT, Block::TH];
         let phrases = ["Two heads", "two tails", "heads then tails", "tails then heads"];
         let mut tiles: Vec<(Block, Mob)> = Vec::new();
@@ -134,7 +136,18 @@ impl SceneConstruct for TossTwice {
             let at = v(COLUMN_LEFT + 0.9 + 1.85 * i as f64, 1.7);
             let parts = pair_tile(&kit, stage, pair_of(b), at, 1.0)?;
             let tile = group(stage, &parts)?;
-            play!(stage; fade_in(stage.arena_mut(), tile, v(0.0, -0.2), 1.0)?.rt(0.45));
+            let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+            if i == 0 {
+                // the opening pair stays until the first of the four lands,
+                // so the stage is never empty
+                for &m in &gone {
+                    let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+                    anims.push(stage.prepare(a.rt(0.45))?);
+                }
+            }
+            let a = fade_in(stage.arena_mut(), tile, v(0.0, -0.2), 1.0)?;
+            anims.push(stage.prepare(a.rt(0.45))?);
+            stage.play_prepared(anims)?;
             tiles.push((b, tile));
         }
         kit.hold(stage)?;
@@ -254,6 +267,14 @@ impl SceneConstruct for TossTwice {
             let text = format!("{}%", law.prob(a, c).percent(0));
             percents.push(kit.text(stage, &text, 30.0, Palette::ink(), pose.point(u, w))?);
         }
+        // two sixteens must not share the square (16 small squares, and 16
+        // percent): the counts for the matching pairs go before the percents land
+        let (matching, deciding): (Vec<_>, Vec<_>) = counts
+            .into_iter()
+            .partition(|&(b, _)| matches!(b, Block::HH | Block::TT));
+        counts = deciding;
+        let matching: Vec<Mob> = matching.iter().map(|&(_, m)| m).collect();
+        fade_out_all(stage, &matching, 0.3)?;
         fade_in_all(stage, &percents, 0.5)?;
 
         // 02_7: Alice calls heads then tails, Bob calls tails then heads; a
@@ -382,10 +403,24 @@ impl SceneConstruct for TossTwice {
             .flat_map(|(l, d)| std::iter::once(l).chain(d))
             .collect();
         let count_y = -0.45;
-        let (ta, tb) = (stage.add_value_tracker(0.0), stage.add_value_tracker(0.0));
+        // the scores are shown once every game has landed (never a ramp
+        // toward the final count)
+        let (ta, tb) = (
+            stage.add_value_tracker(wins as f64),
+            stage.add_value_tracker((n - wins) as f64),
+        );
         let alice_word = kit.text_left(stage, ALICE, 30.0, alice(), v(COLUMN_LEFT + 0.3, count_y))?;
         let bob_word = kit.text_left(stage, BOB, 30.0, bob(), v(COLUMN_LEFT + 4.0, count_y))?;
         fade_in_all(stage, &[alice_word, bob_word], 0.3)?;
+        let mut all: Vec<Box<dyn Animation>> = Vec::new();
+        let mut lands: Vec<Box<dyn Animation>> = Vec::new();
+        for &b in &batches {
+            let a = fade_in(stage.arena_mut(), b, ORIGIN, 1.0)?;
+            lands.push(stage.prepare(a)?);
+        }
+        let lands = AnimationGroup::with_lag_ratio(stage.arena_mut(), lands, 0.5)?.with_run_time(2.6);
+        all.push(Box::new(lands));
+        stage.play_prepared(all)?;
         kit.live_number(
             stage,
             ta,
@@ -406,17 +441,6 @@ impl SceneConstruct for TossTwice {
             v(COLUMN_LEFT + 5.6, count_y),
             RIGHT,
         )?;
-        let mut all: Vec<Box<dyn Animation>> = Vec::new();
-        let mut lands: Vec<Box<dyn Animation>> = Vec::new();
-        for &b in &batches {
-            let a = fade_in(stage.arena_mut(), b, ORIGIN, 1.0)?;
-            lands.push(stage.prepare(a)?);
-        }
-        let lands = AnimationGroup::with_lag_ratio(stage.arena_mut(), lands, 0.5)?.with_run_time(2.6);
-        all.push(Box::new(lands));
-        all.push(stage.prepare(tween(ta, wins as f64, 2.6)?)?);
-        all.push(stage.prepare(tween(tb, (n - wins) as f64, 2.6)?)?);
-        stage.play_prepared(all)?;
         stage.scene_mut().bring_to_front(&chips)?;
         // the game's bar, with where a perfectly fair game would land
         let bar_left = v(COLUMN_LEFT + 0.3, -1.05);
@@ -435,10 +459,17 @@ impl SceneConstruct for TossTwice {
         let fair_2 = format!("{lo} to {hi}, {FAIR_BAND_C}");
         let fair = kit.text_left(stage, &fair_1, 20.0, Palette::dim(), v(bar_left[0], -1.58))?;
         let fair_2 = kit.text_left(stage, &fair_2, 20.0, Palette::dim(), v(bar_left[0], -1.88))?;
+        // a dot is a pair: say how many there were and how many were thrown away
+        let pairs: usize = games.iter().map(|g| g.len()).sum();
         let cap = caption(
             &kit,
             stage,
-            &format!("{} {GAMES_CAPTION}", explainer_kit::thousands(n as u64)),
+            &format!(
+                "{} {GAMES_CAPTION} {} {PAIRS_CAPTION} {} {THROWN_CAPTION}",
+                explainer_kit::thousands(n as u64),
+                explainer_kit::thousands(pairs as u64),
+                explainer_kit::thousands((pairs - n) as u64)
+            ),
         )?;
         let mut ins = game_bar.mobs().to_vec();
         ins.extend(&band);
@@ -469,8 +500,13 @@ impl SceneConstruct for TossTwice {
         // the legend makes room
         fade_out_all(stage, &legend, 0.4)?;
         fade_in_all(stage, &ins, 0.7)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
-        fade_all(stage, 0.8)?;
+        kit.music_breath(stage, 1.5)?;
+        // everything but the square goes: chapter 03 opens on it as it rests
+        // (painted, with its edges), so the picture stays through the cut
+        let mut keep = square.mobs();
+        keep.extend(edges.mobs());
+        fade_all_but(stage, &keep, 0.8)?;
+        kit.music_breath(stage, 1.0)?;
         kit.finish(stage)
     }
 }

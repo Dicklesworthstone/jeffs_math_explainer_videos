@@ -8,16 +8,17 @@
 
 use std::rc::Rc;
 
+use super::draw::predict_pause;
 use explainer_kit::animatic::HOLD_S;
-use explainer_kit::props::{lower_third, predict_pause};
-use explainer_kit::{Kit, Palette, Timed, fade_all, hex, play, v};
+use explainer_kit::props::lower_third;
+use explainer_kit::{Kit, Palette, Timed, hex, play, tween, v};
 use fmn::animation::{grow_arrow, indicate, transform_from_copy};
 use fmn::core::rate::{linear, smooth};
 use fmn::prelude::*;
 
 use super::draw::{
-    Block, SQUARE_AT, SQUARE_SIDE, Square, SquarePose, SquareView, alice, bob, fade_in_all, fade_out_all, fail, flat,
-    gold, heads, line_style, panel, pause, rgb, say, tails, thrown,
+    Block, SQUARE_AT, SQUARE_SIDE, Square, SquarePose, SquareView, alice, bob, fade_all_but, fade_in_all, fade_out_all,
+    fail, flat, gold, heads, line_style, panel, pause, rgb, say, tails, thrown, wait_until,
 };
 use crate::facts::stops;
 use crate::model::{Face, PairLaw, Q, bent};
@@ -36,8 +37,10 @@ const PROGRAMMERS: &str = "for programmers:";
 const NOTHING_TO_MEASURE: &str = "nothing to measure first, and no stored constant to go stale";
 const SAME_CHANCE: &str = "the same chance on both tosses";
 const NO_EFFECT: &str = "one toss doesn't affect the next";
-const ENOUGH: &str = "enough:";
-const ENOUGH_TEXT: &str = "independent tosses with the same probability p of heads, for any p strictly between 0 and 1";
+const INDEPENDENT: &str = "(independent)";
+const NEEDS: &str = "what it needs, exactly:";
+const NEEDS_TEXT: &str =
+    "tosses that don't affect each other, with the same chance p of heads, for any p strictly between 0 and 1";
 // the letters of 03_5 (TeX)
 const P: &str = "p";
 const REST: &str = "1-p";
@@ -485,19 +488,47 @@ fn crossing_dot(stage: &mut Stage<'_>, view: SquareView) -> fmn::Result<[Mob; 2]
     Ok([anchor, dot])
 }
 
-/// A statement on a card whose left edge is at `left`: the card's back and
-/// its words, detached.
-fn statement(kit: &Kit, stage: &mut Stage<'_>, words: &str, left: Vec3) -> fmn::Result<[Mob; 2]> {
-    let text = kit.text_left(stage, words, 26.0, Palette::ink(), v(left[0] + 0.2, left[1]))?;
-    let (w, h, at) = (stage.get_width(text), stage.get_height(text), stage.get_center(text));
+/// A statement on a card: the card's back and its words, detached. `at` is
+/// the middle of the card's left edge (`edge` is `LEFT`) or its centre.
+fn statement(kit: &Kit, stage: &mut Stage<'_>, words: &str, at: Vec3, edge: Vec3) -> fmn::Result<[Mob; 2]> {
+    let text = kit.text(stage, words, 26.0, Palette::ink(), at)?;
+    let (w, h) = (stage.get_width(text), stage.get_height(text));
+    let centre = if edge == LEFT {
+        v(at[0] + w / 2.0 + 0.2, at[1])
+    } else {
+        at
+    };
+    stage.move_to(text, centre, ORIGIN);
     let back = Rectangle::new()
         .width(w + 0.4)
         .height(h + 0.36)
         .corner_radius(0.1)
         .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
         .build()?
-        .moved_to(at);
+        .moved_to(centre);
     Ok([stage.arena_mut().add(back), text])
+}
+
+/// A thin outline round the stretch of an edge from `a` to `b`: a mark on
+/// that stretch, not a new one. Detached.
+fn capsule(stage: &mut Stage<'_>, a: Vec3, b: Vec3) -> fmn::Result<Mob> {
+    let (w, h) = ((b[0] - a[0]).abs() + 0.22, (b[1] - a[1]).abs() + 0.22);
+    let mark = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.1)
+        .style(line_style(Palette::ink(), 2.5))
+        .build()?
+        .moved_to(v((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0));
+    Ok(stage.arena_mut().add(mark))
+}
+
+/// `rt` seconds, for an `animate()` chain.
+fn run(rt: f64) -> AnimateArgs {
+    AnimateArgs {
+        run_time: Some(rt),
+        ..AnimateArgs::default()
+    }
 }
 
 /// An arrow from a card to the thing it speaks of, detached.
@@ -551,15 +582,23 @@ impl SceneConstruct for EveryCoin {
         let drift_low = between(Q::HALF, coin).min().ok_or_else(missing)?;
         let drift_back = between(Q::HALF, coin).max().ok_or_else(missing)?;
 
-        // the square as chapter 02 left it: Alice's block green above the
-        // diagonal, Bob's violet below, the matching pairs thrown away
+        // the resting square, as chapter 02 leaves it and chapter 04 finds
+        // it: Alice's block green above the diagonal, Bob's violet below, the
+        // matching pairs thrown away, heads and tails along two edges. It is
+        // on stage from the first frame, so the picture stays through the cut
         let square = Square::build(stage, SQUARE_AT, SQUARE_SIDE, p)?;
         square.paint(stage, Block::HT, alice(), 1.0);
         square.paint(stage, Block::TH, bob(), 1.0);
         square.paint(stage, Block::HH, thrown(), 1.0);
         square.paint(stage, Block::TT, thrown(), 1.0);
         let edges = square.edges(&kit, stage, HEADS, TAILS)?;
+        let mut resting = square.mobs();
+        resting.extend(edges.mobs());
+        for &m in &resting {
+            stage.add_to_scene(m)?;
+        }
         let words_follow = follow_edges(stage, square.view, edges.words)?;
+        stage.add_to_scene(words_follow)?;
         let pose = square.pose(stage);
         // beside it: each block's name over its share, an equals sign between
         let mut legend = Vec::new();
@@ -583,10 +622,7 @@ impl SceneConstruct for EveryCoin {
 
         // 03_1: each block's width and height
         let line = say(&kit, stage, "03_1")?;
-        let mut opening = square.mobs();
-        opening.extend(edges.mobs());
-        opening.push(words_follow);
-        opening.extend(&legend);
+        let mut opening = legend.clone();
         opening.extend(&reads);
         opening.push(equals);
         fade_in_all(stage, &opening, 0.7)?;
@@ -736,19 +772,20 @@ impl SceneConstruct for EveryCoin {
         }
         fade_in_all(stage, &[equals], 0.3)?;
         line.wait_for(stage, "Slide the cuts anywhere")?;
-        square.set_coin(stage, nearly_sure.f64(), 1.3)?;
-        pause(stage, 0.4)?;
-        line.wait_for(stage, "even past the middle")?;
-        square.set_coin(stage, Q::HALF.f64(), 1.4)?;
-        square.set_coin(stage, favours_tails.f64(), 1.1)?;
+        square.set_coin(stage, nearly_sure.f64(), 1.0)?;
+        // parked where the two blocks are hairlines, long enough to read
+        // that their shares are still equal: this coin is nowhere near fair
+        pause(stage, 1.6)?;
+        square.set_coin(stage, Q::HALF.f64(), 1.0)?;
+        square.set_coin(stage, favours_tails.f64(), 0.8)?;
         // still mirror images, with the coin favouring tails
         line.wait_for(stage, "The two blocks stay")?;
         let mirror = Flip::build(stage, &square, Block::HT, alice(), &[], &[])?;
-        mirror.show(stage, 0.25)?;
-        mirror.play(stage, 1.3)?;
-        mirror.hide(stage, 0.25)?;
+        mirror.show(stage, 0.2)?;
+        mirror.play(stage, 1.0)?;
+        mirror.hide(stage, 0.2)?;
         // home, and the equation written for this coin comes back
-        square.set_coin(stage, p, 1.1)?;
+        square.set_coin(stage, p, 0.9)?;
         fade_in_all(stage, &equation, 0.4)?;
 
         // 03_5: in letters
@@ -791,12 +828,44 @@ impl SceneConstruct for EveryCoin {
         let mut step = left.replace(stage, 2, (rest[0], tails(), 0.0), 0.9)?;
         step.extend(right.replace(stage, 0, (rest[1], tails(), 0.0), 0.9)?);
         stage.play_prepared(step)?;
+        // each side as it is said: its block is outlined, its rule under the
+        // equation thickens and its product swells, and they stay marked
+        // until the other side's turn; then the equals sign
+        let outline = |stage: &mut Stage<'_>, b: Block| {
+            let pose = square.pose(stage);
+            let (u0, w0, u1, w1) = pose.unit_rect(b);
+            let corners = [
+                pose.point(u0, w0),
+                pose.point(u1, w0),
+                pose.point(u1, w1),
+                pose.point(u0, w1),
+            ];
+            let edge = Polygon::new(corners).style(line_style(Palette::ink(), 4.5)).build();
+            stage.arena_mut().add(edge)
+        };
+        let (thin_rule, thick_rule) = (4.0, 11.0);
         line.wait_for(stage, "Heads then tails is p times")?;
+        let green_edge = outline(stage, Block::HT);
+        play!(stage;
+            fade_in(stage.arena_mut(), green_edge, ORIGIN, 1.0)?.rt(0.3),
+            unders[0].animate().set_anim_args(run(0.3))?.set_stroke(None, Some(thick_rule), None)?,
+        );
         left.pulse(stage, 0.9)?;
         line.wait_for(stage, "Tails then heads is the rest")?;
+        let violet_edge = outline(stage, Block::TH);
+        play!(stage;
+            fade_out(stage.arena_mut(), green_edge, ORIGIN, 1.0)?.rt(0.3),
+            unders[0].animate().set_anim_args(run(0.3))?.set_stroke(None, Some(thin_rule), None)?,
+            fade_in(stage.arena_mut(), violet_edge, ORIGIN, 1.0)?.rt(0.3),
+            unders[1].animate().set_anim_args(run(0.3))?.set_stroke(None, Some(thick_rule), None)?,
+        );
         right.pulse(stage, 0.9)?;
         line.wait_for(stage, "Equal for every p")?;
-        play!(stage; indicate(stage.arena_mut(), sign, 1.5, Some(rgb(gold())))?.rt(0.9));
+        play!(stage;
+            fade_out(stage.arena_mut(), violet_edge, ORIGIN, 1.0)?.rt(0.3),
+            unders[1].animate().set_anim_args(run(0.3))?.set_stroke(None, Some(thin_rule), None)?,
+            indicate(stage.arena_mut(), sign, 1.7, Some(rgb(gold())))?.rt(1.0),
+        );
 
         // 03_6: nobody needs to know the coin
         say(&kit, stage, "03_6")?;
@@ -806,7 +875,7 @@ impl SceneConstruct for EveryCoin {
         let cover = kit.text_left(stage, "?", 26.0, gold(), slider.number_at)?;
         fade_in_all(stage, &[cover, asks[0], asks[1], note], 0.5)?;
         for stop in [drift_low, more_unfair, drift_back] {
-            square.set_coin(stage, stop.f64(), 3.0)?;
+            square.set_coin(stage, stop.f64(), 2.6)?;
         }
 
         // 03_7: the two things the trick leans on
@@ -815,22 +884,44 @@ impl SceneConstruct for EveryCoin {
         gone.extend(&legend);
         fade_out_all(stage, &gone, 0.4)?;
         slider.number(&kit, stage, square.view)?;
-        square.set_coin(stage, p, 0.8)?;
+        // the coin comes home, and what the trick needs is written out for
+        // the whole of the line
+        let needs = lower_third(&kit, stage, NEEDS, NEEDS_TEXT)?;
+        let cuts = [square.view.x, square.view.y_h, square.view.y_t];
+        let mut home: Vec<Box<dyn Animation>> = Vec::new();
+        for t in cuts {
+            home.push(stage.prepare(tween(t, p, 0.8)?)?);
+        }
+        let a = fade_in(stage.arena_mut(), needs, ORIGIN, 1.0)?;
+        home.push(stage.prepare(a.rt(0.6))?);
+        stage.play_prepared(home)?;
+        // exactly home: chapter 04 opens on this square
+        for t in cuts {
+            stage.set_tracker_value(t, p)?;
+        }
         let pose = square.pose(stage);
         let crossing = pose.point(pose.x, pose.y_h);
-        let right_edge = pose.left + pose.side;
-        let card_left = right_edge + 1.15;
-        // the second cut sits at the same mark as the first: they cross on the diagonal
+        let (right_edge, top_edge) = (pose.left + pose.side, pose.bottom + pose.side);
+        // the same chance on both tosses: the heads stretch of each edge is
+        // the same length, so the two cuts cross on the gold line
         line.wait_for(stage, "The coin's chance is the same")?;
-        let same = statement(&kit, stage, SAME_CHANCE, v(card_left, crossing[1] + 1.0))?;
+        let card_at = v(right_edge + 1.15, crossing[1] + 0.75);
+        let same = statement(&kit, stage, SAME_CHANCE, card_at, LEFT)?;
         let ring = Circle::new()
             .radius(0.19)
             .arc_center(crossing)
             .style(line_style(Palette::ink(), 3.0))
             .build();
         let ring = stage.arena_mut().add(ring);
-        fade_in_all(stage, &[same[0], same[1], ring], 0.5)?;
-        let from = v(card_left - 0.1, crossing[1] + 1.0);
+        let out = RULE_OUT;
+        let first_toss = capsule(
+            stage,
+            v(pose.left, pose.bottom - out),
+            v(crossing[0], pose.bottom - out),
+        )?;
+        let second_toss = capsule(stage, v(pose.left - out, pose.bottom), v(pose.left - out, crossing[1]))?;
+        fade_in_all(stage, &[same[0], same[1], ring, first_toss, second_toss], 0.5)?;
+        let from = v(card_at[0] - 0.1, card_at[1]);
         let reach = ((from[0] - crossing[0]).powi(2) + (from[1] - crossing[1]).powi(2)).sqrt();
         let short = 0.26 / reach;
         let tip = v(
@@ -839,26 +930,46 @@ impl SceneConstruct for EveryCoin {
         );
         let arrow = pointer(stage, from, tip)?;
         play!(stage; grow_arrow(stage.arena_mut(), arrow)?.rt(0.5));
-        // the second cut runs straight across both columns
+        let blue = Some(rgb(heads()));
+        play!(stage;
+            indicate(stage.arena_mut(), letters[0], 1.6, blue)?.rt(0.8),
+            indicate(stage.arena_mut(), letters[2], 1.6, blue)?.rt(0.8),
+        );
+        // one toss doesn't affect the next: the second cut runs straight
+        // across both columns. Its card sits over the square and points at
+        // the cut's middle, away from the first card's dot
         line.wait_for(stage, "And one toss")?;
-        let straight = statement(&kit, stage, NO_EFFECT, v(card_left, crossing[1]))?;
+        let middle = pose.left + pose.side / 2.0;
+        let straight = statement(&kit, stage, NO_EFFECT, v(middle, top_edge + 0.65), ORIGIN)?;
         let across = polyline(vec![v(pose.left, crossing[1]), v(right_edge, crossing[1])])
-            .style(line_style(Palette::ink(), 4.0))
+            .style(line_style(Palette::ink(), 4.5))
             .build();
         let across = stage.arena_mut().add(across);
-        fade_in_all(stage, &[straight[0], straight[1], across], 0.5)?;
-        stage.scene_mut().bring_to_front(&dot)?;
-        let arrow = pointer(
-            stage,
-            v(card_left - 0.1, crossing[1]),
-            v(right_edge + 0.08, crossing[1]),
-        )?;
-        play!(stage; grow_arrow(stage.arena_mut(), arrow)?.rt(0.5));
+        fade_in_all(stage, &straight, 0.4)?;
+        play!(stage; show_creation(across).rt(0.8));
+        stage.scene_mut().bring_to_front(&[dot[0], dot[1], ring])?;
+        let card_foot = stage.get_bottom(straight[0])[1];
+        let arrow = pointer(stage, v(middle, card_foot - 0.05), v(middle, crossing[1] + 0.09))?;
+        play!(stage; grow_arrow(stage.arena_mut(), arrow)?.rt(0.4));
+        // the word for it, as it is said
         line.wait_for(stage, "which is what independent means")?;
-        let enough = lower_third(&kit, stage, ENOUGH, ENOUGH_TEXT)?;
-        play!(stage; fade_in(stage.arena_mut(), enough, ORIGIN, 1.0)?.rt(0.5));
+        let named_at = v(stage.get_right(straight[0])[0] + 0.22, top_edge + 0.65);
+        let named = kit.text_left(stage, INDEPENDENT, 24.0, Palette::dim(), named_at)?;
+        fade_in_all(stage, &[named], 0.4)?;
+        // back to the resting square, which chapter 04 opens on: heads and
+        // tails return to the edges, everything else leaves, and the square
+        // holds through the cut
+        wait_until(stage, line.end() - 0.3)?;
+        let mut words: Vec<Box<dyn Animation>> = Vec::new();
+        for (word, letter) in edges.words.into_iter().zip(letters) {
+            let a = fade_out(stage.arena_mut(), letter, ORIGIN, 1.0)?;
+            words.push(stage.prepare(a.rt(0.3))?);
+            let a = fade_in(stage.arena_mut(), word, ORIGIN, 1.0)?;
+            words.push(stage.prepare(a.rt(0.3))?);
+        }
+        stage.play_prepared(words)?;
+        fade_all_but(stage, &resting, 0.6)?;
         kit.music_breath(stage, HOLD_S)?;
-        fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
 }

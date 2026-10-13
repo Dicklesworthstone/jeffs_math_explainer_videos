@@ -46,6 +46,15 @@ coins "came up fewer than 10% heads" (2007, p. 218). The often-repeated
 figure of 80% tails for a spun penny has no data behind it that we could
 find, and the video does not use it.
 
+**Calling it blind.** A call is an even bet only on average over the caller's
+choice: a caller as likely to name either side wins ½ · 4/5 + ½ · 1/5 = ½.
+For this coin and a given call the chance is 4/5 or 1/5. The trick is fair in
+the stronger sense: for the coin as it is, over its tosses alone.
+
+**Two bars at 41%.** With four tosses of this coin, four heads and three heads
+are exactly as likely (40.96% each), because p⁴ = 4p³(1 − p) exactly when
+p = 4(1 − p), which is p = 4/5.
+
 **The trick (chapters 2 and 3).** For two independent tosses with the same
 probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads),
 for every p in [0, 1] [E-F1, E-F4]. The game needs 0 < p < 1: a coin that
@@ -209,4 +218,15 @@ checked against an independent script (`./x fair_coin facts-check`); quoted
 numbers (dates, the 0.508, the 350,757 flips) are cited above. The seeded
 runs can be replayed with NumPy's `Generator(PCG64DXSM(seed))`, seeds 195101
 to 195109 for runs 1 to 9 (1951 is the year the summary was printed): a toss
-is heads when the draw is below 0.8.
+is heads when the draw is below 0.8. In run 5 the second toss of each pair is
+heads when its draw is below 0.5. In run 6 (the coin with a memory) a toss is
+heads when the draw is below 0.8 after a head and below 0.2 after a tail, and
+the first toss counts as following a head. In run 8 (the loaded die) a roll is
+the first face whose running total of twentieths (1, 1, 2, 2, 4, 10) is above
+twenty times the draw. Run 3 is not used.
+
+The fair bands on screen are two standard errors either side of what a fair
+coin or die would give: 469 to 531 games in a thousand, 136 to 181 rolls of a
+face in 949, 90 to 127 in 650. One count lands inside its band about 19 times
+in 20; all six faces of a fair die land inside together noticeably less often,
+so one face at the edge (the three, at 136) is no sign of unfairness.

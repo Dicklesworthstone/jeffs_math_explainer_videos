@@ -1,22 +1,26 @@
-//! Chapter 01, call it: the coin alone, then tossed again and again into a
-//! row whose tally leans far toward heads, Alice and Bob either side, and
-//! under it the level bar of the game they will play (01_1); the title
-//! (01_2); a thousand seeded tosses as a grid of ticks with two counters
-//! (01_3); why a call is not fair (01_4); what the model coin stands for
-//! (01_5); and the question chapter 02 answers (01_6). Every toss shown is
-//! one of run 1 (`facts::call_it_run`), in order; the level bar is run 2's
-//! tally, as at 02_9.
+//! Chapter 01, call it: the coin alone, then tossed again and again, the
+//! first results dropping into a row and the rest of its thousand tosses
+//! pouring into a grid of ticks over a bar that leans far toward heads,
+//! Alice and Bob either side, and under it the level bar of the game they
+//! will play (01_1); the title (01_2); one toss, called, and the thousand
+//! tosses' bar with the caller's wins marked (01_3); why a call is not fair
+//! (01_4); what the model coin stands for (01_5); and the question chapter
+//! 02 answers (01_6). Every toss shown is one of run 1
+//! (`facts::call_it_run`): 01_1 shows the whole run in order, and 01_3's one
+//! toss is the run's first toss again. The level bar is run 2's tally, as at
+//! 02_9.
 
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use explainer_kit::props::{lower_third, predict_pause};
+use super::draw::predict_pause;
+use explainer_kit::props::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, hex, lagged, play, thousands, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
     CAPTION_Y, SplitBar, alice, bob, caption, die_face, disc, face_color, fade_in_all, fail, flat, group, heads,
-    line_style, panel, rgb, say, tag, tails, thrown, wait_until,
+    line_style, panel, say, tag, tails, thrown, wait_until,
 };
 use super::glyphs;
 use crate::facts::{call_it_run, cited, trick_draws, trick_run};
@@ -34,7 +38,8 @@ const ALICE: &str = "Alice";
 const BOB: &str = "Bob";
 const SAME_COIN: &str = "the same coin";
 const TOSSES: &str = "tosses";
-const WHICH_SIDE: &str = "which side does it favour?";
+const CALLER_WINS: &str = "the caller's wins";
+const OTHER_KNOWS: &str = "what does the other one know?";
 const REAL_COINS: &str = "real coins:";
 const WEIGHTING: &str = "weighting can't make a tossed-and-caught coin favour a side by much";
 const GELMAN_NOLAN: &str = "Gelman and Nolan";
@@ -53,23 +58,23 @@ const DARK: &str = "#0E1116";
 /// The opening shot: the coin alone, large and centred.
 const OPEN_AT: Vec3 = [0.0, 0.25, 0.0];
 const OPEN_R: f64 = 1.3;
-/// Where the coin is tossed over its row (01_1).
-const TOSS_AT: Vec3 = [0.0, 2.05, 0.0];
-const TOSS_R: f64 = 0.55;
+/// Where the coin is tossed over its row and grid (01_1).
+const TOSS_AT: Vec3 = [0.0, 2.75, 0.0];
+const TOSS_R: f64 = 0.5;
 /// On the title card.
 const TITLE_AT: Vec3 = [0.0, 1.55, 0.0];
 const TITLE_R: f64 = 0.62;
-/// Over the grid of a thousand ticks (01_3), and above the three pictures
-/// of 01_5.
+/// Above the three pictures of 01_5.
 const TOP_AT: Vec3 = [0.0, 2.8, 0.0];
 const TOP_R: f64 = 0.5;
-/// Between the two players (01_4, 01_6).
+/// Between the two players (01_3, 01_4, 01_6).
 const MID_AT: Vec3 = [0.0, 0.6, 0.0];
 const MID_R: f64 = 0.95;
 
-/// The row the first results drop into: how many, and where.
+/// The row the first results drop into: how many, and where (the grid's
+/// first row, which they shrink into).
 const ROW_N: usize = 20;
-const ROW_Y: f64 = 0.6;
+const ROW_Y: f64 = GRID_TOP;
 const ROW_STEP: f64 = 0.4;
 const DISC_R: f64 = 0.16;
 
@@ -77,18 +82,26 @@ const DISC_R: f64 = 0.16;
 const BAR_LEFT: f64 = -4.0;
 const BAR_W: f64 = 8.0;
 const BAR_H: f64 = 0.4;
-/// 01_1: the coin's own tally, and the game's under it.
-const COIN_BAR_Y: f64 = -0.2;
-const GAME_BAR_Y: f64 = -1.85;
-/// 01_3 and 01_4: the coin's tally under the grid.
-const GRID_BAR_Y: f64 = -1.6;
+/// 01_1: the coin's own tally under the grid, its words and counts, the
+/// count it settles at, and the game's bar under them.
+const COIN_BAR_Y: f64 = -1.2;
+const COUNT_Y: f64 = -2.18;
+const GAME_BAR_Y: f64 = -2.85;
+/// 01_3 and 01_4: the thousand tosses' bar under the coin.
+const CALL_BAR_Y: f64 = -1.6;
+/// Words and counts sit this far under their bar's middle.
+const WORDS_BELOW: f64 = 0.52;
 
 /// The grid of ticks, one for each toss of the run, read like a page.
 const GRID_COLS: usize = 50;
 const GRID_DX: f64 = 0.16;
-const GRID_DY: f64 = 0.15;
-const GRID_TOP: f64 = 1.9;
-const TICK: (f64, f64) = (0.11, 0.1);
+const GRID_DY: f64 = 0.13;
+const GRID_TOP: f64 = 1.75;
+const TICK: (f64, f64) = (0.11, 0.09);
+/// How many tosses each lit batch of the pour holds, and how long the pour
+/// of the rest of the run takes.
+const POUR_BATCH: usize = 25;
+const POUR_S: f64 = 2.2;
 
 /// The players stand this far either side of the middle.
 const PLAYER_X: f64 = 5.75;
@@ -191,8 +204,9 @@ struct Coin {
     x: Mob,
     y: Mob,
     r: Mob,
-    /// The disc, its two letters and the mobject that carries the updater
-    /// (the row's discs are the scene's to clear).
+    /// The row's discs, one for each of the run's first results.
+    row: Vec<Mob>,
+    /// The disc, its two letters and the mobject that carries the updater.
     own: Vec<Mob>,
     driver: Rc<RefCell<Driver>>,
 }
@@ -257,6 +271,7 @@ impl Coin {
         let run: Vec<Face> = run.to_vec();
         let prefix = heads_so_far(&run);
         let shared = Rc::clone(&driver);
+        let row: Vec<Mob> = discs.iter().map(|&(d, _)| d).collect();
         let own = vec![body, letters[0], letters[1], anchor];
         let mut drop = vec![0.0_f64; discs.len()];
         let (mut last_n, mut spin) = (0.0_f64, 0.0_f64);
@@ -361,6 +376,7 @@ impl Coin {
             x,
             y,
             r: rad,
+            row,
             own,
             driver,
         })
@@ -394,6 +410,11 @@ impl Coin {
         Ok(())
     }
 
+    /// No bar follows the tally any more.
+    fn stop_feeding(&self) {
+        self.driver.borrow_mut().bars.clear();
+    }
+
     fn share(&self) -> f64 {
         self.driver.borrow().share
     }
@@ -416,11 +437,11 @@ const FIRST_TOSS: (f64, f64) = (0.15, 1.1);
 /// row: one after another, quicker and quicker.
 fn quick_tosses() -> Vec<(f64, f64)> {
     let mut out = Vec::new();
-    let (mut t, mut flight) = (0.1, 0.46);
+    let (mut t, mut flight) = (0.1, 0.44);
     for _ in 1..ROW_N {
         out.push((t, flight));
         t += flight;
-        flight = (flight * 0.9_f64).max(0.25);
+        flight = (flight * 0.88_f64).max(0.23);
     }
     out
 }
@@ -589,6 +610,112 @@ fn lit(stage: &mut Stage<'_>, run: &[Face], from: usize, to: usize) -> fmn::Resu
     Ok(out)
 }
 
+/// The run's tosses from `from` on, lit in the grid as the toss count `n`
+/// passes them: a batch of [`POUR_BATCH`] shows the share of its tosses
+/// already made, so the grid and the tallies always agree. The batches go
+/// into the scene unlit; returns them and the anchor that carries the
+/// updater (also in the scene).
+fn pour(stage: &mut Stage<'_>, run: &[Face], from: usize, n: Mob) -> fmn::Result<(Vec<Mob>, Mob)> {
+    let total = run.len();
+    let mut batches: Vec<(Mob, f64, f64)> = Vec::new();
+    let mut start = from;
+    while start < total {
+        let end = ((start / POUR_BATCH + 1) * POUR_BATCH).min(total);
+        for m in lit(stage, run, start, end)? {
+            stage.set_fill(m, None, Some(0.0), None, true);
+            stage.add_to_scene(m)?;
+            batches.push((m, start as f64, end as f64));
+        }
+        start = end;
+    }
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let lighting = batches.clone();
+    let mut shown = vec![0.0_f64; lighting.len()];
+    stage.add_updater(
+        anchor,
+        move |s, _| {
+            let now = s.tracker_value(n).unwrap_or(0.0);
+            for (k, &(m, a, b)) in lighting.iter().enumerate() {
+                let o = ((now - a) / (b - a)).clamp(0.0, 1.0);
+                if o != shown[k] {
+                    s.set_fill(m, None, Some(o), None, true);
+                    shown[k] = o;
+                }
+            }
+        },
+        true,
+    )?;
+    stage.add_to_scene(anchor)?;
+    Ok((batches.iter().map(|b| b.0).collect(), anchor))
+}
+
+/// The two tallies beside a bar's words: the heads and the tails among the
+/// tosses made so far (live, so they appear at once). `words` are the
+/// bar's "heads" and "tails".
+fn tallies(kit: &Kit, stage: &mut Stage<'_>, coin: &Coin, prefix: &[usize], words: [Mob; 2]) -> fmn::Result<[Mob; 2]> {
+    let (n, total) = (coin.n, prefix.len() - 1);
+    let y = stage.get_center(words[0])[1];
+    let counts = prefix.to_vec();
+    let heads_x = BAR_LEFT + stage.get_width(words[0]) + 0.2;
+    let heads_count = kit.live_value(
+        stage,
+        move |s| counts[completed(s.tracker_value(n).unwrap_or(0.0), total)] as f64,
+        0,
+        false,
+        30.0,
+        Palette::ink(),
+        v(heads_x, y),
+        LEFT,
+    )?;
+    let counts = prefix.to_vec();
+    let tails_x = BAR_LEFT + BAR_W - stage.get_width(words[1]) - 0.2;
+    let tails_count = kit.live_value(
+        stage,
+        move |s| {
+            let done = completed(s.tracker_value(n).unwrap_or(0.0), total);
+            (done - counts[done]) as f64
+        },
+        0,
+        false,
+        30.0,
+        Palette::ink(),
+        v(tails_x, y),
+        RIGHT,
+    )?;
+    Ok([heads_count, tails_count])
+}
+
+/// The two counts beside a bar's words, as still numbers.
+fn counts(kit: &Kit, stage: &mut Stage<'_>, (h, t): (usize, usize), words: [Mob; 2]) -> fmn::Result<[Mob; 2]> {
+    let y = stage.get_center(words[0])[1];
+    let heads_x = BAR_LEFT + stage.get_width(words[0]) + 0.2;
+    let heads_count = kit.text_left(stage, &h.to_string(), 30.0, Palette::ink(), v(heads_x, y))?;
+    let tails_x = BAR_LEFT + BAR_W - stage.get_width(words[1]) - 0.2;
+    let tails_count = kit.text(stage, &t.to_string(), 30.0, Palette::ink(), v(tails_x, y))?;
+    stage.move_to(tails_count, v(tails_x, y), RIGHT);
+    Ok([heads_count, tails_count])
+}
+
+/// A player's call over their head: the side, in its colour, on a small
+/// back. Detached, one group.
+fn call_tag(kit: &Kit, stage: &mut Stage<'_>, f: Face, at: Vec3) -> fmn::Result<Mob> {
+    let word = match f {
+        Face::H => HEADS,
+        Face::T => TAILS,
+    };
+    let t = kit.text(stage, word, 28.0, face_color(f), at)?;
+    let (w, h) = (stage.get_width(t), stage.get_height(t));
+    let back = Rectangle::new()
+        .width(w + 0.34)
+        .height(h + 0.26)
+        .corner_radius(0.1)
+        .style(Style::default().fill(panel(), 0.94).stroke(face_color(f), 1.5, 1.0))
+        .build()?
+        .moved_to(at);
+    let back = stage.arena_mut().add(back);
+    group(stage, &[back, t])
+}
+
 // ------------------------------------------------------- the three pictures
 
 /// A small picture's card, centred at `at`.
@@ -694,7 +821,8 @@ impl SceneConstruct for CallIt {
         // first frame
         let coin = Coin::build(&kit, stage, &run, OPEN_AT, OPEN_R, &slots)?;
 
-        // 01_1: it isn't fair; Alice and Bob; and yet, with the same coin
+        // 01_1: it isn't fair, and the whole run shows it; Alice and Bob;
+        // and yet, with the same coin
         let line = say(&kit, stage, "01_1")?;
         coin.start(stage, vec![FIRST_TOSS]);
         let model = format!("{MODEL_COIN} {}%", bent().percent(0));
@@ -714,9 +842,11 @@ impl SceneConstruct for CallIt {
         coin.driver.borrow_mut().row_open = true;
         let quick = quick_tosses();
         let few = quick[2].0 + quick[2].1 + 0.05;
+        let row_done = quick.last().map_or(0.0, |&(t, f)| t + f) + DROP_S + 0.05;
         let since = stage.scene().time().to_f64();
         coin.start(stage, quick);
-        // the tally of the row, once it has a few results to count
+        // the tally, once there are a few results to count: the bar, and
+        // the heads and tails that have landed so far
         wait_until(stage, since + few)?;
         let coin_bar = SplitBar::build(
             stage,
@@ -726,22 +856,61 @@ impl SceneConstruct for CallIt {
             coin.share(),
         )?;
         let mark = half_mark(stage, COIN_BAR_Y);
-        let words = bar_words(&kit, stage, COIN_BAR_Y - 0.52)?;
+        let words = bar_words(&kit, stage, COIN_BAR_Y - WORDS_BELOW)?;
         let mut ins = coin_bar.mobs().to_vec();
         ins.push(mark);
         ins.extend(words);
         fade_in_all(stage, &ins, 0.4)?;
         coin.feed(stage, &coin_bar)?;
+        tallies(&kit, stage, &coin, &prefix, words)?;
         // Alice and Bob, either side
         let [a, b] = players(&kit, stage)?;
         line.wait_for(stage, "Alice and Bob")?;
         fade_in_all(stage, &a.mobs(), 0.4)?;
         fade_in_all(stage, &b.mobs(), 0.4)?;
         // each eyeing the other
-        line.wait_for(stage, "and neither trusts")?;
+        line.wait_for(stage, "and each suspects")?;
         let mut eyeing = a.eye_the_other(stage, 0.4)?;
         eyeing.extend(b.eye_the_other(stage, 0.4)?);
         stage.play_prepared(eyeing)?;
+        // the row shrinks into the first ticks of a grid for the whole run
+        wait_until(stage, since + row_done)?;
+        let mut empty = Vec::new();
+        for row in 0..total.div_ceil(GRID_COLS) {
+            let indices: Vec<usize> = (row * GRID_COLS..((row + 1) * GRID_COLS).min(total))
+                .filter(|&i| i >= ROW_N)
+                .collect();
+            empty.extend(ticks(stage, &indices, thrown())?);
+        }
+        stage.scene_mut().bring_to_front(&coin.row)?;
+        let mut shrink = fading_in(stage, &empty, 0.5)?;
+        for (i, &d) in coin.row.iter().enumerate() {
+            let tick = Rectangle::new()
+                .width(TICK.0)
+                .height(TICK.1)
+                .style(flat(face_color(run[i]), 1.0))
+                .build()?
+                .moved_to(tick_at(i));
+            let tick = stage.arena_mut().add(tick);
+            shrink.push(stage.prepare(Transform::new(d, tick).rt(0.5))?);
+        }
+        stage.play_prepared(shrink)?;
+        // the rest of the thousand pour in; the tallies count what has landed
+        pour(stage, &run, ROW_N, coin.n)?;
+        let pouring = coin
+            .n
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(POUR_S),
+                rate_func: Some(fmn::core::rate::linear),
+                ..AnimateArgs::default()
+            })?
+            .set_value(total as f64)?;
+        play!(stage; pouring);
+        // what the bar has settled at, said in words
+        let settled = format!("{} {TOSSES}: {} {HEADS}", thousands(total as u64), prefix[total]);
+        let settled = kit.text(stage, &settled, 26.0, Palette::dim(), v(0.0, COUNT_Y))?;
+        fade_in_all(stage, &[settled], 0.4)?;
         // the payoff as a paradox: a second bar, level, in their two colours
         line.wait_for(stage, "They can still do it")?;
         let games = trick_run();
@@ -782,143 +951,78 @@ impl SceneConstruct for CallIt {
             writing.push(stage.prepare(w.rt(0.8))?);
         }
         swap(stage, wipe, writing)?;
+        coin.stop_feeding();
         kit.listen(stage, 3.0, "01_call_it:01_2")?;
 
-        // 01_3: call it; one toss; a thousand tosses
+        // 01_3: call it; one toss, called; whoever gets heads wins four bets
+        // in five
         let line = say(&kit, stage, "01_3")?;
-        let rows = total.div_ceil(GRID_COLS);
-        let mut grid = Vec::new();
-        for row in 0..rows {
-            let indices: Vec<usize> = (row * GRID_COLS..((row + 1) * GRID_COLS).min(total)).collect();
-            grid.extend(ticks(stage, &indices, thrown())?);
-        }
-        // the row of the hook is the grid's first ticks
-        let mut lit_ticks = lit(stage, &run, 0, ROW_N)?;
-        let bar = SplitBar::build(
-            stage,
-            v(BAR_LEFT, GRID_BAR_Y),
-            (BAR_W, BAR_H),
-            (heads(), tails()),
-            coin.share(),
-        )?;
-        let mark = half_mark(stage, GRID_BAR_Y);
-        let words_y = GRID_BAR_Y - 0.52;
-        let words = bar_words(&kit, stage, words_y)?;
         let [a, b] = players(&kit, stage)?;
-        beside(stage, TOP_AT, TOP_R);
-        let mut ins = grid.clone();
-        ins.extend(&lit_ticks);
-        ins.extend(bar.mobs());
-        ins.push(mark);
-        ins.extend(words);
-        ins.extend(a.mobs());
+        let mut ins = a.mobs();
         ins.extend(b.mobs());
-        ins.push(label);
         let leave = fading_out(stage, &title, 0.4)?;
-        let mut back = coin.to(stage, TOP_AT, TOP_R, 0.7)?;
+        let mut back = coin.to(stage, MID_AT, MID_R, 0.7)?;
         back.extend(fading_in(stage, &ins, 0.7)?);
         swap(stage, leave, back)?;
-        coin.feed(stage, &bar)?;
-        // the two counters: live, so they appear at once
-        let n = coin.n;
-        let counts = prefix.clone();
-        let heads_x = BAR_LEFT + stage.get_width(words[0]) + 0.2;
-        let heads_count = kit.live_value(
-            stage,
-            move |s| counts[completed(s.tracker_value(n).unwrap_or(0.0), total)] as f64,
-            0,
-            false,
-            30.0,
-            Palette::ink(),
-            v(heads_x, words_y),
-            LEFT,
-        )?;
-        let counts = prefix.clone();
-        let tails_x = BAR_LEFT + BAR_W - stage.get_width(words[1]) - 0.2;
-        let tails_count = kit.live_value(
-            stage,
-            move |s| {
-                let done = completed(s.tracker_value(n).unwrap_or(0.0), total);
-                (done - counts[done]) as f64
-            },
-            0,
-            false,
-            30.0,
-            Palette::ink(),
-            v(tails_x, words_y),
-            RIGHT,
-        )?;
-        // one toss: the run's next, and its tick
+        // Alice calls heads
+        line.wait_for(stage, "call it")?;
+        let call = call_tag(&kit, stage, Face::H, v(-PLAYER_X, HEAD_Y + 0.95))?;
+        play!(stage; fade_in(stage.arena_mut(), call, v(0.0, -0.15), 1.0)?.rt(0.4));
+        // one toss: the run's first toss again (the coin rests on heads
+        // before it, and the run's last toss left it on heads too, so
+        // going back to the start shows nothing)
         line.wait_for(stage, "One toss")?;
-        play!(stage; tween(coin.n, (ROW_N + 1) as f64, 0.9)?);
-        let one = lit(stage, &run, ROW_N, ROW_N + 1)?;
-        fade_in_all(stage, &one, 0.3)?;
-        lit_ticks.extend(one);
-        // a thousand: the rest of the run lights the grid as the counters run
-        line.wait_for(stage, "But in a thousand tosses")?;
+        if run.last() != Some(&Face::H) {
+            return Err(fail("run 1 no longer ends on heads: 01_3's toss would jump".into()));
+        }
+        stage.set_tracker_value(coin.n, 0.0)?;
+        play!(stage; tween(coin.n, 1.0, FIRST_TOSS.1)?);
+        // whoever gets heads: the thousand tosses' bar, its two counts, and
+        // the heads end marked as the caller's wins
+        line.wait_for(stage, "But whoever gets heads")?;
+        let heads_n = prefix[total];
+        let share = heads_n as f64 / total as f64;
+        let bar = SplitBar::build(
+            stage,
+            v(BAR_LEFT, CALL_BAR_Y),
+            (BAR_W, BAR_H),
+            (heads(), tails()),
+            share,
+        )?;
+        let mark = half_mark(stage, CALL_BAR_Y);
+        let words = bar_words(&kit, stage, CALL_BAR_Y - WORDS_BELOW)?;
+        let numbers = counts(&kit, stage, (heads_n, total - heads_n), words)?;
         let cap = caption(&kit, stage, &format!("{} {TOSSES}", thousands(total as u64)))?;
-        fade_in_all(stage, &[cap], 0.4)?;
-        let mut batches = Vec::new();
-        let mut from = ROW_N + 1;
-        while from < total {
-            let to = (from / 25 + 1) * 25;
-            batches.extend(lit(stage, &run, from, to)?);
-            from = to;
-        }
-        let mut lands: Vec<Box<dyn Animation>> = Vec::new();
-        for &m in &batches {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            lands.push(stage.prepare(a)?);
-        }
-        let count_s = 3.4;
-        let lands = AnimationGroup::with_lag_ratio(stage.arena_mut(), lands, 0.5)?.with_run_time(count_s);
-        let count = coin
-            .n
-            .animate()
-            .set_anim_args(AnimateArgs {
-                run_time: Some(count_s),
-                rate_func: Some(fmn::core::rate::linear),
-                ..AnimateArgs::default()
-            })?
-            .set_value(total as f64)?;
-        let all: Vec<Box<dyn Animation>> = vec![Box::new(lands), stage.prepare(count)?];
-        stage.play_prepared(all)?;
-        lit_ticks.extend(batches);
-        // whoever gets heads: the long end of the bar
-        line.wait_for(stage, "Whoever gets heads")?;
-        play!(stage;
-            fmn::animation::indicate(stage.arena_mut(), bar.parts[0], 1.06, Some(rgb(heads())))?.rt(0.9),
-            fmn::animation::indicate(stage.arena_mut(), words[0], 1.25, Some(rgb(heads())))?.rt(0.9),
-        );
+        let mut ins = bar.mobs().to_vec();
+        ins.push(mark);
+        ins.extend(words);
+        ins.extend(numbers);
+        ins.push(cap);
+        fade_in_all(stage, &ins, 0.5)?;
+        let (y0, cut) = (CALL_BAR_Y + BAR_H / 2.0 + 0.28, BAR_LEFT + BAR_W * share);
+        let bracket = polyline(vec![
+            v(BAR_LEFT, y0 - 0.12),
+            v(BAR_LEFT, y0),
+            v(cut, y0),
+            v(cut, y0 - 0.12),
+        ])
+        .style(line_style(Palette::ink(), 2.5))
+        .build();
+        let bracket = stage.arena_mut().add(bracket);
+        let wins = kit.text(
+            stage,
+            CALLER_WINS,
+            26.0,
+            Palette::ink(),
+            v((BAR_LEFT + cut) / 2.0, y0 + 0.26),
+        )?;
+        fade_in_all(stage, &[bracket, wins], 0.4)?;
 
         // 01_4: a call is fair only if the caller knows nothing; and neither
         // can check what the other knows
         let line = say(&kit, stage, "01_4")?;
-        let mut clear = grid.clone();
-        clear.extend(&lit_ticks);
-        clear.extend([cap, label]);
-        let mut to_mid = fading_out(stage, &clear, 0.5)?;
-        to_mid.extend(coin.to(stage, MID_AT, MID_R, 0.8)?);
-        stage.play_prepared(to_mid)?;
-        line.wait_for(stage, "has no idea which side")?;
-        let which = kit.text(
-            stage,
-            WHICH_SIDE,
-            28.0,
-            Palette::ink(),
-            v(0.0, MID_AT[1] + MID_R + 0.55),
-        )?;
-        fade_in_all(stage, &[which], 0.5)?;
-        line.wait_for(stage, "And neither of them can check")?;
-        let mut asks = Vec::new();
-        for x in [-PLAYER_X, PLAYER_X] {
-            asks.push(kit.text(stage, "?", 48.0, Palette::hero(), v(x, HEAD_Y + 1.0))?);
-        }
-        let mut eyeing = a.eye_the_other(stage, 0.4)?;
-        eyeing.extend(b.eye_the_other(stage, 0.4)?);
-        eyeing.extend(fading_in(stage, &asks, 0.4)?);
-        stage.play_prepared(eyeing)?;
         // who ends up with the winning end? it flickers between their colours
+        line.wait_for(stage, "has no idea which side")?;
         for color in [alice(), bob(), alice(), bob(), heads()] {
             let turn = bar.parts[0]
                 .animate()
@@ -926,6 +1030,26 @@ impl SceneConstruct for CallIt {
                 .set_fill(Some(color), Some(1.0))?;
             play!(stage; turn);
         }
+        // each looks at the other: what does the other one know?
+        line.wait_for(stage, "And neither of them can check")?;
+        let other = kit.text(
+            stage,
+            OTHER_KNOWS,
+            28.0,
+            Palette::ink(),
+            v(0.0, MID_AT[1] + MID_R + 0.55),
+        )?;
+        let mut asks = Vec::new();
+        for p in [&a, &b] {
+            let x = if p.toward > 0.0 { -PLAYER_X } else { PLAYER_X };
+            asks.push(kit.text(stage, "?", 48.0, Palette::hero(), v(x + 0.5 * p.toward, HEAD_Y + 0.95))?);
+        }
+        let mut eyeing = a.eye_the_other(stage, 0.4)?;
+        eyeing.extend(b.eye_the_other(stage, 0.4)?);
+        eyeing.extend(fading_out(stage, &[call], 0.3)?);
+        eyeing.extend(fading_in(stage, &asks, 0.4)?);
+        eyeing.extend(fading_in(stage, &[other], 0.4)?);
+        stage.play_prepared(eyeing)?;
 
         // 01_5: what our coin stands for
         let line = say(&kit, stage, "01_5")?;
@@ -933,8 +1057,9 @@ impl SceneConstruct for CallIt {
         clear.extend(b.mobs());
         clear.extend(bar.mobs());
         clear.extend(words);
+        clear.extend(numbers);
         clear.extend(asks);
-        clear.extend([mark, which, heads_count, tails_count]);
+        clear.extend([mark, other, cap, bracket, wins]);
         // the coin alone, with what it is
         stage.move_to(label, v(MID_AT[0], MID_AT[1] - MID_R - 0.55), ORIGIN);
         let mut alone = fading_out(stage, &clear, 0.5)?;
@@ -964,38 +1089,39 @@ impl SceneConstruct for CallIt {
         fade_in_all(stage, &[card, table, spun, name, label], 0.5)?;
         stage.add_to_scene(spinner)?;
         pictures.extend([card, table, spun, name, spinner]);
-        // a loaded die
+        // a loaded die, and with it (far more mildly) a computer's noise:
+        // both come in together, so the third card is up as long as the
+        // other two
         line.wait_for(stage, "and so can a loaded die")?;
         let card = picture_card(stage, v(0.0, card_y))?;
         let die = die_face(stage, 6, v(0.0, picture_y), 1.2, Palette::ink(), hex(DARK))?;
         stage.rotate(die, -0.2, OUT, None, None);
         let name = kit.text(stage, LOADED_DIE, 26.0, Palette::ink(), v(0.0, words_y))?;
-        fade_in_all(stage, &[card, die, name], 0.5)?;
-        pictures.extend([card, die, name]);
-        // and, far more mildly, a computer's noise
         let x = 4.6;
-        let card = picture_card(stage, v(x, card_y))?;
+        let noise_card = picture_card(stage, v(x, card_y))?;
         let trace = noise_trace(stage, v(x, picture_y + 0.1), (3.3, 1.0), 44);
         let name_a = kit.text(stage, NOISE_A, 22.0, Palette::ink(), v(x, words_y + 0.14))?;
         let name_b = kit.text(stage, NOISE_B, 22.0, Palette::ink(), v(x, words_y - 0.18))?;
-        fade_in_all(stage, &[card, name_a, name_b], 0.4)?;
-        play!(stage; show_creation(trace).rt(0.8));
-        pictures.extend([card, trace, name_a, name_b]);
+        let mut both = fading_in(stage, &[card, die, name, noise_card, name_a, name_b], 0.5)?;
+        both.push(stage.prepare(show_creation(trace).rt(0.9))?);
+        stage.play_prepared(both)?;
+        pictures.extend([card, die, name, noise_card, trace, name_a, name_b]);
 
-        // 01_6: the question chapter 02 answers
+        // 01_6: the question chapter 02 answers; the three pictures stay
+        // until its card comes
         let line = say(&kit, stage, "01_6")?;
-        // the three pictures get a last look as the question begins
-        wait_until(stage, line.start + 0.7)?;
+        wait_until(stage, line.start + 0.9)?;
         pictures.extend([third, label]);
         let [a, b] = players(&kit, stage)?;
+        let [question, whatever] = question_card(&kit, stage, v(0.0, CAPTION_Y + 1.15))?;
         let mut ins = a.mobs();
         ins.extend(b.mobs());
         let leave = fading_out(stage, &pictures, 0.4)?;
         let mut to_mid = coin.to(stage, MID_AT, MID_R, 0.7)?;
         to_mid.extend(fading_in(stage, &ins, 0.7)?);
+        let card_in = fade_in(stage.arena_mut(), question, v(0.0, 0.15), 1.0)?;
+        to_mid.push(stage.prepare(card_in.rt(0.7))?);
         swap(stage, leave, to_mid)?;
-        let [question, whatever] = question_card(&kit, stage, v(0.0, CAPTION_Y + 1.15))?;
-        play!(stage; fade_in(stage.arena_mut(), question, v(0.0, 0.15), 1.0)?.rt(0.5));
         // whatever either of them knows: each eyes the other again
         line.wait_for(stage, "whatever either of them knows")?;
         let mut eyeing = a.eye_the_other(stage, 0.4)?;

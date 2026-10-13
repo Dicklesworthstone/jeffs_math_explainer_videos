@@ -61,8 +61,7 @@ mod tests {
     /// breaks this test before it reaches a listener.
     const SPOKEN: &[(&str, &str, &str, &str)] = &[
         ("01_1", "four times in five", "E-F1.heads_percent", "80"),
-        ("01_3", "seven hundred ninety-one", "E-S1.call_it.heads", "791"),
-        ("01_3", "a thousand tosses", "E-S1.call_it.tosses", "1000"),
+        ("01_3", "four bets in five", "E-F1.heads_percent", "80"),
         ("02_3", "four fifths of the width", "E-F1.heads_percent", "80"),
         ("02_4", "four fifths of the way up", "E-F1.heads_percent", "80"),
         (
@@ -102,9 +101,10 @@ mod tests {
         ("05_2", "Forty percent", "E-F5.two_coins.ht_percent", "40"),
         ("05_2", "against ten", "E-F5.two_coins.th_percent", "10"),
         ("05_2", "four games in five", "E-F5.two_coins.heads_first_percent", "80"),
-        ("05_3", "it looks fair", "E-F6.sticky.long_run_heads.exact", "1/2"),
+        ("05_3", "looks fair", "E-F6.sticky.long_run_heads.exact", "1/2"),
         ("05_3", "four times in five", "E-F6.sticky.repeat_percent", "80"),
-        ("05_3", "four times as likely", "E-F6.sticky.after_heads.ratio", "4"),
+        ("05_4", "four times as likely", "E-F6.sticky.after_heads.ratio", "4"),
+        ("05_5", "four times in five", "E-F6.sticky.repeat_percent", "80"),
         (
             "06_4",
             "four fifths, times four fifths, times one fifth",
@@ -142,7 +142,13 @@ mod tests {
             "E-C1.von_neumann.efficiency_percent",
             "25",
         ),
-        ("10_2", "about sixteen fair ones", "E-F10.von_neumann.per_hundred", "16"),
+        (
+            "10_2",
+            "fifteen fair ones",
+            "E-S9.squeeze.first_hundred.fair_tosses",
+            "15",
+        ),
+        ("10_2", "the average is sixteen", "E-F10.von_neumann.per_hundred", "16"),
         ("10_3", "four times in five", "E-F1.heads_percent", "80"),
         ("10_3", "just over seventy-two", "E-F10.entropy.per_hundred_1dp", "72.2"),
         ("11_2", "nineteen ninety-nine", "E-C4.intel.year", "1999"),

@@ -1,25 +1,27 @@
 //! Chapter 10, what is left: von Neumann's paragraph, verbatim, with its own
 //! price for a fair coin (10_1); what our coin gives, a hundred seeded tosses
-//! and the fair ones that drop out of them, beside a scale from nothing to a
-//! hundred (10_2); the ceiling on that scale and why there is one (10_3); and
-//! the two ways to climb toward it, deeper rows of the triangle and the trick
-//! run again on its two leftovers, as bars that stop short of the ruled line
-//! with the counts of a hundred thousand seeded tosses on them (10_4).
+//! and the fair ones that drop out of them, against the average on a scale
+//! from nothing to a hundred (10_2); the ceiling on that scale, why there is
+//! one, and its name (10_3); and the two ways to climb toward it, deeper rows
+//! of the triangle and the trick run again on the two things it ignored, as
+//! bars that stop short of the ruled line with the counts of a hundred
+//! thousand seeded tosses on them (10_4).
 
 use std::ops::Range;
 
+use super::draw::predict_pause;
 use explainer_kit::animatic::HOLD_S;
-use explainer_kit::props::{lower_third, predict_pause};
+use explainer_kit::props::lower_third;
 use explainer_kit::{BACKGROUND, Kit, Palette, Timed, children, choose, fade_all, hex, play, rect, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Block, QuoteCard, Square, SquarePose, alice, bob, column, disc, fade_in_all, fade_in_lagged, fade_out_all, fail,
-    flat, gold, heads, lettered_disc, line_style, rgb, say, tails, thrown, thrown_lit, wait_until,
+    flat, gold, group, heads, lettered_disc, line_style, rgb, say, tails, thrown, thrown_lit, wait_until,
 };
 use crate::STORYBOARD;
 use crate::facts::{ELIAS_BLOCKS, PERES_DEPTHS, cited, runs, squeeze_run};
-use crate::model::{Face, PairLaw, Q, bent, elias, elias_rate, entropy, peres, peres_rate, von_neumann};
+use crate::model::{Face, PairLaw, Q, bent, elias, elias_rate, entropy, pascal_row, peres, peres_rate, von_neumann};
 
 pub struct WhatIsLeft {
     pub kit: Kit,
@@ -50,18 +52,20 @@ const UNBIASED: &str = "rigorously unbiased";
 const HEADS: &str = "heads";
 const TAILS: &str = "tails";
 const A_FAIR_COIN: &str = "a fair coin:";
-const ONE_FAIR_TOSS: &str = "one fair toss for every";
-/// How many tosses a fair coin spends on each fair one, as the note says it
-/// and as a number the model is held to.
-const EVERY: (&str, i128) = ("four", 4);
+const FAIR_TOSSES_PER: &str = "fair tosses per";
+const ON_AVERAGE: &str = "on average";
 const TOSSES_OF_OUR_COIN: &str = "tosses of our coin:";
 const FAIR_OUT: &str = "fair tosses out of these";
+const WHOLE_RUN: &str = "the whole run of";
+const FAIR_TOSSES: &str = "fair tosses,";
 const THE_TRICK: &str = "the trick, on average:";
 const PER_WORD: &str = "per";
 const MODEL: &str = "(model)";
 const GUESS: [&str; 2] = ["guess heads: right", "times in"];
 const HOLDS_LESS: &str = "so each toss holds less than one fair toss";
 const THE_MOST: &str = "the most any rule can average:";
+const THE_CEILING: &str = "the ceiling (the coin's entropy):";
+const ENTROPY: &str = "entropy";
 const PRECISELY: &str = "precisely:";
 const CEILING_NOTE: [&str; 3] = [
     "average fair tosses per",
@@ -73,11 +77,12 @@ const ELIAS_PERES: [&str; 2] = ["deeper rows: Elias,", ". Reusing both leftovers
 const ROWS_TITLE: &str = "tosses in a row of the triangle";
 const ROUNDS_TITLE: &str = "rounds of the trick";
 const ALL: &str = "all";
+const COUNTED_ONLY: &str = "counted only";
 const WHICH_MATCHED: &str = "which pairs matched";
 const WHAT_SHOWED: &str = "what the matching pairs showed";
 const COUNTED_IN: &str = "counted in";
 const TOSSES: &str = "tosses";
-const THE_PRICE: &str = "the price: memory and waiting";
+const THE_PRICE: &str = "the price: more tosses held at once, and a longer wait";
 
 /// Rates are shown per this many tosses, and the strip holds this many.
 const PER: usize = 100;
@@ -108,6 +113,8 @@ const FAIR_STEP: f64 = 0.3;
 const SCALE_X: f64 = 0.0;
 const SCALE_FOOT: f64 = -2.35;
 const UNIT: f64 = 0.044;
+/// Where the ruled line's words end.
+const CEILING_RIGHT: f64 = 6.6;
 /// The bars: their width, the step between them, and where each panel's
 /// first bar stands (the right panel's first is the trick's own bar).
 const BAR_W: f64 = 0.46;
@@ -115,18 +122,32 @@ const BAR_STEP: f64 = 0.93;
 const ELIAS_X: f64 = -6.1;
 const PERES_X: f64 = 0.5;
 
-/// The triangle of 10_4: its middle, its first row's height and width, and
-/// the step down and out from row to row.
-const TRIANGLE_AT: Vec3 = [-3.9, 3.3, 0.0];
-const ROW_DOWN: f64 = 0.36;
-const ROW_WIDTH: (f64, f64) = (0.5, 0.62);
-/// The small square of 10_4 and the leftovers that drop out of it: the
-/// square's corner and side (a whole stream of tosses is one side long),
-/// then where each generation of leftovers starts and how tall its bars are.
-const SMALL_AT: Vec3 = [0.9, 1.45, 0.0];
-const SMALL_SIDE: f64 = 1.6;
-const LEFTOVER_X: [f64; 3] = [3.0, 4.15, 4.85];
-const LEFTOVER_H: [f64; 3] = [0.26, 0.12, 0.06];
+/// The triangle of 10_4, chapter 07's number rows grown downward: its
+/// middle, its first row's height and the step down to the next. The first
+/// rows are numbers ((size, step from entry to entry), shrinking), the
+/// deeper ones strips of cells (their widths).
+const TRIANGLE_X: f64 = -3.9;
+const TRIANGLE_TOP: f64 = 3.12;
+const TRIANGLE_DOWN: f64 = 0.34;
+const NUMBER_ROWS: [(f64, f64); 3] = [(28.0, 0.55), (24.0, 0.48), (20.0, 0.4)];
+const CELL_ROWS: [f64; 3] = [3.4, 4.1, 4.8];
+/// Where the rows' names end: one column left of every row, so a name never
+/// reads as the row's first number.
+const TRIANGLE_NAMES_X: f64 = -6.5;
+/// The left panel's dimmer while the right one builds: its centre and size.
+const DIM_AT: Vec3 = [-3.78, 0.2, 0.0];
+const DIM_SIZE: (f64, f64) = (6.3, 6.4);
+/// The small square of 10_4 and the coins that drop out of it: the square's
+/// corner and side (a whole stream of tosses is one side long), the height
+/// of each new coin, then where each generation of leftovers starts and how
+/// tall its bars are.
+const SMALL_AT: Vec3 = [0.55, 1.75, 0.0];
+const SMALL_SIDE: f64 = 1.5;
+const COIN_Y: [f64; 2] = [3.05, 2.15];
+const LEFTOVER_X: [f64; 3] = [2.55, 3.6, 4.3];
+const LEFTOVER_H: [f64; 3] = [0.24, 0.12, 0.06];
+/// The caption over everything at the end.
+const PRICE_AT: Vec3 = [-1.2, 3.62, 0.0];
 
 /// The height of `per_hundred` fair tosses per hundred on the scale.
 fn rate_y(per_hundred: f64) -> f64 {
@@ -148,6 +169,15 @@ fn span(quote: &str, part: &str) -> fmn::Result<Range<usize>> {
     Ok(start..start + inked(part))
 }
 
+/// Put `text`'s left edge at `at` with its baseline on `at`'s height (its
+/// first glyph stands on the line).
+fn on_baseline(stage: &mut Stage<'_>, text: Mob, at: Vec3) {
+    let first = children(stage, text).first().copied().unwrap_or(text);
+    let dy = at[1] - stage.get_bottom(first)[1];
+    let dx = at[0] - stage.get_left(text)[0];
+    stage.shift(text, v(dx, dy));
+}
+
 /// A bar of the scale: `per_hundred` tall, standing at `x`. Detached.
 fn bar(stage: &mut Stage<'_>, x: f64, per_hundred: f64) -> Mob {
     let b = column(v(x, rate_y(0.0)), BAR_W, UNIT * per_hundred, Palette::ink()).with_style(flat(Palette::ink(), 0.3));
@@ -166,20 +196,38 @@ fn stretches(stage: &mut Stage<'_>, left: Vec3, (w, h): (f64, f64), parts: &[(f6
     Ok(stage.arena_mut().add(v_group(rects)))
 }
 
-/// One row of Pascal's triangle as a strip of cells, one cell for each
-/// group, brighter the bigger the group. Detached, one group.
-fn triangle_row(stage: &mut Stage<'_>, n: u32, middle: Vec3, (w, h): (f64, f64)) -> fmn::Result<Mob> {
+/// Row `k` of the triangle (for `n` tosses), centred on the triangle's
+/// middle: its group sizes as numbers in ink while the row is one of the
+/// first ones (as chapter 07 ends on them), else a strip of cells, one for
+/// each group, brighter the bigger the group. Returns the row as one group.
+/// Detached.
+fn triangle_row(kit: &Kit, stage: &mut Stage<'_>, k: usize, n: u32) -> fmn::Result<Mob> {
+    let y = TRIANGLE_TOP - TRIANGLE_DOWN * k as f64;
+    let sizes = pascal_row(n);
+    if let Some(&(size, step)) = NUMBER_ROWS.get(k) {
+        let mut entries = Vec::new();
+        for (i, s) in sizes.iter().enumerate() {
+            let x = TRIANGLE_X + step * (i as f64 - f64::from(n) / 2.0);
+            entries.push(kit.text(stage, &s.to_string(), size, Palette::ink(), v(x, y))?);
+        }
+        return group(stage, &entries);
+    }
+    let w = CELL_ROWS
+        .get(k - NUMBER_ROWS.len())
+        .copied()
+        .ok_or_else(|| fail(format!("the triangle has no width for its row of {n}")))?;
+    let h = 0.2;
     let cell = w / f64::from(n + 1);
     let biggest = choose(u64::from(n), u64::from(n / 2)) as f64;
     let mut cells = Vec::new();
-    for k in 0..=n {
-        let size = choose(u64::from(n), u64::from(k)) as f64 / biggest;
-        let left = middle[0] - w / 2.0 + cell * (f64::from(k) + 0.07);
+    for (i, &s) in sizes.iter().enumerate() {
+        let share = s as f64 / biggest;
+        let left = TRIANGLE_X - w / 2.0 + cell * (i as f64 + 0.07);
         cells.push(rect(
-            v(left, middle[1] - h / 2.0),
+            v(left, y - h / 2.0),
             cell * 0.86,
             h,
-            flat(Palette::ink(), 0.16 + 0.84 * size.powf(0.3)),
+            flat(Palette::ink(), 0.16 + 0.84 * share.powf(0.3)),
         )?);
     }
     Ok(stage.arena_mut().add(v_group(cells)))
@@ -234,6 +282,25 @@ fn link(stage: &mut Stage<'_>, a: Vec3, b: Vec3) -> Mob {
         .add(polyline(vec![a, b]).style(line_style(Palette::dim(), 1.5)).build())
 }
 
+/// A break in an axis at `x` (the columns either side are not one step
+/// apart): a gap in the floor line and two slanted strokes. Detached.
+fn axis_break(stage: &mut Stage<'_>, x: f64, y: f64) -> fmn::Result<Vec<Mob>> {
+    let gap = Rectangle::new()
+        .width(0.09)
+        .height(0.06)
+        .style(flat(hex(BACKGROUND), 1.0))
+        .build()?
+        .moved_to(v(x, y));
+    let mut out = vec![stage.arena_mut().add(gap)];
+    for o in [-0.045, 0.045] {
+        let stroke = polyline(vec![v(x + o - 0.035, y - 0.09), v(x + o + 0.035, y + 0.09)])
+            .style(line_style(Palette::dim(), 2.0))
+            .build();
+        out.push(stage.arena_mut().add(stroke));
+    }
+    Ok(out)
+}
+
 impl SceneConstruct for WhatIsLeft {
     fn name(&self) -> &str {
         "10_what_is_left"
@@ -262,9 +329,10 @@ impl SceneConstruct for WhatIsLeft {
                 "the quote card's words are not the storyboard's, character for character".into(),
             ));
         }
-        // the paragraph's price is the model's for a fair coin, and the note says it in tosses
+        // the paragraph's price is the model's for a fair coin, per hundred tosses
         let fair_rate = Q::HALF * Q::HALF.other();
-        if fair_rate.percent(0) != cited::EFFICIENCY_PERCENT.to_string() || Q::ONE / fair_rate != Q::int(EVERY.1) {
+        let fair_per_hundred = fair_rate.percent(0);
+        if fair_per_hundred != cited::EFFICIENCY_PERCENT.to_string() {
             return Err(fail("a fair coin's rate is not the paragraph's price".into()));
         }
         let line = say(&kit, stage, "10_1")?;
@@ -342,12 +410,13 @@ impl SceneConstruct for WhatIsLeft {
         line.wait_for(stage, "At most twenty-five")?;
         fade_in_all(stage, &glyphs[spans[4].clone()], 0.6)?;
         wait_until(stage, line.at("as efficient")? + 0.3)?;
+        // the price per hundred tosses, as 10_2 and 10_3 count theirs
         let note_y = FAIR_AT[1] + FAIR_SIDE / 2.0;
         let note = [
             kit.text_left(stage, A_FAIR_COIN, 30.0, dim, v(NOTE_X, note_y + 0.3))?,
             kit.text_left(
                 stage,
-                &format!("{ONE_FAIR_TOSS} {}", EVERY.0),
+                &format!("{fair_per_hundred} {FAIR_TOSSES_PER} {PER}, {ON_AVERAGE}"),
                 30.0,
                 ink,
                 v(NOTE_X, note_y - 0.3),
@@ -355,7 +424,8 @@ impl SceneConstruct for WhatIsLeft {
         ];
         fade_in_all(stage, &note, 0.6)?;
 
-        // 10_2: our coin gives less: a hundred tosses, and the fair ones that drop out
+        // 10_2: our coin gives less: these hundred tosses made fifteen fair
+        // ones, and the average is sixteen
         let line = say(&kit, stage, "10_2")?;
         let mut gone = paragraph;
         gone.extend(&glyphs);
@@ -400,7 +470,6 @@ impl SceneConstruct for WhatIsLeft {
             spots.push(at);
             strip.push(stage.arena_mut().add(disc(f, at, DISC_R)));
         }
-        fade_in_lagged(stage, &strip, 0.9, 0.02)?;
         let rows = PER.div_ceil(2 * ROW_PAIRS);
         let strip_left = STRIP_AT[0] - IN_PAIR - DISC_R;
         let strip_note = format!(
@@ -414,9 +483,10 @@ impl SceneConstruct for WhatIsLeft {
             dim,
             v(strip_left, STRIP_AT[1] - ROW_STEP * rows as f64 - 0.02),
         )?;
-        line.wait_for(stage, "A hundred tosses")?;
+        fade_in_lagged(stage, &strip, 0.9, 0.02)?;
         fade_in_all(stage, &[strip_note], 0.4)?;
         // a matching pair is thrown away; a pair that differs gives its first toss
+        line.wait_for(stage, "These hundred tosses")?;
         let mut fades: Vec<Box<dyn Animation>> = Vec::new();
         let mut drops: Vec<(Mob, Vec3)> = Vec::new();
         for (pair, toss) in first.as_chunks::<2>().0.iter().enumerate() {
@@ -457,6 +527,8 @@ impl SceneConstruct for WhatIsLeft {
         }
         let falls = AnimationGroup::with_lag_ratio(stage.arena_mut(), falls, 0.12)?.with_run_time(1.3);
         stage.play(falls)?;
+        // the strip's own count, as it is said
+        line.wait_for(stage, "fifteen fair ones")?;
         let fair_note = kit.text_left(
             stage,
             &format!("{} {FAIR_OUT} {PER}", kept.len()),
@@ -464,7 +536,25 @@ impl SceneConstruct for WhatIsLeft {
             dim,
             v(strip_left, FAIR_Y - 0.42),
         )?;
-        // on the scale: what the trick gives on average
+        fade_in_all(stage, &[fair_note], 0.4)?;
+        // and the whole run's tally beneath it: fair tosses, about half heads
+        let all_fair = von_neumann(&run);
+        let all_heads = all_fair.iter().filter(|&&f| f == Face::H).count();
+        let whole = [
+            format!("{WHOLE_RUN} {}:", thousands(run.len() as u64)),
+            format!(
+                "{} {FAIR_TOSSES} {} {HEADS}",
+                thousands(all_fair.len() as u64),
+                thousands(all_heads as u64)
+            ),
+        ];
+        let mut whole_run = Vec::new();
+        for (i, words) in whole.iter().enumerate() {
+            whole_run.push(kit.text_left(stage, words, 22.0, dim, v(strip_left, FAIR_Y - 0.86 - 0.32 * i as f64))?);
+        }
+        fade_in_all(stage, &whole_run, 0.4)?;
+        // on the scale: what the trick gives on average, as it is said
+        line.wait_for(stage, "the average is sixteen")?;
         let law = PairLaw::same_coin(p);
         let trick_rate = law.prob(Face::H, Face::T);
         let trick = bar(stage, PERES_X, per * trick_rate.f64());
@@ -476,7 +566,6 @@ impl SceneConstruct for WhatIsLeft {
             v(PERES_X + 0.45, rate_y(per * trick_rate.f64()) - 0.02),
         )?;
         play!(stage;
-            fade_in(stage.arena_mut(), fair_note, ORIGIN, 1.0)?.rt(0.5),
             fmn::animation::grow_from_edge(stage.arena_mut(), trick, DOWN, None)?.rt(0.6),
             fade_in(stage.arena_mut(), trick_note, ORIGIN, 1.0)?.rt(0.6),
         );
@@ -500,7 +589,8 @@ impl SceneConstruct for WhatIsLeft {
         fade_in_all(stage, &[reach, tip], 0.5)?;
         let asked = predict_pause(&kit, stage, v(PERES_X + 1.0, rate_y(per / 2.0)))?;
 
-        // 10_3: no; a toss you can mostly guess holds less than a fair one, and there is a ceiling
+        // 10_3: no; a toss you can mostly guess holds less than a fair one,
+        // and there is a ceiling, named as it is said
         let line = say(&kit, stage, "10_3")?;
         fade_out_all(stage, &[reach, tip, asked], 0.3)?;
         line.wait_for(stage, "Guess heads")?;
@@ -538,21 +628,35 @@ impl SceneConstruct for WhatIsLeft {
         line.wait_for(stage, "The most any rule")?;
         let ceiling = per * entropy(p.f64());
         let ceiling_y = rate_y(ceiling);
-        let ruled = polyline(vec![v(SCALE_X - 0.5, ceiling_y), v(6.6, ceiling_y)])
+        let ruled = polyline(vec![v(SCALE_X - 0.5, ceiling_y), v(CEILING_RIGHT, ceiling_y)])
             .style(line_style(ink, 3.5))
             .build();
         let ruled = stage.arena_mut().add(ruled);
         play!(stage; show_creation(ruled).rt(0.8));
-        let ceiling_note = kit.text(
+        // its words: a fixed value, and in front of it what the line is
+        let words_base = ceiling_y + 0.13;
+        let value = kit.text(
             stage,
-            &format!("{THE_MOST} {ceiling:.1} {PER_WORD} {PER} {MODEL}"),
+            &format!("{ceiling:.1} {PER_WORD} {PER} {MODEL}"),
             22.0,
             ink,
             ORIGIN,
         )?;
-        stage.move_to(ceiling_note, v(6.6, ceiling_y + 0.2), RIGHT);
-        fade_in_all(stage, &[ceiling_note], 0.5)?;
-        line.wait_for(stage, "That ceiling is called")?;
+        let value_left = CEILING_RIGHT - stage.get_width(value);
+        on_baseline(stage, value, v(value_left, words_base));
+        let most = kit.text(stage, THE_MOST, 22.0, ink, ORIGIN)?;
+        let most_w = stage.get_width(most);
+        on_baseline(stage, most, v(value_left - 0.18 - most_w, words_base));
+        fade_in_all(stage, &[most, value], 0.5)?;
+        // the word, in gold on the line, as it is spoken
+        line.wait_for(stage, "called the coin's entropy")?;
+        let named = kit.text_t2c(stage, THE_CEILING, 22.0, ink, &[(ENTROPY, gold())], ORIGIN)?;
+        let named_w = stage.get_width(named);
+        on_baseline(stage, named, v(value_left - 0.18 - named_w, words_base));
+        play!(stage;
+            fade_out(stage.arena_mut(), most, ORIGIN, 1.0)?.rt(0.4),
+            fade_in(stage.arena_mut(), named, ORIGIN, 1.0)?.rt(0.4),
+        );
         let entropy_note = format!(
             "{} {PER}{} {ceiling:.1} {}",
             CEILING_NOTE[0], CEILING_NOTE[1], CEILING_NOTE[2]
@@ -560,11 +664,13 @@ impl SceneConstruct for WhatIsLeft {
         let entropy_note = lower_third(&kit, stage, PRECISELY, &entropy_note)?;
         play!(stage; fade_in(stage.arena_mut(), entropy_note, ORIGIN, 1.0)?.rt(0.5));
 
-        // 10_4: two ways closer, on two panels that share the scale
+        // 10_4: two ways closer, on two panels that share the scale; the left
+        // one first, then dimmed while the right one builds
         let line = say(&kit, stage, "10_4")?;
         let mut gone = strip;
         gone.extend(drops.iter().map(|d| d.0));
         gone.extend([strip_note, fair_note, trick_note]);
+        gone.extend(&whole_run);
         gone.extend(&guesses);
         fade_out_all(stage, &gone, 0.4)?;
         let ruled_left = polyline(vec![v(SCALE_X - 0.5, ceiling_y), v(-6.6, ceiling_y)])
@@ -621,11 +727,10 @@ impl SceneConstruct for WhatIsLeft {
         line.wait_for(stage, "Use the bigger groups")?;
         for (k, &n) in ELIAS_BLOCKS.iter().enumerate() {
             let rate = per * elias_rate(n, p.f64());
-            let width = ROW_WIDTH.0 + ROW_WIDTH.1 * k as f64;
-            let row_at = v(TRIANGLE_AT[0], TRIANGLE_AT[1] - ROW_DOWN * k as f64);
-            let row = triangle_row(stage, n, row_at, (width, 0.24))?;
+            let row = triangle_row(&kit, stage, k, n)?;
+            let row_y = TRIANGLE_TOP - TRIANGLE_DOWN * k as f64;
             let row_name = kit.text(stage, &n.to_string(), 20.0, dim, ORIGIN)?;
-            stage.move_to(row_name, v(row_at[0] - width / 2.0 - 0.14, row_at[1]), RIGHT);
+            stage.move_to(row_name, v(TRIANGLE_NAMES_X, row_y), RIGHT);
             let column = bar(stage, elias_x(k), rate);
             let name = kit.text(stage, &n.to_string(), 20.0, dim, v(elias_x(k), floor_y - 0.25))?;
             let number = kit.text(
@@ -636,7 +741,7 @@ impl SceneConstruct for WhatIsLeft {
                 v(elias_x(k), number_over(rate)),
             )?;
             play!(stage;
-                fade_in(stage.arena_mut(), row, v(0.0, -0.15), 1.0)?.rt(0.5),
+                fade_in(stage.arena_mut(), row, v(0.0, 0.12), 1.0)?.rt(0.5),
                 fade_in(stage.arena_mut(), row_name, ORIGIN, 1.0)?.rt(0.5),
                 fmn::animation::grow_from_edge(stage.arena_mut(), column, DOWN, None)?.rt(0.5),
                 fade_in(stage.arena_mut(), name, ORIGIN, 1.0)?.rt(0.5),
@@ -645,8 +750,16 @@ impl SceneConstruct for WhatIsLeft {
         }
         kit.lint_here(stage, "10_4 the left panel");
 
-        // the right panel: the trick again, on the two things it ignored
-        line.wait_for(stage, "or run the trick again")?;
+        // the right panel: the trick again, on the two things it ignored;
+        // the left panel stands back while it builds
+        line.wait_for(stage, "Or run the trick again")?;
+        let dimmer = Rectangle::new()
+            .width(DIM_SIZE.0)
+            .height(DIM_SIZE.1)
+            .style(flat(hex(BACKGROUND), 0.75))
+            .build()?
+            .moved_to(DIM_AT);
+        let dimmer = stage.arena_mut().add(dimmer);
         let small = Square::build(stage, SMALL_AT, SMALL_SIDE, p.f64())?;
         let paints = [
             (Block::HH, thrown_lit()),
@@ -657,16 +770,19 @@ impl SceneConstruct for WhatIsLeft {
         for (b, c) in paints {
             small.paint(stage, b, c, 1.0);
         }
-        fade_in_all(stage, &small.mobs(), 0.4)?;
+        let mut ins = vec![dimmer];
+        ins.extend(small.mobs());
+        fade_in_all(stage, &ins, 0.4)?;
         let pose = small.pose(stage);
-        let whole = Leftover {
+        let whole_stream = Leftover {
             len: 1.0,
             heads: p.f64(),
         };
-        let two = whole.leaves();
+        let two = whole_stream.leaves();
         let decides = law.decides().f64();
         // which pairs matched: the grey part against the coloured part;
-        // what the matching pairs showed: the two grey blocks
+        // what the matching pairs showed: the two grey blocks. Each new coin
+        // drops out of the square, named large, as it is said
         let split = [
             vec![
                 (1.0 - decides, thrown_lit()),
@@ -677,17 +793,17 @@ impl SceneConstruct for WhatIsLeft {
         ];
         let from_blocks = [[Block::HT, Block::TH], [Block::HH, Block::TT]];
         let words = [WHICH_MATCHED, WHAT_SHOWED];
-        let leftover_y = [SMALL_AT[1] + SMALL_SIDE - 0.2, SMALL_AT[1] + 0.6];
         let square_right = SMALL_AT[0] + SMALL_SIDE;
         for i in 0..2 {
-            let y = leftover_y[i];
+            line.wait_for(stage, words[i])?;
+            let y = COIN_Y[i];
             let coin = stretches(
                 stage,
                 v(LEFTOVER_X[0], y),
                 (SMALL_SIDE * two[i].len, LEFTOVER_H[0]),
                 &split[i],
             )?;
-            let word = kit.text_left(stage, words[i], 20.0, ink, v(LEFTOVER_X[0], y - 0.33))?;
+            let word = kit.text_left(stage, words[i], 28.0, ink, v(LEFTOVER_X[0], y - 0.42))?;
             let from = link(stage, v(square_right + 0.06, y), v(LEFTOVER_X[0] - 0.06, y));
             let rings = from_blocks[i].map(|b| outline(stage, &pose, b));
             play!(stage;
@@ -701,60 +817,83 @@ impl SceneConstruct for WhatIsLeft {
         }
         // and on what those leave, round after round: shorter each time
         let mut parents: Vec<(Leftover, Vec3)> = (0..2)
-            .map(|i| (two[i], v(LEFTOVER_X[0] + SMALL_SIDE * two[i].len, leftover_y[i])))
+            .map(|i| (two[i], v(LEFTOVER_X[0] + SMALL_SIDE * two[i].len, COIN_Y[i])))
             .collect();
+        let mut grown = Vec::new();
         for generation in 1..LEFTOVER_X.len() {
             let spread = [0.1, 0.045][generation - 1];
             let mut next = Vec::new();
-            let mut grown = Vec::new();
             for &(parent, end) in &parents {
                 for (child, dy) in parent.leaves().into_iter().zip([spread, -spread]) {
                     let left = v(LEFTOVER_X[generation], end[1] + dy);
                     let w = SMALL_SIDE * child.len;
+                    grown.push(link(stage, v(end[0] + 0.04, end[1]), v(left[0] - 0.04, left[1])));
                     grown.push(stretches(
                         stage,
                         left,
                         (w, LEFTOVER_H[generation]),
                         &[(1.0, Palette::dim())],
                     )?);
-                    grown.push(link(stage, v(end[0] + 0.04, end[1]), v(left[0] - 0.04, left[1])));
                     next.push((child, v(left[0] + w, left[1])));
                 }
             }
-            fade_in_all(stage, &grown, 0.35)?;
             parents = next;
         }
-        // the bars for more rounds
+        fade_in_lagged(stage, &grown, 0.6, 0.15)?;
+        // the bars for more rounds, each with its rounds and its height
         let mut grows: Vec<Box<dyn Animation>> = Vec::new();
-        let mut labels = Vec::new();
         for (k, &rounds) in PERES_DEPTHS.iter().enumerate().skip(1) {
             let rate = per * peres_rate(rounds, p.f64());
             let column = bar(stage, peres_x(k), rate);
             let a = fmn::animation::grow_from_edge(stage.arena_mut(), column, DOWN, None)?;
             grows.push(stage.prepare(a)?);
-            labels.push(kit.text(stage, &rounds.to_string(), 20.0, dim, v(peres_x(k), floor_y - 0.25))?);
-            labels.push(kit.text(
-                stage,
-                &format!("{rate:.0}"),
-                20.0,
-                ink,
-                v(peres_x(k), number_over(rate)),
-            )?);
+            for (words, color, at) in [
+                (rounds.to_string(), dim, v(peres_x(k), floor_y - 0.25)),
+                (format!("{rate:.0}"), ink, v(peres_x(k), number_over(rate))),
+            ] {
+                let label = kit.text(stage, &words, 20.0, color, at)?;
+                let a = fade_in(stage.arena_mut(), label, ORIGIN, 1.0)?;
+                grows.push(stage.prepare(a)?);
+            }
         }
-        let grows = AnimationGroup::with_lag_ratio(stage.arena_mut(), grows, 0.3)?.with_run_time(1.2);
+        // the rounds skip a step after 4 and after 6: the axis says so
+        let mut breaks = Vec::new();
+        for (k, pair) in PERES_DEPTHS.windows(2).enumerate() {
+            if pair[1] - pair[0] > 1 {
+                breaks.extend(axis_break(stage, (peres_x(k) + peres_x(k + 1)) / 2.0, floor_y)?);
+            }
+        }
+        for &m in &breaks {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            grows.push(stage.prepare(a)?);
+        }
+        let grows = AnimationGroup::with_lag_ratio(stage.arena_mut(), grows, 0.12)?.with_run_time(1.1);
         stage.play(grows)?;
-        fade_in_all(stage, &labels, 0.3)?;
         kit.lint_here(stage, "10_4 the right panel");
 
-        // both climb toward the ceiling: what 100,000 seeded tosses gave, on the bars
+        // both climb toward the ceiling: both panels up, and what 100,000
+        // seeded tosses gave, on the bars
         line.wait_for(stage, "Both climb toward")?;
+        let names = format!(
+            "{} {}{} {}",
+            ELIAS_PERES[0],
+            cited::ELIAS_YEAR,
+            ELIAS_PERES[1],
+            cited::PERES_YEAR
+        );
+        let names = lower_third(&kit, stage, NAMES, &names)?;
+        play!(stage;
+            fade_out(stage.arena_mut(), dimmer, ORIGIN, 1.0)?.rt(0.5),
+            fade_out(stage.arena_mut(), entropy_note, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.5),
+        );
         let place = |list: &[u32], want: u32, what: &str| {
             list.iter()
                 .position(|&x| x == want)
                 .ok_or_else(|| fail(format!("no bar for {what} {want}")))
         };
         let counted = [
-            (von_neumann(&run), peres_x(place(&PERES_DEPTHS, 1, "round")?)),
+            (all_fair, peres_x(place(&PERES_DEPTHS, 1, "round")?)),
             (peres(&run, 2), peres_x(place(&PERES_DEPTHS, 2, "rounds")?)),
             (peres(&run, 3), peres_x(place(&PERES_DEPTHS, 3, "rounds")?)),
             (peres(&run, runs::PERES_ALL), peres_x(PERES_DEPTHS.len())),
@@ -782,25 +921,16 @@ impl SceneConstruct for WhatIsLeft {
             dim,
             v(key_at[0] + 0.18, key_at[1]),
         )?);
-        dots.push(kit.text(stage, ALL, 20.0, dim, v(peres_x(PERES_DEPTHS.len()), floor_y - 0.25))?);
+        // the last column has no model bar: all the rounds there are, counted only
+        let last_x = peres_x(PERES_DEPTHS.len());
+        dots.push(kit.text(stage, ALL, 20.0, dim, v(last_x, floor_y - 0.25))?);
+        dots.push(kit.text(stage, COUNTED_ONLY, 20.0, dim, v(last_x, floor_y - 0.53))?);
         fade_in_lagged(stage, &dots, 0.9, 0.1)?;
-        let names = format!(
-            "{} {}{} {}",
-            ELIAS_PERES[0],
-            cited::ELIAS_YEAR,
-            ELIAS_PERES[1],
-            cited::PERES_YEAR
-        );
-        let names = lower_third(&kit, stage, NAMES, &names)?;
-        play!(stage;
-            fade_out(stage.arena_mut(), entropy_note, ORIGIN, 1.0)?.rt(0.5),
-            fade_in(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.5),
-        );
-        // neither ever reaches it
-        line.wait_for(stage, "and neither ever")?;
-        play!(stage; fmn::animation::indicate(stage.arena_mut(), ceiling_note, 1.1, Some(rgb(ink)))?.rt(0.8));
+        // and neither ever reaches it
+        line.wait_for(stage, "and neither ever reaches it")?;
+        play!(stage; fmn::animation::indicate(stage.arena_mut(), value, 1.08, Some(rgb(ink)))?.rt(0.8));
         wait_until(stage, line.end() - 0.6)?;
-        let the_price = kit.text(stage, THE_PRICE, 26.0, ink, v(0.0, 3.55))?;
+        let the_price = kit.text(stage, THE_PRICE, 24.0, ink, PRICE_AT)?;
         fade_in_all(stage, &[the_price], 0.5)?;
         kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 0.8)?;
