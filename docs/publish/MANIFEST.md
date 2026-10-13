@@ -1,4 +1,4 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 20:39 EDT)
+# Publishing manifest: REVIEW ONLY (2026-10-12, 20:40 EDT)
 
 **Nothing is public, and nothing may be published.** The owner reviews every cut first.
 
@@ -35,7 +35,7 @@ owner acceptance or permission to publish publicly.
 | Hoeffding michael v2 | https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | the current Hoeffding cut; evidence below |
 | bakery michael, review 3 | https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | the current bakery cut; evidence below |
 | fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | the current fish cut; evidence below |
-| RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | the current RaptorQ cut; saved Private, still processing, captions not yet attached or verified; evidence below |
+| RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | the current RaptorQ cut; saved Private, SD/HD complete (4K still processing), English captions Published; evidence below |
 
 When a corrected review 2 of the bakery video or RaptorQ is copied here, the review-1 files above
 move to `renders/final_review1/` in the same crate (never deleted), and this table says so.
@@ -51,9 +51,13 @@ Fish michael v3 (BronzeRidge, mail 1321): saved Private, title "How to Count Fis
 [Michael review 3]", SD/HD/4K complete with no notices, the exact SRT `20620a55…` Published as
 English (video language), the description equal to the producer file `d7baab5a…` (d34de59), the
 thumbnail, tags, English, Education and the synthetic-narration disclosure applied. RaptorQ michael
-repair 12 (mails 1339 and 1342): saved Private with the description `e12a9273…` (5810c25); still
-processing, and its captions (`3b8c3ebe…`) are **not yet attached or verified**: BronzeRidge's
-receipt for those follows. Every path above was re-checked by md5 on the build host.
+repair 12 (BronzeRidge, mail 1343, checked at 20:38): saved Private, title "The Arithmetic Where
+3 × 7 = 9 [Michael review 2]", the description equal to the producer file `e12a9273…` (5810c25),
+the exact SRT `3b8c3ebe…` Published as English (video language), the thumbnail, tags, English,
+Education and the synthetic-narration disclosure applied; SD and HD are complete, so it can be
+reviewed in HD now, and **4K is still processing** on YouTube's side. BronzeRidge's screenshot of
+the channel shows all four new michael reviews Private with no notices, beside the four kept
+earlier uploads. Every path above was re-checked by md5 on the build host.
 
 ## Ready, not uploaded
 
@@ -74,7 +78,7 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | fish michael v2 (HOLD; superseded by v3) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | bakery michael, review 3 (uploaded, above) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, ca49d2f) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`522946ba…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
 | fish michael v3 (uploaded, above) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | 18:12, −18.1 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` (v3 chapter times, d34de59) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`20620a55…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
-| RaptorQ michael, repair 12 (uploaded, processing) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | 21:04, −18.0 LUFS | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` (chapter times of this cut, 5810c25) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` |
+| RaptorQ michael, repair 12 (uploaded, above; 4K processing) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | 21:04, −18.0 LUFS | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` (chapter times of this cut, 5810c25) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` |
 
 Bakery review 3 evidence: its director re-read three lines and froze the set (report.json
 `b142acac…`): 01_7 "staircases", 04_6 "ties" and 11_5 "car's odometer"; the other 82 lines are
