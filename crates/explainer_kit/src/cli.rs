@@ -90,7 +90,8 @@ render options:
   --out DIR         output directory (default renders)
   --narration DIR   the voice-over: one <id>.wav per script line; writes OUT/<chapter>.cues.tsv
                     (id, start s, length s), .cuelog.tsv (every cue, exact) and .timeline.tsv
-  --scratch-voice   time the beats from estimated line lengths (no audio; drafts)
+  --scratch-voice   time the beats from estimated line lengths (no audio; drafts); writes
+                    OUT/<chapter>.cues.tsv from those estimates, for draft cue sheets
   --silent          no narration
   --lint            layout lint at every beat: OUT/<chapter>.layout.tsv
   --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
@@ -571,7 +572,15 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                     )
                 })
                 .collect();
-            if args.narration.is_some() {
+            if args.narration.is_none() {
+                // a scratch-voice draft: its estimated line times, so the
+                // draft's cue sheets can be read before any narration exists
+                // (never the exact log or a timeline: nothing is scored or
+                // mastered from estimates)
+                let p = out_of("cues.tsv");
+                set_aside(&p)?;
+                std::fs::write(&p, cues)?;
+            } else {
                 for (ext, body) in [("cues.tsv", cues), ("cuelog.tsv", n.cue_log())] {
                     let p = out_of(ext);
                     set_aside(&p)?;
