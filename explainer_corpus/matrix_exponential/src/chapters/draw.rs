@@ -1,0 +1,1440 @@
+//! Video J's look, shared by every chapter (storyboard §3 "Color roles" and
+//! §4 "Showcase"): the seven role colours, line timing against the voice, the
+//! facts as the scenes read them, the grid of numbers that sits in an
+//! exponent, the plane of dots carried along their arrows (the one picture of
+//! the video), the "your turn" card with its countdown, and the harness that
+//! constructs a real chapter in a test.
+//!
+//! Builders return detached mobjects (in the arena, not yet in the scene),
+//! like `Kit::text`: bring them in with an animation, or `add_to_scene`.
+//! Engine rules (`explainer_kit::kit`): one flat fill per mobject, no outline
+//! on big filled shapes, small groups, and what moves is rewritten by one
+//! updater on one anchor, only when a tracker has moved.
+#![allow(dead_code, reason = "shared props land before the chapters that draw them")]
+
+use std::f64::consts::{FRAC_PI_2, TAU};
+use std::sync::OnceLock;
+
+use explainer_kit::narration::{frames_covering, wait_frames};
+use explainer_kit::{BACKGROUND, Facts, Kit, Palette, Script, Timed, hex, tween, v};
+use fmn::prelude::*;
+
+use crate::model::{Mat, QUIZZES, Quiz};
+
+pub use explainer_kit::animatic::HOLD_S;
+
+/// A scene error carrying `message` (a missing phrase, a broken invariant).
+pub fn fail(message: String) -> fmn::Error {
+    fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+        message.into_boxed_str(),
+    )))
+}
+
+// ------------------------------------------------------------------- facts
+
+/// Every fact of the video, computed once per process (the edge tests behind
+/// them are not cheap).
+fn all_facts() -> fmn::Result<&'static Facts> {
+    static FACTS: OnceLock<Result<Facts, String>> = OnceLock::new();
+    FACTS
+        .get_or_init(crate::facts::facts)
+        .as_ref()
+        .map_err(|e| fail(format!("the facts do not compute: {e}")))
+}
+
+/// A fact as it is printed for the oracle.
+pub fn fact(key: &str) -> fmn::Result<&'static str> {
+    all_facts()?
+        .get(key)
+        .ok_or_else(|| fail(format!("no fact {key} (docs/fact-sheet.md)")))
+}
+
+fn parse_number(key: &str, s: &str) -> fmn::Result<f64> {
+    s.parse::<f64>()
+        .map_err(|e| fail(format!("fact {key}: {s:?} is not a number: {e}")))
+}
+
+/// A fact that is a row of numbers (`2,1`).
+pub fn numbers(key: &str) -> fmn::Result<Vec<f64>> {
+    fact(key)?.split(',').map(|s| parse_number(key, s)).collect()
+}
+
+/// A fact that is a matrix (`0,-1;1,0`): its rows.
+pub fn matrix(key: &str) -> fmn::Result<Vec<Vec<f64>>> {
+    fact(key)?
+        .split(';')
+        .map(|row| {
+            row.split(',')
+                .map(|s| parse_number(key, s))
+                .collect::<fmn::Result<Vec<f64>>>()
+        })
+        .collect()
+}
+
+/// `x` to `places` decimals, as `facts::dec` prints it.
+pub fn show(x: f64, places: usize) -> fmn::Result<String> {
+    crate::facts::dec(x, places).map_err(fail)
+}
+
+/// A whole number as TeX prints it (no `-0`).
+pub fn whole(x: f64) -> String {
+    let r = x.round();
+    if r == 0.0 {
+        "0".to_owned()
+    } else {
+        format!("{}", r as i64)
+    }
+}
+
+/// The entries of a matrix fact as TeX strings: whole numbers as they are,
+/// the others to `places` decimals.
+pub fn entries(key: &str, places: Option<usize>) -> fmn::Result<Vec<Vec<String>>> {
+    matrix(key)?
+        .into_iter()
+        .map(|row| {
+            row.into_iter()
+                .map(|x| match places {
+                    Some(p) => show(x, p),
+                    None => Ok(whole(x)),
+                })
+                .collect::<fmn::Result<Vec<String>>>()
+        })
+        .collect()
+}
+
+/// The true minus sign (U+2212) for plain text; TeX sets its own.
+pub fn minus(s: &str) -> String {
+    s.replace('-', "\u{2212}")
+}
+
+// ------------------------------------------------------------ line timing
+
+/// Words a second for a line with no narrator (visual-only renders), as the
+/// kit's scratch voice estimates them.
+const SILENT_WPS: f64 = 2.6;
+
+/// A line being spoken: when it began, how long it runs and where its
+/// sentences start, so a picture can land on the words it illustrates. A
+/// phrase's moment is its share of its sentence's characters (the voice reads
+/// at a nearly even rate); the cue sheets of the narrated draft check the
+/// result.
+pub struct Spoken {
+    pub id: String,
+    pub start: f64,
+    pub len: f64,
+    text: String,
+    /// Each sentence's first character and its start, seconds into the line.
+    sentences: Vec<(usize, f64)>,
+}
+
+/// The character each sentence of `text` starts at.
+fn sentence_offsets(text: &str) -> Vec<usize> {
+    let chars: Vec<char> = text.chars().collect();
+    let mut out = vec![0];
+    for i in 0..chars.len().saturating_sub(2) {
+        if matches!(chars[i], '.' | '?' | '!') && chars[i + 1] == ' ' {
+            out.push(i + 2);
+        }
+    }
+    out
+}
+
+/// Speak line `id` now (after the previous line), as `Kit::say`.
+pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
+    kit.say(stage, id)?;
+    let script = Script::parse(crate::SCRIPT).map_err(fail)?;
+    let text = script
+        .text(id)
+        .ok_or_else(|| fail(format!("narration line {id} is not in script.tsv")))?
+        .to_owned();
+    let words = text.split_whitespace().count() as f64;
+    let len = kit
+        .narrator
+        .as_ref()
+        .and_then(|n| n.length(id))
+        .unwrap_or(words / SILENT_WPS + 0.4);
+    let offsets = sentence_offsets(&text);
+    let all = text.chars().count().max(1) as f64;
+    let measured = kit.sentence_starts(id);
+    let sentences = offsets
+        .iter()
+        .enumerate()
+        .map(|(j, &at)| {
+            let share = len * at as f64 / all;
+            let start = if measured.len() == offsets.len() {
+                measured[j]
+            } else {
+                share
+            };
+            (at, start)
+        })
+        .collect();
+    Ok(Spoken {
+        id: id.to_owned(),
+        start: stage.scene().time().to_f64(),
+        len,
+        text,
+        sentences,
+    })
+}
+
+impl Spoken {
+    /// How many sentences the line has.
+    pub fn sentences(&self) -> usize {
+        self.sentences.len()
+    }
+
+    /// When sentence `j` (from 0) begins (scene seconds).
+    pub fn sentence(&self, j: usize) -> fmn::Result<f64> {
+        self.sentences
+            .get(j)
+            .map(|&(_, s)| self.start + s)
+            .ok_or_else(|| fail(format!("line {} has no sentence {j}", self.id)))
+    }
+
+    /// When `phrase` begins (scene seconds).
+    pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
+        let byte = self
+            .text
+            .find(phrase)
+            .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        let i = self.text[..byte].chars().count();
+        let all = self.text.chars().count().max(1);
+        let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
+        let (from, t0) = self.sentences[j];
+        let (to, t1) = self.sentences.get(j + 1).copied().unwrap_or((all, self.len));
+        let share = (i - from) as f64 / (to - from).max(1) as f64;
+        Ok(self.start + t0 + (t1 - t0) * share)
+    }
+
+    /// When the line ends.
+    pub fn end(&self) -> f64 {
+        self.start + self.len
+    }
+
+    /// Wait (if need be) until `phrase` begins.
+    pub fn wait_for(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let t = self.at(phrase)?;
+        wait_until(stage, t)
+    }
+
+    /// Wait (if need be) until sentence `j` (from 0) begins.
+    pub fn wait_sentence(&self, stage: &mut Stage<'_>, j: usize) -> fmn::Result<()> {
+        let t = self.sentence(j)?;
+        wait_until(stage, t)
+    }
+
+    /// Wait (if need be) until the line's last sentence begins (a quiz's
+    /// question).
+    pub fn wait_last(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.wait_sentence(stage, self.sentences.len() - 1)
+    }
+
+    /// Wait (if need be) until the line has been spoken.
+    pub fn wait_end(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        wait_until(stage, self.end())
+    }
+}
+
+/// Wait (if need be) until scene time `t`.
+pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
+    let now = stage.scene().time().to_f64();
+    if t > now {
+        let fps = stage.scene().time().fps();
+        wait_frames(stage, frames_covering(t - now, fps))?;
+    }
+    Ok(())
+}
+
+/// Wait `seconds` (a beat of stillness after a reveal).
+pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
+    let fps = stage.scene().time().fps();
+    wait_frames(stage, frames_covering(seconds, fps))
+}
+
+/// How long a prediction pause without a ring holds the picture (the kit's).
+pub const PREDICT_HOLD_S: f64 = explainer_kit::props::PREDICT_HOLD_S;
+
+/// A prediction pause with no ring (storyboard: "five further prediction
+/// pauses hold for a moment without a ring"): let the question finish, mark
+/// the moment for the score, hold the picture.
+pub fn predict_hold(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    kit.hold(stage)?;
+    kit.mark(stage, "predict");
+    pause(stage, PREDICT_HOLD_S)
+}
+
+/// A `hold` beat: the music alone for [`HOLD_S`] after the line.
+pub fn music_hold(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    kit.music_breath(stage, HOLD_S)
+}
+
+// ------------------------------------------------------------ colour roles
+
+/// The rule: a rate, a tiny step, the matrix in the exponent, its powers and
+/// terms, velocity arrows, spins.
+pub fn rule() -> Srgb {
+    hex("#5CD0B3")
+}
+
+/// The result: e^{tA}, the running total, a path traced, where a point ends
+/// up, a rotation reached (the corpus's hero gold).
+pub fn result() -> Srgb {
+    Palette::hero()
+}
+
+/// The act of turning drawn as geometry: the fan of arrows, the dial of
+/// powers, an arc. (A little more azure than the kit's blue: the storyboard's
+/// teal and blue were 19.6 apart in ΔE2000, under its own gate of 20.)
+pub fn turning() -> Srgb {
+    hex("#54C4E5")
+}
+
+/// A substance in a container or on a node: money, salt, heat, chance. (A
+/// deeper orange than the kit's amber, which sat 14.9 from the result's gold.)
+pub fn substance() -> Srgb {
+    hex("#E8903B")
+}
+
+/// The second rule B, where order matters.
+pub fn second() -> Srgb {
+    hex("#E48BB5")
+}
+
+/// The guess that fails, a broken rule, digits lost.
+pub fn warn() -> Srgb {
+    Palette::red()
+}
+
+/// A confirmed answer. (More yellow-green than the kit's: 17.3 from the
+/// rule's teal.)
+pub fn good() -> Srgb {
+    hex("#83B943")
+}
+
+/// The "your turn" card and its countdown. (Bluer than the storyboard's
+/// `#B189D6`, which sat 15.7 from the second rule's rose.)
+pub fn quiz() -> Srgb {
+    hex("#9985E6")
+}
+
+/// A card's or panel's back.
+pub fn panel() -> Srgb {
+    hex("#1A2130")
+}
+
+/// The picture's background.
+pub fn ground() -> Srgb {
+    hex(BACKGROUND)
+}
+
+// ------------------------------------------------------------------ styles
+
+/// A flat fill and no outline.
+pub fn flat(c: Srgb, o: f64) -> Style {
+    Style::default().fill(c, o).stroke(c, 0.0, 0.0)
+}
+
+/// A stroke and no fill.
+pub fn line_style(c: Srgb, w: f64) -> Style {
+    Style::default().fill(c, 0.0).stroke(c, w, 1.0)
+}
+
+/// A stroke at an opacity, and no fill.
+pub fn faded_line(c: Srgb, w: f64, o: f64) -> Style {
+    Style::default().fill(c, 0.0).stroke(c, w, o)
+}
+
+/// An empty parent in the arena holding mobjects already there.
+pub fn group(stage: &mut Stage<'_>, members: &[Mob]) -> fmn::Result<Mob> {
+    let g = stage.arena_mut().add(VMobject::new());
+    for &m in members {
+        stage.attach(g, m)?;
+    }
+    Ok(g)
+}
+
+/// Bring several detached mobjects in together with a fade, `rt` seconds.
+pub fn fade_in_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Fade several mobjects out together, `rt` seconds.
+pub fn fade_out_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Fade every top-level mobject except `keep` out, `rt` seconds.
+pub fn fade_all_but(stage: &mut Stage<'_>, keep: &[Mob], rt: f64) -> fmn::Result<()> {
+    let leaving: Vec<Mob> = stage
+        .scene()
+        .mobjects()
+        .iter()
+        .copied()
+        .filter(|m| !keep.contains(m))
+        .collect();
+    fade_out_all(stage, &leaving, rt)
+}
+
+/// Bring detached mobjects in one after another (a lagged reveal), the whole
+/// taking `rt` seconds.
+pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a)?);
+    }
+    let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);
+    stage.play(g)?;
+    Ok(())
+}
+
+/// Tween several trackers together, `rt` seconds.
+pub fn tween_all(stage: &mut Stage<'_>, moves: &[(Mob, f64)], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &(t, value) in moves {
+        anims.push(stage.prepare(tween(t, value, rt)?)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// A tracker animated at a constant rate (a clock, a ring).
+pub fn tween_linear(tracker: Mob, value: f64, rt: f64) -> fmn::Result<AnimBuilder> {
+    Ok(tracker
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(rt),
+            rate_func: Some(fmn::core::rate::linear),
+            ..AnimateArgs::default()
+        })?
+        .set_value(value)?)
+}
+
+/// `rt` seconds, for an `animate()` chain.
+pub fn run(rt: f64) -> AnimateArgs {
+    AnimateArgs {
+        run_time: Some(rt),
+        ..AnimateArgs::default()
+    }
+}
+
+// ----------------------------------------------------------- text and math
+
+/// A line of mathematics in ink, centred at `at`.
+pub fn eq(kit: &Kit, stage: &mut Stage<'_>, src: &str, size: f64, at: Vec3) -> fmn::Result<Mob> {
+    kit.tex(stage, src, size, Palette::ink(), &[], at)
+}
+
+/// A line of mathematics in `color`, centred at `at`.
+pub fn tex_c(kit: &Kit, stage: &mut Stage<'_>, src: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
+    kit.tex(stage, src, size, color, &[], at)
+}
+
+/// Shrink `mob` about its centre until it is at most `room` wide.
+pub fn fit_width(stage: &mut Stage<'_>, mob: Mob, room: f64) {
+    if stage.get_width(mob) > room {
+        let at = stage.get_center(mob);
+        stage.set_width(mob, room, false);
+        stage.move_to(mob, at, ORIGIN);
+    }
+}
+
+/// A small label in the dim role, centred at `at`.
+pub fn label(kit: &Kit, stage: &mut Stage<'_>, words: &str, at: Vec3) -> fmn::Result<Mob> {
+    kit.text(stage, words, 28.0, Palette::dim(), at)
+}
+
+/// Words on a dark plate edged in `edge`, so they read over a field of dots
+/// (detached, one group), centred at `at`.
+pub fn chip(kit: &Kit, stage: &mut Stage<'_>, words: &str, size: f64, edge: Srgb, at: Vec3) -> fmn::Result<Mob> {
+    let text = kit.text(stage, words, size, Palette::ink(), at)?;
+    let (w, h) = (stage.get_width(text), stage.get_height(text));
+    let back = Rectangle::new()
+        .width(w + 0.4)
+        .height(h + 0.3)
+        .corner_radius(0.1)
+        .style(Style::default().fill(ground(), 0.92).stroke(edge, 2.0, 1.0))
+        .build()?
+        .moved_to(at);
+    let back = stage.arena_mut().add(back);
+    group(stage, &[back, text])
+}
+
+// ------------------------------------------------------------- the plane
+
+/// A 2 by 2 map of the plane, rows.
+pub type Map2 = [[f64; 2]; 2];
+
+/// A model matrix as a 2 by 2 map.
+pub fn map2(m: &Mat) -> Map2 {
+    [[m.get(0, 0), m.get(0, 1)], [m.get(1, 0), m.get(1, 1)]]
+}
+
+/// The map applied to a point of the plane.
+pub fn apply(m: &Map2, p: [f64; 2]) -> [f64; 2] {
+    [m[0][0] * p[0] + m[0][1] * p[1], m[1][0] * p[0] + m[1][1] * p[1]]
+}
+
+/// The turn by `t` radians.
+pub fn rotation_map(t: f64) -> Map2 {
+    [[t.cos(), -t.sin()], [t.sin(), t.cos()]]
+}
+
+/// Maths coordinates on the screen: `unit` scene units to one unit of the
+/// plane, the origin at `centre`.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Plane {
+    pub centre: Vec3,
+    pub unit: f64,
+}
+
+impl Plane {
+    /// Where the point `(x, y)` of the plane sits on screen.
+    pub fn p(&self, x: f64, y: f64) -> Vec3 {
+        v(self.centre[0] + self.unit * x, self.centre[1] + self.unit * y)
+    }
+
+    /// The two axes as faint lines reaching `half_w` and `half_h` plane units
+    /// either way, detached.
+    pub fn axes(&self, stage: &mut Stage<'_>, half_w: f64, half_h: f64) -> Vec<Mob> {
+        let style = faded_line(Palette::faint(), 2.0, 1.0);
+        let across = polyline(vec![self.p(-half_w, 0.0), self.p(half_w, 0.0)])
+            .style(style)
+            .build();
+        let up = polyline(vec![self.p(0.0, -half_h), self.p(0.0, half_h)])
+            .style(style)
+            .build();
+        vec![stage.arena_mut().add(across), stage.arena_mut().add(up)]
+    }
+}
+
+/// The points `(i·spacing, j·spacing)` within `radius` of the origin, row by
+/// row from the top.
+pub fn lattice(spacing: f64, radius: f64) -> Vec<[f64; 2]> {
+    // a hair over, so that 3.3 / 0.55 is 6 and not 5.999...
+    let n = (radius / spacing + 1e-9).floor() as i32;
+    let mut pts = Vec::new();
+    for j in (-n..=n).rev() {
+        for i in -n..=n {
+            let p = [f64::from(i) * spacing, f64::from(j) * spacing];
+            if p[0].hypot(p[1]) <= radius + 1e-9 {
+                pts.push(p);
+            }
+        }
+    }
+    pts
+}
+
+/// The index of the point of `pts` nearest `target`.
+pub fn nearest(pts: &[[f64; 2]], target: [f64; 2]) -> usize {
+    pts.iter()
+        .enumerate()
+        .min_by(|(_, a), (_, b)| {
+            let da = (a[0] - target[0]).hypot(a[1] - target[1]);
+            let db = (b[0] - target[0]).hypot(b[1] - target[1]);
+            da.total_cmp(&db)
+        })
+        .map_or(0, |(i, _)| i)
+}
+
+/// An arrow as one open polyline: the shaft, then the two barbs of the head
+/// (tail, tip, left barb, tip, right barb). The head is at most `head` long
+/// and at most 45% of the arrow; a zero-length arrow is a speck.
+pub fn arrow_points(tail: Vec3, tip: Vec3, head: f64) -> Vec<Vec3> {
+    let (dx, dy) = (tip[0] - tail[0], tip[1] - tail[1]);
+    let len = dx.hypot(dy);
+    if len < 1e-6 {
+        return vec![tail, v(tail[0] + 1e-4, tail[1])];
+    }
+    let (ux, uy) = (dx / len, dy / len);
+    let h = head.min(0.45 * len);
+    let back = [tip[0] - ux * h, tip[1] - uy * h];
+    let (nx, ny) = (-uy * h * 0.45, ux * h * 0.45);
+    vec![
+        tail,
+        tip,
+        v(back[0] + nx, back[1] + ny),
+        tip,
+        v(back[0] - nx, back[1] - ny),
+    ]
+}
+
+/// A static arrow with a filled head, detached.
+pub fn arrow(stage: &mut Stage<'_>, from: Vec3, to: Vec3, color: Srgb, thickness: f64) -> fmn::Result<Mob> {
+    let a = Arrow::new(from, to)
+        .buff(0.0)
+        .thickness(thickness)
+        .style(Style::default().fill(color, 1.0).stroke(color, thickness, 1.0))
+        .build()?;
+    Ok(stage.arena_mut().add(a))
+}
+
+/// What a dot of a [`Flow`] carries: the rule's arrow at its current place.
+#[derive(Clone, Copy, Debug)]
+pub struct Velocity {
+    pub rule: Map2,
+    /// Plane units of arrow per plane unit of speed.
+    pub scale: f64,
+    pub color: Srgb,
+    pub width: f64,
+    /// The head's length on screen.
+    pub head: f64,
+}
+
+/// What a [`Flow`] is made of.
+#[derive(Clone, Debug)]
+pub struct FlowSpec {
+    pub plane: Plane,
+    pub starts: Vec<[f64; 2]>,
+    pub dot_radius: f64,
+    pub dot_color: Srgb,
+    /// How bright the dots are to begin with (0 to 1).
+    pub dot_level: f64,
+    pub velocity: Option<Velocity>,
+    /// Which starts leave a trail behind them.
+    pub trails: Vec<usize>,
+    pub trail_color: Srgb,
+    pub trail_width: f64,
+}
+
+/// The central picture (storyboard §4: "a dot field placed every frame at
+/// e^{tA} applied to each start, with arrows and trails"): dots, each with
+/// the rule's arrow where it stands, and trails behind a few, all rewritten
+/// by one updater from one tracker.
+pub struct Flow {
+    /// Dots, then arrows, then trails: add this to the scene to show it.
+    pub group: Mob,
+    pub dots: Vec<Mob>,
+    pub arrows: Vec<Mob>,
+    pub trails: Vec<Mob>,
+    /// How bright the dots, the arrows and the trails are (0 to 1).
+    pub levels: [Mob; 3],
+    anchor: Mob,
+    spec: FlowSpec,
+}
+
+/// How many samples a trail is drawn from.
+const TRAIL_SAMPLES: usize = 40;
+
+impl Flow {
+    /// The dots, arrows and trails at the start (time 0), detached; arrows
+    /// and trails begin invisible (level 0).
+    pub fn build(stage: &mut Stage<'_>, spec: FlowSpec) -> fmn::Result<Self> {
+        let mut members = Vec::new();
+        let mut dots = Vec::new();
+        for &p in &spec.starts {
+            let c = spec.plane.p(p[0], p[1]);
+            let d = Dot::new()
+                .point(c)
+                .radius(spec.dot_radius)
+                .style(flat(spec.dot_color, spec.dot_level))
+                .build();
+            let m = stage.arena_mut().add(d);
+            dots.push(m);
+            members.push(m);
+        }
+        let mut arrows = Vec::new();
+        if let Some(vel) = &spec.velocity {
+            for &p in &spec.starts {
+                let tail = spec.plane.p(p[0], p[1]);
+                let w = apply(&vel.rule, p);
+                let tip = spec.plane.p(p[0] + vel.scale * w[0], p[1] + vel.scale * w[1]);
+                let a = polyline(arrow_points(tail, tip, vel.head))
+                    .style(faded_line(vel.color, vel.width, 0.0))
+                    .build();
+                let m = stage.arena_mut().add(a);
+                arrows.push(m);
+                members.push(m);
+            }
+        }
+        let mut trails = Vec::new();
+        for &i in &spec.trails {
+            let c = spec.plane.p(spec.starts[i][0], spec.starts[i][1]);
+            let t = polyline(vec![c, v(c[0] + 1e-4, c[1])])
+                .style(faded_line(spec.trail_color, spec.trail_width, 0.0))
+                .build();
+            let m = stage.arena_mut().add(t);
+            trails.push(m);
+            members.push(m);
+        }
+        let g = group(stage, &members)?;
+        let anchor = stage.arena_mut().add(VMobject::new());
+        let levels = [
+            stage.add_value_tracker(spec.dot_level),
+            stage.add_value_tracker(0.0),
+            stage.add_value_tracker(0.0),
+        ];
+        Ok(Self {
+            group: g,
+            dots,
+            arrows,
+            trails,
+            levels,
+            anchor,
+            spec,
+        })
+    }
+
+    /// Every dot, arrow and trail.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut all = self.dots.clone();
+        all.extend(&self.arrows);
+        all.extend(&self.trails);
+        all
+    }
+
+    /// Place everything from now on at `map(t)` applied to each start, `t`
+    /// read from `tracker` every frame (one updater, working only when the
+    /// tracker or a level has moved).
+    pub fn drive(&self, stage: &mut Stage<'_>, tracker: Mob, map: impl Fn(f64) -> Map2 + 'static) -> fmn::Result<()> {
+        let plane = self.spec.plane;
+        let starts = self.spec.starts.clone();
+        let (dots, arrows, trails) = (self.dots.clone(), self.arrows.clone(), self.trails.clone());
+        let trail_of = self.spec.trails.clone();
+        let velocity = self.spec.velocity.map(|vel| (vel.rule, vel.scale, vel.head));
+        let template: Vec<Vec3> = Dot::new().radius(self.spec.dot_radius).build().points().to_vec();
+        let levels = self.levels;
+        let mut last = (f64::NAN, [f64::NAN; 3]);
+        stage.add_updater(
+            self.anchor,
+            move |s, _| {
+                let t = s.tracker_value(tracker).unwrap_or(0.0);
+                let lv = levels.map(|m| s.tracker_value(m).unwrap_or(0.0));
+                if t.to_bits() != last.0.to_bits() {
+                    let m = map(t);
+                    for (&d, &p) in dots.iter().zip(&starts) {
+                        let q = apply(&m, p);
+                        let c = plane.p(q[0], q[1]);
+                        let pts: Vec<Vec3> = template.iter().map(|p| [p[0] + c[0], p[1] + c[1], p[2]]).collect();
+                        let _ = s.set_points(d, &pts);
+                    }
+                    if let Some((rule, k, head)) = velocity {
+                        for (&a, &p) in arrows.iter().zip(&starts) {
+                            let q = apply(&m, p);
+                            let w = apply(&rule, q);
+                            let tail = plane.p(q[0], q[1]);
+                            let tip = plane.p(q[0] + k * w[0], q[1] + k * w[1]);
+                            let _ = s.set_points(a, &arrow_points(tail, tip, head));
+                        }
+                    }
+                    for (&tr, &i) in trails.iter().zip(&trail_of) {
+                        let mut pts: Vec<Vec3> = (0..=TRAIL_SAMPLES)
+                            .map(|k| {
+                                let q = apply(&map(t * k as f64 / TRAIL_SAMPLES as f64), starts[i]);
+                                plane.p(q[0], q[1])
+                            })
+                            .collect();
+                        if t.abs() < 1e-3 {
+                            pts.truncate(1);
+                            pts.push(v(pts[0][0] + 1e-4, pts[0][1]));
+                        }
+                        let _ = s.set_points(tr, &pts);
+                    }
+                }
+                if lv != last.1 {
+                    for &d in &dots {
+                        s.set_opacity(d, lv[0], false);
+                    }
+                    for &a in &arrows {
+                        s.set_opacity(a, lv[1], false);
+                    }
+                    for &tr in &trails {
+                        s.set_opacity(tr, lv[2], false);
+                    }
+                }
+                last = (t, lv);
+            },
+            true,
+        )?;
+        stage.add_to_scene(self.anchor)?;
+        Ok(())
+    }
+
+    /// Stop the updater (before the flow fades out, or the chapter ends).
+    pub fn stop(&self, stage: &mut Stage<'_>) {
+        stage.clear_updaters(self.anchor, true);
+    }
+}
+
+/// A slow wobble of `tracker` about 0 while `on` reads above one half
+/// (amplitude `amp`, `rate` radians a second): the plane "stirs". Stops, and
+/// leaves the tracker where it is, when `on` is turned off.
+pub fn stir(stage: &mut Stage<'_>, tracker: Mob, on: Mob, amp: f64, rate: f64) -> fmn::Result<Mob> {
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let mut phase = 0.0_f64;
+    stage.add_dt_updater(
+        anchor,
+        move |s, _, dt| {
+            if dt > 0.0 && s.tracker_value(on).unwrap_or(0.0) > 0.5 {
+                phase += rate * dt;
+                let _ = s.set_tracker_value(tracker, amp * phase.sin());
+            }
+        },
+        false,
+    )?;
+    stage.add_to_scene(anchor)?;
+    Ok(anchor)
+}
+
+// ------------------------------------------------------- the grid prop
+
+/// A grid of numbers with its brackets drawn (storyboard §4: "the shared
+/// grid prop, which can sit in an exponent, tick and be pointed at"): one
+/// TeX string per cell, so it sits in an exponent at a small size and is the
+/// matrix of the chapter at a large one.
+pub struct MatrixGrid {
+    /// Cells and brackets, one group.
+    pub group: Mob,
+    /// The cells, row by row.
+    pub cells: Vec<Vec<Mob>>,
+    pub brackets: [Mob; 2],
+    /// The grid's centre when it was built.
+    pub at: Vec3,
+    /// How far apart the rows are.
+    pub pitch: f64,
+    /// Width and height, brackets included.
+    pub size: (f64, f64),
+}
+
+impl MatrixGrid {
+    /// A grid of TeX `entries` (rows of equal length) at font `size`, in
+    /// `color`, centred at `at`. Detached.
+    pub fn build(
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        entries: &[Vec<String>],
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+    ) -> fmn::Result<Self> {
+        let rows = entries.len();
+        let cols = entries.first().map_or(0, Vec::len);
+        if rows == 0 || cols == 0 || entries.iter().any(|r| r.len() != cols) {
+            return Err(fail("a grid needs rows of one length".into()));
+        }
+        // a digit's height at this size, and the grid's rhythm from it
+        let digit = 0.33 * size / 48.0;
+        let pitch = digit * 2.4;
+        let gap = digit * 1.7;
+        let mut cells: Vec<Vec<Mob>> = Vec::new();
+        let mut widths = vec![0.0_f64; cols];
+        for row in entries {
+            let mut mobs = Vec::new();
+            for (c, s) in row.iter().enumerate() {
+                let m = kit.tex(stage, s, size, color, &[], ORIGIN)?;
+                widths[c] = widths[c].max(stage.get_width(m));
+                mobs.push(m);
+            }
+            cells.push(mobs);
+        }
+        let total = widths.iter().sum::<f64>() + gap * (cols as f64 - 1.0);
+        let left = at[0] - total / 2.0;
+        let mut x = left;
+        for (c, w) in widths.iter().enumerate() {
+            for (r, row) in cells.iter().enumerate() {
+                let y = at[1] + pitch * ((rows as f64 - 1.0) / 2.0 - r as f64);
+                stage.move_to(row[c], v(x + w / 2.0, y), ORIGIN);
+            }
+            x += w + gap;
+        }
+        let half = pitch * rows as f64 / 2.0;
+        let pad = gap * 0.55;
+        let serif = digit * 0.7;
+        let (xl, xr) = (left - pad, left + total + pad);
+        let (top, bottom) = (at[1] + half, at[1] - half);
+        let style = || faded_line(color, 4.0, 1.0);
+        let lb = polyline(vec![
+            v(xl + serif, top),
+            v(xl, top),
+            v(xl, bottom),
+            v(xl + serif, bottom),
+        ])
+        .style(style())
+        .build();
+        let rb = polyline(vec![
+            v(xr - serif, top),
+            v(xr, top),
+            v(xr, bottom),
+            v(xr - serif, bottom),
+        ])
+        .style(style())
+        .build();
+        let (lb, rb) = (stage.arena_mut().add(lb), stage.arena_mut().add(rb));
+        let mut all: Vec<Mob> = cells.iter().flatten().copied().collect();
+        all.extend([lb, rb]);
+        let g = group(stage, &all)?;
+        Ok(Self {
+            group: g,
+            cells,
+            brackets: [lb, rb],
+            at,
+            pitch,
+            size: (xr - xl, 2.0 * half),
+        })
+    }
+
+    /// The scene point of the cell at `row`, `col` right now.
+    pub fn cell_at(&self, stage: &Stage<'_>, row: usize, col: usize) -> Vec3 {
+        stage.get_center(self.cells[row][col])
+    }
+
+    /// A translucent band over row `row` (lit while that row is worked),
+    /// detached.
+    pub fn row_band(&self, stage: &mut Stage<'_>, row: usize, color: Srgb) -> fmn::Result<Mob> {
+        let y = stage.get_center(self.cells[row][0])[1];
+        let x = stage.get_center(self.group)[0];
+        let band = Rectangle::new()
+            .width(self.size.0 + 0.2)
+            .height(self.pitch * 0.92)
+            .corner_radius(0.08)
+            .style(flat(color, 0.2))
+            .build()?
+            .moved_to(v(x, y));
+        Ok(stage.arena_mut().add(band))
+    }
+
+    /// A rounded outline round the whole grid, in `color` (the guess, "outlined
+    /// in red"), detached.
+    pub fn outline(&self, stage: &mut Stage<'_>, color: Srgb) -> fmn::Result<Mob> {
+        let at = stage.get_center(self.group);
+        let frame = Rectangle::new()
+            .width(self.size.0 + 0.3)
+            .height(self.size.1 + 0.3)
+            .corner_radius(0.12)
+            .style(faded_line(color, 3.0, 1.0))
+            .build()?
+            .moved_to(at);
+        Ok(stage.arena_mut().add(frame))
+    }
+}
+
+/// A cross (the engine's faces have no ✗): two strokes of `color` across a
+/// square `half` either way of `at`, detached, one group.
+pub fn cross_mark(stage: &mut Stage<'_>, at: Vec3, half: f64, color: Srgb, width: f64) -> fmn::Result<Mob> {
+    let style = || faded_line(color, width, 1.0);
+    let a = polyline(vec![v(at[0] - half, at[1] + half), v(at[0] + half, at[1] - half)])
+        .style(style())
+        .build();
+    let b = polyline(vec![v(at[0] - half, at[1] - half), v(at[0] + half, at[1] + half)])
+        .style(style())
+        .build();
+    let (a, b) = (stage.arena_mut().add(a), stage.arena_mut().add(b));
+    group(stage, &[a, b])
+}
+
+/// A tick (the engine's faces have no ✔): a short stroke down and a long one
+/// up, `size` across, in `color`, detached.
+pub fn tick_mark(stage: &mut Stage<'_>, at: Vec3, size: f64, color: Srgb, width: f64) -> fmn::Result<Mob> {
+    let t = polyline(vec![
+        v(at[0] - 0.5 * size, at[1] - 0.05 * size),
+        v(at[0] - 0.15 * size, at[1] - 0.4 * size),
+        v(at[0] + 0.5 * size, at[1] + 0.45 * size),
+    ])
+    .style(faded_line(color, width, 1.0))
+    .build();
+    Ok(stage.arena_mut().add(t))
+}
+
+// ------------------------------------------------------------ the quiz card
+
+/// How a quiz card is dressed.
+pub const YOUR_TURN: &str = "your turn";
+const PAUSE_LINE: &str = "pause for more time";
+/// The ring's radius.
+const RING_R: f64 = 0.5;
+/// The strip along the card's foot that holds the ring and its note.
+const FOOT: f64 = 1.5;
+
+/// The quiz asked on line `id`.
+pub fn quiz_at(id: &str) -> fmn::Result<&'static Quiz> {
+    QUIZZES
+        .iter()
+        .find(|q| q.line == id)
+        .ok_or_else(|| fail(format!("line {id} asks no quiz in model::QUIZZES")))
+}
+
+/// What is left of a circle of radius `r` at `c`, drained clockwise from the
+/// top.
+fn ring_points(c: Vec3, r: f64, share: f64) -> Vec<Vec3> {
+    let share = share.clamp(0.0, 1.0);
+    let steps = ((64.0 * share).ceil() as usize).max(1);
+    (0..=steps)
+        .map(|k| {
+            // what is left runs counter-clockwise from the top
+            let a = FRAC_PI_2 + TAU * share * k as f64 / steps as f64;
+            v(c[0] + r * a.cos(), c[1] + r * a.sin())
+        })
+        .collect()
+}
+
+/// The "your turn" card (storyboard, "The 'your turn' device"): a violet
+/// card with the problem above, along its foot "pause for more time" and a
+/// ring that drains over the quiz's seconds with the seconds left in its
+/// middle, the narration silent and the music alone; at zero the ring goes
+/// and the answer lands. The problem is the chapter's own picture, placed in
+/// [`QuizCard::content`]; the answer is the `F-Q.<line>.*` facts, built by
+/// the chapter and handed to [`QuizCard::land`].
+pub struct QuizCard {
+    pub quiz: &'static Quiz,
+    pub at: Vec3,
+    pub size: (f64, f64),
+    pub back: Mob,
+    pub label: Mob,
+    /// The ring's faint track.
+    pub track: Mob,
+    pub ring: Mob,
+    pub digits: Vec<Mob>,
+    pub pause_line: Mob,
+    ring_at: Vec3,
+    /// Seconds left, whether the countdown is running, and how much of the
+    /// ring and its digit shows.
+    left: Mob,
+    running: Mob,
+    shown: Mob,
+    anchor: Mob,
+}
+
+impl QuizCard {
+    /// The card for the quiz asked on line `id`, centred at `at`. Detached.
+    pub fn build(kit: &Kit, stage: &mut Stage<'_>, id: &str, at: Vec3, size: (f64, f64)) -> fmn::Result<Self> {
+        let quiz = quiz_at(id)?;
+        let (w, h) = size;
+        let back = Rectangle::new()
+            .width(w)
+            .height(h)
+            .corner_radius(0.18)
+            .style(Style::default().fill(panel(), 0.96).stroke(quiz_color(), 3.0, 1.0))
+            .build()?
+            .moved_to(at);
+        let back = stage.arena_mut().add(back);
+        let label = kit.text(stage, YOUR_TURN, 30.0, quiz_color(), v(at[0], at[1] + h / 2.0 - 0.42))?;
+        let ring_at = v(at[0] + w / 2.0 - 0.95, at[1] - h / 2.0 + FOOT / 2.0);
+        let track = stage.arena_mut().add(
+            Circle::new()
+                .radius(RING_R)
+                .arc_center(ring_at)
+                .style(faded_line(Palette::faint(), 8.0, 1.0))
+                .build(),
+        );
+        let n = f64::from(quiz.seconds);
+        let ring = stage.arena_mut().add(
+            polyline(ring_points(ring_at, RING_R, 1.0))
+                .style(faded_line(quiz_color(), 9.0, 0.0))
+                .build(),
+        );
+        let mut digits = Vec::new();
+        for second in 1..=quiz.seconds {
+            let d = kit.text(stage, &second.to_string(), 48.0, Palette::ink(), ring_at)?;
+            stage.set_opacity(d, 0.0, true);
+            digits.push(d);
+        }
+        let pause_line = kit.text_left(
+            stage,
+            PAUSE_LINE,
+            26.0,
+            Palette::dim(),
+            v(at[0] - w / 2.0 + 0.45, ring_at[1]),
+        )?;
+        let left = stage.add_value_tracker(n);
+        let running = stage.add_value_tracker(0.0);
+        let shown = stage.add_value_tracker(0.0);
+        let anchor = stage.arena_mut().add(VMobject::new());
+        let seen = digits.clone();
+        let mut last = (f64::NAN, f64::NAN);
+        stage.add_dt_updater(
+            anchor,
+            move |s, _, dt| {
+                let mut l = s.tracker_value(left).unwrap_or(n);
+                if dt > 0.0 && s.tracker_value(running).unwrap_or(0.0) > 0.5 {
+                    l = (l - dt).max(0.0);
+                    let _ = s.set_tracker_value(left, l);
+                }
+                let sh = s.tracker_value(shown).unwrap_or(0.0);
+                if (l, sh) == last {
+                    return;
+                }
+                let _ = s.set_points(ring, &ring_points(ring_at, RING_R, l / n));
+                s.set_stroke(ring, None, None, Some(sh), None, false);
+                let current = l.ceil() as usize;
+                for (k, &d) in seen.iter().enumerate() {
+                    let on = l > 0.0 && current == k + 1;
+                    s.set_opacity(d, if on { sh } else { 0.0 }, true);
+                }
+                last = (l, sh);
+            },
+            true,
+        )?;
+        Ok(Self {
+            quiz,
+            at,
+            size,
+            back,
+            label,
+            track,
+            ring,
+            digits,
+            pause_line,
+            ring_at,
+            left,
+            running,
+            shown,
+            anchor,
+        })
+    }
+
+    /// The middle of the card above its foot: where the problem is placed,
+    /// and the room it has.
+    pub fn content(&self) -> (Vec3, f64, f64) {
+        let (w, h) = self.size;
+        let top = self.at[1] + h / 2.0 - 0.8;
+        let bottom = self.at[1] - h / 2.0 + FOOT;
+        (v(self.at[0], (top + bottom) / 2.0), w - 0.8, top - bottom)
+    }
+
+    /// Where the ring sits (and the answer, if it lands there).
+    pub fn ring_at(&self) -> Vec3 {
+        self.ring_at
+    }
+
+    /// Bring the card in with its full ring, `rt` seconds; `extra` (the
+    /// problem's own mobjects) fade in with it. A card whose problem is
+    /// still being spoken shows its frame first ([`QuizCard::show_frame`])
+    /// and its ring when the question comes ([`QuizCard::arm`]).
+    pub fn show(&self, stage: &mut Stage<'_>, extra: &[Mob], rt: f64) -> fmn::Result<()> {
+        self.show_frame(stage, extra, rt)?;
+        self.arm(stage)
+    }
+
+    /// The card without its ring: the violet frame, "your turn", the note
+    /// and the ring's faint track, with `extra` fading in beside them.
+    pub fn show_frame(&self, stage: &mut Stage<'_>, extra: &[Mob], rt: f64) -> fmn::Result<()> {
+        stage.add_to_scene(self.anchor)?;
+        let mut ins = vec![self.back, self.label, self.track, self.pause_line];
+        ins.extend(extra);
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for m in ins {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(rt))?);
+        }
+        stage.play_prepared(anims)?;
+        Ok(())
+    }
+
+    /// The ring and its seconds, full, as the question is asked.
+    pub fn arm(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        stage.add_to_scene(self.ring)?;
+        for &d in &self.digits {
+            stage.add_to_scene(d)?;
+        }
+        stage.play(tween(self.shown, 1.0, 0.25)?)?;
+        Ok(())
+    }
+
+    /// The countdown: let the question finish, then a listen window of the
+    /// quiz's seconds (the narration silent, the music alone) while the ring
+    /// drains from the scene's own clock.
+    pub fn count(&self, kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        kit.hold(stage)?;
+        stage.set_tracker_value(self.running, 1.0)?;
+        let label = format!("{}:{}", kit.chapter, self.quiz.line);
+        kit.listen(stage, f64::from(self.quiz.seconds), &label)?;
+        stage.set_tracker_value(self.running, 0.0)?;
+        stage.set_tracker_value(self.left, 0.0)?;
+        Ok(())
+    }
+
+    /// At zero: the ring, its track and its note go, `answer` (detached,
+    /// built by the chapter) lands. The next beat works it in the same place.
+    pub fn land(&self, stage: &mut Stage<'_>, answer: &[Mob], rt: f64) -> fmn::Result<()> {
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        anims.push(stage.prepare(tween(self.shown, 0.0, rt)?)?);
+        for m in [self.track, self.pause_line] {
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(rt))?);
+        }
+        for &m in answer {
+            let a = fade_in(stage.arena_mut(), m, v(0.0, -0.12), 1.0)?;
+            anims.push(stage.prepare(a.rt(rt))?);
+        }
+        stage.play_prepared(anims)?;
+        stage.clear_updaters(self.anchor, true);
+        stage.remove_from_scene(self.ring);
+        for &d in &self.digits {
+            stage.remove_from_scene(d);
+        }
+        Ok(())
+    }
+
+    /// The card's own mobjects once the countdown is over (the back and the
+    /// label; the chapter holds the problem and the answer).
+    pub fn mobs(&self) -> Vec<Mob> {
+        vec![self.back, self.label]
+    }
+}
+
+fn quiz_color() -> Srgb {
+    quiz()
+}
+
+// ------------------------------------------------------------ the harness
+
+/// Construct a real chapter in a test: render it to a tiny PNG sequence
+/// through franken_manim's facade with the kit's layout lint on, so every
+/// `wait_for` phrase, every TeX string, every tracker and updater runs.
+#[cfg(test)]
+pub mod testing {
+    use std::rc::Rc;
+
+    use explainer_kit::{Kit, Linter, Registered};
+    use fmn::prelude::*;
+
+    /// What a constructed chapter left behind.
+    pub struct Ran {
+        pub frames: u64,
+        /// The scene's length, seconds (at the test's frame rate).
+        pub seconds: f64,
+        /// The layout lint's findings (empty when clean).
+        pub lint: String,
+        pub lint_count: usize,
+        /// Every text-like mobject the chapter built, with its source.
+        pub registered: Vec<Registered>,
+    }
+
+    /// Run chapter `key` of the registry at 64 by 36 and 10 frames a second,
+    /// visual-only (no narrator: a line lasts its scratch-voice estimate).
+    pub fn run(key: &str) -> Result<Ran, String> {
+        let chapter = crate::chapters::registry()
+            .into_iter()
+            .find(|c| c.key == key)
+            .ok_or_else(|| format!("no chapter {key} in the registry"))?;
+        let lint = Rc::new(Linter::new());
+        let mut kit = Kit::new().map_err(|e| e.to_string())?.with_lint(Rc::clone(&lint));
+        kit.chapter = key.to_owned();
+        let mut scene = (chapter.make)(kit.clone());
+        let dir = std::env::temp_dir().join(format!("matrix_exponential_{key}_{}", std::process::id()));
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;
+        opts.config.camera.resolution = (64, 36);
+        opts.config.camera.fps = 10;
+        opts.config.camera.background_color = super::BACKGROUND.to_owned();
+        let report = fmn::render(scene.as_mut(), opts).map_err(|e| format!("{key}: {e}"))?;
+        let frames = report.artifact.frame_count as u64;
+        Ok(Ran {
+            frames,
+            seconds: frames as f64 / 10.0,
+            lint: lint.report(),
+            lint_count: lint.count(),
+            registered: kit.registered(),
+        })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::{expm, quarter_turn};
+
+    // ΔE2000 (Sharma, Wu and Dalal 2005), for the colour-role test.
+    fn lab(c: Srgb) -> [f64; 3] {
+        let lin = |u: f64| {
+            if u <= 0.04045 {
+                u / 12.92
+            } else {
+                ((u + 0.055) / 1.055).powf(2.4)
+            }
+        };
+        let (r, g, b) = (lin(c.r), lin(c.g), lin(c.b));
+        let x = (0.412_456_4 * r + 0.357_576_1 * g + 0.180_437_5 * b) / 0.950_47;
+        let y = 0.212_672_9 * r + 0.715_152_2 * g + 0.072_175 * b;
+        let z = (0.019_333_9 * r + 0.119_192 * g + 0.950_304_1 * b) / 1.088_83;
+        let f = |t: f64| {
+            if t > 216.0 / 24389.0 {
+                t.cbrt()
+            } else {
+                (24389.0 / 27.0 * t + 16.0) / 116.0
+            }
+        };
+        let (fx, fy, fz) = (f(x), f(y), f(z));
+        [116.0 * fy - 16.0, 500.0 * (fx - fy), 200.0 * (fy - fz)]
+    }
+
+    fn de2000(a: [f64; 3], b: [f64; 3]) -> f64 {
+        let (c1, c2) = (a[1].hypot(a[2]), b[1].hypot(b[2]));
+        let cb = (c1 + c2) / 2.0;
+        let g = 0.5 * (1.0 - (cb.powi(7) / (cb.powi(7) + 25f64.powi(7))).sqrt());
+        let (a1, a2) = ((1.0 + g) * a[1], (1.0 + g) * b[1]);
+        let (c1p, c2p) = (a1.hypot(a[2]), a2.hypot(b[2]));
+        let hue = |y: f64, x: f64| {
+            if x == 0.0 && y == 0.0 {
+                0.0
+            } else {
+                y.atan2(x).to_degrees().rem_euclid(360.0)
+            }
+        };
+        let (h1, h2) = (hue(a[2], a1), hue(b[2], a2));
+        let (dl, dc) = (b[0] - a[0], c2p - c1p);
+        let mut dh = h2 - h1;
+        if c1p * c2p == 0.0 {
+            dh = 0.0;
+        } else if dh > 180.0 {
+            dh -= 360.0;
+        } else if dh < -180.0 {
+            dh += 360.0;
+        }
+        let dh_big = 2.0 * (c1p * c2p).sqrt() * (dh / 2.0).to_radians().sin();
+        let (lb, cbp) = ((a[0] + b[0]) / 2.0, (c1p + c2p) / 2.0);
+        let hs = h1 + h2;
+        let hb = if c1p * c2p == 0.0 {
+            hs
+        } else if (h1 - h2).abs() <= 180.0 {
+            hs / 2.0
+        } else if hs < 360.0 {
+            (hs + 360.0) / 2.0
+        } else {
+            (hs - 360.0) / 2.0
+        };
+        let t = 1.0 - 0.17 * (hb - 30.0).to_radians().cos()
+            + 0.24 * (2.0 * hb).to_radians().cos()
+            + 0.32 * (3.0 * hb + 6.0).to_radians().cos()
+            - 0.20 * (4.0 * hb - 63.0).to_radians().cos();
+        let dth = 30.0 * (-((hb - 275.0) / 25.0).powi(2)).exp();
+        let rc = 2.0 * (cbp.powi(7) / (cbp.powi(7) + 25f64.powi(7))).sqrt();
+        let sl = 1.0 + 0.015 * (lb - 50.0).powi(2) / (20.0 + (lb - 50.0).powi(2)).sqrt();
+        let (sc, sh) = (1.0 + 0.045 * cbp, 1.0 + 0.015 * cbp * t);
+        let rt = -(2.0 * dth).to_radians().sin() * rc;
+        ((dl / sl).powi(2) + (dc / sc).powi(2) + (dh_big / sh).powi(2) + rt * (dc / sc) * (dh_big / sh)).sqrt()
+    }
+
+    #[test]
+    fn de2000_matches_sharma_wu_dalal() {
+        // the paper's first test pair
+        let d = de2000([50.0, 2.6772, -79.7751], [50.0, 0.0, -82.7485]);
+        assert!((d - 2.0425).abs() < 1e-3, "{d}");
+    }
+
+    /// Storyboard §3: the colour roles are checked pairwise for contrast
+    /// (ΔE2000 at least 20) before drafts. As the storyboard first set them,
+    /// four pairs were under it (gold and amber 14.9, rose and violet 15.7,
+    /// teal and green 17.3, teal and blue 19.6); the roles here are nudged
+    /// the least that clears it (docs/decisions.md).
+    #[test]
+    fn the_role_colours_are_told_apart() {
+        let roles = [
+            ("rule", rule()),
+            ("result", result()),
+            ("turning", turning()),
+            ("substance", substance()),
+            ("second rule", second()),
+            ("warn", warn()),
+            ("good", good()),
+            ("quiz", quiz()),
+            ("ink", Palette::ink()),
+            ("background", ground()),
+        ];
+        for (i, (na, a)) in roles.iter().enumerate() {
+            for (nb, b) in &roles[i + 1..] {
+                let d = de2000(lab(*a), lab(*b));
+                assert!(d >= 20.0, "{na} and {nb}: ΔE2000 {d:.1}");
+            }
+        }
+    }
+
+    #[test]
+    fn the_lattice_is_a_disc_of_about_a_hundred_and_twenty_dots() {
+        let pts = lattice(0.55, 3.3);
+        assert!((100..=140).contains(&pts.len()), "{}", pts.len());
+        assert!(pts.contains(&[0.0, 0.0]), "the centre is one of them");
+        assert!(pts.iter().all(|p| p[0].hypot(p[1]) <= 3.3 + 1e-9));
+        // symmetric: every point's mirror is there
+        for p in &pts {
+            assert!(
+                pts.iter()
+                    .any(|q| (q[0] + p[0]).abs() < 1e-9 && (q[1] + p[1]).abs() < 1e-9)
+            );
+        }
+    }
+
+    #[test]
+    fn an_arrow_is_a_shaft_and_two_barbs_that_stay_inside_it() {
+        let pts = arrow_points(v(0.0, 0.0), v(2.0, 0.0), 0.3);
+        assert_eq!(pts.len(), 5);
+        assert_eq!(pts[1], pts[3], "both barbs leave the tip");
+        // barbs fall back along the shaft, one to each side
+        assert!(pts[2][0] < 2.0 && pts[4][0] < 2.0);
+        assert!((pts[2][1] + pts[4][1]).abs() < 1e-12 && pts[2][1] != 0.0);
+        // a short arrow's head is at most 45% of it
+        let short = arrow_points(v(0.0, 0.0), v(0.2, 0.0), 0.3);
+        assert!((short[2][0] - (0.2 - 0.09)).abs() < 1e-12, "{:?}", short[2]);
+        // a zero-length arrow is a speck, not NaN
+        assert!(
+            arrow_points(v(1.0, 1.0), v(1.0, 1.0), 0.3)
+                .iter()
+                .all(|p| p[0].is_finite())
+        );
+    }
+
+    #[test]
+    fn rings_drain_from_the_top_and_end_where_they_began_only_when_full() {
+        let c = v(1.0, 2.0);
+        let full = ring_points(c, 0.5, 1.0);
+        assert!(
+            (full[0][0] - 1.0).abs() < 1e-9 && (full[0][1] - 2.5).abs() < 1e-9,
+            "starts at the top"
+        );
+        let (first, last) = (full[0], full[full.len() - 1]);
+        assert!((first[0] - last[0]).abs() < 1e-9 && (first[1] - last[1]).abs() < 1e-9);
+        let half = ring_points(c, 0.5, 0.5);
+        let end = half[half.len() - 1];
+        assert!(
+            (end[0] - 1.0).abs() < 1e-9 && (end[1] - 1.5).abs() < 1e-9,
+            "half a ring ends at the bottom"
+        );
+        assert_eq!(ring_points(c, 0.5, 0.0).len(), 2, "an empty ring is a speck");
+    }
+
+    #[test]
+    fn the_facts_the_scenes_read_are_the_models() {
+        // the cold open's answer, to the three places it is shown, is the
+        // number 07_6 shows
+        let shown = entries("F-H.J.true", Some(3)).unwrap();
+        assert_eq!(shown, entries("F-V.07_6.at_one", Some(3)).unwrap());
+        let want = expm(&quarter_turn());
+        for (i, row) in shown.iter().enumerate() {
+            for (j, s) in row.iter().enumerate() {
+                assert_eq!(*s, show(want.get(i, j), 3).unwrap(), "entry {i},{j}");
+            }
+        }
+        // the quarter turn itself, as whole numbers
+        assert_eq!(
+            entries("F-J.power.k1", None).unwrap(),
+            vec![vec!["0", "-1"], vec!["1", "0"]]
+        );
+        assert_eq!(minus("-0.841"), "\u{2212}0.841");
+        assert_eq!(whole(-0.0), "0");
+    }
+
+    #[test]
+    fn every_quiz_of_the_model_is_found_by_its_line() {
+        for q in QUIZZES {
+            assert_eq!(quiz_at(q.line).unwrap().line, q.line);
+            assert!((3..=6).contains(&q.seconds), "{}: {} s", q.line, q.seconds);
+        }
+        assert!(quiz_at("01_1").is_err(), "the opening question has no countdown");
+    }
+}

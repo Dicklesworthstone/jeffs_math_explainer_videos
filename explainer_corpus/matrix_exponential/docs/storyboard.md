@@ -51,15 +51,18 @@ gold. A highlight never uses a data colour.
 |---|---|
 | the rule: a rate, a tiny step, the matrix in the exponent, its powers and terms, velocity arrows, spins | teal `#5CD0B3` |
 | the result: e^{tA}, the running total, a path traced, where a point ends up, a rotation reached | `hero` gold `#FFD866` |
-| the act of turning drawn as geometry: the fan of arrows, the dial of powers, an arc | blue `#58C4DD` |
-| a substance in a container or on a node: money, salt, heat, chance | amber `#F0AC5F` |
+| the act of turning drawn as geometry: the fan of arrows, the dial of powers, an arc | blue `#54C4E5` |
+| a substance in a container or on a node: money, salt, heat, chance | amber `#E8903B` |
 | the second rule B, where order matters | rose `#E48BB5` |
 | the guess that fails, a broken rule, digits lost | `warn` red `#FC6255` |
-| a confirmed answer | `good` green `#83C167` |
-| the "your turn" card and its countdown | violet `#B189D6` |
+| a confirmed answer | `good` green `#83B943` |
+| the "your turn" card and its countdown | violet `#9985E6` |
 
 The seven hues are checked pairwise for contrast (ΔE2000 ≥ 20) by a test
-before drafts, as Video C's customers and Video F's pieces were.
+before drafts, as Video C's customers and Video F's pieces were. (Blue, amber,
+green and violet were nudged from `#58C4DD`, `#F0AC5F`, `#83C167` and
+`#B189D6` when that test first ran and four pairs fell under 20; every pair,
+ink and background included, is now at least 22: `docs/decisions.md`.)
 
 ## Vocabulary (one word per idea)
 
