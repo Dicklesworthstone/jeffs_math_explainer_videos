@@ -4,13 +4,18 @@
 //! the honest limits). Each chapter starts as its storyboard's animatic and
 //! is replaced by its real scene as it is built.
 
+pub mod by_hand;
 pub mod draw;
 pub mod glyphs;
 pub mod halfway;
+pub mod lost_directions;
 pub mod one_turn;
 pub mod spin;
 pub mod the_book;
+pub mod the_platform;
+pub mod the_spare_joint;
 pub mod three_angles;
+pub mod velocities_add;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -44,13 +49,13 @@ pub fn registry() -> Vec<Chapter> {
         scene!("03_three_angles", 0.4, three_angles::ThreeAngles),
         scene!("04_halfway", 0.6, halfway::Halfway),
         scene!("05_spin", 0.55, spin::Spin),
-        animatic!("06_the_platform", 0.5),
+        scene!("06_the_platform", 0.5, the_platform::ThePlatform),
         animatic!("07_screws", 0.6),
         animatic!("08_seven_screws", 0.6),
-        animatic!("09_by_hand", 0.5),
-        animatic!("10_velocities_add", 0.5),
-        animatic!("11_lost_directions", 0.4),
-        animatic!("12_the_spare_joint", 0.5),
+        scene!("09_by_hand", 0.5, by_hand::ByHand),
+        scene!("10_velocities_add", 0.5, velocities_add::VelocitiesAdd),
+        scene!("11_lost_directions", 0.4, lost_directions::LostDirections),
+        scene!("12_the_spare_joint", 0.5, the_spare_joint::TheSpareJoint),
         animatic!("13_steps", 0.55),
         animatic!("14_the_steady_path", 0.5),
         animatic!("15_everywhere", 0.65),
