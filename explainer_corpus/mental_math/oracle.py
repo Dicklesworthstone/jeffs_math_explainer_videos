@@ -7,8 +7,8 @@ Run from this folder (`./x mental_math facts-check` does):
 
 stdout: one `KEY<TAB>VALUE` line per fact, the same keys `mental facts`
 prints (src/facts.rs), in the rows of docs/fact-sheet.md: F-H (the hook), F-T
-(the tricks), F-Q (the quizzes), F-X (the edges of the always sentences) and
-F-C (cited).
+(the tricks), F-M (the one move), F-N (the product with nothing to grab), F-Q
+(the quizzes), F-X (the edges of the always sentences) and F-C (cited).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -16,8 +16,8 @@ cross-check failed.
 How the values are obtained, independently of the Rust model:
   * every answer by plain multiplication of Python integers or Fractions,
     never by the trick the video uses to reach it;
-  * the pictures by counting unit squares: every cell of the square or the
-    rectangle is put in its piece and the pieces are counted;
+  * the pictures by counting unit squares: the moved-strip figure is built
+    as a set of cells, and every cell of a rectangle is put in its piece;
   * the two-digit readings of squares near 50 by slicing the decimal string
     of the plain square;
   * the paper method by a second long multiplication, written on digit
@@ -126,31 +126,41 @@ def count_cells(height, width, row_cut, col_cut):
     return counts
 
 
+def moved(side, strip):
+    """The one move, by counting cells: a strip `strip` wide sliced off the right of a
+    square and laid along its top. (wide, tall, cells in the rectangle, cells that overhang)."""
+    cells = set()
+    for i in range(side):  # rows, from the bottom
+        for j in range(side - strip):  # what is left of the square
+            cells.add((i, j))
+    for i in range(strip):  # the strip, turned, on top
+        for j in range(side):
+            cells.add((side + i, j))
+    wide, tall = side - strip, side + strip
+    rectangle = sum(1 for (i, j) in cells if j < wide)
+    return wide, tall, rectangle, len(cells) - rectangle, len(cells)
+
+
 # --- the quizzes: line, trick, what is asked, countdown ---------------------------
 
 QUIZZES = [
     ("01_1", "ends_in_five", ("square", 85), 4),
-    ("03_1", "ends_in_five", ("square", 25), 4),
-    ("03_3", "ends_in_five", ("square", 65), 4),
-    ("03_5", "ends_in_five", ("square", 105), 6),
+    ("03_1", "ends_in_five", ("square", 25), 5),
+    ("03_3", "ends_in_five", ("square", 105), 6),
     ("05_4", "by_parts", ("times", 6, 43), 5),
     ("05_6", "by_parts", ("times", 13, 14), 6),
-    ("06_6", "pair", ("times", 19, 21), 4),
-    ("06_8", "pair", ("times", 65, 75), 6),
-    ("09_1", "near_fifty", ("square", 52), 4),
-    ("09_3", "near_fifty", ("square", 46), 5),
-    ("09_5", "near_fifty", ("square", 57), 5),
-    ("10_4", "percent_blocks", ("percent_of_money", 15, 6000), 5),
-    ("10_9", "percent_swap", ("percent_of", 4, 75), 5),
-    ("11_5", "times_five", ("times", 5, 64), 4),
-    ("11_7", "halve_and_double", ("times", 16, 45), 5),
-    ("11_9", "round_then_fix", ("times_money", 3, 499), 5),
-    ("12_1", "ends_in_five", ("square", 75), 5),
-    ("12_3", "pair", ("times", 49, 51), 5),
-    ("12_5", "near_fifty", ("square", 54), 5),
-    ("12_7", "percent_blocks", ("percent_of_money", 20, 4500), 5),
-    ("12_9", "round_then_fix", ("times", 6, 49), 5),
+    ("06_4", "percent_blocks", ("percent_of_money", 15, 6000), 5),
+    ("07_3", "halve_and_double", ("times", 16, 45), 5),
+    ("07_6", "round_then_fix", ("times_money", 3, 499), 5),
+    ("08_6", "pair", ("times", 19, 21), 5),
+    ("11_1", "near_fifty", ("square", 52), 5),
+    ("11_3", "near_fifty", ("square", 46), 5),
+    ("12_1", "percent_blocks", ("percent_of_money", 20, 4500), 5),
+    ("12_3", "ends_in_five", ("square", 75), 5),
+    ("12_5", "round_then_fix", ("times", 6, 49), 5),
+    ("12_7", "pair", ("times", 49, 51), 5),
     ("13_1", "by_parts", ("times", 67, 78), 6),
+    ("14_1", "ends_in_five", ("square", 55), 5),
 ]
 
 
@@ -160,7 +170,6 @@ def ask_text(ask):
         "square": lambda: f"{n[0]}^2",
         "times": lambda: f"{n[0]}x{n[1]}",
         "percent_of_money": lambda: f"{n[0]}% of ${money(n[1])}",
-        "percent_of": lambda: f"{n[0]}% of {n[1]}",
         "times_money": lambda: f"{n[0]}x${money(n[1])}",
     }[kind]()
 
@@ -213,15 +222,6 @@ def worked(trick, ask):
             return [money(ten), money(ten / 2)], money(answer)
         check(f"20% of {money(cents)} is the tenth doubled", percent == 20 and 2 * ten == answer)
         return [money(ten)], money(answer)
-    if trick == "percent_swap":
-        x, y = n
-        answer = F(x, 100) * y
-        check(f"{x}% of {y} = {y}% of {x}", answer == F(y, 100) * x and answer.denominator == 1)
-        return [y, x], answer
-    if trick == "times_five":
-        five, x = n
-        check("times five", five == 5 and (x * 10) % 2 == 0)
-        return [x * 10], 5 * x
     if trick == "halve_and_double":
         a, b = n
         check(f"{a} x {b}: {a} is even", a % 2 == 0)
@@ -254,40 +254,36 @@ def main():
     emit("F-H1.trick.square", answer)
 
     # --- F-T1: squares ending in 5 ---------------------------------------------
-    for number in (35, 105, 135, 5):
+    for number in (35, 105, 135, 5, 55):
         steps, answer = worked("ends_in_five", ("square", number))
         emit(f"F-T1.n{number}.front", steps[0])
         emit(f"F-T1.n{number}.next", steps[1])
         emit(f"F-T1.n{number}.hundreds", steps[2])
         emit(f"F-T1.n{number}.square", answer)
-        # the block with both strips beside it: as tall as the tens, ten longer
-        tens, ones = split(number)
-        emit(f"F-T1.n{number}.grown", f"{tens}x{tens + 2 * ones}")
-        check(f"{number}^2 is that rectangle and a corner", tens * (tens + 2 * ones) + ones * ones == number * number)
-    side = 35
-    tens, ones = split(side)
-    cells = count_cells(side, side, tens, tens)
-    block, strip, other_strip, corner = cells[(0, 0)], cells[(0, 1)], cells[(1, 0)], cells[(1, 1)]
-    check("the two strips of the square are the same size", strip == other_strip)
-    emit("F-T1.cut.parts", join([tens, ones]))
-    emit("F-T1.cut.block", block)
-    emit("F-T1.cut.strip", strip)
-    emit("F-T1.cut.two_strips", strip + other_strip)
-    emit("F-T1.cut.corner", corner)
-    # the block with both strips laid beside it: tens wide, tens + 2 ones long
-    grown = (tens, tens + 2 * ones)
-    emit("F-T1.cut.grown", f"{grown[0]}x{grown[1]}")
-    emit("F-T1.cut.grown_area", block + strip + other_strip)
-    check("the grown block is a rectangle", grown[0] * grown[1] == block + strip + other_strip)
-    # ruled into squares of a hundred, ten on a side
-    emit("F-T1.cut.hundreds_tiles", f"{grown[0] // 10}x{grown[1] // 10}")
-    check("twelve squares of a hundred", (grown[0] // 10) * (grown[1] // 10) * 100 == block + strip + other_strip)
-    emit("F-T1.cut.total", sum(cells.values()))
-    check("the cells of the square", sum(cells.values()) == side * side)
+    fronts = list(range(1, 11))
+    squares = [(10 * n + 5) ** 2 for n in fronts]
+    emit("F-T1.sweep.fronts", join(fronts))
+    emit("F-T1.sweep.hundreds", join(sq // 100 for sq in squares))
+    emit("F-T1.sweep.squares", join(squares))
+    check("every swept square ends in 25", all(sq % 100 == 25 for sq in squares))
     half = F(15, 2) ** 2
     emit("F-T1.half.squared", money(half * 100))
-    emit("F-T1.half.front_product", 7 * 8)
     check("7.5^2 is 7 x 8 and a quarter", half == 7 * 8 + F(1, 4))
+
+    # --- F-M: the one move, by counting cells ----------------------------------------
+    for side, strip in ((35, 5), (34, 4), (48, 2), (53, 3), (50, 3), (55, 5), (62, 12)):
+        wide, tall, rectangle, overhang, cells = moved(side, strip)
+        emit(f"F-M.n{side}.strip_wide", strip)
+        emit(f"F-M.n{side}.strip_long", side)
+        emit(f"F-M.n{side}.wide", wide)
+        emit(f"F-M.n{side}.tall", tall)
+        emit(f"F-M.n{side}.rectangle_area", rectangle)
+        emit(f"F-M.n{side}.corner", overhang)
+        emit(f"F-M.n{side}.square", cells)
+        check(f"{side}^2: the move keeps every cell", cells == side * side)
+        check(f"{side}^2: the rectangle is {wide} by {tall}", rectangle == wide * tall)
+    emit("F-M.n35.hundreds_tiles", f"{30 // 10}x{40 // 10}")
+    emit("F-M.n35.hundreds", moved(35, 5)[2] // 100)
 
     # --- F-T2: 23 x 46 by parts --------------------------------------------------
     a, b = 23, 46
@@ -309,8 +305,55 @@ def main():
     check("the big block is the leading digits multiplied", int(lead) == (a_tens // 10) * (b_tens // 10))
     emit("F-T2.size.too_small", a_tens * (b_tens // 10))
     emit("F-T2.size.too_big", (a_tens * 10) * b_tens)
-    emit("F-T2.estimate", join([round_to_ten(a), round_to_ten(b), round_to_ten(a) * round_to_ten(b)]))
+    ra, rb = round_to_ten(a), round_to_ten(b)
+    emit("F-T2.estimate", join([ra, rb, ra * rb]))
+    # 20 x 50 by size: the leading digits multiplied, and the zeros of both
+    emit("F-T2.estimate.lead", (ra // 10) * (rb // 10))
+    emit("F-T2.estimate.zeros", 2)
+    check("two times five is ten, in hundreds", (ra // 10) * (rb // 10) * 10**2 == ra * rb)
     emit("F-T2.held.pieces", sum(1 for p in pieces if p))
+    emit("F-T2.bounds", join([a_tens * b_tens, (a_tens + 10) * (b_tens + 10)]))
+    check("23 x 46 lies from 20 x 40 up to 30 x 50", a_tens * b_tens <= a * b < (a_tens + 10) * (b_tens + 10))
+    emit("F-T2.piece_counts", join([len(running_totals(6, 43)), len(running_totals(a, b))]))
+
+    # --- F-T5: percents ----------------------------------------------------------
+    bill = 4800
+    emit("F-T5.bill", money(bill))
+    emit("F-T5.bill.ten", money(F(10, 100) * bill))
+    emit("F-T5.bill.five", money(F(5, 100) * bill))
+    emit("F-T5.bill.fifteen", money(F(15, 100) * bill))
+    emit("F-T5.bill.twenty", money(F(20, 100) * bill))
+    seventeen = [F(10, 100) * bill, F(5, 100) * bill, F(1, 100) * bill, F(1, 100) * bill]
+    emit("F-T5.seventeen.pieces", join(money(x) for x in seventeen))
+    emit("F-T5.seventeen.total", money(F(17, 100) * bill))
+    check("17% is a tenth, half of it, and two hundredths", sum(seventeen) == F(17, 100) * bill)
+    # 8% of $25: a grid 25 across and 8 deep, one cell a cent
+    grid = [(i, j) for i in range(8) for j in range(25)]
+    emit("F-T5.swap.across", len({j for _, j in grid}))
+    emit("F-T5.swap.deep", len({i for i, _ in grid}))
+    emit("F-T5.swap.cents", len(grid))
+    emit("F-T5.swap.one_way", money(F(8, 100) * 2500))
+    emit("F-T5.swap.other_way", money(F(25, 100) * 800))
+    check("eight cents from each of 25 dollars is 25 cents from each of 8", 25 * 8 == 8 * 25 == len(grid))
+
+    # --- F-T6, F-T7: halving and doubling; round, then fix ---------------------------
+    emit("F-T6.five.ten", 86 * 10)
+    emit("F-T6.five.product", 5 * 86)
+    for name, (x, y) in (("halve", (14, 35)), ("no_easier", (14, 37))):
+        emit(f"F-T6.{name}.halved", x // 2)
+        emit(f"F-T6.{name}.doubled", y * 2)
+        emit(f"F-T6.{name}.product", x * y)
+        check(f"{x} x {y} = {x // 2} x {y * 2}", (x // 2) * (y * 2) == x * y)
+    emit("F-T6.halve.check", 7 * 70)
+    emit("F-T7.price.each", money(1999))
+    emit("F-T7.price.round", money(up_to(1999, 100)))
+    emit("F-T7.price.rounded", money(4 * up_to(1999, 100)))
+    emit("F-T7.price.fix", money(4 * up_to(1999, 100) - 4 * 1999))
+    emit("F-T7.price.total", money(4 * 1999))
+    emit("F-T7.no_easier.rounded", 10 * 37)
+    emit("F-T7.no_easier.fix", 10 * 37 - 7 * 37)
+    emit("F-T7.no_easier.product", 7 * 37)
+    check("the fix of 7 x 37 is three thirty-sevens", 10 * 37 - 7 * 37 == 3 * 37)
 
     # --- F-T3: 47 x 53 -----------------------------------------------------------
     x, y = 47, 53
@@ -321,16 +364,21 @@ def main():
     emit("F-T3.middle_squared", steps[2])
     emit("F-T3.distance_squared", steps[3])
     emit("F-T3.product", answer)
-    # the 47-by-53 rectangle laid over the 50-by-50 square, counted cell by cell
-    outside = sum(1 for i in range(x) for j in range(y) if j >= middle)
-    gap = sum(1 for i in range(middle) for j in range(middle) if i >= x)
-    emit("F-T3.strip", f"{distance}x{x}")
-    emit("F-T3.strip_area", outside)
-    emit("F-T3.gap", f"{distance}x{middle}")
+    # the rectangle, 47 wide and 53 tall, over the square of 50, counted cell by cell:
+    # what stands above the square, and the gap down the square's side
+    above = sum(1 for i in range(y) for j in range(x) if i >= middle)
+    gap = sum(1 for i in range(middle) for j in range(middle) if j >= x)
+    emit("F-T3.strip_area", above)
     emit("F-T3.gap_area", gap)
-    check("the strip fills the gap but for the corner", gap - outside == distance**2)
+    emit("F-T3.hole", gap - above)
+    check("the strip fills the gap but for a 3 by 3 hole", gap - above == distance**2)
     emit("F-T3.no_middle", (47 + 56) % 2 == 1)
     emit("F-T3.no_middle.sum", 47 + 56)
+    emit("F-T3.far.middle", F(12 + 88, 2))
+    emit("F-T3.far.distance", F(88 - 12, 2))
+    emit("F-T3.far.distance_squared", F(88 - 12, 2) ** 2)
+    emit("F-T3.far.product", 12 * 88)
+    check("12 x 88 = 50^2 - 38^2", 50**2 - 38**2 == 12 * 88)
 
     # --- F-T4: squares near 50 ---------------------------------------------------
     emit("F-T4.fifty_squared", 50 * 50)
@@ -345,70 +393,35 @@ def main():
         emit(f"F-T4.{name}.corner", corner)
         emit(f"F-T4.{name}.corner_fits", corner < 100)
         emit(f"F-T4.{name}.square", square)
-        # one strip: fifty long, as wide as the distance
-        strip = sum(1 for i in range(50) for j in range(abs(d)))
-        emit(f"F-T4.{name}.strip", strip)
-        emit(f"F-T4.{name}.two_strips", 2 * strip)
+        # the moved rectangle against the square of 50: how many fifties it is short or over
+        wide, tall, rectangle, _, _ = moved(number, abs(d))
+        emit(f"F-T4.{name}.fifties", abs(rectangle - 2500) // 50)
+        emit(f"F-T4.{name}.fifties_area", abs(rectangle - 2500))
         check(f"{number}^2 = 2500 + 100 x {d} + {corner}", square == 2500 + 100 * d + corner)
-    cells = count_cells(53, 53, 50, 50)
-    emit("F-T4.above.long_strip", f"{2 * 50}x{3}")
-    emit("F-T4.above.total", sum(cells.values()))
-    check("the two strips of 53^2 make three hundreds", cells[(0, 1)] + cells[(1, 0)] == 300)
+        check(f"{number}: one side of the moved rectangle is 50", 50 in (wide, tall))
     for name, number in (("above", 53), ("below", 48)):
         text = str(number * number)
         emit(f"F-T4.{name}.digit_pairs", f"{text[:-2]},{text[-2:]}")
-    # below 50: the square of 50 less two strips, with the corner they share put back
-    inside = sum(1 for i in range(50) for j in range(50) if i < 48 and j < 48)
-    check("48^2 is 2500 less two strips of 100 plus the corner", inside == 2500 - 2 * 100 + 4 == 48 * 48)
+    emit("F-T4.carries.hundreds_after", int(str(62 * 62)[:-2]))
+    emit("F-T4.carries.left", int(str(62 * 62)[-2:]))
+    twist = str(55 * 55)
+    emit("F-T4.twist.digit_pairs", f"{twist[:-2]},{twist[-2:]}")
+    emit("F-T4.twist.same_two_numbers", int(twist[:-2]) == 5 * 6 == 25 + 5 and twist[-2:] == "25")
 
-    # --- F-T5: percents ----------------------------------------------------------
-    bill = 4800
-    emit("F-T5.bill", money(bill))
-    emit("F-T5.bill.ten", money(F(10, 100) * bill))
-    emit("F-T5.bill.five", money(F(5, 100) * bill))
-    emit("F-T5.bill.fifteen", money(F(15, 100) * bill))
-    emit("F-T5.bill.twenty", money(F(20, 100) * bill))
-    emit("F-T5.swap.area", sum(1 for i in range(8) for j in range(25)))
-    emit("F-T5.swap.one_way", F(8, 100) * 25)
-    emit("F-T5.swap.other_way", F(25, 100) * 8)
-    no_swap = F(17, 100) * 43
-    emit("F-T5.no_swap", money(no_swap * 100))
-    emit("F-T5.no_swap.is_whole", no_swap.denominator == 1)
-    check("17% of 43 is 43% of 17", no_swap == F(43, 100) * 17)
-
-    # --- F-T6: trading a factor of two ----------------------------------------------
-    emit("F-T6.five.ten", 86 * 10)
-    emit("F-T6.five.product", 5 * 86)
-    emit("F-T6.twenty_five.hundred", 36 * 100)
-    emit("F-T6.twenty_five.half", 36 * 100 // 2)
-    emit("F-T6.twenty_five.product", 25 * 36)
-    check("a quarter of 3600", F(3600, 4) == 25 * 36)
-    emit("F-T6.halve.sides", f"{14 // 2}x{35 * 2}")
-    emit("F-T6.halve.product", 14 * 35)
-    check("14 x 35 = 7 x 70", 7 * 70 == 14 * 35)
-    emit("F-T6.no_halve", 15 % 2 == 1 and 37 % 2 == 1)
-
-    # --- F-T7: round, then fix ---------------------------------------------------
-    emit("F-T7.nines.rounded", 10 * 37)
-    emit("F-T7.nines.fix", 10 * 37 - 9 * 37)
-    emit("F-T7.nines.product", 9 * 37)
-    emit("F-T7.price.each", money(1999))
-    emit("F-T7.price.round", money(up_to(1999, 100)))
-    emit("F-T7.price.rounded", money(4 * up_to(1999, 100)))
-    emit("F-T7.price.fix", money(4 * up_to(1999, 100) - 4 * 1999))
-    emit("F-T7.price.total", money(4 * 1999))
-
-    # --- F-T9: the one move: a square is a rectangle and a small square -----------
-    for a, d in ((35, 5), (48, 2)):
-        # the square with a strip d wide moved from the top to the side, counted:
-        # every cell below the strip, then the strip's cells beside it but for the corner
-        kept = sum(1 for i in range(a - d) for j in range(a))
-        moved = sum(1 for i in range(a - d) for j in range(d))
-        emit(f"F-T9.n{a}.rectangle", f"{a - d}x{a + d}")
-        emit(f"F-T9.n{a}.rectangle_area", kept + moved)
-        emit(f"F-T9.n{a}.corner", a * a - kept - moved)
-        emit(f"F-T9.n{a}.square", a * a)
-        check(f"{a}^2: the corner is {d} by {d}", a * a - kept - moved == d * d)
+    # --- F-N: the product with nothing to grab -------------------------------------
+    a, b = 67, 78
+    ra, rb = round_to_ten(a), round_to_ten(b)
+    emit("F-N.product", a * b)
+    emit("F-N.estimate", join([ra, rb, ra * rb]))
+    emit("F-N.slipped_low", str(a * b)[:-1] + "." + str(a * b)[-1])
+    emit("F-N.slipped_high", a * b * 10)
+    emit("F-N.middle_halves", a + b)
+    emit("F-N.has_whole_middle", (a + b) % 2 == 0)
+    emit("F-N.ends_in_five", a % 10 == 5 or b % 10 == 5)
+    emit("F-N.round_fix.rounded", a * rb)
+    emit("F-N.round_fix.fix", a * rb - a * b)
+    emit("F-N.round_fix.total", a * b)
+    check("67 x 80 - 134", a * rb - 134 == a * b)
 
     # --- F-Q: the quizzes ------------------------------------------------------------
     emit("F-Q.count", len(QUIZZES))
@@ -420,14 +433,7 @@ def main():
         emit(f"F-Q.{line}.seconds", seconds)
         emit(f"F-Q.{line}.steps", join(steps))
         emit(f"F-Q.{line}.answer", answer)
-    # the last quiz: its estimate, and a decimal point slipped either way
-    line, _, (_, a, b), _ = QUIZZES[-1]
-    ra, rb = round_to_ten(a), round_to_ten(b)
-    emit(f"F-Q.{line}.estimate", join([ra, rb, ra * rb]))
-    emit(f"F-Q.{line}.slipped_low", str(a * b)[:-1] + "." + str(a * b)[-1])
-    emit(f"F-Q.{line}.slipped_high", a * b * 10)
-    emit(f"F-Q.{line}.middle_halves", a + b)
-    check("the last quiz has no whole middle and no five", (a + b) % 2 == 1 and a % 10 != 5 and b % 10 != 5)
+    emit("F-Q.12_5.by_parts", join(running_totals(6, 49)))
 
     # --- F-X: the edges of the always sentences -------------------------------------
     def tally(key, cases):
@@ -436,7 +442,6 @@ def main():
         emit(f"{key}.checked", len(cases))
 
     tally("F-X1.ends_in_five", ((10 * n + 5) ** 2 == 100 * n * (n + 1) + 25 for n in range(10_000)))
-    emit("F-X1.ends_in_five.largest", max(10 * n + 5 for n in range(10_000)))
 
     def parts_hold(a, b):
         totals, total, last = True, 0, 0
@@ -450,7 +455,8 @@ def main():
                     total += h * w
                     totals &= total >= last
                     last = total
-        return totals and total == a * b
+        floor, ceiling = split(a)[0] * split(b)[0], (split(a)[0] + 10) * (split(b)[0] + 10)
+        return totals and total == a * b and floor <= a * b < ceiling
 
     tally("F-X2.by_parts", (parts_hold(a, b) for a in range(1, 100) for b in range(1, 100)))
     tally(
@@ -463,14 +469,6 @@ def main():
         ),
     )
     tally("F-X4.near_fifty", (2500 + 100 * (x - 50) + (x - 50) ** 2 == x * x for x in range(101)))
-    reads = [
-        x
-        for x in range(101)
-        if (x - 50) ** 2 < 100 and f"{25 + (x - 50)}{(x - 50) ** 2:02d}" == str(x * x)
-    ]
-    emit("F-X4.digit_pairs.first", reads[0])
-    emit("F-X4.digit_pairs.last", reads[-1])
-    check("the two-digit reading holds on an unbroken run", reads == list(range(reads[0], reads[-1] + 1)))
     tally("F-X5.swap", (F(x, 100) * y == F(y, 100) * x for x in range(201) for y in range(201)))
     tally("F-X6.halve", ((a // 2) * (2 * b) == a * b for a in range(2, 201, 2) for b in range(1, 201)))
     tally(
@@ -482,6 +480,15 @@ def main():
         ),
     )
     tally("F-X8.one_move", ((a - d) * (a + d) + d * d == a * a for a in range(1, 201) for d in range(a + 1)))
+    emit("F-X1.ends_in_five.largest", max(10 * n + 5 for n in range(10_000)))
+    reads = [
+        x
+        for x in range(101)
+        if (x - 50) ** 2 < 100 and f"{25 + (x - 50)}{(x - 50) ** 2:02d}" == str(x * x)
+    ]
+    emit("F-X4.digit_pairs.first", reads[0])
+    emit("F-X4.digit_pairs.last", reads[-1])
+    check("the two-digit reading holds on an unbroken run", reads == list(range(reads[0], reads[-1] + 1)))
 
     # --- F-C: cited ----------------------------------------------------------------
     # Feynman, "Surely You're Joking, Mr. Feynman!" (W. W. Norton, 1985), "Lucky
@@ -500,11 +507,11 @@ def main():
     emit("F-C3.chase.pair", 6351)
     emit("F-C3.chase.near_fifty", 2809)
     check("Chase's three examples", 35 * 35 == 1225 and 87 * 73 == 6351 and 53 * 53 == 2809)
-    # Karatsuba and Ofman, Doklady Akademii Nauk SSSR 145 (1962): 23 x 46 from the
-    # block, the corner and one product of the two sums
-    emit("F-C4.karatsuba.year", 1962)
+    # Karatsuba's algorithm on 23 x 46: the block, the corner and one product of the two sums
     block, corner, sums = 20 * 40, 3 * 6, (20 + 3) * (40 + 6)
     emit("F-C4.karatsuba.multiplications", len((block, corner, sums)))
+    emit("F-C4.karatsuba.block", block)
+    emit("F-C4.karatsuba.corner", corner)
     emit("F-C4.karatsuba.strips", sums - block - corner)
     emit("F-C4.karatsuba.product", 23 * 46)
     check("the two strips come from one product", sums - block - corner == 20 * 6 + 3 * 40)

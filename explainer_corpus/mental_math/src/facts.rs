@@ -8,8 +8,8 @@
 use explainer_kit::Facts;
 
 use crate::model::{
-    self, Ask, FIFTY, Piece, QUIZZES, SquareCut, Trick, blocks, by_parts, ends_in_five, estimate, halve_and_double,
-    money, near_fifty, pair, paper, percent_of, round_then_fix, times_five, times_twenty_five,
+    self, Ask, FIFTY, Piece, QUIZZES, blocks, by_parts, ends_in_five, estimate, halve_and_double, money, near_fifty,
+    one_move, pair, paper, percent_of, round_then_fix, times_five,
 };
 
 /// Numbers quoted from the sources (fact sheet rows F-C; the oracle prints
@@ -31,9 +31,8 @@ pub mod cited {
     pub const CHASE_SQUARE: (u64, u64) = (35, 1225);
     pub const CHASE_PAIR: (u64, u64, u64) = (87, 73, 6351);
     pub const CHASE_NEAR_FIFTY: (u64, u64) = (53, 2809);
-    /// Karatsuba and Ofman, Doklady Akademii Nauk SSSR 145 (1962): a
-    /// product of two two-part numbers from three multiplications, not four.
-    pub const KARATSUBA_YEAR: u32 = 1962;
+    /// Karatsuba's algorithm (Karatsuba and Ofman, 1962): a product of two
+    /// two-part numbers from three multiplications, not four.
     pub const KARATSUBA_MULTIPLICATIONS: usize = 3;
 }
 
@@ -41,34 +40,45 @@ pub mod cited {
 pub mod shown {
     /// The cold open and the paper method.
     pub const HOOK: u64 = 85;
-    /// The first square, the one whose picture is cut and moved.
+    /// The first square, the one whose strip is sliced off and moved.
     pub const FIVE: u64 = 35;
+    /// The same move on a number that does not end in 5: no easier.
+    pub const NOT_FIVE: (u64, u64) = (34, 4);
+    /// The sweep: every number in front from 1 to this.
+    pub const SWEEP: u64 = 10;
     /// Where the trick stops being easy: 13 × 14.
     pub const FIVE_HARD: u64 = 135;
-    /// The same trick with a decimal point: seven and a half.
+    /// The same trick with a decimal point: seven and a half (description).
     pub const FIVE_TENTHS: u64 = 75;
     /// The owner's product by parts.
     pub const PARTS: (u64, u64) = (23, 46);
+    /// One digit times two: two pieces.
+    pub const TWO_PIECES: (u64, u64) = (6, 43);
+    /// A restaurant bill, in cents.
+    pub const BILL: u64 = 4800;
+    /// Eight percent of twenty-five dollars.
+    pub const SWAP: (u64, u64) = (8, 25);
+    pub const TIMES_FIVE: u64 = 86;
+    pub const HALVE: (u64, u64) = (14, 35);
+    /// Halving that lands on nothing round.
+    pub const HALVE_NO_EASIER: (u64, u64) = (14, 37);
+    /// Four things at $19.99.
+    pub const PRICE: (u64, u64) = (4, 1999);
+    /// A fix that is a multiplication of its own: seven of them, as ten less three.
+    pub const FIX_NO_EASIER: (u64, u64) = (7, 37);
     pub const PAIR: (u64, u64) = (47, 53);
     /// A product with no whole middle.
     pub const NO_PAIR: (u64, u64) = (47, 56);
+    /// An easy middle and a distance too big to square in the head.
+    pub const FAR_PAIR: (u64, u64) = (12, 88);
     /// Squares near 50: Bethe's, one above, and one whose corner carries.
     pub const BELOW: u64 = 48;
     pub const ABOVE: u64 = 53;
     pub const CARRIES: u64 = 62;
-    /// A restaurant bill, in cents.
-    pub const BILL: u64 = 4800;
-    pub const SWAP: (u64, u64) = (8, 25);
-    /// A percent the swap does not help with.
-    pub const NO_SWAP: (u64, u64) = (17, 43);
-    pub const TIMES_FIVE: u64 = 86;
-    pub const TIMES_TWENTY_FIVE: u64 = 36;
-    pub const HALVE: (u64, u64) = (14, 35);
-    /// Both odd: nothing to halve.
-    pub const NO_HALVE: (u64, u64) = (15, 37);
-    pub const NINES: (u64, u64) = (9, 37);
-    /// Four things at $19.99.
-    pub const PRICE: (u64, u64) = (4, 1999);
+    /// The square two tricks agree on.
+    pub const TWIST: u64 = 55;
+    /// The product with nothing to grab.
+    pub const NOTHING: (u64, u64) = (67, 78);
 }
 
 fn list<T: ToString>(items: impl IntoIterator<Item = T>) -> String {
@@ -79,23 +89,17 @@ fn sides(p: &Piece) -> String {
     format!("{}x{}", p.height, p.width)
 }
 
-/// A square of side `a` after a strip `d` wide has moved from one side to
-/// the next: the rectangle it leaves, and the small square.
-pub fn moved_strip(a: u64, d: u64) -> (u64, u64, u64) {
-    (a - d, a + d, d * d)
-}
-
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     hook(&mut f)?;
     fives(&mut f)?;
+    moves(&mut f)?;
     parts(&mut f)?;
+    percents(&mut f)?;
+    round_numbers(&mut f)?;
     pairs(&mut f)?;
     fifty(&mut f)?;
-    percents(&mut f)?;
-    twos(&mut f)?;
-    rounding(&mut f)?;
-    one_move(&mut f)?;
+    nothing(&mut f)?;
     quizzes(&mut f)?;
     edges(&mut f)?;
     sources(&mut f)?;
@@ -117,7 +121,7 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
-/// F-T1: squares of numbers ending in 5, and the picture behind them.
+/// F-T1: squares of numbers ending in 5.
 fn fives(f: &mut Facts) -> Result<(), String> {
     let order = "the order";
     for (number, want) in [
@@ -125,6 +129,7 @@ fn fives(f: &mut Facts) -> Result<(), String> {
         (105, "11025"),
         (shown::FIVE_HARD, "18225"),
         (5, "25"),
+        (shown::TWIST, "3025"),
     ] {
         let e = ends_in_five(number).ok_or("an example does not end in 5")?;
         let key = format!("F-T1.n{number}");
@@ -132,34 +137,46 @@ fn fives(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("{key}.next"), e.n + 1)?;
         f.add(&format!("{key}.hundreds"), e.hundreds)?;
         f.pin(&format!("{key}.square"), e.square, want, order)?;
-        // the picture: the block with both strips beside it, and the corner
-        let (tens, ones) = model::parts(number);
-        let cut = SquareCut {
-            base: tens,
-            extra: ones,
-        };
-        let (h, w) = cut.grown_block();
-        f.add(&format!("{key}.grown"), format!("{h}x{w}"))?;
     }
-    let (tens, ones) = model::parts(shown::FIVE);
-    let cut = SquareCut {
-        base: tens,
-        extra: ones,
-    };
-    f.add("F-T1.cut.parts", list([tens, ones]))?;
-    f.add("F-T1.cut.block", cut.block())?;
-    f.add("F-T1.cut.strip", cut.strip())?;
-    f.add("F-T1.cut.two_strips", 2 * cut.strip())?;
-    f.add("F-T1.cut.corner", cut.corner())?;
-    let (h, w) = cut.grown_block();
-    f.add("F-T1.cut.grown", format!("{h}x{w}"))?;
-    f.add("F-T1.cut.grown_area", h * w)?;
-    f.add("F-T1.cut.hundreds_tiles", format!("{}x{}", h / 10, w / 10))?;
-    f.add("F-T1.cut.total", cut.total())?;
+    // the sweep: every number in front, its hundreds and its square
+    let swept: Vec<_> = (1..=shown::SWEEP)
+        .map(|n| ends_in_five(10 * n + 5).ok_or("the sweep left the fives"))
+        .collect::<Result<_, _>>()?;
+    f.add("F-T1.sweep.fronts", list(swept.iter().map(|e| e.n)))?;
+    f.add("F-T1.sweep.hundreds", list(swept.iter().map(|e| e.hundreds)))?;
+    f.add("F-T1.sweep.squares", list(swept.iter().map(|e| e.square)))?;
     // seven and a half squared: the same digits with the point put back
     let e = ends_in_five(shown::FIVE_TENTHS).ok_or("75 ends in 5")?;
     f.pin("F-T1.half.squared", money(e.square), "56.25", "7.5 x 7.5")?;
-    f.add("F-T1.half.front_product", e.hundreds)?;
+    Ok(())
+}
+
+/// F-M: the one move, on every square the video cuts.
+fn moves(f: &mut Facts) -> Result<(), String> {
+    let (not_five, strip) = shown::NOT_FIVE;
+    for (side, strip) in [
+        (shown::FIVE, 5),
+        (not_five, strip),
+        (shown::BELOW, FIFTY - shown::BELOW),
+        (shown::ABOVE, shown::ABOVE - FIFTY),
+        (FIFTY, shown::PAIR.1 - FIFTY),
+        (shown::TWIST, 5),
+        (shown::CARRIES, shown::CARRIES - FIFTY),
+    ] {
+        let m = one_move(side, strip).ok_or("a strip wider than its square")?;
+        let key = format!("F-M.n{side}");
+        f.add(&format!("{key}.strip_wide"), m.strip)?;
+        f.add(&format!("{key}.strip_long"), m.side)?;
+        f.add(&format!("{key}.wide"), m.wide())?;
+        f.add(&format!("{key}.tall"), m.tall())?;
+        f.add(&format!("{key}.rectangle_area"), m.rectangle())?;
+        f.add(&format!("{key}.corner"), m.corner())?;
+        f.add(&format!("{key}.square"), m.square())?;
+    }
+    // thirty by forty, ruled into squares of a hundred
+    let m = one_move(shown::FIVE, 5).ok_or("35 is wider than 5")?;
+    f.add("F-M.n35.hundreds_tiles", format!("{}x{}", m.wide() / 10, m.tall() / 10))?;
+    f.pin("F-M.n35.hundreds", m.rectangle() / 100, "12", "the order: 3 x 4 = 12")?;
     Ok(())
 }
 
@@ -186,8 +203,80 @@ fn parts(f: &mut Facts) -> Result<(), String> {
     // the sizes it cannot be: one zero too few is 20 × 4, one too many 200 × 40
     f.add("F-T2.size.too_small", block.area() / 10)?;
     f.add("F-T2.size.too_big", block.area() * 10)?;
-    f.add("F-T2.estimate", list(<[u64; 3]>::from(estimate(a, b))))?;
+    let (ra, rb, about) = estimate(a, b);
+    f.add("F-T2.estimate", list([ra, rb, about]))?;
+    // the estimate by size: 2 × 5 = 10, in hundreds
+    let (lead, zeros) = Piece { height: ra, width: rb }.by_size();
+    f.add("F-T2.estimate.lead", lead)?;
+    f.add("F-T2.estimate.zeros", zeros)?;
     f.add("F-T2.held.pieces", p.pieces.len())?;
+    f.add("F-T2.bounds", list(<[u64; 2]>::from(p.bounds())))?;
+    let (x, y) = shown::TWO_PIECES;
+    f.add("F-T2.piece_counts", list([by_parts(x, y).pieces.len(), p.pieces.len()]))?;
+    Ok(())
+}
+
+/// F-T5: percents from a tenth, and the swap.
+fn percents(f: &mut Facts) -> Result<(), String> {
+    let b = blocks(shown::BILL).ok_or("the bill's tenth is not whole cents")?;
+    f.add("F-T5.bill", money(b.cents))?;
+    f.add("F-T5.bill.ten", money(b.ten))?;
+    f.add("F-T5.bill.five", money(b.five))?;
+    f.add("F-T5.bill.fifteen", money(b.fifteen))?;
+    f.add("F-T5.bill.twenty", money(b.twenty))?;
+    // seventeen percent is no longer one piece: a tenth, half of it, and two hundredths
+    let one = b.cents / 100;
+    let pieces = [b.ten, b.five, one, one];
+    f.add("F-T5.seventeen.pieces", list(pieces.map(money)))?;
+    f.add("F-T5.seventeen.total", money(pieces.iter().sum()))?;
+    // eight percent of twenty-five dollars: eight cents from each dollar
+    let (percent, dollars) = shown::SWAP;
+    f.add("F-T5.swap.across", dollars)?;
+    f.add("F-T5.swap.deep", percent)?;
+    f.add("F-T5.swap.cents", percent * dollars)?;
+    f.pin(
+        "F-T5.swap.one_way",
+        money(percent_of(percent, dollars * 100).ok_or("not whole cents")?),
+        "2.00",
+        "the order: 8% of 25",
+    )?;
+    f.add(
+        "F-T5.swap.other_way",
+        money(percent_of(dollars, percent * 100).ok_or("not whole cents")?),
+    )?;
+    Ok(())
+}
+
+/// F-T6 and F-T7: halving and doubling; round, then fix.
+fn round_numbers(f: &mut Facts) -> Result<(), String> {
+    let (ten, half) = times_five(shown::TIMES_FIVE);
+    f.add("F-T6.five.ten", ten)?;
+    f.add("F-T6.five.product", half)?;
+    for (name, (a, b)) in [("halve", shown::HALVE), ("no_easier", shown::HALVE_NO_EASIER)] {
+        let (half, double, product) = halve_and_double(a, b).ok_or("nothing to halve")?;
+        f.add(&format!("F-T6.{name}.halved"), half)?;
+        f.add(&format!("F-T6.{name}.doubled"), double)?;
+        f.add(&format!("F-T6.{name}.product"), product)?;
+    }
+    f.pin(
+        "F-T6.halve.check",
+        shown::HALVE.0 * shown::HALVE.1,
+        "490",
+        "the order: 14 x 35 = 7 x 70",
+    )?;
+    let (count, cents) = shown::PRICE;
+    let r = round_then_fix(count, cents, cents.next_multiple_of(100));
+    f.add("F-T7.price.each", money(r.each))?;
+    f.add("F-T7.price.round", money(r.round))?;
+    f.add("F-T7.price.rounded", money(r.rounded))?;
+    f.add("F-T7.price.fix", money(r.fix))?;
+    f.add("F-T7.price.total", money(r.total))?;
+    // seven thirty-sevens as ten of them less three: the fix is 3 × 37
+    let (few, each) = shown::FIX_NO_EASIER;
+    let r = round_then_fix(each, few, few.next_multiple_of(10));
+    f.add("F-T7.no_easier.rounded", r.rounded)?;
+    f.add("F-T7.no_easier.fix", r.fix)?;
+    f.add("F-T7.no_easier.product", r.total)?;
     Ok(())
 }
 
@@ -200,15 +289,21 @@ fn pairs(f: &mut Facts) -> Result<(), String> {
     f.add("F-T3.middle_squared", p.middle_squared)?;
     f.add("F-T3.distance_squared", p.distance_squared)?;
     f.pin("F-T3.product", p.product, "2491", "the order")?;
-    // the picture: the strip that sticks out past the square, moved on top
-    f.add("F-T3.strip", format!("{}x{}", p.distance, p.low))?;
+    // the picture: the rectangle is 47 wide and 53 tall; the strip that
+    // stands above the square of 50 moves into the gap down its side
     f.add("F-T3.strip_area", p.distance * p.low)?;
-    f.add("F-T3.gap", format!("{}x{}", p.distance, p.middle))?;
     f.add("F-T3.gap_area", p.distance * p.middle)?;
+    f.add("F-T3.hole", p.distance * p.middle - p.distance * p.low)?;
     let (x, y) = shown::NO_PAIR;
     f.add("F-T3.no_middle", pair(x, y).is_none())?;
     // its middle, in halves: 103 halves is fifty-one and a half
     f.add("F-T3.no_middle.sum", x + y)?;
+    let (x, y) = shown::FAR_PAIR;
+    let far = pair(x, y).ok_or("the far pair has no middle")?;
+    f.add("F-T3.far.middle", far.middle)?;
+    f.add("F-T3.far.distance", far.distance)?;
+    f.add("F-T3.far.distance_squared", far.distance_squared)?;
+    f.add("F-T3.far.product", far.product)?;
     Ok(())
 }
 
@@ -229,101 +324,53 @@ fn fifty(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("{key}.corner"), n.corner)?;
         f.add(&format!("{key}.corner_fits"), n.corner_fits())?;
         f.add(&format!("{key}.square"), n.square)?;
-        let strip = FIFTY * n.distance.unsigned_abs();
-        f.add(&format!("{key}.strip"), strip)?;
-        f.add(&format!("{key}.two_strips"), 2 * strip)?;
+        // against fifty squared the moved rectangle is short by a column, or
+        // taller by rows, twice the distance across: that many fifties
+        let across = 2 * n.distance.unsigned_abs();
+        f.add(&format!("{key}.fifties"), across)?;
+        f.add(&format!("{key}.fifties_area"), across * FIFTY)?;
     }
-    let above = near_fifty(shown::ABOVE);
-    let cut = SquareCut {
-        base: FIFTY,
-        extra: above.distance.unsigned_abs(),
-    };
-    let (long, wide) = cut.long_strip();
-    f.add("F-T4.above.long_strip", format!("{long}x{wide}"))?;
-    f.pin("F-T4.above.total", cut.total(), "2809", "the order")?;
-    let (front, back) = above.digit_pairs().ok_or("the corner carries")?;
+    let (front, back) = near_fifty(shown::ABOVE).digit_pairs().ok_or("the corner carries")?;
     f.add("F-T4.above.digit_pairs", format!("{front},{back}"))?;
     let (front, back) = near_fifty(shown::BELOW).digit_pairs().ok_or("the corner carries")?;
     f.add("F-T4.below.digit_pairs", format!("{front},{back}"))?;
-    Ok(())
-}
-
-/// F-T5: percents by blocks, and the swap.
-fn percents(f: &mut Facts) -> Result<(), String> {
-    let b = blocks(shown::BILL).ok_or("the bill's blocks are not whole cents")?;
-    f.add("F-T5.bill", money(b.cents))?;
-    f.add("F-T5.bill.ten", money(b.ten))?;
-    f.add("F-T5.bill.five", money(b.five))?;
-    f.add("F-T5.bill.fifteen", money(b.fifteen))?;
-    f.add("F-T5.bill.twenty", money(b.twenty))?;
-    let (x, y) = shown::SWAP;
-    f.add("F-T5.swap.area", x * y)?;
-    f.pin(
-        "F-T5.swap.one_way",
-        percent_of(x, y).ok_or("not whole")?,
-        "2",
-        "the order: 8% of 25",
-    )?;
-    f.add("F-T5.swap.other_way", percent_of(y, x).ok_or("not whole")?)?;
-    // seventeen percent of forty-three, in hundredths: no whole answer either way
-    let (x, y) = shown::NO_SWAP;
-    f.add("F-T5.no_swap", money(x * y))?;
+    // sixty-two: the corner is 144, so a hundred of it joins the hundreds
+    let far = near_fifty(shown::CARRIES);
+    f.add("F-T4.carries.hundreds_after", far.square / 100)?;
+    f.add("F-T4.carries.left", far.square % 100)?;
+    // fifty-five, two ways: near fifty, and ends in five
+    let twist = near_fifty(shown::TWIST);
+    let (front, back) = twist.digit_pairs().ok_or("the corner carries")?;
+    f.add("F-T4.twist.digit_pairs", format!("{front},{back}"))?;
+    let five = ends_in_five(shown::TWIST).ok_or("the twist does not end in 5")?;
     f.add(
-        "F-T5.no_swap.is_whole",
-        percent_of(x, y).is_some() || percent_of(y, x).is_some(),
+        "F-T4.twist.same_two_numbers",
+        twist.hundreds == five.hundreds as i64 && twist.corner == 25,
     )?;
     Ok(())
 }
 
-/// F-T6: trading a factor of two.
-fn twos(f: &mut Facts) -> Result<(), String> {
-    let (ten, half) = times_five(shown::TIMES_FIVE);
-    f.add("F-T6.five.ten", ten)?;
-    f.add("F-T6.five.product", half)?;
-    let (hundred, half, quarter) = times_twenty_five(shown::TIMES_TWENTY_FIVE);
-    f.add("F-T6.twenty_five.hundred", hundred)?;
-    f.add("F-T6.twenty_five.half", half)?;
-    f.add("F-T6.twenty_five.product", quarter)?;
-    let (a, b) = shown::HALVE;
-    let (half, double, product) = halve_and_double(a, b).ok_or("nothing to halve")?;
-    f.add("F-T6.halve.sides", format!("{half}x{double}"))?;
-    f.pin("F-T6.halve.product", product, "490", "the order: 14 x 35 = 7 x 70")?;
-    let (a, b) = shown::NO_HALVE;
+/// F-N: the product with nothing to grab.
+fn nothing(f: &mut Facts) -> Result<(), String> {
+    let (a, b) = shown::NOTHING;
+    let (ra, rb, about) = estimate(a, b);
+    f.add("F-N.product", a * b)?;
+    f.add("F-N.estimate", list([ra, rb, about]))?;
+    // a decimal point slipped one place either way on a calculator
+    f.add("F-N.slipped_low", format!("{}.{}", a * b / 10, a * b % 10))?;
+    f.add("F-N.slipped_high", a * b * 10)?;
+    // its middle, in halves: 145 halves is seventy-two and a half
+    f.add("F-N.middle_halves", a + b)?;
+    f.add("F-N.has_whole_middle", pair(a, b).is_some())?;
     f.add(
-        "F-T6.no_halve",
-        halve_and_double(a, b).is_none() && halve_and_double(b, a).is_none(),
+        "F-N.ends_in_five",
+        ends_in_five(a).is_some() || ends_in_five(b).is_some(),
     )?;
-    Ok(())
-}
-
-/// F-T7: round, then fix.
-fn rounding(f: &mut Facts) -> Result<(), String> {
-    // nine of them is ten of them less one
-    let (nine, each) = shown::NINES;
-    let r = round_then_fix(each, nine, nine.next_multiple_of(10));
-    f.add("F-T7.nines.rounded", r.rounded)?;
-    f.add("F-T7.nines.fix", r.fix)?;
-    f.add("F-T7.nines.product", r.total)?;
-    let (count, cents) = shown::PRICE;
-    let r = round_then_fix(count, cents, cents.next_multiple_of(100));
-    f.add("F-T7.price.each", money(r.each))?;
-    f.add("F-T7.price.round", money(r.round))?;
-    f.add("F-T7.price.rounded", money(r.rounded))?;
-    f.add("F-T7.price.fix", money(r.fix))?;
-    f.add("F-T7.price.total", money(r.total))?;
-    Ok(())
-}
-
-/// F-T9: the one move behind three of the tricks (chapter 14): a square is
-/// a rectangle and a small square, a² = (a − d)(a + d) + d².
-fn one_move(f: &mut Facts) -> Result<(), String> {
-    for (a, d) in [(shown::FIVE, 5), (shown::BELOW, FIFTY - shown::BELOW)] {
-        let (low, high, corner) = moved_strip(a, d);
-        f.add(&format!("F-T9.n{a}.rectangle"), format!("{low}x{high}"))?;
-        f.add(&format!("F-T9.n{a}.rectangle_area"), low * high)?;
-        f.add(&format!("F-T9.n{a}.corner"), corner)?;
-        f.add(&format!("F-T9.n{a}.square"), low * high + corner)?;
-    }
+    // round, then fix: 67 eighties less 67 twos; true, and no easier
+    let r = round_then_fix(a, b, rb);
+    f.add("F-N.round_fix.rounded", r.rounded)?;
+    f.add("F-N.round_fix.fix", r.fix)?;
+    f.add("F-N.round_fix.total", r.total)?;
     Ok(())
 }
 
@@ -340,17 +387,15 @@ fn quizzes(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("{key}.steps"), list(&w.steps))?;
         f.add(&format!("{key}.answer"), &w.answer)?;
     }
-    // the last quiz has nothing to grab: its estimate, and what a slipped
-    // decimal point on a calculator would show
-    let last = QUIZZES.last().ok_or("no quizzes")?;
-    let (Trick::ByParts, Ask::Times(a, b)) = (last.trick, last.ask) else {
-        return Err("the last quiz is a product by parts".into());
-    };
-    let key = format!("F-Q.{}", last.line);
-    f.add(&format!("{key}.estimate"), list(<[u64; 3]>::from(estimate(a, b))))?;
-    f.add(&format!("{key}.slipped_low"), format!("{}.{}", a * b / 10, a * b % 10))?;
-    f.add(&format!("{key}.slipped_high"), a * b * 10)?;
-    f.add(&format!("{key}.middle_halves"), a + b)?;
+    // the mixed round's 6 × 49 has a second honest route, by parts
+    let (a, b) = QUIZZES
+        .iter()
+        .find_map(|q| match q.ask {
+            Ask::Times(a, b) if q.line == "12_5" => Some((a, b)),
+            _ => None,
+        })
+        .ok_or("no product at 12_5")?;
+    f.add("F-Q.12_5.by_parts", list(&by_parts(a, b).running))?;
     Ok(())
 }
 
@@ -370,13 +415,16 @@ pub fn edge_ends_in_five() -> (usize, usize) {
 }
 
 /// Every product of two numbers from 1 to 99: the pieces add up, each
-/// piece's size is its leading digits and its zeros, and the running total
-/// never goes down.
+/// piece's size is its leading digits and its zeros, the running total
+/// never goes down, and the answer lies from the tens multiplied up to (but
+/// not at) the next tens multiplied.
 pub fn edge_by_parts() -> (usize, usize) {
     tally((1..100u64).flat_map(|a| (1..100u64).map(move |b| (a, b))), |&(a, b)| {
         let p = by_parts(a, b);
+        let (floor, ceiling) = p.bounds();
         p.product() == a * b
             && p.running.is_sorted()
+            && (floor..ceiling).contains(&(a * b))
             && p.pieces.iter().all(|piece| {
                 let (lead, zeros) = piece.by_size();
                 lead * 10u64.pow(zeros) == piece.area()
@@ -445,13 +493,13 @@ pub fn edge_round_then_fix() -> (usize, usize) {
     )
 }
 
-/// Every a from 1 to 200 and every d from 0 to a: the moved strip leaves a
-/// rectangle and a corner that make the square.
+/// Every square of side 1 to 200 and every strip no wider than it: the
+/// rectangle the move leaves, and the corner, make the square.
 pub fn edge_one_move() -> (usize, usize) {
-    tally((1..=200u64).flat_map(|a| (0..=a).map(move |d| (a, d))), |&(a, d)| {
-        let (low, high, corner) = moved_strip(a, d);
-        low * high + corner == a * a
-    })
+    tally(
+        (1..=200u64).flat_map(|side| (0..=side).map(move |strip| (side, strip))),
+        |&(side, strip)| one_move(side, strip).is_some_and(|m| m.square() == side * side),
+    )
 }
 
 /// F-X: the edges of the always sentences, each as "how many hold of how
@@ -513,9 +561,8 @@ fn sources(f: &mut Facts) -> Result<(), String> {
         &square.to_string(),
         chase,
     )?;
-    let karatsuba = "Karatsuba and Ofman 1962";
-    f.pin("F-C4.karatsuba.year", cited::KARATSUBA_YEAR, "1962", karatsuba)?;
-    // the block, the corner, and one product of the two sums for both strips
+    // Karatsuba on the video's own rectangle: the block, the corner, and
+    // one product of the two sums for both strips
     let (a, b) = shown::PARTS;
     let ((a1, a0), (b1, b0)) = (model::parts(a), model::parts(b));
     let products = [a1 * b1, a0 * b0, (a1 + a0) * (b1 + b0)];
@@ -523,9 +570,11 @@ fn sources(f: &mut Facts) -> Result<(), String> {
         "F-C4.karatsuba.multiplications",
         products.len(),
         &cited::KARATSUBA_MULTIPLICATIONS.to_string(),
-        karatsuba,
+        "Karatsuba and Ofman 1962",
     )?;
     let strips = products[2] - products[0] - products[1];
+    f.add("F-C4.karatsuba.block", products[0])?;
+    f.add("F-C4.karatsuba.corner", products[1])?;
     f.add("F-C4.karatsuba.strips", strips)?;
     f.add("F-C4.karatsuba.product", products[0] + strips + products[1])?;
     Ok(())
@@ -563,6 +612,10 @@ mod tests {
         assert_eq!(by_parts(20, 40).running, [800]);
         assert_eq!(by_parts(7, 8).running, [56]);
         assert_eq!(by_parts(30, 7).running, [210]);
+        // every total is a floor, but the first is not always the right
+        // size: nineteen squared starts at a hundred (the script must never
+        // say the leading digits are already right)
+        assert_eq!(by_parts(19, 19).running, [100, 190, 280, 361]);
     }
 
     #[test]
@@ -595,33 +648,57 @@ mod tests {
             assert_eq!(yes, all);
             assert!(all > 10_000);
         }
-        // the one move with nothing moved is the square itself
-        assert_eq!(moved_strip(35, 0), (35, 35, 0));
     }
 
-    /// Pattern 1 (narration truth) for the numbers the brief promises.
+    /// Pattern 1 (narration truth) for the numbers the storyboard says.
     #[test]
-    fn the_brief_s_worked_examples() {
+    fn the_storyboard_s_spoken_numbers() {
         let f = facts().unwrap();
         for (key, want) in [
             ("F-H1.paper.rows", "425,6800"),
             ("F-H1.paper.row_count", "2"),
             ("F-H1.paper.carries", "3"),
-            ("F-T1.cut.grown", "30x40"),
-            ("F-T1.cut.hundreds_tiles", "3x4"),
-            ("F-T1.n105.grown", "100x110"),
+            ("F-M.n35.wide", "30"),
+            ("F-M.n35.tall", "40"),
+            ("F-M.n35.corner", "25"),
+            ("F-M.n35.hundreds_tiles", "3x4"),
+            ("F-M.n34.wide", "30"),
+            ("F-M.n34.tall", "38"),
+            ("F-M.n34.corner", "16"),
+            ("F-T1.sweep.hundreds", "2,6,12,20,30,42,56,72,90,110"),
+            ("F-T2.estimate.lead", "10"),
+            ("F-T2.bounds", "800,1500"),
+            ("F-T2.piece_counts", "2,4"),
+            ("F-T5.bill.fifteen", "7.20"),
+            ("F-T5.seventeen.total", "8.16"),
+            ("F-T5.swap.cents", "200"),
+            ("F-T5.swap.other_way", "2.00"),
+            ("F-T6.five.product", "430"),
+            ("F-T6.halve.doubled", "70"),
+            ("F-T6.no_easier.doubled", "74"),
+            ("F-T7.price.total", "79.96"),
+            ("F-T7.no_easier.fix", "111"),
+            ("F-T3.hole", "9"),
+            ("F-T3.far.distance_squared", "1444"),
+            ("F-M.n48.wide", "46"),
+            ("F-M.n48.tall", "50"),
+            ("F-T4.below.fifties", "4"),
+            ("F-T4.below.fifties_area", "200"),
+            ("F-M.n53.tall", "56"),
+            ("F-T4.above.fifties", "6"),
             ("F-T4.below.digit_pairs", "23,04"),
             ("F-T4.above.digit_pairs", "28,09"),
-            ("F-T5.bill.fifteen", "7.20"),
-            ("F-T5.no_swap", "7.31"),
-            ("F-T6.five.product", "430"),
-            ("F-T6.twenty_five.product", "900"),
-            ("F-T7.nines.product", "333"),
-            ("F-T7.price.total", "79.96"),
-            ("F-T9.n35.rectangle", "30x40"),
-            ("F-T9.n48.rectangle", "46x50"),
-            ("F-T9.n48.corner", "4"),
-            ("F-C4.karatsuba.product", "1058"),
+            ("F-T4.carries.hundreds_after", "38"),
+            ("F-T4.carries.left", "44"),
+            ("F-T4.twist.digit_pairs", "30,25"),
+            ("F-T4.twist.same_two_numbers", "true"),
+            ("F-M.n50.wide", "47"),
+            ("F-M.n50.tall", "53"),
+            ("F-N.estimate", "70,80,5600"),
+            ("F-N.round_fix.fix", "134"),
+            ("F-N.has_whole_middle", "false"),
+            ("F-Q.12_5.by_parts", "240,294"),
+            ("F-C4.karatsuba.strips", "240"),
         ] {
             assert_eq!(f.get(key), Some(want), "{key}");
         }

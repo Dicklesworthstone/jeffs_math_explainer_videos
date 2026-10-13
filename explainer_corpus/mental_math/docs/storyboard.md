@@ -12,29 +12,59 @@ semicolons, dashes or parentheses in them (voice rules, plan §5.4).
 viewer; the beat ends with the question and the picture holds before the
 next beat answers it.
 
-**The "your turn" device.** A quiz is a `⟨predict⟩` beat whose last column
-says `listen N s`: a violet card with the problem, a ring that drains over N
-seconds with the seconds left in its middle, the line "pause for more time"
-under it, the narration silent and the music alone (one soft mallet note a
-second). The next beat works the answer with the trick, in the same place on
-screen. The owner asked for "lots of quiz questions", so the quizzes are this
+**Three kinds of question, three looks.**
+
+- **Your turn** (a quiz): a `⟨predict⟩` beat whose last column says
+  `listen N s (countdown)`. A violet card with the problem; a ring that
+  drains over N seconds with the seconds left in its middle; the line "pause
+  for more time" under it (not on the cold open's card); the narration silent
+  and the music alone, one mallet note a second. At zero the answer lands
+  alone, large, where the ring was, on the countdown's last note. The next
+  beat then works it with the trick, in the same place, and ends on the
+  number already there. The first quiz after each trick replays that trick's
+  picture in small beside the working; the later ones are worked in type.
+  Every quiz is a row of `model::QUIZZES`, and its numbers are the
+  `F-Q.<line>.*` facts.
+- **Why?** (02_4, 08_1, 09_5, 10_4, 06_6): the question as a card with no
+  ring, held about two seconds.
+- **Which?** (04_4): three candidates side by side; two fade.
+
+The owner asked for "lots of quiz questions", so the quizzes are this
 video's prediction pauses and there are more than the usual two a chapter
-(plan rule 10). Every quiz is a row of `model::QUIZZES`, and its numbers are
-the `F-Q.<line>.*` facts.
+(plan rule 10).
+
+**The one move.** A strip is sliced off the right side of a square, lifts,
+makes a quarter turn and lands along the top. The square has become a
+rectangle, narrower by the strip's width and taller by it, with a small
+square sticking out where the strip is longer than the rectangle is wide. It
+is drawn the same way every time: the same figure position, the same turn,
+two seconds, the narrator silent, one short plucked sound. Forwards at 02_6,
+10_1, 10_5 and three times at 14_3; backwards, a strip from the top into a
+gap at the side, at 08_4.
+
+**Numbers on screen.** No thousands separator in any number being worked
+(1058, 2304, 11025): the two-part reading (12 then 25, 23 then 04) must stay
+visible. Separators only in prose lower-thirds.
 
 ## 2 The arc
 
 The owner asked for the reason behind each trick and for many quizzes; his
 four tricks carry the video, and the two chapters of everyday tricks are
-short.
+short and sit in the middle, where the video needs a breath.
 
 | Act | Chapters | Spine |
 |---|---|---|
-| I. The centrepiece | 01 eighty-five squared, 02 ends in five, 03 your turn | a quiz before anything is taught; the paper method fails in the head; the trick on 35; the square whose strip moves; three quizzes |
-| II. Any product | 04 by parts, 05 running total | a rectangle cut into four pieces; the zeros come back by size; the hard part is holding four numbers, so hold one |
-| III. Spot the structure | 06 the middle, 07 Bethe, 08 near fifty, 09 your turn | two numbers the same distance from a middle; Feynman's story of Bethe and 48 squared; the same strips, taken off or put on |
-| IV. Everyday | 10 percents, 11 round numbers | the ten-percent block and the swap; halving, doubling, and round then fix |
-| V. Which trick? | 12 which trick, 13 nothing to grab, 14 near something you know | a mixed round; a product no trick helps, and paper; the one move behind three of the tricks |
+| I. The centrepiece | 01 eighty-five squared, 02 ends in five, 03 your turn | a quiz before anything is taught; the paper method fails in the head; the trick on 35; the square whose strip moves; two quizzes; every number in front, swept |
+| II. Any product | 04 by parts, 05 running total | a rectangle cut into four pieces; the zeros come back by size; four numbers are too many to hold, so hold one |
+| III. Everyday | 06 percents, 07 round numbers | the tenth and the swap; halving and doubling; round, then fix |
+| IV. Spot the structure | 08 the middle, 09 Bethe, 10 near fifty, 11 your turn | two numbers the same distance from a middle; Feynman's story of Bethe and 48 squared; the same move again |
+| V. Which trick? | 12 which trick, 13 nothing to grab, 14 near something you know | a mixed round; a product no trick helps, and paper; one square that two tricks agree on, and the one move behind three of them |
+
+The owner fixed the first two tricks' order ("the centerpiece", "then we can
+lead into") and listed the rest. The everyday tricks come before the middle
+and near fifty (R1, C3): they are cuts of chapter 04's rectangle, they give
+an easy stretch after the densest act, and the story then leads straight
+into the mixed round and the ending that recalls its pictures.
 
 ## 3 Color roles
 
@@ -43,333 +73,401 @@ data colour.
 
 | Idea | Color |
 |---|---|
-| the big block (tens times tens: the hundreds) | blue `#58C4DD` |
-| the strips (tens times ones) | teal `#5CD0B3` |
-| the corner (ones times ones; the small square) | amber `#F0AC5F` |
-| the strip that moves, and the trick's one move wherever it appears | `hero` gold `#FFD866` |
-| a piece taken away | `warn` red `#FC6255` |
-| a confirmed answer | `good` green `#83C167` |
+| hundreds: the big block, and any piece that is a whole number of hundreds | blue `#58C4DD` |
+| the strips (tens times ones), and the strip that moves | green `#70CCA1` |
+| the corner (ones times ones; the small square that sticks out) | orange `#CC811F` |
+| the move itself | `hero` gold `#FFD866`, as an outline and a glow on the moving piece, never a fill |
+| a piece taken away, a gap, a wrong reading | `warn` red `#FC6255` |
 | the "your turn" card and its countdown | violet `#B189D6` |
-| the running total, and every number being held in the head | `ink` white, large |
+| numbers held in the head, the running total, an answer that has landed | `ink` white, large |
 
-The six hues are checked pairwise for contrast (ΔE2000 ≥ 20) by a test before
-drafts, as Video C's customers were.
+Every pair of these, with the background, is at least 24 apart (CIEDE2000;
+the least is gold against orange, 24.2), pinned by a test in the crate
+before any draft. The corpus's `good` green is not used: an answer is
+confirmed by landing, large, in ink.
 
 ## Vocabulary (one word per idea)
 
 **trick** (never "hack", "shortcut", "secret" or "method"); **times** (never
 "multiplied by"); **squared**; **the number in front** (the digits left of
-the 5; the letter n appears once, at 03_7); **parts** (the tens and the ones
+the 5; the letter n appears once, at 03_6); **parts** (the tens and the ones
 a number breaks into) and **pieces** (the smaller rectangles); **block**,
-**strip** and **corner** (the three kinds of piece); **running total**;
-**how big** (for the zeros); **the middle** and **the distance** (never "a"
-and "b" aloud); **your turn** (every quiz); **round, then fix**; **halve** and
-**double**; **percent**; **paper** (the written method). Never "genius",
-"human calculator", "instantly" or "lightning".
+**strip** and **corner** (the three kinds of piece; "strip" is also the
+piece that moves); **running total**; **floor** (a total the answer cannot be
+below); **how big** (for the zeros) and **round first** (the estimate);
+**a tenth** (ten percent of a bill; never "block" or "strip"); **the
+middle** and **the distance** (never "a" and "b" aloud); **your turn**
+(every quiz); **round, then fix**; **halve** and **double**; **percent**;
+**paper** (the written method). Plain numbers are said in full ("eight
+hundred sixty"); money keeps its "dollars" ("two dollars forty"); the
+two-pair reading ("twenty-three oh four") is kept for squares near fifty,
+where it is the trick. Never "genius", "human calculator", "instantly" or
+"lightning".
 
-## 01_eighty_five_squared (~60 s)
+## Sound plan (for the score bead)
+
+Nothing here is auditioned yet; the drafts of P5 are silent but for the
+scratch voice.
+
+- **Countdowns.** One mallet note a second, from D, E, F sharp, A and B
+  only. Every countdown ends F sharp, E, then D as the answer lands, so the
+  last three seconds always sound the same and the first note tells the
+  length (4 s starts on B, 5 s on the upper D, 6 s on the upper E). The D
+  lands over a different chord of the progression each time, and over the
+  tonic chord only for the last quiz of an act and at 14_6.
+- **The title** (01_3) plays the motif's question and leaves it open; the
+  answer is kept for 14_6.
+- **Two silences:** before Bethe's question (09_4), and at the end of
+  13_1's ring, which has no last note.
+- **The move** has one short plucked sound, the same at 02_6, 08_4, 10_1,
+  10_5 and, three times, at 14_3; 14_4 then holds on the music alone.
+- **The machine** (09_3): dry ticks, slowing, while its digits run.
+
+## 01_eighty_five_squared (57 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | ⟨predict⟩ Quick. What's eighty-five squared? | The quiz card, cold: 85² in large type, the ring draining from 4, "pause for more time" (`F-Q.01_1.*`) | **the quiz card**; countdown ring on a tracker | listen 4 s (the countdown: the music alone, one mallet note a second) |
-| 01_2 | Seven thousand two hundred twenty-five. Eight times nine is seventy-two. Then write twenty-five. | The answer builds where the ring was: 8 × 9 = 72, then 25 slides in behind it: 7225 (`F-H1.trick.*`) | TeX equation; highlight | |
-| 01_3 | *(title)* | **Mental Math Tricks That Actually Work (and Why)** | title card | listen 3 s (the motif: a rising question, then its answer) |
-| 01_4 | If that took you longer than four seconds, here's why. School teaches multiplying on paper. For this one, that's two rows of digits and three carries, built up from the small end. | 85 × 85 set out as on paper: the rows 425 and 6800 written in, small carry digits above; two counters tick to "2 rows" and "3 carries" (`F-H1.paper.rows`, `.carries`) | a table of digits; lagged reveal; count-up | |
-| 01_5 | On paper that's fine, because the paper remembers the rows. In your head, you have to hold them all at once. | The sheet slides away and the rows hang in the air inside a head outline with three slots; they overflow, and the first row fades out: lost | morph; highlight | |
-| 01_6 | The trick holds one number. Seventy-two. | The head again, one slot filled: 72; the 25 lands after it | highlight | |
-| 01_7 | And it rests on a picture. If you ever forget the trick, the picture gives it back. So every trick in this video comes with its picture, and with a few problems for you to try. | A square whose top strip lifts and slides round to its side (the picture of chapter 02, in outline), then small icons for what is coming: a cut rectangle, a number line with a middle, a bill; the quiz card icon last | lagged reveal; morph | hold |
+| 01_1 | ⟨predict⟩ Quick. What's eighty-five squared? | The quiz card, cold, with nothing else on screen and no pause line: 85² in large type, the ring draining from 4; at zero 7225 lands (`F-Q.01_1.*`) | **the quiz card**; countdown ring on a tracker | listen 4 s (countdown: the music alone, one mallet note a second) |
+| 01_2 | Seven thousand two hundred twenty-five. Eight times nine is seventy-two. Then write twenty-five. | Under the answer its working builds: 8 × 9 = 72, and the 72 and a 25 slide up into the 7225 already there (`F-H1.trick.*`) | TeX equation; highlight | |
+| 01_3 | *(title)* | **Mental Math Tricks That Actually Work (and Why)** | title card | listen 3 s (the motif's question only, unanswered) |
+| 01_4 | If that took you longer than four seconds, here's why. School teaches multiplying on paper. For this one, that's two rows of digits and three carries, built up from the small end. | 85 × 85 set out as on a sheet of paper: the rows 425 and 6800 written in, small carry digits above; two counters tick to "2 rows" and "3 carries" (`F-H1.paper.rows`, `.row_count`, `.carries`) | a table of digits; lagged reveal; count-up | |
+| 01_5 | On paper that's fine, because the paper remembers the rows. In your head, you have to hold both rows while you add them. | The sheet slides away and what is in hand at the worst moment hangs in the air under the words "in your head": 425, 6800, the sum so far, a carry; there is no shelf for them, and the first row fades: lost | morph; highlight | |
+| 01_6 | The trick holds one number. Seventy-two. | "in your head" again, with one large white number: 72; the 25 lands after it | highlight | |
+| 01_7 | And it rests on a picture. If you ever forget the trick, the picture gives it back. So every trick here comes with its picture, and with problems for you to try. | A square whose side strip lifts and lands along its top (the move of chapter 02, in outline), then five more small pictures for what is coming: a cut rectangle, a bill cut in ten, a rectangle cut in half, a number line with a middle, a square of fifty; the quiz card last | lagged reveal; morph | hold |
 
 - **Cold open** (plan rule 20): a puzzle the viewer cannot yet do in four
   seconds, answered in three short sentences, then the title, then the
-  honest failure of the obvious approach (01_4, 01_5).
+  honest failure of the obvious approach (01_4, 01_5). The six small
+  pictures of 01_7 return as the tiles of chapter 12.
 - **Misconception defused:** "people who do this fast have better memories".
-  They hold less: one number against two rows and three carries.
-- **Ruth:** "two rows and three carries" is computed for 85 × 85, not typed
+  They hold less: one number against two rows.
+- **Ruth:** "two rows and three carries" is computed for 85 × 85
   (`model::paper`, and a second long multiplication in the oracle): the rows
-  425 and 6800, one carry inside each row and one in adding them. Nothing is
-  claimed about how long anyone takes.
+  425 and 6800, one carry inside each row and one in adding them. The
+  carries are counted, not said to be held together, and the picture draws no
+  number of slots: nothing is claimed about how much a head holds or how
+  long anyone takes.
 - **Dev:** the paper method is not called wrong; it is built for a medium
   that stores intermediate results.
 
-## 02_ends_in_five (~70 s)
+## 02_ends_in_five (69 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 02_1 | Here's that trick on a smaller number. Thirty-five squared. Look at the number in front of the five. Three. | 35² in large type; the 3 lifts a little and takes the label "the number in front" | highlight | |
 | 02_2 | Multiply it by the next number up. Three times four is twelve. | 3 × 4 = 12 beside it (`F-T1.n35.front`, `.next`, `.hundreds`) | TeX equation | |
 | 02_3 | Then write twenty-five after it. One thousand two hundred twenty-five. | The 12 and a 25 slide together: 1225 (`F-T1.n35.square`); under it, small, 35 × 35 = 1225 | TeX morph | |
-| 02_4 | ⟨predict⟩ But why the next number up? Why three times four, and not three times three? | A square, 35 on each side, drawn over a faint grid with its side lengths marked; the question as a card | **the square on a grid**; prediction card | hold |
-| 02_5 | Thirty-five squared is the area of a square, thirty-five on each side. Cut each side into thirty and five. | Both sides are cut at 30: a blue block, two teal strips and an amber corner, the cuts labelled 30 and 5 (`F-T1.cut.parts`) | grow; lagged colouring | |
-| 02_6 | The big block is thirty by thirty. The little corner is five by five. That's the twenty-five. | The corner reads 25 and the 25 in the answer above pulses with it (`F-T1.cut.corner`); the block reads 30 × 30 | live labels; highlight | |
-| 02_7 | That leaves two strips, each thirty long and five wide. Slide one of them round, next to the other. | The top strip lifts, turns a quarter turn and settles beside the right strip, outlined in gold while it moves: two strips side by side, ten wide (`F-T1.cut.strip`) | **the strip that moves**; morph that keeps identity | |
-| 02_8 | Side by side, they're ten wide. So the block has grown from thirty by thirty to thirty by forty. Three times four, in hundreds. | Block and strips merge into one blue rectangle, 30 by 40; it is ruled into twelve squares of a hundred, three rows of four, and a counter runs 1 to 12 (`F-T1.cut.grown`, `.grown_area`) | grid of hundreds; count-up | |
-| 02_9 | That's where the next number comes from. The two fives make one more ten. | The line 35² = 30 × 40 + 25 = 1225 under the picture (`F-T1.cut.total`) | TeX equation | hold |
+| 02_4 | ⟨predict⟩ But why the next number up? Why three times four, and not three times three? | A square, 35 on each side, drawn over a faint grid of tens with its side lengths marked; the question as a card | **the square on a grid**; prediction card | |
+| 02_5 | Thirty-five squared is the area of a square, thirty-five on each side. Slice a strip off its side, five wide. | A cut runs down the square 5 from its right edge; the strip turns green, the rest blue (`F-M.n35.strip_wide`, `F-M.n35.strip_long`) | grow; highlight | |
+| 02_6 | Now turn the strip, and lay it along the top. | **The one move:** the strip lifts, makes a quarter turn and lands along the top, outlined in gold while it moves; the narrator waits for it | **the strip that moves**; morph that keeps identity | listen 2 s (the move's own plucked sound) |
+| 02_7 | The square has become a rectangle. Five narrower, so thirty wide. Five taller, so forty tall. And the end of the strip sticks out. A small square, five by five. | The side labels change to 30 and 40 (`F-M.n35.wide`, `F-M.n35.tall`); the end of the strip that overhangs turns orange and reads 5 × 5 (`F-M.n35.corner`) | live labels; highlight | |
+| 02_8 | Thirty by forty is three times four, in hundreds. Twelve hundred. | The rectangle's tens grid brightens into twelve squares of a hundred, three across and four up, and a small numeral is written into each in turn, 1 to 12 (`F-M.n35.hundreds_tiles`, `.rectangle_area`) | grid of hundreds; count-up | |
+| 02_9 | And the small square is the twenty-five. Twelve hundred plus twenty-five. Twelve, then twenty-five. The next number comes in because thirty-five sits halfway between thirty and forty. | The line 35² = 30 × 40 + 25 = 1225 above the caption band (`F-M.n35.square`); under it, grey: "34² = 30 × 38 + 16: true, and no easier" (`F-M.n34.*`) | TeX equation | hold |
 
 - **The centrepiece's why, as the owner asked:** the trick is stated on
-  numbers (02_1 to 02_3), questioned (02_4), then earned by the picture.
+  numbers (02_1 to 02_3), questioned (02_4), then earned by one cut and one
+  move. This is the order's own picture: "the strip of width 5 moves to make
+  an n by (n + 1) block of hundreds plus a 5 by 5 corner".
 - **Misconception defused:** "it should be three times three" (02_4): the
-  block alone is 30 by 30, and the strips are what add the extra ten.
-- **Ruth:** the areas are counted cell by cell in the oracle (900, 150, 150,
-  25); the regrouping is 30 × 30 + 2 × (30 × 5) = 30 × 40.
-- **Engine:** five fixed rectangles moved by placement; the grid is faint
-  lines, not 1,225 cells.
+  strip that comes off one side goes on to the other, so the two sides are
+  30 and 40, not 30 and 30.
+- **Why a five** (M11): the grey line at 02_9. With 34 the same move gives
+  30 by 38, which is no easier; only a five lands both sides on round tens.
+- **Ruth:** the cells are counted in the oracle (the strip 5 by 35, the
+  rectangle 30 by 40, the corner 25); 1200 + 25 = 1225.
+- **Engine:** a body, a strip and a tens grid; the strip is one rectangle
+  turned on an arc so its area never changes on the way (E7).
 
-## 03_your_turn (~75 s)
-
-| id | words | picture | features | hold/listen |
-|---|---|---|---|---|
-| 03_1 | ⟨predict⟩ Your turn. Whenever you want more time, pause the video. What's twenty-five squared? | The quiz card: 25², ring from 4 (`F-Q.03_1.*`) | the quiz card | listen 4 s (countdown) |
-| 03_2 | Two times three is six. Then twenty-five. Six hundred twenty-five. | 2 × 3 = 6, then 25: 625 | TeX equation; highlight | |
-| 03_3 | ⟨predict⟩ Sixty-five squared? | The quiz card: 65², ring from 4 (`F-Q.03_3.*`) | the quiz card | listen 4 s (countdown) |
-| 03_4 | Six times seven is forty-two. Then twenty-five. Four thousand two hundred twenty-five. | 6 × 7 = 42, then 25: 4225 | TeX equation; highlight | |
-| 03_5 | ⟨predict⟩ Now past a hundred, where the number in front is ten. What's a hundred and five squared? | The quiz card: 105², ring from 6; the 10 in front of the 5 underlined (`F-Q.03_5.*`) | the quiz card | listen 6 s (countdown) |
-| 03_6 | Ten times eleven is a hundred and ten. Then twenty-five. Eleven thousand and twenty-five. | 10 × 11 = 110, then 25: 11025; beside it the square again, now 100 by 110 and a corner | TeX equation; the square on a grid | |
-| 03_7 | It works for every whole number that ends in five. If the number in front is n, the square is n, times n plus one, in hundreds. Plus twenty-five. | The numbers in 35² = 3 × 4 hundreds + 25 turn into letters: (10n + 5)² = 100 · n(n + 1) + 25, with "the number in front" under the n; lower-third "checked for every number from 5 to 99,995" (`F-X1.ends_in_five.*`); small: "7.5² = 56.25: the same trick, with the point put back" (`F-T1.half.squared`) | **TransformMatchingTex**: numbers → letters | |
-| 03_8 | It is only as easy as that one multiplication. A hundred thirty-five squared needs thirteen times fourteen. For that, we need a way to multiply any two numbers. | 135²: 13 × 14 = ?, the product a question mark; a faint rectangle cut in four waits behind it | highlight | hold |
-
-- **Start easy and climb** (the order): 2 × 3, then 6 × 7, then past a
-  hundred, where the number in front has two digits.
-- **Ruth:** "every whole number that ends in five" is tested from 5 to
-  99,995 (`edge_the_square_of_every_number_ending_in_five…`); the edge is 5
-  itself, where nothing is in front and zero times one gives 25. The
-  identity is the general proof. The honest limit is 03_8.
-- **Maya:** n is said once, with its label on screen, after three worked
-  quizzes (numbers before letters).
-- **The thread:** 03_8's 13 × 14 is answered as a quiz at 05_6.
-
-## 04_by_parts (~75 s)
+## 03_your_turn (68 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | Twenty-three times forty-six. No fives to help. Before anything else, ask how big the answer should be. Twenty times fifty is a thousand. So, somewhere near a thousand. | 23 × 46; each number slides to its nearest ten, 20 × 50 = 1000, tagged "about" (`F-T2.estimate`) | highlight; morph | |
-| 04_2 | Now draw it. A rectangle, twenty-three by forty-six. Its area is the answer. | A rectangle 23 tall and 46 wide over the faint grid, its sides labelled | grow | |
-| 04_3 | Break each number into parts. Twenty and three. Forty and six. The rectangle falls into four pieces. | Cuts at 20 and at 40; the side labels split into 20, 3 and 40, 6; the pieces take their colours: blue block, two teal strips, amber corner (`F-T2.parts.*`, `F-T2.pieces.sides`) | **the rectangle cut into parts**; lagged colouring | |
-| 04_4 | ⟨predict⟩ Take the big piece, twenty by forty. Two times four is eight. But eight what? Eighty, eight hundred, or eight thousand? | The block lights; 2 × 4 = 8 over it; three choices under it: 80, 800, 8,000 (`F-T2.size.*`) | prediction card; highlight | hold |
-| 04_5 | Eight hundred. Twenty times four is eighty already, so twenty times forty has to be ten times that. Tens times tens are hundreds. | 20 × 4 = 80 beside the choices; the 80 and the 8,000 fade; the block is ruled into eight squares of a hundred, two rows of four | grid of hundreds; highlight | |
-| 04_6 | So leave the zeros out while you multiply. Then put them back by asking how big the piece has to be. | 2 × 4 = 8, then two zeros slide back in: 800 (`F-T2.size.lead`, `.zeros`) | TeX morph | |
-| 04_7 | The other three go the same way. Twenty times six, a hundred twenty. Three times forty, a hundred twenty. Three times six, eighteen. | Each piece takes its number in turn: 120, 120, 18 (`F-T2.pieces`); lower-third "the distributive law"; lower-third, for programmers: "these four pieces are schoolbook multiplication; Karatsuba's 1962 algorithm gets the two middle ones from a single extra multiplication" | lagged reveal; live labels | |
-| 04_8 | Four easy multiplications. What's left is adding them up. And that's the part that goes wrong. | The four numbers lift off the rectangle into a column, 800, 120, 120, 18, and start to waver | morph | hold |
+| 03_1 | ⟨predict⟩ Your turn. Whenever you want more time, pause the video. What's twenty-five squared? | The quiz card: 25², ring from 5, "pause for more time"; at zero 625 lands (`F-Q.03_1.*`) | the quiz card | listen 5 s (countdown) |
+| 03_2 | Two times three is six. Then twenty-five. Six hundred twenty-five. | 2 × 3 = 6, then 25; beside it, small, the move replayed on a square of 25: 20 by 30 and a corner | TeX equation; the strip that moves | |
+| 03_3 | ⟨predict⟩ Now past a hundred, where the number in front is ten. What's a hundred and five squared? | The quiz card: 105², ring from 6; the 10 in front of the 5 underlined; at zero 11025 lands (`F-Q.03_3.*`) | the quiz card | listen 6 s (countdown) |
+| 03_4 | Ten times eleven is a hundred and ten. Then twenty-five. Eleven thousand and twenty-five. | 10 × 11 = 110, then 25 | TeX equation | |
+| 03_5 | It works for every whole number that ends in five, because the picture never changes. Whatever is in front, the strip is five wide and the corner is twenty-five. | **The sweep:** the moved-strip picture with the number in front on a slider that runs 1 to 10; at each stop the rectangle is that many tens by one more, ruled into its hundreds, the count of hundreds and the square beside it: 2 and 225, 6 and 625, 12 and 1225, … 110 and 11025 (`F-T1.sweep.*`); the orange corner never changes | **live recomputation from a tracker**; grid of hundreds; live numbers | |
+| 03_6 | In letters, call the number in front n. The square is n times the next number, in hundreds. Plus twenty-five. | The numbers of 35² = 100 × 3 × 4 + 25 turn into letters: (10n + 5)² = 100 × n × (n + 1) + 25, with "the number in front" under the n; once it has settled, lower-third "the picture works at any size; a program also checked every one up to 99,995" (`F-X1.ends_in_five.*`) | **TransformMatchingTex**: numbers → letters | |
+| 03_7 | It's only as easy as that one multiplication, though. A hundred thirty-five squared needs thirteen times fourteen. We'll come back for that. | 135²: 13 × 14 = ?, the product a question mark; the card shrinks into the top right corner and stays there through chapters 04 and 05 | highlight | hold |
+
+- **Start easy and climb** (the order): 2 × 3, then past a hundred, where
+  the number in front has two digits; 7 × 8 and 5 × 6 come in chapters 12
+  and 14.
+- **Showpiece** (C7): the sweep at 03_5 earns "every" before any letter
+  appears: ten squares in a row, one picture.
+- **Ruth:** "every whole number that ends in five" is the identity at 03_6
+  and is also tested from 5 to 99,995
+  (`edge_the_square_of_every_number_ending_in_five…`); the edge is 5 itself,
+  where nothing is in front and zero times one gives 25. The lower-third
+  says which is the reason and which is the check. The honest limit is 03_7.
+- **Maya:** n is said once, as "n times the next number", with its label on
+  screen, after two worked quizzes and the sweep (numbers before letters).
+- **The thread** (C23): 03_7's card waits in the corner and is filled in at
+  05_7. The decimal case (7.5² = 56.25) is in the description, not here.
+
+## 04_by_parts (77 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Most products don't end in five. Take twenty-three times forty-six. Before anything else, round first. Twenty times fifty is a thousand. So the answer is somewhere near a thousand. | 23 × 46; each number slides to its nearest ten, 20 × 50 = 1000, tagged "about" (`F-T2.estimate`) | highlight; morph | |
+| 04_2 | Now draw it. A rectangle, twenty-three by forty-six. Its area is the answer. | A rectangle 23 tall and 46 wide over the faint grid of tens, its sides labelled | grow | |
+| 04_3 | Break each number into parts. Twenty and three. Forty and six. The rectangle falls into four pieces. | Cuts at 20 and at 40; the side labels split into 20, 3 and 40, 6; the pieces take their colours: blue block, two green strips, orange corner (`F-T2.parts.*`, `F-T2.pieces.sides`) | **the rectangle cut into parts**; lagged colouring | |
+| 04_4 | ⟨predict⟩ Take the big piece, twenty by forty. Two times four is eight. But eight what? Eighty, eight hundred, or eight thousand? | The block lights; 2 × 4 = 8 over it; three candidates side by side: 80, 800, 8000 (`F-T2.size.*`) | prediction card; highlight | |
+| 04_5 | Eight hundred. Twenty times four is eighty already, so twenty times forty has to be ten times that. Tens times tens are hundreds. | 20 × 4 = 80 beside the candidates; the 80 and the 8000 fade; the block's tens grid brightens into eight squares of a hundred, two rows of four | grid of hundreds; highlight | |
+| 04_6 | So leave the zeros out while you multiply, and put them back by asking how big the piece has to be. That's how twenty times fifty came to a thousand. Two times five is ten, in hundreds. | 2 × 4 = 8, then two zeros slide back in: 800 (`F-T2.size.lead`, `.zeros`); beside it the estimate of 04_1 the same way: 2 × 5 = 10, in hundreds, 1000 | TeX morph | |
+| 04_7 | The other three go the same way. Twenty times six, a hundred twenty. Three times forty, a hundred twenty again, by coincidence. Three times six, eighteen. | Each piece takes its sides and its number in turn: 20 × 6 = 120, 3 × 40 = 120, 3 × 6 = 18 (`F-T2.pieces`); once the last has landed, lower-third "the distributive law" | lagged reveal | |
+| 04_8 | Four easy multiplications. Now there are four numbers to hold while you add them. | The four numbers lift off the rectangle and hang under "in your head", as the rows did at 01_5, and start to waver; then, alone in the foot band, lower-third "for programmers: (20 + 3) × (40 + 6) − 800 − 18 = 240 gives both strips at once: three multiplications, not four. Karatsuba's algorithm" (`F-C4.karatsuba.*`) | morph; lower-third | hold |
 
 - **The owner's words:** "ignoring zeros and then adding them back … think
-  about how many zeros it must have to make sense" is 04_4 to 04_6.
+  about how many zeros it must have to make sense" is 04_4 to 04_6, and it
+  explains the estimate of 04_1, the one case where two zeros go back and
+  three come out (M9, D13).
 - **Misconception defused:** "count the zeros" (04_4): the size of the piece
-  tells you, and one wrong candidate is ruled out by a product already known.
+  tells you. And "the two strips always match" (04_7: "by coincidence"; at
+  05_7 they are 40 and 30).
 - **Ruth:** the estimate is each number rounded to its nearest ten
   (`model::estimate`); the four pieces are counted cell by cell in the
-  oracle. The law is named once, in a lower-third.
-- **Dev:** the Karatsuba line is a lower-third, labelled "for programmers".
+  oracle. 04_8 counts four numbers and claims nothing about what people get
+  wrong.
+- **Dev:** the Karatsuba line is worked on this rectangle and has the foot
+  band to itself during the hold; it is a trade for computers on long
+  numbers, not for heads, and the description says so.
 
-## 05_running_total (~75 s)
+## 05_running_total (74 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | Four numbers is a lot to hold while you're still multiplying. So don't hold them. Keep one running total, and add each piece the moment you have it. | The column of four numbers with the tag "hold 4"; it gives way to one large readout, "running total", beside the cut rectangle (`F-T2.held.pieces`) | live number on a tracker | |
-| 05_2 | Start with the big piece. Eight hundred. Add a hundred twenty. Nine hundred twenty. Another hundred twenty. One thousand forty. And eighteen. One thousand fifty-eight. | Each piece lights in turn and pours into the total, which runs 800, 920, 1040, 1058 (`F-T2.running`); a piece dims once it is in | **live count-up**; highlight | |
-| 05_3 | You only ever held one number. And the first thing you said, eight hundred, was already in the right neighbourhood. | A number line from 0 to 1,200: the estimate 1,000, the first total 800 and the answer 1,058 marked on it (`F-T2.product`) | number line | |
-| 05_4 | ⟨predict⟩ Your turn. Six times forty-three? | The quiz card: 6 × 43, ring from 5 (`F-Q.05_4.*`) | the quiz card | listen 5 s (countdown) |
-| 05_5 | Six forties are two hundred forty. Six threes are eighteen. Two hundred fifty-eight. | A rectangle 6 by 43 in two pieces; the total runs 240, 258 | the rectangle cut into parts; live count-up | |
-| 05_6 | ⟨predict⟩ And the one we left. Thirteen times fourteen? | The quiz card: 13 × 14, ring from 6 (`F-Q.05_6.*`) | the quiz card | listen 6 s (countdown) |
-| 05_7 | A hundred. A hundred forty. A hundred seventy. A hundred eighty-two. So a hundred thirty-five squared is eighteen thousand two hundred twenty-five. | Four pieces, 100, 40, 30, 12; the total runs 100, 140, 170, 182; then 182 and 25 slide together: 135² = 18225 (`F-T1.n135.*`) | live count-up; TeX morph | hold |
+| 05_1 | Four numbers is a lot to hold. So don't hold them. Keep one running total, and add each piece the moment you have it. | "in your head" empties to one large white number, tagged "running total", beside the cut rectangle (`F-T2.held.pieces`) | live number on a tracker | |
+| 05_2 | Block, strip, strip, corner. Twenty times forty, eight hundred. Twenty times six, nine hundred twenty. Three times forty, one thousand forty. Three times six, one thousand fifty-eight. | **The pour:** each piece in turn lifts off the rectangle and lands in a pile ruled in hundreds beside the total, which runs 800, 920, 1040, 1058 (`F-T2.running`); after the block the pile is already most of its final size | **live count-up**; morph that keeps identity | |
+| 05_3 | Between steps, you only ever held one number. And every total on the way was a floor. The answer could only go up from it. | A number line from 0 to 1600: the totals step up it, 800, 920, 1040, 1058; the stretch from 800 to 1500 is shaded, "after the block: between 20 × 40 and 30 × 50" (`F-T2.bounds`); tags "between steps: 4" giving way to "between steps: 1"; lower-third "for programmers: an anytime answer: stop after any step and you have a floor that only rises. The price: a later piece can change a digit you already said (920 → 1040)" | number line; lower-third | |
+| 05_4 | ⟨predict⟩ Your turn. Six times forty-three? | The quiz card: 6 × 43, ring from 5; at zero 258 lands (`F-Q.05_4.*`) | the quiz card | listen 5 s (countdown) |
+| 05_5 | Six forties, two hundred forty. Six threes, eighteen. Two hundred fifty-eight. | A rectangle 6 by 43 in two pieces; the total runs 240, 258; lower-third "pieces = digits × digits: 1 × 2 here, 2 × 2 before" (`F-T2.piece_counts`) | the rectangle cut into parts; live count-up | |
+| 05_6 | ⟨predict⟩ And the one we left. It has four pieces, so pause if you like. Thirteen times fourteen? | The card from the corner (135²: 13 × 14 = ?) comes back beside the quiz card: 13 × 14, ring from 6; at zero 182 lands (`F-Q.05_6.*`) | the quiz card | listen 6 s (countdown) |
+| 05_7 | Ten tens, a hundred. Ten fours, a hundred forty. Three tens, a hundred seventy. Three fours, a hundred eighty-two. So a hundred thirty-five squared is eighteen thousand two hundred twenty-five. | Four pieces with their own numbers, 100, 40, 30, 12, the two strips plainly different; the total runs 100, 140, 170, 182; then the 182 and a 25 fill in the waiting card: 135² = 18225 (`F-T1.n135.*`) | live count-up; TeX morph | hold |
 
 - **The owner's point** ("the hardest part is remembering the 4 numbers and
-  adding them up") is a beat of its own, 05_1, and the cure is 05_2: one
-  number held, pieces added in the order block, strip, strip, corner.
-- **Misconception defused:** "the multiplying is the hard part".
-- **Dev (lower-third at 05_3, for programmers):** "biggest piece first is an
-  anytime answer: stop after any step and you have an estimate, with the
-  digits that matter most already right".
-- **Ruth:** "in the right neighbourhood" is 800 against 1,058, shown on a
-  line, not claimed as a bound; the running total never goes down
-  (`edge_the_pieces_always_add_up_to_the_product`, all products up to
-  99 × 99).
+  adding them up") is a beat of its own, 04_8 into 05_1, and the cure is
+  05_2: one number carried from step to step, pieces added in a fixed order.
+- **What is and is not claimed** (R1, D1): a running total is a floor that
+  only rises; it is not said to have the right leading digits (800 against
+  1058 does not), and the lower-third names the price of going big end
+  first.
+- **Ruth:** the running total never goes down, and after the block the
+  answer lies between the tens multiplied and the next tens multiplied, for
+  every pair of two-digit numbers
+  (`edge_the_pieces_always_add_up_to_the_product`).
+- **Maya** (M2): 05_7 names the multiplication behind every step, and 05_6
+  says there are four pieces and offers the pause.
 
-## 06_the_middle (~85 s)
+## 06_percents (69 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 06_1 | ⟨predict⟩ Forty-seven times fifty-three. Before you start on the parts, look at the two numbers. What do they have in common? | 47 × 53; a number line fades in beneath, 47 and 53 marked, nothing between them yet | number line; prediction card | |
-| 06_2 | They're the same distance from fifty. Three below, and three above. | 50 appears between them; two arcs of length 3 (`F-T3.middle`, `.distance`) | number line; highlight | |
-| 06_3 | So draw fifty squared, and lay the rectangle over it. It sticks out by three on one side, and falls short by three on the other. | A 50 by 50 square in outline; the 47 by 53 rectangle over it: a strip 3 wide stands out past the right edge, and a gap 3 tall is left along the top (`F-T3.strip`, `.gap`) | overlay; highlight | |
-| 06_4 | Move the part that sticks out into the gap. It nearly fills it. What's missing is one small square, three by three. | The strip lifts, turns and settles into the gap, gold while it moves; a 3 by 3 hole is left in the corner, outlined red (`F-T3.strip_area`, `.gap_area`) | **the strip that moves**; morph | |
-| 06_5 | So the answer is fifty squared, minus three squared. Twenty-five hundred, minus nine. Two thousand four hundred ninety-one. | 47 × 53 = 50² − 3² = 2500 − 9 = 2491 (`F-T3.*`); lower-third "(a + b)(a − b) = a² − b²: the difference of squares", a labelled "the middle", b "the distance" | TeX equation; lower-third | |
-| 06_6 | ⟨predict⟩ Your turn. Nineteen times twenty-one? | The quiz card: 19 × 21, ring from 4 (`F-Q.06_6.*`) | the quiz card | listen 4 s (countdown) |
-| 06_7 | The middle is twenty, and they're one away. Four hundred, minus one. Three hundred ninety-nine. | Number line 19, 20, 21; 20² − 1² = 399 | number line; TeX equation | |
-| 06_8 | ⟨predict⟩ Sixty-five times seventy-five? | The quiz card: 65 × 75, ring from 6 (`F-Q.06_8.*`) | the quiz card | listen 6 s (countdown) |
-| 06_9 | The middle is seventy. Five away. Forty-nine hundred, minus twenty-five. Four thousand eight hundred seventy-five. | Number line 65, 70, 75; 70² − 5² = 4875 | number line; TeX equation | |
-| 06_10 | It needs a middle that's easy to square. Forty-seven times fifty-six has its middle at fifty-one and a half. Back to parts. | 47 × 56 on the number line, its middle at 51½ marked red; the cut rectangle returns beside it (`F-T3.no_middle.*`) | number line; highlight | hold |
+| 06_1 | Now money. A restaurant bill of forty-eight dollars, and you want to tip fifteen percent. Ten percent is one tenth, so the decimal point moves one place. Four dollars eighty. | The bill as a long bar, $48.00, cut into ten; one tenth lifts out as a copy, outlined gold: 10% = $4.80; above it the digits of 48.00 in fixed places and the point hopping one place left (`F-T5.bill`, `F-T5.bill.ten`) | proportion bar; highlight | |
+| 06_2 | Five percent is half of that. Two dollars forty. Together, seven dollars twenty. | Half a tenth: 5% = $2.40; the tenth and the half side by side: 15% = $7.20 (`F-T5.bill.five`, `.fifteen`) | proportion bar | |
+| 06_3 | And twenty percent is the tenth, doubled. | Two tenths: 20% = $9.60 (`F-T5.bill.twenty`); under it, grey: "17% = 10% + 5% + 1% + 1%: four pieces, a running total again" (`F-T5.seventeen.*`) | proportion bar | |
+| 06_4 | ⟨predict⟩ Your turn. Fifteen percent of sixty dollars? | The quiz card: 15% of $60, ring from 5; at zero $9.00 lands (`F-Q.06_4.*`) | the quiz card | listen 5 s (countdown) |
+| 06_5 | A tenth is six dollars. Half of that is three. Nine dollars. | $6.00 + $3.00 on a bar of ten, the tenth and the half lit | proportion bar; TeX equation | |
+| 06_6 | ⟨predict⟩ Now a stranger one. What's eight percent of twenty-five dollars? | 8% of $25 = ? as a card with no ring | prediction card | |
+| 06_7 | Turn it round. Twenty-five percent of eight dollars is a quarter of eight. Two dollars. That's the answer to both. | The 8 and the 25 cross over on arcs between fixed places: 25% of $8 = $2.00, then back: 8% of $25 = $2.00 (`F-T5.swap.*`) | TeX morph | |
+| 06_8 | Percent means cents on the dollar. Eight cents from each of twenty-five dollars. Or twenty-five cents from each of eight. The same two hundred cents. The swap pays when one side is a friendly percent, like a half, a quarter or a tenth. | A grid 25 across and 8 deep, one cell a cent: first the 25 columns light one after another ("8¢ from each dollar"), then the 8 rows ("25¢ from each"); then the 200 cells flow into two squares of a hundred: $2.00 (`F-T5.swap.across`, `F-T5.swap.deep`, `F-T5.swap.cents`); then the friendly ones in a row: 10% a tenth, 25% a quarter, 50% a half, 75% three quarters; lower-third "precisely: x% of y = x × y ÷ 100 = y% of x" | **grid**; morph that keeps identity; lower-third | hold |
+
+- **Real life** (the owner's test): a tip, a discount, a tax rate. A tenth,
+  half of it, twice it.
+- **Misconception defused:** "x percent of y and y percent of x are
+  different questions" (06_7, 06_8).
+- **The swap's picture** (C12): each cell is a cent, so turning the grid
+  swaps what the rows and the columns mean, and "over a hundred" is the two
+  squares of a hundred the cells fill.
+- **Ruth:** the swap is exact for every x and y
+  (`edge_the_small_tricks…`); its usefulness is not general, and 06_8 says
+  when it pays. The tenth stops being one piece off 5, 10, 15 and 20 percent,
+  and the grey line at 06_3 shows it (D4). Money is in whole cents
+  throughout.
+
+## 07_round_numbers (76 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 07_1 | Some numbers are one step from a round one. Five is half of ten. So five times eighty-six is ten times eighty-six, cut in half. Eight hundred sixty, halved. Four hundred thirty. | A rectangle 10 by 86, area 860; it is cut across the middle and the top half fades: 5 by 86 = 430 (`F-T6.five.*`) | the rectangle; morph | |
+| 07_2 | The same cut works between two numbers. Fourteen times thirty-five. Halve the fourteen, double the thirty-five. Seven times seventy. Four hundred ninety. | A rectangle 14 by 35 is cut in half across; the top half slides down beside the bottom half, outlined gold while it moves: 7 by 70 = 490 (`F-T6.halve.*`) | the rectangle; morph that keeps identity | |
+| 07_3 | ⟨predict⟩ Your turn. Sixteen times forty-five? | The quiz card: 16 × 45, ring from 5; at zero 720 lands (`F-Q.07_3.*`) | the quiz card | listen 5 s (countdown) |
+| 07_4 | Halve and double. Eight times ninety. Seven hundred twenty. It pays when doubling makes a round number. One of them even, the other ending in five. | 16 × 45 = 8 × 90 = 720, with the restack replayed small beside it; lower-third "14 × 37 = 7 × 74: true, and no easier" (`F-T6.no_easier.*`) | TeX morph; lower-third | |
+| 07_5 | Prices sit just under a round number. Four things at nineteen dollars ninety-nine. Call it four twenties. Eighty dollars. Then give back four cents. Seventy-nine dollars ninety-six. Round, then fix. | Four price tags, $19.99; each rounds up to $20.00 and sheds a red cent; a rectangle 4 by 20 with a red sliver sliced off its end: $80.00 − $0.04 = $79.96 (`F-T7.price.*`) | lagged reveal; the rectangle; TeX equation | |
+| 07_6 | ⟨predict⟩ Your turn. Three things at four dollars ninety-nine each? | The quiz card: 3 × $4.99, ring from 5; at zero $14.97 lands (`F-Q.07_6.*`) | the quiz card | listen 5 s (countdown) |
+| 07_7 | Three fives are fifteen dollars. Give back three cents. Fourteen dollars ninety-seven. This one pays when the round number is a step or two away. | $15.00 − $0.03 = $14.97; under it, grey: "7 × 37 = 370 − 111: the fix is a multiplication of its own" (`F-T7.no_easier.*`) | TeX equation | hold |
+
+- **Two moves, one idea:** get to a round number, then put right what you
+  changed, by halving (07_1, 07_2) or by taking the extra back off (07_5).
+  Each is taught and then tried (M17). Both are the rectangle of
+  chapter 04, cut another way.
+- **Real life:** packs of five, and every price that ends in 99.
+- **Where each stops** (D3, D4): halving and doubling is always true and
+  pays only when doubling lands on a round number (07_4 and its
+  lower-third); round, then fix pays only when the fix is small (07_7 and
+  its grey line).
+- **Ruth:** each is exact (`edge_the_small_tricks…`).
+
+## 08_the_middle (70 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 08_1 | ⟨predict⟩ Forty-seven times fifty-three. Before you start on the parts, look at the two numbers. What number sits exactly halfway between them? | 47 × 53; a number line fades in beneath, 47 and 53 marked, nothing between them yet | number line; prediction card | |
+| 08_2 | Fifty. One is three below it, the other three above. | 50 appears between them; two arcs of length 3 (`F-T3.middle`, `.distance`) | number line; highlight | |
+| 08_3 | So draw fifty squared, and lay the rectangle over it. It sticks out by three at the top, and falls short by three at the side. | The number line becomes the picture: the tick at 50 grows into a square of 50 in outline, and the rectangle, 47 wide and 53 tall, sits over it; the two arcs become the strip that stands out above the square and the gap down its right side (`F-T3.strip_area`, `F-T3.gap_area`) | overlay; morph that keeps identity | |
+| 08_4 | Move the part that sticks out into the gap. It nearly fills it. What's missing is one small square, three by three. | **The one move, backwards:** the strip lifts off the top, turns and stands in the gap, outlined gold while it moves; a 3 by 3 hole is left in the corner, outlined red, and a framed enlargement of that corner hangs beside it (`F-T3.hole`) | **the strip that moves**; magnifier | |
+| 08_5 | So the answer is fifty squared, minus three squared. Twenty-five hundred, minus nine. Two thousand four hundred ninety-one. | 47 × 53 = 50² − 3² = 2500 − 9 = 2491 (`F-T3.*`); the red hole stays on screen; lower-third "(a + b)(a − b) = a² − b²: the difference of squares", a labelled "the middle", b "the distance" | TeX equation; lower-third | |
+| 08_6 | ⟨predict⟩ Your turn. Nineteen times twenty-one? | The quiz card: 19 × 21, ring from 5; at zero 399 lands (`F-Q.08_6.*`) | the quiz card | listen 5 s (countdown) |
+| 08_7 | The middle is twenty, and they're one away. Four hundred, minus one. Three hundred ninety-nine. | Number line 19, 20, 21; 20² − 1² = 399; the move replayed small on a square of 20 | number line; TeX equation | |
+| 08_8 | It needs a middle that's easy to square, and a small distance. Forty-seven times fifty-six has its middle at fifty-one and a half. Back to parts. | 47 × 56 on the number line, its middle at 51½ marked red; lower-third "a whole middle needs both odd or both even"; under it, grey: "12 × 88 = 50² − 38²: true, and no easier" (`F-T3.no_middle.*`, `F-T3.far.*`) | number line; lower-third | hold |
 
 - **The owner's "(a + b)*(a − b)"**, spoken as the middle and the distance so
-  that the letter a is never read aloud; the letters are on screen once.
-- **Misconception defused:** "this is a fact about fifty" (06_7 and 06_9
-  use 20 and 70).
+  that the letter a is never read aloud; his letters are on screen here and
+  again at 14_3, where the same line has one term moved across.
+- **Misconception defused:** "this is a fact about fifty" (08_7
+  uses 20).
 - **Ruth:** exact for any two numbers with a whole middle, tested for every
-  such pair up to 200 (`edge_equally_far_from_a_middle…`); 06_10 is the
-  limit (a half-integer middle still works, and is not easier).
-- **Engine:** the square is an outline and the rectangle a fill; the moving
-  strip is one rectangle, turned by placement.
+  such pair up to 200 (`edge_equally_far_from_a_middle…`). 08_8 gives both
+  things the trick needs and the test for a whole middle. A half middle
+  still works and is not easier (47 × 56 = 51.5² − 4.5²); the description
+  says so.
+- **Engine:** the square is an outline and the rectangle a fill; the corner
+  is 3 in 50, so it gets a magnifier (E2, C17).
 
-## 07_bethe (~60 s)
+## 09_bethe (60 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | The next trick comes with a story. Los Alamos, in the nineteen forties. Richard Feynman is working under Hans Bethe, and they're putting numbers into a formula. They get to forty-eight squared. | Two name cards, "Hans Bethe, head of the Theoretical Division" and "Richard Feynman, a group leader in it"; "Los Alamos"; between them 48² | lagged cards | |
-| 07_2 | Feynman reaches for the calculator, a mechanical one. Bethe says, that's twenty-three hundred. | A desk calculator in outline, labelled "a Marchant calculator"; above Bethe's card, 2300 (`F-C1.bethe.rough`) | lagged reveal | |
-| 07_3 | Feynman starts pushing the buttons anyway. And Bethe says that if he wants it exactly, it's twenty-three oh four. | The 2300 becomes 2304; the calculator's dials turn and stop on 2304 (`F-C1.bethe.exact`) | live digits; highlight | |
-| 07_4 | Feynman is impressed. And Bethe asks him a question. Don't you know how to square numbers near fifty? | Quote card, verbatim: "Don't you know how to square numbers near 50?"; source line "Hans Bethe, as told by Richard P. Feynman, "Surely You're Joking, Mr. Feynman!" (1985), "Lucky Numbers"" | quote card | hold |
-| 07_5 | ⟨predict⟩ Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared? | 50² = 2500 on the left, 48² = ? on the right, an arrow between them; a 50 by 50 square in outline with a 48 by 48 square inside it | prediction card; the square on a grid | |
-| 07_6 | Bethe's way. Forty-eight is two below fifty, so take two hundred off. That's his twenty-three hundred. Then add two squared. Twenty-three oh four. | Three steps in a row: 2500, − 200 = 2300, + 4 = 2304 (`F-T4.below.*`, `F-T4.fifty_squared`) | TeX equation; lagged reveal | hold |
+| 09_1 | The next trick comes with a story. Los Alamos, in the nineteen forties, where the first atomic bomb was being built. Hans Bethe runs the theory division, and Richard Feynman works for him. They're putting numbers into a formula, and they get to forty-eight squared. | "Los Alamos"; two name cards, "Hans Bethe, physicist, head of the Theoretical Division" and "Richard Feynman, physicist, in Bethe's division"; between them 48²; the cards then shrink to captions at the sides | lagged cards | |
+| 09_2 | Feynman reaches for the calculator. Bethe says it's twenty-three hundred. | A desk calculator in outline, a keyboard of round keys and a row of four result digits, labelled "a Marchant calculator"; by Bethe's caption, 2300 (`F-C1.bethe.rough`) | lagged reveal | |
+| 09_3 | Feynman starts pushing the buttons anyway. And Bethe says that if he wants it exactly, it's twenty-three oh four. | By Bethe's caption the 00 gives way to 04: 2304, and stays still; the machine's four result digits keep running for a second and a half with the narrator silent, then stop one by one on 2, 3, 0, 4 (`F-C1.bethe.exact`) | **the machine catches up**; live digits | listen 2 s (dry ticks, slowing) |
+| 09_4 | Feynman is impressed. And Bethe asks him a question. Don't you know how to square numbers near fifty? | The stage clears and the music stops for the question; quote card, verbatim: "Don't you know how to square numbers near 50?"; the source fades in after the hold, on two lines: Hans Bethe, as told by Richard P. Feynman, *"Surely You're Joking, Mr. Feynman!"* (1985), "Lucky Numbers" | quote card | hold |
+| 09_5 | ⟨predict⟩ Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared? | 50² = 2500 on the left, 48² = ? on the right; a square of 50 in outline with a square of 48 inside it, on the same corner | prediction card; the square on a grid | |
+| 09_6 | Bethe's way. Forty-eight is two below fifty, so take two hundred off. That's his twenty-three hundred. Then add two squared. Twenty-three oh four. | Three steps in a row: 2500, − 200 = 2300, + 4 = 2304 (`F-T4.below.*`, `F-T4.fifty_squared`); the two squares stay where they are for chapter 10 | TeX equation; lagged reveal | hold |
 
 - **Every detail is from the book's text** (fact sheet, source S1, pp.
   193–94 of the 1985 Norton edition): the number, the calculator, the two
   answers in that order, Feynman's reaction, Bethe's question and his
   method. Two sentences are quoted verbatim in the whole video: Bethe's
-  question here and Feynman's last line at 09_8. Everything else is
-  paraphrase.
+  question here and Feynman's line at 11_6. Everything else is paraphrase,
+  and "Bethe says it's twenty-three hundred" is indirect speech on purpose.
+- **Who they are** (M4): "two physicists", and where; the cards say what
+  each did there (fact sheet, S3).
 - **What is not said:** what the formula was (the book does not say); that
   Bethe was surprised (the book gives his question and leaves it there; the
-  owner's "surprised he didn't know that trick" is carried by the question
-  itself); anything from Feynman's 1975 talk, which tells it differently.
-- **Ruth:** "working under" rests on Feynman's own sentence in the book and
-  on the laboratory's history (fact sheet, S2); the calculator's brand is on
-  screen only, so no pronunciation is at stake.
+  staging carries it: his answer stands still while the machine is still
+  running); what kind of machine a Marchant was (the label is the book's
+  word, and the drawing is generic); anything from Feynman's 1975 talk.
+- **Sound** (C8): one of the video's two silences is spent before the
+  question at 09_4.
 
-## 08_near_fifty (~65 s)
+## 10_near_fifty (66 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | Here's why that works. Forty-eight squared sits inside fifty squared. To cut down to it, take a strip off the top and a strip off the side. Each strip is fifty by two. A hundred each. | The 50 by 50 square, the 48 by 48 square inside it in blue; the two strips along the top and the right edge turn red, each labelled 50 × 2 = 100 (`F-T4.below.strip`, `.two_strips`) | the square on a grid; highlight | |
-| 08_2 | But the two strips cross in the corner. That small square, two by two, got taken off twice. So one of them goes back. Plus four. | The corner where the strips cross flashes; a small amber square drops back in: + 4 (`F-T4.below.corner`); the line 2500 − 200 + 4 = 2304 | glow; TeX equation | |
-| 08_3 | ⟨predict⟩ Now a number above fifty. What changes for fifty-three squared? | 53² = ?; the 50 by 50 block with a larger square outlined round it | prediction card | |
-| 08_4 | The same picture, with the strips put on. Two strips, fifty by three. Lay them end to end and they're a hundred by three. Three hundreds. And this time the corner is new. Three by three. Nine. | The block gains two teal strips and an amber corner; the top strip slides round, gold, to lie end to end with the other: one strip 100 by 3 (`F-T4.above.long_strip`, `.two_strips`, `.corner`) | **the strip that moves**; morph | |
-| 08_5 | So fifty-three squared is twenty-five hundred, plus three hundred, plus nine. Two thousand eight hundred nine. | 2500 + 300 + 9 = 2809 (`F-T4.above.total`) | TeX equation | |
-| 08_6 | Which gives a quick way to say it. Start from twenty-five. Add the distance from fifty, or take it off. That's the hundreds. Then write the distance squared. | Two rows build: 25 + 3 = 28, 3² = 09, giving 28 09; 25 − 2 = 23, 2² = 04, giving 23 04 (`F-T4.above.digit_pairs`, `F-T4.below.digit_pairs`); lower-third "precisely: (50 + d)² = 2500 + 100d + d², d = how far from 50" | TeX morph; lower-third | hold |
+| 10_1 | Here's the picture, and it's the move from before. Forty-eight squared. Slice a strip off its side, two wide, and lay it along the top. | **The one move:** on the square of 48 inside the outline of 50, a strip 2 wide comes off the right side, turns and lands along the top, outlined gold (`F-M.n48.strip_wide`) | **the strip that moves** | listen 2 s (the move's sound) |
+| 10_2 | Now it's forty-six wide and fifty tall. Against fifty squared, it's short by four fifties. Two hundred. That's Bethe's twenty-three hundred. | The rectangle fills the outline's height; the empty column down its right, 4 wide, turns red: 4 × 50 = 200; 2500 − 200 = 2300 (`F-M.n48.wide`, `F-M.n48.tall`, `F-M.n48.rectangle_area`, `F-T4.below.fifties`, `F-T4.below.fifties_area`) | highlight; TeX equation | |
+| 10_3 | And the end of the strip sticks out. Two by two. Plus four. | The overhanging end turns orange; a framed enlargement of that corner beside it: 2 × 2 = 4; 2300 + 4 = 2304 (`F-M.n48.corner`, `.square`) | magnifier; TeX equation | |
+| 10_4 | ⟨predict⟩ Now a number above fifty. What changes for fifty-three squared? | 53² = ?; the square of 53 over the outline of 50 | prediction card | |
+| 10_5 | The same move. Slice off three, and lay it on top. Now it's fifty wide, and six taller than fifty squared. Six fifties. Three hundred. And the end sticks out, three by three. Nine. Two thousand eight hundred nine. | The move again; the rectangle is 50 wide and 56 tall, the six rows above the outline lit: 6 × 50 = 300; the orange end 3 × 3 = 9 in the magnifier; 2500 + 300 + 9 = 2809 (`F-M.n53.*`, `F-T4.above.fifties`, `F-T4.above.fifties_area`) | **the strip that moves**; magnifier; TeX equation | listen 2 s (the move's sound) |
+| 10_6 | Which gives a quick way to say it. Start from twenty-five. Add the distance from fifty, or take it off. That's the hundreds. Then write the distance squared, as two digits. Nine is oh nine. | Two rows build: 25 + 3 = 28, 3² = 9 → 09, giving 28 09; 25 − 2 = 23, 2² = 4 → 04, giving 23 04 (`F-T4.above.digit_pairs`, `F-T4.below.digit_pairs`); lower-third "precisely: (50 ± b)² = 2500 ± 100b + b², b = the distance from 50: + above, − below" | TeX morph; lower-third | hold |
 
-- **One picture for both directions:** strips taken off (below fifty) or put
-  on (above); the two strips of fifty make "that many hundreds", which is why
-  the distance goes straight onto 25.
+- **One picture, both directions, and it is the centrepiece's:** below
+  fifty the rectangle is short of fifty squared by two columns' worth; above
+  it is taller by two rows' worth; either way that is the distance in
+  hundreds, and the end of the strip is the distance squared. The small
+  square is always added because it always sticks out (C1, R2).
 - **Misconception defused:** "below fifty you subtract the distance squared
-  too" (08_2: the corner was removed twice, so it comes back).
-- **Ruth:** 2,500 − 200 + 4 is checked by counting the cells of the inner
-  square; the two-digit reading is exact for 41 to 59 and nowhere else from
-  0 to 100 (`edge_near_fifty…`), and 09_7 says so.
+  too" (10_3).
+- **Ruth:** 46 × 50 + 4 and 50 × 56 + 9 are counted cell by cell; the
+  two-digit reading is exact for 41 to 59 and nowhere else from 0 to 100
+  (`edge_near_fifty…`), and 11_5 says so. The precise line carries its signs.
+- **Engine:** the strip is 2 or 3 in 50; the corner gets a magnifier.
 
-## 09_your_turn_fifty (~75 s)
+## 11_your_turn_fifty (59 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 09_1 | ⟨predict⟩ Your turn. Fifty-two squared? | The quiz card: 52², ring from 4 (`F-Q.09_1.*`) | the quiz card | listen 4 s (countdown) |
-| 09_2 | Twenty-five plus two is twenty-seven. Two squared is four. Twenty-seven oh four. | 25 + 2 = 27, 2² = 04: 27 04 | TeX equation; highlight | |
-| 09_3 | ⟨predict⟩ Forty-six squared? | The quiz card: 46², ring from 5 (`F-Q.09_3.*`) | the quiz card | listen 5 s (countdown) |
-| 09_4 | Four below. Twenty-five minus four is twenty-one. Four squared is sixteen. Twenty-one sixteen. | 25 − 4 = 21, 4² = 16: 21 16 | TeX equation; highlight | |
-| 09_5 | ⟨predict⟩ Fifty-seven squared? | The quiz card: 57², ring from 5 (`F-Q.09_5.*`) | the quiz card | listen 5 s (countdown) |
-| 09_6 | Seven above. Thirty-two. Seven squared is forty-nine. Thirty-two forty-nine. | 25 + 7 = 32, 7² = 49: 32 49 | TeX equation; highlight | |
-| 09_7 | That reads straight off while you're within nine of fifty. Further out, the square spills over into the hundreds. Sixty-two squared is thirty-seven hundred, plus a hundred forty-four. | 62²: 25 + 12 = 37, 12² = 144; the 1 of the 144 carries into the hundreds: 3844 (`F-T4.carries.*`); lower-third "reads straight off from 41 to 59" (`F-X4.digit_pairs.*`) | TeX morph; highlight | |
-| 09_8 | Feynman says he took up tricks like this himself after that. He writes that he very rarely beat Bethe to an answer. And he says why. Every number was near something Bethe knew. | Quote card, verbatim: "It was easy for him—every number was near something he knew."; source line as at 07_4 | quote card | hold |
+| 11_1 | ⟨predict⟩ Your turn. Fifty-two squared? | The moved-strip picture stays on the left, on a tracker; the quiz card: 52², ring from 5; at zero 2704 lands (`F-Q.11_1.*`) | the quiz card | listen 5 s (countdown) |
+| 11_2 | Twenty-five plus two is twenty-seven. Two squared is four. Oh four. Twenty-seven oh four. | The picture's side slides to 52: the rows above the outline, the orange end and its readout follow; 25 + 2 = 27, 2² = 4 → 04 | **live recomputation from a tracker**; TeX equation | |
+| 11_3 | ⟨predict⟩ Forty-six squared? | The quiz card: 46², ring from 5; at zero 2116 lands (`F-Q.11_3.*`) | the quiz card | listen 5 s (countdown) |
+| 11_4 | Four below. Twenty-five minus four is twenty-one. Four squared is sixteen. Twenty-one sixteen. | The side slides to 46: the red column and the orange end follow; 25 − 4 = 21, 4² = 16 | live recomputation from a tracker; TeX equation | |
+| 11_5 | That reads straight off while you're within nine of fifty. Further out, the distance squared has three digits, and it spills into the hundreds. Sixty-two squared is thirty-seven hundred, plus a hundred forty-four. Thirty-eight forty-four. | The side slides to 62: the orange end is now 12 by 12 and overflows one ruled square of a hundred; a hundred's worth peels off and joins the hundreds, 37 becomes 38, and 44 is left: 3844 (`F-T4.carries.*`); lower-third "reads straight off from 41 to 59" (`F-X4.digit_pairs.*`) | live recomputation; grid of hundreds | |
+| 11_6 | After that, Feynman says, he took up tricks like these himself. He says he very rarely beat Bethe to an answer. And he says what made it easy for Bethe. Every number was near something he knew. | Quote card, verbatim: "It was easy for him—every number was near something he knew."; source on two lines: Richard P. Feynman, on Hans Bethe, *"Surely You're Joking, Mr. Feynman!"* (1985), "Lucky Numbers" | quote card | hold |
 
-- **Climb:** two above, four below, seven above.
+- **The chapter's picture** (C5): the square of fifty stays on stage and the
+  two answers and the limit are read off it; at 62 the corner overflows
+  its hundred, which is the carry, seen.
+- **Climb:** two above, then four below; five above closes the video at
+  14_1.
 - **Ruth:** the limit is stated where the viewer has just used the trick
-  (09_7); the formula is exact for every number, the reading only for 41 to
-  59. 09_8 paraphrases two of the book's sentences and quotes one.
+  (11_5); the formula is exact for every number, the reading only for 41 to
+  59. 11_6 paraphrases two of the book's sentences and quotes one
+  sentence, attributed to Feynman (R6); "he says", not "he writes": the
+  book is as told to Ralph Leighton.
 
-## 10_percents (~80 s)
-
-| id | words | picture | features | hold/listen |
-|---|---|---|---|---|
-| 10_1 | Now money. A forty-eight dollar bill, and you want to leave fifteen percent. Ten percent is easy. The decimal point moves one place. Four dollars eighty. | The bill as a long bar, $48.00, cut into ten strips; one strip lifts out: 10% = $4.80, and the decimal point in 48.00 hops one place left (`F-T5.bill`, `.ten`) | proportion bar; highlight | |
-| 10_2 | Five percent is half of that. Two forty. Together, seven dollars twenty. | Half a strip: 5% = $2.40; the strip and the half sit side by side: 15% = $7.20 (`F-T5.bill.five`, `.fifteen`) | proportion bar; live labels | |
-| 10_3 | And twenty percent is the ten percent block, doubled. | Two strips: 20% = $9.60 (`F-T5.bill.twenty`) | proportion bar | |
-| 10_4 | ⟨predict⟩ Your turn. Fifteen percent on sixty dollars? | The quiz card: 15% of $60, ring from 5 (`F-Q.10_4.*`) | the quiz card | listen 5 s (countdown) |
-| 10_5 | Ten percent is six dollars. Half of that is three. Nine dollars. | $6.00 + $3.00 = $9.00 on a bar of ten strips | proportion bar; TeX equation | |
-| 10_6 | ⟨predict⟩ Now a stranger one. What's eight percent of twenty-five? | 8% of 25 = ? in large type | prediction card | |
-| 10_7 | Turn it round. Twenty-five percent of eight is a quarter of eight. Two. And eight percent of twenty-five is also two. | The two phrases swap their numbers: 25% of 8 = 2, then back: 8% of 25 = 2 (`F-T5.swap.*`) | TeX morph | |
-| 10_8 | Percent means per hundred. So both are eight times twenty-five, over a hundred. The same rectangle, turned on its side. | A rectangle 8 by 25, area 200, turns a quarter turn to 25 by 8; under it 8 × 25 ÷ 100 = 2 (`F-T5.swap.area`); lower-third "precisely: x% of y = xy ÷ 100 = y% of x" | morph that keeps identity; lower-third | |
-| 10_9 | ⟨predict⟩ Your turn. Four percent of seventy-five? | The quiz card: 4% of 75, ring from 5 (`F-Q.10_9.*`) | the quiz card | listen 5 s (countdown) |
-| 10_10 | Seventy-five percent of four. Three quarters of four is three. The swap only pays when one of the two is a friendly percent. | 75% of 4 = 3; then 17% of 43 and 43% of 17, both grey: no easier either way | TeX morph; highlight | hold |
-
-- **Real life** (the owner's test): a tip, a discount, a tax rate. Ten
-  percent is the block; five is half of it; everything else here is built
-  from those.
-- **Misconception defused:** "x percent of y and y percent of x are
-  different questions" (10_7, 10_8).
-- **Ruth:** the swap is commutativity, exact for every x and y
-  (`edge_the_small_tricks…`); its usefulness is not general, and 10_10 says
-  so. Money is in whole cents throughout.
-
-## 11_round_numbers (~85 s)
+## 12_which_trick (71 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 11_1 | Some numbers are one step from a round one. Five is half of ten. So five times eighty-six is ten times eighty-six, cut in half. Eight sixty, halved. Four hundred thirty. | A rectangle 10 by 86, area 860; it is cut across the middle and the top half fades: 5 by 86 = 430 (`F-T6.five.*`) | the rectangle; morph | |
-| 11_2 | The same cut works between two numbers. Fourteen times thirty-five. Halve the fourteen, double the thirty-five. Seven times seventy. Four hundred ninety. | A rectangle 14 by 35 is cut in half across; the top half slides down beside the bottom half, gold while it moves: 7 by 70 = 490 (`F-T6.halve.*`); lower-third "25 × 36: a quarter of 3,600 is 900" (`F-T6.twenty_five.*`) | **the strip that moves**; morph that keeps identity | |
-| 11_3 | Nine is one short of ten. So nine times thirty-seven is ten of them, less one. Three seventy, minus thirty-seven. Three hundred thirty-three. | A rectangle 10 by 37; one row along the top turns red and is sliced away: 370 − 37 = 333 (`F-T7.nines.*`) | the rectangle; highlight | |
-| 11_4 | Prices are built for this. Four things at nineteen ninety-nine. Call it four twenties. Eighty dollars. Then give back four cents. Seventy-nine ninety-six. | Four price tags, $19.99; each rounds up to $20.00 and sheds a red cent: $80.00 − $0.04 = $79.96 (`F-T7.price.*`) | lagged reveal; TeX equation | |
-| 11_5 | ⟨predict⟩ Your turn. Five times sixty-four? | The quiz card: 5 × 64, ring from 4 (`F-Q.11_5.*`) | the quiz card | listen 4 s (countdown) |
-| 11_6 | Six hundred forty, halved. Three hundred twenty. | 640 ÷ 2 = 320 | TeX equation | |
-| 11_7 | ⟨predict⟩ Sixteen times forty-five? | The quiz card: 16 × 45, ring from 5 (`F-Q.11_7.*`) | the quiz card | listen 5 s (countdown) |
-| 11_8 | Halve and double. Eight times ninety. Seven hundred twenty. | 16 × 45 = 8 × 90 = 720; lower-third "needs an even number: 15 × 37 has nothing to halve" (`F-T6.no_halve`) | TeX morph; lower-third | |
-| 11_9 | ⟨predict⟩ Three things at four ninety-nine each? | The quiz card: 3 × $4.99, ring from 5 (`F-Q.11_9.*`) | the quiz card | listen 5 s (countdown) |
-| 11_10 | Three fives are fifteen dollars. Give back three cents. Fourteen ninety-seven. | $15.00 − $0.03 = $14.97 | TeX equation | hold |
-
-- **Two moves, one idea:** get to a round number, then put right what you
-  changed, by halving (11_1, 11_2) or by taking the extra back off (11_3,
-  11_4). Both are the rectangle of chapter 04, cut another way.
-- **Real life:** packs of five, quarters, and every price that ends in 99.
-- **Ruth:** each is exact (`edge_the_small_tricks…`); halving needs an even
-  number and the lower-third at 11_8 says so. "Three seventy" for 370 is
-  how the voice groups it; the screen shows 370.
-
-## 12_which_trick (~85 s)
-
-| id | words | picture | features | hold/listen |
-|---|---|---|---|---|
-| 12_1 | ⟨predict⟩ Now they're mixed up, so the first job is to pick the trick. Pause whenever you like. Seventy-five squared? | Five small tiles along the top, one per trick: ends in five, parts, the middle, near fifty, percent, round numbers; the quiz card: 75², ring from 5 (`F-Q.12_1.*`) | the quiz card; lagged tiles | listen 5 s (countdown) |
-| 12_2 | It ends in five. Seven times eight is fifty-six. Five thousand six hundred twenty-five. | The "ends in five" tile lights; 7 × 8 = 56, then 25: 5625 | highlight; TeX equation | |
-| 12_3 | ⟨predict⟩ Forty-nine times fifty-one? | The quiz card: 49 × 51, ring from 5 (`F-Q.12_3.*`) | the quiz card | listen 5 s (countdown) |
-| 12_4 | One either side of fifty. Twenty-five hundred, minus one. Two thousand four hundred ninety-nine. | The "middle" tile lights; 50² − 1² = 2499 | highlight; TeX equation | |
-| 12_5 | ⟨predict⟩ Fifty-four squared? | The quiz card: 54², ring from 5 (`F-Q.12_5.*`) | the quiz card | listen 5 s (countdown) |
-| 12_6 | Near fifty. Twenty-nine. Then sixteen. Twenty-nine sixteen. | The "near fifty" tile lights; 25 + 4 = 29, 4² = 16: 29 16 | highlight; TeX equation | |
-| 12_7 | ⟨predict⟩ A twenty percent tip on forty-five dollars? | The quiz card: 20% of $45, ring from 5 (`F-Q.12_7.*`) | the quiz card | listen 5 s (countdown) |
-| 12_8 | Ten percent is four fifty. Doubled, nine dollars. | The "percent" tile lights; $4.50 × 2 = $9.00 | highlight; TeX equation | |
-| 12_9 | ⟨predict⟩ Six times forty-nine? | The quiz card: 6 × 49, ring from 5 (`F-Q.12_9.*`) | the quiz card | listen 5 s (countdown) |
-| 12_10 | Six fifties, less six. Two hundred ninety-four. | The "round numbers" tile lights; 300 − 6 = 294 | highlight; TeX equation | hold |
+| 12_1 | ⟨predict⟩ Now they're mixed up, so the first job is to pick the trick. Pause whenever you like. A twenty percent tip on forty-five dollars? | Six tiles along the top, the small pictures of 01_7: the square with its strip, the cut rectangle, the bill, the halved rectangle, the number line with a middle, the square of fifty; they arrive during the first sentence, the quiz card after it: 20% of $45, ring from 5; at zero $9.00 lands (`F-Q.12_1.*`) | the quiz card; lagged tiles | listen 5 s (countdown) |
+| 12_2 | Percent. A tenth is four dollars fifty. Doubled, nine dollars. | The bill tile lights and plays its move once inside the tile; $4.50 × 2 | highlight; TeX equation | |
+| 12_3 | ⟨predict⟩ Seventy-five squared? | The quiz card: 75², ring from 5; at zero 5625 lands (`F-Q.12_3.*`) | the quiz card | listen 5 s (countdown) |
+| 12_4 | It ends in five. Seven times eight is fifty-six. Five thousand six hundred twenty-five. At the start, one like that took you longer than four seconds. | The strip tile lights and plays its move; 7 × 8 = 56, then 25; the cold open's card, 85², small beside it | highlight; TeX equation | |
+| 12_5 | ⟨predict⟩ Six times forty-nine? | The quiz card: 6 × 49, ring from 5; at zero 294 lands (`F-Q.12_5.*`) | the quiz card | listen 5 s (countdown) |
+| 12_6 | Round, then fix. Six fifties, less six. Two hundred ninety-four. Parts gets there too. | The halved-rectangle tile lights fully and plays its move; the parts tile lights dimly: 240 + 54 = 294; 300 − 6 = 294; on screen, small: "any trick that fits gives the same answer" | highlight; TeX equation | |
+| 12_7 | ⟨predict⟩ Forty-nine times fifty-one? | The quiz card: 49 × 51, ring from 5; at zero 2499 lands (`F-Q.12_7.*`) | the quiz card | listen 5 s (countdown) |
+| 12_8 | One either side of fifty. Twenty-five hundred, minus one. Two thousand four hundred ninety-nine. | The middle tile lights and plays its move; 50² − 1² = 2499 | highlight; TeX equation | hold |
 
 - **The mixed round the order asks for:** the viewer must choose before
-  computing; the tiles name the candidates, and only the answer lights one.
-- **Dev:** 54² and 75² sit together on purpose: one is near fifty, the other
-  ends in five, and each trick fails on the other number.
+  computing. The tiles are the six pictures in miniature (C6); the one that
+  fits lights and plays its move, and any other that also works lights
+  dimly (D10), said once at 12_6. No tile lights next to the one before it
+  (M20).
+- **The payoff of the cold open** (M25): 12_4.
+- **Dev:** 6 × 49 has two honest routes, round then fix (300 − 6) and parts
+  (240 + 54); both tiles light, and they agree.
 
-## 13_nothing_to_grab (~50 s)
+## 13_nothing_to_grab (52 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 13_1 | ⟨predict⟩ Last one. Sixty-seven times seventy-eight? | The quiz card: 67 × 78, ring from 6; the tiles along the top stay dark (`F-Q.13_1.*`) | the quiz card | listen 6 s (countdown) |
-| 13_2 | Nothing to grab. No five, no easy middle, no round number next door. Parts still works. Forty-two hundred. Forty-six eighty. Fifty-one seventy. Fifty-two twenty-six. | Only the "parts" tile lights, dimly; the rectangle 67 by 78 in four pieces, and the total runs 4200, 4680, 5170, 5226 | the rectangle cut into parts; live count-up | |
-| 13_3 | That's four pieces with carrying, and it's slow. There's no shame in reaching for paper, or a calculator. That's what they're for. | A sheet of paper and a calculator slide in beside the rectangle | lagged reveal | |
-| 13_4 | But keep one habit even then. Round first. Seventy times eighty is fifty-six hundred. So if the screen says five hundred, or fifty thousand, you know something went wrong. | 70 × 80 = 5600 tagged "about" (`F-Q.13_1.estimate`); a calculator screen reading 522.6, then 52,260, each crossed red; then 5226 in green beside 5600 | highlight; number line | hold |
+| 13_1 | ⟨predict⟩ Last one. Sixty-seven times seventy-eight? | The quiz card: 67 × 78, ring from 6; the tiles stay dark; the ring empties into silence, and nothing lands (`F-Q.13_1.*`) | the quiz card | listen 6 s (countdown, with no last note) |
+| 13_2 | Nothing to grab. No five, no easy middle, and the nearest round number doesn't make it easy. Parts still works. Sixty seventies, forty-two hundred. Sixty eights, forty-six eighty. Seven seventies, fifty-one seventy. Seven eights, fifty-two twenty-six. | Only the parts tile lights; the rectangle 67 by 78 in four pieces, and the total runs 4200, 4680, 5170, 5226; under it, grey: "67 × 80 − 134: true, and no easier" (`F-N.round_fix.*`) | the rectangle cut into parts; live count-up | |
+| 13_3 | That's four pieces with carrying, and it's slow. There's no shame in reaching for paper, or a calculator. That's what they're for. | The sheet of paper from 01_5 slides back in with the four pieces written on it and their sum; the calculator of chapter 09 beside it | lagged reveal | |
+| 13_4 | But keep one habit even then. Round first. Seventy times eighty is fifty-six hundred. So if the screen says five hundred, or fifty thousand, you know a key was missed. It won't catch a wrong digit. It catches a wrong size. | 70 × 80 = 5600, tagged "about" (`F-N.estimate`); the calculator's digits read 522.6, then 52260, each crossed with two red lines; then 5226 beside the 5600 on a number line (`F-N.slipped_low`, `.slipped_high`) | highlight; number line | hold |
 
 - **Honest framing** (the order, item 5): a product where no trick helps is
   shown and said to be one; paper and a calculator are named as the right
-  tools; what the viewer keeps is the estimate.
+  tools; what the viewer keeps is the estimate, and what the estimate can
+  and cannot catch is said (D12).
 - **Ruth:** "nothing to grab" is true of the tricks in this video: no five,
-  the middle is 72½, the nearest round numbers are three and two away. Parts
-  is exact as always.
+  the middle is 72½, and round then fix is no easier (the grey line, D11).
+  Parts is exact as always.
+- **Sound** (C8): the second of the two silences is the end of 13_1's ring.
 
-## 14_near_something_you_know (~55 s)
+## 14_near_something_you_know (72 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 14_1 | ⟨predict⟩ Look back at three of the pictures. Thirty-five squared. Forty-eight squared. Forty-seven times fifty-three. What did they share? | The three pictures side by side, small: the square of 35 with its strip moved, the square of 48 inside 50, the 47 by 53 rectangle over the square of 50 | lagged reveal; prediction card | |
-| 14_2 | One move. Slide a strip from one side of a square to the other, and you're left with an easy rectangle and a small square. Thirty times forty, plus twenty-five. Forty-six times fifty, plus four. Fifty squared, minus nine. | In each picture the strip moves once more, gold; under them 35² = 30 × 40 + 25, 48² = 46 × 50 + 4, 47 × 53 = 50² − 3²; then one line in letters: a² = (a − d)(a + d) + d² | **the strip that moves**, three times; TransformMatchingTex | |
-| 14_3 | None of this is new. An American school book from eighteen forty-four has the fives trick, the middle trick and the near fifty trick, all on one page. | Card: "Pliny E. Chase, The Elements of Arithmetic, Philadelphia, 1844, p. 60" with its three examples: 35 × 35 = 1225, 87 × 73 = 6351, 53 × 53 = 2809 (`F-C3.chase.*`) | quote card | |
-| 14_4 | And none of it takes a gift. It takes a few numbers you know well, and the habit of looking for the nearest one. Every number is near something you know. | A number line from 0 to 110 with the landmarks lit: the squares ending in 5, 50, 100, the round tens; then the receipts card: "every number in this video was computed by code", the repository link, and names to search: the distributive law, difference of squares, the area model | number line; glow; receipts card | listen 4 s (the motif, answered) |
+| 14_1 | ⟨predict⟩ One more, and it has a twist. Fifty-five squared? | The quiz card: 55², ring from 5; at zero 3025 lands (`F-Q.14_1.*`) | the quiz card | listen 5 s (countdown) |
+| 14_2 | It ends in five. Five times six is thirty, then twenty-five. And it's near fifty. Twenty-five plus five is thirty, then twenty-five. The same two numbers. That's no coincidence. | Two tiles light together, the strip and the fifty; two rows, 5 × 6 = 30 then 25, and 25 + 5 = 30 then 25, the same 30 and the same 25 lining up (`F-T1.n55.*`, `F-T4.twist.*`) | highlight; TeX equation | |
+| 14_3 | They're the same move. Slice a strip off a square, lay it along the top, and you have a rectangle and a small square. Thirty times forty, plus twenty-five. Forty-six times fifty, plus four. And fifty squared is forty-seven times fifty-three, plus nine. | **The one move, three times**, one square after another in step with the three sums: 35, 48, then 50; under them three lines in one shape, 35² = 30 × 40 + 5², 48² = 46 × 50 + 2², 50² = 47 × 53 + 3² (`F-M.n35.*`, `F-M.n48.*`, `F-M.n50.*`) | **the strip that moves**, three times | listen 2 s (the move's sound, three times) |
+| 14_4 | In letters, it's the line from before, with one piece moved across. | The 35 line turns into letters and the other two cross-fade into it: a² = (a − b)(a + b) + b², "the middle" under a and "the distance" under b; above it, small, the line from 08_5 | **TransformMatchingTex** | hold |
+| 14_5 | And none of it takes a gift. It takes a few numbers you know well, and the habit of looking for the nearest one. Every number is near something you know. Sometimes that gives you the answer. It always gives you the size. | A number line from 0 to 110 with the landmarks lit: the round tens, the numbers ending in 5, 50, 100; the video's own numbers drop on to it, 85, 35, 23, 46, 47, 53, 48, and last 67 and 78, each throwing a gold arc to its nearest landmark; Feynman's sentence from 11_8 returns above the line and three words change in place, "was" to "is", "he" to "you", "knew" to "know", its quotation marks and source fading as it does | number line; glow; TeX morph | hold |
+| 14_6 | *(receipts)* | The receipts card: "every calculation in this video was checked by two independent programs", the repository link, and names to search: the distributive law, difference of squares, the area model; small: "three of these tricks are on one page of a school arithmetic of 1844 (Chase, p. 60)" (`F-C3.chase.*`) | receipts card | listen 4 s (the motif, answered) |
 
 - **Ends on the rigorous form of the opening picture** (plan rule 15): the
   strip that moved in chapter 02, as one identity that contains the fives
-  trick (d = 5), the near-fifty trick and the middle trick.
-- **Hindsight** (plan rule 19): three tricks the viewer learned separately
-  were one move.
-- **Ruth:** a² = (a − d)(a + d) + d² for all a and d; 48² = 46 × 50 + 4 is
-  Bethe's 2,300 + 4 by another route. The 1844 page is a latest date for
-  the tricks, not an origin, and the card claims no more (fact sheet, S4).
-- **The last sentence** echoes Feynman's line at 09_8 in the second person;
-  it is not presented as a quotation.
+  trick, the near-fifty trick and the middle trick. It is the owner's
+  (a + b)(a − b) line with one term moved across.
+- **Hindsight** (plan rule 19): 14_1 and 14_2 make the viewer find it: one
+  square, two tricks, the same two numbers. Every picture recalled at 14_3
+  was drawn this way before (02_6, 10_1, 08_4 backwards).
+- **Ruth:** a² = (a − b)(a + b) + b² for all a and b
+  (`edge_the_small_tricks…`); 48² = 46 × 50 + 4 is Bethe's 2300 + 4. The
+  1844 page is a latest date for three tricks, not an origin, and rule (13)
+  there is for 50 to 60; it is a small line on the receipts card and a
+  paragraph in the description, no longer a spoken beat. The last sentence echoes
+  Feynman's line in the second person and is not presented as a quotation;
+  after "nothing to grab" it says what nearness always gives (R17).

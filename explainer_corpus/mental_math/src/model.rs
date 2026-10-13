@@ -118,42 +118,46 @@ pub fn ends_in_five(number: u64) -> Option<EndsInFive> {
     })
 }
 
-/// A square of side `base + extra`, cut at `base` along both sides: a block,
-/// two strips and a corner. The picture behind squares ending in 5 (extra
-/// 5) and squares just above 50 (base 50).
+/// The one move of the video: a strip `strip` wide is sliced off the side of
+/// a square of side `side` and laid along its top. What is left is a
+/// rectangle, narrower and taller by the strip's width, and a small square
+/// where the end of the strip overhangs. It is the picture behind squares
+/// ending in 5 (a strip of 5), squares near 50 (a strip as wide as the
+/// distance from 50) and, run backwards, two numbers equally far from a
+/// middle.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct SquareCut {
-    pub base: u64,
-    pub extra: u64,
+pub struct OneMove {
+    pub side: u64,
+    pub strip: u64,
 }
 
-impl SquareCut {
-    pub fn block(&self) -> u64 {
-        self.base * self.base
+/// `None` when the strip is wider than the square.
+pub fn one_move(side: u64, strip: u64) -> Option<OneMove> {
+    (strip <= side).then_some(OneMove { side, strip })
+}
+
+impl OneMove {
+    /// The rectangle's width: the square's side less the strip.
+    pub fn wide(&self) -> u64 {
+        self.side - self.strip
     }
 
-    /// One strip, `base` long and `extra` wide.
-    pub fn strip(&self) -> u64 {
-        self.base * self.extra
+    /// The rectangle's height: the square's side plus the strip.
+    pub fn tall(&self) -> u64 {
+        self.side + self.strip
     }
 
+    pub fn rectangle(&self) -> u64 {
+        self.wide() * self.tall()
+    }
+
+    /// The end of the strip that overhangs: a square as wide as the strip.
     pub fn corner(&self) -> u64 {
-        self.extra * self.extra
+        self.strip * self.strip
     }
 
-    /// The two strips laid side by side against the block: the block grows
-    /// from `base` by `base` to `base` by `base + 2 extra`.
-    pub fn grown_block(&self) -> (u64, u64) {
-        (self.base, self.base + 2 * self.extra)
-    }
-
-    /// The two strips laid end to end: one strip `2 base` long.
-    pub fn long_strip(&self) -> (u64, u64) {
-        (2 * self.base, self.extra)
-    }
-
-    pub fn total(&self) -> u64 {
-        self.block() + 2 * self.strip() + self.corner()
+    pub fn square(&self) -> u64 {
+        self.rectangle() + self.corner()
     }
 }
 
@@ -212,6 +216,14 @@ pub fn by_parts(a: u64, b: u64) -> ByParts {
 impl ByParts {
     pub fn product(&self) -> u64 {
         self.running.last().copied().unwrap_or(0)
+    }
+
+    /// Where the answer can be once the tens are known: at least the tens
+    /// multiplied, and below the next tens up multiplied (23 × 46 lies from
+    /// 20 × 40 up to, but not at, 30 × 50).
+    pub fn bounds(&self) -> (u64, u64) {
+        let ((a_tens, _), (b_tens, _)) = (parts(self.a), parts(self.b));
+        (a_tens * b_tens, (a_tens + 10) * (b_tens + 10))
     }
 }
 
@@ -353,11 +365,6 @@ pub fn times_five(x: u64) -> (u64, u64) {
     (x * 10, x * 10 / 2)
 }
 
-/// Times 25 as times 100, then half, then half again.
-pub fn times_twenty_five(x: u64) -> (u64, u64, u64) {
-    (x * 100, x * 100 / 2, x * 100 / 4)
-}
-
 /// Halve one number and double the other: the same rectangle, cut in half
 /// and restacked. `None` when the first is odd.
 pub fn halve_and_double(a: u64, b: u64) -> Option<(u64, u64, u64)> {
@@ -409,8 +416,6 @@ pub enum Trick {
     Pair,
     NearFifty,
     PercentBlocks,
-    PercentSwap,
-    TimesFive,
     HalveAndDouble,
     RoundThenFix,
 }
@@ -423,8 +428,6 @@ impl Trick {
             Trick::Pair => "pair",
             Trick::NearFifty => "near_fifty",
             Trick::PercentBlocks => "percent_blocks",
-            Trick::PercentSwap => "percent_swap",
-            Trick::TimesFive => "times_five",
             Trick::HalveAndDouble => "halve_and_double",
             Trick::RoundThenFix => "round_then_fix",
         }
@@ -438,8 +441,6 @@ pub enum Ask {
     Times(u64, u64),
     /// A percent of an amount of money, in cents.
     PercentOfMoney(u64, u64),
-    /// A percent of a plain number.
-    PercentOf(u64, u64),
     /// So many things at a price in cents each.
     TimesMoney(u64, u64),
 }
@@ -451,7 +452,6 @@ impl Ask {
             Ask::Square(x) => format!("{x}^2"),
             Ask::Times(a, b) => format!("{a}x{b}"),
             Ask::PercentOfMoney(p, cents) => format!("{p}% of ${}", money(cents)),
-            Ask::PercentOf(p, y) => format!("{p}% of {y}"),
             Ask::TimesMoney(n, cents) => format!("{n}x${}", money(cents)),
         }
     }
@@ -524,21 +524,6 @@ impl Quiz {
                     answer: money(answer),
                 }
             }
-            (Trick::PercentSwap, Ask::PercentOf(x, y)) => {
-                let answer = percent_of(x, y).ok_or_else(wrong)?;
-                Worked {
-                    // the swapped reading: y percent of x
-                    steps: vec![s(y), s(x)],
-                    answer: s(answer),
-                }
-            }
-            (Trick::TimesFive, Ask::Times(5, x)) => {
-                let (ten, half) = times_five(x);
-                Worked {
-                    steps: vec![s(ten)],
-                    answer: s(half),
-                }
-            }
             (Trick::HalveAndDouble, Ask::Times(a, b)) => {
                 let (half, double, product) = halve_and_double(a, b).ok_or_else(wrong)?;
                 Worked {
@@ -567,30 +552,26 @@ impl Quiz {
 
 /// Every quiz of the video, in the order it is asked, each on the
 /// storyboard line that asks it. The first is the cold open; chapter 12 is
-/// the mixed round; the last is a product with nothing to grab.
+/// the mixed round; 13_1 is a product with nothing to grab; the last is a
+/// square two tricks agree on.
 pub const QUIZZES: &[Quiz] = &[
     quiz("01_1", Trick::EndsInFive, Ask::Square(85), 4),
-    quiz("03_1", Trick::EndsInFive, Ask::Square(25), 4),
-    quiz("03_3", Trick::EndsInFive, Ask::Square(65), 4),
-    quiz("03_5", Trick::EndsInFive, Ask::Square(105), 6),
+    quiz("03_1", Trick::EndsInFive, Ask::Square(25), 5),
+    quiz("03_3", Trick::EndsInFive, Ask::Square(105), 6),
     quiz("05_4", Trick::ByParts, Ask::Times(6, 43), 5),
     quiz("05_6", Trick::ByParts, Ask::Times(13, 14), 6),
-    quiz("06_6", Trick::Pair, Ask::Times(19, 21), 4),
-    quiz("06_8", Trick::Pair, Ask::Times(65, 75), 6),
-    quiz("09_1", Trick::NearFifty, Ask::Square(52), 4),
-    quiz("09_3", Trick::NearFifty, Ask::Square(46), 5),
-    quiz("09_5", Trick::NearFifty, Ask::Square(57), 5),
-    quiz("10_4", Trick::PercentBlocks, Ask::PercentOfMoney(15, 6000), 5),
-    quiz("10_9", Trick::PercentSwap, Ask::PercentOf(4, 75), 5),
-    quiz("11_5", Trick::TimesFive, Ask::Times(5, 64), 4),
-    quiz("11_7", Trick::HalveAndDouble, Ask::Times(16, 45), 5),
-    quiz("11_9", Trick::RoundThenFix, Ask::TimesMoney(3, 499), 5),
-    quiz("12_1", Trick::EndsInFive, Ask::Square(75), 5),
-    quiz("12_3", Trick::Pair, Ask::Times(49, 51), 5),
-    quiz("12_5", Trick::NearFifty, Ask::Square(54), 5),
-    quiz("12_7", Trick::PercentBlocks, Ask::PercentOfMoney(20, 4500), 5),
-    quiz("12_9", Trick::RoundThenFix, Ask::Times(6, 49), 5),
+    quiz("06_4", Trick::PercentBlocks, Ask::PercentOfMoney(15, 6000), 5),
+    quiz("07_3", Trick::HalveAndDouble, Ask::Times(16, 45), 5),
+    quiz("07_6", Trick::RoundThenFix, Ask::TimesMoney(3, 499), 5),
+    quiz("08_6", Trick::Pair, Ask::Times(19, 21), 5),
+    quiz("11_1", Trick::NearFifty, Ask::Square(52), 5),
+    quiz("11_3", Trick::NearFifty, Ask::Square(46), 5),
+    quiz("12_1", Trick::PercentBlocks, Ask::PercentOfMoney(20, 4500), 5),
+    quiz("12_3", Trick::EndsInFive, Ask::Square(75), 5),
+    quiz("12_5", Trick::RoundThenFix, Ask::Times(6, 49), 5),
+    quiz("12_7", Trick::Pair, Ask::Times(49, 51), 5),
     quiz("13_1", Trick::ByParts, Ask::Times(67, 78), 6),
+    quiz("14_1", Trick::EndsInFive, Ask::Square(55), 5),
 ];
 
 const fn quiz(line: &'static str, trick: Trick, ask: Ask, seconds: u32) -> Quiz {
@@ -643,15 +624,22 @@ mod tests {
     }
 
     #[test]
-    fn the_square_cut_is_the_square() {
-        for base in (0..=200).step_by(10) {
-            for extra in 0..=12 {
-                let c = SquareCut { base, extra };
-                assert_eq!(c.total(), (base + extra) * (base + extra));
-                let (h, w) = c.grown_block();
-                assert_eq!(h * w + c.corner(), c.total());
-                let (long, wide) = c.long_strip();
-                assert_eq!(c.block() + long * wide + c.corner(), c.total());
+    fn the_one_move_keeps_the_square_s_area() {
+        let m = one_move(35, 5).unwrap();
+        assert_eq!(
+            (m.wide(), m.tall(), m.rectangle(), m.corner(), m.square()),
+            (30, 40, 1200, 25, 1225)
+        );
+        let m = one_move(48, 2).unwrap();
+        assert_eq!((m.wide(), m.tall(), m.rectangle(), m.corner()), (46, 50, 2300, 4));
+        let m = one_move(53, 3).unwrap();
+        assert_eq!((m.wide(), m.tall(), m.rectangle(), m.corner()), (50, 56, 2800, 9));
+        // nothing moved is the square itself; a strip wider than the square cannot be cut
+        assert_eq!(one_move(35, 0).unwrap().rectangle(), 1225);
+        assert!(one_move(5, 6).is_none());
+        for side in 0..=200 {
+            for strip in 0..=side {
+                assert_eq!(one_move(side, strip).unwrap().square(), side * side);
             }
         }
     }
@@ -701,7 +689,6 @@ mod tests {
         assert_eq!(percent_of(25, 8), Some(2));
         assert_eq!(percent_of(7, 13), None);
         assert_eq!(times_five(86), (860, 430));
-        assert_eq!(times_twenty_five(36), (3600, 1800, 900));
         assert_eq!(halve_and_double(14, 35), Some((7, 70, 490)));
         assert_eq!(halve_and_double(15, 37), None);
         let r = round_then_fix(4, 1999, 2000);
