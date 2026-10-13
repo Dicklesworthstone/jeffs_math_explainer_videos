@@ -6,6 +6,7 @@
 
 pub mod a_map_of_chances;
 pub mod a_search_can_miss;
+pub mod bayes_rule;
 pub mod draw;
 pub mod glyphs;
 pub mod nothing_found;
@@ -45,7 +46,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("04_ten_thousand_dots", 0.5),
         scene!("05_a_search_can_miss", 0.5, a_search_can_miss::ASearchCanMiss),
         scene!("06_nothing_found", 0.6, nothing_found::NothingFound),
-        animatic!("07_bayes_rule", 0.55),
+        scene!("07_bayes_rule", 0.55, bayes_rule::BayesRule),
         animatic!("08_where_next", 0.65),
         animatic!("09_the_second_pass", 0.5),
         animatic!("10_adrift", 0.5),

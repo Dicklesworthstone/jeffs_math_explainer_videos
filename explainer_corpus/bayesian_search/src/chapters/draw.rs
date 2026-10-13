@@ -1227,7 +1227,7 @@ pub const SEA_CENTRES: [Vec3; 4] = [[-5.1, 2.4, 0.0], [-1.8, 2.4, 0.0], [-5.1, -
 pub const SEA_CELL: (f64, f64) = (2.8, 1.6);
 /// A dot's radius in the sea, and a ring's.
 pub const SEA_DOT_R: f64 = 0.085;
-const SEA_RING_R: f64 = 0.17;
+pub const SEA_RING_R: f64 = 0.17;
 /// Rows of the small sum under a cell (blue, teal, gold), top of the first
 /// below the cell's bottom edge.
 const SLOT_FIRST: f64 = 0.22;
