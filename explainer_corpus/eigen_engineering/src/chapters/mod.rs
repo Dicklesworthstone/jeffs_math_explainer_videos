@@ -1,0 +1,42 @@
+//! One scene per chapter, in storyboard order, with the score's intensity
+//! arc (fullest where a pattern first comes back along itself and where the
+//! truss's modes ring, quieter for the two bridges and the limits). Each
+//! chapter starts as its storyboard's animatic and is replaced by its real
+//! scene as it is built.
+
+pub mod glyphs;
+
+use explainer_kit::Chapter;
+use explainer_kit::animatic::Animatic;
+
+use crate::STORYBOARD;
+
+macro_rules! animatic {
+    ($key:literal, $intensity:expr) => {
+        Chapter {
+            key: $key,
+            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
+            intensity: $intensity,
+        }
+    };
+}
+
+pub fn registry() -> Vec<Chapter> {
+    vec![
+        animatic!("01_the_bridge_that_swayed", 0.4),
+        animatic!("02_two_carts", 0.45),
+        animatic!("03_own_patterns", 0.6),
+        animatic!("04_the_split", 0.55),
+        animatic!("05_a_steel_truss", 0.5),
+        animatic!("06_twenty_one_patterns", 0.6),
+        animatic!("07_every_mode_a_note", 0.65),
+        animatic!("08_two_bridges", 0.35),
+        animatic!("09_the_air_in_a_room", 0.5),
+        animatic!("10_two_million_modes", 0.55),
+        animatic!("11_where_modes_rule", 0.45),
+        animatic!("12_an_economy", 0.5),
+        animatic!("13_can_it_feed_itself", 0.55),
+        animatic!("14_a_different_tool", 0.4),
+        animatic!("15_one_idea", 0.5),
+    ]
+}

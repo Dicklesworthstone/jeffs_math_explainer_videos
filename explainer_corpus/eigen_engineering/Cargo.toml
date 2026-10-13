@@ -1,0 +1,22 @@
+[package]
+name = "eigen_engineering_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "The One Idea Behind Bridges, Concert Halls and Economies: how eigenvectors untangle a steel truss, the air in a room and an input-output economy; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "eigen"
+path = "src/main.rs"
+
+# One switch per chapter while its scene is being built: a chapter whose
+# switch is off renders as its storyboard's animatic.
+[features]
+default = []
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

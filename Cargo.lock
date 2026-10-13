@@ -663,6 +663,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "eigen_engineering_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "either"
 version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
