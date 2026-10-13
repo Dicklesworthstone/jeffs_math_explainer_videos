@@ -455,6 +455,11 @@ fn velocities(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         "0.0000,1.0000,0.0000,-0.3600,0.0000,0.0000",
         "the shoulder's axis: along y, through a point 0.36 up",
     )?;
+    // the whole grid chapter 10 writes out: six rows (spin, then slide), seven joints
+    f.add(
+        "G-J.ell.J",
+        j.iter().map(|row| vec(row, 2)).collect::<Vec<_>>().join(";"),
+    )?;
     for (name, q) in [
         ("home", poses::HOME),
         ("stretch", poses::STRETCH),

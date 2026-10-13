@@ -584,6 +584,8 @@ def main():
         emit(f"G-J.ell.lever.{i}", fx(point_line(tip_p, f[:3, 3], f[:3, 2])))
     j_ell = space_jacobian(ell)
     emit("G-J.ell.col2", vec(j_ell[:, 1]))
+    # the grid of chapter 10, by central differences of the URDF chain
+    emit("G-J.ell.J", ";".join(vec(row, 2) for row in j_ell))
     stretch = degs(0, 90, 0, 0, 0, 0, 0)
     elbow_straight = degs(0, 60, 0, 0, 0, 60, 0)
     swing = degs(0, 90, 0, 90, 0, 60, 0)
