@@ -691,6 +691,15 @@ name = "explainer_score"
 version = "0.1.0"
 
 [[package]]
+name = "fair_coin_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
