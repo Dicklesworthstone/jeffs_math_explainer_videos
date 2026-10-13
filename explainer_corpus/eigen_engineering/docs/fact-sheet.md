@@ -9,10 +9,10 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy by `uv`):
-  `facts-check eigen_engineering: 269 video facts against 269 oracle keys:
-  PASS`. The oracle prints 269 keys and passes 23 of 23 of its own
-  cross-checks.
-- **Rust side:** `./x eigen_engineering test`: 27 tests pass, clippy
+  `facts-check eigen_engineering: 300 video facts against 300 oracle keys:
+  PASS` after review R1 (269 of 269 at `fab5fbd`, before it). The oracle
+  passes 24 of 24 of its own cross-checks.
+- **Rust side:** `./x eigen_engineering test`: 28 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** K-B the two bridges (cited, and the arithmetic on the citations);
   K-A two carts; K-T the truss's statics; K-P its stiffness table's own
@@ -59,7 +59,7 @@ at the end was copied from the oracle's output by a script, not typed.
    as deferred in `vibroacoustic.rs`), and **nothing on input-output
    economics**. So the truss, the rooms and the economy are computed in this
    crate, and FrankenSim is cited where the video's subject is really there:
-   five lower-thirds (07_6, 09_2, 10_1, 11_5 and 14_3).
+   lower-thirds (07_6, 09_2, 10_1, 11_5 and 14_5).
 2. **The factory problem of his second image is not an eigenproblem.** Its
    optimum (40, 20) and profit 460 are right (`K-L2.best`, checked against
    all 1,361 allowed whole-number plans, `K-X5.plans`). Its plotted corner
@@ -75,11 +75,11 @@ at the end was copied from the oracle's output by a script, not typed.
    3D model" is, for everything audible, statistics and rays, not an
    eigen-solve. The video tells that (chapters 10 and 11) and puts the modes
    where they do rule: small rooms, and shapes with no formula, cut into
-   cells.
+   cells (an attic studio, modes at 29.8, 56.1 and 59.9 Hz, `K-N1.hz.*`).
 4. **For one static load nobody eigendecomposes K.** Real programs factor it
    (FrankenSim's frame code solves statics by LU, and keeps Lanczos for
    modes). The split over patterns explains the answer; it is not how the
-   answer is computed. A lower-third at 05_6 says so.
+   answer is computed. A lower-third at 05_7 says so.
 5. **One pattern gives the sag and not the forces.** The softest of the
    truss's 21 patterns alone gives 99.6% of the midspan sag
    (`K-P2.sag_percent.1`) while the worst member force is off by 82 kN, 18%
@@ -93,8 +93,8 @@ at the end was copied from the oracle's output by a script, not typed.
    been anticipated during design"; vertical pedestrian excitation had been
    assessed during design by a modified BS 5400 approach; Arup's page says
    the British Standard "is being updated to cover the phenomenon". The
-   script says exactly that much (01_3) and nothing about strength except as
-   the question (01_4) and the closing contrast (15_7).
+   script says exactly that much (01_4) and nothing about strength except as
+   the question (01_5) and 08_7's "Neither bridge's trouble was strength".
 7. **Why the sway grew is disputed, and the script stays true under both
    accounts.** Dallard et al. (2001) and Strogatz et al. (2005) have walkers
    falling into step with the deck; Belykh et al. (2021) find that
@@ -103,7 +103,14 @@ at the end was copied from the oracle's output by a script, not typed.
    critical crowd size and on a sideways force that grows with the deck's
    motion (Dallard: "As the amplitude of the motion increases, the lateral
    force imparted by individuals increases"). 08_5 says only that. Neither
-   "synchrony" nor "fell into step" is spoken.
+   "synchrony" nor "fell into step" is spoken. The same paper says the
+   design model was right: "The measured frequencies of the modes which had
+   been observed to vibrate were within 10% of the values predicted in the
+   design analysis … the movements were due to an unpredicted external
+   force, rather than unpredicted or miscalculated bridge dynamic
+   characteristics." The first ending ("its engineers had learned a second
+   question") contradicted that; review R1 caught it, and 14_6 and 14_7 now
+   say what the source says.
 8. **Tacoma: 12 a minute at the end, 14 at the onset, and "not resonance"
    needs its qualifier.** The board's report has the torsional motion
    starting at 14 cycles a minute; Farquharson's figure for the final motion,
@@ -113,7 +120,11 @@ at the end was copied from the oracle's output by a script, not typed.
    self-excitation; they add that one may still call it resonance "if we now
    identify the source of the periodic impulses as self-induced". 08_2 names
    the thing the textbooks got wrong, "the wind puffing in time with the
-   bridge", and does not say "it was not resonance" bare.
+   bridge", and does not say "it was not resonance" bare. Billah and
+   Scanlan's page quotations were read by the research pass in the scan at
+   ketchum.org; the copy kept outside the repository holds only the
+   abstract, so at R1 they were not re-read (the board's report and the
+   abstract were).
 9. **Sabine did not design Symphony Hall, and 0.161 is not his number.** He
    advised its architects (his 1900 paper takes "the new Boston Music Hall"
    as its example); his own metric constant was 0.164. The script says
@@ -148,58 +159,61 @@ at the end was copied from the oracle's output by a script, not typed.
 
 ## Terms (the jargon ledger, plan rule 8)
 
+After review R1 (line ids are the revised storyboard's).
+
 | Term | First defined | As spoken | On screen |
 |---|---|---|---|
-| table, matrix | 02_5 | "the rule for these carts, as a table… A table like this is called a matrix" | the 2 by 2 table; "matrix" small |
+| table, matrix | 02_5 | "a rule that turns the two moves into the two pushes. Write it as a table… A table like this is called a matrix" | the 2 by 2 table; "matrix" small |
 | pattern | 02_7 | "the pushes come back in the same pattern as the moves" | the two lists pulsing together |
-| own pattern | 03_5 | "Move it in one of them, and it pushes back in that same pattern. Only the size changes." | gold lines in the arrow plane |
+| own pattern | 03_5 | "Move the carts in one of them, and the pushes it takes come in that same pattern. Only the size changes." | gold lines in the arrow plane |
 | eigenvector, eigenvalue | 03_6 | "An own pattern is called an eigenvector, and its size change an eigenvalue" | names on the picture; K q = λ q |
-| mode | 03_6 | "For a structure, engineers say mode" | "mode 1", "mode 2" |
-| mix | 04_2 | "That push is a mix of the two patterns" | 1, 0 = ½ of 1, 1 + ½ of 1, −1; "superposition" in a lower-third |
-| stiffness | 04_3 | "Together has stiffness one" | ½ ÷ 1, ½ ÷ 3 |
-| member, joint | 05_1 | "twelve joints and twenty-one members" | the truss drawing itself |
+| mix | 04_2 | "That push is a mix of the two patterns" | the split; "superposition" in a lower-third |
+| stiffness | 04_3 | "for springs its eigenvalue has a plain name, stiffness" | two rungs, ÷ 1 and ÷ 3 |
+| member, joint | 05_1 to 05_3 | "a frame of steel triangles"; "Each joint can move sideways and up or down" | the truss drawing itself |
+| mode | 07_1 | "the own patterns shift a little into the structure's modes" | K's pattern 1 ghosted under the first mode |
 | hertz | 07_2 | "swings five point nine times a second. Five point nine hertz." | 5.9 Hz |
-| flutter | 08_3 | "the wind's push changed with the twist and fed it. Engineers call that flutter." | the word on the twisting deck |
-| standing wave | 09_3 | "The air sloshes from end to end, still at the walls" | three patterns of the chain |
-| Schroeder frequency | 10_6 | "Where modes crowd closer than their blur, they merge. The crossover is called the Schroeder frequency." | a marker at 20 Hz |
-| linear programming | 14_3 | "The best plan is found at a corner. That is linear programming" | the dot walking the region's edge |
+| negative damping | 08_7 | "something that pushed along with it. Engineers call that negative damping." | both bridges' modes in gold; "aeroelastic flutter" in a lower-third at 08_3 |
+| Schroeder frequency | 10_6 | "Where three or more modes crowd into one blur, they merge. The crossover is called the Schroeder frequency" | a marker at 20 Hz |
+| symmetric | 14_2 | "symmetric, the same on both sides of the diagonal" | the carts' table with its mirror line (first shown at 05_4) |
 
-"Symmetric" (15_2) is shown before it is said: the mirror line on the
-stiffness table in 05_3.
+"Standing wave" and "linear programming" are on screen only (09_3, 14_5).
 
 ## Simplification → exact
 
 | Said or shown | Exact |
 |---|---|
-| "about once a second" (01_5) | measured lateral modes at 0.48, 0.80, 0.95 and 1.03 Hz; three are within 0.2 Hz of 1 (`K-B2.lateral_near_one`); lateral footfall force at half the walking rate of about 2.0 Hz |
+| "between half a swing and one swing a second" (01_6) | measured lateral modes at 0.48, 0.80, 0.95 and 1.03 Hz (`K-B2.lateral_hz`); lateral footfall force at half the walking rate of about 2.0 Hz; the effect possible on any bridge with a lateral frequency below about 1.3 Hz (`K-B2.risk_below_hz`) |
 | "an own pattern" as an arrow | a direction: any non-zero multiple, either sign; the gold marks are lines |
-| "at right angles" (15_2) | for K's own patterns, qᵢ·qⱼ = 0 (`K-P1.at_right_angles`); for vibration modes, φᵢᵀMφⱼ = 0 and not φᵢ·φⱼ = 0 (`K-V1.at_right_angles_with_mass` true, `K-V1.at_right_angles_without` false) |
-| "the softest pattern alone gives 99.6% of the sag" (06_5) | of the midspan sag under this load; the largest error anywhere in the moves is then 1.2 mm (`K-P2.move_error_mm.1`) against a sag of 18.0 |
-| "each own pattern swings by itself" (07_1) | for the undamped linear model; with damping that is not proportional the modes couple |
-| "the lowest tone is the speed of sound divided by twice the length" (09_5) | for hard walls; the longest side gives the lowest tone |
+| "at right angles" (14_2) | for K's own patterns, qᵢ·qⱼ = 0 (`K-P1.at_right_angles`); for vibration modes, φᵢᵀMφⱼ = 0 and not φᵢ·φⱼ = 0 (`K-V1.at_right_angles_with_mass` true, `K-V1.at_right_angles_without` false); with a repeated eigenvalue the patterns are not unique but can be chosen at right angles (`K-X1.repeated`) |
+| the split's formula (06_5) | the share is (qᵢ·f)/(λᵢ qᵢ·qᵢ); it reduces to qᵢ·f/λᵢ only for patterns of length one, as in K = QΛQᵀ |
+| "lands within half a percent of the sag" (06_6) | 99.6% of the midspan sag under this load, from two larger terms that cancel: the readout runs 99.6, 102.0, 101.8, 99.1, 98.9, then 99.1 at ten and 100.0 at fifteen (`K-P2.sag_percent.*`); the largest error anywhere in the moves is 1.2 mm (`K-P2.move_error_mm.1`) |
+| "each swinging at a frequency of its own" (07_1) | for the undamped linear model; with damping that is not proportional the modes couple |
+| "One swing is a round trip" (09_4) | for hard walls; the longest side gives the lowest tone |
 | "about the volume of Boston's Symphony Hall" (10_2) | 18,630 m³ against 18,750: 99.4% |
 | "nearly two million" (10_4) | 1,964,040 at or below 1,000 Hz; the textbook estimate gives 1,964,120 |
-| "about two seconds" (10_5) | 1.9 s, occupied, mid frequencies (Beranek) |
-| "twenty hertz" (10_6) | 2000·√(1.9/18,630) = 20.2 Hz; a crossover, not a wall |
-| "a table with no negative numbers always has an own pattern with none" (12_6) | Perron–Frobenius: for A ≥ 0 the spectral radius is an eigenvalue with an eigenvector x ≥ 0, x ≠ 0; if A is irreducible that eigenvector is positive and unique up to scale |
-| "every demand can be met" (13_6) | every demand d ≥ 0 has a plan x ≥ 0 with x = Cx + d, exactly when the largest eigenvalue of C ≥ 0 is below 1 |
-| "the Nobel prize in economics" (13_7) | the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel, 1973 |
-| "the best plan is found at a corner" (14_3) | if a best plan exists and the region has a corner, some corner is best; here it is the only best |
-| "a quarter turn has none you can draw" (15_5) | no real eigenvector; its eigenvalues are ±i |
+| "about two seconds" (10_5) | 1.9 s, occupied, mid frequencies (Beranek); a mode's half-power width 1.2 Hz |
+| "about twenty hertz" (10_6) | 2000·√(1.9/18,630) = 20.2 Hz, about three modes per width (1962; Schroeder's 1954 figure was ten); a crossover, not a wall |
+| "a table with no negative numbers always has an own pattern with none" (12_5) | Perron–Frobenius: for A ≥ 0 the spectral radius is an eigenvalue with an eigenvector x ≥ 0, x ≠ 0; if A is irreducible that eigenvector is positive and unique up to scale |
+| "every demand can be met … the economy cannot keep up" (13_7) | every demand d ≥ 0 has a plan x ≥ 0 with x = Cx + d exactly when the largest eigenvalue of C ≥ 0 is below 1; at one or more some demand fails, and every demand when C is irreducible (as here) |
+| "the Nobel prize in economics" (13_7, on screen) | the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel, 1973 |
+| "when it has enough of them, a table only multiplies" (14_1) | diagonalizable; a symmetric table always is, the economy's is because its eigenvalues differ |
+| "A quarter turn has no own pattern you can draw" (14_5) | no real eigenvector; its eigenvalues are ±i |
+| the factory's best plan at a corner (14_5, on screen) | if a best plan exists and the region has a corner, some corner is best; here it is the only best |
 
 ## The always and never sentences, and their edges (plan rule 3)
 
 | Line | Sentence | Edge test | Result |
 |---|---|---|---|
-| 03_4 | "In two directions only, the arrows line up." | a sweep of the whole circle in steps of 0.1° (`carts::sweep`), and the discriminant in the oracle | 45°, 135°, 225°, 315°: two lines (`K-A2.lined_up_deg`, `K-A2.directions`) |
-| 05_5 | "All twenty-one." | every free move under the lone load compared with zero | 21 of 21 (`K-T3.moving`) |
-| 12_6 | "A table with no negative numbers always has an own pattern with none, and it carries the largest eigenvalue." | 1,000 seeded tables of positive entries | 1,000 of 1,000 (`K-X6.*`); the general theorem is cited (Horn and Johnson) |
-| 13_6 | "With the largest eigenvalue below one, every demand can be met. At one or more, the economy cannot keep up." | the video's table scaled by k/20, k = 1 to 40, and by 10/7 (largest eigenvalue exactly one), against the inverse and against the Hawkins–Simon minors | 41 of 41 agree; 28 feed themselves; at exactly one it does not (`K-X7.*`) |
-| 14_3 | "The best plan is found at a corner." | all 1,361 allowed whole-number plans tried | the best is (40, 20), a corner (`K-X5.*`) |
-| 15_2 | "a symmetric table always has a full set of own patterns, at right angles to one another" | 1,000 seeded symmetric tables of sizes 2 to 6: QΛQᵀ gives the table back and QᵀQ = I, to 10⁻¹⁰ | 1,000 of 1,000 (`K-X1.*`); the edge the other way is 15_5 |
-| 15_5 | "A shear has one. A quarter turn has none you can draw." | the same sweep on [[1, 1], [0, 1]] and [[0, −1], [1, 0]] | 1 and 0 (`K-X2.shear`, `K-X2.quarter_turn`) |
-| 06_4 | (shown) u = Σ (qᵢ·f/λᵢ) qᵢ | all 21 patterns against the direct solve | equal to rounding (`K-X4.rebuilt`) |
-| 05_3 | (shown) the table is symmetric; it can be solved | entry by entry; unsupported, exactly three eigenvalues of zero | `K-T2.symmetric`, `K-X3.unsupported_zero` |
+| 03_4 | "They line up along two lines only." | a sweep of the whole circle in steps of 0.1° (`carts::sweep`), and the discriminant in the oracle | 45°, 135°, 225°, 315°: two lines (`K-A2.lined_up_deg`, `K-A2.directions`) |
+| 05_6 | "Every joint." | every free move under the lone load compared with zero | 21 of 21 (`K-T3.moving`) |
+| 12_5 | "A table with no negative numbers always has an own pattern with none, and it carries the largest eigenvalue." | 1,000 seeded tables of positive entries; 1,004 with zeros (30% of entries), among them a shear, a swap, a table that sends everything to zero and diag(1, 2) | 1,000 of 1,000 and 1,004 of 1,004 (`K-X6.*`); the general theorem is cited (Horn and Johnson) |
+| 13_7 | "With the largest eigenvalue below one, every demand can be met. At one or more, the economy cannot keep up." | the video's table scaled by k/20, k = 1 to 40, and by 10/7 (largest eigenvalue exactly one), against the inverse and against the Hawkins–Simon minors | 41 of 41 agree; 28 feed themselves; at exactly one it does not (`K-X7.*`) |
+| 14_2 | "Such a table always has a full set of own patterns, at right angles." | 1,000 seeded symmetric tables of sizes 2 to 6, and two with repeated eigenvalues: QΛQᵀ gives the table back and QᵀQ = I | 1,000 of 1,000 and 2 of 2 (`K-X1.*`); the edge the other way is 14_5 |
+| 14_5 | "A quarter turn has no own pattern you can draw." (and the shear's one, on screen) | the same sweep on [[0, −1], [1, 0]] and [[1, 1], [0, 1]] | 0 and 1 (`K-X2.quarter_turn`, `K-X2.shear`) |
+| 14_5 | (shown) the factory's best plan at a corner | all 1,361 allowed whole-number plans tried | the best is (40, 20), a corner (`K-X5.*`) |
+| 06_5 | (shown) the split's formula | all 21 patterns against the direct solve | equal to rounding (`K-X4.rebuilt`) |
+| 05_4 | (shown) the table is symmetric; it can be solved | entry by entry; unsupported, exactly three eigenvalues of zero | `K-T2.symmetric`, `K-X3.unsupported_zero` |
+| 11_4 | "three modes share its lowest tone" | every mode below 200 Hz of the three rooms, tones compared in whole numbers | the cube 36 of 38 on shared tones, the other rooms 0 (`K-R5.*`) |
 
 ## Sources
 
@@ -222,7 +236,12 @@ repository. **Seen** means the passage was read in the source itself;
   motion increases, the lateral force imparted by individuals increases, as
   does the degree of correlation between individuals." "A total of 37
   viscous dampers are to be installed" (p. 30); four pairs of lateral and 26
-  pairs of vertical tuned mass dampers (p. 31).
+  pairs of vertical tuned mass dampers (p. 31). "The measured frequencies of
+  the modes which had been observed to vibrate were within 10% of the values
+  predicted in the design analysis." The phenomenon "could occur on any
+  bridge with a lateral frequency below about 1.3Hz loaded with a sufficient
+  number of pedestrians." "The amplitude related correlated excitation is
+  equivalent to negative damping"
 - **S2. Arup**, the project's pages (archived, web.archive.org, 2008). Seen.
   "The maximum sway of the deck was approximately 70mm." "the north span is
   stable with 156 people but with just 10 more people the movements increase
@@ -354,7 +373,7 @@ footbridge-specific deflection limit.
 
 ## Every fact (from the oracle's output)
 
-269 keys, as `oracle.py` printed them; `eigen facts` prints the same.
+300 keys, as `oracle.py` printed them; `eigen facts` prints the same.
 
 ### The two bridges (cited, and arithmetic on the citations)
 
@@ -368,6 +387,7 @@ footbridge-specific deflection limit.
 | `K-B1.span_m` | 853 |
 | `K-B1.wind_mph` | 42 |
 | `K-B1.wind_km_per_h` | 68 |
+| `K-B1.wind_round_mph` | 40 |
 | `K-B1.twist_per_min` | 12 |
 | `K-B1.twist_hz` | 0.2 |
 | `K-B1.twist_period_s` | 5 |
@@ -392,6 +412,10 @@ footbridge-specific deflection limit.
 | `K-B2.test_added` | 10 |
 | `K-B2.dampers_viscous` | 37 |
 | `K-B2.paper_year` | 2001 |
+| `K-B2.predicted_within_percent` | 10 |
+| `K-B2.risk_below_hz` | 1.3 |
+| `K-B2.tmd_lateral_pairs` | 4 |
+| `K-B2.tmd_vertical_pairs` | 26 |
 
 ### Two carts
 
@@ -411,6 +435,7 @@ footbridge-specific deflection limit.
 | `K-A3.mix` | 1/2, 1/2 |
 | `K-A3.shares` | 1/2, 1/6 |
 | `K-A3.moves` | 2/3, 1/3 |
+| `K-A3.moves_right` | 1/3, 2/3 |
 | `K-A4.spring_n_per_m` | 100 |
 | `K-A4.cart_kg` | 1 |
 | `K-A4.hz.soft` | 1.6 |
@@ -434,11 +459,13 @@ footbridge-specific deflection limit.
 | `K-T1.chord_mm2` | 6000 |
 | `K-T1.web_mm2` | 3000 |
 | `K-T1.spring_kn_per_mm` | 300 |
+| `K-T1.spring_tonnes` | 30.6 |
 | `K-T1.yield_mpa` | 250 |
 | `K-T1.steel_kg_per_m3` | 7850 |
 | `K-T2.entries` | 441 |
 | `K-T2.nonzero` | 97 |
 | `K-T2.symmetric` | true |
+| `K-T2.inverse_nonzero` | 441 |
 | `K-T3.load_kn` | 100 |
 | `K-T3.load_tonnes` | 10.2 |
 | `K-T3.joint` | 2 |
@@ -477,6 +504,12 @@ footbridge-specific deflection limit.
 | `K-P2.sag_percent.1` | 99.6 |
 | `K-P2.sag_percent.2` | 102.0 |
 | `K-P2.sag_percent.3` | 101.8 |
+| `K-P2.sag_percent.4` | 99.1 |
+| `K-P2.sag_percent.5` | 98.9 |
+| `K-P2.sag_percent.10` | 99.1 |
+| `K-P2.sag_percent.15` | 100.0 |
+| `K-P3.lone_turn_deg` | 64 |
+| `K-P3.softest_turn_deg` | 0.0 |
 | `K-P2.force_error_kn.1` | 82 |
 | `K-P2.force_error_percent.1` | 18 |
 | `K-P2.move_error_mm.1` | 1.2 |
@@ -497,6 +530,9 @@ footbridge-specific deflection limit.
 | `K-V1.hz.3` | 14.9 |
 | `K-V1.hz.4` | 20.9 |
 | `K-V1.hz_2dp` | 5.91, 11.78, 14.86, 20.93 |
+| `K-V1.ratio.2` | 1.99 |
+| `K-V1.ratio.3` | 2.51 |
+| `K-V1.steel_tonnes` | 3.4 |
 | `K-V1.shape.1` | sag |
 | `K-V1.shape.2` | along |
 | `K-V1.shape.3` | s |
@@ -505,6 +541,7 @@ footbridge-specific deflection limit.
 | `K-V2.deck_kg` | 8000 |
 | `K-V2.hz.1` | 4.3 |
 | `K-V2.direction` | down |
+| `K-V2.naive_hz` | 4.2 |
 
 ### Small rooms
 
@@ -513,24 +550,31 @@ footbridge-specific deflection limit.
 | `K-R0.sound_m_per_s` | 343 |
 | `K-R1.slices` | 40 |
 | `K-R1.error_percent` | 0.02 |
+| `K-R1.error_bound_percent` | 0.03 |
+| `K-R1.lump_turn_deg` | 35.3 |
 | `K-R2.sides_m` | 2.5, 1.6, 2.4 |
 | `K-R2.first_hz` | 68.6 |
 | `K-R2.first_mode` | 1, 0, 0 |
 | `K-R2.second_hz` | 71.5 |
 | `K-R2.second_mode` | 0, 0, 1 |
 | `K-R2.rule_hz` | 68.6 |
+| `K-R2.voice_hz` | 107.2, 137.2 |
 | `K-R3.side_m` | 3 |
 | `K-R3.first_hz` | 57.2 |
 | `K-R3.first_count` | 3 |
-| `K-R4.sides_m` | 5, 4, 2.5 |
+| `K-R4.sides_m` | 4.8, 4, 2.6 |
 | `K-R4.volume_m3` | 50 |
 | `K-R4.t60_s` | 0.5 |
 | `K-R4.schroeder_hz` | 200 |
-| `K-R4.modes_below` | 65 |
-| `K-R5.shared.narrow` | 1 |
-| `K-R5.shared.study` | 1 |
-| `K-R5.shared.cube` | 3 |
-| `K-R5.narrow_sides_m` | 6, 2, 2.5 |
+| `K-R4.modes_below` | 67 |
+| `K-R4.sharing_a_tone` | 0 |
+| `K-R5.modes_below_200.narrow` | 48 |
+| `K-R5.sharing_200.narrow` | 0 |
+| `K-R5.modes_below_200.study` | 67 |
+| `K-R5.sharing_200.study` | 0 |
+| `K-R5.modes_below_200.cube` | 38 |
+| `K-R5.sharing_200.cube` | 36 |
+| `K-R5.narrow_sides_m` | 6.1, 2.1, 2.5 |
 | `K-R5.worst` | cube |
 
 ### The hall
@@ -560,17 +604,19 @@ footbridge-specific deflection limit.
 
 | key | value |
 |---|---|
-| `K-N1.cols` | 30 |
+| `K-N1.cols` | 24 |
 | `K-N1.rows` | 12 |
-| `K-N1.cell_m` | 1.5 |
-| `K-N1.cells` | 306 |
-| `K-N1.hz.1` | 4.18 |
-| `K-N1.hz.2` | 7.34 |
-| `K-N1.hz.3` | 9.65 |
-| `K-N1.box.cells` | 360 |
-| `K-N1.box.formula_hz` | 3.81 |
-| `K-N1.box.cells_hz` | 3.81 |
-| `K-N1.box.error_percent` | 0.05 |
+| `K-N1.cell_m` | 0.25 |
+| `K-N1.sides_m` | 6, 3 |
+| `K-N1.low_end_m` | 1.25 |
+| `K-N1.cells` | 232 |
+| `K-N1.hz.1` | 29.76 |
+| `K-N1.hz.2` | 56.05 |
+| `K-N1.hz.3` | 59.91 |
+| `K-N1.box.cells` | 288 |
+| `K-N1.box.formula_hz` | 28.58 |
+| `K-N1.box.cells_hz` | 28.56 |
+| `K-N1.box.error_percent` | 0.07 |
 
 ### The economy
 
@@ -601,6 +647,12 @@ footbridge-specific deflection limit.
 | `K-E4.uses_even` | 11, 11 |
 | `K-E4.rounds` | 24, 26.4, 29.04 |
 | `K-E4.feeds_itself` | false |
+| `K-E4.formula_says` | -240 |
+| `K-E5.demand` | 30, 10 |
+| `K-E5.shares` | 18, 4 |
+| `K-E5.totals_by_pattern` | 60, 5 |
+| `K-E5.total` | 75, 50 |
+| `K-E5.rounds` | 30; 10 15; 11 9.3; 8.5 6.27; 6.11 |
 
 ### The factory
 
@@ -623,24 +675,18 @@ footbridge-specific deflection limit.
 |---|---|
 | `K-Q.02_6.seconds` | 5 |
 | `K-Q.02_6.answer` | 1, 1 |
-| `K-Q.03_1.seconds` | 5 |
-| `K-Q.03_1.answer` | 3, -3 |
-| `K-Q.05_4.seconds` | 4 |
-| `K-Q.05_4.answer` | 21 |
-| `K-Q.06_2.seconds` | 5 |
-| `K-Q.06_2.answer` | sag |
+| `K-Q.04_5.seconds` | 5 |
+| `K-Q.04_5.answer` | 1/3, 2/3 |
+| `K-Q.06_3.seconds` | 5 |
+| `K-Q.06_3.answer` | sag |
 | `K-Q.07_4.seconds` | 4 |
-| `K-Q.07_4.answer` | down |
-| `K-Q.09_5.seconds` | 6 |
-| `K-Q.09_5.answer` | 68.6 |
+| `K-Q.07_4.answer` | slower |
+| `K-Q.09_4.seconds` | 6 |
+| `K-Q.09_4.answer` | 68.6 |
 | `K-Q.11_3.seconds` | 5 |
 | `K-Q.11_3.answer` | cube |
-| `K-Q.12_3.seconds` | 6 |
-| `K-Q.12_3.answer` | 7, 7 |
-| `K-Q.13_4.seconds` | 5 |
-| `K-Q.13_4.answer` | grow |
-| `K-Q.14_2.seconds` | 6 |
-| `K-Q.14_2.answer` | 40, 20 |
+| `K-Q.12_2.seconds` | 6 |
+| `K-Q.12_2.answer` | 7, 7 |
 
 ### The edges of the always sentences
 
@@ -648,6 +694,8 @@ footbridge-specific deflection limit.
 |---|---|
 | `K-X1.symmetric.checked` | 1000 |
 | `K-X1.symmetric.hold` | 1000 |
+| `K-X1.repeated.checked` | 2 |
+| `K-X1.repeated.hold` | 2 |
 | `K-X2.carts` | 2 |
 | `K-X2.shear` | 1 |
 | `K-X2.quarter_turn` | 0 |
@@ -660,6 +708,8 @@ footbridge-specific deflection limit.
 | `K-X5.best_is_a_corner` | true |
 | `K-X6.positive.checked` | 1000 |
 | `K-X6.positive.hold` | 1000 |
+| `K-X6.zeros.checked` | 1004 |
+| `K-X6.zeros.hold` | 1004 |
 | `K-X7.scaled.checked` | 41 |
 | `K-X7.scaled.agree` | 41 |
 | `K-X7.scaled.feed_themselves` | 28 |

@@ -157,6 +157,7 @@ def bridges():
     emit("K-B1.span_m", fixed(TACOMA_SPAN_FT * 0.3048, 0))
     emit("K-B1.wind_mph", TACOMA_WIND_MPH)
     emit("K-B1.wind_km_per_h", fixed(TACOMA_WIND_MPH * 1.609344, 0))
+    emit("K-B1.wind_round_mph", 10 * round(TACOMA_WIND_MPH / 10))
     emit("K-B1.twist_per_min", TACOMA_TWIST_PER_MIN)
     emit("K-B1.twist_hz", fixed(F(TACOMA_TWIST_PER_MIN, 60), 1))
     emit("K-B1.twist_period_s", fixed(F(60, TACOMA_TWIST_PER_MIN), 0))
@@ -184,6 +185,12 @@ def bridges():
     emit("K-B2.test_added", 10)
     emit("K-B2.dampers_viscous", 37)
     emit("K-B2.paper_year", 2001)
+    # Dallard et al. 2001: predicted within 10%; any lateral frequency below about 1.3 Hz;
+    # 4 pairs of lateral and 26 pairs of vertical tuned mass dampers
+    emit("K-B2.predicted_within_percent", 10)
+    emit("K-B2.risk_below_hz", fixed(F(13, 10), 1))
+    emit("K-B2.tmd_lateral_pairs", 4)
+    emit("K-B2.tmd_vertical_pairs", 26)
 
 
 # --- two carts -------------------------------------------------------------------
@@ -250,6 +257,12 @@ def two_carts():
     emit("K-A3.mix", join(frac(x) for x in mix))
     emit("K-A3.shares", join(frac(x) for x in shares))
     emit("K-A3.moves", join(frac(x) for x in moves))
+    # the quiz of chapter 04: a push of 1 on the right cart, by the same Cramer's rule
+    f1, f2 = F(0), F(1)
+    mix_r = [(f1 * p22 - p12 * f2) / det, (p11 * f2 - f1 * p21) / det]
+    shares_r = [mix_r[i] / whole(lam[i]) for i in range(2)]
+    emit("K-A3.moves_right", join(frac(x) for x in
+                                  [shares_r[0] * p11 + shares_r[1] * p12, shares_r[0] * p21 + shares_r[1] * p22]))
     kf = [[F(whole(x)) for x in row] for row in k]
     check("carts: K times the answer is the push (1, 0), exactly",
           [kf[0][0] * moves[0] + kf[0][1] * moves[1], kf[1][0] * moves[0] + kf[1][1] * moves[1]] == [1, 0])
@@ -333,6 +346,7 @@ def truss(carts_table):
     emit("K-T1.chord_mm2", fixed(CHORD * 1e6, 0))
     emit("K-T1.web_mm2", fixed(WEB * 1e6, 0))
     emit("K-T1.spring_kn_per_mm", fixed(200e9 * 6000e-6 / 4 / 1e6, 0))
+    emit("K-T1.spring_tonnes", fixed(300e3 / G / 1e3, 1))
     emit("K-T1.yield_mpa", fixed(YIELD_PA / 1e6, 0))
     emit("K-T1.steel_kg_per_m3", fixed(STEEL_KG_M3, 0))
     check("truss: as many members as free directions (forces follow from balance alone)",
@@ -344,6 +358,9 @@ def truss(carts_table):
     emit("K-T2.entries", k.size)
     emit("K-T2.nonzero", int((np.abs(k) > 1e-9 * top).sum()))
     emit("K-T2.symmetric", bool(np.abs(k - k.T).max() <= 1e-9 * top))
+    inv = np.linalg.inv(k)
+    emit("K-T2.inverse_nonzero", int(sum((np.abs(inv[:, j]) > 1e-9 * np.abs(inv[:, j]).max()).sum()
+                                         for j in range(inv.shape[1]))))
 
     def solve(loads):
         """Statics with no stiffness table: forces from balance, moves from stretches."""
@@ -422,8 +439,15 @@ def truss(carts_table):
     def from_patterns(count):
         return q[:, :count] @ (held[:count] / lam[:count])
 
-    for count in (1, 2, 3):
+    for count in (1, 2, 3, 4, 5, 10, 15):
         emit(f"K-P2.sag_percent.{count}", fixed(from_patterns(count)[mid] / moves[mid] * 100, 1))
+
+    def turn(u):
+        f = k @ u
+        return math.degrees(math.acos(max(-1.0, min(1.0, float(u @ f) / (np.linalg.norm(u) * np.linalg.norm(f))))))
+
+    emit("K-P3.lone_turn_deg", fixed(turn(lone), 0))
+    emit("K-P3.softest_turn_deg", fixed(turn(q[:, 0]), 1))
     for count in (1, 5, 15, 21):
         off = np.abs(springs * (b @ from_patterns(count)) - forces).max()
         emit(f"K-P2.force_error_kn.{count}", fixed(off / 1e3, 0))
@@ -460,6 +484,9 @@ def truss(carts_table):
     for i in range(4):
         emit(f"K-V1.hz.{i + 1}", fixed(hz[i], 1))
     emit("K-V1.hz_2dp", join(fixed(h, 2) for h in hz[:4]))
+    emit("K-V1.ratio.2", fixed(hz[1] / hz[0], 2))
+    emit("K-V1.ratio.3", fixed(hz[2] / hz[0], 2))
+    emit("K-V1.steel_tonnes", fixed(float(np.sum(STEEL_KG_M3 * areas * lengths)) / 1e3, 1))
 
     def shape(v):
         energy = mass * v * v
@@ -479,6 +506,7 @@ def truss(carts_table):
     emit("K-V2.deck_kg", fixed(2 * DECK_KG, 0))
     emit("K-V2.hz.1", fixed(heavy[0], 1))
     emit("K-V2.direction", "down" if heavy[0] < hz[0] else "up")
+    emit("K-V2.naive_hz", fixed(hz[0] / math.sqrt(2), 1))
 
     # K-X3 and K-X4, which need the same pieces
     loose = np.linalg.eigvalsh(b_all.T @ np.diag(springs) @ b_all)
@@ -497,7 +525,7 @@ emit_later = {}
 # --- rooms -----------------------------------------------------------------------
 
 C_DM = 3430  # the speed of sound in decimetres a second
-BATHROOM, CUBE, STUDY, NARROW, HALL = (25, 16, 24), (30, 30, 30), (50, 40, 25), (60, 20, 25), (450, 230, 180)
+BATHROOM, CUBE, STUDY, NARROW, HALL = (25, 16, 24), (30, 30, 30), (48, 40, 26), (61, 21, 25), (450, 230, 180)
 
 
 def mode_hz(room, n):
@@ -538,6 +566,12 @@ def schroeder(room, t60):
     return SCHROEDER * math.sqrt(float(t60 / volume(room)))
 
 
+def sharing(room, hertz):
+    """Modes at or below `hertz` whose frequency another mode has too (compared as floats)."""
+    tones = [round(hz, 9) for _, hz in modes_below(room, hertz)]
+    return sum(1 for t in tones if tones.count(t) > 1)
+
+
 def lowest(room):
     modes = modes_below(room, 100)
     return modes[0][1], sum(1 for _, hz in modes if abs(hz - modes[0][1]) < 1e-9)
@@ -550,6 +584,9 @@ def rooms():
     # a chain of n carts: eigenvalues 2 - 2 cos(i pi / (n + 1)); the tube's i-th tone is i pi c / L
     ratio = 2 * math.sin(math.pi / (2 * (slices + 1))) * (slices + 1) / math.pi
     emit("K-R1.error_percent", fixed((1 - ratio) * 100, 2))
+    emit("K-R1.error_bound_percent", fixed(math.ceil((1 - ratio) * 1e4) / 100, 2))
+    # one slice pushed out of place comes back as (-1, 2, -1): the angle is arccos(2 / sqrt 6)
+    emit("K-R1.lump_turn_deg", fixed(math.degrees(math.acos(2 / math.sqrt(6))), 1))
     lam = np.linalg.eigvalsh(springs_table(slices))
     check("rooms: the chain's closed form is the table's lowest eigenvalue",
           abs(math.sqrt(lam[0]) * (slices + 1) / math.pi - ratio) < 1e-12)
@@ -561,6 +598,7 @@ def rooms():
     emit("K-R2.second_hz", fixed(modes[1][1], 1))
     emit("K-R2.second_mode", join(modes[1][0]))
     emit("K-R2.rule_hz", fixed(F(SOUND) / (2 * F(BATHROOM[0], 10)), 1))
+    emit("K-R2.voice_hz", join(fixed(SOUND / (2 * side / 10) * n, 1) for side, n in ((BATHROOM[1], 1), (BATHROOM[0], 2))))
     check("rooms: the bathroom's lowest tone is c / 2L along its longest side",
           abs(modes[0][1] - SOUND / (2 * 2.5)) < 1e-12)
 
@@ -574,13 +612,15 @@ def rooms():
     emit("K-R4.t60_s", fixed(STUDY_T60, 1))
     crossover = schroeder(STUDY, STUDY_T60)
     emit("K-R4.schroeder_hz", fixed(crossover, 0))
-    emit("K-R4.modes_below", count_below(STUDY, whole(crossover)))
+    emit("K-R4.modes_below", count_below(STUDY, round(crossover)))
+    emit("K-R4.sharing_a_tone", sharing(STUDY, round(crossover)))
     check("rooms: counting by square roots agrees with listing the modes",
           all(count_below(r, h) == len(modes_below(r, h)) for r in (BATHROOM, CUBE, STUDY, NARROW) for h in (60, 120, 200)))
 
-    shared = {name: lowest(room)[1] for name, room in [("narrow", NARROW), ("study", STUDY), ("cube", CUBE)]}
-    for name in ("narrow", "study", "cube"):
-        emit(f"K-R5.shared.{name}", shared[name])
+    shared = {name: sharing(room, 200) for name, room in [("narrow", NARROW), ("study", STUDY), ("cube", CUBE)]}
+    for name, room in (("narrow", NARROW), ("study", STUDY), ("cube", CUBE)):
+        emit(f"K-R5.modes_below_200.{name}", count_below(room, 200))
+        emit(f"K-R5.sharing_200.{name}", shared[name])
     emit("K-R5.narrow_sides_m", join(metres(s) for s in NARROW))
     emit("K-R5.worst", max(shared, key=shared.get))
 
@@ -615,24 +655,24 @@ def rooms():
     return {"bathroom_rule": fixed(F(SOUND) / (2 * F(BATHROOM[0], 10)), 1), "worst_room": max(shared, key=shared.get)}
 
 
-# The side view of the hall, 30 cells by 12, each 1.5 m: the top row first.
-# '#' is air. The ceiling is 6 m lower over the first 9 m (the stage); the
-# floor climbs toward the back in five steps of 1.5 m, each 3 m deep.
+# The attic studio's side view, 24 cells by 12, each a quarter of a metre: the
+# top row first. '#' is air. The ceiling slopes down over the last 4 m, a
+# quarter of a metre every half metre, to 1.25 m at the far wall.
 SECTION = [
-    "......########################",
-    "......########################",
-    "......########################",
-    "......########################",
-    "##############################",
-    "##############################",
-    "##############################",
-    "############################..",
-    "##########################....",
-    "########################......",
-    "######################........",
-    "####################..........",
+    "##########..............",
+    "############............",
+    "##############..........",
+    "################........",
+    "##################......",
+    "####################....",
+    "######################..",
+    "########################",
+    "########################",
+    "########################",
+    "########################",
+    "########################",
 ]
-CELL_M = 1.5
+CELL_M = 0.25
 
 
 def cells_table(rows):
@@ -660,14 +700,16 @@ def section():
     lam = np.linalg.eigvalsh(k)
     emit("K-N1.cols", len(SECTION[0]))
     emit("K-N1.rows", len(SECTION))
-    emit("K-N1.cell_m", fixed(CELL_M, 1))
+    emit("K-N1.cell_m", fixed(CELL_M, 2))
+    emit("K-N1.sides_m", f"{fixed(len(SECTION[0]) * CELL_M, 0)},{fixed(len(SECTION) * CELL_M, 0)}")
+    emit("K-N1.low_end_m", fixed(sum(1 for row in SECTION if row[-1] == "#") * CELL_M, 2))
     emit("K-N1.cells", k.shape[0])
     check("section: the air is one piece (one eigenvalue of zero)", abs(lam[0]) < 1e-9 and lam[1] > 1e-4)
     for i in (1, 2, 3):
         emit(f"K-N1.hz.{i}", fixed(hz(lam[i]), 2))
-    box = np.linalg.eigvalsh(cells_table(["#" * 30] * 12))
-    formula = SOUND / (2 * 30 * CELL_M)
-    emit("K-N1.box.cells", 30 * 12)
+    box = np.linalg.eigvalsh(cells_table(["#" * 24] * 12))
+    formula = SOUND / (2 * 24 * CELL_M)
+    emit("K-N1.box.cells", 24 * 12)
     emit("K-N1.box.formula_hz", fixed(formula, 2))
     emit("K-N1.box.cells_hz", fixed(hz(box[1]), 2))
     emit("K-N1.box.error_percent", fixed((1 - hz(box[1]) / formula) * 100, 2))
@@ -774,6 +816,21 @@ def economy():
     emit("K-E4.uses_even", join(frac(x) for x in uses(h, [F(10), F(10)])))
     emit("K-E4.rounds", join(decimal(r[0]) for r in rounds(h, d, 2)))
     emit("K-E4.feeds_itself", feeds_itself(h))
+    emit("K-E4.formula_says", decimal(F(24) / (1 - hungry_values[0])))
+
+    # the lopsided demand: solve d = s1 (1, 1) + s2 (3, -2) directly, then the rounds
+    d2 = [F(30), F(10)]
+    s2 = (d2[0] - d2[1]) / 5  # subtracting the two rows: d0 - d1 = 5 s2
+    s1 = d2[0] - 3 * s2
+    emit("K-E5.demand", "30,10")
+    emit("K-E5.shares", f"{frac(s1)},{frac(s2)}")
+    kept = [s1 / (1 - values[0]), s2 / (1 - values[1])]
+    emit("K-E5.totals_by_pattern", join(frac(x) for x in kept))
+    total2 = [kept[0] + 3 * kept[1], kept[0] - 2 * kept[1]]
+    check("economy: the lopsided demand's split agrees with the inverse",
+          total2 == [inv[0][0] * d2[0] + inv[0][1] * d2[1], inv[1][0] * d2[0] + inv[1][1] * d2[1]])
+    emit("K-E5.total", join(frac(x) for x in total2))
+    emit("K-E5.rounds", " ".join(f"{decimal(r[0])};{decimal(r[1])}" for r in rounds(c, d2, 3)))
     return {"uses_even": join(frac(x) for x in uses(c, [F(10), F(10)])), "hungry_grows": hungry_values[0] > 1}
 
 
@@ -822,27 +879,23 @@ def factory():
     emit_later["K-X5.plans"] = len(plans)
     emit_later["K-X5.best_plan"] = join(best_plan)
     emit_later["K-X5.best_is_a_corner"] = profit(best_plan) == profit(best)
-    return {"best": f"{frac(best[0])},{frac(best[1])}"}
+    return {"best": f"{frac(best[0])},{frac(best[1])}", "best_profit": frac(profit(best))}
 
 
 # --- the quizzes -------------------------------------------------------------------
 
-QUIZZES = [("02_6", 5), ("03_1", 5), ("05_4", 4), ("06_2", 5), ("07_4", 4), ("09_5", 6), ("11_3", 5),
-           ("12_3", 6), ("13_4", 5), ("14_2", 6)]
+QUIZZES = [("02_6", 5), ("04_5", 5), ("06_3", 5), ("07_4", 4), ("09_4", 6), ("11_3", 5), ("12_2", 6)]
 
 
 def quizzes(k, t, r, e, fac):
     answers = {
         "02_6": join(whole(x) for x in k @ np.array([1.0, 1.0])),
-        "03_1": join(whole(x) for x in k @ np.array([1.0, -1.0])),
-        "05_4": t["moving"],
-        "06_2": "sag" if t["softest_changes"] == 0 else "alternating",
-        "07_4": "down" if t["down"] else "up",
-        "09_5": r["bathroom_rule"],
+        "04_5": join(frac(F(float(x)).limit_denominator(100)) for x in np.linalg.solve(k, [0.0, 1.0])),
+        "06_3": "sag" if t["softest_changes"] == 0 else "alternating",
+        "07_4": "slower" if t["down"] else "faster",
+        "09_4": r["bathroom_rule"],
         "11_3": r["worst_room"],
-        "12_3": e["uses_even"],
-        "13_4": "grow" if e["hungry_grows"] else "shrink",
-        "14_2": fac["best"],
+        "12_2": e["uses_even"],
     }
     for line, seconds in QUIZZES:
         emit(f"K-Q.{line}.seconds", seconds)
@@ -868,6 +921,14 @@ def edges():
             holds += 1
     emit("K-X1.symmetric.checked", checked)
     emit("K-X1.symmetric.hold", holds)
+    # its edge: repeated eigenvalues
+    repeated = [np.array([[2.0, 0.0], [0.0, 2.0]]), np.array([[2.0, 1.0, 1.0], [1.0, 2.0, 1.0], [1.0, 1.0, 2.0]])]
+    hold = 0
+    for a in repeated:
+        lam, q = np.linalg.eigh(a)
+        hold += int(np.abs(q @ np.diag(lam) @ q.T - a).max() < 1e-12 and np.abs(q.T @ q - np.eye(len(a))).max() < 1e-12)
+    emit("K-X1.repeated.checked", len(repeated))
+    emit("K-X1.repeated.hold", hold)
 
     emit("K-X2.carts", own_directions([[2, -1], [-1, 2]]))
     emit("K-X2.shear", own_directions([[1, 1], [0, 1]]))
@@ -893,6 +954,27 @@ def edges():
             holds += 1
     emit("K-X6.positive.checked", checked)
     emit("K-X6.positive.hold", holds)
+    # its edges: zeros allowed; four tables by hand, then 1,000 seeded ones
+    rng = np.random.Generator(np.random.PCG64DXSM(1912))
+    tables = [np.array(m, float) for m in ([[1, 1], [0, 1]], [[0, 1], [1, 0]], [[0, 1], [0, 0]], [[1, 0], [0, 2]])]
+
+    def entry():
+        return 0.0 if rng.random() < 0.3 else 0.05 + 0.95 * rng.random()
+
+    for _ in range(1000):
+        a, b, c, d = entry(), entry(), entry(), entry()
+        tables.append(np.array([[a, b], [c, d]]))
+    hold = 0
+    for m in tables:
+        lam = max(np.linalg.eigvals(m).real)
+        _, sv, vt = np.linalg.svd(m - lam * np.eye(2))
+        null = vt[sv < 1e-9 * max(1.0, abs(lam))]  # rows spanning the eigenspace
+        if len(null) == 0:  # a defective double root: the smallest singular vector
+            null = vt[-1:]
+        v = null[0]
+        hold += int(len(null) == 2 or (v >= -1e-12).all() or (v <= 1e-12).all())
+    emit("K-X6.zeros.checked", len(tables))
+    emit("K-X6.zeros.hold", hold)
 
     # K-X7: the economy's table scaled by k/20, and by 10/7 (largest eigenvalue exactly one)
     factors = [F(k, 20) for k in range(1, 41)] + [F(10, 7)]

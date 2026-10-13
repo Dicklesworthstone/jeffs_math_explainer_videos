@@ -36,7 +36,6 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("11_where_modes_rule", 0.45),
         animatic!("12_an_economy", 0.5),
         animatic!("13_can_it_feed_itself", 0.55),
-        animatic!("14_a_different_tool", 0.4),
-        animatic!("15_one_idea", 0.5),
+        animatic!("14_one_idea", 0.5),
     ]
 }

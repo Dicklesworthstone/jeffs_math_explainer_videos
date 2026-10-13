@@ -57,6 +57,16 @@ pub mod cited {
     pub const MILLENNIUM_TEST_STEADY: u32 = 156;
     pub const MILLENNIUM_TEST_ADDED: u32 = 10;
     pub const MILLENNIUM_VISCOUS_DAMPERS: u32 = 37;
+    /// Dallard et al. 2001: "The measured frequencies of the modes which had
+    /// been observed to vibrate were within 10% of the values predicted in
+    /// the design analysis"; the effect "could occur on any bridge with a
+    /// lateral frequency below about 1.3Hz loaded with a sufficient number of
+    /// pedestrians"; "4 No. pairs of lateral tuned mass dampers" and "26 pairs
+    /// of vertical tuned mass dampers".
+    pub const MILLENNIUM_PREDICTED_WITHIN_PERCENT: u32 = 10;
+    pub const MILLENNIUM_RISK_BELOW_DHZ: u32 = 13;
+    pub const MILLENNIUM_TMD_LATERAL_PAIRS: u32 = 4;
+    pub const MILLENNIUM_TMD_VERTICAL_PAIRS: u32 = 26;
     pub const DALLARD_YEAR: u32 = 2001;
 
     /// A live-load deflection limit for bridges people walk on: span/1000
@@ -99,9 +109,8 @@ pub mod cited {
 
 /// The examples the chapters draw that are not constants of the model.
 pub mod shown {
-    use crate::model::rooms::Room;
-
-    /// The household's demand in chapter 13, and a second one for the fact sheet.
+    /// The household's demand in chapter 13 (on the even mix), and the
+    /// lopsided one whose rounds swing onto it.
     pub const DEMAND: [i128; 2] = [24, 24];
     pub const OTHER_DEMAND: [i128; 2] = [30, 10];
     /// The even mix of the quiz in chapter 12.
@@ -110,11 +119,8 @@ pub mod shown {
     pub const HEAVY_DECK_KG: f64 = 2.0 * crate::model::truss::DECK_KG;
     /// How many patterns the truss answer is rebuilt from, on the readout of chapter 06.
     pub const PATTERN_COUNTS: [usize; 4] = [1, 5, 15, 21];
-    /// The long narrow room of the quiz in chapter 11 (a model): 6 by 2 m, 2.5 m high.
-    pub const NARROW: Room = Room {
-        name: "narrow",
-        dm: [60, 20, 25],
-    };
+    /// The sag readout's steps as patterns are added (chapter 06).
+    pub const SAG_COUNTS: [usize; 7] = [1, 2, 3, 4, 5, 10, 15];
     /// Where the hall's modes are counted, hertz.
     pub const COUNT_BELOW_HZ: [u64; 3] = [20, 100, 1000];
 }
@@ -246,6 +252,10 @@ fn bridges(f: &mut Facts) -> Result<(), String> {
     f.add("K-B1.span_ft", TACOMA_SPAN_FT)?;
     f.add("K-B1.span_m", fixed(f64::from(TACOMA_SPAN_FT) * 0.3048, 0)?)?;
     f.add("K-B1.wind_mph", TACOMA_WIND_MPH)?;
+    f.add(
+        "K-B1.wind_round_mph",
+        (TACOMA_WIND_MPH as f64 / 10.0).round() as u32 * 10,
+    )?;
     f.add("K-B1.wind_km_per_h", fixed(f64::from(TACOMA_WIND_MPH) * 1.609_344, 0)?)?;
     f.add("K-B1.twist_per_min", TACOMA_TWIST_PER_MIN)?;
     f.add("K-B1.twist_hz", fixed(f64::from(TACOMA_TWIST_PER_MIN) / 60.0, 1)?)?;
@@ -281,6 +291,13 @@ fn bridges(f: &mut Facts) -> Result<(), String> {
     f.add("K-B2.test_added", MILLENNIUM_TEST_ADDED)?;
     f.add("K-B2.dampers_viscous", MILLENNIUM_VISCOUS_DAMPERS)?;
     f.add("K-B2.paper_year", DALLARD_YEAR)?;
+    f.add("K-B2.predicted_within_percent", MILLENNIUM_PREDICTED_WITHIN_PERCENT)?;
+    f.add(
+        "K-B2.risk_below_hz",
+        fixed(f64::from(MILLENNIUM_RISK_BELOW_DHZ) / 10.0, 1)?,
+    )?;
+    f.add("K-B2.tmd_lateral_pairs", MILLENNIUM_TMD_LATERAL_PAIRS)?;
+    f.add("K-B2.tmd_vertical_pairs", MILLENNIUM_TMD_VERTICAL_PAIRS)?;
     Ok(())
 }
 
@@ -344,6 +361,21 @@ fn two_carts(f: &mut Facts) -> Result<(), String> {
     f.pin("K-A3.mix", list(mix), "1/2,1/2", "(1, 0) = (1, 1)/2 + (1, -1)/2")?;
     f.pin("K-A3.shares", list(shares), "1/2,1/6", "each half over its stiffness")?;
     f.pin("K-A3.moves", list(moves), "2/3,1/3", "K (2/3, 1/3) = (1, 0)")?;
+    // the quiz of chapter 04: the same split for a push of 1 on the right cart
+    let mut right = [Frac::whole(0); 2];
+    for (pattern, lambda) in [soft, stiff].iter().zip(&e.values) {
+        let p = [i128::from(pattern[0]), i128::from(pattern[1])];
+        let share = Frac::new(p[1], p[0] * p[0] + p[1] * p[1]) / Frac::whole(i128::from(whole(*lambda)?));
+        for (m, p) in right.iter_mut().zip(p) {
+            *m = *m + share * Frac::whole(p);
+        }
+    }
+    f.pin(
+        "K-A3.moves_right",
+        list(right),
+        "1/3,2/3",
+        "the mirror image of 2/3, 1/3",
+    )?;
     let direct = carts::moves([1.0, 0.0]);
     if (direct[0] - moves[0].to_f64()).abs() > 1e-12 || (direct[1] - moves[1].to_f64()).abs() > 1e-12 {
         return Err(format!("the split {moves:?} is not the direct answer {direct:?}"));
@@ -397,6 +429,11 @@ fn statics(f: &mut Facts) -> Result<(), String> {
         "300",
         "200 GPa x 6000 mm2 / 4 m",
     )?;
+    // the weight, in tonnes, that pulls as hard as 300 kN
+    f.add(
+        "K-T1.spring_tonnes",
+        fixed(t.spring(bottom) * 1e-3 / 9.806_65 / 1e3, 1)?,
+    )?;
     f.add("K-T1.yield_mpa", fixed(truss::YIELD_PA / 1e6, 0)?)?;
     f.add("K-T1.steel_kg_per_m3", fixed(truss::STEEL_KG_PER_M3, 0)?)?;
 
@@ -405,6 +442,16 @@ fn statics(f: &mut Facts) -> Result<(), String> {
     f.add("K-T2.entries", k.n * k.n)?;
     f.add("K-T2.nonzero", k.a.iter().filter(|x| x.abs() > 1e-9 * top).count())?;
     f.add("K-T2.symmetric", k.asymmetry() <= 1e-9 * top)?;
+    // the inverse, a column at a time: the moves for a unit push on each direction
+    let mut inverse_nonzero = 0;
+    for j in 0..k.n {
+        let mut unit = vec![0.0; k.n];
+        unit[j] = 1.0;
+        let column = crate::model::linalg::solve(&k, &unit).ok_or("K is singular")?;
+        let big = largest(&column);
+        inverse_nonzero += column.iter().filter(|x| x.abs() > 1e-9 * big).count();
+    }
+    f.add("K-T2.inverse_nonzero", inverse_nonzero)?;
 
     // one load, on one joint
     f.add("K-T3.load_kn", fixed(truss::DECK_LOAD_N / 1e3, 0)?)?;
@@ -524,13 +571,26 @@ fn patterns(f: &mut Facts) -> Result<(), String> {
         .iter()
         .position(|&d| d == 2 * t.midspan() + 1)
         .ok_or("midspan is held")?;
-    for count in 1..=3 {
+    for count in shown::SAG_COUNTS {
         let u = t.moves_from_patterns(&e, &load, count);
         f.add(
             &format!("K-P2.sag_percent.{count}"),
             fixed(u[mid] / direct[mid] * 100.0, 1)?,
         )?;
     }
+    // the carts' test on the truss: the angle between the move one load
+    // causes and the push that holds it, and the same for the softest pattern
+    let lone = t.moves(&t.lone_load());
+    let k = t.stiffness();
+    let angle = |u: &[f64]| -> f64 {
+        let f = k.mul_vec(u);
+        (dot(u, &f) / (dot(u, u) * dot(&f, &f)).sqrt())
+            .clamp(-1.0, 1.0)
+            .acos()
+            .to_degrees()
+    };
+    f.add("K-P3.lone_turn_deg", fixed(angle(&lone), 0)?)?;
+    f.add("K-P3.softest_turn_deg", fixed(angle(&e.vectors[0]), 1)?)?;
     for count in shown::PATTERN_COUNTS {
         let u = t.moves_from_patterns(&e, &load, count);
         let off = t
@@ -589,6 +649,9 @@ fn vibration(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("K-V1.hz.{}", k + 1), fixed(*hz, 1)?)?;
     }
     f.add("K-V1.hz_2dp", fixed_list(hz.iter().take(4).copied(), 2)?)?;
+    f.add("K-V1.ratio.2", fixed(hz[1] / hz[0], 2)?)?;
+    f.add("K-V1.ratio.3", fixed(hz[2] / hz[0], 2)?)?;
+    f.add("K-V1.steel_tonnes", fixed(t.steel_kg() / 1e3, 1)?)?;
     for (k, phi) in modes.vectors.iter().enumerate().take(3) {
         f.add(&format!("K-V1.shape.{}", k + 1), shape(&t, deck, phi))?;
     }
@@ -609,6 +672,8 @@ fn vibration(f: &mut Facts) -> Result<(), String> {
     f.add("K-V2.deck_kg", fixed(shown::HEAVY_DECK_KG, 0)?)?;
     f.add("K-V2.hz.1", fixed(heavy[0], 1)?)?;
     f.add("K-V2.direction", if heavy[0] < hz[0] { "down" } else { "up" })?;
+    // what dividing by the square root of two would give, were the steel doubled too
+    f.add("K-V2.naive_hz", fixed(hz[0] / 2f64.sqrt(), 1)?)?;
     Ok(())
 }
 
@@ -629,9 +694,18 @@ fn small_rooms(f: &mut Facts) -> Result<(), String> {
     f.add("K-R0.sound_m_per_s", fixed(rooms::SOUND_M_PER_S, 0)?)?;
     let slices = cited::FRANKENSIM_CHAIN;
     f.add("K-R1.slices", slices)?;
+    let error = (1.0 - carts::chain_against_the_tube(slices, 1)) * 100.0;
+    f.add("K-R1.error_percent", fixed(error, 2)?)?;
+    f.add("K-R1.error_bound_percent", fixed((error * 100.0).ceil() / 100.0, 2)?)?;
+    // the carts' test on the air: one slice pushed out of place comes back
+    // as a jagged push (2 on itself, −1 on each neighbour)
+    let chain = carts::chain(slices);
+    let mut lump = vec![0.0; slices];
+    lump[slices / 2] = 1.0;
+    let back = chain.mul_vec(&lump);
     f.add(
-        "K-R1.error_percent",
-        fixed((1.0 - carts::chain_against_the_tube(slices, 1)) * 100.0, 2)?,
+        "K-R1.lump_turn_deg",
+        fixed((dot(&lump, &back) / dot(&back, &back).sqrt()).acos().to_degrees(), 1)?,
     )?;
 
     let bath = rooms::BATHROOM;
@@ -641,6 +715,9 @@ fn small_rooms(f: &mut Facts) -> Result<(), String> {
     f.add("K-R2.first_mode", list(modes[0].0))?;
     f.add("K-R2.second_hz", fixed(modes[1].1, 1)?)?;
     f.add("K-R2.second_mode", list(modes[1].0))?;
+    // two tones a voice can reach: one half-wave across, two along
+    let voice: Vec<f64> = [[0, 1, 0], [2, 0, 0]].iter().map(|n| bath.mode_hz(*n)).collect();
+    f.add("K-R2.voice_hz", fixed_list(voice, 1)?)?;
     // the quiz: the speed of sound over twice the length
     f.add(
         "K-R2.rule_hz",
@@ -659,18 +736,21 @@ fn small_rooms(f: &mut Facts) -> Result<(), String> {
     f.add("K-R4.t60_s", fixed(rooms::STUDY_T60_S, 1)?)?;
     let crossover = study.schroeder_hz(rooms::STUDY_T60_S);
     f.add("K-R4.schroeder_hz", fixed(crossover, 0)?)?;
-    f.add("K-R4.modes_below", study.count_below(whole(crossover)? as u64))?;
+    let below = crossover.round() as u64;
+    f.add("K-R4.modes_below", study.count_below(below))?;
+    f.add("K-R4.sharing_a_tone", study.sharing_a_tone(below))?;
 
-    // the quiz of chapter 11: the room whose lowest tone is shared by most modes
+    // the quiz of chapter 11: below 200 Hz, how many modes share a tone
     let mut worst = ("", 0);
-    for room in [shown::NARROW, study, cube] {
-        let (_, shared) = lowest(&room)?;
-        f.add(&format!("K-R5.shared.{}", room.name), shared)?;
+    for room in [rooms::NARROW, study, cube] {
+        let shared = room.sharing_a_tone(200);
+        f.add(&format!("K-R5.modes_below_200.{}", room.name), room.count_below(200))?;
+        f.add(&format!("K-R5.sharing_200.{}", room.name), shared)?;
         if shared > worst.1 {
             worst = (room.name, shared);
         }
     }
-    f.add("K-R5.narrow_sides_m", sides(&shown::NARROW))?;
+    f.add("K-R5.narrow_sides_m", sides(&rooms::NARROW))?;
     f.add("K-R5.worst", worst.0)?;
     Ok(())
 }
@@ -709,16 +789,26 @@ fn hall(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
-/// K-N: a hall that is not a box, cut into cells.
+/// K-N: a small room that is not a box, cut into cells.
 fn section(f: &mut Facts) -> Result<(), String> {
-    let (hall, e) = rooms::hall_section();
-    f.add("K-N1.cols", hall.cols)?;
-    f.add("K-N1.rows", hall.rows)?;
-    f.add("K-N1.cell_m", fixed(hall.cell_m, 1)?)?;
-    f.add("K-N1.cells", hall.cells().len())?;
+    let (attic, e) = rooms::attic_section();
+    f.add("K-N1.cols", attic.cols)?;
+    f.add("K-N1.rows", attic.rows)?;
+    f.add("K-N1.cell_m", fixed(attic.cell_m, 2)?)?;
+    f.add(
+        "K-N1.sides_m",
+        format!(
+            "{},{}",
+            fixed(attic.cols as f64 * attic.cell_m, 0)?,
+            fixed(attic.rows as f64 * attic.cell_m, 0)?
+        ),
+    )?;
+    let low_end = attic.air.iter().filter(|row| row[attic.cols - 1]).count();
+    f.add("K-N1.low_end_m", fixed(low_end as f64 * attic.cell_m, 2)?)?;
+    f.add("K-N1.cells", attic.cells().len())?;
     // the first eigenvalue is still air at rest; the modes start at the second
     for (k, lambda) in e.values.iter().enumerate().skip(1).take(3) {
-        f.add(&format!("K-N1.hz.{k}"), fixed(hall.hertz(*lambda), 2)?)?;
+        f.add(&format!("K-N1.hz.{k}"), fixed(attic.hertz(*lambda), 2)?)?;
     }
     let plain = Section::boxed();
     let (formula, cells) = (plain.box_formula_hz(1, 0), plain.box_cells_hz(1, 0));
@@ -834,6 +924,45 @@ fn economy_facts(f: &mut Facts) -> Result<(), String> {
         ),
     )?;
     f.add("K-E4.feeds_itself", h.feeds_itself())?;
+    let hungry_largest = hungry_values[0];
+    f.add(
+        "K-E4.formula_says",
+        decimal(demand[0] / (Frac::whole(1) - hungry_largest))?,
+    )?;
+
+    // the lopsided demand: a mix of the two own patterns, each divided by
+    // one less its eigenvalue
+    let other = pair(shown::OTHER_DEMAND);
+    let (mix, rest) = (c.eigenvector(values[0]), c.eigenvector(values[1]));
+    let (a, b) = (
+        [Frac::whole(mix[0]), Frac::whole(mix[1])],
+        [Frac::whole(rest[0]), Frac::whole(rest[1])],
+    );
+    let det = a[0] * b[1] - b[0] * a[1];
+    let shares = [
+        (other[0] * b[1] - b[0] * other[1]) / det,
+        (a[0] * other[1] - other[0] * a[1]) / det,
+    ];
+    f.add("K-E5.demand", list(other))?;
+    f.add("K-E5.shares", list(shares))?;
+    let kept = [
+        shares[0] / (Frac::whole(1) - values[0]),
+        shares[1] / (Frac::whole(1) - values[1]),
+    ];
+    f.add("K-E5.totals_by_pattern", list(kept))?;
+    let total = [kept[0] * a[0] + kept[1] * b[0], kept[0] * a[1] + kept[1] * b[1]];
+    if Some(total) != c.output_for(other) {
+        return Err("the lopsided demand's split disagrees with the inverse".into());
+    }
+    f.add("K-E5.total", list(total))?;
+    f.add(
+        "K-E5.rounds",
+        c.rounds(other, 3)
+            .iter()
+            .map(|r| Ok(format!("{};{}", decimal(r[0])?, decimal(r[1])?)))
+            .collect::<Result<Vec<_>, String>>()?
+            .join(" "),
+    )?;
     Ok(())
 }
 
@@ -901,50 +1030,58 @@ fn factory_facts(f: &mut Facts) -> Result<(), String> {
 /// K-Q: each quiz's countdown and its answer, computed.
 fn quizzes(f: &mut Facts) -> Result<(), String> {
     let t = Truss::pratt();
-    let lone = t.moves(&t.lone_load());
     let softest = t.patterns().vectors.swap_remove(0);
     let (hz, heavy) = (t.hertz(truss::DECK_KG), t.hertz(shown::HEAVY_DECK_KG));
     let mut worst = ("", 0);
-    for room in [shown::NARROW, rooms::STUDY, rooms::CUBE] {
-        let (_, shared) = lowest(&room)?;
+    for room in [rooms::NARROW, rooms::STUDY, rooms::CUBE] {
+        let shared = room.sharing_a_tone(200);
         if shared > worst.1 {
             worst = (room.name, shared);
         }
     }
-    let hungry = economy::hungry()
-        .eigenvalues()
-        .ok_or("the hungry table's eigenvalues are not fractions")?[0];
-    let best = factory::corners()
-        .into_iter()
-        .max_by(|a, b| {
-            factory::profit(a.0, a.1)
-                .to_f64()
-                .total_cmp(&factory::profit(b.0, b.1).to_f64())
-        })
-        .ok_or("no corner")?;
     let pick = |yes: bool, a: &str, b: &str| (if yes { a } else { b }).to_owned();
     for q in QUIZZES {
         let answer = match q.line {
             "02_6" => wholes(&carts::pushes([1.0, 1.0]))?,
-            "03_1" => wholes(&carts::pushes([1.0, -1.0]))?,
-            "05_4" => lone
-                .iter()
-                .filter(|u| u.abs() > 1e-9 * largest(&lone))
-                .count()
-                .to_string(),
-            "06_2" => pick(t.deck_sign_changes(&softest) == 0, "sag", "alternating"),
-            "07_4" => pick(heavy[0] < hz[0], "down", "up"),
-            "09_5" => fixed(rooms::SOUND_M_PER_S / (2.0 * rooms::BATHROOM.sides_m()[0]), 1)?,
+            "04_5" => {
+                let u = carts::moves([0.0, 1.0]);
+                format!(
+                    "{},{}",
+                    Frac::new((u[0] * 3.0).round() as i128, 3),
+                    Frac::new((u[1] * 3.0).round() as i128, 3)
+                )
+            }
+            "06_3" => pick(t.deck_sign_changes(&softest) == 0, "sag", "alternating"),
+            "07_4" => pick(heavy[0] < hz[0], "slower", "faster"),
+            "09_4" => fixed(rooms::SOUND_M_PER_S / (2.0 * rooms::BATHROOM.sides_m()[0]), 1)?,
             "11_3" => worst.0.to_owned(),
-            "12_3" => list(economy::thrifty().eats(pair(shown::EVEN_MIX))),
-            "13_4" => pick((hungry - Frac::whole(1)).num > 0, "grow", "shrink"),
-            "14_2" => point(best),
+            "12_2" => list(economy::thrifty().eats(pair(shown::EVEN_MIX))),
             other => return Err(format!("quiz {other} has no answer in facts.rs")),
         };
         f.add(&format!("K-Q.{}.seconds", q.line), q.seconds)?;
         f.add(&format!("K-Q.{}.answer", q.line), answer)?;
     }
     Ok(())
+}
+
+/// Whether a 2 by 2 table with no negative entry has an eigenvector with no
+/// negative entry for its largest eigenvalue. The eigenvalues are real (the
+/// discriminant is (a − d)² + 4bc ≥ 0); the eigenvector is (b, λ − a), or
+/// (λ − d, c), or, when both are zero, any vector: then the table is λ times
+/// the identity on that line, and (1, 0) or (0, 1) serves.
+fn nonnegative_pattern_for_largest(m: &[[f64; 2]; 2]) -> bool {
+    let ([a, b], [c, d]) = (m[0], m[1]);
+    let lambda = (a + d + ((a - d).powi(2) + 4.0 * b * c).sqrt()) / 2.0;
+    let tiny = 1e-12;
+    let candidates = [[b, lambda - a], [lambda - d, c], [1.0, 0.0], [0.0, 1.0]];
+    candidates.iter().any(|v| {
+        let big = v[0].abs().max(v[1].abs());
+        let image = [a * v[0] + b * v[1], c * v[0] + d * v[1]];
+        big > tiny
+            && (image[0] - lambda * v[0]).abs() < 1e-9 * big.max(1.0)
+            && (image[1] - lambda * v[1]).abs() < 1e-9 * big.max(1.0)
+            && ((v[0] >= -tiny && v[1] >= -tiny) || (v[0] <= tiny && v[1] <= tiny))
+    })
 }
 
 /// The largest entry, in size, of a matrix given as a slice.
@@ -987,6 +1124,28 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     }
     f.add("K-X1.symmetric.checked", checked)?;
     f.add("K-X1.symmetric.hold", holds)?;
+    // its edge: a repeated eigenvalue (R1), where the patterns are not
+    // unique but can still be chosen at right angles
+    let repeated = [
+        Mat::from_rows(&[&[2.0, 0.0], &[0.0, 2.0]]),
+        Mat::from_rows(&[&[2.0, 1.0, 1.0], &[1.0, 2.0, 1.0], &[1.0, 1.0, 2.0]]),
+    ];
+    let mut repeated_hold = 0;
+    for a in &repeated {
+        let e = jacobi_eigh(a);
+        let n = a.n;
+        let mut ok = true;
+        for r in 0..n {
+            for c in 0..n {
+                let entry: f64 = (0..n).map(|k| e.values[k] * e.vectors[k][r] * e.vectors[k][c]).sum();
+                let want = if r == c { 1.0 } else { 0.0 };
+                ok &= (entry - a.at(r, c)).abs() < 1e-12 && (dot(&e.vectors[r], &e.vectors[c]) - want).abs() < 1e-12;
+            }
+        }
+        repeated_hold += usize::from(ok);
+    }
+    f.add("K-X1.repeated.checked", repeated.len())?;
+    f.add("K-X1.repeated.hold", repeated_hold)?;
 
     // K-X2 (03_4, 15_5): how many directions a 2 by 2 rule sends back along
     // themselves: the carts two, a shear one, a quarter turn none.
@@ -1043,7 +1202,7 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     f.add("K-X5.best_plan", list(best_plan))?;
     f.add("K-X5.best_is_a_corner", Frac::whole(best_profit) == corner_best)?;
 
-    // K-X6 (12_6): "a table with no negative numbers always has an own
+    // K-X6 (12_5): "a table with no negative numbers always has an own
     // pattern with none, and it carries the largest eigenvalue": 1,000
     // seeded tables of positive entries.
     let mut data = Data::new(1907);
@@ -1061,6 +1220,29 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     }
     f.add("K-X6.positive.checked", checked)?;
     f.add("K-X6.positive.hold", holds)?;
+    // its edges: zeros allowed (R1). 1,000 seeded tables whose entries are
+    // zero three times in ten, and four tables picked by hand: a shear, a
+    // swap, a table that sends everything to zero, and two separate goods.
+    let mut data = Data::new(1912);
+    let mut tables: Vec<[[f64; 2]; 2]> = vec![
+        [[1.0, 1.0], [0.0, 1.0]],
+        [[0.0, 1.0], [1.0, 0.0]],
+        [[0.0, 1.0], [0.0, 0.0]],
+        [[1.0, 0.0], [0.0, 2.0]],
+    ];
+    for _ in 0..1000 {
+        let mut entry = || {
+            if data.unit() < 0.3 {
+                0.0
+            } else {
+                data.uniform(0.05, 1.0)
+            }
+        };
+        tables.push([[entry(), entry()], [entry(), entry()]]);
+    }
+    let holds = tables.iter().filter(|m| nonnegative_pattern_for_largest(m)).count();
+    f.add("K-X6.zeros.checked", tables.len())?;
+    f.add("K-X6.zeros.hold", holds)?;
 
     // K-X7 (13_6): "below one, every demand can be met; at one or more, it
     // cannot keep up": the video's table scaled by 1/20, 2/20, …, 40/20, and
@@ -1170,6 +1352,8 @@ mod tests {
         let f = facts().unwrap();
         assert_eq!(f.get("K-X1.symmetric.hold"), f.get("K-X1.symmetric.checked"));
         assert_eq!(f.get("K-X6.positive.hold"), f.get("K-X6.positive.checked"));
+        assert_eq!(f.get("K-X6.zeros.hold"), f.get("K-X6.zeros.checked"));
+        assert_eq!(f.get("K-X1.repeated.hold"), f.get("K-X1.repeated.checked"));
         assert_eq!(f.get("K-X7.scaled.agree"), f.get("K-X7.scaled.checked"));
         assert_eq!(f.get("K-X7.at_one_feeds_itself"), Some("false"));
         assert_eq!(f.get("K-X5.best_is_a_corner"), Some("true"));
@@ -1189,15 +1373,12 @@ mod tests {
         let f = facts().unwrap();
         let want = [
             ("02_6", "1,1"),
-            ("03_1", "3,-3"),
-            ("05_4", "21"),
-            ("06_2", "sag"),
-            ("07_4", "down"),
-            ("09_5", "68.6"),
+            ("04_5", "1/3,2/3"),
+            ("06_3", "sag"),
+            ("07_4", "slower"),
+            ("09_4", "68.6"),
             ("11_3", "cube"),
-            ("12_3", "7,7"),
-            ("13_4", "grow"),
-            ("14_2", "40,20"),
+            ("12_2", "7,7"),
         ];
         assert_eq!(want.len(), QUIZZES.len());
         for (line, answer) in want {

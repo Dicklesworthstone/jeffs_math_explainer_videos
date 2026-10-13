@@ -1,0 +1,24 @@
+# Decisions — Video K (eigen_engineering)
+
+One row per choice that later revisions start from (the owner's workflow,
+2026-10-13). A revision reads this first and changes only what its request
+needs; a change to a row is made on purpose and written here. "Approved"
+means approved by the owner; until he has seen the drafts every row is the
+director's default, marked so.
+
+| id | what | why | where it lives | status |
+|---|---|---|---|---|
+| D-01 | Slug `eigen_engineering`, working title "The One Idea Behind Bridges, Concert Halls and Economies", voice michael, chapters ≤ 85 s | the order's defaults | brief; `src/main.rs`; `./x` voice table (not yet: narration is after the owner's review) | default |
+| D-02 | Notation shared with Video J: λ and v for eigenpairs; `V Λ V⁻¹` in general, `Q Λ Qᵀ` for symmetric tables; "the rule", "arrow"; the violet quiz card; no θ or ρ; the matrices here are K, M and C, never A | one family of videos; A is the member's cross-section in k = EA/L | brief "Notation"; mail threads `notation-gjk`, `video-jk-notation` | agreed by mail |
+| D-03 | Colour roles: moves and things made blue `#58C4DD`; pushes and things used up orange `#F2994A`; own pattern gold `#FFD866`; squeezed magenta `#E0408F`; stretched deep teal `#26867C`; quiz violet `#B189D6`; good green; warn red | every pair ΔE2000 ≥ 20.9; the first amber, pink and teal failed | storyboard §3; brief | default |
+| D-04 | Seven countdown quizzes (02_6, 04_5, 06_3, 07_4, 09_4, 11_3, 12_2) and seven plain prediction pauses | R1 C13: none closer than a minute, one where the split happens, none a repeat; the owner asked for quizzes in every video, and seven real ones beat ten with three repeats | storyboard; `model::QUIZZES`; `K-Q.*` | default; the owner may want more |
+| D-05 | No camera route: every picture is flat (10_1 is a plan and a side view) | R1 E28 against C8: a 3D room would cost the slow route for an idea two views carry | storyboard chapter 10 and Showcase | default |
+| D-06 | The cell method (11_5) runs on a small attic studio, 6 by 3 m, its ceiling sloping to 1.25 m, 232 cells, modes at 29.8, 56.1 and 59.9 Hz | R1 R17, M17: the first draft's hall section had every mode below hearing, where the act had just said modes do not matter | `rooms::Section::attic`; `K-N1.*`; oracle `SECTION` | default |
+| D-07 | The factory problem of the owner's third image is one picture in 14_5's list of limits, not a chapter; its plotted corner (0, 60), which breaks the aluminium limit, is corrected in the description, not on screen | R1 C5, M18: a chapter answering a mix-up no viewer had; the honest contrast stays | storyboard 14_5; `K-L*`; description (bead .5) | default; the owner's image, his call |
+| D-08 | Rooms in chapter 11: ordinary 4.8 × 4 × 2.6 m, narrow 6.1 × 2.1 × 2.5 m, cube 3 m | R1 R9, D7: no side a whole multiple of another, so only the cube stacks tones | `rooms::STUDY`, `NARROW`; `K-R4`, `K-R5` | default |
+| D-09 | The ending: the Millennium Bridge's engineers had the sideways modes right (within 10%); what no code had asked was what would push along with them; three questions | R1 R1: Dallard et al. 2001 says so; the first ending said the opposite | storyboard 14_6, 14_7; protected.tsv | default |
+| D-10 | Length: 17.6 min by the G2 estimate over 14 chapters, 0.6 min over the order's 13–17 | the R1 clarity fixes; ready cuts, in order, if the draft runs long: 08_6's second of stillness and 01_6's hold (−3 s); 07_5's sentence two (−3 s); 09_5's slide to 107 and 137 Hz (−7 s); 13_5 and 13_6, the hungry economy, to one beat (−12 s); 04_5 and 04_6, the right-cart quiz (−14 s); 11_3 and 11_4, the cube quiz, to one beat (−12 s) | storyboard | default; measured on the P5 draft |
+| D-11 | FrankenSim is cited by path only where the subject is there (`fs-modal`'s Lanczos solver and chain test, the 100,489-unknown casebook, `rectangular_cavity_modes`, `fs-truss` as a linear program); never for the truss, rooms or economy, which it does not hold | the owner pointed at it; honesty about what it has | fact sheet §Findings 1; lower-thirds 07_6, 09_2, 10_1, 11_5, 14_5 | default |
+| D-12 | The bridges are told from their primary sources only: Tacoma as torsional flutter fed by the wind (never "resonance" bare); London as a sideways push that grew with the motion (never "the walkers fell into step") | Billah and Scanlan 1991; Dallard 2001, Strogatz 2005 and Belykh 2021 disagree on synchrony, and the words stay true under both | storyboard 08; protected.tsv | default |
+| D-13 | "Mode" is introduced at 07_1, once mass is counted; before that, "own pattern" and "eigenvector" | R1 M10, R6, D4: K's own patterns are not the modes when masses differ | storyboard; vocabulary | default |
+| D-14 | Two devices carry the whole video: the arrow test and the ladder of own patterns | R1 C1 | storyboard "The one picture" | default |

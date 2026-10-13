@@ -23,10 +23,15 @@ problems.
 - **Where the idea stops**: tables with too few own patterns, systems with
   too many modes, and rules that are not tables.
 
-**Status: in production.** The brief, the facts and their oracle and the
-storyboard are done (`./x eigen_engineering facts-check` passes); the review
-of the storyboard, the script, scenes and drafts follow. Nothing has been
+**Status: in production.** The brief, the facts and their oracle, the
+storyboard and its first review (R1, every finding disposed in
+`docs/reviews/eigen_engineering/R1.md`) are done; `./x eigen_engineering
+facts-check` passes. The script, scenes and drafts follow. Nothing has been
 narrated, scored or rendered at 4K yet.
+
+- `docs/protected.tsv`: the words every revision keeps, checked with the
+  skill's `protected_check.py` after every script change.
+- `docs/decisions.md`: each choice made so far, why, and where it lives.
 
 ```bash
 ./x eigen_engineering test          # tests, clippy -D warnings, fmt --check

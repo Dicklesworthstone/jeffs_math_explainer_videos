@@ -35,15 +35,11 @@ pub const QUIZZES: &[Quiz] = &[
         seconds: 5,
     },
     Quiz {
-        line: "03_1",
+        line: "04_5",
         seconds: 5,
     },
     Quiz {
-        line: "05_4",
-        seconds: 4,
-    },
-    Quiz {
-        line: "06_2",
+        line: "06_3",
         seconds: 5,
     },
     Quiz {
@@ -51,7 +47,7 @@ pub const QUIZZES: &[Quiz] = &[
         seconds: 4,
     },
     Quiz {
-        line: "09_5",
+        line: "09_4",
         seconds: 6,
     },
     Quiz {
@@ -59,15 +55,7 @@ pub const QUIZZES: &[Quiz] = &[
         seconds: 5,
     },
     Quiz {
-        line: "12_3",
-        seconds: 6,
-    },
-    Quiz {
-        line: "13_4",
-        seconds: 5,
-    },
-    Quiz {
-        line: "14_2",
+        line: "12_2",
         seconds: 6,
     },
 ];

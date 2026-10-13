@@ -35,10 +35,17 @@ pub const CUBE: Room = Room {
     name: "cube",
     dm: [30, 30, 30],
 };
-/// An ordinary room (a model): 5 by 4 m, 2.5 m high.
+/// An ordinary room (a model): 4.8 by 4 m, 2.6 m high. No side is a whole
+/// multiple of another, so below its crossover no two modes share a tone
+/// (R1: a 5 by 4 by 2.5 m room put 32 of its 65 modes on shared tones).
 pub const STUDY: Room = Room {
     name: "study",
-    dm: [50, 40, 25],
+    dm: [48, 40, 26],
+};
+/// A long narrow room (a model): 6.1 by 2.1 m, 2.5 m high.
+pub const NARROW: Room = Room {
+    name: "narrow",
+    dm: [61, 21, 25],
 };
 /// A box the size of a large concert hall (a model): 45 by 23 m, 18 m high.
 pub const HALL: Room = Room {
@@ -119,6 +126,24 @@ impl Room {
         count - 1
     }
 
+    /// The modes at or below `hertz` that share their tone exactly with
+    /// another mode (decided in whole numbers, as `at_or_below` is).
+    pub fn sharing_a_tone(&self, hertz: u64) -> usize {
+        let [x, y, z] = self.dm.map(u128::from);
+        let key = |n: [u32; 3]| {
+            let t = [
+                u128::from(n[0]) * y * z,
+                u128::from(n[1]) * x * z,
+                u128::from(n[2]) * x * y,
+            ];
+            t.iter().map(|t| t * t).sum::<u128>()
+        };
+        let keys: Vec<u128> = self.modes_below(hertz).iter().map(|(n, _)| key(*n)).collect();
+        keys.iter()
+            .filter(|k| keys.iter().filter(|o| o == k).count() > 1)
+            .count()
+    }
+
     /// The modes at or below `hertz`, lowest first (ties in the order of
     /// their numbers), with their frequencies.
     pub fn modes_below(&self, hertz: u64) -> Vec<([u32; 3], f64)> {
@@ -177,12 +202,12 @@ pub struct Section {
     pub air: Vec<Vec<bool>>,
 }
 
-pub const SECTION_COLS: usize = 30;
+pub const SECTION_COLS: usize = 24;
 pub const SECTION_ROWS: usize = 12;
-pub const SECTION_CELL_M: f64 = 1.5;
+pub const SECTION_CELL_M: f64 = 0.25;
 
 impl Section {
-    /// The plain rectangle, 45 by 18 m: the hall's box seen from the side.
+    /// The plain rectangle, 6 by 3 m: the attic's box seen from the side.
     pub fn boxed() -> Self {
         Self {
             cols: SECTION_COLS,
@@ -192,16 +217,18 @@ impl Section {
         }
     }
 
-    /// A hall that is not a box (a model): the ceiling drops by 6 m over
-    /// the first 9 m (the stage), and the floor climbs toward the back in
-    /// five steps of 1.5 m, each 3 m deep (the raked seats).
-    pub fn hall() -> Self {
+    /// A small room that is not a box (a model): an attic studio 6 m long
+    /// and 3 m high, whose ceiling slopes down over the last 4 m to 1.25 m,
+    /// in steps of a quarter of a metre every half metre. Its modes are in
+    /// the audible bass, where a small room's single modes rule (R1: the
+    /// first draft cut a hall's side view, whose modes all sit below
+    /// hearing).
+    pub fn attic() -> Self {
         let mut s = Self::boxed();
         for row in 0..s.rows {
             for col in 0..s.cols {
-                let over_the_stage = col < 6 && row >= s.rows - 4;
-                let steps = if col >= 20 { (col - 20) / 2 + 1 } else { 0 };
-                s.air[row][col] = !over_the_stage && row >= steps;
+                let height = if col < 8 { s.rows } else { s.rows - (col - 8) / 2 };
+                s.air[row][col] = row < height;
             }
         }
         s
@@ -270,13 +297,13 @@ impl Section {
     }
 }
 
-/// The modes of the hall's side view, solved once (306 cells take a moment).
-pub fn hall_section() -> &'static (Section, Eigen) {
+/// The attic's modes, solved once (232 cells take a moment).
+pub fn attic_section() -> &'static (Section, Eigen) {
     static SOLVED: std::sync::OnceLock<(Section, Eigen)> = std::sync::OnceLock::new();
     SOLVED.get_or_init(|| {
-        let hall = Section::hall();
-        let eigen = hall.eigen();
-        (hall, eigen)
+        let attic = Section::attic();
+        let eigen = attic.eigen();
+        (attic, eigen)
     })
 }
 
@@ -307,12 +334,19 @@ mod tests {
     }
 
     #[test]
-    fn the_hall_section_is_one_piece_of_air_with_one_mode_at_rest() {
-        let (hall, e) = hall_section();
-        assert_eq!(hall.cells().len(), 306);
+    fn the_attic_is_one_piece_of_air_with_one_mode_at_rest() {
+        let (attic, e) = attic_section();
+        assert_eq!(attic.cells().len(), 232);
         assert!(e.values[0].abs() < 1e-10);
         assert!(e.values[1] > 1e-4, "one piece: only one eigenvalue of zero");
-        assert!(hall.table().asymmetry() == 0.0);
+        assert!(attic.table().asymmetry() == 0.0);
+    }
+
+    #[test]
+    fn only_the_cube_puts_modes_on_shared_tones() {
+        assert_eq!(STUDY.sharing_a_tone(200), 0);
+        assert_eq!(NARROW.sharing_a_tone(200), 0);
+        assert!(CUBE.sharing_a_tone(200) > 30);
     }
 
     /// The closed form for a full rectangle of cells is the table's own
