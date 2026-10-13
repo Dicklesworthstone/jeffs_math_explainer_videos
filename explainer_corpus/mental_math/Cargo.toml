@@ -1,0 +1,17 @@
+[package]
+name = "mental_math_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Mental Math Tricks That Actually Work (and Why): squares ending in 5, products by parts, squares near 50 and everyday percents, each with its picture; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "mental"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

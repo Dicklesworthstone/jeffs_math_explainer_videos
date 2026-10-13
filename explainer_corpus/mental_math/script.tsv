@@ -1,0 +1,107 @@
+# mental_math: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Quick. What's eighty-five squared?
+01_2	Seven thousand two hundred twenty-five. Eight times nine is seventy-two. Then write twenty-five.
+01_4	If that took you longer than four seconds, here's why. School teaches multiplying on paper. For this one, that's two rows of digits and three carries, built up from the small end.
+01_5	On paper that's fine, because the paper remembers the rows. In your head, you have to hold them all at once.
+01_6	The trick holds one number. Seventy-two.
+01_7	And it rests on a picture. If you ever forget the trick, the picture gives it back. So every trick in this video comes with its picture, and with a few problems for you to try.
+02_1	Here's that trick on a smaller number. Thirty-five squared. Look at the number in front of the five. Three.
+02_2	Multiply it by the next number up. Three times four is twelve.
+02_3	Then write twenty-five after it. One thousand two hundred twenty-five.
+02_4	But why the next number up? Why three times four, and not three times three?
+02_5	Thirty-five squared is the area of a square, thirty-five on each side. Cut each side into thirty and five.
+02_6	The big block is thirty by thirty. The little corner is five by five. That's the twenty-five.
+02_7	That leaves two strips, each thirty long and five wide. Slide one of them round, next to the other.
+02_8	Side by side, they're ten wide. So the block has grown from thirty by thirty to thirty by forty. Three times four, in hundreds.
+02_9	That's where the next number comes from. The two fives make one more ten.
+03_1	Your turn. Whenever you want more time, pause the video. What's twenty-five squared?
+03_2	Two times three is six. Then twenty-five. Six hundred twenty-five.
+03_3	Sixty-five squared?
+03_4	Six times seven is forty-two. Then twenty-five. Four thousand two hundred twenty-five.
+03_5	Now past a hundred, where the number in front is ten. What's a hundred and five squared?
+03_6	Ten times eleven is a hundred and ten. Then twenty-five. Eleven thousand and twenty-five.
+03_7	It works for every whole number that ends in five. If the number in front is n, the square is n, times n plus one, in hundreds. Plus twenty-five.
+03_8	It is only as easy as that one multiplication. A hundred thirty-five squared needs thirteen times fourteen. For that, we need a way to multiply any two numbers.
+04_1	Twenty-three times forty-six. No fives to help. Before anything else, ask how big the answer should be. Twenty times fifty is a thousand. So, somewhere near a thousand.
+04_2	Now draw it. A rectangle, twenty-three by forty-six. Its area is the answer.
+04_3	Break each number into parts. Twenty and three. Forty and six. The rectangle falls into four pieces.
+04_4	Take the big piece, twenty by forty. Two times four is eight. But eight what? Eighty, eight hundred, or eight thousand?
+04_5	Eight hundred. Twenty times four is eighty already, so twenty times forty has to be ten times that. Tens times tens are hundreds.
+04_6	So leave the zeros out while you multiply. Then put them back by asking how big the piece has to be.
+04_7	The other three go the same way. Twenty times six, a hundred twenty. Three times forty, a hundred twenty. Three times six, eighteen.
+04_8	Four easy multiplications. What's left is adding them up. And that's the part that goes wrong.
+05_1	Four numbers is a lot to hold while you're still multiplying. So don't hold them. Keep one running total, and add each piece the moment you have it.
+05_2	Start with the big piece. Eight hundred. Add a hundred twenty. Nine hundred twenty. Another hundred twenty. One thousand forty. And eighteen. One thousand fifty-eight.
+05_3	You only ever held one number. And the first thing you said, eight hundred, was already in the right neighbourhood.
+05_4	Your turn. Six times forty-three?
+05_5	Six forties are two hundred forty. Six threes are eighteen. Two hundred fifty-eight.
+05_6	And the one we left. Thirteen times fourteen?
+05_7	A hundred. A hundred forty. A hundred seventy. A hundred eighty-two. So a hundred thirty-five squared is eighteen thousand two hundred twenty-five.
+06_1	Forty-seven times fifty-three. Before you start on the parts, look at the two numbers. What do they have in common?
+06_2	They're the same distance from fifty. Three below, and three above.
+06_3	So draw fifty squared, and lay the rectangle over it. It sticks out by three on one side, and falls short by three on the other.
+06_4	Move the part that sticks out into the gap. It nearly fills it. What's missing is one small square, three by three.
+06_5	So the answer is fifty squared, minus three squared. Twenty-five hundred, minus nine. Two thousand four hundred ninety-one.
+06_6	Your turn. Nineteen times twenty-one?
+06_7	The middle is twenty, and they're one away. Four hundred, minus one. Three hundred ninety-nine.
+06_8	Sixty-five times seventy-five?
+06_9	The middle is seventy. Five away. Forty-nine hundred, minus twenty-five. Four thousand eight hundred seventy-five.
+06_10	It needs a middle that's easy to square. Forty-seven times fifty-six has its middle at fifty-one and a half. Back to parts.
+07_1	The next trick comes with a story. Los Alamos, in the nineteen forties. Richard Feynman is working under Hans Bethe, and they're putting numbers into a formula. They get to forty-eight squared.
+07_2	Feynman reaches for the calculator, a mechanical one. Bethe says, that's twenty-three hundred.
+07_3	Feynman starts pushing the buttons anyway. And Bethe says that if he wants it exactly, it's twenty-three oh four.
+07_4	Feynman is impressed. And Bethe asks him a question. Don't you know how to square numbers near fifty?
+07_5	Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared?
+07_6	Bethe's way. Forty-eight is two below fifty, so take two hundred off. That's his twenty-three hundred. Then add two squared. Twenty-three oh four.
+08_1	Here's why that works. Forty-eight squared sits inside fifty squared. To cut down to it, take a strip off the top and a strip off the side. Each strip is fifty by two. A hundred each.
+08_2	But the two strips cross in the corner. That small square, two by two, got taken off twice. So one of them goes back. Plus four.
+08_3	Now a number above fifty. What changes for fifty-three squared?
+08_4	The same picture, with the strips put on. Two strips, fifty by three. Lay them end to end and they're a hundred by three. Three hundreds. And this time the corner is new. Three by three. Nine.
+08_5	So fifty-three squared is twenty-five hundred, plus three hundred, plus nine. Two thousand eight hundred nine.
+08_6	Which gives a quick way to say it. Start from twenty-five. Add the distance from fifty, or take it off. That's the hundreds. Then write the distance squared.
+09_1	Your turn. Fifty-two squared?
+09_2	Twenty-five plus two is twenty-seven. Two squared is four. Twenty-seven oh four.
+09_3	Forty-six squared?
+09_4	Four below. Twenty-five minus four is twenty-one. Four squared is sixteen. Twenty-one sixteen.
+09_5	Fifty-seven squared?
+09_6	Seven above. Thirty-two. Seven squared is forty-nine. Thirty-two forty-nine.
+09_7	That reads straight off while you're within nine of fifty. Further out, the square spills over into the hundreds. Sixty-two squared is thirty-seven hundred, plus a hundred forty-four.
+09_8	Feynman says he took up tricks like this himself after that. He writes that he very rarely beat Bethe to an answer. And he says why. Every number was near something Bethe knew.
+10_1	Now money. A forty-eight dollar bill, and you want to leave fifteen percent. Ten percent is easy. The decimal point moves one place. Four dollars eighty.
+10_2	Five percent is half of that. Two forty. Together, seven dollars twenty.
+10_3	And twenty percent is the ten percent block, doubled.
+10_4	Your turn. Fifteen percent on sixty dollars?
+10_5	Ten percent is six dollars. Half of that is three. Nine dollars.
+10_6	Now a stranger one. What's eight percent of twenty-five?
+10_7	Turn it round. Twenty-five percent of eight is a quarter of eight. Two. And eight percent of twenty-five is also two.
+10_8	Percent means per hundred. So both are eight times twenty-five, over a hundred. The same rectangle, turned on its side.
+10_9	Your turn. Four percent of seventy-five?
+10_10	Seventy-five percent of four. Three quarters of four is three. The swap only pays when one of the two is a friendly percent.
+11_1	Some numbers are one step from a round one. Five is half of ten. So five times eighty-six is ten times eighty-six, cut in half. Eight sixty, halved. Four hundred thirty.
+11_2	The same cut works between two numbers. Fourteen times thirty-five. Halve the fourteen, double the thirty-five. Seven times seventy. Four hundred ninety.
+11_3	Nine is one short of ten. So nine times thirty-seven is ten of them, less one. Three seventy, minus thirty-seven. Three hundred thirty-three.
+11_4	Prices are built for this. Four things at nineteen ninety-nine. Call it four twenties. Eighty dollars. Then give back four cents. Seventy-nine ninety-six.
+11_5	Your turn. Five times sixty-four?
+11_6	Six hundred forty, halved. Three hundred twenty.
+11_7	Sixteen times forty-five?
+11_8	Halve and double. Eight times ninety. Seven hundred twenty.
+11_9	Three things at four ninety-nine each?
+11_10	Three fives are fifteen dollars. Give back three cents. Fourteen ninety-seven.
+12_1	Now they're mixed up, so the first job is to pick the trick. Pause whenever you like. Seventy-five squared?
+12_2	It ends in five. Seven times eight is fifty-six. Five thousand six hundred twenty-five.
+12_3	Forty-nine times fifty-one?
+12_4	One either side of fifty. Twenty-five hundred, minus one. Two thousand four hundred ninety-nine.
+12_5	Fifty-four squared?
+12_6	Near fifty. Twenty-nine. Then sixteen. Twenty-nine sixteen.
+12_7	A twenty percent tip on forty-five dollars?
+12_8	Ten percent is four fifty. Doubled, nine dollars.
+12_9	Six times forty-nine?
+12_10	Six fifties, less six. Two hundred ninety-four.
+13_1	Last one. Sixty-seven times seventy-eight?
+13_2	Nothing to grab. No five, no easy middle, no round number next door. Parts still works. Forty-two hundred. Forty-six eighty. Fifty-one seventy. Fifty-two twenty-six.
+13_3	That's four pieces with carrying, and it's slow. There's no shame in reaching for paper, or a calculator. That's what they're for.
+13_4	But keep one habit even then. Round first. Seventy times eighty is fifty-six hundred. So if the screen says five hundred, or fifty thousand, you know something went wrong.
+14_1	Look back at three of the pictures. Thirty-five squared. Forty-eight squared. Forty-seven times fifty-three. What did they share?
+14_2	One move. Slide a strip from one side of a square to the other, and you're left with an easy rectangle and a small square. Thirty times forty, plus twenty-five. Forty-six times fifty, plus four. Fifty squared, minus nine.
+14_3	None of this is new. An American school book from eighteen forty-four has the fives trick, the middle trick and the near fifty trick, all on one page.
+14_4	And none of it takes a gift. It takes a few numbers you know well, and the habit of looking for the nearest one. Every number is near something you know.
