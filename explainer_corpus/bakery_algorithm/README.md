@@ -6,11 +6,12 @@ the ticket is ready. The proof survives a read overlapping a write that
 returns garbage. The later CPU chapter separates that register model from
 real memory ordering.
 
-**Status: final cut (review 3). The owner has authorized publication; it is not
-public yet.** The cut below was built on 2026-10-12 from the frozen narration
-(report `b142acacd3eb1aaa17ccd3e762917c1d`), with picture and mux at
-`7767d25a77c7b2f540166a3f637018d06d750a53`. Publishing is the upload lane's step;
-the YouTube title, description and tags are in [publish/](publish/youtube.md).
+**Status: published.** Watch it at <https://youtu.be/eXU6NC2fuCw> (Public
+since 2026-10-12, 4K, English captions). The published file is the final cut
+below, unchanged: built on 2026-10-12 from the frozen narration (report
+`b142acacd3eb1aaa17ccd3e762917c1d`), with picture and mux at
+`7767d25a77c7b2f540166a3f637018d06d750a53`. The YouTube title, description and
+tags are in [publish/](publish/youtube.md).
 
 ## Watch and inspect
 
@@ -118,7 +119,7 @@ proof or proves a memory-ordering implementation correct.
 - [x] Final-audio speech-recognition pass over the exact master.
 - [x] The owner said the latest michael cuts "sound pretty good" and authorized publication (2026-10-12).
 - [ ] An uninterrupted full watch on a real device: none is recorded.
-- [ ] Published on YouTube by the upload lane (4K processing and captions confirmed).
+- [x] Published on YouTube by the upload lane on 2026-10-12, under its plain title, with 4K processing complete and English captions Published.
 
 Review evidence is on `mx-e-c-7v0.18`; final integration is
 `mx-e-c-7v0.15`, and the listening protocol is `mx-e-c-7v0.13`.

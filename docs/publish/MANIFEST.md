@@ -1,26 +1,35 @@
-# Publishing manifest: release authorized, nothing public yet (2026-10-12, 21:10 EDT)
+# Publishing manifest: three videos are Public, the fish video's final is owed (2026-10-12, 21:16 EDT)
 
-**Nothing is public yet.** On 2026-10-12 the owner authorized publishing the four michael cuts once
-the final fixes and checks are done (relayed in mail 1361): "ok please just wrap things up and make
-those fixes and then do final ultra high quality renderings to 4k 60fps for youtube, and give them
-the final names and descriptions, nothing with '[Michael review]' or similar in the titles. We want
-to just publish them, ok?" Shortly before, he said "the latest videos with the michael voice sound
-pretty good" (mail 1358). **Only BronzeRidge uploads a video or makes it Public**; nobody else
-publishes. The originals and every earlier Private upload are kept.
+**Three of the four videos are Public** on the channel since 2026-10-12, about 21:07 EDT: RaptorQ,
+Hoeffding's D and the bakery video (BronzeRidge, mails 1368 and 1378). Each is the unchanged,
+verified master under its plain title, with its description as the producer file, English captions
+Published and 4K complete; BronzeRidge confirmed Public, Published Oct 12, 2026 and no notices
+again after a fresh reload of the channel's content page. Checked from outside at 21:18 through
+YouTube's oEmbed endpoint: the three links resolve publicly with exactly the titles below, and the
+fish v3 link answers 403. **The fish video is not public**: its v3 upload stays Private, and the
+new final with the label fix gets a new URL once it is verified.
+
+The owner authorized this on 2026-10-12 (relayed in mail 1361): "ok please just wrap things up and
+make those fixes and then do final ultra high quality renderings to 4k 60fps for youtube, and give
+them the final names and descriptions, nothing with '[Michael review]' or similar in the titles. We
+want to just publish them, ok?" Shortly before, he said "the latest videos with the michael voice
+sound pretty good" (mail 1358). **Only BronzeRidge uploads a video or makes it Public**; nobody else
+publishes. The originals and every earlier upload are kept, and the earlier uploads stay Private.
 
 ## The release set
 
-| Video | Final title (no suffix) | Master to publish (md5) | Captions (md5) | Description (md5) | State |
+| Video | Final title (no suffix) | State and link | Master (md5) | Captions (md5) | Description (md5) |
 |---|---|---|---|---|---|
-| Hoeffding's D | Hoeffding's D: The Ring That Correlation Can't See | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (`76f66ca94c83b647a14d5f421c3d1cb2`) | `hoeffding.en.srt` beside it (`b643a09d…`) | `explainer_corpus/hoeffding_d/publish/michael/description.txt` (`5cbe867f…`) | ready |
-| Fish | How to Count Fish You've Never Seen | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4`: **a new final is owed** (in production at 21:10); v3 (`a6a990f5…`, kept at `final_v3/`) lacks the label fix 8770672 | `capture_recapture.en.srt` beside it (v3's: `20620a55…`) | `explainer_corpus/capture_recapture/publish/michael/description.txt` (`d7baab5a…`) | **blocked on its new final** (chapter 12 re-rendered, master, verify, fw); timeline and audio are to stay as v3's |
-| RaptorQ | The Arithmetic Where 3 × 7 = 9 | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` (`8e0afadf33bee181d59a81447d06fcb8`) | `raptorq_gf256.en.srt` beside it (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/publish/michael/description.txt` (`e12a9273…`) | ready |
-| Bakery | The Algorithm Lamport Is Proudest Of | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` (`9ed06e7d12d38a87d748d8a58806d296`) | `bakery_algorithm.en.srt` beside it (`522946ba…`) | `explainer_corpus/bakery_algorithm/publish/michael/description.txt` (`96737b34…`) | ready |
+| Hoeffding's D | Hoeffding's D: The Ring That Correlation Can't See | **Public**: https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (`76f66ca94c83b647a14d5f421c3d1cb2`) | `hoeffding.en.srt` beside it (`b643a09d…`) | `explainer_corpus/hoeffding_d/publish/michael/description.txt` (`5cbe867f…`) |
+| Fish | How to Count Fish You've Never Seen | **Not public**: blocked on its new final (chapter 12 re-rendered, master, verify, fw), which gets a new URL. v3 stays Private at https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4`: **a new final is owed** (in production at 21:10); v3 (`a6a990f5…`, kept at `final_v3/`) lacks the label fix 8770672; timeline and audio are to stay as v3's | `capture_recapture.en.srt` beside it (v3's: `20620a55…`) | `explainer_corpus/capture_recapture/publish/michael/description.txt` (`d7baab5a…`) |
+| RaptorQ | The Arithmetic Where 3 × 7 = 9 | **Public**: https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` (`8e0afadf33bee181d59a81447d06fcb8`) | `raptorq_gf256.en.srt` beside it (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/publish/michael/description.txt` (`e12a9273…`) |
+| Bakery | The Algorithm Lamport Is Proudest Of | **Public**: https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` (`9ed06e7d12d38a87d748d8a58806d296`) | `bakery_algorithm.en.srt` beside it (`522946ba…`) | `explainer_corpus/bakery_algorithm/publish/michael/description.txt` (`96737b34…`) |
 
 Titles, descriptions and tags are each crate's `publish/michael/{title,description,tags}.txt`; the
-upload page's other fields are in its `publish/youtube.md`. The review uploads below carry
-"[Michael review N]" in their titles: the public title is the plain one above. All 12 links in the
-four descriptions answered HTTP 200 on 2026-10-12 at 21:06.
+upload page's other fields are in its `publish/youtube.md`. The three Public videos are the same
+uploads that were reviewed Private (same URLs), retitled from "[Michael review N]" to the plain
+titles above; BronzeRidge re-hashed each local master against the audited md5 before publishing.
+All 12 links in the four descriptions answered HTTP 200 on 2026-10-12 at 21:06.
 
 **Encoding: the existing masters are the final quality; they are not re-rendered or re-encoded.**
 Every chapter of all four is 3840×2160, 60 fps, H.264 High, x264 CRF 16 preset slow, BT.709, with
@@ -52,24 +61,28 @@ exception, at −17.6 to −18.2 LUFS with the true peak at the −1.5 dBTP ceil
 the level, and no uninterrupted full watch is recorded: the cuts are published as he heard them.
 In the tables below, "ready" for a review upload meant available for a Private upload only.
 
-## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
+## Uploads (by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
+
+Every upload began as a Private review upload. The three marked Public were made Public on
+2026-10-12 (above); all the others are Private.
 
 | Cut | Link | Master | md5 | Status |
 |---|---|---|---|---|
-| Hoeffding robert (original) | https://youtu.be/savJOtXm7AQ | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | kept; michael chosen instead |
-| bakery michael, review 1 | https://youtu.be/PpmO9Gato2w | `explainer_corpus/bakery_algorithm/renders/final_review1/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | superseded by review 3 (https://youtu.be/eXU6NC2fuCw) |
-| fish matt (original) | https://youtu.be/fUXsjbWsgNg | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | kept; michael chosen instead |
-| RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | superseded by repair 12 (https://youtu.be/uWDPs9JIwEk): "phones", "once", "those", "peels" lost their s; audit items |
-| Hoeffding michael v2 | https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | the current Hoeffding cut; evidence below |
-| bakery michael, review 3 | https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | the current bakery cut; evidence below |
-| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | the reviewed fish cut, to be superseded by the new final with the label fix; evidence below |
-| RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | the current RaptorQ cut; saved Private, SD/HD/4K complete, English captions Published; evidence below |
+| Hoeffding robert (original) | https://youtu.be/savJOtXm7AQ | `explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4` | `016f42a28ff497065dd9eb2a18a6f0a1` | Private; kept; michael chosen instead |
+| bakery michael, review 1 | https://youtu.be/PpmO9Gato2w | `explainer_corpus/bakery_algorithm/renders/final_review1/bakery_algorithm_master.mp4` | `19f2e859c0ee1a0841c0115ac69ab656` | Private; superseded by review 3 (https://youtu.be/eXU6NC2fuCw) |
+| fish matt (original) | https://youtu.be/fUXsjbWsgNg | `explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4` | `528918af361165d6f73862d5fc5b9107` | Private; kept; michael chosen instead |
+| RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | Private; superseded by repair 12 (https://youtu.be/uWDPs9JIwEk): "phones", "once", "those", "peels" lost their s; audit items |
+| Hoeffding michael v2 | https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | **Public** since 2026-10-12 under its plain title; 4K complete, English captions Published; evidence below |
+| bakery michael, review 3 | https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | **Public** since 2026-10-12 under its plain title; 4K complete, English captions Published; evidence below |
+| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | Private; the reviewed fish cut, to be superseded by the new final with the label fix (a new URL); evidence below |
+| RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | **Public** since 2026-10-12 under its plain title; SD/HD/4K complete, English captions Published; evidence below |
 
 When a corrected review 2 of the bakery video or RaptorQ is copied here, the review-1 files above
 move to `renders/final_review1/` in the same crate (never deleted), and this table says so.
 
-BronzeRidge (Codex) uploaded Hoeffding michael v2 and bakery review 3 (mails 1295 and 1301). Both
-are saved Private, English and Education, with the synthetic-narration disclosure, the matching
+The receipts of the review uploads, as they stood before publication: BronzeRidge (Codex) uploaded
+Hoeffding michael v2 and bakery review 3 (mails 1295 and 1301). Both were saved Private, English
+and Education, with the synthetic-narration disclosure, the matching
 thumbnail and the description equal to the producer file (Hoeffding `5cbe867f…`, bakery
 `96737b34…`); each one's exact SRT (`b643a09d…`, `522946ba…`) is verified Published in the
 subtitles table, and BronzeRidge later reported both 4K-complete in Studio. The older uploads above
@@ -85,7 +98,9 @@ the exact SRT `3b8c3ebe…` Published as English (video language), the thumbnail
 Education and the synthetic-narration disclosure applied; SD, HD and 4K are complete with no
 notices (BronzeRidge, mail 1346, checked at 20:41). BronzeRidge's screenshot of
 the channel shows all four new michael reviews Private with no notices, beside the four kept
-earlier uploads. Every path above was re-checked by md5 on the build host.
+earlier uploads. Every path above was re-checked by md5 on the build host. RaptorQ, Hoeffding and
+the bakery video have since been retitled and made Public (the top of this file); the fish v3
+upload has not.
 
 ## Ready, not uploaded
 
@@ -205,4 +220,5 @@ voice in the review title. A cut is done only with its video ID and processing s
 
 For the public release the settings are the same, with Visibility Public and the plain title from
 the release set above (no voice, no review number). A release is done only with its video ID, its
-Public state, its captions and its 4K processing recorded here by the upload lane's receipt.
+Public state, its captions and its 4K processing recorded here by the upload lane's receipt: done
+for RaptorQ, Hoeffding and the bakery video (mails 1368 and 1378), owed for the fish video.
