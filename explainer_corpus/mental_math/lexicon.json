@@ -1,0 +1,137 @@
+{
+ "_comment": "Pronunciation lexicon for Video F (narration skill, PRONUNCIATION.md). Only respell, accept and phrases change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py in this video's voice, michael (2026-10-13, ftts 0.1.11, FrankenWhisper 0.10.0, control + decoys; the default three carriers, and for Bethe and n the script's own sentences). The script speaks three names, Feynman, Bethe and Los Alamos (chapters 09 to 11), and the letter n once (03_6). Marchant, Chase and Karatsuba are on screen only and are not in this file. Nothing here has been heard by a person: the verdicts are transcripts and, for Bethe, formant measurements. Re-probe when the voice or the ftts version changes; the owner's pronunciation overrides every entry.",
+ "words": {
+  "Feynman": {
+   "say": "FYNE-mun",
+   "respell": [
+    "Feynman",
+    "Fineman"
+   ],
+   "accept": [
+    "fineman"
+   ],
+   "ipa": "ˈfaɪnmən",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Richard_Feynman",
+    "https://www.dictionary.com/browse/feynman"
+   ],
+   "decoy": [
+    "Fayn-man"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "results": {
+     "Feynman": "control UNVERIFIED: written 'Feynman', 'Fine men', 'Feynman'; the decoy was written differently in the second and third carriers, so those two count",
+     "Fineman": "candidate UNVERIFIED: written 'Feynman' in all three carriers",
+     "Fyne-mun": "candidate UNVERIFIED: 'Fine Munn', 'Feynman', 'Feynman'",
+     "FYNE-mun": "candidate FAIL: spelled out as letters in two carriers ('FY in a month'): dropped",
+     "Fayn-man": "decoy: 'Feynman' in the first carrier (fooled), 'Fain man' and 'Fane Man' in the others"
+    }
+   },
+   "note": "English; Wikipedia's lead and Dictionary.com agree (FYNE-mun). The plain spelling is read with the right vowel wherever the recogniser can tell (it writes the famous name for the wrong vowel too in 'This is ___.'). The plain spelling goes first; 'Fineman' is the alternate."
+  },
+  "Bethe": {
+   "say": "BAY-tuh",
+   "respell": [
+    "Bayta",
+    "Bayter"
+   ],
+   "accept": [
+    "beta",
+    "bayta",
+    "baita",
+    "bayter"
+   ],
+   "ipa": "ˈbeːtə",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Hans_Bethe",
+    "https://www.dictionary.com/browse/bethe"
+   ],
+   "decoy": [
+    "Beth-uh",
+    "Beeta"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "results": {
+     "Bethe": "control FAIL 0/4: read as 'Beeth' ('Beeth', 'B that', 'Beath'; the sentence-initial one lost the name)",
+     "Bayta": "candidate, written 'Beta' in 4 of 4 script carriers; stressed vowel in 'This is ___.': F1 578 falling to 492 Hz, F2 1575 rising to 1871 Hz (a glide from an open start, as in 'bay')",
+     "Bayter": "candidate, written 'Beta' 4 of 4; F1 655 to 536, F2 1415 to 1919 (michael drops the r)",
+     "Baytuh": "candidate, written 'Betu', 'Baetu', 'Beto', 'Beta': the last vowel wanders; F1 569 to 393, F2 1495 to 2225",
+     "Bay-tuh": "candidate, 'Bay Tuck', 'Beta', 'Beitu', 'Beta': a stray k once",
+     "Baiter": "candidate, 'beta' three times and 'Biter' once: dropped",
+     "BAY-tuh": "candidate, 'Beta' 4 of 4 here but 'Bay 2' twice with the default carriers: dropped",
+     "Beth-uh": "decoy heard differently ('Beth'); its vowel is steady: F1 559 to 591, F2 1651 to 1771",
+     "Beeta": "decoy written 'Beta' in 4 of 4, the same as the candidates; its vowel is the one in 'bee': F1 418 falling to 308, F2 1750 to 2105"
+    }
+   },
+   "note": "German [ˈbeːtə]; Dictionary.com and Collins give BAY-tuh for English too. Wikipedia's lead also lists an English reading with 'th' and no citation (fact sheet, finding 10): that reading is the first decoy. The plain spelling cannot be used: michael reads it 'Beeth'. The recogniser writes 'Beta' for BAY-tuh and for BEE-tuh alike, so it cannot verify this name, and 'beta' in accept only tells the gates that the name was said. The vowel was judged by measurement instead (LPC formants of the stressed vowel in 'This is ___.', first half to second half): every 'Bay' spelling starts with F1 near 550 to 650 Hz and glides, the BEE decoy sits near 300 to 420 Hz, the control 'Beeth' at 260 to 390. That is one carrier and a measurement, not a listener's verdict: whoever directs the narration should listen to 09_1's take, and the owner's pronunciation overrides."
+  },
+  "Los Alamos": {
+   "say": "lawss AL-uh-mohss",
+   "respell": [
+    "Los Alamos"
+   ],
+   "ipa": "lɔs ˈæl əˌmoʊs",
+   "lang": "en",
+   "sources": [
+    "https://www.dictionary.com/browse/los-alamos"
+   ],
+   "decoy": [
+    "Loss Uh-lah-moss"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": null,
+    "discriminates": false,
+    "results": {
+     "Los Alamos": "control UNVERIFIED: written 'Los Alamos' in all three carriers; the decoy was written differently in the second and third ('L'Amos', 'Los Erlamos'), so those two count",
+     "Loss Al-uh-mohss": "candidate UNVERIFIED: 'Los Alumos', 'Los Alamos', 'Los Alamos': no better than the plain spelling",
+     "lawss AL-uh-mohss": "candidate PARTIAL: spelled out as letters once: dropped",
+     "Loss Uh-lah-moss": "decoy: 'Los Alamos' in the first carrier (fooled), different in the others"
+    }
+   },
+   "note": "English usage (stress on AL), from Dictionary.com; Wikipedia's lead for the town has no IPA. The plain spelling is kept; the decoy is the Spanish stress."
+  },
+  "n": {
+   "say": "en",
+   "respell": [
+    "n"
+   ],
+   "lang": "en",
+   "sources": [],
+   "decoy": [
+    "an"
+   ],
+   "probe": {
+    "date": "2026-10-13",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "n",
+    "discriminates": true,
+    "results": {
+     "n": "control PASS 2/2 in the script's own sentence ('In letters, call the number in front N.') and in 'Call it N, the number in front.'; at the very start of a sentence it was heard as 'and', which the script never does",
+     "en": "candidate PASS 2/2, but written 'end' once",
+     "an": "decoy heard differently"
+    }
+   },
+   "note": "The letter, spoken once: 'call the number in front n' (03_6), the owner's letter for the digits left of the 5. The plain letter reads correctly at the end of a sentence."
+  }
+ },
+ "phrases": {
+  "fine men": "feynman",
+  "fine munn": "feynman"
+ }
+}

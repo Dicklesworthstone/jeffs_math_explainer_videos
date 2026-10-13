@@ -118,40 +118,41 @@ pub fn ends_in_five(number: u64) -> Option<EndsInFive> {
     })
 }
 
-/// The one move of the video: a strip `strip` wide is sliced off the side of
-/// a square of side `side` and laid along its top. What is left is a
-/// rectangle, narrower and taller by the strip's width, and a small square
-/// where the end of the strip overhangs. It is the picture behind squares
-/// ending in 5 (a strip of 5), squares near 50 (a strip as wide as the
-/// distance from 50) and, run backwards, two numbers equally far from a
-/// middle.
+/// The one move of the video: a strip `strip` deep is sliced off the top of
+/// a square of side `side` and stood against its right side. What is left
+/// is a rectangle, shorter and wider by the strip's depth, and a small
+/// square where the end of the strip stands above it. It is the picture
+/// behind squares ending in 5 (a strip of 5), squares near 50 (a strip as
+/// deep as the distance from 50) and, run backwards, two numbers equally far
+/// from a middle.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct OneMove {
     pub side: u64,
     pub strip: u64,
 }
 
-/// `None` when the strip is wider than the square.
+/// `None` when the strip is deeper than the square.
 pub fn one_move(side: u64, strip: u64) -> Option<OneMove> {
     (strip <= side).then_some(OneMove { side, strip })
 }
 
 impl OneMove {
-    /// The rectangle's width: the square's side less the strip.
-    pub fn wide(&self) -> u64 {
+    /// The rectangle's height: the square's side less the strip.
+    pub fn tall(&self) -> u64 {
         self.side - self.strip
     }
 
-    /// The rectangle's height: the square's side plus the strip.
-    pub fn tall(&self) -> u64 {
+    /// The rectangle's width: the square's side plus the strip.
+    pub fn wide(&self) -> u64 {
         self.side + self.strip
     }
 
     pub fn rectangle(&self) -> u64 {
-        self.wide() * self.tall()
+        self.tall() * self.wide()
     }
 
-    /// The end of the strip that overhangs: a square as wide as the strip.
+    /// The end of the strip that stands above the rectangle: a square as
+    /// wide as the strip is deep.
     pub fn corner(&self) -> u64 {
         self.strip * self.strip
     }
@@ -531,13 +532,6 @@ impl Quiz {
                     answer: s(product),
                 }
             }
-            (Trick::RoundThenFix, Ask::Times(count, each)) => {
-                let r = round_then_fix(count, each, each.next_multiple_of(10));
-                Worked {
-                    steps: vec![s(r.round), s(r.rounded), s(r.fix)],
-                    answer: s(r.total),
-                }
-            }
             (Trick::RoundThenFix, Ask::TimesMoney(count, cents)) => {
                 let r = round_then_fix(count, cents, cents.next_multiple_of(100));
                 Worked {
@@ -551,9 +545,9 @@ impl Quiz {
 }
 
 /// Every quiz of the video, in the order it is asked, each on the
-/// storyboard line that asks it. The first is the cold open; chapter 12 is
-/// the mixed round; 13_1 is a product with nothing to grab; the last is a
-/// square two tricks agree on.
+/// storyboard line that asks it. The first is the cold open; from chapter 12
+/// on the viewer must pick the trick; 13_1 is a product with nothing to
+/// grab; the last is a square two tricks agree on.
 pub const QUIZZES: &[Quiz] = &[
     quiz("01_1", Trick::EndsInFive, Ask::Square(85), 4),
     quiz("03_1", Trick::EndsInFive, Ask::Square(25), 5),
@@ -564,12 +558,9 @@ pub const QUIZZES: &[Quiz] = &[
     quiz("07_3", Trick::HalveAndDouble, Ask::Times(16, 45), 5),
     quiz("07_6", Trick::RoundThenFix, Ask::TimesMoney(3, 499), 5),
     quiz("08_6", Trick::Pair, Ask::Times(19, 21), 5),
-    quiz("11_1", Trick::NearFifty, Ask::Square(52), 5),
-    quiz("11_3", Trick::NearFifty, Ask::Square(46), 5),
+    quiz("11_1", Trick::NearFifty, Ask::Square(46), 5),
     quiz("12_1", Trick::PercentBlocks, Ask::PercentOfMoney(20, 4500), 5),
-    quiz("12_3", Trick::EndsInFive, Ask::Square(75), 5),
-    quiz("12_5", Trick::RoundThenFix, Ask::Times(6, 49), 5),
-    quiz("12_7", Trick::Pair, Ask::Times(49, 51), 5),
+    quiz("12_3", Trick::Pair, Ask::Times(49, 51), 5),
     quiz("13_1", Trick::ByParts, Ask::Times(67, 78), 6),
     quiz("14_1", Trick::EndsInFive, Ask::Square(55), 5),
 ];
@@ -627,14 +618,14 @@ mod tests {
     fn the_one_move_keeps_the_square_s_area() {
         let m = one_move(35, 5).unwrap();
         assert_eq!(
-            (m.wide(), m.tall(), m.rectangle(), m.corner(), m.square()),
+            (m.tall(), m.wide(), m.rectangle(), m.corner(), m.square()),
             (30, 40, 1200, 25, 1225)
         );
         let m = one_move(48, 2).unwrap();
-        assert_eq!((m.wide(), m.tall(), m.rectangle(), m.corner()), (46, 50, 2300, 4));
+        assert_eq!((m.tall(), m.wide(), m.rectangle(), m.corner()), (46, 50, 2300, 4));
         let m = one_move(53, 3).unwrap();
-        assert_eq!((m.wide(), m.tall(), m.rectangle(), m.corner()), (50, 56, 2800, 9));
-        // nothing moved is the square itself; a strip wider than the square cannot be cut
+        assert_eq!((m.tall(), m.wide(), m.rectangle(), m.corner()), (50, 56, 2800, 9));
+        // nothing moved is the square itself; a strip deeper than the square cannot be cut
         assert_eq!(one_move(35, 0).unwrap().rectangle(), 1225);
         assert!(one_move(5, 6).is_none());
         for side in 0..=200 {

@@ -127,17 +127,18 @@ def count_cells(height, width, row_cut, col_cut):
 
 
 def moved(side, strip):
-    """The one move, by counting cells: a strip `strip` wide sliced off the right of a
-    square and laid along its top. (wide, tall, cells in the rectangle, cells that overhang)."""
+    """The one move, by counting cells: a strip `strip` deep sliced off the top of a
+    square and stood against its right side. (wide, tall, cells in the rectangle, cells
+    that stand above it, all cells)."""
     cells = set()
-    for i in range(side):  # rows, from the bottom
-        for j in range(side - strip):  # what is left of the square
-            cells.add((i, j))
-    for i in range(strip):  # the strip, turned, on top
+    for i in range(side - strip):  # rows, from the bottom: what is left of the square
         for j in range(side):
-            cells.add((side + i, j))
-    wide, tall = side - strip, side + strip
-    rectangle = sum(1 for (i, j) in cells if j < wide)
+            cells.add((i, j))
+    for i in range(side):  # the strip, turned, against the right side
+        for j in range(strip):
+            cells.add((i, side + j))
+    wide, tall = side + strip, side - strip
+    rectangle = sum(1 for (i, j) in cells if i < tall)
     return wide, tall, rectangle, len(cells) - rectangle, len(cells)
 
 
@@ -153,12 +154,9 @@ QUIZZES = [
     ("07_3", "halve_and_double", ("times", 16, 45), 5),
     ("07_6", "round_then_fix", ("times_money", 3, 499), 5),
     ("08_6", "pair", ("times", 19, 21), 5),
-    ("11_1", "near_fifty", ("square", 52), 5),
-    ("11_3", "near_fifty", ("square", 46), 5),
+    ("11_1", "near_fifty", ("square", 46), 5),
     ("12_1", "percent_blocks", ("percent_of_money", 20, 4500), 5),
-    ("12_3", "ends_in_five", ("square", 75), 5),
-    ("12_5", "round_then_fix", ("times", 6, 49), 5),
-    ("12_7", "pair", ("times", 49, 51), 5),
+    ("12_3", "pair", ("times", 49, 51), 5),
     ("13_1", "by_parts", ("times", 67, 78), 6),
     ("14_1", "ends_in_five", ("square", 55), 5),
 ]
@@ -228,13 +226,11 @@ def worked(trick, ask):
         check(f"{a} x {b} = {a // 2} x {2 * b}", (a // 2) * (2 * b) == a * b)
         return [a // 2, 2 * b], a * b
     if trick == "round_then_fix":
-        count, each = n
-        step = 100 if kind == "times_money" else 10
-        show = money if kind == "times_money" else (lambda v: v)
-        round_ = up_to(each, step)
-        fix = count * round_ - count * each
-        check(f"{count} x {each}: the fix is {count} x {round_ - each}", fix == count * (round_ - each))
-        return [show(round_), show(count * round_), show(fix)], show(count * each)
+        count, cents = n
+        round_ = up_to(cents, 100)
+        fix = count * round_ - count * cents
+        check(f"{count} x {money(cents)}: the fix is {count} x {round_ - cents} cents", fix == count * (round_ - cents))
+        return [money(round_), money(count * round_), money(fix)], money(count * cents)
     raise SystemExit(f"oracle: no trick {trick}")
 
 
@@ -282,8 +278,9 @@ def main():
         emit(f"F-M.n{side}.square", cells)
         check(f"{side}^2: the move keeps every cell", cells == side * side)
         check(f"{side}^2: the rectangle is {wide} by {tall}", rectangle == wide * tall)
-    emit("F-M.n35.hundreds_tiles", f"{30 // 10}x{40 // 10}")
-    emit("F-M.n35.hundreds", moved(35, 5)[2] // 100)
+    wide, tall, rectangle, _, _ = moved(35, 5)
+    emit("F-M.n35.hundreds_tiles", f"{tall // 10}x{wide // 10}")
+    emit("F-M.n35.hundreds", rectangle // 100)
 
     # --- F-T2: 23 x 46 by parts --------------------------------------------------
     a, b = 23, 46
@@ -350,10 +347,11 @@ def main():
     emit("F-T7.price.rounded", money(4 * up_to(1999, 100)))
     emit("F-T7.price.fix", money(4 * up_to(1999, 100) - 4 * 1999))
     emit("F-T7.price.total", money(4 * 1999))
-    emit("F-T7.no_easier.rounded", 10 * 37)
-    emit("F-T7.no_easier.fix", 10 * 37 - 7 * 37)
-    emit("F-T7.no_easier.product", 7 * 37)
-    check("the fix of 7 x 37 is three thirty-sevens", 10 * 37 - 7 * 37 == 3 * 37)
+    emit("F-T7.no_easier.rounded", 7 * up_to(34, 10))
+    emit("F-T7.no_easier.fix", 7 * up_to(34, 10) - 7 * 34)
+    emit("F-T7.no_easier.product", 7 * 34)
+    emit("F-T7.no_easier.by_parts", join(running_totals(7, 34)))
+    check("7 x 34: the fix is seven sixes, and parts is 210 then 28", 7 * 40 - 7 * 34 == 7 * 6 and running_totals(7, 34) == [210, 238])
 
     # --- F-T3: 47 x 53 -----------------------------------------------------------
     x, y = 47, 53
@@ -423,6 +421,23 @@ def main():
     emit("F-N.round_fix.total", a * b)
     check("67 x 80 - 134", a * rb - 134 == a * b)
 
+    # --- F-D: numbers only docs/description.md states --------------------------------
+    wide, tall, rectangle, overhang, cells = moved(97, 3)
+    emit("F-D.n97.tall", tall)
+    emit("F-D.n97.wide", wide)
+    emit("F-D.n97.corner", overhang)
+    emit("F-D.n97.square", 97 * 97)
+    check("97^2 = 94 x 100 + 9", rectangle + overhang == 97 * 97 == 9409)
+    emit("F-D.same_front.hundreds", 23 * 27 // 100)
+    emit("F-D.same_front.ones", 23 * 27 % 100)
+    emit("F-D.same_front.product", 23 * 27)
+    check("23 x 27 is 2 x 3 in hundreds, then 3 x 7", 23 * 27 == 2 * 3 * 100 + 3 * 7)
+    half_middle, half_gap = F(47 + 56, 2), F(56 - 47, 2)
+    emit("F-D.half_middle.middle_squared", money(half_middle**2 * 100))
+    emit("F-D.half_middle.distance_squared", money(half_gap**2 * 100))
+    emit("F-D.half_middle.product", 47 * 56)
+    check("47 x 56 = 51.5^2 - 4.5^2", half_middle**2 - half_gap**2 == 47 * 56)
+
     # --- F-Q: the quizzes ------------------------------------------------------------
     emit("F-Q.count", len(QUIZZES))
     emit("F-Q.countdown_seconds", sum(q[3] for q in QUIZZES))
@@ -433,7 +448,6 @@ def main():
         emit(f"F-Q.{line}.seconds", seconds)
         emit(f"F-Q.{line}.steps", join(steps))
         emit(f"F-Q.{line}.answer", answer)
-    emit("F-Q.12_5.by_parts", join(running_totals(6, 49)))
 
     # --- F-X: the edges of the always sentences -------------------------------------
     def tally(key, cases):
@@ -507,14 +521,18 @@ def main():
     emit("F-C3.chase.pair", 6351)
     emit("F-C3.chase.near_fifty", 2809)
     check("Chase's three examples", 35 * 35 == 1225 and 87 * 73 == 6351 and 53 * 53 == 2809)
-    # Karatsuba's algorithm on 23 x 46: the block, the corner and one product of the two sums
-    block, corner, sums = 20 * 40, 3 * 6, (20 + 3) * (40 + 6)
+    # Karatsuba's algorithm on the digits of 23 x 46: 2 x 4, 3 x 6, and one product of
+    # the two digit sums; the strips are what is left of that product, in tens
+    block, corner, sums = 2 * 4, 3 * 6, (2 + 3) * (4 + 6)
     emit("F-C4.karatsuba.multiplications", len((block, corner, sums)))
     emit("F-C4.karatsuba.block", block)
     emit("F-C4.karatsuba.corner", corner)
-    emit("F-C4.karatsuba.strips", sums - block - corner)
+    emit("F-C4.karatsuba.sums", sums)
+    emit("F-C4.karatsuba.strips_in_tens", sums - block - corner)
     emit("F-C4.karatsuba.product", 23 * 46)
-    check("the two strips come from one product", sums - block - corner == 20 * 6 + 3 * 40)
+    check("the strips come from the product of the digit sums", (sums - block - corner) * 10 == 20 * 6 + 3 * 40)
+    check("three small products rebuild 23 x 46", block * 100 + (sums - block - corner) * 10 + corner == 23 * 46)
+    check("none of the three products is the problem itself", 23 * 46 not in (block, corner, sums))
 
     print(
         f"# {len(_EMITTED)} keys, {_CHECKS[0] - len(_FAILED)} of {_CHECKS[0]} cross-checks passed",

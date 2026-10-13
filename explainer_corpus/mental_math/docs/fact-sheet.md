@@ -8,15 +8,18 @@ at the end was copied from the oracle's output by a script, not typed.
 ./x mental_math facts-check        # mental facts == oracle.py, key by key
 ```
 
-- **Result, 2026-10-13** (the build host; CPython 3.14), with the storyboard
-  as revised after review R1: `facts-check mental_math: 308 video facts
-  against 308 oracle keys: PASS`. The oracle prints 308 keys and passes 80
-  of 80 of its own cross-checks. (At G1, the day before: 277 of 277.)
-- **Rust side:** `./x mental_math test`: 17 tests pass, clippy `-D warnings`
-  and `fmt --check` clean.
+- **Result, 2026-10-13** (the build host; CPython 3.14), with the script as
+  it stands after review R1 and the claim walk: `facts-check mental_math:
+  304 video facts against 304 oracle keys: PASS`. The oracle prints 304 keys
+  and passes all of its own cross-checks. (At G1, the day before: 277 of
+  277.)
+- **Rust side:** `./x mental_math test`: 20 tests pass, clippy `-D warnings`
+  and `fmt --check` clean. One of them, `every_spoken_number_is_a_fact`,
+  spells 161 facts the way the voice reads them and requires each in its
+  script line (`docs/claims.md` has the walk that preceded it).
 - **Rows:** F-H the hook (the paper method); F-T the tricks; F-M the one
   move, on every square the video cuts; F-N the product with nothing to
-  grab; F-Q the quizzes; F-X the edges of the always sentences, each as "how
+  grab; F-D numbers only the description states; F-Q the quizzes; F-X the edges of the always sentences, each as "how
   many hold of how many checked"; F-C cited literals.
 
 ## How the two sides get their numbers
@@ -24,7 +27,7 @@ at the end was copied from the oracle's output by a script, not typed.
 | What | `src/model.rs` (the video) | `oracle.py` (independent) |
 |---|---|---|
 | every answer | by the trick, the way the video works it in the head (the number in front times the next; pieces as a running total; the middle squared less the distance squared; 25 plus the distance; a tenth and half of it; half of ten times; round up, then take the extra off) | plain multiplication of Python integers and Fractions, never the trick |
-| the one move (a strip sliced off a square's side and laid along its top) | sides and areas as sums and products | the moved figure built as a set of unit cells; the cells inside the rectangle and the cells that overhang are counted |
+| the one move (a strip sliced off a square's top and stood against its side) | sides and areas as sums and products | the moved figure built as a set of unit cells; the cells inside the rectangle and the cells that stand above it are counted |
 | the other pictures (the 23 by 46 rectangle, the 47 by 53 rectangle over the square of 50, the grid of cents) | areas as products of the sides | every unit cell put in its piece and the pieces counted |
 | the two-digit reading of a square near 50 | 25 plus the distance, and the distance squared padded to two digits | the decimal string of the plain square, sliced before its last two digits |
 | the paper method (rows, held carries) | long multiplication on digits | a second long multiplication, written on digit strings |
@@ -71,7 +74,9 @@ held together, and the script does not say so.
 5. **Each of the everyday tricks pays only sometimes.** Halving and
    doubling is always true and helps when doubling lands on a round number
    (14 × 37 becomes 7 × 74, no easier). Round then fix helps when the fix is
-   small (7 × 37 as 370 − 111 needs a multiplication for the fix). A tenth
+   small: a round number close by, and few things to fix (7 × 34 as 280 − 42
+   is no easier than 210 + 28; 67 × 78 as 67 × 80 − 134 is no easier than
+   parts). A tenth
    stops being one piece off 5, 10, 15 and 20 percent (17% of $48 is four
    pieces). The swap helps when one side is a percent known as a fraction.
    Each limit is on screen where the trick is taught.
@@ -107,15 +112,25 @@ held together, and the script does not say so.
    "in the nineteen forties" and nothing narrower. That he led a group at
    the time of the story is not established, so his card says only that he
    was a physicist in Bethe's division.
-10. **Wikipedia's pronunciation of Bethe is uncited and stands alone.** It
-    gives a "th"; two dictionaries and the German give BAY-tuh. P3 probes
-    BAY-tuh in `michael`; the owner's pronunciation overrides.
+10. **Bethe's name cannot be verified by speech recognition.** Wikipedia's
+    lead gives an English reading with "th", uncited; two dictionaries and
+    the German give BAY-tuh, which is the target. `michael` reads the plain
+    spelling as "Beeth", so the name goes to the voice respelled ("Bayta").
+    The recogniser writes "Beta" for that and, equally, for a deliberately
+    wrong "Beeta", so it cannot tell the two apart; the vowel was checked by
+    measuring formants in one carrier sentence (`lexicon.json` has the
+    numbers). Nobody has listened to it. The owner's pronunciation
+    overrides. Feynman, Los Alamos and the spoken letter n read correctly
+    from their plain spellings.
 11. **One citation was seen only as a summary.** Karatsuba and Ofman's paper
     is Doklady Akademii Nauk SSSR 145(2), 1962, 293–294 by the Math-Net.Ru
     record as a search engine reported it; the record itself would not load,
     and one encyclopedia page gives volume 146. The lower-third names the
-    algorithm and gives no year; the arithmetic it shows is computed here
-    (`F-C4.karatsuba.*`).
+    algorithm and gives no year. Its first draft was circular (it used the
+    product of the two whole numbers, which is the problem itself); the
+    claim walk caught it. It now works on the digits, (2 + 3) × (4 + 6) − 8
+    − 18 = 24, in tens, and the oracle checks that none of the three
+    products is 23 × 46 (`F-C4.karatsuba.*`).
 12. **The page images of two sources were not seen.** Feynman's passage was
     read through the full-text search of two separate scans of the 1985
     hardcover and two e-text copies, which agree on every sentence used
@@ -133,7 +148,7 @@ extracted text as stated) by this lane or by its research agent.
 
 | id | Source | Seen | Used for |
 |---|---|---|---|
-| S1 | Richard P. Feynman, *"Surely You're Joking, Mr. Feynman!": Adventures of a Curious Character*, as told to Ralph Leighton, edited by Edward Hutchings (New York: W. W. Norton, 1985; ISBN 0-393-01921-7), Part 4, "Lucky Numbers", pp. 192–198; the Bethe passage is on pp. 193–94 | the passage, through full-text search of two scans of the 1985 hardcover and two e-text copies (finding 12); the contents page and the index; the library catalogue record (LCCN 84014703) | chapter 09, the quote at 11_6 |
+| S1 | Richard P. Feynman, *"Surely You're Joking, Mr. Feynman!": Adventures of a Curious Character*, as told to Ralph Leighton, edited by Edward Hutchings (New York: W. W. Norton, 1985; ISBN 0-393-01921-7), Part 4, "Lucky Numbers", pp. 192–198; the Bethe passage is on pp. 193–94 | the passage, through full-text search of two scans of the 1985 hardcover and two e-text copies (finding 12); the contents page and the index; the library catalogue record (LCCN 84014703) | chapter 09, the quote at 11_4 |
 | S2 | Richard P. Feynman, "Los Alamos From Below: Reminiscences 1943–1945", *Engineering and Science* 39(2), Caltech, January–February 1976 (adapted from a 1975 lecture at Santa Barbara) | the journal's own web page | finding 2 only; nothing in the video |
 | S3 | Los Alamos context: Bethe's biography on the Nobel Prize site (from *Nobel Lectures, Physics 1963–1970*), which has him at "the Los Alamos Scientific Laboratory which was engaged in assembling the first atomic bomb"; David Hawkins, *Manhattan District History, Project Y, The Los Alamos Project*, vol. 1 (LAMS-2532), which lists the Theoretical Division's groups under H. A. Bethe as Division Leader, among them "T-4 Diffusion Problems R. P. Feynman"; *Physics Today*, "Hans in war and peace": "Soon after the government created the Los Alamos Laboratory in March 1943 … Hans was appointed head of the lab's theoretical division"; and Feynman's own sentence in S1 that he became a group leader under Bethe | the passages named | 09_1's words and its two name cards |
 | S4 | Pliny E. Chase, *The Elements of Arithmetic, for Schools and Academies … Part Second* (Philadelphia: Uriah Hunt and Son, 1844), pp. 59–60 | title page and pp. 59–60, as OCR text of a Google scan | the line on the receipts card; the description; finding 8 |
@@ -185,17 +200,17 @@ and nowhere else in this repository; everything else from it is paraphrase.
 |---|---|---|---|
 | squared | 01_1 | (assumed: Maya knows it) | 85² |
 | the number in front | 02_1 | "the number in front of the five" | label under the digit; `n` once, at 03_6 |
-| strip, corner | 02_5, 02_7 | "Slice a strip off its side"; "A small square, five by five" | green and orange (storyboard §3) |
+| strip, small square | 02_5, 02_7 | "Slice a strip off the top"; "A small square, five by five" | green and orange (storyboard §3) |
 | round first | 04_1 | "Before anything else, round first." | "about" beside the estimate |
 | parts | 04_3 | "Break each number into parts. Twenty and three." | 20 + 3 on the rectangle's side |
-| pieces; block | 04_3, 04_4 | "four pieces"; "the big piece" | the colours of storyboard §3 |
+| pieces; block, strips, corner | 04_3 | "four pieces. A big block, two strips and a small corner." | the colours of storyboard §3 |
 | running total | 05_1 | "Keep one running total, and add each piece the moment you have it." | one large readout |
-| floor | 05_3 | "every total on the way was a floor. The answer could only go up from it." | a shaded stretch of the number line |
+| floor | 05_3 | "each total was a floor, so the answer could only go up" | a shaded stretch of the number line |
 | a tenth | 06_1 | "Ten percent is one tenth." | one of ten slices of the bill |
 | percent | 06_8 | "Percent means cents on the dollar." | a grid of cents |
-| friendly percent | 06_8 | "like a half, a quarter or a tenth" | 10%, 25%, 50%, 75% with their fractions |
-| round, then fix | 07_5 | "Call it four twenties … Then give back four cents. Round, then fix." | a rectangle with a red sliver off its end |
-| the middle, the distance | 08_1, 08_7, 08_8 | "What number sits exactly halfway between them?"; "the middle is twenty"; "a small distance" | a number line; `a`, `b` in lower-thirds |
+| the swap; friendly percent | 06_7, 06_8 | "Swap the two numbers."; "like a tenth, a quarter or a half" | 10%, 25%, 50% with their fractions |
+| round, then fix | 07_5 | "Call it four times twenty, eighty dollars. Then give back four cents. … That's round, then fix." | a rectangle with a red sliver off its end |
+| the middle, the distance | 08_2 | "It's fifty, the middle. … A distance of three." | a number line; `a`, `b` in lower-thirds |
 | the distributive law, difference of squares, the area model | never spoken | | lower-thirds at 04_7 and 08_5; the receipts card |
 
 ## Simplification → exact
@@ -203,14 +218,14 @@ and nowhere else in this repository; everything else from it is paraphrase.
 | Said | Exact | Where the exact form is |
 |---|---|---|
 | "the number in front, times the next number, then twenty-five" | (10n + 5)² = 100 × n × (n + 1) + 25 for every whole n ≥ 0 | on screen at 03_6 |
-| "five narrower … five taller … a small square, five by five" | a² = (a − b)(a + b) + b² with a = 35, b = 5 | the line at 02_9; in letters at 14_4 |
+| "five shorter … five wider … a small square, five by five" | a² = (a − b)(a + b) + b² with a = 35, b = 5 | the line at 02_9; in letters at 14_4 |
 | "tens times tens are hundreds" | (a × 10)(b × 10) = ab × 100 | the tiling at 04_5 |
-| "every total on the way was a floor" | the partial sums are non-decreasing, and for two-digit numbers 100ac ≤ xy < 100(a + 1)(c + 1), a and c the tens digits | the shaded number line at 05_3 |
-| "turn it round" | x% of y = x × y ÷ 100 = y% of x | lower-third at 06_8 |
-| "halve and double" | (a ÷ 2)(2b) = ab; whole numbers only when a is even | 07_2's picture |
+| "each total was a floor, so the answer could only go up" | the partial sums are non-decreasing, and for two-digit numbers 100ac ≤ xy < 100(a + 1)(c + 1), a and c the tens digits | the shaded number line at 05_3 |
+| "swap the two numbers" | x% of y = x × y ÷ 100 = y% of x | lower-third at 06_8 |
+| "half of one, double the other" | (a ÷ 2)(2b) = ab; whole numbers only when a is even | 07_2's picture |
 | "round, then fix" | n(r − e) = nr − ne | 07_5's picture |
 | "fifty squared, minus three squared" | (a + b)(a − b) = a² − b² | lower-third at 08_5 |
-| "start from twenty-five, add the distance from fifty, or take it off … then write the distance squared, as two digits" | (50 ± b)² = 2500 ± 100b + b²; reads off as two pairs of digits only for b ≤ 9 | lower-thirds at 10_6 and 11_5 |
+| "start from twenty-five. Above fifty, add the distance. Below fifty, take it off. … then write the distance squared, as two digits" | (50 ± b)² = 2500 ± 100b + b²; reads off as two pairs of digits only for b ≤ 9 | lower-thirds at 10_7 and 11_3 |
 | "the same move" | a² = (a − b)(a + b) + b² | on screen at 14_4 |
 | "two rows of digits and three carries" | for 85 × 85, with the convention above | `F-H1.paper.*` |
 
@@ -219,12 +234,12 @@ and nowhere else in this repository; everything else from it is paraphrase.
 | Sentence (line) | Test in `src/facts.rs` | Range, and the edge |
 |---|---|---|
 | "It works for every whole number that ends in five" (03_5) | `edge_the_square_of_every_number_ending_in_five_is_the_front_times_the_next_then_25` | 5 to 99,995; 5 itself (nothing in front); 95 and 995 (the front ends in 9); no other last digit is accepted |
-| the pieces add up, zeros come back by size, "every total on the way was a floor" (04, 05_3) | `edge_the_pieces_always_add_up_to_the_product` | every product up to 99 × 99; round numbers and single digits have fewer pieces; 19 × 19 starts at 100, so nothing is said about leading digits |
+| the pieces add up, zeros come back by size, "each total was a floor" (04, 05_3) | `edge_the_pieces_always_add_up_to_the_product` | every product up to 99 × 99; round numbers and single digits have fewer pieces; 19 × 19 starts at 100, so nothing is said about leading digits |
 | "fifty squared, minus three squared" (08_5) | `edge_equally_far_from_a_middle_is_the_middle_squared_less_the_distance_squared` | every pair up to 200 with a whole middle; distance 0; an odd sum has no whole middle |
-| "That reads straight off while you're within nine of fifty." (11_5) | `edge_near_fifty_is_exact_and_the_two_digit_reading_stops_at_ten_away` | the formula for 0 to 100; the reading for 41 to 59 and no other number |
+| "That reads straight off while you're within nine of fifty." (11_3) | `edge_near_fifty_is_exact_and_the_two_digit_reading_stops_at_ten_away` | the formula for 0 to 100; the reading for 41 to 59 and no other number |
 | the swap, halving and doubling, round then fix, the one move (06, 07, 14_3) | `edge_the_small_tricks_hold_over_their_whole_ranges` | every x, y up to 200; every even number up to 200; every count up to 99 and price up to 999; every square up to 200 and every strip no wider than it |
-| "Any trick that fits gives the same answer" (12_6, on screen) | `the_storyboard_s_spoken_numbers` (`F-Q.12_5.by_parts` against `F-Q.12_5.answer`), and `F-T4.twist.same_two_numbers` for 14_2 | the two quizzes where two tricks fit |
-| every countdown is a quiz with the same seconds | `every_countdown_is_a_quiz_and_every_quiz_has_its_countdown` (`src/main.rs`) | all 17 |
+| "Any trick that fits gives the same answer." (14_2) | each trick's own edge test (every trick is an identity, so two that fit must agree), and `F-T4.twist.same_two_numbers` for the square the line is said about | 55²: the fives trick and near fifty both give 30, then 25 |
+| every countdown is a quiz with the same seconds | `every_countdown_is_a_quiz_and_every_quiz_has_its_countdown` (`src/main.rs`) | all 14 |
 
 ## The numbers
 
@@ -243,12 +258,9 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 | 07_3 | 16x45 | 5 s | halve_and_double | 8, 90 | 720 |
 | 07_6 | 3x$4.99 | 5 s | round_then_fix | 5.00, 15.00, 0.03 | 14.97 |
 | 08_6 | 19x21 | 5 s | pair | 20, 1, 400, 1 | 399 |
-| 11_1 | 52^2 | 5 s | near_fifty | 2, 27, 04 | 2704 |
-| 11_3 | 46^2 | 5 s | near_fifty | -4, 21, 16 | 2116 |
+| 11_1 | 46^2 | 5 s | near_fifty | -4, 21, 16 | 2116 |
 | 12_1 | 20% of $45.00 | 5 s | percent_blocks | 4.50 | 9.00 |
-| 12_3 | 75^2 | 5 s | ends_in_five | 7, 8, 56 | 5625 |
-| 12_5 | 6x49 | 5 s | round_then_fix | 50, 300, 6 | 294 |
-| 12_7 | 49x51 | 5 s | pair | 50, 1, 2500, 1 | 2499 |
+| 12_3 | 49x51 | 5 s | pair | 50, 1, 2500, 1 | 2499 |
 | 13_1 | 67x78 | 6 s | by_parts | 4200, 4680, 5170, 5226 | 5226 |
 | 14_1 | 55^2 | 5 s | ends_in_five | 5, 6, 30 | 3025 |
 
@@ -290,50 +302,50 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 | `F-T1.half.squared` | 56.25 |
 | `F-M.n35.strip_wide` | 5 |
 | `F-M.n35.strip_long` | 35 |
-| `F-M.n35.wide` | 30 |
-| `F-M.n35.tall` | 40 |
+| `F-M.n35.wide` | 40 |
+| `F-M.n35.tall` | 30 |
 | `F-M.n35.rectangle_area` | 1200 |
 | `F-M.n35.corner` | 25 |
 | `F-M.n35.square` | 1225 |
 | `F-M.n34.strip_wide` | 4 |
 | `F-M.n34.strip_long` | 34 |
-| `F-M.n34.wide` | 30 |
-| `F-M.n34.tall` | 38 |
+| `F-M.n34.wide` | 38 |
+| `F-M.n34.tall` | 30 |
 | `F-M.n34.rectangle_area` | 1140 |
 | `F-M.n34.corner` | 16 |
 | `F-M.n34.square` | 1156 |
 | `F-M.n48.strip_wide` | 2 |
 | `F-M.n48.strip_long` | 48 |
-| `F-M.n48.wide` | 46 |
-| `F-M.n48.tall` | 50 |
+| `F-M.n48.wide` | 50 |
+| `F-M.n48.tall` | 46 |
 | `F-M.n48.rectangle_area` | 2300 |
 | `F-M.n48.corner` | 4 |
 | `F-M.n48.square` | 2304 |
 | `F-M.n53.strip_wide` | 3 |
 | `F-M.n53.strip_long` | 53 |
-| `F-M.n53.wide` | 50 |
-| `F-M.n53.tall` | 56 |
+| `F-M.n53.wide` | 56 |
+| `F-M.n53.tall` | 50 |
 | `F-M.n53.rectangle_area` | 2800 |
 | `F-M.n53.corner` | 9 |
 | `F-M.n53.square` | 2809 |
 | `F-M.n50.strip_wide` | 3 |
 | `F-M.n50.strip_long` | 50 |
-| `F-M.n50.wide` | 47 |
-| `F-M.n50.tall` | 53 |
+| `F-M.n50.wide` | 53 |
+| `F-M.n50.tall` | 47 |
 | `F-M.n50.rectangle_area` | 2491 |
 | `F-M.n50.corner` | 9 |
 | `F-M.n50.square` | 2500 |
 | `F-M.n55.strip_wide` | 5 |
 | `F-M.n55.strip_long` | 55 |
-| `F-M.n55.wide` | 50 |
-| `F-M.n55.tall` | 60 |
+| `F-M.n55.wide` | 60 |
+| `F-M.n55.tall` | 50 |
 | `F-M.n55.rectangle_area` | 3000 |
 | `F-M.n55.corner` | 25 |
 | `F-M.n55.square` | 3025 |
 | `F-M.n62.strip_wide` | 12 |
 | `F-M.n62.strip_long` | 62 |
-| `F-M.n62.wide` | 50 |
-| `F-M.n62.tall` | 74 |
+| `F-M.n62.wide` | 74 |
+| `F-M.n62.tall` | 50 |
 | `F-M.n62.rectangle_area` | 3700 |
 | `F-M.n62.corner` | 144 |
 | `F-M.n62.square` | 3844 |
@@ -381,9 +393,10 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 | `F-T7.price.rounded` | 80.00 |
 | `F-T7.price.fix` | 0.04 |
 | `F-T7.price.total` | 79.96 |
-| `F-T7.no_easier.rounded` | 370 |
-| `F-T7.no_easier.fix` | 111 |
-| `F-T7.no_easier.product` | 259 |
+| `F-T7.no_easier.rounded` | 280 |
+| `F-T7.no_easier.fix` | 42 |
+| `F-T7.no_easier.product` | 238 |
+| `F-T7.no_easier.by_parts` | 210, 238 |
 | `F-T3.middle` | 50 |
 | `F-T3.distance` | 3 |
 | `F-T3.middle_squared` | 2500 |
@@ -442,9 +455,18 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 | `F-N.round_fix.rounded` | 5360 |
 | `F-N.round_fix.fix` | 134 |
 | `F-N.round_fix.total` | 5226 |
-| `F-Q.count` | 17 |
-| `F-Q.countdown_seconds` | 87 |
-| `F-Q.12_5.by_parts` | 240, 294 |
+| `F-D.n97.tall` | 94 |
+| `F-D.n97.wide` | 100 |
+| `F-D.n97.corner` | 9 |
+| `F-D.n97.square` | 9409 |
+| `F-D.same_front.hundreds` | 6 |
+| `F-D.same_front.ones` | 21 |
+| `F-D.same_front.product` | 621 |
+| `F-D.half_middle.middle_squared` | 2652.25 |
+| `F-D.half_middle.distance_squared` | 20.25 |
+| `F-D.half_middle.product` | 2632 |
+| `F-Q.count` | 14 |
+| `F-Q.countdown_seconds` | 72 |
 | `F-X1.ends_in_five.holds` | 10000 |
 | `F-X1.ends_in_five.checked` | 10000 |
 | `F-X2.by_parts.holds` | 9801 |
@@ -475,7 +497,8 @@ Copied from `oracle.py`'s output by a script; `mental facts` prints the same key
 | `F-C3.chase.pair` | 6351 |
 | `F-C3.chase.near_fifty` | 2809 |
 | `F-C4.karatsuba.multiplications` | 3 |
-| `F-C4.karatsuba.block` | 800 |
+| `F-C4.karatsuba.block` | 8 |
 | `F-C4.karatsuba.corner` | 18 |
-| `F-C4.karatsuba.strips` | 240 |
+| `F-C4.karatsuba.sums` | 50 |
+| `F-C4.karatsuba.strips_in_tens` | 24 |
 | `F-C4.karatsuba.product` | 1058 |

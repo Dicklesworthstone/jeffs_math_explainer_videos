@@ -6,9 +6,9 @@ rectangle, and every trick is one way to cut that rectangle into easy pieces
 or trade it for an equal one.
 
 - **Squares of numbers ending in 5** (the centrepiece): the number in front,
-  times the next number, then 25. Slice a strip off the side of the square
-  and lay it along the top, and the square of 35 is a rectangle 30 by 40
-  with a 5 by 5 corner sticking out.
+  times the next number, then 25. Slice a strip off the top of the square
+  and stand it against the side, and the square of 35 is a rectangle 30 by
+  40 with a 5 by 5 square sticking up.
 - **Any two-digit product by parts**, kept as a running total so only one
   number is held between steps.
 - **Everyday tricks**: percents from a tenth, x% of y = y% of x, halving and
@@ -18,15 +18,15 @@ or trade it for an equal one.
 - **Squares near 50**, with the story Richard Feynman tells of Hans Bethe
   squaring 48 at Los Alamos: the same move again.
 
-The viewer gets 17 "your turn" quizzes, each with a visible countdown and
-the answer worked through, among them a mixed round where the first job is
-to pick the trick, one product that no trick helps with, where paper is the
-right tool, and a last square that two tricks agree on.
+The viewer gets 14 "your turn" quizzes, each with a visible countdown and
+the answer worked through. In the last four the first job is to pick the
+trick: one is a product that no trick helps with, where paper is the right
+tool, and the last is a square that two tricks agree on.
 
-**Status: in production.** The brief, the facts and their oracle and the
-storyboard are done and reviewed (`./x mental_math facts-check` passes;
-review R1 is in `docs/reviews/mental_math/`); the script, scenes and drafts
-follow. Nothing has been narrated, scored or rendered at
+**Status: in production.** The brief, the facts and their oracle, the
+storyboard and the script are done (`./x mental_math facts-check` passes;
+review R1 is in `docs/reviews/mental_math/`, the claim walk in
+`docs/claims.md`); the scenes and drafts follow. Nothing has been narrated, scored or rendered at
 4K yet.
 
 ```bash
@@ -39,6 +39,10 @@ follow. Nothing has been narrated, scored or rendered at
 - `docs/fact-sheet.md`: every number and every quiz, every source with what
   was and was not seen, and the edge test behind each always sentence.
 - `docs/storyboard.md`: the words and pictures, one row per narration line.
+- `docs/claims.md`: the claim walk of the script and what it changed.
+- `docs/description.md`: the exact form of every trick, for the video's
+  description.
+- `lexicon.json`: the spoken names, probed in the video's voice.
 - `src/model.rs`: each trick as the video works it; `src/facts.rs`: every
   number the video shows or says; `oracle.py`: the same numbers by plain
   arithmetic and by counting unit squares.

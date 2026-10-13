@@ -165,7 +165,7 @@ drafts="$crate/renders/draft"
 # 1% of samples (the narration skill's criterion, which the chooser enforces).
 case "$slug" in
   capture_recapture) own_voice=matt ;;
-  raptorq_gf256|bakery_algorithm|fair_coin) own_voice=michael ;;
+  raptorq_gf256|bakery_algorithm|fair_coin|mental_math) own_voice=michael ;;
   hoeffding_d) own_voice=robert ;;
   *) own_voice= ;;
 esac
