@@ -366,6 +366,15 @@ pub mod sea {
         }
     }
 
+    /// The slices of the first map that successive searches of `cell` put
+    /// out: its chance times the chance of seeing, then that times the
+    /// chance of a miss, and so on. Whatever is searched in between, the
+    /// k-th search of a cell puts out the k-th of these; they only shrink.
+    pub fn slices(cell: usize, searches: u32) -> Vec<Q> {
+        let (p, d) = (prior()[cell], seeing()[cell]);
+        (0..searches).map(|k| p * d * (Q::ONE - d).pow(k)).collect()
+    }
+
     /// The chance that `searches` searches of one cell see what is there,
     /// each seeing it with chance `each`.
     pub fn seen_within(each: Q, searches: u32) -> Q {
@@ -500,8 +509,11 @@ pub mod y1968 {
         /// equally well in this model, so that is the cell with the most
         /// chance left (ties: first in reading order).
         Best,
-        /// The lettered grid row by row, A1 to O1, A2 to O2, and so on,
-        /// then round again.
+        /// The map, never updated: every cell once, likeliest first by the
+        /// prior, then the same order again.
+        Once,
+        /// No map: row by row, A1 to O1, A2 to O2, and so on, then round
+        /// again.
         Sweep,
     }
 
@@ -517,8 +529,10 @@ pub mod y1968 {
 
     /// A model search over the 1968 map: every search of a cell sees a
     /// wreck that is there with the same chance `seeing`, searches are
-    /// independent, and each comes back empty. Not what the Navy did: the
-    /// video's own model on the Navy's map.
+    /// independent, and each comes back empty. Every plan searches the same
+    /// 180 cells, the lettered grid; the dots outside it are out of every
+    /// plan's reach. Not what the Navy did: the video's own model on the
+    /// Navy's map.
     pub fn model_search(rule: Rule, seeing: Q, looks: usize) -> Vec<Look> {
         // w[r][c]: the chance the wreck is in the cell and still unfound
         let mut w: Vec<Vec<Q>> = POINTS
@@ -529,18 +543,21 @@ pub mod y1968 {
                     .collect()
             })
             .collect();
+        // the lettered grid in reading order, and the same cells likeliest
+        // first (a stable sort, so equal cells keep reading order)
         let sweep: Vec<(usize, usize)> = GRID_ROWS.flat_map(|r| GRID_COLS.map(move |c| (r, c))).collect();
+        let mut once = sweep.clone();
+        once.sort_by_key(|&(r, c)| std::cmp::Reverse(POINTS[r][c]));
         let (mut found, mut out) = (Q::ZERO, Vec::with_capacity(looks));
         for look in 0..looks {
             let (row, col) = match rule {
                 Rule::Sweep => sweep[look % sweep.len()],
+                Rule::Once => once[look % once.len()],
                 Rule::Best => {
-                    let mut best = (0, 0);
-                    for (r, row) in w.iter().enumerate() {
-                        for (c, &x) in row.iter().enumerate() {
-                            if x > w[best.0][best.1] {
-                                best = (r, c);
-                            }
+                    let mut best = sweep[0];
+                    for &(r, c) in &sweep {
+                        if w[r][c] > w[best.0][best.1] {
+                            best = (r, c);
                         }
                     }
                     best
@@ -555,15 +572,6 @@ pub mod y1968 {
             });
         }
         out
-    }
-
-    /// The first search (counting from 1) of a model run that goes to `name`.
-    pub fn first_look_at(name: &str, rule: Rule, seeing: Q, limit: usize) -> Option<usize> {
-        let target = at(name)?;
-        model_search(rule, seeing, limit)
-            .iter()
-            .position(|l| (l.row, l.col) == target)
-            .map(|i| i + 1)
     }
 }
 
@@ -868,10 +876,8 @@ pub enum Ask {
     AfterEmpty,
     /// Where to search next.
     NextSearch,
-    /// Two searches of one cell: the chance at least one sees what is there.
+    /// Two searches of one cell: how many of nine dots are caught.
     TwoSearches,
-    /// The cloud's radius doubles: what happens to one flight's coverage.
-    RadiusDoubles,
 }
 
 /// One quiz: its name in the fact keys, the storyboard line that asks it,
@@ -896,12 +902,11 @@ const fn quiz(name: &'static str, line: &'static str, seconds: u32, ask: Ask) ->
 /// Every quiz of the video, in order. The storyboard's countdown beats are
 /// exactly these lines (a test in `main.rs`).
 pub const QUIZZES: &[Quiz] = &[
-    quiz("stories", "03_6", 6, Ask::Stories),
+    quiz("stories", "03_5", 6, Ask::Stories),
     quiz("first_search", "05_4", 6, Ask::FirstSearch),
     quiz("after_empty", "06_5", 6, Ask::AfterEmpty),
-    quiz("next_search", "07_4", 6, Ask::NextSearch),
-    quiz("two_searches", "09_5", 5, Ask::TwoSearches),
-    quiz("radius_doubles", "10_4", 5, Ask::RadiusDoubles),
+    quiz("next_search", "07_3", 6, Ask::NextSearch),
+    quiz("two_searches", "09_5", 6, Ask::TwoSearches),
 ];
 
 #[cfg(test)]
@@ -1007,6 +1012,43 @@ mod tests {
         }
     }
 
+    /// The edge of "a first map that leaves room for the truth": the update
+    /// multiplies and never adds, so a cell with no dots never gains one,
+    /// however many searches come back empty elsewhere.
+    #[test]
+    fn a_cell_with_no_dots_never_gains_one() {
+        let mut p = [q(1, 2), q(1, 2), Q::ZERO, Q::ZERO];
+        for step in 0..30 {
+            p = sea::bayes(&p, step % 2, q(2, 3));
+            assert_eq!((p[2], p[3]), (Q::ZERO, Q::ZERO));
+            assert_eq!(p[0] + p[1], Q::ONE);
+        }
+    }
+
+    /// The proof the video draws: the k-th search of a cell puts out the
+    /// same slice of the first map whatever is searched in between, a
+    /// cell's slices only shrink, and the rule's first n searches are the
+    /// n biggest slices of all.
+    #[test]
+    fn the_rule_takes_the_biggest_slices_first() {
+        let run = sea::run(Rule::Best, 12);
+        let mut taken = [0usize; 4];
+        let mut all: Vec<Q> = (0..4).flat_map(|c| sea::slices(c, 12)).collect();
+        all.sort_by(|a, b| b.cmp(a));
+        let mut found = Q::ZERO;
+        for (n, step) in run.iter().enumerate() {
+            let cell_slices = sea::slices(step.cell, 12);
+            assert!(cell_slices.windows(2).all(|w| w[0] > w[1]), "a cell's slices shrink");
+            // what this search adds is that cell's next slice, and it is
+            // as large as any slice still untaken
+            let slice = cell_slices[taken[step.cell]];
+            assert_eq!(step.found_by - found, slice, "search {}", n + 1);
+            assert_eq!(slice, all[n], "search {} takes the biggest slice left", n + 1);
+            taken[step.cell] += 1;
+            found = step.found_by;
+        }
+    }
+
     /// The edge of "no number of passes makes it certain": for a search
     /// that can miss, every further pass helps and none reaches one.
     #[test]
@@ -1068,15 +1110,31 @@ mod tests {
     }
 
     #[test]
-    fn the_model_search_reaches_f6_long_before_the_sweep() {
+    fn on_the_1968_grid_the_rule_is_never_behind_and_most_of_its_lead_is_the_map() {
         let seeing = q(2, 3);
-        assert_eq!(y1968::first_look_at("F6", y1968::Rule::Best, seeing, 400), Some(35));
-        assert_eq!(y1968::first_look_at("F6", y1968::Rule::Sweep, seeing, 400), Some(81));
-        let best = y1968::model_search(y1968::Rule::Best, seeing, 40);
+        let best = y1968::model_search(y1968::Rule::Best, seeing, 81);
+        let once = y1968::model_search(y1968::Rule::Once, seeing, 81);
+        let sweep = y1968::model_search(y1968::Rule::Sweep, seeing, 81);
         assert_eq!(y1968::name(best[0].row, best[0].col), "E5");
         assert_eq!(best[0].found_by, q(1250 * 2, 30_000));
-        // the first 34 searches all go to cells with more chance left than F6
-        assert!(best[..34].iter().all(|l| (l.row, l.col) != y1968::at("F6").unwrap()));
+        // every plan stays on the lettered grid
+        for plan in [&best, &once, &sweep] {
+            assert!(
+                plan.iter()
+                    .all(|l| y1968::GRID_ROWS.contains(&l.row) && y1968::GRID_COLS.contains(&l.col))
+            );
+        }
+        // never behind: the rule, then the map never updated, then no map
+        for n in 0..81 {
+            assert!(best[n].found_by >= once[n].found_by, "search {}", n + 1);
+            assert!(once[n].found_by >= sweep[n].found_by, "search {}", n + 1);
+        }
+        // at twenty searches most of the rule's lead over no map is the map itself
+        let (b, o, s) = (best[19].found_by, once[19].found_by, sweep[19].found_by);
+        assert!((o - s) > (b - o) * Q::int(5), "{b} {o} {s}");
+        // row by row reaches the wreck's cell, F6, at its place in reading order
+        let f6 = y1968::at("F6").unwrap();
+        assert_eq!(sweep.iter().position(|l| (l.row, l.col) == f6), Some(5 * 15 + 5));
     }
 
     #[test]

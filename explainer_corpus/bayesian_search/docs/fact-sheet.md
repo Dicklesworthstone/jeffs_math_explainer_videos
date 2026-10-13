@@ -9,10 +9,11 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy via uv), with
-  the storyboard: `facts-check bayesian_search: 274 video facts against 274
-  oracle keys: PASS`. The oracle passes 38 of 38 of its own cross-checks.
-  (At G1, before the storyboard: 263 of 263.)
-- **Rust side:** `./x bayesian_search test`: 19 tests pass, clippy
+  the storyboard as revised after review R1: `facts-check bayesian_search:
+  303 video facts against 303 oracle keys: PASS`. The oracle passes 61 of
+  61 of its own cross-checks. (At G1: 263 of 263; with the first
+  storyboard: 274 of 274.)
+- **Rust side:** `./x bayesian_search test`: 21 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** F-M the four-cell sea; F-U the rules for where to search next;
   F-R the 1968 map and the model search over it; F-H the hook's arithmetic;
@@ -29,7 +30,9 @@ at the end was copied from the oracle's output by a script, not typed.
 | "no order of searches does better" | every order of up to 8 searches (65,536 of them at 8), each through the update formula | the same orders by dot counting |
 | the average number of searches | a float sum, with ties decided at one part in 10⁹ | exact fractions for every choice and every term |
 | the 1968 map | `y1968::POINTS`, a full 16 × 20 table transcribed from the page image of Figure 2 | a second transcription, typed from zoomed crops of the same page as sparse rows; its sum is checked against the paper's 10,000 replications, and E5 + B7 against the paper's "23 percent" |
-| the model search over that map | a scan for the cell with the most chance left | a sorted list of (chance left, place in reading order) |
+| the model search over that map (three plans, all on the 180 lettered cells) | a scan for the cell with the most chance left; a stable sort for "each cell once, likeliest first" | a sorted list of (chance left, place in reading order) |
+| the proof in slices | each cell's slices from the closed form p d (1 − d)ᵏ, checked against the rule's run | each cell searched alone, over and over, on the dots; then the rule run on the dots, each search's dots compared with that cell's next slice |
+| the code panel | the four lines as constants (`chapters::glyphs::CODE`), printed as facts | its own copy, checked to be the storyboard's text, then executed on the four-cell sea in exact fractions: the rule's order, and the maps 50, 12.5, 25, 12.5 and 60, 15, 10, 15 |
 | the lanes over a cell | rows and columns marked; swept points = all points minus (unmarked rows × unmarked columns) | the same seed through NumPy's PCG64DXSM; a full 200 × 200 grid of booleans, counted |
 | the drifting cloud | the kit's seeded stream, rejection from the square | NumPy on the same seed, the same rejection, standard-library `hypot` |
 | dates | days from a civil date by arithmetic | `datetime.date` |
@@ -101,7 +104,11 @@ printed with one or two places and none sits near a rounding edge.
    failed to actuate"); the BEA's test of the one recovered beacon found it
    "not functional" two years on and called the test "not conclusive" about
    2009. The authors were asked for the map, not the search plan (p. 72);
-   the plan was the BEA's, a systematic search from the centre outward.
+   the plan was the BEA's, a systematic search from the centre outward, and
+   "It is P̃1234 that the BEA used to plan the successful 2011 search"
+   (p. 75): the first map, the one that counted the silence. Both figures
+   are dark near the centre. So the video draws the wreck's ring the same
+   on both maps, and does not say the first map hid it (review R1, R10).
 7. **The Aldridge search.** The Coast Guard's own releases never mention the
    planning software; its part is as reported by the *New York Times
    Magazine* from the command centre. The helicopter's last track was drawn
@@ -111,14 +118,18 @@ printed with one or two places and none sits near a rounding edge.
    because its inputs were, that new evidence moved it about thirty miles,
    and that a helicopter flying through the new area saw him; it does not
    say the software found him.
-8. **In the small sea the rule's lead is modest, and the script says no
-   more.** On average the rule takes 6.34 searches, a plain sweep 8.00, and
-   "the likeliest cell first" 7.04 (6.92 with the other tie-break); after 3,
-   5 and 6 searches the sweep has found exactly as much as the rule. The
-   theorem is "never behind", and that is what is said. The large gap is on
-   the 1968 map, where the chance is spread over 172 cells: after 20 model
-   searches the rule has found the wreck with chance 52.7% and a row-by-row
-   sweep with 0.8%.
+8. **In the small sea the rule's lead is modest, and on the Navy's map
+   most of the lead is the map.** On average the rule takes 6.34 searches
+   of the small sea, row by row 8.00, and "the likeliest cell first" 7.04
+   (6.92 with the other tie-break); after 3, 5 and 6 searches row by row
+   has found exactly as much as the rule. The theorem is "never ahead of
+   it", and that is what is said. On the 1968 grid (model: the 180 lettered
+   cells, every search sees two in three) twenty searches give, by the
+   map's own reckoning, 0.8% row by row, 44.3% for a plan that has the map
+   and never updates it, and 49.8% for the rule; at eighty-one searches
+   32.9, 57.8 and 73.2. The first draft compared only the first and the
+   last, raced the two to the wreck's own cell (a race a cruder plan wins),
+   and said the percentages of "her" (review R1: D6, R5, R11).
 9. **The paper's miles are sea miles.** It never says so; but 1,026 miles
    are "about 43 days of bottom time at the speed of 1 knot" (1,026 ÷ 24 =
    42.75) and 153 miles are "6.4 days at 24 miles per day". The hook's
@@ -138,6 +149,13 @@ printed with one or two places and none sits near a rounding edge.
     of seeing, and equal costs. For a drifting target the video says only
     that the map must be moved before each update, and makes no claim that
     the simple rule stays best (Brown 1980 treats that problem).
+
+13. **The update never adds.** A cell with no dots stays at zero whatever
+    is searched, so a first map must leave room for the truth; and each of
+    the video's three stories was put right from outside the loop (sweep
+    widths re-measured after the find, a second map, new evidence from the
+    boat). The first storyboard's "it never needs the first map to be
+    right" was false and is gone (review R1's one blocker).
 
 ## Sources
 
@@ -238,43 +256,47 @@ repository and are never committed.
 
 | Term | First said at | As spoken | On screen |
 |---|---|---|---|
-| strip | 02_5 | "the sled that carried the search gear saw a strip only two hundred feet wide" | the strip drawn to scale; "sweep width" once, at 10_3 |
-| map; cell | 03_1, 03_2 | "a map of how likely each place is"; "a sea of four cells" | the grid; "prior" once, at 03_8 |
-| story; weight | 03_2, 03_5 | "two stories of what might have happened"; "People who know submarines weigh the stories" | "scenario" and "credence" once, at 04_1 |
-| dot | 03_5 | "Each dot is one place she could be." | "replication" at 04_2 and "particle" at 11_1, once each |
-| chance | 03_6 | "What is the chance she is in cell A?" | "probability" only in lower-thirds |
-| the chance of seeing her | 05_2 | "a search there sees the wreck only one time in four" | "seen 1 in 4"; "detection probability" once, at 05_6 |
-| the chance of a find | 05_3, 05_6 | "How likely is one search of a cell to find her?"; "the chance she is there, times the chance of seeing her" | p × d with word labels |
+| strip; sled | 02_5 | "the search gear rode a sled, towed just above the sea floor, and saw a strip about two hundred feet wide" | the strip drawn to scale; "sweep width (the width of the strip)" once, at 10_3 |
+| map; cell | 03_1, 03_2 | "a map of how likely each place is"; "Four cells" | the grid; "prior: the map before a search" at 03_7 |
+| story; weight | 03_2, 03_4 | "two stories of what might have happened to it"; "Experts weigh the two stories" | "scenarios" and "credence" once, at 04_2 |
+| dot | 03_4 | "Each dot is one place the wreck could be." | "a dot: one equally likely way things could be" at 06_3; "particle" at 11_1 |
+| chance | 03_5 | "What is the chance the wreck is in cell A?" | "probability" only in lower-thirds |
+| the chance of seeing it | 05_2 | "a search there sees the wreck only one time in four" | "1 in 4"; "detection probability" once, at 05_6 |
+| the chance of a find | 05_3, 05_6 | "How likely is one search of a cell to find the wreck?"; "the chance it is there, times the chance of seeing it" | the three slots under each cell |
 | comes back empty; miss | 06_1, 06_4 | "the search comes back empty"; "because a search can miss" | "empty"; never swapped |
-| update; Bayes' rule | 07_1, 07_6 | "That move has a name. Bayes' rule"; "Update." | "prior" and "posterior" at 07_1 |
-| lanes; track; pass | 09_3, 09_4 | "enough track to pass over a cell once"; "Each pass finds less than the one before." | "coverage" and the random search formula at 09_4 |
+| Bayes' rule; update | 07_1, 07_5 | "That move has a name. Bayes' rule"; "Update." | "update: redrawing the map by Bayes' rule" at 07_2; "prior", "posterior" at 07_1 |
+| slice | 08_2 | "a fixed slice of the first hundred dots" | the bars |
+| fresh try | 08_3, 09_5 | "searches that are fresh tries of equal effort"; "The second is a fresh try" | "each search an independent try" in the description |
+| row by row | 08_4 | "One plan has no map, and goes row by row." | never "the sweep" |
+| track; pass | 09_2, 09_5 | "enough track to pass over a cell once"; "The first pass catches six dots of nine." | "coverage = strip × track ÷ area" at 10_4; the random search formula at 09_4 |
 | drift | 10_2 | "The map drifts, and it spreads." | "leeway" once, at 10_1 |
 
 ## Simplification → exact
 
 | Said | Exact | Where the exact form is |
 |---|---|---|
-| "the chance she is there, times the chance of seeing her" (05_6) | P(find in cell i) = pᵢ dᵢ, with dᵢ conditional on the wreck being in cell i | lower-third at 05_6, with the Coast Guard's POS = POC × POD |
-| "The cell you searched drops. Every other cell rises." (07_3) | pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ); pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) | on screen at 07_3; as printed in 1971 at 13_1 |
-| "Always search where the next search is most likely to find her." (08_1) | maximize pᵢdᵢ; with equal costs P[N > n] is least for every n (Chew 1967, Theorem 2.1); with unequal costs, maximize pᵢdᵢ ÷ cᵢ for the least expected cost (Blackwell; Black 1965) | lower-third at 08_2; the description |
-| "on average the same track covers sixty-three percent" (09_3) | 1 − e^(−WL/A) at WL = A, Koopman (1946), eq. (40), under his three assumptions; hundred-to-a-cell lanes average 63.4 | lower-third at 09_4 |
+| "the chance it is there, times the chance of seeing it" (05_6) | P(find in cell i) = pᵢ dᵢ, with dᵢ conditional on the wreck being in cell i | lower-third at 05_6, with the Coast Guard's POS = POC × POD |
+| "Multiply each cell's chance by the chance that the search would come back empty if the wreck were there ... Then divide by what is left" (07_2) | pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ) for the searched cell i; pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) for every other cell j: one denominator, the chance this search comes back empty | on screen at 07_2; as printed in 1971 at 13_1 |
+| "Always search where the next search is most likely to find it ... no other order is ever ahead" (08_1, 08_3) | maximize pᵢdᵢ; with independent searches of fixed dᵢ, a target that does not move and equal costs, P[N > n] is least for every n (Chew 1967, Theorem 2.1); with unequal costs, maximize pᵢdᵢ ÷ cᵢ for the least expected cost (Blackwell; Black 1965) | lower-third at 08_3; the description |
+| "on average, sixty-three percent" (09_3) | 1 − e^(−WL/A) at WL = A, Koopman (1946), eq. (40), under his three assumptions; hundred-to-a-cell strips average 63.4 | the formula on the plot at 09_4 |
 | "a strip only a tenth of a mile wide" (10_3) | sweep width 0.1 nautical mile: an effective width (the area under the lateral range curve), not a hard edge | lower-third at 10_3 |
 | "The map drifts, and it spreads." (10_2) | each particle is moved by its own draw of wind and current, then reweighted; the cloud need not stay round | "model" on the cloud; the description |
-| "ninety-four went out" (13_2) | the factor 1 − E applied to that cell before the map is divided by 1 − SEP | the 1971 formula at 13_1 |
-| "say what you believe" (14_7) | the distribution is subjective: "The probability distribution on which the search is based is therefore a subjective one" (S3 p. 71) | the description |
+| "By the map's own reckoning" (08_5) | the chance of a find within n searches, averaged over the prior map | the chart's label |
+| "ninety-four went out" (13_2) | the factor 1 − E applied to that cell before the map is divided by 1 − SEP | the 1971 formula at 13_1; F6's three chances at 13_6 |
+| "what changed is what we know" (06_7) | the distribution is subjective: "The probability distribution on which the search is based is therefore a subjective one" (S3 p. 71) | lower-third at 06_7 |
 
 ## Always sentences and their edge tests
 
 | Sentence (line) | Test | Range, and the edge |
 |---|---|---|
-| "Every cell we did not search went up, by the same factor." (06_8) | `an_update_keeps_the_total_and_moves_chance_the_right_way` (`src/model.rs`); the oracle's "every unsearched cell rises by the same factor" | fifteen updates in a row over all four cells; the factor is 1 ÷ (1 − pᵢdᵢ), which is 1 only for a search that cannot see |
-| "The cell you searched drops. Every other cell rises." (07_3) | the same test | the searched cell falls strictly while its chance of being seen is above zero |
-| "No other order of searches is ever ahead." (08_2) | `no_order_of_searches_beats_the_rule`; `F-U.brute.rule_is_best` | every order of 1 to 8 searches (65,536 at 8); the three other rules over 12 searches; ties (the sweep is level at 3, 5 and 6) are why the word is "ahead" |
-| "Each pass finds less than the one before." (09_4) | `lanes_sweep_what_the_formula_says_on_average`; `F-K.formula.*` | the formula's gains 63.2, 23.3, 8.5; a single seeded run can break it lane by lane, so the sentence sits on the formula's curve, not the run's |
-| "No number of passes makes it certain." (09_6) | `no_number_of_passes_makes_it_certain` | 1 to 20 passes at one in four, two in three and nine in ten; the edge is a search that cannot miss, which is certain in one |
-| "An empty search only tells you something if it could have found what you were looking for." (13_6) | `a_blind_search_changes_nothing_and_a_perfect_one_empties_its_cell` | a chance of seeing of zero leaves all four chances exactly as they were; a chance of one empties the cell |
-| every countdown is a quiz with the same seconds | `every_countdown_is_a_quiz_and_every_quiz_has_its_countdown` (`src/main.rs`); the oracle reads the storyboard too | all 6 |
-| every number the script speaks | `the_script_s_spoken_numbers` (`src/facts.rs`) | 85 phrases, each with the fact it rests on |
+| "Every cell we did not search grew by a quarter." (06_8) | `the_hand_example_goes_as_the_video_says`; `an_update_keeps_the_total_and_moves_chance_the_right_way` (`src/model.rs`) | the three unsearched cells, each × 100 ÷ 80; in general every unsearched cell with some chance rises by the same factor 1 ÷ (1 − pᵢdᵢ), which is 1 only for a search that cannot see |
+| "no other order is ever ahead" (08_3) | `no_order_of_searches_beats_the_rule`; `the_rule_takes_the_biggest_slices_first`; `F-U.brute.rule_is_best`, `F-U.slices.rule_takes_biggest` | every order of 1 to 8 searches (65,536 at 8); the rule's first 12 searches against the 12 biggest slices; ties (row by row is level at 3, 5 and 6) are why the word is "ahead"; the three conditions are spoken |
+| "a cell's slices only shrink" (08_2) | the same slices test; the oracle searches each cell alone eight times | strictly, for a chance of seeing strictly between 0 and 1 |
+| "Each pass finds less than the one before, and no number of passes makes it certain." (09_6) | `no_number_of_passes_makes_it_certain` | 1 to 20 passes at one in four, two in three and nine in ten; the edges are a search that cannot miss (certain in one) and passes that are not fresh tries (13_6) |
+| "An empty search only tells you something if it could have found what you were looking for." (14_1) | `a_blind_search_changes_nothing_and_a_perfect_one_empties_its_cell` | a chance of seeing of zero leaves all four chances exactly as they were; a chance of one empties the cell |
+| "A first map that leaves room for the truth." (14_4) | `a_cell_with_no_dots_never_gains_one`; `F-U.zero_stays_zero` | thirty empty searches of the two cells that have dots; the empty cells stay at exactly zero |
+| every countdown is a quiz with the same seconds | `every_countdown_is_a_quiz_and_every_quiz_has_its_countdown` (`src/main.rs`); the oracle reads the storyboard too | all 5 |
+| every number the script speaks | `the_script_s_spoken_numbers` (`src/facts.rs`) | 90 phrases, each with the fact it rests on |
 
 ## The numbers
 
@@ -316,6 +338,16 @@ keys and values.
 | `F-M.empty2.found_by` | 1/3 |
 | `F-M.third.find.percent` | 15.0, 10.0, 6.7, 10.0 |
 | `F-M.third.cell` | A |
+| `F-M.second.find.dots` | 10, 20/3, 40/3, 20/3 |
+| `F-M.second.find.dots.rounded` | 10, 7, 13, 7 |
+| `F-M.split.factor` | 3 |
+| `F-M.split.lit` | 240 |
+| `F-M.split.lit.cells` | 120, 30, 60, 30 |
+| `F-M.split.second.dots_out` | 40 |
+| `F-M.split.second.lit.cells` | 120, 30, 20, 30 |
+| `F-M.third.dots_out` | 30 |
+| `F-M.split.third.lit.cells` | 90, 30, 20, 30 |
+| `F-M.fourth.cell` | A |
 | `F-M.seen_within.1` | 2/3 |
 | `F-M.seen_within.1.percent` | 66.7 |
 | `F-M.seen_within.2` | 8/9 |
@@ -338,6 +370,14 @@ keys and values.
 | `F-U.brute.orders` | 65536 |
 | `F-U.brute.best` | 1/5, 1/3, 13/30, 61/120, 23/40, 77/120, 67/96, 1069/1440 |
 | `F-U.brute.rule_is_best` | true |
+| `F-U.slices.A` | 10.0, 7.5, 5.6, 4.2 |
+| `F-U.slices.B` | 20.0, 6.7, 2.2, 0.7 |
+| `F-U.slices.C` | 13.3, 4.4, 1.5, 0.5 |
+| `F-U.slices.D` | 6.7, 2.2, 0.7, 0.2 |
+| `F-U.best.dots_out` | 20, 40/3, 10, 15/2, 20/3, 20/3, 45/8, 40/9 |
+| `F-U.best.dots_out.rounded` | 20.0, 13.3, 10.0, 7.5, 6.7, 6.7, 5.6, 4.4 |
+| `F-U.slices.rule_takes_biggest` | true |
+| `F-U.zero_stays_zero` | true |
 | `F-R.replications` | 10000 |
 | `F-R.total` | 10000 |
 | `F-R.printed_cells` | 172 |
@@ -362,16 +402,13 @@ keys and values.
 | `F-R.outside.points` | 1100 |
 | `F-R.model.seeing` | 2/3 |
 | `F-R.model.best.first_cells` | E5, B7, C5, G5, E5, B7 |
-| `F-R.model.best.F6_search` | 35 |
-| `F-R.model.sweep.F6_search` | 81 |
-| `F-R.model.best.found_by.10` | 38.1 |
-| `F-R.model.sweep.found_by.10` | 0.0 |
-| `F-R.model.best.found_by.20` | 52.7 |
+| `F-R.model.best.found_by.20` | 49.8 |
+| `F-R.model.best.found_by.81` | 73.2 |
+| `F-R.model.once.found_by.20` | 44.3 |
+| `F-R.model.once.found_by.81` | 57.8 |
 | `F-R.model.sweep.found_by.20` | 0.8 |
-| `F-R.model.best.found_by.35` | 64.0 |
-| `F-R.model.sweep.found_by.35` | 2.1 |
-| `F-R.model.best.found_by.81` | 79.8 |
 | `F-R.model.sweep.found_by.81` | 32.9 |
+| `F-R.model.search_miles` | 28 |
 | `F-H.track.miles` | 1026 |
 | `F-H.track.days_at_one_knot` | 43 |
 | `F-H.strip.feet` | 200 |
@@ -382,6 +419,11 @@ keys and values.
 | `F-H.once.over_track` | 4.5 |
 | `F-H.once.miles.camera` | 4966 |
 | `F-H.once.miles.magnetometer` | 4176 |
+| `F-H.once.miles.believed` | 1148 |
+| `F-H.once.per_cell` | 26 |
+| `F-H.once.passes_per_cell` | 26 |
+| `F-H.track.cells` | 40 |
+| `F-H.track.share.percent` | 22 |
 | `F-K.formula.half` | 39.3 |
 | `F-K.perfect.half` | 50 |
 | `F-K.formula.1` | 63.2 |
@@ -484,6 +526,12 @@ keys and values.
 | `F-S.F6.left.at_sea.percent` | 6 |
 | `F-S.F6.left.after.percent` | 35 |
 | `F-S.F6.left.ratio` | 5.8 |
+| `F-S.SEP.at_sea` | 40, 73, 75 |
+| `F-S.SEP.after` | 29, 45, 48 |
+| `F-S.F6.chance.at_sea` | 0.19 |
+| `F-S.F6.chance.after` | 0.54 |
+| `F-S.F6.coverage.at_sea` | 2.81 |
+| `F-S.F6.coverage.after` | 1.05 |
 | `F-P.date` | 1966-01-17 |
 | `F-P.bombs` | 4 |
 | `F-P.on_land` | 3 |
@@ -493,6 +541,7 @@ keys and values.
 | `F-P.recovered` | 1966-04-07 |
 | `F-P.days.to_found` | 57 |
 | `F-P.days.to_recovered` | 80 |
+| `F-P.years_before_scorpion` | 2 |
 | `F-P.depth.feet` | 2550 |
 | `F-P.depth.metres` | 777 |
 | `F-A.lost` | 2009-06-01 |
@@ -507,6 +556,7 @@ keys and values.
 | `F-A.weights.sum` | 100 |
 | `F-A.points` | 75000 |
 | `F-A.empty_searches` | 4 |
+| `F-A.underwater_searches` | 3 |
 | `F-A.beacon.independent` | 0.9216 |
 | `F-A.beacon.independent.rounded` | 0.92 |
 | `F-A.beacon.dependent` | 0.72 |
@@ -539,9 +589,13 @@ keys and values.
 | `F-N.chew` | 1967 |
 | `F-N.paper` | 1971 |
 | `F-N.paper.years_after` | 3 |
-| `F-Q.count` | 6 |
-| `F-Q.names` | stories, first_search, after_empty, next_search, two_searches, radius_doubles |
-| `F-Q.stories.line` | 03_6 |
+| `F-M.code.1` | `p[i] *= 1 - d[i]                       # the search of cell i came back empty` |
+| `F-M.code.2` | `t = sum(p); p = [x / t for x in p]     # the map adds up to one again` |
+| `F-M.code.3` | `find = [x * y for x, y in zip(p, d)]   # chance of a find, cell by cell` |
+| `F-M.code.4` | `i = find.index(max(find))              # search there next` |
+| `F-Q.count` | 5 |
+| `F-Q.names` | stories, first_search, after_empty, next_search, two_searches |
+| `F-Q.stories.line` | 03_5 |
 | `F-Q.stories.seconds` | 6 |
 | `F-Q.stories.answer` | 40 |
 | `F-Q.first_search.line` | 05_4 |
@@ -550,12 +604,9 @@ keys and values.
 | `F-Q.after_empty.line` | 06_5 |
 | `F-Q.after_empty.seconds` | 6 |
 | `F-Q.after_empty.answer` | 12.5 |
-| `F-Q.next_search.line` | 07_4 |
+| `F-Q.next_search.line` | 07_3 |
 | `F-Q.next_search.seconds` | 6 |
 | `F-Q.next_search.answer` | C |
 | `F-Q.two_searches.line` | 09_5 |
-| `F-Q.two_searches.seconds` | 5 |
-| `F-Q.two_searches.answer` | 8/9 |
-| `F-Q.radius_doubles.line` | 10_4 |
-| `F-Q.radius_doubles.seconds` | 5 |
-| `F-Q.radius_doubles.answer` | 1/4 |
+| `F-Q.two_searches.seconds` | 6 |
+| `F-Q.two_searches.answer` | 8 |

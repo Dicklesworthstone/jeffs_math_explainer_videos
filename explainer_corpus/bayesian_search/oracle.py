@@ -220,7 +220,35 @@ def small_sea():
     emit("F-M.empty2.found_by", frac(1 - sum(after2) / DOTS))
     find3 = finds(after2)
     emit("F-M.third.find.percent", join(percent(x, 1) for x in find3))
-    emit("F-M.third.cell", CELLS[max(range(4), key=lambda i: (find3[i], -i))])
+    third = max(range(4), key=lambda i: (find3[i], -i))
+    emit("F-M.third.cell", CELLS[third])
+
+    # the second choice in dots of the first hundred: what a search of each
+    # cell would catch now, counted on the dots still lit after B's search
+    catch = [d * s for d, s in zip(after, SEES)]
+    emit("F-M.second.find.dots", join(frac(x) for x in catch))
+    emit("F-M.second.find.dots.rounded", join(fixed(x, 0) for x in catch))
+    check("in dots, nothing has changed for A or C, and only B has fallen",
+          catch[0] == dots[0] * SEES[0] and catch[2] == dots[2] * SEES[2] and catch[1] < dots[1] * SEES[1])
+
+    # "more dots, same map": split every dot in three and count whole dots
+    split = 3
+    lit = [d * split for d in after]
+    check("after the split every dot count is whole", all(x.denominator == 1 for x in lit))
+    emit("F-M.split.factor", split)
+    emit("F-M.split.lit", frac(sum(lit)))
+    emit("F-M.split.lit.cells", join(frac(x) for x in lit))
+    out2, lit2 = search(lit, second)
+    check("the second search puts out whole dots", out2.denominator == 1)
+    emit("F-M.split.second.dots_out", frac(out2))
+    emit("F-M.split.second.lit.cells", join(frac(x) for x in lit2))
+    check("the split dots give 60, 15, 10, 15", join(percent(s, 0) for s in shares(lit2)) == "60,15,10,15")
+    out3, lit3 = search(lit2, third)
+    check("the third search puts out whole dots", out3.denominator == 1)
+    emit("F-M.third.dots_out", frac(out3))
+    emit("F-M.split.third.lit.cells", join(frac(x) for x in lit3))
+    find4 = finds(lit3)
+    emit("F-M.fourth.cell", CELLS[max(range(4), key=lambda i: (find4[i], -i))])
 
     # n searches of one flat cell: the dots left of 27 after each
     for n in (1, 2, 3):
@@ -249,6 +277,39 @@ def rules():
     emit("F-U.brute.orders", 4**8)
     emit("F-U.brute.best", join(frac(b) for b in best))
     emit("F-U.brute.rule_is_best", all(b == r[2] for b, r in zip(best, runs["best"])))
+
+    # The proof in slices, by counting dots. Search one cell over and over,
+    # alone: the dots each search puts out are that cell's slices.
+    slices = []
+    for cell in range(4):
+        dots, mine = lit_dots(), []
+        for _ in range(8):
+            out, dots = search(dots, cell)
+            mine.append(out)
+        check(f"cell {CELLS[cell]}'s slices only shrink", all(a > b for a, b in zip(mine, mine[1:])))
+        slices.append(mine)
+        emit(f"F-U.slices.{CELLS[cell]}", join(fixed(x, 1) for x in mine[:4]))
+    # What the rule's searches put out, by running it on the dots.
+    dots, searched, outs = lit_dots(), [0] * 4, []
+    for step in range(8):
+        cell = choose("best", dots, step, searched)
+        out, dots = search(dots, cell)
+        check(f"search {step + 1} puts out that cell's next slice, whatever came between",
+              out == slices[cell][searched[cell]])
+        searched[cell] += 1
+        outs.append(out)
+    emit("F-U.best.dots_out", join(frac(x) for x in outs))
+    emit("F-U.best.dots_out.rounded", join(fixed(x, 1) for x in outs))
+    biggest = sorted((x for mine in slices for x in mine), reverse=True)[:8]
+    emit("F-U.slices.rule_takes_biggest", outs == biggest)
+
+    # a cell with no dots never gains one: search the two cells that have
+    # dots, thirty times, and count the empty cells' dots
+    dots = [F(50), F(50), F(0), F(0)]
+    for step in range(30):
+        cell = step % 2
+        dots[cell] -= dots[cell] * F(2, 3)
+    emit("F-U.zero_stays_zero", dots[2] == 0 and dots[3] == 0)
 
 
 # --------------------------------------------------------------------------
@@ -293,13 +354,18 @@ def cell(name):
 
 def model_search(rule, sees, looks):
     """[(row, col, chance found by now)]; every search comes back empty."""
-    left = {k: F(v, 10000) for k, v in MAP.items()}
-    reading = {(r, c): i for i, (r, c) in enumerate((r, c) for r in ROW_NAMES for c in COLS)}
+    # every plan searches the lettered grid only: its 180 cells, in reading order
     sweep = [(r, c) for r in GRID_ROWS for c in GRID_COLS]
+    reading = {k: i for i, k in enumerate(sweep)}
+    left = {k: F(MAP.get(k, 0), 10000) for k in sweep}
+    # the map, never updated: likeliest first by the printed numbers
+    once = sorted(sweep, key=lambda k: (-MAP.get(k, 0), reading[k]))
     found, out = F(0), []
     for look in range(looks):
         if rule == "sweep":
             where = sweep[look % len(sweep)]
+        elif rule == "once":
+            where = once[look % len(once)]
         else:
             where = sorted(left, key=lambda k: (-left[k], reading[k]))[0]
         w = left.get(where, F(0))
@@ -345,18 +411,22 @@ def map_1968():
 
     sees = F(2, 3)
     emit("F-R.model.seeing", frac(sees))
-    best, sweep = model_search("best", sees, 400), model_search("sweep", sees, 400)
-    emit("F-R.model.best.first_cells", join(c + r for r, c, _ in best[:6]))
-    f6_best = next(i for i, (r, c, _) in enumerate(best, 1) if (r, c) == ("6", "F"))
-    f6_sweep = next(i for i, (r, c, _) in enumerate(sweep, 1) if (r, c) == ("6", "F"))
-    emit("F-R.model.best.F6_search", f6_best)
-    emit("F-R.model.sweep.F6_search", f6_sweep)
-    check("the sweep reaches F6 at its place in reading order", f6_sweep == 5 * 15 + 6)
-    for mark in (10, 20, 35, 81):
-        emit(f"F-R.model.best.found_by.{mark}", percent(best[mark - 1][2], 1))
-        emit(f"F-R.model.sweep.found_by.{mark}", percent(sweep[mark - 1][2], 1))
-    check("the model search is never behind the sweep",
-          all(a[2] >= b[2] for a, b in zip(best, sweep)))
+    plans = {name: model_search(name, sees, 81) for name in ("best", "once", "sweep")}
+    emit("F-R.model.best.first_cells", join(c + r for r, c, _ in plans["best"][:6]))
+    for name in ("best", "once", "sweep"):
+        for mark in (20, 81):
+            emit(f"F-R.model.{name}.found_by.{mark}", percent(plans[name][mark - 1][2], 1))
+    check("the rule is never behind the map never updated, nor that behind row by row",
+          all(a[2] >= b[2] >= c[2] for a, b, c in zip(plans["best"], plans["once"], plans["sweep"])))
+    at20 = [plans[name][19][2] for name in ("best", "once", "sweep")]
+    check("at twenty searches most of the rule's lead is the map itself",
+          at20[1] - at20[2] > 5 * (at20[0] - at20[1]))
+    f6_sweep = next(i for i, (r, c, _) in enumerate(plans["sweep"], 1) if (r, c) == ("6", "F"))
+    check("row by row reaches F6 at its place in reading order", f6_sweep == 5 * 15 + 6)
+    # one model search in sea miles of towing: one cell's share of a pass
+    # over the grid with a 200-foot strip, at the coverage that sees 2 in 3
+    per_cell = F(84, 100) / (200 / FEET_PER_SEA_MILE)
+    emit("F-R.model.search_miles", f"{float(per_cell) * math.log(3):.0f}")
 
 
 # --------------------------------------------------------------------------
@@ -382,6 +452,15 @@ def hook():
     emit("F-H.once.over_track", fixed(once / TRACK_MILES, 1))
     emit("F-H.once.miles.camera", fixed(area / (185 / FEET_PER_SEA_MILE), 0))
     emit("F-H.once.miles.magnetometer", fixed(area / (220 / FEET_PER_SEA_MILE), 0))
+    emit("F-H.once.miles.believed", fixed(area / (800 / FEET_PER_SEA_MILE), 0))
+    # one cell: 0.84 sea miles wide, so that many strips side by side, each
+    # one sea mile long
+    passes = F(84, 100) * FEET_PER_SEA_MILE / strip_feet
+    emit("F-H.once.per_cell", fixed(passes * 1, 0))
+    emit("F-H.once.passes_per_cell", fixed(passes, 0))
+    check("180 cells of that much track are the whole pass", passes * 180 == once)
+    emit("F-H.track.cells", fixed(TRACK_MILES / passes, 0))
+    emit("F-H.track.share.percent", percent(TRACK_MILES / once, 0))
 
 
 # --------------------------------------------------------------------------
@@ -590,6 +669,22 @@ def scorpion():
     emit("F-S.F6.left.at_sea.percent", 100 - at_sea[1])
     emit("F-S.F6.left.after.percent", 100 - after[1])
     emit("F-S.F6.left.ratio", fixed(F(100 - after[1], 100 - at_sea[1]), 1))
+    # Tables 1 and 3 again: the chance the whole search so far would have
+    # found her, and F6's chance on the map on 9 October by the paper's own
+    # update, L' = L (1 − E) ÷ (1 − SEP)
+    sep_at_sea, sep_after = [40, 73, 75], [29, 45, 48]
+    emit("F-S.SEP.at_sea", join(sep_at_sea))
+    emit("F-S.SEP.after", join(sep_after))
+    prior = F(cell("F6"), 10000)
+    by_ship = prior * F(100 - at_sea[1], 100) / F(100 - sep_at_sea[1], 100)
+    by_measure = prior * F(100 - after[1], 100) / F(100 - sep_after[1], 100)
+    emit("F-S.F6.chance.at_sea", percent(by_ship, 2))
+    emit("F-S.F6.chance.after", percent(by_measure, 2))
+    check("even by the measured numbers F6 had fallen, and by the ship's it had fallen further",
+          by_ship < by_measure < prior)
+    # the same two figures as coverage on Koopman's curve
+    emit("F-S.F6.coverage.at_sea", f"{-math.log(1 - at_sea[1] / 100):.2f}")
+    emit("F-S.F6.coverage.after", f"{-math.log(1 - after[1] / 100):.2f}")
 
 
 def palomares():
@@ -606,6 +701,7 @@ def palomares():
     emit("F-P.recovered", iso(recovered))
     emit("F-P.days.to_found", (found - crash).days)
     emit("F-P.days.to_recovered", (recovered - crash).days)
+    emit("F-P.years_before_scorpion", 1968 - crash.year)
     emit("F-P.depth.feet", 2550)
     emit("F-P.depth.metres", fixed(2550 * FOOT, 0))
 
@@ -629,6 +725,8 @@ def air_france():
     emit("F-A.weights.sum", sum(weights))
     emit("F-A.points", 75000)
     emit("F-A.empty_searches", 4)
+    # of the paper's four steps, the first is the surface search
+    emit("F-A.underwater_searches", 4 - 1)
     # the paper's own sum, p. 76: (1 − 0.1²)(0.8)² + 0.9 · 2(0.8)(0.2)
     cap, survives = F(9, 10), F(8, 10)
     independent = (1 - (1 - cap) ** 2) * survives**2 + cap * 2 * survives * (1 - survives)
@@ -688,13 +786,42 @@ def names():
 # F-Q: the quizzes
 # --------------------------------------------------------------------------
 QUIZZES = [
-    ("stories", "03_6", 6),
+    ("stories", "03_5", 6),
     ("first_search", "05_4", 6),
     ("after_empty", "06_5", 6),
-    ("next_search", "07_4", 6),
-    ("two_searches", "09_5", 5),
-    ("radius_doubles", "10_4", 5),
+    ("next_search", "07_3", 6),
+    ("two_searches", "09_5", 6),
 ]
+
+# The code panel, typed from the storyboard's "The code panel" section.
+CODE = [
+    "p[i] *= 1 - d[i]                       # the search of cell i came back empty",
+    "t = sum(p); p = [x / t for x in p]     # the map adds up to one again",
+    "find = [x * y for x, y in zip(p, d)]   # chance of a find, cell by cell",
+    "i = find.index(max(find))              # search there next",
+]
+
+
+def code_panel():
+    """Emit the panel's lines, check they are the storyboard's, and run them."""
+    import pathlib
+    board = pathlib.Path(__file__).with_name("docs").joinpath("storyboard.md").read_text()
+    check("the code panel is the storyboard's, line for line", "\n".join(CODE) in board)
+    for n, line in enumerate(CODE, 1):
+        emit(f"F-M.code.{n}", line)
+    # run it on the four-cell sea, in exact fractions: choose (lines 3, 4),
+    # then update (lines 1, 2), eight times
+    env = {"p": [F(4, 10), F(3, 10), F(2, 10), F(1, 10)], "d": list(SEES), "i": None}
+    order, maps = "", []
+    for _ in range(8):
+        exec("\n".join(CODE[2:]), {}, env)
+        exec("\n".join(CODE[:2]), {}, env)
+        order += CELLS[env["i"]]
+        maps.append(list(env["p"]))
+    check("the panel's code searches in the rule's order", order == "BCAABDAC")
+    check("the panel's code gives 50, 12.5, 25, 12.5 and then 60, 15, 10, 15",
+          join(percent(x, 1) for x in maps[0]) == "50.0,12.5,25.0,12.5"
+          and join(percent(x, 0) for x in maps[1]) == "60,15,10,15")
 
 
 def storyboard_countdowns():
@@ -721,18 +848,17 @@ def quizzes():
     first = max(range(4), key=lambda i: (finds(dots)[i], -i))
     _, after = search(dots, first)
     second = max(range(4), key=lambda i: (finds(after)[i], -i))
-    # two searches of one cell, by listing the four outcomes of seen/missed
-    seen_twice = sum(
-        (SEES[1] if a else 1 - SEES[1]) * (SEES[1] if b else 1 - SEES[1])
-        for a in (True, False) for b in (True, False) if a or b
-    )
+    # two searches of one cell, on nine dots: each pass catches two in
+    # three of what is still lit
+    nine = F(9)
+    for _ in range(2):
+        nine -= nine * SEES[1]
     answers = {
         "stories": percent(stories_answer, 0),
         "first_search": CELLS[first],
         "after_empty": percent(shares(after)[first], 1),
         "next_search": CELLS[second],
-        "two_searches": frac(seen_twice),
-        "radius_doubles": frac(F(1, 2) ** 2),
+        "two_searches": frac(9 - nine),
     }
     for name, line, seconds in QUIZZES:
         emit(f"F-Q.{name}.line", line)
@@ -752,6 +878,7 @@ def main():
     air_france()
     coast_guard()
     names()
+    code_panel()
     quizzes()
     print(f"# {len(_EMITTED)} facts, {_CHECKS[0]} cross-checks, {len(_FAILED)} failed", file=sys.stderr)
     if _FAILED:

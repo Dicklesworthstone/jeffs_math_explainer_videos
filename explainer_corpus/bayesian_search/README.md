@@ -27,12 +27,14 @@ where hours do matter.
   the *Scorpion* (1968), Air France 447 (found in 2011), and the US Coast
   Guard's searches for people in the water.
 
-The viewer gets six "your turn" quizzes, each with a visible countdown.
+The viewer gets five "your turn" quizzes, each with a visible countdown,
+and eight more questions to carry.
 
 **Status: in production.** The brief, the facts and their oracle and the
-storyboard are done (`./x bayesian_search facts-check` passes; 14 chapters,
-about 15 minutes); the review of the storyboard, the script, the scenes and
-the drafts follow. Nothing has been narrated, scored or rendered at 4K yet.
+storyboard are done and reviewed (`./x bayesian_search facts-check` passes;
+14 chapters, about 16 minutes; review R1 is in
+`docs/reviews/bayesian_search/`); the script, the scenes and the drafts
+follow. Nothing has been narrated, scored or rendered at 4K yet.
 
 ```bash
 ./x bayesian_search test          # tests, clippy -D warnings, fmt --check

@@ -58,6 +58,11 @@ pub mod cited {
     /// (Table 3).
     pub const F6_SEARCHED_AT_SEA: [u32; 3] = [65, 94, 99];
     pub const F6_SEARCHED_AFTER: [u32; 3] = [47, 65, 74];
+    /// The chance that the whole search so far would have found her (search
+    /// effectiveness probability), in hundredths, on the same three dates:
+    /// on scene (Table 1) and estimated afterwards (Table 3).
+    pub const SEP_AT_SEA: [u32; 3] = [40, 73, 75];
+    pub const SEP_AFTER: [u32; 3] = [29, 45, 48];
 
     /// Palomares. Defense Nuclear Agency, "Palomares Summary Report"
     /// (1975): the collision on 17 January 1966 (p. 15); four weapons;
@@ -96,6 +101,11 @@ pub mod cited {
     pub const AF447_DEPTH_M: u32 = 3900;
     pub const AF447_MONTHS: u32 = 22;
     pub const AF447_EMPTY_SEARCHES: u32 = 4;
+    /// Of those four, the three made under water: the listening search of
+    /// June and July 2009 and the sonar searches of August 2009 and of
+    /// April and May 2010 (the first of the four was the search of the
+    /// surface).
+    pub const AF447_UNDERWATER_SEARCHES: u32 = 3;
 
     /// The US Coast Guard. Kratzke, Stone and Frost (2010): CASP in
     /// service 1974, SAROPS "operational since January, 2007"; 2,500,
@@ -152,7 +162,10 @@ pub mod shown {
     /// its cell two times in three, as in the flat cells of the small sea.
     pub const MAP_SEEING: Q = Q::lowest(2, 3);
     /// Searches at which the model search and the sweep are compared.
-    pub const MAP_MARKS: [usize; 4] = [10, 20, 35, 81];
+    pub const MAP_MARKS: [usize; 2] = [20, 81];
+    /// "More dots, same map": how many dots each dot splits into before
+    /// the second search, so that whole dots go out.
+    pub const SPLIT: i128 = 3;
     /// The strip the hook's arithmetic gives the towed sled, in feet:
     /// between the camera's 185 and the magnetometer's 220.
     pub const STRIP_FEET: u32 = 200;
@@ -194,6 +207,7 @@ pub fn facts() -> Result<Facts, String> {
     air_france(&mut f)?;
     coast_guard(&mut f)?;
     names(&mut f)?;
+    code_panel(&mut f)?;
     quizzes(&mut f)?;
     Ok(f)
 }
@@ -265,6 +279,45 @@ fn small_sea(f: &mut Facts) -> Result<(), String> {
     f.add("F-M.third.find.percent", percents(sea::find(&run[1].after), 1))?;
     f.pin("F-M.third.cell", sea::CELLS[run[2].cell], "A", hand)?;
 
+    // the second choice in dots of the first hundred: what a search of each
+    // cell would catch now (each cell's next slice)
+    let dots = Q::int(sea::DOTS);
+    let mut searched = [0u32; 4];
+    searched[b] = 1;
+    let next: Vec<Q> = (0..4)
+        .map(|c| sea::slices(c, searched[c] + 1)[searched[c] as usize] * dots)
+        .collect();
+    f.pin("F-M.second.find.dots", list(next.iter()), "10,20/3,40/3,20/3", hand)?;
+    f.add("F-M.second.find.dots.rounded", list(next.iter().map(|x| x.fixed(0))))?;
+
+    // "more dots, same map": every dot splits in three, so the second and
+    // third searches put out whole dots
+    let split = Q::int(shown::SPLIT);
+    let lit = |p: &[Q; 4], total: Q| p.map(|x| x * total);
+    let lit1 = left * split;
+    f.add("F-M.split.factor", shown::SPLIT)?;
+    f.pin("F-M.split.lit", lit1, "240", hand)?;
+    f.pin(
+        "F-M.split.lit.cells",
+        list(lit(&run[0].after, lit1)),
+        "120,30,60,30",
+        hand,
+    )?;
+    let out2 = run[1].find * lit1;
+    let lit2 = lit1 - out2;
+    f.pin("F-M.split.second.dots_out", out2, "40", hand)?;
+    f.pin(
+        "F-M.split.second.lit.cells",
+        list(lit(&run[1].after, lit2)),
+        "120,30,20,30",
+        hand,
+    )?;
+    let out3 = run[2].find * lit2;
+    f.pin("F-M.third.dots_out", out3, "30", hand)?;
+    f.add("F-M.split.third.lit.cells", list(lit(&run[2].after, lit2 - out3)))?;
+    let run4 = sea::run(sea::Rule::Best, 4);
+    f.pin("F-M.fourth.cell", sea::CELLS[run4[3].cell], "A", hand)?;
+
     let each = sea::seeing()[1];
     for n in 1..=3u32 {
         let seen = sea::seen_within(each, n);
@@ -306,6 +359,44 @@ fn rules(f: &mut Facts) -> Result<(), String> {
         run.iter().zip(&brute).all(|(s, b)| s.found_by == *b),
         "true",
         "Chew (1967), Theorem 2.1",
+    )?;
+
+    // the proof in slices: what each cell's successive searches put out,
+    // in dots of the first hundred, and what the rule's searches put out
+    let dots = Q::int(sea::DOTS);
+    for (cell, name) in sea::CELLS.iter().enumerate() {
+        f.add(
+            &format!("F-U.slices.{name}"),
+            list(sea::slices(cell, 4).iter().map(|&x| (x * dots).fixed(1))),
+        )?;
+    }
+    let mut found = Q::ZERO;
+    let mut out = Vec::new();
+    for step in &run {
+        out.push((step.found_by - found) * dots);
+        found = step.found_by;
+    }
+    f.add("F-U.best.dots_out", list(out.iter()))?;
+    f.add("F-U.best.dots_out.rounded", list(out.iter().map(|x| x.fixed(1))))?;
+    let mut all: Vec<Q> = (0..4).flat_map(|c| sea::slices(c, shown::BRUTE as u32)).collect();
+    all.sort_by(|a, b| b.cmp(a));
+    f.pin(
+        "F-U.slices.rule_takes_biggest",
+        out.iter().zip(&all).all(|(o, a)| *o == *a * dots),
+        "true",
+        "the storyboard's proof (08_2, 08_3)",
+    )?;
+
+    // a cell with no dots never gains one: the update multiplies
+    let mut p = [q(1, 2), q(1, 2), Q::ZERO, Q::ZERO];
+    for step in 0..30 {
+        p = sea::bayes(&p, step % 2, shown::MAP_SEEING);
+    }
+    f.pin(
+        "F-U.zero_stays_zero",
+        p[2] == Q::ZERO && p[3] == Q::ZERO,
+        "true",
+        "14_4",
     )?;
     Ok(())
 }
@@ -369,28 +460,39 @@ fn map_1968(f: &mut Facts) -> Result<(), String> {
     // the model search (the video's own model on the Navy's map)
     let seeing = shown::MAP_SEEING;
     f.add("F-R.model.seeing", seeing)?;
-    let limit = 400;
-    let best = y1968::model_search(y1968::Rule::Best, seeing, limit);
-    let sweep = y1968::model_search(y1968::Rule::Sweep, seeing, limit);
+    let limit = shown::MAP_MARKS[shown::MAP_MARKS.len() - 1];
+    let plans = [
+        ("best", y1968::model_search(y1968::Rule::Best, seeing, limit)),
+        ("once", y1968::model_search(y1968::Rule::Once, seeing, limit)),
+        ("sweep", y1968::model_search(y1968::Rule::Sweep, seeing, limit)),
+    ];
     f.add(
         "F-R.model.best.first_cells",
-        list(best[..6].iter().map(|l| y1968::name(l.row, l.col))),
+        list(plans[0].1[..6].iter().map(|l| y1968::name(l.row, l.col))),
     )?;
-    let f6_best = y1968::first_look_at("F6", y1968::Rule::Best, seeing, limit).ok_or("the model never reaches F6")?;
-    let f6_sweep = y1968::first_look_at("F6", y1968::Rule::Sweep, seeing, limit).ok_or("the sweep never reaches F6")?;
-    f.add("F-R.model.best.F6_search", f6_best)?;
-    f.add("F-R.model.sweep.F6_search", f6_sweep)?;
-    for mark in shown::MAP_MARKS {
-        f.add(
-            &format!("F-R.model.best.found_by.{mark}"),
-            best[mark - 1].found_by.percent(1),
-        )?;
-        f.add(
-            &format!("F-R.model.sweep.found_by.{mark}"),
-            sweep[mark - 1].found_by.percent(1),
-        )?;
+    for (name, plan) in &plans {
+        for mark in shown::MAP_MARKS {
+            f.add(
+                &format!("F-R.model.{name}.found_by.{mark}"),
+                plan[mark - 1].found_by.percent(1),
+            )?;
+        }
     }
+    // one model search in miles of towing: a cell once over, at the
+    // coverage that sees two times in three
+    let per_cell = hook_once_miles() / Q::int((y1968::GRID_ROWS.len() * y1968::GRID_COLS.len()) as i128);
+    f.add(
+        "F-R.model.search_miles",
+        format!("{:.0}", per_cell.f64() * koopman::coverage_for(seeing.f64())),
+    )?;
     Ok(())
+}
+
+/// Sea miles of track to pass once over the whole lettered grid with the
+/// hook's strip.
+fn hook_once_miles() -> Q {
+    let feet_per_nm = Q::int(METRES_PER_NM) / METRES_PER_FOOT;
+    y1968::grid_area() / (Q::int(i128::from(shown::STRIP_FEET)) / feet_per_nm)
 }
 
 /// F-H: "search everywhere" on the 1968 grid.
@@ -421,10 +523,22 @@ fn hook(f: &mut Facts) -> Result<(), String> {
         "F-H.once.over_track",
         (once / Q::int(i128::from(cited::TRACK_MILES))).fixed(1),
     )?;
-    for (name, feet) in [("camera", cited::SWEEP_AFTER.0), ("magnetometer", cited::SWEEP_AFTER.1)] {
+    for (name, feet) in [
+        ("camera", cited::SWEEP_AFTER.0),
+        ("magnetometer", cited::SWEEP_AFTER.1),
+        ("believed", cited::SWEEP_AT_SEA.0),
+    ] {
         let miles = y1968::grid_area() / (Q::int(i128::from(feet)) / feet_per_nm);
         f.add(&format!("F-H.once.miles.{name}"), miles.fixed(0))?;
     }
+    // one cell, and how many cells the whole search's track would paint
+    let cells = Q::int((y1968::GRID_ROWS.len() * y1968::GRID_COLS.len()) as i128);
+    let per_cell = once / cells;
+    f.add("F-H.once.per_cell", per_cell.fixed(0))?;
+    f.add("F-H.once.passes_per_cell", (y1968::CELL_MILES.1 / strip_miles).fixed(0))?;
+    let track = Q::int(i128::from(cited::TRACK_MILES));
+    f.add("F-H.track.cells", (track / per_cell).fixed(0))?;
+    f.add("F-H.track.share.percent", (track / once).percent(0))?;
     Ok(())
 }
 
@@ -635,6 +749,36 @@ fn scorpion(f: &mut Facts) -> Result<(), String> {
     f.add("F-S.F6.left.at_sea.percent", sea_oct.percent(0))?;
     f.add("F-S.F6.left.after.percent", after_oct.percent(0))?;
     f.add("F-S.F6.left.ratio", (after_oct / sea_oct).fixed(1))?;
+
+    // F6's chance on the map on 9 October, by the paper's own update
+    // L' = L (1 − E) ÷ (1 − SEP): with the ship's numbers, and with the
+    // ones measured afterwards
+    f.pin("F-S.SEP.at_sea", list(cited::SEP_AT_SEA), "40,73,75", paper)?;
+    f.pin("F-S.SEP.after", list(cited::SEP_AFTER), "29,45,48", paper)?;
+    let prior = q(
+        i128::from(y1968::points("F6").ok_or("no F6")?),
+        i128::from(y1968::REPLICATIONS),
+    );
+    let chance = |searched: u32, sep: u32| prior * left(searched) / left(sep);
+    f.add(
+        "F-S.F6.chance.at_sea",
+        chance(cited::F6_SEARCHED_AT_SEA[1], cited::SEP_AT_SEA[1]).percent(2),
+    )?;
+    f.add(
+        "F-S.F6.chance.after",
+        chance(cited::F6_SEARCHED_AFTER[1], cited::SEP_AFTER[1]).percent(2),
+    )?;
+    // the same two figures as coverage on Koopman's curve (the paper scores
+    // each cell by the random search formula, Appendix A)
+    for (name, searched) in [
+        ("at_sea", cited::F6_SEARCHED_AT_SEA[1]),
+        ("after", cited::F6_SEARCHED_AFTER[1]),
+    ] {
+        f.add(
+            &format!("F-S.F6.coverage.{name}"),
+            format!("{:.2}", koopman::coverage_for(f64::from(searched) / 100.0)),
+        )?;
+    }
     Ok(())
 }
 
@@ -661,6 +805,7 @@ fn palomares(f: &mut Facts) -> Result<(), String> {
         "F-P.days.to_recovered",
         days::between(cited::PALOMARES, cited::PALOMARES_RECOVERED),
     )?;
+    f.add("F-P.years_before_scorpion", cited::FOUND.0 - cited::PALOMARES.0)?;
     f.pin("F-P.depth.feet", cited::PALOMARES_DEPTH_FEET, "2550", report)?;
     f.add(
         "F-P.depth.metres",
@@ -694,6 +839,7 @@ fn air_france(f: &mut Facts) -> Result<(), String> {
     f.add("F-A.weights.sum", cited::AF447_WEIGHTS.iter().sum::<u32>())?;
     f.pin("F-A.points", cited::AF447_POINTS, "75000", paper)?;
     f.pin("F-A.empty_searches", cited::AF447_EMPTY_SEARCHES, "4", paper)?;
+    f.pin("F-A.underwater_searches", cited::AF447_UNDERWATER_SEARCHES, "3", paper)?;
 
     // the beacon search, as the paper works it (pp. 76-77)
     let hundredths = |n: u32| q(i128::from(n), 100);
@@ -830,6 +976,15 @@ fn names(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// F-M.code: the code panel's four lines, as the storyboard pins them (the
+/// oracle runs them on the four-cell sea).
+fn code_panel(f: &mut Facts) -> Result<(), String> {
+    for (n, line) in crate::chapters::glyphs::CODE.iter().enumerate() {
+        f.add(&format!("F-M.code.{}", n + 1), line)?;
+    }
+    Ok(())
+}
+
 /// F-Q: every quiz, by name: its countdown and its answer.
 fn quizzes(f: &mut Facts) -> Result<(), String> {
     f.add("F-Q.count", QUIZZES.len())?;
@@ -845,11 +1000,8 @@ fn quizzes(f: &mut Facts) -> Result<(), String> {
             Ask::FirstSearch => sea::CELLS[run[0].cell].to_owned(),
             Ask::AfterEmpty => run[0].after[run[0].cell].percent(1),
             Ask::NextSearch => sea::CELLS[run[1].cell].to_owned(),
-            Ask::TwoSearches => sea::seen_within(sea::seeing()[1], 2).to_string(),
-            Ask::RadiusDoubles => {
-                let r = drift::radius(Q::ONE);
-                ((r * r) / (r * Q::int(2) * r * Q::int(2))).to_string()
-            }
+            // of nine dots, how many two passes catch
+            Ask::TwoSearches => (sea::seen_within(sea::seeing()[1], 2) * Q::int(9)).to_string(),
         };
         f.add(&format!("{key}.answer"), answer)?;
     }
@@ -877,28 +1029,28 @@ mod tests {
             ("02_2", "on the twenty-seventh", "F-S.due", "1968-05-27"),
             ("02_2", "For nine days", "F-S.days.due_to_presumed", "9"),
             ("02_3", "five days before", "F-S.days.sank_to_due", "5"),
-            ("02_3", "about two miles deep", "F-S.depth.miles", "1.9"),
+            ("02_3", "more than ten thousand feet", "F-S.depth.feet", "10000"),
             ("02_3", "All ninety-nine men", "F-S.crew", "99"),
-            ("02_5", "twelve miles on a side", "F-R.grid.miles", "12x12.6"),
-            ("02_5", "two hundred feet", "F-H.strip.feet", "200"),
-            ("02_5", "forty-six hundred miles", "F-H.once.hundreds", "46"),
-            ("02_5", "By the end of October", "F-S.found", "1968-10-28"),
-            ("02_5", "managed a thousand", "F-H.track.miles", "1026"),
-            ("03_5", "sixty to forty", "F-M.story1.weight", "60"),
-            ("03_5", "forty from the second", "F-M.story2.weight", "40"),
-            ("03_5", "a hundred dots", "F-M.dots", "100"),
-            ("03_6", "half of its dots", "F-M.story1.share", "1/2,1/3,1/6,0"),
-            ("03_6", "a quarter of its dots", "F-M.story2.share", "1/4,1/4,1/4,1/4"),
-            ("03_7", "Half of sixty is thirty", "F-M.story1.dots", "30,20,10,0"),
-            ("03_7", "A quarter of forty is ten", "F-M.story2.dots", "10,10,10,10"),
-            ("03_7", "Forty percent", "F-Q.stories.answer", "40"),
-            ("03_8", "Forty, thirty, twenty, ten", "F-M.prior.percent", "40,30,20,10"),
-            ("04_1", "In July", "F-S.scenarios_set", "1968-07-18"),
-            ("04_1", "nine stories", "F-S.scenarios", "9"),
-            ("04_2", "ten thousand times", "F-R.replications", "10000"),
-            ("04_4", "one dot in every eight", "F-R.E5.one_in", "8"),
-            ("04_5", "two hundred and sixty yards", "F-S.yards", "260"),
-            ("04_6", "five months", "F-S.months.due_to_found", "5"),
+            ("02_5", "about twelve miles on a side", "F-R.grid.miles", "12x12.6"),
+            ("02_5", "about two hundred feet", "F-H.strip.feet", "200"),
+            ("02_6", "forty-six hundred miles", "F-H.once.hundreds", "46"),
+            ("02_6", "more than four times", "F-H.once.over_track", "4.5"),
+            ("03_4", "sixty to forty", "F-M.story1.weight", "60"),
+            ("03_4", "forty from the second", "F-M.story2.weight", "40"),
+            ("03_4", "a hundred dots", "F-M.dots", "100"),
+            ("03_5", "half of its dots", "F-M.story1.share", "1/2,1/3,1/6,0"),
+            ("03_5", "a quarter of its dots", "F-M.story2.share", "1/4,1/4,1/4,1/4"),
+            ("03_6", "Half of sixty is thirty", "F-M.story1.dots", "30,20,10,0"),
+            ("03_6", "A quarter of forty is ten", "F-M.story2.dots", "10,10,10,10"),
+            ("03_6", "Forty percent", "F-Q.stories.answer", "40"),
+            ("03_7", "Forty, thirty, twenty, ten", "F-M.prior.percent", "40,30,20,10"),
+            ("04_1", "two years earlier", "F-P.years_before_scorpion", "2"),
+            ("04_2", "In July of sixty-eight", "F-S.scenarios_set", "1968-07-18"),
+            ("04_2", "nine stories", "F-S.scenarios", "9"),
+            ("04_3", "ten thousand times", "F-R.replications", "10000"),
+            ("04_5", "one dot in every eight", "F-R.E5.one_in", "8"),
+            ("04_6", "within two hundred and sixty yards", "F-S.yards", "260"),
+            ("04_7", "five months", "F-S.months.due_to_found", "5"),
             ("05_1", "Forty percent", "F-M.prior.percent", "40,30,20,10"),
             ("05_2", "one time in four", "F-M.seeing", "1/4,2/3,2/3,2/3"),
             ("05_2", "two times in three", "F-M.seeing", "1/4,2/3,2/3,2/3"),
@@ -922,65 +1074,69 @@ mod tests {
             ("06_6", "Twelve and a half percent", "F-Q.after_empty.answer", "12.5"),
             (
                 "06_7",
-                "forty out of eighty is one half",
+                "forty dots out of eighty is one half",
                 "F-M.empty1.after.fraction",
                 "1/2,1/8,1/4,1/8",
             ),
-            ("06_8", "by the same factor", "F-M.empty1.rise", "5/4"),
-            ("07_1", "seventeen sixty-one", "F-N.bayes.died", "1761"),
+            ("06_8", "grew by a quarter", "F-M.empty1.rise", "5/4"),
             (
-                "07_4",
+                "06_8",
+                "Forty to fifty",
+                "F-M.empty1.after.percent",
+                "50.0,12.5,25.0,12.5",
+            ),
+            ("07_1", "seventeen sixty-one", "F-N.bayes.died", "1761"),
+            ("07_2", "One third for cell B", "F-M.seeing", "1/4,2/3,2/3,2/3"),
+            ("07_2", "what is left, eighty", "F-M.empty1.dots_left", "80"),
+            (
+                "07_3",
                 "half the chance",
                 "F-M.empty1.after.percent",
                 "50.0,12.5,25.0,12.5",
             ),
-            ("07_5", "Cell C", "F-Q.next_search.answer", "C"),
+            ("07_4", "Cell C", "F-Q.next_search.answer", "C"),
             (
-                "07_5",
-                "twelve and a half percent",
-                "F-M.second.find.percent",
-                "12.5,8.3,16.7,8.3",
+                "07_4",
+                "still catch ten, and a search of C thirteen",
+                "F-M.second.find.dots.rounded",
+                "10,7,13,7",
             ),
+            ("08_2", "the first hundred dots", "F-M.dots", "100"),
+            ("08_3", "the eight biggest slices", "F-U.brute.searches", "8"),
             (
-                "07_5",
-                "nearly seventeen",
-                "F-M.second.find.percent",
-                "12.5,8.3,16.7,8.3",
-            ),
-            ("08_2", "nineteen sixty-seven", "F-N.chew", "1967"),
-            (
-                "08_2",
-                "No other order of searches is ever ahead",
-                "F-U.brute.rule_is_best",
+                "08_3",
+                "takes them biggest first",
+                "F-U.slices.rule_takes_biggest",
                 "true",
             ),
-            ("08_3", "two times in three", "F-R.model.seeing", "2/3"),
+            ("08_3", "no other order is ever ahead", "F-U.brute.rule_is_best", "true"),
+            ("08_4", "two times in three", "F-R.model.seeing", "2/3"),
             (
-                "08_4",
+                "08_5",
                 "less than one chance in a hundred",
                 "F-R.model.sweep.found_by.20",
                 "0.8",
             ),
-            ("08_4", "better than one in two", "F-R.model.best.found_by.20", "52.7"),
-            ("08_5", "thirty-fifth", "F-R.model.best.F6_search", "35"),
-            ("08_5", "eighty-first", "F-R.model.sweep.F6_search", "81"),
+            ("08_5", "about one in two", "F-R.model.best.found_by.20", "49.8"),
             ("09_1", "two times in three", "F-M.seeing", "1/4,2/3,2/3,2/3"),
             ("09_3", "sixty-three percent", "F-K.formula.1", "63.2"),
             ("09_3", "on average", "F-K.lanes.mean.1", "63.4"),
-            ("09_4", "eighty-six percent", "F-K.formula.2", "86.5"),
-            ("09_4", "ninety-five", "F-K.formula.3", "95.0"),
-            ("09_6", "Eight in nine", "F-Q.two_searches.answer", "8/9"),
+            ("09_4", "A little more track", "F-K.coverage.flat", "1.10"),
+            ("09_5", "six dots of nine", "F-M.seen_within.1", "2/3"),
+            ("09_6", "Eight", "F-Q.two_searches.answer", "8"),
+            ("09_6", "One dot in nine", "F-M.seen_within.2", "8/9"),
+            ("09_6", "one in twenty-seven", "F-M.seen_within.3", "26/27"),
             ("10_3", "a tenth of a mile", "F-D.strip", "0.1"),
-            ("10_5", "a quarter", "F-Q.radius_doubles.answer", "1/4"),
-            ("10_5", "four times the area", "F-D.double.area_factor", "4"),
+            ("10_4", "four times the area", "F-D.double.area_factor", "4"),
+            ("10_4", "a quarter of the track", "F-D.double.coverage_factor", "1/4"),
             (
-                "10_6",
+                "10_4",
                 "ninety-three times in a hundred after one hour",
                 "F-D.h1.seeing",
                 "93",
             ),
             (
-                "10_6",
+                "10_4",
                 "thirteen times in a hundred after twelve",
                 "F-D.h12.seeing",
                 "13",
@@ -995,6 +1151,7 @@ mod tests {
             ("12_1", "two hundred and twenty-eight", "F-A.aboard", "228"),
             ("12_2", "forty nautical miles", "F-A.circle.nm", "40"),
             ("12_2", "nearly two years", "F-A.months", "22"),
+            ("12_2", "three underwater searches", "F-A.underwater_searches", "3"),
             ("12_3", "thirty-five, thirty-five and thirty", "F-A.weights", "35,35,30"),
             ("13_1", "nineteen sixty-eight", "F-S.map_arrived", "1968-08-12"),
             (
@@ -1003,16 +1160,21 @@ mod tests {
                 "F-S.months.search_to_map",
                 "2",
             ),
+            ("13_1", "since June", "F-S.search_began", "1968-06-10"),
             ("13_2", "ninety-four percent", "F-S.F6.searched.at_sea", "65,94,99"),
             ("13_2", "ninety-four went out", "F-S.F6.left.at_sea.percent", "6"),
             ("13_4", "eight hundred feet", "F-S.sweep.at_sea", "800,400"),
-            ("13_4", "it got zero", "F-S.sweep.after", "185,220,0"),
-            ("13_4", "about two hundred feet each", "F-S.sweep.after", "185,220,0"),
-            ("13_4", "sixty-five percent", "F-S.F6.searched.after", "47,65,74"),
-            ("13_5", "twenty-eighth of October", "F-S.found", "1968-10-28"),
-            ("14_2", "nineteen sixty-six", "F-P.date", "1966-01-17"),
-            ("14_6", "five hours off", "F-C.aldridge.hours_off", "5"),
-            ("14_8", "ninety-nine men", "F-S.crew", "99"),
+            ("13_5", "had not seen her at all", "F-S.sweep.after", "185,220,0"),
+            ("13_5", "about two hundred feet", "F-S.sweep.after", "185,220,0"),
+            (
+                "13_6",
+                "sixty-five percent, not ninety-four",
+                "F-S.F6.searched.after",
+                "47,65,74",
+            ),
+            ("13_7", "at the end of October", "F-S.found", "1968-10-28"),
+            ("14_3", "five hours off", "F-C.aldridge.hours_off", "5"),
+            ("14_5", "ninety-nine men", "F-S.crew", "99"),
         ];
         let mut bad = Vec::new();
         for (line, words, key, value) in rows {
