@@ -13,7 +13,7 @@
 //! tracker has moved.
 #![allow(dead_code, reason = "shared props land before the chapters that draw them")]
 
-use std::f64::consts::{FRAC_PI_2, TAU};
+use std::f64::consts::{FRAC_PI_2, PI, TAU};
 use std::rc::Rc;
 use std::sync::OnceLock;
 
@@ -790,6 +790,41 @@ pub fn screw_shapes(s: &Screw, reach: f64, curl: f64) -> Vec<Shape> {
         });
     }
     out
+}
+
+/// A spin, drawn the one way: an orange arrow from `from` along `axis`,
+/// `len` long (its length is its speed), and a curl round its tip for the
+/// sense of the turning (radius `curl`, three quarters of a turn). The flat
+/// piece's arrows are always this colour.
+pub fn spin_arrow(from: V3, axis: V3, len: f64, curl: f64) -> Vec<Shape> {
+    let orange = palette::flat();
+    let a = unit(axis);
+    let tip = add(from, scale(a, len));
+    let n = 18;
+    let arc = circle_points(add(from, scale(a, 0.8 * len)), a, curl, 0.0, 1.5 * PI, n);
+    vec![
+        Shape::Arrow {
+            from,
+            to: tip,
+            color: orange,
+            width: 5.0,
+            head: 0.26,
+        },
+        Shape::Path {
+            pts: arc[..n].to_vec(),
+            color: orange,
+            width: 4.0,
+            closed: false,
+            bias: 0.0,
+        },
+        Shape::Arrow {
+            from: arc[n - 1],
+            to: arc[n],
+            color: orange,
+            width: 4.0,
+            head: 0.22,
+        },
+    ]
 }
 
 /// How a part is placed this frame (read from trackers and other mobjects).

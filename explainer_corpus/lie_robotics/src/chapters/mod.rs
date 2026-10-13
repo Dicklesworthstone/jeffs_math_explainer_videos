@@ -8,6 +8,7 @@ pub mod draw;
 pub mod glyphs;
 pub mod halfway;
 pub mod one_turn;
+pub mod spin;
 pub mod the_book;
 pub mod three_angles;
 
@@ -42,7 +43,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("02_one_turn", 0.5, one_turn::OneTurn),
         scene!("03_three_angles", 0.4, three_angles::ThreeAngles),
         scene!("04_halfway", 0.6, halfway::Halfway),
-        animatic!("05_spin", 0.55),
+        scene!("05_spin", 0.55, spin::Spin),
         animatic!("06_the_platform", 0.5),
         animatic!("07_screws", 0.6),
         animatic!("08_seven_screws", 0.6),
