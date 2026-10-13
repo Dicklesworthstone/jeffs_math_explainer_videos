@@ -1,0 +1,22 @@
+# Director alternates for Video J's narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Same words as script.tsv, other punctuation, so ftts (deterministic) makes new reads. First pass with michael (2026-10-13):
+# every read of these six either drops the final s/z of its last word (radians, wins, settles, matrix, grams, axes) or is
+# stopped by ftts inside it (cut_short), so no existing read can be picked (tools/narration.py analyze on every take).
+07_6	1	So, e to the t J is the rotation by t radians.
+07_6	1	So e to the t J is the rotation, by t radians.
+07_6	1	So e to the t J is the rotation by t radians…
+08_5	2	The k-th term is at most the size to the k, over k factorial; and the factorial always wins.
+08_5	2	The k-th term is at most the size to the k over k factorial, and the factorial always wins.
+08_5	2	The k-th term is at most the size to the k, over k factorial, and the factorial always wins…
+08_5	3	So what's still to come keeps shrinking — and the total settles.
+08_5	3	So, what's still to come keeps shrinking, and the total settles.
+08_5	3	So what's still to come keeps shrinking, and the total settles…
+10_2	1	That is two equations — and their four numbers make one matrix.
+10_2	1	That is two equations; and their four numbers make one matrix.
+10_2	1	That is two equations, and their four numbers make one matrix…
+10_4	3	Fifty six point seven seven grams.
+10_4	3	Fifty-six point seven seven grams…
+10_4	3	— Fifty-six point seven seven grams.
+15_1	5	Three dimensions have three: one for each pair of axes.
+15_1	5	Three dimensions have three — one for each pair of axes.
+15_1	5	Three dimensions have three, one for each pair of axes…

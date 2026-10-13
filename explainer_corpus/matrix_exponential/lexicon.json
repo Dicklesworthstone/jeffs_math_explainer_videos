@@ -207,6 +207,7 @@
    ],
    "note": "Henri Padé, French [pade]. Spoken at 13_5 ('a Padé approximant').",
    "accept": [
+    "padei",
     "pardai",
     "parday",
     "parde"
@@ -294,5 +295,9 @@
   "centre": [
    "center"
   ]
+ },
+ "phrases": {
+  "shows y": "shows why",
+  "ways around": "ways round"
  }
 }
