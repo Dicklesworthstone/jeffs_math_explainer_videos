@@ -115,6 +115,12 @@ pub fn trick_run() -> Vec<Game> {
     games(&mut stream(2), runs::TRICK, bent(), bent())
 }
 
+/// Run 2 again, as the draws behind each pair: where its dot lands in the
+/// square.
+pub fn trick_draws() -> Vec<Vec<(f64, f64)>> {
+    model::game_draws(&mut stream(2), runs::TRICK, bent(), bent())
+}
+
 /// Run 4: the price.
 pub fn price_run() -> Vec<Game> {
     games(&mut stream(4), runs::PRICE, bent(), bent())

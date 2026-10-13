@@ -3,7 +3,9 @@
 //! quieter for the price and the breaks). Each chapter starts as its
 //! storyboard's animatic and is replaced by its real scene as it is built.
 
+pub mod draw;
 pub mod glyphs;
+pub mod toss_twice;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -23,7 +25,11 @@ macro_rules! animatic {
 pub fn registry() -> Vec<Chapter> {
     vec![
         animatic!("01_call_it", 0.35),
-        animatic!("02_toss_twice", 0.55),
+        Chapter {
+            key: "02_toss_twice",
+            make: |kit| Box::new(toss_twice::TossTwice { kit }),
+            intensity: 0.55,
+        },
         animatic!("03_every_coin", 0.5),
         animatic!("04_the_price", 0.4),
         animatic!("05_where_it_breaks", 0.45),

@@ -738,13 +738,33 @@ pub type Game = Vec<(Face, Face)>;
 /// `n` games with a first coin and a second coin (the same chance twice for
 /// one coin).
 pub fn games(d: &mut Data, n: usize, first: Q, second: Q) -> Vec<Game> {
+    game_draws(d, n, first, second)
+        .into_iter()
+        .map(|game| {
+            game.into_iter()
+                .map(|(a, b)| (face_of(a, first), face_of(b, second)))
+                .collect()
+        })
+        .collect()
+}
+
+/// The face a uniform draw gives a coin with chance `p` of heads: heads when
+/// the draw is below the chance (so in the square a pair's two draws are a
+/// point inside its own block).
+pub fn face_of(draw: f64, p: Q) -> Face {
+    if draw < p.f64() { H } else { T }
+}
+
+/// The draws behind `n` games: for each game its pairs of uniform draws, in
+/// the order they were made, the last pair the deciding one.
+pub fn game_draws(d: &mut Data, n: usize, first: Q, second: Q) -> Vec<Vec<(f64, f64)>> {
     (0..n)
         .map(|_| {
             let mut game = Vec::new();
             loop {
-                let pair = (toss(d, first), toss(d, second));
+                let pair = (d.unit(), d.unit());
                 game.push(pair);
-                if pair.0 != pair.1 {
+                if face_of(pair.0, first) != face_of(pair.1, second) {
                     return game;
                 }
             }
