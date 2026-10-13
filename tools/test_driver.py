@@ -73,6 +73,59 @@ class Driver(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
         self.assertIn("no lint_script.py", result.stderr)
 
+    def fake_skills(self, *scripts):
+        """A skills tree whose explainer scripts only record the arguments they were given."""
+        skills = self.root / "skills"
+        bin_dir = skills / "math-explainer-videos-end-to-end-with-franken-manim-frankentts" / "scripts"
+        bin_dir.mkdir(parents=True)
+        for name in scripts:
+            (bin_dir / name).write_text(
+                "import json, sys\nopen(sys.argv[0] + '.args', 'w').write(json.dumps(sys.argv[1:]))\n",
+                encoding="utf-8")
+        return skills, bin_dir
+
+    def test_help_lists_the_review_commands(self):
+        result = self.run_x("missing")
+        self.assertEqual(result.returncode, 2)
+        for command in (" protected ", " joins [scored|narrated|final] "):
+            self.assertIn(command, result.stdout)
+
+    def test_protected_needs_the_skill_script_and_the_list(self):
+        crate = self.crate("alpha")
+        result = self.run_x("alpha", "protected")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("no protected_check.py", result.stderr)
+        skills, _ = self.fake_skills("protected_check.py")
+        result = self.run_x("alpha", "protected", env=dict(os.environ, SKILLS=str(skills)))
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("no docs/protected.tsv", result.stderr)
+        self.assertFalse((crate / "docs").exists())
+
+    def test_protected_checks_the_script_and_the_final_captions(self):
+        crate = self.crate("alpha")
+        (crate / "docs").mkdir()
+        (crate / "docs" / "protected.tsv").write_text("a fact\tscript\twhy\n", encoding="utf-8")
+        (crate / "script.tsv").write_text("01_1\tA fact.\n", encoding="utf-8")
+        (crate / "renders" / "final").mkdir(parents=True)
+        (crate / "renders" / "final" / "alpha.en.srt").write_text("1\n", encoding="utf-8")
+        skills, bin_dir = self.fake_skills("protected_check.py")
+        result = self.run_x("alpha", "protected", env=dict(os.environ, SKILLS=str(skills)))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        args = json.loads((bin_dir / "protected_check.py.args").read_text(encoding="utf-8"))
+        self.assertEqual([Path(a).name for a in args], ["protected.tsv", "script.tsv", "alpha.en.srt"])
+
+    def test_protected_rejects_extra_arguments(self):
+        self.crate("alpha")
+        self.assertEqual(self.run_x("alpha", "protected", "extra").returncode, 2)
+
+    def test_joins_rejects_an_unknown_cut_and_a_missing_skill_before_build(self):
+        self.crate("alpha")
+        self.assertEqual(self.run_x("alpha", "joins", "draft").returncode, 2)
+        self.assertEqual(self.run_x("alpha", "joins", "scored", "extra").returncode, 2)
+        result = self.run_x("alpha", "joins", "narrated")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("no join_audit.py", result.stderr)
+
     def test_probe_rejects_extra_arguments_before_build(self):
         self.crate("alpha")
         self.assertEqual(self.run_x("alpha", "probe", "first", "second").returncode, 2)

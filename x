@@ -35,6 +35,12 @@
 #   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
 #   ./x <slug> chapters                         where each chapter starts in the final cut (M:SS key),
 #                                               from renders/final/'s timelines, for the description
+#   ./x <slug> protected                        every fact in docs/protected.tsv still in the script,
+#                                               the final captions and the publish text (presence
+#                                               only: read the sentences around them too)
+#   ./x <slug> joins [scored|narrated|final]    every chapter join of that cut, read in a word-aligned
+#                                               transcript of its own audio (fw + join_audit.py), into
+#                                               renders/<kind>_joins/<time>.report.txt
 #
 #   VOICE=<voice> ./x <slug> ...                the same commands for a variant of the video read by
 #                                               another voice: its narration, music and renders live in
@@ -165,7 +171,8 @@ drafts="$crate/renders/draft"
 # 1% of samples (the narration skill's criterion, which the chooser enforces).
 case "$slug" in
   capture_recapture) own_voice=matt ;;
-  raptorq_gf256|bakery_algorithm|fair_coin|mental_math) own_voice=michael ;;
+  raptorq_gf256|bakery_algorithm|fair_coin|mental_math|lie_robotics|bayesian_search|visual_proofs|\
+  matrix_exponential|eigen_engineering) own_voice=michael ;;
   hoeffding_d) own_voice=robert ;;
   *) own_voice= ;;
 esac
@@ -375,6 +382,47 @@ case "$cmd" in
       printf '%s\t%s\n' "$(basename "$f" .timeline.tsv)" "$(awk -F'\t' '$1 == "fps" { fps = $2 } $1 == "frames" { n = $2 } END { print n / fps }' "$f")"
     done | awk -F'\t' '{ s = int(t); printf "%d:%02d %s\n", s / 60, s % 60, $1; t += $2 }'
     exit 0 ;;
+  protected)
+    [ $# -eq 0 ] || usage
+    check="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/protected_check.py"
+    [ -f "$check" ] || die "no protected_check.py under $SKILLS (set SKILLS in project.env)"
+    [ -f "$crate/docs/protected.tsv" ] ||
+      die "no docs/protected.tsv for $slug: list the facts every revision keeps (REVIEW-AND-CONTINUITY.md)"
+    set -- "$crate/script.tsv"
+    for f in "$finals"/*.srt "$crate/publish/$voice/description.txt" "$crate/publish/$voice/title.txt"; do
+      [ -f "$f" ] && set -- "$@" "$f"
+    done
+    exec python3 -I "$check" "$crate/docs/protected.tsv" "$@" ;;
+  joins)
+    # The cut's own audio, not the script: words timed by fw, every chapter join read by join_audit.py.
+    [ $# -le 1 ] || usage
+    kind="${1:-scored}"
+    case "$kind" in narrated|scored|final) ;; *) usage ;; esac
+    audit="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/join_audit.py"
+    [ -f "$audit" ] || die "no join_audit.py under $SKILLS (set SKILLS in project.env)"
+    command -v fw >/dev/null 2>&1 || die "fw (FrankenWhisper) is not on PATH"
+    src="$base/renders/$kind"
+    build_binary
+    out="$base/renders/${kind}_joins"
+    mkdir -p "$out"
+    stamp=$(date +%Y%m%d-%H%M%S)
+    list="$out/$stamp.concat.txt"
+    : > "$list"
+    set --
+    for k in $("$binary" chapters); do
+      [ -f "$src/$k.mp4" ] || die "no $k.mp4 in $src (render it: ./x $slug $kind $k)"
+      printf "file '%s'\n" "$src/$k.mp4" >> "$list"
+      set -- "$@" "$src/$k.mp4"
+    done
+    ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$list" -vn -ac 1 -ar 16000 "$out/$stamp.wav" ||
+      die "could not extract the audio of $src"
+    fw transcribe --input "$out/$stamp.wav" --language en --no-diarize --no-persist --json \
+      --max-segment-length 1 --split-on-word > "$out/$stamp.words.json" 2> "$out/$stamp.fw.log" ||
+      die "fw failed (see $out/$stamp.fw.log)"
+    python3 -I "$audit" "$out/$stamp.words.json" "$crate/script.tsv" "$@" > "$out/$stamp.report.txt" ||
+      die "join_audit.py failed"
+    cat "$out/$stamp.report.txt"
+    echo "x: $out/$stamp.report.txt (transcript $out/$stamp.words.json)" ;;
   watch)
     # every chapter's draft in chapter order, stream-copied into one file to watch
     [ $# -le 1 ] || usage
