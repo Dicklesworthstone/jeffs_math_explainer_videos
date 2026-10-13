@@ -192,7 +192,7 @@ fn whole_rows(m: &Mat) -> Vec<Vec<String>> {
 }
 
 /// A rounded outline around the cell at (`row`, `col`) of `grid`.
-fn cell_outline(stage: &mut Stage<'_>, grid: &MatrixGrid, row: usize, col: usize, color: Srgb) -> fmn::Result<Mob> {
+pub fn cell_outline(stage: &mut Stage<'_>, grid: &MatrixGrid, row: usize, col: usize, color: Srgb) -> fmn::Result<Mob> {
     let c = stage.get_center(grid.cells[row][col]);
     let r = Rectangle::new()
         .width(grid.pitch * 0.9)
