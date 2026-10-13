@@ -12,7 +12,8 @@ stdout: one `KEY<TAB>VALUE` line per fact, the same keys `expm facts` prints
 exponential), F-H (the hook), F-J (the quarter turn), F-S (does the series
 settle), F-T (two tanks), F-G (walks on a network), F-D (spreading), F-C
 (computing it), F-O (order matters), F-L (the doorway to Lie theory), F-X
-(the edges of the always sentences) and F-B (cited).
+(the edges of the always sentences), F-B (cited), F-Q (the quizzes) and F-V
+(the numbers as the narration says them and the screen shows them).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -837,6 +838,104 @@ def cited_facts():
     emit("F-B.bosons", "8,2,1,1")
 
 
+# ---------------------------------------------------------------- F-Q
+
+QUIZ_SECONDS = [("01_1", 5), ("03_3", 5), ("04_4", 5), ("05_5", 6), ("07_3", 5), ("08_3", 5),
+                ("10_5", 5), ("11_3", 5), ("12_3", 6), ("14_2", 5), ("15_3", 6)]
+
+
+def quiz_facts():
+    a, b = fmat([[0, 1], [0, 0]]), fmat([[0, 0], [1, 0]])
+    sizes = [F(5**k, math.factorial(k)) for k in range(61)]
+    answers = {
+        "01_1": mat([[math.cos(1), -math.sin(1)], [math.sin(1), math.cos(1)]], 3),
+        "03_3": f"no: it settles at {dec(E_EXACT, 5)}",
+        "04_4": f"x^4/{math.factorial(4)}",
+        "05_5": dec(exp_fraction(F(5, 100) * 20), 3),
+        "07_3": whole(mpow(J, 2)),
+        "08_3": "they shrink: " + ("true" if all(sizes[k + 1] < sizes[k] for k in range(5, 60)) else "false"),
+        "10_5": row(tank_closed(1000), 0),
+        "11_3": count_walks(2)[2][2],
+        "12_3": "none: " + row([F(1, 4)] * 4, 2),
+        "14_2": "true" if expm_exact(madd(a, b)) == mmul(expm_exact(a), expm_exact(b)) else "false",
+        "15_3": len(list(itertools.combinations("xyzw", 2))),
+    }
+    emit("F-Q.count", len(QUIZ_SECONDS))
+    for line, seconds in QUIZ_SECONDS:
+        emit(f"F-Q.{line}.seconds", seconds)
+        emit(f"F-Q.{line}.answer", answers[line])
+
+
+# ---------------------------------------------------------------- F-V
+
+
+def spoken_facts():
+    emit("F-V.01_2.degrees", dec(180 / PI, 0))
+    emit("F-V.01_2.degrees.shown", dec(180 / PI, 1))
+    emit("F-V.03_2.two_steps", dec(F(3, 2) ** 2, 2))
+    emit("F-V.03_3.four_steps", dec(F(5, 4) ** 4, 2))
+    emit("F-V.03_3.twelve_steps", dec(F(13, 12) ** 12, 2))
+    emit("F-V.03_4.daily", dec(compound(F(1), 365), 3))
+    emit("F-V.03_4.million", dec(compound(F(1), 1_000_000), 5))
+    emit("F-V.03_4.e", dec(E_EXACT, 5))
+    running, total = [], F(1)
+    for k in range(1, 7):
+        total += F(1, math.factorial(k))
+        running.append(total)
+    emit("F-V.05_1.running", row(running, 3))
+    emit("F-V.05_6.rate_times_time", dec(F(5, 100) * 20, 0))
+    emit("F-V.05_6.factor", dec(exp_fraction(F(5, 100) * 20), 3))
+    for name, n in (("four", 4), ("hundred", 100)):
+        z = (1 + 1j * PI / n) ** n
+        emit(f"F-V.06_4.{name}_steps", row([z.real, z.imag], 2))
+    emit("F-V.07_6.at_one", mat([[math.cos(1), -math.sin(1)], [math.sin(1), math.cos(1)]], 3))
+    sizes = [F(5**k, math.factorial(k)) for k in range(21)]
+    emit("F-V.08_2.bars", row(sizes[:6], 1))
+    emit("F-V.08_2.near", dec(sizes[4], 0))
+    steps = series(mscale(J, F(5)), 20)
+    far = max(math.sqrt(sum(x * x for x in column(total, 0))) for _, _, total in steps)
+    emit("F-V.08_2.swings_past", dec(math.floor(far), 0))
+    emit("F-V.08_4.term20.tens_of_millionths", dec(sizes[20] * 10**5, 0))
+    emit("F-V.08_4.home", row([math.cos(5), math.sin(5)], 3))
+    shear = fmat([[1, 1], [0, 1]])
+    emit("F-V.08_5.shear", row([size(shear), size(mpow(shear, 2)), size(shear) ** 2], 3))
+    emit("F-V.08_6.bound", dec(exp_fraction(5), 1))
+    emit("F-V.10_3.one_step", row(apply(tiny_steps(TANKS, 10, 1), START), 0))
+    ten = apply(tiny_steps(TANKS, 10, 10), START)[0]
+    emit("F-V.10_4.ten_steps.said", dec(ten, 0))
+    emit("F-V.10_4.ten_steps", dec(ten, 2))
+    emit("F-V.10_4.thousand_steps", dec(apply(tiny_steps(TANKS, 10, 1000), START)[0], 2))
+    emit("F-V.10_4.exact", dec(tank_closed(10)[0], 2))
+    emit("F-V.10_6.minutes.said", dec(math.log(50) / 0.2, 0))
+    emit("F-V.10_6.minutes", dec(math.log(50) / 0.2, 1))
+    comm = expm_exact(ADJ)
+    emit("F-V.11_5.one_to_four", dec(comm[0][3], 2))
+    emit("F-V.11_6.one_to_three", dec(comm[0][2], 2))
+    emit("F-V.11_6.one_to_two", dec(comm[0][1], 2))
+    emit("F-V.12_2.level", row([F(1, 4)] * 4, 2))
+    exact = expm_exact(MVL)
+    largest = max(abs(x) for _, term, _ in series(MVL, 80) for r in term for x in r)
+    emit("F-V.13_3.millions", dec(math.floor(largest / 10**6), 0))
+    emit("F-V.13_3.exact", mat(exact, 3))
+    emit("F-V.13_3.all_smaller_than_two", max(abs(x) for r in exact for x in r) < 2)
+    wrong, terms = series_f32(MVL)
+    wrong = [[F(float(x)) for x in r] for r in wrong]
+    emit("F-V.13_5.series", mat(wrong, 3))
+    emit("F-V.13_5.terms", terms)
+    emit("F-V.13_5.entries_right_to_two_digits",
+         sum(1 for r, t in zip(wrong, exact) for x, y in zip(r, t) if f"{float(x):.1e}" == f"{float(y):.1e}"))
+    scaled = [[F(float(x)) for x in r] for r in scale_square_f32(MVL, 8, 8)]
+    emit("F-V.13_6.scaled", mat(scaled, 3))
+    emit("F-V.13_6.right_to_three_places", mat(scaled, 3) == mat(exact, 3))
+    taylor6 = sum(F(1, math.factorial(k)) for k in range(7))
+    emit("F-V.13_7.series", dec(taylor6, 5))
+    emit("F-V.13_7.pade", dec(pade(3, F(1)), 5))
+    emit("F-V.13_7.times_closer", dec(abs(taylor6 - E_EXACT) / abs(pade(3, F(1)) - E_EXACT), 0))
+    emit("F-V.14_4.both_at_once", mat([[math.cosh(1), math.sinh(1)], [math.sinh(1), math.cosh(1)]], 3))
+    emit("F-V.15_4.spins", f"{len(list(itertools.combinations('xyz', 2)))},{len(list(itertools.combinations('xyzw', 2)))}")
+    emit("F-V.16_2.steps", f"{su_dim(3)},{su_dim(2)},1,{su_dim(3) + su_dim(2) + 1}")
+
+
 def main():
     number_facts()
     hook_facts()
@@ -850,6 +949,8 @@ def main():
     lie_facts()
     edge_facts()
     cited_facts()
+    quiz_facts()
+    spoken_facts()
     print(f"# {len(_EMITTED)} keys; {_CHECKS[0]} cross-checks, {len(_FAILED)} failed; "
           f"{_EXPM_CHECKED[0]} exact exponentials compared with scipy.expm", file=sys.stderr)
     if _FAILED:

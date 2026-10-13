@@ -15,6 +15,10 @@
 //! expm render all|<chapter>... [--res 960x540] [--scratch-voice] [--out DIR] ...
 //! expm help                          # the full option list
 //! ```
+//!
+//! Chapters start as animatics (`explainer_kit::animatic`): each speaks its
+//! storyboard lines over a card describing the planned picture, so drafts
+//! and timelines run before the real scene exists.
 
 mod chapters;
 mod facts;
@@ -25,6 +29,8 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 const SCRIPT: &str = include_str!("../script.tsv");
+/// The storyboard: words, pictures, holds and listen windows per beat.
+pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 const EXPLAINER: Explainer = Explainer {
     crate_name: "matrix_exponential",
     script: SCRIPT,
@@ -50,9 +56,6 @@ mod tests {
 
     use super::*;
 
-    /// The storyboard: words, pictures, holds and listen windows per beat.
-    const STORYBOARD: &str = include_str!("../docs/storyboard.md");
-
     fn keys() -> Vec<&'static str> {
         chapters::registry().iter().map(|c| c.key).collect()
     }
@@ -62,5 +65,32 @@ mod tests {
         explainer_kit::storyboard::check_video(STORYBOARD, SCRIPT, &keys()).unwrap();
         let script = Script::parse(SCRIPT).unwrap();
         check_script_owners(&script, &keys(), None).unwrap();
+    }
+
+    /// Every quiz in `model::QUIZZES` is a storyboard beat that asks a
+    /// question and then counts down for exactly the quiz's seconds, and
+    /// every countdown in the storyboard is one of those quizzes.
+    #[test]
+    fn every_countdown_is_a_quiz_and_every_quiz_has_its_countdown() {
+        let board = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+        let beats: Vec<_> = board.iter().flat_map(|c| &c.beats).collect();
+        for q in model::QUIZZES {
+            let asked: Vec<_> = beats.iter().filter(|b| b.id == q.line).collect();
+            assert_eq!(asked.len(), 1, "{}: one beat asks the quiz", q.line);
+            assert!(asked[0].predict(), "{}: a quiz asks a question", q.line);
+            assert_eq!(
+                asked[0].listen_s(),
+                Some(f64::from(q.seconds)),
+                "{}: the countdown",
+                q.line
+            );
+        }
+        let counted: Vec<&str> = beats
+            .iter()
+            .filter(|b| b.hold.contains("countdown"))
+            .map(|b| b.id.as_str())
+            .collect();
+        let quizzes: Vec<&str> = model::QUIZZES.iter().map(|q| q.line).collect();
+        assert_eq!(counted, quizzes);
     }
 }

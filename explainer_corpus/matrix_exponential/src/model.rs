@@ -492,6 +492,74 @@ pub fn su_dim(n: u32) -> u32 {
     n * n - 1
 }
 
+/// A "your turn" quiz: the storyboard beat that asks it and the seconds of
+/// its countdown. The answers are the `F-Q.<line>.answer` facts.
+#[derive(Clone, Copy, Debug)]
+pub struct Quiz {
+    pub line: &'static str,
+    pub seconds: u32,
+    pub asks: &'static str,
+}
+
+/// Every quiz of the video, in order.
+pub const QUIZZES: &[Quiz] = &[
+    Quiz {
+        line: "01_1",
+        seconds: 5,
+        asks: "e to the quarter turn",
+    },
+    Quiz {
+        line: "03_3",
+        seconds: 5,
+        asks: "does compounding ever finer grow without limit",
+    },
+    Quiz {
+        line: "04_4",
+        seconds: 5,
+        asks: "the piece after x cubed over six",
+    },
+    Quiz {
+        line: "05_5",
+        seconds: 6,
+        asks: "five percent a year, continuously, for twenty years",
+    },
+    Quiz {
+        line: "07_3",
+        seconds: 5,
+        asks: "the quarter turn, squared",
+    },
+    Quiz {
+        line: "08_3",
+        seconds: 5,
+        asks: "what the terms of e to five quarter turns do next",
+    },
+    Quiz {
+        line: "10_5",
+        seconds: 5,
+        asks: "where the salt ends up",
+    },
+    Quiz {
+        line: "11_3",
+        seconds: 5,
+        asks: "two-step walks from node three back to node three",
+    },
+    Quiz {
+        line: "12_3",
+        seconds: 6,
+        asks: "the hopper's most likely node after a long time",
+    },
+    Quiz {
+        line: "14_2",
+        seconds: 5,
+        asks: "does the rule of exponents hold for two matrices",
+    },
+    Quiz {
+        line: "15_3",
+        seconds: 6,
+        asks: "independent spins in four dimensions",
+    },
+];
+
 #[cfg(test)]
 mod tests {
     use super::*;

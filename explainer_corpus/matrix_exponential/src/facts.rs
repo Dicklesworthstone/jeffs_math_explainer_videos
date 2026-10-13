@@ -9,7 +9,9 @@
 //! F-J the quarter turn; F-S does the series settle; F-T two tanks; F-G
 //! walks on a network; F-D spreading (heat, chance, a two-state quantum
 //! system); F-C computing it; F-O order matters; F-L the doorway to Lie
-//! theory; F-X the edges of the always sentences; F-B cited literals.
+//! theory; F-X the edges of the always sentences; F-B cited literals; F-Q
+//! the quizzes; F-V the numbers as the narration says them and the screen
+//! shows them.
 
 use explainer_kit::Facts;
 use explainer_kit::stats::Data;
@@ -384,6 +386,8 @@ pub fn facts() -> Result<Facts, String> {
     lie(&mut f)?;
     edges(&mut f)?;
     sources(&mut f)?;
+    quizzes(&mut f)?;
+    spoken(&mut f)?;
     Ok(f)
 }
 
@@ -804,6 +808,155 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// The answer to a quiz, as the screen shows it.
+fn quiz_answer(line: &str) -> Result<String, String> {
+    let j = quarter_turn();
+    Ok(match line {
+        "01_1" => mat(&expm(&j), 3)?,
+        "03_3" => format!("no: it settles at {}", dec(std::f64::consts::E, 5)?),
+        "04_4" => format!("x^4/{}", factorial(4)),
+        "05_5" => dec((shown::GROWTH.0 * shown::GROWTH.1).exp(), 3)?,
+        "07_3" => whole(&j.pow(2))?,
+        "08_3" => {
+            let sizes: Vec<f64> = series(&j.scale(shown::SETTLE_T), 60)
+                .iter()
+                .map(|s| s.term.size())
+                .collect();
+            let falling = sizes.windows(2).skip(5).all(|w| w[1] < w[0]);
+            format!("they shrink: {falling}")
+        }
+        "10_5" => {
+            let a = model::tanks(shown::TANK_LITRES, shown::TANK_PUMPED);
+            row(&expm_t(&a, 1000.0).apply(&shown::TANK_START), 0)?
+        }
+        "11_3" => KITE.walks(2)[2][2].to_string(),
+        "12_3" => format!("none: {}", row(expm_t(&KITE.laplacian(), -200.0).row(2), 2)?),
+        "14_2" => {
+            let (a, b) = (shear_right(), shear_up());
+            format!("{}", same(&expm(&a.add(&b)), &expm(&a).mul(&expm(&b)), 1e-9))
+        }
+        "15_3" => spins(4).to_string(),
+        other => return Err(format!("no answer for quiz {other}")),
+    })
+}
+
+/// F-Q: the quizzes.
+fn quizzes(f: &mut Facts) -> Result<(), String> {
+    f.add("F-Q.count", model::QUIZZES.len())?;
+    for q in model::QUIZZES {
+        f.add(&format!("F-Q.{}.seconds", q.line), q.seconds)?;
+        f.add(&format!("F-Q.{}.answer", q.line), quiz_answer(q.line)?)?;
+    }
+    Ok(())
+}
+
+/// F-V: every number the narration says, at the precision it is said and
+/// shown (keys carry the line id).
+fn spoken(f: &mut Facts) -> Result<(), String> {
+    let e = std::f64::consts::E;
+    f.add("F-V.01_2.degrees", dec(1.0_f64.to_degrees(), 0)?)?;
+    f.add("F-V.01_2.degrees.shown", dec(1.0_f64.to_degrees(), 1)?)?;
+    f.add("F-V.03_2.two_steps", dec(compound(1.0, 2), 2)?)?;
+    f.add("F-V.03_3.four_steps", dec(compound(1.0, 4), 2)?)?;
+    f.add("F-V.03_3.twelve_steps", dec(compound(1.0, 12), 2)?)?;
+    f.add("F-V.03_4.daily", dec(compound(1.0, 365), 3)?)?;
+    f.add("F-V.03_4.million", dec(compound(1.0, 1_000_000), 5)?)?;
+    f.add("F-V.03_4.e", dec(e, 5)?)?;
+    f.add(
+        "F-V.05_1.running",
+        row(&(1..=6).map(|k| exp_partial(1.0, k)).collect::<Vec<_>>(), 3)?,
+    )?;
+    f.add("F-V.05_6.rate_times_time", dec(shown::GROWTH.0 * shown::GROWTH.1, 0)?)?;
+    f.add("F-V.05_6.factor", dec((shown::GROWTH.0 * shown::GROWTH.1).exp(), 3)?)?;
+    let j = quarter_turn();
+    let pi = std::f64::consts::PI;
+    f.add("F-V.06_4.four_steps", row(&tiny_steps(&j, pi, 4).column(0), 2)?)?;
+    f.add("F-V.06_4.hundred_steps", row(&tiny_steps(&j, pi, 100).column(0), 2)?)?;
+    f.add("F-V.07_6.at_one", mat(&expm(&j), 3)?)?;
+    let settle = series(&j.scale(shown::SETTLE_T), shown::SETTLE_TERMS);
+    let sizes: Vec<f64> = settle.iter().map(|s| s.term.size()).collect();
+    f.add("F-V.08_2.bars", row(&sizes[..6], 1)?)?;
+    f.add("F-V.08_2.near", dec(sizes[4], 0)?)?;
+    let far = settle
+        .iter()
+        .map(|s| s.total.column(0).iter().map(|x| x * x).sum::<f64>().sqrt())
+        .fold(0.0, f64::max);
+    f.add("F-V.08_2.swings_past", dec(far.floor(), 0)?)?;
+    // "about forty millionths": the twentieth term in tens of millionths
+    f.add("F-V.08_4.term20.tens_of_millionths", dec(sizes[20] * 1e5, 0)?)?;
+    f.add("F-V.08_4.home", row(&expm(&j.scale(shown::SETTLE_T)).column(0), 3)?)?;
+    let shear = Mat::from_rows(&[&[1.0, 1.0], &[0.0, 1.0]]);
+    f.add(
+        "F-V.08_5.shear",
+        row(&[shear.size(), shear.pow(2).size(), shear.size().powi(2)], 3)?,
+    )?;
+    f.add("F-V.08_6.bound", dec(shown::SETTLE_T.exp(), 1)?)?;
+    let tank = model::tanks(shown::TANK_LITRES, shown::TANK_PUMPED);
+    let start = shown::TANK_START;
+    let t = shown::TANK_STEP_TIME;
+    f.add("F-V.10_3.one_step", row(&tiny_steps(&tank, t, 1).apply(&start), 0)?)?;
+    f.add(
+        "F-V.10_4.ten_steps.said",
+        dec(tiny_steps(&tank, t, 10).apply(&start)[0], 0)?,
+    )?;
+    f.add("F-V.10_4.ten_steps", dec(tiny_steps(&tank, t, 10).apply(&start)[0], 2)?)?;
+    f.add(
+        "F-V.10_4.thousand_steps",
+        dec(tiny_steps(&tank, t, 1000).apply(&start)[0], 2)?,
+    )?;
+    f.add("F-V.10_4.exact", dec(expm_t(&tank, t).apply(&start)[0], 2)?)?;
+    f.add("F-V.10_6.minutes.said", dec(50.0_f64.ln() / 0.2, 0)?)?;
+    f.add("F-V.10_6.minutes", dec(50.0_f64.ln() / 0.2, 1)?)?;
+    let comm = expm(&KITE.adjacency());
+    f.add("F-V.11_5.one_to_four", dec(comm.get(0, 3), 2)?)?;
+    f.add("F-V.11_6.one_to_three", dec(comm.get(0, 2), 2)?)?;
+    f.add("F-V.11_6.one_to_two", dec(comm.get(0, 1), 2)?)?;
+    f.add(
+        "F-V.12_2.level",
+        row(&expm_t(&KITE.laplacian(), -200.0).column(shown::HEAT_START), 2)?,
+    )?;
+    let exact = expm(&mvl());
+    let largest = series(&mvl(), 80).iter().map(|s| s.term.max_abs()).fold(0.0, f64::max);
+    f.add("F-V.13_3.millions", dec((largest / 1e6).floor(), 0)?)?;
+    f.add("F-V.13_3.exact", mat(&exact, 3)?)?;
+    f.add("F-V.13_3.all_smaller_than_two", exact.max_abs() < 2.0)?;
+    let (wrong, terms) = model::series_f32(&mvl_f32());
+    let wrong = widen(&wrong);
+    f.add("F-V.13_5.series", mat(&wrong, 3)?)?;
+    f.add("F-V.13_5.terms", terms)?;
+    // "wrong in every entry": none of the four agrees with the truth to two digits
+    let two_digits = |x: f64| format!("{x:.1e}");
+    let agree = wrong
+        .entries()
+        .iter()
+        .zip(exact.entries())
+        .filter(|(w, x)| two_digits(**w) == two_digits(**x))
+        .count();
+    f.add("F-V.13_5.entries_right_to_two_digits", agree)?;
+    let scaled = widen(&model::scale_square_f32(
+        &mvl_f32(),
+        shown::HALVINGS,
+        shown::SCALED_DEGREE,
+    ));
+    f.add("F-V.13_6.scaled", mat(&scaled, 3)?)?;
+    f.add("F-V.13_6.right_to_three_places", mat(&scaled, 3)? == mat(&exact, 3)?)?;
+    let (p3, q3) = pade_at_one(3);
+    f.add("F-V.13_7.series", dec(exp_partial(1.0, 6), 5)?)?;
+    f.add("F-V.13_7.pade", dec(p3 as f64 / q3 as f64, 5)?)?;
+    f.add(
+        "F-V.13_7.times_closer",
+        dec((exp_partial(1.0, 6) - e).abs() / (p3 as f64 / q3 as f64 - e).abs(), 0)?,
+    )?;
+    let (a, b) = (shear_right(), shear_up());
+    f.add("F-V.14_4.both_at_once", mat(&expm(&a.add(&b)), 3)?)?;
+    f.add("F-V.15_4.spins", format!("{},{}", spins(3), spins(4)))?;
+    f.add(
+        "F-V.16_2.steps",
+        format!("{},{},{},{}", su_dim(3), su_dim(2), 1, su_dim(3) + su_dim(2) + 1),
+    )?;
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -863,6 +1016,44 @@ mod tests {
             shown::SCALED_DEGREE,
         ));
         assert!(scaled.sub(&exact).max_abs() < 5e-5);
+    }
+
+    /// Narration truth: every number the script speaks, against the model.
+    #[test]
+    fn the_numbers_the_narration_says_are_the_models() {
+        let f = facts().unwrap();
+        // an unknown key fails the test, naming the key
+        let said = |key: &str| f.get(key).map(str::to_owned).ok_or(key).unwrap();
+        assert_eq!(said("F-V.01_2.degrees"), "57"); // "about fifty-seven degrees"
+        assert_eq!(said("F-V.03_2.two_steps"), "2.25"); // "two twenty-five"
+        assert_eq!(said("F-V.03_3.four_steps"), "2.44");
+        assert_eq!(said("F-V.03_3.twelve_steps"), "2.61");
+        assert_eq!(said("F-V.03_4.daily"), "2.715");
+        assert_eq!(said("F-V.03_4.million"), "2.71828");
+        assert_eq!(said("F-V.03_4.e"), "2.71828");
+        assert!(said("F-V.05_1.running").ends_with("2.718")); // "climbs to two point seven one eight"
+        assert_eq!(said("F-V.05_6.rate_times_time"), "1");
+        assert_eq!(said("F-V.05_6.factor"), "2.718");
+        assert_eq!(said("F-V.08_2.near"), "26"); // "entries near twenty-six"
+        assert_eq!(said("F-V.08_4.term20.tens_of_millionths"), "4"); // "about forty millionths"
+        assert_eq!(said("F-V.10_3.one_step"), "0,100"); // "all hundred grams change tanks"
+        assert_eq!(said("F-V.10_4.ten_steps.said"), "55"); // "about fifty-five grams stay"
+        assert_eq!(said("F-V.10_4.thousand_steps"), "56.75");
+        assert_eq!(said("F-V.10_4.exact"), "56.77");
+        assert_eq!(said("F-V.10_6.minutes.said"), "20"); // "about twenty minutes"
+        assert_eq!(said("F-V.13_3.millions"), "9"); // "swell past nine million"
+        assert_eq!(said("F-V.13_3.all_smaller_than_two"), "true");
+        assert_eq!(said("F-V.13_5.entries_right_to_two_digits"), "0"); // "wrong in every entry"
+        assert_eq!(said("F-C.mvl.f32.wrong_signs"), "1"); // "one even has the wrong sign"
+        assert_eq!(said("F-V.13_6.right_to_three_places"), "true");
+        assert_eq!(said("F-V.13_7.times_closer"), "8");
+        assert_eq!(said("F-V.15_4.spins"), "3,6");
+        assert_eq!(said("F-V.16_2.steps"), "8,3,1,12"); // "eight, three, and one. Twelve in all."
+        assert_eq!(said("F-Q.11_3.answer"), "3");
+        assert_eq!(said("F-Q.10_5.answer"), "50,50");
+        assert_eq!(said("F-Q.12_3.answer"), "none: 0.25,0.25,0.25,0.25"); // "A quarter each."
+        assert_eq!(said("F-Q.14_2.answer"), "false");
+        assert_eq!(said("F-Q.07_3.answer"), "-1,0;0,-1"); // "minus the matrix that changes nothing"
     }
 
     /// The quantum pair sloshes: all the chance is back at the start after

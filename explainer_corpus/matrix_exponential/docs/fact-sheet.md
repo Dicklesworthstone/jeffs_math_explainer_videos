@@ -9,17 +9,18 @@ at the end was copied from the oracle's output by a script, not typed.
 ```
 
 - **Result, 2026-10-13** (the build host; CPython 3.14, NumPy and SciPy
-  through uv): `facts-check matrix_exponential: 233 video facts against 233
-  oracle keys: PASS`. The oracle prints 233 keys, passes 92 of 92 of its own
-  cross-checks, and compares 69 exact exponentials with SciPy's `expm`.
-- **Rust side:** `./x matrix_exponential test`: 16 tests pass, clippy
+  through uv): `facts-check matrix_exponential: 302 video facts against 302
+  oracle keys: PASS`. The oracle prints 302 keys, passes 92 of 92 of its own
+  cross-checks, and compares 77 exact exponentials with SciPy's `expm`.
+- **Rust side:** `./x matrix_exponential test`: 18 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** F-N the number exponential; F-H the hook; F-J the quarter turn;
   F-S does the series settle; F-T two tanks; F-G walks on a network; F-D
   spreading (heat, chance, a two-state quantum system); F-C computing it;
   F-O order matters; F-L the doorway to Lie theory; F-X the edges of the
   always sentences, each as "how many hold of how many checked"; F-B cited
-  literals.
+  literals; F-Q the quizzes (countdown seconds and answers); F-V every
+  number the narration says, at the precision it is said and shown.
 
 ## How the two sides get their numbers
 
@@ -57,8 +58,10 @@ sides, so the two routes cannot round differently (none is).
    pp. 807–808) used IBM 370 hexadecimal short arithmetic: 59 terms, two
    entries with the wrong sign. The same series in IEEE 32-bit arithmetic
    (`F-C.mvl.f32.*`, computed here and repeated operation for operation in
-   NumPy) takes 62 terms and returns four numbers that are each wrong in the
-   first digit, one with the wrong sign, the worst off by 1.94. The video
+   NumPy) takes 62 terms and returns four numbers of which none is right to two
+   digits (`F-V.13_5.entries_right_to_two_digits`) and one has the wrong
+   sign, the worst off by 1.94. Halved eight times first, the same 32 bits
+   give all four right to three decimal places (`F-V.13_6.*`). The video
    shows its own run and labels it; their printed digits are quoted as
    theirs (`F-B.mvl.ibm.*`) and only in the description.
 3. **They name no best method.** "Thus, we see perhaps three or four
@@ -535,3 +538,86 @@ Typed from the sources (S-numbers above); the video shows them only as quotation
 | `F-B.lie.born` | 1842 |
 | `F-B.lie.died` | 1899 |
 | `F-B.bosons` | 8,2,1,1 |
+
+### F-Q: the quizzes
+
+One pair of rows per quiz, keyed by the storyboard line that asks it: the seconds of its countdown and the answer as the screen shows it (`model::QUIZZES`; a test ties each to its storyboard beat).
+
+| key | value |
+|---|---|
+| `F-Q.count` | 11 |
+| `F-Q.01_1.seconds` | 5 |
+| `F-Q.01_1.answer` | 0.540,-0.841;0.841,0.540 |
+| `F-Q.03_3.seconds` | 5 |
+| `F-Q.03_3.answer` | no: it settles at 2.71828 |
+| `F-Q.04_4.seconds` | 5 |
+| `F-Q.04_4.answer` | x^4/24 |
+| `F-Q.05_5.seconds` | 6 |
+| `F-Q.05_5.answer` | 2.718 |
+| `F-Q.07_3.seconds` | 5 |
+| `F-Q.07_3.answer` | -1,0;0,-1 |
+| `F-Q.08_3.seconds` | 5 |
+| `F-Q.08_3.answer` | they shrink: true |
+| `F-Q.10_5.seconds` | 5 |
+| `F-Q.10_5.answer` | 50,50 |
+| `F-Q.11_3.seconds` | 5 |
+| `F-Q.11_3.answer` | 3 |
+| `F-Q.12_3.seconds` | 6 |
+| `F-Q.12_3.answer` | none: 0.25,0.25,0.25,0.25 |
+| `F-Q.14_2.seconds` | 5 |
+| `F-Q.14_2.answer` | false |
+| `F-Q.15_3.seconds` | 6 |
+| `F-Q.15_3.answer` | 6 |
+
+### F-V: the numbers as said and shown
+
+Keyed by the storyboard line. Each is the model's value at the precision the narration speaks or the screen shows; the test `the_numbers_the_narration_says_are_the_models` pins the spoken ones. `.said` is the rounder spoken form where the screen shows more digits.
+
+| key | value |
+|---|---|
+| `F-V.01_2.degrees` | 57 |
+| `F-V.01_2.degrees.shown` | 57.3 |
+| `F-V.03_2.two_steps` | 2.25 |
+| `F-V.03_3.four_steps` | 2.44 |
+| `F-V.03_3.twelve_steps` | 2.61 |
+| `F-V.03_4.daily` | 2.715 |
+| `F-V.03_4.million` | 2.71828 |
+| `F-V.03_4.e` | 2.71828 |
+| `F-V.05_1.running` | 2.000,2.500,2.667,2.708,2.717,2.718 |
+| `F-V.05_6.rate_times_time` | 1 |
+| `F-V.05_6.factor` | 2.718 |
+| `F-V.06_4.four_steps` | -2.32,1.20 |
+| `F-V.06_4.hundred_steps` | -1.05,0.00 |
+| `F-V.07_6.at_one` | 0.540,-0.841;0.841,0.540 |
+| `F-V.08_2.bars` | 1.0,5.0,12.5,20.8,26.0,26.0 |
+| `F-V.08_2.near` | 26 |
+| `F-V.08_2.swings_past` | 21 |
+| `F-V.08_4.term20.tens_of_millionths` | 4 |
+| `F-V.08_4.home` | 0.284,-0.959 |
+| `F-V.08_5.shear` | 1.618,2.414,2.618 |
+| `F-V.08_6.bound` | 148.4 |
+| `F-V.10_3.one_step` | 0,100 |
+| `F-V.10_4.ten_steps.said` | 55 |
+| `F-V.10_4.ten_steps` | 55.37 |
+| `F-V.10_4.thousand_steps` | 56.75 |
+| `F-V.10_4.exact` | 56.77 |
+| `F-V.10_6.minutes.said` | 20 |
+| `F-V.10_6.minutes` | 19.6 |
+| `F-V.11_5.one_to_four` | 0.92 |
+| `F-V.11_6.one_to_three` | 2.62 |
+| `F-V.11_6.one_to_two` | 2.42 |
+| `F-V.12_2.level` | 0.25,0.25,0.25,0.25 |
+| `F-V.13_3.millions` | 9 |
+| `F-V.13_3.exact` | -0.736,0.552;-1.472,1.104 |
+| `F-V.13_3.all_smaller_than_two` | true |
+| `F-V.13_5.series` | -0.789,1.314;-0.126,-0.839 |
+| `F-V.13_5.terms` | 62 |
+| `F-V.13_5.entries_right_to_two_digits` | 0 |
+| `F-V.13_6.scaled` | -0.736,0.552;-1.472,1.104 |
+| `F-V.13_6.right_to_three_places` | true |
+| `F-V.13_7.series` | 2.71806 |
+| `F-V.13_7.pade` | 2.71831 |
+| `F-V.13_7.times_closer` | 8 |
+| `F-V.14_4.both_at_once` | 1.543,1.175;1.175,1.543 |
+| `F-V.15_4.spins` | 3,6 |
+| `F-V.16_2.steps` | 8,3,1,12 |
