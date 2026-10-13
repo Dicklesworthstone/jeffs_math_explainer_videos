@@ -30,3 +30,5 @@
 01_8	1	“The last few take forever, because you keep getting doubles…”	"doubles" ends with a 0.20 s z that decays; in the read the score chose the z is a 30 ms hiss after a long l. This one is also calmer (4.6 syllables a second, not 5.6); its 0.9 s pause is at the comma and the editor shortens it
 03_2	1	‘A row per card, and a dot where it uses a piece.’	the s of "piece" runs 0.24 s here and silence follows; in the read the score chose it is a 30 ms stub where the take stops
 07_5	3	“So with random byte amounts, only the last bit matters…”	"matters" ends with its z here (0.14 s, decays); the read chosen before ended on the second vowel right after the t
+# 12_1/1 (2026-10-12): the t of "byte" before "order".
+12_1	1	“Here's the whole times table in byte-order.”	the t of "byte" is here: a 107 ms closure and a release burst before "order"; the read shipped before had none, only a 12 ms glottal catch (heard "by order" by Codex and by the line ASR)
