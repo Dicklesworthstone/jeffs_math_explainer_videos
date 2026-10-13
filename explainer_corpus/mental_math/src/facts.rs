@@ -118,6 +118,7 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     f.add("F-H1.paper.rows", list(&p.rows))?;
     f.add("F-H1.paper.row_count", p.rows.len())?;
     f.add("F-H1.paper.carries", p.carries)?;
+    f.add("F-H1.paper.carried", list(&p.carried))?;
     f.add("F-H1.paper.product", p.product)?;
     let e = ends_in_five(shown::HOOK).ok_or("the hook's number does not end in 5")?;
     f.add("F-H1.trick.front", e.n)?;

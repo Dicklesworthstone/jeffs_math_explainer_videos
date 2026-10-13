@@ -92,7 +92,7 @@ def paper(a, b):
     column of the sum that still has digits in it, comes after it.
     """
     top = str(a)[::-1]
-    rows, held = [], 0
+    rows, held = [], []
     for shift, m in enumerate(str(b)[::-1]):
         out, carry = "", 0
         for i, t in enumerate(top):
@@ -100,7 +100,7 @@ def paper(a, b):
             out = str(p % 10) + out
             carry = p // 10
             if carry and i + 1 < len(top):
-                held += 1
+                held.append(carry)
         if carry:
             out = str(carry) + out
         rows.append(int(out + "0" * shift))
@@ -110,7 +110,7 @@ def paper(a, b):
         column = sum(r // 10**col % 10 for r in rows) + carry
         carry = column // 10
         if carry and col + 1 < width:
-            held += 1
+            held.append(carry)
     return rows, held
 
 
@@ -240,7 +240,8 @@ def main():
     rows, held = paper(hook, hook)
     emit("F-H1.paper.rows", join(rows))
     emit("F-H1.paper.row_count", len(rows))
-    emit("F-H1.paper.carries", held)
+    emit("F-H1.paper.carries", len(held))
+    emit("F-H1.paper.carried", join(held))
     emit("F-H1.paper.product", hook * hook)
     check("the paper rows add up", sum(rows) == hook * hook)
     steps, answer = worked("ends_in_five", ("square", hook))

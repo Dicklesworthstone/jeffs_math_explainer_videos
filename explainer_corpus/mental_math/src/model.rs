@@ -43,6 +43,9 @@ pub struct Paper {
     /// How many times a carried digit has to be held for the next step: in
     /// the digit products of each row, and in adding the rows.
     pub carries: u32,
+    /// The digits carried and held, in the order they come up (85 × 85
+    /// carries a 2 and a 4 inside its rows and a 1 in adding them).
+    pub carried: Vec<u64>,
     pub product: u64,
 }
 
@@ -58,7 +61,7 @@ fn digits(mut x: u64) -> Vec<u64> {
 }
 
 pub fn paper(a: u64, b: u64) -> Paper {
-    let (top, mut rows, mut carries) = (digits(a), Vec::new(), 0);
+    let (top, mut rows, mut carried) = (digits(a), Vec::new(), Vec::new());
     let mut scale = 1;
     for m in digits(b) {
         let (mut row, mut carry, mut place) = (0, 0, 1);
@@ -69,7 +72,7 @@ pub fn paper(a: u64, b: u64) -> Paper {
             place *= 10;
             // the last carry is simply written down; the others are held
             if carry > 0 && i + 1 < top.len() {
-                carries += 1;
+                carried.push(carry);
             }
         }
         rows.push((row + carry * place) * scale);
@@ -82,10 +85,15 @@ pub fn paper(a: u64, b: u64) -> Paper {
         carry = column / 10;
         place *= 10;
         if carry > 0 && rows.iter().any(|&r| r / place > 0) {
-            carries += 1;
+            carried.push(carry);
         }
     }
-    Paper { rows, carries, product }
+    Paper {
+        rows,
+        carries: carried.len() as u32,
+        carried,
+        product,
+    }
 }
 
 // ---------------------------------------------------------------------------
