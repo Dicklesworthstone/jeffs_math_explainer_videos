@@ -11,6 +11,7 @@ pub mod halfway;
 pub mod lost_directions;
 pub mod one_turn;
 pub mod spin;
+pub mod steps;
 pub mod the_book;
 pub mod the_platform;
 pub mod the_spare_joint;
@@ -56,7 +57,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("10_velocities_add", 0.5, velocities_add::VelocitiesAdd),
         scene!("11_lost_directions", 0.4, lost_directions::LostDirections),
         scene!("12_the_spare_joint", 0.5, the_spare_joint::TheSpareJoint),
-        animatic!("13_steps", 0.55),
+        scene!("13_steps", 0.55, steps::Steps),
         animatic!("14_the_steady_path", 0.5),
         animatic!("15_everywhere", 0.65),
     ]

@@ -547,7 +547,6 @@ impl Arm {
     /// Joint angles along the motion that swings the elbow while the tip
     /// holds its pose: small steps along the joint speeds that add up to no
     /// twist, each corrected back onto the pose, until a joint limit.
-    #[allow(dead_code)] // chapter 12's scene draws it; until that lands only the tests call it
     pub fn swing(&self, start: &Q, step: f64, direction: f64, max_steps: usize) -> Vec<Q> {
         let hold = self.tip(start);
         let mut q = *start;
