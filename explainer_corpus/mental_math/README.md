@@ -24,15 +24,19 @@ trick: one is a product that no trick helps with, where paper is the right
 tool, and the last is a square that two tricks agree on.
 
 **Status: in production.** The brief, the facts and their oracle, the
-storyboard and the script are done (`./x mental_math facts-check` passes;
-review R1 is in `docs/reviews/mental_math/`, the claim walk in
-`docs/claims.md`); the scenes and drafts follow. Nothing has been narrated, scored or rendered at
-4K yet.
+storyboard, the script and all fourteen scenes are done
+(`./x mental_math facts-check` passes; review R1 is in
+`docs/reviews/mental_math/`, the claim walk in `docs/claims.md`). The 540p
+drafts with the scratch voice run 16.6 minutes in all (the longest chapter
+85.7 s) and have been read as contact and cue sheets; they wait for the
+owner. Nothing has been narrated, scored or rendered at 4K yet.
 
 ```bash
 ./x mental_math test          # tests, clippy -D warnings, fmt --check
 ./x mental_math facts-check   # every number against oracle.py
 ./x mental_math storyboard    # the G2 checks; writes script.tsv
+./x mental_math draft         # 540p, scratch voice, layout lint, into renders/draft/
+./x mental_math sheets        # contact sheets of those drafts, to read
 ```
 
 - `docs/brief.md`: the owner's idea in his words, and every default chosen.
@@ -46,3 +50,6 @@ review R1 is in `docs/reviews/mental_math/`, the claim walk in
 - `src/model.rs`: each trick as the video works it; `src/facts.rs`: every
   number the video shows or says; `oracle.py`: the same numbers by plain
   arithmetic and by counting unit squares.
+- `src/chapters/`: one scene per chapter on the shared drawing kit
+  `draw.rs` (the strip that turns, the cut rectangle, the quiz card and its
+  countdown, the six small pictures) and the teaching sounds of `sound.rs`.

@@ -1147,7 +1147,7 @@ impl QuizCard {
             Some(words) => Some(kit.text(
                 stage,
                 words,
-                (30.0 * k).max(22.0),
+                (32.0 * k).max(28.0),
                 quiz_color(),
                 v(at[0], at[1] + h / 2.0 - 0.45 * k),
             )?),
@@ -1181,7 +1181,7 @@ impl QuizCard {
             Some(kit.text(
                 stage,
                 PAUSE_LINE,
-                (26.0 * k).max(20.0),
+                (28.0 * k).max(26.0),
                 Palette::dim(),
                 v(ring_at[0], ring_at[1] - radius - 0.4 * k),
             )?)
