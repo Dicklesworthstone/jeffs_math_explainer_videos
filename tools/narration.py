@@ -95,8 +95,8 @@ CAPS = {"punct": ((0.42, 0.40), (0.52, 0.44)), "none": ((0.22, 0.18), (0.34, 0.2
         "unknown": ((0.34, 0.30), (0.52, 0.40))}
 STALL = 0.90               # a pause this long is the model stalling, whatever is in it
 CUT_SHORT = 16.0           # dB under speech level: a last sound that stops louder than this was cut off
-SIBILANT_TAIL = 0.30       # s of kept speech searched for the final s/z of a word that ends in one
-SIBILANT_MIN = 5.0         # dB: the final frication must carry this much more energy above 4 kHz than under 2 kHz
+SIBILANT_GATE = 25.0       # dB under speech level: quieter frames after the last word are breath, not its ending
+SIBILANT_MS = 45           # ms of frication a final s/z needs in the last 100 ms of speech
 FINISHERS = (("“", "”"),)  # every read is also auditioned inside these; ftts then finishes the sentence
 EXTRA = {}                 # script sentence -> the director's extra ftts inputs for it (reads.tsv)
 PICKS = {}                 # read tag -> why the director chose it over the score (picks.tsv)
@@ -189,26 +189,35 @@ def wants_sibilant(sentence):
     return last.endswith(("s", "x", "ce", "se", "ze", "ch", "sh"))
 
 
-def sibilant_missing(x, rate, end):
-    """No frication at the end of a read whose last word ends in s/z: over the last SIBILANT_TAIL s
-    before `end`, even the 15 ms frame with the most 4-10 kHz energy has more energy under 2 kHz.
-    ftts drops a final s/z ("a million phone"); Whisper writes the word in full, so only the
-    spectrum shows it. Calibrated on 166 reads of three videos: every ending heard or seen missing
-    had this ratio at -7 dB or below, every present one at +9 or above; SIBILANT_MIN sits between
-    (a +1.6 dB "size" 28 dB under speech level, heard faint, falls below it)."""
-    seg = x[max(0, int((end - SIBILANT_TAIL) * rate)):int(end * rate)]
+def sibilant_missing(x, rate, end, top):
+    """The last word's s/z is gone or clipped: the last 100 ms of speech before `end` (frames within
+    SIBILANT_GATE dB of the read's speech level `top`, so a breath after the word does not count)
+    holds under SIBILANT_MS ms of frication, 15 ms frames with more energy at 3-10 kHz than at
+    300-2000 Hz (bands that also take sh and a voiced z, whose voice bar is under 300 Hz). ftts
+    drops a final s/z ("a million phone") or ends the take 30-50 ms into it ("cell-"); Whisper
+    writes the word in full, so only the spectrum shows it. Calibrated on four michael videos: the
+    226 chosen reads, whose endings the directors checked, had 45-100 ms (sh, a voiced z and a short
+    s the least: "fish?", "sees", "else" are full on a spectrogram); the replaced reads whose
+    spectrogram shows the ending missing or clipped had 0-40. The check this replaces (the strongest 4-10 kHz frame in the last 0.3 s)
+    passed "slots", "pieces" and "doubles" on the s at the start of the word, and failed a full
+    "months" on the breath after it."""
     n, h = int(0.015 * rate), int(HOP * rate)
-    if len(seg) < n:
-        return False
+    seg = x[max(0, int((end - 0.6) * rate)):int(end * rate)]
     win, f = np.hanning(n), np.fft.rfftfreq(n, 1 / rate)
-    hi, lo = (f >= 4000) & (f < 10000), (f >= 100) & (f < 2000)
-    best_hf, ratio = -np.inf, -np.inf
+    hi, lo = (f >= 3000) & (f < 10000), (f >= 300) & (f < 2000)
+    frication = []  # per frame: None for no speech, else whether it is frication
     for i in range(0, len(seg) - n + 1, h):
-        power = np.abs(np.fft.rfft(seg[i:i + n] * win)) ** 2
-        hf, lf = 10 * np.log10(power[hi].sum() + 1e-12), 10 * np.log10(power[lo].sum() + 1e-12)
-        if hf > best_hf:
-            best_hf, ratio = hf, hf - lf
-    return bool(ratio < SIBILANT_MIN)
+        frame = seg[i:i + n]
+        if 10 * np.log10(np.mean(frame ** 2) + 1e-12) <= top - SIBILANT_GATE:
+            frication.append(None)
+            continue
+        power = np.abs(np.fft.rfft(frame * win)) ** 2
+        frication.append(bool(power[hi].sum() > power[lo].sum()))
+    last = max((k for k, s in enumerate(frication) if s is not None), default=None)
+    if last is None:
+        return False  # no speech in reach: nothing to judge
+    ms = 1000 * HOP * sum(1 for s in frication[max(0, last - frames(0.1) + 1):last + 1] if s)
+    return bool(ms < SIBILANT_MS)
 
 
 def first_voiced(x, rate, top):
@@ -391,7 +400,7 @@ def analyze(path, asr, target_text):
     stalls = sum(1 for p in pauses if p["len"] >= STALL)
     score -= 0.02 * (h["junk_after_s"] > 0) + 0.04 * stalls + 0.02 * (not h["clean_in"]) + 0.02 * (not h["clean_out"])
     score -= 0.12 * h["cut_short"]
-    no_s = wants_sibilant(target_text) and sibilant_missing(x, rate, h["cut_out"])
+    no_s = wants_sibilant(target_text) and sibilant_missing(x, rate, h["cut_out"], h["top_db"])
     score -= 0.12 * no_s  # a dropped final s/z changes the word ("phone" for "phones")
     picked = PICKS.get(Path(path).stem)
     score = round(score, 4)
