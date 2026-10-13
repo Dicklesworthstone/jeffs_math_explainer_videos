@@ -1,13 +1,14 @@
-# Publishing manifest: three videos are Public, the fish video's final is owed (2026-10-12, 21:16 EDT)
+# Publishing manifest: all four videos are Public (2026-10-12, 21:30 EDT)
 
-**Three of the four videos are Public** on the channel since 2026-10-12, about 21:07 EDT: RaptorQ,
-Hoeffding's D and the bakery video (BronzeRidge, mails 1368 and 1378). Each is the unchanged,
-verified master under its plain title, with its description as the producer file, English captions
-Published and 4K complete; BronzeRidge confirmed Public, Published Oct 12, 2026 and no notices
-again after a fresh reload of the channel's content page. Checked from outside at 21:18 through
-YouTube's oEmbed endpoint: the three links resolve publicly with exactly the titles below, and the
-fish v3 link answers 403. **The fish video is not public**: its v3 upload stays Private, and the
-new final with the label fix gets a new URL once it is verified.
+**All four videos are Public** on the channel, Jeff's Math Explainers. RaptorQ, Hoeffding's D and
+the bakery video went Public on 2026-10-12 at about 21:07 EDT (BronzeRidge, mails 1368 and 1378),
+and the fish video at about 21:25 EDT (mails 1388 and 1389), as a new upload of its v4 final. Each
+is the verified master under its plain title, with its description as the producer file, English
+captions Published and SD/HD/4K complete with no notices; BronzeRidge confirmed the Public state
+again after a fresh reload of the channel's content page. Checked from outside through YouTube's
+oEmbed endpoint (21:18 for the first three, 21:27 for the fish video): the four links resolve
+publicly with exactly the titles below, and the fish v3 review link answers 403. Every earlier
+review upload and every original stays Private.
 
 The owner authorized this on 2026-10-12 (relayed in mail 1361): "ok please just wrap things up and
 make those fixes and then do final ultra high quality renderings to 4k 60fps for youtube, and give
@@ -21,22 +22,35 @@ publishes. The originals and every earlier upload are kept, and the earlier uplo
 | Video | Final title (no suffix) | State and link | Master (md5) | Captions (md5) | Description (md5) |
 |---|---|---|---|---|---|
 | Hoeffding's D | Hoeffding's D: The Ring That Correlation Can't See | **Public**: https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (`76f66ca94c83b647a14d5f421c3d1cb2`) | `hoeffding.en.srt` beside it (`b643a09d…`) | `explainer_corpus/hoeffding_d/publish/michael/description.txt` (`5cbe867f…`) |
-| Fish | How to Count Fish You've Never Seen | **Not public**: blocked on its new final (chapter 12 re-rendered, master, verify, fw), which gets a new URL. v3 stays Private at https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4`: **a new final is owed** (in production at 21:10); v3 (`a6a990f5…`, kept at `final_v3/`) lacks the label fix 8770672; timeline and audio are to stay as v3's | `capture_recapture.en.srt` beside it (v3's: `20620a55…`) | `explainer_corpus/capture_recapture/publish/michael/description.txt` (`d7baab5a…`) |
+| Fish | How to Count Fish You've Never Seen | **Public**: https://youtu.be/KNxRE255i-o (v4; the v3 review upload stays Private at https://youtu.be/VhWA7q6mTHw) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` (`8a17579a3ad74962464bd2523192f556`) | `capture_recapture.en.srt` beside it (`20620a55…`, the same as v3's) | `explainer_corpus/capture_recapture/publish/michael/description.txt` (`d7baab5a…`) |
 | RaptorQ | The Arithmetic Where 3 × 7 = 9 | **Public**: https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` (`8e0afadf33bee181d59a81447d06fcb8`) | `raptorq_gf256.en.srt` beside it (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/publish/michael/description.txt` (`e12a9273…`) |
 | Bakery | The Algorithm Lamport Is Proudest Of | **Public**: https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` (`9ed06e7d12d38a87d748d8a58806d296`) | `bakery_algorithm.en.srt` beside it (`522946ba…`) | `explainer_corpus/bakery_algorithm/publish/michael/description.txt` (`96737b34…`) |
 
 Titles, descriptions and tags are each crate's `publish/michael/{title,description,tags}.txt`; the
-upload page's other fields are in its `publish/youtube.md`. The three Public videos are the same
-uploads that were reviewed Private (same URLs), retitled from "[Michael review N]" to the plain
-titles above; BronzeRidge re-hashed each local master against the audited md5 before publishing.
+upload page's other fields are in its `publish/youtube.md`. RaptorQ, Hoeffding's D and the bakery
+video are the same uploads that were reviewed Private (same URLs), retitled from "[Michael review
+N]" to the plain titles above; BronzeRidge re-hashed each local master against the audited md5
+before publishing. The fish video is a new upload of v4 under its plain title from the start.
 All 12 links in the four descriptions answered HTTP 200 on 2026-10-12 at 21:06.
+
+Fish v4 evidence (NobleIbis's FINAL READY, mail 1383): VERIFY PASS (A/V 0.000 s, both decodes
+clean, −18.1 LUFS: the quiet-peak exception below), 1092.3 s, 65,538 frames. Only chapter 12 was
+re-rendered, at 8770672 with the same x264 CRF 16 preset slow, for the label fix (12_5's words
+stay put while the values swap); the other 14 chapter files are byte-identical to v3's, and so are
+chapter 12's timeline and soundtrack, the captions and the decoded audio of the whole master. The
+15 chapter times in the description equal the final timelines. BronzeRidge's full fw of this exact
+master (run cee97032-280e-4bd0-ac61-4a1c3b4819a1, mail 1381) reproduces v3's approved transcript
+segment for segment, with no new candidate. The fix was read in full-resolution crops of the
+master at 13:55 to 14:05 and in dense draft frames, not watched through in motion. v3 is kept
+whole at `variants/michael/renders/final_v3/`.
 
 **Encoding: the existing masters are the final quality; they are not re-rendered or re-encoded.**
 Every chapter of all four is 3840×2160, 60 fps, H.264 High, x264 CRF 16 preset slow, BT.709, with
 AAC 256 kb/s. Measured on the bakery's hardest chapter (09, the static) against a lossless render
 of the same source: PSNR median 63.4 dB (1st percentile 57.1, worst frame 48.9), SSIM median
-0.99991 (minimum 0.9995). The low bitrates (0.8 to 3.3 Mb/s) are the flat, mostly still picture:
-the lossless chapter is itself 3.2 Mb/s. A changed cut re-renders only its changed chapters from
+0.99991 (minimum 0.9995). The fish lane measured its chapter 12 the same way, independently (mail
+1383): SSIM mean 0.99986, PSNR-Y mean 63.4 dB. The low bitrates (0.8 to 3.3 Mb/s) are the flat,
+mostly still picture: the lossless bakery chapter is itself 3.2 Mb/s. A changed cut re-renders only its changed chapters from
 source at these settings; an existing MP4 is never re-encoded or upscaled.
 
 **The owner's choice: michael's voice for all four videos.** RaptorQ and the bakery video are
@@ -63,8 +77,8 @@ In the tables below, "ready" for a review upload meant available for a Private u
 
 ## Uploads (by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
-Every upload began as a Private review upload. The three marked Public were made Public on
-2026-10-12 (above); all the others are Private.
+Every upload began Private. The four marked Public were made Public on 2026-10-12 (above); all the
+others are Private.
 
 | Cut | Link | Master | md5 | Status |
 |---|---|---|---|---|
@@ -74,7 +88,8 @@ Every upload began as a Private review upload. The three marked Public were made
 | RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | Private; superseded by repair 12 (https://youtu.be/uWDPs9JIwEk): "phones", "once", "those", "peels" lost their s; audit items |
 | Hoeffding michael v2 | https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | **Public** since 2026-10-12 under its plain title; 4K complete, English captions Published; evidence below |
 | bakery michael, review 3 | https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | **Public** since 2026-10-12 under its plain title; 4K complete, English captions Published; evidence below |
-| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | Private; the reviewed fish cut, to be superseded by the new final with the label fix (a new URL); evidence below |
+| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | Private; the reviewed fish cut, superseded by v4 with the label fix (https://youtu.be/KNxRE255i-o); evidence below |
+| fish michael v4 | https://youtu.be/KNxRE255i-o | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `8a17579a3ad74962464bd2523192f556` | **Public** since 2026-10-12 under its plain title; SD/HD/4K complete, English captions Published; evidence above |
 | RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | **Public** since 2026-10-12 under its plain title; SD/HD/4K complete, English captions Published; evidence below |
 
 When a corrected review 2 of the bakery video or RaptorQ is copied here, the review-1 files above
@@ -100,7 +115,7 @@ notices (BronzeRidge, mail 1346, checked at 20:41). BronzeRidge's screenshot of
 the channel shows all four new michael reviews Private with no notices, beside the four kept
 earlier uploads. Every path above was re-checked by md5 on the build host. RaptorQ, Hoeffding and
 the bakery video have since been retitled and made Public (the top of this file); the fish v3
-upload has not.
+upload has not, and v4 was uploaded separately and made Public.
 
 ## Ready, not uploaded
 
@@ -121,6 +136,7 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | fish michael v2 (HOLD; superseded by v3) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | bakery michael, review 3 (uploaded, above) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, ca49d2f) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`522946ba…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
 | fish michael v3 (uploaded, above; kept at `final_v3/`) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | 18:12, −18.1 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` (v3 chapter times, d34de59) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture.en.srt` (`20620a55…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
+| fish michael v4 (Public, above) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `8a17579a3ad74962464bd2523192f556` | 18:12, −18.1 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` (the same chapter times as v3, d34de59) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`20620a55…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | RaptorQ michael, repair 12 (uploaded, above) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | 21:04, −18.0 LUFS | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` (chapter times of this cut, 5810c25) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` |
 
 Bakery review 3 evidence: its director re-read three lines and froze the set (report.json
@@ -154,7 +170,7 @@ aspiration), and the director's own list in 1304 (abrupt vowel ends on a few lin
 near the end of 10_2.0 and 13_2.1, the long s of 13_3.1 "shrinks", 05_1.1 at 6.0 syl/s). Open
 visual finding: BlueBrook's R67 P2, a transient label distortion at 13:55 (ring_toss.rs), kept
 open for the owner's review with no recut of this hash (mail 1341); its fix landed as 8770672 and
-goes into the new final (the release set, above). The owner's later "sound pretty good" covers this
+is in v4, the published cut (the release set, above). The owner's later "sound pretty good" covers this
 cut; no full watch is recorded.
 
 Fish michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean), music QA 15/15, cue
@@ -198,8 +214,8 @@ captions in its `renders/final/`, and the video's thumbnail. Added here when ver
 | fish matt | `explainer_corpus/capture_recapture/publish/matt/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/renders/final/capture_recapture.en.srt` (`1f2df8ca…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` (`bce2cbc9…`) |
 | RaptorQ michael, review 1 | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` (the files now carry repair 12's chapter times, 5810c25) | `explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256.en.srt` (`cb8b968c…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` (`ab3727ca…`) |
 
-The corrected michael cuts' text, captions and thumbnails (Hoeffding v2, bakery review 3, fish v3,
-RaptorQ repair 12) are in the corrected-cuts table above.
+The corrected michael cuts' text, captions and thumbnails (Hoeffding v2, bakery review 3, fish v3
+and v4, RaptorQ repair 12) are in the corrected-cuts table above.
 
 ## Preserved, never to be uploaded (last night's cuts, narration the owner rejected)
 
@@ -221,4 +237,5 @@ voice in the review title. A cut is done only with its video ID and processing s
 For the public release the settings are the same, with Visibility Public and the plain title from
 the release set above (no voice, no review number). A release is done only with its video ID, its
 Public state, its captions and its 4K processing recorded here by the upload lane's receipt: done
-for RaptorQ, Hoeffding and the bakery video (mails 1368 and 1378), owed for the fish video.
+for all four (RaptorQ, Hoeffding and the bakery video in mails 1368 and 1378; the fish video in
+mails 1388 and 1389).
