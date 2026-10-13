@@ -14,6 +14,7 @@ pub mod heat_and_chance;
 pub mod one_function;
 pub mod the_obvious_guess;
 pub mod the_series;
+pub mod turning;
 pub mod two_tanks;
 pub mod walks;
 
@@ -49,7 +50,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("03_growth", 0.5, growth::Growth),
         scene!("04_the_series", 0.55, the_series::TheSeries),
         scene!("05_one_function", 0.5, one_function::OneFunction),
-        animatic!("06_turning", 0.6),
+        scene!("06_turning", 0.6, turning::Turning),
         animatic!("07_a_matrix_in", 0.65),
         animatic!("08_does_it_settle", 0.5),
         scene!("09_follow_the_arrows", 0.65, follow_the_arrows::FollowTheArrows),
