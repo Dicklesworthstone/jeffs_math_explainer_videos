@@ -179,9 +179,10 @@ def noise(seg, rate):
 
 
 def voice_in(seg, rate, top):
-    """Some of a voice in a stretch the pitch tracker calls unvoiced: 30 ms of 10 ms frames, audible
-    (within 30 dB of speech level), whose energy sits under 1 kHz the way `noise` defines a voice (a
-    creaky vowel is such a frame; an s, a t's aspiration, a breath or a hiss is not)."""
+    """Some of a voice in a stretch the pitch tracker calls unvoiced: three 10 ms frames, anywhere in it
+    and audible (within 30 dB of speech level), whose energy sits under 1 kHz the way `noise` defines a
+    voice. A creaky vowel's frames are such frames, though its uneven pulses leave gaps between them;
+    an s, a t's aspiration, a breath or a hiss has none (white hiss sits 8 dB the other way)."""
     n = int(0.010 * rate)
     f = np.fft.rfftfreq(n, 1 / rate)
     low, high = (f >= 80) & (f < 1000), (f >= 2000) & (f < 8000)
@@ -191,7 +192,7 @@ def voice_in(seg, rate, top):
         power = np.abs(np.fft.rfft(frame * np.hanning(n))) ** 2
         voiced = (10 * np.log10(np.mean(frame ** 2) + 1e-12) > top - 30
                   and 10 * np.log10((power[low].sum() + 1e-12) / (power[high].sum() + 1e-12)) >= 20.0)
-        run = run + 1 if voiced else 0
+        run += bool(voiced)
         if run >= 3:
             return True
     return False
@@ -283,7 +284,7 @@ def hear(x, rate, last_word_end):
     bed_end = frames(voiced - 0.20) if voiced is not None else 0
     stretch = x[int(first * HOP * rate):int((voiced - 0.20) * rate)] if voiced is not None else x[:0]
     onset = (bed_end > first and db[first:bed_end].max() >= top - BED_UNDER
-             and not any(b - a + 1 >= frames(HOLD) for a, b in runs(db[first:bed_end] < audible, 0))
+             and not any(b - a + 1 >= frames(HOLD) for a, b in runs(db[first:bed_end] < top - FAINT, 0))
              and ((bed_end - first) * HOP < BED_MIN or voice_in(stretch, rate, top)))
     if voiced is not None and first < bed_end and not onset and (noise(stretch, rate) or steady(db[first:bed_end])):
         first = min(last, next((i for i in range(frames(voiced - 0.20), len(db)) if db[i] >= top - NUCLEUS), first))
