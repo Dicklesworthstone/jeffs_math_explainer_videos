@@ -301,8 +301,21 @@ pub fn exp_partial(x: f64, k: u32) -> f64 {
 }
 
 /// k!, exactly.
+///
+/// # Panics
+/// For k above 34, where k! no longer fits in 128 bits (it used to wrap
+/// silently in a release build and panic only in a debug one): divide by
+/// [`factorial_f64`] when the result is a float.
 pub fn factorial(k: u32) -> u128 {
-    (1..=u128::from(k)).product()
+    (1..=k)
+        .try_fold(1_u128, |product, j| product.checked_mul(u128::from(j)))
+        .expect("k! fits in 128 bits only up to k = 34: use factorial_f64")
+}
+
+/// k! as a float: correct to rounding for every k the video uses (it is
+/// exact to 22! and 170! is the last that does not overflow).
+pub fn factorial_f64(k: u32) -> f64 {
+    (1..=k).map(f64::from).product()
 }
 
 /// The quarter turn: (1, 0) goes to (0, 1).

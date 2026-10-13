@@ -18,8 +18,8 @@ use explainer_kit::Facts;
 use explainer_kit::stats::Data;
 
 use crate::model::{
-    self, KITE, M2f, Mat, PAIR, angle_axis, compound, exp_partial, expm, expm_t, factorial, grid_corner_walks,
-    grid_heat, grid_links, hat, pade_at_one, quarter_turn, rotation_defect, series, spins, su_dim,
+    self, KITE, M2f, Mat, PAIR, angle_axis, compound, exp_partial, expm, expm_t, factorial, factorial_f64,
+    grid_corner_walks, grid_heat, grid_links, hat, pade_at_one, quarter_turn, rotation_defect, series, spins, su_dim,
     symmetric_eigenvalues, tiny_steps,
 };
 
@@ -343,7 +343,7 @@ pub fn edge_counts() -> Vec<(&'static str, usize, usize)> {
                 let under = steps
                     .iter()
                     .take(41)
-                    .all(|s| s.term.size() <= size.powi(s.k as i32) / factorial(s.k) as f64 * (1.0 + 1e-9) + 1e-12);
+                    .all(|s| s.term.size() <= size.powi(s.k as i32) / factorial_f64(s.k) * (1.0 + 1e-9) + 1e-12);
                 under && same(&steps.last().expect("a last term").total, &expm(&c.a), 1e-9)
             }),
             n,
@@ -475,7 +475,7 @@ pub fn named_counts() -> Vec<(&'static str, usize, usize)> {
             let under = steps
                 .iter()
                 .take(41)
-                .all(|s| s.term.size() <= size.powi(s.k as i32) / factorial(s.k) as f64 * (1.0 + 1e-9) + 1e-12);
+                .all(|s| s.term.size() <= size.powi(s.k as i32) / factorial_f64(s.k) * (1.0 + 1e-9) + 1e-12);
             // a 64-bit sum of a large matrix loses digits (chapter 13), so
             // this check is loose here; the oracle's is exact
             under && same(&steps.last().expect("a last term").total, &expm(a), 1e-6)
