@@ -71,13 +71,25 @@ def pct(x, places=0):
 
 P = F(4, 5)  # the video's coin
 Q_ = 1 - P
-STOPS = [F(1, 2), F(3, 5), F(7, 10), F(4, 5), F(9, 10), F(99, 100)]
+STOPS = [F(1, 5), F(1, 2), F(3, 5), F(7, 10), F(4, 5), F(9, 10), F(99, 100)]
 LOADED = [1, 1, 2, 2, 4, 10]  # twentieths
 SEED = 1951
 
 
 def stop_name(p):
     return f"p{pct(p)}"
+
+
+def band(n, p):
+    """"low,high": the counts within two standard errors of n tries at chance p, from the
+    square root itself (the Rust side compares squares in whole numbers) and checked against
+    the exact binomial: such a band holds about 19 chances in 20."""
+    mean, sd = n * p, math.sqrt(n * p * (1 - p))
+    low, high = math.ceil(mean - 2 * sd), math.floor(mean + 2 * sd)
+    inside = sum(F(math.comb(n, k)) * p**k * (1 - p) ** (n - k) for k in range(low, high + 1))
+    check(f"the two-standard-error band for {n} tries at {exact(p)} holds 93% to 97% of the chance",
+          F(93, 100) < inside < F(97, 100))
+    return f"{low},{high}"
 
 
 # --------------------------------------------------------------------------
@@ -127,6 +139,8 @@ def coin_facts():
         emit(f"E-F4.{stop_name(p)}.expected_tosses", dec(1 / (p * (1 - p)), 2))
     emit("E-F4.p99.expected_tosses_rounded", dec(1 / (F(99, 100) * F(1, 100)), 0))
     emit("E-F4.p50.expected_tosses.exact", exact(1 / (F(1, 2) * F(1, 2))))
+    emit("E-F4.p90.ht_percent", pct(F(9, 10) * F(1, 10)))
+    emit("E-F2.fair_band.games1000", band(1000, F(1, 2)))
 
 
 # --------------------------------------------------------------------------
@@ -295,6 +309,8 @@ def breaks_facts():
     emit("E-F6.sticky.after_heads.th", dec(after_hh["TH"], 2))
     emit("E-F6.sticky.after_heads.ht_percent", pct(after_hh["HT"]))
     emit("E-F6.sticky.after_heads.th_percent", pct(after_hh["TH"]))
+    emit("E-F6.sticky.after_heads.ht.exact", exact(after_hh["HT"]))
+    emit("E-F6.sticky.after_heads.th.exact", exact(after_hh["TH"]))
     emit("E-F6.sticky.after_heads.ratio", exact(after_hh["HT"] / after_hh["TH"]))
     emit("E-F6.sticky.after_heads.heads_first_percent", pct(after_hh["HT"] / (after_hh["HT"] + after_hh["TH"])))
     emit("E-F6.sticky.after_tails.heads_first_percent", pct(after_tt["HT"] / (after_tt["HT"] + after_tt["TH"])))
@@ -376,9 +392,11 @@ def pattern_facts():
     emit("E-F8.four_two.works_per_hundred", pct(hit))
     emit("E-F8.four_two.expected_tosses_rounded", dec(4 / hit, 0))
     emit("E-F8.four_two.each_percent", pct(chance[two[0]], 2))
-    hht = [math.prod(P if c == "H" else Q_ for c in s) for s in ("HHT", "HTH", "THH")]
-    check("three tosses, two heads: one chance for all three patterns", len(set(hht)) == 1)
-    emit("E-F8.three_two.each_percent", pct(hht[0], 1))
+    # the cube of three tosses: eight pieces, one chance for each count of heads
+    for k in range(4):
+        piece = {math.prod(P if c == "H" else Q_ for c in s) for s in product("HT", repeat=3) if s.count("H") == k}
+        check(f"three tosses, {k} heads: one chance for all {math.comb(3, k)} patterns", len(piece) == 1)
+        emit(f"E-F8.three.heads{k}.each_percent", pct(piece.pop(), 1))
     fair_hit = F(math.comb(4, 2), 16)
     emit("E-F8.four_two.fair_coin.works_percent", pct(fair_hit, 1))
     emit("E-F8.four_two.fair_coin.expected_tosses", dec(4 / fair_hit, 1))
@@ -431,6 +449,10 @@ def dice_facts():
     emit("E-F9.three_rolls.works_percent", pct(distinct, 1))
     emit("E-F9.three_rolls.works_per_hundred", pct(distinct))
     emit("E-F9.three_rolls.expected_rolls", dec(3 / distinct, 1))
+    emit("E-F9.three_rolls.expected_rolls_rounded", dec(3 / distinct, 0))
+    four = sum(math.prod(w[r] for r in rolls) for rolls in product(range(6), repeat=4) if len(set(rolls)) == 4)
+    emit("E-F9.four_rolls.works_per_hundred", pct(four))
+    emit("E-F9.four_rolls.expected_rolls_rounded", dec(4 / four, 0))
     fair_distinct = 6 * esym(fair, 3)
     emit("E-F9.three_rolls.fair_die.works.exact", exact(fair_distinct))
     emit("E-F9.three_rolls.fair_die.expected_rolls", dec(3 / fair_distinct, 1))
@@ -492,6 +514,7 @@ def rate_facts():
     emit("E-F10.von_neumann.per_hundred", pct(P * Q_))
     emit("E-F10.entropy", f"{h:.4f}")
     emit("E-F10.entropy.per_hundred", f"{100 * h:.0f}")
+    emit("E-F10.entropy.per_hundred_1dp", f"{100 * h:.1f}")
     emit("E-F10.von_neumann.share_of_entropy_percent", f"{100 * p * (1 - p) / h:.0f}")
     emit("E-F10.fair_coin.von_neumann.rate", dec(F(1, 4), 2))
     emit("E-F10.fair_coin.von_neumann.percent", pct(F(1, 4)))
@@ -511,6 +534,19 @@ def rate_facts():
     check("the entropy is a fixed point of Peres's recursion",
           abs(p * (1 - p) + entropy(p * p + (1 - p) ** 2) / 2
               + (p * p + (1 - p) ** 2) * entropy(p * p / (p * p + (1 - p) ** 2)) / 2 - h) < 1e-12)
+    # R1 (D1, R1): Peres reuses two things. Either one alone stops far short of the entropy
+    def only_matching_pairs(depth, x):  # the faces of the pairs that were thrown away
+        y = 1 - x
+        return 0.0 if depth == 0 or min(x, y) <= 0 else x * y + (x * x + y * y) * only_matching_pairs(depth - 1, x * x / (x * x + y * y)) / 2
+
+    def only_which_matched(depth, x):  # for every pair, whether it matched
+        y = 1 - x
+        return 0.0 if depth == 0 or min(x, y) <= 0 else x * y + only_which_matched(depth - 1, x * x + y * y) / 2
+
+    check("reusing only the thrown-away pairs levels off near 18 per hundred",
+          abs(only_matching_pairs(60, p) - 0.1794) < 5e-5 and abs(only_matching_pairs(60, p) - only_matching_pairs(30, p)) < 1e-12)
+    check("reusing only which pairs matched levels off near 39 per hundred",
+          abs(only_which_matched(60, p) - 0.3927) < 5e-5 and abs(only_which_matched(60, p) - only_which_matched(30, p)) < 1e-9)
     best = max(F(k, 1000) * (1 - F(k, 1000)) for k in range(1001))
     check("von Neumann's rule gives at most one fair toss per four (his 25 percent)", best == F(1, 4))
 
@@ -654,11 +690,8 @@ def run_facts():
     emit("E-S2.trick.mean_tosses", dec(F(used, len(g)), 2))
     emit("E-S2.trick.longest_pairs", max(len(game) for game in g))
     emit("E-S2.trick.first_games", " ".join("".join(game) for game in g[:8]))
-    # S3: 1,000 games at each stop of the slider
-    for i, p in enumerate(STOPS):
-        gs = play(Stream(10 + i), 1000, p, p)
-        emit(f"E-S3.{stop_name(p)}.heads_first", sum(1 for game in gs if game[-1] == "HT"))
-        emit(f"E-S3.{stop_name(p)}.mean_tosses", dec(F(sum(2 * len(x) for x in gs), len(gs)), 2))
+    emit("E-S2.trick.pairs", sum(len(game) for game in g))
+    emit("E-S2.trick.thrown_away", sum(len(game) - 1 for game in g))
     # S4: the price, 10,000 games
     g4 = play(Stream(4), 10000, P, P)
     used4 = sum(2 * len(game) for game in g4)
@@ -697,6 +730,7 @@ def run_facts():
     sam = von_neumann(follows)
     emit("E-S6.sticky.after_heads_only.heads_first", sam.count("H"))
     emit("E-S6.sticky.after_heads_only.tails_first", sam.count("T"))
+    emit("E-S6.sticky.after_heads_only.games", len(sam))
     emit("E-S6.sticky.after_heads_only.heads_first_percent", pct(F(sam.count("H"), len(sam)), 1))
     # S7: a die from the coin, 24,000 tosses in blocks of four
     s7 = Stream(7).tosses(24000, P)
@@ -707,6 +741,7 @@ def run_facts():
     emit("E-S7.coin_die.dice", len(made))
     emit("E-S7.coin_die.faces", ",".join(str(made.count(i)) for i in range(6)))
     emit("E-S7.coin_die.tosses_per_die", dec(F(len(s7), len(made)), 1))
+    emit("E-S7.coin_die.fair_band", band(len(made), F(1, 6)))
     # S8: the loaded die, 6,000 rolls
     st8 = Stream(8)
     r8 = [st8.roll(LOADED) for _ in range(6000)]
@@ -720,6 +755,7 @@ def run_facts():
             made8.append(orders.index(tuple(sorted(t).index(x) for x in t)))
     emit("E-S8.three_rolls.dice", len(made8))
     emit("E-S8.three_rolls.orders", ",".join(str(made8.count(i)) for i in range(6)))
+    emit("E-S8.three_rolls.fair_band", band(len(made8), F(1, 6)))
     emit("E-S8.three_rolls.rolls_per_die", dec(F(len(r8), len(made8)), 1))
     two = [r8[i:i + 2] for i in range(0, len(r8), 2)]
     emit("E-S8.two_rolls.first_bigger", sum(1 for a, b in two if a > b))

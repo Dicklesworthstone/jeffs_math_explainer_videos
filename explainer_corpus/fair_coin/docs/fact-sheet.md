@@ -16,7 +16,12 @@ at the end was copied from the oracle's output by a script, not typed.
   storyboard says at spoken precision (percents of the blocks, "one game in",
   rounded rates per hundred): `265 video facts against 265 oracle keys:
   PASS`, 43 of 43 cross-checks.
-- **Rust side:** `./x fair_coin test`: 20 tests pass, clippy `-D warnings`
+- **After review round R1, the same day:** the per-stop runs (E-S3) left
+  with the tiles that showed them; keys were added for the dots in the
+  square, the two-standard-error bands, the cube of three tosses, four
+  different rolls and the entropy to one decimal: `272 video facts against
+  272 oracle keys: PASS`.
+- **Rust side:** `./x fair_coin test`: 21 tests pass, clippy `-D warnings`
   and `fmt --check` clean.
 - **Rows:** E-F computed chances and costs; E-X edges of always/never
   sentences that are counts; E-S seeded runs; E-C cited literals.
@@ -209,7 +214,7 @@ repeats each as a cross-check.
 | "A coin with memory breaks the rule after a thrown-away pair, but the first pair of a long run is still fair" | `edge_memory_breaks_the_plain_rule_but_not_the_first_long_run_pair` | every pair of the same 29 chances as a memory; fair from both starts exactly when there is no memory |
 | "Pairing only the tosses that follow a head is fair for any coin that remembers one toss" | `edge_after_only_rule_is_fair_for_every_memory` | fails exactly when heads can never be followed by both faces, or heads never recurs |
 | "Announce at once and it is wrong; announce on return and it is right" (Blum) | `blum_at_once_is_bad_and_on_return_is_good` | even when every exit is a fair toss (ε = 1/2), announcing at once leans |
-| "Patterns with the same counts have the same chance" | `edge_same_counts_same_chance` | every pattern of 1 to 6 tosses at the 29 chances |
+| "For tosses like ours, with the same chance every time and no memory, order never changes a chance" (06_3) | `edge_same_counts_same_chance_without_memory` | every pattern of 1 to 6 tosses at the 29 chances; and the fence is needed: for the coin with memory, heads-tails and tails-heads after a head are 4/25 and 1/25 |
 | "The n! orders of n different rolls are equally likely" | `edge_every_order_of_different_rolls_is_equally_likely` | three dice (loaded, fair, 1:2:3:4:5:6), n = 2 and 3 by full listing (the oracle adds n = 4) |
 | "No rule beats the entropy; Peres's and Elias's climb toward it" | `edge_rates_climb_to_the_entropy_and_never_pass_it` | six chances, depths 1–10, blocks 2–64: always below, always rising |
 | "The output is fair tosses" (all three procedures) | `the_procedures_give_fair_output_on_every_short_run` | every run of 8 tosses of the 80% coin: outputs of equal length are exactly equally likely |
@@ -225,7 +230,10 @@ repeats each as a cross-check.
 | "a coin that remembers its last toss" | a stationary two-state Markov chain with P(H after H) = P(T after T) = 4/5 |
 | "fair tosses per hundred unfair ones" | output bits per input bit, times 100; in the limit of long runs for Peres and long blocks for Elias |
 | "at most 72" | the binary entropy h(4/5) = 0.7219… bits per toss, an upper bound on any such rule's long-run rate (Elias 1972, Theorem 1) |
-| "the order carries no trace of the coin's chance" | given the counts, the arrangement is uniform over the arrangements with those counts |
+| "The order is perfectly fair" (06_7), "order never changes a chance" for tosses with one chance and no memory (06_3) | given the counts, every arrangement with those counts is equally likely, for independent tosses of one coin |
+| "the most any rule can average is just over seventy-two" (10_3) | the binary entropy h(4/5) = 0.7219… bounds the long-run average output per input toss of any rule whose output is exactly fair; a single run of 100 tosses can give more |
+| "keep what the trick ignored, which pairs matched and what the matching pairs showed" (10_4) | Peres's Ψ_ν(x) = Ψ_1(x) ∗ Ψ_{ν−1}(u) ∗ Ψ_{ν−1}(v), with u_j = x_{2j−1} ⊕ x_{2j} for every pair and v the common value of each matching pair; reusing v alone levels off near 18 per hundred, u alone near 39 (R1: D1, R1) |
+| "nobody can promise when a game will stop" (04_6) | the game ends with probability one; for every n it is still going after n pairs with chance 0.68ⁿ > 0 |
 
 ## The table
 
@@ -250,7 +258,7 @@ repeats each as a cross-check.
 | `E-F1.heads_percent` | 80 |
 | `E-F1.tails_percent` | 20 |
 
-**E-F2.** One pair: how often it decides, how often it is thrown away, and who wins when it decides.
+**E-F2.** One pair: how often it decides, how often it is thrown away, who wins when it decides; and the band where a fair game of 1,000 lands about 19 times in 20 (two standard errors).
 
 | key | value |
 |---|---|
@@ -260,6 +268,7 @@ repeats each as a cross-check.
 | `E-F2.thrown_away_percent` | 68 |
 | `E-F2.heads_first_share.exact` | 1/2 |
 | `E-F2.heads_first_share_percent` | 50 |
+| `E-F2.fair_band.games1000` | 469,531 |
 
 **E-F3.** The cost at 80%: expected pairs and tosses; the chance that the first 1, 2, 3, 5, 10 pairs are all thrown away, and that last chance as "one game in".
 
@@ -275,10 +284,13 @@ repeats each as a cross-check.
 | `E-F3.undecided_after.10_pairs_percent` | 2.1 |
 | `E-F3.undecided_after.10_pairs.one_game_in` | 47 |
 
-**E-F4.** The slider's stops (chance of heads 50, 60, 70, 80, 90, 99 percent): the area of heads-tails (equal to tails-heads), how often a pair decides, expected tosses.
+**E-F4.** The slider's stops (chance of heads 20, 50, 60, 70, 80, 90, 99 percent): the area of heads-tails (equal to tails-heads), how often a pair decides, expected tosses.
 
 | key | value |
 |---|---|
+| `E-F4.p20.ht` | 0.1600 |
+| `E-F4.p20.decides_percent` | 32.0 |
+| `E-F4.p20.expected_tosses` | 6.25 |
 | `E-F4.p50.ht` | 0.2500 |
 | `E-F4.p50.decides_percent` | 50.0 |
 | `E-F4.p50.expected_tosses` | 4.00 |
@@ -299,6 +311,7 @@ repeats each as a cross-check.
 | `E-F4.p99.expected_tosses` | 101.01 |
 | `E-F4.p99.expected_tosses_rounded` | 101 |
 | `E-F4.p50.expected_tosses.exact` | 4 |
+| `E-F4.p90.ht_percent` | 9 |
 
 **E-F5.** Two different coins: 80% then a fair one.
 
@@ -321,6 +334,8 @@ repeats each as a cross-check.
 | `E-F6.sticky.after_heads.th` | 0.04 |
 | `E-F6.sticky.after_heads.ht_percent` | 16 |
 | `E-F6.sticky.after_heads.th_percent` | 4 |
+| `E-F6.sticky.after_heads.ht.exact` | 4/25 |
+| `E-F6.sticky.after_heads.th.exact` | 1/25 |
 | `E-F6.sticky.after_heads.ratio` | 4 |
 | `E-F6.sticky.after_heads.heads_first_percent` | 80 |
 | `E-F6.sticky.after_tails.heads_first_percent` | 20 |
@@ -362,7 +377,10 @@ repeats each as a cross-check.
 | `E-F8.four_two.works_per_hundred` | 15 |
 | `E-F8.four_two.expected_tosses_rounded` | 26 |
 | `E-F8.four_two.each_percent` | 2.56 |
-| `E-F8.three_two.each_percent` | 12.8 |
+| `E-F8.three.heads0.each_percent` | 0.8 |
+| `E-F8.three.heads1.each_percent` | 3.2 |
+| `E-F8.three.heads2.each_percent` | 12.8 |
+| `E-F8.three.heads3.each_percent` | 51.2 |
 | `E-F8.four_two.fair_coin.works_percent` | 37.5 |
 | `E-F8.four_two.fair_coin.expected_tosses` | 10.7 |
 | `E-F8.row4.heads0_percent` | 0.16 |
@@ -389,6 +407,9 @@ repeats each as a cross-check.
 | `E-F9.three_rolls.works_percent` | 32.6 |
 | `E-F9.three_rolls.works_per_hundred` | 33 |
 | `E-F9.three_rolls.expected_rolls` | 9.2 |
+| `E-F9.three_rolls.expected_rolls_rounded` | 9 |
+| `E-F9.four_rolls.works_per_hundred` | 10 |
+| `E-F9.four_rolls.expected_rolls_rounded` | 39 |
 | `E-F9.three_rolls.fair_die.works.exact` | 5/9 |
 | `E-F9.three_rolls.fair_die.expected_rolls` | 5.4 |
 | `E-F9.three_rolls.trios` | 20 |
@@ -410,6 +431,7 @@ repeats each as a cross-check.
 | `E-F10.von_neumann.per_hundred` | 16 |
 | `E-F10.entropy` | 0.7219 |
 | `E-F10.entropy.per_hundred` | 72 |
+| `E-F10.entropy.per_hundred_1dp` | 72.2 |
 | `E-F10.von_neumann.share_of_entropy_percent` | 22 |
 | `E-F10.fair_coin.von_neumann.rate` | 0.25 |
 | `E-F10.fair_coin.von_neumann.percent` | 25 |
@@ -469,7 +491,7 @@ repeats each as a cross-check.
 | `E-S1.call_it.heads` | 791 |
 | `E-S1.call_it.tails` | 209 |
 
-**E-S2.** Run 2: 1,000 games of the trick at 80%.
+**E-S2.** Run 2: 1,000 games of the trick at 80%, and how many pairs they took in all (each pair is a dot in the square).
 
 | key | value |
 |---|---|
@@ -480,23 +502,8 @@ repeats each as a cross-check.
 | `E-S2.trick.mean_tosses` | 6.26 |
 | `E-S2.trick.longest_pairs` | 22 |
 | `E-S2.trick.first_games` | HHHHHHTH HHHHHT HHHHHT HHHHHT HHHHHHHHHHHT TH HHHHHHTTHHHHHHHHHHHHTH HT |
-
-**E-S3.** Runs 10 to 15: 1,000 games at each stop of the slider.
-
-| key | value |
-|---|---|
-| `E-S3.p50.heads_first` | 493 |
-| `E-S3.p50.mean_tosses` | 3.96 |
-| `E-S3.p60.heads_first` | 502 |
-| `E-S3.p60.mean_tosses` | 4.12 |
-| `E-S3.p70.heads_first` | 490 |
-| `E-S3.p70.mean_tosses` | 4.93 |
-| `E-S3.p80.heads_first` | 509 |
-| `E-S3.p80.mean_tosses` | 6.35 |
-| `E-S3.p90.heads_first` | 472 |
-| `E-S3.p90.mean_tosses` | 10.92 |
-| `E-S3.p99.heads_first` | 513 |
-| `E-S3.p99.mean_tosses` | 100.32 |
+| `E-S2.trick.pairs` | 3128 |
+| `E-S2.trick.thrown_away` | 2128 |
 
 **E-S4.** Run 4: 10,000 games at 80%: mean tosses, the share decided by the first pair, how many games needed 1 to 8 pairs, 9 or more, and the longest.
 
@@ -530,6 +537,7 @@ repeats each as a cross-check.
 | `E-S6.sticky.after_tt.th` | 6442 |
 | `E-S6.sticky.after_heads_only.heads_first` | 7847 |
 | `E-S6.sticky.after_heads_only.tails_first` | 8043 |
+| `E-S6.sticky.after_heads_only.games` | 15890 |
 | `E-S6.sticky.after_heads_only.heads_first_percent` | 49.4 |
 
 **E-S7.** Run 7: 24,000 tosses of the 80% coin in blocks of four: the dice made (two heads), by pattern HHTT, HTHT, HTTH, THHT, THTH, TTHH.
@@ -540,6 +548,7 @@ repeats each as a cross-check.
 | `E-S7.coin_die.dice` | 949 |
 | `E-S7.coin_die.faces` | 166,161,136,160,167,159 |
 | `E-S7.coin_die.tosses_per_die` | 25.3 |
+| `E-S7.coin_die.fair_band` | 136,181 |
 
 **E-S8.** Run 8: 6,000 rolls of the loaded die: its faces; in threes, the dice made, by order; in twos, which roll was bigger.
 
@@ -549,6 +558,7 @@ repeats each as a cross-check.
 | `E-S8.loaded.faces` | 318,283,579,607,1237,2976 |
 | `E-S8.three_rolls.dice` | 650 |
 | `E-S8.three_rolls.orders` | 119,108,103,105,112,103 |
+| `E-S8.three_rolls.fair_band` | 90,127 |
 | `E-S8.three_rolls.rolls_per_die` | 9.2 |
 | `E-S8.two_rolls.first_bigger` | 1021 |
 | `E-S8.two_rolls.second_bigger` | 1020 |

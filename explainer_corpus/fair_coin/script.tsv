@@ -1,64 +1,62 @@
 # fair_coin: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	This coin isn't fair. It lands heads four times in five. Alice and Bob have to settle a bet with it, and neither of them knows how unfair it is. There's a way to do it that is perfectly fair, using nothing but this coin.
-01_3	The obvious way is to call it. Alice says heads, Bob gets tails, one toss decides. In a thousand tosses, heads comes up seven hundred ninety-one times. Alice wins about four bets in five.
-01_4	Then let Bob call heads. But that only helps if they know which side the coin favours. With a strange coin, they don't.
-01_5	A real coin, tossed and caught, can't be made this unfair. A coin spun on a table can. So can a loaded die, or the noisy circuit inside a computer. Our coin stands for all of them.
-01_6	So here's the puzzle. One unfair coin, and nobody knows how unfair. How would you get a fair decision out of it?
+01_1	This coin isn't fair. It lands heads four times in five. Alice knows that. Bob only suspects it. They can still settle a bet with it, perfectly fairly, using nothing but this coin.
+01_3	The obvious way is to call it. One toss, heads or tails. But in a thousand tosses, heads comes up seven hundred ninety-one times. Whoever gets heads wins about four bets in five.
+01_4	Letting Bob call doesn't fix it. He doesn't know which side is the lucky one, and Alice does. Whoever knows the coin best wins.
+01_5	A coin tossed and caught can't really be this unfair. A spun coin can. So can a loaded die, or the electrical noise inside a computer.
+01_6	So here's the puzzle. One unfair coin. One player who knows its secret, and one who doesn't. How could they make the bet fair anyway?
 02_1	Toss the coin twice, and look at the two results as a pair.
-02_2	A pair can be four things. Two heads. Heads then tails. Tails then heads. Two tails.
-02_3	Draw their chances as areas. The first toss splits a square from left to right. Heads gets four fifths of the width.
-02_4	The second toss splits it from bottom to top, at the same mark, because it's the same coin.
-02_5	Two heads is the big block, sixty-four percent. Two tails is the small one, four percent. What about heads then tails, against tails then heads?
-02_6	Sixteen percent each. Exactly equal.
-02_7	So play it like this. Alice calls heads then tails. Bob calls tails then heads. If the pair matches, throw it away and toss two more.
-02_8	A thousand games with our coin. Alice wins four hundred ninety-four. Bob wins five hundred six.
+02_2	A pair can be four things. Two heads, heads then tails, tails then heads, or two tails.
+02_3	Picture every way the two tosses could go as a square. The first toss splits it into a wide piece for heads and a thin piece for tails. Heads gets four fifths of the width.
+02_4	The second toss splits it again, bottom to top, at the same mark, because it's the same coin.
+02_5	That makes four blocks, and a block's share of the square is its pair's chance. Count the small squares. Two heads has sixteen of the twenty-five, and two tails has one. What about heads then tails, against tails then heads?
+02_6	Four each. Exactly equal. Sixteen percent of the square.
+02_7	Alice calls heads then tails. Bob calls tails then heads. If the pair matches, throw it away and toss two fresh ones.
+02_8	A thousand games with our coin. Alice wins four hundred ninety-four. Bob wins five hundred six. A perfectly fair coin wouldn't split five hundred each, either.
 02_9	The coin is as unfair as ever. The game isn't.
-03_1	Why exactly equal? Heads then tails is four fifths times one fifth. Tails then heads is one fifth times four fifths.
-03_2	The same two numbers, multiplied in the other order. And multiplying doesn't care about order.
+03_1	Why exactly equal? Heads then tails is four fifths wide and one fifth tall. Tails then heads is one fifth wide and four fifths tall.
+03_2	Flip one across the diagonal and it lands on the other. The same two numbers, multiplied in the other order. And multiplying doesn't care about order.
 03_3	Make the coin worse. Ninety percent heads. Are the two blocks still equal?
-03_4	Yes. Slide the cut wherever you like. One block is always the mirror image of the other.
-03_5	In letters, call the chance of heads p. Heads then tails is p times one minus p. Tails then heads is one minus p times p. Equal for every p.
-03_6	So nobody needs to know how unfair the coin is, or even which side it favours.
-03_7	The trick does lean on two things. The coin's chance is the same on both tosses, and one toss doesn't affect the next. Tosses like that are called independent.
-04_1	The trick has a price. Most pairs get thrown away. With our coin, a pair decides only thirty-two times in a hundred.
+03_4	Yes. Nine percent each. Slide the cut anywhere, even past the middle so the coin favours tails. One block is always the mirror image of the other.
+03_5	In letters, call the chance of heads p. Tails gets the rest, one minus p. Heads then tails is p times the rest. Tails then heads is the rest times p. Equal for every p.
+03_6	So Bob doesn't need to know how unfair the coin is, or which side it favours. He doesn't even need to trust Alice.
+03_7	The trick does lean on two things. The coin's chance is the same on both tosses of a pair. And one toss doesn't affect the next, which is what independent means.
+04_1	The trick has a price. With our coin, most pairs get thrown away. A pair decides only thirty-two times in a hundred.
 04_2	So how many tosses does a game take, on average?
-04_3	Six and a quarter. Here are ten thousand games. They average six point two one.
-04_4	A fair coin would need four tosses. A coin that's ninety-nine percent heads needs about a hundred and one.
-04_5	And no game is sure to end by any given toss. About one game in fifty is still going after ten pairs. The longest of our ten thousand ran thirty pairs. Sixty tosses.
-04_6	Could a cleverer rule always stop after ten tosses? No. Picture a coin that almost never lands tails. Ten heads in a row is then almost certain, so whoever wins on ten heads almost always wins.
-05_1	Now break it. Toss our unfair coin first, and a fair coin second. Is heads then tails still level with tails then heads?
+04_3	A pair decides about one time in three, so about three pairs. That's about six tosses. Exactly, six and a quarter.
+04_4	Ten thousand games agree. They average six point two one tosses.
+04_5	A fair coin still averages four tosses. A coin that's ninety-nine percent heads averages about a hundred and one.
+04_6	And nobody can promise when a game will stop. The longest of our ten thousand ran sixty tosses. No rule can do better. A rule that always finishes must hand an unbroken run of heads to somebody, and a coin that nearly always lands heads makes that somebody the winner.
+05_1	Now break it. Toss our unfair coin first, and a fair coin second. Is heads then tails still equal to tails then heads?
 05_2	No. One cut moved and the other didn't, so the blocks aren't mirror images any more. Forty percent against ten. Alice wins four games in five, as if they'd never bothered.
-05_3	A sneakier break is a coin with a memory. Say it repeats its last result four times in five.
-05_4	After two heads, heads then tails takes one change of face. Tails then heads takes two. So it's four times as likely. Anyone who saw the pair that was thrown away knows who's about to win.
-05_5	Real coins have a touch of this. A tossed coin comes up the way it started about fifty-one times in a hundred.
-05_6	The cure is to compare like with like. Pair up only the tosses that come straight after a head, and the trick is fair again.
-06_1	Go back to why the trick works. Heads then tails and tails then heads are made of the same results, one head and one tail. Only the order is different.
-06_2	And order never changes a chance. Take three tosses. Two heads then a tail. Heads, tails, heads. A tail then two heads. Which is likeliest?
-06_3	None of them. Each is point eight, times point eight, times point two, in some order. Same counts, same chance.
-06_4	So sort every pattern by how many heads it has. For two tosses, the groups hold one, two and one. The middle group is our trick.
-06_5	For three tosses, one, three, three, one. For four, one, four, six, four, one.
-06_6	The coin's unfairness decides which group you land in. Our coin usually lands in a group with lots of heads. But inside a group, every pattern is equally likely, for any coin at all.
+05_3	A sneakier break is a coin with a memory. Count this one's heads and it looks fair, but it copies its last result four times in five. After two heads, heads then tails needs one change of side, and tails then heads needs two. So it's four times as likely.
+05_4	The cure is to use only the tosses that come straight after a head. Those all share one chance, so they behave like a plain unfair coin, and the trick handles that.
+06_1	Back to why the trick works. Heads then tails and tails then heads hold the same results, one head and one tail, in a different order.
+06_2	Try three tosses. Two tosses needed a square, so three need a cube. Here are three patterns. Two heads then a tail. Heads, tails, heads. A tail then two heads. Which is likeliest?
+06_3	None. Each is four fifths, times four fifths, times one fifth, in some order. The same slab, turned three ways. For tosses like ours, with the same chance every time and no memory, order never changes a chance.
+06_4	So sort every pattern by its counts, how many heads and how many tails. With two tosses the groups hold one, two and one. The middle group is our trick.
+06_5	With three tosses, one, three, three, one. With four, one, four, six, four, one. You may know these numbers. It's Pascal's triangle.
+06_6	The coin's unfairness decides which group you land in. But inside a group, every pattern is equally likely, however unfair the coin.
 06_7	The counts carry the unfairness. The order is perfectly fair.
-07_1	Look at the middle of row four. Six patterns, all equally likely. What else has six equally likely outcomes?
-07_2	A die. Toss the coin four times. If exactly two are heads, the pattern picks the face. If not, toss four more.
+07_1	Look at the middle of the row for four tosses. Six patterns, all equally likely. What else has six equally likely results?
+07_2	A die. Toss the coin four times. If exactly two are heads, the pattern picks the face. If not, toss four fresh ones.
 07_3	Twenty-four thousand tosses of our unfair coin made nine hundred forty-nine rolls of a fair die. Each face came up about one time in six.
-07_4	It isn't cheap. A coin that loves heads rarely gives exactly two in four. It works about fifteen tries in a hundred, so a roll costs twenty-six tosses on average.
-07_5	There are cheaper recipes. But the idea is what matters. Any group of patterns with the same counts is a fair choice among them.
+07_4	It isn't cheap. A coin that loves heads rarely gives exactly two in four. A roll costs about twenty-six tosses, on average.
+07_5	There are cheaper rules, but the idea is what matters. Any group of patterns with the same counts is a fair choice among them.
 08_1	Now swap the coin for a loaded die. This one shows a six half the time.
-08_2	Can Alice and Bob get a fair decision from it?
-08_3	Roll it twice. If the two rolls match, roll again. If not, Alice wins when the first roll is bigger, and Bob wins when the second is.
-08_4	It's the coin trick again. Two different results are as likely one way round as the other. A coin is just a die with two faces.
-08_5	Three rolls do more. If all three are different, they came in one of six orders. Smallest first, biggest first, and so on. Six orders, equally likely. That's a fair die, made from a loaded one.
-08_6	And it keeps going. Four different rolls can come in twenty-four orders. Five, in a hundred and twenty.
-09_1	Here's the picture behind that. Three rolls pick a point in a cube, and the die's chances slice it along every side.
-09_2	A four, a five and a six, in each possible order, land in these six bricks. How do the bricks compare?
-09_3	They're one brick, turned six ways. A tenth, by a fifth, by a half. Same volume, so the same chance.
-10_1	One loose end. The two toss trick throws most of the coin away. A hundred tosses of our coin give about sixteen fair ones. How many could the best possible rule get?
-10_2	Seventy-two. That ceiling is called the coin's entropy, and no rule beats it.
-10_3	You get closer by wasting less. Use the bigger groups in deeper rows of the triangle. Or pick up the pairs you threw away, and run the trick again on them.
-10_4	Both climb toward seventy-two, and never quite arrive.
-11_1	The two toss trick is John von Neumann's. He gave it in a talk in nineteen forty-nine, in a single paragraph.
-11_2	He named the price too. Suppose the coin was fair all along. How much of it does the trick waste?
-11_3	Three tosses in four. In his words, at most twenty-five percent as efficient as ordinary coin tossing.
-11_4	Computers took him at his word. In nineteen ninety-nine, Intel's hardware random number generator ran its raw, lopsided bits through a corrector built on this trick.
-11_5	So an unfair coin still has a fair one inside it, as long as it can land both ways. You find it by ignoring what came up, and looking only at the order.
+08_2	Alice and Bob want a fair decision from it. How would you do it?
+08_3	Roll it twice. If the two rolls match, roll two fresh ones. If not, Alice wins when the first roll is bigger, and Bob wins when the second is.
+08_4	It's the coin trick again. A six then a five is exactly as likely as a five then a six, and the diagonal pairs every block with its equal.
+08_5	And a coin is just a die with two faces.
+09_1	Three rolls do more, and three need the cube again, cut by the die's chances along every side.
+09_2	Say the rolls are a four, a five and a six, in some order. Each order lands in one of these six bricks. How do the bricks compare?
+09_3	They're one brick, turned six ways. A tenth, by a fifth, by a half. Same counts, same chance.
+09_4	So when three rolls all differ, the order they came in is a fair choice among six. Low, middle, high. High, low, middle. Six in all. If any two match, roll three fresh ones.
+09_5	Six thousand rolls of the loaded die made six hundred fifty rolls of a fair one.
+09_6	It keeps going. Four different rolls can come in twenty-four orders. But rolls that all differ get rarer, so each step costs more.
+10_1	The two toss trick comes from the mathematician John von Neumann, in a talk in nineteen forty-nine. The printed summary calls it rigorously unbiased, which is to say exactly fair. It also names the price. At most twenty-five percent as efficient as ordinary coin tossing.
+10_2	Our coin does worse. A hundred tosses give about sixteen fair ones. Could a better rule get all hundred?
+10_3	No. Guess heads and you're right four times in five, so each toss of this coin holds less than a fair one. The most any rule can average is just over seventy-two. That ceiling is called the coin's entropy.
+10_4	You get closer by wasting less. Use the bigger groups in deeper rows of the triangle. Or keep what the trick ignored, which pairs matched and what the matching pairs showed, and run the trick again on those. Both climb toward the ceiling, and never quite reach it.
+11_1	Computers need fair tosses too, for passwords and secret codes. They get them from electrical noise, and raw noise comes out a little lopsided. What would you do with it?
+11_2	Pair the readings up, and throw away the pairs that match. In nineteen ninety-nine, one chip maker, Intel, built a corrector based on this trick into its random number generator.
+11_3	So an unfair coin still has a fair one inside it, as long as it can land both ways. You find it by setting aside how many heads came up, and looking only at the order.

@@ -264,6 +264,21 @@ pub fn expected_tosses(p: Q) -> Option<Q> {
     (!pq.is_zero()).then(|| Q::ONE / pq)
 }
 
+/// The tallies within two standard errors of what `n` tries at chance `p`
+/// give on average: where a fair game's count lands about 19 times in 20.
+/// Found in whole numbers, with no square root: (k − np)² ≤ 4np(1 − p).
+pub fn two_sigma_band(n: u32, p: Q) -> (u32, u32) {
+    let mean = Q::int(i128::from(n)) * p;
+    let limit = Q::int(4) * mean * p.other();
+    let inside = |k: &u32| {
+        let d = Q::int(i128::from(*k)) - mean;
+        d * d <= limit
+    };
+    let low = (0..=n).find(inside).unwrap_or(0);
+    let high = (0..=n).rev().find(inside).unwrap_or(n);
+    (low, high)
+}
+
 /// The chance that `pairs` pairs in a row are all thrown away.
 pub fn undecided_after(p: Q, pairs: u32) -> Q {
     PairLaw::same_coin(p).decides().other().pow(pairs)
@@ -898,6 +913,16 @@ mod tests {
         assert!(expected_tosses(q(999, 1000)).unwrap() > Q::int(1000));
     }
 
+    #[test]
+    fn the_band_is_two_standard_errors_either_side() {
+        // 1,000 fair games: 500 ± 2 × 15.81
+        assert_eq!(two_sigma_band(1000, Q::HALF), (469, 531));
+        // one face of a fair die in 949 rolls: 158.17 ± 2 × 11.48
+        assert_eq!(two_sigma_band(949, q(1, 6)), (136, 181));
+        assert_eq!(two_sigma_band(10, Q::ZERO), (0, 0));
+        assert_eq!(two_sigma_band(10, Q::ONE), (10, 10));
+    }
+
     /// "Two different coins break it": the two chances agree only when the
     /// coins do (or neither pair can come up at all).
     #[test]
@@ -1015,10 +1040,22 @@ mod tests {
         assert!((fair_exits[2] + fair_exits[3] - 0.625).abs() < 1e-12, "{fair_exits:?}");
     }
 
-    /// "Patterns with the same counts have the same chance": every pattern,
-    /// every chance, checked against the product of its own tosses.
+    /// "For tosses like ours, with the same chance every time and no memory,
+    /// order never changes a chance": every pattern, every chance, checked
+    /// against the product of its own tosses. The fence is needed: for the
+    /// coin with memory, two patterns with the same counts differ.
     #[test]
-    fn edge_same_counts_same_chance() {
+    fn edge_same_counts_same_chance_without_memory() {
+        let sticky = Memory::sticky(bent()).pair_after(H);
+        assert_eq!(sticky.prob(H, T), q(4, 25));
+        assert_eq!(sticky.prob(T, H), q(1, 25));
+        // and with no memory the same pair law gives them one chance again
+        let plain = Memory {
+            after_h: bent(),
+            after_t: bent(),
+        }
+        .pair_after(H);
+        assert_eq!(plain.prob(H, T), plain.prob(T, H));
         for p in chances() {
             for n in 1..=6u32 {
                 let mut total = Q::ZERO;

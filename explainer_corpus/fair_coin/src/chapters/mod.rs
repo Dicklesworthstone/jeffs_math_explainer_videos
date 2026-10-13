@@ -30,8 +30,8 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("06_same_counts", 0.5),
         animatic!("07_a_die_from_a_coin", 0.55),
         animatic!("08_loaded_dice", 0.6),
-        animatic!("09_six_bricks", 0.65),
+        animatic!("09_six_orders", 0.65),
         animatic!("10_what_is_left", 0.45),
-        animatic!("11_rigorously_unbiased", 0.4),
+        animatic!("11_the_fair_coin_inside", 0.4),
     ]
 }

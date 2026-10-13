@@ -11,7 +11,7 @@ use crate::model::{
     self, Announce, FAIR_DIE, Face, Game, LOADED, Memory, PairLaw, Q, all_different, bent, blum_first_two,
     count_chance, die, elementary, elias, elias_rate, entropy, expected_tosses, fixed_length_rules, games,
     heads_first_wins, memory_tosses, pascal_row, pattern_chance, patterns, peres, peres_rate, rolls, spread_chances,
-    stream, tally, tie, tosses, tosses_used, undecided_after, von_neumann,
+    stream, tally, tie, tosses, tosses_used, two_sigma_band, undecided_after, von_neumann,
 };
 
 /// Dates and quoted numbers from the sources (fact sheet rows E-C; the
@@ -63,9 +63,11 @@ pub mod cited {
     pub const INTEL_SAMPLES_PER_BIT: u32 = 6;
 }
 
-/// The slider's stops: the coin's chance of heads.
-pub fn stops() -> [Q; 6] {
+/// The slider's stops: the coin's chance of heads (one of them below a
+/// half, where the coin favours tails).
+pub fn stops() -> [Q; 7] {
     [
+        Q::new(1, 5),
         Q::HALF,
         Q::new(3, 5),
         Q::new(7, 10),
@@ -90,7 +92,6 @@ pub fn sticky() -> Memory {
 pub mod runs {
     pub const CALL_IT: usize = 1000;
     pub const TRICK: usize = 1000;
-    pub const PER_STOP: usize = 1000;
     pub const PRICE: usize = 10_000;
     pub const TWO_COINS: usize = 1000;
     pub const STICKY: usize = 200_000;
@@ -110,12 +111,6 @@ pub fn call_it_run() -> Vec<Face> {
 /// Run 2: the trick.
 pub fn trick_run() -> Vec<Game> {
     games(&mut stream(2), runs::TRICK, bent(), bent())
-}
-
-/// Runs 10 to 15: the trick at each stop of the slider.
-pub fn stop_run(i: usize) -> Vec<Game> {
-    let p = stops()[i];
-    games(&mut stream(10 + i as u64), runs::PER_STOP, p, p)
 }
 
 /// Run 4: the price.
@@ -251,6 +246,12 @@ fn coin(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("E-F4.{name}.decides_percent"), law.decides().percent(1))?;
         f.add(&format!("E-F4.{name}.expected_tosses"), cost.decimal(2))?;
     }
+    // "Nine percent each", at ninety percent heads
+    let ninety = PairLaw::same_coin(Q::new(9, 10));
+    f.add("E-F4.p90.ht_percent", ninety.prob(Face::H, Face::T).percent(0))?;
+    // where the count of a fair game's wins lands about 19 times in 20
+    let (low, high) = two_sigma_band(runs::TRICK as u32, Q::HALF);
+    f.add("E-F2.fair_band.games1000", format!("{low},{high}"))?;
     let nearly_sure = expected_tosses(Q::new(99, 100)).ok_or("a stop never decides")?;
     f.pin("E-F4.p99.expected_tosses_rounded", nearly_sure.decimal(0), "101", brief)?;
     let fair = expected_tosses(Q::HALF).ok_or("a fair coin never decides")?;
@@ -279,6 +280,8 @@ fn breaks(f: &mut Facts) -> Result<(), String> {
     f.add("E-F6.sticky.after_heads.th", th.decimal(2))?;
     f.add("E-F6.sticky.after_heads.ht_percent", ht.percent(0))?;
     f.add("E-F6.sticky.after_heads.th_percent", th.percent(0))?;
+    f.add("E-F6.sticky.after_heads.ht.exact", ht.exact())?;
+    f.add("E-F6.sticky.after_heads.th.exact", th.exact())?;
     f.add("E-F6.sticky.after_heads.ratio", (ht / th).exact())?;
     let stuck = "the sticky coin never decides";
     f.add(
@@ -361,7 +364,13 @@ fn same_counts(f: &mut Facts) -> Result<(), String> {
     f.add("E-F8.four_two.works_per_hundred", works.percent(0))?;
     f.add("E-F8.four_two.expected_tosses_rounded", (Q::int(4) / works).decimal(0))?;
     f.add("E-F8.four_two.each_percent", pattern_chance(p, 4, 2).percent(2))?;
-    f.add("E-F8.three_two.each_percent", pattern_chance(p, 3, 2).percent(1))?;
+    // the cube of three tosses: one piece for each pattern, by its count of heads
+    for k in 0..=3 {
+        f.add(
+            &format!("E-F8.three.heads{k}.each_percent"),
+            pattern_chance(p, 3, k).percent(1),
+        )?;
+    }
     let fair_works = count_chance(Q::HALF, 4, 2);
     f.add("E-F8.four_two.fair_coin.works_percent", fair_works.percent(1))?;
     f.add(
@@ -406,6 +415,14 @@ fn dice(f: &mut Facts) -> Result<(), String> {
     f.add("E-F9.three_rolls.works_percent", works.percent(1))?;
     f.add("E-F9.three_rolls.works_per_hundred", works.percent(0))?;
     f.add("E-F9.three_rolls.expected_rolls", (Q::int(3) / works).decimal(1))?;
+    f.add(
+        "E-F9.three_rolls.expected_rolls_rounded",
+        (Q::int(3) / works).decimal(0),
+    )?;
+    // one step further: four rolls that all differ, and what that costs
+    let four = all_different(&w, 4);
+    f.add("E-F9.four_rolls.works_per_hundred", four.percent(0))?;
+    f.add("E-F9.four_rolls.expected_rolls_rounded", (Q::int(4) / four).decimal(0))?;
     let fair_works = all_different(&fair, 3);
     f.add("E-F9.three_rolls.fair_die.works.exact", fair_works.exact())?;
     f.add(
@@ -443,6 +460,8 @@ fn rates(f: &mut Facts) -> Result<(), String> {
         "72",
         "the owner's brief",
     )?;
+    // "just over seventy-two"
+    f.add("E-F10.entropy.per_hundred_1dp", format!("{:.1}", 100.0 * h))?;
     f.add(
         "E-F10.von_neumann.share_of_entropy_percent",
         format!("{:.0}", 100.0 * p * (1.0 - p) / h),
@@ -515,15 +534,10 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
         .collect();
     f.add("E-S2.trick.first_games", first_games.join(" "))?;
 
-    for (i, s) in stops().into_iter().enumerate() {
-        let g = stop_run(i);
-        let name = stop_name(s);
-        f.add(&format!("E-S3.{name}.heads_first"), heads_first_wins(&g))?;
-        f.add(
-            &format!("E-S3.{name}.mean_tosses"),
-            ratio(tosses_used(&g), g.len()).decimal(2),
-        )?;
-    }
+    // every pair of the run is a dot in the square: the deciding ones and the rest
+    let pairs: usize = g.iter().map(Vec::len).sum();
+    f.add("E-S2.trick.pairs", pairs)?;
+    f.add("E-S2.trick.thrown_away", pairs - g.len())?;
 
     let g = price_run();
     f.add("E-S4.price.games", g.len())?;
@@ -556,6 +570,7 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
     let fixed = von_neumann(&after_heads(&run));
     f.add("E-S6.sticky.after_heads_only.heads_first", heads(&fixed))?;
     f.add("E-S6.sticky.after_heads_only.tails_first", fixed.len() - heads(&fixed))?;
+    f.add("E-S6.sticky.after_heads_only.games", fixed.len())?;
     f.add(
         "E-S6.sticky.after_heads_only.heads_first_percent",
         ratio(heads(&fixed), fixed.len()).percent(1),
@@ -567,6 +582,9 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
     f.add("E-S7.coin_die.dice", made.len())?;
     f.add("E-S7.coin_die.faces", list(tally(&made, 6)))?;
     f.add("E-S7.coin_die.tosses_per_die", ratio(run.len(), made.len()).decimal(1))?;
+    let sixth = Q::new(1, 6);
+    let (low, high) = two_sigma_band(made.len() as u32, sixth);
+    f.add("E-S7.coin_die.fair_band", format!("{low},{high}"))?;
 
     let run = loaded_run();
     f.add("E-S8.loaded.rolls", run.len())?;
@@ -575,6 +593,8 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
     let made = model::blocks(&run, 3, model::order_of_rolls);
     f.add("E-S8.three_rolls.dice", made.len())?;
     f.add("E-S8.three_rolls.orders", list(tally(&made, 6)))?;
+    let (low, high) = two_sigma_band(made.len() as u32, sixth);
+    f.add("E-S8.three_rolls.fair_band", format!("{low},{high}"))?;
     f.add(
         "E-S8.three_rolls.rolls_per_die",
         ratio(run.len(), made.len()).decimal(1),
@@ -741,9 +761,6 @@ mod tests {
         };
         near(number("E-S1.call_it.heads"), 1000.0, 0.8);
         near(number("E-S2.trick.heads_first"), 1000.0, 0.5);
-        for s in stops() {
-            near(number(&format!("E-S3.{}.heads_first", stop_name(s))), 1000.0, 0.5);
-        }
         near(number("E-S5.two_coins.heads_first"), 1000.0, 0.8);
         let (ht, th) = (number("E-S6.sticky.after_hh.ht"), number("E-S6.sticky.after_hh.th"));
         near(ht, ht + th, 0.8);
