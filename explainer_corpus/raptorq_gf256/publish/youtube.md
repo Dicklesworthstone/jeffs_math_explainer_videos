@@ -4,10 +4,11 @@ What goes on the upload page. The description is cut from `docs/description.md` 
 numbers are oracle keys and fact-sheet rows) and links back to it for the full notes; the
 chapter times come from the final cut (`./x raptorq_gf256 chapters`).
 
-- Title: The Arithmetic Where 3 × 7 = 9
-- Visibility: Private, for the owner's review. Public only after his explicit approval, with his listening, full-watch and quiet-level acceptance recorded.
+- Title: The Arithmetic Where 3 × 7 = 9 (exactly this: no voice or review suffix)
+- Voice: michael (the owner's choice). The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte. leo's comparison cut and its text (`publish/leo/`) are kept.
+- Visibility: Public. The owner authorized publication on 2026-10-12, once the final fixes and checks are done; only the upload lane uploads it and makes it public. The earlier review uploads stay Private.
 - Category: Education. Audience: not made for kids.
-- Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
+- Altered or synthetic content: Yes (disclosed, as on the review uploads: the narration is a synthetic voice; no real person, place or event is depicted). The description says so too.
 - Thumbnail: `renders/raptorq_gf256_thumbnail.png` (`./x raptorq_gf256 thumbnail`)
 - Captions: English, `renders/final/raptorq_gf256.en.srt` (`./x raptorq_gf256 captions`)
 - Tags: RaptorQ, fountain code, erasure code, finite field, Galois field, GF(256), XOR, polynomials, error correction, RFC 6330, Reed-Solomon, network coding, linear algebra, math explainer
@@ -20,7 +21,23 @@ A server sends one file to a million phones, and every phone loses its own share
 Every packet is an equation: some pieces of the file, mixed with ex-or (XOR). With ex-or alone, a random set of exactly enough equations fails to pin the file down about 71% of the time (model), and almost all of the trouble is in the last few equations. RaptorQ closes those last few with 10 to 16 equations over a byte field of 256 elements, where bytes multiply as polynomials folded by one that cannot be factored. In that field, 3 × 7 = 9.
 
 Chapters
-{CHAPTERS}
+0:00 A million phones
+1:13 Bits and ex-or
+2:27 Packets are equations
+3:50 The cube
+4:34 The ex-or lottery
+5:30 Spares and rings
+6:46 Why not wrap around at 256?
+7:47 Prime clocks
+8:47 Bytes are polynomials
+10:00 The fold
+11:25 The byte clock
+12:50 The times table
+14:11 The byte lottery
+15:30 The price of density
+16:53 Where the danger lives
+18:16 Parking a piece
+19:41 Two packets
 
 What the promise averages over
 RFC 6330 says a decoder fails at most 1 time in 100 with exactly enough packets, 1 in 10,000 with one extra and 1 in 1,000,000 with two. Those are averages over packets chosen at random. A phone that receives the originals first and loses random packets gets a different mix, so we measured that case too: with 1,002 pieces, each packet lost with probability 1 in 100, 3 of 5,000,000 simulated phones failed with two packets more than they needed (98 with one extra, 21,186 with none). Numbers marked "model" in the video are computed under stated assumptions; measured numbers carry their sample sizes.

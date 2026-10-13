@@ -16,11 +16,10 @@
 > **A note on tense.** Like franken_manim's README, this one describes the
 > *method* in the present tense, because the method is fixed and every video
 > follows it. What exists today is stated separately and plainly: see
-> [The corpus](#the-corpus) and [Status](#status). Hoeffding's D is finished.
-> Of the three new videos, *The Arithmetic Where 3 × 7 = 9* has a 4K60 master
-> that passes the strict verify and awaits the owner's review; the other two
-> have every chapter built, narrated and scored as drafts, with their last
-> review fixes and 4K finals in progress.
+> [The corpus](#the-corpus) and [Status](#status). All four videos now have a
+> 4K60 master in the `michael` voice that passes the strict verify, and the
+> owner has authorized publishing them. Three are final; the fish video is
+> having one last picture fix rendered into its final. None is public yet.
 
 ---
 
@@ -50,7 +49,7 @@ differently on every machine.
 | Timing | The picture waits for the voice: scenes are written as beats keyed to script lines, so re-recording a line re-times the animation. |
 | Sound | A std-only Rust synthesizer (band-limited drifting oscillators, ladder filters, chorus, tape colour, modal mallets, FM electric piano, plucked strings, an FDN reverb), ducked under the voice with perfect look-ahead and a spectral pocket, with harmony that moves and melody only in the gaps. Automated checks enforce level, masking and monotony budgets. |
 | Review | Every frame is looked at (layout lint, contact sheets, cue sheets). Each video is reviewed three times through three named viewers and a mathematician's audit, and the findings and their dispositions are committed. |
-| Delivery | 3840×2160 at 60 fps, explicit encoder quality, one fixed mastering gain to −16 LUFS, a strict verify, captions from the exact cue timings. Renders never enter git; finished cuts ship as GitHub Release assets. |
+| Delivery | 3840×2160 at 60 fps, explicit encoder quality, one fixed mastering gain to −16 LUFS (quieter when the −1.5 dBTP ceiling binds, as it does for the `michael` voice), a strict verify, captions from the exact cue timings. Renders never enter git; finished cuts ship as GitHub Release assets. |
 
 ---
 
@@ -58,10 +57,10 @@ differently on every machine.
 
 | # | Video | What it explains | Status |
 |---|---|---|---|
-| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. Its v6, re-scored by the new engine (QA 8 of 8 chapters) and mastered from PCM at 4K60, is rendered and awaits the owner's A/B verdict. |
-| 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | All 15 chapters built as scenes, narrated (FrankenTTS voice `matt`, ASR QA 0.989) and scored; scored draft 17:32; persona review R3 done and its fixes landed; 4K60 final in progress. |
-| 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | **4K60 master done** (20:56, voice `leo`, 17 chapters, music QA 17 of 17, −16.0 LUFS, strict verify passes, captions); awaits the owner's review before release. |
-| 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | All 13 chapters built as scenes, narrated (voice `michael`, ASR QA 0.994) and scored; scored draft 15:50; the lock measured on Arm and x86 for chapter 12; persona review R3 done, fixes in progress. |
+| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. Its v6, re-scored by the new engine (QA 8 of 8 chapters) and mastered from PCM at 4K60, is rendered. The owner then chose the `michael` voice for all four videos: the release cut is that variant (9:04, 8 chapters, music QA 8 of 8, −17.8 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); publication authorized, not yet public. |
+| 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | **4K60 master done** in the `michael` voice (18:12, 15 chapters, music QA 15 of 15, −18.1 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); one picture fix (a label in chapter 12) is being rendered into the final before release. `matt`'s original cut (ASR QA 0.989) is kept. Publication authorized, not yet public. |
+| 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | **4K60 master done** in the `michael` voice (21:04, 17 chapters, music QA 17 of 17, −18.0 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); publication authorized, not yet public. `leo`'s cut (21:14, −16.0 LUFS) is kept as a comparison. |
+| 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | **4K60 master done** (15:43, voice `michael`, ASR QA 0.997, 13 chapters, music QA 13 of 13, −17.6 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); the lock measured on Arm and x86 for chapter 12; publication authorized, not yet public. |
 
 ![One still from each chapter of the Hoeffding's D explainer](explainer_corpus/hoeffding_d/docs/media/chapters.jpg)
 
@@ -241,7 +240,7 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 | Scene kit (`explainer_kit`) | built and tested: the shared CLI (two-pass score), the PCM master, captions, thumbnails, and shared props (code panels, proportion bars, row-strip tables) |
 | Corpus driver (`./x`) | runs every step from drafts to the verified master; gate tracking (`./x status`) and the template (`./x new`) are still to come |
 | CI | every push: the private-details scan, the storyboard check, and the score engine's fmt, clippy and tests |
-| Videos 2–4 | see [The corpus](#the-corpus): B mastered; A and C in their last fixes before 4K |
+| Videos 2–4 | see [The corpus](#the-corpus): all three mastered at 4K60 in the `michael` voice; the fish video's final is being rebuilt for one picture fix; publication authorized, none public yet |
 
 ## Limitations
 

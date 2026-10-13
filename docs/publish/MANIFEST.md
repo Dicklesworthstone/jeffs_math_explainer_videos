@@ -1,6 +1,34 @@
-# Publishing manifest: REVIEW ONLY (2026-10-12, 20:42 EDT)
+# Publishing manifest: release authorized, nothing public yet (2026-10-12, 21:10 EDT)
 
-**Nothing is public, and nothing may be published.** The owner reviews every cut first.
+**Nothing is public yet.** On 2026-10-12 the owner authorized publishing the four michael cuts once
+the final fixes and checks are done (relayed in mail 1361): "ok please just wrap things up and make
+those fixes and then do final ultra high quality renderings to 4k 60fps for youtube, and give them
+the final names and descriptions, nothing with '[Michael review]' or similar in the titles. We want
+to just publish them, ok?" Shortly before, he said "the latest videos with the michael voice sound
+pretty good" (mail 1358). **Only BronzeRidge uploads a video or makes it Public**; nobody else
+publishes. The originals and every earlier Private upload are kept.
+
+## The release set
+
+| Video | Final title (no suffix) | Master to publish (md5) | Captions (md5) | Description (md5) | State |
+|---|---|---|---|---|---|
+| Hoeffding's D | Hoeffding's D: The Ring That Correlation Can't See | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` (`76f66ca94c83b647a14d5f421c3d1cb2`) | `hoeffding.en.srt` beside it (`b643a09d…`) | `explainer_corpus/hoeffding_d/publish/michael/description.txt` (`5cbe867f…`) | ready |
+| Fish | How to Count Fish You've Never Seen | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4`: **a new final is owed** (in production at 21:10); v3 (`a6a990f5…`, kept at `final_v3/`) lacks the label fix 8770672 | `capture_recapture.en.srt` beside it (v3's: `20620a55…`) | `explainer_corpus/capture_recapture/publish/michael/description.txt` (`d7baab5a…`) | **blocked on its new final** (chapter 12 re-rendered, master, verify, fw); timeline and audio are to stay as v3's |
+| RaptorQ | The Arithmetic Where 3 × 7 = 9 | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` (`8e0afadf33bee181d59a81447d06fcb8`) | `raptorq_gf256.en.srt` beside it (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/publish/michael/description.txt` (`e12a9273…`) | ready |
+| Bakery | The Algorithm Lamport Is Proudest Of | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` (`9ed06e7d12d38a87d748d8a58806d296`) | `bakery_algorithm.en.srt` beside it (`522946ba…`) | `explainer_corpus/bakery_algorithm/publish/michael/description.txt` (`96737b34…`) | ready |
+
+Titles, descriptions and tags are each crate's `publish/michael/{title,description,tags}.txt`; the
+upload page's other fields are in its `publish/youtube.md`. The review uploads below carry
+"[Michael review N]" in their titles: the public title is the plain one above. All 12 links in the
+four descriptions answered HTTP 200 on 2026-10-12 at 21:06.
+
+**Encoding: the existing masters are the final quality; they are not re-rendered or re-encoded.**
+Every chapter of all four is 3840×2160, 60 fps, H.264 High, x264 CRF 16 preset slow, BT.709, with
+AAC 256 kb/s. Measured on the bakery's hardest chapter (09, the static) against a lossless render
+of the same source: PSNR median 63.4 dB (1st percentile 57.1, worst frame 48.9), SSIM median
+0.99991 (minimum 0.9995). The low bitrates (0.8 to 3.3 Mb/s) are the flat, mostly still picture:
+the lossless chapter is itself 3.2 Mb/s. A changed cut re-renders only its changed chapters from
+source at these settings; an existing MP4 is never re-encoded or upscaled.
 
 **The owner's choice: michael's voice for all four videos.** RaptorQ and the bakery video are
 michael already; the fish video and Hoeffding get their michael versions (Hoeffding said
@@ -19,10 +47,10 @@ uploaded review cut are kept: a corrected cut always goes to a new path.
 **Loudness qualification** (restored from 5c4975e and 64a0497, which a later rewrite of this file
 dropped): every michael master here passed `VERIFY PASS` through the fixed-gain quiet-peak
 exception, at −17.6 to −18.2 LUFS with the true peak at the −1.5 dBTP ceiling. That is outside
-`AGENTS.md`'s literal −16 LUFS ±1 gate. The owner's disposition of the quieter level, and human
-narration, score and full-watch acceptance, remain open for every cut; review-2 repairs need fresh
-qualification. "Ready" here means available for a Private review upload; it does not establish
-owner acceptance or permission to publish publicly.
+`AGENTS.md`'s literal −16 LUFS ±1 gate. The owner has since said the four latest michael cuts
+"sound pretty good" and authorized publishing them (above). He made no separate statement about
+the level, and no uninterrupted full watch is recorded: the cuts are published as he heard them.
+In the tables below, "ready" for a review upload meant available for a Private upload only.
 
 ## Uploaded for review (Private, by Codex; receipt docs/publish/codex-review-uploads-20261012.md)
 
@@ -34,7 +62,7 @@ owner acceptance or permission to publish publicly.
 | RaptorQ michael, review 1 | https://youtu.be/LXbcbfee_WE | `explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256_master.mp4` | `16867253aba700f7f8602ef753cb49bb` | superseded by repair 12 (https://youtu.be/uWDPs9JIwEk): "phones", "once", "those", "peels" lost their s; audit items |
 | Hoeffding michael v2 | https://youtu.be/C9xOzbLIARg | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | the current Hoeffding cut; evidence below |
 | bakery michael, review 3 | https://youtu.be/eXU6NC2fuCw | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | the current bakery cut; evidence below |
-| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | the current fish cut; evidence below |
+| fish michael v3 | https://youtu.be/VhWA7q6mTHw | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | the reviewed fish cut, to be superseded by the new final with the label fix; evidence below |
 | RaptorQ michael, repair 12 | https://youtu.be/uWDPs9JIwEk | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | the current RaptorQ cut; saved Private, SD/HD/4K complete, English captions Published; evidence below |
 
 When a corrected review 2 of the bakery video or RaptorQ is copied here, the review-1 files above
@@ -77,7 +105,7 @@ captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf25
 | Hoeffding michael v2 (uploaded, above) | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4` | `76f66ca94c83b647a14d5f421c3d1cb2` | 9:04, −17.8 LUFS | `explainer_corpus/hoeffding_d/publish/michael/{title,description,tags}.txt` (v2 chapter times) | `explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding.en.srt` (`b643a09d…`) | `explainer_corpus/hoeffding_d/renders/hoeffding_thumbnail.png` |
 | fish michael v2 (HOLD; superseded by v3) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture_master.mp4` | `2296eb1379ffccd5228a84668a112ac8` | 18:08, −18.2 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` | `explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture.en.srt` (`db3e5fc5…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | bakery michael, review 3 (uploaded, above) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4` | `9ed06e7d12d38a87d748d8a58806d296` | 15:43, −17.6 LUFS | `explainer_corpus/bakery_algorithm/publish/michael/{title,description,tags}.txt` (chapter times updated, ca49d2f) | `explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm.en.srt` (`522946ba…`) | `explainer_corpus/bakery_algorithm/renders/bakery_algorithm_thumbnail.png` |
-| fish michael v3 (uploaded, above) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | 18:12, −18.1 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` (v3 chapter times, d34de59) | `explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture.en.srt` (`20620a55…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
+| fish michael v3 (uploaded, above; kept at `final_v3/`) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4` | `a6a990f53e0935f5a96d0441a647f216` | 18:12, −18.1 LUFS | `explainer_corpus/capture_recapture/publish/michael/{title,description,tags}.txt` (v3 chapter times, d34de59) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture.en.srt` (`20620a55…`) | `explainer_corpus/capture_recapture/renders/capture_recapture_thumbnail.png` |
 | RaptorQ michael, repair 12 (uploaded, above) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4` | `8e0afadf33bee181d59a81447d06fcb8` | 21:04, −18.0 LUFS | `explainer_corpus/raptorq_gf256/publish/michael/{title,description,tags}.txt` (chapter times of this cut, 5810c25) | `explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256.en.srt` (`3b8c3ebe…`) | `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png` |
 
 Bakery review 3 evidence: its director re-read three lines and froze the set (report.json
@@ -90,9 +118,8 @@ level, captions and chapter times. BronzeRidge's full fw of this exact master ag
 (run ff12a0e7-4043-4cce-bd8f-89fe3c9730e5, whisper.cpp, no dropped windows; mail 1275) clears the
 repaired "staircases", "ties" and "car's odometer", and "reads and writes", "Green's slate" and
 "other's"; its new candidates "tickets stay safe" and "call wakes up" clear in isolated clips of
-the final, and its two "I'm" tokens fall in the music-only coda. That is ASR, not hearing: nobody
-has listened to this cut or watched it through, and the three new reads are **for the owner's
-ear**. The last 20.6 s (after 15:23.06) are music only. Review 2 is kept at
+the final, and its two "I'm" tokens fall in the music-only coda. That is ASR, not hearing; the
+owner's later "sound pretty good" covers this cut (above), and no full watch is recorded. The last 20.6 s (after 15:23.06) are music only. Review 2 is kept at
 `explainer_corpus/bakery_algorithm/renders/final_review2/` (master `7df3679f…`, captions
 `7048a44c…`); review 1 (uploaded https://youtu.be/PpmO9Gato2w) at
 `explainer_corpus/bakery_algorithm/renders/final_review1/` (md5 `19f2e859…`).
@@ -111,8 +138,9 @@ candidates without regeneration. For the owner's ear: the first "marked" near 3:
 aspiration), and the director's own list in 1304 (abrupt vowel ends on a few lines, thin clicks
 near the end of 10_2.0 and 13_2.1, the long s of 13_3.1 "shrinks", 05_1.1 at 6.0 syl/s). Open
 visual finding: BlueBrook's R67 P2, a transient label distortion at 13:55 (ring_toss.rs), kept
-open for the owner's review with no recut of this hash (mail 1341). Nobody has listened to this
-cut or watched it through.
+open for the owner's review with no recut of this hash (mail 1341); its fix landed as 8770672 and
+goes into the new final (the release set, above). The owner's later "sound pretty good" covers this
+cut; no full watch is recorded.
 
 Fish michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean), music QA 15/15, cue
 check PASS (13 warnings, all authored pauses or end holds, as in matt's cut); narration gates PASS
@@ -125,8 +153,8 @@ Hoeffding michael v2 evidence: VERIFY PASS (A/V 0.000 s, both decodes clean, the
 exception above), music QA 8/8 on score engine ed882b6, built at 7767d25 from the frozen narration
 (e69d2d2, ec27646: "An exact twin", "add a quarter each" and six endings repaired: noise, values,
 marks, matters, lines, coordinates). Codex's full fw on this exact master is clear, with HERF-ding in
-all nine places (BronzeRidge, run 501e40e3-c53c-4fe5-bdad-bbe065a79f75, mail 1271; no owner hearing
-or full watch is claimed). v1 (`6898620c…`, superseded) is kept at `variants/michael/renders/final_v1/`.
+all nine places (BronzeRidge, run 501e40e3-c53c-4fe5-bdad-bbe065a79f75, mail 1271). The owner's
+later "sound pretty good" covers this cut; no full watch is recorded. v1 (`6898620c…`, superseded) is kept at `variants/michael/renders/final_v1/`.
 
 RaptorQ michael repair 12 evidence: FINAL READY 1334, VERIFY PASS (A/V 0.000 s, −18.0 LUFS: the
 quiet-peak exception above). It carries review 2's repairs ("phones", "once", "those", "peels",
@@ -138,8 +166,8 @@ accepted). Cue check PASS; every chapter inside 85 s (12 is 80.88 s); the descri
 rows come from this cut. BronzeRidge's full fw of this exact master (run
 12bce32e-8433-4e4c-91a1-55cb8daea064, no dropped windows; mail 1339) reads "byte order" and "a
 million phones" correctly in full and isolated clips and clears the other requested repairs; the
-"byte cards" reading is CoralForest's acoustic disposition (mail 1333). Nobody has listened to this
-cut or watched it through. Kept, never deleted: review 2 (`eda64ed9…`) at
+"byte cards" reading is CoralForest's acoustic disposition (mail 1333). The owner's later "sound
+pretty good" covers this cut; no full watch is recorded. Kept, never deleted: review 2 (`eda64ed9…`) at
 `renders/final_review2d/`, the first review-2 run (`f581a5de…`) at `renders/final_review2_93da69d/`,
 review 1 at `renders/final_review1/`.
 
@@ -171,6 +199,10 @@ RaptorQ repair 12) are in the corrected-cuts table above.
 The build host keeps its own copies under each crate's `renders/final_before_rework/`.
 
 Settings for every review upload: Private; Education; "not made for kids"; altered or synthetic
-content "No" (each description says the narration is synthetic); English captions from the .srt
-"with timing"; the custom thumbnail; the voice in the review title. A cut is done only with its
-video ID and processing state recorded.
+content "Yes" as applied on the michael review uploads (the narration is a synthetic voice, and
+each description says so); English captions from the .srt "with timing"; the custom thumbnail; the
+voice in the review title. A cut is done only with its video ID and processing state recorded.
+
+For the public release the settings are the same, with Visibility Public and the plain title from
+the release set above (no voice, no review number). A release is done only with its video ID, its
+Public state, its captions and its 4K processing recorded here by the upload lane's receipt.

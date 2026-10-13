@@ -6,31 +6,37 @@ the ticket is ready. The proof survives a read overlapping a write that
 returns garbage. The later CPU chapter separates that register model from
 real memory ordering.
 
-**Status: final candidate; owner acceptance and human listening remain open.**
-The candidate below was built from `0c5aa67124a7ee9630c70bd7fc71ed9cc6a5a17f`
-on 2026-10-12. It has not been published.
+**Status: final cut (review 3). The owner has authorized publication; it is not
+public yet.** The cut below was built on 2026-10-12 from the frozen narration
+(report `b142acacd3eb1aaa17ccd3e762917c1d`), with picture and mux at
+`7767d25a77c7b2f540166a3f637018d06d750a53`. Publishing is the upload lane's step;
+the YouTube title, description and tags are in [publish/](publish/youtube.md).
 
 ## Watch and inspect
 
 Production artifacts are local and gitignored:
 
-- `renders/final/bakery_algorithm_master.mp4`: the joined 4K candidate.
+- `renders/final/bakery_algorithm_master.mp4`: the joined 4K master.
 - `renders/final/master/bakery_algorithm.master.wav`: its PCM master.
 - `renders/final/bakery_algorithm.en.srt` and `.en.vtt`: sentence captions.
 - `renders/final/cue_sheets/`: the final chapter cue sheets.
 - `stems/qa/`: the score measurements for each chapter.
 
-The MP4's MD5 is `19f2e859c0ee1a0841c0115ac69ab656`. A private review
+The MP4's MD5 is `9ed06e7d12d38a87d748d8a58806d296`. A private review
 copy of the master, PCM, chapters, captions, cue records, sheets and score QA
-matched source MD5s before and after transfer.
+matched source MD5s before and after transfer. The two earlier review cuts are
+kept beside it: `renders/final_review1/` (`19f2e859c0ee1a0841c0115ac69ab656`)
+and `renders/final_review2/` (`7df3679f4f52d3e5844425fb7b868048`).
 
 The master measures **−17.6 LUFS at −1.5 dBTP**. The verifier passes it through
 its fixed-gain peak-ceiling exception; it does **not** meet the literal
 −16 ±1 LUFS requirement in [AGENTS.md](../../AGENTS.md). The peaks occur in
-narration throughout the film. This quieter result needs the owner's explicit
-acceptance. Narration has not been time-stretched, pitch-shifted or loudnormed.
+narration throughout the film. The owner said the latest michael cuts "sound
+pretty good" and then authorized publication; he made no separate statement
+about the level. Narration has not been time-stretched, pitch-shifted or
+loudnormed.
 
-## How this candidate was made
+## How this cut was made
 
 | Item | Recorded result |
 |---|---|
@@ -40,24 +46,26 @@ acceptance. Narration has not been time-stretched, pitch-shifted or loudnormed.
 | Voice inputs | 85 lines, 218 sentences; current line ASR mean 0.997 |
 | Render host class | Mac build host; software x264 |
 | Encoder | H.264 High, x264 CRF 16, preset slow for every chapter, including the camera chapter |
+| Encoder check | Chapter 09 (the static, the hardest picture) against a lossless render of the same source: PSNR median 63.4 dB, worst frame 48.9 dB; SSIM median 0.99991, minimum 0.9995 |
 | Picture | 3840 × 2160, 60 fps, all three BT.709 tags on the master |
-| Duration | 56,508 frames; 941.8 seconds (15:41.8), 13 chapters |
-| Longest chapter | 84.6167 seconds |
-| Chapter render batch | 714 seconds elapsed, up to five jobs concurrently; individual logged render times total 1,510.3 seconds |
+| Duration | 56,617 frames; 943.6 seconds (15:43.6), 13 chapters |
+| Longest chapter | 84.80 seconds |
+| Chapter render batch | 1,149 seconds elapsed, four jobs concurrently (part of it waiting on a shared build lock) |
 | PCM assembly | Exact logged cues replayed through the pinned fmn mixer; all 13 replays null against captured soundtracks bit for bit |
-| Master gain | One fixed gain, +2.93 dB; the −1.50 dBTP ceiling binds |
-| Final verification | A/V delta below 0.001 seconds; producer's software and VideoToolbox full decodes both return zero errors |
+| Master gain | One fixed gain, +2.90 dB; the −1.50 dBTP ceiling binds |
+| Final verification | A/V delta 0.000 seconds; producer's software and VideoToolbox full decodes both return zero errors |
 | Captions | 252 captions covering the complete script; SRT and VTT text and timing agree |
-| Score QA | All 13 chapters pass; median voice-minus-music 19.38–21.70 LU, maximum SII loss 0.0025, zero clicks |
-| Picture review | All 13 final cue sheets plus 189 frames sampled every five seconds from the joined master; no new material visual finding |
+| Score QA | All 13 chapters pass; median voice-minus-music 19.31–21.80 LU, maximum SII loss 0.0017, zero clicks |
+| Picture review | All 13 final cue sheets, 20 sheets sampled from the joined master and the boundary frames of the three re-read lines; no material picture finding |
+| Final-audio ASR | A full speech-recognition pass over the joined master against its captions clears the repaired reads; no window dropped |
 
-File footprint is measured from this candidate, not estimated:
+File footprint is measured from this cut, not estimated:
 
 | Artifact | Bytes | MiB |
 |---|---:|---:|
-| Joined MP4 | 130,417,002 | 124.38 |
-| PCM WAV | 361,651,280 | 344.90 |
-| All 13 chapter MP4s | 131,101,996 | 125.03 |
+| Joined MP4 | 130,474,729 | 124.43 |
+| PCM WAV | 362,348,880 | 345.56 |
+| All 13 chapter MP4s | 131,138,805 | 125.06 |
 | SRT and VTT together | 39,576 | 0.04 |
 
 These measurements establish source, timing, image and signal checks. They do
@@ -107,9 +115,10 @@ proof or proves a memory-ordering implementation correct.
 - [x] Current source tests, facts/oracle, narration binding and sentence-edge checks.
 - [x] Fresh score QA, 4K chapters, PCM null tests, caption coverage and checksum copy.
 - [x] Fresh final cue sheets and sampled joined-master frames inspected.
-- [ ] Owner disposition of the quieter fixed-gain master.
-- [ ] Signed human narration/score listening and full-watch acceptance.
-- [ ] Owner approval to publish.
+- [x] Final-audio speech-recognition pass over the exact master.
+- [x] The owner said the latest michael cuts "sound pretty good" and authorized publication (2026-10-12).
+- [ ] An uninterrupted full watch on a real device: none is recorded.
+- [ ] Published on YouTube by the upload lane (4K processing and captions confirmed).
 
 Review evidence is on `mx-e-c-7v0.18`; final integration is
 `mx-e-c-7v0.15`, and the listening protocol is `mx-e-c-7v0.13`.

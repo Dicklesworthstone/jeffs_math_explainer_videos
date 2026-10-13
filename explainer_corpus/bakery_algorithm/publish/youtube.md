@@ -4,10 +4,11 @@ What goes on the upload page. The description is cut from `docs/description.md` 
 statements rest on fact-sheet rows and oracle keys) and links back to it for the full notes;
 the chapter times come from the final cut (`./x bakery_algorithm chapters`).
 
-- Title: The Algorithm Lamport Is Proudest Of
-- Visibility: Private, for review. Public only after the owner's explicit approval, with the listening, the full watch and the quiet level (−17.6 LUFS) accepted and recorded.
+- Title: The Algorithm Lamport Is Proudest Of (exactly this: no voice or review suffix)
+- Voice: michael. The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte.
+- Visibility: Public. The owner authorized publication on 2026-10-12, once the final fixes and checks are done; only the upload lane uploads it and makes it public. The earlier review uploads stay Private.
 - Category: Education. Audience: not made for kids.
-- Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
+- Altered or synthetic content: Yes (disclosed, as on the review uploads: the narration is a synthetic voice; no real person, place or event is depicted). The description says so too.
 - Thumbnail: `renders/bakery_algorithm_thumbnail.png` (`./x bakery_algorithm thumbnail`)
 - Captions: English, `renders/final/bakery_algorithm.en.srt` (`./x bakery_algorithm captions`)
 - Tags: bakery algorithm, Leslie Lamport, mutual exclusion, concurrency, concurrent programming, Dijkstra, memory model, atomics, multithreading, critical section, distributed systems, computer science, math explainer

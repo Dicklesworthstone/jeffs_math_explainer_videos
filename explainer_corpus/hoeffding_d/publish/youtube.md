@@ -4,12 +4,13 @@ What goes on the upload page. The description is cut from `docs/description.md` 
 number there is printed by `hoeffding stats`) and links back to it; the chapter times come
 from the final cut (`./x hoeffding_d chapters`).
 
-- Title: Hoeffding's D: The Ring That Correlation Can't See
-- Visibility: Private, for the owner's review. Public only after his explicit approval, with his listening, full-watch and quiet-level acceptance recorded.
+- Title: Hoeffding's D: The Ring That Correlation Can't See (exactly this: no voice or review suffix)
+- Voice: michael (the owner's choice; "Hoeffding" is read HERF-ding). The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte. robert's original cut and its text (`publish/robert/`) are kept.
+- Visibility: Public. The owner authorized publication on 2026-10-12, once the final fixes and checks are done; only the upload lane uploads it and makes it public. The earlier review uploads stay Private.
 - Category: Education. Audience: not made for kids.
-- Altered or synthetic content: No (a generic synthetic narrator; no real person, place or event is depicted). The description says the narration is synthetic.
+- Altered or synthetic content: Yes (disclosed, as on the review uploads: the narration is a synthetic voice; no real person, place or event is depicted). The description says so too.
 - Thumbnail: `renders/hoeffding_thumbnail.png` (`./x hoeffding_d thumbnail`)
-- Captions: English, `renders/final/hoeffding.en.srt` (`./x hoeffding_d captions`)
+- Captions: English, `variants/michael/renders/final/hoeffding.en.srt` (`VOICE=michael ./x hoeffding_d captions`)
 - Tags: Hoeffding's D, correlation, statistics, independence test, Pearson correlation, Spearman rank correlation, Kendall tau, rank statistics, permutation test, U-statistic, nonparametric statistics, math explainer
 
 ## Description
@@ -19,13 +20,13 @@ Here is a ring of points. Anyone can see that X and Y are related, yet the three
 
 Chapters
 0:00 The ring that correlation can't see
-0:46 Six shapes, four measures
-2:15 Why a turn takes four points
-3:20 Ranks
-4:10 The count Q
-5:24 Three sums and one formula
-6:31 What shuffling destroys
-8:00 Recap
+0:47 Six shapes, four measures
+2:17 Why a turn takes four points
+3:23 Ranks
+4:16 The count Q
+5:35 Three sums and one formula
+6:45 What shuffling destroys
+8:18 Recap
 
 Names to search: Hoeffding's D, Hoeffding's test of independence, Pearson's correlation coefficient, Spearman's rank correlation, Kendall's tau, rank statistics, U-statistic, permutation test.
 
