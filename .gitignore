@@ -55,7 +55,9 @@ concat.txt
 # are kept deliberately; see explainer_corpus/hoeffding_d/narration_v5/.
 
 # --- Music / score stems (regenerable from the score DSL) -------------------
+# stems_<cut>/ are an earlier cut's stems, set aside beside the ones replacing them.
 **/stems/
+**/stems_*/
 **/score_cache/
 
 # --- franken_whisper QA state (SQLite DB, WAL, temp audio) ------------------
@@ -160,3 +162,6 @@ core
 core.*
 rustc-ice-*.txt
 docs/reviews/*/R*-packet.md
+
+# --- A hook's local state (hook-state/) ------------------------------------
+**/.ee/
