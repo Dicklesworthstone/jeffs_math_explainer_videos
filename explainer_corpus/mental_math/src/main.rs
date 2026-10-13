@@ -13,9 +13,8 @@
 //! mental help                          # the full option list
 //! ```
 //!
-//! Chapters start as animatics (`explainer_kit::animatic`): each speaks its
-//! storyboard lines over a card describing the planned picture, so drafts
-//! and timelines run before the real scene exists.
+//! Every chapter is a real scene (`chapters/`), built on the shared drawing
+//! kit of `chapters/draw.rs`.
 
 mod chapters;
 mod facts;
@@ -26,8 +25,10 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 const SCRIPT: &str = include_str!("../script.tsv");
-/// The storyboard: words, pictures, holds and listen windows per beat.
-pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
+/// The storyboard: words, pictures, holds and listen windows per beat (the
+/// tests hold the script, the registry and the quizzes to it).
+#[cfg(test)]
+const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {
     crate_name: "mental_math",

@@ -319,6 +319,19 @@ pub fn swap(stage: &mut Stage<'_>, out: &[Mob], ins: &[Mob], rt: f64) -> fmn::Re
     Ok(())
 }
 
+/// Fade every top-level mobject but `keep` out together, `rt` seconds: the
+/// end of a chapter whose next chapter starts from what is kept.
+pub fn fade_all_but(stage: &mut Stage<'_>, keep: &[Mob], rt: f64) -> fmn::Result<()> {
+    let leaving: Vec<Mob> = stage
+        .scene()
+        .mobjects()
+        .iter()
+        .copied()
+        .filter(|m| !keep.contains(m))
+        .collect();
+    fade_out_all(stage, &leaving, rt)
+}
+
 /// Bring detached mobjects in one after another (a lagged reveal), the whole
 /// taking `rt` seconds.
 pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<()> {
@@ -932,7 +945,10 @@ impl MoveFigure {
         Ok(())
     }
 
-    /// Everything of the figure that may be on stage, for a fade-out.
+    /// Every piece the figure has. Some are never on stage in a given
+    /// scene (the cut once the strip has moved, the merged piece before
+    /// [`MoveFigure::merge`]): fade only what is showing, never this list
+    /// as a whole (a fade-out brings in what was not there).
     pub fn mobs(&self) -> Vec<Mob> {
         let mut out = self.square();
         out.extend([self.cut, self.seam, self.merged, self.corner, self.corner_cut]);
@@ -1496,7 +1512,13 @@ pub struct Tile {
     pub frame: Mob,
     /// The picture's pieces, back to front.
     pub parts: Vec<Mob>,
+    /// Each piece's own fill and stroke opacity as built: lighting scales
+    /// these, so a piece drawn as a line never takes a fill.
+    pub base: Vec<(f64, f64)>,
 }
+
+/// How far a tile that is put out is dimmed (12_x to 14_x).
+pub const TILE_DARK: f64 = 0.3;
 
 impl Tile {
     /// The picture `kind` in a frame `size` across, centred at `at`.
@@ -1572,12 +1594,22 @@ impl Tile {
                 );
             }
         }
+        let base = parts
+            .iter()
+            .map(|&m| {
+                (
+                    stage.get_fill_opacity(m).unwrap_or(0.0),
+                    stage.get_stroke_opacity(m).unwrap_or(0.0),
+                )
+            })
+            .collect();
         Ok(Self {
             kind,
             at,
             size,
             frame,
             parts,
+            base,
         })
     }
 
@@ -1591,10 +1623,10 @@ impl Tile {
     /// Light the tile (`on`) or put it out: its frame brightens or fades
     /// and its picture with it. Animations to play together.
     pub fn light(&self, stage: &mut Stage<'_>, on: bool, rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
-        let (edge, opacity) = if on {
+        let (edge, k) = if on {
             (Palette::ink(), 1.0)
         } else {
-            (Palette::faint(), 0.3)
+            (Palette::faint(), TILE_DARK)
         };
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         let frame = self
@@ -1606,10 +1638,27 @@ impl Tile {
             })?
             .set_stroke(Some(edge), None, Some(1.0))?;
         anims.push(stage.prepare(frame)?);
-        for &m in &self.parts {
-            anims.push(stage.prepare(dim(m, opacity, rt)?)?);
+        for (&m, &(fill, stroke)) in self.parts.iter().zip(&self.base) {
+            let a = m
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(rt),
+                    ..AnimateArgs::default()
+                })?
+                .set_fill(None, Some(fill * k))?
+                .set_stroke(None, None, Some(stroke * k))?;
+            anims.push(stage.prepare(a)?);
         }
         Ok(anims)
+    }
+
+    /// Put the tile out at once (a chapter that starts with the tiles dark).
+    pub fn put_out(&self, stage: &mut Stage<'_>) {
+        stage.set_stroke(self.frame, Some(Palette::faint()), None, Some(1.0), None, false);
+        for (&m, &(fill, stroke)) in self.parts.iter().zip(&self.base) {
+            stage.set_fill(m, None, Some(fill * TILE_DARK), None, false);
+            stage.set_stroke(m, None, None, Some(stroke * TILE_DARK), None, false);
+        }
     }
 }
 
@@ -1623,6 +1672,32 @@ pub fn tile_row(stage: &mut Stage<'_>, y: f64, size: f64, gap: f64) -> fmn::Resu
         .enumerate()
         .map(|(i, &kind)| Tile::build(stage, kind, v(left + step * i as f64, y), size))
         .collect()
+}
+
+/// The end of a chapter of the mixed round: every tile put out and kept
+/// (with `keep`), everything else faded, `rt` seconds. The next chapter
+/// starts from the tiles put out ([`Tile::put_out`]).
+pub fn tiles_out_and_clear(stage: &mut Stage<'_>, tiles: &[Tile], keep: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut kept = keep.to_vec();
+    kept.extend(tiles.iter().flat_map(Tile::mobs));
+    let leaving: Vec<Mob> = stage
+        .scene()
+        .mobjects()
+        .iter()
+        .copied()
+        .filter(|m| !kept.contains(m))
+        .collect();
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for t in tiles {
+        anims.extend(t.light(stage, false, rt)?);
+    }
+    for m in leaving {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
 }
 
 /// Where the tiles sit along the top of the mixed round (chapters 12 to

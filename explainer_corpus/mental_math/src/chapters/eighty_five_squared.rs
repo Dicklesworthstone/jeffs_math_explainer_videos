@@ -235,7 +235,9 @@ impl SceneConstruct for EightyFiveSquared {
         figure.show_corner(stage, 0.4)?;
         line.wait_sentence(stage, 2)?;
         // the six small pictures of what is coming (the tiles of chapter 12)
-        fade_out_all(stage, &figure.mobs(), 0.5)?;
+        let mut shown_now = figure.square();
+        shown_now.extend([figure.seam, figure.corner, figure.corner_cut]);
+        fade_out_all(stage, &shown_now, 0.5)?;
         let tiles = tile_row(stage, 0.75, 1.8, 0.3)?;
         let tile_mobs: Vec<Mob> = tiles
             .iter()

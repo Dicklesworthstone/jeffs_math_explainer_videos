@@ -8,7 +8,7 @@ pub const DIGITS: &str = "0123456789 , . % $ + − × ÷ = ( )";
 
 pub const TITLE: &str = "Mental Math Tricks That Actually Work (and Why)";
 
-/// Plain text (IBM Plex Sans).
+/// Plain text, in the kit's text face (a serif).
 pub const TEXT: &[&str] = &[DIGITS, TITLE];
 /// Mathematics (Computer Modern, native TeX).
 pub const TEX: &[&str] = &[];
