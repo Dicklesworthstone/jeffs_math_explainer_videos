@@ -44,6 +44,26 @@ fn gcd(a: i128, b: i128) -> i128 {
     a
 }
 
+/// What stops a fraction that does not fit in an i128. A release build
+/// would otherwise wrap silently and compare wrongly.
+const TOO_BIG: &str = "an exact fraction does not fit in an i128";
+
+/// `a * b`, or a stop with [`TOO_BIG`].
+fn times(a: i128, b: i128) -> i128 {
+    a.checked_mul(b).expect(TOO_BIG)
+}
+
+/// The 256-bit product of two unsigned 128-bit numbers, as (high, low).
+fn wide(a: u128, b: u128) -> (u128, u128) {
+    const LOW: u128 = u64::MAX as u128;
+    let (a0, a1, b0, b1) = (a & LOW, a >> 64, b & LOW, b >> 64);
+    let (p00, p01, p10, p11) = (a0 * b0, a0 * b1, a1 * b0, a1 * b1);
+    let mid = (p00 >> 64) + (p01 & LOW) + (p10 & LOW);
+    let low = (p00 & LOW) | (mid << 64);
+    let high = p11 + (p01 >> 64) + (p10 >> 64) + (mid >> 64);
+    (high, low)
+}
+
 impl Q {
     pub const ZERO: Q = Q { n: 0, d: 1 };
     pub const ONE: Q = Q { n: 1, d: 1 };
@@ -88,7 +108,7 @@ impl Q {
     pub fn fixed(self, places: u32) -> String {
         assert!(self.n >= 0, "fixed() prints non-negative values");
         let scale = 10i128.pow(places);
-        let scaled = (2 * self.n * scale + self.d) / (2 * self.d);
+        let scaled = (times(times(2, self.n), scale).checked_add(self.d).expect(TOO_BIG)) / times(2, self.d);
         if places == 0 {
             return scaled.to_string();
         }
@@ -111,28 +131,37 @@ impl fmt::Display for Q {
     }
 }
 
+// The operations work over the least common denominator and cancel across
+// the product before multiplying, so an intermediate is no bigger than the
+// answer needs, and one that still does not fit stops instead of wrapping.
 impl Add for Q {
     type Output = Q;
     fn add(self, o: Q) -> Q {
-        Q::new(self.n * o.d + o.n * self.d, self.d * o.d)
+        let g = gcd(self.d, o.d);
+        let (a, b) = (o.d / g, self.d / g);
+        let n = times(self.n, a).checked_add(times(o.n, b)).expect(TOO_BIG);
+        Q::new(n, times(self.d, a))
     }
 }
 impl Sub for Q {
     type Output = Q;
     fn sub(self, o: Q) -> Q {
-        Q::new(self.n * o.d - o.n * self.d, self.d * o.d)
+        self + Q { n: -o.n, d: o.d }
     }
 }
 impl Mul for Q {
     type Output = Q;
     fn mul(self, o: Q) -> Q {
-        Q::new(self.n * o.n, self.d * o.d)
+        let (g, h) = (gcd(self.n, o.d), gcd(o.n, self.d));
+        Q::new(times(self.n / g, o.n / h), times(self.d / h, o.d / g))
     }
 }
 impl Div for Q {
     type Output = Q;
     fn div(self, o: Q) -> Q {
-        Q::new(self.n * o.d, self.d * o.n)
+        assert!(o.n != 0, "a fraction with denominator zero");
+        let (g, h) = (gcd(self.n, o.n), gcd(self.d, o.d));
+        Q::new(times(self.n / g, o.d / h), times(self.d / h, o.n / g))
     }
 }
 impl PartialOrd for Q {
@@ -141,8 +170,20 @@ impl PartialOrd for Q {
     }
 }
 impl Ord for Q {
+    /// Exact for every pair: the cross products are compared as 256-bit
+    /// numbers, so no pair of fractions can overflow it.
     fn cmp(&self, o: &Q) -> Ordering {
-        (self.n * o.d).cmp(&(o.n * self.d))
+        let (a, b) = (self.n.signum(), o.n.signum());
+        if a != b {
+            return a.cmp(&b);
+        }
+        if a == 0 {
+            return Ordering::Equal;
+        }
+        // same sign, positive denominators: |n| d' against |n'| d
+        let by_size =
+            wide(self.n.unsigned_abs(), o.d.unsigned_abs()).cmp(&wide(o.n.unsigned_abs(), self.d.unsigned_abs()));
+        if a > 0 { by_size } else { by_size.reverse() }
     }
 }
 
@@ -929,6 +970,57 @@ mod tests {
         assert_eq!(q(5, 1000).fixed(2), "0.01");
         assert_eq!(q(2, 3).pow(2), q(4, 9));
         assert_eq!(q(6, 3), Q::int(2));
+    }
+
+    /// Fractions whose cross products do not fit in an i128 still compare
+    /// exactly (twenty passes at nine in ten is 1 − 10⁻²⁰ against 1), and
+    /// the signs, zero and equality come out as they should.
+    #[test]
+    fn fractions_compare_exactly_beyond_i128_cross_products() {
+        let e20 = 10i128.pow(20);
+        let almost = q(e20 - 1, e20);
+        assert!(almost < Q::ONE && Q::ONE > almost);
+        assert_eq!(almost.cmp(&almost), Ordering::Equal);
+        // 1 − 10⁻²⁰ is nearer one than 1 − 10⁻¹⁹
+        assert!(q(10i128.pow(19) - 1, 10i128.pow(19)) < almost);
+        // and the same on the negative side, where the order reverses
+        assert!(q(-(e20 - 1), e20) > Q::int(-1));
+        assert!(q(-(e20 - 1), e20) < q(-(10i128.pow(19) - 1), 10i128.pow(19)));
+        assert!(q(-1, e20) < Q::ZERO && Q::ZERO < q(1, e20));
+        assert_eq!(Q::ZERO.cmp(&Q::int(0)), Ordering::Equal);
+        // a pair whose cross products are far past 2^127
+        let (a, b) = (
+            q(10i128.pow(37) + 1, 10i128.pow(37)),
+            q(10i128.pow(37) + 3, 10i128.pow(37) + 2),
+        );
+        assert!(a > b, "1 + 1e-37 against 1 + 1/(1e37 + 2)");
+    }
+
+    /// The reduced forms of `+`, `-`, `*` and `/` give what the plain
+    /// cross-multiplied formulas give, over every small pair.
+    #[test]
+    fn the_cancelled_arithmetic_is_the_plain_arithmetic() {
+        for (n1, d1, n2, d2) in (-6..=6)
+            .flat_map(|a| (1..=6).flat_map(move |b| (-6..=6).flat_map(move |c| (1..=6).map(move |d| (a, b, c, d)))))
+        {
+            let (x, y) = (q(n1, d1), q(n2, d2));
+            assert_eq!(x + y, Q::new(n1 * d2 + n2 * d1, d1 * d2), "{x} + {y}");
+            assert_eq!(x - y, Q::new(n1 * d2 - n2 * d1, d1 * d2), "{x} - {y}");
+            assert_eq!(x * y, Q::new(n1 * n2, d1 * d2), "{x} * {y}");
+            if n2 != 0 {
+                assert_eq!(x / y, Q::new(n1 * d2, d1 * n2), "{x} / {y}");
+            }
+            assert_eq!(x.cmp(&y), (n1 * d2).cmp(&(n2 * d1)), "{x} against {y}");
+        }
+    }
+
+    /// What does not fit stops the program; it never wraps into a wrong
+    /// fraction in a release build.
+    #[test]
+    #[should_panic(expected = "does not fit")]
+    fn a_fraction_that_does_not_fit_stops_instead_of_wrapping() {
+        let big = Q::int(10i128.pow(30));
+        let _ = big * big;
     }
 
     #[test]
