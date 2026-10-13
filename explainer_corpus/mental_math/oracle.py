@@ -147,7 +147,6 @@ def moved(side, strip):
 QUIZZES = [
     ("01_1", "ends_in_five", ("square", 85), 4),
     ("03_1", "ends_in_five", ("square", 25), 5),
-    ("03_3", "ends_in_five", ("square", 105), 6),
     ("05_4", "by_parts", ("times", 6, 43), 5),
     ("05_6", "by_parts", ("times", 13, 14), 6),
     ("06_4", "percent_blocks", ("percent_of_money", 15, 6000), 5),

@@ -84,7 +84,8 @@ rectangle into easy pieces, or to trade it for an equal one.
 The story is told by Richard Feynman in *"Surely You're Joking, Mr.
 Feynman!": Adventures of a Curious Character* (as told to Ralph Leighton,
 edited by Edward Hutchings; W. W. Norton, 1985), in the chapter "Lucky
-Numbers", pages 193 and 194 of that edition. The video takes the number
+Numbers", pages 193 and 194 of that edition, about the physicist Hans Bethe
+at Los Alamos. The video takes the number
 (48), the calculator, Bethe's two answers (2300, then 2304) and their order,
 Feynman's reaction, Bethe's question and his method from that text, and
 quotes two of its sentences. Feynman told the story again, with different

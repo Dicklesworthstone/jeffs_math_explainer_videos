@@ -2284,7 +2284,7 @@ mod tests {
         assert_eq!(ask_tex(Ask::PercentOfMoney(15, 6000)), "15\\% \\text{ of } \\$60");
         assert_eq!(ask_tex(Ask::TimesMoney(3, 499)), "3 \\times \\$4.99");
         assert_eq!(answer_tex(quiz_at("06_4").unwrap()).unwrap(), "\\$9.00");
-        assert_eq!(answer_tex(quiz_at("03_3").unwrap()).unwrap(), "11025");
+        assert_eq!(answer_tex(quiz_at("05_6").unwrap()).unwrap(), "182");
     }
 
     #[test]

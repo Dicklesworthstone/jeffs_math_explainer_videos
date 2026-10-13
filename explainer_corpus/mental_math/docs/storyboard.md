@@ -131,14 +131,14 @@ scratch voice.
   10_5 and, three times, at 14_3; 14_4 then holds on the music alone.
 - **The machine** (09_3): dry ticks, slowing, while its digits run.
 
-## 01_eighty_five_squared (60 s)
+## 01_eighty_five_squared (58 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 01_1 | ⟨predict⟩ Quick question. What's eighty-five squared? | The quiz card, cold, with nothing else on screen and no pause line: 85² in large type, the ring draining from 4; at zero 7225 lands (`F-Q.01_1.*`) | **the quiz card**; countdown ring on a tracker | listen 4 s (countdown: the music alone, one mallet note a second) |
 | 01_2 | Seven thousand two hundred twenty-five. Eight times nine is seventy-two. Then write twenty-five. | Under the answer its working builds: 8 × 9 = 72, and the 72 and a 25 slide up into the 7225 already there (`F-H1.trick.*`) | TeX equation; highlight | |
 | 01_3 | *(title)* | **Mental Math Tricks That Actually Work (and Why)** | title card | listen 3 s (the motif's question only, unanswered) |
-| 01_4 | If that took you longer than four seconds, there's a likely reason. The usual way to multiply is built for paper. For this one, that's two rows of digits and three carries, built up from the small end. | 85 × 85 set out as on a sheet of paper: the rows 425 and 6800 written in, small carry digits above; two counters tick to "2 rows" and "3 carries" (`F-H1.paper.rows`, `.row_count`, `.carries`) | a table of digits; lagged reveal; count-up | |
+| 01_4 | If that took you longer than four seconds, there's a likely reason. The usual way to multiply is built for paper. For this one, that's two rows of digits and three carries. | 85 × 85 set out as on a sheet of paper: the rows 425 and 6800 written in, small carry digits above; two counters tick to "2 rows" and "3 carries" (`F-H1.paper.rows`, `.row_count`, `.carries`) | a table of digits; lagged reveal; count-up | |
 | 01_5 | On paper that's fine, because the paper remembers the rows. In your head, you have to hold both rows while you add them. | The sheet slides away and what is in hand at the worst moment hangs in the air under the words "in your head": 425, 6800, the sum so far, a carry; there is no shelf for them, and the first row fades: lost | morph; highlight | |
 | 01_6 | The trick holds one number. Seventy-two. | "in your head" again, with one large white number: 72; the 25 lands after it | highlight | |
 | 01_7 | And it rests on a picture. If you ever forget the trick, the picture gives it back. So every trick here comes with its picture. And there are problems for you to try. | A square whose top strip lifts and stands against its side (the move of chapter 02, in outline), then five more small pictures for what is coming: a cut rectangle, a bill cut in ten, a rectangle with one cut across it, a number line with a middle, a square of fifty; the quiz card last | lagged reveal; morph | hold |
@@ -186,21 +186,21 @@ scratch voice.
 - **Engine:** a body, a strip and a tens grid; the strip is one rectangle
   turned on an arc so its area never changes on the way (E7).
 
-## 03_your_turn (68 s)
+## 03_your_turn (48 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 03_1 | ⟨predict⟩ Your turn. Whenever you want more time, pause the video. What's twenty-five squared? | The quiz card: 25², ring from 5, "pause for more time"; at zero 625 lands (`F-Q.03_1.*`) | the quiz card | listen 5 s (countdown) |
 | 03_2 | Two times three is six. Then twenty-five. Six hundred twenty-five. | 2 × 3 = 6, then 25; beside it, small, the move replayed on a square of 25: 20 tall, 30 wide and a small square | TeX equation; the strip that moves | |
-| 03_3 | ⟨predict⟩ Now past a hundred, where the number in front is ten. What's one hundred five squared? | The quiz card: 105², ring from 6; the 10 in front of the 5 underlined; at zero 11025 lands (`F-Q.03_3.*`) | the quiz card | listen 6 s (countdown) |
-| 03_4 | Ten times eleven is one hundred ten. Then twenty-five. Eleven thousand twenty-five. | 10 × 11 = 110, then 25 | TeX equation | |
 | 03_5 | It works for every whole number that ends in five, because two things never change. Whatever is in front, the strip is five deep and the small square is twenty-five. | **The sweep:** the moved-strip picture with the number in front on a slider that runs 1 to 10; at each stop the rectangle is that many tens tall and one more wide, ruled into its hundreds, the count of hundreds and the square beside it: 2 and 225, 6 and 625, 12 and 1225, … 110 and 11025 (`F-T1.sweep.*`); the orange small square never changes | **live recomputation from a tracker**; grid of hundreds; live numbers | |
 | 03_6 | In letters, call the number in front n. Multiply it by the next number, for the hundreds. Then add twenty-five. | The numbers of 35² = 100 × 3 × 4 + 25 turn into letters: (10n + 5)² = 100 × n × (n + 1) + 25, with "the number in front" under the n; once it has settled, lower-third "the picture works at any size; a program also checked every one up to 99,995" (`F-X1.ends_in_five.*`) | **TransformMatchingTex**: numbers → letters | |
 | 03_7 | It's only as easy as that one multiplication, though. One hundred thirty-five squared needs thirteen times fourteen. We'll come back for that. | 135²: 13 × 14 = ?, the product a question mark; the card shrinks into the top right corner and stays there through chapters 04 and 05 | highlight | hold |
 
-- **Start easy and climb** (the order): 2 × 3, then past a hundred, where
-  the number in front has two digits; 7 × 8 and 5 × 6 come in chapters 12
-  and 14.
+- **Start easy and climb** (the order): 2 × 3 here; the sweep then runs the
+  number in front up to 10, past a hundred (10 × 11 = 110, 11025), and
+  135² at 05_7 needs 13 × 14; 5 × 6 comes back in chapter 14. The quiz on
+  105² was cut for length on 2026-10-13 (docs/decisions.md): the sweep's
+  last stop shows the same number.
 - **Showpiece** (C7): the sweep at 03_5 earns "every" before any letter
   appears: ten squares in a row, one picture.
 - **Ruth:** "every whole number that ends in five" is the identity at 03_6
@@ -213,7 +213,7 @@ scratch voice.
 - **The thread** (C23): 03_7's card waits in the corner and is filled in at
   05_7. The decimal case (7.5² = 56.25) is in the description, not here.
 
-## 04_by_parts (79 s)
+## 04_by_parts (73 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -222,14 +222,15 @@ scratch voice.
 | 04_3 | Break each number into parts. Twenty and three. Forty and six. The rectangle falls into four pieces. A big block, two strips and a small corner. | Cuts at 20 and at 40; the side labels split into 20, 3 and 40, 6; the pieces take their colours: blue block, two green strips, orange corner (`F-T2.parts.*`, `F-T2.pieces.sides`) | **the rectangle cut into parts**; lagged colouring | |
 | 04_4 | ⟨predict⟩ Take the block, twenty by forty. Two times four is eight. But is that eighty, eight hundred, or eight thousand? | The block lights; 2 × 4 = 8 over it; three candidates side by side: 80, 800, 8000 (`F-T2.size.*`) | prediction card; highlight | |
 | 04_5 | Eight hundred. Twenty times four is eighty already, so twenty times forty has to be ten times that. Tens times tens are hundreds. | 20 × 4 = 80 beside the candidates; the 80 and the 8000 fade; the block's tens grid brightens into eight squares of a hundred, two rows of four | grid of hundreds; highlight | |
-| 04_6 | So leave the zeros out while you multiply, and put them back by asking how big the piece has to be. That's how twenty times fifty came to a thousand. Two times five is ten, in hundreds. | 2 × 4 = 8, then two zeros slide back in: 800 (`F-T2.size.lead`, `.zeros`); beside it the estimate of 04_1 the same way: 2 × 5 = 10, in hundreds, 1000 | TeX morph | |
+| 04_6 | So leave the zeros out while you multiply, and put them back by asking how big the piece has to be. | 2 × 4 = 8, then two zeros slide back in: 800 (`F-T2.size.lead`, `.zeros`) | TeX morph | |
 | 04_7 | The other three go the same way. Twenty times six, one hundred twenty. Three times forty, one hundred twenty again, which is rare. Three times six, eighteen. | Each piece takes its sides and its number in turn: 20 × 6 = 120, 3 × 40 = 120, 3 × 6 = 18 (`F-T2.pieces`); once the last has landed, lower-third "the distributive law" | lagged reveal | |
 | 04_8 | Four easy multiplications. Now there are four numbers to hold while you add them. | The four numbers lift off the rectangle and hang under "in your head", as the rows did at 01_5, and start to waver; then, alone in the foot band, lower-third "for programmers: (2 + 3) × (4 + 6) − 8 − 18 = 24: both strips at once, in tens. Three multiplications, not four: Karatsuba's algorithm" (`F-C4.karatsuba.*`) | morph; lower-third | hold |
 
 - **The owner's words:** "ignoring zeros and then adding them back … think
-  about how many zeros it must have to make sense" is 04_4 to 04_6, and it
-  explains the estimate of 04_1, the one case where two zeros go back and
-  three come out (M9, D13).
+  about how many zeros it must have to make sense" is 04_4 to 04_6. The
+  callback to 04_1's estimate (2 × 5 = 10, in hundreds: the one case where
+  two zeros go back and three come out, M9, D13) was cut for length on
+  2026-10-13; the description keeps it.
 - **Misconception defused:** "count the zeros" (04_4): the size of the piece
   tells you. And "the two strips always match" (04_7: "which is rare": it
   happens here because 46 is twice 23; at 05_7 they are 40 and 30).
@@ -344,7 +345,7 @@ scratch voice.
 - **Engine:** the square is an outline and the rectangle a fill; the corner
   is 3 in 50, so it gets a magnifier (E2, C17).
 
-## 09_bethe (63 s)
+## 09_bethe (52 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -352,8 +353,7 @@ scratch voice.
 | 09_2 | Feynman turns to the calculator. Bethe already has an answer. Twenty-three hundred. | A desk calculator in outline, a keyboard of round keys and a row of four result digits, labelled "a Marchant calculator"; by Bethe's caption, 2300 (`F-C1.bethe.rough`) | lagged reveal | |
 | 09_3 | Feynman keys it in all the same. Bethe adds that the exact answer is twenty-three oh four. | By Bethe's caption the 00 gives way to 04: 2304, and stays still; the machine's four result digits keep running for a second and a half with the narrator silent, then stop one by one on 2, 3, 0, 4 (`F-C1.bethe.exact`) | **the machine catches up**; live digits | listen 2 s (dry ticks, slowing) |
 | 09_4 | Feynman calls it remarkable. And Bethe asks him a question. Don't you know how to square numbers near fifty? | The stage clears and the music stops for the question; quote card, verbatim: "Don't you know how to square numbers near 50?"; the source fades in after the hold, on two lines: Hans Bethe, as told by Richard P. Feynman, *"Surely You're Joking, Mr. Feynman!"* (1985), "Lucky Numbers" | quote card | hold |
-| 09_5 | ⟨predict⟩ Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared? | 50² = 2500 on the left, 48² = ? on the right; a square of 50 in outline with a square of 48 inside it, on the same corner | prediction card; the square on a grid | |
-| 09_6 | Here is Bethe's way. Forty-eight is two below fifty. Take off a hundred for each, two hundred. That's his twenty-three hundred. Then add two squared. Twenty-three oh four. | Three steps in a row: 2500, − 200 = 2300, + 4 = 2304 (`F-T4.below.*`, `F-T4.fifty_squared`); the two squares stay where they are for chapter 10 | TeX equation; lagged reveal | hold |
+| 09_5 | ⟨predict⟩ Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared? | 50² = 2500 on the left, 48² = ? on the right; a square of 50 in outline with a square of 48 inside it, on the same corner; the two squares stay where they are for chapter 10, which answers the question with the picture | prediction card; the square on a grid | hold |
 
 - **Every detail is from the book's text** (fact sheet, source S1, pp.
   193–94 of the 1985 Norton edition): the number, the calculator, the two
@@ -370,6 +370,11 @@ scratch voice.
   word, and the drawing is generic); anything from Feynman's 1975 talk.
 - **Sound** (C8): one of the video's two silences is spent before the
   question at 09_4.
+- **Bethe's way is shown, not told twice** (cut for length on 2026-10-13,
+  docs/decisions.md): 09_5 asks how to get from 2500 to 48², and chapter 10
+  answers with the picture, 2500 − 200 = 2300 (Bethe's first answer) and
+  + 4 = 2304, a hundred for each one below fifty. The line that told the
+  same three steps before the picture (the old 09_6) is gone.
 
 ## 10_near_fifty (72 s)
 

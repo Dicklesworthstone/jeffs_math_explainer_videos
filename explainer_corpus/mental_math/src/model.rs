@@ -559,7 +559,6 @@ impl Quiz {
 pub const QUIZZES: &[Quiz] = &[
     quiz("01_1", Trick::EndsInFive, Ask::Square(85), 4),
     quiz("03_1", Trick::EndsInFive, Ask::Square(25), 5),
-    quiz("03_3", Trick::EndsInFive, Ask::Square(105), 6),
     quiz("05_4", Trick::ByParts, Ask::Times(6, 43), 5),
     quiz("05_6", Trick::ByParts, Ask::Times(13, 14), 6),
     quiz("06_4", Trick::PercentBlocks, Ask::PercentOfMoney(15, 6000), 5),

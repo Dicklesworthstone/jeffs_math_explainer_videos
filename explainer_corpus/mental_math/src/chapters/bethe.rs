@@ -4,8 +4,8 @@
 //! (09_2); his exact answer stands still while the machine is still running,
 //! and the machine catches up (09_3); his question, verbatim (09_4); the
 //! question put to the viewer, with the square of forty-eight inside the
-//! outline of fifty (09_5); and Bethe's way, in three steps (09_6). The two
-//! squares stay to the end, as chapter 10 picks them up.
+//! outline of fifty (09_5), held. The two squares stay to the end: chapter
+//! 10 picks them up and answers the question with the picture.
 
 use explainer_kit::animatic::HOLD_S;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
@@ -13,7 +13,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Calculator, MoveFigure, QuoteCard, SIDE_PT, Side, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fifty_board,
-    fly, glyphs, line_style, middle_of, num, panel, pause, quiz, repaint, rgb, say, slate, swap, wait_until, why_pause,
+    fly, glyphs, line_style, middle_of, num, panel, pause, quiz, repaint, say, slate, swap, wait_until, why_pause,
 };
 use super::sound;
 use crate::facts::cited;
@@ -57,10 +57,8 @@ const CALC_SCALE: f64 = 1.5;
 const CALC_Y: f64 = -0.55;
 /// The quote card, larger than the kit's: it has the screen to itself.
 const QUOTE_ZOOM: f64 = 1.5;
-/// The question card of 09_5 and the steps of 09_6 (the column beside the
-/// squares).
+/// The question card of 09_5 (beside the squares).
 const ASK_PT: f64 = 52.0;
-const STEP_PT: f64 = 80.0;
 
 /// How fast the machine's digits run while the voice speaks (seconds a
 /// change), and how they slow to a stop in the silent window: the gap
@@ -450,13 +448,6 @@ impl SceneConstruct for Bethe {
         }
         let asked = eq(&kit, stage, &asked_src, ASK_PT, middle_of(stage, &mark_glyphs[..head])?)?;
         let unknown = eq(&kit, stage, "?", ASK_PT, middle_of(stage, &mark_glyphs[head..])?)?;
-        let answer = eq(
-            &kit,
-            stage,
-            &num(exact),
-            ASK_PT,
-            middle_of(stage, &answer_glyphs[head..])?,
-        )?;
         let back = Rectangle::new()
             .width(row_w + 0.7)
             .height(1.25)
@@ -473,62 +464,11 @@ impl SceneConstruct for Bethe {
         stage.scene_mut().bring_to_front(&[outline])?;
         why_pause(&kit, stage)?;
 
-        // 09_6: Bethe's way, three steps: 2500, take off two hundred, add four
-        let line = say(&kit, stage, "09_6")?;
-        play!(stage; fade_out(stage.arena_mut(), back, ORIGIN, 1.0)?.rt(0.4));
-        let fifty_squared = FIFTY * FIFTY;
-        let taken = fifty_squared - rough;
-        let step_x = 4.0;
-        let start_src = num(fifty_squared);
-        let take_src = format!("- {taken} = {rough}");
-        let add_src = format!("+ {} = {exact}", way.corner);
-        let take = eq(&kit, stage, &take_src, STEP_PT, ORIGIN)?;
-        let add = eq(&kit, stage, &add_src, STEP_PT, ORIGIN)?;
-        // the equals signs one under the other, the numbers before them
-        // right-aligned, and 2500 over the 200 it loses. A step's glyphs are
-        // its sign, its digits, then the equals sign.
-        let (y1, y2, y3) = (1.1, -0.25, -1.6);
-        for (m, before, y) in [(take, num(taken).len(), y2), (add, num(way.corner).len(), y3)] {
-            let sign = glyphs(stage, m)
-                .get(1 + before)
-                .copied()
-                .ok_or_else(|| fail("a step has fewer glyphs than its sign, digits and equals".into()))?;
-            let dx = step_x - stage.get_center(sign)[0];
-            let c = stage.get_center(m);
-            stage.move_to(m, v(c[0] + dx, y), ORIGIN);
-        }
-        let take_digits = glyphs(stage, take);
-        let right_of_taken = stage.get_right(take_digits[num(taken).len()])[0];
-        let start_step = eq(&kit, stage, &start_src, STEP_PT, ORIGIN)?;
-        stage.move_to(start_step, v(right_of_taken, y1), RIGHT);
-        // the 2500 comes down from the card's fifty squared
-        let known_digits = glyphs(stage, known);
-        let n = known_digits.len();
-        let from = middle_of(stage, &known_digits[n - start_src.len()..])?;
-        let copy = eq(&kit, stage, &start_src, ASK_PT, from)?;
-        stage.add_to_scene(copy)?;
-        let to = stage.get_center(start_step);
-        play!(stage; fly(copy, to, STEP_PT / ASK_PT, 0.8)?);
-        stage.add_to_scene(start_step)?;
-        stage.remove_from_scene(copy);
-        line.wait_sentence(stage, 2)?;
-        line.wait_for(stage, "two hundred")?;
-        play!(stage; fade_in(stage.arena_mut(), take, v(0.0, -0.12), 1.0)?.rt(0.6));
-        line.wait_sentence(stage, 3)?;
-        let rough_digits: Vec<Mob> = take_digits[take_digits.len() - num(rough).len()..].to_vec();
-        let mut pulse: Vec<Box<dyn Animation>> = Vec::new();
-        for &g in &rough_digits {
-            let a = fmn::animation::indicate(stage.arena_mut(), g, 1.15, Some(rgb(ink)))?;
-            pulse.push(stage.prepare(a.rt(0.9))?);
-        }
-        stage.play_prepared(pulse)?;
-        line.wait_sentence(stage, 4)?;
-        play!(stage; fade_in(stage.arena_mut(), add, v(0.0, -0.12), 1.0)?.rt(0.6));
-        line.wait_sentence(stage, 5)?;
-        swap(stage, &[unknown], &[answer], 0.5)?;
         kit.music_breath(stage, HOLD_S)?;
-        // the two squares stay for chapter 10, which starts from them and
-        // from fifty squared at the head of its column
+        // the two squares stay for chapter 10, which answers the question
+        // with the picture; it starts from them and from fifty squared at the
+        // head of its column
+        let fifty_squared = FIFTY * FIFTY;
         let mut keep = vec![outline];
         keep.extend(figure.square());
         let head_at = v(2.0, 3.2);

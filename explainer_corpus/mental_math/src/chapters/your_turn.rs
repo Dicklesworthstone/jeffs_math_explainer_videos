@@ -13,9 +13,9 @@ use fmn::library::{SpanMapData, SpanMapEntry, TransformMatchingTex};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, COLUMN_ROOM, COLUMN_X, MoveFigure, NOTE_PT, NumberLine1, QUIZ_AT, QuizCard, QuizLook, SIDE_PT, Side,
-    WAITING_AT, corner, cut_style, eq, fade_all_but, fade_in_all, fade_out_all, faded_line, fail, fit_width, flat, fly,
-    glyphs, hundreds, line_style, middle_of, num, pause, quiz_at, rgb, say, strip, swap, waiting_card, your_turn,
+    Board, COLUMN_ROOM, COLUMN_X, MoveFigure, NOTE_PT, NumberLine1, QuizCard, QuizLook, SIDE_PT, Side, WAITING_AT,
+    corner, cut_style, eq, fade_all_but, fade_in_all, fade_out_all, faded_line, fail, fit_width, flat, fly, glyphs,
+    hundreds, line_style, middle_of, num, pause, quiz_at, rgb, say, strip, swap, waiting_card, your_turn,
 };
 use crate::facts::{facts, shown};
 use crate::model::{Ask, EndsInFive, OneMove, ends_in_five, one_move};
@@ -51,8 +51,6 @@ const SMALL_AT: Vec3 = [1.1, -2.85, 0.0];
 const SMALL_UNIT: f64 = 0.15;
 /// The replayed turn is quicker than the one move's own two seconds.
 const SMALL_TURN_S: f64 = 1.3;
-/// 03_3 and 03_4: the card has the screen; the working under it.
-const WORK_Y: f64 = -3.05;
 /// 03_5, the sweep: a board on which 110 wide by 105 tall fits the left of
 /// the frame; the slider and the two readouts in the column.
 const SWEEP_AT: Vec3 = [-6.6, -3.2, 0.0];
@@ -460,44 +458,6 @@ impl SceneConstruct for YourTurn {
         line.wait_sentence(stage, 2)?;
         land(&kit, stage, &first_card, &first, product, then)?;
 
-        // 03_3: past a hundred, where the number in front is ten: the card
-        // comes in with the lead-in, and the 10 in front of the 5 is
-        // underlined as it is named
-        let line = say(&kit, stage, "03_3")?;
-        let second = squared_at("03_3")?;
-        let mut gone = first_card.mobs();
-        gone.push(product);
-        gone.extend(figure.square());
-        gone.extend([figure.seam, figure.corner, figure.corner_cut]);
-        gone.extend(small_labels);
-        fade_out_all(stage, &gone, 0.5)?;
-        let card = QuizCard::build(&kit, stage, "03_3", QuizLook::at(QUIZ_AT, 1.0))?;
-        card.show(stage, 0.5)?;
-        line.wait_for(stage, "the number in front")?;
-        let digits = glyphs(stage, card.problem);
-        let split = num(second.n).len();
-        if digits.len() <= split {
-            return Err(fail(format!(
-                "{}^2 has nothing after its number in front",
-                second.number
-            )));
-        }
-        let y = bottom_of(stage, &digits[..split]) - 0.14;
-        let front_line = underline(stage, &digits[..split], y, 0.04, blue);
-        paint(stage, card.problem, 0..split, blue);
-        play!(stage; fmn::animation::grow_from_edge(stage.arena_mut(), front_line, LEFT, None)?.rt(0.5));
-        card.count(&kit, stage)?;
-
-        // 03_4: ten times eleven is one hundred ten; then twenty-five
-        let line = say(&kit, stage, "03_4")?;
-        let m = the_move_of(second.number, second.number % 10)?;
-        let [product, then] = working(&kit, stage, &second, m.corner(), v(-1.6, WORK_Y), 0.9)?;
-        play!(stage; fade_in(stage.arena_mut(), product, v(0.0, -0.12), 1.0)?.rt(0.5));
-        line.wait_sentence(stage, 1)?;
-        play!(stage; fade_in(stage.arena_mut(), then, v(0.3, 0.0), 1.0)?.rt(0.4));
-        line.wait_sentence(stage, 2)?;
-        land(&kit, stage, &card, &second, product, then)?;
-
         // 03_5: the sweep: the number in front runs 1 to 10; at each stop the
         // rectangle is that many tens tall and one more wide, ruled into its
         // hundreds, with the count of hundreds and the square beside it; the
@@ -535,8 +495,12 @@ impl SceneConstruct for YourTurn {
             paint(stage, square, n - tail..n, orange);
             readouts.push([product, square]);
         }
-        let mut gone = card.mobs();
-        gone.extend([front_line, product]);
+        // what 03_2 left: its card and working, the small replay and its labels
+        let mut gone = first_card.mobs();
+        gone.push(product);
+        gone.extend(figure.square());
+        gone.extend([figure.seam, figure.corner, figure.corner_cut]);
+        gone.extend(small_labels);
         fade_out_all(stage, &gone, 0.4)?;
         let mut ins = sweep.all.clone();
         ins.extend(readouts[0]);

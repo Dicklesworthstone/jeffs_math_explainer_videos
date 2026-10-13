@@ -3,7 +3,7 @@
 //! area is the answer (04_2), cut by the parts of its sides into a block,
 //! two strips and a corner (04_3); how big the block is, asked (04_4) and
 //! answered by its hundreds (04_5); the zeros left out while multiplying and
-//! put back by size, for the block and for the estimate (04_6); the other
+//! put back by size (04_6); the other
 //! three pieces (04_7); and four numbers left to hold at once (04_8).
 //!
 //! The chapter ends on the picture chapter 05 starts from: the cut
@@ -521,8 +521,7 @@ impl SceneConstruct for ByParts {
         stage.scene_mut().bring_to_front(&small)?;
 
         // 04_6: leave the zeros out, then put them back by size: 2 × 4 = 8
-        // becomes 800; the estimate of 04_1 the same way, 2 × 5 = 10 in
-        // hundreds, 1000
+        // becomes 800
         let line = say(&kit, stage, "04_6")?;
         let mut gone = cards[1].to_vec();
         gone.push(tenth);
@@ -569,70 +568,12 @@ impl SceneConstruct for ByParts {
         for &m in &fliers {
             stage.remove_from_scene(m);
         }
-        // the estimate, the same way
-        line.wait_sentence(stage, 1)?;
-        let rough_piece = Piece { height: ra, width: rb };
-        let (rough_lead, rough_zeros) = rough_piece.by_size();
-        let mut est_src = lead_parts(ra);
-        est_src.push(r"\times".to_owned());
-        est_src.extend(lead_parts(rb));
-        est_src.extend(["=".to_owned(), num(rough_lead), "0".repeat(rough_zeros as usize)]);
-        let est = math_parts(
-            &kit,
-            stage,
-            &refs(&est_src),
-            SUM_PT,
-            ink,
-            v(COL_X, CANDIDATES_Y),
-            ORIGIN,
-        )?;
-        let (za, zb) = (lead_and_zeros(ra).1 as usize, lead_and_zeros(rb).1 as usize);
-        let times_at = 1 + za;
-        let equals_at = times_at + 2 + zb;
-        if est.len() != equals_at + 3 || za + zb != rough_zeros as usize {
-            return Err(fail(format!("the estimate's parts do not add up: {est_src:?}")));
-        }
-        let factor_zeros: Vec<Mob> = est[1..times_at]
-            .iter()
-            .chain(&est[times_at + 2..equals_at])
-            .copied()
-            .collect();
-        fade_in_all(stage, &est[..equals_at], 0.5)?;
-        line.wait_sentence(stage, 2)?;
-        let mut anims = Vec::new();
-        for &m in &factor_zeros {
-            anims.push(stage.prepare(dim(m, 0.3, 0.5)?)?);
-        }
-        for &m in &est[equals_at..equals_at + 2] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.5))?);
-        }
-        stage.play_prepared(anims)?;
-        line.wait_for(stage, "in hundreds")?;
-        let est_tail = est[equals_at + 2];
-        let landing: Vec<Vec3> = glyphs(stage, est_tail).iter().map(|&g| stage.get_center(g)).collect();
-        let fliers = zeros_from(&kit, stage, &factor_zeros, SUM_PT)?;
-        let mut anims = Vec::new();
-        for (&m, &to) in fliers.iter().zip(&landing) {
-            anims.push(stage.prepare(fly(m, to, 1.0, 0.9)?)?);
-        }
-        for &m in &factor_zeros {
-            anims.push(stage.prepare(dim(m, 1.0, 0.9)?)?);
-        }
-        stage.play_prepared(anims)?;
-        stage.add_to_scene(est_tail)?;
-        for &m in &fliers {
-            stage.remove_from_scene(m);
-        }
-
         // 04_7: the other three pieces the same way, each with its sides and
         // its number; then the name of the rule
         let line = say(&kit, stage, "04_7")?;
         let mut anims = Vec::new();
-        for m in std::iter::once(tiles.lines).chain(est.iter().copied()) {
-            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.5))?);
-        }
+        let grid_out = fade_out(stage.arena_mut(), tiles.lines, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(grid_out.rt(0.5))?);
         for &m in &quiet {
             anims.push(stage.prepare(dim(m, 1.0, 0.5)?)?);
         }

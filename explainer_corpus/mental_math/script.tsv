@@ -1,7 +1,7 @@
 # mental_math: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	Quick question. What's eighty-five squared?
 01_2	Seven thousand two hundred twenty-five. Eight times nine is seventy-two. Then write twenty-five.
-01_4	If that took you longer than four seconds, there's a likely reason. The usual way to multiply is built for paper. For this one, that's two rows of digits and three carries, built up from the small end.
+01_4	If that took you longer than four seconds, there's a likely reason. The usual way to multiply is built for paper. For this one, that's two rows of digits and three carries.
 01_5	On paper that's fine, because the paper remembers the rows. In your head, you have to hold both rows while you add them.
 01_6	The trick holds one number. Seventy-two.
 01_7	And it rests on a picture. If you ever forget the trick, the picture gives it back. So every trick here comes with its picture. And there are problems for you to try.
@@ -16,8 +16,6 @@
 02_9	And the small square is the twenty-five. Twelve hundred plus twenty-five. The next number comes in because thirty-five sits halfway between thirty and forty.
 03_1	Your turn. Whenever you want more time, pause the video. What's twenty-five squared?
 03_2	Two times three is six. Then twenty-five. Six hundred twenty-five.
-03_3	Now past a hundred, where the number in front is ten. What's one hundred five squared?
-03_4	Ten times eleven is one hundred ten. Then twenty-five. Eleven thousand twenty-five.
 03_5	It works for every whole number that ends in five, because two things never change. Whatever is in front, the strip is five deep and the small square is twenty-five.
 03_6	In letters, call the number in front n. Multiply it by the next number, for the hundreds. Then add twenty-five.
 03_7	It's only as easy as that one multiplication, though. One hundred thirty-five squared needs thirteen times fourteen. We'll come back for that.
@@ -26,7 +24,7 @@
 04_3	Break each number into parts. Twenty and three. Forty and six. The rectangle falls into four pieces. A big block, two strips and a small corner.
 04_4	Take the block, twenty by forty. Two times four is eight. But is that eighty, eight hundred, or eight thousand?
 04_5	Eight hundred. Twenty times four is eighty already, so twenty times forty has to be ten times that. Tens times tens are hundreds.
-04_6	So leave the zeros out while you multiply, and put them back by asking how big the piece has to be. That's how twenty times fifty came to a thousand. Two times five is ten, in hundreds.
+04_6	So leave the zeros out while you multiply, and put them back by asking how big the piece has to be.
 04_7	The other three go the same way. Twenty times six, one hundred twenty. Three times forty, one hundred twenty again, which is rare. Three times six, eighteen.
 04_8	Four easy multiplications. Now there are four numbers to hold while you add them.
 05_1	Four numbers is a lot to hold. So don't hold them. Keep one running total, and add each piece the moment you have it.
@@ -64,7 +62,6 @@
 09_3	Feynman keys it in all the same. Bethe adds that the exact answer is twenty-three oh four.
 09_4	Feynman calls it remarkable. And Bethe asks him a question. Don't you know how to square numbers near fifty?
 09_5	Fifty squared is twenty-five hundred. How would you get from there to forty-eight squared?
-09_6	Here is Bethe's way. Forty-eight is two below fifty. Take off a hundred for each, two hundred. That's his twenty-three hundred. Then add two squared. Twenty-three oh four.
 10_1	Here's the picture, and it's the move from before. Forty-eight squared. Slice a strip off the top, two deep, and stand it against the side.
 10_2	Now it's as wide as fifty squared, and four rows short. That's two hundred, a hundred for each one below fifty. And that's Bethe's twenty-three hundred.
 10_3	And the end of the strip sticks up. Two by two. Plus four.

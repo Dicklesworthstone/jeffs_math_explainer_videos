@@ -1,0 +1,24 @@
+# Decisions — Mental Math Tricks That Actually Work (and Why)
+
+The choices that later revisions must keep, unless a change is made on purpose and recorded here.
+One row per decision; a revision starts from the current approved version and reads this first.
+"Order" means the owner's order for Video F (his words are quoted in `docs/brief.md`); "default"
+means a choice the director made where the order left it open, flagged to the owner and not yet
+confirmed by him. Protected wording is in `docs/protected.tsv`.
+
+| Date | Decision | Why | Where it lives (line ids, files) | Status |
+|---|---|---|---|---|
+| 2026-10-12 | Squares ending in 5 are the centrepiece, earned by one picture: a strip sliced off the top of the square, turned and stood against the right side; the square becomes a rectangle (n tens tall, n + 1 tens wide) and a 5 by 5 square sticks up | the order ("the centerpiece"; "the strip of width 5 moves") | 02_4 to 02_9, 03_5, 03_6; `chapters/draw.rs` `MoveFigure`, `Turn` | in force (order) |
+| 2026-10-12 | The same move explains squares near fifty and, run backwards, the middle trick; 14_3 shows all three and 14_4 writes a² = (a − b)(a + b) + b² | one picture behind three of the owner's four tricks | 08_4, 10_1, 10_5, 14_3, 14_4 | in force (default) |
+| 2026-10-12 | Products by parts are kept as one running total, pieces added block, strip, strip, corner; a running total is called a floor that only rises, never "the leading digits are right" | the owner: "the hardest part is remembering the 4 numbers"; R1 blocker D1 | 04_8, 05_1 to 05_3 | in force (order; wording from R1) |
+| 2026-10-12 | Zeros are left out and put back by asking how big the piece must be, never by counting zeros | the owner's own rule | 04_4 to 04_6 | in force (order) |
+| 2026-10-12 | Extras: percents from a tenth and the swap; halving and doubling; round, then fix. The rule of 72 was researched and left out | the owner's three tests (elementary, applicable, doable by anyone); length | chapters 06, 07; `docs/fact-sheet.md` | in force (default) |
+| 2026-10-12 | Act order: fives, parts, everyday, middle, Bethe, near fifty, mixed round, nothing to grab, close | the everyday tricks give a breath after the densest act; the story leads into the mixed round | `docs/storyboard.md` §2 | in force (default, flagged to the owner) |
+| 2026-10-12 | Every quiz: question readable by its last word, a visible countdown of 4 to 6 s with the narration silent and one mallet note a second, the answer only after it ends, worked with the trick in the next line | the order's "your turn" device; the owner's quiz rule of 2026-10-13 | `model::QUIZZES`; `draw::QuizCard`, `sound::countdown` | in force (order) |
+| 2026-10-12 | The Feynman and Bethe story: every detail from the book (1985, pp. 193-94); two sentences quoted verbatim; nothing from the 1975 talk; Bethe never called surprised | the order: verify against the book, quote at most a sentence or two | 09_1 to 09_5, 11_4, 14_5; `docs/fact-sheet.md` | in force (order) |
+| 2026-10-13 | Bethe is respelled "Bayta" for michael (BAY-tuh, measured by formants, not yet heard by a person) | michael reads the plain spelling "Beeth" | `lexicon.json` | in force until a person hears 09_1 |
+| 2026-10-12 | Honest framing: each extra trick says when it stops paying; chapter 13 shows a product no trick helps, and paper or a calculator is named as right; no "genius", "human calculator", "instantly", "lightning" | the order, item 5 | 07_4, 07_7, 08_8, 11_3, 13_1 to 13_5, 14_5 | in force (order) |
+| 2026-10-12 | Colour roles: hundreds blue, strips green, corner orange, the move gold as outline only, taken away red, quiz violet; pinned by a CIEDE2000 test (least pair 24.2) | one colour per idea | `draw.rs` colour roles and test | in force (default) |
+| 2026-10-13 | Pictures carry across four chapter cuts instead of fading out and back: the waiting 13 × 14 card (03 to 04), the squares near fifty (09 to 10), the dark tiles (12 to 13 to 14) | continuity at the joins | ends of `your_turn.rs`, `bethe.rs`, `which_trick.rs`, `nothing_to_grab.rs` | in force |
+| 2026-10-13 | Length trims, from 995 s to about 955 s at the scratch voice (narrated estimate 909 s): the 105² quiz (03_3, 03_4) cut, the sweep's last stop still shows 105² = 11025; the old 09_6 cut, chapter 10 answers 09_5's question with the picture; 04_6's callback to the estimate cut (it stays in the description); "built up from the small end" cut from 01_4 | GreenCarp: over the 11-15 min default; every protected fact kept (`protected_check.py` PASS) | `docs/storyboard.md` 01_4, 03, 04_6, 09; chapters 03, 04, 09 | in force |
+| 2026-10-13 | If the narrated cut still runs over 15:00, the next trim is the chapter-end holds (2.5 s of music after each chapter's last line), never a reason or a quiz | holds carry no fact; cuts to words risk the explanation (E-47) | `kit.music_breath` at each chapter end | planned |
