@@ -11,9 +11,9 @@ use explainer_kit::Facts;
 
 use crate::model::{
     self, Arm, CUBE_AXES, DEG, I3, M3, N, Pose, QUIZZES, SWEEP_DEG, V3, X, Y, Z, add, along_screw, angle_axis, apply,
-    column, degrees, det, exp6, gap, goal, halfway_deg, hat, leftover, mul, norm, planar_centre, planar_exp, poses,
-    rank, rings, rings_left, roll_then_tilt, roll_turn, scale, screw_of, still_speeds, sub, tilt_then_roll, tilt_turn,
-    transpose, turn, twist, twist_from, unit, wheel_speeds, wrap_deg,
+    column, degrees, det, exp6, gap, goal, halfway_deg, hat, leftover, log6, mul, norm, planar_centre, planar_exp,
+    poses, rank, rings, rings_left, roll_then_tilt, roll_turn, scale, screw_of, still_speeds, sub, tilt_then_roll,
+    tilt_turn, transpose, turn, twist, twist_from, unit, wheel_speeds, wrap_deg,
 };
 
 /// Numbers quoted from the sources (fact sheet rows G-L; the oracle prints
@@ -558,6 +558,9 @@ fn steps_and_paths(f: &mut Facts, arm: &Arm) -> Result<(), String> {
     f.add("G-I.start.R", grid(&start.r)?)?;
     f.add("G-I.goal.p", vec(&goal.p, 4))?;
     f.add("G-I.goal.R", grid(&goal.r)?)?;
+    // the error at the start, as the six numbers chapter 13 writes out: the
+    // twist, in the gripper's own frame, that reaches the goal in one second
+    f.add("G-I.error.twist", vec(&log6(&start.undo().then(&goal)), 3))?;
     let run = arm.solve(&degrees(poses::START), &goal, model::TOL_SPIN, model::TOL_SLIDE);
     f.add("G-I.ik.steps", run.steps())?;
     f.add("G-I.ik.dist_mm", vec(&run.dist_mm, 2))?;

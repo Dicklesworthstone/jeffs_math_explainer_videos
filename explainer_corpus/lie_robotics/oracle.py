@@ -661,6 +661,8 @@ def main():
     emit("G-I.start.R", grid(t_start[:3, :3]))
     emit("G-I.goal.p", vec(goal_p))
     emit("G-I.goal.R", grid(t_goal[:3, :3]))
+    # the error at the start in the gripper's frame (a series logarithm)
+    emit("G-I.error.twist", vec(twist_of(logm(np.linalg.inv(t_start) @ t_goal)), 3))
     tol_spin, tol_slide = 1e-3, 1e-4  # Lynch and Park, Example 6.1
     q = start.copy()
     dist, angle = [], []
