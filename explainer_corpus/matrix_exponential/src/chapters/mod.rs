@@ -5,6 +5,7 @@
 //! its storyboard's animatic, and is replaced by its real scene as it lands.
 
 pub mod a_matrix_in;
+pub mod does_it_settle;
 pub mod draw;
 pub mod e_to_a_matrix;
 pub mod flow;
@@ -14,7 +15,6 @@ pub mod growth;
 pub mod heat_and_chance;
 pub mod how_computers_do_it;
 pub mod one_function;
-pub mod order_matters;
 pub mod the_obvious_guess;
 pub mod the_series;
 pub mod turning;
@@ -55,13 +55,13 @@ pub fn registry() -> Vec<Chapter> {
         scene!("05_one_function", 0.5, one_function::OneFunction),
         scene!("06_turning", 0.6, turning::Turning),
         scene!("07_a_matrix_in", 0.65, a_matrix_in::AMatrixIn),
-        animatic!("08_does_it_settle", 0.5),
+        scene!("08_does_it_settle", 0.5, does_it_settle::DoesItSettle),
         scene!("09_follow_the_arrows", 0.65, follow_the_arrows::FollowTheArrows),
         scene!("10_two_tanks", 0.5, two_tanks::TwoTanks),
         scene!("11_walks", 0.5, walks::Walks),
         scene!("12_heat_and_chance", 0.55, heat_and_chance::HeatAndChance),
         scene!("13_how_computers_do_it", 0.4, how_computers_do_it::HowComputersDoIt),
-        scene!("14_order_matters", 0.5, order_matters::OrderMatters),
+        animatic!("14_order_matters", 0.5),
         animatic!("15_the_doorway", 0.65),
         animatic!("16_where_it_leads", 0.55),
     ]
