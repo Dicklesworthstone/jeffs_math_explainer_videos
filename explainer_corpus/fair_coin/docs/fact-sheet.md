@@ -12,6 +12,10 @@ at the end was copied from the oracle's output by a script, not typed.
   NumPy 2.5.4): `facts-check fair_coin: 237 video facts against 237 oracle
   keys: PASS`. The oracle ran twice (10.0 s and 9.6 s) with byte-identical
   stdout: 237 keys, 42 of 42 cross-checks passed, exit 0.
+- **With the storyboard (P2), the same day:** 28 keys added for numbers the
+  storyboard says at spoken precision (percents of the blocks, "one game in",
+  rounded rates per hundred): `265 video facts against 265 oracle keys:
+  PASS`, 43 of 43 cross-checks.
 - **Rust side:** `./x fair_coin test`: 20 tests pass, clippy `-D warnings`
   and `fmt --check` clean.
 - **Rows:** E-F computed chances and costs; E-X edges of always/never
@@ -227,18 +231,22 @@ repeats each as a cross-check.
 
 <!-- generated from oracle.py's output; do not edit by hand -->
 
-**E-F1.** The unit square for the 80% coin: the chance of each pair of tosses (the cell's area).
+**E-F1.** The unit square for the 80% coin: the chance of each pair of tosses (the block's area).
 
 | key | value |
 |---|---|
 | `E-F1.square.hh` | 0.64 |
 | `E-F1.square.hh.exact` | 16/25 |
+| `E-F1.square.hh_percent` | 64 |
 | `E-F1.square.ht` | 0.16 |
 | `E-F1.square.ht.exact` | 4/25 |
+| `E-F1.square.ht_percent` | 16 |
 | `E-F1.square.th` | 0.16 |
 | `E-F1.square.th.exact` | 4/25 |
+| `E-F1.square.th_percent` | 16 |
 | `E-F1.square.tt` | 0.04 |
 | `E-F1.square.tt.exact` | 1/25 |
+| `E-F1.square.tt_percent` | 4 |
 | `E-F1.heads_percent` | 80 |
 | `E-F1.tails_percent` | 20 |
 
@@ -253,7 +261,7 @@ repeats each as a cross-check.
 | `E-F2.heads_first_share.exact` | 1/2 |
 | `E-F2.heads_first_share_percent` | 50 |
 
-**E-F3.** The cost at 80%: expected pairs and tosses, and the chance that the first 1, 2, 3, 5, 10 pairs are all thrown away.
+**E-F3.** The cost at 80%: expected pairs and tosses; the chance that the first 1, 2, 3, 5, 10 pairs are all thrown away, and that last chance as "one game in".
 
 | key | value |
 |---|---|
@@ -265,6 +273,7 @@ repeats each as a cross-check.
 | `E-F3.undecided_after.3_pairs_percent` | 31.4 |
 | `E-F3.undecided_after.5_pairs_percent` | 14.5 |
 | `E-F3.undecided_after.10_pairs_percent` | 2.1 |
+| `E-F3.undecided_after.10_pairs.one_game_in` | 47 |
 
 **E-F4.** The slider's stops (chance of heads 50, 60, 70, 80, 90, 99 percent): the area of heads-tails (equal to tails-heads), how often a pair decides, expected tosses.
 
@@ -298,6 +307,8 @@ repeats each as a cross-check.
 | `E-F5.two_coins.second_percent` | 50 |
 | `E-F5.two_coins.ht` | 0.40 |
 | `E-F5.two_coins.th` | 0.10 |
+| `E-F5.two_coins.ht_percent` | 40 |
+| `E-F5.two_coins.th_percent` | 10 |
 | `E-F5.two_coins.heads_first_percent` | 80 |
 | `E-F5.two_coins.ratio` | 4 |
 
@@ -308,6 +319,8 @@ repeats each as a cross-check.
 | `E-F6.sticky.repeat_percent` | 80 |
 | `E-F6.sticky.after_heads.ht` | 0.16 |
 | `E-F6.sticky.after_heads.th` | 0.04 |
+| `E-F6.sticky.after_heads.ht_percent` | 16 |
+| `E-F6.sticky.after_heads.th_percent` | 4 |
 | `E-F6.sticky.after_heads.ratio` | 4 |
 | `E-F6.sticky.after_heads.heads_first_percent` | 80 |
 | `E-F6.sticky.after_tails.heads_first_percent` | 20 |
@@ -346,6 +359,10 @@ repeats each as a cross-check.
 | `E-F8.four_two.each.exact` | 16/625 |
 | `E-F8.four_two.works_percent` | 15.4 |
 | `E-F8.four_two.expected_tosses` | 26.0 |
+| `E-F8.four_two.works_per_hundred` | 15 |
+| `E-F8.four_two.expected_tosses_rounded` | 26 |
+| `E-F8.four_two.each_percent` | 2.56 |
+| `E-F8.three_two.each_percent` | 12.8 |
 | `E-F8.four_two.fair_coin.works_percent` | 37.5 |
 | `E-F8.four_two.fair_coin.expected_tosses` | 10.7 |
 | `E-F8.row4.heads0_percent` | 0.16 |
@@ -370,6 +387,7 @@ repeats each as a cross-check.
 | `E-F9.three_rolls.orders` | 6 |
 | `E-F9.three_rolls.each_order_percent` | 5.43 |
 | `E-F9.three_rolls.works_percent` | 32.6 |
+| `E-F9.three_rolls.works_per_hundred` | 33 |
 | `E-F9.three_rolls.expected_rolls` | 9.2 |
 | `E-F9.three_rolls.fair_die.works.exact` | 5/9 |
 | `E-F9.three_rolls.fair_die.expected_rolls` | 5.4 |
@@ -396,18 +414,31 @@ repeats each as a cross-check.
 | `E-F10.fair_coin.von_neumann.rate` | 0.25 |
 | `E-F10.fair_coin.von_neumann.percent` | 25 |
 | `E-F10.fair_coin.entropy` | 1 |
+| `E-F10.fair_coin.wasted_percent` | 75 |
 | `E-F10.peres.depth1.rate` | 0.1600 |
+| `E-F10.peres.depth1.per_hundred` | 16 |
 | `E-F10.peres.depth2.rate` | 0.2876 |
+| `E-F10.peres.depth2.per_hundred` | 29 |
 | `E-F10.peres.depth3.rate` | 0.3874 |
+| `E-F10.peres.depth3.per_hundred` | 39 |
 | `E-F10.peres.depth4.rate` | 0.4655 |
+| `E-F10.peres.depth4.per_hundred` | 47 |
 | `E-F10.peres.depth6.rate` | 0.5721 |
+| `E-F10.peres.depth6.per_hundred` | 57 |
 | `E-F10.peres.depth8.rate` | 0.6351 |
+| `E-F10.peres.depth8.per_hundred` | 64 |
 | `E-F10.elias.block2.rate` | 0.1600 |
+| `E-F10.elias.block2.per_hundred` | 16 |
 | `E-F10.elias.block4.rate` | 0.2816 |
+| `E-F10.elias.block4.per_hundred` | 28 |
 | `E-F10.elias.block8.rate` | 0.3708 |
+| `E-F10.elias.block8.per_hundred` | 37 |
 | `E-F10.elias.block16.rate` | 0.4940 |
+| `E-F10.elias.block16.per_hundred` | 49 |
 | `E-F10.elias.block32.rate` | 0.5844 |
+| `E-F10.elias.block32.per_hundred` | 58 |
 | `E-F10.elias.block64.rate` | 0.6462 |
+| `E-F10.elias.block64.per_hundred` | 65 |
 
 **E-X1.** Edge: rules that stop after exactly n tosses, as lists of how many winning patterns have each count of heads, and how many of them are fair for every coin.
 
@@ -477,6 +508,7 @@ repeats each as a cross-check.
 | `E-S4.price.pairs_1_to_8` | 3209,2170,1562,926,701,461,320,205 |
 | `E-S4.price.pairs_9_plus` | 446 |
 | `E-S4.price.longest_pairs` | 30 |
+| `E-S4.price.longest_tosses` | 60 |
 
 **E-S5.** Run 5: 1,000 games with the 80% coin then a fair coin.
 

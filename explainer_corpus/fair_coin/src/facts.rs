@@ -216,6 +216,7 @@ fn coin(f: &mut Facts) -> Result<(), String> {
         let key = format!("E-F1.square.{}", format!("{}{}", a.letter(), b.letter()).to_lowercase());
         f.pin(&key, law.prob(a, b).decimal(2), want, brief)?;
         f.add(&format!("{key}.exact"), law.prob(a, b).exact())?;
+        f.add(&format!("{key}_percent"), law.prob(a, b).percent(0))?;
     }
     f.pin("E-F1.heads_percent", p.percent(0), "80", brief)?;
     f.add("E-F1.tails_percent", p.other().percent(0))?;
@@ -237,6 +238,11 @@ fn coin(f: &mut Facts) -> Result<(), String> {
             undecided_after(p, r).percent(1),
         )?;
     }
+    // "about one game in fifty is still going after ten pairs"
+    f.add(
+        "E-F3.undecided_after.10_pairs.one_game_in",
+        (Q::ONE / undecided_after(p, 10)).decimal(0),
+    )?;
     for s in stops() {
         let law = PairLaw::same_coin(s);
         let cost = expected_tosses(s).ok_or("a stop never decides")?;
@@ -259,6 +265,8 @@ fn breaks(f: &mut Facts) -> Result<(), String> {
     f.add("E-F5.two_coins.second_percent", second_coin().percent(0))?;
     f.add("E-F5.two_coins.ht", ht.decimal(2))?;
     f.add("E-F5.two_coins.th", th.decimal(2))?;
+    f.add("E-F5.two_coins.ht_percent", ht.percent(0))?;
+    f.add("E-F5.two_coins.th_percent", th.percent(0))?;
     let share = two.heads_first_share().ok_or("the two coins never decide")?;
     f.add("E-F5.two_coins.heads_first_percent", share.percent(0))?;
     f.add("E-F5.two_coins.ratio", (ht / th).exact())?;
@@ -269,6 +277,8 @@ fn breaks(f: &mut Facts) -> Result<(), String> {
     f.add("E-F6.sticky.repeat_percent", m.after_h.percent(0))?;
     f.add("E-F6.sticky.after_heads.ht", ht.decimal(2))?;
     f.add("E-F6.sticky.after_heads.th", th.decimal(2))?;
+    f.add("E-F6.sticky.after_heads.ht_percent", ht.percent(0))?;
+    f.add("E-F6.sticky.after_heads.th_percent", th.percent(0))?;
     f.add("E-F6.sticky.after_heads.ratio", (ht / th).exact())?;
     let stuck = "the sticky coin never decides";
     f.add(
@@ -348,6 +358,10 @@ fn same_counts(f: &mut Facts) -> Result<(), String> {
     let works = count_chance(p, 4, 2);
     f.add("E-F8.four_two.works_percent", works.percent(1))?;
     f.add("E-F8.four_two.expected_tosses", (Q::int(4) / works).decimal(1))?;
+    f.add("E-F8.four_two.works_per_hundred", works.percent(0))?;
+    f.add("E-F8.four_two.expected_tosses_rounded", (Q::int(4) / works).decimal(0))?;
+    f.add("E-F8.four_two.each_percent", pattern_chance(p, 4, 2).percent(2))?;
+    f.add("E-F8.three_two.each_percent", pattern_chance(p, 3, 2).percent(1))?;
     let fair_works = count_chance(Q::HALF, 4, 2);
     f.add("E-F8.four_two.fair_coin.works_percent", fair_works.percent(1))?;
     f.add(
@@ -390,6 +404,7 @@ fn dice(f: &mut Facts) -> Result<(), String> {
     f.add("E-F9.three_rolls.each_order_percent", elementary(&w, 3).percent(2))?;
     let works = all_different(&w, 3);
     f.add("E-F9.three_rolls.works_percent", works.percent(1))?;
+    f.add("E-F9.three_rolls.works_per_hundred", works.percent(0))?;
     f.add("E-F9.three_rolls.expected_rolls", (Q::int(3) / works).decimal(1))?;
     let fair_works = all_different(&fair, 3);
     f.add("E-F9.three_rolls.fair_die.works.exact", fair_works.exact())?;
@@ -441,16 +456,22 @@ fn rates(f: &mut Facts) -> Result<(), String> {
         "von Neumann 1951, p. 36",
     )?;
     f.add("E-F10.fair_coin.entropy", format!("{:.0}", entropy(0.5)))?;
+    // "three tosses in four"
+    f.add("E-F10.fair_coin.wasted_percent", fair.other().percent(0))?;
     for d in PERES_DEPTHS {
+        let r = peres_rate(d, p);
+        f.add(&format!("E-F10.peres.depth{d}.rate"), format!("{r:.4}"))?;
         f.add(
-            &format!("E-F10.peres.depth{d}.rate"),
-            format!("{:.4}", peres_rate(d, p)),
+            &format!("E-F10.peres.depth{d}.per_hundred"),
+            format!("{:.0}", 100.0 * r),
         )?;
     }
     for n in ELIAS_BLOCKS {
+        let r = elias_rate(n, p);
+        f.add(&format!("E-F10.elias.block{n}.rate"), format!("{r:.4}"))?;
         f.add(
-            &format!("E-F10.elias.block{n}.rate"),
-            format!("{:.4}", elias_rate(n, p)),
+            &format!("E-F10.elias.block{n}.per_hundred"),
+            format!("{:.0}", 100.0 * r),
         )?;
     }
     Ok(())
@@ -513,6 +534,7 @@ fn seeded(f: &mut Facts) -> Result<(), String> {
     f.add("E-S4.price.pairs_9_plus", g.len() - hist.iter().sum::<usize>())?;
     f.add("E-S4.price.pairs_1_to_8", list(hist))?;
     f.add("E-S4.price.longest_pairs", longest(&g))?;
+    f.add("E-S4.price.longest_tosses", 2 * longest(&g))?;
 
     let g = two_coin_run();
     f.add("E-S5.two_coins.games", g.len())?;

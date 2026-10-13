@@ -99,6 +99,7 @@ def coin_facts():
     for k in ("HH", "HT", "TH", "TT"):
         emit(f"E-F1.square.{k.lower()}", dec(sq[k], 2))
         emit(f"E-F1.square.{k.lower()}.exact", exact(sq[k]))
+        emit(f"E-F1.square.{k.lower()}_percent", pct(sq[k]))
     emit("E-F1.heads_percent", pct(P))
     emit("E-F1.tails_percent", pct(Q_))
     decides = sq["HT"] + sq["TH"]
@@ -117,6 +118,7 @@ def coin_facts():
     check("the expected tosses are the sum of the geometric series", abs(float(partial) - float(2 * pairs)) < 1e-12)
     for r in (1, 2, 3, 5, 10):
         emit(f"E-F3.undecided_after.{r}_pairs_percent", pct((1 - decides) ** r, 1))
+    emit("E-F3.undecided_after.10_pairs.one_game_in", dec(1 / (1 - decides) ** 10, 0))
     for p in STOPS:
         s = pair_chances(p, p, p)
         check(f"{stop_name(p)}: heads-tails equals tails-heads", s["HT"] == s["TH"])
@@ -280,6 +282,8 @@ def breaks_facts():
     emit("E-F5.two_coins.second_percent", pct(F(1, 2)))
     emit("E-F5.two_coins.ht", dec(two["HT"], 2))
     emit("E-F5.two_coins.th", dec(two["TH"], 2))
+    emit("E-F5.two_coins.ht_percent", pct(two["HT"]))
+    emit("E-F5.two_coins.th_percent", pct(two["TH"]))
     emit("E-F5.two_coins.heads_first_percent", pct(two["HT"] / (two["HT"] + two["TH"])))
     emit("E-F5.two_coins.ratio", exact(two["HT"] / two["TH"]))
     # a coin that repeats its last face four times in five
@@ -289,6 +293,8 @@ def breaks_facts():
     emit("E-F6.sticky.repeat_percent", pct(s))
     emit("E-F6.sticky.after_heads.ht", dec(after_hh["HT"], 2))
     emit("E-F6.sticky.after_heads.th", dec(after_hh["TH"], 2))
+    emit("E-F6.sticky.after_heads.ht_percent", pct(after_hh["HT"]))
+    emit("E-F6.sticky.after_heads.th_percent", pct(after_hh["TH"]))
     emit("E-F6.sticky.after_heads.ratio", exact(after_hh["HT"] / after_hh["TH"]))
     emit("E-F6.sticky.after_heads.heads_first_percent", pct(after_hh["HT"] / (after_hh["HT"] + after_hh["TH"])))
     emit("E-F6.sticky.after_tails.heads_first_percent", pct(after_tt["HT"] / (after_tt["HT"] + after_tt["TH"])))
@@ -367,6 +373,12 @@ def pattern_facts():
     hit = sum(chance[s] for s in two)
     emit("E-F8.four_two.works_percent", pct(hit, 1))
     emit("E-F8.four_two.expected_tosses", dec(4 / hit, 1))
+    emit("E-F8.four_two.works_per_hundred", pct(hit))
+    emit("E-F8.four_two.expected_tosses_rounded", dec(4 / hit, 0))
+    emit("E-F8.four_two.each_percent", pct(chance[two[0]], 2))
+    hht = [math.prod(P if c == "H" else Q_ for c in s) for s in ("HHT", "HTH", "THH")]
+    check("three tosses, two heads: one chance for all three patterns", len(set(hht)) == 1)
+    emit("E-F8.three_two.each_percent", pct(hht[0], 1))
     fair_hit = F(math.comb(4, 2), 16)
     emit("E-F8.four_two.fair_coin.works_percent", pct(fair_hit, 1))
     emit("E-F8.four_two.fair_coin.expected_tosses", dec(4 / fair_hit, 1))
@@ -417,6 +429,7 @@ def dice_facts():
     emit("E-F9.three_rolls.orders", len(by_order))
     emit("E-F9.three_rolls.each_order_percent", pct(esym(w, 3), 2))
     emit("E-F9.three_rolls.works_percent", pct(distinct, 1))
+    emit("E-F9.three_rolls.works_per_hundred", pct(distinct))
     emit("E-F9.three_rolls.expected_rolls", dec(3 / distinct, 1))
     fair_distinct = 6 * esym(fair, 3)
     emit("E-F9.three_rolls.fair_die.works.exact", exact(fair_distinct))
@@ -483,10 +496,13 @@ def rate_facts():
     emit("E-F10.fair_coin.von_neumann.rate", dec(F(1, 4), 2))
     emit("E-F10.fair_coin.von_neumann.percent", pct(F(1, 4)))
     emit("E-F10.fair_coin.entropy", f"{entropy(0.5):.0f}")
+    emit("E-F10.fair_coin.wasted_percent", pct(1 - F(1, 4)))
     for d in PERES_DEPTHS:
         emit(f"E-F10.peres.depth{d}.rate", f"{peres_rate(d, p):.4f}")
+        emit(f"E-F10.peres.depth{d}.per_hundred", f"{100 * peres_rate(d, p):.0f}")
     for n in ELIAS_BLOCKS:
         emit(f"E-F10.elias.block{n}.rate", f"{elias_rate(n, p):.4f}")
+        emit(f"E-F10.elias.block{n}.per_hundred", f"{100 * elias_rate(n, p):.0f}")
     check("Peres depth 1 and Elias block 2 are von Neumann's rule",
           abs(peres_rate(1, p) - 0.16) < 1e-15 and abs(elias_rate(2, p) - 0.16) < 1e-15)
     check("the rates climb and stay under the entropy",
@@ -653,6 +669,7 @@ def run_facts():
     emit("E-S4.price.pairs_1_to_8", ",".join(map(str, hist)))
     emit("E-S4.price.pairs_9_plus", len(g4) - sum(hist))
     emit("E-S4.price.longest_pairs", max(len(x) for x in g4))
+    emit("E-S4.price.longest_tosses", max(2 * len(x) for x in g4))
     # S5: two different coins
     g5 = play(Stream(5), 1000, P, F(1, 2))
     emit("E-S5.two_coins.games", len(g5))

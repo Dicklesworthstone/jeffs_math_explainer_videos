@@ -24,6 +24,8 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 const SCRIPT: &str = include_str!("../script.tsv");
+/// The storyboard: words, pictures, holds and listen windows per beat.
+pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {
     crate_name: "fair_coin",
@@ -49,9 +51,6 @@ mod tests {
     use explainer_kit::cli::check_script_owners;
 
     use super::*;
-
-    /// The storyboard: words, pictures, holds and listen windows per beat.
-    const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
     fn keys() -> Vec<&'static str> {
         chapters::registry().iter().map(|c| c.key).collect()
