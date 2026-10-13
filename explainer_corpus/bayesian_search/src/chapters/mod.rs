@@ -4,7 +4,11 @@
 //! what really happened in 1968). Each chapter starts as its storyboard's
 //! animatic and is replaced by its real scene as it is built.
 
+pub mod a_map_of_chances;
+pub mod draw;
 pub mod glyphs;
+pub mod sound;
+pub mod the_question;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -21,11 +25,21 @@ macro_rules! animatic {
     };
 }
 
+macro_rules! scene {
+    ($key:literal, $intensity:expr, $module:ident :: $scene:ident) => {
+        Chapter {
+            key: $key,
+            make: |kit| Box::new($module::$scene { kit }),
+            intensity: $intensity,
+        }
+    };
+}
+
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_the_question", 0.4),
+        scene!("01_the_question", 0.4, the_question::TheQuestion),
         animatic!("02_ninety_nine", 0.25),
-        animatic!("03_a_map_of_chances", 0.45),
+        scene!("03_a_map_of_chances", 0.45, a_map_of_chances::AMapOfChances),
         animatic!("04_ten_thousand_dots", 0.5),
         animatic!("05_a_search_can_miss", 0.5),
         animatic!("06_nothing_found", 0.6),

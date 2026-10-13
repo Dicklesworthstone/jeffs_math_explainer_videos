@@ -4,7 +4,7 @@
 //! value from `facts` (the probe covers the digits through [`DIGITS`]).
 
 /// The digits and separators numbers are printed with.
-pub const DIGITS: &str = "0123456789 , . % + − × ÷ = ( ) ½ ⅓ ⅔";
+pub const DIGITS: &str = "0123456789 , . % + − × ÷ = ( ) ½ ¼ ⅓ ⅔";
 
 pub const TITLE: &str = "How to Find a Lost Submarine";
 
