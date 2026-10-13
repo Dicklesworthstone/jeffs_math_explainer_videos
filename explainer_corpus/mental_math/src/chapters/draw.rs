@@ -170,6 +170,11 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
     Ok(())
 }
 
+/// The music alone at the end of a chapter, before its fade (the kit's
+/// `HOLD_S` is 2.5 s; cut to 1.5 s for length on 2026-10-13, after the
+/// narrated draft ran 15:54: docs/decisions.md).
+pub const END_HOLD_S: f64 = 1.5;
+
 /// Wait `seconds` (a beat of stillness after a reveal).
 pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
     let fps = stage.scene().time().fps();

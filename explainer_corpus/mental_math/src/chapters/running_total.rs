@@ -917,7 +917,7 @@ impl SceneConstruct for RunningTotal {
             Transform::new(waiting[0], fitted).rt(0.7),
             indicate(stage.arena_mut(), filled, 1.08, Some(rgb(ink)))?.rt(0.8),
         );
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

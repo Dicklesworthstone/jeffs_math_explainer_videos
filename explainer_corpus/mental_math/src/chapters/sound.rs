@@ -23,7 +23,7 @@ const SCALE: [f64; 7] = [74.0, 76.0, 78.0, 81.0, 83.0, 86.0, 88.0];
 
 /// How long the answer has the screen to itself after the countdown's last
 /// second, before the next line (the last note rings here).
-pub const LAND_S: f64 = 1.0;
+pub const LAND_S: f64 = 0.7;
 /// The move: two seconds, the narrator silent.
 pub const MOVE_S: f64 = 2.0;
 

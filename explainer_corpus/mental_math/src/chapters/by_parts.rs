@@ -651,7 +651,7 @@ impl SceneConstruct for ByParts {
             fade_out(stage.arena_mut(), names, ORIGIN, 1.0)?.rt(0.3),
             fade_in(stage.arena_mut(), note, v(0.0, 0.15), 1.0)?.rt(0.5),
         );
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         // chapter 05 starts from what is left: settle the numbers and clear
         // the foot band
         play!(stage;

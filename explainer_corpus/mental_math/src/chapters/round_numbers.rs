@@ -692,7 +692,7 @@ impl SceneConstruct for RoundNumbers {
         let aside = grey_line(&kit, stage, &aside_src, v(0.0, ASIDE_Y))?;
         fit_width(stage, aside, ASIDE_ROOM);
         play!(stage; fade_in(stage.arena_mut(), aside, ORIGIN, 1.0)?.rt(0.5));
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

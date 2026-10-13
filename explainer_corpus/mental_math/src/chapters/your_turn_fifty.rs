@@ -430,7 +430,7 @@ impl SceneConstruct for YourTurnFifty {
         fade_in_all(stage, &ins, 0.8)?;
         line.wait_sentence(stage, 3)?;
         fade_in_all(stage, &quote.source, 0.6)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

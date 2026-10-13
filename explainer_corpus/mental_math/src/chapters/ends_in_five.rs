@@ -260,7 +260,7 @@ impl SceneConstruct for EndsInFive {
         fit_width(stage, aside, COLUMN_ROOM);
         pause(stage, 1.2)?;
         play!(stage; fade_in(stage.arena_mut(), aside, ORIGIN, 1.0)?.rt(0.5));
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

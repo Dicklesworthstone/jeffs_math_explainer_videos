@@ -677,7 +677,7 @@ impl SceneConstruct for YourTurn {
         for m in waiting {
             stage.add_to_scene(m)?;
         }
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         // the card stays: chapters 04 and 05 start with it in its corner
         fade_all_but(stage, &waiting, 0.8)?;
         kit.finish(stage)

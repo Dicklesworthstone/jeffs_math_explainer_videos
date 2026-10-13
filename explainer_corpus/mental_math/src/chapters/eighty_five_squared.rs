@@ -271,7 +271,7 @@ impl SceneConstruct for EightyFiveSquared {
         );
         let words = kit.text(stage, YOUR_TURN, 24.0, quiz(), v(at[0], at[1] + 0.42))?;
         fade_in_all(stage, &[mini, ring, words], 0.6)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

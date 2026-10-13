@@ -317,7 +317,7 @@ impl SceneConstruct for NothingToGrab {
             fly(answer_mark, v(answer_at[0], AXIS.2 - 0.45), AXIS_PT / look.pt(), 0.9)?,
             fade_in(stage.arena_mut(), answer_dot, ORIGIN, 1.0)?.rt(0.9),
         );
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         // the tiles stay, all at rest, for chapter 14's quiz
         tiles_rest_and_clear(stage, &tiles, &[], 0.8)?;
         kit.finish(stage)

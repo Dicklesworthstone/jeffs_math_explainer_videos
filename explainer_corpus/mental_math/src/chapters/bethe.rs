@@ -480,7 +480,7 @@ impl SceneConstruct for Bethe {
         stage.scene_mut().bring_to_front(&[outline])?;
         why_pause(&kit, stage)?;
 
-        kit.music_breath(stage, HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         // the two squares stay for chapter 10, which answers the question
         // with the picture; it starts from them and from fifty squared at the
         // head of its column

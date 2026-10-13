@@ -877,7 +877,7 @@ impl SceneConstruct for Percents {
         line.wait_end(stage)?;
         let precisely = lower_third_tex(&kit, stage, PRECISELY, PRECISELY_TEX)?;
         play!(stage; fade_in(stage.arena_mut(), precisely, v(0.0, 0.15), 1.0)?.rt(0.5));
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

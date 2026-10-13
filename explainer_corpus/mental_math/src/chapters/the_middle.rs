@@ -616,7 +616,7 @@ impl SceneConstruct for TheMiddle {
         line.wait_sentence(stage, 2)?;
         let note = precisely(&kit, stage, WHOLE_MIDDLE)?;
         play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.6));
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

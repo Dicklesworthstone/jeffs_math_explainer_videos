@@ -314,7 +314,7 @@ impl SceneConstruct for WhichTrick {
         line.wait_sentence(stage, 2)?;
         play!(stage; fade_in(stage.arena_mut(), working[2], v(0.0, -0.12), 1.0)?.rt(0.4));
         land(&kit, stage, &product, working[2], &num(p.product))?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         // the tiles stay, all at rest, for chapter 13's quiz
         tiles_rest_and_clear(stage, &tiles, &tile_mobs, 0.8)?;
         kit.finish(stage)

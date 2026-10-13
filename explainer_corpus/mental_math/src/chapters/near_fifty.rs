@@ -683,7 +683,7 @@ impl SceneConstruct for NearFifty {
         );
         let precise = lower_third_tex(&kit, stage, PRECISELY, &signs)?;
         play!(stage; fade_in(stage.arena_mut(), precise, v(0.0, 0.1), 1.0)?.rt(0.5));
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        kit.music_breath(stage, super::draw::END_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
