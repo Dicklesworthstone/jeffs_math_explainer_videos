@@ -9,6 +9,7 @@ pub mod a_search_can_miss;
 pub mod bayes_rule;
 pub mod draw;
 pub mod glyphs;
+pub mod ninety_nine;
 pub mod nothing_found;
 pub mod sound;
 pub mod the_question;
@@ -41,7 +42,7 @@ macro_rules! scene {
 pub fn registry() -> Vec<Chapter> {
     vec![
         scene!("01_the_question", 0.4, the_question::TheQuestion),
-        animatic!("02_ninety_nine", 0.25),
+        scene!("02_ninety_nine", 0.25, ninety_nine::NinetyNine),
         scene!("03_a_map_of_chances", 0.45, a_map_of_chances::AMapOfChances),
         animatic!("04_ten_thousand_dots", 0.5),
         scene!("05_a_search_can_miss", 0.5, a_search_can_miss::ASearchCanMiss),
