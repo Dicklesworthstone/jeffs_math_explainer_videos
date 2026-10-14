@@ -83,9 +83,9 @@ stable with 156 people and with just 10 more the movement increased suddenly
 **Tacoma Narrows.** Opened 1 July 1940, failed 7 November 1940, 129 days
 later [K-B1.opened, .failed, .days_open]; the wind was clocked at 42 miles an
 hour that morning ("about forty") [K-B1.wind_mph]. The torsional motion began
-at 14 cycles a minute, and the final destructive motion was 12 a minute,
-0.2 Hz, one twist every five seconds (Farquharson, through Billah and Scanlan
-1991) [K-B1.twist_per_min, .twist_hz, .twist_period_s]. Vortex shedding at that
+at 14 cycles a minute (the board's report), and the final destructive motion
+was 12 a minute, 0.2 Hz, one twist every five seconds (Farquharson, through
+Billah and Scanlan 1991) [K-B1.twist_per_min, .twist_hz, .twist_period_s]. Vortex shedding at that
 wind would come "close to 1 Hz", which is why natural vortex shedding "was not
 the cause"; Billah and Scanlan call it "single-degree-of-freedom torsional
 flutter", a self-excitation, and add that one may still say "resonance" "if we
@@ -124,10 +124,11 @@ directions, 4.7 mm down there and 1.3 mm sideways at the roller, and the
 inverse of K has 441 of 441 entries not zero [K-T2.*, K-T3.*, K-X3.*].
 
 100 kN on each of the five deck joints sags the middle 17.96 mm, span ÷ 1,336;
-each support gives 250 kN; the top chord is squeezed 450 kN (75 N per mm², 30%
-of A36 steel's minimum yield of 250 N per mm²), the bottom chord stretched
-400 kN, the end posts squeezed 353.6 kN, the diagonals pulled 212.1 kN, the
-middle post carries 0 [K-T4.*, K-T5.*]. The yield figure is A36's 36 ksi
+each support gives 250 kN; the top chord is squeezed up to 450 kN (75 N per
+mm², 30% of A36 steel's minimum yield of 250 N per mm²), the bottom chord
+stretched up to 400 kN, the end posts squeezed 353.6 kN, the outer diagonals
+pulled 212.1 kN (the inner two 70.7), the middle post carries 0 [K-T4.*,
+K-T5.*]. The yield figure is A36's 36 ksi
 through a secondary citation of the AISC manual; a squeezed member is also
 checked for buckling in practice, which is another eigenvalue problem and is
 not checked here. The span ÷ 1,000 comparison is the AASHTO deflection limit
@@ -140,8 +141,8 @@ from two larger terms that cancel: the readout runs 99.6, 102.0, 101.8, 99.1,
 98.9, then 99.1 at ten patterns and 100.0 at fifteen [K-P2.sag_percent.*],
 and the largest error anywhere in the moves is 1.2 mm [K-P2.move_error_mm.1].
 That is true of this load, five equal pushes along the deck. For a lone
-100 kN load the softest pattern alone gives 41.8% of the drop under it at 4 m
-from the pin, 75.8% at 8 m and 86.3% at midspan, and a lone midspan load needs
+100 kN load the softest pattern alone gives 42% of the drop under it at 4 m
+from the pin, 76% at 8 m and 86% at midspan, and a lone midspan load needs
 10 patterns to come within 2.5% under it (the P3 claim walk's recomputation,
 pinned as `K-P2.lone_pct.*` and `K-P2.lone_within_2p5.12m`; the closing card of
 chapter 06 says only that one sharp load needs many more patterns, and these
@@ -163,8 +164,7 @@ because the right support is a roller, and the third bends it into an S. With
 did not get heavier [K-V1.*, K-V2.*]. The eigenvalue is ω², hertz = ω ÷ 2π.
 Only the lowest few modes are close to K's own patterns: the squared overlap of
 mode i with K's pattern i is 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, then 0.10 and
-0.02, which is why the video says "at the low end" (to be pinned as
-`K-V1.overlap.*`). The frequency goes as the square root of stiffness over mass,
+0.02, which is why the video says "at the low end" (`K-V1.overlap.*`). The frequency goes as the square root of stiffness over mass,
 and the solver is the eigenvalues of M^(−1/2) K M^(−1/2).
 The modes are at right angles when mass is counted (φᵢᵀ M φⱼ = 0) and not
 otherwise [K-V1.at_right_angles_with_mass, .at_right_angles_without]. The
@@ -178,7 +178,8 @@ is within 0.03% of the continuous tube's [K-R1.error_percent,
 .error_bound_percent]; one slice pushed out of place comes back as
 (−1, 2, −1), 35.3° away from itself, and one half of a sine wave comes back as
 itself, 0° away: any other hump does not (a parabola 22.5° away, a Gaussian
-54.6°) [K-R1.lump_turn_deg]. The speed of sound is 343 m per second (air at
+with a standard deviation of an eighth of the tube's length 54.6°)
+[K-R1.lump_turn_deg]. The speed of sound is 343 m per second (air at
 about 20 °C; FrankenSim's air is 293.15 K) [K-R0.sound_m_per_s]. For a box
 with hard walls the tones are (c ÷ 2) √((nx ÷ Lx)² + (ny ÷ Ly)² + (nz ÷ Lz)²)
 for whole numbers nx, ny, nz not all zero (Jacobsen and others, eq. 3.1.5);
@@ -188,20 +189,20 @@ swing of the bathroom's longest side is a round trip: 343 ÷ (2 × 2.5 m) =
 150 Hz: 68.6, 71.5, 99.1, 107.2, 127.3, 128.8, 137.2, 142.9 and 146.0 Hz, of
 which 68.6, 71.5, 107.2, 137.2 and 142.9 fit one side (the length, the height,
 the width, twice the length, twice the height) and the other four need two or
-three [K-R2.*; the tone list is the P3 claim walk's enumeration, to be pinned
-as a fact before the scene is built].
+three [K-R2.*; the tone list is `K-R2.tones_to_150_hz`].
 
 **The concert hall.** A box 45 × 23 × 18 m is 18,630 m³, 99.4% of Boston
 Symphony Hall's 18,750 m³ (Beranek). Beranek's own width, height and length
 are averages and their product is not the volume. The model box has 29 modes
 at or below 20 Hz, 2,246 at or below 100 Hz and 1,964,040 at or below 1 kHz
 (the textbook estimate N = (4πV ÷ 3)(f ÷ c)³ + (πS ÷ 4)(f ÷ c)² + (L ÷ 8)(f ÷ c)
-gives 1,964,120), about 5,800 in every hertz there [K-H1.*, K-H2.*]. The
-count grows as the cube of the frequency and depends on the volume, hardly on
-the shape. Occupied, at mid frequencies, the hall takes 1.9 s to die away
-(Beranek), so each mode is blurred about 2.2 ÷ 1.9 = 1.2 Hz wide, and some
-6,700 modes sit inside one mode's width at 1 kHz [K-H1.t60_s, K-H2.mode_width_hz,
-.modes_per_width_at_1000]. The Schroeder frequency 2000 √(T60 in seconds ÷
+gives 1,964,120), 5,802 in every hertz there (the slope of the cubic term)
+[K-H1.*, K-H2.*]. The count grows as the cube of the frequency and depends on
+the volume, hardly on the shape. Occupied, at mid frequencies, the hall takes
+1.9 s to die away (Beranek), so each mode is blurred about 2.2 ÷ 1.9 = 1.2 Hz
+wide (1.157 before rounding), and 6,714 modes sit inside one mode's width at
+1 kHz [K-H1.t60_s, K-H2.mode_width_hz, .modes_per_width_at_1000]. The
+Schroeder frequency 2000 √(T60 in seconds ÷
 volume in cubic metres) is
 20.2 Hz here, the bottom edge of hearing: a crossover, not a wall; above it
 the modes still exist but overlap. "Three or more modes in one width" is the
@@ -229,9 +230,9 @@ tone; a narrow room of 6.1 × 2.1 × 2.5 m has 48 below 200 Hz, none shared; a
 three times over [K-R3.*, K-R4.*, K-R5.*]. "Rooms with the three principal
 dimensions related by simple integers are especially poor" (Walker, BBC
 RD 1993/8); in a cube "threefold and even sixfold degeneracies are common"
-(Morse). Measured two ways by the P3 claim walk (most modes inside one window
-of 0.5, 2 and 4.4 Hz below 200 Hz): the cube 6, 6, 6; the narrow room 2, 4, 6;
-the study 2, 4, 6. The cube is never worse and is the only one with exact
+(Morse). Counted by the P3 claim walk (most modes inside one window of 0.5, 2
+and 4.4 Hz below 200 Hz): the cube 6, 6, 6; the narrow room 2, 4, 6; the study
+2, 4, 6. The cube is never worse and is the only one with exact
 coincidences; at the study's own mode width the three tie, so "piles its tones
 up most" means tones at the same pitch, which is what the video says. An attic
 studio of 6 × 3 m with its ceiling sloping to 1.25 m, cut into 232 cells of
@@ -368,7 +369,7 @@ Perron–Frobenius, spectral theorem, linear programming, the simplex method.
 Computed numbers: every number the video shows or says that is computed (the
 carts, the truss, the modes, the rooms, the hall's counts, the economy, the
 factory) is printed by the video's own code and by a second, separately
-written program (`oracle.py`), and the two agree key by key (300 keys). The
+written program (`oracle.py`), and the two agree key by key (315 keys). The
 second program derives the truss's forces by joint equilibrium, its sag by
 the unit-load sum and its eigenvalues from the table of member stretches, and
 counts room modes by a second enumeration. The P3 claim walk then recomputed
