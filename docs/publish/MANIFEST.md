@@ -125,6 +125,7 @@ upload has not, and v4 was uploaded separately and made Public.
 | fish michael, v1 (superseded by v2) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
 | Video F, Mental Math Tricks, michael v2 (0720552) | `explainer_corpus/mental_math/renders/final/mental_math_master.mp4` | `766f27760c86c2fa698ddc830699d550` | 15:34, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2); `tools/release.py check mental_math` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. F v1 (`renders/final_v1/`, `ccc684b23c200d6ed09094509d02d73b`) has orphan captions and v1's chapter times: do not upload |
 | Video E, Fair Coin, michael (fbe959c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `a5805f30aa28ad29470a3ed74c7d62f4` | 11:57, −17.6 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check fair_coin` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
+| Video G, Lie Robotics, michael (fbe959c) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `c4cd3fcade8d48953ecb9158b5be8ab4` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check lie_robotics` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
 
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
@@ -143,6 +144,13 @@ times filled from final timelines, f8bcb2b); captions `explainer_corpus/fair_coi
 fbe959c captions, `446ee8d4…`, have nine orphan tails and are kept at `renders/final/orphan_captions_fbe959c/`:
 do not upload them); thumbnail `explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png`
 (`728c23b9…`); the upload sheet is `python3 -I tools/release.py check fair_coin` (the description,
+tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
+
+Video G's text: `explainer_corpus/lie_robotics/publish/michael/{title,description,tags}.txt` (chapter
+times filled from final timelines, c2b4a1b); captions `explainer_corpus/lie_robotics/renders/final/lie_robotics.en.srt`
+(`52127452…`, VTT `56c9ed9c…`: rebuilt from the same narration and timelines by the kit's captions fix
+1f44182, 0 orphan tails, final_check PASS); thumbnail `explainer_corpus/lie_robotics/renders/lie_robotics_thumbnail.png`
+(`7fc39fc8…`); the upload sheet is `python3 -I tools/release.py check lie_robotics` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
 
 ## Corrected michael cuts (review 2 and later)
