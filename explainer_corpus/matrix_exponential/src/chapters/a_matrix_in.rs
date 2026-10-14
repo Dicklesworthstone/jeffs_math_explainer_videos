@@ -76,8 +76,23 @@ const SPIRAL_TERMS: usize = 14;
 /// The dial of powers of 07_4.
 const DIAL_AT: Vec3 = [3.6, -0.5, 0.0];
 const DIAL_R: f64 = 1.5;
+/// The row "J² = [-1 0; 0 -1] = -I" of 07_4 and where its middle stands (at
+/// 2.9 the grid's bracket was 0.16 from the frame's top edge), and where the
+/// fan of 07_4 stands.
+const SQUARE_ROW_Y: f64 = 2.65;
+const FAN_AT: Vec3 = [-3.7, -0.3, 0.0];
+const FAN_REACH: f64 = 1.6;
 /// The fan of 07_3 and 07_4: arrows and the longest reach.
 const FAN_N: usize = 8;
+
+/// The row of 07_4, one place for the chapter and its test: "J² =", the grid
+/// of J² and "= -I", across the top of the frame at `SQUARE_ROW_Y`.
+fn square_row(kit: &Kit, stage: &mut Stage<'_>, rows: &[Vec<String>]) -> fmn::Result<(Mob, MatrixGrid, Mob)> {
+    let words = kit.tex(stage, "J^{2} =", 80.0, Palette::ink(), &[], v(-2.4, SQUARE_ROW_Y))?;
+    let grid = MatrixGrid::build(kit, stage, rows, 56.0, result(), v(0.2, SQUARE_ROW_Y))?;
+    let minus_i = kit.tex(stage, "= -I", 80.0, result(), &[], v(2.7, SQUARE_ROW_Y))?;
+    Ok((words, grid, minus_i))
+}
 
 /// The partial sums of e^{tJ} applied to the arrow (1, 0), from the origin:
 /// the corners of the spiral, term by term.
@@ -304,15 +319,15 @@ impl SceneConstruct for AMatrixIn {
         fade_out_all(stage, &leaving, 0.5)?;
         // the fan, then the fan turned twice
         let left = Plane {
-            centre: [-3.7, -0.3, 0.0],
+            centre: FAN_AT,
             unit: 1.0,
         };
         let turn = stage.add_value_tracker(0.0);
-        let ink_fan: Vec<Mob> = fan_ends(left.p(0.0, 0.0), 1.6, 0.0)
+        let ink_fan: Vec<Mob> = fan_ends(left.p(0.0, 0.0), FAN_REACH, 0.0)
             .into_iter()
             .map(|(a, b)| mk_line(stage, arrow_points(a, b, 0.22), ink, 3.5, 1.0))
             .collect();
-        let blue_fan: Vec<Mob> = fan_ends(left.p(0.0, 0.0), 1.6, 0.0)
+        let blue_fan: Vec<Mob> = fan_ends(left.p(0.0, 0.0), FAN_REACH, 0.0)
             .into_iter()
             .map(|(a, b)| mk_line(stage, arrow_points(a, b, 0.22), turning(), 4.5, 1.0))
             .collect();
@@ -326,7 +341,7 @@ impl SceneConstruct for AMatrixIn {
                 if a.to_bits() == seen.to_bits() {
                     return;
                 }
-                for (&m, (from, to)) in blues.iter().zip(fan_ends(base, 1.6, a)) {
+                for (&m, (from, to)) in blues.iter().zip(fan_ends(base, FAN_REACH, a)) {
                     let _ = s.set_points(m, &quad_run(&arrow_points(from, to, 0.22)));
                 }
                 seen = a;
@@ -335,9 +350,7 @@ impl SceneConstruct for AMatrixIn {
         )?;
         stage.add_to_scene(mover)?;
         // J squared is minus the identity, in the fact's own numbers
-        let square_words = kit.tex(stage, "J^{2} =", 80.0, ink, &[], v(-2.4, 2.9))?;
-        let square_grid = MatrixGrid::build(&kit, stage, &answer_rows, 56.0, result(), v(0.2, 2.9))?;
-        let minus_i = kit.tex(stage, "= -I", 80.0, result(), &[], v(2.7, 2.9))?;
+        let (square_words, square_grid, minus_i) = square_row(&kit, stage, &answer_rows)?;
         // the dial of powers beside i
         let dial_arc: Vec<Vec3> = (0..=64)
             .map(|k| {
@@ -615,6 +628,41 @@ mod tests {
             let ask_mid = (stage.get_left(ask)[0] + stage.get_right(ask)[0]) / 2.0;
             let grid_mid = (grid_left + grid_right) / 2.0;
             assert!((grid_mid - ask_mid).abs() < 0.6, "{grid_mid:.2} against {ask_mid:.2}");
+            Ok(())
+        });
+    }
+
+    /// 07_4 (the dense read of the scored draft): the row "J² = [-1 0; 0 -1]
+    /// = -I" has room under the frame's top edge (the grid's bracket stood
+    /// 0.16 from it) and over the fan and the dial under it, and its three
+    /// parts keep a gap between them.
+    #[test]
+    fn the_row_of_j_squared_has_room_above_and_below() {
+        use fmn::core::constants::FRAME_Y_RADIUS;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let rows = entries("F-J.power.k2", None)?;
+            let (words, grid, minus_i) = square_row(&kit, stage, &rows)?;
+            let parts = [words, grid.group, minus_i];
+            let top = parts.iter().map(|&m| stage.get_top(m)[1]).fold(f64::MIN, f64::max);
+            let foot = parts.iter().map(|&m| stage.get_bottom(m)[1]).fold(f64::MAX, f64::min);
+            assert!(
+                top < FRAME_Y_RADIUS - 0.3,
+                "the row's top {top:.2} against the frame's edge {FRAME_Y_RADIUS:.2}"
+            );
+            let (fan_top, dial_top) = (FAN_AT[1] + FAN_REACH, DIAL_AT[1] + DIAL_R);
+            assert!(
+                foot > fan_top + 0.2,
+                "the row's foot {foot:.2} against the fan's top {fan_top:.2}"
+            );
+            assert!(
+                foot > dial_top + 0.3,
+                "the row's foot {foot:.2} against the dial's top {dial_top:.2}"
+            );
+            for pair in parts.windows(2) {
+                let (r, l) = (stage.get_right(pair[0])[0], stage.get_left(pair[1])[0]);
+                assert!(l > r + 0.1, "parts of the row {r:.2} and {l:.2} touch");
+            }
             Ok(())
         });
     }

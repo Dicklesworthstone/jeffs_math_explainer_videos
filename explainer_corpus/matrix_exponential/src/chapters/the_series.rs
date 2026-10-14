@@ -36,9 +36,55 @@ const CARD_AT: Vec3 = [0.0, 0.3, 0.0];
 const CARD_SIZE: (f64, f64) = (11.0, 5.8);
 /// Where the card's four pieces stand across.
 const CARD_COLS: [f64; 4] = [-4.0, -1.5, 1.4, 4.2];
-/// The columns of 04_6's rows, and how far one place is.
-const ROW_X0: f64 = -4.3;
-const PLACE: f64 = 2.0;
+/// 04_2: the two small windows (the piece 1, flat; the piece x, steepness
+/// 1), the row above them and the tag "we need 1". The tag stands between
+/// the windows' tops and the row (it stood on the second window's corner,
+/// half over its border).
+const WIN_ONE_AT: Vec3 = [-3.2, -1.7, 0.0];
+const WIN_X_AT: Vec3 = [1.0, -1.7, 0.0];
+const WIN_SIZE: (f64, f64) = (3.0, 2.4);
+const ONE_AT: Vec3 = [-2.2, 0.9, 0.0];
+const PLUS_X_AT: Vec3 = [0.1, 0.9, 0.0];
+const NEED_ONE_AT: Vec3 = [-1.1, -0.1, 0.0];
+/// 04_6: the rows' heights, where the labels' right edges (their "=" signs)
+/// stand, the columns of the rows, and how far one place is. The labels
+/// were centred at -6.0 and began 0.1 from the frame's edge, the block
+/// leaning left with the right of the frame empty.
+const ROW_TOP_Y: f64 = 1.0;
+const ROW_LOW_Y: f64 = -1.0;
+const LABEL_RIGHT: f64 = -4.35;
+const ROW_X0: f64 = -3.6;
+const PLACE: f64 = 1.9;
+/// The endless row of 04_6, centred at the top.
+const ENDLESS_TEX: &str = "e^{x} = 1 + x + \\frac{x^{2}}{2!} + \\frac{x^{3}}{3!} + \\cdots";
+const ENDLESS_AT: Vec3 = [0.2, 2.85, 0.0];
+
+/// The centre of column `k` of 04_6's rows.
+fn column(k: usize) -> f64 {
+    ROW_X0 + PLACE * k as f64
+}
+
+/// The windows of 04_2, one for each piece.
+fn windows() -> (Frame2, Frame2) {
+    let win = |at: Vec3| Frame2 {
+        center: at,
+        width: WIN_SIZE.0,
+        height: WIN_SIZE.1,
+        x: (0.0, 2.0),
+        y: (0.0, 2.0),
+    };
+    (win(WIN_ONE_AT), win(WIN_X_AT))
+}
+
+/// The labels "f(x) =" and "f'(x) =" of 04_6, their right edges on one
+/// line so the two "=" signs stand one over the other.
+fn row_labels(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
+    let f = kit.tex(stage, "f(x) =", 60.0, Palette::ink(), &[], v(LABEL_RIGHT, ROW_TOP_Y))?;
+    let d = kit.tex(stage, "f'(x) =", 60.0, rule(), &[], v(LABEL_RIGHT, ROW_LOW_Y))?;
+    stage.move_to(f, v(LABEL_RIGHT, ROW_TOP_Y), RIGHT);
+    stage.move_to(d, v(LABEL_RIGHT, ROW_LOW_Y), RIGHT);
+    Ok((f, d))
+}
 
 /// The pieces of the series as TeX, by degree: `1`, `x`, `x^2/2!`, ...
 fn piece(k: u32) -> String {
@@ -106,17 +152,10 @@ impl SceneConstruct for TheSeries {
         // 04_2: one has rate zero and we need one; add x, which climbs at
         // rate one
         let line = say(&kit, stage, "04_2")?;
-        let one = kit.tex(stage, "1", 90.0, result(), &[], v(-2.2, 0.9))?;
-        let plus_x = kit.tex(stage, "+ \\; x", 90.0, rule(), &[], v(0.1, 0.9))?;
+        let one = kit.tex(stage, "1", 90.0, result(), &[], ONE_AT)?;
+        let plus_x = kit.tex(stage, "+ \\; x", 90.0, rule(), &[], PLUS_X_AT)?;
         // two small windows: the piece 1, flat; the piece x, steepness 1
-        let win = |at: Vec3| Frame2 {
-            center: at,
-            width: 3.0,
-            height: 2.4,
-            x: (0.0, 2.0),
-            y: (0.0, 2.0),
-        };
-        let (win_one, win_x) = (win(v(-3.2, -1.7)), win(v(1.0, -1.7)));
+        let (win_one, win_x) = windows();
         let mut windows = Vec::new();
         for w in [win_one, win_x] {
             windows.push(stage.arena_mut().add(w.border(Palette::faint())?));
@@ -132,7 +171,7 @@ impl SceneConstruct for TheSeries {
                 .build(),
         );
         let rate_zero = kit.text(stage, RATE_ZERO, 34.0, warn(), v(-3.2, -3.35))?;
-        let need_one = kit.text(stage, NEED_ONE, 30.0, Palette::dim(), v(-0.6, -0.4))?;
+        let need_one = kit.text(stage, NEED_ONE, 30.0, Palette::dim(), NEED_ONE_AT)?;
         let rate_one = kit.text(stage, RATE_ONE, 34.0, rule(), v(1.0, -3.35))?;
         line.wait_for(stage, "Start with one")?;
         // the line that waited for the pieces ran through the 1 and the x
@@ -353,10 +392,8 @@ impl SceneConstruct for TheSeries {
         leaving.extend(&plus);
         leaving.extend([back, back_tag, four]);
         fade_out_all(stage, &leaving, 0.5)?;
-        let (top_y, low_y) = (1.0, -1.0);
-        let column = |k: usize| ROW_X0 + PLACE * k as f64;
-        let f_label = kit.tex(stage, "f(x) =", 60.0, ink, &[], v(-6.0, top_y))?;
-        let d_label = kit.tex(stage, "f'(x) =", 60.0, rule(), &[], v(-6.0, low_y))?;
+        let (top_y, low_y) = (ROW_TOP_Y, ROW_LOW_Y);
+        let (f_label, d_label) = row_labels(&kit, stage)?;
         let mut terms = Vec::new();
         for k in 0..5 {
             terms.push(kit.tex(stage, &piece(k as u32), 62.0, ink, &[], v(column(k), top_y))?);
@@ -400,14 +437,7 @@ impl SceneConstruct for TheSeries {
                 .build()?
                 .moved_to(box_at),
         );
-        let endless = kit.tex(
-            stage,
-            "e^{x} = 1 + x + \\frac{x^{2}}{2!} + \\frac{x^{3}}{3!} + \\cdots",
-            62.0,
-            result(),
-            &[],
-            v(0.2, 2.85),
-        )?;
+        let endless = kit.tex(stage, ENDLESS_TEX, 62.0, result(), &[], ENDLESS_AT)?;
         let mut ins = vec![f_label, d_label];
         ins.extend(&terms);
         ins.extend(&rates);
@@ -452,9 +482,116 @@ fn strip_points(frame: &Frame2, x: f64) -> Vec<Vec3> {
 
 #[cfg(test)]
 mod tests {
+    use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{fact, testing};
     use super::*;
     use crate::model::{exp_partial, factorial};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 04_2 (the dense read of the scored draft): the tag "we need 1" stands
+    /// clear of both windows (it stood on the second one's top left corner,
+    /// half over its border) and under the row's "1" and "+ x".
+    #[test]
+    fn the_tag_we_need_one_stands_clear_of_the_windows_and_the_row() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let tag = kit.text(stage, NEED_ONE, 30.0, Palette::dim(), NEED_ONE_AT)?;
+            let one = kit.tex(stage, "1", 90.0, result(), &[], ONE_AT)?;
+            let plus_x = kit.tex(stage, "+ \\; x", 90.0, rule(), &[], PLUS_X_AT)?;
+            let (win_one, win_x) = windows();
+            let (tag_top, tag_foot) = (stage.get_top(tag)[1], stage.get_bottom(tag)[1]);
+            for (name, w) in [("first", win_one), ("second", win_x)] {
+                let top = w.center[1] + w.height / 2.0;
+                let (l, r) = (w.center[0] - w.width / 2.0, w.center[0] + w.width / 2.0);
+                let (tl, tr) = (stage.get_left(tag)[0], stage.get_right(tag)[0]);
+                let clear_above = tag_foot > top + 0.1;
+                let clear_aside = tr < l - 0.05 || tl > r + 0.05;
+                assert!(
+                    clear_above || clear_aside,
+                    "the tag ({tl:.2} to {tr:.2}, {tag_foot:.2} to {tag_top:.2}) touches the {name} window's border ({l:.2} to {r:.2}, top {top:.2})"
+                );
+            }
+            for (name, m) in [("1", one), ("+ x", plus_x)] {
+                assert!(
+                    tag_top < stage.get_bottom(m)[1] - 0.1,
+                    "the tag's top {tag_top:.2} against the {name}'s foot {:.2}",
+                    stage.get_bottom(m)[1]
+                );
+            }
+            Ok(())
+        });
+    }
+
+    /// 04_6 (the dense read): the rows have room at both sides of the frame
+    /// (the labels began 0.1 from the left edge and the block leaned left),
+    /// the labels' "=" signs stand one over the other and clear of the first
+    /// term, and the endless row is inside the frame too.
+    #[test]
+    fn the_rows_of_04_6_stand_inside_the_frame_with_room_to_spare() {
+        const ROOM: f64 = 0.4;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let (f_label, d_label) = row_labels(&kit, stage)?;
+            let first = kit.tex(stage, &piece(0), 62.0, Palette::ink(), &[], v(column(0), ROW_TOP_Y))?;
+            let dots = kit.tex(stage, "\\cdots", 62.0, rule(), &[], v(column(5), ROW_LOW_Y))?;
+            let late = kit.tex(stage, &piece(4), 62.0, rule(), &[], v(column(4), ROW_LOW_Y))?;
+            let endless = kit.tex(stage, ENDLESS_TEX, 62.0, result(), &[], ENDLESS_AT)?;
+            let left = stage.get_left(f_label)[0].min(stage.get_left(d_label)[0]);
+            let right = stage.get_right(dots)[0].max(stage.get_right(late)[0]);
+            assert!(
+                left > -FRAME_X_RADIUS + ROOM,
+                "the labels begin {left:.2} (the frame's edge is {:.2})",
+                -FRAME_X_RADIUS
+            );
+            assert!(
+                right < FRAME_X_RADIUS - ROOM,
+                "the rows end {right:.2} (the frame's edge is {FRAME_X_RADIUS:.2})"
+            );
+            // the block is centred: no more than 0.3 between the two margins
+            let (lm, rm) = (left + FRAME_X_RADIUS, FRAME_X_RADIUS - right);
+            assert!((lm - rm).abs() < 0.3, "margins {lm:.2} left, {rm:.2} right");
+            // the equals signs: both labels end on the same line
+            let (fr, dr) = (stage.get_right(f_label)[0], stage.get_right(d_label)[0]);
+            assert!((fr - dr).abs() < 1e-6, "{fr:.3} against {dr:.3}");
+            // clear of the first term, and the rows' columns clear of each other
+            assert!(
+                stage.get_left(first)[0] > fr + 0.3,
+                "the first term is too near the label"
+            );
+            assert!(
+                stage.get_left(dots)[0] > stage.get_right(late)[0] + 0.1,
+                "the dots touch the last term"
+            );
+            // the endless row inside the frame, and under its top edge
+            let (el, er, et) = (
+                stage.get_left(endless)[0],
+                stage.get_right(endless)[0],
+                stage.get_top(endless)[1],
+            );
+            assert!(
+                el > -FRAME_X_RADIUS + ROOM && er < FRAME_X_RADIUS - ROOM,
+                "{el:.2} to {er:.2}"
+            );
+            assert!(et < FRAME_Y_RADIUS - ROOM, "the endless row's top {et:.2}");
+            Ok(())
+        });
+    }
 
     /// 04_2 to 04_5: each piece is the last piece's integral, and the last
     /// piece is its rate: the coefficient `k / k!` of the rate of `x^k / k!`

@@ -36,11 +36,18 @@ use crate::model::{Mat, expm_t, quarter_turn};
 // ------------------------------------------------------------------ choices
 
 /// The plane of the field sits left of centre, so the rule's grid and its
-/// readouts have the right of the frame.
+/// readouts have the right of the frame. Its unit is what the field's
+/// reach needs: the corner dots go round at 2.85 units, their arrows reach
+/// 2.92, and at a unit of 1.3 the arrowheads of 09_3 came within 0.06 of
+/// the frame's top edge (`FIELD_MARGIN` is the least room now).
 const PLANE: Plane = Plane {
     centre: [-2.9, 0.15, 0.0],
-    unit: 1.3,
+    unit: 1.2,
 };
+/// The room the field's arrows and trails leave to the frame's edge (what
+/// the test holds the plane's unit to).
+#[cfg(test)]
+const FIELD_MARGIN: f64 = 0.3;
 /// Plane units of arrow per unit of speed, and the arrow's head, on screen.
 const GAIN: f64 = 0.22;
 const HEAD: f64 = 0.13;
@@ -737,6 +744,64 @@ mod tests {
     use super::*;
     use crate::chapters::flow::placed;
     use crate::model::{factorial, series};
+
+    /// 09_3 (the dense read of the scored draft): however the rule is
+    /// followed, the quarter turn that carries the corner dots round, the
+    /// inward spiral it slides to and the rules between, no dot, arrow or
+    /// trail of the field comes nearer than `FIELD_MARGIN` to an edge of the
+    /// frame (the arrowheads of the corner dots came within 0.06 of the top).
+    #[test]
+    fn the_field_keeps_its_margin_to_the_frames_edge_however_the_rule_is_followed() {
+        use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
+        let starts = field_starts();
+        let (mut top, mut bottom, mut left, mut right) = (f64::MIN, f64::MAX, f64::MAX, f64::MIN);
+        let mut see = |q: [f64; 2]| {
+            let p = PLANE.p(q[0], q[1]);
+            top = top.max(p[1]);
+            bottom = bottom.min(p[1]);
+            left = left.min(p[0]);
+            right = right.max(p[0]);
+        };
+        let (from, to) = (quarter_turn(), spiral_rule());
+        for slide in 0..=10 {
+            let u = f64::from(slide) / 10.0;
+            let rule_now = Mat::from_rows(&[
+                &[
+                    (1.0 - u) * from.get(0, 0) + u * to.get(0, 0),
+                    (1.0 - u) * from.get(0, 1) + u * to.get(0, 1),
+                ],
+                &[
+                    (1.0 - u) * from.get(1, 0) + u * to.get(1, 0),
+                    (1.0 - u) * from.get(1, 1) + u * to.get(1, 1),
+                ],
+            ]);
+            for step in 0..=40 {
+                let t = FLOW_T * f64::from(step) / 40.0;
+                for (i, q) in placed(&rule_now, t, &starts).into_iter().enumerate() {
+                    see(q);
+                    let (_, tip) = velocity_ends(&rule_now, q, GAIN);
+                    see(tip);
+                    if i % FIELD_COLS == 0 || i < FIELD_COLS || i + FIELD_COLS >= starts.len() {
+                        for way in path(&rule_now, t, starts[i], 12) {
+                            see(way);
+                        }
+                    }
+                }
+            }
+        }
+        assert!(
+            top < FRAME_Y_RADIUS - FIELD_MARGIN && bottom > -FRAME_Y_RADIUS + FIELD_MARGIN,
+            "the field reaches {bottom:.2} to {top:.2} of a frame {:.2} high",
+            2.0 * FRAME_Y_RADIUS
+        );
+        assert!(
+            left > -FRAME_X_RADIUS + FIELD_MARGIN && right < FRAME_X_RADIUS - FIELD_MARGIN,
+            "the field reaches {left:.2} to {right:.2} of a frame {:.2} wide",
+            2.0 * FRAME_X_RADIUS
+        );
+        // and it stays left of the rule's grid and its readouts
+        assert!(right < COLUMN_X - 2.5, "the field's right edge {right:.2}");
+    }
 
     /// Term k of the series for e^{tA}: t^k A^k / k!.
     fn term(a: &Mat, t: f64, k: u32) -> Mat {
