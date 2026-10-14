@@ -69,6 +69,13 @@ const QUARTER: f64 = FRAC_PI_2;
 const ARM_AT: [f64; 2] = [-3.1, -2.55];
 const CARD_AT: [f64; 2] = [4.45, -0.85];
 const CARD_SCALE: f64 = 0.9;
+/// The crossed-out road of 09_6: the left of its three lines and their size,
+/// small enough that the longest ends inside the frame's margin.
+const ALT_AT: [f64; 2] = [3.6, -1.2];
+const ALT_PT: f64 = 26.0;
+/// The readout's heading (centred) and the sum written out under it (left).
+const HEAD_AT: [f64; 2] = [4.8, READ_Y + 0.72];
+const SUM_AT: [f64; 2] = [2.15, 0.6];
 /// The recipe's row, and its factors' gap.
 const ROW_Y: f64 = 3.2;
 const ROW_GAP: f64 = 0.55;
@@ -306,7 +313,7 @@ impl SceneConstruct for ByHand {
         world.show(stage, 0.8)?;
         // the tip readout: three numbers read off the moving arm every
         // frame (a live number redraws at full opacity, so it comes in whole)
-        let head = kit.text(stage, TIP_HEAD, 28.0, Palette::dim(), v(4.8, READ_Y + 0.72))?;
+        let head = kit.text(stage, TIP_HEAD, 28.0, Palette::dim(), v(HEAD_AT[0], HEAD_AT[1]))?;
         let mut captions = Vec::new();
         for (x, word) in READ_X.iter().zip([FORWARD, SIDEWAYS, UP]) {
             captions.push(kit.text(stage, word, 26.0, Palette::dim(), v(*x - 0.62, READ_Y - 0.58))?);
@@ -385,8 +392,8 @@ impl SceneConstruct for ByHand {
             cm(flange),
             cm(p[2])
         );
-        let s1 = kit.text_left(stage, &sum_forward, 30.0, Palette::ink(), v(2.15, 0.6))?;
-        let s2 = kit.text_left(stage, &sum_up, 30.0, Palette::ink(), v(2.15, 0.15))?;
+        let s1 = kit.text_left(stage, &sum_forward, 30.0, Palette::ink(), v(SUM_AT[0], SUM_AT[1]))?;
+        let s2 = kit.text_left(stage, &sum_up, 30.0, Palette::ink(), v(SUM_AT[0], SUM_AT[1] - 0.45))?;
         fade_in_lagged(stage, &[s1, s2], 1.0, 0.6)?;
 
         // 09_4: joint one, at the base: where does the gripper go?
@@ -445,7 +452,13 @@ impl SceneConstruct for ByHand {
         // the road not taken, crossed out
         let mut alt = Vec::new();
         for (i, words) in SHOULDER_FIRST.iter().enumerate() {
-            alt.push(kit.text_left(stage, words, 28.0, Palette::dim(), v(3.6, -1.2 - 0.45 * i as f64))?);
+            alt.push(kit.text_left(
+                stage,
+                words,
+                ALT_PT,
+                Palette::dim(),
+                v(ALT_AT[0], ALT_AT[1] - 0.45 * i as f64),
+            )?);
         }
         let (a, b) = (v(3.15, -1.0), v(3.45, -1.7));
         let cross = [
@@ -708,6 +721,42 @@ mod tests {
                 width += stage.get_width(f) + ROW_GAP;
             }
             assert!(width - ROW_GAP < 13.6, "the row is {width:.2} wide");
+            Ok(())
+        });
+    }
+
+    /// The long words stay inside the frame's margin (the lint's 0.15 inside
+    /// the 7.11 half width), measured with the real face where the scene
+    /// puts them: the readout's heading, the sum written out, and the three
+    /// lines of the road not taken.
+    #[test]
+    fn the_long_words_end_inside_the_margin() {
+        const EDGE: f64 = 7.11 - 0.15;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let up = format!("36 + 40 + 12.6 = 88.6 {UP}");
+            let head = kit.text(stage, TIP_HEAD, 28.0, Palette::dim(), v(HEAD_AT[0], HEAD_AT[1]))?;
+            let sum = kit.text_left(stage, &up, 30.0, Palette::ink(), v(SUM_AT[0], SUM_AT[1] - 0.45))?;
+            assert!(
+                stage.get_right(head)[0] < EDGE,
+                "the heading ends at {}",
+                stage.get_right(head)[0]
+            );
+            assert!(stage.get_right(sum)[0] < EDGE);
+            for (i, words) in SHOULDER_FIRST.iter().enumerate() {
+                let m = kit.text_left(
+                    stage,
+                    words,
+                    ALT_PT,
+                    Palette::dim(),
+                    v(ALT_AT[0], ALT_AT[1] - 0.45 * i as f64),
+                )?;
+                assert!(
+                    stage.get_right(m)[0] < EDGE,
+                    "{words:?} ends at {}",
+                    stage.get_right(m)[0]
+                );
+            }
             Ok(())
         });
     }
