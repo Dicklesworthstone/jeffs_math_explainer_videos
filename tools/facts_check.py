@@ -10,6 +10,11 @@ the oracle's output with the identical value. The oracle may print more
 (research rows the video does not show). Exit 1 on any missing key, differing value, repeated key or an
 empty list, 2 on usage.
 
+Once a video has its documented allow-list (docs/description_numbers.tsv), the
+published description is checked too: every number in docs/description.md must
+be one of these facts or an allow-listed row (tools/description_numbers.py,
+doctrine 2; Video J's description once said 81.9 g for the facts' 90.9).
+
 Where `rch` is installed the build runs on a worker (nothing compiles on the
 owner's Mac): HEAD plus the changed and new tracked-or-unignored files as
 overlays, so gitignored renders are never synced. Set RUSTUP_TOOLCHAIN (see
@@ -18,6 +23,7 @@ AGENTS.md, Toolchain). On a build machine that opts out of the fleet
 is absent, it is plain `cargo`.
 """
 
+import importlib.util
 import os
 import pathlib
 import re
@@ -72,6 +78,25 @@ def oracle_packages(oracle):
     return packages
 
 
+def description_problems(crate, facts_text):
+    """None when the video has no description allow-list yet; otherwise (summary line, problems)
+    from tools/description_numbers.py over docs/description.md against `facts_text`."""
+    allow = crate / "docs" / "description_numbers.tsv"
+    description = crate / "docs" / "description.md"
+    if not allow.is_file():
+        return None
+    if not description.is_file():
+        return f"description-numbers {crate.name}: no docs/description.md", ["description: missing"]
+    # loaded by path: python3 -I keeps this script's directory off sys.path
+    spec = importlib.util.spec_from_file_location("description_numbers", ROOT / "tools" / "description_numbers.py")
+    numbers = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(numbers)
+    _, problems, c = numbers.check(description.read_text(), facts_text, numbers.read_allow(allow))
+    summary = (f"description-numbers {crate.name}: {c['numbers']} numbers, {c['fact']} facts, "
+               f"{c['allowed']} allow-listed, {c['unmatched']} unmatched: {'PASS' if not problems else f'{len(problems)} FAIL'}")
+    return summary, [f"description: {p}" for p in problems]
+
+
 def main(argv):
     if len(argv) != 1:
         sys.exit(__doc__)
@@ -105,10 +130,14 @@ def main(argv):
             problems.append(f"{key}: only in the video ({value})")
         elif theirs[key] != value:
             problems.append(f"{key}: video {value}, oracle {theirs[key]}")
-    for p in problems:
+    described = description_problems(crate, oracle.stdout + "\n" + video.stdout)
+    for p in problems + (described[1] if described else []):
         print("MISMATCH " + p)
     print(f"facts-check {slug}: {len(ours)} video facts against {len(theirs)} oracle keys: "
           f"{'PASS' if not problems else f'{len(problems)} FAIL'}")
+    if described:
+        print(described[0])
+        problems += described[1]
     return 1 if problems else 0
 
 
