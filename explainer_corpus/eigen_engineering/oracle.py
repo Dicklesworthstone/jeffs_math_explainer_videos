@@ -455,6 +455,20 @@ def truss(carts_table):
             emit("K-P2.force_error_percent.1", fixed(off / np.abs(forces).max() * 100, 0))
             emit("K-P2.move_error_mm.1", fixed(np.abs(from_patterns(1) - moves).max() * 1e3, 1))
 
+    # one sharp load against the same truncation: the softest pattern's share of
+    # the drop right under it, 4, 8 and 12 m from the pin, and how many patterns
+    # bring the midspan load within 2.5% under it
+    for joint, metres in ((1, 4), (2, 8), (3, 12)):
+        _, sharp, _, _, push = solve([(joint, -LOAD_N)])
+        under = FREE.index(2 * joint + 1)
+        coefficients = q.T @ push
+        emit(f"K-P2.lone_pct.{metres}m",
+             fixed(q[under, 0] * coefficients[0] / lam[0] / sharp[under] * 100, 0))
+        if metres == 12:
+            need = next(n for n in range(1, len(lam) + 1)
+                        if abs(q[under, :n] @ (coefficients[:n] / lam[:n]) / sharp[under] - 1) < 0.025)
+            emit("K-P2.lone_within_2p5.12m", need)
+
     # with mass: K phi = w^2 M phi, as the eigenpairs of M^-1 K
     def joint_kg(deck_kg):
         kg = np.zeros(len(JOINTS))
@@ -502,6 +516,10 @@ def truss(carts_table):
     emit("K-V1.at_right_angles_with_mass", bool(np.abs(gram - np.eye(len(hz))).max() < 1e-9))
     plain = phi / np.linalg.norm(phi, axis=0)
     emit("K-V1.at_right_angles_without", bool(np.abs(plain.T @ plain - np.eye(len(hz))).max() < 1e-9))
+    # how close each mode is to K's own pattern of the same rank (squared cosine)
+    for i in range(8):
+        cosine = float(phi[:, i] @ q[:, i]) / (np.linalg.norm(phi[:, i]) * np.linalg.norm(q[:, i]))
+        emit(f"K-V1.overlap.{i + 1}", fixed(cosine * cosine, 2))
     heavy, _, _ = modes(2 * DECK_KG)
     emit("K-V2.deck_kg", fixed(2 * DECK_KG, 0))
     emit("K-V2.hz.1", fixed(heavy[0], 1))

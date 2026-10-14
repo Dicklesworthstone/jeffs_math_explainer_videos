@@ -610,6 +610,34 @@ fn patterns(f: &mut Facts) -> Result<(), String> {
             f.add("K-P2.move_error_mm.1", fixed(astray * 1e3, 1)?)?;
         }
     }
+    // one sharp load (100 kN on one deck joint) against the same truncation:
+    // how much of the drop right under it the softest pattern gives, 4, 8 and
+    // 12 m from the pin (R2 D5: "good enough for how far this load sags" is
+    // true of the five-load deck load and of no sharper one)
+    for (joint, metres) in [(1usize, 4u32), (2, 8), (3, 12)] {
+        let sharp = t.pushes(&[(joint, 0.0, -truss::DECK_LOAD_N)]);
+        let direct = t.moves(&sharp);
+        let under = t
+            .free()
+            .iter()
+            .position(|&d| d == 2 * joint + 1)
+            .ok_or("a deck joint is held")?;
+        let one = t.moves_from_patterns(&e, &sharp, 1);
+        f.add(
+            &format!("K-P2.lone_pct.{metres}m"),
+            fixed(one[under] / direct[under] * 100.0, 0)?,
+        )?;
+        if metres == 12 {
+            // how many patterns bring the midspan load within 2.5% under it
+            let need = (1..=e.values.len())
+                .find(|&n| {
+                    let u = t.moves_from_patterns(&e, &sharp, n);
+                    (u[under] / direct[under] - 1.0).abs() < 0.025
+                })
+                .ok_or("no count of patterns comes within 2.5%")?;
+            f.add("K-P2.lone_within_2p5.12m", need)?;
+        }
+    }
     Ok(())
 }
 
@@ -667,6 +695,17 @@ fn vibration(f: &mut Facts) -> Result<(), String> {
     }
     f.add("K-V1.at_right_angles_with_mass", with_mass < 1e-9)?;
     f.add("K-V1.at_right_angles_without", plain < 1e-9)?;
+    // how close each mode is to K's own pattern of the same rank: the squared
+    // cosine between them (R2 R-04: "at the low end the own patterns shift a
+    // little" is true of the lowest few modes only)
+    let own = t.patterns();
+    for (k, (phi, q)) in modes.vectors.iter().zip(&own.vectors).enumerate().take(8) {
+        let c = dot(phi, q);
+        f.add(
+            &format!("K-V1.overlap.{}", k + 1),
+            fixed(c * c / (dot(phi, phi) * dot(q, q)), 2)?,
+        )?;
+    }
 
     let heavy = t.hertz(shown::HEAVY_DECK_KG);
     f.add("K-V2.deck_kg", fixed(shown::HEAVY_DECK_KG, 0)?)?;
@@ -1403,6 +1442,30 @@ mod tests {
         assert!(modes.iter().all(|(_, hz)| *hz < 149.0), "none is near 150 Hz");
         assert_eq!(f.get("K-Q.09_4.answer"), Some("68.6"));
         assert_eq!(tones[0], 68.6);
+    }
+
+    /// What 06_7's card and 07_1's lower-third say, as numbers: a sharp load
+    /// needs far more than the softest pattern, and only the lowest few modes
+    /// are close to K's own patterns.
+    #[test]
+    fn the_sharp_load_and_the_overlaps_say_what_the_storyboard_says() {
+        let f = facts().unwrap();
+        for (key, want) in [
+            ("K-P2.lone_pct.4m", "42"),
+            ("K-P2.lone_pct.8m", "76"),
+            ("K-P2.lone_pct.12m", "86"),
+            ("K-P2.lone_within_2p5.12m", "10"),
+        ] {
+            assert_eq!(f.get(key), Some(want), "{key}");
+        }
+        let overlaps: Vec<&str> = (1..=8)
+            .map(|i| f.get(&format!("K-V1.overlap.{i}")).expect("an overlap"))
+            .collect();
+        assert_eq!(overlaps, ["1.00", "0.99", "0.98", "0.86", "0.85", "0.79", "0.10", "0.02"]);
+        // the lowest three are the "shift a little" of 07_1; the rest are not
+        let c: Vec<f64> = overlaps.iter().map(|s| s.parse().unwrap()).collect();
+        assert!(c[..3].iter().all(|&x| x >= 0.97));
+        assert!(c[6] < 0.2);
     }
 
     /// Every quiz has its answer, and the answers the script speaks.

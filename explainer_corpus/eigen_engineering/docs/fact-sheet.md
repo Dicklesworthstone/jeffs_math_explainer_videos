@@ -240,8 +240,8 @@ Edges found by the R2 readers and recomputed here (2026-10-13), same method.
 
 | Line | Sentence | Edge test | Result |
 |---|---|---|---|
-| 06_6 | "Good enough for how far this load sags." | the softest pattern alone against the drop under a lone 100 kN load at 4, 8 and 12 m, and how many patterns a lone midspan load needs | 41.8%, 75.8% and 86.3%; 10 patterns for 2.5% at midspan. True of the five-load deck load (99.6%), not of a sharp one; "this load" (R2 D5, D-55) |
-| 07_1 | "At the low end the own patterns shift a little into what engineers call modes" | squared overlap of mode i with K's own pattern i, first eight | 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, 0.10, 0.02: true of the lowest few only, hence "at the low end" (R2 R-04); a fact to pin: `K-V1.overlap.*` |
+| 06_6 | "Good enough for how far this load sags." | the softest pattern alone against the drop under a lone 100 kN load at 4, 8 and 12 m, and how many patterns a lone midspan load needs | 42%, 76% and 86% (`K-P2.lone_pct.4m`, `.8m`, `.12m`); 10 patterns for 2.5% at midspan (`K-P2.lone_within_2p5.12m`). True of the five-load deck load (99.6%), not of a sharp one; "this load" (R2 D5, D-55) |
+| 07_1 | "At the low end the own patterns shift a little into what engineers call modes" | squared overlap of mode i with K's own pattern i, first eight | 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, 0.10, 0.02: true of the lowest few only, hence "at the low end" (R2 R-04); `K-V1.overlap.1` to `.8` |
 | 13_3 | "The economy keeps three tenths of equal amounts of each." | what is kept of (10, 10), (30, 10) and (10, 30) | 30%, 35%, 25%: three tenths is true of equal amounts only (R2 D4, M-30) |
 | 13_4 | "eighteen of one pattern and four of the other" | the dot-product recipe of 06_5 on (30, 10) against solving the two equations | the recipe gives (20, 5.38) and rebuilds (36.2, 9.2); the patterns (1, 1) and (3, −2) are not at right angles, so the shares are solved: 18 and 4 (R2 D3) |
 | 11_3, 11_4 | "Which has several modes on exactly one tone" | the P3 walk's enumeration, windows of 0.5, 2 and 4.4 Hz (4.4 Hz is the small room's own mode width, 2.2 ÷ 0.5 s), below 100 and below 200 Hz | most modes in one window of 0.5, 2 and 4.4 Hz. Below 100 Hz: cube 3, 3, 3; narrow room 1, 1, 3; ordinary room 1, 2, 3. Below 200 Hz: cube 6, 6, 6; narrow and ordinary 2, 4, 6. The cube is never worse, is the only room with exact coincidences, and ties at 4.4 Hz, hence "exactly one tone" (R2 D16) |
@@ -572,6 +572,10 @@ footbridge-specific deflection limit.
 | `K-P2.force_error_kn.5` | 44 |
 | `K-P2.force_error_kn.15` | 8 |
 | `K-P2.force_error_kn.21` | 0 |
+| `K-P2.lone_pct.4m` | 42 |
+| `K-P2.lone_pct.8m` | 76 |
+| `K-P2.lone_pct.12m` | 86 |
+| `K-P2.lone_within_2p5.12m` | 10 |
 
 ### The truss: vibration
 
@@ -594,6 +598,14 @@ footbridge-specific deflection limit.
 | `K-V1.shape.3` | s |
 | `K-V1.at_right_angles_with_mass` | true |
 | `K-V1.at_right_angles_without` | false |
+| `K-V1.overlap.1` | 1.00 |
+| `K-V1.overlap.2` | 0.99 |
+| `K-V1.overlap.3` | 0.98 |
+| `K-V1.overlap.4` | 0.86 |
+| `K-V1.overlap.5` | 0.85 |
+| `K-V1.overlap.6` | 0.79 |
+| `K-V1.overlap.7` | 0.10 |
+| `K-V1.overlap.8` | 0.02 |
 | `K-V2.deck_kg` | 8000 |
 | `K-V2.hz.1` | 4.3 |
 | `K-V2.direction` | down |
@@ -615,6 +627,7 @@ footbridge-specific deflection limit.
 | `K-R2.second_mode` | 0, 0, 1 |
 | `K-R2.rule_hz` | 68.6 |
 | `K-R2.voice_hz` | 107.2, 137.2 |
+| `K-R2.tones_to_150_hz` | 68.6, 71.5, 99.1, 107.2, 127.3, 128.8, 137.2, 142.9, 146.0 |
 | `K-R3.side_m` | 3 |
 | `K-R3.first_hz` | 57.2 |
 | `K-R3.first_count` | 3 |
