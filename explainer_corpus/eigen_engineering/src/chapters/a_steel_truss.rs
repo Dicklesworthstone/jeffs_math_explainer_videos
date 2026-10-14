@@ -173,7 +173,7 @@ impl SceneConstruct for ASteelTruss {
         let member_label = kit.text(stage, "member", 26.0, ink, v(spring_mid[0], spring_mid[1] - 0.45))?;
         let e_gpa = whole(numbers("K-T1.e_gpa")?[0]);
         let area = thousands_tex(chord_mm2);
-        let panel_mm = whole(numbers("K-T1.panel_m")?[0] * 1000.0);
+        let panel_mm = thousands_tex((numbers("K-T1.panel_m")?[0] * 1000.0).round() as u64);
         let spring = whole(numbers("K-T1.spring_kn_per_mm")?[0]);
         let numbers_line = kit.tex(
             stage,
