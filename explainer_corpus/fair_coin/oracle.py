@@ -910,6 +910,23 @@ def description_facts():
         in_twenty.add(dec(20 * inside, 0))
     check("every fair band holds 19 chances in 20, to the nearest whole chance", in_twenty == {"19"})
     emit("E-D.fair_band.chances_in_20", next(iter(in_twenty)))
+    # "p = 4/5", "1/5", "p = 1/2" and the draws "below 0.8", "below 0.2", "below 0.5" of the replay notes: the chances the
+    # description writes as fractions and decimals (the video shows 80, 20 and 50 percent)
+    half = F(1, 2)
+    emit("E-D.coin.heads_chance", dec(P, 1))
+    emit("E-D.coin.heads_chance.exact", exact(P))
+    emit("E-D.coin.tails_chance", dec(Q_, 1))
+    emit("E-D.coin.tails_chance.exact", exact(Q_))
+    emit("E-D.coin.fair_chance", dec(half, 1))
+    emit("E-D.coin.fair_chance.exact", exact(half))
+    check("the description's 4/5, 1/5 and 1/2 are the facts' 80, 20 and 50 percent (the coin, the coin with a memory, the second coin)",
+          pct(P) == _EMITTED["E-F1.heads_percent"] == _EMITTED["E-F6.sticky.repeat_percent"]
+          and pct(Q_) == _EMITTED["E-F1.tails_percent"] and pct(half) == _EMITTED["E-F5.two_coins.second_percent"])
+    check("a caller as likely to name either side wins 1/2 * 4/5 + 1/2 * 1/5 = 1/2", half * P + half * Q_ == half)
+    # "running total of twentieths (1, 1, 2, 2, 4, 10)" of the loaded die in the replay notes (E-F9.loaded.percents is five times these)
+    emit("E-D.dice.loaded.twentieths", ",".join(str(x) for x in LOADED))
+    check("the loaded die's twentieths add to twenty and are one fifth of E-F9.loaded.percents",
+          sum(LOADED) == 20 and ",".join(str(5 * x) for x in LOADED) == _EMITTED["E-F9.loaded.percents"])
 
 
 def main():

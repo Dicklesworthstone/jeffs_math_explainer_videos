@@ -37,27 +37,32 @@ loaded one.
 
 What the narration says in plain words, stated exactly.
 
-**The coin.** The 80% coin is a model. A coin that is flipped and caught
-cannot be made to favour a side by weighting it (Gelman and Nolan 2002); a
+**The coin.** The 80% coin is a model [E-F1.heads_percent]. A coin that is
+flipped and caught cannot be made to favour a side by weighting it (Gelman
+and Nolan 2002) [E-C3.gelman_nolan.year]; a
 coin that is spun, or allowed to bounce, can. In one instructor's classroom
 records, 1960s pennies spun on a table landed heads 1,878 times in 5,520
 [E-C3.pennies]; Diaconis, Holmes and Montgomery report students whose spun
-coins "came up fewer than 10% heads" (2007, p. 218). The often-repeated
+coins "came up fewer than 10% heads" (2007, p. 218) [E-C3.diaconis.year].
+The often-repeated
 figure of 80% tails for a spun penny has no data behind it that we could
 find, and the video does not use it.
 
 **Calling it blind.** A call is an even bet only on average over the caller's
 choice: a caller as likely to name either side wins ½ · 4/5 + ½ · 1/5 = ½.
-For this coin and a given call the chance is 4/5 or 1/5. The trick is fair in
-the stronger sense: for the coin as it is, over its tosses alone.
+For this coin and a given call the chance is 4/5 or 1/5
+[E-D.coin.heads_chance.exact, E-D.coin.tails_chance.exact]. The trick is fair
+in the stronger sense: for the coin as it is, over its tosses alone.
 
 **Two bars at 41%.** With four tosses of this coin, four heads and three heads
 are exactly as likely (40.96% each), because p⁴ = 4p³(1 − p) exactly when
-p = 4(1 − p), which is p = 4/5.
+p = 4(1 − p), which is p = 4/5 [E-F8.row4.heads3_percent,
+E-F8.row4.heads4_percent, E-D.coin.heads_chance.exact].
 
 **The trick (chapters 2 and 3).** For two independent tosses with the same
 probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads),
-for every p in [0, 1] [E-F1, E-F4]. The game needs 0 < p < 1: a coin that
+for every p in [0, 1] [E-F1.square.ht, E-F1.square.th, E-F4.p50.ht]. The
+game needs 0 < p < 1: a coin that
 cannot land both ways never produces a differing pair. Independence with one
 shared p is enough, not necessary: all the trick uses is that swapping the
 two tosses of a pair leaves the pair's probability unchanged. The chance may
@@ -66,44 +71,56 @@ pair.
 
 **The price (chapter 4).** A pair differs with probability 2p(1 − p), so the
 number of pairs is geometric and the expected number of tosses is
-1/(p(1 − p)): 6.25 at p = 4/5, 4 at p = 1/2, about 101 at p = 0.99 [E-F3,
-E-F4, E-D.p99.chance]. The game ends with probability one, but for every n it is still going
+1/(p(1 − p)): 6.25 at p = 4/5, 4 at p = 1/2, about 101 at p = 0.99
+[E-F3.expected_tosses, E-F4.p50.expected_tosses, E-F4.p99.expected_tosses,
+E-D.p99.chance, E-D.coin.heads_chance.exact, E-D.coin.fair_chance.exact].
+The game ends with probability one, but for every n it is still going
 after n pairs with probability (1 − 2p(1 − p))ⁿ > 0; at p = 4/5 that is 2.1%
-after ten pairs [E-F3]. No rule that always names a winner within a fixed
+after ten pairs [E-F3.undecided_after.10_pairs_percent]. No rule that always names a winner within a fixed
 number n of tosses is fair for every coin: at p near 1 the all-heads pattern
 has nearly all the probability, and it belongs to one player. (More sharply:
 the first player's chance minus one half is a non-zero polynomial of degree
 at most n in p, so such a rule can be exactly fair for at most n coins.) A
 rule that may end with no result is a different thing: "toss twice, and if
 they match nobody wins" is fair for every coin. Checked for every rule on up
-to five tosses [E-X1].
+to five tosses [E-X1.fixed_rules.n1.fair_for_every_coin, .fair_for_every_coin].
 
 **Two coins (chapter 5).** With chances p₁ then p₂, the two differing pairs
 have probabilities p₁(1 − p₂) and (1 − p₁)p₂, equal exactly when p₁ = p₂.
 With a fair second coin the first coin's chance comes straight back: 0.40
-against 0.10, four to one [E-F5].
+against 0.10, four to one [E-F5.two_coins.ht, E-F5.two_coins.th,
+E-F5.two_coins.ratio].
 
 **A coin with memory (chapter 5).** The model is a two-state Markov chain
 that repeats its last result with probability 4/5; its long-run share of
 heads is exactly one half. After two heads, heads-then-tails has probability
-4/5 × 1/5 and tails-then-heads 1/5 × 1/5 [E-F6]. Played to the end from
+4/5 × 1/5 and tails-then-heads 1/5 × 1/5 [E-F6.sticky.repeat_percent,
+E-F6.sticky.long_run_heads.exact, E-F6.sticky.after_heads.ht.exact,
+E-F6.sticky.after_heads.th.exact, E-D.coin.heads_chance.exact,
+E-D.coin.tails_chance.exact]. Played to the end from
 there, the plain trick gives the heads-first player 8/13, and 5/13 after two
 tails [E-D.sticky.plain_rule.after_heads.exact,
-E-D.sticky.plain_rule.after_tails.exact]; from a long-run start it is exactly one half, and so is the first pair
-of a long run. That is why a tally of wins does not show this break: the
+E-D.sticky.plain_rule.after_tails.exact]; from a long-run start it is exactly
+one half, and so is the first pair of a long run
+[E-F6.sticky.plain_rule.long_run.exact,
+E-F6.sticky.long_run_first_pair.heads_first.exact]. That is why a tally of
+wins does not show this break: the
 winners come out half and half, but each result predicts the next.
 
 Real tossed coins have a little of this. A flipped coin lands the same way up
 as it started about 51% of the time (Diaconis, Holmes and Montgomery 2007,
 whose own unrounded figure was 0.508); 350,757 recorded flips gave 0.508,
-with a 95% credible interval of 0.506 to 0.509 (Bartoš and others, 2025).
+with a 95% credible interval of 0.506 to 0.509 (Bartoš and others, 2025)
+[E-C3.diaconis.same_side_percent, E-C3.diaconis.year, E-C3.bartos.same_side,
+E-C3.bartos.flips, E-C3.bartos.year].
 That is a memory only when each toss starts the way the last one landed.
 
 **The cure.** For a coin that remembers only its last toss, the tosses that
 come straight after a head are independent with one shared chance, so the
 trick applied to those alone is exactly fair when played to the end
 (Samuelson 1968, as described by Elias 1972, who credits the best form of it
-to John W. Pratt; Samuelson's own pages were not seen for this video). Under
+to John W. Pratt; Samuelson's own pages were not seen for this video)
+[E-C2.samuelson.year, E-C2.elias.year]. Under
 a deadline it is not fair: starting straight after a head, of the games
 decided within 8 tosses of this coin the heads-first player wins 64.7%
 [E-D.cure.deadline.tosses, E-D.cure.deadline.heads_first_percent],
@@ -122,17 +139,25 @@ of n different values are equally likely, whatever the die's chances. With
 the video's die (5, 5, 10, 10, 20 and 50 percent) two rolls differ 68.5% of
 the time, 2.9 rolls for each fair decision; three rolls all differ 32.6% of
 the time, 9.2 rolls for each roll of a fair die; four all differ 10.4% of the
-time [E-F9, E-D.dice.four_rolls.works_percent]. The face is read from the order alone, never from which numbers
+time [E-F9.loaded.percents, E-F9.two_rolls.decides_percent,
+E-F9.two_rolls.expected_rolls, E-F9.three_rolls.works_percent,
+E-F9.three_rolls.expected_rolls, E-D.dice.four_rolls.works_percent]. The face
+is read from the order alone, never from which numbers
 came up.
 
 **What is left (chapter 10).** The trick's long-run yield is p(1 − p) fair
 tosses per toss: 0.16 at p = 4/5 and 0.25 for a fair coin, the "at most 25
-percent" of the 1951 summary. The ceiling is the binary entropy
+percent" of the 1951 summary [E-F10.von_neumann.rate,
+E-F10.fair_coin.von_neumann.rate, E-C1.von_neumann.efficiency_percent,
+E-C1.von_neumann.printed_year, E-D.coin.heads_chance.exact]. The ceiling is
+the binary entropy
 h(p) = −p log₂ p − (1 − p) log₂(1 − p), 0.7219 at p = 4/5: no rule whose
 output is exactly fair can average more per toss over a long run (Elias
-1972, Theorem 1). A single run of 100 tosses can give more than 72; the
+1972, Theorem 1) [E-F10.entropy, E-C2.elias.year]. A single run of 100 tosses
+can give more than 72 [E-F10.entropy.per_hundred]; the
 average cannot. Elias's rule on blocks of N tosses and Peres's iterated
-procedure both approach the ceiling and never reach it [E-F10].
+procedure both approach the ceiling and never reach it [E-F10.peres.*,
+E-F10.elias.*].
 
 ## For programmers
 
@@ -146,24 +171,31 @@ procedure both approach the ceiling and never reach it [E-F10].
 - **A cheaper die.** In three tosses that are not all alike, the odd one out
   is equally likely to be first, second or third. That fair one-in-three and
   one coin trick make a die for 12.5 tosses on average at p = 4/5, against
-  26 for "four tosses with exactly two heads" [E-F8]. Do not map the six
-  not-all-alike patterns straight onto six faces: three of them are four
-  times as likely as the other three.
+  26 for "four tosses with exactly two heads" [E-F8.three_plus_coin.expected_tosses,
+  E-F8.four_two.expected_tosses, E-D.coin.heads_chance.exact]. Do not map the
+  six not-all-alike patterns straight onto six faces: three of them are four
+  times as likely as the other three [E-F8.three.heads1.each_percent,
+  E-F8.three.heads2.each_percent].
 - **Coins with memory, using every toss (Blum).** Treat "after a head" and
   "after a tail" as two coins and run the trick on each. A result must be
   announced only when the coin is next in the state that produced it;
   announcing it at once is wrong. On a coin that repeats itself 80% of the
   time, the first two results announced at once come out 15, 15, 35 and 35
   percent where 25 each is fair; announced on return they are 25 each
-  [E-F7, E-D.blum.at_once.percent, E-D.blum.on_return.percent].
+  [E-F6.sticky.repeat_percent, E-F7.blum.*, E-D.blum.at_once.percent,
+  E-D.blum.on_return.percent].
 - **Peres's procedure, as code.** From pairs (a, b): output a when a ≠ b.
   Then recurse on two leftover streams: a XOR b for every pair, and a for
   every pair with a = b. Reusing only the second stream stops near 18 fair
   tosses per hundred at p = 4/5; only the first, near 39; both, they climb
   to 72.2 [E-D.peres.thrown_away_pairs_only.per_hundred,
-  E-D.peres.which_pairs_matched_only.per_hundred, E-F10]. On 100,000 simulated tosses, run until nothing was left, it gave
-  69.6 per hundred [E-S9]. The price of climbing is memory and waiting: a
-  block of 64 tosses must be held before anything comes out. And decide the
+  E-D.peres.which_pairs_matched_only.per_hundred,
+  E-F10.entropy.per_hundred_1dp, E-D.coin.heads_chance.exact]. On 100,000
+  simulated tosses, run until nothing was left, it gave
+  69.6 per hundred [E-S9.squeeze.tosses, E-S9.squeeze.peres_all.per_hundred].
+  The price of climbing is memory and waiting: a
+  block of 64 tosses must be held before anything comes out
+  [E-F10.elias.block64.rate]. And decide the
   number of tosses to read before you start: Peres stresses (Remark 3) that
   stopping his procedure, or Elias's, the moment it has produced the number
   of fair tosses you wanted does not give fair tosses.
@@ -218,18 +250,29 @@ procedure both approach the ceiling and never reach it [E-F10].
 
 Every count and chance in the video is computed by the video's own code and
 checked against an independent script (`./x fair_coin facts-check`); quoted
-numbers (dates, the 0.508, the 350,757 flips) are cited above. The seeded
+numbers (dates, the 0.508, the 350,757 flips) are cited above
+[E-C3.bartos.same_side, E-C3.bartos.flips]. The seeded
 runs can be replayed with NumPy's `Generator(PCG64DXSM(seed))`, seeds 195101
-to 195109 for runs 1 to 9 (1951 is the year the summary was printed): a toss
-is heads when the draw is below 0.8. In run 5 the second toss of each pair is
-heads when its draw is below 0.5. In run 6 (the coin with a memory) a toss is
-heads when the draw is below 0.8 after a head and below 0.2 after a tail, and
-the first toss counts as following a head. In run 8 (the loaded die) a roll is
-the first face whose running total of twentieths (1, 1, 2, 2, 4, 10) is above
+to 195109 for runs 1 to 9 (1951 is the year the summary was printed)
+[E-S0.seeds, E-S1.call_it.tosses, E-S9.squeeze.tosses,
+E-C1.von_neumann.printed_year]: a toss
+is heads when the draw is below 0.8 [E-D.coin.heads_chance]. In run 5
+[E-S5.two_coins.games] the second toss of each pair is
+heads when its draw is below 0.5 [E-D.coin.fair_chance]. In run 6
+[E-S6.sticky.tosses] (the coin with a memory) a toss is
+heads when the draw is below 0.8 after a head and below 0.2 after a tail
+[E-D.coin.heads_chance, E-D.coin.tails_chance], and
+the first toss counts as following a head. In run 8 [E-S8.loaded.rolls]
+(the loaded die) a roll is
+the first face whose running total of twentieths (1, 1, 2, 2, 4, 10)
+[E-D.dice.loaded.twentieths] is above
 twenty times the draw. Run 3 is not used.
 
 The fair bands on screen are two standard errors either side of what a fair
 coin or die would give: 469 to 531 games in a thousand, 136 to 181 rolls of a
-face in 949, 90 to 127 in 650. One count lands inside its band about 19 times
-in 20 [E-D.fair_band.chances_in_20]; all six faces of a fair die land inside together noticeably less often,
+face in 949, 90 to 127 in 650. One count lands inside its band about
+19 times in 20 [E-F2.fair_band.games1000, E-S7.coin_die.fair_band,
+E-S7.coin_die.dice, E-S7.coin_die.faces, E-S8.three_rolls.fair_band,
+E-S8.three_rolls.dice, E-D.fair_band.chances_in_20]; all six faces of a fair
+die land inside together noticeably less often,
 so one face at the edge (the three, at 136) is no sign of unfairness.
