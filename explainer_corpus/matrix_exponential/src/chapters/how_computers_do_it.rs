@@ -37,6 +37,13 @@ const BAR_TERMS: usize = 36;
 const PLOT_AT: Vec3 = [-1.4, 0.2, 0.0];
 const PLOT_W: f64 = 8.6;
 const PLOT_H: f64 = 3.5;
+/// 13_5's closing pair, the tanks' two rates and the eigen formula under
+/// them: the lower third of the citation stands beneath, its box topping out
+/// at -3.14 (with the formula at -2.8 its foot stood 0.14 over it: the dense
+/// read of the scored draft).
+const CLOSER_Y: f64 = -0.8;
+const RATES_Y: f64 = -1.6;
+const LETTERS_Y: f64 = -2.55;
 
 // ------------------------------------------------------------- the geometry
 
@@ -174,6 +181,47 @@ pub fn largest_entry_text(fact_value: &str) -> fmn::Result<String> {
 /// Rows of a matrix fact, as strings to `places` decimals.
 fn rows3(key: &str) -> fmn::Result<Vec<Vec<String>>> {
     entries(key, Some(3))
+}
+
+/// 13_5's citation for the ratio of polynomials (a one-line lower third).
+fn who_and_when(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    lower_third(
+        kit,
+        stage,
+        "who and when:",
+        &format!(
+            "MATLAB and SciPy: Higham {}; Al-Mohy and Higham {}",
+            cited::HIGHAM_YEAR,
+            cited::AL_MOHY_HIGHAM_YEAR
+        ),
+    )
+}
+
+/// 13_5's pointer to the eigenvalue video: the tanks' two rates on a chip,
+/// and the formula that untangles a matrix into separate rates under it.
+fn eigen_pointer(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
+    let rates = numbers("F-T.eigenvalues")?;
+    let pointer = chip(
+        kit,
+        stage,
+        &format!(
+            "the tanks\u{2019} two rates: {} and {} a minute",
+            super::draw::whole(rates[1]),
+            minus(&show(rates[0], 1)?)
+        ),
+        28.0,
+        substance(),
+        v(0.0, RATES_Y),
+    )?;
+    let letters = kit.tex(
+        stage,
+        r"e^{tA}=V\,e^{t\Lambda}\,V^{-1}",
+        50.0,
+        Palette::ink(),
+        &[("e", result()), ("tA", rule()), ("t\\Lambda", rule())],
+        v(0.0, LETTERS_Y),
+    )?;
+    Ok((pointer, letters))
 }
 
 impl SceneConstruct for HowComputersDoIt {
@@ -545,42 +593,13 @@ impl SceneConstruct for HowComputersDoIt {
             &format!("{} times closer", fact("F-V.13_5.times_closer")?),
             34.0,
             good(),
-            v(0.0, -0.8),
+            v(0.0, CLOSER_Y),
         )?;
         fade_in_all(stage, &[series_line, pade_line, closer], 0.7)?;
-        let who = lower_third(
-            &kit,
-            stage,
-            "who and when:",
-            &format!(
-                "MATLAB and SciPy: Higham {}; Al-Mohy and Higham {}",
-                cited::HIGHAM_YEAR,
-                cited::AL_MOHY_HIGHAM_YEAR
-            ),
-        )?;
+        let who = who_and_when(&kit, stage)?;
         fade_in_all(stage, &[who], 0.5)?;
         line.wait_for(stage, "that's the eigenvalue video")?;
-        let rates = numbers("F-T.eigenvalues")?;
-        let pointer = chip(
-            &kit,
-            stage,
-            &format!(
-                "the tanks\u{2019} two rates: {} and {} a minute",
-                super::draw::whole(rates[1]),
-                minus(&show(rates[0], 1)?)
-            ),
-            28.0,
-            substance(),
-            v(0.0, -1.8),
-        )?;
-        let letters = kit.tex(
-            stage,
-            r"e^{tA}=V\,e^{t\Lambda}\,V^{-1}",
-            50.0,
-            ink,
-            &[("e", gold), ("tA", teal), ("t\\Lambda", teal)],
-            v(0.0, -2.8),
-        )?;
+        let (pointer, letters) = eigen_pointer(&kit, stage)?;
         fade_in_all(stage, &[pointer, letters], 0.7)?;
         music_hold(&kit, stage)?;
         kit.hold(stage)?;
@@ -591,9 +610,62 @@ impl SceneConstruct for HowComputersDoIt {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::testing;
     use super::*;
     use crate::model::{expm, pade_at_one, scale_square_f32, series_f32};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 13_5 (the dense read of the scored draft): the eigen formula stands
+    /// clear above the citation's lower third (it stood 0.14 over it), and
+    /// clear of the chip of the two rates, which in turn is clear of the
+    /// "times closer" line.
+    #[test]
+    fn the_eigen_formula_stands_clear_of_the_lower_third() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let who = who_and_when(&kit, stage)?;
+            let (pointer, letters) = eigen_pointer(&kit, stage)?;
+            let closer = kit.text(stage, "8 times closer", 34.0, good(), v(0.0, CLOSER_Y))?;
+            let band_top = stage.get_top(who)[1];
+            let letters_foot = stage.get_bottom(letters)[1];
+            assert!(
+                letters_foot > band_top + 0.3,
+                "the formula's foot {letters_foot:.2} against the lower third's top {band_top:.2}"
+            );
+            let (chip_foot, letters_top) = (stage.get_bottom(pointer)[1], stage.get_top(letters)[1]);
+            assert!(
+                chip_foot > letters_top + 0.2,
+                "the chip's foot {chip_foot:.2} against the formula's top {letters_top:.2}"
+            );
+            let (closer_foot, chip_top) = (stage.get_bottom(closer)[1], stage.get_top(pointer)[1]);
+            assert!(
+                closer_foot > chip_top + 0.2,
+                "the line's foot {closer_foot:.2} against the chip's top {chip_top:.2}"
+            );
+            // inside the frame sideways
+            for m in [pointer, letters] {
+                let (l, r) = (stage.get_left(m)[0], stage.get_right(m)[0]);
+                assert!(l > -7.1 + 0.3 && r < 7.1 - 0.3, "{l:.2} to {r:.2}");
+            }
+            Ok(())
+        });
+    }
 
     /// A 2 by 2 of 32-bit floats as a model matrix.
     fn widen(a: &M2f) -> Mat {

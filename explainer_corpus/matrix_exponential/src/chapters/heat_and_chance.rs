@@ -60,8 +60,9 @@ const HOPPER_UNTIL: f64 = 14.0;
 /// The panels of 12_5 and 12_6: scene units to one unit of the complex
 /// plane, and a bar's height for one whole unit.
 const PANEL_UNIT: f64 = 2.0;
-/// How long the panels of 12_6 take to wind back to the start before the
-/// sweep is played again with its sound (seconds).
+/// How long a panel takes to wind back to its start: the pair's of 12_5 as
+/// the i goes in, and the panels of 12_6 before the sweep is played again
+/// with its sound (seconds).
 const REWIND_S: f64 = 0.8;
 const PANEL_BAR_H: f64 = 2.0;
 
@@ -364,6 +365,22 @@ impl PairPanel {
         out.extend([self.dot, self.bars[0], self.bars[1]]);
         out
     }
+}
+
+/// 12_5, as the i goes in: `old` gives way to `new` (the exponent) while the
+/// panel's clock winds back to zero, so that the panel stands at its start
+/// (the dot on 1, the first bar full) under the exponent with the i, ready to
+/// run. It had settled to equal bars under the heat's exponent, and left so
+/// it stood over the pause's "does it still settle?" with the heat's answer
+/// on it (the dense read of the scored draft).
+fn put_the_i_in(stage: &mut Stage<'_>, old: Mob, new: Mob, clock: Mob) -> fmn::Result<()> {
+    let put_in = vec![
+        fade_out_anim(stage, old, 0.4)?,
+        fade_in_anim(stage, new, 0.5)?,
+        stage.prepare(tween_linear(clock, 0.0, REWIND_S)?)?,
+    ];
+    stage.play_prepared(put_in)?;
+    Ok(())
 }
 
 // -------------------------------------------------------------- the scene
@@ -704,8 +721,7 @@ impl SceneConstruct for HeatAndChance {
         line.wait_for(stage, "settling at half and half")?;
         play!(stage; tween_linear(pair_clock, 3.0, 3.0)?);
         line.wait_for(stage, "Now put the letter i into the exponent")?;
-        let put_in = vec![fade_out_anim(stage, exponent, 0.4)?, fade_in_anim(stage, with_i, 0.5)?];
-        stage.play_prepared(put_in)?;
+        put_the_i_in(stage, exponent, with_i, pair_clock)?;
         predict_hold(&kit, stage)?;
 
         // ---- 12_6: never: the chance sloshes across, and back
@@ -808,6 +824,42 @@ mod tests {
             assert!((BARS_MID - (BAR_X[0] + BAR_X[3]) / 2.0).abs() < 1e-9);
             // the node 4 of the graph (right-most) is left of the first bar
             assert!(node(3)[0] + NODE_R + 0.3 < BAR_X[0] - BAR_W / 2.0);
+            Ok(())
+        });
+    }
+
+    /// 12_5 (the dense read of the scored draft): the pair's panel has
+    /// settled to equal bars under the heat's exponent; when the i goes in it
+    /// is wound back to its start, the dot on 1 and the first bar full with
+    /// the second flat, so the pause asks "does it still settle?" over a
+    /// panel that has not run.
+    #[test]
+    fn the_panel_stands_at_its_start_when_the_i_goes_in() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let origin = v(0.7, 0.9);
+            let clock = stage.add_value_tracker(0.0);
+            let panel = PairPanel::build(&kit, stage, origin, clock, |t| (pair_heat_point(t), pair_heat(t)))?;
+            let old = kit.tex(stage, r"e^{-tL}", 60.0, Palette::ink(), &[], v(2.6, 3.0))?;
+            let new = kit.tex(stage, r"e^{-itL}", 60.0, Palette::ink(), &[], v(2.6, 3.0))?;
+            fade_in_all(stage, &[old], 0.1)?;
+            stage.play(tween_linear(clock, 3.0, 0.5)?)?;
+            let settled = [stage.get_height(panel.bars[0]), stage.get_height(panel.bars[1])];
+            assert!(
+                (settled[0] - settled[1]).abs() < 0.05 * PANEL_BAR_H,
+                "the heat's panel has settled first: {settled:?}"
+            );
+            put_the_i_in(stage, old, new, clock)?;
+            let at = stage.tracker_value(clock).unwrap_or(f64::NAN);
+            assert!(at.abs() < 1e-9, "the clock is back at zero: {at}");
+            let (first, second) = (stage.get_height(panel.bars[0]), stage.get_height(panel.bars[1]));
+            assert!((first - PANEL_BAR_H).abs() < 1e-6, "the first bar is full: {first}");
+            assert!(second < 0.02 * PANEL_BAR_H, "the second is flat: {second}");
+            let dot = stage.get_center(panel.dot);
+            assert!(
+                (dot[0] - (origin[0] + PANEL_UNIT)).abs() < 1e-6 && (dot[1] - origin[1]).abs() < 1e-6,
+                "the dot is on 1: {dot:?}"
+            );
             Ok(())
         });
     }

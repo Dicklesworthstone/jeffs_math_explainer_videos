@@ -52,6 +52,12 @@ const _: () = assert!(RULER_LONG > TAU, "the ruler must be let out past a full t
 /// 16_5: the centres of the four panes, and their common height.
 const PANE_X: [f64; 4] = [-5.0, -1.7, 1.6, 4.9];
 const PANE_Y: f64 = -0.3;
+/// 16_3: where the quiz card stands, and its size.
+const QUIZ_AT: Vec3 = [0.0, 0.3, 0.0];
+const QUIZ_SIZE: (f64, f64) = (8.4, 5.0);
+/// How far under the problem's middle the words of its answer stand (at 1.0
+/// their top stood 0.14 inside the answer grid's bottom brackets).
+const WORDS_DROP: f64 = 1.4;
 
 // ------------------------------------------------------------- the geometry
 
@@ -143,6 +149,60 @@ pub fn pane_places(t: f64) -> [Vec3; 3] {
     let p = expm_t(&spiral_rule(), 0.35 * t).apply(&[1.0, 0.0]);
     let flow = v(PANE_X[2] + 0.9 * p[0], PANE_Y + 0.9 * p[1]);
     [growth, round, flow]
+}
+
+/// 16_3's problem on the quiz card, laid out in a row and centred on it: "e",
+/// the quarter turn J as its exponent, "=" and the "?" (the answer's grid
+/// lands where the "?" stood). The mobjects are detached.
+struct Problem {
+    base_e: Mob,
+    power: MatrixGrid,
+    equals: Mob,
+    ask: Mob,
+    answer: MatrixGrid,
+}
+
+/// How far apart the parts of 16_3's problem stand, and how far the exponent
+/// stands above the row's line (at fixed offsets the "=" stood against the
+/// exponent's right bracket and the answer's grid against the "=": the dense
+/// read of the scored draft).
+const PROBLEM_GAP: f64 = 0.3;
+const EXPONENT_GAP: f64 = 0.05;
+const EXPONENT_LIFT: f64 = 0.75;
+
+/// Build 16_3's problem and lay it out by measure: the row of "e", its
+/// exponent, "=" and the last slot (as wide as the answer's grid, which the
+/// "?" gives way to), centred about `middle` and left-aligned in that slot.
+fn lay_problem(kit: &Kit, stage: &mut Stage<'_>, middle: Vec3) -> fmn::Result<Problem> {
+    let base_e = kit.tex(stage, "e", 130.0, Palette::ink(), &[], middle)?;
+    let power = MatrixGrid::build(kit, stage, &entries("F-J.power.k1", None)?, 48.0, rule(), middle)?;
+    let equals = kit.tex(stage, "=", 90.0, Palette::ink(), &[], middle)?;
+    let ask = kit.text(stage, "?", 110.0, result(), middle)?;
+    let answer = MatrixGrid::build(kit, stage, &entries("F-H.J.true", Some(3))?, 48.0, result(), middle)?;
+    let (w_e, w_power, w_equals) = (
+        stage.get_width(base_e),
+        stage.get_width(power.group),
+        stage.get_width(equals),
+    );
+    let w_last = stage.get_width(answer.group).max(stage.get_width(ask));
+    let total = w_e + EXPONENT_GAP + w_power + PROBLEM_GAP + w_equals + PROBLEM_GAP + w_last;
+    let line = middle[1] - 0.2;
+    let mut x = middle[0] - total / 2.0;
+    stage.move_to(base_e, v(x, line), LEFT);
+    x += w_e + EXPONENT_GAP;
+    stage.move_to(power.group, v(x, line + EXPONENT_LIFT), LEFT);
+    x += w_power + PROBLEM_GAP;
+    stage.move_to(equals, v(x, line), LEFT);
+    x += w_equals + PROBLEM_GAP;
+    stage.move_to(ask, v(x, line), LEFT);
+    stage.move_to(answer.group, v(x, line), LEFT);
+    Ok(Problem {
+        base_e,
+        power,
+        equals,
+        ask,
+        answer,
+    })
 }
 
 // -------------------------------------------------------------- the scene
@@ -366,19 +426,15 @@ impl SceneConstruct for WhereItLeads {
         off.extend(&counts);
         off.extend(&tiles);
         fade_out_all(stage, &off, 0.5)?;
-        let card = QuizCard::build(&kit, stage, "16_3", [0.0, 0.3, 0.0], (8.4, 5.0))?;
+        let card = QuizCard::build(&kit, stage, "16_3", QUIZ_AT, QUIZ_SIZE)?;
         let (middle, _, _) = card.content();
-        let base_e = kit.tex(stage, "e", 130.0, ink, &[], v(middle[0] - 2.1, middle[1] - 0.2))?;
-        let power = MatrixGrid::build(
-            &kit,
-            stage,
-            &entries("F-J.power.k1", None)?,
-            48.0,
-            teal,
-            v(middle[0] - 0.7, middle[1] + 0.55),
-        )?;
-        let equals = kit.tex(stage, "=", 90.0, ink, &[], v(middle[0] + 0.6, middle[1] - 0.2))?;
-        let ask = kit.text(stage, "?", 110.0, gold, v(middle[0] + 1.8, middle[1] - 0.2))?;
+        let Problem {
+            base_e,
+            power,
+            equals,
+            ask,
+            answer: answer_grid,
+        } = lay_problem(&kit, stage, middle)?;
         // the card and its problem, e raised to J, are up with "One last
         // time" (a black stage ran under the whole question); the ring comes
         // as the question itself is asked
@@ -387,20 +443,12 @@ impl SceneConstruct for WhereItLeads {
         fade_out_all(stage, &[fine], 0.3)?;
         card.arm(stage)?;
         card.count(&kit, stage)?;
-        let answer_grid = MatrixGrid::build(
-            &kit,
-            stage,
-            &entries("F-H.J.true", Some(3))?,
-            48.0,
-            gold,
-            v(middle[0] + 2.3, middle[1] - 0.2),
-        )?;
         let words = kit.text(
             stage,
             "a rotation by 1 radian",
             32.0,
             gold,
-            v(middle[0], middle[1] - 1.0),
+            v(middle[0], middle[1] - WORDS_DROP),
         )?;
         let gone = vec![fade_out_anim(stage, ask, 0.3)?];
         stage.play_prepared(gone)?;
@@ -646,9 +694,88 @@ impl SceneConstruct for WhereItLeads {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{fact, testing};
     use super::*;
     use crate::model::{quarter_turn, su_dim};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 16_3 (the dense read of the scored draft): the parts of "e^J = ?" stand
+    /// clear of one another (the "=" stood against the exponent's right
+    /// bracket, and the answer's grid against the "="), the answer lands where
+    /// the "?" was and inside the card, above its words.
+    #[test]
+    fn the_quiz_problem_has_room_between_its_parts_and_for_the_answer() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "16_3", QUIZ_AT, QUIZ_SIZE)?;
+            let (middle, room, _) = card.content();
+            let p = lay_problem(&kit, stage, middle)?;
+            let words = kit.text(
+                stage,
+                "a rotation by 1 radian",
+                32.0,
+                result(),
+                v(middle[0], middle[1] - WORDS_DROP),
+            )?;
+            let span = |stage: &Stage<'_>, m: Mob| (stage.get_left(m)[0], stage.get_right(m)[0]);
+            let parts = [
+                span(stage, p.base_e),
+                span(stage, p.power.group),
+                span(stage, p.equals),
+                span(stage, p.answer.group),
+            ];
+            for pair in parts.windows(2) {
+                assert!(
+                    pair[1].0 - pair[0].1 > 0.0,
+                    "{:.2} to {:.2} against {:.2} to {:.2}",
+                    pair[0].0,
+                    pair[0].1,
+                    pair[1].0,
+                    pair[1].1
+                );
+            }
+            // the exponent clear of its "=" and the "=" clear of the answer
+            let (power, equals, answer) = (parts[1], parts[2], parts[3]);
+            assert!(equals.0 - power.1 >= PROBLEM_GAP - 1e-6, "{:.2}", equals.0 - power.1);
+            assert!(answer.0 - equals.1 >= PROBLEM_GAP - 1e-6, "{:.2}", answer.0 - equals.1);
+            // the "?" begins where the answer does
+            let ask = stage.get_left(p.ask)[0];
+            assert!((ask - answer.0).abs() < 1e-6, "{ask:.2} against {:.2}", answer.0);
+            // all of it inside the card's room, and the answer above its words
+            let (left, right) = (parts[0].0, answer.1);
+            assert!(
+                left > middle[0] - room / 2.0 && right < middle[0] + room / 2.0,
+                "{left:.2} to {right:.2} in {room:.2}"
+            );
+            let (grid_foot, words_top) = (stage.get_bottom(p.answer.group)[1], stage.get_top(words)[1]);
+            assert!(
+                grid_foot > words_top + 0.15,
+                "the answer's foot {grid_foot:.2} against the words' top {words_top:.2}"
+            );
+            let card_bottom = QUIZ_AT[1] - QUIZ_SIZE.1 / 2.0;
+            assert!(
+                stage.get_bottom(words)[1] > card_bottom + 0.2,
+                "the words are in the card"
+            );
+            Ok(())
+        });
+    }
 
     /// 16_1: the arm's pose as a product of exponentials, one per joint, is
     /// its forward kinematics: every joint and the hand land where the links,

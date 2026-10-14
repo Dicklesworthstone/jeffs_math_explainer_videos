@@ -232,6 +232,46 @@ fn algebra_row(kit: &Kit, stage: &mut Stage<'_>, mats: &[Mat]) -> fmn::Result<Ve
     Ok(groups)
 }
 
+/// 15_2: where the quiz card stands, and its size.
+const QUIZ_AT: Vec3 = [3.6, 0.3, 0.0];
+const QUIZ_SIZE: (f64, f64) = (6.2, 3.9);
+/// The card's lines, from the middle of its content: the moves, the question
+/// the voice asks, and where the answer lands (the card stated the set-up and
+/// not its question: the dense read of the scored draft).
+const MOVES_DY: f64 = 0.6;
+const QUESTION_DY: f64 = 0.0;
+const ANSWER_DY: f64 = -0.85;
+
+/// 15_2's card's lines (detached, to be shown with the card or landed): the
+/// four moves in one line, fitted to `room`; the question; and the answer.
+fn quiz_lines(kit: &Kit, stage: &mut Stage<'_>, middle: Vec3, room: f64) -> fmn::Result<[Mob; 3]> {
+    let ink = Palette::ink();
+    let moves = kit.text(
+        stage,
+        "tip about x, then about y, then undo each",
+        30.0,
+        ink,
+        v(middle[0], middle[1] + MOVES_DY),
+    )?;
+    fit_width(stage, moves, room);
+    let question = kit.text(
+        stage,
+        "back where you began?",
+        40.0,
+        ink,
+        v(middle[0], middle[1] + QUESTION_DY),
+    )?;
+    fit_width(stage, question, room);
+    let answer = kit.text(
+        stage,
+        "no",
+        64.0,
+        super::draw::warn(),
+        v(middle[0], middle[1] + ANSWER_DY),
+    )?;
+    Ok([moves, question, answer])
+}
+
 // -------------------------------------------------------------- the scene
 
 pub struct TheDoorway {
@@ -343,27 +383,18 @@ impl SceneConstruct for TheDoorway {
         off.push(exact);
         fade_out_all(stage, &off, 0.5)?;
         stage.set_tracker_value(turn, 0.0)?;
-        let card = QuizCard::build(&kit, stage, "15_2", [3.6, 0.3, 0.0], (6.2, 3.9))?;
+        let card = QuizCard::build(&kit, stage, "15_2", QUIZ_AT, QUIZ_SIZE)?;
         let (middle, room, _) = card.content();
-        let moves_a = kit.text(
-            stage,
-            "tip about x, then about y,",
-            34.0,
-            ink,
-            v(middle[0], middle[1] + 0.35),
-        )?;
-        let moves_b = kit.text(stage, "then undo each", 34.0, ink, v(middle[0], middle[1] - 0.2))?;
-        fit_width(stage, moves_a, room);
+        let [moves, question, answer] = quiz_lines(&kit, stage, middle, room)?;
         line.wait_last(stage)?;
-        card.show(stage, &[moves_a, moves_b], 0.5)?;
+        card.show(stage, &[moves, question], 0.5)?;
         card.count(&kit, stage)?;
-        let answer = kit.text(stage, "no", 64.0, super::draw::warn(), v(middle[0], middle[1] - 0.85))?;
         card.land(stage, &[answer], 0.4)?;
 
         // ---- 15_3: the loop creeps round the third axis
         let line = say(&kit, stage, "15_3")?;
         let mut leave = card.mobs();
-        leave.extend([moves_a, moves_b, answer]);
+        leave.extend([moves, question, answer]);
         let mut cube_old = cube.mobs();
         cube_old.push(cube.anchor);
         stage.clear_updaters(cube.anchor, true);
@@ -496,10 +527,68 @@ mod tests {
     use std::f64::consts::TAU;
 
     use explainer_kit::stats::Data;
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
 
     use super::super::draw::{fact, matrix, testing};
     use super::*;
     use crate::model::{expm, hat, quarter_turn, rotation_defect};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 15_2 (the dense read of the scored draft): the card states the
+    /// question the voice asks, not only the set-up; its three lines are in
+    /// the card's content, stacked clear of one another, and the question
+    /// is the line's own words.
+    #[test]
+    fn the_card_asks_the_question_the_voice_asks() {
+        // the voice's last sentence of 15_2
+        let said = crate::SCRIPT
+            .lines()
+            .find_map(|l| l.strip_prefix("15_2\t"))
+            .expect("15_2 is in the script");
+        assert!(said.ends_with("Are you back where you began?"), "{said}");
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "15_2", QUIZ_AT, QUIZ_SIZE)?;
+            let (middle, room, height) = card.content();
+            let [moves, question, answer] = quiz_lines(&kit, stage, middle, room)?;
+            let top = middle[1] + height / 2.0;
+            assert!(
+                stage.get_top(moves)[1] <= top + 0.01,
+                "the moves poke out of the content"
+            );
+            assert!(stage.get_width(moves) <= room + 1e-6 && stage.get_width(question) <= room + 1e-6);
+            assert!(
+                stage.get_bottom(moves)[1] > stage.get_top(question)[1] + 0.1,
+                "the moves {:.2} over the question {:.2}",
+                stage.get_bottom(moves)[1],
+                stage.get_top(question)[1]
+            );
+            assert!(
+                stage.get_bottom(question)[1] > stage.get_top(answer)[1] + 0.1,
+                "the question {:.2} over the answer {:.2}",
+                stage.get_bottom(question)[1],
+                stage.get_top(answer)[1]
+            );
+            // the answer stays in the card
+            let card_bottom = QUIZ_AT[1] - QUIZ_SIZE.1 / 2.0;
+            assert!(stage.get_bottom(answer)[1] > card_bottom + 0.2);
+            Ok(())
+        });
+    }
 
     fn skew(m: &Mat) -> bool {
         m.add(&m.transpose()).max_abs() < 1e-12

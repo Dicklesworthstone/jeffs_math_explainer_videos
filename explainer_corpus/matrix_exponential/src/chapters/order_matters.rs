@@ -210,6 +210,28 @@ fn whole_entries(key: &str) -> fmn::Result<Vec<Vec<String>>> {
     entries(key, None)
 }
 
+/// How far the "=" of "AB − BA =" stands from the commutator's left bracket
+/// (at a fixed offset it stood against the bracket: the dense read of the
+/// scored draft).
+const NAME_GAP: f64 = 0.35;
+
+/// 14_5's commutator as a row: "AB − BA =" and its grid, the name ending
+/// `NAME_GAP` before the grid's left bracket, whatever the entries' widths.
+fn commutator_row(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, MatrixGrid)> {
+    let grid = MatrixGrid::build(
+        kit,
+        stage,
+        &whole_entries("F-O.commutator")?,
+        56.0,
+        rule(),
+        v(GRID_AT[0] + 0.6, GRID_AT[1]),
+    )?;
+    let name = kit.tex(stage, r"AB-BA=", 56.0, rule(), &[], v(GRID_AT[0] - 1.9, GRID_AT[1]))?;
+    let edge = stage.get_left(grid.group)[0] - NAME_GAP;
+    stage.move_to(name, v(edge, GRID_AT[1]), RIGHT);
+    Ok((name, grid))
+}
+
 // -------------------------------------------------------------- the scene
 
 pub struct OrderMatters {
@@ -494,15 +516,7 @@ impl SceneConstruct for OrderMatters {
         // what is left over is a new rule: a field of stretch and squeeze
         let c = a.commutator(&b);
         let leftover = field(stage, &PLANE, &c, teal, 0.5);
-        let c_grid = MatrixGrid::build(
-            &kit,
-            stage,
-            &whole_entries("F-O.commutator")?,
-            56.0,
-            teal,
-            v(GRID_AT[0] + 0.6, GRID_AT[1]),
-        )?;
-        let c_name = kit.tex(stage, r"AB-BA=", 56.0, teal, &[], v(GRID_AT[0] - 1.9, GRID_AT[1]))?;
+        let (c_name, c_grid) = commutator_row(&kit, stage)?;
         let mut ins = leftover.clone();
         ins.extend([c_grid.group, c_name]);
         fade_in_all(stage, &ins, 0.7)?;
@@ -540,10 +554,53 @@ impl SceneConstruct for OrderMatters {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{fact, testing};
     use super::*;
     use crate::facts::square_loop;
     use crate::model::{expm, hat};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 14_5 (the dense read of the scored draft): the "=" of "AB − BA =" ends
+    /// clear of the commutator's left bracket (it touched it), on the grid's
+    /// own line, and the row stays between the leftover field and the frame.
+    #[test]
+    fn the_commutators_name_stands_clear_of_its_bracket() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let (name, grid) = commutator_row(&kit, stage)?;
+            let (right, bracket) = (stage.get_right(name)[0], stage.get_left(grid.group)[0]);
+            assert!(
+                bracket - right > 0.3,
+                "the '=' ends at {right:.2}, the bracket begins at {bracket:.2}"
+            );
+            let dy = stage.get_center(name)[1] - stage.get_center(grid.group)[1];
+            assert!(dy.abs() < 0.15, "the name is {dy:.2} off the grid's line");
+            let field_edge = PLANE.centre[0] + 3.0 * PLANE.unit;
+            assert!(
+                stage.get_left(name)[0] > field_edge + 0.3,
+                "{:.2}",
+                stage.get_left(name)[0]
+            );
+            assert!(stage.get_right(grid.group)[0] < 7.1 - 0.3);
+            Ok(())
+        });
+    }
 
     fn rows(key: &str) -> Vec<Vec<f64>> {
         super::super::draw::matrix(key).unwrap()
