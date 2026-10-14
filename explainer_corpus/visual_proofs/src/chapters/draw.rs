@@ -2083,6 +2083,7 @@ mod tests {
         quiz_11_3_follows_section_5: "11_3",
         quiz_12_4_follows_section_5: "12_4",
         quiz_13_4_follows_section_5: "13_4",
+        quiz_14_4_follows_section_5: "14_4",
     }
 
     /// CIE L*a*b* (D65) of an sRGB colour.
