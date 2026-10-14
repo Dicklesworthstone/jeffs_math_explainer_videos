@@ -138,7 +138,10 @@ tags, category, audience, Private and the synthetic-content line of `publish/you
 
 Video E's text: `explainer_corpus/fair_coin/publish/michael/{title,description,tags}.txt` (chapter
 times filled from final timelines, f8bcb2b); captions `explainer_corpus/fair_coin/renders/final/fair_coin.en.srt`
-(`446ee8d4…`); thumbnail `explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png`
+(`92a2d8cb…`, VTT `f1f89fa6…`: rebuilt from the same narration and timelines by the kit's captions fix
+1f44182, byte-identical in PeachPuma's and EmeraldOwl's runs, final_check PASS; the finals clone's
+fbe959c captions, `446ee8d4…`, have nine orphan tails and are kept at `renders/final/orphan_captions_fbe959c/`:
+do not upload them); thumbnail `explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png`
 (`728c23b9…`); the upload sheet is `python3 -I tools/release.py check fair_coin` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
 
