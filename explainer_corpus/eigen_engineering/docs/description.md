@@ -415,7 +415,7 @@ Journal of the Acoustical Society of America 34(1) (1962) (through Skålevik,
 Forum Acusticum 2011); Jacobsen and others, Fundamentals of Acoustics and
 Noise Control, DTU Note 31200 (2007); Beranek, Concert Halls and Opera Houses
 (2004) and his 2007 lecture; Walker, BBC RD 1993/8; Morse, Vibration and
-Sound (1948); Leontief (1936; 1941, through Kohli, Monthly Labor Review 2001);
+Sound (1948); Leontief (1936; 1919–1929, 1941, through Kohli, Monthly Labor Review 2001);
 Hawkins and Simon, Econometrica 17 (1949); Perron, Mathematische Annalen 64
 (1907); Frobenius, Sitzungsberichte der Königlich Preussischen Akademie der
 Wissenschaften (1912); Horn and Johnson, Matrix Analysis; Brin and Page (1998);
