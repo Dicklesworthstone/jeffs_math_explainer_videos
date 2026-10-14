@@ -71,7 +71,7 @@ F-S.bound]. Once `k > ‖A‖`, the bound's ratio `‖A‖ / k` is strictly belo
 `1`, so the series converges absolutely for every square matrix `A` [F-X.series_settles].
 Before `k` passes `‖A‖`, the terms can swell: for `5J`, term `k = 5` has size
 `5^5 / 5! = 3125/120 ≈ 26.04` before the factorial wins and the partial sums
-settle on the unit circle [F-S.terms, F-S.peak]. [F-N.factorials]
+settle on the unit circle [F-S.terms, F-S.peak, F-Y.five_j.peak_term]. [F-N.factorials]
 
 **Two tanks and coupled systems (chapter 10).** With a flow transfer rate of
 `0.1` per minute each way between two tanks, the amounts `x(t)` follow
@@ -94,12 +94,12 @@ two models have different long-run behaviour on a graph whose nodes have
 different degrees (such as the video's 4-node kite, degrees 2, 2, 3, 1): [F-G.nodes, F-G.degrees]
 - Under the symmetric continuous-time Laplacian rate matrix `−L` (jumping
   across each link at unit rate), the stationary distribution is uniform: `1/4`
-  on every node [F-D.chance.from_hub.settles].
+  on every node [F-D.chance.from_hub.settles, F-Y.kite.stationary_continuous].
 - For a discrete-time hopper that picks a uniformly random link at each tick
   (or a continuous-time hopper that leaves every node at unit total rate and
   chooses a random neighbour), the stationary probability of a node is
   proportional to its degree: `2/8, 2/8, 3/8, 1/8` (`0.250, 0.250, 0.375, 0.125`)
-  [F-D.chance.per_tick].
+  [F-D.chance.per_tick, F-Y.kite.stationary_per_tick].
 Putting `−i` in front of `L` turns `du/dt = −L u` into the discrete Schrödinger
 equation `dψ/dt = −i L ψ`, whose solution `ψ(t) = e^{−itL} ψ(0)` is unitary
 (`‖ψ(t)‖ = ‖ψ(0)‖` for all `t`) and oscillates without settling: on a 2-node
@@ -175,20 +175,20 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   0.551832; −1.471552, 1.103665]` in `f32` (worst error `0.000034`), though
   over-halving (e.g. `s = 20`) loses accuracy again as `I + A/2^s` rounds away
    digits of `A` before the 20 squarings amplify the rounding error
-  [F-C.mvl.f32.scaled.*, F-C.mvl.f32.halvings.*]. Production libraries
+  [F-C.mvl.f32.scaled.*, F-C.mvl.f32.halvings.*, F-Y.mvl.size_over_divisor]. Production libraries
   (`scipy.linalg.expm`, MATLAB `expm`, Julia `exp`) pair scaling and squaring
   with a `[m/m]` diagonal Padé approximant `p_m(X) / q_m(X)` (`m ∈ {3, 5, 7, 9,
   13}` chosen from the matrix norm and `‖A^{2k}‖^{1/(2k)}` bounds; Higham 2005,
   Al-Mohy and Higham 2009): at `x = 1`, `[3/3]` Padé (`193/71 ≈ 2.718310`) is
   `8.1` times closer to `e` than the degree-6 Taylor polynomial (`1957/720 ≈
-  2.718056`) for the same highest power [F-C.pade.*]. [F-B.pade.degrees, F-B.higham.year, F-B.al_mohy_higham.year, F-N.series.k6, F-N.factorials]
+  2.718056`) for the same highest power [F-C.pade.*]. [F-B.pade.degrees, F-B.higham.year, F-B.al_mohy_higham.year, F-N.series.k6, F-N.factorials, F-Y.taylor6.at_one]
 - **Do not compute `e^{tA} v` by forming `e^{tA}` when `A` is large and sparse.**
   On the 400-node grid (`20 × 20`), `L` is sparse (`1,920` nonzeros) while
   `e^{−tL}` is completely dense (`160,000` positive entries). For a single
   vector `e^{tA} v`, use Krylov subspace methods or Chebyshev/Taylor action
   (`scipy.sparse.linalg.expm_multiply`, Al-Mohy and Higham 2011). When the graph
   is a Cartesian grid, `L = L_x ⊗ I + I ⊗ L_y` commutes, so `e^{−tL} = e^{−tL_x}
-  ⊗ e^{−tL_y}` and two `20 × 20` exponentials do the job of one `400 × 400`. [F-D.big.nodes]
+  ⊗ e^{−tL_y}` and two `20 × 20` exponentials do the job of one `400 × 400`. [F-D.big.nodes, F-Y.big.side, F-Y.big.laplacian_nonzeros, F-Y.big.exp_positive_entries]
 
 ## Sources
 
@@ -224,7 +224,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
 Every matrix, series term, norm, walk count, heat value, and floating-point
 trace in the video is computed by the video's own Rust model (`src/model.rs`)
 and checked against an independent rational/SciPy oracle (`./x
-matrix_exponential facts-check`, `oracle.py`, 354 keys). The 200 random edge
+matrix_exponential facts-check`, `oracle.py`). The 200 random edge
 matrices for the universal claims (`F-X.*`) are drawn from NumPy's
 `Generator(PCG64DXSM(20261013))` alongside the named degenerate cases (zero,
 nilpotent, defective shear, non-normal).

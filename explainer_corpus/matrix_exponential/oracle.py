@@ -534,6 +534,21 @@ def big_facts():
     for a, b in links:
         neighbours[a].append(b)
         neighbours[b].append(a)
+    # F-Y rows (numbers only docs/description.md states): the grid's side, the nonzeros of its Laplacian and the
+    # entries of e^{-tL}, all positive because the graph is connected and (largest degree) I - L is nonnegative
+    emit("F-Y.big.side", side)
+    emit("F-Y.big.laplacian_nonzeros", int((lap != 0).sum()))
+    reached, todo = {0}, [0]
+    while todo:
+        n = todo.pop()
+        for m in neighbours[n]:
+            if m not in reached:
+                reached.add(m)
+                todo.append(m)
+    degree = max(len(v) for v in neighbours.values())
+    check("the grid is connected and degree*I - L is nonnegative, so every entry of e^(-tL) is positive",
+          len(reached) == side * side and (degree * np.eye(side * side) - lap).min() >= 0)
+    emit("F-Y.big.exp_positive_entries", (side * side) ** 2)
     def corner_walks(length):
         count = {0: 1}
         for _ in range(length):
@@ -1215,6 +1230,27 @@ def spoken_facts():
     emit("F-V.16_2.steps", f"{su_dim(3)},{su_dim(2)},1,{su_dim(3) + su_dim(2) + 1}")
 
 
+def description_facts():
+    """F-Y: numbers only docs/description.md states, which the video does not show (research rows)."""
+    # "5^5 / 5! = 3125/120 ≈ 26.04": the peak term of e^(5J) as the unreduced fraction the text writes
+    emit("F-Y.five_j.peak_term", f"{5**5}/{math.factorial(5)}")
+    check("the peak term of e^(5J), 5^5/5!, is the fact F-S.peak", dec(F(5**5, math.factorial(5)), 5) == _EMITTED["F-S.peak"])
+    # "(1957/720 ≈ 2.718056)": the degree-6 Taylor polynomial of e at 1, in lowest terms
+    taylor = sum(F(1, math.factorial(k)) for k in range(7))
+    emit("F-Y.taylor6.at_one", f"{taylor.numerator}/{taylor.denominator}")
+    check("the degree-6 Taylor polynomial of e is 1957/720 and is 0.000226 below e",
+          taylor == F(1957, 720) and dec(E_EXACT - taylor, 6) == _EMITTED["F-C.series.k6.error"])
+    # "the size of A / 256": the video's own 2-norm of A, over its divisor
+    emit("F-Y.mvl.size_over_divisor", dec(size(MVL) / 256, 2))
+    check("the divisor is the fact's 256", _EMITTED["F-C.mvl.f32.scaled.divisor"] == "256")
+    # "uniform: 1/4" and "2/8, 2/8, 3/8, 1/8" on the 4-node kite: a random hopper's long-run share of a node
+    # is its degree over twice the links; under the symmetric rate matrix it is 1 over the nodes
+    degrees = [int(d) for d in _EMITTED["F-G.degrees"].split(",")]
+    emit("F-Y.kite.stationary_per_tick", ",".join(f"{d}/{sum(degrees)}" for d in degrees))
+    emit("F-Y.kite.stationary_continuous", f"1/{len(degrees)}")
+    check("the degrees of the kite sum to twice its links", sum(degrees) == 2 * len(_EMITTED["F-G.links"].split(",")))
+
+
 def main():
     number_facts()
     hook_facts()
@@ -1232,6 +1268,7 @@ def main():
     cited_facts()
     quiz_facts()
     spoken_facts()
+    description_facts()
     print(f"# {len(_EMITTED)} keys; {_CHECKS[0]} cross-checks, {len(_FAILED)} failed; "
           f"{_EXPM_CHECKED[0]} exact exponentials compared with scipy.expm", file=sys.stderr)
     if _FAILED:
