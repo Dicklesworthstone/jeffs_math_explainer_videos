@@ -26,7 +26,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Heat, Lattice, QUIZ_LINES_Y, Spoken, VEIL_OPACITY, carry_pause, fade_in_all, fade_in_lagged, fade_out_all,
-    faded_line, fail, flat, last_known, line_style, map as lit_blue, out as slate, say, scatter, search as teal,
+    faded_line, fail, flat, last_known, line_style, map as lit_blue, out as slate, pause, say, scatter, search as teal,
     true_place, veil, wrong,
 };
 use crate::facts::{cited, facts};
@@ -146,6 +146,10 @@ const NAME_STEP: f64 = 0.3;
 /// sonar's own row is at [`ROWS`]\[4\]), in steps of [`TAG_STEP`].
 const TAG_PT: f64 = 18.0;
 const TAG_CHARS: usize = 34;
+/// The sonar's zero's note (13_6) is three lines of at most this many
+/// characters: at 34 it was four, and its fourth line stood on the 94's
+/// caption ("0 is 0" over "if she was there").
+const ZERO_NOTE_CHARS: usize = 38;
 const TAG_TOP: f64 = -1.37;
 const TAG_STEP: f64 = 0.26;
 /// Under the enlarged cell: the count, the 94's caption, and in 13_4 the
@@ -163,6 +167,9 @@ const UNDER_CELL_STEP: f64 = 0.34;
 /// meanings of the paper's letters, the naming of them and the citation, at
 /// the left of x = -0.9, top to bottom.
 const QUESTION_Y: f64 = -2.75;
+/// How long the meanings of the paper's letters stand after 13_1's last word
+/// (seconds), on top of what is left of the line when they are up.
+const LETTERS_READ_S: f64 = 3.5;
 const MEANING_Y: [f64; 3] = [0.95, 0.6, 0.25];
 const LETTERS_NAMED_Y: f64 = -0.1;
 const CITE_Y: f64 = -0.5;
@@ -497,9 +504,13 @@ impl SceneConstruct for HowWellTheyLooked {
             question_again,
         ];
         fade_in_all(stage, &dates, 0.7)?;
-        // the update, in the hold: 07_3's line turns part by part into the
-        // one the paper printed, its words carried across
-        line.wait_end(stage)?;
+        // the update: 07_3's line turns part by part into the one the paper
+        // printed, its words carried across. It begins with the sentence
+        // that scores every pass against the map, so that the meanings are up
+        // as the line ends and then stand for a read before 13_2 (they came
+        // in after the line and went with the next line's first fade, 1.3 s
+        // in all, and no frame of a dense read showed them)
+        line.wait_for(stage, "Every pass")?;
         let (old, old_spans, new, new_spans) = formula(&kit, stage, 44.0, v(2.4, 1.85))?;
         fade_in_all(stage, &[old], 0.6)?;
         let morph = TransformMatchingTex::new(stage.arena_mut(), old, new, &old_spans, &new_spans)
@@ -540,6 +551,8 @@ impl SceneConstruct for HowWellTheyLooked {
         explained.push(named);
         explained.push(cite);
         fade_in_all(stage, &explained, 0.7)?;
+        line.wait_end(stage)?;
+        pause(stage, LETTERS_READ_S)?;
 
         // ------------------------------------------------------- 13_2
         // the wreck's own cell, enlarged: a hundred dots, ninety-four out
@@ -943,7 +956,7 @@ impl SceneConstruct for HowWellTheyLooked {
         // the sonar's 0 and what it makes of any number of passes, as the
         // line says it (R2: R2, S5, M7)
         let mut zero_note: Vec<Mob> = Vec::new();
-        for (j, text) in wrap(SONAR_ZERO, TAG_CHARS, 4).iter().enumerate() {
+        for (j, text) in wrap(SONAR_ZERO, ZERO_NOTE_CHARS, 3).iter().enumerate() {
             zero_note.push(words(
                 &kit,
                 stage,
@@ -1104,6 +1117,21 @@ mod tests {
             ..fmn::scene::RuntimeConfig::default()
         };
         fmn::run_scene(&mut Probe(f), config, 7, &mut fmn::scene::NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// R2 (R7): what the paper's letters mean, and that they are the video's
+    /// own p and d under other names, are on the screen long enough to read.
+    /// They faded in after the morph and went with the next line's first
+    /// fade, 1.3 s in all, and no frame of a dense read showed them.
+    #[test]
+    fn the_meanings_of_the_papers_letters_stay_up_long_enough_to_read() {
+        use super::super::draw::watch;
+        let w = watch::run("13_how_well_they_looked");
+        for words in [L_WORDS, E_WORDS, SEP_WORDS, LETTERS_NAMED] {
+            let seen = w.full_seconds(words);
+            eprintln!("13_1: {words:?} fully in view for {seen:.2} s");
+            assert!(seen >= 4.0, "{words:?} is in view for {seen:.2} s");
+        }
     }
 
     /// The chapter speaks exactly the script's 13_ lines, in order.
@@ -1328,13 +1356,23 @@ mod tests {
         // the sonar's tag (13_5) and its zero's note (13_6) are 18 pt lines
         // of at most TAG_CHARS characters under the sonar's value, every
         // word kept, ending inside the frame
-        let (tag, zero) = (wrap(SONAR_TAG, TAG_CHARS, 3), wrap(SONAR_ZERO, TAG_CHARS, 4));
+        let (tag, zero) = (wrap(SONAR_TAG, TAG_CHARS, 3), wrap(SONAR_ZERO, ZERO_NOTE_CHARS, 3));
         assert_eq!(tag.join(" "), SONAR_TAG);
         assert_eq!(zero.join(" "), SONAR_ZERO);
+        assert_eq!(zero.len(), 3, "{zero:?}");
         let label_x = BIG_AT[0] + big_w() / 2.0 + 0.25;
-        for line in tag.iter().chain(&zero) {
+        for line in &tag {
             let end = label_x + line.chars().count() as f64 * TAG_PT * CHAR_UNITS_PER_POINT;
             assert!(end < FRAME_X_RADIUS - 0.3, "{line:?} ends at {end}");
+        }
+        // the zero's note is three lines because a fourth stood on the 94's
+        // caption, and the least width for three is 38 characters, whose
+        // estimated end (CHAR_UNITS_PER_POINT is a cautious average: in the
+        // dense read 34 characters of this note measured 0.0044 a point, not
+        // 0.0045) is within 0.2 of the frame's edge and measured 0.3 inside it
+        for line in &zero {
+            let end = label_x + line.chars().count() as f64 * TAG_PT * CHAR_UNITS_PER_POINT;
+            assert!(end < FRAME_X_RADIUS - 0.2, "{line:?} ends at {end}");
         }
         let sonar_value = BIG_AT[1] + ROWS[4];
         let first_tag = BIG_AT[1] + TAG_TOP;
@@ -1346,6 +1384,24 @@ mod tests {
         // the notes stand right of the chances under the cell and above the
         // frame's foot
         assert!(last_zero > -FRAME_Y_RADIUS + 0.3, "{last_zero}");
+        // and clear of the 94's caption (20 pt, centred under the cell, wide
+        // enough to run under the column): wherever a line of the note and
+        // the caption share an x, they are a clear line apart (a 20 pt line
+        // is about 0.2 tall and an 18 pt one 0.18). The fourth line of the
+        // zero's note stood on it ("0 is 0" over "if she was there").
+        let caption_y = BIG_AT[1] - BIG_H / 2.0 - SAW_HER_DROP;
+        let half = SAW_HER.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT / 2.0;
+        for (j, line) in tag.iter().chain(&zero).enumerate() {
+            let j = if j < tag.len() { j } else { j - tag.len() };
+            let y = first_tag - TAG_STEP * j as f64;
+            let right = label_x + line.chars().count() as f64 * TAG_PT * CHAR_UNITS_PER_POINT;
+            if label_x < BIG_AT[0] + half && right > BIG_AT[0] - half {
+                assert!(
+                    (y - caption_y).abs() >= 0.1 + 0.09 + 0.08,
+                    "{line:?} at {y} is on the caption at {caption_y}"
+                );
+            }
+        }
         let widest_under = [
             format!("{BEFORE_ANY} 0.85%"),
             format!("{BY_SHIP} 0.19%"),

@@ -296,6 +296,8 @@ pub fn fade_in_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<
     if mobs.is_empty() {
         return Ok(());
     }
+    #[cfg(test)]
+    watch::note(stage, mobs, true, rt);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
@@ -310,6 +312,8 @@ pub fn fade_out_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result
     if mobs.is_empty() {
         return Ok(());
     }
+    #[cfg(test)]
+    watch::note(stage, mobs, false, rt);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         stage.clear_updaters(m, true);
@@ -1779,6 +1783,116 @@ impl NavyGrid {
     /// The whole grid's width and height.
     pub fn size(&self) -> (f64, f64) {
         (NAVY_COLS as f64 * self.cell_w, NAVY_ROWS as f64 * self.cell_h)
+    }
+}
+
+/// How long things stand on the screen, measured in a headless run of a real
+/// chapter with the scratch voice: `fade_in_all` and `fade_out_all` note
+/// when each fade begins, and a text is looked up by its source. What the
+/// layout lint cannot see: a label that arrives with the last words of a
+/// line and leaves with the next line is on the screen for a second.
+#[cfg(test)]
+pub mod watch {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+
+    use explainer_kit::{Kit, Narrator, Script};
+    use fmn::prelude::*;
+
+    /// One call of `fade_in_all` or `fade_out_all` on one mobject.
+    #[derive(Clone, Copy, Debug)]
+    pub struct Fade {
+        pub mob: Mob,
+        pub arriving: bool,
+        /// Scene seconds at which the fade begins, and how long it takes.
+        pub from: f64,
+        pub seconds: f64,
+    }
+
+    thread_local! {
+        static LOG: RefCell<Vec<Fade>> = const { RefCell::new(Vec::new()) };
+    }
+
+    pub(super) fn note(stage: &Stage<'_>, mobs: &[Mob], arriving: bool, seconds: f64) {
+        let from = stage.scene().time().to_f64();
+        LOG.with(|l| {
+            l.borrow_mut().extend(mobs.iter().map(|&mob| Fade {
+                mob,
+                arriving,
+                from,
+                seconds,
+            }));
+        });
+    }
+
+    /// A chapter that has been run: its kit (every text it built, by source)
+    /// and every fade it played.
+    pub struct Watched {
+        pub kit: Kit,
+        pub fades: Vec<Fade>,
+        /// The chapter's length, scene seconds.
+        pub end: f64,
+    }
+
+    impl Watched {
+        /// Seconds the text whose source is exactly `source` stood fully in
+        /// view: from the end of its first fade-in to the start of the next
+        /// fade-out (or the chapter's end if it never leaves). Panics if the
+        /// chapter never built or never faded in such a text.
+        pub fn full_seconds(&self, source: &str) -> f64 {
+            let mob = self
+                .kit
+                .registered()
+                .into_iter()
+                .find(|r| r.source == source)
+                .unwrap_or_else(|| panic!("the chapter never typesets {source:?}"))
+                .mob;
+            let arrived = self
+                .fades
+                .iter()
+                .find(|f| f.mob == mob && f.arriving)
+                .unwrap_or_else(|| panic!("{source:?} is never faded in by fade_in_all"));
+            let came = arrived.from + arrived.seconds;
+            let left = self
+                .fades
+                .iter()
+                .filter(|f| f.mob == mob && !f.arriving && f.from >= came - 1e-9)
+                .map(|f| f.from)
+                .fold(self.end, f64::min);
+            (left - came).max(0.0)
+        }
+    }
+
+    /// Run chapter `key` headless with the scratch voice.
+    pub fn run(key: &str) -> Watched {
+        struct Boxed(Box<dyn SceneConstruct>);
+        impl SceneConstruct for Boxed {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                self.0.construct(stage)
+            }
+        }
+        let chapter = crate::chapters::registry()
+            .into_iter()
+            .find(|c| c.key == key)
+            .unwrap_or_else(|| panic!("no chapter {key} in the registry"));
+        let narrator = Narrator::estimate(&Script::parse(crate::SCRIPT).unwrap());
+        let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
+        kit.chapter = key.to_owned();
+        LOG.with(|l| l.borrow_mut().clear());
+        let mut scene = Boxed((chapter.make)(kit.clone()));
+        let config = fmn::scene::RuntimeConfig {
+            fps: 10,
+            ..fmn::scene::RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut scene, config, 7, &mut fmn::scene::NullSceneSink).unwrap_or_else(|e| panic!("{key}: {e}"));
+        let end = kit
+            .finished
+            .borrow()
+            .as_ref()
+            .unwrap_or_else(|| panic!("{key} left no timeline"))
+            .seconds();
+        let fades = LOG.with(|l| l.borrow().clone());
+        Watched { kit, fades, end }
     }
 }
 

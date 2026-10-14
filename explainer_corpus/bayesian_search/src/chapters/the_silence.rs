@@ -909,8 +909,12 @@ impl SceneConstruct for TheSilence {
         // ------------------------------------------------------- 12_4
         // the question: how much should the silence count?
         let line = say(&kit, stage, LINES[3])?;
-        fade_out_all(stage, &[judgment, empties[0], empties[1]], 0.3)?;
+        // the count of empty searches came in with the last words of 12_3, a
+        // second before this line: it stays through the question's first
+        // sentence and leaves when the listening tracks come in
+        fade_out_all(stage, &[judgment], 0.3)?;
         line.wait_for(stage, "For a month")?;
+        fade_out_all(stage, &empties, 0.3)?;
         let lines = track_lines(stage, CIRCLE_AT, CIRCLE_R, &plan.tracks, 3.0);
         let heard = kit.text_left(stage, HEARD_NOTHING, 40.0, Palette::ink(), v(LEFT_X, 1.0))?;
         fade_in_lagged(stage, &lines, 1.8, 0.4)?;
@@ -1208,6 +1212,28 @@ mod tests {
             // and the weights' tag (at -2.65) and the particles' note
             // (at -3.15) are far below
             assert!(EMPTY_Y[1] - 0.15 > -2.65 + 0.3);
+        }
+    }
+
+    /// R2 (R13): the count of empty searches is on the screen long enough to
+    /// be read. It arrives with the last words of 12_3 and the next line
+    /// started at once, so it stood fully in view for about a second and no
+    /// frame of a dense read showed it. Nine words at three a second, and the
+    /// fades either side.
+    #[test]
+    fn the_count_of_empty_searches_stays_up_long_enough_to_read() {
+        use super::super::draw::watch;
+        let f = facts().unwrap();
+        let [count, split] = empty_searches_words(
+            f.get("F-A.empty_searches").unwrap().parse().unwrap(),
+            f.get("F-A.underwater_searches").unwrap().parse().unwrap(),
+        )
+        .unwrap();
+        let w = watch::run("12_the_silence");
+        for words in [&count, &split] {
+            let seen = w.full_seconds(words);
+            eprintln!("12_3: {words:?} fully in view for {seen:.2} s");
+            assert!(seen >= 3.0, "{words:?} is in view for {seen:.2} s");
         }
     }
 

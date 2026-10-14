@@ -60,9 +60,11 @@ const SUBJECTIVE: &str =
 /// a bare place, and the card says so while it is said.
 const DOT_LABEL: &str = "a dot";
 const DOT_WORDS: &str = "one equally likely way things could be, including whether this search would see it";
-/// 06_4's tag on B's ten, and how far over the row it stands.
+/// 06_4's tag on B's ten, and how far under the ruler's line it stands (over
+/// the row it stood on the sums of C and D, which reach down to the row: "2 in
+/// 3" and "6 2/3 %" were behind it).
 const MISSED_TAG: &str = "the wreck is here and the search missed it";
-const MISSED_TAG_RISE: f64 = 0.6;
+const MISSED_TAG_DROP: f64 = 0.55;
 
 /// The row of lit dots: its left end, its width (the ruler, 0 to 100), its
 /// height, and the dots' size against the sea's.
@@ -343,7 +345,10 @@ impl SceneConstruct for NothingFound {
         // B's ten are tagged in plain words: the wreck is at one of the
         // eighty, and these are the ones where the search missed it
         let b_first = lit.iter().position(|d| d.cell == b).unwrap_or(0);
-        let missed_at = v(row_x(b_first + b_copies.len() / 2, 1.0), ROW_Y + MISSED_TAG_RISE);
+        let missed_at = v(
+            row_x(b_first + b_copies.len() / 2, 1.0),
+            ROW_Y - RULER_DROP - MISSED_TAG_DROP,
+        );
         let missed_tag = tag(&kit, stage, MISSED_TAG, missed_at, 20.0)?;
         fade_in_all(stage, &[missed_tag], 0.4)?;
         pulse(stage, &b_copies, 1.8, 0.25)?;
@@ -668,9 +673,10 @@ mod tests {
     }
 
     /// R2 (R3, D8): the card that says what a dot is fits the frame's foot
-    /// in at most three lines (the kit's card refuses more), and the tag over
-    /// B's ten stands inside the ruler's width, under the sea and over the
-    /// row's dots.
+    /// in at most three lines (the kit's card refuses more), and the tag on
+    /// B's ten stands inside the ruler's width, under the ruler's line and
+    /// clear of the sums of the sea above the row (it stood over the row,
+    /// across "2 in 3" and "6 2/3 %" of cell D).
     #[test]
     fn the_dot_card_and_the_tag_over_bs_ten_stand_where_they_read() {
         use super::super::draw::CHAR_UNITS_PER_POINT;
@@ -681,10 +687,17 @@ mod tests {
         let mid = row_x(40 + 5, 1.0);
         let w = MISSED_TAG.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT + 0.3;
         assert!(mid - w / 2.0 > ROW_X0 && mid + w / 2.0 < ROW_X0 + ROW_W, "{mid} {w}");
-        // the tag is about 0.42 tall: under the sea's lowest row, over the row
-        let (top, bottom) = (ROW_Y + MISSED_TAG_RISE + 0.21, ROW_Y + MISSED_TAG_RISE - 0.21);
-        assert!(top < sea_rect(2).1, "{top}");
-        assert!(bottom > ROW_Y + SEA_DOT_R * ROW_SCALE + 0.05, "{bottom}");
+        // the tag is about 0.42 tall: under the ruler's line (and its end
+        // labels), inside the frame, and on nothing the sea or the row has
+        let centre = ROW_Y - RULER_DROP - MISSED_TAG_DROP;
+        let (top, bottom) = (centre + 0.21, centre - 0.21);
+        assert!(top < ROW_Y - RULER_DROP - 0.11, "the tag touches the ruler: {top}");
+        assert!(bottom > -FRAME_Y_RADIUS + 0.3, "{bottom}");
+        // the lowest thing the sea hangs under its cells is a stacked
+        // fraction at the row's height: nothing of it is below the ruler
+        use super::super::draw::{TALL_DROP, TALL_HALF_H};
+        let sums_low = super::super::draw::sea_slot(2, 2)[1] - TALL_DROP - TALL_HALF_H;
+        assert!(top < sums_low, "the tag reaches the sums: {top} against {sums_low}");
     }
 
     #[test]
