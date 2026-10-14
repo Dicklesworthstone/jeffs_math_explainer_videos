@@ -22,9 +22,9 @@ use fmn::prelude::*;
 
 use super::arrows::{ArrowTest, band_ends, own_lines, turn_deg, unit_at};
 use super::draw::{
-    Map2, MatrixGrid, Plane, QuizCard, arrow_points, chip, fact, fade_in_all, fade_out_all, faded_line, fail, flat,
-    fraction_value, good, ground, group, items, line_style, moves, numbers, own, pause, pushes, run, say, show,
-    tween_all, warn, whole,
+    Map2, MatrixGrid, Plane, QuizCard, arrow_points, chip, cross_fade, fact, fade_in_all, fade_out_all, faded_line,
+    fail, flat, fraction_value, good, ground, group, items, line_style, moves, numbers, own, pause, pushes, run, say,
+    show, tween_all, warn, whole,
 };
 use crate::facts::shown;
 
@@ -40,6 +40,13 @@ const WORKSHOP_AT: Vec3 = [-1.5, 1.2, 0.0];
 /// Where the table of 12_1 lands, and its type size.
 const TABLE_AT: Vec3 = [4.4, 0.55, 0.0];
 const TABLE_SIZE: f64 = 56.0;
+/// The type size of the four numbers beside the arrows of 12_1.
+const NUMBER_SIZE: f64 = 34.0;
+/// How long the field, the workshop, their names and arrows take to leave
+/// before the four numbers fold into the table (seconds).
+const ICONS_GO: f64 = 0.4;
+/// How long the numbers take to fly to their cells (seconds).
+const FLIGHT: f64 = 1.0;
 /// The quiz card, laid out as 02_6's.
 const CARD_AT: Vec3 = [0.0, 0.05, 0.0];
 const CARD_SIZE: (f64, f64) = (11.6, 6.6);
@@ -58,6 +65,9 @@ pub(super) const PLANE: Plane = Plane {
 pub(super) const REACH: (f64, f64) = (4.0, 3.0);
 /// How long the sweep's blue arrow is, plane units.
 const SWEEP_LENGTH: f64 = 2.2;
+/// Where the angle readout's number ends (its right edge) in 12_5; the
+/// degree sign stands against it.
+const READOUT_AT: Vec3 = [5.2, 1.9, 0.0];
 
 // --------------------------------------------------------------- the tables
 
@@ -224,7 +234,8 @@ impl Icons {
         // the numbers: food by food above the field's loop, tools by food
         // under the lower arrow, food by tools over the upper arrow, tools
         // by tools above the workshop's loop
-        let n = |kit: &Kit, stage: &mut Stage<'_>, x: f64, at: Vec3| kit.text(stage, &show(x, 1)?, 34.0, orange, at);
+        let n =
+            |kit: &Kit, stage: &mut Stage<'_>, x: f64, at: Vec3| kit.text(stage, &show(x, 1)?, NUMBER_SIZE, orange, at);
         let numbers = [
             n(kit, stage, t[0][0], v(fx, fy + 1.85))?,
             n(kit, stage, t[1][0], v(mid, fy - 0.62))?,
@@ -240,6 +251,37 @@ impl Icons {
             numbers,
         })
     }
+}
+
+/// The pictures of 12_1 go first and the four numbers fly to their `cells`
+/// after, so that no number crosses a house, a name or an arrow still on the
+/// screen.
+fn fold_into_table(stage: &mut Stage<'_>, icons: &Icons, cells: [Vec3; 4]) -> fmn::Result<()> {
+    let mut gone = vec![icons.field, icons.workshop, icons.tag];
+    gone.extend(icons.names);
+    gone.extend(icons.arrows);
+    let mut leave: Vec<Box<dyn Animation>> = Vec::new();
+    for g in gone {
+        stage.clear_updaters(g, true);
+        let a = fade_out(stage.arena_mut(), g, ORIGIN, 1.0)?;
+        leave.push(stage.prepare(a.rt(ICONS_GO))?);
+    }
+    stage.play_prepared(leave)?;
+    let mut fold: Vec<Box<dyn Animation>> = Vec::new();
+    for (&n, c) in icons.numbers.iter().zip(cells) {
+        // each lands as big as the table's entries, so that the table can
+        // take its place without two sizes of the same number on the screen
+        fold.push(
+            stage.prepare(
+                n.animate()
+                    .set_anim_args(run(FLIGHT))?
+                    .move_to(c, ORIGIN)?
+                    .scale(TABLE_SIZE / NUMBER_SIZE)?,
+            )?,
+        );
+    }
+    stage.play_prepared(fold)?;
+    Ok(())
 }
 
 // --------------------------------------------------- the plane and its words
@@ -275,9 +317,22 @@ pub(super) fn hatched_quarter(stage: &mut Stage<'_>, plane: Plane, reach: (f64, 
     out
 }
 
+/// How far the degree sign stands from the last digit of the angle readout.
+const DEGREE_GAP: f64 = 0.05;
+
+/// The degree sign of the angle readout, detached, its left edge `DEGREE_GAP`
+/// to the right of `at`: the readout's number is anchored on its RIGHT edge
+/// at the same `at`, so the sign stays against the last digit whether the
+/// angle is one digit or three.
+pub(super) fn degree_sign(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+    let sign = kit.text(stage, "\u{b0}", 56.0, Palette::ink(), at)?;
+    stage.move_to(sign, v(at[0] + DEGREE_GAP, at[1]), LEFT);
+    Ok(sign)
+}
+
 /// The live angle between the move and the push it gets back, in degrees: a
 /// number rebuilt from the arrow test's move every frame, detached, with its
-/// left edge at `at`.
+/// right edge at `at` (the degree sign of [`degree_sign`] goes just past it).
 pub(super) fn angle_readout(kit: &Kit, stage: &mut Stage<'_>, test: &ArrowTest, at: Vec3) -> fmn::Result<Mob> {
     let (u, table) = (test.u, test.table);
     let readout = kit.live_value(
@@ -294,10 +349,63 @@ pub(super) fn angle_readout(kit: &Kit, stage: &mut Stage<'_>, test: &ArrowTest, 
         56.0,
         Palette::ink(),
         at,
-        LEFT,
+        RIGHT,
     )?;
     stage.remove_from_scene(readout);
     Ok(readout)
+}
+
+// ------------------------------------------------- the words of the sweep
+
+/// How far a written value stands off the end of its line (scene units).
+const VALUE_GAP: f64 = 0.15;
+/// How far the chip of the negative quarter stands to the right of the
+/// plane's last unit (scene units).
+const CHIP_GAP: f64 = 0.45;
+/// How far down the quarter's height the chip's middle stands.
+const CHIP_DROP: f64 = 0.4;
+
+/// The three words 12_5's plane writes, built and detached.
+struct SweepWords {
+    /// "0.7", past the end of the gold line of the even mix.
+    mix: Mob,
+    /// "0.2", past the end of the dashed line of the other own pattern.
+    other: Mob,
+    /// "tools would be negative", beside the hatched quarter.
+    negative: Mob,
+}
+
+/// Put `label` up and to the right of `end` (a point on the screen, the end
+/// of a line that reaches the plane's top or right edge): its lower left
+/// corner stands `VALUE_GAP` off the end each way, so nothing of the line,
+/// its glow or the hatch passes through the number.
+fn past_the_end(stage: &mut Stage<'_>, label: Mob, end: Vec3) {
+    stage.move_to(label, v(end[0] + VALUE_GAP, end[1] + VALUE_GAP), v(-1.0, -1.0));
+}
+
+fn sweep_words(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<SweepWords> {
+    let mix_deg = numbers("K-E2.mix_direction_deg")?[0];
+    let other = numbers("K-E2.other")?;
+    let largest = numbers("K-E2.largest")?[0];
+    let (_, end_mix) = band_ends(unit_at(mix_deg), REACH.0, REACH.1);
+    let (_, end_other) = band_ends([other[0], other[1]], REACH.0, REACH.1);
+    let eigen_values = items("K-E2.eigenvalues")?;
+    let other_value = fraction_value(eigen_values[1])?;
+    let mix = kit.text(stage, &show(largest, 1)?, 34.0, own(), ORIGIN)?;
+    past_the_end(stage, mix, PLANE.p(end_mix[0], end_mix[1]));
+    let other_label = kit.text(stage, &show(other_value, 1)?, 34.0, own(), ORIGIN)?;
+    past_the_end(stage, other_label, PLANE.p(end_other[0], end_other[1]));
+    // the chip stands outside the plane, beside the upper part of the
+    // quarter it names (clear of "food" above it and "0.2" below), so no
+    // arrow, line or stroke of the hatch runs through it
+    let negative = chip(kit, stage, "tools would be negative", 24.0, warn(), ORIGIN)?;
+    let at = PLANE.p(REACH.0, -CHIP_DROP * REACH.1);
+    stage.move_to(negative, v(at[0] + CHIP_GAP, at[1]), LEFT);
+    Ok(SweepWords {
+        mix,
+        other: other_label,
+        negative,
+    })
 }
 
 // -------------------------------------------------------------- the scene
@@ -342,23 +450,13 @@ impl SceneConstruct for AnEconomy {
             grid.cell_at(stage, 0, 1),
             grid.cell_at(stage, 1, 1),
         ];
-        let mut fold: Vec<Box<dyn Animation>> = Vec::new();
-        for (&n, c) in icons.numbers.iter().zip(cells) {
-            fold.push(stage.prepare(n.animate().set_anim_args(run(1.0))?.move_to(c, ORIGIN)?)?);
-        }
-        let mut gone = vec![icons.field, icons.workshop, icons.tag];
-        gone.extend(icons.names);
-        gone.extend(icons.arrows);
-        for g in gone {
-            stage.clear_updaters(g, true);
-            let a = fade_out(stage.arena_mut(), g, ORIGIN, 1.0)?;
-            fold.push(stage.prepare(a.rt(1.0))?);
-        }
-        stage.play_prepared(fold)?;
+        fold_into_table(stage, &icons, cells)?;
         let mut table_in = vec![grid.group];
         table_in.extend(&heads);
-        fade_in_all(stage, &table_in, 0.6)?;
-        fade_out_all(stage, &icons.numbers, 0.3)?;
+        // the orange numbers give way to the table's as it comes in (the same
+        // numbers at the same size), not under it: the table used to fade in
+        // beneath them and they printed over its white
+        cross_fade(stage, &icons.numbers, &table_in, 0.5)?;
 
         // ---- 12_2: your turn: make ten of each; how much is used up?
         let line = say(&kit, stage, "12_2")?;
@@ -503,8 +601,11 @@ impl SceneConstruct for AnEconomy {
                 v(x, BAR_BASE + used_h + kept_h / 2.0),
             )?;
             let name = kit.text(stage, name, 30.0, dim, v(x, BAR_BASE - 0.4))?;
-            bars.extend([frame, used_bar, kept_bar]);
-            words.extend([used_tag, kept_tag, name]);
+            // the bars come with their names ("food", "tools"): two bars
+            // that nothing names stood on the screen for the voice's first
+            // sentence
+            bars.extend([frame, used_bar, kept_bar, name]);
+            words.extend([used_tag, kept_tag]);
         }
         let eigenvalue = kit.text(
             stage,
@@ -535,9 +636,9 @@ impl SceneConstruct for AnEconomy {
         let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
         let test = ArrowTest::build(stage, PLANE, table, u, REACH)?;
         let across = axis_words(&kit, stage, PLANE, REACH)?;
-        let readout = angle_readout(&kit, stage, &test, v(4.2, 1.9))?;
+        let readout = angle_readout(&kit, stage, &test, READOUT_AT)?;
         let readout_name = kit.text(stage, "angle between the arrows", 26.0, dim, v(4.9, 2.7))?;
-        let degrees = kit.text(stage, "\u{b0}", 56.0, ink, v(5.55, 1.9))?;
+        let degrees = degree_sign(&kit, stage, READOUT_AT)?;
         let mix_deg = numbers("K-E2.mix_direction_deg")?[0];
         let other_deg = numbers("K-E2.other_direction_deg")?[0];
         let (mix_dir, other_dir) = (numbers("K-E2.mix")?, numbers("K-E2.other")?);
@@ -549,49 +650,9 @@ impl SceneConstruct for AnEconomy {
             .build()?;
         let dashed = stage.arena_mut().add(dashed);
         let hatch = hatched_quarter(stage, PLANE, REACH);
-        let tag_negative = chip(
-            &kit,
-            stage,
-            "tools would be negative",
-            24.0,
-            warn(),
-            PLANE.p(2.0, -0.55),
-        )?;
-        let (end_mix, end_other) = {
-            let (_, e1) = band_ends(unit_at(mix_deg), REACH.0, REACH.1);
-            let (_, e2) = band_ends([other_dir[0], other_dir[1]], REACH.0, REACH.1);
-            (e1, e2)
-        };
-        let label_mix = kit.text(
-            stage,
-            &show(largest, 1)?,
-            34.0,
-            own(),
-            PLANE.p(end_mix[0] - 0.55, end_mix[1] - 0.1),
-        )?;
-        let eigen_values = items("K-E2.eigenvalues")?;
-        let other_value = fraction_value(eigen_values[1])?;
-        let label_other = kit.text(
-            stage,
-            &show(other_value, 1)?,
-            34.0,
-            own(),
-            PLANE.p(end_other[0] - 0.5, end_other[1] + 0.55),
-        )?;
-        let cited = lower_third(
-            &kit,
-            stage,
-            &format!(
-                "Perron {}, Frobenius {}:",
-                fact("K-S.perron_year")?,
-                fact("K-S.frobenius_year")?
-            ),
-            &format!(
-                "a table with no negative numbers always has an own pattern with none, and it carries the largest \
-                 eigenvalue; that eigenvector ranked web pages (Brin and Page {})",
-                fact("K-S.brin_page_year")?,
-            ),
-        )?;
+        let sweep = sweep_words(&kit, stage)?;
+        let (label_mix, label_other, tag_negative) = (sweep.mix, sweep.other, sweep.negative);
+        let cited = citation(&kit, stage)?;
 
         // the picture keeps up with the voice: "Turn the arrow as before" is
         // 2 s, and the rest of the line (2 to 7.6 s) is the other own pattern
@@ -639,6 +700,31 @@ impl SceneConstruct for AnEconomy {
     }
 }
 
+/// What Perron and Frobenius showed, and what came of it, as the lower-third
+/// of 12_5 says it: short enough for two even lines (at the band's width a
+/// longer one left "1998)" alone on a third line).
+fn citation_text(brin_page_year: &str) -> String {
+    format!(
+        "a table with no negative numbers has an own pattern with none, with the largest eigenvalue; that pattern \
+         ranked web pages (Brin and Page {brin_page_year})"
+    )
+}
+
+/// 12_5's lower-third, built and detached: the two names and their years,
+/// and what came of it.
+fn citation(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    lower_third(
+        kit,
+        stage,
+        &format!(
+            "Perron {}, Frobenius {}:",
+            fact("K-S.perron_year")?,
+            fact("K-S.frobenius_year")?
+        ),
+        &citation_text(fact("K-S.brin_page_year")?),
+    )
+}
+
 /// A plain arrow from `a` to `b` in `color`, detached.
 fn arrow(stage: &mut Stage<'_>, a: Vec3, b: Vec3, color: Srgb) -> Mob {
     stage.arena_mut().add(
@@ -650,6 +736,10 @@ fn arrow(stage: &mut Stage<'_>, a: Vec3, b: Vec3, color: Srgb) -> Mob {
 
 #[cfg(test)]
 mod tests {
+    use std::cell::Cell;
+    use std::rc::Rc;
+
+    use super::super::draw::testing::Room;
     use super::super::draw::{matrix, testing};
     use super::*;
     use crate::model::economy;
@@ -776,5 +866,195 @@ mod tests {
         let tail = voiced.tail_seconds();
         eprintln!("TAIL 12_an_economy: {tail:.2} s");
         assert!(tail <= 2.5, "12_an_economy: {tail:.2} s of picture after the last line");
+    }
+
+    /// 12_5: the two values and the chip stand clear of the lines, the hatch
+    /// and the plane. A dense read caught "0.7" under the end of the gold
+    /// line, "0.2" on the dashed line inside the hatch, and the chip on the
+    /// path of the arrow turning into the quarter.
+    #[test]
+    fn the_values_and_the_chip_stand_clear_of_the_lines_the_hatch_and_the_arrows() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let words = sweep_words(&kit, stage)?;
+            let across = axis_words(&kit, stage, PLANE, REACH)?;
+            let (mix, other, negative) = (
+                Room::of(stage, words.mix),
+                Room::of(stage, words.other),
+                Room::of(stage, words.negative),
+            );
+            let food = Room::of(stage, across[0]);
+            let plane = Room::spanning(PLANE.p(-REACH.0, -REACH.1), PLANE.p(REACH.0, REACH.1));
+            let hatch = Room::spanning(PLANE.p(0.0, 0.0), PLANE.p(REACH.0, -REACH.1));
+            // a gold line is a 26 pt glow round a 3 pt core
+            let stroke = 0.12;
+            let segment = |dir: [f64; 2]| {
+                let (a, b) = band_ends(dir, REACH.0, REACH.1);
+                (PLANE.p(a[0], a[1]), PLANE.p(b[0], b[1]))
+            };
+            let mix_deg = numbers("K-E2.mix_direction_deg")?[0];
+            let other_dir = numbers("K-E2.other")?;
+            let (m0, m1) = segment(unit_at(mix_deg));
+            let (o0, o1) = segment([other_dir[0], other_dir[1]]);
+            assert!(
+                !mix.grown(stroke).crosses(m0, m1),
+                "0.7 stands on the gold line: {mix:?}"
+            );
+            assert!(!mix.overlaps(&plane), "0.7 is inside the plane: {mix:?}");
+            assert!(
+                !other.grown(stroke).crosses(o0, o1),
+                "0.2 stands on the dashed line: {other:?}"
+            );
+            assert!(!other.overlaps(&hatch), "0.2 is inside the hatch: {other:?}");
+            assert!(!other.overlaps(&plane), "0.2 is inside the plane: {other:?}");
+            // the chip is outside the plane, so no arrow of the sweep (at
+            // most SWEEP_LENGTH, inside the reach) can run under it, and
+            // it names the quarter it stands beside
+            assert!(SWEEP_LENGTH < REACH.0 && SWEEP_LENGTH < REACH.1);
+            assert!(!negative.overlaps(&plane), "the chip is inside the plane: {negative:?}");
+            assert!(negative.x0 - plane.x1 >= CHIP_GAP - 1e-9, "{negative:?}");
+            assert!(
+                negative.y0 >= hatch.y0 && negative.y1 <= hatch.y1,
+                "the chip is not beside the quarter: {negative:?} against {hatch:?}"
+            );
+            for (name, other_box) in [("0.2", other), ("0.7", mix), ("food", food)] {
+                assert!(!negative.overlaps(&other_box), "the chip is over {name}: {negative:?}");
+            }
+            Ok(())
+        });
+    }
+
+    /// 12_5: the citation's lower-third is two lines, the second not a
+    /// remnant of the first ("1998)" stood alone on a third line).
+    #[test]
+    fn the_citation_wraps_into_two_even_lines() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let before = kit.registered().len();
+            let _band = citation(&kit, stage)?;
+            let made: Vec<String> = kit.registered()[before..].iter().map(|r| r.source.clone()).collect();
+            // what it settled on is the run of lines at the end of those it
+            // laid out whose words, in order, are the whole text
+            let text = citation_text(fact("K-S.brin_page_year")?);
+            let mut lines: Vec<String> = Vec::new();
+            for source in made.iter().rev() {
+                lines.insert(0, source.clone());
+                if lines.join(" ") == text {
+                    break;
+                }
+            }
+            assert_eq!(
+                lines.join(" "),
+                text,
+                "the lines of the band were not found in {made:?}"
+            );
+            assert_eq!(lines.len(), 2, "{lines:?}");
+            let (a, b) = (lines[0].chars().count(), lines[1].chars().count());
+            assert!(3 * b >= a, "the second line is a remnant: {lines:?}");
+            Ok(())
+        });
+    }
+
+    /// 12_5 (and 14_5): the degree sign stands against the last digit of the
+    /// readout, however many digits it has. It stood 0.5 units off ("25   °").
+    #[test]
+    fn the_degree_sign_hugs_the_last_digit_at_any_angle() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let table = table_of("K-E1.table")?;
+            let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
+            let test = ArrowTest::build(stage, PLANE, table, u, REACH)?;
+            let readout = angle_readout(&kit, stage, &test, READOUT_AT)?;
+            let sign = degree_sign(&kit, stage, READOUT_AT)?;
+            test.start(stage)?;
+            stage.set_tracker_value(test.polar, 1.0)?;
+            stage.set_tracker_value(test.radius, SWEEP_LENGTH)?;
+            stage.add_to_scene(readout)?;
+            stage.add_to_scene(sign)?;
+            let sign_box = Room::of(stage, sign);
+            assert!(
+                (sign_box.x0 - READOUT_AT[0] - DEGREE_GAP).abs() < 1e-6,
+                "the sign's left edge is {} not {}",
+                sign_box.x0,
+                READOUT_AT[0] + DEGREE_GAP
+            );
+            // along the even mix nothing turns ("0"), along the first axis
+            // the push is turned by about thirty degrees: one digit, then two
+            let mix_deg = numbers("K-E2.mix_direction_deg")?[0];
+            let mut widths = Vec::new();
+            for deg in [mix_deg, 0.0] {
+                stage.set_tracker_value(test.degrees, deg)?;
+                stage.wait(0.2)?;
+                let n = Room::of(stage, readout);
+                assert!(
+                    (n.x1 - READOUT_AT[0]).abs() < 1e-6,
+                    "at {deg} degrees the number ends at {} not {}",
+                    n.x1,
+                    READOUT_AT[0]
+                );
+                widths.push(n.x1 - n.x0);
+            }
+            assert!(
+                widths[1] > widths[0] + 0.1,
+                "the readout never changed width: {widths:?}"
+            );
+            Ok(())
+        });
+    }
+
+    /// 12_1: the pictures are gone before the numbers start to fly, so no
+    /// number crosses a house, a name or an arrow (a frame had "0.2" over
+    /// "workshops: tools"); and the numbers do land on their cells.
+    #[test]
+    fn the_numbers_fly_only_after_the_pictures_are_gone() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let icons = Icons::build(&kit, stage, &table_of("K-E1.table")?)?;
+            let mut all = vec![icons.field, icons.workshop, icons.tag];
+            all.extend(icons.names);
+            all.extend(icons.arrows);
+            all.extend(icons.numbers);
+            for &m in &all {
+                stage.add_to_scene(m)?;
+            }
+            let start: Vec<Vec3> = icons.numbers.iter().map(|&n| stage.get_center(n)).collect();
+            let widths: Vec<f64> = icons.numbers.iter().map(|&n| stage.get_width(n)).collect();
+            let (clock, moved_at) = (Rc::new(Cell::new(0.0)), Rc::new(Cell::new(f64::NAN)));
+            let (c, m, numbers) = (Rc::clone(&clock), Rc::clone(&moved_at), icons.numbers);
+            let probe = stage.arena_mut().add(VMobject::new());
+            stage.add_dt_updater(
+                probe,
+                move |s, _, dt| {
+                    c.set(c.get() + dt);
+                    let moving = numbers.iter().zip(&start).any(|(&n, p)| {
+                        let at = s.get_center(n);
+                        (at[0] - p[0]).abs() + (at[1] - p[1]).abs() > 1e-6
+                    });
+                    if moving && m.get().is_nan() {
+                        m.set(c.get());
+                    }
+                },
+                false,
+            )?;
+            stage.add_to_scene(probe)?;
+            let cells = [v(3.8, 1.1), v(3.8, 0.0), v(5.0, 1.1), v(5.0, 0.0)];
+            fold_into_table(stage, &icons, cells)?;
+            assert!(
+                moved_at.get() >= ICONS_GO - 1e-6,
+                "a number moved at {} s, while the pictures take {ICONS_GO} s to go",
+                moved_at.get()
+            );
+            for ((&n, cell), w0) in icons.numbers.iter().zip(cells).zip(widths) {
+                let at = stage.get_center(n);
+                assert!(
+                    (at[0] - cell[0]).abs() < 1e-6 && (at[1] - cell[1]).abs() < 1e-6,
+                    "{at:?} {cell:?}"
+                );
+                // and as big as the table's own entries
+                let grown = stage.get_width(n) / w0;
+                assert!((grown - TABLE_SIZE / NUMBER_SIZE).abs() < 1e-6, "{grown}");
+            }
+            Ok(())
+        });
     }
 }

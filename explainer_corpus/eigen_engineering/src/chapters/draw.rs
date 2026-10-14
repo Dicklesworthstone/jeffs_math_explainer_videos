@@ -1190,6 +1190,91 @@ pub mod testing {
         }
     }
 
+    /// The box a mobject fills on the screen (scene units): what the layout
+    /// lint cannot see, a word standing over a stroke or a hatch, is checked
+    /// against it (`overlaps` for boxes, `crosses` for a line).
+    #[derive(Clone, Copy, Debug)]
+    pub struct Room {
+        pub x0: f64,
+        pub x1: f64,
+        pub y0: f64,
+        pub y1: f64,
+    }
+
+    impl Room {
+        /// The box `m` fills now.
+        pub fn of(stage: &mut Stage<'_>, m: Mob) -> Self {
+            let c = stage.get_center(m);
+            let (hw, hh) = (stage.get_width(m) / 2.0, stage.get_height(m) / 2.0);
+            Self {
+                x0: c[0] - hw,
+                x1: c[0] + hw,
+                y0: c[1] - hh,
+                y1: c[1] + hh,
+            }
+        }
+
+        /// The box with opposite corners `a` and `b`.
+        pub fn spanning(a: Vec3, b: Vec3) -> Self {
+            Self {
+                x0: a[0].min(b[0]),
+                x1: a[0].max(b[0]),
+                y0: a[1].min(b[1]),
+                y1: a[1].max(b[1]),
+            }
+        }
+
+        /// The box grown by `pad` on every side.
+        pub fn grown(self, pad: f64) -> Self {
+            Self {
+                x0: self.x0 - pad,
+                x1: self.x1 + pad,
+                y0: self.y0 - pad,
+                y1: self.y1 + pad,
+            }
+        }
+
+        /// Whether the two boxes share any area.
+        pub fn overlaps(&self, other: &Room) -> bool {
+            self.x0 < other.x1 && other.x0 < self.x1 && self.y0 < other.y1 && other.y0 < self.y1
+        }
+
+        /// Whether the point is inside the box (its edge counts).
+        pub fn holds(&self, p: Vec3) -> bool {
+            p[0] >= self.x0 && p[0] <= self.x1 && p[1] >= self.y0 && p[1] <= self.y1
+        }
+
+        /// Whether the segment from `a` to `b` passes through the box
+        /// (touching it counts): Liang and Barsky's clip.
+        pub fn crosses(&self, a: Vec3, b: Vec3) -> bool {
+            let (mut t0, mut t1) = (0.0_f64, 1.0_f64);
+            let d = [b[0] - a[0], b[1] - a[1]];
+            for (p, q) in [
+                (-d[0], a[0] - self.x0),
+                (d[0], self.x1 - a[0]),
+                (-d[1], a[1] - self.y0),
+                (d[1], self.y1 - a[1]),
+            ] {
+                if p.abs() < 1e-12 {
+                    if q < 0.0 {
+                        return false;
+                    }
+                } else {
+                    let r = q / p;
+                    if p < 0.0 {
+                        t0 = t0.max(r);
+                    } else {
+                        t1 = t1.min(r);
+                    }
+                    if t0 > t1 {
+                        return false;
+                    }
+                }
+            }
+            true
+        }
+    }
+
     /// What the quiz asked on one line did, measured (scene seconds).
     #[derive(Debug)]
     pub struct QuizAudit {
