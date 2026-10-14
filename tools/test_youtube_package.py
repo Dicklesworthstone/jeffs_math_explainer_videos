@@ -122,6 +122,24 @@ class Package(unittest.TestCase):
         self.write(DESC.replace("A one-line pitch.", "von Neumannian pitch."), title="Alpha: a title word")
         self.assertEqual(len([b for b in self.check() if "protected" in b]), 1)
 
+    def test_a_number_the_notes_do_not_say_fails(self):
+        docs = self.root / "explainer_corpus" / "alpha" / "docs"
+        docs.mkdir()
+        (docs / "description.md").write_text(
+            "The coin lands heads 80% of the time; 350,757 flips; a peak of −1.5 dBTP.\n", encoding="utf-8")
+        body = ("A coin lands heads 80% of the time, in 350757 flips, with a peak of -1.5 dBTP, and 68% match.\n"
+                "See https://github.com/x/y/blob/main/docs/description2024.md\n")
+        self.write(DESC.replace("A one-line pitch.\n", body).replace("?:?? One", "0:00 One")
+                   .replace("?:?? Two", "1:01 Two").replace("?:?? Three", "1:48 Three"))
+        # the notes do not bind their numbers yet: the rule does not apply
+        self.assertEqual(self.check(), [])
+        (docs / "description_numbers.tsv").write_text("# number\tcontext\tkind\treason\n", encoding="utf-8")
+        bad = self.check()
+        self.assertEqual(len(bad), 1, bad)  # 80, 350757 (separator folded), 1.5 (sign folded) pass; links, times skip
+        self.assertIn("the number 68 ", bad[0])
+        self.write(DESC, title="Alpha in 3 Steps")
+        self.assertTrue(any(b.startswith("title.txt: the number 3 ") for b in self.check()))
+
     def test_youtube_counts_quotes_round_a_tag_with_a_space(self):
         self.assertEqual(yp.tags_length(["ab", "c d"]), 2 + 1 + 3 + 2)
 
