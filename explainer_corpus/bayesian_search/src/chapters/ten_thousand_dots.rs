@@ -16,9 +16,9 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Heat, Lattice, Sea, balanced_lines, carry_pause, carry_question, fade_in_all, fade_in_lagged, fade_out_all,
-    faded_line, fail, flat, last_known, line_style, map, panel, pause, quote_card, say, sea_dots, sea_slot, sea_split,
-    text_lines, true_place, tween_linear,
+    Heat, Lattice, STAND_UP, Sea, balanced_lines, carry_pause, carry_question, fade_in_all, fade_in_lagged,
+    fade_out_all, faded_line, fail, flat, last_known, line_style, map, panel, pause, quote_card, say, sea_dots,
+    sea_slot, sea_split, text_lines, true_place, tween_linear,
 };
 use crate::facts::cited;
 use crate::model::{Q, sea, y1968};
@@ -339,8 +339,11 @@ impl SceneConstruct for TenThousandDots {
         line.wait_end(stage)?;
         kit.hold(stage)?;
         let exact = precisely(&kit, stage, SOURCE_PRECISELY)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, exact, "04_4:exact")?;
         fade_in_all(stage, &[exact], 0.5)?;
-        pause(stage, 1.2)?;
+        // whole for the floor (1.2 s left it 1.5 s whole over the finished read)
+        pause(stage, STAND_UP)?;
         fade_out_all(stage, &[exact], 0.4)?;
 
         // 04_5: one cell stands out, one dot in every eight: E5. A question
@@ -694,5 +697,19 @@ mod tests {
         let late = w.first_arrival() - w.line_start("04_1");
         eprintln!("04_1: the first picture begins {late:.2} s after the line");
         assert!(late <= 0.1, "the first picture comes {late:.2} s after the line starts");
+    }
+
+    /// 04_4 (the pre-final read of the narrated draft: the "precisely" band
+    /// stood 1.5 s whole): it stands whole for the floor. The line is on the
+    /// finished read's timing.
+    #[test]
+    fn the_precisely_band_stands_the_floor() {
+        use super::super::draw::{STAND_UP, watch};
+        let w = watch::run_timed("04_ten_thousand_dots", &[("04_4", &[0.0, 3.01], 4.89)]);
+        let whole = w.stood("04_4:exact");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

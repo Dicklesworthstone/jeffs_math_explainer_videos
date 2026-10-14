@@ -16,9 +16,9 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CARRY_HOLD_S, GOLD_PT, QuizFrame, SEA_DOT_R, SEA_RING_R, Sea, SeaDot, Strip, arc_ring, fade_from_black,
-    fade_in_all, fade_out_all, fail, find, fit_width, flat, frac_tex, gold_tex, in_cell, line_style, map, out, pause,
-    percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear, wait_until,
+    GOLD_PT, QuizFrame, SEA_DOT_R, SEA_RING_R, STAND_UP, Sea, SeaDot, Strip, arc_ring, fade_from_black, fade_in_all,
+    fade_out_all, fail, find, fit_width, flat, frac_tex, gold_tex, in_cell, line_style, map, out, pause, percent_tex,
+    say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear, wait_until,
 };
 use super::glyphs;
 use super::nothing_found::pct_text;
@@ -298,8 +298,12 @@ impl SceneConstruct for BayesRule {
         line.wait_end(stage)?;
         kit.hold(stage)?;
         let names = lower_third(&kit, stage, PRIOR, PRIOR_WORDS)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, names, "07_1:names")?;
         fade_in_all(stage, &[names], 0.5)?;
-        pause(stage, CARRY_HOLD_S)?;
+        // whole for the floor before the beat goes (the hold left it 1.8 s
+        // whole over the finished read)
+        pause(stage, STAND_UP)?;
         fade_out_all(stage, &[names, name, note, note2], 0.5)?;
 
         // 07_2: as a recipe, a column a sentence
@@ -969,5 +973,19 @@ mod tests {
         for p in LOOP {
             assert!(p[0] - 1.3 > sea_right && p[0] + 1.3 < QUIZ_FRAME.0 + 0.4, "{p:?}");
         }
+    }
+
+    /// 07_1 (the pre-final read of the narrated draft: the "prior" band stood
+    /// 1.8 s whole): it stands whole for the floor before the beat goes. The
+    /// line is on the finished read's timing.
+    #[test]
+    fn the_prior_band_stands_the_floor_before_the_beat_goes() {
+        use super::super::draw::{STAND_UP, watch};
+        let w = watch::run_timed("07_bayes_rule", &[("07_1", &[0.0, 1.63], 6.855)]);
+        let whole = w.stood("07_1:names");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

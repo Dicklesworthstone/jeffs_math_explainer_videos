@@ -353,10 +353,16 @@ impl SceneConstruct for Adrift {
             let word = kit.text(stage, name, 24.0, Palette::dim(), v(tip[0] + 0.55, tip[1]))?;
             arrows.extend([wedge, arrow, word]);
         }
-        fade_in_all(stage, &arrows, 0.7)?;
+        // the band that names what the wind does comes with the arrows and
+        // stands through the line (it came at the line's end and went with
+        // 10_2's first word: 0.3 s whole over the finished read)
         let leeway = lower_third(&kit, stage, LEEWAY, LEEWAY_TEXT)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, leeway, "10_1:leeway")?;
+        let mut ins = arrows.clone();
+        ins.push(leeway);
+        fade_in_all(stage, &ins, 0.7)?;
         line.wait_end(stage)?;
-        fade_in_all(stage, &[leeway], 0.5)?;
 
         // ------------------------------------------------------- 10_2
         // every dot moves with its own guess: the map drifts and spreads
@@ -1130,5 +1136,22 @@ mod tests {
             assert!(DOUBLING_X > 3.6 + 0.5);
         }
         assert!(end < FRAME_X_RADIUS - 0.15, "{end}");
+    }
+
+    /// 10_1 (the pre-final read of the narrated draft: the "leeway" band came
+    /// at the line's end and stood 0.3 s whole): it comes with the arrows and
+    /// stands for the floor. The lines are on the finished read's timing.
+    #[test]
+    fn the_leeway_band_stands_the_floor() {
+        use super::super::draw::{STAND_UP, watch};
+        let w = watch::run_timed(
+            "10_adrift",
+            &[("10_1", &[0.0, 1.95, 4.695], 10.57), ("10_2", &[0.0, 4.3, 6.955], 8.83)],
+        );
+        let whole = w.stood("10_1:leeway");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

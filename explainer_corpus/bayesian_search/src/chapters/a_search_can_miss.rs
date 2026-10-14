@@ -15,8 +15,8 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CARRY_HOLD_S, QuizFrame, Sea, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find, flat, gold_tex,
-    in_cell, line_style, map, pause, percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear,
+    QuizFrame, STAND_UP, Sea, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find, flat, gold_tex, in_cell,
+    line_style, map, pause, percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear,
 };
 use crate::model::{Q, sea};
 
@@ -250,8 +250,12 @@ impl SceneConstruct for ASearchCanMiss {
         line.wait_end(stage)?;
         kit.hold(stage)?;
         let third = lower_third(&kit, stage, DETECTION, DETECTION_WORDS)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, third, "05_6:third")?;
         fade_in_all(stage, &[third], 0.5)?;
-        pause(stage, CARRY_HOLD_S - 0.5)?;
+        // whole for the floor before the chapter's fade (the hold left it
+        // 1.5 s whole over the finished read)
+        pause(stage, STAND_UP)?;
         fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
@@ -373,5 +377,20 @@ mod tests {
             assert!(SPARE_RING_R < SEA_CELL.1 / 2.0);
         }
         assert!(FIND_LABEL[0] > sea_rect(2).0 && FIND_LABEL[0] < sea_rect(3).2);
+    }
+
+    /// 05_6 (the pre-final read of the narrated draft: the chapter's closing
+    /// band, "detection probability", stood 1.9 s): it stands whole for the
+    /// floor before the chapter fades. The line is on the finished read's
+    /// timing.
+    #[test]
+    fn the_detection_band_stands_the_floor_before_the_chapter_fades() {
+        use crate::chapters::draw::{STAND_UP, watch};
+        let w = watch::run_timed("05_a_search_can_miss", &[("05_6", &[0.0, 4.42], 8.115)]);
+        let whole = w.stood("05_6:third");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

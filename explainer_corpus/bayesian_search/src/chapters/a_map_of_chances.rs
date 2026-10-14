@@ -14,7 +14,7 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CARRY_HOLD_S, Heat, NAVY_CENTRE, NAVY_ROW_H, NavyGrid, QuizFrame, Sea, SeaDot, fade_in_all, fade_in_lagged,
+    Heat, NAVY_CENTRE, NAVY_ROW_H, NavyGrid, QuizFrame, STAND_UP, Sea, SeaDot, fade_in_all, fade_in_lagged,
     fade_out_all, fail, fit_width, flat, fly_all, frac_tex, map, panel, pause, say, scatter, sea_dots, sea_rect,
     sea_slot, sea_split, tween_all,
 };
@@ -402,8 +402,12 @@ impl SceneConstruct for AMapOfChances {
         line.wait_end(stage)?;
         kit.hold(stage)?;
         let third = lower_third(&kit, stage, PRIOR, PRIOR_WORDS)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, third, "03_7:third")?;
         fade_in_all(stage, &[third], 0.5)?;
-        pause(stage, CARRY_HOLD_S - 0.5)?;
+        // whole for the floor before the chapter's fade (the hold left it
+        // 1.5 s whole over the finished read)
+        pause(stage, STAND_UP)?;
         fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
@@ -632,6 +636,20 @@ mod tests {
         assert!(
             (0.0..=0.5).contains(&bare),
             "{bare:.2} s of bare stage between the grid and the sea"
+        );
+    }
+
+    /// 03_7 (the pre-final read of the narrated draft: the chapter's closing
+    /// band, "prior", stood 1.5 s whole before the fade): it stands whole for
+    /// the floor. The line is on the finished read's timing.
+    #[test]
+    fn the_prior_band_stands_the_floor_before_the_chapter_fades() {
+        use super::super::draw::{STAND_UP, watch};
+        let w = watch::run_timed("03_a_map_of_chances", &[("03_7", &[0.0, 3.395], 5.06)]);
+        let whole = w.stood("03_7:third");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
         );
     }
 }

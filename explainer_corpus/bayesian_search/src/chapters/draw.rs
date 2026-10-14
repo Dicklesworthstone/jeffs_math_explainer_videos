@@ -195,6 +195,122 @@ pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
 /// How long a question to carry (no ring) holds before the next beat.
 pub const CARRY_HOLD_S: f64 = 2.0;
 
+/// How long a band, tag or note stands whole before anything takes it away,
+/// seconds (the floor the other videos' bands keep). Take `now` when its
+/// fade-in is over and `wait_until(stage, up + STAND_UP)` (or `pause`) before
+/// the next line fades it.
+pub const STAND_UP: f64 = 2.6;
+
+/// Events of `watch_dwell`, during a test run: chapter name, key, "up",
+/// "leave" or "down", scene seconds.
+#[cfg(test)]
+pub mod dwell_log {
+    use std::sync::Mutex;
+
+    static EVENTS: Mutex<Vec<(String, &'static str, &'static str, f64)>> = Mutex::new(Vec::new());
+
+    pub fn record(chapter: &str, key: &'static str, kind: &'static str, at: f64) {
+        if let Ok(mut events) = EVENTS.lock() {
+            events.push((chapter.to_owned(), key, kind, at));
+        }
+    }
+
+    /// What the mobject watched under `key` did in the run named `chapter`,
+    /// in order.
+    pub fn take(chapter: &str, key: &str) -> Vec<(&'static str, f64)> {
+        EVENTS
+            .lock()
+            .map(|events| {
+                events
+                    .iter()
+                    .filter(|(c, k, ..)| c == chapter && *k == key)
+                    .map(|&(_, _, kind, at)| (kind, at))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
+    /// How long the mobject watched under `key` stood whole in the run named
+    /// `chapter`: from its first "up" to the next "leave" (the moment it
+    /// falls under nearly the opacity it was made with), or to `end`, the
+    /// chapter's length, if it was never taken away. Panics if it never came up.
+    pub fn whole(chapter: &str, key: &str, end: f64) -> f64 {
+        let events = take(chapter, key);
+        let up = events
+            .iter()
+            .find(|(k, _)| *k == "up")
+            .unwrap_or_else(|| panic!("{key} never came up ({events:?})"))
+            .1;
+        let left = events
+            .iter()
+            .find(|&&(k, t)| k == "leave" && t >= up)
+            .map_or(end, |&(_, t)| t);
+        (left - up).max(0.0)
+    }
+}
+
+/// Tests only: have `mob` watched through the run, noting in `dwell_log`
+/// under the chapter's name and `key` each time it is fully seen ("up": on
+/// the scene at nearly the opacity it was made with), each time it begins to
+/// go ("leave") and each time it has all but gone ("down": off the scene, or
+/// nearly transparent), scene seconds. A fade-out takes the mobject off the
+/// scene and gives it its opacity back, so both are read. Call it where the
+/// mobject is made, before anything fades it; how long a band stands whole is
+/// then a number a test can read (the same device as the lie_robotics one).
+#[cfg(test)]
+pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str) -> fmn::Result<()> {
+    let watch = stage.arena_mut().add(VMobject::new());
+    let chapter = kit.chapter.clone();
+    let origin = stage.scene().time().to_f64();
+    let (mut base, mut seen, mut state, mut left) = (f64::NAN, 0.0, None::<bool>, false);
+    // the most opaque of the family (a group has no colour of its own)
+    let opacity = move |s: &fmn::mobject::Stage| {
+        s.family(mob).into_iter().fold(0.0, |o: f64, m| {
+            o.max(s.get_fill_opacity(m).unwrap_or(0.0))
+                .max(s.get_stroke_opacity(m).unwrap_or(0.0))
+        })
+    };
+    let on_scene = move |s: &fmn::mobject::Stage| s.roots().iter().any(|&r| r == mob || s.family(r).contains(&mob));
+    stage.add_dt_updater(
+        watch,
+        move |s, _, dt| {
+            seen += dt;
+            let o = opacity(s);
+            if base.is_nan() {
+                // as registered: the mobject's own opacity, before any fade,
+                // and whether it is up now
+                base = o.max(1e-6);
+                state = Some(on_scene(s) && o >= 0.9 * base);
+                return;
+            }
+            let now = if on_scene(s) && o >= 0.9 * base {
+                Some(true)
+            } else if !on_scene(s) || o <= 0.1 * base {
+                Some(false)
+            } else {
+                state
+            };
+            if state == Some(true) && !left && !(on_scene(s) && o >= 0.9 * base) {
+                dwell_log::record(&chapter, key, "leave", origin + seen);
+                left = true;
+            }
+            if now != state {
+                if state.is_some() {
+                    let kind = if now == Some(true) { "up" } else { "down" };
+                    dwell_log::record(&chapter, key, kind, origin + seen);
+                }
+                if now == Some(true) {
+                    left = false;
+                }
+                state = now;
+            }
+        },
+        true,
+    )?;
+    stage.add_to_scene(watch)?;
+    Ok(())
+}
+
 /// The pause after a question to carry: let the question finish, mark the
 /// moment for the score and hold the picture [`CARRY_HOLD_S`].
 pub fn carry_pause(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -1846,6 +1962,15 @@ pub mod watch {
                 .find(|(l, _)| l == id)
                 .unwrap_or_else(|| panic!("{id} was never said ({:?})", self.lines))
                 .1
+        }
+
+        /// How long the mobject watched under `key` (`watch_dwell`) stood
+        /// whole: from fully up to the moment it began to go, or to the
+        /// chapter's end.
+        pub fn stood(&self, key: &str) -> f64 {
+            let whole = super::dwell_log::whole(&self.kit.chapter, key, self.end);
+            eprintln!("{key}: whole {whole:.2} s (the chapter is {:.2} s)", self.end);
+            whole
         }
 
         /// The scene second the first fade-in of the chapter begins: the
