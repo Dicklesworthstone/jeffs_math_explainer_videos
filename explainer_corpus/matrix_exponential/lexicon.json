@@ -210,7 +210,8 @@
     "padei",
     "pardai",
     "parday",
-    "parde"
+    "parde",
+    "paday"
    ],
    "probe": {
     "date": "2026-10-13",
@@ -294,10 +295,15 @@
  "accept": {
   "centre": [
    "center"
+  ],
+  "loan": [
+   "lone"
   ]
  },
  "phrases": {
   "shows y": "shows why",
-  "ways around": "ways round"
+  "ways around": "ways round",
+  "par de": "padé",
+  "par day": "padé"
  }
 }
