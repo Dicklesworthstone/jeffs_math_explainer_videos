@@ -16,8 +16,6 @@
 //! four hundred nodes `F-D.big.*` and `F-V.12_4.nodes`, the pair
 //! `F-D.pair.*`.
 
-use std::f64::consts::PI;
-
 use explainer_kit::props::lower_third;
 use explainer_kit::stats::Data;
 use explainer_kit::{Kit, Palette, fade_all, play, v};
@@ -25,9 +23,10 @@ use fmn::prelude::*;
 
 use super::draw::{
     MatrixGrid, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, music_hold, panel,
-    predict_hold, result, rule, say, substance, tween_linear, whole,
+    predict_hold, result, rule, say, substance, tween_linear, wait_until, whole,
 };
 use super::flow::{Levels, fade_in_anim, fade_out_anim};
+use super::sound;
 use super::walks::{NODE_R, node};
 use crate::facts::{quantum_pair, shown};
 use crate::model::{KITE, Mat, Network, PAIR, expm_t, grid_heat};
@@ -56,6 +55,9 @@ const HOPPER_UNTIL: f64 = 14.0;
 /// The panels of 12_5 and 12_6: scene units to one unit of the complex
 /// plane, and a bar's height for one whole unit.
 const PANEL_UNIT: f64 = 2.0;
+/// How long the panels of 12_6 take to wind back to the start before the
+/// sweep is played again with its sound (seconds).
+const REWIND_S: f64 = 0.8;
 const PANEL_BAR_H: f64 = 2.0;
 
 // ------------------------------------------------------------- the geometry
@@ -613,6 +615,8 @@ impl SceneConstruct for HeatAndChance {
             tween_linear(big_clock, shown::BIG_TIME, 3.6)?,
             tween_linear(counter, walks_value, 3.6)?,
         );
+        // a breath: the music alone after the four hundred (the score bead)
+        music_hold(&kit, stage)?;
 
         // ---- 12_5: the tanks were this all along; now put an i in
         let line = say(&kit, stage, "12_5")?;
@@ -727,7 +731,7 @@ impl SceneConstruct for HeatAndChance {
         ins.extend([title_l, title_r, cap_l, cap_r]);
         fade_in_all(stage, &ins, 0.7)?;
         line.wait_for(stage, "Remember what i did to growth")?;
-        play!(stage; tween_linear(slosh, PI, 6.0)?);
+        play!(stage; tween_linear(slosh, sound::SLOSH_END, sound::SLOSH_S)?);
         let strip = lower_third(
             &kit,
             stage,
@@ -736,7 +740,17 @@ impl SceneConstruct for HeatAndChance {
              each bar is the squared size of one",
         )?;
         fade_in_all(stage, &[strip], 0.5)?;
-        music_hold(&kit, stage)?;
+        // once the line is spoken, the same sweep again, heard (sound that
+        // teaches): two pitches a panel, as loud as their bars; heat's come
+        // together and stay, the quantum pair's trade places and come back.
+        // It is the chapter's last music alone, so no hold follows it.
+        kit.hold(stage)?;
+        play!(stage; tween_linear(slosh, 0.0, REWIND_S)?);
+        let wav = sound::slosh()?;
+        kit.sonify(stage, sound::SLOSH_WINDOW_S, &format!("{}:12_6", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        play!(stage; tween_linear(slosh, sound::SLOSH_END, sound::SLOSH_S)?);
+        wait_until(stage, start + sound::SLOSH_WINDOW_S)?;
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
@@ -745,7 +759,7 @@ impl SceneConstruct for HeatAndChance {
 
 #[cfg(test)]
 mod tests {
-    use std::f64::consts::FRAC_PI_2;
+    use std::f64::consts::{FRAC_PI_2, PI};
 
     use super::super::draw::{fact, numbers, show, testing};
     use super::*;

@@ -413,6 +413,8 @@ impl SceneConstruct for OrderMatters {
         ];
         stage.play_prepared(swap)?;
         line.wait_for(stage, "Three different results")?;
+        // said with no music under it (the score bead: the bare key line)
+        kit.mark(stage, "silence:three_results");
         kit.hold(stage)?;
 
         // ---- 14_5: AB and BA: commuting

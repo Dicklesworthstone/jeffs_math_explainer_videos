@@ -20,9 +20,10 @@ use fmn::prelude::*;
 use super::a_matrix_in::spiral_corners;
 use super::draw::{
     Plane, QuizCard, arrow, corners as quad_run, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, flat,
-    good, minus, music_hold, numbers, result, rule, say, substance, tween_linear,
+    good, minus, music_hold, numbers, result, rule, say, substance, tween_linear, wait_until,
 };
 use super::flow::LiveMatrix;
+use super::sound;
 use crate::model::{Mat, quarter_turn, series};
 
 pub struct DoesItSettle {
@@ -386,6 +387,23 @@ impl SceneConstruct for DoesItSettle {
             &[frame, inset_circle, inset_path, landed, zoomed, home_words],
             0.7,
         )?;
+        // the terms heard (sound that teaches): one note a term, each as loud
+        // as its bar is tall, the bars lighting in step with their notes, in
+        // a listen window once the line is spoken
+        let glows: Vec<Mob> = sizes
+            .iter()
+            .enumerate()
+            .map(|(k, &size)| bar(stage, &BARS, k, size, faded_line(result(), 4.0, 1.0)))
+            .collect::<fmn::Result<_>>()?;
+        let window = sound::terms_seconds(sizes.len());
+        let wav = sound::terms(&sizes)?;
+        kit.sonify(stage, window, &format!("{}:08_4", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        for &glow in &glows {
+            fade_in_all(stage, &[glow], sound::TERM_STEP_S)?;
+        }
+        wait_until(stage, start + window)?;
+        fade_out_all(stage, &glows, 0.3)?;
         kit.hold(stage)?;
 
         // 08_5: it works for every square matrix: size, ceilings, and the

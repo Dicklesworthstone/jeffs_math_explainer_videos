@@ -501,6 +501,8 @@ impl SceneConstruct for FollowTheArrows {
             swap.push(stage.prepare(b)?);
         }
         stage.play_prepared(swap)?;
+        // a breath: the music alone while the arrows are followed (the score bead)
+        music_hold(&kit, stage)?;
 
         // ---- 09_4: why the series is that motion
         let line = say(&kit, stage, "09_4")?;
@@ -711,6 +713,10 @@ impl SceneConstruct for FollowTheArrows {
         )?;
         let between = arrow(stage, v(-1.2, -2.65), v(0.1, -2.65), ink, 4.0)?;
         fade_in_all(stage, &[rule_card, where_card, between], 0.7)?;
+        // the line's last sentence is said with no music under it (the score
+        // bead: the bare key line of the chapter)
+        line.wait_for(stage, "Its exponential is where the rule takes you")?;
+        kit.mark(stage, "silence:its_exponential");
         let peano = lower_third(
             &kit,
             stage,

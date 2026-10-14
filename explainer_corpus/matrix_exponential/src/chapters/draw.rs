@@ -19,6 +19,7 @@ use explainer_kit::narration::{frames_covering, wait_frames};
 use explainer_kit::{BACKGROUND, Facts, Kit, Palette, Script, Timed, hex, tween, v};
 use fmn::prelude::*;
 
+use super::sound;
 use crate::model::{Mat, QUIZZES, Quiz};
 
 pub use explainer_kit::animatic::HOLD_S;
@@ -1188,20 +1189,26 @@ impl QuizCard {
     }
 
     /// The countdown: let the question finish, then a listen window of the
-    /// quiz's seconds (the narration silent, the music alone) while the ring
-    /// drains from the scene's own clock.
+    /// quiz's seconds (the narration silent, one soft note a second under the
+    /// ring) while the ring drains from the scene's own clock; at zero the
+    /// answer's note rings for [`sound::LAND_S`] before the next line, which
+    /// is where the chapter lands the answer.
     pub fn count(&self, kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         kit.hold(stage)?;
+        let n = f64::from(self.quiz.seconds);
+        let wav = sound::countdown(self.quiz.seconds)?;
+        let label = format!("{}:{}", kit.chapter, self.quiz.line);
+        kit.sonify(stage, n + sound::LAND_S, &label, &wav)?;
+        let start = stage.scene().time().to_f64();
         stage.set_tracker_value(self.running, 1.0)?;
         #[cfg(test)]
         self.log("window_start", stage);
-        let label = format!("{}:{}", kit.chapter, self.quiz.line);
-        kit.listen(stage, f64::from(self.quiz.seconds), &label)?;
+        wait_until(stage, start + n)?;
         stage.set_tracker_value(self.running, 0.0)?;
         stage.set_tracker_value(self.left, 0.0)?;
         #[cfg(test)]
         self.log("window_end", stage);
-        Ok(())
+        wait_until(stage, start + n + sound::LAND_S)
     }
 
     /// At zero: the ring, its track and its note go, `answer` (detached,
@@ -1431,9 +1438,12 @@ pub mod testing {
             .iter()
             .find(|(label, ..)| label.ends_with(&format!(":{line}")))
             .ok_or_else(|| format!("{line}: no listen window was opened"))?;
-        if (listen.1 - window.0).abs() > 0.11 || (listen.2 - f64::from(quiz.seconds)).abs() > 1e-9 {
+        // the window is the ring's seconds and the answer's beat (the note of
+        // the answer rings alone before the next line)
+        let wanted = f64::from(quiz.seconds) + super::sound::LAND_S;
+        if (listen.1 - window.0).abs() > 0.11 || (listen.2 - wanted).abs() > 1e-9 {
             return Err(format!(
-                "{line}: the listen window ({:.2} s for {:.1} s) is not the ring's ({:.2} s)",
+                "{line}: the listen window ({:.2} s for {:.1} s, wanted {wanted:.1} s) is not the ring's ({:.2} s)",
                 listen.1, listen.2, window.0
             ));
         }
@@ -1876,8 +1886,8 @@ mod tests {
         );
         if let Some((next, at)) = &a.next_line {
             assert!(
-                *at >= a.window.1 - 0.05,
-                "{line}: {next} starts inside the countdown\n{said}"
+                *at >= a.window.1 + sound::LAND_S - 0.05,
+                "{line}: {next} starts inside the countdown or the answer's beat\n{said}"
             );
         }
     }

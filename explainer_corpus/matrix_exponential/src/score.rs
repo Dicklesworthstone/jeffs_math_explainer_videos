@@ -9,10 +9,13 @@
 //! colour that keeps a bright sixth: neither the growth nor the decay side
 //! of the exponential), unhurried, a warm pad with an electric piano melody
 //! and a vibraphone answer. Each quiz countdown is a listen window: the
-//! music alone, one soft note a second.
+//! music alone, one soft vibraphone note a second, each a rung above the
+//! last and left unfinished until the answer lands on the tonic
+//! (`chapters/sound.rs`, which also writes the two sonifications). The title
+//! card's window is the motif itself, left open.
 
 use explainer_score::instr::Instrument;
-use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette};
+use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette, Theme};
 use explainer_score::theory::{Chord, DORIAN, Key, Motif};
 
 pub fn identity() -> Identity {
@@ -45,6 +48,28 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
-        themes: Vec::new(),
+        // 01_3: "listen 3 s (the motif: one step, three times, each a little
+        // higher)"
+        themes: vec![("01_3", Theme::Open)],
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_identity_is_one_the_engine_can_play() {
+        assert!(identity().validate().is_ok());
+    }
+
+    /// Every soundless listen window the video opens has the theme the
+    /// storyboard asks for: the title card's motif, left open. (The quiz
+    /// windows and the two sonifications carry their own sound.)
+    #[test]
+    fn the_title_card_s_window_plays_the_motif_open() {
+        let id = identity();
+        assert_eq!(id.theme_for("01_e_to_a_matrix:01_3"), Some(Theme::Open));
+        assert_eq!(id.theme_for("03_growth:03_3"), None);
     }
 }

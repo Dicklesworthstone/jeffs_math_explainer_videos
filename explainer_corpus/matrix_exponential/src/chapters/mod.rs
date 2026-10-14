@@ -16,6 +16,7 @@ pub mod heat_and_chance;
 pub mod how_computers_do_it;
 pub mod one_function;
 pub mod order_matters;
+pub mod sound;
 pub mod the_doorway;
 pub mod the_obvious_guess;
 pub mod the_series;
