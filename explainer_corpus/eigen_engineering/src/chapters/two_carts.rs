@@ -160,7 +160,15 @@ impl SceneConstruct for TwoCarts {
         fade_in_all(stage, &first, 0.8)?;
         line.wait_for(stage, "joined by three springs")?;
         fade_in_all(stage, &pic.springs, 0.7)?;
-        let note = kit.text(stage, "1 newton per centimetre", 28.0, orange, v(-2.4, 3.45))?;
+        // a spring's newtons per centimetre is the fact's newtons per metre over a hundred
+        let per_cm = numbers("K-A4.spring_n_per_m")?[0] / 100.0;
+        let note = kit.text(
+            stage,
+            &format!("{} newton per centimetre", whole(per_cm)),
+            28.0,
+            orange,
+            v(-2.4, 3.45),
+        )?;
         let weight = apple(stage, v(0.2, 3.38), 0.19)?;
         line.wait_for(stage, "Each spring pushes back one newton")?;
         fade_in_all(stage, &[note, weight], 0.6)?;
@@ -234,11 +242,16 @@ impl SceneConstruct for TwoCarts {
         let matrix_word = kit.text(stage, "matrix", 26.0, dim, v(0.0, LOWER_Y - 1.2))?;
         line.wait_for(stage, "called a matrix")?;
         fade_in_all(stage, &[matrix_word], 0.5)?;
-        // the first column is the pushes of 02_3
+        // the first column is the pushes of 02_3 (the storyboard's shorthand:
+        // a beat's id is never shown to the viewer, who saw them minutes ago)
         let column = table.column_band(stage, 0, own())?;
         let tag = kit.text(
             stage,
-            &format!("the pushes of 02_3: {}, {}", whole(pushed[0]), minus(&whole(pushed[1]))),
+            &format!(
+                "the pushes from before: {}, {}",
+                whole(pushed[0]),
+                minus(&whole(pushed[1]))
+            ),
             26.0,
             dim,
             v(0.0, LOWER_Y + 1.35),
@@ -406,6 +419,14 @@ mod tests {
         assert_eq!(numbers("K-A1.push.left").unwrap(), [2.0, -1.0]);
     }
 
+    /// 02_1: "a newton a centimetre" is the spring's hundred newtons a metre,
+    /// and the one newton is the weight of an apple's order (a hundred grams).
+    #[test]
+    fn a_newton_a_centimetre_is_a_hundred_newtons_a_metre() {
+        assert_eq!(numbers("K-A4.spring_n_per_m").unwrap(), [100.0]);
+        assert_eq!(whole(numbers("K-A4.spring_n_per_m").unwrap()[0] / 100.0), "1");
+    }
+
     /// 02_6 and 02_7: the quiz's answer is the table applied to both carts
     /// together, one and one, and it comes back as the moves: the moves are
     /// an own pattern of the table with eigenvalue one.
@@ -431,7 +452,7 @@ mod tests {
             "moves",
             "pushes",
             "matrix",
-            "the pushes of 02_3: 2, \u{2013}1",
+            "the pushes from before: 2, \u{2013}1",
             r"2 \times 1 + (-1) \times 0 = 2",
             r"(-1) \times 1 + 2 \times 0 = -1",
             "your turn",

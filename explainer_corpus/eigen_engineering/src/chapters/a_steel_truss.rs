@@ -65,6 +65,12 @@ pub fn thousands_tex(n: u64) -> String {
     thousands(n).replace(',', "{,}")
 }
 
+/// How many of a joint's two directions (along the span, up and down) the
+/// supports hold still: 2 at the pin, 1 at the roller, 0 anywhere else.
+pub fn held_at(truss: &Truss, joint: usize) -> usize {
+    truss.held.iter().filter(|&&d| d / 2 == joint).count()
+}
+
 /// The tonnes a force of `kn` kilonewtons weighs, to the nearest ten:
 /// "about 30 tonnes" for the spring of 05_2.
 pub fn about_tonnes(tonnes: f64) -> u64 {
@@ -227,10 +233,18 @@ impl SceneConstruct for ASteelTruss {
             &[],
             v(3.6, 2.2),
         )?;
-        let pin_tag = kit.text_left(stage, "holds both ways: 2", 22.0, dim, v(-6.9, LAYOUT.origin[1] - 0.95))?;
+        // how many of its two directions each support holds, from the model
+        let (pin_holds, roller_holds) = (held_at(&t, 0), held_at(&t, crate::model::truss::PANELS));
+        let pin_tag = kit.text_left(
+            stage,
+            &format!("holds both ways: {pin_holds}"),
+            22.0,
+            dim,
+            v(-6.9, LAYOUT.origin[1] - 0.95),
+        )?;
         let roller_tag = kit.text(
             stage,
-            "holds up and down only: 1",
+            &format!("holds up and down only: {roller_holds}"),
             22.0,
             dim,
             v(right[0] - 0.9, right[1] - 0.95),
@@ -601,6 +615,22 @@ mod tests {
         assert!((t.length_m(&bottom) - PANEL_M).abs() < 1e-12);
         assert_eq!(about_tonnes(numbers("K-T1.spring_tonnes").unwrap()[0]), 30);
         assert_eq!(thousands_tex(6000), "6{,}000");
+    }
+
+    /// 05_3: the pin holds both of its directions and the roller only up and
+    /// down, no other joint is held, and together they are the facts' three.
+    #[test]
+    fn the_pin_holds_two_directions_and_the_roller_one() {
+        let t = Truss::pratt();
+        assert_eq!(held_at(&t, 0), 2, "the pin");
+        assert_eq!(held_at(&t, crate::model::truss::PANELS), 1, "the roller");
+        let elsewhere: usize = (1..t.joints.len())
+            .filter(|&j| j != crate::model::truss::PANELS)
+            .map(|j| held_at(&t, j))
+            .sum();
+        assert_eq!(elsewhere, 0);
+        assert_eq!(held_at(&t, 0) + held_at(&t, crate::model::truss::PANELS), 3);
+        assert_eq!(fact("K-T1.held").unwrap(), "3");
     }
 
     /// 05_3 and 05_4: 12 x 2 - 3 = 21, and the table the members write is
