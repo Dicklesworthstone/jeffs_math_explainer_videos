@@ -1,0 +1,22 @@
+# Director alternates for Video K's narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Same words as script.tsv, other punctuation, so ftts (deterministic) makes new reads. First pass with michael (2026-10-14, R2 script):
+# every read of these six either drops the final s/z of its last word (centimetres, moves, walls, size, tools, questions) or is
+# stopped by ftts inside it (cut_short), so no existing read can be picked (tools/narration.py analyze on every take).
+01_1	1	Under nothing but footsteps, a new footbridge sways sideways, by about seven centimetres.
+01_1	1	Under nothing but footsteps a new footbridge sways sideways by about seven centimetres…
+01_1	1	— Under nothing but footsteps, a new footbridge sways sideways by about seven centimetres.
+02_7	2	The pushes come back in the same pattern, as the moves.
+02_7	2	The pushes come back in the same pattern as the moves…
+02_7	2	— The pushes come back in the same pattern as the moves.
+10_1	1	One formula gives every tone, of a box with hard walls.
+10_1	1	One formula gives every tone of a box with hard walls…
+10_1	1	— One formula gives every tone of a box, with hard walls.
+12_3	1	The same pattern comes back seven tenths the size.
+12_3	1	The same pattern comes back, seven tenths the size…
+12_3	1	— The same pattern comes back, seven tenths, the size.
+12_5	1	The other own pattern with eigenvalue two tenths needs a negative amount of tools.
+12_5	1	The other own pattern, with eigenvalue two tenths, needs a negative amount, of tools.
+12_5	1	The other own pattern, with eigenvalue two tenths, needs a negative amount of tools…
+14_7	0	So, there are three questions.
+14_7	0	So there are three questions…
+14_7	0	So there are, three questions.

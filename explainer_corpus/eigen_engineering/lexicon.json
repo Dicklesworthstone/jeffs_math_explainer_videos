@@ -1,5 +1,5 @@
 {
- "_comment": "Pronunciation lexicon for Video K (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Names and terms the script speaks (script.tsv of 63291ba): Tacoma, Schroeder, Wallace Sabine, eigenvalue(s), eigenvector(s), Eigen; London, Boston and Wallace are ordinary English and not listed. The brief's other names (Leontief, Helmholtz, Perron, Frobenius, Hilbert, Lanczos, Eigentöne) are not spoken in this script: add them if a revision speaks them. eigenvalue copied from Video J's record; the rest looked up and corrected by hand where the tool guessed, each note says how. Probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. The owner's pronunciation overrides every entry.",
+ "_comment": "Pronunciation lexicon for Video K (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Names and terms the script speaks (script.tsv of 63291ba): Tacoma, Schroeder, Wallace Sabine, eigenvalue(s), eigenvector(s), Eigen; London, Boston and Wallace are ordinary English and not listed. The brief's other names (Leontief, Helmholtz, Perron, Frobenius, Hilbert, Lanczos, Eigentöne) are not spoken in this script: add them if a revision speaks them. eigenvalue copied from Video J's record; the rest looked up and corrected by hand where the tool guessed, each note says how. Probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. The owner's pronunciation overrides every entry. Narration triage of 2026-10-14 (R2 script, michael): 'accept' lists the American spellings the ASR writes for the script's British ones and the unit's abbreviation, each heard right in its take alone (02_4.1 neighbours, 05_2.1 millimetre, 09_4.2 metres, 10_3.0 and 11_3.0 hertz as Hz); 'phrases' maps 'at hum' to 'but hum' (09_5.2: the take alone is heard 'but hum', and so are cuts of the assembled line from 4.3 s and from 5.12 s; from 5.0 s it is heard 'At hum'; the take's first 0.9 s sits inside the line at correlation 0.9998, so the onset is whole and the miss is the ASR's window).",
  "words": {
   "eigenvalue": {
    "say": "EYE-gen-val-yoo",
@@ -117,5 +117,40 @@
     "verdict": "PASS: the plain word heard as Tacoma 3/3; tuh-KOH-muh as a respelling was garbled."
    }
   }
+ },
+ "accept": {
+  "centimetre": [
+   "centimeter"
+  ],
+  "centimetres": [
+   "centimeters"
+  ],
+  "millimetre": [
+   "millimeter"
+  ],
+  "millimetres": [
+   "millimeters"
+  ],
+  "metres": [
+   "meters"
+  ],
+  "neighbour": [
+   "neighbor"
+  ],
+  "neighbours": [
+   "neighbors"
+  ],
+  "neighbouring": [
+   "neighboring"
+  ],
+  "tonnes": [
+   "tons"
+  ],
+  "hertz": [
+   "hz"
+  ]
+ },
+ "phrases": {
+  "at hum": "but hum"
  }
 }
