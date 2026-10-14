@@ -24,7 +24,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Flow, FlowSpec, MatrixGrid, Plane, QuizCard, chip, entries, fade_in_all, fade_out_all, faded_line, flat, lattice,
-    music_hold, numbers, panel, result, rotation_map, rule, say, turning, tween_linear, whole,
+    music_hold, numbers, panel, result, rotation_map, rule, say, turning, tween_linear, wait_until, whole,
 };
 use super::flow::{Levels, fade_in_anim, fade_out_anim};
 use super::follow_the_arrows::lay_row;
@@ -48,6 +48,12 @@ const RULER_POINTS: usize = 140;
 /// let out afterwards (more than a full turn of 2π).
 const RULER_SHORT: f64 = 1.7;
 const RULER_LONG: f64 = 7.0;
+/// 16_5: how long the receipts card (three sentences, a link, three names to
+/// search) stands fully up before the video ends. It stood 1.2 s: it came
+/// after the music's breath, with 1.4 s left in the chapter.
+const RECEIPTS_STAND_S: f64 = 5.0;
+/// The fade that ends the chapter, over the card.
+const END_FADE_S: f64 = 0.8;
 const _: () = assert!(RULER_LONG > TAU, "the ruler must be let out past a full turn");
 /// 16_5: the centres of the four panes, and their common height.
 const PANE_X: [f64; 4] = [-5.0, -1.7, 1.6, 4.9];
@@ -668,8 +674,10 @@ impl SceneConstruct for WhereItLeads {
         fade_in_all(stage, &pane_mobs, 0.7)?;
         line.wait_for(stage, "E to the matrix is where that rule takes you")?;
         play!(stage; tween_linear(pane_t, TAU, 5.0)?);
-        music_hold(&kit, stage)?;
-        // the receipts, and the names to search
+        // the receipts, and the names to search: they come in as the line
+        // ends and the music's breath rests under them (they came after the
+        // breath and stood 1.2 s at the very end of the video)
+        line.wait_end(stage)?;
         let receipts = receipts_card(
             &kit,
             stage,
@@ -690,10 +698,15 @@ impl SceneConstruct for WhereItLeads {
         )?;
         stage.clear_updaters(pane_anchor, true);
         stage.clear_updaters(cube.anchor, true);
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, receipts, "16_5:receipts")?;
         fade_out_all(stage, &pane_mobs, 0.5)?;
         fade_in_all(stage, &[receipts, names], 0.7)?;
+        let up = stage.scene().time().to_f64();
+        music_hold(&kit, stage)?;
+        wait_until(stage, up + RECEIPTS_STAND_S)?;
         kit.hold(stage)?;
-        fade_all(stage, 0.8)?;
+        fade_all(stage, END_FADE_S)?;
         kit.finish(stage)
     }
 }
@@ -702,9 +715,40 @@ impl SceneConstruct for WhereItLeads {
 mod tests {
     use fmn::scene::{NullSceneSink, RuntimeConfig};
 
-    use super::super::draw::{fact, testing};
+    use super::super::draw::{fact, quiz_log, testing};
     use super::*;
     use crate::model::{quarter_turn, su_dim};
+
+    /// 16_5 (the dense read of the scored draft): the receipts card, with the
+    /// link and the names to search, comes in as the line ends (it came after
+    /// the music's breath, 3 s later, and stood 1.2 s at the very end of the
+    /// video) and stands `RECEIPTS_STAND_S` fully up, to the last picture of
+    /// the chapter.
+    #[test]
+    fn the_receipts_card_stands_five_seconds_at_the_end_of_the_video() {
+        let voiced = testing::run_voiced("16_where_it_leads").unwrap();
+        let events = quiz_log::take(&voiced.tag, "16_5:receipts");
+        let up = events
+            .iter()
+            .find(|(k, _)| *k == "up")
+            .map(|e| e.1)
+            .expect("the receipts card comes up");
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "16_5").cloned().unwrap();
+        assert!(
+            up < start + len + 1.5,
+            "fully up at {up:.1} s, the line 16_5 ends at {:.1} s (the panes' fade-out and the card's fade-in follow it)",
+            start + len
+        );
+        // the chapter's last picture: the final fade begins END_FADE_S before
+        // the end (the fade-out of the whole stage takes nothing off the
+        // scene, so the log has no "down" for it)
+        let stands = voiced.ran.seconds - END_FADE_S - up;
+        assert!(
+            stands >= RECEIPTS_STAND_S - 0.15,
+            "it stands {stands:.1} s (up at {up:.1} s, the chapter ends at {:.1} s)",
+            voiced.ran.seconds
+        );
+    }
 
     /// Run `f` as a scene's `construct`, headless, at 10 fps.
     fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {

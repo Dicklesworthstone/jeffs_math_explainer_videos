@@ -157,8 +157,22 @@ impl SceneConstruct for DoesItSettle {
         let name = kit.tex(stage, "e^{J} =", 80.0, result(), &[], v(-3.2, 0.4))?;
         let converges = kit.text(stage, CONVERGES, 40.0, rule(), v(0.0, -2.8))?;
         let added = kit.text(stage, TERMS_ADDED, 30.0, Palette::dim(), v(-0.6, -1.6))?;
-        fade_in_all(stage, &[heading, name], 0.6)?;
         let live = LiveMatrix::build(&kit, stage, v(0.4, 0.4), 2, 2, (2.4, 1.1), 76.0, 3, result(), entry)?;
+        // the running total (still the identity, the sum's first term) comes
+        // in with its brackets as the line begins; its readouts were on the
+        // scene from the start and its brackets came 4 s later, with the
+        // counter ("e^J = 1.000 0.000 / 0.000 1.000" stood with no brackets)
+        for &cell in &live.cells {
+            stage.remove_from_scene(cell);
+        }
+        #[cfg(test)]
+        {
+            super::draw::watch_dwell(&kit, stage, live.brackets, "08_1:brackets")?;
+            super::draw::watch_dwell(&kit, stage, live.cells[0], "08_1:cell")?;
+        }
+        let mut first = vec![heading, name, live.brackets];
+        first.extend(&live.cells);
+        fade_in_all(stage, &first, 0.6)?;
         let count = kit.live_value(
             stage,
             move |s| s.tracker_value(k).unwrap_or(0.0).round(),
@@ -170,10 +184,8 @@ impl SceneConstruct for DoesItSettle {
             LEFT,
         )?;
         stage.remove_from_scene(count);
-        let mut ins = vec![added, count, live.brackets];
-        ins.extend(&live.cells);
         line.wait_for(stage, "the running total has to settle")?;
-        fade_in_all(stage, &ins, 0.6)?;
+        fade_in_all(stage, &[added, count], 0.6)?;
         play!(stage; tween_linear(k, 12.0, 4.2)?);
         line.wait_for(stage, "Mathematicians say")?;
         fade_in_all(stage, &[converges], 0.5)?;
@@ -742,6 +754,37 @@ mod tests {
         assert!(
             up >= leaves - 0.2 && up <= leaves + 1.0,
             "up at {up:.1} s, the card goes at {leaves:.1} s"
+        );
+    }
+
+    /// 08_1 (the dense read of the scored draft): the running total comes in
+    /// with its brackets as the line begins. Its readouts were on the scene
+    /// from the start and its brackets came 4 s later, with the counter: the
+    /// total stood with no brackets. Brackets and readouts come up in one
+    /// fade (the logged moments of a stroke and a glyph reaching nine tenths
+    /// differ by a few tenths of a second: half a second at most), inside
+    /// the line's first two seconds.
+    #[test]
+    fn the_running_total_comes_in_with_its_brackets() {
+        let voiced = testing::run_voiced("08_does_it_settle").unwrap();
+        let up_of = |key: &str| {
+            quiz_log::take(&voiced.tag, key)
+                .iter()
+                .find(|(k, _)| *k == "up")
+                .map(|e| e.1)
+        };
+        let (brackets, cell) = (
+            up_of("08_1:brackets").expect("the brackets come up"),
+            up_of("08_1:cell").expect("the readouts come up"),
+        );
+        let (_, start, _) = voiced.lines.iter().find(|(id, ..)| id == "08_1").cloned().unwrap();
+        assert!(
+            (brackets - cell).abs() <= 0.5,
+            "brackets up at {brackets:.1} s, the readouts at {cell:.1} s"
+        );
+        assert!(
+            cell < start + 2.0,
+            "the total is up at {cell:.1} s, the line begins at {start:.1} s"
         );
     }
 

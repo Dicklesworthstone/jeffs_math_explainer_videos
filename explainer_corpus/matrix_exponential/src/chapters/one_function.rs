@@ -313,7 +313,8 @@ impl SceneConstruct for OneFunction {
         let key_steps = kit.text(stage, STAIRCASE, 28.0, substance(), v(PANEL_X, 1.9))?;
         let key_sum = kit.text(stage, PIECES, 28.0, rule(), v(PANEL_X, 1.2))?;
         let key_curve = kit.tex(stage, "e^{x}", 70.0, result(), &[], v(PANEL_X, 0.1))?;
-        line.wait_for(stage, "both obey rate equals amount")?;
+        // the chart comes in as the sum goes, not at "both obey" (it came
+        // 0.6 s after the sum had gone: a bare stage under "That's because")
         let mut ins = chart.clone();
         ins.extend([the_curve, steps_curve, sum_curve, key_steps, key_sum]);
         fade_in_all(stage, &ins, 0.6)?;
@@ -641,6 +642,40 @@ mod tests {
         // and the window's top is under the dial's base (2.35)
         assert!(YEARS_WINDOW.top() < DIAL_AT[1] - 0.2, "{}", YEARS_WINDOW.top());
         assert!(UNIT_WINDOW.top() < DIAL_AT[1] - 0.2);
+    }
+
+    /// The longest run of frames with no picture among frames `from..to`.
+    fn longest_blank_run(sizes: &[u64], from: usize, to: usize) -> usize {
+        let (mut run, mut longest) = (0, 0);
+        for i in from..to {
+            if testing::has_picture(sizes, i) {
+                run = 0;
+            } else {
+                run += 1;
+                longest = longest.max(run);
+            }
+        }
+        longest
+    }
+
+    /// 05_2 (the dense read of the scored draft): the sum of 05_1 goes as the
+    /// line begins and the chart comes in at once, not at "both obey rate
+    /// equals amount": the whole frame was empty for 0.6 s under "That's
+    /// because". At 10 frames a second no run of bare frames is longer than
+    /// three, from the line's start to the end of its first sentence's
+    /// beginning (3 s in).
+    #[test]
+    fn the_chart_comes_in_as_the_sum_goes_not_after_a_bare_stage() {
+        let voiced = testing::run_voiced("05_one_function").unwrap();
+        let sizes = testing::frame_sizes(&voiced.ran.frames_dir).unwrap();
+        let (_, start, _) = voiced.lines.iter().find(|(id, ..)| id == "05_2").cloned().unwrap();
+        let (from, to) = ((start * 10.0).floor() as usize, ((start + 3.0) * 10.0).ceil() as usize);
+        let longest = longest_blank_run(&sizes, from, to);
+        assert!(
+            longest <= 3,
+            "{longest} bare frames in a row between {start:.1} s and {:.1} s",
+            start + 3.0
+        );
     }
 
     #[test]

@@ -21,6 +21,7 @@ use super::draw::{
     Plane, QuizCard, arrow, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fit_width, flat, minus,
     music_hold, result, rule, say, turning, tween_linear, warn,
 };
+use super::flow::{fade_in_anim, fade_out_anim};
 
 pub struct Turning {
     pub kit: Kit,
@@ -360,14 +361,19 @@ impl SceneConstruct for Turning {
                 fact("F-B.euler.year")?
             ),
         )?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, who, "06_4:euler")?;
         fade_in_all(stage, &[who], 0.5)?;
         kit.hold(stage)?;
 
         // 06_5: that point is e to the i t; a time pi lands on minus one
         let line = say(&kit, stage, "06_5")?;
+        // (Euler's credit is for e^{it}, which this line names: it stays up
+        // through the line's first sentence; it stood 1.7 s and went as the
+        // line began)
         fade_out_all(
             stage,
-            &[speed, arc_words, radian, radius_end, radian_words, as_long, who],
+            &[speed, arc_words, radian, radius_end, radian_words, as_long],
             0.5,
         )?;
         let name = kit.tex(stage, POINT_IS, 76.0, result(), &[], PLANE.p(0.0, 1.72))?;
@@ -383,7 +389,8 @@ impl SceneConstruct for Turning {
         line.wait_for(stage, "That point is called")?;
         fade_in_all(stage, &[name], 0.5)?;
         line.wait_for(stage, "Run it for a time pi")?;
-        fade_in_all(stage, &[pi_words], 0.4)?;
+        let swap = vec![fade_out_anim(stage, who, 0.4)?, fade_in_anim(stage, pi_words, 0.4)?];
+        stage.play_prepared(swap)?;
         play!(stage; tween_linear(s, PI, 3.0)?);
         line.wait_for(stage, "you land on minus one")?;
         fade_in_all(stage, &[lands], 0.6)?;
@@ -399,9 +406,41 @@ impl SceneConstruct for Turning {
 mod tests {
     use fmn::scene::{NullSceneSink, RuntimeConfig};
 
-    use super::super::draw::{numbers, show, testing};
+    use super::super::draw::{numbers, quiz_log, show, testing};
     use super::*;
     use crate::model::{quarter_turn, tiny_steps};
+
+    /// 06_4 (the dense read of the scored draft): Euler's credit, for the
+    /// formula of e^{it}, stood 1.7 s (it went as 06_5 began, 1.1 s after it
+    /// came). It now stays through 06_5's first sentence, which names e to
+    /// the i t, and is fully up at least 2.6 s (the floor K's lower thirds
+    /// keep).
+    #[test]
+    fn eulers_credit_stands_through_the_sentence_that_names_e_to_the_i_t() {
+        const FLOOR: f64 = 2.6;
+        let voiced = testing::run_voiced("06_turning").unwrap();
+        let events = quiz_log::take(&voiced.tag, "06_4:euler");
+        let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+        let (up, down) = (
+            when("up").expect("the credit comes up"),
+            when("down").expect("the credit goes"),
+        );
+        let second = voiced
+            .sentences
+            .iter()
+            .find(|(id, _)| id == "06_5")
+            .and_then(|(_, starts)| starts.get(1).copied())
+            .expect("06_5 has a second sentence");
+        assert!(
+            down >= second - 0.1,
+            "it goes at {down:.1} s, 06_5's second sentence begins at {second:.1} s"
+        );
+        assert!(
+            down - up >= FLOOR,
+            "it stands {:.1} s ({up:.1} to {down:.1})",
+            down - up
+        );
+    }
 
     /// Run `f` as a scene's `construct`, headless, at 10 fps.
     fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
