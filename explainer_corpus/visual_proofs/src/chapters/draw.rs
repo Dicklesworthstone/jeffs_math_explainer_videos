@@ -1340,7 +1340,67 @@ pub fn the_card(kit: &Kit, stage: &mut Stage<'_>, rows: &[CardRow<'_>]) -> fmn::
 /// the wrapped `text` beside it. It shares the foot of the frame with the
 /// card: fade one before the other comes. Detached, one group.
 pub fn lower_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, text: &str) -> fmn::Result<Mob> {
-    explainer_kit::props::lower_third(kit, stage, label, text)
+    let band = explainer_kit::props::lower_third(kit, stage, label, text)?;
+    #[cfg(test)]
+    watch_dwell(kit, stage, band, &format!("band:{label}"))?;
+    Ok(band)
+}
+
+/// Tests only: have `mob` watched through the run, noting in `quiz_log`
+/// under the chapter's name and `key` each time it is fully seen ("up": on
+/// the scene at nearly the opacity it was made with) and each time it has
+/// all but gone ("down": off the scene, or nearly transparent), scene
+/// seconds. A fade-out takes the mobject off the scene and gives its opacity
+/// back, so both are read. The first thing seen is a state, not an event.
+/// Call it where the mobject is made, before anything fades it: how long a
+/// lower third stands is then a number a test can read.
+#[cfg(test)]
+pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &str) -> fmn::Result<()> {
+    let watch = stage.arena_mut().add(VMobject::new());
+    let chapter = kit.chapter.clone();
+    let key = key.to_owned();
+    let origin = stage.scene().time().to_f64();
+    let (mut base, mut seen, mut state) = (f64::NAN, 0.0, None::<bool>);
+    // the most opaque of the family (a group has no colour of its own)
+    let opacity = move |s: &fmn::mobject::Stage| {
+        s.family(mob).into_iter().fold(0.0, |o: f64, m| {
+            o.max(s.get_fill_opacity(m).unwrap_or(0.0))
+                .max(s.get_stroke_opacity(m).unwrap_or(0.0))
+        })
+    };
+    let on_scene = move |s: &fmn::mobject::Stage| s.roots().iter().any(|&r| r == mob || s.family(r).contains(&mob));
+    stage.add_dt_updater(
+        watch,
+        move |s, _, dt| {
+            seen += dt;
+            let o = opacity(s);
+            if base.is_nan() {
+                // as registered: the mobject's own opacity, before any fade,
+                // and whether it is up now (the state the first change is
+                // measured from)
+                base = o.max(1e-6);
+                state = Some(on_scene(s) && o >= 0.9 * base);
+                return;
+            }
+            let now = if on_scene(s) && o >= 0.9 * base {
+                Some(true)
+            } else if !on_scene(s) || o <= 0.1 * base {
+                Some(false)
+            } else {
+                state
+            };
+            if now != state {
+                if state.is_some() {
+                    let kind = if now == Some(true) { "up" } else { "down" };
+                    quiz_log::record(&chapter, &key, kind, origin + seen);
+                }
+                state = now;
+            }
+        },
+        true,
+    )?;
+    stage.add_to_scene(watch)?;
+    Ok(())
 }
 
 /// A source line: a citation in small dim type at the bottom left. With
@@ -1789,7 +1849,10 @@ pub fn formula_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, parts: &[Wor
     }
     let mut all = vec![back];
     all.extend(mobs);
-    group(stage, &all)
+    let band = group(stage, &all)?;
+    #[cfg(test)]
+    watch_dwell(kit, stage, band, &format!("band:{label}"))?;
+    Ok(band)
 }
 
 // ---------------------------------------------------- the shelf and the lens
@@ -2329,6 +2392,20 @@ pub mod quiz_log {
         }
     }
 
+    /// The distinct lines (or keys) the run named `chapter` logged under
+    /// `prefix`, in the order they first appeared.
+    pub fn keys(chapter: &str, prefix: &str) -> Vec<String> {
+        let mut out: Vec<String> = Vec::new();
+        if let Ok(events) = EVENTS.lock() {
+            for (c, l, ..) in events.iter() {
+                if c == chapter && l.starts_with(prefix) && !out.contains(l) {
+                    out.push(l.clone());
+                }
+            }
+        }
+        out
+    }
+
     /// What card `line` did in the run named `chapter`, in order.
     pub fn take(chapter: &str, line: &str) -> Vec<(&'static str, f64)> {
         EVENTS
@@ -2491,6 +2568,54 @@ pub mod fit_log {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// Every lower third of the video (`lower_third` and `formula_third`:
+    /// "precisely:", "gnomon:", a credit) stands fully up at least
+    /// `STAND_S` seconds before something takes it away, on the scratch voice
+    /// under the thought gaps (K's floor for a band is 2.6 s; a statement
+    /// of a sentence or two is not read in less). The ones that stand to the
+    /// chapter's end are measured to the end fade. The dense read of the
+    /// 2026-10-14 drafts found 11_5's "precisely" at 1.3 s, 12_2's Euclid at
+    /// 1.2 s and 12_7's Pascal at 0.7 s: each came with the line's end or
+    /// right before the beat that replaced it.
+    #[test]
+    fn every_lower_third_stands_long_enough_to_read() {
+        const STAND_S: f64 = 2.6;
+        let mut short = Vec::new();
+        let mut seen = 0;
+        for key in crate::chapters::registry().into_iter().map(|c| c.key) {
+            let voiced = testing::run_voiced(key).unwrap();
+            for band in quiz_log::keys(&voiced.tag, "band:") {
+                let mut up = None;
+                for (kind, at) in quiz_log::take(&voiced.tag, &band) {
+                    match (kind, up) {
+                        ("up", _) => up = Some(at),
+                        ("down", Some(u)) => {
+                            seen += 1;
+                            if at - u < STAND_S {
+                                short.push(format!("{key} {band}: {:.1} s ({u:.1} to {at:.1})", at - u));
+                            }
+                            up = None;
+                        }
+                        _ => {}
+                    }
+                }
+                // still up at the end: it stands to the closing fade
+                if let Some(u) = up {
+                    seen += 1;
+                    let stands = voiced.ran.seconds - 0.6 - u;
+                    if stands < STAND_S {
+                        short.push(format!("{key} {band}: {stands:.1} s ({u:.1} to the end)"));
+                    }
+                }
+            }
+        }
+        assert!(seen >= 10, "only {seen} lower thirds were watched");
+        assert!(
+            short.is_empty(),
+            "lower thirds that stand under {STAND_S} s: {short:#?}"
+        );
+    }
 
     /// REVIEW-AND-CONTINUITY section 5, measured on a scratch-voice run of
     /// the quiz's chapter: the card and its question are readable no later

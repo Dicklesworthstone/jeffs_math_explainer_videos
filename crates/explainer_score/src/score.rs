@@ -957,23 +957,38 @@ pub struct Score {
 
 impl Score {
     /// The bed's level step across the join into chapter `k` (LU; see
-    /// [`crate::qa::join_step_db`]); `None` for the first chapter, where the
-    /// stem is silent at the join, and where an authored silence is going out
-    /// or coming back around it (the music returning from nothing across the
-    /// join is the silence's, not a mix step: K's 04 to 05 read +6.6 LU).
+    /// [`crate::qa::join_step_db`]); `None` for the first chapter and where
+    /// the stem is silent at the join. Where an authored silence is going out
+    /// or coming back around the join (the music returning from nothing is
+    /// the silence's, not a mix step: K's 04 to 05 read +6.6 LU), the step is
+    /// read across the silence instead, from the level before it begins to
+    /// fade to the level after its return (the whole of the silences that
+    /// touch each other): a chapter that comes back 6 dB louder is a step
+    /// wherever the silence sits.
     pub fn join_step_db(&self, k: usize) -> Option<f64> {
         let a = self.chapters.get(k)?.1;
         if k == 0 {
             return None;
         }
         let at = a as f64 / FS;
-        // the span the step is read over, 1.5 s either side of the join and
-        // the 0.2 s a 400 ms window reaches past it
-        let (from, to) = (at - 1.7, at + 1.7);
-        if self.silences.iter().any(|s| s.fade_start < to && s.back_end > from) {
-            return None;
+        // the stretch the step is read over: 1.5 s either side of the join
+        // and the 0.2 s a 400 ms window reaches past it; grown to take in
+        // every silence that touches it or the silences already in it
+        let (mut from, mut to) = (at, at);
+        loop {
+            let (lo, hi) = (from - 1.7, to + 1.7);
+            let grown = self
+                .silences
+                .iter()
+                .filter(|s| s.fade_start < hi && s.back_end > lo)
+                .fold((from, to), |(f, t), s| (f.min(s.fade_start), t.max(s.back_end)));
+            if grown == (from, to) {
+                break;
+            }
+            (from, to) = grown;
         }
-        crate::qa::join_step_db(&self.music, at)
+        let (before, after) = crate::meter::levels_across(&self.music, from, to)?;
+        Some(after - before)
     }
 
     /// The band QA judges hard rule 1 against (Hz): the measured narrator's,
@@ -3563,26 +3578,55 @@ mod tests {
     }
 
     #[test]
-    fn a_join_inside_an_authored_silences_return_is_not_read_as_a_step() {
+    fn a_join_inside_an_authored_silences_return_is_read_across_the_silence() {
         let dir = std::env::temp_dir().join(format!("explainer_score_silence_join_{}", std::process::id()));
         let mut sections = synthetic_sections(&dir);
         let mark = |label: &str, secs: f64| crate::timeline::Mark {
             label: label.into(),
             frame: (secs * 60.0) as u64,
         };
-        let id = Identity::hoeffding();
+        let mut id = Identity::hoeffding();
+        id.steady_bed = true;
+        // the stem a step is planted in: everything from `from` s on, 6 dB up
+        let planted = |s: &Score, from: f64| {
+            let mut s = s.clone();
+            for i in (from * FS) as usize..s.music.len() {
+                s.music.l[i] *= 2.0;
+                s.music.r[i] *= 2.0;
+            }
+            s
+        };
+        let judged = |s: &Score| {
+            let (music, facts) = (s.chapter_music(1), crate::qa::ScoreFacts::chapter(s, 1));
+            crate::qa::evaluate("02_b", &s.chapter_voice(1), &music, music.len(), Some(&facts))
+                .get("join_step_db")
+                .cloned()
+                .unwrap()
+        };
         // chapter 2 starts at 40 s; the music is gone from 34 s to 39.5 s and
         // fades back over 1.5 s, across the join
         let plain = render(&id, &sections, None).unwrap();
-        assert!(plain.join_step_db(1).is_some());
+        let at_the_join = plain.join_step_db(1).expect("a join with no silence near reads");
+        let m = judged(&planted(&plain, 40.0));
+        assert!(
+            (m.value - at_the_join - 6.02).abs() < 0.3 && m.pass == Some(false),
+            "6 dB planted at a plain join: {m:?} against {at_the_join:+.2}"
+        );
         sections[0].timeline.marks = vec![mark("silence:tail", 34.0), mark("silence_end:tail", 39.5)];
         let silent = render(&id, &sections, None).unwrap();
         let sp = &silent.silences[0];
         assert!(sp.closed && sp.back > 39.4 && sp.back_end > 40.9, "{sp:?}");
-        assert_eq!(silent.join_step_db(1), None, "the return from silence is not a step");
-        // and QA has no step to judge for it
-        let facts = crate::qa::ScoreFacts::chapter(&silent, 1);
-        assert_eq!(facts.join_step_db, None);
+        // the step is read from before the silence to after its return: a
+        // number, and the music is as it was either side
+        let across = silent.join_step_db(1).expect("a step is read across the silence");
+        assert!(across.abs() < crate::qa::STEADY_JOIN_STEP_LU, "{across:+.2}");
+        assert_eq!(judged(&silent).pass, Some(true), "{:?}", judged(&silent));
+        // the same 6 dB planted after the silence's return is a step, there
+        let m = judged(&planted(&silent, sp.back_end));
+        assert!(
+            (m.value - across - 6.02).abs() < 0.3 && m.pass == Some(false),
+            "6 dB planted across the silence: {m:?} against {across:+.2}"
+        );
     }
 
     #[test]
