@@ -7,7 +7,9 @@ Run from this folder (`./x fair_coin facts-check` does, with numpy through uv):
 
 stdout: one `KEY<TAB>VALUE` line per fact, the same keys `coin facts` prints
 (src/facts.rs), in the rows of docs/fact-sheet.md: E-F (computed), E-X (the
-edges of the always/never sentences), E-S (seeded runs) and E-C (cited).
+edges of the always/never sentences), E-S (seeded runs) and E-C (cited). The oracle
+prints more than the video does: E-D rows are numbers the published description states and
+the video does not show (tools/description_numbers.py reads the oracle's values as facts).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -552,6 +554,9 @@ def rate_facts():
           abs(only_matching_pairs(60, p) - 0.1794) < 5e-5 and abs(only_matching_pairs(60, p) - only_matching_pairs(30, p)) < 1e-12)
     check("reusing only which pairs matched levels off near 39 per hundred",
           abs(only_which_matched(60, p) - 0.3927) < 5e-5 and abs(only_which_matched(60, p) - only_which_matched(30, p)) < 1e-9)
+    # the description's "stops near 18" and "near 39" (research rows: the video does not show them)
+    emit("E-D.peres.thrown_away_pairs_only.per_hundred", f"{100 * only_matching_pairs(60, p):.0f}")
+    emit("E-D.peres.which_pairs_matched_only.per_hundred", f"{100 * only_which_matched(60, p):.0f}")
     best = max(F(k, 1000) * (1 - F(k, 1000)) for k in range(1001))
     check("von Neumann's rule gives at most one fair toss per four (his 25 percent)", best == F(1, 4))
 
@@ -815,6 +820,90 @@ def cited_facts():
     check("2^37 - 2 is a multiple of 37", (2**37 - 2) % 37 == 0)
 
 
+# --------------------------------------------------------------------------
+# E-D: numbers the published description states and the video does not show
+# (research rows: tools/description_numbers.py reads them as facts)
+# --------------------------------------------------------------------------
+def deadline_share(n, start):
+    """Samuelson's rule on the tosses that follow a head, for the games decided within n tosses of the
+    sticky coin after a toss `start`: the chance that heads-then-tails decided, over the chance that
+    either did (exact; a game that is still going at toss n is left out)."""
+    a = {"H": P, "T": 1 - P}
+    state = {(start, None): F(1)}  # (the toss before, the first of a pair waiting for its second)
+    heads_first = tails_first = F(0)
+    for _ in range(n):
+        nxt = {}
+        for (prev, wait), pr in state.items():
+            for x in "HT":
+                q = pr * (a[prev] if x == "H" else 1 - a[prev])
+                if prev != "H":  # a toss after a tail is not read
+                    nxt[(x, wait)] = nxt.get((x, wait), F(0)) + q
+                elif wait is None:
+                    nxt[(x, x)] = nxt.get((x, x), F(0)) + q
+                elif wait == x:  # a pair that matched is thrown away
+                    nxt[(x, None)] = nxt.get((x, None), F(0)) + q
+                elif wait == "H":
+                    heads_first += q
+                else:
+                    tails_first += q
+        state = nxt
+    return heads_first / (heads_first + tails_first)
+
+
+def deadline_share_by_toss_listing(n):
+    """The same after a head, from every one of the 2^n toss sequences: each is read toss by toss for the
+    first pair of tosses that follow a head and differ, and its whole chance goes to whoever that pair
+    names (the chances of a decided game's continuations add up to the game's own)."""
+    heads_first = tails_first = F(0)
+    for seq in product("HT", repeat=n):
+        prev, wait, decided, chance = "H", None, None, F(1)
+        for x in seq:
+            chance *= P if x == prev else 1 - P
+            if decided is None and prev == "H":
+                if wait is None:
+                    wait = x
+                elif wait == x:
+                    wait = None
+                else:
+                    decided = wait
+            prev = x
+        if decided == "H":
+            heads_first += chance
+        elif decided == "T":
+            tails_first += chance
+    return heads_first / (heads_first + tails_first)
+
+
+def description_facts():
+    # "the plain trick gives the heads-first player 8/13, and 5/13 after two tails" (E-F6 has them in percent)
+    plain = plain_rule(P, 1 - P)
+    emit("E-D.sticky.plain_rule.after_heads.exact", exact(plain["H"]))
+    emit("E-D.sticky.plain_rule.after_tails.exact", exact(plain["T"]))
+    # "of the games decided within 8 tosses of this coin the heads-first player wins 64.7%" (starting after a head)
+    sizes = (8, 16, 32)
+    shares = [deadline_share(n, "H") for n in sizes]
+    emit("E-D.cure.deadline.tosses", ",".join(str(n) for n in sizes))
+    emit("E-D.cure.deadline.heads_first_percent", ",".join(pct(s, 1) for s in shares))
+    check("the deadline lean fades: heads-first's share of the decided games falls toward one half",
+          shares[0] > shares[1] > shares[2] > F(1, 2) and abs(float(deadline_share(300, "H")) - 0.5) < 1e-9)
+    check("the cure's deadline share at 8 tosses, listing every sequence, is the same",
+          deadline_share_by_toss_listing(8) == shares[0])
+    # "four all differ 10.4% of the time" (E-F9 has the whole number per hundred)
+    w = [F(x, sum(LOADED)) for x in LOADED]
+    four = sum(math.prod(w[r] for r in rolls) for rolls in product(range(6), repeat=4) if len(set(rolls)) == 4)
+    emit("E-D.dice.four_rolls.works_percent", pct(four, 1))
+    # "one count lands inside its band about 19 times in 20": the exact binomial chance of each band, in twentieths
+    bands = [(1000, F(1, 2), "E-F2.fair_band.games1000"), (949, F(1, 6), "E-S7.coin_die.fair_band"), (650, F(1, 6), "E-S8.three_rolls.fair_band")]
+    in_twenty = set()
+    for n, p, key in bands:
+        low, high = (int(x) for x in band(n, p).split(","))
+        check(f"the band for {n} tries is the band the facts print", f"{low},{high}" == _EMITTED[key])
+        inside = sum(F(math.comb(n, k)) * p**k * (1 - p) ** (n - k) for k in range(low, high + 1))
+        in_twenty.add(dec(20 * inside, 0))
+    check("every fair band holds 19 chances in 20, to the nearest whole chance", in_twenty == {"19"})
+    emit("E-D.fair_band.chances_in_20", next(iter(in_twenty)))
+
+
 def main():
     coin_facts()
     breaks_facts()
@@ -824,6 +913,7 @@ def main():
     edge_facts()
     run_facts()
     cited_facts()
+    description_facts()
     print(f"# {len(_EMITTED)} facts, {_CHECKS[0]} cross-checks, {len(_FAILED)} failed", file=sys.stderr)
     return 1 if _FAILED else 0
 

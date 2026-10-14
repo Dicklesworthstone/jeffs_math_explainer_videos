@@ -89,8 +89,8 @@ whose running total of twentieths exceeds the draw.
    deadline ("stop after N tosses") the two orders of a pair complete at
    different times, so the truncated game leans: for the sticky coin, of the
    games decided within 8 tosses heads-first wins 64.7%, within 16 tosses
-   53.9%, within 32 tosses 50.5% (exact, a scratch computation outside the
-   oracle). Zhou and Bruck make the same point about exit sequences of a
+   53.9%, within 32 tosses 50.5% (exact: the oracle's `E-D.cure.deadline.*`,
+   also by listing every sequence of 8 tosses). Zhou and Bruck make the same point about exit sequences of a
    fixed-length input. The video never sets a deadline.
 5. **A die from four tosses is not cheap.** With the 80% coin it works 15.4%
    of the time, 26.0 tosses a die on average; three tosses that are not all
