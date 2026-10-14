@@ -65,6 +65,17 @@ const ONE_IN: &str = "1 in";
 const FEWER: &str = "fewer than 1 in 100";
 const QUOTED_YARDS: &str = "within 260 yards of the edge of rectangle E5";
 const IN_PAPER: &str = "as the paper\u{2019}s asterisk sits";
+/// What the idea did at Palomares (R2: M9, D15): three lines under the date
+/// of the find. It kept the books; it did not find the bomb.
+const IDEA_LINES: [&str; 3] = [
+    "what the idea did there: kept the books",
+    "on which areas had been searched,",
+    "and how well. It did not find the bomb.",
+];
+const IDEA_AT: [f64; 2] = [-2.2, -1.35];
+const IDEA_STEP: f64 = 0.3;
+/// The room the left half has (the date line above is shrunk to it).
+const IDEA_ROOM: f64 = 4.4;
 
 /// The lattice's place and size: left of the column, above the question's
 /// band (nine tenths of the sixteen rows fit the stage).
@@ -233,8 +244,19 @@ impl SceneConstruct for TenThousandDots {
             dim,
             v(-2.2, -0.8),
         )?;
-        super::draw::fit_width(stage, found, 4.4);
-        fade_in_all(stage, &[diamond, ring, found], 0.7)?;
+        super::draw::fit_width(stage, found, IDEA_ROOM);
+        // what the idea did there: it kept the books, and did not find it
+        let did = text_lines(
+            &kit,
+            stage,
+            &IDEA_LINES.map(str::to_owned),
+            20.0,
+            dim,
+            IDEA_AT[0],
+            IDEA_AT[1],
+            IDEA_STEP,
+        )?;
+        fade_in_all(stage, &[diamond, ring, found, did], 0.7)?;
         line.wait_for(stage, P_NINE)?;
         // the card that dates and names the nine comes in with them and
         // stays through the rest of the line: twenty words need more than the
@@ -256,7 +278,7 @@ impl SceneConstruct for TenThousandDots {
 
         // 04_3: a computer plays the stories out ten thousand times: the
         // dots rain onto the empty lattice, a counter running to 10,000
-        let mut clearing: Vec<Mob> = vec![coast, off_shore, bomb_date, diamond, ring, found];
+        let mut clearing: Vec<Mob> = vec![coast, off_shore, bomb_date, diamond, ring, found, did];
         clearing.extend(&cards);
         clearing.extend(&weights);
         fade_out_all(stage, &clearing, 0.7)?;
@@ -596,6 +618,31 @@ mod tests {
         assert_eq!(lines[1], "Not printed in the 1971 paper.");
         for s in [SCENARIO_WORDS, IN_PAPER] {
             assert!(s.contains('\u{2019}') && !s.contains('\''), "{s}");
+        }
+    }
+
+    /// R2 (M9, D15): what the idea did at Palomares is said on screen in
+    /// three whole lines in the left half, under the date of the find (at
+    /// -0.8) and above the scenario card's top (three lines reach -2.42).
+    #[test]
+    fn what_the_idea_did_at_palomares_stands_in_the_left_half() {
+        assert_eq!(
+            IDEA_LINES.join(" "),
+            "what the idea did there: kept the books on which areas had been searched, and how well. \
+             It did not find the bomb."
+        );
+        for l in IDEA_LINES {
+            assert!(
+                l.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT <= IDEA_ROOM,
+                "{l}"
+            );
+        }
+        const {
+            assert!(IDEA_AT[1] <= -0.8 - 0.3);
+            assert!(IDEA_AT[0] + IDEA_ROOM / 2.0 < CARD_X[0] - CARD_SIZE[0] / 2.0);
+            let last = IDEA_AT[1] - IDEA_STEP * (IDEA_LINES.len() - 1) as f64;
+            let card_top = -4.0 + 0.2 + 0.3 + 0.36 * 3.0;
+            assert!(last - 0.12 > card_top);
         }
     }
 
