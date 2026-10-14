@@ -1626,8 +1626,13 @@ pub fn reference_sfx_level(identity: &Identity) -> f64 {
 }
 
 /// The engine's own source: any change to how notes are chosen or sounds are
-/// made changes every fingerprint, so a stale stem is never reused.
-const ENGINE_SOURCE: [&str; 15] = [
+/// made changes every fingerprint, so a stale stem is never reused. The judge
+/// (`qa.rs` and the `fft.rs` it measures with) is in it too: an up-to-date
+/// score answers with the QA verdicts stored beside its stems, so a change to
+/// a QA rule must re-score (b4082fc's fix was invisible to J's cached 184 dB).
+const ENGINE_SOURCE: [&str; 17] = [
+    include_str!("qa.rs"),
+    include_str!("fft.rs"),
     include_str!("score.rs"),
     include_str!("instr.rs"),
     include_str!("fx.rs"),
@@ -3269,6 +3274,10 @@ mod tests {
         let id = Identity::hoeffding();
         let f0 = fingerprint(&id, &sections, None).unwrap();
         assert_eq!(f0, fingerprint(&id, &sections, None).unwrap());
+        // the QA rules are an input: a cached verdict is never replayed
+        // after the judge changes
+        assert!(ENGINE_SOURCE.contains(&include_str!("qa.rs")));
+        assert!(ENGINE_SOURCE.contains(&include_str!("fft.rs")));
         assert_ne!(f0, fingerprint(&id, &sections, Some(0.0)).unwrap(), "voice gain");
         let mut other = id.clone();
         other.bed_lu -= 1.0;
