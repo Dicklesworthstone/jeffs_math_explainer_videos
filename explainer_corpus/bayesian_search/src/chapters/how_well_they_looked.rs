@@ -17,10 +17,10 @@
 //! `F-H.feet_per_sea_mile`) or follows from them; the tests redo the paper's
 //! update from the facts' own table figures.
 
-use explainer_kit::animatic::HOLD_S;
+use explainer_kit::animatic::{HOLD_S, wrap};
 use explainer_kit::props::lower_third;
 use explainer_kit::stats::{Data, permutation};
-use explainer_kit::{Facts, Frame2, Kit, Palette, Timed, fade_all, rect, v};
+use explainer_kit::{Facts, Frame2, Kit, Palette, Timed, fade_all, rect, thousands, v};
 use fmn::library::{SpanMapData, TransformMatchingTex};
 use fmn::prelude::*;
 
@@ -53,20 +53,45 @@ const F6_PER_100: &str = "F6, per 100 dots";
 const OUT_WORD: &str = "out,";
 const STILL_LIT: &str = "still lit";
 const BELIEVED: &str = "believed at sea:";
-const MEASURED: &str = "measured afterwards:";
+/// What the afterwards numbers are called: estimates, which the paper calls
+/// crude, not measurements (R2: S5).
+const ESTIMATED: &str = "estimated afterwards:";
 const SONAR: &str = "sonar";
 const CAMERA: &str = "camera";
-const MAGNETOMETER: &str = "magnetometer";
+/// The third instrument's name once, with the paper's word in brackets
+/// (R2: M1).
+const MAGNETIC: &str = "magnetic detector";
+const MAGNETOMETER_NOTE: &str = "(magnetometer)";
 const FEET: &str = "ft";
 const X_LABEL: &str = "coverage: strip × track ÷ area";
 const Y_LABEL: &str = "chance a search of F6 saw it";
 const TIMES_OVER: &str = "times over";
 const BELIEVED_COVERAGE: &str = "believed:";
-const MEASURED_COVERAGE: &str = "measured:";
+const ESTIMATED_COVERAGE: &str = "estimated:";
+/// Under the curve's x label: how the two coverages were made (R2: R5).
+const ALL_ADDED: &str = "all sensors, all passes added";
 const BEFORE_ANY: &str = "before any search";
 const BY_SHIP: &str = "by the ship’s numbers";
-const BY_MEASURED: &str = "by the measured ones";
+const BY_ESTIMATED: &str = "by the estimated ones";
+/// 13_1: chapter 12's question again under the date line (R2: M8), and the
+/// paper's letters named once (R2: R7).
+const QUESTION_AGAIN: &str = "how much should an empty search count?";
+const LETTERS_NAMED: &str = "the paper’s L is our p, its E our d, SEP the sum of the p d";
+/// 13_2: what the 94 is, in the slot the toy sea's one in four used (R2: M7).
+const SAW_HER: &str = "the chance the searches saw her, if she was there";
+/// 13_4: the whole patch at the strip they believed, against what the sled
+/// towed (R2: R12, D3, S6).
+const WHOLE_PATCH: &str = "the whole patch once at";
+const SEA_MILES: &str = "sea miles.";
+const TOWED: &str = "Towed, June to October:";
+/// 13_5 and 13_6: what the sonar's zero rests on, then what it makes of
+/// more passes (R2: S5, R2).
+const SONAR_TAG: &str = "from one sonar’s failure to see her; the paper calls such estimates crude";
+const SONAR_ZERO: &str =
+    "sweep width 0 ft: the paper’s estimate, from one sonar’s failure to see her; any number of passes × 0 is 0";
 const PHOTOGRAPHED: &str = "photographed in the summer; not found again";
+/// 13_7: the same mark in plain words (R2: M18).
+const GO_BACK: &str = "the photograph, and a region the map rated high: go back there";
 const EFFORT_LABEL: &str = "Richardson and Stone:";
 const MONTHS: [&str; 12] = [
     "January",
@@ -93,10 +118,11 @@ const MAP_CELL_H: f64 = 0.2;
 /// drawn to the same scale as the cell).
 const BIG_AT: Vec3 = [2.3, 0.55, 0.0];
 const BIG_H: f64 = 3.0;
-/// Where the four strips of 13_4 and 13_5 stand in the enlarged cell, as
-/// heights from its centre: the believed one, the camera's, the
-/// magnetometer's, and the sonar's baseline.
-const ROWS: [f64; 4] = [0.85, 0.1, -0.45, -0.95];
+/// Where the five strips of 13_4 and 13_5 stand in the enlarged cell, as
+/// heights from its centre: the sonar's believed one, the magnetic
+/// detector's believed one, the camera's, the magnetometer's afterwards, and
+/// the sonar's baseline (R2: R5, both believed widths are drawn).
+const ROWS: [f64; 5] = [1.05, 0.65, -0.05, -0.52, -1.05];
 /// The dots in the enlarged cell, and a dot's radius.
 const DOTS_IN_F6: usize = 100;
 const DOT_R: f64 = 0.075;
@@ -108,14 +134,44 @@ const LINE_Y: f64 = -1.45;
 /// "believed" point's words.
 const Y_LABEL_RISE: f64 = 0.75;
 /// The believed strip's two labels stand over and on its band, and the
-/// measured header over the camera's: three lines that never meet.
+/// estimated header over the camera's: labels that never meet (a third of a
+/// unit apart at least). The magnetometer's name is two lines, `NAME_STEP`
+/// apart, round its band.
 const BELIEVED_WORDS_RISE: f64 = 0.33;
 const BELIEVED_VALUE_DROP: f64 = 0.02;
-const MEASURED_HEADER_RISE: f64 = 0.4;
+const ESTIMATED_HEADER_RISE: f64 = 0.33;
+const NAME_STEP: f64 = 0.3;
+/// The sonar's tag and its zero's note: 18 pt lines of at most
+/// [`TAG_CHARS`] characters, the first this far under the cell's centre (the
+/// sonar's own row is at [`ROWS`]\[4\]), in steps of [`TAG_STEP`].
+const TAG_PT: f64 = 18.0;
+const TAG_CHARS: usize = 34;
+const TAG_TOP: f64 = -1.37;
+const TAG_STEP: f64 = 0.26;
+/// Under the enlarged cell: the count, the 94's caption, and in 13_4 the
+/// patch at the believed width over what was towed (two lines), each this
+/// far under the cell's foot; the three chances of 13_6 stand lower still.
+const TALLY_DROP: f64 = 0.35;
+/// The curve's "all sensors, all passes added" stands this far under the
+/// plot's bottom (its x label stands 0.35 under it).
+const ALL_ADDED_DROP: f64 = 0.7;
+const SAW_HER_DROP: f64 = 0.67;
+const PATCH_DROP: [f64; 2] = [1.1, 1.45];
+const UNDER_CELL_DROP: f64 = 1.15;
+const UNDER_CELL_STEP: f64 = 0.34;
+/// 13_1: chapter 12's question's height under the date line; the three
+/// meanings of the paper's letters, the naming of them and the citation, at
+/// the left of x = -0.9, top to bottom.
+const QUESTION_Y: f64 = -2.75;
+const MEANING_Y: [f64; 3] = [0.95, 0.6, 0.25];
+const LETTERS_NAMED_Y: f64 = -0.1;
+const CITE_Y: f64 = -0.5;
 /// The scrap of metal's words: this far right of the map and this far over
 /// the metal.
 const METAL_WORDS_GAP: f64 = 0.35;
 const METAL_WORDS_RISE: f64 = 0.25;
+/// The plain-words line stands this far under the scrap of metal's words.
+const GO_BACK_DROP: f64 = 0.4;
 /// The chapter 09 curve's window, at the left of the enlarged cell.
 fn curve_window() -> Frame2 {
     Frame2 {
@@ -343,6 +399,7 @@ impl SceneConstruct for HowWellTheyLooked {
             .parse()
             .map_err(|_| fail("F-H.feet_per_sea_mile is not a number".into()))?;
         let believed_ft = nth(&f, "F-S.sweep.at_sea", 0).map_err(fail)?;
+        let believed_mag_ft = nth(&f, "F-S.sweep.at_sea", 1).map_err(fail)?;
         let after = [
             nth(&f, "F-S.sweep.after", 0).map_err(fail)?,
             nth(&f, "F-S.sweep.after", 1).map_err(fail)?,
@@ -418,6 +475,15 @@ impl SceneConstruct for HowWellTheyLooked {
             teal(),
             v((xa + xb) / 2.0, LINE_Y + 0.6),
         )?;
+        // chapter 12's question again, under the dates: what an empty
+        // search is to count for is what every pass since June is scored by
+        let question_again = kit.text(
+            stage,
+            QUESTION_AGAIN,
+            24.0,
+            Palette::dim(),
+            v((LINE_X.0 + LINE_X.1) / 2.0, QUESTION_Y),
+        )?;
         let dates = [
             axis,
             t_a,
@@ -428,6 +494,7 @@ impl SceneConstruct for HowWellTheyLooked {
             arrive_words,
             span,
             span_label,
+            question_again,
         ];
         fade_in_all(stage, &dates, 0.7)?;
         // the update, in the hold: 07_3's line turns part by part into the
@@ -441,9 +508,9 @@ impl SceneConstruct for HowWellTheyLooked {
         stage.play_prepared(morphing)?;
         let meaning_x = -0.9;
         let meanings = [
-            (L_WORDS, "L", lit_blue(), 0.85),
-            (E_WORDS, "E", teal(), 0.45),
-            (SEP_WORDS, "SEP", teal(), 0.05),
+            (L_WORDS, "L", lit_blue(), MEANING_Y[0]),
+            (E_WORDS, "E", teal(), MEANING_Y[1]),
+            (SEP_WORDS, "SEP", teal(), MEANING_Y[2]),
         ];
         let mut explained: Vec<Mob> = Vec::new();
         for (text, key, color, y) in meanings {
@@ -460,8 +527,17 @@ impl SceneConstruct for HowWellTheyLooked {
             ),
             22.0,
             Palette::dim(),
-            v(meaning_x, -0.5),
+            v(meaning_x, CITE_Y),
         )?;
+        // the paper's letters, named once, in terms of the video's own
+        let named = kit.text_left(
+            stage,
+            LETTERS_NAMED,
+            20.0,
+            Palette::dim(),
+            v(meaning_x, LETTERS_NAMED_Y),
+        )?;
+        explained.push(named);
         explained.push(cite);
         fade_in_all(stage, &explained, 0.7)?;
 
@@ -528,14 +604,25 @@ impl SceneConstruct for HowWellTheyLooked {
         line.wait_for(stage, "ninety-four went out")?;
         let going: Vec<Mob> = d.out.iter().map(|&i| twins[i]).collect();
         fade_in_lagged(stage, &going, 1.4, 0.4)?;
-        let tally = kit.text(
+        // the 94 is the chance the searches saw her, if she was there: in
+        // the teal the toy sea's one in four was, with that said under it
+        let out_now = d.out.len().to_string();
+        let tally = kit.text_t2c(
             stage,
-            &format!("{} {OUT_WORD} {} {STILL_LIT}", d.out.len(), d.lit.len()),
+            &format!("{out_now} {OUT_WORD} {} {STILL_LIT}", d.lit.len()),
             24.0,
             Palette::dim(),
-            v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - 0.35),
+            &[(out_now.as_str(), teal())],
+            v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - TALLY_DROP),
         )?;
-        fade_in_all(stage, &[tally], 0.4)?;
+        let saw_her = kit.text(
+            stage,
+            SAW_HER,
+            20.0,
+            Palette::dim(),
+            v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - SAW_HER_DROP),
+        )?;
+        fade_in_all(stage, &[tally, saw_her], 0.4)?;
         // the true place stands among the dots still lit
         line.wait_for(stage, "It was the cell")?;
         let ring = stage.arena_mut().add(
@@ -590,14 +677,62 @@ impl SceneConstruct for HowWellTheyLooked {
             wrong(),
             v(label_x, believed_y - BELIEVED_VALUE_DROP),
         )?;
-        fade_in_all(stage, &[believed_band, believed_words, believed_value], 0.7)?;
+        // the magnetic detector's believed strip, half the sonar's, in red
+        // too, each bar carrying its instrument's name (R2: R5, M1)
+        let believed_mag_y = BIG_AT[1] + ROWS[1];
+        let believed_mag_band = band(stage, believed_mag_y, f64::from(believed_mag_ft), per_mile, wrong())?;
+        let believed_mag_value = words(
+            &kit,
+            stage,
+            &format!("{MAGNETIC} {believed_mag_ft} {FEET}"),
+            22.0,
+            wrong(),
+            v(label_x, believed_mag_y),
+        )?;
+        // what that width made of the whole patch, against what was towed:
+        // by the ship's own numbers one pass was about what the sled had done
+        let once_believed: u64 = fact(&f, "F-H.once.miles.believed")?
+            .parse()
+            .map_err(|_| fail("F-H.once.miles.believed is not a number".into()))?;
+        let towed: u64 = fact(&f, "F-H.track.miles")?
+            .parse()
+            .map_err(|_| fail("F-H.track.miles is not a number".into()))?;
+        let patch_lines = [
+            format!(
+                "{WHOLE_PATCH} {believed_ft} {FEET}: {} {SEA_MILES}",
+                thousands(once_believed)
+            ),
+            format!("{TOWED} {}", thousands(towed)),
+        ];
+        let mut patch: Vec<Mob> = Vec::new();
+        for (text, drop) in patch_lines.iter().zip(PATCH_DROP) {
+            patch.push(kit.text(
+                stage,
+                text,
+                22.0,
+                Palette::dim(),
+                v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - drop),
+            )?);
+        }
+        fade_in_all(
+            stage,
+            &[
+                believed_band,
+                believed_words,
+                believed_value,
+                believed_mag_band,
+                believed_mag_value,
+            ],
+            0.7,
+        )?;
+        fade_in_all(stage, &patch, 0.7)?;
         line.wait_end(stage)?;
 
         // ------------------------------------------------------- 13_5
         // afterwards, against the wreck itself, to the same scale
         let line = say(&kit, stage, LINES[4])?;
         line.wait_for(stage, "had not seen her at all")?;
-        let sonar_y = BIG_AT[1] + ROWS[3];
+        let sonar_y = BIG_AT[1] + ROWS[4];
         let baseline = stage.arena_mut().add(
             polyline(vec![v(BIG_AT[0] - bw / 2.0, sonar_y), v(BIG_AT[0] + bw / 2.0, sonar_y)])
                 .style(line_style(Palette::ink(), 2.0))
@@ -611,18 +746,33 @@ impl SceneConstruct for HowWellTheyLooked {
             Palette::ink(),
             v(label_x, sonar_y),
         )?;
-        fade_in_all(stage, &[baseline, sonar_words], 0.5)?;
+        // what the zero rests on: one sonar's failure to see her, which the
+        // paper calls a crude estimate (R2: S5), under the sonar's own words
+        let mut sonar_tag: Vec<Mob> = Vec::new();
+        for (j, text) in wrap(SONAR_TAG, TAG_CHARS, 3).iter().enumerate() {
+            sonar_tag.push(words(
+                &kit,
+                stage,
+                text,
+                TAG_PT,
+                Palette::dim(),
+                v(label_x, BIG_AT[1] + TAG_TOP - TAG_STEP * j as f64),
+            )?);
+        }
+        let mut sonar_in = vec![baseline, sonar_words];
+        sonar_in.extend(&sonar_tag);
+        fade_in_all(stage, &sonar_in, 0.5)?;
         line.wait_for(stage, "The camera and the magnetic detector")?;
-        let (camera_y, magnetometer_y) = (BIG_AT[1] + ROWS[1], BIG_AT[1] + ROWS[2]);
+        let (camera_y, magnetometer_y) = (BIG_AT[1] + ROWS[2], BIG_AT[1] + ROWS[3]);
         let camera_band = band(stage, camera_y, f64::from(after[0]), per_mile, teal())?;
         let magnetometer_band = band(stage, magnetometer_y, f64::from(after[1]), per_mile, teal())?;
         let measured = words(
             &kit,
             stage,
-            MEASURED,
+            ESTIMATED,
             22.0,
             Palette::dim(),
-            v(label_x, camera_y + MEASURED_HEADER_RISE),
+            v(label_x, camera_y + ESTIMATED_HEADER_RISE),
         )?;
         let camera_words = words(
             &kit,
@@ -632,13 +782,23 @@ impl SceneConstruct for HowWellTheyLooked {
             teal(),
             v(label_x, camera_y),
         )?;
+        // the magnetic detector's name with the paper's word under it, so
+        // that the 220 is read of the instrument the line names
+        let magnetometer_name = words(
+            &kit,
+            stage,
+            MAGNETIC,
+            22.0,
+            teal(),
+            v(label_x, magnetometer_y + NAME_STEP / 2.0),
+        )?;
         let magnetometer_words = words(
             &kit,
             stage,
-            &format!("{MAGNETOMETER} {} {FEET}", after[1]),
+            &format!("{MAGNETOMETER_NOTE} {} {FEET}", after[1]),
             22.0,
             teal(),
-            v(label_x, magnetometer_y),
+            v(label_x, magnetometer_y - NAME_STEP / 2.0),
         )?;
         fade_in_all(
             stage,
@@ -647,6 +807,7 @@ impl SceneConstruct for HowWellTheyLooked {
                 magnetometer_band,
                 measured,
                 camera_words,
+                magnetometer_name,
                 magnetometer_words,
             ],
             0.7,
@@ -667,6 +828,14 @@ impl SceneConstruct for HowWellTheyLooked {
                 .add(polyline(curve_pts).style(line_style(Palette::ink(), 3.0)).build()),
         );
         plot.push(kit.text(stage, X_LABEL, 22.0, Palette::dim(), v(w.center[0], w.bottom() - 0.35))?);
+        // how the two coverages were made: every sensor and every pass added
+        plot.push(kit.text(
+            stage,
+            ALL_ADDED,
+            20.0,
+            Palette::dim(),
+            v(w.center[0], w.bottom() - ALL_ADDED_DROP),
+        )?);
         plot.push(kit.text_left(
             stage,
             Y_LABEL,
@@ -679,7 +848,7 @@ impl SceneConstruct for HowWellTheyLooked {
         // cell cross the words
         for (key, label, color) in [
             ("F-S.F6.coverage.at_sea", BELIEVED_COVERAGE, wrong()),
-            ("F-S.F6.coverage.after", MEASURED_COVERAGE, teal()),
+            ("F-S.F6.coverage.after", ESTIMATED_COVERAGE, teal()),
         ] {
             let c: f64 = fact(&f, key)?
                 .parse()
@@ -708,19 +877,24 @@ impl SceneConstruct for HowWellTheyLooked {
         // ------------------------------------------------------- 13_6
         // the better estimate: dots relight, the one time in the video
         let line = say(&kit, stage, LINES[5])?;
+        // the strips and the old count go; the sonar's 0 stays lit, with the
+        // 94's caption, and the patch's tally goes with the bars it was for
         let mut done = vec![
             believed_band,
             believed_words,
             believed_value,
-            baseline,
-            sonar_words,
+            believed_mag_band,
+            believed_mag_value,
             camera_band,
             magnetometer_band,
             measured,
             camera_words,
+            magnetometer_name,
             magnetometer_words,
         ];
         done.push(tally);
+        done.extend(&patch);
+        done.extend(&sonar_tag);
         fade_out_all(stage, &done, 0.5)?;
         line.wait_for(stage, "sixty-five percent")?;
         let coming_back: Vec<Mob> = d.relit.iter().map(|&i| twins[i]).collect();
@@ -731,16 +905,15 @@ impl SceneConstruct for HowWellTheyLooked {
                 stage.prepare(gone.rt(0.8))
             })
             .collect::<fmn::Result<_>>()?;
-        let tally = kit.text(
+        // the same slot, the same teal: the 94 is now a 65
+        let out_after = (d.out.len() - d.relit.len()).to_string();
+        let tally = kit.text_t2c(
             stage,
-            &format!(
-                "{} {OUT_WORD} {} {STILL_LIT}",
-                d.out.len() - d.relit.len(),
-                d.lit.len() + d.relit.len()
-            ),
+            &format!("{out_after} {OUT_WORD} {} {STILL_LIT}", d.lit.len() + d.relit.len()),
             24.0,
             Palette::dim(),
-            v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - 0.35),
+            &[(out_after.as_str(), teal())],
+            v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - TALLY_DROP),
         )?;
         let group = AnimationGroup::with_lag_ratio(stage.arena_mut(), relighting, 0.2)?.with_run_time(1.6);
         // the new count comes in as the first dot relights, so the number is
@@ -752,7 +925,7 @@ impl SceneConstruct for HowWellTheyLooked {
         let chances = [
             (BEFORE_ANY, "F-R.F6.percent", Palette::ink()),
             (BY_SHIP, "F-S.F6.chance.at_sea", wrong()),
-            (BY_MEASURED, "F-S.F6.chance.after", teal()),
+            (BY_ESTIMATED, "F-S.F6.chance.after", teal()),
         ];
         let mut under_cell: Vec<Mob> = Vec::new();
         for (i, (label, key, color)) in chances.iter().enumerate() {
@@ -761,10 +934,28 @@ impl SceneConstruct for HowWellTheyLooked {
                 &format!("{label} {}%", fact(&f, key)?),
                 22.0,
                 *color,
-                v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - 0.8 - 0.34 * i as f64),
+                v(
+                    BIG_AT[0],
+                    BIG_AT[1] - bh / 2.0 - UNDER_CELL_DROP - UNDER_CELL_STEP * i as f64,
+                ),
             )?);
         }
-        fade_in_all(stage, &under_cell, 0.6)?;
+        // the sonar's 0 and what it makes of any number of passes, as the
+        // line says it (R2: R2, S5, M7)
+        let mut zero_note: Vec<Mob> = Vec::new();
+        for (j, text) in wrap(SONAR_ZERO, TAG_CHARS, 4).iter().enumerate() {
+            zero_note.push(words(
+                &kit,
+                stage,
+                text,
+                TAG_PT,
+                Palette::ink(),
+                v(label_x, BIG_AT[1] + TAG_TOP - TAG_STEP * j as f64),
+            )?);
+        }
+        let mut arriving = under_cell.clone();
+        arriving.extend(&zero_note);
+        fade_in_all(stage, &arriving, 0.6)?;
         line.wait_end(stage)?;
 
         // ------------------------------------------------------- 13_7
@@ -773,6 +964,8 @@ impl SceneConstruct for HowWellTheyLooked {
         let line = say(&kit, stage, LINES[6])?;
         let mut leaving = plot.clone();
         leaving.extend(&under_cell);
+        leaving.extend(&zero_note);
+        leaving.extend([baseline, sonar_words, saw_her]);
         leaving.push(tally);
         leaving.extend(&lit_dots);
         leaving.push(cell);
@@ -831,6 +1024,16 @@ impl SceneConstruct for HowWellTheyLooked {
         let map_right = MAP_AT[0] + map.size().0 / 2.0;
         let words_at = v(map_right + METAL_WORDS_GAP, metal_at[1] + METAL_WORDS_RISE);
         let metal_words = words(&kit, stage, PHOTOGRAPHED, 22.0, Palette::dim(), words_at)?;
+        // and what it came to, in plain words, under it: the photograph and
+        // the map's own high chance both said to go back there
+        let go_back = words(
+            &kit,
+            stage,
+            GO_BACK,
+            22.0,
+            Palette::ink(),
+            v(words_at[0], words_at[1] - GO_BACK_DROP),
+        )?;
         let leader = stage.arena_mut().add(
             polyline(vec![
                 v(metal_at[0] + r, metal_at[1] + 0.02),
@@ -841,7 +1044,11 @@ impl SceneConstruct for HowWellTheyLooked {
         );
         let e5 = kit.text(stage, "E5", 20.0, Palette::ink(), v(ex0 - 0.2, (ey0 + ey1) / 2.0))?;
         let f6 = kit.text(stage, "F6", 20.0, Palette::ink(), v(fx0 - 0.2, (fy0 + fy1) / 2.0 - 0.1))?;
-        fade_in_all(stage, &[top_cell, wreck, metal, leader, metal_words, e5, f6], 0.6)?;
+        fade_in_all(
+            stage,
+            &[top_cell, wreck, metal, leader, metal_words, go_back, e5, f6],
+            0.6,
+        )?;
         // the date line comes back with the day she was found
         line.wait_for(stage, "The sled had gone back")?;
         // the paper's own reason stands under the picture from the sentence
@@ -997,16 +1204,24 @@ mod tests {
             .collect();
         let believed = band_h(sea, per_mile);
         assert!((believed / BIG_H - 800.0 / 6076.0).abs() < 1e-3);
-        assert!(band_h(after[0], per_mile) < band_h(after[1], per_mile) && band_h(after[1], per_mile) < believed);
+        // both believed widths (R2: R5): the magnetic detector's was half the
+        // sonar's, and both were wider than anything found afterwards
+        let believed_mag = f64::from(nth(&f, "F-S.sweep.at_sea", 1).unwrap());
+        assert_eq!(believed_mag, 400.0);
+        assert!(
+            band_h(after[0], per_mile) < band_h(after[1], per_mile)
+                && band_h(after[1], per_mile) < band_h(believed_mag, per_mile)
+                && band_h(believed_mag, per_mile) < believed
+        );
         assert_eq!(band_h(after[2], per_mile), 0.0, "the sonar saw nothing: no bar");
-        // the four rows of 13_4 and 13_5 stand inside the cell, each clear of
+        // the five rows of 13_4 and 13_5 stand inside the cell, each clear of
         // the next, with the heights their feet give them
-        let feet = [sea, after[0], after[1], after[2]];
+        let feet = [sea, believed_mag, after[0], after[1], after[2]];
         for (row, ft) in ROWS.iter().zip(feet) {
             let half = band_h(ft, per_mile) / 2.0;
             assert!(row.abs() + half < BIG_H / 2.0, "row {row} with {ft} ft");
         }
-        for w in 0..3 {
+        for w in 0..4 {
             let gap = ROWS[w] - ROWS[w + 1];
             let reach = band_h(feet[w], per_mile) / 2.0 + band_h(feet[w + 1], per_mile) / 2.0;
             assert!(gap > reach, "rows {w} and {} touch: {gap} against {reach}", w + 1);
@@ -1082,7 +1297,7 @@ mod tests {
         let after = w.p(c_after, 100.0 * koopman::random_search(c_after));
         let measured_end = w.left()
             + 0.1
-            + format!("{MEASURED_COVERAGE} {c_after:.2}").chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
+            + format!("{ESTIMATED_COVERAGE} {c_after:.2}").chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
         let end_c = (measured_end - w.left()) / w.width * 3.5;
         let curve_at_end = w.p(end_c, 100.0 * koopman::random_search(end_c))[1];
         let words_bottom = after[1] + 0.45 - 0.12;
@@ -1091,22 +1306,137 @@ mod tests {
             "words over {words_bottom}, curve at their end {curve_at_end}, dot {}",
             after[1]
         );
-        let (believed_y, camera_y) = (BIG_AT[1] + ROWS[0], BIG_AT[1] + ROWS[1]);
+        // the right-hand column of 13_4 and 13_5, top to bottom: the believed
+        // header, the sonar's and the magnetic detector's believed values,
+        // the estimated header, the camera's value, the magnetometer's name
+        // (two lines round its band) and the sonar's own; no two within
+        // three tenths of a unit (a 22 pt line is about 0.22 tall)
+        let (believed_y, camera_y) = (BIG_AT[1] + ROWS[0], BIG_AT[1] + ROWS[2]);
         let heights = [
             believed_y + BELIEVED_WORDS_RISE,
             believed_y - BELIEVED_VALUE_DROP,
-            camera_y + MEASURED_HEADER_RISE,
+            BIG_AT[1] + ROWS[1],
+            camera_y + ESTIMATED_HEADER_RISE,
             camera_y,
+            BIG_AT[1] + ROWS[3] + NAME_STEP / 2.0,
+            BIG_AT[1] + ROWS[3] - NAME_STEP / 2.0,
+            BIG_AT[1] + ROWS[4],
         ];
         for pair in heights.windows(2) {
-            assert!(pair[0] - pair[1] >= 0.3, "{heights:?}");
+            assert!(pair[0] - pair[1] >= 0.3 - 1e-9, "{heights:?}");
         }
+        // the sonar's tag (13_5) and its zero's note (13_6) are 18 pt lines
+        // of at most TAG_CHARS characters under the sonar's value, every
+        // word kept, ending inside the frame
+        let (tag, zero) = (wrap(SONAR_TAG, TAG_CHARS, 3), wrap(SONAR_ZERO, TAG_CHARS, 4));
+        assert_eq!(tag.join(" "), SONAR_TAG);
+        assert_eq!(zero.join(" "), SONAR_ZERO);
+        let label_x = BIG_AT[0] + big_w() / 2.0 + 0.25;
+        for line in tag.iter().chain(&zero) {
+            let end = label_x + line.chars().count() as f64 * TAG_PT * CHAR_UNITS_PER_POINT;
+            assert!(end < FRAME_X_RADIUS - 0.3, "{line:?} ends at {end}");
+        }
+        let sonar_value = BIG_AT[1] + ROWS[4];
+        let first_tag = BIG_AT[1] + TAG_TOP;
+        assert!(
+            sonar_value - first_tag >= 0.28,
+            "the tag stands under the sonar's value"
+        );
+        let last_zero = first_tag - TAG_STEP * (zero.len() - 1) as f64;
+        // the notes stand right of the chances under the cell and above the
+        // frame's foot
+        assert!(last_zero > -FRAME_Y_RADIUS + 0.3, "{last_zero}");
+        let widest_under = [
+            format!("{BEFORE_ANY} 0.85%"),
+            format!("{BY_SHIP} 0.19%"),
+            format!("{BY_ESTIMATED} 0.54%"),
+        ]
+        .iter()
+        .map(|s| s.chars().count())
+        .max()
+        .unwrap() as f64;
+        assert!(
+            BIG_AT[0] + widest_under * pt * CHAR_UNITS_PER_POINT / 2.0 < label_x,
+            "the chances under the cell stay left of the column"
+        );
+        // the believed magnetic detector's value is the widest label of the
+        // column
+        let mag = format!("{MAGNETIC} 400 {FEET}");
+        assert!(label_x + mag.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT < FRAME_X_RADIUS - 0.3);
+        let mag_after = format!("{MAGNETOMETER_NOTE} 220 {FEET}");
+        assert!(label_x + mag_after.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT < FRAME_X_RADIUS - 0.3);
         let map_right =
             MAP_AT[0] + LAT_COLS as f64 * MAP_CELL_H * y1968::CELL_MILES.1.f64() / y1968::CELL_MILES.0.f64() / 2.0;
         let words_end = map_right + METAL_WORDS_GAP + PHOTOGRAPHED.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
         assert!(words_end < FRAME_X_RADIUS - 0.3, "{words_end}");
         let date_half = "28 October 1968".chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT / 2.0;
         assert!(LINE_X.1 + date_half < FRAME_X_RADIUS - 0.2, "{}", LINE_X.1 + date_half);
+        // 13_7: the plain-words line under the metal's words ends inside the
+        // frame too
+        let go_end = map_right + METAL_WORDS_GAP + GO_BACK.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
+        assert!(go_end < FRAME_X_RADIUS - 0.3, "{go_end}");
+        // 13_1: chapter 12's question centred under the date line, the
+        // paper's letters named inside the frame
+        let mid = (LINE_X.0 + LINE_X.1) / 2.0;
+        let half = QUESTION_AGAIN.chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT / 2.0;
+        assert!(mid - half > -FRAME_X_RADIUS + 0.3 && mid + half < FRAME_X_RADIUS - 0.3);
+        let named_end = -0.9 + LETTERS_NAMED.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT;
+        assert!(named_end < FRAME_X_RADIUS - 0.3, "{named_end}");
+        // the column under the cell, top to bottom: the count (24 pt), its
+        // caption (20 pt), then the patch's two lines in 13_4 and 13_5, or the
+        // chances in 13_6; the 13_1 column of meanings and the date line
+        const {
+            assert!(SAW_HER_DROP - TALLY_DROP >= 0.3);
+            assert!(PATCH_DROP[0] - SAW_HER_DROP >= 0.4);
+            assert!(PATCH_DROP[1] - PATCH_DROP[0] >= 0.3);
+            assert!(UNDER_CELL_DROP - SAW_HER_DROP >= 0.4);
+            assert!(UNDER_CELL_STEP >= 0.3);
+            assert!(BIG_AT[1] - BIG_H / 2.0 - UNDER_CELL_DROP - 2.0 * UNDER_CELL_STEP > -FRAME_Y_RADIUS + 0.3);
+            assert!(BIG_AT[1] - BIG_H / 2.0 - PATCH_DROP[1] > -FRAME_Y_RADIUS + 0.3);
+            assert!(MEANING_Y[0] - MEANING_Y[1] >= 0.3 && MEANING_Y[1] - MEANING_Y[2] >= 0.3);
+            assert!(MEANING_Y[2] - LETTERS_NAMED_Y >= 0.3 && LETTERS_NAMED_Y - CITE_Y >= 0.3);
+            // the formula (44 pt, at 1.85) over the first meaning
+            assert!(1.85 - MEANING_Y[0] >= 0.8);
+            // the date labels at LINE_Y - 0.4 and - 0.75, then the question
+            assert!((LINE_Y - 0.75) - QUESTION_Y >= 0.4);
+            assert!(QUESTION_Y > -FRAME_Y_RADIUS + 0.5);
+            assert!(GO_BACK_DROP >= 0.3);
+        }
+        // the patch's first line stands left of nothing and right of the plot
+        let patch_line = format!("{WHOLE_PATCH} 800 {FEET}: 1,148 {SEA_MILES}");
+        let patch_half = patch_line.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT / 2.0;
+        assert!(BIG_AT[0] - patch_half > curve_window().right() + 0.1);
+        assert!(BIG_AT[0] + patch_half < FRAME_X_RADIUS - 0.3);
+    }
+
+    /// R2 (R12, D3, S6, M7, M1): the screen's words are the facts': 1,148
+    /// sea miles at the believed width against the 1,026 towed, both
+    /// believed widths, and the estimates called estimates.
+    #[test]
+    fn the_new_words_are_the_facts() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("F-S.sweep.at_sea"), Some("800,400"));
+        assert_eq!(f.get("F-H.once.miles.believed"), Some("1148"));
+        assert_eq!(f.get("F-H.track.miles"), Some("1026"));
+        assert_eq!(thousands(1148u64), "1,148");
+        assert_eq!(ESTIMATED, "estimated afterwards:");
+        assert_eq!(ESTIMATED_COVERAGE, "estimated:");
+        assert_eq!(BY_ESTIMATED, "by the estimated ones");
+        assert!(
+            [ESTIMATED, ESTIMATED_COVERAGE, BY_ESTIMATED]
+                .iter()
+                .all(|s| !s.contains("measured"))
+        );
+        let after: f64 = f.get("F-S.F6.coverage.after").unwrap().parse().unwrap();
+        assert_eq!(format!("{after:.2}"), "1.05");
+        // 800 over 400, and the patch at the believed width is about what
+        // was towed (the ship's own numbers made the search look done)
+        let once: f64 = f.get("F-H.once.miles.believed").unwrap().parse().unwrap();
+        let towed: f64 = f.get("F-H.track.miles").unwrap().parse().unwrap();
+        assert!((towed / once - 0.89).abs() < 0.01, "{}", towed / once);
+        // the sentence the screen says of the letters is the paper's
+        assert!(LETTERS_NAMED.contains("L is our p") && LETTERS_NAMED.contains("E our d"));
+        assert!(SONAR_ZERO.ends_with("× 0 is 0"));
     }
 
     /// 13_1: the formula's glyphs are the ones the morph is keyed on: two p
