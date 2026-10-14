@@ -100,9 +100,22 @@ const ROWS: [f64; 4] = [0.85, 0.1, -0.45, -0.95];
 /// The dots in the enlarged cell, and a dot's radius.
 const DOTS_IN_F6: usize = 100;
 const DOT_R: f64 = 0.075;
-/// The hour line's, here the date line's, ends and height.
-const LINE_X: (f64, f64) = (-6.2, 6.2);
+/// The hour line's, here the date line's, ends and height: the right end
+/// leaves room for "28 October 1968", centred under it, inside the frame.
+const LINE_X: (f64, f64) = (-6.2, 5.8);
 const LINE_Y: f64 = -1.45;
+/// The curve's y label stands this far over the window's top, above the
+/// "believed" point's words.
+const Y_LABEL_RISE: f64 = 0.75;
+/// The believed strip's two labels stand over and on its band, and the
+/// measured header over the camera's: three lines that never meet.
+const BELIEVED_WORDS_RISE: f64 = 0.33;
+const BELIEVED_VALUE_DROP: f64 = 0.02;
+const MEASURED_HEADER_RISE: f64 = 0.4;
+/// The scrap of metal's words: this far right of the map and this far over
+/// the metal.
+const METAL_WORDS_GAP: f64 = 0.35;
+const METAL_WORDS_RISE: f64 = 0.25;
 /// The chapter 09 curve's window, at the left of the enlarged cell.
 fn curve_window() -> Frame2 {
     Frame2 {
@@ -561,14 +574,21 @@ impl SceneConstruct for HowWellTheyLooked {
         let believed_y = BIG_AT[1] + ROWS[0];
         let believed_band = band(stage, believed_y, f64::from(believed_ft), per_mile, wrong())?;
         let label_x = BIG_AT[0] + bw / 2.0 + 0.25;
-        let believed_words = words(&kit, stage, BELIEVED, 22.0, wrong(), v(label_x, believed_y + 0.2))?;
+        let believed_words = words(
+            &kit,
+            stage,
+            BELIEVED,
+            22.0,
+            wrong(),
+            v(label_x, believed_y + BELIEVED_WORDS_RISE),
+        )?;
         let believed_value = words(
             &kit,
             stage,
             &format!("{SONAR} {believed_ft} {FEET}"),
             22.0,
             wrong(),
-            v(label_x, believed_y - 0.15),
+            v(label_x, believed_y - BELIEVED_VALUE_DROP),
         )?;
         fade_in_all(stage, &[believed_band, believed_words, believed_value], 0.7)?;
         line.wait_end(stage)?;
@@ -596,7 +616,14 @@ impl SceneConstruct for HowWellTheyLooked {
         let (camera_y, magnetometer_y) = (BIG_AT[1] + ROWS[1], BIG_AT[1] + ROWS[2]);
         let camera_band = band(stage, camera_y, f64::from(after[0]), per_mile, teal())?;
         let magnetometer_band = band(stage, magnetometer_y, f64::from(after[1]), per_mile, teal())?;
-        let measured = words(&kit, stage, MEASURED, 22.0, Palette::dim(), v(label_x, camera_y + 0.45))?;
+        let measured = words(
+            &kit,
+            stage,
+            MEASURED,
+            22.0,
+            Palette::dim(),
+            v(label_x, camera_y + MEASURED_HEADER_RISE),
+        )?;
         let camera_words = words(
             &kit,
             stage,
@@ -640,10 +667,19 @@ impl SceneConstruct for HowWellTheyLooked {
                 .add(polyline(curve_pts).style(line_style(Palette::ink(), 3.0)).build()),
         );
         plot.push(kit.text(stage, X_LABEL, 22.0, Palette::dim(), v(w.center[0], w.bottom() - 0.35))?);
-        plot.push(kit.text_left(stage, Y_LABEL, 22.0, Palette::dim(), v(w.left(), w.top() + 0.3))?);
-        for (key, label, color, dy) in [
-            ("F-S.F6.coverage.at_sea", BELIEVED_COVERAGE, wrong(), 0.35),
-            ("F-S.F6.coverage.after", MEASURED_COVERAGE, teal(), -0.45),
+        plot.push(kit.text_left(
+            stage,
+            Y_LABEL,
+            22.0,
+            Palette::dim(),
+            v(w.left(), w.top() + Y_LABEL_RISE),
+        )?);
+        // both points' words stand above the curve and left of their dots:
+        // to the right of the measured one the two lines to the enlarged
+        // cell cross the words
+        for (key, label, color) in [
+            ("F-S.F6.coverage.at_sea", BELIEVED_COVERAGE, wrong()),
+            ("F-S.F6.coverage.after", MEASURED_COVERAGE, teal()),
         ] {
             let c: f64 = fact(&f, key)?
                 .parse()
@@ -659,7 +695,11 @@ impl SceneConstruct for HowWellTheyLooked {
             } else {
                 format!("{label} {c:.2}")
             };
-            let m = kit.text(stage, &text, 22.0, color, v(at[0] - 1.0, at[1] + dy))?;
+            let m = if key.ends_with("at_sea") {
+                kit.text(stage, &text, 22.0, color, v(at[0] - 1.0, at[1] + 0.35))?
+            } else {
+                kit.text_left(stage, &text, 22.0, color, v(w.left() + 0.1, at[1] + 0.45))?
+            };
             plot.push(m);
         }
         fade_in_all(stage, &plot, 0.7)?;
@@ -703,9 +743,11 @@ impl SceneConstruct for HowWellTheyLooked {
             v(BIG_AT[0], BIG_AT[1] - bh / 2.0 - 0.35),
         )?;
         let group = AnimationGroup::with_lag_ratio(stage.arena_mut(), relighting, 0.2)?.with_run_time(1.6);
-        let together: Vec<Box<dyn Animation>> = vec![stage.prepare(group)?];
+        // the new count comes in as the first dot relights, so the number is
+        // on the screen while it is being said
+        let count_in = fade_in(stage.arena_mut(), tally, ORIGIN, 1.0)?;
+        let together: Vec<Box<dyn Animation>> = vec![stage.prepare(group)?, stage.prepare(count_in.rt(0.6))?];
         stage.play_prepared(together)?;
-        fade_in_all(stage, &[tally], 0.4)?;
         line.wait_for(stage, "And at that width")?;
         let chances = [
             (BEFORE_ANY, "F-R.F6.percent", Palette::ink()),
@@ -783,19 +825,34 @@ impl SceneConstruct for HowWellTheyLooked {
             .style(line_style(last_known(), 2.5))
             .build(),
         );
-        let metal_words = words(
-            &kit,
-            stage,
-            PHOTOGRAPHED,
-            22.0,
-            Palette::dim(),
-            v(fx1 + 0.3, metal_at[1] + 0.25),
-        )?;
+        // its words stand clear of the map, to its right, on a leader: beside
+        // the metal they were set over the map's cells and their first
+        // letters were lost in them
+        let map_right = MAP_AT[0] + map.size().0 / 2.0;
+        let words_at = v(map_right + METAL_WORDS_GAP, metal_at[1] + METAL_WORDS_RISE);
+        let metal_words = words(&kit, stage, PHOTOGRAPHED, 22.0, Palette::dim(), words_at)?;
+        let leader = stage.arena_mut().add(
+            polyline(vec![
+                v(metal_at[0] + r, metal_at[1] + 0.02),
+                v(words_at[0] - 0.1, words_at[1]),
+            ])
+            .style(faded_line(Palette::dim(), 1.5, 0.8))
+            .build(),
+        );
         let e5 = kit.text(stage, "E5", 20.0, Palette::ink(), v(ex0 - 0.2, (ey0 + ey1) / 2.0))?;
         let f6 = kit.text(stage, "F6", 20.0, Palette::ink(), v(fx0 - 0.2, (fy0 + fy1) / 2.0 - 0.1))?;
-        fade_in_all(stage, &[top_cell, wreck, metal, metal_words, e5, f6], 0.6)?;
+        fade_in_all(stage, &[top_cell, wreck, metal, leader, metal_words, e5, f6], 0.6)?;
         // the date line comes back with the day she was found
         line.wait_for(stage, "The sled had gone back")?;
+        // the paper's own reason stands under the picture from the sentence
+        // it explains, long enough to read its twenty-six words
+        let effort = lower_third(
+            &kit,
+            stage,
+            EFFORT_LABEL,
+            "effort went to F6 “because of proximity to the piece of metal and the fact that this was a region with high a priori [prior] probability”",
+        )?;
+        fade_in_all(stage, &[effort], 0.5)?;
         let found_axis = stage.arena_mut().add(
             polyline(vec![v(LINE_X.0, LINE_Y), v(LINE_X.1, LINE_Y)])
                 .style(line_style(Palette::faint(), 2.5))
@@ -816,14 +873,6 @@ impl SceneConstruct for HowWellTheyLooked {
         let found_label = kit.text(stage, FOUND_WORD, 22.0, Palette::dim(), v(xc, LINE_Y - 0.75))?;
         fade_in_all(stage, &[found_axis, found_tick, found_date, found_label], 0.6)?;
         line.wait_end(stage)?;
-        // in the hold, the paper's own reason
-        let effort = lower_third(
-            &kit,
-            stage,
-            EFFORT_LABEL,
-            "effort went to F6 “because of proximity to the piece of metal and the fact that this was a region with high a priori [prior] probability”",
-        )?;
-        fade_in_all(stage, &[effort], 0.5)?;
         kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
@@ -1010,6 +1059,54 @@ mod tests {
         );
         // the ship's numbers kept six hundredths of F6, the measured ones thirty-five
         assert_eq!(f.get("F-S.F6.left.ratio"), Some("5.8"));
+    }
+
+    /// 13_5 to 13_7, the narrated draft's overlaps: the curve's y label
+    /// clears the believed point's words; the believed strip's two labels
+    /// and the measured header are at least a third of a unit apart; the
+    /// scrap of metal's words stand right of the map and end inside the
+    /// frame; the date line's last label is inside the frame.
+    #[test]
+    fn the_labels_of_13_5_to_13_7_clear_each_other_and_the_frame() {
+        use super::super::draw::{CHAR_UNITS_PER_POINT, LAT_COLS};
+        let f = facts().unwrap();
+        let (w, pt) = (curve_window(), 22.0);
+        let c: f64 = f.get("F-S.F6.coverage.at_sea").unwrap().parse().unwrap();
+        let at = w.p(c, 100.0 * koopman::random_search(c));
+        let (believed_top, title_bottom) = (at[1] + 0.35 + 0.15, w.top() + Y_LABEL_RISE - 0.15);
+        assert!(believed_top < title_bottom, "{believed_top} against {title_bottom}");
+        // the measured point's words begin at the plot's left and stand over
+        // the curve all the way to their end (the curve is below them there:
+        // it rises to the right, to the dot under them)
+        let c_after: f64 = f.get("F-S.F6.coverage.after").unwrap().parse().unwrap();
+        let after = w.p(c_after, 100.0 * koopman::random_search(c_after));
+        let measured_end = w.left()
+            + 0.1
+            + format!("{MEASURED_COVERAGE} {c_after:.2}").chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
+        let end_c = (measured_end - w.left()) / w.width * 3.5;
+        let curve_at_end = w.p(end_c, 100.0 * koopman::random_search(end_c))[1];
+        let words_bottom = after[1] + 0.45 - 0.12;
+        assert!(
+            words_bottom > curve_at_end.max(after[1]) + 0.1,
+            "words over {words_bottom}, curve at their end {curve_at_end}, dot {}",
+            after[1]
+        );
+        let (believed_y, camera_y) = (BIG_AT[1] + ROWS[0], BIG_AT[1] + ROWS[1]);
+        let heights = [
+            believed_y + BELIEVED_WORDS_RISE,
+            believed_y - BELIEVED_VALUE_DROP,
+            camera_y + MEASURED_HEADER_RISE,
+            camera_y,
+        ];
+        for pair in heights.windows(2) {
+            assert!(pair[0] - pair[1] >= 0.3, "{heights:?}");
+        }
+        let map_right =
+            MAP_AT[0] + LAT_COLS as f64 * MAP_CELL_H * y1968::CELL_MILES.1.f64() / y1968::CELL_MILES.0.f64() / 2.0;
+        let words_end = map_right + METAL_WORDS_GAP + PHOTOGRAPHED.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT;
+        assert!(words_end < FRAME_X_RADIUS - 0.3, "{words_end}");
+        let date_half = "28 October 1968".chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT / 2.0;
+        assert!(LINE_X.1 + date_half < FRAME_X_RADIUS - 0.2, "{}", LINE_X.1 + date_half);
     }
 
     /// 13_1: the formula's glyphs are the ones the morph is keyed on: two p
