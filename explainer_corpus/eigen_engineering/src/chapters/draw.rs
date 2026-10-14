@@ -451,6 +451,21 @@ pub fn fade_out_anim(stage: &mut Stage<'_>, m: Mob, rt: f64) -> fmn::Result<Box<
     stage.prepare(a.rt(rt))
 }
 
+/// Fade `leaving` out and `arriving` in at the same time, `rt` seconds: a
+/// change of picture that does not wait for the old one to be gone before the
+/// new one comes (the voice is already on the next thing).
+pub fn cross_fade(stage: &mut Stage<'_>, leaving: &[Mob], arriving: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in leaving {
+        anims.push(fade_out_anim(stage, m, rt)?);
+    }
+    for &m in arriving {
+        anims.push(fade_in_anim(stage, m, rt)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
 /// Tween several trackers together, `rt` seconds.
 pub fn tween_all(stage: &mut Stage<'_>, moves: &[(Mob, f64)], rt: f64) -> fmn::Result<()> {
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -1164,6 +1179,15 @@ pub mod testing {
         pub lines: Vec<(String, f64, f64)>,
         /// Every listen window: its label, its start and its length, seconds.
         pub listens: Vec<(String, f64, f64)>,
+    }
+
+    impl Voiced {
+        /// The picture left after the last line has been said, seconds: the
+        /// corpus cue check's tail, which it warns about past 5 s.
+        pub fn tail_seconds(&self) -> f64 {
+            let last = self.lines.iter().map(|(_, at, len)| at + len).fold(0.0, f64::max);
+            self.ran.seconds - last
+        }
     }
 
     /// What the quiz asked on one line did, measured (scene seconds).

@@ -531,7 +531,7 @@ impl SceneConstruct for AnEconomy {
         let mut leaving = bars.clone();
         leaving.extend(&words);
         leaving.extend([eigenvalue, used_name, kept_name]);
-        fade_out_all(stage, &leaving, 0.6)?;
+        fade_out_all(stage, &leaving, 0.4)?;
         let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
         let test = ArrowTest::build(stage, PLANE, table, u, REACH)?;
         let across = axis_words(&kit, stage, PLANE, REACH)?;
@@ -593,42 +593,44 @@ impl SceneConstruct for AnEconomy {
             ),
         )?;
 
+        // the picture keeps up with the voice: "Turn the arrow as before" is
+        // 2 s, and the rest of the line (2 to 7.6 s) is the other own pattern
+        // and the tools that would be negative. The citation, which the voice
+        // does not read, is up from the second turn on, so that the chapter
+        // ends when the line does (D-16: no closing hold)
         let mut axes = test.axes.clone();
         axes.extend(&across);
-        fade_in_all(stage, &axes, 0.7)?;
+        fade_in_all(stage, &axes, 0.5)?;
         test.start(stage)?;
         stage.set_tracker_value(test.polar, 1.0)?;
         stage.set_tracker_value(test.radius, SWEEP_LENGTH)?;
         stage.set_tracker_value(test.degrees, 0.0)?;
         stage.add_to_scene(readout)?;
-        fade_in_all(stage, &[readout_name, degrees, readout], 0.5)?;
-        tween_all(stage, &[(test.blue_on, 1.0), (test.orange_on, 1.0)], 0.5)?;
+        fade_in_all(stage, &[readout_name, degrees, readout], 0.3)?;
+        tween_all(stage, &[(test.blue_on, 1.0), (test.orange_on, 1.0)], 0.3)?;
         // the blue arrow turns to the even mix: the two line up, 0.7
         line.wait_for(stage, "Turn the arrow")?;
-        play!(stage; tween(test.degrees, mix_deg, 2.2)?);
+        play!(stage; tween(test.degrees, mix_deg, 1.4)?);
         play!(stage;
-            lines_mix[0].animate().set_anim_args(run(0.5))?.set_opacity(0.25)?,
-            lines_mix[1].animate().set_anim_args(run(0.5))?.set_opacity(1.0)?
+            lines_mix[0].animate().set_anim_args(run(0.3))?.set_opacity(0.25)?,
+            lines_mix[1].animate().set_anim_args(run(0.3))?.set_opacity(1.0)?
         );
-        fade_in_all(stage, &[label_mix], 0.4)?;
-        pause(stage, 0.5)?;
+        fade_in_all(stage, &[label_mix], 0.3)?;
         // on, to the other own direction: the dashed line and 0.2
         line.wait_for(stage, "The other own pattern")?;
-        play!(stage; tween(test.degrees, other_deg, 2.4)?);
-        play!(stage; dashed.animate().set_anim_args(run(0.4))?.set_opacity(1.0)?);
-        fade_in_all(stage, &[label_other], 0.4)?;
+        play!(stage; tween(test.degrees, other_deg, 1.8)?);
+        play!(stage; dashed.animate().set_anim_args(run(0.3))?.set_opacity(1.0)?);
+        fade_in_all(stage, &[label_other, cited], 0.3)?;
         // and round to where it points into the quarter with tools negative
         line.wait_for(stage, "needs a negative amount of tools")?;
         let into_quarter = other_deg + 180.0;
-        let mut fades: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(test.degrees, into_quarter, 2.6)?)?];
+        let mut fades: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(test.degrees, into_quarter, 2.0)?)?];
         for &h in &hatch {
-            fades.push(stage.prepare(h.animate().set_anim_args(run(2.0))?.set_opacity(0.6)?)?);
+            fades.push(stage.prepare(h.animate().set_anim_args(run(1.6))?.set_opacity(0.6)?)?);
         }
         stage.play_prepared(fades)?;
-        fade_in_all(stage, &[tag_negative], 0.4)?;
+        fade_in_all(stage, &[tag_negative], 0.3)?;
         line.wait_end(stage)?;
-        fade_in_all(stage, &[cited], 0.6)?;
-        pause(stage, 1.5)?;
 
         kit.hold(stage)?;
         test.stop(stage);
@@ -765,5 +767,14 @@ mod tests {
             );
         }
         assert!(ran.seconds > 40.0 && ran.seconds < 85.0, "{} s", ran.seconds);
+    }
+
+    /// 12_5: the picture keeps up with the voice, so the chapter ends when its line does (D-16: no closing hold); it ran 4 to 5 s behind and left 7.6 s of picture after the last line.
+    #[test]
+    fn the_picture_after_the_last_line_stays_under_the_cue_checks_tail() {
+        let voiced = testing::run_voiced("12_an_economy").unwrap();
+        let tail = voiced.tail_seconds();
+        eprintln!("TAIL 12_an_economy: {tail:.2} s");
+        assert!(tail <= 2.5, "12_an_economy: {tail:.2} s of picture after the last line");
     }
 }

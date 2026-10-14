@@ -19,9 +19,9 @@ use fmn::prelude::*;
 use super::an_economy::{angle_readout, hatched_quarter, table_entries, table_of};
 use super::arrows::{ArrowTest, PlaneArrow, band_ends, own_lines, unit_at};
 use super::draw::{
-    MatrixGrid, Plane, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, fraction_tex,
-    fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause, predict_hold, pushes, run, say,
-    tween_all, tween_linear, warn, whole,
+    MatrixGrid, Plane, arrow_points, corners, cross_fade, fact, fade_in_all, fade_out_all, faded_line, fail, flat,
+    fraction_tex, fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause, predict_hold, pushes,
+    run, say, tween_all, tween_linear, warn, whole,
 };
 
 pub struct OneIdea {
@@ -944,8 +944,10 @@ impl SceneConstruct for OneIdea {
         let mut leaving = bridge.parts.clone();
         leaving.extend(&asked);
         stage.clear_updaters(bridge.anchor, true);
-        fade_out_all(stage, &leaving, 0.6)?;
-        fade_in_all(stage, &[receipts], 0.7)?;
+        // the bridge goes as the card comes (a cross-fade, 0.7 s): the tail
+        // is the card, the 2.5 s window in which the music resolves, and
+        // the closing fade, under the cue check's 5 s
+        cross_fade(stage, &leaving, &[receipts], 0.7)?;
         let label = format!("{}:14_8", kit.chapter);
         kit.listen(stage, 2.5, &label)?;
         fade_all(stage, 0.8)?;
@@ -1121,5 +1123,14 @@ mod tests {
             "a lower-third was cut short: {words:?}"
         );
         assert!(ran.seconds > 40.0 && ran.seconds < 95.0, "{} s", ran.seconds);
+    }
+
+    /// 14_8: the receipts card, the 2.5 s window in which the music resolves and the closing fade are the authored tail; it ends under the corpus cue check's 5 s of picture after the last line.
+    #[test]
+    fn the_picture_after_the_last_line_stays_under_the_cue_checks_tail() {
+        let voiced = testing::run_voiced("14_one_idea").unwrap();
+        let tail = voiced.tail_seconds();
+        eprintln!("TAIL 14_one_idea: {tail:.2} s");
+        assert!(tail <= 5.0, "14_one_idea: {tail:.2} s of picture after the last line");
     }
 }

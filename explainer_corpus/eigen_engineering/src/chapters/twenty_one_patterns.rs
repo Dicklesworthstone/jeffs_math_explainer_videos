@@ -766,7 +766,7 @@ impl SceneConstruct for TwentyOnePatterns {
         let need = fact("K-P2.lone_within_2p5.12m")?;
         let mut fading = error_mobs.clone();
         fading.push(shrank);
-        fade_out_all(stage, &fading, 0.4)?;
+        fade_out_all(stage, &fading, 0.3)?;
         let card_at = v(3.45, 1.1);
         let card = plate(stage, 6.8, 5.0, card_at, own())?;
         let mut card_texts = Vec::new();
@@ -851,8 +851,12 @@ impl SceneConstruct for TwentyOnePatterns {
         let mut ins = ladders.clone();
         ins.extend([card, wall_words, tall_words, both_words, finder]);
         ins.extend(&card_texts);
-        fade_in_all(stage, &ins, 0.7)?;
-        pause(stage, 3.0)?;
+        fade_in_all(stage, &ins, 0.5)?;
+        // the card's read is authored (storyboard 06_7: the limits, the wall
+        // beside the ladder of a million, the names to search): 2.3 s after
+        // the voice has ended, so that the chapter's tail stays under the
+        // cue check's 5 s
+        pause(stage, 2.3)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
@@ -1044,5 +1048,17 @@ mod tests {
         if let Some((next, at)) = &a.next_line {
             assert!(*at >= a.window.1 - 0.05, "{next} starts inside the countdown");
         }
+    }
+
+    /// 06_7: the closing card's read is the authored tail (the limits, the wall beside the ladder of a million, the names to search); it ends under the corpus cue check's 5 s of picture after the last line (D-16 dropped the closing holds).
+    #[test]
+    fn the_picture_after_the_last_line_stays_under_the_cue_checks_tail() {
+        let voiced = testing::run_voiced("06_twenty_one_patterns").unwrap();
+        let tail = voiced.tail_seconds();
+        eprintln!("TAIL 06_twenty_one_patterns: {tail:.2} s");
+        assert!(
+            tail <= 5.0,
+            "06_twenty_one_patterns: {tail:.2} s of picture after the last line"
+        );
     }
 }

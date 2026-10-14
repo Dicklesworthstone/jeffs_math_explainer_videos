@@ -21,9 +21,9 @@ use fmn::prelude::*;
 use super::an_economy::{table_entries, table_of};
 use super::arrows::PlaneArrow;
 use super::draw::{
-    MatrixGrid, Plane, arrow_points, cross_mark, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail,
-    flat, fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause, predict_hold, pushes, run,
-    say, show, tween_all, warn, whole,
+    MatrixGrid, Plane, arrow_points, cross_fade, cross_mark, fact, fade_in_all, fade_in_lagged, fade_out_all,
+    faded_line, fail, flat, fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause,
+    predict_hold, pushes, run, say, show, tween_all, warn, whole,
 };
 use crate::model::economy::{self, Table};
 
@@ -528,8 +528,13 @@ impl SceneConstruct for CanItFeedItself {
         predict_hold(&kit, stage)?;
 
         // ---- 13_7: they grow; the test is one number
+        // the picture keeps up with the voice (D-16: no closing hold; a card
+        // is read after the line only where the storyboard keeps it, here the
+        // Leontief card): the chain grows as "They grow" is said, is out by
+        // "So the test is one number", and the card with the test is up
+        // before the voice reaches "below one"
         let line = say(&kit, stage, "13_7")?;
-        fade_out_all(stage, &hungry_pic, 0.5)?;
+        fade_out_all(stage, &hungry_pic, 0.3)?;
         let grown = model_rounds(&economy::hungry(), [demand[0], demand[1]], 6);
         let mut plane_again = corner_axes(stage);
         plane_again.extend(axis_names(&kit, stage)?);
@@ -548,10 +553,10 @@ impl SceneConstruct for CanItFeedItself {
             v(COLUMN_X + 1.5, 3.0),
         )?;
         let cannot = kit.text(stage, "that economy cannot\nfeed itself", 28.0, warn(), v(3.8, 1.5))?;
-        fade_in_all(stage, &plane_again, 0.4)?;
+        fade_in_all(stage, &plane_again, 0.3)?;
         line.wait_for(stage, "They grow")?;
-        fade_in_lagged(stage, &red, 3.0, 0.35)?;
-        fade_in_all(stage, &[counts, cannot], 0.5)?;
+        fade_in_lagged(stage, &red, 2.2, 0.35)?;
+        fade_in_all(stage, &[counts, cannot], 0.4)?;
         let formula = fact("K-E4.formula_says")?;
         let programmer = lower_third(
             &kit,
@@ -564,12 +569,12 @@ impl SceneConstruct for CanItFeedItself {
                 minus(formula),
             ),
         )?;
-        fade_in_all(stage, &[programmer], 0.5)?;
-        pause(stage, 1.2)?;
+        fade_in_all(stage, &[programmer], 0.4)?;
+        pause(stage, 0.9)?;
         let mut cleared = red.clone();
         cleared.extend(&plane_again);
         cleared.extend([counts, cannot, programmer]);
-        fade_out_all(stage, &cleared, 0.6)?;
+        fade_out_all(stage, &cleared, 0.5)?;
 
         // the test: the largest eigenvalue against one
         line.wait_for(stage, "So the test is one number")?;
@@ -613,7 +618,7 @@ impl SceneConstruct for CanItFeedItself {
             kit.text(stage, &show(big, 1)?, 34.0, warn(), v(x_of(big), base + 0.7))?,
         ];
         let cards = [card, test, axis];
-        fade_in_all(stage, &cards, 0.6)?;
+        fade_in_all(stage, &cards, 0.5)?;
         line.wait_for(stage, "With the largest eigenvalue below one")?;
         fade_in_all(stage, &[ticks[0], names[0], ticks[1], names[1]], 0.5)?;
         let below = precisely(
@@ -635,13 +640,14 @@ impl SceneConstruct for CanItFeedItself {
         )?;
         fade_in_all(stage, &[above], 0.5)?;
         line.wait_end(stage)?;
-        pause(stage, 1.5)?;
 
-        // the same kind of table, 44 sectors wide
+        // the same kind of table, 44 sectors wide: the Leontief card is read
+        // after the line (D-16 keeps it); the test card has been up since
+        // "below one", so it goes as the line ends
         let mut shown_card = vec![card, test, axis, above];
         shown_card.extend(&ticks);
         shown_card.extend(names);
-        fade_out_all(stage, &shown_card, 0.6)?;
+        fade_out_all(stage, &shown_card, 0.5)?;
         let small_grid = MatrixGrid::build(&kit, stage, &table_entries(&table)?, 44.0, ink, v(-3.4, 0.9))?;
         let sectors = fact("K-S.leontief.sectors")?;
         let lattice_at = v(2.6, 0.9);
@@ -655,7 +661,6 @@ impl SceneConstruct for CanItFeedItself {
         let wide = kit.text(stage, &format!("{sectors} sectors wide"), 28.0, dim, v(2.6, -0.95))?;
         let mut grids = vec![small_grid.group, wide];
         grids.extend(&big_grid);
-        fade_in_all(stage, &grids, 0.8)?;
         let leontief = lower_third(
             &kit,
             stage,
@@ -665,9 +670,6 @@ impl SceneConstruct for CanItFeedItself {
                 fact("K-S.leontief.book_year")?
             ),
         )?;
-        fade_in_all(stage, &[leontief], 0.5)?;
-        pause(stage, 1.5)?;
-        fade_out_all(stage, &[leontief], 0.3)?;
         let prize = lower_third(
             &kit,
             stage,
@@ -677,7 +679,11 @@ impl SceneConstruct for CanItFeedItself {
                 fact("K-S.leontief.prize_year")?
             ),
         )?;
-        fade_in_all(stage, &[prize], 0.5)?;
+        grids.push(leontief);
+        fade_in_all(stage, &grids, 0.6)?;
+        pause(stage, 1.3)?;
+        cross_fade(stage, &[leontief], &[prize], 0.4)?;
+        pause(stage, 0.8)?;
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
@@ -847,5 +853,17 @@ mod tests {
             "{words:?}"
         );
         assert!(ran.seconds > 40.0 && ran.seconds < 85.0, "{} s", ran.seconds);
+    }
+
+    /// 13_7: the chain, the test card and the Leontief card keep up with the voice; the Leontief card read after the line is the authored tail (D-16 keeps it) and ends under the corpus cue check's 5 s.
+    #[test]
+    fn the_picture_after_the_last_line_stays_under_the_cue_checks_tail() {
+        let voiced = testing::run_voiced("13_can_it_feed_itself").unwrap();
+        let tail = voiced.tail_seconds();
+        eprintln!("TAIL 13_can_it_feed_itself: {tail:.2} s");
+        assert!(
+            tail <= 5.0,
+            "13_can_it_feed_itself: {tail:.2} s of picture after the last line"
+        );
     }
 }
