@@ -722,6 +722,10 @@ impl Narrator {
 
     /// A scratch voice for drafts: lengths from word counts, no audio.
     pub fn estimate(script: &Script) -> Rc<Self> {
+        Rc::new(Self::scratch(script))
+    }
+
+    fn scratch(script: &Script) -> Self {
         let speech = |text: &str| text.split_whitespace().count() as f64 / SCRATCH_WPS;
         let lengths = script
             .lines()
@@ -733,7 +737,7 @@ impl Narrator {
             .iter()
             .map(|(id, text)| (id.clone(), estimated_starts(text, speech(text))))
             .collect();
-        Rc::new(Self {
+        Self {
             dir: None,
             files: HashMap::new(),
             lengths,
@@ -746,7 +750,33 @@ impl Narrator {
             order: script.all.clone(),
             edges: HashMap::new(),
             after: RefCell::new(After::Start),
-        })
+        }
+    }
+
+    /// The scratch voice with the real narration's measured timing for some
+    /// lines, each `(id, sentence onsets in seconds, length in seconds)` as
+    /// `report.json` records them: a chapter's test can then place a
+    /// picture against the sentences the finished voice says, which the
+    /// estimate puts where the characters fall. An id that is not in the
+    /// script, or onsets that are not one per sentence, is a mistake in the
+    /// test and an error.
+    pub fn estimate_timed(script: &Script, timed: &[(&str, &[f64], f64)]) -> Result<Rc<Self>, String> {
+        let mut n = Self::scratch(script);
+        for &(id, onsets, len) in timed {
+            let text = script
+                .text(id)
+                .ok_or_else(|| format!("estimate_timed: {id} is not in the script"))?;
+            let count = sentences(text).len();
+            if onsets.len() != count {
+                return Err(format!(
+                    "estimate_timed: {id} has {count} sentences, not {}",
+                    onsets.len()
+                ));
+            }
+            n.starts.insert(id.to_owned(), onsets.to_vec());
+            n.lengths.insert(id.to_owned(), len);
+        }
+        Ok(Rc::new(n))
     }
 
     /// Every chapter is its own scene whose clock starts at zero.
@@ -1200,6 +1230,22 @@ mod tests {
         assert!(est[1] < est[2] && est[2] < 6.0);
         // a decimal point is not a sentence end
         assert_eq!(sentences("It is 2.5 fish. Yes.").len(), 2);
+    }
+
+    #[test]
+    fn a_timed_scratch_voice_keeps_the_real_onsets_for_its_lines_and_the_estimate_for_the_rest() {
+        let script = Script::parse("01_1\tNo. It settles. Done now.\n01_2\tOne two. Three four five.\n").unwrap();
+        let n = Narrator::estimate_timed(&script, &[("01_1", &[0.0, 0.82, 2.0], 3.5)]).unwrap();
+        assert_eq!(n.sentence_starts("01_1"), [0.0, 0.82, 2.0]);
+        assert_eq!(n.length("01_1"), Some(3.5));
+        let est = Narrator::estimate(&script);
+        assert_eq!(n.sentence_starts("01_2"), est.sentence_starts("01_2"));
+        assert_eq!(n.length("01_2"), est.length("01_2"));
+        // two onsets for three sentences, and a line the script lacks, are the test's mistakes
+        let wrong_count = Narrator::estimate_timed(&script, &[("01_1", &[0.0, 0.82], 3.5)]);
+        assert!(wrong_count.is_err_and(|e| e.contains("3 sentences, not 2")));
+        let no_line = Narrator::estimate_timed(&script, &[("09_9", &[0.0], 1.0)]);
+        assert!(no_line.is_err_and(|e| e.contains("09_9")));
     }
 
     #[test]

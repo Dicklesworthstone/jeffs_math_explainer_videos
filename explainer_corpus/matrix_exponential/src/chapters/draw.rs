@@ -1421,11 +1421,47 @@ pub mod testing {
     /// the voice would be free and lasts its estimated length, as in a
     /// scratch-voice draft, so the timing of a quiz can be measured.
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
+        run_voiced_with(key, false)
+    }
+
+    /// The finished narration's own timing (`narration/out/report.json` of
+    /// the scored draft of 2026-10-14: each sentence's onset and the line's
+    /// length, seconds) of the ten lines that follow a quiz's countdown. The
+    /// scratch voice puts a first sentence by its share of the characters,
+    /// so "No." ends at 0.3 s there and at 0.82 s in the real read; a card
+    /// that leaves on a fixed beat passes on the one and goes early on the
+    /// other.
+    // (06_4's third sentence starts at 3.14 s: seconds, not pi)
+    #[allow(clippy::approx_constant)]
+    pub const REAL_TIMING: &[(&str, &[f64], f64)] = &[
+        ("03_4", &[0.0, 0.82, 2.06, 5.44, 9.12], 10.35),
+        ("04_5", &[0.0, 2.08, 4.75, 9.06], 10.62),
+        ("06_4", &[0.0, 1.14, 3.14, 4.72, 9.445, 13.945], 15.76),
+        ("07_4", &[0.0, 1.1, 2.98, 6.16], 8.57),
+        ("08_4", &[0.0, 1.24, 5.42, 8.53], 10.69),
+        ("10_6", &[0.0, 1.82, 4.33], 7.91),
+        ("11_4", &[0.0, 0.73, 4.17], 5.87),
+        ("14_4", &[0.0, 0.82, 3.12, 9.69], 11.71),
+        ("15_3", &[0.0, 0.82, 5.04], 7.95),
+        ("16_4", &[0.0, 2.63, 7.39, 12.57], 13.58),
+    ];
+
+    /// `run_voiced` with the lines of `REAL_TIMING` placed as the finished
+    /// narration says them.
+    pub fn run_voiced_real(key: &str) -> Result<Voiced, String> {
+        run_voiced_with(key, true)
+    }
+
+    fn run_voiced_with(key: &str, real: bool) -> Result<Voiced, String> {
         let script = Script::parse(crate::SCRIPT)?;
-        let narrator = Narrator::estimate(&script);
+        let narrator = if real {
+            Narrator::estimate_timed(&script, REAL_TIMING)?
+        } else {
+            Narrator::estimate(&script)
+        };
         // a name of its own, so the events of this run are not mixed with
         // another test's run of the same chapter
-        let tag = format!("{key}#voiced");
+        let tag = format!("{key}#{}", if real { "real" } else { "voiced" });
         let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)))?;
         let timeline = kit
             .finished
@@ -1446,6 +1482,11 @@ pub mod testing {
             .iter()
             .map(|w| (w.label.clone(), w.frame as f64 / fps, w.seconds))
             .collect();
+        let marks = timeline
+            .marks
+            .iter()
+            .map(|m| (m.label.clone(), m.frame as f64 / fps))
+            .collect();
         let sentences = narrator
             .said()
             .into_iter()
@@ -1459,6 +1500,7 @@ pub mod testing {
             tag,
             lines,
             listens,
+            marks,
             sentences,
         })
     }
@@ -1505,6 +1547,9 @@ pub mod testing {
         pub lines: Vec<(String, f64, f64)>,
         /// Every listen window: its label, its start and its length, seconds.
         pub listens: Vec<(String, f64, f64)>,
+        /// Every mark the chapter made ("silence:...", "reveal:..."): its
+        /// label and when, seconds.
+        pub marks: Vec<(String, f64)>,
         /// Every line said: its id and where each of its sentences starts
         /// (scene seconds).
         pub sentences: Vec<(String, Vec<f64>)>,
@@ -1545,6 +1590,16 @@ pub mod testing {
     /// Run the chapter of the quiz asked on `line` with the scratch voice and
     /// measure the quiz's three times (REVIEW-AND-CONTINUITY section 5).
     pub fn audit_quiz(line: &str) -> Result<QuizAudit, String> {
+        audit_quiz_with(line, false)
+    }
+
+    /// `audit_quiz` with the lines after the countdown placed as the finished
+    /// narration says them (`REAL_TIMING`).
+    pub fn audit_quiz_real(line: &str) -> Result<QuizAudit, String> {
+        audit_quiz_with(line, true)
+    }
+
+    fn audit_quiz_with(line: &str, real: bool) -> Result<QuizAudit, String> {
         let quiz = super::quiz_at(line).map_err(|e| e.to_string())?;
         let prefix = format!("{}_", line.split('_').next().unwrap_or(line));
         let key = crate::chapters::registry()
@@ -1552,7 +1607,7 @@ pub mod testing {
             .map(|c| c.key)
             .find(|k| k.starts_with(&prefix))
             .ok_or_else(|| format!("no chapter for line {line}"))?;
-        let voiced = run_voiced(key)?;
+        let voiced = run_voiced_with(key, real)?;
         let events = super::quiz_log::take(&voiced.tag, line);
         let at = |kind: &str| {
             events
@@ -2083,6 +2138,51 @@ mod tests {
         quiz_14_3_follows_section_5: "14_3",
         quiz_15_2_follows_section_5: "15_2",
         quiz_16_3_follows_section_5: "16_3",
+    }
+
+    /// The rule of the answer on the finished narration's own sentences
+    /// (REAL_TIMING from the scored draft's report.json): the card stands
+    /// fully up until the second sentence of the next line begins, which
+    /// is when the first has been said. The scratch voice puts that
+    /// moment by shares of the characters and cannot see a card that
+    /// leaves on a fixed beat (03_4's "No." is 0.3 s there and 0.82 s in
+    /// the read; 07_4's "A half turn." 0.2 and 1.1; 14_4's "No." and
+    /// 15_3's "No." 0.8; the late leavers pass on both).
+    fn on_the_real_voice(line: &str) {
+        let a = testing::audit_quiz_real(line).unwrap();
+        let (leaves, said_at) = (
+            a.answer_leaves.expect("the card goes"),
+            a.answer_said.expect("a line follows"),
+        );
+        eprintln!(
+            "{line}: on the finished read the card goes at {leaves:.2} s, the first sentence after it is said at {said_at:.2} s"
+        );
+        assert!(
+            leaves >= said_at - 0.05,
+            "{line}: on the finished read the card goes at {leaves:.2} s, the first sentence after the answer is said at {said_at:.2} s\n{a:#?}"
+        );
+    }
+
+    macro_rules! real_voice_tests {
+        ($($name:ident: $line:literal),* $(,)?) => {
+            $(
+                #[test]
+                fn $name() {
+                    on_the_real_voice($line);
+                }
+            )*
+        };
+    }
+
+    real_voice_tests! {
+        quiz_03_3_leaves_on_the_real_first_sentence: "03_3",
+        quiz_04_4_leaves_on_the_real_first_sentence: "04_4",
+        quiz_06_3_leaves_on_the_real_first_sentence: "06_3",
+        quiz_07_3_leaves_on_the_real_first_sentence: "07_3",
+        quiz_08_3_leaves_on_the_real_first_sentence: "08_3",
+        quiz_10_5_leaves_on_the_real_first_sentence: "10_5",
+        quiz_11_3_leaves_on_the_real_first_sentence: "11_3",
+        quiz_16_3_leaves_on_the_real_first_sentence: "16_3",
     }
 
     /// 05_5 (the dense read of J's first half): the card the answer is worked

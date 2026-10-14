@@ -295,6 +295,9 @@ impl SceneConstruct for AMatrixIn {
             fade_in(stage.arena_mut(), answer.group, ORIGIN, 1.0)?.rt(0.5),
         );
         card.land(stage, &[], 0.25)?;
+        // the answer stays fully up until "A half turn." has been said (the
+        // finished read puts that at 1.1 s; the card went at 0.75 s)
+        line.wait_first_sentence(stage)?;
         let mut leaving = card.mobs();
         leaving.extend(&fan);
         leaving.extend([j_squared, answer.group]);

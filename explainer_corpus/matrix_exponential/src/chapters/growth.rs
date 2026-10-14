@@ -282,6 +282,9 @@ impl SceneConstruct for Growth {
         )?;
         // (fresh axes: a faded-out mobject is gone for good)
         let chart_again = self::axes(&kit, stage)?;
+        // the answer stays fully up until "No." has been said (the finished
+        // read puts that at 0.82 s; the card went at 0.3 s)
+        line.wait_first_sentence(stage)?;
         fade_out_all(stage, &card_mobs, 0.5)?;
         fade_in_all(stage, &chart_again, 0.5)?;
         let who = lower_third(
