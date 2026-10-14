@@ -673,7 +673,7 @@ impl SceneConstruct for FiveForFive {
             .copied()
             .ok_or_else(|| fail("F-X.moser has no year".into()))?;
         let statement = format!(
-            "{} when no three lines cross at one point inside the circle (six evenly spaced points give {}). Leo Moser, “On the Danger of Induction”, {}",
+            "six points make {} regions when no three lines cross at one point inside the circle (six evenly spaced points give {}). Leo Moser, “On the Danger of Induction”, {}",
             hook.answer, hook.evenly_spaced, year
         );
         let third = lower_third(&kit, stage, PRECISELY, &statement)?;
