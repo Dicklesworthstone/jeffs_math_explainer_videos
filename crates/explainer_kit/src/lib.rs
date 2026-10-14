@@ -24,6 +24,7 @@ pub mod narration;
 pub mod palette;
 pub mod play;
 pub mod plot;
+pub mod props;
 pub mod stats;
 pub mod storyboard;
 
