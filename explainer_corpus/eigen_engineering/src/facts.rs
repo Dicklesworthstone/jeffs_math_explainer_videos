@@ -718,6 +718,15 @@ fn small_rooms(f: &mut Facts) -> Result<(), String> {
     // two tones a voice can reach: one half-wave across, two along
     let voice: Vec<f64> = [[0, 1, 0], [2, 0, 0]].iter().map(|n| bath.mode_hz(*n)).collect();
     f.add("K-R2.voice_hz", fixed_list(voice, 1)?)?;
+    // every tone of the bathroom up to 150 Hz, for 09_5's pitch line (D-53):
+    // nine, of which five fit one side of the room
+    let tones: Vec<f64> = bath.modes_below(150).iter().map(|m| m.1).collect();
+    f.pin(
+        "K-R2.tones_to_150_hz",
+        fixed_list(tones, 1)?,
+        "68.6,71.5,99.1,107.2,127.3,128.8,137.2,142.9,146.0",
+        "343 / 2 x sqrt((nx / 2.5)^2 + (ny / 1.6)^2 + (nz / 2.4)^2) for every mode up to 150 Hz",
+    )?;
     // the quiz: the speed of sound over twice the length
     f.add(
         "K-R2.rule_hz",
@@ -1365,6 +1374,35 @@ mod tests {
             (Some("2"), Some("1"), Some("0"))
         );
         assert_eq!(f.get("K-X2.economy"), Some("2"));
+    }
+
+    /// 09_5's pitch line crosses nine tones of the bathroom between 60 and
+    /// 150 Hz. Five fit one side of the room (a whole number of half-waves
+    /// along one length) and four need two or three sides, so the line never
+    /// reads as the room's whole list (decisions D-53); the first is the
+    /// quiz's answer.
+    #[test]
+    fn the_bathroom_has_nine_tones_to_150_hz_and_five_fit_one_side() {
+        let f = facts().unwrap();
+        let tones: Vec<f64> = f
+            .get("K-R2.tones_to_150_hz")
+            .unwrap()
+            .split(',')
+            .map(|s| s.parse().unwrap())
+            .collect();
+        assert_eq!(tones.len(), 9);
+        assert!(tones.windows(2).all(|w| w[0] < w[1]), "ascending, none twice");
+        let modes = rooms::BATHROOM.modes_below(150);
+        assert_eq!(modes.len(), 9);
+        let one_side = modes
+            .iter()
+            .filter(|(n, _)| n.iter().filter(|&&k| k > 0).count() == 1)
+            .map(|(_, hz)| fixed(*hz, 1).unwrap())
+            .collect::<Vec<_>>();
+        assert_eq!(one_side, ["68.6", "71.5", "107.2", "137.2", "142.9"]);
+        assert!(modes.iter().all(|(_, hz)| *hz < 149.0), "none is near 150 Hz");
+        assert_eq!(f.get("K-Q.09_4.answer"), Some("68.6"));
+        assert_eq!(tones[0], 68.6);
     }
 
     /// Every quiz has its answer, and the answers the script speaks.

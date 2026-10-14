@@ -4,6 +4,7 @@
 //! chapter starts as its storyboard's animatic and is replaced by its real
 //! scene as it is built.
 
+pub mod draw;
 pub mod glyphs;
 
 use explainer_kit::Chapter;

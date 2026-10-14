@@ -597,6 +597,8 @@ def rooms():
     emit("K-R2.first_mode", join(modes[0][0]))
     emit("K-R2.second_hz", fixed(modes[1][1], 1))
     emit("K-R2.second_mode", join(modes[1][0]))
+    # every tone up to 150 Hz, by the exact-integer enumeration above (09_5, D-53)
+    emit("K-R2.tones_to_150_hz", join(fixed(hz, 1) for _, hz in modes_below(BATHROOM, 150)))
     emit("K-R2.rule_hz", fixed(F(SOUND) / (2 * F(BATHROOM[0], 10)), 1))
     emit("K-R2.voice_hz", join(fixed(SOUND / (2 * side / 10) * n, 1) for side, n in ((BATHROOM[1], 1), (BATHROOM[0], 2))))
     check("rooms: the bathroom's lowest tone is c / 2L along its longest side",

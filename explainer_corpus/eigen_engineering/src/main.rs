@@ -65,4 +65,33 @@ mod tests {
         let script = Script::parse(SCRIPT).unwrap();
         check_script_owners(&script, &keys(), None).unwrap();
     }
+
+    /// Every quiz in `model::QUIZZES` is a storyboard beat that asks a
+    /// question and then counts down for exactly the quiz's seconds, and
+    /// every countdown in the storyboard is one of those quizzes (seven, no
+    /// two closer than a minute: decisions D-04).
+    #[test]
+    fn every_countdown_is_a_quiz_and_every_quiz_has_its_countdown() {
+        let board = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+        let beats: Vec<_> = board.iter().flat_map(|c| &c.beats).collect();
+        for q in model::QUIZZES {
+            let asked: Vec<_> = beats.iter().filter(|b| b.id == q.line).collect();
+            assert_eq!(asked.len(), 1, "{}: one beat asks the quiz", q.line);
+            assert!(asked[0].predict(), "{}: a quiz asks a question", q.line);
+            assert_eq!(
+                asked[0].listen_s(),
+                Some(f64::from(q.seconds)),
+                "{}: the countdown",
+                q.line
+            );
+        }
+        let counted: Vec<&str> = beats
+            .iter()
+            .filter(|b| b.hold.contains("countdown"))
+            .map(|b| b.id.as_str())
+            .collect();
+        let quizzes: Vec<&str> = model::QUIZZES.iter().map(|q| q.line).collect();
+        assert_eq!(counted, quizzes);
+        assert_eq!(quizzes.len(), 7);
+    }
 }
