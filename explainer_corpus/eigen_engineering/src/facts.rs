@@ -709,6 +709,8 @@ fn vibration(f: &mut Facts) -> Result<(), String> {
 
     let heavy = t.hertz(shown::HEAVY_DECK_KG);
     f.add("K-V2.deck_kg", fixed(shown::HEAVY_DECK_KG, 0)?)?;
+    // the same in tonnes, which the quiz of 07_4 and 07_5's tag write ("8 t at each deck joint")
+    f.add("K-D1.heavy_deck_tonnes", fixed(shown::HEAVY_DECK_KG / 1e3, 0)?)?;
     f.add("K-V2.hz.1", fixed(heavy[0], 1)?)?;
     f.add("K-V2.direction", if heavy[0] < hz[0] { "down" } else { "up" })?;
     // what dividing by the square root of two would give, were the steel doubled too
@@ -1493,6 +1495,9 @@ mod tests {
         let f = facts().unwrap();
         assert_eq!(f.get("K-V1.hz_2dp").unwrap().split(',').next(), Some("5.91"));
         assert_eq!(f.get("K-V2.hz_2dp"), Some("4.32"));
+        // the quiz's and 07_5's tag write the doubled deck as "8 t at each deck joint"
+        assert_eq!(f.get("K-D1.heavy_deck_tonnes"), Some("8"));
+        assert_eq!(f.get("K-V2.deck_kg"), Some("8000"));
         assert_eq!(f.get("K-V2.naive_hz_2dp"), Some("4.18"));
         // slower than the light deck, and by less than the naive halving of the mass would say
         let (light, heavy, naive) = (5.91f64, 4.32f64, 4.18f64);

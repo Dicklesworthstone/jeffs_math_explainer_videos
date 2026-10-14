@@ -116,7 +116,7 @@ E = 200 GPa (the US round figure, 29,000 ksi; Eurocode practice uses 210),
 chords and end posts of 6,000 mm², verticals and diagonals of 3,000 mm²,
 7,850 kg per m³ [K-T1.*]. A member is a spring k = EA ÷ L: a 4 m bottom
 member is 200 GPa × 6,000 mm² ÷ 4,000 mm = 300 kN per mm, the weight of about
-30.6 tonnes [K-T1.spring_kn_per_mm, .spring_tonnes]. 12 joints × 2 − 3 held
+30.6 tonnes [K-T1.spring_kn_per_mm, .spring_tonnes, K-D1.bottom_member_mm]. 12 joints × 2 − 3 held
 directions = 21 moves left. The table K is 21 by 21 with 97 of 441 entries
 not zero; unsupported it has exactly three eigenvalues of zero (slide, lift,
 turn); one 100 kN load (about 10.2 tonnes) on a deck joint moves all 21
@@ -128,7 +128,7 @@ each support gives 250 kN; the top chord is squeezed up to 450 kN (75 N per
 mm², 30% of A36 steel's minimum yield of 250 N per mm²), the bottom chord
 stretched up to 400 kN, the end posts squeezed 353.6 kN, the outer diagonals
 pulled 212.1 kN (the inner two 70.7), the middle post carries 0 [K-T4.*,
-K-T5.*]. The yield figure is A36's 36 ksi
+K-T5.*, K-D1.yield_ksi]. The yield figure is A36's 36 ksi
 through a secondary citation of the AISC manual; a squeezed member is also
 checked for buckling in practice, which is another eigenvalue problem and is
 not checked here. The span ÷ 1,000 comparison is the AASHTO deflection limit
@@ -162,7 +162,7 @@ modes of K φ = ω² M φ are 5.91, 11.78, 14.86 and 20.93 Hz, in ratio
 1 : 1.99 : 2.51 : 3.54; the second mostly slides the deck along its length,
 because the right support is a roller, and the third bends it into an S. With
 8 tonne decks the lowest is 4.32 Hz, not 5.91 ÷ √2 = 4.18 Hz, since the steel
-did not get heavier [K-V1.*, K-V2.*, K-D1.ratio.4]. The eigenvalue is ω², hertz = ω ÷ 2π.
+did not get heavier [K-V1.*, K-V2.*, K-D1.ratio.4, K-D1.heavy_deck_tonnes]. The eigenvalue is ω², hertz = ω ÷ 2π.
 Only the lowest few modes are close to K's own patterns: the squared overlap of
 mode i with K's pattern i is 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, then 0.10 and
 0.02, which is why the video says "at the low end" (`K-V1.overlap.*`). The frequency goes as the square root of stiffness over mass,

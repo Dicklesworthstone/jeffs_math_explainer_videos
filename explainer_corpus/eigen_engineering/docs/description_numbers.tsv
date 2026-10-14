@@ -1,12 +1,12 @@
 # Numbers in docs/description.md that are not a value of the oracle's output, each with where it comes from.
 # Checked by tools/description_numbers.py (python3 -I tools/description_numbers.py eigen_engineering); a row nothing uses fails it.
-# columns: number TAB context (a piece of the text it stands in) TAB kind TAB reason; kinds: year, cited, structural, derived (=expression over facts, evaluated). Every number the description computes is a fact (oracle.py's K-D rows, among others) and is tagged in its unit, not listed here.
+# columns: number TAB context (a piece of the text it stands in) TAB kind TAB reason; kinds: year, cited, structural. Every number the description computes is a fact (oracle.py's K-D rows, among others) and is tagged in its unit, not listed here.
 5400	a modified BS 5400 approach	cited	BS 5400, the British Standard for steel, concrete and composite bridges, as the engineers' paper (Dallard et al. 2001) names the design code (fact-sheet row 6)
 54	gives 54 tuned mass dampers	cited	the count of tuned mass dampers that a magazine of 1 February 2002 gives, as recorded in fact-sheet S3; the paper's own plan is 4 + 26 pairs and other accounts say 52 or over 50, which is why the description says only that the video shows the 4 sideways pairs
 2005	Strogatz and others (2005)	year	Strogatz, Abrams, McRobie, Eckhardt and Ott, Nature 438 (2005) (fact-sheet S4)
 2021	Belykh and others (2021)	year	Belykh and others, Nature Communications 12:7223 (2021) (fact-sheet S5)
 14	at 14 cycles a minute	cited	the board's report (Ammann, von Karman and Woodruff, 28 March 1941): the torsional frequency "suddenly changed from 37 to 14" cycles a minute (fact-sheet S6 and row 8)
-29000	the US round figure, 29,000 ksi	cited	FHWA Steel Bridge Design Handbook (2012): E = 29,000 ksi for the structural steels of bridges (fact-sheet S21), which is the 200 GPa of K-T1.e_gpa to three figures
+29000	the US round figure, 29,000 ksi	cited	FHWA Steel Bridge Design Handbook (2012): E = 29,000 ksi for the structural steels of bridges (fact-sheet S21); oracle.py checks that the 200 GPa of K-T1.e_gpa is 29,000 ksi to three figures
 210	Eurocode practice uses 210	cited	EN 1993-1-1 takes E = 210 GPa (210,000 N per mm2) for structural steel (fact-sheet row 12)
 46	NCHRP Web Document 46	cited	NCHRP Web Document 46 (2002), Improved Live Load Deflection Criteria for Steel Bridges, the document number (fact-sheet S21)
 293.15	FrankenSim's air is 293.15 K	cited	the air temperature of FrankenSim's vibroacoustic code (fs-couple), 20 degrees C + 273.15 (fact-sheet S22)
@@ -33,10 +33,3 @@
 99	99% of the total	structural	The threshold of the key K-E3.rounds_for_99_percent.
 40	k = 1 to 40	structural	The scaling steps k = 1 to 40 of the check.
 6	sizes 2 to 6	structural	The sizes of the symmetric tables checked.
-# derived: the reason is an expression over the oracle's values, evaluated by the tool.
-# The member's length 4,000 mm is the panel K-T1.panel_m (4 m) in millimetres.
-4000	÷ 4,000 mm	derived	=f("K-T1.panel_m")*1000
-# A36 steel's 36 ksi is the 250 N per mm2 of K-T1.yield_mpa in ksi (6.894757 MPa per ksi).
-36	36 ksi	derived	=f("K-T1.yield_mpa")/6.894757
-# The doubled decks are K-V2.deck_kg (8000 kg) in tonnes.
-8	8 tonne decks	derived	=f("K-V2.deck_kg")/1000

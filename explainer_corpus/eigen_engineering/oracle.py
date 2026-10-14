@@ -14,13 +14,15 @@ always sentences) and K-S (cited).
 
 The oracle may print more than the video: K-D rows are numbers docs/description.md
 states, each computed here from first principles by the functions below (not typed,
-not a formula over another row) and cross-checked. K-D1 is the truss's fourth mode
-and the modes' widths, K-D2 the economy (the tables as decimals, the dot-product
-recipe, what is kept, the table that splits), K-D3 the rooms (modes in a window
-of a few hertz; the bathroom's window), K-D4 the tube's humps. Only K-D2.table and
-K-D2.hungry_table are also video facts (src/facts.rs): the scenes draw those two
-tables with one decimal an entry. Every other K-D row is research only the oracle
-prints (tools/description_numbers.py reads the oracle's values as facts).
+not a formula over another row) and cross-checked. K-D1 is the truss's fourth mode,
+the modes' widths and the steel in the units the text writes (a bottom member in
+millimetres, the yield in ksi, the doubled deck in tonnes), K-D2 the economy (the
+tables as decimals, the dot-product recipe, what is kept, the table that splits),
+K-D3 the rooms (modes in a window of a few hertz; the bathroom's window), K-D4 the
+tube's humps. Only K-D2.table, K-D2.hungry_table and K-D1.heavy_deck_tonnes are also
+video facts (src/facts.rs): the scenes draw the two tables with one decimal an entry
+and the doubled deck as "8 t". Every other K-D row is research only the oracle prints
+(tools/description_numbers.py reads the oracle's values as facts).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -150,6 +152,7 @@ E_PA = 200e9
 STEEL_KG_M3 = 7850.0
 YIELD_PA = 250e6
 G = 9.80665
+KSI_PA = 1000 * 0.45359237 * G / 0.0254**2  # a kip (1000 pound-force) over a square inch, from the definitions of the pound and the inch
 
 
 def bridges():
@@ -1100,6 +1103,20 @@ def description_modes(t):
           fixed(mode_width_hz(HALL_T60), 1) == _EMITTED["K-H2.mode_width_hz"]
           and abs(mode_width_hz(STUDY_T60) - mode_width_hz(1) / float(STUDY_T60)) < 1e-12)
     emit("K-D1.lone_within_percent", decimal(LONE_TOLERANCE * 100))
+    # the steel in the units the text writes
+    _, lengths = stretch_matrix()
+    kind, area = MEMBERS[0][2], MEMBERS[0][3]  # joint 0 to joint 1, a bottom member
+    emit("K-D1.bottom_member_mm", fixed(lengths[0] * 1000, 0))
+    check("truss: a bottom member of 4,000 mm with 6,000 mm2 of 200 GPa steel is 300 kN per mm, K-T1.spring_kn_per_mm",
+          kind == "bottom" and fixed(E_PA / 1e6 * (area * 1e6) / (lengths[0] * 1000) / 1e3, 0)
+          == _EMITTED["K-T1.spring_kn_per_mm"])
+    emit("K-D1.yield_ksi", fixed(YIELD_PA / KSI_PA, 0))
+    check("steel: 36 ksi is 248 MPa, within 1% of the 250 MPa of K-T1.yield_mpa, and 200 GPa is 29,000 ksi to three figures",
+          abs(36 * KSI_PA / YIELD_PA - 1) < 0.01 and round(E_PA / KSI_PA, -2) == 29000
+          and fixed(YIELD_PA / 1e6, 0) == _EMITTED["K-T1.yield_mpa"])
+    emit("K-D1.heavy_deck_tonnes", fixed(2 * DECK_KG / 1e3, 0))
+    check("truss: the doubled deck in tonnes is K-V2.deck_kg over a thousand",
+          int(_EMITTED["K-D1.heavy_deck_tonnes"]) * 1000 == int(_EMITTED["K-V2.deck_kg"]))
 
 
 def description_economy():
