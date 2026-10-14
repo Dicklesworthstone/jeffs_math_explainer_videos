@@ -47,18 +47,18 @@ it an arrow `x`, and it returns an arrow `Ax`. The video keeps two uses of `A`
 apart: as a **move** (`x ↦ Mx` is where you land) and as a **rule** (`dx/dt =
 Ax` gives your velocity at `x`). The matrix exponential takes a rule `A` and a
 time `t` and returns the move `e^{tA}` that carries every starting point `x(0)`
-to `x(t) = e^{tA} x(0)` [F-X.ode].
+to `x(t) = e^{tA} x(0)` [F-X.flow_adds].
 
 **The obvious guess fails (chapter 2).** Exponentiating entry by entry sends
 the zero matrix `[0, 0; 0, 0]` to `[1, 1; 1, 1]`, which is not the identity
 `I = [1, 0; 0, 1]` ("the matrix that changes nothing"), and sends `J = [0, −1;
-1, 0]` to `[1, 1/e; e, 1]`, whose determinant is `0` rather than `1` [F-H.J.naive,
-F-H.zero.naive].
+1, 0]` to `[1, 1/e; e, 1]`, whose determinant is `0` rather than `1` [F-H.J.guess,
+F-H.zero.guess].
 
 **Two definitions, one function (chapters 3 to 5).** For any square matrix `A`,
 the limit of tiny steps and the power series agree:
 
-`lim_{n → ∞} (I + A/n)^n = ∑_{k=0}^∞ A^k / k! = e^A` [F-X.limit_equals_series].
+`lim_{n → ∞} (I + A/n)^n = ∑_{k=0}^∞ A^k / k! = e^A` [F-T.steps.n1000, F-T.at.t10].
 
 With `A` replaced by `tA`, differentiating term by term gives `(d/dt) e^{tA} =
 A e^{tA} = e^{tA} A`, with `e^{0·A} = I`. That is the unique matrix solution of
@@ -66,25 +66,25 @@ A e^{tA} = e^{tA} A`, with `e^{0·A} = I`. That is the unique matrix solution of
 
 **Why the series always settles (chapter 8).** Write `‖A‖` for the operator
 2-norm (the largest singular value, called "the size of `A`" in the video).
-Submultiplicativity `‖AB‖ ≤ ‖A‖ ‖B‖` gives `‖A^k / k!‖ ≤ ‖A‖^k / k!` [F-X.submult,
-F-X.term_bound]. Once `k > ‖A‖`, the bound's ratio `‖A‖ / k` is strictly below
-`1`, so the series converges absolutely for every square matrix `A` [F-X.converges].
+Submultiplicativity `‖AB‖ ≤ ‖A‖ ‖B‖` gives `‖A^k / k!‖ ≤ ‖A‖^k / k!` [F-X.sizes_multiply,
+F-S.bound]. Once `k > ‖A‖`, the bound's ratio `‖A‖ / k` is strictly below
+`1`, so the series converges absolutely for every square matrix `A` [F-X.series_settles].
 Before `k` passes `‖A‖`, the terms can swell: for `5J`, term `k = 5` has size
 `5^5 / 5! = 3125/120 ≈ 26.04` before the factorial wins and the partial sums
-settle on the unit circle [F-S.terms, F-S.peak.value].
+settle on the unit circle [F-S.terms, F-S.peak].
 
 **Two tanks and coupled systems (chapter 10).** With a flow transfer rate of
 `0.1` per minute each way between two tanks, the amounts `x(t)` follow
-`dx/dt = A x` with `A = [−0.1, 0.1; 0.1, −0.1]` [F-T.A]. Starting from `(100, 0)`
+`dx/dt = A x` with `A = [−0.1, 0.1; 0.1, −0.1]` [F-T.rule]. Starting from `(100, 0)`
 grams, `x(t) = e^{tA} (100, 0) = (50 + 50 e^{−0.2t}, 50 − 50 e^{−0.2t})`:
-`81.9` and `18.1` grams at `t = 1`, `56.8` and `43.2` grams at `t = 10`, settling
-toward `(50, 50)` [F-T.state.t1, F-T.state.t10, F-T.settles].
+`90.9` and `9.1` grams at `t = 1`, `56.8` and `43.2` grams at `t = 10`, settling
+toward `(50, 50)` [F-T.at.t1, F-T.at.t10, F-T.settles].
 
 **Walks on a network (chapter 11).** For an adjacency matrix `A` with `0` and
 `1` entries, the `(i, j)` entry of `A^k` counts walks of length `k` from node `j`
 to node `i` (or `i` to `j` when `A` is symmetric) [F-G.walks.k1..k4]. In `e^A =
 ∑_{k=0}^∞ A^k / k!`, every walk of length `k` is weighted by `1/k!`
-(Estrada and Higham 2010) [F-G.expA].
+(Estrada and Higham 2010) [F-G.exp].
 
 **Heat, continuous-time random walks, and the Schrödinger equation (chapter 12).**
 For a graph with Laplacian `L = D − A`, heat flow `du/dt = −L u` has solution
@@ -104,11 +104,11 @@ Putting `−i` in front of `L` turns `du/dt = −L u` into the discrete Schrödi
 equation `dψ/dt = −i L ψ`, whose solution `ψ(t) = e^{−itL} ψ(0)` is unitary
 (`‖ψ(t)‖ = ‖ψ(0)‖` for all `t`) and oscillates without settling: on a 2-node
 link, the probabilities at the two nodes are `cos² t` and `sin² t`
-[F-D.pair.quantum.t1, F-X.unitary].
+[F-D.pair.quantum.t1, F-X.quantum_total_one].
 
 **When does `e^{A+B} = e^A e^B` hold? (chapter 14).** If `AB = BA`, then the
 binomial expansion holds for `(A + B)^k` and `e^{A+B} = e^A e^B`
-[F-O.commuting.rule_holds, F-X.commute]. The converse is true for *all times*
+[F-O.commuting.rule_holds, F-X.commuting_rule_holds]. The converse is true for *all times*
 (`e^{t(A+B)} = e^{tA} e^{tB}` for every real `t` implies `AB = BA`, as follows
 from differentiating twice at `t = 0`), but **not** for a single pair `(A, B)`
 at `t = 1`. A clean 3-by-3 counterexample uses the 3-4-5 right triangle: let
@@ -128,12 +128,12 @@ F-L.loop.is_minus_z_spin].
 (Conventions that write the product left-to-right or start with `−A` get `+t²[A, B]`.)
 Alternating tiny steps `(e^{(t/n)B} e^{(t/n)A})^n` kills the `t²` error and
 converges to `e^{t(A+B)}` as `n → ∞` (the Lie–Trotter product formula)
-[F-O.alternate.n10, F-O.alternate.n1000, F-X.trotter].
+[F-O.alternate.n10, F-O.alternate.n1000].
 
 **The doorway to Lie theory and the Standard Model (chapters 15 and 16).** The
 skew-symmetric matrices (`Aᵀ = −A`) form the Lie algebra `so(n)`, closed under
 the commutator `[A, B] = AB − BA`; the exponential maps `so(n)` onto the
-connected rotation group `SO(n)` [F-L.bracket.*, F-X.orthogonal]. In physics,
+connected rotation group `SO(n)` [F-L.bracket.*, F-X.skew_gives_rotation]. In physics,
 unitary phase transformations come from skew-Hermitian matrices (`X* = −X`, or
 `iH` with `H` Hermitian). The Lie algebra of the Standard Model gauge group is
 `su(3) ⊕ su(2) ⊕ u(1)`, which has `(3² − 1) + (2² − 1) + 1 = 8 + 3 + 1 = 12`
@@ -183,7 +183,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   `8.1` times closer to `e` than the degree-6 Taylor polynomial (`1957/720 ≈
   2.718056`) for the same highest power [F-C.pade.*].
 - **Do not compute `e^{tA} v` by forming `e^{tA}` when `A` is large and sparse.**
-  On the 400-node grid (`20 × 20`), `L` is sparse (`1,520` nonzeros) while
+  On the 400-node grid (`20 × 20`), `L` is sparse (`1,920` nonzeros) while
   `e^{−tL}` is completely dense (`160,000` positive entries). For a single
   vector `e^{tA} v`, use Krylov subspace methods or Chebyshev/Taylor action
   (`scipy.sparse.linalg.expm_multiply`, Al-Mohy and Higham 2011). When the graph
@@ -224,7 +224,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
 Every matrix, series term, norm, walk count, heat value, and floating-point
 trace in the video is computed by the video's own Rust model (`src/model.rs`)
 and checked against an independent rational/SciPy oracle (`./x
-matrix_exponential facts-check`, `oracle.py`, 264 keys). The 200 random edge
+matrix_exponential facts-check`, `oracle.py`, 354 keys). The 200 random edge
 matrices for the universal claims (`F-X.*`) are drawn from NumPy's
 `Generator(PCG64DXSM(20261013))` alongside the named degenerate cases (zero,
 nilpotent, defective shear, non-normal).
