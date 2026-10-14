@@ -124,6 +124,7 @@ upload has not, and v4 was uploaded separately and made Public.
 | RaptorQ leo (the original voice, a comparison) | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4` | `130493a0d35ce4e4f61eeb39047b6b73` | 21:14, −16.0 LUFS | verified; the owner chose michael, so upload only if he asks to compare |
 | fish michael, v1 (superseded by v2) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
 | Video F, Mental Math Tricks, michael v2 (0720552) | `explainer_corpus/mental_math/renders/final/mental_math_master.mp4` | `766f27760c86c2fa698ddc830699d550` | 15:34, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2); `tools/release.py check mental_math` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. F v1 (`renders/final_v1/`, `ccc684b23c200d6ed09094509d02d73b`) has orphan captions and v1's chapter times: do not upload |
+| Video E, Fair Coin, michael (fbe959c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `a5805f30aa28ad29470a3ed74c7d62f4` | 11:57, −17.6 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check fair_coin` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
 
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
@@ -133,6 +134,12 @@ Video F's text: `explainer_corpus/mental_math/publish/michael/{title,description
 chapter times, e4338e1); captions `explainer_corpus/mental_math/renders/final/mental_math.en.srt`
 (`dba90d5f…`); thumbnail `explainer_corpus/mental_math/renders/mental_math_thumbnail.png`
 (`5d2cbcb0…`); the upload sheet is `python3 -I tools/release.py check mental_math` (the description,
+tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
+
+Video E's text: `explainer_corpus/fair_coin/publish/michael/{title,description,tags}.txt` (chapter
+times filled from final timelines, f8bcb2b); captions `explainer_corpus/fair_coin/renders/final/fair_coin.en.srt`
+(`446ee8d4…`); thumbnail `explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png`
+(`728c23b9…`); the upload sheet is `python3 -I tools/release.py check fair_coin` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
 
 ## Corrected michael cuts (review 2 and later)
