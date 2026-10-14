@@ -211,7 +211,7 @@ class Driver(unittest.TestCase):
             (scripts / name).write_text(recorder, encoding="utf-8")
         (self.root / "tools").mkdir()
         (self.root / "tools" / "narration.py").write_text(recorder, encoding="utf-8")
-        env = {k: v for k, v in os.environ.items() if k not in ("FTTS", "JOINT", "SEEDS", "EXCLUDE_EXIT")}
+        env = {k: v for k, v in os.environ.items() if k not in ("FTTS", "JOINT", "JOINT_CREAK", "SEEDS", "EXCLUDE_EXIT")}
         env.update(SKILLS=str(self.root / "skills"), FTTS_VERSION="0.1.11",
                    PATH=str(bin_dir) + os.pathsep + os.environ["PATH"], **(env_extra or {}))
         result = self.run_x("capture_recapture", "narrate", env=env)
@@ -247,6 +247,21 @@ class Driver(unittest.TestCase):
         narration = [c.split()[1] for c in calls if c.startswith("narration.py")]
         self.assertEqual(narration.count("choose"), 13)
         self.assertEqual(narration.count("exclude"), 12)
+
+    def test_narrate_prices_a_creaky_ending_only_when_asked_and_only_with_joint(self):
+        _, calls = self.narrate_recorded(edges_failures=0, env_extra={"JOINT": "1", "JOINT_CREAK": "1"})
+        chooses = [c for c in calls if c.startswith("narration.py choose")]
+        self.assertEqual(len(chooses), 1)
+        self.assertIn("--joint", chooses[0])
+        self.assertIn("--creak=1", chooses[0])
+
+    def test_narrate_with_joint_alone_leaves_the_creak_unpriced(self):
+        _, calls = self.narrate_recorded(edges_failures=0, env_extra={"JOINT": "1"})
+        self.assertFalse(any("--creak" in c for c in calls), calls)
+
+    def test_narrate_ignores_a_creak_price_without_joint(self):
+        _, calls = self.narrate_recorded(edges_failures=0, env_extra={"JOINT_CREAK": "1"})
+        self.assertFalse(any("--creak" in c or "--joint" in c for c in calls), calls)
 
     def dispatch_executable(self, directory, name, source):
         path = directory / name

@@ -319,10 +319,11 @@ case "$cmd" in
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
     # A joint build can pass every take's own transcript and still lose a line's first word once the
     # sentences are assembled (P-2's "But"): a line that fails a line-level gate gives up the reads the
-    # joint choice moved in it (work/joint_exclude.txt; move it aside to start over) and is chosen again.
+    # joint choice moved in it (work/joint_exclude.<script sha>.txt, one per script; move it aside to start
+    # over) and is chosen again. JOINT_CREAK=W also prices a creaky ending at W (the ear's call: off).
     rounds=0
     while :; do
-      py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon" ${JOINT:+--joint}
+      py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon" ${JOINT:+--joint} ${JOINT:+${JOINT_CREAK:+--creak=$JOINT_CREAK}}
       python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
       # every gate runs, so one build shows everything that is wrong
       status=0

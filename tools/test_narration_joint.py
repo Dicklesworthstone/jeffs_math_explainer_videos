@@ -55,18 +55,23 @@ def buzz(f0, peak=0.2):
     return peak * x / np.max(np.abs(x))
 
 
-def sentence_audio(onset_hz, final_hz, syllables=5, jump_st=0.0):
+def sentence_audio(onset_hz, final_hz, syllables=5, jump_st=0.0, hiss=False, abrupt=False):
     """Five 180 ms syllables 50 ms apart, the pitch gliding from onset to final (even in st) and, for the last
-    120 ms, `jump_st` higher; 0.3 s of digital silence either side: what `hear` needs to find a sentence."""
+    120 ms, `jump_st` higher; 0.3 s of digital silence either side: what `hear` needs to find a sentence.
+    `hiss` ends it in 120 ms of high-passed noise, an s; `abrupt` stops the take there with no silence after
+    it, as ftts does when it cuts a sentence short."""
     span = syllables * 0.18 + (syllables - 1) * 0.05
     t = np.arange(int(span * RATE)) / RATE
     envelope = np.zeros_like(t)
     for i in range(syllables):
         a, b = i * 0.23, i * 0.23 + 0.18
         envelope += np.clip(np.minimum(t - a, b - t) / 0.02, 0, 1)
-    pad = np.zeros(int(0.3 * RATE))
     f0 = onset_hz * (final_hz / onset_hz) ** (t / span) * 2 ** (jump_st / 12 * (t > span - 0.12))
-    return np.concatenate([pad, buzz(f0) * envelope, pad])
+    sound = buzz(f0) * envelope
+    if hiss:
+        noise = np.diff(np.random.default_rng(5).standard_normal(int(0.12 * RATE) + 1))
+        sound = np.concatenate([sound, noise * (0.04 / noise.std()) * np.hanning(len(noise)) ** 0.25])
+    return np.concatenate([np.zeros(int(0.3 * RATE)), sound, np.zeros(0 if abrupt else int(0.3 * RATE))])
 
 
 def ends(onset, final, median=None):
@@ -160,11 +165,56 @@ class Costs(unittest.TestCase):
         self.assertAlmostEqual(rise, tool.JOINT_COST["rise"] * 4.0)
         self.assertEqual(tool.node_cost(read(), rising, True), tool.node_cost(read(), feats(100, 100), True))
 
-    def test_a_creaky_ending_costs_its_weight(self):
+    def test_a_creaky_ending_costs_nothing_unless_it_is_priced(self):
         creaky = feats(100, 100)
         creaky["praat"]["creaky"] = True
-        extra = tool.node_cost(read(), creaky, False) - tool.node_cost(read(), feats(100, 100), False)
-        self.assertAlmostEqual(extra, tool.JOINT_COST["creak"])
+        self.assertEqual(tool.JOINT_COST["creak"], 0.0, "whether creak is a defect is the owner's ear: off by default")
+        self.assertEqual(tool.node_cost(read(), creaky, False), tool.node_cost(read(), feats(100, 100), False))
+        priced = {**tool.JOINT_COST, "creak": 1.0}
+        extra = tool.node_cost(read(), creaky, False, w=priced) - tool.node_cost(read(), feats(100, 100), False, w=priced)
+        self.assertAlmostEqual(extra, 1.0)
+
+    def test_a_statement_that_ends_more_than_eight_semitones_up_fails_a_gate_and_a_question_does_not(self):
+        rising = feats(100, 100)
+        rising["praat"]["final_move_st"] = 9.0
+        self.assertEqual(tool.failed_gates(read(), rising, False), {"rise"})
+        self.assertEqual(tool.failed_gates(read(), rising, True), set())
+        rising["praat"]["final_move_st"] = 8.0
+        self.assertEqual(tool.failed_gates(read(), rising, False), set())
+        more = tool.node_cost(read(), {**rising, "praat": {**rising["praat"], "final_move_st": 9.0}}, False)
+        self.assertAlmostEqual(more - tool.node_cost(read(), rising, False),
+                               tool.JOINT_COST["gate"] + tool.JOINT_COST["rise"])
+
+    def test_the_gates_a_read_fails(self):
+        self.assertEqual(tool.failed_gates(read(), feats(100, 100), False), set())
+        every = read(cut_short=True, sibilant_missing=True, asr_ratio=0.8)
+        self.assertEqual(tool.failed_gates(every, None, False), {"cut_short", "sibilant_missing", "asr"})
+
+    def test_a_read_is_never_moved_into_a_failure(self):
+        # narrate.py's pick (index 1) is cut short; a read that drops the final s/z instead is no way out
+        gates = [{"sibilant_missing"}, {"cut_short"}, set(), {"cut_short", "asr"}, {"cut_short"}]
+        self.assertEqual(tool.admissible(gates, 1), [1, 2, 4])
+        # a pick that fails nothing keeps only the reads that fail nothing
+        self.assertEqual(tool.admissible(gates, 2), [2])
+        # where the pick fails something, a read failing the same thing or less may take its place
+        self.assertEqual(tool.admissible([{"cut_short"}, set(), {"cut_short"}], 0), [0, 1, 2])
+
+    def test_a_joint_choice_with_more_reads_without_their_final_s_than_narrate_pys_fails(self):
+        tool.check_sibilants(2, 2)
+        tool.check_sibilants(2, 1)
+        with self.assertRaises(SystemExit) as stop:
+            tool.check_sibilants(0, 1)
+        self.assertIn("final s/z", str(stop.exception))
+
+    def test_an_exclusion_file_belongs_to_the_script_it_failed_on(self):
+        script = Path(tempfile.mkdtemp(prefix="narration_joint_script_")) / "script.tsv"
+        script.write_text("01_1\tOne. Two.\n")
+        first = tool.exclusion_file(script, "work")
+        self.assertEqual(first, tool.exclusion_file(script, "work"))
+        script.write_text("01_1\tOne. Three.\n")
+        second = tool.exclusion_file(script, "work")
+        self.assertNotEqual(first, second)
+        self.assertTrue(first.name.startswith("joint_exclude.") and first.name.endswith(".txt"))
 
     def test_an_ending_is_creaky_when_its_median_or_half_its_frames_are_under_80_hz(self):
         def creaky(last):  # 40 frames at 110 Hz, then the last 150 ms (15 or 16 frames) as given
@@ -346,15 +396,16 @@ with wave.open(args[-1], "wb") as w:
     SECOND_FINE = [(150, 110, 0.97)] + SECOND[1:]  # the best read starts 7.9 st over: no bad join anywhere
 
     def write_takes(self, work, sentences):
-        """sentences[j][i] = (onset Hz, final Hz, ASR confidence) for the i-th planned read of sentence j."""
+        """sentences[j][i] = (onset Hz, final Hz, ASR confidence[, sentence_audio options]) for the i-th planned
+        read of sentence j."""
         plan = json.loads((work / "plan.json").read_text())
         (work / "takes").mkdir(exist_ok=True)
         asr = {}
         for j, sentence in enumerate(plan["01_1"]):
             self.assertEqual(len(sentence["reads"]), len(sentences[j]))
             words = sentence["text"].rstrip(".").split()
-            for r, (onset, final, conf) in zip(sentence["reads"], sentences[j]):
-                nr.write_wav(work / "takes" / f"{r['tag']}.wav", sentence_audio(onset, final))
+            for r, (onset, final, conf, *options) in zip(sentence["reads"], sentences[j]):
+                nr.write_wav(work / "takes" / f"{r['tag']}.wav", sentence_audio(onset, final, **(options or [{}])[0]))
                 asr[r["tag"]] = {"text": sentence["text"], "engine": "test",
                                  "words": [{"w": w, "s": 0.3 + 0.23 * i, "e": 0.48 + 0.23 * i, "p": conf} for i, w in enumerate(words)]}
         (work / "asr.json").write_text(json.dumps(asr))
@@ -397,7 +448,9 @@ with wave.open(args[-1], "wb") as w:
         self.assertIn("picked", report[1])
         self.assertNotIn("joint", report[1])
 
-    def test_where_no_join_is_bad_the_joint_choice_is_narrate_pys_byte_for_byte(self):
+    def test_where_no_read_has_a_defect_the_joint_choice_is_narrate_pys_byte_for_byte(self):
+        # no join is bad, no read has a gate, a hole, a rise or a terminal event, and the creak is not priced;
+        # a read with one of those would be re-ranked even where no join is bad (a creak: the next test)
         self.run_tool("plan", "script.tsv", "work", "--seeds", "1")
         self.write_takes(self.dir / "work", [self.FIRST, self.SECOND_FINE])
         _, plain, plain_sha = self.choose(self.dir / "work", self.dir / "out_plain")
@@ -431,7 +484,7 @@ with wave.open(args[-1], "wb") as w:
         self.assertLess(len(picks), 14)
         self.assertEqual(code.returncode, 1, code.stdout)
         self.assertIn("0 reads the joint choice moved there are now excluded", code.stdout)
-        excluded = set((self.dir / "work" / "joint_exclude.txt").read_text().split())
+        excluded = set(tool.exclusion_file(self.dir / "script.tsv", self.dir / "work").read_text().split())
         self.assertTrue({tags[1][1], tags[1][2], tags[1][3]} <= excluded)
         self.assertFalse(excluded & {tags[0][0], tags[1][0]}, "narrate.py's own picks are never excluded")
 
@@ -442,7 +495,80 @@ with wave.open(args[-1], "wb") as w:
         (self.dir / "out" / "lines_asr.json").write_text(json.dumps({"01_1": {"text": "Here is the first one. And here is the next."}}))
         code = self.run_tool("exclude", "script.tsv", "work", str(self.dir / "out"), check=False)
         self.assertEqual(code.returncode, 1)
-        self.assertFalse((self.dir / "work" / "joint_exclude.txt").exists())
+        self.assertFalse(tool.exclusion_file(self.dir / "script.tsv", self.dir / "work").exists())
+
+    def test_a_line_that_loses_its_first_word_gives_up_the_moved_reads_though_qa_is_clean(self):
+        # P-2's lost "But" exactly: qa_lines passes (the line is 0.99 of its words) and only `edges` sees that
+        # the first word of a sentence is not in the assembled line's transcript
+        self.run_tool("plan", "script.tsv", "work")
+        plan = self.write_takes(self.dir / "work", [self.FIRST[:3], self.SECOND[:3]])
+        tags = [[r["tag"] for r in s["reads"]] for s in plan]
+        out = self.dir / "out"
+        _, report, _ = self.choose(self.dir / "work", out, "--joint")
+        self.assertEqual(report[1]["read"], tags[1][1], "the joint choice moved the second sentence")
+        (out / "qa.json").write_text(json.dumps({"failing": []}))
+        (out / "lines_asr.json").write_text(json.dumps({"01_1": {"text": "is the first one. And here is the next."}}))
+        code = self.run_tool("exclude", "script.tsv", "work", str(out), check=False)
+        self.assertEqual(code.returncode, 0, code.stdout + code.stderr)
+        self.assertIn("1 lines fail a line-level gate", code.stdout)
+        excluded = set(tool.exclusion_file(self.dir / "script.tsv", self.dir / "work").read_text().split())
+        self.assertEqual(excluded, {tags[1][1]})
+
+    def test_exclusions_belong_to_the_script_they_failed_on(self):
+        self.run_tool("plan", "script.tsv", "work")
+        plan = self.write_takes(self.dir / "work", [self.FIRST[:3], self.SECOND[:3]])
+        tags = [[r["tag"] for r in s["reads"]] for s in plan]
+        script, work = self.dir / "script.tsv", self.dir / "work"
+        out = self.dir / "out_0"
+        self.choose(work, out, "--joint")
+        (out / "lines_asr.json").write_text(json.dumps({"01_1": {"text": "Here is the first one. And here is the next."}}))
+        (out / "qa.json").write_text(json.dumps({"failing": [{"line": "01_1", "ratio": 0.8}]}))
+        self.run_tool("exclude", "script.tsv", "work", str(out))
+        learned = tool.exclusion_file(script, work)
+        self.assertEqual(learned.read_text().split(), [tags[1][1]])
+        self.assertEqual(self.choose(work, self.dir / "out_1", "--joint")[1][1]["read"], tags[1][2], "priced")
+        script.write_text(script.read_text() + "# edited, same lines\n")
+        again = self.choose(work, self.dir / "out_2", "--joint")[1][1]["read"]
+        self.assertEqual(again, tags[1][1], "a script edit starts over: the old exclusions are not read")
+        self.assertNotEqual(tool.exclusion_file(script, work), learned)
+        self.assertEqual(learned.read_text().split(), [tags[1][1]], "and the old file is left as it was")
+
+    def test_the_joint_choice_never_trades_a_cut_short_read_for_one_without_its_final_s(self):
+        # Video E's regression: where narrate.py's best read is cut short, a read that has lost the s of "ones"
+        # looked as good to the cost model and the join (the best read steps 15.7 st up into the next sentence)
+        # made it better. B and B' are clean, join well and are missing the s: they must not be candidates.
+        (self.dir / "script.tsv").write_text("01_1\tHere are the first ones. Now say the next ones.\n")
+        self.run_tool("plan", "script.tsv", "work")
+        hiss, cut = {"hiss": True}, {"hiss": True, "abrupt": True}
+        plan = self.write_takes(self.dir / "work", [
+            [(125, 95, 0.99, cut), (175, 130, 0.70), (175, 130, 0.65)],
+            [(235, 110, 0.97, hiss), (235, 110, 0.96, hiss), (235, 110, 0.95, hiss)]])
+        tags = [[r["tag"] for r in s["reads"]] for s in plan]
+        _, plain, plain_sha = self.choose(self.dir / "work", self.dir / "out_plain")
+        self.assertEqual([c["read"] for c in plain], [tags[0][0], tags[1][0]])
+        self.assertTrue(plain[0]["cut_short"] and not plain[0]["sibilant_missing"], "the best read is cut short, with its s")
+        self.assertFalse(plain[1]["cut_short"] or plain[1]["sibilant_missing"])
+        said, joint, joint_sha = self.choose(self.dir / "work", self.dir / "out_joint", "--joint")
+        self.assertEqual([c["read"] for c in joint], [tags[0][0], tags[1][0]], "narrate.py's reads, not the ones without the s")
+        self.assertEqual(joint_sha, plain_sha)
+        self.assertIn("reads without their final s/z: 0 -> 0", said)
+        self.assertIn("2 reads refused for failing a gate narrate.py's pick passes", said)
+        self.assertIn("past +12 st: 1 -> 1 of 1 by Praat", said, "the join that was worth the trade stays bad: a read is not moved into a failure")
+
+    def test_a_creaky_ending_is_the_ears_call_unless_it_is_priced(self):
+        self.run_tool("plan", "script.tsv", "work")
+        plan = self.write_takes(self.dir / "work", [
+            [(125, 70, 0.97), (125, 100, 0.90), (125, 100, 0.88)], [(120, 100, 0.97), (120, 100, 0.96), (120, 100, 0.95)]])
+        tags = [[r["tag"] for r in s["reads"]] for s in plan]
+        _, plain, _ = self.choose(self.dir / "work", self.dir / "out_plain")
+        self.assertEqual(plain[0]["read"], tags[0][0], "narrate.py's pick ends at 70 Hz")
+        said, off, off_sha = self.choose(self.dir / "work", self.dir / "out_off", "--joint")
+        self.assertEqual([c["read"] for c in off], [c["read"] for c in plain])
+        self.assertIn("0 of 2 sentences are read differently", said)
+        said, on, _ = self.choose(self.dir / "work", self.dir / "out_on", "--joint", "--creak", "1")
+        self.assertEqual(on[0]["read"], tags[0][1], "priced, the creaky ending is moved off")
+        self.assertEqual(on[0]["joint"]["from"], tags[0][0])
+        self.assertIn("1 of 2 sentences are read differently", said)
 
     def test_the_flags_belong_to_their_commands(self):
         self.run_tool("plan", "script.tsv", "work")

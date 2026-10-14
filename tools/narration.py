@@ -12,7 +12,8 @@ word and an editor that listens to what it cuts.
 
     plan ... --seeds N     also plan every read with `ftts --seed 1..N` (work/seeds.tsv, not takes.tsv)
     synth WORK --voice V [--model M] [--workers W]    the seeded reads plan listed (after tts_batch.py)
-    choose ... --joint     pick each line's reads together (see "Why the reads of a line are chosen together")
+    choose ... --joint [--creak W]    pick each line's reads together (see "Why the reads of a line are chosen
+                           together"); W prices a creaky ending (default 0: whether it is a defect is the ear's)
     exclude SCRIPT.tsv WORK OUT [--lexicon L]    after the line-level gates failed a --joint build: price the
                            reads it moved in the failing lines as failed (exit 1: nothing new, stop)
 
@@ -82,14 +83,28 @@ spread, final contours 10 st apart), deterministic per seed, so a seed is a reta
 - `plan --seeds N` adds every read again with seed 1..N. They go to work/seeds.tsv, never takes.tsv
   (tts_batch.py would read them without the seed), and `synth` makes them. Seed 0 is no seed.
 - `choose --joint` runs a Viterbi over each line: a read's cost is its own score plus its defects
-  (a stall or hole inside, a statement that rises at its end, a creaky ending, a pitch jump in its last 120 ms), a
-  join's cost is the reset beyond +12 st and the register step between the two reads, measured with
-  Praat (the autocorrelation trackers read a creaky ending 20-90 Hz high and miss most resets); a
-  second tracker, held out of the costs, is counted beside it and must agree on a terminal pitch
-  event. It needs `uv run --with numpy --with praat-parselmouth`. A director's pick is not a choice, it stays. The reads
-  it moves away from narrate.py's pick are written into the report (`joint`); when nothing at a join
-  is bad it picks narrate.py's read, and a run without --joint is byte for byte what it was.
-- Taste: whether the joint reads sound better is the owner's to say; a video opts in per run.
+  (a stall or hole inside, a statement that rises at its end, a pitch jump in its last 120 ms and,
+  only with `--creak W`, a creaky ending), a join's cost is the reset beyond +12 st and the register
+  step between the two reads, measured with Praat (the autocorrelation trackers read a creaky ending
+  20-90 Hz high and miss most resets); a second tracker, held out of the costs, is counted beside it
+  and must agree on a terminal pitch event. It needs `uv run --with numpy --with praat-parselmouth`.
+  A director's pick is not a choice, it stays.
+- A read is never moved INTO a failure: one that fails a gate narrate.py's pick passes (cut short, its
+  last word's final s/z gone, the ASR ratio under 0.85, a statement ending more than 8 st up) is not a
+  candidate. Priced alone, the gates traded a cut-short read for one that dropped its final s on Video
+  E (01_3.1 "tails.", 06_4.3 "chance."), which changes the word; `choose --joint` also fails if more of
+  its reads lack their final s/z than narrate.py's own.
+- The reads it moves away from narrate.py's pick are written into the report (`joint`). Costs beyond the
+  score re-rank reads where no join is bad (a hole, a rise, a heard word before the first, a terminal
+  event, and a creak if priced): it is narrate.py's pick only where no read has a defect the score does
+  not see. A run without --joint is byte for byte what it was.
+- Measured by an independent review (SunnyMarsh, mx-4kc2), with creak priced 1.0, the weights fitted on
+  chapter 02 of Video F: there, joins past +12 st 4 -> 0 of 12 (three trackers: 4 -> 0, 4 -> 0, 4 -> 2),
+  median +8.5 -> +6.1 st; out of sample on Video E (two reads a sentence, 26 of 167 sentences moved) past
+  +12 st 21 -> 18, 17 -> 14, 16 -> 15 of about 101 joins, median +8.4 -> +8.6 st, most of that small gain
+  the creak preference: expect a small tail effect from the existing two reads and more from `--seeds`.
+- Taste: whether the joint reads sound better is the owner's to say; a video opts in per run, and the
+  creak weight is a second opt-in.
 """
 import hashlib
 import json
@@ -136,9 +151,10 @@ JOINT = {}                 # read tag -> what the joint choice recorded where it
 HOLE = 0.45                # s: an unlicensed pause this long inside a read is a hole, not a breath (T-005)
 TERMINAL = (9.0, 4.5)      # st: the last 120 ms rise this far over the 250 ms before it, by Praat and by the second tracker
 CREAK_HZ = 80.0            # Hz: an ending whose median, or half of whose last 150 ms, is under this is creaky (P-2)
+RISE_GATE = 8.0            # st: a statement that ends rising by more than this is a defect, not a weight (P-2: 07_5.4 at +16.3 st)
 JOINT_COST = {             # the Viterbi's weights (the research pilot P-2's, on chapter 02 of Video F), then ours
     "score": 2.0,          # per 1.0 of narrate.py's score under a perfect read
-    "creak": 1.0,          # a creaky ending: F's sentences end 62-75 Hz, the cause of the heavy tail of resets (T-007)
+    "creak": 0.0,          # a creaky ending (P-2 priced it 1.0: `--creak 1`): whether it is a defect is the owner's ear
     "gate": 5.0,           # a cut-short read, a dropped final s/z, an ASR ratio under 0.85: nothing else if avoidable
     "name": 1.0, "hesitation": 0.5, "stall": 2.0,
     "hole": 1.0, "onset": 1.0,           # ours: a hole inside the read; a heard word before the first scripted one
@@ -719,9 +735,34 @@ def node_cost(m, feats, question, lead_extra=False, w=JOINT_COST):
     if feats:
         move = feats["praat"]["final_move_st"] if feats["praat"] else float("nan")
         if not question and move == move:
-            cost += w["rise"] * min(8.0, max(0.0, move - 2.0))
+            cost += w["rise"] * min(8.0, max(0.0, move - 2.0)) + w["gate"] * (move > RISE_GATE)
         cost += w["creak"] * bool(feats["praat"] and feats["praat"].get("creaky")) + w["terminal"] * terminal_event(feats)
     return float(cost)
+
+
+def failed_gates(m, feats, question):
+    """The hard gates a read fails: ftts cut it short, its last word's s/z is gone, the ASR missed too much of it,
+    or (a statement) it ends rising by more than RISE_GATE st."""
+    move = feats["praat"]["final_move_st"] if feats and feats["praat"] else float("nan")
+    return {name for name, failed in (("cut_short", m["cut_short"]), ("sibilant_missing", m["sibilant_missing"]),
+                                      ("asr", m["asr_ratio"] < 0.85), ("rise", not question and move > RISE_GATE))
+            if failed}
+
+
+def admissible(gates, top):
+    """The reads the joint choice may choose between: narrate.py's pick (`top`) and every read that fails no gate
+    the pick passes. Where every read fails a gate the cost model alone trades one failure for another (Video E:
+    a cut-short read for one that dropped its final s, which changes the word); a read is never moved INTO a
+    failure. gates[i] is the set failed_gates() returned for read i."""
+    return [i for i, g in enumerate(gates) if i == top or g <= gates[top]]
+
+
+def check_sibilants(plain, joint):
+    """`choose --joint` fails when more of its chosen reads end without their final s/z than narrate.py's own (the
+    standing bar is none that narrate.py did not already have)."""
+    if joint > plain:
+        sys.exit(f"--joint chose {joint} reads that end without their final s/z where narrate.py's picks have {plain}: "
+                 "a read must never lose a word's s/z to improve a join")
 
 
 def join_resets(prev, nxt, tracker="praat"):
@@ -783,17 +824,25 @@ def lead_extra(sentence, heard):
     return any(t != "and" for t in got[:lead])
 
 
+def exclusion_file(script, work):
+    """work/joint_exclude.<8 hex of the script's sha1>.txt: what failed a line-level gate belongs to the script it
+    failed on. After a script edit a new file starts, and the old one stays where it is."""
+    return Path(work) / f"joint_exclude.{hashlib.sha1(Path(script).read_bytes()).hexdigest()[:8]}.txt"
+
+
 def joint_choice(script, work, lexicon, sentence_lufs):
     """Choose every line's reads together and record, in JOINT, the reads that differ from narrate.py's pick.
     Returns the totals the run prints."""
     nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
     plan = json.loads((Path(work) / "plan.json").read_text())
     asr = json.loads((Path(work) / "asr.json").read_text())
-    excluded = set((Path(work) / "joint_exclude.txt").read_text().split()) if (Path(work) / "joint_exclude.txt").exists() else set()
+    known = exclusion_file(script, work)
+    excluded = set(known.read_text().split()) if known.exists() else set()
     total = {"sentences": 0, "moved": 0, "lines": [], "joins": {"praat": 0, "second": 0},
-             "bad_joins": {"praat": [0, 0], "second": [0, 0]}}  # past +12 st, [narrate.py's picks, the joint picks]
+             "bad_joins": {"praat": [0, 0], "second": [0, 0]},  # past +12 st, [narrate.py's picks, the joint picks]
+             "no_sibilant": [0, 0], "refused": 0}  # reads without their final s/z, [narrate.py's, the joint's]
     for line_id, sents in plan.items():
-        layers, reads, best = [], [], []
+        layers, reads, best, gates = [], [], [], []
         for s in sents:
             cands = []
             for r in s["reads"]:
@@ -807,21 +856,28 @@ def joint_choice(script, work, lexicon, sentence_lufs):
                 break  # narrate.py's choose stops on this line; leave it to say so
             forced = [c for c in cands if c[0]["tag"] in PICKS]
             cands = forced or cands
+            question = s["text"].rstrip().endswith("?")
+            feats = [read_features(edit(wav, m, sentence_lufs)[0], nr.RATE) for _, wav, m in cands]
             top = max(range(len(cands)), key=lambda i: cands[i][2]["score"])  # the first of equal scores, like its stable sort
+            failed = [failed_gates(m, f, question) for (_, _, m), f in zip(cands, feats)]
+            keep = admissible(failed, top)
+            total["refused"] += len(cands) - len(keep)
             layer = []
-            for i, (r, wav, m) in enumerate(cands):
-                seg, *_ = edit(wav, m, sentence_lufs)
-                feats = read_features(seg, nr.RATE)
-                node = node_cost(m, feats, s["text"].rstrip().endswith("?"), lead_extra(r["text"], m["heard"]))
+            for i in keep:
+                r, _, m = cands[i]
+                node = node_cost(m, feats[i], question, lead_extra(r["text"], m["heard"]))
                 node += JOINT_COST["gate"] * (r["tag"] in excluded and i != top)  # failed a line-level gate once
-                layer.append((node + JOINT_COST["change"] * (i != top), feats))
+                layer.append((node + JOINT_COST["change"] * (i != top), feats[i]))
             layers.append(layer)
-            reads.append(cands)
-            best.append(top)
+            reads.append([cands[i] for i in keep])
+            gates.append([failed[i] for i in keep])
+            best.append(keep.index(top))
         else:
             path = best_path(layers, join_cost)
             for i, k in enumerate(path):
                 total["sentences"] += 1
+                total["no_sibilant"][0] += "sibilant_missing" in gates[i][best[i]]
+                total["no_sibilant"][1] += "sibilant_missing" in gates[i][k]
                 if k != best[i]:
                     total["moved"] += 1
                     total["lines"].append(f"{line_id}.{sents[i]['j']}")
@@ -835,6 +891,7 @@ def joint_choice(script, work, lexicon, sentence_lufs):
                     total["bad_joins"][tracker][when] += sum(1 for r in resets if r is not None and r > JOINT_COST["tail_at"])
                     if when == 0:
                         total["joins"][tracker] += sum(1 for r in resets if r is not None)
+    check_sibilants(*total["no_sibilant"])
     return total
 
 
@@ -888,15 +945,16 @@ def edges(script, out, lexicon):
 def exclude(script, work, out, lexicon):
     """After a `choose --joint` build: a line that fails a line-level gate (qa_lines.py's, or edges: the
     assembled line's transcript can lose a first word that the take's own transcript has, P-2's lost
-    "But") gives up the reads the joint choice moved in it. They go to work/joint_exclude.txt, which the
-    next `choose --joint` prices as a failed gate; the loop ends when a failing line holds none that is
-    new, and a line with every moved read excluded is narrate.py's. Exits 1 when nothing new was excluded."""
+    "But") gives up the reads the joint choice moved in it. They go to the script's exclusion file
+    (`exclusion_file`), which the next `choose --joint` prices as a failed gate; the loop ends when a
+    failing line holds none that is new, and a line with every moved read excluded is narrate.py's. Exits 1
+    when nothing new was excluded."""
     out, work = Path(out), Path(work)
     report = json.loads((out / "report.json").read_text())["lines"]
     failing = {lid for lid, _ in edge_failures(script, out, lexicon)}
     if (out / "qa.json").exists():
         failing |= {r["line"] for r in json.loads((out / "qa.json").read_text())["failing"]}
-    path = work / "joint_exclude.txt"
+    path = exclusion_file(script, work)
     known = set(path.read_text().split()) if path.exists() else set()
     new = [c["read"] for lid in sorted(failing) for c in report.get(lid, []) if "joint" in c and c["read"] not in known]
     if new:
@@ -958,18 +1016,21 @@ def main():
     if len(sys.argv) < 3 or sys.argv[2] not in ("plan", "choose"):
         sys.exit(__doc__)
     command, out = sys.argv[2], Path(sys.argv[5]) if len(sys.argv) > 5 else None
-    joint, seeds = take_flag("--joint"), int(take_value("--seeds", "0"))
-    if (joint and command != "choose") or (seeds and command != "plan"):
-        sys.exit("--joint belongs to choose and --seeds to plan")
+    joint, seeds, creak = take_flag("--joint"), int(take_value("--seeds", "0")), float(take_value("--creak", "0"))
+    if (joint and command != "choose") or (seeds and command != "plan") or (creak and not joint):
+        sys.exit("--joint belongs to choose, --creak to choose --joint and --seeds to plan")
     nr.tts_variants, nr.analyze, nr.edit, nr.limit_peaks = tts_variants, analyze, edit, counted_limit
     director_files(sys.argv[3], sys.argv[4], command)
     if joint:
+        JOINT_COST["creak"] = creak
         total = joint_choice(sys.argv[3], sys.argv[4], option("--lexicon"), float(option("--sentence-lufs", "-23")))
         bad = total["bad_joins"]
         print(f"joint: {total['moved']} of {total['sentences']} sentences are read differently from narrate.py's pick"
               + (f" ({', '.join(total['lines'])})" if total["lines"] else "") + f"; joins that reset the pitch past "
               f"+{JOINT_COST['tail_at']:.0f} st: {bad['praat'][0]} -> {bad['praat'][1]} of {total['joins']['praat']} by Praat, "
-              f"{bad['second'][0]} -> {bad['second'][1]} of {total['joins']['second']} by the second tracker (held out)")
+              f"{bad['second'][0]} -> {bad['second'][1]} of {total['joins']['second']} by the second tracker (held out); "
+              f"reads without their final s/z: {total['no_sibilant'][0]} -> {total['no_sibilant'][1]}; "
+              f"{total['refused']} reads refused for failing a gate narrate.py's pick passes")
     sys.argv = [str(Path(sys.argv[1]) / "narrate.py"), *sys.argv[2:]]
     nr.main()
     if command == "plan":
