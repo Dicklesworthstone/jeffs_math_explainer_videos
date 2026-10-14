@@ -11,6 +11,7 @@ pub mod draw;
 pub mod five_for_five;
 pub mod glyphs;
 pub mod iso;
+pub mod layers;
 pub mod the_cut_cube;
 
 use explainer_kit::Chapter;
@@ -43,7 +44,7 @@ pub fn registry() -> Vec<Chapter> {
     vec![
         scene!("01_cold_open", 0.5, cold_open::ColdOpen),
         scene!("02_five_for_five", 0.3, five_for_five::FiveForFive),
-        animatic!("03_layers", 0.4),
+        scene!("03_layers", 0.4, layers::Layers),
         animatic!("04_staircases", 0.4),
         animatic!("05_slabs", 0.6),
         animatic!("06_every_cube", 0.55),
