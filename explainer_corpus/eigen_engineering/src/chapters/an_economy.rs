@@ -422,7 +422,11 @@ impl SceneConstruct for AnEconomy {
             orange,
             v(3.6, card_row),
         )?;
-        fade_out_all(stage, &unknown, 0.2)?;
+        // the question marks give way at once, so the answer lands with the
+        // end of the countdown and not after it
+        for &m in &unknown {
+            stage.set_opacity(m, 0.0, true);
+        }
         card.land(stage, &[c_answer.group], 0.5)?;
         let sum = |row: usize| -> fmn::Result<String> {
             Ok(format!(

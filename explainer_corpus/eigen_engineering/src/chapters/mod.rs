@@ -11,6 +11,7 @@ pub mod can_it_feed_itself;
 pub mod carts;
 pub mod draw;
 pub mod glyphs;
+pub mod one_idea;
 pub mod own_patterns;
 pub mod the_split;
 pub mod truss;
@@ -57,6 +58,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("11_where_modes_rule", 0.45, where_modes_rule::WhereModesRule),
         scene!("12_an_economy", 0.5, an_economy::AnEconomy),
         scene!("13_can_it_feed_itself", 0.55, can_it_feed_itself::CanItFeedItself),
-        animatic!("14_one_idea", 0.5),
+        scene!("14_one_idea", 0.5, one_idea::OneIdea),
     ]
 }
