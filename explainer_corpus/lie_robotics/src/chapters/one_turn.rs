@@ -71,6 +71,17 @@ pub const ASK: Ask = Ask {
 /// The height the book is held at while it turns.
 const TURN_Z: f64 = 1.25;
 const CENTRE: V3 = [0.0, 0.0, TURN_Z];
+/// Where the book's world sits (its table ends inside the safe area on the
+/// left and clear of the quiz card on the right) and where the card stands.
+const BOOKS_AT: [f64; 2] = [-3.1, -0.7];
+const CARD_AT: [f64; 2] = [4.35, 0.2];
+const CARD_SCALE: f64 = 0.92;
+/// The live grid of 02_6, above the code panel that slides in at the end
+/// (the panel stands at the right, centred on the middle of the frame).
+const GRID_AT: [f64; 2] = [4.3, 2.45];
+const GRID_PITCH: (f64, f64) = (1.25, 0.72);
+const TABLE_LO: [f64; 2] = [-3.0, -2.2];
+const TABLE_HI: [f64; 2] = [3.0, 2.6];
 
 /// 02_4's three more pairs of turns: (axis, degrees) then (axis, degrees).
 /// Arbitrary, generic ones: the claim they illustrate is Euler's, tested on
@@ -194,7 +205,7 @@ impl SceneConstruct for OneTurn {
             })
             .collect();
         let specs = vec![
-            PartSpec::new(table([-3.0, -2.2], [3.0, 2.6], 0.0, 0.8), still(Pose::NOTHING)).layer(-2),
+            PartSpec::new(table(TABLE_LO, TABLE_HI, 0.0, 0.8), still(Pose::NOTHING)).layer(-2),
             PartSpec::new(book(BOOK_HALF), at_rest.clone()),
             PartSpec::new(book(BOOK_HALF), moving.clone()),
             PartSpec::new(edge_arrows(1.35), moving.clone()),
@@ -212,7 +223,14 @@ impl SceneConstruct for OneTurn {
         const GHOST: usize = 1;
         const AXIS: usize = 4;
         const ARCS: usize = 5;
-        let books = World::build(stage, View::new(1.0, v(-3.3, -0.7)), 4.0, 0.2, specs, Vec::<Pin>::new())?;
+        let books = World::build(
+            stage,
+            View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1])),
+            4.0,
+            0.2,
+            specs,
+            Vec::<Pin>::new(),
+        )?;
         stage.set_tracker_value(books.parts[GHOST].grey, 1.0)?;
         stage.set_tracker_value(books.parts[AXIS].shown, 0.0)?;
         stage.set_tracker_value(books.parts[ARCS].shown, 0.0)?;
@@ -228,7 +246,7 @@ impl SceneConstruct for OneTurn {
         play!(stage; tween(deg, facts_deg, 1.8)?);
 
         // 02_2: how big is that single turn?
-        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(4.35, 0.2), 0.92))?;
+        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
 
         // 02_3: a third of a turn, three of them bring it home; the axis
         // leans equally from the three edges
@@ -354,8 +372,8 @@ impl SceneConstruct for OneTurn {
         books.show(stage, 0.6)?;
         let r_now: Rc<dyn Fn(&Arena) -> M3> =
             Rc::new(move |s: &Arena| book_turn(axis, value(s, deg), value(s, ta), value(s, tb)));
-        let pitch = (1.25, 0.72);
-        let grid_at = v(4.3, 1.0);
+        let pitch = GRID_PITCH;
+        let grid_at = v(GRID_AT[0], GRID_AT[1]);
         let colors = edge_colors();
         line.wait_for(stage, "track where the book's three edges point")?;
         play!(stage; tween(ta, 1.0, 1.3)?);
@@ -413,7 +431,7 @@ impl SceneConstruct for OneTurn {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::entry;
+    use super::super::draw::{CARD_W, QuizCard, SAFE, entry, probe};
     use super::*;
 
     /// Chapter 02 plays exactly the storyboard's beats, and every beat is the
@@ -495,6 +513,72 @@ mod tests {
         assert!(model::gap(&model::mul(&a, &b), &model::turn(X, 110.0 * DEG)) < 1e-12);
         let undo = model::transpose(&a);
         assert!(model::gap(&model::mul(&undo, &a), &model::I3) < 1e-12);
+    }
+
+    /// 02_2: the fractions' two storeys keep to their rows (they once ran
+    /// into each other), and every row ends inside the card, before the tick.
+    #[test]
+    fn the_quiz_rows_keep_apart_and_inside_the_card() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let look = QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE);
+            let card = QuizCard::build(&kit, stage, ASK, look)?;
+            let right = stage.get_right(card.back)[0];
+            for pair in card.rows.windows(2) {
+                let (upper, lower) = (stage.get_bottom(pair[0])[1], stage.get_top(pair[1])[1]);
+                assert!(upper > lower, "two rows share height: {upper:.2} against {lower:.2}");
+            }
+            for &row in &card.rows {
+                assert!(stage.get_right(row)[0] < right - 0.7 * CARD_SCALE);
+            }
+            assert!(stage.get_bottom(*card.rows.last().unwrap())[1] > stage.get_top(card.track)[1]);
+            Ok(())
+        });
+    }
+
+    /// 02_1, 02_2: the table ends inside the safe area on the left and clear
+    /// of the card on the right.
+    #[test]
+    fn the_table_fits_beside_the_card() {
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        let corners = [
+            TABLE_LO,
+            [TABLE_HI[0], TABLE_LO[1]],
+            TABLE_HI,
+            [TABLE_LO[0], TABLE_HI[1]],
+        ]
+        .map(|c| [c[0], c[1], 0.0]);
+        let (lo, hi) = view.box_of(corners);
+        assert!(lo[0] > -SAFE[0] && hi[1] < SAFE[1] && lo[1] > -SAFE[1], "{lo:?} {hi:?}");
+        let card_left = CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE;
+        assert!(
+            hi[0] < card_left - 0.5,
+            "the table ends at {:.2}, the card begins at {card_left:.2}",
+            hi[0]
+        );
+    }
+
+    /// 02_6: the live grid and its brackets stand above the code panel that
+    /// slides in at the end (they once sat behind its first line).
+    #[test]
+    fn the_grid_stands_above_the_code_panel() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let panel = CodePanel::build(&kit, stage, &CODE, 26.0, 5.6)?;
+            let (left, top) = (
+                stage.get_left(panel.group)[0] - (panel.width + 0.45),
+                stage.get_top(panel.group)[1],
+            );
+            let grid_bottom = GRID_AT[1] - 1.5 * GRID_PITCH.1;
+            let grid_right = GRID_AT[0] + 1.62 * GRID_PITCH.0;
+            assert!(grid_right > left, "the panel really is under the grid's columns");
+            assert!(
+                grid_bottom - 0.3 > top,
+                "the grid's last row ends at {grid_bottom:.2}, the panel's top is {top:.2}"
+            );
+            assert!(GRID_AT[1] + 1.5 * GRID_PITCH.1 < SAFE[1]);
+            Ok(())
+        });
     }
 
     /// 02_6: the grid the live cells show after tilt and roll is the fact's

@@ -608,7 +608,31 @@ impl View {
     pub fn depth(p: V3) -> f64 {
         dot(p, Self::basis().2)
     }
+
+    /// The box on the screen (lower-left, upper-right) that the world points
+    /// `pts` project into.
+    #[cfg(test)]
+    pub fn box_of(&self, pts: impl IntoIterator<Item = V3>) -> ([f64; 2], [f64; 2]) {
+        let (mut lo, mut hi) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
+        for p in pts {
+            let s = self.project(p);
+            for k in 0..2 {
+                lo[k] = lo[k].min(s[k]);
+                hi[k] = hi[k].max(s[k]);
+            }
+        }
+        (lo, hi)
+    }
 }
+
+/// The half width and half height of the safe area the layout lint holds the
+/// picture to (the frame, ±7.11 by ±4, less its 0.15 margin).
+#[cfg(test)]
+pub const SAFE: [f64; 2] = [6.96, 3.85];
+/// The top edge of a one-line lower third, rounded up a little (it is at
+/// -3.14); a two-line one reaches -2.78, a three-line one -2.42.
+#[cfg(test)]
+pub const LOWER_THIRD_TOP: f64 = -3.1;
 
 // ---------------------------------------------------------------- the world
 
@@ -661,6 +685,17 @@ impl Shape {
             Shape::Dashed { dashes, .. } => *dashes,
             Shape::Arrow { .. } => 2,
             _ => 1,
+        }
+    }
+
+    /// Every point that places the shape: corners, path points, ends, centre.
+    #[cfg(test)]
+    pub fn points(&self) -> Vec<V3> {
+        match self {
+            Shape::Face { pts, .. } | Shape::Path { pts, .. } => pts.clone(),
+            Shape::Dashed { a, b, .. } => vec![*a, *b],
+            Shape::Arrow { from, to, .. } => vec![*from, *to],
+            Shape::Dot { at, .. } => vec![*at],
         }
     }
 
@@ -1652,7 +1687,10 @@ impl QuizLook {
 const PAUSE_LINE: &str = "pause for more time";
 const CARD_LABEL: &str = "your turn";
 /// The card's width at scale 1 (scene units).
-const CARD_W: f64 = 5.4;
+pub const CARD_W: f64 = 5.4;
+/// Where a choice's words stop, from the card's right edge: the tick of the
+/// right choice stands in that strip.
+const TICK_ROOM: f64 = 0.8;
 const RING_R: f64 = 0.62;
 
 /// The ring: what is left of a circle of radius `r` at `c`, drained
@@ -1696,10 +1734,20 @@ pub struct QuizCard {
 }
 
 impl QuizCard {
-    /// The card's height at `scale` for a question of `lines` lines and
-    /// `choices` choices.
-    fn height(lines: usize, choices: usize, k: f64) -> f64 {
-        k * (1.0 + 0.5 * lines as f64 + 0.55 * choices as f64 + 2.1)
+    /// The distance between two choices' centres at scale `k`: a fraction's
+    /// two storeys need more room than a line of words.
+    fn pitch(ask: &Ask, k: f64) -> f64 {
+        if ask.choices.iter().any(|c| c.label.contains("\\frac")) {
+            0.95 * k
+        } else {
+            0.55 * k
+        }
+    }
+
+    /// The card's height at scale `k` for a question of `lines` lines and
+    /// the choices of `ask`.
+    fn height(lines: usize, ask: &Ask, k: f64) -> f64 {
+        k * (1.0 + 0.5 * lines as f64 + 2.1) + Self::pitch(ask, k) * ask.choices.len() as f64
     }
 
     /// The card for `ask`, detached.
@@ -1708,7 +1756,8 @@ impl QuizCard {
         let right = ask.answer_index()?;
         let (at, k) = (look.at, look.scale);
         let lines = ask.question.lines().count().max(1);
-        let (w, h) = (CARD_W * k, Self::height(lines, ask.choices.len(), k));
+        let pitch = Self::pitch(&ask, k);
+        let (w, h) = (CARD_W * k, Self::height(lines, &ask, k));
         let top = at[1] + h / 2.0;
         let back = Rectangle::new()
             .width(w)
@@ -1736,7 +1785,7 @@ impl QuizCard {
         let (mut rows, mut dots) = (Vec::new(), Vec::new());
         let left_x = at[0] - w / 2.0 + 0.95 * k;
         for (i, choice) in ask.choices.iter().enumerate() {
-            let y = first_row - 0.55 * k * i as f64;
+            let y = first_row - pitch * i as f64;
             let row = if choice.label.contains('\\') {
                 kit.tex_left(stage, choice.label, 38.0 * k, Palette::ink(), &[], v(left_x, y))?
             } else {
@@ -1750,8 +1799,18 @@ impl QuizCard {
                 .build();
             dots.push(stage.arena_mut().add(dot));
         }
-        let last_row = first_row - 0.55 * k * (ask.choices.len().saturating_sub(1)) as f64;
-        let ring_at = v(at[0], last_row - 1.0 * k);
+        // a choice longer than the card is wide would run out of it and under
+        // the tick: all the choices shrink together until the longest fits
+        let room = at[0] + w / 2.0 - TICK_ROOM * k - left_x;
+        let widest = rows.iter().map(|&r| stage.get_width(r)).fold(0.0, f64::max);
+        if widest > room {
+            for (i, &row) in rows.iter().enumerate() {
+                stage.scale(row, room / widest);
+                stage.move_to(row, v(left_x, first_row - pitch * i as f64), LEFT);
+            }
+        }
+        let last_row = first_row - pitch * (ask.choices.len().saturating_sub(1)) as f64;
+        let ring_at = v(at[0], last_row - (pitch + 0.45 * k));
         let radius = RING_R * k;
         let track = stage.arena_mut().add(
             Circle::new()
@@ -1780,10 +1839,10 @@ impl QuizCard {
             v(at[0], ring_at[1] - radius - 0.4 * k),
         )?;
         // the verdict: an outline round the right row and a tick before it
-        let ry = first_row - 0.55 * k * right as f64;
+        let ry = first_row - pitch * right as f64;
         let outline = Rectangle::new()
             .width(w - 0.5 * k)
-            .height(0.5 * k)
+            .height(pitch - 0.05 * k)
             .corner_radius(0.1 * k)
             .style(
                 Style::default()
@@ -1925,6 +1984,25 @@ pub fn your_turn(kit: &Kit, stage: &mut Stage<'_>, ask: Ask, look: QuizLook) -> 
     card.show(stage, 0.5)?;
     card.count(kit, stage)?;
     Ok(card)
+}
+
+/// Run `construct` on a scratch stage with no sink: the scene's mobjects are
+/// really built and measured, nothing is rendered.
+#[cfg(test)]
+pub fn probe(construct: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+    struct Probe<F>(F);
+    impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            (self.0)(stage)
+        }
+    }
+    fmn::run_scene(
+        &mut Probe(construct),
+        fmn::scene::RuntimeConfig::default(),
+        7,
+        &mut fmn::scene::NullSceneSink,
+    )
+    .expect("the probe scene runs");
 }
 
 #[cfg(test)]

@@ -17,7 +17,7 @@ use super::draw::{
     turns_in_order, tween_linear, value,
 };
 use super::glyphs::TITLE;
-use crate::model::{self, Arm, GOAL_P, M3, Pose, V3, X, Y, degrees, poses};
+use crate::model::{self, Arm, GOAL_P, M3, Pose, Screw, V3, X, Y, add, degrees, poses, scale};
 use crate::palette;
 
 pub struct TheBook {
@@ -70,12 +70,22 @@ const LIFT_Z: f64 = 1.25;
 /// The slides of 01_4: right, then away (or the other way round).
 const SLIDE_X: f64 = 3.2;
 const SLIDE_Y: f64 = 1.5;
-const TABLE_LO: [f64; 2] = [-3.7, -2.5];
-const TABLE_HI: [f64; 2] = [3.7, 3.1];
+const TABLE_LO: [f64; 2] = [-3.0, -2.0];
+const TABLE_HI: [f64; 2] = [3.0, 2.8];
 // the slid book stays on the table
 const _: () = assert!(X_LEFT + SLIDE_X < TABLE_HI[0] && SLIDE_Y + BOOK_HALF[1] < TABLE_HI[1]);
 /// How far each gold line of the room runs from the book's centre.
-const LINE_REACH: f64 = 2.7;
+const LINE_REACH: f64 = 2.3;
+/// Where the books' world sits on the screen: the table and the gold lines
+/// end inside the safe area on the left and clear of the quiz card (centred
+/// at `CARD_AT`) on the right.
+const BOOKS_AT: [f64; 2] = [-3.1, -0.9];
+const CARD_AT: [f64; 2] = [4.35, 0.3];
+const CARD_SCALE: f64 = 0.92;
+/// The arm's world: its origin on the screen, clear of the lower third.
+const ARM_AT: [f64; 2] = [-1.9, -1.9];
+/// How far above the floor the screw's gold axis runs.
+const SCREW_TOP: f64 = 1.3;
 
 /// The book's orientation after its two turns, `a` and `b` of the way
 /// through the first and second (0 to 1, each a quarter turn), about the
@@ -201,6 +211,22 @@ fn column(r: &M3, k: usize) -> V3 {
     [r[0][k], r[1][k], r[2][k]]
 }
 
+/// The screw with its point moved along its axis to half of `top` above the
+/// floor: drawn `top / 2` out each way, the gold axis then runs from the floor
+/// up to `top`, where the screw's own point (the axis' nearest to the origin)
+/// would have put half of it below the table.
+fn from_the_floor(s: &Screw, top: f64) -> Screw {
+    let up = if s.axis[2] >= 0.0 { s.axis } else { scale(s.axis, -1.0) };
+    if up[2] < 1e-9 {
+        return *s;
+    }
+    let along = (0.5 * top - s.point[2]) / up[2];
+    Screw {
+        point: add(s.point, scale(up, along)),
+        ..*s
+    }
+}
+
 impl SceneConstruct for TheBook {
     fn name(&self) -> &str {
         "01_the_book"
@@ -261,7 +287,14 @@ impl SceneConstruct for TheBook {
             )
             .layer(-1),
         ];
-        let books = World::build(stage, View::new(1.0, v(-3.8, -0.9)), 5.0, 0.2, specs, Vec::<Pin>::new())?;
+        let books = World::build(
+            stage,
+            View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1])),
+            5.0,
+            0.2,
+            specs,
+            Vec::<Pin>::new(),
+        )?;
         // the right copy is greyed until it is turned; the arrows, trails and
         // the landing dot are not there yet
         stage.set_tracker_value(books.parts[part::RIGHT].grey, 1.0)?;
@@ -278,7 +311,7 @@ impl SceneConstruct for TheBook {
 
         // 01_1: tilt then roll; swap the order; the same or different?
         let line = say(&kit, stage, BEATS[0])?;
-        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         books.show(stage, 0.8)?;
         line.wait_for(stage, "Tilt a book")?;
         play!(stage; tween(la, 1.0, 1.3)?);
@@ -389,8 +422,14 @@ impl SceneConstruct for TheBook {
         let goal_at = specs.len();
         specs.push(PartSpec::new(frame, still(Pose::NOTHING)).layer(2));
         let screw_at = specs.len();
-        specs.push(PartSpec::new(screw_shapes(&screw, 0.9, 0.16), still(Pose::NOTHING)).layer(2));
-        let arm_view = View::new(ARM_SCALE, v(-1.9, -2.45));
+        specs.push(
+            PartSpec::new(
+                screw_shapes(&from_the_floor(&screw, SCREW_TOP), 0.5 * SCREW_TOP, 0.16),
+                still(Pose::NOTHING),
+            )
+            .layer(2),
+        );
+        let arm_view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
         let world = World::build(stage, arm_view, 1.4, 0.25, specs, Vec::<Pin>::new())?;
         let hidden: Vec<usize> = ArmRig::GOLD_COLLARS.chain([goal_at, screw_at]).collect();
         for i in hidden {
@@ -430,9 +469,82 @@ impl SceneConstruct for TheBook {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::fact;
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, fact};
     use super::*;
     use crate::model::{DEG, Z};
+
+    /// 01_1, 01_2: the table and the room's gold lines, projected, end inside
+    /// the safe area on the left (they once ran off the frame) and clear of
+    /// the quiz card on the right.
+    #[test]
+    fn the_books_and_their_lines_fit_beside_the_card() {
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        let mut pts = Vec::new();
+        for x in [TABLE_LO[0], TABLE_HI[0]] {
+            for y in [TABLE_LO[1], TABLE_HI[1]] {
+                pts.push([x, y, 0.0]);
+            }
+        }
+        // the lines of both copies, through their centres at turn height
+        for cx in [X_LEFT, X_LEFT + SEPARATION] {
+            for s in [-1.0, 1.0] {
+                pts.push([cx + s * LINE_REACH, 0.0, LIFT_Z]);
+                pts.push([cx, s * LINE_REACH, LIFT_Z]);
+            }
+        }
+        let (lo, hi) = view.box_of(pts);
+        assert!(lo[0] > -SAFE[0] && hi[1] < SAFE[1] && lo[1] > -SAFE[1], "{lo:?} {hi:?}");
+        let card_left = CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE;
+        assert!(
+            hi[0] < card_left - 0.5,
+            "the table ends at {:.2}, the card begins at {card_left:.2}",
+            hi[0]
+        );
+        // the slid book is still on that table
+        let landing = view.box_of([[X_LEFT + SLIDE_X, SLIDE_Y, 0.0]]);
+        assert!(landing.0[0] > lo[0] && landing.1[0] < hi[0]);
+    }
+
+    /// 01_5, 01_6: the arm's world, its table, its screw and the labels at the
+    /// goal stand clear of the lower third and inside the frame, and the
+    /// gold axis runs from the floor up, never below the table.
+    #[test]
+    fn the_arm_scene_clears_the_lower_third() {
+        let arm = Arm::iiwa14();
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        let start = arm.tip(&degrees(poses::START));
+        let goal = model::goal(&arm);
+        let screw = model::screw_of(&goal.then(&start.undo()));
+        let drawn = from_the_floor(&screw, SCREW_TOP);
+        let axis: Vec<V3> = screw_shapes(&drawn, 0.5 * SCREW_TOP, 0.16)
+            .iter()
+            .flat_map(Shape::points)
+            .collect();
+        let (lo, hi) = view.box_of(axis.iter().copied());
+        assert!(lo[1] > LOWER_THIRD_TOP, "the axis' foot is at {:.2}", lo[1]);
+        assert!(hi[1] < SAFE[1] && lo[0] > -SAFE[0] && hi[0] < SAFE[0]);
+        assert!(
+            axis.iter().all(|p| p[2] > -1e-9),
+            "no part of the axis is below the floor"
+        );
+        // the axis still is the screw's: parallel to it, through the same line
+        let along = model::sub(drawn.point, screw.point);
+        assert!(model::norm(model::cross(along, screw.axis)) < 1e-9);
+        assert_eq!((drawn.angle, drawn.slide), (screw.angle, screw.slide));
+        // the table of the arm's world and the arm's own corners
+        let floor = view.box_of([[-0.9, -0.7, 0.0], [1.0, -0.7, 0.0], [1.0, 0.9, 0.0], [-0.9, 0.9, 0.0]]);
+        assert!(
+            floor.0[1] > LOWER_THIRD_TOP,
+            "the table's front corner is at {:.2}",
+            floor.0[1]
+        );
+        let tip = view.box_of([GOAL_P]);
+        assert!(
+            tip.0[1] - 0.95 > LOWER_THIRD_TOP,
+            "the last label stands at {:.2}",
+            tip.0[1] - 0.95
+        );
+    }
 
     /// Chapter 01 plays exactly the storyboard's beats, in its order, and
     /// every spoken one is the script's own line.
