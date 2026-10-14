@@ -99,12 +99,14 @@ def words(text: str) -> str:
     return " " + re.sub(r"[^0-9a-z]+", " ", text.lower()).strip() + " "
 
 
-def protected_missing(protected: Path, texts: dict[str, str]) -> list[str]:
-    """The rows of docs/protected.tsv whose <where> names a kind in `texts` (description, title) and whose
-    phrase that text lacks, one line each; no file, no rows."""
+def protected_missing(protected: Path, texts: dict[str, str], names: dict[str, str] | None = None) -> list[str]:
+    """The rows of docs/protected.tsv whose <where> names a kind in `texts` (description, title, captions) and
+    whose phrase that text lacks, one line each, each named by `names[kind]` (default `<kind>.txt`); no file,
+    no rows."""
     if not protected.is_file():
         return []
     have = {k: words(t) for k, t in texts.items()}
+    names = names or {}
     out = []
     for line in protected.read_text(encoding="utf-8").splitlines():
         if not line.strip() or line.lstrip().startswith("#"):
@@ -114,7 +116,8 @@ def protected_missing(protected: Path, texts: dict[str, str]) -> list[str]:
         why = cols[2].strip() if len(cols) > 2 else ""
         for kind in where:
             if kind in have and words(cols[0]) not in have[kind]:
-                out.append(f"{kind}.txt: the protected phrase {cols[0].strip()!r} is missing (docs/protected.tsv: {why})")
+                name = names.get(kind, f"{kind}.txt")
+                out.append(f"{name}: the protected phrase {cols[0].strip()!r} is missing (docs/protected.tsv: {why})")
     return out
 
 
