@@ -29,7 +29,7 @@ pub struct LostDirections {
 const DIRECTIONS: &str = "directions:";
 const ALL_SIX: &str = "all six";
 const ONE_IS_LOST: &str = "one is lost";
-const STILL_SIX: &str = "can the gripper still move in all six directions?";
+const STILL_SIX: &str = "can the gripper still move\nin all six directions?";
 const SWING_SIDEWAYS: &str = "the gripper can only swing sideways";
 const SWING_LABEL: &str = "at first:";
 const SINGULARITY: &str = "singularity";
@@ -68,6 +68,11 @@ pub const ASK: Ask = Ask {
 const ARM_AT: [f64; 2] = [-3.1, -2.55];
 const CARD_AT: [f64; 2] = [4.45, 0.0];
 const CARD_SCALE: f64 = 0.92;
+/// Where "push on the wrist" stands against the wrist (right of the arrows
+/// that leave it, which fan up and down-right) and "joint 3" against its
+/// axis (above-left, clear of the shoulder).
+const PUSH_NOTE_SHIFT: [f64; 2] = [1.7, -0.1];
+const THIRD_JOINT_SHIFT: [f64; 2] = [-0.55, 0.75];
 /// Where the readout of "directions" sits.
 const READOUT_AT: [f64; 2] = [-5.0, 3.35];
 /// The speed above which the plot is cut off, degrees a second.
@@ -288,14 +293,14 @@ impl SceneConstruct for LostDirections {
         pins.push(Pin {
             mob: push_label,
             at: point_fn(move |_: &Arena| wrist),
-            shift: v(1.0, 0.55),
+            shift: v(PUSH_NOTE_SHIFT[0], PUSH_NOTE_SHIFT[1]),
         });
         let third_label = kit.text(stage, THIRD_JOINT, 26.0, gold, v(0.0, 0.0))?;
         let (third_at, _) = rig.axis_now(2);
         pins.push(Pin {
             mob: third_label,
             at: third_at,
-            shift: v(-0.95, 0.15),
+            shift: v(THIRD_JOINT_SHIFT[0], THIRD_JOINT_SHIFT[1]),
         });
         let world = World::build(stage, view, 1.4, 0.25, specs, pins)?;
         let hidden: Vec<usize> = ArmRig::GOLD_COLLARS
@@ -384,7 +389,10 @@ impl SceneConstruct for LostDirections {
         let line = say(&kit, stage, BEATS[3])?;
         let mut away = all_pushes.clone();
         away.push(shown(part::ALONG));
-        leave(stage, &[swing, push_label], &away, 0.5)?;
+        // the card has done its work: the gauge and the plot take its place
+        let mut gone = vec![swing, push_label];
+        gone.extend(card.mobs());
+        leave(stage, &gone, &away, 0.5)?;
         let word = kit.text(stage, SINGULARITY, 60.0, Palette::ink(), v(3.4, 2.7))?;
         line.wait_for(stage, "A pose like this")?;
         fade_in_all(stage, &[word], 0.6)?;
@@ -564,12 +572,13 @@ impl SceneConstruct for LostDirections {
                 .build(),
         );
         let first = format!("30° : {} °/s", elbow_speed(&arm, 30.0, pull).round() as i64);
+        // under its dot: above it the limit's dashed line runs through the words
         let first_label = kit.text(
             stage,
             &first,
             26.0,
             Palette::ink(),
-            v(dot_at(30.0)[0], dot_at(30.0)[1] + 0.4),
+            v(dot_at(30.0)[0], dot_at(30.0)[1] - 0.45),
         )?;
         line.wait_for(stage, "With the elbow bent thirty degrees")?;
         play!(stage; tween(q[ELBOW], 30.0 * DEG, 0.8)?);
@@ -995,6 +1004,90 @@ mod tests {
         );
     }
 
+    /// Where the arm's links are on the screen at joint angles `q`
+    /// (degrees): a dozen points along each link, base to tip.
+    fn links_on_screen(arm: &Arm, view: &View, q: [f64; N]) -> Vec<[f64; 2]> {
+        let q = model::degrees(q);
+        let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+        joints.push(arm.tip(&q).p);
+        let mut out = Vec::new();
+        for pair in joints.windows(2) {
+            for k in 0..=12 {
+                let t = f64::from(k) / 12.0;
+                let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                out.push([p[0], p[1]]);
+            }
+        }
+        out
+    }
+
+    fn box_of(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
+        [
+            stage.get_left(m)[0],
+            stage.get_right(m)[0],
+            stage.get_bottom(m)[1],
+            stage.get_top(m)[1],
+        ]
+    }
+
+    fn inside(p: [f64; 2], b: [f64; 4], margin: f64) -> bool {
+        p[0] > b[0] - margin && p[0] < b[1] + margin && p[1] > b[2] - margin && p[1] < b[3] + margin
+    }
+
+    /// 11_3: "push on the wrist" stands clear of the pushes' arrows and the
+    /// lost direction's dashes, which all leave the wrist; and 11_6's "joint
+    /// 3" clear of the arm's links.
+    #[test]
+    fn the_pinned_words_stand_clear_of_what_they_name() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            // 11_3's picture: the straight elbow, four arrows and the dashes
+            let q = model::degrees(poses::ELBOW_STRAIGHT);
+            let wrist = arm.joint(&q, WRIST).0;
+            let here = view.project(wrist);
+            let label = kit.text(
+                stage,
+                PUSH_NOTE,
+                24.0,
+                Palette::dim(),
+                v(here[0] + PUSH_NOTE_SHIFT[0], here[1] + PUSH_NOTE_SHIFT[1]),
+            )?;
+            let b = box_of(stage, label);
+            let mut ends: Vec<V3> = PUSHERS
+                .iter()
+                .map(|&j| add(wrist, scale(push_of(&arm, &q, j, wrist), 0.9)))
+                .collect();
+            ends.push(add(wrist, scale(along_the_arm(&arm, &q), 0.4)));
+            for end in ends {
+                let to = view.project(end);
+                for k in 0..=40 {
+                    let t = f64::from(k) / 40.0;
+                    let p = [here[0] + (to[0] - here[0]) * t, here[1] + (to[1] - here[1]) * t];
+                    assert!(!inside(p, b, 0.03), "'push on the wrist' sits on a push at {p:?}");
+                }
+            }
+            assert!(b[1] < 7.11 - 0.15);
+            // "joint 3" on the L shape, where it appears
+            let third = kit.text(stage, THIRD_JOINT, 26.0, palette::screw(), v(0.0, 0.0))?;
+            let (half_w, half_h) = (stage.get_width(third) / 2.0, stage.get_height(third) / 2.0);
+            let ell_q = model::degrees(poses::ELL);
+            let axis_at = view.project(arm.joint(&ell_q, 2).0);
+            let centre = [axis_at[0] + THIRD_JOINT_SHIFT[0], axis_at[1] + THIRD_JOINT_SHIFT[1]];
+            let words = [
+                centre[0] - half_w,
+                centre[0] + half_w,
+                centre[1] - half_h,
+                centre[1] + half_h,
+            ];
+            for p in links_on_screen(&arm, &view, poses::ELL) {
+                assert!(!inside(p, words, 0.08), "'joint 3' sits on the arm at {p:?}");
+            }
+            Ok(())
+        });
+    }
+
     /// The plot's frame sits inside the screen, clear of the arm, with room
     /// above for the two values above the cut.
     #[test]
@@ -1010,6 +1103,14 @@ mod tests {
                 assert!(stage.get_right(row)[0] < right - 0.15);
             }
             assert!(right < 7.1);
+            // two lines at the card's full size, and the card inside the margin
+            assert!(ASK.question.contains('\n'));
+            assert!(stage.get_top(card.back)[1] < 3.85 && stage.get_bottom(card.back)[1] > -3.85);
+            let asked = box_of(stage, card.question);
+            assert!(
+                asked[1] - asked[0] < stage.get_width(card.back) - 0.2,
+                "the question fits the card"
+            );
             let m = kit.text(
                 stage,
                 &format!("1° : {} °/s", per_second(1602.34)),
