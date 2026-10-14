@@ -1151,12 +1151,104 @@ impl Iso {
     pub fn freeze(&self, stage: &mut Stage<'_>) {
         stage.clear_updaters(self.anchor, true);
     }
+
+    /// The group the lattice paints its faces into: what a filed picture's
+    /// box is measured from.
+    pub fn faces(&self) -> Mob {
+        self.world.borrow().group
+    }
+}
+
+/// A still of unit-cube solids seen from `view`: the faces that show (no
+/// cell of the picture in front of them), each a plain polygon shaded and
+/// edged as the lattice draws it, in paint order, far to near. Detached, no
+/// updater: a lattice cannot be moved or scaled as a picture, a thumbnail
+/// on the shelf must be (the pictures that file from a lattice are rebuilt
+/// with this).
+///
+/// A cell is painted before every cell in front of it because the order is
+/// `toward_viewer . centre`, and two cells that overlap on screen are
+/// ordered the same way by every plane that separates them.
+pub fn still(stage: &mut Stage<'_>, view: &ViewAt, parts: &[(Vec<Cell>, Srgb)]) -> Vec<Mob> {
+    let toward = view.toward_viewer();
+    let filled: std::collections::HashSet<Cell> = parts.iter().flat_map(|(cells, _)| cells.iter().copied()).collect();
+    let black = Srgb::from_rgb8(0, 0, 0);
+    let mut cells: Vec<(f64, Cell, Srgb)> = Vec::new();
+    for (list, colour) in parts {
+        for &c in list {
+            let centre = [c.0 as f64 + 0.5, c.1 as f64 + 0.5, c.2 as f64 + 0.5];
+            cells.push((dot(toward, centre), c, *colour));
+        }
+    }
+    cells.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let mut out = Vec::new();
+    for (_, c, colour) in cells {
+        let at = [c.0 as f64, c.1 as f64, c.2 as f64];
+        for axis in 0..3 {
+            if toward[axis].abs() < FACING {
+                continue;
+            }
+            let positive = toward[axis] > 0.0;
+            let mut next = [c.0, c.1, c.2];
+            next[axis] += if positive { 1 } else { -1 };
+            if filled.contains(&(next[0], next[1], next[2])) {
+                continue;
+            }
+            let (ka, kb) = ((axis + 1) % 3, (axis + 2) % 3);
+            let mut corner = at;
+            if positive {
+                corner[axis] += 1.0;
+            }
+            let (mut a, mut b) = ([0.0; 3], [0.0; 3]);
+            a[ka] = 1.0;
+            b[kb] = 1.0;
+            let quad = [corner, add(corner, a), add(add(corner, a), b), add(corner, b)];
+            let mut n = [0.0; 3];
+            n[axis] = 1.0;
+            let light = TOP * n[2] * n[2] + FRONT * n[1] * n[1] + SIDE * n[0] * n[0];
+            let fill = interpolate_color(colour, black, 1.0 - light);
+            let edge = interpolate_color(colour, black, EDGE_DARK);
+            let face = Polygon::new(quad.map(|p| view.project(p)))
+                .style(Style::default().fill(fill, 1.0).stroke(edge, EDGE_WIDTH / 2.0, 1.0))
+                .build();
+            out.push(stage.arena_mut().add(face));
+        }
+    }
+    out
 }
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::{shelf_log, testing};
     use super::*;
     use crate::model::stacks;
+
+    /// A still of a box of cells is the faces the lattice shows for it: the
+    /// top, the front and the right side, one square per cell on each, and
+    /// what it covers on screen is the box's own extent (a thumbnail that
+    /// replaces a lattice picture stands where the picture stood).
+    #[test]
+    fn a_still_is_the_faces_that_show_and_covers_the_boxes_extent() {
+        let view = ViewAt::classic((1.0, -1.0), 0.5);
+        let (w, d, h) = (3, 2, 2);
+        let parts = vec![(box_cells(w, d, h), Srgb::from_rgb8(200, 80, 80))];
+        let mut count = 0;
+        let mut covered = None;
+        testing::bare(|_, stage| {
+            let mobs = still(stage, &view, &parts);
+            count = mobs.len();
+            covered = shelf_log::union_box(stage, &mobs);
+            Ok(())
+        })
+        .unwrap();
+        // top w by d, front w by h, right side d by h
+        assert_eq!(count as i64, w * d + w * h + d * h);
+        let (l, r, b, t) = view.extent([0.0; 3], [w as f64, d as f64, h as f64]);
+        let (lo, hi) = covered.expect("the still shows something");
+        for (got, want) in [(lo[0], l), (hi[0], r), (lo[1], b), (hi[1], t)] {
+            assert!((got - want).abs() < 0.01, "{got} against {want}");
+        }
+    }
 
     #[test]
     fn straight_down_the_lattice_is_the_board() {

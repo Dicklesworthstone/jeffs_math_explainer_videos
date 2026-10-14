@@ -283,6 +283,28 @@ fn flat_square(
     Ok((rest, lit_mob))
 }
 
+/// The view the finished block is filed in: the block of the next height,
+/// fitted to a thumbnail in the chapter's shelf slot.
+fn thumb_view(next: i64) -> ViewAt {
+    let slot = shelf_slot(SLOT);
+    APART.fitted(
+        [0.0; 3],
+        [next as f64, (next + 1) as f64, (next + 1) as f64],
+        (slot[0], slot[1]),
+        (THUMB, THUMB),
+    )
+}
+
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the block of the
+/// next height, its three stacks in their colours, as a still from the
+/// view the chapter files it in. Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let next = shown::STACK + 1;
+    let parts: Vec<(Vec<Cell>, Srgb)> = (0..3).map(|which| (placed(next, which), colour(which))).collect();
+    Ok(super::iso::still(stage, &thumb_view(next), &parts))
+}
+
 impl SceneConstruct for EveryHeight {
     fn name(&self) -> &str {
         "09_every_height"
@@ -290,6 +312,7 @@ impl SceneConstruct for EveryHeight {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 9)?;
         let r = reads()?;
         let (n, next) = (r.n, r.next);
         let iso = Iso::new(stage, APART)?;
@@ -759,13 +782,17 @@ impl SceneConstruct for EveryHeight {
         for &m in braces.iter().chain([&cubes_words]) {
             extra.push(arrive(stage, m, 0.5)?);
         }
+        // the induction's lower-third comes with the first case, which is
+        // half of what it says (it came with the last six words of the line
+        // and stood two seconds)
+        let induction = lower_third(&kit, stage, INDUCTION, INDUCTION_TEXT)?;
+        extra.push(arrive(stage, induction, 0.5)?);
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "09_4", "induction", stage.scene().time().to_f64());
         let mut all = prepared(stage, moves)?;
         all.extend(extra);
         play(stage, all, 0.0)?;
         // that covers every height
-        line.wait_for(stage, "That covers every height")?;
-        let induction = lower_third(&kit, stage, INDUCTION, INDUCTION_TEXT)?;
-        play_with(stage, 0.0, |st| Ok(vec![arrive(st, induction, 0.5)?]))?;
         line.wait_end(stage)?;
         pause(stage, 0.8)?;
 
@@ -839,15 +866,10 @@ impl SceneConstruct for EveryHeight {
         for &s in &turns {
             away.push(base.fade(s, 0.0, 0.4)?);
         }
-        let slot = shelf_slot(SLOT);
-        let thumb_view = APART.fitted(
-            [0.0; 3],
-            [next as f64, (next + 1) as f64, (next + 1) as f64],
-            (slot[0], slot[1]),
-            (THUMB, THUMB),
-        );
-        away.extend(iso.view_to(thumb_view, 1.0)?);
+        away.extend(iso.view_to(thumb_view(next), 1.0)?);
         iso.play(stage, away, 0.0)?;
+        #[cfg(test)]
+        super::draw::shelf_log::filed(stage, SLOT, &[iso.faces()]);
 
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;
@@ -1181,6 +1203,56 @@ mod tests {
             .filter(|id| id.starts_with("09_"))
             .collect();
         assert_eq!(ids, LINES);
+    }
+
+    /// 09_4: the induction's lower-third comes in with the first case, while
+    /// the line is still being said, and stands for at least four seconds
+    /// before 09_5 takes it away (it came in with the line's last six words
+    /// and stood two seconds: P5, the dense read).
+    #[test]
+    fn the_induction_lower_third_stands_long_enough_to_read() {
+        let voiced = testing::run_voiced("09_every_height").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "09_4");
+        let at = events.iter().find(|e| e.0 == "induction").expect("it was shown").1;
+        let said = |id: &str| voiced.lines.iter().find(|l| l.0 == id).cloned().unwrap();
+        let (_, start, len) = said("09_4");
+        let next = said("09_5").1;
+        assert!(
+            at >= start && at < start + len,
+            "it comes in at {at:.2}, the line {start:.2}.."
+        );
+        assert!(next - at >= 4.0, "it stands {:.2} s before 09_5", next - at);
+    }
+
+    /// The shelf's slot for this chapter is the one the table gives it, and
+    /// the thumbnail is a still of the block of the next height under the
+    /// shelf's floor (the run's own shelf checks hold the box against the
+    /// filed picture's).
+    #[test]
+    fn the_filed_block_is_a_thumbnail_in_the_chapters_slot() {
+        let entry = super::super::SHELF
+            .iter()
+            .find(|f| f.chapter == 9)
+            .expect("09 is on the shelf");
+        assert_eq!(entry.slot, SLOT);
+        let mut covered = None;
+        testing::bare(|kit, stage| {
+            let mobs = thumb(kit, stage)?;
+            covered = super::super::draw::shelf_log::union_box(stage, &mobs);
+            Ok(())
+        })
+        .unwrap();
+        let (lo, hi) = covered.expect("the thumbnail shows something");
+        let slot = shelf_slot(SLOT);
+        assert!(
+            lo[0] >= slot[0] - THUMB / 2.0 - 0.01 && hi[0] <= slot[0] + THUMB / 2.0 + 0.01,
+            "{lo:?} {hi:?}"
+        );
+        assert!(
+            lo[1] >= slot[1] - THUMB / 2.0 - 0.01 && hi[1] <= slot[1] + THUMB / 2.0 + 0.01,
+            "{lo:?} {hi:?}"
+        );
+        assert!(lo[1] > SHELF_FLOOR - 0.5);
     }
 
     /// The scene constructs end to end: the pieces end on the model's cells

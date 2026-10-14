@@ -417,17 +417,30 @@ impl SceneConstruct for TheBox {
             let at = stage.get_center(*m);
             labels.push(kit.text(stage, word, 26.0, dim(), v(at[0], at[1] - 0.75))?);
         }
+        // the sum's own side as the box is named, then each factor with its
+        // word as it is said (they came in whole at the sentence after, when
+        // the voice had named all three)
+        line.wait_for(stage, "the box is")?;
+        let lead: Moves = vec![arrive(stage, factors[0], 0.5)?, arrive(stage, factors[1], 0.5)?];
+        play(stage, lead, 0.1)?;
+        for (i, phrase) in ["that many cubes wide", "one more deep", "that many and a half tall"]
+            .into_iter()
+            .enumerate()
+        {
+            line.wait_for(stage, phrase)?;
+            #[cfg(test)]
+            super::draw::quiz_log::record(
+                &kit.chapter,
+                "08_4",
+                ["wide", "deep", "tall"][i],
+                stage.scene().time().to_f64(),
+            );
+            let both: Moves = vec![arrive(stage, factors[2 + i], 0.4)?, arrive(stage, labels[i], 0.4)?];
+            play(stage, both, 0.0)?;
+        }
         line.wait_sentence(stage, 1)?;
-        let mut letters: Moves = Vec::new();
-        for &m in &factors {
-            letters.push(arrive(stage, m, 0.5)?);
-        }
-        play(stage, letters, 0.1)?;
-        let mut words_in: Moves = Vec::new();
-        for &l in &labels {
-            words_in.push(arrive(stage, l, 0.4)?);
-        }
-        play(stage, words_in, 0.5)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "08_4", "lower_third", stage.scene().time().to_f64());
         let textbook = lower_third(&kit, stage, PRECISELY, TEXTBOOK)?;
         show(stage, &[textbook], 0.5, 0.0)?;
         line.wait_end(stage)?;
@@ -550,6 +563,33 @@ mod tests {
         assert_eq!(all.len(), 2 * 90);
         let at_top = all.iter().filter(|c| c.2 == 2 * 4).count();
         assert_eq!(at_top, 20, "twenty half cubes level");
+    }
+
+    /// 08_4: each factor of the sum comes in with its word as the voice says
+    /// it (wide, deep, tall), all three inside the first sentence, in that
+    /// order, and the lower-third waits for the second; the letters came in
+    /// whole after the voice had named all three (P5, the dense read).
+    #[test]
+    fn each_factor_comes_in_with_the_word_that_names_it() {
+        let voiced = testing::run_voiced("08_the_box").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "08_4");
+        let at = |k: &str| {
+            events
+                .iter()
+                .find(|e| e.0 == k)
+                .unwrap_or_else(|| panic!("no {k}: {events:?}"))
+                .1
+        };
+        let (_, start, _) = voiced.lines.iter().find(|l| l.0 == "08_4").cloned().unwrap();
+        let (wide, deep, tall, third) = (at("wide"), at("deep"), at("tall"), at("lower_third"));
+        assert!(
+            start <= wide && wide < deep && deep < tall,
+            "{wide:.2} {deep:.2} {tall:.2}"
+        );
+        assert!(
+            tall < third,
+            "the lower third ({third:.2}) comes with the second sentence, after {tall:.2}"
+        );
     }
 
     /// The scene constructs end to end: the lowered halves end on the model's

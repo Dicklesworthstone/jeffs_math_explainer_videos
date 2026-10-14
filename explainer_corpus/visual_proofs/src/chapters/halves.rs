@@ -803,21 +803,27 @@ impl SceneConstruct for Halves {
             hero(),
             v(second_x - 1.0, LINE_Y - NUMERAL_DROP),
         )?;
+        // the programmers' tag comes with the second guess, which is the
+        // sentence's start, and stays until the zoom-out is over: it came
+        // after the line's last word and stood a second and a half, for
+        // twenty-two words
+        let tag_words = format!(
+            "in 64-bit floats this sum reaches exactly 1.0 after {FLOAT_PIECES} pieces; the machine cannot see the gap"
+        );
+        let tag = aside(&kit, stage, TAG, &tag_words, v(ASIDE_AT[0], ASIDE_AT[1] + 0.35))?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "10_4", "tag", stage.scene().time().to_f64());
         play_with(stage, 0.0, |s| {
             Ok(vec![
                 arrive_sliding(s, second_card, v(0.0, -0.5), 0.5)?,
                 arrive(s, number_20, 0.5)?,
+                arrive(s, tag, 0.5)?,
             ])
         })?;
         line.wait_for(stage, "twenty pieces pass it")?;
         let second_cross = cross(stage, v(second_x - second_half - CROSS_BESIDE, LINE_Y + 0.55), 0.4);
         let grown = fmn::animation::grow_from_center(stage.arena_mut(), second_cross, None)?;
         play_with(stage, 0.0, |s| Ok(vec![s.prepare(grown.rt(0.4))?]))?;
-        let tag_words = format!(
-            "in 64-bit floats this sum reaches exactly 1.0 after {FLOAT_PIECES} pieces; the machine cannot see the gap"
-        );
-        let tag = aside(&kit, stage, TAG, &tag_words, v(ASIDE_AT[0], ASIDE_AT[1] + 0.35))?;
-        play_with(stage, 0.0, |s| Ok(vec![arrive(s, tag, 0.5)?]))?;
         line.wait_end(stage)?;
 
         // ---------------------------------------------------------- 10_5
@@ -833,7 +839,6 @@ impl SceneConstruct for Halves {
                 leave(s, n_passing, 0.4)?,
                 leave(s, n_before, 0.4)?,
                 leave(s, number_20, 0.4)?,
-                leave(s, tag, 0.4)?,
             ];
             for (&c, &value) in crosses.iter().zip(&values) {
                 let to = v(line_x(value, zoom), LINE_Y + 0.3);
@@ -867,9 +872,24 @@ impl SceneConstruct for Halves {
             band.push((share, c));
         }
         let mut bar = gap_bar(stage, 0);
-        play_with(stage, 0.0, |s| Ok(vec![arrive(s, bar, 0.3)?]))?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "10_4", "tag_out", stage.scene().time().to_f64());
+        play_with(stage, 0.0, |s| Ok(vec![arrive(s, bar, 0.3)?, leave(s, tag, 0.4)?]))?;
         line.wait_sentence(stage, 0)?;
+        // the halving is laid down across the sentence that says it, each
+        // piece at its own pace, the last as the sentence ends (all eight
+        // came in the first two seconds and the picture stood still under
+        // ten seconds of voice)
+        let from = stage.scene().time().to_f64();
+        let until = line.sentence(1)?;
+        let slot = ((until - from - 0.4) / band.len() as f64).clamp(0.3, 1.2);
         for (j, &(share, c)) in band.iter().enumerate() {
+            wait_until(stage, from + slot * j as f64)?;
+            #[cfg(test)]
+            if j + 1 == band.len() {
+                super::draw::quiz_log::record(&kit.chapter, "10_5", "last_piece", stage.scene().time().to_f64());
+                super::draw::quiz_log::record(&kit.chapter, "10_5", "sentence_1", until);
+            }
             let next_bar = gap_bar(stage, j as u32 + 1);
             let old = bar;
             play_with(stage, 0.0, |s| {
@@ -1136,6 +1156,54 @@ mod tests {
         assert_eq!(tex_fraction("31/32"), "\\frac{31}{32}");
         assert_eq!(tex_fraction("1/1024"), "\\frac{1}{1{,}024}");
         assert_eq!(tex_fraction("1"), "1");
+    }
+
+    /// 10_4: the programmers' tag (twenty-two words) comes in with the
+    /// second guess, while the line is still being said, and stands at
+    /// least four seconds; it came in after the line's last word and stood
+    /// a second and a half (P5, the dense read).
+    #[test]
+    fn the_programmers_tag_stands_long_enough_to_read() {
+        let voiced = testing::run_voiced("10_halves").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "10_4");
+        let at = |k: &str| {
+            events
+                .iter()
+                .find(|e| e.0 == k)
+                .unwrap_or_else(|| panic!("no {k}: {events:?}"))
+                .1
+        };
+        let (_, start, len) = voiced.lines.iter().find(|l| l.0 == "10_4").cloned().unwrap();
+        let (shown, left) = (at("tag"), at("tag_out"));
+        assert!(
+            shown >= start && shown < start + len,
+            "it comes in at {shown:.2}, the line {start:.2}.."
+        );
+        assert!(left - shown >= 4.0, "it stands {:.2} s", left - shown);
+    }
+
+    /// 10_5: the halving is laid down across the sentence that says it:
+    /// the last piece goes down in the sentence's last quarter (all the
+    /// pieces came in the first two seconds, and the picture then stood
+    /// still under ten seconds of voice).
+    #[test]
+    fn the_halving_is_laid_down_across_the_sentence_that_says_it() {
+        let voiced = testing::run_voiced("10_halves").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "10_5");
+        let at = |k: &str| {
+            events
+                .iter()
+                .find(|e| e.0 == k)
+                .unwrap_or_else(|| panic!("no {k}: {events:?}"))
+                .1
+        };
+        let (_, start, _) = voiced.lines.iter().find(|l| l.0 == "10_5").cloned().unwrap();
+        let (last, s1) = (at("last_piece"), at("sentence_1"));
+        assert!(
+            last >= start + 0.75 * (s1 - start),
+            "the last piece goes down at {last:.2}, the sentence ends {s1:.2}"
+        );
+        assert!(last < s1, "and before the next sentence ({s1:.2})");
     }
 
     /// The scene constructs end to end (every phrase it waits for is in its

@@ -435,6 +435,32 @@ pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
     Ok(picture)
 }
 
+/// The formula 06_4 boxes.
+const FORMULA_SRC: &str = "1^{3} + 2^{3} + \\cdots + n^{3} = (1 + 2 + \\cdots + n)^{2}";
+/// The air round the boxed formula of 06_4, on each side.
+pub const FORMULA_PAD: f64 = 0.3;
+/// Where the boxed formula stands: the middle of its box.
+pub const FORMULA_AT: (f64, f64) = (COLUMN_X, 2.7);
+
+/// 06_4's formula and the box round it, detached: the sum at 46 points,
+/// shrunk until the box, pad and all, is no wider than the column (it was
+/// 8.06 wide at 46 points, 0.09 from the frame's edge).
+fn boxed_formula(kit: &Kit, stage: &mut Stage<'_>, src: &str) -> fmn::Result<(super::draw::Formula, Mob)> {
+    let sum = formula(kit, stage, src, 46.0, ink(), v(FORMULA_AT.0, FORMULA_AT.1))?;
+    fit_in(stage, sum.mob, COLUMN_ROOM - 2.0 * FORMULA_PAD, 1.0);
+    let (fw, fh) = (stage.get_width(sum.mob), stage.get_height(sum.mob));
+    let boxed = stage.arena_mut().add(
+        Rectangle::new()
+            .width(fw + 2.0 * FORMULA_PAD)
+            .height(fh + 2.0 * FORMULA_PAD)
+            .corner_radius(0.12)
+            .style(line_style(ink(), 2.5))
+            .build()?
+            .moved_to(v(FORMULA_AT.0, FORMULA_AT.1)),
+    );
+    Ok((sum, boxed))
+}
+
 impl SceneConstruct for EveryCube {
     fn name(&self) -> &str {
         "06_every_cube"
@@ -818,20 +844,8 @@ impl SceneConstruct for EveryCube {
         line.wait_sentence(stage, 1)?;
         relocate(stage, &picture, BOARD_AT, CARD_AT, CARD_K, 0.8)?;
         // the formula, boxed
-        let formula_src = "1^{3} + 2^{3} + \\cdots + n^{3} = (1 + 2 + \\cdots + n)^{2}";
-        let sum = formula(&kit, stage, formula_src, 46.0, ink(), v(COLUMN_X, 2.7))?;
+        let (sum, boxed) = boxed_formula(&kit, stage, FORMULA_SRC)?;
         write_formula(stage, &sum, 1.4)?;
-        let pad = 0.3;
-        let (fw, fh) = (stage.get_width(sum.mob), stage.get_height(sum.mob));
-        let boxed = stage.arena_mut().add(
-            Rectangle::new()
-                .width(fw + 2.0 * pad)
-                .height(fh + 2.0 * pad)
-                .corner_radius(0.12)
-                .style(line_style(ink(), 2.5))
-                .build()?
-                .moved_to(v(COLUMN_X, 2.7)),
-        );
         play_with(stage, 0.0, |st| Ok(vec![arrive(st, boxed, 0.4)?]))?;
         line.wait_end(stage)?;
         // the card
@@ -1289,6 +1303,35 @@ mod tests {
             .map(|y| TIME_X + TIME_W * y / 2000.0)
             .collect();
         assert!(xs.windows(2).all(|w| w[1] > w[0] + 1.0) && xs[2] < FRAME_X_RADIUS - 0.3);
+    }
+
+    /// 06_4: the boxed formula, pad and all, is no wider than the column and
+    /// stands inside the frame with the lint's margin (it was 8.06 wide and
+    /// its box ended 0.09 from the frame's edge).
+    #[test]
+    fn the_boxed_formula_stands_inside_the_column_and_the_frame() {
+        let mut got = None;
+        testing::bare(|kit, stage| {
+            let (_, boxed) = boxed_formula(kit, stage, FORMULA_SRC)?;
+            got = Some((stage.get_center(boxed), stage.get_width(boxed), stage.get_height(boxed)));
+            Ok(())
+        })
+        .unwrap();
+        let (c, w, h) = got.expect("the box was built");
+        assert!(
+            w <= COLUMN_ROOM + 1e-6,
+            "the box is {w} wide in a column of {COLUMN_ROOM}"
+        );
+        assert!(
+            c[0] + w / 2.0 <= FRAME_X_RADIUS - 0.3,
+            "its right edge is {}",
+            c[0] + w / 2.0
+        );
+        // and it stands where it stood: the middle of its box is FORMULA_AT
+        assert!(
+            (c[0] - FORMULA_AT.0).abs() < 1e-6 && (c[1] - FORMULA_AT.1).abs() < 1e-6,
+            "{c:?} {h}"
+        );
     }
 
     /// The shades are steps of the cube's colour: the first lightest, the last

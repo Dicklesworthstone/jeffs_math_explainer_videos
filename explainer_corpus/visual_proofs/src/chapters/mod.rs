@@ -64,6 +64,11 @@ pub const SHELF: &[Filed] = &[
         thumb: every_cube::thumb,
     },
     Filed {
+        chapter: 9,
+        slot: every_height::SLOT,
+        thumb: every_height::thumb,
+    },
+    Filed {
         chapter: 10,
         slot: halves::SLOT,
         thumb: halves::thumb,
