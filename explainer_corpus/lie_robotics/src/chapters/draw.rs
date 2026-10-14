@@ -68,6 +68,13 @@ pub fn fact_list(key: &str) -> fmn::Result<Vec<f64>> {
         .collect()
 }
 
+/// The winter Lie began his theory of continuous groups, as years the facts
+/// give: `1873–74` (R2 B-09; 05_7's name card and 08_6's lower third).
+pub fn lie_winter() -> fmn::Result<String> {
+    let begun = fact_f64("G-L.lie.year")? as u32;
+    Ok(format!("{begun}–{:02}", (begun + 1) % 100))
+}
+
 /// A whole number from zero to twenty in words (`3` is `three`), for on-screen
 /// sentences whose numbers are read from facts and said as the script says
 /// them.

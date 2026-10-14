@@ -10,7 +10,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QSource, QuizCard, QuizLook, Shape, View, World, fact, fact_f64,
-    fact_list, fade_in_all, fade_in_lagged, fail, leave, line_style, say, screw_shapes, still, table, tag, tween_all,
+    fact_list, fade_in_all, fade_in_lagged, fail, group, leave, lie_winter, line_style, say, screw_shapes, still,
+    table, tag, tween_all,
 };
 use crate::model::{self, Arm, DEG, ELBOW, N, Pose, Screw, V3, poses};
 use crate::palette;
@@ -36,15 +37,24 @@ const TERMS: [&str; 6] = [
     r"e^{[S_7]q_7}",
     r"M",
 ];
-/// Plain labels under the line's parts (`None` where there is none).
-const TERM_LABELS: [&str; 6] = [
-    "the gripper's\npose",
-    "joint 1's twist,\nheld for its\nangle",
-    "",
-    "…",
-    "",
-    "the pose at zero",
-];
+/// Plain labels under the line's parts (empty where there is none; the first
+/// exponential's is built from lines of text and TeX by [`joint_label`]).
+const TERM_LABELS: [&str; 6] = ["the gripper's\npose", "", "", "…", "", "the pose at zero"];
+/// 08_6's label under the first exponential (R2 B-08), top to bottom: plain
+/// lines, then lines with the angle q₁ in TeX (the subscript is TeX's).
+const JOINT_LABEL_PLAIN: [&str; 3] = ["joint 1's twist", "at one radian", "a second, held"];
+const JOINT_LABEL_TEX: [&str; 2] = [r"\text{for } q_1 \text{ seconds}", r"(q_1 \text{ in radians})"];
+/// How far apart the label's lines stand.
+const JOINT_LABEL_PITCH: f64 = 0.33;
+/// How many of the arm's joints each named point carries, from the base to
+/// the gripper: a ball joint's three at the shoulder, the elbow's hinge, a
+/// ball joint's three at the wrist (the usual kinematic model, `G-L.kuka.axes`
+/// in all).
+const JOINTS_AT_POINT: [usize; 3] = [3, 1, 3];
+/// The words of 08_1's points' labels and their size.
+const POINT_LABEL_PT: f64 = 22.0;
+/// 08_6's lower third's end: whose groups the line is built on.
+const BUILT_ON: &str = "built on Lie's groups, begun";
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 6] = ["08_1", "08_2", "08_3", "08_4", "08_5", "08_6"];
@@ -77,9 +87,10 @@ const RECIPE_DEG: f64 = 40.0;
 /// floor's front corner ends above a lower third (at -2.95 it ran off the
 /// frame's bottom edge).
 const ARM_AT: [f64; 2] = [-3.7, -2.0];
-/// The floor under the arm (metres, at the world's origin).
-const FLOOR_LO: [f64; 2] = [-0.8, -0.8];
-const FLOOR_HI: [f64; 2] = [0.9, 0.8];
+/// The floor under the arm (metres, at the world's origin): small enough
+/// that its front corner stays above 08_6's two-line lower third.
+const FLOOR_LO: [f64; 2] = [-0.7, -0.5];
+const FLOOR_HI: [f64; 2] = [0.6, 0.5];
 /// The equation's row: its centre's x and its y, and the labels' y under it.
 const ROW_X: f64 = 1.9;
 const ROW_Y: f64 = 2.95;
@@ -113,6 +124,50 @@ fn model_lines() -> fmn::Result<Vec<String>> {
     let p = fact_list("G-A.home.p")?;
     lines.push(format!("M: ({:.1}, {:.1}, {:.4}), R = I", p[0], p[1], p[2]));
     Ok(lines)
+}
+
+/// The joint numbers (1-based, as the screen numbers them) at each named
+/// point, base to gripper: `[1, 2, 3]`, `[4]`, `[5, 6, 7]`.
+fn joint_numbers() -> [Vec<usize>; 3] {
+    let mut next = 1;
+    JOINTS_AT_POINT.map(|n| {
+        let here: Vec<usize> = (next..next + n).collect();
+        next += n;
+        here
+    })
+}
+
+/// A named point's label: `shoulder · joints 1 2 3`, `elbow · joint 4`
+/// (R2 C-11).
+fn point_label(word: &str, joints: &[usize]) -> String {
+    let numbers: Vec<String> = joints.iter().map(usize::to_string).collect();
+    let noun = if joints.len() == 1 { "joint" } else { "joints" };
+    format!("{word} · {noun} {}", numbers.join(" "))
+}
+
+/// 08_6's lower third's text: who presented it, when, and whose groups it is
+/// built on, begun when (the facts' years; 1873–74 is the winter).
+fn brockett_words() -> fmn::Result<String> {
+    Ok(format!(
+        "Brockett, {} · {BUILT_ON} {}",
+        fact("G-L.brockett.year")?,
+        lie_winter()?
+    ))
+}
+
+/// The label under the first exponential, built from its lines (centred at
+/// `x`, the first line at `y`): plain text and TeX in one group.
+fn joint_label(kit: &Kit, stage: &mut Stage<'_>, x: f64, y: f64) -> fmn::Result<Mob> {
+    let mut lines = Vec::new();
+    for (i, words) in JOINT_LABEL_PLAIN.iter().enumerate() {
+        let at = v(x, y - JOINT_LABEL_PITCH * i as f64);
+        lines.push(kit.text(stage, words, 22.0, Palette::dim(), at)?);
+    }
+    for (k, src) in JOINT_LABEL_TEX.iter().enumerate() {
+        let at = v(x, y - JOINT_LABEL_PITCH * (JOINT_LABEL_PLAIN.len() + k) as f64);
+        lines.push(kit.tex(stage, src, 22.0, Palette::dim(), &[], at)?);
+    }
+    group(stage, &lines)
 }
 
 /// A pair of small arrows' worth of frame at `at` (the gripper's pose M at
@@ -152,8 +207,11 @@ fn equation_row(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Vec<Mob>, Vec<
         x += w + gap;
     }
     let mut under = Vec::new();
-    for (words, c) in TERM_LABELS.iter().zip(&centres) {
-        if !words.is_empty() {
+    for (i, (words, c)) in TERM_LABELS.iter().zip(&centres).enumerate() {
+        if i == 1 {
+            // the first exponential: its twist, its speed, its time
+            under.push(joint_label(kit, stage, c[0], UNDER_Y)?);
+        } else if !words.is_empty() {
             under.push(kit.text(stage, words, 22.0, Palette::dim(), v(c[0], UNDER_Y))?);
         }
     }
@@ -245,10 +303,12 @@ impl SceneConstruct for SevenScrews {
         fade_in_lagged(stage, &numbers, 0.9, 0.4)?;
         line.wait_for(stage, "All it can do")?;
         let named = [(SHOULDER, model::SHOULDER), (ELBOW_WORD, ELBOW), (WRIST, model::WRIST)];
+        let groups = joint_numbers();
         let mut names = Vec::new();
-        for (word, joint) in named {
+        for ((word, joint), joints) in named.into_iter().zip(&groups) {
             let p = view.project(arm.origin[joint]);
-            names.push(kit.text_left(stage, word, 26.0, Palette::ink(), v(p[0] + 0.95, p[1]))?);
+            let label = point_label(word, joints);
+            names.push(kit.text_left(stage, &label, POINT_LABEL_PT, Palette::ink(), v(p[0] + 0.95, p[1]))?);
         }
         fade_in_all(stage, &names, 0.5)?;
         let code_lines = model_lines()?;
@@ -343,8 +403,7 @@ impl SceneConstruct for SevenScrews {
             play!(stage; fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.35));
         }
         fade_in_all(stage, &under, 0.5)?;
-        let year = fact("G-L.brockett.year")?;
-        let cite = lower_third(&kit, stage, PRODUCT_LABEL, &format!("Brockett, {year}"))?;
+        let cite = lower_third(&kit, stage, PRODUCT_LABEL, &brockett_words()?)?;
         line.wait_for(stage, "Roger Brockett")?;
         play!(stage; fade_in(stage.arena_mut(), cite, ORIGIN, 1.0)?.rt(0.5));
         kit.finish(stage)
@@ -353,7 +412,7 @@ impl SceneConstruct for SevenScrews {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, probe};
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, cut_texts, probe, run_chapter};
     use super::*;
     use crate::model::degrees;
 
@@ -512,9 +571,180 @@ mod tests {
     #[test]
     fn the_line_has_six_parts_and_three_labels() {
         assert_eq!(TERMS.len(), TERM_LABELS.len());
+        // three plain labels, and the first exponential's built from lines
         let labelled = TERM_LABELS.iter().filter(|s| !s.is_empty()).count();
-        assert_eq!(labelled, 4);
+        assert_eq!(labelled + 1, 4);
+        assert!(TERM_LABELS[1].is_empty());
         assert_eq!(fact("G-L.brockett.year").unwrap(), "1983");
         assert_eq!(RECIPE_DEG, 40.0);
+    }
+
+    /// The whole chapter constructs, headless.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        run_chapter(&mut SevenScrews {
+            kit: Kit::new().expect("the kit"),
+        });
+    }
+
+    /// 08_1: the three named points carry their joints, 1 2 3, 4 and 5 6 7,
+    /// seven in all (`G-L.kuka.axes`), each group's middle joint the model's
+    /// shoulder, elbow and wrist; the labels are the storyboard's words.
+    #[test]
+    fn the_points_carry_their_joint_numbers() {
+        let groups = joint_numbers();
+        assert_eq!(groups, [vec![1, 2, 3], vec![4], vec![5, 6, 7]]);
+        assert_eq!(
+            groups.iter().map(Vec::len).sum::<usize>(),
+            fact("G-L.kuka.axes").unwrap().parse::<usize>().unwrap()
+        );
+        assert_eq!(N, 7);
+        // 0-based, the middle of each group is the model's named joint
+        let middles: Vec<usize> = groups.iter().map(|g| g[g.len() / 2] - 1).collect();
+        assert_eq!(middles, [model::SHOULDER, ELBOW, model::WRIST]);
+        let labels = [
+            point_label(SHOULDER, &groups[0]),
+            point_label(ELBOW_WORD, &groups[1]),
+            point_label(WRIST, &groups[2]),
+        ];
+        assert_eq!(
+            labels,
+            [
+                "shoulder · joints 1 2 3".to_owned(),
+                "elbow · joint 4".to_owned(),
+                "wrist · joints 5 6 7".to_owned(),
+            ]
+        );
+        for l in &labels {
+            assert!(
+                crate::STORYBOARD.contains(l.as_str()),
+                "the storyboard does not say {l:?}"
+            );
+        }
+    }
+
+    /// 08_1: the three labels, where the scene stands them, end before the
+    /// code panel's left edge once it has slid in, stand clear of each other
+    /// and inside the safe area.
+    #[test]
+    fn the_point_labels_clear_the_code_panel() {
+        let arm = Arm::iiwa14();
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        let groups = joint_numbers();
+        let named = [(SHOULDER, model::SHOULDER), (ELBOW_WORD, ELBOW), (WRIST, model::WRIST)];
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let lines = model_lines()?;
+            let refs: Vec<&str> = lines.iter().map(String::as_str).collect();
+            let panel = CodePanel::build(&kit, stage, &refs, 22.0, 6.0)?;
+            let panel_left = stage.get_left(panel.group)[0] - (panel.width + 0.45);
+            let mut boxes = Vec::new();
+            for ((word, joint), joints) in named.into_iter().zip(&groups) {
+                let p = view.project(arm.origin[joint]);
+                let label = kit.text_left(
+                    stage,
+                    &point_label(word, joints),
+                    POINT_LABEL_PT,
+                    Palette::ink(),
+                    v(p[0] + 0.95, p[1]),
+                )?;
+                let (l, r) = (stage.get_left(label)[0], stage.get_right(label)[0]);
+                let (b, t) = (stage.get_bottom(label)[1], stage.get_top(label)[1]);
+                assert!(l > -SAFE[0] && r < SAFE[0] && t < SAFE[1] && b > -SAFE[1]);
+                assert!(
+                    r < panel_left - 0.1,
+                    "{word}: ends at {r:.2}, the panel starts at {panel_left:.2}"
+                );
+                boxes.push((b, t));
+            }
+            // shoulder, elbow, wrist: each higher than the one before
+            for pair in boxes.windows(2) {
+                assert!(pair[1].0 > pair[0].1 + 0.05, "two labels share height: {pair:?}");
+            }
+            Ok(())
+        });
+    }
+
+    /// 08_6: the lower third is the storyboard's words, years from the
+    /// facts; it fits its lines (the kit cuts a longer text), and the floor's
+    /// front corner stands above it.
+    #[test]
+    fn the_lower_third_is_built_on_lies_groups_and_clears_the_floor() {
+        let words = brockett_words().unwrap();
+        assert_eq!(words, "Brockett, 1983 · built on Lie's groups, begun 1873–74");
+        let line = format!("{PRODUCT_LABEL} {words}");
+        assert!(
+            crate::STORYBOARD.contains(&line),
+            "the storyboard does not say {line:?}"
+        );
+        assert_eq!(fact("G-L.lie.year").unwrap(), "1873");
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        let front = view
+            .box_of([
+                [FLOOR_LO[0], FLOOR_LO[1], 0.0],
+                [FLOOR_HI[0], FLOOR_LO[1], 0.0],
+                [FLOOR_HI[0], FLOOR_HI[1], 0.0],
+                [FLOOR_LO[0], FLOOR_HI[1], 0.0],
+            ])
+            .0[1];
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let band = lower_third(&kit, stage, PRODUCT_LABEL, &words)?;
+            assert!(cut_texts(&kit).is_empty(), "cut: {:?}", cut_texts(&kit));
+            assert!(stage.get_left(band)[0] > -SAFE[0] && stage.get_right(band)[0] < SAFE[0]);
+            let top = stage.get_top(band)[1];
+            assert!(
+                front > top + 0.05,
+                "the floor's front corner is at {front:.2}, the band's top at {top:.2}"
+            );
+            Ok(())
+        });
+    }
+
+    /// 08_6: the first exponential's label is the storyboard's words in
+    /// five lines, inside the safe area, under its term, clear of the arm
+    /// (every joint, in the pose of the recipe, with the links' width).
+    #[test]
+    fn the_first_exponentials_label_is_clear_of_the_arm() {
+        let said = format!(
+            "{} {} {}",
+            JOINT_LABEL_PLAIN.join(" "),
+            "for q_1 seconds",
+            "(q_1 in radians)"
+        );
+        assert_eq!(
+            said,
+            "joint 1's twist at one radian a second, held for q_1 seconds (q_1 in radians)"
+        );
+        // the storyboard's sentence, with its subscripts
+        let storyboard = "joint 1's twist at one radian a second, held for q₁ seconds (q₁ in radians)";
+        assert!(crate::STORYBOARD.contains(storyboard));
+        let arm = Arm::iiwa14();
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let (parts, under) = equation_row(&kit, stage)?;
+            let label = under[1];
+            let (l, r) = (stage.get_left(label)[0], stage.get_right(label)[0]);
+            let (b, t) = (stage.get_bottom(label)[1], stage.get_top(label)[1]);
+            assert!(l > -SAFE[0] && r < SAFE[0] && b > -SAFE[1], "{l:.2}..{r:.2}, {b:.2}");
+            // under its own term, centred on it
+            let term = parts[1];
+            let mid = 0.5 * (stage.get_left(term)[0] + stage.get_right(term)[0]);
+            assert!((0.5 * (l + r) - mid).abs() < 0.05, "the label is not under its term");
+            assert!(t < ROW_Y - 0.4);
+            // the arm in the recipe's pose: its joints and tip, each with the
+            // links' half width, stay off the label's box
+            let q = degrees([RECIPE_DEG; N]);
+            let mut points: Vec<V3> = (0..N).map(|i| arm.joint(&q, i).0).collect();
+            points.push(arm.tip(&q).p);
+            for p in points {
+                let s = view.project(p);
+                let near_x = s[0] > l - 0.25 && s[0] < r + 0.25;
+                let near_y = s[1] > b - 0.25 && s[1] < t + 0.25;
+                assert!(!(near_x && near_y), "the arm's point {s:?} is in the label's box");
+            }
+            Ok(())
+        });
     }
 }

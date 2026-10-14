@@ -13,8 +13,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, PartSpec, Pin, QuizLook, Shape, View, World, circle_points,
-    edge_arrows, fact, fact_f64, fade_in_all, leave, line_style, mix, number_word, point_fn, pose_fn, say, spin_arrow,
-    still, turns_in_order, tween_linear, value, your_turn,
+    edge_arrows, fact, fact_f64, fade_in_all, leave, lie_winter, line_style, mix, number_word, point_fn, pose_fn, say,
+    spin_arrow, still, turns_in_order, tween_linear, value, your_turn,
 };
 use crate::model::{self, DEG, M3, Pose, V3, X, Y, add, dot, scale, sub, unit};
 use crate::palette;
@@ -131,12 +131,8 @@ fn exp_note_words() -> fmn::Result<String> {
 /// 05_7's name card: the years of Lie's life and the winter his theory began,
 /// all from the facts (`1842–1899 · began this in 1873–74`).
 fn lie_years() -> fmn::Result<String> {
-    let (born, died, begun) = (
-        fact_f64("G-L.lie.born")? as u32,
-        fact_f64("G-L.lie.died")? as u32,
-        fact_f64("G-L.lie.year")? as u32,
-    );
-    Ok(format!("{born}–{died} · {BEGAN} {begun}–{:02}", (begun + 1) % 100))
+    let (born, died) = (fact_f64("G-L.lie.born")? as u32, fact_f64("G-L.lie.died")? as u32);
+    Ok(format!("{born}–{died} · {BEGAN} {}", lie_winter()?))
 }
 
 /// The diagonal between the three edges, and the one between tilt's and
