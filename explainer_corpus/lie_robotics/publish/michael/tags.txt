@@ -1,0 +1,1 @@
+Lie group, Lie algebra, robotics, robot arm, kinematics, inverse kinematics, screw theory, SE(3), SO(3), product of exponentials, Jacobian, gimbal lock, Rodrigues formula, matrix exponential, Newton's method, math explainer
