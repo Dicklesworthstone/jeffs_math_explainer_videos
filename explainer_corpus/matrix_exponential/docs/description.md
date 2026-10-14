@@ -185,8 +185,8 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
 - **Do not compute `e^{tA} v` by forming `e^{tA}` when `A` is large and sparse.**
   On the 400-node grid (`20 × 20`), `L` is sparse (`1,920` nonzeros) while
   `e^{−tL}` is completely dense (`160,000` positive entries). For a single
-  vector `e^{tA} v`, use Krylov subspace methods or Chebyshev/Taylor action
-  (`scipy.sparse.linalg.expm_multiply`, Al-Mohy and Higham 2011). When the graph
+  vector `e^{tA} v`, use a Krylov subspace method, or a scaled, truncated Taylor
+  series applied to the vector (`scipy.sparse.linalg.expm_multiply`, Al-Mohy and Higham 2011, who compare it with Krylov, Chebyshev and Laguerre codes). When the graph
   is a Cartesian grid, `L = L_x ⊗ I + I ⊗ L_y` commutes, so `e^{−tL} = e^{−tL_x}
   ⊗ e^{−tL_y}` and two `20 × 20` exponentials do the job of one `400 × 400`. [F-D.big.nodes, F-Y.big.side, F-Y.big.laplacian_nonzeros, F-Y.big.exp_positive_entries]
 
@@ -218,6 +218,9 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   Matrix Functions", *SIAM Review* 52(4), 2010, pp. 696–714.
 - John C. Baez and John Huerta, "The Algebra of Grand Unified Theories",
   *Bulletin of the American Mathematical Society* 47(3), 2010, pp. 483–552.
+- Awad H. Al-Mohy and Nicholas J. Higham, "Computing the Action of the Matrix
+  Exponential, with an Application to Exponential Integrators", *SIAM Journal
+  on Scientific Computing* 33(2), 2011, pp. 488–511.
 
 ## Every number
 

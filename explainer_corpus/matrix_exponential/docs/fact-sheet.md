@@ -191,6 +191,7 @@ folder.
 | S19 | J. Baez and J. Huerta, "The Algebra of Grand Unified Theories", *Bull. AMS* 47 (2010), 483–552; D. Tong, "Line operators in the Standard Model", *JHEP* 07 (2017) 104 | the fine print of finding 7 | P\* (arXiv versions) |
 | S20 | Campbell (1897, 1898), Baker (1902, 1905), Hausdorff (1906), Dynkin (1947); R. Achilles and A. Bonfiglioli, *Arch. Hist. Exact Sci.* 66 (2012), 295–358 | the names on the formula; that it has more parents (Schur, Poincaré, Pascal) | M and S (no original opened) |
 | S21 | H. Padé, thesis, *Ann. sci. École Normale Supérieure* (3) 9 (1892), supplement 3–93 | the name; "made the first systematic study" (MacTutor), not "invented" | M |
+| S22 | A. H. Al-Mohy and N. J. Higham, "Computing the Action of the Matrix Exponential, with an Application to Exponential Integrators", *SIAM J. Sci. Comput.* 33(2), 2011, 488–511. DOI 10.1137/100788860 | what `scipy.sparse.linalg.expm_multiply` implements: the scaling part of scaling and squaring with a truncated Taylor series, compared in the paper with MATLAB codes based on Krylov subspace, Chebyshev polynomial and Laguerre polynomial methods; SciPy's source: "algorithm (3.2) in Al-Mohy and Higham (2011)" | P\* (the Manchester eprint, MIMS EPrint 2010.30, which carries the published first page and abstract; SciPy's `expm_multiply` page and `_expm_multiply.py`; the printed pages not seen) |
 
 Short quotations used on screen or in the description (each at most two
 sentences, attributed): S1, "The computed approximation even has the wrong
