@@ -145,6 +145,35 @@ fn point_label(word: &str, joints: &[usize]) -> String {
     format!("{word} · {noun} {}", numbers.join(" "))
 }
 
+/// 08_1: the three named points come in with their joint numbers, and the
+/// height mark (its bracket and "1.3 m") goes as they come, in one beat of
+/// half a second. The labels begin at the bracket's own line, and "1.3 m"
+/// stood between "elbow" and "shoulder" with the line through the first
+/// letter of each (the dense read of the scored draft): the mark has said its
+/// piece by "All it can do". Returns the labels.
+fn name_the_points(kit: &Kit, stage: &mut Stage<'_>, view: &View, arm: &Arm, mark: &[Mob]) -> fmn::Result<Vec<Mob>> {
+    let named = [(SHOULDER, model::SHOULDER), (ELBOW_WORD, ELBOW), (WRIST, model::WRIST)];
+    let groups = joint_numbers();
+    let mut names = Vec::new();
+    for ((word, joint), joints) in named.into_iter().zip(&groups) {
+        let p = view.project(arm.origin[joint]);
+        let label = point_label(word, joints);
+        names.push(kit.text_left(stage, &label, POINT_LABEL_PT, Palette::ink(), v(p[0] + 0.95, p[1]))?);
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mark {
+        stage.clear_updaters(m, true);
+        let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(gone.rt(0.5))?);
+    }
+    for &m in &names {
+        let come = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(come.rt(0.5))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(names)
+}
+
 /// 08_6's lower third's text: who presented it, when, and whose groups it is
 /// built on, begun when (the facts' years; 1873–74 is the winter).
 fn brockett_words() -> fmn::Result<String> {
@@ -302,15 +331,7 @@ impl SceneConstruct for SevenScrews {
         tween_all(stage, &ons, 0.8)?;
         fade_in_lagged(stage, &numbers, 0.9, 0.4)?;
         line.wait_for(stage, "All it can do")?;
-        let named = [(SHOULDER, model::SHOULDER), (ELBOW_WORD, ELBOW), (WRIST, model::WRIST)];
-        let groups = joint_numbers();
-        let mut names = Vec::new();
-        for ((word, joint), joints) in named.into_iter().zip(&groups) {
-            let p = view.project(arm.origin[joint]);
-            let label = point_label(word, joints);
-            names.push(kit.text_left(stage, &label, POINT_LABEL_PT, Palette::ink(), v(p[0] + 0.95, p[1]))?);
-        }
-        fade_in_all(stage, &names, 0.5)?;
+        let names = name_the_points(&kit, stage, &view, &arm, &[mark, mark_words])?;
         let code_lines = model_lines()?;
         let code_refs: Vec<&str> = code_lines.iter().map(String::as_str).collect();
         let panel = CodePanel::build(&kit, stage, &code_refs, 22.0, 6.0)?;
@@ -318,7 +339,6 @@ impl SceneConstruct for SevenScrews {
 
         // 08_2: a turn about an axis is a screw with no slide: seven, stacked
         let line = say(&kit, stage, BEATS[1])?;
-        leave(stage, &[mark, mark_words], &[], 0.5)?;
         // the model's code panel (eight lines) stays through the line's first
         // sentence, so that it can be read, and goes as the screws light
         line.wait_for(stage, "So the arm is seven screws")?;
@@ -661,6 +681,47 @@ mod tests {
             for pair in boxes.windows(2) {
                 assert!(pair[1].0 > pair[0].1 + 0.05, "two labels share height: {pair:?}");
             }
+            Ok(())
+        });
+    }
+
+    /// 08_1 (the dense read of the scored draft): the height mark goes in the
+    /// beat the point labels come in, half a second, and is gone when it is
+    /// over (the labels begin at the bracket's own line, with "1.3 m" between
+    /// two of them), and the three labels are in the scene.
+    #[test]
+    fn the_height_mark_goes_as_the_points_are_named() {
+        let arm = Arm::iiwa14();
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        // where the scene puts the bracket: the foot and top of the arm at
+        // half a unit out
+        let height = fact_f64("G-A.height").unwrap();
+        let (foot, top) = (view.project([0.5, 0.0, 0.0]), view.project([0.5, 0.0, height]));
+        probe(move |stage| {
+            let kit = Kit::new()?;
+            let bracket = stage
+                .arena_mut()
+                .add(polyline(vec![foot, top]).style(line_style(Palette::dim(), 3.0)).build());
+            let words = kit.text(
+                stage,
+                "1.3 m",
+                30.0,
+                Palette::ink(),
+                v(top[0] + 0.55, 0.5 * (foot[1] + top[1])),
+            )?;
+            stage.add_to_scene(bracket)?;
+            stage.add_to_scene(words)?;
+            assert!(stage.scene().mobjects().contains(&bracket), "the bracket starts up");
+            let start = stage.scene().time().to_f64();
+            let names = name_the_points(&kit, stage, &view, &arm, &[bracket, words])?;
+            let took = stage.scene().time().to_f64() - start;
+            assert!((took - 0.5).abs() < 0.1, "the beat took {took:.2} s");
+            // a fade out ends by taking the mobject out of the scene
+            assert!(
+                !stage.scene().mobjects().contains(&bracket) && !stage.scene().mobjects().contains(&words),
+                "the height mark is still up when the labels are"
+            );
+            assert_eq!(names.len(), 3);
             Ok(())
         });
     }

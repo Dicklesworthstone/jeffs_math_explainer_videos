@@ -50,6 +50,29 @@ const DEGREE: &str = "°";
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 6] = ["03_1", "03_2", "03_3", "03_4", "03_5", "03_6"];
 
+/// One picture gives way to the next in one beat, `rt` seconds: `mobs` fade
+/// out, the trackers in `to_zero` tween to 0 and `ins` (detached) fade in, all
+/// together. A fade out and then a fade in leaves the frame empty between them;
+/// at 03_6 that was the whole of the line's first two sentences (the quote went
+/// at once and the boxes waited for "So software stores").
+fn give_way(stage: &mut Stage<'_>, mobs: &[Mob], to_zero: &[Mob], ins: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &t in to_zero {
+        anims.push(stage.prepare(tween(t, 0.0, rt)?)?);
+    }
+    for &m in mobs {
+        stage.clear_updaters(m, true);
+        let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(gone.rt(rt))?);
+    }
+    for &m in ins {
+        let come = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(come.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
 /// 03_6's exact version, its numbers read from facts and spelled as the
 /// script spells them: three cannot name every orientation without a jump;
 /// nine name each once; four name each twice, a quaternion and its negative
@@ -459,7 +482,6 @@ impl SceneConstruct for ThreeAngles {
 
         // 03_6: the fault is in the three numbers: nine, or four
         let line = say(&kit, stage, BEATS[5])?;
-        leave(stage, &[back, quote, by], &[gimbal.shown], 0.6)?;
         let (matrix, quaternion, arrow) = (
             fact_f64("G-S.numbers.turn_matrix")? as u32,
             fact_f64("G-S.numbers.quaternion")? as u32,
@@ -480,7 +502,10 @@ impl SceneConstruct for ThreeAngles {
                 4.4,
             ),
         ];
-        let mut all = Vec::new();
+        // the dashed box, the fault, is what "The fault is in the three
+        // numbers" is said over; the two ticked boxes are "nine, or four"
+        let mut fault = Vec::new();
+        let mut repairs = Vec::new();
         for (title, sums, good, x) in boxes {
             let back = if good {
                 card(stage, v(x, 0.7), 4.0, 2.2)?
@@ -489,19 +514,21 @@ impl SceneConstruct for ThreeAngles {
             };
             let head = kit.text(stage, title, 32.0, Palette::ink(), v(x, 1.3))?;
             let body = kit.text(stage, &sums, 26.0, Palette::dim(), v(x, 0.6))?;
-            all.extend([back, head, body]);
+            let mine = if good { &mut repairs } else { &mut fault };
+            mine.extend([back, head, body]);
             if good {
                 let tick = polyline(vec![v(x - 0.2, 0.0), v(x - 0.05, -0.18), v(x + 0.25, 0.2)])
                     .style(line_style(palette::good(), 6.0))
                     .build();
-                all.push(stage.arena_mut().add(tick));
+                mine.push(stage.arena_mut().add(tick));
             } else {
                 let spot = kit.text(stage, A_BAD_SPOT, 26.0, warn, v(x, 0.05))?;
-                all.push(spot);
+                mine.push(spot);
             }
         }
+        give_way(stage, &[back, quote, by], &[gimbal.shown], &fault, 0.6)?;
         line.wait_for(stage, "So software stores")?;
-        fade_in_all(stage, &all, 0.8)?;
+        fade_in_all(stage, &repairs, 0.8)?;
         let exact = precisely(&kit, stage, &no_jump_note()?)?;
         play!(stage; fade_in(stage.arena_mut(), exact, ORIGIN, 1.0)?.rt(0.5));
         kit.finish(stage)
@@ -762,6 +789,65 @@ mod tests {
             );
             Ok(())
         });
+    }
+
+    /// 03_6 (the dense read of the scored draft): the quote and the gimbal
+    /// give way to the dashed "three angles" box in one beat, so that the
+    /// frame is never empty at the seam (the old order, out and then in, was
+    /// black for the line's first two sentences); the same probe sees that
+    /// order's dip.
+    #[test]
+    fn the_quote_gives_way_to_the_fault_and_the_frame_is_never_empty() {
+        use std::cell::RefCell;
+        use std::rc::Rc;
+
+        /// The least, over every frame of `handing`, of the more shown of
+        /// the outgoing and the incoming picture (the incoming one counts
+        /// from its first frame below full: a detached mobject has its own
+        /// opacity until its fade begins).
+        fn dimmest(handing: impl Fn(&mut Stage<'_>, Mob, Mob, Mob) -> fmn::Result<()> + 'static) -> f64 {
+            let seen: Rc<RefCell<Vec<f64>>> = Rc::new(RefCell::new(Vec::new()));
+            let log = Rc::clone(&seen);
+            probe(move |stage| {
+                let solid = |stage: &mut Stage<'_>| -> fmn::Result<Mob> {
+                    let r = Rectangle::new()
+                        .width(2.0)
+                        .height(1.0)
+                        .style(flat(Palette::ink(), 1.0))
+                        .build()?;
+                    Ok(stage.arena_mut().add(r))
+                };
+                let (out, coming) = (solid(stage)?, solid(stage)?);
+                stage.add_to_scene(out)?;
+                let held = stage.add_value_tracker(1.0);
+                let sampler = stage.arena_mut().add(VMobject::new());
+                stage.add_to_scene(sampler)?;
+                let log = Rc::clone(&log);
+                let mut begun = false;
+                stage.add_dt_updater(
+                    sampler,
+                    move |s, _, _| {
+                        let outgoing = s.get_fill_opacity(out).unwrap_or(0.0);
+                        let incoming = s.get_fill_opacity(coming).unwrap_or(0.0);
+                        begun |= incoming < 0.999;
+                        let gimbal = s.tracker_value(held).unwrap_or(0.0);
+                        let now = outgoing.max(if begun { incoming } else { 0.0 }).max(gimbal);
+                        log.borrow_mut().push(now);
+                    },
+                    true,
+                )?;
+                handing(stage, out, coming, held)
+            });
+            seen.borrow().iter().copied().fold(f64::INFINITY, f64::min)
+        }
+
+        let crossed = dimmest(|stage, out, coming, held| give_way(stage, &[out], &[held], &[coming], 0.6));
+        assert!(crossed >= 0.45, "a frame with neither picture half shown: {crossed:.2}");
+        let sequential = dimmest(|stage, out, coming, held| {
+            leave(stage, &[out], &[held], 0.6)?;
+            fade_in_all(stage, &[coming], 0.6)
+        });
+        assert!(sequential < 0.1, "the old order's seam is empty: {sequential:.2}");
     }
 
     /// The whole chapter constructs, headless.

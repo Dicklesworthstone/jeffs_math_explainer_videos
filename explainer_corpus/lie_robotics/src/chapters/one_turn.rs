@@ -73,12 +73,17 @@ pub const ASK: Ask = Ask {
 /// How far the gold axis runs each way from the book's centre, and where its
 /// word stands against the upper end (scene units).
 const AXIS_HALF: f64 = 2.1;
-const AXIS_WORD_SHIFT: [f64; 2] = [0.55, 0.12];
+const AXIS_WORD_SHIFT: [f64; 2] = [0.55, 0.38];
 
 /// The end of the gold line that is higher on the screen: the word "axis"
-/// stands beside it.
+/// stands beside it. The line runs through the book's centre, held at
+/// `CENTRE` (the tip was once taken about the origin, 1.25 under the line:
+/// the word stood on the book's crossbar instead of at the line's end).
 fn axis_word_tip(view: &View, axis: V3) -> V3 {
-    let (a, b) = (scale(axis, AXIS_HALF), scale(axis, -AXIS_HALF));
+    let (a, b) = (
+        model::add(CENTRE, scale(axis, AXIS_HALF)),
+        model::add(CENTRE, scale(axis, -AXIS_HALF)),
+    );
     if view.project(a)[1] >= view.project(b)[1] { a } else { b }
 }
 
@@ -594,8 +599,17 @@ mod tests {
         let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
         let (_, axis) = single_turn();
         let tip = axis_word_tip(&view, axis);
-        let (a, b) = (scale(axis, AXIS_HALF), scale(axis, -AXIS_HALF));
+        // the line's two ends, as the picture draws them: about the book's
+        // centre, which is held at turn height
+        let (a, b) = (
+            model::add(CENTRE, scale(axis, AXIS_HALF)),
+            model::add(CENTRE, scale(axis, -AXIS_HALF)),
+        );
         assert!(view.project(tip)[1] >= view.project(a)[1].min(view.project(b)[1]));
+        assert!(
+            tip == a || tip == b,
+            "the word is set at an end of the gold line, not 1.25 under it"
+        );
         probe(|stage| {
             let kit = Kit::new()?;
             let word = kit.text(stage, AXIS_WORD, 28.0, palette::screw(), ORIGIN)?;
@@ -615,6 +629,29 @@ mod tests {
                 right < card_left - 0.2,
                 "the word ends at {right:.2}, the card at {card_left:.2}"
             );
+            // clear of the book as it swings from flat to the turned pose
+            // (the word stood on its crossbar at the tip taken about the
+            // origin)
+            let end_deg = fact_f64("G-B.tilt_then_roll.angle")?;
+            for k in 0..=8 {
+                let deg = end_deg * f64::from(k) / 8.0;
+                let r = book_turn(axis, deg, 0.0, 0.0);
+                let mut pts = Vec::new();
+                for sx in [-1.0, 1.0] {
+                    for sy in [-1.0, 1.0] {
+                        for sz in [-1.0, 1.0] {
+                            let c = model::apply(&r, [sx * BOOK_HALF[0], sy * BOOK_HALF[1], sz * BOOK_HALF[2]]);
+                            pts.push(model::add(CENTRE, c));
+                        }
+                    }
+                }
+                let (lo, hi) = view.box_of(pts);
+                let apart = right < lo[0] - 0.05 || left > hi[0] + 0.05 || top < lo[1] - 0.05 || bottom > hi[1] + 0.05;
+                assert!(
+                    apart,
+                    "at {deg:.0} degrees the word ({left:.2}..{right:.2}, {bottom:.2}..{top:.2}) meets the book {lo:?} {hi:?}"
+                );
+            }
             // 02_3's readout: three digits at 54 points ending at READOUT_AT
             // and the degree sign after them
             let readout_left = READOUT_AT[0] - 1.8;

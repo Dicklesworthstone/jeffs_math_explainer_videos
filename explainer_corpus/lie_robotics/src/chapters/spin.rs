@@ -53,7 +53,16 @@ const SPIN_CAPTION_AT: [f64; 2] = [-3.7, -1.6];
 /// 05_6: the cross product's arrow, named as the screen names it (R2 M-18),
 /// and where its words stand under the formula.
 const CROSS_WORDS: &str = "the arrow at right angles to both";
-const CROSS_AT: [f64; 2] = [4.0, 2.5];
+/// The point formula's middle (its right end stands left of the badge in the
+/// corner, whose line begins 0.62 left of its middle: centred at 2.4 the last
+/// ")" was under the badge's ring) and the cross product's words under the
+/// formula's last term.
+const POINT_AT: [f64; 2] = [1.6, 3.1];
+const CROSS_AT: [f64; 2] = [3.2, 2.5];
+/// 05_2's three small books: how far under the lowest corner of each one its
+/// caption's middle stands (the row descends to the right, so a caption at one
+/// height stood across the books beside it).
+const CAPTION_DROP: f64 = 0.32;
 /// 05_7: what the card's two names mean (R2 C-10).
 const LIE_GROUP_WORDS: &str = "a smooth curved space of motions";
 const LIE_ALGEBRA_WORDS: &str = "its flat piece, plus a rule for two spins (the bracket, at the end)";
@@ -106,6 +115,21 @@ const BOOK_FIT: f64 = 0.85;
 /// (at 0.3 it touched it) and its longest choice shrinks to fit.
 const CARD_AT: [f64; 2] = [4.1, -0.05];
 const CARD_SCALE: f64 = 0.92;
+/// Where the caption of a book of half sizes `half`, in pose `r` at `p`, is
+/// centred on `view`: under the book, below its lowest corner.
+fn caption_spot(view: &View, r: &M3, p: V3, half: V3) -> Vec3 {
+    let mut low = f64::INFINITY;
+    for sx in [-1.0, 1.0] {
+        for sy in [-1.0, 1.0] {
+            for sz in [-1.0, 1.0] {
+                let corner = add(p, model::apply(r, [sx * half[0], sy * half[1], sz * half[2]]));
+                low = low.min(view.project(corner)[1]);
+            }
+        }
+    }
+    v(view.project(p)[0], low - CAPTION_DROP)
+}
+
 /// A point on the book that Rodrigues's formula follows: the tip of its x
 /// edge arrow.
 const EDGE: f64 = 1.25;
@@ -477,8 +501,9 @@ impl SceneConstruct for Spin {
         shelf.add_to_scene(stage)?;
         shelf.show(stage, 0.6)?;
         let mut captions = Vec::new();
-        for &(_, x, text) in &row {
-            captions.push(kit.text(stage, text, 24.0, Palette::dim(), v(x, 0.2))?);
+        for &(r, x, text) in &row {
+            let at = caption_spot(&row_view, &r, [x / across, 0.0, 0.0], small);
+            captions.push(kit.text(stage, text, 24.0, Palette::dim(), at)?);
         }
         // the exact version stands with the three books and stays into the
         // next line's first picture, so that it can be read
@@ -614,7 +639,14 @@ impl SceneConstruct for Spin {
         let along_word = kit.text(stage, ALONG, 24.0, teal, v(-1.6, 1.5))?;
         let around_word = kit.text(stage, AROUND, 24.0, blue, v(-5.6, 1.9))?;
         fade_in_all(stage, &[along_word, around_word], 0.4)?;
-        let point = kit.tex(stage, POINT_FORMULA, 40.0, Palette::ink(), &[], v(2.4, 3.1))?;
+        let point = kit.tex(
+            stage,
+            POINT_FORMULA,
+            40.0,
+            Palette::ink(),
+            &[],
+            v(POINT_AT[0], POINT_AT[1]),
+        )?;
         // the name's credit comes in with the name, "named after Rodrigues",
         // and stays up for the rest of the line
         let year = fact("G-L.rodrigues.year")?;
@@ -928,7 +960,14 @@ mod tests {
                 )
             };
             let words = kit.text(stage, CROSS_WORDS, 22.0, Palette::ink(), v(CROSS_AT[0], CROSS_AT[1]))?;
-            let formula = kit.tex(stage, POINT_FORMULA, 40.0, Palette::ink(), &[], v(2.4, 3.1))?;
+            let formula = kit.tex(
+                stage,
+                POINT_FORMULA,
+                40.0,
+                Palette::ink(),
+                &[],
+                v(POINT_AT[0], POINT_AT[1]),
+            )?;
             let matrix = kit.tex(stage, MATRIX_FORMULA, 34.0, Palette::ink(), &[], v(3.4, 1.2))?;
             let programmers = kit.text_left(stage, FOR_PROGRAMMERS, 24.0, Palette::dim(), v(0.1, 1.9))?;
             let me = boxed(stage, words);
@@ -946,6 +985,108 @@ mod tests {
                 let o = boxed(stage, other);
                 let apart = me.1 < o.0 || me.0 > o.1 || me.3 < o.2 - 0.04 || me.2 > o.3 + 0.04;
                 assert!(apart, "the cross words {me:?} meet {name} {o:?}");
+            }
+            Ok(())
+        });
+    }
+
+    /// 05_6 (the dense read of the scored draft): the point formula ends left
+    /// of the badge in the corner (its ring and line stood on the last
+    /// ")"), and the cross product's words stand under the formula's last
+    /// term, inside the formula's width.
+    #[test]
+    fn the_point_formula_ends_clear_of_the_badge() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let formula = kit.tex(
+                stage,
+                POINT_FORMULA,
+                40.0,
+                Palette::ink(),
+                &[],
+                v(POINT_AT[0], POINT_AT[1]),
+            )?;
+            let words = kit.text(stage, CROSS_WORDS, 22.0, Palette::ink(), v(CROSS_AT[0], CROSS_AT[1]))?;
+            // the badge in the corner: its line begins 0.62 left of its
+            // middle, at the top of its ring (0.3 high)
+            let badge_left = BADGE_CORNER[0] - 0.62;
+            assert!(
+                stage.get_right(formula)[0] < badge_left - 0.1,
+                "the formula ends at {:.2}, the badge begins at {badge_left:.2}",
+                stage.get_right(formula)[0]
+            );
+            assert!(stage.get_left(formula)[0] > -SAFE[0]);
+            assert!(stage.get_top(formula)[1] < SAFE[1]);
+            // the words under the last terms
+            assert!(stage.get_top(words)[1] < stage.get_bottom(formula)[1] - 0.02);
+            assert!(stage.get_left(words)[0] > stage.get_left(formula)[0]);
+            assert!(stage.get_right(words)[0] < stage.get_right(formula)[0] + 0.3);
+            Ok(())
+        });
+    }
+
+    /// 05_2 (the dense read of the scored draft): each of the three small
+    /// books' captions stands under its own book and clear of every book in
+    /// the row (the row steps down to the right: at one height the second
+    /// caption stood across the standing book and the third across the flat
+    /// one) and of the other captions, above the two-line band that comes up.
+    #[test]
+    fn the_three_books_captions_stand_under_their_books() {
+        let both_deg = fact_f64("G-B.both_at_once.angle").unwrap();
+        let row: [(M3, f64, &str); 3] = [
+            (model::tilt_then_roll(FRAC_PI_2), 1.2, TILT_THEN_ROLL),
+            (model::roll_then_tilt(FRAC_PI_2), 3.9, ROLL_THEN_TILT),
+            (model::turn(tilt_plus_roll(), both_deg * DEG), 6.2, BOTH_AT_ONCE),
+        ];
+        let half: V3 = BOOK_HALF.map(|x| 0.5 * x);
+        let view = View::new(1.0, v(0.0, 1.3));
+        let across = View::basis().0[0];
+        let books: Vec<([f64; 2], [f64; 2])> = row
+            .iter()
+            .map(|&(r, x, _)| {
+                let p = [x / across, 0.0, 0.0];
+                let mut pts = Vec::new();
+                for sx in [-1.0, 1.0] {
+                    for sy in [-1.0, 1.0] {
+                        for sz in [-1.0, 1.0] {
+                            pts.push(add(p, model::apply(&r, [sx * half[0], sy * half[1], sz * half[2]])));
+                        }
+                    }
+                }
+                view.box_of(pts)
+            })
+            .collect();
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let mut boxes: Vec<(f64, f64, f64, f64)> = Vec::new();
+            for (i, &(r, x, text)) in row.iter().enumerate() {
+                let at = caption_spot(&view, &r, [x / across, 0.0, 0.0], half);
+                let c = kit.text(stage, text, 24.0, Palette::dim(), at)?;
+                let me = (
+                    stage.get_left(c)[0],
+                    stage.get_right(c)[0],
+                    stage.get_bottom(c)[1],
+                    stage.get_top(c)[1],
+                );
+                for (j, (lo, hi)) in books.iter().enumerate() {
+                    let apart = me.1 < lo[0] || me.0 > hi[0] || me.3 < lo[1] || me.2 > hi[1];
+                    assert!(apart, "caption {i} {me:?} meets book {j} {lo:?} {hi:?}");
+                }
+                // the middle of the caption is the middle of its book
+                assert!((0.5 * (me.0 + me.1) - view.project([x / across, 0.0, 0.0])[0]).abs() < 1e-6);
+                assert!(me.0 > -SAFE[0] && me.1 < SAFE[0]);
+                // the two-line band's top is at -2.78
+                assert!(me.2 > -2.78 + 0.1, "caption {i} reaches {:.2}", me.2);
+                boxes.push(me);
+            }
+            for a in 0..3 {
+                for b in a + 1..3 {
+                    let (p, q) = (boxes[a], boxes[b]);
+                    assert!(
+                        p.1 < q.0 || q.1 < p.0 || p.3 < q.2 || q.3 < p.2,
+                        "captions {a} and {b} meet"
+                    );
+                }
             }
             Ok(())
         });

@@ -90,6 +90,10 @@ const LABEL_A_SHIFT: f64 = -0.35;
 const LABEL_B_SHIFT: f64 = 0.4;
 /// Where "step 20°" stands against the second heading's dot on the flat piece.
 const STEP_SHIFT: [f64; 2] = [1.6, 0.35];
+/// Where "half 10°" stands against the half's dot: left of the circle and over
+/// the line (at (-0.4, 0.5) it stood inside the circle, with the two heading
+/// arrows through its "0°").
+const HALF_SHIFT: [f64; 2] = [-1.65, 0.6];
 /// Where the quiz card stands.
 const CARD_AT: [f64; 2] = [4.35, 0.3];
 const CARD_SCALE: f64 = 0.92;
@@ -390,7 +394,7 @@ impl SceneConstruct for Halfway {
             &format!("{} {}°", HALF, minus(gap / 2.0)),
             28.0,
             orange,
-            v(half_at[0] - 0.4, half_at[1] + 0.5),
+            v(half_at[0] + HALF_SHIFT[0], half_at[1] + HALF_SHIFT[1]),
         )?;
         fade_in_all(stage, &[half_dot, half_label], 0.4)?;
         line.wait_for(stage, "Ten degrees on from the first")?;
@@ -606,6 +610,69 @@ mod tests {
         let line_y = tangent_point(a, gap + STEP_SHIFT[0] / RADIUS / DEG)[1];
         assert!(step[1] > line_y + 0.2);
         assert!((step[0] - CENTRE[0]).hypot(step[1] - CENTRE[1]) > RADIUS + 0.4);
+    }
+
+    /// 04_4 (the dense read of the scored draft): "half 10°" stands outside
+    /// the circle, over the tangent line, clear of the two heading arrows,
+    /// and apart from the step's label and the headings' numbers.
+    #[test]
+    fn the_half_label_stands_clear_of_the_arrows_and_the_circle() {
+        let (a, b) = (fact_f64("G-H.a").unwrap(), fact_f64("G-H.b").unwrap());
+        let gap = fact_f64("G-H.gap").unwrap();
+        let half_at = tangent_point(a, gap / 2.0);
+        let at = v(half_at[0] + HALF_SHIFT[0], half_at[1] + HALF_SHIFT[1]);
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let half = format!("{}", (gap / 2.0).round() as i64).replace('-', &MINUS.to_string());
+            let label = kit.text(stage, &format!("{HALF} {half}°"), 28.0, Palette::ink(), at)?;
+            let (l, r) = (stage.get_left(label)[0], stage.get_right(label)[0]);
+            let (bot, top) = (stage.get_bottom(label)[1], stage.get_top(label)[1]);
+            assert!(l > -SAFE[0] && top < SAFE[1]);
+            // outside the circle: every corner of its box is farther from the
+            // middle than the radius, and a margin
+            for (x, y) in [(l, bot), (l, top), (r, bot), (r, top)] {
+                let d = (x - CENTRE[0]).hypot(y - CENTRE[1]);
+                assert!(
+                    d > RADIUS + 0.1,
+                    "the label's corner ({x:.2}, {y:.2}) is {d:.2} from the middle"
+                );
+            }
+            // over the tangent line along its whole width
+            for x in [l, 0.5 * (l + r), r] {
+                let d = (x - tangent_point(a, 0.0)[0]) / (RADIUS * DEG * -a.to_radians().cos());
+                let line_y = tangent_point(a, d)[1];
+                assert!(
+                    bot > line_y + 0.05,
+                    "the line is at {line_y:.2} under x {x:.2}, the label's foot {bot:.2}"
+                );
+            }
+            // clear of the two heading arrows (centre to circle)
+            for h in [a, b] {
+                let tip = on_circle(h, RADIUS);
+                for k in 0..=20 {
+                    let t = f64::from(k) / 20.0;
+                    let p = (
+                        CENTRE[0] + (tip[0] - CENTRE[0]) * t,
+                        CENTRE[1] + (tip[1] - CENTRE[1]) * t,
+                    );
+                    let inside = p.0 > l - 0.05 && p.0 < r + 0.05 && p.1 > bot - 0.05 && p.1 < top + 0.05;
+                    assert!(!inside, "the heading {h} arrow runs through the label at {p:?}");
+                }
+            }
+            // and the step's label, and the headings' numbers, are elsewhere
+            let dot = tangent_point(a, gap);
+            let step = v(dot[0] + STEP_SHIFT[0], dot[1] + STEP_SHIFT[1]);
+            assert!(
+                r < step[0] - 0.8 - 0.1,
+                "the half ends at {r:.2}, the step begins near {:.2}",
+                step[0] - 0.8
+            );
+            for (h, shift) in [(a, LABEL_A_SHIFT), (b, LABEL_B_SHIFT)] {
+                let spot = label_spot(h, shift);
+                assert!(r < spot[0] - 0.4 || bot > spot[1] + 0.3 || top < spot[1] - 0.3);
+            }
+            Ok(())
+        });
     }
 
     /// 04_3: the strip is named under itself, clear of its end labels and
