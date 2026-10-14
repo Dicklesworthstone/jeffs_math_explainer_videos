@@ -97,7 +97,8 @@ render options:
   --scratch-voice   time the beats from estimated line lengths (no audio; drafts); writes
                     OUT/<chapter>.cues.tsv from those estimates, for draft cue sheets
   --silent          no narration
-  --lint            layout lint at every beat: OUT/<chapter>.layout.tsv
+  --lint            layout lint at every beat and every 0.2 s of the scene (a problem is reported once it has
+                    stood a second): OUT/<chapter>.layout.tsv
   --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
   --score DIR       lay DIR/<chapter>.music.f32.wav under each chapter (needs --narration)
   --crf N           delivery quality: x264 CRF or NVENC constant quality; also --preset, --gpu, AAC 256k
@@ -489,7 +490,7 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
             let mut kit = Kit::new()?;
             kit.chapter = c.key.to_owned();
             if args.lint && !args.timeline_only {
-                let l = Rc::new(Linter::new());
+                let l = Rc::new(Linter::sampled());
                 kit = kit.with_lint(Rc::clone(&l));
                 linter = Some(l);
             }

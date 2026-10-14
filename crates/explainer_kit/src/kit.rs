@@ -240,7 +240,40 @@ impl Kit {
     /// `hold` call it; call it yourself after a long silent animation.
     pub fn lint_here(&self, stage: &Stage<'_>, at: &str) {
         if let Some(l) = &self.lint {
-            l.check(stage.arena(), &self.registry.borrow(), at);
+            let at = format!("{at} @{:.1}s", stage.scene().time().to_f64());
+            l.check(stage.arena(), &self.registry.borrow(), &at);
+        }
+    }
+
+    /// The strokes of `mob` are meant to cross text (a strike-through over a wrong answer, a diagonal drawn over
+    /// the entries it marks): the layout lint's `crossed` and `behind` leave them alone. Call it once, where the
+    /// mobject is built; it costs nothing without a lint.
+    pub fn allow_crossing(&self, mob: Mob) {
+        if let Some(l) = &self.lint {
+            l.allow_crossing(mob);
+        }
+    }
+
+    /// With a sampling lint ([`Linter::sampled`]): make sure a bare mobject whose updater looks at the running
+    /// scene is on the stage. A wipe that fades every top-level mobject takes it with it; the next `say` or
+    /// `hold` puts a new one back. A lint that only looks at the checkpoints costs the scene nothing.
+    fn lint_probe(&self, stage: &mut Stage<'_>) {
+        let Some(lint) = &self.lint else { return };
+        if !lint.needs_probe(stage.arena()) {
+            return;
+        }
+        let probe = stage.arena_mut().add(VMobject::new());
+        if stage.add_to_scene(probe).is_err() {
+            return;
+        }
+        let (look, registry) = (Rc::clone(lint), Rc::clone(&self.registry));
+        let attached = stage.add_dt_updater(
+            probe,
+            move |arena, _, dt| look.tick(arena, &registry.borrow(), dt),
+            false,
+        );
+        if attached.is_ok() {
+            lint.set_probe(probe);
         }
     }
 
@@ -254,6 +287,10 @@ impl Kit {
     /// (no-op without a narrator). Call it BEFORE the animations that
     /// illustrate the line.
     pub fn say(&self, stage: &mut Stage<'_>, id: &str) -> fmn::Result<()> {
+        if let Some(l) = &self.lint {
+            l.begin_line(id, stage.scene().time().to_f64());
+        }
+        self.lint_probe(stage);
         self.lint_here(stage, &format!("before {id}"));
         match &self.narrator {
             Some(n) => n.say(stage, id),
@@ -264,6 +301,7 @@ impl Kit {
     /// Let the current line finish, plus a breath, before moving on; call it
     /// before every scene wipe so the picture never leaves the voice behind.
     pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.lint_probe(stage);
         self.lint_here(stage, "hold");
         match &self.narrator {
             Some(n) => n.hold(stage),
