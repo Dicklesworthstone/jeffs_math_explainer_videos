@@ -16,9 +16,11 @@ pub mod halves;
 pub mod iso;
 pub mod kinetics;
 pub mod layers;
+pub mod siu;
 pub mod staircases;
 pub mod the_cut_cube;
 pub mod the_missing_square;
+pub mod three_stacks;
 pub mod what_makes_a_proof;
 
 use explainer_kit::Chapter;
@@ -55,7 +57,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("04_staircases", 0.4, staircases::Staircases),
         animatic!("05_slabs", 0.6),
         scene!("06_every_cube", 0.55, every_cube::EveryCube),
-        animatic!("07_three_stacks", 0.55),
+        scene!("07_three_stacks", 0.55, three_stacks::ThreeStacks),
         animatic!("08_the_box", 0.6),
         animatic!("09_every_height", 0.5),
         scene!("10_halves", 0.4, halves::Halves),
