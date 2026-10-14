@@ -1,5 +1,5 @@
 {
- "_comment": "Pronunciation lexicon for Video I (narration skill, PRONUNCIATION.md). Names from the P3 claim walk (CloudyFinch, mx-e-a-dza.5), probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. Paul Curry and Martin Gardner are plain English and not listed. The owner's pronunciation overrides every entry.",
+ "_comment": "Pronunciation lexicon for Video I (narration skill, PRONUNCIATION.md). Names from the P3 claim walk (CloudyFinch, mx-e-a-dza.5), probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. Paul Curry and Martin Gardner are plain English and not listed. The owner's pronunciation overrides every entry. Triage of 2026-10-14 on the first narration (GrayCave, mx-e-a-dza.8): accept holds the script's British colour, coloured and colours, which fw writes in American (the takes are read right; the same sound, a spelling); phrases holds 'its sides' for 'its side' at 13_2.0: the read has no frication after its last vowel (a spectrogram of the last second against a decoy that says 'its sides', which has 3 to 9 kHz noise there) and the ASR writes 'side' in all three takes and 'sides' only on the edited line. Siu and Ajose are not accepted: the owner hears them.",
  "words": {
   "Nicomachus": {
    "say": "nih-KOM-uh-kus",
@@ -161,5 +161,13 @@
     "verdict": "Plain word heard as Pythagoras 3/3; the respelling was garbled."
    }
   }
+ },
+ "accept": {
+  "colour": ["color"],
+  "coloured": ["colored"],
+  "colours": ["colors"]
+ },
+ "phrases": {
+  "its sides": "its side"
  }
 }
