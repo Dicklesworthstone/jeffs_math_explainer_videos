@@ -1,5 +1,13 @@
 # R2 review of the script by Maya, 14 (verbatim)
 
+> **Provenance.** The reviewer's own attempt to save this review was cut off
+> by an API safety classifier part-way through (only a 1.3 KB fragment was
+> written). The complete review, 30 findings and 8 delights, was written here
+> by the producer (GrayCave) from the text the reviewer returned, with no
+> edits, on 2026-10-13. The other three review files were saved by their own
+> reviewers (`R2-dev_28.md`, `R2-ruth_45.md`) or restored the same way
+> (`R2-engineer.md`).
+
 # Review R2 (script) by Maya, 14: "The One Idea Behind Bridges, Concert Halls and Economies"
 
 **Verdict:** I would finish this video, and I found no blocker. I could say one honest sentence for all 14 chapters, though the sentences for 6, 11 and 13 are partly guesses. The nine majors share one cause. In the 17.6 to 15 minute cut, the sentence the next line needs sometimes moved from the voice to a lower-third. When I'm watching the picture I can't also read a lower-third. The worst places are 06_7, 11_1 and 13_4. Where I'd quit is 14_3, just before the ending. Where I'd rewind: 02_5, 04_3, 09_3, 13_4. Where I'd feel clever: 02_6, 05_5, 06_3, 13_5.

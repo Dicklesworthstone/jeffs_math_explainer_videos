@@ -1,5 +1,14 @@
 # R2 review of the script by the domain-engineer lens (verbatim)
 
+> **Provenance.** The reviewer's own attempt to save this review was cut off
+> by an API safety classifier part-way through (only the header and the start
+> of the findings table were written). The complete review, 8 findings with
+> its checked and unchecked lists, was written here by the producer
+> (GrayCave) from the text the reviewer returned, on 2026-10-13. One edit, for
+> the repository's public-hygiene rule: the reviewer's absolute scratch-folder
+> path in "Checked and found fine" reads "the reviewer's own scratch folder".
+> Nothing else differs.
+
 # Engineer-lens review of R2 (script, before narration): "The One Idea Behind Bridges, Concert Halls and Economies"
 
 **Result: no blockers and no majors.** I found eight minor objections: five wording or attribution points, two missing qualifiers and one scope tag. Every computed number I could rebuild matched the packet. Nothing in the spoken lines is wrong at the level the three practitioners would reject the video.
