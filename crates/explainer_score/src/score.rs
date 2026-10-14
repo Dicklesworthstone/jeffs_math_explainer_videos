@@ -725,7 +725,10 @@ impl CueKind {
 /// `fade_end` to `back`, and fades in again over [`RETURN_FADE`] from
 /// `back`: the end mark (or the end of the sentence it falls in), or,
 /// without one, where the voice next pauses for good (a gap of 1.2 s or
-/// more).
+/// more). An unterminated silence is judged by QA (`open_silence_lines`): it
+/// may hold the one narration line it was written for, no more, because the
+/// voice's next pause for good can be a whole chapter away (J's 14_4: 29.8 s
+/// with the music gone from three lines, no end mark).
 #[derive(Clone, Debug, PartialEq)]
 pub struct SilenceSpan {
     pub name: String,
@@ -733,6 +736,10 @@ pub struct SilenceSpan {
     pub fade_end: f64,
     pub back: f64,
     pub back_end: f64,
+    /// A `silence_end:<name>` mark closes it; without one `back` was inferred.
+    pub closed: bool,
+    /// How many narration lines have audio inside [`fade_end`, `back`).
+    pub lines: usize,
 }
 
 /// The music is gone this long before the sentence an authored silence is
@@ -750,12 +757,14 @@ pub const RETURN_FADE: f64 = 1.5;
 
 /// The authored silences of a video: each `silence:` mark's span (see
 /// [`SilenceSpan`]), and a note for each that could not have the fade it
-/// asked for (a pause too short for 1.2 s).
+/// asked for (a pause too short for 1.2 s). `lines` are the audio spans of
+/// every narration line of the video (seconds), for the count a span keeps.
 fn authored_silences(
     sections: &[Section],
     starts: &[f64],
     fine: &[(f64, f64)],
     coarse: &[(f64, f64)],
+    lines: &[(f64, f64)],
     total: f64,
 ) -> (Vec<SilenceSpan>, Vec<String>) {
     let mut spans = Vec::new();
@@ -819,12 +828,15 @@ fn authored_silences(
                 }
                 (fade_end - fade, fade_end)
             };
+            let back = back.max(fade_end);
             spans.push(SilenceSpan {
                 name,
                 fade_start,
                 fade_end,
-                back: back.max(fade_end),
-                back_end: (back.max(fade_end) + RETURN_FADE).min(total),
+                back,
+                back_end: (back + RETURN_FADE).min(total),
+                closed: end_mark.is_some(),
+                lines: lines.iter().filter(|l| l.0 < back && l.1 > fade_end).count(),
             });
         }
     }
@@ -1806,7 +1818,13 @@ fn compose(
     let speech = duck::regions(&active, 1.2);
     let fine = duck::regions(&active, MIN_PAUSE);
     // authored silences: no note starts inside one, and the stem is zero there
-    let (silences, notes) = authored_silences(sections, &chapter_starts, &fine, &speech, total);
+    let mut line_spans: Vec<(f64, f64)> = Vec::new();
+    for (s, c) in sections.iter().zip(&chapters) {
+        for (a, b) in s.timeline.line_spans()? {
+            line_spans.push(((c.1 + a) as f64 / FS, (c.1 + b) as f64 / FS));
+        }
+    }
+    let (silences, notes) = authored_silences(sections, &chapter_starts, &fine, &speech, &line_spans, total);
     let silent = |t: f64| silences.iter().any(|s| t >= s.fade_start && t < s.back);
 
     // 3. harmony, planned inside each chapter from its own progression (its
@@ -3839,6 +3857,125 @@ mod tests {
                 }
             }
         }
+    }
+
+    /// One narration line as a WAV under `dir`: noise bursts with a 4 Hz
+    /// syllable envelope over `bursts` (seconds from the start of the file),
+    /// quiet between them.
+    fn burst_line(dir: &std::path::Path, id: &str, bursts: &[(f64, f64)], seed: u64) -> std::path::PathBuf {
+        let mut rng = Rng::new(seed);
+        let n = (bursts.last().map_or(0.0, |b| b.1) * FS) as usize;
+        let m: Vec<f64> = (0..n)
+            .map(|k| {
+                let t = k as f64 / FS;
+                if bursts.iter().any(|b| t >= b.0 && t < b.1) {
+                    0.1 * (0.6 + 0.4 * (std::f64::consts::TAU * 4.0 * t).sin()) * rng.normal()
+                } else {
+                    0.0
+                }
+            })
+            .collect();
+        let p = dir.join(format!("{id}.wav"));
+        crate::wav::write(&p, &Stereo::from_mono(&m), crate::wav::Format::F32).unwrap();
+        p
+    }
+
+    #[test]
+    fn a_silence_with_no_end_mark_that_runs_over_three_lines_fails_qa_until_it_is_closed() {
+        use crate::timeline::{LinePlacement, Mark, Window};
+        let dir = std::env::temp_dir().join(format!("explainer_score_open_silence_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        // Video J's chapter 14 as it was scored at 13eaa0a (line spans from its
+        // timeline, seconds into the chapter): every gap between the lines is
+        // 0.61 s, 14_4's last sentence starts at 42.27 s after a short pause,
+        // and the silence is marked at it (frame 2537) with no end mark
+        // (id, start, the bursts of speech in it)
+        type Spec = (&'static str, f64, &'static [(f64, f64)]);
+        let lines: [Spec; 6] = [
+            ("14_1", 0.60, &[(0.0, 9.39)]),
+            ("14_2", 10.60, &[(0.0, 8.58)]),
+            ("14_3", 19.78, &[(0.0, 7.07)]),
+            ("14_4", 32.58, &[(0.0, 9.27), (9.69, 11.71)]),
+            ("14_5", 44.90, &[(0.0, 12.52)]),
+            ("14_6", 58.03, &[(0.0, 13.81)]),
+        ];
+        let section = |end_mark: Option<u64>| {
+            let mut t = ChapterTimeline {
+                chapter: "14_order_matters".into(),
+                fps: 60,
+                frames: 4601,
+                breaths: vec![Window {
+                    frame: 4347,
+                    seconds: 2.5,
+                    label: "end".into(),
+                    sound: None,
+                }],
+                marks: vec![Mark {
+                    label: "silence:three_results".into(),
+                    frame: 2537,
+                }],
+                ..Default::default()
+            };
+            for (i, (id, at, bursts)) in lines.iter().enumerate() {
+                t.lines.push(LinePlacement {
+                    id: (*id).into(),
+                    start_frame: (at * 60.0).round() as u64,
+                    gain_db: 0.0,
+                    wav: burst_line(&dir, id, bursts, i as u64 + 1),
+                });
+            }
+            if let Some(frame) = end_mark {
+                t.marks.push(Mark {
+                    label: "silence_end:three_results".into(),
+                    frame,
+                });
+            }
+            vec![Section {
+                timeline: t,
+                plan: ChapterPlan {
+                    intensity: 0.5,
+                    resolve: false,
+                },
+            }]
+        };
+        let id = Identity::hoeffding();
+        let zero = |s: &Score, a: f64, b: f64| {
+            let (i, j) = ((a * FS) as usize, (b * FS) as usize);
+            s.music.l[i..j].iter().chain(&s.music.r[i..j]).all(|&x| x == 0.0)
+        };
+        let verdict = |s: &Score| {
+            let (music, facts) = (s.chapter_music(0), crate::qa::ScoreFacts::chapter(s, 0));
+            crate::qa::evaluate(
+                "14_order_matters",
+                &s.chapter_voice(0),
+                &music,
+                music.len(),
+                Some(&facts),
+            )
+            .get("open_silence_lines")
+            .cloned()
+            .unwrap()
+        };
+        // as it was: the music is gone from the last sentence of 14_4 to the end
+        // of 14_6, three lines, and QA says so
+        let open = render(&id, &section(None), None).unwrap();
+        let sp = &open.silences[0];
+        assert!(!sp.closed && sp.lines == 3, "{sp:?}");
+        assert!(sp.back - sp.fade_end > 25.0, "{sp:?}");
+        assert!(zero(&open, 46.0, 56.0), "no music under 14_5");
+        let m = verdict(&open);
+        assert_eq!((m.value, m.pass), (3.0, Some(false)), "{m:?}");
+        assert!(m.detail.contains("three_results"), "{m:?}");
+        // closed where 14_4's sentence ends (44.29 s = frame 2657): the music
+        // comes back under 14_5, the silence held that one line, and QA has
+        // nothing left to say
+        let shut = render(&id, &section(Some(2657)), None).unwrap();
+        let sp = &shut.silences[0];
+        assert!(sp.closed && sp.lines == 1, "{sp:?}");
+        assert!(sp.back < 44.5, "{sp:?}");
+        assert!(!zero(&shut, 46.0, 56.0), "music under 14_5");
+        let m = verdict(&shut);
+        assert_eq!((m.value, m.pass), (0.0, None), "{m:?}");
     }
 
     #[test]

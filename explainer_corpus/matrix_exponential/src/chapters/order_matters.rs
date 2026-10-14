@@ -21,13 +21,24 @@ use fmn::prelude::*;
 
 use super::draw::{
     MatrixGrid, Plane, QuizCard, arrow_points, chip, corners, entries, fade_in_all, fade_out_all, faded_line,
-    fit_width, flat, good, music_hold, result, rule, say, second, substance, tween_linear, warn,
+    fit_width, flat, good, music_hold, pause, result, rule, say, second, substance, tween_linear, warn,
 };
 use super::flow::{fade_in_anim, fade_out_anim};
 use crate::facts::{shear_right, shear_up, shown};
 use crate::model::{Mat, expm_t};
 
 // ------------------------------------------------------------------ choices
+
+/// How long the "for programmers" tag that closes 14_6 stands fully up (s):
+/// the floor K gives a tag with nothing said under it. It stood 1.1 s when
+/// the draft was scored (in at 75.3 s, the chapter out at 76.4 s): the music's
+/// beat and the "who and when" tag came first, and the chapter closed 0.8 s
+/// after the tag was in.
+pub const DEV_STAND_S: f64 = 2.6;
+/// The beat added after the tag is in, before the chapter closes (s). The tag
+/// stood 0.2 s without it (measured), so this and that make [`DEV_STAND_S`]
+/// with a tenth of a second to spare.
+const DEV_PAUSE_S: f64 = DEV_STAND_S - 0.1;
 
 /// The plane the shapes live on: its origin at the lower left, so the
 /// parallelograms (up to three units out) stay on the left of the frame. A
@@ -463,8 +474,13 @@ impl SceneConstruct for OrderMatters {
         ];
         stage.play_prepared(swap)?;
         line.wait_for(stage, "Three different results")?;
-        // said with no music under it (the score bead: the bare key line)
+        // said with no music under it (the score bead: the bare key line); the
+        // music is back when the line ends. Without the end mark the score
+        // keeps it out until the voice next pauses for 1.2 s, and 14_5 and
+        // 14_6 follow at 0.6 s: 29.8 s of no music (scored at 13eaa0a)
         kit.mark(stage, "silence:three_results");
+        line.wait_end(stage)?;
+        kit.mark(stage, "silence_end:three_results");
         kit.hold(stage)?;
 
         // ---- 14_5: AB and BA: commuting
@@ -573,7 +589,10 @@ impl SceneConstruct for OrderMatters {
             "for programmers:",
             "update A\u{2019}s effect, then B\u{2019}s, and this is your error per step",
         )?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, dev, "14_6:dev")?;
         fade_in_all(stage, &[dev], 0.5)?;
+        pause(stage, DEV_PAUSE_S)?;
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
@@ -584,7 +603,7 @@ impl SceneConstruct for OrderMatters {
 mod tests {
     use fmn::scene::{NullSceneSink, RuntimeConfig};
 
-    use super::super::draw::{fact, testing};
+    use super::super::draw::{fact, quiz_log, testing};
     use super::*;
     use crate::facts::square_loop;
     use crate::model::{expm, hat};
@@ -818,5 +837,62 @@ mod tests {
             );
         }
         assert!(ran.seconds > 45.0 && ran.seconds < 85.0, "{} s", ran.seconds);
+    }
+
+    /// 14_4's last sentence is said with no music under it, and the music is
+    /// back when the line ends. At 13eaa0a the silence had no end mark, so the
+    /// score kept the music out until the voice next paused for 1.2 s: 14_5
+    /// and 14_6 follow at 0.6 s, which was 29.8 s of no music (the stem was
+    /// exactly zero from 42.07 s to 71.86 s). QA cannot see that; this does.
+    #[test]
+    fn the_silence_of_14_4_ends_with_its_line() {
+        let voiced = testing::run_voiced("14_order_matters").unwrap();
+        let mark = |label: &str| voiced.marks.iter().find(|m| m.0 == label).map(|m| m.1);
+        let line = |id: &str| voiced.lines.iter().find(|l| l.0 == id).map(|l| (l.1, l.1 + l.2));
+        let (start, end) = line("14_4").expect("14_4 is said");
+        let (next, _) = line("14_5").expect("14_5 is said");
+        let begins = mark("silence:three_results").expect("the key line's silence");
+        let ends = mark("silence_end:three_results")
+            .expect("the silence is closed, or it runs until the voice pauses for 1.2 s");
+        // it opens inside 14_4 (its last sentence) and closes with the line,
+        // before 14_5 starts: one line, seconds, not the rest of the chapter
+        assert!(
+            begins >= start && begins < end,
+            "opens at {begins} s, 14_4 is {start}-{end} s"
+        );
+        assert!(
+            ends >= end - 1e-6 && ends <= next,
+            "closes at {ends} s, 14_4 ends at {end} s and 14_5 starts at {next} s"
+        );
+        assert!(ends - begins < 5.0, "{} s of silence", ends - begins);
+    }
+
+    /// The "for programmers" tag that closes 14_6 stands fully up for
+    /// DEV_STAND_S before the chapter lets go of it, after the line is said
+    /// (the dense read of the scored draft: in at 75.3 s, gone with the
+    /// chapter at 76.4 s, 1.1 s). What follows the line is a run of fixed
+    /// beats, so the scratch voice's line end is as good as the finished
+    /// read's for this.
+    #[test]
+    fn the_tag_that_closes_14_6_stands_long_enough_to_read() {
+        let voiced = testing::run_voiced("14_order_matters").unwrap();
+        let events = quiz_log::take(&voiced.tag, "14_6:dev");
+        let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+        let up = when("up").expect("it comes up");
+        // the chapter closes with a 0.8 s fade of everything (`fade_all`) and
+        // ends: the tag leaves where that fade starts, unless the run goes on
+        // far enough to note it gone
+        let leaves = when("down").unwrap_or(voiced.ran.seconds - 0.8);
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "14_6").cloned().unwrap();
+        assert!(
+            up >= start + len,
+            "it is up at {up:.1} s, 14_6 ends at {:.1} s",
+            start + len
+        );
+        assert!(
+            leaves - up >= DEV_STAND_S,
+            "it stood {:.2} s (up at {up:.2} s, the chapter closes at {leaves:.2} s), the floor is {DEV_STAND_S} s",
+            leaves - up
+        );
     }
 }

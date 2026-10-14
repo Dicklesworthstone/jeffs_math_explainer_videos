@@ -128,6 +128,10 @@ pub struct ScoreFacts {
     /// Authored silences inside the chapter: where the stem must be exactly
     /// zero (from each fade's end to the music's return).
     pub silences: Vec<(f64, f64)>,
+    /// The authored silences of the chapter that no `silence_end` mark closes
+    /// (the score inferred where the music returns): each one's name, how
+    /// long it is exactly zero (s), and how many narration lines it runs over.
+    pub open_silences: Vec<(String, f64, usize)>,
     /// Listen windows carrying a scene's sonification: its notes come and go
     /// there (it is not the score's steady sound).
     pub sonified: Vec<(f64, f64)>,
@@ -163,6 +167,12 @@ impl ScoreFacts {
                 .iter()
                 .filter(|s| s.back > t0 && s.fade_end < t1)
                 .map(|s| (s.fade_end.max(t0) - t0, s.back.min(t1) - t0))
+                .collect(),
+            open_silences: score
+                .silences
+                .iter()
+                .filter(|s| !s.closed && s.back > t0 && s.fade_end < t1)
+                .map(|s| (s.name.clone(), s.back.min(t1) - s.fade_end.max(t0), s.lines))
                 .collect(),
             events: score
                 .events
@@ -375,6 +385,15 @@ pub use crate::meter::join_step_db;
 /// not hear.
 pub const STEADY_BED_SWELL_LU: f64 = 3.0;
 pub const STEADY_JOIN_STEP_LU: f64 = 1.5;
+
+/// How many narration lines a silence without an end mark may run over. The
+/// four we have authored that way and meant each hold exactly one (Video I's
+/// 02_6 for 6.4 s, K's closing sentence for 5.8 s and last question for
+/// 2.1 s, J's 09_6 for 3.0 s); J's fifth, 14_4, held three for 29.8 s because
+/// the voice never paused for 1.2 s after it. One that has to run on is
+/// closed with a `silence_end` mark, which has no bound: A's Kosovo silence
+/// is 43 s on purpose.
+pub const MAX_OPEN_SILENCE_LINES: usize = 1;
 
 /// The most times any 8 s segment recurs (correlation > 0.98) elsewhere,
 /// comparing the stem's consecutive 8 s chunks (a loop whose period is a
@@ -805,6 +824,21 @@ pub fn evaluate(
             format!("{} span(s) that must be exactly zero", f.silences.len()),
         );
     }
+    // a silence with no end mark returns where the voice next pauses for
+    // good: it may hold the one line it was written for and no more
+    let widest = f.open_silences.iter().max_by_key(|s| s.2);
+    r.push(
+        "open_silence_lines",
+        widest.map_or(0.0, |s| s.2 as f64),
+        &format!("<= {MAX_OPEN_SILENCE_LINES}"),
+        widest.map(|s| s.2 <= MAX_OPEN_SILENCE_LINES),
+        widest.map_or("no silence without an end mark here".to_owned(), |s| {
+            format!(
+                "silence:{} has no silence_end and is zero for {:.1} s over {} line(s)",
+                s.0, s.1, s.2
+            )
+        }),
+    );
     r.push(
         "voicing_minor_ninths",
         (bed_m9 + roll_m9) as f64,
@@ -925,6 +959,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
@@ -955,6 +990,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified,
             steady_bed: steady,
             join_step_db: join,
@@ -1070,6 +1106,35 @@ mod tests {
     }
 
     #[test]
+    fn a_silence_without_an_end_mark_may_hold_one_line_and_no_more() {
+        let v = speech(&[(1.0, 9.0)], 12.0, 0.1);
+        let judged = |open: Vec<(String, f64, usize)>| {
+            let mut facts = steady_facts(false, None, vec![]);
+            facts.open_silences = open;
+            evaluate("c", &v, &Stereo::silence(v.len()), v.len(), Some(&facts))
+                .get("open_silence_lines")
+                .cloned()
+                .unwrap()
+        };
+        // nothing to judge
+        let m = judged(vec![]);
+        assert_eq!((m.value, m.pass), (0.0, None), "{m:?}");
+        // J's 09_6 as it is: its one line, 3.0 s
+        let m = judged(vec![("its_exponential".into(), 3.0, 1)]);
+        assert_eq!((m.value, m.pass), (1.0, Some(true)), "{m:?}");
+        // J's 14_4 as it was: three lines, 29.8 s
+        let m = judged(vec![
+            ("its_exponential".into(), 3.0, 1),
+            ("three_results".into(), 29.8, 3),
+        ]);
+        assert_eq!((m.value, m.pass), (3.0, Some(false)), "{m:?}");
+        assert!(m.detail.contains("three_results") && m.detail.contains("29.8"), "{m:?}");
+        // a silence nothing says is a silence over no line: not this rule's
+        let m = judged(vec![("rest".into(), 2.0, 0)]);
+        assert_eq!(m.pass, Some(true), "{m:?}");
+    }
+
+    #[test]
     fn nothing_to_measure_is_informational_not_a_failure() {
         // 2 s with speech: no 3 s short-term window fits, so the level metrics
         // have nothing to measure
@@ -1107,6 +1172,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
@@ -1190,6 +1256,7 @@ mod tests {
             phrases: vec![],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences,
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
@@ -1283,6 +1350,7 @@ mod tests {
             phrases: vec![(9.5, 10.2)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
@@ -1316,6 +1384,7 @@ mod tests {
             phrases: vec![(3.0, 3.0)],
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
@@ -1356,6 +1425,7 @@ mod tests {
                 phrases: vec![],
                 no_fly: reg.no_fly,
                 silences: vec![],
+                open_silences: vec![],
                 sonified: vec![],
                 steady_bed: false,
                 join_step_db: None,
@@ -1400,6 +1470,7 @@ mod tests {
             phrases: vec![],
             no_fly: reg.no_fly,
             silences: vec![],
+            open_silences: vec![],
             sonified: vec![],
             steady_bed: false,
             join_step_db: None,
