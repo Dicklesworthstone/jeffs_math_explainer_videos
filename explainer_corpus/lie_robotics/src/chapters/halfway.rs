@@ -32,7 +32,30 @@ const FLAT_WORD: &str = "flat";
 const WRAP_BACK: &str = "wrap back";
 const THE_FLAT_PIECE: &str = "the flat piece:";
 const TANGENT_SPACE: &str = "the tangent space";
-const CODE_LINES: [&str; 3] = ["d = wrap(b - a)", "# into -180 ... 180", "# so the step is short"];
+const THE_RULER: &str = "the ruler";
+/// How far under the flat ruler's end labels its own name stands.
+const RULER_NAME_DROP: f64 = 0.95;
+/// The size and width of 04_4's "for programmers" panel: its longest comment
+/// line is 29 characters of typewriter face.
+const CODE_SIZE: f64 = 22.0;
+const CODE_WIDTH: f64 = 5.8;
+
+/// 04_4's "for programmers" panel (R2 A-02: the convention of "halfway" in
+/// plain words): the wrap, and the comment that says what it does with the
+/// facts' own numbers: the difference of the headings, the bound, the step.
+/// The panel is in the typewriter face, where a minus is the ASCII hyphen.
+fn code_lines() -> fmn::Result<Vec<String>> {
+    let (a, b) = (fact_f64("G-H.a")?, fact_f64("G-H.b")?);
+    let (bound, gap) = (fact_f64("G-H.halfway")?, fact_f64("G-H.gap")?);
+    let raw = (b - a).round() as i64;
+    let (bound, gap) = (bound.round() as i64, gap.round() as i64);
+    Ok(vec![
+        "d = wrap(b - a)".to_owned(),
+        "# bring the difference into".to_owned(),
+        format!("# -{bound}...{bound}, the shorter way"),
+        format!("# round: {raw} becomes +{gap}"),
+    ])
+}
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 5] = ["04_1", "04_2", "04_3", "04_4", "04_5"];
@@ -288,7 +311,15 @@ impl SceneConstruct for Halfway {
                 kit.text(stage, text, 24.0, Palette::dim(), v(p[0], p[1] - 0.4))
             })
             .collect::<Result<_, _>>()?;
-        fade_in_all(stage, &ends, 0.5)?;
+        // the strip is named when it first stands there, and the name stays
+        // while it bends up (R2 M-02)
+        let ruler_name = {
+            let p = flat_point(0.0);
+            kit.text(stage, THE_RULER, 26.0, Palette::ink(), v(p[0], p[1] - RULER_NAME_DROP))?
+        };
+        let mut shown_ends = ends.clone();
+        shown_ends.push(ruler_name);
+        fade_in_all(stage, &shown_ends, 0.5)?;
         line.wait_for(stage, "The true halfway is")?;
         let right = tick_at(stage, on_circle(halfway, RADIUS + 0.55));
         fade_in_all(stage, &[right], 0.4)?;
@@ -302,6 +333,7 @@ impl SceneConstruct for Halfway {
         play!(stage;
             tween(wrap, 1.0, 2.2)?,
             tween(heading, b, 2.6)?,
+            fade_out(stage.arena_mut(), ruler_name, ORIGIN, 1.0)?.rt(1.4),
         );
         let seam = {
             let (p, q) = (on_circle(halfway, RADIUS - 0.3), on_circle(halfway, RADIUS + 0.3));
@@ -381,7 +413,9 @@ impl SceneConstruct for Halfway {
         });
         stage.add_to_scene(mover)?;
         play!(stage; tween(to, 1.0, 1.1)?);
-        let tag_panel = CodePanel::build(&kit, stage, &CODE_LINES, 26.0, 5.0)?;
+        let code = code_lines()?;
+        let code_refs: Vec<&str> = code.iter().map(String::as_str).collect();
+        let tag_panel = CodePanel::build(&kit, stage, &code_refs, CODE_SIZE, CODE_WIDTH)?;
         play!(stage; tag_panel.slide_in(0.8)?);
 
         // 04_5: the whole trick; the circle and its line become the badge
@@ -433,7 +467,7 @@ impl SceneConstruct for Halfway {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{CARD_W, SAFE, fact};
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, fact, probe, run_chapter};
     use super::*;
 
     #[test]
@@ -572,6 +606,82 @@ mod tests {
         let line_y = tangent_point(a, gap + STEP_SHIFT[0] / RADIUS / DEG)[1];
         assert!(step[1] > line_y + 0.2);
         assert!((step[0] - CENTRE[0]).hypot(step[1] - CENTRE[1]) > RADIUS + 0.4);
+    }
+
+    /// 04_3: the strip is named under itself, clear of its end labels and
+    /// above the lower third, inside the safe area.
+    #[test]
+    fn the_ruler_is_named_under_its_strip() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let p = flat_point(0.0);
+            let name = kit.text(stage, THE_RULER, 26.0, Palette::ink(), v(p[0], p[1] - RULER_NAME_DROP))?;
+            let zero = kit.text(stage, RULER_ENDS[1], 24.0, Palette::dim(), v(p[0], p[1] - 0.4))?;
+            assert!(
+                stage.get_top(name)[1] < stage.get_bottom(zero)[1] - 0.1,
+                "the name touches the zero's label"
+            );
+            assert!(stage.get_bottom(name)[1] > LOWER_THIRD_TOP + 0.1);
+            assert!(stage.get_left(name)[0] > -SAFE[0] && stage.get_right(name)[0] < SAFE[0]);
+            Ok(())
+        });
+    }
+
+    /// 04_4: the panel's comment is the storyboard's tag in the typewriter
+    /// face and the facts' numbers, its lines stand inside the panel, and the
+    /// panel once in place clears the ruler's right end.
+    #[test]
+    fn the_panel_says_the_convention_in_the_facts_numbers() {
+        let code = code_lines().unwrap();
+        assert_eq!(code[0], "d = wrap(b - a)");
+        let said = code[1..]
+            .iter()
+            .map(|l| l.trim_start_matches("# "))
+            .collect::<Vec<_>>()
+            .join(" ")
+            .replace('-', "\u{2212}")
+            .replace("...", "\u{2026}");
+        assert_eq!(
+            said,
+            "bring the difference into \u{2212}180\u{2026}180, the shorter way round: \u{2212}340 becomes +20"
+        );
+        assert!(
+            crate::STORYBOARD.contains(&said),
+            "the storyboard's tag is not {said:?}"
+        );
+        let a = fact_f64("G-H.a").unwrap();
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let refs: Vec<&str> = code.iter().map(String::as_str).collect();
+            let panel = CodePanel::build(&kit, stage, &refs, CODE_SIZE, CODE_WIDTH)?;
+            let right = stage.get_right(panel.group)[0];
+            for &line in &panel.lines {
+                assert!(
+                    stage.get_right(line)[0] < right - 0.2,
+                    "a code line reaches {:.2} of the panel's {right:.2}",
+                    stage.get_right(line)[0]
+                );
+            }
+            // in place: the panel's left edge, and its lower edge, against the
+            // tangent ruler's right end
+            let left = stage.get_left(panel.group)[0] - (panel.width + 0.45);
+            let bottom = stage.get_bottom(panel.group)[1];
+            let end = tangent_point(a, 180.0);
+            assert!(
+                left > end[0] + 0.1 || bottom > end[1] + 0.1,
+                "the panel (left {left:.2}, bottom {bottom:.2}) meets the ruler's end {end:?}"
+            );
+            assert!(left + panel.width < SAFE[0] + 0.2);
+            Ok(())
+        });
+    }
+
+    /// The whole chapter constructs, headless.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        run_chapter(&mut Halfway {
+            kit: Kit::new().expect("the kit"),
+        });
     }
 
     /// The robot's nose points along its heading.
