@@ -114,6 +114,9 @@ pub mod probe {
     /// picture that fades out and the next one that fades in leave it bare
     /// for 0.3 or 0.4 s, which is a change of beat; half a second is a hole.
     pub const SEAM: f64 = 0.5;
+    /// Two lower-thirds each this much on screen at one frame print their
+    /// words over each other (a cross-fade does, for a quarter of a second).
+    pub const OVERPRINT: f64 = 0.3;
     /// The scenes are run at this many frames a second.
     const FPS: f64 = 10.0;
 
@@ -121,6 +124,8 @@ pub mod probe {
     #[derive(Debug, Clone, Copy)]
     pub struct BandNow {
         pub id: Mob,
+        /// The lower-third (the group) the card belongs to.
+        pub root: Mob,
         pub at: f64,
         pub opacity: f64,
         pub room: Room,
@@ -213,6 +218,27 @@ pub mod probe {
                 .filter(|(_, gap, _)| *gap < BAND_CLEARANCE)
                 .collect()
         }
+
+        /// The frames at which two or more lower-thirds are each at least
+        /// [`OVERPRINT`] on screen: (when, how many).
+        pub fn overprinted(&self) -> Vec<(f64, usize)> {
+            let mut frames: Vec<(f64, Vec<Mob>)> = Vec::new();
+            for b in self.bands.iter().filter(|b| b.opacity >= OVERPRINT) {
+                match frames.last_mut() {
+                    Some((at, roots)) if *at == b.at => {
+                        if !roots.contains(&b.root) {
+                            roots.push(b.root);
+                        }
+                    }
+                    _ => frames.push((b.at, vec![b.root])),
+                }
+            }
+            frames
+                .into_iter()
+                .filter(|(_, roots)| roots.len() > 1)
+                .map(|(at, roots)| (at, roots.len()))
+                .collect()
+        }
     }
 
     /// The box of a run of points.
@@ -261,9 +287,10 @@ pub mod probe {
             .filter(|l| l.2 > 0.1 && !band_roots.contains(&l.0))
             .map(|l| l.3)
             .min_by(|a, b| a.y0.total_cmp(&b.y0));
-        for &(_, m, opacity, room) in leaves.iter().filter(|l| is_card(&l.3)) {
+        for &(r, m, opacity, room) in leaves.iter().filter(|l| is_card(&l.3)) {
             w.bands.push(BandNow {
                 id: m,
+                root: roots[r],
                 at,
                 opacity,
                 room,
@@ -325,7 +352,7 @@ mod tests {
     use fmn::prelude::*;
 
     use super::super::draw::testing::{Room, Voiced};
-    use super::super::draw::{corners, fade_in_all, fade_out_all, faded_line, pause};
+    use super::super::draw::{corners, cross_fade, fade_in_all, fade_out_all, faded_line, pause};
     use super::probe::{self, BAND_CLEARANCE, BAND_DWELL, SEAM, Watch};
 
     fn room(r: &Room) -> String {
@@ -377,6 +404,16 @@ mod tests {
             }
             last_crowd = at;
         }
+        let mut last_print = f64::NEG_INFINITY;
+        for (at, n) in watch.overprinted() {
+            if at - last_print > 0.15 {
+                found.push(format!(
+                    "{key} I-5 {n} lower-thirds print their words over each other at {at:.1} s ({})",
+                    line_at(voiced, at)
+                ));
+            }
+            last_print = at;
+        }
         for (at, seconds) in watch.seams() {
             if seconds >= SEAM {
                 found.push(format!(
@@ -388,7 +425,7 @@ mod tests {
         found
     }
 
-    /// Invariants I-1, I-3 and I-4 of the pictures of a chapter, measured
+    /// Invariants I-1, I-3, I-4 and I-5 of the pictures of a chapter, measured
     /// frame by frame on a run with the scratch voice:
     ///
     /// - I-1: no mobject is resized while it fades in and left where the
@@ -396,7 +433,9 @@ mod tests {
     ///   at: 11_1's rays and 14_6's curve stayed invisible);
     /// - I-3: every lower-third stays fully up for at least 2.5 s and no
     ///   picture stands nearer than 0.25 to its top, or over it;
-    /// - I-4: the stage is never empty for half a second between two beats.
+    /// - I-4: the stage is never empty for half a second between two beats;
+    /// - I-5: no two lower-thirds print their words over each other (a
+    ///   cross-fade of two bands does, for a quarter of a second).
     ///
     /// (I-2, the quiz cards' dwell, is `draw::tests::section_five`.) The real
     /// narration places phrases a little otherwise, so the scenes hold a
@@ -551,6 +590,36 @@ mod tests {
         );
         let clear = crowded_scene(0.5).crowded();
         assert!(clear.is_empty(), "{clear:?}");
+    }
+
+    /// One lower-third swapped for another, by a cross-fade or one after the
+    /// other in the same half second.
+    fn swap_scene(crossed: bool) -> Watch {
+        probe::watch_scene(|stage| {
+            let kit = Kit::new()?;
+            let one = lower_third(&kit, stage, "precisely:", "below one, every demand can be met")?;
+            let two = lower_third(&kit, stage, "precisely:", "at one or more, some demand fails")?;
+            fade_in_all(stage, &[one], 0.5)?;
+            pause(stage, 1.0)?;
+            if crossed {
+                cross_fade(stage, &[one], &[two], 0.5)?;
+            } else {
+                fade_out_all(stage, &[one], 0.2)?;
+                fade_in_all(stage, &[two], 0.3)?;
+            }
+            pause(stage, 1.0)
+        })
+    }
+
+    #[test]
+    fn the_probe_finds_two_lower_thirds_printed_over_each_other() {
+        let crossed = swap_scene(true).overprinted();
+        assert!(
+            !crossed.is_empty() && crossed.iter().all(|f| f.1 == 2),
+            "a cross-fade of two bands was not found: {crossed:?}"
+        );
+        let one_after_the_other = swap_scene(false).overprinted();
+        assert!(one_after_the_other.is_empty(), "{one_after_the_other:?}");
     }
 
     /// A picture that fades out and, `bare` seconds after it has gone,

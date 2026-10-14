@@ -673,11 +673,15 @@ impl SceneConstruct for CanItFeedItself {
             stage,
             "at one or more, some demand fails, and every demand when each industry feeds every other, directly or indirectly",
         )?;
-        // the tick and name of the big eigenvalue come as the band changes
-        // (fade-out, then fade-in, put the next band up a second late and
-        // the chapter's tail over the cue check's 5 s)
+        // the tick and name of the big eigenvalue come with the new band. The
+        // bands go one after the other, quickly (a cross-fade prints two
+        // bands of words over each other for a quarter of a second), and a
+        // swap takes 0.4 s, not the 0.8 s it took with slow fades, which put
+        // the chapter's tail over the cue check's 5 s (4.98 s with the
+        // scratch voice, 4.4 s with the real one)
         wait_until(stage, below_up + BAND_UP)?;
-        cross_fade(stage, &[below], &[above, ticks[2], names[2]], 0.5)?;
+        fade_out_all(stage, &[below], 0.2)?;
+        fade_in_all(stage, &[above, ticks[2], names[2]], 0.2)?;
         let above_up = now(stage);
         line.wait_end(stage)?;
 
@@ -716,7 +720,8 @@ impl SceneConstruct for CanItFeedItself {
         )?;
         cross_fade(stage, &shown_card, &grids, 0.6)?;
         wait_until(stage, above_up + BAND_UP)?;
-        cross_fade(stage, &[above], &[leontief], 0.4)?;
+        fade_out_all(stage, &[above], 0.15)?;
+        fade_in_all(stage, &[leontief], 0.15)?;
         let leontief_up = now(stage);
         wait_until(stage, leontief_up + BAND_UP)?;
         fade_all(stage, 0.5)?;
