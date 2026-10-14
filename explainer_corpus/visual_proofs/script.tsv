@@ -13,8 +13,8 @@
 03_2	Wrap it again, and the layer takes five. Then seven. Then nine.
 03_3	Your turn. The square is five by five. How many tiles will the next layer take?
 03_4	Eleven. One tile at the end of every row, one on top of every column, and one for the corner. Each new square has one more row and one more column, so each layer is two longer.
-03_5	One plus three plus five plus seven plus nine is five times five. The same picture works a hundred layers on. Ninety-nine rows, ninety-nine columns, one corner.
-03_6	Look at what the picture showed, and what it took for granted. Each arm is as long as the side it wraps, at every size. That is the reason. A picture that shows why is a proof. Remember this card.
+03_5	One plus three plus five plus seven plus nine is five times five. The same picture works all the way to the hundredth layer. Ninety-nine rows, ninety-nine columns, one corner.
+03_6	Look at what the picture showed, and what it took for granted. Each arm is as long as the side it wraps, at every size. That is the reason. A picture that shows why, and says what it took for granted, is a proof. Remember this card.
 04_1	One more trick for the cubes. Build a staircase of tiles. One, two, three, four, five. That is fifteen tiles, but adding them one at a time is slow.
 04_2	So make a copy of the staircase, and turn it half way round.
 04_3	Your turn. The two staircases lock into a rectangle. How wide is it, and how tall?
@@ -33,16 +33,16 @@
 06_3	The arm is as long as the five smaller cubes' sides laid end to end. One and five make six. Two and four make six. Three is half of six. Pair them up for any cube, and the arms always take one slab fewer than the cube has.
 06_4	So every cube fits, at every size. The cubes up to any number make a square. Its side is one plus two and so on, up to that number.
 06_5	Cut every cube's layer into thin layers, one tile wide. Nicomachus noticed that every cube is a run of odd numbers. Two cubed is three plus five. Three cubed is seven plus nine plus eleven. So this square is chapter three's again, made of fifteen layers.
-06_6	Al-Karaji proved the rule with L-shaped layers around the year one thousand. The slabs cut in half are much younger, from nineteen eighty-five.
+06_6	Al-Karaji proved the rule with L-shaped layers around the year one thousand. The picture with the slabs cut in half was published in nineteen eighty-five.
 07_1	Staircases added up the numbers. Now add up the squares. One, four, nine, sixteen. Stack them, biggest at the bottom, every level pushed into the same corner. Thirty cubes.
-07_2	Two staircases made a rectangle. Your turn. Guess how many of these stacks make a solid box, if cubes may be cut in half?
+07_2	Two staircases made a rectangle. Your turn. Guess. If the cubes that stick out on top may be sliced in half, what is the fewest number of these stacks, turned to fit, that make a solid box?
 07_3	Three. Here are three copies of the stack, each turned to fit.
 07_4	Take the block apart one slab at a time. Four slabs of twenty cubes, and a top of ten. Each time, the blue square gives up an L-shaped layer, and the other two stacks take it.
 07_5	Put it back, with no gap. Four wide, five deep and four tall, with a staircase of ten cubes on top that covers exactly half of it.
 08_1	The top is exactly half full. How do you make it flat without adding a thing?
 08_2	The empty half is the step turned round, two staircases again. Ten cubes cannot cover twenty places, so slice every one in half. Lift the upper halves, turn them half way round, and lower them into the empty half.
 08_3	Now it is a box. Four wide, five deep, and four and a half tall. That makes ninety. Three stacks of thirty.
-08_4	With any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box.
+08_4	If this goes on working for any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box.
 08_5	This picture is not ancient. Man-Keung Siu, of the University of Hong Kong, published it in nineteen eighty-four, under the title Proof Without Words.
 09_1	But that was a stack of four levels. Why would five fit?
 09_2	Give each stack one more level, a five by five slab at its base. Every slab of the block, four by five, becomes five by six, with an L-shaped layer of two arms and a corner. And one more slab goes underneath.
@@ -52,8 +52,9 @@
 10_1	Pictures can even add up sums that never end. Take a square of area one. Colour half of it. Then half of what is left. Then half of what is left again.
 10_2	After five pieces, thirty-one out of thirty-two equal parts of the square are coloured. The gap is one thirty-second, exactly the size of the last piece.
 10_3	Will the gap ever close?
-10_4	Not after any number of steps. Guess a total a thousandth short of one, and ten pieces pass it. A millionth short, and twenty pieces pass it. So no number smaller than one is big enough to be the total. And nothing ever passes one.
-10_5	One is the only number left. That is exactly what it means to say this endless sum equals one.
+10_4	Not after any number of steps. Guess a total a thousandth short of one, and ten pieces pass it. A millionth short, and twenty pieces pass it.
+10_5	Each piece takes half of what is left, so the gap halves every time, and it drops below any size you name. So no number smaller than one is big enough to be the total. And nothing ever passes one.
+10_6	One is the only number left. That is exactly what it means to say this endless sum equals one.
 11_1	Now a stranger one. Cut the square into four quarters. Colour one. Leave two alone. And cut the last one into quarters again.
 11_2	Inside it, do the same. Colour one, leave two, cut the last. And again, and again, without end.
 11_3	Your turn. A quarter, plus a sixteenth, plus a sixty-fourth, and so on forever. What fraction of the whole square is coloured?
@@ -67,16 +68,16 @@
 12_5	Eight blocks, in four kinds. One, three, three, one.
 12_6	The blocks add up to one hundred and twenty-five. Five cubed. And nothing depended on three and two. Slide the cut, and it is still eight blocks.
 12_7	And the fourth power? Every block of the cube appears twice, once with a long fourth length and once with a short one. One, four, six, four, one. We can count its blocks, even though no one can build it in our space.
-13_1	One more, and it may be the most famous picture in mathematics. A right triangle with shorter sides three and four. Set four copies inside a square.
+13_1	One more, and maybe the most famous picture in mathematics. A right triangle with shorter sides three and four. Set four copies inside a square.
 13_2	They leave a tilted square in the middle, with the triangle's long side as its side.
-13_3	Now slide the triangles. Nothing turns, nothing flips. Two pairs close into rectangles, and the space left over is two squares. One on the side of three, one on the side of four.
+13_3	Now slide the triangles. Nothing turns, nothing flips. Two pairs close into rectangles, and what is left is two squares, on the sides of three and four.
 13_4	Your turn. Same triangles, same big square. So how big was the tilted square?
 13_5	Nine plus sixteen. Twenty-five. The same pile, counted two ways. The triangles did not change and neither did the big square, so the space left over cannot change. And twenty-five is five times five, so the long side is five.
 13_6	It holds for every right triangle. This is the theorem that carries Pythagoras's name. Change the shape, and both arrangements follow.
-13_7	But this picture took two things for granted. That the tilted shape is a square, and that the edges are straight. Both are true, because a right triangle's two sharp angles make a right angle.
+13_7	This picture took things for granted. Its corner sits on a straight side, between two sharp angles, and a right triangle's two sharp angles make a right angle. So the tilted shape is a square, and each pair of triangles closes into a rectangle.
 14_1	Four pieces, two triangles and two L-shapes, that seem to make a triangle thirteen wide and five tall.
 14_2	Slide the pieces, as before. Nothing turns, nothing flips. The outline looks the same. But now one tile is empty.
-14_3	Same pieces, same outline, and a tile has vanished. If this were a proof, it would prove that thirty-two equals thirty-three.
+14_3	Same pieces, an outline that looks the same, and a tile has vanished. If this were a proof, it would prove that thirty-two equals thirty-three.
 14_4	Your turn. The flaw is on the long sloping edge. Which triangle is steeper, the big one or the small one?
 14_5	The small one. It climbs two in five. The big one climbs three in eight. So the long edge is not straight. It bends.
 14_6	One edge sags below the true line, the other bulges above. Cut that sliver along the grid, and its pieces slide into the empty tile and fill it. The sliver was exactly one tile.

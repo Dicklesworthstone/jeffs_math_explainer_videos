@@ -198,7 +198,7 @@ pub fn first_failure(through: i64, check: impl Fn(i64) -> Result<(), String>) ->
 /// The hook: points on a circle joined by straight lines, and the regions
 /// they cut the disc into (Leo Moser, "On the Danger of Induction", 1949).
 pub mod circle {
-    use std::collections::{HashMap, HashSet};
+    use std::collections::HashSet;
 
     use super::{Q, choose, q};
 
@@ -319,8 +319,11 @@ pub mod circle {
     /// are on. A check on the drawing, not a fact: the exact crossings say
     /// how many regions there are and not how small one can be, and a
     /// region the viewer cannot see is one the viewer cannot count.
+    #[cfg(test)]
     #[allow(clippy::cast_precision_loss)]
     pub fn sampled_regions(points: &[Point], n: usize) -> (usize, f64) {
+        use std::collections::HashMap;
+
         let float = |v: Q| v.n as f64 / v.d as f64;
         let pts: Vec<(f64, f64)> = points.iter().map(|&(x, y)| (float(x), float(y))).collect();
         let lines = lines(pts.len());
@@ -896,6 +899,118 @@ pub mod lie {
         }
     }
 
+    /// A corner of a piece of the sliver: exact, because a cut along the
+    /// grid meets the sloping edges at fractions.
+    pub type QP = (Q, Q);
+
+    /// The sliver between the two outlines: a parallelogram with the two
+    /// bends and the outlines' shared corners.
+    pub fn sliver() -> [P; 4] {
+        [(0, 0), first().bend, (WIDE, TALL), second().bend]
+    }
+
+    /// Twice the area of a polygon, positive when its corners go
+    /// anticlockwise (the shoelace sum).
+    fn twice_signed_area(poly: &[QP]) -> Q {
+        (0..poly.len()).fold(Q::ZERO, |s, k| {
+            let (a, b) = (poly[k], poly[(k + 1) % poly.len()]);
+            s + a.0 * b.1 - b.0 * a.1
+        })
+    }
+
+    /// The area of a polygon, whichever way round its corners go.
+    pub fn polygon_area(poly: &[QP]) -> Q {
+        let twice = twice_signed_area(poly);
+        (if twice < Q::ZERO { -twice } else { twice }) / Q::int(2)
+    }
+
+    /// `poly` cut to the half plane `ax + by <= c` (Sutherland and Hodgman;
+    /// exact, for a convex polygon).
+    fn clip(poly: &[QP], (a, b, c): (i64, i64, i64)) -> Vec<QP> {
+        let side = |p: QP| Q::int(a) * p.0 + Q::int(b) * p.1 - Q::int(c);
+        let mut out = Vec::new();
+        for k in 0..poly.len() {
+            let (p, r) = (poly[k], poly[(k + 1) % poly.len()]);
+            let (fp, fr) = (side(p), side(r));
+            if fp <= Q::ZERO {
+                out.push(p);
+            }
+            if (fp < Q::ZERO && fr > Q::ZERO) || (fp > Q::ZERO && fr < Q::ZERO) {
+                let t = fp / (fp - fr);
+                out.push((p.0 + t * (r.0 - p.0), p.1 + t * (r.1 - p.1)));
+            }
+        }
+        out
+    }
+
+    /// The sliver cut along the grid's lines: each unit square it overlaps,
+    /// by its lower left corner, with the corners of the piece inside it,
+    /// row by row from the bottom.
+    pub fn sliver_pieces() -> Vec<(P, Vec<QP>)> {
+        let corners: Vec<QP> = sliver().iter().map(|&(x, y)| (Q::int(x), Q::int(y))).collect();
+        let mut out = Vec::new();
+        for j in 0..TALL {
+            for i in 0..WIDE {
+                let mut piece = corners.clone();
+                for half in [(-1, 0, -i), (1, 0, i + 1), (0, -1, -j), (0, 1, j + 1)] {
+                    piece = clip(&piece, half);
+                    if piece.len() < 3 {
+                        break;
+                    }
+                }
+                if piece.len() >= 3 && polygon_area(&piece) > Q::ZERO {
+                    out.push(((i, j), piece));
+                }
+            }
+        }
+        out
+    }
+
+    /// How far each piece of the sliver slides, by whole squares and in the
+    /// order of [`sliver_pieces`], to lie in the second arrangement's one
+    /// empty square.
+    pub fn fold() -> Vec<P> {
+        let hole = holes(&second());
+        let target = hole.first().copied().unwrap_or((0, 0));
+        sliver_pieces()
+            .iter()
+            .map(|&((i, j), _)| (target.0 - i, target.1 - j))
+            .collect()
+    }
+
+    /// The area two convex polygons share (`a` cut by each edge of `b`): a
+    /// check on the fold, used by its test.
+    #[cfg(test)]
+    pub fn overlap_area(a: &[QP], b: &[QP]) -> Q {
+        // the half plane to the left of each edge of b, whichever way b goes
+        let flip = twice_signed_area(b) < Q::ZERO;
+        let mut piece = a.to_vec();
+        for k in 0..b.len() {
+            let (p, r) = (b[k], b[(k + 1) % b.len()]);
+            let (p, r) = if flip { (r, p) } else { (p, r) };
+            // left of p to r: (r - p) x (x - p) >= 0, that is, -(...) <= 0
+            let (dx, dy) = (r.0 - p.0, r.1 - p.1);
+            let side = |s: QP| -(dx * (s.1 - p.1) - dy * (s.0 - p.0));
+            let mut out = Vec::new();
+            for m in 0..piece.len() {
+                let (u, v) = (piece[m], piece[(m + 1) % piece.len()]);
+                let (fu, fv) = (side(u), side(v));
+                if fu <= Q::ZERO {
+                    out.push(u);
+                }
+                if (fu < Q::ZERO && fv > Q::ZERO) || (fu > Q::ZERO && fv < Q::ZERO) {
+                    let t = fu / (fu - fv);
+                    out.push((u.0 + t * (v.0 - u.0), u.1 + t * (v.1 - u.1)));
+                }
+            }
+            piece = out;
+            if piece.len() < 3 {
+                return Q::ZERO;
+            }
+        }
+        polygon_area(&piece)
+    }
+
     /// The unit squares inside the rectangle under the triangles that no
     /// piece covers.
     pub fn holes(a: &Arrangement) -> Vec<P> {
@@ -1005,7 +1120,10 @@ mod tests {
         for n in 1..=6 {
             let (regions, smallest) = circle::sampled_regions(&circle::drawn(n), 700);
             assert_eq!(regions as u64, circle::closed_form(n as u64), "{n} points");
-            assert!(smallest > 0.008, "{n} points: the smallest region is {smallest} of the disc");
+            assert!(
+                smallest > 0.008,
+                "{n} points: the smallest region is {smallest} of the disc"
+            );
         }
     }
 
@@ -1226,6 +1344,48 @@ mod tests {
             assert_eq!(lie::edge_at(arr, arr.bend.0), Q::int(arr.bend.1));
         }
         assert!((0..=lie::WIDE).all(|x| lie::edge_at(&b, x) >= lie::edge_at(&a, x)));
+    }
+
+    /// 14_6: the sliver between the two outlines, cut along the grid and
+    /// slid by whole squares, fills the one empty square exactly.
+    #[test]
+    fn the_sliver_folds_into_the_empty_square() {
+        let pieces = lie::sliver_pieces();
+        let hole = lie::holes(&lie::second());
+        assert_eq!(hole.len(), 1);
+        let (hx, hy) = hole[0];
+        // the sliver is the difference of the outlines, one square in all
+        let total = pieces.iter().fold(Q::ZERO, |s, (_, p)| s + lie::polygon_area(p));
+        assert_eq!(total, Q::ONE);
+        let slides = lie::fold();
+        assert_eq!(slides.len(), pieces.len());
+        // slid by whole squares, each piece lies inside the empty square
+        let moved: Vec<Vec<lie::QP>> = pieces
+            .iter()
+            .zip(&slides)
+            .map(|((_, piece), &(dx, dy))| piece.iter().map(|&(x, y)| (x + Q::int(dx), y + Q::int(dy))).collect())
+            .collect();
+        for piece in &moved {
+            for &(x, y) in piece {
+                assert!(
+                    x >= Q::int(hx) && x <= Q::int(hx + 1),
+                    "x = {x} is outside the empty square"
+                );
+                assert!(
+                    y >= Q::int(hy) && y <= Q::int(hy + 1),
+                    "y = {y} is outside the empty square"
+                );
+            }
+        }
+        // and no two pieces overlap, so together they are the square
+        for (i, a) in moved.iter().enumerate() {
+            for b in &moved[i + 1..] {
+                assert_eq!(lie::overlap_area(a, b), Q::ZERO);
+            }
+        }
+        // the overlap measure is not vacuous: a piece overlaps itself fully
+        assert!(lie::polygon_area(&moved[0]) > Q::ZERO);
+        assert_eq!(lie::overlap_area(&moved[0], &moved[0]), lie::polygon_area(&moved[0]));
     }
 
     #[test]

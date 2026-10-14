@@ -606,9 +606,10 @@ def cubes():
     sixth = record[SIZES + 1]
     emit("F-K.sixth.cube", sixth["cells"])
     emit("F-K.sixth.side", sixth["side"])
-    size, fill = arm(SIZES + 1)
-    emit(f"F-K.arm.{SIZES + 1}", size)
-    emit(f"F-K.arm.{SIZES + 1}.slabs", fill)
+    for k in (SIZES + 1, SIZES + 2, SIZES + 3):  # the sixth, and two more for 06_3's strips
+        size, fill = arm(k)
+        emit(f"F-K.arm.{k}", size)
+        emit(f"F-K.arm.{k}.slabs", fill)
     ANSWERS["cut_slabs"] = sum(1 for (k, _), parts in slabs.items() if k == SIZES - 1 and parts > 1)
 
     # Nicomachus: deal the odd numbers out in runs of 1, 2, 3, ... (S2).
@@ -1285,6 +1286,55 @@ def lie():
     emit("F-L.dip", frac(dip))
     emit("F-L.bulge", frac(bulge))
     emit("F-L.slides", join(f"{x} {y}" for x, y in (slides["big"], slides["small"], slides["l8"], slides["l7"])))
+
+    # The sliver cut along the grid: its overlap with every unit square, exact,
+    # and the whole-square slide that takes each piece into the one empty square.
+    def clip(poly, ax, ay, c):
+        """The part of a convex polygon with ax * x + ay * y <= c."""
+        kept = []
+        for k, p in enumerate(poly):
+            r = poly[(k + 1) % len(poly)]
+            fp, fr = ax * p[0] + ay * p[1] - c, ax * r[0] + ay * r[1] - c
+            if fp <= 0:
+                kept.append(p)
+            if (fp < 0 < fr) or (fr < 0 < fp):
+                t = F(fp) / (fp - fr)
+                kept.append((p[0] + t * (r[0] - p[0]), p[1] + t * (r[1] - p[1])))
+        return kept
+
+    def overlap(a, b):
+        """The area two convex polygons share."""
+        sign = 1 if shoelace(b) > 0 else -1
+        piece = list(a)
+        for k, p in enumerate(b):
+            r = b[(k + 1) % len(b)]
+            # keep what is on the inside of the edge p to r
+            ax, ay = sign * (r[1] - p[1]), -sign * (r[0] - p[0])
+            piece = clip(piece, ax, ay, ax * p[0] + ay * p[1])
+            if len(piece) < 3:
+                return F(0)
+        return area(piece)
+
+    sliver_corners = [(F(x), F(y)) for x, y in sliver]
+    cut = []
+    for cy in range(tall):
+        for cx in range(wide):
+            piece = sliver_corners
+            for ax, ay, c in ((-1, 0, -cx), (1, 0, cx + 1), (0, -1, -cy), (0, 1, cy + 1)):
+                piece = clip(piece, ax, ay, c)
+                if len(piece) < 3:
+                    break
+            if len(piece) >= 3 and area(piece) > 0:
+                cut.append(((cx, cy), piece))
+    hx, hy = second["holes"][0]
+    fold = [(hx - cx, hy - cy) for (cx, cy), _ in cut]
+    emit("F-L.sliver.pieces", len(cut))
+    emit("F-L.sliver.fold", join(f"{dx} {dy}" for dx, dy in fold))
+    moved = [[(x + dx, y + dy) for x, y in piece] for ((_, piece), (dx, dy)) in zip(cut, fold)]
+    check("the sliver's pieces add up to the sliver", sum(area(piece) for _, piece in cut) == area(sliver))
+    check("slid by whole squares, every piece lies inside the empty square", all(hx <= x <= hx + 1 and hy <= y <= hy + 1 for piece in moved for x, y in piece))
+    check("slid into the empty square, no two pieces overlap", all(overlap(a, b) == 0 for a, b in itertools.combinations(moved, 2)))
+    check("the overlap measure is not vacuous: a piece overlaps itself fully", overlap(moved[0], moved[0]) == area(moved[0]) > 0)
     emit("F-L.slopes.thousandths", join(frac(1000 * s) for s in slopes))
     on_the_edge = sum(1 for bend in (first["bend"], second["bend"]) if turn_of((0, 0), (wide, tall), bend) == 0)
     emit("F-L.bends.on_the_edge", on_the_edge)

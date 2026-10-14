@@ -269,6 +269,13 @@ fn sum_of_cubes(f: &mut Facts) -> Result<(), String> {
         &format!("F-K.arm.{sixth}.slabs"),
         q(i128::from(cubes::side(n)), i128::from(sixth)),
     )?;
+    // two more sizes, for 06_3's strips beside the sixth layer: an odd cube's
+    // arm is whole slabs and an even cube's ends in a half
+    for k in [sixth + 1, sixth + 2] {
+        let before = cubes::side(k - 1);
+        f.add(&format!("F-K.arm.{k}"), format!("{k}x{before}"))?;
+        f.add(&format!("F-K.arm.{k}.slabs"), q(i128::from(before), i128::from(k)))?;
+    }
     f.add(
         "F-K.odd_runs",
         (1..=n).map(|k| list(cubes::odd_run(k))).collect::<Vec<_>>().join("|"),
@@ -581,6 +588,16 @@ fn the_lie(f: &mut Facts) -> Result<(), String> {
         Q::int(second.bend.1) - lie::straight_edge_at(second.bend.0),
     )?;
     f.add("F-L.slides", lie::SLIDES.map(|d| format!("{} {}", d.0, d.1)).join(","))?;
+    // the sliver cut along the grid and slid, by whole squares, into the hole
+    f.add("F-L.sliver.pieces", lie::sliver_pieces().len())?;
+    f.add(
+        "F-L.sliver.fold",
+        lie::fold()
+            .iter()
+            .map(|d| format!("{} {}", d.0, d.1))
+            .collect::<Vec<_>>()
+            .join(","),
+    )?;
     // the slopes as the decimals a ruler would have to tell apart
     let thousandths = [lie::slope(&first.big), lie::slope(&first.small)].map(|s| s * Q::int(1000));
     f.add("F-L.slopes.thousandths", list(thousandths))?;
@@ -693,7 +710,7 @@ mod tests {
             ("03_2", "five. Then seven. Then nine", "F-O.layers", "1,3,5,7,9"),
             ("03_4", "Eleven", "F-Q.next_layer.answer", "11"),
             ("03_5", "is five times five", "F-O.sum", "25"),
-            ("03_5", "a hundred layers", "F-O.sum.hundred", "10000"),
+            ("03_5", "the hundredth layer", "F-O.hundredth", "199"),
             ("04_1", "fifteen tiles", "F-T.count", "15"),
             ("04_4", "Five wide and six tall", "F-Q.rectangle.answer", "5x6"),
             ("04_4", "Thirty tiles", "F-T.rectangle.cells", "30"),

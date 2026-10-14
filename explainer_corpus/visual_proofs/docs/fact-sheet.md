@@ -68,7 +68,7 @@ square; that Moser proved or named the circle problem.
 | row, column | 03_4 | "One tile at the end of every row, one on top of every column" | the rows and columns of the square |
 | stack, level | 07_1 | "Stack them, biggest at the bottom, every level pushed into the same corner" | Siu's solid; its levels of 16, 9, 4 and 1 cubes (never "layers") |
 | mathematical induction | 09_4 (screen only) | not spoken | lower-third: "mathematical induction: the first case, and each case leads to the next. Not guessing from cases, as in chapter 2" |
-| geometric series | 10_5 (screen only) | not spoken | lower-third |
+| geometric series | 10_6 (screen only) | not spoken | lower-third |
 | block, short side | 12_4 | "A block's kind is how many of its sides are short" | the parts of the cut cube, coloured by short sides |
 | Pascal's triangle | 12_7 (screen only) | not spoken | lower-third |
 | long side, shorter sides | 13_1 | "A right triangle with shorter sides three and four" | hypotenuse and legs are never said |
@@ -206,6 +206,10 @@ turned a quarter turn, at the far end of the top arm (x from 0).
 | `F-K.sixth.side` | `21` | side of the square after six layers |
 | `F-K.arm.6` | `6x15` | each arm of the sixth layer |
 | `F-K.arm.6.slabs` | `5/2` | how many 6 by 6 slabs fill one such arm |
+| `F-K.arm.7` | `7x21` | each arm of the seventh cube's layer (06_3's strip: an odd cube cuts nothing) |
+| `F-K.arm.7.slabs` | `3` | how many 7 by 7 slabs fill one such arm |
+| `F-K.arm.8` | `8x28` | each arm of the eighth cube's layer (06_3's strip: an even cube's arm ends in a half) |
+| `F-K.arm.8.slabs` | `7/2` | how many 8 by 8 slabs fill one such arm |
 | `F-K.odd_runs` | `1|3,5|7,9,11|13,15,17,19|21,23,25,27,29` | Nicomachus's runs: the k consecutive odd numbers, from k(k − 1) + 1, that add up to k³, for k = 1 to 5 (runs separated by a bar) |
 | `F-K.tiled.through` | `40` | reach of the slow check: the pieces of layers 1 to n tile the square of side 1 + … + n, and layer n has n³ unit squares |
 | `F-K.sum.through` | `1000` | reach of the whole-number check: 1³ + … + n³ = (1 + … + n)² |
@@ -368,6 +372,8 @@ and (5, 2) in the second.
 | `F-L.outline.second` | `33` | area inside the second arrangement's outline |
 | `F-L.sliver` | `1` | area between the two outlines |
 | `F-L.sliver.thickest` | `1/8` | the most the two bent edges are apart, measured straight up |
+| `F-L.sliver.pieces` | `17` | pieces the sliver falls into when cut along the grid's lines: the unit squares it overlaps |
+| `F-L.sliver.fold` | `7 1,6 1,5 1,5 0,4 0,3 0,2 0,2 -1,1 -1,0 -1,0 -2,-1 -2,-2 -2,-3 -2,-3 -3,-4 -3,-5 -3` | how far each of those pieces slides, by whole squares and row by row from the bottom, to lie in the empty square: they fill it exactly, with no overlap (the sliver is the parallelogram with sides (5, 2) and (8, 3), determinant 1) |
 | `F-L.holes.first` | `0` | empty unit squares in the first arrangement |
 | `F-L.holes.second` | `1` | empty unit squares in the second |
 | `F-L.hole.at` | `7 1` | the empty square's lower left corner, x then y |
