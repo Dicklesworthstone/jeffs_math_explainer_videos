@@ -4,9 +4,9 @@ rests on a row of docs/fact-sheet.md (the bracketed tags: F- keys, S sources)
 or on the source named in the sentence. It holds the exact versions of what
 the narration simplifies (plan rule 11), the programmer notes that have no
 room on screen, and what review round R1 and the claim walk sent "to the
-description". The release package adds the chapter timestamps and the
-repository link, and trims this to what the upload page accepts, linking this
-file for the rest.
+description". The chapter timestamps are the final cut's (./x visual_proofs
+chapters). The release package adds the repository link, and trims this to
+what the upload page accepts, linking this file for the rest.
 -->
 
 # Proofs You Can See
@@ -21,23 +21,21 @@ whenever you want more time.
 
 ## Chapters
 
-(Timestamps come with the finished cut.)
-
-1. Cold open
-2. Five for five
-3. Layers
-4. Staircases
-5. Slabs
-6. Every cube
-7. Three stacks
-8. The box
-9. Every height
-10. Halves
-11. A third
-12. The cut cube
-13. Four triangles
-14. The missing square
-15. What makes a proof
+0:00 Cold open
+0:28 Five for five
+1:53 Layers
+3:10 Staircases
+4:13 Slabs
+5:39 Every cube
+7:00 Three stacks
+8:07 The box
+9:03 Every height
+10:07 Halves
+11:19 A third
+12:42 The cut cube
+14:06 Four triangles
+15:38 The missing square
+17:04 What makes a proof
 
 ## The proofs, exactly
 
