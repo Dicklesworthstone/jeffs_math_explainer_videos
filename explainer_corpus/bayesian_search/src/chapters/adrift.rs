@@ -16,8 +16,8 @@ use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    QUIZ_LINES_Y, Spoken, carry_pause, fade_in_all, fade_out_all, faded_line, fail, flat, line_style, map as lit_blue,
-    say, search as teal, tween_linear,
+    CHAR_UNITS_PER_POINT, QUIZ_LINES_Y, Spoken, carry_pause, fade_in_all, fade_out_all, faded_line, fail, flat,
+    line_style, map as lit_blue, say, search as teal, tag, text_lines, tween_linear,
 };
 use crate::facts::facts;
 use crate::model::{Q, drift, koopman};
@@ -37,12 +37,34 @@ const LEEWAY: &str = "leeway:";
 const LEEWAY_TEXT: &str = "the push of the wind on what floats";
 const MODEL: &str = "model";
 const SWEEP_LABEL: &str = "sweep width:";
+/// 10_3's lower-third (R2: S2, R9, D13): sweep width is an effective width,
+/// and the strip is not a hard edge.
+const EFFECTIVE_WIDTH: &str =
+    "an effective width, not a hard edge. It sees some outside the strip and misses some inside";
+/// 10_3's label of the strip, from Table H-15: the numbers are the facts'.
+const SWEEP_TABLE_HEAD: &str = "sweep width";
+const SWEEP_TABLE_TAIL: &str = "person in the water, helicopter at";
+const SWEEP_SOURCE: &str = "US Coast Guard, Table H-15";
+/// 10_3's flight beside the track (R2: M5, D6), so that "the same flight" of
+/// 10_4 has an antecedent.
+const ONE_FLIGHT: &str = "one flight:";
+const TRACK_WORDS: &str = "sea miles of track";
 const HOUR: &str = "h";
+const HOUR_WORD: &str = "hour";
 const COVERAGE_LABEL: &str = "coverage = strip × track ÷ area";
+/// 10_4: what the quartering holds for (R2: R1), beside the "× ¼".
+const ANY_DOUBLING: &str = "for any doubling";
 const X_LABEL: &str = "coverage";
 const Y_LABEL: &str = "chance one flight sees the person";
+/// 10_4's model label (R2: S11, D6, S4): the flight, how it is spread, and
+/// what the cloud's edge is.
 const SAME_TRACK_HEAD: &str = "the same";
-const SAME_TRACK_TAIL: &str = "sea miles of track, spread evenly over the circle";
+const SAME_TRACK_TAIL: &str = "sea miles of track spread evenly over the circle as random strips (a cautious floor);";
+const MODEL_FLIGHT: &str = "one flight taken as instant; the cloud a uniform disc whose edge holds every dot:";
+const EDGE_TAIL: &str = "of the distance drifted";
+/// 10_4's hold (R2: S10).
+const NOT_MODELLED: &str = "not in this model: how long a person survives; that clock runs too";
+const SQ_SEA_MILES: &str = "sq sea miles";
 
 // ------------------------------------------------------------------ geometry
 
@@ -77,6 +99,34 @@ const HOUR_WORDS_DROP_FAR: f64 = 0.5;
 /// enough that the twelfth hour's and the sixth's, at their coverages, do
 /// not meet.
 const SMALL_CLOUD_R: f64 = 0.42;
+
+/// 10_3's labels (R2: M5, S2): the table's words stand over the held cloud,
+/// the flight's length by the strip's left end (a little above it, clear of
+/// the last known position's words); type sizes in points.
+const SWEEP_TAG_Y: f64 = 3.5;
+const SWEEP_TAG_PT: f64 = 20.0;
+const FLIGHT_TAG_PT: f64 = 20.0;
+const FLIGHT_TAG_RISE: f64 = 0.32;
+const FLIGHT_TAG_GAP: f64 = 0.12;
+/// How much wider a tag's back is than its words, scene units.
+const TAG_PAD: f64 = 0.3;
+/// 10_4's list of the circles' radius and area (R2: M5, D6, R1): the left
+/// end of its rows, the top row, the rows' spacing, and the type size. It
+/// stands left of the plot, between the labels of 100% and 50%.
+const CIRCLES_X: f64 = -6.8;
+const CIRCLES_TOP: f64 = 1.55;
+const CIRCLES_STEP: f64 = 0.36;
+const CIRCLES_PT: f64 = 17.0;
+/// 10_4's model label: the lines' type size and spacing under the plot's
+/// axis label, and the line of the hold under them.
+const MODEL_PT: f64 = 18.0;
+const MODEL_STEP: f64 = 0.25;
+/// The first model line stands this far under the plot's floor.
+const MODEL_DROP: f64 = 0.9;
+const SURVIVAL_Y: f64 = -3.62;
+/// "For any doubling" starts here, right of the "× ¼" (whose middle is at
+/// 3.6 and which is about a unit wide).
+const DOUBLING_X: f64 = 4.25;
 
 /// Where the hour line puts hour `h`.
 fn hour_x(h: f64) -> f64 {
@@ -192,6 +242,62 @@ fn diamond(at: Vec3, r: f64) -> Vec<Vec3> {
 fn fan(from: Vec3, angle: f64, spread: f64, len: f64) -> Vec<Vec3> {
     let tip = |a: f64| v(from[0] + len * a.cos(), from[1] + len * a.sin());
     vec![from, tip(angle - spread), tip(angle + spread)]
+}
+
+/// How wide a tag of `words` at `pt` points runs, its back included.
+fn tag_width(words: &str, pt: f64) -> f64 {
+    words.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT + TAG_PAD
+}
+
+/// 10_3's label of the strip, as Table H-15 gives it, from the facts' strip
+/// (in sea miles, feet and metres) and altitude (in feet).
+fn sweep_table_words(strip: &str, feet: &str, metres: &str, altitude: &str) -> String {
+    format!(
+        "{SWEEP_TABLE_HEAD} {strip} sea mile, {feet} ft, {metres} m: {SWEEP_TABLE_TAIL} {altitude} feet. {SWEEP_SOURCE}"
+    )
+}
+
+/// 10_3's "one flight: 180 sea miles of track", from the facts' track.
+fn flight_words(track: &str) -> String {
+    format!("{ONE_FLIGHT} {track} {TRACK_WORDS}")
+}
+
+/// Where the flight's tag stands: its right end a little left of the strip's
+/// left end and a little above the track.
+fn flight_tag_at(words: &str) -> Vec3 {
+    let c = centre(HOURS_MAX);
+    let strip_left = c[0] - radius_miles(HOURS_MAX) * UNITS_PER_MILE;
+    v(
+        strip_left - FLIGHT_TAG_GAP - tag_width(words, FLIGHT_TAG_PT) / 2.0,
+        c[1] + FLIGHT_TAG_RISE,
+    )
+}
+
+/// 10_4's rows of the circles' sizes, one per hour in the order the markers
+/// land: the first with its words ("1 hour: radius 1.45, area 6.6 sq sea
+/// miles"), the rest bare ("3: 2.35, 17.3"). Each row is (hours, radius, area).
+fn circle_rows(rows: &[(String, String, String)]) -> Vec<String> {
+    rows.iter()
+        .enumerate()
+        .map(|(i, (h, r, a))| {
+            if i == 0 {
+                format!("{h} {HOUR_WORD}: radius {r}, area {a} {SQ_SEA_MILES}")
+            } else {
+                format!("{h}: {r}, {a}")
+            }
+        })
+        .collect()
+}
+
+/// 10_4's model label in three lines: the flight and how it is spread, the
+/// flight as an instant and the cloud a disc, and the disc's edge (the
+/// model's starting radius plus its share of the distance drifted).
+fn model_lines(track: &str, start: &str, share: &str) -> [String; 3] {
+    [
+        format!("{MODEL}: {SAME_TRACK_HEAD} {track} {SAME_TRACK_TAIL}"),
+        MODEL_FLIGHT.to_owned(),
+        format!("{start} mile plus {share} {EDGE_TAIL}"),
+    ]
 }
 
 impl SceneConstruct for Adrift {
@@ -401,17 +507,22 @@ impl SceneConstruct for Adrift {
         );
         line.wait_for(stage, "From a helicopter")?;
         fade_in_all(stage, &[strip], 0.8)?;
-        let sweep = lower_third(
-            &kit,
-            stage,
-            SWEEP_LABEL,
-            &format!(
-                "the width of the strip: {} sea mile, {} m, for a person in the water seen from a helicopter at {} feet. US Coast Guard, Table H-15",
-                fact("F-D.strip")?,
-                fact("F-D.strip.metres")?,
-                fact("F-D.strip.altitude.feet")?
-            ),
-        )?;
+        // the table's own words over the cloud, and beside the track the
+        // flight it is the track of: "the same flight" of 10_4 has its
+        // antecedent here (R2: M5, D6)
+        let table_words = sweep_table_words(
+            &fact("F-D.strip")?,
+            &fact("F-D.strip.feet")?,
+            &fact("F-D.strip.metres")?,
+            &fact("F-D.strip.altitude.feet")?,
+        );
+        let table = tag(&kit, stage, &table_words, v(0.0, SWEEP_TAG_Y), SWEEP_TAG_PT)?;
+        let one_flight = flight_words(&fact("F-D.track")?);
+        let flight = tag(&kit, stage, &one_flight, flight_tag_at(&one_flight), FLIGHT_TAG_PT)?;
+        fade_in_all(stage, &[table, flight], 0.6)?;
+        // in the hold: what sweep width is (R2: S2, R9, D13), said once, not
+        // as a hard edge
+        let sweep = lower_third(&kit, stage, SWEEP_LABEL, EFFECTIVE_WIDTH)?;
         line.wait_for(stage, "It is a tenth")?;
         fade_in_all(stage, &[sweep], 0.5)?;
 
@@ -421,7 +532,7 @@ impl SceneConstruct for Adrift {
         let line = say(&kit, stage, LINES[3])?;
         // the cloud, its circle and the hour line leave; two outline
         // circles, one twice as wide, each in its square, take the stage
-        let leaving = vec![edge, strip, sweep, last_known, last_label];
+        let leaving = vec![edge, strip, sweep, table, flight, last_known, last_label];
         // the cloud goes through its dots' own opacity, the rest by fades
         let mut anims: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(shown, 0.0, 0.6)?)?];
         for &m in &leaving {
@@ -495,15 +606,19 @@ impl SceneConstruct for Adrift {
             Palette::dim(),
             v(big_at[0], big_at[1] + big_side / 2.0 + 0.35),
         )?;
+        // the quartering holds for every doubling, not for this pair alone
+        // (R2: R1: the cloud's circle is not twice as wide at twelve hours as
+        // at one)
+        let doubling = kit.text_left(stage, ANY_DOUBLING, 24.0, Palette::ink(), v(DOUBLING_X, -1.95))?;
         line.wait_for(stage, "so each square mile")?;
         fade_in_all(stage, &tiling, 0.5)?;
-        fade_in_all(stage, &[equation, times, area_words], 0.6)?;
+        fade_in_all(stage, &[equation, times, area_words, doubling], 0.6)?;
 
         // chapter 09's curve, and four markers sliding down it as the hours pass
         line.wait_for(stage, "In this model")?;
         let mut away = pair.clone();
         away.extend(&tiling);
-        away.extend([equation, times, area_words]);
+        away.extend([equation, times, area_words, doubling]);
         fade_out_all(stage, &away, 0.5)?;
         let w = curve_window();
         let frame = stage.arena_mut().add(w.border(Palette::faint())?);
@@ -539,15 +654,45 @@ impl SceneConstruct for Adrift {
                 .arena_mut()
                 .add(polyline(curve_pts).style(line_style(Palette::ink(), 3.0)).build()),
         );
-        let same = kit.text(
+        // what the model is, and what its cloud's edge is (R2: S11, D6, S4)
+        let lines = model_lines(
+            &fact("F-D.track")?,
+            &fact("F-D.start_radius")?,
+            &fact("F-D.error_share")?,
+        );
+        let same = text_lines(
+            &kit,
             stage,
-            &format!("{MODEL}: {SAME_TRACK_HEAD} {} {SAME_TRACK_TAIL}", fact("F-D.track")?),
-            22.0,
+            &lines,
+            MODEL_PT,
             Palette::dim(),
-            v(w.center[0], w.bottom() - 0.95),
+            w.center[0],
+            w.bottom() - MODEL_DROP,
+            MODEL_STEP,
         )?;
         furniture.push(same);
         fade_in_all(stage, &furniture, 0.6)?;
+        // each hour's circle has its own radius and area (R2: M5, D6, R1):
+        // a row for each, brought in with its marker
+        let mut sizes: Vec<(String, String, String)> = Vec::new();
+        for h in drift::hours() {
+            let key = format!("F-D.h{h}");
+            sizes.push((
+                h.fixed(0),
+                fact(&format!("{key}.radius"))?,
+                fact(&format!("{key}.area"))?,
+            ));
+        }
+        let mut size_rows: Vec<Mob> = Vec::new();
+        for (i, row) in circle_rows(&sizes).iter().enumerate() {
+            size_rows.push(kit.text_left(
+                stage,
+                row,
+                CIRCLES_PT,
+                Palette::ink(),
+                v(CIRCLES_X, CIRCLES_TOP - CIRCLES_STEP * i as f64),
+            )?);
+        }
         // one marker rides the curve down as the hours pass, leaving each
         // hour's chance and a small cloud of that hour above it
         let spans = hours();
@@ -562,7 +707,7 @@ impl SceneConstruct for Adrift {
             s.add(d)
         });
         let mut stops: Vec<Mob> = Vec::new();
-        let mark_hour = |stage: &mut Stage<'_>, hr: &Hour, stops: &mut Vec<Mob>| -> fmn::Result<()> {
+        let mark_hour = |stage: &mut Stage<'_>, hr: &Hour, row: Mob, stops: &mut Vec<Mob>| -> fmn::Result<()> {
             let at = w.p(hr.coverage, 100.0 * hr.seeing);
             let cloud_r = SMALL_CLOUD_R * radius_miles(hr.h.f64()) / radius_miles(HOURS_MAX);
             let small_cloud = stage.arena_mut().add(
@@ -589,19 +734,22 @@ impl SceneConstruct for Adrift {
                 (at[0] + HOUR_WORDS_GAP + half, at[1] - HOUR_WORDS_DROP)
             };
             stage.move_to(words, v(x, y), ORIGIN);
-            fade_in_all(stage, &[small_cloud, words], 0.4)?;
-            stops.extend([small_cloud, words]);
+            fade_in_all(stage, &[small_cloud, words, row], 0.4)?;
+            stops.extend([small_cloud, words, row]);
             Ok(())
         };
         line.wait_for(stage, "one hour in")?;
         stage.add_to_scene(rider)?;
-        mark_hour(stage, &spans[0], &mut stops)?;
+        mark_hour(stage, &spans[0], size_rows[0], &mut stops)?;
         line.wait_for(stage, "Twelve hours in")?;
-        for hr in &spans[1..] {
+        for (hr, &row) in spans[1..].iter().zip(&size_rows[1..]) {
             stage.play(tween_linear(cov, hr.coverage, 0.9)?)?;
-            mark_hour(stage, hr, &mut stops)?;
+            mark_hour(stage, hr, row, &mut stops)?;
         }
         line.wait_end(stage)?;
+        // in the hold: what this model leaves out (R2: S10)
+        let survival = kit.text(stage, NOT_MODELLED, 22.0, Palette::ink(), v(w.center[0], SURVIVAL_Y))?;
+        fade_in_all(stage, &[survival], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 0.8)?;
@@ -787,5 +935,169 @@ mod tests {
             labels_bottom - question_top >= 0.05,
             "{labels_bottom} over {question_top}"
         );
+    }
+
+    /// R2 (M5, S2, R9, D13): 10_3's label of the strip is Table H-15's words
+    /// with the facts' numbers, the flight's length stands by the strip's
+    /// left end (clear of the cloud's edge and of the last known position's
+    /// words), the table's label stands over the held cloud inside the safe
+    /// area, and the lower-third says the strip is an effective width, in one
+    /// line.
+    #[test]
+    fn the_sweep_width_labels_say_what_the_facts_say_and_stand_clear() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap().to_owned();
+        let table = sweep_table_words(
+            &get("F-D.strip"),
+            &get("F-D.strip.feet"),
+            &get("F-D.strip.metres"),
+            &get("F-D.strip.altitude.feet"),
+        );
+        assert_eq!(
+            table,
+            "sweep width 0.1 sea mile, 608 ft, 185 m: person in the water, helicopter at 300 feet. US Coast Guard, Table H-15"
+        );
+        let flight = flight_words(&get("F-D.track"));
+        assert_eq!(flight, "one flight: 180 sea miles of track");
+        // the table's label: over the cloud's top, inside the frame's safe
+        // area on both sides and above
+        let cloud_top = START[1] + radius_miles(HOURS_MAX) * UNITS_PER_MILE;
+        let half = tag_width(&table, SWEEP_TAG_PT) / 2.0;
+        assert!(half < FRAME_X_RADIUS - 0.15, "the table's label is {} wide", 2.0 * half);
+        assert!(SWEEP_TAG_Y - 0.21 > cloud_top + 0.05, "{cloud_top}");
+        const {
+            assert!(SWEEP_TAG_Y + 0.21 < FRAME_Y_RADIUS - 0.15);
+        }
+        // the flight's tag: its right end clear of the strip's left end, its
+        // left end clear of the diamond, and over the last known position's
+        // words
+        let at = flight_tag_at(&flight);
+        let half = tag_width(&flight, FLIGHT_TAG_PT) / 2.0;
+        let strip_left = centre(HOURS_MAX)[0] - radius_miles(HOURS_MAX) * UNITS_PER_MILE;
+        assert!(at[0] + half <= strip_left - FLIGHT_TAG_GAP + 1e-9);
+        assert!(at[0] - half > START[0] + 0.16 + 0.3, "{}", at[0] - half);
+        let label_top = START[1] - 0.45 + 0.15;
+        assert!(
+            at[1] - 0.21 > label_top + 0.2,
+            "the flight's tag meets the last known position's words"
+        );
+        // the lower-third is one line and says both halves of "effective"
+        assert!(EFFECTIVE_WIDTH.chars().count() <= 92);
+        for part in [
+            "effective width",
+            "not a hard edge",
+            "outside the strip",
+            "misses some inside",
+        ] {
+            assert!(EFFECTIVE_WIDTH.contains(part), "{part}");
+        }
+        assert_eq!(SWEEP_LABEL, "sweep width:");
+    }
+
+    /// R2 (M5, D6, R1): the circles' rows are the facts' radius and area
+    /// (1.45 and 6.6, 2.35 and 17.3, 3.70 and 43.0, 6.40 and 128.7), the model
+    /// agrees with them (twelve hours is 4.4 times as wide and 19.5 times the
+    /// area of one hour), and the list stands left of the plot between the
+    /// labels of 100% and 50%.
+    #[test]
+    fn the_circles_rows_are_the_facts_and_stand_left_of_the_plot() {
+        let f = facts().unwrap();
+        let mut sizes = Vec::new();
+        for h in drift::hours() {
+            let key = format!("F-D.h{h}");
+            sizes.push((
+                h.fixed(0),
+                f.get(&format!("{key}.radius")).unwrap().to_owned(),
+                f.get(&format!("{key}.area")).unwrap().to_owned(),
+            ));
+        }
+        let rows = circle_rows(&sizes);
+        assert_eq!(
+            rows,
+            [
+                "1 hour: radius 1.45, area 6.6 sq sea miles",
+                "3: 2.35, 17.3",
+                "6: 3.70, 43.0",
+                "12: 6.40, 128.7",
+            ]
+        );
+        // the model's own numbers: the fact is the model's radius and area
+        for (h, (_, r, a)) in drift::hours().into_iter().zip(&sizes) {
+            assert_eq!(&drift::radius(h).fixed(2), r);
+            assert_eq!(&format!("{:.1}", drift::area(h)), a);
+        }
+        let (h1, h12) = (drift::hours()[0], drift::hours()[3]);
+        assert_eq!(
+            format!("{:.1}", drift::radius(h12).f64() / drift::radius(h1).f64()),
+            "4.4"
+        );
+        assert_eq!(format!("{:.1}", drift::area(h12) / drift::area(h1)), "19.5");
+        // room: the widest row ends before the plot's left edge and the
+        // labels' column, and the rows stand between the 100% and 50% labels
+        let w = curve_window();
+        let widest = rows.iter().map(|r| r.chars().count()).max().unwrap_or(0) as f64;
+        let right = CIRCLES_X + widest * CIRCLES_PT * CHAR_UNITS_PER_POINT;
+        // the 100% and 50% labels are over and under the rows, so the rows
+        // may stand in their column: they only have to end before the frame
+        assert!(right < w.p(0.0, 0.0)[0] - 0.15, "the list ends at {right}");
+        const {
+            assert!(CIRCLES_X > -FRAME_X_RADIUS + 0.15);
+        }
+        let top = CIRCLES_TOP + 0.1;
+        let bottom = CIRCLES_TOP - CIRCLES_STEP * (rows.len() as f64 - 1.0) - 0.1;
+        assert!(top < w.p(0.0, 100.0)[1] - 0.12, "{top}");
+        assert!(bottom > w.p(0.0, 50.0)[1] + 0.12, "{bottom}");
+    }
+
+    /// R2 (S11, D6, S4, S10, R1): the model label names the flight, how it is
+    /// spread and the cloud's edge, from the facts; "for any doubling" stands
+    /// right of the "× ¼" inside the frame; the three lines and the hold's
+    /// line stack under the plot's axis label inside the frame's safe area.
+    #[test]
+    fn the_model_label_defines_the_clouds_edge_and_stacks_under_the_plot() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap().to_owned();
+        let lines = model_lines(&get("F-D.track"), &get("F-D.start_radius"), &get("F-D.error_share"));
+        assert_eq!(
+            lines[0],
+            "model: the same 180 sea miles of track spread evenly over the circle as random strips (a cautious floor);"
+        );
+        assert_eq!(
+            lines[1],
+            "one flight taken as instant; the cloud a uniform disc whose edge holds every dot:"
+        );
+        assert_eq!(lines[2], "1 mile plus 0.3 of the distance drifted");
+        // the model's edge is that: the starting radius plus the share of the
+        // distance drifted
+        assert_eq!(drift::START_RADIUS.f64(), 1.0);
+        assert!((drift::ERROR_SHARE.f64() - 0.3).abs() < 1e-12);
+        let w = curve_window();
+        for l in &lines {
+            let half = l.chars().count() as f64 * MODEL_PT * CHAR_UNITS_PER_POINT / 2.0;
+            assert!(w.center[0] - half > -FRAME_X_RADIUS + 0.15, "{l}");
+            assert!(w.center[0] + half < FRAME_X_RADIUS - 0.15, "{l}");
+        }
+        // vertical stack: the axis label, three lines, the hold's line
+        let x_label_bottom = w.bottom() - 0.5 - 0.15;
+        // (18 points are about 0.23 high, 22 points about 0.25)
+        let first = w.bottom() - MODEL_DROP;
+        let last = first - MODEL_STEP * 2.0;
+        assert!(first + 0.115 < x_label_bottom, "the first line meets the axis label");
+        assert!(
+            last - 0.115 > SURVIVAL_Y + 0.125 + 0.03,
+            "the last line meets the hold's"
+        );
+        const {
+            assert!(SURVIVAL_Y - 0.125 > -FRAME_Y_RADIUS + 0.15);
+        }
+        let hold = NOT_MODELLED.chars().count() as f64 * 22.0 * CHAR_UNITS_PER_POINT / 2.0;
+        assert!(w.center[0] + hold < FRAME_X_RADIUS - 0.15);
+        assert!(NOT_MODELLED.starts_with("not in this model: how long a person survives"));
+        // "for any doubling" follows the quartering and fits the frame
+        let end = DOUBLING_X + ANY_DOUBLING.chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT;
+        const {
+            assert!(DOUBLING_X > 3.6 + 0.5);
+        }
+        assert!(end < FRAME_X_RADIUS - 0.15, "{end}");
     }
 }

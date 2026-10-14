@@ -21,8 +21,9 @@ use fmn::core::color::interpolate_color;
 use fmn::prelude::*;
 
 use super::draw::{
-    carry_pause, carry_question, fade_in_all, fade_out_all, faded_line, fail, flat, found, last_known, line_style,
-    map as lit_blue, out as slate, say, search as teal, true_place, tween_linear, wrong,
+    CHAR_UNITS_PER_POINT, balanced_lines, carry_pause, carry_question, fade_in_all, fade_out_all, faded_line, fail,
+    flat, found, last_known, line_style, map as lit_blue, out as slate, say, search as teal, tag, text_lines,
+    true_place, tween_linear, wrong,
 };
 use super::sound::SEARCH_MARK;
 use crate::facts::facts;
@@ -64,6 +65,16 @@ const MILES: &str = "miles";
 const OPEN_HATCH: &str = "open hatch";
 const PUMPS: &str = "pumps running";
 const SEEN: &str = "seen about";
+/// 11_1's note under the cloud (R2: D14; Brown 1980 is in the description):
+/// the proof of chapter 08 is for a wreck that stays put.
+const DRIFT_NOTE: &str = "the proof of chapter 08 is for a wreck that stays put; for a target that drifts, planners move and reweight the dots, and the simple rule is no longer proved best";
+/// 11_3's two tags (R2: M19): the guess's window, and the earlier point of
+/// fall on the boat's track.
+const EVENING_BEFORE: &str = "the evening before";
+const EARLIER_NORTH: &str = "the earlier he fell, the farther north";
+/// 11_6's lower-third (R2: S3; Tough, 2014; fact sheet, finding 7).
+const FROZE_LABEL: &str = "The software froze:";
+const FROZE_TEXT: &str = "the last track was drawn by hand through the high-chance area";
 
 // ------------------------------------------------------------------ geometry
 
@@ -95,10 +106,81 @@ const LIT_DEEP: f64 = 0.95;
 const OUT_OPACITY: f64 = 0.8;
 /// Half the length of the helicopter's track, scene units.
 const HELI_HALF: f64 = 1.2;
+/// How much wider a tag's back is than its words, scene units.
+const TAG_PAD: f64 = 0.3;
+/// 11_1's note under the cloud: its first line's height, the lines' spacing,
+/// their type size and how many characters a line holds.
+const NOTE_Y: f64 = -2.1;
+const NOTE_STEP: f64 = 0.3;
+const NOTE_PT: f64 = 20.0;
+const NOTE_CHARS: usize = 92;
+/// 11_3's tags: type size; the guess's tag stands this far over its label;
+/// the earlier point's ring has this radius and its tag stands this far
+/// right of it.
+const TAG_PT: f64 = 20.0;
+const EVENING_RISE: f64 = 0.4;
+const EARLIER_RADIUS: f64 = 0.09;
+const EARLIER_TAG_GAP: f64 = 0.45;
+/// 11_5's bracket over the gap between the guess's middle and the fall: its
+/// x (right of the clock labels), how far its serifs reach, the words' type
+/// size, and how far under the window's label it starts.
+const GAP_X: f64 = -4.1;
+const GAP_SERIF: f64 = 0.12;
+const GAP_PT: f64 = 24.0;
+const GAP_UNDER: f64 = 0.22;
+/// 11_6's note about the buoys: type size, line spacing, how many characters
+/// a line holds, how far under the track it stands, and its right end's
+/// distance from the helicopter's track.
+const BUOYS_PT: f64 = 18.0;
+const BUOYS_STEP: f64 = 0.27;
+const BUOYS_CHARS: usize = 42;
+const BUOYS_DROP: f64 = 0.9;
+const BUOYS_GAP: f64 = 0.15;
 
 /// Where the boat's track stands `miles` from the coast.
 fn track_point(miles: f64) -> Vec3 {
     v(TRACK_X, COAST_Y - miles * MILE)
+}
+
+/// How wide a tag of `words` at `pt` points runs, its back included.
+fn tag_width(words: &str, pt: f64) -> f64 {
+    words.chars().count() as f64 * pt * CHAR_UNITS_PER_POINT + TAG_PAD
+}
+
+/// Where the earlier point's tag stands (its middle): right of the ring on
+/// the track at the guess's early end, and half way between the coast line
+/// and the first map's point, so it meets neither.
+fn earlier_tag_at(night: &Night) -> Vec3 {
+    let early = track_point(night.miles_at(night.guess.0));
+    let first_map = track_point(night.miles_at(night.middle));
+    v(
+        early[0] + EARLIER_TAG_GAP + tag_width(EARLIER_NORTH, TAG_PT) / 2.0,
+        (COAST_Y + first_map[1]) / 2.0,
+    )
+}
+
+/// How wide the widest of `lines` runs at `pt` points (no back).
+fn lines_width(lines: &[String], pt: f64) -> f64 {
+    lines.iter().map(|l| l.chars().count()).max().unwrap_or(0) as f64 * pt * CHAR_UNITS_PER_POINT
+}
+
+/// 11_5's words over the gap: "5 hours" ("1 hour" for one), the fact's number.
+fn hours_words(hours: &str) -> String {
+    format!("{hours} {}", if hours == "1" { "hour" } else { "hours" })
+}
+
+/// 11_6's note beside the green point (R2: M10, D12): he held on to two
+/// buoys, so chapter 10's chance (`percent` in a hundred) is not about him.
+fn buoys_words(percent: &str) -> String {
+    format!(
+        "held on to two lobster buoys: not a free drifter, so chapter 10's {percent} in 100 is not a number about him"
+    )
+}
+
+/// The middle of 11_6's note about the buoys, from its lines: its right end
+/// a little left of the helicopter's track.
+fn buoys_centre_x(lines: &[String]) -> f64 {
+    TRACK_X - HELI_HALF - BUOYS_GAP - lines_width(lines, BUOYS_PT) / 2.0
 }
 
 // ---------------------------------------------------------------- the times
@@ -432,6 +514,22 @@ impl SceneConstruct for TwelveHours {
         )?;
         line.wait_for(stage, "since nineteen")?;
         fade_in_all(stage, &[planner], 0.5)?;
+        // for a target that drifts the simple rule is no longer proved best
+        // (R2: D14): a small note under the cloud, over the lower-third, in
+        // while the planner's dots are named
+        let note_lines = balanced_lines(DRIFT_NOTE, NOTE_CHARS);
+        let drift_note = text_lines(
+            &kit,
+            stage,
+            &note_lines,
+            NOTE_PT,
+            Palette::dim(),
+            CLOUD_AT[0],
+            NOTE_Y,
+            NOTE_STEP,
+        )?;
+        line.wait_for(stage, "It moves thousands")?;
+        fade_in_all(stage, &[drift_note], 0.6)?;
         // the search: a square laid over part of the cloud, its track
         let square = stage.arena_mut().add(
             polyline(square_outline(CLOUD_AT, side * CLOUD_MILE))
@@ -455,7 +553,7 @@ impl SceneConstruct for TwelveHours {
         // Long Island, and nobody sees him go
         let line = say(&kit, stage, LINES[1])?;
         let mut away: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(shown, 0.0, 0.6)?)?];
-        for m in [square, track, planner] {
+        for m in [square, track, planner, drift_note] {
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             away.push(stage.prepare(a.rt(0.6))?);
         }
@@ -606,6 +704,18 @@ impl SceneConstruct for TwelveHours {
             wrong(),
             v(LINE_X + 0.6, night.line_y(night.middle)),
         )?;
+        // the window is tagged in plain words (R2: M19): the evening before;
+        // its back's left edge stands a little left of the label's words
+        let evening = tag(
+            &kit,
+            stage,
+            EVENING_BEFORE,
+            v(
+                LINE_X + 0.45 + tag_width(EVENING_BEFORE, TAG_PT) / 2.0,
+                night.line_y(night.middle) + EVENING_RISE,
+            ),
+            TAG_PT,
+        )?;
         let fall = stage.add_value_tracker(night.middle);
         let fall_mark = stage.always_redraw(move |s| {
             let t = s.tracker_value(fall).unwrap_or(0.0);
@@ -618,7 +728,7 @@ impl SceneConstruct for TwelveHours {
             )
         });
         line.wait_for(stage, "guessed the evening before")?;
-        fade_in_all(stage, &[window, window_label], 0.6)?;
+        fade_in_all(stage, &[window, window_label, evening], 0.6)?;
         stage.add_to_scene(fall_mark)?;
         // the cloud of the first map, and the point it is run from
         line.wait_for(stage, "So the first map")?;
@@ -691,7 +801,18 @@ impl SceneConstruct for TwelveHours {
             wrong(),
             v(dx + 0.2, (north + south) / 2.0),
         )?;
-        fade_in_all(stage, &[span, span_label], 0.6)?;
+        // an earlier fall puts the first map's point farther north still: the
+        // guess's early end, on the track, is a second point of fall (R2: M19)
+        let earlier_at = track_point(night.miles_at(night.guess.0));
+        let earlier = stage.arena_mut().add(
+            Circle::new()
+                .radius(EARLIER_RADIUS)
+                .arc_center(earlier_at)
+                .style(line_style(wrong(), 3.0))
+                .build(),
+        );
+        let earlier_tag = tag(&kit, stage, EARLIER_NORTH, earlier_tag_at(&night), TAG_PT)?;
+        fade_in_all(stage, &[span, span_label, earlier, earlier_tag], 0.6)?;
         line.wait_end(stage)?;
 
         // ------------------------------------------------------- 11_4
@@ -762,6 +883,28 @@ impl SceneConstruct for TwelveHours {
             tween(fall, night.fell, 3.0)?,
         );
         fade_in_all(stage, &[last_time], 0.4)?;
+        // where the slider stops: the gap from the guess's middle to the
+        // fall is five hours, written over it (R2: M20), so that 14_3's "five
+        // hours off" has its antecedent
+        let (gap_top, gap_bottom) = (night.line_y(night.middle) - GAP_UNDER, night.line_y(night.fell));
+        let gap = stage.arena_mut().add(
+            polyline(vec![
+                v(GAP_X - GAP_SERIF, gap_top),
+                v(GAP_X, gap_top),
+                v(GAP_X, gap_bottom),
+                v(GAP_X - GAP_SERIF, gap_bottom),
+            ])
+            .style(line_style(Palette::ink(), 3.0))
+            .build(),
+        );
+        let gap_words = kit.text_left(
+            stage,
+            &hours_words(&fact("F-C.aldridge.hours_off")?),
+            GAP_PT,
+            Palette::ink(),
+            v(GAP_X + 0.25, (gap_top + gap_bottom) / 2.0),
+        )?;
+        fade_in_all(stage, &[gap, gap_words], 0.5)?;
         line.wait_end(stage)?;
 
         // ------------------------------------------------------- 11_6
@@ -812,7 +955,26 @@ impl SceneConstruct for TwelveHours {
             v(TRACK_X + 0.5, y0 - 0.55),
         )?;
         fade_in_all(stage, &[seen], 0.5)?;
+        // he held on to two buoys: not a free drifter, so chapter 10's chance
+        // is not a number about him (R2: M10, D12); said as "clinging to two
+        // lobster buoys" is
+        let buoys_lines = balanced_lines(&buoys_words(&fact("F-D.h12.seeing")?), BUOYS_CHARS);
+        let buoys = text_lines(
+            &kit,
+            stage,
+            &buoys_lines,
+            BUOYS_PT,
+            Palette::ink(),
+            buoys_centre_x(&buoys_lines),
+            y0 - BUOYS_DROP,
+            BUOYS_STEP,
+        )?;
+        line.wait_for(stage, "clinging to two lobster buoys")?;
+        fade_in_all(stage, &[buoys], 0.5)?;
         line.wait_end(stage)?;
+        // in the hold: the software did not find him (R2: S3)
+        let froze = lower_third(&kit, stage, FROZE_LABEL, FROZE_TEXT)?;
+        fade_in_all(stage, &[froze], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, HOLD_S)?;
         // the cloud leaves through its dots' own opacity, the rest by fades
@@ -1082,5 +1244,154 @@ mod tests {
         let (since, updates) = (text.find("since nineteen seventy-four"), text.find("and updates them"));
         assert!(since.is_some() && updates.is_some(), "{text}");
         assert!(since < updates, "the year is said before the search is drawn");
+        // the note about drift comes in as the dots are named
+        assert!(text.contains("It moves thousands"));
+    }
+
+    /// R2 (D14): 11_1's note under the cloud says the proof is for a wreck
+    /// that stays put, in at most two lines, inside the frame, under the
+    /// cloud's lowest dot and over the planner's lower-third.
+    #[test]
+    fn the_drift_note_stands_under_the_cloud_and_over_the_lower_third() {
+        let lines = balanced_lines(DRIFT_NOTE, NOTE_CHARS);
+        assert!(lines.len() <= 2, "{lines:?}");
+        assert_eq!(lines.join(" "), DRIFT_NOTE);
+        for part in [
+            "proof of chapter 08",
+            "a wreck that stays put",
+            "a target that drifts",
+            "reweight the dots",
+            "no longer proved best",
+        ] {
+            assert!(DRIFT_NOTE.contains(part), "{part}");
+        }
+        let half = lines_width(&lines, NOTE_PT) / 2.0;
+        assert!(CLOUD_AT[0] - half > -FRAME_X_RADIUS + 0.15 && CLOUD_AT[0] + half < FRAME_X_RADIUS - 0.15);
+        // a line of 20 points is about 0.26 high
+        let cloud_bottom = CLOUD_AT[1] - radius_miles(drift::hours()[1].f64()) * CLOUD_MILE;
+        assert!(NOTE_Y + 0.13 < cloud_bottom - 0.1, "{cloud_bottom}");
+        // the planner's lower-third is one line: the band's floor 0.2 over
+        // the frame's, a back 0.3 and a line of 0.36 high
+        let third_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 0.36;
+        let last = NOTE_Y - NOTE_STEP * (lines.len() as f64 - 1.0);
+        assert!(last - 0.13 > third_top + 0.1, "{last}");
+    }
+
+    /// R2 (M19): 11_3's guess is tagged "the evening before" over its label,
+    /// inside the hour line's column and clear of the label; the earlier
+    /// point of fall stands on the track north of the first map's point,
+    /// with its tag between the coast and the span's bracket's top, inside
+    /// the frame.
+    #[test]
+    fn the_evening_and_the_earlier_point_are_tagged_where_they_read() {
+        let f = facts().unwrap();
+        let n = Night::from_facts(&f).unwrap();
+        // the window's label is at the middle's height, the tag over it
+        let tag_bottom = n.line_y(n.middle) + EVENING_RISE - 0.21;
+        assert!(tag_bottom > n.line_y(n.middle) + 0.13 + 0.05, "{tag_bottom}");
+        let left = LINE_X + 0.45;
+        let right = left + tag_width(EVENING_BEFORE, TAG_PT);
+        assert!(left > LINE_X + 0.36, "it stands right of the window's band");
+        assert!(right < TRACK_X - 0.5, "it ends before the track");
+        // above the window label's top and under the hour line's top
+        assert!(n.line_y(n.middle) + EVENING_RISE + 0.21 < LINE_TOP + 0.5);
+        // the earlier point: the guess's early end, north of the middle's
+        let early = track_point(n.miles_at(n.guess.0));
+        let middle = track_point(n.miles_at(n.middle));
+        assert!(early[1] > middle[1], "the earlier he fell, the farther north");
+        assert!(n.miles_at(n.guess.0) < n.miles_at(n.middle));
+        assert!(n.miles_at(n.guess.0) >= 0.0);
+        // its tag (20 points: a back about 0.47 high): right of the ring,
+        // between the coast line and the first map's point, inside the frame
+        let at = earlier_tag_at(&n);
+        let w = tag_width(EARLIER_NORTH, TAG_PT);
+        assert!(at[0] - w / 2.0 > early[0] + EARLIER_RADIUS, "the tag meets its ring");
+        assert!(at[0] + w / 2.0 < FRAME_X_RADIUS - 0.15, "{}", at[0] + w / 2.0);
+        assert!(at[1] + 0.235 < COAST_Y - 0.05, "the tag meets the coast");
+        // the first map's cloud (as it stands at the re-run) is round its
+        // point at the middle: the tag starts right of it
+        let cloud_r = radius_miles(n.hours_between(n.middle, n.rerun)) * MILE;
+        assert!(
+            at[0] - w / 2.0 > middle[0] + cloud_r + 0.05,
+            "the tag meets the first map's cloud"
+        );
+        assert_eq!(EARLIER_NORTH, "the earlier he fell, the farther north");
+        assert_eq!(EVENING_BEFORE, "the evening before");
+    }
+
+    /// R2 (M20): 11_5 writes the fact's "5 hours" over the gap from the
+    /// guess's middle to the fall, right of the clock labels and inside the
+    /// hour line's column, and the number is the model's hours between.
+    #[test]
+    fn the_gap_is_five_hours_and_stands_right_of_the_clock_labels() {
+        let f = facts().unwrap();
+        let n = Night::from_facts(&f).unwrap();
+        let hours = f.get("F-C.aldridge.hours_off").unwrap();
+        assert_eq!(hours_words(hours), "5 hours");
+        assert_eq!(hours_words("1"), "1 hour");
+        assert_eq!(n.hours_between(n.middle, n.fell).to_string(), *hours);
+        // the clock label of the guess's middle ("10:30 p.m.", 22 points)
+        // ends before the bracket's serifs; the bracket starts under the
+        // window's label and ends at the fall's height
+        let first_time_right = LINE_X + 0.6 + "10:30 p.m.".chars().count() as f64 * 22.0 * CHAR_UNITS_PER_POINT;
+        assert!(GAP_X - GAP_SERIF > first_time_right + 0.1, "{first_time_right}");
+        // the window's label (24 points, centred on the middle's height) is
+        // above the bracket's top tick
+        let top = n.line_y(n.middle) - GAP_UNDER;
+        assert!(top < n.line_y(n.middle) - 0.13 - 0.05, "under the window's label");
+        assert!(n.line_y(n.fell) > LINE_BOTTOM);
+        // the words stand right of the bracket and before the track's labels
+        let width = hours_words(hours).chars().count() as f64 * GAP_PT * CHAR_UNITS_PER_POINT;
+        assert!(
+            GAP_X + 0.25 + width < TRACK_X - 1.0,
+            "the words reach the track's labels"
+        );
+    }
+
+    /// R2 (M10, D12, S3): 11_6's note says he held on to two lobster buoys
+    /// and that chapter 10's number (the fact's 13) is not about him, in two
+    /// lines to the left of the helicopter's track, clear of the clock
+    /// labels' column; the lower-third that ends the chapter is one line and
+    /// says the software froze.
+    #[test]
+    fn the_buoys_and_the_frozen_software_are_said_where_they_read() {
+        let f = facts().unwrap();
+        let percent = f.get("F-D.h12.seeing").unwrap();
+        assert_eq!(percent, "13");
+        let words = buoys_words(percent);
+        assert_eq!(
+            words,
+            "held on to two lobster buoys: not a free drifter, so chapter 10's 13 in 100 is not a number about him"
+        );
+        let lines = balanced_lines(&words, BUOYS_CHARS);
+        assert!(lines.len() <= 3, "{lines:?}");
+        assert_eq!(lines.join(" "), words);
+        // left of the helicopter's track and inside the frame
+        let half = lines_width(&lines, BUOYS_PT) / 2.0;
+        let centre = buoys_centre_x(&lines);
+        assert!(centre + half <= TRACK_X - HELI_HALF - BUOYS_GAP + 1e-9);
+        // and clear of 11_5's bracket, whose line runs down the same rows
+        assert!(
+            centre - half > GAP_X + 0.3,
+            "the note meets the bracket: {}",
+            centre - half
+        );
+        // under the green point and its track and under 11_5's "5 hours"
+        // (which it may stand below in the same columns), over the model tag
+        // and the planner's band; 18 points are about 0.23 high
+        let n = Night::from_facts(&f).unwrap();
+        let y0 = track_point(n.offshore)[1];
+        let top = y0 - BUOYS_DROP + 0.115;
+        let bottom = y0 - BUOYS_DROP - BUOYS_STEP * (lines.len() as f64 - 1.0) - 0.115;
+        assert!(top < y0 - 0.55 - 0.15, "the buoys' note meets the sighting's words");
+        let gap_mid = (n.line_y(n.middle) - GAP_UNDER + n.line_y(n.fell)) / 2.0;
+        assert!(top < gap_mid - 0.13 - 0.1, "the buoys' note meets the gap's words");
+        assert!(bottom > MODEL_Y + 0.2, "{bottom}");
+        let third_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 0.36;
+        assert!(bottom > third_top + 0.1, "{bottom}");
+        // the lower-third: one line, the words as the sources have them
+        assert_eq!(FROZE_LABEL, "The software froze:");
+        assert!(FROZE_TEXT.contains("drawn by hand") && FROZE_TEXT.contains("high-chance area"));
+        assert!(FROZE_TEXT.chars().count() <= 92);
     }
 }
