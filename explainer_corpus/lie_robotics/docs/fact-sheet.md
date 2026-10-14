@@ -561,6 +561,7 @@ G-J: velocities. Levers in metres; ranks of the Jacobian (and of the L shape's w
 | `G-J.ell.lever.6` | 0.1260 |
 | `G-J.ell.lever.7` | 0.0000 |
 | `G-J.ell.col2` | 0.0000,1.0000,0.0000,-0.3600,0.0000,0.0000 |
+| `G-J.ell.J` | 0.00,0.00,1.00,0.00,0.00,0.00,0.00;0.00,1.00,0.00,-1.00,0.00,1.00,0.00;1.00,0.00,0.00,0.00,1.00,0.00,1.00;0.00,-0.36,0.00,0.36,0.00,-0.76,0.00;0.00,0.00,0.36,0.00,-0.42,0.00,-0.42;0.00,0.00,0.00,-0.42,0.00,0.42,0.00 |
 | `G-J.rank.home` | 3 |
 | `G-J.rank.stretch` | 4 |
 | `G-J.rank.elbow_straight` | 5 |
@@ -596,6 +597,7 @@ G-I: steps and paths. Newton's run from the start pose to the goal; the screw be
 | `G-I.start.R` | -1,0,0;0,1,0;0,0,-1 |
 | `G-I.goal.p` | 0.4000,0.3000,0.2500 |
 | `G-I.goal.R` | 0,-1,0;-1,0,0;0,0,-1 |
+| `G-I.error.twist` | 0.000,0.000,-1.571,-0.071,0.401,0.348 |
 | `G-I.ik.steps` | 3 |
 | `G-I.ik.dist_mm` | 504.99,93.93,4.15,0.03 |
 | `G-I.ik.angle_deg` | 90.0000,8.6404,0.7239,0.0076 |

@@ -4,7 +4,7 @@
 //! value from `facts` (the probe covers the digits through [`DIGITS`]).
 
 /// The digits and separators numbers are printed with.
-pub const DIGITS: &str = "0123456789 , . ° % + − × ÷ = ≠ ( )";
+pub const DIGITS: &str = "0123456789 , . ° % + − × ÷ = ≠ ( ) ′ ‖ – — ’ “ ” … ² ³ : ?";
 
 pub const TITLE: &str = "Why Robot Arms Think in Lie Groups";
 
