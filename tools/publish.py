@@ -29,9 +29,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def fmn_commit(root: Path) -> str:
+    """The franken_manim commit the workspace builds against: Cargo.lock's resolved source (`...franken_manim
+    ?rev=R#SHA`), else Cargo.toml's `rev = "..."` on the franken_manim git dependency."""
+    lock = root / "Cargo.lock"
+    if lock.is_file():
+        m = re.search(r'franken_manim\?rev=[0-9a-f]*#([0-9a-f]{7,40})', lock.read_text(encoding="utf-8"))
+        if m:
+            return m.group(1)[:12]
     cargo_toml = root / "Cargo.toml"
     if cargo_toml.is_file():
-        m = re.search(r'franken_manim\?rev=([0-9a-f]{7,40})', cargo_toml.read_text(encoding="utf-8"))
+        m = re.search(r'franken_manim"\s*,\s*rev\s*=\s*"([0-9a-f]{7,40})"', cargo_toml.read_text(encoding="utf-8"))
         if m:
             return m.group(1)[:12]
     return "unknown"
@@ -89,22 +96,28 @@ def build_1080p_proxy(master_mp4: Path, out_mp4: Path) -> None:
     subprocess.run(cmd, check=True, timeout=600)
 
 
-def build_contact_sheet(master_mp4: Path, out_png: Path) -> None:
+def build_contact_sheet(master_mp4: Path, out_png: Path, tiles: int = 8) -> None:
+    """Eight stills spread over the whole cut (the middle of each eighth), 4x2 at 480x270. Tiling the first
+    frames instead gave a sheet of the opening's dark first eighth of a second."""
+    duration = float(probe_video(master_mp4)["duration"].rstrip("s"))
+    step = duration / tiles
     cmd = [
         "ffmpeg",
         "-hide_banner",
         "-loglevel",
         "error",
         "-y",
+        "-ss",
+        f"{step / 2:.3f}",
         "-i",
         str(master_mp4),
         "-vf",
-        "scale=480:270:flags=lanczos,tile=4x2",
+        f"fps=1/{step:.6f},scale=480:270:flags=lanczos,tile=4x2",
         "-frames:v",
         "1",
         str(out_png),
     ]
-    subprocess.run(cmd, check=True, timeout=120)
+    subprocess.run(cmd, check=True, timeout=300)
 
 
 def format_srt_ts(seconds: float) -> str:
