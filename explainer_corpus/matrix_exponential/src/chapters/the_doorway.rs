@@ -404,6 +404,9 @@ impl SceneConstruct for TheDoorway {
         cube_old.push(cube.anchor);
         stage.clear_updaters(cube.anchor, true);
         leave.extend(&cube_old);
+        // the answer stays fully up until "No." has been said (the finished
+        // read puts that at 0.82 s; the card went at once)
+        line.wait_first_sentence(stage)?;
         fade_out_all(stage, &leave, 0.5)?;
         let tip = shown::CREEP_TIP;
         let loops = stage.add_value_tracker(0.0);
@@ -457,7 +460,9 @@ impl SceneConstruct for TheDoorway {
         let deg = kit.text(stage, "degrees", 30.0, Palette::dim(), v(5.7, 1.3))?;
         fade_in_all(stage, &[angle_label, deg], 0.4)?;
         let n_loops = f64::from(shown::CREEP_LOOPS);
-        play!(stage; tween_linear(loops, n_loops, 6.5)?);
+        // (6.5 s while the card went at once; the card now waits 0.8 s for its
+        // sentence and the beat keeps its length)
+        play!(stage; tween_linear(loops, n_loops, 5.7)?);
         line.wait_for(stage, "The commutator of two spins is a third spin")?;
         let bracket = kit.tex(
             stage,

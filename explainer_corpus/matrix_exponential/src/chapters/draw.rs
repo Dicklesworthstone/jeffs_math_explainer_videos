@@ -2182,6 +2182,7 @@ mod tests {
         quiz_08_3_leaves_on_the_real_first_sentence: "08_3",
         quiz_10_5_leaves_on_the_real_first_sentence: "10_5",
         quiz_11_3_leaves_on_the_real_first_sentence: "11_3",
+        quiz_15_2_leaves_on_the_real_first_sentence: "15_2",
         quiz_16_3_leaves_on_the_real_first_sentence: "16_3",
     }
 
