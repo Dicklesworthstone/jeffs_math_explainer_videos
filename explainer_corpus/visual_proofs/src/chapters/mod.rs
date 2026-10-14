@@ -5,6 +5,7 @@
 //! as its storyboard's animatic and is replaced by its real scene as it is
 //! built; a module is declared here only once its file is committed.
 
+pub mod a_third;
 pub mod cold_open;
 pub mod draw;
 pub mod glyphs;
@@ -48,7 +49,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("08_the_box", 0.6),
         animatic!("09_every_height", 0.5),
         animatic!("10_halves", 0.4),
-        animatic!("11_a_third", 0.5),
+        scene!("11_a_third", 0.5, a_third::AThird),
         animatic!("12_the_cut_cube", 0.55),
         animatic!("13_four_triangles", 0.6),
         animatic!("14_the_missing_square", 0.3),

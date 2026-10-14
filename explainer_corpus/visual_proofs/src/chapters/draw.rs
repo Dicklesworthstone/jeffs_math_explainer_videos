@@ -627,6 +627,10 @@ pub struct QuizCard {
     pub shown: Mob,
     /// Carries the updater.
     pub anchor: Mob,
+    /// The chapter key the card was built under, to tell the runs of the
+    /// section 5 audit apart (tests only).
+    #[cfg(test)]
+    chapter: String,
 }
 
 /// The ring: what is left of a circle of radius `r` at `c`, drained
@@ -747,7 +751,15 @@ impl QuizCard {
             left,
             shown,
             anchor,
+            #[cfg(test)]
+            chapter: kit.chapter.clone(),
         })
+    }
+
+    /// Note when this card did `kind` (tests only: the section 5 audit).
+    #[cfg(test)]
+    fn log(&self, kind: &'static str, stage: &Stage<'_>) {
+        quiz_log::record(&self.chapter, self.quiz.line, kind, stage.scene().time().to_f64());
     }
 
     fn ring_at(look: QuizLook) -> Vec3 {
@@ -772,6 +784,11 @@ impl QuizCard {
             stage.add_to_scene(d)?;
         }
         stage.play(tween(self.shown, 1.0, 0.25)?)?;
+        #[cfg(test)]
+        {
+            self.log("frame", stage);
+            self.log("ring", stage);
+        }
         Ok(())
     }
 
@@ -785,7 +802,14 @@ impl QuizCard {
         let label = format!("{}:{}", kit.chapter, self.quiz.line);
         kit.sonify(stage, n + LAND_S, &label, &wav)?;
         let start = stage.scene().time().to_f64();
+        #[cfg(test)]
+        self.log("window_start", stage);
         stage.play(tween_linear(self.left, 0.0, n)?)?;
+        #[cfg(test)]
+        {
+            self.log("window_end", stage);
+            self.log("land", stage);
+        }
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         anims.push(stage.prepare(tween(self.shown, 0.0, 0.25)?)?);
         for m in [self.track, self.pause_line] {
@@ -1556,9 +1580,485 @@ pub fn morph(stage: &mut Stage<'_>, from: &Formula, to: &Formula, rt: f64) -> fm
     Ok(())
 }
 
+// ----------------------------------------- terms of a line, each its colour
+
+/// An exact fraction as a fact prints it (`21/64`, `1/3`, `2`) in TeX:
+/// `\frac{21}{64}`, `\frac{1}{3}`, `2`.
+pub fn frac_tex(s: &str) -> String {
+    match s.split_once('/') {
+        Some((n, d)) => format!("\\frac{{{n}}}{{{d}}}"),
+        None => s.to_owned(),
+    }
+}
+
+/// Terms of one line of mathematics, each in its own colour, laid left to
+/// right with `gap` between them and centred at `centre`; shrunk together
+/// if the whole is wider than `room` (text-per-term colour by one mobject
+/// a term, never `t2c`: a repeated term would share one colour). Detached.
+pub fn tex_row(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    parts: &[(&str, Srgb)],
+    size: f64,
+    centre: Vec3,
+    gap: f64,
+    room: f64,
+) -> fmn::Result<Vec<Mob>> {
+    let mut mobs = Vec::new();
+    for &(src, color) in parts {
+        mobs.push(kit.tex(stage, src, size, color, &[], ORIGIN)?);
+    }
+    let widths: Vec<f64> = mobs.iter().map(|&m| stage.get_width(m)).collect();
+    let total = widths.iter().sum::<f64>() + gap * (parts.len() as f64 - 1.0).max(0.0);
+    let f = if total > room { room / total } else { 1.0 };
+    let mut x = centre[0] - total * f / 2.0;
+    for (&m, &w) in mobs.iter().zip(&widths) {
+        if f < 1.0 {
+            stage.set_width(m, w * f, false);
+        }
+        stage.move_to(m, v(x + w * f / 2.0, centre[1]), ORIGIN);
+        x += (w + gap) * f;
+    }
+    Ok(mobs)
+}
+
+/// A lower-third that mixes words and formulas ("the mixed formula-and-words
+/// lower-third as two mobjects", build note E10): the `label` in gold, then
+/// each of `parts` in turn, on the kit's band at the foot of the frame, shrunk
+/// to fit. Detached, one group.
+pub fn formula_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, parts: &[Words<'_>]) -> fmn::Result<Mob> {
+    let w = 2.0 * FRAME_X_RADIUS - 0.8;
+    let h = 0.9;
+    let centre = v(0.0, -FRAME_Y_RADIUS + 0.2 + h / 2.0);
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.12)
+        .style(Style::default().fill(panel(), 0.94).stroke(faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(centre);
+    let back = stage.arena_mut().add(back);
+    let tag = kit.text_left(stage, label, 26.0, hero(), v(0.0, centre[1]))?;
+    let mut mobs = vec![tag];
+    for part in parts {
+        mobs.push(part.set(kit, stage, 26.0, ink(), v(0.0, centre[1]))?);
+    }
+    let gap = 0.2;
+    let widths: Vec<f64> = mobs.iter().map(|&m| stage.get_width(m)).collect();
+    let total = widths.iter().sum::<f64>() + gap * (mobs.len() as f64 - 1.0);
+    let room = w - 0.6;
+    let f = if total > room { room / total } else { 1.0 };
+    let mut x = centre[0] - total * f / 2.0;
+    for (&m, &mw) in mobs.iter().zip(&widths) {
+        if f < 1.0 {
+            stage.set_width(m, mw * f, false);
+        }
+        stage.move_to(m, v(x + mw * f / 2.0, centre[1]), ORIGIN);
+        x += (mw + gap) * f;
+    }
+    let mut all = vec![back];
+    all.extend(mobs);
+    group(stage, &all)
+}
+
+// ---------------------------------------------------- the shelf and the lens
+
+/// The shelf along the top edge (storyboard, "The card"): when a card has
+/// passed, its picture shrinks to a thumbnail in the next slot, left to
+/// right. Slot `i` is `i`-th in the order the cards pass: 03, 04, 06, 09, 10,
+/// 11, then 12 and 13; the lying picture leaves its slot empty. A picture
+/// above the shelf's row keeps below [`SHELF_FLOOR`].
+pub const SHELF_LEFT: f64 = -6.0;
+pub const SHELF_Y: f64 = 3.4;
+pub const SHELF_PITCH: f64 = 1.3;
+/// The side of a thumbnail, scene units.
+pub const THUMB: f64 = 0.8;
+/// A picture that shares the screen with the shelf stays below this y.
+pub const SHELF_FLOOR: f64 = 2.95;
+
+/// The middle of shelf slot `i` (from 0).
+pub fn shelf_slot(i: usize) -> Vec3 {
+    v(SHELF_LEFT + SHELF_PITCH * i as f64, SHELF_Y)
+}
+
+/// File a picture on the shelf: every mobject of `mobs` (already in the
+/// scene, not grouped) shrinks about `from` by `THUMB / size` and lands so
+/// that the picture, `size` scene units across and centred at `from`, is a
+/// thumbnail centred in slot `slot`. `rt` seconds, all together.
+pub fn file_on_shelf(
+    stage: &mut Stage<'_>,
+    mobs: &[Mob],
+    from: Vec3,
+    size: f64,
+    slot: usize,
+    rt: f64,
+) -> fmn::Result<()> {
+    let k = THUMB / size;
+    let to = shelf_slot(slot);
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let c = stage.get_center(m);
+        let target = v(to[0] + k * (c[0] - from[0]), to[1] + k * (c[1] - from[1]));
+        stage.clear_updaters(m, true);
+        anims.push(stage.prepare(fly(m, target, k, rt)?)?);
+    }
+    if !anims.is_empty() {
+        stage.play_prepared(anims)?;
+    }
+    Ok(())
+}
+
+/// Where the magnifier ring sits (storyboard, "The card": the Assumed line is
+/// a close-up of the fit it names, on the same ring every time) and its
+/// radius.
+pub const LENS_AT: Vec3 = [2.7, 0.7, 0.0];
+pub const LENS_R: f64 = 1.05;
+
+/// The magnifier ring, in ink, centred at [`LENS_AT`]. Detached; the
+/// chapter draws the close-up inside it.
+pub fn lens(stage: &mut Stage<'_>) -> Mob {
+    stage.arena_mut().add(
+        Circle::new()
+            .radius(LENS_R)
+            .arc_center(LENS_AT)
+            .style(faded_line(ink(), 4.0, 1.0))
+            .build(),
+    )
+}
+
+/// A tick (or, with `ok` false, a cross) drawn over the close-up, `size`
+/// across, centred at `at`: ink for a tick, `warn` for a cross. Detached.
+pub fn lens_mark(stage: &mut Stage<'_>, at: Vec3, size: f64, ok: bool) -> Mob {
+    let color = if ok { ink() } else { warn() };
+    let shape = if ok { checkmark(color) } else { exmark(color) };
+    stage.arena_mut().add(shape.with_height(size, false).moved_to(at))
+}
+
+// ------------------------------------------------------------ the harness
+
+/// Construct a real chapter in a test: render it to a tiny PNG sequence
+/// through franken_manim's facade with the kit's layout lint on, so every
+/// `wait_for` phrase, every TeX string, every tracker and updater runs.
+#[cfg(test)]
+pub mod testing {
+    use std::rc::Rc;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    use explainer_kit::{Kit, Linter, Narrator, Registered, Script};
+    use fmn::prelude::*;
+
+    /// What a constructed chapter left behind.
+    pub struct Ran {
+        pub frames: u64,
+        /// The scene's length, seconds (at the test's frame rate).
+        pub seconds: f64,
+        /// The layout lint's findings (empty when clean).
+        pub lint: String,
+        pub lint_count: usize,
+        /// Every text-like mobject the chapter built, with its source.
+        pub registered: Vec<Registered>,
+    }
+
+    /// Run chapter `key` of the registry at 64 by 36 and 10 frames a second,
+    /// visual-only (no narrator: a line lasts its scratch-voice estimate).
+    pub fn run(key: &str) -> Result<Ran, String> {
+        run_as(key, key, None).map(|(ran, _)| ran)
+    }
+
+    /// The same run with the scratch voice placed: every line starts when
+    /// the voice would be free and lasts its estimated length, as in a
+    /// scratch-voice draft, so the timing of a quiz can be measured.
+    pub fn run_voiced(key: &str) -> Result<Voiced, String> {
+        let script = Script::parse(crate::SCRIPT)?;
+        let narrator = Narrator::estimate(&script);
+        // a name of its own, so the events of this run are not mixed with
+        // another test's run of the same chapter
+        let tag = format!("{key}#voiced");
+        let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)))?;
+        let timeline = kit
+            .finished
+            .borrow()
+            .clone()
+            .ok_or_else(|| format!("{key}: the chapter left no timeline"))?;
+        let fps = f64::from(timeline.fps);
+        let lines = narrator
+            .said()
+            .into_iter()
+            .map(|(id, at)| {
+                let len = narrator.length(&id).unwrap_or(0.0);
+                (id, at, len)
+            })
+            .collect();
+        let listens = timeline
+            .listens
+            .iter()
+            .map(|w| (w.label.clone(), w.frame as f64 / fps, w.seconds))
+            .collect();
+        Ok(Voiced {
+            ran,
+            tag,
+            lines,
+            listens,
+        })
+    }
+
+    /// Run chapter `key` with its kit named `name`, and a narrator if given.
+    fn run_as(key: &str, name: &str, narrator: Option<Rc<Narrator>>) -> Result<(Ran, Kit), String> {
+        static RUNS: AtomicUsize = AtomicUsize::new(0);
+        let chapter = crate::chapters::registry()
+            .into_iter()
+            .find(|c| c.key == key)
+            .ok_or_else(|| format!("no chapter {key} in the registry"))?;
+        let lint = Rc::new(Linter::new());
+        let mut kit = Kit::new().map_err(|e| e.to_string())?.with_lint(Rc::clone(&lint));
+        if let Some(n) = narrator {
+            kit = kit.with_narrator(n);
+        }
+        kit.chapter = name.to_owned();
+        let mut scene = (chapter.make)(kit.clone());
+        let n = RUNS.fetch_add(1, Ordering::Relaxed);
+        let dir = std::env::temp_dir().join(format!("visual_proofs_{key}_{}_{n}", std::process::id()));
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;
+        opts.config.camera.resolution = (64, 36);
+        opts.config.camera.fps = 10;
+        opts.config.camera.background_color = super::ground_hex().to_owned();
+        let report = fmn::render(scene.as_mut(), opts).map_err(|e| format!("{key}: {e}"))?;
+        let frames = report.artifact.frame_count as u64;
+        let ran = Ran {
+            frames,
+            seconds: frames as f64 / 10.0,
+            lint: lint.report(),
+            lint_count: lint.count(),
+            registered: kit.registered(),
+        };
+        Ok((ran, kit))
+    }
+
+    /// A chapter run with the scratch voice placed.
+    pub struct Voiced {
+        pub ran: Ran,
+        /// The kit's name in this run (the key of its quiz events).
+        pub tag: String,
+        /// Every line said: its id, its start and its length, seconds.
+        pub lines: Vec<(String, f64, f64)>,
+        /// Every listen window: its label, its start and its length, seconds.
+        pub listens: Vec<(String, f64, f64)>,
+    }
+
+    /// What the quiz asked on one line did, measured (scene seconds).
+    #[derive(Debug)]
+    pub struct QuizAudit {
+        pub line: String,
+        /// The quiz's countdown, as `model::QUIZZES` has it.
+        pub seconds: f64,
+        /// When the narrator finishes the question (the line's end).
+        pub question_ends: f64,
+        /// When the card, with its question, was fully shown.
+        pub card_shown: f64,
+        /// When the ring and its seconds were full on screen.
+        pub ring_armed: f64,
+        /// The silent countdown: its start and its end.
+        pub window: (f64, f64),
+        /// When the answer began to land.
+        pub answer_lands: f64,
+        /// Lines whose start falls inside the countdown (there must be none).
+        pub spoken_inside: Vec<String>,
+        /// The next line and when it starts (None for the chapter's last).
+        pub next_line: Option<(String, f64)>,
+        /// The chapter's length with the scratch voice.
+        pub chapter_seconds: f64,
+        /// The listen window's own length, which holds the answer for
+        /// `LAND_S` after the countdown.
+        pub listen_seconds: f64,
+    }
+
+    /// Run the chapter of the quiz asked on `line` with the scratch voice and
+    /// measure the quiz's times (REVIEW-AND-CONTINUITY section 5).
+    pub fn audit_quiz(line: &str) -> Result<QuizAudit, String> {
+        let quiz = crate::model::QUIZZES
+            .iter()
+            .find(|q| q.line == line)
+            .ok_or_else(|| format!("line {line} asks no quiz in model::QUIZZES"))?;
+        let prefix = format!("{}_", line.split('_').next().unwrap_or(line));
+        let key = crate::chapters::registry()
+            .into_iter()
+            .map(|c| c.key)
+            .find(|k| k.starts_with(&prefix))
+            .ok_or_else(|| format!("no chapter for line {line}"))?;
+        let voiced = run_voiced(key)?;
+        let events = super::quiz_log::take(&voiced.tag, line);
+        let at = |kind: &str| {
+            events
+                .iter()
+                .find(|(k, _)| *k == kind)
+                .map(|&(_, t)| t)
+                .ok_or_else(|| format!("{line}: the card never did {kind:?} ({events:?})"))
+        };
+        let (_, start, len) = voiced
+            .lines
+            .iter()
+            .find(|(id, ..)| id == line)
+            .cloned()
+            .ok_or_else(|| format!("{line} was never said"))?;
+        let window = (at("window_start")?, at("window_end")?);
+        let listen = voiced
+            .listens
+            .iter()
+            .find(|(label, ..)| label.ends_with(&format!(":{line}")))
+            .ok_or_else(|| format!("{line}: no listen window was opened"))?;
+        let held = f64::from(quiz.seconds) + super::LAND_S;
+        if (listen.1 - window.0).abs() > 0.11 || (listen.2 - held).abs() > 1e-9 {
+            return Err(format!(
+                "{line}: the listen window ({:.2} s for {:.1} s) is not the ring's ({:.2} s for {held:.1} s)",
+                listen.1, listen.2, window.0
+            ));
+        }
+        let spoken_inside = voiced
+            .lines
+            .iter()
+            .filter(|(id, at, _)| id != line && *at > window.0 - 0.05 && *at < window.1 - 0.05)
+            .map(|(id, ..)| id.clone())
+            .collect();
+        let next_line = voiced
+            .lines
+            .iter()
+            .filter(|(_, at, _)| *at > start)
+            .min_by(|a, b| a.1.total_cmp(&b.1))
+            .map(|(id, at, _)| (id.clone(), *at));
+        Ok(QuizAudit {
+            line: line.to_owned(),
+            seconds: f64::from(quiz.seconds),
+            question_ends: start + len,
+            card_shown: at("frame")?,
+            ring_armed: at("ring")?,
+            window,
+            answer_lands: at("land")?,
+            spoken_inside,
+            next_line,
+            chapter_seconds: voiced.ran.seconds,
+            listen_seconds: listen.2,
+        })
+    }
+}
+
+/// The background as the engine's config wants it (a `#RRGGBB` string).
+#[cfg(test)]
+fn ground_hex() -> &'static str {
+    explainer_kit::BACKGROUND
+}
+
+/// Events of the quiz cards during a test run, to measure them (the section
+/// 5 audit): chapter name, quiz line, what happened, scene seconds.
+#[cfg(test)]
+pub mod quiz_log {
+    use std::sync::Mutex;
+
+    static EVENTS: Mutex<Vec<(String, String, &'static str, f64)>> = Mutex::new(Vec::new());
+
+    pub fn record(chapter: &str, line: &str, kind: &'static str, at: f64) {
+        if let Ok(mut events) = EVENTS.lock() {
+            events.push((chapter.to_owned(), line.to_owned(), kind, at));
+        }
+    }
+
+    /// What card `line` did in the run named `chapter`, in order.
+    pub fn take(chapter: &str, line: &str) -> Vec<(&'static str, f64)> {
+        EVENTS
+            .lock()
+            .map(|events| {
+                events
+                    .iter()
+                    .filter(|(c, l, ..)| c == chapter && l == line)
+                    .map(|&(_, _, kind, at)| (kind, at))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// REVIEW-AND-CONTINUITY section 5, measured on a scratch-voice run of
+    /// the quiz's chapter: the card and its question are readable no later
+    /// than the narrator's last word of the question; the viewer then has
+    /// the quiz's seconds (4 to 8, as `model::QUIZZES` has them) with the
+    /// narration silent and a ring counting them; and the answer lands only
+    /// after the countdown ended and is held for `LAND_S` before the next
+    /// line. What stands on the screen as a possible hint is read in each
+    /// chapter's code; this is the part that is a number.
+    fn section_five(line: &str) {
+        let a = testing::audit_quiz(line).unwrap();
+        let said = format!("{a:#?}");
+        // (shown with --nocapture: what the numbers are, not only that they pass)
+        eprintln!(
+            "{line}: question ends {:.1}s, card {:.1}s, ring {:.1}s, countdown {:.1}..{:.1}s ({} s), answer lands {:.1}s, next {:?}, chapter {:.1}s",
+            a.question_ends,
+            a.card_shown,
+            a.ring_armed,
+            a.window.0,
+            a.window.1,
+            a.seconds,
+            a.answer_lands,
+            a.next_line,
+            a.chapter_seconds
+        );
+        // the viewer's thinking time
+        assert!(
+            (4.0..=8.0).contains(&a.seconds),
+            "{line}: a {} s countdown\n{said}",
+            a.seconds
+        );
+        assert!(
+            (a.window.1 - a.window.0 - a.seconds).abs() <= 0.15,
+            "{line}: the ring ran {:.2} s, not {} s\n{said}",
+            a.window.1 - a.window.0,
+            a.seconds
+        );
+        // readable no later than the narrator's last word of the question
+        assert!(a.card_shown <= a.question_ends, "{line}: the card is late\n{said}");
+        assert!(a.ring_armed <= a.question_ends, "{line}: the ring is late\n{said}");
+        // the countdown starts when the question has finished, and nobody
+        // speaks inside it
+        assert!(
+            a.window.0 >= a.question_ends - 1e-9,
+            "{line}: counts before the question ends\n{said}"
+        );
+        assert!(
+            a.spoken_inside.is_empty(),
+            "{line}: a line starts inside the countdown\n{said}"
+        );
+        // the answer is shown only after it, and the answer's own line too
+        assert!(
+            a.answer_lands >= a.window.1 - 1e-9,
+            "{line}: the answer lands early\n{said}"
+        );
+        if let Some((next, at)) = &a.next_line {
+            assert!(
+                *at >= a.window.1 - 0.05,
+                "{line}: {next} starts inside the countdown\n{said}"
+            );
+        }
+    }
+
+    /// One audit test per quiz whose chapter is a real scene (the others
+    /// are animatics until their lanes land them: a lane adds its line here
+    /// with its chapter).
+    macro_rules! section_five_tests {
+        ($($name:ident: $line:literal),* $(,)?) => {
+            $(
+                #[test]
+                fn $name() {
+                    section_five($line);
+                }
+            )*
+        };
+    }
+
+    section_five_tests! {
+        quiz_11_3_follows_section_5: "11_3",
+    }
 
     /// CIE L*a*b* (D65) of an sRGB colour.
     fn lab(c: Srgb) -> [f64; 3] {

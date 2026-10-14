@@ -67,6 +67,12 @@ impl Q {
             0
         }
     }
+
+    /// The value as a float, for placing a picture (every number the video
+    /// shows stays exact).
+    pub fn to_f64(self) -> f64 {
+        self.n as f64 / self.d as f64
+    }
 }
 
 impl Add for Q {
