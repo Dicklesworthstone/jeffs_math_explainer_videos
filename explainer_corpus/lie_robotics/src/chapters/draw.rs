@@ -2046,6 +2046,32 @@ pub fn probe(construct: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
     .expect("the probe scene runs");
 }
 
+/// Run a whole chapter's scene headless: every phrase it waits for is in its
+/// line, and every label, tag and picture is built and placed.
+#[cfg(test)]
+pub fn run_chapter(scene: &mut impl SceneConstruct) {
+    fmn::run_scene(
+        scene,
+        fmn::scene::RuntimeConfig::default(),
+        7,
+        &mut fmn::scene::NullSceneSink,
+    )
+    .expect("the chapter's scene runs");
+}
+
+/// The texts the kit built that a lower third cut to fit its three lines
+/// (the kit's wrap ends such a line with " …" and drops the rest): an exact
+/// version that is too long loses its tail without a word, so a test asserts
+/// that there are none.
+#[cfg(test)]
+pub fn cut_texts(kit: &Kit) -> Vec<String> {
+    kit.registered()
+        .into_iter()
+        .map(|r| r.source)
+        .filter(|s| s.ends_with(" …"))
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use std::f64::consts::{FRAC_PI_2, PI};

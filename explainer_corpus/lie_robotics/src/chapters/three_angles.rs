@@ -12,8 +12,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, circle_points, dashed_rect,
-    fact_f64, fade_in_all, flat, leave, line_style, live_bar_of, mix, panel, pause, pose_fn, say, still, tween_linear,
-    value,
+    fact_f64, fade_in_all, flat, leave, line_style, live_bar_of, mix, number_word, panel, pause, pose_fn, say, still,
+    tween_linear, value,
 };
 use crate::model::{self, DEG, M3, Pose, V3, X, Y, Z};
 use crate::palette;
@@ -41,13 +41,33 @@ const A_BAD_SPOT: &str = "a bad spot";
 const NUMBERS: &str = "numbers";
 const RULES: &str = "rules";
 const ONE_RULE: &str = "rule";
-const NO_JUMP: &str = "three numbers cannot give every orientation one name without a jump somewhere; nine give one name each, four give two (q and −q), with no jump";
+/// What a unit quaternion's negative is: one orientation, two quaternions.
+const QUATERNION_NAMES: u32 = 2;
 const OWN_MEASURE: &str = "The bar is this video's own measure";
 const PERCENT: &str = "%";
 const DEGREE: &str = "°";
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 6] = ["03_1", "03_2", "03_3", "03_4", "03_5", "03_6"];
+
+/// 03_6's exact version, its numbers read from facts and spelled as the
+/// script spells them: three cannot name every orientation without a jump;
+/// nine name each once; four name each twice, a quaternion and its negative
+/// (R2 C-08: the letters q and −q are not on screen).
+fn no_jump_note() -> fmn::Result<String> {
+    let (arrow, matrix, quaternion) = (
+        fact_f64("G-R.numbers.arrow")? as u32,
+        fact_f64("G-S.numbers.turn_matrix")? as u32,
+        fact_f64("G-S.numbers.quaternion")? as u32,
+    );
+    Ok(format!(
+        "{} numbers cannot give every orientation one name without a jump somewhere; {} give one name each, {} give {} (a quaternion and its negative), with no jump",
+        number_word(arrow)?,
+        number_word(matrix)?,
+        number_word(quaternion)?,
+        number_word(QUATERNION_NAMES)?
+    ))
+}
 
 /// 03_2's quiz: do the two rings do different things any more?
 pub const ASK: Ask = Ask {
@@ -482,7 +502,7 @@ impl SceneConstruct for ThreeAngles {
         }
         line.wait_for(stage, "So software stores")?;
         fade_in_all(stage, &all, 0.8)?;
-        let exact = precisely(&kit, stage, NO_JUMP)?;
+        let exact = precisely(&kit, stage, &no_jump_note()?)?;
         play!(stage; fade_in(stage.arena_mut(), exact, ORIGIN, 1.0)?.rt(0.5));
         kit.finish(stage)
     }
@@ -492,7 +512,7 @@ impl SceneConstruct for ThreeAngles {
 mod tests {
     use std::f64::consts::FRAC_PI_2;
 
-    use super::super::draw::{CARD_W, SAFE, fact, probe};
+    use super::super::draw::{CARD_W, SAFE, cut_texts, fact, probe, run_chapter};
     use super::*;
 
     /// The gimbal, at its scale and place, ends inside the safe area (its
@@ -667,5 +687,88 @@ mod tests {
         assert_eq!(matrix - arrow, 6);
         assert_eq!(quaternion - arrow, 1);
         assert_eq!(fact("G-X6.ring_orders").unwrap(), "12/12");
+    }
+
+    /// The matrix of the unit quaternion `[w, x, y, z]`.
+    fn quaternion_matrix(q: [f64; 4]) -> M3 {
+        let [w, x, y, z] = q;
+        [
+            [
+                1.0 - 2.0 * (y * y + z * z),
+                2.0 * (x * y - w * z),
+                2.0 * (x * z + w * y),
+            ],
+            [
+                2.0 * (x * y + w * z),
+                1.0 - 2.0 * (x * x + z * z),
+                2.0 * (y * z - w * x),
+            ],
+            [
+                2.0 * (x * z - w * y),
+                2.0 * (y * z + w * x),
+                1.0 - 2.0 * (x * x + y * y),
+            ],
+        ]
+    }
+
+    /// 03_6: "four give two (a quaternion and its negative)": the unit
+    /// quaternion of a turn and its negative are the same orientation, and
+    /// the quaternion of another turn is not.
+    #[test]
+    fn a_quaternion_and_its_negative_are_one_orientation() {
+        assert_eq!(QUATERNION_NAMES, 2);
+        for (axis, deg) in [(X, 40.0), (model::unit([1.0, 1.0, 1.0]), 120.0), (Z, 100.0)] {
+            let half = 0.5 * deg * DEG;
+            let s = half.sin();
+            let q = [half.cos(), s * axis[0], s * axis[1], s * axis[2]];
+            let r = quaternion_matrix(q);
+            assert!(model::gap(&r, &model::turn(axis, deg * DEG)) < 1e-12, "the turn's own");
+            assert!(
+                model::gap(&quaternion_matrix(q.map(|x| -x)), &r) < 1e-12,
+                "its negative"
+            );
+            // the turn backwards (the vector part flipped alone) is another
+            // orientation
+            let back = quaternion_matrix([half.cos(), -s * axis[0], -s * axis[1], -s * axis[2]]);
+            assert!(model::gap(&back, &r) > 0.01, "not any other quaternion");
+        }
+    }
+
+    /// 03_6: the exact version is the storyboard's own words with its
+    /// numbers from the facts, fits three lines (the kit cuts a longer text
+    /// with a "…" and drops its tail), stands inside the safe area and below
+    /// the three boxes.
+    #[test]
+    fn the_no_jump_note_is_the_storyboards_and_fits_its_band() {
+        let note = no_jump_note().unwrap();
+        assert!(
+            crate::STORYBOARD.contains(&note),
+            "the storyboard does not say {note:?}"
+        );
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let band = precisely(&kit, stage, &note)?;
+            assert!(cut_texts(&kit).is_empty(), "cut: {:?}", cut_texts(&kit));
+            let (left, right) = (stage.get_left(band)[0], stage.get_right(band)[0]);
+            assert!(
+                left > -SAFE[0] && right < SAFE[0],
+                "the band runs {left:.2} to {right:.2}"
+            );
+            // the boxes stand 0.7 ± 1.1 on the screen (their cards' height 2.2)
+            assert!(
+                stage.get_top(band)[1] < 0.7 - 1.1 - 0.1,
+                "the band reaches {:.2}",
+                stage.get_top(band)[1]
+            );
+            Ok(())
+        });
+    }
+
+    /// The whole chapter constructs, headless.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        run_chapter(&mut ThreeAngles {
+            kit: Kit::new().expect("the kit"),
+        });
     }
 }
