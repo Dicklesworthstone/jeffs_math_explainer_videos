@@ -510,9 +510,9 @@ mod tests {
         // z-spin: the quarter turn with a fixed third axis; its rotation is the fact's
         let want = matrix("F-L.exp.Lz.t1").unwrap();
         let got = expm_t(&lz, 1.0);
-        for i in 0..3 {
-            for jx in 0..3 {
-                assert!((got.get(i, jx) - want[i][jx]).abs() < 5e-7);
+        for (i, row) in want.iter().enumerate() {
+            for (j, &x) in row.iter().enumerate() {
+                assert!((got.get(i, j) - x).abs() < 5e-7);
             }
         }
         // each spin's bracket is the next one
