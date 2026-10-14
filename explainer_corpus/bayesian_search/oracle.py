@@ -9,7 +9,15 @@ stdout: one `KEY<TAB>VALUE` line per fact, the same keys `search facts`
 prints (src/facts.rs), in the rows of docs/fact-sheet.md: F-M (the four-cell
 sea), F-U (the rules for where to search next), F-R (the 1968 map), F-H (the
 hook), F-K (Koopman's formula and the lanes), F-D (the drifting cloud), F-S,
-F-P, F-A, F-C and F-N (cited), F-Q (the quizzes).
+F-P, F-A, F-C and F-N (cited), F-Q (the quizzes). The oracle prints more than
+the video does: F-T rows are numbers the published description states (the
+"T" is for text) and the video neither shows nor says; each is computed here
+from first principles by the oracle's own functions, never as a formula over
+another fact's rounded value, and cross-checked (docs/description_numbers.tsv
+keeps only years, citations and structure; tools/description_numbers.py reads
+the oracle's values as facts). Four of them only write another fact in the
+decimals the description's code and quotations use (F-T.four_cell.prior.decimal,
+F-T.air_france.weights.decimal, F-T.f6.searched.oct9.*, F-T.code.t_first).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -352,12 +360,13 @@ def cell(name):
     return MAP.get((name[len(col):], col), 0)
 
 
-def model_search(rule, sees, looks):
-    """[(row, col, chance found by now)]; every search comes back empty."""
+def model_search(rule, sees, looks, scale=10000):
+    """[(row, col, chance found by now)]; every search comes back empty.
+    `scale` is what the map's counts are shares of: all 10,000 runs, or (F-T) the runs inside the grid."""
     # every plan searches the lettered grid only: its 180 cells, in reading order
     sweep = [(r, c) for r in GRID_ROWS for c in GRID_COLS]
     reading = {k: i for i, k in enumerate(sweep)}
-    left = {k: F(MAP.get(k, 0), 10000) for k in sweep}
+    left = {k: F(MAP.get(k, 0), scale) for k in sweep}
     # the map, never updated: likeliest first by the printed numbers
     once = sorted(sweep, key=lambda k: (-MAP.get(k, 0), reading[k]))
     found, out = F(0), []
@@ -483,6 +492,7 @@ def hook():
 # --------------------------------------------------------------------------
 LANE_SEED, SIDE, WIDTH, RUNS = 1946, 200, 2, 1000
 PER_COVERAGE = SIDE // WIDTH
+_LANES = {"one_at_1": None, "runs_at_1": []}  # swept points after 100 lanes: the shown run, then each of the 1000 runs
 
 
 def lanes_of(draws):
@@ -525,8 +535,11 @@ def formula():
     one = swept_after(runs[0])
     sums = [0] * n
     lows, highs = [SIDE * SIDE] * n, [0] * n
+    _LANES["one_at_1"] = one[PER_COVERAGE - 1]
     for lanes in runs[1:]:
-        for i, x in enumerate(swept_after(lanes)):
+        counts = swept_after(lanes)
+        _LANES["runs_at_1"].append(counts[PER_COVERAGE - 1])  # the thousand runs at a coverage of 1, for F-T
+        for i, x in enumerate(counts):
             sums[i] += x
             lows[i], highs[i] = min(lows[i], x), max(highs[i], x)
     points = SIDE * SIDE
@@ -895,6 +908,144 @@ def quizzes():
         emit(f"F-Q.{name}.answer", answers[name])
 
 
+# --------------------------------------------------------------------------
+# F-T: numbers the published description states and the video does not show
+# (research rows: docs/description.md; tools/description_numbers.py reads them as facts)
+# --------------------------------------------------------------------------
+def lane_share_moments(k, side, width):
+    """(mean, variance) of the swept share of a side x side cell after k lanes, exactly.
+
+    Each lane is vertical or horizontal with chance 1/2 and starts at one of `side` places, covering `width`
+    columns or rows (wrapping round). The swept share is 1 - ur * uc, ur and uc the unmarked shares of rows and
+    columns. Given v vertical lanes the rows and the columns are independent; the unmarked share of the columns
+    has mean (1 - width/side)^v, and its mean square is the average, over a pair of columns, of the chance that
+    no lane starts where it would cover either: a start covers one of the pair, both or neither, by how far
+    apart they are."""
+    def second(v):
+        total = F(0)
+        for d in range(side):
+            overlap = max(0, width - min(d, side - d))
+            total += (1 - F(2 * width - overlap, side)) ** v
+        return total / side
+
+    def first(v):
+        return (1 - F(width, side)) ** v
+
+    seconds = [second(v) for v in range(k + 1)]
+    weight = [F(math.comb(k, v), 2**k) for v in range(k + 1)]
+    e_u = sum(w * first(v) * first(k - v) for v, w in enumerate(weight))
+    e_u2 = sum(w * seconds[v] * seconds[k - v] for v, w in enumerate(weight))
+    return 1 - e_u, e_u2 - e_u**2
+
+
+def lane_share_moments_by_listing(k, side, width):
+    """The same, by listing every one of the (2 * side)^k ways to lay k lanes and counting swept points."""
+    shares_ = []
+    for lanes in itertools.product(itertools.product((True, False), range(side)), repeat=k):
+        swept = set()
+        for vertical, at in lanes:
+            for j in range(width):
+                line = (at + j) % side
+                swept |= {(r, line) if vertical else (line, r) for r in range(side)}
+        shares_.append(F(len(swept), side * side))
+    mean = sum(shares_) / len(shares_)
+    return mean, sum((x - mean) ** 2 for x in shares_) / len(shares_)
+
+
+def text_facts():
+    sees = F(2, 3)
+    total = sum(MAP.values())
+    inside = sum(v for (r, c), v in MAP.items() if r in GRID_ROWS and c in GRID_COLS)
+
+    # the description's code and quotations write facts the video prints in decimals (re-expressions)
+    prior = shares(lit_dots())
+    emit("F-T.four_cell.prior.decimal", join(fixed(s, 2) for s in prior))
+    check("the code's p adds to 1 and is the map F-M.prior.percent prints",
+          sum(prior) == 1 and join(percent(s, 0) for s in prior) == _EMITTED["F-M.prior.percent"])
+    weights = [int(w) for w in _EMITTED["F-A.weights"].split(",")]
+    emit("F-T.air_france.weights.decimal", join(fixed(F(w, 100), 2) for w in weights))
+    check("the three AF 447 weights add to 1", sum(weights) == 100)
+    env = {"p": [F(4, 10), F(3, 10), F(2, 10), F(1, 10)], "d": list(SEES), "i": None}
+    exec("\n".join(CODE[2:]), {}, env)
+    exec("\n".join(CODE[:2]), {}, env)
+    emit("F-T.code.t_first", fixed(env["t"], 1))
+    check("the code's first t is the dots left of the hundred", env["t"] == F(int(_EMITTED["F-M.empty1.dots_left"]), DOTS))
+
+    # F6 on 9 October (the paper's hundredths), and the one mechanism: Koopman's curve at the coverage that makes it
+    at_sea = [int(x) for x in _EMITTED["F-S.F6.searched.at_sea"].split(",")]
+    after = [int(x) for x in _EMITTED["F-S.F6.searched.after"].split(",")]
+    emit("F-T.f6.searched.oct9.on_scene", fixed(F(at_sea[1], 100), 2))
+    emit("F-T.f6.searched.oct9.afterwards", fixed(F(after[1], 100), 2))
+    cov_sea, cov_after = -math.log(1 - at_sea[1] / 100), -math.log(1 - after[1] / 100)
+    check("Koopman's curve at the coverages the facts print gives back 0.94 and 0.65",
+          abs(1 - math.exp(-float(_EMITTED["F-S.F6.coverage.at_sea"])) - 0.94) < 0.005
+          and abs(1 - math.exp(-float(_EMITTED["F-S.F6.coverage.after"])) - 0.65) < 0.005)
+    emit("F-T.f6.coverage.ratio", f"{cov_sea / cov_after:.1f}")
+    check("the coverage fell by a factor of 2.68 (2.7), the facts' 2.81 and 1.05 give 2.68",
+          2.675 < cov_sea / cov_after < 2.685 and abs(float(_EMITTED["F-S.F6.coverage.at_sea"]) / float(_EMITTED["F-S.F6.coverage.after"]) - cov_sea / cov_after) < 0.01)
+    check("a strip four times narrower alone would give 50.5% (the fact sheet's), not 65%",
+          f"{100 * (1 - math.exp(-cov_sea / 4)):.1f}" == "50.5")
+
+    # F6's 85 dots of 10,000 runs: how far a count of runs wanders, the binomial spread
+    p_f6 = cell("F6") / total
+    spread = math.sqrt(total * p_f6 * (1 - p_f6))
+    wander = np.random.Generator(np.random.PCG64DXSM(1968)).binomial(total, p_f6, 200_000).std()
+    check("200,000 repeats of the 10,000 runs wander by the binomial spread", abs(wander - spread) < 0.05)
+    emit("F-T.f6.dots.give_or_take", f"{spread:.0f}")
+
+    # the hundred strips: the shown run against the thousand runs, and against the exact spread
+    points = SIDE * SIDE
+    runs, one = _LANES["runs_at_1"], _LANES["one_at_1"]
+    check("the thousand runs are in hand", len(runs) == RUNS and one is not None)
+    above = F(one * RUNS - sum(runs), points * RUNS) * 100
+    emit("F-T.lanes.one_run_above_mean", fixed(above, 1))
+    check("the shown run is 3.1 points above the facts' 66.5 and 63.4 (3.05 unrounded)",
+          fixed(above, 1) == "3.1" and 3.0 < above < 3.1)
+    pct = [100 * x / points for x in runs]
+    mean_pct = sum(pct) / RUNS
+    sd_runs = math.sqrt(sum((x - mean_pct) ** 2 for x in pct) / (RUNS - 1))
+    emit("F-T.lanes.sd.thousand_runs", f"{sd_runs:.2f}")
+    emit("F-T.lanes.one_run_sds_above.thousand_runs", f"{float(above) / sd_runs:.1f}")
+    mean_exact, variance = lane_share_moments(PER_COVERAGE, SIDE, WIDTH)
+    sd_exact = math.sqrt(float(variance)) * 100
+    emit("F-T.lanes.sd.exact", f"{sd_exact:.2f}")
+    emit("F-T.lanes.one_run_sds_above.exact", f"{(100 * one / points - 100 * float(mean_exact)) / sd_exact:.1f}")
+    small = lane_share_moments(3, 6, 2)
+    check("the exact mean and variance are right on a small cell, by listing every way to lay three lanes",
+          small == lane_share_moments_by_listing(3, 6, 2))
+    check("the exact mean of 100 lanes is 1 - 0.99^100", mean_exact == 1 - (1 - F(WIDTH, SIDE)) ** PER_COVERAGE)
+    check("the thousand runs spread as the exact variance says, within a tenth", abs(sd_runs / sd_exact - 1) < 0.1)
+    check("the shown run is above the middle and inside the thousand's range", mean_pct < 100 * one / points < max(pct))
+
+    # the model search over the 1968 map, normalised to the runs inside the lettered grid, and the no-map start from row 5
+    emit("F-T.model.over_grid.factor", fixed(F(total, inside), 2))
+    for name in ("sweep", "once", "best"):
+        found = model_search(name, sees, 20)[19][2]
+        over = model_search(name, sees, 20, inside)[19][2]
+        check(f"the {name} plan's twenty searches over the grid alone are its share of all runs times 10,000/8,900",
+              over == found * F(total, inside))
+        emit(f"F-T.model.{name}.over_grid.found_by.20", percent(over, 1))
+    reading_order = [(r, c) for r in GRID_ROWS for c in GRID_COLS]
+    start = 4 * len(GRID_COLS)
+    check("row 5 starts at the 61st cell of the grid", reading_order[start] == ("5", "A") and start == 60)
+    row5 = F(sum(MAP.get(k, 0) for k in reading_order[start:start + 20]), total) * sees
+    plan = model_search("sweep", sees, start + 20)
+    check("row by row from row 5 finds what the sweep adds from its 61st to its 80th search",
+          plan[start + 19][2] - plan[start - 1][2] == row5)
+    emit("F-T.model.sweep_from_row5.found_by.20", percent(row5, 1))
+
+    # the drift cloud's circle twice as wide: a quarter of the coverage, from the circle's own area
+    hours, seeing = (1, 3, 6, 12), []
+    for h in hours:
+        single = 1 - math.exp(-float(TRACK * STRIP) / (math.pi * float(radius(h)) ** 2))
+        wide = 1 - math.exp(-float(TRACK * STRIP) / (math.pi * float(2 * radius(h)) ** 2))
+        check(f"at hour {h} a circle twice as wide is seen less, with a quarter of the coverage",
+              wide < single and abs(-math.log(1 - wide) - -math.log(1 - single) / 4) < 1e-12)
+        seeing.append(wide)
+    emit("F-T.drift.double_radius.hours", join(hours))
+    emit("F-T.drift.double_radius.seeing", join(f"{100 * s:.0f}" for s in seeing))
+
+
 def main():
     small_sea()
     rules()
@@ -909,6 +1060,7 @@ def main():
     names()
     code_panel()
     quizzes()
+    text_facts()
     print(f"# {len(_EMITTED)} facts, {_CHECKS[0]} cross-checks, {len(_FAILED)} failed", file=sys.stderr)
     if _FAILED:
         for name in _FAILED:
