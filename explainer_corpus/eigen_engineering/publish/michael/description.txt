@@ -1,0 +1,39 @@
+A bridge, the air in a room and an economy have a few special patterns of their own: patterns the system hands back unchanged except for size. Described in those patterns, a tangle of equations in which everything pulls on everything falls apart into separate one-line problems. That one calculation, the eigendecomposition of a table of numbers, tells an engineer how a steel truss sags and sways, which notes a room sings back and whether an economy can feed itself, and it is just as useful to know where it stops.
+
+Chapters
+?:?? The bridge that swayed
+?:?? Two carts
+?:?? Own patterns
+?:?? The split
+?:?? A steel truss
+?:?? Twenty-one patterns
+?:?? Every mode a note
+?:?? Two bridges
+?:?? The air in a room
+?:?? Two million modes
+?:?? Where modes rule
+?:?? An economy
+?:?? Can it feed itself
+?:?? One idea
+
+What the video shows
+The Millennium Bridge in London opened on 10 June 2000 and closed two days later. Its measured sideways modes on the centre span were 0.48 and 0.95 Hz, and walkers push sideways at half their walking frequency, about 1.0 Hz. It reopened in 2002 with dampers. Tacoma Narrows failed on 7 November 1940 by torsional flutter, a self-excitation, at 12 twists a minute.
+Two carts between three springs: the table [2, −1; −1, 2] has the own patterns (1, 1) and (1, −1), and in them the two equations come apart.
+A steel truss (a model Pratt truss, 12 joints and 21 members) has 21 own patterns. Under five equal deck loads the softest one alone gives 99.6% of the sag at the middle; the forces in the members need many more.
+The air in a room: a bathroom of 2.5 × 1.6 × 2.4 m has nine tones between 60 and 150 Hz; a box the size of Boston Symphony Hall has 1,964,040 modes at or below 1 kHz, which is why halls are designed with statistics.
+An economy (a model of two industries): its table's largest eigenvalue is 0.7, below 1, so it can feed itself; 24 of each wanted takes 80 of each.
+Where it stops: a shear has one own direction, a quarter turn none you can draw, and the best plan for a factory is a linear program, not an eigenproblem.
+
+The truss, the hall, the small rooms and the economy are models built for this video, and the screen says "a model" each time. Every number in the video is computed by its code and checked by an independent program. The exact statements, the disputed account of why the bridge swayed, notes for programmers, and every source:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/eigen_engineering/docs/description.md
+
+Sources
+P. Dallard et al., "The London Millennium Footbridge", The Structural Engineer 79(22), 2001
+S. H. Strogatz et al., "Crowd synchrony on the Millennium Bridge", Nature 438, 2005; I. Belykh et al., "Emergence of the London Millennium Bridge instability without synchronisation", Nature Communications 12, 2021
+O. H. Ammann, T. von Kármán and G. B. Woodruff, The Failure of the Tacoma Narrows Bridge, Federal Works Agency, 1941
+K. Y. Billah and R. H. Scanlan, "Resonance, Tacoma Narrows bridge failure, and undergraduate physics textbooks", American Journal of Physics 59(2), 1991
+W. C. Sabine, Collected Papers on Acoustics, Harvard University Press, 1922
+L. L. Beranek, Concert Halls and Opera Houses, 2nd ed., Springer, 2004
+W. W. Leontief, The Structure of American Economy, 1919–1929, Harvard University Press, 1941
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.

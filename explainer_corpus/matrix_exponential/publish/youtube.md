@@ -1,0 +1,62 @@
+# What Does It Mean to Raise e to a Matrix?: YouTube package
+
+What goes on the upload page. The description is cut from `docs/description.md` (whose statements
+rest on fact-sheet rows and oracle keys) and links back to it for the full notes; the chapter times
+come from the final cut (`tools/youtube_package.py fill matrix_exponential --finals renders/final` writes
+them over the `?:??`, as `./x matrix_exponential chapters` computes them, and `check` holds them to it).
+
+- Title: What Does It Mean to Raise e to a Matrix? (exactly this: no voice or review suffix)
+- Voice: michael. The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte.
+- Visibility: Private, for the owner's review. Only the upload lane uploads it, and it is made public only on the owner's word.
+- Category: Education. Audience: not made for kids.
+- Altered or synthetic content: Yes (disclosed: the narration is a synthetic voice and imitates no one; no real person, place or event is depicted). The description says so too.
+- Thumbnail: `renders/matrix_exponential_thumbnail.png` (`./x matrix_exponential thumbnail`)
+- Captions: English, `renders/final/matrix_exponential.en.srt` (`./x matrix_exponential captions`)
+- Tags: matrix exponential, linear algebra, differential equations, Euler's formula, rotation matrix, power series, Lie groups, Lie algebra, commutator, numerical analysis, scaling and squaring, graph Laplacian, math explainer
+
+## Description
+
+```text
+Put a grid of four numbers, [0, −1; 1, 0], in the exponent of e, and what comes out is a rotation of the plane by one radian, about [0.540, −0.841; 0.841, 0.540]. One picture carries the whole video: the exponential turns a rule for tiny steps into where you end up. Put a number in, and growth comes out; put i in, and turning comes out; put a matrix in, and the motion of a whole linked system comes out.
+
+Chapters
+?:?? e to a matrix
+?:?? The obvious guess
+?:?? Growth
+?:?? The series
+?:?? One function
+?:?? Turning
+?:?? A matrix in
+?:?? Does it settle
+?:?? Follow the arrows
+?:?? Two tanks
+?:?? Walks
+?:?? Heat and chance
+?:?? How computers do it
+?:?? Order matters
+?:?? The doorway
+?:?? Where it leads
+
+What the video shows
+The obvious guess, raising e to each entry, fails: it sends the zero matrix to [1, 1; 1, 1], not to the matrix that changes nothing.
+Two definitions, one function: tiny steps, (I + A/n)^n, and the series of A^k / k! agree for every square matrix, and the series always settles, because its terms shrink for good once k passes the size of A.
+Two tanks trading salt at 0.1 per minute each way settle toward half and half; walks on a network are counted by the powers of its matrix; heat spreads by e^(−tL), and with −i in front the same equation is Schrödinger's, which never settles.
+How computers do it: summing the series in 32-bit floats on Moler and Van Loan's test matrix leaves no entry right to two digits; scaling and squaring gets it right.
+Order matters: e^(A+B) = e^A e^B when AB = BA, and a loop of four small steps measures the commutator AB − BA, the doorway to Lie groups.
+
+Every matrix and number in the video is computed by its own code and checked by an independent program. The exact statements, notes for programmers (why the raw series fails in floating point, Padé approximants, the action on one vector) and every source:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/matrix_exponential/docs/description.md
+
+Sources
+Leonhard Euler, Introductio in analysin infinitorum, Vol. 1, 1748
+Arthur Cayley, "A Memoir on the Theory of Matrices", Philosophical Transactions of the Royal Society of London 148, 1858
+Cleve Moler and Charles Van Loan, "Nineteen Dubious Ways to Compute the Exponential of a Matrix", SIAM Review 20(4), 1978; "Twenty-Five Years Later", SIAM Review 45(1), 2003
+Nicholas J. Higham, "The Scaling and Squaring Method for the Matrix Exponential Revisited", SIAM Journal on Matrix Analysis and Applications 26(4), 2005
+Ernesto Estrada and Desmond J. Higham, "Network Properties Revealed through Matrix Functions", SIAM Review 52(4), 2010
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
+```
+
+## Chapter titles (in order; the times come from the final cut)
+
+e to a matrix | The obvious guess | Growth | The series | One function | Turning | A matrix in | Does it settle | Follow the arrows | Two tanks | Walks | Heat and chance | How computers do it | Order matters | The doorway | Where it leads

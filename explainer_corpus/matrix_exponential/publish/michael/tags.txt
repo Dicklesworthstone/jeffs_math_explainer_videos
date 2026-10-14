@@ -1,0 +1,1 @@
+matrix exponential, linear algebra, differential equations, Euler's formula, rotation matrix, power series, Lie groups, Lie algebra, commutator, numerical analysis, scaling and squaring, graph Laplacian, math explainer

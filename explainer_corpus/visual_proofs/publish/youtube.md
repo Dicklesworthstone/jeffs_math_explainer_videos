@@ -1,0 +1,59 @@
+# Proofs You Can See: YouTube package
+
+What goes on the upload page. The description is cut from `docs/description.md` (whose statements
+rest on fact-sheet rows and oracle keys) and links back to it for the full notes; the chapter times
+come from the final cut (`tools/youtube_package.py fill visual_proofs --finals renders/final` writes them
+over the `?:??`, as `./x visual_proofs chapters` computes them, and `check` holds them to it).
+
+- Title: Proofs You Can See (exactly this: no voice or review suffix)
+- Voice: michael. The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte.
+- Visibility: Private, for the owner's review. Only the upload lane uploads it, and it is made public only on the owner's word.
+- Category: Education. Audience: not made for kids.
+- Altered or synthetic content: Yes (disclosed: the narration is a synthetic voice and imitates no one; no real person, place or event is depicted). The description says so too.
+- Thumbnail: `renders/visual_proofs_thumbnail.png` (`./x visual_proofs thumbnail`)
+- Captions: English, `renders/final/visual_proofs.en.srt` (`./x visual_proofs captions`)
+- Tags: proofs without words, visual proof, mathematical induction, sum of odd numbers, triangular numbers, sum of cubes, sum of squares, geometric series, Pythagorean theorem, missing square puzzle, binomial theorem, Roger Nelsen, math explainer
+
+## Description
+
+```text
+Eight proofs you can see, and one picture that lies. Each proof is shown at one size and then asked the same question: would the next size fit? The answer is always a picture of the step from one size to the next. At the end the same argument gives nonsense, and the video says what separates the two. Nine of the questions are quizzes with a countdown: pause whenever you want more time.
+
+Chapters
+?:?? Cold open
+?:?? Five for five
+?:?? Layers
+?:?? Staircases
+?:?? Slabs
+?:?? Every cube
+?:?? Three stacks
+?:?? The box
+?:?? Every height
+?:?? Halves
+?:?? A third
+?:?? The cut cube
+?:?? Four triangles
+?:?? The missing square
+?:?? What makes a proof
+
+The proofs, exactly (each for every whole number n from 1)
+Odd numbers as layers: an L of 2k + 1 tiles turns the k by k square into the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n². The first hundred odd numbers add to 10,000.
+Two staircases: two copies of the staircase 1 + 2 + … + n lock into a rectangle n wide and n + 1 tall, so the sum is n(n + 1) ÷ 2; a hundred steps make 5,050.
+The sum of cubes: 1³ + 2³ + … + n³ = (1 + 2 + … + n)², each cube wrapped as an L round the square of the ones before it.
+Siu's three stacks: three stacks of n levels fit a box n by n + 1 by n + ½, so 1² + … + n² = n(n + 1)(2n + 1) ÷ 6.
+Halves and a third: 1/2 + 1/4 + 1/8 + … = 1 and 1/4 + 1/16 + 1/64 + … = 1/3. The gap is never zero, and it goes below every size you name.
+The cut cube: cut every side of a cube of side a + b once, at a, and the blocks add to (a + b)³; the fourth power is counted, not drawn.
+Four triangles: four copies of a right triangle in a square, slid without turning, show a² + b² = c².
+The picture that lies: four pieces of 12, 5, 8 and 7 tiles (32 in all) seem to fill a 13 by 5 triangle, which would hold 32½; neither long edge is straight, and the sliver between the two arrangements is exactly one tile.
+
+The pictures: the sum of cubes with a slab cut in half is Alan Fry's (Mathematics Magazine, 1985); the three stacks are Man-Keung Siu's (Mathematics Magazine, 1984); Warren Page published a picture of the halves in 1981; the quarters are Sunday Ajose and Roger Nelsen's (1994). The circle pattern is in Leo Moser's note "On the Danger of Induction" (1949). The missing-square idea is Paul Curry's (1953), according to Martin Gardner. Names to search: proofs without words; Roger B. Nelsen, Proofs Without Words (MAA, 1993).
+
+Every number in the video is computed by the scenes from the data they draw and checked by an independent program. The exact statement of every proof, who did what and what is deliberately not claimed, notes for programmers, and every source:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/visual_proofs/docs/description.md
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
+```
+
+## Chapter titles (in order; the times come from the final cut)
+
+Cold open | Five for five | Layers | Staircases | Slabs | Every cube | Three stacks | The box | Every height | Halves | A third | The cut cube | Four triangles | The missing square | What makes a proof
