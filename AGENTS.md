@@ -69,7 +69,7 @@ These come from the explainer skills and from the incidents that produced them. 
 2. **Every number on screen or in the narration comes from the explainer's `facts`**, computed by the scene from the data it draws and pinned against an independent oracle (`./x <slug> facts-check`). A typed number is a defect.
 3. **Every always/never sentence is tested at its edges before it is voiced.**
 4. **Every name and term is looked up and its pronunciation verified** (lookup, respell, probe against a control and a decoy, lock into `lexicon.json` with sources) before narration. The owner's pronunciation overrides every source.
-5. **One TTS call per sentence.** A different read needs different text, never a new seed (ftts is greedy-deterministic).
+5. **One TTS call per sentence.** ftts is deterministic per (text, voice, seed): `--seed 1..N` gives different reads of the same words (seed 0 is the same as none), so a new take keeps the script's text; record the seed with the take (the narration skill's N-63, which corrects N-10). Choose a line's takes together so the joins sound like one reader, and set line-to-line gaps by the thought, never one constant (N-64).
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
 8. **Chapters stay ≤ ~85 s** (editorial pacing; the kit raises the engine's byte caps).
