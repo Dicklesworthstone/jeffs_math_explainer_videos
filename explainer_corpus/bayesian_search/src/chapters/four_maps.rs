@@ -108,8 +108,8 @@ const BLOCK_CELL: (f64, f64) = (0.5, 0.6);
 
 /// Air France's panel: a disc's radius and where the two stand from the
 /// panel's centre.
-const DISC_R: f64 = 0.7;
-const DISC_X: f64 = 0.78;
+const DISC_R: f64 = 0.62;
+const DISC_X: f64 = 0.76;
 /// North-northeast, in degrees east of north.
 const NNE_DEG: f64 = 22.5;
 
@@ -568,10 +568,15 @@ impl SceneConstruct for FourMaps {
         for (i, picture) in pictures.into_iter().enumerate() {
             panels.push(panel_mobs(&kit, stage, i, picture, &found_on[i])?);
         }
+        // the four empty cards stand from "Four searches" (the stage was blank
+        // for the three seconds before the first was named), each filled as
+        // its name is said
+        let backs: Vec<Mob> = panels.iter().map(|p| p[0]).collect();
+        fade_in_all(stage, &backs, 0.6)?;
         let phrases = ["Palomares", "Scorpion", "Air France", "John Aldridge"];
         for (phrase, mobs) in phrases.iter().zip(&panels) {
             line.wait_for(stage, phrase)?;
-            fade_in_all(stage, mobs, 0.7)?;
+            fade_in_all(stage, &mobs[1..], 0.7)?;
         }
         line.wait_end(stage)?;
 
@@ -982,8 +987,10 @@ mod tests {
             pane.title_y() > pane.date_y() && pane.date_y() > pane.label_y(),
             "name, day, label: top to bottom"
         );
-        // the discs sit side by side inside their panel
-        assert!(pane.p(DISC_X + DISC_R, 0.0)[0] < pane.at[0] + PANEL_W / 2.0);
+        // the discs sit side by side inside their panel, a tenth from its
+        // edges and a tenth apart (at 0.07 and 0.08 they looked pressed)
+        assert!(pane.p(DISC_X + DISC_R, 0.0)[0] < pane.at[0] + PANEL_W / 2.0 - 0.1);
+        assert!(2.0 * DISC_X - 2.0 * DISC_R >= 0.1);
         // the block fits its panel
         let (w, h) = BLOCK_CELL;
         assert!(BLOCK_COLS.len() as f64 * w < PANEL_W - 0.2);
