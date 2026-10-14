@@ -416,7 +416,7 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 | 17_3 | Twenty-four. Two extra, just once. That's too rare to measure precisely. An unlucky phone just waits for one more packet. | Ticks "1 in 100 / 1 in 10,000 / 1 in a million" on the ladder; the measured 6,316 / 24 / 1 beside them; beside the "1": "95% interval: 0.025 to 5.6 per million" (R2 Ruth R8); lower-third (R2 Dev dev-10): "÷256 twice predicts ≈ 0.1 failures here; one or more happens ≈ 9% of the time" | log chart in words |  |
 | 17_4 | Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets. With one extra, one in ten thousand, and with two, one in a million. | RFC 6330 requirement overlaid, each tick beside its packet count (R2 Maya M9); lower-third "RFC 6330 §5.8: averaged over randomly chosen packet IDs, for each padded block size K′" | statement card |  |
 | 17_5 | The originals can go first, unchanged, so a phone with a clean connection does no decoding at all. | Originals then repair packets | statement card |  |
-| 17_6 | It's in a standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. The same byte field protects Linux's disk arrays that survive two dead drives, and every QR code. | Text cards, no logos: "ATSC 3.0 (A/331:2021; the FEC is optional)", "3GPP MBMS, 2005 (Raptor)", "Linux RAID-6", "QR codes" (R2 Dev dev-07) | cards |  |
+| 17_6 | It's in a standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. The same byte field protects some disk arrays that survive two dead drives, and every QR code. | Text cards, no logos: "ATSC 3.0 (A/331:2021; the FEC is optional)", "3GPP MBMS, 2005 (Raptor)", "Linux RAID-6", "QR codes" (R2 Dev dev-07) | cards |  |
 | 17_7 | Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine. | The byte clock's mirror pairs; the fold glowing at the top; the bucket fills; the chalk `3 × 7 = 9` returns; the phone field turns green; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256), carry-less multiplication, primitive polynomial, Gaussian elimination; R2 Dev dev-13); credits lower-third from RFC 6330's header and §9.2 (R2 Ruth R20): "LT codes: Luby, 2002 · Raptor codes: Shokrollahi and Luby · RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer, Minder" | listen 3 s (the motif resolves) |
 
 - **Ruth:** the requirement is over uniformly random received packet IDs, at
@@ -443,5 +443,6 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
   0x11D (Anvin); QR codes use 0x11D (285) per the fact sheet. R2 (Dev dev-07):
   "a standard" (ATSC 3.0 is one of several next-generation broadcast systems,
   and A/331:2021 Annex A.4.1 makes the FEC optional, "may be protected"), and
-  "Linux's disk arrays" (the source covers Linux md RAID-6 only; other
-  dual-parity schemes are not claimed).
+  "some disk arrays" with "Linux RAID-6" on the card (the source covers
+  Linux md RAID-6 only; other dual-parity schemes are not claimed; the name
+  stays off the voice because ASR cannot verify its vowel, lexicon round 3).
