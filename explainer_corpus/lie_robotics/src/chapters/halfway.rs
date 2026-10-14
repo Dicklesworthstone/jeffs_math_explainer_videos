@@ -58,7 +58,18 @@ pub const ASK: Ask = Ask {
 /// The circle of headings: its centre and radius on the screen. Heading 0 is
 /// straight ahead (up), headings grow to the left (counter-clockwise).
 const CENTRE: [f64; 2] = [-2.8, 0.75];
-const RADIUS: f64 = 1.3;
+/// Small enough that the flat ruler, as long as the circle is round, and its
+/// end labels stay inside the safe area (at 1.3 the "–180" ran off the frame).
+const RADIUS: f64 = 1.2;
+/// The two heading labels stand this far outward along x, so that "170°" and
+/// "–170°" read as two numbers and not as one range.
+const LABEL_A_SHIFT: f64 = -0.35;
+const LABEL_B_SHIFT: f64 = 0.4;
+/// Where "step 20°" stands against the second heading's dot on the flat piece.
+const STEP_SHIFT: [f64; 2] = [1.6, 0.35];
+/// Where the quiz card stands.
+const CARD_AT: [f64; 2] = [4.35, 0.3];
+const CARD_SCALE: f64 = 0.92;
 /// The flat ruler sits this far under the circle.
 const RULER_DROP: f64 = 1.05;
 
@@ -73,6 +84,13 @@ fn dir(h: f64) -> (f64, f64) {
 fn on_circle(h: f64, r: f64) -> Vec3 {
     let (dx, dy) = dir(h);
     v(CENTRE[0] + r * dx, CENTRE[1] + r * dy)
+}
+
+/// Where the number beside heading `h` stands: outside the circle, `shift`
+/// to the side.
+fn label_spot(h: f64, shift: f64) -> Vec3 {
+    let p = on_circle(h, RADIUS + 0.6);
+    v(p[0] + shift, p[1])
 }
 
 /// The flat ruler's point for the value `u` in −180 to 180: a strip as long
@@ -213,17 +231,29 @@ impl SceneConstruct for Halfway {
         stage.add_to_scene(robot)?;
         line.wait_for(stage, "A hundred and seventy degrees to the left")?;
         let arrow_a = heading_arrow(stage, a, blue)?;
-        let label_a = kit.text(stage, &format!("{}°", minus(a)), 30.0, blue, on_circle(a, RADIUS + 0.6))?;
+        let label_a = kit.text(
+            stage,
+            &format!("{}°", minus(a)),
+            30.0,
+            blue,
+            label_spot(a, LABEL_A_SHIFT),
+        )?;
         play!(stage; fade_in(stage.arena_mut(), arrow_a, ORIGIN, 1.0)?.rt(0.6));
         fade_in_all(stage, &[label_a], 0.3)?;
         line.wait_for(stage, "And a hundred and seventy to the right")?;
         let arrow_b = heading_arrow(stage, b, blue)?;
-        let label_b = kit.text(stage, &format!("{}°", minus(b)), 30.0, blue, on_circle(b, RADIUS + 0.6))?;
+        let label_b = kit.text(
+            stage,
+            &format!("{}°", minus(b)),
+            30.0,
+            blue,
+            label_spot(b, LABEL_B_SHIFT),
+        )?;
         play!(stage; fade_in(stage.arena_mut(), arrow_b, ORIGIN, 1.0)?.rt(0.6));
         fade_in_all(stage, &[label_b], 0.3)?;
 
         // 04_2: what heading is halfway between them?
-        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
 
         // 04_3: the average is zero, straight ahead; the honest halfway is
         // straight back; the ruler's ends do not meet
@@ -308,12 +338,13 @@ impl SceneConstruct for Halfway {
         let second_dot = stage
             .arena_mut()
             .add(Dot::new().point(second).radius(0.09).style(flat(blue, 1.0)).build());
+        // beside the dot, above the line: the heading labels hang below it
         let step = kit.text(
             stage,
             &format!("{} {}°", STEP, minus(gap)),
             28.0,
             blue,
-            v(second[0] + 0.3, second[1] - 0.45),
+            v(second[0] + STEP_SHIFT[0], second[1] + STEP_SHIFT[1]),
         )?;
         fade_in_all(stage, &[second_dot, step], 0.4)?;
         line.wait_for(stage, "Take half")?;
@@ -401,7 +432,7 @@ impl SceneConstruct for Halfway {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::fact;
+    use super::super::draw::{CARD_W, SAFE, fact};
     use super::*;
 
     #[test]
@@ -497,10 +528,49 @@ mod tests {
             "as long as the circle is round"
         );
         assert_eq!(l0[1], h0[1]);
-        // the flat ruler fits the frame
-        assert!(l0[0] > -7.1 && h0[0] < 7.1);
+        // the flat ruler, with its end labels (about half a unit wide each
+        // side of the end), fits the safe area and ends before the card
+        assert!(
+            l0[0] - 0.3 > -SAFE[0],
+            "the left end label starts at {:.2}",
+            l0[0] - 0.3
+        );
+        assert!(h0[0] + 0.3 < CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE);
         // the zero of the ruler is straight ahead when wrapped
-        assert_eq!(ruler_point(0.0, 1.0), on_circle(0.0, RADIUS));
+        let (zero, ahead) = (ruler_point(0.0, 1.0), on_circle(0.0, RADIUS));
+        assert!((zero[0] - ahead[0]).hypot(zero[1] - ahead[1]) < 1e-12);
+    }
+
+    /// 04_4: the tangent ruler, a whole circle long, ends inside the safe
+    /// area (its left end ran to the edge), and the labels round the circle
+    /// stand apart: the two headings, the step and the half.
+    #[test]
+    fn the_flat_piece_and_its_labels_fit() {
+        let (a, b) = (fact_f64("G-H.a").unwrap(), fact_f64("G-H.b").unwrap());
+        let gap = fact_f64("G-H.gap").unwrap();
+        let (left, right) = (tangent_point(a, -180.0), tangent_point(a, 180.0));
+        assert!(left[0] > -SAFE[0] + 0.15 && right[0] < SAFE[0]);
+        // "170°" and "–170°" are about 0.6 wide: their centres are well apart
+        let (la, lb) = (label_spot(a, LABEL_A_SHIFT), label_spot(b, LABEL_B_SHIFT));
+        assert!(
+            lb[0] - la[0] > 1.2,
+            "the headings' labels are {:.2} apart",
+            lb[0] - la[0]
+        );
+        // "step 20°" (about 1.6 wide) stands clear of both labels and above
+        // the line it measures
+        let dot = tangent_point(a, gap);
+        let step = v(dot[0] + STEP_SHIFT[0], dot[1] + STEP_SHIFT[1]);
+        for l in [la, lb] {
+            assert!(
+                (step[0] - l[0]).abs() > 1.1 || (step[1] - l[1]).abs() > 0.5,
+                "the step label stands on a heading's label"
+            );
+        }
+        // the step label is above the tangent line there, outside the circle
+        let line_y = tangent_point(a, gap + STEP_SHIFT[0] / RADIUS / DEG)[1];
+        assert!(step[1] > line_y + 0.2);
+        assert!((step[0] - CENTRE[0]).hypot(step[1] - CENTRE[1]) > RADIUS + 0.4);
     }
 
     /// The robot's nose points along its heading.

@@ -30,7 +30,8 @@ const WAYS_TO_TURN: &str = "ways to turn:";
 const GIMBAL_LOCK: &str = "gimbal lock";
 const BAR_WORDS: &str = "of the third way to turn, this much is left";
 const LAMP: &str = "lamp";
-const QUOTE: &str = "How about sending me a fourth gimbal for Christmas.";
+/// The quote, on two lines: on one it was as wide as its card (8.6 units).
+const QUOTE: &str = "How about sending me a fourth gimbal\nfor Christmas.";
 const QUOTE_BY: &str = "Michael Collins, Apollo 11,";
 const QUOTE_WHEN: &str = "hours into the flight";
 const THREE_ANGLES: &str = "three angles";
@@ -74,6 +75,27 @@ const FOURTH_RADIUS: f64 = 2.4;
 const _: () = assert!(RADII[0] > RADII[1] && RADII[1] > RADII[2] && FOURTH_RADIUS > RADII[0]);
 /// The book is drawn this fraction of full size inside the inner ring.
 const BOOK_FIT: f64 = 0.76;
+/// The gimbal's place on the screen: where its centre goes and the scale
+/// (scene units per unit of the world). Its widest things (the fourth ring,
+/// the dashed line of the missing way) end inside the safe area on the left
+/// and clear of the readouts that stand to its right.
+const GIMBAL_AT: [f64; 2] = [-4.2, 0.1];
+const GIMBAL_SCALE: f64 = 1.25;
+/// Half the length of the red dashed lines (world units): the lock line is
+/// vertical, the missing line is the outer ring's left-to-right line.
+const LOCK_HALF: f64 = 2.5;
+const MISSING_HALF: f64 = 2.4;
+/// The readouts' column: where the labels start (left-aligned), and where the
+/// numbers and the degree signs of the three rings end.
+const READOUT_LEFT: f64 = -1.4;
+const READOUT_NUMBER: f64 = 1.15;
+const READOUT_SIGN: f64 = 1.35;
+/// Where the quiz card of 03_2 stands, and the quote's card of 03_5 (centre
+/// and size).
+const CARD_AT: [f64; 2] = [4.35, 0.3];
+const CARD_SCALE: f64 = 0.92;
+const QUOTE_AT: [f64; 2] = [2.55, 0.5];
+const QUOTE_SIZE: [f64; 2] = [7.7, 3.3];
 /// "A hundred and five hours": day 4, hour 9 of the flight, from the
 /// transcript's stamp `04 09 00 30` (NASA air-to-ground transcript, tape
 /// 67/11, p. 337).
@@ -168,15 +190,15 @@ impl SceneConstruct for ThreeAngles {
         };
         let half: V3 = BOOK_HALF.map(|x| BOOK_FIT * x);
         let lock_line = vec![Shape::Dashed {
-            a: [0.0, 0.0, -2.9],
-            b: [0.0, 0.0, 2.9],
+            a: [0.0, 0.0, -LOCK_HALF],
+            b: [0.0, 0.0, LOCK_HALF],
             color: warn,
             width: 4.5,
             dashes: 14,
         }];
         let missing_line = vec![Shape::Dashed {
-            a: [-2.9, 0.0, 0.0],
-            b: [2.9, 0.0, 0.0],
+            a: [-MISSING_HALF, 0.0, 0.0],
+            b: [MISSING_HALF, 0.0, 0.0],
             color: warn,
             width: 4.5,
             dashes: 14,
@@ -196,7 +218,7 @@ impl SceneConstruct for ThreeAngles {
         const LOCK: usize = 4;
         const MISSING: usize = 5;
         const FOURTH: usize = 6;
-        let view = View::new(1.45, v(-4.3, 0.1));
+        let view = View::new(GIMBAL_SCALE, v(GIMBAL_AT[0], GIMBAL_AT[1]));
         let gimbal = World::build(stage, view, 3.4, 0.25, specs, Vec::<Pin>::new())?;
         for i in RINGS.into_iter().chain([LOCK, MISSING, FOURTH]) {
             stage.set_tracker_value(gimbal.parts[i].shown, 0.0)?;
@@ -218,11 +240,24 @@ impl SceneConstruct for ThreeAngles {
             (INNER_RING, roll, 0.6),
         ];
         let mut texts = Vec::new();
+        // the readouts leave before the quote's card (03_5) and the three
+        // boxes (03_6) stand where they are
+        let mut readouts = Vec::new();
         for (words, tracker, y) in rows {
-            let label = kit.text_left(stage, words, 30.0, blue, v(-1.5, y))?;
-            kit.live_number(stage, tracker, 0, false, 44.0, Palette::ink(), v(1.05, y), RIGHT)?;
-            let sign = kit.text(stage, DEGREE, 44.0, Palette::ink(), v(1.25, y + 0.04))?;
+            let label = kit.text_left(stage, words, 30.0, blue, v(READOUT_LEFT, y))?;
+            let number = kit.live_number(
+                stage,
+                tracker,
+                0,
+                false,
+                44.0,
+                Palette::ink(),
+                v(READOUT_NUMBER, y),
+                RIGHT,
+            )?;
+            let sign = kit.text(stage, DEGREE, 44.0, Palette::ink(), v(READOUT_SIGN, y + 0.04))?;
             texts.extend([label, sign]);
+            readouts.extend([label, number, sign]);
         }
         fade_in_all(stage, &texts, 0.4)?;
         for tracker in [yaw, pitch, roll] {
@@ -233,7 +268,7 @@ impl SceneConstruct for ThreeAngles {
         // 03_2: a quarter turn of the middle ring: do the outer and inner
         // rings still do different things?
         let line = say(&kit, stage, BEATS[1])?;
-        let card2 = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card2 = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_for(stage, "Turn the middle ring a quarter turn")?;
         play!(stage; tween(pitch, 90.0, 1.5)?);
         line.wait_for(stage, "Now the outer ring's axis")?;
@@ -252,7 +287,7 @@ impl SceneConstruct for ThreeAngles {
         play!(stage; tween(roll, 0.0, 0.7)?);
         line.wait_for(stage, "Nothing is stuck")?;
         // the readout appears at three, then drops to two as the ring locks
-        let ways_label = kit.text_left(stage, WAYS_TO_TURN, 30.0, Palette::ink(), v(-1.5, -0.4))?;
+        let ways_label = kit.text_left(stage, WAYS_TO_TURN, 30.0, Palette::ink(), v(READOUT_LEFT, -0.4))?;
         let ways = kit.live_value(
             stage,
             move |s| f64::from(ways_to_turn(value(s, pitch) * DEG)),
@@ -260,7 +295,7 @@ impl SceneConstruct for ThreeAngles {
             false,
             48.0,
             Palette::ink(),
-            v(1.05, -0.4),
+            v(READOUT_NUMBER, -0.4),
             RIGHT,
         )?;
         fade_in_all(stage, &[ways_label], 0.3)?;
@@ -268,7 +303,7 @@ impl SceneConstruct for ThreeAngles {
         pause(stage, 0.4)?;
         play!(stage; tween(pitch, 90.0, 1.0)?);
         line.wait_for(stage, "This is gimbal lock")?;
-        let lock_word = kit.text(stage, GIMBAL_LOCK, 44.0, warn, v(-4.3, -3.2))?;
+        let lock_word = kit.text(stage, GIMBAL_LOCK, 44.0, warn, v(GIMBAL_AT[0], -3.3))?;
         play!(stage; tween(gimbal.parts[MISSING].shown, 1.0, 0.5)?);
         fade_in_all(stage, &[lock_word], 0.4)?;
 
@@ -281,7 +316,7 @@ impl SceneConstruct for ThreeAngles {
         play!(stage; tween(pitch, 0.0, 0.8)?);
         let (lamp_deg, lost_deg) = (fact_f64("G-L.apollo.lamp_deg")?, fact_f64("G-L.apollo.lost_deg")?);
         let unit = 2.4;
-        let bar_at = v(-1.5, -1.3);
+        let bar_at = v(READOUT_LEFT, -1.3);
         let bar = live_bar_of(
             stage,
             move |s| left_of_third(value(s, pitch) * DEG),
@@ -290,7 +325,9 @@ impl SceneConstruct for ThreeAngles {
             0.34,
             blue,
         )?;
-        let words = kit.text_left(stage, BAR_WORDS, 24.0, Palette::dim(), v(-1.5, -1.85))?;
+        // under the "lamp" word and the 85 degree mark's number, which hang
+        // below the bar, and above the lower third of 03_4
+        let words = kit.text_left(stage, BAR_WORDS, 24.0, Palette::dim(), v(READOUT_LEFT, -2.4))?;
         let percent = kit.live_value(
             stage,
             move |s| (100.0 * left_of_third(value(s, pitch) * DEG)).round(),
@@ -366,7 +403,7 @@ impl SceneConstruct for ThreeAngles {
         // 03_5: Collins's request, and a fourth ring
         kit.hold(stage)?;
         let line = say(&kit, stage, BEATS[4])?;
-        let bar_mobs = [
+        let mut bar_mobs = vec![
             words,
             percent,
             percent_sign,
@@ -379,18 +416,20 @@ impl SceneConstruct for ThreeAngles {
             bar,
             apollo,
         ];
+        // and the three readouts: the quote's card stands where they were
+        bar_mobs.extend(&readouts);
         leave(stage, &bar_mobs, &[], 0.5)?;
         play!(stage; tween(pitch, 0.0, 0.7)?);
         let (days, hours) = COLLINS_STAMP_DAYS_HOURS;
         let into_flight = days * 24 + hours;
-        let back = card(stage, v(2.2, 0.4), 8.6, 2.9)?;
-        let quote = kit.text(stage, QUOTE, 36.0, Palette::ink(), v(2.2, 0.85))?;
+        let back = card(stage, v(QUOTE_AT[0], QUOTE_AT[1]), QUOTE_SIZE[0], QUOTE_SIZE[1])?;
+        let quote = kit.text(stage, QUOTE, 36.0, Palette::ink(), v(QUOTE_AT[0], QUOTE_AT[1] + 0.5))?;
         let by = kit.text(
             stage,
             &format!("{QUOTE_BY} {into_flight} {QUOTE_WHEN}"),
             26.0,
             Palette::dim(),
-            v(2.2, -0.05),
+            v(QUOTE_AT[0], QUOTE_AT[1] - 0.95),
         )?;
         line.wait_for(stage, "How about sending me")?;
         fade_in_all(stage, &[back, quote, by], 0.6)?;
@@ -453,8 +492,68 @@ impl SceneConstruct for ThreeAngles {
 mod tests {
     use std::f64::consts::FRAC_PI_2;
 
-    use super::super::draw::fact;
+    use super::super::draw::{CARD_W, SAFE, fact, probe};
     use super::*;
+
+    /// The gimbal, at its scale and place, ends inside the safe area (its
+    /// widest things once ran off the frame's left edge), clear of the
+    /// readouts, of the quote's card and of the "gimbal lock" word.
+    #[test]
+    fn the_gimbal_fits_beside_its_readouts() {
+        let view = View::new(GIMBAL_SCALE, v(GIMBAL_AT[0], GIMBAL_AT[1]));
+        let mut pts = Vec::new();
+        // the outer ring, the largest that turns, at any of three normals; the
+        // fourth ring is fixed about the line pointing away
+        for n in [X, Y, Z] {
+            pts.extend(circle_points([0.0; 3], n, RADII[0], 0.0, TAU, 32));
+        }
+        pts.extend(circle_points([0.0; 3], Y, FOURTH_RADIUS, 0.0, TAU, 32));
+        // the lock line is vertical; the missing line is drawn at no yaw
+        pts.extend([[0.0, 0.0, LOCK_HALF], [0.0, 0.0, -LOCK_HALF]]);
+        pts.extend([[MISSING_HALF, 0.0, 0.0], [-MISSING_HALF, 0.0, 0.0]]);
+        let (lo, hi) = view.box_of(pts);
+        assert!(lo[0] > -SAFE[0] && lo[1] > -SAFE[1] && hi[1] < SAFE[1], "{lo:?} {hi:?}");
+        assert!(hi[0] < READOUT_LEFT - 0.15, "the gimbal ends at {:.2}", hi[0]);
+        let quote_left = QUOTE_AT[0] - 0.5 * QUOTE_SIZE[0];
+        assert!(
+            hi[0] < quote_left - 0.2,
+            "the fourth ring ends at {:.2}, the card at {quote_left:.2}",
+            hi[0]
+        );
+        // the red lock line's foot stands above the "gimbal lock" word
+        let foot = view.project([0.0, 0.0, -LOCK_HALF])[1];
+        assert!(foot > -3.3 + 0.35, "the line's foot is at {foot:.2}");
+    }
+
+    /// The readouts' column ends before the quiz card begins, and the quote
+    /// and its attribution fit their card.
+    #[test]
+    fn the_readouts_and_the_quote_fit_their_cards() {
+        let card_left = CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE;
+        assert!(READOUT_SIGN + 0.3 < card_left - 0.15);
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let quote = kit.text(stage, QUOTE, 36.0, Palette::ink(), v(QUOTE_AT[0], QUOTE_AT[1]))?;
+            let by = kit.text(
+                stage,
+                &format!("{QUOTE_BY} 105 {QUOTE_WHEN}"),
+                26.0,
+                Palette::dim(),
+                v(QUOTE_AT[0], QUOTE_AT[1]),
+            )?;
+            for m in [quote, by] {
+                assert!(
+                    stage.get_width(m) < QUOTE_SIZE[0] - 0.6,
+                    "{:.2} wide in a card of {:.2}",
+                    stage.get_width(m),
+                    QUOTE_SIZE[0]
+                );
+            }
+            Ok(())
+        });
+        // and the card's right end is inside the safe area
+        const { assert!(QUOTE_AT[0] + 0.5 * QUOTE_SIZE[0] < SAFE[0]) };
+    }
 
     #[test]
     fn the_beats_are_the_storyboards_and_the_scripts() {

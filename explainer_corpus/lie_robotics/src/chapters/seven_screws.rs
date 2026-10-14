@@ -38,8 +38,8 @@ const TERMS: [&str; 6] = [
 ];
 /// Plain labels under the line's parts (`None` where there is none).
 const TERM_LABELS: [&str; 6] = [
-    "the gripper's pose",
-    "joint 1's twist,\nheld for its angle",
+    "the gripper's\npose",
+    "joint 1's twist,\nheld for its\nangle",
     "",
     "…",
     "",
@@ -73,8 +73,20 @@ pub const ASK: Ask = Ask {
 /// The joint angle every joint is turned to, one after another, in 08_5 and
 /// held in 08_6 (degrees): any pose would do for the recipe.
 const RECIPE_DEG: f64 = 40.0;
-/// Where the arm is drawn: the foot's screen position.
-const ARM_AT: [f64; 2] = [-3.7, -2.95];
+/// Where the arm is drawn: the foot's screen position. High enough that the
+/// floor's front corner ends above a lower third (at -2.95 it ran off the
+/// frame's bottom edge).
+const ARM_AT: [f64; 2] = [-3.7, -2.0];
+/// The floor under the arm (metres, at the world's origin).
+const FLOOR_LO: [f64; 2] = [-0.8, -0.8];
+const FLOOR_HI: [f64; 2] = [0.9, 0.8];
+/// The equation's row: its centre's x and its y, and the labels' y under it.
+const ROW_X: f64 = 1.9;
+const ROW_Y: f64 = 2.95;
+const UNDER_Y: f64 = 2.0;
+/// Where the quiz card stands.
+const CARD_AT: [f64; 2] = [4.35, 0.3];
+const CARD_SCALE: f64 = 0.92;
 
 /// The part order after the arm's 23: its seven axis lines, its seven
 /// screws, the gripper's home pose, and the floor.
@@ -121,6 +133,33 @@ fn frame_shapes(at: V3, len: f64, color: Srgb) -> Vec<Shape> {
         .collect()
 }
 
+/// The line of 08_6: its six terms side by side on one row, detached, and the
+/// plain labels under them (the terms and the labels, in order).
+fn equation_row(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Vec<Mob>, Vec<Mob>)> {
+    let mut parts = Vec::new();
+    for term in TERMS {
+        parts.push(kit.tex(stage, term, 46.0, Palette::ink(), &[], ORIGIN)?);
+    }
+    let gap = 0.35;
+    let widths: Vec<f64> = parts.iter().map(|&m| stage.get_width(m)).collect();
+    let total: f64 = widths.iter().sum::<f64>() + gap * (parts.len() as f64 - 1.0);
+    let mut x = ROW_X - total / 2.0;
+    let mut centres = Vec::new();
+    for (&m, &w) in parts.iter().zip(&widths) {
+        let c = v(x + w / 2.0, ROW_Y);
+        stage.move_to(m, c, ORIGIN);
+        centres.push(c);
+        x += w + gap;
+    }
+    let mut under = Vec::new();
+    for (words, c) in TERM_LABELS.iter().zip(&centres) {
+        if !words.is_empty() {
+            under.push(kit.text(stage, words, 22.0, Palette::dim(), v(c[0], UNDER_Y))?);
+        }
+    }
+    Ok((parts, under))
+}
+
 impl SceneConstruct for SevenScrews {
     fn name(&self) -> &str {
         "08_seven_screws"
@@ -160,7 +199,7 @@ impl SceneConstruct for SevenScrews {
             specs.push(PartSpec::new(screw_shapes(&one, 0.4, 0.17), still(Pose::NOTHING)).layer(2));
         }
         specs.push(PartSpec::new(frame_shapes(arm.home.p, 0.14, Palette::ink()), still(Pose::NOTHING)).layer(2));
-        specs.push(PartSpec::new(table([-0.8, -0.8], [0.9, 0.8], 0.0, 0.2), still(Pose::NOTHING)).layer(-2));
+        specs.push(PartSpec::new(table(FLOOR_LO, FLOOR_HI, 0.0, 0.2), still(Pose::NOTHING)).layer(-2));
         let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
         let world = World::build(stage, view, 1.6, 0.25, specs, Vec::<Pin>::new())?;
         for i in ArmRig::STEEL_COLLARS.chain(AXES_AT..=HOME_AT) {
@@ -240,7 +279,7 @@ impl SceneConstruct for SevenScrews {
         let steel: Vec<(Mob, f64)> = ArmRig::STEEL_COLLARS.map(|i| (world.parts[i].shown, 1.0)).collect();
         tween_all(stage, &steel, 0.4)?;
         play!(stage; tween(elbow_gold, 1.0, 0.5)?);
-        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
         card.count(&kit, stage)?;
@@ -291,27 +330,7 @@ impl SceneConstruct for SevenScrews {
         // 08_6: the product of seven exponentials, built from the right
         let line = say(&kit, stage, BEATS[5])?;
         leave(stage, &[sums], &[], 0.4)?;
-        let mut parts = Vec::new();
-        for term in TERMS {
-            parts.push(kit.tex(stage, term, 46.0, Palette::ink(), &[], ORIGIN)?);
-        }
-        let gap = 0.2;
-        let widths: Vec<f64> = parts.iter().map(|&m| stage.get_width(m)).collect();
-        let total: f64 = widths.iter().sum::<f64>() + gap * (parts.len() as f64 - 1.0);
-        let mut x = 2.4 - total / 2.0;
-        let mut centres = Vec::new();
-        for (&m, &w) in parts.iter().zip(&widths) {
-            let c = v(x + w / 2.0, 2.95);
-            stage.move_to(m, c, ORIGIN);
-            centres.push(c);
-            x += w + gap;
-        }
-        let mut under = Vec::new();
-        for (words, c) in TERM_LABELS.iter().zip(&centres) {
-            if !words.is_empty() {
-                under.push(kit.text(stage, words, 22.0, Palette::dim(), v(c[0], 2.2))?);
-            }
-        }
+        let (parts, under) = equation_row(&kit, stage)?;
         line.wait_for(stage, "So the gripper's pose is a product")?;
         // right to left, as the screws lit
         for &m in parts.iter().rev() {
@@ -328,8 +347,63 @@ impl SceneConstruct for SevenScrews {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, probe};
     use super::*;
     use crate::model::degrees;
+
+    /// 08_1 to 08_6: the floor's corners, the standing arm and its mark stay
+    /// inside the frame (the floor once ran off the bottom edge) and above a
+    /// lower third; the quiz card clears the arm's picture.
+    #[test]
+    fn the_arm_and_its_floor_fit_the_frame() {
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        let arm = Arm::iiwa14();
+        let mut pts: Vec<V3> = [
+            FLOOR_LO,
+            [FLOOR_HI[0], FLOOR_LO[1]],
+            FLOOR_HI,
+            [FLOOR_LO[0], FLOOR_HI[1]],
+        ]
+        .iter()
+        .map(|c| [c[0], c[1], 0.0])
+        .collect();
+        pts.push(arm.home.p);
+        let (lo, hi) = view.box_of(pts);
+        assert!(lo[1] > LOWER_THIRD_TOP, "the floor's front corner is at {:.2}", lo[1]);
+        assert!(lo[0] > -SAFE[0] && hi[1] < SAFE[1]);
+        let card_left = CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE;
+        // the names and the code panel start right of the floor; the card is
+        // never on screen with the equation
+        assert!(hi[0] < card_left - 0.5);
+        // the equation's labels (about 22 px of text) end below the row and
+        // above the arm's gripper
+        let top = view.project(arm.home.p)[1] + 0.45;
+        assert!(top < UNDER_Y - 0.4, "the gripper's frame reaches {top:.2}");
+    }
+
+    /// 08_6: the six terms of the line fit the safe area on one row, and the
+    /// plain labels under them stand apart (they overlapped).
+    #[test]
+    fn the_equation_row_and_its_labels_fit() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let (parts, under) = equation_row(&kit, stage)?;
+            let left = stage.get_left(parts[0])[0];
+            let right = stage.get_right(*parts.last().unwrap())[0];
+            assert!(
+                left > -SAFE[0] && right < SAFE[0],
+                "the line runs {left:.2} to {right:.2}"
+            );
+            for pair in under.windows(2) {
+                let (r, l) = (stage.get_right(pair[0])[0], stage.get_left(pair[1])[0]);
+                assert!(l - r > 0.15, "two labels are {:.2} apart", l - r);
+            }
+            for &m in &under {
+                assert!(stage.get_top(m)[1] < ROW_Y - 0.4, "a label touches the line");
+            }
+            Ok(())
+        });
+    }
 
     /// The piece that rides the first `link` joints, by the recipe: the
     /// screws of joints `link` down to 1 applied to its home place, the

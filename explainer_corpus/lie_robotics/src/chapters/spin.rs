@@ -79,6 +79,10 @@ pub const ASK: Ask = Ask {
 const ARROW_PER_RAD: f64 = 1.7 / FRAC_PI_2;
 /// The book here is drawn this fraction of full size.
 const BOOK_FIT: f64 = 0.85;
+/// Where 05_4's quiz card stands: its top ends below the badge in the corner
+/// (at 0.3 it touched it) and its longest choice shrinks to fit.
+const CARD_AT: [f64; 2] = [4.1, -0.05];
+const CARD_SCALE: f64 = 0.92;
 /// A point on the book that Rodrigues's formula follows: the tip of its x
 /// edge arrow.
 const EDGE: f64 = 1.25;
@@ -282,7 +286,9 @@ impl SceneConstruct for Spin {
         let pins = vec![Pin {
             mob: label,
             at: point_fn(move |_| other_tip),
-            shift: v(0.55, 0.1),
+            // right of the dashed line's end, which would run through the
+            // label's first letters
+            shift: v(0.95, 0.1),
         }];
         let world = World::build(stage, book_view, 3.2, 0.2, specs, pins)?;
         for i in [
@@ -451,7 +457,7 @@ impl SceneConstruct for Spin {
             tween(world.parts[part::OTHER].shown, 1.0, 0.5)?,
         );
         fade_in_all(stage, &[label], 0.4)?;
-        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
 
         // 05_5: each edge lands where the next one was: it is roll then tilt
         let line = say(&kit, stage, BEATS[4])?;
@@ -568,7 +574,31 @@ impl SceneConstruct for Spin {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::{QuizCard, SAFE, probe};
     use super::*;
+
+    /// 05_4: every choice, the longest ("each where the next one was") too,
+    /// ends inside the card before the tick; the card's top stands below the
+    /// badge in the corner and its right edge inside the safe area.
+    #[test]
+    fn the_quiz_card_holds_its_longest_choice_and_clears_the_badge() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            let right = stage.get_right(card.back)[0];
+            assert!(right < SAFE[0]);
+            for &row in &card.rows {
+                assert!(stage.get_right(row)[0] < right - 0.7 * CARD_SCALE);
+            }
+            let badge_bottom = BADGE_CORNER[1] - 0.3;
+            assert!(
+                stage.get_top(card.back)[1] < badge_bottom - 0.15,
+                "the card's top is at {:.2}, the badge's bottom at {badge_bottom:.2}",
+                stage.get_top(card.back)[1]
+            );
+            Ok(())
+        });
+    }
 
     #[test]
     fn the_beats_are_the_storyboards_and_the_scripts() {

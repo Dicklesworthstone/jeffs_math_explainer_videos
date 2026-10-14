@@ -392,7 +392,9 @@ pub fn four_words(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, scale: f64) -> fmn
 
 /// Where the badge sits in a corner whenever the one move is being made
 /// (storyboard, "The badge"): chapters 05, 06, 10, 13 and 14.
-pub const BADGE_CORNER: Vec3 = [6.35, 3.25, 0.0];
+/// (The badge is 1.24 wide and 0.6 tall: at (6.3, 3.2) it ends 0.04 inside the
+/// safe area; at (6.35, 3.25) it touched the safe area's edge.)
+pub const BADGE_CORNER: Vec3 = [6.3, 3.2, 0.0];
 
 /// The badge: a small circle (the curved space) with an orange line touching
 /// it (the flat piece), and an arrow that wraps the answer back from the line

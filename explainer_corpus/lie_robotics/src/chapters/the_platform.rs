@@ -80,6 +80,12 @@ const FLOOR_ORIGIN: [f64; 2] = [-5.0, -0.5];
 const CLOSE_ORIGIN: [f64; 2] = [-3.6, 0.5];
 /// An arrow's length on the platform: metres of drawing per metre a second.
 const ARROW_PER_SPEED: f64 = 0.9;
+/// Where the line "a half circle 3 m long is 6 ÷ π = 1.91 m across" is
+/// centred (it is about 5.7 wide: at x = 4.2 it ran off the safe area).
+const ACROSS_AT: [f64; 2] = [3.9, -1.2];
+/// Where 06_2's quiz card stands.
+const CARD_AT: [f64; 2] = [4.35, 0.3];
+const CARD_SCALE: f64 = 0.92;
 /// Where the slider of 06_4 ends, degrees a second: the quiz's third choice
 /// (`G-P.spin60.end`).
 const SLIDER_TOP_DEG: f64 = 60.0;
@@ -386,7 +392,7 @@ impl SceneConstruct for ThePlatform {
         fade_in_all(stage, &floor, 0.6)?;
         stage.scene_mut().bring_to_front(&[platform])?;
         play!(stage; tween(arrows, 1.0, 0.5)?);
-        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(4.35, 0.3), 0.92))?;
+        let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
         card.count(&kit, stage)?;
@@ -460,7 +466,7 @@ impl SceneConstruct for ThePlatform {
             ),
             28.0,
             Palette::ink(),
-            v(4.2, -1.2),
+            v(ACROSS_AT[0], ACROSS_AT[1]),
         )?;
         line.wait_for(stage, "It drove a half circle")?;
         fade_in_all(stage, &[across_words], 0.5)?;
@@ -557,8 +563,33 @@ fn fact_list_pair(key: &str) -> fmn::Result<(f64, f64)> {
 mod tests {
     use std::f64::consts::PI;
 
-    use super::super::draw::fact;
+    use super::super::draw::{SAFE, fact, probe};
     use super::*;
+
+    /// 06_3: the half circle's line (about 5.7 wide) ends inside the safe
+    /// area (it ran to the frame's edge) and starts clear of the floor.
+    #[test]
+    fn the_half_circle_line_fits_the_frame() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let across = fact_f64("G-P.arc_length")?;
+            let end = fact_list_pair("G-P.end")?;
+            let words = format!(
+                "{HALF_CIRCLE_A} {across:.0} {HALF_CIRCLE_B} {:.0} {HALF_CIRCLE_C} {:.2} {HALF_CIRCLE_D}",
+                2.0 * across,
+                end.1
+            );
+            let line = kit.text(stage, &words, 28.0, Palette::ink(), v(ACROSS_AT[0], ACROSS_AT[1]))?;
+            let (left, right) = (stage.get_left(line)[0], stage.get_right(line)[0]);
+            assert!(right < SAFE[0], "the line ends at {right:.2}");
+            let (k, o) = floor_map(1.0);
+            assert!(
+                left > o[0] + k * 3.2 + 0.3,
+                "the line starts at {left:.2}, the floor ends"
+            );
+            Ok(())
+        });
+    }
 
     #[test]
     fn the_beats_are_the_storyboards_and_the_scripts() {
