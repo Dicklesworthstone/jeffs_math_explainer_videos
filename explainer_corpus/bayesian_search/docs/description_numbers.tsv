@@ -14,4 +14,5 @@
 0.65	it was 0.65	derived	=f("F-S.F6.searched.after",1)/100
 0.65	35% at 0.65	derived	=f("F-S.F6.searched.after",1)/100
 3.1	3.1 points above	derived	=f("F-K.lanes.one_run.1")-f("F-K.lanes.mean.1")
-55.9	0.9, 49.8 and 55.9	derived	=f("F-R.model.best.found_by.20")/(f("F-R.grid.points")/f("F-R.total"))
+1.12	a factor of 1.12	derived	=f("F-R.total")/f("F-R.grid.points")
+49	about 49%	derived	=1-exp(-f("F-D.h1.coverage")/4)

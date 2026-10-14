@@ -230,7 +230,8 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   independent, and every plan searches the same 180 lettered cells. The
   percentages are of *all 10,000 runs*; 1,100 of them ended outside those
   cells, so no plan reaches them [F-R.outside.points] (over the 180 cells
-  alone the three twenty-search figures would be 0.9, 49.8 and 55.9).
+  alone, which hold 8,900 of them [F-R.grid.points], each of the three
+  twenty-search figures would be larger by 10,000 ÷ 8,900, a factor of 1.12).
   Row by row from row 1 starts at the map's emptiest edge: its first twenty
   cells hold 114 of the 10,000 [F-R.model.sweep.first20.points], so its
   0.8% is a low value for a plan with no map. Twenty cells chosen at random,
