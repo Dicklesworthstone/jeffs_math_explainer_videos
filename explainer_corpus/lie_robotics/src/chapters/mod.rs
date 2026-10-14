@@ -21,6 +21,7 @@ pub mod the_platform;
 pub mod the_spare_joint;
 pub mod the_steady_path;
 pub mod three_angles;
+pub mod thumbnail;
 pub mod velocities_add;
 
 use explainer_kit::Chapter;
