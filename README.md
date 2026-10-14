@@ -23,7 +23,8 @@
 > [The corpus](#the-corpus) and [Status](#status). All four videos now have a
 > 4K60 master in the `michael` voice that passes the strict verify, and all
 > four are published on YouTube (the links are in [The corpus](#the-corpus)).
-> Seven more, videos 5 to 11, are in final production and not yet published.
+> Seven more, videos 5 to 11, follow: Mental Math Tricks (6) is published too,
+> and the other six are in final production.
 
 ---
 
@@ -259,7 +260,7 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 | Corpus driver (`./x`) | runs every step from drafts to the verified master; gate tracking (`./x status`) and the template (`./x new`) are still to come |
 | CI | every push: the private-details scan, the storyboard check, and the score engine's fmt, clippy and tests |
 | Videos 2–4 | see [The corpus](#the-corpus): all three mastered at 4K60 in the `michael` voice and published on YouTube, as is Hoeffding's D |
-| Videos 5–11 | see [The corpus](#the-corpus): each has its oracle-pinned facts, a description whose every number is checked against them, a thumbnail scene and a YouTube package; narration and the 4K60 finals are under way, and none is published yet |
+| Videos 5–11 | see [The corpus](#the-corpus): each has its oracle-pinned facts, a description whose every number is checked against them, a thumbnail scene and a YouTube package; Mental Math Tricks (6) is published, and the other six are in their 4K60 finals |
 
 ## Limitations
 
