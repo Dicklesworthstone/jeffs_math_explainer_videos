@@ -13,7 +13,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, QuizLook, QuoteCard, corner, cut_style, eq, fade_from_black, fade_in_all, fade_in_lagged, fade_out_all,
     fail, fifty_board, flat, fly, glyphs, gone, group, hundreds, line_style, middle_of, num, quiz_at, say, strip,
-    your_turn,
+    wait_until, your_turn,
 };
 use crate::facts::{cited, digit_pairs_range, shown};
 use crate::model::{Ask, FIFTY, near_fifty};
@@ -57,6 +57,13 @@ const HUNDRED_SIDE: f64 = 10.0;
 const PEEL_SCALE: f64 = 0.45;
 const DROP: f64 = 0.75;
 const SPILL_ARC: f64 = 1.2;
+/// The spill starts this long before "Thirty-eight forty-four." begins (the
+/// 0.3 s that ends "plus one hundred forty-four", and 0.4 s of its last
+/// word) and the hundred and the 1 meet in `SPILL_FLY_S`, so that "3800 + 44
+/// = 3844" is whole as the sentence ends: it came 0.9 s after it in the
+/// scored render of 14 Oct.
+const SPILL_LEAD: f64 = 0.7;
+const SPILL_FLY_S: f64 = 0.6;
 const QUOTE_AT: Vec3 = [0.0, 0.2, 0.0];
 const QUOTE_CHARS: usize = 34;
 
@@ -375,7 +382,10 @@ impl SceneConstruct for YourTurnFifty {
             LEFT,
         )?;
         fade_in_all(stage, &before, 0.6)?;
-        line.wait_sentence(stage, 4)?;
+        // the last sentence says the result; the spill is its picture and
+        // starts as the sentence before it ends, not at the sentence's first
+        // word
+        wait_until(stage, line.sentence(4)? - SPILL_LEAD)?;
         // the hundred peels off the small square and joins the hundreds:
         // from here the small square stands still, as the hundred and the
         // two strips of what is left
@@ -403,8 +413,8 @@ impl SceneConstruct for YourTurnFifty {
         let hundreds_at = middle_of(stage, lead.get(..places).unwrap_or(&lead))?;
         let over = v(hundreds_at[0], hundreds_at[1] + DROP);
         play!(stage;
-            fly(peel, over, PEEL_SCALE, 1.0)?,
-            arc_fly(before[2], over, 1.0, 1.0, SPILL_ARC)?,
+            fly(peel, over, PEEL_SCALE, SPILL_FLY_S)?,
+            arc_fly(before[2], over, 1.0, SPILL_FLY_S, SPILL_ARC)?,
         );
         let kept_at = stage.get_center(after[2]);
         play!(stage;
@@ -415,6 +425,8 @@ impl SceneConstruct for YourTurnFifty {
             fly(before[3], kept_at, 1.0, 0.5)?,
         );
         fade_in_all(stage, &after[3..], 0.5)?;
+        #[cfg(test)]
+        super::draw::probe::record(&kit.chapter, "sum_up", 0, stage.scene().time().to_f64(), 0.0);
 
         // 11_4: what made it easy for Bethe, in Feynman's words
         let line = say(&kit, stage, "11_4")?;

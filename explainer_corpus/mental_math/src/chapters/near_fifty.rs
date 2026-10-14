@@ -682,8 +682,9 @@ impl SceneConstruct for NearFifty {
             2 * FIFTY
         );
         let precise = lower_third_tex(&kit, stage, PRECISELY, &signs)?;
-        play!(stage; fade_in(stage.arena_mut(), precise, v(0.0, 0.1), 1.0)?.rt(0.5));
-        kit.music_breath(stage, super::draw::END_HOLD_S)?;
+        // the closing band stands whole for STAND_UP, not the end hold
+        // (1.90 s in the scored render, under the 2.6 s floor)
+        super::draw::close_on_band(&kit, stage, precise, v(0.0, 0.1))?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

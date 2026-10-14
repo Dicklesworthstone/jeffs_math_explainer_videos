@@ -48,6 +48,12 @@ const RUNNING: &str = "running total";
 /// The sheet of paper (13_4) and the calculator beside it.
 const SHEET_AT: Vec3 = [1.6, -0.7, 0.0];
 const SHEET_PT: f64 = 52.0;
+/// How far the sheet rises as it fades in. It came up 1.4 from under the
+/// frame and covered the whole strip at the foot (the bottom tenth) for half
+/// a second, which tools/band_dwell.py read as a lower third that stood
+/// 0.10 s (13_4, scored render of 14 Oct); it is a sheet, and the foot of
+/// the frame is where the bands are.
+const SHEET_RISE: f64 = 0.2;
 const CALC_AT: Vec3 = [5.3, -0.7, 0.0];
 const CALC_SCALE: f64 = 1.15;
 /// The estimate (13_5), between the card and the calculator.
@@ -59,13 +65,17 @@ const AXIS: (f64, f64, f64) = (-6.4, 6.4, -3.1);
 const AXIS_PT: f64 = 40.0;
 
 /// Two red lines across `over`, corner to corner: a reading that is wrong.
-/// Detached.
-fn cross(stage: &mut Stage<'_>, over: Mob) -> [Mob; 2] {
+/// The lines are meant to strike through its figures, which the layout
+/// lint is told (`Kit::allow_crossing`). Detached.
+fn cross(kit: &Kit, stage: &mut Stage<'_>, over: Mob) -> [Mob; 2] {
     let (l, r) = (stage.get_left(over)[0] - 0.12, stage.get_right(over)[0] + 0.12);
     let (b, t) = (stage.get_bottom(over)[1] - 0.1, stage.get_top(over)[1] + 0.1);
     let style = line_style(gone(), 4.5);
-    [(v(l, b), v(r, t)), (v(l, t), v(r, b))]
-        .map(|(p, q)| stage.arena_mut().add(polyline(vec![p, q]).style(style).build()))
+    [(v(l, b), v(r, t)), (v(l, t), v(r, b))].map(|(p, q)| {
+        let line = stage.arena_mut().add(polyline(vec![p, q]).style(style).build());
+        kit.allow_crossing(line);
+        line
+    })
 }
 
 /// Draw two lines one after the other, `rt` seconds in all.
@@ -238,7 +248,7 @@ impl SceneConstruct for NothingToGrab {
             anims.push(stage.prepare(f.rt(0.5))?);
         }
         for m in sheet.mobs() {
-            let f = fade_in(stage.arena_mut(), m, v(0.0, 1.4), 1.0)?;
+            let f = fade_in(stage.arena_mut(), m, v(0.0, SHEET_RISE), 1.0)?;
             anims.push(stage.prepare(f.rt(0.9))?);
         }
         stage.play_prepared(anims)?;
@@ -272,12 +282,12 @@ impl SceneConstruct for NothingToGrab {
         let slipped_low = format!("{}.{}", product / 10, product % 10);
         let low = calc.reading(&kit, stage, &slipped_low, ink)?;
         play!(stage; fade_in(stage.arena_mut(), low, ORIGIN, 1.0)?.rt(0.3));
-        let low_cross = cross(stage, low);
+        let low_cross = cross(&kit, stage, low);
         strike(stage, low_cross, 0.4)?;
         line.wait_for(stage, "or fifty thousand")?;
         let high = calc.reading(&kit, stage, &num(product * 10), ink)?;
         swap(stage, &[low, low_cross[0], low_cross[1]], &[high], 0.3)?;
-        let high_cross = cross(stage, high);
+        let high_cross = cross(&kit, stage, high);
         strike(stage, high_cross, 0.4)?;
         // the number line: the estimate first, then the answer beside it
         line.wait_sentence(stage, 4)?;
@@ -321,5 +331,64 @@ impl SceneConstruct for NothingToGrab {
         // the tiles stay, all at rest, for chapter 14's quiz
         tiles_rest_and_clear(stage, &tiles, &[], 0.8)?;
         kit.finish(stage)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::cell::Cell;
+    use std::rc::Rc;
+
+    use super::super::draw::testing;
+    use super::*;
+
+    /// The sheet of 13_4 as the chapter builds it, measured: the bottom of
+    /// its back and its width.
+    struct Measure {
+        seen: Rc<Cell<(f64, f64)>>,
+    }
+
+    impl SceneConstruct for Measure {
+        fn name(&self) -> &str {
+            "sheet"
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            let kit = Kit::new()?;
+            let (a, b) = shown::NOTHING;
+            let by = by_parts(a, b);
+            let mut rows: Vec<String> = by.pieces.iter().map(|p| num(p.area())).collect();
+            if let Some(last) = rows.last_mut() {
+                *last = format!("+ {last}");
+            }
+            rows.push(num(by.product()));
+            let row_refs: Vec<&str> = rows.iter().map(String::as_str).collect();
+            let sheet = Sheet::build(&kit, stage, SHEET_AT, &row_refs, &[rows.len() - 2], SHEET_PT)?;
+            self.seen
+                .set((stage.get_bottom(sheet.back)[1], stage.get_width(sheet.back)));
+            pause(stage, 0.1)
+        }
+    }
+
+    /// The sheet is not read as a lower third as it comes in: at the start
+    /// of its rise it covers less of the strip at the foot of the frame (the
+    /// bottom tenth) than tools/band_dwell.py takes for a band (12% of the
+    /// strip's pixels). Rising 1.4 from under the frame it covered all of
+    /// the strip's height, 24% of its pixels, for 0.57 s.
+    #[test]
+    fn the_sheet_comes_in_without_sweeping_the_foot_of_the_frame() {
+        let seen = Rc::new(Cell::new((0.0, 0.0)));
+        testing::render(&mut Measure { seen: Rc::clone(&seen) }, "sheet").unwrap();
+        let (bottom, width) = seen.get();
+        assert!(width > 0.0, "the sheet was not measured");
+        let strip_h = 0.2 * FRAME_Y_RADIUS;
+        let strip_top = -FRAME_Y_RADIUS + strip_h;
+        let covered = ((strip_top - (bottom - SHEET_RISE)) / strip_h).clamp(0.0, 1.0);
+        let share = covered * width / (2.0 * FRAME_X_RADIUS);
+        assert!(
+            share < 0.11,
+            "the sheet covers {:.0}% of the strip at the foot as it comes in (a band is 12%)",
+            100.0 * share
+        );
     }
 }

@@ -79,6 +79,37 @@ const CANDIDATES_Y: f64 = 0.75;
 const EQUALS_X: f64 = COL_X + 0.25;
 const SUM_YS: [f64; 4] = [1.15, 0.25, -0.65, -1.55];
 
+/// How far the plate behind the block's number reaches beyond its figures.
+const PLATE_PAD: f64 = 0.14;
+
+/// A plate in `color` just behind `parts` (a label's pieces): it hides what
+/// is painted under it, here the ruled lines of a block, where the figures
+/// stand. The layout lint takes a fill to hide a stroke over its middle
+/// two thirds, so a label of `w` units across gets at least (`w` - 0.6) / 4
+/// beyond its figures on each side (and `pad` at the least), for its outer
+/// figures to stand inside that. Detached.
+fn label_plate(stage: &mut Stage<'_>, parts: &[Mob], color: Srgb, pad: f64) -> fmn::Result<Mob> {
+    let (mut left, mut right, mut bottom, mut top) = (f64::MAX, f64::MIN, f64::MAX, f64::MIN);
+    for &m in parts {
+        left = left.min(stage.get_left(m)[0]);
+        right = right.max(stage.get_right(m)[0]);
+        bottom = bottom.min(stage.get_bottom(m)[1]);
+        top = top.max(stage.get_top(m)[1]);
+    }
+    if parts.is_empty() || left > right {
+        return Err(fail("a label plate needs the figures it stands behind".into()));
+    }
+    let pad_x = pad.max((right - left - 0.6) / 4.0);
+    let plate = Rectangle::new()
+        .width(right - left + 2.0 * pad_x)
+        .height(top - bottom + 2.0 * pad)
+        .corner_radius(0.08)
+        .style(flat(color, 1.0))
+        .build()?
+        .moved_to(v((left + right) / 2.0, (bottom + top) / 2.0));
+    Ok(stage.arena_mut().add(plate))
+}
+
 /// A count as a word, for a sentence on screen.
 fn count_word(n: usize) -> fmn::Result<&'static str> {
     COUNT_WORDS
@@ -487,7 +518,15 @@ impl SceneConstruct for ByParts {
         play!(stage; fade_in(stage.arena_mut(), tenth, v(0.0, -0.12), 1.0)?.rt(0.5));
         line.wait_sentence(stage, 2)?;
         let tiles = board.hundreds(&kit, stage, block_r, false)?;
-        play!(stage; fade_in(stage.arena_mut(), tiles.lines, ORIGIN, 1.0)?.rt(0.8));
+        // the block's number stands on a plate of the block's own colour,
+        // painted over the ruled lines and under the figures, so that the
+        // lines stop at its edge and do not run through "2 × 4 = 8" and
+        // then "800" (the layout lint's `behind`, 04_6 and 04_7)
+        let plate = label_plate(stage, &small, cut.role(0), PLATE_PAD)?;
+        play!(stage;
+            fade_in(stage.arena_mut(), tiles.lines, ORIGIN, 1.0)?.rt(0.8),
+            fade_in(stage.arena_mut(), plate, ORIGIN, 1.0)?.rt(0.8),
+        );
         stage.scene_mut().bring_to_front(&small)?;
 
         // 04_6: leave the zeros out, then put them back by size: 2 × 4 = 8
@@ -544,6 +583,8 @@ impl SceneConstruct for ByParts {
         let mut anims = Vec::new();
         let grid_out = fade_out(stage.arena_mut(), tiles.lines, ORIGIN, 1.0)?;
         anims.push(stage.prepare(grid_out.rt(0.5))?);
+        let plate_out = fade_out(stage.arena_mut(), plate, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(plate_out.rt(0.5))?);
         for &m in &quiet {
             anims.push(stage.prepare(dim(m, 1.0, 0.5)?)?);
         }

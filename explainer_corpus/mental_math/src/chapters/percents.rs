@@ -876,8 +876,9 @@ impl SceneConstruct for Percents {
         fade_in_lagged(stage, &friendly, 1.5, 0.6)?;
         line.wait_end(stage)?;
         let precisely = lower_third_tex(&kit, stage, PRECISELY, PRECISELY_TEX)?;
-        play!(stage; fade_in(stage.arena_mut(), precisely, v(0.0, 0.15), 1.0)?.rt(0.5));
-        kit.music_breath(stage, super::draw::END_HOLD_S)?;
+        // the closing band stands whole for STAND_UP, not the end hold
+        // (2.07 s in the scored render, under the 2.6 s floor)
+        super::draw::close_on_band(&kit, stage, precisely, v(0.0, 0.15))?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

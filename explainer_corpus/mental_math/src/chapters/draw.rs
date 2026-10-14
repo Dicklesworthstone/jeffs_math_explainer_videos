@@ -93,6 +93,16 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
             (at, start)
         })
         .collect();
+    // a test run notes when each line starts and how long it is, under its
+    // number ("06_8" is 68)
+    #[cfg(test)]
+    probe::record(
+        &kit.chapter,
+        "line_start",
+        id.replace('_', "").parse().unwrap_or(0),
+        stage.scene().time().to_f64(),
+        len,
+    );
     Ok(Spoken {
         id: id.to_owned(),
         start: stage.scene().time().to_f64(),
@@ -174,6 +184,33 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
 /// `HOLD_S` is 2.5 s; cut to 1.5 s for length on 2026-10-13, after the
 /// narrated draft ran 15:54: docs/decisions.md).
 pub const END_HOLD_S: f64 = 1.5;
+
+/// How long a lower-third stands whole before anything takes it away,
+/// seconds: the floor the other videos' bands keep (K's `BAND_UP`, G's and
+/// H's `STAND_UP`), read from the render by tools/band_dwell.py. The two
+/// bands that close a chapter (06_8, 10_7) stood whole 2.07 and 1.90 s in
+/// the scored render, because the end hold (`END_HOLD_S`) was all the time
+/// they had.
+pub const STAND_UP: f64 = 2.6;
+
+/// How long a closing band takes to come up, seconds.
+const BAND_RISE_S: f64 = 0.5;
+
+/// A lower-third that closes its chapter, after the last line has been
+/// said: it comes up over [`BAND_RISE_S`] (lifted by `lift`), stands whole
+/// for [`STAND_UP`] with the music alone (the music breath the chapter's end
+/// hold would have been), and the chapter's own fade takes it. A test run
+/// notes when it is whole (`band_up`) and when it is first taken
+/// (`band_leave`) in [`probe`].
+pub fn close_on_band(kit: &Kit, stage: &mut Stage<'_>, band: Mob, lift: Vec3) -> fmn::Result<()> {
+    explainer_kit::play!(stage; fade_in(stage.arena_mut(), band, lift, 1.0)?.rt(BAND_RISE_S));
+    #[cfg(test)]
+    probe::record(&kit.chapter, "band_up", 0, stage.scene().time().to_f64(), 0.0);
+    kit.music_breath(stage, STAND_UP)?;
+    #[cfg(test)]
+    probe::record(&kit.chapter, "band_leave", 0, stage.scene().time().to_f64(), 0.0);
+    Ok(())
+}
 
 /// Wait `seconds` (a beat of stillness after a reveal).
 pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
@@ -2308,7 +2345,7 @@ pub mod testing {
     /// Run chapter `key` with the scratch voice at 64 by 36 and [`FPS`], its
     /// kit named `key#voiced` (so a probe's events are this run's).
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
-        run_named(key, "voiced", &[], false)
+        run_named(key, "voiced", &[], false, None)
     }
 
     /// As [`run_voiced`], with the line gaps the video renders with (the
@@ -2320,10 +2357,34 @@ pub mod testing {
     /// named `key#timed`: a run of the same chapter in another test, named
     /// `key#voiced`, does not put its probe events into this one's.
     pub fn run_timed(key: &str, timed: &[(&str, &[f64], f64)]) -> Result<Voiced, String> {
-        run_named(key, "timed", timed, true)
+        run_named(key, "timed", timed, true, None)
     }
 
-    fn run_named(key: &str, tag: &str, timed: &[(&str, &[f64], f64)], as_rendered: bool) -> Result<Voiced, String> {
+    /// As [`run_timed`], with the kit named `key#tag`: a test that reads a
+    /// probe's events of its own run takes a tag of its own, so that the
+    /// other tests running the same chapter at the same time do not put
+    /// theirs among them.
+    pub fn run_timed_tagged(key: &str, tag: &str, timed: &[(&str, &[f64], f64)]) -> Result<Voiced, String> {
+        run_named(key, tag, timed, true, None)
+    }
+
+    /// The layout lint's findings for chapter `key`, run as rendered (the
+    /// video's line gaps, and the finished read's timing for `timed`) with
+    /// the sampled lint `./x draft --lint` runs: how many, and the report
+    /// (a row each: checkpoint, kind, detail).
+    pub fn lint_findings(key: &str, timed: &[(&str, &[f64], f64)]) -> Result<(usize, String), String> {
+        let lint = std::rc::Rc::new(explainer_kit::Linter::sampled());
+        run_named(key, "linted", timed, true, Some(std::rc::Rc::clone(&lint)))?;
+        Ok((lint.count(), lint.report()))
+    }
+
+    fn run_named(
+        key: &str,
+        tag: &str,
+        timed: &[(&str, &[f64], f64)],
+        as_rendered: bool,
+        lint: Option<std::rc::Rc<explainer_kit::Linter>>,
+    ) -> Result<Voiced, String> {
         let chapter = crate::chapters::registry()
             .into_iter()
             .find(|c| c.key == key)
@@ -2338,6 +2399,9 @@ pub mod testing {
             Narrator::estimate_timed(&script, timed)?
         };
         let mut kit = Kit::new().map_err(|e| e.to_string())?.with_narrator(narrator);
+        if let Some(lint) = lint {
+            kit = kit.with_lint(lint);
+        }
         kit.chapter = format!("{key}#{tag}");
         let mut scene = (chapter.make)(kit.clone());
         let (frames_dir, frames) = render(scene.as_mut(), key)?;
@@ -2806,18 +2870,24 @@ mod tests {
     /// length in the cue report): (id, sentence onsets, length) in seconds.
     /// The scratch voice puts a short first sentence ("Your turn.") later or
     /// earlier than the finished read says it, so a stretch that is 0.6 s
-    /// bare in the finished read is 0.3 s in a scratch run.
+    /// bare in the finished read is 0.3 s in a scratch run. 06_8, 10_7 and
+    /// 11_3 are the finals' read (e1b0ad3: each sentence's `out_samples`
+    /// and `gap_after_samples`; 06_8 ends on 15.40 s, 10_7 on 13.90 s, 11_3
+    /// on 16.21 s), where the scratch voice has them end earlier.
     const FINISHED_READ: &[(&str, &[f64], f64)] = &[
         ("01_1", &[0.0, 1.38], 2.64),
         ("02_1", &[0.0, 2.15, 3.65], 5.7),
         ("03_1", &[0.0, 0.98, 3.93], 5.3),
         ("06_1", &[0.0, 1.04, 6.04, 11.14], 12.32),
         ("06_4", &[0.0, 0.98], 3.18),
+        ("06_8", &[0.0, 2.22, 5.09, 7.95, 9.84], 15.4),
         ("07_3", &[0.0, 0.98], 3.03),
         ("07_6", &[0.0, 0.98], 4.52),
         ("08_6", &[0.0, 0.98], 2.55),
         ("09_1", &[0.0, 2.26, 7.6, 11.91], 16.17),
         ("09_4", &[0.0, 1.91, 4.31], 7.43),
+        ("10_7", &[0.0, 2.23, 3.8, 6.1, 8.44, 9.81, 12.71], 13.9),
+        ("11_3", &[0.0, 3.18, 9.43, 11.57, 15.11], 16.21),
     ];
 
     /// What is wrong with chapter `key`'s stage, run with the finished
@@ -2921,4 +2991,116 @@ mod tests {
         chapter_14_opens_on_a_picture_and_is_never_bare,
         "14_near_something_you_know"
     );
+
+    macro_rules! lint_clean {
+        ($test:ident, $key:expr) => {
+            /// The layout lint, sampled as `--lint` does it, finds nothing in
+            /// the chapter: no stroke through its figures (04_6 and 04_7 had
+            /// the ruled lines of the block through "2 × 4 = 8" and "800"),
+            /// nothing cut off or against an edge.
+            #[test]
+            fn $test() {
+                let (n, report) = testing::lint_findings($key, FINISHED_READ).unwrap();
+                assert_eq!(n, 0, "{n} layout findings in {}:\n{report}", $key);
+            }
+        };
+    }
+
+    lint_clean!(chapter_01_keeps_the_layout_lint_clean, "01_eighty_five_squared");
+    lint_clean!(chapter_02_keeps_the_layout_lint_clean, "02_ends_in_five");
+    lint_clean!(chapter_03_keeps_the_layout_lint_clean, "03_your_turn");
+    lint_clean!(chapter_04_keeps_the_layout_lint_clean, "04_by_parts");
+    lint_clean!(chapter_05_keeps_the_layout_lint_clean, "05_running_total");
+    lint_clean!(chapter_06_keeps_the_layout_lint_clean, "06_percents");
+    lint_clean!(chapter_07_keeps_the_layout_lint_clean, "07_round_numbers");
+    lint_clean!(chapter_08_keeps_the_layout_lint_clean, "08_the_middle");
+    lint_clean!(chapter_09_keeps_the_layout_lint_clean, "09_bethe");
+    lint_clean!(chapter_10_keeps_the_layout_lint_clean, "10_near_fifty");
+    lint_clean!(chapter_11_keeps_the_layout_lint_clean, "11_your_turn_fifty");
+    lint_clean!(chapter_12_keeps_the_layout_lint_clean, "12_which_trick");
+    lint_clean!(chapter_13_keeps_the_layout_lint_clean, "13_nothing_to_grab");
+    lint_clean!(chapter_14_keeps_the_layout_lint_clean, "14_near_something_you_know");
+
+    /// What chapter `key` did with the lower-third that closes it, in a run
+    /// with the finished read's timing (the kit named `key#tag`, so that the
+    /// events are this run's): when the band was whole, when the chapter
+    /// first took it, and when line `last` had been said.
+    fn closing_band(key: &str, tag: &str, last: &str) -> (f64, f64, f64) {
+        testing::run_timed_tagged(key, tag, FINISHED_READ).unwrap();
+        let name = format!("{key}#{tag}");
+        let at = |kind: &str| {
+            probe::take(&name, kind)
+                .first()
+                .map(|e| e.1)
+                .unwrap_or_else(|| panic!("{key}: the chapter noted no {kind}"))
+        };
+        let (_, _, length) = *FINISHED_READ.iter().find(|(id, ..)| *id == last).unwrap();
+        (at("band_up"), at("band_leave"), line_start(&name, last) + length)
+    }
+
+    /// When line `id` started in the run named `name`, seconds.
+    fn line_start(name: &str, id: &str) -> f64 {
+        let number: usize = id.replace('_', "").parse().unwrap();
+        probe::take(name, "line_start")
+            .into_iter()
+            .find(|e| e.0 == number)
+            .map(|e| e.1)
+            .unwrap_or_else(|| panic!("{name}: line {id} never started"))
+    }
+
+    macro_rules! closing_band_stands {
+        ($test:ident, $key:expr, $last:expr) => {
+            /// The band that closes the chapter stands whole for the floor
+            /// every band keeps, and is not taken before its line is said.
+            #[test]
+            fn $test() {
+                let (up, leave, said) = closing_band($key, "band", $last);
+                assert!(
+                    leave - up >= STAND_UP - 1e-6,
+                    "{}: the closing band stands whole {:.2} s, under {STAND_UP} s",
+                    $key,
+                    leave - up
+                );
+                assert!(
+                    leave >= said,
+                    "{}: the closing band is taken at {leave:.2} s, before line {} is said ({said:.2} s)",
+                    $key,
+                    $last
+                );
+            }
+        };
+    }
+
+    closing_band_stands!(the_closing_band_of_06_stands_long_enough_to_read, "06_percents", "06_8");
+    closing_band_stands!(
+        the_closing_band_of_10_stands_long_enough_to_read,
+        "10_near_fifty",
+        "10_7"
+    );
+
+    /// 11_3's result, "3800 + 44 = 3844", is whole as "Thirty-eight
+    /// forty-four." has been said (it came 0.9 s after it), and not before
+    /// the sentence begins.
+    #[test]
+    fn the_sum_of_sixty_two_is_whole_as_it_is_said() {
+        let key = "11_your_turn_fifty";
+        testing::run_timed_tagged(key, "spill", FINISHED_READ).unwrap();
+        let name = format!("{key}#spill");
+        let up = probe::take(&name, "sum_up")
+            .first()
+            .map(|e| e.1)
+            .expect("the chapter noted no sum_up");
+        let (_, onsets, length) = *FINISHED_READ.iter().find(|(id, ..)| *id == "11_3").unwrap();
+        let start = line_start(&name, "11_3");
+        let (sentence, said) = (start + onsets[onsets.len() - 1], start + length);
+        assert!(
+            up >= sentence,
+            "the sum is whole at {up:.2} s, before its sentence begins ({sentence:.2} s)"
+        );
+        assert!(
+            up <= said + 0.25,
+            "the sum is whole {:.2} s after its sentence has been said",
+            up - said
+        );
+    }
 }
