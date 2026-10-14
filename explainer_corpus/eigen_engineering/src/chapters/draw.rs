@@ -1543,5 +1543,6 @@ mod tests {
 
     section_five_tests! {
         quiz_02_6_follows_section_5: "02_6",
+        quiz_11_3_follows_section_5: "11_3",
     }
 }

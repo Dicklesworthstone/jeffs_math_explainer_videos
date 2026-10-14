@@ -9,6 +9,7 @@ pub mod draw;
 pub mod glyphs;
 pub mod truss;
 pub mod two_carts;
+pub mod where_modes_rule;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -47,7 +48,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("08_two_bridges", 0.35),
         animatic!("09_the_air_in_a_room", 0.5),
         animatic!("10_two_million_modes", 0.55),
-        animatic!("11_where_modes_rule", 0.45),
+        scene!("11_where_modes_rule", 0.45, where_modes_rule::WhereModesRule),
         animatic!("12_an_economy", 0.5),
         animatic!("13_can_it_feed_itself", 0.55),
         animatic!("14_one_idea", 0.5),
