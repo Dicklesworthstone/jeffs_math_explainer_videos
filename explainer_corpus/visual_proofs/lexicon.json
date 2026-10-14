@@ -1,0 +1,165 @@
+{
+ "_comment": "Pronunciation lexicon for Video I (narration skill, PRONUNCIATION.md). Names from the P3 claim walk (CloudyFinch, mx-e-a-dza.5), probed with probe_names.py run --voice michael on 2026-10-13; each probe.verdict says what the ASR heard. Paul Curry and Martin Gardner are plain English and not listed. The owner's pronunciation overrides every entry.",
+ "words": {
+  "Nicomachus": {
+   "say": "nih-KOM-uh-kus",
+   "respell": [
+    "Nicomachus"
+   ],
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Nicomachus"
+   ],
+   "decoy": [
+    "NIK-oh-MAH-kus"
+   ],
+   "note": "Nicomachus of Gerasa (06_5). Wikipedia gives Latin IPA only; English usage nih-KOM-uh-kus.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word heard as Nicomachus 3/3; nih-KOM-uh-kus was garbled (Night Come A Cuss). The decoy was also heard as the name once, so the vowel is for the owner's ear."
+   }
+  },
+  "Al-Karaji": {
+   "say": "al-KAR-uh-jee",
+   "respell": [
+    "Al-Karaji"
+   ],
+   "lang": "ar",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Al-Karaji"
+   ],
+   "decoy": [
+    "al-ka-RAH-gee"
+   ],
+   "note": "Abu Bakr al-Karaji (06_6). No IPA in the sources; candidates from the Arabic.",
+   "accept": [
+    "Al Karaji",
+    "Al-Qaraji",
+    "Al Qaraji"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain spelling heard as Al Karaji / Al-Qaraji 3/3 (the right sounds); both respellings were worse. For the owner's ear."
+   }
+  },
+  "Siu": {
+   "say": "SEE-oo",
+   "respell": [
+    "Siu"
+   ],
+   "lang": "yue",
+   "sources": [],
+   "decoy": [
+    "Sigh-you"
+   ],
+   "accept": [
+    "See you",
+    "Sue",
+    "CU"
+   ],
+   "note": "Man-Keung Siu (08_5, 15_5 'Siu's'), Cantonese surname 蕭 (Siu). No written source; for the owner's ear.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain spelling heard as 'See you' / CU, the Cantonese siu (see-oo) as one syllable pair; SEE-oo was read as letters. PASS by the tool; for the owner's ear."
+   }
+  },
+  "Man-Keung": {
+   "say": "mun-KEUNG",
+   "respell": [
+    "Man-Keung"
+   ],
+   "lang": "yue",
+   "sources": [],
+   "decoy": [
+    "Man-Kyoong"
+   ],
+   "note": "Man-Keung Siu's given name (08_5). For the owner's ear.",
+   "accept": [
+    "Meng Kung",
+    "Mang Kung"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL: no reading verified; the plain spelling is heard as Meng Kung / Mang Kung, near the Cantonese man keung, and the respellings were worse. For the owner's ear."
+   }
+  },
+  "Archimedes": {
+   "say": "ar-kih-MEE-deez",
+   "respell": [
+    "Archimedes"
+   ],
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Archimedes"
+   ],
+   "decoy": [
+    "ar-CHIM-eds"
+   ],
+   "note": "11_6. Wikipedia's US IPA; lookup_pronunciation.py misread the grc-x-doric tag (CloudyFinch), do not use its output.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word heard as Archimedes 3/3; ar-kih-MEE-deez was garbled once."
+   }
+  },
+  "Ajose": {
+   "say": "ah-JOH-seh",
+   "respell": [
+    "ah-JOH-seh"
+   ],
+   "lang": "yo",
+   "sources": [],
+   "decoy": [
+    "uh-JOHZ"
+   ],
+   "note": "Sunday Ajose (11_6), Yoruba surname. No written source; for the owner's ear.",
+   "accept": [
+    "Ajose",
+    "Ah Jose",
+    "Ajoseh"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "PARTIAL: the plain spelling is misread (a Jost, ajos); ah-JOH-seh is heard as 'Ah, Jose', the intended sounds. Yoruba tones not modelled; for the owner's ear."
+   }
+  },
+  "Nelsen": {
+   "say": "NEL-sun",
+   "respell": [
+    "Nelsen"
+   ],
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Roger_B._Nelsen"
+   ],
+   "decoy": [
+    "Nel-SEEN"
+   ],
+   "note": "Roger Nelsen (11_6), like Nelson.",
+   "accept": [
+    "Nelson"
+   ],
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word heard as Nelson 3/3 (the same sound)."
+   }
+  },
+  "Pythagoras": {
+   "say": "pih-THAG-er-us",
+   "respell": [
+    "Pythagoras"
+   ],
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Pythagoras"
+   ],
+   "decoy": [
+    "PITH-uh-GOR-us"
+   ],
+   "note": "'Pythagoras's' in the script; the plain word.",
+   "probe": {
+    "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
+    "verdict": "Plain word heard as Pythagoras 3/3; the respelling was garbled."
+   }
+  }
+ }
+}
