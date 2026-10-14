@@ -231,6 +231,14 @@ fn platform_parts(k: f64, o: [f64; 2], pose: (f64, f64, f64), arrows: f64, side:
     out
 }
 
+/// The heading a readout prints, in whole degrees from a heading in radians.
+/// Rounded here: the readout prints no places, and a number of no places is
+/// truncated, so a heading of 179.99999999999997 would print 179 at the end
+/// of a half circle. (Never −0.)
+fn shown_heading(h: f64) -> f64 {
+    model::wrap_deg(h / DEG).round() + 0.0
+}
+
 /// The platform's path of `seconds`, held at `spin` rad/s and `speed` m/s,
 /// as `n + 1` points in metres.
 fn path_points(speed: f64, spin: f64, seconds: f64, n: usize) -> Vec<(f64, f64)> {
@@ -332,7 +340,7 @@ impl SceneConstruct for ThePlatform {
         )?;
         let pose_h = kit.live_value(
             stage,
-            move |s| model::wrap_deg(planar_exp(speed, 0.0, spin, value(s, clock)).2 / DEG),
+            move |s| shown_heading(planar_exp(speed, 0.0, spin, value(s, clock)).2),
             0,
             false,
             34.0,
@@ -468,7 +476,7 @@ impl SceneConstruct for ThePlatform {
             )?,
             kit.live_value(
                 stage,
-                move |s| model::wrap_deg(planar_exp(speed, 0.0, spin, value(s, clock)).2 / DEG).abs(),
+                move |s| shown_heading(planar_exp(speed, 0.0, spin, value(s, clock)).2).abs(),
                 0,
                 false,
                 34.0,
@@ -659,6 +667,27 @@ mod tests {
             let words = beat.spoken().expect("every beat of chapter 06 is spoken");
             assert_eq!(script.text(&beat.id), Some(words.as_str()), "{}", beat.id);
         }
+    }
+
+    /// 06_3: the heading readout (whole degrees, which truncates) reads the
+    /// heading the facts give, from the first frame to the half circle's
+    /// end: thirty degrees a second, so 180 after six seconds, never 179 (and
+    /// never −0).
+    #[test]
+    fn the_heading_readout_reads_the_headings_of_the_drive() {
+        let (speed, spin, seconds) = drive().unwrap();
+        for k in 0..=24 {
+            let t = seconds * f64::from(k) / 24.0;
+            let h = planar_exp(speed, 0.0, spin, t).2;
+            let shown = shown_heading(h).abs();
+            let want = (30.0 * t).round();
+            assert_eq!(shown, want, "t = {t}: {shown} against {want}");
+            assert!(
+                shown_heading(h).is_sign_positive() || shown_heading(h) < 0.0,
+                "never −0"
+            );
+        }
+        assert_eq!(shown_heading(planar_exp(speed, 0.0, spin, seconds).2).abs(), 180.0);
     }
 
     /// 06_2: six seconds; the computed answer is "beside where it started".
