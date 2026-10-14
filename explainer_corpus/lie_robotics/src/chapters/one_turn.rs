@@ -103,6 +103,15 @@ const CARD_SCALE: f64 = 0.92;
 /// (the panel stands at the right, centred on the middle of the frame).
 const GRID_AT: [f64; 2] = [4.3, 2.45];
 const GRID_PITCH: (f64, f64) = (1.25, 0.72);
+/// 02_6's row of three small grids (roll's, tilt's and their product), their
+/// middles' x and common height, and their captions' height. At 1.5 the row's
+/// last line stood across the book's top (1.36) and the code panel's corner
+/// (the dense read of the scored draft): the "roll" grid's bottom row was
+/// behind the book and the product's last "0" under the panel's edge.
+const PRODUCT_X: [f64; 3] = [-5.4, -2.5, 0.5];
+const PRODUCT_Y: f64 = 2.4;
+const PRODUCT_CAPTION_Y: f64 = 3.45;
+const PRODUCT_PITCH: (f64, f64) = (0.72, 0.5);
 const TABLE_LO: [f64; 2] = [-3.0, -2.2];
 const TABLE_HI: [f64; 2] = [3.0, 2.6];
 
@@ -151,6 +160,22 @@ fn parse_grid(text: &str) -> fmn::Result<[[String; 3]; 3]> {
 /// A grid of a turn's matrix, rounded as the picture prints it.
 fn grid_of(r: &M3) -> [[String; 3]; 3] {
     std::array::from_fn(|i| std::array::from_fn(|j| screen_entry(r[i][j])))
+}
+
+/// One of 02_6's three grids: its word, its entries as printed, its x.
+type ProductCell = (&'static str, [[String; 3]; 3], f64);
+
+/// 02_6's row, left to right: the grid of the turn that goes on the left in a
+/// product (roll, the later one), the grid of tilt, and the grid of tilt then
+/// roll, each with the word that names it and its middle's x. Roll times tilt
+/// is tilt then roll: the code panel says so (`R = roll @ tilt`). The words
+/// were once set tilt, roll over these grids, each over the other's.
+fn product_row() -> fmn::Result<[ProductCell; 3]> {
+    Ok([
+        (ROLL, grid_of(&model::roll_turn(FRAC_PI_2)), PRODUCT_X[0]),
+        (TILT, grid_of(&model::tilt_turn(FRAC_PI_2)), PRODUCT_X[1]),
+        (TILT_THEN_ROLL, parse_grid(fact("G-B.tilt_then_roll.R")?)?, PRODUCT_X[2]),
+    ])
 }
 
 /// Two strokes for an equals sign, centred at `at`, in `color`.
@@ -445,22 +470,22 @@ impl SceneConstruct for OneTurn {
         play!(stage; tween(tb, 1.0, 1.3)?);
         line.wait_for(stage, "One turn after another")?;
         // the grids of tilt and roll make the grid of tilt then roll
-        let first = kit.text(stage, TILT, 26.0, Palette::dim(), v(-5.4, 2.55))?;
-        let second = kit.text(stage, ROLL, 26.0, Palette::dim(), v(-2.5, 2.55))?;
-        let result = kit.text(stage, TILT_THEN_ROLL, 26.0, Palette::dim(), v(0.5, 2.55))?;
-        let small_pitch = (0.72, 0.5);
-        let rows = [
-            (grid_of(&model::roll_turn(FRAC_PI_2)), v(-5.4, 1.5)),
-            (grid_of(&model::tilt_turn(FRAC_PI_2)), v(-2.5, 1.5)),
-            (parse_grid(fact("G-B.tilt_then_roll.R")?)?, v(0.5, 1.5)),
-        ];
         let mut row_mobs = Vec::new();
-        for (cells, at) in rows {
-            row_mobs.extend(static_grid(&kit, stage, cells, at, small_pitch, 30.0, colors)?);
+        for (word, cells, x) in product_row()? {
+            row_mobs.push(kit.text(stage, word, 26.0, Palette::dim(), v(x, PRODUCT_CAPTION_Y))?);
+            row_mobs.extend(static_grid(
+                &kit,
+                stage,
+                cells,
+                v(x, PRODUCT_Y),
+                PRODUCT_PITCH,
+                30.0,
+                colors,
+            )?);
         }
-        let times = kit.text(stage, TIMES, 40.0, Palette::ink(), v(-3.95, 1.5))?;
-        let equals = kit.text(stage, EQUALS, 40.0, Palette::ink(), v(-1.05, 1.5))?;
-        row_mobs.extend([first, second, result, times, equals]);
+        let times = kit.text(stage, TIMES, 40.0, Palette::ink(), v(-3.95, PRODUCT_Y))?;
+        let equals = kit.text(stage, EQUALS, 40.0, Palette::ink(), v(-1.05, PRODUCT_Y))?;
+        row_mobs.extend([times, equals]);
         fade_in_all(stage, &row_mobs, 0.7)?;
         let panel = CodePanel::build(&kit, stage, &CODE, 26.0, 5.6)?;
         play!(stage; panel.slide_in(0.8)?);
@@ -731,6 +756,76 @@ mod tests {
         // the product of the two grids is the third, in the order the tag says
         let product = model::mul(&model::roll_turn(FRAC_PI_2), &model::tilt_turn(FRAC_PI_2));
         assert_eq!(grid_of(&product), want);
+    }
+
+    /// 02_6 (the dense read of the scored draft): each word names the grid
+    /// under it (the scene had "tilt" over roll's grid and "roll" over
+    /// tilt's), the product is the later turn's grid on the left, and the row
+    /// stands over the book and left of the code panel and the live grid.
+    #[test]
+    fn the_captions_name_their_grids_and_the_row_clears_the_book_and_the_panel() {
+        // a quarter turn about x (the far edge rising) and one about y
+        let tilt: M3 = [[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]];
+        let roll: M3 = [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]];
+        let row = product_row().unwrap();
+        assert_eq!((row[0].0, row[1].0, row[2].0), (ROLL, TILT, TILT_THEN_ROLL));
+        assert_eq!(row[0].1, grid_of(&roll));
+        assert_eq!(row[1].1, grid_of(&tilt));
+        // read left to right it multiplies: the later turn on the left
+        assert_eq!(row[2].1, grid_of(&model::mul(&roll, &tilt)));
+
+        // the row's boxes: a grid is 2 pitches across and down, with its
+        // brackets and a cell's width beyond
+        let half = (PRODUCT_PITCH.0 + 0.3, PRODUCT_PITCH.1 + 0.25);
+        let boxes: Vec<(f64, f64, f64, f64)> = PRODUCT_X
+            .iter()
+            .map(|&x| (x - half.0, x + half.0, PRODUCT_Y - half.1, PRODUCT_Y + half.1))
+            .collect();
+        // the caption over each is inside the safe area
+        assert!(PRODUCT_CAPTION_Y + 0.2 < SAFE[1] && PRODUCT_CAPTION_Y - 0.2 > PRODUCT_Y + half.1);
+        assert!(boxes[0].0 > -SAFE[0]);
+        // over the book as it stands at the end
+        let (_, axis) = single_turn();
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        let r = book_turn(axis, 0.0, 1.0, 1.0);
+        let mut pts = Vec::new();
+        for sx in [-1.0, 1.0] {
+            for sy in [-1.0, 1.0] {
+                for sz in [-1.0, 1.0] {
+                    let c = model::apply(&r, [sx * BOOK_HALF[0], sy * BOOK_HALF[1], sz * BOOK_HALF[2]]);
+                    pts.push(model::add(CENTRE, c));
+                }
+            }
+        }
+        let (lo, hi) = view.box_of(pts);
+        for b in &boxes {
+            let apart = b.1 < lo[0] || b.0 > hi[0] || b.2 > hi[1] + 0.1;
+            assert!(apart, "the grid at {b:?} meets the book {lo:?} {hi:?}");
+        }
+        // left of the live grid, and clear of the panel's final box
+        let live_left = GRID_AT[0] - 1.62 * GRID_PITCH.0;
+        assert!(boxes[2].1 < live_left - 0.3, "{:.2} against {live_left:.2}", boxes[2].1);
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let panel = CodePanel::build(&kit, stage, &CODE, 26.0, 5.6)?;
+            // built to come in from the right; it slides in by its width and
+            // 0.45
+            let shift = panel.width + 0.45;
+            let (pl, pr) = (
+                stage.get_left(panel.group)[0] - shift,
+                stage.get_right(panel.group)[0] - shift,
+            );
+            let pt = stage.get_top(panel.group)[1];
+            assert!(pr < SAFE[0] + 0.2 && pl > -SAFE[0]);
+            for b in &boxes {
+                let apart = b.1 < pl || b.0 > pr || b.2 > pt + 0.1;
+                assert!(
+                    apart,
+                    "the grid at {b:?} meets the code panel ({pl:.2}..{pr:.2}, top {pt:.2})"
+                );
+            }
+            Ok(())
+        });
     }
 
     #[test]
