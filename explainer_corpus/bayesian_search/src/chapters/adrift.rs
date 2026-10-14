@@ -49,17 +49,34 @@ const SAME_TRACK_TAIL: &str = "sea miles of track, spread evenly over the circle
 /// Scene units a sea mile is drawn as.
 const UNITS_PER_MILE: f64 = 0.40;
 /// Where the person was last known.
-const START: Vec3 = [-5.4, 0.3, 0.0];
+const START: Vec3 = [-5.4, 0.6, 0.0];
 /// The hour line along the bottom: its ends, and its height (its labels sit
-/// above the question's line in the caption band).
+/// above the question's line in the caption band, a clear 0.13 over it: at
+/// -2.35 the "6 h" touched the carried question).
 const LINE_X: (f64, f64) = (-6.2, 6.2);
-const LINE_Y: f64 = -2.35;
+const LINE_Y: f64 = -2.2;
 /// Hours at the line's right end: the last the chapter shows.
 const HOURS_MAX: f64 = 12.0;
 /// How long the drift still runs after the question is asked, seconds.
 const DRIFT_AFTER_ASK_S: f64 = 2.4;
 /// How opaque a dot of the cloud is (the cloud is thick near its middle).
 const CLOUD_OPACITY: f64 = 0.9;
+
+/// 10_4's y label: inside the plot, ending this far from its right edge and
+/// this far over its bottom; an hour's words keep this far from the point
+/// and stay this far inside the plot's edge.
+const Y_LABEL_INSET: f64 = 0.2;
+const Y_LABEL_RISE: f64 = 0.4;
+const HOUR_WORDS_GAP: f64 = 0.2;
+const HOUR_WORDS_EDGE: f64 = 0.15;
+/// An hour's words stand this far under their point (right of it), or this
+/// far under it when they stand left of it (the curve is nearly flat there).
+const HOUR_WORDS_DROP: f64 = 0.32;
+const HOUR_WORDS_DROP_FAR: f64 = 0.5;
+/// The largest small cloud's radius over the plot (twelve hours): small
+/// enough that the twelfth hour's and the sixth's, at their coverages, do
+/// not meet.
+const SMALL_CLOUD_R: f64 = 0.42;
 
 /// Where the hour line puts hour `h`.
 fn hour_x(h: f64) -> f64 {
@@ -500,7 +517,17 @@ impl SceneConstruct for Adrift {
             furniture.push(kit.text(stage, &format!("{pct}%"), 24.0, Palette::dim(), v(p[0] - 0.42, p[1]))?);
         }
         furniture.push(kit.text(stage, X_LABEL, 24.0, Palette::dim(), v(w.center[0], w.bottom() - 0.5))?);
-        furniture.push(kit.text_left(stage, Y_LABEL, 24.0, Palette::dim(), v(w.left(), w.top() + 0.3))?);
+        // the y label stands inside the plot, under the curve at the right:
+        // above the plot the small clouds of the hours (up to 0.55 across)
+        // stood on it
+        let y_label = kit.text(stage, Y_LABEL, 24.0, Palette::dim(), ORIGIN)?;
+        let half = stage.get_width(y_label) / 2.0;
+        stage.move_to(
+            y_label,
+            v(w.right() - Y_LABEL_INSET - half, w.bottom() + Y_LABEL_RISE),
+            ORIGIN,
+        );
+        furniture.push(y_label);
         let curve_pts: Vec<Vec3> = (0..=120)
             .map(|i| {
                 let c = 3.0 * f64::from(i) / 120.0;
@@ -537,7 +564,7 @@ impl SceneConstruct for Adrift {
         let mut stops: Vec<Mob> = Vec::new();
         let mark_hour = |stage: &mut Stage<'_>, hr: &Hour, stops: &mut Vec<Mob>| -> fmn::Result<()> {
             let at = w.p(hr.coverage, 100.0 * hr.seeing);
-            let cloud_r = 0.55 * radius_miles(hr.h.f64()) / radius_miles(HOURS_MAX);
+            let cloud_r = SMALL_CLOUD_R * radius_miles(hr.h.f64()) / radius_miles(HOURS_MAX);
             let small_cloud = stage.arena_mut().add(
                 Circle::new()
                     .radius(cloud_r.max(0.06))
@@ -545,13 +572,23 @@ impl SceneConstruct for Adrift {
                     .style(line_style(teal(), 3.0))
                     .build(),
             );
-            let words = kit.text_left(
+            // under the curve, right of its point; left of it, lower still,
+            // when there is no room before the plot's edge (over the curve
+            // the line struck through the words)
+            let words = kit.text(
                 stage,
                 &format!("{} {:.0}%", hours_label(hr.h), 100.0 * hr.seeing),
                 24.0,
                 Palette::ink(),
-                v(at[0] + 0.2, at[1] + 0.15),
+                ORIGIN,
             )?;
+            let half = stage.get_width(words) / 2.0;
+            let (x, y) = if at[0] + HOUR_WORDS_GAP + 2.0 * half > w.right() - HOUR_WORDS_EDGE {
+                (at[0] - HOUR_WORDS_GAP - half, at[1] - HOUR_WORDS_DROP_FAR)
+            } else {
+                (at[0] + HOUR_WORDS_GAP + half, at[1] - HOUR_WORDS_DROP)
+            };
+            stage.move_to(words, v(x, y), ORIGIN);
             fade_in_all(stage, &[small_cloud, words], 0.4)?;
             stops.extend([small_cloud, words]);
             Ok(())
@@ -684,5 +721,71 @@ mod tests {
         // in a square of side 4: spacing is area over length
         let spacing = |side: f64, passes: f64| side / passes;
         assert!((spacing(4.0, 4.0) / spacing(2.0, 8.0) - 4.0).abs() < 1e-12);
+    }
+
+    /// 10_4's hours on the curve: the small clouds above the plot never meet
+    /// each other, each hour's words stand under the curve and inside the
+    /// plot, and the last hour's (nearest the right edge) end before it.
+    #[test]
+    fn the_hours_on_the_curve_do_not_touch() {
+        let w = curve_window();
+        let hs = hours();
+        let r_of = |hr: &Hour| SMALL_CLOUD_R * radius_miles(hr.h.f64()) / radius_miles(HOURS_MAX);
+        let mut by_x: Vec<(f64, f64)> = hs
+            .iter()
+            .map(|hr| (w.p(hr.coverage, 0.0)[0], r_of(hr).max(0.06)))
+            .collect();
+        by_x.sort_by(|a, b| a.0.total_cmp(&b.0));
+        for pair in by_x.windows(2) {
+            let gap = pair[1].0 - pair[0].0 - pair[0].1 - pair[1].1;
+            assert!(gap > 0.05, "two hours' clouds are {gap} apart");
+        }
+        for hr in &hs {
+            let at = w.p(hr.coverage, 100.0 * hr.seeing);
+            let width = format!("{} {:.0}%", hours_label(hr.h), 100.0 * hr.seeing)
+                .chars()
+                .count() as f64
+                * 24.0
+                * super::super::draw::CHAR_UNITS_PER_POINT;
+            let fits_right = at[0] + HOUR_WORDS_GAP + width <= w.right() - HOUR_WORDS_EDGE;
+            let (drop, right_end) = if fits_right {
+                (HOUR_WORDS_DROP, at[0] + HOUR_WORDS_GAP + width)
+            } else {
+                (HOUR_WORDS_DROP_FAR, at[0] - HOUR_WORDS_GAP)
+            };
+            assert!(right_end <= w.right() - HOUR_WORDS_EDGE + 1e-9);
+            // 24-point words are about 0.24 high: under the point, over the plot's floor
+            assert!(
+                at[1] - drop - 0.12 > w.bottom(),
+                "{}: {}",
+                hours_label(hr.h),
+                at[1] - drop
+            );
+        }
+        assert!(
+            hs.iter().any(|hr| {
+                let at = w.p(hr.coverage, 100.0 * hr.seeing);
+                at[0] + HOUR_WORDS_GAP + 0.9 > w.right() - HOUR_WORDS_EDGE
+            }),
+            "one hour (the first) needs the words on its left"
+        );
+    }
+
+    /// The narrated draft's overlaps in 10_2 and 10_3: the cloud at its
+    /// largest (twelve hours) stands between the model tag and the hour
+    /// line, and the hour line's labels stand over the carried question
+    /// without touching it ("6 h" did).
+    #[test]
+    fn the_cloud_fits_between_the_model_tag_and_the_hour_line() {
+        let r = radius_miles(HOURS_MAX) * UNITS_PER_MILE;
+        assert!(START[1] + r < 3.55 - 0.3, "the cloud's top is {}", START[1] + r);
+        assert!(START[1] - r > LINE_Y + 0.1, "the cloud's bottom is {}", START[1] - r);
+        // a label is 22 points high: a fifth of a unit about its centre
+        let labels_bottom = LINE_Y - 0.32 - 0.1;
+        let question_top = QUIZ_LINES_Y[0] + 0.13;
+        assert!(
+            labels_bottom - question_top >= 0.05,
+            "{labels_bottom} over {question_top}"
+        );
     }
 }
