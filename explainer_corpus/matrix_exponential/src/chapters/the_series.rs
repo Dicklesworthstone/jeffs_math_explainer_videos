@@ -134,6 +134,9 @@ impl SceneConstruct for TheSeries {
         let need_one = kit.text(stage, NEED_ONE, 30.0, Palette::dim(), v(-0.6, -0.4))?;
         let rate_one = kit.text(stage, RATE_ONE, 34.0, rule(), v(1.0, -3.35))?;
         line.wait_for(stage, "Start with one")?;
+        // the line that waited for the pieces ran through the 1 and the x
+        // (a strike-through in the narrated draft's tile): it goes as they come
+        fade_out_all(stage, &[waiting], 0.3)?;
         fade_in_all(stage, &[one, windows[0], flat_line], 0.6)?;
         line.wait_for(stage, "Its rate is zero")?;
         fade_in_all(stage, &[rate_zero], 0.5)?;
@@ -154,9 +157,7 @@ impl SceneConstruct for TheSeries {
 
         // 04_3: x needs a partner whose rate is x: the area under the line
         let line = say(&kit, stage, "04_3")?;
-        let mut leaving = vec![
-            target, f_is, waiting, one, plus_x, windows[0], windows[1], flat_line, steep_line,
-        ];
+        let mut leaving = vec![target, f_is, one, plus_x, windows[0], windows[1], flat_line, steep_line];
         leaving.extend([rate_one, tick]);
         fade_out_all(stage, &leaving, 0.5)?;
         let big = Frame2 {
@@ -212,10 +213,14 @@ impl SceneConstruct for TheSeries {
         stage.add_to_scene(anchor)?;
         let half_square = kit.tex(stage, "\\frac{x^{2}}{2}", 110.0, rule(), &[], v(3.6, 0.7))?;
         let the_line = kit.tex(stage, "y = x", 70.0, result(), &[], v(3.6, 2.4))?;
+        // the line y = x is on the stage as "a partner whose rate is x" is
+        // asked for (the narrated draft's tile was blank for three seconds);
+        // its area comes with the answer
+        let mut line_in = axes.to_vec();
+        line_in.extend([diagonal, the_line]);
+        fade_in_all(stage, &line_in, 0.6)?;
         line.wait_for(stage, "That's half of x squared")?;
-        let mut ins = axes.to_vec();
-        ins.extend([diagonal, area, strip, the_line]);
-        fade_in_all(stage, &ins, 0.7)?;
+        fade_in_all(stage, &[area, strip], 0.6)?;
         fade_in_all(stage, &[half_square], 0.6)?;
         line.wait_for(stage, "An area grows as fast")?;
         play!(stage; tween(x_now, 2.8, 3.2)?);
@@ -287,7 +292,7 @@ impl SceneConstruct for TheSeries {
         leaving.extend(&arcs);
         leaving.extend(&words);
         leaving.push(answer);
-        fade_out_all(stage, &leaving, 0.5)?;
+        fade_out_all(stage, &leaving, 0.3)?;
         // the row, with its bottoms written out
         let mut row = Vec::new();
         let columns = [-5.2, -3.8, -2.2, 0.6, 4.0];
@@ -316,11 +321,12 @@ impl SceneConstruct for TheSeries {
             &[],
             v(0.0, -2.7),
         )?;
+        // the sum so far and x cubed over six come in together, as it is
+        // said (the narrated draft's tile, 1.5 s in, had the sum without it)
         let mut first = vec![row[0], row[1], row[2]];
         first.extend(&plus[..2]);
+        first.extend([plus[2], row[3]]);
         fade_in_all(stage, &first, 0.5)?;
-        line.wait_for(stage, "X cubed over six")?;
-        fade_in_all(stage, &[plus[2], row[3]], 0.6)?;
         line.wait_for(stage, "Then x to the fourth")?;
         fade_in_all(stage, &[plus[3], row[4]], 0.6)?;
         line.wait_for(stage, "Each bottom number")?;

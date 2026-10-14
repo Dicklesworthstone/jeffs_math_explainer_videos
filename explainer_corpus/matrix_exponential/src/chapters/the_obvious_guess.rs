@@ -112,8 +112,11 @@ impl SceneConstruct for TheObviousGuess {
         let z_ones = MatrixGrid::build(&kit, stage, &ones, 54.0, warn(), v(5.3, -0.9))?;
         let z_frame = z_ones.outline(stage, warn())?;
         let guess_tag = kit.text(stage, THE_GUESS, 26.0, warn(), v(5.3, -2.0))?;
+        // J is on the stage under "So try the obvious repair" (the narrated
+        // draft's tile was a blank stage for the first three seconds)
+        fade_in_all(stage, &[j_in.group], 0.5)?;
         line.wait_for(stage, "Raise e to each entry")?;
-        fade_in_all(stage, &[j_in.group, j_arrow, j_label], 0.5)?;
+        fade_in_all(stage, &[j_arrow, j_label], 0.5)?;
         fade_in_all(stage, &[j_guess.group, j_frame], 0.6)?;
         line.wait_for(stage, "Test it on the easiest matrix")?;
         fade_in_all(stage, &[z_in.group, z_arrow, z_label], 0.5)?;
@@ -129,27 +132,10 @@ impl SceneConstruct for TheObviousGuess {
 
         // 02_3: no: e to the zero is one, and its matrix twin changes nothing
         let line = say(&kit, stage, "02_3")?;
-        fade_out_all(
-            stage,
-            &[
-                j_in.group,
-                j_arrow,
-                j_label,
-                j_guess.group,
-                j_frame,
-                z_in.group,
-                z_arrow,
-                z_label,
-                z_guess.group,
-                equals,
-                z_ones.group,
-                z_frame,
-                guess_tag,
-                programmers,
-                question,
-            ],
-            0.5,
-        )?;
+        // the question and the lower-third go as "No." is said; the zeros
+        // and the ones stay under "e to the zero is one" until the line
+        // turns to multiplying by one
+        fade_out_all(stage, &[programmers, question], 0.4)?;
         let flow = Flow::build(
             stage,
             FlowSpec {
@@ -170,6 +156,25 @@ impl SceneConstruct for TheObviousGuess {
         let twin = MatrixGrid::build(&kit, stage, &identity, 80.0, result(), v(-3.6, 0.5))?;
         let twin_name = kit.text(stage, CHANGES_NOTHING, 30.0, Palette::dim(), v(-3.6, -1.3))?;
         line.wait_for(stage, "multiplying by one")?;
+        fade_out_all(
+            stage,
+            &[
+                j_in.group,
+                j_arrow,
+                j_label,
+                j_guess.group,
+                j_frame,
+                z_in.group,
+                z_arrow,
+                z_label,
+                z_guess.group,
+                equals,
+                z_ones.group,
+                z_frame,
+                guess_tag,
+            ],
+            0.5,
+        )?;
         fade_in_all(stage, &[one_times], 0.6)?;
         line.wait_for(stage, "Its matrix twin")?;
         fade_in_all(stage, &[twin.group, twin_name], 0.7)?;

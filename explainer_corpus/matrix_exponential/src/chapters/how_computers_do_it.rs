@@ -21,8 +21,8 @@ use explainer_kit::{Frame2, Kit, Palette, fade_all, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    MatrixGrid, chip, entries, fact, fade_in_all, fade_out_all, faded_line, flat, good, matrix, music_hold, numbers,
-    panel, predict_hold, result, rule, say, show, substance, turning, warn,
+    MatrixGrid, chip, entries, fact, fade_in_all, fade_out_all, faded_line, flat, good, matrix, minus, music_hold,
+    numbers, panel, predict_hold, result, rule, say, show, substance, turning, warn,
 };
 use super::flow::fade_in_anim;
 use super::walks::cell_outline;
@@ -334,7 +334,7 @@ impl SceneConstruct for HowComputersDoIt {
         line.wait_for(stage, "The digits that mattered were thrown away")?;
         let stopped = fact("F-V.13_3.stopped_at_k")?;
         let wide = format!(
-            "this video's own run: 32-bit, term \u{d7} A then \u{f7} k, stopped at k = {stopped}; \
+            "this video\u{2019}s own run: 32-bit, term \u{d7} A then \u{f7} k, stopped at k = {stopped}; \
              catastrophic cancellation. In 64-bit this matrix survives; doubled, it fails again"
         );
         let programmers = lower_third(&kit, stage, "for programmers:", &wide)?;
@@ -444,7 +444,7 @@ impl SceneConstruct for HowComputersDoIt {
             let x = left + pitch * j as f64;
             let first = f64::from(m[0][0]);
             let c = if j + 1 == ladder.len() { good() } else { ink };
-            squared.push(kit.text(stage, &show(first, 3)?, 28.0, c, v(x, -2.1))?);
+            squared.push(kit.text(stage, &minus(&show(first, 3)?), 28.0, c, v(x, -2.1))?);
         }
         let squared_label = kit.text(
             stage,
@@ -510,7 +510,7 @@ impl SceneConstruct for HowComputersDoIt {
         let series_line = kit.text(
             stage,
             &format!(
-                "series through x\u{2076} at x = 1: {}  (off by {})",
+                "series through the 6th power at x = 1: {}  (off by {})",
                 fact("F-V.13_5.series")?,
                 fact("F-C.series.k6.error")?
             ),
@@ -554,9 +554,9 @@ impl SceneConstruct for HowComputersDoIt {
             &kit,
             stage,
             &format!(
-                "the tanks' two rates: {} and {} a minute",
+                "the tanks\u{2019} two rates: {} and {} a minute",
                 super::draw::whole(rates[1]),
-                show(rates[0], 1)?
+                minus(&show(rates[0], 1)?)
             ),
             28.0,
             substance(),

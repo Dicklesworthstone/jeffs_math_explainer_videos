@@ -517,7 +517,7 @@ impl SceneConstruct for OrderMatters {
             &kit,
             stage,
             "for programmers:",
-            "update A's effect, then B's, and this is your error per step",
+            "update A\u{2019}s effect, then B\u{2019}s, and this is your error per step",
         )?;
         fade_in_all(stage, &[dev], 0.5)?;
         kit.hold(stage)?;

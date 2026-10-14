@@ -54,7 +54,7 @@ const PANEL_X: f64 = 4.3;
 
 // the chapter's fixed words (numbers are built from facts)
 const RUNNING_TOTAL: &str = "running total";
-const BANKS_NUMBER: &str = "the bank's number";
+const BANKS_NUMBER: &str = "the bank\u{2019}s number";
 const STAIRCASE: &str = "steps of a year";
 const PIECES: &str = "pieces of the series";
 const PRECISELY_SAME: &str = "if g\u{2032} = g too, then g(x) \u{b7} f(\u{2212}x) never changes, so g = f";
@@ -238,6 +238,10 @@ impl SceneConstruct for OneFunction {
         stage.remove_from_scene(total);
         let bank_label = kit.text(stage, BANKS_NUMBER, 32.0, Palette::dim(), v(3.9, 0.5))?;
         let bank = kit.text(stage, fact("F-V.03_4.e")?, 80.0, ink, v(3.9, -0.7))?;
+        // "x = 1" is on the stage as "Try the series at x equals one" is said
+        // (the narrated draft's tile was a blank stage for two seconds)
+        let at_one = kit.tex(stage, "x = 1", 80.0, ink, &[], v(-4.9, 3.4))?;
+        fade_in_all(stage, &[at_one], 0.5)?;
         line.wait_for(stage, "One, plus one")?;
         fade_in_all(stage, &[terms[0], terms[1], plus[0], total_label, total], 0.6)?;
         play!(stage; tween(k, 1.0, 0.5)?);
@@ -259,7 +263,7 @@ impl SceneConstruct for OneFunction {
         let line = say(&kit, stage, "05_2")?;
         let mut leaving = terms.clone();
         leaving.extend(&plus);
-        leaving.extend([total_label, total, bank_label, bank]);
+        leaving.extend([at_one, total_label, total, bank_label, bank]);
         fade_out_all(stage, &leaving, 0.5)?;
         let window = UNIT_WINDOW;
         let chart = axes(&kit, stage, &window, &[0.0, 1.0, 2.0], "x")?;

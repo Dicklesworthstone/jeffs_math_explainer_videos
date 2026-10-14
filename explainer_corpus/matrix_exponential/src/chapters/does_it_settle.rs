@@ -245,7 +245,10 @@ impl SceneConstruct for DoesItSettle {
             // other number stands a line higher
             let raise = if i % 2 == 1 { 0.65 } else { 0.3 };
             let at = BARS.p(i as f64, sizes[i]);
-            values.push(kit.text(stage, s, 24.0, ink, v(at[0], at[1] + raise))?);
+            // a hair left of the bar's middle: the bars rise to the right, and
+            // a number as wide as the pitch ran into the next, taller bar
+            // ("12.5" and "20.8" in the narrated draft's 08_3 tile)
+            values.push(kit.text(stage, s, 24.0, ink, v(at[0] - 0.1, at[1] + raise))?);
         }
         line.wait_for(stage, "Take a worrying case")?;
         fade_in_all(stage, &[unit_ring, path, lands], 0.6)?;
@@ -471,10 +474,12 @@ impl SceneConstruct for DoesItSettle {
         )?;
         let norm = precisely(&kit, stage, PRECISELY_NORM)?;
         let coder = lower_third(&kit, stage, PROGRAMMERS, PROOF)?;
-        let mut shape = vec![unit_circle, ellipse];
-        shape.extend([size_arrow, size_name]);
+        // "It works for every square matrix": the circle and what a matrix
+        // makes of it are on the stage as that is said (the narrated draft's
+        // tile was blank for the first three seconds)
+        fade_in_all(stage, &[unit_circle, ellipse], 0.7)?;
         line.wait_for(stage, "Call the most a matrix can stretch")?;
-        fade_in_all(stage, &shape, 0.8)?;
+        fade_in_all(stage, &[size_arrow, size_name], 0.6)?;
         fade_in_all(stage, &[norm], 0.5)?;
         line.wait_for(stage, "The k-th term is at most")?;
         let mut first = ceiling_five.clone();
