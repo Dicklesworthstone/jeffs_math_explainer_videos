@@ -2080,6 +2080,8 @@ mod tests {
     section_five_tests! {
         quiz_02_5_follows_section_5: "02_5",
         quiz_03_3_follows_section_5: "03_3",
+        quiz_04_3_follows_section_5: "04_3",
+        quiz_05_4_follows_section_5: "05_4",
         quiz_11_3_follows_section_5: "11_3",
         quiz_12_4_follows_section_5: "12_4",
         quiz_13_4_follows_section_5: "13_4",
