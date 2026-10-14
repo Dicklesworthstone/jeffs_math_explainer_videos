@@ -33,14 +33,14 @@ https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/expla
 Names to search: von Neumann's trick (the von Neumann extractor), randomness extraction, rejection sampling, the binary entropy function, Elias's algorithm, Peres's iterated procedure, Blum's algorithm for Markov chains, composition classes, Pascal's triangle.
 
 Sources
-John von Neumann, "Various Techniques Used in Connection With Random Digits" (summary written by George E. Forsythe), in Monte Carlo Method, National Bureau of Standards Applied Mathematics Series 12, 1951, pp. 36–38
-Wassily Hoeffding and Gordon Simons, "Unbiased Coin Tossing with a Biased Coin", Annals of Mathematical Statistics 41(2), 1970
-Peter Elias, "The Efficient Construction of an Unbiased Random Sequence", Annals of Mathematical Statistics 43(3), 1972
-Manuel Blum, "Independent Unbiased Coin Flips From a Correlated Biased Source: A Finite State Markov Chain", Combinatorica 6(2), 1986
-Yuval Peres, "Iterating von Neumann's Procedure for Extracting Random Bits", Annals of Statistics 20(1), 1992
-Andrew Gelman and Deborah Nolan, "You Can Load a Die, But You Can't Bias a Coin", The American Statistician 56(4), 2002
-Persi Diaconis, Susan Holmes and Richard Montgomery, "Dynamical Bias in the Coin Toss", SIAM Review 49(2), 2007
-František Bartoš and others, "Fair Coins Tend to Land on the Same Side They Started: Evidence from 350,757 Flips", Journal of the American Statistical Association 120(552), 2025
-Benjamin Jun and Paul Kocher, "The Intel Random Number Generator", Cryptography Research white paper, 1999
+John von Neumann, "Various Techniques Used in Connection With Random Digits" (1951)
+Wassily Hoeffding and Gordon Simons, "Unbiased Coin Tossing with a Biased Coin" (1970)
+Peter Elias, "The Efficient Construction of an Unbiased Random Sequence" (1972)
+Manuel Blum, "Independent Unbiased Coin Flips From a Correlated Biased Source" (1986)
+Yuval Peres, "Iterating von Neumann's Procedure for Extracting Random Bits" (1992)
+Andrew Gelman and Deborah Nolan, "You Can Load a Die, But You Can't Bias a Coin" (2002)
+Persi Diaconis, Susan Holmes and Richard Montgomery, "Dynamical Bias in the Coin Toss" (2007)
+František Bartoš and others, "Fair Coins Tend to Land on the Same Side They Started" (2025)
+Benjamin Jun and Paul Kocher, "The Intel Random Number Generator" (1999)
 
 Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
