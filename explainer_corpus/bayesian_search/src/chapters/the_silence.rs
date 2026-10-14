@@ -55,6 +55,13 @@ const METHODS: [&str; 3] = [
     "near the last position",
     "traced back from what was found afloat",
 ];
+/// What a nautical mile is, under the radius (R2: M21), and the names of
+/// 12_3's three stories and its count of empty searches (R2: M6, R13).
+const NAUTICAL_IS_SEA: &str = "a nautical mile is a sea mile";
+const STORY: &str = "story";
+const EMPTY_SEARCHES: &str = "empty searches:";
+const ON_THE_SURFACE: &str = "on the surface,";
+const UNDER_WATER: &str = "under water";
 const BY_JUDGMENT: &str = "weights chosen by judgment; shapes schematic";
 const PARTICLES: &str = "particles; each dot here stands for";
 const HEARD_NOTHING: &str = "heard nothing";
@@ -399,9 +406,45 @@ const RADIUS_LINE_CHARS: usize = 18;
 const RADIUS_PT: f64 = 20.0;
 const RADIUS_GAP: f64 = 0.15;
 
+/// The radius label's lines stand this far apart, the first this far over
+/// the spoke; the gloss "a nautical mile is a sea mile" follows in two lines
+/// of at most [`GLOSS_CHARS`] characters at [`GLOSS_PT`], from [`GLOSS_TOP`]
+/// (relative to the circle's centre) in steps of [`GLOSS_STEP`].
+const RADIUS_STEP: f64 = 0.35;
+const RADIUS_RISE: f64 = 0.15;
+const GLOSS_CHARS: usize = 15;
+const GLOSS_PT: f64 = 18.0;
+const GLOSS_TOP: f64 = -0.7;
+const GLOSS_STEP: f64 = 0.3;
+
+/// 12_3's three small discs: their heights, how far over a disc's middle the
+/// story's name stands, the first line of its method and the step between
+/// lines, and how far under the middle its weight stands (44 pt).
+const SMALL_DISC_Y: [f64; 3] = [2.55, 0.5, -1.55];
+const STORY_RISE: f64 = 0.72;
+const METHOD_TOP: f64 = 0.42;
+const METHOD_STEP: f64 = 0.3;
+const WEIGHT_DROP: f64 = 0.35;
+/// The count of empty searches in the left column once the small discs have
+/// gone: the number's line and the breakdown's line.
+const EMPTY_Y: [f64; 2] = [1.2, 0.55];
+
 /// "40 nautical miles (74 km)".
 fn radius_words(nm: &str, km: &str) -> String {
     format!("{nm} {NAUTICAL_MILES} ({km} {KM})")
+}
+
+/// The paper's empty searches as the screen counts them: "4 empty
+/// searches:" and "1 on the surface, 3 under water" (the three under-water
+/// searches are the facts', the fourth is the surface one).
+fn empty_searches_words(empty: u32, under_water: u32) -> Result<[String; 2], String> {
+    let surface = empty
+        .checked_sub(under_water)
+        .ok_or_else(|| format!("{under_water} under-water searches of {empty}"))?;
+    Ok([
+        format!("{empty} {EMPTY_SEARCHES}"),
+        format!("{surface} {ON_THE_SURFACE} {under_water} {UNDER_WATER}"),
+    ])
 }
 
 /// "75,000 particles; each dot here stands for 25".
@@ -704,7 +747,20 @@ impl SceneConstruct for TheSilence {
                 Palette::ink(),
                 v(
                     CIRCLE_AT[0] + CIRCLE_R + RADIUS_GAP,
-                    CIRCLE_AT[1] + 0.15 - 0.35 * j as f64,
+                    CIRCLE_AT[1] + RADIUS_RISE - RADIUS_STEP * j as f64,
+                ),
+            )?);
+        }
+        // and what a nautical mile is, in the same column, under the radius
+        for (j, text) in wrap(NAUTICAL_IS_SEA, GLOSS_CHARS, 2).iter().enumerate() {
+            radius_texts.push(kit.text_left(
+                stage,
+                text,
+                GLOSS_PT,
+                Palette::dim(),
+                v(
+                    CIRCLE_AT[0] + CIRCLE_R + RADIUS_GAP,
+                    CIRCLE_AT[1] + GLOSS_TOP - GLOSS_STEP * j as f64,
                 ),
             )?);
         }
@@ -751,7 +807,7 @@ impl SceneConstruct for TheSilence {
         let mut small_mobs: Vec<Mob> = Vec::new();
         let (small_x, small_r) = (-5.6, 0.75);
         for (k, name) in METHODS.iter().enumerate() {
-            let at = v(small_x, [2.55, 0.5, -1.55][k]);
+            let at = v(small_x, SMALL_DISC_Y[k]);
             let rim = circle(stage, at, small_r);
             // a small disc is its map's sketch: none of it is put out
             let sketch = plan.sketch(k);
@@ -763,6 +819,15 @@ impl SceneConstruct for TheSilence {
             };
             let cloud = Cloud::build(stage, at, small_r, &dots)?;
             small_mobs.push(rim);
+            // the story's name, so that the line's "stories" and the "three"
+            // of the weights are the same three things (R2: M6)
+            small_mobs.push(kit.text_left(
+                stage,
+                &format!("{STORY} {}", k + 1),
+                24.0,
+                Palette::ink(),
+                v(small_x + 1.0, at[1] + STORY_RISE),
+            )?);
             // three lines at most, so no word of a label is ever cut for an
             // ellipsis ("afloat" was, at two lines of twenty)
             for (j, text) in wrap(name, 26, 3).iter().enumerate() {
@@ -771,7 +836,7 @@ impl SceneConstruct for TheSilence {
                     text,
                     22.0,
                     Palette::dim(),
-                    v(small_x + 1.0, at[1] + 0.42 - 0.3 * j as f64),
+                    v(small_x + 1.0, at[1] + METHOD_TOP - METHOD_STEP * j as f64),
                 )?);
             }
             small_discs.push(cloud);
@@ -790,7 +855,7 @@ impl SceneConstruct for TheSilence {
                 &w.to_string(),
                 44.0,
                 Palette::ink(),
-                v(small_x + 1.0, [2.55, 0.5, -1.55][k] - 0.35),
+                v(small_x + 1.0, SMALL_DISC_Y[k] - WEIGHT_DROP),
             )?);
         }
         let judgment = tag(&kit, stage, BY_JUDGMENT, v(LEFT_X + 2.4, -2.65), 20.0)?;
@@ -826,12 +891,25 @@ impl SceneConstruct for TheSilence {
             c.remove(stage);
         }
         stage.play(tween(whole.area, 1.0, 1.0)?)?;
+        // the empty searches the map was updated for: four, one of them on
+        // the surface and three under water (the three areas, with their
+        // years; R2: R13). "Every empty search" is all four.
+        let count =
+            |key: &str| -> fmn::Result<u32> { fact(key)?.parse().map_err(|_| fail(format!("{key} is not a number"))) };
+        let [empty_count, empty_split] =
+            empty_searches_words(count("F-A.empty_searches")?, count("F-A.underwater_searches")?).map_err(fail)?;
+        let empties = [
+            kit.text_left(stage, &empty_count, 40.0, Palette::ink(), v(LEFT_X, EMPTY_Y[0]))?,
+            kit.text_left(stage, &empty_split, 26.0, Palette::dim(), v(LEFT_X, EMPTY_Y[1]))?,
+        ];
+        line.wait_for(stage, "every empty search")?;
+        fade_in_all(stage, &empties, 0.5)?;
         line.wait_end(stage)?;
 
         // ------------------------------------------------------- 12_4
         // the question: how much should the silence count?
         let line = say(&kit, stage, LINES[3])?;
-        fade_out_all(stage, &[judgment], 0.3)?;
+        fade_out_all(stage, &[judgment, empties[0], empties[1]], 0.3)?;
         line.wait_for(stage, "For a month")?;
         let lines = track_lines(stage, CIRCLE_AT, CIRCLE_R, &plan.tracks, 3.0);
         let heard = kit.text_left(stage, HEARD_NOTHING, 40.0, Palette::ink(), v(LEFT_X, 1.0))?;
@@ -1062,6 +1140,74 @@ mod tests {
         for a in &AREAS {
             let reach = CIRCLE_AT[0] + (a.at.0 + a.semi.0.max(a.semi.1)) * CIRCLE_R;
             assert!(reach < CIRCLE_AT[0] + CIRCLE_R, "an area reaches {reach}");
+        }
+    }
+
+    /// R2 (M21, M6, R13): the gloss under the radius ("a nautical mile is a
+    /// sea mile"), each story's name over its method and the count of empty
+    /// searches in the left column each stand in their own room, clear of
+    /// their neighbours and the frame.
+    #[test]
+    fn the_gloss_the_story_names_and_the_empty_searches_stand_clear_of_their_neighbours() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        let f = facts().unwrap();
+        // 12_2: two lines, right of the rim, under the radius label's two
+        let gloss = wrap(NAUTICAL_IS_SEA, GLOSS_CHARS, 2);
+        assert_eq!(gloss, ["a nautical mile", "is a sea mile"]);
+        assert_eq!(gloss.join(" "), NAUTICAL_IS_SEA);
+        let widest = gloss.iter().map(|l| l.chars().count()).max().unwrap() as f64;
+        let end = CIRCLE_AT[0] + CIRCLE_R + RADIUS_GAP + widest * GLOSS_PT * UNITS;
+        assert!(end <= FRAME_X_RADIUS - 0.15, "the gloss ends at {end}");
+        // the radius label's last line is 20 pt, the gloss's first 18 pt, and
+        // a line is about 0.2 tall: half of each and a margin
+        const {
+            let last_radius = RADIUS_RISE - RADIUS_STEP;
+            assert!(last_radius - GLOSS_TOP >= 0.1 + 0.09 + 0.15);
+            assert!(GLOSS_STEP >= 2.0 * 0.09 + 0.08);
+        }
+        // 12_3: a story's name over its method (22 pt, at most two lines, so
+        // the 44 pt weight under it touches nothing), and each weight's foot
+        // clears the next disc's name
+        for name in METHODS {
+            let lines = wrap(name, 26, 3);
+            assert!(lines.len() <= 2, "{name:?} wraps to {} lines", lines.len());
+            let last = METHOD_TOP - METHOD_STEP * (lines.len() - 1) as f64;
+            assert!(last - 0.1 > -WEIGHT_DROP + 0.2, "{name:?}");
+        }
+        const {
+            assert!(STORY_RISE - METHOD_TOP >= METHOD_STEP - 0.02);
+            let gap = SMALL_DISC_Y[0] - SMALL_DISC_Y[1];
+            assert!(gap - WEIGHT_DROP - 0.2 > STORY_RISE + 0.12);
+            let gap = SMALL_DISC_Y[1] - SMALL_DISC_Y[2];
+            assert!(gap - WEIGHT_DROP - 0.2 > STORY_RISE + 0.12);
+            // the first story's name is inside the frame
+            assert!(SMALL_DISC_Y[0] + STORY_RISE + 0.12 < 3.65);
+        }
+        // the count of empty searches, two lines in the left column under
+        // the circle's own left rim, and not into the weights' tag below
+        let [count, split] = empty_searches_words(
+            f.get("F-A.empty_searches").unwrap().parse().unwrap(),
+            f.get("F-A.underwater_searches").unwrap().parse().unwrap(),
+        )
+        .unwrap();
+        assert_eq!(
+            format!("{count} {split}"),
+            "4 empty searches: 1 on the surface, 3 under water"
+        );
+        let widths = [
+            count.chars().count() as f64 * 40.0 * UNITS,
+            split.chars().count() as f64 * 26.0 * UNITS,
+        ];
+        for w in widths {
+            assert!(LEFT_X + w < CIRCLE_AT[0] - CIRCLE_R - 0.3, "{w}");
+        }
+        assert!(empty_searches_words(3, 4).is_err());
+        // the 40 pt line's foot over the 26 pt line's head
+        const {
+            assert!(EMPTY_Y[0] - EMPTY_Y[1] >= 0.2 + 0.13 + 0.1);
+            // and the weights' tag (at -2.65) and the particles' note
+            // (at -3.15) are far below
+            assert!(EMPTY_Y[1] - 0.15 > -2.65 + 0.3);
         }
     }
 
