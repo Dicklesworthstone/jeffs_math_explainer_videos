@@ -55,9 +55,12 @@ const PRIOR_WORDS: &str = "the map before a search";
 /// below.
 const CARD_X: [f64; 2] = [1.9, 5.25];
 const CARD_SIZE: (f64, f64) = (3.0, 3.1);
-const CARD_Y: f64 = 1.65;
+/// The cards' height: their tops stand under the countdown ring of 03_5
+/// (which sits in the frame's top right corner and crossed "weight 40" when
+/// the cards were top-aligned with the sea at 1.65).
+const CARD_Y: f64 = 0.9;
 const TINY: (f64, f64) = (1.3, 0.85);
-const TINY_Y: f64 = 1.65;
+const TINY_Y: f64 = CARD_Y;
 
 /// How far apart the three lines under a cell stand here: the count, the
 /// percent, the sum. The sea's slots are 0.27 apart and a 30 pt count's
@@ -489,6 +492,28 @@ mod tests {
         let (_, _, _, top) = sea_rect(0);
         assert!(top + 0.24 + 0.2 + 0.1 < super::super::draw::QUIZ_FRAME.1);
         assert!(SEA_CELL.0 > 5.0 * 0.22, "five hanging dots span less than a cell");
+    }
+
+    /// 03_5's countdown ring (the frame's top right corner, over whatever is
+    /// there) is clear of both story cards and what they hold: it crossed
+    /// "weight 40" ("weight 4" and a ring through the 0).
+    #[test]
+    fn the_countdown_ring_is_clear_of_the_story_cards() {
+        use super::super::draw::{QUIZ_RING_AT, QUIZ_RING_R};
+        for &x in &CARD_X {
+            // the nearest point of the card to the ring's centre
+            let (cx, cy) = (QUIZ_RING_AT[0], QUIZ_RING_AT[1]);
+            let nx = cx.clamp(x - CARD_SIZE.0 / 2.0, x + CARD_SIZE.0 / 2.0);
+            let ny = cy.clamp(CARD_Y - CARD_SIZE.1 / 2.0, CARD_Y + CARD_SIZE.1 / 2.0);
+            let gap = (cx - nx).hypot(cy - ny) - QUIZ_RING_R;
+            assert!(gap >= 0.08, "the ring is {gap} from the card at {x}");
+        }
+        // the cards still stand level with the sea's rows, not below them
+        let (_, bottom, _, _) = sea_rect(2);
+        assert!(
+            CARD_Y - CARD_SIZE.1 / 2.0 > bottom - 0.3,
+            "the cards hang under the sea"
+        );
     }
 
     /// The count, the percent and the sum under a cell do not touch: a

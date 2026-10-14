@@ -30,7 +30,11 @@ pub struct Adrift {
 pub const LINES: [&str; 4] = ["10_1", "10_2", "10_3", "10_4"];
 
 // the chapter's fixed words (numbers are built from facts)
-const LAST_KNOWN: &str = "last known position";
+const LAST_KNOWN: &str = "last\nknown\nposition";
+/// How far left of the diamond the words end: past the cloud's first circle
+/// (a mile, `START_RADIUS`, drawn at [`UNITS_PER_MILE`]) and its edge's
+/// stroke, which no later circle comes back across.
+const LAST_KNOWN_GAP: f64 = 0.6;
 const WIND: &str = "wind";
 const CURRENT: &str = "current";
 const LEEWAY: &str = "leeway:";
@@ -323,13 +327,12 @@ impl SceneConstruct for Adrift {
                 .style(line_style(Palette::dim(), 3.0))
                 .build(),
         );
-        let last_label = kit.text_left(
-            stage,
-            LAST_KNOWN,
-            24.0,
-            Palette::dim(),
-            v(START[0] + 0.3, START[1] - 0.45),
-        )?;
+        // the words stand LEFT of the diamond, in three short lines: the
+        // cloud begins on the diamond and sweeps the water to its right and
+        // below for seven of the twelve hours, and the words under the
+        // diamond were under its dots (and its edge) for most of 10_2
+        let last_label = kit.text(stage, LAST_KNOWN, 24.0, Palette::dim(), START)?;
+        stage.move_to(last_label, v(START[0] - LAST_KNOWN_GAP, START[1]), RIGHT);
         fade_in_all(stage, &[last_known, last_label], 0.6)?;
         line.wait_for(stage, "Wind and current")?;
         let mut arrows: Vec<Mob> = Vec::new();
@@ -976,9 +979,9 @@ mod tests {
         let strip_left = centre(HOURS_MAX)[0] - radius_miles(HOURS_MAX) * UNITS_PER_MILE;
         assert!(at[0] + half <= strip_left - FLIGHT_TAG_GAP + 1e-9);
         assert!(at[0] - half > START[0] + 0.16 + 0.3, "{}", at[0] - half);
-        let label_top = START[1] - 0.45 + 0.15;
+        // (and right of the words, which stand left of the diamond)
         assert!(
-            at[1] - 0.21 > label_top + 0.2,
+            at[0] - half > START[0] - LAST_KNOWN_GAP,
             "the flight's tag meets the last known position's words"
         );
         // the lower-third is one line and says both halves of "effective"
@@ -992,6 +995,34 @@ mod tests {
             assert!(EFFECTIVE_WIDTH.contains(part), "{part}");
         }
         assert_eq!(SWEEP_LABEL, "sweep width:");
+    }
+
+    /// 10_1, 10_2: the words "last known position" stand where the cloud
+    /// never goes. Under the diamond they were under the dots and the edge's
+    /// circle from half an hour to seven (a dense read of the narrated draft
+    /// had the cloud over "known pos"): they stand left of the diamond, three
+    /// short lines, past the first circle and inside the frame.
+    #[test]
+    fn the_last_known_positions_words_stand_where_the_cloud_never_goes() {
+        use super::super::draw::CHAR_UNITS_PER_POINT;
+        let lines: Vec<&str> = LAST_KNOWN.lines().collect();
+        assert_eq!(lines.join(" "), "last known position");
+        let w = lines.iter().map(|l| l.chars().count()).max().unwrap() as f64 * 24.0 * CHAR_UNITS_PER_POINT;
+        // three 24 pt lines are about 0.75 tall, centred on the diamond
+        let (right, tall) = (START[0] - LAST_KNOWN_GAP, 0.75);
+        let (left, bottom, top) = (right - w, START[1] - tall / 2.0, START[1] + tall / 2.0);
+        assert!(left > -FRAME_X_RADIUS + 0.15, "the words begin at {left}");
+        // the cloud's disc and its edge's stroke, hour by hour and between
+        for k in 0..=240 {
+            let h = HOURS_MAX * f64::from(k) / 240.0;
+            let c = centre(h);
+            let reach = radius_miles(h) * UNITS_PER_MILE + 0.05;
+            let near = ((c[0] - c[0].clamp(left, right)), (c[1] - c[1].clamp(bottom, top)));
+            assert!(
+                near.0.hypot(near.1) > reach,
+                "at {h:.1} h the cloud (centre {c:?}, reach {reach:.2}) meets the words"
+            );
+        }
     }
 
     /// R2 (M5, D6, R1): the circles' rows are the facts' radius and area
