@@ -1,0 +1,28 @@
+# Director alternates for Video I's narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Same words as script.tsv, other punctuation, so ftts (deterministic) makes new reads. First pass with michael (2026-10-14, R2 script).
+# 12_2.0: all three reads of 'rectangles.' drop the final s. 15_5.0: the read that keeps 'levels' has no clear 'A' ('The program' to the ASR,
+# and the cut-in begins at 'program'); the two reads that say 'A' lose the s. 06_5.2: the one read of three with a z (110 ms) has a 1 s pause
+# in it that the editor cuts, and the ASR hears 'proof's' as 'Proust' after the edit.
+12_2	0	A big square, a small square, and two equal rectangles.
+12_2	0	A big square, a small square and two equal rectangles…
+12_2	0	— A big square, a small square and two equal rectangles.
+15_5	0	A program rebuilt these pictures, piece by piece, the cubes up to forty, and Siu's box up to twenty-four levels.
+15_5	0	A program rebuilt these pictures piece by piece, the cubes up to forty and Siu's box up to twenty-four levels…
+15_5	0	— A program rebuilt these pictures piece by piece, the cubes up to forty, and Siu's box, up to twenty-four levels.
+06_5	2	So this square is the first proof's layers again, fifteen thin ones…
+06_5	2	So this square is the first proof's layers again, fifteen, thin ones.
+06_5	2	— So this square is the first proof's layers again, fifteen thin ones.
+# 05_1.2, 06_1.0, 11_4.2, 12_5.0: of three reads each, the chosen one drops the s/z; the reads that keep it are stopped by ftts inside it
+# (cut_short). A leading dash and a closing ellipsis made clean reads of 12_2.0, 15_5.0 and 06_5.2 above, so the same two forms are tried here.
+05_1	2	— Across all five cubes, that is fifteen slabs.
+05_1	2	Across all five cubes, that is fifteen slabs…
+05_1	2	Across all five cubes, that is, fifteen slabs.
+06_1	0	— That was five cubes.
+06_1	0	That was five cubes…
+06_1	0	That was, five cubes.
+11_4	2	— Slide one onto another and it fits.
+11_4	2	Slide one onto another, and it fits.
+11_4	2	Slide one onto another and it fits…
+12_5	0	— Eight blocks, in four kinds.
+12_5	0	Eight blocks in four kinds…
+12_5	0	Eight blocks, in four kinds…
