@@ -1,14 +1,14 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (fullest where the cubes close into their square, where the three
 //! stacks become a box and where the four triangles slide; quietest for the
-//! pattern that breaks and for the picture that lies). Each chapter starts
-//! as its storyboard's animatic and is replaced by its real scene as it is
-//! built; a module is declared here only once its file is committed.
+//! pattern that breaks and for the picture that lies). Every chapter is a
+//! real scene; a module is declared here only once its file is committed.
 
 pub mod a_third;
 pub mod cold_open;
 pub mod draw;
 pub mod every_cube;
+pub mod every_height;
 pub mod five_for_five;
 pub mod four_triangles;
 pub mod glyphs;
@@ -26,19 +26,6 @@ pub mod three_stacks;
 pub mod what_makes_a_proof;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
-            intensity: $intensity,
-        }
-    };
-}
 
 /// A chapter that is a real scene: `$module::$ty { kit }`.
 macro_rules! scene {
@@ -61,7 +48,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("06_every_cube", 0.55, every_cube::EveryCube),
         scene!("07_three_stacks", 0.55, three_stacks::ThreeStacks),
         scene!("08_the_box", 0.6, the_box::TheBox),
-        animatic!("09_every_height", 0.5),
+        scene!("09_every_height", 0.5, every_height::EveryHeight),
         scene!("10_halves", 0.4, halves::Halves),
         scene!("11_a_third", 0.5, a_third::AThird),
         scene!("12_the_cut_cube", 0.55, the_cut_cube::TheCutCube),
