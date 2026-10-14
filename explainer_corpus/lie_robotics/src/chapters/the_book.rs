@@ -28,10 +28,14 @@ pub struct TheBook {
 const SAME_OR_DIFFERENT: &str = "same or different?";
 const SAME: &str = "same";
 const DIFFERENT: &str = "different";
-const BOOK_EDGES: &str = "turn about the book's own edges instead and the two answers trade places: still different";
+/// 01_2's exact version (R2 A-03): which way each quarter turn went, and that
+/// the other senses, or the book's own edges, still give a different wall.
+const TURN_SENSES: &str = "tilt: far edge up. roll: cover to the right. Turn either the other way, or about the book's own edges, and a cover faces another wall: still different";
 const SAY_LEE: &str = "(say \"Lee\")";
 const POSITIONS_ADD: &str = "positions add";
 const ORIENTATIONS_DONT: &str = "orientations don't";
+/// Small under the crossed clause of 01_4: which turns are meant (R2 C-09).
+const THESE_TWO_TURNS: &str = "(these two turns)";
 const THE_ARM: &str = "the arm:";
 const ARM_NAME: &str = "KUKA LBR iiwa 14 R820";
 const POSITION: &str = "position";
@@ -86,6 +90,9 @@ const CARD_SCALE: f64 = 0.92;
 const ARM_AT: [f64; 2] = [-1.9, -1.9];
 /// How far above the floor the screw's gold axis runs.
 const SCREW_TOP: f64 = 1.3;
+/// Where "(these two turns)" starts: under the crossed "orientations don't"
+/// (whose words begin at x = 2.6 and stand on y = -0.1).
+const THESE_AT: [f64; 2] = [2.6, -0.72];
 
 /// The book's orientation after its two turns, `a` and `b` of the way
 /// through the first and second (0 to 1, each a quarter turn), about the
@@ -329,7 +336,7 @@ impl SceneConstruct for TheBook {
         line.wait_for(stage, "Roll first")?;
         // the exact version comes in with the second demonstration, so that
         // it has the rest of the line (about four seconds) to be read
-        let edges = precisely(&kit, stage, BOOK_EDGES)?;
+        let edges = precisely(&kit, stage, TURN_SENSES)?;
         play!(stage;
             tween(books.parts[part::RIGHT].grey, 0.0, 0.4)?,
             tween(ra, 1.0, 1.2)?,
@@ -378,11 +385,18 @@ impl SceneConstruct for TheBook {
         line.wait_for(stage, "and orientations don't")?;
         let dont = kit.text_left(stage, ORIENTATIONS_DONT, 38.0, Palette::ink(), v(2.6, -0.1))?;
         let dont_mark = mark(stage, false, v(2.1, -0.1))?;
-        fade_in_all(stage, &[dont, dont_mark], 0.4)?;
+        let these = kit.text_left(
+            stage,
+            THESE_TWO_TURNS,
+            24.0,
+            Palette::dim(),
+            v(THESE_AT[0], THESE_AT[1]),
+        )?;
+        fade_in_all(stage, &[dont, dont_mark, these], 0.4)?;
 
         // 01_5: the arm, and what it has to do
         kit.hold(stage)?;
-        leave(stage, &[adds, adds_mark, dont, dont_mark], &[books.shown], 0.6)?;
+        leave(stage, &[adds, adds_mark, dont, dont_mark, these], &[books.shown], 0.6)?;
         let line = say(&kit, stage, BEATS[4])?;
         let arm = Arm::iiwa14();
         let q_start = degrees(poses::START);
@@ -471,7 +485,7 @@ impl SceneConstruct for TheBook {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, fact};
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, fact, probe};
     use super::*;
     use crate::model::{DEG, Z};
 
@@ -505,6 +519,89 @@ mod tests {
         // the slid book is still on that table
         let landing = view.box_of([[X_LEFT + SLIDE_X, SLIDE_Y, 0.0]]);
         assert!(landing.0[0] > lo[0] && landing.1[0] < hi[0]);
+    }
+
+    /// The whole chapter constructs, headless: every phrase it waits for is
+    /// in its line, and every label and tag is built and placed.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        let mut scene = TheBook {
+            kit: Kit::new().expect("the kit"),
+        };
+        fmn::run_scene(
+            &mut scene,
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("the chapter's scene runs");
+    }
+
+    /// 01_2: the exact version of the turns' senses is the storyboard's own
+    /// words, its band stays inside the safe area, and the books (at turn
+    /// height) and the gold lines of the room stand above it. The table's
+    /// front edge is the one part of the picture it may cover.
+    #[test]
+    fn the_senses_note_clears_the_books() {
+        assert!(crate::STORYBOARD.contains(TURN_SENSES));
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        // the books: any point of a copy is within the box's half diagonal of
+        // its centre; the lines of the room end LINE_REACH out at turn height
+        let reach = BOOK_HALF.iter().map(|x| x * x).sum::<f64>().sqrt();
+        let mut lowest = f64::INFINITY;
+        for cx in [X_LEFT, X_LEFT + SEPARATION] {
+            let c = view.box_of([[cx, 0.0, LIFT_Z]]).0;
+            lowest = lowest.min(c[1] - reach);
+            let tip = view
+                .box_of([[cx, -LINE_REACH, LIFT_Z], [cx + LINE_REACH, 0.0, LIFT_Z]])
+                .0;
+            lowest = lowest.min(tip[1]);
+        }
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let note = precisely(&kit, stage, TURN_SENSES)?;
+            let (left, right) = (stage.get_left(note)[0], stage.get_right(note)[0]);
+            let (top, bottom) = (stage.get_top(note)[1], stage.get_bottom(note)[1]);
+            assert!(
+                left > -SAFE[0] && right < SAFE[0],
+                "the band runs {left:.2} to {right:.2}"
+            );
+            assert!(bottom > -SAFE[1] - 0.2, "the band's foot is at {bottom:.2}");
+            assert!(
+                top < lowest - 0.05,
+                "the band reaches {top:.2}, the books and lines go down to {lowest:.2}"
+            );
+            Ok(())
+        });
+    }
+
+    /// 01_4: "(these two turns)" stands under the crossed "orientations
+    /// don't", starts where its words start, and ends inside the safe area;
+    /// the line above it ends before the picture's right edge too.
+    #[test]
+    fn these_two_turns_stand_under_the_crossed_clause() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let dont = kit.text_left(stage, ORIENTATIONS_DONT, 38.0, Palette::ink(), v(2.6, -0.1))?;
+            let these = kit.text_left(
+                stage,
+                THESE_TWO_TURNS,
+                24.0,
+                Palette::dim(),
+                v(THESE_AT[0], THESE_AT[1]),
+            )?;
+            assert!((stage.get_left(these)[0] - stage.get_left(dont)[0]).abs() < 1e-6);
+            assert!(stage.get_right(these)[0] < SAFE[0] && stage.get_right(dont)[0] < SAFE[0]);
+            let gap = stage.get_bottom(dont)[1] - stage.get_top(these)[1];
+            assert!(gap > 0.05, "the small words are {gap:.2} under the big ones");
+            // and clear of the slides' landing dot and the picture's table
+            let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+            let table_right = view
+                .box_of([[TABLE_HI[0], TABLE_LO[1], 0.0], [TABLE_HI[0], TABLE_HI[1], 0.0]])
+                .1[0];
+            assert!(stage.get_left(these)[0] > table_right + 0.2);
+            Ok(())
+        });
     }
 
     /// 01_5, 01_6: the arm's world, its table, its screw and the labels at the
