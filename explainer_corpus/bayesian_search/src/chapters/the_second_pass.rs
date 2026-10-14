@@ -109,10 +109,14 @@ const COVERAGE_MAX: f64 = 3.5;
 /// over it.
 const POINT_LABEL_GAP: f64 = 0.2;
 const POINT_LABEL_RISE: f64 = 0.3;
+/// 09_4's formula block stands at this coverage of the plot (its lines are
+/// centred there): at 2.75 "e: a fixed number, about 2.718" ended on the
+/// plot's right border.
+const BLOCK_AT: f64 = 2.6;
 /// 09_4's unswept note: its centre stands this far left of the formula
-/// block's, so that "% unswept" ends inside the frame (at 0.35 it ended at
-/// the frame's edge) and no nearer the canyon's words than half a unit.
-const UNSWEPT_SHIFT: f64 = 0.7;
+/// block's, so that "% unswept" ends inside the plot and no nearer the
+/// canyon's words than half a unit.
+const UNSWEPT_SHIFT: f64 = 0.73;
 /// Coverage 1 is this many lanes of the cell's hundred.
 const LANES: usize = koopman::LANES_PER_COVERAGE;
 
@@ -600,7 +604,7 @@ impl SceneConstruct for TheSecondPass {
             fade_out(stage.arena_mut(), band_label, ORIGIN, 1.0)?.rt(0.5),
         );
         // the formula, its letters, and where the e comes from
-        let block = f.p(2.75, 0.0)[0];
+        let block = f.p(BLOCK_AT, 0.0)[0];
         let formula = kit.tex(
             stage,
             r"p = 1 - e^{-WL/A}",
@@ -958,12 +962,18 @@ mod tests {
         );
         let first = f.p(x1, 100.0 * seen1.f64());
         assert!((mark[0] - first[0]).abs() < 1e-9 && (mark[1] - first[1]).abs() < 1e-9);
-        // "36.6% unswept" ends inside the frame with room to spare: the tex
-        // is about 2.4 units wide at 26 points (measured on the draft; 2.6
-        // here), the tail is nine characters at 20
-        let block = f.p(2.75, 0.0)[0];
-        let end = block - UNSWEPT_SHIFT + 2.6 / 2.0 + 0.05 + 9.0 * 20.0 * CHAR_UNITS_PER_POINT;
-        assert!(end < FRAME_X_RADIUS - 0.3, "{end}");
+        // "36.6% unswept" ends inside the plot's border with room to spare:
+        // on the draft the tex is 2.3 units wide at 26 points and stands
+        // 0.08 right of the centre it is given; the tail is nine characters
+        // at 20
+        let block = f.p(BLOCK_AT, 0.0)[0];
+        let tex_centre = block - UNSWEPT_SHIFT + 0.08;
+        let end = tex_centre + 2.3 / 2.0 + 0.05 + 9.0 * 20.0 * CHAR_UNITS_PER_POINT;
+        assert!(end < f.right() - 0.2, "{end} against the plot's {}", f.right());
+        // the e note, the widest of the block's centred lines, is inside the
+        // plot's right border with room (30 characters at 20 points)
+        let note = block + (E_NOTE.chars().count() + 6) as f64 * 20.0 * CHAR_UNITS_PER_POINT / 2.0;
+        assert!(note < f.right() - 0.2, "{note} against the plot's {}", f.right());
         // and it begins right of the canyon label's end (the label is left
         // aligned 0.18 right of its point, 18 characters at 24)
         let canyon = f.p(
@@ -971,8 +981,8 @@ mod tests {
             100.0 * sea::seeing()[0].f64(),
         );
         let label_end = canyon[0] + 0.18 + 18.0 * 24.0 * CHAR_UNITS_PER_POINT;
-        let begins = block - UNSWEPT_SHIFT - 2.6 / 2.0;
-        assert!(begins - label_end > 0.0, "{begins} against {label_end}");
+        let begins = tex_centre - 2.3 / 2.0;
+        assert!(begins - label_end > 0.15, "{begins} against {label_end}");
     }
 
     /// 09_5 and 09_6: nine dots under two passes, 27 under three; the three
