@@ -516,8 +516,10 @@ impl SceneConstruct for TheAirInARoom {
         fade_out_all(stage, &[humps[1]], 0.1)?;
         play!(stage; tween_linear(veil, 1.0, 0.3)?);
         // the note that says how good the 40-slice table is comes with the
-        // third hump and stands for the rest of the line: it used to come in
-        // after the line, and 09_4 took it out 0.5 s later
+        // third hump, which the voice reaches in the line's last second, and
+        // it stands through the pulse of 09_4 (it used to come in after the
+        // line and go 0.5 s later; with the third hump it was up 1.4 s, too
+        // few for eight words and a number)
         let bound = kit.text(
             stage,
             &format!(
@@ -550,7 +552,6 @@ impl SceneConstruct for TheAirInARoom {
                 same_height,
                 humps[2],
                 own_words,
-                bound,
             ],
             0.5,
         )?;
@@ -662,7 +663,9 @@ impl SceneConstruct for TheAirInARoom {
         )?;
         let problem = [room, there, back, length, speed, trip, ask];
         line.wait_sentence(stage, 1)?;
-        fade_out_all(stage, &[tube, pulse], 0.4)?;
+        fade_out_all(stage, &[tube, pulse, bound], 0.4)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "09_3", "bound_gone", stage.scene().time().to_f64());
         stage.remove_from_scene(pulse_anchor);
         card.show_frame(stage, &problem, 0.6)?;
         line.wait_last(stage)?;
@@ -1142,14 +1145,14 @@ mod tests {
 
     /// 09_3: the note that says how good the 40-slice table is (within
     /// 0.03%) comes in with the third hump, while the line is still being
-    /// said, and stands until 09_4; it used to come in after the line and be
-    /// gone half a second later (the dense read, P5).
+    /// said, and stands through the pulse of 09_4 (the dense read, P5). It
+    /// used to come in after the line and be gone half a second later; keyed
+    /// to the third hump alone it was up 1.4 s on the real narration (26.3 to
+    /// 27.7 s of the f63a276 draft, "three, each" being the line's last
+    /// second), too few for eight words and a number.
     ///
-    /// The bound is 1 s, not the 4 s the real narration gives: the scratch
-    /// voice this test runs on places "three, each" by its share of the
-    /// sentence's characters (about 11 s into a 13.5 s line), while the real
-    /// narration puts the third hump at about 8 s of 11.8 s. The old
-    /// placement stood 0.1 s on either voice.
+    /// The scratch voice this test runs on places "three, each" by its share
+    /// of the sentence's characters, about as late as the real one does.
     #[test]
     fn the_tables_error_note_stands_for_the_end_of_the_line() {
         let voiced = testing::run_voiced("09_the_air_in_a_room").unwrap();
@@ -1160,5 +1163,13 @@ mod tests {
         assert!(at >= start, "the note is up before its line starts");
         assert!(at < start + len, "the note comes in at {at:.2}, after its line");
         assert!(next - at >= 1.0, "the note stands {:.2} s", next - at);
+        // and it is not taken out with the line's end: it goes with the
+        // pulse's tube, 4 s or more into 09_4
+        let gone = events.iter().find(|e| e.0 == "bound_gone").expect("the note went").1;
+        assert!(gone - at >= 4.0, "the note stands {:.2} s in all", gone - at);
+        assert!(
+            gone >= next + 3.0,
+            "the note goes at {gone:.2}, 09_4 starts at {next:.2}"
+        );
     }
 }

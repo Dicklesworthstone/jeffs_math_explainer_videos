@@ -187,6 +187,24 @@ fn lattice(stage: &mut Stage<'_>, n: usize, side: f64, at: Vec3, color: Srgb) ->
     ]
 }
 
+/// What 13_7's first "precisely" band says: the test for a table with no
+/// negative entry, as two lines at the band's width ("table" stood alone on a
+/// third line when the clause read "that are outside the table").
+fn below_text(hawkins_simon_year: &str) -> String {
+    format!(
+        "for a table with no negative entry and a demand with none: below one, every demand can be met (Hawkins and \
+         Simon, {hawkins_simon_year}), given the workers, land and machines outside the table"
+    )
+}
+
+/// The label and text of 13_7's Leontief band, which read "(his 1941 book,
+/// for 1919 and / 1929)": "1929)" stood alone on a second line.
+const LEONTIEF_LABEL: &str = "Wassily Leontief:";
+
+fn leontief_text(sectors: &str, book_year: &str) -> String {
+    format!("built such tables for the American economy, {sectors} sectors wide ({book_year} book, for 1919 and 1929)")
+}
+
 // -------------------------------------------------------------- the scene
 
 impl SceneConstruct for CanItFeedItself {
@@ -634,14 +652,7 @@ impl SceneConstruct for CanItFeedItself {
         fade_in_all(stage, &cards, 0.5)?;
         line.wait_for(stage, "With the largest eigenvalue below one")?;
         fade_in_all(stage, &[ticks[0], names[0], ticks[1], names[1]], 0.5)?;
-        let below = precisely(
-            &kit,
-            stage,
-            &format!(
-                "for a table with no negative entry and a demand with none: below one, every demand can be met (Hawkins and Simon, {}), given the workers, land and machines that are outside the table",
-                fact("K-S.hawkins_simon_year")?
-            ),
-        )?;
+        let below = precisely(&kit, stage, &below_text(fact("K-S.hawkins_simon_year")?))?;
         fade_in_all(stage, &[below], 0.5)?;
         line.wait_for(stage, "At one or more")?;
         fade_in_all(stage, &[ticks[2], names[2]], 0.5)?;
@@ -677,11 +688,8 @@ impl SceneConstruct for CanItFeedItself {
         let leontief = lower_third(
             &kit,
             stage,
-            "Wassily Leontief:",
-            &format!(
-                "built such tables for the American economy, {sectors} sectors wide (his {} book, for 1919 and 1929)",
-                fact("K-S.leontief.book_year")?
-            ),
+            LEONTIEF_LABEL,
+            &leontief_text(sectors, fact("K-S.leontief.book_year")?),
         )?;
         let prize = lower_third(
             &kit,
@@ -835,6 +843,49 @@ mod tests {
             assert!(room.x0 > c[0] + CROSS_HALF && room.x0 - c[0] < 0.7, "{room:?}");
             Ok(())
         });
+    }
+
+    /// 13_7: the bands of the test and of Leontief's tables are laid out in
+    /// whole lines, the last not a remnant of the one before ("table" and
+    /// "1929)" each stood alone on a line of their own).
+    #[test]
+    fn the_bands_wrap_without_a_remnant_line() {
+        let sectors = fact("K-S.leontief.sectors").unwrap();
+        let bands = [
+            ("precisely:", below_text(fact("K-S.hawkins_simon_year").unwrap())),
+            (
+                LEONTIEF_LABEL,
+                leontief_text(sectors, fact("K-S.leontief.book_year").unwrap()),
+            ),
+        ];
+        for (label, text) in bands {
+            super::super::carts::probe::run_scene(|stage| {
+                let kit = Kit::new()?;
+                let before = kit.registered().len();
+                let _band = lower_third(&kit, stage, label, &text)?;
+                let made: Vec<String> = kit.registered()[before..].iter().map(|r| r.source.clone()).collect();
+                // what it settled on is the run of lines at the end of those
+                // it laid out whose words, in order, are the whole text
+                let mut lines: Vec<String> = Vec::new();
+                for source in made.iter().rev() {
+                    lines.insert(0, source.clone());
+                    if lines.join(" ") == text {
+                        break;
+                    }
+                }
+                assert_eq!(
+                    lines.join(" "),
+                    text,
+                    "the lines of the band were not found in {made:?}"
+                );
+                assert!(lines.len() <= 2, "{lines:?}");
+                if let [a, b] = &lines[..] {
+                    let (a, b) = (a.chars().count(), b.chars().count());
+                    assert!(3 * b >= a, "the second line is a remnant: {lines:?}");
+                }
+                Ok(())
+            });
+        }
     }
 
     /// 13_5 and 13_7: the hungrier economy's rounds grow, its eigenvalue is
