@@ -16,7 +16,7 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, chip, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say, wait_until,
+    QuizCard, chip, cross_fade, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say, wait_until,
 };
 use super::marks::mark;
 use super::sound;
@@ -663,7 +663,9 @@ impl SceneConstruct for EveryModeANote {
         line.wait_for(stage, "each keeping its own time")?;
         fade_in_all(stage, &[mix_words, plane], 0.5)?;
         line.wait_for(stage, "So an engineer finds the lowest few")?;
-        fade_in_all(stage, &[finder], 0.5)?;
+        // the scope note under the pictures goes as the two-line band comes
+        // (it stood 0.12 from the band's top, under 0.25)
+        cross_fade(stage, &[plane], &[finder], 0.5)?;
         pause(stage, 1.0)?;
 
         kit.hold(stage)?;

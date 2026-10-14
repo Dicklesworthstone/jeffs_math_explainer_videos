@@ -74,8 +74,10 @@ const MAG_DECK: f64 = 60.0;
 /// The table's lattice: its top-left corner and the side of a cell.
 const TABLE_AT: Vec3 = [1.2, 3.25, 0.0];
 const CELL: f64 = 0.15;
-/// How far down the code panel sits (it slides in from the right edge).
-const PANEL_DROP: f64 = -1.7;
+/// How far down the code panel sits (it slides in from the right edge): its
+/// foot 0.28 over the lower third's top (it stood 0.05 over it at -1.7), its
+/// top clear of the table's lattice.
+const PANEL_DROP: f64 = -1.47;
 /// The member of 05_2 that is a spring: the second bottom member.
 const SPRING_MEMBER: usize = 1;
 /// 05_4's two lower-thirds say, in words, what the voice no longer does
@@ -541,17 +543,18 @@ impl SceneConstruct for ASteelTruss {
         line.wait_for(stage, "Load all five deck joints")?;
         fade_out_all(stage, &[tag_mag], 0.3)?;
         fade_in_all(stage, &loads, 0.6)?;
-        fade_in_all(stage, &[equation, solved, tag_deck], 0.6)?;
-        tween_all(stage, &[(pic.amp, 1.0)], 1.8)?;
-        line.wait_for(stage, "The middle sags eighteen millimetres")?;
-        fade_in_all(stage, &[sag], 0.5)?;
+        // the programmers' note comes with the equation it is about, K u = f
+        // (it came with "The middle sags" and stood 0.8 s before 05_8's band)
         let programmers = lower_third(
             &kit,
             stage,
             "for programmers:",
             "real programs factor K once, or iterate, and reuse it for every load; nobody computes its eigenvectors for this",
         )?;
-        fade_in_all(stage, &[programmers], 0.5)?;
+        fade_in_all(stage, &[equation, solved, tag_deck, programmers], 0.6)?;
+        tween_all(stage, &[(pic.amp, 1.0)], 1.8)?;
+        line.wait_for(stage, "The middle sags eighteen millimetres")?;
+        fade_in_all(stage, &[sag], 0.5)?;
         kit.hold(stage)?;
 
         // ---- 05_8: the top is squeezed hardest

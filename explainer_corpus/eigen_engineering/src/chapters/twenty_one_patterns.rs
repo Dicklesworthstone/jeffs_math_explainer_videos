@@ -24,8 +24,8 @@ use fmn::prelude::*;
 
 use super::carts::{AGAINST, CartsPic, CartsSpec, TOGETHER};
 use super::draw::{
-    QuizCard, arrow_points, cross_fade, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, flat, group,
-    moves, own, pause, pushes, say, tween_linear,
+    BAND_UP, QuizCard, arrow_points, cross_fade, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail,
+    flat, group, moves, now, own, pause, pushes, say, tween_linear, wait_until,
 };
 use super::marks::{count_unseen, mark, note};
 use super::truss::{Layout, displaced, load_arrow, outline, plate, supports};
@@ -949,8 +949,11 @@ impl SceneConstruct for TwentyOnePatterns {
         fade_out_all(stage, &leaving, 0.3)?;
         fade_in_all(stage, &coming, 0.5)?;
         // the card has been read for the last number, the voice's end and
-        // this beat; the wall and the names get a glance, not a read
-        pause(stage, 1.5)?;
+        // this beat; the wall gets a glance, and the names to search, a band
+        // like any other, stand whole BAND_UP before the chapter's end fade
+        // (they stood 1.7 s)
+        let finder_up = now(stage);
+        wait_until(stage, finder_up + BAND_UP)?;
         kit.hold(stage)?;
         mark(&kit, stage, "06_7.card_out");
         fade_all(stage, 0.8)?;

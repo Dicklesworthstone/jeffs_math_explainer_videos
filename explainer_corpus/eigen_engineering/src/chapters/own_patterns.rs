@@ -35,7 +35,9 @@ const CARTS_SCALE: f64 = 0.75;
 /// axes reach this far (plane units) across and up.
 const PLANE_AT: Vec3 = [-0.9, -0.95, 0.0];
 const PLANE_UNIT: f64 = 0.7;
-const REACH: (f64, f64) = (3.4, 2.9);
+/// The plane's reach in its own units; vertically 2.6 (it was 2.9, and the
+/// axis ran to 0.16 over the lower third's top at 03_5, under 0.25).
+const REACH: (f64, f64) = (3.4, 2.6);
 /// Where the lists of 03_1 and 03_2 sit, and their type size.
 const LIST_X: f64 = 3.0;
 const LIST_Y: f64 = 0.2;

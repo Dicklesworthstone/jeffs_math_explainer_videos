@@ -459,6 +459,41 @@ mod tests {
     }
 
     #[test]
+    fn the_bridge_that_swayed_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("01_the_bridge_that_swayed");
+    }
+
+    #[test]
+    fn two_carts_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("02_two_carts");
+    }
+
+    #[test]
+    fn own_patterns_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("03_own_patterns");
+    }
+
+    #[test]
+    fn the_split_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("04_the_split");
+    }
+
+    #[test]
+    fn a_steel_truss_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("05_a_steel_truss");
+    }
+
+    #[test]
+    fn twenty_one_patterns_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("06_twenty_one_patterns");
+    }
+
+    #[test]
+    fn every_mode_a_note_keeps_the_invariants_of_its_pictures() {
+        keeps_the_invariants("07_every_mode_a_note");
+    }
+
+    #[test]
     fn two_bridges_keeps_the_invariants_of_its_pictures() {
         keeps_the_invariants("08_two_bridges");
     }
