@@ -25,20 +25,20 @@ Five "your turn" quizzes with a countdown. Pause whenever you want more time.
 The Scorpion was lost on 22 May 1968 with all 99 men aboard. The Navy searched from 27 May to 5 June as if they might still be saved; they could not be. Nothing in the video says otherwise.
 
 Chapters
-?:?? The question
-?:?? Ninety-nine
-?:?? A map of chances
-?:?? Ten thousand dots
-?:?? A search can miss
-?:?? Nothing found
-?:?? Bayes' rule
-?:?? Where next
-?:?? The second pass
-?:?? Adrift
-?:?? Twelve hours
-?:?? The silence
-?:?? How well they looked
-?:?? Four maps
+0:00 The question
+0:20 Ninety-nine
+1:31 A map of chances
+2:48 Ten thousand dots
+4:02 A search can miss
+5:02 Nothing found
+6:10 Bayes' rule
+7:20 Where next
+8:33 The second pass
+9:49 Adrift
+10:48 Twelve hours
+12:03 The silence
+13:19 How well they looked
+14:37 Four maps
 
 The method, exactly
 One lost thing, in one of N cells, that stays where it is. Cell i holds it with chance pᵢ, and a search of cell i, if the thing is there, finds it with chance dᵢ, the "chance of seeing it".

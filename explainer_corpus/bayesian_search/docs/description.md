@@ -27,23 +27,20 @@ searched from 27 May to 5 June as if they might still be saved; they could
 not be. Nothing in the video says otherwise. [F-S.sank, F-S.crew, F-S.due, F-S.presumed_lost]
 
 ## Chapters
-
-(Timestamps come with the finished cut.)
-
-1. The question
-2. Ninety-nine
-3. A map of chances
-4. Ten thousand dots
-5. A search can miss
-6. Nothing found
-7. Bayes' rule
-8. Where next
-9. The second pass
-10. Adrift
-11. Twelve hours
-12. The silence
-13. How well they looked
-14. Four maps
+0:00 The question
+0:20 Ninety-nine
+1:31 A map of chances
+2:48 Ten thousand dots
+4:02 A search can miss
+5:02 Nothing found
+6:10 Bayes' rule
+7:20 Where next
+8:33 The second pass
+9:49 Adrift
+10:48 Twelve hours
+12:03 The silence
+13:19 How well they looked
+14:37 Four maps
 
 ## The method, exactly
 
