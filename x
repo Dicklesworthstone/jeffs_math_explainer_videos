@@ -812,7 +812,9 @@ PY
     [ -f "$crate/docs/protected.tsv" ] ||
       die "no docs/protected.tsv for $slug: list the facts every revision keeps (REVIEW-AND-CONTINUITY.md)"
     set -- "$crate/script.tsv"
-    for f in "$finals"/*.srt "$crate/publish/$voice/description.txt" "$crate/publish/$voice/title.txt"; do
+    desc="$crate/publish/$voice/description.txt"
+    [ -f "$desc" ] || desc="$crate/docs/description.md"
+    for f in "$finals"/*.srt "$desc" "$crate/publish/$voice/title.txt"; do
       [ -f "$f" ] && set -- "$@" "$f"
     done
     python3 -I "$check" "$crate/docs/protected.tsv" "$@"
