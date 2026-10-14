@@ -1,0 +1,17 @@
+# Video H: the numbers of docs/description.md that are not facts of the oracle (checked by tools/description_numbers.py): number TAB context TAB kind TAB reason
+# kinds: year, cited (a number of a cited source, source named), structural, derived (=expression over facts, evaluated by the tool)
+447	Air France 447	cited	the flight number of Air France flight AF 447 (BEA final report on F-GZCP, July 2012; Stone et al. 2014, S3 of docs/fact-sheet.md)
+2.1	Theorem 2.1	cited	the number of the theorem in Chew 1967, "A Sequential Search Procedure" (S11 of docs/fact-sheet.md, pages 494-496 read as images); weakest row: not re-read against the paper in this audit
+1965	Black 1965	year	W. L. Black, "Discrete Sequential Search", Information and Control 8, 1965 (S12 of docs/fact-sheet.md)
+1980	Brown 1980	year	Brown 1980, the paper on search for a moving target that finding 12 of docs/fact-sheet.md names; weak row: the paper is not in the description's Sources list
+2001	Frost and Stone 2001	year	J. R. Frost and L. D. Stone, Review of Search Theory, USCG report CG-D-15-01, 2001 (S13 of docs/fact-sheet.md)
+2023	tomrocksmaths.com, 2023	year	the year of the student essay the owner supplied (S16 of docs/fact-sheet.md)
+56	OEG Report 56	cited	Koopman, Search and Screening, OEG Report No. 56, 1946 (S2 of docs/fact-sheet.md)
+0.40	p = [0.40,	derived	=f("F-M.prior.percent",0)/100
+0.35	(0.35, 0.35 and	derived	=f("F-A.weights",0)/100
+0.94	0.94; estimated afterwards	derived	=f("F-S.F6.searched.at_sea",1)/100
+0.94	a cell 6% of its chance at 0.94	derived	=f("F-S.F6.searched.at_sea",1)/100
+0.65	it was 0.65	derived	=f("F-S.F6.searched.after",1)/100
+0.65	35% at 0.65	derived	=f("F-S.F6.searched.after",1)/100
+3.1	3.1 points above	derived	=f("F-K.lanes.one_run.1")-f("F-K.lanes.mean.1")
+55.9	0.9, 49.8 and 55.9	derived	=f("F-R.model.best.found_by.20")/(f("F-R.grid.points")/f("F-R.total"))

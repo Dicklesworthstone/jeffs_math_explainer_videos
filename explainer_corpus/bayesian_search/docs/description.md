@@ -184,8 +184,8 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   radius) that the Coast Guard's own method multiplies by a safety factor
   to draw its search circle. If it is the latter, the circle is larger,
   the same track covers less of it, and 93, 65, 34 and 13 in 100 would be
-  smaller (a circle twice as wide gives a quarter of the coverage: about 49,
-  23, 10 and 3); "hours matter" would stand. The video's own words are "in
+  smaller (a circle twice as wide gives a quarter of the coverage: about 49%,
+  23%, 10% and 3%); "hours matter" would stand. The video's own words are "in
   this model".
 - **The flight.** The 93, 65, 34 and 13 in 100 are for 180 miles of track
   spread evenly over the whole circle [F-D.track] and the random-search
@@ -218,8 +218,9 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
 - **The hundred strips (09_3)** are a simulation: 100 strips, each 1% of the
   cell, at random offsets, seed 1946; one run swept 66.5%, the mean of 1,000
   runs is 63.4%, the least of them swept 57.1% and the most 69.9%, and the
-  exact mean is 63.4% [F-K.lanes.*]. The shown run is about 1.7 standard
-  deviations above the middle, which is why it is labelled "this run". The
+  exact mean is 63.4% [F-K.lanes.*]. The shown run is 3.1 points above the
+  mean of the thousand, in the upper part of their range, which is why it is
+  labelled "this run". The
   formula's 63.2 is the limit of ever thinner strips.
 - **The two-in-three search** (05_2) is the video's own illustration for a
   flat cell. Koopman's curve puts it at a coverage of 1.10, and the canyon's
