@@ -11,8 +11,8 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Ask, BADGE_CORNER, Badge, Choice, QuizLook, fact_f64, fade_in_all, fade_in_lagged, flat, group, leave, line_style,
-    say, value, your_turn,
+    Ask, BADGE_CORNER, Badge, Choice, MINUS, QuizLook, fact_f64, fade_in_all, fade_in_lagged, flat, group, leave,
+    line_style, say, value, your_turn,
 };
 use crate::model::{self, DEG};
 use crate::palette;
@@ -24,7 +24,7 @@ pub struct Halfway {
 // the chapter's fixed words (numbers are built from facts)
 const AHEAD: &str = "ahead";
 const SEAM: &str = "seam";
-const RULER_ENDS: [&str; 3] = ["−180", "0", "180"];
+const RULER_ENDS: [&str; 3] = ["–180", "0", "180"];
 const STEP: &str = "step";
 const HALF: &str = "half";
 const CURVED: &str = "curved";
@@ -41,7 +41,7 @@ const BEATS: [&str; 5] = ["04_1", "04_2", "04_3", "04_4", "04_5"];
 /// the heading in degrees as `G-Q.04_2.answer` prints it.
 pub const ASK: Ask = Ask {
     line: BEATS[1],
-    question: "halfway between\n170° and −170°?",
+    question: "halfway between\n170° and –170°?",
     choices: &[
         Choice { key: "0", label: "0°" },
         Choice {
@@ -170,7 +170,7 @@ impl SceneConstruct for Halfway {
         let (a, b) = (fact_f64("G-H.a")?, fact_f64("G-H.b")?);
         let (gap, halfway) = (fact_f64("G-H.gap")?, fact_f64("G-H.halfway")?);
         let mean = fact_f64("G-H.mean")?;
-        let minus = |x: f64| format!("{}", x.round() as i64).replace('-', "−");
+        let minus = |x: f64| format!("{}", x.round() as i64).replace('-', &MINUS.to_string());
 
         // the circle of headings, its four marks, and the robot at its centre
         let circle = stage.arena_mut().add(
@@ -229,7 +229,9 @@ impl SceneConstruct for Halfway {
         // straight back; the ruler's ends do not meet
         let line = say(&kit, stage, BEATS[2])?;
         leave(stage, &card.mobs(), &[], 0.4)?;
-        let sum = format!(r"\frac{{{} + ({})}}{{2}} = {}", minus(a), minus(b), minus(mean));
+        // TeX takes its own minus: the ASCII hyphen, never the en dash
+        let tex = |x: f64| format!("{}", x.round() as i64);
+        let sum = format!(r"\frac{{{} + ({})}}{{2}} = {}", tex(a), tex(b), tex(mean));
         let equation = kit.tex(stage, &sum, 56.0, Palette::ink(), &[], v(3.6, 2.4))?;
         let mean_arrow = dashed_arrow(stage, v(CENTRE[0], CENTRE[1]), on_circle(mean, RADIUS - 0.05), warn)?;
         line.wait_for(stage, "Average the numbers")?;
@@ -424,7 +426,9 @@ mod tests {
         assert_eq!(ASK.answer_index().unwrap(), 2);
         let (a, b) = (fact_f64("G-H.a").unwrap(), fact_f64("G-H.b").unwrap());
         assert_eq!((a, b), (170.0, -170.0));
-        assert!(ASK.question.contains("170°") && ASK.question.contains("−170°"));
+        assert!(ASK.question.contains("170°") && ASK.question.contains(&format!("{MINUS}170°")));
+        // the ruler's end label and the card use the same minus as live numbers
+        assert_eq!(RULER_ENDS[0], format!("{MINUS}180"));
     }
 
     /// 04_3: the average of the numbers is zero, straight ahead, and it is

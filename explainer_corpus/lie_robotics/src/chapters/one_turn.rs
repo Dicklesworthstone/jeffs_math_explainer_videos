@@ -14,8 +14,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizLook, Shape, View, World, arc_between, book, edge_arrows, edge_colors,
-    entry, fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause, pose_fn, say,
-    screw_shapes, static_grid, still, table, turns_in_order, tween_all, tween_linear, value, your_turn,
+    fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause, pose_fn, say,
+    screen_entry, screw_shapes, static_grid, still, table, turns_in_order, tween_all, tween_linear, value, your_turn,
 };
 use crate::model::{self, DEG, M3, Pose, Screw, V3, X, Y, Z, dot, unit};
 use crate::palette;
@@ -108,7 +108,7 @@ fn parse_grid(text: &str) -> fmn::Result<[[String; 3]; 3]> {
         }
         for (j, cell) in cells.iter().enumerate() {
             let x: f64 = cell.parse().map_err(|_| fail(format!("not a number: {cell}")))?;
-            out[i][j] = entry(x);
+            out[i][j] = screen_entry(x);
         }
     }
     Ok(out)
@@ -116,7 +116,7 @@ fn parse_grid(text: &str) -> fmn::Result<[[String; 3]; 3]> {
 
 /// A grid of a turn's matrix, rounded as the picture prints it.
 fn grid_of(r: &M3) -> [[String; 3]; 3] {
-    std::array::from_fn(|i| std::array::from_fn(|j| entry(r[i][j])))
+    std::array::from_fn(|i| std::array::from_fn(|j| screen_entry(r[i][j])))
 }
 
 /// Two strokes for an equals sign, centred at `at`, in `color`.
@@ -413,6 +413,7 @@ impl SceneConstruct for OneTurn {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::entry;
     use super::*;
 
     /// Chapter 02 plays exactly the storyboard's beats, and every beat is the
@@ -519,11 +520,15 @@ mod tests {
     }
 
     #[test]
-    fn entries_print_with_a_true_minus_and_no_negative_zero() {
+    fn entries_print_with_the_engines_minus_and_no_negative_zero() {
+        // on screen beside live numbers: the engine's minus, U+2013
+        assert_eq!(screen_entry(-1.0), "–1");
+        assert_eq!(screen_entry(-0.7213), "–0.72");
+        assert_eq!(screen_entry(-0.0), "0");
+        assert_eq!(screen_entry(-1e-17), "0");
+        assert_eq!(screen_entry(0.5), "0.50");
+        // the plain entry keeps a true minus sign
         assert_eq!(entry(-1.0), "−1");
-        assert_eq!(entry(-0.0), "0");
-        assert_eq!(entry(-1e-17), "0");
-        assert_eq!(entry(0.5), "0.50");
         assert_eq!(entry(-0.7213), "−0.72");
     }
 }

@@ -1349,7 +1349,8 @@ pub fn grid_brackets(stage: &mut Stage<'_>, at: Vec3, pitch: (f64, f64), color: 
 }
 
 /// A matrix entry as printed: whole numbers plain, anything else to two
-/// places, a true minus sign, and never "−0".
+/// places, a true minus sign (U+2212), and never "−0". On screen beside live
+/// numbers use [`screen_entry`].
 pub fn entry(x: f64) -> String {
     let r = (x * 100.0).round() / 100.0 + 0.0;
     let s = if (r - r.round()).abs() < 1e-9 {
@@ -1358,6 +1359,19 @@ pub fn entry(x: f64) -> String {
         format!("{r:.2}")
     };
     s.replace('-', "−")
+}
+
+/// The minus a number is printed with on screen: the engine's live numbers
+/// (`DecimalNumber`) show a negative with an en dash at mid-digit height, and
+/// the text face has no U+2212 of its own (it falls back to a heavier face),
+/// so a static number uses the same character and sits beside a live one
+/// alike.
+pub const MINUS: char = '\u{2013}';
+
+/// [`entry`] with the engine's own minus ([`MINUS`]): a matrix cell or a
+/// label that appears next to live numbers.
+pub fn screen_entry(x: f64) -> String {
+    entry(x).replace('−', &MINUS.to_string())
 }
 
 /// A 3 by 3 grid of fixed numbers, column `j` in `colors[j]`: nine cells and

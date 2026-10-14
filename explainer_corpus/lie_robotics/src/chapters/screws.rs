@@ -8,9 +8,9 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, VIEW_AZIMUTH_DEG, View, World, cuboid, entry,
-    fact, fact_f64, fade_in_all, four_words, leave, mix, plate, pose_fn, say, screw_shapes, spin_arrow, still, table,
-    tween_linear, value,
+    Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, VIEW_AZIMUTH_DEG, View, World, cuboid, fact,
+    fact_f64, fade_in_all, four_words, leave, mix, plate, pose_fn, say, screen_entry, screw_shapes, spin_arrow, still,
+    table, tween_linear, value,
 };
 use crate::facts::shown::{TOSS_SLIDE, TOSS_TURN_DEG};
 use crate::model::{
@@ -230,9 +230,10 @@ fn path_shape(rise: f64, color: Srgb) -> Shape {
     }
 }
 
-/// A two-by-six grid number as text: `entry` to two places.
+/// Three numbers as text, to two places, with the engine's minus (they sit
+/// where live numbers would).
 fn triple(values: [f64; 3]) -> [String; 3] {
-    values.map(entry)
+    values.map(screen_entry)
 }
 
 impl SceneConstruct for Screws {

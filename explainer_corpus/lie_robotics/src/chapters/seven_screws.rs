@@ -82,9 +82,11 @@ const AXES_AT: usize = 23;
 const SCREWS_AT: usize = AXES_AT + N;
 const HOME_AT: usize = SCREWS_AT + N;
 
-/// An axis direction as a code line, from its fact (`0,-1,0`): `(0, −1, 0)`.
+/// An axis direction as a code line, from its fact (`0,-1,0`): `(0, -1, 0)`.
+/// The panel is set in the typewriter face, where a code minus is the ASCII
+/// hyphen.
 fn direction_text(fact_value: &str) -> String {
-    format!("({})", fact_value.replace(',', ", ").replace('-', "−"))
+    format!("({})", fact_value.replace(',', ", "))
 }
 
 /// The seven code lines of the model as data (08_1's panel): each joint's
@@ -383,7 +385,7 @@ mod tests {
         let lines = model_lines().unwrap();
         assert_eq!(lines.len(), 8);
         assert_eq!(lines[0], "S1: axis (0, 0, 1) at z = 0.1575");
-        assert!(lines[3].contains("(0, −1, 0)"));
+        assert!(lines[3].contains("(0, -1, 0)"));
         assert_eq!(lines[7], "M: (0.0, 0.0, 1.3060), R = I");
     }
 
