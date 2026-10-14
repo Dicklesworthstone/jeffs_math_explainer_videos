@@ -679,7 +679,8 @@ impl SceneConstruct for OneIdea {
             .build()?
             .moved_to(v(gauge_x, PLOT_BOTTOM + below + past_h / 2.0));
         let fill_past = stage.arena_mut().add(fill_past);
-        let gauge_name = kit.text(stage, "the gauge of 05_8", 24.0, dim, v(gauge_x, top + 0.25))?;
+        // (a beat's id is never shown to the viewer: "from before" is what 05_8 was to them)
+        let gauge_name = kit.text(stage, "the gauge from before", 24.0, dim, v(gauge_x, top + 0.25))?;
         let mark_at = stage.arena_mut().add(
             polyline(vec![
                 v(gauge_x - 0.6, PLOT_BOTTOM + below),
