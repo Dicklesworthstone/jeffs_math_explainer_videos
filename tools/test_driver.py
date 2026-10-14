@@ -4,12 +4,12 @@ the real corpus lint/probe runs are separate acceptance checks. Nothing is delet
 
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 import unittest
 import wave
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,6 +19,8 @@ class Driver(unittest.TestCase):
         self.root = Path(tempfile.mkdtemp(prefix="explainer_driver_"))
         shutil.copyfile(ROOT / "x", self.root / "x")
         (self.root / "x").chmod(0o755)
+        (self.root / "tools").mkdir(exist_ok=True)
+        shutil.copyfile(ROOT / "tools" / "publish.py", self.root / "tools" / "publish.py")
         self.corpus = self.root / "explainer_corpus"
         self.corpus.mkdir()
 
@@ -475,6 +477,94 @@ class Driver(unittest.TestCase):
                 self.assertIn("unsupported VOICE", result.stderr)
                 self.assertFalse(observed.exists())
 
+    def test_new_scaffolds_from_template_and_replaces_all_placeholders(self):
+        shutil.copytree(ROOT / "templates", self.root / "templates")
+        result = self.run_x("new", "demo_explainer", 'Demo "Quote" Title')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        dest = self.corpus / "demo_explainer"
+        self.assertTrue((dest / "Cargo.toml").is_file())
+        self.assertTrue((dest / "src" / "main.rs").is_file())
+        self.assertTrue((dest / "oracle.py").is_file())
+        for path in dest.rglob("*"):
+            if path.is_file():
+                text = path.read_text(encoding="utf-8")
+                for token in ("__SLUG__", "__TITLE__", "__TITLE_TOML__"):
+                    self.assertNotIn(token, text, f"unreplaced {token} in {path}")
+        manifest = (dest / "Cargo.toml").read_text(encoding="utf-8")
+        self.assertIn('name = "demo_explainer"', manifest)
+        self.assertIn('Demo \\"Quote\\" Title', manifest)
+        # Refuses non-empty existing directory and invalid slug names
+        again = self.run_x("new", "demo_explainer", "Again")
+        self.assertEqual(again.returncode, 2)
+        self.assertIn("already exists", again.stderr)
+        bad = self.run_x("new", "Bad-Slug", "Title")
+        self.assertEqual(bad.returncode, 2)
+        self.assertIn("snake_case", bad.stderr)
+
+    def test_status_and_reviewed_track_gate_transitions_and_staleness(self):
+        shutil.copytree(ROOT / "templates", self.root / "templates")
+        self.assertEqual(self.run_x("new", "demo_explainer", "Demo").returncode, 0)
+        crate = self.corpus / "demo_explainer"
+        res = self.run_x("demo_explainer", "status", "--porcelain")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        gates = {line.split("\t")[0]: line.split("\t")[1] for line in res.stdout.splitlines()}
+        self.assertEqual(gates["G0 brief"], "todo")
+        self.assertEqual(gates["G0 protected"], "ok")
+        self.assertEqual(gates["G5 drafts"], "todo")
+        # Clear TODOs in brief.md -> G0 brief becomes ok
+        brief = crate / "docs" / "brief.md"
+        brief.write_text(brief.read_text(encoding="utf-8").replace("TODO", "filled"), encoding="utf-8")
+        res2 = self.run_x("demo_explainer", "status", "--porcelain")
+        gates2 = {line.split("\t")[0]: line.split("\t")[1] for line in res2.stdout.splitlines()}
+        self.assertEqual(gates2["G0 brief"], "ok")
+        # Record reviewed draft
+        rev = self.run_x("demo_explainer", "reviewed", "draft")
+        self.assertEqual(rev.returncode, 0, rev.stderr)
+        self.assertTrue((crate / ".x" / "draft.reviewed").is_file())
+
+    def test_fmn_local_refuses_g8_final_master_and_verify(self):
+        self.crate("alpha")
+        fm = self.root / "fake_fmn"
+        (fm / "crates" / "fmn").mkdir(parents=True)
+        env = dict(os.environ, SKILLS=str(self.root / "missing skills"), FRANKEN_MANIM=str(fm))
+        for cmd in ("final", "master", "verify"):
+            res = self.run_x("--fmn-local", "alpha", cmd, env=env)
+            self.assertEqual(res.returncode, 2)
+            self.assertIn("G8 refuses --fmn-local", res.stderr)
+
+    def test_publish_assembles_release_bundle_and_refuses_unapproved_upload(self):
+        crate = self.crate("alpha", "Alpha")
+        (crate / "Cargo.toml").write_text('[package]\nname = "alpha"\n[[bin]]\nname = "alpha"\n', encoding="utf-8")
+        finals = crate / "renders" / "final"
+        finals.mkdir(parents=True)
+        master_mp4 = finals / "alpha_master.mp4"
+        subprocess.run(
+            [
+                "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+                "-f", "lavfi", "-i", "color=c=0x0E1116:s=640x360:r=15:d=0.2",
+                "-c:v", "libx264", "-pix_fmt", "yuv420p", str(master_mp4),
+            ],
+            check=True,
+            timeout=30,
+        )
+        (finals / "alpha.en.srt").write_text("1\n00:00:00,000 --> 00:00:01,000\nHello.\n", encoding="utf-8")
+        (finals / "alpha.en.vtt").write_text("WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello.\n", encoding="utf-8")
+        res = self.run_x("alpha", "publish")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        bundle = crate / "publish" / "release_v1"
+        self.assertTrue((bundle / "alpha_4k_v1.mp4").is_file())
+        self.assertTrue((bundle / "alpha_1080p_v1.mp4").is_file())
+        self.assertTrue((bundle / "alpha.en.srt").is_file())
+        self.assertTrue((bundle / "alpha.en.vtt").is_file())
+        self.assertTrue((bundle / "contact_sheet.png").is_file())
+        self.assertTrue((bundle / "release_notes.md").is_file())
+        self.assertTrue((bundle / "SHA256SUMS").is_file())
+        self.assertTrue((crate / "publish" / "youtube.md").is_file())
+        up = self.run_x("alpha", "publish", "--upload")
+        self.assertEqual(up.returncode, 2)
+        self.assertIn("G10", up.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -1,0 +1,35 @@
+{
+  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). words: names to respell for the TTS input only, every respelling auditioned, plus the ASR spellings that count as correct. accept: harmless ASR spellings of ordinary words. phrases: multi-word ASR spellings to normalize. Add every proper name and term of art in the script: look it up (lookup_pronunciation.py), then audition and lock it (probe_names.py run lexicon.json WORK --write) before the full run. say/decoy/note/probe document the choice; only respell and accept change narration.",
+  "words": {
+    "manim": {
+      "respell": ["Man-im"],
+      "accept": ["manam", "mannam", "manum"],
+      "say": "MAN-im",
+      "decoy": ["Men-em"],
+      "note": "No source gives IPA (Wikipedia, Wiktionary); MAN-im is the owner's (math animation). Probed with ftts 0.1.11 robert + fw 0.10.0 f32 in 5 carriers, one of them this script's line 02_2: Man-im passed 5/5. Plain manim was heard Manning/Manum/Frank and Manum, and the decoy Men-em was heard Menem (the failure this entry fixes). Carriers (reproduce with probe_names.py --carrier): 'This is {w}.', '{w} showed something deeper.', 'The idea came from {w}, in the end.', 'It was rendered by franken {w}, and narrated by franken T T S.', 'It was rendered by franken {w}.'. The probe's 'man m' is left out of phrases: probe_names.py never locks a phrase with a one-letter token. 'manning' (a real name) is deliberately not accepted.",
+      "probe": {
+        "date": "2026-10-08",
+        "voice": "robert",
+        "asr": "fw",
+        "winner": "Man-im",
+        "discriminates": true,
+        "results": {
+          "manim": "control PARTIAL 4/5",
+          "Mannim": "candidate FAIL 3/5",
+          "Man-im": "candidate PASS 5/5",
+          "Mann-im": "candidate PARTIAL 4/5",
+          "Manim": "candidate FAIL 3/5",
+          "MAN-im": "candidate PARTIAL 4/5",
+          "Men-em": "decoy OK (heard differently) 0/5"
+        }
+      }
+    }
+  },
+  "accept": {
+    "franken": ["frankin"]
+  },
+  "phrases": {
+    "frank and": "franken",
+    "frank in": "franken"
+  }
+}

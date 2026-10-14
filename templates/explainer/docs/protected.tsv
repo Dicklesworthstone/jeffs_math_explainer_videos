@@ -1,0 +1,4 @@
+# Protected facts: the words every revision must keep (./x __SLUG__ protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere".
+twenty-six trillion	script	the count C(5000, 4) = 26,010,424,997,500 exceeds 26 trillion

@@ -3,15 +3,21 @@
 # corpus-aware port of the template's driver). Commands so far:
 #
 #   ./x list                                  the corpus: slug, package and README title
+#   ./x new <slug> "Title"                    scaffold explainer_corpus/<slug> from templates/explainer
+#   ./x doctor                                toolchain, fmn pin, ftts/fw/ffmpeg versions, skills path
+#   ./x all test                              workspace fmt, clippy, tests, tool tests and script lints
+#   ./x <slug> status [--porcelain]           gate status and next command for <slug>
 #   ./x <slug> review storyboard|script|draft   persona review packet (plan §5.2)
 #   ./x <slug> facts-check                      every video number against its oracle.py (G1)
 #   ./x <slug> storyboard                       G2 checks; writes script.tsv from the storyboard
 #   ./x <slug> build                            release build of the video's binary
 #   ./x <slug> test                             its tests, clippy -D warnings and fmt --check
 #   ./x <slug> lint                             narration script lint and chapter ownership
+#   ./x <slug> names [--terms A,B]              pronunciation audition (probe_names.py run --write)
 #   ./x <slug> probe [OUT_DIR]                  collect real scene glyphs and render probe pages
 #   ./x <slug> draft [CHAPTER...]               960x540@30 scratch-voice renders with the layout
 #                                               lint into explainer_corpus/<slug>/renders/draft/
+#   ./x <slug> reviewed draft|narrated          record that every contact/cue sheet was read (G5/G7)
 #   ./x <slug> sheets [CHAPTER...]              contact sheets (4x3) of those drafts, to read
 #   ./x <slug> narrate                          the narration into narration/{work,out}: new reads
 #                                               only (ftts), every take transcribed (fw), reads that
@@ -52,6 +58,7 @@
 #   ./x <slug> joins [scored|narrated|final]    every chapter join of that cut, read in a word-aligned
 #                                               transcript of its own audio (fw + join_audit.py), into
 #                                               renders/<kind>_joins/<time>.report.txt
+#   ./x <slug> progress                         frames/fps of running renders (render_progress.sh)
 #
 #   VOICE=<voice> ./x <slug> ...                the same commands for a variant of the video read by
 #                                               another voice: its narration, music and renders live in
@@ -77,6 +84,25 @@ die() { echo "x: $*" >&2; exit 2; }
 export RUSTUP_TOOLCHAIN="${RUSTUP_TOOLCHAIN:-nightly-2026-08-31}"
 SKILLS="${SKILLS:-$HOME/.claude/skills}"
 CARGO_FLAGS="-Zgit=shallow-deps -Zgitoxide=fetch"
+FMN_LOCAL="${X_FMN_LOCAL:-}"
+if [ "${1:-}" = "--fmn-local" ]; then
+  FMN_LOCAL=1
+  shift
+fi
+if [ -n "$FMN_LOCAL" ]; then
+  fm_raw="${FRANKEN_MANIM:-$here/../franken_manim}"
+  [ -d "$fm_raw/crates/fmn" ] || die "--fmn-local: no franken_manim checkout at $fm_raw"
+  fm_abs=$(cd "$fm_raw" && pwd -P)
+  mkdir -p "$here/.x/fmn-local"
+  if [ ! -f "$here/.x/fmn-local/Cargo.lock" ] && [ -f "$here/Cargo.lock" ]; then
+    cp "$here/Cargo.lock" "$here/.x/fmn-local/Cargo.lock"
+  fi
+  export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$here/target-fmn-local}"
+  CARGO_FLAGS="$CARGO_FLAGS -Zunstable-options --config resolver.lockfile-path=\"$here/.x/fmn-local/Cargo.lock\""
+  CARGO_FLAGS="$CARGO_FLAGS --config patch.'https://github.com/Dicklesworthstone/franken_manim'.fmn.path=\"$fm_abs/crates/fmn\""
+  CARGO_FLAGS="$CARGO_FLAGS --config patch.'https://github.com/Dicklesworthstone/franken_manim'.fmn-codec.path=\"$fm_abs/crates/fmn-codec\""
+  CARGO_FLAGS="$CARGO_FLAGS --config patch.'https://github.com/Dicklesworthstone/franken_manim'.fmn-output.path=\"$fm_abs/crates/fmn-output\""
+fi
 
 # VOICE is also a path component and crosses the remote shell boundary.
 case "${VOICE:-}" in
@@ -111,6 +137,134 @@ case "${1:-}" in
       fi
       printf '%s\t%s\t%s\n' "${entry##*/}" "$package" "$title"
     done
+    exit 0 ;;
+  new)
+    [ $# -eq 3 ] || usage
+    new_slug=$2
+    new_title=$3
+    printf '%s' "$new_slug" | grep -Eq '^[a-z][a-z0-9_]*$' ||
+      die "slug must be snake_case (^[a-z][a-z0-9_]*$): '$new_slug'"
+    [ -n "$new_title" ] || die "title must not be empty"
+    case "$new_title" in
+      *'
+'*) die "title must be a single line" ;;
+    esac
+    tpl="$here/templates/explainer"
+    [ -d "$tpl" ] || die "no template directory at $tpl"
+    dest="$here/explainer_corpus/$new_slug"
+    if [ -e "$dest" ]; then
+      existing_entries=$(ls -A "$dest" 2>/dev/null || true)
+      if [ -n "$existing_entries" ]; then
+        die "refusing: explainer_corpus/$new_slug already exists and is not empty"
+      fi
+    fi
+    mkdir -p "$dest"
+    cp -R "$tpl/." "$dest/"
+    python3 -I - "$dest" "$new_slug" "$new_title" <<'PY'
+import pathlib
+import sys
+
+dest = pathlib.Path(sys.argv[1])
+slug = sys.argv[2]
+title = sys.argv[3]
+title_toml = title.replace("\\", "\\\\").replace('"', '\\"')
+
+for path in sorted(dest.rglob("*")):
+    if not path.is_file():
+        continue
+    text = path.read_text(encoding="utf-8")
+    updated = (
+        text.replace("__SLUG__", slug)
+        .replace("__TITLE_TOML__", title_toml)
+        .replace("__TITLE__", title)
+    )
+    if updated != text:
+        path.write_text(updated, encoding="utf-8")
+PY
+    chmod +x "$dest/oracle.py"
+    echo "x: scaffolded explainer_corpus/$new_slug ($new_title)"
+    exit 0 ;;
+  doctor)
+    [ $# -eq 1 ] || usage
+    echo "== toolchain =="
+    echo "RUSTUP_TOOLCHAIN=$RUSTUP_TOOLCHAIN"
+    rustc --version 2>/dev/null || echo "rustc: not on PATH"
+    cargo --version 2>/dev/null || echo "cargo: not on PATH"
+    echo "== franken_manim pin =="
+    pin=$(sed -n 's/^fmn = .*rev = "\([0-9a-f]*\)".*/\1/p' "$here/Cargo.toml" | head -n 1)
+    echo "workspace Cargo.toml pin: ${pin:-unknown}"
+    if [ -f "$here/FRANKEN_MANIM.pin" ]; then
+      echo "FRANKEN_MANIM.pin: $(tr -d '\n' < "$here/FRANKEN_MANIM.pin")"
+    fi
+    fm_sibling="${FRANKEN_MANIM:-$here/../franken_manim}"
+    if [ -d "$fm_sibling/.git" ]; then
+      fm_head=$(git -C "$fm_sibling" rev-parse HEAD 2>/dev/null || echo unknown)
+      echo "sibling franken_manim ($fm_sibling): $fm_head"
+      if [ -f "$here/Cargo.lock" ] && [ -f "$fm_sibling/Cargo.lock" ]; then
+        python3 -I - "$here/Cargo.lock" "$fm_sibling/Cargo.lock" <<'PY'
+import pathlib
+import re
+import sys
+
+def crates_io_versions(lock_path: pathlib.Path):
+    out = {}
+    for block in lock_path.read_text(encoding="utf-8").split("[[package]]"):
+        if 'source = "registry+https://github.com/rust-lang/crates.io-index"' not in block:
+            continue
+        name = re.search(r'^name = "([^"]+)"', block, re.M)
+        ver = re.search(r'^version = "([^"]+)"', block, re.M)
+        if name and ver:
+            out.setdefault(name.group(1), set()).add(ver.group(1))
+    return out
+
+ours = crates_io_versions(pathlib.Path(sys.argv[1]))
+theirs = crates_io_versions(pathlib.Path(sys.argv[2]))
+shared = sorted(set(ours) & set(theirs))
+diffs = [f"{k}: repo={sorted(ours[k])} vs fmn={sorted(theirs[k])}" for k in shared if ours[k] != theirs[k]]
+print(f"Cargo.lock crates.io parity ({len(shared)} shared packages): {len(diffs)} version diffs")
+for d in diffs[:10]:
+    print(f"  diff: {d}")
+PY
+      fi
+    fi
+    echo "== media & speech tools =="
+    for tool in ftts fw ffmpeg ffprobe uv python3; do
+      if command -v "$tool" >/dev/null 2>&1; then
+        ver=$("$tool" --version 2>&1 | head -n 1 || true)
+        echo "$tool: $ver"
+      else
+        echo "$tool: MISSING"
+      fi
+    done
+    echo "== skills =="
+    echo "SKILLS=$SKILLS"
+    for s in franken-manim-mega-skill math-explainer-videos-end-to-end-with-franken-manim-frankentts natural-sounding-narration-with-frankentts; do
+      if [ -d "$SKILLS/$s" ]; then
+        echo "  [ok] $s"
+      else
+        echo "  [missing] $s"
+      fi
+    done
+    exit 0 ;;
+  all)
+    [ $# -eq 2 ] && [ "$2" = "test" ] || usage
+    cd "$here"
+    cargo fmt --check
+    # shellcheck disable=SC2086
+    cargo clippy --workspace --all-targets $CARGO_FLAGS -- -D warnings
+    # shellcheck disable=SC2086
+    cargo test --workspace $CARGO_FLAGS
+    for tf in "$here"/tools/test_*.py; do
+      [ -f "$tf" ] || continue
+      python3 -I "$tf"
+    done
+    lint="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/lint_script.py"
+    if [ -f "$lint" ]; then
+      for s in "$here"/explainer_corpus/*/script.tsv; do
+        [ -f "$s" ] || continue
+        python3 -I "$lint" "$s"
+      done
+    fi
     exit 0 ;;
   remote)
     shift
@@ -243,34 +397,206 @@ unchanged_narration() {
 chapter_list() {
   if [ $# -gt 0 ]; then printf '%s' "$*" | tr ' ' ','; else "$binary" chapters | paste -sd, -; fi
 }
+mark() {
+  mkdir -p "$crate/.x"
+  date > "$crate/.x/$1"
+}
 
 case "$cmd" in
+  status)
+    [ $# -le 1 ] || usage
+    porcelain=0
+    if [ "${1:-}" = "--porcelain" ]; then porcelain=1; elif [ $# -gt 0 ]; then usage; fi
+    python3 -I - "$crate" "$slug" "$binary" "$porcelain" <<'PY'
+import os
+import pathlib
+import socket
+import sys
+import time
+
+crate = pathlib.Path(sys.argv[1])
+slug = sys.argv[2]
+binary = pathlib.Path(sys.argv[3])
+porcelain = sys.argv[4] == "1"
+xdir = crate / ".x"
+
+def mtime(p: pathlib.Path):
+    try:
+        return p.stat().st_mtime_ns
+    except OSError:
+        return None
+
+def newer(marker: pathlib.Path, refs):
+    t = mtime(marker)
+    if t is None:
+        return False
+    for r in refs:
+        rt = mtime(r)
+        if rt is not None and rt >= t:
+            return False
+    return True
+
+rs_files = sorted((crate / "src").rglob("*.rs")) if (crate / "src").is_dir() else []
+code_refs = rs_files + [p for p in (crate / "Cargo.toml", crate / "script.tsv") if p.exists()]
+source_refs = code_refs + ([crate.parent.parent / "Cargo.lock"] if (crate.parent.parent / "Cargo.lock").exists() else [])
+
+rows = []
+def row(gate, state, detail, cmd="-"):
+    rows.append((gate, state, detail, cmd))
+
+brief = crate / "docs" / "brief.md"
+if not brief.is_file():
+    row("G0 brief", "todo", "docs/brief.md missing", f"write explainer_corpus/{slug}/docs/brief.md")
+else:
+    todos = sum(1 for line in brief.read_text(encoding="utf-8").splitlines() if line.startswith("|") and "TODO" in line)
+    if todos == 0:
+        row("G0 brief", "ok", "docs/brief.md filled")
+    else:
+        row("G0 brief", "todo", f"{todos} TODO fields in docs/brief.md", f"fill every TODO in explainer_corpus/{slug}/docs/brief.md")
+
+prot = crate / "docs" / "protected.tsv"
+prot_count = 0
+if prot.is_file():
+    prot_count = sum(1 for line in prot.read_text(encoding="utf-8").splitlines() if line.strip() and not line.lstrip().startswith("#"))
+if prot_count > 0:
+    row("G0 protected", "ok", f"{prot_count} protected facts")
+else:
+    row("G0 protected", "todo", "no protected facts in docs/protected.tsv", f"add protected facts to explainer_corpus/{slug}/docs/protected.tsv")
+
+if newer(xdir / "facts.ok", [crate / "src" / "facts.rs", crate / "src" / "model.rs", crate / "oracle.py", xdir / "facts.failed", binary]):
+    row("G1 facts", "ok", "rust == oracle")
+else:
+    row("G1 facts", "todo", "facts not checked against current sources/oracle", f"./x {slug} facts-check")
+
+if newer(xdir / "storyboard.ok", [crate / "docs" / "storyboard.md"]):
+    row("G2 storyboard", "ok", "storyboard.md checked")
+else:
+    row("G2 storyboard", "todo", "storyboard not checked since last edit", f"./x {slug} storyboard")
+
+if newer(xdir / "lint.ok", [crate / "script.tsv"]):
+    lines = sum(1 for line in (crate / "script.tsv").read_text(encoding="utf-8").splitlines() if "\t" in line and not line.startswith("#")) if (crate / "script.tsv").is_file() else 0
+    row("G3 script lint", "ok", f"{lines} lines")
+else:
+    row("G3 script lint", "todo", "script.tsv changed or unlinted", f"./x {slug} lint")
+
+if binary.is_file() and os.access(binary, os.X_OK) and newer(xdir / "build.ok", source_refs) and newer(xdir / "test.ok", code_refs):
+    row("G4 build", "ok", f"{binary.name}; tests, clippy, fmt passed")
+else:
+    row("G4 build", "todo", "no passing build + test since sources changed", f"./x {slug} build && ./x {slug} test")
+
+if newer(xdir / "probe.ok", [crate / "src" / "chapters" / "glyphs.rs", binary]):
+    row("G4 glyph probe", "ok", "renders/glyphs_probe/")
+else:
+    row("G4 glyph probe", "todo", "probe missing or stale", f"./x {slug} probe")
+
+if newer(xdir / "draft.rendered", [binary, *code_refs]) and newer(xdir / "draft.ok", [xdir / "draft.rendered"]) and newer(xdir / "draft.reviewed", [xdir / "draft.ok"]):
+    row("G5 drafts", "ok", "full draft rendered and reviewed")
+else:
+    row("G5 drafts", "todo", "no full draft rendered + reviewed with current sources", f"./x {slug} draft && ./x {slug} sheets && ./x {slug} reviewed draft")
+
+if newer(xdir / "narration.ok", [p for p in (crate / "script.tsv", crate / "lexicon.json", crate / "alts.tsv") if p.exists()]):
+    row("G6 narration", "ok", "narration/out passed QA + validator")
+else:
+    row("G6 narration", "todo", "no passing narration for current script/lexicon", f"./x {slug} narrate")
+
+if newer(xdir / "narrated.rendered", [xdir / "narration.ok", binary, *code_refs]) and newer(xdir / "narrated.ok", [xdir / "narrated.rendered"]) and newer(xdir / "narrated.reviewed", [xdir / "narrated.ok"]):
+    row("G7 narrated", "ok", "cue check passed, reviewed")
+else:
+    row("G7 narrated", "todo", "no narrated draft passed + reviewed with current narration/sources", f"./x {slug} narrated && ./x {slug} reviewed narrated")
+
+if newer(xdir / "score.ok", [xdir / "narration.ok", crate / "src" / "score.rs", binary]):
+    row("G7s score", "ok", "stems/ passed score QA")
+else:
+    row("G7s score", "todo", "score stems missing or stale", f"./x {slug} score")
+
+if newer(xdir / "final.ok", [xdir / "narration.ok", xdir / "score.ok", binary, *code_refs]):
+    row("G8 final 4K", "ok", "renders/final/")
+else:
+    row("G8 final 4K", "todo", "4K chapters missing or stale", f"./x {slug} final")
+
+if newer(xdir / "protected.ok", [p for p in (crate / "docs" / "protected.tsv", crate / "script.tsv") if p.exists()]):
+    row("G9 protected", "ok", "every protected fact present")
+else:
+    row("G9 protected", "todo", "protected facts not checked against current script", f"./x {slug} protected")
+
+if newer(xdir / "master.ok", [xdir / "final.ok"]) and newer(xdir / "verify.ok", [xdir / "master.ok"]):
+    row("G8 master", "ok", "verified 4K60 PCM master")
+else:
+    row("G8 master", "todo", "no verified master for current 4K chapters", f"./x {slug} master && ./x {slug} verify")
+
+if porcelain:
+    for g, st, d, c in rows:
+        print(f"{g}\t{st}\t{d}\t{c}")
+    sys.exit(0)
+
+host = socket.gethostname().split(".")[0]
+stamp = time.strftime("%Y-%m-%d %H:%M:%S")
+print(f"== {slug} on {host} ({stamp})")
+next_cmd = None
+for g, st, d, c in rows:
+    print(f"{g:<18} {st:<7} {d}")
+    if next_cmd is None and st != "ok":
+        next_cmd = c
+if next_cmd is None:
+    next_cmd = "deliver: update README from measurements, then report to the owner"
+print(f"next: {next_cmd}")
+PY
+    exit 0 ;;
+  reviewed)
+    [ $# -eq 1 ] || usage
+    case "$1" in
+      draft|narrated)
+        mark "$1.reviewed"
+        echo "x: recorded $1 sheets reviewed for $slug" ;;
+      *) usage ;;
+    esac ;;
+  names)
+    [ -f "$crate/lexicon.json" ] || die "no lexicon.json for $slug"
+    probe_names="$SKILLS/natural-sounding-narration-with-frankentts/scripts/probe_names.py"
+    [ -f "$probe_names" ] || die "no probe_names.py under $SKILLS (set SKILLS in project.env)"
+    uv run --quiet --no-project --with numpy python3 -I "$probe_names" run "$crate/lexicon.json" "$crate/narration/probes_work" --write "$@"
+    mark names.ok ;;
+  progress)
+    [ $# -eq 0 ] || usage
+    prog="$SKILLS/franken-manim-mega-skill/scripts/render_progress.sh"
+    [ -x "$prog" ] || die "no render_progress.sh under $SKILLS (set SKILLS in project.env)"
+    exec "$prog" ;;
   lint)
     [ $# -eq 0 ] || usage
     lint="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/lint_script.py"
     [ -f "$lint" ] || die "no lint_script.py under SKILLS (set SKILLS in project.env)"
     build_binary
-    exec python3 -I "$lint" "$crate/script.tsv" --bin "$binary" ;;
+    python3 -I "$lint" "$crate/script.tsv" --bin "$binary"
+    mark lint.ok ;;
   probe)
     [ $# -le 1 ] || usage
     build_binary
     out="${1:-$crate/renders/glyphs_probe}"
     "$binary" glyphs "$out" --res 1920x1080
+    mark probe.ok
     echo "x: READ every PNG under $out/pages; sources: $out/registry.tsv" ;;
   review)
     [ $# -eq 1 ] || usage
     exec python3 -I "$here/tools/review.py" "$slug" "$1" ;;
   facts-check)
     [ $# -eq 0 ] || usage
-    exec python3 -I "$here/tools/facts_check.py" "$slug" ;;
+    if python3 -I "$here/tools/facts_check.py" "$slug"; then
+      mark facts.ok
+    else
+      rc=$?
+      mark facts.failed
+      exit "$rc"
+    fi ;;
   storyboard)
     [ $# -eq 0 ] || usage
-    exec python3 -I "$here/tools/storyboard.py" "$slug" ;;
+    python3 -I "$here/tools/storyboard.py" "$slug"
+    mark storyboard.ok ;;
   build)
     [ $# -eq 0 ] || usage
     cd "$here"
     # shellcheck disable=SC2086  # CARGO_FLAGS is two flags
-    exec cargo build --release -p "$pkg" $CARGO_FLAGS ;;
+    cargo build --release -p "$pkg" $CARGO_FLAGS
+    mark build.ok ;;
   test)
     [ $# -eq 0 ] || usage
     cd "$here"
@@ -278,12 +604,18 @@ case "$cmd" in
     cargo test --release -p "$pkg" $CARGO_FLAGS
     # shellcheck disable=SC2086
     cargo clippy --release -p "$pkg" --all-targets $CARGO_FLAGS -- -D warnings
-    exec cargo fmt -p "$pkg" --check ;;
+    cargo fmt -p "$pkg" --check
+    mark test.ok ;;
   draft)
     build_binary
     mkdir -p "$drafts"
-    if [ $# -eq 0 ]; then set -- all; fi
-    exec "$binary" render "$@" --res 960x540 --fps 30 --scratch-voice --lint --out "$drafts" ;;
+    all_chapters=0
+    if [ $# -eq 0 ] || [ "$*" = "all" ]; then all_chapters=1; set -- all; fi
+    "$binary" render "$@" --res 960x540 --fps 30 --scratch-voice --lint --out "$drafts"
+    if [ "$all_chapters" -eq 1 ]; then
+      mark draft.rendered
+      mark draft.ok
+    fi ;;
   narrate)
     [ $# -eq 0 ] || usage
     [ -n "$voice" ] || die "no voice chosen for $slug (add it to the voice table at the top of ./x)"
@@ -337,6 +669,7 @@ case "$cmd" in
       py "$N/narrate.py" exclude script.tsv "$work" "$out" --lexicon "$lexicon" || break
       rounds=$((rounds + 1))
     done
+    [ "$status" -ne 0 ] || mark narration.ok
     exit $status ;;
   narration-sheets)
     cd "$crate"
@@ -356,6 +689,7 @@ case "$cmd" in
     keys=$(chapter_list "$@")
     if [ $# -eq 0 ]; then set -- all; fi
     "$binary" render "$@" --res 960x540 --fps 30 --narration "$narration" --lint --out "$out"
+    [ "$1" != all ] || mark narrated.rendered
     status=0
     python3 -I "$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/cue_sheets.py" \
       "$out" --script "$crate/script.tsv" --chapters "$keys" --sheets "$out/cue_sheets" || status=$?
@@ -369,6 +703,7 @@ case "$cmd" in
       grep -q -E '^(PASS|FLAG|FAIL|ADVISORY)' "$out/prosody.txt" || echo "x: the prosody report did not run; see $out/prosody.txt" >&2
       echo "x: prosody report in $out/prosody.txt"
     fi
+    if [ "$1" = all ] && [ "$status" -eq 0 ]; then mark narrated.ok; fi
     exit $status ;;
   score)
     [ $# -eq 0 ] || usage
@@ -381,6 +716,7 @@ case "$cmd" in
     # pass 2: the whole video's music from those timelines, sliced per chapter, with QA
     "$binary" score --timelines "$base/renders/timeline" --out "$base"
     unchanged_narration "the music score pass"
+    mark score.ok
     echo "x: score used unchanged narration ($score_narration_fingerprint)" ;;
   scored)
     need_narration
@@ -414,17 +750,22 @@ case "$cmd" in
     fi
     exit $status ;;
   final)
+    [ -z "$FMN_LOCAL" ] || die "G8 refuses --fmn-local: finals must build against the pinned franken_manim commit"
     need_narration
     [ -d "$stems" ] || die "no stems in $stems (run ./x $slug score)"
     build_binary
     mkdir -p "$finals"
-    if [ $# -eq 0 ]; then set -- all; fi
-    exec "$binary" render "$@" --res 3840x2160 --fps 60 --narration "$narration" --score "$stems" \
-      --crf 16 --preset slow --out "$finals" ;;
+    all_chapters=0
+    if [ $# -eq 0 ] || [ "$*" = "all" ]; then all_chapters=1; set -- all; fi
+    "$binary" render "$@" --res 3840x2160 --fps 60 --narration "$narration" --score "$stems" \
+      --crf 16 --preset slow --out "$finals"
+    [ "$all_chapters" -eq 0 ] || mark final.ok ;;
   master)
     [ $# -eq 0 ] || usage
+    [ -z "$FMN_LOCAL" ] || die "G8 refuses --fmn-local: masters must build against the pinned franken_manim commit"
     build_binary
-    exec "$binary" master --out "$finals" ;;
+    "$binary" master --out "$finals"
+    mark master.ok ;;
   captions)
     [ $# -eq 0 ] || usage
     need_narration
@@ -432,13 +773,17 @@ case "$cmd" in
     exec "$binary" captions --narration "$narration" --out "$finals" ;;
   verify)
     [ $# -eq 0 ] || usage
+    [ -z "$FMN_LOCAL" ] || die "G8 refuses --fmn-local: verify requires a pinned franken_manim build"
     check="$SKILLS/franken-manim-mega-skill/scripts/verify_video.sh"
     [ -x "$check" ] || die "no verify_video.sh under $SKILLS (set SKILLS in project.env)"
     master_mp4="$finals/${bin}_master.mp4"
     [ -f "$master_mp4" ] || master_mp4=$(ls "$finals"/*_master.mp4 2>/dev/null | head -n 1)
     [ -f "$master_mp4" ] || die "no master in $finals (run ./x $slug master)"
     export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0
-    exec "$check" "$master_mp4" ;;
+    "$check" "$master_mp4"
+    mark verify.ok ;;
+  publish)
+    exec python3 -I "$here/tools/publish.py" "$slug" "$@" ;;
   thumbnail)
     [ $# -eq 0 ] || usage
     build_binary
@@ -461,7 +806,8 @@ case "$cmd" in
     for f in "$finals"/*.srt "$crate/publish/$voice/description.txt" "$crate/publish/$voice/title.txt"; do
       [ -f "$f" ] && set -- "$@" "$f"
     done
-    exec python3 -I "$check" "$crate/docs/protected.tsv" "$@" ;;
+    python3 -I "$check" "$crate/docs/protected.tsv" "$@"
+    mark protected.ok ;;
   joins)
     # The cut's own audio, not the script: words timed by fw, every chapter join read by join_audit.py.
     [ $# -le 1 ] || usage
