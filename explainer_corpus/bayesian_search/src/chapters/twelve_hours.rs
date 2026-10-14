@@ -84,6 +84,8 @@ const PUMPS_MILES: f64 = 62.0;
 const LINE_X: f64 = -6.0;
 const LINE_TOP: f64 = 3.0;
 const LINE_BOTTOM: f64 = -2.2;
+/// The layout lint's title-safe margin inside the frame, scene units.
+const SAFE_MARGIN: f64 = 0.15;
 /// The model tag's height: above the caption band's question lines (the
 /// carried question of 11_4 stands at -2.85), clear of the track's labels.
 const MODEL_Y: f64 = -2.3;
@@ -462,18 +464,21 @@ impl SceneConstruct for TwelveHours {
         stage.remove_from_scene(first.group);
         stage.remove_from_scene(anchor);
 
+        // the land and its coast end at the safe area's edge: laid out to the
+        // frame they were flagged as off the title-safe stage
+        let (safe_x, safe_y) = (FRAME_X_RADIUS - SAFE_MARGIN, FRAME_Y_RADIUS - SAFE_MARGIN);
         let land = stage.arena_mut().add(
             Polygon::new(vec![
-                v(-FRAME_X_RADIUS, COAST_Y),
-                v(FRAME_X_RADIUS, COAST_Y),
-                v(FRAME_X_RADIUS, FRAME_Y_RADIUS),
-                v(-FRAME_X_RADIUS, FRAME_Y_RADIUS),
+                v(-safe_x, COAST_Y),
+                v(safe_x, COAST_Y),
+                v(safe_x, safe_y),
+                v(-safe_x, safe_y),
             ])
             .style(flat(Palette::faint(), 0.35))
             .build(),
         );
         let coast = stage.arena_mut().add(
-            polyline(vec![v(-FRAME_X_RADIUS, COAST_Y), v(FRAME_X_RADIUS, COAST_Y)])
+            polyline(vec![v(-safe_x, COAST_Y), v(safe_x, COAST_Y)])
                 .style(line_style(Palette::dim(), 3.0))
                 .build(),
         );
