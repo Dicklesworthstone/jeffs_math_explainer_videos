@@ -170,7 +170,7 @@ impl SceneConstruct for TwoCarts {
         fade_out_all(stage, &[note, weight], 0.4)?;
         tween_all(stage, &[(pic.moves_on, 1.0), (u[0], LEFT_ONLY[0])], 1.3)?;
         line.wait_for(stage, "hold the right cart still")?;
-        tween_all(stage, &[(pic.hands_on, 1.0)], 0.6)?;
+        tween_all(stage, &[(pic.hands_on[0], 1.0), (pic.hands_on[1], 1.0)], 0.6)?;
 
         // ---- 02_3: what each hand must do
         let line = say(&kit, stage, "02_3")?;

@@ -160,7 +160,12 @@ impl SceneConstruct for OwnPatterns {
         fade_in_all(stage, &[pushes_list.group], 0.4)?;
         tween_all(
             stage,
-            &[(pic.hands_on, 1.0), (pic.pushes_on[0], 1.0), (pic.pushes_on[1], 1.0)],
+            &[
+                (pic.hands_on[0], 1.0),
+                (pic.hands_on[1], 1.0),
+                (pic.pushes_on[0], 1.0),
+                (pic.pushes_on[1], 1.0),
+            ],
             0.7,
         )?;
         line.wait_for(stage, "The same pattern, three times the size")?;
@@ -177,7 +182,13 @@ impl SceneConstruct for OwnPatterns {
         leaving.extend(pic.push_arrows);
         fade_out_all(stage, &leaving, 0.5)?;
         // the carts' own arrows and hands are gone with them; the plane has its own
-        for m in [pic.moves_on, pic.hands_on, pic.pushes_on[0], pic.pushes_on[1]] {
+        for m in [
+            pic.moves_on,
+            pic.hands_on[0],
+            pic.hands_on[1],
+            pic.pushes_on[0],
+            pic.pushes_on[1],
+        ] {
             stage.set_tracker_value(m, 0.0)?;
         }
         test.start(stage)?;

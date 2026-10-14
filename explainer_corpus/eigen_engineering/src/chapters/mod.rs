@@ -10,6 +10,7 @@ pub mod carts;
 pub mod draw;
 pub mod glyphs;
 pub mod own_patterns;
+pub mod the_split;
 pub mod truss;
 pub mod two_carts;
 pub mod where_modes_rule;
@@ -44,7 +45,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("01_the_bridge_that_swayed", 0.4),
         scene!("02_two_carts", 0.45, two_carts::TwoCarts),
         scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
-        animatic!("04_the_split", 0.55),
+        scene!("04_the_split", 0.55, the_split::TheSplit),
         animatic!("05_a_steel_truss", 0.5),
         animatic!("06_twenty_one_patterns", 0.6),
         animatic!("07_every_mode_a_note", 0.65),

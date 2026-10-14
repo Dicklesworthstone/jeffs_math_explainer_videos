@@ -144,10 +144,11 @@ pub struct CartsPic {
     pub u: [Mob; 2],
     /// How much of the blue move arrows shows, 0 to 1; how much of each
     /// orange push arrow shows (left cart, right cart), 0 to 1; how much of
-    /// the two hands shows, 0 to 1: trackers the chapter tweens.
+    /// each of the two hands (left cart, right cart) shows, 0 to 1:
+    /// trackers the chapter tweens.
     pub moves_on: Mob,
     pub pushes_on: [Mob; 2],
-    pub hands_on: Mob,
+    pub hands_on: [Mob; 2],
     /// Walls, track and ruler: still while the carts move.
     pub frame: Vec<Mob>,
     pub carts: [Mob; 2],
@@ -271,7 +272,7 @@ impl CartsPic {
 
         let moves_on = stage.add_value_tracker(0.0);
         let pushes_on = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
-        let hands_on = stage.add_value_tracker(0.0);
+        let hands_on = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
         let anchor = stage.arena_mut().add(VMobject::new());
         let (carts_m, springs_m) = (
             [cart_mobs[0], cart_mobs[1]],
@@ -282,7 +283,7 @@ impl CartsPic {
             [push_mobs[0], push_mobs[1]],
             [hand_mobs[0], hand_mobs[1]],
         );
-        let mut last = [f64::NAN; 6];
+        let mut last = [f64::NAN; 7];
         stage.add_updater(
             anchor,
             move |s, _| {
@@ -295,8 +296,11 @@ impl CartsPic {
                     s.tracker_value(pushes_on[0]).unwrap_or(0.0),
                     s.tracker_value(pushes_on[1]).unwrap_or(0.0),
                 ];
-                let ho = s.tracker_value(hands_on).unwrap_or(0.0);
-                let now = [moved[0], moved[1], mo, po[0], po[1], ho];
+                let ho = [
+                    s.tracker_value(hands_on[0]).unwrap_or(0.0),
+                    s.tracker_value(hands_on[1]).unwrap_or(0.0),
+                ];
+                let now = [moved[0], moved[1], mo, po[0], po[1], ho[0], ho[1]];
                 if now.iter().zip(&last).all(|(a, b)| a.to_bits() == b.to_bits()) {
                     return;
                 }
@@ -320,7 +324,7 @@ impl CartsPic {
                     );
                     s.set_stroke(push_m[i], None, None, Some(po[i]), None, false);
                     s.move_to(hand_m[i], at(x, CART_H / 2.0 + 0.5), ORIGIN);
-                    s.set_fill(hand_m[i], None, Some(0.9 * ho), None, true);
+                    s.set_fill(hand_m[i], None, Some(0.9 * ho[i]), None, true);
                 }
                 for (k, &spring) in springs_m.iter().enumerate() {
                     let (x0, x1) = spring_ends(k, moved);
