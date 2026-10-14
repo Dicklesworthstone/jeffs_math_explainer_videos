@@ -68,6 +68,39 @@ pub fn fact_list(key: &str) -> fmn::Result<Vec<f64>> {
         .collect()
 }
 
+/// A whole number from zero to twenty in words (`3` is `three`), for on-screen
+/// sentences whose numbers are read from facts and said as the script says
+/// them.
+pub fn number_word(n: u32) -> fmn::Result<&'static str> {
+    const WORDS: [&str; 21] = [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen",
+        "sixteen",
+        "seventeen",
+        "eighteen",
+        "nineteen",
+        "twenty",
+    ];
+    WORDS
+        .get(n as usize)
+        .copied()
+        .ok_or_else(|| fail(format!("no word for {n}: the sentences spell zero to twenty")))
+}
+
 // ------------------------------------------------------------ line timing
 
 /// Words a second for a line with no narrator (visual-only renders), as the
@@ -2022,6 +2055,17 @@ mod tests {
 
     fn close(a: V3, b: V3) -> bool {
         norm(sub(a, b)) < 1e-12
+    }
+
+    /// Numbers in sentences are spelled as the script spells them, and a
+    /// number past twenty is an error, not a wrong word.
+    #[test]
+    fn numbers_are_spelled_to_twenty() {
+        assert_eq!(number_word(3).unwrap(), "three");
+        assert_eq!(number_word(9).unwrap(), "nine");
+        assert_eq!(number_word(4).unwrap(), "four");
+        assert_eq!(number_word(20).unwrap(), "twenty");
+        assert!(number_word(21).is_err());
     }
 
     #[test]

@@ -695,4 +695,6 @@ G-L: cited literals.
 | `G-L.chasles.year` | 1830 |
 | `G-L.rodrigues.year` | 1840 |
 | `G-L.lie.year` | 1873 |
+| `G-L.lie.born` | 1842 |
+| `G-L.lie.died` | 1899 |
 | `G-L.brockett.year` | 1983 |

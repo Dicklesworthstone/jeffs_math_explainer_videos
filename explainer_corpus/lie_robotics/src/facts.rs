@@ -40,6 +40,9 @@ pub mod cited {
     pub const RODRIGUES_YEAR: u32 = 1840;
     /// Lie began his theory of continuous groups in the winter of 1873-74.
     pub const LIE_YEAR: u32 = 1873;
+    /// Sophus Lie, 1842 to 1899 (MacTutor): the years on 05_7's name card.
+    pub const LIE_BORN: u32 = 1842;
+    pub const LIE_DIED: u32 = 1899;
     /// Brockett's talk at MTNS-83, Beer Sheva (printed 1984).
     pub const BROCKETT_YEAR: u32 = 1983;
     /// Unitree G1, `g1_29dof.urdf`: revolute joints.
@@ -918,6 +921,8 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     f.add("G-L.chasles.year", cited::CHASLES_YEAR)?;
     f.add("G-L.rodrigues.year", cited::RODRIGUES_YEAR)?;
     f.add("G-L.lie.year", cited::LIE_YEAR)?;
+    f.add("G-L.lie.born", cited::LIE_BORN)?;
+    f.add("G-L.lie.died", cited::LIE_DIED)?;
     f.add("G-L.brockett.year", cited::BROCKETT_YEAR)?;
     Ok(())
 }

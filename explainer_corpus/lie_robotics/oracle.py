@@ -840,6 +840,8 @@ def main():
     emit("G-L.chasles.year", 1830)
     emit("G-L.rodrigues.year", 1840)
     emit("G-L.lie.year", 1873)
+    emit("G-L.lie.born", 1842)
+    emit("G-L.lie.died", 1899)
     emit("G-L.brockett.year", 1983)
     check("KUKA's reach is the upper arm plus the forearm, in millimetres", abs((upper + fore) * 1000 - 820) < 1e-9)
     check("the base's quiz speed is within KUKA's published top speed", v <= 3.6 / 3.6)
