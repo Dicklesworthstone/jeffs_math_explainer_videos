@@ -52,6 +52,7 @@ const KOOPMAN_BOOK: &str = "Search and Screening,";
 const CAUGHT: &str = "caught:";
 const STILL_LIT: &str = "still lit:";
 const OF: &str = "of";
+const OUT: &str = "out";
 const PASS: &str = "pass";
 const PASSES: &str = "passes";
 
@@ -730,10 +731,10 @@ impl SceneConstruct for TheSecondPass {
             cursor += n;
             let tally = kit.text(
                 stage,
-                &format!("{PASS} {}: {n}", pass + 1),
+                &format!("{PASS} {}: {n} {OUT}", pass + 1),
                 24.0,
                 Palette::dim(),
-                v(SMALL.at[0] - 1.35 + 1.35 * pass as f64, SMALL.top() + 0.35),
+                v(SMALL.at[0] - 1.9 + 1.9 * pass as f64, SMALL.top() + 0.35),
             )?;
             fade_in_all(stage, &[tally], 0.3)?;
             tallies.push(tally);

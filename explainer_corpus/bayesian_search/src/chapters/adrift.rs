@@ -41,7 +41,8 @@ const HOUR: &str = "h";
 const COVERAGE_LABEL: &str = "coverage = strip × track ÷ area";
 const X_LABEL: &str = "coverage";
 const Y_LABEL: &str = "chance one flight sees the person";
-const SAME_TRACK: &str = "the same track, spread over the circle";
+const SAME_TRACK_HEAD: &str = "the same";
+const SAME_TRACK_TAIL: &str = "sea miles of track, spread evenly over the circle";
 
 // ------------------------------------------------------------------ geometry
 
@@ -513,7 +514,7 @@ impl SceneConstruct for Adrift {
         );
         let same = kit.text(
             stage,
-            &format!("{MODEL}: {} {SAME_TRACK}", fact("F-D.track")?),
+            &format!("{MODEL}: {SAME_TRACK_HEAD} {} {SAME_TRACK_TAIL}", fact("F-D.track")?),
             22.0,
             Palette::dim(),
             v(w.center[0], w.bottom() - 0.95),

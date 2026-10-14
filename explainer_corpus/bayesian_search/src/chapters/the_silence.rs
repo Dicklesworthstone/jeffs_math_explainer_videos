@@ -740,7 +740,9 @@ impl SceneConstruct for TheSilence {
             };
             let cloud = Cloud::build(stage, at, small_r, &dots)?;
             small_mobs.push(rim);
-            for (j, text) in wrap(name, 20, 2).iter().enumerate() {
+            // three lines at most, so no word of a label is ever cut for an
+            // ellipsis ("afloat" was, at two lines of twenty)
+            for (j, text) in wrap(name, 26, 3).iter().enumerate() {
                 small_mobs.push(kit.text_left(
                     stage,
                     text,
