@@ -10,7 +10,9 @@ pub mod cold_open;
 pub mod draw;
 pub mod five_for_five;
 pub mod glyphs;
+pub mod halves;
 pub mod iso;
+pub mod kinetics;
 pub mod layers;
 pub mod the_cut_cube;
 
@@ -51,7 +53,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("07_three_stacks", 0.55),
         animatic!("08_the_box", 0.6),
         animatic!("09_every_height", 0.5),
-        animatic!("10_halves", 0.4),
+        scene!("10_halves", 0.4, halves::Halves),
         scene!("11_a_third", 0.5, a_third::AThird),
         scene!("12_the_cut_cube", 0.55, the_cut_cube::TheCutCube),
         animatic!("13_four_triangles", 0.6),
