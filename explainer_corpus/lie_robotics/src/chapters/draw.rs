@@ -368,9 +368,21 @@ pub fn tween_all(stage: &mut Stage<'_>, moves: &[(Mob, f64)], rt: f64) -> fmn::R
 /// Take things out together, `rt` seconds: fade `mobs` out and tween every
 /// tracker in `to_zero` (a world's `shown`, a part's) to 0.
 pub fn leave(stage: &mut Stage<'_>, mobs: &[Mob], to_zero: &[Mob], rt: f64) -> fmn::Result<()> {
+    hand_over(stage, mobs, to_zero, &[], rt)
+}
+
+/// One picture gives way to the next in one beat, `rt` seconds: fade `mobs`
+/// out, tween the trackers in `to_zero` to 0 and those in `to_one` (a
+/// world's `shown`) to 1, all together. A fade out and then a fade in leaves
+/// the frame empty between them (the background, for half a second); this
+/// crossfades, so the two always sum to a whole picture.
+pub fn hand_over(stage: &mut Stage<'_>, mobs: &[Mob], to_zero: &[Mob], to_one: &[Mob], rt: f64) -> fmn::Result<()> {
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &t in to_zero {
         anims.push(stage.prepare(tween(t, 0.0, rt)?)?);
+    }
+    for &t in to_one {
+        anims.push(stage.prepare(tween(t, 1.0, rt)?)?);
     }
     for &m in mobs {
         stage.clear_updaters(m, true);
@@ -380,6 +392,20 @@ pub fn leave(stage: &mut Stage<'_>, mobs: &[Mob], to_zero: &[Mob], rt: f64) -> f
     stage.play_prepared(anims)?;
     Ok(())
 }
+
+/// A tag for a band: `words` on a small back standing on the band's upper
+/// left corner (`band` a lower third, built, not yet shown), so a note under
+/// the band's own label reads as the band's: a tab, not a label of its own.
+pub fn tab_on(kit: &Kit, stage: &mut Stage<'_>, band: Mob, words: &str, size: f64) -> fmn::Result<Mob> {
+    let chip = tag(kit, stage, words, v(0.0, 0.0), size)?;
+    let (w, h) = (stage.get_width(chip), stage.get_height(chip));
+    let (left, top) = (stage.get_left(band)[0], stage.get_top(band)[1]);
+    stage.move_to(chip, v(left + w / 2.0, top + h / 2.0 + TAB_GAP), ORIGIN);
+    Ok(chip)
+}
+
+/// How far a tab stands above its band (scene units).
+pub const TAB_GAP: f64 = 0.02;
 
 /// Animate a tracker to `value` at a steady rate over `rt` seconds (a clock,
 /// a ring draining).

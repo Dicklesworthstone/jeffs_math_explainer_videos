@@ -14,7 +14,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, cuboid, fact, fact_f64,
-    fade_in_all, greyed, ground, leave, mix, paper, plate, point_fn, pose_fn, say, still, table, turned_about, value,
+    fade_in_all, greyed, ground, hand_over, leave, mix, paper, plate, point_fn, pose_fn, say, still, table,
+    turned_about, value,
 };
 use super::velocities_add::{GOAL_DIMMED, goal_parts, standing_goal};
 use crate::model::{
@@ -40,6 +41,10 @@ const NULL_SPACE_TEXT: &str = "joint speeds whose twists add up to nothing";
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 5] = ["12_1", "12_2", "12_3", "12_4", "12_5"];
+
+/// 12_4: the person gives way to the robot in one beat of this length
+/// (seconds), so the frame is never empty between them.
+pub const HAND_OVER_S: f64 = 0.8;
 
 /// 12_2's quiz (`G-Q.12_2.answer` is `moves`).
 pub const ASK: Ask = Ask {
@@ -447,13 +452,16 @@ impl SceneConstruct for TheSpareJoint {
         let mut away = vec![total];
         away.extend(&counts);
         away.extend(card.mobs());
-        leave(
+        // the person goes as the robot comes: one beat, so the frame is never
+        // empty between them (a fade out and then a fade in left it near
+        // black for half a second)
+        hand_over(
             stage,
             &away,
             &[person_world.shown, person_world.parts[person::CIRCLE].shown],
-            0.6,
+            &[world.shown],
+            HAND_OVER_S,
         )?;
-        world.show(stage, 0.8)?;
         // (a new one: a mobject that has faded out is not faded in again)
         let standing_again = standing_goal(&kit, stage)?;
         fade_in_all(stage, &[standing_again], 0.4)?;
@@ -844,6 +852,56 @@ mod tests {
             assert!(stage.get_top(total)[1] < 3.85 && stage.get_right(total)[0] < 7.11 - 0.15);
             Ok(())
         });
+    }
+
+    /// 12_4 (R2 follow-up): the person gives way to the robot as one beat, so
+    /// at every frame one of the two is at least half shown. The old order, a
+    /// fade out and then a fade in, had a frame where neither was (the
+    /// narrated draft's near-black dip of half a second at the seam); the
+    /// same probe sees it.
+    #[test]
+    fn the_person_gives_way_to_the_robot_and_the_frame_is_never_empty() {
+        use std::cell::RefCell;
+        use std::rc::Rc;
+
+        /// The most of the two worlds at every frame of `handing`.
+        fn fullest(handing: impl Fn(&mut Stage<'_>, Mob, Mob) -> fmn::Result<()> + 'static) -> (f64, f64) {
+            let seen: Rc<RefCell<Vec<f64>>> = Rc::new(RefCell::new(Vec::new()));
+            let took: Rc<RefCell<f64>> = Rc::new(RefCell::new(f64::NAN));
+            let (log, clock) = (Rc::clone(&seen), Rc::clone(&took));
+            run(move |stage| {
+                let (person, robot) = (stage.add_value_tracker(1.0), stage.add_value_tracker(0.0));
+                let probe = stage.arena_mut().add(VMobject::new());
+                stage.add_to_scene(probe)?;
+                let log = Rc::clone(&log);
+                stage.add_dt_updater(
+                    probe,
+                    move |s, _, _| {
+                        let shown = |m: Mob| s.tracker_value(m).unwrap_or(0.0);
+                        log.borrow_mut().push(shown(person).max(shown(robot)));
+                    },
+                    true,
+                )?;
+                let start = stage.scene().time().to_f64();
+                handing(stage, person, robot)?;
+                *clock.borrow_mut() = stage.scene().time().to_f64() - start;
+                Ok(())
+            });
+            let least = seen.borrow().iter().copied().fold(f64::INFINITY, f64::min);
+            let took = *took.borrow();
+            (least, took)
+        }
+
+        let (least, took) = fullest(|stage, person, robot| hand_over(stage, &[], &[person], &[robot], HAND_OVER_S));
+        assert!(least >= 0.45, "a frame with neither world half shown: {least:.2}");
+        assert!((took - HAND_OVER_S).abs() < 0.1, "the beat took {took:.2} s");
+        // the old order: out for 0.6 s, then in for 0.8 s
+        let (dip, _) = fullest(|stage, person, robot| {
+            leave(stage, &[], &[person], 0.6)?;
+            stage.play(tween(robot, 1.0, 0.8)?)?;
+            Ok(())
+        });
+        assert!(dip < 0.1, "the old order's seam is empty: {dip:.2}");
     }
 
     /// 12_4's readout reads left to right without touching itself: the

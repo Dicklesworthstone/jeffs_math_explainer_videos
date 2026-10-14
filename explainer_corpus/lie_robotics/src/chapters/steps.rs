@@ -14,7 +14,7 @@ use fmn::prelude::*;
 use super::draw::{
     ARM_SCALE, ArmRig, Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, MINUS, PartSpec, QuizCard, QuizLook, Shape, View,
     World, book, circle_points, dashed_rect, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, ground, leave,
-    mix, perp_basis, say, screw_shapes, still, table, tag,
+    mix, perp_basis, say, screw_shapes, still, tab_on, table,
 };
 use crate::model::{self, Arm, DEG, M3, Pose, V3, X, Y, Z, add, dot, poses, scale};
 use crate::palette;
@@ -534,14 +534,10 @@ impl SceneConstruct for Steps {
             Palette::dim(),
             v(TABLE_X + 2.3, TABLE_Y - TABLE_ROW * 4.2),
         )?;
-        let programmers = tag(
-            &kit,
-            stage,
-            PROGRAMMERS,
-            v(TABLE_X + 0.8, TABLE_Y - TABLE_ROW * 5.4),
-            22.0,
-        )?;
         let poor = lower_third(&kit, stage, POOR_START_LABEL, POOR_START_TEXT)?;
+        // the note under "for programmers" is the band's, so the tag is the
+        // band's tab: it stood alone above the band as a label of nothing
+        let programmers = tab_on(&kit, stage, poor, PROGRAMMERS, 22.0)?;
         fade_in_all(stage, &[gains, programmers, poor], 0.6)?;
         line.wait_end(stage)?;
         kit.finish(stage)
@@ -900,6 +896,52 @@ mod tests {
                 v(TABLE_X + 2.3, TABLE_Y - TABLE_ROW * 4.2),
             )?;
             assert!(stage.get_right(gains)[0] < SAFE[0] && stage.get_left(gains)[0] > 0.0);
+            Ok(())
+        });
+    }
+
+    /// 13_6 (R2 follow-up): the "for programmers" tag is the lower third's
+    /// tab: its left edge on the band's, its foot on the band's top edge
+    /// (it stood a unit above the band, a label of nothing), inside the safe
+    /// area and clear of the arm's floor.
+    #[test]
+    fn the_programmers_tag_is_the_lower_thirds_tab_and_clear_of_the_floor() {
+        use super::super::draw::{SAFE, TAB_GAP};
+        run(|stage| {
+            let kit = Kit::new()?;
+            let band = lower_third(&kit, stage, POOR_START_LABEL, POOR_START_TEXT)?;
+            let tab = tab_on(&kit, stage, band, PROGRAMMERS, 22.0)?;
+            let (b_left, b_top) = (stage.get_left(band)[0], stage.get_top(band)[1]);
+            let (left, bottom, right, top) = (
+                stage.get_left(tab)[0],
+                stage.get_bottom(tab)[1],
+                stage.get_right(tab)[0],
+                stage.get_top(tab)[1],
+            );
+            assert!(
+                (left - b_left).abs() < 0.01,
+                "the tab starts at {left}, the band at {b_left}"
+            );
+            assert!(
+                (bottom - b_top - TAB_GAP).abs() < 0.01,
+                "the tab's foot is {bottom}, the band's top {b_top}"
+            );
+            assert!(right - left < 3.0, "the tab is a tab: {} wide", right - left);
+            assert!(left > -SAFE[0] && top < SAFE[1]);
+            // the arm's floor (a plate from [-0.9, -0.7] to [1.0, 0.9]) stays
+            // clear of it
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let mut nearest = f64::INFINITY;
+            for i in 0..=40 {
+                for j in 0..=40 {
+                    let p = [-0.9 + 1.9 * f64::from(i) / 40.0, -0.7 + 1.6 * f64::from(j) / 40.0, 0.0];
+                    let s = view.project(p);
+                    let dx = (left - s[0]).max(s[0] - right).max(0.0);
+                    let dy = (bottom - s[1]).max(s[1] - top).max(0.0);
+                    nearest = nearest.min(dx.hypot(dy));
+                }
+            }
+            assert!(nearest > 0.15, "the floor comes within {nearest:.2} of the tab");
             Ok(())
         });
     }

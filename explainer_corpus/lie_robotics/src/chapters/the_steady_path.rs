@@ -107,19 +107,29 @@ const GRIPPER_HALF: V3 = [0.46, 0.3, 0.2];
 const BLEND_STEPS: [f64; 5] = [0.0, 0.25, 0.5, 0.75, 1.0];
 /// How many poses the corkscrew is solved at.
 const SCREW_SAMPLES: usize = 24;
-/// The "for programmers" tag of 14_3, and the gap before the note it labels.
-const TAG_AT: [f64; 2] = [-5.35, -2.75];
+/// The "for programmers" tag of 14_3 and its note stand in the empty band
+/// right of the circle picture, above the grids' "half of each:" and clear of
+/// the card: the tag's left edge, the line's height, and the gap before the
+/// note it labels. (They stood under the volume captions and over the lower
+/// third, three lines in under a unit.)
+const TAG_LEFT: f64 = -3.1;
+const TAG_Y: f64 = 3.1;
 const NOTE_GAP: f64 = 0.2;
+/// The note runs to two lines (it is long for one): the second stands this
+/// far under the first.
+const NOTE_LINE: f64 = 0.38;
 // the three grids end before the quiz card begins, the row of grippers ends
 // before it too, and both start inside the frame
 const _: () = assert!(GRID_X[2] + 1.62 * GRID_PITCH.0 < CARD_AT[0] - 2.2);
 const _: () = assert!(GRID_X[0] - 1.62 * GRID_PITCH.0 > -7.0);
 const _: () = assert!(BLEND_X0 - GRIPPER_HALF[0] * 1.4 > -7.0);
 const _: () = assert!(BLEND_X0 + BLEND_DX * 4.0 + GRIPPER_HALF[0] * 1.4 < 3.0);
-// the circle is inside the frame's top margin; the grippers' captions (a unit
-// under them) stand above the note and the lower third under them
+// the circle is inside the frame's top margin; the tag and its note stand
+// right of the circle and its "0.71" and under the frame's top edge
 const _: () = assert!(CIRCLE_AT[1] + CIRCLE_R < 3.85);
-const _: () = assert!(BLEND_Y - 1.0 > TAG_AT[1] - 0.3);
+const _: () = assert!(TAG_LEFT > CIRCLE_AT[0] + CIRCLE_R);
+const _: () = assert!(TAG_LEFT > CIRCLE_AT[0] + SHORT_AT[0] + 0.5);
+const _: () = assert!(TAG_Y + 0.3 < 3.85);
 
 /// The parts this chapter adds to the arm's own 23: the table is 23 and the
 /// book 24.
@@ -169,6 +179,28 @@ fn start_and_goal() -> fmn::Result<(M3, M3)> {
         Ok(std::array::from_fn(|i| std::array::from_fn(|k| rows[i][k])))
     };
     Ok((parse("G-I.start.R")?, parse("G-I.goal.R")?))
+}
+
+/// 14_3's "for programmers" tag and the note it labels (re-normalising
+/// repairs the shape, not the timing), as the tag and the note's two lines:
+/// the tag's left edge at [`TAG_LEFT`] and its middle at [`TAG_Y`], the note
+/// starting [`NOTE_GAP`] right of wherever the tag ends, its first line level
+/// with the tag and its second one line under it. `blend` and `screw` are the
+/// two angles a quarter of the way, in degrees. Detached.
+fn programmers_note(kit: &Kit, stage: &mut Stage<'_>, blend: f64, screw: f64) -> fmn::Result<(Mob, [Mob; 2])> {
+    let chip = tag(kit, stage, PROGRAMMERS, v(0.0, 0.0), 22.0)?;
+    let w = stage.get_width(chip);
+    stage.move_to(chip, v(TAG_LEFT + w / 2.0, TAG_Y), ORIGIN);
+    let left = TAG_LEFT + w + NOTE_GAP;
+    let first = kit.text_left(stage, RENORMALISE, 22.0, Palette::dim(), v(left, TAG_Y))?;
+    let second = kit.text_left(
+        stage,
+        &format!("{A_QUARTER_OF_THE_WAY} {blend:.1}°, {NOT} {screw:.1}°"),
+        22.0,
+        Palette::dim(),
+        v(left, TAG_Y - NOTE_LINE),
+    )?;
+    Ok((chip, [first, second]))
 }
 
 /// The world points of the tip along the screw (`steps` + 1 of them) and
@@ -442,28 +474,16 @@ impl SceneConstruct for TheSteadyPath {
         }
         fade_in_lagged(stage, &volumes, 1.4, 0.4)?;
         let never = precisely(&kit, stage, NEVER_A_TURN)?;
-        let programmers = tag(&kit, stage, PROGRAMMERS, v(TAG_AT[0], TAG_AT[1]), 22.0)?;
         let quarter_blend = fact_f64("G-I.blend.quarter_turned")?;
         let quarter_screw = fact_f64("G-I.screw.quarter_turned")?;
-        // the note starts a little right of the tag, wherever the tag ends
-        let note_left = stage.get_right(programmers)[0] + NOTE_GAP;
-        let renorm = kit.text_left(
-            stage,
-            &format!(
-                "{RENORMALISE} {A_QUARTER_OF_THE_WAY} {:.1}°, {NOT} {:.1}°",
-                quarter_blend, quarter_screw
-            ),
-            22.0,
-            Palette::dim(),
-            v(note_left, TAG_AT[1]),
-        )?;
+        let (programmers, renorm) = programmers_note(&kit, stage, quarter_blend, quarter_screw)?;
         line_14_3.wait_end(stage)?;
-        fade_in_all(stage, &[never, programmers, renorm], 0.6)?;
+        fade_in_all(stage, &[never, programmers, renorm[0], renorm[1]], 0.6)?;
         kit.music_breath(stage, 1.0)?;
 
         // 14_4: the steady path is the screw
         let line_14_4 = say(&kit, stage, BEATS[3])?;
-        let mut away = vec![rim, a1, a2, a3, short_label, never, programmers, renorm];
+        let mut away = vec![rim, a1, a2, a3, short_label, never, programmers, renorm[0], renorm[1]];
         away.extend(&g_start);
         away.extend(&g_goal);
         away.extend(&g_mid);
@@ -913,26 +933,95 @@ mod tests {
             assert!(right < 7.1);
             // three choices make the card taller: it stays inside the margin
             // and above the lower third that 14_5 brings (the card is gone by
-            // then, but 14_3's note stands under it)
+            // then)
             assert!(stage.get_top(card.back)[1] < 3.85 && stage.get_bottom(card.back)[1] > -3.85);
             // the note sits right of its tag, inside the frame's margin
-            let tagged = tag(&kit, stage, PROGRAMMERS, v(TAG_AT[0], TAG_AT[1]), 22.0)?;
-            let note_left = stage.get_right(tagged)[0] + NOTE_GAP;
-            let long = kit.text_left(
-                stage,
-                &format!("{RENORMALISE} {A_QUARTER_OF_THE_WAY} 18.4°, {NOT} 22.5°"),
-                22.0,
-                Palette::dim(),
-                v(note_left, TAG_AT[1]),
-            )?;
+            let (tagged, lines) = programmers_note(&kit, stage, 18.4, 22.5)?;
             assert!(
                 stage.get_left(tagged)[0] > -7.11 + 0.15,
                 "the tag starts inside the margin"
             );
+            for long in lines {
+                assert!(
+                    stage.get_right(long)[0] < 7.11 - 0.15,
+                    "the re-normalising note ends at {}",
+                    stage.get_right(long)[0]
+                );
+            }
+            Ok(())
+        });
+    }
+
+    /// 14_3 (R2 follow-up): the "for programmers" tag and its note stand in
+    /// the empty band right of the circle picture, a quarter unit or more
+    /// from the circle, its "0.71", the grids' "half of each:" caption and
+    /// the card, and more than a unit above the volume captions and the
+    /// lower third they were crowded between (three lines in 0.9 units).
+    #[test]
+    fn the_programmers_note_stands_clear_of_its_neighbours_in_14_3() {
+        use super::super::draw::SAFE;
+        /// The box of a mobject: (left, bottom, right, top).
+        fn boxed(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
+            [
+                stage.get_left(m)[0],
+                stage.get_bottom(m)[1],
+                stage.get_right(m)[0],
+                stage.get_top(m)[1],
+            ]
+        }
+        /// How far apart two boxes are (negative: they overlap).
+        fn gap(a: [f64; 4], b: [f64; 4]) -> f64 {
+            let dx = (b[0] - a[2]).max(a[0] - b[2]);
+            let dy = (b[1] - a[3]).max(a[1] - b[3]);
+            dx.max(dy)
+        }
+        run(|stage| {
+            let kit = Kit::new()?;
+            let (tagged, lines) = programmers_note(&kit, stage, 18.4, 22.5)?;
+            let (a, b, c2) = (boxed(stage, tagged), boxed(stage, lines[0]), boxed(stage, lines[1]));
+            let both = [
+                a[0].min(b[0]).min(c2[0]),
+                a[1].min(b[1]).min(c2[1]),
+                a[2].max(b[2]).max(c2[2]),
+                a[3].max(b[3]).max(c2[3]),
+            ];
+            // the note's first line is level with the tag and follows it, its
+            // second is one line under the first and starts where it does
+            assert!((a[1] + a[3] - b[1] - b[3]).abs() < 0.2, "{a:?} {b:?}");
+            assert!(b[0] > a[2], "the note starts after its tag ends");
+            assert!((c2[0] - b[0]).abs() < 0.01 && c2[3] < b[1] + 0.05, "{b:?} {c2:?}");
+            // inside the frame's safe area
+            assert!(both[0] > -SAFE[0] && both[2] < SAFE[0] && both[3] < SAFE[1], "{both:?}");
+            let c = v(CIRCLE_AT[0], CIRCLE_AT[1]);
+            let circle = [c[0] - CIRCLE_R, c[1] - CIRCLE_R, c[0] + CIRCLE_R, c[1] + CIRCLE_R];
+            let short = kit.text(
+                stage,
+                &two_places(0.71),
+                30.0,
+                Palette::ink(),
+                v(c[0] + SHORT_AT[0], c[1] + SHORT_AT[1]),
+            )?;
+            let half = kit.text(stage, HALF_OF_EACH, 28.0, Palette::dim(), v(GRID_X[2], GRID_Y + 1.35))?;
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            for (name, other) in [
+                ("the circle", circle),
+                ("its 0.71", boxed(stage, short)),
+                ("half of each:", boxed(stage, half)),
+                ("the card", boxed(stage, card.back)),
+            ] {
+                assert!(
+                    gap(both, other) >= 0.25,
+                    "the tag and its note are {:.2} from {name}",
+                    gap(both, other)
+                );
+            }
+            // the volume captions (a row, a unit under the grippers) and the
+            // lower third are far below it
+            let volume_top = BLEND_Y - 1.0 + 0.2;
             assert!(
-                stage.get_right(long)[0] < 7.11 - 0.15,
-                "the re-normalising note ends at {}",
-                stage.get_right(long)[0]
+                both[1] - volume_top > 1.0,
+                "{} above the volume captions",
+                both[1] - volume_top
             );
             Ok(())
         });
