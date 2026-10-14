@@ -14,8 +14,9 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QSource, QuizCard, QuizLook, Shape, View, World, fact, fact_f64,
-    fade_in_all, fade_in_lagged, faded_line, fail, leave, line_style, point_fn, say, still, table, value,
+    ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QSource, QuizCard, QuizLook, STAND_UP, Shape, View, World, fact,
+    fact_f64, fade_in_all, fade_in_lagged, faded_line, fail, leave, line_style, point_fn, say, still, table, value,
+    wait_until,
 };
 use super::velocities_add::{GOAL_DIMMED, curl, goal_parts, standing_goal};
 use crate::model::{self, Arm, DEG, ELBOW, N, Pose, SHOULDER, V3, WRIST, add, cross, dot, poses, scale, sub, unit};
@@ -398,9 +399,14 @@ impl SceneConstruct for LostDirections {
         line.wait_for(stage, "So the gripper can't slide further out")?;
         play!(stage; tween(shown(part::ALONG), 1.0, 0.6)?);
         let swing = lower_third(&kit, stage, SWING_LABEL, SWING_SIDEWAYS)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, swing, "11_3:swing")?;
         line.wait_for(stage, "Five of the six directions")?;
         fade_in_all(stage, &[swing], 0.5)?;
+        let up = stage.scene().time().to_f64();
         line.wait_end(stage)?;
+        // whole for the floor before 11_4 takes it (2.4 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
 
         // 11_4: a singularity; near one, the lost direction costs huge speeds
         let line = say(&kit, stage, BEATS[3])?;
@@ -1224,5 +1230,25 @@ mod tests {
             assert!(stage.get_width(m) < 3.0);
             Ok(())
         });
+    }
+
+    /// 11_3 (the pre-final read of the narrated draft: the band stood 2.4 s):
+    /// the "swing sideways" band stands whole for the floor before 11_4
+    /// takes it. The two lines are on the finished read's timing.
+    #[test]
+    fn the_swing_band_stands_the_floor_before_the_next_line_takes_it() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "11_lost_directions#band",
+            &[
+                ("11_3", &[0.0, 0.82, 5.535, 10.36], 12.25),
+                ("11_4", &[0.0, 3.28], 7.935),
+            ],
+        );
+        let whole = stands(&kit, &mut LostDirections { kit: kit.clone() }, "11_3:swing");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

@@ -2112,6 +2112,24 @@ pub mod dwell_log {
         }
     }
 
+    /// How long the mobject watched under `key` stood whole in the run
+    /// named `chapter`: from its first "up" to the next "leave" (the moment
+    /// it falls under nearly the opacity it was made with), or to `end`, the
+    /// chapter's length, if it was never taken away. Panics if it never came up.
+    pub fn whole(chapter: &str, key: &str, end: f64) -> f64 {
+        let events = take(chapter, key);
+        let up = events
+            .iter()
+            .find(|(k, _)| *k == "up")
+            .unwrap_or_else(|| panic!("{key} never came up ({events:?})"))
+            .1;
+        let left = events
+            .iter()
+            .find(|&&(k, t)| k == "leave" && t >= up)
+            .map_or(end, |&(_, t)| t);
+        (left - up).max(0.0)
+    }
+
     /// What the mobject watched under `key` did in the run named `chapter`,
     /// in order.
     pub fn take(chapter: &str, key: &str) -> Vec<(&'static str, f64)> {
@@ -2141,7 +2159,7 @@ pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str
     let watch = stage.arena_mut().add(VMobject::new());
     let chapter = kit.chapter.clone();
     let origin = stage.scene().time().to_f64();
-    let (mut base, mut seen, mut state) = (f64::NAN, 0.0, None::<bool>);
+    let (mut base, mut seen, mut state, mut left) = (f64::NAN, 0.0, None::<bool>, false);
     // the most opaque of the family (a group has no colour of its own)
     let opacity = move |s: &Arena| {
         s.family(mob).into_iter().fold(0.0, |o: f64, m| {
@@ -2170,10 +2188,18 @@ pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str
             } else {
                 state
             };
+            // "leave": it was whole and has begun to go (under 90% of its opacity)
+            if state == Some(true) && !left && !(on_scene(s) && o >= 0.9 * base) {
+                dwell_log::record(&chapter, key, "leave", origin + seen);
+                left = true;
+            }
             if now != state {
                 if state.is_some() {
                     let kind = if now == Some(true) { "up" } else { "down" };
                     dwell_log::record(&chapter, key, kind, origin + seen);
+                }
+                if now == Some(true) {
+                    left = false;
                 }
                 state = now;
             }
@@ -2182,6 +2208,34 @@ pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str
     )?;
     stage.add_to_scene(watch)?;
     Ok(())
+}
+
+/// Tests only: a kit for chapter `name` whose scratch voice has the finished
+/// narration's own timing for `timed` lines, `(id, sentence onsets, length)`
+/// as `narration/out/report.json` records them.
+#[cfg(test)]
+pub fn timed_kit(name: &str, timed: &[(&str, &[f64], f64)]) -> Kit {
+    let script = Script::parse(crate::SCRIPT).unwrap();
+    let narrator = explainer_kit::Narrator::estimate_timed(&script, timed).unwrap();
+    let mut kit = Kit::new().unwrap().with_narrator(narrator);
+    kit.chapter = name.to_owned();
+    kit
+}
+
+/// Tests only: run a chapter whose `kit` came from `timed_kit` and say how
+/// long the mobject watched under `key` (`watch_dwell`) stood whole.
+#[cfg(test)]
+pub fn stands(kit: &Kit, scene: &mut impl SceneConstruct, key: &str) -> f64 {
+    run_chapter(scene);
+    let end = kit
+        .finished
+        .borrow()
+        .as_ref()
+        .expect("the chapter left its timeline")
+        .seconds();
+    let whole = dwell_log::whole(&kit.chapter, key, end);
+    eprintln!("{key}: whole {whole:.2} s (the chapter is {end:.2} s)");
+    whole
 }
 
 /// The texts the kit built that a lower third cut to fit its three lines

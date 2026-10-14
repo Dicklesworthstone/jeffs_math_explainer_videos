@@ -11,8 +11,8 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Ask, BADGE_CORNER, Badge, Choice, MINUS, QuizLook, fact_f64, fade_in_all, fade_in_lagged, flat, group, leave,
-    line_style, say, value, your_turn,
+    Ask, BADGE_CORNER, Badge, Choice, MINUS, QuizLook, STAND_UP, fact_f64, fade_in_all, fade_in_lagged, flat, group,
+    leave, line_style, say, value, wait_until, your_turn,
 };
 use crate::model::{self, DEG};
 use crate::palette;
@@ -457,8 +457,13 @@ impl SceneConstruct for Halfway {
         let back = kit.text(stage, WRAP_BACK, 40.0, Palette::ink(), v(3.0, 0.5))?;
         fade_in_all(stage, &[back], 0.4)?;
         let piece = lower_third(&kit, stage, THE_FLAT_PIECE, TANGENT_SPACE)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, piece, "04_5:piece")?;
         play!(stage; fade_in(stage.arena_mut(), piece, ORIGIN, 1.0)?.rt(0.5));
+        let up = stage.scene().time().to_f64();
         kit.hold(stage)?;
+        // whole for the floor before it goes (2.1 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
         // the badge goes to its corner and stays there for the rest of the video's chapters
         let mut gone = vec![piece, back];
         gone.extend(words);
@@ -759,5 +764,19 @@ mod tests {
             let (dx, dy) = dir(h);
             assert!((nose[0] - 0.30 * dx).abs() < 1e-12 && (nose[1] - 0.30 * dy).abs() < 1e-12);
         }
+    }
+
+    /// 04_5 (the pre-final read of the narrated draft: the band stood 2.1 s
+    /// before the chapter's last move took it): "the flat piece" stands whole
+    /// for the floor. The line is on the finished read's timing.
+    #[test]
+    fn the_flat_piece_band_stands_the_floor_before_the_badge_moves() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit("04_halfway#band", &[("04_5", &[0.0, 5.265, 6.975, 10.36], 12.175)]);
+        let whole = stands(&kit, &mut Halfway { kit: kit.clone() }, "04_5:piece");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

@@ -13,10 +13,10 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizLook, Shape, View, World, arc_between, book, edge_arrows, edge_colors,
-    fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause, point_fn, pose_fn,
-    say, screen_entry, screw_shapes, static_grid, still, table, turns_in_order, tween_all, tween_linear, value,
-    your_turn,
+    Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizLook, STAND_UP, Shape, View, World, arc_between, book, edge_arrows,
+    edge_colors, fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause,
+    point_fn, pose_fn, say, screen_entry, screw_shapes, static_grid, still, table, turns_in_order, tween_all,
+    tween_linear, value, wait_until, your_turn,
 };
 use crate::model::{self, DEG, M3, Pose, Screw, V3, X, Y, Z, dot, scale, unit};
 use crate::palette;
@@ -422,8 +422,14 @@ impl SceneConstruct for OneTurn {
         fade_in_all(stage, &[apart, crossed, left_cap, right_cap], 0.5)?;
         fade_in_all(stage, &[same, axis_cap], 0.5)?;
         let order = precisely(&kit, stage, ONE_AXIS)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, order, "02_5:order")?;
         play!(stage; fade_in(stage.arena_mut(), order, ORIGIN, 1.0)?.rt(0.5));
+        let up = stage.scene().time().to_f64();
         kit.hold(stage)?;
+        // whole for the floor before 02_6 takes it (it stood 1.5 s over the
+        // finished read, the beat's last picture coming at the line's end)
+        wait_until(stage, up + STAND_UP)?;
 
         // 02_6: track where the three edges point: nine numbers in a grid
         let line = say(&kit, stage, BEATS[5])?;
@@ -839,5 +845,25 @@ mod tests {
         // the plain entry keeps a true minus sign
         assert_eq!(entry(-1.0), "−1");
         assert_eq!(entry(-0.7213), "−0.72");
+    }
+
+    /// 02_5 (the pre-final read of the narrated draft: the band stood 1.5 s):
+    /// the "precisely" band that ends the beat stands whole for the floor
+    /// before 02_6 takes it. The two lines are on the finished read's timing.
+    #[test]
+    fn the_one_axis_band_stands_the_floor_before_the_next_line_takes_it() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "02_one_turn#band",
+            &[
+                ("02_5", &[0.0, 2.285, 7.295], 10.065),
+                ("02_6", &[0.0, 3.765, 6.695, 9.65], 13.045),
+            ],
+        );
+        let whole = stands(&kit, &mut OneTurn { kit: kit.clone() }, "02_5:order");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

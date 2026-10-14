@@ -541,9 +541,21 @@ impl SceneConstruct for ThePlatform {
         line.wait_for(stage, "you predict three meters straight ahead")?;
         play!(stage; fade_in(stage.arena_mut(), badge.body, ORIGIN, 1.0)?.rt(0.4));
         line.wait_for(stage, "Wrap it onto the curved space")?;
+        // the caveat comes with the wrap and stands to the chapter's end (it
+        // came last, 0.3 s before the end, and twenty-three words cannot be
+        // read in that)
+        let note = lower_third(
+            &kit,
+            stage,
+            "precisely:",
+            &format!("{EVERY_STEADY_MOTION} {OUR_NUMBERS}"),
+        )?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, note, "06_4:note")?;
         play!(stage;
             tween(slider, spin / DEG, 1.6)?,
             fade_in(stage.arena_mut(), badge.arrow, ORIGIN, 1.0)?.rt(0.6),
+            fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5),
         );
         let radius = fact_f64("G-P.radius")?;
         let r_word = kit.text(
@@ -570,13 +582,6 @@ impl SceneConstruct for ThePlatform {
         // the slider: the same three metres, as the spin runs from 0 to 60
         play!(stage; tween(slider, 0.0, 1.0)?);
         play!(stage; tween(slider, SLIDER_TOP_DEG, 3.0)?);
-        let note = lower_third(
-            &kit,
-            stage,
-            "precisely:",
-            &format!("{EVERY_STEADY_MOTION} {OUR_NUMBERS}"),
-        )?;
-        play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
         kit.finish(stage)
     }
 }
@@ -764,5 +769,24 @@ mod tests {
         assert!(o[0] + k * 3.2 < 1.7, "the floor ends before the quiz card");
         // close up, the platform's body is bigger on the screen than on the floor
         assert!(floor_map(0.0).0 > floor_map(1.0).0);
+    }
+
+    /// 06_4 (the pre-final read of the narrated draft): the "precisely" caveat
+    /// of twenty-three words came in 0.3 s before the chapter's end. It now
+    /// comes with the wrap and stands to the end, for the floor and for a
+    /// read at 4.5 words a second. The line is on the finished read's timing.
+    #[test]
+    fn the_caveat_stands_long_enough_to_be_read() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit("06_the_platform#note", &[("06_4", &[0.0, 5.51, 7.945], 13.34)]);
+        let whole = stands(&kit, &mut ThePlatform { kit: kit.clone() }, "06_4:note");
+        let words = format!("{EVERY_STEADY_MOTION} {OUR_NUMBERS}")
+            .split_whitespace()
+            .count() as f64;
+        let need = STAND_UP.max(words / 4.5);
+        assert!(
+            whole >= need - 0.1,
+            "the caveat stands whole {whole:.2} s, a read of {words} words takes {need:.2} s"
+        );
     }
 }

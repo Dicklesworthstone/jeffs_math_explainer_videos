@@ -14,9 +14,9 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, QuizCard, QuizLook, Shape, View, World, along_a_screw, book,
-    fact, fade_in_all, fade_in_lagged, flat, ground, leave, line_style, mix, perp_basis, pose_fn, say, still, table,
-    tag, tween_linear, value,
+    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, QuizCard, QuizLook, STAND_UP, Shape, View, World,
+    along_a_screw, book, fact, fade_in_all, fade_in_lagged, flat, ground, leave, line_style, mix, perp_basis, pose_fn,
+    say, still, table, tag, tween_linear, value, wait_until,
 };
 use super::steps::{goal_frame, pose_frame};
 use crate::facts::shown;
@@ -425,11 +425,16 @@ impl SceneConstruct for Everywhere {
         let t2 = kit.text_left(stage, &tally_s, 28.0, Palette::ink(), v(-6.4, 0.6))?;
         fade_in_all(stage, &[name, programmers, t1, t2], 0.7)?;
         let names = names_to_search(&kit, stage, &NAMES)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, names, "15_1:names")?;
         line.wait_end(stage)?;
         // the names to search take the humanoid's place at the foot
         leave(stage, &[name], &[], 0.3)?;
         fade_in_all(stage, &[names], 0.5)?;
+        let up = stage.scene().time().to_f64();
         kit.music_breath(stage, 1.0)?;
+        // whole for the floor before 15_2 takes it (1.6 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
 
         // 15_2: the opening's quiz, with one degree
         let line = say(&kit, stage, BEATS[1])?;
@@ -522,9 +527,14 @@ impl SceneConstruct for Everywhere {
         line.wait_for(stage, "called the Lie bracket")?;
         fade_in_all(stage, &bracket, 0.7)?;
         let note = lower_third(&kit, stage, LEFTOVER_NOTE_LABEL, LEFTOVER_NOTE)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, note, "15_4:note")?;
         line.wait_for(stage, "It measures how much order matters")?;
         fade_in_all(stage, &[note], 0.6)?;
+        let up = stage.scene().time().to_f64();
         line.wait_end(stage)?;
+        // whole for the floor before 15_5 takes it (2.5 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
 
         // 15_5: the arm multiplies, and adds on the flat piece
         let line = say(&kit, stage, BEATS[4])?;
@@ -1168,6 +1178,43 @@ mod tests {
         // (the line starts after the lead, about half a second in, and the
         // icons take 0.6 s to come up; the empty opening was 3.9 s)
         assert!(up <= 1.5, "the first picture is whole at {up:.2} s ({events:?})");
+    }
+
+    /// 15_1 (the pre-final read of the narrated draft: the band stood 1.6 s):
+    /// the names to search stand whole for the floor before 15_2 takes them.
+    /// The two lines are on the finished read's timing.
+    #[test]
+    fn the_names_to_search_stand_the_floor_before_the_quiz_takes_them() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "15_everywhere#names",
+            &[
+                ("15_1", &[0.0, 2.905, 4.81, 7.605, 14.32], 20.225),
+                ("15_2", &[0.0, 1.0, 4.61, 6.07], 8.045),
+            ],
+        );
+        let whole = stands(&kit, &mut Everywhere { kit: kit.clone() }, "15_1:names");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the names stand whole {whole:.2} s, not {STAND_UP} s"
+        );
+    }
+
+    /// 15_4 (the pre-final read of the narrated draft: the band stood 2.5 s):
+    /// the leftover note stands whole for the floor before 15_5 takes it.
+    /// The two lines are on the finished read's timing.
+    #[test]
+    fn the_leftover_note_stands_the_floor_before_the_next_line_takes_it() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "15_everywhere#note",
+            &[("15_4", &[0.0, 5.855, 10.655], 12.81), ("15_5", &[0.0, 5.22], 7.595)],
+        );
+        let whole = stands(&kit, &mut Everywhere { kit: kit.clone() }, "15_4:note");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the note stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 
     /// 15_5's resolution window opens after the voice has stopped, ends the

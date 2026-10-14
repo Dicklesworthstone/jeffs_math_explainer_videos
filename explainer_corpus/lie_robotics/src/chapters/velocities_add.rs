@@ -13,9 +13,9 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, book,
+    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, STAND_UP, Shape, View, World, book,
     circle_points, entry, fact, fade_in_all, fade_in_lagged, faded_line, leave, line_style, point_fn, say, still,
-    table, tag, turned_about,
+    table, tag, turned_about, wait_until,
 };
 use super::steps::goal_frame;
 use crate::model::{self, Arm, ELBOW, Pose, SHOULDER, V3, add, cross, poses, scale, slide_of, spin_of, sub};
@@ -643,9 +643,14 @@ impl SceneConstruct for VelocitiesAdd {
         ins.extend(&notes);
         fade_in_all(stage, &ins, 0.6)?;
         let third = lower_third(&kit, stage, JACOBIAN_LABEL, JACOBIAN_TEXT)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, third, "10_3:third")?;
         line.wait_for(stage, "The gripper's twist comes out")?;
         fade_in_all(stage, &[third], 0.5)?;
+        let up = stage.scene().time().to_f64();
         line.wait_end(stage)?;
+        // whole for the floor before 10_4 takes it (2.4 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
 
         // 10_4: which joint moves the tip fastest?
         let line = say(&kit, stage, BEATS[3])?;
@@ -1383,5 +1388,25 @@ mod tests {
             assert!((norm(sub(*p, [1.0, 2.0, 3.0])) - 0.2).abs() < 1e-12, "on the circle");
             assert!((p[2] - 3.0).abs() < 1e-12, "in the plane");
         }
+    }
+
+    /// 10_3 (the pre-final read of the narrated draft: the band stood 2.4 s):
+    /// "the Jacobian" band stands whole for the floor before 10_4 takes it.
+    /// The two lines are on the finished read's timing.
+    #[test]
+    fn the_jacobian_band_stands_the_floor_before_the_next_line_takes_it() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "10_velocities_add#band",
+            &[
+                ("10_3", &[0.0, 2.85, 4.985, 9.375, 11.575], 13.215),
+                ("10_4", &[0.0, 2.74, 7.245], 9.07),
+            ],
+        );
+        let whole = stands(&kit, &mut VelocitiesAdd { kit: kit.clone() }, "10_3:third");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }

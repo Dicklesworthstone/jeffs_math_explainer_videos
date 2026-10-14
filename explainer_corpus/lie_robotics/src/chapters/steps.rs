@@ -12,9 +12,9 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, MINUS, PartSpec, QuizCard, QuizLook, Shape, View,
-    World, book, circle_points, dashed_rect, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, ground, leave,
-    mix, perp_basis, say, screw_shapes, still, tab_on, table,
+    ARM_SCALE, ArmRig, Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, MINUS, PartSpec, QuizCard, QuizLook, STAND_UP,
+    Shape, View, World, book, circle_points, dashed_rect, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged,
+    ground, leave, mix, perp_basis, say, screw_shapes, still, tab_on, table, wait_until,
 };
 use crate::model::{self, Arm, DEG, M3, Pose, V3, X, Y, Z, add, dot, poses, scale};
 use crate::palette;
@@ -426,8 +426,13 @@ impl SceneConstruct for Steps {
         )?;
         fade_in_all(stage, &[six_head, spin_text, slide_text], 0.7)?;
         let log = lower_third(&kit, stage, LOG_LABEL, LOG_TEXT)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, log, "13_3:log")?;
         fade_in_all(stage, &[log], 0.5)?;
+        let up = stage.scene().time().to_f64();
         line.wait_end(stage)?;
+        // whole for the floor before 13_4 takes it (2.0 s over the finished read)
+        wait_until(stage, up + STAND_UP)?;
 
         // 13_4: run the Jacobian backwards, and move; look again; repeat
         let line = say(&kit, stage, BEATS[3])?;
@@ -975,5 +980,22 @@ mod tests {
             );
             Ok(())
         });
+    }
+
+    /// 13_3 (the pre-final read of the narrated draft: the band stood 2.0 s):
+    /// "the logarithm" band stands whole for the floor before 13_4 takes it.
+    /// The two lines are on the finished read's timing.
+    #[test]
+    fn the_logarithm_band_stands_the_floor_before_the_next_line_takes_it() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "13_steps#band",
+            &[("13_3", &[0.0, 2.6, 5.94, 7.66], 10.44), ("13_4", &[0.0, 6.585], 8.415)],
+        );
+        let whole = stands(&kit, &mut Steps { kit: kit.clone() }, "13_3:log");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
     }
 }
