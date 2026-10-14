@@ -20,6 +20,7 @@ pub mod sound;
 pub mod the_air_in_a_room;
 pub mod the_bridge_that_swayed;
 pub mod the_split;
+pub mod thumbnail;
 pub mod truss;
 pub mod twenty_one_patterns;
 pub mod two_bridges;
