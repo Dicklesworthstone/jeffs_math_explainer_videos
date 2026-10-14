@@ -722,6 +722,26 @@ pub mod koopman {
         sums
     }
 
+    /// The least and the most lattice points swept after each lane, over the
+    /// [`RUNS`] runs that follow the video's one run in the stream: the two
+    /// edges of the band the video draws (review R2).
+    pub fn swept_range(n: usize) -> Vec<(u64, u64)> {
+        let mut data = Data::new(SEED);
+        // the video's one run comes first in the stream
+        for _ in 0..n {
+            lane(&mut data);
+        }
+        let mut range = vec![(u64::MAX, 0u64); n];
+        for _ in 0..RUNS {
+            let lanes: Vec<Lane> = (0..n).map(|_| lane(&mut data)).collect();
+            for (r, x) in range.iter_mut().zip(swept_after(&lanes)) {
+                r.0 = r.0.min(x as u64);
+                r.1 = r.1.max(x as u64);
+            }
+        }
+        range
+    }
+
     /// What `n` independent lanes sweep on average: 1 − (1 − share)^n,
     /// which the formula's 1 − e^(−coverage) is the thin-lane limit of.
     pub fn expected_share(n: u32) -> f64 {

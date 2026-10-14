@@ -8,13 +8,17 @@ at the end was copied from the oracle's output by a script, not typed.
 ./x bayesian_search facts-check        # search facts == oracle.py, key by key
 ```
 
-- **Result, 2026-10-13** (the build host; CPython 3.14, NumPy via uv), with
-  the storyboard as revised after review R1: `facts-check bayesian_search:
-  303 video facts against 303 oracle keys: PASS`. The oracle passes 61 of
-  61 of its own cross-checks. (At G1: 263 of 263; with the first
-  storyboard: 274 of 274.)
-- **Rust side:** `./x bayesian_search test`: 21 tests pass, clippy
-  `-D warnings` and `fmt --check` clean.
+- **Result, 2026-10-14** (the build host), with the storyboard as revised
+  after review R2: `facts-check bayesian_search: 320 video facts against 320
+  oracle keys: PASS`. The oracle passes 62 of 62 of its own cross-checks.
+  (After R1: 303 of 303; at G1: 263 of 263; with the first storyboard: 274
+  of 274. R2 added fourteen keys: `F-H.feet_per_sea_mile.exact`,
+  `F-H.once.per_cell.exact`, `F-R.grid.empty_cells`,
+  `F-R.model.random.found_by.{20,81}`, `F-R.model.sweep.first20.points`,
+  `F-R.model.F6.first_search`, `F-K.lanes.{min,max}.{1,2,3}` and
+  `F-D.strip.feet`.)
+- **Rust side:** `cargo test -p bayesian_search_explainer` on the build
+  host: 152 tests pass, clippy `-D warnings` and `fmt --check` clean.
 - **Rows:** F-M the four-cell sea; F-U the rules for where to search next;
   F-R the 1968 map and the model search over it; F-H the hook's arithmetic;
   F-K Koopman's formula and the seeded lanes; F-D the drifting cloud
@@ -114,7 +118,9 @@ printed with one or two places and none sits near a rounding edge.
    Magazine* from the command centre. The helicopter's last track was drawn
    by hand through the high-chance area after the software froze ("it
    wasn't Sarops-generated"), and Aldridge was not drifting freely: he had
-   tied himself to lobster buoys. The video says the first map was wrong
+   tied a cut-loose buoy to his partner's and was "sitting on the rope
+   between his two buoys" when found (review R2: the draft said "tied
+   himself", which is not the article's wording). The video says the first map was wrong
    because its inputs were, that new evidence moved it about thirty miles,
    and that a helicopter flying through the new area saw him; it does not
    say the software found him.
@@ -156,6 +162,38 @@ printed with one or two places and none sits near a rounding edge.
     widths re-measured after the find, a second map, new evidence from the
     boat). The first storyboard's "it never needs the first map to be
     right" was false and is gone (review R1's one blocker).
+14. **The 12-mile patch is the map's frame, not the Navy's fence** (review
+    R2). The lettered grid of Figure 2 is 12 × 12.6 sea miles, and 1,100 of
+    the 10,000 runs ended outside it. Nothing read says the Navy's search had
+    been narrowed to it, and the secondary sources disagree on the size of
+    the area the acoustic work left (see "Not said"). 02_5 therefore says
+    "take a patch of sea about twelve miles on a side", and the screen calls
+    it the grid of the Navy's later map.
+15. **A plan with no map is not a plan that starts in the corner** (review
+    R2, recomputed). Row by row from row 1, over the 180 lettered cells at
+    two in three, finds 0.76% in twenty searches because its first twenty
+    cells hold 114 of the 10,000 runs; the same plan from row 5 finds 22%,
+    from row 12 0.2%, column by column from A 10.3%, and twenty cells
+    chosen at random each once 6.6% on average (the 10th to the 90th
+    percentile of 20,000 orders: 2.3 to 12.6). All of these are shares of all
+    10,000 runs; over the 180 cells alone they would be larger by 1/0.89.
+    The never-updated map (44.3%) and the rule (49.8%) are unchanged, and the
+    rule's lead over no map is mostly the map.
+16. **Which estimates were which in 1968** (review R2). The at-sea widths
+    were typically 800 feet for sonar and 400 for the magnetometer; the
+    afterwards estimates are camera 185, magnetometer 220 and sonar 0, the
+    sonar's from the failure of one of the two sonars to detect the wreck
+    ("crude sensor sweep width estimates against the actual target", p.
+    151). The cell's coverage fell from 2.81 to 1.05 (a factor of 2.7)
+    because every sensor and every pass is added; a strip four times
+    narrower on its own would give 50.5%, not 65%.
+17. **"The first map does not have to be right" is exact only with room for
+    the truth** (review R2, four readers). For a thing that stays put, when
+    every place that might hold it has some chance and every search can see
+    (d > 0), the rule comes back to every such cell and finds it with chance
+    1; the first map then sets only how long the search takes
+    (F6, with 85 dots, is reached at search 30 of the model run; 40 of the
+    180 cells have no dots and are never searched).
 
 ## Sources
 
@@ -236,6 +274,7 @@ repository and are never committed.
 
 ## Not said, and why
 
+- That the Navy had narrowed its search to a 12-mile patch (finding 14).
 - A cause of the *Scorpion*'s loss: undetermined (S8).
 - A number of acoustic signals, and the size of the area they left: the
   secondary sources disagree (five trains, eight events, nineteen signals;
@@ -283,15 +322,19 @@ repository and are never committed.
 | "The map drifts, and it spreads." (10_2) | each particle is moved by its own draw of wind and current, then reweighted; the cloud need not stay round | "model" on the cloud; the description |
 | "By the map's own reckoning" (08_5) | the chance of a find within n searches, averaged over the prior map | the chart's label |
 | "ninety-four went out" (13_2) | the factor 1 − E applied to that cell before the map is divided by 1 − SEP | the 1971 formula at 13_1; F6's three chances at 13_6 |
+| "if the wreck were at any of those twenty, we would have it" (06_3) | a dot is a place together with this search's luck: of B's 30 equally likely ways, 20 are ones in which this search would see it; a wreck at any given place in B is seen two times in three. P(B is the answer | empty) = 10/80 either way | lower-third at 06_3 (review R2) |
+| "the first map does not have to be right" (14_4) | for a stationary target, with every possible place given some chance and d > 0, the rule finds it with chance 1; the first map sets how long that takes. A place with no dots is never searched | caption and picture at 14_4; the description (review R2) |
+| "take a patch of sea about twelve miles on a side" (02_5) | the lettered grid of Figure 2, 12 × 12.6 sea miles; 11% of the map's runs end outside it | label at 02_5 (review R2) |
 | "what changed is what we know" (06_7) | the distribution is subjective: "The probability distribution on which the search is based is therefore a subjective one" (S3 p. 71) | lower-third at 06_7 |
 
 ## Always sentences and their edge tests
 
 | Sentence (line) | Test | Range, and the edge |
 |---|---|---|
-| "Every cell we did not search grew by a quarter." (06_8) | `the_hand_example_goes_as_the_video_says`; `an_update_keeps_the_total_and_moves_chance_the_right_way` (`src/model.rs`) | the three unsearched cells, each × 100 ÷ 80; in general every unsearched cell with some chance rises by the same factor 1 ÷ (1 − pᵢdᵢ), which is 1 only for a search that cannot see |
+| "Every cell we did not search grew by a quarter." (06_8) | `the_hand_example_goes_as_the_video_says`; `an_update_keeps_the_total_and_moves_chance_the_right_way` (`src/model.rs`) | the three unsearched cells, each × 100 ÷ 80; in general, after a search of a cell that had some chance and that can see (pᵢ > 0 and dᵢ > 0), every unsearched cell with some chance rises by the same factor 1 ÷ (1 − pᵢdᵢ); the factor is 1 if the searched cell had no chance or the search cannot see (R2: D19) |
 | "no other order is ever ahead" (08_3) | `no_order_of_searches_beats_the_rule`; `the_rule_takes_the_biggest_slices_first`; `F-U.brute.rule_is_best`, `F-U.slices.rule_takes_biggest` | every order of 1 to 8 searches (65,536 at 8); the rule's first 12 searches against the 12 biggest slices; ties (row by row is level at 3, 5 and 6) are why the word is "ahead"; the three conditions are spoken |
 | "a cell's slices only shrink" (08_2) | the same slices test; the oracle searches each cell alone eight times | strictly, for a chance of seeing strictly between 0 and 1 |
+| "ten more passes with that sonar would have found nothing" (13_6) | `F-S.sweep.after` sonar 0 | holds on the paper's estimate of a sweep width of zero, which rests on the failure of one of the two sonars to detect her (Table 2, note a); "on that estimate" is spoken (review R2) |
 | "Each pass finds less than the one before, and no number of passes makes it certain." (09_6) | `no_number_of_passes_makes_it_certain` | 1 to 20 passes at one in four, two in three and nine in ten; the edges are a search that cannot miss (certain in one) and passes that are not fresh tries (13_6) |
 | "An empty search only tells you something if it could have found what you were looking for." (14_1) | `a_blind_search_changes_nothing_and_a_perfect_one_empties_its_cell` | a chance of seeing of zero leaves all four chances exactly as they were; a chance of one empties the cell |
 | "A first map that leaves room for the truth." (14_4) | `a_cell_with_no_dots_never_gains_one`; `F-U.zero_stays_zero` | thirty empty searches of the two cells that have dots; the empty cells stay at exactly zero |
@@ -400,6 +443,7 @@ keys and values.
 | `F-R.grid.miles` | 12x12.6 |
 | `F-R.grid.points` | 8900 |
 | `F-R.outside.points` | 1100 |
+| `F-R.grid.empty_cells` | 40 |
 | `F-R.model.seeing` | 2/3 |
 | `F-R.model.best.first_cells` | E5, B7, C5, G5, E5, B7 |
 | `F-R.model.best.found_by.20` | 49.8 |
@@ -409,10 +453,15 @@ keys and values.
 | `F-R.model.sweep.found_by.20` | 0.8 |
 | `F-R.model.sweep.found_by.81` | 32.9 |
 | `F-R.model.search_miles` | 28 |
+| `F-R.model.random.found_by.20` | 6.6 |
+| `F-R.model.random.found_by.81` | 26.7 |
+| `F-R.model.sweep.first20.points` | 114 |
+| `F-R.model.F6.first_search` | 30 |
 | `F-H.track.miles` | 1026 |
 | `F-H.track.days_at_one_knot` | 43 |
 | `F-H.strip.feet` | 200 |
 | `F-H.feet_per_sea_mile` | 6076 |
+| `F-H.feet_per_sea_mile.exact` | 6076.1 |
 | `F-H.once.miles` | 4594 |
 | `F-H.once.hundreds` | 46 |
 | `F-H.once.days_at_one_knot` | 191 |
@@ -421,6 +470,7 @@ keys and values.
 | `F-H.once.miles.magnetometer` | 4176 |
 | `F-H.once.miles.believed` | 1148 |
 | `F-H.once.per_cell` | 26 |
+| `F-H.once.per_cell.exact` | 25.5 |
 | `F-H.once.passes_per_cell` | 26 |
 | `F-H.track.cells` | 40 |
 | `F-H.track.share.percent` | 22 |
@@ -442,12 +492,18 @@ keys and values.
 | `F-K.lanes.runs` | 1000 |
 | `F-K.lanes.one_run.1` | 66.5 |
 | `F-K.lanes.mean.1` | 63.4 |
+| `F-K.lanes.min.1` | 57.1 |
+| `F-K.lanes.max.1` | 69.9 |
 | `F-K.lanes.exact.1` | 63.4 |
 | `F-K.lanes.one_run.2` | 87.6 |
 | `F-K.lanes.mean.2` | 86.7 |
+| `F-K.lanes.min.2` | 81.9 |
+| `F-K.lanes.max.2` | 91.3 |
 | `F-K.lanes.exact.2` | 86.6 |
 | `F-K.lanes.one_run.3` | 95.3 |
 | `F-K.lanes.mean.3` | 95.1 |
+| `F-K.lanes.min.3` | 92.5 |
+| `F-K.lanes.max.3` | 97.4 |
 | `F-K.lanes.exact.3` | 95.1 |
 | `F-K.lanes.first` | v149, v190, h161, h182 |
 | `F-D.seed` | 2013 |
@@ -458,6 +514,7 @@ keys and values.
 | `F-D.track` | 180 |
 | `F-D.strip` | 0.1 |
 | `F-D.strip.metres` | 185 |
+| `F-D.strip.feet` | 608 |
 | `F-D.swept` | 18 |
 | `F-D.h1.radius` | 1.45 |
 | `F-D.h1.area` | 6.6 |

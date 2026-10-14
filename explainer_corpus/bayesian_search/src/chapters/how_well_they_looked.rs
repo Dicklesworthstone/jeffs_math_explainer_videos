@@ -748,7 +748,7 @@ impl SceneConstruct for HowWellTheyLooked {
         let count_in = fade_in(stage.arena_mut(), tally, ORIGIN, 1.0)?;
         let together: Vec<Box<dyn Animation>> = vec![stage.prepare(group)?, stage.prepare(count_in.rt(0.6))?];
         stage.play_prepared(together)?;
-        line.wait_for(stage, "And at that width")?;
+        line.wait_for(stage, "And on that estimate")?;
         let chances = [
             (BEFORE_ANY, "F-R.F6.percent", Palette::ink()),
             (BY_SHIP, "F-S.F6.chance.at_sea", wrong()),

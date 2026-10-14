@@ -408,6 +408,8 @@ def map_1968():
     inside = sum(v for (r, c), v in MAP.items() if r in GRID_ROWS and c in GRID_COLS)
     emit("F-R.grid.points", inside)
     emit("F-R.outside.points", total - inside)
+    empty_cells = sum(1 for r in GRID_ROWS for c in GRID_COLS if MAP.get((r, c), 0) == 0)
+    emit("F-R.grid.empty_cells", empty_cells)
 
     sees = F(2, 3)
     emit("F-R.model.seeing", frac(sees))
@@ -427,6 +429,15 @@ def map_1968():
     # over the grid with a 200-foot strip, at the coverage that sees 2 in 3
     per_cell = F(84, 100) / (200 / FEET_PER_SEA_MILE)
     emit("F-R.model.search_miles", f"{float(per_cell) * math.log(3):.0f}")
+    # a plan with no map has no preferred order: `mark` cells chosen at random,
+    # each once, find mark/180 of what lies inside the grid, times the seeing
+    # (review R2: the row-by-row plan starts where the map is nearly empty)
+    for mark in (20, 81):
+        emit(f"F-R.model.random.found_by.{mark}", percent(F(mark, 180) * sees * F(inside, total), 1))
+    reading_order = [(r, c) for r in GRID_ROWS for c in GRID_COLS]
+    emit("F-R.model.sweep.first20.points", sum(MAP.get(k, 0) for k in reading_order[:20]))
+    f6_search = next(i for i, (r, c, _) in enumerate(plans["best"], 1) if (r, c) == ("6", "F"))
+    emit("F-R.model.F6.first_search", f6_search)
 
 
 # --------------------------------------------------------------------------
@@ -444,6 +455,8 @@ def hook():
     strip_feet = 200
     emit("F-H.strip.feet", strip_feet)
     emit("F-H.feet_per_sea_mile", fixed(FEET_PER_SEA_MILE, 0))
+    # 6,076 gives 4,593 for the whole patch; the sea mile is 6,076.1 feet
+    emit("F-H.feet_per_sea_mile.exact", fixed(FEET_PER_SEA_MILE, 1))
     area = 180 * F(84, 100)
     once = area / (strip_feet / FEET_PER_SEA_MILE)
     emit("F-H.once.miles", fixed(once, 0))
@@ -457,6 +470,8 @@ def hook():
     # one sea mile long
     passes = F(84, 100) * FEET_PER_SEA_MILE / strip_feet
     emit("F-H.once.per_cell", fixed(passes * 1, 0))
+    # 180 cells of 26 miles would be 4,680, not the 4,594 shown: say 25.5
+    emit("F-H.once.per_cell.exact", fixed(passes * 1, 1))
     emit("F-H.once.passes_per_cell", fixed(passes, 0))
     check("180 cells of that much track are the whole pass", passes * 180 == once)
     emit("F-H.track.cells", fixed(TRACK_MILES / passes, 0))
@@ -509,14 +524,19 @@ def formula():
     runs = [lanes_of(draws[2 * n * r: 2 * n * (r + 1)]) for r in range(RUNS + 1)]
     one = swept_after(runs[0])
     sums = [0] * n
+    lows, highs = [SIDE * SIDE] * n, [0] * n
     for lanes in runs[1:]:
         for i, x in enumerate(swept_after(lanes)):
             sums[i] += x
+            lows[i], highs[i] = min(lows[i], x), max(highs[i], x)
     points = SIDE * SIDE
     for coverage in (1, 2, 3):
         k = coverage * PER_COVERAGE
         emit(f"F-K.lanes.one_run.{coverage}", percent(F(one[k - 1], points), 1))
         emit(f"F-K.lanes.mean.{coverage}", percent(F(sums[k - 1], points * RUNS), 1))
+        # the band's two edges: the least and the most of the thousand runs
+        emit(f"F-K.lanes.min.{coverage}", percent(F(lows[k - 1], points), 1))
+        emit(f"F-K.lanes.max.{coverage}", percent(F(highs[k - 1], points), 1))
         exact = 1 - (1 - WIDTH / SIDE) ** k
         emit(f"F-K.lanes.exact.{coverage}", f"{100 * exact:.1f}")
         check(f"the mean of {RUNS} runs is within one point of the exact average at coverage {coverage}",
@@ -574,6 +594,7 @@ def cloud():
     emit("F-D.track", frac(TRACK))
     emit("F-D.strip", fixed(STRIP, 1))
     emit("F-D.strip.metres", fixed(STRIP * 1852, 0))
+    emit("F-D.strip.feet", fixed(STRIP * FEET_PER_SEA_MILE, 0))
     # Table H-15, "Helicopters for Altitudes 300-500 Feet": person in water 0.1 at 300 ft
     emit("F-D.strip.altitude.feet", 300)
     swept = TRACK * STRIP

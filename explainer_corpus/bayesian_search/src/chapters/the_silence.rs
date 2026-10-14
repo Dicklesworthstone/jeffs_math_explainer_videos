@@ -782,7 +782,7 @@ impl SceneConstruct for TheSilence {
             anims.push(stage.prepare(tween(c.shown, 1.0, 0.8)?)?);
         }
         stage.play_prepared(anims)?;
-        line.wait_for(stage, "They weighted the three")?;
+        line.wait_for(stage, "They weighted them")?;
         let mut weight_labels: Vec<Mob> = Vec::new();
         for (k, w) in plan.weights.iter().enumerate() {
             weight_labels.push(kit.text_left(

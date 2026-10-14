@@ -466,6 +466,11 @@ fn map_1968(f: &mut Facts) -> Result<(), String> {
     )?;
     f.add("F-R.grid.points", y1968::in_grid())?;
     f.add("F-R.outside.points", y1968::total() - y1968::in_grid())?;
+    let empty_cells = y1968::GRID_ROWS
+        .flat_map(|r| y1968::GRID_COLS.map(move |c| (r, c)))
+        .filter(|&(r, c)| y1968::POINTS[r][c] == 0)
+        .count();
+    f.add("F-R.grid.empty_cells", empty_cells)?;
 
     // the model search (the video's own model on the Navy's map)
     let seeing = shown::MAP_SEEING;
@@ -495,6 +500,29 @@ fn map_1968(f: &mut Facts) -> Result<(), String> {
         "F-R.model.search_miles",
         format!("{:.0}", per_cell.f64() * koopman::coverage_for(seeing.f64())),
     )?;
+    // a plan with no map has no preferred order: `mark` cells chosen at
+    // random, each once, find mark/180 of what lies inside the grid, times
+    // the seeing (review R2: row by row starts where the map is nearly empty)
+    let cells = (y1968::GRID_ROWS.len() * y1968::GRID_COLS.len()) as i128;
+    let inside = q(i128::from(y1968::in_grid()), i128::from(y1968::REPLICATIONS));
+    for mark in shown::MAP_MARKS {
+        f.add(
+            &format!("F-R.model.random.found_by.{mark}"),
+            (q(mark as i128, cells) * seeing * inside).percent(1),
+        )?;
+    }
+    let first20: u32 = plans[2].1[..20]
+        .iter()
+        .map(|l| u32::from(y1968::POINTS[l.row][l.col]))
+        .sum();
+    f.add("F-R.model.sweep.first20.points", first20)?;
+    let f6 = y1968::at("F6").ok_or("no cell F6 on the 1968 map")?;
+    let f6_search = plans[0]
+        .1
+        .iter()
+        .position(|l| (l.row, l.col) == f6)
+        .ok_or("the rule never searches F6 within the model run")?;
+    f.add("F-R.model.F6.first_search", f6_search + 1)?;
     Ok(())
 }
 
@@ -524,6 +552,8 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     f.add("F-H.strip.feet", shown::STRIP_FEET)?;
     let feet_per_nm = Q::int(METRES_PER_NM) / METRES_PER_FOOT;
     f.add("F-H.feet_per_sea_mile", feet_per_nm.fixed(0))?;
+    // 6,076 gives 4,593 for the whole patch; the sea mile is 6,076.1 feet
+    f.add("F-H.feet_per_sea_mile.exact", feet_per_nm.fixed(1))?;
     let strip_miles = Q::int(i128::from(shown::STRIP_FEET)) / feet_per_nm;
     let once = y1968::grid_area() / strip_miles;
     f.add("F-H.once.miles", once.fixed(0))?;
@@ -545,6 +575,8 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     let cells = Q::int((y1968::GRID_ROWS.len() * y1968::GRID_COLS.len()) as i128);
     let per_cell = once / cells;
     f.add("F-H.once.per_cell", per_cell.fixed(0))?;
+    // 180 cells of 26 miles would be 4,680, not the 4,594 shown: say 25.5
+    f.add("F-H.once.per_cell.exact", per_cell.fixed(1))?;
     f.add("F-H.once.passes_per_cell", (y1968::CELL_MILES.1 / strip_miles).fixed(0))?;
     let track = Q::int(i128::from(cited::TRACK_MILES));
     f.add("F-H.track.cells", (track / per_cell).fixed(0))?;
@@ -587,9 +619,18 @@ fn formula(f: &mut Facts) -> Result<(), String> {
     let n = 3 * koopman::LANES_PER_COVERAGE;
     let one = koopman::swept_after(&koopman::the_run(n));
     let sums = koopman::swept_sums(n);
+    let range = koopman::swept_range(n);
     let points = (koopman::SIDE * koopman::SIDE) as i128;
     for coverage in 1..=3usize {
         let lanes = coverage * koopman::LANES_PER_COVERAGE;
+        f.add(
+            &format!("F-K.lanes.min.{coverage}"),
+            q(i128::from(range[lanes - 1].0), points).percent(1),
+        )?;
+        f.add(
+            &format!("F-K.lanes.max.{coverage}"),
+            q(i128::from(range[lanes - 1].1), points).percent(1),
+        )?;
         f.add(
             &format!("F-K.lanes.one_run.{coverage}"),
             q(one[lanes - 1] as i128, points).percent(1),
@@ -629,6 +670,10 @@ fn cloud(f: &mut Facts) -> Result<(), String> {
         "US Coast Guard Addendum (COMDTINST M16130.2F), Table H-15",
     )?;
     f.add("F-D.strip.metres", (drift::STRIP * Q::int(METRES_PER_NM)).fixed(0))?;
+    f.add(
+        "F-D.strip.feet",
+        (drift::STRIP * Q::int(METRES_PER_NM) / METRES_PER_FOOT).fixed(0),
+    )?;
     f.pin(
         "F-D.strip.altitude.feet",
         cited::HELICOPTER_FEET,
