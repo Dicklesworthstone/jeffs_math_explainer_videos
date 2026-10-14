@@ -253,7 +253,7 @@ impl SceneConstruct for OneTurn {
         let line = say(&kit, stage, BEATS[2])?;
         play!(stage; tween(deg, 0.0, 0.7)?);
         let readout = kit.live_number(stage, deg, 0, false, 54.0, Palette::ink(), v(-3.55, 2.9), RIGHT)?;
-        let degree = kit.text(stage, ORDER_DEGREE, 54.0, Palette::ink(), v(-3.35, 2.98))?;
+        let degree = kit.text(stage, ORDER_DEGREE, 54.0, Palette::ink(), v(-3.43, 2.98))?;
         fade_in_all(stage, &[degree], 0.2)?;
         line.wait_for(stage, "A third of a turn")?;
         play!(stage; tween(deg, facts_deg, 1.2)?);
@@ -312,7 +312,8 @@ impl SceneConstruct for OneTurn {
         tween_all(stage, &twos, 0.6)?;
         let shown: Vec<(Mob, f64)> = axes_at.iter().map(|&i| (pairs.parts[i].shown, 1.0)).collect();
         tween_all(stage, &shown, 0.6)?;
-        line.wait_for(stage, "Euler showed it")?;
+        // the exact version comes in with the three axes, not with the
+        // sentence's last words, so that it stays up for several seconds
         let year = fact("G-L.euler.year")?;
         let note = lower_third(&kit, stage, &format!("Euler, {year}:"), EULER_NOTE)?;
         play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));

@@ -394,17 +394,17 @@ impl SceneConstruct for Spin {
         for &(_, x, text) in &row {
             captions.push(kit.text(stage, text, 24.0, Palette::dim(), v(x, 0.2))?);
         }
+        // the exact version stands with the three books and stays into the
+        // next line's first picture, so that it can be read
         fade_in_all(stage, &captions, 0.4)?;
-        line.wait_for(stage, "a third answer")?;
         let note = lower_third(&kit, stage, "arrows:", ARROW_NOTE)?;
         play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
+        line.wait_for(stage, "a third answer")?;
 
         // 05_3: one spin held steady for one second: the move back to the
         // curved space is the exponential
         let line = say(&kit, stage, BEATS[2])?;
-        let mut leaving = captions.clone();
-        leaving.push(note);
-        leave(stage, &leaving, &[shelf.shown], 0.5)?;
+        leave(stage, &captions, &[shelf.shown], 0.5)?;
         play!(stage;
             tween(a01, 0.0, 0.6)?,
             tween(world.parts[part::SUM].shown, 0.0, 0.5)?,
@@ -435,6 +435,9 @@ impl SceneConstruct for Spin {
             tween_linear(ax, FRAC_PI_2, 1.0)?,
             tween_linear(clock, 1.0, 1.0)?,
         );
+        // the previous line's exact version has had this line's first
+        // sentence on screen, and leaves before the exponential's own
+        leave(stage, &[note], &[], 0.4)?;
         line.wait_for(stage, "That move, from the flat piece")?;
         let named = kit.text(stage, THE_EXPONENTIAL, 30.0, Palette::ink(), v(4.3, 2.55))?;
         let formula = kit.tex(stage, EXP_FORMULA, 60.0, Palette::ink(), &[], v(3.6, 0.2))?;
@@ -447,7 +450,10 @@ impl SceneConstruct for Spin {
         play!(stage; fade_in(stage.arena_mut(), exp_note, ORIGIN, 1.0)?.rt(0.5));
 
         // 05_4: a third of a turn a second about the line between the three
-        // edge arrows: where do the edges point after one second?
+        // edge arrows: where do the edges point after one second? (The
+        // question's own line is said after this set-up, so first the
+        // exponential's picture stays for the end of its line.)
+        kit.hold(stage)?;
         leave(stage, &[ring, track, one, named, formula, exp_note], &[], 0.4)?;
         play!(stage;
             tween(ax, 0.0, 0.6)?,
@@ -523,6 +529,17 @@ impl SceneConstruct for Spin {
         let around_word = kit.text(stage, AROUND, 24.0, blue, v(-5.6, 1.9))?;
         fade_in_all(stage, &[along_word, around_word], 0.4)?;
         let point = kit.tex(stage, POINT_FORMULA, 40.0, Palette::ink(), &[], v(2.4, 3.1))?;
+        // the name's credit comes in with the name, "named after Rodrigues",
+        // and stays up for the rest of the line
+        let year = fact("G-L.rodrigues.year")?;
+        let named_for = lower_third(
+            &kit,
+            stage,
+            "Rodrigues:",
+            &format!("named for Olinde Rodrigues, who worked out in {year} how turns combine"),
+        )?;
+        line.wait_for(stage, "named after Rodrigues")?;
+        play!(stage; fade_in(stage.arena_mut(), named_for, ORIGIN, 1.0)?.rt(0.5));
         line.wait_for(stage, "Any point splits")?;
         play!(stage; write(stage.arena(), point).rt(1.8));
         play!(stage; tween_linear(ad, diag_rate * DEG, 1.6)?);
@@ -531,14 +548,6 @@ impl SceneConstruct for Spin {
         let what = kit.text_left(stage, MATRIX_NOTE, 24.0, Palette::dim(), v(0.1, 0.55))?;
         fade_in_all(stage, &[programmers, what], 0.4)?;
         play!(stage; write(stage.arena(), matrix).rt(1.4));
-        let year = fact("G-L.rodrigues.year")?;
-        let named_for = lower_third(
-            &kit,
-            stage,
-            "Rodrigues:",
-            &format!("named for Olinde Rodrigues, who worked out in {year} how turns combine"),
-        )?;
-        play!(stage; fade_in(stage.arena_mut(), named_for, ORIGIN, 1.0)?.rt(0.5));
 
         // 05_7: a smooth group of motions is a Lie group; its flat piece is
         // its Lie algebra: the badge grows back to the centre

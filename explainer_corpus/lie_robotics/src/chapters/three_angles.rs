@@ -89,7 +89,7 @@ const MISSING_HALF: f64 = 2.4;
 /// numbers and the degree signs of the three rings end.
 const READOUT_LEFT: f64 = -1.4;
 const READOUT_NUMBER: f64 = 1.15;
-const READOUT_SIGN: f64 = 1.35;
+const READOUT_SIGN: f64 = 1.28;
 /// Where the quiz card of 03_2 stands, and the quote's card of 03_5 (centre
 /// and size).
 const CARD_AT: [f64; 2] = [4.35, 0.3];

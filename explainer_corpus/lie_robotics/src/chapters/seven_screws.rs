@@ -258,8 +258,11 @@ impl SceneConstruct for SevenScrews {
 
         // 08_2: a turn about an axis is a screw with no slide: seven, stacked
         let line = say(&kit, stage, BEATS[1])?;
-        leave(stage, &[panel.group, mark, mark_words], &[], 0.5)?;
+        leave(stage, &[mark, mark_words], &[], 0.5)?;
+        // the model's code panel (eight lines) stays through the line's first
+        // sentence, so that it can be read, and goes as the screws light
         line.wait_for(stage, "So the arm is seven screws")?;
+        leave(stage, &[panel.group], &[], 0.4)?;
         for i in 0..N {
             tween_all(stage, &[(world.parts[SCREWS_AT + i].shown, 1.0)], 0.35)?;
         }
@@ -268,8 +271,8 @@ impl SceneConstruct for SevenScrews {
 
         // 08_3: only the elbow turns: what moves?
         let line = say(&kit, stage, BEATS[2])?;
-        let mut gone = vec![about];
-        gone.extend(&names);
+        // ("about" stays up until the question's card takes its place)
+        let mut gone = names.clone();
         gone.extend(&numbers);
         let mut zero: Vec<Mob> = (0..N).map(|i| world.parts[SCREWS_AT + i].shown).collect();
         zero.extend((0..N).map(|i| world.parts[AXES_AT + i].shown));
@@ -281,6 +284,7 @@ impl SceneConstruct for SevenScrews {
         play!(stage; tween(elbow_gold, 1.0, 0.5)?);
         let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_last(stage)?;
+        leave(stage, &[about], &[], 0.3)?;
         card.show(stage, 0.5)?;
         card.count(&kit, stage)?;
 
@@ -329,9 +333,11 @@ impl SceneConstruct for SevenScrews {
 
         // 08_6: the product of seven exponentials, built from the right
         let line = say(&kit, stage, BEATS[5])?;
-        leave(stage, &[sums], &[], 0.4)?;
         let (parts, under) = equation_row(&kit, stage)?;
         line.wait_for(stage, "So the gripper's pose is a product")?;
+        // ("the order of the sums" has stood since the last line's end: it
+        // goes as the line it explains appears)
+        leave(stage, &[sums], &[], 0.4)?;
         // right to left, as the screws lit
         for &m in parts.iter().rev() {
             play!(stage; fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?.rt(0.35));

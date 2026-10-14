@@ -327,15 +327,17 @@ impl SceneConstruct for TheBook {
         line.wait_for(stage, "Tilt first")?;
         play!(stage; tween(books.parts[part::LEFT_ARROW].shown, 1.0, 0.5)?);
         line.wait_for(stage, "Roll first")?;
+        // the exact version comes in with the second demonstration, so that
+        // it has the rest of the line (about four seconds) to be read
+        let edges = precisely(&kit, stage, BOOK_EDGES)?;
         play!(stage;
             tween(books.parts[part::RIGHT].grey, 0.0, 0.4)?,
             tween(ra, 1.0, 1.2)?,
+            fade_in(stage.arena_mut(), edges, ORIGIN, 1.0)?.rt(0.5),
         );
         play!(stage; tween(rb, 1.0, 1.2)?);
         line.wait_for(stage, "it faces the wall")?;
         play!(stage; tween(books.parts[part::RIGHT_ARROW].shown, 1.0, 0.5)?);
-        let edges = precisely(&kit, stage, BOOK_EDGES)?;
-        play!(stage; fade_in(stage.arena_mut(), edges, ORIGIN, 1.0)?.rt(0.5));
 
         // 01_3: the title, then the motif alone
         kit.hold(stage)?;

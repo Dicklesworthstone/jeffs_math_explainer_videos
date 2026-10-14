@@ -338,6 +338,10 @@ impl SceneConstruct for Screws {
         let mut group = vec![spin_head, slide_head];
         group.extend(&numbers);
         fade_in_all(stage, &group, 0.6)?;
+        // the exact version of the two arrows comes in with their numbers, not
+        // after the screw it also qualifies, so that it stays long enough
+        let note = lower_third(&kit, stage, "precisely:", TWIST_NOTE)?;
+        play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
 
         // 07_3: hold a twist steady: a screw; the centre stands up into an
         // axis, the arc lifts into a helix; the four words
@@ -355,6 +359,7 @@ impl SceneConstruct for Screws {
             tween(world.parts[floor::ARROWS].shown, 1.0, 0.5)?,
         );
         line.wait_for(stage, "The body turns about an axis")?;
+        leave(stage, &[note], &[], 0.4)?;
         play!(stage; tween(world.parts[floor::AXIS].shown, 1.0, 0.8)?);
         play!(stage;
             tween(world.parts[floor::HELIX].shown, 1.0, 1.0)?,
@@ -362,15 +367,11 @@ impl SceneConstruct for Screws {
         );
         let words = four_words(&kit, stage, v(4.1, 1.2), 0.95)?;
         fade_in_all(stage, &words, 0.6)?;
-        let note = lower_third(&kit, stage, "precisely:", TWIST_NOTE)?;
-        play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
 
         // 07_4: a door is a screw with no slide, a drawer one with no turn,
         // a bottle cap does both
         let line = say(&kit, stage, BEATS[3])?;
-        let mut gone = words.clone();
-        gone.push(note);
-        leave(stage, &gone, &[world.shown], 0.6)?;
+        leave(stage, &words, &[world.shown], 0.6)?;
         let hinge = [-4.9, 0.0, 0.0];
         let (door_t, drawer_t, cap_t) = (
             stage.add_value_tracker(0.0),

@@ -296,6 +296,9 @@ impl SceneConstruct for Halfway {
         // to go from one heading to the other by the numbers, spins the long
         // way round
         stage.set_tracker_value(heading, a)?;
+        // its three end labels are for the flat ruler; wrapped they would
+        // float under the circle
+        leave(stage, &ends, &[], 0.4)?;
         play!(stage;
             tween(wrap, 1.0, 2.2)?,
             tween(heading, b, 2.6)?,
@@ -324,9 +327,7 @@ impl SceneConstruct for Halfway {
             s.add(polyline(pts).style(line_style(orange, 5.0)).build())
         });
         stage.add_to_scene(tangent)?;
-        let mut leaving = ends.clone();
-        leaving.push(ruler);
-        leave(stage, &leaving, &[], 0.5)?;
+        leave(stage, &[ruler], &[], 0.5)?;
         play!(stage; tween(reach, 1.0, 1.2)?);
         let zero = kit.text(stage, "0", 24.0, orange, {
             let p = tangent_point(a, 0.0);
