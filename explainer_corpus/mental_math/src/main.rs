@@ -40,7 +40,7 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: chapters::glyphs::MONO,
     identity: score::identity,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
-    line_gaps: explainer_kit::narration::LineGaps::Constant,
+    line_gaps: explainer_kit::narration::LineGaps::Thought,
     line_owner: None,
     thumbnail: None,
 };
@@ -71,8 +71,8 @@ mod tests {
     /// between-line pairs of chapters 02 and 07 are the ones the narration
     /// pilot built and the owner will hear; the pair across every chapter join
     /// is not one class; and the planned gaps of the whole script spread where
-    /// the constant breath is the planted negative. The video stays on the
-    /// constant rule until its owner has heard the other.
+    /// the constant breath is the planted negative. The owner chose the
+    /// thought rule for the finals (2026-10-14), so the video runs on it.
     #[test]
     fn the_thought_classes_of_the_real_script_follow_the_thought() {
         use explainer_kit::GapClass::{Beat, Continuation, Topic};
@@ -81,8 +81,8 @@ mod tests {
 
         assert_eq!(
             EXPLAINER.line_gaps,
-            LineGaps::Constant,
-            "opt in only after the owner's A/B (and then update this test)"
+            LineGaps::Thought,
+            "the owner's choice for the finals"
         );
         let script = Script::parse(SCRIPT).unwrap();
         let class = |a: &str, b: &str| explainer_kit::classify_gap(script.text(a).unwrap(), script.text(b).unwrap());

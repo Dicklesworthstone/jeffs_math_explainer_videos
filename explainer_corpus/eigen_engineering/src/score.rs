@@ -42,7 +42,7 @@ pub fn identity() -> Identity {
         melody_lu: -13.5,
         duck_db: 8.0,
         hold_duck: 0.5,
-        steady_bed: false,
+        steady_bed: true,
         settle_s: 0.8,
         sfx_lu: -16.0,
         listen_lu: -10.0,
