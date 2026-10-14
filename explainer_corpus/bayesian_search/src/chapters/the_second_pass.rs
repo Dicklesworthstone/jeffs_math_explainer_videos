@@ -105,6 +105,14 @@ fn plot() -> Frame2 {
 /// The right edge of the plot, in coverages: room for three passes at two in
 /// three (3 ln 3 = 3.30).
 const COVERAGE_MAX: f64 = 3.5;
+/// A pass point's label ends this far left of its point and stands this far
+/// over it.
+const POINT_LABEL_GAP: f64 = 0.2;
+const POINT_LABEL_RISE: f64 = 0.3;
+/// 09_4's unswept note: its centre stands this far left of the formula
+/// block's, so that "% unswept" ends inside the frame (at 0.35 it ended at
+/// the frame's edge) and no nearer the canyon's words than half a unit.
+const UNSWEPT_SHIFT: f64 = 0.7;
 /// Coverage 1 is this many lanes of the cell's hundred.
 const LANES: usize = koopman::LANES_PER_COVERAGE;
 
@@ -616,7 +624,7 @@ impl SceneConstruct for TheSecondPass {
             26.0,
             Palette::dim(),
             &[],
-            v(block - 0.35, f.p(0.0, 15.0)[1]),
+            v(block - UNSWEPT_SHIFT, f.p(0.0, 15.0)[1]),
         )?;
         let unswept_tail = kit.text_left(
             stage,
@@ -761,7 +769,11 @@ impl SceneConstruct for TheSecondPass {
                     .style(flat(Palette::ink(), 1.0))
                     .build(),
             );
-            let label = kit.text_left(
+            // above and left of its point, ending left of it: on the curve's
+            // rise that is clear of the curve and of the flat cell's mark
+            // (the first pass IS that mark), and the last never leaves the
+            // frame
+            let label = kit.text(
                 stage,
                 &format!(
                     "{passes} {} {}%",
@@ -770,8 +782,14 @@ impl SceneConstruct for TheSecondPass {
                 ),
                 22.0,
                 Palette::ink(),
-                v(at[0] + 0.16, at[1] - 0.28),
+                ORIGIN,
             )?;
+            let half = stage.get_width(label) / 2.0;
+            stage.move_to(
+                label,
+                v(at[0] - POINT_LABEL_GAP - half, at[1] + POINT_LABEL_RISE),
+                ORIGIN,
+            );
             fade_in_all(stage, &[d, label], 0.6)?;
             points.extend([d, label]);
         }
@@ -904,6 +922,57 @@ mod tests {
         // the formula at the marks gives their chances
         assert!((koopman::random_search(flat) - 2.0 / 3.0).abs() < 1e-12);
         assert!((koopman::random_search(canyon) - 0.25).abs() < 1e-12);
+    }
+
+    /// 09_6, the narrated draft's overlaps: each pass point's label ends
+    /// left of its point, over it, so the first pass's (which is the flat
+    /// cell's mark) does not stand on that mark's words, and the last label
+    /// begins inside the plot and ends inside the frame.
+    #[test]
+    fn the_pass_labels_stand_left_of_their_points_and_in_the_frame() {
+        use super::super::draw::CHAR_UNITS_PER_POINT;
+        let f = plot();
+        let facts = facts().unwrap();
+        let mut last_x = f64::NEG_INFINITY;
+        for passes in 1..=3u32 {
+            let (x, seen) = pass_point(passes);
+            let at = f.p(x, 100.0 * seen.f64());
+            let words = format!(
+                "{passes} {} {}%",
+                if passes == 1 { PASS } else { PASSES },
+                facts.get(&format!("F-M.seen_within.{passes}.percent")).unwrap()
+            );
+            let width = words.chars().count() as f64 * 22.0 * CHAR_UNITS_PER_POINT;
+            let (left, right) = (at[0] - POINT_LABEL_GAP - width, at[0] - POINT_LABEL_GAP);
+            assert!(left > f.left(), "pass {passes}: {left} against the plot's {}", f.left());
+            assert!(right < at[0] && right < FRAME_X_RADIUS - 0.15);
+            assert!(at[1] + POINT_LABEL_RISE + 0.15 < FRAME_Y_RADIUS - 0.15);
+            assert!(at[0] > last_x, "the points run left to right");
+            last_x = at[0];
+        }
+        // the mark's own label starts right of the same point: the two never share space
+        let (x1, seen1) = pass_point(1);
+        let mark = f.p(
+            koopman::coverage_for(sea::seeing()[1].f64()),
+            100.0 * sea::seeing()[1].f64(),
+        );
+        let first = f.p(x1, 100.0 * seen1.f64());
+        assert!((mark[0] - first[0]).abs() < 1e-9 && (mark[1] - first[1]).abs() < 1e-9);
+        // "36.6% unswept" ends inside the frame with room to spare: the tex
+        // is about 2.4 units wide at 26 points (measured on the draft; 2.6
+        // here), the tail is nine characters at 20
+        let block = f.p(2.75, 0.0)[0];
+        let end = block - UNSWEPT_SHIFT + 2.6 / 2.0 + 0.05 + 9.0 * 20.0 * CHAR_UNITS_PER_POINT;
+        assert!(end < FRAME_X_RADIUS - 0.3, "{end}");
+        // and it begins right of the canyon label's end (the label is left
+        // aligned 0.18 right of its point, 18 characters at 24)
+        let canyon = f.p(
+            koopman::coverage_for(sea::seeing()[0].f64()),
+            100.0 * sea::seeing()[0].f64(),
+        );
+        let label_end = canyon[0] + 0.18 + 18.0 * 24.0 * CHAR_UNITS_PER_POINT;
+        let begins = block - UNSWEPT_SHIFT - 2.6 / 2.0;
+        assert!(begins - label_end > 0.0, "{begins} against {label_end}");
     }
 
     /// 09_5 and 09_6: nine dots under two passes, 27 under three; the three
