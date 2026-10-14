@@ -15,6 +15,7 @@ pub mod every_mode_a_note;
 pub mod glyphs;
 pub mod one_idea;
 pub mod own_patterns;
+pub mod sound;
 pub mod the_air_in_a_room;
 pub mod the_bridge_that_swayed;
 pub mod the_split;

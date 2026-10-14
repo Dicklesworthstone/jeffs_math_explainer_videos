@@ -15,7 +15,10 @@ use explainer_kit::props::{names_to_search, precisely};
 use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
-use super::draw::{QuizCard, chip, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say};
+use super::draw::{
+    QuizCard, chip, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say, wait_until,
+};
+use super::sound;
 use super::truss::{Layout, outline, supports};
 use super::twenty_one_patterns::{corners, deformed, sag_oriented, scaled_to};
 use crate::model::linalg::Eigen;
@@ -371,7 +374,13 @@ impl SceneConstruct for EveryModeANote {
         let faster = kit.text(stage, "sound: the same ratios, faster", 24.0, dim, v(0.0, -3.7))?;
         line.wait_end(stage)?;
         fade_in_all(stage, &[tones, faster], 0.5)?;
-        kit.listen(stage, 3.0, &format!("{}:07_3", kit.chapter))?;
+        // the three modes as three struck tones in their true ratios, one at
+        // a time and then together, in a listen window of the same 3 s; the
+        // three swing on through it
+        let wav = sound::bridge(&Truss::pratt().hertz(DECK_KG))?;
+        kit.sonify(stage, sound::BRIDGE_S, &format!("{}:07_3", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        wait_until(stage, start + sound::BRIDGE_S)?;
         kit.hold(stage)?;
 
         // ---- 07_4: your turn: twice as heavy; faster, slower or the same?

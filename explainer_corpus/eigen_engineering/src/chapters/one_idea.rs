@@ -925,6 +925,9 @@ impl SceneConstruct for OneIdea {
         line.wait_for(stage, "How does it want to move")?;
         fade_in_all(stage, &asked[1..2], 0.4)?;
         line.wait_for(stage, "And what will push along with it")?;
+        // the last question is said with a breath of silence before it and
+        // no music under it (R1 C20)
+        kit.mark(stage, "silence:last_question");
         fade_in_all(stage, &asked[2..], 0.4)?;
         kit.hold(stage)?;
 

@@ -23,8 +23,10 @@ use fmn::prelude::*;
 
 use super::draw::{
     chip, fact, fade_in_all, fade_out_all, faded_line, flat, ground, group, own, pause, say, show, squeezed, stretched,
-    tween_linear,
+    tween_linear, wait_until,
 };
+use super::sound;
+use super::the_air_in_a_room::{GLOW_HZ, PITCH_HI, PITCH_LO};
 use crate::model::rooms::{BATHROOM, HALL, HALL_T60_S, SOUND_M_PER_S};
 
 pub struct TwoMillionModes {
@@ -866,8 +868,15 @@ impl SceneConstruct for TwoMillionModes {
         play!(stage; tween(upto, SPEC_HZ, 0.01)?);
         fade_in_all(stage, &[rule], 0.5)?;
         line.wait_end(stage)?;
-        // the same hum in the hall: an even tail, no answer
-        kit.listen(stage, 2.0, &format!("{}:10_6", kit.chapter))?;
+        // the same hum in the hall: an even tail, no answer (the slide of
+        // 09_5, 60 to 150 Hz, over so many modes that the hall is always on
+        // one, and the hall's own 1.9 s decay)
+        let mut modes: Vec<f64> = HALL.modes_below(PITCH_HI as u64).iter().map(|m| m.1).collect();
+        modes.sort_by(f64::total_cmp);
+        let wav = sound::hall_hum(PITCH_LO, PITCH_HI, &modes, GLOW_HZ, HALL_T60_S)?;
+        kit.sonify(stage, sound::HALL_S, &format!("{}:10_6", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        wait_until(stage, start + sound::HALL_S)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;

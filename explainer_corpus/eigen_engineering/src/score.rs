@@ -7,10 +7,15 @@
 //! string or bar already holds, and the resolution walks back to 1̂. E
 //! major, unhurried, a pad bed with a vibraphone melody (struck metal bars
 //! are modes you can hear) and a plucked answer. Each quiz countdown is a
-//! listen window: the music alone, one soft note a second.
+//! listen window: the music alone, one soft vibraphone note a second
+//! climbing the motif's overtones and left open, and the resolution walking
+//! back as the answer lands (`chapters/sound.rs`, which also writes the
+//! truss's modes at 07_3, the bathroom's hum at 09_5 and the hall's at
+//! 10_6). The title card's window is the motif itself, left open; the
+//! closing card's is the resolution.
 
 use explainer_score::instr::Instrument;
-use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette};
+use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette, Theme};
 use explainer_score::theory::{Chord, IONIAN, Key, Motif};
 
 pub fn identity() -> Identity {
@@ -43,6 +48,35 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
-        themes: Vec::new(),
+        // 01_3 "listen 2.5 s (the motif: the overtones of one note)" and
+        // 14_8 "listen 2.5 s (the resolution)"
+        themes: vec![("01_3", Theme::Open), ("14_8", Theme::Resolved)],
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_identity_is_one_the_engine_can_play() {
+        assert!(identity().validate().is_ok());
+    }
+
+    /// The title card's window plays the motif open and the closing card's
+    /// the resolution; the quiz and sonification windows carry their own
+    /// sound and name no theme.
+    #[test]
+    fn the_first_and_last_windows_are_the_motif_and_its_resolution() {
+        let id = identity();
+        assert_eq!(id.theme_for("01_the_bridge_that_swayed:01_3"), Some(Theme::Open));
+        assert_eq!(id.theme_for("14_one_idea:14_8"), Some(Theme::Resolved));
+        for label in [
+            "02_two_carts:02_6",
+            "07_every_mode_a_note:07_3",
+            "09_the_air_in_a_room:09_5",
+        ] {
+            assert_eq!(id.theme_for(label), None, "{label}");
+        }
     }
 }

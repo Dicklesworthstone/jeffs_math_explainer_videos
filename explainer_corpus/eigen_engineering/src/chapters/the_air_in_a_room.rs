@@ -21,8 +21,9 @@ use fmn::prelude::*;
 use super::carts;
 use super::draw::{
     MatrixGrid, QuizCard, arrow, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, flat, group, moves,
-    numbers, own, panel, pause, pushes, say, show, squeezed, stretched, tween_linear,
+    numbers, own, panel, pause, pushes, say, show, squeezed, stretched, tween_linear, wait_until,
 };
+use super::sound;
 use crate::model::carts::chain;
 use crate::model::linalg::dot;
 
@@ -186,13 +187,13 @@ const PULSE_TUBE_Y: f64 = 2.85;
 
 // -------------------------------------------------------- the tones (09_5)
 
-const PITCH_LO: f64 = 60.0;
-const PITCH_HI: f64 = 150.0;
+pub(crate) const PITCH_LO: f64 = 60.0;
+pub(crate) const PITCH_HI: f64 = 150.0;
 const PITCH_X0: f64 = -5.6;
 const PITCH_X1: f64 = 5.6;
 const PITCH_Y: f64 = -1.1;
 /// How wide, in hertz, a tone's glow is on each side.
-const GLOW_HZ: f64 = 1.3;
+pub(crate) const GLOW_HZ: f64 = 1.3;
 /// The five tones that fit one side of the room, with the side: the voice's
 /// "near a hundred and seven" is the third.
 const ONE_SIDE: [(&str, &str); 5] = [
@@ -947,7 +948,16 @@ impl SceneConstruct for TheAirInARoom {
         let card_group = group(stage, &[backing, helmholtz, who, gloss, hilbert, years])?;
         // it comes in as the listen window opens and is read through it
         fade_in_all(stage, &[card_group], 0.6)?;
-        kit.listen(stage, 2.0, &format!("{}:09_5", kit.chapter))?;
+        // the window opens; the hum is heard sliding on from where the line
+        // is to 150 Hz, loud at each tone it crosses (the outline's glow),
+        // and the pitch line runs the window's whole length to match it
+        kit.hold(stage)?;
+        let from_hz = stage.tracker_value(hz_now).unwrap_or(PITCH_LO);
+        let wav = sound::room_hum(from_hz, PITCH_HI, &tones, GLOW_HZ)?;
+        kit.sonify(stage, sound::ROOM_S, &format!("{}:09_5", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        stage.set_tracker_value(rate, ((PITCH_HI - from_hz) / sound::ROOM_S).max(0.0))?;
+        wait_until(stage, start + sound::ROOM_S)?;
         stage.set_tracker_value(rate, 0.0)?;
         pause(stage, 1.5)?;
 

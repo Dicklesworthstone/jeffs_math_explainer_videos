@@ -577,6 +577,10 @@ impl SceneConstruct for TheSplit {
         fade_in_all(stage, &[left_eqs[0], left_eqs[1], tangled_word], 0.6)?;
         line.wait_for(stage, "two divisions")?;
         fade_in_all(stage, &[right_divs[0], right_divs[1], separate_word], 0.6)?;
+        // the act's closing sentence is said with a breath of silence before
+        // it and no music under it (R1 C20)
+        line.wait_for(stage, "Seen in its own patterns")?;
+        kit.mark(stage, "silence:closing_sentence");
         line.wait_for(stage, "falls apart into pieces")?;
         fade_in_all(stage, &[sentence], 0.6)?;
         let strip = lower_third(
