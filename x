@@ -16,7 +16,9 @@
 #   ./x <slug> narrate                          the narration into narration/{work,out}: new reads
 #                                               only (ftts), every take transcribed (fw), reads that
 #                                               finish their last word and an editor that listens to
-#                                               what it cuts (tools/narration.py), then the gates
+#                                               what it cuts (tools/narration.py), then the gates;
+#                                               JOINT=1 chooses each line's reads together and SEEDS=N
+#                                               adds the reads of ftts --seed 1..N (both opt-in)
 #   ./x <slug> narration-sheets [--takes] [LINE...]   spectrograms of the narration to read as images,
 #                                               into narration/sheets/ (tools/narration_sheets.py)
 #   ./x <slug> narration-prosody [--gate-...]   the human-calibrated prosody QA of narration/out: pitch
@@ -294,7 +296,8 @@ case "$cmd" in
     export FTTS
     work="$base/narration/work"
     out="$base/narration/out"
-    py() { uv run --quiet --no-project --with numpy python3 -I "$@"; }
+    # the joint choice measures pitch with Praat (tools/narration.py)
+    py() { uv run --quiet --no-project --with numpy ${JOINT:+--with praat-parselmouth} python3 -I "$@"; }
     cd "$crate"
     mkdir -p "$work"
     # a variant's director picks are its own: the video's picks name reads in another voice
@@ -303,16 +306,31 @@ case "$cmd" in
     # non-rhotic: "Feller" is heard "Fella"), which must not loosen the video's own voice
     lexicon="$crate/lexicon.json"
     if [ "$base" != "$crate" ] && [ -f "$base/lexicon.json" ]; then lexicon="$base/lexicon.json"; fi
-    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon"
+    # Two options a run opts into (the owner's A/B decides which video keeps them, so neither is a default):
+    # SEEDS=N adds the reads of `ftts --seed 1..N` beside the wrappers as candidates, JOINT=1 picks each
+    # line's reads together instead of one sentence at a time (tools/narration.py, bead mx-4kc2).
+    seeds=""
+    [ -z "${SEEDS:-}" ] || seeds="--seeds=$SEEDS"
+    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon" $seeds
     python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
+    py "$here/tools/narration.py" "$N" synth "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
-    py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon"
-    python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
-    # every gate runs, so one build shows everything that is wrong
-    status=0
-    py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" --lexicon "$lexicon" || status=1
-    py "$N/validate_narration.py" "$out" || status=1
-    py "$here/tools/narration.py" "$N" edges script.tsv "$out" --lexicon "$lexicon" || status=1
+    # A joint build can pass every take's own transcript and still lose a line's first word once the
+    # sentences are assembled (P-2's "But"): a line that fails a line-level gate gives up the reads the
+    # joint choice moved in it (work/joint_exclude.txt; move it aside to start over) and is chosen again.
+    rounds=0
+    while :; do
+      py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon" ${JOINT:+--joint}
+      python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
+      # every gate runs, so one build shows everything that is wrong
+      status=0
+      py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" --lexicon "$lexicon" || status=1
+      py "$N/validate_narration.py" "$out" || status=1
+      py "$here/tools/narration.py" "$N" edges script.tsv "$out" --lexicon "$lexicon" || status=1
+      [ "$status" -ne 0 ] && [ -n "${JOINT:-}" ] && [ "$rounds" -lt 12 ] || break
+      py "$here/tools/narration.py" "$N" exclude script.tsv "$work" "$out" --lexicon "$lexicon" || break
+      rounds=$((rounds + 1))
+    done
     exit $status ;;
   narration-sheets)
     cd "$crate"

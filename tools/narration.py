@@ -10,6 +10,12 @@ word and an editor that listens to what it cuts.
     uv run --no-project --with numpy python3 -I tools/narration.py SKILL_SCRIPTS edges \
         SCRIPT.tsv OUT [--lexicon lexicon.json]
 
+    plan ... --seeds N     also plan every read with `ftts --seed 1..N` (work/seeds.tsv, not takes.tsv)
+    synth WORK --voice V [--model M] [--workers W]    the seeded reads plan listed (after tts_batch.py)
+    choose ... --joint     pick each line's reads together (see "Why the reads of a line are chosen together")
+    exclude SCRIPT.tsv WORK OUT [--lexicon L]    after the line-level gates failed a --joint build: price the
+                           reads it moved in the failing lines as failed (exit 1: nothing new, stop)
+
 `choose` exits 1 when the limiter had to work harder than LIMITER_MAX (the lines are still written).
 `edges` (after asr_batch.py has written OUT/lines_asr.json) exits 1 when a sentence's first or
 last word is missing from its line's transcript: the words an edit can cut off, and one word in
@@ -64,11 +70,34 @@ own speech level:
   pause with a breath in it gets a longer leash and a 40 ms crossfade.
 
 Nothing is stretched: sample positions are cut or kept, as before.
+
+Why the reads of a line are chosen together (`choose --joint`, `plan --seeds`; bead mx-4kc2).
+narrate.py picks every sentence's read on its own, and nothing it scores is defined across a join,
+so the register and the pitch reset at a join are chosen by accident. Measured on Video F against
+human readers (evidence RS-20261014-narration, T-003, T-007, audit A): 31% of F's sentence joins
+reset the pitch by more than 12 st where a human reader's 12% do, because F's sentences end low and
+the next one starts high; a choice among the reads F already had cut the joins past +-7 st from 29%
+to 12% (T-003); and `ftts --seed 1..7` gives other reads of the same text (up to 57% duration
+spread, final contours 10 st apart), deterministic per seed, so a seed is a retake.
+- `plan --seeds N` adds every read again with seed 1..N. They go to work/seeds.tsv, never takes.tsv
+  (tts_batch.py would read them without the seed), and `synth` makes them. Seed 0 is no seed.
+- `choose --joint` runs a Viterbi over each line: a read's cost is its own score plus its defects
+  (a stall or hole inside, a statement that rises at its end, a creaky ending, a pitch jump in its last 120 ms), a
+  join's cost is the reset beyond +12 st and the register step between the two reads, measured with
+  Praat (the autocorrelation trackers read a creaky ending 20-90 Hz high and miss most resets); a
+  second tracker, held out of the costs, is counted beside it and must agree on a terminal pitch
+  event. It needs `uv run --with numpy --with praat-parselmouth`. A director's pick is not a choice, it stays. The reads
+  it moves away from narrate.py's pick are written into the report (`joint`); when nothing at a join
+  is bad it picks narrate.py's read, and a run without --joint is byte for byte what it was.
+- Taste: whether the joint reads sound better is the owner's to say; a video opts in per run.
 """
+import hashlib
 import json
 import math
 import os
+import subprocess
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -103,6 +132,22 @@ SIBILANT_MS = 45           # ms of frication a final s/z needs in the last 100 m
 FINISHERS = (("“", "”"),)  # every read is also auditioned inside these; ftts then finishes the sentence
 EXTRA = {}                 # script sentence -> the director's extra ftts inputs for it (reads.tsv)
 PICKS = {}                 # read tag -> why the director chose it over the score (picks.tsv)
+JOINT = {}                 # read tag -> what the joint choice recorded where it moved off narrate.py's pick
+HOLE = 0.45                # s: an unlicensed pause this long inside a read is a hole, not a breath (T-005)
+TERMINAL = (9.0, 4.5)      # st: the last 120 ms rise this far over the 250 ms before it, by Praat and by the second tracker
+CREAK_HZ = 80.0            # Hz: an ending whose median, or half of whose last 150 ms, is under this is creaky (P-2)
+JOINT_COST = {             # the Viterbi's weights (the research pilot P-2's, on chapter 02 of Video F), then ours
+    "score": 2.0,          # per 1.0 of narrate.py's score under a perfect read
+    "creak": 1.0,          # a creaky ending: F's sentences end 62-75 Hz, the cause of the heavy tail of resets (T-007)
+    "gate": 5.0,           # a cut-short read, a dropped final s/z, an ASR ratio under 0.85: nothing else if avoidable
+    "name": 1.0, "hesitation": 0.5, "stall": 2.0,
+    "hole": 1.0, "onset": 1.0,           # ours: a hole inside the read; a heard word before the first scripted one
+    "rise": 0.25,          # per st (up to 8) a statement rises over 2 st at its end
+    "terminal": 2.0,       # ours: a terminal pitch event (B-C03), until the owner's ear says what it is
+    "change": 0.02,        # tie-break toward narrate.py's pick
+    "tail": 1.0, "tail_per_st": 0.2, "tail_at": 12.0,   # a reset past +12 st: 1.0 and 0.2 per st beyond
+    "register": 0.1, "register_free": 4.0,              # ours: per st of register step past 4 (B-C08)
+}
 # The limiter is for plosives. More work than this and it is flattening the stressed syllables: raise
 # the headroom (the narration skill's criterion; its limiter_sweep.py shows each ceiling's cost).
 LIMITER_MAX = (1.5, 0.15)  # % of samples it may turn down by more than 1 dB, and by more than 3 dB
@@ -376,7 +421,30 @@ def director_files(script, work, command):
             PICKS[tag] = why
 
 
+MEASURED = {}  # (take, sentence) -> measure(); the joint choice reads every candidate before `choose` does
+
+
 def analyze(path, asr, target_text):
+    """measure(), marked with who chose the read: the director (picks.tsv) or the joint choice. A chosen
+    read ranks first under narrate.py's key and keeps its measured score."""
+    key = (str(path), target_text)
+    if key not in MEASURED:
+        MEASURED[key] = measure(path, asr, target_text)
+    if MEASURED[key] is None:
+        return None
+    m, tag = dict(MEASURED[key]), Path(path).stem
+    picked, joint = PICKS.get(tag), None if tag in PICKS else JOINT.get(tag)
+    if picked is not None or joint is not None:
+        m["score"] = Picked(m["score"])
+    for name, value in (("picked", picked), ("joint", joint)):
+        if value:
+            m[name] = value
+        else:
+            del m[name]
+    return m
+
+
+def measure(path, asr, target_text):
     """narrate.py's analyze on the sentence `hear` found (same score, same fields)."""
     x, rate = nr.load(path)
     want_tok = nr.tokens(target_text)
@@ -433,10 +501,7 @@ def analyze(path, asr, target_text):
     score -= 0.12 * h["cut_short"]
     no_s = wants_sibilant(target_text) and sibilant_missing(x, rate, h["cut_out"], h["top_db"])
     score -= 0.12 * no_s  # a dropped final s/z changes the word ("phone" for "phones")
-    picked = PICKS.get(Path(path).stem)
     score = round(score, 4)
-    if picked is not None:
-        score = Picked(score)
     return {
         "score": score, "asr_ratio": round(ratio, 3), "misheard_names": names_missed,
         "conf": round(float(np.mean(probs)), 3), "syl_rate": round(syl_rate, 2), "pauses": pauses,
@@ -445,7 +510,8 @@ def analyze(path, asr, target_text):
         "cuts": cuts, "clean_in": h["clean_in"], "clean_out": h["clean_out"], "junk_after_s": h["junk_after_s"],
         "cut_short": h["cut_short"], "sibilant_missing": no_s, "stalls": stalls,
         "lead_s": round(h["first"] - h["cut_in"], 3), "tail_s": round(h["cut_out"] - h["last"], 3),
-        **({"picked": picked} if picked else {}), "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
+        "picked": None, "joint": None,  # placed here for the report's key order; analyze() fills or drops them
+        "take_s": round(len(x) / rate, 2), "top_db": h["top_db"], "floor_db": h["floor_db"],
     }
 
 
@@ -479,28 +545,321 @@ def edit(path, m, sentence_lufs):
     return seg, round((span - len(seg)) / rate, 3), round(lufs, 1), proof
 
 
-def edges(script, out, lexicon):
-    """Bind every ordered sentence to the canonical script, then check its first and last word
-    against the assembled line's transcript. Nothing to check is not a pass."""
+def seed_tag(tag, seed):
+    """The tag of a read made with `ftts --seed`: content-addressed like narrate.py's, so a re-run reuses it."""
+    digest = hashlib.sha1(f"{tag}\x00seed={seed}".encode()).hexdigest()[:8]
+    return f"{tag.rsplit('__', 1)[0]}__{digest}"
+
+
+def add_seeds(work, seeds):
+    """Plan every read again for seeds 1..`seeds`. They are listed in work/seeds.tsv (`tag TAB seed TAB ftts
+    input`) and not in takes.tsv: tts_batch.py would make them without the seed, under a seeded tag."""
+    work, rows = Path(work), []
+    plan = json.loads((work / "plan.json").read_text())
+    for sents in plan.values():
+        for s in sents:
+            for r in list(s["reads"]):
+                for seed in range(1, seeds + 1):
+                    tag = seed_tag(r["tag"], seed)
+                    s["reads"].append({"tag": tag, "text": r["text"], "tts": r["tts"], "seed": seed})
+                    rows.append(f"{tag}\t{seed}\t{r['tts']}")
+    if rows:  # a plan without seeds is narrate.py's plan.json as it wrote it
+        (work / "plan.json").write_text(json.dumps(plan, indent=1))
+    (work / "seeds.tsv").write_text("".join(row + "\n" for row in rows))
+    return len(rows)
+
+
+def synth(work, voice, model, workers):
+    """Make the seeded reads of work/seeds.tsv with tts_batch.py's own batch (resumable, serial retries),
+    each with its `--seed`. The batch splits a job line at the first tab, so a job's text is
+    `<seed> TAB <ftts input>` and the one function that runs ftts is replaced by a copy that knows it."""
+    import tts_batch  # the narration skill's, found through SKILL_SCRIPTS on sys.path
+
+    def synth_seeded(tag, job, out_dir, voice, model):
+        seed, text = job.split("\t", 1)
+        wav = out_dir / f"{tag}.wav"
+        if wav.exists() and wav.stat().st_size > 1000:
+            return tag, "kept", 0.0
+        partial = out_dir / f"{tag}.partial.wav"
+        cmd = [tts_batch.FTTS, "say", "--no-resident", "--voice", voice, "--seed", seed]
+        if model:
+            cmd += ["--model", model]
+        cmd += ["--", text, str(partial)]
+        started = time.time()
+        with open(out_dir / f"{tag}.log", "ab") as sink:
+            rc = subprocess.run(cmd, stdin=subprocess.DEVNULL, stdout=sink, stderr=sink, env=tts_batch.CHILD_ENV).returncode
+        if rc != 0 or not partial.exists() or partial.stat().st_size <= 1000:
+            return tag, f"FAILED rc={rc}", time.time() - started
+        partial.replace(wav)
+        return tag, "ok", time.time() - started
+
+    jobs = Path(work) / "seeds.tsv"
+    if not jobs.exists() or not jobs.read_text().strip():
+        print("synth: no seeded reads planned (plan --seeds N)")
+        return 0
+    tts_batch.synth = synth_seeded
+    sys.argv = ["tts_batch.py", str(jobs), str(Path(work) / "takes"), "--voice", voice, "--workers", str(workers)]
+    if model:
+        sys.argv += ["--model", model]
+    tts_batch.main()  # exits 1 when a read failed every retry
+
+
+# ---- the joint choice: one line's reads picked together ------------------------------------------
+
+def f0_viterbi(x, rate, fmin=65.0, fmax=330.0, vthr=0.40, jump=0.9, vu=0.25, ncand=5):
+    """A second pitch tracker, held out of the costs (the research pilot P-2's; T-003's third estimate):
+    up to `ncand` autocorrelation peaks above `vthr` per 10 ms frame, then the cheapest path through the
+    frames, where an octave of jump costs `jump` and a voiced/unvoiced change `vu`. Hz per frame, nan when
+    unvoiced. Where a frame's peaks disagree about the octave, the path keeps the one that fits its
+    neighbours, which a per-frame maximum cannot."""
+    n, h = int(0.04 * rate), int(0.01 * rate)
+    lo, hi = int(rate / fmax), min(int(rate / fmin), n - 2)
+    win, states = np.hanning(n), []  # per frame: (Hz of each state, the state's own price); the last state is unvoiced
+    for s in range(0, len(x) - n, h):
+        frame = x[s:s + n]
+        strength, hz = np.empty(0), np.empty(0)
+        if 10 * np.log10(np.mean(frame ** 2) + 1e-18) >= -45:
+            spec = np.fft.rfft((frame - frame.mean()) * win, 2 * n)
+            ac = np.fft.irfft(spec * np.conj(spec))[:n]
+            seg = (ac / (ac[0] + 1e-12))[lo:hi]
+            peaks = np.flatnonzero((seg[1:-1] > seg[:-2]) & (seg[1:-1] >= seg[2:]) & (seg[1:-1] > vthr)) + 1
+            peaks = peaks[np.argsort(-seg[peaks], kind="stable")][:ncand]
+            left, strength, right = seg[peaks - 1], seg[peaks], seg[peaks + 1]
+            curve = left - 2 * strength + right
+            shift = np.where(curve != 0, 0.5 * (left - right) / np.where(curve != 0, curve, 1.0), 0.0)
+            hz = rate / (lo + peaks + shift)
+        states.append((np.append(hz, np.nan), np.append(-strength, -(vthr + 0.02))))
+    if not states:
+        return np.array([])
+    cost, back = states[0][1], []
+    for (prev, _), (f, own) in zip(states, states[1:]):
+        voiced = ~np.isnan(prev)[:, None] & ~np.isnan(f)[None, :]
+        silent = np.isnan(prev)[:, None] & np.isnan(f)[None, :]
+        move = np.where(voiced, jump * np.abs(np.log2(np.where(voiced, f[None, :] / prev[:, None], 1.0))),
+                        np.where(silent, 0.0, vu))
+        total = cost[:, None] + move
+        back.append(np.argmin(total, axis=0))
+        cost = total[back[-1], np.arange(len(f))] + own
+    k, path = int(np.argmin(cost)), []
+    for ptr, (f, _) in zip(reversed(back), reversed(states[1:])):
+        path.append(f[k])
+        k = int(ptr[k])
+    path.append(states[0][0][k])
+    return np.array(path[::-1])
+
+
+def praat_f0(x, rate, floor=60.0, ceiling=300.0):
+    """Per 10 ms frame Hz from Praat (T-007's definition: floor 60, ceiling 300 Hz), nan when unvoiced. The
+    autocorrelation trackers read a creaky ending (62-75 Hz on Video F) 20 to 90 Hz too high and see
+    almost none of the resets that Praat and the owner's gate count, so Praat is the one the costs use."""
+    try:
+        import parselmouth
+    except ImportError:
+        sys.exit("--joint measures pitch with Praat: run it with `uv run --with numpy --with praat-parselmouth`")
+    pitch = parselmouth.Sound(x, sampling_frequency=rate).to_pitch(time_step=0.01, pitch_floor=floor, pitch_ceiling=ceiling)
+    f0 = pitch.selected_array["frequency"].copy()
+    f0[f0 == 0] = np.nan
+    return f0
+
+
+def st_between(a, b):
+    return float(12 * np.log2(a / b))
+
+
+def pitch_ends(f0, hop=0.01, span=0.15):
+    """What one tracker says about a sentence's ends: Hz of its first and its last 150 ms of voiced sound, Hz
+    of the whole, how far the last 150 ms moved from the 300 ms before it (st; nan with nothing before), and
+    whether the ending is creaky (P-2: its median under CREAK_HZ, or half its frames). None with under 8
+    voiced frames."""
+    ok = ~np.isnan(f0)
+    if ok.sum() < 8:
+        return None
+    t, v = np.flatnonzero(ok) * hop, f0[ok]
+    before = v[(t >= t[-1] - span - 0.30) & (t < t[-1] - span)]
+    last = v[t >= t[-1] - span]
+    final = float(np.median(last))
+    return {"onset_hz": float(np.median(v[t <= t[0] + span])), "final_hz": final, "median_hz": float(np.median(v)),
+            "final_move_st": st_between(final, np.median(before)) if len(before) else float("nan"),
+            "creaky": bool(final < CREAK_HZ or np.mean(last < CREAK_HZ) >= 0.5)}
+
+
+def tail_rise(f0, hop=0.01):
+    """The last 120 ms of voiced sound against the 250 ms before it, in st (nan with either missing): the
+    terminal event of B-C03, which the fold in narrate.py's `semitones` hides by construction."""
+    ok = ~np.isnan(f0)
+    if ok.sum() < 8:
+        return float("nan")
+    t, v = np.flatnonzero(ok) * hop, f0[ok]
+    tail, before = v[t >= t[-1] - 0.12], v[(t >= t[-1] - 0.37) & (t < t[-1] - 0.12)]
+    return st_between(np.median(tail), np.median(before)) if len(tail) and len(before) else float("nan")
+
+
+def read_features(seg, rate):
+    """A sentence as it will be assembled, seen by two trackers: Praat, whose numbers the costs use, and the
+    Viterbi autocorrelation path as the second opinion (a terminal event needs both; the run's report counts
+    the resets each sees)."""
+    praat, second = praat_f0(seg, rate), f0_viterbi(seg, rate)
+    return {"praat": pitch_ends(praat), "second": pitch_ends(second),
+            "tail_praat": tail_rise(praat), "tail_second": tail_rise(second)}
+
+
+def terminal_event(feats):
+    return bool(feats and feats["tail_praat"] > TERMINAL[0] and feats["tail_second"] > TERMINAL[1])
+
+
+def node_cost(m, feats, question, lead_extra=False, w=JOINT_COST):
+    """What a read costs on its own: narrate.py's score and its gates, then the defects the score cannot
+    see: an unlicensed pause of HOLE or more, a heard word before the first scripted one, a statement
+    that rises at its end, a creaky ending, a terminal pitch event."""
+    cost = w["score"] * (1 - m["score"])
+    cost += w["gate"] * (bool(m["cut_short"]) + bool(m["sibilant_missing"]) + (m["asr_ratio"] < 0.85))
+    cost += w["name"] * m["misheard_names"] + w["hesitation"] * m["hesitations"] + w["stall"] * m["stalls"]
+    cost += w["hole"] * sum(1 for p in m["pauses"] if p["len"] > HOLE and p["punct"] not in (",", "."))
+    cost += w["onset"] * bool(lead_extra)
+    if feats:
+        move = feats["praat"]["final_move_st"] if feats["praat"] else float("nan")
+        if not question and move == move:
+            cost += w["rise"] * min(8.0, max(0.0, move - 2.0))
+        cost += w["creak"] * bool(feats["praat"] and feats["praat"].get("creaky")) + w["terminal"] * terminal_event(feats)
+    return float(cost)
+
+
+def join_resets(prev, nxt, tracker="praat"):
+    """(reset, register step) across a join in st by one tracker (None, None without it): the next sentence's
+    first 150 ms against the last 150 ms before it, and the move of the sentences' medians."""
+    p, n = (prev or {}).get(tracker), (nxt or {}).get(tracker)
+    if not (p and n):
+        return None, None
+    return st_between(n["onset_hz"], p["final_hz"]), abs(st_between(n["median_hz"], p["median_hz"]))
+
+
+def join_cost(prev, nxt, w=JOINT_COST):
+    """What a pair of reads does at their join: a reset past +12 st (P-2's price) and a register step past 4 st."""
+    reset, step = join_resets(prev, nxt)
+    cost = 0.0
+    if reset is not None and reset > w["tail_at"]:
+        cost += w["tail"] + w["tail_per_st"] * (reset - w["tail_at"])
+    if step is not None:
+        cost += w["register"] * max(0.0, step - w["register_free"])
+    return cost
+
+
+def best_path(layers, join):
+    """The cheapest choice of one read per sentence. layers[i] = [(node cost, features), ...]; join(a, b) is the
+    cost of features a followed by features b. A tie goes to the earlier read (narrate.py's order)."""
+    cost, back = [c for c, _ in layers[0]], []
+    for i in range(1, len(layers)):
+        now, ptr = [], []
+        for c, feats in layers[i]:
+            options = [cost[p] + join(layers[i - 1][p][1], feats) for p in range(len(layers[i - 1]))]
+            p = min(range(len(options)), key=options.__getitem__)
+            now.append(options[p] + c)
+            ptr.append(p)
+        cost, back = now, back + [ptr]
+    k = min(range(len(cost)), key=cost.__getitem__)
+    path = [k]
+    for ptr in reversed(back):
+        k = ptr[k]
+        path.append(k)
+    return path[::-1]
+
+
+def usable_take(work, asr, tag):
+    """narrate.py's test for a candidate: the take exists and its transcript belongs to this exact audio."""
+    wav = Path(work) / "takes" / f"{tag}.wav"
+    if not wav.exists() or tag not in asr:
+        return False
+    sha = asr[tag].get("sha1")
+    return sha is None or sha == hashlib.sha1(wav.read_bytes()).hexdigest()
+
+
+def lead_extra(sentence, heard):
+    """A word the ASR heard before the sentence's first (T-006's 14_3.0: "that" for a stuttered "th-"). A leading
+    "and" is the ASR's own, not the read's."""
+    want = [t for t, _ in nr.tokens(sentence)]
+    got = [t for t, _ in nr.tokens(heard)]
+    _, to_want, _ = nr.align(want, got)
+    lead = next((j for j in range(len(got)) if j in to_want), len(got))
+    return any(t != "and" for t in got[:lead])
+
+
+def joint_choice(script, work, lexicon, sentence_lufs):
+    """Choose every line's reads together and record, in JOINT, the reads that differ from narrate.py's pick.
+    Returns the totals the run prints."""
+    nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
+    plan = json.loads((Path(work) / "plan.json").read_text())
+    asr = json.loads((Path(work) / "asr.json").read_text())
+    excluded = set((Path(work) / "joint_exclude.txt").read_text().split()) if (Path(work) / "joint_exclude.txt").exists() else set()
+    total = {"sentences": 0, "moved": 0, "lines": [], "joins": {"praat": 0, "second": 0},
+             "bad_joins": {"praat": [0, 0], "second": [0, 0]}}  # past +12 st, [narrate.py's picks, the joint picks]
+    for line_id, sents in plan.items():
+        layers, reads, best = [], [], []
+        for s in sents:
+            cands = []
+            for r in s["reads"]:
+                wav = Path(work) / "takes" / f"{r['tag']}.wav"
+                if not usable_take(work, asr, r["tag"]):
+                    continue
+                m = analyze(wav, asr[r["tag"]], r["text"])
+                if m:
+                    cands.append((r, wav, m))
+            if not cands:
+                break  # narrate.py's choose stops on this line; leave it to say so
+            forced = [c for c in cands if c[0]["tag"] in PICKS]
+            cands = forced or cands
+            top = max(range(len(cands)), key=lambda i: cands[i][2]["score"])  # the first of equal scores, like its stable sort
+            layer = []
+            for i, (r, wav, m) in enumerate(cands):
+                seg, *_ = edit(wav, m, sentence_lufs)
+                feats = read_features(seg, nr.RATE)
+                node = node_cost(m, feats, s["text"].rstrip().endswith("?"), lead_extra(r["text"], m["heard"]))
+                node += JOINT_COST["gate"] * (r["tag"] in excluded and i != top)  # failed a line-level gate once
+                layer.append((node + JOINT_COST["change"] * (i != top), feats))
+            layers.append(layer)
+            reads.append(cands)
+            best.append(top)
+        else:
+            path = best_path(layers, join_cost)
+            for i, k in enumerate(path):
+                total["sentences"] += 1
+                if k != best[i]:
+                    total["moved"] += 1
+                    total["lines"].append(f"{line_id}.{sents[i]['j']}")
+                    JOINT[reads[i][k][0]["tag"]] = {
+                        "from": reads[i][best[i]][0]["tag"], "node": round(layers[i][k][0], 3),
+                        "join": round(join_cost(layers[i - 1][path[i - 1]][1], layers[i][k][1]), 3) if i else 0.0}
+            for tracker in ("praat", "second"):
+                for when, picks in enumerate((best, path)):
+                    resets = [join_resets(layers[i - 1][picks[i - 1]][1], layers[i][picks[i]][1], tracker)[0]
+                              for i in range(1, len(picks))]
+                    total["bad_joins"][tracker][when] += sum(1 for r in resets if r is not None and r > JOINT_COST["tail_at"])
+                    if when == 0:
+                        total["joins"][tracker] += sum(1 for r in resets if r is not None)
+    return total
+
+
+def edge_failures(script, out, lexicon):
+    """(line id, what is wrong) for every sentence the report does not bind to the canonical script, and
+    every first or last word of a sentence that is missing from its assembled line's transcript."""
     nr.load_lexicon(nr.resolve_optional(lexicon, "lexicon.json", "lexicon"))
     report = json.loads((out / "report.json").read_text())["lines"]
     heard = json.loads((out / "lines_asr.json").read_text())
     scripted = dict(nr.checked_script(script))
-    missing = [f"{lid}: not in the script" for lid in report if lid not in scripted]
+    missing = [(lid, f"{lid}: not in the script") for lid in report if lid not in scripted]
     for lid, text in scripted.items():
         expected = nr.sentences(text)
         sents = report.get(lid, [])
         if len(sents) != len(expected):
-            missing.append(f"{lid}: report has {len(sents)} sentences, script has {len(expected)}")
+            missing.append((lid, f"{lid}: report has {len(sents)} sentences, script has {len(expected)}"))
         for j, (sentence, recorded) in enumerate(zip(expected, sents)):
             if recorded.get("j") != j:
-                missing.append(f"{lid}.{j}: report sentence index is {recorded.get('j')!r}")
+                missing.append((lid, f"{lid}.{j}: report sentence index is {recorded.get('j')!r}"))
             want = [t for t, _ in nr.tokens(sentence)]
             have = [t for t, _ in nr.tokens(recorded.get("sentence", ""))]
             if have != want:
-                missing.append(f"{lid}.{j}: report sentence differs from the script | {sentence}")
+                missing.append((lid, f"{lid}.{j}: report sentence differs from the script | {sentence}"))
         if not heard.get(lid, {}).get("text", "").strip():
-            missing.append(f"{lid}: no transcript in lines_asr.json")
+            missing.append((lid, f"{lid}: no transcript in lines_asr.json"))
     for lid, sents in report.items():
         want, spans = [], []
         for s in sents:
@@ -510,13 +869,68 @@ def edges(script, out, lexicon):
                 want += words
         text = heard.get(lid, {}).get("text", "").replace("%", " percent")  # the ASR writes the sign
         _, _, hit = nr.align(want, [t for t, _ in nr.tokens(text)])
-        missing += [f"{lid}.{j}: {which} word {want[k]!r} is not in the line's transcript | {sentence}"
+        missing += [(lid, f"{lid}.{j}: {which} word {want[k]!r} is not in the line's transcript | {sentence}")
                     for j, a, b, sentence in spans for k, which in ((a, "first"), (b, "last")) if k not in hit]
-    for m in missing:
+    return missing
+
+
+def edges(script, out, lexicon):
+    """Bind every ordered sentence to the canonical script, then check its first and last word
+    against the assembled line's transcript. Nothing to check is not a pass."""
+    missing = edge_failures(script, out, lexicon)
+    for _, m in missing:
         print("  ", m)
     print(f"edges: {len(missing)} coverage or first/last-word failures -> "
           f"{'FAIL (look at the sheet: cut off, misread, or the ASR spelling, which goes in the lexicon)' if missing else 'PASS'}")
     sys.exit(1 if missing else 0)
+
+
+def exclude(script, work, out, lexicon):
+    """After a `choose --joint` build: a line that fails a line-level gate (qa_lines.py's, or edges: the
+    assembled line's transcript can lose a first word that the take's own transcript has, P-2's lost
+    "But") gives up the reads the joint choice moved in it. They go to work/joint_exclude.txt, which the
+    next `choose --joint` prices as a failed gate; the loop ends when a failing line holds none that is
+    new, and a line with every moved read excluded is narrate.py's. Exits 1 when nothing new was excluded."""
+    out, work = Path(out), Path(work)
+    report = json.loads((out / "report.json").read_text())["lines"]
+    failing = {lid for lid, _ in edge_failures(script, out, lexicon)}
+    if (out / "qa.json").exists():
+        failing |= {r["line"] for r in json.loads((out / "qa.json").read_text())["failing"]}
+    path = work / "joint_exclude.txt"
+    known = set(path.read_text().split()) if path.exists() else set()
+    new = [c["read"] for lid in sorted(failing) for c in report.get(lid, []) if "joint" in c and c["read"] not in known]
+    if new:
+        path.write_text("".join(f"{tag}\n" for tag in sorted(known | set(new))))
+    print(f"exclude: {len(failing)} lines fail a line-level gate; {len(new)} reads the joint choice moved there "
+          f"are now excluded ({len(known) + len(new)} in all)")
+    sys.exit(0 if new else 1)
+
+
+def option(name, default=None):
+    """The value of `name VALUE` or `name=VALUE` on the command line, left in place."""
+    for i, arg in enumerate(sys.argv):
+        if arg == name and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+        if arg.startswith(name + "="):
+            return arg.split("=", 1)[1]
+    return default
+
+
+def take_value(name, default):
+    """option(), removed from the command line: narrate.py's parser would refuse what is ours."""
+    value = option(name, default)
+    for i, arg in enumerate(sys.argv):
+        if arg == name or arg.startswith(name + "="):
+            del sys.argv[i:i + (2 if arg == name else 1)]
+            break
+    return value
+
+
+def take_flag(name):
+    if name in sys.argv:
+        sys.argv.remove(name)
+        return True
+    return False
 
 
 def main():
@@ -535,14 +949,34 @@ def main():
     if len(sys.argv) >= 5 and sys.argv[2] == "edges":
         edges(sys.argv[3], Path(sys.argv[4]),
               sys.argv[sys.argv.index("--lexicon") + 1] if "--lexicon" in sys.argv else None)
+    if len(sys.argv) >= 6 and sys.argv[2] == "exclude":
+        exclude(sys.argv[3], sys.argv[4], sys.argv[5], option("--lexicon"))
+    if len(sys.argv) >= 4 and sys.argv[2] == "synth":
+        synth(sys.argv[3], take_value("--voice", "robert"), take_value("--model", os.environ.get("FTTS_MODEL", "")),
+              take_value("--workers", "8"))
+        sys.exit(0)
     if len(sys.argv) < 3 or sys.argv[2] not in ("plan", "choose"):
         sys.exit(__doc__)
     command, out = sys.argv[2], Path(sys.argv[5]) if len(sys.argv) > 5 else None
+    joint, seeds = take_flag("--joint"), int(take_value("--seeds", "0"))
+    if (joint and command != "choose") or (seeds and command != "plan"):
+        sys.exit("--joint belongs to choose and --seeds to plan")
     nr.tts_variants, nr.analyze, nr.edit, nr.limit_peaks = tts_variants, analyze, edit, counted_limit
     director_files(sys.argv[3], sys.argv[4], command)
+    if joint:
+        total = joint_choice(sys.argv[3], sys.argv[4], option("--lexicon"), float(option("--sentence-lufs", "-23")))
+        bad = total["bad_joins"]
+        print(f"joint: {total['moved']} of {total['sentences']} sentences are read differently from narrate.py's pick"
+              + (f" ({', '.join(total['lines'])})" if total["lines"] else "") + f"; joins that reset the pitch past "
+              f"+{JOINT_COST['tail_at']:.0f} st: {bad['praat'][0]} -> {bad['praat'][1]} of {total['joins']['praat']} by Praat, "
+              f"{bad['second'][0]} -> {bad['second'][1]} of {total['joins']['second']} by the second tracker (held out)")
     sys.argv = [str(Path(sys.argv[1]) / "narrate.py"), *sys.argv[2:]]
     nr.main()
     if command == "plan":
+        planned = add_seeds(sys.argv[3], seeds)  # also empties a seeds.tsv left by an earlier run
+        if seeds:
+            print(f"seeds: {planned} more reads (seed 1..{seeds}) -> {Path(sys.argv[3]) / 'seeds.tsv'}"
+                  f" (make them with: narration.py SKILL_SCRIPTS synth {sys.argv[3]})")
         return
     reads = [s for line in json.loads((out / "report.json").read_text())["lines"].values() for s in line]
     print(f"endings: {sum(s['cut_short'] for s in reads)} of {len(reads)} chosen reads were cut short by ftts "
