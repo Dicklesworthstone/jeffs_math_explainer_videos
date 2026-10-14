@@ -63,6 +63,11 @@ const COUNTED: [(&str, std::ops::Range<usize>); 3] = [(SHOULDER_NAME, 0..3), (EL
 const ARM_AT: [f64; 2] = [-3.1, -2.55];
 const CARD_AT: [f64; 2] = [4.45, 0.0];
 const CARD_SCALE: f64 = 0.92;
+/// 12_4's readout: its label's left edge and height, the right edge of the
+/// live number, and where "cm" is centred, left to right without overlap.
+const MOVED_AT: [f64; 2] = [0.75, 1.9];
+const MOVED_NUMBER_RIGHT: f64 = 3.7;
+const MOVED_CM_X: f64 = 4.15;
 /// The pinned shoulder and the palm on the desk, in the person's picture
 /// (metres, the picture's own frame).
 const SHOULDER_AT: V3 = [0.0, 0.0, 0.62];
@@ -429,8 +434,8 @@ impl SceneConstruct for TheSpareJoint {
             0.6,
         )?;
         world.show(stage, 0.8)?;
-        let moved_label = kit.text(stage, GRIPPER_MOVED, 30.0, Palette::dim(), v(0.9, 1.9))?;
-        let cm_label = kit.text(stage, CM, 30.0, Palette::dim(), v(3.75, 1.9))?;
+        let moved_label = kit.text_left(stage, GRIPPER_MOVED, 30.0, Palette::dim(), v(MOVED_AT[0], MOVED_AT[1]))?;
+        let cm_label = kit.text(stage, CM, 30.0, Palette::dim(), v(MOVED_CM_X, MOVED_AT[1]))?;
         line.wait_for(stage, "Its gripper holds one pose")?;
         fade_in_all(stage, &[moved_label, cm_label], 0.4)?;
         {
@@ -443,7 +448,7 @@ impl SceneConstruct for TheSpareJoint {
                 false,
                 40.0,
                 Palette::ink(),
-                v(3.35, 1.9),
+                v(MOVED_NUMBER_RIGHT, MOVED_AT[1]),
                 RIGHT,
             )?;
         }
@@ -736,6 +741,27 @@ mod tests {
                 v(4.3, 2.4),
             )?;
             assert!(stage.get_right(sum)[0] < 7.0, "the tally fits");
+            Ok(())
+        });
+    }
+
+    /// 12_4's readout reads left to right without touching itself: the
+    /// label, the live number (right-aligned, at its widest "0.0"), "cm".
+    #[test]
+    fn the_gripper_moved_readout_does_not_overlap_itself() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let label = kit.text_left(stage, GRIPPER_MOVED, 30.0, Palette::dim(), v(MOVED_AT[0], MOVED_AT[1]))?;
+            let number = kit.text(stage, "0.0", 40.0, Palette::ink(), v(0.0, 0.0))?;
+            let cm = kit.text(stage, CM, 30.0, Palette::dim(), v(MOVED_CM_X, MOVED_AT[1]))?;
+            let number_left = MOVED_NUMBER_RIGHT - stage.get_width(number);
+            assert!(
+                stage.get_right(label)[0] + 0.1 < number_left,
+                "the label ends at {}, the number starts at {number_left}",
+                stage.get_right(label)[0]
+            );
+            assert!(MOVED_NUMBER_RIGHT + 0.1 < stage.get_left(cm)[0]);
+            assert!(stage.get_right(cm)[0] < 7.11 - 0.15);
             Ok(())
         });
     }
