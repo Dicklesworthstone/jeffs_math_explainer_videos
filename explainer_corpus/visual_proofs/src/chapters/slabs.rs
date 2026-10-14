@@ -466,7 +466,7 @@ impl SceneConstruct for Slabs {
         fade_in_all(stage, &brace.mobs(), 0.4)?;
         together(stage, vec![light(&row, 0)?], 0.0)?;
         // layer 2: two slabs wait, one takes the corner, the other is cut
-        line.wait_for(stage, "The two cube wraps around it")?;
+        line.wait_for(stage, "The cube of side two wraps around it")?;
         let b2 = board_of(2);
         let on_board: Vec<Mob> = layers.iter().flatten().copied().collect();
         brace = pull_back(&kit, stage, CELLS[0], &b2, &on_board, &brace, sides[0])?;
@@ -569,7 +569,7 @@ impl SceneConstruct for Slabs {
             &format!("{} ÷ {} = {arm4_slabs} {SLABS}", arm4[1], arm4[0]),
         )?;
         fade_in_all(stage, &[reason], 0.5)?;
-        line.wait_for(stage, "So two go in whole")?;
+        line.wait_for(stage, "three go in whole")?;
         let mut moves = Vec::new();
         for p in four.iter().filter(|p| p.part == Part::Whole && p.slab > 0) {
             moves.push(to_place(&b4, waiting4[p.slab as usize], p, 0.8)?);

@@ -453,7 +453,7 @@ impl SceneConstruct for AThird {
             put(stage, 0.55, -0.55, flat(copy(2), 1.0))?,
             put(stage, 0.55, 0.55, faded_line(dim(), 2.0, 1.0))?,
         ];
-        line.wait_for(stage, "Archimedes added")?;
+        line.wait_for(stage, "Archimedes used")?;
         let mut close = vec![ring];
         close.extend(&twins);
         fade_in_all(stage, &close, 0.5)?;

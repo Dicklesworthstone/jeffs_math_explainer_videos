@@ -83,10 +83,14 @@ positive lengths), as the card in the video says.
   behind and beside it [F-S.grown.slab, F-S.grows.through]. With whole cubes
   three stacks cannot make a box (90 cubes have no box with every side at
   least 4); six whole stacks can, 4 by 5 by 9, found by exhaustive search and
-  checked cell by cell. Three is the fewest under the video's rule, by the
+  checked cell by cell; six is also the fewest for whole cubes, since four and
+  five stacks do not tile their only candidate boxes (4 by 5 by 6 and 5 by 5 by
+  6), by three independent exact-cover searches. Three is the fewest under the video's rule, by the
   size of the box [F-S.fewest, F-S.fewest.box]: a stack is 4 by 4 by 4 at its
   widest in every direction, so the only box that can hold one and has 30, 60
-  or 90 cubes is 4 by 5 by 4½.
+  or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
+  for boxes on the cube lattice (whole width and depth, height in halves), not
+  a search over every packing.
 - **Halves.** After n pieces the filled part is 1 − 1/2ⁿ and the gap is
   exactly the last piece, 1/2ⁿ; the gap is never zero, and it is below every
   size you name from some n on. "Equals one" here means that no partial sum
@@ -116,10 +120,13 @@ positive lengths), as the card in the video says.
   counted, not drawn: each count is the sum of two neighbours in the row
   above [F-B.fourth.from_cube]. Slide the cut anywhere between the ends and
   the cube is still eight blocks; at the very end of a side seven of them
-  have no volume.
+  have no volume. Past the middle the part called long is the smaller one;
+  the identity does not care which is which.
 - **Four triangles.** Four copies of the 3-4-5 triangle in a 7 by 7 square
   leave a tilted square of 49 − 24 = 25; slid without turning they leave a 3
-  by 3 and a 4 by 4 [F-P.big, F-P.triangles, F-P.tilted, F-P.squares]. It
+  by 3 and a 4 by 4 [F-P.big, F-P.triangles, F-P.tilted, F-P.squares]. That
+  second arrangement is the cut square of the section above, (a + b)² = a² +
+  2ab + b², read against the four triangles. It
   holds for every pair of shorter sides a and b, because the tilted shape has
   four sides of length √(a² + b²) and four right angles (the two sharp
   angles of a right triangle make a right angle), and with 2 and 5 the long
@@ -130,7 +137,7 @@ positive lengths), as the card in the video says.
   two-arrangement figure to A. D. Wheeler (1859), the earliest printing found
   and not a claimed first [S13]. It is not "Pythagoras's own proof" and not "a
   Chinese proof from 200 BC".
-- **The picture that lies.** Four pieces of 12, 5, 8 and 7 squares add to 32,
+- **The picture that lies.** Four pieces of 12, 5, 8 and 7 tiles add to 32,
   the triangle they seem to fill is 13 by 5 and would hold 32½ [F-L.pieces,
   F-L.pieces.total, F-L.true_triangle]. The two slopes are 3/8 and 2/5 and
   the straight edge from corner to corner is 5/13 [F-L.slopes,
@@ -156,13 +163,19 @@ positive lengths), as the card in the video says.
   C(n, 4) regions: 1, 2, 4, 8, 16, 31, 57, 99 for n = 1 to 8
   [F-C.closed_form, to n = 7]. Evenly spaced points need not be in that
   position: six give only 30, because the three long lines meet in the middle
-  [F-C.evenly_spaced.regions]. The pattern is in Leo Moser's note "On the
+  [F-C.evenly_spaced.regions], and eight give 88, not 99, because several lines
+  meet inside (counted exactly in the oracle, in Q(√2)
+  [F-C.evenly_spaced.regions.eight]). The pattern is in Leo Moser's note "On the
   Danger of Induction", *Mathematics Magazine* 23(2), November–December
   1949, p. 109 [S1, F-X.moser].
 - **Five tests in a row.** The doubling holds for 1 to 5 points and the cube
   totals 1, 9, 36, 100, 225 are squares: two patterns that pass five checks.
   Five passing tests prove nothing about the sixth [F-C.regions,
   F-C.cube_totals].
+- **A loop against a formula.** Adding 1 + 2 + … + n one at a time is n
+  steps; n(n + 1) ÷ 2 is one multiplication and a halving, and n(n + 1) is
+  always even, so the integer division is exact. The picture is why it is
+  right: two staircases make a rectangle [F-T.count.hundred].
 - **Floats.** In 64-bit floating point the running sum ½ + ¼ + ⅛ + … is
   exactly 1.0 after 54 pieces: the machine cannot see the gap that the video
   says never closes [F-H.float.reaches_one].
@@ -178,6 +191,29 @@ positive lengths), as the card in the video says.
   how far the slow check was run: the cubes up to 40, Siu's box up to 24
   levels, every sum up to 1,000 [F-K.tiled.through, F-S.filled.through,
   F-K.sum.through].
+
+## Try it
+
+```python
+from math import comb
+[1 + comb(n, 2) + comb(n, 4) for n in range(1, 9)]   # 1, 2, 4, 8, 16, 31, 57, 99
+
+s, k = 0.0, 0                                        # the halved square in floats
+while s < 1.0:
+    k += 1
+    s += 2.0 ** -k
+print(k)                                             # 54
+
+n = 4                                                # Siu's three stacks of n levels
+s0 = {(x, y, z) for z in range(n) for x in range(n - z) for y in range(n - z)}
+s1 = {(x, y, z) for y in range(1, n + 1) for x in range(y) for z in range(n - y, n)}
+s2 = {(x, y, z) for x in range(n) for y in range(x + 1) for z in range(n - x, n + 1)}
+box = {(x, y, z) for x in range(n) for y in range(n + 1) for z in range(n)}
+step = {(x, y, n) for x in range(n) for y in range(x + 1)}   # the staircase on top
+assert not (s0 & s1 or s0 & s2 or s1 & s2) and s0 | s1 | s2 == box | step
+# the three are the same solid turned; n = 1 to 24 all pass. The box is n by n + 1
+# by n + 1/2 once the staircase's cubes are sliced and its upper halves turned.
+```
 
 ## Not said, on purpose
 

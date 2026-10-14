@@ -25,7 +25,7 @@ are other people's pictures and are not in this repository.
 | id | Source | Used for | Seen |
 |---|---|---|---|
 | S1 | Leo Moser, "On the Danger of Induction", *Mathematics Magazine* 23(2), November–December 1949, p. 109 | the circle's regions: 1, 2, 4, 8, 16 and then 31 for 6 points, "no three chords concurrent" | the note's text (OCR of the issue): "if we go to n = 6 we find that f(6) = 31"; its formula is garbled in the OCR and is not quoted. Martin Gardner, *Mathematical Circus* (1979), ch. 14, calls it a "problem discovered by Leo Moser" (snippet); MathWorld: "sometimes known as Moser's circle problem"; OEIS A000127 (mirror) |
-| S2 | Nicomachus of Gerasa, *Introduction to Arithmetic* (about 100 CE), II.20.5, trans. M. L. D'Ooge (Macmillan, 1926), pp. 263–264; II.9.3, p. 243 | cubes as runs of odd numbers; squares as sums of odd numbers | "the first one makes the potential cube; the next two, added together, the second; the next three, the third"; and (II.9.3) "the third, 1 plus 3 plus 5, is the second in actuality". Whether the passage goes on past the third cube is not recorded here; the rule it states for every cube is tested to k = 200 (`F-K.odd_runs`) |
+| S2 | Nicomachus of Gerasa, *Introduction to Arithmetic* (about 100 CE), II.20.5, trans. M. L. D'Ooge (Macmillan, 1926), pp. 263–264; II.9.3, p. 243 | cubes as runs of odd numbers; squares as sums of odd numbers | "the first one makes the potential cube; the next two, added together, the second; the next three, the third"; and (II.9.3) "the third, 1 plus 3 plus 5, is the second in actuality". The passage goes on, read in the D'Ooge translation (II.20, pp. 263–264, an archive.org text) by the R2 audit: "the four next following, the fourth; the succeeding five, the fifth; the next six, the sixth; and so on"; the rule for every cube is tested to k = 200 (`F-K.odd_runs`) |
 | S3 | T. L. Heath, *A History of Greek Mathematics*, vol. 1 (Oxford, 1921), pp. 77, 82–84, 108–109 | what Nicomachus did not say; al-Karaji's proof; the gnomons | "Nicomachus does not give this formula, but it was known to the Roman agrimensores"; al-Karaji ("Alkarkhi … of the tenth-eleventh century") "has a proof of the theorem now in question by means of a figure with gnomons drawn in it"; "The odd numbers successively added were called gnomons" |
 | S4 | Aryabhata, *Aryabhatiya* (499 CE), Ganitapada stanza 22, trans. W. E. Clark (Chicago, 1930), pp. 37–38 | the first explicit statement of the sum-of-cubes rule that was read | "The square of the sum of the (original) series is the sum of the cubes." The date 499 is from D. Pengelley (arXiv 1912.03527) |
 | S5 | Alan L. Fry, "Proof without Words: Sum of Cubes", *Mathematics Magazine* 58(1), January 1985, p. 11 | the slab picture with one slab cut in half for an even cube | Crossref record; Nelsen p. 86. The picture by description only (S. M. Blinder's Wolfram Demonstration, 2020, citing Fry): "For an even summand, one of the square slabs is cut in half for each end of the L-shape." **Partly verified**: the printed page was not seen |
@@ -58,13 +58,13 @@ square; that Moser proved or named the circle problem.
 |---|---|---|---|
 | region | 02_4 | "The lines cut the circle into pieces, and each piece is a region" | the tinted pieces of the disc |
 | layer (L-shaped) | 03_1 | "wrap an L-shaped layer around it"; "each as wide as its cube" (05_2) | lower-third at 03_5: "gnomon" |
-| thin layer | 06_5 | "Cut every cube's layer into thin layers, one tile wide" | chapter 03's layers, regrouped by cube |
+| thin layer | 06_5 | "the first proof's layers again, fifteen thin ones" | chapter 03's layers, regrouped by cube |
 | the card | 03_6 | "what the picture showed, and what it took for granted" | **Shown** / **Assumed** |
 | proof | 02_7, 03_6 | "Such a reason is called a proof"; "A picture that shows why, and checks what it took for granted, is a proof" | the card |
 | guess | 02_5, 07_2 | "Guess before you count" (the quiz the viewer cannot derive) | the card |
 | staircase | 04_1 | "Build a staircase of tiles. One, two, three, four, five" | lower-third at 04_5: "triangular numbers" |
 | slab | 01_1, 05_1 | "A cube five tiles on a side is five slabs, each five by five" | the slices of a cube |
-| arm, corner | 03_1 (labelled), 03_4, 05_2 | "one for the corner"; "One slab fits the corner of the L" | the two straight parts of a layer and the square where they meet |
+| arm, corner | 03_1 (labelled), 03_4, 05_2 | "one for the corner"; "One slab fits the corner of the layer" | the two straight parts of a layer and the square where they meet |
 | row, column | 03_4 | "One tile at the end of every row, one on top of every column" | the rows and columns of the square |
 | stack, level | 07_1 | "Stack them, biggest at the bottom, every level pushed into the same corner" | Siu's solid; its levels of 16, 9, 4 and 1 cubes (never "layers") |
 | mathematical induction | 09_4 (screen only) | not spoken | lower-third: "mathematical induction: the first case, and each case leads to the next. Not guessing from cases, as in chapter 2" |
@@ -72,28 +72,28 @@ square; that Moser proved or named the circle problem.
 | block, short side | 12_4 | "A block's kind is how many of its sides are short" | the parts of the cut cube, coloured by short sides |
 | Pascal's triangle | 12_7 (screen only) | not spoken | lower-third |
 | long side, shorter sides | 13_1 | "A right triangle with shorter sides three and four" | hypotenuse and legs are never said |
-| Pythagoras's theorem | 13_6 | "This is the theorem that carries Pythagoras's name" | lower-third: "Pythagoras's theorem" |
+| Pythagoras's theorem | 13_6 (screen only) | the theorem is stated in words ("The two small squares always add up to the tilted square"), the name is not said | lower-third: "Pythagoras's theorem" |
 
 ## Simplification → exact
 
 | Line | Said | Exact |
 |---|---|---|
-| 02_6 | "Thirty-one." | 31 regions when no three lines pass through one point inside the circle; six evenly spaced points give 30 (`F-C.evenly_spaced.regions`; the three-through-one set `F-C.three_through_one.regions` is a different, uneven set with the same count). On screen in the lower-third. 02_4 says the condition in words: no three lines cross at one place inside the circle; unevenly spaced is neither necessary (n = 3, 4, 5, 7 and 9 evenly spaced points give the generic count) nor sufficient (the three-through-one set is uneven) |
+| 02_6 | "Thirty-one." | 31 regions when no three lines pass through one point inside the circle; six evenly spaced points give 30 (`F-C.evenly_spaced.regions`; the three-through-one set `F-C.three_through_one.regions` is a different, uneven set with the same count). On screen in the lower-third. 02_4 says the condition in words: no three lines cross at one place inside the circle; unevenly spaced is not the condition: it is not sufficient (the three-through-one set is uneven and gives 30), and evenly spaced points are generic at n = 3, 4, 5, 7 and 9 and fail only from six, at even n (six give 30, eight give 88: `F-C.evenly_spaced.regions.eight`, oracle only) |
 | 03_4, 03_5, 03_6 | "each layer is two longer"; "The same picture works all the way to the hundredth layer"; "at every size" | for every whole number n ≥ 1, an L of two arms each as long as the side k of the square it wraps and one corner tile is 2k + 1 tiles and makes the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n² |
 | 06_4 | "The cubes up to any number make a square. Its side is one plus two and so on, up to that number." | for every whole number n ≥ 1, 1³ + … + n³ = (1 + … + n)² = (n(n + 1)/2)² |
 | 06_5 | "Nicomachus noticed that every cube is a run of odd numbers" | cube k is the k consecutive odd numbers from k(k − 1) + 1 (`F-K.odd_runs`; k = 1 to 200 tested), so the cubes up to n³ are the first 1 + 2 + … + n odd numbers, which add to (1 + … + n)². He did not state the rule that carries his name (S2, S3) |
 | 06_6 | "Al-Karaji proved the rule with L-shaped layers around the year one thousand." | Heath: "a proof … by means of a figure with gnomons drawn in it"; "tenth-eleventh century" |
-| 08_4 | "With any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box" | 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1)/6, for every whole number n ≥ 1. On screen in the lower-third |
+| 08_4 | "If this goes on working for any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box" | 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1)/6, for every whole number n ≥ 1. On screen in the lower-third |
 | 08_5 | "Man-Keung Siu … published this picture in nineteen eighty-four, under the title Proof Without Words, Sum of Squares." | S8: the title, the year and the page, from Crossref and Nelsen; "published this picture" is partly verified (no printed figure seen) and nothing dates the picture itself |
 | 09_4 | "That covers every height." | induction on the number of layers: the solid of height n + 1 is the solid of height n lifted by one cube with three new n + 1 by n + 1 slabs, under, behind and beside (`model::stacks::grows`); height 1 is three cubes |
 | 10_4, 10_5 | "no number smaller than one is big enough to be the total"; "nothing ever passes one"; "this endless sum equals one" | the partial sums 1 − 1/2ⁿ are all below 1 (the pieces lie inside the square) and exceed every number below 1; for pieces that are all positive that is what "equals one" means. On screen in the lower-third |
 | 11_5 | "each colour, with its share of the corner, is exactly one third" | after n cuts each colour holds (1 − 1/4ⁿ)/3, and with a third of the uncut corner (1/4ⁿ)/3 that is exactly 1/3 at every n (`F-R.short` at n = 3); the limit of what a colour holds is 1/3. On screen in the lower-third |
-| 11_6 | "Archimedes added quarters of quarters like these, in ancient Greece, to measure a slice of a parabola" | Proposition 23 is a finite identity with a remainder, A + … + Z + ⅓Z = (4/3)A; he does not sum an infinite series (S11) |
+| 11_6 | "Archimedes used quarters of quarters like these, stopping at a last piece, to measure a slice of a parabola" | Proposition 23 is a finite identity with a remainder, A + … + Z + ⅓Z = (4/3)A; he does not sum an infinite series (S11) |
 | 12_6 | "nothing depended on three and two"; "Slide the cut anywhere inside, and it is still eight blocks" | (a + b)³ = a³ + 3a²b + 3ab² + b³ for all positive lengths a and b, and eight blocks of positive volume while 0 < a < a + b; at the very end of the slide (a = 0) seven blocks have no volume (`a_cut_at_the_end_of_a_side_leaves_one_block`). The video slides the cut through whole and half values |
 | 12_7 | "every block of the cube appears twice"; "no one can build it in our space" | (a + b)⁴ = a·(a + b)³ + b·(a + b)³; the count with j short sides is C(4, j) = C(3, j) + C(3, j − 1) |
-| 13_6 | "It holds for every right triangle. With shorter sides two and five, the tilted square is twenty-nine, and the long side is no whole number." | for all positive legs a and b: the tilted shape has four sides of length √(a² + b²) and four right angles, and its area is (a + b)² − 2ab |
+| 13_6 | "It holds for every right triangle. The two small squares always add up to the tilted square. Shorter sides two and five make a tilted square of twenty-nine, and no whole long side." | for all positive legs a and b: the tilted shape has four sides of length √(a² + b²) and four right angles, and its area is (a + b)² − 2ab |
 | 14_6 | "One edge sags below the true line, the other bulges above"; "The sliver was exactly one tile" | the two bent edges are 1/8 apart at most, measured straight up, from x = 5 to x = 8, and closer elsewhere (`F-L.sliver.thickest`, on screen); each bend is 1/13 off the straight line, measured straight up (`F-L.dip`, `F-L.bulge`); the sliver is the parallelogram with sides (5, 2) and (8, 3), area 8 × 2 − 3 × 5 = 1, a fundamental domain of the integer lattice, so its 17 pieces slide by whole tiles into the one empty tile |
-| 14_7 | "Martin Gardner says the trick began with Paul Curry, a New York amateur magician, in nineteen fifty-three. Gardner found triangle forms like this one and published them three years later" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
+| 14_7 | "Martin Gardner credits Paul Curry, a New York amateur magician, with this form of it in nineteen fifty-three. Gardner found triangle forms like this one and published them three years later" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
 
 ## Misconceptions
 
@@ -102,7 +102,7 @@ square; that Moser proved or named the circle problem.
 | 02 | a pattern that holds five times is as good as proved | 02_6: 31, not 32 |
 | 03 | a picture of five layers is only about five layers | 03_4: each arm is as long as the side it wraps, at every size |
 | 05 | cutting a slab is a fudge | 01_2 says so at once; 05_5: an even cube's arm is a whole number of slabs and a half |
-| 07 | three stacks make a box of whole cubes | 07_2 and 08_2: they cannot (90 cubes have no box with every side at least 4); a half cube makes the box |
+| 07 | three stacks make a box of whole cubes | 08_1 and 08_2: ten cubes cannot cover twenty places, so each is sliced and a half cube makes the box; the description says that with whole cubes three stacks cannot (90 cubes have no box with every side at least 4) |
 | 08 | the half in n + ½ is a trick of algebra | 08_2: a layer of cubes sliced flat |
 | 09 | a picture drawn at four layers proves it for four layers | 09_2: three new slabs take any height to the next |
 | 10 | "equals one" means "gets close to one" | 10_4: every guess below one is passed; one is not |
@@ -145,6 +145,7 @@ whose three long lines all pass through the centre.
 | `F-C.three_through_one.crossings` | `13` | distinct crossings when three lines pass through one point |
 | `F-C.three_through_one.regions` | `30` | regions in that case: one fewer than 31 |
 | `F-C.evenly_spaced.regions` | `30` | regions of six evenly spaced points, drawn as a regular hexagon's stretch onto whole coordinates ((1, 0), (0, 1), (−1, 1), (−1, 0), (0, −1), (1, −1); a slanted stretch keeps lines straight and crossings in place): 02_6's "six evenly spaced points give 30" |
+| `F-C.evenly_spaced.regions.eight` | `88` | oracle only (the video does not print it): regions of eight evenly spaced points, counted exactly in Q(√2) (a + b√2 with rational a and b), by the intersections of the 28 chords; 99 for general position, so eleven regions are lost to lines that meet. The counter is first run on the drawn points and the hexagon and agrees |
 
 ### F-O: L-shaped layers (chapter 03)
 
@@ -410,7 +411,7 @@ Every countdown in the storyboard is one of these (a test in `main.rs`).
 | `F-Q.cut_slabs.line` | `05_4` | "The four cube has four slabs. How many of them will have to be cut?" |
 | `F-Q.cut_slabs.seconds` | `8` | its countdown |
 | `F-Q.cut_slabs.answer` | `1` | slabs of the four cube that are cut |
-| `F-Q.stacks.line` | `07_2` | "How many of these stacks does it take to build a solid box?" |
+| `F-Q.stacks.line` | `07_2` | "What is the fewest number of these stacks, turned to fit, that make a solid box?" |
 | `F-Q.stacks.seconds` | `7` | its countdown |
 | `F-Q.stacks.answer` | `3` | stacks in Siu's box |
 | `F-Q.share.line` | `11_3` | "What fraction of the whole square is coloured?" |
@@ -462,7 +463,7 @@ nothing, with the test that tries its edges (`src/facts.rs` and
 | 06_4 | "every cube fits, at every size" | as above; the sum to n = 1000 | `F-K.tiled.through`, `F-K.sum.through` |
 | 06_5 | "every cube is a run of odd numbers" | k = 1 to 200, and that the runs use every odd number once | `each_cube_is_a_run_of_consecutive_odd_numbers` |
 | 07_3 | (shown) each stack is the first one turned | the determinant of each turn is 1 | `three_stacks_fill_siu_s_box` |
-| 08_4 | "With any number of levels, the box is …" | n = 1 (three cubes) to 24 | `three_stacks_fill_siu_s_box` |
+| 08_4 | "If this goes on working for any number of levels, the box is …" | n = 1 (three cubes) to 24 | `three_stacks_fill_siu_s_box` |
 | 09_3 | "nothing overlaps" | the three new slabs and the lifted solid, n = 1 to 24 | `each_height_is_the_last_one_on_three_new_slabs` |
 | 09_4 | "That covers every height." | the step for n = 1 to 24, and height 1 | `F-S.grows.through`, `F-S.one.box` |
 | 10_4 | "Not after any number of steps." | every partial sum to 60 pieces is below 1 | `the_edges_of_every_always` |
@@ -476,5 +477,7 @@ nothing, with the test that tries its edges (`src/facts.rs` and
 | 07_2 | "the fewest number of these stacks … that make a solid box" | one and two stacks (30 and 60 cubes) have no box under the rule; three have exactly one; whole cubes: three have none and six have 4 by 5 by 9 | `three_is_the_fewest_stacks_that_make_a_box`, `F-S.fewest` |
 | 12_6 | "Slide the cut anywhere inside, and it is still eight blocks." | a = 0 and b = 0, in 1 to 4 dimensions: one block has volume, not 2^d | `a_cut_at_the_end_of_a_side_leaves_one_block` |
 | 02_4 | "Place the points so that no three lines cross at one place inside the circle." | six evenly spaced points give 30; the three-through-one set (uneven) gives 30; the drawn six give 31 | `six_evenly_spaced_points_make_thirty_regions`, `three_lines_through_one_point_lose_a_region` |
+| 11_5 | "each colour, with its share of the corner, is exactly one third"; "no number short of one third is enough, and nothing passes it" | levels 1 to 20 (the R2 audit and reviewers ran 0 to 59 exactly) | `F-R.checked.through` |
+| 12_7 | "no one can build it in our space" | not a computation: a block with four lengths at right angles needs four dimensions and space has three; the count is `F-B.fourth.kinds` | the card: "counted, not built" |
 | 14_7 | "Neither picture was ever a triangle." | neither bend lies on the straight edge | `F-L.bends.on_the_edge` |
 | 02_7 | "Five checks in a row prove nothing about the sixth." | the doubling holds for 1 to 5 drawn points and fails at 6 and 7 | `the_edges_of_every_always` |

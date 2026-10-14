@@ -932,11 +932,11 @@ impl SceneConstruct for EveryCube {
             if n == 1 {
                 line.wait_sentence(stage, 1)?;
             }
+            // the line is three sentences (the first cube, the two cube, and
+            // "so this square is the first proof's layers again"): the rows
+            // from the three cube on arrive with the last
             if n == 2 {
                 line.wait_sentence(stage, 2)?;
-            }
-            if n == 3 {
-                line.wait_sentence(stage, 3)?;
             }
             let row = row.clone();
             play_with(stage, 0.05, |st| {

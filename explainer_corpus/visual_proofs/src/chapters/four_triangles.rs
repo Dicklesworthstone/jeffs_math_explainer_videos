@@ -605,17 +605,21 @@ impl SceneConstruct for FourTriangles {
             )?,
         ];
         line.wait_for(stage, "right triangle")?;
-        // the shorter sides slide through other lengths and come to rest at
-        // the other pair, two and five
+        // the shorter sides slide through other lengths while the theorem is
+        // stated (its name is on screen only), then come to rest at the other
+        // pair, two and five, as that pair is named
         let other = oa as f64;
-        for (i, &to) in [1.0, total - 1.0, other].iter().enumerate() {
+        for (i, &to) in [1.0, total - 1.0].iter().enumerate() {
             stage.play(tween(live.a, to, if i == 0 { 1.2 } else { 1.6 })?)?;
         }
-        let none = kit.text(stage, NO_WHOLE, 30.0, hero(), v(PANEL_X, -0.7))?;
-        fade_in_all(stage, &[none], 0.5)?;
-        line.wait_for(stage, "Pythagoras")?;
+        line.wait_for(stage, "The two small squares")?;
         let theorem = lower_third(&kit, stage, THEOREM_LABEL, THEOREM_TEXT)?;
         fade_in_all(stage, &[theorem], 0.5)?;
+        line.wait_for(stage, "Shorter sides two and five")?;
+        stage.play(tween(live.a, other, 1.6)?)?;
+        line.wait_for(stage, "no whole long side")?;
+        let none = kit.text(stage, NO_WHOLE, 30.0, hero(), v(PANEL_X, -0.7))?;
+        fade_in_all(stage, &[none], 0.5)?;
         line.wait_end(stage)?;
         pause(stage, 0.4)?;
 

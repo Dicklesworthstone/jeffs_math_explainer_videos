@@ -275,6 +275,69 @@ def crossing(one, two):
     return None
 
 
+class Root2:
+    """a + b * sqrt(2) with exact rational a and b: a field, so lines through such points meet at such points."""
+
+    __slots__ = ("a", "b")
+
+    def __init__(self, a, b=0):
+        self.a, self.b = F(a), F(b)
+
+    @staticmethod
+    def of(x):
+        return x if isinstance(x, Root2) else Root2(x)
+
+    def __add__(self, o):
+        o = Root2.of(o)
+        return Root2(self.a + o.a, self.b + o.b)
+
+    def __sub__(self, o):
+        o = Root2.of(o)
+        return Root2(self.a - o.a, self.b - o.b)
+
+    def __mul__(self, o):
+        o = Root2.of(o)
+        return Root2(self.a * o.a + 2 * self.b * o.b, self.a * o.b + self.b * o.a)
+
+    def __truediv__(self, o):
+        o = Root2.of(o)
+        norm = o.a * o.a - 2 * o.b * o.b
+        return self * Root2(o.a / norm, -o.b / norm)
+
+    def __eq__(self, o):
+        o = Root2.of(o)
+        return self.a == o.a and self.b == o.b
+
+    def __hash__(self):
+        return hash((self.a, self.b))
+
+
+def regions_of_a_convex_ring(points):
+    """Regions the chords between points in convex position (given in order round the ring) cut the
+    region they bound into, plus the circular pieces between neighbours: 1 + chords + the sum over
+    the crossing points of (chords through it - 1). Two chords cross inside exactly when their ends
+    interleave, so no angle or sign is ever tested; the points are the exact intersections."""
+    n = len(points)
+    chords = [(i, j) for i in range(n) for j in range(i + 1, n)]
+
+    def line(i, j):
+        (x1, y1), (x2, y2) = points[i], points[j]
+        a, b = y2 - y1, x1 - x2
+        return a, b, a * x1 + b * y1
+
+    through = {}
+    for u, (i, j) in enumerate(chords):
+        for k, l in chords[u + 1:]:
+            if not (i < k < j < l or k < i < l < j):
+                continue
+            a1, b1, c1 = line(i, j)
+            a2, b2, c2 = line(k, l)
+            det = a1 * b2 - a2 * b1
+            where = ((c1 * b2 - c2 * b1) / det, (a1 * c2 - a2 * c1) / det)
+            through.setdefault(where, set()).update({(i, j), (k, l)})
+    return 1 + len(chords) + sum(len(c) - 1 for c in through.values())
+
+
 def draw(points):
     """Join the points pair by pair, one line at a time, counting regions as they split.
 
@@ -369,6 +432,18 @@ def circle():
     h_after, _, h_crossings, _ = draw(hexagon)
     emit("F-C.evenly_spaced.regions", h_after[-1])
     check("six evenly spaced points give the three-through-one counts", (h_after[-1], len(h_crossings)) == (t_after[-1], len(t_crossings)))
+    # The description says "eight evenly spaced points give 88, not 99". Eight evenly spaced
+    # points need the square root of two, so they are counted exactly in Q(sqrt 2); the counter
+    # is first checked on points whose counts are settled above.
+    cyclic = lambda pts: sorted(pts, key=lambda p: math.atan2(float(p[1]), float(p[0])))
+    exact = lambda pts: [(Root2.of(x), Root2.of(y)) for x, y in pts]
+    check("the exact ring counter agrees on the drawn points, 1 to 7 of them", all(regions_of_a_convex_ring(exact(cyclic(points[:k]))) == closed_form for k, closed_form in zip(range(3, 8), closed[2:])))
+    check("the exact ring counter agrees on the hexagon", regions_of_a_convex_ring(exact(hexagon)) == h_after[-1])
+    half = Root2(0, F(1, 2))  # sqrt(2) / 2
+    zero, one = Root2(0), Root2(1)
+    octagon = [(one, zero), (half, half), (zero, one), (zero - half, half), (zero - one, zero), (zero - half, zero - half), (zero, zero - one), (half, zero - half)]
+    emit("F-C.evenly_spaced.regions.eight", regions_of_a_convex_ring(octagon))
+    check("eight evenly spaced points lose eleven regions to the lines that meet", regions_of_a_convex_ring(octagon) == 1 + math.comb(8, 2) + math.comb(8, 4) - 11)
 
 
 # --- F-O: L-shaped layers --------------------------------------------------------
