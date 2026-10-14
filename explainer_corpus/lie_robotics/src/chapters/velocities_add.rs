@@ -17,6 +17,7 @@ use super::draw::{
     circle_points, entry, fact, fade_in_all, fade_in_lagged, faded_line, leave, line_style, point_fn, say, still,
     table, tag, turned_about,
 };
+use super::steps::goal_frame;
 use crate::model::{self, Arm, ELBOW, Pose, SHOULDER, V3, add, cross, poses, scale, slide_of, spin_of, sub};
 use crate::palette;
 
@@ -42,6 +43,16 @@ const WHICH_FASTEST: &str = "which joint moves the tip fastest?";
 const ASKED_NAMES: [&str; 3] = ["1 · the base", "2 · the shoulder", "7 · the wrist"];
 const ZERO_CM: &str = "0 cm";
 const ONLY_SPINS: &str = "only spins it";
+/// The column rule, set in TeX like the tip note (its cross is the math font's).
+const COLUMN_RULE_TEX: &str =
+    r"\text{column } i = (\omega,\,-\omega \times c)\text{: } \omega \text{ its unit axis, } c \text{ a point on it}";
+const NOW_WORD: &str = "now";
+const AT_ZERO_WORD: &str = "at zero";
+/// What the dimmed goal stands for through chapters 10 to 12: the answer
+/// the robot is after is reached in steps, each a speed held for a second.
+pub const GOAL_STANDS: &str = "the goal: reached in steps, each a speed held for one second";
+/// Where it stands: the top left, above the arm and clear of the readouts.
+pub const GOAL_STANDS_AT: [f64; 2] = [-6.7, 2.7];
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 5] = ["10_1", "10_2", "10_3", "10_4", "10_5"];
@@ -91,10 +102,18 @@ const TIE_BELOW: f64 = 0.45;
 const LEVER_SHIFT: [[f64; 2]; 3] = [[-0.1, 0.45], [-0.95, 0.15], [0.85, 0.45]];
 const LEG_SHIFT: [[f64; 2]; 2] = [[0.0, -0.32], [0.95, 0.0]];
 const SPINS_ONLY_SHIFT: [f64; 2] = [1.5, 0.0];
+/// 10_2's two words against the elbow's two axes: "now" right and above the
+/// axis where the arm has it (left of it are the arm's own links, below it
+/// the goal's marker and the table), "at zero" left of the axis where the
+/// recipe had it.
+const NOW_SHIFT: [f64; 2] = [1.0, 0.35];
+const ZERO_SHIFT: [f64; 2] = [-1.0, 0.1];
+/// How far the elbow's two axes run each way out of their points (metres).
+const AXIS_REACH: f64 = 0.32;
 /// Metres drawn per metre a second of tip speed, so the arrows read.
 const ARROW_PER_SPEED: f64 = 0.5;
 /// The goal marker's opacity once its first moment has passed.
-const GOAL_DIMMED: f64 = 0.4;
+pub const GOAL_DIMMED: f64 = 0.4;
 const LEVER_WIDTH: f64 = 4.0;
 /// A spin's curl: three quarters of a circle, then its head.
 const CURL_SWEEP: f64 = 1.5 * PI;
@@ -120,6 +139,9 @@ mod part {
     pub const LEVER_SHOULDER: usize = 34;
     pub const LEVER_WRIST: usize = 35;
     pub const TRIANGLE: usize = 36;
+    /// The elbow's axis where it is now and where it stood at zero (10_2).
+    pub const ELBOW_NOW: usize = 37;
+    pub const ELBOW_ZERO: usize = 38;
 }
 
 /// A spin as the pictures draw it: an arc about `axis` through `centre`,
@@ -202,6 +224,35 @@ fn arrow(from: V3, velocity: V3, color: Srgb, width: f64) -> Shape {
     }
 }
 
+/// The goal's book on the table and its marker, as two parts (the book
+/// first): chapters 10 to 12 all draw them, the marker dimmed, so that the
+/// robot's real question stays in view.
+pub fn goal_parts(arm: &Arm) -> Vec<PartSpec> {
+    let goal = model::goal(arm);
+    let small = [BOOK_HALF[0] / 11.0, BOOK_HALF[1] / 11.0, BOOK_HALF[2] / 9.0];
+    vec![
+        PartSpec::new(
+            book(small),
+            still(Pose {
+                r: model::I3,
+                p: [model::GOAL_P[0], model::GOAL_P[1], small[2]],
+            }),
+        ),
+        PartSpec::new(goal_frame(&goal, 0.17), still(Pose::NOTHING)).layer(2),
+    ]
+}
+
+/// The standing words under the dimmed goal, detached.
+pub fn standing_goal(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    kit.text_left(
+        stage,
+        GOAL_STANDS,
+        22.0,
+        palette::goal(),
+        v(GOAL_STANDS_AT[0], GOAL_STANDS_AT[1]),
+    )
+}
+
 impl SceneConstruct for VelocitiesAdd {
     fn name(&self) -> &str {
         "10_velocities_add"
@@ -222,30 +273,7 @@ impl SceneConstruct for VelocitiesAdd {
         // goal; the turning curls; the twists at the tip; the levers
         let mut specs = rig.parts(palette::steel());
         specs.push(PartSpec::new(table([-0.9, -0.7], [1.0, 0.9], 0.0, 0.2), still(Pose::NOTHING)).layer(-2));
-        let small = [BOOK_HALF[0] / 11.0, BOOK_HALF[1] / 11.0, BOOK_HALF[2] / 9.0];
-        specs.push(PartSpec::new(
-            book(small),
-            still(Pose {
-                r: model::I3,
-                p: [model::GOAL_P[0], model::GOAL_P[1], small[2]],
-            }),
-        ));
-        let mut frame = vec![Shape::Dot {
-            at: goal.p,
-            color: pink,
-            radius: 0.13,
-        }];
-        for k in 0..3 {
-            let c = [goal.r[0][k], goal.r[1][k], goal.r[2][k]];
-            frame.push(Shape::Arrow {
-                from: goal.p,
-                to: add(goal.p, scale(c, 0.17)),
-                color: pink,
-                width: 5.0,
-                head: 0.2,
-            });
-        }
-        specs.push(PartSpec::new(frame, still(Pose::NOTHING)).layer(2));
+        specs.extend(goal_parts(&arm));
         // the small curls that start to turn (10_1): one tracker turns both
         let turn = stage.add_value_tracker(0.0);
         for joint in [SHOULDER, ELBOW] {
@@ -334,6 +362,35 @@ impl SceneConstruct for VelocitiesAdd {
             .layer(2),
         );
 
+        // the elbow's axis as it stands in this pose, and where it stood at
+        // zero (10_2: for speeds, the axis counts where it is now)
+        let (elbow_now, elbow_dir) = arm.joint(&q, ELBOW);
+        specs.push(
+            PartSpec::new(
+                vec![Shape::line(
+                    sub(elbow_now, scale(elbow_dir, AXIS_REACH)),
+                    add(elbow_now, scale(elbow_dir, AXIS_REACH)),
+                    gold,
+                    4.5,
+                )],
+                still(Pose::NOTHING),
+            )
+            .layer(1),
+        );
+        specs.push(
+            PartSpec::new(
+                vec![Shape::Dashed {
+                    a: sub(arm.origin[ELBOW], scale(arm.axis[ELBOW], AXIS_REACH)),
+                    b: add(arm.origin[ELBOW], scale(arm.axis[ELBOW], AXIS_REACH)),
+                    color: Palette::dim(),
+                    width: 3.5,
+                    dashes: 9,
+                }],
+                still(Pose::NOTHING),
+            )
+            .layer(1),
+        );
+
         // ---- labels that follow world points
         let mut pins = Vec::new();
         let mut asked_labels = Vec::new();
@@ -404,6 +461,20 @@ impl SceneConstruct for VelocitiesAdd {
             shift: v(SPINS_ONLY_SHIFT[0], SPINS_ONLY_SHIFT[1]),
         });
 
+        let now_word = kit.text(stage, NOW_WORD, 26.0, gold, v(0.0, 0.0))?;
+        pins.push(Pin {
+            mob: now_word,
+            at: point_fn(move |_: &Arena| elbow_now),
+            shift: v(NOW_SHIFT[0], NOW_SHIFT[1]),
+        });
+        let zero_word = kit.text(stage, AT_ZERO_WORD, 26.0, Palette::dim(), v(0.0, 0.0))?;
+        let zero_at = arm.origin[ELBOW];
+        pins.push(Pin {
+            mob: zero_word,
+            at: point_fn(move |_: &Arena| zero_at),
+            shift: v(ZERO_SHIFT[0], ZERO_SHIFT[1]),
+        });
+
         let world = World::build(stage, view, 1.4, 0.25, specs, pins)?;
         let hidden: Vec<usize> = ArmRig::GOLD_COLLARS
             .chain([
@@ -419,6 +490,8 @@ impl SceneConstruct for VelocitiesAdd {
                 part::LEVER_SHOULDER,
                 part::LEVER_WRIST,
                 part::TRIANGLE,
+                part::ELBOW_NOW,
+                part::ELBOW_ZERO,
             ])
             .collect();
         for i in hidden {
@@ -446,10 +519,13 @@ impl SceneConstruct for VelocitiesAdd {
             tween(shown(part::TURNING_ELBOW), 1.0, 0.4)?,
         );
         // the curls turn while the goal steps back (it stays, dimmed, through
-        // chapters 10 to 12)
+        // chapters 10 to 12) and the words for what it stands for come in
+        // under the same clock
+        let standing = standing_goal(&kit, stage)?;
         play!(stage;
             tween(turn, 1.0, 2.2)?,
             tween(shown(part::GOAL), GOAL_DIMMED, 1.0)?,
+            fade_in(stage.arena_mut(), standing, ORIGIN, 1.0)?.rt(0.8),
         );
         leave(stage, &[unknown, goal_label], &[], 0.3)?;
 
@@ -459,8 +535,19 @@ impl SceneConstruct for VelocitiesAdd {
         play!(stage;
             tween(shown(part::TURNING_SHOULDER), 0.0, 0.4)?,
             tween(shown(part::TURNING_ELBOW), 0.0, 0.4)?,
+            tween(shown(part::ELBOW_NOW), 1.0, 0.5)?,
+            tween(shown(part::ELBOW_ZERO), 1.0, 0.5)?,
+            fade_in(stage.arena_mut(), now_word, ORIGIN, 1.0)?.rt(0.5),
+            fade_in(stage.arena_mut(), zero_word, ORIGIN, 1.0)?.rt(0.5),
         );
         line.wait_for(stage, "A joint turning alone")?;
+        // 09_6's pair again, for speeds: the axis counts where it is now
+        leave(
+            stage,
+            &[now_word, zero_word],
+            &[shown(part::ELBOW_NOW), shown(part::ELBOW_ZERO)],
+            0.4,
+        )?;
         play!(stage;
             tween(collar(SHOULDER), 1.0, 0.4)?,
             tween(shown(part::TWIST_SHOULDER), 1.0, 0.6)?,
@@ -550,6 +637,7 @@ impl SceneConstruct for VelocitiesAdd {
         let notes = vec![
             kit.text_left(stage, TWIST_SLIDE_NOTE, 22.0, Palette::dim(), v(0.6, -2.0))?,
             kit.tex_left(stage, TIP_VELOCITY_TEX, 26.0, Palette::dim(), &[], v(0.6, -2.42))?,
+            kit.tex_left(stage, COLUMN_RULE_TEX, 24.0, Palette::dim(), &[], v(0.6, -2.84))?,
         ];
         let mut ins = vec![programmers];
         ins.extend(&notes);
@@ -925,17 +1013,117 @@ mod tests {
         });
     }
 
-    /// The two lines of the "for programmers" note end inside the frame's
-    /// margin (0.15 inside the 7.11 half width), the second set in TeX.
+    /// The three lines of the "for programmers" note end inside the frame's
+    /// margin (0.15 inside the 7.11 half width), the last two set in TeX,
+    /// and the last stands above the lower third that comes with them.
     #[test]
     fn the_programmers_note_ends_inside_the_margin() {
+        use super::super::draw::LOWER_THIRD_TOP;
         run(|stage| {
             let kit = Kit::new()?;
             let first = kit.text_left(stage, TWIST_SLIDE_NOTE, 22.0, Palette::dim(), v(0.6, -2.0))?;
             let second = kit.tex_left(stage, TIP_VELOCITY_TEX, 26.0, Palette::dim(), &[], v(0.6, -2.42))?;
-            for m in [first, second] {
+            let third = kit.tex_left(stage, COLUMN_RULE_TEX, 24.0, Palette::dim(), &[], v(0.6, -2.84))?;
+            for m in [first, second, third] {
                 assert!(stage.get_right(m)[0] < 7.11 - 0.15, "ends at {}", stage.get_right(m)[0]);
             }
+            assert!(
+                stage.get_bottom(third)[1] > LOWER_THIRD_TOP + 0.05,
+                "the column rule reaches down to {}",
+                stage.get_bottom(third)[1]
+            );
+            let (lines, tag_bottom) = (stage.get_top(first)[1], -1.55 - 0.2);
+            assert!(lines < tag_bottom, "the note touches its tag");
+            Ok(())
+        });
+    }
+
+    /// 10_2: "now" and "at zero" stand clear of the arm, the goal's marker
+    /// and each other, and inside the margin.
+    #[test]
+    fn the_elbows_two_words_stand_clear() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let q = model::degrees(poses::ELL);
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let spot = |p: V3, shift: [f64; 2]| {
+                let s = view.project(p);
+                v(s[0] + shift[0], s[1] + shift[1])
+            };
+            let now = kit.text(
+                stage,
+                NOW_WORD,
+                26.0,
+                palette::screw(),
+                spot(arm.joint(&q, ELBOW).0, NOW_SHIFT),
+            )?;
+            let zero = kit.text(
+                stage,
+                AT_ZERO_WORD,
+                26.0,
+                Palette::dim(),
+                spot(arm.origin[ELBOW], ZERO_SHIFT),
+            )?;
+            let boxed = |m: Mob| {
+                [
+                    stage.get_left(m)[0],
+                    stage.get_right(m)[0],
+                    stage.get_bottom(m)[1],
+                    stage.get_top(m)[1],
+                ]
+            };
+            let (a, b) = (boxed(now), boxed(zero));
+            let apart = a[1] + 0.05 < b[0] || b[1] + 0.05 < a[0] || a[3] + 0.05 < b[2] || b[3] + 0.05 < a[2];
+            assert!(apart, "\"now\" {a:?} touches \"at zero\" {b:?}");
+            // against the arm's links and the goal marker's centre
+            let goal_pose = model::goal(&arm);
+            let mut joints: Vec<V3> = (0..crate::model::N).map(|j| arm.joint(&q, j).0).collect();
+            joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
+            joints.push(arm.tip(&q).p);
+            // the goal's dot and the three arrows of its marker, 0.17 m long
+            let mut things: Vec<[f64; 2]> = Vec::new();
+            for k in 0..3 {
+                let axis = [goal_pose.r[0][k], goal_pose.r[1][k], goal_pose.r[2][k]];
+                for step in 0..=6 {
+                    let t = 0.17 * f64::from(step) / 6.0;
+                    let p = view.project(add(goal_pose.p, scale(axis, t)));
+                    things.push([p[0], p[1]]);
+                }
+            }
+            for pair in joints.windows(2) {
+                for k in 0..=12 {
+                    let t = f64::from(k) / 12.0;
+                    let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                    things.push([p[0], p[1]]);
+                }
+            }
+            for (name, b) in [("now", a), ("at zero", b)] {
+                for p in &things {
+                    let inside = p[0] > b[0] - 0.2 && p[0] < b[1] + 0.2 && p[1] > b[2] - 0.2 && p[1] < b[3] + 0.2;
+                    assert!(!inside, "{name:?} sits on the arm or the goal at {p:?}");
+                }
+                assert!(b[0] > -7.11 + 0.15 && b[1] < 7.11 - 0.15);
+            }
+            Ok(())
+        });
+    }
+
+    /// The standing words under the dimmed goal end inside the margin and
+    /// clear of the Jacobian's grid (which starts at the top, right of them).
+    #[test]
+    fn the_standing_goal_words_fit() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let m = standing_goal(&kit, stage)?;
+            assert!(stage.get_left(m)[0] > -7.11 + 0.15);
+            assert!(
+                stage.get_right(m)[0] < GRID_X0 - 1.0,
+                "the words end at {}, the grid's labels start near {}",
+                stage.get_right(m)[0],
+                GRID_X0 - 1.0
+            );
+            assert!(stage.get_top(m)[1] < 3.85);
             Ok(())
         });
     }
@@ -1073,6 +1261,7 @@ mod tests {
             }
             // the levers' numbers are off the arm's links
             let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+            joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
             joints.push(tip);
             for pair in joints.windows(2) {
                 for k in 0..=12 {

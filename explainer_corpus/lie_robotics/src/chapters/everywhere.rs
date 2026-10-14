@@ -30,7 +30,7 @@ pub struct Everywhere {
 // the chapter's fixed words (numbers are built from facts)
 const DRONES: &str = "drones steer poses";
 const MAPS: &str = "mapping robots estimate them";
-const ADD_THE_SPIN: &str = "add the spin to the nine numbers";
+const ADD_THE_SPIN: &str = "add the spin to the nine numbers (forward Euler)";
 const THE_EXPONENTIAL: &str = "the exponential";
 const VOLUME: &str = "volume";
 const WIDTH: &str = "width";
@@ -48,8 +48,8 @@ const STILL_DIFFERENT: &str = "still different";
 const TURNS_WORD: &str = "both turns:";
 const LEFTOVER_WORD: &str = "leftover:";
 const LEFTOVER_NOTE_LABEL: &str = "leftover ≈";
-const LEFTOVER_NOTE: &str =
-    "a turn by angle × angle (in radians) about roll's arrow × tilt's arrow, which is −z: the Lie bracket [y, x] = −z";
+const LEFTOVER_NOTE: &str = "a turn by angle × angle (in radians) about the arrow at right angles to roll's and tilt's, \
+which is −z: the Lie bracket [y, x] = −z (x is tilt's line, y roll's, z up)";
 const TABLE_HEAD: &str = "turn → leftover";
 const GRIPPER_POSE: &str = "the gripper's pose";
 const START_POSE: &str = "the pose at zero";
@@ -1045,6 +1045,48 @@ mod tests {
             .chain(fig.joints.iter().copied());
         let (lo, _) = view.box_of(points);
         assert!(lo[1] > LOWER_THIRD_TOP + 0.1, "the feet reach down to {:.2}", lo[1]);
+    }
+
+    /// 15_4: the leftover's note, with the plain lead and the letters' key,
+    /// is two lines at most and stands under the card; 15_1's two labels
+    /// under the spinning books, the second now with "(forward Euler)", do
+    /// not touch.
+    #[test]
+    fn the_leftover_note_and_the_spin_labels_fit() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            let note = lower_third(&kit, stage, LEFTOVER_NOTE_LABEL, LEFTOVER_NOTE)?;
+            // a one-line band reaches up to -3.14, a two-line one to -2.78
+            assert!(
+                stage.get_top(note)[1] <= -2.78 + 1e-6,
+                "the note is more than two lines: it reaches up to {}",
+                stage.get_top(note)[1]
+            );
+            assert!(stage.get_top(note)[1] + 0.1 < stage.get_bottom(card.back)[1]);
+            let add = kit.text(
+                stage,
+                ADD_THE_SPIN,
+                24.0,
+                Palette::dim(),
+                v(SPIN_AT[0][0], SPIN_AT[0][1] - 1.55),
+            )?;
+            let exp = kit.text(
+                stage,
+                THE_EXPONENTIAL,
+                24.0,
+                Palette::dim(),
+                v(SPIN_AT[1][0], SPIN_AT[1][1] - 1.55),
+            )?;
+            assert!(stage.get_left(add)[0] > -7.11 + 0.15);
+            assert!(
+                stage.get_right(add)[0] + 0.2 < stage.get_left(exp)[0],
+                "the two labels run together: {} against {}",
+                stage.get_right(add)[0],
+                stage.get_left(exp)[0]
+            );
+            Ok(())
+        });
     }
 
     #[test]

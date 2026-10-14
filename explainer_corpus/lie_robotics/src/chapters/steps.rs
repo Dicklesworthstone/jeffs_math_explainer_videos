@@ -12,9 +12,9 @@ use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, PartSpec, QuizCard, QuizLook, Shape, View, World,
-    book, circle_points, dashed_rect, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, ground, leave, mix,
-    perp_basis, say, screw_shapes, still, table, tag,
+    ARM_SCALE, ArmRig, Ask, BADGE_CORNER, BOOK_HALF, Badge, Choice, MINUS, PartSpec, QuizCard, QuizLook, Shape, View,
+    World, book, circle_points, dashed_rect, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, ground, leave,
+    mix, perp_basis, say, screw_shapes, still, table, tag,
 };
 use crate::model::{self, Arm, DEG, M3, Pose, V3, X, Y, Z, add, dot, poses, scale};
 use crate::palette;
@@ -38,7 +38,17 @@ const THE_SMALLEST: &str = "# the smallest joint step that makes it";
 const PROGRAMMERS: &str = "for programmers";
 const START: &str = "start";
 const AFTER: &str = "after";
-const EACH_GAINS: &str = "each step gains more than the one before";
+const EACH_GAINS: &str = "each step cuts the error by a bigger factor";
+/// The panel's note on the second Jacobian of the video: ch 10's grid with
+/// each twist read in the gripper's frame (the body form, which the error
+/// above it is in).
+const J_BODY_NOTE: [&str; 2] = [
+    "# J_body: chapter 10's grid, with each",
+    "# twist read in the gripper's frame",
+];
+/// 13_2's first trap, drawn above the rings: the numbers of two headings and
+/// the headings themselves (chapter 04's pair, from its facts).
+const SEAM_AT: [f64; 2] = [0.0, 3.2];
 const POOR_START_LABEL: &str = "from a poor start:";
 const POOR_START_TEXT: &str =
     "it can take many more steps, or fail; real solvers cap, damp, respect joint limits and retry";
@@ -129,6 +139,17 @@ pub fn turn_label(deg: f64) -> String {
 /// A number of the six as printed, with a true minus sign.
 fn six(text: &str) -> String {
     text.replace('-', "−")
+}
+
+/// 13_2's first trap in words, from chapter 04's facts: two headings differ
+/// by 340 as numbers and by 20 as headings.
+fn seam_words() -> fmn::Result<String> {
+    let (a, b, gap) = (fact_f64("G-H.a")?, fact_f64("G-H.b")?, fact_f64("G-H.gap")?);
+    Ok(format!(
+        "the seam: {a:.0}° {MINUS} ({MINUS}{:.0}°) = {:.0}° as numbers, but the headings are {gap:.0}° apart",
+        b.abs(),
+        a - b
+    ))
 }
 
 /// A pose's marker: a dot at its position and the three axes of its
@@ -317,6 +338,8 @@ impl SceneConstruct for Steps {
         leave(stage, &[which, goal_words], &[], 0.3)?;
         line.wait_for(stage, "Subtracting angles")?;
         rings.show(stage, 0.8)?;
+        let seam = kit.text(stage, &seam_words()?, 28.0, Palette::ink(), v(SEAM_AT[0], SEAM_AT[1]))?;
+        fade_in_all(stage, &[seam], 0.6)?;
         let apart = fact_f64("G-E.near.apart")?;
         let between = Arrow::new(v(-1.15, 0.55), v(1.15, 0.55))
             .thickness(4.0)
@@ -352,6 +375,7 @@ impl SceneConstruct for Steps {
         // as a twist it is the error
         let line = say(&kit, stage, BEATS[2])?;
         let mut away = shown_texts.clone();
+        away.push(seam);
         away.extend(&diffs);
         away.extend([between, between_label]);
         leave(stage, &away, &[rings.shown], 0.6)?;
@@ -406,6 +430,8 @@ impl SceneConstruct for Steps {
         let code = [
             A_TWIST.to_owned(),
             "error = log(inverse(T(q)) * T_goal)".to_owned(),
+            J_BODY_NOTE[0].to_owned(),
+            J_BODY_NOTE[1].to_owned(),
             THE_SMALLEST.to_owned(),
             "q = q + pinv(J_body(q)) * error".to_owned(),
             format!("repeat until error < {tol_spin} rad and {tol_slide_mm} mm"),
@@ -756,6 +782,59 @@ mod tests {
             })
             .collect();
         assert!((ys[0] - ys[1]).abs() < 1e-12, "the two stand at one height");
+    }
+
+    /// 13_4's panel: every line of the code, with the two lines that name
+    /// the body Jacobian, fits the panel's width; and the panel, seven lines
+    /// tall and centred on the middle of the frame, stays above the lower
+    /// third. 13_2's seam line and 13_6's note fit the frame.
+    #[test]
+    fn the_added_panel_lines_and_notes_fit() {
+        use super::super::draw::{LOWER_THIRD_TOP, SAFE};
+        run(|stage| {
+            let kit = Kit::new()?;
+            let tol = (fact("G-I.ik.tolerances")?, 0.1);
+            let lines = [
+                A_TWIST.to_owned(),
+                "error = log(inverse(T(q)) * T_goal)".to_owned(),
+                J_BODY_NOTE[0].to_owned(),
+                J_BODY_NOTE[1].to_owned(),
+                THE_SMALLEST.to_owned(),
+                "q = q + pinv(J_body(q)) * error".to_owned(),
+                format!("repeat until error < {} rad and {} mm", "0.001", tol.1),
+            ];
+            let panel_width = 6.2;
+            for l in &lines {
+                let m = kit.mono(stage, l, 26.0, Palette::ink(), v(0.0, 0.0))?;
+                assert!(
+                    stage.get_width(m) < panel_width - 0.4,
+                    "{l:?} is {} wide in a panel of {panel_width}",
+                    stage.get_width(m)
+                );
+            }
+            // the panel's height as `CodePanel::build` makes it, about y = 0
+            let h = 0.9 + 26.0 / 48.0 * 0.5 * lines.len() as f64;
+            assert!(
+                0.0 - h / 2.0 > LOWER_THIRD_TOP + 0.3,
+                "the panel reaches down to {}",
+                -h / 2.0
+            );
+            assert!(h / 2.0 < SAFE[1] - 1.0, "the panel reaches up to {}", h / 2.0);
+            let seam = kit.text(stage, &seam_words()?, 28.0, Palette::ink(), v(SEAM_AT[0], SEAM_AT[1]))?;
+            assert!(stage.get_right(seam)[0] < SAFE[0] && stage.get_left(seam)[0] > -SAFE[0]);
+            // above the rings' top (centre 0.55 plus the outer radius)
+            assert!(stage.get_bottom(seam)[1] > GIMBALS[0][1] + RADII[0] + 0.1);
+            assert!(stage.get_top(seam)[1] < SAFE[1]);
+            let gains = kit.text(
+                stage,
+                EACH_GAINS,
+                28.0,
+                Palette::dim(),
+                v(TABLE_X + 2.3, TABLE_Y - TABLE_ROW * 4.2),
+            )?;
+            assert!(stage.get_right(gains)[0] < SAFE[0] && stage.get_left(gains)[0] > 0.0);
+            Ok(())
+        });
     }
 
     #[test]

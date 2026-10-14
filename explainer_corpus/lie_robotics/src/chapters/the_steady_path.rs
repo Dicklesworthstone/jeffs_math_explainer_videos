@@ -29,7 +29,12 @@ const GOAL_WORDS: &str = "goal";
 const ON_THE_WAY: &str = "on the way?";
 const IS_IT_HALFWAY: &str = "is the result halfway there?";
 const HALFWAY: &str = "halfway";
-const NOT_ORIENTATION: &str = "not even an orientation";
+/// The middle choice asserts what a viewer who trusts the average would
+/// believe (chapter 04's lesson: an average is a valid heading in the wrong
+/// place); and every label is short enough that the tick of the answer row
+/// clears it (a label may be 21 characters or so).
+const WRONG_ORIENTATION: &str = "a wrong orientation";
+const NOT_ORIENTATION: &str = "not an orientation";
 const PLUS: &str = "+";
 const HALF_OF_EACH: &str = "half of each:";
 const VOLUME: &str = "volume";
@@ -47,7 +52,8 @@ const STEADY_TEXT: &str =
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 5] = ["14_1", "14_2", "14_3", "14_4", "14_5"];
 
-/// 14_2's quiz: halfway, or not even an orientation (`G-Q.14_2.answer`).
+/// 14_2's quiz: halfway, a wrong orientation, or no orientation at all
+/// (`G-Q.14_2.answer` is the last).
 pub const ASK: Ask = Ask {
     line: BEATS[1],
     question: IS_IT_HALFWAY,
@@ -55,6 +61,10 @@ pub const ASK: Ask = Ask {
         Choice {
             key: "pose",
             label: HALFWAY,
+        },
+        Choice {
+            key: "wrong",
+            label: WRONG_ORIENTATION,
         },
         Choice {
             key: "not",
@@ -823,6 +833,7 @@ mod tests {
                 || boxes[1][3] + 0.1 < boxes[0][2];
             assert!(apart, "start and goal touch: {boxes:?}");
             let mut joints: Vec<V3> = (0..crate::model::N).map(|j| arm.joint(&q0, j).0).collect();
+            joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
             joints.push(start.p);
             for pair in joints.windows(2) {
                 for k in 0..=12 {
@@ -900,6 +911,10 @@ mod tests {
                 assert!(stage.get_right(row)[0] < right - 0.15, "a row runs past the card");
             }
             assert!(right < 7.1);
+            // three choices make the card taller: it stays inside the margin
+            // and above the lower third that 14_5 brings (the card is gone by
+            // then, but 14_3's note stands under it)
+            assert!(stage.get_top(card.back)[1] < 3.85 && stage.get_bottom(card.back)[1] > -3.85);
             // the note sits right of its tag, inside the frame's margin
             let tagged = tag(&kit, stage, PROGRAMMERS, v(TAG_AT[0], TAG_AT[1]), 22.0)?;
             let note_left = stage.get_right(tagged)[0] + NOTE_GAP;

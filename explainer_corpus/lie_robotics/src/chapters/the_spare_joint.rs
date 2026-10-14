@@ -16,6 +16,7 @@ use super::draw::{
     ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, cuboid, fact, fact_f64,
     fade_in_all, greyed, ground, leave, mix, paper, plate, point_fn, pose_fn, say, still, table, turned_about, value,
 };
+use super::velocities_add::{GOAL_DIMMED, goal_parts, standing_goal};
 use crate::model::{
     self, Arm, ELBOW, N, Pose, SHOULDER, V3, WRIST, add, apply, cross, dot, norm, poses, scale, sub, unit,
 };
@@ -101,6 +102,9 @@ mod part {
     pub const ARROWS: std::ops::Range<usize> = 27..34;
     /// The circle's radius, a line from its centre to the elbow.
     pub const RADIUS: usize = 34;
+    /// The goal's book (35) and its marker (36), dimmed: chapters 10 to 12
+    /// keep the robot's real question in view.
+    pub const GOAL: usize = 36;
 }
 
 /// The person's parts that are singled out: the elbow's circle, after the
@@ -361,6 +365,7 @@ impl SceneConstruct for TheSpareJoint {
             )
             .layer(2),
         );
+        specs.extend(goal_parts(&arm));
         let mut pins = Vec::new();
         let radius_label = kit.text(stage, &format!("{} {CM}", cm_whole(radius)), 32.0, gold, v(0.0, 0.0))?;
         let mid = scale(add(centre, elbow0), 0.5);
@@ -377,8 +382,10 @@ impl SceneConstruct for TheSpareJoint {
         for i in hidden {
             stage.set_tracker_value(world.parts[i].shown, 0.0)?;
         }
+        stage.set_tracker_value(world.parts[part::GOAL].shown, GOAL_DIMMED)?;
         world.add_to_scene(stage)?;
         let shown = |i: usize| world.parts[i].shown;
+        let standing = standing_goal(&kit, stage)?;
 
         // 12_1: seven joints for six directions leaves one spare
         let line = say(&kit, stage, BEATS[0])?;
@@ -392,6 +399,7 @@ impl SceneConstruct for TheSpareJoint {
             &[(spare.as_str(), gold)],
             v(SUM_AT[0], SUM_AT[1]),
         )?;
+        fade_in_all(stage, &[standing], 0.5)?;
         line.wait_for(stage, "Seven joints")?;
         fade_in_all(stage, &[sum], 0.7)?;
         line.wait_end(stage)?;
@@ -405,7 +413,7 @@ impl SceneConstruct for TheSpareJoint {
             tween(world.shown, 0.0, 0.7)?,
             tween(person_world.shown, 1.0, 0.8)?,
         );
-        leave(stage, &[sum], &[], 0.3)?;
+        leave(stage, &[sum, standing], &[], 0.3)?;
         line.wait_for(stage, "keep your shoulder still")?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
@@ -446,6 +454,9 @@ impl SceneConstruct for TheSpareJoint {
             0.6,
         )?;
         world.show(stage, 0.8)?;
+        // (a new one: a mobject that has faded out is not faded in again)
+        let standing_again = standing_goal(&kit, stage)?;
+        fade_in_all(stage, &[standing_again], 0.4)?;
         let moved_label = kit.text_left(stage, GRIPPER_MOVED, 30.0, Palette::dim(), v(MOVED_AT[0], MOVED_AT[1]))?;
         let cm_label = kit.text(stage, CM, 30.0, Palette::dim(), v(MOVED_CM_X, MOVED_AT[1]))?;
         line.wait_for(stage, "Its gripper holds one pose")?;
@@ -768,6 +779,7 @@ mod tests {
             ];
             for q in keys.iter().step_by(3) {
                 let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(q, j).0).collect();
+                joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
                 joints.push(arm.tip(q).p);
                 for pair in joints.windows(2) {
                     for k in 0..=12 {

@@ -120,6 +120,10 @@ mod tests {
             &mut fmn::scene::NullSceneSink,
         )
         .expect("the probe scene runs");
-        assert!(crowded.is_empty(), "answer rows crowd their tick:\n{}", crowded.join("\n"));
+        assert!(
+            crowded.is_empty(),
+            "answer rows crowd their tick:\n{}",
+            crowded.join("\n")
+        );
     }
 }

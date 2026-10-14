@@ -17,7 +17,7 @@ use super::draw::{
     ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QSource, QuizCard, QuizLook, Shape, View, World, fact, fact_f64,
     fade_in_all, fade_in_lagged, faded_line, fail, leave, line_style, point_fn, say, still, table, value,
 };
-use super::velocities_add::curl;
+use super::velocities_add::{GOAL_DIMMED, curl, goal_parts, standing_goal};
 use crate::model::{self, Arm, DEG, ELBOW, N, Pose, SHOULDER, V3, WRIST, add, cross, dot, poses, scale, sub, unit};
 use crate::palette;
 
@@ -30,11 +30,14 @@ const DIRECTIONS: &str = "directions:";
 const ALL_SIX: &str = "all six";
 const ONE_IS_LOST: &str = "one is lost";
 const STILL_SIX: &str = "can the gripper still move\nin all six directions?";
-const SWING_SIDEWAYS: &str = "the gripper can only swing sideways";
+const SWING_SIDEWAYS: &str = "the wrist can only swing sideways";
 const SWING_LABEL: &str = "at first:";
 const SINGULARITY: &str = "singularity";
-const NOT_ONLY_FULL_STRETCH: &str = "not only at full stretch:";
-const FROM_THE_GEOMETRY: &str = "from the geometry alone";
+const NOT_ONLY_FULL_STRETCH: &str = "a property of the joint angles:";
+const FROM_THE_GEOMETRY: &str = "from the geometry alone: the gripper does not turn";
+const LIMIT_SOURCE: &str = "limit: KUKA's speed for the elbow, at rated payload";
+const DIRECTIONS_LABEL: &str = "directions:";
+const DIRECTIONS_TEXT: &str = "the independent ways the gripper can move; their number is the Jacobian's rank";
 const ELBOW_SPEED: &str = "the elbow's speed to pull the tip back at";
 const LIMIT: &str = "limit";
 const DEG_PER_S: &str = "°/s";
@@ -42,7 +45,7 @@ const BEND: &str = "the elbow's bend, degrees";
 const SPEED: &str = "its speed, °/s";
 const TURNS_A_SECOND: &str = "turns a second";
 const WITHOUT_THREE: &str = "without joint 3:";
-const SHOULDER_TWO: &str = "two at the shoulder";
+const SHOULDER_TWO: &str = "joints 1 and 2, at the shoulder";
 const THIRD_JOINT: &str = "joint 3";
 const PUSH_NOTE: &str = "push on the wrist";
 
@@ -106,6 +109,8 @@ mod part {
     /// lost direction along the arm.
     pub const PUSH_FIRST: usize = 25;
     pub const ALONG: usize = 28;
+    /// The goal's book (29) and its marker (30), dimmed through the chapter.
+    pub const GOAL: usize = 30;
 }
 
 /// The close-up world's parts after the arm's 23: the three axes of the
@@ -287,6 +292,8 @@ impl SceneConstruct for LostDirections {
             )
             .layer(3),
         );
+        // the goal, dimmed: the robot's real question stays in view
+        specs.extend(goal_parts(&arm));
         // labels that follow the arm
         let mut pins = Vec::new();
         let push_label = kit.text(stage, PUSH_NOTE, 24.0, Palette::dim(), v(0.0, 0.0))?;
@@ -310,6 +317,7 @@ impl SceneConstruct for LostDirections {
         for i in hidden {
             stage.set_tracker_value(world.parts[i].shown, 0.0)?;
         }
+        stage.set_tracker_value(world.parts[part::GOAL].shown, GOAL_DIMMED)?;
         world.add_to_scene(stage)?;
         let shown = |i: usize| world.parts[i].shown;
         let collar = |joint: usize| world.parts[ArmRig::GOLD_COLLARS.start + joint].shown;
@@ -320,14 +328,18 @@ impl SceneConstruct for LostDirections {
         world.show(stage, 0.8)?;
         line.wait_for(stage, "Six rows")?;
         let (head, number) = directions_readout(&kit, stage, &rig, &arm)?;
+        let standing = standing_goal(&kit, stage)?;
+        fade_in_all(stage, &[standing], 0.5)?;
         line.wait_for(stage, "six independent directions")?;
         play!(stage; tween(shown(part::SIX), 1.0, 0.8)?);
+        let what = lower_third(&kit, stage, DIRECTIONS_LABEL, DIRECTIONS_TEXT)?;
+        fade_in_all(stage, &[what], 0.5)?;
         line.wait_end(stage)?;
 
         // 11_2: the elbow straightens: can the gripper still move in all six?
         let line = say(&kit, stage, BEATS[1])?;
         // the readout is hidden while the question stands
-        leave(stage, &[head, number], &[shown(part::SIX)], 0.4)?;
+        leave(stage, &[head, number, what], &[shown(part::SIX)], 0.4)?;
         let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_for(stage, "Here the arm's elbow is straight")?;
         tween_joints(
@@ -412,7 +424,7 @@ impl SceneConstruct for LostDirections {
             stage,
             NOT_ONLY_FULL_STRETCH,
             &format!(
-                "straight up with the elbow bent, this arm also has {}; straight up, {}",
+                "not only at full stretch. Straight up with the elbow bent, this arm also has {} directions; straight up, {}",
                 number_word(fact("G-J.rank.elbow_only")?.parse().map_err(|_| fail("rank".into()))?),
                 number_word(fact("G-J.rank.home")?.parse().map_err(|_| fail("rank".into()))?),
             ),
@@ -645,7 +657,14 @@ impl SceneConstruct for LostDirections {
             Palette::dim(),
             v(PLOT.center[0], PLOT.bottom() - 1.0),
         )?;
-        fade_in_lagged(stage, &[cut_a, cut_b, turns_label, geometry], 1.2, 0.5)?;
+        let limit_source = kit.text(
+            stage,
+            LIMIT_SOURCE,
+            24.0,
+            Palette::dim(),
+            v(PLOT.center[0], PLOT.bottom() - 1.4),
+        )?;
+        fade_in_lagged(stage, &[cut_a, cut_b, turns_label, geometry, limit_source], 1.2, 0.5)?;
         kit.music_breath(stage, 1.0)?;
 
         // 11_6: the wrist is three joints whose axes meet at one point
@@ -662,7 +681,7 @@ impl SceneConstruct for LostDirections {
             cross_dot,
             cross_label,
         ]);
-        done.extend([cut_a, cut_b, turns_label, geometry]);
+        done.extend([cut_a, cut_b, turns_label, geometry, limit_source]);
         leave(stage, &done, &[], 0.6)?;
         // the pose the story ends on: the L shape with its wrist bent, so
         // that straightening it lines two axes up
@@ -1009,6 +1028,7 @@ mod tests {
     fn links_on_screen(arm: &Arm, view: &View, q: [f64; N]) -> Vec<[f64; 2]> {
         let q = model::degrees(q);
         let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+        joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
         joints.push(arm.tip(&q).p);
         let mut out = Vec::new();
         for pair in joints.windows(2) {
@@ -1084,6 +1104,45 @@ mod tests {
             for p in links_on_screen(&arm, &view, poses::ELL) {
                 assert!(!inside(p, words, 0.08), "'joint 3' sits on the arm at {p:?}");
             }
+            Ok(())
+        });
+    }
+
+    /// 11_1 to 11_5: the standing words under the dimmed goal stand clear of
+    /// the readout and of 11_4's "singularity"; 11_5's two lines under the
+    /// plot end inside the margin and above the frame's bottom; the shoulder
+    /// words of 11_6 fit left of the close-up.
+    #[test]
+    fn the_added_words_fit() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let stand = standing_goal(&kit, stage)?;
+            let head = kit.text_left(stage, DIRECTIONS, 40.0, Palette::dim(), v(READOUT_AT[0], READOUT_AT[1]))?;
+            assert!(
+                stage.get_top(stand)[1] + 0.1 < stage.get_bottom(head)[1],
+                "the standing words touch the readout's heading"
+            );
+            let singularity = kit.text(stage, SINGULARITY, 60.0, Palette::ink(), v(3.4, 2.7))?;
+            assert!(stage.get_right(stand)[0] + 0.3 < stage.get_left(singularity)[0]);
+            for (words, y) in [
+                (FROM_THE_GEOMETRY, PLOT.bottom() - 1.0),
+                (LIMIT_SOURCE, PLOT.bottom() - 1.4),
+            ] {
+                let m = kit.text(stage, words, 24.0, Palette::dim(), v(PLOT.center[0], y))?;
+                assert!(
+                    stage.get_right(m)[0] < 7.11 - 0.15,
+                    "{words:?} ends at {}",
+                    stage.get_right(m)[0]
+                );
+                assert!(
+                    stage.get_left(m)[0] > PLOT.left() - 0.5,
+                    "{words:?} starts at {}",
+                    stage.get_left(m)[0]
+                );
+                assert!(stage.get_bottom(m)[1] > -3.85);
+            }
+            let two = kit.text(stage, SHOULDER_TWO, 26.0, Palette::dim(), v(-3.6, 1.2))?;
+            assert!(stage.get_right(two)[0] < -1.0 && stage.get_left(two)[0] > -7.11 + 0.15);
             Ok(())
         });
     }

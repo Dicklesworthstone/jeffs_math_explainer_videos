@@ -741,6 +741,7 @@ mod tests {
     fn links_on_screen(arm: &Arm, view: &View, q: [f64; N]) -> Vec<[f64; 2]> {
         let q = model::degrees(q);
         let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+        joints.insert(0, [0.0, 0.0, 0.0]); // the foot under joint 1
         joints.push(arm.tip(&q).p);
         let mut out = Vec::new();
         for pair in joints.windows(2) {
