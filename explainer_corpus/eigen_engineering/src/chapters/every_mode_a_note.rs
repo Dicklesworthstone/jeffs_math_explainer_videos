@@ -43,6 +43,9 @@ pub const CLEAN_SCALE: f64 = 0.16;
 pub const CLEAN_BEND_M: f64 = 1.3;
 pub const MIX_Y: f64 = -0.6;
 pub const PLANE_Y: f64 = -2.55;
+/// Where the "slow motion × 6" tag stands (at 3.7 it was 0.19 from the
+/// frame's top edge, under the 0.25 a text keeps).
+const SLOW_TAG_AT: Vec3 = [-5.5, 3.55, 0.0];
 
 // ------------------------------------------------------------ the model
 
@@ -257,7 +260,7 @@ impl SceneConstruct for EveryModeANote {
             &format!("slow motion \u{d7} {}", SLOW as u32),
             30.0,
             dim,
-            v(-5.5, 3.7),
+            SLOW_TAG_AT,
         )?;
         // both counters open at 0 when they come in (they counted from 07_1's
         // first word and arrived at "13 swings, 2.3 seconds")
@@ -587,7 +590,7 @@ impl SceneConstruct for EveryModeANote {
             &format!("slow motion \u{d7} {}", SLOW as u32),
             30.0,
             dim,
-            v(-5.5, 3.7),
+            SLOW_TAG_AT,
         )?;
         fade_in_all(stage, &[naive, solver, slow_again], 0.6)?;
         kit.hold(stage)?;

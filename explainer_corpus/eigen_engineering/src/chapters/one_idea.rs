@@ -511,6 +511,9 @@ impl SceneConstruct for OneIdea {
                     .build()?,
             )
         };
+        // it is meant to run through the table's diagonal entries (the
+        // layout lint's `crossed` leaves a declared crossing alone)
+        kit.allow_crossing(mirror);
         let mut cell_marks = Vec::new();
         for (grid, color) in [(&grid_a, good()), (&grid_b, warn())] {
             for (r, c) in [(0, 1), (1, 0)] {

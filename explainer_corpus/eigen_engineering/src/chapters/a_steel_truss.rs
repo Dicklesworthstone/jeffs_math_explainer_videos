@@ -301,7 +301,9 @@ impl SceneConstruct for ASteelTruss {
             &format!("holds both ways: {pin_holds}"),
             22.0,
             dim,
-            v(-6.9, LAYOUT.origin[1] - 0.95),
+            // (-6.9 left it 0.21 from the frame's left edge, under the 0.25
+            // a text keeps)
+            v(-6.8, LAYOUT.origin[1] - 0.95),
         )?;
         let roller_tag = kit.text(
             stage,
