@@ -4,13 +4,26 @@
 //! chapter starts as its storyboard's animatic and is replaced by its real
 //! scene as it is built.
 
+pub mod carts;
 pub mod draw;
 pub mod glyphs;
+pub mod truss;
+pub mod two_carts;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
 
 use crate::STORYBOARD;
+
+macro_rules! scene {
+    ($key:literal, $intensity:expr, $module:ident :: $scene:ident) => {
+        Chapter {
+            key: $key,
+            make: |kit| Box::new($module::$scene { kit }),
+            intensity: $intensity,
+        }
+    };
+}
 
 macro_rules! animatic {
     ($key:literal, $intensity:expr) => {
@@ -25,7 +38,7 @@ macro_rules! animatic {
 pub fn registry() -> Vec<Chapter> {
     vec![
         animatic!("01_the_bridge_that_swayed", 0.4),
-        animatic!("02_two_carts", 0.45),
+        scene!("02_two_carts", 0.45, two_carts::TwoCarts),
         animatic!("03_own_patterns", 0.6),
         animatic!("04_the_split", 0.55),
         animatic!("05_a_steel_truss", 0.5),
