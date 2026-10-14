@@ -48,6 +48,8 @@ const _: () = assert!(EMPTY_STRETCH > 1.0);
 const RAYS: usize = 7;
 const RAY_TRAIL_M: f64 = 9.0;
 const RAY_SPEED: f64 = 14.0;
+/// Segments in the trail of a ray (it has this many and one vertices).
+const RAY_STEPS: usize = 12;
 /// The seats' block, in rows and columns.
 const SEAT_ROWS: usize = 7;
 const SEAT_COLS: usize = 26;
@@ -70,6 +72,10 @@ const OBLIQUE: (f64, f64) = (0.42, 0.3);
 /// baselines.
 const ROW_X: (f64, f64) = (-1.7, 6.4);
 const ROW_Y: [f64; 3] = [1.75, 0.45, -0.85];
+/// The tone the lines end at, in hertz, and how far under the lowest line
+/// the scale's numbers stand.
+const ROW_MAX_HZ: f64 = 200.0;
+const SCALE_DROP: f64 = 0.4;
 /// One stacked tick's height.
 const TICK_H: f64 = 0.15;
 
@@ -199,7 +205,12 @@ fn rays(stage: &mut Stage<'_>, hall: &Hall) -> fmn::Result<(Vec<Mob>, Mob)> {
     let mut trails = Vec::new();
     for i in 0..RAYS {
         let a = hall.ray_at(ray_angle(i), 0.0);
-        trails.push(path(stage, vec![a, v(a[0] + 1e-4, a[1])], Palette::ink(), 3.0));
+        // built with every vertex the updater will write (a speck at the
+        // stage's edge): `set_points` does not take a run of another size,
+        // and a ray built as two vertices and rewritten as thirteen never
+        // appeared
+        let speck: Vec<Vec3> = (0..=RAY_STEPS).map(|k| v(a[0] + 1e-4 * k as f64, a[1])).collect();
+        trails.push(path(stage, speck, Palette::ink(), 3.0));
     }
     let anchor = stage.arena_mut().add(VMobject::new());
     let (length, width, left, bottom, scale) = (hall.length_m, hall.width_m, hall.left, hall.bottom, hall.scale);
@@ -215,9 +226,9 @@ fn rays(stage: &mut Stage<'_>, hall: &Hall) -> fmn::Result<(Vec<Mob>, Mob)> {
             travelled += RAY_SPEED * dt;
             for (i, &m) in heads.iter().enumerate() {
                 let angle = ray_angle(i);
-                let pts: Vec<Vec3> = (0..=12)
+                let pts: Vec<Vec3> = (0..=RAY_STEPS)
                     .map(|k| {
-                        let along = (travelled - RAY_TRAIL_M * f64::from(k) / 12.0).max(0.0);
+                        let along = (travelled - RAY_TRAIL_M * k as f64 / RAY_STEPS as f64).max(0.0);
                         let x = bounce(edge + along * angle.cos(), length);
                         let y = bounce(width / 2.0 + along * angle.sin(), width);
                         v(left + scale * x, bottom + scale * y)
@@ -229,6 +240,24 @@ fn rays(stage: &mut Stage<'_>, hall: &Hall) -> fmn::Result<(Vec<Mob>, Mob)> {
         false,
     )?;
     Ok((trails, anchor))
+}
+
+/// The names of the attic's modes with mode `playing` (0 for the first) in
+/// gold and the others in ink: which one is moving is what the names say.
+fn light_the_playing(stage: &mut Stage<'_>, names: &[Mob], playing: usize) {
+    for (k, &m) in names.iter().enumerate() {
+        let colour = if k == playing { own() } else { Palette::ink() };
+        stage.set_color(m, colour, None, true);
+    }
+}
+
+/// How far from the empty seat's grey to the page's white a seat with a
+/// person in it is drawn.
+const SEAT_TINT: f64 = 0.5;
+
+/// The colour of a seat with someone in it.
+fn lit_seat() -> Srgb {
+    super::arrows::mix(Palette::faint(), Palette::ink(), SEAT_TINT)
 }
 
 /// The pieces of the hall picture of 11_1 that move together: the people who
@@ -243,7 +272,11 @@ struct Crowd {
 impl Crowd {
     fn build(stage: &mut Stage<'_>, hall: &Hall, curve: Mob, t_full: f64, t_max: f64) -> fmn::Result<Self> {
         let faint = Palette::faint();
-        let seat = move |on: bool| if on { Palette::ink() } else { faint };
+        // a seat with someone in it is a tint, not the page's whitest white:
+        // the full block of 182 was the brightest object of the video, and
+        // the rays that pass over it would not show on it
+        let lit = lit_seat();
+        let seat = move |on: bool| if on { lit } else { faint };
         let seats_w = hall.length_m * 0.80 * hall.scale;
         let seats_h = hall.width_m * 0.84 * hall.scale;
         let top_left = v(
@@ -758,7 +791,7 @@ impl SceneConstruct for WhereModesRule {
         cleared.extend(&problem);
         cleared.extend([ring, answer, card.track, card.pause_line]);
         fade_out_all(stage, &cleared, 0.5)?;
-        let row_x = |hz: f64| ROW_X.0 + (ROW_X.1 - ROW_X.0) * hz / 200.0;
+        let row_x = |hz: f64| ROW_X.0 + (ROW_X.1 - ROW_X.0) * hz / ROW_MAX_HZ;
         let mut rows_ticks: Vec<Vec<Mob>> = Vec::new();
         let mut row_labels = Vec::new();
         let mut row_axes = Vec::new();
@@ -791,6 +824,28 @@ impl SceneConstruct for WhereModesRule {
                 cube_stacks = stacks;
             }
         }
+        // the scale the three lines share, under the lowest: where the lines
+        // begin and where they end (the storyboard's "below 200 Hz")
+        let scale_y = ROW_Y[2] - SCALE_DROP;
+        for hz in [0.0, ROW_MAX_HZ] {
+            row_axes.push(seg(
+                stage,
+                v(row_x(hz), ROW_Y[2] - 0.08),
+                v(row_x(hz), ROW_Y[2] - 0.2),
+                dim,
+                3.0,
+            ));
+        }
+        let scale_zero = kit.text(stage, "0", 24.0, dim, v(row_x(0.0), scale_y))?;
+        let scale_end = kit.text(
+            stage,
+            &format!("{} {HZ}", whole(ROW_MAX_HZ)),
+            24.0,
+            dim,
+            v(0.0, scale_y),
+        )?;
+        stage.move_to(scale_end, v(row_x(ROW_MAX_HZ) + 0.1, scale_y), RIGHT);
+        row_axes.extend([scale_zero, scale_end]);
         let mut ins = row_axes.clone();
         ins.extend(&row_labels);
         fade_in_all(stage, &ins, 0.5)?;
@@ -986,11 +1041,14 @@ impl SceneConstruct for WhereModesRule {
             let text = format!("{MODE} {}   {} {HZ}", k + 1, show(hertz, 1)?);
             names.push(kit.text_left(stage, &text, 28.0, ink, v(2.1, y))?);
         }
+        light_the_playing(stage, &names, 0);
         fade_in_all(stage, &names, 0.5)?;
         line.wait_for(stage, "The same calculation as the bridge")?;
         stage.set_tracker_value(which, 1.0)?;
+        light_the_playing(stage, &names, 1);
         pause(stage, 1.8)?;
         stage.set_tracker_value(which, 2.0)?;
+        light_the_playing(stage, &names, 2);
         let frank = lower_third(
             &kit,
             stage,
@@ -1185,11 +1243,90 @@ mod tests {
         assert_eq!(pressure_colour(-1.0), stretched());
     }
 
+    /// 11_1: the rays are really drawn. They were built as two vertices and
+    /// rewritten as thirteen, which the engine refuses without a word, so no
+    /// ray was ever on the screen. A test of the state, not the lint.
+    #[test]
+    fn the_rays_are_drawn_and_run_across_the_hall() {
+        super::super::carts::probe::run_scene(|stage| {
+            let hall = Hall::build()?;
+            let (trails, anchor) = rays(stage, &hall)?;
+            stage.add_to_scene(anchor)?;
+            for &m in &trails {
+                stage.add_to_scene(m)?;
+            }
+            assert_eq!(trails.len(), RAYS);
+            let before = stage.get_points(trails[0]).expect("a ray has points");
+            assert_eq!(before.len(), 2 * (RAY_STEPS + 1) - 1);
+            // a second of the picture: the head has run RAY_SPEED metres
+            stage.wait(1.0)?;
+            for &m in &trails {
+                let pts = stage.get_points(m).expect("a ray has points");
+                assert_eq!(pts.len(), before.len(), "the ray's size changed");
+                let (head, tail) = (pts[0], pts[pts.len() - 1]);
+                let trail = (head[0] - tail[0]).hypot(head[1] - tail[1]);
+                assert!(trail > 0.5, "the ray is a speck: {trail} units");
+                // and it is inside the hall
+                for p in &pts {
+                    assert!(p[0] >= hall.left - 1e-6 && p[0] <= hall.left + hall.scale * hall.length_m + 1e-6);
+                    assert!(p[1] >= hall.bottom - 1e-6 && p[1] <= hall.bottom + hall.height() + 1e-6);
+                }
+            }
+            Ok(())
+        });
+    }
+
+    /// The colour of the first glyph of a text (a text is a group whose
+    /// parts carry the colour).
+    fn colour_of(stage: &Stage<'_>, m: Mob) -> Option<Srgb> {
+        stage.get_color(m).or_else(|| {
+            explainer_kit::children(stage, m)
+                .into_iter()
+                .find_map(|c| colour_of(stage, c))
+        })
+    }
+
+    /// 11_1: people are a tint, between the empty seat's grey and the page's
+    /// white (a block of 182 in full white was the brightest thing of the
+    /// video); 11_5: the playing mode's name is the gold one.
+    #[test]
+    fn the_seats_are_a_tint_and_the_playing_mode_is_gold() {
+        let (faint, ink, lit) = (Palette::faint(), Palette::ink(), lit_seat());
+        for (a, f, i) in [
+            (lit.r, faint.r, ink.r),
+            (lit.g, faint.g, ink.g),
+            (lit.b, faint.b, ink.b),
+        ] {
+            let (lo, hi) = (f.min(i), f.max(i));
+            assert!(a > lo + 1e-3 && a < hi - 1e-3, "{a} is not between {f} and {i}");
+        }
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let names: Vec<Mob> = (0..3)
+                .map(|k| kit.text_left(stage, &format!("mode {k}"), 28.0, ink, v(0.0, -f64::from(k))))
+                .collect::<fmn::Result<_>>()?;
+            for playing in 0..3 {
+                light_the_playing(stage, &names, playing);
+                for (k, &m) in names.iter().enumerate() {
+                    let want = if k == playing { own() } else { ink };
+                    let got = colour_of(stage, m).expect("a name has a colour");
+                    assert!(
+                        (got.r - want.r).abs() < 2e-3 && (got.g - want.g).abs() < 2e-3 && (got.b - want.b).abs() < 2e-3,
+                        "name {k} with {playing} playing is {got:?}, not {want:?}"
+                    );
+                }
+            }
+            Ok(())
+        });
+    }
+
     #[test]
     fn the_chapter_runs_on_its_storyboard_and_the_layout_lint_is_clean() {
         let ran = testing::run("11_where_modes_rule").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         let words: Vec<&str> = ran.registered.iter().map(|r| r.source.as_str()).collect();
+        // 11_4's three lines have a scale: the end of their run, by itself
+        assert!(words.contains(&"200 Hz"), "the lines have no scale: {words:?}");
         for want in [
             "1.9 s = 0.161 \u{d7} 18,630 \u{f7} 1,579 m\u{b2} of absorption",
             "Sabine advised the architects of Boston Symphony Hall, which opened in 1900",
