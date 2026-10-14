@@ -439,4 +439,54 @@ mod tests {
         let e = mix(a, b, 1.0);
         assert!((e.g - b.g).abs() < 1e-12);
     }
+
+    /// The arrows really follow their trackers: on a bare stage (no
+    /// render), the blue arrow's tip is the move, the orange one's the
+    /// push the table gives, the polar drive sets the move from an angle,
+    /// and a plane arrow's tip follows its trackers; every run written is
+    /// one the engine accepts (an odd quad path).
+    #[test]
+    fn the_arrows_really_follow_the_trackers() {
+        use explainer_kit::v;
+        crate::chapters::carts::probe::run_scene(|stage| {
+            let plane = Plane {
+                centre: v(1.0, -0.5),
+                unit: 0.7,
+            };
+            let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
+            let test = ArrowTest::build(stage, plane, k(), u, (3.0, 3.0))?;
+            test.start(stage)?;
+            stage.set_tracker_value(u[0], 1.0)?;
+            stage.set_tracker_value(u[1], -1.0)?;
+            stage.set_tracker_value(test.blue_on, 1.0)?;
+            stage.set_tracker_value(test.orange_on, 1.0)?;
+            stage.wait(0.2)?;
+            let near = |a: Vec3, b: Vec3| (a[0] - b[0]).abs() < 1e-5 && (a[1] - b[1]).abs() < 1e-5;
+            // a five-vertex arrow is nine points; its second vertex, the tip, is the third point
+            let blue = stage.get_points(test.blue).expect("the arrow has points");
+            assert_eq!((blue.len(), blue.len() % 2), (9, 1));
+            assert!(near(blue[2], plane.p(1.0, -1.0)), "{:?}", blue[2]);
+            let orange = stage.get_points(test.orange).expect("the arrow has points");
+            assert!(near(orange[2], plane.p(3.0, -3.0)), "{:?}", orange[2]);
+            // the polar drive: at 45 degrees and length 1 the move is (1, 1) / sqrt 2
+            stage.set_tracker_value(test.degrees, 45.0)?;
+            stage.set_tracker_value(test.radius, 1.0)?;
+            stage.set_tracker_value(test.polar, 1.0)?;
+            stage.wait(0.2)?;
+            let moved = test.now(stage).0;
+            let h = std::f64::consts::FRAC_1_SQRT_2;
+            assert!((moved[0] - h).abs() < 1e-9 && (moved[1] - h).abs() < 1e-9, "{moved:?}");
+            // a plane arrow's tip follows its trackers
+            let a = PlaneArrow::build(stage, plane, pushes(), moves(), 6.0, 0.2, [0.0, 0.0], [0.0, 0.0])?;
+            a.start(stage)?;
+            stage.set_tracker_value(a.tip[0], 0.5)?;
+            stage.set_tracker_value(a.tip[1], 0.5)?;
+            stage.set_tracker_value(a.on, 1.0)?;
+            stage.wait(0.2)?;
+            let pts = stage.get_points(a.mob).expect("the arrow has points");
+            assert_eq!(pts.len() % 2, 1);
+            assert!(near(pts[2], plane.p(0.5, 0.5)), "{:?}", pts[2]);
+            Ok(())
+        });
+    }
 }

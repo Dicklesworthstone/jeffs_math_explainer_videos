@@ -14,7 +14,7 @@
 use explainer_kit::{Kit, Palette, v};
 use fmn::prelude::*;
 
-use super::draw::{arrow_points, faded_line, flat, group, moves, panel, pushes, squeezed, stretched};
+use super::draw::{arrow_points, corners, faded_line, flat, group, moves, panel, pushes, squeezed, stretched};
 use crate::model::carts;
 
 /// The walls' inner faces, either side of the centre.
@@ -313,14 +313,22 @@ impl CartsPic {
                     let (from, to) = (cart_x(i, 0.0), x);
                     let _ = s.set_points(
                         move_m[i],
-                        &arrow_points(at(from, -CART_H / 2.0 - 0.3), at(to, -CART_H / 2.0 - 0.3), 0.22 * scale),
+                        &corners(&arrow_points(
+                            at(from, -CART_H / 2.0 - 0.3),
+                            at(to, -CART_H / 2.0 - 0.3),
+                            0.22 * scale,
+                        )),
                     );
                     s.set_stroke(move_m[i], None, None, Some(mo), None, false);
                     // the orange push, from the hand outward
                     let tip = x + NEWTON * force[i];
                     let _ = s.set_points(
                         push_m[i],
-                        &arrow_points(at(x, CART_H / 2.0 + 0.5), at(tip, CART_H / 2.0 + 0.5), 0.22 * scale),
+                        &corners(&arrow_points(
+                            at(x, CART_H / 2.0 + 0.5),
+                            at(tip, CART_H / 2.0 + 0.5),
+                            0.22 * scale,
+                        )),
                     );
                     s.set_stroke(push_m[i], None, None, Some(po[i]), None, false);
                     s.move_to(hand_m[i], at(x, CART_H / 2.0 + 0.5), ORIGIN);
@@ -332,7 +340,7 @@ impl CartsPic {
                         .into_iter()
                         .map(|p| at(p[0], p[1]))
                         .collect();
-                    let _ = s.set_points(spring, &pts);
+                    let _ = s.set_points(spring, &corners(&pts));
                     let (colour, width) = spring_look(stretch_cm(k, moved));
                     s.set_stroke(spring, Some(colour), Some(width), None, None, false);
                 }
@@ -498,5 +506,88 @@ mod tests {
         // a squeezed spring (a short one) still has points in order
         let short = zigzag(0.0, 0.4, 0.0, COILS, 0.2);
         assert!(short.windows(2).all(|w| w[1][0] >= w[0][0] - 1e-12));
+    }
+
+    /// The picture really moves: on a bare stage (no render), a cart's move
+    /// stretches its spring, slides its cart and lengthens its arrows, and
+    /// every run of points written is one the engine accepts (an odd quad
+    /// path). A test of the state, not the lint: it is the one that would
+    /// have caught `set_points` being given a vertex list.
+    #[test]
+    fn the_springs_and_arrows_really_follow_the_moves() {
+        super::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
+            let spec = CartsSpec {
+                centre: v(0.5, -1.0),
+                scale: 1.0,
+            };
+            let pic = CartsPic::build(&kit, stage, spec, u)?;
+            pic.start(stage)?;
+            stage.wait(0.2)?;
+            let at_rest = stage.get_points(pic.springs[0]).expect("a spring has points");
+            let cart_rest = stage.get_center(pic.carts[0]);
+            stage.set_tracker_value(u[0], 1.0)?;
+            stage.set_tracker_value(pic.moves_on, 1.0)?;
+            stage.set_tracker_value(pic.pushes_on[0], 1.0)?;
+            stage.wait(0.2)?;
+            let stretched_spring = stage.get_points(pic.springs[0]).expect("a spring has points");
+            // the spring is rewritten as an odd run of the same size, its far end one centimetre on
+            assert_eq!(stretched_spring.len(), at_rest.len());
+            assert_eq!(stretched_spring.len() % 2, 1);
+            let last = |p: &[Vec3]| p[p.len() - 1][0];
+            assert!(
+                (last(&stretched_spring) - last(&at_rest) - CM).abs() < 1e-5,
+                "{} against {}",
+                last(&stretched_spring),
+                last(&at_rest)
+            );
+            // and its coils were redrawn, not just its end moved: a middle
+            // coil sits further along, by part of a centimetre
+            let mid = at_rest.len() / 2;
+            assert!(
+                stretched_spring[mid][0] - at_rest[mid][0] > 0.2 * CM,
+                "the coils did not stretch"
+            );
+            let cart_moved = stage.get_center(pic.carts[0]);
+            assert!((cart_moved[0] - cart_rest[0] - CM).abs() < 1e-5);
+            // the blue arrow: from where the cart rested to where it is
+            let blue = stage.get_points(pic.move_arrows[0]).expect("an arrow has points");
+            assert_eq!(blue.len() % 2, 1);
+            assert!(
+                (blue[2][0] - (spec.centre[0] + cart_x(0, 1.0))).abs() < 1e-5,
+                "{:?}",
+                blue[2]
+            );
+            // the orange push: two newtons, from the hand, to the right
+            let orange = stage.get_points(pic.push_arrows[0]).expect("an arrow has points");
+            let tail = orange[0][0];
+            assert!((orange[2][0] - tail - NEWTON * 2.0).abs() < 1e-5, "{:?}", orange[2]);
+            Ok(())
+        });
+    }
+}
+
+/// A bare stage to run a prop on without rendering (the engine's own
+/// pattern for kit tests): read what the prop wrote back with
+/// `stage.get_points` and friends.
+#[cfg(test)]
+pub(crate) mod probe {
+    use fmn::prelude::*;
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
+    /// Run `f` as a scene's `construct`, headless at 10 frames a second.
+    pub fn run_scene(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
     }
 }

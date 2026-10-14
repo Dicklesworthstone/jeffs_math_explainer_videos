@@ -711,6 +711,9 @@ mod tests {
                 "the chapter never typesets {want:?}: {words:?}"
             );
         }
-        assert!(ran.seconds > 45.0 && ran.seconds < 85.0, "{} s", ran.seconds);
+        // the length that counts is the one with the scratch voice placed
+        let s = testing::run_voiced("04_the_split").unwrap().ran.seconds;
+        eprintln!("04_the_split: {s:.1} s on the scratch voice");
+        assert!(s > 45.0 && s < 85.0, "{s} s");
     }
 }

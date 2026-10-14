@@ -14,7 +14,7 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::arrows::mix;
-use super::draw::{arrow_points, faded_line, flat, group, moves, panel, squeezed, stretched};
+use super::draw::{arrow_points, corners, faded_line, flat, group, moves, own, panel, squeezed, stretched};
 use crate::model::linalg::solve;
 use crate::model::truss::{Kind, Truss};
 
@@ -278,6 +278,8 @@ pub struct TrussPic {
     /// The member being written into the table, lit: the member whose index
     /// is this value rounded down; negative for none.
     pub lit: Mob,
+    /// How much the members are tinted gold, an own pattern's colour, 0 to 1.
+    pub tint: Mob,
     anchor: Mob,
 }
 
@@ -335,12 +337,13 @@ impl TrussPic {
         let force_on = stage.add_value_tracker(0.0);
         let drawn = stage.add_value_tracker(0.0);
         let lit = stage.add_value_tracker(-1.0);
+        let tint = stage.add_value_tracker(0.0);
         let anchor = stage.arena_mut().add(VMobject::new());
 
         let t = truss.clone();
         let (members_m, joints_m, arrows_m) = (members.clone(), joints.clone(), arrows.clone());
         let biggest = forces.iter().fold(0.0_f64, |m, f| m.max(f.abs()));
-        let mut last = [f64::NAN; 7];
+        let mut last = [f64::NAN; 8];
         stage.add_updater(
             anchor,
             move |s, _| {
@@ -353,12 +356,13 @@ impl TrussPic {
                     val(s, force_on),
                     val(s, drawn),
                     val(s, lit),
+                    val(s, tint),
                 ];
                 if now.iter().zip(&last).all(|(a, b)| a.to_bits() == b.to_bits()) {
                     return;
                 }
                 last = now;
-                let [amp_v, field_v, mode, a_on, f_on, drawn_v, lit_v] = now;
+                let [amp_v, field_v, mode, a_on, f_on, drawn_v, lit_v, tint_v] = now;
                 let pick = usize::from(field_v > 0.5);
                 let (u, mag) = (&fields[pick], mags[pick]);
                 // members: ends displaced, drawn as far as `drawn`, coloured by force
@@ -366,7 +370,7 @@ impl TrussPic {
                 for (i, m) in t.members.iter().enumerate() {
                     let a = displaced(&t, layout, u, mag, amp_v, m.a);
                     let b = displaced(&t, layout, u, mag, amp_v, m.b);
-                    let _ = s.set_points(members_m[i], &[a, b]);
+                    let _ = s.set_points(members_m[i], &corners(&[a, b]));
                     let shown = (drawn_v - i as f64).clamp(0.0, 1.0);
                     seen[m.a] = seen[m.a].max(shown);
                     seen[m.b] = seen[m.b].max(shown);
@@ -375,7 +379,8 @@ impl TrussPic {
                     } else {
                         let base = (Palette::ink(), member_width(m.kind));
                         let (fc, fw) = force_look(forces[i], biggest);
-                        (mix(base.0, fc, f_on), base.1 + (fw - base.1) * f_on)
+                        // an own pattern is drawn gold: tinted last, over the force colours
+                        (mix(mix(base.0, fc, f_on), own(), tint_v), base.1 + (fw - base.1) * f_on)
                     };
                     s.set_stroke(members_m[i], Some(colour), Some(width), Some(shown), None, false);
                 }
@@ -397,7 +402,7 @@ impl TrussPic {
                     } else {
                         v(rest[0] + len, rest[1])
                     };
-                    let _ = s.set_points(arrows_m[k], &arrow_points(rest, tip, 0.12));
+                    let _ = s.set_points(arrows_m[k], &corners(&arrow_points(rest, tip, 0.12)));
                     s.set_stroke(arrows_m[k], None, None, Some(a_on * seen[j]), None, false);
                 }
             },
@@ -416,6 +421,7 @@ impl TrussPic {
             force_on,
             drawn,
             lit,
+            tint,
             anchor,
         })
     }
@@ -750,5 +756,61 @@ mod tests {
         let p = displaced(&t, l, &field, 100.0, 1.0, 3);
         assert!((p[1] - (l.joint(&t, 3)[1] - 0.5 * 100.0 * 0.018)).abs() < 1e-12);
         assert_eq!(p[0], l.joint(&t, 3)[0]);
+    }
+
+    /// The members really follow the moves: on a bare stage (no render),
+    /// a member's far end is the displaced joint, the joint's dot is on it
+    /// and a free direction's arrow is as long as the magnified move; every
+    /// run written is an odd quad path.
+    #[test]
+    fn the_members_and_arrows_really_follow_the_moves() {
+        crate::chapters::carts::probe::run_scene(|stage| {
+            let t = Truss::pratt();
+            let l = Layout {
+                origin: v(-2.0, -1.0),
+                scale: 0.2,
+            };
+            let deck = t.all_moves(&t.moves(&t.deck_load()));
+            let pic = TrussPic::build(
+                stage,
+                &t,
+                l,
+                [deck.clone(), deck.clone()],
+                [100.0, 100.0],
+                vec![0.0; t.members.len()],
+            )?;
+            pic.start(stage)?;
+            stage.set_tracker_value(pic.drawn, t.members.len() as f64)?;
+            stage.set_tracker_value(pic.amp, 1.0)?;
+            stage.set_tracker_value(pic.arrows_mode, 1.0)?;
+            stage.set_tracker_value(pic.arrows_on, 1.0)?;
+            stage.wait(0.2)?;
+            // member 0 runs from the pinned joint 0 to joint 1, which sags
+            let pts = stage.get_points(pic.members[0]).expect("a member has points");
+            assert_eq!(pts.len() % 2, 1);
+            let want = displaced(&t, l, &deck, 100.0, 1.0, 1);
+            let end = pts[pts.len() - 1];
+            assert!(
+                (end[0] - want[0]).abs() < 1e-5 && (end[1] - want[1]).abs() < 1e-5,
+                "{end:?} {want:?}"
+            );
+            assert!(end[1] < l.joint(&t, 1)[1] - 0.01, "the joint did not sag");
+            let dot = stage.get_center(pic.joints[1]);
+            assert!(
+                (dot[0] - want[0]).abs() < 1e-4 && (dot[1] - want[1]).abs() < 1e-4,
+                "{dot:?}"
+            );
+            // the arrow of joint 1's up-and-down direction: as long as the magnified move
+            let dirs = free_dirs(&t);
+            let k = dirs
+                .iter()
+                .position(|&(j, vertical)| j == 1 && vertical)
+                .expect("joint 1 moves vertically");
+            let arrow = stage.get_points(pic.arrows[k]).expect("an arrow has points");
+            let rest = l.joint(&t, 1);
+            let length = arrow[2][1] - rest[1];
+            assert!((length - 100.0 * deck[2 + 1] * l.scale).abs() < 1e-5, "{length}");
+            Ok(())
+        });
     }
 }

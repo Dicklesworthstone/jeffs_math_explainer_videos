@@ -9,11 +9,13 @@ pub mod an_economy;
 pub mod arrows;
 pub mod can_it_feed_itself;
 pub mod carts;
+pub mod deck;
 pub mod draw;
 pub mod glyphs;
 pub mod one_idea;
 pub mod own_patterns;
 pub mod the_air_in_a_room;
+pub mod the_bridge_that_swayed;
 pub mod the_split;
 pub mod truss;
 pub mod twenty_one_patterns;
@@ -48,7 +50,7 @@ macro_rules! animatic {
 
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_the_bridge_that_swayed", 0.4),
+        scene!("01_the_bridge_that_swayed", 0.4, the_bridge_that_swayed::TheBridgeThatSwayed),
         scene!("02_two_carts", 0.45, two_carts::TwoCarts),
         scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
         scene!("04_the_split", 0.55, the_split::TheSplit),
