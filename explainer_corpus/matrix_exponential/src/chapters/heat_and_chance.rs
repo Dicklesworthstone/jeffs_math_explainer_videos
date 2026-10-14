@@ -24,8 +24,8 @@ use explainer_kit::{Kit, Palette, fade_all, play, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    MatrixGrid, arrow_points, fact, fade_in_all, fade_out_all, faded_line, fail, flat, music_hold, panel, predict_hold,
-    result, rule, say, substance, tween_linear, whole,
+    MatrixGrid, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, music_hold, panel,
+    predict_hold, result, rule, say, substance, tween_linear, whole,
 };
 use super::flow::{Levels, fade_in_anim, fade_out_anim};
 use super::walks::{NODE_R, node};
@@ -82,11 +82,13 @@ pub fn glow(heat: f64) -> f64 {
 /// height is not a shape).
 pub fn bar_corners(x: f64, base: f64, width: f64, full: f64, value: f64) -> Vec<Vec3> {
     let top = base + full * value.max(0.004);
+    // a closed run of vertices, to be set through `corners`
     vec![
         v(x - width / 2.0, base),
         v(x + width / 2.0, base),
         v(x + width / 2.0, top),
         v(x - width / 2.0, top),
+        v(x - width / 2.0, base),
     ]
 }
 
@@ -248,7 +250,7 @@ fn drive_heat(stage: &mut Stage<'_>, net: &HeatNet, bars: [Mob; 4], clock: Mob, 
             let h = heat_at(t);
             for i in 0..4 {
                 s.set_fill(glows[i], None, Some(glow(h[i])), None, false);
-                let _ = s.set_points(bars[i], &bar_corners(BAR_X[i], BAR_BASE, BAR_W, BAR_H, h[i]));
+                let _ = s.set_points(bars[i], &corners(&bar_corners(BAR_X[i], BAR_BASE, BAR_W, BAR_H, h[i])));
                 s.set_fill(bars[i], None, Some(0.9 * on), None, false);
             }
         },
@@ -335,7 +337,7 @@ impl PairPanel {
                 let (p, h) = state(t);
                 s.move_to(d, at(p), ORIGIN);
                 for i in 0..2 {
-                    let _ = s.set_points(pair[i], &bar_corners(bx[i], base, 0.5, PANEL_BAR_H, h[i]));
+                    let _ = s.set_points(pair[i], &corners(&bar_corners(bx[i], base, 0.5, PANEL_BAR_H, h[i])));
                 }
             },
             true,

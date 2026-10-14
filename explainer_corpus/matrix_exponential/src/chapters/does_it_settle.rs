@@ -19,8 +19,8 @@ use fmn::prelude::*;
 
 use super::a_matrix_in::spiral_corners;
 use super::draw::{
-    Plane, QuizCard, arrow, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, flat, good, minus, music_hold,
-    numbers, result, rule, say, substance, tween_linear,
+    Plane, QuizCard, arrow, corners as quad_run, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, flat,
+    good, minus, music_hold, numbers, result, rule, say, substance, tween_linear,
 };
 use super::flow::LiveMatrix;
 use crate::model::{Mat, quarter_turn, series};
@@ -197,9 +197,9 @@ impl SceneConstruct for DoesItSettle {
                         plane.p(a.cos(), a.sin())
                     })
                     .collect();
-                let _ = s.set_points(unit_ring, &ring);
+                let _ = s.set_points(unit_ring, &quad_run(&ring));
                 let pts: Vec<Vec3> = corners.iter().map(|c| plane.p(c[0], c[1])).collect();
-                let _ = s.set_points(path, &pts);
+                let _ = s.set_points(path, &quad_run(&pts));
                 let at = plane.p(time.cos(), time.sin());
                 let moved: Vec<Vec3> = dot_template
                     .iter()

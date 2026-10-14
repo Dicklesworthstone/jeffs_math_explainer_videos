@@ -17,7 +17,7 @@ use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, fact, fade_in_all, fade_out_all, faded_line, flat, good, music_hold, numbers, result, rule, say,
+    QuizCard, corners, fact, fade_in_all, fade_out_all, faded_line, flat, good, music_hold, numbers, result, rule, say,
     substance, turning, whole,
 };
 use crate::model::exp_partial;
@@ -299,8 +299,8 @@ impl SceneConstruct for OneFunction {
                 let blend = |at: f64, a: f64, b: f64| at.mul_add(0.0, (1.0 - f) * a + f * b);
                 let stair = |x: f64| blend(x, staircase(steps(lo), x), staircase(steps(lo + 1), x));
                 let sum = |x: f64| blend(x, series_through(lo + 2, x), series_through(lo + 3, x));
-                let _ = s.set_points(steps_curve, &curve_points(&window, 2.0, 120, &stair));
-                let _ = s.set_points(sum_curve, &curve_points(&window, 2.0, 120, &sum));
+                let _ = s.set_points(steps_curve, &corners(&curve_points(&window, 2.0, 120, &stair)));
+                let _ = s.set_points(sum_curve, &corners(&curve_points(&window, 2.0, 120, &sum)));
                 last = m;
             },
             true,
@@ -344,7 +344,7 @@ impl SceneConstruct for OneFunction {
                 if r.to_bits() == grown.to_bits() {
                     return;
                 }
-                let _ = s.set_points(growth, &curve_points(&years, 40.0, 80, &|t| (r * t).exp()));
+                let _ = s.set_points(growth, &corners(&curve_points(&years, 40.0, 80, &|t| (r * t).exp())));
                 grown = r;
             },
             true,

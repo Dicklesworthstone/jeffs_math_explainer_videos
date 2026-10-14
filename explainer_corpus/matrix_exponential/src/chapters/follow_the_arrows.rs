@@ -23,8 +23,8 @@ use fmn::core::color::interpolate_color;
 use fmn::prelude::*;
 
 use super::draw::{
-    Flow, FlowSpec, Plane, Velocity, arrow, arrow_points, chip, fade_in_all, faded_line, flat, good, map2, music_hold,
-    predict_hold, result, rule, run, say, turning, tween_linear,
+    Flow, FlowSpec, Plane, Velocity, arrow, arrow_points, chip, corners, fade_in_all, faded_line, flat, good, map2,
+    music_hold, predict_hold, result, rule, run, say, turning, tween_linear,
 };
 use super::flow::{
     FIELD_COLS, LiveMatrix, RuleTrackers, drive_rule, fade_in_anim, fade_out_anim, fade_out_drifting, field_starts,
@@ -151,7 +151,7 @@ impl Machine {
                 for (&m, &p) in outs.iter().zip(&samples) {
                     let (from, to) = sliding(&rule_m, p, GAIN, u);
                     let pts = arrow_points(PLANE.p(from[0], from[1]), PLANE.p(to[0], to[1]), HEAD);
-                    let _ = s.set_points(m, &pts);
+                    let _ = s.set_points(m, &corners(&pts));
                     s.set_stroke(m, Some(c), None, None, None, false);
                 }
             },

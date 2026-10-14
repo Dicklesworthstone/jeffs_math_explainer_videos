@@ -19,7 +19,7 @@ use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
-use super::draw::{Flow, FlowSpec, arrow_points, panel, result, tween_linear};
+use super::draw::{Flow, FlowSpec, arrow_points, corners, panel, result, tween_linear};
 use crate::model::{Mat, expm_t};
 
 // ------------------------------------------------------------ fades to batch
@@ -229,7 +229,10 @@ pub fn drive_rule(stage: &mut Stage<'_>, flow: &Flow, spec: &FlowSpec, trackers:
                 if let Some((gain, head)) = velocity {
                     for (&a, q) in arrows.iter().zip(&here) {
                         let (from, to) = velocity_ends(&rule, *q, gain);
-                        let _ = s.set_points(a, &arrow_points(plane.p(from[0], from[1]), plane.p(to[0], to[1]), head));
+                        let _ = s.set_points(
+                            a,
+                            &corners(&arrow_points(plane.p(from[0], from[1]), plane.p(to[0], to[1]), head)),
+                        );
                     }
                 }
                 for (&tr, &i) in trails.iter().zip(&trail_of) {
@@ -242,7 +245,7 @@ pub fn drive_rule(stage: &mut Stage<'_>, flow: &Flow, spec: &FlowSpec, trackers:
                         way.truncate(1);
                         way.push([way[0][0] + 1e-4, way[0][1], 0.0]);
                     }
-                    let _ = s.set_points(tr, &way);
+                    let _ = s.set_points(tr, &corners(&way));
                 }
             }
             for &d in &dots {

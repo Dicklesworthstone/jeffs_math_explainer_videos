@@ -18,7 +18,7 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Flow, FlowSpec, MatrixGrid, Plane, Velocity, apply, arrow, arrow_points, chip, entries, fact, fade_in_all,
+    Flow, FlowSpec, MatrixGrid, Plane, Velocity, apply, arrow, arrow_points, chip, corners, entries, fact, fade_in_all,
     fade_out_all, faded_line, lattice, map2, matrix, music_hold, nearest, numbers, predict_hold, result, rotation_map,
     rule, run, say, stir, turning, whole,
 };
@@ -296,7 +296,7 @@ impl SceneConstruct for EToAMatrix {
                 let m = rotation_map(a);
                 for (&mob, p) in outs.iter().zip(&ends) {
                     let q = apply(&m, *p);
-                    let _ = s.set_points(mob, &arrow_points(origin, fan.p(q[0], q[1]), 0.24));
+                    let _ = s.set_points(mob, &corners(&arrow_points(origin, fan.p(q[0], q[1]), 0.24)));
                 }
                 shown = a;
             },

@@ -16,7 +16,8 @@ use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, rect, thousands
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, fact, fade_in_all, fade_out_all, faded_line, flat, music_hold, result, rule, say, substance, whole,
+    QuizCard, corners, fact, fade_in_all, fade_out_all, faded_line, flat, music_hold, result, rule, say, substance,
+    whole,
 };
 
 pub struct Growth {
@@ -303,7 +304,7 @@ impl SceneConstruct for Growth {
                     return;
                 }
                 for (&m, pts) in parts.iter().zip(slope_points(t)) {
-                    let _ = s.set_points(m, &pts);
+                    let _ = s.set_points(m, &corners(&pts));
                 }
                 let c = CHART.p(t, t.exp());
                 let moved: Vec<Vec3> = dot_template.iter().map(|p| [p[0] + c[0], p[1] + c[1], p[2]]).collect();

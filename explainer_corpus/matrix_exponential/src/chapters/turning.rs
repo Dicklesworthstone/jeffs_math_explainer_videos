@@ -18,8 +18,8 @@ use explainer_kit::{Kit, Palette, fade_all, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Plane, QuizCard, arrow, arrow_points, fact, fade_in_all, fade_out_all, faded_line, flat, minus, music_hold, result,
-    rule, say, turning, tween_linear, warn,
+    Plane, QuizCard, arrow, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, flat, minus,
+    music_hold, result, rule, say, turning, tween_linear, warn,
 };
 
 pub struct Turning {
@@ -180,8 +180,8 @@ impl SceneConstruct for Turning {
                 // quarter and left as long
                 let q = (p.0 - r * a.sin(), p.1 + r * a.cos());
                 let (at, to) = (PLANE.p(p.0, p.1), PLANE.p(q.0, q.1));
-                let _ = s.set_points(position, &arrow_points(origin, at, 0.2));
-                let _ = s.set_points(push, &arrow_points(at, to, 0.2));
+                let _ = s.set_points(position, &corners(&arrow_points(origin, at, 0.2)));
+                let _ = s.set_points(push, &corners(&arrow_points(at, to, 0.2)));
                 let moved: Vec<Vec3> = dot_template
                     .iter()
                     .map(|d| [d[0] + at[0], d[1] + at[1], d[2]])
@@ -303,9 +303,9 @@ impl SceneConstruct for Turning {
                 if t.to_bits() == shown.to_bits() {
                     return;
                 }
-                let _ = st.set_points(arc_mob, &arc(0.0, t, 1.0, ARC_SAMPLES));
+                let _ = st.set_points(arc_mob, &corners(&arc(0.0, t, 1.0, ARC_SAMPLES)));
                 let at = PLANE.p(t.cos(), t.sin());
-                let _ = st.set_points(spoke, &[origin, at]);
+                let _ = st.set_points(spoke, &corners(&[origin, at]));
                 let moved: Vec<Vec3> = point_template
                     .iter()
                     .map(|d| [d[0] + at[0], d[1] + at[1], d[2]])

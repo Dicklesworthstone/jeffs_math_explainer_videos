@@ -20,8 +20,8 @@ use explainer_kit::{Kit, Palette, fade_all, play, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    MatrixGrid, Plane, QuizCard, arrow_points, chip, entries, fade_in_all, fade_out_all, faded_line, fit_width, flat,
-    good, music_hold, result, rule, say, second, substance, tween_linear, warn,
+    MatrixGrid, Plane, QuizCard, arrow_points, chip, corners, entries, fade_in_all, fade_out_all, faded_line,
+    fit_width, flat, good, music_hold, result, rule, say, second, substance, tween_linear, warn,
 };
 use super::flow::{fade_in_anim, fade_out_anim};
 use crate::facts::{shear_right, shear_up, shown};
@@ -118,11 +118,14 @@ pub fn bar_tops(v: f64) -> (f64, f64, f64) {
 /// A rectangle's corners standing on `base` at `x`, `w` wide, from `lo` to
 /// `hi` scene units above it.
 fn column(x: f64, w: f64, base: f64, lo: f64, hi: f64) -> Vec<Vec3> {
+    let top = base + hi.max(lo + 0.004);
+    // a closed run of vertices, to be set through `corners`
     vec![
         v(x - w / 2.0, base + lo),
         v(x + w / 2.0, base + lo),
-        v(x + w / 2.0, base + hi.max(lo + 0.004)),
-        v(x - w / 2.0, base + hi.max(lo + 0.004)),
+        v(x + w / 2.0, top),
+        v(x - w / 2.0, top),
+        v(x - w / 2.0, base + lo),
     ]
 }
 
@@ -242,10 +245,13 @@ impl SceneConstruct for OrderMatters {
                 last = u;
                 let (first, second_top, both) = bar_tops(u);
                 let at = |h: f64| h * BAR_UNIT;
-                let _ = s.set_points(seq_base, &column(BAR_X[0], 1.3, BAR_BASE, 0.0, at(1.0)));
-                let _ = s.set_points(seq_a, &column(BAR_X[0], 1.3, BAR_BASE, at(1.0), at(first)));
-                let _ = s.set_points(seq_b, &column(BAR_X[0], 1.3, BAR_BASE, at(first), at(second_top)));
-                let _ = s.set_points(par, &column(BAR_X[1], 1.3, BAR_BASE, 0.0, at(both)));
+                let _ = s.set_points(seq_base, &corners(&column(BAR_X[0], 1.3, BAR_BASE, 0.0, at(1.0))));
+                let _ = s.set_points(seq_a, &corners(&column(BAR_X[0], 1.3, BAR_BASE, at(1.0), at(first))));
+                let _ = s.set_points(
+                    seq_b,
+                    &corners(&column(BAR_X[0], 1.3, BAR_BASE, at(first), at(second_top))),
+                );
+                let _ = s.set_points(par, &corners(&column(BAR_X[1], 1.3, BAR_BASE, 0.0, at(both))));
             },
             true,
         )?;

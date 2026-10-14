@@ -23,8 +23,9 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    Flow, FlowSpec, MatrixGrid, Plane, QuizCard, arrow, arrow_points, entries, fact, fade_in_all, fade_out_all,
-    faded_line, flat, lattice, music_hold, result, rotation_map, rule, say, second, turning, tween_linear,
+    Flow, FlowSpec, MatrixGrid, Plane, QuizCard, arrow, arrow_points, corners as quad_run, entries, fact, fade_in_all,
+    fade_out_all, faded_line, flat, lattice, music_hold, result, rotation_map, rule, say, second, turning,
+    tween_linear,
 };
 use super::flow::LiveMatrix;
 use crate::model::{quarter_turn, series};
@@ -299,7 +300,7 @@ impl SceneConstruct for AMatrixIn {
                     return;
                 }
                 for (&m, (from, to)) in blues.iter().zip(fan_ends(base, 1.6, a)) {
-                    let _ = s.set_points(m, &arrow_points(from, to, 0.22));
+                    let _ = s.set_points(m, &quad_run(&arrow_points(from, to, 0.22)));
                 }
                 seen = a;
             },
@@ -395,7 +396,7 @@ impl SceneConstruct for AMatrixIn {
                 }
                 let pts = spiral_polyline(&cs, r);
                 let tip = pts[pts.len() - 1];
-                let _ = s.set_points(spiral, &pts);
+                let _ = s.set_points(spiral, &quad_run(&pts));
                 let moved: Vec<Vec3> = joint_template
                     .iter()
                     .map(|d| [d[0] + tip[0], d[1] + tip[1], d[2]])
