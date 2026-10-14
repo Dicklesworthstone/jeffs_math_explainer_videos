@@ -874,6 +874,14 @@ fn rows(m: [[Frac; 2]; 2]) -> String {
     format!("{};{}", list(m[0]), list(m[1]))
 }
 
+/// A table's entries as decimals, as the scenes draw them: `0.4,0.3;0.2,0.5`.
+fn decimal_rows(m: [[Frac; 2]; 2]) -> Result<String, String> {
+    let row = |r: [Frac; 2]| -> Result<String, String> {
+        Ok(list(r.map(decimal).into_iter().collect::<Result<Vec<_>, _>>()?))
+    };
+    Ok(format!("{};{}", row(m[0])?, row(m[1])?))
+}
+
 fn tenths(t: &Table) -> Result<String, String> {
     let ten = Frac::whole(10);
     let row = |r: [Frac; 2]| -> Result<String, String> {
@@ -891,6 +899,12 @@ fn economy_facts(f: &mut Facts) -> Result<(), String> {
     let c = economy::thrifty();
     f.add("K-E1.table", rows(c.c))?;
     f.add("K-E1.table_tenths", tenths(&c)?)?;
+    f.pin(
+        "K-D2.table",
+        decimal_rows(c.c)?,
+        "0.4,0.3;0.2,0.5",
+        "K-E1.table_tenths 4,3;2,5, each over ten (12_1 draws these decimals)",
+    )?;
     f.pin(
         "K-E1.uses_even",
         list(c.eats(pair(shown::EVEN_MIX))),
@@ -960,6 +974,12 @@ fn economy_facts(f: &mut Facts) -> Result<(), String> {
 
     let h = economy::hungry();
     f.add("K-E4.table_tenths", tenths(&h)?)?;
+    f.pin(
+        "K-D2.hungry_table",
+        decimal_rows(h.c)?,
+        "0.6,0.5;0.4,0.7",
+        "K-E4.table_tenths 6,5;4,7, each over ten (13_5 draws these decimals)",
+    )?;
     let hungry_values = h
         .eigenvalues()
         .ok_or("the hungry table's eigenvalues are not fractions")?;
@@ -1445,6 +1465,25 @@ mod tests {
         assert!(modes.iter().all(|(_, hz)| *hz < 149.0), "none is near 150 Hz");
         assert_eq!(f.get("K-Q.09_4.answer"), Some("68.6"));
         assert_eq!(tones[0], 68.6);
+    }
+
+    /// 12_1 and 13_5 draw the economy's two tables with one decimal an entry
+    /// (0.4, 0.3, 0.2, 0.5 and 0.6, 0.5, 0.4, 0.7): the decimals are the
+    /// tenths over ten, as the description states them.
+    #[test]
+    fn the_two_tables_are_shown_in_decimals_that_are_their_tenths_over_ten() {
+        let f = facts().unwrap();
+        let entries = |key: &str, scale: f64| -> Vec<f64> {
+            f.get(key)
+                .unwrap()
+                .split([',', ';'])
+                .map(|s| (s.parse::<f64>().unwrap() * scale).round())
+                .collect()
+        };
+        assert_eq!(f.get("K-D2.table"), Some("0.4,0.3;0.2,0.5"));
+        assert_eq!(f.get("K-D2.hungry_table"), Some("0.6,0.5;0.4,0.7"));
+        assert_eq!(entries("K-D2.table", 10.0), entries("K-E1.table_tenths", 1.0));
+        assert_eq!(entries("K-D2.hungry_table", 10.0), entries("K-E4.table_tenths", 1.0));
     }
 
     /// 07_5 sets 4.32 Hz (twice the deck, the steel as it is) against 4.18

@@ -12,6 +12,16 @@ vibration), K-R, K-H and K-N (rooms, the hall, a hall cut into cells), K-E
 (the economy), K-L (the factory), K-Q (the quizzes), K-X (the edges of the
 always sentences) and K-S (cited).
 
+The oracle may print more than the video: K-D rows are numbers docs/description.md
+states, each computed here from first principles by the functions below (not typed,
+not a formula over another row) and cross-checked. K-D1 is the truss's fourth mode
+and the modes' widths, K-D2 the economy (the tables as decimals, the dot-product
+recipe, what is kept, the table that splits), K-D3 the rooms (modes in a window
+of a few hertz; the bathroom's window), K-D4 the tube's humps. Only K-D2.table and
+K-D2.hungry_table are also video facts (src/facts.rs): the scenes draw those two
+tables with one decimal an entry. Every other K-D row is research only the oracle
+prints (tools/description_numbers.py reads the oracle's values as facts).
+
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
 
@@ -299,6 +309,7 @@ DECK = [1, 2, 3, 4, 5]
 MID = 3
 LOAD_N = 100e3
 DECK_KG = 4000.0
+LONE_TOLERANCE = F(1, 40)  # "within 2.5%" under a lone midspan load
 
 
 def stretch_matrix():
@@ -466,7 +477,7 @@ def truss(carts_table):
              fixed(q[under, 0] * coefficients[0] / lam[0] / sharp[under] * 100, 0))
         if metres == 12:
             need = next(n for n in range(1, len(lam) + 1)
-                        if abs(q[under, :n] @ (coefficients[:n] / lam[:n]) / sharp[under] - 1) < 0.025)
+                        if abs(q[under, :n] @ (coefficients[:n] / lam[:n]) / sharp[under] - 1) < float(LONE_TOLERANCE))
             emit("K-P2.lone_within_2p5.12m", need)
 
     # with mass: K phi = w^2 M phi, as the eigenpairs of M^-1 K
@@ -537,6 +548,7 @@ def truss(carts_table):
         "moving": int((np.abs(lone) > 1e-9 * np.abs(lone).max()).sum()),
         "softest_changes": deck_sign_changes(everywhere(q[:, 0])),
         "down": heavy[0] < hz[0],
+        "hz": [float(h) for h in hz[:4]],
     }
 
 
@@ -576,6 +588,11 @@ def modes_below(room, hertz):
                 if (nx, ny, nz) != (0, 0, 0) and inside:
                     out.append(((nx, ny, nz), mode_hz(room, (nx, ny, nz))))
     return sorted(out, key=lambda m: (m[1], m[0]))
+
+
+def mode_width_hz(t60):
+    """A mode's half-power width, delta / pi with delta = 6.91 / T60 (60 dB is a factor of a million in energy)."""
+    return math.log(1e6) / (2 * math.pi * float(t60))
 
 
 def volume(room):
@@ -661,8 +678,7 @@ def rooms():
     check("hall: the textbook estimate is within 0.01% of the exact count at 1 kHz",
           abs(estimate / count_below(HALL, 1000) - 1) < 1e-4)
     emit("K-H2.per_hz_at_1000", fixed(4 * math.pi * v * 1000**2 / SOUND**3, 0))
-    # a mode's half-power width, delta / pi with delta = 6.91 / T60 (60 dB is a factor of a million in energy)
-    width = math.log(1e6) / (2 * math.pi * float(HALL_T60))
+    width = mode_width_hz(HALL_T60)
     emit("K-H2.mode_width_hz", fixed(width, 1))
     emit("K-H2.modes_per_width_at_1000", fixed(4 * math.pi * v * 1000**2 / SOUND**3 * width, 0))
     crossover = schroeder(HALL, HALL_T60)
@@ -1041,6 +1057,143 @@ def sources():
     emit("K-S.frankensim.chain", 40)
 
 
+# --- K-D: numbers docs/description.md states -------------------------------------------
+
+SPLIT = [[F(11, 10), F(0)], [F(3, 10), F(2, 10)]]  # a table that splits into separate parts (13_7's edge)
+GAUSS_SIGMA = F(1, 8)  # the Gaussian hump's standard deviation, a part of the tube's length
+TUBE_SLICES = 40  # K-R1.slices
+BATHROOM_WINDOW_HZ = (60, 150)  # 09_5's pitch line crosses the tones from 60 to 150 Hz
+
+
+def dot(a, b):
+    return sum(x * y for x, y in zip(a, b))
+
+
+def decimals(m):
+    """A 2 by 2 table as decimals, rows apart: 0.4,0.3;0.2,0.5."""
+    return join((join(decimal(x) for x in row) for row in m), ";")
+
+
+def most_in_a_window(room, hertz, width):
+    """The most modes at or below `hertz` that fit inside one window of `width` hertz."""
+    tones = [hz for _, hz in modes_below(room, hertz)]
+    return max(sum(1 for g in tones[i:] if g <= f + float(width) + 1e-9) for i, f in enumerate(tones))
+
+
+def turn_deg(k, u):
+    """The angle between a move u and the push K u it needs."""
+    push = k @ u
+    cosine = float(u @ push) / (np.linalg.norm(u) * np.linalg.norm(push))
+    return math.degrees(math.acos(max(-1.0, min(1.0, cosine))))
+
+
+def description_modes(t):
+    hz = t["hz"]
+    emit("K-D1.ratio.4", fixed(hz[3] / hz[0], 2))
+    check("truss: the first four modes rise, and the second and third over the first are K-V1.ratio.2 and .3",
+          hz[0] < hz[1] < hz[2] < hz[3] and fixed(hz[1] / hz[0], 2) == _EMITTED["K-V1.ratio.2"]
+          and fixed(hz[2] / hz[0], 2) == _EMITTED["K-V1.ratio.3"])
+    emit("K-D1.mode_width_constant", fixed(mode_width_hz(1), 1))
+    emit("K-D1.hall_mode_width_hz_3dp", fixed(mode_width_hz(HALL_T60), 3))
+    emit("K-D1.study_mode_width_hz", fixed(mode_width_hz(STUDY_T60), 1))
+    check("hall: the width to one place is K-H2.mode_width_hz, and the study's is the constant over its T60",
+          fixed(mode_width_hz(HALL_T60), 1) == _EMITTED["K-H2.mode_width_hz"]
+          and abs(mode_width_hz(STUDY_T60) - mode_width_hz(1) / float(STUDY_T60)) < 1e-12)
+    emit("K-D1.lone_within_percent", decimal(LONE_TOLERANCE * 100))
+
+
+def description_economy():
+    c, h = THRIFTY, HUNGRY
+    emit("K-D2.table", decimals(c))
+    emit("K-D2.hungry_table", decimals(h))
+    for name, table, tenths in (("thrifty", c, "K-E1.table_tenths"), ("hungry", h, "K-E4.table_tenths")):
+        check(f"economy: the {name} table's decimals are its tenths over ten",
+              [x for row in table for x in row] == [F(s) / 10 for s in _EMITTED[tenths].replace(";", ",").split(",")])
+    values = eigen_fractions(c)
+    mix, other = eigenvector(c, values[0]), eigenvector(c, values[1])
+    d = [F(30), F(10)]
+    # the truss's recipe (the dot product with each pattern, over its length squared) on the lopsided demand
+    shares = [dot(d, p) / dot(p, p) for p in (mix, other)]
+    rebuilt = [shares[0] * mix[i] + shares[1] * other[i] for i in range(2)]
+    emit("K-D2.recipe_shares", f"{decimal(shares[0])},{fixed(float(shares[1]), 2)}")
+    emit("K-D2.recipe_rebuilt", join(fixed(float(x), 1) for x in rebuilt))
+    det = mix[0] * other[1] - mix[1] * other[0]
+    solved = [F(d[0] * other[1] - d[1] * other[0], det), F(mix[0] * d[1] - mix[1] * d[0], det)]
+    check("economy: solving the two equations gives 18 and 4, which rebuild (30, 10); the recipe does not, "
+          "for the two patterns are not at right angles",
+          solved == [18, 4] and [solved[0] * mix[i] + solved[1] * other[i] for i in range(2)] == d
+          and dot(mix, other) != 0 and rebuilt != d)
+    # what the economy keeps of what is made: made less used, over made
+    kept = {}
+    for name, demand in (("equal", [F(10), F(10)]), ("30_10", [F(30), F(10)]), ("10_30", [F(10), F(30)])):
+        made, used = sum(demand), sum(uses(c, demand))
+        kept[name] = (made - used) / made * 100
+    emit("K-D2.kept_percent.30_10", decimal(kept["30_10"]))
+    emit("K-D2.kept_percent.10_30", decimal(kept["10_30"]))
+    check("economy: of equal amounts it keeps 30%, one less the largest eigenvalue, and not of the lopsided ones",
+          kept["equal"] == (1 - values[0]) * 100 and kept["30_10"] != kept["equal"] != kept["10_30"])
+    # a table that splits: its largest eigenvalue is above 1, yet one demand is met
+    split = eigen_fractions(SPLIT)
+    inv = inverse(SPLIT)
+    plan = [inv[0][1], inv[1][1]]  # the plan for the demand (0, 1)
+    emit("K-D2.split_table", decimals(SPLIT))
+    emit("K-D2.split_table_largest", decimal(split[0]))
+    emit("K-D2.split_table_plan", join(decimal(x) for x in plan))
+    check("economy: the table that splits meets the demand (0, 1) with no negative entry, x = C x + d exactly",
+          min(plan) >= 0 and [a + b for a, b in zip(uses(SPLIT, plan), [F(0), F(1)])] == plan)
+    check("economy: the table that splits has largest eigenvalue above 1 and fails the demand (1, 0)",
+          split[0] > 1 and min(inv[0][0], inv[1][0]) < 0)
+
+
+def description_rooms():
+    windows = (F("0.5"), F(2), F(fixed(mode_width_hz(STUDY_T60), 1)))  # the small room's own mode width last
+    emit("K-D3.window_hz", join(decimal(w) for w in windows))
+    named = (("cube", CUBE), ("narrow", NARROW), ("study", STUDY))
+    most = {}
+    for hertz in (100, 200):
+        for name, room in named:
+            most[hertz, name] = [most_in_a_window(room, hertz, w) for w in windows]
+            emit(f"K-D3.window_modes.below_{hertz}.{name}", join(most[hertz, name]))
+    check("rooms: the cube has at least as many modes in one window as either other room, in every window",
+          all(most[h, "cube"][i] >= most[h, n][i] for h in (100, 200) for n in ("narrow", "study") for i in range(3)))
+    check("rooms: at the study's own mode width the three rooms tie below 200 Hz",
+          len({most[200, name][2] for name, _ in named}) == 1)
+    check("rooms: the study's exact mode width, not rounded to 4.4 Hz, gives the same counts below 200 Hz",
+          [most_in_a_window(room, 200, mode_width_hz(STUDY_T60)) for _, room in named]
+          == [most[200, name][2] for name, _ in named])
+    low, high = BATHROOM_WINDOW_HZ
+    inside = [hz for _, hz in modes_below(BATHROOM, high) if hz >= low]
+    emit("K-D3.bathroom_window_hz", join(BATHROOM_WINDOW_HZ))
+    emit("K-D3.bathroom_tones_in_window", len(inside))
+    check("rooms: no bathroom mode is below 60 Hz, and the window holds K-R2.tones_to_150_hz",
+          count_below(BATHROOM, low) == 0 and len(inside) == len(_EMITTED["K-R2.tones_to_150_hz"].split(",")))
+
+
+def description_tube():
+    n = TUBE_SLICES
+    k = springs_table(n)
+    x = np.arange(1, n + 1) / (n + 1)
+    sine = np.sin(np.pi * x)
+    spike = np.zeros(n)
+    spike[n // 2] = 1.0
+    parabola = x * (1 - x)
+
+    def gaussian(sigma):
+        return np.exp(-(((x - 0.5) / float(sigma)) ** 2) / 2)
+
+    emit("K-D4.parabola_turn_deg", fixed(turn_deg(k, parabola), 1))
+    emit("K-D4.gaussian_turn_deg", fixed(turn_deg(k, gaussian(GAUSS_SIGMA)), 1))
+    emit("K-D4.gaussian_sigma_fraction", frac(GAUSS_SIGMA))
+    check("tube: a half sine wave is an eigenvector of the 40-slice table and turns 0 degrees",
+          np.allclose(k @ sine, (2 - 2 * math.cos(math.pi / (n + 1))) * sine) and turn_deg(k, sine) < 1e-6)
+    check("tube: one slice turns K-R1.lump_turn_deg",
+          fixed(turn_deg(k, spike), 1) == _EMITTED["K-R1.lump_turn_deg"])
+    check("tube: a parabola and a Gaussian are not eigenvectors, and turn by more than 20 degrees",
+          min(turn_deg(k, parabola), turn_deg(k, gaussian(GAUSS_SIGMA))) > 20)
+    check("tube: the Gaussian turns 54.6 degrees for every standard deviation from 0.11 to 0.15 of the length",
+          all(round(turn_deg(k, gaussian(F(s, 100))), 1) == 54.6 for s in range(11, 16)))
+
+
 def main():
     bridges()
     k = two_carts()
@@ -1051,6 +1204,10 @@ def main():
     fac = factory()
     quizzes(k, t, r, e, fac)
     edges()
+    description_modes(t)
+    description_economy()
+    description_rooms()
+    description_tube()
     sources()
     print(f"# {len(_EMITTED)} keys; {_CHECKS[0] - len(_FAILED)} of {_CHECKS[0]} cross-checks pass",
           file=sys.stderr)
