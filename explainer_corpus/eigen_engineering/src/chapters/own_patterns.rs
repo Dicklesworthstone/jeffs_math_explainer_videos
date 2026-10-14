@@ -222,7 +222,9 @@ impl SceneConstruct for OwnPatterns {
             stage,
             move |s| {
                 let mv = [s.tracker_value(ux).unwrap_or(0.0), s.tracker_value(uy).unwrap_or(0.0)];
-                turn_deg(&table_for_readout, mv)
+                // a 0-place DecimalNumber truncates: round the reading itself
+                // (26.57 degrees is 27, and the 30 at the most is not 29)
+                turn_deg(&table_for_readout, mv).round()
             },
             0,
             false,

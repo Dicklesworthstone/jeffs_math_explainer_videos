@@ -236,8 +236,12 @@ impl SceneConstruct for TheBridgeThatSwayed {
             "the first day:",
             &format!("{} to {} people", thousands(low), thousands(high)),
         )?;
-        fade_in_all(stage, &[deck.edges[0], deck.edges[1], date], 0.7)?;
-        tween_all(stage, &[(deck.walkers_on, 1.0), (deck.sway, SWAY)], 1.6)?;
+        fade_in_all(stage, &[date], 0.7)?;
+        tween_all(
+            stage,
+            &[(deck.edges_on, 1.0), (deck.walkers_on, 1.0), (deck.sway, SWAY)],
+            1.6,
+        )?;
         line.wait_for(stage, "sways sideways by about seven centimetres")?;
         fade_in_all(stage, &[ruler, sway_reading], 0.5)?;
         line.wait_for(stage, "Two days later it is closed")?;
@@ -245,12 +249,8 @@ impl SceneConstruct for TheBridgeThatSwayed {
 
         // ---- 01_2: the bridge, the air and the economy each have their own
         let line = say(&kit, stage, "01_2")?;
-        tween_all(stage, &[(deck.walkers_on, 0.0)], 0.5)?;
-        fade_out_all(
-            stage,
-            &[deck.edges[0], deck.edges[1], date, ruler, sway_reading, stamp, crowd],
-            0.6,
-        )?;
+        tween_all(stage, &[(deck.walkers_on, 0.0), (deck.edges_on, 0.0)], 0.5)?;
+        fade_out_all(stage, &[date, ruler, sway_reading, stamp, crowd], 0.6)?;
         // a truss sagging and springing back, in gold
         let t = Truss::pratt();
         let softest = t.all_moves(&t.patterns().vectors[0]);
@@ -374,8 +374,7 @@ impl SceneConstruct for TheBridgeThatSwayed {
 
         // ---- 01_4: it had been checked for a bounce, not for a sway
         let line = say(&kit, stage, "01_4")?;
-        fade_in_all(stage, &[deck.edges[0], deck.edges[1]], 0.5)?;
-        tween_all(stage, &[(deck.walkers_on, 1.0)], 0.5)?;
+        tween_all(stage, &[(deck.edges_on, 1.0), (deck.walkers_on, 1.0)], 0.5)?;
         let mut bounce = {
             let base = polyline(vec![v(-4.2, -2.6), v(-2.2, -2.6)])
                 .style(faded_line(ink, 4.0, 1.0))
@@ -418,12 +417,10 @@ impl SceneConstruct for TheBridgeThatSwayed {
 
         // ---- 01_6: a way of moving all its own, and a walker not in step
         let line = say(&kit, stage, "01_6")?;
-        tween_all(stage, &[(deck.walkers_on, 0.0)], 0.4)?;
+        tween_all(stage, &[(deck.walkers_on, 0.0), (deck.edges_on, 0.0)], 0.4)?;
         fade_out_all(
             stage,
             &[
-                deck.edges[0],
-                deck.edges[1],
                 bounce_icon,
                 tick,
                 bounce_caption,
@@ -436,9 +433,11 @@ impl SceneConstruct for TheBridgeThatSwayed {
         )?;
         deck.stop(stage);
         // the deck's sideways swing as a gold curve at the rate of one mode
+        // (built visible and not yet on the scene: fading it in brings it in
+        // at the opacity it has)
         let curve = stage.arena_mut().add(
             polyline(edge(&CURVE, CURVE_AMP, deck_hz, 0.0, 1.0))
-                .style(faded_line(gold, 6.0, 0.0))
+                .style(faded_line(gold, 6.0, 1.0))
                 .build(),
         );
         let curve_anchor = stage.arena_mut().add(VMobject::new());

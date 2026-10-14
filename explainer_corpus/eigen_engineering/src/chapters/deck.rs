@@ -84,9 +84,13 @@ pub struct Deck {
     /// the scene's dt (added to the scene with the deck).
     pub clock: Mob,
     /// The sway at midspan, scene units; and how many times a second the
-    /// deck swings; and how much of the walkers shows, 0 to 1.
+    /// deck swings; and how much of the edges and of the walkers shows, 0
+    /// to 1 (the parts are in the scene from [`Deck::start`], at opacity 0:
+    /// they are shown by these, never faded, or the updater would undo the
+    /// fade the next frame).
     pub sway: Mob,
     pub swings: Mob,
+    pub edges_on: Mob,
     pub walkers_on: Mob,
     pub edges: [Mob; 2],
     pub walkers: Vec<Mob>,
@@ -121,6 +125,7 @@ impl Deck {
         let sway = stage.add_value_tracker(0.0);
         let swings = stage.add_value_tracker(1.0);
         let walkers_on = stage.add_value_tracker(0.0);
+        let edges_on = stage.add_value_tracker(0.0);
         let anchor = stage.arena_mut().add(VMobject::new());
         let (edges_m, walkers_m) = (edges, walkers.clone());
         let mut t = 0.0_f64;
@@ -135,13 +140,15 @@ impl Deck {
                 let amp = s.tracker_value(sway).unwrap_or(0.0);
                 let hz = s.tracker_value(swings).unwrap_or(1.0);
                 let on = s.tracker_value(walkers_on).unwrap_or(0.0);
-                let now = [t, amp, hz, on, 0.0];
+                let edge_on = s.tracker_value(edges_on).unwrap_or(0.0);
+                let now = [t, amp, hz, on, edge_on];
                 if now.iter().zip(&last).all(|(a, b)| a.to_bits() == b.to_bits()) {
                     return;
                 }
                 last = now;
                 for (side, &m) in [1.0, -1.0].iter().zip(&edges_m) {
                     let _ = s.set_points(m, &corners(&edge(&spec, amp, hz, t, *side)));
+                    s.set_stroke(m, None, None, Some(edge_on), None, false);
                 }
                 for (i, &d) in walkers_m.iter().enumerate() {
                     s.move_to(d, walker_place(&spec, amp, hz, t, i, n), ORIGIN);
@@ -155,6 +162,7 @@ impl Deck {
             clock,
             sway,
             swings,
+            edges_on,
             walkers_on,
             edges,
             walkers,
@@ -162,9 +170,15 @@ impl Deck {
         })
     }
 
-    /// Put the updater (and so the clock) in the scene.
+    /// Put the updater (and so the clock), the edges and the walkers in the
+    /// scene, at opacity 0 until [`Deck::edges_on`] and [`Deck::walkers_on`]
+    /// rise: a mobject the updater drives that is never added is never
+    /// drawn.
     pub fn start(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         stage.add_to_scene(self.anchor)?;
+        for &m in self.edges.iter().chain(&self.walkers) {
+            stage.add_to_scene(m)?;
+        }
         Ok(())
     }
 
@@ -294,9 +308,13 @@ mod tests {
         crate::chapters::carts::probe::run_scene(|stage| {
             let deck = Deck::build(stage, spec(), 6)?;
             deck.start(stage)?;
+            // what the updater drives is on the scene, or it is never drawn
+            let on_scene = stage.scene().mobjects().to_vec();
+            assert!(deck.edges.iter().chain(&deck.walkers).all(|m| on_scene.contains(m)));
             stage.set_tracker_value(deck.sway, 0.4)?;
             stage.set_tracker_value(deck.swings, 1.0)?;
             stage.set_tracker_value(deck.walkers_on, 1.0)?;
+            stage.set_tracker_value(deck.edges_on, 1.0)?;
             stage.wait(0.3)?;
             let t = stage.tracker_value(deck.clock).unwrap_or(0.0);
             assert!((t - 0.3).abs() < 0.11, "the clock reads {t} s after waiting 0.3 s");
