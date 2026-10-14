@@ -19,8 +19,8 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    MatrixGrid, QuizCard, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, ground, items, music_hold,
-    numbers, own, panel, pause, say, show, squeezed, stretched, tween_linear, whole,
+    MatrixGrid, QuizCard, corners, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, ground, items,
+    music_hold, numbers, own, panel, pause, say, show, squeezed, stretched, tween_linear, whole,
 };
 use crate::model::rooms::{CUBE, NARROW, Room, STUDY, attic_section};
 
@@ -223,7 +223,7 @@ fn rays(stage: &mut Stage<'_>, hall: &Hall) -> fmn::Result<(Vec<Mob>, Mob)> {
                         v(left + scale * x, bottom + scale * y)
                     })
                     .collect();
-                let _ = s.set_points(m, &pts);
+                let _ = s.set_points(m, &corners(&pts));
             }
         },
         false,
@@ -274,7 +274,7 @@ impl Crowd {
                 last = a;
                 let t = t_full * (EMPTY_STRETCH - (EMPTY_STRETCH - 1.0) * a);
                 let end = v(PLOT_LEFT + PLOT_W * t / t_max, PLOT_BOTTOM);
-                let _ = s.set_points(curve, &[v(PLOT_LEFT, PLOT_BOTTOM + PLOT_H), end]);
+                let _ = s.set_points(curve, &corners(&[v(PLOT_LEFT, PLOT_BOTTOM + PLOT_H), end]));
                 let lit = (a * n as f64).round() as usize;
                 let colors: Vec<Vec<Srgb>> = (0..SEAT_ROWS)
                     .map(|r| (0..SEAT_COLS).map(|c| seat(rank[r * SEAT_COLS + c] < lit)).collect())

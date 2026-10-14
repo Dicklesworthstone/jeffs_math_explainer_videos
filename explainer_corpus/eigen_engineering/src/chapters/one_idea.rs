@@ -19,7 +19,7 @@ use fmn::prelude::*;
 use super::an_economy::{angle_readout, hatched_quarter, table_entries, table_of};
 use super::arrows::{ArrowTest, PlaneArrow, band_ends, own_lines, unit_at};
 use super::draw::{
-    MatrixGrid, Plane, arrow_points, fact, fade_in_all, fade_out_all, faded_line, fail, flat, fraction_tex,
+    MatrixGrid, Plane, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, fraction_tex,
     fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause, predict_hold, pushes, run, say,
     tween_all, tween_linear, warn, whole,
 };
@@ -260,7 +260,7 @@ impl Footbridge {
                             v(x, DECK_Y + amp * SWAY * (std::f64::consts::PI * t).sin())
                         })
                         .collect();
-                    let _ = s.set_points(curve, &pts);
+                    let _ = s.set_points(curve, &corners(&pts));
                 }
             },
             false,
@@ -718,14 +718,14 @@ impl SceneConstruct for OneIdea {
         let limits = matrix("K-L1.limits")?;
         let profit = numbers("K-L1.profit")?;
         let corner_text = fact("K-L2.corners")?;
-        let corners: Vec<[f64; 2]> = corner_text
+        let corner_points: Vec<[f64; 2]> = corner_text
             .split(';')
             .map(|p| {
                 let xy: Vec<f64> = p.split(',').filter_map(|s| s.parse().ok()).collect();
                 [xy[0], xy[1]]
             })
             .collect();
-        let region_pts = round_the_polygon(&corners);
+        let region_pts = round_the_polygon(&corner_points);
         let plane_pt = |p: [f64; 2]| FACTORY.p(p[0], p[1]);
         let region = {
             let pts: Vec<Vec3> = region_pts.iter().map(|&p| plane_pt(p)).collect();
@@ -792,7 +792,7 @@ impl SceneConstruct for OneIdea {
                 }
                 last = c;
                 if let Some((a, b)) = line_in_window(profit[0], profit[1], c.max(1e-3), WINDOW) {
-                    let _ = s.set_points(profit_line, &[FACTORY.p(a[0], a[1]), FACTORY.p(b[0], b[1])]);
+                    let _ = s.set_points(profit_line, &corners(&[FACTORY.p(a[0], a[1]), FACTORY.p(b[0], b[1])]));
                 }
             },
             true,

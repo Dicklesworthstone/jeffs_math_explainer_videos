@@ -587,6 +587,27 @@ pub fn arrow_points(tail: Vec3, tip: Vec3, head: f64) -> Vec<Vec3> {
     ]
 }
 
+/// A vertex list as the run of points a mobject keeps: the vertices as
+/// anchors with a handle at each midpoint (what `polyline` builds), always
+/// an odd count. `Stage::set_points` takes THAT, not a vertex list: an even
+/// count is refused and the mobject silently never changes, an odd one is
+/// drawn as curves with every second vertex a control point.
+pub fn corners(vertices: &[Vec3]) -> Vec<Vec3> {
+    let mut out = Vec::with_capacity(2 * vertices.len());
+    for w in vertices.windows(2) {
+        out.push(w[0]);
+        out.push([
+            (w[0][0] + w[1][0]) / 2.0,
+            (w[0][1] + w[1][1]) / 2.0,
+            (w[0][2] + w[1][2]) / 2.0,
+        ]);
+    }
+    if let Some(&last) = vertices.last() {
+        out.push(last);
+    }
+    out
+}
+
 /// A static arrow with a filled head, detached.
 pub fn arrow(stage: &mut Stage<'_>, from: Vec3, to: Vec3, color: Srgb, thickness: f64) -> fmn::Result<Mob> {
     let a = Arrow::new(from, to)
@@ -896,7 +917,7 @@ impl QuizCard {
                 if (l, sh) == last {
                     return;
                 }
-                let _ = s.set_points(ring, &ring_points(ring_at, RING_R, l / n));
+                let _ = s.set_points(ring, &corners(&ring_points(ring_at, RING_R, l / n)));
                 s.set_stroke(ring, None, None, Some(sh), None, false);
                 let current = l.ceil() as usize;
                 for (k, &d) in seen.iter().enumerate() {
@@ -1408,6 +1429,32 @@ mod tests {
                 .iter()
                 .all(|p| p[0].is_finite())
         );
+    }
+
+    /// What `set_points` is given is a quad path: an odd run, anchors at
+    /// the even places and a handle between each pair.
+    #[test]
+    fn a_vertex_list_becomes_an_odd_run_with_handles_at_the_midpoints() {
+        for n in 1..8 {
+            let vertices: Vec<Vec3> = (0..n).map(|i| v(f64::from(i), f64::from(i * i))).collect();
+            let run = corners(&vertices);
+            assert_eq!(run.len(), 2 * n as usize - 1, "{n} vertices");
+            assert_eq!(run.len() % 2, 1, "an odd count, as the engine requires");
+            for (i, p) in vertices.iter().enumerate() {
+                assert_eq!(run[2 * i], *p, "anchor {i}");
+            }
+            for i in 0..vertices.len().saturating_sub(1) {
+                let mid = [
+                    (vertices[i][0] + vertices[i + 1][0]) / 2.0,
+                    (vertices[i][1] + vertices[i + 1][1]) / 2.0,
+                    0.0,
+                ];
+                assert_eq!(run[2 * i + 1], mid, "handle {i}");
+            }
+        }
+        assert!(corners(&[]).is_empty());
+        // the arrow's five vertices become nine points
+        assert_eq!(corners(&arrow_points(v(0.0, 0.0), v(2.0, 0.0), 0.3)).len(), 9);
     }
 
     #[test]

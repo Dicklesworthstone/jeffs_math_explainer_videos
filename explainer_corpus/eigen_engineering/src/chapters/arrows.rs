@@ -13,7 +13,7 @@ use explainer_kit::{Kit, Palette};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
-use super::draw::{Map2, Plane, apply, arrow_points, faded_line, group, moves, own, pushes};
+use super::draw::{Map2, Plane, apply, arrow_points, corners, faded_line, group, moves, own, pushes};
 use crate::model::carts::turn_between;
 
 /// A tracker's value as an updater reads it (0 for a tracker that is gone).
@@ -173,20 +173,20 @@ impl ArrowTest {
                 let push = apply(&table, mv);
                 let off = sideways(push, now[5]);
                 let origin = plane.p(0.0, 0.0);
-                let _ = s.set_points(blue, &arrow_points(origin, plane.p(mv[0], mv[1]), 0.28));
+                let _ = s.set_points(blue, &corners(&arrow_points(origin, plane.p(mv[0], mv[1]), 0.28)));
                 s.set_stroke(blue, None, None, Some(now[2]), None, false);
                 let _ = s.set_points(
                     orange,
-                    &arrow_points(
+                    &corners(&arrow_points(
                         plane.p(off[0], off[1]),
                         plane.p(push[0] + off[0], push[1] + off[1]),
                         0.22,
-                    ),
+                    )),
                 );
                 s.set_stroke(orange, None, None, Some(now[3]), None, false);
                 let _ = s.set_points(
                     drops,
-                    &[plane.p(mv[0], 0.0), plane.p(mv[0], mv[1]), plane.p(0.0, mv[1])],
+                    &corners(&[plane.p(mv[0], 0.0), plane.p(mv[0], mv[1]), plane.p(0.0, mv[1])]),
                 );
                 s.set_stroke(drops, None, None, Some(0.7 * now[4]), None, false);
             },
@@ -312,7 +312,7 @@ impl PlaneArrow {
                 last = now;
                 let _ = s.set_points(
                     mob,
-                    &arrow_points(plane.p(now[0], now[1]), plane.p(now[2], now[3]), head),
+                    &corners(&arrow_points(plane.p(now[0], now[1]), plane.p(now[2], now[3]), head)),
                 );
                 s.set_stroke(
                     mob,
