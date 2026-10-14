@@ -15,7 +15,7 @@ use crate::duck;
 use crate::fft::{third_octave_levels, welch};
 use crate::filter::{Biquad, Kind};
 use crate::meter;
-use crate::score::{ChordSpan, Event, Score, Track};
+use crate::score::{ChordSpan, Event, RETURN_FADE, SILENCE_FADE, Score, Track};
 use crate::units::midi_to_hz;
 use crate::{FS, Stereo};
 
@@ -620,7 +620,11 @@ pub fn evaluate(
         }
     }
     r.push("rule6_identical_notes_10s", rule6 as f64, "= 0", Some(rule6 == 0), "");
-    match exposed_beating_db(music, &onsets(&f.events), &speech, &f.sonified) {
+    // an authored silence's fade out, zero span and fade back in are a level
+    // the score moves on purpose, not beating: skipped as a sonified window is
+    let mut busy = f.sonified.clone();
+    busy.extend(f.silences.iter().map(|&(s, e)| (s - SILENCE_FADE, e + RETURN_FADE)));
+    match exposed_beating_db(music, &onsets(&f.events), &speech, &busy) {
         Some(d) => r.push(
             "exposed_beating_db",
             d,
@@ -918,6 +922,58 @@ mod tests {
         let part = [(5.0, 12.0)];
         let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &part).unwrap();
         assert!(d > 6.0, "{d:.1} dB outside the window");
+    }
+
+    #[test]
+    fn an_authored_silence_is_not_beating_and_a_beat_around_it_still_is() {
+        // J's 09 and 14 (silence:its_exponential, silence:three_results) read
+        // 184 dB: the zero span's edges put a zero in the envelope ratio
+        let total = 30.0;
+        let n = (total * FS) as usize;
+        // out over 1 s, exactly zero for 2 s, back over RETURN_FADE
+        let gain = |t: f64| match t {
+            t if t < 10.0 => 1.0,
+            t if t < 11.0 => 11.0 - t,
+            t if t < 13.0 => 0.0,
+            t => ((t - 13.0) / RETURN_FADE).min(1.0),
+        };
+        let stem = |y: &dyn Fn(f64) -> f64| {
+            Stereo::from_mono(
+                &(0..n)
+                    .map(|i| gain(i as f64 / FS) * y(i as f64 / FS))
+                    .collect::<Vec<f64>>(),
+            )
+        };
+        let steady = stem(&|t| {
+            (1..=8)
+                .map(|k| 0.02 / k as f64 * (TAU * 220.0 * k as f64 * t + k as f64).sin())
+                .sum()
+        });
+        let beat = stem(&|t| 0.1 * ((TAU * 220.0 * t).sin() + 0.6 * (TAU * 220.0 * 1.003 * t).sin()));
+        let v = speech(&[], total, 0.1);
+        let facts = |silences: Vec<(f64, f64)>| ScoreFacts {
+            events: vec![],
+            chords: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences,
+            sonified: vec![],
+        };
+        let beating = |music: &Stereo, f: &ScoreFacts| {
+            evaluate("silence", &v, music, v.len(), Some(f))
+                .get("exposed_beating_db")
+                .unwrap()
+                .clone()
+        };
+        let m = beating(&steady, &facts(vec![(11.0, 13.0)]));
+        assert_eq!(m.pass, Some(true), "{m:?}");
+        assert!(m.value < 1.0, "{m:?}");
+        // the planted negative: the same stem with the silence unannounced
+        let m = beating(&steady, &facts(vec![]));
+        assert_eq!(m.pass, Some(false), "{m:?}");
+        // a real beat before and after the skipped span is still measured
+        let m = beating(&beat, &facts(vec![(11.0, 13.0)]));
+        assert_eq!(m.pass, Some(false), "{m:?}");
     }
 
     #[test]
