@@ -12,6 +12,14 @@ slabs), F-S (three stacks and a box), F-H (halves), F-R (quarters), F-B (the
 cut square, cube and fourth power), F-P (four triangles), F-L (the picture
 that lies), F-Q (the quizzes) and F-X (cited).
 
+The oracle may print more than the video: F-D rows are numbers docs/description.md
+states that no scene shows, each computed here from first principles by the
+functions below (not typed, not a formula over another row) and cross-checked.
+They are research rows only the oracle prints (tools/description_numbers.py reads
+the oracle's values as facts): the circle's regions for eight points in general
+position, drawn line by line like the video's seven, and the stacks that fill a
+box with whole cubes, by exact-cover search. src/facts.rs prints none of them.
+
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed. A key that ends in `.through` is the reach of a slow
 check: the check is run here for every size up to the reach, and the first
@@ -373,6 +381,12 @@ def by_corners_and_edges(points, lines, crossings):
     return edges - corners + 1
 
 
+def circle_point(p, d):
+    """The point of the unit circle for the parameter t = p/d: ((1 - t^2) / (1 + t^2), 2t / (1 + t^2))."""
+    t = F(p, d)
+    return ((1 - t * t) / (1 + t * t), 2 * t / (1 + t * t))
+
+
 def circle():
     totals, total = [], 0
     for k in range(1, SIZES + 1):
@@ -383,10 +397,7 @@ def circle():
     emit("F-C.cube_totals", join(totals))
     emit("F-C.cube_roots", join(roots))
 
-    points = []
-    for p, d in CIRCLE_PARAMETERS:
-        t = F(p, d)
-        points.append(((1 - t * t) / (1 + t * t), 2 * t / (1 + t * t)))
+    points = [circle_point(p, d) for p, d in CIRCLE_PARAMETERS]
     check("the drawn points are distinct points of the unit circle", len(set(points)) == len(points) and all(x * x + y * y == 1 for x, y in points))
     shown = points[:CIRCLE_SHOWN]
     after, lines, crossings, pairs = draw(shown)
@@ -1452,6 +1463,143 @@ def lie():
     check("one triangle is steeper than the other", slopes[0] != slopes[1])
 
 
+# --- F-D: numbers docs/description.md states and no scene shows -----------------------
+
+
+def general_eighths(points):
+    """Points of the unit circle (parameter p/d in lowest terms, d = 1, 2, ..., p from -3d to 3d) that
+    join the drawn points with no three lines meeting at one inside point: every four of the points
+    give one crossing and all the crossings are apart. Searched for, never typed. Yields the point
+    and its drawing."""
+    for d in range(1, 40):
+        for p in range(-3 * d, 3 * d + 1):
+            if math.gcd(p, d) != 1:
+                continue
+            q = circle_point(p, d)
+            if q in points:
+                continue
+            drawn = draw(points + [q])
+            if drawn[3] == len(drawn[2]) == math.comb(len(points) + 1, 4):
+                yield q, drawn
+
+
+def circle_in_general_position():
+    """The regions of 1 to 8 points with no three lines meeting inside: the video's seven drawn
+    points and an eighth, counted by the same line-by-line drawing as F-C.regions.seven."""
+    points = [circle_point(p, d) for p, d in CIRCLE_PARAMETERS]
+    (eighth, (after, lines, crossings, pairs)), (other, (other_after, _, _, _)) = itertools.islice(general_eighths(points), 2)
+    eight = points + [eighth]
+    emit("F-D.circle.general_position", join(after))
+    check("the eighth points found are distinct points of the unit circle beyond the drawn seven", len({*eight, other}) == 9 and all(x * x + y * y == 1 for x, y in (eighth, other)))
+    check("every four of the eight points give one crossing, all apart: no three lines meet inside", pairs == len(crossings) == math.comb(8, 4))
+    check("regions by corners and edges agree, eight points", by_corners_and_edges(eight, lines, crossings) == after[-1])
+    check("the closed form agrees with the drawing at 1 to 8 points", after == [1 + math.comb(n, 2) + math.comb(n, 4) for n in range(1, 9)])
+    check("the first seven counts are the drawn seven's", after[:7] == draw(points)[0])
+    check("another eighth point gives the same counts", other_after == after)
+    check("the eight evenly spaced points lose eleven of these regions", int(_EMITTED["F-C.evenly_spaced.regions.eight"]) == after[-1] - 11)
+
+
+def stacks_in_boxes(shapes, box):
+    """Every way to fill the box (wide, deep, tall) with copies of the stack in the given turned
+    shapes, each set of cells slid to the origin: exact cover by the lowest empty cell, as bit
+    masks. Returns how many ways there are and the cells of the first."""
+    cells = list(itertools.product(range(box[0]), range(box[1]), range(box[2])))
+    bit = {cell: 1 << i for i, cell in enumerate(cells)}
+    starts = {}
+    for shape in shapes:
+        reach = [1 + max(cell[a] for cell in shape) for a in range(3)]
+        for dx, dy, dz in itertools.product(*(range(box[a] - reach[a] + 1) for a in range(3))):
+            moved = [(x + dx, y + dy, z + dz) for x, y, z in shape]
+            starts.setdefault(min(bit[c] for c in moved), []).append((sum(bit[c] for c in moved), moved))
+    full, ways, first = (1 << len(cells)) - 1, [0], []
+
+    def cover(filled, chosen):
+        if filled == full:
+            ways[0] += 1
+            first[:] = first or [list(chosen)]
+            return
+        lowest = (~filled) & (filled + 1)  # the lowest empty cell
+        for mask, moved in starts.get(lowest, ()):
+            if not mask & filled:
+                chosen.append(moved)
+                cover(filled | mask, chosen)
+                chosen.pop()
+
+    cover(0, [])
+    return ways[0], (first[0] if first else None)
+
+
+def ways_by_scarcest_cell(shapes, box):
+    """How many ways the shapes fill the box, by another route than stacks_in_boxes: placements as
+    sets of cell numbers, and at each step the empty cell the fewest placements can still cover
+    (not the lowest)."""
+    cells = list(itertools.product(range(box[0]), range(box[1]), range(box[2])))
+    number = {cell: i for i, cell in enumerate(cells)}
+    placements = []
+    for shape in shapes:
+        reach = [1 + max(cell[a] for cell in shape) for a in range(3)]
+        for dx in range(box[0] - reach[0] + 1):
+            for dy in range(box[1] - reach[1] + 1):
+                for dz in range(box[2] - reach[2] + 1):
+                    placements.append(frozenset(number[(x + dx, y + dy, z + dz)] for x, y, z in shape))
+    covering = {i: [p for p in placements if i in p] for i in range(len(cells))}
+
+    def count(empty):
+        if not empty:
+            return 1
+        scarcest = min(empty, key=lambda i: sum(1 for p in covering[i] if p <= empty))
+        return sum(count(empty - p) for p in covering[scarcest] if p <= empty)
+
+    return count(frozenset(range(len(cells))))
+
+
+def whole_stacks():
+    """07_2's stacks with no slicing at all: for 1, 2, 3, ... stacks, the boxes (every side at least
+    as long as a stack is wide) that hold exactly that many cubes, and which of them the stacks fill."""
+    stack = one_stack(STACK_LAYERS)
+    shapes = sorted({settled(stack, m) for m in rigid_motions()}, key=sorted)
+    widths = {tuple(1 + max(cell[a] for cell in shape) for a in range(3)) for shape in shapes}
+    check("a stack is as wide as it is deep and tall, in every direction it is turned", widths == {(STACK_LAYERS,) * 3})
+    least = min(min(w) for w in widths)
+    emit("F-D.whole.side_least", least)
+
+    boxes, ways_in = [], []
+    for count in range(1, 13):
+        volume = count * len(stack)
+        fits = [
+            (a, b, volume // (a * b))
+            for a in range(least, volume + 1)
+            if a * a * a <= volume
+            for b in range(a, volume + 1)
+            if a * b * b <= volume and volume % (a * b) == 0
+        ]
+        boxes.append(fits)
+        ways_in.append({box: stacks_in_boxes(shapes, box) for box in fits})
+        if any(ways for ways, _ in ways_in[-1].values()):
+            break
+    else:
+        sys.exit("oracle: no box of up to twelve stacks' cubes is filled by whole stacks")
+    fewest = len(boxes)
+    filled = [[box for box in fits if ways_in[k][box][0]] for k, fits in enumerate(boxes)]
+    sides = lambda group: "|".join(by(*box) for box in group) or "none"
+    emit("F-D.whole.boxes", join(sides(group) for group in boxes))
+    emit("F-D.whole.filled", join(sides(group) for group in filled))
+    emit("F-D.whole.fewest", fewest)
+
+    box = filled[-1][0]
+    ways, tiling = ways_in[-1][box]
+    cubes = Counter(cell for piece in tiling for cell in piece)
+    check("one filling found is cell by cell the box, each cube once, by turned stacks", len(tiling) == fewest and set(cubes) == set(itertools.product(*(range(s) for s in box))) and set(cubes.values()) == {1} and all(settled(piece) in shapes for piece in tiling))
+    check("the search finds the R2 audit's four ways to fill 4 by 5 by 9 with six stacks", box == (4, 5, 9) and ways == 4)
+    check("no box with every side at least a stack's width holds the cubes of one, two or three stacks", boxes[0] == boxes[1] == boxes[2] == [])
+    turned = sorted({settled(stack, m) for m in rigid_motions() if determinant(m) == 1}, key=sorted)
+    check("a stack is its own mirror image: turns alone give the same shapes", turned == shapes)
+    check(
+        "another route (turns only, the scarcest cell first) counts the same ways in every box",
+        all(ways_by_scarcest_cell(turned, box) == ways_in[k][box][0] for k, fits in enumerate(boxes) for box in fits),
+    )
+
+
 # --- F-Q: the quizzes --------------------------------------------------------------
 
 
@@ -1525,6 +1673,8 @@ def main():
     cut_cube()
     pythagoras()
     lie()
+    circle_in_general_position()
+    whole_stacks()
     quizzes()
     cited()
     print(f"# {len(_EMITTED)} facts, {_CHECKS[0]} cross-checks, {len(_FAILED)} failed", file=sys.stderr)
