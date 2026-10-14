@@ -446,6 +446,7 @@ literals, and the two spans are subtractions.
 | `F-X.curry` | `1953` | S14: the year Gardner gives for Curry's idea |
 | `F-X.gardner` | `1956,139,145` | S14: year of the book, and the two pages quoted |
 | `F-X.nelsen` | `1993,2000` | S15: the years of the two books |
+| `F-X.wheeler` | `1859` | S13: the year of the earliest printing found of the two-arrangement figure, credited to A. D. Wheeler (13_7's lower-third) |
 | `F-X.al_karaji.after_nicomachus` | `900` | years from Nicomachus to al-Karaji, as round dates: the description's "nine centuries" (no longer spoken since R1) |
 | `F-X.gardner.after_curry` | `3` | years from Curry's idea to Gardner's book: the "three years later" of 14_7 |
 

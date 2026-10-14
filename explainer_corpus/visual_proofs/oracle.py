@@ -1507,6 +1507,9 @@ def cited():
     emit("F-X.gardner", join((gardner, 139, 145)))
     # S15: Nelsen, Proofs Without Words (1993) and Proofs Without Words II (2000)
     emit("F-X.nelsen", join((1993, 2000)))
+    # S13: A. D. Wheeler, the earliest printing found of the two-arrangement
+    # figure of 13_7 (Loomis, The Pythagorean Proposition): 1859
+    emit("F-X.wheeler", 1859)
     emit("F-X.al_karaji.after_nicomachus", al_karaji - nicomachus)
     emit("F-X.gardner.after_curry", gardner - curry)
 

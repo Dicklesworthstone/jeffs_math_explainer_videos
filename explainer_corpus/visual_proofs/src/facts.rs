@@ -52,6 +52,9 @@ pub mod cited {
     /// Roger B. Nelsen, Proofs Without Words (MAA, 1993) and Proofs Without
     /// Words II (MAA, 2000).
     pub const NELSEN: (u32, u32) = (1993, 2000);
+    /// A. D. Wheeler, the earliest printing found of the two-arrangement
+    /// figure of 13_7 (Loomis, The Pythagorean Proposition, 1927 and 1940).
+    pub const WHEELER: u32 = 1859;
 }
 
 /// The sizes the chapters draw (the quizzes are `model::QUIZZES`).
@@ -704,6 +707,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
         format!("{},{},{}", cited::GARDNER.0, cited::GARDNER.1, cited::GARDNER.2),
     )?;
     f.add("F-X.nelsen", format!("{},{}", cited::NELSEN.0, cited::NELSEN.1))?;
+    f.add("F-X.wheeler", cited::WHEELER)?;
     // the spans the script counts in words
     f.add("F-X.al_karaji.after_nicomachus", cited::AL_KARAJI - cited::NICOMACHUS.0)?;
     f.add("F-X.gardner.after_curry", cited::GARDNER.0 - cited::CURRY)?;
