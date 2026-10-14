@@ -83,10 +83,22 @@ pub fn facts() -> Result<Facts, String> {
         "R1 Dev dev-02",
     )?;
     f.pin(
+        "C-F10.i32_wrap_days_at_1_per_ms_1dp",
+        format!("{:.1}", (1u64 << 31) as f64 / 86_400_000.0),
+        "24.9",
+        "claim walk (signed, as in Java's int)",
+    )?;
+    f.pin(
         "C-F11.u64_years_at_1e9_per_s_1dp",
         format!("{:.1}", 2f64.powi(64) / 1e9 / (365.25 * 86_400.0)),
         "584.5",
         "fact sheet C-F11",
+    )?;
+    f.pin(
+        "C-F11.i64_years_at_1e9_per_s_1dp",
+        format!("{:.1}", 2f64.powi(63) / 1e9 / (365.25 * 86_400.0)),
+        "292.3",
+        "claim walk (signed, as in Java's long)",
     )?;
     // 11: reads of other customers' flags and slates per entry, alone
     f.pin(
