@@ -4,6 +4,7 @@
 //! chapter starts as its storyboard's animatic and is replaced by its real
 //! scene as it is built.
 
+pub mod an_economy;
 pub mod arrows;
 pub mod carts;
 pub mod draw;
@@ -51,7 +52,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("09_the_air_in_a_room", 0.5),
         animatic!("10_two_million_modes", 0.55),
         scene!("11_where_modes_rule", 0.45, where_modes_rule::WhereModesRule),
-        animatic!("12_an_economy", 0.5),
+        scene!("12_an_economy", 0.5, an_economy::AnEconomy),
         animatic!("13_can_it_feed_itself", 0.55),
         animatic!("14_one_idea", 0.5),
     ]
