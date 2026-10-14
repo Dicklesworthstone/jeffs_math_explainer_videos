@@ -14,10 +14,11 @@ use fmn::prelude::*;
 
 use super::draw::{
     Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizLook, Shape, View, World, arc_between, book, edge_arrows, edge_colors,
-    fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause, pose_fn, say,
-    screen_entry, screw_shapes, static_grid, still, table, turns_in_order, tween_all, tween_linear, value, your_turn,
+    fact, fact_f64, fade_in_all, fail, grid_brackets, grid_spots, group, leave, line_style, pause, point_fn, pose_fn,
+    say, screen_entry, screw_shapes, static_grid, still, table, turns_in_order, tween_all, tween_linear, value,
+    your_turn,
 };
-use crate::model::{self, DEG, M3, Pose, Screw, V3, X, Y, Z, dot, unit};
+use crate::model::{self, DEG, M3, Pose, Screw, V3, X, Y, Z, dot, scale, unit};
 use crate::palette;
 
 pub struct OneTurn {
@@ -28,6 +29,7 @@ pub struct OneTurn {
 const GROUP: &str = "group";
 const ASSOCIATIVE: &str = "and combining is associative";
 const ONE_AXIS: &str = "about one axis, order never matters";
+const AXIS_WORD: &str = "axis";
 const TWO_TURNS_ONE_AXIS: &str = "two turns about one axis";
 const TILT_THEN_ROLL: &str = "tilt, then roll";
 const ROLL_THEN_TILT: &str = "roll, then tilt";
@@ -67,6 +69,22 @@ pub const ASK: Ask = Ask {
         },
     ],
 };
+
+/// How far the gold axis runs each way from the book's centre, and where its
+/// word stands against the upper end (scene units).
+const AXIS_HALF: f64 = 2.1;
+const AXIS_WORD_SHIFT: [f64; 2] = [0.55, 0.12];
+
+/// The end of the gold line that is higher on the screen: the word "axis"
+/// stands beside it.
+fn axis_word_tip(view: &View, axis: V3) -> V3 {
+    let (a, b) = (scale(axis, AXIS_HALF), scale(axis, -AXIS_HALF));
+    if view.project(a)[1] >= view.project(b)[1] { a } else { b }
+}
+
+/// 02_3's readout of the turn so far: its right edge, and its degree sign.
+const READOUT_AT: [f64; 2] = [-3.55, 2.9];
+const DEGREE_AT: [f64; 2] = [-3.43, 2.98];
 
 /// The height the book is held at while it turns.
 const TURN_Z: f64 = 1.25;
@@ -211,8 +229,8 @@ impl SceneConstruct for OneTurn {
             PartSpec::new(edge_arrows(1.35), moving.clone()),
             PartSpec::new(
                 vec![Shape::line(
-                    [-2.1 * axis[0], -2.1 * axis[1], -2.1 * axis[2]],
-                    [2.1 * axis[0], 2.1 * axis[1], 2.1 * axis[2]],
+                    [-AXIS_HALF * axis[0], -AXIS_HALF * axis[1], -AXIS_HALF * axis[2]],
+                    [AXIS_HALF * axis[0], AXIS_HALF * axis[1], AXIS_HALF * axis[2]],
                     gold,
                     5.0,
                 )],
@@ -223,14 +241,17 @@ impl SceneConstruct for OneTurn {
         const GHOST: usize = 1;
         const AXIS: usize = 4;
         const ARCS: usize = 5;
-        let books = World::build(
-            stage,
-            View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1])),
-            4.0,
-            0.2,
-            specs,
-            Vec::<Pin>::new(),
-        )?;
+        // the word "axis" stands by the gold line's upper end and comes in
+        // with the line (R2 C-01, M-03)
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        let axis_word = kit.text(stage, AXIS_WORD, 28.0, gold, ORIGIN)?;
+        let word_at = axis_word_tip(&view, axis);
+        let pins = vec![Pin {
+            mob: axis_word,
+            at: point_fn(move |_| word_at),
+            shift: v(AXIS_WORD_SHIFT[0], AXIS_WORD_SHIFT[1]),
+        }];
+        let books = World::build(stage, view, 4.0, 0.2, specs, pins)?;
         stage.set_tracker_value(books.parts[GHOST].grey, 1.0)?;
         stage.set_tracker_value(books.parts[AXIS].shown, 0.0)?;
         stage.set_tracker_value(books.parts[ARCS].shown, 0.0)?;
@@ -240,7 +261,10 @@ impl SceneConstruct for OneTurn {
         let line = say(&kit, stage, BEATS[0])?;
         books.show(stage, 0.8)?;
         line.wait_for(stage, "a single turn")?;
-        play!(stage; tween(books.parts[AXIS].shown, 1.0, 0.5)?);
+        play!(stage;
+            tween(books.parts[AXIS].shown, 1.0, 0.5)?,
+            fade_in(stage.arena_mut(), axis_word, ORIGIN, 1.0)?.rt(0.5),
+        );
         play!(stage; tween_linear(deg, 0.0, 0.9)?);
         line.wait_for(stage, "about a single axis")?;
         play!(stage; tween(deg, facts_deg, 1.8)?);
@@ -252,8 +276,17 @@ impl SceneConstruct for OneTurn {
         // leans equally from the three edges
         let line = say(&kit, stage, BEATS[2])?;
         play!(stage; tween(deg, 0.0, 0.7)?);
-        let readout = kit.live_number(stage, deg, 0, false, 54.0, Palette::ink(), v(-3.55, 2.9), RIGHT)?;
-        let degree = kit.text(stage, ORDER_DEGREE, 54.0, Palette::ink(), v(-3.43, 2.98))?;
+        let readout = kit.live_number(
+            stage,
+            deg,
+            0,
+            false,
+            54.0,
+            Palette::ink(),
+            v(READOUT_AT[0], READOUT_AT[1]),
+            RIGHT,
+        )?;
+        let degree = kit.text(stage, ORDER_DEGREE, 54.0, Palette::ink(), v(DEGREE_AT[0], DEGREE_AT[1]))?;
         fade_in_all(stage, &[degree], 0.2)?;
         line.wait_for(stage, "A third of a turn")?;
         play!(stage; tween(deg, facts_deg, 1.2)?);
@@ -266,7 +299,7 @@ impl SceneConstruct for OneTurn {
         // 02_4: that always works: three more pairs, each one axis and one arc
         let line = say(&kit, stage, BEATS[3])?;
         let mut leaving = card.mobs();
-        leaving.extend([readout, degree]);
+        leaving.extend([readout, degree, axis_word]);
         leave(stage, &leaving, &[books.shown], 0.6)?;
         stage.set_tracker_value(deg, 0.0)?;
         let small: V3 = BOOK_HALF.map(|x| 0.62 * x);
@@ -533,6 +566,65 @@ mod tests {
                 assert!(stage.get_right(row)[0] < right - 0.7 * CARD_SCALE);
             }
             assert!(stage.get_bottom(*card.rows.last().unwrap())[1] > stage.get_top(card.track)[1]);
+            Ok(())
+        });
+    }
+
+    /// The whole chapter constructs, headless: every phrase it waits for is
+    /// in its line, and every label is built and placed.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        let mut scene = OneTurn {
+            kit: Kit::new().expect("the kit"),
+        };
+        fmn::run_scene(
+            &mut scene,
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("the chapter's scene runs");
+    }
+
+    /// 02_1 to 02_3: the word "axis" stands by the gold line's upper end,
+    /// right of it, inside the safe area, off the quiz card of 02_2 and off
+    /// the degree readout of 02_3.
+    #[test]
+    fn the_word_axis_stands_clear() {
+        let view = View::new(1.0, v(BOOKS_AT[0], BOOKS_AT[1]));
+        let (_, axis) = single_turn();
+        let tip = axis_word_tip(&view, axis);
+        let (a, b) = (scale(axis, AXIS_HALF), scale(axis, -AXIS_HALF));
+        assert!(view.project(tip)[1] >= view.project(a)[1].min(view.project(b)[1]));
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let word = kit.text(stage, AXIS_WORD, 28.0, palette::screw(), ORIGIN)?;
+            let p = view.project(tip);
+            let centre = (p[0] + AXIS_WORD_SHIFT[0], p[1] + AXIS_WORD_SHIFT[1]);
+            let (w, h) = (stage.get_width(word), stage.get_height(word));
+            let (left, right) = (centre.0 - 0.5 * w, centre.0 + 0.5 * w);
+            let (bottom, top) = (centre.1 - 0.5 * h, centre.1 + 0.5 * h);
+            assert!(
+                left > p[0] + 0.1,
+                "the word starts {:.2} right of the line's end",
+                left - p[0]
+            );
+            assert!(right < SAFE[0] && top < SAFE[1] && bottom > -SAFE[1]);
+            let card_left = CARD_AT[0] - 0.5 * CARD_W * CARD_SCALE;
+            assert!(
+                right < card_left - 0.2,
+                "the word ends at {right:.2}, the card at {card_left:.2}"
+            );
+            // 02_3's readout: three digits at 54 points ending at READOUT_AT
+            // and the degree sign after them
+            let readout_left = READOUT_AT[0] - 1.8;
+            let readout_right = DEGREE_AT[0] + 0.4;
+            let (readout_bottom, readout_top) = (READOUT_AT[1] - 0.5, READOUT_AT[1] + 0.5);
+            let apart = right < readout_left || left > readout_right || top < readout_bottom || bottom > readout_top;
+            assert!(
+                apart,
+                "the word at ({left:.2}..{right:.2}, {bottom:.2}..{top:.2}) meets the readout"
+            );
             Ok(())
         });
     }
