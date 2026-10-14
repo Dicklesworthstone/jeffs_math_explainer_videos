@@ -606,6 +606,7 @@ def cubes():
     sixth = record[SIZES + 1]
     emit("F-K.sixth.cube", sixth["cells"])
     emit("F-K.sixth.side", sixth["side"])
+    emit("F-K.sixth.total", sixth["covered"])
     for k in (SIZES + 1, SIZES + 2, SIZES + 3):  # the sixth, and two more for 06_3's strips
         size, fill = arm(k)
         emit(f"F-K.arm.{k}", size)
@@ -832,6 +833,27 @@ def stacks():
     emit("F-S.one.cubes", len(one["cubes"]))
     emit("F-S.one.box", by(one["wide"], one["deep"], one["tall"]))
 
+    # 07_2 asks for the fewest stacks that make a box when only the cubes that
+    # stick out on top may be sliced. A stack of n levels is n by n by n in every
+    # direction, so such a box (width by depth by h whole layers and a half layer)
+    # has both sides at least n and at least n - 1 whole layers under the half;
+    # it holds width * depth * (2h + 1) / 2 cubes, and m stacks have m of them.
+    def half_boxes(m):
+        cubes = m * sum(len(level) for level in ([(i, j) for i in range(n - l) for j in range(n - l)] for l in range(n)))
+        found = []
+        for width in range(n, 2 * cubes + 1):
+            for depth in range(width, 2 * cubes // width + 1):
+                if (2 * cubes) % (width * depth) == 0:
+                    odd = 2 * cubes // (width * depth)
+                    if odd % 2 == 1 and (odd - 1) // 2 >= n - 1:
+                        found.append((width, depth, (odd - 1) // 2))
+        return found
+
+    fewest = next(m for m in range(1, 13) if half_boxes(m))
+    emit("F-S.fewest", fewest)
+    emit("F-S.fewest.box", join(f"{w}x{d}x{frac(F(2 * h + 1, 2))}" for w, d, h in half_boxes(fewest)))
+    check("one and two stacks make no such box, and three make exactly Siu's", fewest == 3 and half_boxes(3) == [(n, n + 1, n)])
+
     running = [0]
 
     def summed(size):
@@ -896,6 +918,13 @@ def halves():
                 return "two pieces overlap"
         return None
 
+    # 10_4's note for programmers: a 64-bit float's running sum of the halves
+    total, piece, pieces = 0.0, 0.5, 0
+    while total < 1.0:
+        total += piece
+        piece /= 2
+        pieces += 1
+    emit("F-H.float.reaches_one", pieces)
     reach("F-H.checked.through", checked)
 
 
@@ -1336,6 +1365,7 @@ def lie():
     check("slid into the empty square, no two pieces overlap", all(overlap(a, b) == 0 for a, b in itertools.combinations(moved, 2)))
     check("the overlap measure is not vacuous: a piece overlaps itself fully", overlap(moved[0], moved[0]) == area(moved[0]) > 0)
     emit("F-L.slopes.thousandths", join(frac(1000 * s) for s in slopes))
+    emit("F-L.slopes.differ", frac(slopes[1] - slopes[0]))
     on_the_edge = sum(1 for bend in (first["bend"], second["bend"]) if turn_of((0, 0), (wide, tall), bend) == 0)
     emit("F-L.bends.on_the_edge", on_the_edge)
     check("the pieces are 32 and a half less a half: half a square short of a true triangle", area(true_triangle) - sum(areas) == F(1, 2))

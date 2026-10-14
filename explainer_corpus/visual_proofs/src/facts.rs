@@ -164,6 +164,11 @@ fn hook(f: &mut Facts) -> Result<(), String> {
     let through_one = circle::three_through_one();
     f.add("F-C.three_through_one.crossings", circle::crossings(&through_one).len())?;
     f.add("F-C.three_through_one.regions", circle::regions(&through_one))?;
+    // 02_6: "six evenly spaced points give 30", by the regular hexagon's stretch
+    f.add(
+        "F-C.evenly_spaced.regions",
+        circle::regions(&circle::evenly_spaced_hexagon()),
+    )?;
     Ok(())
 }
 
@@ -264,6 +269,13 @@ fn sum_of_cubes(f: &mut Facts) -> Result<(), String> {
         cubes::layer(sixth).iter().map(|p| p.rect.area()).sum::<i64>(),
     )?;
     f.add("F-K.sixth.side", cubes::side(sixth))?;
+    // the sixth total of 02_1's running sum: the five cubes and the sixth
+    f.add(
+        "F-K.sixth.total",
+        (1..=sixth)
+            .map(|k| cubes::layer(k).iter().map(|p| p.rect.area()).sum::<i64>())
+            .sum::<i64>(),
+    )?;
     f.add(&format!("F-K.arm.{sixth}"), format!("{sixth}x{}", cubes::side(n)))?;
     f.add(
         &format!("F-K.arm.{sixth}.slabs"),
@@ -351,6 +363,20 @@ fn sum_of_squares(f: &mut Facts) -> Result<(), String> {
         (0..3).map(|w| stacks::placed(1, w).len()).sum::<usize>(),
     )?;
     f.add("F-S.one.box", format!("1x2x{}", Q::ONE + q(1, 2)))?;
+    // 07_2 asks for the fewest stacks: the least number for which a box exists
+    // when only the cubes that stick out on top may be sliced, and that box
+    let fewest = (1..=12i64)
+        .find(|&m| !stacks::half_boxes(shown::STACK, m).is_empty())
+        .unwrap_or(0);
+    f.add("F-S.fewest", fewest)?;
+    f.add(
+        "F-S.fewest.box",
+        list(
+            stacks::half_boxes(shown::STACK, fewest)
+                .iter()
+                .map(|&(w, d, h)| format!("{w}x{d}x{}", q(i128::from(2 * h + 1), 2))),
+        ),
+    )?;
     f.add(
         "F-S.sum.through",
         through(shown::SUMS_THROUGH, "the sum of squares", |m| {
@@ -381,6 +407,8 @@ fn halves(f: &mut Facts) -> Result<(), String> {
             series::area(series::left_after_halves(k)),
         )?;
     }
+    // 10_4's note for programmers: where a 64-bit float's running sum reaches 1.0
+    f.add("F-H.float.reaches_one", series::float_pieces_to_one())?;
     f.add(
         "F-H.checked.through",
         through(i64::from(shown::HALVES_THROUGH), "the halved square", |m| {
@@ -601,6 +629,8 @@ fn the_lie(f: &mut Facts) -> Result<(), String> {
     // the slopes as the decimals a ruler would have to tell apart
     let thousandths = [lie::slope(&first.big), lie::slope(&first.small)].map(|s| s * Q::int(1000));
     f.add("F-L.slopes.thousandths", list(thousandths))?;
+    // 14_6: how far apart the two slopes are, 2/5 less 3/8
+    f.add("F-L.slopes.differ", lie::slope(&first.small) - lie::slope(&first.big))?;
     // neither bend lies on the straight edge from corner to corner
     let corner = (lie::WIDE, lie::TALL);
     f.add(
@@ -711,10 +741,13 @@ mod tests {
             ("03_4", "Eleven", "F-Q.next_layer.answer", "11"),
             ("03_5", "is five times five", "F-O.sum", "25"),
             ("03_5", "the hundredth layer", "F-O.hundredth", "199"),
+            ("03_5", "one hundred and ninety-nine tiles", "F-O.hundredth", "199"),
+            ("03_5", "ten thousand", "F-O.sum.hundred", "10000"),
             ("04_1", "fifteen tiles", "F-T.count", "15"),
             ("04_4", "Five wide and six tall", "F-Q.rectangle.answer", "5x6"),
             ("04_4", "Thirty tiles", "F-T.rectangle.cells", "30"),
-            ("05_1", "Fifteen slabs", "F-K.slabs", "15"),
+            ("04_5", "five thousand and fifty", "F-T.count.hundred", "5050"),
+            ("05_1", "fifteen slabs", "F-K.slabs", "15"),
             ("05_3", "six on a side", "F-K.sides", "1,3,6,10,15"),
             ("05_5", "Just one", "F-Q.cut_slabs.answer", "1"),
             ("05_5", "six long", "F-K.arm.4", "4x6"),
@@ -723,6 +756,7 @@ mod tests {
             ("05_7", "two hundred and twenty-five tiles", "F-K.unit_squares", "225"),
             ("06_2", "six wide and fifteen long", "F-K.arm.6", "6x15"),
             ("06_2", "two and a half sixes", "F-K.arm.6.slabs", "5/2"),
+            ("06_2", "twenty-one on a side", "F-K.sixth.side", "21"),
             ("06_6", "the year one thousand", "F-X.al_karaji", "1000"),
             ("06_6", "nineteen eighty-five", "F-X.fry", "1985,11"),
             ("07_1", "One, four, nine, sixteen", "F-S.layers", "16,9,4,1"),
@@ -738,6 +772,7 @@ mod tests {
             ("08_3", "Three stacks of thirty", "F-S.three_stacks", "90"),
             ("08_5", "nineteen eighty-four", "F-X.siu", "1984,92"),
             ("09_2", "five by five slab", "F-S.grown.slab", "25"),
+            ("09_3", "three new slabs of five by five", "F-S.grown.slab", "25"),
             ("09_4", "three single cubes", "F-S.one.cubes", "3"),
             (
                 "10_2",
@@ -768,6 +803,11 @@ mod tests {
             ("13_5", "Nine plus sixteen", "F-P.squares", "9,16"),
             ("13_5", "Twenty-five", "F-Q.tilted.answer", "25"),
             ("13_5", "the long side is five", "F-P.long_side", "5"),
+            ("13_5", "forty-nine", "F-P.big", "49"),
+            ("13_5", "twenty-four", "F-P.triangles", "24"),
+            ("13_6", "shorter sides two and five", "F-P.other.legs", "2,5"),
+            ("13_6", "twenty-nine", "F-P.other.tilted", "29"),
+            ("13_6", "no whole number", "F-P.other.whole_side", "none"),
             ("14_1", "thirteen wide and five tall", "F-L.frame", "13x5"),
             ("14_2", "one tile is empty", "F-L.holes.second", "1"),
             ("14_3", "thirty-two", "F-L.pieces.total", "32"),
@@ -780,6 +820,7 @@ mod tests {
             ("14_7", "three years later", "F-X.gardner.after_curry", "3"),
             ("15_5", "the cubes up to forty", "F-K.tiled.through", "40"),
             ("15_5", "twenty-four levels", "F-S.filled.through", "24"),
+            ("15_5", "up to a thousand", "F-K.sum.through", "1000"),
         ];
         let mut bad = Vec::new();
         for (line, words, key, value) in rows {
@@ -835,6 +876,22 @@ mod tests {
         // Siu: n by n + 1 by n + 1/2
         assert_eq!(f.get("F-S.box"), Some("4x5x9/2"));
         assert_eq!(f.get("F-S.box.volume"), f.get("F-S.three_stacks"));
+    }
+
+    /// 07_2 asks for the fewest stacks: three, and the box they make is
+    /// the one 08_3 shows.
+    #[test]
+    fn the_fewest_stacks_make_siu_s_box() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("F-S.fewest"), Some("3"));
+        assert_eq!(f.get("F-S.fewest"), f.get("F-Q.stacks.answer"));
+        assert_eq!(f.get("F-S.fewest.box"), f.get("F-S.box"));
+        // 02_6: evenly spaced points lose one region to the three lines meeting
+        assert_eq!(f.get("F-C.evenly_spaced.regions"), Some("30"));
+        // 06_2: five cubes and the sixth are the square of 21
+        assert_eq!(f.get("F-K.sixth.total"), Some("441"));
+        // 14_6: the two slopes differ by one over the product of 5 and 8
+        assert_eq!(f.get("F-L.slopes.differ"), Some("1/40"));
     }
 
     /// Brute force against the closed forms, on sizes small enough to count.

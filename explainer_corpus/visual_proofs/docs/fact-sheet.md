@@ -31,7 +31,7 @@ are other people's pictures and are not in this repository.
 | S5 | Alan L. Fry, "Proof without Words: Sum of Cubes", *Mathematics Magazine* 58(1), January 1985, p. 11 | the slab picture with one slab cut in half for an even cube | Crossref record; Nelsen p. 86. The picture by description only (S. M. Blinder's Wolfram Demonstration, 2020, citing Fry): "For an even summand, one of the square slabs is cut in half for each end of the L-shape." **Partly verified**: the printed page was not seen |
 | S6 | Solomon W. Golomb, "3121. A Geometric Proof of a Famous Identity", *The Mathematical Gazette* 49(368), May 1965, pp. 198–200; J. Barry Love, "Proof without Words: Cubes and Squares", *Mathematics Magazine* 50(2), March 1977, p. 74 | earlier pictures of the same L-shaped layers; not named on screen | Cambridge Core page (Golomb); Crossref (Love). Golomb's figure has overlaps and equal holes, not halves (Gardner's description, snippet) |
 | S7 | Wikimedia Commons, `File:Nicomachus_theorem_3D.svg`, by the user Cmglee, 2015 (CC BY-SA 3.0 or GFDL); Wikipedia credits the idea to Ned Gulley, MathWorks blog, 4 March 2010 | the three-dimensional drawing in the owner's image | the file page. The video redraws the idea from `model::cubes`; the image is not copied |
-| S8 | Man-Keung Siu, "Proof without Words: Sum of Squares", *Mathematics Magazine* 57(2), March 1984, p. 92 | the three stacks and the box n by n + 1 by n + ½ | Crossref record; Nelsen p. 77, "Sums of Squares I —Man-Keung Siu". Siu: University of Hong Kong, 1975 to 2005 (HKU Honorary University Fellows page; his own page reads "Professor M.K. Siu (蕭文強教授)"). Not to be confused with J. O. Chilaka's item of the same title, 56(2), 1983, p. 90 |
+| S8 | Man-Keung Siu, "Proof without Words: Sum of Squares", *Mathematics Magazine* 57(2), March 1984, p. 92 | the three stacks and the box n by n + 1 by n + ½ | Crossref record; Nelsen p. 77, "Sums of Squares I —Man-Keung Siu". Siu: University of Hong Kong, 1975 to 2005 (HKU Honorary University Fellows page; his own page reads "Professor M.K. Siu (蕭文強教授)"). Not to be confused with J. O. Chilaka's item of the same title, 56(2), 1983, p. 90. **Partly verified**: no printed figure was looked at, so "published this picture" rests on the title, the year and Nelsen's listing; no source dates the picture itself, and 08_5 says only that Siu published it in 1984 |
 | S9 | Warren Page, "Proof without Words: Geometric Sums", *Mathematics Magazine* 54(4), September 1981, p. 201 | a published version of the halved square | Crossref; Nelsen p. 118, under the general identity r + r(1 − r) + r(1 − r)² + … = 1. No source was found that dates the halved square earlier or says Page originated it, so nobody is named on screen |
 | S10 | Sunday A. Ajose and Roger B. Nelsen, "Proof without Words: Geometric Series", *Mathematics Magazine* 67(3), June 1994, p. 230 | the quartered square for 1/4 + 1/16 + … = 1/3 | Crossref (both authors); archived MAA page ("by Sunday A. Ajose (East Carolina University) and Roger B. Nelsen (Lewis and Clark College)"). That this is the square picture and Rick Mabry's (72(1), 1999, p. 63) the triangle: Wikipedia's citations and cut-the-knot. **Partly verified** |
 | S11 | Archimedes, *Quadrature of the Parabola*, Proposition 23, in T. L. Heath, *The Works of Archimedes* (Cambridge, 1897), p. 249 | the same quarters, as a finite sum with its remainder | "Given a series of areas A, B, C, D, … Z, of which A is the greatest, and each is equal to four times the next in order, then" A + B + … + Z + ⅓Z = (4/3)A. Heath: "Archimedes does not express it in this way" (as an infinite series) |
@@ -60,7 +60,7 @@ square; that Moser proved or named the circle problem.
 | layer (L-shaped) | 03_1 | "wrap an L-shaped layer around it"; "each as wide as its cube" (05_2) | lower-third at 03_5: "gnomon" |
 | thin layer | 06_5 | "Cut every cube's layer into thin layers, one tile wide" | chapter 03's layers, regrouped by cube |
 | the card | 03_6 | "what the picture showed, and what it took for granted" | **Shown** / **Assumed** |
-| proof | 02_7, 03_6 | "Such a reason is called a proof"; "A picture that shows why is a proof" | the card |
+| proof | 02_7, 03_6 | "Such a reason is called a proof"; "A picture that shows why, and checks what it took for granted, is a proof" | the card |
 | guess | 02_5, 07_2 | "Guess before you count" (the quiz the viewer cannot derive) | the card |
 | staircase | 04_1 | "Build a staircase of tiles. One, two, three, four, five" | lower-third at 04_5: "triangular numbers" |
 | slab | 01_1, 05_1 | "A cube five tiles on a side is five slabs, each five by five" | the slices of a cube |
@@ -78,21 +78,22 @@ square; that Moser proved or named the circle problem.
 
 | Line | Said | Exact |
 |---|---|---|
-| 02_6 | "Thirty-one." | 31 regions when no three lines pass through one point inside the circle; six evenly spaced points give 30 (`F-C.three_through_one.regions`). On screen in the lower-third |
-| 03_4, 03_5, 03_6 | "each layer is two longer"; "The same picture works a hundred layers on"; "at every size" | for every whole number n ≥ 1, an L of two arms each as long as the side k of the square it wraps and one corner tile is 2k + 1 tiles and makes the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n² |
-| 06_4 | "The cubes up to any number make a square whose side is the staircase up to that number." | for every whole number n ≥ 1, 1³ + … + n³ = (1 + … + n)² = (n(n + 1)/2)² |
+| 02_6 | "Thirty-one." | 31 regions when no three lines pass through one point inside the circle; six evenly spaced points give 30 (`F-C.evenly_spaced.regions`; the three-through-one set `F-C.three_through_one.regions` is a different, uneven set with the same count). On screen in the lower-third. 02_4 says the condition in words: no three lines cross at one place inside the circle; unevenly spaced is neither necessary (n = 3, 4, 5, 7 and 9 evenly spaced points give the generic count) nor sufficient (the three-through-one set is uneven) |
+| 03_4, 03_5, 03_6 | "each layer is two longer"; "The same picture works all the way to the hundredth layer"; "at every size" | for every whole number n ≥ 1, an L of two arms each as long as the side k of the square it wraps and one corner tile is 2k + 1 tiles and makes the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n² |
+| 06_4 | "The cubes up to any number make a square. Its side is one plus two and so on, up to that number." | for every whole number n ≥ 1, 1³ + … + n³ = (1 + … + n)² = (n(n + 1)/2)² |
 | 06_5 | "Nicomachus noticed that every cube is a run of odd numbers" | cube k is the k consecutive odd numbers from k(k − 1) + 1 (`F-K.odd_runs`; k = 1 to 200 tested), so the cubes up to n³ are the first 1 + 2 + … + n odd numbers, which add to (1 + … + n)². He did not state the rule that carries his name (S2, S3) |
 | 06_6 | "Al-Karaji proved the rule with L-shaped layers around the year one thousand." | Heath: "a proof … by means of a figure with gnomons drawn in it"; "tenth-eleventh century" |
 | 08_4 | "With any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box" | 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1)/6, for every whole number n ≥ 1. On screen in the lower-third |
+| 08_5 | "Man-Keung Siu … published this picture in nineteen eighty-four, under the title Proof Without Words, Sum of Squares." | S8: the title, the year and the page, from Crossref and Nelsen; "published this picture" is partly verified (no printed figure seen) and nothing dates the picture itself |
 | 09_4 | "That covers every height." | induction on the number of layers: the solid of height n + 1 is the solid of height n lifted by one cube with three new n + 1 by n + 1 slabs, under, behind and beside (`model::stacks::grows`); height 1 is three cubes |
 | 10_4, 10_5 | "no number smaller than one is big enough to be the total"; "nothing ever passes one"; "this endless sum equals one" | the partial sums 1 − 1/2ⁿ are all below 1 (the pieces lie inside the square) and exceed every number below 1; for pieces that are all positive that is what "equals one" means. On screen in the lower-third |
 | 11_5 | "each colour, with its share of the corner, is exactly one third" | after n cuts each colour holds (1 − 1/4ⁿ)/3, and with a third of the uncut corner (1/4ⁿ)/3 that is exactly 1/3 at every n (`F-R.short` at n = 3); the limit of what a colour holds is 1/3. On screen in the lower-third |
-| 11_6 | "Archimedes added quarters of quarters like these" | Proposition 23 is a finite identity with a remainder, A + … + Z + ⅓Z = (4/3)A; he does not sum an infinite series (S11) |
-| 12_6 | "nothing depended on three and two" | (a + b)³ = a³ + 3a²b + 3ab² + b³ for all positive lengths a and b; the video slides the cut through whole and half values |
+| 11_6 | "Archimedes added quarters of quarters like these, in ancient Greece, to measure a slice of a parabola" | Proposition 23 is a finite identity with a remainder, A + … + Z + ⅓Z = (4/3)A; he does not sum an infinite series (S11) |
+| 12_6 | "nothing depended on three and two"; "Slide the cut anywhere inside, and it is still eight blocks" | (a + b)³ = a³ + 3a²b + 3ab² + b³ for all positive lengths a and b, and eight blocks of positive volume while 0 < a < a + b; at the very end of the slide (a = 0) seven blocks have no volume (`a_cut_at_the_end_of_a_side_leaves_one_block`). The video slides the cut through whole and half values |
 | 12_7 | "every block of the cube appears twice"; "no one can build it in our space" | (a + b)⁴ = a·(a + b)³ + b·(a + b)³; the count with j short sides is C(4, j) = C(3, j) + C(3, j − 1) |
-| 13_6 | "It holds for every right triangle." | for all positive legs a and b: the tilted shape has four sides of length √(a² + b²) and four right angles, and its area is (a + b)² − 2ab |
+| 13_6 | "It holds for every right triangle. With shorter sides two and five, the tilted square is twenty-nine, and the long side is no whole number." | for all positive legs a and b: the tilted shape has four sides of length √(a² + b²) and four right angles, and its area is (a + b)² − 2ab |
 | 14_6 | "One edge sags below the true line, the other bulges above"; "The sliver was exactly one tile" | the two bent edges are 1/8 apart at most, measured straight up, from x = 5 to x = 8, and closer elsewhere (`F-L.sliver.thickest`, on screen); each bend is 1/13 off the straight line, measured straight up (`F-L.dip`, `F-L.bulge`); the sliver is the parallelogram with sides (5, 2) and (8, 3), area 8 × 2 − 3 × 5 = 1, a fundamental domain of the integer lattice, so its 17 pieces slide by whole tiles into the one empty tile |
-| 14_7 | "The trick goes back to Paul Curry … in nineteen fifty-three. Martin Gardner found triangle forms like this one and published them three years later" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
+| 14_7 | "Martin Gardner says the trick began with Paul Curry, a New York amateur magician, in nineteen fifty-three. Gardner found triangle forms like this one and published them three years later" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
 
 ## Misconceptions
 
@@ -107,7 +108,7 @@ square; that Moser proved or named the circle problem.
 | 10 | "equals one" means "gets close to one" | 10_4: every guess below one is passed; one is not |
 | 13 | the rearrangement proves it by itself | 13_7: the tilted shape must be a square and the edges straight |
 | 14 | pieces that look as if they fit, fit | 14_5: two in five against three in eight |
-| 15 | a program's check is a proof | 15_5: "That is still only checking. A check up to some size says nothing about the next size." |
+| 15 | a program's check is a proof | 15_5: "That is still only checking. A check up to some size does not prove the next size." |
 
 ## Facts
 
@@ -143,6 +144,7 @@ whose three long lines all pass through the centre.
 | `F-C.closed_form` | `1,2,4,8,16,31,57` | 1 + C(n, 2) + C(n, 4) for n = 1 to 7 |
 | `F-C.three_through_one.crossings` | `13` | distinct crossings when three lines pass through one point |
 | `F-C.three_through_one.regions` | `30` | regions in that case: one fewer than 31 |
+| `F-C.evenly_spaced.regions` | `30` | regions of six evenly spaced points, drawn as a regular hexagon's stretch onto whole coordinates ((1, 0), (0, 1), (−1, 1), (−1, 0), (0, −1), (1, −1); a slanted stretch keeps lines straight and crossings in place): 02_6's "six evenly spaced points give 30" |
 
 ### F-O: L-shaped layers (chapter 03)
 
@@ -204,6 +206,7 @@ turned a quarter turn, at the far end of the top arm (x from 0).
 | `F-K.arm.5.slabs` | `2` | how many 5 by 5 slabs fill one such arm |
 | `F-K.sixth.cube` | `216` | unit squares in the sixth layer: 6³ |
 | `F-K.sixth.side` | `21` | side of the square after six layers |
+| `F-K.sixth.total` | `441` | unit squares in the five layers and the sixth together: 225 + 216 = 21², the sixth total of 02_1's running sum |
 | `F-K.arm.6` | `6x15` | each arm of the sixth layer |
 | `F-K.arm.6.slabs` | `5/2` | how many 6 by 6 slabs fill one such arm |
 | `F-K.arm.7` | `7x21` | each arm of the seventh cube's layer (06_3's strip: an odd cube cuts nothing) |
@@ -256,6 +259,8 @@ at y = n (behind) and at x = n − 1 (beside).
 | `F-S.grows.through` | `24` | reach of the slow check of the next size: each stack at height n is its new base slab plus itself at height n − 1, lifted by one |
 | `F-S.one.cubes` | `3` | cubes in three stacks of one layer |
 | `F-S.one.box` | `1x2x3/2` | their box |
+| `F-S.fewest` | `3` | the fewest stacks of four levels that make a box when only the cubes that end up sticking out on top may be sliced (07_2): a box that holds one stack has both sides at least 4 and at least 3 whole layers under its half layer (a stack is 4 by 4 by 4 at its widest in every direction), so its volume width × depth × (h + ½) is 30, 60 or 90 cubes for one, two or three stacks, and only 90 has such a box; that three fill it is `fills_the_box`. Necessary conditions for stacks on the cube lattice, not a search over every packing |
+| `F-S.fewest.box` | `4x5x9/2` | that box, the only one: the video's own, `F-S.box` |
 | `F-S.sum.through` | `1000` | reach of the whole-number check: 6(1² + … + n²) = n(n + 1)(2n + 1) |
 
 ### F-H: a square halved again and again (chapter 10)
@@ -273,6 +278,7 @@ left shrinks into the top right corner.
 | `F-H.gap_at.thousandth` | `1/1024` | the gap then |
 | `F-H.pieces_to.millionth` | `20` | the first number of pieces after which the gap is under 1/1,000,000 |
 | `F-H.gap_at.millionth` | `1/1048576` | the gap then |
+| `F-H.float.reaches_one` | `54` | pieces after which a 64-bit float's running sum of ½, ¼, ⅛, … is exactly 1.0 (the tag for programmers at 10_4): 1 − 2⁻⁵³ is the last float below one, and the 54th piece rounds to 1.0 |
 | `F-H.checked.through` | `40` | reach of the exact check: after n pieces, filled + gap = 1, the gap equals the last piece, and filled < 1 |
 
 ### F-R: a square quartered again and again (chapter 11)
@@ -381,6 +387,7 @@ and (5, 2) in the second.
 | `F-L.bulge` | `1/13` | how far the second bend is above it |
 | `F-L.slides` | `5 2,-8 -3,0 -1,-3 0` | how far each piece slides, x then y: big triangle, small triangle, L of 8, L of 7 |
 | `F-L.slopes.thousandths` | `375,400` | the two slopes in thousandths: 0.375 and 0.400 |
+| `F-L.slopes.differ` | `1/40` | how far apart the slopes are, 2/5 less 3/8 (one over 5 × 8, because 2 × 8 − 3 × 5 = 1: the Fibonacci neighbours 2, 3, 5, 8) |
 | `F-L.bends.on_the_edge` | `0` | how many of the two bends lie on the straight edge |
 
 ### F-Q: the quizzes
@@ -438,7 +445,7 @@ literals, and the two spans are subtractions.
 | `F-X.curry` | `1953` | S14: the year Gardner gives for Curry's idea |
 | `F-X.gardner` | `1956,139,145` | S14: year of the book, and the two pages quoted |
 | `F-X.nelsen` | `1993,2000` | S15: the years of the two books |
-| `F-X.al_karaji.after_nicomachus` | `900` | years from Nicomachus to al-Karaji, as round dates: the "nine centuries" of 06_5 |
+| `F-X.al_karaji.after_nicomachus` | `900` | years from Nicomachus to al-Karaji, as round dates: the description's "nine centuries" (no longer spoken since R1) |
 | `F-X.gardner.after_curry` | `3` | years from Curry's idea to Gardner's book: the "three years later" of 14_7 |
 
 ## Always and never (edge tests)
@@ -466,5 +473,8 @@ nothing, with the test that tries its edges (`src/facts.rs` and
 | 13_3, 14_2 | "Nothing turns, nothing flips." | each slide is one translation, the same for every corner of the piece | `four_triangles_two_ways`, `the_lying_picture_is_not_a_triangle` |
 | 13_6 | "It holds for every right triangle." | equal sides (1, 1), (7, 7); far apart (1, 60), (60, 1); all pairs to 60 | `the_edges_of_every_always`, `F-P.checked.through` |
 | 14_6 | (on screen) the sliver is never more than an eighth of a tile thick | the gap at every whole x from 0 to 13 | `F-L.sliver.thickest`, `the_lying_picture_is_not_a_triangle` |
+| 07_2 | "the fewest number of these stacks … that make a solid box" | one and two stacks (30 and 60 cubes) have no box under the rule; three have exactly one; whole cubes: three have none and six have 4 by 5 by 9 | `three_is_the_fewest_stacks_that_make_a_box`, `F-S.fewest` |
+| 12_6 | "Slide the cut anywhere inside, and it is still eight blocks." | a = 0 and b = 0, in 1 to 4 dimensions: one block has volume, not 2^d | `a_cut_at_the_end_of_a_side_leaves_one_block` |
+| 02_4 | "Place the points so that no three lines cross at one place inside the circle." | six evenly spaced points give 30; the three-through-one set (uneven) gives 30; the drawn six give 31 | `six_evenly_spaced_points_make_thirty_regions`, `three_lines_through_one_point_lose_a_region` |
 | 14_7 | "Neither picture was ever a triangle." | neither bend lies on the straight edge | `F-L.bends.on_the_edge` |
 | 02_7 | "Five checks in a row prove nothing about the sixth." | the doubling holds for 1 to 5 drawn points and fails at 6 and 7 | `the_edges_of_every_always` |

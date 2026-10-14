@@ -31,7 +31,7 @@ answers it.
 **Shown** (the exact statement, with its range: "for every whole number n
 from 1 …") and **Assumed** (the fit the picture took for granted, with a tick
 and the reason once it is checked). It first appears at 03_6, passes seven
-times (03_6, 04_6, 06_4, 09_5, 10_5, 11_6, 13_7), says "counted, not built"
+times (03_6, 04_6, 06_4, 09_5, 10_6, 11_6, 13_7), says "counted, not built"
 once (12_7), and fails once: at 14_7 the Assumed line gets a red cross.
 Chapter 15 is that card read back. **Its picture.** The Assumed line is a
 close-up of the fit it names, on the same magnifier ring every time (03: the
@@ -88,11 +88,12 @@ copies in 04 become three in 07, and the empty half of 08_2 is 04's second
 staircase; the L-shaped layer returns in three dimensions in 09 and as the cut
 square in 12; the two-arrangement argument of 13 is the one that fails in 14.
 
-**Length.** The G2 estimate below is 17.1 minutes over 15 chapters, over
-the order's 12 to 16 by the words R1 and its audit added to give each proof
-its reason. If the owner wants it shorter, chapter 10 (the halved square,
-about 64 seconds) folds into one beat of chapter 11 and 12_7 (the fourth
-power, about 20 seconds) goes to the description, which brings it to 16.0.
+**Length.** The G2 estimate below is 17.7 minutes over 15 chapters, over
+the order's 12 to 16 by the words R1, its audit and the claim walk added to
+give each proof its reason and to say every step the screen shows. If the
+owner wants it shorter, chapter 10 (the halved square, about 64 seconds) folds
+into one beat of chapter 11 and 12_7 (the fourth power, about 25 seconds) goes
+to the description, which brings it to about 16.4.
 
 ## 3 Color roles
 
@@ -127,7 +128,7 @@ first time it appears) and `warn` always carries a cross or a hatch.
 
 ## Vocabulary (one word per idea)
 
-**picture** and **proof** (a picture that shows why, and says what it took
+**picture** and **proof** (a picture that shows why, and checks what it took
 for granted); **piece** (anything that moves) and **fit**; **tile** (a unit
 square: also in 14, never "square") and **cube** (a unit cube, and the five
 cubes); **layer** (the L-shaped layer: one tile wide in 03, and as wide as its
@@ -230,30 +231,32 @@ sonification WAV placed at known frames, not score marks.
   two that split are the two the model cuts, and the words say so (R1: the
   first draft hid the cuts until 05_2).
 
-## 02_five_for_five (75 s)
+## 02_five_for_five (80 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 02_1 | Add the cubes one at a time, and keep the total. | The five cubes small along the top. Each drops its slabs onto a growing tower of totals; each cube's own number shows beside the total as it joins (+ 1, + 8, + 27, + 64, + 125: `F-K.cubes`), and a woodblock tick marks each total: 1, 9, 36, 100, 225 (`F-C.cube_totals`) | count-up from a tracker; lagged reveal | |
 | 02_2 | Every total is a perfect square. One, three, six, ten and fifteen, each multiplied by itself. Five checks, and five squares. | Each total turns into its square: 1 × 1, 3 × 3, 6 × 6, 10 × 10, 15 × 15 (`F-C.cube_roots`). Five small ticks | a formula morph for each total; highlight | |
 | 02_3 | So is it always true? Checking one case at a time never finishes. And there is a worse problem. A pattern can break. | A sixth slot with a question mark; then the row slides up, small, and the words "a pattern can break" take the stage | a card for the last sentence | |
-| 02_4 | Put points on a circle, spread unevenly, and join every pair with a straight line. The lines cut the circle into pieces, and each piece is a region. One point, one region. Two points, two. Three points, four. Four points, eight. Five points, sixteen. | A circle. The points arrive one at a time, unevenly spaced (`model::circle::DRAWN`, no region of the six under 0.9 percent of the disc); every pair is joined; the regions are tinted so they can be counted. A two-row table fills in: points 1 2 3 4 5, regions 1 2 4 8 16 (`F-C.regions`) | a table built from primitives; a live count of regions; lagged reveal | |
+| 02_4 | Put points on a circle and join every pair with a straight line. Place the points so that no three lines cross at one place inside the circle. The lines cut the circle into pieces, and each piece is a region. One point, one region. Two points, two. Three points, four. Four points, eight. Five points, sixteen. | A circle. The points arrive one at a time, unevenly spaced (`model::circle::DRAWN`, no region of the six under 0.9 percent of the disc); every pair is joined; the regions are tinted so they can be counted. A two-row table fills in: points 1 2 3 4 5, regions 1 2 4 8 16 (`F-C.regions`) | a table built from primitives; a live count of regions; lagged reveal | |
 | 02_5 | ⟨predict⟩ Your turn. Pause the video if you want more time. Guess before you count. How many regions will six points make? | The sixth point lands; its five lines are not drawn yet. The card: "6 points: ? regions" | your-turn card; the countdown ring | listen 4 s (countdown) |
-| 02_6 | Thirty-one. Count them. The doubling pattern said thirty-two, and the pattern was wrong. | The five lines draw. Regions light in two passes, thirty quickly, a pause, then the last, while a counter runs to 31 (`F-Q.regions.answer`). In the table, "32" (`F-C.doubling`) is struck out in red and 31 written beside it. Lower-third, after the counter stops: "precisely: 31 when no three lines cross at one point inside the circle (six evenly spaced points give 30). Leo Moser, 'On the Danger of Induction', 1949" (`F-C.three_through_one.regions`, `F-X.moser`) | live counter; highlight; lower-third | hold |
-| 02_7 | Five checks in a row prove nothing about the sixth. We need a reason that does not care where we stopped. Such a reason is called a proof, and the best ones you can see. | The cubes' row comes back under the circle's row: both read "five for five". The circle's sixth entry is red; the cubes' sixth is still a question mark. Small tag, bottom right: "for programmers: five passing tests are not a proof either" | a table; a labelled aside | |
+| 02_6 | Thirty-one. Count them. The doubling pattern said thirty-two, and the pattern was wrong. | The five lines draw. Regions light in two passes, thirty quickly, a pause, then the last, while a counter runs to 31 (`F-Q.regions.answer`). In the table, "32" (`F-C.doubling`) is struck out in red and 31 written beside it. Lower-third, after the counter stops: "precisely: 31 when no three lines cross at one point inside the circle (six evenly spaced points give 30). Leo Moser, 'On the Danger of Induction', 1949" (`F-C.evenly_spaced.regions`, `F-X.moser`) | live counter; highlight; lower-third | hold |
+| 02_7 | Five checks in a row prove nothing about the sixth. We need a reason that does not care where we stopped. Such a reason is called a proof, and some of them you can see. | The cubes' row comes back under the circle's row: both read "five for five". The circle's sixth entry is red; the cubes' sixth is still a question mark. Small tag, bottom right: "for programmers: five passing tests are not a proof either" | a table; a labelled aside | |
 
 - **The obvious approach fails on honest data** (plan rule 2): the circle's
   counts are computed from the drawn points by Euler's formula on the exact
   crossings, not from the closed form (`model::circle::regions`).
-- **Edge kept on screen and in the words:** 31 needs the points spread so
-  that no three lines meet at one point inside the circle; 02_4 says
-  "spread unevenly", the lower-third gives the other way the pattern breaks.
+- **Edge kept on screen and in the words:** 31 needs the points placed so
+  that no three lines meet at one point inside the circle; 02_4 says exactly
+  that (unevenly spaced is neither necessary nor sufficient: the video's own
+  three-through-one set is uneven and gives 30), and the lower-third gives the
+  evenly spaced case.
   The description keeps the formula 1 + C(n, 2) + C(n, 4) (1, 2, 4, 8, 16, 31,
   57, 99) and "evenly spaced: 6 points give 30, 8 give 88".
 - **Misconception defused:** "a pattern that holds five times is as good as
   proved".
 
-## 03_layers (73 s)
+## 03_layers (80 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -261,8 +264,8 @@ sonification WAV placed at known frames, not score marks.
 | 03_2 | Wrap it again, and the layer takes five. Then seven. Then nine. | Layers three, four and five in green, blue and violet, each with its count beside it: 1, 3, 5, 7, 9 (`F-O.layers`). A 5 by 5 square (`F-O.square`) | lagged reveal; a live count of tiles | |
 | 03_3 | ⟨predict⟩ Your turn. The square is five by five. How many tiles will the next layer take? | The square with the outline in `dim` of a sixth layer. The card: "5 by 5: next layer ? tiles" | your-turn card; the countdown ring | listen 4 s (countdown) |
 | 03_4 | Eleven. One tile at the end of every row, one on top of every column, and one for the corner. Each new square has one more row and one more column, so each layer is two longer. | The sixth layer lands in gold tile by tile: one at the end of each of the five rows (a live count 1 to 5), one on top of each of the five columns (1 to 5), then the corner tile: 11 (`F-Q.next_layer.answer`). The square is now 6 by 6 and has one more row and one more column, said in the picture by a gold row and a gold column | highlight; a live count; lagged reveal | |
-| 03_5 | One plus three plus five plus seven plus nine is five times five. The same picture works all the way to the hundredth layer. Ninety-nine rows, ninety-nine columns, one corner. | The sum written out: 1 + 3 + 5 + 7 + 9 = 5 × 5 (`F-O.sum`). The square pulls back by scaling until its tiles are specks, a 99 by 99 square drawn as row strips; the same ripple runs once as three gold pieces (99 end tiles, 99 top tiles, one corner), and the readout computes the hundredth layer, 199 (`F-O.hundredth`), and the square, 100 × 100 = 10,000 (`F-O.sum.hundred`). Lower-third: "gnomon: the Greek word for this L-shaped layer (Aristotle, Physics III.4)" | a zoom made by scaling; a formula that grows from the numbers; lower-third | |
-| 03_6 | Look at what the picture showed, and what it took for granted. Each arm is as long as the side it wraps, at every size. That is the reason. A picture that shows why, and says what it took for granted, is a proof. Remember this card. | The card, first time. **Shown:** for every whole number n from 1, the first n odd numbers add up to n × n. **Assumed:** an L of two arms, each as long as the side of the square it wraps, and one corner tile, makes the next square, ticked, with the close-up of an arm's last tile beside the square's last row | the card | hold |
+| 03_5 | One plus three plus five plus seven plus nine is five times five. The same picture works all the way to the hundredth layer. Ninety-nine rows, ninety-nine columns, one corner. That is one hundred and ninety-nine tiles, and the square is a hundred by a hundred, ten thousand. | The sum written out: 1 + 3 + 5 + 7 + 9 = 5 × 5 (`F-O.sum`). The square pulls back by scaling until its tiles are specks, a 99 by 99 square drawn as row strips; the same ripple runs once as three gold pieces (99 end tiles, 99 top tiles, one corner), and the readout computes the hundredth layer, 199 (`F-O.hundredth`), and the square, 100 × 100 = 10,000 (`F-O.sum.hundred`). Lower-third: "gnomon: the Greek word for this L-shaped layer (Aristotle, Physics III.4)" | a zoom made by scaling; a formula that grows from the numbers; lower-third | |
+| 03_6 | Look at what the picture showed, and what it took for granted. Each arm is as long as the side it wraps, at every size. That is the reason. A picture that shows why, and checks what it took for granted, is a proof. Remember this card. | The card, first time. **Shown:** for every whole number n from 1, the first n odd numbers add up to n × n. **Assumed:** an L of two arms, each as long as the side of the square it wraps, and one corner tile, makes the next square, ticked, with the close-up of an arm's last tile beside the square's last row | the card | hold |
 
 - **The payoff, early** (plan rule 3): a whole proof in a minute, with the
   device that will fail in chapter 14.
@@ -272,7 +275,7 @@ sonification WAV placed at known frames, not score marks.
 - **Ruth's change:** the first draft's card said "we checked that", which is
   the move chapter 02 takes apart; the card now gives the reason.
 
-## 04_staircases (60 s)
+## 04_staircases (64 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -280,7 +283,7 @@ sonification WAV placed at known frames, not score marks.
 | 04_2 | So make a copy of the staircase, and turn it half way round. | A copy lifts off the first and turns half way round beside it, in the same five colours, with an ink outline: one rigid half turn | a morph: one rigid half turn | |
 | 04_3 | ⟨predict⟩ Your turn. The two staircases lock into a rectangle. How wide is it, and how tall? | The copy hovers beside the first, turned, not in place. The card: "? wide, ? tall" | your-turn card; the countdown ring | listen 5 s (countdown) |
 | 04_4 | Five wide and six tall. Each column of one staircase meets a column of the other, and every pair comes to six. Thirty tiles in the rectangle, so fifteen in each staircase. | The copy settles: a rectangle 5 by 6 (`F-Q.rectangle.answer`), 30 tiles (`F-T.rectangle.cells`). Under the columns: 1 + 5, 2 + 4, 3 + 3, 4 + 2, 5 + 1, each pair a pink and a violet, a copper and a blue | highlight; brace labels | |
-| 04_5 | It works at any height. Two staircases always make a rectangle one taller than it is wide. So the staircase is half of that rectangle. | A sweep: the staircase grows from 1 to 12 columns while the pair labels update (1 + 12, 2 + 11, …). In letters, with word labels: 1 + 2 + … + n = n (n + 1) ÷ 2. Then the hundred-step staircase: 5,050 (`F-T.count.hundred`). Lower-third: "triangular numbers" | a formula earned from the numbers; a live sweep | |
+| 04_5 | It works at any height. Two staircases always make a rectangle one taller than it is wide. So the staircase is half of that rectangle. A staircase of a hundred steps has five thousand and fifty tiles. | A sweep: the staircase grows from 1 to 12 columns while the pair labels update (1 + 12, 2 + 11, …). In letters, with word labels: 1 + 2 + … + n = n (n + 1) ÷ 2. Then the hundred-step staircase: 5,050 (`F-T.count.hundred`). Lower-third: "triangular numbers" | a formula earned from the numbers; a live sweep | |
 | 04_6 | Remember fifteen. The cubes' square is fifteen on a side. | The card. **Shown:** for every whole number n from 1, 1 + 2 + … + n is half of n × (n + 1). **Assumed:** column k of one staircase meets column n + 1 − k of the other, so every pair adds to the same n + 1, ticked, with 1 + 5, 2 + 4, 3 + 3 at five columns. The 15 lifts off in gold and waits in a corner | the card | hold |
 
 - **Why it is here:** fifteen is the side of the cubes' square, and "two
@@ -289,12 +292,12 @@ sonification WAV placed at known frames, not score marks.
 - **Left out:** the story of young Gauss and 1 to 100 (the earliest account
   names no numbers; fact sheet §Sources).
 
-## 05_slabs (83 s)
+## 05_slabs (84 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | A cube five tiles on a side is five slabs, each five by five. A cube of side four is four slabs. Fifteen slabs in all. | The five cubes; each comes apart into its slabs. "15 slabs" (`F-K.slabs`) joins the waiting 15 | the cubes; lagged reveal | |
-| 05_2 | Lay them flat as L-shaped layers, each as wide as its cube. The single tile goes first. The two cube wraps around it. One slab fits the corner of the L. The other must be cut in half. | A board. The pink tile. One copper 2 by 2 slab takes the bend of the new layer; the other splits into two halves, one at the end of each arm, the seam kept. The square is 3 on a side (`F-K.sides`) | morph from solid to board; highlight on the cut | |
+| 05_1 | A cube five tiles on a side is five slabs, each five by five. A cube of side four is four slabs. Across all five cubes, that is fifteen slabs. | The five cubes; each comes apart into its slabs. "15 slabs" (`F-K.slabs`) joins the waiting 15 | the cubes; lagged reveal | |
+| 05_2 | Lay them flat as L-shaped layers, each as wide as its cube. The single tile goes first. The two cube wraps around it. One slab fits the corner of the layer. The other must be cut in half. | A board. The pink tile. One copper 2 by 2 slab takes the bend of the new layer; the other splits into two halves, one at the end of each arm, the seam kept. The square is 3 on a side (`F-K.sides`) | morph from solid to board; highlight on the cut | |
 | 05_3 | The three cube needs no cutting. One slab on the corner, one on each arm, and the square is six on a side. | Three green 3 by 3 slabs: corner, arm, arm. Side 6 | morph | |
 | 05_4 | ⟨predict⟩ Your turn. The four cube has four slabs. How many of them will have to be cut? | The 6 by 6 square, the outline of the next layer, four blue slabs waiting. Each arm is marked "4 wide, 6 long" (`F-K.arm.4`). The card: "slabs to cut: ?" | your-turn card; the countdown ring | listen 8 s (countdown) |
 | 05_5 | Just one. Each arm is six long, room for one and a half slabs. So two go in whole, and one is cut in half. | Blue corner slab; each arm 4 wide and 6 long, labelled "6 ÷ 4 = 1½ slabs" (`F-K.arm.4.slabs`). The cut slab lifts and its two halves go one to each arm before the answer lands: 1 (`F-Q.cut_slabs.answer`). Side 10 | highlight; brace labels | |
@@ -309,16 +312,16 @@ sonification WAV placed at known frames, not score marks.
 - **Counted two ways** (the video's takeaway) is first said here: the pile of
   225 tiles by cube and by square.
 
-## 06_every_cube (82 s)
+## 06_every_cube (83 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 06_1 | ⟨predict⟩ That was five cubes. Would a sixth one fit? | The 15 by 15 square with the outline of a layer 6 wide. "6³ = 216 tiles" (`F-K.sixth.cube`) waits beside it | a question card | |
-| 06_2 | Its layer must be six wide. The corner takes one slab. Each arm is six wide and fifteen long, and fifteen is two and a half sixes. So the two arms take five slabs. Five and one make six. Exactly one cube. | The sixth layer builds in gold: a 6 by 6 corner, arms 6 by 15 (`F-K.arm.6`), "15 ÷ 6 = 2½ slabs" (`F-K.arm.6.slabs`). The square is 21 on a side (`F-K.sixth.side`). The row from 02_7 returns for a beat and its question mark becomes 441 = 21 × 21 (225 + 216: five for five becomes six for six) | highlight; brace labels; morph | |
+| 06_2 | Its layer must be six wide. The corner takes one slab. Each arm is six wide and fifteen long, and fifteen is two and a half sixes. So the two arms take five slabs. Five and one make six. Exactly one cube. The square is now twenty-one on a side. | The sixth layer builds in gold: a 6 by 6 corner, arms 6 by 15 (`F-K.arm.6`), "15 ÷ 6 = 2½ slabs" (`F-K.arm.6.slabs`). The square is 21 on a side (`F-K.sixth.side`). The row from 02_7 returns for a beat and its question mark becomes 441 = 21 × 21 (225 + 216: five for five becomes six for six) | highlight; brace labels; morph | |
 | 06_3 | The arm is as long as the five smaller cubes' sides laid end to end. One and five make six. Two and four make six. Three is half of six. Pair them up for any cube, and the arms always take one slab fewer than the cube has. | The arm is ruled by the old square's edge, already ruled 1, 2, 3, 4, 5 by the layers' feet: faint projection lines run from the left edge's marks to the right arm and from the bottom edge to the top arm; each arm takes its seams at 1, 3, 6, 10 and its five 6-wide pieces fill pink, copper, green, blue, violet, each with its numeral. In each arm the violet 5 slides out sideways and comes back above the pink 1, and the two close into a 6 by 6 slab with a gold seam; likewise copper 2 and blue 4; the green 3, the one piece without a partner in its arm, slides to the end, and the two greens, one in each arm, flash and are braced "half + half". "1 + 5", "2 + 4" as in 04_4. The strips for 7 cubes (pieces 1 to 6, three pairs, nothing cut) and 8 cubes (pieces 1 to 7, three pairs and the 4 alone) pair themselves beside it in two lagged passes. Then one line in letters, with word labels: pieces 1, 2, …, k − 1, each with its partner makes k, where the partner of piece j is piece k − j in the same arm or, for the middle piece of an even cube, its twin in the other arm (the strips' arms are `F-K.arm.7` and `F-K.arm.8`, with their slabs) | highlight; brace labels; morph; a derivation that turns numbers into letters | |
 | 06_4 | So every cube fits, at every size. The cubes up to any number make a square. Its side is one plus two and so on, up to that number. | 1³ + 2³ + … + n³ = (1 + 2 + … + n)², boxed. The card. **Shown:** for every whole number n from 1, the cubes up to n³ add up to the square of 1 + 2 + … + n. **Assumed:** each cube's layer wraps the square the cubes before it made, and each arm is k − 1 half slabs, so the two arms are k − 1 slabs and the corner is the last, ticked, with the pairing and "the first cube is the corner tile" | a formula in a box; the card | hold |
-| 06_5 | Cut every cube's layer into thin layers, one tile wide. Nicomachus noticed that every cube is a run of odd numbers. Two cubed is three plus five. Three cubed is seven plus nine plus eleven. So this square is chapter three's again, made of fifteen layers. | The 15 by 15 square redrawn as fifteen thin layers, the thin layers of chapter 03 recolouring from their layer colours to their cube's, in lighter and darker steps of it, the odd numbers 1 to 29 in runs: 1; 3 + 5; 7 + 9 + 11; and so on (`F-K.odd_runs`), with the rule under them: cube k is k odd numbers from k(k − 1) + 1, so 5³ = 21 + 23 + 25 + 27 + 29, and the run is centred on k², so k terms of average k² add to k × k² = k³. Under that, the sum: the first 15 odd numbers make 15 × 15 | a morph: each thick layer splits into its thin ones; a formula | |
-| 06_6 | Al-Karaji proved the rule with L-shaped layers around the year one thousand. The picture with the slabs cut in half was published in nineteen eighty-five. | A line of dates: Nicomachus, about 100 (`F-X.nicomachus`); Aryabhata, 499, "states the rule" (`F-X.aryabhata`); al-Karaji, about 1000 (`F-X.al_karaji`); Fry, 1985, for the cut slabs (`F-X.fry`). Source line: "the cut slabs: A. L. Fry, Mathematics Magazine, 1985" | a number line of dates | |
+| 06_5 | Nicomachus noticed that every cube is a run of odd numbers. Two cubed is three plus five. Three cubed is seven plus nine plus eleven. So this square is chapter three's again, made of fifteen thin layers. | The 15 by 15 square redrawn as fifteen thin layers, the thin layers of chapter 03 recolouring from their layer colours to their cube's, in lighter and darker steps of it, the odd numbers 1 to 29 in runs: 1; 3 + 5; 7 + 9 + 11; and so on (`F-K.odd_runs`), with the rule under them: cube k is k odd numbers from k(k − 1) + 1, so 5³ = 21 + 23 + 25 + 27 + 29, and the run is centred on k², so k terms of average k² add to k × k² = k³. Under that, the sum: the first 15 odd numbers make 15 × 15 | a morph: each thick layer splits into its thin ones; a formula | |
+| 06_6 | Al-Karaji proved the rule with L-shaped layers around the year one thousand. A version of the picture with the slabs cut in half was published in nineteen eighty-five. | A line of dates: Nicomachus, about 100 (`F-X.nicomachus`); al-Karaji, about 1000 (`F-X.al_karaji`); Fry, 1985, for the cut slabs (`F-X.fry`). Source line: "the cut slabs: A. L. Fry, Mathematics Magazine, 1985" | a number line of dates | |
 
 - **Earned formula** (plan rule 6): 6 and 15 first, then the letters.
 - **Inevitable in hindsight** (plan rule 19): chapter 04 is the reason
@@ -328,13 +331,13 @@ sonification WAV placed at known frames, not score marks.
   last the cut slab (1985). A second proof of the cubes' sum sits in 06_5:
   chapter 03's result with n = 1 + 2 + … + 5.
 
-## 07_three_stacks (67 s)
+## 07_three_stacks (69 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 07_1 | Staircases added up the numbers. Now add up the squares. One, four, nine, sixteen. Stack them, biggest at the bottom, every level pushed into the same corner. Thirty cubes. | One slab of each of cubes 1 to 4 (the 1 by 1, 2 by 2, 3 by 3 and 4 by 4 faces just on the board) lifts off and stacks: levels of 16, 9, 4 and 1 cubes (`F-S.layers`), one corner shared. A counter reaches 30 (`F-S.stack`) | the cubes; a live count; a morph from the board | |
-| 07_2 | ⟨predict⟩ Two staircases made a rectangle. Your turn. Guess. If the cubes that stick out on top may be sliced in half, what is the fewest number of these stacks, turned to fit, that make a solid box? | The stack and a ghost copy (outline). The card: "? stacks make a box" | your-turn card; the countdown ring | listen 7 s (countdown) |
-| 07_3 | Three. Here are three copies of the stack, each turned to fit. | Three equal stacks in blue, copper and pink (`F-Q.stacks.answer`), with a legend chip "first, second, third copy". A gold dot marks each stack's one-cube apex. The second turns twice and slides in against the first; the third turns the other way and comes down over them (`model::stacks::TURNS`): each is lift, turn clear, slide in, shown as turns, keyed in three poses | the cubes; rigid turns (`F-S.turns`) | |
+| 07_2 | ⟨predict⟩ Two staircases made a rectangle. Your turn. Guess. You may slice in half the cubes that end up on top. What is the fewest number of these stacks, turned to fit, that make a solid box? | The stack and a ghost copy (outline). The card: "? stacks make a box" | your-turn card; the countdown ring | listen 7 s (countdown) |
+| 07_3 | Three. Here are three copies of the stack, and the second and third are turned to fit. | Three equal stacks in blue, copper and pink (`F-Q.stacks.answer`), with a legend chip "first, second, third copy". A gold dot marks each stack's one-cube apex. The second turns twice and slides in against the first; the third turns the other way and comes down over them (`model::stacks::TURNS`): each is lift, turn clear, slide in, shown as turns, keyed in three poses | the cubes; rigid turns (`F-S.turns`) | |
 | 07_4 | Take the block apart one slab at a time. Four slabs of twenty cubes, and a top of ten. Each time, the blue square gives up an L-shaped layer, and the other two stacks take it. | Four gold seams on the block's front and right faces; the step lifts and slides right, then slabs 3, 2, 1, until five slabs stand in a row, face up: 20, 20, 20, 20 (`F-S.top.layer`) and 10 (`F-S.top`). Blue shrinks 16, 9, 4, 1 (`F-S.layers`); the L it sheds pulses gold on its slab and again on the slab above, where it is copper (the top arm) and pink (the right arm and the corner). Three tallies: 30, 30, 30 (`F-S.stack`). The four lower slabs are full 4 by 5 boards and the top has ten of its twenty places | the cubes; lagged slides; highlight | |
 | 07_5 | Put it back, with no gap. Four wide, five deep and four tall, with a staircase of ten cubes on top that covers exactly half of it. | The slabs slide back and settle: the block with braces 4, 5, 4 (`F-S.block`). On top a staircase of 10 cubes (`F-S.top`) over a top face of 20 squares (`F-S.top.layer`) | braces; highlight | hold |
 
@@ -344,12 +347,19 @@ sonification WAV placed at known frames, not score marks.
   place.
 - **The quiz is honest** (R1: Ruth, and the audit's A1): with whole cubes
   three stacks cannot make a box (90 cubes have no box with every side at
-  least 4), and the half cut is what lets three do it. Three is the fewest:
-  one or two stacks have 30 or 60 cubes, under the 64 of the least box round
-  one stack. Six whole stacks do make a box, 4 by 5 by 9 (the audit's
-  exhaustive search, checked cell by cell); that is not this video's picture,
-  so the question names the rule, only the cubes that stick out on top are
-  sliced, and asks for the fewest.
+  least 4), and the half cut is what lets three do it. Three is the fewest
+  (`F-S.fewest`), by the box's own size and no search for a packing: a stack
+  is 4 by 4 by 4 at its widest in every direction, so a box that holds one has
+  both sides at least 4 and at least 3 whole layers under its half layer, and
+  the box's volume width × depth × (h + ½) must be 30 or 60 or 90 cubes;
+  for 30 and 60 there is no such box, for 90 exactly one, 4 by 5 by 4½
+  (`F-S.fewest.box`, which is `F-S.box`). Evidence level: that arithmetic, run
+  by `model::stacks::half_boxes` and again by `oracle.py`, for stacks on the
+  cube lattice; that three do fill that box is `model::stacks::fills_the_box`.
+  Six whole stacks do make a box, 4 by 5 by 9 (the audit's exhaustive search,
+  checked cell by cell); that is not this video's picture, so the question
+  names the rule, only the cubes that end up on top are sliced, and asks for
+  the fewest.
 - **Left out:** "never mirrored". Siu's stack is its own mirror image, so a
   mirrored copy is a turned copy; the tick could not fail.
 
@@ -361,19 +371,19 @@ sonification WAV placed at known frames, not score marks.
 | 08_2 | The empty half is the step turned round, two staircases again. Ten cubes cannot cover twenty places, so slice every one in half. Lift the upper halves, turn them half way round, and lower them into the empty half. | A flat plan of the 4 by 5 top face beside the block: ten gold step cells, ten dashed empty cells, a gold dot at the centre; under the columns "1 + 4, 2 + 3, 3 + 2, 4 + 1 = 5"; the step turns half way round the dot onto the empty cells. Then in the block: seam lines on the step's cubes at half height, the upper slice (10 half cubes) lifts at least one cube clear, turns half way round and comes down into the gap (`model::stacks::turned_half`): 20 half cubes (`F-S.top.halves`), level | the cubes; one rigid half turn; a flat plan | |
 | 08_3 | Now it is a box. Four wide, five deep, and four and a half tall. That makes ninety. Three stacks of thirty. | Braces 4, 5, 4½ (`F-S.box`), the level top held two seconds with the music thinned before the braces. 4 × 5 × 4½ = 90 (`F-S.box.volume`) = 3 × 30 (`F-S.three_stacks`) | braces; a formula | |
 | 08_4 | If this goes on working for any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box. | Numbers first: 30 = ⅓ × 4 × 5 × 4½. Then, with word labels lit in turn as each is said, 1² + 2² + … + n² = ⅓ n (n + 1)(n + ½). Lower-third: "precisely: the textbook form is n (n + 1)(2n + 1) ÷ 6" | a formula earned from the numbers; lower-third | hold |
-| 08_5 | This picture is not ancient. Man-Keung Siu, of the University of Hong Kong, published it in nineteen eighty-four, under the title Proof Without Words. | Siu's formula. Source line: "Man-Keung Siu, Mathematics Magazine 57 (1984), p. 92" (`F-X.siu`) | a card | |
+| 08_5 | Man-Keung Siu, of the University of Hong Kong, published this picture in nineteen eighty-four, under the title Proof Without Words, Sum of Squares. | Siu's formula. Source line: "Man-Keung Siu, Mathematics Magazine 57 (1984), p. 92" (`F-X.siu`) | a card | |
 
 - **A "huh"** (plan rule 17): the half in n + ½ is a real slice of real
   cubes. The slice is only the second move: the first is that the empty half
   is chapter 04's second staircase, at every height.
 
-## 09_every_height (52 s)
+## 09_every_height (59 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 09_1 | ⟨predict⟩ But that was a stack of four levels. Why would five fit? | The block as it was before the slice, as its five slabs in its three colours | a question card | |
-| 09_2 | Give each stack one more level, a five by five slab at its base. Every slab of the block, four by five, becomes five by six, with an L-shaped layer of two arms and a corner. And one more slab goes underneath. | The five slabs of the block stand in a row. Slab 1 gains a gold L round its rectangle (right arm 5, back arm 4, corner 1); slabs 2, 3, 4 gain theirs in a lagged wave; the step's slab gains a column of 5. A gold 5 by 6 slab slides in beneath. Gold turns to the stacks' colours (under blue, behind copper, beside pink) and the slabs close up. The result is 5 by 6 by 5 with a step of 15 on top (`F-S.grown.box`, `F-S.grown.top`), each new base slab 25 cubes (`F-S.grown.slab`) | the cubes; lagged waves; a morph | |
-| 09_3 | Three new slabs of five by five, and nothing overlaps. Like the L-shaped layer, it is what you add to get the next size. | Beside the block, small: the flat square gaining its L, and the three slabs. The two growths pulse together | highlight; a split picture | |
+| 09_2 | Give each stack one more level, a five by five slab at its base. Every full slab of the block, four by five, becomes five by six, with an L-shaped layer of two arms and a corner. The step on top gains one more column. And one more slab goes underneath. | The five slabs of the block stand in a row. Slab 1 gains a gold L round its rectangle (right arm 5, back arm 4, corner 1); slabs 2, 3, 4 gain theirs in a lagged wave; the step's slab gains a column of 5. A gold 5 by 6 slab slides in beneath. Gold turns to the stacks' colours (under blue, behind copper, beside pink) and the slabs close up. The result is 5 by 6 by 5 with a step of 15 on top (`F-S.grown.box`, `F-S.grown.top`), each new base slab 25 cubes (`F-S.grown.slab`) | the cubes; lagged waves; a morph | |
+| 09_3 | Those gold pieces make three new slabs of five by five, one under, one behind and one beside, and nothing overlaps. Like the L-shaped layer, they are what you add to get the next size. | Beside the block, small: the flat square gaining its L, and the three slabs. The two growths pulse together | highlight; a split picture | |
 | 09_4 | So if the stacks fit at one height, they fit at the next. And at height one, three single cubes make a box one by two by one and a half. That covers every height. | Three single cubes make a box 1 by 2 by 1½ (`F-S.one.box`). A chain of blocks, 1, 2, 3, 4, 5 levels, each growing into the next, as outline-only stacks. Lower-third: "mathematical induction: the first case, and each case leads to the next. Not guessing from cases, as in chapter 2" | lagged reveal; lower-third | |
 | 09_5 | So this picture passes the card. | The card. **Shown:** for every whole number n from 1, three stacks of n levels, with the cubes of the top step sliced in half and turned into the empty half, fill a box n by n + 1 by n + ½. **Assumed:** each stack is the first one turned, ticked; the step and its turned copy fill the top, ticked, with "two staircases make a rectangle" (chapter 4); height one is three cubes in a 1 by 2 by 1½ box, ticked; the next height fits, ticked, with "three new slabs" | the card | hold |
 
@@ -401,7 +411,8 @@ sonification WAV placed at known frames, not score marks.
 - **A published version:** Warren Page, 1981 (`F-X.page`); the picture is
   older than any source found, so no one is named on screen.
 - **For programmers** (a tag at 10_4, bottom right): "in 64-bit floats this
-  sum reaches exactly 1.0 after 54 pieces; the machine cannot see the gap".
+  sum reaches exactly 1.0 after 54 pieces; the machine cannot see the gap"
+  (`F-H.float.reaches_one`).
 
 ## 11_a_third (74 s)
 
@@ -411,8 +422,8 @@ sonification WAV placed at known frames, not score marks.
 | 11_2 | Inside it, do the same. Colour one, leave two, cut the last. And again, and again, without end. | Levels two to eight march into the corner (`model::series::quarters`); the first three carry their fractions ¼, 1/16, 1/64 (`F-R.pieces`) | a cascade; a zoom made by scaling | |
 | 11_3 | ⟨predict⟩ Your turn. A quarter, plus a sixteenth, plus a sixty-fourth, and so on forever. What fraction of the whole square is coloured? | The card: "¼ + 1/16 + 1/64 + … = ?" | your-turn card; the countdown ring | listen 6 s (countdown) |
 | 11_4 | One third. At every size there are three equal squares. Slide one onto another and it fits. So give the other two their own colours. | The answer ⅓ (`F-Q.share.answer`). Level by level the copper square slides, as an outline, down onto the blue one and fits, and the pink slides left onto it and fits (copper is blue slid up by its own side, pink is blue slid right), then they slide back; levels 4 to 8 in one lagged pass. Then the upper ones fill copper and the right-hand ones pink (`F-R.shares`) | highlight; lagged reveal; slides | |
-| 11_5 | Three colours, and each one gets a square of every size. Share the last corner three ways, and each colour, with its share of the corner, is exactly one third. And the corner shrinks below any size you can name. | Readouts after three sizes: each colour 21/64 (`F-R.share`), the corner 1/64 (`F-R.left`), 21/64 + 21/64 + 21/64 + 1/64 = 1. The corner is cut into three strips, one for each colour: "21/64 + 1/192 = 1/3" (`F-R.short`). The corner grows to fill the frame: it is the same picture again, and the strip is a quarter as big each time. Lower-third: "precisely: after n cuts each colour holds (1 − 1/4ⁿ) ÷ 3, and each strip is a third of the corner" | live readouts; a zoom made by scaling; lower-third | |
-| 11_6 | Archimedes added quarters of quarters like these, over two thousand years ago, to measure a slice of a parabola. Sunday Ajose and Roger Nelsen published a picture of this sum in nineteen ninety-four. | The card first. **Shown:** for every whole number n from 1, after n cuts each colour holds (1 − 1/4ⁿ) ÷ 3 of the square, short of a third by a third of the uncut corner, and the corner goes below any size, so ¼ + 1/16 + 1/64 + … = ⅓. **Assumed:** the three squares of each size are equal, ticked, with "each slides onto the other"; the corner is cut into three equal strips, ticked. Then the lower-third, after the tick: "Archimedes, Quadrature of the Parabola, Prop. 23: a finite sum plus a third of its last piece is exactly 4/3 of its first". Source line: "S. A. Ajose and R. B. Nelsen, Mathematics Magazine, 1994" (`F-X.ajose_nelsen`) | the card; lower-third | hold |
+| 11_5 | Three colours, and each one gets a square of every size. Share the corner that is left three ways, and each colour, with its share of the corner, is exactly one third. And the corner shrinks below any size you can name. | Readouts after three sizes: each colour 21/64 (`F-R.share`), the corner 1/64 (`F-R.left`), 21/64 + 21/64 + 21/64 + 1/64 = 1. The corner is cut into three strips, one for each colour: "21/64 + 1/192 = 1/3" (`F-R.short`). The corner grows to fill the frame: it is the same picture again, and the strip is a quarter as big each time. Lower-third: "precisely: after n cuts each colour holds (1 − 1/4ⁿ) ÷ 3, and each strip is a third of the corner" | live readouts; a zoom made by scaling; lower-third | |
+| 11_6 | Archimedes added quarters of quarters like these, in ancient Greece, to measure a slice of a parabola. Sunday Ajose and Roger Nelsen published a picture of this sum in nineteen ninety-four. | The card first. **Shown:** for every whole number n from 1, after n cuts each colour holds (1 − 1/4ⁿ) ÷ 3 of the square, short of a third by a third of the uncut corner, and the corner goes below any size, so ¼ + 1/16 + 1/64 + … = ⅓. **Assumed:** the three squares of each size are equal, ticked, with "each slides onto the other"; the corner is cut into three equal strips, ticked. Then the lower-third, after the tick: "Archimedes, Quadrature of the Parabola, Prop. 23: a finite sum plus a third of its last piece is exactly 4/3 of its first". Source line: "S. A. Ajose and R. B. Nelsen, Mathematics Magazine, 1994" (`F-X.ajose_nelsen`) | the card; lower-third | hold |
 
 - **The owner's second picture.** The next size is the picture itself, one
   scale down.
@@ -422,17 +433,17 @@ sonification WAV placed at known frames, not score marks.
   strip is exactly a third at every level, and what is left over shrinks by
   four each time.
 
-## 12_the_cut_cube (83 s)
+## 12_the_cut_cube (85 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 12_1 | Pictures can do algebra too. Take a square, five on a side, and cut each side into a long part and a short part. Three and two. | A 5 by 5 square of tiles. One cut across and one cut down, each at 3 (`F-B.parts`). A legend chip: a block's colour says how many of its sides are short (violet none, blue one, green two, copper three, pink four) | a grid; lines that draw | |
-| 12_2 | Four pieces. A big square, a small square and two equal rectangles. Nine, six, six and four make twenty-five. A square wearing an L-shaped layer. | The pieces 9, 6, 6, 4 (`F-B.square.each`) coloured by how many short sides they have: 9 violet, the two 6s blue, 4 green; 9 + 6 + 6 + 4 = 25 (`F-B.square.total`). The L of 6 + 6 + 4 pulls away and returns. Lower-third: "(a + b)² = a² + 2ab + b²: Euclid, Elements II.4, in words" (`F-X.euclid`) | highlight; a formula; lower-third | |
-| 12_3 | Now do the same to a cube. Cut its width, its depth and its height, each into three and two. | A cube 5 on a side, three cuts through it as seam lines | the cubes, as whole blocks | |
+| 12_2 | A big square, a small square and two equal rectangles. Nine, six, six and four make twenty-five. A square wearing an L-shaped layer. | The pieces 9, 6, 6, 4 (`F-B.square.each`) coloured by how many short sides they have: 9 violet, the two 6s blue, 4 green; 9 + 6 + 6 + 4 = 25 (`F-B.square.total`). The L of 6 + 6 + 4 pulls away and returns. Lower-third: "(a + b)² = a² + 2ab + b²: Euclid, Elements II.4, in words" (`F-X.euclid`) | highlight; a formula; lower-third | |
+| 12_3 | Now a cube. Cut its width, its depth and its height, each into three and two. | A cube 5 on a side, three cuts through it as seam lines | the cubes, as whole blocks | |
 | 12_4 | ⟨predict⟩ Your turn. A block's kind is how many of its sides are short. How many blocks does the cube fall into, and how many of each kind? | The cut cube, closed. The card: "? blocks; ? of each kind" | your-turn card; the countdown ring | listen 8 s (countdown) |
 | 12_5 | Eight blocks, in four kinds. One, three, three, one. | The blocks drift apart and gather by kind, coloured by how many short sides each has: 1, 3, 3, 1 (`F-Q.kinds.answer`, `F-B.cube.kinds`) | morph that keeps identity; lagged reveal | |
-| 12_6 | The blocks add up to one hundred and twenty-five. Five cubed. And nothing depended on three and two. Slide the cut, and it is still eight blocks. | Volumes 27, 18, 12, 8 (`F-B.cube.each`); 27 + 54 + 36 + 8 = 125 (`F-B.cube.by_kind`, `F-B.cube.total`). The cut slides to 4 and 1 and back: every block changes size and none appears or vanishes, a violet block growing as the cut moves. (a + b)³ = a³ + 3a²b + 3ab² + b³, each term in its blocks' colour | live recomputation from the cut; a formula | |
-| 12_7 | And the fourth power? Every block of the cube appears twice, once with a long fourth length and once with a short one. One, four, six, four, one. We can count its blocks, even though no one can build it in our space. | Two copies of the eight blocks, tagged "× 3" and "× 2", the second set off along a dashed direction, as in the owner's picture: 16 (`F-B.fourth.blocks`). Then rows 1 2 1, 1 3 3 1, 1 4 6 4 1, each number the sum of the two above it (`F-B.fourth.kinds`, `F-B.fourth.from_cube`); then one line, 81 + 216 + 216 + 96 + 16 = 625 (`F-B.fourth.by_kind`, `F-B.fourth.total`). The card, after the rows have held. **Shown:** for any two lengths a and b, a square of side a + b is a² + 2ab + b² and a cube is a³ + 3a²b + 3ab² + b³, each block counted once. **Assumed:** cutting each side once cuts the square and the cube into boxes that fill them exactly, and a box's size is the product of its sides, ticked. **Counted, not built:** the fourth power. Lower-third: "Pascal's triangle" | a table built from primitives; the card; lower-third | hold |
+| 12_6 | The blocks add up to one hundred and twenty-five. Five cubed. And nothing depended on three and two. Slide the cut anywhere inside, and it is still eight blocks. | Volumes 27, 18, 12, 8 (`F-B.cube.each`); 27 + 54 + 36 + 8 = 125 (`F-B.cube.by_kind`, `F-B.cube.total`). The cut slides to 4 and 1 and back: every block changes size and none appears or vanishes, a violet block growing as the cut moves. (a + b)³ = a³ + 3a²b + 3ab² + b³, each term in its blocks' colour | live recomputation from the cut; a formula | |
+| 12_7 | And the fourth power? Every block of the cube appears twice, once with a long fourth length and once with a short one. So add the row to itself, shifted one place. One, four, six, four, one. We can count its blocks, but no one can build it in our space. | Two copies of the eight blocks, tagged "× 3" and "× 2", the second set off along a dashed direction, as in the owner's picture: 16 (`F-B.fourth.blocks`). Then rows 1 2 1, 1 3 3 1, 1 4 6 4 1, each number the sum of the two above it (`F-B.fourth.kinds`, `F-B.fourth.from_cube`), the second row shifted and added to itself. The card, after the rows have held. The volumes, 81 + 216 + 216 + 96 + 16 = 625 (`F-B.fourth.by_kind`, `F-B.fourth.total`), are in the description **Shown:** for any two lengths a and b, a square of side a + b is a² + 2ab + b² and a cube is a³ + 3a²b + 3ab² + b³, each block counted once. **Assumed:** cutting each side once cuts the square and the cube into boxes that fill them exactly, and a box's size is the product of its sides, ticked. **Counted, not built:** the fourth power. Lower-third: "Pascal's triangle" | a table built from primitives; the card; lower-third | hold |
 
 - **The owner's third picture.** The second and third powers are pictures;
   the fourth is bookkeeping the pictures taught, and the card says so. The
@@ -440,17 +451,17 @@ sonification WAV placed at known frames, not score marks.
   three-dimensional space; flat drawings of one exist, and none is attempted.
 - **The next size** here is any pair of lengths: the cut slides (12_6). "Long" and "short" name the two parts, so when the cut passes the middle the "long" part is the smaller; the identity is unaffected.
 
-## 13_four_triangles (84 s)
+## 13_four_triangles (85 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 13_1 | One more, and maybe the most famous picture in mathematics. A right triangle with shorter sides three and four. Set four copies inside a square. | A square 7 on a side. Four grey triangles, one in each corner (`model::pythagoras::corners`), sides labelled 3 and 4 (`F-P.legs`) | lagged reveal | |
+| 13_1 | One more. A right triangle with shorter sides three and four. Set four copies inside a square. | A square 7 on a side. Four grey triangles, one in each corner (`model::pythagoras::corners`), sides labelled 3 and 4 (`F-P.legs`) | lagged reveal | |
 | 13_2 | They leave a tilted square in the middle, with the triangle's long side as its side. | The tilted square in gold outline, one side marked "long side" | highlight | |
-| 13_3 | Now slide the triangles. Nothing turns, nothing flips. Two pairs close into rectangles, and what is left is two squares, on the sides of three and four. | Three triangles slide (`F-P.slides`). What is left: a 3 by 3 square in green and a 4 by 4 square in blue, the slab colours of cubes 3 and 4 (`F-P.squares`) | morph: slides only | |
+| 13_3 | Slide the triangles. Nothing turns, nothing flips. Two pairs close into rectangles, and what is left is two squares, on the sides of three and four. | Three triangles slide (`F-P.slides`). What is left: a 3 by 3 square in green and a 4 by 4 square in blue, the slab colours of cubes 3 and 4 (`F-P.squares`) | morph: slides only | |
 | 13_4 | ⟨predict⟩ Your turn. Same triangles, same big square. So how big was the tilted square? | Both arrangements side by side. The card: "tilted square = ? tiles" | your-turn card; the countdown ring | listen 6 s (countdown) |
-| 13_5 | Nine plus sixteen. Twenty-five. The same pile, counted two ways. The triangles did not change and neither did the big square, so the space left over cannot change. And twenty-five is five times five, so the long side is five. | 49 − 24 = 25, both ways (`F-P.big`, `F-P.triangles`, `F-Q.tilted.answer`). The tilted square fills violet, a 5 by 5 slab, the colour of cube 5's slabs: 3² + 4² = 5² reads as three of the cold open's slabs. 25 = 5 × 5 (`F-P.long_side`) | a formula; highlight | |
-| 13_6 | It holds for every right triangle. This is the theorem that carries Pythagoras's name. Change the shape, and both arrangements follow. | The two shorter sides slide through other lengths, both arrangements redrawn live; at 2 and 5 the squares are copper and violet and the readout is 4 + 25 = 29 (`F-P.other.tilted`), "no whole long side" (`F-P.other.whole_side`), and the argument does not care. a² + b² = c², with word labels. Lower-third: "Pythagoras's theorem" | live recomputation from the triangle; a formula | |
-| 13_7 | This picture took things for granted. Its corner sits on a straight side, between two sharp angles, and a right triangle's two sharp angles make a right angle. So the tilted shape is a square, and each pair of triangles closes into a rectangle. | A corner grows to fill the frame: on the big square's straight side, the two sharp angles and the tilted corner between them. The card. **Shown:** for every right triangle, a² + b² = c². **Assumed:** the tilted corner sits on a straight side between the two sharp angles, which add to a right angle, ticked, so the tilted shape is a square, ticked; each pair of triangles closes into an a by b rectangle, ticked. After the card has held three seconds alone, the lower-third: "Nobody knows who first drew this picture. A close cousin is in a third-century Chinese commentary on the Zhoubi suanjing" | a zoom made by scaling; the card; lower-third | hold |
+| 13_5 | Nine plus sixteen. Twenty-five. The same pile, counted two ways. The big square is forty-nine and the four triangles are twenty-four, and neither changed, so the space left over cannot change. And twenty-five is five times five, so the long side is five. | 49 − 24 = 25, both ways (`F-P.big`, `F-P.triangles`, `F-Q.tilted.answer`). The tilted square fills violet, a 5 by 5 slab, the colour of cube 5's slabs: 3² + 4² = 5² reads as three of the cold open's slabs. 25 = 5 × 5 (`F-P.long_side`) | a formula; highlight | |
+| 13_6 | It holds for every right triangle. With shorter sides two and five, the tilted square is twenty-nine, and the long side is no whole number. This is Pythagoras's theorem. | The two shorter sides slide through other lengths, both arrangements redrawn live; at 2 and 5 the squares are copper and violet and the readout is 4 + 25 = 29 (`F-P.other.tilted`), "no whole long side" (`F-P.other.whole_side`), and the argument does not care. a² + b² = c², with word labels. Lower-third: "Pythagoras's theorem" | live recomputation from the triangle; a formula | |
+| 13_7 | This picture took things for granted. The tilted corner sits on a straight side between two sharp angles, and a right triangle's two sharp angles make a right angle. So the tilted shape is a square, and each pair closes into a rectangle. | A corner grows to fill the frame: on the big square's straight side, the two sharp angles and the tilted corner between them. The card. **Shown:** for every right triangle, a² + b² = c². **Assumed:** the tilted corner sits on a straight side between the two sharp angles, which add to a right angle, ticked, so the tilted shape is a square, ticked; each pair of triangles closes into an a by b rectangle, ticked. After the card has held three seconds alone, the lower-third: "No source we found says who first drew this picture. A close cousin is in a third-century Chinese commentary on the Zhoubi suanjing" | a zoom made by scaling; the card; lower-third | hold |
 
 - **Why it is here** although the owner finds it famous: it is the honest
   twin of chapter 14, the same argument with its checks done.
@@ -459,17 +470,17 @@ sonification WAV placed at known frames, not score marks.
 - **Counted two ways:** said at 13_5, the sentence the first draft left
   unspoken.
 
-## 14_the_missing_square (85 s)
+## 14_the_missing_square (84 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 14_1 | Four pieces, two triangles and two L-shapes, that seem to make a triangle thirteen wide and five tall. | A grid. The four pieces in their first arrangement (`model::lie::first`), outlined 13 by 5 (`F-L.frame`): the triangles in `dim`, the L of 8 blue, the L of 7 pink | a grid; lagged reveal | |
-| 14_2 | Slide the pieces, as before. Nothing turns, nothing flips. The outline looks the same. But now one tile is empty. | Each piece slides (`F-L.slides`) into the second arrangement. The two arrangements then sit side by side with the grid visible for three seconds, music thinned, so the viewer counts. One cell is empty (`F-L.hole.at`) and pulses red | morph: slides only; highlight | hold |
-| 14_3 | Same pieces, an outline that looks the same, and a tile has vanished. If this were a proof, it would prove that thirty-two equals thirty-three. | "pieces: 12 + 5 + 8 + 7 = 32" (`F-L.pieces`, `F-L.pieces.total`); "second picture: 32 + 1 = 33" (`F-L.outline.second`) | a formula; highlight | |
+| 14_2 | Slide the pieces, as before. Nothing turns, nothing flips. The outline looks the same, but one tile is empty. | Each piece slides (`F-L.slides`) into the second arrangement. The two arrangements then sit side by side with the grid visible for three seconds, music thinned, so the viewer counts. One cell is empty (`F-L.hole.at`) and pulses red | morph: slides only; highlight | hold |
+| 14_3 | The same pieces have room for one more tile. If this were a proof, it would prove that thirty-two equals thirty-three. | "pieces: 12 + 5 + 8 + 7 = 32" (`F-L.pieces`, `F-L.pieces.total`); "second picture: 32 + 1 = 33" (`F-L.outline.second`) | a formula; highlight | |
 | 14_4 | ⟨predict⟩ Your turn. The flaw is on the long sloping edge. Which triangle is steeper, the big one or the small one? | Both pictures, the sloping edges in ink, with rise and run written on them as the ring runs: 3 up, 8 across; 2 up, 5 across. The card: "steeper: big or small?" | your-turn card; the countdown ring | listen 8 s (countdown) |
 | 14_5 | The small one. It climbs two in five. The big one climbs three in eight. So the long edge is not straight. It bends. | Slopes 2/5 and 3/8 (`F-L.slopes`), 0.400 and 0.375 (`F-L.slopes.thousandths`); the answer (`F-Q.slopes.answer`). A true straight edge from corner to corner (`F-L.straight_slope`) drawn as an ink ruler. A lens scales the group about the bend, eight times in both directions (the slopes as decimals, 0.400 and 0.375, are on the edges), so the bend shows without any stretch: the corner hangs off the ruler by 1/13 of a tile, measured straight up (`F-L.dip`) | highlight; a zoom made by scaling | |
-| 14_6 | One edge sags below the true line, the other bulges above. Cut that sliver along the grid, and its pieces slide into the empty tile and fill it. The sliver was exactly one tile. | The two outlines laid over each other at true scale (`model::lie::outline`): 32 and 33 tiles (`F-L.outline.first`, `F-L.outline.second`), a true triangle 32½ (`F-L.true_triangle`). The sliver in red: thickest 1/8 (`F-L.sliver.thickest`). The grid's lines cut it into 17 pieces; they slide, lagged, each by whole tiles and nothing turning, into the empty tile, and fill it: 17 pieces (`F-L.sliver.pieces`) by the slides of `F-L.sliver.fold`, total area 1 (`F-L.sliver`). Lower-third, last: "2, 3, 5, 8, 13: neighbours in the Fibonacci numbers. That is why the slopes are so close" | highlight; live readouts of the areas; slides | hold |
-| 14_7 | Neither picture was ever a triangle. The trick goes back to Paul Curry, a New York magician, in nineteen fifty-three. Martin Gardner found triangle forms like this one and published them three years later. | The card, failing. **Shown:** nothing. **Assumed:** the long edge is straight, with a red cross drawn on the bend. Two seconds of silence with the cross on screen, then the source line: "P. Curry, 1953; M. Gardner, Mathematics, Magic and Mystery, 1956" (`F-X.curry`, `F-X.gardner`) | the card, with its cross | |
+| 14_6 | One edge sags below the true line, the other bulges above. Cut that sliver along the grid, and its pieces slide into the empty tile and fill it. The sliver was exactly one tile. | The two outlines laid over each other at true scale (`model::lie::outline`): 32 and 33 tiles (`F-L.outline.first`, `F-L.outline.second`), a true triangle 32½ (`F-L.true_triangle`). The sliver in red: thickest 1/8 (`F-L.sliver.thickest`). The grid's lines cut it into 17 pieces; they slide, lagged, each by whole tiles and nothing turning, into the empty tile, and fill it: 17 pieces (`F-L.sliver.pieces`) by the slides of `F-L.sliver.fold`, total area 1 (`F-L.sliver`). Lower-third, last: "2, 3, 5, 8, 13: neighbours in the Fibonacci numbers, so 2 × 8 − 3 × 5 = 1 and the slopes 2/5 and 3/8 differ by only 1/40" (`F-L.slopes.differ`) | highlight; live readouts of the areas; slides | hold |
+| 14_7 | Neither picture was ever a triangle. Martin Gardner says the trick began with Paul Curry, a New York amateur magician, in nineteen fifty-three. Gardner found triangle forms like this one and published them three years later. | The card, failing. **Shown:** nothing. **Assumed:** the long edge is straight, with a red cross drawn on the bend. Two seconds of silence with the cross on screen, then the source line: "P. Curry, 1953; M. Gardner, Mathematics, Magic and Mystery, 1956" (`F-X.curry`, `F-X.gardner`) | the card, with its cross | |
 
 - **Honest picture:** the pieces are drawn exactly, on the grid; nothing is
   fudged to hide the bend, and no part of the picture is stretched. At true
@@ -483,16 +494,16 @@ sonification WAV placed at known frames, not score marks.
 - **The chapter does not announce the lie:** the first slide is watched, and
   the narrator says "go wrong" only through 14_3's "if this were a proof".
 
-## 15_what_makes_a_proof (60 s)
+## 15_what_makes_a_proof (66 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 15_1 | Two pictures, one argument. Same pieces, two arrangements, compare what is left. Once it gave a famous theorem. Once it gave nonsense. | The two rearrangements side by side, small, each with its card: one ticked, one crossed | a split picture | |
 | 15_2 | ⟨predict⟩ So what makes a picture a proof? | Both cards, enlarged | a question card | |
-| 15_3 | Three things. Every piece is accounted for. Every fit has a reason, not just a look. And the reason does not depend on the size you happened to draw. | Three lines set themselves, large, one for each sentence. Beside each, small pictures of the proofs that leaned on it, from the shelf: the tiles counted, the straight edges, the next layer | a card; lagged reveal | |
+| 15_3 | Three things. Every piece is accounted for. Every fit has a reason, and a look is not a reason. And the reason does not depend on the size you happened to draw. | Three lines set themselves, large, one for each sentence. Beside each, small pictures of the proofs that leaned on it, from the shelf: the tiles counted, the straight edges, the next layer | a card; lagged reveal | |
 | 15_4 | That is why the cubes needed a second chapter. The picture showed five cubes. The reason covered every cube. | The opening square returns. Then one layer of it alone, with every length named: width k, arm 1 + 2 + … + (k − 1), which is (k − 1) half slabs, the pieces paired as in 06_3 | morph; labels set as mathematics: the rigorous form of the opening picture | |
-| 15_5 | A program rebuilt these pictures piece by piece, the cubes up to forty, and Siu's box up to twenty-four levels. That is still only checking. A check up to some size says nothing about the next size. | Receipts under the picture: "rebuilt and checked by code: cubes up to 40 (`F-K.tiled.through`), stacks up to 24 levels (`F-S.filled.through`), every sum up to 1,000 (`F-K.sum.through`)", and "a check up to some size says nothing about the next size". Small tag, bottom right: "for programmers: two implementations compared; neither is a proof" | a receipts strip | |
-| 15_6 | A picture cannot check itself. But when you can say why every piece fits, it does what checking cases never does. It shows you why. | The 15 by 15 square once more, un-dimmed, in full colour. Names to search: "proofs without words"; Roger B. Nelsen, *Proofs Without Words* (1993) and *Proofs Without Words II* (2000) (`F-X.nelsen`); Mathematics Magazine | a closing card; names to search | hold |
+| 15_5 | A program rebuilt these pictures piece by piece, the cubes up to forty, and Siu's box up to twenty-four levels. It also checked the sums up to a thousand. That is still only checking. A check up to some size does not prove the next size. | Receipts under the picture: "rebuilt and checked by code: cubes up to 40 (`F-K.tiled.through`), stacks up to 24 levels (`F-S.filled.through`), every sum up to 1,000 (`F-K.sum.through`)", and "a check up to some size does not prove the next size". Small tag, bottom right: "for programmers: two implementations compared; neither is a proof" | a receipts strip | |
+| 15_6 | Looking at a picture is not checking it. But when you can say why every piece fits, it does what checking cases never does. It shows you why. | The 15 by 15 square once more, un-dimmed, in full colour. Names to search: "proofs without words"; Roger B. Nelsen, *Proofs Without Words* (1993) and *Proofs Without Words II* (2000) (`F-X.nelsen`); Mathematics Magazine | a closing card; names to search | hold |
 
 - **Ends on the rigorous form of the opening picture** (plan rule 15).
 - **The receipts are honest about themselves:** the repository's own checks

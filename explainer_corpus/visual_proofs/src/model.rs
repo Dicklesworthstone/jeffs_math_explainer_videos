@@ -241,6 +241,18 @@ pub mod circle {
             .collect()
     }
 
+    /// Six evenly spaced points, as a regular hexagon's corners stretched
+    /// onto whole coordinates (a slanted stretch keeps every line straight and
+    /// every crossing where it was along its line, so the regions are the
+    /// regular hexagon's): the three long lines meet in the middle. This is
+    /// 02_6's "six evenly spaced points give 30".
+    pub fn evenly_spaced_hexagon() -> Vec<Point> {
+        [(1, 0), (0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1)]
+            .into_iter()
+            .map(|(x, y)| (Q::int(x), Q::int(y)))
+            .collect()
+    }
+
     fn orient(a: Point, b: Point, c: Point) -> Q {
         (b.0 - a.0) * (c.1 - a.1) - (b.1 - a.1) * (c.0 - a.0)
     }
@@ -642,6 +654,60 @@ pub mod stacks {
             .collect()
     }
 
+    /// The cubes in a stack of `n` levels: n² + (n − 1)² + … + 1.
+    const fn cubes_in_stack(n: i64) -> i64 {
+        n * (n + 1) * (2 * n + 1) / 6
+    }
+
+    /// The boxes `m` stacks of `n` levels can fill when only the cubes that
+    /// stick out on top may be sliced: `(width, depth, h)` with width at most
+    /// depth, for a box width by depth by h + ½ (h whole layers under one
+    /// half layer), which holds width × depth × (2h + 1) ÷ 2 cubes. A stack is
+    /// n by n by n at its widest in every direction, so a box that holds one
+    /// has both sides at least n and at least n − 1 whole layers under its
+    /// half layer. These are necessary conditions for stacks on the cube
+    /// lattice; that three of them do fill the one box left is what
+    /// [`fills_the_box`] shows. 07_2 asks for the fewest such stacks.
+    pub fn half_boxes(n: i64, m: i64) -> Vec<(i64, i64, i64)> {
+        let twice = 2 * m * cubes_in_stack(n); // width × depth × (2h + 1)
+        let mut out = Vec::new();
+        for width in n..=twice {
+            if width * width > twice {
+                break;
+            }
+            for depth in width..=twice / width {
+                if twice % (width * depth) != 0 {
+                    continue;
+                }
+                let odd = twice / (width * depth); // 2h + 1
+                if odd % 2 == 1 && (odd - 1) / 2 >= n - 1 {
+                    out.push((width, depth, (odd - 1) / 2));
+                }
+            }
+        }
+        out
+    }
+
+    /// The boxes of whole cubes `m` stacks of `n` levels can fill, as sorted
+    /// sides, by the same necessary conditions (every side at least n): the
+    /// whole-cube counterpart that 07_2's note and its test rest on.
+    #[cfg(test)]
+    pub fn whole_boxes(n: i64, m: i64) -> Vec<(i64, i64, i64)> {
+        let volume = m * cubes_in_stack(n);
+        let mut out = Vec::new();
+        for a in n..=volume {
+            if a * a * a > volume {
+                break;
+            }
+            for b in a..=volume / a {
+                if volume % (a * b) == 0 && volume / (a * b) >= b {
+                    out.push((a, b, volume / (a * b)));
+                }
+            }
+        }
+        out
+    }
+
     /// The step from one height to the next, checked cube by cube: each
     /// stack at height n is the same stack at height n − 1 lifted by one
     /// cube, standing on, in front of or beside its new base slab. So the
@@ -734,6 +800,19 @@ pub mod series {
 
     /// A rectangle with exact corners: x, y, width, height.
     pub type Piece = (Q, Q, Q, Q);
+
+    /// How many pieces of the halved square a 64-bit float must add, from
+    /// the first, before the running sum is exactly 1.0: from then on the
+    /// machine cannot see the gap (the note for programmers at 10_4).
+    pub fn float_pieces_to_one() -> u32 {
+        let (mut sum, mut piece, mut pieces) = (0.0_f64, 0.5_f64, 0);
+        while sum < 1.0 {
+            sum += piece;
+            piece *= 0.5;
+            pieces += 1;
+        }
+        pieces
+    }
 
     /// The `k`-th piece (from 1) of the unit square halved again and again:
     /// odd steps keep the left half of what is left, even steps the bottom
@@ -1539,6 +1618,70 @@ mod tests {
         // the overlap measure is not vacuous: a piece overlaps itself fully
         assert!(lie::polygon_area(&moved[0]) > Q::ZERO);
         assert_eq!(lie::overlap_area(&moved[0], &moved[0]), lie::polygon_area(&moved[0]));
+    }
+
+    /// 02_6's lower-third: six evenly spaced points make 30 regions, one
+    /// fewer than the drawn six, because three lines meet in the middle.
+    #[test]
+    fn six_evenly_spaced_points_make_thirty_regions() {
+        let hexagon = circle::evenly_spaced_hexagon();
+        assert_eq!(hexagon.len(), 6);
+        assert_eq!(circle::regions(&hexagon), 30);
+        assert_eq!(circle::crossings(&hexagon).len(), 13);
+        assert_eq!(circle::closed_form(6) - circle::regions(&hexagon), 1);
+        assert_eq!(circle::regions(&circle::drawn(6)), 31);
+    }
+
+    /// 10_4's note for programmers: a machine's running sum of the halves
+    /// is exactly 1.0 after 54 pieces, and its exact value is below one
+    /// after 53 (1 − 2⁻⁵³ is the last float under one).
+    #[test]
+    fn a_machine_sum_of_the_halves_reaches_one_exactly() {
+        assert_eq!(series::float_pieces_to_one(), 54);
+        let mut sum = 0.0_f64;
+        for k in 1..=53 {
+            sum += 0.5_f64.powi(k);
+        }
+        assert_eq!((1.0 - sum).to_bits(), 0.5_f64.powi(53).to_bits());
+    }
+
+    /// 07_2: three is the fewest stacks of four levels that make a box when
+    /// only the cubes that stick out on top may be sliced, and the box is the
+    /// one Siu's picture fills; six whole stacks make a box with no cutting.
+    #[test]
+    fn three_is_the_fewest_stacks_that_make_a_box() {
+        assert!(stacks::half_boxes(4, 1).is_empty());
+        assert!(stacks::half_boxes(4, 2).is_empty());
+        assert_eq!(stacks::half_boxes(4, 3), [(4, 5, 4)]); // 4 by 5 by 4 and a half
+        assert!(stacks::whole_boxes(4, 3).is_empty());
+        assert!(stacks::whole_boxes(4, 6).contains(&(4, 5, 9)));
+        // Siu's box is among the three stacks' boxes at every height, and from
+        // three levels up one and two stacks have none. (At two levels the
+        // conditions, which are only necessary, allow a 2 by 2 by 2 and a half
+        // box for two stacks; the video's stacks have four.)
+        for n in 2..=8 {
+            assert!(stacks::half_boxes(n, 3).contains(&(n, n + 1, n)), "n = {n}");
+        }
+        for n in 3..=8 {
+            assert!(stacks::half_boxes(n, 1).is_empty(), "n = {n}, one stack");
+            assert!(stacks::half_boxes(n, 2).is_empty(), "n = {n}, two stacks");
+        }
+        assert_eq!(stacks::half_boxes(2, 2), [(2, 2, 2)]);
+    }
+
+    /// 12_6: "slide the cut anywhere inside the cube". At the very end of the
+    /// slide (a part of length 0) all but one block lose their volume, so the
+    /// sentence says "inside".
+    #[test]
+    fn a_cut_at_the_end_of_a_side_leaves_one_block() {
+        let with_volume = |a, b, dim| blocks::cut(a, b, dim).iter().filter(|x| x.volume() > 0).count();
+        for dim in 1..=4usize {
+            assert_eq!(with_volume(0, 5, dim), 1, "a = 0, dim = {dim}");
+            assert_eq!(with_volume(5, 0, dim), 1, "b = 0, dim = {dim}");
+            for (a, b) in [(1, 4), (4, 1), (2, 2)] {
+                assert_eq!(with_volume(a, b, dim), 1 << dim, "a = {a}, b = {b}, dim = {dim}");
+            }
+        }
     }
 
     #[test]
