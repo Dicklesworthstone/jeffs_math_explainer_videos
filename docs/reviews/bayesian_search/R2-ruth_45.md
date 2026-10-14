@@ -11,7 +11,7 @@ three items (R14, the Table H-15 row, the combined-sensor arithmetic).
 
 I read the packet in order (stage rules, brief, script, storyboard, description draft, fact sheet), the persona prompt and `ruth_audit.md`. I judged pictures only from the storyboard's picture column, since the packet has no frames. Pacing and delight scores rest on the storyboard's seconds and picture notes.
 
-Scratch work is in `/private/tmp/claude-501/ruth_r2/` (`check_sea.py`, `check_rest.py`, `check_07.py`). Nothing was written in the repository.
+Scratch work is in `<scratch>/ruth_r2/` (`check_sea.py`, `check_rest.py`, `check_07.py`). Nothing was written in the repository.
 
 ## Comprehension check
 

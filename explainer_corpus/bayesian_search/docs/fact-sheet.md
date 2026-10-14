@@ -515,6 +515,7 @@ keys and values.
 | `F-D.strip` | 0.1 |
 | `F-D.strip.metres` | 185 |
 | `F-D.strip.feet` | 608 |
+| `F-D.strip.altitude.feet` | 300 |
 | `F-D.swept` | 18 |
 | `F-D.h1.radius` | 1.45 |
 | `F-D.h1.area` | 6.6 |
@@ -575,6 +576,7 @@ keys and values.
 | `F-S.forecast.days` | 35-45 |
 | `F-S.bottom_days` | 43 |
 | `F-S.miles_to_reach_F6` | 153 |
+| `F-S.update.page` | 146 |
 | `F-S.sweep.at_sea` | 800, 400 |
 | `F-S.sweep.after` | 185, 220, 0 |
 | `F-S.sweep.magnetometer.ratio` | 1.8 |
@@ -614,6 +616,7 @@ keys and values.
 | `F-A.points` | 75000 |
 | `F-A.empty_searches` | 4 |
 | `F-A.underwater_searches` | 3 |
+| `F-A.underwater_searches.years` | 2009,2009,2010 |
 | `F-A.beacon.independent` | 0.9216 |
 | `F-A.beacon.independent.rounded` | 0.92 |
 | `F-A.beacon.dependent` | 0.72 |
