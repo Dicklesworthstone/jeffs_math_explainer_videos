@@ -32,7 +32,10 @@
 #                                               (renders/narrated/prosody.txt: tools/prosody_qa.py)
 #   ./x <slug> score                            the music: every chapter's timeline at 60 fps from the
 #                                               narration, then the score with QA into stems/
-#   ./x <slug> scored [CHAPTER...]              960x540@60 with narration and stems, into renders/scored/
+#   ./x <slug> scored [CHAPTER...]              960x540@60 with narration and stems, into renders/scored/;
+#                                               then the blank-stretch report (flags only, never a
+#                                               failure; renders/scored/blank_stretches.txt for the whole
+#                                               video: tools/blank_stretches.py)
 #   ./x <slug> final [CHAPTER...]               3840x2160@60, x264 CRF 16 (preset slow), narration and
 #                                               stems, into renders/final/
 #   ./x <slug> master                           the PCM master of renders/final/ (every chapter final)
@@ -385,8 +388,31 @@ case "$cmd" in
     build_binary
     out="$base/renders/scored"
     mkdir -p "$out"
+    keys=$(chapter_list "$@")
     if [ $# -eq 0 ]; then set -- all; fi
-    exec "$binary" render "$@" --res 960x540 --fps 60 --narration "$narration" --score "$stems" --out "$out" ;;
+    status=0
+    "$binary" render "$@" --res 960x540 --fps 60 --narration "$narration" --score "$stems" --out "$out" || status=$?
+    if [ $status -eq 0 ]; then
+      # advisory: the stretches of 0.5 s or more that show no picture (an empty opening, a bare stage
+      # between beats); flags are listed and never fail. A whole-video render keeps the report in
+      # blank_stretches.txt, a render of some chapters only prints theirs
+      if [ "$1" = all ]; then
+        pictures="$out"
+      else
+        pictures=""
+        for k in $(printf '%s' "$keys" | tr ',' ' '); do pictures="$pictures $out/$k.mp4"; done
+      fi
+      # shellcheck disable=SC2086
+      report=$(uv run --quiet --no-project --with numpy python3 -I "$here/tools/blank_stretches.py" $pictures 2>&1) || true
+      printf '%s\n' "$report" | grep -E '^FLAG' | sed 's/^/x: blank /' || true
+      printf '%s\n' "$report" | grep -q -E '^(PASS|FLAG|ADVISORY)' ||
+        echo "x: the blank-stretch report did not run: $report" >&2
+      if [ "$1" = all ]; then
+        printf '%s\n' "$report" > "$out/blank_stretches.txt"
+        echo "x: blank-stretch report in $out/blank_stretches.txt"
+      fi
+    fi
+    exit $status ;;
   final)
     need_narration
     [ -d "$stems" ] || die "no stems in $stems (run ./x $slug score)"
