@@ -64,6 +64,19 @@ const NAMES: [&str; 4] = ["Lie group", "SE(3)", "screw theory", "product of expo
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 5] = ["15_1", "15_2", "15_3", "15_4", "15_5"];
 
+/// The listen window the video's one resolution plays in (15_5, over the
+/// receipts card): soundless, labelled for the score (`score::identity`'s
+/// theme "15_5", resolved), which writes the motif and its resolution into
+/// it. The card takes 1.4 s to come after the voice; the score starts the
+/// theme 0.35 s after the voice and needs its last note's onset (a relaxed
+/// beat, 1.08, in a closing phrase) before 2.5 s from the video's end, which
+/// makes 4.4 s the shortest window that holds all seven notes. Before it
+/// there was a 1.5 s breath here, too short for any of them: the video ended
+/// without its resolution.
+pub(crate) const RESOLVE_S: f64 = 4.7;
+/// The window's label: the chapter and the line of the theme.
+pub(crate) const RESOLVE_LABEL: &str = "15_everywhere:15_5";
+
 /// 15_2's quiz (`G-Q.15_2.answer` is `differ`).
 pub const ASK: Ask = Ask {
     line: BEATS[1],
@@ -545,7 +558,9 @@ impl SceneConstruct for Everywhere {
         let receipts = receipts_card(&kit, stage, &RECEIPTS)?;
         leave(stage, &pieces, &[arm_world.shown, books_top.shown], 0.6)?;
         fade_in_all(stage, &[receipts], 0.8)?;
-        kit.music_breath(stage, 1.5)?;
+        // the video's one resolution: the motif and its resolution, alone,
+        // in the music's own window over the receipts
+        kit.listen(stage, RESOLVE_S, RESOLVE_LABEL)?;
         kit.finish(stage)
     }
 }
@@ -1120,5 +1135,81 @@ mod tests {
             assert!(stage.get_right(tally)[0] < -0.5, "the tally stays left of the humanoid");
             Ok(())
         });
+    }
+
+    /// 15_5's resolution window opens after the voice has stopped, ends the
+    /// chapter, is soundless (the score writes the theme) and is long enough
+    /// for the whole theme: the score starts it 0.35 s after the voice and
+    /// puts the last note's onset, at a relaxed closing beat, before 2.5 s
+    /// from the video's end.
+    #[test]
+    fn the_resolution_window_follows_the_voice_ends_the_chapter_and_holds_the_whole_theme() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let narrator = explainer_kit::Narrator::estimate(&script);
+        let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
+        kit.chapter = "15_everywhere".to_owned();
+        super::super::draw::run_chapter(&mut Everywhere { kit: kit.clone() });
+        let timeline = kit.finished.borrow().clone().expect("the chapter left its timeline");
+        let fps = f64::from(timeline.fps);
+        let total = timeline.frames as f64 / fps;
+        let windows: Vec<_> = timeline.listens.iter().filter(|w| w.label == RESOLVE_LABEL).collect();
+        assert_eq!(
+            windows.len(),
+            1,
+            "one window for the resolution: {:?}",
+            timeline.listens
+        );
+        let window = windows[0];
+        assert_eq!(window.seconds, RESOLVE_S);
+        let board = explainer_kit::storyboard::parse(crate::STORYBOARD).unwrap();
+        let beat = board
+            .iter()
+            .flat_map(|c| &c.beats)
+            .find(|b| b.id == "15_5")
+            .expect("beat 15_5");
+        assert_eq!(
+            beat.listen_s(),
+            Some(RESOLVE_S),
+            "the storyboard names the window's seconds"
+        );
+        assert!(
+            window.sound.is_none(),
+            "the score plays the theme; the scene has no sound there"
+        );
+        assert!(
+            timeline.breaths.iter().all(|b| b.frame < window.frame),
+            "no breath after the window"
+        );
+        let (_, at) = narrator
+            .said()
+            .into_iter()
+            .find(|(id, _)| id == "15_5")
+            .expect("15_5 is said");
+        let line_end = at + narrator.length("15_5").unwrap();
+        let opens = window.frame as f64 / fps;
+        assert!(
+            opens >= line_end,
+            "the window opens at {opens} s, 15_5 ends at {line_end}"
+        );
+        assert!(
+            (total - (opens + window.seconds)).abs() < 0.1,
+            "the chapter ends {total} s, the window {} s",
+            opens + window.seconds
+        );
+        let id = crate::score::identity();
+        let beats: Vec<f64> = id
+            .motif
+            .durations
+            .iter()
+            .chain(&id.resolution.durations)
+            .copied()
+            .collect();
+        let before_last: f64 = beats[..beats.len() - 1].iter().sum();
+        let needed = 0.35 + before_last * id.beat_s * 1.08 + 2.5;
+        assert!(
+            total - line_end >= needed + 0.25,
+            "{:.2} s from the voice's end to the video's, the theme needs {needed:.2} s and a margin",
+            total - line_end
+        );
     }
 }
