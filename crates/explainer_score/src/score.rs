@@ -326,6 +326,21 @@ impl Identity {
                     "theme chord {c:?} holds a tone a semitone from the tune's {p}: rule 7 would move it"
                 ));
             }
+            // a theme chord equal to a chord of the bed merges with it when
+            // they meet (the engine holds a repeated chord) and can sound past
+            // QA's longest chord (Video H's tonic as its theme chord: 18.6 s)
+            let moods = self.moods.iter().flat_map(|m| &m.progression);
+            if self
+                .progression
+                .iter()
+                .chain(moods)
+                .chain(&self.listen_chord)
+                .any(|b| b == c)
+            {
+                return bad(format!(
+                    "theme chord {c:?} is a chord of the bed: it would merge with its neighbour"
+                ));
+            }
         }
         let mut labels: Vec<&str> = self.themes.iter().map(|t| t.0).collect();
         labels.sort_unstable();
@@ -4453,6 +4468,12 @@ mod tests {
                 .to_string()
                 .contains("semitone from the tune")
         );
+        // and so is one that is a chord of the bed (they would merge when
+        // they meet, past QA's longest chord)
+        let mut same = id.clone();
+        same.progression[0] = Chord::six_nine(2);
+        same.theme_chord = Some(Chord::six_nine(2));
+        assert!(same.validate().unwrap_err().to_string().contains("a chord of the bed"));
         // and an identity without one is rendered as it always was
         id.theme_chord = None;
         let again = render(&id, &sections, None).unwrap();

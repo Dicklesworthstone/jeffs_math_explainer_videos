@@ -84,7 +84,14 @@ pub fn identity() -> Identity {
         moods: Vec::new(),
         // a countdown sits on one chord for its whole window
         listen_chord: Some(listen_chord()),
-        theme_chord: None,
+        // the theme's own gaps hold D G A, the tonic's root and its fourth and
+        // fifth, which the whole tune clears: the chord a gap falls on comes
+        // from the progression's cycle, and the final's (fbe959c) last gap
+        // fell on C E G A D, whose E moved the resolution's F (it played D E D
+        // G E E D for D E D G F E D). Not the tonic itself: a theme chord
+        // equal to a chord of the bed merges with it, and 14's tonic then
+        // held 18.6 s (QA's longest chord is 16)
+        theme_chord: Some(Chord::sus4(2)),
         // the title leaves the motif open (01_3); the receipts close on it
         // resolved (14_7), and that is the only resolution there is
         themes: vec![("01_3", Theme::Open), ("14_7", Theme::Resolved)],
@@ -172,6 +179,12 @@ mod tests {
         }
         sounds_as_written(&resolution, &id.progression[0]);
         sounds_as_written(&resolution, &listen_chord());
+        // the theme's own gaps hold the theme chord, D G A, so the close is
+        // over it wherever the cycle has got to; it is on the tonic's root
+        let theme = id.theme_chord.clone().expect("a theme chord");
+        assert_eq!((theme.root, theme.pitch_classes()), (id.key.tonic, vec![2, 7, 9]));
+        sounds_as_written(&motif, &theme);
+        sounds_as_written(&resolution, &theme);
         // and no chord holds an F, the only pitch of the melody that the
         // resolution's other notes and the motif's variants would clash with
         // an E over
