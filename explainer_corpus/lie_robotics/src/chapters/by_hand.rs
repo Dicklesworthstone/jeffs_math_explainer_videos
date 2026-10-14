@@ -27,7 +27,7 @@ const TIP_HEAD: &str = "the gripper's tip, in centimeters";
 const FORWARD: &str = "forward";
 const SIDEWAYS: &str = "sideways";
 const UP: &str = "up";
-const TO_THE_SIDE: &str = "to the side, same height";
+const TO_THE_SIDE: &str = "to the side";
 const HIGHER: &str = "higher";
 const NOWHERE: &str = "nowhere";
 const WHERE_DOES_IT_GO: &str = "where does the gripper go?";
@@ -65,10 +65,19 @@ pub const ASK: Ask = Ask {
 /// The angle of every bend in the chapter: a quarter turn.
 const QUARTER: f64 = FRAC_PI_2;
 
-/// The arm's place on the screen (the foot's), and the quiz card's.
+/// The arm's place on the screen (the foot's), and the quiz card's: its top
+/// sits under the readout's captions (`CAPTION_Y`), its bottom inside the
+/// margin.
 const ARM_AT: [f64; 2] = [-3.1, -2.55];
-const CARD_AT: [f64; 2] = [4.45, -0.85];
+const CARD_AT: [f64; 2] = [4.45, -1.4];
 const CARD_SCALE: f64 = 0.9;
+/// Where each pinned label stands against its point: the joints' names (the
+/// elbow's to its right, where the forearm never goes), and 09_6's "now" and
+/// "at zero" (one right-below its axis, the other left-above).
+const JOINT_SHIFT: [f64; 2] = [-0.95, 0.25];
+const ELBOW_SHIFT: [f64; 2] = [0.95, 0.25];
+const NOW_SHIFT: [f64; 2] = [0.8, -0.2];
+const ZERO_SHIFT: [f64; 2] = [-0.95, 0.15];
 /// The crossed-out road of 09_6: the left of its three lines and their size,
 /// small enough that the longest ends inside the frame's margin.
 const ALT_AT: [f64; 2] = [3.6, -1.2];
@@ -254,13 +263,17 @@ impl SceneConstruct for ByHand {
             length_labels.push(m);
         }
         let mut joint_labels = Vec::new();
-        for (joint, words) in [(0, JOINT_ONE), (SHOULDER, SHOULDER_NAME), (ELBOW, ELBOW_NAME)] {
+        for (joint, words, shift) in [
+            (0, JOINT_ONE, JOINT_SHIFT),
+            (SHOULDER, SHOULDER_NAME, JOINT_SHIFT),
+            (ELBOW, ELBOW_NAME, ELBOW_SHIFT),
+        ] {
             let m = kit.text(stage, words, 28.0, gold, v(0.0, 0.0))?;
             let (at, _) = rig.axis_now(joint);
             pins.push(Pin {
                 mob: m,
                 at,
-                shift: v(-0.95, 0.25),
+                shift: v(shift[0], shift[1]),
             });
             joint_labels.push(m);
         }
@@ -433,10 +446,11 @@ impl SceneConstruct for ByHand {
         leaving.push(base_label);
         leave(stage, &leaving, &[collar(0), world.parts[part::AXIS_BASE].shown], 0.5)?;
         line.wait_for(stage, "where the elbow's axis is now")?;
-        let now = kit.text(stage, NOW, 30.0, greyed(), v(0.0, 0.0))?;
+        // the axis is drawn grey; its word is the ordinary dim, which reads
+        let now = kit.text(stage, NOW, 30.0, Palette::dim(), v(0.0, 0.0))?;
         let (now_pt, _) = arm.joint(&model::degrees(poses::QUARTER), ELBOW);
         let now_pos = view.project(now_pt);
-        stage.move_to(now, v(now_pos[0] + 0.7, now_pos[1] + 0.5), ORIGIN);
+        stage.move_to(now, v(now_pos[0] + NOW_SHIFT[0], now_pos[1] + NOW_SHIFT[1]), ORIGIN);
         play!(stage;
             tween(world.parts[part::ELBOW_NOW].shown, 1.0, 0.6)?,
             fade_in(stage.arena_mut(), now, ORIGIN, 1.0)?.rt(0.6),
@@ -444,7 +458,11 @@ impl SceneConstruct for ByHand {
         line.wait_for(stage, "Each screw is written down once")?;
         let zero = kit.text(stage, AT_ZERO, 30.0, gold, v(0.0, 0.0))?;
         let zero_pos = view.project(arm.origin[ELBOW]);
-        stage.move_to(zero, v(zero_pos[0] + 0.95, zero_pos[1] - 0.1), ORIGIN);
+        stage.move_to(
+            zero,
+            v(zero_pos[0] + ZERO_SHIFT[0], zero_pos[1] + ZERO_SHIFT[1]),
+            ORIGIN,
+        );
         play!(stage;
             tween(world.parts[part::ELBOW_AT_ZERO].shown, 1.0, 0.6)?,
             fade_in(stage.arena_mut(), zero, ORIGIN, 1.0)?.rt(0.6),
@@ -701,6 +719,127 @@ mod tests {
                 assert!(stage.get_left(row)[0] > left, "a row starts outside the card");
             }
             assert!(right < 7.1, "the card is inside the frame: {right}");
+            // the tick sits at the right of the answer's row, clear of its words
+            let tick = card.verdict[1];
+            let answer = card.rows[ASK.answer_index().unwrap()];
+            assert!(
+                stage.get_right(answer)[0] < stage.get_left(tick)[0] - 0.1,
+                "the tick runs into the answer's words"
+            );
+            // the card stands under the readout's captions and inside the margin
+            assert!(
+                stage.get_top(card.back)[1] < READ_Y - 0.58 - 0.2,
+                "the card's top reaches the readout's captions"
+            );
+            assert!(stage.get_bottom(card.back)[1] > -3.85, "the card runs off the bottom");
+            Ok(())
+        });
+    }
+
+    /// Where the arm's links are on the screen at joint angles `q` (degrees):
+    /// a dozen points along each link, from the base to the tip.
+    fn links_on_screen(arm: &Arm, view: &View, q: [f64; N]) -> Vec<[f64; 2]> {
+        let q = model::degrees(q);
+        let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+        joints.push(arm.tip(&q).p);
+        let mut out = Vec::new();
+        for pair in joints.windows(2) {
+            for k in 0..=12 {
+                let t = f64::from(k) / 12.0;
+                let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                out.push([p[0], p[1]]);
+            }
+        }
+        out
+    }
+
+    /// The joints' names stand clear of the arm everywhere they are on show:
+    /// the elbow's through its swing (09_2) and the shoulder's (09_3), the
+    /// shoulder's with it, and joint one's through its quarter turn (09_5).
+    #[test]
+    fn the_joint_names_stand_clear_of_the_arm() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let at = |angles: [(usize, f64); 3]| {
+                let mut q = [0.0; N];
+                for (joint, deg) in angles {
+                    q[joint] = deg;
+                }
+                q
+            };
+            let swing = |k: usize| f64::from(k as u32) / 4.0 * 90.0;
+            // (the name, its joint, its shift, the poses it is on show at)
+            type Case = (&'static str, usize, [f64; 2], Vec<[f64; N]>);
+            let mut cases: Vec<Case> = Vec::new();
+            let mut elbow_poses = Vec::new();
+            let mut shoulder_poses = Vec::new();
+            let mut base_poses = Vec::new();
+            for k in 0..=4 {
+                elbow_poses.push(at([(ELBOW, swing(k)), (SHOULDER, 0.0), (0, 0.0)]));
+                shoulder_poses.push(at([(SHOULDER, swing(k)), (ELBOW, 90.0), (0, 0.0)]));
+                base_poses.push(at([(0, swing(k)), (SHOULDER, 90.0), (ELBOW, 90.0)]));
+            }
+            cases.push((
+                ELBOW_NAME,
+                ELBOW,
+                ELBOW_SHIFT,
+                [elbow_poses.clone(), shoulder_poses.clone()].concat(),
+            ));
+            cases.push((SHOULDER_NAME, SHOULDER, JOINT_SHIFT, shoulder_poses));
+            cases.push((JOINT_ONE, 0, JOINT_SHIFT, base_poses));
+            for (name, joint, shift, poses_shown) in cases {
+                let label = kit.text(stage, name, 28.0, Palette::dim(), v(0.0, 0.0))?;
+                let (half_w, half_h) = (stage.get_width(label) / 2.0, stage.get_height(label) / 2.0);
+                for q in poses_shown {
+                    let here = view.project(arm.joint(&model::degrees(q), joint).0);
+                    let centre = [here[0] + shift[0], here[1] + shift[1]];
+                    for p in links_on_screen(&arm, &view, q) {
+                        let inside = (p[0] - centre[0]).abs() < half_w + 0.1 && (p[1] - centre[1]).abs() < half_h + 0.1;
+                        assert!(!inside, "{name:?} sits on the arm at {q:?}: link point {p:?}");
+                    }
+                }
+            }
+            Ok(())
+        });
+    }
+
+    /// 09_6's "now" and "at zero" stand apart.
+    #[test]
+    fn now_and_at_zero_do_not_touch() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let now_pos = view.project(arm.joint(&model::degrees(poses::QUARTER), ELBOW).0);
+            let zero_pos = view.project(arm.origin[ELBOW]);
+            let now = kit.text(
+                stage,
+                NOW,
+                30.0,
+                Palette::dim(),
+                v(now_pos[0] + NOW_SHIFT[0], now_pos[1] + NOW_SHIFT[1]),
+            )?;
+            let zero = kit.text(
+                stage,
+                AT_ZERO,
+                30.0,
+                palette::screw(),
+                v(zero_pos[0] + ZERO_SHIFT[0], zero_pos[1] + ZERO_SHIFT[1]),
+            )?;
+            let boxed = |m: Mob| {
+                (
+                    stage.get_left(m)[0],
+                    stage.get_right(m)[0],
+                    stage.get_bottom(m)[1],
+                    stage.get_top(m)[1],
+                )
+            };
+            let (a, b) = (boxed(now), boxed(zero));
+            let apart = a.1 + 0.05 < b.0 || b.1 + 0.05 < a.0 || a.3 + 0.05 < b.2 || b.3 + 0.05 < a.2;
+            assert!(apart, "\"now\" {a:?} touches \"at zero\" {b:?}");
+            assert!(a.1 < 6.96 && b.0 > -6.96);
             Ok(())
         });
     }
