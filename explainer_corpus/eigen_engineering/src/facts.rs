@@ -1477,7 +1477,10 @@ mod tests {
         let overlaps: Vec<&str> = (1..=8)
             .map(|i| f.get(&format!("K-V1.overlap.{i}")).expect("an overlap"))
             .collect();
-        assert_eq!(overlaps, ["1.00", "0.99", "0.98", "0.86", "0.85", "0.79", "0.10", "0.02"]);
+        assert_eq!(
+            overlaps,
+            ["1.00", "0.99", "0.98", "0.86", "0.85", "0.79", "0.10", "0.02"]
+        );
         // the lowest three are the "shift a little" of 07_1; the rest are not
         let c: Vec<f64> = overlaps.iter().map(|s| s.parse().unwrap()).collect();
         assert!(c[..3].iter().all(|&x| x >= 0.97));
