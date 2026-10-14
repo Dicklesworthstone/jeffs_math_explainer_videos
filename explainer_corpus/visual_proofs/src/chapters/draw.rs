@@ -1857,7 +1857,7 @@ pub mod testing {
 
     /// Chapters from 04 on whose scene does not yet open with
     /// `shelf_so_far`: a lane that lands the call takes its number off.
-    const NOT_YET_OPENING: &[usize] = &[8, 9];
+    const NOT_YET_OPENING: &[usize] = &[9];
     /// Chapters whose card files a picture and that have no `chapters::SHELF`
     /// entry yet: a lane that lands its `thumb` takes its number off.
     const NOT_YET_FILING: &[usize] = &[9];

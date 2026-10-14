@@ -177,6 +177,9 @@ impl SceneConstruct for TheBox {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        // the shelf so far, under which the picture keeps: chapter 08 files
+        // nothing itself
+        super::draw::shelf_so_far(&kit, stage, 8)?;
         let r = reads()?;
         let n = shown::STACK;
         let iso = Iso::new(stage, VIEW)?;
