@@ -35,6 +35,9 @@ pub struct TwentyOnePatterns {
 
 // --------------------------------------------------------------- the model
 
+/// What a joint's arrow is drawn from: its (right, up) at every joint.
+pub type Arrows = Vec<(f64, f64)>;
+
 /// A pattern (or any move) turned so that its biggest move is a sag, not a lift.
 pub fn sag_oriented(t: &Truss, q: &[f64]) -> Vec<f64> {
     let free = t.free();
@@ -213,7 +216,7 @@ impl SceneConstruct for TwentyOnePatterns {
 
         // ---- 06_1: the arrow test on the truss
         say(&kit, stage, "06_1")?;
-        let shapes: Vec<(Vec<(f64, f64)>, Vec<(f64, f64)>)> = (0..3)
+        let shapes: Vec<(Arrows, Arrows)> = (0..3)
             .map(|k| {
                 let (u, f) = shape(&t, &e, k);
                 // blue: the moves at every joint, its largest REACH long; orange:

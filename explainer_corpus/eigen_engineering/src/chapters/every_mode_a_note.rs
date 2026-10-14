@@ -560,7 +560,7 @@ impl SceneConstruct for EveryModeANote {
         still.extend(supports(stage, &t, top));
         let mut bottom = Vec::new();
         let mut bottom_still: Vec<Mob> = Vec::new();
-        for k in 0..3 {
+        for (k, &f) in hz.iter().enumerate().take(3) {
             let layout = Layout {
                 origin: [-6.4 + 4.6 * k as f64, -1.9, 0.0],
                 scale: 0.16,
@@ -571,7 +571,7 @@ impl SceneConstruct for EveryModeANote {
                 stage,
                 &t,
                 layout,
-                vec![(shaped(&t, &light, k, 1.3), hz[k])],
+                vec![(shaped(&t, &light, k, 1.3), f)],
                 clock,
                 own(),
                 4.0,
@@ -625,8 +625,8 @@ mod tests {
     fn the_modes_are_the_facts_and_the_swing_is_their_sum() {
         let t = Truss::pratt();
         let (e, hz) = modes_of(&t, DECK_KG);
-        for k in 0..3 {
-            assert_eq!(show(hz[k], 1).unwrap(), fact(&format!("K-V1.hz.{}", k + 1)).unwrap());
+        for (k, &f) in hz.iter().enumerate().take(3) {
+            assert_eq!(show(f, 1).unwrap(), fact(&format!("K-V1.hz.{}", k + 1)).unwrap());
         }
         let two = items("K-V1.hz_2dp").unwrap();
         for k in 0..4 {
