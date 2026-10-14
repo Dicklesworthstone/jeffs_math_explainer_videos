@@ -1,7 +1,7 @@
 # Video H: the numbers of docs/description.md that are not facts of the oracle (checked by tools/description_numbers.py): number TAB context TAB kind TAB reason
 # kinds: year, cited (a number of a cited source, source named), structural; a number the text computes is an oracle.py F-T fact the unit names in a bracket
 447	Air France 447	cited	the flight number of Air France flight AF 447 (BEA final report on F-GZCP, July 2012; Stone et al. 2014, S3 of docs/fact-sheet.md)
-2.1	Theorem 2.1	cited	the number of the theorem in Chew 1967, "A Sequential Search Procedure" (S11 of docs/fact-sheet.md, pages 494-496 read as images); weakest row: not re-read against the paper in this audit
+2.1	Theorem 2.1	cited	UNVERIFIED: the number of the theorem in Chew 1967, "A Sequential Search Procedure" (S11 of docs/fact-sheet.md); the abstract was seen (Project Euclid record, citation check 2026-10-14), the paper's text was not, so nobody has read the number off the page; the description's Sources note says so
 1965	Black 1965	year	W. L. Black, "Discrete Sequential Search", Information and Control 8, 1965 (S12 of docs/fact-sheet.md)
 1980	Brown 1980	year	Brown 1980, the paper on search for a moving target that finding 12 of docs/fact-sheet.md names; weak row: the paper is not in the description's Sources list
 2001	Frost and Stone 2001	year	J. R. Frost and L. D. Stone, Review of Search Theory, USCG report CG-D-15-01, 2001 (S13 of docs/fact-sheet.md)

@@ -1067,6 +1067,44 @@ def text_facts():
     emit("F-T.drift.double_radius.hours", join(hours))
     emit("F-T.drift.double_radius.seeing", join(f"{100 * s:.0f}" for s in seeing))
 
+    # The Coast Guard's reading of the drift error 0.3 (Frost and Stone 2001, 4.5 and 4.6.1.3 and Table 4-2; the National SAR
+    # Supplement, 2000 edition, glossary): a PROBABLE error, the radius of the circle that holds half of a circular normal spread,
+    # E = 1.1774 sigma. The errors add as a root sum of squares (the start's 1 mile, taken as a probable error, and 0.3 x 1.5 mi/h
+    # x hours), and the first search is a square of half-side 1.1 E (Table 4-2, typed here from the source). The same 18 square
+    # miles of track (180 miles x 0.1 mile) search each area by the random-search formula; the numbers are the chance of seeing
+    # someone inside the area searched, as the video's F-D.h*.seeing are inside its disc.
+    swept = float(TRACK * STRIP)
+    sigma_in_e = 1 / math.sqrt(2 * math.log(2))  # 1 - exp(-E^2 / (2 sigma^2)) = 1/2
+    half_side = 1.1
+    totals = [math.hypot(float(START_RADIUS), float(ERROR_SHARE * DRIFT * h)) for h in hours]
+    sees = lambda area: 1 - math.exp(-swept / area)
+    emit("F-T.drift.coast_guard.total_probable_error", join(f"{e:.2f}" for e in totals))
+    emit("F-T.drift.coast_guard.first_search.half_side_in_E", "1.1")
+    poc = math.erf(half_side / (sigma_in_e * math.sqrt(2))) ** 2  # both axes inside the square
+    emit("F-T.drift.coast_guard.first_search.poc", f"{poc:.5f}")
+    emit("F-T.drift.coast_guard.first_search.poc_percent", f"{100 * poc:.0f}")
+    emit("F-T.drift.coast_guard.first_search.seeing", join(f"{100 * sees((2 * half_side * e) ** 2):.0f}" for e in totals))
+    holds = (95, 99)
+    emit("F-T.drift.coast_guard.circle.holds_in_100", join(holds))
+    radius_in_e = {s: sigma_in_e * math.sqrt(-2 * math.log(1 - s / 100)) for s in holds}  # 1 - exp(-r^2 / (2 sigma^2)) = s / 100
+    for s in holds:
+        emit(f"F-T.drift.coast_guard.circle_{s}.radius_in_E", f"{radius_in_e[s]:.2f}")
+        emit(f"F-T.drift.coast_guard.circle_{s}.seeing", join(f"{100 * sees(math.pi * (radius_in_e[s] * e) ** 2):.0f}" for e in totals))
+    check("E is 1.1774 sigma (the source rounds it to 1.18)", abs(1 / sigma_in_e - 1.1774) < 1e-4)
+    check("the first search square holds the source's 0.64762 of the spread, to 5e-5", abs(poc - 0.64762) < 5e-5)
+    check("the video's disc sees what F-D.h*.seeing print, with the same constants",
+          join(f"{100 * sees(math.pi * float(radius(h)) ** 2):.0f}" for h in hours) == join(_EMITTED[f"F-D.h{h}.seeing"] for h in hours))
+    check("a circle that holds 95 in 100 of the spread sees less than the video's disc at every hour",
+          all(sees(math.pi * (radius_in_e[95] * e) ** 2) < sees(math.pi * float(radius(h)) ** 2) for e, h in zip(totals, hours)))
+    spread = np.random.Generator(np.random.PCG64DXSM(2001)).standard_normal((2_000_000, 2))  # sigma 1, so E = 1 / sigma_in_e
+    e_one = 1 / sigma_in_e
+    check("of 2,000,000 simulated places half lie within E", abs((np.hypot(spread[:, 0], spread[:, 1]) <= e_one).mean() - 0.5) < 0.002)
+    check("of 2,000,000 simulated places the square of half-side 1.1 E holds poc",
+          abs((np.abs(spread) <= half_side * e_one).all(axis=1).mean() - poc) < 0.002)
+    for s in holds:
+        check(f"of 2,000,000 simulated places the circle of radius {radius_in_e[s]:.2f} E holds {s} in 100",
+              abs((np.hypot(spread[:, 0], spread[:, 1]) <= radius_in_e[s] * e_one).mean() - s / 100) < 0.002)
+
 
 def main():
     small_sea()

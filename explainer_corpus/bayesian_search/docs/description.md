@@ -84,8 +84,9 @@ in symbols, with its edges.
   with a known, fixed dᵢ, and equal cost per search, this is optimal in the
   strongest sense: for every n, the chance of *still not having found it
   after n searches* is as small as any plan can make it (Chew 1967, "A
-  Sequential Search Procedure", Theorem 2.1; the equal-cost case goes back
-  to Blackwell and to Black 1965). The video says the three conditions it
+  Sequential Search Procedure", Theorem 2.1; Blackwell and Black 1965 had
+  the weaker result, the least expected cost, for unequal costs too, by the
+  rule pᵢdᵢ ÷ cᵢ). The video says the three conditions it
   can say in a breath (08_3, 09_5); the two it leaves to this page are that
   the chance of seeing is *known*, and that moving between cells costs
   nothing. A canyon is the classic place where the second fails to hold in
@@ -172,25 +173,33 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
 - **The drift cloud (10_2 to 10_4) is the video's own model**: 2,000 dots
   [F-D.dots, seed F-D.seed], a start known to within a mile [F-D.start_radius],
   a drift of 1.5 miles an hour [F-D.drift], and a drift error of 0.3 of the
-  distance drifted (the
-  figure the Coast Guard's review of search theory, Frost and Stone 2001,
-  gives for drift error) [F-D.error_share, F-D.drift]. Each dot keeps *one*
+  distance drifted (the Coast Guard's own planning figure for drift error, a
+  probable error: the radius of the circle that holds half of the possible
+  places; the National SAR Supplement calls it the confidence factor,
+  "normally 0.3", and Frost and Stone 2001, §4.6.1.3, report it and call it
+  "perhaps optimistic") [F-D.error_share, F-D.drift]. Each dot keeps *one*
   wind-and-current error for the whole drift, so the spread grows in
   proportion to time. Two things the video does not settle, and says
   "model" about. First, an error drawn afresh every hour would make the
   spread grow more slowly (like the square root of time) and the same
   flight at twelve hours would find noticeably more than 13 in 100
   [F-D.h12.seeing]; which of the two suits a person in the water is a
-  modelling choice. Second, and **not yet checked against the source:**
-  whether 0.3 is a radius that holds every dot, as the model treats it, or a
-  probable error (a radius that holds half of the dots) that the Coast
-  Guard's own method multiplies by a safety factor to draw its search circle.
-  If it is the latter, the circle is larger, the same track covers less of
-  it, and 93, 65, 34 and 13 in 100 [F-D.h1.seeing, F-D.h3.seeing,
-  F-D.h6.seeing, F-D.h12.seeing] would be smaller (a circle twice as wide
-  gives a quarter of the coverage [F-D.double.coverage_factor]: about 49%,
-  23%, 10% and 3% [F-T.drift.double_radius.seeing]); "hours matter" would
-  stand. The video's own words are "in this model".
+  modelling choice. Second, checked against the sources: 0.3 is a probable
+  error, not a radius that holds every dot, and the video's dots, all inside
+  that radius, are simpler than the Coast Guard's spread. The Coast Guard
+  adds the errors as a root sum of squares (E) and sizes its first search as
+  a square of half-side 1.1 E, which holds about 65 in 100 of the spread
+  (Frost and Stone 2001, Table 4-2 and §4.5.4); with the video's constants
+  that first square gives 95, 73, 36 and 12 in 100 at 1, 3, 6 and 12 hours,
+  and a circle that holds 95 in 100 of the spread gives 67, 37, 15 and 4
+  (the video's own disc gives 93, 65, 34 and 13 [F-D.h1.seeing,
+  F-D.h3.seeing, F-D.h6.seeing, F-D.h12.seeing]). "Hours matter" stands.
+  [F-T.drift.coast_guard.first_search.half_side_in_E,
+  F-T.drift.coast_guard.first_search.poc_percent,
+  F-T.drift.coast_guard.first_search.seeing,
+  F-T.drift.coast_guard.circle.holds_in_100,
+  F-T.drift.coast_guard.circle_95.seeing, F-T.drift.double_radius.hours] The
+  video's own words are "in this model".
 - **The flight.** The 93, 65, 34 and 13 in 100 are for 180 miles of track
   spread evenly over the whole circle [F-D.track] and the random-search
   formula below. A flight fitted to the cloud does better: at three hours the
@@ -411,11 +420,13 @@ was not seen, in `docs/fact-sheet.md`.
   report on the accident to F-GZCP, July 2012, and "Sea Search Operations".
 - T. M. Kratzke, L. D. Stone and J. R. Frost, "Search and Rescue Optimal
   Planning System", FUSION 2010; J. R. Frost and L. D. Stone, *Review of
-  Search Theory*, USCG report CG-D-15-01, 2001.
+  Search Theory*, USCG report CG-D-15-01, 2001; United States National
+  Search and Rescue Supplement to the IAMSAR Manual, 2000 edition, glossary.
 - M. C. Chew, Jr., "A Sequential Search Procedure", *Annals of Mathematical
-  Statistics* 38(2), 1967; W. L. Black, "Discrete Sequential Search",
-  *Information and Control* 8, 1965; J. B. Kadane, Cowles Foundation
-  Discussion Paper 220, 1967.
+  Statistics* 38(2), 1967, pp. 494-502 (the abstract is seen; the paper's
+  text is not, so the number of the theorem, 2.1, is unverified); W. L.
+  Black, "Discrete Sequential Search", *Information and Control* 8(2), 1965,
+  pp. 159-162; J. B. Kadane, Cowles Foundation Discussion Paper 220, 1967.
 - Defense Nuclear Agency, *Palomares Summary Report*, 1975.
 - Naval History and Heritage Command, *DANFS*, "Scorpion VI (SSN-589)";
   Naval Nuclear Propulsion Program, report NT-24-1.

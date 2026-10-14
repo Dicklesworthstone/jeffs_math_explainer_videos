@@ -12,8 +12,8 @@ at the end was copied from the oracle's output by a script, not typed.
   after review R2: `facts-check bayesian_search: 320 video facts against 320
   oracle keys: PASS`. The oracle passes 62 of 62 of its own cross-checks.
   (Later the same day, with the description's computed numbers added as
-  oracle-only F-T rows: `320 video facts against 341 oracle keys: PASS`, 89
-  of 89 cross-checks; the rows are listed after the table at the end.)
+  oracle-only F-T rows: `320 video facts against 351 oracle keys: PASS`, 97
+  of 97 cross-checks; the rows are listed after the table at the end.)
   (After R1: 303 of 303; at G1: 263 of 263; with the first storyboard: 274
   of 274. R2 added fourteen keys: `F-H.feet_per_sea_mile.exact`,
   `F-H.once.per_cell.exact`, `F-R.grid.empty_cells`,
@@ -153,7 +153,8 @@ printed with one or two places and none sits near a rounding edge.
     on when the report was declassified (1958 and 1966), so no year is
     given. No recording or note of how he said his name was found; the
     lexicon will carry the ordinary English reading and say it is unsourced.
-12. **The rule is proved for a thing that stays put.** Chew's theorem needs
+12. **The rule is proved for a thing that stays put.** Chew's theorem (its
+    number, 2.1, is unverified: S11) needs
     one object that does not move, independent searches with a fixed chance
     of seeing, and equal costs. For a drifting target the video says only
     that the map must be moved before each update, and makes no claim that
@@ -215,12 +216,13 @@ repository and are never committed.
 | S8 | Naval History and Heritage Command, *DANFS*, "Scorpion VI (SSN-589)" (2018); Naval Nuclear Propulsion Program, report NT-24-1 (2024), pp. 7-8 | in full | 99, the dates of May and June 1968, "400 miles southwest of the Azores in more than 10,000 feet of water", sank 22 May, cause undetermined |
 | S9 | US Coast Guard Addendum to the National SAR Supplement, COMDTINST M16130.2F (2013) | Table H-15 and sections 3.1.1, 3.7 | a helicopter's sweep width for a person in the water (0.1 NM); "approximately 90 percent of all cases involve ... no searching" |
 | S10 | Paul Tough, "A Speck in the Sea", *The New York Times Magazine*, 2 January 2014; US Coast Guard releases of 24 July 2013 | in full (archived copies) | the Aldridge search |
-| S11 | M. C. Chew, Jr., "A Sequential Search Procedure", *Annals of Mathematical Statistics* 38(2), 1967, pp. 494-502 | pp. 494-496 as page images | the theorem behind "no order does better" |
-| S12 | W. L. Black, "Discrete Sequential Search", *Information and Control* 8, 1965, pp. 159-162; J. B. Kadane, Cowles Foundation Discussion Paper 220 (1967) | in full | the rule with unequal costs; why a fixed budget with unequal costs is a different problem |
-| S13 | J. R. Frost and L. D. Stone, *Review of Search Theory: Advances and Applications to Search and Rescue Decision Support*, USCG report CG-D-15-01 (2001) | chapters 1 to 4 | Koopman's group in the war; the drift error as three tenths of the distance drifted; the flat-topped posterior |
+| S11 | M. C. Chew, Jr., "A Sequential Search Procedure", *Annals of Mathematical Statistics* 38(2), 1967, pp. 494-502, DOI 10.1214/aoms/1177698965 | the abstract only (the Project Euclid record, citation check 2026-10-14); the paper's text NOT seen (the publisher and JSTOR refuse automated fetches, no open copy found), so **"Theorem 2.1" is unverified**: nobody has read the number off the page. An earlier version of this row said pp. 494-496 as page images; nothing here confirms the number from them | the theorem behind "no order does better": the abstract states the every-n result for one fixed object, independent looks with fixed overlook probabilities and unit cost, and says Blackwell showed that with costs the one-stage procedure minimises the expected searching cost |
+| S12 | W. L. Black, "Discrete Sequential Search", *Information and Control* 8(2), 1965, pp. 159-162; J. B. Kadane, Cowles Foundation Discussion Paper 220 (1967) | in full | the rule with unequal costs; why a fixed budget with unequal costs is a different problem |
+| S13 | J. R. Frost and L. D. Stone, *Review of Search Theory: Advances and Applications to Search and Rescue Decision Support*, USCG report CG-D-15-01 (2001) | chapters 1 to 4; text read in an archived copy of DTIC ADA397065 (127 pp.), with 4.5, 4.6.1.3 and Table 4-2 (citation check 2026-10-14) | Koopman's group in the war; the drift error as three tenths of the distance drifted, **a probable error** (the radius of the circle that holds 50 percent), later increased from one-eighth to 0.3 "but even this may have been optimistic" (4.6.1.3); the first search as a square of half-side 1.1 E, "the POC of a square with this inscribed radius is 0.64762" (Table 4-2, p. 4-18); the flat-topped posterior |
 | S14 | T. Bayes, "An Essay towards solving a Problem in the Doctrine of Chances", *Philosophical Transactions* 53 (read 23 December 1763), pp. 370-418; S. E. Fienberg (2006); S. M. Stigler (1986); *Oxford DNB* | pp. 370-376 of the essay; the cited pages of the others | Bayes died in 1761; the essay was sent by Richard Price; the rule in the form used here is Laplace's (1774) |
 | S15 | J. P. Craven, *The Silent War* (2001); S. Sontag and C. Drew, *Blind Man's Bluff* (1998); S. B. McGrayne, *The Theory That Would Not Die* (2011) | paragraphs or search fragments of library scans only | point of view; never a quotation and never a number |
 | S16 | The owner's reference: *The Search for the USS Scorpion: A Modern Application of Bayesian Statistics* (tomrocksmaths.com, 2023), a student essay | in full | the map of the topic; its claims are tabled below |
+| S17 | United States National Search and Rescue Supplement to the IAMSAR Manual, National SAR Committee, May 2000, glossary (the copy hosted by Civil Air Patrol) | the glossary text read; the IAMSAR Manual Vol. II itself NOT seen (not freely online); the 2018 edition's PDF refuses fetches (a search snippet of its glossary has the same 0.3 wording) | the confidence factor, "normally 0.3", used to determine drift error; the probable error ("the range on either side of the average ... such that the probability of being within that range is 50%"); the total probable error as a root sum of squares |
 
 ### Passages quoted or leaned on
 
@@ -319,7 +321,7 @@ repository and are never committed.
 |---|---|---|
 | "the chance it is there, times the chance of seeing it" (05_6) | P(find in cell i) = pᵢ dᵢ, with dᵢ conditional on the wreck being in cell i | lower-third at 05_6, with the Coast Guard's POS = POC × POD |
 | "Multiply each cell's chance by the chance that the search would come back empty if the wreck were there ... Then divide by what is left" (07_2) | pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ) for the searched cell i; pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) for every other cell j: one denominator, the chance this search comes back empty | on screen at 07_2; as printed in 1971 at 13_1 |
-| "Always search where the next search is most likely to find it ... no other order is ever ahead" (08_1, 08_3) | maximize pᵢdᵢ; with independent searches of fixed dᵢ, a target that does not move and equal costs, P[N > n] is least for every n (Chew 1967, Theorem 2.1); with unequal costs, maximize pᵢdᵢ ÷ cᵢ for the least expected cost (Blackwell; Black 1965) | lower-third at 08_3; the description |
+| "Always search where the next search is most likely to find it ... no other order is ever ahead" (08_1, 08_3) | maximize pᵢdᵢ; with independent searches of fixed dᵢ, a target that does not move and equal costs, P[N > n] is least for every n (Chew 1967, Theorem 2.1, the number unverified: S11); with unequal costs, maximize pᵢdᵢ ÷ cᵢ for the least expected cost, the weaker result of Blackwell and Black 1965 | lower-third at 08_3; the description |
 | "on average, sixty-three percent" (09_3) | 1 − e^(−WL/A) at WL = A, Koopman (1946), eq. (40), under his three assumptions; hundred-to-a-cell strips average 63.4 | the formula on the plot at 09_4 |
 | "a strip only a tenth of a mile wide" (10_3) | sweep width 0.1 nautical mile: an effective width (the area under the lateral range curve), not a hard edge | lower-third at 10_3 |
 | "The map drifts, and it spreads." (10_2) | each particle is moved by its own draw of wind and current, then reweighted; the cloud need not stay round | "model" on the cloud; the description |
@@ -680,7 +682,7 @@ Numbers the published description states (`docs/description.md` names each
 in a bracket) and the video neither shows nor says, so `search facts` does
 not print them; `facts-check` allows an oracle that prints more. Each is
 computed in `oracle.py` from first principles by the oracle's own functions
-and cross-checked there (341 oracle keys, 89 cross-checks, 0 failed). Five
+and cross-checked there (351 oracle keys, 97 cross-checks, 0 failed). Five
 only write a fact the video prints in the decimals the description's code and
 quotations use: `F-T.four_cell.prior.decimal`,
 `F-T.air_france.weights.decimal`, `F-T.f6.searched.oct9.*` and
@@ -708,4 +710,14 @@ quotations use: `F-T.four_cell.prior.decimal`,
 | `F-T.model.best.over_grid.found_by.20` | 55.9 | the rule, over the 180 cells alone |
 | `F-T.model.sweep_from_row5.found_by.20` | 22.3 | row by row from row 5, twenty searches (percent of all runs) |
 | `F-T.drift.double_radius.hours` | 1, 3, 6, 12 | |
-| `F-T.drift.double_radius.seeing` | 49, 23, 10, 3 | a circle twice as wide, the same flight: percent seen at those hours |
+| `F-T.drift.double_radius.seeing` | 49, 23, 10, 3 | a circle twice as wide, the same flight: percent seen at those hours (no longer cited in the description) |
+| `F-T.drift.coast_guard.total_probable_error` | 1.10, 1.68, 2.88, 5.49 | E in miles at 1, 3, 6 and 12 hours: the root sum of squares of the start's 1 mile and 0.3 × 1.5 mi/h × hours, both as probable errors (S13, S17) |
+| `F-T.drift.coast_guard.first_search.half_side_in_E` | 1.1 | the first search's square, in units of E (S13 Table 4-2, typed from the source) |
+| `F-T.drift.coast_guard.first_search.poc` | 0.64759 | the share of a circular normal spread (E = σ√(2 ln 2) = 1.17741σ) inside that square; S13 prints 0.64762, which matches E = 1.17745σ |
+| `F-T.drift.coast_guard.first_search.poc_percent` | 65 | the same, in a hundred |
+| `F-T.drift.coast_guard.first_search.seeing` | 95, 73, 36, 12 | percent seen inside that square by 180 miles × 0.1 mile of track at 1, 3, 6 and 12 hours, random search |
+| `F-T.drift.coast_guard.circle.holds_in_100` | 95, 99 | the shares of the spread two comparison circles hold |
+| `F-T.drift.coast_guard.circle_95.radius_in_E` | 2.08 | the radius, in E, of the circle that holds 95 in 100 |
+| `F-T.drift.coast_guard.circle_95.seeing` | 67, 37, 15, 4 | percent seen inside it at those hours |
+| `F-T.drift.coast_guard.circle_99.radius_in_E` | 2.58 | the radius, in E, of the circle that holds 99 in 100 |
+| `F-T.drift.coast_guard.circle_99.seeing` | 51, 26, 10, 3 | percent seen inside it at those hours (the video's own disc: F-D.h*.seeing, 93, 65, 34, 13) |
