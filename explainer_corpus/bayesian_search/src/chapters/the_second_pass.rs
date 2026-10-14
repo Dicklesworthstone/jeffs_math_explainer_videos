@@ -42,7 +42,9 @@ const X_LABEL: &str = "coverage: strip × track ÷ area";
 const Y_LABEL: &str = "chance of seeing it";
 const FLAT: &str = "a flat cell";
 const CANYON: &str = "the canyon";
-const W_L_A: &str = "W width · L length · A area";
+/// The formula's letters in words, in the order the formula takes them
+/// (R2: R7: "WL/A" read as it is spoken).
+const W_L_A: &str = "W strip width × L track length ÷ A area";
 const E_NOTE: &str = "e: a fixed number, about";
 const UNSWEPT: &str = "% unswept";
 const FORMULA_LABEL: &str = "the random search formula.";
@@ -55,6 +57,18 @@ const OF: &str = "of";
 const OUT: &str = "out";
 const PASS: &str = "pass";
 const PASSES: &str = "passes";
+
+// R2's words on the page (none is spoken)
+/// 09_2: under the readout, what laying the strips side by side is, in the
+/// ratio's own name (R2: S15: "coverage" is kept for track × strip ÷ area).
+const SPACING_NOTE: &str = "track spacing equal to the strip width: coverage";
+/// 09_3: under this run's label, the run is one of the thousand.
+const ONE_OF_A_THOUSAND: &str = "one of a thousand";
+/// 09_4: the curve's label, a random lay being a floor (R2: S1).
+const CAUTIOUS_FLOOR: &str = "strips laid at random:\na cautious floor";
+/// 09_6, in the hold: where fresh tries stop being the whole story (R2: S9).
+const EDGE_OF_THIS: &str = "Fresh tries are the edge of this.";
+const EDGE_OF_THIS_TEXT: &str = "A canyon hides the same place from every pass from the same side: change the angle or the sensor, not only the count (chapter 13\u{2019}s sonar).";
 
 // ------------------------------------------------------------------ geometry
 
@@ -119,6 +133,42 @@ const BLOCK_AT: f64 = 2.6;
 const UNSWEPT_SHIFT: f64 = 0.73;
 /// Coverage 1 is this many lanes of the cell's hundred.
 const LANES: usize = koopman::LANES_PER_COVERAGE;
+/// The readout's middle stands this far under the cell's bottom; 09_2's
+/// note stands this far under the readout's middle (type size too).
+const READOUT_DROP: f64 = 0.62;
+const SPACING_NOTE_DROP: f64 = 0.62;
+const SPACING_NOTE_PT: f64 = 24.0;
+/// 09_3: this run's label stands (two lines, its right end this far left of
+/// the run's end) this far over it; the band's edge numbers stand this far
+/// right of the band's end.
+const RUN_LABEL_GAP: f64 = 0.05;
+const RUN_LABEL_RISE: f64 = 0.6;
+/// Its type size: "one of a thousand" at 24 points ran past the plot's left
+/// border, which the label's right end (the run's end) is 1.8 units from.
+const RUN_LABEL_PT: f64 = 20.0;
+const EDGE_LABEL_GAP: f64 = 0.2;
+/// 09_4: the floor label (two lines) begins at this coverage and stands
+/// centred at this percent (type size too): under the curve's right end,
+/// right of the flat cell's words and over the formula block, where the
+/// band is two thirds of a unit higher. The formula's letters in words stand
+/// centred at `LETTERS_AT` coverages.
+const FLOOR_PT: f64 = 18.0;
+const FLOOR_FROM: f64 = 2.4;
+const FLOOR_PERCENT: f64 = 76.0;
+const LETTERS_PT: f64 = 18.0;
+const LETTERS_AT: f64 = 2.4;
+
+/// 09_2's note: "track spacing equal to the strip width: coverage 1", the 1
+/// from the strips themselves: their count times the width of one, over the
+/// cell's side.
+fn spacing_note() -> String {
+    format!("{SPACING_NOTE} {}", LANES * koopman::WIDTH / koopman::SIDE)
+}
+
+/// 09_3's label for this run's end: "this run: 66.5%" over "one of a thousand".
+fn run_label(percent: &str) -> String {
+    format!("{THIS_RUN}: {percent}%\n{ONE_OF_A_THOUSAND}")
+}
 
 /// One lane's rectangles as cell fractions `(x0, y0, x1, y1)`, y down from
 /// the top. A lane that runs off the cell's edge wraps, so it is two.
@@ -409,7 +459,7 @@ impl SceneConstruct for TheSecondPass {
         stage.add_to_scene(anchor)?;
         let laid = stage.add_value_tracker(0.0);
         drive_lanes(stage, anchor, laid, strips, 0.9)?;
-        let readout_at = v(BIG.at[0] + 0.3, BIG.bottom() - 0.62);
+        let readout_at = v(BIG.at[0] + 0.3, BIG.bottom() - READOUT_DROP);
         let readout = kit.live_number(stage, laid, 0, false, 54.0, Palette::ink(), readout_at, RIGHT)?;
         let percent = kit.text_left(
             stage,
@@ -425,7 +475,15 @@ impl SceneConstruct for TheSecondPass {
             Palette::dim(),
             v(readout_at[0] + 0.72, readout_at[1] - 0.02),
         )?;
-        fade_in_all(stage, &[percent, swept], 0.4)?;
+        // under the readout, what the strips' spacing is (R2: S15)
+        let spacing = kit.text(
+            stage,
+            &spacing_note(),
+            SPACING_NOTE_PT,
+            Palette::dim(),
+            v(BIG.at[0], readout_at[1] - SPACING_NOTE_DROP),
+        )?;
+        fade_in_all(stage, &[percent, swept, spacing], 0.4)?;
         stage.play(tween_linear(laid, LANES as f64, 4.5)?)?;
 
         // ------------------------------------------------------- 09_3
@@ -435,7 +493,7 @@ impl SceneConstruct for TheSecondPass {
         // the perfect strips sweep away (the tracker that laid them runs
         // back) while the readout fades where it stands
         let mut away: Vec<Box<dyn Animation>> = vec![stage.prepare(tween_linear(laid, 0.0, 0.6)?)?];
-        for m in [readout, percent, swept] {
+        for m in [readout, percent, swept, spacing] {
             stage.clear_updaters(m, true);
             let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             away.push(stage.prepare(a.rt(0.4))?);
@@ -537,13 +595,21 @@ impl SceneConstruct for TheSecondPass {
                 .style(flat(Palette::ink(), 1.0))
                 .build(),
         );
+        // this run's end, labelled as the storyboard has it (R2: R15), over
+        // and left of the end, where no curve of the formula goes later
         let end_label = kit.text(
             stage,
-            &format!("{THIS_RUN} {}%", fact("F-K.lanes.one_run.1")?),
-            24.0,
+            &run_label(&fact("F-K.lanes.one_run.1")?),
+            RUN_LABEL_PT,
             Palette::ink(),
-            v(end[0] - 0.05, end[1] + 0.5),
+            ORIGIN,
         )?;
+        let half = stage.get_width(end_label) / 2.0;
+        stage.move_to(
+            end_label,
+            v(end[0] - RUN_LABEL_GAP - half, end[1] + RUN_LABEL_RISE),
+            ORIGIN,
+        );
         stage.clear_updaters(run_readout, true);
         play!(stage;
             fade_out(stage.arena_mut(), run_readout, ORIGIN, 1.0)?.rt(0.5),
@@ -553,6 +619,24 @@ impl SceneConstruct for TheSecondPass {
         );
         fade_in_all(stage, &[end_dot, end_label], 0.4)?;
         play!(stage; fade_in(stage.arena_mut(), band, ORIGIN, 1.0)?.rt(1.2));
+        // the band's two edges, named: the least and the most of the thousand
+        // (R2: R15: this run's 66.5 is 1.7 standard deviations above the mean)
+        let edge_x = f.p(1.0, 0.0)[0] + EDGE_LABEL_GAP;
+        let edge_high = kit.text_left(
+            stage,
+            &format!("{}%", fact("F-K.lanes.max.1")?),
+            20.0,
+            Palette::dim(),
+            v(edge_x, f.p(0.0, runs.high[LANES])[1]),
+        )?;
+        let edge_low = kit.text_left(
+            stage,
+            &format!("{}%", fact("F-K.lanes.min.1")?),
+            20.0,
+            Palette::dim(),
+            v(edge_x, f.p(0.0, runs.low[LANES])[1]),
+        )?;
+        fade_in_all(stage, &[edge_high, edge_low], 0.4)?;
         line.wait_for(stage, "sixty-three percent")?;
         play!(stage; show_creation(mean).rt(1.0));
         let mean_label = kit.text_left(
@@ -602,7 +686,19 @@ impl SceneConstruct for TheSecondPass {
             fade_in(stage.arena_mut(), band_far, ORIGIN, 1.0)?.rt(2.0),
             fade_out(stage.arena_mut(), mean_label, ORIGIN, 1.0)?.rt(0.5),
             fade_out(stage.arena_mut(), band_label, ORIGIN, 1.0)?.rt(0.5),
+            fade_out(stage.arena_mut(), edge_high, ORIGIN, 1.0)?.rt(0.5),
+            fade_out(stage.arena_mut(), edge_low, ORIGIN, 1.0)?.rt(0.5),
         );
+        // the curve's name: a random lay is a floor, not what a careful
+        // searcher gets (R2: S1), under the curve and over the flat mark
+        let floor = kit.text_left(
+            stage,
+            CAUTIOUS_FLOOR,
+            FLOOR_PT,
+            Palette::ink(),
+            v(f.p(FLOOR_FROM, 0.0)[0], f.p(0.0, FLOOR_PERCENT)[1]),
+        )?;
+        fade_in_all(stage, &[floor], 0.5)?;
         // the formula, its letters, and where the e comes from
         let block = f.p(BLOCK_AT, 0.0)[0];
         let formula = kit.tex(
@@ -613,7 +709,13 @@ impl SceneConstruct for TheSecondPass {
             &[],
             v(block, f.p(0.0, 45.0)[1]),
         )?;
-        let letters = kit.text(stage, W_L_A, 20.0, Palette::dim(), v(block, f.p(0.0, 35.0)[1]))?;
+        let letters = kit.text(
+            stage,
+            W_L_A,
+            LETTERS_PT,
+            Palette::dim(),
+            v(f.p(LETTERS_AT, 0.0)[0], f.p(0.0, 35.0)[1]),
+        )?;
         let e_note = kit.text(
             stage,
             &format!("{E_NOTE} {E:.3}"),
@@ -797,6 +899,11 @@ impl SceneConstruct for TheSecondPass {
             fade_in_all(stage, &[d, label], 0.6)?;
             points.extend([d, label]);
         }
+        // where fresh tries stop being the whole story, as "no number of
+        // passes" is said and through the hold (R2: S9)
+        line.wait_for(stage, "no number of passes")?;
+        let edge = lower_third(&kit, stage, EDGE_OF_THIS, EDGE_OF_THIS_TEXT)?;
+        fade_in_all(stage, &[edge], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, HOLD_S)?;
         fade_all(stage, 0.8)?;
@@ -1034,5 +1141,190 @@ mod tests {
             passes_of(9, 3).is_err(),
             "a third pass of one dot is two thirds of a dot"
         );
+    }
+
+    /// A line of type is about this high in scene units a point, and the
+    /// lines of one text stand this far apart a point.
+    const TEXT_HEIGHT_PER_POINT: f64 = 0.0125;
+    const LINE_PITCH_PER_POINT: f64 = 0.0135;
+
+    /// 09_2 and 09_3 (R2: S15, R15): the spacing note says coverage 1 and
+    /// stands under the readout inside the frame; this run's label carries
+    /// the facts' 66.5, stands over and left of the run's end clear of the
+    /// band, the plot's label and the flat cell's mark; the band's two edge
+    /// numbers are the facts' and stand right of the band's end.
+    #[test]
+    fn the_spacing_note_the_run_label_and_the_band_edges_say_the_facts_and_stand_clear() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        let facts = facts().unwrap();
+
+        assert_eq!(LANES * koopman::WIDTH % koopman::SIDE, 0, "a whole number of coverages");
+        assert_eq!(spacing_note(), "track spacing equal to the strip width: coverage 1");
+        assert_eq!(facts.get("F-K.perfect.1"), Some("100"));
+        let readout_y = BIG.bottom() - READOUT_DROP;
+        let note_y = readout_y - SPACING_NOTE_DROP;
+        let half = spacing_note().chars().count() as f64 * SPACING_NOTE_PT * UNITS / 2.0;
+        assert!(BIG.at[0] - half > -FRAME_X_RADIUS + 0.15 && BIG.at[0] + half < FRAME_X_RADIUS - 0.15);
+        let note_half_high = SPACING_NOTE_PT * TEXT_HEIGHT_PER_POINT / 2.0;
+        assert!(note_y - note_half_high > -FRAME_Y_RADIUS + 0.15, "{note_y}");
+        assert!(
+            readout_y - 0.3 > note_y + note_half_high + 0.05,
+            "the 54 point readout ends about 0.3 under its middle"
+        );
+
+        let f = plot();
+        let table = one_run_percent(LANES);
+        // the band the scene draws: a thousand runs of three coverages' lanes
+        let runs = thousand_runs(3 * LANES);
+        assert_eq!(facts.get("F-K.lanes.one_run.1"), Some("66.5"));
+        assert_eq!(run_label("66.5"), "this run: 66.5%\none of a thousand");
+        assert_eq!(
+            format!("{:.1}", runs.high[LANES]),
+            facts.get("F-K.lanes.max.1").unwrap()
+        );
+        assert_eq!(format!("{:.1}", runs.low[LANES]), facts.get("F-K.lanes.min.1").unwrap());
+        assert_eq!(facts.get("F-K.lanes.min.1"), Some("57.1"));
+        assert_eq!(facts.get("F-K.lanes.max.1"), Some("69.9"));
+
+        let end = f.p(1.0, table[LANES]);
+        let label = run_label(facts.get("F-K.lanes.one_run.1").unwrap());
+        let widest = label.lines().map(|l| l.chars().count()).max().unwrap() as f64 * RUN_LABEL_PT * UNITS;
+        let high = label.lines().count() as f64 * RUN_LABEL_PT * LINE_PITCH_PER_POINT;
+        let (right, middle) = (end[0] - RUN_LABEL_GAP, end[1] + RUN_LABEL_RISE);
+        let (left, bottom, top) = (right - widest, middle - high / 2.0, middle + high / 2.0);
+        assert!(left > f.left() + 0.05, "inside the plot: {left} against {}", f.left());
+        assert!(
+            bottom > f.p(0.0, runs.high[LANES])[1] + 0.05,
+            "over the band's top at one coverage"
+        );
+        assert!(
+            top < f.top() + 0.3 - 24.0 * TEXT_HEIGHT_PER_POINT / 2.0 - 0.05,
+            "under the plot's own label"
+        );
+        let flat = f.p(
+            koopman::coverage_for(sea::seeing()[1].f64()),
+            100.0 * sea::seeing()[1].f64(),
+        );
+        assert!(right < flat[0] - 0.1, "left of the flat cell's mark");
+
+        // the edge numbers: right of the band's end and of this run's dot,
+        // inside the plot, apart from each other and over the mean's label
+        let edge_x = f.p(1.0, 0.0)[0] + EDGE_LABEL_GAP;
+        assert!(edge_x > end[0] + 0.09 + 0.05, "right of this run's end dot");
+        assert!(edge_x + 5.0 * 20.0 * UNITS < f.right() - 0.1);
+        let (hi_y, lo_y) = (f.p(0.0, runs.high[LANES])[1], f.p(0.0, runs.low[LANES])[1]);
+        assert!(hi_y - lo_y >= 0.3, "the two numbers do not touch");
+        assert!(
+            lo_y - 20.0 * TEXT_HEIGHT_PER_POINT / 2.0 > f.p(0.0, 30.0)[1] + 24.0 * TEXT_HEIGHT_PER_POINT / 2.0,
+            "over the mean's label"
+        );
+    }
+
+    /// 09_4 (R2: S1, R7): the floor label stands under the curve's right
+    /// end and the band's low edge, right of the flat cell's words and over
+    /// the formula block, inside the plot; the formula's letters in words
+    /// stand inside the plot between the formula and the e note.
+    #[test]
+    fn the_floor_label_and_the_letters_in_words_stand_clear_of_the_curve_the_band_and_the_border() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        let f = plot();
+        assert_eq!(
+            CAUTIOUS_FLOOR.replace('\n', " "),
+            "strips laid at random: a cautious floor"
+        );
+        let lines: Vec<&str> = CAUTIOUS_FLOOR.lines().collect();
+        assert_eq!(lines.len(), 2);
+        let widest = lines.iter().map(|l| l.chars().count()).max().unwrap() as f64 * FLOOR_PT * UNITS;
+        let high = lines.len() as f64 * FLOOR_PT * LINE_PITCH_PER_POINT;
+        let middle = f.p(0.0, FLOOR_PERCENT)[1];
+        let left = f.p(FLOOR_FROM, 0.0)[0];
+        let (right, bottom, top) = (left + widest, middle - high / 2.0, middle + high / 2.0);
+        assert!(
+            right < f.right() - 0.1,
+            "inside the plot: {right} against {}",
+            f.right()
+        );
+
+        // the curve is over the label all along its width
+        for i in 0..=100 {
+            let x = left + (right - left) * f64::from(i) / 100.0;
+            let c = (x - f.left()) / f.width * COVERAGE_MAX;
+            let curve = f.p(c, 100.0 * koopman::random_search(c))[1];
+            assert!(
+                top + 0.1 < curve,
+                "the curve at x {x:.2} is {curve:.2}, the label's top {top:.2}"
+            );
+        }
+        // and the band's low edge, lane by lane
+        let runs = thousand_runs(3 * LANES);
+        for (k, &low) in runs.low.iter().enumerate().skip(LANES) {
+            let x = f.p(k as f64 / LANES as f64, 0.0)[0];
+            if x < left || x > right {
+                continue;
+            }
+            assert!(top + 0.05 < f.p(0.0, low)[1], "lane {k}");
+        }
+        // over the flat cell's mark and its words, which end left of it
+        let chance = sea::seeing()[1];
+        let flat = f.p(koopman::coverage_for(chance.f64()), 100.0 * chance.f64());
+        let words_end = flat[0] + 0.18 + format!("{}: {FLAT}", in_words(chance)).chars().count() as f64 * 24.0 * UNITS;
+        let words_top = flat[1] - 0.3 + 24.0 * TEXT_HEIGHT_PER_POINT / 2.0;
+        assert!(
+            words_end < left || words_top + 0.1 < bottom,
+            "{words_end} against {left}"
+        );
+        // over the formula block's top (the formula's tex stands at 45%, a
+        // little over half a unit high)
+        assert!(bottom > f.p(0.0, 45.0)[1] + 0.3 + 0.2, "{bottom}");
+
+        // the letters in words
+        assert_eq!(W_L_A, "W strip width × L track length ÷ A area");
+        let width = W_L_A.chars().count() as f64 * LETTERS_PT * UNITS;
+        let centre = f.p(LETTERS_AT, 0.0)[0];
+        assert!(centre - width / 2.0 > f.left() + 0.2, "{}", centre - width / 2.0);
+        assert!(centre + width / 2.0 < f.right() - 0.2, "{}", centre + width / 2.0);
+        // a line's pitch from the formula above and the e note below
+        let (formula, letters, e_note) = (f.p(0.0, 45.0)[1], f.p(0.0, 35.0)[1], f.p(0.0, 26.0)[1]);
+        let line = LETTERS_PT * TEXT_HEIGHT_PER_POINT;
+        let tex_half = 34.0 * TEXT_HEIGHT_PER_POINT / 2.0;
+        assert!(
+            formula - letters >= tex_half + line / 2.0 && letters - e_note >= line + 0.1,
+            "{formula} {letters} {e_note}"
+        );
+    }
+
+    /// 09_6 (R2: S9): the lower third that names the canyon's edge of fresh
+    /// tries is two lines at most, stands over nothing else the hold shows
+    /// (the plot's x label and the still-lit count), and says the angle, the
+    /// sensor and the chapter that comes back to it.
+    #[test]
+    fn the_edge_of_fresh_tries_is_a_short_lower_third_clear_of_the_hold() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        use explainer_kit::animatic::wrap;
+        assert!(EDGE_OF_THIS_TEXT.contains("change the angle or the sensor, not only the count"));
+        assert!(EDGE_OF_THIS_TEXT.contains("chapter 13"));
+        assert!(EDGE_OF_THIS.starts_with("Fresh tries are the edge of this"));
+        // the band's own rule (props::lower_third): the text wraps at 92
+        // characters, narrower while a line would run past the label's room
+        let band = 2.0 * FRAME_X_RADIUS - 0.8;
+        let room = band - 0.7 - EDGE_OF_THIS.chars().count() as f64 * 26.0 * UNITS;
+        let mut chars = 92usize;
+        let mut lines = wrap(EDGE_OF_THIS_TEXT, chars, 3);
+        loop {
+            let widest = lines.iter().map(|l| l.chars().count()).max().unwrap() as f64 * 26.0 * UNITS;
+            if widest <= room || chars <= 16 {
+                break;
+            }
+            chars -= 4;
+            lines = wrap(EDGE_OF_THIS_TEXT, chars, 3);
+        }
+        assert!(lines.len() <= 2, "{} lines: {lines:?}", lines.len());
+        assert!(!lines.iter().any(|l| l.ends_with('…')), "{lines:?}");
+        // its top, against the hold's lowest pictures
+        let top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 0.36 * lines.len() as f64;
+        let x_label = plot().bottom() - 0.62 - 24.0 * TEXT_HEIGHT_PER_POINT / 2.0;
+        let still_lit = SMALL.bottom() - 0.5 - 30.0 * TEXT_HEIGHT_PER_POINT / 2.0;
+        assert!(top < x_label - 0.05, "{top} against the plot's x label at {x_label}");
+        assert!(top < still_lit - 0.05, "{top} against the count at {still_lit}");
     }
 }
