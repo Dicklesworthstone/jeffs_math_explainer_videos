@@ -16,6 +16,7 @@ pub mod heat_and_chance;
 pub mod how_computers_do_it;
 pub mod one_function;
 pub mod order_matters;
+pub mod the_doorway;
 pub mod the_obvious_guess;
 pub mod the_series;
 pub mod turning;
@@ -63,7 +64,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("12_heat_and_chance", 0.55, heat_and_chance::HeatAndChance),
         scene!("13_how_computers_do_it", 0.4, how_computers_do_it::HowComputersDoIt),
         scene!("14_order_matters", 0.5, order_matters::OrderMatters),
-        animatic!("15_the_doorway", 0.65),
+        scene!("15_the_doorway", 0.65, the_doorway::TheDoorway),
         animatic!("16_where_it_leads", 0.55),
     ]
 }
