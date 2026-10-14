@@ -20,21 +20,21 @@ over the `?:??`, as `./x visual_proofs chapters` computes them, and `check` hold
 Eight proofs you can see, and one picture that lies. Each proof is shown at one size and then asked the same question: would the next size fit? The answer is always a picture of the step from one size to the next. At the end the same argument gives nonsense, and the video says what separates the two. Nine of the questions are quizzes with a countdown: pause whenever you want more time.
 
 Chapters
-?:?? Cold open
-?:?? Five for five
-?:?? Layers
-?:?? Staircases
-?:?? Slabs
-?:?? Every cube
-?:?? Three stacks
-?:?? The box
-?:?? Every height
-?:?? Halves
-?:?? A third
-?:?? The cut cube
-?:?? Four triangles
-?:?? The missing square
-?:?? What makes a proof
+0:00 Cold open
+0:28 Five for five
+1:53 Layers
+3:10 Staircases
+4:13 Slabs
+5:39 Every cube
+7:00 Three stacks
+8:07 The box
+9:03 Every height
+10:07 Halves
+11:19 A third
+12:42 The cut cube
+14:06 Four triangles
+15:38 The missing square
+17:04 What makes a proof
 
 Five for five, the warning at the start: with n points on a circle, every pair joined by a line and no three lines meeting at one point inside, the lines cut the disc into 1, 2, 4, 8 and 16 regions for n = 1 to 5, then 31 for n = 6; six evenly spaced points give only 30, because the three long lines meet in the middle. Five passing tests prove nothing about the sixth.
 
