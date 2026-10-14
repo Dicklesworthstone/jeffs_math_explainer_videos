@@ -417,6 +417,9 @@ impl SceneConstruct for OrderMatters {
         let line = say(&kit, stage, "14_4")?;
         let mut leave = card.mobs();
         leave.extend([problem, answer, left_square, right_square, left_name, right_name]);
+        // the answer stays fully up until "No." has been said (the finished
+        // read puts that at 0.82 s; the card went at once)
+        line.wait_first_sentence(stage)?;
         fade_out_all(stage, &leave, 0.5)?;
         let ghost = outline(stage, &PLANE, Palette::dim());
         let diagonal = polyline(vec![PLANE.p(0.0, 0.0), PLANE.p(3.2, 3.2)])
