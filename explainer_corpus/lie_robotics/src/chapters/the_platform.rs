@@ -392,6 +392,27 @@ impl SceneConstruct for ThePlatform {
         fade_in_all(stage, &floor, 0.6)?;
         stage.scene_mut().bring_to_front(&[platform])?;
         play!(stage; tween(arrows, 1.0, 0.5)?);
+        // the two numbers the line says, where their arrows are: the pose
+        // and velocity rows of 06_1 have left to make room for the card
+        let (here, k_floor) = (floor_map(1.0).1, floor_map(1.0).0);
+        line.wait_for(stage, "Forward at half a meter")?;
+        let forward = kit.text_left(
+            stage,
+            &format!("{speed:.1} {PER_SECOND}"),
+            26.0,
+            orange,
+            v(here[0] + k_floor * (ARROW_PER_SPEED * 0.5) + 0.12, here[1]),
+        )?;
+        fade_in_all(stage, &[forward], 0.3)?;
+        line.wait_for(stage, "spinning at thirty degrees")?;
+        let spinning = kit.text(
+            stage,
+            &format!("{:.0} {DEG_PER_SECOND}", spin / DEG),
+            26.0,
+            orange,
+            v(here[0], here[1] + 0.8),
+        )?;
+        fade_in_all(stage, &[spinning], 0.3)?;
         let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
@@ -400,7 +421,9 @@ impl SceneConstruct for ThePlatform {
         // 06_3: beside where it started: a half circle, just under two
         // metres to the left, facing backward
         let line = say(&kit, stage, BEATS[2])?;
-        leave(stage, &card.mobs(), &[], 0.4)?;
+        let mut gone = card.mobs();
+        gone.extend([forward, spinning]);
+        leave(stage, &gone, &[], 0.4)?;
         let trail = stage.always_redraw(move |s| {
             let t = value(s, clock).max(1e-6);
             let (k, o) = floor_map(value(s, zoom));
@@ -565,6 +588,40 @@ mod tests {
 
     use super::super::draw::{SAFE, fact, probe};
     use super::*;
+
+    /// 06_2: the two numbers the line says stand by their arrows, right of the
+    /// platform and left of the quiz card, above the floor's metre marks.
+    #[test]
+    fn the_velocity_numbers_stand_by_their_arrows() {
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let (speed, spin, _) = drive()?;
+            let (k, o) = floor_map(1.0);
+            let forward = kit.text_left(
+                stage,
+                &format!("{speed:.1} {PER_SECOND}"),
+                26.0,
+                Palette::ink(),
+                v(o[0] + k * (ARROW_PER_SPEED * 0.5) + 0.12, o[1]),
+            )?;
+            let spinning = kit.text(
+                stage,
+                &format!("{:.0} {DEG_PER_SECOND}", spin / DEG),
+                26.0,
+                Palette::ink(),
+                v(o[0], o[1] + 0.8),
+            )?;
+            let card_left = CARD_AT[0] - 0.5 * super::super::draw::CARD_W * CARD_SCALE;
+            assert!(stage.get_right(forward)[0] < card_left - 0.5);
+            // the arrow's tip is at the label's left edge, not under it
+            assert!(stage.get_left(forward)[0] > o[0] + k * ARROW_PER_SPEED * 0.5);
+            // the spin number is above the body (0.28 m half width)
+            assert!(stage.get_bottom(spinning)[1] > o[1] + k * BODY.1);
+            // and both are above the metre marks
+            assert!(stage.get_bottom(forward)[1] > o[1] - k - 0.28 + 0.3);
+            Ok(())
+        });
+    }
 
     /// 06_3: the half circle's line (about 5.7 wide) ends inside the safe
     /// area (it ran to the frame's edge) and starts clear of the floor.
