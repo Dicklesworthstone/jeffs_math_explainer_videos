@@ -158,14 +158,14 @@ fn counts(n: i64) -> fmn::Result<(i64, i64, i64, i64)> {
 }
 
 /// The notes of the landings: piece `i` of `n` lands `DROP_S` after its drop
-/// begins, and the pitches climb the F major pentatonic from the F below the
-/// tonic, one note a piece: a finished picture is a finished chord.
+/// begins, and the pitches climb the identity's pentatonic from the tonic's
+/// octave below ([`sound::landing_pitch`]), one note a piece: a finished
+/// picture is a finished chord.
 pub fn landing_strikes(n: usize) -> Vec<Strike> {
-    const PENTATONIC: [f64; 5] = [0.0, 2.0, 4.0, 7.0, 9.0];
     (0..n)
         .map(|i| Strike {
             at: DROP_LAG * DROP_S * i as f64 + DROP_S,
-            pitch: 53.0 + 12.0 * (i / 5) as f64 + PENTATONIC[i % 5],
+            pitch: sound::landing_pitch(i),
             velocity: if i + 1 == n { 0.8 } else { 0.55 },
         })
         .collect()

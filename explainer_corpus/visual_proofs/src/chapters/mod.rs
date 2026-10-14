@@ -18,6 +18,7 @@ pub mod kinetics;
 pub mod layers;
 pub mod siu;
 pub mod slabs;
+pub mod sound;
 pub mod staircases;
 pub mod the_box;
 pub mod the_cut_cube;

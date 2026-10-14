@@ -20,9 +20,9 @@ use fmn::library::exmark;
 use fmn::prelude::*;
 
 use super::draw::{
-    ASIDE_AT, CardRow, LENS_AT, ProofCard, Words, aside, dim, fact, fact_int, fail, faint, file_on_shelf, flash, fly,
-    formula, ground, group, hero, ink, lens, lens_mark, line_style, lower_third, panel, pause, question_card,
-    question_pause, repaint, say, size, slide, swap, warn, write_formula,
+    ASIDE_AT, CardRow, LENS_AT, ProofCard, QUESTION_HOLD_S, Words, aside, dim, fact, fact_int, fail, faint,
+    file_on_shelf, flash, fly, formula, ground, group, hero, ink, lens, lens_mark, line_style, lower_third, panel,
+    pause, question_card, repaint, say, size, slide, sound, swap, wait_until, warn, write_formula,
 };
 use super::kinetics::{
     Moves, arrive, arrive_sliding, fit_in, leave, play, play_with, prepared, rectangle, slid_by_zoom, together,
@@ -78,6 +78,9 @@ pub const CARD_SHOWN: &str = "after n pieces, for every n from 1, the gap is the
 pub const CARD_ASSUMED: &str = "each piece is half of what was left";
 pub const CARD_REASON: &str = "so it lies inside it";
 pub const LOWER_LABEL: &str = "precisely:";
+/// How long the "precisely" statement of 10_6 is read, seconds: the listen
+/// window that holds the tonic.
+pub const PRECISELY_S: f64 = 3.0;
 pub const LOWER_TEXT: &str = "after n pieces the sum is below one every time, and above every number below one \
                               eventually. Geometric series";
 pub const TAG: &str = "for programmers";
@@ -555,7 +558,15 @@ impl SceneConstruct for Halves {
             before = Some(p);
         }
         play_with(stage, 0.0, |s| Ok(vec![arrive(s, new_gap, 0.5)?]))?;
-        question_pause(&kit, stage)?;
+        // the prediction's pause carries the halving heard as a rhythm: a
+        // soft note on the downbeat and one at each half of what is left,
+        // crowding toward the end of the bar and never reaching it (the
+        // question is answered in sound before it is answered in words)
+        kit.hold(stage)?;
+        let wav = sound::halving(QUESTION_HOLD_S)?;
+        kit.sonify(stage, QUESTION_HOLD_S, &format!("{}:10_3", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        wait_until(stage, start + QUESTION_HOLD_S)?;
 
         // ---------------------------------------------------------- 10_4
         let line = say(&kit, stage, LINES[3])?;
@@ -843,7 +854,12 @@ impl SceneConstruct for Halves {
         line.wait_end(stage)?;
         let precisely = lower_third(&kit, stage, LOWER_LABEL, LOWER_TEXT)?;
         play_with(stage, 0.0, |s| Ok(vec![arrive(s, precisely, 0.5)?]))?;
-        pause(stage, 3.0)?;
+        // the guess nothing passes holds the tonic: the finished picture is a
+        // finished chord, in the window where the statement is read
+        let wav = sound::tonic_hold(PRECISELY_S)?;
+        kit.sonify(stage, PRECISELY_S, &format!("{}:10_6", kit.chapter), &wav)?;
+        let start = stage.scene().time().to_f64();
+        wait_until(stage, start + PRECISELY_S)?;
         play_with(stage, 0.0, |s| Ok(vec![leave(s, precisely, 0.4)?]))?;
         let mut card = ProofCard::build(
             &kit,
