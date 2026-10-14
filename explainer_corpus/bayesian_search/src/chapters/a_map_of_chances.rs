@@ -188,6 +188,29 @@ struct Wave {
     hanging: Vec<Vec3>,
 }
 
+/// How the forty hang above a cell: ten dots in two rows of five over the
+/// cell's OUTER half (the left half of A and C, the right half of B and D),
+/// `HANG_SIDE` from its middle line, a dot every `HANG_STEP`, the first row
+/// `HANG_RISE` over the cell's top and the second `HANG_ROW` over that. The
+/// middle stays clear: the quiz's answer ("40%") lands on the line of cell
+/// A's own percent, which is the height the bottom row's dots hang at (it
+/// was crossed by them for two seconds, in the dots' own colour). The outer
+/// side also keeps the top row's dots away from the sea's tag between them.
+const HANG_SIDE: f64 = 0.85;
+const HANG_STEP: f64 = 0.18;
+const HANG_RISE: f64 = 0.24;
+const HANG_ROW: f64 = 0.2;
+
+/// Where dot `j` of the dots hanging above `cell` waits.
+fn hang_at(cell: usize, j: usize) -> Vec3 {
+    let (x0, _, x1, top) = sea_rect(cell);
+    let side = if cell.is_multiple_of(2) { -1.0 } else { 1.0 };
+    v(
+        (x0 + x1) / 2.0 + side * HANG_SIDE + ((j % 5) as f64 - 2.0) * HANG_STEP,
+        top + HANG_RISE + HANG_ROW * (j / 5) as f64,
+    )
+}
+
 fn wave(all: &[SeaDot], story: usize, centres: &[Vec3; 4]) -> Wave {
     let mut dots = Vec::new();
     let mut on_card = Vec::new();
@@ -204,11 +227,9 @@ fn wave(all: &[SeaDot], story: usize, centres: &[Vec3; 4]) -> Wave {
             0.78 * TINY.1,
             0xCA2D + (10 * story + cell) as u64,
         );
-        let (x0, _, x1, y1) = sea_rect(cell);
-        let mid = (x0 + x1) / 2.0;
         for (j, d) in mine.into_iter().enumerate() {
             on_card.push(v(centre[0] + pts[j].0, centre[1] + pts[j].1));
-            hanging.push(v(mid + ((j % 5) as f64 - 2.0) * 0.22, y1 + 0.24 + 0.2 * (j / 5) as f64));
+            hanging.push(hang_at(cell, j));
             dots.push(d);
         }
     }
@@ -389,7 +410,7 @@ impl SceneConstruct for AMapOfChances {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::SEA_CELL;
+    use super::super::draw::SEA_DOT_R;
     use super::*;
     use crate::model::Q;
     use explainer_kit::Script;
@@ -490,8 +511,48 @@ mod tests {
         );
         // the hanging rows (two of five dots) stay under the frame's top
         let (_, _, _, top) = sea_rect(0);
-        assert!(top + 0.24 + 0.2 + 0.1 < super::super::draw::QUIZ_FRAME.1);
-        assert!(SEA_CELL.0 > 5.0 * 0.22, "five hanging dots span less than a cell");
+        assert!(top + HANG_RISE + HANG_ROW + 0.1 < super::super::draw::QUIZ_FRAME.1);
+        // and over the cell's own outer half, inside the cell's width
+        for cell in 0..4 {
+            let (x0, _, x1, _) = sea_rect(cell);
+            let mid = (x0 + x1) / 2.0;
+            for j in 0..10 {
+                let at = hang_at(cell, j);
+                assert!(
+                    at[0] > x0 + SEA_DOT_R && at[0] < x1 - SEA_DOT_R,
+                    "dot {j} of {cell} at {}",
+                    at[0]
+                );
+                let outer = if cell.is_multiple_of(2) { at[0] < mid } else { at[0] > mid };
+                assert!(outer, "dot {j} of cell {cell} is not on the outer half");
+            }
+        }
+    }
+
+    /// 03_5: the quiz's answer "40%", landing on the line of A's percent,
+    /// stands clear of every hanging dot of every cell (it stood on the
+    /// bottom row's second row of five, in the dots' own colour: "40%" was
+    /// not readable until they fell, two seconds on), and of A's count over
+    /// it.
+    #[test]
+    fn the_answer_clears_the_hanging_dots() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        let answer = format!("{}%", crate::facts::facts().unwrap().get("F-Q.stories.answer").unwrap());
+        let at = under(0, 1);
+        let (hw, hh) = (answer.chars().count() as f64 * 32.0 * UNITS / 2.0, 0.14);
+        for cell in 0..4 {
+            for j in 0..10 {
+                let d = hang_at(cell, j);
+                let dx = (d[0] - at[0]).abs() - hw;
+                let dy = (d[1] - at[1]).abs() - hh;
+                assert!(
+                    dx.max(dy) > SEA_DOT_R + 0.04,
+                    "dot {j} of cell {cell} at {d:?} is on the answer at {at:?}"
+                );
+            }
+        }
+        // the answer's line is under A's count line, not on it
+        assert!(under(0, 0)[1] - hh > at[1] + hh, "the count touches the answer");
     }
 
     /// 03_5's countdown ring (the frame's top right corner, over whatever is

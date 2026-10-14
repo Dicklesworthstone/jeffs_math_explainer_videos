@@ -26,8 +26,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Heat, Lattice, QUIZ_LINES_Y, Spoken, VEIL_OPACITY, carry_pause, fade_in_all, fade_in_lagged, fade_out_all,
-    faded_line, fail, flat, last_known, line_style, map as lit_blue, out as slate, pause, say, scatter, search as teal,
-    true_place, veil, wrong,
+    faded_line, fail, flat, ground, last_known, line_style, map as lit_blue, out as slate, pause, say, scatter,
+    search as teal, true_place, veil, wrong,
 };
 use crate::facts::{cited, facts};
 use crate::model::{days, koopman, y1968};
@@ -189,6 +189,67 @@ fn curve_window() -> Frame2 {
         y: (0.0, 100.0),
     }
 }
+
+/// How far a plate stands out round its words (to each side, up and down).
+const PLATE_PAD: (f64, f64) = (0.1, 0.06);
+
+/// The words of one of the curve's two points: "believed: 2.8 times over" or
+/// "estimated: 1.05", for the point at coverage `c`.
+fn coverage_words(believed: bool, c: f64) -> String {
+    if believed {
+        format!("{BELIEVED_COVERAGE} {c:.1} {TIMES_OVER}")
+    } else {
+        format!("{ESTIMATED_COVERAGE} {c:.2}")
+    }
+}
+
+/// Where the words of a point of the curve stand, and whether `at` is their
+/// left edge (else their middle): above the curve and left of the point,
+/// "estimated" from the window's left edge.
+fn coverage_label_at(w: &Frame2, believed: bool, c: f64) -> (Vec3, bool) {
+    let at = w.p(c, 100.0 * koopman::random_search(c));
+    if believed {
+        (v(at[0] - 1.0, at[1] + 0.35), false)
+    } else {
+        (v(w.left() + 0.1, at[1] + 0.45), true)
+    }
+}
+
+/// One of the curve's two labels on a plate in the ground colour, one group,
+/// detached: the 1968 map's heat cells run behind the plot, and "estimated:
+/// 1.05" was written across them in teal, cell on cell ("estimated: 1.05"
+/// with a cell through its colon).
+fn coverage_label(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    w: &Frame2,
+    believed: bool,
+    c: f64,
+    color: Srgb,
+) -> fmn::Result<Mob> {
+    let (at, left) = coverage_label_at(w, believed, c);
+    let text = coverage_words(believed, c);
+    let words = if left {
+        kit.text_left(stage, &text, 22.0, color, at)?
+    } else {
+        kit.text(stage, &text, 22.0, color, at)?
+    };
+    let (cx, cy) = {
+        let m = stage.get_center(words);
+        (m[0], m[1])
+    };
+    let back = Rectangle::new()
+        .width(stage.get_width(words) + 2.0 * PLATE_PAD.0)
+        .height(stage.get_height(words) + 2.0 * PLATE_PAD.1)
+        .style(flat(ground(), PLATE_OPACITY))
+        .build()?
+        .moved_to(v(cx, cy));
+    let back = stage.arena_mut().add(back);
+    super::draw::group(stage, &[back, words])
+}
+
+/// How opaque the plate behind a label of the curve is.
+const PLATE_OPACITY: f64 = 0.9;
 
 /// The enlarged cell's width: the printed cell is 0.84 as wide as it is
 /// high.
@@ -859,10 +920,7 @@ impl SceneConstruct for HowWellTheyLooked {
         // both points' words stand above the curve and left of their dots:
         // to the right of the measured one the two lines to the enlarged
         // cell cross the words
-        for (key, label, color) in [
-            ("F-S.F6.coverage.at_sea", BELIEVED_COVERAGE, wrong()),
-            ("F-S.F6.coverage.after", ESTIMATED_COVERAGE, teal()),
-        ] {
+        for (key, color) in [("F-S.F6.coverage.at_sea", wrong()), ("F-S.F6.coverage.after", teal())] {
             let c: f64 = fact(&f, key)?
                 .parse()
                 .map_err(|_| fail(format!("{key} is not a number")))?;
@@ -872,17 +930,7 @@ impl SceneConstruct for HowWellTheyLooked {
                     .arena_mut()
                     .add(Dot::new().point(at).radius(0.12).style(flat(color, 1.0)).build()),
             );
-            let text = if key.ends_with("at_sea") {
-                format!("{label} {c:.1} {TIMES_OVER}")
-            } else {
-                format!("{label} {c:.2}")
-            };
-            let m = if key.ends_with("at_sea") {
-                kit.text(stage, &text, 22.0, color, v(at[0] - 1.0, at[1] + 0.35))?
-            } else {
-                kit.text_left(stage, &text, 22.0, color, v(w.left() + 0.1, at[1] + 0.45))?
-            };
-            plot.push(m);
+            plot.push(coverage_label(&kit, stage, &w, key.ends_with("at_sea"), c, color)?);
         }
         fade_in_all(stage, &plot, 0.7)?;
         line.wait_end(stage)?;
@@ -1117,6 +1165,62 @@ mod tests {
             ..fmn::scene::RuntimeConfig::default()
         };
         fmn::run_scene(&mut Probe(f), config, 7, &mut fmn::scene::NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 13_5: the curve's two labels stand on a plate, and the plates cover
+    /// nothing of the curve and each other. "estimated: 1.05" in teal was
+    /// written across the 1968 map's heat cells, which run behind the plot.
+    #[test]
+    fn the_curves_labels_stand_on_plates_clear_of_the_curve_and_each_other() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap().parse::<f64>().unwrap();
+        let (c_sea, c_after) = (get("F-S.F6.coverage.at_sea"), get("F-S.F6.coverage.after"));
+        let w = curve_window();
+        run(|stage| {
+            let kit = Kit::new()?;
+            let mut plates: Vec<(f64, f64, f64, f64)> = Vec::new();
+            for (believed, c) in [(true, c_sea), (false, c_after)] {
+                let label = coverage_label(&kit, stage, &w, believed, c, wrong())?;
+                let kids = explainer_kit::children(stage, label);
+                assert_eq!(kids.len(), 2, "a plate and the words");
+                let (back, words) = (kids[0], kids[1]);
+                assert!(
+                    stage.get_fill_opacity(back).unwrap_or(0.0) >= 0.85,
+                    "the plate is see-through"
+                );
+                let (bc, bw, bh) = (stage.get_center(back), stage.get_width(back), stage.get_height(back));
+                let (wc, ww, wh) = (stage.get_center(words), stage.get_width(words), stage.get_height(words));
+                // the plate is the words' box and the pad each side
+                assert!((bw - ww - 2.0 * PLATE_PAD.0).abs() < 1e-6 && (bh - wh - 2.0 * PLATE_PAD.1).abs() < 1e-6);
+                assert!((bc[0] - wc[0]).abs() < 1e-6 && (bc[1] - wc[1]).abs() < 1e-6);
+                let plate = (bc[0] - bw / 2.0, bc[0] + bw / 2.0, bc[1] - bh / 2.0, bc[1] + bh / 2.0);
+                // the words read what the point says
+                assert_eq!(
+                    coverage_words(believed, c),
+                    if believed {
+                        "believed: 2.8 times over"
+                    } else {
+                        "estimated: 1.05"
+                    }
+                );
+                // no point of the curve is under the plate
+                for k in 0..=350 {
+                    let x = f64::from(k) / 100.0;
+                    let p = w.p(x, 100.0 * koopman::random_search(x));
+                    assert!(
+                        !(p[0] >= plate.0 && p[0] <= plate.1 && p[1] >= plate.2 && p[1] <= plate.3),
+                        "the curve at coverage {x} is under the plate of {believed}: {plate:?}"
+                    );
+                }
+                plates.push(plate);
+            }
+            let (a, b) = (plates[0], plates[1]);
+            assert!(
+                a.1 < b.0 || b.1 < a.0 || a.3 < b.2 || b.3 < a.2,
+                "the plates meet: {a:?} {b:?}"
+            );
+            Ok(())
+        });
     }
 
     /// R2 (R7): what the paper's letters mean, and that they are the video's
