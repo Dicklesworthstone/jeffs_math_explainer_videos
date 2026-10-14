@@ -610,6 +610,8 @@ footbridge-specific deflection limit.
 | `K-V2.hz.1` | 4.3 |
 | `K-V2.direction` | down |
 | `K-V2.naive_hz` | 4.2 |
+| `K-V2.hz_2dp` | 4.32 |
+| `K-V2.naive_hz_2dp` | 4.18 |
 
 ### Small rooms
 

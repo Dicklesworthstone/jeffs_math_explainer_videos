@@ -525,6 +525,8 @@ def truss(carts_table):
     emit("K-V2.hz.1", fixed(heavy[0], 1))
     emit("K-V2.direction", "down" if heavy[0] < hz[0] else "up")
     emit("K-V2.naive_hz", fixed(hz[0] / math.sqrt(2), 1))
+    emit("K-V2.hz_2dp", fixed(heavy[0], 2))
+    emit("K-V2.naive_hz_2dp", fixed(hz[0] / math.sqrt(2), 2))
 
     # K-X3 and K-X4, which need the same pieces
     loose = np.linalg.eigvalsh(b_all.T @ np.diag(springs) @ b_all)

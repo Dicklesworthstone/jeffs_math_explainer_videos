@@ -713,6 +713,9 @@ fn vibration(f: &mut Facts) -> Result<(), String> {
     f.add("K-V2.direction", if heavy[0] < hz[0] { "down" } else { "up" })?;
     // what dividing by the square root of two would give, were the steel doubled too
     f.add("K-V2.naive_hz", fixed(hz[0] / 2f64.sqrt(), 1)?)?;
+    // the same two to two decimals, which 07_5 shows beside 5.91 Hz
+    f.add("K-V2.hz_2dp", fixed(heavy[0], 2)?)?;
+    f.add("K-V2.naive_hz_2dp", fixed(hz[0] / 2f64.sqrt(), 2)?)?;
     Ok(())
 }
 
@@ -1442,6 +1445,19 @@ mod tests {
         assert!(modes.iter().all(|(_, hz)| *hz < 149.0), "none is near 150 Hz");
         assert_eq!(f.get("K-Q.09_4.answer"), Some("68.6"));
         assert_eq!(tones[0], 68.6);
+    }
+
+    /// 07_5 sets 4.32 Hz (twice the deck, the steel as it is) against 4.18
+    /// (5.91 divided by the root of two, as if the steel had doubled too).
+    #[test]
+    fn the_heavier_deck_is_four_point_three_two_and_not_four_point_one_eight() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("K-V1.hz_2dp").unwrap().split(',').next(), Some("5.91"));
+        assert_eq!(f.get("K-V2.hz_2dp"), Some("4.32"));
+        assert_eq!(f.get("K-V2.naive_hz_2dp"), Some("4.18"));
+        // slower than the light deck, and by less than the naive halving of the mass would say
+        let (light, heavy, naive) = (5.91f64, 4.32f64, 4.18f64);
+        assert!(heavy < light && heavy > naive);
     }
 
     /// What 06_7's card and 07_1's lower-third say, as numbers: a sharp load
