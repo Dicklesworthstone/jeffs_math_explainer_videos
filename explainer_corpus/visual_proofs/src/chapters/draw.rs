@@ -931,9 +931,16 @@ pub const COUNTED: &str = "Counted, not drawn";
 /// across the foot of the frame, the same in every chapter. Keep the picture
 /// above `CARD_TOP` when the card comes. Two rows end at y = −2.88, three at
 /// −3.38, and a statement of two lines is 0.34 more (the card then rises, to
-/// keep its foot inside the frame's safe area; the lower-third's band is in
-/// the way of a third row: fade it).
+/// keep its foot [`CARD_FOOT_CLEAR`] above the frame's edge; the lower-third's
+/// band is in the way of a third row: fade it). A card that rises stands its
+/// top above `CARD_TOP`: the picture over it keeps clear of that top.
 pub const CARD_TOP: f64 = -1.6;
+/// How far above the frame's bottom edge a card's foot stands at lowest: the
+/// strip a player's control bar covers (about 36 px of 540). It was the layout
+/// lint's 0.15 margin, which left the two cards that rise (chapters 11 and
+/// 12) ending 9 px from the edge, under the bar. 0.5 keeps the lowest of the
+/// other cards (chapter 09's, at 0.78 of the size, ends 0.548 up) where it was.
+pub const CARD_FOOT_CLEAR: f64 = 0.5;
 pub const CARD_W: f64 = 12.8;
 pub const CARD_PT: f64 = 30.0;
 const CARD_REASON_PT: f64 = 26.0;
@@ -1122,7 +1129,7 @@ impl ProofCard {
     /// As [`ProofCard::build`], somewhere else or at another size. A
     /// statement that would be set smaller than [`CARD_FLOOR`] of its size
     /// takes two lines, and the card grows to hold them (it rises, so that
-    /// its foot stays inside the frame's safe area).
+    /// its foot stays [`CARD_FOOT_CLEAR`] above the frame's edge).
     pub fn build_at(kit: &Kit, stage: &mut Stage<'_>, rows: &[CardRow<'_>], look: CardLook) -> fmn::Result<Self> {
         if rows.is_empty() {
             return Err(fail("the card needs at least one line".into()));
@@ -1170,7 +1177,7 @@ impl ProofCard {
         // the card's height, and its top: a taller card rises
         let heights: Vec<f64> = built.iter().map(|(.., pitch)| CARD_ROW * k + pitch).collect();
         let h = 2.0 * CARD_PAD * k + heights.iter().sum::<f64>();
-        let top = look.top.max(-FRAME_Y_RADIUS + 0.15 + h);
+        let top = look.top.max(-FRAME_Y_RADIUS + CARD_FOOT_CLEAR + h);
         let back = Rectangle::new()
             .width(w)
             .height(h)
@@ -2585,6 +2592,55 @@ mod tests {
             "chapters in order"
         );
         assert!(shelf.windows(2).all(|w| w[0].slot < w[1].slot), "slots left to right");
+    }
+
+    /// The dense read of the scored draft (mx-e-a-dza.10): the two cards that
+    /// rise (chapters 11 and 12) ended 0.15 above the frame's edge, 9 px at
+    /// 540p, where a player's control bar covers them. A card's foot now
+    /// stands at least [`CARD_FOOT_CLEAR`] above the edge however many rows
+    /// it has, and a card that fits its band keeps its top at [`CARD_TOP`].
+    #[test]
+    fn a_card_that_rises_keeps_its_foot_clear_of_the_players_controls() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let floor = -FRAME_Y_RADIUS + CARD_FOOT_CLEAR;
+                for rows in 2..=7usize {
+                    let lines: Vec<CardRow<'_>> = (0..rows)
+                        .map(|i| {
+                            if i == 0 {
+                                CardRow::Shown(Words::Text("a statement"))
+                            } else {
+                                CardRow::Assumed(Words::Text("an assumption"))
+                            }
+                        })
+                        .collect();
+                    let card = ProofCard::build(&kit, stage, &lines)?;
+                    let (top, foot) = (stage.get_top(card.back)[1], stage.get_bottom(card.back)[1]);
+                    assert!(
+                        foot >= floor - 5e-3,
+                        "{rows} rows: the foot is {foot:.3}, under {floor:.3}"
+                    );
+                    if top - CARD_TOP > 5e-3 {
+                        // it rose, and stops where the floor is
+                        assert!((foot - floor).abs() < 5e-3, "{rows} rows: top {top:.3}, foot {foot:.3}");
+                    } else {
+                        assert!((top - CARD_TOP).abs() < 5e-3, "{rows} rows: top {top:.3}");
+                    }
+                }
+                // a card of two rows is where it was
+                let two = ProofCard::build(
+                    &kit,
+                    stage,
+                    &[CardRow::Shown(Words::Text("a")), CardRow::Assumed(Words::Text("b"))],
+                )?;
+                assert!((stage.get_bottom(two.back)[1] + 2.88).abs() < 5e-3);
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
     }
 
     /// CIE L*a*b* (D65) of an sRGB colour.

@@ -59,8 +59,17 @@ const ROOM_CUBE: (f64, f64) = (5.6, 4.0);
 const CENTRE_CUBE: (f64, f64) = (-3.7, 0.7);
 const ROOM_ROW: (f64, f64) = (12.6, 2.8);
 const CENTRE_ROW: (f64, f64) = (0.0, 0.6);
-const ROOM_PAIR: (f64, f64) = (6.8, 3.0);
-const CENTRE_PAIR: (f64, f64) = (-3.4, 0.7);
+/// The pair of 12_7 is a tenth smaller than it was (3.0 high, centred at
+/// 0.7): the card there rises to keep its foot clear of a player's control
+/// bar, and its top stands 0.35 higher. The width is not what limits the
+/// picture, and it is what the shelf's thumbnail is scaled by, so it stays.
+const ROOM_PAIR: (f64, f64) = (6.8, 2.7);
+const CENTRE_PAIR: (f64, f64) = (-3.4, 0.85);
+/// How far under the corner of its cube the "x 3" and "x 2" stand.
+const TAG_DROP: f64 = 0.6;
+/// The least room between the lowest of the picture and the card's top.
+#[cfg(test)]
+const CARD_GAP: f64 = 0.1;
 /// How bright a face is: the top, the front and the right side.
 const SHADES: [f64; 3] = [1.0, 0.74, 0.52];
 /// Where the count of the fourth power's blocks is set: under the shelf's floor.
@@ -124,8 +133,11 @@ fn blend(a: Srgb, b: Srgb, t: f64) -> Srgb {
     }
 }
 
+/// `a` at `t` = 0 and `b` at `t` = 1, both exactly (`a + (b - a) * t` is a
+/// rounding off `b` at 1 for some values, and a blended view must end on the
+/// fitted one).
 fn lerp(a: f64, b: f64, t: f64) -> f64 {
-    a + (b - a) * t
+    a * (1.0 - t) + b * t
 }
 
 /// The boxes of the picture: for each of the sixteen (eight blocks of the
@@ -546,6 +558,36 @@ fn sum_parts(each: &[i64], counts: &[i64], total: i64) -> Vec<(String, Srgb)> {
     parts
 }
 
+/// The "x 3" and "x 2" under the two cubes of the pair, each under the
+/// middle of its cube's front foot. Detached.
+fn count_tags(kit: &Kit, stage: &mut Stage<'_>, pair_view: &ViewAt, side: f64) -> fmn::Result<Vec<Mob>> {
+    let mut tags = Vec::new();
+    for (set, words) in TIMES.iter().enumerate() {
+        let off = if set == 0 { 0.0 } else { side + PAIR_GAP };
+        let x0 = pair_view.project([off, 0.0, 0.0]);
+        let x1 = pair_view.project([off + side, 0.0, 0.0]);
+        tags.push(kit.text(stage, words, 40.0, hero(), v((x0[0] + x1[0]) / 2.0, x0[1] - TAG_DROP))?);
+    }
+    Ok(tags)
+}
+
+/// 12_7's card: the statement for the square and the cube, what the cut took
+/// for granted, and the fourth power, counted and not drawn. Detached.
+fn proof_card(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<ProofCard> {
+    let shown = format!(
+        "\\text{{{LENGTHS} }} a \\text{{ and }} b\\text{{: }} (a+b)^{{2}}=a^{{2}}+2ab+b^{{2}} \\text{{ and }} (a+b)^{{3}}=a^{{3}}+3a^{{2}}b+3ab^{{2}}+b^{{3}}\\text{{, each block counted once}}"
+    );
+    ProofCard::build(
+        kit,
+        stage,
+        &[
+            CardRow::Shown(Words::Tex(&shown)),
+            CardRow::Assumed(Words::Text(FILL_EXACTLY)),
+            CardRow::Counted(Words::Text(THE_FOURTH)),
+        ],
+    )
+}
+
 /// The picture this card files, rebuilt as it stands on the shelf (the
 /// chapters after this one open with the shelf so far): the cube and its
 /// copy, the blocks in their kinds' colours, "x 3" and "x 2" under them, the
@@ -567,12 +609,7 @@ pub fn thumb(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
     stage.clear_updaters(cube.anchor, true);
     let mut picture = cube.all_faces();
     let pair_view = views(side, long as f64)[2];
-    for (set, words) in TIMES.iter().enumerate() {
-        let off = if set == 0 { 0.0 } else { side + PAIR_GAP };
-        let x0 = pair_view.project([off, 0.0, 0.0]);
-        let x1 = pair_view.project([off + side, 0.0, 0.0]);
-        picture.push(kit.text(stage, words, 40.0, hero(), v((x0[0] + x1[0]) / 2.0, x0[1] - 0.7))?);
-    }
+    picture.extend(count_tags(kit, stage, &pair_view, side)?);
     let a = pair_view.project([side, side / 2.0, side / 2.0]);
     let b = pair_view.project([side + PAIR_GAP, side / 2.0, side / 2.0]);
     let dashed = DashedLine::new(a, b)
@@ -862,13 +899,7 @@ impl SceneConstruct for TheCutCube {
         play_all(stage, &[(cube.pair, 1.0, 1.4)])?;
         let pair_view = views(side, long as f64)[2];
         let blocks_four = fact("F-B.fourth.blocks")?;
-        let mut tags = Vec::new();
-        for (set, words) in TIMES.iter().enumerate() {
-            let off = if set == 0 { 0.0 } else { side + PAIR_GAP };
-            let x0 = pair_view.project([off, 0.0, 0.0]);
-            let x1 = pair_view.project([off + side, 0.0, 0.0]);
-            tags.push(kit.text(stage, words, 40.0, hero(), v((x0[0] + x1[0]) / 2.0, x0[1] - 0.7))?);
-        }
+        let tags = count_tags(&kit, stage, &pair_view, side)?;
         let dashed = {
             let a = pair_view.project([side, side / 2.0, side / 2.0]);
             let b = pair_view.project([side + PAIR_GAP, side / 2.0, side / 2.0]);
@@ -915,18 +946,7 @@ impl SceneConstruct for TheCutCube {
         fade_out_all(stage, &away, 0.4)?;
         #[cfg(test)]
         super::draw::quiz_log::record(&kit.chapter, "12_7", "table_out", stage.scene().time().to_f64());
-        let shown = format!(
-            "\\text{{{LENGTHS} }} a \\text{{ and }} b\\text{{: }} (a+b)^{{2}}=a^{{2}}+2ab+b^{{2}} \\text{{ and }} (a+b)^{{3}}=a^{{3}}+3a^{{2}}b+3ab^{{2}}+b^{{3}}\\text{{, each block counted once}}"
-        );
-        let mut proof = ProofCard::build(
-            &kit,
-            stage,
-            &[
-                CardRow::Shown(Words::Tex(&shown)),
-                CardRow::Assumed(Words::Text(FILL_EXACTLY)),
-                CardRow::Counted(Words::Text(THE_FOURTH)),
-            ],
-        )?;
+        let mut proof = proof_card(&kit, stage)?;
         proof.show(stage, 0.6)?;
         let ring = lens(stage);
         let unit = 0.55;
@@ -1465,6 +1485,73 @@ mod tests {
                 assert!(apart(count, other), "the counts of kinds {j} and {k} meet");
             }
         }
+    }
+
+    /// 12_7 (the dense read of the scored draft, mx-e-a-dza.10): the card's
+    /// foot stands at least `CARD_FOOT_CLEAR` above the frame's edge (it
+    /// ended 9 px up, under a player's control bar), and the card, which
+    /// rises to keep it there, stays clear of the pair of cubes, their
+    /// "x 3" and "x 2", and the close-up ring; the pair still stands under
+    /// the count of the fourth power's blocks.
+    #[test]
+    fn the_card_stands_clear_of_the_controls_and_the_pair_clear_of_the_card() {
+        use super::super::draw::{CARD_FOOT_CLEAR, CARD_TOP, LENS_R};
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let (a, total) = parts();
+                let pair_view = views(total, a)[2];
+                let tags = count_tags(&kit, stage, &pair_view, total)?;
+                let count = kit.text(stage, &fact("F-B.fourth.blocks")?, 56.0, hero(), v(-3.4, COUNT_Y))?;
+                let card = proof_card(&kit, stage)?;
+                let (top, foot) = (stage.get_top(card.back)[1], stage.get_bottom(card.back)[1]);
+                // the lowest and the highest of the blocks, as the pair projects them
+                let pair = Vals {
+                    a,
+                    drift: 0.0,
+                    row: 0.0,
+                    pair: 1.0,
+                    kinds: 1.0,
+                };
+                let (mut low, mut high) = (f64::INFINITY, f64::NEG_INFINITY);
+                for p in layout(total, pair) {
+                    for m in 0..8usize {
+                        let c = [0, 1, 2].map(|k| if m >> k & 1 == 1 { p.hi[k] } else { p.lo[k] });
+                        let y = pair_view.project(c)[1];
+                        low = low.min(y);
+                        high = high.max(y);
+                    }
+                }
+                let tags_low = tags
+                    .iter()
+                    .map(|&t| stage.get_bottom(t)[1])
+                    .fold(f64::INFINITY, f64::min);
+                let count_foot = stage.get_bottom(count)[1];
+                eprintln!(
+                    "card top {top:.3} foot {foot:.3}; blocks {low:.3}..{high:.3}, tags down to {tags_low:.3}, count from {count_foot:.3}"
+                );
+                let floor = -FRAME_Y_RADIUS + CARD_FOOT_CLEAR;
+                assert!(foot >= floor - 1e-9, "the card's foot is {foot:.3}, under {floor:.3}");
+                assert!(top > CARD_TOP + 0.1, "the card's top is {top:.3}: it did not rise");
+                assert!(
+                    low >= top + CARD_GAP - 1e-9,
+                    "the blocks' foot {low:.3} is under the card's top {top:.3}"
+                );
+                assert!(
+                    tags_low >= top + CARD_GAP - 1e-9,
+                    "the tags' foot {tags_low:.3} is under the card's top {top:.3}"
+                );
+                assert!(
+                    high <= count_foot + 1e-9,
+                    "the blocks reach {high:.3}, the count starts {count_foot:.3}"
+                );
+                assert!(LENS_AT[1] - LENS_R > top, "the ring meets the card");
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
     }
 
     /// 12_7 (the dense read of the narrated draft): the card's close-up

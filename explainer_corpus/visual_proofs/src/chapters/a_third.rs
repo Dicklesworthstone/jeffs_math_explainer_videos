@@ -32,9 +32,16 @@ pub struct AThird {
 
 /// The lower left corner of the unit square on screen, and its side. The
 /// square keeps below the shelf's row (`SHELF_FLOOR`) and above the card's
-/// top, so it never moves.
-const SQUARE_AT: Vec3 = [-6.0, -1.35, 0.0];
-const SIDE: f64 = 4.3;
+/// top, so it never moves. The card rises (its statement is two lines of
+/// fractions), and since its foot stands `CARD_FOOT_CLEAR` above the frame's
+/// edge its top stands above `CARD_TOP`: the square's foot stands
+/// [`CARD_GAP`] over that top (it was 4.3 wide and ended 0.06 over a card
+/// whose foot stood 9 px from the edge, under a player's control bar).
+const SQUARE_AT: Vec3 = [-6.0, -0.95, 0.0];
+const SIDE: f64 = 3.9;
+/// The least room between the square's foot and the card's top.
+#[cfg(test)]
+const CARD_GAP: f64 = 0.1;
 /// How many levels of the cascade are drawn.
 const LEVELS: u32 = 8;
 /// The type size of the label of each of the first three coloured pieces.
@@ -214,6 +221,28 @@ fn fit_answer(stage: &mut Stage<'_>, card: &QuizCard) -> f64 {
     y = y.max(bottom + h / 2.0);
     stage.move_to(card.answer, v(c[0], y), ORIGIN);
     h
+}
+
+/// 11_6's card: the statement with its sum and its limit, and the two
+/// things the picture took for granted. Detached.
+fn proof_card(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<ProofCard> {
+    let mut sum: Vec<String> = list("F-R.pieces")?.iter().map(|p| frac_tex(p)).collect();
+    sum.push("\\cdots".to_owned());
+    let shown = format!(
+        "\\text{{for every }} n \\text{{ from 1, after }} n \\text{{ cuts each colour holds }} \
+         \\frac13-\\frac{{1}}{{3\\cdot 4^{{n}}}}\\text{{, and the corner goes below any size, so }} {} = {}",
+        sum.join("+"),
+        frac_tex(&fact("F-R.limit")?)
+    );
+    ProofCard::build(
+        kit,
+        stage,
+        &[
+            CardRow::Shown(Words::Tex(&shown)),
+            CardRow::Assumed(Words::Text(THREE_EQUAL)),
+            CardRow::Assumed(Words::Text(THREE_STRIPS)),
+        ],
+    )
 }
 
 /// The picture this card files, rebuilt as it stands on the shelf (the
@@ -472,21 +501,7 @@ impl SceneConstruct for AThird {
         // the card; Archimedes and Ajose and Nelsen
         let line = say(&kit, stage, "11_6")?;
         fade_out_all(stage, &[third, step, quarter], 0.4)?;
-        let shown = format!(
-            "\\text{{for every }} n \\text{{ from 1, after }} n \\text{{ cuts each colour holds }} \
-             \\frac13-\\frac{{1}}{{3\\cdot 4^{{n}}}}\\text{{, and the corner goes below any size, so }} {} = {}",
-            sum.join("+"),
-            frac_tex(&limit)
-        );
-        let mut card = ProofCard::build(
-            &kit,
-            stage,
-            &[
-                CardRow::Shown(Words::Tex(&shown)),
-                CardRow::Assumed(Words::Text(THREE_EQUAL)),
-                CardRow::Assumed(Words::Text(THREE_STRIPS)),
-            ],
-        )?;
+        let mut card = proof_card(&kit, stage)?;
         card.show(stage, 0.6)?;
         // the close-up of the fit the first line names: three twins
         let ring = lens(stage);
@@ -734,6 +749,37 @@ mod tests {
                 assert!(stage.get_bottom(card.answer)[1] > at[1] - h / 2.0 + ANSWER_FOOT - 1e-9);
                 assert!(stage.get_left(card.answer)[0] > at[0] - w / 2.0 + 0.2);
                 assert!(stage.get_right(card.answer)[0] < at[0] + w / 2.0 - 0.2);
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
+    }
+
+    /// 11_6 (the dense read of the scored draft, mx-e-a-dza.10): the card's
+    /// foot stands at least `CARD_FOOT_CLEAR` above the frame's edge (it
+    /// ended 9 px up, under a player's control bar), and the card, which
+    /// rises to keep it there, stays clear of the square and of the close-up
+    /// ring over it.
+    #[test]
+    fn the_card_stands_clear_of_the_controls_and_the_square_clear_of_the_card() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let card = proof_card(&kit, stage)?;
+                let (top, foot) = (stage.get_top(card.back)[1], stage.get_bottom(card.back)[1]);
+                eprintln!("card top {top:.3}, foot {foot:.3}; square foot {:.3}", SQUARE_AT[1]);
+                let floor = -FRAME_Y_RADIUS + super::super::draw::CARD_FOOT_CLEAR;
+                assert!(foot >= floor - 1e-9, "the card's foot is {foot:.3}, under {floor:.3}");
+                // it rose: this is the card that did
+                assert!(top > super::super::draw::CARD_TOP + 0.1, "the card's top is {top:.3}");
+                assert!(
+                    SQUARE_AT[1] >= top + CARD_GAP - 1e-9,
+                    "the square's foot {:.3} is under the card's top {top:.3} + {CARD_GAP}",
+                    SQUARE_AT[1]
+                );
+                assert!(LENS_AT[1] - super::super::draw::LENS_R > top, "the ring meets the card");
                 Ok(())
             }
         }

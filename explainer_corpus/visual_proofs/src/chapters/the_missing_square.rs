@@ -391,6 +391,40 @@ pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
     Ok(vec![super::draw::empty_slot(stage, SLOT)?])
 }
 
+/// How far right of the bend 14_5's two window labels start, and how far
+/// under the red edge, where it stands there, the first one's top is.
+const LABEL_X: f64 = 0.3;
+const LABEL_UNDER: f64 = 0.15;
+/// The room between the two labels.
+const LABEL_PITCH: f64 = 0.1;
+
+/// 14_5's two labels of the window, "hangs off the line by" and the dip, one
+/// under the other, left-aligned, right of the bend and under the red edge.
+/// Both lines of the close-up climb to the right (the white straight edge
+/// above the red one), so the room under the red edge's left end is clear
+/// of both; where the caption stood, centred 1.75 right of the bend, the
+/// white line ran through its first words and its last word touched the
+/// window's border. `steep` is the red edge's slope right of the bend.
+/// Detached.
+fn window_labels(kit: &Kit, stage: &mut Stage<'_>, dip: &str, steep: f64) -> fmn::Result<(Mob, Mob)> {
+    let left = WINDOW_AT[0] + LABEL_X;
+    let top = WINDOW_AT[1] + steep * LABEL_X - LABEL_UNDER;
+    let off_by = kit.text(stage, OFF_BY, 22.0, dim(), ORIGIN)?;
+    let dip_text = kit.tex(
+        stage,
+        &format!("{}\\;\\text{{{A_TILE}}}", frac_tex(dip)),
+        34.0,
+        hero(),
+        &[],
+        ORIGIN,
+    )?;
+    let h = stage.get_height(off_by);
+    stage.move_to(off_by, v(left, top - h / 2.0), LEFT);
+    let h2 = stage.get_height(dip_text);
+    stage.move_to(dip_text, v(left, top - h - LABEL_PITCH - h2 / 2.0), LEFT);
+    Ok((off_by, dip_text))
+}
+
 impl SceneConstruct for TheMissingSquare {
     fn name(&self) -> &str {
         "14_the_missing_square"
@@ -668,21 +702,7 @@ impl SceneConstruct for TheMissingSquare {
                 .style(faded_line(hero(), 3.0, 1.0))
                 .build(),
         );
-        let off_by = kit.text(
-            stage,
-            OFF_BY,
-            22.0,
-            dim(),
-            v(WINDOW_AT[0] + 1.75, WINDOW_AT[1] + up / 2.0 + 0.35),
-        )?;
-        let dip_text = kit.tex(
-            stage,
-            &format!("{}\\;\\text{{{A_TILE}}}", frac_tex(&dip)),
-            34.0,
-            hero(),
-            &[],
-            v(WINDOW_AT[0] + 1.75, WINDOW_AT[1] + up / 2.0 - 0.15),
-        )?;
+        let (off_by, dip_text) = window_labels(&kit, stage, &dip, lie::slope(&first.small).to_f64())?;
         line.wait_for(stage, "It bends")?;
         let mut window_in = vec![back, title];
         window_in.extend(&inside);
@@ -1038,6 +1058,61 @@ mod tests {
         }
         // the thickest the sliver is
         assert_eq!(fact("F-L.sliver.thickest").unwrap(), "1/8");
+    }
+
+    /// 14_5 (the dense read of the scored draft, mx-e-a-dza.10): the window's
+    /// two labels stand clear of both lines of the close-up and of its
+    /// border. The white line ran through "hangs off the line by", and its
+    /// last word touched the window's right border.
+    #[test]
+    fn the_window_labels_stand_clear_of_both_lines_and_the_border() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let first = lie::first();
+                let steep = lie::slope(&first.small).to_f64();
+                let (sn, sd) = parts(&fact("F-L.straight_slope")?)?;
+                let straight = sn as f64 / sd as f64;
+                let (off_by, dip) = window_labels(&kit, stage, &fact("F-L.dip")?, steep)?;
+                // the two lines of the close-up, as the scene sets them: the
+                // red edge through the bend, steeper to its right, and the
+                // white straight edge above it by the bracket's height
+                let sag = lie::straight_edge_at(first.bend.0) - lie::edge_at(&first, first.bend.0);
+                let up = sag.to_f64() * MED_CELL * ZOOM;
+                let red = |x: f64| WINDOW_AT[1] + steep * (x - WINDOW_AT[0]);
+                let white = |x: f64| WINDOW_AT[1] + up + straight * (x - WINDOW_AT[0]);
+                let (right_edge, floor) = (WINDOW_AT[0] + WINDOW.0 / 2.0, WINDOW_AT[1] - WINDOW.1 / 2.0);
+                let mut below = f64::INFINITY;
+                for (what, m) in [("caption", off_by), ("dip", dip)] {
+                    let (l, r) = (stage.get_left(m)[0], stage.get_right(m)[0]);
+                    let (t, b) = (stage.get_top(m)[1], stage.get_bottom(m)[1]);
+                    eprintln!(
+                        "{what}: x {l:.2}..{r:.2}, y {b:.2}..{t:.2}; red {:.2} at its left",
+                        red(l)
+                    );
+                    // right of the bracket, a hand inside the border and the floor
+                    assert!(l > WINDOW_AT[0] + 0.1, "{what} reaches the bracket: {l:.2}");
+                    assert!(
+                        r <= right_edge - 0.3,
+                        "{what} ends at {r:.2}, the border is at {right_edge:.2}"
+                    );
+                    assert!(b >= floor + 0.2, "{what} ends at {b:.2}, the border is at {floor:.2}");
+                    // both lines climb right: under the red edge's left end is under both
+                    assert!(white(l) > red(l));
+                    assert!(
+                        t <= red(l) - 0.1,
+                        "{what}'s top {t:.2} meets the red edge ({:.2})",
+                        red(l)
+                    );
+                    assert!(t <= below, "the labels are one over the other");
+                    below = b - 0.02;
+                }
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
     }
 
     /// The clipping of a window and the magnifier: a segment through the
