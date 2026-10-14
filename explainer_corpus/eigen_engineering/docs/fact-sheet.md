@@ -124,18 +124,21 @@ at the end was copied from the oracle's output by a script, not typed.
    Scanlan's page quotations were read by the research pass in the scan at
    ketchum.org; the copy kept outside the repository holds only the
    abstract, so at R1 they were not re-read (the board's report and the
-   abstract were).
+   abstract were). At R2 the scan's page 3 (journal p. 120) was re-read and
+   is quoted in S7 below.
 9. **Sabine did not design Symphony Hall, and 0.161 is not his number.** He
    advised its architects (his 1900 paper takes "the new Boston Music Hall"
-   as its example); his own metric constant was 0.164. The script says
-   "worked that way on"; the screen shows 0.161 as the modern constant.
+   as its example); his own metric constant was 0.164. The card says
+   "Sabine advised the architects of Boston Symphony Hall, which opened in
+   1900" (R2 R-09 removed "worked out this way before it was built", which no
+   source row records); the screen shows 0.161 as the modern constant.
 10. **"Eigen" before eigenvalues: the same word, and no more than that.**
     Helmholtz writes of the *Eigentöne* of a body of air in 1863 (and of
     "eigene Töne" of an enclosed mass of air in 1860); Hilbert introduces
     *Eigenfunktionen* and *Eigenwerte* in 1904, for integral equations, and
     his Eigenwerte are the reciprocals of today's eigenvalues. Whether
-    Hilbert had Helmholtz's word in mind is conjecture (Aldrich). 09_4
-    states the two dates and the gap.
+    Hilbert had Helmholtz's word in mind is conjecture (Aldrich). The card
+    in 09_5's listen window states the two dates and the gap.
 11. **The model hall is a box with Boston's volume, not Boston's hall.**
     45 by 23 by 18 m is 18,630 m³ against Beranek's 18,750 (99.4%,
     `K-H1.volume_percent`). Beranek's own width, height and length (22.9,
@@ -171,9 +174,9 @@ After review R1 (line ids are the revised storyboard's).
 | mix | 04_2 | "That push is a mix of the two patterns" | the split; "superposition" in a lower-third |
 | stiffness | 04_3 | "for springs its eigenvalue is called stiffness" | two rungs, ÷ 1 and ÷ 3 |
 | member, joint | 05_1 to 05_3 | "a frame of steel triangles"; "Each joint can move sideways and up or down" | the truss drawing itself |
-| mode | 07_1 | "the own patterns shift a little into the structure's modes" | K's pattern 1 ghosted under the first mode |
+| mode | 07_1 | "at the low end the own patterns shift a little into what engineers call modes" | K's pattern 1 ghosted under the first mode |
 | hertz | 07_2 | "swings five point nine times a second. Five point nine hertz." | 5.9 Hz |
-| negative damping | 08_7 | "something that pushed along with it. Engineers call that negative damping." | both bridges' modes in gold; "aeroelastic flutter" in a lower-third at 08_3 |
+| damping, negative damping | 08_7 | "a push that grew with it. Damping drains a swing, so engineers call this negative damping." | both bridges' modes in gold; "aeroelastic flutter" in a lower-third at 08_3 |
 | Schroeder frequency | 10_6 | "Where three or more modes crowd into one blur, they merge. The crossover is called the Schroeder frequency" | a marker at 20 Hz |
 | symmetric | 14_3 | "Tables like the bridge's and the room's are symmetric, so they always have enough" (after P3, decisions D-49; the gloss is the lower-third) | the carts' table with its mirror line (first shown at 05_4), "the same on both sides of the diagonal" |
 
@@ -233,6 +236,19 @@ the first wording was.
 | 13_7 | "At one or more, some demand cannot." | the table [[1.1, 0], [0.3, 0.2]], which splits and has largest eigenvalue 1.1, against the demand (0, 1) | it meets it, with plan (0, 1.25); the first wording ("the economy cannot keep up") failed for tables that split (D-48) |
 | 09_5 | "near a hundred and seven hertz the room hums back" (the picture) | every tone of the 2.5 × 1.6 × 2.4 m bathroom from 60 to 150 Hz | nine: 68.6, 71.5, 99.1, 107.2, 127.3, 128.8, 137.2, 142.9, 146.0. The words are true; the first picture named four as if they were the list (D-53) |
 
+Edges found by the R2 readers and recomputed here (2026-10-13), same method.
+
+| Line | Sentence | Edge test | Result |
+|---|---|---|---|
+| 06_6 | "Good enough for how far this load sags." | the softest pattern alone against the drop under a lone 100 kN load at 4, 8 and 12 m, and how many patterns a lone midspan load needs | 41.8%, 75.8% and 86.3%; 10 patterns for 2.5% at midspan. True of the five-load deck load (99.6%), not of a sharp one; "this load" (R2 D5, D-55) |
+| 07_1 | "At the low end the own patterns shift a little into what engineers call modes" | squared overlap of mode i with K's own pattern i, first eight | 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, 0.10, 0.02: true of the lowest few only, hence "at the low end" (R2 R-04); a fact to pin: `K-V1.overlap.*` |
+| 13_3 | "The economy keeps three tenths of equal amounts of each." | what is kept of (10, 10), (30, 10) and (10, 30) | 30%, 35%, 25%: three tenths is true of equal amounts only (R2 D4, M-30) |
+| 13_4 | "eighteen of one pattern and four of the other" | the dot-product recipe of 06_5 on (30, 10) against solving the two equations | the recipe gives (20, 5.38) and rebuilds (36.2, 9.2); the patterns (1, 1) and (3, −2) are not at right angles, so the shares are solved: 18 and 4 (R2 D3) |
+| 11_3, 11_4 | "Which has several modes on exactly one tone" | the P3 walk's enumeration, windows of 0.5, 2 and 4.4 Hz (4.4 Hz is the small room's own mode width, 2.2 ÷ 0.5 s), below 100 and below 200 Hz | most modes in one window of 0.5, 2 and 4.4 Hz. Below 100 Hz: cube 3, 3, 3; narrow room 1, 1, 3; ordinary room 1, 2, 3. Below 200 Hz: cube 6, 6, 6; narrow and ordinary 2, 4, 6. The cube is never worse, is the only room with exact coincidences, and ties at 4.4 Hz, hence "exactly one tone" (R2 D16) |
+| 01_2 | "One calculation finds them." | the quarter turn against "all" | 14_5's counter-case: a rotation has no real pattern to find, so "all" was dropped (R2 R-16) |
+| 08_3 | "the wind's push followed the motion, and gave more than it took back" | per swing at a steady amplitude | input equals loss there; the line is about the swings that grew, "what grew was one twisting mode" (R2 R-14) |
+| 10_1 | "every tone of a box with hard walls" | the P3 walk's enumeration against the formula | all triples (nx, ny, nz) not all zero, each one tone; the formula is for hard walls (R2 audit item 2) |
+
 ## Sources
 
 Read by a research pass on 2026-10-12 and 13; the texts stay outside the
@@ -278,7 +294,15 @@ repository. **Seen** means the passage was read in the source itself;
   "Emergence of the London Millennium Bridge instability without
   synchronisation", *Nature Communications* 12:7223 (2021). Seen. "increased
   coherence of pedestrians' foot placement is a consequence of, not a cause
-  of the instability."
+  of the instability." For 08_5's "to keep their balance" (R2, 2026-10-13, the
+  open copy at PubMed Central, PMC8664840, read through a page-fetch
+  extraction; to be re-read in a saved copy): Methods, "Therefore, the primary
+  objective of pedestrians walking on vibrating ground is to remain
+  balanced"; Discussion, "negative damping due to pedestrians' attempts to
+  maintain balance". Strogatz and others (S4) do not mention balance: "The
+  bridge's movement, in turn, is assumed to alter each pedestrian's gait".
+  The clause is the 2021 account's and contradicts neither; Dallard's own
+  sentence (S1) says only that the lateral force grows with the amplitude.
 - **S6. Ammann, von Kármán and Woodruff**, *The Failure of the Tacoma
   Narrows Bridge*, report to the Federal Works Agency, 28 March 1941. Seen.
   "The Tacoma Narrows Bridge was well designed and built to resist safely
@@ -296,13 +320,27 @@ repository. **Seen** means the passage was read in the source itself;
   vortex shedding according to the Strouhal relation would be close to
   1 Hz" (p. 120). "It can be concluded that natural vortex shedding was not
   the cause of the collapse" (p. 120). The collapse was "single-degree-of-
-  freedom torsional flutter" (p. 121).
+  freedom torsional flutter" (p. 121). Re-read in R2 (2026-10-13) from the
+  scan at ketchum.org, page 3 of 7 (journal p. 120), by OCR: "The wind speed
+  at that time, according to Farquharson, was 42 mph, and the frequency he
+  observed for the final destructive oscillation was 12 c/m, or 0.2 Hz. At
+  42 mph, the frequency of natural vortex shedding according to the Strouhal
+  relation would be close to 1 Hz, wholly out of synch with the actual
+  catastrophic oscillation then going on. It can be concluded that natural
+  vortex shedding was not the cause of the collapse." Page 4: "single-degree-
+  of-freedom torsional flutter due to complex, separated flow".
 - **S8. Helmholtz**, *Die Lehre von den Tonempfindungen* (Vieweg, 1863).
   Seen (a scan of the first edition). "Ein Luftraum, welcher, wie der der
   Violine, Bratsche und des Violoncello, durch elastische Holzplatten
   abgegrenzt ist, hat gewisse Eigentöne" (p. 147). The 1860 paper in
   Crelle's journal has "eigenen Tönen der eingeschlossenen Luftmasse" (seen
-  in the 1882 collected papers, not in the 1860 printing).
+  in the 1882 collected papers, not in the 1860 printing). The 09_3 card
+  carried a different sentence ("…eines der Eigentöne des elastischen
+  Körpers…, sei dieser nun eine Saite, eine Membran oder eine Luftmasse"),
+  which R1 reported as "verified in the 1863 scan" with no page; three R2
+  readers could not find it recorded, and it is not used. The card (now in
+  09_5's listen window) is the p. 147 sentence above: an enclosed volume of
+  air has tones of its own.
 - **S9. Hilbert**, "Grundzüge einer allgemeinen Theorie der linearen
   Integralgleichungen (Erste Mitteilung)", *Nachrichten der Gesellschaft der
   Wissenschaften zu Göttingen* 1904, pp. 49–91. Seen. "nach gewissen

@@ -102,8 +102,8 @@ and the board's report only.
 and two carts: the table is [2, −1; −1, 2], the pushes for moves (1, 0), (1, 1)
 and (1, −1) are (2, −1), (1, 1) and (3, −3), the own patterns are (1, 1) with
 eigenvalue 1 and (1, −1) with eigenvalue 3 [K-A1.*, K-A2.*]. The angle between a
-move and the push that holds it is at most 30°, since
-sin θ = (3 − 1) ÷ (3 + 1); the moves for a push of (1, 0) are (2/3, 1/3), found
+move and the push that holds it is at most 30°, since the sine of
+that angle is (3 − 1) ÷ (3 + 1); the moves for a push of (1, 0) are (2/3, 1/3), found
 as half of each pattern, each divided by its eigenvalue: 1/2 ÷ 1 and 1/2 ÷ 3
 [K-A2.worst_turn_deg, K-A3.*]. An own pattern is a direction: any non-zero
 multiple of it, of either sign, is the same one; the gold marks are lines. In
@@ -139,6 +139,11 @@ K's 21 own patterns run from 3.12 to 1,226 MN per m, a factor of 393
 from two larger terms that cancel: the readout runs 99.6, 102.0, 101.8, 99.1,
 98.9, then 99.1 at ten patterns and 100.0 at fifteen [K-P2.sag_percent.*],
 and the largest error anywhere in the moves is 1.2 mm [K-P2.move_error_mm.1].
+That is true of this load, five equal pushes along the deck. For a lone
+100 kN load the softest pattern alone gives 41.8% of the drop under it at 4 m
+from the pin, 75.8% at 8 m and 86.3% at midspan, and a lone midspan load needs
+10 patterns to come within 2.5% under it (the P3 claim walk's recomputation;
+to be pinned as `K-P2.lone_pct.*`).
 The worst member force is off by 82 kN with one pattern (18% of the largest),
 44 with five, 8 with fifteen and 0 with all 21 [K-P2.force_error_kn.*]. The
 split's formula is u = Σ (qᵢ · f) ÷ (λᵢ qᵢ · qᵢ) qᵢ; it reduces to qᵢ · f ÷ λᵢ
@@ -154,6 +159,11 @@ modes of K φ = ω² M φ are 5.91, 11.78, 14.86 and 20.93 Hz, in ratio
 because the right support is a roller, and the third bends it into an S. With
 8 tonne decks the lowest is 4.32 Hz, not 5.91 ÷ √2 = 4.18 Hz, since the steel
 did not get heavier [K-V1.*, K-V2.*]. The eigenvalue is ω², hertz = ω ÷ 2π.
+Only the lowest few modes are close to K's own patterns: the squared overlap of
+mode i with K's pattern i is 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, then 0.10 and
+0.02, which is why the video says "at the low end" (to be pinned as
+`K-V1.overlap.*`). The frequency goes as the square root of stiffness over mass,
+and the solver is the eigenvalues of M^(−1/2) K M^(−1/2).
 The modes are at right angles when mass is counted (φᵢᵀ M φⱼ = 0) and not
 otherwise [K-V1.at_right_angles_with_mass, .at_right_angles_without]. The
 model has no damping and moves only in its own plane: with damping that is
@@ -164,8 +174,9 @@ like a spring: a row of carts and springs with the same table, 2 down the
 diagonal and −1 beside it, closed at both ends. With 40 slices the lowest tone
 is within 0.03% of the continuous tube's [K-R1.error_percent,
 .error_bound_percent]; one slice pushed out of place comes back as
-(−1, 2, −1), 35.3° away from itself, and one smooth hump comes back as itself,
-0° away [K-R1.lump_turn_deg]. The speed of sound is 343 m per second (air at
+(−1, 2, −1), 35.3° away from itself, and one half of a sine wave comes back as
+itself, 0° away: any other hump does not (a parabola 22.5° away, a Gaussian
+54.6°) [K-R1.lump_turn_deg]. The speed of sound is 343 m per second (air at
 about 20 °C; FrankenSim's air is 293.15 K) [K-R0.sound_m_per_s]. For a box
 with hard walls the tones are (c ÷ 2) √((nx ÷ Lx)² + (ny ÷ Ly)² + (nz ÷ Lz)²)
 for whole numbers nx, ny, nz not all zero (Jacobsen and others, eq. 3.1.5);
@@ -188,7 +199,8 @@ count grows as the cube of the frequency and depends on the volume, hardly on
 the shape. Occupied, at mid frequencies, the hall takes 1.9 s to die away
 (Beranek), so each mode is blurred about 2.2 ÷ 1.9 = 1.2 Hz wide, and some
 6,700 modes sit inside one mode's width at 1 kHz [K-H1.t60_s, K-H2.mode_width_hz,
-.modes_per_width_at_1000]. The Schroeder frequency 2000 √(T60 ÷ V) is
+.modes_per_width_at_1000]. The Schroeder frequency 2000 √(T60 in seconds ÷
+volume in cubic metres) is
 20.2 Hz here, the bottom edge of hearing: a crossover, not a wall; above it
 the modes still exist but overlap. "Three or more modes in one width" is the
 1962 criterion (Schroeder and Kuttruff; his 1954 figure was ten); the video's
@@ -198,8 +210,8 @@ the modes still exist but overlap. "Three or more modes in one width" is the
 high levels.
 
 Halls are designed with statistics (Sabine's 1900 paper takes "the new Boston
-Music Hall" as its example): T60 = 0.161 V ÷ A, which for this hall asks
-1,579 m² of absorption [K-H4.*]. 0.161 is the modern metric constant; his own
+Music Hall" as its example): T60 = 0.161 × volume ÷ absorption, which for this
+hall asks 1,579 m² of absorption [K-H4.*]. 0.161 is the modern metric constant; his own
 was 0.164 (Collected Papers, p. 50). He advised on Symphony Hall, opened on
 15 October 1900; he did not design it. Three of the most admired concert
 halls are shoeboxes (Beranek): the trouble is sides that match, not boxes.
@@ -221,8 +233,13 @@ the study 2, 4, 6. The cube is never worse and is the only one with exact
 coincidences; at the study's own mode width the three tie, so "piles its tones
 up most" means tones at the same pitch, which is what the video says. An attic
 studio of 6 × 3 m with its ceiling sloping to 1.25 m, cut into 232 cells of
-0.25 m, has modes at 29.8, 56.1 and 59.9 Hz; the same method on a full box of
-288 cells gives 28.56 Hz against the formula's 28.58 (0.07%) [K-N1.*].
+0.25 m, has as a side-view slice its lowest modes at 29.8, 56.1 and 59.9 Hz;
+the same method on a full box of 288 cells gives 28.56 Hz against the
+formula's 28.58 (0.07%) [K-N1.*]. The slice is a room extended endlessly
+sideways: a real attic has a width W, which adds modes of its own at c ÷ 2W,
+and a 3-D table of cells is much larger. Cells hold pressure here, which is
+why a wall adds nothing and one zero eigenvalue is skipped; the tube of 09_2
+holds moves.
 FrankenSim's modal casebook runs a 317 × 317 grid, 100,489 unknowns, for
 its lowest modes (`fs-modal`); the video says so of its solver and not of
 its rooms, which FrankenSim does not hold.
@@ -232,18 +249,26 @@ American Economy, 1941) had 44 sectors, 41 of them producing; Nobel prize in
 economics, 1973 [K-S.leontief.*]. The video's table is two industries and a
 model: a unit of food takes 0.4 food and 0.2 tools, a unit of tools 0.3 food
 and 0.5 tools [K-E1.*]. Its eigenvalues are 0.7, with the pattern (1, 1), and
-0.2, with (3, −2), which needs a negative amount of one good [K-E2.*]. 24 of
+0.2, with (3, −2), which needs a negative amount of tools [K-E2.*]. 24 of
 each wanted takes 80 of each, in rounds of 24, 16.8, 11.76, 8.232 and so on
-(99% of the total after 13 rounds) [K-E3.*]; a demand of (30, 10) is 18 of
-(1, 1) plus 4 of (3, −2), which divided by 1 − 0.7 and 1 − 0.2 gives 60 and 5
-of them, a plan of (75, 50), and its rounds run (30, 10), (15, 11), (9.3, 8.5),
-(6.27, 6.11) [K-E5.*]. With 1.1 for each one made, the rounds grow, and the
+(99% of the total after 13 rounds) [K-E3.*]; "three tenths kept" is true of
+equal amounts only: of (30, 10) the economy keeps 35%, of (10, 30) 25%. A
+demand of (30, 10) is 18 of (1, 1) plus 4 of (3, −2), found by solving
+18 + 3 × 4 = 30 and 18 − 2 × 4 = 10: the truss's recipe (the dot product with
+each pattern, divided by its length squared) would give (20, 5.38) and rebuild
+(36.2, 9.2), because these two patterns are not at right angles. Divided by
+1 − 0.7 and 1 − 0.2 the shares give 60 and 5 of them, a plan of (75, 50), and
+its rounds run (30, 10), (15, 11), (9.3, 8.5),
+(6.27, 6.11) [K-E5.*]. A hungrier table, [0.6, 0.5; 0.4, 0.7], uses up 11 of
+each for 10 of each made, with largest eigenvalue 1.1: the rounds grow, and the
 formula still answers, 24 ÷ (1 − 1.1) = −240 of each, which is why a program
 should check the eigenvalue, or that the plan has no negative entry [K-E4.*].
 The exact statement: for a table C with no negative entry, every demand
 d ≥ 0 has a plan x ≥ 0 with x = Cx + d exactly when the largest eigenvalue of
-C is below 1 (equivalently the Hawkins and Simon condition, 1949). At 1 or
-more some demand fails, and every demand when C is irreducible, as here; a
+C is below 1 (equivalently the Hawkins and Simon condition, 1949), given enough
+workers, land and machines, which are outside the table: the binding limit of a
+real economy is usually one of those, and that is the linear program of
+the coda. At 1 or more some demand fails, and every demand when C is irreducible, as here; a
 table that splits into separate parts may still meet some demands (the P3
 claim walk's table [1.1, 0; 0.3, 0.2] meets (0, 1) with the plan (0, 1.25)).
 Checked on the video's table scaled by k ÷ 20 for k = 1 to 40, and by 10 ÷ 7
@@ -257,7 +282,7 @@ angles, with real eigenvalues (the spectral theorem); checked on 1,000 seeded
 symmetric tables of sizes 2 to 6 and on two with repeated eigenvalues, where
 the patterns are not unique but can be chosen at right angles [K-X1.*]. For a
 table with no negative entry, Perron (1907) and Frobenius (1912) give that the
-largest eigenvalue in size, ρ, is itself an eigenvalue with a pattern with no
+largest eigenvalue in size is itself an eigenvalue with a pattern with no
 negative entry (Horn and Johnson); if the table is irreducible that pattern is
 positive and unique up to scale; checked on 1,000 seeded tables of positive
 entries and 1,004 with zeros, among them a shear, a swap, a table that sends
@@ -274,7 +299,7 @@ you can draw; over the complex numbers its eigenvalues are ±i
 Where it holds, the same split gives powers of a table, Cⁿ = V Λⁿ V⁻¹, and its
 exponential; that is safe for symmetric tables, and for the others libraries
 compute the exponential another way (the companion video on the matrix
-exponential). The factory of the owner's third image is a linear program, not
+exponential). The factory problem is a linear program, not
 an eigenproblem: three limits (2x + y ≤ 100, x + 2y ≤ 80, x + y ≤ 60), profit
 8x + 7y, corners (0, 0), (0, 40), (40, 20) and (50, 0) with profits 0, 280, 460
 and 400; the best is (40, 20) at 460, which no eigenvector finds, checked
@@ -311,8 +336,9 @@ Hilbert had Helmholtz's word in mind is conjecture.
 - **Why not invert.** The inverse of a sparse table is full (441 of 441), so
   programs factor and never invert. The condition number here is 393.
 - **A few modes of a huge table.** All modes of an n-move table cost about n³
-  steps and n² numbers; the Lanczos algorithm (1950) finds the lowest few of a
-  huge sparse table without the rest. FrankenSim's `fs-modal` does this with
+  steps and n² numbers; the Lanczos algorithm (1950), with shift-and-invert for
+  the lowest few of a stiffness table, finds them in a huge sparse table without
+  the rest. FrankenSim's `fs-modal` does this with
   certified counts and tests it on a spring-and-mass chain of 40 and on a
   317 × 317 grid; it finds a handful of the lowest modes, not 100,489.
 - **Modal truncation.** Keeping the lowest few modes settles moves quickly and
