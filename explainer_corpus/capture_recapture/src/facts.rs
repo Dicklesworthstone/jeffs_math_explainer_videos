@@ -6,6 +6,9 @@
 
 use explainer_kit::{Facts, choose};
 
+use crate::model::mixing::{self, Mixing};
+use crate::model::{Lake, SPOTS};
+
 /// The second catch, marked count and caught-twice count of Feller's lake.
 pub const FELLER: (u64, u64, u64) = (1_000, 1_000, 100);
 /// The toy likelihood: marked, caught, caught twice.
@@ -36,6 +39,72 @@ pub fn best_sizes((m, n, k): (u64, u64, u64)) -> Vec<u64> {
 
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
+    // 01: the seeded clustered lake the scene draws (model.rs = oracle A-F27)
+    let lake = Lake::draw();
+    f.pin(
+        "A-F27.rejection_candidates",
+        lake.candidates,
+        "139559",
+        "oracle A-F27 (SplitMix64 rejection)",
+    )?;
+    // the dips the voice says (01_5, 01_7): weeds, open water, deep end
+    for ((name, spot), (fish_want, estimate_want)) in
+        SPOTS
+            .into_iter()
+            .zip([("880", "88000"), ("28", "2800"), ("451", "45100")])
+    {
+        let fish = lake.count_at(spot);
+        f.pin(
+            &format!("A-F27.spot.{name}.fish_in_net"),
+            fish,
+            fish_want,
+            "01_5-01_7 voice",
+        )?;
+        f.pin(
+            &format!("A-F27.spot.{name}.estimate"),
+            fish * 100,
+            estimate_want,
+            "01_5-01_7 voice",
+        )?;
+    }
+    f.add("A-F27.all_cells.min_fish", lake.all_counts().min().unwrap_or(0))?;
+    f.add("A-F27.all_cells.max_fish", lake.all_counts().max().unwrap_or(0))?;
+    f.pin(
+        "A-F27.all_cells.dips_within_2x_of_truth",
+        lake.dips_within_2x(),
+        "22",
+        "01_8 lower-third",
+    )?;
+    f.add("A-F27.cell_counts_rows_south_to_north", lake.counts_string())?;
+    // 03: the mixing the scene runs (model::mixing = oracle A-CH03.portable)
+    let join = |v: &[u32]| v.iter().map(u32::to_string).collect::<Vec<_>>().join(",");
+    let mut mix = Mixing::start(&lake);
+    let (all, marked) = mix.regions();
+    f.add("A-CH03.portable.t0.count", join(&all))?;
+    f.add("A-CH03.portable.t0.marked", join(&marked))?;
+    mix.advance(mixing::STEPS);
+    let (all, marked) = mix.regions();
+    f.add("A-CH03.portable.t400.count", join(&all))?;
+    f.add("A-CH03.portable.t400.marked", join(&marked))?;
+    const REGIONS: [&str; 9] = ["SW", "S", "SE", "W", "C", "E", "NW", "N", "NE"];
+    let most = (0..9).max_by_key(|&r| all[r]).unwrap_or(0);
+    let least = (0..9).min_by_key(|&r| all[r]).unwrap_or(0);
+    for (tag, r, (region, fish, marks)) in [
+        ("most_crowded", most, ("SE", "2811", "282")),
+        ("least_crowded", least, ("NE", "204", "25")),
+    ] {
+        let pre = format!("A-CH03.portable.corners.{tag}");
+        f.pin(&format!("{pre}.region"), REGIONS[r], region, "03_6 picture")?;
+        f.pin(&format!("{pre}.fish"), all[r], fish, "03_6 voice")?;
+        f.pin(&format!("{pre}.marked"), marked[r], marks, "03_6 voice")?;
+    }
+    let nets: Vec<u32> = mixing::region_centres().iter().map(|&c| mix.net_at(c, 1_000)).collect();
+    f.pin(
+        "A-CH03.portable.nets1000.marked_at_region_centres",
+        join(&nets),
+        "90,93,103,100,94,100,105,100,99",
+        "03_5 picture",
+    )?;
     // 04: the toy lake, 20 fish, 5 marked, nets of 4
     f.pin("A-F1.C20_4", choose(20, 4), "4845", "fact sheet A-F1")?;
     f.pin(

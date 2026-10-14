@@ -1,7 +1,13 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (a quiet hook, a fuller middle, the main result at 08, a sober close).
 //! Each chapter starts as its storyboard's animatic and is replaced by its
-//! real scene as it is built.
+//! real scene as it is built (01–03 are built).
+
+pub mod draw;
+pub mod hook;
+pub mod lake;
+pub mod marks;
+pub mod spread;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -20,9 +26,21 @@ macro_rules! animatic {
 
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_hook", 0.3),
-        animatic!("02_the_marks_measure_the_net", 0.4),
-        animatic!("03_why_the_marks_spread", 0.45),
+        Chapter {
+            key: "01_hook",
+            make: |kit| Box::new(hook::Hook { kit }),
+            intensity: 0.3,
+        },
+        Chapter {
+            key: "02_the_marks_measure_the_net",
+            make: |kit| Box::new(marks::Marks { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "03_why_the_marks_spread",
+            make: |kit| Box::new(spread::Spread { kit }),
+            intensity: 0.45,
+        },
         animatic!("04_netfuls", 0.5),
         animatic!("05_turning_it_around", 0.5),
         animatic!("06_the_landscape", 0.6),

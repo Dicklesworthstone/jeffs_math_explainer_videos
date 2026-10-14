@@ -311,8 +311,8 @@ what this sheet and the oracle back.
 | beat | storyboard claim (after R2) | keys | oracle value | status / how computed |
 |---|---|---|---|---|
 | 01_8 | lower-third: "all 100 squares here average exactly 10,000 … only 22 of the 100 single dips land within 2×" | `A-F27.all_cells.mean_estimate`, `.share_of_dips_within_2x_of_truth` (existing) | 10,000.0; 0.22 | MATCH; no new key |
-| 03_5 | nets of a thousand at the weeds, open water and the deep end hold 97, 90, 109 marked; all nine region centres 90–112 | `A-CH03.trays.net1000.*` | 94, 97, 109, 106, 90, 106, 97, 99, 112 (SW … NE); 9.0%–11.2% | MATCH. The 1,000 fish nearest each region centre at t = 400. The size is the story's n; smaller nets were looked at first (the comment says so) |
-| 03_6 | "The fullest has twenty-seven hundred thirty-two fish, two hundred seventy-six of them marked. The emptiest has two hundred fourteen, twenty-three marked." | `A-CH03.corners.*` | SE 2,732 / 276 (10.1%); NE 214 / 23 (10.7%); both extremes unique | MATCH. Most and least crowded regions by fish count (existing `A-CH03.habitat.t400.count`) |
+| 03_5 | nets of a thousand at the weeds, open water and the deep end hold 105, 94, 103 marked; all nine region centres 90–105 | `A-CH03.portable.nets1000.*` | 90, 93, 103, 100, 94, 100, 105, 100, 99 (SW … NE); 9.0%–10.5% | MATCH. The 1,000 fish nearest each region centre (squared distance, ties to the lower index) at t = 400 of the portable run, the one the scene draws |
+| 03_6 | "The fullest corner has twenty-eight hundred eleven fish, two hundred eighty-two marked, and the emptiest has two hundred four, twenty-five marked. Both are near one in ten, and the small one wobbles more." | `A-CH03.portable.corners.*`, `.t400.count` | SE 2,811 / 282 (10.0%); NE 204 / 25 (12.3%); both extremes unique | MATCH. Most and least crowded regions by fish count. 12.3% is 1.1 SD above 10% for a 204-fish region (SD √(0.09/204) = 2.1 points): the "wobbles more" |
 | 03_7 | "In both columns, the second net takes the same one in ten" | `A-F29.green_share_*_N10000`, `A-F29.unmarked_column_N10000` | 100/1,000 = 900/9,000 = 0.1 | MATCH (exact) |
 | 05_7 | screen "16.67 = 1,667%" | `A-F7.toy_area_pct*` | 5000/3 % = 1,666.67%, shown 1,667% | MATCH (exact) |
 | 06_4 | description: each fixed-size row peaks at ⌊(n+1)(M+1)/(N+2)⌋, tied with one less when that is whole | `A-CH06.row_mode_rule.*` | 0 failures in 23,820 cases (every N ≤ 40, every M, n) | MATCH (exact brute force) |
@@ -556,3 +556,20 @@ source myself and found the sentence. "agent-verified" means only a research sub
       9 (Briand et al. 2000, PARTIAL) for software inspections.
     - **Source:** none. No literature source was read for this row; it rests on the derivation
       and the seeded simulation.
+
+### The portable chapter-03 run (2026-10-11)
+
+The scene runs chapter 03's mixing itself (`model.rs`), so the run it shows is
+the oracle's `ch03_portable`: the habitat model and steps of the numpy runs
+above, with SplitMix64 noise (counter stream, seed SEED + 3) and Irwin–Hall(4)·√3
+normals, so both languages compute the same bits. Pin points for the port:
+`A-CH03.portable.normal_bits_step0_fish{0,1}_x_y`,
+`A-CH03.portable.position_bits_step1_fish0_x_y` and
+`A-CH03.portable.t400.position_bits_xor_x`. Region counts and marked counts at
+t = 0, 25, 100, 400 (`A-CH03.portable.t*.count`, `.marked`,
+`.marked_percent_1dp`): the dock region (S) starts at 65.9% marked; at t = 400
+every region is 8.6–12.3%. The numpy runs (`A-CH03.habitat.*`,
+`A-CH03.contrast_no_drift.*`, `A-CH03.diag_no_circulation.*`) stay as the
+research record; the retired R1 insets and the R2 `A-CH03.corners.*` /
+`A-CH03.trays.net1000.*` keys came from the numpy habitat run and are kept as
+the record of that run.

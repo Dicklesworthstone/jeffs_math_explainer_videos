@@ -60,10 +60,12 @@ the three dip squares were fixed before the first run, and nothing was re-run to
   simulated density, which drifts up to 14% from s itself because the circulation crosses the
   shore; the marks spread evenly whatever the density settles to.
 - **03_5.** The nets are real catches from the t = 400 frame, each the size of the story's second
-  catch: the 1,000 fish nearest each of the nine region centres hold 90 to 112 marked. Nets of 10 or 20 fish hold 0–3 and 0–5: small
+  catch: the 1,000 fish nearest each of the nine region centres hold 90 to 105 marked. Nets of 10 or 20 fish hold 0–3 and 0–5: small
   catches wobble (chapter 9).
 - **03_6.** The two corners are the most and the least crowded of the nine regions, picked by fish
-  count alone: 2,732 fish with 276 marked, and 214 with 23.
+  count alone: 2,811 fish with 282 marked (10.0%), and 204 with 25 (12.3%, within a 204-fish region's
+  binomial wobble, one SD 2.1 points). The run on screen uses a portable noise source so the scene and
+  the oracle draw the same fish (`A-CH03.portable.*`).
 - **03_8.** After mixing, being marked is independent of position. That every fish is equally easy
   to catch is a separate assumption (chapter 13).
 - **04_8.** The five chances exactly: 91/323, 455/969, 70/323, 10/323, 1/969.

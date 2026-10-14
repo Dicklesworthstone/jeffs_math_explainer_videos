@@ -937,6 +937,8 @@ def af27_clustered_lake():
     emit("A-F27.all_cells.mean_estimate", float(counts.mean() * G * G))
     emit("A-F27.all_cells.share_of_dips_within_2x_of_truth",
          float(((counts * G * G >= LAKE["N"] / 2) & (counts * G * G <= LAKE["N"] * 2)).mean()))
+    emit("A-F27.all_cells.dips_within_2x_of_truth",
+         int(((counts * G * G >= LAKE["N"] / 2) & (counts * G * G <= LAKE["N"] * 2)).sum()))
     emit("A-F27.cell_counts_rows_south_to_north",
          ";".join(",".join(str(int(v)) for v in counts[j]) for j in range(G)))
     return xs, ys
@@ -1140,6 +1142,109 @@ def ch03_r2_corners_and_nets(regions_t400, x, y, marked):
     emit(f"{pre}.marked_at_region_centres", ",".join(map(str, got)))
     emit(f"{pre}.marked_min_max", f"{min(got)},{max(got)}")
     emit(f"{pre}.share_min_max", f"{min(got) / R2_NET},{max(got) / R2_NET}")
+
+
+# Chapter 03 on screen (2026-10-11): the scene runs the mixing itself, so the run it shows must be
+# reproducible bit for bit in Rust (model.rs). Same model and steps as the habitat run above (D, c,
+# dt = 0.01 to t = 400, reflecting shores, the A-F27 start), with a portable noise source in place
+# of numpy's generator; the numpy runs above stay as the research record.
+#   * SplitMix64 as a counter stream: draw k (k = 0, 1, ...) is mix(seed + (k + 1) GAMMA) with seed
+#     SEED + 3; uniform = (u64 >> 11) 2^-53.
+#   * normal = (((u1 + u2) + u3) + u4 - 2) sqrt(3) (Irwin-Hall: mean 0, variance 1), sums of exactly
+#     representable uniforms, so Python and Rust compute the same bits.
+#   * step s uses draws 8 N s ... 8 N s + 8 N - 1: fish i's x normal from draws 8 N s + 8 i + 0..3,
+#     its y normal from 8 N s + 8 i + 4..7.
+#   * marked: the 1,000 fish nearest the dock by squared distance (exact), ties to the lower index.
+#   * drift and update in exactly the order written in port_step (the Rust port repeats it);
+#     floats checked as raw bits, counts as integers.
+PORT = {"seed": SEED + 3, "gamma": 0x9E3779B97F4A7C15}
+SQRT3 = 1.7320508075688772  # float(sqrt(3)), spelled so both languages use the same bits
+
+
+def sm64_mix(z):
+    z = (z ^ (z >> np.uint64(30))) * np.uint64(0xBF58476D1CE4E5B9)
+    z = (z ^ (z >> np.uint64(27))) * np.uint64(0x94D049BB133111EB)
+    return z ^ (z >> np.uint64(31))
+
+
+def port_normals(step, n):
+    """Step `step`'s noise: (x normals, y normals) for fish 0..n-1."""
+    k = np.arange(8 * n, dtype=np.uint64) + np.uint64(8 * n * step)
+    state = np.uint64(PORT["seed"]) + (k + np.uint64(1)) * np.uint64(PORT["gamma"])
+    u = (sm64_mix(state) >> np.uint64(11)).astype(np.float64) * (1.0 / 9007199254740992.0)
+    u = u.reshape(n, 2, 4)
+    z = ((((u[..., 0] + u[..., 1]) + u[..., 2]) + u[..., 3]) - 2.0) * SQRT3
+    return z[:, 0], z[:, 1]
+
+
+def port_step(x, y, step):
+    D, c, dt = DYN["D"], DYN["c"], DYN["dt"]
+    _, gx, gy = habitat_np(x, y)
+    vx = c * gy + D * gx
+    vy = -(c * gx) + D * gy
+    zx, zy = port_normals(step, x.size)
+    amp = sqrt(2 * D * dt)
+    x = (x + vx * dt) + amp * zx
+    y = (y + vy * dt) + amp * zy
+    return 1.0 - np.abs(1.0 - np.abs(x)), 1.0 - np.abs(1.0 - np.abs(y))
+
+
+def bits(v):
+    return int(np.float64(v).view(np.uint64))
+
+
+def ch03_portable(xs0, ys0):
+    """A-CH03.portable.*: the run chapter 03 draws (rules above)."""
+    dt = DYN["dt"]
+    steps_at = {int(round(t / dt)): t for t in DYN["times"]}
+    nsteps = max(steps_at)
+    n = xs0.size
+    dx, dy = xs0 - DYN["dock"][0], ys0 - DYN["dock"][1]
+    d2 = dx * dx + dy * dy
+    marked = np.zeros(n, bool)
+    marked[np.lexsort((np.arange(n), d2))[: DYN["marked"]]] = True
+    zx, zy = port_normals(0, n)
+    emit("A-CH03.portable.params", f"seed={PORT['seed']};normal=irwin_hall4_sqrt3;dt={dt};steps={nsteps}")
+    emit("A-CH03.portable.normal_bits_step0_fish0_x_y", f"{bits(zx[0])},{bits(zy[0])}")
+    emit("A-CH03.portable.normal_bits_step0_fish1_x_y", f"{bits(zx[1])},{bits(zy[1])}")
+    x, y = xs0.copy(), ys0.copy()
+    names = REGION_ORDER.split(",")
+    for step in range(nsteps + 1):
+        if step == 1:
+            emit("A-CH03.portable.position_bits_step1_fish0_x_y", f"{bits(x[0])},{bits(y[0])}")
+        if step in steps_at:
+            t = steps_at[step]
+            rx = np.minimum((x * 3).astype(int), 2)
+            ry = np.minimum((y * 3).astype(int), 2)
+            rid = rx + 3 * ry
+            cnt = np.bincount(rid, minlength=9)
+            mk = np.bincount(rid[marked], minlength=9)
+            emit(f"A-CH03.portable.t{t}.count", ",".join(str(int(v)) for v in cnt))
+            emit(f"A-CH03.portable.t{t}.marked", ",".join(str(int(v)) for v in mk))
+            emit(f"A-CH03.portable.t{t}.marked_percent_1dp",
+                 ",".join(f"{100 * int(m) / int(c):.1f}" for m, c in zip(mk, cnt)))
+        if step == nsteps:
+            break
+        x, y = port_step(x, y, step)
+    xor = 0
+    for v in x:
+        xor ^= bits(v)
+    emit("A-CH03.portable.t400.position_bits_xor_x", xor)
+    for tag, r in (("most_crowded", int(np.argmax(cnt))), ("least_crowded", int(np.argmin(cnt)))):
+        pre = f"A-CH03.portable.corners.{tag}"
+        emit(f"{pre}.region", names[r])
+        emit(f"{pre}.fish", int(cnt[r]))
+        emit(f"{pre}.marked", int(mk[r]))
+    emit("A-CH03.portable.corners.unique_extremes",
+         int((cnt == cnt.max()).sum()) == 1 and int((cnt == cnt.min()).sum()) == 1)
+    centres = [((2 * rx + 1) / 6, (2 * ry + 1) / 6) for ry in range(3) for rx in range(3)]
+    got = []
+    for px, py in centres:
+        ex, ey = x - px, y - py
+        near = np.lexsort((np.arange(n), ex * ex + ey * ey))[:R2_NET]
+        got.append(int(marked[near].sum()))
+    emit(f"A-CH03.portable.nets{R2_NET}.marked_at_region_centres", ",".join(map(str, got)))
+    emit(f"A-CH03.portable.nets{R2_NET}.marked_min_max", f"{min(got)},{max(got)}")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1648,6 +1753,7 @@ def main():
     ch12_slider(feller_ci)
     ch14_reviewers()
     ch03_dynamics(xs, ys)
+    ch03_portable(xs, ys)
     # R2 (2026-10-11)
     r2_small_lake_keys()
     ch06_row_mode_rule()
