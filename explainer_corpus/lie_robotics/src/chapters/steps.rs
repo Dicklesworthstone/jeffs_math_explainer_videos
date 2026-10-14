@@ -62,7 +62,15 @@ pub const ASK: Ask = Ask {
     ],
 };
 
-const ARM_AT: [f64; 2] = [-3.2, -2.6];
+/// The arm's place (the foot's). The world stands a unit higher than the
+/// frame's bottom would put it, so that the screws' lowest ends clear the
+/// lower third that three beats show over them.
+const ARM_AT: [f64; 2] = [-3.2, -1.6];
+/// How far a remaining-error screw's axis runs each way out of its point
+/// (metres of the arm's world).
+const SCREW_REACH: f64 = 0.5;
+/// Where the card sits: under the badge's run in 13_3 and clear of the
+/// badge's corner for 13_5.
 const CARD_AT: [f64; 2] = [4.45, -0.2];
 const CARD_SCALE: f64 = 0.92;
 /// The two books in their rings: where each gimbal's centre is, and its
@@ -73,6 +81,8 @@ const RADII: [f64; 3] = [1.9, 1.5, 1.1];
 // them for the arrow
 const _: () = assert!(RADII[0] > RADII[1] && RADII[1] > RADII[2]);
 const _: () = assert!(GIMBALS[1][0] - RADII[0] > 1.2 && GIMBALS[0][0] + RADII[0] < -1.2);
+// the captions (2.45 under a centre) stand clear under the outer ring
+const _: () = assert!(RADII[0] + 0.3 < 2.45);
 const BOOK_FIT: f64 = 0.7;
 /// Where the badge runs once, and how much bigger it is there.
 const BADGE_RUN_AT: [f64; 2] = [3.6, 2.45];
@@ -257,7 +267,7 @@ impl SceneConstruct for Steps {
         for q in &run.path {
             let tip = arm.tip(q);
             let s = model::screw_of(&goal.then(&tip.undo()));
-            specs.push(PartSpec::new(screw_shapes(&s, 0.7, 0.14), still(Pose::NOTHING)).layer(3));
+            specs.push(PartSpec::new(screw_shapes(&s, SCREW_REACH, 0.14), still(Pose::NOTHING)).layer(3));
         }
         let world = World::build(stage, view, 1.4, 0.25, specs, Vec::new())?;
         let screws: Vec<usize> = part::SCREWS.take(run.path.len()).collect();
@@ -269,9 +279,13 @@ impl SceneConstruct for Steps {
 
         // ---- the two books in their rings (a world of their own)
         let (pair, differ) = near()?;
+        // each gimbal's centre is a point of the screen (the view is the
+        // isometric one, so the world point is what projects there)
+        let (right, up, _) = View::basis();
         let mut ring_specs = Vec::new();
         for (centre, angles) in GIMBALS.iter().zip(pair) {
-            ring_specs.extend(gimbal_parts([centre[0], centre[1], 0.0], angles.map(|a| a as f64)));
+            let at = add(scale(right, centre[0]), scale(up, centre[1]));
+            ring_specs.extend(gimbal_parts(at, angles.map(|a| a as f64)));
         }
         let rings = World::build(stage, View::new(1.0, v(0.0, 0.0)), 5.0, 0.0, ring_specs, Vec::new())?;
         rings.add_to_scene(stage)?;
@@ -398,7 +412,20 @@ impl SceneConstruct for Steps {
         ];
         let lines: Vec<&str> = code.iter().map(String::as_str).collect();
         let panel = CodePanel::build(&kit, stage, &lines, 26.0, 6.2)?;
-        leave(stage, &[six_head, spin_text, slide_text, log], &[], 0.4)?;
+        // the numbers and the lower third go, and the badge shrinks back to
+        // its corner (where it was for the rest of the video)
+        let run_badge = Badge {
+            at: v(BADGE_RUN_AT[0], BADGE_RUN_AT[1]),
+            scale: BADGE_RUN_SCALE,
+            ..badge
+        };
+        let mut anims = run_badge.move_to(stage, 1.0 / BADGE_RUN_SCALE, v(BADGE_CORNER[0], BADGE_CORNER[1]), 0.6)?;
+        for m in [six_head, spin_text, slide_text, log] {
+            stage.clear_updaters(m, true);
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.4))?);
+        }
+        stage.play_prepared(anims)?;
         line.wait_for(stage, "run the Jacobian backwards")?;
         stage.add_to_scene(panel.group)?;
         stage.play(panel.slide_in(0.7)?)?;
@@ -675,6 +702,60 @@ mod tests {
             let col = [goal.r[0][k], goal.r[1][k], goal.r[2][k]];
             assert!(norm(sub(sub(*to, *from), scale(col, 0.17))) < 1e-12);
         }
+    }
+
+    /// The points a list of shapes is drawn through.
+    fn points_of(shapes: Vec<Shape>) -> Vec<V3> {
+        let mut pts = Vec::new();
+        for shape in shapes {
+            match shape {
+                Shape::Path { pts: p, .. } | Shape::Face { pts: p, .. } => pts.extend(p),
+                Shape::Arrow { from, to, .. } => pts.extend([from, to]),
+                Shape::Dashed { a, b, .. } => pts.extend([a, b]),
+                Shape::Dot { at, .. } => pts.push(at),
+            }
+        }
+        pts
+    }
+
+    /// The remaining error's screw at every iterate, with the axis and the
+    /// curl and the slide arrow, stays inside the margin and above the lower
+    /// third, which 13_3, 13_4 and 13_6 show over it.
+    #[test]
+    fn the_screws_stay_above_the_lower_third() {
+        use super::super::draw::{LOWER_THIRD_TOP, SAFE};
+        let arm = Arm::iiwa14();
+        let goal = model::goal(&arm);
+        let run = arm.solve(&model::degrees(poses::START), &goal, model::TOL_SPIN, model::TOL_SLIDE);
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        for (k, q) in run.path.iter().enumerate() {
+            let s = model::screw_of(&goal.then(&arm.tip(q).undo()));
+            let (lo, hi) = view.box_of(points_of(screw_shapes(&s, SCREW_REACH, 0.14)));
+            assert!(
+                lo[1] > LOWER_THIRD_TOP + 0.05,
+                "iterate {k}'s screw reaches down to {:.2}",
+                lo[1]
+            );
+            assert!(hi[1] < SAFE[1] && lo[0] > -SAFE[0] && hi[0] < SAFE[0], "{lo:?} {hi:?}");
+        }
+    }
+
+    /// 13_2: the two gimbals' centres are the screen points GIMBALS names,
+    /// so they stand at one height, and their captions clear the rings.
+    #[test]
+    fn the_gimbals_stand_level_with_their_captions_below() {
+        let (right, up, _) = View::basis();
+        let view = View::new(1.0, v(0.0, 0.0));
+        let ys: Vec<f64> = GIMBALS
+            .iter()
+            .map(|c| {
+                let at = add(scale(right, c[0]), scale(up, c[1]));
+                let s = view.project(at);
+                assert!((s[0] - c[0]).abs() < 1e-12, "the centre is where GIMBALS puts it");
+                s[1]
+            })
+            .collect();
+        assert!((ys[0] - ys[1]).abs() < 1e-12, "the two stand at one height");
     }
 
     #[test]
