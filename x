@@ -27,7 +27,9 @@
 #                                               exit 1 on a FAIL (tools/prosody_qa.py --help)
 #   ./x <slug> narrated [CHAPTER...]            960x540@30 with the real narration (NARRATION, default
 #                                               narration/out) into renders/narrated/, then the cue
-#                                               check and cue sheets (renders/narrated/cue_sheets/)
+#                                               check and cue sheets (renders/narrated/cue_sheets/);
+#                                               for the whole video also the prosody report
+#                                               (renders/narrated/prosody.txt: tools/prosody_qa.py)
 #   ./x <slug> score                            the music: every chapter's timeline at 60 fps from the
 #                                               narration, then the score with QA into stems/
 #   ./x <slug> scored [CHAPTER...]              960x540@60 with narration and stems, into renders/scored/
@@ -350,8 +352,20 @@ case "$cmd" in
     keys=$(chapter_list "$@")
     if [ $# -eq 0 ]; then set -- all; fi
     "$binary" render "$@" --res 960x540 --fps 30 --narration "$narration" --lint --out "$out"
-    exec python3 -I "$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/cue_sheets.py" \
-      "$out" --script "$crate/script.tsv" --chapters "$keys" --sheets "$out/cue_sheets" ;;
+    status=0
+    python3 -I "$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/cue_sheets.py" \
+      "$out" --script "$crate/script.tsv" --chapters "$keys" --sheets "$out/cue_sheets" || status=$?
+    if [ "$1" = all ]; then
+      # the human-calibrated prosody report of this draft (narration and its line gaps): flags are
+      # listed and never fail; its one gate, a silence over 1.0 s inside a sentence, does
+      uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$here/tools/prosody_qa.py" \
+        "$narration" --timeline "$out" > "$out/prosody.txt" 2>&1 || true
+      grep -E '^(FAIL|FLAG)' "$out/prosody.txt" | sed 's/^/x: prosody /'
+      if grep -q '^FAIL' "$out/prosody.txt"; then status=1; fi
+      grep -q -E '^(PASS|FLAG|FAIL|ADVISORY)' "$out/prosody.txt" || echo "x: the prosody report did not run; see $out/prosody.txt" >&2
+      echo "x: prosody report in $out/prosody.txt"
+    fi
+    exit $status ;;
   score)
     [ $# -eq 0 ] || usage
     need_narration
