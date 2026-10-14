@@ -841,6 +841,23 @@ pub fn the_move(kit: &Kit, stage: &mut Stage<'_>, strips: &[&Strip], to: f64, id
     wait_until(stage, start + sound::MOVE_S)
 }
 
+/// How far a standing strip lifts back along its turn when it is plucked
+/// (the recall at 14_3): 0 is standing, as it ends its turn, 1 flat.
+pub const HOP_DIP: f64 = 0.08;
+/// How long one hop takes: the strip lifts in the first third and settles.
+pub const HOP_S: f64 = 0.45;
+
+impl Strip {
+    /// The recall of the move: a standing strip lifts a little back along its
+    /// turn and settles again, its gold outline showing while it is up,
+    /// [`HOP_S`] seconds in all. It ends exactly where it stood.
+    pub fn hop(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        explainer_kit::play!(stage; tween(self.t, 1.0 - HOP_DIP, HOP_S / 3.0)?);
+        explainer_kit::play!(stage; tween(self.t, 1.0, 2.0 * HOP_S / 3.0)?);
+        Ok(())
+    }
+}
+
 /// The square whose strip moves (storyboard, "The one move"): a square of
 /// side `m.side` with its lower-left corner at the board's origin; a strip
 /// `m.strip` deep comes off its top and stands against its right side,
@@ -2164,6 +2181,152 @@ impl QuoteCard {
     }
 }
 
+// ------------------------------------------------------------ the harness
+
+/// Events of a chapter during a test run, to measure them: the chapter's
+/// name, what happened, which of its pictures, scene seconds into the
+/// window it happened in, and a value.
+#[cfg(test)]
+pub mod probe {
+    use std::sync::Mutex;
+
+    type Event = (String, &'static str, usize, f64, f64);
+
+    static EVENTS: Mutex<Vec<Event>> = Mutex::new(Vec::new());
+
+    pub fn record(chapter: &str, kind: &'static str, index: usize, at: f64, value: f64) {
+        if let Ok(mut events) = EVENTS.lock() {
+            events.push((chapter.to_owned(), kind, index, at, value));
+        }
+    }
+
+    /// What `kind` events the run named `chapter` had: picture, time, value.
+    pub fn take(chapter: &str, kind: &str) -> Vec<(usize, f64, f64)> {
+        EVENTS
+            .lock()
+            .map(|events| {
+                events
+                    .iter()
+                    .filter(|(c, k, ..)| c == chapter && *k == kind)
+                    .map(|&(_, _, i, at, value)| (i, at, value))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+}
+
+/// Construct a real chapter in a test: render it to a tiny PNG sequence
+/// through franken_manim's facade, so every `wait_for` phrase, every TeX
+/// string, every tracker and updater runs, and the frames can be read back.
+#[cfg(test)]
+pub mod testing {
+    use std::path::{Path, PathBuf};
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    use explainer_kit::{Kit, Narrator, Script};
+    use fmn::prelude::*;
+
+    /// Frames a second of the test renders.
+    pub const FPS: u32 = 10;
+
+    /// Render `scene` at 64 by 36 and [`FPS`] into a folder of its own, named
+    /// after `tag`: the folder and the number of frames.
+    pub fn render(scene: &mut dyn SceneConstruct, tag: &str) -> Result<(PathBuf, u64), String> {
+        static RUNS: AtomicUsize = AtomicUsize::new(0);
+        let n = RUNS.fetch_add(1, Ordering::Relaxed);
+        let dir = std::env::temp_dir().join(format!("mental_math_{tag}_{}_{n}", std::process::id()));
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;
+        opts.config.camera.resolution = (64, 36);
+        opts.config.camera.fps = FPS;
+        opts.config.camera.background_color = explainer_kit::BACKGROUND.to_owned();
+        let report = fmn::render(scene, opts).map_err(|e| format!("{tag}: {e}"))?;
+        Ok((dir, report.artifact.frame_count as u64))
+    }
+
+    /// A chapter run with the scratch voice placed: every line starts when
+    /// the voice would be free and lasts its estimated length, as in a
+    /// scratch-voice draft.
+    pub struct Voiced {
+        /// The folder of the run's frames (one PNG a frame, in order).
+        pub frames_dir: PathBuf,
+        pub frames: u64,
+        /// Every listen window: its label, its start and length (seconds),
+        /// and whether it carries a sonification.
+        pub listens: Vec<(String, f64, f64, bool)>,
+        /// Every music breath: its start and length, seconds.
+        pub breaths: Vec<(f64, f64)>,
+    }
+
+    /// Run chapter `key` with the scratch voice at 64 by 36 and [`FPS`], its
+    /// kit named `key#voiced` (so a probe's events are this run's).
+    pub fn run_voiced(key: &str) -> Result<Voiced, String> {
+        let chapter = crate::chapters::registry()
+            .into_iter()
+            .find(|c| c.key == key)
+            .ok_or_else(|| format!("no chapter {key} in the registry"))?;
+        let narrator = Narrator::estimate(&Script::parse(crate::SCRIPT)?);
+        let mut kit = Kit::new().map_err(|e| e.to_string())?.with_narrator(narrator);
+        kit.chapter = format!("{key}#voiced");
+        let mut scene = (chapter.make)(kit.clone());
+        let (frames_dir, frames) = render(scene.as_mut(), key)?;
+        let timeline = kit
+            .finished
+            .borrow()
+            .clone()
+            .ok_or_else(|| format!("{key}: the chapter left no timeline"))?;
+        let at = |frame: u64| frame as f64 / f64::from(timeline.fps);
+        Ok(Voiced {
+            frames_dir,
+            frames,
+            listens: timeline
+                .listens
+                .iter()
+                .map(|w| (w.label.clone(), at(w.frame), w.seconds, w.sound.is_some()))
+                .collect(),
+            breaths: timeline.breaths.iter().map(|w| (at(w.frame), w.seconds)).collect(),
+        })
+    }
+
+    /// The bytes of every frame of a run, in order.
+    pub fn frames_of(dir: &Path) -> Result<Vec<Vec<u8>>, String> {
+        let mut files: Vec<_> = std::fs::read_dir(dir)
+            .map_err(|e| format!("{}: {e}", dir.display()))?
+            .filter_map(Result::ok)
+            .map(|e| e.path())
+            .filter(|p| p.extension().is_some_and(|x| x == "png"))
+            .collect();
+        files.sort();
+        files
+            .iter()
+            .map(|p| std::fs::read(p).map_err(|e| e.to_string()))
+            .collect()
+    }
+
+    /// How many of the frames from `from` up to `to` (frame numbers) differ
+    /// from the frame before them: a picture that moves differs at nearly
+    /// every one, a still one at none.
+    pub fn changes(frames: &[Vec<u8>], from: usize, to: usize) -> usize {
+        (from.max(1)..to.min(frames.len()))
+            .filter(|&i| frames[i] != frames[i - 1])
+            .count()
+    }
+
+    /// The longest stretch of identical frames in the run, as (first frame,
+    /// number of frames).
+    pub fn longest_still(frames: &[Vec<u8>]) -> (usize, usize) {
+        let (mut best, mut start) = ((0, 1), 0);
+        for i in 1..=frames.len() {
+            if i == frames.len() || frames[i] != frames[start] {
+                if i - start > best.1 {
+                    best = (start, i - start);
+                }
+                start = i;
+            }
+        }
+        best
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2386,5 +2549,102 @@ mod tests {
         for q in QUIZZES {
             assert!(TILES.contains(&TileKind::of(q.trick)), "{}", q.line);
         }
+    }
+
+    /// One frame of a hold: the scene seconds and the centres of the items.
+    type Seen = (f64, Vec<Vec3>);
+
+    /// Four held numbers (04_8's): wavering at `amount`, then a music breath
+    /// of `hold` seconds. The centres of the four at every frame after the
+    /// tween that raised the wavering, with the scene time of each.
+    fn held_run(amount: f64, hold: f64) -> Vec<Seen> {
+        use std::cell::RefCell;
+        use std::rc::Rc;
+
+        struct Held {
+            amount: f64,
+            hold: f64,
+            seen: Rc<RefCell<Vec<Seen>>>,
+        }
+        impl SceneConstruct for Held {
+            fn name(&self) -> &str {
+                "held"
+            }
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let mut held = Vec::new();
+                for i in 0..4 {
+                    let m = stage.arena_mut().add(
+                        Rectangle::new()
+                            .width(0.8)
+                            .height(0.4)
+                            .style(flat(hex("#EEEEEE"), 1.0))
+                            .build()?,
+                    );
+                    stage.move_to(m, v(-3.0 + 2.0 * i as f64, 0.0), ORIGIN);
+                    stage.add_to_scene(m)?;
+                    held.push(m);
+                }
+                let tracker = stage.add_value_tracker(0.0);
+                let _anchor = waver(stage, &held, tracker)?;
+                // what 04_8 does: raise the wavering over a second, then hold
+                explainer_kit::play!(stage; tween(tracker, self.amount, 1.0)?);
+                let probe = stage.arena_mut().add(VMobject::new());
+                let (seen, clock) = (Rc::clone(&self.seen), Rc::new(RefCell::new(0.0)));
+                stage.add_dt_updater(
+                    probe,
+                    move |s, _, dt| {
+                        *clock.borrow_mut() += dt;
+                        seen.borrow_mut()
+                            .push((*clock.borrow(), held.iter().map(|&m| s.get_center(m)).collect()));
+                    },
+                    false,
+                )?;
+                stage.add_to_scene(probe)?;
+                kit.music_breath(stage, self.hold)
+            }
+        }
+        let seen = Rc::new(RefCell::new(Vec::new()));
+        let mut scene = Held {
+            amount,
+            hold,
+            seen: Rc::clone(&seen),
+        };
+        testing::render(&mut scene, "held").unwrap();
+        seen.take()
+    }
+
+    /// Whether every item of a hold's frames keeps moving in y: it goes a
+    /// visible way in all, and from frame to frame at nearly every one.
+    fn keeps_moving(rows: &[Seen]) -> bool {
+        (0..rows[0].1.len()).all(|i| {
+            let ys: Vec<f64> = rows.iter().map(|(_, c)| c[i][1]).collect();
+            let (lo, hi) = ys
+                .iter()
+                .fold((f64::MAX, f64::MIN), |(lo, hi), &y| (lo.min(y), hi.max(y)));
+            let steps = ys.windows(2).filter(|w| (w[1] - w[0]).abs() > 1e-6).count();
+            hi - lo > 0.2 * 0.7 * WAVER && steps as f64 >= 0.9 * (ys.len() - 1) as f64
+        })
+    }
+
+    /// 04_8's held numbers keep drifting in y through the chapter's last
+    /// music breath (END_HOLD_S): `waver` runs on its own clock, so a wait
+    /// does not stop it. The control is the same scene with the wavering at
+    /// 0, which the same check calls still: a frozen waver cannot pass.
+    #[test]
+    fn a_wavering_number_keeps_moving_through_a_music_breath() {
+        let hold = held_run(1.0, END_HOLD_S);
+        let frames = (END_HOLD_S * f64::from(testing::FPS)).round() as usize;
+        assert!(
+            hold.len() >= frames,
+            "{} frames sampled for a {END_HOLD_S} s hold",
+            hold.len()
+        );
+        assert!(keeps_moving(&hold), "the held numbers froze in the hold");
+        let still = held_run(0.0, END_HOLD_S);
+        assert!(
+            !keeps_moving(&still),
+            "the check cannot tell a still hold from a moving one"
+        );
     }
 }

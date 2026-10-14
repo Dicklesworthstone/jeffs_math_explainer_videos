@@ -17,6 +17,7 @@ use super::draw::{
     fade_out_all, faded_line, fail, fly, glyphs, hundreds, line_style, middle_of, mover, num, pause, rgb, say, slate,
     strip, swap, tiles_top, wait_until, your_turn,
 };
+use super::sound;
 use crate::facts::{cited, shown};
 use crate::model::{FIFTY, OneMove, ends_in_five, estimate, near_fifty, one_move};
 
@@ -107,6 +108,34 @@ fn tile_light(stage: &mut Stage<'_>, tile: &Tile, fills: &[bool], rt: f64) -> fm
 }
 
 /// The move on `side` with a strip `deep`, or a scene error.
+/// The recall after 14_3's three sums (storyboard: "listen 2 s, the move's
+/// sound, three times"): the window carries the move's pluck, and at each of
+/// its three plucks one square's strip, standing against its side, hops once,
+/// in the order the squares came. The narrator is silent; the scene fills the
+/// window.
+fn recall(kit: &Kit, stage: &mut Stage<'_>, figures: &[MoveFigure]) -> fmn::Result<()> {
+    let wav = sound::the_move_thrice()?;
+    kit.sonify(stage, sound::RECALL_S, "14_near_something_you_know:14_3", &wav)?;
+    let start = stage.scene().time().to_f64();
+    for (i, (figure, &at)) in figures.iter().zip(&sound::RECALL_AT).enumerate() {
+        wait_until(stage, start + at)?;
+        #[cfg(test)]
+        super::draw::probe::record(&kit.chapter, "hop", i, stage.scene().time().to_f64() - start, 1.0);
+        figure.strip.hop(stage)?;
+        #[cfg(test)]
+        super::draw::probe::record(
+            &kit.chapter,
+            "rest",
+            i,
+            stage.scene().time().to_f64() - start,
+            stage.tracker_value(figure.strip.t).unwrap_or(f64::NAN),
+        );
+        #[cfg(not(test))]
+        let _ = i;
+    }
+    wait_until(stage, start + sound::RECALL_S)
+}
+
 fn the_move_of(side: u64, deep: u64) -> fmn::Result<OneMove> {
     one_move(side, deep).ok_or_else(|| fail(format!("no strip {deep} deep comes off a square of {side}")))
 }
@@ -479,7 +508,7 @@ impl SceneConstruct for NearSomethingYouKnow {
             stage.add_to_scene(figure.seam)?;
             figure.show_corner(stage, 0.3)?;
         }
-        kit.listen(stage, 2.0, "14_near_something_you_know:14_3")?;
+        recall(&kit, stage, &figures)?;
 
         // 14_4: the 25, the 4 and the 9 become 5², 2² and 3²; the first
         // line turns into letters and the other two cross-fade into it; the
@@ -842,7 +871,71 @@ impl SceneConstruct for NearSomethingYouKnow {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::{probe, testing};
     use super::*;
+
+    /// 14_3's recall (bead mx-e-a-f-ms4.10): the listen window after the
+    /// three sums carries the move's pluck, and one square's strip hops at
+    /// each of its three plucks, in the order the squares came; the picture
+    /// is not still through the window, as a bare listen window would be.
+    #[test]
+    fn the_recall_hops_a_strip_at_each_of_the_three_plucks() {
+        let key = "14_near_something_you_know";
+        let run = testing::run_voiced(key).unwrap();
+        let (_, start, seconds, sounded) = run
+            .listens
+            .iter()
+            .find(|(label, ..)| label.ends_with(":14_3"))
+            .cloned()
+            .expect("14_3 opens a listen window");
+        assert!(sounded, "the window carries a sonification");
+        assert!((seconds - sound::RECALL_S).abs() < 1e-9, "{seconds} s");
+        let tag = format!("{key}#voiced");
+        let hops = probe::take(&tag, "hop");
+        assert_eq!(hops.iter().map(|h| h.0).collect::<Vec<_>>(), [0, 1, 2], "{hops:?}");
+        let frame = 1.0 / f64::from(testing::FPS);
+        for &(i, at, _) in &hops {
+            let want = sound::RECALL_AT[i];
+            assert!(
+                (at - want).abs() <= frame + 1e-9,
+                "square {i} hops {at:.2} s into the window; its pluck is at {want} s"
+            );
+        }
+        // every hop is over before the next pluck, and each strip stands again
+        let rests = probe::take(&tag, "rest");
+        assert_eq!(rests.len(), 3);
+        for (&(i, hop_at, _), &(j, rest_at, standing)) in hops.iter().zip(&rests) {
+            assert_eq!(i, j);
+            assert_eq!(standing, 1.0, "square {i} does not end standing");
+            assert!(
+                rest_at >= hop_at + super::super::draw::HOP_S - frame,
+                "square {i}: a hop of {:.2} s",
+                rest_at - hop_at
+            );
+            if let Some(&next) = sound::RECALL_AT.get(i + 1) {
+                assert!(
+                    rest_at <= next + frame,
+                    "square {i} is still hopping when the next pluck sounds"
+                );
+            }
+        }
+        assert!(
+            hops[2].1 + super::super::draw::HOP_S <= sound::RECALL_S,
+            "the last hop ends inside the window"
+        );
+        let frames = testing::frames_of(&run.frames_dir).unwrap();
+        let fps = f64::from(testing::FPS);
+        let (from, to) = (
+            (start * fps).round() as usize,
+            ((start + seconds) * fps).round() as usize,
+        );
+        let moving = testing::changes(&frames, from, to);
+        assert!(
+            moving >= 9,
+            "{moving} of the window's {} frames differ from the frame before",
+            to - from
+        );
+    }
 
     #[test]
     fn the_sentence_breaks_into_its_words_and_marks() {

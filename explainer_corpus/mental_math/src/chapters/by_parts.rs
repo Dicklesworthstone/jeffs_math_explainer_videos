@@ -654,3 +654,37 @@ fn pause_then_show(stage: &mut Stage<'_>, mob: Mob, wait: f64) -> fmn::Result<()
     play!(stage; fade_in(stage.arena_mut(), mob, v(0.0, 0.15), 1.0)?.rt(0.5));
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::super::draw::{END_HOLD_S, testing};
+
+    /// The numbers held in the head waver as the adding is named, and keep
+    /// wavering through the music breath that ends the chapter, up to the
+    /// settle that clears them (bead mx-e-a-f-ms4.10).
+    #[test]
+    fn the_held_numbers_keep_moving_through_the_chapters_last_hold() {
+        let run = testing::run_voiced("04_by_parts").unwrap();
+        let frames = testing::frames_of(&run.frames_dir).unwrap();
+        let (start, seconds) = *run.breaths.last().expect("04 ends on a music breath");
+        assert!((seconds - END_HOLD_S).abs() < 1e-9, "the hold is {seconds} s");
+        let fps = f64::from(testing::FPS);
+        let (from, to) = (
+            (start * fps).round() as usize,
+            ((start + seconds) * fps).round() as usize,
+        );
+        let held = to - from;
+        let moving = testing::changes(&frames, from, to);
+        assert!(
+            moving + 1 >= held,
+            "{moving} of the {held} frames of the last hold differ from the frame before: the numbers froze"
+        );
+        // the same check sees a still picture where there is one: this chapter
+        // stands still for whole seconds elsewhere
+        let (_, still) = testing::longest_still(&frames);
+        assert!(
+            still >= 10,
+            "the longest still stretch of the chapter is {still} frames, so the check proves little"
+        );
+    }
+}
