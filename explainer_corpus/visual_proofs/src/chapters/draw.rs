@@ -2587,7 +2587,13 @@ mod tests {
             let voiced = testing::run_voiced(key).unwrap();
             for band in quiz_log::keys(&voiced.tag, "band:") {
                 let mut up = None;
-                for (kind, at) in quiz_log::take(&voiced.tag, &band) {
+                // another test running the same chapter at the same time logs
+                // under the same name: in time order, with the twin events
+                // (one run's, the other's) counted once
+                let mut events = quiz_log::take(&voiced.tag, &band);
+                events.sort_by(|a, b| a.1.total_cmp(&b.1));
+                events.dedup_by(|a, b| a.0 == b.0 && (a.1 - b.1).abs() < 1e-9);
+                for (kind, at) in events {
                     match (kind, up) {
                         ("up", _) => up = Some(at),
                         ("down", Some(u)) => {

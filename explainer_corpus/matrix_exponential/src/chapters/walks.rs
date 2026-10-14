@@ -193,6 +193,19 @@ pub fn node(i: usize) -> Vec3 {
     v(NODE_AT[i][0], NODE_AT[i][1])
 }
 
+/// The radius of the gold token that walks the network (11_2's walker, 12_3's
+/// hopper), and how far it stands from the node it is "on": up and to the
+/// right, on the disc's rim, so it never covers the numeral (it stood on the
+/// centre and hid the 4 for 9 s).
+pub const TOKEN_R: f64 = 0.14;
+pub const TOKEN_OFFSET: [f64; 2] = [0.26, 0.26];
+
+/// Where the token stands when it is at the place `p` of the network (a node,
+/// or a point of a link): `p` shifted by `TOKEN_OFFSET`.
+pub fn token_at(p: Vec3) -> Vec3 {
+    v(p[0] + TOKEN_OFFSET[0], p[1] + TOKEN_OFFSET[1])
+}
+
 impl Net {
     fn build(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Self> {
         let mut links = Vec::new();
@@ -347,10 +360,15 @@ impl SceneConstruct for Walks {
         let a2_name = kit.tex(stage, r"A^2", 48.0, gold, &[], v(A2_AT[0], A2_AT[1] + 1.55))?;
         line.wait_for(stage, "A walk is a route")?;
         // a walk: one token goes 1, 3, 4 along the links
-        let token = stage
-            .arena_mut()
-            .add(Dot::new().point(node(0)).radius(0.14).style(flat(gold, 1.0)).build());
-        let stops = [node(0), node(2), node(3)];
+        let token = stage.arena_mut().add(
+            Dot::new()
+                .point(token_at(node(0)))
+                .radius(TOKEN_R)
+                .style(flat(gold, 1.0))
+                .build(),
+        );
+        // (it rides the links shifted to the discs' rims, so the numerals stay)
+        let stops = [token_at(node(0)), token_at(node(2)), token_at(node(3))];
         let at = stage.add_value_tracker(0.0);
         let rider = stage.arena_mut().add(VMobject::new());
         let mut shown_at = f64::NAN;
@@ -805,6 +823,47 @@ mod tests {
             ..RuntimeConfig::default()
         };
         fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 11_2 and 12_3 (GrayCave's `covered` rule): the gold token that walks
+    /// the network never hides a node's numeral: wherever it is at a node (or
+    /// half way along a link) its disc stands clear of every numeral's box,
+    /// and at a node it still touches the node's disc, so it reads as being
+    /// there. It rested on the centre of node 4 and covered the 4 for 9 s.
+    #[test]
+    fn the_token_never_covers_a_numeral() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let mut spots: Vec<(String, Vec3)> = (0..KITE.n).map(|i| (format!("node {}", i + 1), node(i))).collect();
+            for &(a, b) in KITE.links {
+                let (p, q) = (node(a), node(b));
+                spots.push((
+                    format!("the middle of link {}-{}", a + 1, b + 1),
+                    v((p[0] + q[0]) / 2.0, (p[1] + q[1]) / 2.0),
+                ));
+            }
+            for (name, spot) in &spots {
+                let at = token_at(*spot);
+                for i in 0..KITE.n {
+                    let numeral = kit.text(stage, &(i + 1).to_string(), 34.0, Palette::ink(), node(i))?;
+                    let (lo, hi) = (
+                        [stage.get_left(numeral)[0], stage.get_bottom(numeral)[1]],
+                        [stage.get_right(numeral)[0], stage.get_top(numeral)[1]],
+                    );
+                    // the nearest point of the numeral's box to the token's centre
+                    let (nx, ny) = (at[0].clamp(lo[0], hi[0]), at[1].clamp(lo[1], hi[1]));
+                    let gap = (at[0] - nx).hypot(at[1] - ny) - TOKEN_R;
+                    assert!(gap >= 0.04, "{name}: the token is {gap:.2} from the numeral {}", i + 1);
+                }
+            }
+            // at a node it still touches the disc
+            for i in 0..KITE.n {
+                let (c, t) = (node(i), token_at(node(i)));
+                let d = (t[0] - c[0]).hypot(t[1] - c[1]);
+                assert!(d - TOKEN_R <= NODE_R, "node {}: the token stands {d:.2} off", i + 1);
+            }
+            Ok(())
+        });
     }
 
     /// 11_1, 11_4 and 11_5 (the dense read of the scored draft): the lit

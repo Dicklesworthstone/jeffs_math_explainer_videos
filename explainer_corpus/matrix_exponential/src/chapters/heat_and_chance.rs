@@ -27,7 +27,7 @@ use super::draw::{
 };
 use super::flow::{Levels, fade_in_anim, fade_out_anim};
 use super::sound;
-use super::walks::{NODE_R, node};
+use super::walks::{NODE_R, TOKEN_R, node, token_at};
 use crate::facts::{quantum_pair, shown};
 use crate::model::{KITE, Mat, Network, PAIR, expm_t, grid_heat};
 
@@ -508,8 +508,8 @@ impl SceneConstruct for HeatAndChance {
         line.wait_for(stage, "or as the chance of finding a random hopper")?;
         let token = stage.arena_mut().add(
             Dot::new()
-                .point(node(shown::HEAT_START))
-                .radius(0.15)
+                .point(token_at(node(shown::HEAT_START)))
+                .radius(TOKEN_R)
                 .style(flat(gold, 1.0))
                 .build(),
         );
@@ -527,7 +527,11 @@ impl SceneConstruct for HeatAndChance {
                 last = t;
                 let (from, to, f) = hopper_state(shown::HEAT_START, &schedule, t);
                 let (p, q) = (node(from), node(to));
-                s.move_to(token, v(p[0] + f * (q[0] - p[0]), p[1] + f * (q[1] - p[1])), ORIGIN);
+                s.move_to(
+                    token,
+                    token_at(v(p[0] + f * (q[0] - p[0]), p[1] + f * (q[1] - p[1]))),
+                    ORIGIN,
+                );
             },
             true,
         )?;
