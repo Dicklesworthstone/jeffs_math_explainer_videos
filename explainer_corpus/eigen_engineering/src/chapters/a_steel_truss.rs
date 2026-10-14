@@ -25,26 +25,40 @@ use super::draw::{
     run, say, squeezed, stretched, tween_all, tween_linear, wait_until, whole,
 };
 use super::marks::{mark, note};
-use super::truss::{Layout, StiffnessTable, TrussPic, dimension, load_arrow, supports};
+use super::truss::{Layout, StiffnessTable, TrussPic, dimension, displaced, load_arrow, plate, supports};
 use crate::model::truss::{LONE_JOINT, Truss};
 
 // ------------------------------------------------------------------ choices
 
-/// Where 05_6's "1.3 mm" (the roller's slide) sits: above and to the right
-/// of the roller joint, in the clear between the end of the truss and the
-/// table's lattice (it stood 0.75 to the right and touched the lattice).
+/// Where 05_6's "1.3 mm" (the roller's slide) sits: under the roller's
+/// ground line, in the clear below the end of the truss (it stood above and to
+/// the right, 0.15 from the table's lattice, and before that touched it).
 pub fn slide_label_at(roller: Vec3) -> Vec3 {
-    v(roller[0] + 0.45, roller[1] + 0.45)
+    v(roller[0] + 0.1, roller[1] - 0.75)
 }
 
-/// Where 05_8's "0 kN" tag sits: against the middle post, 0.34 to its right
-/// and 0.78 of the way up, where the right diagonal (it rises one to one from
-/// the post's foot) is still farther from the post than the words reach (at
-/// the post's middle, 0.7 to the right, it had the diagonal through it).
-pub fn post_label_at(bottom_mid: Vec3, top_mid: Vec3) -> Vec3 {
+/// The "0 kN" tag of 05_8: a small plate (this wide and high) laid on the
+/// middle post, which it names. The truss is drawn bent by the deck loads,
+/// so the place is the middle of the post as drawn, 0.55 of the way up it,
+/// where the two diagonals that meet at its foot are still farther from the
+/// post than the plate's half width (at the post's middle, to its right, the
+/// tag had the diagonal through it; at 0.78 of the way up it was on the top
+/// chord, which the first fix did not see because it measured the truss at
+/// rest).
+pub const POST_TAG: (f64, f64) = (0.62, 0.34);
+const POST_TAG_ALONG: f64 = 0.55;
+
+/// Where the middle post's tag is centred when the truss is drawn bent by
+/// `deck` (the moves of every joint direction, metres) times `mag`.
+pub fn post_tag_at(t: &Truss, layout: Layout, deck: &[f64], mag: f64) -> Vec3 {
+    let (foot, head) = (t.midspan(), crate::model::truss::PANELS + t.midspan());
+    let (a, b) = (
+        displaced(t, layout, deck, mag, 1.0, foot),
+        displaced(t, layout, deck, mag, 1.0, head),
+    );
     v(
-        bottom_mid[0] + 0.34,
-        bottom_mid[1] + 0.78 * (top_mid[1] - bottom_mid[1]),
+        a[0] + POST_TAG_ALONG * (b[0] - a[0]),
+        a[1] + POST_TAG_ALONG * (b[1] - a[1]),
     )
 }
 
@@ -138,6 +152,7 @@ impl SceneConstruct for ASteelTruss {
         let t = Truss::pratt();
         let lone = t.all_moves(&t.moves(&t.lone_load()));
         let deck = t.all_moves(&t.moves(&t.deck_load()));
+        let deck_field = deck.clone();
         let forces = t.member_forces(&t.moves(&t.deck_load()));
         let pic = TrussPic::build(stage, &t, LAYOUT, [lone, deck], [MAG_LONE, MAG_DECK], forces)?;
         let table = StiffnessTable::build(stage, &t, TABLE_AT, CELL)?;
@@ -439,6 +454,12 @@ impl SceneConstruct for ASteelTruss {
             "05_6.slide_gap",
             TABLE_AT[0] - (stage.get_center(lone_slide)[0] + stage.get_width(lone_slide) / 2.0),
         );
+        // how far the label's top stands under the roller's ground line
+        note(
+            &kit,
+            "05_6.slide_below_ground",
+            (roller_pos[1] - 1.4 * 0.2) - (stage.get_center(lone_slide)[1] + stage.get_height(lone_slide) / 2.0),
+        );
         fade_in_all(stage, &[tag_mag, held_tag, lone_drop, lone_slide], 0.6)?;
         line.wait_for(stage, "still they all move")?;
         // the table turns into its inverse
@@ -573,13 +594,12 @@ impl SceneConstruct for ASteelTruss {
             stretched(),
             v(mid[0], mid[1] - 1.0),
         )?;
-        let post_label = kit.text(
-            stage,
-            &format!("{} kN", whole(post_kn)),
-            26.0,
-            dim,
-            post_label_at(mid, mid_top),
-        )?;
+        let tag_at = post_tag_at(&t, pic.layout, &deck_field, MAG_DECK);
+        let post_label = {
+            let text = kit.text(stage, &format!("{} kN", whole(post_kn)), 24.0, ink, tag_at)?;
+            let back = plate(stage, POST_TAG.0, POST_TAG.1, tag_at, dim)?;
+            group(stage, &[back, text])?
+        };
         fade_in_all(stage, &[top_label, bottom_label, post_label], 0.6)?;
         // the gauge: the stress against what makes the steel yield
         let stress = numbers("K-T5.stress_mpa")?[0];
@@ -673,21 +693,23 @@ mod tests {
         assert!(s5 - (s4 + l4) <= 6.5, "{:.1} s of silence before 05_5", s5 - (s4 + l4));
     }
 
-    /// 05_6: the roller's "1.3 mm" ends clear of the lattice (0.15 or more);
-    /// 05_8: the "0 kN" tag has no member through it and stands beside the
-    /// middle post it names.
+    /// 05_6: the roller's "1.3 mm" stands under the roller's ground line and
+    /// well clear of the lattice (0.4 or more); 05_8: the "0 kN" plate is laid
+    /// on the middle post as the bent truss draws it and no member but that
+    /// post passes through it (the diagonals and the top chord are clear).
     #[test]
     fn the_roller_slide_and_the_post_tag_are_clear_of_what_they_were_on() {
         let voiced = testing::run_voiced("05_a_steel_truss").unwrap();
         let gap = marks::at(&voiced.tag, "05_6.slide_gap");
-        assert!(gap >= 0.15, "the lattice is {gap:.2} from the label");
+        assert!(gap >= 0.4, "the lattice is {gap:.2} from the label");
+        let below = marks::at(&voiced.tag, "05_6.slide_below_ground");
+        assert!(below >= 0.1, "the label's top is {below:.2} under the ground line");
 
         let t = Truss::pratt();
-        let mid = LAYOUT.joint(&t, t.midspan());
-        let top = LAYOUT.at(t.span_m() / 2.0, 4.0);
-        let at = post_label_at(mid, top);
-        // "0 kN" at 26 pt is about 0.47 wide and 0.3 high; 0.04 is added all round
-        let (hw, hh) = (0.28, 0.2);
+        let deck = t.all_moves(&t.moves(&t.deck_load()));
+        let at = post_tag_at(&t, LAYOUT, &deck, MAG_DECK);
+        // the plate, 0.03 larger all round
+        let (hw, hh) = (POST_TAG.0 / 2.0 + 0.03, POST_TAG.1 / 2.0 + 0.03);
         let hits = |a: Vec3, b: Vec3| {
             // Liang-Barsky against the plate
             let (mut t0, mut t1) = (0.0_f64, 1.0_f64);
@@ -713,20 +735,29 @@ mod tests {
             }
             t0 <= t1
         };
+        let foot = t.midspan();
+        let head = crate::model::truss::PANELS + t.midspan();
         let crossing: Vec<(usize, usize)> = t
             .members
             .iter()
-            .filter(|m| hits(LAYOUT.joint(&t, m.a), LAYOUT.joint(&t, m.b)))
+            .filter(|m| {
+                hits(
+                    displaced(&t, LAYOUT, &deck, MAG_DECK, 1.0, m.a),
+                    displaced(&t, LAYOUT, &deck, MAG_DECK, 1.0, m.b),
+                )
+            })
             .map(|m| (m.a, m.b))
             .collect();
-        assert!(crossing.is_empty(), "members through the tag: {crossing:?}");
-        // and it is the middle post's: its left edge is within 0.2 of the post
-        assert!(
-            (at[0] - hw - mid[0]).abs() <= 0.2,
-            "{:.2} from the post",
-            at[0] - hw - mid[0]
+        assert_eq!(crossing, vec![(foot, head)], "members through the tag: {crossing:?}");
+        // and it is wholly between the foot and the head of that post
+        let (f, h) = (
+            displaced(&t, LAYOUT, &deck, MAG_DECK, 1.0, foot),
+            displaced(&t, LAYOUT, &deck, MAG_DECK, 1.0, head),
         );
-        assert!(at[1] + hh < top[1], "below the top chord");
+        assert!(
+            at[1] - hh > f[1] && at[1] + hh < h[1],
+            "the plate is not between the post's ends"
+        );
     }
 
     /// 05_2: the spring is EA/L from the facts' steel, section and length,
