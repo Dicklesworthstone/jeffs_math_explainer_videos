@@ -24,6 +24,7 @@ pub mod the_box;
 pub mod the_cut_cube;
 pub mod the_missing_square;
 pub mod three_stacks;
+pub mod thumbnail;
 pub mod what_makes_a_proof;
 
 use explainer_kit::Chapter;
