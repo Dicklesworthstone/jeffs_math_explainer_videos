@@ -321,7 +321,13 @@
    "note": "Giulio Mozzi (07_6.1). Read right as written: heard 'Giulio' in its take and 'Julio' (the same sound) in the line."
   }
  },
+ "accept": {
+  "millimeter": [
+   "millimetre"
+  ]
+ },
  "phrases": {
+  "drone steer": "drones steer",
   "jim bull": "gimbal",
   "bad spots": "bad spot"
  }
