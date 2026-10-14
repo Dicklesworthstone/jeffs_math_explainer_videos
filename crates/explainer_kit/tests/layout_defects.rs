@@ -358,6 +358,22 @@ fn what_is_only_there_in_the_middle_of_a_beat_is_seen_by_a_sampling_lint_alone()
 }
 
 #[test]
+fn the_sampling_survives_a_wipe_that_clears_every_updater() {
+    // fade_all clears the updaters of every top-level mobject, the lint's probe included: the next beat must
+    // put a working one back, or the rest of the chapter would be looked at only at its checkpoints
+    let after_wipe = lint(true, |kit, stage| {
+        kit.say(stage, "t_1")?;
+        shown(kit, stage, "3", 40.0, v(0.0, 0.0))?;
+        stage.wait(0.5)?;
+        explainer_kit::fade_all(stage, 0.3)?;
+        // the same sweep as above in the beat after the wipe: over the numeral from 0.4 s to 1.8 s
+        sweep(0.4, 1.8, 2.6)(kit, stage)
+    });
+    let crossed = rows_of(&after_wipe, "crossed");
+    assert_eq!(crossed.len(), 1, "{after_wipe}");
+}
+
+#[test]
 fn a_crossing_that_lasts_less_than_a_second_is_a_transition_not_a_finding() {
     // pictures change over a second or so, their old and new parts passing through each other
     let brief = lint(true, sweep(0.4, 1.0, 2.0));

@@ -197,13 +197,14 @@ impl Linter {
         self.allowed.borrow_mut().push(mob);
     }
 
-    /// The probe is not on the stage (never put there, or faded away by a wipe): the kit has to put one back.
+    /// The probe is not on the stage, or has lost its updater (a wipe such as `fade_all` clears every top-level
+    /// mobject's updaters and fades it out): the kit has to put a new one back.
     pub fn needs_probe(&self, arena: &Arena) -> bool {
         self.sampling
             && !self
                 .probe
                 .get()
-                .is_some_and(|p| arena.contains(p) && arena.roots().contains(&p))
+                .is_some_and(|p| arena.contains(p) && arena.roots().contains(&p) && arena.family_updater_kinds(p).1 > 0)
     }
 
     /// Remember the mobject that carries the updater calling [`Linter::tick`].
