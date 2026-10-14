@@ -12,14 +12,13 @@
 //! move ("in the sea A's dots have not moved") and the copies go back
 //! where they came from.
 
-use explainer_kit::props::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
     CARRY_HOLD_S, QuizFrame, SEA_DOT_R, Sea, SeaDot, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find,
-    flat, in_cell, line_style, map, pause, percent_tex, say, sea_dots, sea_slot, sea_split, search, tween_linear,
-    wait_until,
+    flat, in_cell, line_style, map, pause, percent_tex, quote_card, say, sea_dots, sea_slot, sea_split, search,
+    tween_linear, wait_until,
 };
 use crate::model::{Q, sea};
 
@@ -393,7 +392,10 @@ impl SceneConstruct for NothingFound {
         fade_in_all(stage, &[half, tick], 0.5)?;
         line.wait_end(stage)?;
         kit.hold(stage)?;
-        let quote = lower_third(&kit, stage, STONE, SUBJECTIVE)?;
+        // the quotation is one sentence of ninety characters: the kit's
+        // lower-third leaves "one.”" alone on a second line, so it is set
+        // in two balanced lines
+        let quote = quote_card(&kit, stage, STONE, SUBJECTIVE)?;
         fade_in_all(stage, &[quote], 0.5)?;
         pause(stage, CARRY_HOLD_S)?;
         fade_out_all(stage, &[quote], 0.4)?;
@@ -474,6 +476,7 @@ fn ruler(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::balanced_lines;
     use super::*;
 
     /// (line, phrase): every phrase a picture lands on.
@@ -624,6 +627,19 @@ mod tests {
         assert!(lit_indices(&cells, 1, 30).iter().all(|&i| cells[i] != 1));
         assert_eq!(pct_text(Q::lowest(1, 8)), "12.5%");
         assert_eq!(pct_text(Q::lowest(1, 2)), "50%");
+    }
+
+    /// The kit's lower-third left "one.”" alone on a second line of the
+    /// quotation (the label "Stone and others, 2014" leaves about 86
+    /// characters a line); the card now breaks it in two balanced lines.
+    #[test]
+    fn the_quotation_is_two_balanced_lines_not_a_line_and_an_orphan() {
+        let lines = balanced_lines(SUBJECTIVE, 86);
+        assert_eq!(lines.len(), 2, "{lines:?}");
+        assert_eq!(lines.join(" "), SUBJECTIVE);
+        let (a, b) = (lines[0].chars().count(), lines[1].chars().count());
+        assert!(a.abs_diff(b) <= 20, "{a} and {b}");
+        assert!(b >= 30, "the second line is {lines:?}");
     }
 
     #[test]

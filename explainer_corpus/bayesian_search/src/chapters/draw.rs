@@ -974,10 +974,130 @@ pub const QUIZ_NOTE_Y: f64 = -3.6;
 /// How far a line's text reaches from its centre (26 pt and 20 pt).
 const QUIZ_LINE_REACH: f64 = 0.2;
 const QUIZ_NOTE_REACH: f64 = 0.15;
-/// The longest a question line runs, in characters, at the type size below.
-const QUIZ_LINE_CHARS: usize = 66;
+/// How wide a character of the text face runs, per point of type size, in
+/// stage units: the face measures 20.6 px a character at 34 pt on the glyph
+/// pages' 1,920 px, 14.22-unit frame, which is 0.0045 of a unit a point.
+pub const CHAR_UNITS_PER_POINT: f64 = 0.0045;
+/// A question's type size, and how many characters of it make a line 9.8
+/// units wide (84 at 26 pt, of the frame's 13.8).
 const QUIZ_PT: f64 = 26.0;
+pub const QUIZ_FULL_CHARS: usize = 84;
+/// The most a question line may run to: a longer line is set smaller so it
+/// is never wider than a full one (the longest question, 09_5, is 179
+/// characters: two lines of 90, at 24 pt).
+pub const QUIZ_LINE_CHARS: usize = 100;
 const PAUSE_NOTE: &str = "pause for more time";
+
+/// The type size for a question set in `lines`: full size, or smaller so
+/// that its longest line is no wider than [`QUIZ_FULL_CHARS`] at full size.
+pub fn question_pt(lines: &[String]) -> f64 {
+    let longest = lines.iter().map(|l| l.chars().count()).max().unwrap_or(0);
+    if longest <= QUIZ_FULL_CHARS {
+        QUIZ_PT
+    } else {
+        QUIZ_PT * QUIZ_FULL_CHARS as f64 / longest as f64
+    }
+}
+
+/// What a line break costs when it falls inside a sentence, against how
+/// unbalanced the two lines are: a sentence's end wins unless that leaves
+/// the lines more than this many characters apart.
+const MID_SENTENCE_COST: usize = 60;
+/// What a break costs that strands a one-letter word ("E | five") at the end
+/// of a line.
+const STRANDED_COST: usize = 200;
+
+/// `text` as one line if it fits `max_chars`, otherwise as two lines broken
+/// where it reads best: at the end of a sentence if that keeps the lines
+/// within [`MID_SENTENCE_COST`] of balanced, otherwise at the most balanced
+/// word, and never after a one-letter word. Every word is kept (a text too
+/// long for two lines wraps on to a third rather than losing its end, which
+/// is what the kit's `wrap` does to it).
+pub fn balanced_lines(text: &str, max_chars: usize) -> Vec<String> {
+    let words: Vec<&str> = text.split_whitespace().collect();
+    let whole = words.join(" ");
+    if whole.chars().count() <= max_chars {
+        return vec![whole];
+    }
+    let mut best: Option<(usize, usize)> = None;
+    for k in 1..words.len() {
+        let (a, b) = (words[..k].join(" "), words[k..].join(" "));
+        let (la, lb) = (a.chars().count(), b.chars().count());
+        if la > max_chars || lb > max_chars {
+            continue;
+        }
+        let ends_sentence = a.ends_with(['.', '?', '!']);
+        let mut cost = la.abs_diff(lb);
+        if !ends_sentence {
+            cost += MID_SENTENCE_COST;
+            if words[k - 1].chars().count() == 1 {
+                cost += STRANDED_COST;
+            }
+        }
+        if best.is_none_or(|(c, _)| cost < c) {
+            best = Some((cost, k));
+        }
+    }
+    match best {
+        Some((_, k)) => vec![words[..k].join(" "), words[k..].join(" ")],
+        None => wrap(&whole, max_chars, words.len().max(1)),
+    }
+}
+
+/// `lines` as separate texts one under another, centred on `x`, the first
+/// line's middle at `top` and `step` between them: one group, detached.
+#[allow(clippy::too_many_arguments)]
+pub fn text_lines(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    lines: &[String],
+    size: f64,
+    color: Srgb,
+    x: f64,
+    top: f64,
+    step: f64,
+) -> fmn::Result<Mob> {
+    let mut texts = Vec::new();
+    for (i, l) in lines.iter().enumerate() {
+        texts.push(kit.text(stage, l, size, color, v(x, top - step * i as f64))?);
+    }
+    group(stage, &texts)
+}
+
+/// A lower-third that wraps the way [`balanced_lines`] does (the kit's breaks
+/// a long quotation at its last word: "… a subjective / one."): the `label`
+/// in the hero role at the left, the text beside it in one or two balanced
+/// lines, on a panel at the foot of the frame. One group, detached.
+pub fn quote_card(kit: &Kit, stage: &mut Stage<'_>, label: &str, text: &str) -> fmn::Result<Mob> {
+    let w = 2.0 * FRAME_X_RADIUS - 0.8;
+    let left = -w / 2.0 + 0.25;
+    let tag = kit.text_left(stage, label, 26.0, Palette::hero(), v(left, 0.0))?;
+    let indent = left + stage.get_width(tag) + 0.2;
+    let room = w / 2.0 - 0.25 - indent;
+    let chars = (room / (CHAR_UNITS_PER_POINT * 26.0)).floor() as usize;
+    let lines = balanced_lines(text, chars);
+    if lines.len() > 3 {
+        return Err(fail(format!("the card for {label:?} needs {} lines", lines.len())));
+    }
+    let line_h = 0.36;
+    let h = 0.3 + line_h * lines.len() as f64;
+    let centre = v(0.0, -FRAME_Y_RADIUS + 0.2 + h / 2.0);
+    let back = Rectangle::new()
+        .width(w)
+        .height(h)
+        .corner_radius(0.14)
+        .style(Style::default().fill(panel(), 0.96).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(centre);
+    let back = stage.arena_mut().add(back);
+    let top = centre[1] + h / 2.0 - 0.15 - line_h / 2.0;
+    stage.move_to(tag, v(left, top), LEFT);
+    let mut all = vec![back, tag];
+    for (i, l) in lines.iter().enumerate() {
+        all.push(kit.text_left(stage, l, 26.0, Palette::ink(), v(indent, top - line_h * i as f64))?);
+    }
+    group(stage, &all)
+}
 
 /// What is left of a circle of radius `r` at `c`, drained clockwise from
 /// the top.
@@ -1054,10 +1174,18 @@ impl QuizFrame {
                 .add(polyline(sides[i].to_vec()).style(line_style(quiz_role(), 5.0)).build())
         });
 
-        let lines = wrap(words, QUIZ_LINE_CHARS, QUIZ_LINES_Y.len());
+        let lines = balanced_lines(words, QUIZ_LINE_CHARS);
+        if lines.len() > QUIZ_LINES_Y.len() {
+            return Err(fail(format!(
+                "the question of {id} needs {} lines, the caption band has {}",
+                lines.len(),
+                QUIZ_LINES_Y.len()
+            )));
+        }
+        let pt = question_pt(&lines);
         let mut question = Vec::new();
         for (l, &y) in lines.iter().zip(&QUIZ_LINES_Y) {
-            question.push(kit.text(stage, l, QUIZ_PT, Palette::ink(), v(0.0, y))?);
+            question.push(kit.text(stage, l, pt, Palette::ink(), v(0.0, y))?);
         }
         let note = kit.text(stage, PAUSE_NOTE, 20.0, Palette::dim(), v(0.0, QUIZ_NOTE_Y))?;
 
@@ -1207,10 +1335,18 @@ pub fn carry_question(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result
     let words = script
         .text(id)
         .ok_or_else(|| fail(format!("narration line {id} is not in script.tsv")))?;
-    let lines = wrap(words, QUIZ_LINE_CHARS, QUIZ_LINES_Y.len());
+    let lines = balanced_lines(words, QUIZ_LINE_CHARS);
+    if lines.len() > QUIZ_LINES_Y.len() {
+        return Err(fail(format!(
+            "the question of {id} needs {} lines, the caption band has {}",
+            lines.len(),
+            QUIZ_LINES_Y.len()
+        )));
+    }
+    let pt = question_pt(&lines);
     let mut texts = Vec::new();
     for (l, &y) in lines.iter().zip(&QUIZ_LINES_Y) {
-        texts.push(kit.text(stage, l, QUIZ_PT, Palette::ink(), v(0.0, y))?);
+        texts.push(kit.text(stage, l, pt, Palette::ink(), v(0.0, y))?);
     }
     group(stage, &texts)
 }
@@ -1992,6 +2128,113 @@ mod tests {
         let forty = &order[..40];
         assert_eq!(forty.iter().filter(|&&(r, _)| r < 2).count(), 30);
         assert_eq!(forty.iter().filter(|&&(r, _)| r == 2).count(), 10);
+    }
+
+    /// The glyph pages showed the kit's greedy wrap cutting a question off
+    /// with " …" ("… in cell …", "… A or …") and splitting "E | five". Every
+    /// question the video asks, a quiz or a carried one, now fits two lines
+    /// with all its words, breaks at the end of a sentence where it can, and
+    /// never strands a one-letter word.
+    #[test]
+    fn every_question_fits_two_lines_whole() {
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        // the quizzes, and the questions carried with no ring (storyboard,
+        // "Two kinds of question")
+        let mut ids: Vec<&str> = QUIZZES.iter().map(|q| q.line).collect();
+        ids.extend(["02_7", "04_5", "08_1", "10_2", "11_4", "12_4", "13_3", "14_3"]);
+        for id in ids {
+            let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
+            let lines = balanced_lines(text, QUIZ_LINE_CHARS);
+            assert!(lines.len() <= QUIZ_LINES_Y.len(), "{id}: {} lines", lines.len());
+            assert_eq!(
+                lines.join(" "),
+                text.split_whitespace().collect::<Vec<_>>().join(" "),
+                "{id}: words lost"
+            );
+            assert!(!lines.iter().any(|l| l.contains('…')), "{id} is cut off");
+            for l in &lines {
+                assert!(l.chars().count() <= QUIZ_LINE_CHARS, "{id}: {l:?}");
+            }
+            if let [first, _] = lines.as_slice() {
+                let last = first.split_whitespace().last().unwrap_or("");
+                assert!(
+                    last.chars().count() > 1 || last.ends_with(['.', '?', '!']),
+                    "{id} strands {last:?} at the end of a line"
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn balanced_lines_break_at_a_sentence_and_never_cut_a_name() {
+        // at the width of a full-size line
+        let n = QUIZ_FULL_CHARS;
+        // short: one line
+        assert_eq!(
+            balanced_lines("So where would you look first?", n),
+            ["So where would you look first?"]
+        );
+        // the cell E five stays whole, the break is at the sentence's end
+        assert_eq!(
+            balanced_lines(
+                "One cell stands out, with one dot in every eight. They called it E five. Was she there?",
+                n
+            ),
+            [
+                "One cell stands out, with one dot in every eight.",
+                "They called it E five. Was she there?"
+            ]
+        );
+        // the question and its facts apart
+        assert_eq!(
+            balanced_lines(
+                "Forty percent, seen one time in four. Thirty percent, seen two times in three. \
+                 Which cell gives the better chance of a find, A or B?",
+                n
+            ),
+            [
+                "Forty percent, seen one time in four. Thirty percent, seen two times in three.",
+                "Which cell gives the better chance of a find, A or B?"
+            ]
+        );
+        // a text too long for two lines runs on to a third, whole
+        let long = "word ".repeat(60);
+        let lines = balanced_lines(&long, n);
+        assert!(lines.len() >= 3);
+        assert_eq!(lines.join(" "), long.trim());
+        // the face's measured width: a full line fits the frame with room
+        const {
+            assert!(QUIZ_FULL_CHARS as f64 * QUIZ_PT * CHAR_UNITS_PER_POINT < 2.0 * QUIZ_FRAME.0 - 2.0);
+        }
+    }
+
+    /// The longest question (09_5, 179 characters) takes two lines of about
+    /// 90 and is set smaller, so no question's line is wider than a full
+    /// one, and none is set under 22 pt.
+    #[test]
+    fn a_long_question_is_set_smaller_never_cut_and_never_wider() {
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let long = script.text("09_5").unwrap();
+        let lines = balanced_lines(long, QUIZ_LINE_CHARS);
+        assert_eq!(lines.len(), 2, "{lines:?}");
+        assert!(lines.iter().all(|l| l.chars().count() <= QUIZ_LINE_CHARS));
+        let pt = question_pt(&lines);
+        assert!((22.0..QUIZ_PT).contains(&pt), "{pt}");
+        // a short question is full size
+        assert_eq!(question_pt(&["So where would you look first?".to_owned()]), QUIZ_PT);
+        // and every question's widest line, at its size, is within a full line
+        let mut ids: Vec<&str> = QUIZZES.iter().map(|q| q.line).collect();
+        ids.extend(["02_7", "04_5", "08_1", "10_2", "11_4", "12_4", "13_3", "14_3"]);
+        for id in ids {
+            let lines = balanced_lines(script.text(id).unwrap(), QUIZ_LINE_CHARS);
+            let pt = question_pt(&lines);
+            assert!(pt >= 22.0, "{id}: {pt} pt");
+            let widest = lines.iter().map(|l| l.chars().count()).max().unwrap() as f64;
+            assert!(
+                widest * pt * CHAR_UNITS_PER_POINT <= QUIZ_FULL_CHARS as f64 * QUIZ_PT * CHAR_UNITS_PER_POINT + 1e-9,
+                "{id} is wider than a full line"
+            );
+        }
     }
 
     #[test]

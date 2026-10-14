@@ -11,14 +11,14 @@
 //! of nine weighted stories. A dot is a run of what two men believed, and
 //! the lower-third says so, against reading 1,250 as a count of sinkings.
 
-use explainer_kit::animatic::wrap;
-use explainer_kit::props::{lower_third, precisely};
+use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, Timed, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Heat, Lattice, Sea, carry_pause, carry_question, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, flat,
-    last_known, line_style, map, panel, pause, say, sea_dots, sea_slot, sea_split, true_place, tween_linear, veil,
+    Heat, Lattice, Sea, balanced_lines, carry_pause, carry_question, fade_in_all, fade_in_lagged, fade_out_all,
+    faded_line, fail, flat, last_known, line_style, map, panel, pause, quote_card, say, sea_dots, sea_slot, sea_split,
+    text_lines, true_place, tween_linear, veil,
 };
 use crate::facts::cited;
 use crate::model::{Q, sea, y1968};
@@ -51,16 +51,19 @@ const P_METHOD: &str = "we need a method";
 const PALOMARES: &str = "Palomares, Spain,";
 const FOUND_BY: &str = "found by the submersible Alvin,";
 const RUN_WORDS: &str = "each run drew its own course, speed and position";
-const SOURCE: &str = "Richardson and Stone, 1971, Figure 2. Each cell about a mile across";
+/// The map's source, as two lines whose break is not inside "Figure 2".
+const SOURCE: [&str; 2] = ["Richardson and Stone, 1971, Figure 2.", "Each cell about a mile across"];
 const SOURCE_PRECISELY: &str = "10,000 runs of nine weighted stories, not 10,000 sinkings";
 const SCENARIO: &str = "scenario";
+/// What the card says after the date: two sentences, so the card breaks
+/// between them.
 const SCENARIO_WORDS: &str =
-    "nine stories, each with a weight (the paper's word: credence). Not printed in the 1971 paper";
+    "nine stories, each with a weight (the paper\u{2019}s word: credence). Not printed in the 1971 paper.";
 const OF: &str = "of";
 const ONE_IN: &str = "1 in";
 const FEWER: &str = "fewer than 1 in 100";
 const QUOTED_YARDS: &str = "within 260 yards of the edge of rectangle E5";
-const IN_PAPER: &str = "as the paper's asterisk sits";
+const IN_PAPER: &str = "as the paper\u{2019}s asterisk sits";
 
 /// The lattice's place and size: left of the column, above the question's
 /// band (nine tenths of the sixteen rows fit the stage).
@@ -106,25 +109,14 @@ pub fn long_date(date: (i64, i64, i64)) -> String {
     format!("{} {} {}", date.2, MONTHS[(date.1 - 1) as usize], date.0)
 }
 
-/// Several lines of `words` as separate texts in a column, the first line's
-/// middle at `top`, `step` apart, each at most `chars` characters. One
-/// group, detached.
-fn block(
-    kit: &Kit,
-    stage: &mut Stage<'_>,
-    words: &str,
-    chars: usize,
-    size: f64,
-    color: Srgb,
-    top: f64,
-) -> fmn::Result<Mob> {
-    let lines = wrap(words, chars, 4);
-    let mut texts = Vec::new();
-    for (i, l) in lines.iter().enumerate() {
-        let m = kit.text(stage, l, size, color, v(COLUMN_X, top - 0.34 * i as f64))?;
-        texts.push(m);
-    }
-    super::draw::group(stage, &texts)
+/// The right-hand column's lines, 0.34 apart. One group, detached.
+fn block(kit: &Kit, stage: &mut Stage<'_>, lines: &[String], size: f64, color: Srgb, top: f64) -> fmn::Result<Mob> {
+    text_lines(kit, stage, lines, size, color, COLUMN_X, top, 0.34)
+}
+
+/// `words` as at most two balanced lines of `chars` (a column line).
+fn column_lines(words: &str, chars: usize) -> Vec<String> {
+    balanced_lines(words, chars)
 }
 
 /// A fact's value, or the error that names it.
@@ -241,11 +233,11 @@ impl SceneConstruct for TenThousandDots {
         line.wait_for(stage, P_WEIGHT)?;
         fade_in_lagged(stage, &weights, 1.2, 0.6)?;
         line.wait_end(stage)?;
-        let scenario = lower_third(
+        let scenario = quote_card(
             &kit,
             stage,
             SCENARIO,
-            &format!("{} {SCENARIO_WORDS}", long_date(cited::SCENARIOS_SET)),
+            &format!("Set out {}: {SCENARIO_WORDS}", long_date(cited::SCENARIOS_SET)),
         )?;
         fade_in_all(stage, &[scenario], 0.5)?;
         pause(stage, 1.0)?;
@@ -263,7 +255,7 @@ impl SceneConstruct for TenThousandDots {
         line.wait_for(stage, P_COMPUTER)?;
         let runs = stage.add_value_tracker(0.0);
         kit.live_count(stage, runs, 64.0, ink, v(COLUMN_X, 2.3))?;
-        let run_words = block(&kit, stage, RUN_WORDS, 34, 22.0, dim, 1.5)?;
+        let run_words = block(&kit, stage, &column_lines(RUN_WORDS, 34), 22.0, dim, 1.5)?;
         fade_in_all(stage, &[run_words], 0.5)?;
         // the dots rain: each cell's dots drop in, the middle first, while
         // the counter runs to the number of runs
@@ -307,7 +299,8 @@ impl SceneConstruct for TenThousandDots {
         stage.play_prepared(swap)?;
         line.wait_for(stage, P_PRINTED)?;
         fade_out_all(stage, &[run_words], 0.3)?;
-        let source = block(&kit, stage, SOURCE, 34, 22.0, dim, 1.5)?;
+        let source_lines: Vec<String> = SOURCE.iter().map(|&l| l.to_owned()).collect();
+        let source = block(&kit, stage, &source_lines, 22.0, dim, 1.5)?;
         fade_in_all(stage, &[source], 0.5)?;
         line.wait_end(stage)?;
         kit.hold(stage)?;
@@ -468,7 +461,7 @@ impl SceneConstruct for TenThousandDots {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{QUIZ_FRAME, QUIZ_LINES_Y};
+    use super::super::draw::{CHAR_UNITS_PER_POINT, QUIZ_FRAME, QUIZ_LINES_Y};
     use super::*;
     use explainer_kit::Script;
 
@@ -566,6 +559,28 @@ mod tests {
         let (fr, fc) = cell("F6").unwrap();
         assert_eq!((fr, fc), (er + 1, ec + 1));
         assert_eq!(f6, 85);
+    }
+
+    /// The glyph pages showed the source line broken inside "Figure 2." and
+    /// the scenario card missing its colon. The source is two whole lines;
+    /// the card's two sentences are its two lines; apostrophes are curly.
+    #[test]
+    fn the_source_and_the_scenario_card_break_where_they_read() {
+        assert_eq!(SOURCE[0], "Richardson and Stone, 1971, Figure 2.");
+        assert!(
+            SOURCE
+                .iter()
+                .all(|l| l.chars().count() as f64 * 22.0 * CHAR_UNITS_PER_POINT <= COLUMN_ROOM)
+        );
+        // the card: the label "scenario" leaves 100 characters a line
+        let text = format!("Set out {}: {SCENARIO_WORDS}", long_date(cited::SCENARIOS_SET));
+        let lines = balanced_lines(&text, 100);
+        assert_eq!(lines.len(), 2, "{lines:?}");
+        assert!(lines[0].starts_with("Set out 18 July 1968: nine stories"));
+        assert_eq!(lines[1], "Not printed in the 1971 paper.");
+        for s in [SCENARIO_WORDS, IN_PAPER] {
+            assert!(s.contains('\u{2019}') && !s.contains('\''), "{s}");
+        }
     }
 
     /// Cards, coast and column stand inside the stage; the lattice stands

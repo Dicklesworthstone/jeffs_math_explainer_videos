@@ -43,7 +43,7 @@ const SUM_THERE: &str = "chance it is there";
 const SUM_SEEING: &str = "× chance of seeing it";
 const SUM_FIND: &str = "= chance of a find";
 const DETECTION: &str = "detection probability";
-const DETECTION_WORDS: &str = "the Coast Guard's names: probability of success = containment × detection";
+const DETECTION_WORDS: &str = "the Coast Guard\u{2019}s names: probability of success = containment × detection";
 /// A spare dot's radius against a sea dot's.
 const SPARE_SCALE: f64 = 1.4;
 const SPARE_RING_R: f64 = 0.27;

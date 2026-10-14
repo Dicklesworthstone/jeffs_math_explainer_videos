@@ -42,7 +42,7 @@ const P_C_THIRD: &str = "a search of C thirteen and a third";
 const P_FALLEN: &str = "Only B has fallen";
 
 // fixed words
-const BAYES: &str = "Bayes' rule";
+const BAYES: &str = "Bayes\u{2019} rule";
 const BAYES_NOTE: &str = "Thomas Bayes, died";
 const LAPLACE_NOTE: &str = "As a rule for equally likely cases, which is what the dots are: Laplace,";
 const PRIOR: &str = "prior";
@@ -54,7 +54,7 @@ const HEAD_NEW: &str = "÷ what is left";
 const NOT_FOUND: &str = "a search of B cannot find a wreck that is somewhere else";
 const SUM_LABEL: &str = "the chance this search comes back empty";
 const OTHERS: &str = "every other cell: its own chance ÷ that same 1 − p d";
-const UPDATE: &str = "update: redrawing the map by Bayes' rule";
+const UPDATE: &str = "update: redrawing the map by Bayes\u{2019} rule";
 const MORE_DOTS: &str = "more dots, same map";
 const CATCH_WORDS: &str = "dots a search would catch";
 const LOOP_WORDS: [&str; 4] = ["Search", "Come back empty", "Update", "Choose again"];

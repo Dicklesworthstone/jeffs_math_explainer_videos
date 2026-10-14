@@ -17,8 +17,9 @@ use explainer_kit::{Kit, Palette, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CAPTION_Y, NAVY_CENTRE, NAVY_ROW_H, NavyGrid, carry_pause, carry_question, fade_in_all, fade_in_lagged,
-    fade_out_all, faded_line, fail, flat, line_style, map, pause, say, search, true_place, tween_linear,
+    CAPTION_Y, NAVY_CENTRE, NAVY_ROW_H, NavyGrid, balanced_lines, carry_pause, carry_question, fade_in_all,
+    fade_in_lagged, fade_out_all, faded_line, fail, flat, line_style, map, pause, say, search, text_lines, true_place,
+    tween_linear,
 };
 use crate::facts::cited;
 use crate::model::{days, y1968};
@@ -59,7 +60,8 @@ const MILES_OFF: &str = "miles southwest of the Azores";
 const ABOUT: &str = "about";
 const CELLS_BY: &str = "cells, each a mile by";
 const OF_A_MILE: &str = "of a mile";
-const AFTER_WORDS: &str = "strip as measured afterwards: camera";
+const AFTER_WORDS: &str = "strip as measured afterwards:";
+const CAMERA: &str = "camera";
 const FEET: &str = "ft";
 const MAGNETOMETER: &str = "magnetometer";
 const ONE_CELL: &str = "one cell:";
@@ -71,7 +73,10 @@ const ALL_CELLS: &str = "all";
 const ALL_CELLS_WORDS: &str = "cells:";
 const ALL_MILES: &str = "sea miles (6,076 feet each)";
 const MODEL_NOTE: &str =
-    "Model: one sensor's 200-foot strip; the camera and the magnetic detector together saw somewhat wider";
+    "Model: one sensor\u{2019}s 200-foot strip; the camera and the magnetic detector together saw somewhat wider";
+/// The model note's line length: 18 pt runs 0.081 of a unit a character, so
+/// 56 characters fill the column's 4.8 without shrinking.
+const MODEL_NOTE_CHARS: usize = 56;
 
 /// The Atlantic, drawn small: where the Azores and Norfolk stand and the
 /// patch southwest of the Azores.
@@ -387,18 +392,25 @@ impl SceneConstruct for NinetyNine {
                 .moved_to(v(INSET_AT[0] - INSET_W / 2.0 + w * (k as f64 + 0.5), INSET_AT[1]));
             strips.push(stage.arena_mut().add(r));
         }
-        let after = kit.text(
+        // two lines at full size, not one shrunk to the column (the glyph
+        // pages: sixty-four characters at 20 pt are 5.8 units, the room is 4.8)
+        let after = text_lines(
+            &kit,
             stage,
-            &format!(
-                "{AFTER_WORDS} {} {FEET}, {MAGNETOMETER} {} {FEET}",
-                cited::SWEEP_AFTER.0,
-                cited::SWEEP_AFTER.1
-            ),
+            &[
+                AFTER_WORDS.to_owned(),
+                format!(
+                    "{CAMERA} {} {FEET}, {MAGNETOMETER} {} {FEET}",
+                    cited::SWEEP_AFTER.0,
+                    cited::SWEEP_AFTER.1
+                ),
+            ],
             20.0,
             dim,
-            v(INSET_AT[0], INSET_AT[1] + cell_h / 2.0 + 0.45),
+            INSET_AT[0],
+            INSET_AT[1] + cell_h / 2.0 + 0.7,
+            0.32,
         )?;
-        super::draw::fit_width(stage, after, COLUMN_ROOM);
         let per_cell = fact(&facts, "F-H.once.per_cell")?;
         let one_cell = kit.text(
             stage,
@@ -464,8 +476,16 @@ impl SceneConstruct for NinetyNine {
             v(COLUMN_X, -0.4),
         )?;
         super::draw::fit_width(stage, all, COLUMN_ROOM);
-        let model = kit.text(stage, MODEL_NOTE, 18.0, dim, v(COLUMN_X, -1.15))?;
-        super::draw::fit_width(stage, model, COLUMN_ROOM);
+        let model = text_lines(
+            &kit,
+            stage,
+            &balanced_lines(MODEL_NOTE, MODEL_NOTE_CHARS),
+            18.0,
+            dim,
+            COLUMN_X,
+            -1.15,
+            0.3,
+        )?;
         fade_in_all(stage, &[all, model], 0.6)?;
         line.wait_end(stage)?;
 
@@ -576,6 +596,46 @@ mod tests {
         // the strips fill the inset cell exactly
         let w = INSET_W / 26.0;
         assert!((w * 26.0 - INSET_W).abs() < 1e-12);
+    }
+
+    /// The glyph pages showed the model note squeezed to 11 pt in a 4.8-unit
+    /// column. Each text of the column is now either wrapped or shrunk by
+    /// no more than a tenth, and none is set under 18 pt.
+    #[test]
+    fn the_columns_texts_stay_legible() {
+        use super::super::draw::CHAR_UNITS_PER_POINT;
+        let rows: [(String, f64); 3] = [
+            (format!("{ONE_CELL} 26 {SEA_MILES_OF_TRACK}"), 20.0),
+            (
+                format!("{ALL_CELLS} 180 {ALL_CELLS_WORDS} {} {ALL_MILES}", thousands(4594u64)),
+                24.0,
+            ),
+            (TRACK_WORDS.to_owned(), 20.0),
+        ];
+        for (text, size) in rows {
+            let natural = text.chars().count() as f64 * size * CHAR_UNITS_PER_POINT;
+            let set = size * (COLUMN_ROOM / natural).min(1.0);
+            assert!(set >= 18.0 && set >= 0.9 * size, "{text:?} is set at {set:.1} pt");
+        }
+        // the model note and the "afterwards" label are lines, not shrunk
+        let note = balanced_lines(MODEL_NOTE, MODEL_NOTE_CHARS);
+        assert_eq!(note.len(), 2, "{note:?}");
+        assert_eq!(note.join(" "), MODEL_NOTE);
+        for l in &note {
+            assert!(
+                l.chars().count() as f64 * 18.0 * CHAR_UNITS_PER_POINT <= COLUMN_ROOM + 1e-9,
+                "{l:?}"
+            );
+        }
+        let after = format!("{CAMERA} 185 {FEET}, {MAGNETOMETER} 220 {FEET}");
+        for l in [AFTER_WORDS, after.as_str()] {
+            assert!(
+                l.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT <= COLUMN_ROOM,
+                "{l:?}"
+            );
+        }
+        // and the apostrophe is a typographic one
+        assert!(MODEL_NOTE.contains('\u{2019}') && !MODEL_NOTE.contains('\''));
     }
 
     /// Everything stands on the stage: the line's labels, the Atlantic, the
