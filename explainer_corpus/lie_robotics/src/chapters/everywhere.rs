@@ -680,11 +680,16 @@ fn equation_pieces(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
     ] {
         out.push(kit.tex(stage, src, size, ink, &[], v(x, y))?);
     }
-    for (words, x) in [(GRIPPER_POSE, 1.2), (FIRST_TWIST, 3.3), (START_POSE, 6.0)] {
+    for (words, x) in EQUATION_LABELS {
         out.push(kit.text(stage, words, 20.0, Palette::dim(), v(x, y - 0.7))?);
     }
     Ok(out)
 }
+
+/// The plain labels under the seven-factor line and where each is centred:
+/// spaced so that the widest (the middle one) touches neither neighbour, and
+/// the last ends inside the frame's margin.
+const EQUATION_LABELS: [(&str, f64); 3] = [(GRIPPER_POSE, 1.2), (FIRST_TWIST, 3.65), (START_POSE, 6.1)];
 
 #[cfg(test)]
 mod tests {
@@ -845,6 +850,31 @@ mod tests {
             assert!(model::gap(&mul(&model::transpose(&r), &r), &model::I3) < 1e-9);
             assert!(norm(model::sub(apply(&r, Z), axis)) < 1e-9);
         }
+    }
+
+    /// The labels under the seven-factor line do not touch one another and
+    /// the last ends inside the margin; neither do the line's own pieces.
+    #[test]
+    fn the_equation_and_its_labels_do_not_overlap() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let pieces = equation_pieces(&kit, stage)?;
+            let (math, labels) = pieces.split_at(pieces.len() - EQUATION_LABELS.len());
+            let spans = |ms: &[Mob], stage: &Stage<'_>| -> Vec<(f64, f64)> {
+                ms.iter()
+                    .map(|&m| (stage.get_left(m)[0], stage.get_right(m)[0]))
+                    .collect()
+            };
+            for group in [spans(math, stage), spans(labels, stage)] {
+                for w in group.windows(2) {
+                    assert!(w[0].1 + 0.1 < w[1].0, "{:?} runs into {:?}", w[0], w[1]);
+                }
+            }
+            let last = labels.last().copied().expect("three labels");
+            assert!(stage.get_right(last)[0] < 7.11 - 0.15);
+            assert!(stage.get_left(math[0])[0] > -7.11 + 0.15);
+            Ok(())
+        });
     }
 
     #[test]
