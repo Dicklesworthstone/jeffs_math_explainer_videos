@@ -338,45 +338,99 @@ pub const CARRY_HOLD_S: f64 = 1.7;
 pub const CARRY_EASE_IN_S: f64 = 1.5;
 pub const CARRY_EASE_OUT_S: f64 = 0.2;
 
-/// Carry a steady bed across the chapter joins at `joins` (seconds). Where
-/// the bed is quieter just after a join than just before it by more than
+/// How long the start of the next chapter is held at the cut an up step asks
+/// of it (s), and the time it takes to give it back.
+pub const CARRY_AFTER_HOLD_S: f64 = 1.5;
+pub const CARRY_AFTER_EASE_S: f64 = 1.0;
+
+/// What [`carry`] did at one join (dB; 0 where it did nothing).
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Carried {
+    /// The gain on the stretch before the join: negative takes the end of
+    /// the chapter down to the next one's level, positive brings it up.
+    pub before_db: f64,
+    /// The cut on the stretch after the join (never positive).
+    pub after_db: f64,
+}
+
+/// Carry a steady bed across the chapter joins at `joins` (seconds): the two
+/// sides of each meet, outside speech only (a speech region's frames are the
+/// same samples, so what the voice is over is not moved). Where the bed is
+/// quieter just after a join than just before it by more than
 /// `CARRY_TOLERANCE_DB` (the step [`meter::join_step_db`] reads: the end of a
 /// chapter, with its last phrase, against the start of the next, which has
 /// its own level), the stretch before the join comes down by the difference,
-/// held for `CARRY_HOLD_S` and eased in over `CARRY_EASE_IN_S`, and nowhere
-/// inside speech. What comes after a join is never touched (the voice is
-/// there within a second), and neither is a bed that is already as loud after
-/// the join as before it. Returns the cut made at each join (dB, 0 for none).
-pub fn carry(x: &mut Stereo, joins: &[f64], speech: &[(f64, f64)]) -> Vec<f64> {
+/// held for `CARRY_HOLD_S` and eased in over `CARRY_EASE_IN_S`. Where it is
+/// louder after by more than that, the stretch before comes up by the
+/// difference, as far as `ceiling_db` (the level [`ceiling`] held the bed to,
+/// LUFS; NaN for none) lets it, and what is left comes off the first
+/// `CARRY_AFTER_HOLD_S` after the join, eased out over `CARRY_AFTER_EASE_S`.
+/// A join read from a bed that is silent on either side is left alone.
+pub fn carry(x: &mut Stereo, joins: &[f64], speech: &[(f64, f64)], ceiling_db: f64) -> Vec<Carried> {
     const HOP: f64 = 0.1;
     let steps = (x.len().saturating_sub((0.4 * FS) as usize)) / (HOP * FS) as usize + 1;
     let mut made = Vec::new();
     for &j in joins {
-        let cut_db = meter::join_step_db(x, j).map_or(0.0, |s| (s + CARRY_TOLERANCE_DB).min(0.0));
-        made.push(cut_db);
-        if cut_db == 0.0 {
-            continue;
-        }
-        let cut: Vec<f64> = (0..steps)
-            .map(|k| {
-                let d = k as f64 * HOP + 0.2 - j;
-                let shape = if d < -(CARRY_HOLD_S + CARRY_EASE_IN_S) {
+        let mut did = Carried::default();
+        if let Some((before, after)) = meter::join_levels(x, j) {
+            let step = after - before;
+            if step < -CARRY_TOLERANCE_DB {
+                did.before_db = step + CARRY_TOLERANCE_DB;
+            } else if step > CARRY_TOLERANCE_DB {
+                let want = step - CARRY_TOLERANCE_DB;
+                let room = if ceiling_db.is_nan() {
                     0.0
-                } else if d < -CARRY_HOLD_S {
-                    rcos((d + CARRY_HOLD_S + CARRY_EASE_IN_S) / CARRY_EASE_IN_S)
-                } else if d <= -0.05 {
-                    1.0
-                } else if d < -0.05 + CARRY_EASE_OUT_S {
-                    1.0 - rcos((d + 0.05) / CARRY_EASE_OUT_S)
                 } else {
-                    0.0
+                    (ceiling_db + CEILING_TOLERANCE_DB - before).max(0.0)
                 };
-                cut_db * shape
-            })
-            .collect();
-        apply_cut(x, &cut, speech);
+                did.before_db = want.min(room);
+                did.after_db = -(want - did.before_db);
+            }
+        }
+        made.push(did);
+        for (db, shape) in [
+            (did.before_db, carry_before as fn(f64) -> f64),
+            (did.after_db, carry_after as fn(f64) -> f64),
+        ] {
+            if db == 0.0 {
+                continue;
+            }
+            let gain: Vec<f64> = (0..steps).map(|k| db * shape(k as f64 * HOP + 0.2 - j)).collect();
+            apply_cut(x, &gain, speech);
+        }
     }
     made
+}
+
+/// The shape of the stretch before a join, `d` seconds from it: 0 to 1.
+fn carry_before(d: f64) -> f64 {
+    if d < -(CARRY_HOLD_S + CARRY_EASE_IN_S) {
+        0.0
+    } else if d < -CARRY_HOLD_S {
+        rcos((d + CARRY_HOLD_S + CARRY_EASE_IN_S) / CARRY_EASE_IN_S)
+    } else if d <= -0.05 {
+        1.0
+    } else if d < -0.05 + CARRY_EASE_OUT_S {
+        1.0 - rcos((d + 0.05) / CARRY_EASE_OUT_S)
+    } else {
+        0.0
+    }
+}
+
+/// The shape of the stretch after it: in over 0.2 s from just before the
+/// join, held, then eased out.
+fn carry_after(d: f64) -> f64 {
+    if d < -0.05 {
+        0.0
+    } else if d < 0.15 {
+        rcos((d + 0.05) / 0.2)
+    } else if d <= CARRY_AFTER_HOLD_S {
+        1.0
+    } else if d < CARRY_AFTER_HOLD_S + CARRY_AFTER_EASE_S {
+        1.0 - rcos((d - CARRY_AFTER_HOLD_S) / CARRY_AFTER_EASE_S)
+    } else {
+        0.0
+    }
 }
 
 /// 0 inside a speech region, rising to 1 over `CEILING_EDGE_S` outside it.
@@ -650,9 +704,10 @@ mod tests {
         let step = |x: &Stereo| meter::join_step_db(x, 15.0).unwrap();
         assert!((step(&stepped) + 4.0).abs() < 0.3, "{:.2}", step(&stepped));
         let mut carried = stepped.clone();
-        let made = carry(&mut carried, &[15.0], &speech);
+        let made = carry(&mut carried, &[15.0], &speech, f64::NAN);
         // brought to the tolerance, not to nothing
-        assert!((made[0] + 3.0).abs() < 0.3, "{made:?}");
+        assert!((made[0].before_db + 3.0).abs() < 0.3, "{made:?}");
+        assert_eq!(made[0].after_db, 0.0);
         assert!(
             (step(&carried) + CARRY_TOLERANCE_DB).abs() < 0.3,
             "{:.2}",
@@ -675,17 +730,61 @@ mod tests {
     }
 
     #[test]
-    fn a_join_within_the_tolerance_or_stepping_up_is_left_alone() {
+    fn a_join_within_the_tolerance_is_left_alone() {
         let speech = [(2.0, 8.0), (15.6, 28.0)];
-        for plant in [0.8, 0.0, -0.8, -3.0] {
+        for plant in [0.8, 0.0, -0.8] {
             // the end of the chapter `plant` dB over the next one's start
             let flat = tone(30.0, &[(8.5, 15.0, plant)]);
             let mut same = flat.clone();
-            assert_eq!(carry(&mut same, &[15.0], &speech), vec![0.0]);
+            assert_eq!(carry(&mut same, &[15.0], &speech, -40.0), vec![Carried::default()]);
             assert!(same.l == flat.l && same.r == flat.r, "{plant}");
         }
         // a join with nothing to measure (silent) makes no cut and no noise
         let mut quiet = Stereo::silence(30 * 48_000);
-        assert_eq!(carry(&mut quiet, &[15.0], &speech), vec![0.0]);
+        assert_eq!(carry(&mut quiet, &[15.0], &speech, -40.0), vec![Carried::default()]);
+    }
+
+    #[test]
+    fn a_join_that_steps_up_is_met_from_both_sides_outside_speech() {
+        let speech = [(2.0, 8.0), (15.6, 28.0)];
+        // the chapter's end, after its last line, 4 dB under the next one's start
+        let stepped = tone(30.0, &[(8.5, 15.0, -4.0)]);
+        let step = |x: &Stereo| meter::join_step_db(x, 15.0).unwrap();
+        let before = meter::join_levels(&stepped, 15.0).unwrap().0;
+        assert!((step(&stepped) - 4.0).abs() < 0.3, "{:.2}", step(&stepped));
+        // with room under the ceiling the end comes up by the whole difference
+        let mut raised = stepped.clone();
+        let made = carry(&mut raised, &[15.0], &speech, before + 10.0);
+        assert!(
+            (made[0].before_db - 3.0).abs() < 0.3 && made[0].after_db == 0.0,
+            "{made:?}"
+        );
+        assert!((step(&raised) - CARRY_TOLERANCE_DB).abs() < 0.4, "{:.2}", step(&raised));
+        // with the ceiling where the end already stands (or none) it cannot
+        // come up, and the start of the next chapter comes down instead
+        for ceiling in [before - CEILING_TOLERANCE_DB, f64::NAN] {
+            let mut met = stepped.clone();
+            let made = carry(&mut met, &[15.0], &speech, ceiling);
+            assert!(
+                made[0].before_db == 0.0 && (made[0].after_db + 3.0).abs() < 0.3,
+                "{made:?}"
+            );
+            // the start of the next chapter before its voice is 0.6 s of the
+            // 1.5 s the step is read over: it moves the median by less than it
+            // moves the bed
+            assert!(step(&met) < step(&stepped), "{:.2}", step(&met));
+        }
+        // the voice's frames are the same samples either way, and so is all
+        // but the stretch around the join
+        for ceiling in [before + 10.0, f64::NAN] {
+            let mut met = stepped.clone();
+            carry(&mut met, &[15.0], &speech, ceiling);
+            for (i, (a, b)) in stepped.l.iter().zip(&met.l).enumerate() {
+                let t = i as f64 / FS;
+                if speech.iter().any(|&(s, e)| (s..e).contains(&t)) || t > 18.0 || t < 9.0 {
+                    assert!(a == b, "sample {i} at {t:.3} s moved");
+                }
+            }
+        }
     }
 }

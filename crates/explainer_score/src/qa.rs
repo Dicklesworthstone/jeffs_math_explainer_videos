@@ -391,7 +391,12 @@ pub use crate::meter::join_step_db;
 /// -2.8 open, -3.3 steady); what the steady bed removes is the duck's release
 /// before a chapter's end, which reads 3 to 16 LU in the open scores (median
 /// 9.2). The first limit, 1.5 (the bead's, F's 13 joins were within 1.3),
-/// failed 10 chapters of E, G, H and I that way.
+/// failed 10 chapters of E, G, H and I that way. The carry meeting a join from
+/// both sides outside speech ([`crate::duck::carry`]) brings that to 7 over
+/// 1.5 and 3 over 2.0 of the 90 joins read: I's 06 to 07 (-3.3), G's 08 to 09
+/// (-2.6) and 03 to 04 (+2.2), chapters whose tail after the last line and
+/// head before the first are 0.6 s each, so most of the 1.5 s either side the
+/// step is read over is under the voice, where the bed is not moved.
 pub const STEADY_BED_SWELL_LU: f64 = 3.0;
 pub const STEADY_JOIN_STEP_LU: f64 = 3.5;
 

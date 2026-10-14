@@ -171,7 +171,9 @@ pub struct Identity {
     /// in those places (a phrase, a roll) from standing over the level the
     /// bed has under speech ([`duck::ceiling`]: its median and half a dB), and
     /// a join where the next chapter starts quieter than this one ends is
-    /// carried by bringing the end of this one down ([`duck::carry`]).
+    /// carried by bringing the end of this one down, and one where it starts
+    /// louder by bringing the end up (to the ceiling) and its start down
+    /// ([`duck::carry`]), outside speech only.
     /// `hold_duck`, [`HOLD_MERGE`] and the breaths do nothing to the bed; the
     /// speech and the stem inside it are as they were. A listen window's
     /// sonification is not part of the bed: it is mixed in at `listen_lu` and
@@ -2467,9 +2469,9 @@ fn compose(
         let mut music = if identity.steady_bed {
             let mut bed = duck::apply_held(&sum, identity.duck_db);
             drop(sum);
-            duck::ceiling(&mut bed, &speech);
+            let held = duck::ceiling(&mut bed, &speech);
             let joins: Vec<f64> = chapters.iter().skip(1).map(|c| c.1 as f64 / FS).collect();
-            duck::carry(&mut bed, &joins, &speech);
+            duck::carry(&mut bed, &joins, &speech, held.level);
             for (start, sound, gain_db) in &after_duck {
                 let (at, heard) = through_duck(sound, *start, db_to_gain(*gain_db), &u, identity.duck_db);
                 bed.mix_in(&heard, at, 1.0);

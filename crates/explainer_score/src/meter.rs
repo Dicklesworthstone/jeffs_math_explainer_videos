@@ -101,6 +101,12 @@ pub fn windowed(audio: &Stereo, window_s: f64, hop_s: f64) -> Vec<f64> {
 /// either side is shorter than that or silent (an authored silence is not a
 /// mix step).
 pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
+    join_levels(music, join_s).map(|(before, after)| after - before)
+}
+
+/// The two levels [`join_step_db`] subtracts: the median momentary (400 ms)
+/// loudness (LUFS) 1.5 to 0.2 s before the join and 0.2 to 1.5 s after it.
+pub fn join_levels(music: &Stereo, join_s: f64) -> Option<(f64, f64)> {
     let a = ((join_s - 1.6).max(0.0) * FS) as usize;
     let b = (((join_s + 1.6) * FS) as usize).min(music.len());
     if a >= b {
@@ -125,7 +131,7 @@ pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
         (v.len() >= 8).then(|| percentile(&v, 50.0))
     };
     let (before, after) = (level(-1.5, -0.2)?, level(0.2, 1.5)?);
-    (before > -100.0 && after > -100.0).then_some(after - before)
+    (before > -100.0 && after > -100.0).then_some((before, after))
 }
 
 /// Maximum momentary (400 ms) loudness, in LUFS.
