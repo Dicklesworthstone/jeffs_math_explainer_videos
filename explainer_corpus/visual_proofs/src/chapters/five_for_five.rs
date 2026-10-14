@@ -663,6 +663,9 @@ impl SceneConstruct for FiveForFive {
                 .style(line_style(warn(), 4.0))
                 .build(),
         );
+        // the strike is meant to cross the thirty-two (the layout lint's
+        // `crossed` leaves a declared crossing alone)
+        kit.allow_crossing(strike);
         let found = kit.text(stage, &hook.answer.to_string(), SMALL_PT, hero(), v(at[0] + 0.8, at[1]))?;
         line.wait_for(stage, "and the pattern was wrong")?;
         play!(
