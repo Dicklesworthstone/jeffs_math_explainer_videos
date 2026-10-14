@@ -147,7 +147,7 @@ pub fn shares(e: &Eigen, f: &[f64]) -> (Vec<f64>, Vec<f64>) {
 /// A vertex list as the run of points a mobject keeps (and `set_points`
 /// wants): a handle at the midpoint of each pair of vertices, as `polyline`
 /// builds.
-fn corners(vertices: &[Vec3]) -> Vec<Vec3> {
+pub fn corners(vertices: &[Vec3]) -> Vec<Vec3> {
     let mut out = Vec::with_capacity(2 * vertices.len());
     for w in vertices.windows(2) {
         out.push(w[0]);

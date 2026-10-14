@@ -11,6 +11,7 @@ pub mod can_it_feed_itself;
 pub mod carts;
 pub mod deck;
 pub mod draw;
+pub mod every_mode_a_note;
 pub mod glyphs;
 pub mod one_idea;
 pub mod own_patterns;
@@ -60,7 +61,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("04_the_split", 0.55, the_split::TheSplit),
         scene!("05_a_steel_truss", 0.5, a_steel_truss::ASteelTruss),
         scene!("06_twenty_one_patterns", 0.6, twenty_one_patterns::TwentyOnePatterns),
-        animatic!("07_every_mode_a_note", 0.65),
+        scene!("07_every_mode_a_note", 0.65, every_mode_a_note::EveryModeANote),
         animatic!("08_two_bridges", 0.35),
         scene!("09_the_air_in_a_room", 0.5, the_air_in_a_room::TheAirInARoom),
         scene!("10_two_million_modes", 0.55, two_million_modes::TwoMillionModes),
