@@ -16,6 +16,7 @@
 //! at the foot. Every number is a fact (`K-P1.*`, `K-P2.*`, `K-P3.*`,
 //! `K-Q.06_3.answer`), computed by `model::truss`.
 
+use explainer_kit::animatic::wrap;
 use explainer_kit::props::{names_to_search, precisely};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
 use fmn::library::TransformMatchingTex;
@@ -754,47 +755,55 @@ impl SceneConstruct for TwentyOnePatterns {
         fade_in_all(stage, &[shrank], 0.5)?;
         line7.wait_for(stage, "with one pattern")?;
         fade_in_all(stage, &error_mobs[..1], 0.5)?;
-        kit.hold(stage)?;
+        // the other three come while the line is still being said
         fade_in_lagged(stage, &error_mobs[1..], 1.2, 0.5)?;
-        pause(stage, 1.0)?;
-        // the closing card: what a few patterns are for, and what they are not
+        kit.hold(stage)?;
+        // one closing frame, so that the chapter ends on a read and not on a
+        // string of pauses: the card on the right, the wall of 21 beside a
+        // ladder of a million on the left with the softest few lit
         let eight = fact("K-P2.lone_pct.8m")?;
         let four = fact("K-P2.lone_pct.4m")?;
         let need = fact("K-P2.lone_within_2p5.12m")?;
         let mut fading = error_mobs.clone();
         fading.push(shrank);
         fade_out_all(stage, &fading, 0.4)?;
-        let card = plate(stage, 12.2, 3.6, v(0.0, 1.4), own())?;
-        let closing = kit.text(
-            stage,
-            "a few patterns tell you how a structure moves for this load,\nnot everything inside it",
-            36.0,
-            ink,
-            v(0.0, 2.3),
-        )?;
-        let sharp = kit.text(
-            stage,
-            &format!("one sharp load needs many more: the softest alone gives {eight}% of the drop\nunder a lone 100 kN load at 8 m, and {four}% at 4 m"),
-            28.0,
-            dim,
-            v(0.0, 0.7),
-        )?;
-        let need_words = kit.text(
-            stage,
-            &format!("{need} patterns bring a load at the middle within 2.5%"),
-            28.0,
-            dim,
-            v(0.0, -0.1),
-        )?;
-        fade_in_all(stage, &[card, closing, sharp, need_words], 0.7)?;
-        pause(stage, 3.0)?;
-        // the wall of 21 beside a ladder of a million, the softest few lit
-        fade_out_all(stage, &[card, closing, sharp, need_words], 0.4)?;
-        let wall_x = -3.2;
-        let tall_x = 3.2;
+        let card_at = v(3.45, 1.1);
+        let card = plate(stage, 6.8, 5.0, card_at, own())?;
+        let mut card_texts = Vec::new();
+        let blocks: [(String, f64, Srgb, usize); 3] = [
+            (
+                "a few patterns tell you how a structure moves for this load, not everything inside it".to_owned(),
+                28.0,
+                ink,
+                30,
+            ),
+            (
+                format!(
+                    "one sharp load needs many more: the softest alone gives {eight}% of the drop under a lone 100 kN load at 8 m, and {four}% at 4 m"
+                ),
+                24.0,
+                dim,
+                36,
+            ),
+            (
+                format!("{need} patterns bring a load at the middle within 2.5%"),
+                24.0,
+                dim,
+                36,
+            ),
+        ];
+        let mut y = card_at[1] + 2.0;
+        for (words, size, colour, width) in &blocks {
+            for l in wrap(words, *width, 5) {
+                y -= 0.4;
+                card_texts.push(kit.text(stage, &l, *size, *colour, v(card_at[0], y))?);
+            }
+            y -= 0.25;
+        }
+        let wall_x = -5.6;
+        let tall_x = -3.0;
         let mut ladders: Vec<Mob> = Vec::new();
         for i in 0..RUNGS {
-            let y = 3.0 - 0.14 * i as f64;
             let c = if i < 3 { own() } else { dim };
             ladders.push(
                 stage.arena_mut().add(
@@ -803,13 +812,12 @@ impl SceneConstruct for TwentyOnePatterns {
                         .height(0.06)
                         .style(flat(c, 0.9))
                         .build()?
-                        .moved_to(v(wall_x, y)),
+                        .moved_to(v(wall_x, 3.0 - 0.14 * i as f64)),
                 ),
             );
         }
         // a million rungs, drawn as 140 whose spacing is a fraction of the wall's
         for i in 0..140 {
-            let y = 3.0 - 0.0205 * i as f64;
             let c = if i < 4 { own() } else { dim };
             ladders.push(
                 stage.arena_mut().add(
@@ -818,23 +826,18 @@ impl SceneConstruct for TwentyOnePatterns {
                         .height(0.012)
                         .style(flat(c, if i < 4 { 0.9 } else { 0.5 }))
                         .build()?
-                        .moved_to(v(tall_x, y)),
+                        .moved_to(v(tall_x, 3.0 - 0.0205 * i as f64)),
                 ),
             );
         }
-        let wall_words = kit.text(
+        let wall_words = kit.text(stage, "21 patterns", 26.0, ink, v(wall_x, -0.35))?;
+        let tall_words = kit.text(stage, "a million", 26.0, ink, v(tall_x, -0.35))?;
+        let both_words = kit.text(
             stage,
-            "21 patterns:\na library call finds all of them",
-            26.0,
-            ink,
-            v(wall_x, -0.4),
-        )?;
-        let tall_words = kit.text(
-            stage,
-            "a million patterns:\nonly the softest few are asked for",
-            26.0,
-            ink,
-            v(tall_x, -0.4),
+            "a library call finds all 21;\nonly the softest few are asked for",
+            22.0,
+            dim,
+            v((wall_x + tall_x) / 2.0, -1.2),
         )?;
         let finder = names_to_search(
             &kit,
@@ -846,10 +849,10 @@ impl SceneConstruct for TwentyOnePatterns {
             ],
         )?;
         let mut ins = ladders.clone();
-        ins.extend([wall_words, tall_words]);
+        ins.extend([card, wall_words, tall_words, both_words, finder]);
+        ins.extend(&card_texts);
         fade_in_all(stage, &ins, 0.7)?;
-        fade_in_all(stage, &[finder], 0.5)?;
-        pause(stage, 2.0)?;
+        pause(stage, 3.0)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;

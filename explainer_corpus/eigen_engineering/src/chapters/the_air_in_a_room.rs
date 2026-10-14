@@ -899,8 +899,6 @@ impl SceneConstruct for TheAirInARoom {
         let left = (line.end() + 2.0 - now).max(1.0);
         stage.set_tracker_value(rate, (PITCH_HI - 107.2) / left)?;
         line.wait_end(stage)?;
-        kit.listen(stage, 2.0, &format!("{}:09_5", kit.chapter))?;
-        stage.set_tracker_value(rate, 0.0)?;
         // a small card: Helmholtz's word for it, and Hilbert's
         let helmholtz = kit.text(
             stage,
@@ -947,8 +945,11 @@ impl SceneConstruct for TheAirInARoom {
                 .moved_to(v(0.0, -3.1)),
         );
         let card_group = group(stage, &[backing, helmholtz, who, gloss, hilbert, years])?;
+        // it comes in as the listen window opens and is read through it
         fade_in_all(stage, &[card_group], 0.6)?;
-        pause(stage, 3.5)?;
+        kit.listen(stage, 2.0, &format!("{}:09_5", kit.chapter))?;
+        stage.set_tracker_value(rate, 0.0)?;
+        pause(stage, 1.5)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.8)?;
