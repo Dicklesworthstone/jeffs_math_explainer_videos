@@ -213,9 +213,12 @@ fn round_the_polygon(corners: &[[f64; 2]]) -> Vec<[f64; 2]> {
 
 /// The gold curve's vertices when it swings by `amp` (-1 to 1): lying along
 /// the deck at 0, a half wave of height `SWAY` at 1. The curve is BUILT with
-/// all of them (straight), so every rewrite has the point count it was made
-/// with: `Stage::set_points` does not take a run of another size, and the
-/// curve built as two vertices never moved.
+/// all of them (straight), so that no rewrite changes its number of points:
+/// a mobject that is resized while a fade-in is playing over it ends the
+/// fade at the opacity it began at (0.016 here), and built as two vertices
+/// this curve was resized in the first frame of its fade-in and was never
+/// seen. (`set_points` returns Ok throughout; a rewrite after the fade has
+/// ended, or of the same size, is fine.)
 fn curve_vertices(amp: f64) -> Vec<Vec3> {
     (0..=CURVE_STEPS)
         .map(|k| {
@@ -1285,17 +1288,22 @@ mod tests {
         });
     }
 
-    /// 14_6 and 14_7: the gold curve is really drawn and really moves. It was
-    /// built as two vertices and rewritten as forty-nine, which the engine
-    /// refuses without a word: the curve was never on the screen and the deck
-    /// never swayed. A test of the state, not the lint.
+    /// 14_6 and 14_7: the gold curve is really drawn and really moves, run
+    /// as the chapter runs it: the updater on the scene, then the parts faded
+    /// in. The curve was built as two vertices and its updater rewrote it as
+    /// forty-nine in the first frame of that fade-in; a fade that is playing
+    /// when a mobject changes its number of points ends at the opacity it
+    /// began at (here 0.016), so the curve was never on the screen and the
+    /// deck never swayed (`set_points` itself returned Ok). A test of the
+    /// state, not the lint.
     #[test]
     fn the_gold_curve_is_drawn_and_swings_with_the_tracker() {
         super::super::carts::probe::run_scene(|stage| {
             let bridge = Footbridge::build(stage)?;
             stage.add_to_scene(bridge.anchor)?;
-            stage.add_to_scene(bridge.curve)?;
-            stage.wait(0.2)?;
+            fade_in_all(stage, &bridge.parts, 0.8)?;
+            let seen = stage.get_stroke_opacity(bridge.curve).unwrap_or(0.0);
+            assert!(seen > 0.99, "the curve ended its fade-in at opacity {seen}");
             let at_rest = stage.get_points(bridge.curve).expect("the curve has points");
             // 49 vertices as a quad path: an odd run
             assert_eq!(at_rest.len(), 2 * (CURVE_STEPS + 1) - 1);
@@ -1312,6 +1320,8 @@ mod tests {
             assert!((top - (DECK_Y + SWAY)).abs() < 1e-5, "the swing reached {top}");
             // the ends stay on the deck's ends
             assert!((swung[0][1] - DECK_Y).abs() < 1e-5 && (swung[swung.len() - 1][1] - DECK_Y).abs() < 1e-5);
+            let still = stage.get_stroke_opacity(bridge.curve).unwrap_or(0.0);
+            assert!(still > 0.99, "the swing left the curve at opacity {still}");
             Ok(())
         });
     }

@@ -206,9 +206,11 @@ fn rays(stage: &mut Stage<'_>, hall: &Hall) -> fmn::Result<(Vec<Mob>, Mob)> {
     for i in 0..RAYS {
         let a = hall.ray_at(ray_angle(i), 0.0);
         // built with every vertex the updater will write (a speck at the
-        // stage's edge): `set_points` does not take a run of another size,
-        // and a ray built as two vertices and rewritten as thirteen never
-        // appeared
+        // stage's edge), so that no rewrite changes its number of points: a
+        // mobject resized while a fade-in is playing over it ends the fade
+        // at the opacity it began at, and a ray built as two vertices and
+        // rewritten as thirteen in the first frame of its fade-in was never
+        // seen (`set_points` itself returns Ok)
         let speck: Vec<Vec3> = (0..=RAY_STEPS).map(|k| v(a[0] + 1e-4 * k as f64, a[1])).collect();
         trails.push(path(stage, speck, Palette::ink(), 3.0));
     }
@@ -1243,19 +1245,23 @@ mod tests {
         assert_eq!(pressure_colour(-1.0), stretched());
     }
 
-    /// 11_1: the rays are really drawn. They were built as two vertices and
-    /// rewritten as thirteen, which the engine refuses without a word, so no
-    /// ray was ever on the screen. A test of the state, not the lint.
+    /// 11_1: the rays are really drawn, run as the chapter runs them: the
+    /// updater on the scene, then the trails faded in. They were built as two
+    /// vertices and rewritten as thirteen in the first frame of that fade-in,
+    /// which leaves a fade at the opacity it began at, so no ray was ever on
+    /// the screen. A test of the state, not the lint.
     #[test]
     fn the_rays_are_drawn_and_run_across_the_hall() {
         super::super::carts::probe::run_scene(|stage| {
             let hall = Hall::build()?;
             let (trails, anchor) = rays(stage, &hall)?;
             stage.add_to_scene(anchor)?;
-            for &m in &trails {
-                stage.add_to_scene(m)?;
-            }
+            fade_in_all(stage, &trails, 0.5)?;
             assert_eq!(trails.len(), RAYS);
+            for &m in &trails {
+                let seen = stage.get_stroke_opacity(m).unwrap_or(0.0);
+                assert!(seen > 0.99, "a ray ended its fade-in at opacity {seen}");
+            }
             let before = stage.get_points(trails[0]).expect("a ray has points");
             assert_eq!(before.len(), 2 * (RAY_STEPS + 1) - 1);
             // a second of the picture: the head has run RAY_SPEED metres
