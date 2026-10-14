@@ -13,7 +13,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, QuizCard, QuizLook, SIDE_PT, Side, cut_style, dim, dollars, eq, fade_in_all, fade_in_lagged, fade_out_all,
     fail, fit_width, flat, fly, glyphs, grey_line, ground, group, hundreds, line_style, lower_third_tex, middle_of,
-    mover, num, panel, pause, quiz, repaint, rgb, say, slate, swap, why_pause,
+    mover, num, on_stage, panel, pause, quiz, repaint, rgb, say, slate, swap, why_pause,
 };
 use crate::facts::shown;
 use crate::model::{Ask, blocks, money, percent_of};
@@ -509,13 +509,15 @@ impl SceneConstruct for Percents {
 
         // 06_1: the bill as a bar cut into ten; one tenth lifts out; above
         // it the point of 48.00 moves one place to the left
-        let line = say(&kit, stage, "06_1")?;
         let bar = Bar::build(stage, Board::new(BAR_AT, BAR_UNIT), b.cents / b.ten, BAR_TALL);
         let mut places = Places::build(&kit, stage, b.cents, PLACES_PT, v(0.0, PLACES_Y))?;
-        line.wait_sentence(stage, 1)?;
+        // the bar and the bill come in before the line's first words ("Now
+        // money."; the line starts 0.6 to 1.0 s in), not at "A restaurant
+        // bill of ..." (1.8 s of empty frame in the finished read)
         let mut ins = bar.mobs();
         ins.extend(places.mobs());
-        fade_in_all(stage, &ins, 0.7)?;
+        fade_in_all(stage, &ins, 0.5)?;
+        let line = say(&kit, stage, "06_1")?;
         line.wait_for(stage, "one tenth")?;
         play!(stage; repaint(bar.tenths[0], lit_color(), 1.0, 0.4)?);
         line.wait_for(stage, "the decimal point")?;
@@ -614,11 +616,9 @@ impl SceneConstruct for Percents {
 
         // 06_4: your turn: fifteen percent of sixty dollars
         let line = say(&kit, stage, "06_4")?;
-        fade_all(stage, 0.5)?;
         let look = QuizLook::at(CARD_AT, CARD_SCALE);
         let card = QuizCard::build(&kit, stage, "06_4", look)?;
-        line.wait_last(stage)?;
-        card.show(stage, 0.5)?;
+        card.arrive(stage, &line, &on_stage(stage))?;
         card.count(&kit, stage)?;
 
         // 06_5: a tenth, half of it, together: on a bar of ten under the card,

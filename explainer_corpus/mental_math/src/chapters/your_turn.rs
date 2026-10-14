@@ -15,7 +15,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, COLUMN_ROOM, COLUMN_X, MoveFigure, NOTE_PT, NumberLine1, QuizCard, QuizLook, SIDE_PT, Side, WAITING_AT,
     corner, cut_style, eq, fade_all_but, fade_in_all, fade_out_all, faded_line, fail, fit_width, flat, fly, glyphs,
-    hundreds, line_style, middle_of, num, pause, quiz_at, rgb, say, strip, swap, waiting_card, your_turn,
+    hundreds, line_style, middle_of, num, pause, quiz_at, rgb, say, strip, swap, waiting_card, your_turn_opening,
 };
 use crate::facts::{facts, shown};
 use crate::model::{Ask, EndsInFive, OneMove, ends_in_five, one_move};
@@ -416,7 +416,7 @@ impl SceneConstruct for YourTurn {
 
         // 03_1: your turn: twenty-five squared, the card at the left
         let first = squared_at("03_1")?;
-        let first_card = your_turn(&kit, stage, "03_1", QuizLook::at(FIRST_AT, FIRST_SCALE))?;
+        let first_card = your_turn_opening(&kit, stage, "03_1", QuizLook::at(FIRST_AT, FIRST_SCALE))?;
 
         // 03_2: two times three is six, then twenty-five, worked under the
         // card; beside it, small, the move replayed on a square of 25: 20

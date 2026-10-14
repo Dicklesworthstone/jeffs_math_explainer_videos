@@ -324,6 +324,13 @@ pub fn swap(stage: &mut Stage<'_>, out: &[Mob], ins: &[Mob], rt: f64) -> fmn::Re
     Ok(())
 }
 
+/// Every top-level mobject on the stage now: what `fade_all` would fade, to
+/// hand to [`QuizCard::arrive`] or [`swap`] so the stage is not left bare
+/// between the old picture and the new.
+pub fn on_stage(stage: &Stage<'_>) -> Vec<Mob> {
+    stage.scene().mobjects().to_vec()
+}
+
 /// Fade every top-level mobject but `keep` out together, `rt` seconds: the
 /// end of a chapter whose next chapter starts from what is kept.
 pub fn fade_all_but(stage: &mut Stage<'_>, keep: &[Mob], rt: f64) -> fmn::Result<()> {
@@ -1285,11 +1292,23 @@ impl QuizCard {
 
     /// Bring the card in with its problem and its full ring, `rt` seconds.
     pub fn show(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+        self.show_over(stage, &[], rt)
+    }
+
+    /// As [`QuizCard::show`], with `leaving` fading out as the card comes in
+    /// (a picture that was on the stage gives way to the card, there is no
+    /// bare stage between them).
+    pub fn show_over(&self, stage: &mut Stage<'_>, leaving: &[Mob], rt: f64) -> fmn::Result<()> {
         stage.add_to_scene(self.anchor)?;
         let mut ins = vec![self.back, self.problem, self.track];
         ins.extend(self.label);
         ins.extend(self.pause_line);
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in leaving {
+            stage.clear_updaters(m, true);
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(rt))?);
+        }
         for m in ins {
             let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
             anims.push(stage.prepare(a.rt(rt))?);
@@ -1301,6 +1320,17 @@ impl QuizCard {
         }
         stage.play(tween(self.shown, 1.0, 0.25)?)?;
         Ok(())
+    }
+
+    /// The card comes in with the first words of its line ("Your turn."),
+    /// over what was on the stage, not at the sentence that asks: the stage
+    /// is not bare while the preface is said (0.6 s in the finished read of
+    /// 06_4, 07_3, 07_6 and 08_6). The countdown starts where it did when
+    /// the card came with the question: [`CARD_IN_S`] after the question's
+    /// sentence begins.
+    pub fn arrive(&self, stage: &mut Stage<'_>, line: &Spoken, leaving: &[Mob]) -> fmn::Result<()> {
+        self.show_over(stage, leaving, 0.5)?;
+        wait_until(stage, line.sentence(line.sentences() - 1)? + CARD_IN_S)
     }
 
     /// The countdown: the narration silent, one mallet note a second, the
@@ -1359,6 +1389,24 @@ pub fn your_turn(kit: &Kit, stage: &mut Stage<'_>, id: &str, look: QuizLook) -> 
     let card = QuizCard::build(kit, stage, id, look)?;
     line.wait_last(stage)?;
     card.show(stage, 0.5)?;
+    card.count(kit, stage)?;
+    Ok(card)
+}
+
+/// How long [`QuizCard::show`] takes: 0.5 s for the card, 0.25 s for its ring.
+pub const CARD_IN_S: f64 = 0.75;
+
+/// A quiz that opens a chapter (01_1, 03_1), start to finish: the card is up
+/// before the line's first words, not at its question (a chapter that opened
+/// on a quiz showed an empty frame for 2 to 4.7 s while "Your turn. Whenever
+/// you want more time, pause the video." was said). The line starts 0.6 to
+/// 1.0 s in (the gap before it follows the thought), and the card's fade
+/// and ring take 0.55 s. The countdown starts where it did.
+pub fn your_turn_opening(kit: &Kit, stage: &mut Stage<'_>, id: &str, look: QuizLook) -> fmn::Result<QuizCard> {
+    let card = QuizCard::build(kit, stage, id, look)?;
+    card.show_over(stage, &[], 0.3)?;
+    let line = say(kit, stage, id)?;
+    wait_until(stage, line.sentence(line.sentences() - 1)? + CARD_IN_S)?;
     card.count(kit, stage)?;
     Ok(card)
 }
@@ -2260,13 +2308,37 @@ pub mod testing {
     /// Run chapter `key` with the scratch voice at 64 by 36 and [`FPS`], its
     /// kit named `key#voiced` (so a probe's events are this run's).
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
+        run_named(key, "voiced", &[], false)
+    }
+
+    /// As [`run_voiced`], with the line gaps the video renders with (the
+    /// thought rule: a chapter's first line starts 0.6 to 1.0 s in, not at
+    /// 0.6) and the finished read's own timing for some lines, each `(id,
+    /// sentence onsets in seconds, length in seconds)` as
+    /// `Narrator::estimate_timed` takes them (the estimate puts a sentence
+    /// where its characters fall, the finished read does not). The kit is
+    /// named `key#timed`: a run of the same chapter in another test, named
+    /// `key#voiced`, does not put its probe events into this one's.
+    pub fn run_timed(key: &str, timed: &[(&str, &[f64], f64)]) -> Result<Voiced, String> {
+        run_named(key, "timed", timed, true)
+    }
+
+    fn run_named(key: &str, tag: &str, timed: &[(&str, &[f64], f64)], as_rendered: bool) -> Result<Voiced, String> {
         let chapter = crate::chapters::registry()
             .into_iter()
             .find(|c| c.key == key)
             .ok_or_else(|| format!("no chapter {key} in the registry"))?;
-        let narrator = Narrator::estimate(&Script::parse(crate::SCRIPT)?);
+        let mut script = Script::parse(crate::SCRIPT)?;
+        if as_rendered {
+            script = script.with_line_gaps(crate::EXPLAINER.line_gaps);
+        }
+        let narrator = if timed.is_empty() {
+            Narrator::estimate(&script)
+        } else {
+            Narrator::estimate_timed(&script, timed)?
+        };
         let mut kit = Kit::new().map_err(|e| e.to_string())?.with_narrator(narrator);
-        kit.chapter = format!("{key}#voiced");
+        kit.chapter = format!("{key}#{tag}");
         let mut scene = (chapter.make)(kit.clone());
         let (frames_dir, frames) = render(scene.as_mut(), key)?;
         let timeline = kit
@@ -2324,6 +2396,86 @@ pub mod testing {
             }
         }
         best
+    }
+}
+
+/// What the finished video must not do: open on an empty frame, or leave the
+/// stage bare between two beats (tools/blank_stretches.py finds these in an
+/// MP4; this finds them in a test run, so a chapter can fail before it is
+/// rendered). A run is rendered small, a PNG a frame, and a frame is bare
+/// when its bytes are those of a frame of an empty scene. (Not an updater on
+/// the stage: `fade_all` clears the updaters of everything on it, a probe's
+/// too.)
+#[cfg(test)]
+pub mod bare {
+    use fmn::prelude::*;
+
+    use super::testing::{self, FPS};
+
+    /// A chapter's first picture shows by this many seconds: the kit's lead
+    /// of 0.6 s before the first line, and a frame.
+    pub const FIRST_PICTURE_S: f64 = 0.8;
+    /// The longest the stage may stand empty between two beats, seconds: a
+    /// picture that fades out and the next one that fades in leave it bare
+    /// for 0.3 or 0.4 s, which is a change of beat; half a second is a hole
+    /// (tools/blank_stretches.py flags past 0.5 s).
+    pub const GAP_S: f64 = 0.45;
+
+    /// A scene with nothing in it.
+    struct Empty;
+
+    impl SceneConstruct for Empty {
+        fn name(&self) -> &str {
+            "empty"
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            super::pause(stage, 0.4)
+        }
+    }
+
+    /// The bytes of a frame with nothing on it, as the test renders make
+    /// one (all the frames of an empty scene are the same bytes, or the
+    /// comparison below is no test and this says so).
+    pub fn empty_frame() -> Result<Vec<u8>, String> {
+        let (dir, _) = testing::render(&mut Empty, "empty")?;
+        let frames = testing::frames_of(&dir)?;
+        let first = frames.first().ok_or("the empty scene rendered no frame")?.clone();
+        if frames.iter().any(|f| *f != first) {
+            return Err("the frames of an empty scene differ from one another".to_owned());
+        }
+        Ok(first)
+    }
+
+    /// For each frame, whether it shows nothing.
+    pub fn flat(frames: &[Vec<u8>], empty: &[u8]) -> Vec<bool> {
+        frames.iter().map(|f| f == empty).collect()
+    }
+
+    /// Scene seconds at which something first shows, if it ever does.
+    pub fn first_picture(flat: &[bool]) -> Option<f64> {
+        flat.iter().position(|&bare| !bare).map(|i| i as f64 / f64::from(FPS))
+    }
+
+    /// Runs of bare frames after the first picture and before the last:
+    /// (start, seconds).
+    pub fn bare_between(flat: &[bool]) -> Vec<(f64, f64)> {
+        let (Some(first), Some(last)) = (flat.iter().position(|&b| !b), flat.iter().rposition(|&b| !b)) else {
+            return Vec::new();
+        };
+        let mut out = Vec::new();
+        let mut run: Option<usize> = None;
+        for (i, &bare) in flat.iter().enumerate().take(last + 1).skip(first) {
+            match (bare, run) {
+                (true, None) => run = Some(i),
+                (false, Some(start)) => {
+                    out.push((start as f64 / f64::from(FPS), (i - start) as f64 / f64::from(FPS)));
+                    run = None;
+                }
+                _ => {}
+            }
+        }
+        out
     }
 }
 
@@ -2647,4 +2799,126 @@ mod tests {
             "the check cannot tell a still hold from a moving one"
         );
     }
+
+    /// The finished read's own timing for the lines the empty stretches sat
+    /// on (narration/report.json of 2026-10-14: each sentence's `out_s`, the
+    /// onsets those and the 0.3 s between sentences give, and the line's
+    /// length in the cue report): (id, sentence onsets, length) in seconds.
+    /// The scratch voice puts a short first sentence ("Your turn.") later or
+    /// earlier than the finished read says it, so a stretch that is 0.6 s
+    /// bare in the finished read is 0.3 s in a scratch run.
+    const FINISHED_READ: &[(&str, &[f64], f64)] = &[
+        ("01_1", &[0.0, 1.38], 2.64),
+        ("02_1", &[0.0, 2.15, 3.65], 5.7),
+        ("03_1", &[0.0, 0.98, 3.93], 5.3),
+        ("06_1", &[0.0, 1.04, 6.04, 11.14], 12.32),
+        ("06_4", &[0.0, 0.98], 3.18),
+        ("07_3", &[0.0, 0.98], 3.03),
+        ("07_6", &[0.0, 0.98], 4.52),
+        ("08_6", &[0.0, 0.98], 2.55),
+        ("09_1", &[0.0, 2.26, 7.6, 11.91], 16.17),
+        ("09_4", &[0.0, 1.91, 4.31], 7.43),
+    ];
+
+    /// What is wrong with chapter `key`'s stage, run with the finished
+    /// read's timing for the lines above: it opens on its first picture (not
+    /// on an empty frame through the first sentences: 01, 02, 03, 06 and 09
+    /// did, 1.8 to 4.7 s), and no beat leaves the stage bare for as long as
+    /// a hole (06, 07, 08 and 09 did, 0.6 to 1.8 s between a picture and the
+    /// next).
+    fn blank_stretches(key: &str) -> Vec<String> {
+        let run = testing::run_timed(key, FINISHED_READ).unwrap();
+        let frames = testing::frames_of(&run.frames_dir).unwrap();
+        let flat = bare::flat(&frames, &bare::empty_frame().unwrap());
+        let mut found = Vec::new();
+        match bare::first_picture(&flat) {
+            Some(at) if at <= bare::FIRST_PICTURE_S => {}
+            Some(at) => found.push(format!(
+                "{key}: the first picture shows at {at:.1} s, after {} s of an empty frame",
+                bare::FIRST_PICTURE_S
+            )),
+            None => found.push(format!("{key}: the chapter shows no picture")),
+        }
+        for (at, seconds) in bare::bare_between(&flat) {
+            if seconds >= bare::GAP_S {
+                found.push(format!("{key}: the stage is bare for {seconds:.1} s from {at:.1} s"));
+            }
+        }
+        found
+    }
+
+    /// A picture that fades out and, `gap` seconds after it has gone,
+    /// another that fades in.
+    struct TwoBeats {
+        gap: f64,
+    }
+
+    impl SceneConstruct for TwoBeats {
+        fn name(&self) -> &str {
+            "two_beats"
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            let line = |stage: &mut Stage<'_>, y: f64| {
+                stage.arena_mut().add(
+                    polyline(vec![v(-2.0, y), v(2.0, y)])
+                        .style(faded_line(Palette::ink(), 8.0, 1.0))
+                        .build(),
+                )
+            };
+            let (a, b) = (line(stage, 0.0), line(stage, 1.0));
+            fade_in_all(stage, &[a], 0.5)?;
+            pause(stage, 0.5)?;
+            fade_out_all(stage, &[a], 0.5)?;
+            pause(stage, self.gap)?;
+            fade_in_all(stage, &[b], 0.5)?;
+            pause(stage, 0.5)
+        }
+    }
+
+    /// The check is a check: a stage left empty for 0.8 s between two
+    /// pictures is found, a change of beat with no gap is not.
+    #[test]
+    fn the_bare_check_finds_a_stage_left_empty_between_two_beats() {
+        let empty = bare::empty_frame().unwrap();
+        let gaps = |gap: f64| {
+            let (dir, _) = testing::render(&mut TwoBeats { gap }, "two_beats").unwrap();
+            bare::bare_between(&bare::flat(&testing::frames_of(&dir).unwrap(), &empty))
+        };
+        let hole = gaps(0.8);
+        assert!(hole.iter().any(|g| g.1 >= bare::GAP_S), "{hole:?}");
+        let change = gaps(0.0);
+        assert!(change.iter().all(|g| g.1 < bare::GAP_S), "{change:?}");
+    }
+
+    macro_rules! no_blank_stretch {
+        ($test:ident, $key:expr) => {
+            #[test]
+            fn $test() {
+                let found = blank_stretches($key);
+                assert!(found.is_empty(), "{}", found.join("\n"));
+            }
+        };
+    }
+
+    no_blank_stretch!(
+        chapter_01_opens_on_a_picture_and_is_never_bare,
+        "01_eighty_five_squared"
+    );
+    no_blank_stretch!(chapter_02_opens_on_a_picture_and_is_never_bare, "02_ends_in_five");
+    no_blank_stretch!(chapter_03_opens_on_a_picture_and_is_never_bare, "03_your_turn");
+    no_blank_stretch!(chapter_04_opens_on_a_picture_and_is_never_bare, "04_by_parts");
+    no_blank_stretch!(chapter_05_opens_on_a_picture_and_is_never_bare, "05_running_total");
+    no_blank_stretch!(chapter_06_opens_on_a_picture_and_is_never_bare, "06_percents");
+    no_blank_stretch!(chapter_07_opens_on_a_picture_and_is_never_bare, "07_round_numbers");
+    no_blank_stretch!(chapter_08_opens_on_a_picture_and_is_never_bare, "08_the_middle");
+    no_blank_stretch!(chapter_09_opens_on_a_picture_and_is_never_bare, "09_bethe");
+    no_blank_stretch!(chapter_10_opens_on_a_picture_and_is_never_bare, "10_near_fifty");
+    no_blank_stretch!(chapter_11_opens_on_a_picture_and_is_never_bare, "11_your_turn_fifty");
+    no_blank_stretch!(chapter_12_opens_on_a_picture_and_is_never_bare, "12_which_trick");
+    no_blank_stretch!(chapter_13_opens_on_a_picture_and_is_never_bare, "13_nothing_to_grab");
+    no_blank_stretch!(
+        chapter_14_opens_on_a_picture_and_is_never_bare,
+        "14_near_something_you_know"
+    );
 }

@@ -11,8 +11,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, NOTE_PT, QuizCard, QuizLook, SIDE_PT, Side, cut_style, dollars, eq, fade_in_all, fade_in_lagged,
-    fade_out_all, fail, fit_width, flat, fly, glyphs, gone, grey_line, group, line_style, middle_of, mover, num, panel,
-    price, repaint, rgb, say, slate, swap,
+    fade_out_all, fail, fit_width, flat, fly, glyphs, gone, grey_line, group, line_style, middle_of, mover, num,
+    on_stage, panel, price, repaint, rgb, say, slate, swap,
 };
 use crate::facts::shown;
 use crate::model::{Ask, by_parts, halve_and_double, money, round_then_fix, times_five};
@@ -165,15 +165,13 @@ fn lower_third_math(kit: &Kit, stage: &mut Stage<'_>, src: &str) -> fmn::Result<
     group(stage, &[back, math])
 }
 
-/// A quiz on line `id` with its card at the right: say the line, clear the
-/// stage as it begins, bring the card in as the question begins, count
-/// down, land the answer.
+/// A quiz on line `id` with its card at the right: say the line, give the
+/// stage over to the card as the line begins ("Your turn."), count down,
+/// land the answer.
 fn quiz_beat(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<QuizCard> {
     let line = say(kit, stage, id)?;
-    fade_all(stage, 0.5)?;
     let card = QuizCard::build(kit, stage, id, QuizLook::at(CARD_AT, CARD_SCALE))?;
-    line.wait_last(stage)?;
-    card.show(stage, 0.5)?;
+    card.arrive(stage, &line, &on_stage(stage))?;
     card.count(kit, stage)?;
     Ok(card)
 }
@@ -395,7 +393,8 @@ impl SceneConstruct for RoundNumbers {
         let ink = Palette::ink();
 
         // 07_1: five times eighty-six is ten times eighty-six, cut in half
-        let line = say(&kit, stage, "07_1")?;
+        // (the picture is up before the line's first words: the line starts
+        // 0.6 to 1.0 s in, the gap before it follows the thought)
         let x = shown::TIMES_FIVE;
         let (ten_times, half_of) = times_five(x);
         let (tall, short) = (ten_times / x, half_of / x);
@@ -410,7 +409,8 @@ impl SceneConstruct for RoundNumbers {
         let wide_label = board.label(&kit, stage, &num(x), bar.whole(), Side::Below, SIDE_PT, ink)?;
         let mut ins = bar.shape().to_vec();
         ins.extend([ten_label, wide_label]);
-        fade_in_all(stage, &ins, 0.6)?;
+        fade_in_all(stage, &ins, 0.5)?;
+        let line = say(&kit, stage, "07_1")?;
         let (ten_src, ten_area) = (format!(r"{tall} \times {x}"), num(ten_times));
         let ten_sum = line_parts(
             &kit,

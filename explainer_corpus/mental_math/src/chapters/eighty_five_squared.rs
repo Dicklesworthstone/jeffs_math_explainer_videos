@@ -11,7 +11,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, MoveFigure, QUIZ_AT, QuizLook, Sheet, corner, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fly,
     glyphs, hundreds, in_your_head, line_style, middle_of, num, panel, paper_ink, quiz, rgb, say, strip, tile_row,
-    your_turn,
+    your_turn_opening,
 };
 use super::glyphs::TITLE;
 use crate::facts::shown;
@@ -56,7 +56,7 @@ impl SceneConstruct for EightyFiveSquared {
             lands: true,
             scale: 1.0,
         };
-        let card = your_turn(&kit, stage, "01_1", look)?;
+        let card = your_turn_opening(&kit, stage, "01_1", look)?;
 
         // 01_2: eight times nine is seventy-two; then write twenty-five
         let line = say(&kit, stage, "01_2")?;

@@ -154,7 +154,8 @@ impl SceneConstruct for TheMiddle {
 
         // 08_1: forty-seven times fifty-three; the two numbers drop on to a
         // number line, with nothing between them yet; what sits halfway?
-        let line = say(&kit, stage, "08_1")?;
+        // (the problem is up before the line's first words: the line starts
+        // 0.6 to 1.0 s in, the gap before it follows the thought)
         let problem = eq(
             &kit,
             stage,
@@ -162,7 +163,8 @@ impl SceneConstruct for TheMiddle {
             PROBLEM_PT,
             PROBLEM_AT,
         )?;
-        play!(stage; fade_in(stage.arena_mut(), problem, v(0.0, -0.15), 1.0)?.rt(0.6));
+        play!(stage; fade_in(stage.arena_mut(), problem, v(0.0, -0.15), 1.0)?.rt(0.5));
+        let line = say(&kit, stage, "08_1")?;
         line.wait_sentence(stage, 1)?;
         let axis = number_line.axis(stage);
         let ticks = unit_ticks(stage, &number_line);
@@ -442,11 +444,9 @@ impl SceneConstruct for TheMiddle {
         leaving.extend([outline, body, gap, seam, hole_edge]);
         leaving.extend(moving.mobs());
         leaving.extend(&magnifier);
-        fade_out_all(stage, &leaving, 0.5)?;
         let look = QuizLook::at(CARD_AT, CARD_SCALE);
         let card = QuizCard::build(&kit, stage, "08_6", look)?;
-        line.wait_last(stage)?;
-        card.show(stage, 0.5)?;
+        card.arrive(stage, &line, &leaving)?;
         card.count(&kit, stage)?;
 
         // 08_7: the middle is twenty and the distance one, on a number line

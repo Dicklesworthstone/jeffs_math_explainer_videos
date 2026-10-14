@@ -8,13 +8,13 @@
 //! 10 picks them up and answers the question with the picture.
 
 use explainer_kit::animatic::HOLD_S;
-use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
+use explainer_kit::{Kit, Palette, Timed, play, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Calculator, MoveFigure, QuoteCard, SIDE_PT, Side, eq, fade_in_all, fade_in_lagged, fade_out_all, fail, fifty_board,
-    fly, glyphs, line_style, middle_of, num, panel, pause, quiz, repaint, say, slate, swap, tween_linear, wait_until,
-    why_pause,
+    fly, glyphs, line_style, middle_of, num, on_stage, panel, pause, quiz, repaint, say, slate, swap, tween_linear,
+    wait_until, why_pause,
 };
 use super::sound;
 use crate::facts::cited;
@@ -212,10 +212,13 @@ impl SceneConstruct for Bethe {
         }
 
         // 09_1: Los Alamos; the two men on name cards; forty-eight squared
-        let line = say(&kit, stage, "09_1")?;
-        line.wait_sentence(stage, 1)?;
+        // the chapter opens on the place before the line's first words ("The
+        // next trick comes with a story."; the line starts 0.6 to 1.0 s in),
+        // not on an empty frame until "Los Alamos, ..." (3.1 s in the
+        // finished read)
         let place = kit.text_styled(stage, LOS_ALAMOS, PLACE_PT, ink, v(0.0, 0.3), true, false)?;
-        play!(stage; fade_in(stage.arena_mut(), place, v(0.0, -0.15), 1.0)?.rt(0.8));
+        play!(stage; fade_in(stage.arena_mut(), place, v(0.0, -0.15), 1.0)?.rt(0.5));
+        let line = say(&kit, stage, "09_1")?;
         line.wait_sentence(stage, 2)?;
         // both cards the same size: the wider name or line, the longer role
         let mut probe = Vec::new();
@@ -382,7 +385,6 @@ impl SceneConstruct for Bethe {
         // source after the hold
         let line = say(&kit, stage, "09_4")?;
         line.wait_sentence(stage, 1)?;
-        fade_all(stage, 0.8)?;
         let source_line = format!("{BOOK} ({}), {BOOK_CHAPTER}", cited::FEYNMAN_YEAR);
         let quote_at = v(0.0, 0.2);
         let card = QuoteCard::build(&kit, stage, QUESTION, &[AS_TOLD, &source_line], quote_at, 60, 1)?;
@@ -392,10 +394,13 @@ impl SceneConstruct for Bethe {
         for &m in &parts {
             stage.scale_about(m, QUOTE_ZOOM, Some(quote_at), None);
         }
+        // the stage gives way to the quote as the question is asked: it was
+        // cleared at "And Bethe asks him a question." and stood bare for 1.8 s
+        // (finished read) until the quote came
         line.wait_sentence(stage, 2)?;
         let mut first = vec![card.back];
         first.extend(&card.lines);
-        fade_in_all(stage, &first, 0.6)?;
+        swap(stage, &on_stage(stage), &first, 0.7)?;
         // the source comes in as the question ends, so it is up for the
         // whole hold (R2, M10: after the hold it showed for a second and a
         // half)

@@ -57,8 +57,11 @@ impl SceneConstruct for EndsInFive {
         // 02_1: thirty-five squared; the number in front of the five is three.
         // The number in front is typeset on its own, where it sits in the
         // whole, so it can take its colour without the rest.
-        let line = say(&kit, stage, "02_1")?;
-        line.wait_sentence(stage, 1)?;
+        // The chapter opens on the square before its first words ("Here's
+        // that trick on a smaller number."), not on an empty frame until
+        // "Thirty-five squared." (2.9 s in the finished read). The line
+        // starts 0.6 to 1.0 s in (the gap before it follows the thought), so
+        // the square is up by 0.5 s, before it can.
         let whole_square = eq(&kit, stage, &format!("{}^2", five.number), BIG_PT, v(0.0, 2.3))?;
         let all = glyphs(stage, whole_square);
         let split = num(five.n).len();
@@ -68,7 +71,8 @@ impl SceneConstruct for EndsInFive {
         let (front_at, rest_at) = (middle_of(stage, &all[..split])?, middle_of(stage, &all[split..])?);
         let front = eq(&kit, stage, &num(five.n), BIG_PT, front_at)?;
         let rest = eq(&kit, stage, &format!("{}^2", five.number % 10), BIG_PT, rest_at)?;
-        fade_in_all(stage, &[front, rest], 0.6)?;
+        fade_in_all(stage, &[front, rest], 0.5)?;
+        let line = say(&kit, stage, "02_1")?;
         line.wait_sentence(stage, 2)?;
         let label = kit.text(stage, IN_FRONT, 34.0, blue, v(front_at[0] - 0.55, front_at[1]))?;
         stage.move_to(label, v(front_at[0] - 0.55, front_at[1]), RIGHT);
