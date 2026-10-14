@@ -16,7 +16,7 @@
 #   ./x <slug> narrate                          the narration into narration/{work,out}: new reads
 #                                               only (ftts), every take transcribed (fw), reads that
 #                                               finish their last word and an editor that listens to
-#                                               what it cuts (tools/narration.py), then the gates;
+#                                               what it cuts (the skill's narrate.py), then the gates;
 #                                               JOINT=1 chooses each line's reads together and SEEDS=N
 #                                               adds the reads of ftts --seed 1..N (both opt-in)
 #   ./x <slug> narration-sheets [--takes] [LINE...]   spectrograms of the narration to read as images,
@@ -301,7 +301,7 @@ case "$cmd" in
     export FTTS
     work="$base/narration/work"
     out="$base/narration/out"
-    # the joint choice measures pitch with Praat (tools/narration.py)
+    # the joint choice measures pitch with Praat (the skill's narrate.py)
     py() { uv run --quiet --no-project --with numpy ${JOINT:+--with praat-parselmouth} python3 -I "$@"; }
     cd "$crate"
     mkdir -p "$work"
@@ -313,12 +313,12 @@ case "$cmd" in
     if [ "$base" != "$crate" ] && [ -f "$base/lexicon.json" ]; then lexicon="$base/lexicon.json"; fi
     # Two options a run opts into (the owner's A/B decides which video keeps them, so neither is a default):
     # SEEDS=N adds the reads of `ftts --seed 1..N` beside the wrappers as candidates, JOINT=1 picks each
-    # line's reads together instead of one sentence at a time (tools/narration.py, bead mx-4kc2).
+    # line's reads together instead of one sentence at a time (the skill's narrate.py, beads mx-4kc2, mx-t9cg);
+    # plan lists the seeded reads in takes.tsv and tts_batch.py makes them.
     seeds=""
     [ -z "${SEEDS:-}" ] || seeds="--seeds=$SEEDS"
-    py "$here/tools/narration.py" "$N" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon" $seeds
+    py "$N/narrate.py" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon" $seeds
     python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
-    py "$here/tools/narration.py" "$N" synth "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
     # A joint build can pass every take's own transcript and still lose a line's first word once the
     # sentences are assembled (P-2's "But"): a line that fails a line-level gate gives up the reads the
@@ -326,15 +326,15 @@ case "$cmd" in
     # over) and is chosen again. JOINT_CREAK=W also prices a creaky ending at W (the ear's call: off).
     rounds=0
     while :; do
-      py "$here/tools/narration.py" "$N" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon" ${JOINT:+--joint} ${JOINT:+${JOINT_CREAK:+--creak=$JOINT_CREAK}}
+      py "$N/narrate.py" choose script.tsv "$work" "$out" --limit-headroom "$headroom" --lexicon "$lexicon" ${JOINT:+--joint} ${JOINT:+${JOINT_CREAK:+--creak=$JOINT_CREAK}}
       python3 -I "$N/asr_batch.py" "$out" "$out/lines_asr.json"
       # every gate runs, so one build shows everything that is wrong
       status=0
       py "$N/qa_lines.py" "$out/spoken.tsv" "$out/lines_asr.json" --lexicon "$lexicon" || status=1
       py "$N/validate_narration.py" "$out" || status=1
-      py "$here/tools/narration.py" "$N" edges script.tsv "$out" --lexicon "$lexicon" || status=1
+      py "$N/narrate.py" edges script.tsv "$out" --lexicon "$lexicon" || status=1
       [ "$status" -ne 0 ] && [ -n "${JOINT:-}" ] && [ "$rounds" -lt 12 ] || break
-      py "$here/tools/narration.py" "$N" exclude script.tsv "$work" "$out" --lexicon "$lexicon" || break
+      py "$N/narrate.py" exclude script.tsv "$work" "$out" --lexicon "$lexicon" || break
       rounds=$((rounds + 1))
     done
     exit $status ;;

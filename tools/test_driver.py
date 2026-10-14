@@ -149,10 +149,10 @@ class Driver(unittest.TestCase):
             encoding="utf-8",
         )
         uv.chmod(0o755)
-        tools = self.root / "tools"
-        tools.mkdir()
+        scripts = self.root / "skills" / "natural-sounding-narration-with-frankentts" / "scripts"
+        scripts.mkdir(parents=True)
         observed = self.root / "observed-ftts.txt"
-        (tools / "narration.py").write_text(
+        (scripts / "narrate.py").write_text(
             "import os, sys\nfrom pathlib import Path\n"
             "p = Path(os.environ['FTTS'])\n"
             f"Path({str(observed)!r}).write_text(str(p), encoding='utf-8')\n"
@@ -185,8 +185,8 @@ class Driver(unittest.TestCase):
         self.assertFalse(observed.exists())
 
     def narrate_recorded(self, edges_failures, env_extra=None):
-        # The whole `narrate` command with every tool a recorder: tools/narration.py, the skill's batch
-        # scripts and uv. calls.log is what each was asked; edges fails `edges_failures` times, then passes.
+        # The whole `narrate` command with every tool a recorder: the skill's narrate.py and batch
+        # scripts, and uv. calls.log is what each was asked; edges fails `edges_failures` times, then passes.
         crate = self.crate("capture_recapture")
         (crate / "script.tsv").write_text("01_1\tOne.\n", encoding="utf-8")
         bin_dir = self.root / "local bin"
@@ -200,17 +200,15 @@ class Driver(unittest.TestCase):
             "import os, sys\nfrom pathlib import Path\n"
             f"log, left = Path({str(log)!r}), Path({str(left)!r})\n"
             "name, args = Path(sys.argv[0]).name, sys.argv[1:]\n"
-            "command = args[1] if name == 'narration.py' and len(args) > 1 else ''\n"
-            "with log.open('a') as f:\n    f.write(f\"{name} {command} {' '.join(args[2:] if command else args)}\\n\")\n"
+            "command = args[0] if name == 'narrate.py' and args else ''\n"
+            "with log.open('a') as f:\n    f.write(f\"{name} {command} {' '.join(args[1:] if command else args)}\\n\")\n"
             "if command == 'edges' and int(left.read_text()):\n"
             "    left.write_text(str(int(left.read_text()) - 1))\n    sys.exit(1)\n"
             "if command == 'exclude':\n    sys.exit(int(os.environ.get('EXCLUDE_EXIT', '0')))\n")
         scripts = self.root / "skills" / "natural-sounding-narration-with-frankentts" / "scripts"
         scripts.mkdir(parents=True)
-        for name in ("tts_batch.py", "asr_batch.py", "qa_lines.py", "validate_narration.py"):
+        for name in ("narrate.py", "tts_batch.py", "asr_batch.py", "qa_lines.py", "validate_narration.py"):
             (scripts / name).write_text(recorder, encoding="utf-8")
-        (self.root / "tools").mkdir()
-        (self.root / "tools" / "narration.py").write_text(recorder, encoding="utf-8")
         env = {k: v for k, v in os.environ.items() if k not in ("FTTS", "JOINT", "JOINT_CREAK", "SEEDS", "EXCLUDE_EXIT")}
         env.update(SKILLS=str(self.root / "skills"), FTTS_VERSION="0.1.11",
                    PATH=str(bin_dir) + os.pathsep + os.environ["PATH"], **(env_extra or {}))
@@ -220,37 +218,37 @@ class Driver(unittest.TestCase):
     def test_narrate_without_joint_or_seeds_is_the_old_run_even_when_a_gate_fails(self):
         result, calls = self.narrate_recorded(edges_failures=1)
         self.assertEqual(result.returncode, 1, result.stderr)
-        narration = [c for c in calls if c.startswith("narration.py")]
-        self.assertEqual([c.split()[1] for c in narration], ["plan", "synth", "choose", "edges"])
+        narration = [c for c in calls if c.startswith("narrate.py")]
+        self.assertEqual([c.split()[1] for c in narration], ["plan", "choose", "edges"])
         self.assertFalse(any("--seeds" in c or "--joint" in c or "exclude" in c for c in calls), calls)
         self.assertFalse(any("praat-parselmouth" in c for c in calls), calls)
 
     def test_narrate_with_joint_and_seeds_chooses_again_after_a_gate_excludes_a_read(self):
         result, calls = self.narrate_recorded(edges_failures=1, env_extra={"JOINT": "1", "SEEDS": "2"})
         self.assertEqual(result.returncode, 0, result.stderr)
-        narration = [c.split()[1] for c in calls if c.startswith("narration.py")]
-        self.assertEqual(narration, ["plan", "synth", "choose", "edges", "exclude", "choose", "edges"])
-        plan = next(c for c in calls if c.startswith("narration.py plan"))
+        narration = [c.split()[1] for c in calls if c.startswith("narrate.py")]
+        self.assertEqual(narration, ["plan", "choose", "edges", "exclude", "choose", "edges"])
+        plan = next(c for c in calls if c.startswith("narrate.py plan"))
         self.assertIn("--seeds=2", plan)
-        self.assertEqual(sum("--joint" in c for c in calls if c.startswith("narration.py choose")), 2)
+        self.assertEqual(sum("--joint" in c for c in calls if c.startswith("narrate.py choose")), 2)
         self.assertTrue(all("--with praat-parselmouth" in c for c in calls if c.startswith("uv ")), calls)
 
     def test_narrate_with_joint_stops_when_there_is_nothing_new_to_exclude(self):
         result, calls = self.narrate_recorded(edges_failures=99, env_extra={"JOINT": "1", "EXCLUDE_EXIT": "1"})
         self.assertEqual(result.returncode, 1, result.stderr)
-        narration = [c.split()[1] for c in calls if c.startswith("narration.py")]
-        self.assertEqual(narration, ["plan", "synth", "choose", "edges", "exclude"])
+        narration = [c.split()[1] for c in calls if c.startswith("narrate.py")]
+        self.assertEqual(narration, ["plan", "choose", "edges", "exclude"])
 
     def test_narrate_with_joint_gives_up_after_twelve_exclusion_rounds(self):
         result, calls = self.narrate_recorded(edges_failures=99, env_extra={"JOINT": "1"})
         self.assertEqual(result.returncode, 1, result.stderr)
-        narration = [c.split()[1] for c in calls if c.startswith("narration.py")]
+        narration = [c.split()[1] for c in calls if c.startswith("narrate.py")]
         self.assertEqual(narration.count("choose"), 13)
         self.assertEqual(narration.count("exclude"), 12)
 
     def test_narrate_prices_a_creaky_ending_only_when_asked_and_only_with_joint(self):
         _, calls = self.narrate_recorded(edges_failures=0, env_extra={"JOINT": "1", "JOINT_CREAK": "1"})
-        chooses = [c for c in calls if c.startswith("narration.py choose")]
+        chooses = [c for c in calls if c.startswith("narrate.py choose")]
         self.assertEqual(len(chooses), 1)
         self.assertIn("--joint", chooses[0])
         self.assertIn("--creak=1", chooses[0])
