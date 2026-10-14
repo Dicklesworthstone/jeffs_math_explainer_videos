@@ -11,7 +11,7 @@ page accepts, linking this file for the rest.
 # Mental Math Tricks That Actually Work (and Why)
 
 A handful of mental arithmetic tricks that come up in real life, each with
-the picture that makes it true, and fourteen "your turn" quizzes with a
+the picture that makes it true, and thirteen "your turn" quizzes with a
 countdown. Pause whenever you want more time.
 
 A product is the area of a rectangle. Every trick here is one way to cut that
@@ -55,7 +55,8 @@ rectangle into easy pieces, or to trade it for an equal one.
   never go down, and once the tens are known the answer lies from the tens
   multiplied up to, but not at, the next tens multiplied (for 23 × 46, from
   800 up to 1500) [F-X2, F-T2.bounds]. A running total does not have the
-  right leading digits early: 19 × 19 starts at 100 and ends at 361.
+  right leading digits early: 19 × 19 starts at 100 and ends at 361
+  [F-DO.n19.running].
 - **Percents.** x% of y = x × y ÷ 100 = y% of x, always [F-X5]. It helps
   only when one of the two is a percent you know as a fraction.
 - **Half and double.** (a ÷ 2) × (2b) = a × b [F-X6]. It stays in whole
@@ -66,16 +67,16 @@ rectangle into easy pieces, or to trade it for an equal one.
 - **The middle.** (a + b)(a − b) = a² − b², for any two numbers [F-X3]. Their
   middle is whole when both are even or both are odd. A half middle still
   works and is no easier: 47 × 56 = 51.5² − 4.5² = 2652.25 − 20.25 = 2632
-  [F-D.half_middle].
+  [F-D.half_middle.*].
 - **Near fifty.** (50 ± b)² = 2500 ± 100b + b². "25 plus or minus the
   distance, then the distance squared as two digits" reads the answer
   straight off for 41 to 59 and for no other number from 0 to 100; further
   out the square of the distance carries into the hundreds (62² is 37
   hundreds plus 144, 3844) [F-X4, F-T4.carries]. The same move works near a
-  hundred: 97² = 94 × 100 + 9 = 9409 [F-D.n97].
+  hundred: 97² = 94 × 100 + 9 = 9409 [F-D.n97.*].
 - **Two more the same picture gives.** Any two numbers with the same front
   whose last digits add to ten: 23 × 27 is 2 × 3 in hundreds, then 3 × 7:
-  621 [F-D.same_front].
+  621 [F-D.same_front.*].
 - **The estimate.** Rounding each number to its nearest ten tells you how
   big the answer is. It catches a slipped decimal point, not a wrong digit.
 

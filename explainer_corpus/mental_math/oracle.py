@@ -8,7 +8,9 @@ Run from this folder (`./x mental_math facts-check` does):
 stdout: one `KEY<TAB>VALUE` line per fact, the same keys `mental facts`
 prints (src/facts.rs), in the rows of docs/fact-sheet.md: F-H (the hook), F-T
 (the tricks), F-M (the one move), F-N (the product with nothing to grab), F-Q
-(the quizzes), F-X (the edges of the always sentences) and F-C (cited).
+(the quizzes), F-X (the edges of the always sentences) and F-C (cited). The oracle may
+print more than the video: F-DO rows are numbers only docs/description.md states
+(tools/description_numbers.py reads the oracle's values as facts).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
@@ -437,6 +439,10 @@ def main():
     emit("F-D.half_middle.distance_squared", money(half_gap**2 * 100))
     emit("F-D.half_middle.product", 47 * 56)
     check("47 x 56 = 51.5^2 - 4.5^2", half_middle**2 - half_gap**2 == 47 * 56)
+    # --- F-DO: a number only docs/description.md states, which the video does not print (an oracle-only row) ---------
+    n19 = running_totals(19, 19)
+    emit("F-DO.n19.running", join(n19))
+    check("19 x 19 by parts starts at 100 and ends at 361", n19[0] == 100 and n19[-1] == 361 == 19 * 19)
 
     # --- F-Q: the quizzes ------------------------------------------------------------
     emit("F-Q.count", len(QUIZZES))
