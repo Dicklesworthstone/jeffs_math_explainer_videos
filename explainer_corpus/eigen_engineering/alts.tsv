@@ -20,3 +20,12 @@
 14_7	0	So, there are three questions.
 14_7	0	So there are three questions…
 14_7	0	So there are, three questions.
+# Second pass (2026-10-14, after the re-narrate still flagged 12_3.1): 11 of the 12 reads of 'size.' are cut short or have no z (the one
+# with a z, the extra-comma read, is slow, 3.1 syl/s, with a 0.47 s stall inside 'seven tenths, the size' and a rising end). New reads, same words:
+12_3	1	— The same pattern comes back, seven tenths the size.
+12_3	1	— The same pattern comes back seven tenths the size.
+12_3	1	The same pattern comes back; seven tenths the size.
+12_3	1	The same pattern comes back: seven tenths the size.
+12_3	1	— The same pattern comes back, seven tenths the size…
+12_3	1	The same pattern comes back… seven tenths the size.
+12_3	1	The same pattern comes back, seven tenths the size —
