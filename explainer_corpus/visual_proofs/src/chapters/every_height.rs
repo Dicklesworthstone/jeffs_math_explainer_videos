@@ -193,6 +193,15 @@ pub fn new_at(next: i64, which: usize, j: i64) -> Vec<Cell> {
     stacks::new_base(next, which).into_iter().filter(|c| c.2 == j).collect()
 }
 
+/// Whether stack `which`'s piece of the new base slab comes in gold in 09_2.
+/// Only the under stack's five by five does: the slab's far row of five is
+/// the behind stack's, and it stands in the colour of that stack before the
+/// slab slides in, so that the sort the line names is already there when the
+/// gold turns to the stacks' colours (R2, 09_2).
+pub fn comes_in_gold(which: usize) -> bool {
+    which == 0
+}
+
 /// The half cubes of the first case's box, by stack: each whole cube is two
 /// halves one over the other, except the top step's, whose upper half is
 /// turned into the empty half (`stacks::turned_half`). Cells in half-height
@@ -418,7 +427,7 @@ impl SceneConstruct for EveryHeight {
         // stack behind
         for p in fresh.iter().filter(|p| p.level == 0) {
             base.push(iso.fade(p.solid, 1.0, 0.3)?);
-            if p.which == 0 {
+            if comes_in_gold(p.which) {
                 base.push(iso.glow(p.solid, hero(), 1.0, 0.3)?);
             }
             base.push(iso.slide(stage, p.solid, [0.0, 0.0, 0.0], 0.8)?);
@@ -432,7 +441,7 @@ impl SceneConstruct for EveryHeight {
             close.push(iso.slide_by(stage, p.solid, [0.0, 0.0, -(p.level as f64) * GAP], 0.7)?);
             close.push(iso.glow(p.solid, hero(), 0.0, 0.7)?);
         }
-        for p in fresh.iter().filter(|p| p.level == 0 && p.which == 0) {
+        for p in fresh.iter().filter(|p| p.level == 0 && comes_in_gold(p.which)) {
             close.push(iso.glow(p.solid, hero(), 0.0, 0.7)?);
         }
         iso.play(stage, close, 0.0)?;
@@ -923,6 +932,40 @@ mod tests {
             assert_eq!(before, board.len(), "no cell twice");
             assert_eq!(board.len() as i64, next * (next + 1));
         }
+    }
+
+    /// 09_2's new base slab is a board of five by six: the under stack's
+    /// five by five, in gold as it slides in, and the behind stack's far row
+    /// of five, which is in the behind colour from the first (R2). Nothing
+    /// of the beside stack is on the base.
+    #[test]
+    fn the_new_base_slab_is_the_under_five_by_five_and_the_behind_far_row() {
+        let next = shown::STACK + 1;
+        let under = new_at(next, 0, 0);
+        let behind = new_at(next, 1, 0);
+        assert_eq!(under.len() as i64, next * next);
+        assert!(
+            under
+                .iter()
+                .all(|c| (0..next).contains(&c.0) && (0..next).contains(&c.1))
+        );
+        // the far row: one row of five across the new depth
+        assert_eq!(behind.len() as i64, next);
+        assert!(behind.iter().all(|c| c.1 == next && (0..next).contains(&c.0)));
+        assert!(
+            new_at(next, 2, 0).is_empty(),
+            "the beside stack has nothing on the base"
+        );
+        // gold for the under stack's piece only; the far row keeps its colour
+        assert!(comes_in_gold(0));
+        assert!(!comes_in_gold(1) && !comes_in_gold(2));
+        // the five by six board has every cell once
+        let mut board: Vec<(i64, i64)> = under.iter().chain(&behind).map(|c| (c.0, c.1)).collect();
+        board.sort_unstable();
+        let len = board.len();
+        board.dedup();
+        assert_eq!(len, board.len());
+        assert_eq!(board.len() as i64, next * (next + 1));
     }
 
     /// The first case: three single cubes are a box one by two by one and a
