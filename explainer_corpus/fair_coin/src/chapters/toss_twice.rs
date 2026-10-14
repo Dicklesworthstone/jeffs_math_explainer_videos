@@ -475,7 +475,12 @@ impl SceneConstruct for TossTwice {
         ins.extend(&band);
         ins.extend([fair, fair_2, cap]);
         fade_in_all(stage, &ins, 0.6)?;
-        kit.listen(stage, 3.0, "02_toss_twice:02_8")?;
+        // the run heard: its first games pair by pair (a tick thrown away,
+        // the motif's two notes in the order a deciding pair fell), then the
+        // race as an even patter (R1's C11)
+        let wav = super::sound::the_trick()?;
+        kit.sonify(stage, super::sound::WINDOW_S, "02_toss_twice:02_8", &wav)?;
+        super::draw::pause(stage, super::sound::WINDOW_S)?;
 
         // 02_9: the coin is as unfair as ever; the game isn't
         say(&kit, stage, "02_9")?;

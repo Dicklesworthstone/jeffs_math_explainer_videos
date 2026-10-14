@@ -634,8 +634,11 @@ impl SceneConstruct for EveryCoin {
         ins.extend(again.all());
         fade_in_all(stage, &ins, 0.3)?;
         kit.hold(stage)?;
-        again.play_by_the_clock(stage, 0.15, 2.1)?;
-        kit.listen(stage, 3.0, "03_every_coin:03_2")?;
+        // the two notes rise as the copy lifts and fall as it lands (R1's C2)
+        again.play_by_the_clock(stage, super::sound::FLIP_DELAY_S, super::sound::FLIP_S)?;
+        let wav = super::sound::the_flip()?;
+        kit.sonify(stage, super::sound::WINDOW_S, "03_every_coin:03_2", &wav)?;
+        super::draw::pause(stage, super::sound::WINDOW_S)?;
 
         // 03_3: a more unfair coin; are the blocks still equal?
         let line = say(&kit, stage, "03_3")?;

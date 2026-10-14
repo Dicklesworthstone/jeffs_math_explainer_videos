@@ -10,6 +10,7 @@ pub mod glyphs;
 pub mod loaded_dice;
 pub mod same_counts;
 pub mod six_orders;
+pub mod sound;
 pub mod the_fair_coin_inside;
 pub mod the_price;
 pub mod thumbnail;

@@ -731,7 +731,10 @@ impl SceneConstruct for WhereItBreaks {
         let window_end = line.end() + explainer_kit::narration::BREATH + 3.0;
         let span = (window_end - stage.scene().time().to_f64() - 0.8).clamp(2.2, 5.4);
         tally.extend(land_games(stage, &alice_won, (under_bar, bar_w), beside, (0.1, span))?);
-        kit.listen(stage, 3.0, "05_where_it_breaks:05_2")?;
+        // 02_8's even patter, then the two coins' games four to one (R1's C11)
+        let wav = super::sound::the_two_coins()?;
+        kit.sonify(stage, super::sound::WINDOW_S, "05_where_it_breaks:05_2", &wav)?;
+        super::draw::pause(stage, super::sound::WINDOW_S)?;
 
         // 05_3: a coin with a memory. One thing at a time: the coin, its
         // tosses, what a long run of them counts
