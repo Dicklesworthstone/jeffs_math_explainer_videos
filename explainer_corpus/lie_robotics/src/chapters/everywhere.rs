@@ -80,8 +80,31 @@ pub const ASK: Ask = Ask {
     ],
 };
 
-const CARD_AT: [f64; 2] = [4.6, -0.2];
+/// The quiz card: its right edge (4.5 + 2.38) is inside the margin, and its
+/// left edge (2.12) is clear of the books' world (`BOOKS_VIEW`).
+const CARD_AT: [f64; 2] = [4.5, -0.2];
 const CARD_SCALE: f64 = 0.88;
+/// The opening's books' world: its scale and where its origin stands, so
+/// that the right book, its axes and the table's far corner end before the
+/// card begins and the table's near corner before 15_4's table of numbers.
+const BOOKS_VIEW: (f64, [f64; 2]) = (0.9, [-0.6, -0.4]);
+/// How far each book's two gold axes run out of its centre (world units).
+const BOOK_AXIS: f64 = 1.4;
+/// 15_3's readouts: their words' left edge, the right edge of their live
+/// numbers, and their two heights: above the books, where no axis runs.
+const READOUT_WORDS_X: f64 = -3.9;
+const READOUT_NUMBER_RIGHT: f64 = -0.7;
+const READOUT_Y: [f64; 2] = [3.5, 2.95];
+/// 15_4's picture of the Lie bracket, above the card.
+const BRACKET_AT: [f64; 2] = [2.8, 2.75];
+/// The leftover's own axis is the last of `table_books`' parts: out of the
+/// quiz's picture (it would say "something stands between them") and in at
+/// 15_3.
+const LEFTOVER_AXIS: usize = 5;
+// the wedge ends before the readouts' words begin, and the bracket's picture
+// (its line 1 either side, its third arrow 0.9 up) is inside the frame
+const _: () = assert!(WEDGE_AT[0] + WEDGE_R + 0.3 < READOUT_WORDS_X);
+const _: () = assert!(BRACKET_AT[1] + 0.9 < 3.85 && BRACKET_AT[0] + 1.0 < 6.96);
 /// The two spinning books: where each is, and how big (picture units).
 const SPIN_AT: [[f64; 2]; 2] = [[-3.6, -0.55], [0.2, -0.55]];
 const SPIN_FIT: f64 = 0.62;
@@ -89,8 +112,8 @@ const SPIN_FIT: f64 = 0.62;
 const SPIN_SECONDS: f64 = 10.0;
 /// The two books of the opening, in the table's world.
 const TABLE_BOOKS: [[f64; 2]; 2] = [[-1.9, 0.0], [1.9, 0.0]];
-const TABLE_LO: [f64; 2] = [-3.7, -2.0];
-const TABLE_HI: [f64; 2] = [3.7, 2.0];
+const TABLE_LO: [f64; 2] = [-3.2, -1.8];
+const TABLE_HI: [f64; 2] = [3.2, 1.8];
 const LIFT: f64 = 1.1;
 /// Where the leftover's wedge is drawn, looking down its axis, and its size.
 const WEDGE_AT: [f64; 2] = [-5.3, 2.5];
@@ -271,7 +294,8 @@ impl SceneConstruct for Everywhere {
             p: fig.pelvis,
         };
         g1_specs.push(PartSpec::new(pose_frame(&pelvis_pose, 0.2, palette::goal()), still(Pose::NOTHING)).layer(3));
-        let g1_world = World::build(stage, View::new(3.0, v(4.3, -3.3)), 1.0, 0.1, g1_specs, Vec::new())?;
+        // its feet stand above the lower third's top edge
+        let g1_world = World::build(stage, View::new(3.0, v(4.3, -3.0)), 1.0, 0.1, g1_specs, Vec::new())?;
         g1_world.add_to_scene(stage)?;
 
         // 15_1: far beyond this arm
@@ -392,7 +416,15 @@ impl SceneConstruct for Everywhere {
         leave(stage, &[programmers, t1, t2, names], &[g1_world.shown], 0.6)?;
         let u = stage.add_value_tracker(sweep_of(SMALL_TURN));
         let books = table_books(u, blue, gold);
-        let books_world = World::build(stage, View::new(1.0, v(0.0, -0.4)), 5.0, 0.15, books, Vec::new())?;
+        let books_world = World::build(
+            stage,
+            View::new(BOOKS_VIEW.0, v(BOOKS_VIEW.1[0], BOOKS_VIEW.1[1])),
+            5.0,
+            0.15,
+            books,
+            Vec::new(),
+        )?;
+        stage.set_tracker_value(books_world.parts[LEFTOVER_AXIS].shown, 0.0)?;
         books_world.add_to_scene(stage)?;
         let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
         books_world.show(stage, 0.8)?;
@@ -404,8 +436,20 @@ impl SceneConstruct for Everywhere {
         let line = say(&kit, stage, BEATS[2])?;
         let rim = wedge(stage, u, blue)?;
         let (turns_label, leftover_label_m) = (
-            kit.text_left(stage, TURNS_WORD, 26.0, Palette::dim(), v(-6.7, 1.0))?,
-            kit.text_left(stage, LEFTOVER_WORD, 26.0, Palette::dim(), v(-6.7, 0.45))?,
+            kit.text_left(
+                stage,
+                TURNS_WORD,
+                26.0,
+                Palette::dim(),
+                v(READOUT_WORDS_X, READOUT_Y[0]),
+            )?,
+            kit.text_left(
+                stage,
+                LEFTOVER_WORD,
+                26.0,
+                Palette::dim(),
+                v(READOUT_WORDS_X, READOUT_Y[1]),
+            )?,
         );
         fade_in_all(stage, &[turns_label, leftover_label_m], 0.4)?;
         let turned = kit.live_value(
@@ -415,7 +459,7 @@ impl SceneConstruct for Everywhere {
             false,
             30.0,
             Palette::ink(),
-            v(-3.2, 1.0),
+            v(READOUT_NUMBER_RIGHT, READOUT_Y[0]),
             RIGHT,
         )?;
         let left_over = kit.live_value(
@@ -425,13 +469,15 @@ impl SceneConstruct for Everywhere {
             false,
             30.0,
             blue,
-            v(-3.2, 0.45),
+            v(READOUT_NUMBER_RIGHT, READOUT_Y[1]),
             RIGHT,
         )?;
         fade_in_all(stage, &[rim], 0.5)?;
         line.wait_for(stage, "They do")?;
         play!(stage; tween(u, 0.0, 1.0)?);
         line.wait_for(stage, "And that leftover is itself a turn")?;
+        // its axis stands between the books, drawn only now that it is named
+        play!(stage; tween(books_world.parts[LEFTOVER_AXIS].shown, 1.0, 0.5)?);
         play!(stage; tween(u, sweep_of(10.0), 2.4)?);
         play!(stage; tween(u, 1.0, 2.0)?);
         line.wait_end(stage)?;
@@ -452,7 +498,7 @@ impl SceneConstruct for Everywhere {
         let head = kit.text_left(stage, TABLE_HEAD, 24.0, Palette::dim(), v(-6.7, -0.05))?;
         line.wait_for(stage, "make both ten times smaller")?;
         fade_in_lagged(stage, &[vec![head], rows.clone()].concat(), 1.2, 0.5)?;
-        let bracket = bracket_badge(stage, v(-3.6, 2.35))?;
+        let bracket = bracket_badge(stage, v(BRACKET_AT[0], BRACKET_AT[1]))?;
         line.wait_for(stage, "called the Lie bracket")?;
         fade_in_all(stage, &bracket, 0.7)?;
         let note = lower_third(&kit, stage, LEFTOVER_NOTE_LABEL, LEFTOVER_NOTE)?;
@@ -584,7 +630,7 @@ fn table_books(u: Mob, axis_color: Srgb, gold: Srgb) -> Vec<PartSpec> {
         let mut lines = Vec::new();
         for dir in [X, Y] {
             for sign in [-1.0, 1.0] {
-                lines.push(Shape::line([0.0; 3], scale_v(dir, 2.4 * sign), gold, 3.0));
+                lines.push(Shape::line([0.0; 3], scale_v(dir, BOOK_AXIS * sign), gold, 3.0));
             }
         }
         specs.push(
@@ -875,6 +921,130 @@ mod tests {
             assert!(stage.get_left(math[0])[0] > -7.11 + 0.15);
             Ok(())
         });
+    }
+
+    /// 15_2 to 15_4: at the biggest turn of the sweep, the books, their
+    /// axes and the leftover's axis end before the card begins, the table's
+    /// near corner before the left-hand table of numbers; the card's right
+    /// edge is inside the margin.
+    #[test]
+    fn the_books_world_clears_the_card_and_the_numbers() {
+        use super::super::draw::SAFE;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            let (card_left, card_right) = (stage.get_left(card.back)[0], stage.get_right(card.back)[0]);
+            assert!(card_right < SAFE[0], "the card's right edge is {card_right:.3}");
+            let view = View::new(BOOKS_VIEW.0, v(BOOKS_VIEW.1[0], BOOKS_VIEW.1[1]));
+            let mut right_most = f64::MIN;
+            let mut left_most = f64::MAX;
+            for deg in [SMALL_TURN, 10.0, BIG_TURN] {
+                let theta = deg * DEG;
+                for (k, centre) in TABLE_BOOKS.iter().enumerate() {
+                    let r = if k == 0 {
+                        model::tilt_then_roll(theta)
+                    } else {
+                        model::roll_then_tilt(theta)
+                    };
+                    let mut pts: Vec<V3> = Vec::new();
+                    for c in 0..8 {
+                        let s = |bit: usize| if c >> bit & 1 == 1 { 1.0 } else { -1.0 };
+                        let local = [s(0) * BOOK_HALF[0], s(1) * BOOK_HALF[1], s(2) * BOOK_HALF[2]];
+                        pts.push(add([centre[0], centre[1], LIFT], apply(&r, local)));
+                    }
+                    // the book's two gold axes end at +-BOOK_AXIS
+                    for dir in [X, Y] {
+                        for sign in [-1.0, 1.0] {
+                            pts.push([
+                                centre[0] + dir[0] * BOOK_AXIS * sign,
+                                centre[1] + dir[1] * BOOK_AXIS * sign,
+                                0.03,
+                            ]);
+                        }
+                    }
+                    let (lo, hi) = view.box_of(pts);
+                    right_most = right_most.max(hi[0]);
+                    left_most = left_most.min(lo[0]);
+                }
+            }
+            assert!(
+                right_most + 0.05 < card_left,
+                "the books' world reaches {right_most:.2}, the card begins at {card_left:.2}"
+            );
+            // the table of numbers (15_4) ends at -4.5 or so, at its widest
+            let widest = kit.text_left(
+                stage,
+                &format!("{}° → {}", 90, leftover_label(120.0)),
+                30.0,
+                Palette::ink(),
+                v(-6.7, -0.45),
+            )?;
+            let corner_x = view
+                .box_of([[TABLE_LO[0], TABLE_LO[1], 0.0], [TABLE_LO[0], TABLE_HI[1], 0.0]])
+                .0[0];
+            assert!(
+                stage.get_right(widest)[0] + 0.1 < corner_x,
+                "the table of numbers ends at {:.2}, the table's corner is at {corner_x:.2}",
+                stage.get_right(widest)[0]
+            );
+            assert!(left_most > -SAFE[0]);
+            Ok(())
+        });
+    }
+
+    /// 15_3's readouts: the words end before the number begins even at its
+    /// widest ("120.0000"), inside the margin, right of the wedge, above the
+    /// bracket's picture; the bracket's picture is above the card and inside
+    /// the frame.
+    #[test]
+    fn the_readouts_and_the_bracket_stand_apart() {
+        use super::super::draw::SAFE;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            let words = [TURNS_WORD, LEFTOVER_WORD];
+            let numbers = ["90", "120.0000"];
+            for (k, (word, number)) in words.iter().zip(numbers).enumerate() {
+                let w = kit.text_left(stage, word, 26.0, Palette::dim(), v(READOUT_WORDS_X, READOUT_Y[k]))?;
+                let n = kit.text(stage, number, 30.0, Palette::ink(), v(0.0, READOUT_Y[k]))?;
+                let n_left = READOUT_NUMBER_RIGHT - stage.get_width(n);
+                assert!(
+                    stage.get_right(w)[0] + 0.2 < n_left,
+                    "{word:?} ends at {}, its number starts at {n_left}",
+                    stage.get_right(w)[0]
+                );
+                assert!(stage.get_top(w)[1] < SAFE[1]);
+            }
+            // the badge: its line, two arrows and the third standing on it
+            let (lo, hi) = (
+                [BRACKET_AT[0] - 1.0, BRACKET_AT[1]],
+                [BRACKET_AT[0] + 1.0, BRACKET_AT[1] + 0.9],
+            );
+            assert!(
+                lo[1] > stage.get_top(card.back)[1] + 0.3,
+                "the bracket is above the card"
+            );
+            assert!(hi[1] < SAFE[1] && hi[0] < SAFE[0] && lo[0] > READOUT_NUMBER_RIGHT);
+            // the leftover's axis is the last part of the books' table
+            let books = table_books(stage.add_value_tracker(0.0), palette::turn(), palette::screw());
+            assert_eq!(books.len(), LEFTOVER_AXIS + 1);
+            Ok(())
+        });
+    }
+
+    /// 15_1: the humanoid's feet stand above the lower third that names it.
+    #[test]
+    fn the_humanoids_feet_clear_the_lower_third() {
+        use super::super::draw::LOWER_THIRD_TOP;
+        let fig = figure();
+        let view = View::new(3.0, v(4.3, -3.0));
+        let points = fig
+            .bones
+            .iter()
+            .flat_map(|&(a, b)| [a, b])
+            .chain(fig.joints.iter().copied());
+        let (lo, _) = view.box_of(points);
+        assert!(lo[1] > LOWER_THIRD_TOP + 0.1, "the feet reach down to {:.2}", lo[1]);
     }
 
     #[test]
