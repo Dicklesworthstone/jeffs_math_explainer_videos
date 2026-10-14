@@ -386,6 +386,8 @@ impl SceneConstruct for HowComputersDoIt {
              catastrophic cancellation. In 64-bit this matrix survives; doubled, it fails again"
         );
         let programmers = lower_third(&kit, stage, "for programmers:", &wide)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, programmers, "13_3:programmers")?;
         fade_in_all(stage, &[programmers], 0.5)?;
         kit.hold(stage)?;
 
@@ -612,7 +614,7 @@ impl SceneConstruct for HowComputersDoIt {
 mod tests {
     use fmn::scene::{NullSceneSink, RuntimeConfig};
 
-    use super::super::draw::testing;
+    use super::super::draw::{quiz_log, testing};
     use super::*;
     use crate::model::{expm, pade_at_one, scale_square_f32, series_f32};
 
@@ -809,6 +811,98 @@ mod tests {
         assert_eq!(fact("F-C.diag.tanks.rebuilt").unwrap(), "true");
     }
 
+    /// 13_3's programmers' note has time to be read: it comes up inside 13_3,
+    /// with the last sentence, and stands through the first sentence of 13_4,
+    /// fully shown for at least three seconds. Cleared as 13_4 begins, or raised
+    /// only after the line, it fails this.
+    #[test]
+    fn the_programmers_note_stands_three_seconds_through_the_next_lines_first_sentence() {
+        let voiced = testing::run_voiced("13_how_computers_do_it").unwrap();
+        let events = quiz_log::take(&voiced.tag, "13_3:programmers");
+        let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+        let (up, down) = (
+            when("up").expect("the note comes up"),
+            when("down").expect("the note goes"),
+        );
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "13_3").cloned().unwrap();
+        let first_of_next = voiced
+            .sentences
+            .iter()
+            .find(|(id, _)| id == "13_4")
+            .and_then(|(_, starts)| starts.get(1).copied())
+            .expect("13_4 has a second sentence");
+        assert!(
+            up > start && up < start + len,
+            "up at {up:.1} s in a line from {start:.1} s to {:.1} s",
+            start + len
+        );
+        assert!(
+            down >= first_of_next - 0.1,
+            "it goes at {down:.1} s, 13_4's first sentence ends at {first_of_next:.1} s"
+        );
+        assert!(down - up >= 3.0, "it stands {:.1} s ({up:.1} to {down:.1})", down - up);
+    }
+
+    /// The matrix rows of a fact, as a model matrix.
+    fn mat_of(key: &str) -> Mat {
+        Mat::from_rows(&rows_of(key).iter().map(|r| r.as_slice()).collect::<Vec<_>>())
+    }
+
+    /// 13_3 against Moler and Van Loan (the mathematician audit): their IBM 370
+    /// run, set against the e^A they print, has the wrong sign at two entries,
+    /// the two of its right-hand column; this video's own 32-bit run has one.
+    /// The description tells that story with the facts' own numbers around it
+    /// (it once said three entries, and carried another run's digits).
+    #[test]
+    fn the_description_counts_the_papers_wrong_signs_and_prints_the_chapters_facts() {
+        let paper = wrong_signs(&mat_of("F-B.mvl.ibm.result"), &mat_of("F-C.mvl.exact"));
+        assert_eq!(
+            paper,
+            [(0, 1), (1, 1)],
+            "the paper's run is wrong in sign in its right-hand column"
+        );
+        let ours = wrong_signs(&mat_of("F-C.mvl.f32.series"), &mat_of("F-C.mvl.exact"));
+        assert_eq!(ours.len().to_string(), fact("F-C.mvl.f32.wrong_signs").unwrap());
+        let count = |n: usize| ["no", "one", "two", "three", "four"][n];
+        // in the facts' own digits, with the true minus, as the description sets a matrix
+        let bracket = |key: &str| {
+            format!(
+                "[{}]",
+                fact(key)
+                    .unwrap()
+                    .replace('-', "\u{2212}")
+                    .replace(';', "; ")
+                    .replace(',', ", ")
+            )
+        };
+        let size: f64 = fact("F-C.mvl.size").unwrap().parse().unwrap();
+        let want = [
+            bracket("F-C.mvl.exact"),
+            bracket("F-C.mvl.f32.series"),
+            bracket("F-B.mvl.ibm.result"),
+            bracket("F-C.mvl.f32.scaled"),
+            format!("{} entries with the wrong sign", count(paper.len())),
+            format!("{} entry with the wrong sign", count(ours.len())),
+            format!("`k = {}`", fact("F-C.mvl.f32.terms").unwrap()),
+            format!("`K = {}`", fact("F-B.mvl.ibm.terms").unwrap()),
+            format!(
+                "`{}`",
+                largest_entry_text(fact("F-C.mvl.term.largest").unwrap()).unwrap()
+            ),
+            format!("worst error `{}`", fact("F-C.mvl.f32.scaled.worst_error").unwrap()),
+            format!("`{}` times closer", fact("F-C.pade.m3.times_closer").unwrap()),
+            format!("size `{:.2} < 1`", size / 256.0),
+        ];
+        // read the description on one line, so a re-wrapped paragraph still matches
+        let text = include_str!("../../docs/description.md")
+            .split_whitespace()
+            .collect::<Vec<_>>()
+            .join(" ");
+        for w in &want {
+            assert!(text.contains(w.as_str()), "the description never says {w:?}");
+        }
+    }
+
     /// The chapter runs on the storyboard with the layout lint clean, types
     /// the strings it should, and stays inside the chapter budget.
     #[test]
@@ -816,7 +910,14 @@ mod tests {
         let ran = testing::run("13_how_computers_do_it").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         let words: Vec<&str> = ran.registered.iter().map(|r| r.source.as_str()).collect();
+        // 13_3 names the computation it shows: the run, its 32 bits, its loop and where it stopped
+        let note = format!(
+            "this video\u{2019}s own run: 32-bit, term \u{d7} A then \u{f7} k, stopped at k = {}",
+            fact("F-V.13_3.stopped_at_k").unwrap()
+        );
         for want in [
+            note.as_str(),
+            "the series, in 32 bits",
             "Nineteen Dubious Ways to",
             "9,303,002.5",
             "about 7 digits",

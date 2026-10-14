@@ -151,27 +151,28 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   Moler and Van Loan's test matrix `A = [−49, 24; −64, 31]` (eigenvalues `−1`
   and `−17`), the exact exponential is `e^A ≈ [−0.735759, 0.551819; −1.471518,
   1.103638]` [F-C.mvl.A, F-C.mvl.eigenvalues, F-C.mvl.exact]. Along the series,
-  `A^k / k!` grows to `8.36 × 10⁷` in magnitude at `k = 17` before cancelling
-  down below `1.5` [F-C.mvl.term.largest]. In IEEE 754 32-bit float (`f32`,
-  24-bit binary significand, about 7 decimal digits), our loop `term = (term *
-  A) / k; total = total + term` stops changing at `k = 62` and returns
-  `[−1.275748, 0.697661; −2.548863, 1.396191]` — every entry wrong in its first
-  digit, and if `term` is computed as `A^k / k!` or accumulated in another
-  order, even the signs flip [F-C.mvl.f32.*].
+  `A^k / k!` grows to `9,303,002.5` in magnitude at `k = 16` and `k = 17` before
+  cancelling down below `1.5` [F-C.mvl.term.largest]. In IEEE 754 32-bit float
+  (`f32`, 24-bit binary significand, about 7 decimal digits), our loop `term =
+  (term * A) / k; total = total + term` stops changing at `k = 62` and returns
+  `[−0.788594, 1.314455; −0.126288, −0.839240]`: no entry is right to two
+  digits, and one has the wrong sign. Other equally natural orders of the same
+  operations give other wrong answers [F-C.mvl.f32.*].
 - **Why our 32-bit numbers differ from Moler and Van Loan's 1978 paper.** Moler
   and Van Loan (1978, p. 808; 2003, p. 8) ran their experiment on an **IBM 370**
   in short hexadecimal floating-point arithmetic (base 16, 6 hex digits = 24
   bits with wobbling precision), stopping at `K = 59` terms with `[−22.25880,
-  −1.432766; −61.49931, −3.474280]` (three entries with the wrong sign). Because
-  IBM 370 hex rounding is not IEEE 754 binary rounding, the video shows the
-  actual IEEE `f32` run (`k = 62`, `[−1.275748, 0.697661; −2.548863, 1.396191]`)
-  and cites the IBM 370 numbers here. Even in IEEE 64-bit (`f64`), summing the
+  −1.432766; −61.49931, −3.474280]`: two entries with the wrong sign, the two
+  in its right-hand column [F-B.mvl.ibm.result]. Because IBM 370 hex rounding is
+  not IEEE 754 binary rounding, the video shows the actual IEEE `f32` run (`k =
+  62`, `[−0.788594, 1.314455; −0.126288, −0.839240]`, one entry with the wrong
+  sign) and cites the IBM 370 numbers here. Even in IEEE 64-bit (`f64`), summing the
   raw series for `2A` loses almost all accuracy (`0` of `4` entries right to two
   significant digits) [F-C.mvl.f64.doubled.entries_right_to_two_digits].
 - **Scaling and squaring with a Padé approximant.** Halving `A` eight times
-  (`A / 256`, norm `0.3208 < 1`) keeps the series terms tiny; summing 8 terms
-  and squaring 8 times (`e^A = (e^{A/2^s})^{2^s}`) recovers `[−0.735755,
-  0.551816; −1.471511, 1.103633]` in `f32` (worst error `7 × 10⁻⁶`), though
+  (`A / 256`, size `0.35 < 1`) keeps the series terms tiny; summing 8 terms
+  and squaring 8 times (`e^A = (e^{A/2^s})^{2^s}`) recovers `[−0.735775,
+  0.551832; −1.471552, 1.103665]` in `f32` (worst error `0.000034`), though
   over-halving (e.g. `s = 20`) loses accuracy again as `I + A/2^s` rounds away
    digits of `A` before the 20 squarings amplify the rounding error
   [F-C.mvl.f32.scaled.*, F-C.mvl.f32.halvings.*]. Production libraries
@@ -179,7 +180,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   with a `[m/m]` diagonal Padé approximant `p_m(X) / q_m(X)` (`m ∈ {3, 5, 7, 9,
   13}` chosen from the matrix norm and `‖A^{2k}‖^{1/(2k)}` bounds; Higham 2005,
   Al-Mohy and Higham 2009): at `x = 1`, `[3/3]` Padé (`193/71 ≈ 2.718310`) is
-  `70.7` times closer to `e` than the degree-6 Taylor polynomial (`1957/720 ≈
+  `8.1` times closer to `e` than the degree-6 Taylor polynomial (`1957/720 ≈
   2.718056`) for the same highest power [F-C.pade.*].
 - **Do not compute `e^{tA} v` by forming `e^{tA}` when `A` is large and sparse.**
   On the 400-node grid (`20 × 20`), `L` is sparse (`1,520` nonzeros) while
