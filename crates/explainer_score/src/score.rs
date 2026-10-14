@@ -26,7 +26,10 @@
 //!    reference renders: a tonic bed at intensity 0.5 sits at V + `bed_lu`,
 //!    the motif at V + `melody_lu`; the sum goes through tape, then the duck
 //!    (`duck_db`) with the speech pocket; a fixed gain caps the stem's true
-//!    peak at −12 dBTP (never a limiter).
+//!    peak at −12 dBTP (never a limiter). An identity with `steady_bed` holds
+//!    that duck, and the pocket, for the whole video and keeps the bed to the
+//!    level it has under speech (nothing swells in a gap, a window or at a
+//!    chapter join); a listen window's sonification is heard as before.
 
 use std::io;
 use std::path::Path;
@@ -158,10 +161,32 @@ pub struct Identity {
     /// author did not write for music (a gap shorter than [`HOLD_MERGE`]);
     /// authored breaths and listen windows release it fully.
     pub hold_duck: f64,
+    /// Hold the bed at its ducked level for the whole video (opt-in, per
+    /// video: it is a matter of taste until the owner has heard it). The bed
+    /// bus then stays `duck_db` down and in the pocket's tone (nothing above
+    /// 2.5 kHz) through every gap, breath, listen window and chapter join,
+    /// instead of swelling there and ducking again when the voice returns
+    /// (Video F, T-009: the bed rose 12 dB in a gap against a designed 8, and
+    /// stepped 6.4 dB at 12 of 13 chapter joins). A ceiling keeps what plays
+    /// in those places (a phrase, a roll) from standing over the level the
+    /// bed has under speech ([`duck::ceiling`]: its median and half a dB), and
+    /// a join where the next chapter starts quieter than this one ends is
+    /// carried by bringing the end of this one down ([`duck::carry`]).
+    /// `hold_duck`, [`HOLD_MERGE`] and the breaths do nothing to the bed; the
+    /// speech and the stem inside it are as they were. A listen window's
+    /// sonification is not part of the bed: it is mixed in at `listen_lu` and
+    /// heard through the same duck curve as before (released in its window,
+    /// the voice's duck coming in over it at the window's end), so the sound
+    /// that teaches stands where it did, on a bed that no longer rises under
+    /// it. The video's 1 s fade-in and 3 s fade-out stay.
+    pub steady_bed: bool,
     /// Sound-effect level relative to the voice (LU), for a reference whoosh.
     pub sfx_lu: f64,
     /// A listen window's sonification, relative to the voice (LU): V − 10 or
-    /// louder (plan §7.2), so a sound that teaches is heard.
+    /// louder (plan §7.2), so a sound that teaches is heard. With
+    /// `steady_bed` it is the same level over a bed that no longer rises
+    /// under it: a countdown's ticks are as loud as before and stand about
+    /// 8 dB further above the bed. The owner's to set per video.
     pub listen_lu: f64,
     /// The phrases' swing: the share of a beat its first eighth takes (0.5
     /// straight; plan §7.5 gives C a light 56%).
@@ -339,6 +364,7 @@ impl Identity {
             melody_lu: -12.0,
             duck_db: 8.0,
             hold_duck: 0.0,
+            steady_bed: false,
             settle_s: 0.0,
             sfx_lu: -16.0,
             // the 2,000 shuffles as a texture: clearly heard, still under the
@@ -400,6 +426,7 @@ impl Identity {
             melody_lu: -13.5,
             duck_db: 8.0,
             hold_duck: 0.5,
+            steady_bed: false,
             settle_s: 0.8,
             sfx_lu: -16.0,
             // plan §7.2's floor for a sound that teaches, over a bed thinned
@@ -488,6 +515,7 @@ impl Identity {
             melody_lu: -12.0,
             duck_db: 8.0,
             hold_duck: 0.5,
+            steady_bed: false,
             settle_s: 0.8,
             sfx_lu: -16.0,
             listen_lu: -8.0,
@@ -569,6 +597,7 @@ impl Identity {
             melody_lu: -13.5,
             duck_db: 8.0,
             hold_duck: 0.5,
+            steady_bed: false,
             settle_s: 0.8,
             sfx_lu: -16.0,
             // plan §7.2's floor for a sound that teaches, over a bed thinned
@@ -907,9 +936,23 @@ pub struct Score {
     pub sonified: Vec<(f64, f64)>,
     /// What the score could not do as authored (a silence's fade shortened).
     pub notes: Vec<String>,
+    /// The identity held the duck for the whole video ([`Identity::steady_bed`]):
+    /// QA then judges the bed's swell and the level step at each chapter join.
+    pub steady_bed: bool,
 }
 
 impl Score {
+    /// The bed's level step across the join into chapter `k` (LU; see
+    /// [`crate::qa::join_step_db`]); `None` for the first chapter and where
+    /// the stem is silent at the join.
+    pub fn join_step_db(&self, k: usize) -> Option<f64> {
+        let a = self.chapters.get(k)?.1;
+        if k == 0 {
+            return None;
+        }
+        crate::qa::join_step_db(&self.music, a as f64 / FS)
+    }
+
     /// The band QA judges hard rule 1 against (Hz): the measured narrator's,
     /// whatever register the music was written in. A score written in
     /// another voice's register is caught here, not passed.
@@ -2309,7 +2352,12 @@ fn compose(
             add_scaled(&mut sum, &effects, db_to_gain(v_ref + identity.sfx_lu - ref_sfx));
         }
         // listen windows' sonifications at V + listen_lu, each cut at its
-        // window's end with a short fade so it never runs into the next line
+        // window's end with a short fade so it never runs into the next line.
+        // Into the bed's sum, before the tape and the duck, which the duck's
+        // release in a window leaves at full level; with a steady bed (whose
+        // bed the duck is never released from) they are kept apart, and added
+        // to the bed after its duck and ceiling, through the same duck curve
+        let mut after_duck: Vec<(usize, Stereo, f64)> = Vec::new();
         for (c, s) in sections.iter().enumerate() {
             let (a, b) = (chapters[c].1, chapters[c].2);
             for w in &s.timeline.listens {
@@ -2331,7 +2379,11 @@ fn compose(
                 // on the whole stem, would turn the entire video down for it
                 let over = meter::true_peak_db(&sound) + level_db - LISTEN_PEAK_DBTP;
                 let gain_db = if over > 0.0 { level_db - over } else { level_db };
-                sum.mix_in(&sound, start, db_to_gain(gain_db));
+                if identity.steady_bed {
+                    after_duck.push((start, sound, gain_db));
+                } else {
+                    sum.mix_in(&sound, start, db_to_gain(gain_db));
+                }
             }
         }
         // tape glue: one transport, so both channels share the wow and flutter
@@ -2348,7 +2400,13 @@ fn compose(
         //    author did not write for music (a gap under HOLD_MERGE s), the duck
         //    lets the music up only part way (plan §7.2: the music answers fully
         //    in the authored gaps); a 3 s window straddling such a hold's edge
-        //    otherwise hears the whole gap's music against half a window of voice
+        //    otherwise hears the whole gap's music against half a window of voice.
+        //    A steady bed (opt-in) is not released at all: its bed bus is held at
+        //    the ducked level, in the pocket's tone, for the whole video, and
+        //    kept under the level it has under speech (so a phrase written into
+        //    a gap stands no higher than the bed); only a sonification keeps
+        //    this curve (below), so it is heard as it is today, including the
+        //    duck coming in over it at its window's end
         let shape = DuckShape::default();
         let mut u = duck::duck_curve(&speech, n, shape);
         if identity.hold_duck > 0.0 {
@@ -2379,8 +2437,22 @@ fn compose(
                 .collect();
             duck::recede(&mut u, &resumes, identity.settle_s);
         }
-        let mut music = duck::apply(&sum, &u, identity.duck_db);
-        drop(sum);
+        let mut music = if identity.steady_bed {
+            let mut bed = duck::apply_held(&sum, identity.duck_db);
+            drop(sum);
+            duck::ceiling(&mut bed, &speech);
+            let joins: Vec<f64> = chapters.iter().skip(1).map(|c| c.1 as f64 / FS).collect();
+            duck::carry(&mut bed, &joins, &speech);
+            for (start, sound, gain_db) in &after_duck {
+                let (at, heard) = through_duck(sound, *start, db_to_gain(*gain_db), &u, identity.duck_db);
+                bed.mix_in(&heard, at, 1.0);
+            }
+            bed
+        } else {
+            let music = duck::apply(&sum, &u, identity.duck_db);
+            drop(sum);
+            music
+        };
         // the authored silences, applied to everything (bed, notes, tails,
         // sonifications): exactly zero inside
         if !silences.is_empty() {
@@ -2463,7 +2535,20 @@ fn compose(
         silences,
         notes,
         sonified,
+        steady_bed: identity.steady_bed,
     })
+}
+
+/// A sonification, at `gain`, heard through the duck curve `u` as it would be
+/// mixed into the bed's sum before the duck: the stretch of the stem it spans
+/// (with a second either side for the pocket's tails) and where it starts.
+fn through_duck(sound: &Stereo, start: usize, gain: f64, u: &[f64], depth_db: f64) -> (usize, Stereo) {
+    let guard = FS as usize;
+    let from = start.saturating_sub(guard);
+    let to = (start + sound.len() + guard).min(u.len());
+    let mut span = Stereo::silence(to - from);
+    span.mix_in(sound, start - from, gain);
+    (from, duck::apply(&span, &u[from..to], depth_db))
 }
 
 /// A listen window's sonification: decoded, at 48 kHz, through the score's
@@ -3264,6 +3349,323 @@ mod tests {
                 .unwrap_err()
                 .to_string()
                 .contains("silent sonification")
+        );
+    }
+
+    /// Median momentary (400 ms) loudness (LUFS) of the windows of `x` whose
+    /// centres fall in `spans` (seconds).
+    fn bed_in(x: &Stereo, spans: &[(f64, f64)]) -> f64 {
+        let m = meter::windowed(x, 0.4, 0.1);
+        let v: Vec<f64> = (0..m.len())
+            .filter(|&k| spans.iter().any(|s| (s.0..s.1).contains(&(k as f64 * 0.1 + 0.2))))
+            .map(|k| m[k].max(-120.0))
+            .collect();
+        meter::percentile(&v, 50.0)
+    }
+
+    /// A 5 s cloud of grains and the same cloud with its polarity flipped,
+    /// written under `dir`: a render with the one minus a render with the
+    /// other is exactly twice the cloud's part of the stem, and their mean is
+    /// the stem without it.
+    fn cloud_pair(dir: &std::path::Path) -> (std::path::PathBuf, std::path::PathBuf) {
+        let grains: Vec<crate::sonify::Grain> = (0..400)
+            .map(|k| crate::sonify::Grain {
+                start: k as f64 * 0.0125,
+                pitch: crate::sonify::snap(74.0 + (k % 9) as f64, &[2, 4, 6, 9, 11]),
+                pan: if k % 2 == 0 { -0.3 } else { 0.3 },
+                amp: 0.3,
+            })
+            .collect();
+        let cloud = crate::sonify::cloud(&grains, 5.0);
+        let (son, flipped) = (dir.join("cloud.wav"), dir.join("cloud_flipped.wav"));
+        crate::wav::write(&son, &cloud, crate::wav::Format::F32).unwrap();
+        let mut neg = cloud;
+        neg.scale(-1.0);
+        crate::wav::write(&flipped, &neg, crate::wav::Format::F32).unwrap();
+        (son, flipped)
+    }
+
+    /// The synthetic chapters with the listen windows a corpus video has: a
+    /// 3 s window from `at` s in each chapter's gap, the first chapter cut to
+    /// end 38 s in (a 5 s tail after its speech, the window in it).
+    fn windowed_sections(dir: &std::path::Path, sound: &std::path::Path, at: [f64; 2]) -> Vec<Section> {
+        let mut sections = synthetic_sections(dir);
+        sections[0].timeline.frames = 38 * 60;
+        for (s, t) in sections.iter_mut().zip(at) {
+            s.timeline.listens = vec![crate::timeline::Window {
+                frame: (t * 60.0) as u64,
+                seconds: 3.0,
+                label: "cloud".into(),
+                sound: Some(sound.to_path_buf()),
+            }];
+        }
+        sections
+    }
+
+    /// An identity as a corpus video has it (a half-held duck, a listen level
+    /// of V - 10), with the duck held through the whole video or not.
+    fn video_identity(steady: bool) -> Identity {
+        let mut id = Identity::capture_recapture();
+        id.steady_bed = steady;
+        id
+    }
+
+    #[test]
+    fn a_steady_bed_holds_its_level_in_a_window_and_across_a_chapter_join() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_steady_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let (son, flipped) = cloud_pair(&dir);
+        // a window in chapter 1's tail (33.4 to 36.4 s, the join at 38 s) and
+        // one in chapter 2's gap (53.4 to 56.4 s)
+        let at = [33.4, 15.4];
+        let render_bed = |steady: bool| {
+            let id = video_identity(steady);
+            let heard = render(&id, &windowed_sections(&dir, &son, at), None).unwrap();
+            let opposite = render(&id, &windowed_sections(&dir, &flipped, at), None).unwrap();
+            let bed = Stereo {
+                l: heard
+                    .music
+                    .l
+                    .iter()
+                    .zip(&opposite.music.l)
+                    .map(|(a, b)| (a + b) / 2.0)
+                    .collect(),
+                r: heard
+                    .music
+                    .r
+                    .iter()
+                    .zip(&opposite.music.r)
+                    .map(|(a, b)| (a + b) / 2.0)
+                    .collect(),
+            };
+            (heard, bed)
+        };
+        let ((open, open_bed), (steady, steady_bed)) = (render_bed(false), render_bed(true));
+        assert!(!open.steady_bed && steady.steady_bed);
+        let speech = crate::qa::speech_regions(&open.voice);
+        let under = |x: &Stereo| bed_in(x, &speech);
+        // the bed in a gap with the phrase the score plays in it, in the first
+        // window, between it and the join, and in the second window
+        let places = [
+            ("a gap", (13.0, 15.0)),
+            ("a window", (34.0, 36.0)),
+            ("a tail", (36.6, 37.8)),
+            ("another window", (54.0, 56.0)),
+        ];
+        let mut report = String::new();
+        for (what, span) in places {
+            let (o, s) = (
+                bed_in(&open_bed, &[span]) - under(&open_bed),
+                bed_in(&steady_bed, &[span]) - under(&steady_bed),
+            );
+            report += &format!("{what}: open {o:+.1} steady {s:+.1}; ");
+            // the ceiling is the bed's median under speech and half a dB
+            assert!(s <= 1.5, "a steady bed never stands over its ducked level: {report}");
+        }
+        // the gap's phrase is there, under that ceiling: open, the same gap
+        // stands 8 dB and more over the speech
+        assert!(bed_in(&open_bed, &[(13.0, 15.0)]) - under(&open_bed) > 7.0, "{report}");
+        // the open duck is released there, by 5 dB or more of what is left
+        // after a window thins the bed
+        assert!(bed_in(&open_bed, &[(36.6, 37.8)]) - under(&open_bed) > 5.0, "{report}");
+        assert!(bed_in(&open_bed, &[(54.0, 56.0)]) - under(&open_bed) > 3.0, "{report}");
+        // the join into chapter 2 at 38 s: today's bed steps down as the first
+        // line's duck comes in; a steady one carries across, but for the
+        // bed's own movement (a new chapter's pad dips and swells by a couple
+        // of dB in its first second: 2.6 here)
+        let step = |x: &Score| x.join_step_db(1).unwrap();
+        assert!(step(&open) < -3.0, "today's step {:.1} LU", step(&open));
+        assert!(step(&steady).abs() <= 3.0, "carried: {:+.1} LU", step(&steady));
+        assert!(
+            step(&steady) > step(&open) + 6.0,
+            "{:+.1} LU against {:+.1}",
+            step(&steady),
+            step(&open)
+        );
+        assert_eq!(steady.join_step_db(0), None);
+        // QA reads both: judged for the steady bed, only reported for the open
+        // one
+        let judged = |x: &Score, k: usize| {
+            let facts = crate::qa::ScoreFacts::chapter(x, k);
+            let music = x.chapter_music(k);
+            crate::qa::evaluate("c", &x.chapter_voice(k), &music, music.len(), Some(&facts))
+        };
+        for k in 0..2 {
+            let (a, b) = (judged(&open, k), judged(&steady, k));
+            let (m_open, m_steady) = (a.get("bed_swell_db").unwrap(), b.get("bed_swell_db").unwrap());
+            assert_eq!(m_open.pass, None, "{m_open:?}");
+            assert_eq!(m_steady.pass, Some(true), "{m_steady:?}");
+            assert!(
+                m_open.value > m_steady.value + 4.0,
+                "open {m_open:?} steady {m_steady:?}"
+            );
+        }
+        let (a, b) = (judged(&open, 1), judged(&steady, 1));
+        assert_eq!(a.get("join_step_db").unwrap().pass, None);
+        let m = b.get("join_step_db").unwrap();
+        assert!((m.value - step(&steady)).abs() < 1e-9, "{m:?}");
+        assert_eq!(m.pass, Some(m.value.abs() <= crate::qa::STEADY_JOIN_STEP_LU), "{m:?}");
+        assert!(
+            judged(&steady, 0).get("join_step_db").is_none(),
+            "a first chapter has no join"
+        );
+    }
+
+    #[test]
+    fn a_phrase_at_the_end_of_a_chapter_does_not_step_a_steady_bed_at_the_join() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_steady_join_{}", std::process::id()));
+        // chapter 1 ends 1.4 s after its last line, in a 1.9 s gap to the next
+        // chapter's first line: long enough for a phrase, which sits over the
+        // bed in the last second before the join
+        let mut sections = synthetic_sections(&dir);
+        sections[0].timeline.frames = (34.43 * 60.0) as u64;
+        let (open, steady) = (
+            render(&video_identity(false), &sections, None).unwrap(),
+            render(&video_identity(true), &sections, None).unwrap(),
+        );
+        let step = |x: &Score| x.join_step_db(1).unwrap();
+        assert!(step(&open) < -3.0, "today's step {:.1} LU", step(&open));
+        assert!(
+            step(&steady).abs() <= crate::qa::STEADY_JOIN_STEP_LU,
+            "carried to {:+.1} LU",
+            step(&steady)
+        );
+    }
+
+    #[test]
+    fn a_steady_bed_leaves_the_voice_and_the_level_under_speech_alone() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_steady_voice_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let (son, _) = cloud_pair(&dir);
+        let sections = windowed_sections(&dir, &son, [33.4, 15.4]);
+        let open = render(&video_identity(false), &sections, None).unwrap();
+        let steady = render(&video_identity(true), &sections, None).unwrap();
+        // the narration is the same samples
+        assert!(open.voice.l == steady.voice.l && open.voice.r == steady.voice.r);
+        assert_eq!(open.bed_trim_db, steady.bed_trim_db);
+        // the stem inside each line is the same: the duck is down there in both
+        // (1 s past a line's start, clear of the attack, to its last 50 ms)
+        let lines = [
+            (0.6, 6.0),
+            (6.6, 12.0),
+            (16.0, 24.0),
+            (24.6, 33.0),
+            (38.6, 46.0),
+            (46.6, 53.0),
+            (57.0, 64.0),
+        ];
+        let (mut worst, mut peak) = (0.0_f64, 0.0_f64);
+        for (a, b) in lines {
+            for i in ((a + 1.0) * FS) as usize..((b - 0.05) * FS) as usize {
+                worst = worst.max((open.music.l[i] - steady.music.l[i]).abs());
+                peak = peak.max(open.music.l[i].abs());
+            }
+        }
+        assert!(peak > 1e-3, "there is music under the lines");
+        assert!(
+            worst <= 1e-6 * peak,
+            "the stem under speech moved by {worst:e} of {peak:e}"
+        );
+        // QA's level gate reads the same: the median gap between voice and
+        // music moves by 0.1 LU at most and the worst window is no worse
+        let speech = crate::qa::speech_regions(&open.voice);
+        let vm = |x: &Score| {
+            let m = crate::qa::voice_minus_music(&x.voice, &x.music, &speech);
+            (meter::percentile(&m, 50.0), meter::percentile(&m, 5.0))
+        };
+        let (o, s) = (vm(&open), vm(&steady));
+        assert!(
+            (o.0 - s.0).abs() <= 0.1,
+            "median voice minus music {:.2} against {:.2}",
+            o.0,
+            s.0
+        );
+        assert!(
+            s.1 >= o.1 - 0.05,
+            "the worst window is no worse: {:.2} against {:.2}",
+            s.1,
+            o.1
+        );
+        // and the default is the default: an identity that does not ask for
+        // the steady bed renders as it always did
+        let again = render(&video_identity(false), &sections, None).unwrap();
+        assert!(again.music.l == open.music.l && again.music.r == open.music.r);
+        assert!(
+            fingerprint(&video_identity(false), &sections, None).unwrap()
+                != fingerprint(&video_identity(true), &sections, None).unwrap(),
+            "the setting is part of the fingerprint"
+        );
+    }
+
+    #[test]
+    fn under_a_steady_bed_the_sonification_is_added_after_the_duck_at_the_listen_level() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_steady_listen_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let (son, flipped) = cloud_pair(&dir);
+        let mut id = video_identity(true);
+        // the sound's own part of the stem, and the stem without it
+        let parts = |id: &Identity| {
+            let heard = render(id, &windowed_sections(&dir, &son, [12.4, 15.4]), None).unwrap();
+            let opposite = render(id, &windowed_sections(&dir, &flipped, [12.4, 15.4]), None).unwrap();
+            let half = |f: fn(f64, f64) -> f64| Stereo {
+                l: heard
+                    .music
+                    .l
+                    .iter()
+                    .zip(&opposite.music.l)
+                    .map(|(a, b)| f(*a, *b))
+                    .collect(),
+                r: heard
+                    .music
+                    .r
+                    .iter()
+                    .zip(&opposite.music.r)
+                    .map(|(a, b)| f(*a, *b))
+                    .collect(),
+            };
+            (half(|a, b| (a - b) / 2.0), half(|a, b| (a + b) / 2.0), heard)
+        };
+        let (part, bed, heard) = parts(&id);
+        assert_eq!(heard.cap_db, 0.0, "no true-peak cap to confound the level");
+        let (start, end) = ((12.4 * FS) as usize, (15.4 * FS) as usize);
+        // nothing of it outside its window, in this chapter (the other has a
+        // window of its own): the pocket's zero-phase filter rings at the 1e-5
+        // level at the edges
+        let outside = part.l[..start]
+            .iter()
+            .chain(&part.l[end + (0.05 * FS) as usize..(38.0 * FS) as usize])
+            .fold(0.0_f64, |m, x| m.max(x.abs()));
+        assert!(
+            outside <= 1e-4 * part.peak(),
+            "{outside:e} of {:e} outside its window",
+            part.peak()
+        );
+        let inside = |x: &Stereo| Stereo {
+            l: x.l[start..end].to_vec(),
+            r: x.r[start..end].to_vec(),
+        };
+        let lufs = meter::integrated(&inside(&part));
+        let want = heard.voice_lufs + id.listen_lu;
+        assert!((lufs - want).abs() < 1.5, "{lufs:.2} LUFS, want {want:.2}");
+        // the level is the identity's to set: 6 dB up is 6 dB up, whatever the
+        // bed under it does
+        id.listen_lu += 6.0;
+        let (louder, bed6, _) = parts(&id);
+        let lufs6 = meter::integrated(&inside(&louder));
+        assert!((lufs6 - lufs - 6.0).abs() < 0.3, "{lufs:.2} then {lufs6:.2} LUFS");
+        let moved = bed
+            .l
+            .iter()
+            .zip(&bed6.l)
+            .fold(0.0_f64, |m, (a, b)| m.max((a - b).abs()));
+        assert!(moved <= 1e-9, "the bed heard the listen level: {moved:e}");
+        // and the bed under it is where a held duck puts it: not above its
+        // level under speech
+        let speech = crate::qa::speech_regions(&heard.voice);
+        let (in_window, under) = (bed_in(&bed, &[(12.8, 15.0)]), bed_in(&bed, &speech));
+        assert!(
+            in_window <= under + 1.5,
+            "bed {in_window:.1} LUFS in the window, {under:.1} under speech"
         );
     }
 

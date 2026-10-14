@@ -95,6 +95,39 @@ pub fn windowed(audio: &Stereo, window_s: f64, hop_s: f64) -> Vec<f64> {
     block_powers(audio, block, step).into_iter().map(lufs).collect()
 }
 
+/// The music's level step across a chapter join at `join_s` (seconds in
+/// `music`): the median momentary (400 ms) loudness of the windows centred
+/// 0.2 to 1.5 s after the join minus 0.2 to 1.5 s before it (LU). `None` when
+/// either side is shorter than that or silent (an authored silence is not a
+/// mix step).
+pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
+    let a = ((join_s - 1.6).max(0.0) * FS) as usize;
+    let b = (((join_s + 1.6) * FS) as usize).min(music.len());
+    if a >= b {
+        return None;
+    }
+    let slice = Stereo {
+        l: music.l[a..b].to_vec(),
+        r: music.r[a..b].to_vec(),
+    };
+    let m = windowed(&slice, 0.4, 0.1);
+    let t0 = a as f64 / FS;
+    let level = |lo: f64, hi: f64| {
+        let v: Vec<f64> = m
+            .iter()
+            .enumerate()
+            .filter(|(k, _)| {
+                let t = t0 + *k as f64 * 0.1 + 0.2;
+                t >= join_s + lo && t < join_s + hi
+            })
+            .map(|(_, v)| v.max(-120.0))
+            .collect();
+        (v.len() >= 8).then(|| percentile(&v, 50.0))
+    };
+    let (before, after) = (level(-1.5, -0.2)?, level(0.2, 1.5)?);
+    (before > -100.0 && after > -100.0).then_some(after - before)
+}
+
 /// Maximum momentary (400 ms) loudness, in LUFS.
 pub fn max_momentary(audio: &Stereo) -> f64 {
     windowed(audio, 0.4, 0.1).into_iter().fold(f64::NEG_INFINITY, f64::max)

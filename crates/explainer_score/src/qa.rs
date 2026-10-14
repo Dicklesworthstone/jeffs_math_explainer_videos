@@ -131,6 +131,14 @@ pub struct ScoreFacts {
     /// Listen windows carrying a scene's sonification: its notes come and go
     /// there (it is not the score's steady sound).
     pub sonified: Vec<(f64, f64)>,
+    /// The identity held the duck for the whole video (`Identity::steady_bed`):
+    /// the bed's swell and the step at the chapter's join are then judged;
+    /// otherwise they are reported and nothing more.
+    pub steady_bed: bool,
+    /// The bed's level step into this chapter from the one before (LU, see
+    /// [`join_step_db`]); `None` for the first chapter or where the stem is
+    /// silent at the join.
+    pub join_step_db: Option<f64>,
 }
 
 impl ScoreFacts {
@@ -141,6 +149,8 @@ impl ScoreFacts {
         let (_, a, b) = score.chapters[k];
         let (t0, t1) = (a as f64 / FS, b as f64 / FS);
         Self {
+            steady_bed: score.steady_bed,
+            join_step_db: score.join_step_db(k),
             no_fly: score.voice_band(),
             sonified: score
                 .sonified
@@ -287,6 +297,15 @@ pub fn band_ratio_db(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)], lo: 
 /// Clicks: 5 ms frames of the music above 8 kHz that jump ≥ 20 dB over the
 /// previous 50 ms and exceed −70 dBFS in that band.
 pub fn click_flags(music: &Stereo) -> usize {
+    click_flags_outside(music, &[])
+}
+
+/// [`click_flags`] but for the frames outside the `exempt` spans (seconds): a
+/// listen window's sonification, whose strikes (a countdown's mallet) are the
+/// scene's sound, and stand 20 dB over the top of a bed held at its ducked
+/// level, which has nothing there (the bed under speech has no energy above
+/// 2.5 kHz). A frame is exempt from 5 ms before the window to 50 ms after it.
+pub fn click_flags_outside(music: &Stereo, exempt: &[(f64, f64)]) -> usize {
     let mut hp = Biquad::new(Kind::HighPass { q: 0.707 }, 8_000.0);
     let x: Vec<f64> = mono(music).into_iter().map(|v| hp.process(v)).collect();
     let frame = 240;
@@ -296,8 +315,9 @@ pub fn click_flags(music: &Stereo) -> usize {
         .collect();
     (10..db.len())
         .filter(|&k| {
+            let t = (k * frame) as f64 / FS;
             let prev = db[k - 10..k].iter().copied().fold(f64::NEG_INFINITY, f64::max);
-            db[k] > -70.0 && db[k] >= prev + 20.0
+            db[k] > -70.0 && db[k] >= prev + 20.0 && !exempt.iter().any(|&(a, b)| t >= a - 0.005 && t < b + 0.05)
         })
         .count()
 }
@@ -316,6 +336,45 @@ pub fn min_mono_correlation(music: &Stereo) -> f64 {
     }
     worst
 }
+
+/// How far the music's loudest stretches outside speech stand over what it is
+/// under speech (LU): the 95th percentile of the momentary (400 ms) loudness
+/// of every window centred outside the `speech` regions and outside the
+/// `exempt` ones (a listen window's sonification is the scene's sound, kept
+/// out by 0.2 s each side, a window's half length), minus the median of the
+/// windows centred in speech. A score that releases its duck in a gap (an
+/// open one: 8 to 12 dB, Video F) reads that swell here; one that holds the
+/// duck reads about its own musical movement. NaN when either side has
+/// nothing to measure.
+pub fn bed_swell_db(music: &Stereo, speech: &[(f64, f64)], exempt: &[(f64, f64)]) -> f64 {
+    let m = meter::windowed(music, 0.4, 0.1);
+    let centre = |k: usize| k as f64 * 0.1 + 0.2;
+    let under: Vec<f64> = (0..m.len())
+        .filter(|&k| inside(centre(k), speech))
+        .map(|k| m[k].max(-120.0))
+        .collect();
+    let padded: Vec<(f64, f64)> = exempt.iter().map(|&(a, b)| (a - 0.2, b + 0.2)).collect();
+    let outside: Vec<f64> = (0..m.len())
+        .filter(|&k| !inside(centre(k), speech) && !inside(centre(k), &padded) && m[k] > -100.0)
+        .map(|k| m[k])
+        .collect();
+    if under.is_empty() || outside.is_empty() {
+        return f64::NAN;
+    }
+    percentile(&outside, 95.0) - percentile(&under, 50.0)
+}
+
+pub use crate::meter::join_step_db;
+
+/// QA's limits for a steady bed ([`ScoreFacts::steady_bed`]), LU: the bed's
+/// swell outside speech (`bed_swell_db`) and the step across a chapter join
+/// (`join_step_db`). The swell's 3 is set between what a held bed with its
+/// ceiling reads (-0.7 to 1.6 over Video F's 14 chapters) and what a released
+/// duck reads (10.6 to 15.3: F as it is), nearer the one a score can stay
+/// under without trying; the join's 1.5 is the bead's, a step a listener does
+/// not hear.
+pub const STEADY_BED_SWELL_LU: f64 = 3.0;
+pub const STEADY_JOIN_STEP_LU: f64 = 1.5;
 
 /// The most times any 8 s segment recurs (correlation > 0.98) elsewhere,
 /// comparing the stem's consecutive 8 s chunks (a loop whose period is a
@@ -508,13 +567,21 @@ pub fn evaluate(
     // the stem itself
     let tp = meter::true_peak_db(music);
     r.push("true_peak_dbtp", tp, "<= -12", Some(tp <= -12.0), "");
-    let clicks = click_flags(music);
+    // a steady bed has no energy above 2.5 kHz to hide a mallet's strike in
+    // (the open duck's bed does, in its windows): the sonification is the
+    // scene's own sound, not a click of the score's
+    let exempt: &[(f64, f64)] = facts.filter(|f| f.steady_bed).map_or(&[], |f| &f.sonified);
+    let clicks = click_flags_outside(music, exempt);
     r.push(
         "clicks",
         clicks as f64,
         "= 0",
         Some(clicks == 0),
-        "5 ms frames > 8 kHz jumping >= 20 dB",
+        if exempt.is_empty() {
+            "5 ms frames > 8 kHz jumping >= 20 dB"
+        } else {
+            "5 ms frames > 8 kHz jumping >= 20 dB, outside the sonified windows"
+        },
     );
     let corr = min_mono_correlation(music);
     r.push(
@@ -544,6 +611,33 @@ pub fn evaluate(
         );
         return r;
     };
+    // the bed's swell outside speech and the step into this chapter: judged
+    // when the identity holds the duck (opt-in), reported otherwise
+    let swell = bed_swell_db(music, &speech, &f.sonified);
+    r.push(
+        "bed_swell_db",
+        swell,
+        &format!("<= {STEADY_BED_SWELL_LU} (steady bed)"),
+        if f.steady_bed {
+            judge(swell, swell <= STEADY_BED_SWELL_LU)
+        } else {
+            None
+        },
+        "loudest 5% of 400 ms windows outside speech and sonified windows, over the median under speech",
+    );
+    if let Some(step) = f.join_step_db {
+        r.push(
+            "join_step_db",
+            step,
+            &format!("|step| <= {STEADY_JOIN_STEP_LU} (steady bed)"),
+            if f.steady_bed {
+                Some(step.abs() <= STEADY_JOIN_STEP_LU)
+            } else {
+                None
+            },
+            "0.2 to 1.5 s after the chapter's start minus 0.2 to 1.5 s before it",
+        );
+    }
     // every chord sounding here, at its full length (one held through a
     // whole chapter is exactly what this gate exists to catch)
     let longest = f.chords.iter().map(|c| c.end - c.start).fold(0.0, f64::max);
@@ -832,10 +926,147 @@ mod tests {
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
         let m = r.get("longest_chord_s").unwrap();
         assert_eq!(m.pass, Some(false), "{m:?}");
+    }
+
+    /// A stem whose level is `db` under a 0.1-peak tone for all of `total`
+    /// seconds, with `plants` ((start, end, extra dB)) raised over it.
+    fn bed(total: f64, db: f64, plants: &[(f64, f64, f64)]) -> Stereo {
+        let n = (total * FS) as usize;
+        let m: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                let extra: f64 = plants.iter().filter(|p| t >= p.0 && t < p.1).map(|p| p.2).sum();
+                0.1 * 10f64.powf((db + extra) / 20.0) * (TAU * 330.0 * t).sin()
+            })
+            .collect();
+        Stereo::from_mono(&m)
+    }
+
+    fn steady_facts(steady: bool, join: Option<f64>, sonified: Vec<(f64, f64)>) -> ScoreFacts {
+        ScoreFacts {
+            events: vec![],
+            chords: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            sonified,
+            steady_bed: steady,
+            join_step_db: join,
+        }
+    }
+
+    #[test]
+    fn a_planted_swell_fails_a_steady_bed_and_is_only_reported_otherwise() {
+        let total = 30.0;
+        let v = speech(&[(1.0, 9.0), (16.0, 29.0)], total, 0.1);
+        let flat = bed(total, -30.0, &[]);
+        // the gap's music comes up 10 dB, as a released duck does
+        let swollen = bed(total, -30.0, &[(10.0, 14.5, 10.0)]);
+        let judged = |stem: &Stereo, steady: bool, sonified: Vec<(f64, f64)>| {
+            let r = evaluate("c", &v, stem, v.len(), Some(&steady_facts(steady, None, sonified)));
+            r.get("bed_swell_db").cloned().unwrap()
+        };
+        let m = judged(&flat, true, vec![]);
+        assert!(m.value.abs() < 0.5, "{m:?}");
+        assert_eq!(m.pass, Some(true), "{m:?}");
+        let m = judged(&swollen, true, vec![]);
+        assert!((m.value - 10.0).abs() < 1.0, "{m:?}");
+        assert_eq!(m.pass, Some(false), "a steady bed that swells fails: {m:?}");
+        // an open score swells by design: reported, never a failure
+        let m = judged(&swollen, false, vec![]);
+        assert!(m.value > 8.0 && m.pass.is_none(), "{m:?}");
+        let open = evaluate("c", &v, &swollen, v.len(), Some(&steady_facts(false, None, vec![])));
+        assert!(
+            open.failures().iter().all(|m| m.name != "bed_swell_db"),
+            "{:?}",
+            open.failures()
+        );
+        // the swell inside a listen window's sonification is the scene's sound,
+        // not the bed's: kept out
+        let m = judged(&swollen, true, vec![(10.0, 14.5)]);
+        assert!(m.value.abs() < 0.5 && m.pass == Some(true), "{m:?}");
+        // nothing to compare against: no speech, or no gap
+        assert!(bed_swell_db(&flat, &[], &[]).is_nan());
+        assert!(bed_swell_db(&flat, &[(0.0, total)], &[]).is_nan());
+    }
+
+    #[test]
+    fn the_step_across_a_chapter_join_is_measured_and_judged_only_for_a_steady_bed() {
+        let total = 40.0;
+        let v = speech(&[(1.0, 9.0), (21.0, 38.0)], total, 0.1);
+        let flat = bed(total, -30.0, &[]);
+        let step = |x: &Stereo| join_step_db(x, 20.0).unwrap();
+        assert!(step(&flat).abs() < 0.2, "a carried bed: {}", step(&flat));
+        // the 6.4 dB Video F stepped by at 12 of its 13 joins: open before the
+        // join, ducked after it
+        let stepped = bed(total, -30.0, &[(0.0, 20.0, 6.4)]);
+        assert!((step(&stepped) + 6.4).abs() < 0.3, "{}", step(&stepped));
+        // the facts carry the measured step into the chapter's QA
+        let eval = |steady: bool, s: f64| {
+            evaluate("c", &v, &flat, v.len(), Some(&steady_facts(steady, Some(s), vec![])))
+                .get("join_step_db")
+                .cloned()
+                .unwrap()
+        };
+        assert_eq!(eval(true, -6.4).pass, Some(false));
+        assert_eq!(eval(true, 1.0).pass, Some(true));
+        assert_eq!(eval(false, -6.4).pass, None, "reported, not judged, for an open duck");
+        // a first chapter has no join to measure; a silent join is not a step
+        let r = evaluate("c", &v, &flat, v.len(), Some(&steady_facts(true, None, vec![])));
+        assert!(r.get("join_step_db").is_none());
+        assert_eq!(join_step_db(&Stereo::silence(40 * 48_000), 20.0), None);
+        assert_eq!(
+            join_step_db(&flat, 0.5),
+            None,
+            "a join too near the start has no before"
+        );
+    }
+
+    #[test]
+    fn a_steady_bed_does_not_count_a_sonifications_strikes_as_clicks() {
+        let total = 10.0;
+        let v = speech(&[(5.0, 8.0)], total, 0.1);
+        // a quiet low tone with two 10 ms strikes at 10 kHz: one inside a
+        // sonified window (0.8 to 2.5 s), one at 4 s
+        let n = (total * FS) as usize;
+        let strike = |t: f64, at: f64| {
+            let d = t - at;
+            if (0.0..0.01).contains(&d) {
+                0.02 * (std::f64::consts::PI * d / 0.01).sin() * (TAU * 10_000.0 * t).sin()
+            } else {
+                0.0
+            }
+        };
+        let m: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                0.01 * (TAU * 330.0 * t).sin() + strike(t, 1.0) + strike(t, 4.0)
+            })
+            .collect();
+        let stem = Stereo::from_mono(&m);
+        assert_eq!(click_flags(&stem), 2);
+        assert_eq!(click_flags_outside(&stem, &[(0.8, 2.5)]), 1);
+        let clicks = |steady: bool| {
+            let facts = steady_facts(steady, None, vec![(0.8, 2.5)]);
+            evaluate("c", &v, &stem, v.len(), Some(&facts))
+                .get("clicks")
+                .cloned()
+                .unwrap()
+        };
+        // an open score is judged on all of it; a steady one, outside its windows
+        assert_eq!(clicks(false).value, 2.0);
+        let m = clicks(true);
+        assert_eq!(
+            (m.value, m.pass),
+            (1.0, Some(false)),
+            "the strike outside still fails: {m:?}"
+        );
     }
 
     #[test]
@@ -877,6 +1108,8 @@ mod tests {
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let rule7 = |hold: f64| {
             evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
@@ -958,6 +1191,8 @@ mod tests {
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences,
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let beating = |music: &Stereo, f: &ScoreFacts| {
             evaluate("silence", &v, music, v.len(), Some(f))
@@ -1049,6 +1284,8 @@ mod tests {
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let r = evaluate("clean", &v, &music, v.len(), Some(&clean));
         for m in [
@@ -1080,6 +1317,8 @@ mod tests {
             no_fly: crate::theory::Register::ROBERT.no_fly,
             silences: vec![],
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let r = evaluate("bad", &v, &music, v.len(), Some(&bad));
         for m in [
@@ -1118,6 +1357,8 @@ mod tests {
                 no_fly: reg.no_fly,
                 silences: vec![],
                 sonified: vec![],
+                steady_bed: false,
+                join_step_db: None,
             };
             let r = evaluate("band", &v, &music, v.len(), Some(&f));
             r.get("rule1_fundamentals_in_voice_band_in_speech").unwrap().pass
@@ -1160,6 +1401,8 @@ mod tests {
             no_fly: reg.no_fly,
             silences: vec![],
             sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
         };
         let m9 = |f: &ScoreFacts| {
             evaluate("v", &v, &music, v.len(), Some(f))
