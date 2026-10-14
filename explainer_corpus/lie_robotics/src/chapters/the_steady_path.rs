@@ -63,21 +63,34 @@ pub const ASK: Ask = Ask {
     ],
 };
 
-const ARM_AT: [f64; 2] = [-1.9, -2.45];
+/// The arm's place (the foot's): the world stands high enough that the
+/// screw's lowest end and its slide clear the lower third of 14_5.
+const ARM_AT: [f64; 2] = [-1.9, -1.45];
+/// How far the screw's axis runs each way out of its point (metres).
+const SCREW_REACH: f64 = 0.45;
 const CARD_AT: [f64; 2] = [4.5, -0.1];
 const CARD_SCALE: f64 = 0.86;
-/// The three grids of 14_2: their centres across, their height, their pitch.
-const GRID_X: [f64; 3] = [-5.55, -2.95, -0.3];
-const GRID_Y: f64 = 0.9;
-const GRID_PITCH: (f64, f64) = (0.62, 0.52);
+/// The three grids of 14_2: their centres across, their height, their pitch
+/// (wide enough that "-0.50" and its neighbour do not touch).
+const GRID_X: [f64; 3] = [-5.55, -2.45, 0.65];
+const GRID_Y: f64 = 0.6;
+const GRID_PITCH: (f64, f64) = (0.78, 0.52);
 const GRID_PT: f64 = 26.0;
-/// The five grippers of 14_3: from the left edge, their spacing and height.
+/// The five grippers of 14_3, at points of the screen: the first's left
+/// edge, their spacing, and their common height (under the grids).
 const BLEND_X0: f64 = -5.8;
 const BLEND_DX: f64 = 1.62;
-const BLEND_Y: f64 = -1.0;
-/// The circle picture of 14_3: its centre and radius.
-const CIRCLE_AT: [f64; 2] = [-4.9, 2.55];
+const BLEND_Y: f64 = -1.35;
+/// The circle picture of 14_3: its centre and radius (above the grids).
+const CIRCLE_AT: [f64; 2] = [-4.9, 2.6];
 const CIRCLE_R: f64 = 1.0;
+/// Where its "0.71" stands against the centre: past the rim, in line with
+/// the dashed average it measures.
+const SHORT_AT: [f64; 2] = [1.05, 1.0];
+/// Where "start" and "goal" stand against their markers: both to the right
+/// of the arm, which is to the left of the tip.
+const START_SHIFT: [f64; 2] = [1.05, 0.45];
+const GOAL_SHIFT: [f64; 2] = [1.05, -0.2];
 /// A gripper's half sizes, in picture units.
 const GRIPPER_HALF: V3 = [0.46, 0.3, 0.2];
 /// The steps at which the blend is shown: 0, 1/4, 1/2, 3/4, 1.
@@ -93,6 +106,10 @@ const _: () = assert!(GRID_X[2] + 1.62 * GRID_PITCH.0 < CARD_AT[0] - 2.2);
 const _: () = assert!(GRID_X[0] - 1.62 * GRID_PITCH.0 > -7.0);
 const _: () = assert!(BLEND_X0 - GRIPPER_HALF[0] * 1.4 > -7.0);
 const _: () = assert!(BLEND_X0 + BLEND_DX * 4.0 + GRIPPER_HALF[0] * 1.4 < 3.0);
+// the circle is inside the frame's top margin; the grippers' captions (a unit
+// under them) stand above the note and the lower third under them
+const _: () = assert!(CIRCLE_AT[1] + CIRCLE_R < 3.85);
+const _: () = assert!(BLEND_Y - 1.0 > TAG_AT[1] - 0.3);
 
 /// The parts this chapter adds to the arm's own 23: the table is 23 and the
 /// book 24.
@@ -105,6 +122,13 @@ mod part {
     pub const HELIX: usize = 28;
     pub const LINE: usize = 29;
     pub const GAP: usize = 30;
+}
+
+/// The world point whose place on the screen is where the `k`th gripper of
+/// the blend stands: the five are level, whatever the view's tilt.
+fn gripper_centre(k: usize) -> V3 {
+    let (right, up, _) = View::basis();
+    add(scale(right, BLEND_X0 + BLEND_DX * k as f64), scale(up, BLEND_Y))
 }
 
 /// The blend `(1 - s) a + s b` of two matrices, number by number.
@@ -196,7 +220,7 @@ impl SceneConstruct for TheSteadyPath {
         ));
         specs.push(PartSpec::new(goal_frame(&goal, 0.17), still(Pose::NOTHING)).layer(2));
         specs.push(PartSpec::new(pose_frame(&start, 0.17, blue), still(Pose::NOTHING)).layer(2));
-        specs.push(PartSpec::new(screw_shapes(&screw, 0.9, 0.16), still(Pose::NOTHING)).layer(3));
+        specs.push(PartSpec::new(screw_shapes(&screw, SCREW_REACH, 0.16), still(Pose::NOTHING)).layer(3));
         let (helix, line) = two_paths(&start, &screw, goal.p, 60);
         specs.push(
             PartSpec::new(
@@ -241,7 +265,10 @@ impl SceneConstruct for TheSteadyPath {
         let mut pins = Vec::new();
         let start_label = kit.text(stage, START_WORDS, 30.0, blue, v(0.0, 0.0))?;
         let goal_label = kit.text(stage, GOAL_WORDS, 30.0, palette::goal(), v(0.0, 0.0))?;
-        for (mob, p, shift) in [(start_label, start.p, v(-0.9, 0.55)), (goal_label, goal.p, v(1.0, 0.5))] {
+        for (mob, p, shift) in [
+            (start_label, start.p, v(START_SHIFT[0], START_SHIFT[1])),
+            (goal_label, goal.p, v(GOAL_SHIFT[0], GOAL_SHIFT[1])),
+        ] {
             pins.push(Pin {
                 mob,
                 at: point_fn(move |_: &Arena| p),
@@ -363,7 +390,13 @@ impl SceneConstruct for TheSteadyPath {
                 .style(faded_line(red, 4.0, 1.0))
                 .build()?,
         );
-        let short_label = kit.text(stage, &two_places(short), 30.0, red, v(c[0] + 0.55, c[1] + 0.7))?;
+        let short_label = kit.text(
+            stage,
+            &two_places(short),
+            30.0,
+            red,
+            v(c[0] + SHORT_AT[0], c[1] + SHORT_AT[1]),
+        )?;
         line_14_3.wait_for(stage, "It is not even an orientation")?;
         fade_in_all(stage, &[rim, a1, a2, a3, short_label], 0.7)?;
         // the five grippers through the blend, and what they weigh
@@ -378,7 +411,7 @@ impl SceneConstruct for TheSteadyPath {
                 ),
                 still(Pose {
                     r: blend(&rs, &rg, s),
-                    p: [BLEND_X0 + BLEND_DX * k as f64, BLEND_Y, 0.0],
+                    p: gripper_centre(k),
                 }),
             ));
         }
@@ -394,7 +427,7 @@ impl SceneConstruct for TheSteadyPath {
                 &words,
                 24.0,
                 if (s - 0.5).abs() < 1e-9 { red } else { Palette::dim() },
-                v(BLEND_X0 + BLEND_DX * k as f64, BLEND_Y - 1.2),
+                v(BLEND_X0 + BLEND_DX * k as f64, BLEND_Y - 1.0),
             )?);
         }
         fade_in_lagged(stage, &volumes, 1.4, 0.4)?;
@@ -677,6 +710,184 @@ mod tests {
         // of the difference
         let third = add(start.p, scale(sub(goal.p, start.p), 1.0 / 3.0));
         assert!(norm(sub(third, line[33])) < 0.01 * norm(sub(goal.p, start.p)));
+    }
+
+    /// The box of the mobs, left, right, bottom, top.
+    fn extent(stage: &Stage<'_>, mobs: &[Mob]) -> [f64; 4] {
+        let mut b = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
+        for &m in mobs {
+            b[0] = b[0].min(stage.get_left(m)[0]);
+            b[1] = b[1].max(stage.get_right(m)[0]);
+            b[2] = b[2].min(stage.get_bottom(m)[1]);
+            b[3] = b[3].max(stage.get_top(m)[1]);
+        }
+        b
+    }
+
+    /// 14_2 and 14_3: no two entries of a row touch; the three grids stand
+    /// apart, clear of the card, the circle above them and the row of
+    /// grippers under them.
+    #[test]
+    fn the_grids_the_circle_and_the_grippers_stand_apart() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let (rs, rg) = start_and_goal()?;
+            let mid = blend(&rs, &rg, 0.5);
+            let mut boxes = Vec::new();
+            for (m, x) in [(&rs, GRID_X[0]), (&rg, GRID_X[1]), (&mid, GRID_X[2])] {
+                let g = static_grid(
+                    &kit,
+                    stage,
+                    rows_of(m),
+                    v(x, GRID_Y),
+                    GRID_PITCH,
+                    GRID_PT,
+                    [Palette::ink(); 3],
+                )?;
+                for i in 0..3 {
+                    for j in 0..2 {
+                        let (a, b) = (g[3 * i + j], g[3 * i + j + 1]);
+                        assert!(
+                            stage.get_right(a)[0] + 0.05 < stage.get_left(b)[0],
+                            "row {i}, entries {j} and {} of the grid at {x} touch",
+                            j + 1
+                        );
+                    }
+                }
+                boxes.push(extent(stage, &g));
+            }
+            for pair in boxes.windows(2) {
+                assert!(pair[0][1] + 0.4 < pair[1][0], "two grids leave no room for the plus");
+            }
+            assert!(boxes[0][0] > -7.11 + 0.15, "the first grid starts at {}", boxes[0][0]);
+            let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
+            assert!(
+                boxes[2][1] + 0.1 < stage.get_left(card.back)[0],
+                "the last grid meets the card"
+            );
+            let tops = boxes.iter().map(|b| b[3]).fold(f64::MIN, f64::max);
+            let bottoms = boxes.iter().map(|b| b[2]).fold(f64::MAX, f64::min);
+            assert!(
+                CIRCLE_AT[1] - CIRCLE_R > tops + 0.1,
+                "the circle touches the grids' tops"
+            );
+            // the five grippers: eight corners each, projected
+            let view = View::new(1.0, v(0.0, 0.0));
+            let (rs, rg) = (rs, rg);
+            for (k, &s) in BLEND_STEPS.iter().enumerate() {
+                let r = blend(&rs, &rg, s);
+                let centre = gripper_centre(k);
+                let corners = (0..8).map(|c| {
+                    let sign = |bit: usize| if c >> bit & 1 == 1 { 1.0 } else { -1.0 };
+                    let local = [
+                        sign(0) * GRIPPER_HALF[0],
+                        sign(1) * GRIPPER_HALF[1],
+                        sign(2) * GRIPPER_HALF[2],
+                    ];
+                    add(centre, model::apply(&r, local))
+                });
+                let (lo, hi) = view.box_of(corners);
+                assert!(hi[1] + 0.12 < bottoms, "gripper {k} reaches up to {:.2}", hi[1]);
+                assert!(lo[0] > -7.11 + 0.15 && hi[0] + 0.1 < stage.get_left(card.back)[0]);
+            }
+            Ok(())
+        });
+    }
+
+    /// 14_1: "start" and "goal" stand clear of the arm at its start pose and
+    /// of each other; 14_3: "0.71" stands clear of the circle and the three
+    /// arrows it measures.
+    #[test]
+    fn the_pinned_words_stand_clear_of_what_they_name() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let q0 = model::degrees(poses::START);
+            let (start, goal) = (arm.tip(&q0), model::goal(&arm));
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let mut boxes = Vec::new();
+            for (words, p, shift) in [(START_WORDS, start.p, START_SHIFT), (GOAL_WORDS, goal.p, GOAL_SHIFT)] {
+                let at = view.project(p);
+                let m = kit.text(
+                    stage,
+                    words,
+                    30.0,
+                    palette::turn(),
+                    v(at[0] + shift[0], at[1] + shift[1]),
+                )?;
+                boxes.push(extent(stage, &[m]));
+            }
+            let apart = boxes[0][1] + 0.1 < boxes[1][0]
+                || boxes[1][1] + 0.1 < boxes[0][0]
+                || boxes[0][3] + 0.1 < boxes[1][2]
+                || boxes[1][3] + 0.1 < boxes[0][2];
+            assert!(apart, "start and goal touch: {boxes:?}");
+            let mut joints: Vec<V3> = (0..crate::model::N).map(|j| arm.joint(&q0, j).0).collect();
+            joints.push(start.p);
+            for pair in joints.windows(2) {
+                for k in 0..=12 {
+                    let t = f64::from(k) / 12.0;
+                    let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                    for b in &boxes {
+                        let inside =
+                            p[0] > b[0] - 0.05 && p[0] < b[1] + 0.05 && p[1] > b[2] - 0.05 && p[1] < b[3] + 0.05;
+                        assert!(!inside, "a label sits on the arm at {p:?}");
+                    }
+                }
+            }
+            // the circle's "0.71"
+            let c = [CIRCLE_AT[0], CIRCLE_AT[1]];
+            let short = kit.text(
+                stage,
+                &two_places(0.5_f64.sqrt()),
+                30.0,
+                palette::warn(),
+                v(c[0] + SHORT_AT[0], c[1] + SHORT_AT[1]),
+            )?;
+            let b = extent(stage, &[short]);
+            let mut on_picture: Vec<[f64; 2]> = (0..96)
+                .map(|k| {
+                    let a = std::f64::consts::TAU * f64::from(k) / 96.0;
+                    [c[0] + CIRCLE_R * a.cos(), c[1] + CIRCLE_R * a.sin()]
+                })
+                .collect();
+            for end in [[1.0, 0.0], [0.0, 1.0], [0.5, 0.5]] {
+                for k in 0..=20 {
+                    let t = f64::from(k) / 20.0;
+                    on_picture.push([c[0] + CIRCLE_R * end[0] * t, c[1] + CIRCLE_R * end[1] * t]);
+                }
+            }
+            for p in on_picture {
+                let inside = p[0] > b[0] - 0.05 && p[0] < b[1] + 0.05 && p[1] > b[2] - 0.05 && p[1] < b[3] + 0.05;
+                assert!(!inside, "'0.71' sits on the picture at {p:?}");
+            }
+            assert!(b[3] < 3.85 && b[1] < 6.96);
+            Ok(())
+        });
+    }
+
+    /// 14_4 and 14_5: the screw, its curl and its slide arrow stay above
+    /// the lower third of 14_5 and inside the margin.
+    #[test]
+    fn the_screw_stays_above_the_lower_third() {
+        use super::super::draw::SAFE;
+        let arm = Arm::iiwa14();
+        let (start, goal) = (arm.tip(&model::degrees(poses::START)), model::goal(&arm));
+        let screw = model::screw_of(&goal.then(&start.undo()));
+        let mut pts: Vec<V3> = Vec::new();
+        for shape in screw_shapes(&screw, SCREW_REACH, 0.16) {
+            match shape {
+                Shape::Path { pts: p, .. } | Shape::Face { pts: p, .. } => pts.extend(p),
+                Shape::Arrow { from, to, .. } => pts.extend([from, to]),
+                Shape::Dashed { a, b, .. } => pts.extend([a, b]),
+                Shape::Dot { at, .. } => pts.push(at),
+            }
+        }
+        let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+        let (lo, hi) = view.box_of(pts);
+        // a two-line lower third reaches up to -2.78
+        assert!(lo[1] > -2.78 + 0.05, "the screw reaches down to {:.2}", lo[1]);
+        assert!(hi[1] < SAFE[1] && lo[0] > -SAFE[0] && hi[0] < SAFE[0], "{lo:?} {hi:?}");
     }
 
     #[test]
