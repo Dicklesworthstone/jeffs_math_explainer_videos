@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<img src="docs/media/hero.webp" alt="Four shipped 4K60 math explainer videos: Hoeffding's D, How to Count Fish You've Never Seen, The Arithmetic Where 3 × 7 = 9, and The Algorithm Lamport Is Proudest Of" width="100%">
+
+<br/>
+
 [![License: MIT + Rider](https://img.shields.io/badge/License-MIT_+_OpenAI/Anthropic_Rider-blue.svg)](./LICENSE)
 [![Rust Edition](https://img.shields.io/badge/Rust-2024_Edition-orange.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)
 [![engine: franken_manim](https://img.shields.io/badge/engine-franken__manim-black.svg)](https://github.com/Dicklesworthstone/franken_manim)
