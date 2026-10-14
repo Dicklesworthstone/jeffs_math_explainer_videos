@@ -84,6 +84,9 @@ const GRIPPER_HALF: V3 = [0.46, 0.3, 0.2];
 const BLEND_STEPS: [f64; 5] = [0.0, 0.25, 0.5, 0.75, 1.0];
 /// How many poses the corkscrew is solved at.
 const SCREW_SAMPLES: usize = 24;
+/// The "for programmers" tag of 14_3, and the gap before the note it labels.
+const TAG_AT: [f64; 2] = [-5.35, -2.75];
+const NOTE_GAP: f64 = 0.2;
 // the three grids end before the quiz card begins, the row of grippers ends
 // before it too, and both start inside the frame
 const _: () = assert!(GRID_X[2] + 1.62 * GRID_PITCH.0 < CARD_AT[0] - 2.2);
@@ -396,9 +399,11 @@ impl SceneConstruct for TheSteadyPath {
         }
         fade_in_lagged(stage, &volumes, 1.4, 0.4)?;
         let never = precisely(&kit, stage, NEVER_A_TURN)?;
-        let programmers = tag(&kit, stage, PROGRAMMERS, v(-5.35, -2.75), 22.0)?;
+        let programmers = tag(&kit, stage, PROGRAMMERS, v(TAG_AT[0], TAG_AT[1]), 22.0)?;
         let quarter_blend = fact_f64("G-I.blend.quarter_turned")?;
         let quarter_screw = fact_f64("G-I.screw.quarter_turned")?;
+        // the note starts a little right of the tag, wherever the tag ends
+        let note_left = stage.get_right(programmers)[0] + NOTE_GAP;
         let renorm = kit.text_left(
             stage,
             &format!(
@@ -407,7 +412,7 @@ impl SceneConstruct for TheSteadyPath {
             ),
             22.0,
             Palette::dim(),
-            v(-4.4, -2.75),
+            v(note_left, TAG_AT[1]),
         )?;
         line_14_3.wait_end(stage)?;
         fade_in_all(stage, &[never, programmers, renorm], 0.6)?;
@@ -684,16 +689,24 @@ mod tests {
                 assert!(stage.get_right(row)[0] < right - 0.15, "a row runs past the card");
             }
             assert!(right < 7.1);
+            // the note sits right of its tag, inside the frame's margin
+            let tagged = tag(&kit, stage, PROGRAMMERS, v(TAG_AT[0], TAG_AT[1]), 22.0)?;
+            let note_left = stage.get_right(tagged)[0] + NOTE_GAP;
             let long = kit.text_left(
                 stage,
                 &format!("{RENORMALISE} {A_QUARTER_OF_THE_WAY} 18.4°, {NOT} 22.5°"),
                 22.0,
                 Palette::dim(),
-                v(-3.9, -3.0),
+                v(note_left, TAG_AT[1]),
             )?;
             assert!(
-                stage.get_right(long)[0] < 7.1,
-                "the re-normalising note runs off the frame"
+                stage.get_left(tagged)[0] > -7.11 + 0.15,
+                "the tag starts inside the margin"
+            );
+            assert!(
+                stage.get_right(long)[0] < 7.11 - 0.15,
+                "the re-normalising note ends at {}",
+                stage.get_right(long)[0]
             );
             Ok(())
         });
