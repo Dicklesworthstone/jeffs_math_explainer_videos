@@ -12,7 +12,13 @@ changes visibility, edits MANIFEST or deletes a file.
 `fetch` copies from CLONE's same finals directory the master, the SRT and VTT and every timeline, and the
 thumbnail youtube.md names, each md5-checked against the host's copy before it takes its place. A local
 final whose master differs is first moved aside whole to final_vN (the next free N): a cut is preserved
-before another replaces it.
+before another replaces it. The commit the final was rendered at (its `.x/final.ok` mark on the host, or
+--rev) is written to the fetched final's `.rendered_at`.
+
+With `.rendered_at`, check also prints NOTE lines: the commits since the cut that change the video's
+sources (its src/ apart from thumbnail wiring, script, lexicon, picks, alternates, the kit's and the
+score's src/): fixes the cut does not have. They do not fail it; re-rendering or uploading as it is is a
+decision for GreenCarp and the owner, and the notes make sure it is taken knowingly.
 
 `check` exits 1 with one line per problem, or prints PASS and the upload sheet:
 - the files: one master, one SRT, one VTT, the timelines, the thumbnail youtube.md names;
@@ -105,6 +111,10 @@ class Host:
     def copy(self, path: str, local: Path) -> None:
         subprocess.run(["scp", "-q", f"{self.host}:{path}", str(local)], check=True)
 
+    def read(self, path: str) -> str:
+        """A small text file's contents, or '' when it is not there."""
+        return self._ssh(f"cat {shlex.quote(path)} 2>/dev/null || true")
+
     def sha(self, clone: str) -> str:
         return self._ssh(f"git -C {shlex.quote(clone)} log -1 --format=%h 2>/dev/null || true").strip() or "?"
 
@@ -146,7 +156,49 @@ def preserve(finals: Path) -> Path | None:
     return aside
 
 
-def fetch(slug: str, finals: Path, source: str, host=None, root: Path = ROOT) -> list[str]:
+def rendered_rev(mark: str) -> str | None:
+    """The commit in an x mark ('<date> rev <sha>'), if it has one."""
+    m = re.search(r"\brev ([0-9a-f]{7,40})\b", mark)
+    return m.group(1) if m else None
+
+
+SOURCE_PATHS = ("src", "script.tsv", "lexicon.json", "picks.tsv", "alts.tsv")
+SHARED_SOURCES = ("crates/explainer_kit/src", "crates/explainer_score/src")
+THUMBNAIL_WIRING = ("src/chapters/thumbnail.rs", "src/chapters/mod.rs", "src/main.rs")
+
+
+def since_cut(slug: str, finals: Path, root: Path = ROOT) -> list[str]:
+    """NOTE lines: the commits after the cut's (finals/.rendered_at) that change the video's sources, newest
+    first; a commit that only adds the thumbnail scene and its wiring is left out. [] without a record."""
+    stamp = finals / ".rendered_at"
+    if not stamp.is_file():
+        return [f"NOTE: no {stamp.name} in {finals.name}: the commit this cut was rendered at is not recorded "
+                "(release-fetch --rev SHA writes it)"]
+    rev = stamp.read_text(encoding="utf-8").split()[0]
+    crate = f"explainer_corpus/{slug}"
+    paths = [f"{crate}/{p}" for p in SOURCE_PATHS] + list(SHARED_SOURCES)
+    git = ["git", "-C", str(root)]
+    if subprocess.run([*git, "cat-file", "-e", f"{rev}^{{commit}}"], capture_output=True).returncode != 0:
+        return [f"NOTE: the cut's commit {rev} is not in this checkout's history (git fetch?)"]
+    out = subprocess.run([*git, "log", "--format=@@%h%x09%s", "--name-only", f"{rev}..HEAD", "--", *paths],
+                         capture_output=True, text=True).stdout
+    commits: list[tuple[str, str, list[str]]] = []
+    for line in out.splitlines():
+        if line.startswith("@@"):
+            sha, _, subject = line[2:].partition("\t")
+            commits.append((sha, subject, []))
+        elif line.strip() and commits:
+            commits[-1][2].append(line.strip())
+    wiring = {f"{crate}/{w}" for w in THUMBNAIL_WIRING}
+    notes = []
+    for sha, subject, files in commits:
+        if files and set(files) <= wiring and f"{crate}/src/chapters/thumbnail.rs" in files:
+            continue
+        notes.append(f"NOTE: {sha} came after this cut ({rev}) and changes its sources: {subject[:110]}")
+    return notes
+
+
+def fetch(slug: str, finals: Path, source: str, host=None, root: Path = ROOT, rev: str | None = None) -> list[str]:
     """Bring the final at HOST:CLONE onto this checkout; returns the log lines (raises on a failed copy)."""
     if ":" not in source:
         raise ValueError(f"--from wants HOST:CLONE, got {source!r}")
@@ -170,6 +222,15 @@ def fetch(slug: str, finals: Path, source: str, host=None, root: Path = ROOT) ->
     finals.mkdir(parents=True, exist_ok=True)
     for n in names:
         take(host, f"{remote_final}/{n}", want[n], finals / n, log)
+    # the commit the final was rendered at: --rev, else the rev in the host's mark of its final step
+    found = rev or rendered_rev(host.read(f"{clone}/explainer_corpus/{slug}/.x/final.ok"))
+    if found:
+        how = "--rev" if rev else f"{name}:{clone}/explainer_corpus/{slug}/.x/final.ok"
+        (finals / ".rendered_at").write_text(f"{found} (from {how})\n", encoding="utf-8")
+        log.append(f"  rendered at {found} (from {how}) -> {finals.name}/.rendered_at")
+    else:
+        log.append("  RENDERED-AT UNKNOWN: the host's .x/final.ok has no rev (a final from before x recorded "
+                   "it): fetch again with --rev SHA, the commit of its 'render start' line in status.log")
     crate = root / "explainer_corpus" / slug
     thumb = thumbnail_rel(crate)
     if thumb:
@@ -362,13 +423,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--voice", default="michael")
     ap.add_argument("--from", dest="source", help="fetch: HOST:CLONE, a finals clone on the build host")
     ap.add_argument("--skills", type=Path, help="check: the skills directory (protected_check.py)")
+    ap.add_argument("--rev", help="fetch: the commit the final was rendered at, when its mark does not say")
     args = ap.parse_args(argv)
     finals = args.finals or ROOT / "explainer_corpus" / args.slug / "renders" / "final"
     if args.action == "fetch":
         if not args.source:
             ap.error("fetch needs --from HOST:CLONE")
         try:
-            for line in fetch(args.slug, finals, args.source):
+            for line in fetch(args.slug, finals, args.source, rev=args.rev):
                 print(line)
         except (RuntimeError, ValueError, subprocess.CalledProcessError) as e:
             print(f"release-fetch {args.slug}: {e}", file=sys.stderr)
@@ -376,6 +438,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"release-fetch {args.slug}: done; now ./x {args.slug} release-check")
         return 0
     bad, sheet = check(args.slug, finals, args.voice, skills=args.skills)
+    for note in since_cut(args.slug, finals):
+        print(f"{note}")
     for b in bad:
         print(f"FAIL {args.slug}: {b}")
     if bad:

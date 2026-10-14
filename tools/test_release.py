@@ -106,6 +106,10 @@ class LocalHost:
     def sha(self, clone):
         return "abc1234"
 
+    def read(self, path):
+        p = Path(path)
+        return p.read_text(encoding="utf-8") if p.is_file() else ""
+
 
 class Check(unittest.TestCase):
     def setUp(self):
@@ -256,6 +260,66 @@ class Fetch(unittest.TestCase):
     def test_a_host_without_a_final_is_refused(self):
         with self.assertRaises(RuntimeError):
             release.fetch("alpha", self.final, f"host:{self.tmp / 'nowhere'}", LocalHost(), self.local)
+
+    def test_the_commit_the_final_was_rendered_at_comes_along(self):
+        # no mark with a rev on the host: said, and nothing recorded
+        log = "\n".join(self.fetch())
+        self.assertIn("RENDERED-AT UNKNOWN", log)
+        self.assertFalse((self.final / ".rendered_at").exists())
+        # the host's final.ok, as x now writes it
+        marks = self.clone / "explainer_corpus" / "alpha" / ".x"
+        marks.mkdir()
+        (marks / "final.ok").write_text("Wed Oct 14 16:52:01 EDT 2026 rev fbe959c\n", encoding="utf-8")
+        self.fetch()
+        self.assertTrue((self.final / ".rendered_at").read_text(encoding="utf-8").startswith("fbe959c (from host:"))
+        # --rev wins
+        release.fetch("alpha", self.final, f"host:{self.clone}", LocalHost(), self.local, rev="0720552")
+        self.assertTrue((self.final / ".rendered_at").read_text(encoding="utf-8").startswith("0720552 (from --rev)"))
+
+
+class SinceCut(unittest.TestCase):
+    """since_cut on a real git history: a source fix after the cut is named, thumbnail wiring and docs are not."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="release_since_"))
+        self.git("init", "-q")
+        self.git("config", "user.email", "t@example.invalid")
+        self.git("config", "user.name", "t")
+        self.final = make_cut(self.root)
+        self.commit("explainer_corpus/alpha/src/a.rs", "the cut")
+        self.cut = self.git("rev-parse", "--short", "HEAD").strip()
+
+    def tearDown(self):
+        shutil.move(str(self.root), tempfile.gettempdir() + f"/{self.root.name}.done")
+
+    def git(self, *args):
+        return subprocess.run(["git", "-C", str(self.root), *args], capture_output=True, text=True, check=True).stdout
+
+    def commit(self, path, message, *more):
+        for p in (path, *more):
+            f = self.root / p
+            f.parent.mkdir(parents=True, exist_ok=True)
+            f.write_text(f"{message}\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", message)
+        return self.git("rev-parse", "--short", "HEAD").strip()
+
+    def test_fixes_after_the_cut_are_named(self):
+        self.assertIn("not recorded", release.since_cut("alpha", self.final, self.root)[0])
+        (self.final / ".rendered_at").write_text(f"{self.cut} (from --rev)\n", encoding="utf-8")
+        self.assertEqual(release.since_cut("alpha", self.final, self.root), [])
+        fix = self.commit("explainer_corpus/alpha/src/chapters/ten.rs", "the band stands longer")
+        self.commit("explainer_corpus/alpha/src/chapters/thumbnail.rs", "the thumbnail scene",
+                    "explainer_corpus/alpha/src/chapters/mod.rs", "explainer_corpus/alpha/src/main.rs")
+        self.commit("explainer_corpus/alpha/docs/notes.md", "notes")
+        kit = self.commit("crates/explainer_kit/src/captions.rs", "captions split evenly")
+        notes = release.since_cut("alpha", self.final, self.root)
+        self.assertEqual(len(notes), 2, notes)
+        self.assertTrue(notes[0].startswith(f"NOTE: {kit} came after this cut ({self.cut})"))
+        self.assertIn(f"{fix} came after", notes[1])
+        self.assertIn("the band stands longer", notes[1])
+        (self.final / ".rendered_at").write_text("deadbee (from --rev)\n", encoding="utf-8")
+        self.assertIn("not in this checkout's history", release.since_cut("alpha", self.final, self.root)[0])
 
 
 if __name__ == "__main__":

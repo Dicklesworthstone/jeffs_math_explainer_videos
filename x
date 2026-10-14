@@ -418,9 +418,10 @@ unchanged_narration() {
 chapter_list() {
   if [ $# -gt 0 ]; then printf '%s' "$*" | tr ' ' ','; else "$binary" chapters | paste -sd, -; fi
 }
+# A step's mark: when it ran and at which commit (release-fetch carries the final's into the fetched cut).
 mark() {
   mkdir -p "$crate/.x"
-  date > "$crate/.x/$1"
+  printf '%s rev %s\n' "$(date)" "$(git -C "$here" rev-parse --short HEAD 2>/dev/null || echo unknown)" > "$crate/.x/$1"
 }
 
 case "$cmd" in
