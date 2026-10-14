@@ -4,6 +4,7 @@
 //! chapter starts as its storyboard's animatic and is replaced by its real
 //! scene as it is built.
 
+pub mod a_steel_truss;
 pub mod an_economy;
 pub mod arrows;
 pub mod can_it_feed_itself;
@@ -47,7 +48,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("02_two_carts", 0.45, two_carts::TwoCarts),
         scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
         scene!("04_the_split", 0.55, the_split::TheSplit),
-        animatic!("05_a_steel_truss", 0.5),
+        scene!("05_a_steel_truss", 0.5, a_steel_truss::ASteelTruss),
         animatic!("06_twenty_one_patterns", 0.6),
         animatic!("07_every_mode_a_note", 0.65),
         animatic!("08_two_bridges", 0.35),
