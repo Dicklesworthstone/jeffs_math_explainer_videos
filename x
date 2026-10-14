@@ -784,7 +784,8 @@ PY
     [ -z "$FMN_LOCAL" ] || die "G8 refuses --fmn-local: verify requires a pinned franken_manim build"
     check="$SKILLS/franken-manim-mega-skill/scripts/verify_video.sh"
     [ -x "$check" ] || die "no verify_video.sh under $SKILLS (set SKILLS in project.env)"
-    master_mp4="$finals/${bin}_master.mp4"
+    master_mp4="$finals/${slug}_master.mp4"
+    [ -f "$master_mp4" ] || master_mp4="$finals/${bin}_master.mp4"
     [ -f "$master_mp4" ] || master_mp4=$(ls "$finals"/*_master.mp4 2>/dev/null | head -n 1)
     [ -f "$master_mp4" ] || die "no master in $finals (run ./x $slug master)"
     export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0

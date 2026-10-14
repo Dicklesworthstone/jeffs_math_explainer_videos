@@ -123,6 +123,8 @@ venv/
 .beads/*.backup_*
 .beads/*.rebuild_*
 .beads/recovery*/
+.beads/.br_recovery/
+.beads/.br-wal-index-*/
 .beads_recovery/
 .beads_recovery_*/
 .bv/
