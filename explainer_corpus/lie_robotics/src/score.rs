@@ -67,6 +67,7 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
+        theme_chord: None,
         // 01_3: "listen 3 s (the motif)"; 15_5: "listen 4.7 s (the resolution)"
         themes: vec![("01_3", Theme::Open), ("15_5", Theme::Resolved)],
     }

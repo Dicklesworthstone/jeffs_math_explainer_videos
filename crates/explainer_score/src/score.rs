@@ -203,6 +203,17 @@ pub struct Identity {
     /// Soundless listen windows the score fills itself, by the label the
     /// scene gave `kit.listen` (its storyboard id): the motif, open or resolved.
     pub themes: Vec<(&'static str, Theme)>,
+    /// The chord the bed holds under the theme's own phrases: the gap of
+    /// each soundless listen window in `themes`, and the video's last gap
+    /// when it resolves (None: the progression goes on). Rule 7 moves a
+    /// melody note that is a semitone from any chord tone, the theme's too:
+    /// over a progression that holds a tone a semitone from the tune (a maj9
+    /// tonic's seventh under the tune's tonic), the title's motif and the
+    /// closing resolution do not sound as written (Video F's ended on 2̂). A
+    /// theme chord the whole tune clears keeps it as written there and
+    /// leaves the progression everywhere else; `validate` refuses one the
+    /// tune does not clear.
+    pub theme_chord: Option<Chord>,
 }
 
 impl Identity {
@@ -255,6 +266,16 @@ impl Identity {
             .map(|t| t.1)
     }
 
+    /// The tune as written: the motif's pitches, then the resolution's.
+    pub fn tune(&self) -> Vec<i32> {
+        self.motif
+            .degrees
+            .iter()
+            .chain(&self.resolution.degrees)
+            .map(|&d| self.key.degree(d, self.tonic_midi))
+            .collect()
+    }
+
     /// Refuse an identity the engine cannot play: an empty progression, a
     /// chord too thin for a four-voice bed (fewer than three pitch classes),
     /// a motif or resolution of fewer than two notes, a non-positive beat, an
@@ -294,6 +315,16 @@ impl Identity {
             let scale = self.listen_scale();
             if c.pitch_classes().len() < 3 || !c.pitch_classes().iter().all(|pc| scale.contains(pc)) {
                 return bad(format!("listen chord {c:?} is thin or has a semitone inside it"));
+            }
+        }
+        if let Some(c) = &self.theme_chord {
+            if c.pitch_classes().len() < 3 {
+                return bad(format!("theme chord {c:?} has fewer than three pitch classes"));
+            }
+            if let Some(p) = self.tune().into_iter().find(|&p| clashes(p, c)) {
+                return bad(format!(
+                    "theme chord {c:?} holds a tone a semitone from the tune's {p}: rule 7 would move it"
+                ));
             }
         }
         let mut labels: Vec<&str> = self.themes.iter().map(|t| t.0).collect();
@@ -375,6 +406,7 @@ impl Identity {
             swing: 0.5,
             moods: Vec::new(),
             listen_chord: None,
+            theme_chord: None,
             themes: Vec::new(),
         }
     }
@@ -464,6 +496,7 @@ impl Identity {
                 },
             ],
             listen_chord: Some(Chord::six_nine(5)),
+            theme_chord: None,
             themes: vec![
                 ("01_4", Theme::Open),
                 ("08_3", Theme::Resolved),
@@ -549,6 +582,7 @@ impl Identity {
                 },
             ],
             listen_chord: Some(Chord::six_nine(4)),
+            theme_chord: None,
             themes: vec![("01_3", Theme::Open), ("17_7", Theme::Resolved)],
         }
     }
@@ -641,6 +675,7 @@ impl Identity {
                 },
             ],
             listen_chord: Some(Chord::new(10, &[0, 2, 7, 9])),
+            theme_chord: None,
             themes: vec![("01_3", Theme::Open), ("13_4", Theme::Resolved)],
         }
     }
@@ -1888,8 +1923,44 @@ fn compose(
                 .collect(),
             None => Vec::new(),
         };
+        // the theme's own phrases hold the theme chord, when the identity has
+        // one: from where the voice stops before a themed window (the phrase
+        // starts there) to the first candidate at or after the window's end,
+        // and the video's last gap when it resolves
+        let themed: Vec<(f64, f64)> = match identity.theme_chord {
+            Some(_) => {
+                let gap_start = |s: f64| {
+                    let voice_end = local.iter().map(|r| r.1).filter(|&e| e <= s + 1e-9).fold(0.0, f64::max);
+                    cands
+                        .iter()
+                        .copied()
+                        .find(|&x| x >= voice_end - 1e-9 && x <= s + 1e-9)
+                        .unwrap_or(s)
+                };
+                let mut spans: Vec<(f64, f64)> = sections[c]
+                    .timeline
+                    .listens
+                    .iter()
+                    .filter(|w| w.sound.is_none() && identity.theme_for(&w.label).is_some())
+                    .map(|w| {
+                        let s = w.frame as f64 / fps;
+                        let until = cands.iter().copied().find(|&x| x >= s + w.seconds).unwrap_or(t1 - t0);
+                        (gap_start(s), until)
+                    })
+                    .collect();
+                if c + 1 == chapters.len() && resolve {
+                    let voice_end = local.last().map_or(0.0, |r| r.1);
+                    if let Some(s) = cands.iter().copied().find(|&x| x >= voice_end - 1e-9) {
+                        spans.push((s, t1 - t0));
+                    }
+                }
+                spans
+            }
+            None => Vec::new(),
+        };
+        let held: Vec<(f64, f64)> = listens.iter().chain(&themed).copied().collect();
         let mut rng = Rng::new(seed_for(&identity.name, name, "harmony", 0));
-        let changes = plan_with_listens(&cands, t1 - t0, identity.chord_s, &listens, &mut rng);
+        let changes = plan_with_listens(&cands, t1 - t0, identity.chord_s, &held, &mut rng);
         let steps = changes.iter().filter(|x| !x.1).count();
         // the resolving chapter enters the progression so that its last chord
         // is the tonic: the cycle is kept whole and nothing is merged
@@ -1905,9 +1976,17 @@ fn compose(
         let mut k = 0;
         for (j, &(s, listen)) in changes.iter().enumerate() {
             let (start, end) = (t0 + s, changes.get(j + 1).map_or(t1, |x| t0 + x.0));
-            let chord = match (&identity.listen_chord, listen) {
-                (Some(l), true) => l.clone(),
-                _ => {
+            // a held span is a theme's when one starts there, else a listen
+            // window's
+            let theme_here = themed.iter().any(|t| (t.0.max(0.0) - s).abs() < 1e-9);
+            let held_chord = match (theme_here, &identity.theme_chord, &identity.listen_chord) {
+                (true, Some(t), _) | (false, Some(t), None) => Some(t.clone()),
+                (_, _, Some(l)) => Some(l.clone()),
+                (_, None, None) => None,
+            };
+            let chord = match held_chord.filter(|_| listen) {
+                Some(h) => h,
+                None => {
                     k += 1;
                     progression[(offset + k - 1) % len].clone()
                 }
@@ -4275,6 +4354,109 @@ mod tests {
                 .count()
                 >= id.resolution.degrees.len()
         );
+    }
+
+    #[test]
+    fn under_a_theme_chord_the_title_motif_and_the_closing_resolution_sound_as_written() {
+        // Video F's identity: a tune that climbs D E F# A over a progression
+        // whose tonic and sixth chords hold C#, a semitone under the tune's
+        // D (and whose fourth holds G, a semitone over its F#)
+        let dir = std::env::temp_dir().join(format!("explainer_score_theme_chord_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        // 01_a is silent from 12 s to 16 s: the title's window in that gap
+        sections[0].timeline.listens = vec![crate::timeline::Window {
+            frame: (13.0 * 60.0) as u64,
+            seconds: 2.5,
+            label: "01_a:01_3".into(),
+            sound: None,
+        }];
+        let mut id = Identity::capture_recapture();
+        id.key = Key::new(2, crate::theory::IONIAN);
+        id.tonic_midi = 62;
+        id.progression = vec![Chord::maj9(2), Chord::min9(11), Chord::maj9(7), Chord::dom7sus4(9)];
+        id.motif = Motif::new(&[1, 2, 3, 5], &[0.5, 0.5, 0.5, 1.5]);
+        id.resolution = Motif::new(&[3, 2, 1], &[0.5, 0.5, 2.0]);
+        id.listen_chord = None;
+        id.themes = vec![("01_3", Theme::Open)];
+        let pcs = |ps: &[i32]| ps.iter().map(|p| p.rem_euclid(12)).collect::<Vec<_>>();
+        let tune = id.tune();
+        // the last gap has room for the resolution alone (it ends 2.5 s
+        // before the video does): F# E D, on the tonic
+        let (motif, resolution) = (pcs(&tune[..4]), pcs(&tune[4..]));
+        let melody = |s: &Score, a: f64, b: f64| -> Vec<i32> {
+            s.events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start >= a && e.start < b)
+                .map(|e| (e.pitch.round() as i32).rem_euclid(12))
+                .collect()
+        };
+        // the title's gap (12 to 16 s) and the video's last (66 to 70 s)
+        let plain = render(&id, &sections, None).unwrap();
+        let (title, last) = (melody(&plain, 12.0, 16.0), melody(&plain, 66.0, 70.0));
+        assert_eq!(title.len(), motif.len(), "{title:?}");
+        assert_ne!(title, motif, "rule 7 moves the title's motif");
+        assert_ne!(last, resolution, "and the closing resolution");
+        // with the theme chord both play as written, over it
+        id.theme_chord = Some(Chord::six_nine(2));
+        id.validate().unwrap();
+        let themed = render(&id, &sections, None).unwrap();
+        assert_eq!(melody(&themed, 12.0, 16.0), motif, "the title's motif");
+        assert_eq!(
+            melody(&themed, 66.0, 70.0),
+            resolution,
+            "the closing resolution, ending on the tonic"
+        );
+        for e in themed.events.iter().filter(|e| e.track == Track::Melody) {
+            if (12.0..16.0).contains(&e.start) || e.start >= 66.0 {
+                let c = themed
+                    .chords
+                    .iter()
+                    .find(|c| e.start >= c.start && e.start < c.end)
+                    .unwrap();
+                assert_eq!(
+                    c.chord,
+                    Chord::six_nine(2),
+                    "a theme note at {:.2} s over {:?}",
+                    e.start,
+                    c.chord
+                );
+            }
+        }
+        // the progression is untouched outside the theme's gaps, and QA's
+        // rule 7 still finds nothing
+        let at = |s: &Score, t: f64| {
+            s.chords
+                .iter()
+                .find(|c| t >= c.start && t < c.end)
+                .unwrap()
+                .chord
+                .clone()
+        };
+        for t in [3.0, 30.0, 45.0, 55.0] {
+            assert_eq!(at(&plain, t), at(&themed, t), "the chord at {t} s");
+        }
+        for k in 0..2 {
+            let (music, facts) = (themed.chapter_music(k), crate::qa::ScoreFacts::chapter(&themed, k));
+            let r = crate::qa::evaluate("c", &themed.chapter_voice(k), &music, music.len(), Some(&facts));
+            assert_eq!(
+                r.get("rule7_minor_ninths").unwrap().pass,
+                Some(true),
+                "{:?}",
+                r.failures()
+            );
+        }
+        // a theme chord the tune does not clear is refused
+        id.theme_chord = Some(Chord::maj9(2));
+        assert!(
+            id.validate()
+                .unwrap_err()
+                .to_string()
+                .contains("semitone from the tune")
+        );
+        // and an identity without one is rendered as it always was
+        id.theme_chord = None;
+        let again = render(&id, &sections, None).unwrap();
+        assert!(again.music.l == plain.music.l && again.music.r == plain.music.r);
     }
 
     #[test]

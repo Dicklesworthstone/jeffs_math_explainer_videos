@@ -78,6 +78,7 @@ pub fn identity() -> Identity {
             },
         ],
         listen_chord: None,
+        theme_chord: None,
         // the two soundless listen windows the score fills itself: the title
         // card's (01_2, the motif left open) and the last (11_3, resolved);
         // the storyboard gives the other four (02_8, 03_2, 05_2, 06_6) sounds

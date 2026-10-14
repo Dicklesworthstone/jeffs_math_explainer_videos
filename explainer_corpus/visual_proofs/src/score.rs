@@ -71,6 +71,7 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
+        theme_chord: None,
         // the title leaves the motif open (01_4: three notes arriving one at
         // a time); the video's one resolution is the last beat's (15_6)
         themes: vec![("01_4", Theme::Open), ("15_6", Theme::Resolved)],

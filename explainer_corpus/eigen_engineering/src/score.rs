@@ -49,6 +49,11 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
+        // the title's motif and the closing resolution as written: over
+        // Emaj9 rule 7 moved the tune's E (a semitone from D#) to F#, and
+        // over Amaj9 and B7sus4 its G# (a semitone from A) to F#: the motif
+        // topped out on F# and the video ended on it (2026-10-14)
+        theme_chord: Some(Chord::six_nine(4)),
         // 01_3 "listen 2.5 s (the motif: the overtones of one note)" and
         // 14_8 "listen 2.5 s (the resolution)"
         themes: vec![("01_3", Theme::Open), ("14_8", Theme::Resolved)],
@@ -57,7 +62,26 @@ pub fn identity() -> Identity {
 
 #[cfg(test)]
 mod tests {
+    use explainer_score::score::avoid_minor_ninths;
+
     use super::*;
+
+    /// The theme sounds as written under the theme chord: rule 7 moves none
+    /// of its notes there. Over the progression's tonic chord, Emaj9, it
+    /// moves some (the tune's E is a semitone from Emaj9's D# and its G# from the A of Amaj9 and B7sus4: the motif topped out on F# and the closing resolution ended on it).
+    #[test]
+    fn the_tune_sounds_as_written_over_the_theme_chord() {
+        let id = identity();
+        let theme = id.theme_chord.clone().expect("a theme chord");
+        for p in id.tune() {
+            assert_eq!(avoid_minor_ninths(p, &theme, &id.key, 0), p, "{p} over {theme:?}");
+        }
+        let tonic = &id.progression[0];
+        assert!(
+            id.tune().iter().any(|&p| avoid_minor_ninths(p, tonic, &id.key, 0) != p),
+            "over {tonic:?} the tune would sound as written: the theme chord is not needed"
+        );
+    }
 
     #[test]
     fn the_identity_is_one_the_engine_can_play() {

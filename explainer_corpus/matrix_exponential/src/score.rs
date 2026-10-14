@@ -49,6 +49,11 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
+        // the title's motif and the last gap's resolution as written: the
+        // tune's own half step (B to C) clashes with every chord that holds B
+        // or C (Am9, Cmaj9, Em9), so rule 7 played A B B B B E for A B B C C E
+        // and D D A A for D C B A; A7sus4 holds neither (2026-10-14)
+        theme_chord: Some(Chord::dom7sus4(9)),
         // 01_3: "listen 3 s (the motif: one step, three times, each a little
         // higher)"
         themes: vec![("01_3", Theme::Open)],
@@ -57,7 +62,26 @@ pub fn identity() -> Identity {
 
 #[cfg(test)]
 mod tests {
+    use explainer_score::score::avoid_minor_ninths;
+
     use super::*;
+
+    /// The theme sounds as written under the theme chord: rule 7 moves none
+    /// of its notes there. Over the progression's tonic chord, Am9, it
+    /// moves some (the tune's B and C are a semitone apart, and Am9 holds both: the title's C C became B B).
+    #[test]
+    fn the_tune_sounds_as_written_over_the_theme_chord() {
+        let id = identity();
+        let theme = id.theme_chord.clone().expect("a theme chord");
+        for p in id.tune() {
+            assert_eq!(avoid_minor_ninths(p, &theme, &id.key, 0), p, "{p} over {theme:?}");
+        }
+        let tonic = &id.progression[0];
+        assert!(
+            id.tune().iter().any(|&p| avoid_minor_ninths(p, tonic, &id.key, 0) != p),
+            "over {tonic:?} the tune would sound as written: the theme chord is not needed"
+        );
+    }
 
     #[test]
     fn the_identity_is_one_the_engine_can_play() {

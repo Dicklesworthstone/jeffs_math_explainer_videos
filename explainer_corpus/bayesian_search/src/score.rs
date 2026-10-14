@@ -84,6 +84,7 @@ pub fn identity() -> Identity {
         moods: Vec::new(),
         // a countdown sits on one chord for its whole window
         listen_chord: Some(listen_chord()),
+        theme_chord: None,
         // the title leaves the motif open (01_3); the receipts close on it
         // resolved (14_7), and that is the only resolution there is
         themes: vec![("01_3", Theme::Open), ("14_7", Theme::Resolved)],
