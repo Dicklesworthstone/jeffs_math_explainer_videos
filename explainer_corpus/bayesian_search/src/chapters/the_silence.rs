@@ -393,6 +393,10 @@ fn month_year(iso: &str) -> Result<String, String> {
     Ok(format!("{} {y}", MONTH_NAMES[m - 1]))
 }
 
+/// The radius label's line width in characters: "40 nautical miles" and
+/// "(74 km)", each shorter than the spoke it stands over.
+const RADIUS_LINE_CHARS: usize = 18;
+
 /// "40 nautical miles (74 km)".
 fn radius_words(nm: &str, km: &str) -> String {
     format!("{nm} {NAUTICAL_MILES} ({km} {KM})")
@@ -681,13 +685,27 @@ impl SceneConstruct for TheSilence {
                 .style(line_style(Palette::dim(), 2.0))
                 .build(),
         );
-        let radius_label = kit.text(
-            stage,
+        // two lines over the spoke: on one line the words were wider than
+        // the spoke and their last letters touched the rim
+        let radius_lines = wrap(
             &radius_words(&fact("F-A.circle.nm")?, &fact("F-A.circle.km")?),
-            24.0,
-            Palette::ink(),
-            v(CIRCLE_AT[0] + CIRCLE_R / 2.0, CIRCLE_AT[1] + 0.3),
-        )?;
+            RADIUS_LINE_CHARS,
+            2,
+        );
+        let mut radius_texts: Vec<Mob> = Vec::new();
+        for (j, text) in radius_lines.iter().enumerate() {
+            radius_texts.push(kit.text(
+                stage,
+                text,
+                24.0,
+                Palette::ink(),
+                v(
+                    CIRCLE_AT[0] + CIRCLE_R / 2.0,
+                    CIRCLE_AT[1] + 0.3 + 0.3 * (radius_lines.len() - 1 - j) as f64,
+                ),
+            )?);
+        }
+        let radius_label = group(stage, &radius_texts)?;
         line.wait_for(stage, "The wreck had to lie")?;
         stage.play(show_creation(rim).rt(1.4))?;
         fade_in_all(stage, &[centre_mark, spoke, radius_label], 0.5)?;
@@ -724,6 +742,8 @@ impl SceneConstruct for TheSilence {
         let line = say(&kit, stage, LINES[2])?;
         fade_out_all(stage, &[months, searches, schematic], 0.4)?;
         let whole = Cloud::build(stage, CIRCLE_AT, CIRCLE_R, &plan.whole())?;
+        // the years stay readable when 3,000 dots come in over the areas
+        stage.scene_mut().bring_to_front(&year_labels)?;
         let mut small_discs: Vec<Cloud> = Vec::new();
         let mut small_mobs: Vec<Mob> = Vec::new();
         let (small_x, small_r) = (-5.6, 0.75);
@@ -792,7 +812,9 @@ impl SceneConstruct for TheSilence {
         for c in &small_discs {
             together.push(stage.prepare(tween(c.shown, 0.0, 1.2)?)?);
         }
-        for &m in small_mobs.iter().chain(&weight_labels) {
+        // the radius label goes with the small maps: under the cloud it
+        // could not be read
+        for &m in small_mobs.iter().chain(&weight_labels).chain([&radius_label]) {
             let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             together.push(stage.prepare(gone.rt(1.0))?);
         }
@@ -826,7 +848,7 @@ impl SceneConstruct for TheSilence {
         // the map drawn twice, once counting the silence and once leaving
         // it out
         let line = say(&kit, stage, LINES[4])?;
-        let mut main = vec![rim, centre_mark, spoke, radius_label, heard, note];
+        let mut main = vec![rim, centre_mark, spoke, heard, note];
         main.extend(&shaded);
         main.extend(&year_labels);
         main.extend(&lines);
@@ -886,13 +908,16 @@ impl SceneConstruct for TheSilence {
             stage.prepare(tween(left_out.shown, 1.0, 0.8)?)?,
         ];
         stage.play_prepared(both)?;
+        // the authors' own words stand under the two maps from the moment
+        // they are drawn twice, so they can be read before the line is over
+        let better = lower_third(&kit, stage, AUTHORS_WAY, AUTHORS_TEXT)?;
+        line.wait_for(stage, "So the analysts drew")?;
+        fade_in_all(stage, &[better], 0.5)?;
         // the left disc's dots under the listening tracks go out
         line.wait_for(stage, "once counting the silence")?;
         kit.mark(stage, SEARCH_MARK);
         stage.play(tween(counted.beacon, 1.0, 1.0)?)?;
         line.wait_end(stage)?;
-        let better = lower_third(&kit, stage, AUTHORS_WAY, AUTHORS_TEXT)?;
-        fade_in_all(stage, &[better], 0.5)?;
 
         // ------------------------------------------------------- 12_6
         // both put their weight near the centre; the wreck lay at one place
@@ -1015,6 +1040,26 @@ mod tests {
         assert_eq!(f.get("F-A.found.km"), Some("12"));
         assert_eq!(f.get("F-A.beacon.used.percent"), Some("77"));
         assert!(parts("2011-13-01").is_err());
+    }
+
+    /// 12_2: the radius label is two lines, none of them longer than the
+    /// spoke it stands over (on one line "km)" touched the rim), and both
+    /// lines keep every word.
+    #[test]
+    fn the_radius_label_fits_over_its_spoke() {
+        use super::super::draw::CHAR_UNITS_PER_POINT;
+        let f = facts().unwrap();
+        let words = radius_words(f.get("F-A.circle.nm").unwrap(), f.get("F-A.circle.km").unwrap());
+        let lines = wrap(&words, RADIUS_LINE_CHARS, 2);
+        assert_eq!(lines, ["40 nautical miles", "(74 km)"]);
+        assert_eq!(lines.join(" "), words);
+        for l in &lines {
+            let width = l.chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT;
+            assert!(
+                width <= CIRCLE_R - 0.4,
+                "{l:?} is {width} wide over a spoke of {CIRCLE_R}"
+            );
+        }
     }
 
     /// 12_3: three maps weighted 35, 35 and 30 make 1,050, 1,050 and 900 of
