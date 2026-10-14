@@ -84,6 +84,9 @@ const PUMPS_MILES: f64 = 62.0;
 const LINE_X: f64 = -6.0;
 const LINE_TOP: f64 = 3.0;
 const LINE_BOTTOM: f64 = -2.2;
+/// The model tag's height: above the caption band's question lines (the
+/// carried question of 11_4 stands at -2.85), clear of the track's labels.
+const MODEL_Y: f64 = -2.3;
 /// How opaque a dot of the cloud is when lit, deepened, and put out.
 const LIT_DIM: f64 = 0.55;
 const LIT_DEEP: f64 = 0.95;
@@ -417,6 +420,16 @@ impl SceneConstruct for TwelveHours {
         )?;
         stage.add_to_scene(first.group)?;
         stage.play(tween(shown, 1.0, 0.9)?)?;
+        // the names stand under the picture from the year they are named, so
+        // they can be read before the line is over
+        let planner = lower_third(
+            &kit,
+            stage,
+            &format!("{CASP} {}.", fact("F-C.casp")?),
+            &format!("SAROPS, since {}: {SAROPS_TEXT}", fact("F-C.sarops")?),
+        )?;
+        line.wait_for(stage, "since nineteen")?;
+        fade_in_all(stage, &[planner], 0.5)?;
         // the search: a square laid over part of the cloud, its track
         let square = stage.arena_mut().add(
             polyline(square_outline(CLOUD_AT, side * CLOUD_MILE))
@@ -433,14 +446,7 @@ impl SceneConstruct for TwelveHours {
         kit.mark(stage, SEARCH_MARK);
         play!(stage; show_creation(track).rt(0.9));
         play!(stage; tween(out_t, 1.0, 0.9)?, tween(deepen, 1.0, 0.9)?);
-        let planner = lower_third(
-            &kit,
-            stage,
-            &format!("{CASP} {}.", fact("F-C.casp")?),
-            &format!("SAROPS, since {}: {SAROPS_TEXT}", fact("F-C.sarops")?),
-        )?;
         line.wait_end(stage)?;
-        fade_in_all(stage, &[planner], 0.5)?;
 
         // ------------------------------------------------------- 11_2
         // a lobsterman falls off his boat at night, about forty miles off
@@ -457,12 +463,17 @@ impl SceneConstruct for TwelveHours {
         stage.remove_from_scene(anchor);
 
         let land = stage.arena_mut().add(
-            Polygon::new(vec![v(-7.2, COAST_Y), v(7.2, COAST_Y), v(7.2, 4.1), v(-7.2, 4.1)])
-                .style(flat(Palette::faint(), 0.35))
-                .build(),
+            Polygon::new(vec![
+                v(-FRAME_X_RADIUS, COAST_Y),
+                v(FRAME_X_RADIUS, COAST_Y),
+                v(FRAME_X_RADIUS, FRAME_Y_RADIUS),
+                v(-FRAME_X_RADIUS, FRAME_Y_RADIUS),
+            ])
+            .style(flat(Palette::faint(), 0.35))
+            .build(),
         );
         let coast = stage.arena_mut().add(
-            polyline(vec![v(-7.2, COAST_Y), v(7.2, COAST_Y)])
+            polyline(vec![v(-FRAME_X_RADIUS, COAST_Y), v(FRAME_X_RADIUS, COAST_Y)])
                 .style(line_style(Palette::dim(), 3.0))
                 .build(),
         );
@@ -512,7 +523,7 @@ impl SceneConstruct for TwelveHours {
             )?);
             tick_at += 60.0;
         }
-        let model_tag = kit.text_left(stage, MODEL, 20.0, Palette::dim(), v(0.9, -2.62))?;
+        let model_tag = kit.text_left(stage, MODEL, 20.0, Palette::dim(), v(0.9, MODEL_Y))?;
         scenery.push(model_tag);
         fade_in_all(stage, &scenery, 0.9)?;
 
@@ -772,15 +783,18 @@ impl SceneConstruct for TwelveHours {
         let saved = stage.arena_mut().add(
             Dot::new()
                 .point(track_point(night.offshore))
-                .radius(0.12)
+                .radius(0.16)
                 .style(flat(found(), 1.0))
                 .build(),
         );
         play!(stage;
+            show_creation(east).rt(0.9),
             fade_out(stage.arena_mut(), went_in, ORIGIN, 1.0)?.rt(0.4),
             fade_in(stage.arena_mut(), saved, ORIGIN, 1.0)?.rt(0.4),
-            show_creation(east).rt(0.9),
         );
+        // the green point lies over both halves of the track and the cloud, so
+        // the find is the one thing in the picture that reads as green
+        stage.scene_mut().bring_to_front(&[saved])?;
         line.wait_for(stage, "He was alive")?;
         let in_water =
             stay_words(&fact("F-C.aldridge.in_water")?).ok_or_else(|| fail("the stay does not parse".into()))?;
@@ -1046,5 +1060,22 @@ mod tests {
         // the whole of the first cloud (3 h) stays inside the stage
         let r = radius_miles(drift::hours()[1].f64()) * CLOUD_MILE;
         assert!(CLOUD_AT[1] + r < FRAME_Y_RADIUS - 0.3 && CLOUD_AT[1] - r > -FRAME_Y_RADIUS + 1.0);
+        // the model tag stands a clear half unit above the carried question's
+        // first line, and below the track's far end
+        const {
+            assert!(MODEL_Y - super::super::draw::QUIZ_LINES_Y[0] >= 0.5);
+        }
+        assert!(MODEL_Y < track_point(TRACK_MILES)[1] - 0.3);
+    }
+
+    /// 11_1's lower-third comes in with the year it names, not after the
+    /// line: the phrases the chapter waits on are in the line as scripted.
+    #[test]
+    fn the_planner_is_named_when_its_year_is_said() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let text = script.text("11_1").unwrap();
+        let (since, updates) = (text.find("since nineteen seventy-four"), text.find("and updates them"));
+        assert!(since.is_some() && updates.is_some(), "{text}");
+        assert!(since < updates, "the year is said before the search is drawn");
     }
 }
