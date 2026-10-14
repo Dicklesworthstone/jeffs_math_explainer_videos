@@ -1,11 +1,12 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (fullest where a picture first makes an idea true: the flat piece,
 //! the screw, the product of exponentials; quieter for Apollo's story and
-//! the honest limits). Each chapter starts as its storyboard's animatic and
-//! is replaced by its real scene as it is built.
+//! the honest limits). Every chapter is a real scene: the animatics that
+//! stood in for them while they were built are gone.
 
 pub mod by_hand;
 pub mod draw;
+pub mod everywhere;
 pub mod glyphs;
 pub mod halfway;
 pub mod lost_directions;
@@ -22,25 +23,12 @@ pub mod three_angles;
 pub mod velocities_add;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
 
 macro_rules! scene {
     ($key:literal, $intensity:expr, $module:ident :: $scene:ident) => {
         Chapter {
             key: $key,
             make: |kit| Box::new($module::$scene { kit }),
-            intensity: $intensity,
-        }
-    };
-}
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
             intensity: $intensity,
         }
     };
@@ -62,6 +50,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("12_the_spare_joint", 0.5, the_spare_joint::TheSpareJoint),
         scene!("13_steps", 0.55, steps::Steps),
         scene!("14_the_steady_path", 0.5, the_steady_path::TheSteadyPath),
-        animatic!("15_everywhere", 0.65),
+        scene!("15_everywhere", 0.65, everywhere::Everywhere),
     ]
 }
