@@ -3,7 +3,8 @@
 
 Dry-run by default: assembles `<slug>_4k_vN.mp4`, `<slug>_1080p_vN.mp4` (x264 CRF 18,
 audio copied), `<slug>.en.srt`, `<slug>.en.vtt`, `contact_sheet.png`, `release_notes.md`,
-and `SHA256SUMS` under the bundle directory, plus verifies or generates `publish/youtube.md`.
+and `SHA256SUMS` under the bundle directory, once `publish/youtube.md` and `publish/michael/*.txt`
+pass tools/youtube_package.py's check (against the master's timelines when it has them).
 Refuses `--upload` unless `ALLOW_PUBLISH_UPLOAD=1` is set in the environment (G10).
 """
 
@@ -196,40 +197,22 @@ def ensure_captions(crate: Path, finals: Path, bundle: Path, slug: str) -> None:
     vtt_dst.write_text("\n".join(vtt_blocks), encoding="utf-8")
 
 
-def ensure_youtube_md(crate: Path, slug: str) -> Path:
-    yt_path = crate / "publish" / "youtube.md"
-    if yt_path.is_file():
-        return yt_path
-    yt_path.parent.mkdir(parents=True, exist_ok=True)
-    title = slug.replace("_", " ").title()
-    readme = crate / "README.md"
-    if readme.is_file():
-        first = readme.read_text(encoding="utf-8").splitlines()[0]
-        if first.startswith("#"):
-            title = first.lstrip("#").strip()
-    content = f"""# {title}: YouTube package
+def ensure_youtube_md(crate: Path, slug: str, finals: Path) -> Path:
+    """The video's checked YouTube package. It is written by hand from docs/description.md (a generated
+    stand-in once said "0:00 Introduction" under a slug-cased title); a missing or failing package stops
+    the release here, with every problem named (tools/youtube_package.py)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import youtube_package  # noqa: PLC0415 (beside this file; -I leaves the script's directory off the path)
 
-- Title: {title}
-- Category: Education (not made for kids)
-- Altered or synthetic content: Yes (synthetic narration via FrankenTTS; rendered by franken_manim)
-- Thumbnail: `renders/{slug}_thumbnail.png`
-- Captions: `{slug}.en.srt`, `{slug}.en.vtt`
-
-## Description
-
-```text
-{title} — narrated 4K60 math explainer built in Rust with franken_manim and FrankenTTS.
-Every number is computed from the scene's mathematical model and checked against oracle.py.
-
-Chapters
-0:00 Introduction
-
-Sources
-https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/tree/main/explainer_corpus/{slug}
-```
-"""
-    yt_path.write_text(content, encoding="utf-8")
-    return yt_path
+    with_finals = finals if list(finals.glob("*.timeline.tsv")) else None
+    bad = youtube_package.check(slug, "michael", with_finals, crate.parents[1])
+    if bad:
+        raise SystemExit(
+            "publish: the YouTube package is not ready (write publish/youtube.md and publish/michael/"
+            "{title,description,tags}.txt from docs/description.md; fill the chapter times with "
+            f"tools/youtube_package.py fill {slug} --finals DIR):\n  " + "\n  ".join(bad)
+        )
+    return crate / "publish" / "youtube.md"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -264,6 +247,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"publish: no master MP4 found for {args.slug} (pass --master or run ./x {args.slug} master)", file=sys.stderr)
         return 2
     finals = master_mp4.parent
+    # the upload text first: a bundle with no package to go with it is no release
+    yt_path = ensure_youtube_md(crate, args.slug, finals)
 
     ver = args.version if args.version.startswith("v") else f"v{args.version}"
     bundle = args.out or (crate / "publish" / f"release_{ver}")
@@ -284,7 +269,6 @@ def main(argv: list[str] | None = None) -> int:
         build_contact_sheet(master_dst, sheet_dst)
 
     ensure_captions(crate, finals, bundle, args.slug)
-    yt_path = ensure_youtube_md(crate, args.slug)
 
     meta_4k = probe_video(master_dst)
     meta_1080 = probe_video(proxy_dst)

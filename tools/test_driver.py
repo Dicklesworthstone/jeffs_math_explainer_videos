@@ -21,6 +21,7 @@ class Driver(unittest.TestCase):
         (self.root / "x").chmod(0o755)
         (self.root / "tools").mkdir(exist_ok=True)
         shutil.copyfile(ROOT / "tools" / "publish.py", self.root / "tools" / "publish.py")
+        shutil.copyfile(ROOT / "tools" / "youtube_package.py", self.root / "tools" / "youtube_package.py")
         self.corpus = self.root / "explainer_corpus"
         self.corpus.mkdir()
 
@@ -549,6 +550,21 @@ class Driver(unittest.TestCase):
         )
         (finals / "alpha.en.srt").write_text("1\n00:00:00,000 --> 00:00:01,000\nHello.\n", encoding="utf-8")
         (finals / "alpha.en.vtt").write_text("WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello.\n", encoding="utf-8")
+        # no package: refused before anything is assembled, every missing file named
+        res = self.run_x("alpha", "publish")
+        self.assertNotEqual(res.returncode, 0)
+        self.assertIn("youtube.md: missing", res.stderr)
+        self.assertFalse((crate / "publish" / "release_v1").exists())
+        # a package that passes tools/youtube_package.py check
+        pub = crate / "publish"
+        (pub / "michael").mkdir(parents=True)
+        desc = "Alpha.\n\nChapters\n0:00 One\n0:20 Two\n0:40 Three\n"
+        (pub / "michael" / "title.txt").write_text("Alpha\n", encoding="utf-8")
+        (pub / "michael" / "tags.txt").write_text("alpha, beta\n", encoding="utf-8")
+        (pub / "michael" / "description.txt").write_text(desc, encoding="utf-8")
+        (pub / "youtube.md").write_text(
+            f"# Alpha\n\n- Title: Alpha\n- Tags: alpha, beta\n\n```text\n{desc}```\n", encoding="utf-8"
+        )
         res = self.run_x("alpha", "publish")
         self.assertEqual(res.returncode, 0, res.stderr)
         bundle = crate / "publish" / "release_v1"
