@@ -8,13 +8,16 @@ the frame's own most common value (so the background and a digital-black frame b
 frame with one small label does not). A stretch is a run of such frames; every stretch longer than
 `--min-s` (0.5 s) is listed with where it falls in the chapter:
 
-  opening   starts at the first frame. A chapter that does not show its first picture at once opens on
-            a lead of the background while that picture fades in. Over the seven current scored drafts
-            (99 chapter files, 2026-10-14) 31 open on a picture at once, 60 have a lead of 0.60 to
-            0.70 s (the kit's own), one has 0.90 s (K's 05) and seven have 1.8 to 4.7 s; so the lead is
-            excused up to 0.75 s, the longest of the 0.70 s leads and one or two frames of slack.
-            Anything past that is a chapter that says its first sentence over an empty frame (G's
-            chapter 15 did: the first icon came with its name, 2.9 s into the line).
+  opening   starts at the first frame. A chapter opens on the silence before its first line (the
+            kit's breath, or under LineGaps::Thought the gap the script's thought break asks for),
+            and its first picture comes up with that line. The opening is excused until the
+            chapter's first line starts, read from the `.timeline.tsv` beside the MP4, and
+            `--slack-s` (0.15 s) after it for the first mark to rise; with no timeline it is excused
+            to `--lead-s` (0.75 s). The bound comes from the seven scored drafts of 2026-10-14
+            (99 chapter files, constant gaps): 31 open on a picture at once, 60 have a lead of 0.60
+            to 0.70 s, which is where the first line starts, and seven have a first picture 1.2 to
+            4.0 s after it. Past the line is a chapter that says its first sentence over an empty
+            frame (G's chapter 15 did: the first icon came with its name, 2.9 s into the line).
   inside    anywhere else: J's 05 had 0.6 s of background mid-chapter and K had bare stages.
   closing   ends at the last frame.
   whole     the chapter never shows a picture.
@@ -37,6 +40,7 @@ sys.dont_write_bytecode = True
 
 MIN_S = 0.5
 LEAD_S = 0.75
+SLACK_S = 0.15
 FPS = 30
 SIZE = (320, 180)
 DEV = 8
@@ -92,31 +96,54 @@ def stretches(flat, fps=FPS):
     return out
 
 
-def flagged(found, min_s=MIN_S, lead_s=LEAD_S):
-    """The stretches worth a flag: longer than `min_s`, an opening lead excused up to `lead_s`."""
+def first_line_s(path):
+    """When the chapter's first line starts (seconds), from the `.timeline.tsv` beside `path`; None without one."""
+    tl = Path(path).with_suffix(".timeline.tsv")
+    if not tl.is_file():
+        return None
+    fps, frames = None, []
+    for row in tl.read_text(encoding="utf-8", errors="replace").splitlines():
+        cells = row.split("\t")
+        if cells[0] == "fps" and len(cells) > 1:
+            fps = float(cells[1])
+        elif cells[0] == "line" and len(cells) > 2:
+            frames.append(float(cells[2]))
+    return min(frames) / fps if fps and frames else None
+
+
+def flagged(found, min_s=MIN_S, lead_s=LEAD_S, first_line=None, slack_s=SLACK_S):
+    """The stretches worth a flag: longer than `min_s`; an opening is excused until the first line starts
+    (`first_line`, plus `slack_s`), or up to `lead_s` when that is not known."""
     keep = []
     for start, end, kind in found:
         length = end - start
-        if length > (lead_s if kind == "opening" else min_s) + 1e-9:
+        if kind == "opening":
+            excused = lead_s if first_line is None else first_line + slack_s
+            if end > excused + 1e-9:
+                keep.append((start, end, kind))
+        elif length > min_s + 1e-9:
             keep.append((start, end, kind))
     return keep
 
 
-def report(path, fps=FPS, min_s=MIN_S, lead_s=LEAD_S, verbose=False):
+def report(path, fps=FPS, min_s=MIN_S, lead_s=LEAD_S, verbose=False, slack_s=SLACK_S):
     """(lines, number of flags) for one chapter file."""
     flat = flat_frames(path, fps)
     found = stretches(flat, fps)
     name = Path(path).name
+    first = first_line_s(path)
     lines = []
-    flags = flagged(found, min_s, lead_s)
+    flags = flagged(found, min_s, lead_s, first, slack_s)
     for start, end, kind in flags:
-        lines.append(f"FLAG {name}: no picture {start:.2f}-{end:.2f} s ({end - start:.2f} s, {kind})")
+        note = f"; its first line starts at {first:.2f} s" if kind == "opening" and first is not None else ""
+        lines.append(f"FLAG {name}: no picture {start:.2f}-{end:.2f} s ({end - start:.2f} s, {kind}{note})")
     if not flags:
-        lines.append(f"PASS {name}: no stretch over {min_s} s without a picture (opening lead excused to {lead_s} s)")
+        lines.append(f"PASS {name}: no stretch over {min_s} s without a picture (opening excused until the first line)")
     if verbose:
         lead = next((e - s for s, e, k in found if k == "opening"), 0.0)
         tail = next((e - s for s, e, k in found if k == "closing"), 0.0)
-        lines.append(f"INFO {name}: {len(flat) / fps:.1f} s, opening lead {lead:.2f} s, closing {tail:.2f} s")
+        said = "no timeline" if first is None else f"first line at {first:.2f} s"
+        lines.append(f"INFO {name}: {len(flat) / fps:.1f} s, opening lead {lead:.2f} s ({said}), closing {tail:.2f} s")
     return lines, len(flags)
 
 
@@ -135,7 +162,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("inputs", nargs="+", help="chapter MP4s, or directories of them")
     ap.add_argument("--min-s", type=float, default=MIN_S, help="the shortest stretch to list (0.5)")
-    ap.add_argument("--lead-s", type=float, default=LEAD_S, help="the opening lead excused (0.75)")
+    ap.add_argument("--lead-s", type=float, default=LEAD_S, help="the opening excused when there is no timeline (0.75)")
+    ap.add_argument("--slack-s", type=float, default=SLACK_S, help="after the first line starts, for the first mark to rise (0.15)")
     ap.add_argument("--fps", type=int, default=FPS, help="frames read a second (30)")
     ap.add_argument("--gate", action="store_true", help="exit 1 when anything is flagged")
     ap.add_argument("-v", "--verbose", action="store_true", help="also print each file's lead and tail")
@@ -146,7 +174,7 @@ def main(argv=None):
         return 2
     total = 0
     for f in files:
-        lines, n = report(f, args.fps, args.min_s, args.lead_s, args.verbose)
+        lines, n = report(f, args.fps, args.min_s, args.lead_s, args.verbose, args.slack_s)
         total += n
         print("\n".join(lines))
     print(f"ADVISORY blank stretches: {total} flagged in {len(files)} chapter file(s)")

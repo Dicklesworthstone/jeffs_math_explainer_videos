@@ -129,6 +129,60 @@ class Clips(unittest.TestCase):
         self.assertEqual([f.name for f in files], ["01_a.mp4", "02_b.mp4"])
 
 
+class Timelines(unittest.TestCase):
+    """the opening is excused until the chapter's first line starts, read from the timeline beside the MP4"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.dir = Path(cls.tmp.name)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def clip(self, name, segments, first_line_frame=None, fps=30):
+        path = self.dir / f"{name}.mp4"
+        make_clip(path, segments)
+        if first_line_frame is not None:
+            (self.dir / f"{name}.timeline.tsv").write_text(
+                f"# explainer timeline v1\nchapter\t{name}\nfps\t{fps}\nframes\t200\n"
+                f"line\t{name[:2]}_2\t{first_line_frame + 90}\t0\t/x/y.wav\nline\t{name[:2]}_1\t{first_line_frame}\t0\t/x/z.wav\n",
+                encoding="utf-8",
+            )
+        return path
+
+    def test_the_first_line_of_the_timeline_sets_how_long_the_opening_may_be(self):
+        # Thought gaps: the line starts 1.2 s in, and the picture comes up with it
+        path = self.clip("01_late_line", [(1.2, "bg"), (2.0, "picture")], first_line_frame=36)
+        self.assertAlmostEqual(bs.first_line_s(path), 1.2, delta=1e-9)
+        lines, n = bs.report(path, FPS)
+        self.assertEqual(n, 0, lines)
+        # the same clip with no timeline beside it is held to the 0.75 s lead
+        bare = self.clip("02_no_timeline", [(1.2, "bg"), (2.0, "picture")])
+        self.assertIsNone(bs.first_line_s(bare))
+        self.assertEqual(bs.report(bare, FPS)[1], 1)
+
+    def test_a_picture_that_comes_after_the_first_line_is_flagged_with_the_line_named(self):
+        # K 05: the voice at 0.6 s, the first mark at 0.9 s (0.3 s after it)
+        path = self.clip("03_after_the_voice", [(0.9, "bg"), (2.0, "picture")], first_line_frame=18)
+        lines, n = bs.report(path, FPS)
+        self.assertEqual(n, 1, lines)
+        self.assertIn("(0.90 s, opening; its first line starts at 0.60 s)", lines[0])
+        # G 15: the voice at 0.65 s, the first icon 3.6 s in
+        path = self.clip("04_long", [(3.6, "bg"), (2.0, "picture")], first_line_frame=20)
+        self.assertEqual(bs.report(path, FPS)[1], 1)
+
+    def test_the_picture_with_the_voice_is_not_flagged_even_a_frame_late(self):
+        path = self.clip("05_with_the_voice", [(0.7, "bg"), (2.0, "picture")], first_line_frame=18)
+        self.assertEqual(bs.report(path, FPS)[1], 0)
+
+    def test_the_timeline_of_a_60_fps_render_is_read_in_its_own_frames(self):
+        path = self.clip("06_sixty", [(1.0, "bg"), (2.0, "picture")], first_line_frame=60, fps=60)
+        self.assertAlmostEqual(bs.first_line_s(path), 1.0, delta=1e-9)
+        self.assertEqual(bs.report(path, FPS)[1], 0)
+
+
 class Runs(unittest.TestCase):
     def test_stretches_and_flags_on_a_plain_list(self):
         flat = [True] * 18 + [False] * 30 + [True] * 12 + [False] * 10 + [True] * 20
@@ -140,6 +194,10 @@ class Runs(unittest.TestCase):
         # exactly the bound is not over it
         self.assertEqual(bs.flagged([(1.0, 1.5, "inside")]), [])
         self.assertEqual(bs.flagged([(1.0, 1.54, "inside")]), [(1.0, 1.54, "inside")])
+        # an opening that ends with the first line (and its slack) is excused whatever its length
+        self.assertEqual(bs.flagged([(0.0, 1.3, "opening")], first_line=1.2), [])
+        self.assertEqual(bs.flagged([(0.0, 1.4, "opening")], first_line=1.2), [(0.0, 1.4, "opening")])
+        self.assertEqual(bs.flagged([(0.0, 0.8, "opening")]), [(0.0, 0.8, "opening")])
 
 
 if __name__ == "__main__":
