@@ -1,8 +1,21 @@
 # The numbers of docs/description.md that are no value of the oracle's output (tools/description_numbers.py).
 # number TAB context TAB kind TAB reason. The context is a piece of the line the number stands in. A derived
 # reason is an expression over facts that the tool evaluates; the other kinds name the source (docs/fact-sheet.md).
-58	58(1), January 1985	cited	volume of Mathematics Magazine for Fry, "Proof without Words: Sum of Cubes" (S5: Crossref record and Nelsen p. 86; the printed page was not seen); its year and page are F-X.fry
 1965	Golomb, 1965	year	S6: Golomb, "A Geometric Proof of a Famous Identity", The Mathematical Gazette 49(368), May 1965 (Cambridge Core page)
 1977	Love, 1977	year	S6: Love, "Proof without Words: Cubes and Squares", Mathematics Magazine 50(2), March 1977, p. 74 (Crossref)
-67	67(3), June 1994	cited	volume of Mathematics Magazine for Ajose and Nelsen, "Proof without Words: Geometric Series" (S10: Crossref and the archived MAA page); its year and page are F-X.ajose_nelsen
 200	Chinese proof from 200 BC	cited	the date in a popular claim the video does not make and the description names only to deny it (fact sheet, Never said or shown; S13: the sources read date the Zhoubi to the first century BC and its figure to the third century CE); used twice
+4	III.4	cited	Aristotle, Physics III.4 (book III, chapter 4), the passage that uses the word gnomon (S17 of docs/fact-sheet.md).
+# 2 stacks hold twice the stack's cubes.
+60	30, 60	derived	=2*f("F-S.stack")
+23	Proposition 23	cited	Archimedes, Quadrature of the Parabola, Proposition 23 (S11 of docs/fact-sheet.md).
+2	and b = 2	structural	The short side of the worked example (a = 3, b = 2).
+# The general-position count for eight points, the eighth number of F-D.circle.general_position, which the line states as the one the evenly spaced eight fall short of.
+99	not 99	derived	=f("F-D.circle.general_position",7)
+# The tilted-square example: the big square's side is sqrt(49) = 7.
+7	7 by 7 square	derived	=sqrt(f("F-P.big"))
+5	1 to 5 points	structural	The five checks (1 to 5 points) that pass before the sixth.
+1.0	exactly 1.0	structural	The float value the running sum reaches (after F-H.float.reaches_one pieces); the sum of the series is 1.
+9	range(1, 9)	structural	The code's n = 1 to 8.
+0.0	k = 0.0, 0	structural	The code's float zero start.
+100	added 1 to 100	structural	The story of Gauss's sum that the video does not tell (Not said).
+64	64-bit floating point	structural	The width of the double-precision float of the code block.

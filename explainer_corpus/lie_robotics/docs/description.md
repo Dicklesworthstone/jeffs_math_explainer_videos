@@ -64,7 +64,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   perpendicular lines: every other pair, which is almost every pair, does not.
 - **01_6.** "About a hundred and fifty years old": Sophus Lie began his theory of continuous
   groups in the winter of 1873–74. Writing an arm's pose as a product of exponentials is
-  Brockett's (08_6, 1983); it rests on Lie's groups and on screw theory.
+  Brockett's (08_6, 1983); it rests on Lie's groups and on screw theory. [G-L.lie.year, G-L.brockett.year]
 - **02_4.** Euler's theorem: every turn of space fixes an axis, and a product of turns is a
   turn. The turn may be the zero turn.
 - **02_5.** A group is closed, associative, has an identity and has inverses. "Usually": for
@@ -72,7 +72,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
 - **03_4.** The thresholds (lamp above 70°, the reference dropped above 85°) are those of the
   command module computer's flight software (Comanche 055, routine GLOCKMON). The bar of the
   picture, the volume the three ring axes span, is this video's own measure: cos of the middle
-  angle, 34% at 70° and 9% at 85°.
+  angle, 34% at 70° and 9% at 85°. [G-L.apollo.lamp_deg, G-L.apollo.lost_deg, G-E.left.70, G-E.left.85]
 - **03_5.** Collins's line was a joke. The capcom answered "You were unreadable. Say again
   please." and Collins said "Disregard." A fourth ring makes one ring angle redundant, as the
   seventh joint of an arm does; the extra ring helps only if its angle is driven to use that
@@ -82,7 +82,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   twelve orders of three axes lose a direction at some middle angle (90° for the six orders
   yaw, pitch, roll type; 0° or 180° for the six that repeat an axis). Nine numbers (a matrix,
   with six rules) and four (a unit quaternion, with one rule) have no bad spot; a quaternion and
-  its negative are the same orientation.
+  its negative are the same orientation. [G-X6.bad_angle.zyx, G-X6.bad_angle.zyz, G-R.numbers.matrix, G-S.numbers.quaternion]
 - **04_3, 04_4.** "Halfway" means the middle of the shorter way round. On a circle two headings
   have two midpoints: 0° is the middle of the 340° way round and 180° the middle of the 20° way.
   180° is also the direction of the sum of the two unit heading vectors, and the point nearest
@@ -102,10 +102,10 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   branch of its own near a half turn.
 - **05_2.** Adding two spins and holding for a second turns about both at once (127.28° about
   (1, 1, 0)/√2 for the two quarter turns), which is neither order's result. Near doing nothing
-  arrows and orientations match one to one; far away they fold (a half turn has two arrows).
+  arrows and orientations match one to one; far away they fold (a half turn has two arrows). [G-B.both_at_once.angle, G-B.both_at_once.axis]
 - **05_6.** The formula is the space form of Rodrigues' rotation formula; the paper (1840)
   works out how turns combine and says that their order matters. "Named after" is all that is
-  claimed for where the formula sits in it.
+  claimed for where the formula sits in it. [G-L.rodrigues.year]
 - **05_7.** A Lie group is a smooth manifold whose multiplication and inverse are smooth. Its Lie
   algebra is the tangent space at the identity with a bracket (15_4).
 - **06.** The platform's velocity is the platform's own (forward and sideways read in its frame),
@@ -154,12 +154,12 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   for a pure pull of the gripper at 0.1 m/s with the gripper's orientation held; they are the
   same however the other joints share the motion. The
   limit, 75 °/s, is KUKA's published speed for axis 4 at rated payload (14 kg), a data-sheet
-  figure and not a law. The crossing is at a bend of 21.5°.
+  figure and not a law. The crossing is at a bend of 21.5°. [G-J.blowup.30, G-J.blowup.10, G-J.blowup.pull, G-J.blowup.limit, G-J.blowup.bend_at_limit, G-L.kuka.payload_kg]
 - **11_6.** In the L shape rank J = 6 with joints 5 and 7 collinear; without any one of joints 1
   to 3 it is 5, without joint 7 (or 5) still 6. Not in every pose with a straight wrist: at
   (0, 90°, 0, 90°, 90°, 0, 0) the rank is 5. This wrist's axes go z, y, z, so its bad spot is the
   middle joint at zero; the rings' z, y, x had theirs at a quarter turn.
-  [G-J.rank.ell, G-J.rank.ell.without_3, G-J.rank.ell.without_7, G-D.rank.ell.without_1, G-D.rank.ell.without_2, G-D.rank.ell.without_5, G-J.rank.ell_wrist_turned]
+  [G-J.rank.ell, G-J.rank.ell.without_3, G-J.rank.ell.without_7, G-D.rank.ell.without_1, G-D.rank.ell.without_2, G-D.rank.ell.without_5, G-J.rank.ell_wrist_turned, G-K.ell.q]
 - **12_3.** The usual kinematic model: a ball joint at the shoulder (3 hinges), a hinge at the
   elbow, three at the wrist. The palm on the desk is Lynch and Park's Exercise 2.2; their
   Exercise 2.3 notes the forearm is really a closed chain.
@@ -176,7 +176,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   `log(T_goal · inverse(T(q)))` and `J(q)`) the iterates are the same; with one of each the loop
   does not converge. In the space form the slide part of the error is the room origin's remaining
   distance, not the tip's, so "0.1 mm" means the tip's distance only in the body form. Near a
-  half turn the logarithm needs its own branch.
+  half turn the logarithm needs its own branch. [G-I.ik.tolerances]
 - **13_6.** Newton's method: from a guess, measure the miss, correct by it, repeat. "From here, three": from q = (0, 30°, 0, −60°, 0, 90°, 0) to the goal (0.400, 0.300,
   0.250) m with R = [0 −1 0; −1 0 0; 0 0 −1]. From other starts the count differs and the method
   can fail. For a chosen swing of the elbow this
@@ -188,7 +188,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   angle a is 1 − 2s(1 − s)(1 − cos a); at s = ½ it is cos²(a/2). For a quarter turn it is 0.5. The
   blend is the "lerp" of matrices; renormalising it ("nlerp") repairs the shape and not the
   timing: a quarter of the way it has turned 18.4°, not 22.5°; the screw path's turn is the
-  "slerp" one.
+  "slerp" one. [G-I.blend.det, G-I.blend.quarter_turned, G-I.screw.quarter_turned]
 - **14_4, 14_5.** "Steady" means one constant twist. A path that keeps the tip on a straight line
   and the turn on its own screw (the decoupled path, Lynch and Park eqs. 9.7 and 9.8) is common
   in practice. At exactly a half turn the twist that joins two poses is not unique.
@@ -197,7 +197,8 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   The exponential step does not. A unit quaternion renormalised each step also stays rigid. A
   humanoid is one robot here, the Unitree G1: 29 revolute joints, so 6 + 29 = 35 numbers of
   velocity and 3 + 4 + 29 = 36 of stored state (a position, a quaternion, the joints).
-  [G-C.drift.add, G-D.drift.width_percent, G-C.drift.steps, G-C.drift.dt, G-C.g1.joints, G-C.g1.velocity, G-C.g1.stored]
+  [G-C.drift.add, G-D.drift.width_percent, G-C.drift.steps, G-C.drift.dt, G-C.g1.joints, G-C.g1.velocity, G-C.g1.stored,
+  G-S.numbers.twist, G-S.numbers.quaternion, G-R.numbers.arrow]
 - **15_3, 15_4.** With T the tilt-then-roll turn and U the roll-then-tilt turn, both about lines
   fixed in the room (tilt about x, roll about y), the leftover is T U⁻¹. For turns of angles a
   and b it is a turn by ab + O(3) radians about an axis that tends to ŷ × x̂ = −ẑ: 0.0175° at 1°
@@ -212,7 +213,7 @@ origin. Joint origins along z (m): 0.1575, 0.2025, 0.2045, 0.2155, 0.1845, 0.215
 Axes with the arm at zero, and their heights (m): 1 (0, 0, 1) at 0.1575; 2 (0, 1, 0) at 0.360;
 3 (0, 0, 1) at 0.5645; 4 (0, −1, 0) at 0.780; 5 (0, 0, 1) at 0.9645; 6 (0, 1, 0) at 1.180;
 7 (0, 0, 1) at 1.261; the flange at 1.306 m. Limits ±170°, ±120°, ±170°, ±120°, ±170°, ±120°,
-±175°; speeds with rated payload 85, 85, 100, 75, 130, 135, 135 °/s.
+±175°; speeds with rated payload 85, 85, 100, 75, 130, 135, 135 °/s. [G-A.offsets, G-A.axis_height.*, G-A.height, G-A.limits_deg, G-A.speed_deg_s]
 
 | Pose | Joint angles (degrees) | Tip (m) | Rank |
 |---|---|---|---|
@@ -223,13 +224,14 @@ Axes with the arm at zero, and their heights (m): 1 (0, 0, 1) at 0.1575; 2 (0, 1
 | the quiz pose (11_2) | 0, 60, 0, 0, 0, 60, 0 | (0.819, 0, 0.707) | 5 |
 | the L shape, joint 5 turned | 0, 90, 0, 90, 90, 0, 0 | | 5 |
 | the Newton start (13_5) | 0, 30, 0, −60, 0, 90, 0 | (0.610, 0, 0.598) | |
+| facts | [G-A.height, G-K.ell.q, G-K.ell.p, G-K.ell.after_elbow, G-K.quarter.p, G-J.elbow_straight.p, G-J.rank.*, G-I.start.q, G-I.start.p] | | |
 
 In the L shape the levers (distance from the tip to each axis) are 0.420, 0.673, 0.526, 0.526,
 0, 0.126, 0 m, and joint 2's column is (0, 1, 0, −0.36, 0, 0), spin first. The Newton run's tip
 distances are 504.99, 93.93, 4.15, 0.03 mm and its orientation errors 90°, 8.64°, 0.724°, 0.0076°;
 it ends at q = (24.89°, 38.57°, 15.58°, −104.86°, −15.56°, 38.65°, −40.55°), inside the limits.
 The screw between the start and the goal turns 90° about the vertical through (0.355, 0.045) and
-slides −0.348 m; the tip's straight line and the screw's path part by 0.0758 m at most.
+slides −0.348 m; the tip's straight line and the screw's path part by 0.0758 m at most. [G-J.ell.lever.*, G-J.ell.col2, G-I.ik.dist_mm, G-I.ik.angle_deg, G-I.ik.q_deg, G-I.screw.angle, G-I.screw.point, G-I.screw.slide, G-I.bow]
 
 ## Code
 
@@ -237,6 +239,7 @@ Every number was computed by code and checked by a second program: `oracle.py` (
 the model that drew the scenes) and the video's own model. The loop of 13_4 is the whole method:
 
 ```
+# facts: G-I.ik.tolerances
 error = log(inverse(T(q)) * T_goal)       # a twist, read in the gripper's frame
 q     = q + pinv(J_body(q)) * error       # the smallest joint step that makes it
 repeat until error < 0.001 rad and 0.1 mm
@@ -298,4 +301,4 @@ how KUKA pronounces "iiwa"; the rate at which KUKA's controller runs; the curren
 specification behind the login (the data sheet figures above are from the 2022 sheet and the
 2015 specification, which agree). The 29 joints and the 35 and 36 are counts of the file and
 arithmetic. The remarks on what library or engine authors do (conventions, quaternions) are not
-claims about a particular library.
+claims about a particular library. [G-C.g1.joints, G-C.g1.velocity, G-C.g1.stored, G-L.chasles.year, G-L.mozzi.year, G-L.rodrigues.year]

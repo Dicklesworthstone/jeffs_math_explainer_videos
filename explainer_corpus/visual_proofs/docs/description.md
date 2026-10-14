@@ -62,7 +62,7 @@ positive lengths), as the card in the video says.
   slab is cut in two (halves at the ends of the two arms). Arms for the
   seventh and eighth cubes: 7 by 21 (3 slabs) and 8 by 28 (3½ slabs)
   [F-K.arm.7, F-K.arm.8]. After five cubes the square is 15 by 15 = 225; the
-  sixth cube takes it to 21 by 21 = 441 [F-K.side, F-K.sixth.total]. Cut into
+  sixth cube takes it to 21 by 21 = 441 [F-K.side, F-K.sixth.total, F-K.unit_squares]. Cut into
   one-tile layers, cube k is the k consecutive odd numbers from k(k − 1) + 1,
   so the five cubes are the first fifteen odd numbers [F-K.odd_runs].
 - **Who did what.** Nicomachus (about the year 100) noticed that each cube
@@ -72,7 +72,7 @@ positive lengths), as the card in the video says.
   [S3]. The picture with a slab cut in half for each even cube is Alan Fry's,
   *Mathematics Magazine* 58(1), January 1985, p. 11 [S5]; the printed page was
   not seen, and earlier L-shaped pictures exist (Golomb, 1965; Love, 1977)
-  [S6].
+  [S6]. [F-X.nicomachus, F-X.aryabhata, F-X.al_karaji, F-X.fry] [F-K.odd_runs]
 - **Siu's three stacks.** Man-Keung Siu, *Mathematics Magazine* 57(2), March
   1984, p. 92 [S8]: three stacks of n levels fit a box n by n + 1 by n + ½
   once the cubes that stick out on top are sliced flat and their upper halves
@@ -91,7 +91,7 @@ positive lengths), as the card in the video says.
   widest in every direction, so the only box that can hold one and has 30, 60
   or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
   for boxes on the cube lattice (whole width and depth, height in halves), not
-  a search over every packing.
+  a search over every packing. [F-X.siu, F-S.stack, F-S.sums]
 - **Halves.** After n pieces the filled part is 1 − 1/2ⁿ and the gap is
   exactly the last piece, 1/2ⁿ; the gap is never zero, and it is below every
   size you name from some n on. "Equals one" here means that no partial sum
@@ -99,7 +99,7 @@ positive lengths), as the card in the video says.
   positive, that is the whole definition [F-H.filled, F-H.gap,
   F-H.checked.through]. Warren Page published a picture of this sum in
   *Mathematics Magazine* 54(4), September 1981, p. 201 [S9]; no source was
-  found that dates the picture earlier, so no one is named in the video.
+  found that dates the picture earlier, so no one is named in the video. [F-X.page]
 - **Quarters.** After n cuts each colour holds (1 − 1/4ⁿ) ÷ 3 of the square,
   short of one third by a third of the uncut corner (1/4ⁿ ÷ 3), so each
   colour plus its share of the corner is exactly one third at every n, and
@@ -108,14 +108,14 @@ positive lengths), as the card in the video says.
   *Mathematics Magazine* 67(3), June 1994, p. 230; attribution partly
   verified) [S10]. Archimedes, *Quadrature of the Parabola*, Proposition 23,
   is a finite identity with a remainder, A + B + … + Z + ⅓Z = (4/3)A; he does
-  not sum an infinite series [S11].
+  not sum an infinite series [S11]. [F-X.ajose_nelsen] [F-R.limit, F-R.shares]
 - **The cut square, cube and fourth power.** Cut every side of a cube of
   side a + b once, at a: the 2ᵈ blocks have j short sides in C(d, j) cases
   and their volumes add to (a + b)ᵈ; Euclid's *Elements* II.4 is the square,
   in words [S12]. With a = 3 and b = 2 the cube's blocks are 27, 18, 12 and 8
   in 1, 3, 3 and 1 cases, and the fourth power's sixteen blocks have volumes
-  81, 54, 36, 24 and 16 in 1, 4, 6, 4 and 1 cases, adding to 81 + 216 + 216
-  + 96 + 16 = 625 = 5⁴ [F-B.cube.each, F-B.cube.kinds, F-B.fourth.each,
+  81, 54, 36, 24 and 16 in 1, 4, 6, 4 and 1 cases, adding to 81 + 216 + 216 +
+  96 + 16 = 625 = 5⁴ [F-X.euclid, F-B.cube.each, F-B.cube.kinds, F-B.fourth.kinds, F-B.fourth.each,
   F-B.fourth.by_kind, F-B.fourth.total]. A block with four lengths at right
   angles cannot be built in three-dimensional space, so the fourth power is
   counted, not drawn: each count is the sum of two neighbours in the row
@@ -137,7 +137,7 @@ positive lengths), as the card in the video says.
   *Zhoubi suanjing*, whose figure is a different one, and Loomis credits the
   two-arrangement figure to A. D. Wheeler (1859), the earliest printing found
   and not a claimed first [S13]. It is not "Pythagoras's own proof" and not "a
-  Chinese proof from 200 BC".
+  Chinese proof from 200 BC". [F-P.legs, F-P.other.legs, F-X.wheeler]
 - **The picture that lies.** Four pieces of 12, 5, 8 and 7 tiles add to 32,
   the triangle they seem to fill is 13 by 5 and would hold 32½ [F-L.pieces,
   F-L.pieces.total, F-L.true_triangle]. The two slopes are 3/8 and 2/5 and
@@ -163,7 +163,8 @@ positive lengths), as the card in the video says.
   meeting at one point inside, the lines cut the disc into 1 + C(n, 2) +
   C(n, 4) regions: 1, 2, 4, 8, 16, 31, 57, 99 for n = 1 to 8, the first seven
   drawn in the video and the eighth drawn the same way in the oracle
-  [F-C.closed_form, F-D.circle.general_position]. Evenly spaced points need not be in that
+  [F-C.closed_form, F-D.circle.general_position].
+- **Evenly spaced points** need not be in that
   position: six give only 30, because the three long lines meet in the middle
   [F-C.evenly_spaced.regions], and eight give 88, not 99, because several lines
   meet inside (counted exactly in the oracle, in Q(√2)
@@ -197,6 +198,7 @@ positive lengths), as the card in the video says.
 ## Try it
 
 ```python
+# facts: F-C.closed_form, F-H.float.reaches_one, F-S.grows.through
 from math import comb
 [1 + comb(n, 2) + comb(n, 4) for n in range(1, 9)]   # 1, 2, 4, 8, 16, 31, 57, 99  [F-D.circle.general_position]
 
@@ -225,7 +227,7 @@ the formula in letters or cut a cube; that the two arrangements are
 Pythagoras's own proof or a Chinese proof from 200 BC; that Curry invented the
 13 by 5 triangle, published it in 1953, or was a mathematician; that Gauss
 added 1 to 100; that Page invented the halved square; that Moser proved or
-named the circle problem.
+named the circle problem. [F-L.frame, F-X.curry]
 
 ## Receipts
 
@@ -238,4 +240,4 @@ looked at), and the edge test behind every "always" are in
 Names to search: proofs without words; Roger B. Nelsen, *Proofs Without
 Words* (MAA, 1993) and *Proofs Without Words II* (MAA, 2000); Mathematics
 Magazine; Man-Keung Siu; gnomon; the missing square puzzle; Moser's circle
-problem.
+problem. [F-X.nelsen]

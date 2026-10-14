@@ -1,3 +1,4 @@
+#! legacy: not yet tagged. A number only has to equal some fact of the oracle; delete this line when the units that state numbers name their keys (tools/description_numbers.py)
 # Video E: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py fair_coin).
 # number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
 1960	1960s pennies	year	the classroom records of fact sheet S13 ("Using 1960's pennies, my students have 1878/5520"); E-C3.pennies holds the counts

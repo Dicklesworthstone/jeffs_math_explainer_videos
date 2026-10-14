@@ -24,7 +24,7 @@ time.
 
 The *Scorpion* was lost on 22 May 1968 with all 99 men aboard. The Navy
 searched from 27 May to 5 June as if they might still be saved; they could
-not be. Nothing in the video says otherwise.
+not be. Nothing in the video says otherwise. [F-S.sank, F-S.crew, F-S.due, F-S.presumed_lost]
 
 ## Chapters
 
@@ -66,7 +66,7 @@ in symbols, with its edges.
   cell j. One denominator: 1 − pᵢdᵢ is the chance that this search comes
   back empty. This is Bayes' rule, in the form Richardson and Stone printed
   in 1971 (L′ⱼ = Lⱼ(1 − Eⱼ) ÷ (1 − SEP)). It is the dot-counting of chapter
-  06: 100 dots, 20 go out, 80 are left, B has 10 of them [F-M.empty1.*].
+  06: 100 dots, 20 go out, 80 are left, B has 10 of them [F-M.empty1.*, F-N.paper, F-M.dots].
 - **Where it holds.** "Every cell we did not search rises by the same
   factor 1 ÷ (1 − pᵢdᵢ)" is true for every unsearched cell that has some
   chance, after a search of a cell that had some chance (pᵢ > 0) and that
@@ -91,7 +91,7 @@ in symbols, with its edges.
   practice: its shadow hides the same spot from every pass from the same
   side, so repeated passes from one side are not fresh tries. Change the
   angle or the sensor, not only the count (chapter 13's sonar is the same
-  failure in its extreme form).
+  failure in its extreme form). [F-N.chew]
 - **The proof in slices (08_2, 08_3).** The k-th search of cell i puts out
   pᵢdᵢ(1 − dᵢ)ᵏ⁻¹ of the *original* chance, whatever was searched in
   between, and these slices shrink as k grows. The chance of a find within n
@@ -147,7 +147,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   "a search multiplies each dot's weight by its chance of being missed" are
   the same update: 20 of B's 30 dots dark and 10 lit, or all 30 dimmed to a
   third, give the same map. The Coast Guard's planner does the second (a
-  particle's weight is multiplied by the chance it was missed) [F-C.sarops].
+  particle's weight is multiplied by the chance it was missed) [F-C.sarops, F-M.prior.dots, F-M.empty1.dots_out].
   Deleting each swept dot with probability dᵢ is also a valid way to
   sample the new map, but a wasteful one: it throws away sample size at
   every search, where weights keep every dot.
@@ -163,7 +163,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   passed, not where it has drifted to since.
 - **The 1968 map as a simulation.** Pick a scenario by its weight, draw its
   uncertain quantities (course, speed, position), run it, and add one to the
-  cell where the run ends; do that 10,000 times [F-R.replications]. A cell
+  cell where the run ends; do that 10,000 times [F-R.replications, F-S.sank, F-R.F6]. A cell
   with no dot is not impossible, only rarer than about one run in ten
   thousand, and the number of runs sets the map's resolution: F6's 85 dots
   are 85 give or take about 9 [F-R.F6, F-T.f6.dots.give_or_take]. A cell with
@@ -173,7 +173,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   a drift of 1.5 miles an hour [F-D.drift], and a drift error of 0.3 of the
   distance drifted (the
   figure the Coast Guard's review of search theory, Frost and Stone 2001,
-  gives for drift error) [F-D.error_share]. Each dot keeps *one*
+  gives for drift error) [F-D.error_share, F-D.drift]. Each dot keeps *one*
   wind-and-current error for the whole drift, so the spread grows in
   proportion to time. Two things the video does not settle, and says
   "model" about. First, an error drawn afresh every hour would make the
@@ -195,7 +195,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   formula below. A flight fitted to the cloud does better: at three hours the
   same 180 miles on a 3-mile square sees 86% of the dots inside it and finds
   the person 73 times in 100; at six hours, a 5-mile square, 44 [F-D.flight.*].
-  The video makes no claim about the best plan for a moving target.
+  The video makes no claim about the best plan for a moving target. [F-D.h1.seeing, F-D.h3.seeing, F-D.h6.seeing, F-D.h12.seeing]
 
 ## Search effectiveness, exactly
 
@@ -204,18 +204,18 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   width of the strip, L the length of the track and A the area, when each
   piece of track is laid down *without regard to what is already swept*. At
   WL = A that is 63.2%, at twice that 86.5%, at three times 95.0%
-  [F-K.formula.*]. Koopman calls it "a proper estimate, on the conservative
+  [F-K.formula.*, F-K.perfect.1, F-N.koopman]. Koopman calls it "a proper estimate, on the conservative
   side, of the practical results achieved": a deliberately laid parallel
   pattern does better than random strips for the same track, though a real
   sensor, which misses some of what lies inside its own strip, still does
   not reach 100% at a coverage of one. So the video's "two in three" is a
   cautious floor for a flat cell, an illustration, and not a measurement of
   any real sensor. (Chapter 13's gap between 94 and 65 percent comes from
-  the widths, which the paper then scores with this same formula.)
+  the widths, which the paper then scores with this same formula.) [F-S.F6.searched.at_sea, F-S.F6.searched.after]
 - **Sweep width is an effective width.** It is the area under the lateral
   range curve, not a hard edge: a searcher sees some of what is outside it
   and misses some of what is inside. The Coast Guard's 0.1 nautical mile (185
-  m) for a person in the water from a helicopter at 300 feet [F-D.strip] is
+  m) for a person in the water from a helicopter at 300 feet [F-D.strip, F-D.strip.metres, F-D.strip.altitude.feet] is
   a value from its Table H-15, which is given for a particular object,
   height and visibility; other conditions give other widths.
 - **The hundred strips (09_3)** are a simulation: 100 strips, each 1% of the
@@ -254,7 +254,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   [F-R.F6], would be reached at the thirtieth search
   [F-R.model.F6.first_search] (a thinner cell would wait
   far longer: the rule goes to the likeliest cell each time). The first map
-  "does not have to be right", but a wrong one costs time.
+  "does not have to be right", but a wrong one costs time. [F-R.grid.cells, F-R.replications, F-R.F6, F-R.model.sweep.found_by.20, F-R.model.once.found_by.20, F-R.model.best.found_by.20]
 
 ## Four searches, and what is and is not known
 
@@ -266,7 +266,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   found it on 15 March in the vicinity of where he had seen it descend. The
   probability work kept the books on how well each area had been searched;
   it did not find the bomb. The 1971 paper says Craven "had earlier
-  originated this approach in the H-bomb search".
+  originated this approach in the H-bomb search". [F-N.paper]
 - **Scorpion, 1968** [S1; F-S.*]. Lost on 22 May, 400 miles southwest of the
   Azores in more than 10,000 feet of water (the Navy's own wording, DANFS
   and report NT-24-1; the 1971 paper says "as much as 2 miles" below the
@@ -280,7 +280,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   of metal and the fact that this was a region with high a priori
   probability": the metal had been photographed between 27 June and 23 July,
   before any map existed. The video never says that Bayes' rule found the
-  *Scorpion*.
+  *Scorpion*. [F-N.paper, F-R.F6, F-R.F6.percent, F-R.printed_cells, F-R.E5, F-R.top_two.percent]
 - **How the weights were set.** The paper says Craven and Andrews "assigned
   credences" that reflected, "at least indirectly", the views of operating
   personnel and specialists. It does not list the scenarios or print the
@@ -290,7 +290,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
 - **The reference essay** (tomrocksmaths.com, 2023) is a map of the topic,
   not a source: of its six checkable claims about the search one is false
   (that the search started with rectangle F6), three are imprecise or
-  contradicted by the 1971 paper, and two stand.
+  contradicted by the 1971 paper, and two stand. [F-N.paper]
 - **Air France 447, 2009 to 2011** [S3, S4, S5]. Flight AF 447 from Rio to
   Paris went down on 1 June 2009 with 228 aboard [F-A.lost, F-A.aboard]. The
   wreck was found on 2 April 2011, about 6.5 nautical miles (12 km) from the
@@ -311,7 +311,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   failed is the authors' inference. They write that the better way to treat
   the doubt "would have been to compute a joint distribution on beacon
   failure and wreck location", which is chapter 03's move (a weight on a
-  story).
+  story). [F-A.lost, F-A.found, F-A.aboard, F-A.found.nm, F-A.found.km, F-A.depth.metres, F-A.months, F-A.weights]
 - **The Coast Guard and John Aldridge, 2013** [S6, S10]. CASP (Computer
   Assisted Search Planning) entered service in 1974 and used a Bayesian
   approach; SAROPS has been operational since January 2007. Of the
@@ -325,7 +325,7 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   after the software froze, and he had tied two lobster buoys together and
   was sitting on the rope between them when he was found, so he was not a
   free drifter and his twelve hours are not chapter 10's 13 in a hundred.
-  The video does not say the software found him.
+  The video does not say the software found him. [F-C.aldridge.in_water, F-D.h12.seeing, F-C.casp, F-C.sarops, F-C.aldridge.date, F-C.aldridge.guess.middle]
 
 ## Chapter 13, in the paper's own numbers
 
@@ -351,7 +351,7 @@ conditional on that estimate. At the 800 feet believed, one pass over the
 whole lettered grid was 1,148 sea miles, and the sled had towed 1,026
 [F-H.once.miles.believed, F-H.track.miles]. The order of the evidence does
 not matter: the early passes were scored against a map that arrived late,
-and the product of the factors is the same in any order.
+and the product of the factors is the same in any order. [F-S.F6.searched.at_sea, F-S.F6.searched.after, F-S.F6.left.at_sea.percent, F-S.F6.left.after.percent, F-S.F6.left.ratio, F-S.F6.coverage.at_sea, F-S.F6.coverage.after, F-S.sweep.at_sea, F-S.sweep.after, F-S.F6.chance.at_sea, F-S.F6.chance.after, F-R.F6.percent, F-N.paper, F-H.once.miles.believed, F-H.track.miles]
 
 ## What the video simplifies
 
@@ -360,7 +360,7 @@ and the product of the factors is the same in any order.
 | "the chance it is there, times the chance of seeing it" (05_6) | pᵢdᵢ, with dᵢ conditional on the thing being in cell i; the Coast Guard's names are POS = POC × POD |
 | "take a patch of sea about twelve miles on a side" (02_5) | the lettered grid of the Navy's later map, 12 × 12.6 sea miles (1,100 of the map's 10,000 dots fall outside it); the video does not say the Navy's search had been narrowed to it, because the sources disagree on the size of the area the acoustic work left |
 | "a search sees a wreck two times in three" (05_2) | an illustration; the video derives the idea of an effective chance from Koopman's formula, and a real dᵢ depends on sensor, conditions and the object |
-| "if the wreck were at any of those twenty, we would have it" (06_3) | the dots are equally likely ways things could be, each including whether this search would see it (a dot is a place together with this search's luck, drawn afresh for each search); no *place* in B is one where a wreck is certainly seen, a wreck at any place in B is seen two times in three; 20 of B's 30 dots are the ways in which it would have been |
+| "if the wreck were at any of those twenty, we would have it" (06_3) | the dots are equally likely ways things could be, each including whether this search would see it (a dot is a place together with this search's luck, drawn afresh for each search); no *place* in B is one where a wreck is certainly seen, a wreck at any place in B is seen two times in three; 20 of B's 30 dots are the ways in which it would have been [F-M.prior.dots, F-M.empty1.dots_out, F-R.grid.miles, F-R.outside.points, F-R.total, F-C.casp, F-C.sarops] |
 | "the first map does not have to be right" (14_4) | for a thing that stays put, if every place that might hold it has some chance and every search can see (dᵢ > 0), the rule comes back to every such cell and finds it with chance 1; the first map sets only how long that takes. A place given no dots is never searched (the update never adds) |
 | "by the map's own reckoning" (08_5) | the chance of a find within n searches, averaged over the prior map; not a statement about where the wreck was |
 | "a strip a tenth of a mile wide" (10_3) | a sweep width: an effective width |
@@ -382,7 +382,7 @@ sweep width is a coverage of 1), *creeping line* (parallel lanes worked from
 one edge; the "row by row" plan of chapter 08 is one), and *leeway* (the
 push of the wind on what floats). "Coverage" is the ratio of track × sweep
 width to area; the 09 readout shows the share swept, which is 63% at a
-coverage of 1 for random strips.
+coverage of 1 for random strips. [F-K.formula.1]
 
 ## What the video does not say
 
@@ -429,7 +429,7 @@ was not seen, in `docs/fact-sheet.md`.
 ## Names to search
 
 Bayesian search theory; Koopman, *Search and Screening*; Richardson and
-Stone 1971; Stone, *Theory of Optimal Search*; SAROPS.
+Stone 1971; Stone, *Theory of Optimal Search*; SAROPS. [F-N.paper]
 
 Narrated by synthetic speech. Every number in this video is in the code, and
 each was checked a second way: the repository link is on the receipts card

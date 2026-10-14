@@ -12,8 +12,10 @@ empty list, 2 on usage.
 
 Once a video has its documented allow-list (docs/description_numbers.tsv), the
 published description is checked too: every number in docs/description.md must
-be one of these facts or an allow-listed row (tools/description_numbers.py,
-doctrine 2; Video J's description once said 81.9 g for the facts' 90.9).
+be a number of the fact its bullet names ([key]) or an allow-listed row, and
+the digits of a formula are the only numbers it does not check
+(tools/description_numbers.py, doctrine 2; Video J's description once said
+81.9 g for the facts' 90.9).
 
 Where `rch` is installed the build runs on a worker (nothing compiles on the
 owner's Mac): HEAD plus the changed and new tracked-or-unignored files as
@@ -92,8 +94,10 @@ def description_problems(crate, facts_text):
     numbers = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(numbers)
     _, problems, c = numbers.check(description.read_text(), facts_text, numbers.read_allow(allow))
-    summary = (f"description-numbers {crate.name}: {c['numbers']} numbers, {c['fact']} facts, "
-               f"{c['allowed']} allow-listed, {c['unmatched']} unmatched: {'PASS' if not problems else f'{len(problems)} FAIL'}")
+    summary = (f"description-numbers {crate.name}:{' LEGACY (not tag-bound)' if c['legacy'] else ''} {c['numbers']} numbers, {c['fact']} facts, "
+               f"{c['formula']} formula digits, {c['allowed']} allow-listed, {c['unmatched']} unmatched: "
+               f"{'PASS' if not problems else f'{len(problems)} FAIL'}"
+               f"{' (LEGACY: a number only has to equal some fact of the oracle; a passing legacy video is not a tag-bound one)' if c['legacy'] else ''}")
     return summary, [f"description: {p}" for p in problems]
 
 

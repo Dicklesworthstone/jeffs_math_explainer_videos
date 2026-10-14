@@ -71,14 +71,14 @@ F-S.bound]. Once `k > ‖A‖`, the bound's ratio `‖A‖ / k` is strictly belo
 `1`, so the series converges absolutely for every square matrix `A` [F-X.series_settles].
 Before `k` passes `‖A‖`, the terms can swell: for `5J`, term `k = 5` has size
 `5^5 / 5! = 3125/120 ≈ 26.04` before the factorial wins and the partial sums
-settle on the unit circle [F-S.terms, F-S.peak].
+settle on the unit circle [F-S.terms, F-S.peak]. [F-N.factorials]
 
 **Two tanks and coupled systems (chapter 10).** With a flow transfer rate of
 `0.1` per minute each way between two tanks, the amounts `x(t)` follow
 `dx/dt = A x` with `A = [−0.1, 0.1; 0.1, −0.1]` [F-T.rule]. Starting from `(100, 0)`
 grams, `x(t) = e^{tA} (100, 0) = (50 + 50 e^{−0.2t}, 50 − 50 e^{−0.2t})`:
 `90.9` and `9.1` grams at `t = 1`, `56.8` and `43.2` grams at `t = 10`, settling
-toward `(50, 50)` [F-T.at.t1, F-T.at.t10, F-T.settles].
+toward `(50, 50)` [F-T.at.t1, F-T.at.t10, F-T.settles]. [F-T.start, F-T.eigenvalues]
 
 **Walks on a network (chapter 11).** For an adjacency matrix `A` with `0` and
 `1` entries, the `(i, j)` entry of `A^k` counts walks of length `k` from node `j`
@@ -91,7 +91,7 @@ For a graph with Laplacian `L = D − A`, heat flow `du/dt = −L u` has solutio
 `u(t) = e^{−tL} u(0)`, conserving total heat and settling to the uniform
 average on any connected graph [F-D.L, F-D.heat.settles]. For a random hopper,
 two models have different long-run behaviour on a graph whose nodes have
-different degrees (such as the video's 4-node kite, degrees 2, 2, 3, 1):
+different degrees (such as the video's 4-node kite, degrees 2, 2, 3, 1): [F-G.nodes, F-G.degrees]
 - Under the symmetric continuous-time Laplacian rate matrix `−L` (jumping
   across each link at unit rate), the stationary distribution is uniform: `1/4`
   on every node [F-D.chance.from_hub.settles].
@@ -104,7 +104,7 @@ Putting `−i` in front of `L` turns `du/dt = −L u` into the discrete Schrödi
 equation `dψ/dt = −i L ψ`, whose solution `ψ(t) = e^{−itL} ψ(0)` is unitary
 (`‖ψ(t)‖ = ‖ψ(0)‖` for all `t`) and oscillates without settling: on a 2-node
 link, the probabilities at the two nodes are `cos² t` and `sin² t`
-[F-D.pair.quantum.t1, F-X.quantum_total_one].
+[F-D.pair.quantum.t1, F-X.quantum_total_one]. [F-G.degrees]
 
 **When does `e^{A+B} = e^A e^B` hold? (chapter 14).** If `AB = BA`, then the
 binomial expansion holds for `(A + B)^k` and `e^{A+B} = e^A e^B`
@@ -168,7 +168,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   62`, `[−0.788594, 1.314455; −0.126288, −0.839240]`, one entry with the wrong
   sign) and cites the IBM 370 numbers here. Even in IEEE 64-bit (`f64`), summing the
   raw series for `2A` loses almost all accuracy (`0` of `4` entries right to two
-  significant digits) [F-C.mvl.f64.doubled.entries_right_to_two_digits].
+  significant digits) [F-C.mvl.f64.doubled.entries_right_to_two_digits]. [F-B.mvl.year, F-B.mvl.revisit_year, F-B.mvl.ibm.terms, F-C.mvl.f32.series, F-C.mvl.f32.terms]
 - **Scaling and squaring with a Padé approximant.** Halving `A` eight times
   (`A / 256`, size `0.35 < 1`) keeps the series terms tiny; summing 8 terms
   and squaring 8 times (`e^A = (e^{A/2^s})^{2^s}`) recovers `[−0.735775,
@@ -181,14 +181,14 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   13}` chosen from the matrix norm and `‖A^{2k}‖^{1/(2k)}` bounds; Higham 2005,
   Al-Mohy and Higham 2009): at `x = 1`, `[3/3]` Padé (`193/71 ≈ 2.718310`) is
   `8.1` times closer to `e` than the degree-6 Taylor polynomial (`1957/720 ≈
-  2.718056`) for the same highest power [F-C.pade.*].
+  2.718056`) for the same highest power [F-C.pade.*]. [F-B.pade.degrees, F-B.higham.year, F-B.al_mohy_higham.year, F-N.series.k6, F-N.factorials]
 - **Do not compute `e^{tA} v` by forming `e^{tA}` when `A` is large and sparse.**
   On the 400-node grid (`20 × 20`), `L` is sparse (`1,920` nonzeros) while
   `e^{−tL}` is completely dense (`160,000` positive entries). For a single
   vector `e^{tA} v`, use Krylov subspace methods or Chebyshev/Taylor action
   (`scipy.sparse.linalg.expm_multiply`, Al-Mohy and Higham 2011). When the graph
   is a Cartesian grid, `L = L_x ⊗ I + I ⊗ L_y` commutes, so `e^{−tL} = e^{−tL_x}
-  ⊗ e^{−tL_y}` and two `20 × 20` exponentials do the job of one `400 × 400`.
+  ⊗ e^{−tL_y}` and two `20 × 20` exponentials do the job of one `400 × 400`. [F-D.big.nodes]
 
 ## Sources
 

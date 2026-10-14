@@ -16,13 +16,27 @@ requires each one to be
     context is a piece of the text the number stands in. The kinds: `year`, `cited` (a number of a cited
     source or a stated threshold, with its source named), `structural` (a dimension, an index, a count
     that is the statement itself: SO(3), "2 by 2"), `derived` (the reason is `=expression` over facts,
-    evaluated here and required to give the number: `=f("F-C.mvl.size")/256`; `f(key, i)` is the i-th
-    number of a value, `n_facts()` the count of keys). A row nothing uses is an error, so the list cannot
+    evaluated here and required to give the number, rounded as the text likes: `=f("F-C.mvl.size")/256`;
+    `f(key, i)` is the i-th number of a value, `n_facts()` the count of keys). A row nothing uses is an error, so the list cannot
     go stale. A small whole number (under 100, no point) must equal a fact's number exactly; any other may
-    be a rounding of one.
+    be a rounding of one;
+  * bound to the fact it is about. The text is read in units: a list item with its continuation lines, a
+    paragraph, a heading, a table or a code block. A unit that names fact keys ([F-D.h1.coverage],
+    `F-K.lanes.*`, `[K-B1.twist_per_min, .twist_hz]` with a `.suffix` of the key before it) is about those
+    facts, and every number in it must agree with a number of THAT fact, or have a row. Matching any
+    fact of the oracle is not enough there: the oracle has hundreds of numbers, so a wrong 22.5 or 36
+    is nearly always some other key's value. In a unit that names no key a number needs a row, however
+    many facts it equals elsewhere: that proves nothing. (A line `#! legacy` in description_numbers.tsv
+    keeps the old rule for a description not tagged yet: any fact of the oracle will do, and the summary
+    says so.)
+    Not checked against facts: 0 and 1, and the digits of a formula: a whole number under 100 that is a
+    coefficient, an exponent or a term of an expression with a variable in it (`2k + 1`, `n(n + 1) / 2`,
+    `x^2`, `√2`, `SE(3)`). A term of a sum of plain numbers is no formula digit (`6 + 29 = 35`, `3-4-5`): it
+    must be bound or have a row, and the sum itself is evaluated.
 
-Not read as numbers: HTML comments, the fact keys (G-A.joints), the beat ids (01_6), "chapter 13",
-timestamps (12:34), list markers (1.), URLs and DOIs, ISO dates, and every line under a Sources or
+Not read as numbers: HTML comments, the fact keys (G-A.joints), the beat ids (01_6), "chapter 13", "joints 5 and 7",
+"axis 4", "row 5", "Table 3" and "column B"-style indices, "§6.2.2", "57(2)" (the volume and issue of a journal),
+timestamps (12:34), list markers (1.) and a bold chapter label (- **06.**), URLs and DOIs, ISO dates, and every line under a Sources or
 References heading (bibliographic volumes, pages and years belong to the source, not to the facts).
 Signs are not checked (an unsigned match is a match): a claim about a sign needs its own test.
 Spelled-out numbers are not read either. A match by truncation is no match (49.8 is not "49").
@@ -44,13 +58,16 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 getcontext().prec = 80
 
 FACT_NUM = re.compile(r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?")
-FACT_KEY = re.compile(r"\b[A-Z]-[A-Z0-9]\.[\w.*\-]*[\w*]")
+FACT_KEY = re.compile(r"\b[A-Z]-[A-Z0-9]+\.[\w.*\-]*[\w*]")
 BEAT_ID = re.compile(r"\b\d\d_\d+\b")
 CHAPTER = re.compile(r"\b[Cc]hapters?\s+\d+(?:\s*(?:[–-]|and|to)\s*\d+)?")
+INDEX_LABEL = re.compile(r"\b(?:[Jj]oints?|[Aa]x(?:is|es)|[Rr]ows?|[Cc]olumns?|[Tt]ables?|[Ff]igures?)\s+\d+(?:\s*(?:,|[–-]|and|or|to)\s*\d+)*")
+VOLUME = re.compile(r"\b\d{1,3}\(\d{1,4}\)(?=[,;:.\s)]|$)")
+SECTION = re.compile(r"§\s*\d+(?:\.\d+)*")
 TIMESTAMP = re.compile(r"\b\d{1,2}:\d{2}(?::\d{2})?\b")
 ISO_DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
 URL = re.compile(r"https?://\S+|\bdoi:\s*\S+|\bDOI\s+\S+|\barXiv:\s*\S+", re.I)
-LIST_MARK = re.compile(r"^\s*\d+[.)]\s")
+LIST_MARK = re.compile(r"^\s*(?:\d+[.)]\s|[-*+]\s+\*\*\d{1,2}\.\*\*)")  # "1. " and a bold chapter label "- **06.**"
 SOURCES = re.compile(r"^#+\s*(Sources|References|Cited|Credits|Further reading)\b", re.I)
 SUPER = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-"}
 UNITS = {"thousand": 3, "million": 6, "billion": 9, "trillion": 12}
@@ -63,12 +80,21 @@ NUMBER = re.compile(
 )
 BARE_POWER = re.compile(r"\b10(?:(?P<sup>[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)|\^\{?(?P<exp>-?\d+)\}?)")
 KINDS = {"year", "cited", "structural", "derived"}
+BULLET = re.compile(r"^\s{0,3}([-*+]|\d+[.)])\s")
+BRACKET = re.compile(r"\[([^\[\]]*)\]")
+FORMULA_OPS = "+−-×÷*/^√"
+FORMULA_SUPERSCRIPTS = "⁰¹²³⁴⁵⁶⁷⁸⁹ⁿ"
+SUM = re.compile(
+    r"(?<![\w.,])(?P<expr>\d[\d,]*(?:\.\d+)?(?:\s*[-+−×x÷*/]\s*\d[\d,]*(?:\.\d+)?)+)\s*=\s*(?P<rhs>\d[\d,]*(?:\.\d+)?)(?![\w.]|,\d)"
+)
 
 
 class Number:
     """A number as the description writes it."""
 
     def __init__(self, text, mantissa, decimals, shift, percent, line, context):
+        self.unit = 0  # the unit of text (list item, paragraph, table...) it stands in
+        self.formula = False  # a digit of a formula: next to an operator or a variable
         self.text = text  # as written, thousands separators dropped, for the allow-list
         self.mantissa = mantissa  # Decimal of the digits as written
         self.decimals = decimals  # digits after the point as written
@@ -106,9 +132,25 @@ def agrees(num, fact):
     return any(quantize_equal(f.scaleb(-num.shift), abs(num.mantissa), num.decimals) for f in pool)
 
 
+_AGREES_MEMO = {}
+
+
+def agrees_memo(num, fact):
+    """agrees(), remembered: a description repeats its numbers and the oracle has thousands."""
+    key = (num.mantissa, num.decimals, num.shift, num.percent, fact)
+    hit = _AGREES_MEMO.get(key)
+    if hit is None:
+        hit = _AGREES_MEMO[key] = agrees(num, fact)
+    return hit
+
+
 def agrees_float(num, x):
+    """Does an expression's value say this number? A derived row may round, a small whole number too."""
     try:
-        return agrees(num, Decimal(repr(abs(float(x)))))
+        x = Decimal(repr(abs(float(x))))
+        if not num.strong:
+            return quantize_equal(x, abs(num.mantissa), 0)
+        return agrees(num, x)
     except (InvalidOperation, ValueError):
         return False
 
@@ -149,21 +191,256 @@ def named_keys(text):
 
 
 def key_exists(key, values):
-    """A named key is a key of the oracle, a prefix with `.*`, or a range `a.k1..k4` of keys."""
-    if key in values:
-        return True
+    """A named key is a key of the oracle, a family of keys under it, a prefix with `.*`, or a range `a.k1..k4` of keys."""
+    if key in values or any(k.startswith(key + ".") for k in values):
+        return True  # a key, or a family of keys under it
     if key.endswith(".*"):
-        return any(k.startswith(key[:-1]) for k in values)
+        return any(k == key[:-2] or k.startswith(key[:-1]) for k in values)
     if ".." in key:
         first, _, last = key.partition("..")
         return key_exists(first, values) and key_exists(first.rsplit(".", 1)[0] + "." + last, values)
     return False
 
 
+# ------------------------------------------------------------------ units and tags
+
+def blank_comments(text):
+    """The text with its HTML comments blanked, line for line."""
+    return re.sub(r"<!--.*?-->", lambda m: re.sub(r"[^\n]", " ", m.group(0)), text, flags=re.S)
+
+
+def unit_ids(text):
+    """One unit id per line (0 for a blank line): a list item with its continuation lines, a paragraph, a
+    heading, a table (its rows and a line directly under it) or a code block is one unit."""
+    ids, uid, new, fence, table = [], 0, True, False, False
+    for line in blank_comments(text).splitlines():
+        s = line.strip()
+        if s.startswith("```"):
+            if not fence:
+                uid += 1
+            fence, new, table = not fence, True, False
+            ids.append(uid)
+            continue
+        if fence:
+            ids.append(uid)
+            continue
+        if not s:
+            ids.append(0)
+            new, table = True, False
+            continue
+        is_row = s.startswith("|")
+        if new or s.startswith("#") or BULLET.match(line) or (is_row and not table):
+            uid += 1
+        ids.append(uid)
+        table = is_row or (table and not BULLET.match(line) and not s.startswith("#"))
+        new = s.startswith("#")
+    return ids
+
+
+def unit_tags(text):
+    """(unit id per line, {unit id: [tag]}) where a tag is a fact key as written or ('FAMILY', '.suffix')
+    for the `.suffix` that follows a key inside the same brackets."""
+    ids = unit_ids(text)
+    lines_of = {}
+    for uid, line in zip(ids, blank_comments(text).splitlines()):
+        if uid:
+            lines_of.setdefault(uid, []).append(line)
+    tags = {}
+    for uid, lines in lines_of.items():
+        unit = "\n".join(lines)  # a bracket may wrap: [K-R1.error_percent,\n.error_bound_percent]
+        for m in FACT_KEY.finditer(unit):
+            tags.setdefault(uid, []).append(m.group(0))
+        for b in BRACKET.finditer(unit):
+            last = None
+            for tok in re.split(r"[\s,;]+", b.group(1)):
+                if FACT_KEY.fullmatch(tok):
+                    last = tok
+                elif last and re.fullmatch(r"\.[\w.*\-]*[\w*]", tok):
+                    tags.setdefault(uid, []).append((last.split(".", 1)[0], tok))
+    return ids, tags
+
+
+def resolve_tag(tag, values):
+    """The oracle keys a tag stands for: the key itself, its children, `prefix.*` (the key `prefix` too), a range `a.k1..k4`
+    (every key sharing the prefix), or for `.suffix` every key of the family ending so."""
+    if isinstance(tag, tuple):
+        family, suffix = tag
+        want = suffix.rstrip("*")
+        return [k for k in values if k.startswith(family + ".") and k.endswith(want)]
+    if tag in values:
+        return [tag]
+    if tag.endswith(".*"):
+        return [k for k in values if k == tag[:-2] or k.startswith(tag[:-1])]
+    if ".." in tag:
+        first, _, _ = tag.partition("..")
+        return [k for k in values if k.startswith(first.rsplit(".", 1)[0] + ".")]
+    return [k for k in values if k.startswith(tag + ".")]
+
+
+_OPERATORS = tuple("+−-×÷*/^=")
+
+
+def _is_letter(c):
+    return c.isalpha()
+
+
+def _expression_around(clean, start, end):
+    """The arithmetic expression the number at clean[start:end] belongs to, and whether it has a variable in
+    it: a one-letter name joined by an operator or a bracket (`n + 1`, `k(k - 1)`, `2n`), a superscript or a
+    root. A lone letter beside a number with only a space between (`a 3-4-5 triangle`) is a word."""
+    plain = "0123456789.,+−-×÷*/^()√…⋯ "
+    n = len(clean)
+    lo = start
+    while lo > 0:
+        c = clean[lo - 1]
+        if c in plain or c in FORMULA_SUPERSCRIPTS:
+            lo -= 1
+        elif _is_letter(c) and not (lo >= 2 and _is_letter(clean[lo - 2])) and not (lo < n and _is_letter(clean[lo])):
+            nxt = clean[lo:].lstrip()[:1]
+            if nxt and (nxt in "+−-×÷*/^=()" or nxt in FORMULA_SUPERSCRIPTS) or clean[lo:lo + 1] in "(":
+                lo -= 1
+            else:
+                break
+        else:
+            break
+    hi = end
+    while hi < n:
+        c = clean[hi]
+        if c in plain or c in FORMULA_SUPERSCRIPTS:
+            hi += 1
+        elif _is_letter(c) and not (hi + 1 < n and _is_letter(clean[hi + 1])) and not (hi > 0 and _is_letter(clean[hi - 1])):
+            prv = clean[:hi].rstrip()[-1:]
+            if prv and (prv in "+−-×÷*/^=()" or prv.isdigit()):
+                hi += 1
+            else:
+                break
+        else:
+            break
+    run = clean[lo:hi]
+    variable = any(_is_letter(ch) for ch in run) or any(ch in FORMULA_SUPERSCRIPTS or ch == "√" for ch in run)
+    return run, variable
+
+
+def is_formula(clean, start, end):
+    """A digit of a formula: a small whole number that is a coefficient, an exponent or a term of an
+    expression with a variable in it (`2k + 1`, `n(n + 1) / 2`, `x^2`, `√2`). Not one: a term of a
+    sum of plain numbers (`6 + 29 = 35`, `3-4-5`), whose operands are claims like any number (the sum
+    itself is evaluated). Also not read: the argument of a name (`SE(3)`), the number that labels a
+    vector (`2 (0, 1, 0)`), and the digits of a hyphenated name's suffix (`MTNS-83` is a name)."""
+    prev_char = clean[:start].rstrip()[-1:]
+    before = prev_char
+    if prev_char == "-" and clean[:start].rstrip()[-2:-1].isalpha():
+        before = ""
+    after = clean[end:].lstrip()[:1]
+    if clean[start - 1:start] == "(" and clean[start - 2:start - 1].isalpha() and clean[end:end + 1] == ")":
+        return True  # a name with an argument: SE(3), f(2)
+    if re.match(r"\s*\(\s*[-−]?\d+(?:\.\d+)?\s*,", clean[end:]):
+        return True  # 2 (0, 1, 0): a number that labels a vector
+    if clean[end:end + 1].isalpha():
+        return True  # 2k, 3x
+    if (after and after in FORMULA_SUPERSCRIPTS) or after == "^" or prev_char == "^":
+        return True  # an exponent or the base of one
+    if (before and before in FORMULA_OPS) or (after and after in FORMULA_OPS):
+        # an operator beside it: a formula digit only when a variable is part of the expression
+        return _expression_around(clean, start, end)[1]
+    return False
+
+
+ARITH_CHARS = set("0123456789.,+−-–×÷*/() ")
+
+
+def _sum_left(line, eq):
+    """The arithmetic expression that ends at the `=` at index `eq`: (start, text) or None."""
+    i = eq
+    while i > 0:
+        c = line[i - 1]
+        if c in ARITH_CHARS or (c == "x" and i - 2 >= 0 and not line[i - 2].isalpha() and line[i:i + 1] in (" ", "")):
+            i -= 1
+            continue
+        break
+    text = line[i:eq]
+    # take the expression whole: drop a leading operator or unmatched ")" until the parentheses balance
+    while text.strip() and (text.lstrip()[0] in "+−-–×÷*/x.," or text.lstrip()[0] == ")"):
+        k = len(text) - len(text.lstrip())
+        text = text[k + 1:]
+        i += k + 1
+    depth = 0
+    for k, c in enumerate(text):
+        depth += (c == "(") - (c == ")")
+        if depth < 0:
+            return None
+    while depth > 0:  # an unmatched "(" at the start: the expression is what follows it
+        k = text.index("(")
+        text = text[k + 1:]
+        i += k + 1
+        depth = 0
+        for c in text:
+            depth += (c == "(") - (c == ")")
+    k = len(text) - len(text.lstrip())
+    return i + k, text.strip()
+
+
+def arithmetic_problems(text):
+    """(line, message) for each complete sum in the text (`6 + 29 = 35`, `(2 + 3) x (4 + 6) - 8 - 18 = 24`)
+    that does not come out, allowing for the rounding of the numbers in it. A sum that is only part of
+    a longer expression or term (`k(k - 1) = ...`, `2 + 3 = 5 x 2`) is left alone."""
+    problems = []
+    lines = blank_comments(text).splitlines()
+    ids = unit_ids(text)
+    units = {}
+    for no, (uid, line) in enumerate(zip(ids, lines), 1):
+        units.setdefault(uid or -no, (no, []))[1].append(line.strip())
+    for no, parts in units.values():
+        line = " ".join(parts)  # a sum may wrap across the lines of its unit
+        for m in re.finditer(r"=\s*(?P<rhs>(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)", line):
+            if line[:m.start()].rstrip()[-1:] in "<>≤≥≈=!":
+                continue
+            left = _sum_left(line, m.start())
+            if left is None:
+                continue
+            start, expr = left
+            if not re.search(r"\d\s*[-+−–×x÷*/]\s*[\d(]|\)\s*[-+−–×x÷*/]|\d\s*[-+−–×x÷*/]\s*\(", expr):
+                continue
+            glued = line[start - 1:start] if start else ""  # directly against the expression: k(k - 1), 2k + 1
+            spaced = line[:start].rstrip()[-1:]  # the last thing before it: an operator makes it a part
+            after = line[m.end():].lstrip()[:1]
+            if (glued and not glued.isspace()) or (spaced and spaced in "+−-–×÷*/^(.,_") or (after and (after in "+−-–×÷*/^(%°" or after in FORMULA_SUPERSCRIPTS or after.isdigit())):
+                continue
+            py = expr.replace(",", "").replace("−", "-").replace("–", "-").replace("×", "*").replace("÷", "/")
+            py = re.sub(r"(?<=[\d)\s])x(?=[\d(\s])", "*", py)
+            if re.search(r"[\d)]\s*\(|\)\s*\d", py):
+                continue  # implicit multiplication: not read
+            try:
+                result = Evaluator({}).run(py.strip())  # numbers and + - * / ** only, as a derived row is evaluated
+                if not math.isfinite(result):
+                    continue
+                value = Decimal(repr(result))
+            except (SyntaxError, ZeroDivisionError, ValueError, TypeError, InvalidOperation, OverflowError):
+                continue
+            rhs = Decimal(m.group("rhs").replace(",", ""))
+            places = len(m.group("rhs").partition(".")[2])
+            if quantize_equal(value, rhs, places):
+                continue
+            if abs(value - rhs) > Decimal(5).scaleb(-places - 1) + _operand_slack(expr, value):
+                problems.append((no, f"{expr.strip()} = {m.group('rhs')} does not come out (the left side is {value:.6g})"))
+    return problems
+
+
+def _operand_slack(expr, value):
+    """Half a unit of the last written place of every rounded (decimal) operand, relative to it, times the value."""
+    rel = Decimal(0)
+    for t in re.findall(r"\d[\d,]*\.\d+", expr):  # a whole number is a count, exact; a decimal is rounded
+        x = Decimal(t.replace(",", ""))
+        if x != 0:
+            rel += Decimal(5).scaleb(-len(t.partition(".")[2]) - 1) / x
+    return abs(value) * rel
+
+
 def extract(text):
     """(numbers to check, exempt count by reason) from a description's text."""
     numbers, exempt = [], {}
     in_comment, in_sources = False, False
+    uids = unit_ids(text)
     for no, raw in enumerate(text.splitlines(), 1):
         line = raw
         if in_comment:
@@ -185,6 +462,9 @@ def extract(text):
             ("key", FACT_KEY),
             ("beat", BEAT_ID),
             ("chapter", CHAPTER),
+            ("index", INDEX_LABEL),
+            ("section", SECTION),
+            ("volume", VOLUME),
             ("timestamp", TIMESTAMP),
             ("date", ISO_DATE),
             ("list", LIST_MARK),
@@ -198,7 +478,9 @@ def extract(text):
             if clean[: m.start()].rstrip()[-1:] in ("×", "x") or (m.start() > 0 and clean[m.start() - 1].isalnum()):
                 continue  # the power of "3.4 × 10⁻⁵", which the number reads with its mantissa
             exp = int("".join(SUPER[c] for c in m.group("sup"))) if m.group("sup") else int(m.group("exp"))
-            found.append((m.start(), Number(f"1e{exp}", Decimal(1), 0, exp, False, no, line.strip()[:160])))
+            power = Number(f"1e{exp}", Decimal(1), 0, exp, False, no, line.strip()[:160])
+            power.unit = uids[no - 1] if no <= len(uids) else 0
+            found.append((m.start(), power))
             clean = clean[: m.start()] + " " * (m.end() - m.start()) + clean[m.end():]
         for m in NUMBER.finditer(clean):
             start, end = m.span()
@@ -219,31 +501,38 @@ def extract(text):
                 shift = int(m.group("exp"))
             if m.group("unit"):
                 shift += UNITS[m.group("unit")]
-            found.append(
-                (
-                    start,
-                    Number(
-                        whole + ("." + frac if frac else "") + (f"e{shift}" if m.group("sup") or m.group("exp") else ""),
-                        Decimal(whole + ("." + frac if frac else "")),
-                        len(frac),
-                        shift,
-                        bool(m.group("pct")),
-                        no,
-                        line.strip()[:160],
-                    ),
-                )
+            num = Number(
+                whole + ("." + frac if frac else "") + (f"e{shift}" if m.group("sup") or m.group("exp") else ""),
+                Decimal(whole + ("." + frac if frac else "")),
+                len(frac),
+                shift,
+                bool(m.group("pct")),
+                no,
+                line.strip()[:160],
             )
+            num.unit = uids[no - 1] if no <= len(uids) else 0
+            num.formula = not num.strong and (num.mantissa in (0, 1) or is_formula(clean, start, end))
+            found.append((start, num))
         numbers.extend(n for _, n in sorted(found, key=lambda t: t[0]))
     return numbers, exempt
 
 
 # ------------------------------------------------------------------ the allow-list
 
+class AllowList(list):
+    """The rows of docs/description_numbers.tsv. `legacy` is set by a line `#! legacy ...` in it: the video's
+    numbers are still matched against any fact of the oracle, not bound to the facts their text names."""
+
+    legacy = False
+
+
 def read_allow(path):
-    rows = []
+    rows = AllowList()
     if not path.is_file():
         return rows
     for no, raw in enumerate(path.read_text().splitlines(), 1):
+        if raw.startswith("#! legacy"):
+            rows.legacy = True
         if not raw.strip() or raw.startswith("#"):
             continue
         cells = raw.split("\t")
@@ -254,7 +543,8 @@ def read_allow(path):
 
 
 class Evaluator(ast.NodeVisitor):
-    """`=expression` over facts: numbers, + - * / **, f(key[, i]), n_facts(), abs, sqrt, log, log10, exp, pi."""
+    """`=expression` over facts: numbers, + - * / **, f(key[, i]), n_facts(), abs, sqrt, hypot, log, log10, exp,
+    sin, cos, asin, acos, atan, atan2, degrees, radians, floor, ceil, round, pi."""
 
     def __init__(self, facts):
         self.facts = facts
@@ -297,7 +587,9 @@ class Evaluator(ast.NodeVisitor):
             return float(FACT_NUM.findall(self.facts[key])[idx])
         if name == "n_facts":
             return float(len(self.facts))
-        fns = {"abs": abs, "sqrt": math.sqrt, "log": math.log, "log10": math.log10, "exp": math.exp}
+        fns = {"abs": abs, "sqrt": math.sqrt, "log": math.log, "log10": math.log10, "exp": math.exp, "hypot": math.hypot,
+               "degrees": math.degrees, "radians": math.radians, "sin": math.sin, "cos": math.cos, "asin": math.asin,
+               "acos": math.acos, "atan": math.atan, "atan2": math.atan2, "round": round, "floor": math.floor, "ceil": math.ceil}
         if name in fns:
             return fns[name](*[self.visit(a) for a in n.args])
         raise ValueError(f"unknown function {name}")
@@ -310,24 +602,47 @@ def check(description, oracle_text, allow_rows, verbose=False):
     numbers, exempt = extract(description)
     facts = fact_numbers(oracle_text)
     values = fact_values(oracle_text)
+    by_key = {}
+    for fv, key in facts:
+        by_key.setdefault(key, []).append(fv)
     ev = Evaluator(values)
-    counts = {"numbers": len(numbers), "fact": 0, "weak": 0, "allowed": 0, "unmatched": 0, "exempt": exempt}
+    counts = {"numbers": len(numbers), "fact": 0, "weak": 0, "bound": 0, "free": 0, "formula": 0, "allowed": 0, "unmatched": 0, "exempt": exempt}
     report, problems = [], []
     keys = named_keys(description)
     counts["keys"] = len(keys)
     for no, key in keys:
         if not key_exists(key, values):
             problems.append(f"line {no}: {key} is named but is no key of the oracle")
+    for no, message in arithmetic_problems(description):
+        problems.append(f"line {no}: {message}")
+    _, unit_tag = unit_tags(description)
+    scope = {}  # unit id -> the oracle keys its tags stand for
+    for uid, tags in unit_tag.items():
+        found = {k for t in tags for k in resolve_tag(t, values)}
+        if found:
+            scope[uid] = found
+    legacy = getattr(allow_rows, "legacy", False)
+    counts["legacy"] = legacy
     for num in numbers:
-        hits = []
-        for fv, key in facts:
-            if agrees(num, fv):
-                hits.append(key)
-        if hits:
+        elsewhere = list(dict.fromkeys(key for fv, key in facts if agrees_memo(num, fv)))
+        if legacy and elsewhere:
             counts["fact" if num.strong else "weak"] += 1
+            counts["free"] += 1
             if verbose:
-                report.append(f"  line {num.line}: {num} = {', '.join(dict.fromkeys(hits[:4]))}")
+                report.append(f"  line {num.line}: {num} = {', '.join(elsewhere[:4])}")
             continue
+        if num.formula and not legacy:
+            counts["formula"] += 1
+            continue
+        tagged = None if legacy else scope.get(num.unit)
+        if tagged:
+            bound = [k for k in sorted(tagged) if any(agrees_memo(num, fv) for fv in by_key.get(k, []))]
+            if bound:
+                counts["bound"] += 1
+                counts["fact" if num.strong else "weak"] += 1
+                if verbose:
+                    report.append(f"  line {num.line}: {num} = {', '.join(bound[:4])} (bound)")
+                continue
         row = next((r for r in allow_rows if r["number"] == str(num).replace("%", "") and r["context"] in num.context), None)
         if row is not None and row["kind"] == "derived":
             try:
@@ -343,7 +658,15 @@ def check(description, oracle_text, allow_rows, verbose=False):
             counts["allowed"] += 1
             continue
         counts["unmatched"] += 1
-        problems.append(f"line {num.line}: {num} is not a fact: {num.context}")
+        where = f"line {num.line}: {num}"
+        if tagged:
+            names = ", ".join(sorted({t if isinstance(t, str) else "".join(t) for t in unit_tag[num.unit]})[:4])
+            also = f"; it equals {', '.join(elsewhere[:3])}, which the text does not name" if elsewhere else ""
+            problems.append(f"{where} agrees with none of the facts its text names ({names}){also}: {num.context}")
+        elif elsewhere:
+            problems.append(f"{where} only equals {', '.join(elsewhere[:3])}; tag its text with the key it is about or give it a row: {num.context}")
+        else:
+            problems.append(f"{where} is not a fact: {num.context}")
     for r in allow_rows:
         if not r["used"]:
             problems.append(f"description_numbers.tsv:{r['no']}: {r['number']} ({r['context']!r}) is used by nothing")
@@ -399,9 +722,10 @@ def main(argv):
     for p in problems:
         print("MISMATCH " + p)
     exempt = ", ".join(f"{n} {r}" for r, n in sorted(c["exempt"].items())) or "none"
+    legacy = " LEGACY (not tag-bound: a number only has to equal some fact of the oracle; see docs/description_numbers.tsv)" if c["legacy"] else ""
     print(
-        f"description-numbers {slug}: {c['numbers']} numbers: {c['fact']} are facts, {c['weak']} small whole numbers equal a fact, "
-        f"{c['allowed']} allow-listed, {c['unmatched']} unmatched; not read: {exempt}: {'PASS' if not problems else f'{len(problems)} FAIL'}"
+        f"description-numbers {slug}:{' LEGACY (not tag-bound)' if c['legacy'] else ''} {c['numbers']} numbers: {c['bound']} bound to the facts their text names, {str(c['free']) + ' equal some fact of the oracle, ' if c['legacy'] else ''}"
+        f"{c['formula']} formula digits, {c['allowed']} allow-listed, {c['unmatched']} unmatched; not read: {exempt}: {'PASS' if not problems else f'{len(problems)} FAIL'}{legacy}"
     )
     return 1 if problems else 0
 

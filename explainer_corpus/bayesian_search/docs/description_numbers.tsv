@@ -7,3 +7,21 @@
 2001	Frost and Stone 2001	year	J. R. Frost and L. D. Stone, Review of Search Theory, USCG report CG-D-15-01, 2001 (S13 of docs/fact-sheet.md)
 2023	tomrocksmaths.com, 2023	year	the year of the student essay the owner supplied (S16 of docs/fact-sheet.md)
 56	OEG Report 56	cited	Koopman, Search and Screening, OEG Report No. 56, 1946 (S2 of docs/fact-sheet.md)
+1967	Kadane 1967	year	Kadane, 1967: the unequal-cost search problem (S11/S12 of docs/fact-sheet.md).
+1968	1968 map	cited	The Navy's map of 1968 (Scorpion, lost 22 May 1968: F-S.sank).
+2010	Frost 2010	year	Kratzke, Stone and Frost 2010 (the lineage the Coast Guard's own developers give; S6/S10 of docs/fact-sheet.md).
+24	NT-24-1	cited	The Navy's report number NT-24-1 quoted by the 1971 paper.
+40	eq. 40	cited	Koopman, Search and Screening, OEG Report 56, eq. (40), the formula of random search (S2 of docs/fact-sheet.md).
+15	Table H-15	cited	The Coast Guard's Table H-15 of sweep widths (S6/S10 of docs/fact-sheet.md).
+9	9 October	cited	The date of the paper's tables for F6 (the 9 October entries are index 1 of F-S.F6.searched.*).
+# structural: a count or an index that is the statement itself.
+52	B-52	structural	The aircraft's name.
+100	of 100 dots	structural	Per hundred: the four-cell sea has 100 dots.
+100	in 100	structural	Per hundred: 'N in 100' counts out of a hundred.
+06	06: 100 dots	structural	Chapter 06 (the line breaks between 'chapter' and its number).
+09	the 09 readout	structural	Chapter 09's readout.
+6	rule after 3, 5 and 6	structural	The 6th search: with 3 and 5 the places where F-U.sweep.found_by.percent equals F-U.best.found_by.percent (43.3, 57.5, 64.2).
+# derived: the reason is an expression over the oracle's values, evaluated by the tool.
+# The mixed numbers 13 1/3 and 6 2/3 of the four-cell sea are F-M.find.percent (13.3, 6.7) written as the integers and their fractions.
+13	13⅓ and 6⅔	derived	=f("F-M.find.percent",2)
+6	13⅓ and 6⅔	derived	=floor(f("F-M.find.percent",3))

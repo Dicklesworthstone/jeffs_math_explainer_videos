@@ -67,7 +67,7 @@ what would push along with them. The bridge reopened on 22 February 2002 with
 26 pairs for the vertical ones (Dallard et al.; Taylor Devices)
 [K-B2.dampers_viscous, .tmd_lateral_pairs, .tmd_vertical_pairs, .reopened].
 A magazine of 1 February 2002 gives 54 tuned mass dampers; the video shows
-only the 4 sideways pairs.
+only the 4 sideways pairs. [K-B2.paper_year]
 
 **Why the sway grew is disputed, and the video says only what holds under
 both accounts.** Dallard et al. (2001) and Strogatz and others (2005) have the
@@ -78,7 +78,7 @@ crowd size and on a sideways force that grows with the deck's motion ("as the
 amplitude of the motion increases, the lateral force imparted by individuals
 increases"). The video says that and no more. Arup's test: the north span was
 stable with 156 people and with just 10 more the movement increased suddenly
-[K-B2.test_steady, .test_added].
+[K-B2.test_steady, .test_added]. [K-B2.paper_year]
 
 **Tacoma Narrows.** Opened 1 July 1940, failed 7 November 1940, 129 days
 later [K-B1.opened, .failed, .days_open]; the wind was clocked at 42 miles an
@@ -96,7 +96,7 @@ design of similar structures"; its failure "resulted from excessive
 oscillations caused by wind action". Billah and Scanlan's page quotations were
 read in the research pass from a scan; the copy kept outside the repository
 holds only the abstract, so at R1 they were re-checked against the abstract
-and the board's report only.
+and the board's report only. [K-B1.study_year, K-B1.board_year]
 
 **Two carts.** Three springs of 1 N per centimetre (100 N/m) between two walls
 and two carts: the table is [2, −1; −1, 2], the pushes for moves (1, 0), (1, 1)
@@ -108,7 +108,7 @@ as half of each pattern, each divided by its eigenvalue: 1/2 ÷ 1 and 1/2 ÷ 3
 [K-A2.worst_turn_deg, K-A3.*]. An own pattern is a direction: any non-zero
 multiple of it, of either sign, is the same one; the gold marks are lines. In
 general the table is K = QΛQᵀ with Q's columns of length 1, for tables like
-this one; for tables with too few own patterns (a shear) there is no such Q.
+this one; for tables with too few own patterns (a shear) there is no such Q. [K-A4.spring_n_per_m]
 
 **The truss.** A Pratt truss, 24 m span in six panels of 4 m, 4 m deep, 12
 joints and 21 members, a pin at one end and a roller at the other, steel with
@@ -154,7 +154,7 @@ split's formula is u = Σ (qᵢ · f) ÷ (λᵢ qᵢ · qᵢ) qᵢ; it reduces t
 when the patterns have length one [K-X4.rebuilt]. A force is a stretch times a
 stiffness, which puts back what the division took out, so the stiff patterns
 count for forces; that is why truncating the sum settles the sag and not the
-forces.
+forces. [K-P2.force_error_percent.1]
 
 With a 4 tonne deck mass at each interior deck joint (half at each end joint)
 and the steel's own 3.4 tonnes lumped half to each end of every member, the
@@ -175,7 +175,7 @@ not proportional the modes couple.
 **The air in a room.** Slices of air with mass, and squeezed air pushes back
 like a spring: a row of carts and springs with the same table, 2 down the
 diagonal and −1 beside it, closed at both ends. With 40 slices the lowest tone
-is within 0.03% of the continuous tube's [K-R1.error_percent,
+is within 0.03% of the continuous tube's [K-R1.slices, K-R1.error_percent,
 .error_bound_percent]; one slice pushed out of place comes back as
 (−1, 2, −1), 35.3° away from itself, and one half of a sine wave comes back as
 itself, 0° away: any other hump does not (a parabola 22.5° away, a Gaussian
@@ -214,7 +214,7 @@ the modes still exist but overlap. "Three or more modes in one width" is the
 "almost every note you can hear in a hall lies above the crossover" is
 20.2 Hz against the 20 Hz bottom of hearing, with organ notes lower still
 [K-H3.*]. The 20 Hz hearing floor is a convention; hearing extends lower at
-high levels.
+high levels. [K-S.schroeder_year]
 
 Halls are designed with statistics (Sabine's 1900 paper takes "the new Boston
 Music Hall" as its example): T60 = 0.161 × volume ÷ absorption, which for this
@@ -225,7 +225,7 @@ halls are shoeboxes (Beranek): the trouble is sides that match, not boxes.
 "Statistical energy analysis" is a different method, for coupled panels and
 cavities; to search for how halls are designed use "Sabine equation",
 "geometrical acoustics" and "image sources". Rays work once the waves are
-short against the walls; below that, cells.
+short against the walls; below that, cells. [K-S.sabine.opened]
 
 **Small rooms and the cells.** A study of 4.8 × 4 × 2.6 m (50 m³, a model
 decay of 0.5 s) has its crossover at 200 Hz with 67 modes below, none on one
@@ -249,7 +249,7 @@ why a wall adds nothing and one zero eigenvalue is skipped; the tube of 09_2
 holds moves.
 FrankenSim's modal casebook runs a 317 × 317 grid, 100,489 unknowns, for
 its lowest modes (`fs-modal`); the video says so of its solver and not of
-its rooms, which FrankenSim does not hold.
+its rooms, which FrankenSim does not hold. [K-R0.sound_m_per_s, K-S.frankensim.grid_unknowns, K-S.frankensim.grid_side]
 
 **An economy.** Leontief's input-output tables (1936; The Structure of
 American Economy, 1941) had 44 sectors, 41 of them producing; Nobel prize in
@@ -258,16 +258,20 @@ model: a unit of food takes 0.4 food and 0.2 tools, a unit of tools 0.3 food
 and 0.5 tools [K-E1.*, K-D2.table]. Its eigenvalues are 0.7, with the pattern (1, 1), and
 0.2, with (3, −2), which needs a negative amount of tools [K-E2.*]. 24 of
 each wanted takes 80 of each, in rounds of 24, 16.8, 11.76, 8.232 and so on
-(99% of the total after 13 rounds) [K-E3.*]; "three tenths kept" is true of
+(99% of the total after 13 rounds) [K-E3.*].
+
+"Three tenths kept" is true of
 equal amounts only: of (30, 10) the economy keeps 35%, of (10, 30) 25%
-[K-D2.kept_percent.30_10, K-D2.kept_percent.10_30]. A
+[K-D2.kept_percent.30_10, K-D2.kept_percent.10_30, K-E5.demand].
+
+A
 demand of (30, 10) is 18 of (1, 1) plus 4 of (3, −2), found by solving
 18 + 3 × 4 = 30 and 18 − 2 × 4 = 10: the truss's recipe (the dot product with
 each pattern, divided by its length squared) would give (20, 5.38) and rebuild
 (36.2, 9.2), because these two patterns are not at right angles. Divided by
 1 − 0.7 and 1 − 0.2 the shares give 60 and 5 of them, a plan of (75, 50), and
 its rounds run (30, 10), (15, 11), (9.3, 8.5),
-(6.27, 6.11) [K-E5.*, K-D2.recipe_shares, K-D2.recipe_rebuilt]. A hungrier
+(6.27, 6.11) [K-E5.*, K-E2.mix, K-E2.other, K-D2.recipe_shares, K-D2.recipe_rebuilt]. A hungrier
 table, [0.6, 0.5; 0.4, 0.7], uses up 11 of
 each for 10 of each made, with largest eigenvalue 1.1: the rounds grow, and the
 formula still answers, 24 ÷ (1 − 1.1) = −240 of each, which is why a program
@@ -285,7 +289,7 @@ claim walk's table [1.1, 0; 0.3, 0.2] meets (0, 1) with the plan (0, 1.25)
 Checked on the video's table scaled by k ÷ 20 for k = 1 to 40, and by 10 ÷ 7
 (largest eigenvalue exactly 1): 41 of 41 agree with the inverse, 28 feed
 themselves, and at exactly 1 it does not [K-X7.*]. The rounds add up to
-(I − C)⁻¹ d, the Leontief inverse, the Neumann series 1 + C + C² + ….
+(I − C)⁻¹ d, the Leontief inverse, the Neumann series 1 + C + C² + …. [K-S.hawkins_simon_year]
 
 **The theorems behind the pictures.** For a symmetric table (the same on both
 sides of the diagonal) a full set of own patterns always exists, at right
@@ -301,7 +305,7 @@ everything to zero and diag(1, 2) [K-X6.*]. That is all nonnegativity gives:
 the economy's table splits because its two eigenvalues differ. The pattern of
 the largest eigenvalue "ranked web pages" in the sense that PageRank
 "corresponds to the principal eigenvector of the normalized link matrix of the
-web" (Brin and Page 1998).
+web" (Brin and Page 1998). [K-S.perron_year, K-S.frobenius_year, K-S.brin_page_year]
 
 **Where it stops.** A shear [1, 1; 0, 1] has no negative entry and one own
 direction [K-X2.shear]. A quarter turn [0, −1; 1, 0] has no real own pattern
@@ -321,7 +325,7 @@ solvers, FrankenSim's among them, do not; the corner is where the answer is,
 not how every solver finds it. Here the corners are whole numbers; in general
 they are not, and whole-number plans are integer programming, a harder problem.
 All three limits are tight at (40, 20), so the third line only touches the
-corner.
+corner. [K-S.dantzig_year]
 
 **"Eigen".** German for "own". Helmholtz writes of the Eigentöne of a body of
 air in 1863 (Die Lehre von den Tonempfindungen, p. 147) and Hilbert names
@@ -343,15 +347,15 @@ Hilbert had Helmholtz's word in mind is conjecture.
   explains the answer; it is not how the answer is computed. A library call
   finds all 21 patterns: LAPACK's symmetric eigen-solver, `numpy.linalg.eigh`,
   which `oracle.py` uses; the video's own `model.rs` uses cyclic Jacobi
-  rotations (the method of FrankenSim's dense kernel).
+  rotations (the method of FrankenSim's dense kernel). [K-P1.count]
 - **Why not invert.** The inverse of a sparse table is full (441 of 441), so
-  programs factor and never invert. The condition number here is 393.
+  programs factor and never invert. The condition number here is 393. [K-T2.entries, K-T2.inverse_nonzero, K-P1.ratio]
 - **A few modes of a huge table.** All modes of an n-move table cost about n³
   steps and n² numbers; the Lanczos algorithm (1950), with shift-and-invert for
   the lowest few of a stiffness table, finds them in a huge sparse table without
   the rest. FrankenSim's `fs-modal` does this with
   certified counts and tests it on a spring-and-mass chain of 40 and on a
-  317 × 317 grid; it finds a handful of the lowest modes, not 100,489.
+  317 × 317 grid; it finds a handful of the lowest modes, not 100,489. [K-R1.slices] [K-S.lanczos_year] [K-S.frankensim.grid_side, K-S.frankensim.grid_unknowns]
 - **Modal truncation.** Keeping the lowest few modes settles moves quickly and
   forces slowly; the names to search are modal truncation and static
   correction. How many modes a code asks for (a modal mass participation
@@ -388,7 +392,7 @@ edges (decisions D-15 to D-54; the fact sheet's edge tables).
 Cited numbers (dates, 70 mm, 156 and 10, 42 mph, 12 a minute, 1.9 s, 18,750 m³,
 44 sectors, the years) are typed from their sources into both programs, which
 checks nothing about them; each is sourced above and in `docs/fact-sheet.md`
-with what was and was not seen.
+with what was and was not seen. [K-B2.sway_mm, K-B2.test_steady, K-B2.test_added, K-B1.wind_mph, K-B1.twist_per_min, K-H1.t60_s, K-H1.boston_m3, K-S.leontief.sectors]
 
 Not claimed, and so not said: a source for "the first hall designed by a
 formula"; English pronunciations for Schroeder, Perron and Frobenius beyond
