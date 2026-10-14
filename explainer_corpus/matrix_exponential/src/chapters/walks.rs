@@ -15,7 +15,7 @@
 //! four `F-G.exp.one_to_four.running`, the grid of e^A `F-G.exp`, the two
 //! scores `F-V.11_6.*`, the quiz answer `F-Q.11_3.answer`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 

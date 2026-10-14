@@ -12,7 +12,7 @@
 //! where the sum lands `F-V.08_4.home`, the ceilings of the second matrix
 //! `F-S.strict.*`, and the bound `F-V.08_5.bound`.
 
-use explainer_kit::props::{lower_third, precisely};
+use super::draw::{lower_third, precisely};
 use explainer_kit::{Frame2, Kit, Palette, fade_all, play, rect, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;

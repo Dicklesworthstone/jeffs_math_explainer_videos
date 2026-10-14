@@ -16,7 +16,7 @@
 //! `F-V.13_4.scaled` with `F-C.mvl.f32.scaled.*`, the sweep
 //! `F-C.mvl.f32.halvings.*`, the Padé numbers `F-V.13_5.*`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Frame2, Kit, Palette, fade_all, thousands, v};
 use fmn::prelude::*;
 

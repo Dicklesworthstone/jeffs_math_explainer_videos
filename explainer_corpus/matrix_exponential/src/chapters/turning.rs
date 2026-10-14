@@ -13,7 +13,7 @@
 
 use std::f64::consts::{FRAC_PI_2, PI};
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, fade_all, play, tween, v};
 use fmn::prelude::*;
 

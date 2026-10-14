@@ -17,7 +17,7 @@
 
 use std::f64::consts::{FRAC_PI_2, PI, TAU};
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
@@ -73,6 +73,12 @@ const SPIRAL: Plane = Plane {
     unit: 2.3,
 };
 const SPIRAL_TERMS: usize = 14;
+/// What the first terms of 07_5's spiral are called and where each name
+/// stands, in the spiral's plane units. "t²/2" stands over the spiral's
+/// top segment (at 1.0), its foot 0.15 or more clear of it: at 1.2 the
+/// segment ran through the fraction's denominator.
+const TERM_NAMES: [&str; 4] = ["1", "t", "\\frac{t^{2}}{2}", "\\frac{t^{3}}{6}"];
+const TERM_SPOTS: [[f64; 2]; 4] = [[0.5, -0.17], [1.2, 0.5], [0.5, 1.36], [0.2, 0.9]];
 /// The dial of powers of 07_4.
 const DIAL_AT: Vec3 = [3.6, -0.5, 0.0];
 const DIAL_R: f64 = 1.5;
@@ -448,10 +454,8 @@ impl SceneConstruct for AMatrixIn {
         )?;
         stage.add_to_scene(drawer)?;
         // what each of the first terms is
-        let term_names = ["1", "t", "\\frac{t^{2}}{2}", "\\frac{t^{3}}{6}"];
-        let spots = [[0.5, -0.17], [1.2, 0.5], [0.5, 1.2], [0.2, 0.9]];
         let mut names = Vec::new();
-        for (w, p) in term_names.iter().zip(spots) {
+        for (w, p) in TERM_NAMES.iter().zip(TERM_SPOTS) {
             names.push(kit.tex(stage, w, 50.0, ink, &[], SPIRAL.p(p[0], p[1]))?);
         }
         let along = kit.text(stage, ALONG, 30.0, ink, v(2.9, 1.3))?;
@@ -628,6 +632,37 @@ mod tests {
             let ask_mid = (stage.get_left(ask)[0] + stage.get_right(ask)[0]) / 2.0;
             let grid_mid = (grid_left + grid_right) / 2.0;
             assert!((grid_mid - ask_mid).abs() < 0.6, "{grid_mid:.2} against {ask_mid:.2}");
+            Ok(())
+        });
+    }
+
+    /// 07_5 (the pre-final check): the name of the third term stands clear of
+    /// the spiral's top segment (the segment ran through its denominator),
+    /// and inside the frame with the room a text keeps.
+    #[test]
+    fn the_third_terms_name_stands_over_the_spirals_top_segment() {
+        use fmn::core::constants::FRAME_Y_RADIUS;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let p = TERM_SPOTS[2];
+            let name = kit.tex(stage, TERM_NAMES[2], 50.0, Palette::ink(), &[], SPIRAL.p(p[0], p[1]))?;
+            // the spiral's corner at t = 1 is (1, 1): its top segment lies at y = 1
+            let segment_y = SPIRAL.p(0.5, 1.0)[1];
+            let foot = stage.get_bottom(name)[1];
+            assert!(
+                foot - segment_y >= 0.15,
+                "the name's foot {foot:.2}, the segment {segment_y:.2}"
+            );
+            assert!(FRAME_Y_RADIUS - stage.get_top(name)[1] >= 0.25);
+            // and not on the next term's name (t^3/6 stands left of the downstroke)
+            let q = TERM_SPOTS[3];
+            let next = kit.tex(stage, TERM_NAMES[3], 50.0, Palette::ink(), &[], SPIRAL.p(q[0], q[1]))?;
+            let gap = stage.get_bottom(name)[1] - stage.get_top(next)[1];
+            let sideways = stage.get_left(name)[0] - stage.get_right(next)[0];
+            assert!(
+                gap > 0.0 || sideways > 0.1,
+                "the two names overlap: gap {gap:.2}, side {sideways:.2}"
+            );
             Ok(())
         });
     }

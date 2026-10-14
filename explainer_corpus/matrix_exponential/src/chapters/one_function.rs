@@ -12,7 +12,7 @@
 //! the product and the factor `F-V.05_6.*`, the quiz's answer
 //! `F-Q.05_5.answer`, the rate and years of the quiz `F-N.growth.*`.
 
-use explainer_kit::props::precisely;
+use super::draw::precisely;
 use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
@@ -319,10 +319,13 @@ impl SceneConstruct for OneFunction {
         ins.extend([the_curve, steps_curve, sum_curve, key_steps, key_sum]);
         fade_in_all(stage, &ins, 0.6)?;
         line.wait_for(stage, "and only one curve can")?;
-        play!(stage; tween(level, 4.0, 3.2)?);
-        fade_in_all(stage, &[key_curve], 0.5)?;
+        // the argument for it comes with the sentence, before the two
+        // approximations close in (it came after them, with the line's end,
+        // and stood 0.5 s before 05_3 took it)
         let same = precisely(&kit, stage, PRECISELY_SAME)?;
         fade_in_all(stage, &[same], 0.5)?;
+        play!(stage; tween(level, 4.0, 3.2)?);
+        fade_in_all(stage, &[key_curve], 0.5)?;
         kit.hold(stage)?;
 
         // 05_3: loosen the rule: a fixed share, five percent a year: the

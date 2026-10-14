@@ -15,7 +15,7 @@
 //! `F-O.AB` and `F-O.BA`, the loop `F-O.loop.*`, the commutator
 //! `F-O.commutator`, the quiz answer `F-Q.14_3.answer`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, fade_all, play, v};
 use fmn::prelude::*;
 

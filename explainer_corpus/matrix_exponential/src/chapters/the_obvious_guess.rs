@@ -11,7 +11,7 @@
 //! little e's of the picture), the guess on zeros `F-H.zero.guess`, the
 //! matrix that changes nothing `F-H.zero.true`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
@@ -212,6 +212,9 @@ impl SceneConstruct for TheObviousGuess {
         line.wait_for(stage, "squash the whole plane")?;
         play!(stage; tween(s, 1.0, 2.2)?);
         let cross = cross_mark(stage, v(-3.6, 0.5), 1.35, warn(), 9.0)?;
+        // the ✗ over the dead guess is meant to cross its ones (the layout
+        // lint's `crossed` leaves a declared crossing alone)
+        kit.allow_crossing(cross);
         play!(stage;
             fade_in(stage.arena_mut(), diagonal, ORIGIN, 1.0)?.rt(0.5),
             fade_in(stage.arena_mut(), cross, v(0.0, 0.3), 1.0)?.rt(0.5),

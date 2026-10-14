@@ -16,7 +16,7 @@
 //! four hundred nodes `F-D.big.*` and `F-V.12_4.nodes`, the pair
 //! `F-D.pair.*`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::stats::Data;
 use explainer_kit::{Kit, Palette, fade_all, play, v};
 use fmn::prelude::*;
@@ -44,9 +44,12 @@ const BARS_MID: f64 = 1.625;
 const BAR_BASE: f64 = -1.55;
 const BAR_W: f64 = 0.46;
 const BAR_H: f64 = 2.6;
-/// Where the rule's grid sits (12_1), its type size.
-const GRID_AT: Vec3 = [4.95, 2.05, 0.0];
+/// Where the rule's grid sits (12_1), its type size, and how far over its
+/// middle its name "-L" stands. The grid sits 0.1 lower than it did (2.05):
+/// the name stood 0.23 from the top edge, under the 0.25 a text keeps.
+const GRID_AT: Vec3 = [4.95, 1.95, 0.0];
 const GRID_PT: f64 = 36.0;
+const GRID_NAME_DY: f64 = 1.55;
 /// How far the heat time runs at 12_2.
 const HEAT_T: f64 = 5.0;
 /// The four hundred nodes (12_4): where their grid sits and how far apart.
@@ -419,7 +422,7 @@ impl SceneConstruct for HeatAndChance {
             stage.add_to_scene(b)?;
         }
         let grid = MatrixGrid::build(&kit, stage, &whole_rows(&minus_l()), GRID_PT, teal, GRID_AT)?;
-        let grid_name = kit.tex(stage, "-L", 48.0, teal, &[], v(GRID_AT[0], GRID_AT[1] + 1.55))?;
+        let grid_name = kit.tex(stage, "-L", 48.0, teal, &[], v(GRID_AT[0], GRID_AT[1] + GRID_NAME_DY))?;
         // the grid's diagonal is empty until the arrows have left along the links
         let diagonal: Vec<Mob> = (0..4).map(|i| grid.cells[i][i]).collect();
         let diag_levels = Levels::build(stage, &diagonal, 0.0)?;
@@ -824,6 +827,38 @@ mod tests {
             assert!((BARS_MID - (BAR_X[0] + BAR_X[3]) / 2.0).abs() < 1e-9);
             // the node 4 of the graph (right-most) is left of the first bar
             assert!(node(3)[0] + NODE_R + 0.3 < BAR_X[0] - BAR_W / 2.0);
+            Ok(())
+        });
+    }
+
+    /// 12_1 (the pre-final check): the grid's name "-L" keeps the 0.25 a
+    /// text keeps from the frame's top edge (it stood 0.23), and stands clear
+    /// of the grid's top bracket.
+    #[test]
+    fn the_name_of_the_grid_keeps_off_the_top_edge() {
+        use fmn::core::constants::FRAME_Y_RADIUS;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let grid = MatrixGrid::build(&kit, stage, &whole_rows(&minus_l()), GRID_PT, Palette::teal(), GRID_AT)?;
+            let name = kit.tex(
+                stage,
+                "-L",
+                48.0,
+                Palette::teal(),
+                &[],
+                v(GRID_AT[0], GRID_AT[1] + GRID_NAME_DY),
+            )?;
+            let (top, foot) = (stage.get_top(name)[1], stage.get_bottom(name)[1]);
+            assert!(
+                FRAME_Y_RADIUS - top >= 0.25,
+                "the name's top {top:.2} is {:.2} from the frame's top",
+                FRAME_Y_RADIUS - top
+            );
+            let bracket = stage.get_top(grid.group)[1];
+            assert!(
+                foot - bracket >= 0.1,
+                "the name's foot {foot:.2}, the bracket's top {bracket:.2}"
+            );
             Ok(())
         });
     }

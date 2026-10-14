@@ -17,7 +17,7 @@
 
 use std::f64::consts::PI;
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, Timed, fade_all, live_bar, play, tween, v};
 use fmn::core::color::interpolate_color;
 use fmn::prelude::*;

@@ -41,6 +41,11 @@ const GRAMS: Plane = Plane {
 };
 /// The left edge of the rows of 10_4 and 10_6, under the tanks.
 const TABLE_X: f64 = -6.7;
+/// 10_2's matrix A and its name "A=": the grid's middle, and the room
+/// between the name's "=" and the grid's left bracket (the name stood 0.02
+/// from it, the "=" against the bracket).
+const RULE_GRID_AT: Vec3 = [-3.6, -2.75, 0.0];
+const NAME_GAP: f64 = 0.3;
 /// How far the plane's axes reach (grams).
 const AXIS_G: f64 = 108.0;
 /// An arrow's length in minutes of its own velocity.
@@ -52,6 +57,18 @@ const CARD_AT: Vec3 = [4.4, 0.0, 0.0];
 const CARD_SIZE: (f64, f64) = (5.0, 3.9);
 
 // ------------------------------------------------------------- the geometry
+
+/// 10_2's matrix A of the tanks' rule and its name "A=", the name's right
+/// edge `NAME_GAP` left of the grid's left bracket (laid by measure: the
+/// entries' widths set the bracket).
+fn rule_grid(kit: &Kit, stage: &mut Stage<'_>, color: Srgb) -> fmn::Result<(MatrixGrid, Mob)> {
+    let rows = entries("F-T.rule", Some(1))?;
+    let grid = MatrixGrid::build(kit, stage, &rows, 56.0, color, RULE_GRID_AT)?;
+    let name = kit.tex(stage, "A=", 56.0, color, &[], v(RULE_GRID_AT[0] - 3.0, RULE_GRID_AT[1]))?;
+    let left = stage.get_left(grid.group)[0];
+    stage.move_to(name, v(left - NAME_GAP, RULE_GRID_AT[1]), RIGHT);
+    Ok((grid, name))
+}
 
 /// The rule for the grams in each tank, per minute (`F-T.rule`).
 fn tank_rule() -> Mat {
@@ -292,9 +309,7 @@ impl SceneConstruct for TwoTanks {
         }
         fade_in_all(stage, &words, 0.7)?;
         line.wait_for(stage, "That is two equations")?;
-        let grid_rows = entries("F-T.rule", Some(1))?;
-        let grid = MatrixGrid::build(&kit, stage, &grid_rows, 56.0, teal, v(-4.2, -2.75))?;
-        let grid_name = kit.tex(stage, "A=", 56.0, teal, &[], v(-6.2, -2.75))?;
+        let (grid, grid_name) = rule_grid(&kit, stage, teal)?;
         fade_in_all(stage, &[grid.group, grid_name], 0.6)?;
         // the plane: axes, the line of equal salt, the arrows of the rule
         let across = polyline(vec![GRAMS.p(0.0, 0.0), GRAMS.p(AXIS_G, 0.0)])
@@ -599,6 +614,44 @@ mod tests {
                 }
             }
         }
+    }
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 10_2 (the pre-final check): the name "A=" stands `NAME_GAP` clear of
+    /// the matrix's left bracket (its "=" stood against the bracket), inside
+    /// the frame with the room a text keeps, and the grid ends well left of
+    /// the plane (the axes begin at 3.1 less their name).
+    #[test]
+    fn the_name_of_the_rule_stands_clear_of_its_bracket() {
+        use fmn::core::constants::FRAME_X_RADIUS;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let (grid, name) = rule_grid(&kit, stage, rule())?;
+            let (bracket, name_right) = (stage.get_left(grid.group)[0], stage.get_right(name)[0]);
+            assert!(
+                bracket - name_right >= NAME_GAP - 1e-6,
+                "the bracket at {bracket:.2}, the name's right edge at {name_right:.2}"
+            );
+            let name_left = stage.get_left(name)[0];
+            assert!(name_left > -FRAME_X_RADIUS + 0.25, "the name begins at {name_left:.2}");
+            assert!(stage.get_right(grid.group)[0] < GRAMS.centre[0] - 1.0);
+            Ok(())
+        });
     }
 
     /// The chapter runs on the storyboard with the layout lint clean, types

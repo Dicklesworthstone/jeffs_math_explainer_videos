@@ -11,7 +11,7 @@
 //! `F-V.03_4.*`, Bernoulli's year `F-B.bernoulli.year`, the answer of the
 //! quiz `F-Q.03_3.answer`.
 
-use explainer_kit::props::{lower_third, precisely};
+use super::draw::{lower_third, precisely};
 use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, rect, thousands, tween, v};
 use fmn::prelude::*;
 
@@ -360,11 +360,14 @@ impl SceneConstruct for Growth {
         line.wait_for(stage, "In a thousandth of a year")?;
         fade_in_all(stage, &[m_height, m_run, m_rise, m_tangent, m_dot, amount, rate], 0.6)?;
         line.wait_for(stage, "So your gain per year")?;
+        // the rule, exactly, comes with the sentence that says it, while the
+        // tangent slides (it came after the slide, past "your rate", and
+        // stood 0.5 s before 03_6 took it)
+        let exact = precisely(&kit, stage, PRECISELY_RULE)?;
+        fade_in_all(stage, &[exact], 0.5)?;
         play!(stage; tween(a, 1.2, 4.0)?);
         line.wait_for(stage, "your rate")?;
         fade_in_all(stage, &[rate_means], 0.5)?;
-        let exact = precisely(&kit, stage, PRECISELY_RULE)?;
-        fade_in_all(stage, &[exact], 0.5)?;
         kit.hold(stage)?;
 
         // 03_6: the one curve that starts at one, with rate equal to amount

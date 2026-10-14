@@ -17,7 +17,9 @@
 
 use std::f64::consts::TAU;
 
-use explainer_kit::props::{lower_third, names_to_search, receipts_card};
+use explainer_kit::props::receipts_card;
+
+use super::draw::{lower_third, names_to_search};
 use explainer_kit::{Kit, Palette, fade_all, play, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;

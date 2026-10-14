@@ -15,7 +15,7 @@
 //! `F-L.loop.*` and its creep `F-L.creep.*`, the quiz answer
 //! `F-Q.15_2.answer`.
 
-use explainer_kit::props::lower_third;
+use super::draw::lower_third;
 use explainer_kit::{Kit, Palette, fade_all, play, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;

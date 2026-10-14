@@ -281,6 +281,35 @@ pub fn music_hold(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
     kit.music_breath(stage, HOLD_S)
 }
 
+// ------------------------------------------------------------ the bands
+
+/// The kit's `props::lower_third`, watched in tests: each band's "up" and
+/// "down" go to `quiz_log` under `band:<label>`, so
+/// `every_band_stands_long_enough_to_read` can hold every band of the video
+/// to its floor.
+pub fn lower_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, text: &str) -> fmn::Result<Mob> {
+    let band = explainer_kit::props::lower_third(kit, stage, label, text)?;
+    #[cfg(test)]
+    watch_dwell(kit, stage, band, &format!("band:{label}"))?;
+    Ok(band)
+}
+
+/// The kit's `props::precisely`, watched like [`lower_third`].
+pub fn precisely(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
+    let band = explainer_kit::props::precisely(kit, stage, text)?;
+    #[cfg(test)]
+    watch_dwell(kit, stage, band, "band:precisely:")?;
+    Ok(band)
+}
+
+/// The kit's `props::names_to_search`, watched like [`lower_third`].
+pub fn names_to_search(kit: &Kit, stage: &mut Stage<'_>, names: &[&str]) -> fmn::Result<Mob> {
+    let band = explainer_kit::props::names_to_search(kit, stage, names)?;
+    #[cfg(test)]
+    watch_dwell(kit, stage, band, "band:names to search:")?;
+    Ok(band)
+}
+
 // ------------------------------------------------------------ colour roles
 
 /// The rule: a rate, a tiny step, the matrix in the exponent, its powers and
@@ -1314,9 +1343,10 @@ fn quiz_color() -> Srgb {
 /// long a credit stands, or whether a picture is out of the way of a card,
 /// is then a number a test can read.
 #[cfg(test)]
-pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str) -> fmn::Result<()> {
+pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &str) -> fmn::Result<()> {
     let watch = stage.arena_mut().add(VMobject::new());
     let chapter = kit.chapter.clone();
+    let key = key.to_owned();
     let origin = stage.scene().time().to_f64();
     let (mut base, mut seen, mut state) = (f64::NAN, 0.0, None::<bool>);
     // the most opaque of the family (a group has no colour of its own)
@@ -1350,7 +1380,7 @@ pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str
             if now != state {
                 if state.is_some() {
                     let kind = if now == Some(true) { "up" } else { "down" };
-                    quiz_log::record(&chapter, key, kind, origin + seen);
+                    quiz_log::record(&chapter, &key, kind, origin + seen);
                 }
                 state = now;
             }
@@ -1702,6 +1732,20 @@ pub mod quiz_log {
         }
     }
 
+    /// The distinct lines (or keys) the run named `chapter` logged under
+    /// `prefix`, in the order they first appeared.
+    pub fn keys(chapter: &str, prefix: &str) -> Vec<String> {
+        let mut out: Vec<String> = Vec::new();
+        if let Ok(events) = EVENTS.lock() {
+            for (c, l, ..) in events.iter() {
+                if c == chapter && l.starts_with(prefix) && !out.contains(l) {
+                    out.push(l.clone());
+                }
+            }
+        }
+        out
+    }
+
     /// What card `line` did in the run named `chapter`, in order.
     pub fn take(chapter: &str, line: &str) -> Vec<(&'static str, f64)> {
         EVENTS
@@ -1721,6 +1765,61 @@ pub mod quiz_log {
 mod tests {
     use super::*;
     use crate::model::{expm, expm_t, quarter_turn};
+
+    /// Every band of the video (`lower_third`, `precisely`, `names_to_search`
+    /// through the wrappers above) stands fully up at least `STAND_S` before
+    /// something takes it away, on the scratch voice and on the finished
+    /// read's timing (`REAL_TIMING`), under the thought gaps; the ones that
+    /// stand to the chapter's end are measured to the closing fade (0.8 s).
+    /// The pre-final check of 2026-10-14 found 03's "precisely: f' = f" and
+    /// 05's "precisely: if g' = g too ..." standing about a second: each came
+    /// with the line's end, and the next line's first beat took it.
+    #[test]
+    fn every_band_stands_long_enough_to_read() {
+        // K's bar for a band (marks::probe asks 2.5 of every one; a frame is
+        // a tenth of a second there and in the log's times)
+        const STAND_S: f64 = 2.5;
+        let mut short = Vec::new();
+        let mut seen = 0;
+        for real in [false, true] {
+            for key in crate::chapters::registry().into_iter().map(|c| c.key) {
+                let voiced = if real {
+                    testing::run_voiced_real(key)
+                } else {
+                    testing::run_voiced(key)
+                }
+                .unwrap();
+                for band in quiz_log::keys(&voiced.tag, "band:") {
+                    let mut up = None;
+                    for (kind, at) in quiz_log::take(&voiced.tag, &band) {
+                        match (kind, up) {
+                            ("up", _) => up = Some(at),
+                            ("down", Some(u)) => {
+                                seen += 1;
+                                if at - u < STAND_S - 0.05 {
+                                    short.push(format!(
+                                        "{key} (real {real}) {band}: {:.1} s ({u:.1} to {at:.1})",
+                                        at - u
+                                    ));
+                                }
+                                up = None;
+                            }
+                            _ => {}
+                        }
+                    }
+                    if let Some(u) = up {
+                        seen += 1;
+                        let stands = voiced.ran.seconds - 0.8 - u;
+                        if stands < STAND_S - 0.05 {
+                            short.push(format!("{key} (real {real}) {band}: {stands:.1} s ({u:.1} to the end)"));
+                        }
+                    }
+                }
+            }
+        }
+        assert!(seen >= 40, "only {seen} bands were watched");
+        assert!(short.is_empty(), "bands that stand under {STAND_S} s: {short:#?}");
+    }
 
     // ΔE2000 (Sharma, Wu and Dalal 2005), for the colour-role test.
     fn lab(c: Srgb) -> [f64; 3] {
