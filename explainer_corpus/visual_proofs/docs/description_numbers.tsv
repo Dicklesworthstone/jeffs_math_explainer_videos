@@ -11,3 +11,5 @@
 0.0	k = 0.0, 0	structural	The code's float zero start.
 100	added 1 to 100	structural	The story of Gauss's sum that the video does not tell (Not said).
 64	64-bit floating point	structural	The width of the double-precision float of the code block.
+77	p. 77, "Sums of Squares I"	cited	Nelsen, Proofs Without Words: Exercises in Visual Thinking (MAA, 1993), p. 77, "Sums of Squares I", credit Man-Keung Siu; the page image was read (S8, S15 of docs/fact-sheet.md).
+114	pp. 109–114	cited	The "Mathematical Miscellany" column of Mathematics Magazine 23(2), November–December 1949, runs pp. 109–114, the range secondary sources cite for the item (Wikipedia, OEIS A000127); the note itself is on p. 109 (S1 of docs/fact-sheet.md).

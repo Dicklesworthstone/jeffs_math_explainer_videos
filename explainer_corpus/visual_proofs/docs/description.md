@@ -74,7 +74,10 @@ positive lengths), as the card in the video says.
   not seen, and earlier L-shaped pictures exist (Golomb, 1965; Love, 1977)
   [S6]. [F-X.nicomachus, F-X.aryabhata, F-X.al_karaji, F-X.fry] [F-K.odd_runs]
 - **Siu's three stacks.** Man-Keung Siu, *Mathematics Magazine* 57(2), March
-  1984, p. 92 [S8]: three stacks of n levels fit a box n by n + 1 by n + ½
+  1984, p. 92; the figure was seen in Roger B. Nelsen, *Proofs Without Words:
+  Exercises in Visual Thinking* (MAA, 1993), p. 77, "Sums of Squares I",
+  credited to Siu (the 1984 printed page itself was not seen) [S8, S15]. Three
+  stacks of n levels fit a box n by n + 1 by n + ½
   once the cubes that stick out on top are sliced flat and their upper halves
   turned into the empty half; so 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)
   (2n + 1) ÷ 6 [F-S.box, F-S.box.volume]. The empty half is the step
@@ -91,7 +94,7 @@ positive lengths), as the card in the video says.
   widest in every direction, so the only box that can hold one and has 30, 60
   or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
   for boxes on the cube lattice (whole width and depth, height in halves), not
-  a search over every packing. [F-X.siu, F-S.stack, F-S.sums]
+  a search over every packing. [F-X.siu, F-X.nelsen, F-S.stack, F-S.sums]
 - **Halves.** After n pieces the filled part is 1 − 1/2ⁿ and the gap is
   exactly the last piece, 1/2ⁿ; the gap is never zero, and it is below every
   size you name from some n on. "Equals one" here means that no partial sum
@@ -169,8 +172,9 @@ positive lengths), as the card in the video says.
   [F-C.evenly_spaced.regions], and eight give 88, not 99, because several lines
   meet inside (counted exactly in the oracle, in Q(√2)
   [F-C.evenly_spaced.regions.eight, F-D.circle.general_position]). The pattern is in Leo Moser's note "On the
-  Danger of Induction", *Mathematics Magazine* 23(2), November–December
-  1949, p. 109 [S1, F-X.moser].
+  Danger of Induction", in the "Mathematical Miscellany" column,
+  *Mathematics Magazine* 23(2), November–December 1949, p. 109 (the column
+  runs pp. 109–114) [S1, F-X.moser].
 - **Five tests in a row.** The doubling holds for 1 to 5 points and the cube
   totals 1, 9, 36, 100, 225 are squares: two patterns that pass five checks.
   Five passing tests prove nothing about the sixth [F-C.regions, F-D.circle.doubling_holds,
@@ -233,8 +237,8 @@ named the circle problem. [F-L.frame, F-X.curry]
 
 Every number in the video is computed by the scenes from the data they draw,
 and an independent oracle checks it by another route. Sources, what was and
-was not seen (no printed figure of the Mathematics Magazine pictures was
-looked at), and the edge test behind every "always" are in
+was not seen (no printed journal page was looked at; Siu's picture was read
+in Nelsen's book), and the edge test behind every "always" are in
 `docs/fact-sheet.md`.
 
 Names to search: proofs without words; Roger B. Nelsen, *Proofs Without
