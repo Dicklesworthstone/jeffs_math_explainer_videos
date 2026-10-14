@@ -253,6 +253,21 @@ impl Spoken {
         self.sentences.len()
     }
 
+    /// The line's sentences as written, so that what is set on screen is
+    /// what is said (never retyped).
+    pub fn sentence_texts(&self) -> Vec<String> {
+        let chars: Vec<char> = self.text.chars().collect();
+        let mut starts: Vec<usize> = self.sentences.iter().map(|&(at, _)| at).collect();
+        starts.push(chars.len() + 1);
+        starts
+            .windows(2)
+            .map(|w| {
+                let end = (w[1] - 1).min(chars.len());
+                chars[w[0]..end.max(w[0])].iter().collect::<String>().trim().to_owned()
+            })
+            .collect()
+    }
+
     /// When sentence `j` (from 0) begins (scene seconds).
     pub fn sentence(&self, j: usize) -> fmn::Result<f64> {
         self.sentences
@@ -821,7 +836,7 @@ pub fn your_turn(
 /// last three seconds always sound the same and the answer lands on the
 /// tonic. Written at about the narration's level; the score re-levels it.
 /// Not auditioned yet: the score bead tunes it.
-mod sound {
+pub mod sound {
     use std::path::PathBuf;
 
     use explainer_score::instr::{Instrument, Note, render};
@@ -852,19 +867,9 @@ mod sound {
         SCALE[..n].iter().rev().copied().collect()
     }
 
-    /// A quiz's countdown as a WAV: one mallet note a second, and the last
-    /// one as the answer lands.
-    pub fn countdown(seconds: u32) -> fmn::Result<PathBuf> {
-        let total = f64::from(seconds) + LAND_S;
-        let mut out = Stereo::silence(frames(total + 4.0));
-        let pitches = countdown_pitches(seconds);
-        let last = pitches.len() - 1;
-        for (k, &pitch) in pitches.iter().enumerate() {
-            let velocity = if k == last { 0.8 } else { 0.55 };
-            let note = Note::new(pitch, velocity, 0.6, k as u64 + 1);
-            out.mix_in(&render(Instrument::Marimba, &note), frames(k as f64), 1.0);
-        }
-        // cut to length, fade the tail to an exact zero, set the level
+    /// Cut `out` to `total` seconds, fade its tail to an exact zero and set
+    /// its level at about the narration's.
+    fn finish(mut out: Stereo, total: f64) -> Stereo {
         let n = frames(total);
         out.l.resize(n, 0.0);
         out.r.resize(n, 0.0);
@@ -878,8 +883,45 @@ mod sound {
         if lufs.is_finite() {
             out.scale(10f64.powf((LEVEL_LUFS - lufs) / 20.0));
         }
+        out
+    }
+
+    /// A quiz's countdown as a WAV: one mallet note a second, and the last
+    /// one as the answer lands.
+    pub fn countdown(seconds: u32) -> fmn::Result<PathBuf> {
+        let total = f64::from(seconds) + LAND_S;
+        let mut out = Stereo::silence(frames(total + 4.0));
+        let pitches = countdown_pitches(seconds);
+        let last = pitches.len() - 1;
+        for (k, &pitch) in pitches.iter().enumerate() {
+            let velocity = if k == last { 0.8 } else { 0.55 };
+            let note = Note::new(pitch, velocity, 0.6, k as u64 + 1);
+            out.mix_in(&render(Instrument::Marimba, &note), frames(k as f64), 1.0);
+        }
+        let out = finish(out, total);
         let label = format!("proofs_countdown_{seconds}");
         explainer_kit::sound_file(&label, &out).map_err(|e| fail(format!("sonification {label}: {e}")))
+    }
+
+    /// A note struck at `at` seconds into a sonification: its MIDI pitch and
+    /// its strength.
+    #[derive(Clone, Copy, Debug, PartialEq)]
+    pub struct Strike {
+        pub at: f64,
+        pub pitch: f64,
+        pub velocity: f64,
+    }
+
+    /// The sonification `label` of pieces landing: one mallet note a strike,
+    /// `total` seconds long (a listen window's length). Returns the WAV.
+    pub fn strikes(label: &str, notes: &[Strike], total: f64) -> fmn::Result<PathBuf> {
+        let mut out = Stereo::silence(frames(total + 4.0));
+        for (k, s) in notes.iter().enumerate() {
+            let note = Note::new(s.pitch, s.velocity, 0.6, k as u64 + 1);
+            out.mix_in(&render(Instrument::Marimba, &note), frames(s.at), 1.0);
+        }
+        let out = finish(out, total);
+        explainer_kit::sound_file(label, &out).map_err(|e| fail(format!("sonification {label}: {e}")))
     }
 }
 

@@ -5,8 +5,10 @@
 //! as its storyboard's animatic and is replaced by its real scene as it is
 //! built; a module is declared here only once its file is committed.
 
+pub mod cold_open;
 pub mod draw;
 pub mod glyphs;
+pub mod iso;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -23,9 +25,20 @@ macro_rules! animatic {
     };
 }
 
+/// A chapter that is a real scene: `$module::$ty { kit }`.
+macro_rules! scene {
+    ($key:literal, $intensity:expr, $module:ident::$ty:ident) => {
+        Chapter {
+            key: $key,
+            make: |kit| Box::new($module::$ty { kit }),
+            intensity: $intensity,
+        }
+    };
+}
+
 pub fn registry() -> Vec<Chapter> {
     vec![
-        animatic!("01_cold_open", 0.5),
+        scene!("01_cold_open", 0.5, cold_open::ColdOpen),
         animatic!("02_five_for_five", 0.3),
         animatic!("03_layers", 0.4),
         animatic!("04_staircases", 0.4),
