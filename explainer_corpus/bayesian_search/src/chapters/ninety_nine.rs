@@ -39,7 +39,7 @@ const P_NINE_DAYS: &str = "For nine days";
 const P_OCEAN: &str = "searched the ocean";
 const P_FIVE_DAYS: &str = "five days before she was due";
 const P_ALL: &str = "All ninety-nine men";
-const P_NOBODY: &str = "Nobody could be sure";
+const P_AND_EVEN: &str = "And even to find the wreck";
 const P_QUESTION: &str = "the first question of any search";
 const P_WHERE: &str = "Where do you look?";
 const P_NOT_EVERYWHERE: &str = "Not everywhere";
@@ -318,10 +318,12 @@ impl SceneConstruct for NinetyNine {
         pause(stage, 2.5)?;
         kit.mark(stage, "silence_end:ninety_nine");
 
-        // 02_4: nobody could be sure of that yet; where do you look? The
-        // ring goes out; a patch of sea southwest of the Azores is outlined
+        // 02_4: nobody could be sure of that yet (the ring and the number
+        // stay: it is about the men); and even to find the wreck, where do
+        // you look? The ring goes out as the sea comes back, and a patch of
+        // it southwest of the Azores is outlined
         let line = say(&kit, stage, LINES[3])?;
-        line.wait_for(stage, P_NOBODY)?;
+        line.wait_for(stage, P_AND_EVEN)?;
         fade_out_all(stage, &[ring, ninety_nine], 0.6)?;
         line.wait_for(stage, P_QUESTION)?;
         fade_in_all(stage, &atlantic, 0.6)?;
@@ -488,6 +490,9 @@ impl SceneConstruct for NinetyNine {
         )?;
         fade_in_all(stage, &[all, model], 0.6)?;
         line.wait_end(stage)?;
+        // the grid's size caption stood where the question will: it goes in
+        // the breath before the line (the narrated draft's 02_7 tile)
+        fade_out_all(stage, &[by], 0.4)?;
 
         // 02_7: so where would you look first? A question to carry, the
         // grid a quarter painted
@@ -515,7 +520,7 @@ mod tests {
         ("02_2", P_OCEAN),
         ("02_3", P_FIVE_DAYS),
         ("02_3", P_ALL),
-        ("02_4", P_NOBODY),
+        ("02_4", P_AND_EVEN),
         ("02_4", P_QUESTION),
         ("02_4", P_WHERE),
         ("02_5", P_NOT_EVERYWHERE),

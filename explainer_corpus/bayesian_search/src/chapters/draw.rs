@@ -1410,6 +1410,35 @@ pub fn sea_slot(cell: usize, k: usize) -> Vec3 {
     v(SEA_CENTRES[cell][0], y0 - SLOT_FIRST - SLOT_STEP * k as f64)
 }
 
+/// The gold slot's type size, and how far a mixed fraction ("13⅓%") stands
+/// below that slot's centre. Stacked it is two lines tall, taller than the
+/// slots' pitch: centred on its slot at 30 pt its numerator touched the teal
+/// "2 in 3" above it (the narrated draft's 05_6, 06 and 07_3). Every gold
+/// number is set at [`GOLD_PT`], so a row of them reads alike.
+pub const GOLD_PT: f64 = 26.0;
+pub const TALL_DROP: f64 = 0.12;
+/// Half the height of a mixed fraction at [`GOLD_PT`].
+pub const TALL_HALF_H: f64 = 0.25;
+
+/// A chance of a find as TeX (`percent_tex`, `mixed_tex`) in the gold slot
+/// under `cell`, detached. A stacked mixed fraction stands [`TALL_DROP`]
+/// lower so that it clears the teal row above it and, in 06, the row of dots
+/// below; there is no room for one under the top row's cells (the bottom
+/// row's cells start 0.24 under their slot), so asking for one there fails
+/// the build: set it as text.
+pub fn gold_tex(kit: &Kit, stage: &mut Stage<'_>, tex: &str, color: Srgb, cell: usize) -> fmn::Result<Mob> {
+    let mut at = sea_slot(cell, 2);
+    if tex.contains("\\frac") {
+        if cell < 2 {
+            return Err(fail(format!(
+                "a stacked fraction ({tex}) does not fit under cell {cell}: the cell below starts 0.24 under its slot"
+            )));
+        }
+        at[1] -= TALL_DROP;
+    }
+    kit.tex(stage, tex, GOLD_PT, color, &[], at)
+}
+
 /// The tag every appearance of the sea carries.
 pub const SEA_TAG: &str = "a made-up sea";
 
@@ -2143,7 +2172,9 @@ mod tests {
         let mut ids: Vec<&str> = QUIZZES.iter().map(|q| q.line).collect();
         ids.extend(["02_7", "04_5", "08_1", "10_2", "11_4", "12_4", "13_3", "14_3"]);
         for id in ids {
-            let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
+            let text = script.text(id);
+            assert!(text.is_some(), "no line {id}");
+            let text = text.unwrap();
             let lines = balanced_lines(text, QUIZ_LINE_CHARS);
             assert!(lines.len() <= QUIZ_LINES_Y.len(), "{id}: {} lines", lines.len());
             assert_eq!(
@@ -2263,5 +2294,25 @@ mod tests {
         let text = "Watch a search that finds nothing. It has still told you something.";
         assert_eq!(sentence_offsets(text), vec![0, 35]);
         assert_eq!(sentence_offsets("One."), vec![0]);
+    }
+
+    /// The narrated draft's 05_6, 06 and 07_3 had "13⅓%" through the teal
+    /// "2 in 3" above it. Standing TALL_DROP under its slot, a mixed
+    /// fraction's top edge is under the teal digits' bottom edge; its foot
+    /// is above the question's band under the bottom row. The top row's
+    /// cells have 0.24 under their slot before the cell below starts: no
+    /// stacked fraction fits there.
+    #[test]
+    fn a_mixed_fraction_in_the_gold_slot_clears_the_teal_row_above_it() {
+        // a teal 26 pt digit reaches 0.1 either side of its slot's centre
+        let teal_bottom = sea_slot(2, 1)[1] - 0.1;
+        let tall_top = sea_slot(2, 2)[1] - TALL_DROP + TALL_HALF_H;
+        assert!(tall_top < teal_bottom, "{tall_top} against {teal_bottom}");
+        let tall_foot = sea_slot(2, 2)[1] - TALL_DROP - TALL_HALF_H;
+        assert!(tall_foot > QUIZ_LINES_Y[0] + 0.2, "the sums reach the question's band");
+        // the top row has no room for one
+        let room_below = sea_slot(0, 2)[1] - sea_rect(2).3;
+        assert!((room_below - 0.24).abs() < 1e-9, "{room_below}");
+        assert!(room_below < TALL_DROP + TALL_HALF_H);
     }
 }

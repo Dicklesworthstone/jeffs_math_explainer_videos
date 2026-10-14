@@ -28,8 +28,7 @@ pub struct AMapOfChances {
 pub const LINES: [&str; 7] = ["03_1", "03_2", "03_3", "03_4", "03_5", "03_6", "03_7"];
 
 // the phrases the pictures land on (a test finds each in its line)
-const P_NATURAL: &str = "The natural answer";
-const P_MAP: &str = "So you need a map";
+const P_CHANCE: &str = "that gives every place its chance";
 const P_CELLS: &str = "Four cells";
 const P_STORIES: &str = "two stories";
 const P_A: &str = "most likely in cell A";
@@ -59,6 +58,18 @@ const CARD_SIZE: (f64, f64) = (3.0, 3.1);
 const CARD_Y: f64 = 1.65;
 const TINY: (f64, f64) = (1.3, 0.85);
 const TINY_Y: f64 = 1.65;
+
+/// How far apart the three lines under a cell stand here: the count, the
+/// percent, the sum. The sea's slots are 0.27 apart and a 30 pt count's
+/// digits are as tall as that, so the percent at the second slot touched it
+/// (the narrated draft's 03_6 tile).
+const UNDER_STEP: [f64; 3] = [0.0, 0.31, 0.62];
+
+/// Where line `k` (0 the count) under cell `cell` is centred.
+fn under(cell: usize, k: usize) -> Vec3 {
+    let top = sea_slot(cell, 0);
+    v(top[0], top[1] - UNDER_STEP[k])
+}
 
 /// A story card on the stage.
 struct Card {
@@ -228,10 +239,12 @@ impl SceneConstruct for AMapOfChances {
         for &m in &on_stage {
             stage.add_to_scene(m)?;
         }
+        // the grid stays under "the likeliest place" and leaves as the map
+        // that gives every place its chance is asked for, so the empty stage
+        // is a beat at the end of the line, not six seconds of nothing
         let line = say(&kit, stage, LINES[0])?;
-        line.wait_for(stage, P_NATURAL)?;
+        line.wait_for(stage, P_CHANCE)?;
         fade_out_all(stage, &on_stage, 0.7)?;
-        line.wait_for(stage, P_MAP)?;
         line.wait_end(stage)?;
         pause(stage, 0.3)?;
 
@@ -314,7 +327,7 @@ impl SceneConstruct for AMapOfChances {
         let line = say(&kit, stage, LINES[4])?;
         let frame = QuizFrame::your_turn(&kit, stage, &line)?;
         // the answer lands where A's percent will stand, as the frame lifts
-        let answer_label = kit.text(stage, &format!("{answer}%"), 40.0, map(), sea_slot(0, 1))?;
+        let answer_label = kit.text(stage, &format!("{answer}%"), 32.0, map(), under(0, 1))?;
         let mut anims = frame.lift(stage, 0.5)?;
         let a = fade_in(stage.arena_mut(), answer_label, ORIGIN, 1.0)?;
         anims.push(stage.prepare(a.rt(0.45))?);
@@ -336,7 +349,7 @@ impl SceneConstruct for AMapOfChances {
             &format!("{from_first} + {from_second} = {}", from_first + from_second),
             28.0,
             Palette::ink(),
-            sea_slot(0, 2),
+            under(0, 2),
         )?;
         fade_in_all(stage, &[working], 0.5)?;
         line.wait_end(stage)?;
@@ -354,9 +367,12 @@ impl SceneConstruct for AMapOfChances {
         leaving.extend([answer_label, working]);
         fade_out_all(stage, &leaving, 0.7)?;
         // a percent is recounted every frame, so it comes in as it is (a
-        // fade cannot reach a picture redrawn each frame)
+        // fade cannot reach a picture redrawn each frame); the readout is
+        // detached until it is put on the stage (the narrated draft's 03_7
+        // showed the counts alone: nothing had added the percents)
         for c in 0..4 {
-            sea_map.percent_readout(&kit, stage, c, 30.0, map(), sea_slot(c, 1));
+            let readout = sea_map.percent_readout(&kit, stage, c, 28.0, map(), under(c, 1));
+            stage.add_to_scene(readout)?;
         }
         line.wait_end(stage)?;
         kit.hold(stage)?;
@@ -376,9 +392,8 @@ mod tests {
     use explainer_kit::Script;
 
     /// (line, phrase): every phrase a picture lands on.
-    const PHRASES: [(&str, &str); 15] = [
-        ("03_1", P_NATURAL),
-        ("03_1", P_MAP),
+    const PHRASES: [(&str, &str); 14] = [
+        ("03_1", P_CHANCE),
         ("03_2", P_CELLS),
         ("03_2", P_STORIES),
         ("03_3", P_A),
@@ -474,5 +489,25 @@ mod tests {
         let (_, _, _, top) = sea_rect(0);
         assert!(top + 0.24 + 0.2 + 0.1 < super::super::draw::QUIZ_FRAME.1);
         assert!(SEA_CELL.0 > 5.0 * 0.22, "five hanging dots span less than a cell");
+    }
+
+    /// The count, the percent and the sum under a cell do not touch: a
+    /// line's digits are about 0.27 tall at 30 pt, and the lowest line of the
+    /// top row stays above the bottom row's cells.
+    #[test]
+    fn the_three_lines_under_a_cell_clear_each_other_and_the_cell_below() {
+        let digit_h = 30.0 * 0.009;
+        for pair in UNDER_STEP.windows(2) {
+            assert!(pair[1] - pair[0] > digit_h + 0.03, "{pair:?}");
+        }
+        for cell in 0..2 {
+            let lowest = under(cell, 2)[1] - 0.13;
+            assert!(
+                lowest > sea_rect(cell + 2).3,
+                "line three of cell {cell} touches the cell below"
+            );
+        }
+        // the bottom row's sums stay above the question's band
+        assert!(under(2, 2)[1] - 0.13 > super::super::draw::QUIZ_LINES_Y[0] + 0.2);
     }
 }

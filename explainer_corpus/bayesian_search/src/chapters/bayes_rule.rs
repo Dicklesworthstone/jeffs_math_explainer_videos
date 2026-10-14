@@ -16,12 +16,12 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CARRY_HOLD_S, QuizFrame, SEA_DOT_R, SEA_RING_R, Sea, SeaDot, Strip, arc_ring, fade_from_black, fade_in_all,
-    fade_out_all, fail, find, fit_width, flat, frac_tex, in_cell, line_style, map, out, pause, percent_tex, say,
-    sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear, wait_until,
+    CARRY_HOLD_S, GOLD_PT, QuizFrame, SEA_DOT_R, SEA_RING_R, Sea, SeaDot, Strip, arc_ring, fade_from_black,
+    fade_in_all, fade_out_all, fail, find, fit_width, flat, frac_tex, gold_tex, in_cell, line_style, map, out, pause,
+    percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear, wait_until,
 };
 use super::glyphs;
-use super::nothing_found::{mixed_tex, pct_text};
+use super::nothing_found::pct_text;
 use crate::model::{Q, sea};
 
 pub struct BayesRule {
@@ -73,9 +73,11 @@ const HOLD_Y: [f64; 3] = [-0.4, -1.0, -1.5];
 /// The code panel is lowered to this height (it is built on the middle line).
 const PANEL_DROP: f64 = -2.55;
 /// Where the "dots a search would catch" label stands.
-const CATCH_AT: [f64; 2] = [-3.45, -2.3];
+const CATCH_AT: [f64; 2] = [-3.45, -2.45];
 /// The loop's four words at the corners of a rectangle.
 const LOOP: [[f64; 2]; 4] = [[2.1, 2.7], [5.0, 2.7], [5.0, 0.9], [2.1, 0.9]];
+/// How far a side of the loop stands off a word's own edge, across.
+const LOOP_GAP: f64 = 0.25;
 
 /// What one search does to the map as the table works it: each cell's
 /// chance (in dots of a hundred), its chance of coming back empty, the
@@ -172,6 +174,29 @@ fn go_out(triples: &[Triple], cell: usize, n: usize) -> Vec<Mob> {
         .flat_map(|t| [t.dot.twin, t.sibs[0].twin, t.sibs[1].twin])
         .take(n)
         .collect()
+}
+
+/// A count of the hundred dots as the table prints it: 40, 10, 80 (the
+/// narrated draft printed `percent(0)` of these, 4000 and 8000: a count of
+/// dots is already out of a hundred).
+pub fn dots_text(q: Q) -> String {
+    q.fixed(0)
+}
+
+/// A count that may carry a third, as plain text: "13 1/3", "6 2/3", "10".
+pub fn mixed_text(q: Q) -> String {
+    let s = q.to_string();
+    match s.split_once('/') {
+        Some((n, d)) => {
+            let (n, d): (i128, i128) = (n.parse().unwrap_or(0), d.parse().unwrap_or(1));
+            if n / d > 0 {
+                format!("{} {}/{d}", n / d, n % d)
+            } else {
+                format!("{n}/{d}")
+            }
+        }
+        None => s,
+    }
 }
 
 /// A table cell's text, detached.
@@ -278,7 +303,7 @@ impl SceneConstruct for BayesRule {
             chances.push(cell_text(
                 &kit,
                 stage,
-                &rows[c].chance.percent(0),
+                &dots_text(rows[c].chance),
                 30.0,
                 map(),
                 v(COL_X[1], ROW_Y[c]),
@@ -327,7 +352,7 @@ impl SceneConstruct for BayesRule {
             products.push(cell_text(
                 &kit,
                 stage,
-                &rows[c].product.percent(0),
+                &dots_text(rows[c].product),
                 30.0,
                 Palette::ink(),
                 v(COL_X[3], ROW_Y[c]),
@@ -335,7 +360,7 @@ impl SceneConstruct for BayesRule {
         }
         fade_in_all(stage, &products, 0.5)?;
         line.wait_for(stage, P_DIVIDE)?;
-        let total = cell_text(&kit, stage, &left.percent(0), 36.0, search(), v(COL_X[3], SUM_Y))?;
+        let total = cell_text(&kit, stage, &dots_text(left), 36.0, search(), v(COL_X[3], SUM_Y))?;
         let total_label = cell_text(&kit, stage, SUM_LABEL, 20.0, search(), v(COL_X[3] - 0.4, SUM_Y - 0.5))?;
         fit_width(stage, total_label, 5.6);
         fade_in_all(stage, &[total, total_label], 0.6)?;
@@ -424,7 +449,7 @@ impl SceneConstruct for BayesRule {
         fade_out_all(stage, &table, 0.6)?;
         let mut greyed = Vec::new();
         for (c, &q) in finds.iter().enumerate() {
-            greyed.push(kit.tex(stage, &percent_tex(q), 28.0, Palette::dim(), &[], sea_slot(c, 2))?);
+            greyed.push(gold_tex(&kit, stage, &percent_tex(q), Palette::dim(), c)?);
         }
         fade_in_all(stage, &greyed, 0.4)?;
         let line = say(&kit, stage, LINES[2])?;
@@ -478,7 +503,9 @@ impl SceneConstruct for BayesRule {
         }
         let mut numbers = Vec::new();
         for (c, q) in catch.iter().enumerate() {
-            numbers.push(kit.tex(stage, &mixed_tex(*q), 30.0, find(), &[], sea_slot(c, 2))?);
+            // text, not a stacked fraction: B's sits under the top row,
+            // where the cell below starts 0.24 under the slot
+            numbers.push(kit.text(stage, &mixed_text(*q), GOLD_PT, find(), sea_slot(c, 2))?);
         }
         let catch_label = kit.text(stage, CATCH_WORDS, 24.0, find(), v(CATCH_AT[0], CATCH_AT[1]))?;
         // A's ten as "a search of A would still catch ten", then C's
@@ -559,14 +586,21 @@ impl SceneConstruct for BayesRule {
             let (a, c) = (LOOP[i], LOOP[(i + 1) % 4]);
             let (dx, dy) = (c[0] - a[0], c[1] - a[1]);
             let n = (dx * dx + dy * dy).sqrt();
-            // from just off one word to just off the next
+            // from just off one word to just off the next: across, a gap
+            // from each word's own edge (the narrated draft's dash touched
+            // "Come back empty"); down, clear of a line of type
             let (ux, uy) = (dx / n, dy / n);
-            let pad = if dx.abs() > dy.abs() { 1.3 } else { 0.5 };
+            let (wa, wc) = (stage.get_width(words[i]), stage.get_width(words[(i + 1) % 4]));
+            let (pa, pc) = if dx.abs() > dy.abs() {
+                (wa / 2.0 + LOOP_GAP, wc / 2.0 + LOOP_GAP)
+            } else {
+                (0.5, 0.5)
+            };
             sides.push(
                 stage.arena_mut().add(
                     polyline(vec![
-                        v(a[0] + ux * pad, a[1] + uy * pad),
-                        v(c[0] - ux * pad, c[1] - uy * pad),
+                        v(a[0] + ux * pa, a[1] + uy * pa),
+                        v(c[0] - ux * pc, c[1] - uy * pc),
                     ])
                     .style(line_style(Palette::faint(), 2.5))
                     .build(),
@@ -756,6 +790,25 @@ mod tests {
         let (p, d) = (sea::prior()[b], sea::seeing()[b]);
         assert_eq!(p * (Q::ONE - d) / (Q::ONE - p * d), Q::lowest(1, 8));
         assert_eq!(f.get("F-M.empty1.after.fraction"), Some("1/2,1/8,1/4,1/8"));
+        // and what the stage prints is those counts, not their percents (the
+        // narrated draft showed 4000, 1000 and 8000: `percent(0)` of a count
+        // of dots out of a hundred)
+        let printed = |g: fn(&Row) -> Q| -> Vec<String> { rows.iter().map(|r| dots_text(g(r))).collect() };
+        assert_eq!(printed(|r| r.chance), ["40", "30", "20", "10"]);
+        assert_eq!(printed(|r| r.product), ["40", "10", "20", "10"]);
+        assert_eq!(dots_text(left), "80");
+        let new_chances: Vec<String> = rows.iter().map(|r| pct_text(r.then / Q::int(100))).collect();
+        assert_eq!(new_chances, ["50%", "12.5%", "25%", "12.5%"]);
+    }
+
+    /// 07_4's numbers are counts of dots with a third in them: set as text,
+    /// the way the line reads them.
+    #[test]
+    fn a_count_with_a_third_in_it_is_set_as_the_line_reads_it() {
+        assert_eq!(mixed_text(Q::lowest(40, 3)), "13 1/3");
+        assert_eq!(mixed_text(Q::lowest(20, 3)), "6 2/3");
+        assert_eq!(mixed_text(Q::int(10)), "10");
+        assert_eq!(mixed_text(Q::lowest(1, 3)), "1/3");
     }
 
     /// The edges of the recipe: a search that cannot see leaves the map as

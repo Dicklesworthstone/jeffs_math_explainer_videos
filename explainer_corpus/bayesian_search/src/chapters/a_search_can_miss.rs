@@ -15,8 +15,8 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CARRY_HOLD_S, QuizFrame, Sea, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find, flat, in_cell,
-    line_style, map, pause, percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear,
+    CARRY_HOLD_S, QuizFrame, Sea, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find, flat, gold_tex,
+    in_cell, line_style, map, pause, percent_tex, say, sea_dots, sea_rect, sea_slot, sea_split, search, tween_linear,
 };
 use crate::model::{Q, sea};
 
@@ -141,8 +141,11 @@ impl SceneConstruct for ASearchCanMiss {
         for d in &dots {
             stage.add_to_scene(d.dot)?;
         }
+        // a readout is detached until it is put on the stage: the narrated
+        // draft's 05 had no blue chances at all, nothing had added them
         for c in 0..4 {
-            sea_map.percent_readout(&kit, stage, c, 28.0, map(), sea_slot(c, 0));
+            let readout = sea_map.percent_readout(&kit, stage, c, 28.0, map(), sea_slot(c, 0));
+            stage.add_to_scene(readout)?;
         }
         // the percents are recounted every frame and cannot fade in, so the
         // whole picture comes up from the dark under one veil
@@ -216,20 +219,20 @@ impl SceneConstruct for ASearchCanMiss {
         };
         line.wait_for(stage, P_QUARTER)?;
         let mut ins = rings_for(0);
-        ins.push(kit.tex(stage, &percent_tex(finds[0]), 30.0, find(), &[], sea_slot(0, 2))?);
+        ins.push(gold_tex(&kit, stage, &percent_tex(finds[0]), find(), 0)?);
         fade_out_all(stage, &gone, 0.2)?;
         fade_in_all(stage, &ins, 0.6)?;
         line.wait_for(stage, P_TWO_THIRDS)?;
         gone = vec![open[1]];
         let mut ins = rings_for(1);
-        ins.push(kit.tex(stage, &percent_tex(finds[1]), 30.0, find(), &[], sea_slot(1, 2))?);
+        ins.push(gold_tex(&kit, stage, &percent_tex(finds[1]), find(), 1)?);
         fade_out_all(stage, &gone, 0.2)?;
         fade_in_all(stage, &ins, 0.6)?;
         line.wait_for(stage, P_TWICE)?;
         gone = vec![open[2], open[3]];
         let mut ins = Vec::new();
         for c in [2usize, 3] {
-            ins.push(kit.tex(stage, &percent_tex(finds[c]), 30.0, find(), &[], sea_slot(c, 2))?);
+            ins.push(gold_tex(&kit, stage, &percent_tex(finds[c]), find(), c)?);
         }
         fade_out_all(stage, &gone, 0.2)?;
         fade_in_all(stage, &ins, 0.6)?;

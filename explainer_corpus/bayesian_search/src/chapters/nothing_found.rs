@@ -17,8 +17,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     CARRY_HOLD_S, QuizFrame, SEA_DOT_R, Sea, SeaDot, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find,
-    flat, in_cell, line_style, map, pause, percent_tex, quote_card, say, sea_dots, sea_slot, sea_split, search,
-    tween_linear, wait_until,
+    flat, gold_tex, in_cell, line_style, map, pause, percent_tex, quote_card, say, sea_dots, sea_slot, sea_split,
+    search, tween_linear, wait_until,
 };
 use crate::model::{Q, sea};
 
@@ -39,6 +39,7 @@ const P_GO_OUT: &str = "So they go out";
 const P_STILL: &str = "Ten are still in B";
 const P_ONE_IN_EIGHT: &str = "One in eight";
 const P_HALF: &str = "But forty dots out of eighty";
+const P_KNOW: &str = "What changed is what we know";
 const P_FORTY: &str = "Forty to fifty";
 const P_TWENTY_FIVE: &str = "Twenty to twenty-five";
 const P_TWELVE: &str = "Ten to twelve and a half";
@@ -59,7 +60,7 @@ const SUBJECTIVE: &str =
 /// height, and the dots' size against the sea's.
 const ROW_X0: f64 = -6.0;
 const ROW_W: f64 = 12.0;
-const ROW_Y: f64 = -2.2;
+const ROW_Y: f64 = -2.3;
 const ROW_SCALE: f64 = 0.6;
 
 /// Where dot `i` of the row stands when its groups are spread by `spread`
@@ -197,7 +198,7 @@ impl SceneConstruct for NothingFound {
             };
             let teal = kit.text(stage, &format!("{n} in {d}"), 26.0, search(), sea_slot(c, 1))?;
             stage.add_to_scene(teal)?;
-            gold.push(kit.tex(stage, &percent_tex(finds[c]), 30.0, find(), &[], sea_slot(c, 2))?);
+            gold.push(gold_tex(&kit, stage, &percent_tex(finds[c]), find(), c)?);
         }
         for &m in blue.iter().chain(&gold) {
             stage.add_to_scene(m)?;
@@ -390,13 +391,16 @@ impl SceneConstruct for NothingFound {
                 .build(),
         );
         fade_in_all(stage, &[half, tick], 0.5)?;
-        line.wait_end(stage)?;
-        kit.hold(stage)?;
-        // the quotation is one sentence of ninety characters: the kit's
+        // what changed is what we know: the authors' sentence on it comes in
+        // as that is said, so that fifteen words are on the stage for the
+        // line's last two seconds and the two after it, not for two in all
+        // (the quotation is one sentence of ninety characters: the kit's
         // lower-third leaves "one.”" alone on a second line, so it is set
-        // in two balanced lines
+        // in two balanced lines)
+        line.wait_for(stage, P_KNOW)?;
         let quote = quote_card(&kit, stage, STONE, SUBJECTIVE)?;
         fade_in_all(stage, &[quote], 0.5)?;
+        line.wait_end(stage)?;
         pause(stage, CARRY_HOLD_S)?;
         fade_out_all(stage, &[quote], 0.4)?;
 
@@ -480,7 +484,7 @@ mod tests {
     use super::*;
 
     /// (line, phrase): every phrase a picture lands on.
-    const PHRASES: [(&str, &str); 12] = [
+    const PHRASES: [(&str, &str); 13] = [
         ("06_1", P_EMPTY),
         ("06_2", P_LOOK),
         ("06_2", P_THIRTY),
@@ -490,6 +494,7 @@ mod tests {
         ("06_4", P_STILL),
         ("06_6", P_ONE_IN_EIGHT),
         ("06_7", P_HALF),
+        ("06_7", P_KNOW),
         ("06_8", P_FORTY),
         ("06_8", P_TWENTY_FIVE),
         ("06_8", P_TWELVE),
@@ -644,9 +649,12 @@ mod tests {
 
     #[test]
     fn the_row_the_ruler_and_the_question_do_not_touch() {
-        // the sea's lowest sums stay above the row of dots; the ruler's
-        // line and the 50 mark stay above the question's first line
-        let slot_low = super::super::draw::sea_slot(2, 2)[1] - 0.15;
+        // the sea's lowest sums stay above the row of dots (a mixed fraction
+        // is the lowest: 13⅓% stands TALL_DROP under its slot and reaches
+        // TALL_HALF_H either side of that); the ruler's line and the 50
+        // mark stay above the question's first line
+        use super::super::draw::{TALL_DROP, TALL_HALF_H};
+        let slot_low = super::super::draw::sea_slot(2, 2)[1] - TALL_DROP - TALL_HALF_H;
         assert!(
             slot_low > ROW_Y + SEA_DOT_R * ROW_SCALE + 0.05,
             "the sums clear the row's dots"

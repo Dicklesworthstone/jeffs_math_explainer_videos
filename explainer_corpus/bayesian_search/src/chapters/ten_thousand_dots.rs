@@ -5,20 +5,20 @@
 //! (04_3); the dots in each cell become its printed number and the cell
 //! takes its heat (04_4); one cell stands out, one dot in eight (04_5);
 //! almost: the wreck lay in a neighbour holding fewer than one in a hundred
-//! (04_6); the map dims and the made-up sea returns (04_7).
+//! (04_6); the map leaves and the made-up sea returns (04_7).
 //!
 //! The picture is the real map as printed: ten thousand dots, each one run
 //! of nine weighted stories. A dot is a run of what two men believed, and
 //! the lower-third says so, against reading 1,250 as a count of sinkings.
 
 use explainer_kit::props::precisely;
-use explainer_kit::{Kit, Palette, Timed, thousands, v};
+use explainer_kit::{Kit, Palette, Timed, fade_all, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Heat, Lattice, Sea, balanced_lines, carry_pause, carry_question, fade_in_all, fade_in_lagged, fade_out_all,
     faded_line, fail, flat, last_known, line_style, map, panel, pause, quote_card, say, sea_dots, sea_slot, sea_split,
-    text_lines, true_place, tween_linear, veil,
+    text_lines, true_place, tween_linear,
 };
 use crate::facts::cited;
 use crate::model::{Q, sea, y1968};
@@ -43,6 +43,7 @@ const P_PRINTED: &str = "This is the map they printed";
 const P_STANDS_OUT: &str = "One cell stands out";
 const P_E_FIVE: &str = "They called it E five";
 const P_ALMOST: &str = "Almost";
+const P_NEIGHBOUR: &str = "in a neighbouring cell";
 const P_YARDS: &str = "within two hundred and sixty yards";
 const P_ALONE: &str = "But the map alone";
 const P_METHOD: &str = "we need a method";
@@ -72,6 +73,13 @@ const ROW_H: f64 = 0.38;
 /// The right-hand column: its middle and the room a line has.
 const COLUMN_X: f64 = 4.4;
 const COLUMN_ROOM: f64 = 4.8;
+/// The run counter's height, how far a 64 pt number reaches below its
+/// centre, and the top of the inset of E5 and F6 (04_6), which stands under
+/// the counter (the narrated draft's 04_6 had the inset's top edge through
+/// the number).
+const COUNTER_Y: f64 = 2.3;
+const COUNTER_REACH: f64 = 0.3;
+const INSET_TOP: f64 = COUNTER_Y - COUNTER_REACH - 0.05;
 /// The coast of Palomares, drawn small on the left, and its two marks.
 const COAST: [[f64; 2]; 6] = [
     [-6.3, 3.0],
@@ -228,11 +236,9 @@ impl SceneConstruct for TenThousandDots {
         super::draw::fit_width(stage, found, 4.4);
         fade_in_all(stage, &[diamond, ring, found], 0.7)?;
         line.wait_for(stage, P_NINE)?;
-        let rest: Vec<Mob> = cards.iter().skip(3).copied().collect();
-        fade_in_lagged(stage, &rest, 1.6, 0.8)?;
-        line.wait_for(stage, P_WEIGHT)?;
-        fade_in_lagged(stage, &weights, 1.2, 0.6)?;
-        line.wait_end(stage)?;
+        // the card that dates and names the nine comes in with them and
+        // stays through the rest of the line: twenty words need more than the
+        // second the line's end left them (the narrated draft's 04_2)
         let scenario = quote_card(
             &kit,
             stage,
@@ -240,6 +246,11 @@ impl SceneConstruct for TenThousandDots {
             &format!("Set out {}: {SCENARIO_WORDS}", long_date(cited::SCENARIOS_SET)),
         )?;
         fade_in_all(stage, &[scenario], 0.5)?;
+        let rest: Vec<Mob> = cards.iter().skip(3).copied().collect();
+        fade_in_lagged(stage, &rest, 1.6, 0.8)?;
+        line.wait_for(stage, P_WEIGHT)?;
+        fade_in_lagged(stage, &weights, 1.2, 0.6)?;
+        line.wait_end(stage)?;
         pause(stage, 1.0)?;
         fade_out_all(stage, &[scenario], 0.4)?;
 
@@ -254,7 +265,7 @@ impl SceneConstruct for TenThousandDots {
         let line = say(&kit, stage, LINES[2])?;
         line.wait_for(stage, P_COMPUTER)?;
         let runs = stage.add_value_tracker(0.0);
-        kit.live_count(stage, runs, 64.0, ink, v(COLUMN_X, 2.3))?;
+        kit.live_count(stage, runs, 64.0, ink, v(COLUMN_X, COUNTER_Y))?;
         let run_words = block(&kit, stage, &column_lines(RUN_WORDS, 34), 22.0, dim, 1.5)?;
         fade_in_all(stage, &[run_words], 0.5)?;
         // the dots rain: each cell's dots drop in, the middle first, while
@@ -367,8 +378,8 @@ impl SceneConstruct for TenThousandDots {
         line.wait_for(stage, P_ALMOST)?;
         fade_out_all(stage, &[e5_note, b7_note, b7_box], 0.4)?;
         let (cw, ch) = (4.0 * map_1968.cell_w, 4.0 * map_1968.cell_h);
-        let e5_at = v(COLUMN_X - cw / 2.0, 1.55);
-        let f6_at = v(COLUMN_X + cw / 2.0, 1.55 - ch);
+        let e5_at = v(COLUMN_X - cw / 2.0, INSET_TOP - ch / 2.0);
+        let f6_at = v(COLUMN_X + cw / 2.0, INSET_TOP - 1.5 * ch);
         let share = |name: &str| -> fmn::Result<f64> {
             let n = y1968::points(name).ok_or_else(|| fail(format!("no cell {name}")))?;
             Ok(f64::from(n) / f64::from(y1968::REPLICATIONS))
@@ -429,21 +440,25 @@ impl SceneConstruct for TenThousandDots {
         let asterisk = kit.text(stage, IN_PAPER, 20.0, dim, v(COLUMN_X, -2.6))?;
         super::draw::fit_width(stage, asterisk, COLUMN_ROOM);
         inset.push(f6_note);
-        line.wait_for(stage, P_YARDS)?;
+        // the neighbour is on the stage as it is named, the quoted distance
+        // as it is said
+        line.wait_for(stage, P_NEIGHBOUR)?;
         fade_in_lagged(stage, &inset, 1.2, 0.4)?;
+        line.wait_for(stage, P_YARDS)?;
         fade_in_all(stage, &[quoted, asterisk], 0.5)?;
         line.wait_end(stage)?;
 
         // 04_7: but the map alone did not find her, and the search took five
-        // months; the map dims and the made-up sea returns
+        // months; the map leaves and the made-up sea comes back where it
+        // stood (the sea is as large as the lattice, so "beside it" put one
+        // on the other: the narrated draft's 04_7)
         let line = say(&kit, stage, LINES[6])?;
         line.wait_for(stage, P_ALONE)?;
-        let dim_map = veil(stage)?;
+        fade_all(stage, 0.7)?;
         let lit0: [u32; 4] = sea::prior().map(|p| (p * Q::int(sea::DOTS)).fixed(0).parse().unwrap_or(0));
         let sea_map = Sea::build(&kit, stage, lit0)?;
         let dots = sea_dots(stage, sea_split());
-        let mut returning: Vec<Mob> = vec![dim_map];
-        returning.extend(sea_map.mobs());
+        let mut returning: Vec<Mob> = sea_map.mobs();
         returning.push(sea_map.tag);
         returning.extend(dots.iter().map(|d| d.dot));
         fade_in_lagged(stage, &returning, 1.2, 0.3)?;
@@ -465,7 +480,7 @@ mod tests {
     use super::*;
     use explainer_kit::Script;
 
-    const PHRASES: [(&str, &str); 15] = [
+    const PHRASES: [(&str, &str); 16] = [
         ("04_1", P_SCIENTIST),
         ("04_1", P_PALOMARES),
         ("04_2", P_FISHERMAN),
@@ -478,6 +493,7 @@ mod tests {
         ("04_5", P_STANDS_OUT),
         ("04_5", P_E_FIVE),
         ("04_6", P_ALMOST),
+        ("04_6", P_NEIGHBOUR),
         ("04_6", P_YARDS),
         ("04_7", P_ALONE),
         ("04_7", P_METHOD),
@@ -606,6 +622,11 @@ mod tests {
         }
         // the inset's two cells, four times the lattice's, fit the column
         assert!(2.0 * 4.0 * cell_w <= COLUMN_ROOM);
+        // and stand under the run counter and above the F6 note (04_6)
+        const {
+            assert!(INSET_TOP < COUNTER_Y - COUNTER_REACH);
+            assert!(INSET_TOP - 2.0 * 4.0 * ROW_H > -1.55 + 0.12 + 0.1);
+        }
         assert!(
             COAST
                 .iter()
