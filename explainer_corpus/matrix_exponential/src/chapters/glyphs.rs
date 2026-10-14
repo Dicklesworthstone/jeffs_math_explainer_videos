@@ -4,7 +4,7 @@
 //! value from `facts` (the probe covers the digits through [`DIGITS`]).
 
 /// The digits and separators numbers are printed with.
-pub const DIGITS: &str = "0123456789 , . + − × ÷ = ( ) ! ≈ ≠ ≤";
+pub const DIGITS: &str = "0123456789 , . + − × ÷ = ( ) ! ≈ ≠ ≤ ‖ … ° ′ ’ · √ π – ² ³ ⁶ % : ?";
 
 pub const TITLE: &str = "What Does It Mean to Raise e to a Matrix?";
 
