@@ -26,14 +26,14 @@ Chapters
 2:54 Any product, by parts
 4:14 A running total
 5:38 Percents: a tenth, and the swap
-6:54 Round numbers: half and double; round, then fix
-8:21 The middle
-9:38 Feynman, Bethe and forty-eight squared
-10:32 Squares near fifty
-11:45 Your turn
-12:36 Which trick?
-13:16 Nothing to grab
-14:12 Every number is near something you know
+6:55 Round numbers: half and double; round, then fix
+8:22 The middle
+9:39 Feynman, Bethe and forty-eight squared
+10:33 Squares near fifty
+11:47 Your turn
+12:39 Which trick?
+13:18 Nothing to grab
+14:14 Every number is near something you know
 
 The tricks, exactly
 Squares ending in 5: (10n + 5)² = 100 × n × (n + 1) + 25 for every whole number n from 0 up. It is only as easy as that one product.
