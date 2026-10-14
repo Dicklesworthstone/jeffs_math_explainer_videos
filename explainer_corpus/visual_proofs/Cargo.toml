@@ -9,26 +9,6 @@ description = "Proofs You Can See: eight visual proofs (the sum of cubes as slab
 name = "proofs"
 path = "src/main.rs"
 
-# While several builders write scenes at once, each chapter sits behind a
-# switch and renders as its storyboard's animatic when the switch is off.
-[features]
-ch01 = []
-ch02 = []
-ch03 = []
-ch04 = []
-ch05 = []
-ch06 = []
-ch07 = []
-ch08 = []
-ch09 = []
-ch10 = []
-ch11 = []
-ch12 = []
-ch13 = []
-ch14 = []
-ch15 = []
-all = ["ch01", "ch02", "ch03", "ch04", "ch05", "ch06", "ch07", "ch08", "ch09", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"]
-
 # franken_manim's pin, its reviewed patches and the release profile come from
 # the corpus workspace (the root Cargo.toml).
 [dependencies]

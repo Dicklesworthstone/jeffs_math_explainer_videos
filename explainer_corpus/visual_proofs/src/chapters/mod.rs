@@ -5,6 +5,7 @@
 //! as its storyboard's animatic and is replaced by its real scene as it is
 //! built; a module is declared here only once its file is committed.
 
+pub mod draw;
 pub mod glyphs;
 
 use explainer_kit::Chapter;
