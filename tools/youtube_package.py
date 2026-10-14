@@ -17,6 +17,9 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
   at least three, rising, each at least 10 s after the one before; a time still written `?:??` means the final
   has not been cut yet and fails. With `--finals DIR`, one chapter per `DIR/*.timeline.tsv` and the times
   equal the ones `./x SLUG chapters` prints for that final (a start rounded down to the second).
+- docs/protected.tsv, when the video has one: every phrase it requires in the description or the title stands
+  in description.txt or title.txt, matched as the skill's protected_check.py matches (case, punctuation and
+  line breaks ignored, whole words). A cut of docs/description.md that drops a credit fails here.
 
 `fill` writes those times into the `?:??` (or stale) chapter lines of both files, in chapter order, and then
 runs `check` against the same finals. Nothing is uploaded and nothing is deleted.
@@ -91,6 +94,30 @@ def chapter_lines(text: str) -> list[tuple[int, re.Match]]:
     return out
 
 
+def words(text: str) -> str:
+    """protected_check.py's form: lower case, every run of non-alphanumerics one space, padded for whole words."""
+    return " " + re.sub(r"[^0-9a-z]+", " ", text.lower()).strip() + " "
+
+
+def protected_missing(protected: Path, texts: dict[str, str]) -> list[str]:
+    """The rows of docs/protected.tsv whose <where> names a kind in `texts` (description, title) and whose
+    phrase that text lacks, one line each; no file, no rows."""
+    if not protected.is_file():
+        return []
+    have = {k: words(t) for k, t in texts.items()}
+    out = []
+    for line in protected.read_text(encoding="utf-8").splitlines():
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        cols = line.split("\t")
+        where = [w.strip() for w in (cols[1] if len(cols) > 1 else "").split(",")]
+        why = cols[2].strip() if len(cols) > 2 else ""
+        for kind in where:
+            if kind in have and words(cols[0]) not in have[kind]:
+                out.append(f"{kind}.txt: the protected phrase {cols[0].strip()!r} is missing (docs/protected.tsv: {why})")
+    return out
+
+
 def check(slug: str, voice: str = "michael", finals: Path | None = None, root: Path = ROOT) -> list[str]:
     """Every problem with the package, one line each (empty when it is ready to upload)."""
     p = paths(slug, voice, root)
@@ -130,6 +157,8 @@ def check(slug: str, voice: str = "michael", finals: Path | None = None, root: P
         bad.append(f"youtube.md: {len(blocks)} ```text blocks (the description is the one block)")
     elif blocks[0] != desc:
         bad.append("youtube.md: the ```text block is not description.txt byte for byte")
+    protected = root / "explainer_corpus" / slug / "docs" / "protected.tsv"
+    bad.extend(protected_missing(protected, {"description": desc, "title": title}))
     chapters = chapter_lines(desc)
     if len(chapters) < 3:
         bad.append(f"description.txt: {len(chapters)} chapter lines after 'Chapters' (YouTube needs 3)")

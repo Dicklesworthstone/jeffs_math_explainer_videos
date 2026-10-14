@@ -102,6 +102,26 @@ class Package(unittest.TestCase):
         self.assertEqual(len(bad), 1)
         self.assertIn("tags.txt: missing", bad[0])
 
+    def test_a_protected_phrase_the_upload_text_dropped_fails(self):
+        docs = self.root / "explainer_corpus" / "alpha" / "docs"
+        docs.mkdir()
+        (docs / "protected.tsv").write_text(
+            "# phrase\twhere\twhy\n"
+            "von Neumann\tdescription\twhose trick it is\n"
+            "a title word\ttitle\tthe title keeps it\n"
+            "only spoken\tscript\tnot the upload text's to keep\n",
+            encoding="utf-8",
+        )
+        bad = [b for b in self.check() if "protected" in b]
+        self.assertEqual(len(bad), 2, bad)
+        self.assertIn("'von Neumann'", bad[0])
+        self.assertIn("title.txt", bad[1])
+        # case, punctuation and line breaks do not matter; whole words do
+        self.write(DESC.replace("A one-line pitch.", "Von\nNEUMANN's pitch."), title="Alpha: A Title-Word")
+        self.assertEqual([b for b in self.check() if "protected" in b], [])
+        self.write(DESC.replace("A one-line pitch.", "von Neumannian pitch."), title="Alpha: a title word")
+        self.assertEqual(len([b for b in self.check() if "protected" in b]), 1)
+
     def test_youtube_counts_quotes_round_a_tag_with_a_space(self):
         self.assertEqual(yp.tags_length(["ab", "c d"]), 2 + 1 + 3 + 2)
 
