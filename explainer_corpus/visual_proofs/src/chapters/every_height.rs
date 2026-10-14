@@ -47,7 +47,7 @@ pub const GAP: f64 = 0.6;
 pub const WAIT: P3 = [7.0, 4.2, 0.0];
 /// The view while the block is apart: a block of five levels with six
 /// slabs and their gaps, standing under the shelf.
-pub const APART: ViewAt = ViewAt::classic((-5.6, -2.8), 0.5);
+pub const APART: ViewAt = ViewAt::classic((-5.6, -2.3), 0.5);
 /// The block of five levels closed up, in the left half, with its labels'
 /// and the inset's room beside it.
 pub const SETTLED_AT: (f64, f64) = (-4.0, 0.4);
@@ -81,6 +81,8 @@ pub const CARD_LOOK: CardLook = CardLook {
 };
 /// The shelf's slot this proof takes: after chapter 06's.
 pub const SLOT: usize = 3;
+/// Where the staircase's count stands in 09_2, left edge.
+pub const STAIRCASE_AT: Vec3 = [-1.2, 1.0, 0.0];
 /// The type size of the numbers beside the slabs.
 const LABEL_PT: f64 = 30.0;
 
@@ -89,6 +91,7 @@ const UNDER: &str = "under";
 const BEHIND: &str = "behind";
 const BESIDE: &str = "beside";
 const CUBES_WORD: &str = "cubes";
+const STAIRCASE_WORDS: &str = "staircase";
 const LEVELS_WORD: &str = "levels";
 const INDUCTION: &str = "mathematical induction:";
 const INDUCTION_TEXT: &str =
@@ -114,6 +117,10 @@ pub struct Piece {
 pub struct Reads {
     pub n: i64,
     pub next: i64,
+    /// The block of the next height: wide, deep and tall in whole cubes
+    /// (the staircase is on top of that), and the staircase's cubes.
+    pub grown_box: [i64; 3],
+    pub grown_top: i64,
     pub grown_slab: i64,
     pub one_cubes: i64,
     /// The first case's box as words for its three sides (`1`, `2`, `1½`).
@@ -150,7 +157,7 @@ fn reads() -> fmn::Result<Reads> {
         )));
     }
     // the step on top of the grown block: the old step and a column
-    want(
+    let grown_top = want(
         "F-S.grown.top",
         fact_int("F-S.grown.top")?,
         stacks::top(n).len() as i64 + next,
@@ -173,6 +180,8 @@ fn reads() -> fmn::Result<Reads> {
     Ok(Reads {
         n,
         next,
+        grown_box: [next, next + 1, next],
+        grown_top,
         grown_slab,
         one_cubes,
         one_box: [mixed(a), mixed(b), mixed(c)],
@@ -443,6 +452,58 @@ impl SceneConstruct for EveryHeight {
                 return Err(fail(format!("stack {which} did not end on the model's cells")));
             }
         }
+        // the block of the next height: braces 5, 6, 5 and its staircase
+        let [bw, bd, bh] = r.grown_box.map(|x| x as f64);
+        let edges = [
+            (
+                iso.project(stage, [0.0, 0.0, 0.0]),
+                iso.project(stage, [bw, 0.0, 0.0]),
+                v(0.0, -1.0),
+                r.grown_box[0],
+            ),
+            (
+                iso.project(stage, [bw, 0.0, 0.0]),
+                iso.project(stage, [bw, bd, 0.0]),
+                v(1.0, -0.6),
+                r.grown_box[1],
+            ),
+            (
+                iso.project(stage, [0.0, 0.0, bh]),
+                iso.project(stage, [0.0, 0.0, 0.0]),
+                v(-1.0, 0.0),
+                r.grown_box[2],
+            ),
+        ];
+        let mut braces: Vec<Mob> = Vec::new();
+        for (a, b, out, size_of_edge) in edges {
+            let (brace, reach) = edge_brace(stage, a, b, out, ink())?;
+            let mid = v((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0);
+            let len = (out[0] * out[0] + out[1] * out[1]).sqrt();
+            let label = kit.text(
+                stage,
+                &size_of_edge.to_string(),
+                36.0,
+                ink(),
+                v(
+                    mid[0] + (reach + 0.3) * out[0] / len,
+                    mid[1] + (reach + 0.3) * out[1] / len,
+                ),
+            )?;
+            braces.extend([brace, label]);
+        }
+        let staircase = kit.text_left(
+            stage,
+            &format!("{STAIRCASE_WORDS}: {} {CUBES_WORD}", r.grown_top),
+            30.0,
+            ink(),
+            v(STAIRCASE_AT[0], STAIRCASE_AT[1]),
+        )?;
+        braces.push(staircase);
+        let braces_in: Moves = braces
+            .iter()
+            .map(|&m| arrive(stage, m, 0.5))
+            .collect::<fmn::Result<Moves>>()?;
+        play(stage, braces_in, 0.25)?;
         line.wait_end(stage)?;
         breath(&kit, stage)?;
 
@@ -460,7 +521,11 @@ impl SceneConstruct for EveryHeight {
         for p in &old {
             moves.push(iso.glow(p.solid, dim(), 0.85, 0.6)?);
         }
-        iso.play(stage, moves, 0.0)?;
+        let braces_out: Moves = braces
+            .iter()
+            .map(|&m| leave(stage, m, 0.4))
+            .collect::<fmn::Result<Moves>>()?;
+        with(stage, moves, braces_out, 0.0)?;
         // the inset: the three slabs flat, each a five by five board
         let mut slab_mobs: Vec<Mob> = Vec::new();
         let mut slab_names: Vec<Mob> = Vec::new();
@@ -1087,6 +1152,7 @@ mod tests {
             "25 + 25 + 25 = 75",
             "16",
             "9",
+            "staircase: 15 cubes",
             "3 cubes",
             "1½",
             "mathematical induction:",
