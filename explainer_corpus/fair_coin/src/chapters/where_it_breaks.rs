@@ -728,7 +728,9 @@ impl SceneConstruct for WhereItBreaks {
             counts,
             caption: games_caption,
         };
-        tally.extend(land_games(stage, &alice_won, (under_bar, bar_w), beside, (0.1, 5.4))?);
+        let window_end = line.end() + explainer_kit::narration::BREATH + 3.0;
+        let span = (window_end - stage.scene().time().to_f64() - 0.8).clamp(2.2, 5.4);
+        tally.extend(land_games(stage, &alice_won, (under_bar, bar_w), beside, (0.1, span))?);
         kit.listen(stage, 3.0, "05_where_it_breaks:05_2")?;
 
         // 05_3: a coin with a memory. One thing at a time: the coin, its

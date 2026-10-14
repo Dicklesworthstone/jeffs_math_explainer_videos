@@ -204,7 +204,9 @@ impl Flip {
                 for (m, from, to) in &shapes {
                     let now: Vec<Vec3> = from.iter().zip(to).map(|(&a, &b)| at(a, b)).collect();
                     // halfway over, the copy is edge-on (a line on the diagonal): keep the last shape
-                    let _ = s.set_points(*m, &now);
+                    if (e - 0.5).abs() >= 0.01 {
+                        let _ = s.set_points(*m, &now);
+                    }
                 }
                 for &(m, from, to) in &carried {
                     s.move_to(m, at(from, to), ORIGIN);

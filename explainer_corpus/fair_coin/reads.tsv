@@ -34,8 +34,8 @@
 08_2	0	«Alice and Bob want to settle their bet with it.»
 08_2	0	‘Alice and Bob want to settle their bet with it.’
 # 07_2.3: every read so far ends "ones" with 40-80 ms of hiss and the engine flags all it has chosen; two more inputs.
-07_2	3	[If not, toss four fresh ones.]
-07_2	3	(If not, toss four fresh ones.)
+07_2	3	«If not, toss four fresh ones.»
+07_2	3	‘If not, toss four fresh ones.’
 # Pass 5: chosen reads cut short by ftts on a sound that is not a hiss (one, that, die): two more inputs each.
 02_5	2	«Two heads has sixteen of the twenty-five, and two tails has one.»
 02_5	2	‘Two heads has sixteen of the twenty-five, and two tails has one.’

@@ -46,3 +46,26 @@ pub fn identity() -> Identity {
         themes: Vec::new(),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_identity_is_one_the_engine_can_play() {
+        let id = identity();
+        id.validate().unwrap();
+        assert_eq!(id.name, "fair_coin");
+        assert_eq!(id.progression[0].root, id.key.tonic);
+        assert_eq!(id.progression[0].bass, id.key.tonic);
+    }
+
+    /// The motif's two pairs of notes swap places (5̂–6̂ then 6̂–5̂), and the
+    /// resolution settles on 1̂.
+    #[test]
+    fn the_motif_swaps_two_notes_and_the_resolution_lands_on_the_tonic() {
+        let id = identity();
+        assert_eq!(id.motif.degrees, vec![5, 6, 6, 5]);
+        assert_eq!(id.resolution.degrees, vec![2, 1]);
+    }
+}
