@@ -11,9 +11,9 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, along_a_screw,
-    book, cuboid, entry, fact, fact_f64, fade_in_all, fade_in_lagged, faded_line, leave, mix, point_fn, say,
-    screw_shapes, static_grid, still, table, tag,
+    ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, STAND_UP, Shape, View, World,
+    along_a_screw, book, cuboid, entry, fact, fact_f64, fade_in_all, fade_in_lagged, faded_line, leave, mix, point_fn,
+    say, screw_shapes, static_grid, still, table, tag, wait_until,
 };
 use super::steps::{goal_frame, pose_frame};
 use crate::model::{self, Arm, DEG, M3, Pose, V3, add, angle_axis, det, mul, norm, poses, scale, sub, transpose};
@@ -477,9 +477,16 @@ impl SceneConstruct for TheSteadyPath {
         let quarter_blend = fact_f64("G-I.blend.quarter_turned")?;
         let quarter_screw = fact_f64("G-I.screw.quarter_turned")?;
         let (programmers, renorm) = programmers_note(&kit, stage, quarter_blend, quarter_screw)?;
-        line_14_3.wait_end(stage)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, programmers, "14_3:programmers")?;
+        // the claim and the aside come in as soon as the volumes are read,
+        // not at the line's end (they came then and stood 1.1 s whole, over
+        // the finished read, before 14_4 took them away)
         fade_in_all(stage, &[never, programmers, renorm[0], renorm[1]], 0.6)?;
+        let up = stage.scene().time().to_f64();
+        line_14_3.wait_end(stage)?;
         kit.music_breath(stage, 1.0)?;
+        wait_until(stage, up + STAND_UP)?;
 
         // 14_4: the steady path is the screw
         let line_14_4 = say(&kit, stage, BEATS[3])?;
@@ -1025,5 +1032,42 @@ mod tests {
             );
             Ok(())
         });
+    }
+
+    /// 14_3 (the dense read of the scored draft): the claim, the tag and its
+    /// note stand whole for the floor before 14_4 takes them. They came at
+    /// the line's end and stood 1.1 s whole with the finished read (14_3's
+    /// 6.76 s, 14_4's first sentence 2.39 s); the scratch voice cannot tell,
+    /// so the run is placed on the report's own timing for the two lines.
+    /// The watched tag is "up" at 90% of its fade-in and "down" at 10% of its
+    /// fade-out, 0.6 s each: the time it is whole is the span between them
+    /// less 0.6 s.
+    #[test]
+    fn the_programmers_note_stands_whole_for_the_floor_with_the_finished_read() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let narrator = explainer_kit::Narrator::estimate_timed(
+            &script,
+            &[("14_3", &[0.0, 2.94], 6.76), ("14_4", &[0.0, 2.39, 4.92, 9.52], 14.81)],
+        )
+        .unwrap();
+        let mut kit = Kit::new().unwrap().with_narrator(narrator);
+        kit.chapter = "14_the_steady_path#finished_read".to_owned();
+        super::super::draw::run_chapter(&mut TheSteadyPath { kit: kit.clone() });
+        let events = super::super::draw::dwell_log::take(&kit.chapter, "14_3:programmers");
+        let up = events
+            .iter()
+            .find(|(k, _)| *k == "up")
+            .map(|&(_, t)| t)
+            .expect("the tag comes up");
+        let down = events
+            .iter()
+            .find(|&&(k, t)| k == "down" && t > up)
+            .map(|&(_, t)| t)
+            .expect("14_4 takes the tag away");
+        let whole = down - up - 0.6;
+        assert!(
+            whole >= STAND_UP - 0.15,
+            "the tag is whole from {up:.2} s to {down:.2} s less its fades: {whole:.2} s, not {STAND_UP} s ({events:?})"
+        );
     }
 }

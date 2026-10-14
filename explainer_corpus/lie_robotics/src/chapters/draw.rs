@@ -247,6 +247,12 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
     Ok(())
 }
 
+/// How long a tag, a note or a claim stands whole before anything takes it
+/// away, seconds (the floor the other videos' bands keep). Take `now` when
+/// its fade-in is over and `wait_until(stage, up + STAND_UP)` before the
+/// next line fades it.
+pub const STAND_UP: f64 = 2.6;
+
 /// Wait `seconds` (a beat of stillness after a reveal).
 pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
     let fps = stage.scene().time().fps();
@@ -2090,6 +2096,92 @@ pub fn run_chapter(scene: &mut impl SceneConstruct) {
         &mut fmn::scene::NullSceneSink,
     )
     .expect("the chapter's scene runs");
+}
+
+/// Events of `watch_dwell`, during a test run: chapter name, key, "up" or
+/// "down", scene seconds.
+#[cfg(test)]
+pub mod dwell_log {
+    use std::sync::Mutex;
+
+    static EVENTS: Mutex<Vec<(String, &'static str, &'static str, f64)>> = Mutex::new(Vec::new());
+
+    pub fn record(chapter: &str, key: &'static str, kind: &'static str, at: f64) {
+        if let Ok(mut events) = EVENTS.lock() {
+            events.push((chapter.to_owned(), key, kind, at));
+        }
+    }
+
+    /// What the mobject watched under `key` did in the run named `chapter`,
+    /// in order.
+    pub fn take(chapter: &str, key: &str) -> Vec<(&'static str, f64)> {
+        EVENTS
+            .lock()
+            .map(|events| {
+                events
+                    .iter()
+                    .filter(|(c, k, ..)| c == chapter && *k == key)
+                    .map(|&(_, _, kind, at)| (kind, at))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+}
+
+/// Tests only: have `mob` watched through the run, noting in `dwell_log`
+/// under the chapter's name and `key` each time it is fully seen ("up": on
+/// the scene at nearly the opacity it was made with) and each time it has
+/// all but gone ("down": off the scene, or nearly transparent), scene
+/// seconds. A fade-out takes the mobject off the scene and gives it its
+/// opacity back, so both are read. Call it where the mobject is made,
+/// before anything fades it; how long a tag stands, or how soon a chapter
+/// shows its first picture, is then a number a test can read.
+#[cfg(test)]
+pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str) -> fmn::Result<()> {
+    let watch = stage.arena_mut().add(VMobject::new());
+    let chapter = kit.chapter.clone();
+    let origin = stage.scene().time().to_f64();
+    let (mut base, mut seen, mut state) = (f64::NAN, 0.0, None::<bool>);
+    // the most opaque of the family (a group has no colour of its own)
+    let opacity = move |s: &Arena| {
+        s.family(mob).into_iter().fold(0.0, |o: f64, m| {
+            o.max(s.get_fill_opacity(m).unwrap_or(0.0))
+                .max(s.get_stroke_opacity(m).unwrap_or(0.0))
+        })
+    };
+    let on_scene = move |s: &Arena| s.roots().iter().any(|&r| r == mob || s.family(r).contains(&mob));
+    stage.add_dt_updater(
+        watch,
+        move |s, _, dt| {
+            seen += dt;
+            let o = opacity(s);
+            if base.is_nan() {
+                // as registered: the mobject's own opacity, before any fade,
+                // and whether it is up now (the state the first change is
+                // measured from)
+                base = o.max(1e-6);
+                state = Some(on_scene(s) && o >= 0.9 * base);
+                return;
+            }
+            let now = if on_scene(s) && o >= 0.9 * base {
+                Some(true)
+            } else if !on_scene(s) || o <= 0.1 * base {
+                Some(false)
+            } else {
+                state
+            };
+            if now != state {
+                if state.is_some() {
+                    let kind = if now == Some(true) { "up" } else { "down" };
+                    dwell_log::record(&chapter, key, kind, origin + seen);
+                }
+                state = now;
+            }
+        },
+        true,
+    )?;
+    stage.add_to_scene(watch)?;
+    Ok(())
 }
 
 /// The texts the kit built that a lower third cut to fit its three lines

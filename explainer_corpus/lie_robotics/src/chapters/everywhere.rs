@@ -317,10 +317,17 @@ impl SceneConstruct for Everywhere {
         let map = map_icon(stage, v(-1.9, 2.45))?;
         let drone_words = kit.text(stage, DRONES, 26.0, Palette::dim(), v(-5.2, 1.5))?;
         let map_words = kit.text(stage, MAPS, 26.0, Palette::dim(), v(-1.9, 1.5))?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, drone, "15_1:drone")?;
+        // the chapter opens on its two icons, with "The same moves run far
+        // beyond this arm." (they came with their words, 2.9 s into the line
+        // in the finished read, over an empty frame); each name follows its
+        // sentence
+        fade_in_all(stage, &[drone, map], 0.6)?;
         line.wait_for(stage, "Drones steer poses")?;
-        fade_in_all(stage, &[drone, drone_words], 0.6)?;
+        fade_in_all(stage, &[drone_words], 0.6)?;
         line.wait_for(stage, "Mapping robots")?;
-        fade_in_all(stage, &[map, map_words], 0.6)?;
+        fade_in_all(stage, &[map_words], 0.6)?;
         line.wait_for(stage, "A physics engine")?;
         let (add_label, exp_label) = (
             kit.text(
@@ -1135,6 +1142,32 @@ mod tests {
             assert!(stage.get_right(tally)[0] < -0.5, "the tally stays left of the humanoid");
             Ok(())
         });
+    }
+
+    /// 15_1 (the dense read of the scored draft): the chapter opens on a
+    /// picture, the two icons with "The same moves run far beyond this
+    /// arm.", not on an empty frame until "Drones steer poses" (2.9 s into
+    /// the finished read, 3.6 s into the video with the chapter's lead). The
+    /// scratch voice puts that phrase early, so the line is placed on the
+    /// report's own timing.
+    #[test]
+    fn the_chapter_opens_on_its_first_picture_not_an_empty_frame() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let narrator =
+            explainer_kit::Narrator::estimate_timed(&script, &[("15_1", &[0.0, 2.9, 4.81, 7.6, 14.32], 20.22)])
+                .unwrap();
+        let mut kit = Kit::new().unwrap().with_narrator(narrator);
+        kit.chapter = "15_everywhere#finished_read".to_owned();
+        super::super::draw::run_chapter(&mut Everywhere { kit: kit.clone() });
+        let events = super::super::draw::dwell_log::take(&kit.chapter, "15_1:drone");
+        let up = events
+            .iter()
+            .find(|(k, _)| *k == "up")
+            .map(|&(_, t)| t)
+            .expect("the drone comes up");
+        // (the line starts after the lead, about half a second in, and the
+        // icons take 0.6 s to come up; the empty opening was 3.9 s)
+        assert!(up <= 1.5, "the first picture is whole at {up:.2} s ({events:?})");
     }
 
     /// 15_5's resolution window opens after the voice has stopped, ends the
