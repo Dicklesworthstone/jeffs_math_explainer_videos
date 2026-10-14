@@ -47,8 +47,7 @@ const WORD_TALL: &str = "n + 1: one taller";
 const WORD_HALF: &str = "÷ 2: half of the rectangle";
 const SHOWN_TEX: &str =
     r"\text{for every whole number } n \text{ from 1, } 1 + 2 + \cdots + n \text{ is half of } n \times (n + 1)";
-const ASSUMED_TEX: &str =
-    r"\text{column } k \text{ of one meets column } n + 1 - k \text{ of the other, so every pair adds to } n + 1";
+const ASSUMED_TEX: &str = r"\text{column } k \text{ and its partner } n + 1 - k \text{ add to } n + 1";
 const REASON: &str = "pairs of six at five columns";
 const PAIR_PLUS: &str = "+";
 /// The quiz this chapter asks (`model::QUIZZES`).
@@ -515,6 +514,11 @@ mod tests {
     fn the_chapter_runs_and_the_layout_lint_is_clean() {
         let ran = testing::run("04_staircases").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
+        // the card's rows are set near their full size: none is squeezed to
+        // less than nine tenths of it
+        for (text, scale) in &ran.squeezed {
+            assert!(*scale >= 0.9, "{text:?} is squeezed to {scale:.2} of its size");
+        }
         assert!(ran.seconds > 30.0 && ran.seconds < 90.0, "{} s", ran.seconds);
     }
 }

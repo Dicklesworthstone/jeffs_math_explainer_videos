@@ -703,6 +703,11 @@ mod tests {
     fn the_chapter_runs_and_the_layout_lint_is_clean() {
         let ran = testing::run("03_layers").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
+        // the card's rows are set near their full size: none is squeezed to
+        // less than three quarters of it
+        for (text, scale) in &ran.squeezed {
+            assert!(*scale >= 0.75, "{text:?} is squeezed to {scale:.2} of its size");
+        }
         assert!(ran.seconds > 40.0 && ran.seconds < 90.0, "{} s", ran.seconds);
     }
 }

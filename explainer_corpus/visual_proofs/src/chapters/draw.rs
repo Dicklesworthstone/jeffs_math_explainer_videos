@@ -1029,8 +1029,14 @@ impl ProofCard {
             let label = kit.text_styled(stage, name, CARD_PT * k, ink(), v(left, y), true, false)?;
             stage.move_to(label, v(left, y), LEFT);
             let from = left + (CARD_LABEL_COL * k).max(stage.get_width(label) + 0.35 * k);
+            #[cfg(test)]
+            let source = match words {
+                Words::Text(t) | Words::Tex(t) => t,
+            };
             let words = words.set_left(kit, stage, CARD_PT * k, ink(), v(from, y))?;
             let room = right - from - if assumed { CARD_MARK_ROOM * k } else { 0.0 };
+            #[cfg(test)]
+            fit_log::row(source, stage.get_width(words), room);
             fit_width_left(stage, words, room);
             lines.push(CardLine {
                 label,
@@ -1105,6 +1111,8 @@ impl ProofCard {
             let from = x + side + 0.22 * k;
             let color = if ok { dim() } else { warn() };
             let words = kit.text_left(stage, reason, CARD_REASON_PT * k, color, v(from, row.y))?;
+            #[cfg(test)]
+            fit_log::row(reason, stage.get_width(words), right - from);
             fit_width_left(stage, words, right - from);
             let a = fade_in(stage.arena_mut(), words, v(0.15, 0.0), 1.0)?;
             anims.push(stage.prepare(a.rt(0.5))?);
@@ -1777,6 +1785,10 @@ pub mod testing {
         pub lint_count: usize,
         /// Every text-like mobject the chapter built, with its source.
         pub registered: Vec<Registered>,
+        /// Every card row and tick reason of the run that did not fit its room
+        /// at full size: its words and the share of the full size it was set
+        /// at (a row that fits is not here).
+        pub squeezed: Vec<(String, f64)>,
     }
 
     /// Run chapter `key` of the registry at 64 by 36 and 10 frames a second,
@@ -1851,6 +1863,7 @@ pub mod testing {
             lint: lint.report(),
             lint_count: lint.count(),
             registered: kit.registered(),
+            squeezed: super::fit_log::take(),
         };
         Ok((ran, kit))
     }
@@ -2242,6 +2255,30 @@ pub mod shelf_log {
             false,
         )?;
         Ok(())
+    }
+}
+
+/// How far the card rows and reasons of a test run were squeezed into their
+/// room: a row wider than its room is shrunk to it, and a row shrunk to half
+/// is hard to read at a viewer's distance.
+#[cfg(test)]
+pub mod fit_log {
+    use std::cell::RefCell;
+
+    thread_local! {
+        static ROWS: RefCell<Vec<(String, f64)>> = const { RefCell::new(Vec::new()) };
+    }
+
+    /// A row of `text`, `natural` wide at full size, in a room `room` wide.
+    pub fn row(text: &str, natural: f64, room: f64) {
+        if natural > room && natural > 0.0 {
+            ROWS.with(|r| r.borrow_mut().push((text.to_owned(), room / natural)));
+        }
+    }
+
+    /// Take what the run logged.
+    pub fn take() -> Vec<(String, f64)> {
+        ROWS.with(|r| std::mem::take(&mut *r.borrow_mut()))
     }
 }
 
