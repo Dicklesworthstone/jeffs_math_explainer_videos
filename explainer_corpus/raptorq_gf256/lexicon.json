@@ -518,6 +518,59 @@
      "Zorz": "decoy OK (heard differently) 0/3"
     }
    }
+  },
+  "x": {
+   "respell": [
+    "ex",
+    "X"
+   ],
+   "say": "ex",
+   "ipa": "ˈɛks",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/X",
+    "https://en.wiktionary.org/wiki/x#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "ex",
+    "discriminates": true,
+    "results": {
+     "x": "control PARTIAL 2/3",
+     "ex": "candidate PASS 3/3",
+     "X": "candidate PASS 3/3",
+     "ox": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "The polynomial variable. Probed 2026-10-11 in letter carriers ('{w} is the unknown here', 'Carry it along like {w} in algebra', 'So the unknown is {w}'): 'ex' and 'X' PASS 3/3, plain 'x' 2/3; the decoy 'ox' was heard differently."
+  },
+  "c": {
+   "respell": [
+    "c",
+    "C"
+   ],
+   "say": "see",
+   "ipa": "siː",
+   "lang": "en",
+   "sources": [
+    "https://en.wiktionary.org/wiki/c#English"
+   ],
+   "probe": {
+    "date": "2026-10-11",
+    "voice": "robert",
+    "asr": "fw",
+    "winner": "c",
+    "discriminates": true,
+    "results": {
+     "c": "control PASS 3/3",
+     "see": "candidate PARTIAL 2/3",
+     "C": "candidate PASS 3/3",
+     "sah": "decoy OK (heard differently) 0/3"
+    }
+   },
+   "note": "The parked unknown (16_1, 'little c'). Plain 'c' PASS 3/3 in the letter carriers."
   }
  },
  "accept": {
