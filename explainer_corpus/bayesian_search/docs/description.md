@@ -60,7 +60,7 @@ in symbols, with its edges.
   is there times the chance of seeing it. In the video's four-cell sea
   (A, B, C, D hold 40, 30, 20 and 10 of 100 dots; d = 1/4, 2/3, 2/3, 2/3)
   that is 10, 20, 13⅓ and 6⅔ in a hundred, so the best first search is B,
-  not the likeliest cell A [F-M.find.percent].
+  not the likeliest cell A [F-M.prior.dots, F-M.seeing, F-M.find.percent].
 - **The update after an empty search of cell i:**
   pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ), and pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) for every other
   cell j. One denominator: 1 − pᵢdᵢ is the chance that this search comes
@@ -127,14 +127,14 @@ before the first update, and a stop. Runnable, on the four-cell sea (it
 picks B, C, A, A, B, D, A, C, the first eight of `F-U.best.order`):
 
 ```
-p = [0.40, 0.30, 0.20, 0.10]           # the map: the chance it is in each cell
-d = [1/4, 2/3, 2/3, 2/3]               # the chance a search of each cell sees it
+p = [0.40, 0.30, 0.20, 0.10]           # the map: the chance it is in each cell [F-T.four_cell.prior.decimal]
+d = [1/4, 2/3, 2/3, 2/3]               # the chance a search of each cell sees it [F-M.seeing]
 for _ in range(8):
     find = [x * y for x, y in zip(p, d)]   # chance of a find, cell by cell
     i = find.index(max(find))              # search there next
     print("ABCD"[i])
     p[i] *= 1 - d[i]                       # the search of cell i came back empty
-    t = sum(p); p = [x / t for x in p]     # the map adds up to one again (t is 0.8 at the first)
+    t = sum(p); p = [x / t for x in p]     # the map adds up to one again (t is 0.8 at the first) [F-T.code.t_first]
 ```
 
 The normalising line is for display: it does not change which cell has the
@@ -166,27 +166,30 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   cell where the run ends; do that 10,000 times [F-R.replications]. A cell
   with no dot is not impossible, only rarer than about one run in ten
   thousand, and the number of runs sets the map's resolution: F6's 85 dots
-  are 85 give or take about 9. A cell with no dots is never searched by the
-  rule (the update never adds).
+  are 85 give or take about 9 [F-R.F6, F-T.f6.dots.give_or_take]. A cell with
+  no dots is never searched by the rule (the update never adds).
 - **The drift cloud (10_2 to 10_4) is the video's own model**: 2,000 dots
-  [F-D.dots, seed F-D.seed], a start known to within a mile, a drift of 1.5
-  miles an hour, and a drift error of 0.3 of the distance drifted (the
+  [F-D.dots, seed F-D.seed], a start known to within a mile [F-D.start_radius],
+  a drift of 1.5 miles an hour [F-D.drift], and a drift error of 0.3 of the
+  distance drifted (the
   figure the Coast Guard's review of search theory, Frost and Stone 2001,
   gives for drift error) [F-D.error_share]. Each dot keeps *one*
   wind-and-current error for the whole drift, so the spread grows in
   proportion to time. Two things the video does not settle, and says
   "model" about. First, an error drawn afresh every hour would make the
   spread grow more slowly (like the square root of time) and the same
-  flight at twelve hours would find noticeably more than 13 in 100; which
-  of the two suits a person in the water is a modelling choice. Second,
-  and **not yet checked against the source:** whether 0.3 is a radius that
-  holds every dot, as the model treats it, or a probable error (a 50%
-  radius) that the Coast Guard's own method multiplies by a safety factor
-  to draw its search circle. If it is the latter, the circle is larger,
-  the same track covers less of it, and 93, 65, 34 and 13 in 100 would be
-  smaller (a circle twice as wide gives a quarter of the coverage: about 49%,
-  23%, 10% and 3%); "hours matter" would stand. The video's own words are "in
-  this model".
+  flight at twelve hours would find noticeably more than 13 in 100
+  [F-D.h12.seeing]; which of the two suits a person in the water is a
+  modelling choice. Second, and **not yet checked against the source:**
+  whether 0.3 is a radius that holds every dot, as the model treats it, or a
+  probable error (a radius that holds half of the dots) that the Coast
+  Guard's own method multiplies by a safety factor to draw its search circle.
+  If it is the latter, the circle is larger, the same track covers less of
+  it, and 93, 65, 34 and 13 in 100 [F-D.h1.seeing, F-D.h3.seeing,
+  F-D.h6.seeing, F-D.h12.seeing] would be smaller (a circle twice as wide
+  gives a quarter of the coverage [F-D.double.coverage_factor]: about 49%,
+  23%, 10% and 3% [F-T.drift.double_radius.seeing]); "hours matter" would
+  stand. The video's own words are "in this model".
 - **The flight.** The 93, 65, 34 and 13 in 100 are for 180 miles of track
   spread evenly over the whole circle [F-D.track] and the random-search
   formula below. A flight fitted to the cloud does better: at three hours the
@@ -219,28 +222,37 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   cell, at random offsets, seed 1946; one run swept 66.5%, the mean of 1,000
   runs is 63.4%, the least of them swept 57.1% and the most 69.9%, and the
   exact mean is 63.4% [F-K.lanes.*]. The shown run is 3.1 points above the
-  mean of the thousand, in the upper part of their range, which is why it is
-  labelled "this run". The
-  formula's 63.2 is the limit of ever thinner strips.
+  mean of the thousand runs: 1.7 standard deviations of the thousand runs
+  (1.75 points), or 1.8 of the exact spread of one run (1.72 points)
+  [F-T.lanes.one_run_above_mean, F-T.lanes.sd.thousand_runs,
+  F-T.lanes.one_run_sds_above.thousand_runs, F-T.lanes.sd.exact,
+  F-T.lanes.one_run_sds_above.exact]. That is why it is labelled "this run".
+  The formula's 63.2 is the limit of ever thinner strips [F-K.formula.1].
 - **The two-in-three search** (05_2) is the video's own illustration for a
   flat cell. Koopman's curve puts it at a coverage of 1.10, and the canyon's
   one in four at 0.29 [F-K.coverage.*].
 - **The model search over the 1968 map (08_4, 08_5)** is the video's own:
-  every search sees what is in its cell two times in three, searches are
-  independent, and every plan searches the same 180 lettered cells. The
-  percentages are of *all 10,000 runs*; 1,100 of them ended outside those
-  cells, so no plan reaches them [F-R.outside.points] (over the 180 cells
-  alone, which hold 8,900 of them [F-R.grid.points], each of the three
-  twenty-search figures would be larger by 10,000 ÷ 8,900, a factor of 1.12).
+  every search sees what is in its cell two times in three
+  [F-R.model.seeing], searches are independent, and every plan searches the
+  same 180 lettered cells [F-R.grid.cells]. The percentages are of *all
+  10,000 runs*; 1,100 of them ended outside those cells, so no plan reaches
+  them [F-R.total, F-R.outside.points]. Over the 180 cells alone, which hold
+  8,900 of the runs [F-R.grid.points], the three twenty-search figures would
+  be 0.9, 49.8 and 55.9 [F-T.model.sweep.over_grid.found_by.20,
+  F-T.model.once.over_grid.found_by.20, F-T.model.best.over_grid.found_by.20],
+  each larger by 10,000 ÷ 8,900, a factor of 1.12 [F-T.model.over_grid.factor].
   Row by row from row 1 starts at the map's emptiest edge: its first twenty
   cells hold 114 of the 10,000 [F-R.model.sweep.first20.points], so its
-  0.8% is a low value for a plan with no map. Twenty cells chosen at random,
-  each once, average 6.6% [F-R.model.random.found_by.20] (from row 5 it
-  would be 22%). The map, never updated, reaches 44.3% and the rule 49.8%,
-  so most of the gap to row by row is having the map. A cell with no dots is
-  never searched: 40 of the 180 hold none [F-R.grid.empty_cells], and the
-  cell that held the wreck, F6, with 85 dots, would be reached at the
-  thirtieth search [F-R.model.F6.first_search] (a thinner cell would wait
+  0.8% [F-R.model.sweep.found_by.20] is a low value for a plan with no map.
+  Twenty cells chosen at random, each once, average 6.6%
+  [F-R.model.random.found_by.20] (from row 5 it would be 22%
+  [F-T.model.sweep_from_row5.found_by.20]). The map, never updated, reaches
+  44.3% [F-R.model.once.found_by.20] and the rule 49.8%
+  [F-R.model.best.found_by.20], so most of the gap to row by row is having
+  the map. A cell with no dots is never searched: 40 of the 180 hold none
+  [F-R.grid.empty_cells], and the cell that held the wreck, F6, with 85 dots
+  [F-R.F6], would be reached at the thirtieth search
+  [F-R.model.F6.first_search] (a thinner cell would wait
   far longer: the rule goes to the likeliest cell each time). The first map
   "does not have to be right", but a wrong one costs time.
 
@@ -280,15 +292,18 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
   (that the search started with rectangle F6), three are imprecise or
   contradicted by the 1971 paper, and two stand.
 - **Air France 447, 2009 to 2011** [S3, S4, S5]. Flight AF 447 from Rio to
-  Paris went down on 1 June 2009 with 228 aboard. The wreck was found on 2
-  April 2011, about 6.5 nautical miles (12 km) from the last known position,
-  in 3,900 m of water, 22 months on, after three underwater searches had
-  found nothing. The analysts' map was a weighting of three ingredients
-  (0.35, 0.35 and 0.30, chosen by judgement, which the authors call
-  "subjective"), as three stories: anywhere in the circle, near the last
-  position, traced back from what was found afloat (the paper's D1, D2
-  and D3, in that order). It was updated for four empty searches, one on
-  the surface and three under water. Doubts about the
+  Paris went down on 1 June 2009 with 228 aboard [F-A.lost, F-A.aboard]. The
+  wreck was found on 2 April 2011, about 6.5 nautical miles (12 km) from the
+  last known position, in 3,900 m of water, 22 months on, after three
+  underwater searches had found nothing [F-A.found, F-A.found.nm,
+  F-A.found.km, F-A.depth.metres, F-A.months, F-A.underwater_searches]. The
+  analysts' map was a weighting of three ingredients (0.35, 0.35 and 0.30,
+  chosen by judgement, which the authors call "subjective")
+  [F-A.weights, F-T.air_france.weights.decimal], as three stories: anywhere
+  in the circle, near the last position, traced back from what was found
+  afloat (the paper's D1, D2 and D3, in that order). It was updated for four
+  empty searches, one on the surface and three under water
+  [F-A.empty_searches, F-A.underwater_searches]. Doubts about the
   beacons led them to a second map that leaves the silence out; the wreck
   lay in "a high probability area" of that one. *Both* maps are dark near
   the centre of the circle, and the BEA planned the 2011 search from the
@@ -316,21 +331,25 @@ being pᵢdᵢ(1 − dᵢ)ᵏ⁻¹.
 
 Richardson and Stone (1971), Tables 1 to 3, for F6 on 9 October: on scene,
 using the sensor widths then believed (800 feet for sonar, 400 for the
-magnetometer), the chance that F6 had already been searched thoroughly was
-0.94; estimated afterwards, with the sensors' widths set against the wreck
-as found (camera 185 feet, magnetometer 220, sonar 0), it was 0.65. The
-update leaves a cell 6% of its chance at 0.94 and 35% at 0.65: almost six
-times as much. (The sonar's width falls from 800 feet to 0 and the
-magnetometer's from 400 to 220; the cell's coverage falls by a factor of
-2.7, from 2.81 to 1.05, because every sensor and every pass is added.)
-F6's chance on the map was
-0.85% before any search, 0.19% by the ship's numbers and 0.54% by the
-estimated ones. The paper calls these "crude sensor sweep width estimates
+magnetometer [F-S.sweep.at_sea]), the chance that F6 had already been
+searched thoroughly was 0.94 [F-T.f6.searched.oct9.on_scene]; estimated
+afterwards, with the sensors' widths set against the wreck as found (camera
+185 feet, magnetometer 220, sonar 0 [F-S.sweep.after]), it was 0.65
+[F-T.f6.searched.oct9.afterwards]. The update leaves a cell 6% of its chance
+at 0.94 and 35% at 0.65: almost six times as much [F-S.F6.left.at_sea.percent,
+F-S.F6.left.after.percent, F-S.F6.left.ratio]. (The sonar's width falls from
+800 feet to 0 and the magnetometer's from 400 to 220; the cell's coverage
+falls by a factor of 2.7, from 2.81 to 1.05, because every sensor and every
+pass is added [F-T.f6.coverage.ratio, F-S.F6.coverage.at_sea,
+F-S.F6.coverage.after].) F6's chance on the map was 0.85% before any search,
+0.19% by the ship's numbers and 0.54% by the estimated ones [F-R.F6.percent,
+F-S.F6.chance.at_sea, F-S.F6.chance.after]. The paper calls these "crude sensor sweep width estimates
 against the actual target", for *Scorpion* as it was found, partly buried;
 the sonar's zero rests on the failure of one of the two sonars to detect
 her, so "ten more passes with that sonar would have found nothing" is
 conditional on that estimate. At the 800 feet believed, one pass over the
-whole lettered grid was 1,148 sea miles, and the sled had towed 1,026. The order of the evidence does
+whole lettered grid was 1,148 sea miles, and the sled had towed 1,026
+[F-H.once.miles.believed, F-H.track.miles]. The order of the evidence does
 not matter: the early passes were scored against a map that arrived late,
 and the product of the factors is the same in any order.
 

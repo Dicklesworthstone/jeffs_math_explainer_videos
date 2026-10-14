@@ -11,6 +11,9 @@ at the end was copied from the oracle's output by a script, not typed.
 - **Result, 2026-10-14** (the build host), with the storyboard as revised
   after review R2: `facts-check bayesian_search: 320 video facts against 320
   oracle keys: PASS`. The oracle passes 62 of 62 of its own cross-checks.
+  (Later the same day, with the description's computed numbers added as
+  oracle-only F-T rows: `320 video facts against 339 oracle keys: PASS`, 84
+  of 84 cross-checks; the rows are listed after the table at the end.)
   (After R1: 303 of 303; at G1: 263 of 263; with the first storyboard: 274
   of 274. R2 added fourteen keys: `F-H.feet_per_sea_mile.exact`,
   `F-H.once.per_cell.exact`, `F-R.grid.empty_cells`,
@@ -670,3 +673,37 @@ keys and values.
 | `F-Q.two_searches.line` | 09_5 |
 | `F-Q.two_searches.seconds` | 6 |
 | `F-Q.two_searches.answer` | 8 |
+
+### Research rows (oracle only: the F-T family)
+
+Numbers the published description states (`docs/description.md` names each
+in a bracket) and the video neither shows nor says, so `search facts` does
+not print them; `facts-check` allows an oracle that prints more. Each is
+computed in `oracle.py` from first principles by the oracle's own functions
+and cross-checked there (339 oracle keys, 84 cross-checks, 0 failed). Five
+only write a fact the video prints in the decimals the description's code and
+quotations use: `F-T.four_cell.prior.decimal`,
+`F-T.air_france.weights.decimal`, `F-T.f6.searched.oct9.*` and
+`F-T.code.t_first`.
+
+| key | value | what it is |
+|---|---|---|
+| `F-T.four_cell.prior.decimal` | 0.40, 0.30, 0.20, 0.10 | the code's `p`, the map in decimals |
+| `F-T.air_france.weights.decimal` | 0.35, 0.35, 0.30 | the three AF 447 weights in decimals |
+| `F-T.code.t_first` | 0.8 | the code's first `t`, the dots left of the hundred |
+| `F-T.f6.searched.oct9.on_scene` | 0.94 | F6 on 9 October, computed on scene (Table 1) |
+| `F-T.f6.searched.oct9.afterwards` | 0.65 | F6 on 9 October, estimated afterwards (Table 3) |
+| `F-T.f6.coverage.ratio` | 2.7 | the coverage fell by this factor (2.68 unrounded) |
+| `F-T.f6.dots.give_or_take` | 9 | F6's 85 dots of 10,000 runs: the binomial spread (9.18) |
+| `F-T.lanes.one_run_above_mean` | 3.1 | the shown run above the mean of the thousand, in points (3.05) |
+| `F-T.lanes.sd.thousand_runs` | 1.75 | standard deviation of the thousand runs, in points |
+| `F-T.lanes.one_run_sds_above.thousand_runs` | 1.7 | the shown run, in standard deviations of the thousand runs |
+| `F-T.lanes.sd.exact` | 1.72 | the exact standard deviation of one run (exact fractions; listing every way to lay lanes on a small cell, and 400,000 simulated runs, agree) |
+| `F-T.lanes.one_run_sds_above.exact` | 1.8 | the shown run, in the exact standard deviations |
+| `F-T.model.over_grid.factor` | 1.12 | 10,000 ÷ 8,900, the runs inside the lettered grid |
+| `F-T.model.sweep.over_grid.found_by.20` | 0.9 | row by row, twenty searches, over the 180 cells alone (percent) |
+| `F-T.model.once.over_grid.found_by.20` | 49.8 | the map never updated, over the 180 cells alone |
+| `F-T.model.best.over_grid.found_by.20` | 55.9 | the rule, over the 180 cells alone |
+| `F-T.model.sweep_from_row5.found_by.20` | 22.3 | row by row from row 5, twenty searches (percent of all runs) |
+| `F-T.drift.double_radius.hours` | 1, 3, 6, 12 | |
+| `F-T.drift.double_radius.seeing` | 49, 23, 10, 3 | a circle twice as wide, the same flight: percent seen at those hours |
