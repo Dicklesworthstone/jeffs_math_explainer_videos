@@ -4,9 +4,11 @@
 //! chapter starts as its storyboard's animatic and is replaced by its real
 //! scene as it is built.
 
+pub mod arrows;
 pub mod carts;
 pub mod draw;
 pub mod glyphs;
+pub mod own_patterns;
 pub mod truss;
 pub mod two_carts;
 pub mod where_modes_rule;
@@ -40,7 +42,7 @@ pub fn registry() -> Vec<Chapter> {
     vec![
         animatic!("01_the_bridge_that_swayed", 0.4),
         scene!("02_two_carts", 0.45, two_carts::TwoCarts),
-        animatic!("03_own_patterns", 0.6),
+        scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
         animatic!("04_the_split", 0.55),
         animatic!("05_a_steel_truss", 0.5),
         animatic!("06_twenty_one_patterns", 0.6),
