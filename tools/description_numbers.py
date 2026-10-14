@@ -25,7 +25,9 @@ Not read as numbers: HTML comments, the fact keys (G-A.joints), the beat ids (01
 timestamps (12:34), list markers (1.), URLs and DOIs, ISO dates, and every line under a Sources or
 References heading (bibliographic volumes, pages and years belong to the source, not to the facts).
 Signs are not checked (an unsigned match is a match): a claim about a sign needs its own test.
-Spelled-out numbers are not read either.
+Spelled-out numbers are not read either. A match by truncation is no match (49.8 is not "49").
+Every fact key the text names ([F-T.at.t1], `F-L.bracket.*`, `F-G.walks.k1..k4`) must be a key of the
+oracle: a stale tag points the reader at a fact that is not there.
 
 Exit 0 when every number is accounted for, 1 when any is not (each is printed with its line), 2 on usage.
 """
@@ -35,7 +37,7 @@ import math
 import pathlib
 import re
 import sys
-from decimal import ROUND_DOWN, ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal, InvalidOperation, getcontext
+from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal, InvalidOperation, getcontext
 
 sys.dont_write_bytecode = True
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -87,10 +89,10 @@ class Number:
 
 
 def quantize_equal(x, want, places):
-    """Does x round (half up, half even or by truncation) to `want` at `places` decimals?"""
+    """Does x round (half up or half even; truncation is no rounding) to `want` at `places` decimals?"""
     try:
         q = Decimal(1).scaleb(-places)
-        return any(x.quantize(q, rounding=mode) == want for mode in (ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_DOWN))
+        return any(x.quantize(q, rounding=mode) == want for mode in (ROUND_HALF_UP, ROUND_HALF_EVEN))
     except InvalidOperation:
         return False
 
@@ -138,6 +140,24 @@ def fact_values(text):
 
 def blank(pattern, line):
     return pattern.sub(lambda m: " " * len(m.group(0)), line)
+
+
+def named_keys(text):
+    """(line, key) for every fact key the description names outside its comments."""
+    text = re.sub(r"<!--.*?-->", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
+    return [(text.count("\n", 0, m.start()) + 1, m.group(0)) for m in FACT_KEY.finditer(text)]
+
+
+def key_exists(key, values):
+    """A named key is a key of the oracle, a prefix with `.*`, or a range `a.k1..k4` of keys."""
+    if key in values:
+        return True
+    if key.endswith(".*"):
+        return any(k.startswith(key[:-1]) for k in values)
+    if ".." in key:
+        first, _, last = key.partition("..")
+        return key_exists(first, values) and key_exists(first.rsplit(".", 1)[0] + "." + last, values)
+    return False
 
 
 def extract(text):
@@ -293,6 +313,11 @@ def check(description, oracle_text, allow_rows, verbose=False):
     ev = Evaluator(values)
     counts = {"numbers": len(numbers), "fact": 0, "weak": 0, "allowed": 0, "unmatched": 0, "exempt": exempt}
     report, problems = [], []
+    keys = named_keys(description)
+    counts["keys"] = len(keys)
+    for no, key in keys:
+        if not key_exists(key, values):
+            problems.append(f"line {no}: {key} is named but is no key of the oracle")
     for num in numbers:
         hits = []
         for fv, key in facts:

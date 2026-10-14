@@ -109,6 +109,17 @@ class Matching(unittest.TestCase):
     def test_signs_are_not_checked(self):
         self.assertEqual(run("An entry of 0.788594.")[0], [])
 
+    def test_truncation_is_no_rounding(self):
+        self.assertEqual(run("The series gives 2.7181.")[0], [])  # 2.71806 rounded to four places
+        self.assertEqual(len(run("The series gives 2.7180.")[0]), 1)  # the same cut off
+
+    def test_a_named_fact_key_must_exist(self):
+        self.assertEqual(run("Pinned by [F-C.mvl.size] and `F-C.mvl.*` and F-C.mvl.f32.series..terms.")[0], [])
+        problems, _, _ = run("Pinned by [F-T.state.t1] and F-C.mvl.f32.series..nowhere and F-Z.*.")
+        self.assertEqual(len(problems), 3, problems)
+        self.assertIn("F-T.state.t1 is named but is no key", problems[0])
+        self.assertEqual(run("<!-- F-NO.SUCH in a comment -->\nPlain text.")[0], [])
+
 
 class AllowList(unittest.TestCase):
     def test_a_year_row_covers_its_number_in_its_context(self):
