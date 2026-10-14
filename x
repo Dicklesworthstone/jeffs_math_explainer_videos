@@ -679,6 +679,9 @@ PY
     need_narration
     timelines="$base/renders/scored"
     [ -d "$timelines" ] || timelines="$base/renders/narrated"
+    if grep -Rq 'LineGaps::Thought' "$crate/src" 2>/dev/null; then
+      set -- --gate-line-gaps "$@"
+    fi
     exec uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$here/tools/prosody_qa.py" \
       "$narration" --timeline "$timelines" "$@" ;;
   narrated)
@@ -695,9 +698,14 @@ PY
       "$out" --script "$crate/script.tsv" --chapters "$keys" --sheets "$out/cue_sheets" || status=$?
     if [ "$1" = all ]; then
       # the human-calibrated prosody report of this draft (narration and its line gaps): flags are
-      # listed and never fail; its one gate, a silence over 1.0 s inside a sentence, does
+      # listed and never fail; its gates (a silence over 1.0 s inside a sentence, and check_gap_spread
+      # when the crate opts into LineGaps::Thought) do
+      prosody_args=""
+      if grep -Rq 'LineGaps::Thought' "$crate/src" 2>/dev/null; then
+        prosody_args="--gate-line-gaps"
+      fi
       uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$here/tools/prosody_qa.py" \
-        "$narration" --timeline "$out" > "$out/prosody.txt" 2>&1 || true
+        "$narration" --timeline "$out" $prosody_args > "$out/prosody.txt" 2>&1 || true
       grep -E '^(FAIL|FLAG)' "$out/prosody.txt" | sed 's/^/x: prosody /'
       if grep -q '^FAIL' "$out/prosody.txt"; then status=1; fi
       grep -q -E '^(PASS|FLAG|FAIL|ADVISORY)' "$out/prosody.txt" || echo "x: the prosody report did not run; see $out/prosody.txt" >&2

@@ -564,6 +564,32 @@ class Driver(unittest.TestCase):
         self.assertEqual(up.returncode, 2)
         self.assertIn("G10", up.stderr)
 
+    def test_narration_prosody_passes_gate_line_gaps_when_crate_opts_into_thought(self):
+        crate = self.crate("alpha")
+        (crate / "narration" / "out").mkdir(parents=True)
+        (crate / "src").mkdir()
+        (crate / "src" / "lib.rs").write_text("pub fn gaps() { let _ = LineGaps::Constant; }\n", encoding="utf-8")
+        binary_dir = self.root / "prosody tools"
+        binary_dir.mkdir()
+        observed = self.root / "prosody-args.json"
+        self.dispatch_executable(
+            binary_dir, "uv",
+            "#!/usr/bin/env python3\nimport json, sys\nfrom pathlib import Path\n"
+            f"Path({str(observed)!r}).write_text(json.dumps(sys.argv[1:]))\n"
+            "raise SystemExit(0)\n",
+        )
+        env = dict(os.environ, PATH=str(binary_dir) + os.pathsep + os.environ["PATH"])
+        res1 = self.run_x("alpha", "narration-prosody", env=env)
+        self.assertEqual(res1.returncode, 0, res1.stderr)
+        args1 = json.loads(observed.read_text(encoding="utf-8"))
+        self.assertNotIn("--gate-line-gaps", args1)
+
+        (crate / "src" / "lib.rs").write_text("pub fn gaps() { let _ = LineGaps::Thought; }\n", encoding="utf-8")
+        res2 = self.run_x("alpha", "narration-prosody", env=env)
+        self.assertEqual(res2.returncode, 0, res2.stderr)
+        args2 = json.loads(observed.read_text(encoding="utf-8"))
+        self.assertIn("--gate-line-gaps", args2)
+
 
 if __name__ == "__main__":
     unittest.main()

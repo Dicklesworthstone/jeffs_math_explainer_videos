@@ -274,6 +274,48 @@ pub fn check_gap_spread(gaps: &[f64]) -> Result<(), String> {
     Ok(())
 }
 
+/// Extract the plain line gaps (seconds) from a rendered [`ChapterTimeline`] and
+/// the line lengths (seconds): consecutive lines in the chapter with no
+/// authored listen or breath window starting between them and a gap under
+/// [`PLAIN_GAP_MAX_S`].
+pub fn timeline_plain_line_gaps(tl: &ChapterTimeline, lengths: &HashMap<String, f64>) -> Vec<f64> {
+    let fps = f64::from(tl.fps.max(1));
+    let lines: Vec<(f64, f64)> = tl
+        .lines
+        .iter()
+        .map(|l| (l.start_frame as f64 / fps, lengths.get(&l.id).copied().unwrap_or(0.0)))
+        .collect();
+    let windows: Vec<f64> = tl
+        .listens
+        .iter()
+        .chain(&tl.breaths)
+        .map(|w| w.frame as f64 / fps)
+        .collect();
+    plain_line_gaps(&lines, &windows)
+}
+
+/// Run [`plain_line_gaps`] and [`check_gap_spread`] across the rendered
+/// [`ChapterTimeline`]s of a video when `line_gaps == LineGaps::Thought`.
+/// Videos using [`LineGaps::Constant`] are skipped by design (`Ok(())`).
+///
+/// # Errors
+/// Returns an error when `line_gaps == LineGaps::Thought` and the pooled plain
+/// line gaps across `timelines` fail [`check_gap_spread`].
+pub fn check_timelines_gap_spread<'a>(
+    line_gaps: LineGaps,
+    timelines: impl IntoIterator<Item = &'a ChapterTimeline>,
+    lengths: &HashMap<String, f64>,
+) -> Result<(), String> {
+    if line_gaps == LineGaps::Constant {
+        return Ok(());
+    }
+    let plain: Vec<f64> = timelines
+        .into_iter()
+        .flat_map(|tl| timeline_plain_line_gaps(tl, lengths))
+        .collect();
+    check_gap_spread(&plain)
+}
+
 // ----------------------------------------------------------------- script
 
 /// The spoken lines of a video, in order.
@@ -1046,6 +1088,17 @@ impl Narrator {
         }
     }
 
+    /// Run [`check_timelines_gap_spread`] across the rendered chapters when
+    /// this narrator's rule is [`LineGaps::Thought`]; skipped for
+    /// [`LineGaps::Constant`].
+    ///
+    /// # Errors
+    /// Returns the error from [`check_gap_spread`] when the pooled plain line
+    /// gaps across `timelines` do not vary enough.
+    pub fn check_timelines<'a>(&self, timelines: impl IntoIterator<Item = &'a ChapterTimeline>) -> Result<(), String> {
+        check_timelines_gap_spread(self.line_gaps, timelines, &self.lengths)
+    }
+
     /// Every cue placed so far.
     pub fn cues(&self) -> Vec<Cue> {
         self.log.borrow().cues.clone()
@@ -1578,5 +1631,79 @@ mod tests {
         assert!(check_gap_spread(&[0.7, 0.7, 0.7, 1.0]).is_err());
         let few = check_gap_spread(&[0.4, 0.6, 1.0, 1.2]).unwrap_err();
         assert!(few.contains("2 plain line gaps (of 4 given"), "{few}");
+    }
+
+    #[test]
+    fn check_timelines_gap_spread_skips_constant_and_verifies_thought_on_video_f_shape() {
+        let build_tl = |gaps: &[f64], windows_at: &[usize]| -> (ChapterTimeline, HashMap<String, f64>) {
+            let fps = 60u32;
+            let mut lengths = HashMap::new();
+            let mut lines = Vec::new();
+            let mut listens = Vec::new();
+            let mut t = 0.6f64;
+            for (k, &g) in std::iter::once(&0.0).chain(gaps.iter()).enumerate() {
+                if k > 0 {
+                    if windows_at.contains(&(k - 1)) {
+                        listens.push(Window {
+                            frame: (t * f64::from(fps)).round() as u64,
+                            seconds: g,
+                            label: "quiz".into(),
+                            sound: None,
+                        });
+                    }
+                    t += g;
+                }
+                let id = format!("01_{}", k + 1);
+                let len = 2.0;
+                lengths.insert(id.clone(), len);
+                lines.push(LinePlacement {
+                    id,
+                    start_frame: (t * f64::from(fps)).round() as u64,
+                    gain_db: 0.0,
+                    wav: PathBuf::from("line.wav"),
+                });
+                t += len;
+            }
+            let tl = ChapterTimeline {
+                chapter: "01_test".into(),
+                fps,
+                frames: ((t + 2.0) * f64::from(fps)).round() as u64,
+                lines,
+                marks: Vec::new(),
+                breaths: Vec::new(),
+                listens,
+            };
+            (tl, lengths)
+        };
+
+        // Video F under Constant: 45 plain gaps ~0.66..0.72 s (CV ~0.03) plus 2 windowed gaps and 2 picture waits
+        let mut f_constant: Vec<f64> = (0..45u32).map(|k| 0.66 + 0.01 * f64::from(k % 7)).collect();
+        f_constant.extend([0.85, 0.90, 2.6, 1.54]);
+        let (tl_const, len_const) = build_tl(&f_constant, &[45, 46]);
+        let plain_const = timeline_plain_line_gaps(&tl_const, &len_const);
+        assert_eq!(plain_const.len(), 45);
+        let cv_const = gap_cv(&plain_const).unwrap();
+        assert!(cv_const < 0.05, "expected Constant CV ~0.03..0.04, got {cv_const}");
+        // Constant-rule video is skipped by design
+        assert!(check_timelines_gap_spread(LineGaps::Constant, [&tl_const], &len_const).is_ok());
+        // Planted negative: claiming LineGaps::Thought on a Constant-spaced timeline fails check_gap_spread
+        let err = check_timelines_gap_spread(LineGaps::Thought, [&tl_const], &len_const).unwrap_err();
+        assert!(err.contains("45 plain line gaps vary by"), "{err}");
+
+        // Video F under Thought: 16 CONTINUATION (~0.58 s), 25 BEAT (~0.81 s), 6 TOPIC (~0.97 s), CV ~0.22
+        let mut f_thought = Vec::new();
+        f_thought.extend((0..16u32).map(|k| 0.55 + 0.01 * f64::from(k % 5)));
+        f_thought.extend((0..25u32).map(|k| 0.78 + 0.01 * f64::from(k % 6)));
+        f_thought.extend((0..6u32).map(|k| 0.95 + 0.005 * f64::from(k % 4)));
+        f_thought.extend([0.85, 0.90, 2.6, 1.54]);
+        let (tl_thought, len_thought) = build_tl(&f_thought, &[47, 48]);
+        let plain_thought = timeline_plain_line_gaps(&tl_thought, &len_thought);
+        assert_eq!(plain_thought.len(), 47);
+        let cv_thought = gap_cv(&plain_thought).unwrap();
+        assert!(
+            (0.16..=0.28).contains(&cv_thought),
+            "expected Thought CV ~0.22, got {cv_thought}"
+        );
+        check_timelines_gap_spread(LineGaps::Thought, [&tl_thought], &len_thought).unwrap();
     }
 }

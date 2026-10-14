@@ -435,6 +435,25 @@ class LineGaps(unittest.TestCase):
         checks = qa.verdicts(self.plain_res(flat))
         self.assertEqual(check(checks, "line_gap_regularity")["verdict"], "FLAG")
         self.assertEqual(check(qa.verdicts(self.plain_res(flat), ("regularity",)), "line_gap_regularity")["verdict"], "FAIL")
+        self.assertEqual(check(qa.verdicts(self.plain_res(flat), ("line-gaps",)), "line_gap_regularity")["verdict"], "FAIL")
+
+    def test_check_gap_spread_flags_low_cv_even_without_spoken_and_passes_varied_gaps(self):
+        with tempfile.TemporaryDirectory() as d:
+            # Video F Constant shape: 12 plain gaps around 0.62 s (CV ~0.03 < 0.12), no spoken.tsv needed
+            const_lines = []
+            t = 0.6
+            for i, gap in enumerate((0.62, 0.60, 0.65, 0.62, 0.60, 0.65, 0.62, 0.60, 0.65, 0.62, 0.60, 0.65, 0.62)):
+                const_lines.append((f"01_{i + 1}", t, 2.0))
+                t += 2.0 + gap
+            write_timeline(d, "01_first", const_lines)
+            gaps, _ = qa.line_gaps(qa.read_timeline(d), {})
+            self.assertEqual(len(gaps), 12)
+            res = {"joins": [], "chapters": ["01"], "inner_pauses": [], "floors": [], "line_gaps": gaps, "chapter_joins": [], "sentences": []}
+            self.assertEqual(check(qa.verdicts(res), "line_gap_regularity")["verdict"], "FLAG")
+            self.assertEqual(check(qa.verdicts(res, ("line-gaps",)), "line_gap_regularity")["verdict"], "FAIL")
+        # Video F Thought shape: CV ~0.22 >= 0.12 across plain gaps < 1.0 s
+        thought = [("BEAT", g) for g in (0.45, 0.62, 0.85, 0.50, 0.72, 0.95, 0.48, 0.66, 0.88, 0.52, 0.78, 0.60)]
+        self.assertEqual(check(qa.verdicts(self.plain_res(thought), ("line-gaps",)), "line_gap_regularity")["verdict"], "PASS")
 
     def test_gaps_that_follow_the_thought_pass_and_meet_the_targets(self):
         varied = [("TOPIC", 0.99 + e) for e in (-0.1, 0.0, 0.1, 0.2)] + [("BEAT", 0.81 + e) for e in (-0.2, 0.0, 0.1, 0.3, -0.1, 0.05)] \

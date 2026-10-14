@@ -81,6 +81,7 @@ BANDS = {
     "terminal_confirm_st": 4.5,
     "flat_share": 0.85,  # plain line gaps inside one 0.1 s band (F: 91% within 0.60-0.70 s)
     "class_gap_min_s": 0.2,  # topic change minus continuation (human 0.99 - 0.58 = 0.41 s)
+    "line_gap_cv_min": 0.12,  # plain line gaps under 1.0 s CV (narration.rs MIN_GAP_CV = 0.12; F Constant ~0.04, Thought ~0.22)
     "join_copies_share": 0.7,  # chapter joins within 0.05 s of their median (F: 10 of 13)
 }
 GAP_TARGETS = {"TOPIC": 0.99, "BEAT": 0.81, "CONTINUATION": 0.58}  # s, P-1/P-4; the owner's A/B decides
@@ -347,8 +348,8 @@ def line_gaps(timeline, spoken):
                 window = "PREDICT"
             elif any(ea - 0.05 <= f / fps <= sb + 0.01 for f, _ in c["breaths"]):
                 window = "WINDOW"
-            if a in spoken and b in spoken:
-                gaps.append({"chapter": chapter, "from": a, "to": b, "start": ea, "len": sb - ea, "class": gap_class(spoken[a], spoken[b], window)})
+            if not spoken or (a in spoken and b in spoken):
+                gaps.append({"chapter": chapter, "from": a, "to": b, "start": ea, "len": sb - ea, "class": gap_class(spoken.get(a, ""), spoken.get(b, ""), window)})
     names = list(timeline)
     joins = [{"from": a, "to": b, "len": tails[a] + leads[b]} for a, b in zip(names, names[1:]) if tails.get(a) is not None and b in leads]
     return gaps, joins
@@ -465,7 +466,8 @@ def verdicts(res, gates=()):
         """PASS, or FLAG - FAIL when the video opted in to the gate"""
         if not found:
             return "PASS"
-        return "FAIL" if name in gates else "FLAG"
+        names = (name,) if isinstance(name, str) else name
+        return "FAIL" if any(g in gates for g in names) else "FLAG"
 
     joins = res["joins"]
     k, n = share_beyond(joins)
@@ -515,15 +517,19 @@ def verdicts(res, gates=()):
         add("gap_regularity", gated("regularity", flat), inline["cv"], f"CV >= {BANDS['gap_cv_min']} (human 0.86-1.15, F 0.19)",
             f"{inline['n']} sentence gaps: median {inline['median']:.2f} s, p10-p90 {inline['p10']:.2f}-{inline['p90']:.2f}, {inline['distinct']} distinct values")
     plain = [g for g in res["line_gaps"] if g["class"] in GAP_TARGETS]
-    if len(plain) >= 10:
+    if len(plain) >= 10 or (any(g in gates for g in ("regularity", "line-gaps")) and len(plain) >= 3):
         v = np.array([g["len"] for g in plain])
         band = max(int(np.sum((v >= t) & (v < t + 0.1))) for t in np.arange(0.0, v.max() + 0.1, 0.05))
         by = {c: [g["len"] for g in plain if g["class"] == c] for c in GAP_TARGETS}
         med = {c: float(np.median(x)) for c, x in by.items() if x}
+        under_1s = np.array([g["len"] for g in plain if g["len"] < 1.0], dtype=float)
+        cv_1s = float(under_1s.std() / under_1s.mean()) if len(under_1s) >= 3 and under_1s.mean() > 0 else 0.0
+        low_cv = len(under_1s) < 3 or cv_1s < BANDS["line_gap_cv_min"]
         flat = band / len(v) >= BANDS["flat_share"]
         undiff = len(by["TOPIC"]) >= 3 and len(by["CONTINUATION"]) >= 3 and med["TOPIC"] - med["CONTINUATION"] < BANDS["class_gap_min_s"]
-        add("line_gap_regularity", gated("regularity", flat or undiff), band / len(v), f"under {BANDS['flat_share'] * 100:.0f}% in one 0.1 s band; topic - continuation >= {BANDS['class_gap_min_s']} s (human 0.41)",
-            "; ".join(f"{c} n={len(by[c])} median {med[c]:.2f} s" for c in med) + f"; {band} of {len(v)} plain gaps within 0.1 s of each other")
+        add("line_gap_regularity", gated(("regularity", "line-gaps"), flat or undiff or low_cv), band / len(v),
+            f"under {BANDS['flat_share'] * 100:.0f}% in one 0.1 s band; topic - continuation >= {BANDS['class_gap_min_s']} s (human 0.41); plain CV >= {BANDS['line_gap_cv_min']}",
+            "; ".join(f"{c} n={len(by[c])} median {med[c]:.2f} s" for c in med) + f"; {band} of {len(v)} plain gaps within 0.1 s of each other; plain CV {cv_1s:.2f}")
         if "gap-targets" in gates:
             off = [c for c in med if abs(med[c] - GAP_TARGETS[c]) > GAP_TOLERANCE]
             add("line_gap_targets", "FAIL" if off else "PASS", None, ", ".join(f"{c} {t:.2f} s" for c, t in GAP_TARGETS.items()) + f" +/- {GAP_TOLERANCE} s",
@@ -578,7 +584,7 @@ def main(argv):
     ap.add_argument("--script", help="id<TAB>text file for the line gaps (default OUT/spoken.tsv)")
     ap.add_argument("--json", help="write every row and verdict here")
     ap.add_argument("--pitch-range", help="LO,HI in Hz (default 60,300 or 100,500 by the voice)")
-    for g in ("room-tone", "regularity", "terminal", "gap-targets"):
+    for g in ("room-tone", "regularity", "line-gaps", "terminal", "gap-targets"):
         ap.add_argument(f"--gate-{g}", action="store_true", help=f"make the {g} flag a FAIL")
     a = ap.parse_args(argv)
     try:
@@ -587,7 +593,7 @@ def main(argv):
     except (OSError, ValueError, KeyError) as e:
         print(f"prosody_qa: {e}", file=sys.stderr)
         return 2
-    gates = tuple(g for g in ("room-tone", "regularity", "terminal", "gap-targets") if getattr(a, f"gate_{g.replace('-', '_')}"))
+    gates = tuple(g for g in ("room-tone", "regularity", "line-gaps", "terminal", "gap-targets") if getattr(a, f"gate_{g.replace('-', '_')}"))
     checks = verdicts(res, gates)
     print(render(res, checks))
     if a.json:
