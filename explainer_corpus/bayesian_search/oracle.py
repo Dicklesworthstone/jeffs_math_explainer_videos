@@ -971,6 +971,28 @@ def text_facts():
     emit("F-T.code.t_first", fixed(env["t"], 1))
     check("the code's first t is the dots left of the hundred", env["t"] == F(int(_EMITTED["F-M.empty1.dots_left"]), DOTS))
 
+    # the four-cell chances of a find in a hundred, as the text writes them: 10, 20, 13 1/3 and 6 2/3 (mixed numbers, exact)
+    def mixed(x):
+        whole, rest = divmod(F(x), 1)
+        return str(whole) if rest == 0 else f"{whole} {rest.numerator}/{rest.denominator}"
+
+    find = [x * 100 for x in finds(lit_dots())]
+    emit("F-T.four_cell.find.mixed", join(mixed(x) for x in find))
+    check("the mixed numbers are the dots each cell's search would put out of the hundred",
+          find == [d * s for d, s in zip(lit_dots(), SEES)])
+    check("the mixed numbers round to the percents F-M.find.percent prints",
+          join(fixed(x, 1) for x in find) == _EMITTED["F-M.find.percent"])
+    check("each mixed number is its whole plus its fraction",
+          all(sum(F(p) for p in m.split()) == x for m, x in zip((mixed(x) for x in find), find)))
+
+    # the small sea: after how many searches row by row is level with the rule (exactly, in 200 searches)
+    rule, rows = run("best", 200), run("sweep", 200)
+    level = [n for n, (a, b) in enumerate(zip(rule, rows), 1) if a[2] == b[2]]
+    check("row by row is never ahead of the rule in 200 searches", all(a[2] >= b[2] for a, b in zip(rule, rows)))
+    check("the rule and row by row have found the same after 3, 5 and 6 searches, and after no other number up to 200",
+          level == [3, 5, 6])
+    emit("F-T.small_sea.level_with_row_by_row.searches", join(level))
+
     # F6 on 9 October (the paper's hundredths), and the one mechanism: Koopman's curve at the coverage that makes it
     at_sea = [int(x) for x in _EMITTED["F-S.F6.searched.at_sea"].split(",")]
     after = [int(x) for x in _EMITTED["F-S.F6.searched.after"].split(",")]

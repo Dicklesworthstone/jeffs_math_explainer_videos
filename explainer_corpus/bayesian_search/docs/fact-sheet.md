@@ -12,8 +12,8 @@ at the end was copied from the oracle's output by a script, not typed.
   after review R2: `facts-check bayesian_search: 320 video facts against 320
   oracle keys: PASS`. The oracle passes 62 of 62 of its own cross-checks.
   (Later the same day, with the description's computed numbers added as
-  oracle-only F-T rows: `320 video facts against 339 oracle keys: PASS`, 84
-  of 84 cross-checks; the rows are listed after the table at the end.)
+  oracle-only F-T rows: `320 video facts against 341 oracle keys: PASS`, 89
+  of 89 cross-checks; the rows are listed after the table at the end.)
   (After R1: 303 of 303; at G1: 263 of 263; with the first storyboard: 274
   of 274. R2 added fourteen keys: `F-H.feet_per_sea_mile.exact`,
   `F-H.once.per_cell.exact`, `F-R.grid.empty_cells`,
@@ -680,7 +680,7 @@ Numbers the published description states (`docs/description.md` names each
 in a bracket) and the video neither shows nor says, so `search facts` does
 not print them; `facts-check` allows an oracle that prints more. Each is
 computed in `oracle.py` from first principles by the oracle's own functions
-and cross-checked there (339 oracle keys, 84 cross-checks, 0 failed). Five
+and cross-checked there (341 oracle keys, 89 cross-checks, 0 failed). Five
 only write a fact the video prints in the decimals the description's code and
 quotations use: `F-T.four_cell.prior.decimal`,
 `F-T.air_france.weights.decimal`, `F-T.f6.searched.oct9.*` and
@@ -689,6 +689,8 @@ quotations use: `F-T.four_cell.prior.decimal`,
 | key | value | what it is |
 |---|---|---|
 | `F-T.four_cell.prior.decimal` | 0.40, 0.30, 0.20, 0.10 | the code's `p`, the map in decimals |
+| `F-T.four_cell.find.mixed` | 10, 20, 13 1/3, 6 2/3 | the chances of a find in a hundred, as exact mixed numbers (F-M.find.percent rounds them) |
+| `F-T.small_sea.level_with_row_by_row.searches` | 3, 5, 6 | the searches after which row by row has found exactly what the rule has, checked to 200 searches |
 | `F-T.air_france.weights.decimal` | 0.35, 0.35, 0.30 | the three AF 447 weights in decimals |
 | `F-T.code.t_first` | 0.8 | the code's first `t`, the dots left of the hundred |
 | `F-T.f6.searched.oct9.on_scene` | 0.94 | F6 on 9 October, computed on scene (Table 1) |

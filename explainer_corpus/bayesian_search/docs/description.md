@@ -60,7 +60,8 @@ in symbols, with its edges.
   is there times the chance of seeing it. In the video's four-cell sea
   (A, B, C, D hold 40, 30, 20 and 10 of 100 dots; d = 1/4, 2/3, 2/3, 2/3)
   that is 10, 20, 13⅓ and 6⅔ in a hundred, so the best first search is B,
-  not the likeliest cell A [F-M.prior.dots, F-M.seeing, F-M.find.percent].
+  not the likeliest cell A [F-M.prior.dots, F-M.seeing, F-M.find.percent,
+  F-T.four_cell.find.mixed].
 - **The update after an empty search of cell i:**
   pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ), and pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) for every other
   cell j. One denominator: 1 − pᵢdᵢ is the chance that this search comes
@@ -101,7 +102,7 @@ in symbols, with its edges.
   [F-U.slices.*]. The oracle also tries every order of up to 8 searches
   (65,536 at 8) and finds none ahead of the rule [F-U.brute.*]. Ties are why
   the video says "ahead": row by row is level with the rule after 3, 5 and 6
-  searches of the small sea.
+  searches of the small sea [F-T.small_sea.level_with_row_by_row.searches].
 - **Unequal costs.** With a cost cᵢ per search, rank by pᵢdᵢ ÷ cᵢ for the
   least expected cost to find (Black 1965); with a fixed budget and unequal
   costs the problem is different (Kadane 1967). Moving between cells is
