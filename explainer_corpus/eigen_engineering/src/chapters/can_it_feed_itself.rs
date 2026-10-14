@@ -41,6 +41,12 @@ const PLANE: Plane = Plane {
 };
 /// How far the axes reach, in units of goods.
 const REACH: f64 = 90.0;
+/// Half the width of the cross that marks a total (scene units).
+const CROSS_HALF: f64 = 0.22;
+/// Where the total's name stands from the cross's centre (scene units): its
+/// left edge past the cross's lower right arm, its middle below that arm's
+/// tip, so that no arm runs through a digit.
+const CROSS_NAME_AT: (f64, f64) = (CROSS_HALF + 0.2, -0.3);
 /// The stack of what has been made, its left and its base, and its width.
 const STACK_X: f64 = 1.5;
 const STACK_W: f64 = 0.9;
@@ -61,6 +67,19 @@ fn model_rounds(table: &Table, demand: [f64; 2], n: usize) -> Vec<[f64; 2]> {
         .iter()
         .map(|r| [r[0].to_f64(), r[1].to_f64()])
         .collect()
+}
+
+/// The name of a total in 13_4 ("75, 50"), detached, in gold beside the
+/// cross that marks it.
+fn name_the_total(kit: &Kit, stage: &mut Stage<'_>, total: &[f64]) -> fmn::Result<Mob> {
+    let c = PLANE.p(total[0], total[1]);
+    kit.text_left(
+        stage,
+        &format!("{}, {}", whole(total[0]), whole(total[1])),
+        28.0,
+        own(),
+        v(c[0] + CROSS_NAME_AT.0, c[1] + CROSS_NAME_AT.1),
+    )
 }
 
 /// A table in tenths (`6,5;4,7`) as a 2 by 2 map of its values.
@@ -338,7 +357,7 @@ impl SceneConstruct for CanItFeedItself {
         line.wait_for(stage, "make twenty-four divided by three tenths")?;
         fade_in_all(stage, &[divide], 0.6)?;
         line.wait_for(stage, "Eighty of each")?;
-        let cross = cross_mark(stage, PLANE.p(total[0], total[1]), 0.22, own(), 6.0)?;
+        let cross = cross_mark(stage, PLANE.p(total[0], total[1]), CROSS_HALF, own(), 6.0)?;
         let mut walk = extra_links.clone();
         walk.extend(&extra_stack);
         fade_in_lagged(stage, &walk, 1.6, 0.12)?;
@@ -470,14 +489,8 @@ impl SceneConstruct for CanItFeedItself {
                 .style(faded_line(own(), 3.0, 0.0))
                 .build(),
         );
-        let end = cross_mark(stage, PLANE.p(cross_total[0], cross_total[1]), 0.22, own(), 6.0)?;
-        let end_name = kit.text(
-            stage,
-            &format!("{}, {}", whole(cross_total[0]), whole(cross_total[1])),
-            28.0,
-            own(),
-            PLANE.p(cross_total[0] + 9.0, cross_total[1] - 5.0),
-        )?;
+        let end = cross_mark(stage, PLANE.p(cross_total[0], cross_total[1]), CROSS_HALF, own(), 6.0)?;
+        let end_name = name_the_total(&kit, stage, &cross_total)?;
         line.wait_for(stage, "So the rounds settle")?;
         fade_in_lagged(stage, settle, 2.2, 0.2)?;
         play!(stage; gold_line.animate().set_anim_args(run(0.6))?.set_opacity(0.8)?);
@@ -783,6 +796,45 @@ mod tests {
         // shrinks every round
         let off = |r: &[f64; 2]| (r[1] / r[0] - 1.0).abs();
         assert!(chain.windows(2).all(|w| off(&w[1]) < off(&w[0])));
+    }
+
+    /// 13_4: "75, 50" is clear of both arms of the cross it names, of the
+    /// gold line and of the chain of rounds. The cross's lower right arm ran
+    /// through its "7".
+    #[test]
+    fn the_name_of_the_total_stands_clear_of_the_cross_and_the_chain() {
+        use super::super::draw::testing::Room;
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let total = numbers("K-E5.total")?;
+            let name = name_the_total(&kit, stage, &total)?;
+            let room = Room::of(stage, name);
+            let c = PLANE.p(total[0], total[1]);
+            // the cross's two arms and the gold line, a stroke's half width
+            // (6 pt) round each
+            let arm = |dx: f64, dy: f64| (v(c[0] - dx, c[1] - dy), v(c[0] + dx, c[1] + dy));
+            let arms = [arm(CROSS_HALF, -CROSS_HALF), arm(CROSS_HALF, CROSS_HALF)];
+            let line = (PLANE.p(0.0, 0.0), PLANE.p(REACH * 0.9, REACH * 0.9));
+            let pad = 0.06;
+            for (a, b) in arms.into_iter().chain([line]) {
+                assert!(!room.grown(pad).crosses(a, b), "{room:?} is crossed by {a:?}-{b:?}");
+            }
+            // the chain of rounds from the lopsided order, tip to tail
+            let other = numbers("K-E5.demand")?;
+            let mut at = [0.0, 0.0];
+            for r in model_rounds(&economy::thrifty(), [other[0], other[1]], 12) {
+                let next = [at[0] + r[0], at[1] + r[1]];
+                let (a, b) = (PLANE.p(at[0], at[1]), PLANE.p(next[0], next[1]));
+                assert!(
+                    !room.grown(pad).crosses(a, b),
+                    "{room:?} is crossed by the chain {at:?}-{next:?}"
+                );
+                at = next;
+            }
+            // beside the cross, not far from it
+            assert!(room.x0 > c[0] + CROSS_HALF && room.x0 - c[0] < 0.7, "{room:?}");
+            Ok(())
+        });
     }
 
     /// 13_5 and 13_7: the hungrier economy's rounds grow, its eigenvalue is
