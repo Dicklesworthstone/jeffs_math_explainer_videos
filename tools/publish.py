@@ -256,12 +256,14 @@ def main(argv: list[str] | None = None) -> int:
     finals = crate / "renders" / "final"
     master_mp4 = args.master
     if master_mp4 is None:
-        candidates = sorted(finals.glob("*_master.mp4"))
+        michael_finals = crate / "variants" / "michael" / "renders" / "final"
+        candidates = sorted(michael_finals.glob("*_master.mp4")) + sorted(finals.glob("*_master.mp4"))
         if candidates:
             master_mp4 = candidates[0]
     if master_mp4 is None or not master_mp4.is_file():
         print(f"publish: no master MP4 found for {args.slug} (pass --master or run ./x {args.slug} master)", file=sys.stderr)
         return 2
+    finals = master_mp4.parent
 
     ver = args.version if args.version.startswith("v") else f"v{args.version}"
     bundle = args.out or (crate / "publish" / f"release_{ver}")
