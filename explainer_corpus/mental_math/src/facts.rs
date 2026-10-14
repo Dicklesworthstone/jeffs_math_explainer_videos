@@ -162,6 +162,10 @@ fn fives(f: &mut Facts) -> Result<(), String> {
         "75 tenths",
     )?;
     f.pin("F-T1.half.squared", money(e.square), "56.25", "7.5 x 7.5")?;
+    // the same front, next number and hundreds as 75 squared: 7 × 8 = 56, and a quarter
+    f.add("F-T1.half.front", e.n)?;
+    f.add("F-T1.half.next", e.n + 1)?;
+    f.add("F-T1.half.hundreds", e.hundreds)?;
     Ok(())
 }
 
@@ -199,6 +203,7 @@ fn parts(f: &mut Facts) -> Result<(), String> {
     let order = "the order";
     let (a, b) = shown::PARTS;
     let p = by_parts(a, b);
+    f.add("F-T2.factors", list([a, b]))?;
     f.add("F-T2.parts.first", list(<[u64; 2]>::from(model::parts(a))))?;
     f.add("F-T2.parts.second", list(<[u64; 2]>::from(model::parts(b))))?;
     f.add("F-T2.pieces.sides", list(p.pieces.iter().map(sides)))?;
@@ -227,6 +232,7 @@ fn parts(f: &mut Facts) -> Result<(), String> {
     f.add("F-T2.bounds", list(<[u64; 2]>::from(p.bounds())))?;
     let (x, y) = shown::TWO_PIECES;
     f.add("F-T2.piece_counts", list([by_parts(x, y).pieces.len(), p.pieces.len()]))?;
+    f.add("F-T2.two_pieces.factors", list([x, y]))?;
     Ok(())
 }
 
@@ -268,6 +274,7 @@ fn round_numbers(f: &mut Facts) -> Result<(), String> {
     f.add("F-T6.five.product", half)?;
     for (name, (a, b)) in [("halve", shown::HALVE), ("no_easier", shown::HALVE_NO_EASIER)] {
         let (half, double, product) = halve_and_double(a, b).ok_or("nothing to halve")?;
+        f.add(&format!("F-T6.{name}.factors"), list([a, b]))?;
         f.add(&format!("F-T6.{name}.halved"), half)?;
         f.add(&format!("F-T6.{name}.doubled"), double)?;
         f.add(&format!("F-T6.{name}.product"), product)?;
@@ -289,10 +296,13 @@ fn round_numbers(f: &mut Facts) -> Result<(), String> {
     // and parts (210, then 28 more) is as easy
     let (count, each) = shown::FIX_NO_EASIER;
     let r = round_then_fix(count, each, each.next_multiple_of(10));
+    f.add("F-T7.no_easier.factors", list([count, each]))?;
     f.add("F-T7.no_easier.rounded", r.rounded)?;
     f.add("F-T7.no_easier.fix", r.fix)?;
     f.add("F-T7.no_easier.product", r.total)?;
-    f.add("F-T7.no_easier.by_parts", list(&by_parts(count, each).running))?;
+    let by = by_parts(count, each);
+    f.add("F-T7.no_easier.by_parts", list(&by.running))?;
+    f.add("F-T7.no_easier.pieces", list(by.pieces.iter().map(Piece::area)))?;
     Ok(())
 }
 
@@ -326,6 +336,8 @@ fn pairs(f: &mut Facts) -> Result<(), String> {
 /// F-T4: squares near 50.
 fn fifty(f: &mut Facts) -> Result<(), String> {
     f.add("F-T4.fifty_squared", FIFTY * FIFTY)?;
+    f.add("F-T4.fifty.number", FIFTY)?;
+    f.add("F-T4.fifty.hundreds", FIFTY * FIFTY / 100)?;
     for (name, number) in [
         ("below", shown::BELOW),
         ("above", shown::ABOVE),
@@ -382,6 +394,9 @@ fn description(f: &mut Facts) -> Result<(), String> {
     let p = pair(x, y).ok_or("the same-front pair has no middle")?;
     let five = ends_in_five(p.middle).ok_or("the middle does not end in 5")?;
     f.add("F-D.same_front.factors", format!("{x},{y}"))?;
+    f.add("F-D.same_front.front", five.n)?;
+    f.add("F-D.same_front.next", five.n + 1)?;
+    f.add("F-D.same_front.last_digits", list([x % 10, y % 10]))?;
     f.add("F-D.same_front.hundreds", five.hundreds)?;
     f.add("F-D.same_front.ones", (x % 10) * (y % 10))?;
     f.add("F-D.same_front.product", p.product)?;
@@ -389,6 +404,7 @@ fn description(f: &mut Facts) -> Result<(), String> {
     let (x, y) = shown::NO_PAIR;
     let (sum, gap) = (x + y, y - x);
     let halves = |twice: u64| format!("{}.{}", twice / 2, twice % 2 * 5);
+    f.add("F-D.half_middle.factors", format!("{x},{y}"))?;
     f.add("F-D.half_middle.middle", halves(sum))?;
     f.add("F-D.half_middle.distance", halves(gap))?;
     f.add("F-D.half_middle.middle_squared", money((sum * sum) * 25))?;
@@ -481,10 +497,14 @@ pub fn edge_pair() -> (usize, usize) {
     )
 }
 
+/// The largest number the edge tests of the near-fifty sentences try; they
+/// start at 0.
+const NEAR_FIFTY_LAST: u64 = 100;
+
 /// Every whole number from 0 to 100: fifty squared, a hundred times the
 /// distance, the distance squared.
 pub fn edge_near_fifty() -> (usize, usize) {
-    tally(0..=100u64, |&x| near_fifty(x).square == x * x)
+    tally(0..=NEAR_FIFTY_LAST, |&x| near_fifty(x).square == x * x)
 }
 
 /// The numbers whose square really is "25 plus the distance, then the
@@ -495,7 +515,7 @@ pub fn digit_pairs_range() -> (u64, u64) {
             .digit_pairs()
             .is_some_and(|(front, back)| format!("{front}{back}") == (x * x).to_string())
     };
-    let ok: Vec<u64> = (0..=100u64).filter(reads).collect();
+    let ok: Vec<u64> = (0..=NEAR_FIFTY_LAST).filter(reads).collect();
     (ok[0], ok[ok.len() - 1])
 }
 
@@ -558,6 +578,7 @@ fn edges(f: &mut Facts) -> Result<(), String> {
     }
     f.add("F-X1.ends_in_five.largest", 10 * 9_999 + 5)?;
     let (first, last) = digit_pairs_range();
+    f.add("F-X4.near_fifty.largest", NEAR_FIFTY_LAST)?;
     f.add("F-X4.digit_pairs.first", first)?;
     f.add("F-X4.digit_pairs.last", last)?;
     Ok(())
@@ -587,6 +608,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     f.pin("F-C3.chase.year", cited::CHASE_YEAR, "1844", chase)?;
     f.pin("F-C3.chase.page", cited::CHASE_PAGE, "60", chase)?;
     let (number, square) = cited::CHASE_SQUARE;
+    f.pin("F-C3.chase.square_number", number, "35", chase)?;
     let e = ends_in_five(number).ok_or("Chase's square does not end in 5")?;
     f.pin("F-C3.chase.square", e.square, &square.to_string(), chase)?;
     let (x, y, product) = cited::CHASE_PAIR;
@@ -594,6 +616,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     f.pin("F-C3.chase.pair", p.product, &product.to_string(), chase)?;
     f.pin("F-C3.chase.pair_numbers", format!("{x},{y}"), "87,73", chase)?;
     let (number, square) = cited::CHASE_NEAR_FIFTY;
+    f.pin("F-C3.chase.near_fifty_number", number, "53", chase)?;
     f.pin(
         "F-C3.chase.near_fifty",
         near_fifty(number).square,
@@ -606,6 +629,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     let (a, b) = shown::PARTS;
     let ((a1, a0), (b1, b0)) = ((a / 10, a % 10), (b / 10, b % 10));
     let products = [a1 * b1, a0 * b0, (a1 + a0) * (b1 + b0)];
+    f.add("F-C4.karatsuba.digits", list([a1, a0, b1, b0]))?;
     f.pin(
         "F-C4.karatsuba.multiplications",
         products.len(),

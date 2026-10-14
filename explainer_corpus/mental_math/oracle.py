@@ -269,6 +269,11 @@ def main():
     half = F(15, 2) ** 2
     emit("F-T1.half.squared", money(half * 100))
     check("7.5^2 is 7 x 8 and a quarter", half == 7 * 8 + F(1, 4))
+    # 7.5 is 75 tenths: the same front, next number and hundreds as 75 squared
+    half_steps, _ = worked("ends_in_five", ("square", 75))
+    emit("F-T1.half.front", half_steps[0])
+    emit("F-T1.half.next", half_steps[1])
+    emit("F-T1.half.hundreds", half_steps[2])
 
     # --- F-M: the one move, by counting cells ----------------------------------------
     for side, strip in ((35, 5), (34, 4), (48, 2), (53, 3), (50, 3), (55, 5), (62, 12)):
@@ -291,6 +296,7 @@ def main():
     (a_tens, a_ones), (b_tens, b_ones) = split(a), split(b)
     cells = count_cells(a, b, a_tens, b_tens)
     pieces = [cells[(0, 0)], cells[(0, 1)], cells[(1, 0)], cells[(1, 1)]]
+    emit("F-T2.factors", join([a, b]))
     emit("F-T2.parts.first", join([a_tens, a_ones]))
     emit("F-T2.parts.second", join([b_tens, b_ones]))
     emit("F-T2.pieces.sides", join(f"{h}x{w}" for h in (a_tens, a_ones) for w in (b_tens, b_ones)))
@@ -316,6 +322,7 @@ def main():
     emit("F-T2.bounds", join([a_tens * b_tens, (a_tens + 10) * (b_tens + 10)]))
     check("23 x 46 lies from 20 x 40 up to 30 x 50", a_tens * b_tens <= a * b < (a_tens + 10) * (b_tens + 10))
     emit("F-T2.piece_counts", join([len(running_totals(6, 43)), len(running_totals(a, b))]))
+    emit("F-T2.two_pieces.factors", join([6, 43]))
 
     # --- F-T5: percents ----------------------------------------------------------
     bill = 4800
@@ -341,6 +348,7 @@ def main():
     emit("F-T6.five.ten", 86 * 10)
     emit("F-T6.five.product", 5 * 86)
     for name, (x, y) in (("halve", (14, 35)), ("no_easier", (14, 37))):
+        emit(f"F-T6.{name}.factors", join([x, y]))
         emit(f"F-T6.{name}.halved", x // 2)
         emit(f"F-T6.{name}.doubled", y * 2)
         emit(f"F-T6.{name}.product", x * y)
@@ -351,10 +359,15 @@ def main():
     emit("F-T7.price.rounded", money(4 * up_to(1999, 100)))
     emit("F-T7.price.fix", money(4 * up_to(1999, 100) - 4 * 1999))
     emit("F-T7.price.total", money(4 * 1999))
+    emit("F-T7.no_easier.factors", join([7, 34]))
     emit("F-T7.no_easier.rounded", 7 * up_to(34, 10))
     emit("F-T7.no_easier.fix", 7 * up_to(34, 10) - 7 * 34)
     emit("F-T7.no_easier.product", 7 * 34)
     emit("F-T7.no_easier.by_parts", join(running_totals(7, 34)))
+    # the pieces of 7 x 34 by parts: seven thirties, then seven fours
+    pieces_7_34 = [7 * 30, 7 * 4]
+    emit("F-T7.no_easier.pieces", join(pieces_7_34))
+    check("7 x 34: the pieces are what the running totals add", [sum(pieces_7_34[: i + 1]) for i in range(2)] == running_totals(7, 34))
     check("7 x 34: the fix is seven sixes, and parts is 210 then 28", 7 * 40 - 7 * 34 == 7 * 6 and running_totals(7, 34) == [210, 238])
 
     # --- F-T3: 47 x 53 -----------------------------------------------------------
@@ -384,6 +397,8 @@ def main():
 
     # --- F-T4: squares near 50 ---------------------------------------------------
     emit("F-T4.fifty_squared", 50 * 50)
+    emit("F-T4.fifty.number", 50)
+    emit("F-T4.fifty.hundreds", 50 * 50 // 100)
     for name, number in (("below", 48), ("above", 53), ("carries", 62)):
         d = number - 50
         square = number * number
@@ -434,11 +449,17 @@ def main():
     emit("F-D.n97.square", 97 * 97)
     check("97^2 = 94 x 100 + 9", rectangle + overhang == 97 * 97 == 9409)
     emit("F-D.same_front.factors", "23,27")
+    same_front = int(str(23)[:-1])
+    check("23 and 27 have the same front and last digits that add to ten", same_front == int(str(27)[:-1]) and 23 % 10 + 27 % 10 == 10)
+    emit("F-D.same_front.front", same_front)
+    emit("F-D.same_front.next", same_front + 1)
+    emit("F-D.same_front.last_digits", join([23 % 10, 27 % 10]))
     emit("F-D.same_front.hundreds", 23 * 27 // 100)
     emit("F-D.same_front.ones", 23 * 27 % 100)
     emit("F-D.same_front.product", 23 * 27)
     check("23 x 27 is 2 x 3 in hundreds, then 3 x 7", 23 * 27 == 2 * 3 * 100 + 3 * 7)
     half_middle, half_gap = F(47 + 56, 2), F(56 - 47, 2)
+    emit("F-D.half_middle.factors", "47,56")
     emit("F-D.half_middle.middle", f"{float(half_middle):g}")
     emit("F-D.half_middle.distance", f"{float(half_gap):g}")
     emit("F-D.half_middle.middle_squared", money(half_middle**2 * 100))
@@ -447,6 +468,7 @@ def main():
     check("47 x 56 = 51.5^2 - 4.5^2", half_middle**2 - half_gap**2 == 47 * 56)
     # --- F-DO: a number only docs/description.md states, which the video does not print (an oracle-only row) ---------
     n19 = running_totals(19, 19)
+    emit("F-DO.n19.number", 19)
     emit("F-DO.n19.running", join(n19))
     check("19 x 19 by parts starts at 100 and ends at 361", n19[0] == 100 and n19[-1] == 361 == 19 * 19)
 
@@ -512,6 +534,7 @@ def main():
         for x in range(101)
         if (x - 50) ** 2 < 100 and f"{25 + (x - 50)}{(x - 50) ** 2:02d}" == str(x * x)
     ]
+    emit("F-X4.near_fifty.largest", max(range(101)))
     emit("F-X4.digit_pairs.first", reads[0])
     emit("F-X4.digit_pairs.last", reads[-1])
     check("the two-digit reading holds on an unbroken run", reads == list(range(reads[0], reads[-1] + 1)))
@@ -529,14 +552,17 @@ def main():
     # Chase, The Elements of Arithmetic, Part Second (Philadelphia, 1844), p. 60
     emit("F-C3.chase.year", 1844)
     emit("F-C3.chase.page", 60)
+    emit("F-C3.chase.square_number", 35)
     emit("F-C3.chase.square", 1225)
     emit("F-C3.chase.pair", 6351)
     emit("F-C3.chase.pair_numbers", "87,73")
+    emit("F-C3.chase.near_fifty_number", 53)
     emit("F-C3.chase.near_fifty", 2809)
     check("Chase's three examples", 35 * 35 == 1225 and 87 * 73 == 6351 and 53 * 53 == 2809)
     # Karatsuba's algorithm on the digits of 23 x 46: 2 x 4, 3 x 6, and one product of
     # the two digit sums; the strips are what is left of that product, in tens
     block, corner, sums = 2 * 4, 3 * 6, (2 + 3) * (4 + 6)
+    emit("F-C4.karatsuba.digits", join(int(d) for d in str(23) + str(46)))
     emit("F-C4.karatsuba.multiplications", len((block, corner, sums)))
     emit("F-C4.karatsuba.block", block)
     emit("F-C4.karatsuba.corner", corner)
