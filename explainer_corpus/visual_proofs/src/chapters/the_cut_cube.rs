@@ -16,7 +16,7 @@
 //! boxes that share axes; one updater rewrites every face from five
 //! trackers, so a cut that slides is a tracker moving.
 
-use explainer_kit::{Kit, fade_all, tween, v};
+use explainer_kit::{Kit, Timed, fade_all, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
@@ -716,6 +716,16 @@ impl SceneConstruct for TheCutCube {
         for &m in &layer {
             out_anims.push(stage.prepare(slide(m, step, 0.8)?)?);
         }
+        // Euclid's statement of it comes as the L pulls away (it came with
+        // the line's end and stood 1.2 s before 12_3 took it)
+        let euclid = formula_third(
+            &kit,
+            stage,
+            EUCLID,
+            &[Words::Tex("(a+b)^{2} = a^{2} + 2ab + b^{2}"), Words::Text(A_IS)],
+        )?;
+        let fade = fade_in(stage.arena_mut(), euclid, ORIGIN, 1.0)?;
+        out_anims.push(stage.prepare(fade.rt(0.5))?);
         stage.play_prepared(out_anims)?;
         pause(stage, 0.3)?;
         let mut back_anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -723,14 +733,7 @@ impl SceneConstruct for TheCutCube {
             back_anims.push(stage.prepare(slide(m, v(-step[0], -step[1]), 0.8)?)?);
         }
         stage.play_prepared(back_anims)?;
-        let euclid = formula_third(
-            &kit,
-            stage,
-            EUCLID,
-            &[Words::Tex("(a+b)^{2} = a^{2} + 2ab + b^{2}"), Words::Text(A_IS)],
-        )?;
         line.wait_end(stage)?;
-        fade_in_all(stage, &[euclid], 0.5)?;
         pause(stage, 0.6)?;
 
         // ------------------------------------------------------------ 12_3
@@ -927,6 +930,10 @@ impl SceneConstruct for TheCutCube {
                 pascal.push(kit.text(stage, &n.to_string(), 44.0, kind_colour(i), v(x, y))?);
             }
         }
+        // the name of the table comes with the table (it came after the
+        // rows and stood 0.5 s before the card took its place)
+        let name = lower_third(&kit, stage, PASCAL, EACH_IS_SUM)?;
+        fade_in_all(stage, &[name], 0.5)?;
         fade_in_lagged(stage, &pascal, 2.2, 0.08)?;
         // the middle three numbers are the cube's row added to itself, one
         // place over (1+3, 3+3, 3+1)
@@ -934,8 +941,6 @@ impl SceneConstruct for TheCutCube {
         let sum_row = kit.tex(stage, &sums.replace(',', "\\quad "), 36.0, dim(), &[], v(4.6, -0.45))?;
         let from = kit.text(stage, ADDED_SHIFTED, 21.0, dim(), v(3.9, -1.05))?;
         fade_in_all(stage, &[sum_row, from], 0.5)?;
-        let name = lower_third(&kit, stage, PASCAL, EACH_IS_SUM)?;
-        fade_in_all(stage, &[name], 0.5)?;
         // the card: the square and the cube are pictures; the fourth power
         // is counted, not built
         line.wait_for(stage, "We can count its blocks")?;

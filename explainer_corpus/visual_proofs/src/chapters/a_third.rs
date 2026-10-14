@@ -493,8 +493,11 @@ impl SceneConstruct for AThird {
                 Words::Text(", and each strip is a third of the corner"),
             ],
         )?;
-        line.wait_end(stage)?;
+        // the statement comes with the sentence that closes the argument, not
+        // at the line's end: it stood 1.3 s before 11_6's card took its place
+        line.wait_for(stage, "So no number short")?;
         fade_in_all(stage, &[third], 0.5)?;
+        line.wait_end(stage)?;
         pause(stage, 0.8)?;
 
         // ------------------------------------------------------------ 11_6
