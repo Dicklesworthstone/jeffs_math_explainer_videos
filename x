@@ -39,9 +39,10 @@
 #   ./x <slug> score                            the music: every chapter's timeline at 60 fps from the
 #                                               narration, then the score with QA into stems/
 #   ./x <slug> scored [CHAPTER...]              960x540@60 with narration and stems, into renders/scored/;
-#                                               then the blank-stretch report (flags only, never a
-#                                               failure; renders/scored/blank_stretches.txt for the whole
-#                                               video: tools/blank_stretches.py)
+#                                               then the blank-stretch and band-dwell reports (flags
+#                                               only, never a failure; renders/scored/blank_stretches.txt
+#                                               and band_dwell.txt for the whole video:
+#                                               tools/blank_stretches.py, tools/band_dwell.py)
 #   ./x <slug> final [CHAPTER...]               3840x2160@60, x264 CRF 16 (preset slow), narration and
 #                                               stems, into renders/final/
 #   ./x <slug> master                           the PCM master of renders/final/ (every chapter final)
@@ -754,6 +755,17 @@ PY
       if [ "$1" = all ]; then
         printf '%s\n' "$report" > "$out/blank_stretches.txt"
         echo "x: blank-stretch report in $out/blank_stretches.txt"
+      fi
+      # advisory: the lower-third bands that stand whole for under 2.6 s (tools/band_dwell.py); the scene
+      # tests measure that on the scratch voice, this reads the render
+      # shellcheck disable=SC2086
+      report=$(uv run --quiet --no-project --with numpy python3 -I "$here/tools/band_dwell.py" $pictures 2>&1) || true
+      printf '%s\n' "$report" | grep -E '^FLAG' | sed 's/^/x: band /' || true
+      printf '%s\n' "$report" | grep -q -E '^(PASS|FLAG|ADVISORY)' ||
+        echo "x: the band-dwell report did not run: $report" >&2
+      if [ "$1" = all ]; then
+        printf '%s\n' "$report" > "$out/band_dwell.txt"
+        echo "x: band-dwell report in $out/band_dwell.txt"
       fi
     fi
     exit $status ;;
