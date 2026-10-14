@@ -98,7 +98,8 @@ def build_1080p_proxy(master_mp4: Path, out_mp4: Path) -> None:
 
 def build_contact_sheet(master_mp4: Path, out_png: Path, tiles: int = 8) -> None:
     """Eight stills spread over the whole cut (the middle of each eighth), 4x2 at 480x270. Tiling the first
-    frames instead gave a sheet of the opening's dark first eighth of a second."""
+    frames instead gave a sheet of the opening's dark first eighth of a second; an fps filter gave seven
+    (its last sample comes only at the end of the stream, after the tile has been written)."""
     duration = float(probe_video(master_mp4)["duration"].rstrip("s"))
     step = duration / tiles
     cmd = [
@@ -112,7 +113,9 @@ def build_contact_sheet(master_mp4: Path, out_png: Path, tiles: int = 8) -> None
         "-i",
         str(master_mp4),
         "-vf",
-        f"fps=1/{step:.6f},scale=480:270:flags=lanczos,tile=4x2",
+        f"select='isnan(prev_selected_t)+gte(t-prev_selected_t,{step:.6f})',scale=480:270:flags=lanczos,tile=4x2",
+        "-fps_mode",
+        "vfr",
         "-frames:v",
         "1",
         str(out_png),
