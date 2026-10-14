@@ -234,8 +234,11 @@ impl SceneConstruct for Walks {
         let levels = Levels::build(stage, &pieces, 0.0)?;
         stage.add_to_scene(a_grid.group)?;
         let piece_of = |i: usize, j: usize| i * KITE.n + j;
-        line.wait_for(stage, "Four nodes")?;
+        // the network is up from the line's first words, "who is linked to
+        // whom" (it came in with "Four nodes", three seconds in: a black
+        // frame under the sentence that names it)
         fade_in_all(stage, &first, 0.8)?;
+        line.wait_for(stage, "Four nodes")?;
         line.wait_for(stage, "Write a one where two nodes are linked")?;
         let mut ins: Vec<Box<dyn Animation>> = vec![fade_in_anim(stage, a_name, 0.5)?];
         for b in 0..2 {

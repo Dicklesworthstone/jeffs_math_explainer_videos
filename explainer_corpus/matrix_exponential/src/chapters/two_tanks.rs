@@ -166,17 +166,19 @@ impl Tanks {
         for (i, &cx) in TANK_X.iter().enumerate() {
             let g = grams[i];
             let y = TANK_Y - TANK_H / 2.0 - 0.45;
+            // one decimal: a readout of no places truncates (56.77 would read
+            // 56 and 43.23 would read 43, a hundred grams short)
             kit.live_value(
                 stage,
                 move |s| s.tracker_value(g).unwrap_or(0.0),
-                0,
+                1,
                 false,
                 40.0,
                 substance(),
-                v(cx + 0.3, y),
+                v(cx + 0.45, y),
                 RIGHT,
             )?;
-            still.push(kit.text(stage, "g", 40.0, substance(), v(cx + 0.5, y))?);
+            still.push(kit.text(stage, "g", 40.0, substance(), v(cx + 0.67, y))?);
         }
         let anchor = stage.arena_mut().add(VMobject::new());
         let waters = [water[0], water[1]];
@@ -465,7 +467,11 @@ impl SceneConstruct for TwoTanks {
             back_in.push(fade_out_anim(stage, m, 0.5)?);
         }
         stage.play_prepared(back_in)?;
+        // "Fifty grams in each": the tanks settle while it is said (they
+        // read 56 and 43 until now), then the clock goes back to show how fast
+        play!(stage; tween_linear(clock, LONG_RUN_MIN, 1.5)?);
         line.wait_for(stage, "And the exponential says how fast")?;
+        play!(stage; tween_linear(clock, 0.0, 0.7)?);
         let minutes: f64 = fact("F-V.10_6.minutes")?
             .parse()
             .map_err(|e| fail(format!("fact F-V.10_6.minutes: {e}")))?;

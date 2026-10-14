@@ -386,6 +386,12 @@ impl SceneConstruct for HeatAndChance {
         }
         let bars = [bar_mobs[0], bar_mobs[1], bar_mobs[2], bar_mobs[3]];
         drive_heat(stage, &net, bars, clock, bars_on)?;
+        // the bars stand on the scene from now, at no opacity; 12_2 raises
+        // `bars_on` and they rise (they were built and driven but never put
+        // on the scene, so no bar was ever drawn)
+        for &b in &bars {
+            stage.add_to_scene(b)?;
+        }
         let grid = MatrixGrid::build(&kit, stage, &whole_rows(&minus_l()), GRID_PT, teal, GRID_AT)?;
         let grid_name = kit.tex(stage, "-L", 48.0, teal, &[], v(GRID_AT[0], GRID_AT[1] + 1.55))?;
         // the grid's diagonal is empty until the arrows have left along the links
@@ -514,13 +520,16 @@ impl SceneConstruct for HeatAndChance {
 
         // ---- 12_4: four hundred nodes, one stroke
         let line = say(&kit, stage, "12_4")?;
+        // the four nodes stay up for "On four nodes you could do this by
+        // hand" (they went at the line's first frame, and the sentence ran
+        // over a black stage); they go as "On four hundred" is said
+        line.wait_for(stage, "On four hundred")?;
         let mut gone = net.all();
         gone.extend([chance, total, token, strip, grid.group, grid_name]);
         gone.extend(&names);
         gone.extend(&live);
         gone.extend(bars);
         fade_out_all(stage, &gone, 0.6)?;
-        line.wait_for(stage, "On four hundred")?;
         let side = shown::BIG_SIDE;
         let (src_r, src_c) = shown::BIG_SOURCE;
         let half = (side as f64 - 1.0) / 2.0;

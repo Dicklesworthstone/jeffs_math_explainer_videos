@@ -248,11 +248,13 @@ pub fn drive_rule(stage: &mut Stage<'_>, flow: &Flow, spec: &FlowSpec, trackers:
             for &d in &dots {
                 s.set_opacity(d, lv[0], false);
             }
+            // arrows and trails are strokes: their fill stays at zero
+            // (`set_opacity` would fill an open trail into a petal)
             for &a in &arrows {
-                s.set_opacity(a, lv[1], false);
+                s.set_stroke(a, None, None, Some(lv[1]), None, false);
             }
             for &tr in &trails {
-                s.set_opacity(tr, lv[2], false);
+                s.set_stroke(tr, None, None, Some(lv[2]), None, false);
             }
         },
         true,

@@ -304,15 +304,18 @@ impl SceneConstruct for OrderMatters {
         )?;
         let a_name = kit.tex(stage, "A", 48.0, teal, &[], v(GRID_AT[0] - 1.4, GRID_AT[1] + 1.4))?;
         let b_name = kit.tex(stage, "B", 48.0, rose, &[], v(GRID_AT[0] + 1.6, GRID_AT[1] + 1.4))?;
-        let mut first_in = vec![still];
-        first_in.extend(&a_field);
-        first_in.extend([a_grid.group, a_name]);
-        line.wait_for(stage, "One pushes the top of a square to the right")?;
+        // "Now two matrices, A and B, both shears": the square and the two
+        // matrices are up from the line's first words (the first frame of
+        // the line was black until "One pushes the top"); each one's arrows
+        // come in as its sentence is said
+        let first_in = vec![still, a_grid.group, a_name, b_grid.group, b_name];
         fade_in_all(stage, &first_in, 0.7)?;
+        line.wait_for(stage, "One pushes the top of a square to the right")?;
+        fade_in_all(stage, &a_field, 0.7)?;
         line.wait_for(stage, "The other pushes its right side upward")?;
-        let mut second_in = b_field.clone();
-        second_in.extend([b_grid.group, b_name]);
-        fade_in_all(stage, &second_in, 0.7)?;
+        fade_in_all(stage, &b_field, 0.7)?;
+        let mut second_in = a_field.clone();
+        second_in.extend(&b_field);
         kit.hold(stage)?;
 
         // ---- 14_3: your turn: A then B, or B then A?
@@ -408,7 +411,7 @@ impl SceneConstruct for OrderMatters {
 
         // ---- 14_5: AB and BA: commuting
         let line = say(&kit, stage, "14_5")?;
-        let mut shapes = vec![
+        let shapes = vec![
             ghost,
             diagonal,
             a_then_b.poly,
@@ -417,16 +420,18 @@ impl SceneConstruct for OrderMatters {
             g3.group,
             n3,
         ];
-        stage.clear_updaters(a_then_b.anchor, true);
-        stage.clear_updaters(b_then_a.anchor, true);
-        stage.clear_updaters(at_once.anchor, true);
-        fade_out_all(stage, &shapes, 0.5)?;
-        shapes.clear();
         let ab = MatrixGrid::build(&kit, stage, &whole_entries("F-O.AB")?, 60.0, teal, v(-2.6, 0.9))?;
         let ba = MatrixGrid::build(&kit, stage, &whole_entries("F-O.BA")?, 60.0, rose, v(2.6, 0.9))?;
         let ab_name = kit.tex(stage, r"AB=", 60.0, teal, &[], v(-5.1, 0.9))?;
         let ba_name = kit.tex(stage, r"BA=", 60.0, rose, &[], v(0.1, 0.9))?;
+        // the three results stay up for "The rule broke because order
+        // matters" (the sentence ran over a black stage); they go as the two
+        // products come
         line.wait_for(stage, "Multiply the two grids in either order")?;
+        stage.clear_updaters(a_then_b.anchor, true);
+        stage.clear_updaters(b_then_a.anchor, true);
+        stage.clear_updaters(at_once.anchor, true);
+        fade_out_all(stage, &shapes, 0.5)?;
         fade_in_all(stage, &[ab.group, ab_name], 0.6)?;
         fade_in_all(stage, &[ba.group, ba_name], 0.6)?;
         line.wait_for(stage, "When those agree, the matrices commute")?;
@@ -455,8 +460,7 @@ impl SceneConstruct for OrderMatters {
 
         // ---- 14_6: the loop that does not close
         let line = say(&kit, stage, "14_6")?;
-        let mut leaving = vec![ab.group, ba.group, ab_name, ba_name, commute, exact];
-        leaving.extend(&shapes);
+        let leaving = vec![ab.group, ba.group, ab_name, ba_name, commute, exact];
         fade_out_all(stage, &leaving, 0.5)?;
         let t = shown::SQUARE_LOOP_TIME;
         let ghost = outline(stage, &PLANE, Palette::dim());

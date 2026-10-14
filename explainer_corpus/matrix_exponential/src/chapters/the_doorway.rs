@@ -206,6 +206,32 @@ fn whole_rows(m: &Mat) -> Vec<Vec<String>> {
         .collect()
 }
 
+/// Where 15_4's row of three spins is centred (x), its row's height, its type
+/// size and the room left between neighbouring brackets.
+pub const ALGEBRA_X: f64 = -3.9;
+const ALGEBRA_Y: f64 = 0.5;
+const ALGEBRA_PT: f64 = 26.0;
+const ALGEBRA_GAP: f64 = 0.4;
+
+/// The three spins' grids, built and set side by side about `ALGEBRA_X`
+/// (detached): their groups, left to right.
+fn algebra_row(kit: &Kit, stage: &mut Stage<'_>, mats: &[Mat]) -> fmn::Result<Vec<Mob>> {
+    let mut groups = Vec::new();
+    let mut widths = Vec::new();
+    for m in mats {
+        let g = MatrixGrid::build(kit, stage, &whole_rows(m), ALGEBRA_PT, rule(), v(ALGEBRA_X, ALGEBRA_Y))?;
+        widths.push(g.size.0);
+        groups.push(g.group);
+    }
+    let total: f64 = widths.iter().sum::<f64>() + ALGEBRA_GAP * (widths.len() as f64 - 1.0);
+    let mut x = ALGEBRA_X - total / 2.0;
+    for (&g, &w) in groups.iter().zip(&widths) {
+        stage.move_to(g, v(x + w / 2.0, ALGEBRA_Y), ORIGIN);
+        x += w + ALGEBRA_GAP;
+    }
+    Ok(groups)
+}
+
 // -------------------------------------------------------------- the scene
 
 pub struct TheDoorway {
@@ -280,6 +306,19 @@ impl SceneConstruct for TheDoorway {
         }
         let mut shown_now = vec![grids[0].group, names[0]];
         fade_in_all(stage, &shown_now, 0.5)?;
+        // the exact version comes in with the first spin, not after all
+        // three (it was up about a second before the next line)
+        let exact = lower_third(
+            &kit,
+            stage,
+            "precisely:",
+            &format!(
+                "every rotation comes from a spin; a full turn and no turn are the same rotation. \
+                 Four axes would make {} pairs",
+                spins(4)
+            ),
+        )?;
+        fade_in_all(stage, &[exact], 0.5)?;
         play!(stage; tween_linear(turn, 1.2, 1.4)?);
         line.wait_for(stage, "Three dimensions have three")?;
         for k in 1..3 {
@@ -296,17 +335,6 @@ impl SceneConstruct for TheDoorway {
             swap.push(stage.prepare(tween_linear(turn, 1.2, 1.4)?)?);
             stage.play_prepared(swap)?;
         }
-        let exact = lower_third(
-            &kit,
-            stage,
-            "precisely:",
-            &format!(
-                "every rotation comes from a spin; a full turn and no turn are the same rotation. \
-                 Four axes would make {} pairs",
-                spins(4)
-            ),
-        )?;
-        fade_in_all(stage, &[exact], 0.5)?;
         kit.hold(stage)?;
 
         // ---- 15_2: your turn: tip about x, about y, undo each
@@ -419,14 +447,12 @@ impl SceneConstruct for TheDoorway {
         away.extend([ghost, ghost_name, angle_label, angle, deg, bracket, backwards]);
         stage.clear_updaters(creeping.anchor, true);
         fade_out_all(stage, &away, 0.5)?;
-        // left: the three spins, to be added and bracketed
-        let mut algebra = Vec::new();
-        for (k, m) in grids3.iter().enumerate() {
-            let at = v(-5.3 + 1.75 * k as f64, 0.5);
-            algebra.push(MatrixGrid::build(&kit, stage, &whole_rows(m), 32.0, teal, at)?.group);
-        }
-        let left_title = kit.text(stage, "spins: add them, bracket them", 28.0, ink, v(-3.6, 2.5))?;
-        let left_name = kit.text(stage, "a Lie algebra, so(3)", 30.0, teal, v(-3.6, -1.1))?;
+        // left: the three spins, to be added and bracketed, side by side with
+        // a gap between neighbours' brackets (a pitch of 1.75 left them
+        // touching, one long matrix)
+        let algebra = algebra_row(&kit, stage, &grids3)?;
+        let left_title = kit.text(stage, "spins: add them, bracket them", 28.0, ink, v(ALGEBRA_X, 2.5))?;
+        let left_name = kit.text(stage, "a Lie algebra, so(3)", 30.0, teal, v(ALGEBRA_X, -1.1))?;
         // right: the cube, followed by one rotation after another
         let tour = stage.add_value_tracker(0.0);
         let group_cube = Cube::build(stage, [3.6, 0.3, 0.0], CUBE_SCALE, (VIEW_YAW, VIEW_TILT), move |s| {

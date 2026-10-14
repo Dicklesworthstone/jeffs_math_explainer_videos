@@ -752,11 +752,14 @@ impl Flow {
                     for &d in &dots {
                         s.set_opacity(d, lv[0], false);
                     }
+                    // arrows and trails are strokes: their fill stays at zero
+                    // (`set_opacity` would fill an open trail, and the chord
+                    // of a long arc becomes a petal)
                     for &a in &arrows {
-                        s.set_opacity(a, lv[1], false);
+                        s.set_stroke(a, None, None, Some(lv[1]), None, false);
                     }
                     for &tr in &trails {
-                        s.set_opacity(tr, lv[2], false);
+                        s.set_stroke(tr, None, None, Some(lv[2]), None, false);
                     }
                 }
                 last = (t, lv);
@@ -1238,6 +1241,31 @@ pub mod testing {
         pub lint_count: usize,
         /// Every text-like mobject the chapter built, with its source.
         pub registered: Vec<Registered>,
+        /// The folder of the run's frames (one PNG a frame, in order).
+        pub frames_dir: std::path::PathBuf,
+    }
+
+    /// The sizes of a run's frame files, in frame order.
+    pub fn frame_sizes(dir: &std::path::Path) -> Result<Vec<u64>, String> {
+        let mut files: Vec<_> = std::fs::read_dir(dir)
+            .map_err(|e| format!("{}: {e}", dir.display()))?
+            .filter_map(Result::ok)
+            .map(|e| e.path())
+            .filter(|p| p.extension().is_some_and(|x| x == "png"))
+            .collect();
+        files.sort();
+        files
+            .iter()
+            .map(|p| std::fs::metadata(p).map(|m| m.len()).map_err(|e| e.to_string()))
+            .collect()
+    }
+
+    /// Whether frame `i` of a run (frame file sizes `sizes`) shows anything:
+    /// a frame with no picture is the background alone, the smallest file of
+    /// the run, and the same size as every other such frame.
+    pub fn has_picture(sizes: &[u64], i: usize) -> bool {
+        let blank = sizes.iter().copied().min().unwrap_or(0);
+        sizes.get(i).is_some_and(|&s| s > blank + 16)
     }
 
     /// Run chapter `key` of the registry at 64 by 36 and 10 frames a second,
@@ -1311,6 +1339,7 @@ pub mod testing {
             lint: lint.report(),
             lint_count: lint.count(),
             registered: kit.registered(),
+            frames_dir: dir,
         };
         Ok((ran, kit))
     }
@@ -1446,7 +1475,7 @@ pub mod quiz_log {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::{expm, quarter_turn};
+    use crate::model::{expm, expm_t, quarter_turn};
 
     // ΔE2000 (Sharma, Wu and Dalal 2005), for the colour-role test.
     fn lab(c: Srgb) -> [f64; 3] {
@@ -1551,6 +1580,112 @@ mod tests {
                 assert!(d >= 20.0, "{na} and {nb}: ΔE2000 {d:.1}");
             }
         }
+    }
+
+    /// Run `construct` on a scratch stage with no sink (the scene's mobjects
+    /// are really built, updaters really run, nothing is rendered).
+    fn probe(construct: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        fmn::run_scene(
+            &mut Probe(construct),
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("the probe scene runs");
+    }
+
+    /// The flow's arrows and trails are strokes: raising their levels to full
+    /// opacity (and following the rule far enough that a trail is a long arc)
+    /// leaves their fill at nothing, both in `Flow::drive` and in the rule
+    /// driver. With a fill, an open trail is a petal: the chord of its arc
+    /// becomes the other edge of a yellow shape (09_5 and 09_6 showed it).
+    #[test]
+    fn arrows_and_trails_stay_strokes_as_their_levels_rise() {
+        use crate::chapters::flow::{RuleTrackers, drive_rule};
+        probe(|stage| {
+            let j = quarter_turn();
+            let spec = FlowSpec {
+                plane: Plane {
+                    centre: [0.0, 0.0, 0.0],
+                    unit: 1.0,
+                },
+                starts: vec![[1.0, 0.0], [0.0, 2.0], [-1.5, 0.5]],
+                dot_radius: 0.05,
+                dot_color: Palette::ink(),
+                dot_level: 0.0,
+                velocity: Some(Velocity {
+                    rule: map2(&j),
+                    scale: 0.2,
+                    color: rule(),
+                    width: 3.0,
+                    head: 0.1,
+                }),
+                trails: vec![0, 1, 2],
+                trail_color: result(),
+                trail_width: 3.0,
+            };
+            // the flow with a fixed rule
+            let flow = Flow::build(stage, spec.clone())?;
+            let clock = stage.add_value_tracker(0.0);
+            let rotate = {
+                let j = j.clone();
+                move |t: f64| map2(&expm_t(&j, t))
+            };
+            flow.drive(stage, clock, rotate)?;
+            stage.add_to_scene(flow.group)?;
+            // the flow driven by a rule's entries
+            let rule_flow = Flow::build(stage, spec.clone())?;
+            let trackers = RuleTrackers::new(stage, &j);
+            drive_rule(stage, &rule_flow, &spec, trackers)?;
+            stage.add_to_scene(rule_flow.group)?;
+            for f in [&flow, &rule_flow] {
+                stage.set_tracker_value(f.levels[1], 1.0)?;
+                stage.set_tracker_value(f.levels[2], 0.8)?;
+            }
+            stage.set_tracker_value(clock, 2.0)?;
+            stage.set_tracker_value(trackers.time, 2.0)?;
+            pause(stage, 0.3)?;
+            for f in [&flow, &rule_flow] {
+                for &m in f.trails.iter().chain(&f.arrows) {
+                    assert_eq!(stage.arena().get_fill_opacity(m), Some(0.0), "a stroke has no fill");
+                }
+                for &m in &f.trails {
+                    let o = stage.arena().get_stroke_opacity(m).unwrap_or(0.0);
+                    assert!((o - 0.8).abs() < 1e-6, "the trail's stroke is at its level: {o}");
+                }
+            }
+            Ok(())
+        });
+    }
+
+    /// The cue sheets of a narrated draft show the frame 1.5 s into each line
+    /// (the middle of a shorter one): a line must not begin over a black
+    /// stage. Measured on the scratch-voice run of every chapter, at the
+    /// frame that moment falls on (a frame with no picture is the background
+    /// alone). The narrated draft had seven such lines in chapters 09 to 16
+    /// (11_1, 12_4, 13_5, 14_2, 14_5, 16_2 and 16_3; 16_1 and 13_4 were all
+    /// but black), and a handful in 01 to 08 that are fixed.
+    #[test]
+    fn no_line_begins_over_a_black_stage() {
+        let mut black = Vec::new();
+        for key in crate::chapters::registry().into_iter().map(|c| c.key) {
+            let voiced = testing::run_voiced(key).unwrap();
+            let sizes = testing::frame_sizes(&voiced.ran.frames_dir).unwrap();
+            for (id, start, len) in &voiced.lines {
+                let at = start + 1.5_f64.min(len / 2.0);
+                let frame = (at * 10.0).floor() as usize;
+                if !testing::has_picture(&sizes, frame) {
+                    black.push(format!("{id} at {at:.1} s"));
+                }
+            }
+        }
+        assert!(black.is_empty(), "black stages: {black:?}");
     }
 
     #[test]

@@ -263,10 +263,20 @@ impl SceneConstruct for WhereItLeads {
         let pointer = chip(&kit, stage, "the companion video: robot arms", 30.0, gold, v(3.9, 0.9))?;
         let mut first = arm_links.clone();
         first.extend(&joints);
-        first.extend([hand, home_pose, pointer]);
+        first.extend([hand, home_pose]);
         first.extend(&tags);
-        line.wait_for(stage, "A robot arm's pose is a product of exponentials")?;
-        fade_in_all(stage, &first, 0.8)?;
+        // the arm is up from the line's first frames ("Robots use this" was
+        // said over a black stage; the arm came in at the second sentence),
+        // and the strip of other uses with it, so that it can be read
+        let also = lower_third(
+            &kit,
+            stage,
+            "also:",
+            "spacecraft attitude, computer graphics, quantum gates",
+        )?;
+        let mut arm_in = first.clone();
+        arm_in.push(also);
+        fade_in_all(stage, &arm_in, 0.8)?;
         // each joint turns in its turn, and its tag lights
         for (k, &target) in [0.4, -0.6, 0.9].iter().enumerate() {
             let go = vec![
@@ -276,22 +286,8 @@ impl SceneConstruct for WhereItLeads {
             stage.play_prepared(go)?;
         }
         line.wait_for(stage, "That's the companion video")?;
-        let who = lower_third(
-            &kit,
-            stage,
-            "who and when:",
-            &format!("Sophus Lie, {}\u{2013}{}", cited::LIE_BORN, cited::LIE_DIED),
-        )?;
-        fade_in_all(stage, &[who], 0.5)?;
-        let swap = vec![fade_out_anim(stage, who, 0.4)?];
-        stage.play_prepared(swap)?;
-        let also = lower_third(
-            &kit,
-            stage,
-            "also:",
-            "spacecraft attitude, computer graphics, quantum gates",
-        )?;
-        fade_in_all(stage, &[also], 0.5)?;
+        fade_in_all(stage, &[pointer], 0.5)?;
+        first.push(pointer);
         kit.hold(stage)?;
 
         // ---- 16_2: three Lie groups: eight, three and one tiny steps
@@ -315,7 +311,9 @@ impl SceneConstruct for WhereItLeads {
         for (i, &x) in group_x.iter().enumerate() {
             counts.push(kit.text(stage, &whole(steps[i]), 50.0, gold, v(x, 2.1))?);
         }
-        line.wait_for(stage, "built on three Lie groups")?;
+        // the three groups are up from the line's first words, "the forces of
+        // the Standard Model are built on three Lie groups" (the stage was
+        // black until the fourth second); the counts come with theirs
         fade_in_all(stage, &[groups], 0.7)?;
         line.wait_for(stage, "with eight, three, and one")?;
         fade_in_all(stage, &counts, 0.7)?;
@@ -362,7 +360,9 @@ impl SceneConstruct for WhereItLeads {
 
         // ---- 16_3: one last time, your turn: e to the quarter turn
         let line = say(&kit, stage, "16_3")?;
-        let mut off = vec![groups, brace_label, gluon_label, twelve, fine];
+        // (the fine print stays until the question's own sentence: it was up
+        // about a second before the next line)
+        let mut off = vec![groups, brace_label, gluon_label, twelve];
         off.extend(&counts);
         off.extend(&tiles);
         fade_out_all(stage, &off, 0.5)?;
@@ -379,8 +379,13 @@ impl SceneConstruct for WhereItLeads {
         )?;
         let equals = kit.tex(stage, "=", 90.0, ink, &[], v(middle[0] + 0.6, middle[1] - 0.2))?;
         let ask = kit.text(stage, "?", 110.0, gold, v(middle[0] + 1.8, middle[1] - 0.2))?;
+        // the card and its problem, e raised to J, are up with "One last
+        // time" (a black stage ran under the whole question); the ring comes
+        // as the question itself is asked
+        card.show_frame(stage, &[base_e, power.group, equals, ask], 0.6)?;
         line.wait_last(stage)?;
-        card.show(stage, &[base_e, power.group, equals, ask], 0.6)?;
+        fade_out_all(stage, &[fine], 0.3)?;
+        card.arm(stage)?;
         card.count(&kit, stage)?;
         let answer_grid = MatrixGrid::build(
             &kit,
@@ -471,6 +476,16 @@ impl SceneConstruct for WhereItLeads {
         let circle_name = kit.text(stage, "a circle of rotations:", 30.0, gold, v(4.3, 0.5))?;
         let circle_name2 = kit.text(stage, "the Lie group", 30.0, gold, v(4.3, 0.0))?;
         line.wait_for(stage, "A rotation by one radian")?;
+        // the credit for the Lie algebra and the Lie group named on this
+        // screen: up for the whole line, where it was a swapped strip of
+        // half a second in 16_1
+        let who = lower_third(
+            &kit,
+            stage,
+            "who and when:",
+            &format!("Sophus Lie, {}\u{2013}{}", cited::LIE_BORN, cited::LIE_DIED),
+        )?;
+        fade_in_all(stage, &[who], 0.5)?;
         let mut enter: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(turning_plane.levels[0], 0.8, 0.6)?)?];
         let mut shown_first = vec![circle, ruler, line_name, line_name2];
         shown_first.extend(&ticks);
@@ -491,7 +506,16 @@ impl SceneConstruct for WhereItLeads {
 
         // ---- 16_5: the rule, its result, and its rate
         let line = say(&kit, stage, "16_5")?;
-        let mut clear = vec![circle, ruler, line_name, line_name2, circle_name, circle_name2, radian];
+        let mut clear = vec![
+            circle,
+            ruler,
+            line_name,
+            line_name2,
+            circle_name,
+            circle_name2,
+            radian,
+            who,
+        ];
         clear.extend(&ticks);
         clear.push(turning_plane.group);
         stage.clear_updaters(ruler_anchor, true);

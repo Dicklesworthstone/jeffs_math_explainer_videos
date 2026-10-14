@@ -24,7 +24,7 @@ use super::draw::{
     MatrixGrid, chip, entries, fact, fade_in_all, fade_out_all, faded_line, flat, good, matrix, minus, music_hold,
     numbers, panel, predict_hold, result, rule, say, show, substance, turning, warn,
 };
-use super::flow::fade_in_anim;
+use super::flow::{fade_in_anim, fade_out_anim};
 use super::walks::cell_outline;
 use crate::facts::{cited, mvl, shown};
 use crate::model::{M2f, Mat, factorial, pade_at_one, series};
@@ -343,7 +343,9 @@ impl SceneConstruct for HowComputersDoIt {
 
         // ---- 13_4: halve, sum a short series, square back
         let line = say(&kit, stage, "13_4")?;
-        let mut clear = vec![truth.group, ours.group, truth_name, ours_name, programmers];
+        // (the programmers' note of 13_3 stays up through the first sentence,
+        // which it had only a few seconds to be read in)
+        let mut clear = vec![truth.group, ours.group, truth_name, ours_name];
         clear.extend(&rings);
         fade_out_all(stage, &clear, 0.5)?;
         let halvings = fact("F-C.mvl.f32.scaled.halvings")?
@@ -352,16 +354,22 @@ impl SceneConstruct for HowComputersDoIt {
         let degree = fact("F-C.mvl.f32.scaled.terms")?
             .parse::<u32>()
             .map_err(|e| super::draw::fail(format!("terms: {e}")))?;
-        let rule_of_thumb = kit.tex(
-            stage,
-            r"e^{A}=\left(e^{A/2}\right)^{2}",
-            54.0,
-            ink,
-            &[("e", gold), ("A", teal)],
-            v(0.0, 3.0),
-        )?;
-        fade_in_all(stage, &[rule_of_thumb], 0.6)?;
+        // "Half the time, run twice, is the whole time": the rule of thumb is
+        // the picture for those two sentences, large in the middle, and it
+        // goes up to the top edge when the ladder of halvings comes in
+        let rule_src = r"e^{A}=\left(e^{A/2}\right)^{2}";
+        let rule_colors = [("e", gold), ("A", teal)];
+        let big_rule = kit.tex(stage, rule_src, 90.0, ink, &rule_colors, v(0.0, 0.4))?;
+        let rule_of_thumb = kit.tex(stage, rule_src, 54.0, ink, &rule_colors, v(0.0, 3.0))?;
+        fade_in_all(stage, &[big_rule], 0.6)?;
+        line.wait_for(stage, "Half the time, run twice")?;
+        fade_out_all(stage, &[programmers], 0.5)?;
         line.wait_for(stage, "So halve the matrix eight times")?;
+        let to_top = vec![
+            fade_out_anim(stage, big_rule, 0.4)?,
+            fade_in_anim(stage, rule_of_thumb, 0.5)?,
+        ];
+        stage.play_prepared(to_top)?;
         // a ladder of boxes: A, A/2, ... A/256, each with its size
         let n_boxes = halvings as usize + 1;
         let pitch = 1.35;
@@ -492,11 +500,14 @@ impl SceneConstruct for HowComputersDoIt {
         tidy.extend(&sizes);
         tidy.extend(&short_in);
         tidy.extend(&squared);
-        fade_out_all(stage, &tidy, 0.5)?;
         let p = pade_numerator(3);
         let num = pade_tex(&p, false);
         let den = pade_tex(&p, true);
+        // "Real programs do exactly that": the ladder is what they do, and
+        // stays up for those words (the stage was cleared at the line's first
+        // frame, so the sentence began over a black one)
         line.wait_for(stage, "with a ratio of two polynomials")?;
+        fade_out_all(stage, &tidy, 0.5)?;
         let ratio = kit.tex(
             stage,
             &format!(r"e^{{x}}\approx\frac{{{num}}}{{{den}}}"),

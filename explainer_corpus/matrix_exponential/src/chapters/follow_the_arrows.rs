@@ -518,7 +518,9 @@ impl SceneConstruct for FollowTheArrows {
         let mut away: Vec<Box<dyn Animation>> = vec![
             stage.prepare(tween(arrows_level, 0.0, 0.6)?)?,
             stage.prepare(tween(trails_level, 0.0, 0.6)?)?,
-            stage.prepare(tween(dots_level, 0.1, 0.6)?)?,
+            // (the dots went to a tenth: they still ran through the series'
+            // first terms, grey dots under the letters)
+            stage.prepare(tween(dots_level, 0.0, 0.6)?)?,
         ];
         for &m in &gone {
             // (a live readout's updaters are cleared first, or it would be
@@ -580,14 +582,15 @@ impl SceneConstruct for FollowTheArrows {
             &[("e", gold), ("tA", teal)],
             v(0.0, -1.75),
         )?;
-        fade_in_all(stage, &[rate_is], 0.7)?;
-        line.wait_for(stage, "Velocity is the matrix")?;
+        // the exact version comes in with the rate, so that it is up for the
+        // rest of the line (it came with the last sentence, a second and a
+        // half before the next picture)
         let exact = precisely_tex(
             &kit,
             stage,
             r"x'=Ax\ \text{ has the solution }\ x(t)=e^{tA}x(0)\text{, and no other}",
         )?;
-        fade_in_all(stage, &[exact], 0.6)?;
+        fade_in_all(stage, &[rate_is, exact], 0.7)?;
 
         // ---- 09_5: a time s, then a time t more
         let line = say(&kit, stage, "09_5")?;
@@ -695,16 +698,18 @@ impl SceneConstruct for FollowTheArrows {
         let holds = chip(&kit, stage, "holds", 34.0, good(), v(5.0, -1.95))?;
         fade_in_all(stage, &[sum, holds], 0.6)?;
         line.wait_for(stage, "The matrix is the rule")?;
-        let rule_card = kit.tex(stage, r"A:\text{ the rule}", 42.0, teal, &[], v(-3.4, -2.85))?;
+        // (a little above the lower third that follows: at -2.85 their feet
+        // stood on its top edge)
+        let rule_card = kit.tex(stage, r"A:\text{ the rule}", 42.0, teal, &[], v(-3.4, -2.65))?;
         let where_card = kit.tex(
             stage,
             r"e^{tA}:\text{ where it takes you}",
             42.0,
             gold,
             &[("tA", teal)],
-            v(3.2, -2.85),
+            v(3.2, -2.65),
         )?;
-        let between = arrow(stage, v(-1.2, -2.85), v(0.1, -2.85), ink, 4.0)?;
+        let between = arrow(stage, v(-1.2, -2.65), v(0.1, -2.65), ink, 4.0)?;
         fade_in_all(stage, &[rule_card, where_card, between], 0.7)?;
         let peano = lower_third(
             &kit,
