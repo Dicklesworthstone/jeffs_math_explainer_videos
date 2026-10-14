@@ -19,6 +19,7 @@ pub mod layers;
 pub mod staircases;
 pub mod the_cut_cube;
 pub mod the_missing_square;
+pub mod what_makes_a_proof;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -62,6 +63,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("12_the_cut_cube", 0.55, the_cut_cube::TheCutCube),
         scene!("13_four_triangles", 0.6, four_triangles::FourTriangles),
         scene!("14_the_missing_square", 0.3, the_missing_square::TheMissingSquare),
-        animatic!("15_what_makes_a_proof", 0.45),
+        scene!("15_what_makes_a_proof", 0.45, what_makes_a_proof::WhatMakesAProof),
     ]
 }

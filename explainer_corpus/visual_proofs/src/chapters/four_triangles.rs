@@ -66,9 +66,11 @@ const SHARP: &str = "sharp";
 const TILTED_CORNER: &str = "tilted corner";
 const RIGHT: &str = "right angle";
 const STRAIGHT: &str = "a straight side";
-const SHARP_SUM: &str = "sharp angles make a right angle";
-const CLOSES: &str = "each pair of triangles closes into an a by b rectangle";
-const ASSUMED_CORNER: &str = "the tilted corner sits on a straight side";
+pub(super) const SHARP_SUM: &str = "sharp angles make a right angle";
+pub(super) const CLOSES: &str = "each pair of triangles closes into an a by b rectangle";
+pub(super) const ASSUMED_CORNER: &str = "the tilted corner sits on a straight side";
+/// The card's Shown line, which chapter 15 reads back.
+pub(super) const SHOWN_TEX: &str = "\\text{for every right triangle, } a^{2}+b^{2}=c^{2}";
 const NOBODY: &str = "No source we found says who first drew this picture.";
 const COUSIN: &str = "A close cousin is in a third-century Chinese commentary on the Zhoubi suanjing";
 
@@ -644,7 +646,7 @@ impl SceneConstruct for FourTriangles {
             &kit,
             stage,
             &[
-                CardRow::Shown(Words::Tex("\\text{for every right triangle, } a^{2}+b^{2}=c^{2}")),
+                CardRow::Shown(Words::Tex(SHOWN_TEX)),
                 CardRow::Assumed(Words::Text(ASSUMED_CORNER)),
                 CardRow::Assumed(Words::Text(CLOSES)),
             ],

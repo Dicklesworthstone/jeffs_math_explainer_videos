@@ -38,12 +38,12 @@ const SMALL_FIRST: Vec3 = [-6.6, 0.5, 0.0];
 const SMALL_SECOND: Vec3 = [0.62, 0.5, 0.0];
 const SMALL_CELL: f64 = 0.46;
 /// The medium picture of 14_5 and the window that shows its bend closer.
-const MED_AT: Vec3 = [-6.9, -0.3, 0.0];
-const MED_CELL: f64 = 0.55;
+pub(super) const MED_AT: Vec3 = [-6.9, -0.3, 0.0];
+pub(super) const MED_CELL: f64 = 0.55;
 const WINDOW_AT: Vec3 = [3.5, 0.8, 0.0];
 const WINDOW: (f64, f64) = (5.4, 3.0);
 /// How much closer the window looks, and the ring's close-up of 14_7.
-const ZOOM: f64 = 8.0;
+pub(super) const ZOOM: f64 = 8.0;
 const LENS_ZOOM: f64 = 12.0;
 /// The two outlines laid over each other (14_6).
 const OVER_AT: Vec3 = [-6.4, -0.55, 0.0];
@@ -86,14 +86,14 @@ const TILES: &str = "tiles";
 const FILL_THE_TILE: &str = "pieces fill the empty tile";
 const FIBONACCI: &str = "neighbours in the Fibonacci numbers, so";
 const SLOPES_DIFFER: &str = "the slopes differ by only";
-const NOTHING: &str = "nothing";
-const EDGE_STRAIGHT: &str = "the long edge is straight";
-const IT_BENDS: &str = "it bends here";
+pub(super) const NOTHING: &str = "nothing";
+pub(super) const EDGE_STRAIGHT: &str = "the long edge is straight";
+pub(super) const IT_BENDS: &str = "it bends here";
 const SOURCE: &str = "P. Curry, 1953; M. Gardner, Mathematics, Magic and Mystery, 1956";
 
 // ---------------------------------------------------------------- the model
 
-type P2 = (f64, f64);
+pub(super) type P2 = (f64, f64);
 type Tri = [(i64, i64); 3];
 
 fn pf(p: (i64, i64)) -> P2 {
@@ -226,7 +226,7 @@ fn path(stage: &mut Stage<'_>, board: &Board, pts: &[P2], style: Style) -> Mob {
 
 /// The sloping edge of an arrangement as cell points: the corner, the bend,
 /// the far corner.
-fn edge_of(a: &lie::Arrangement) -> [P2; 3] {
+pub(super) fn edge_of(a: &lie::Arrangement) -> [P2; 3] {
     [(0.0, 0.0), pf(a.bend), (lie::WIDE as f64, lie::TALL as f64)]
 }
 
@@ -302,7 +302,7 @@ fn magnified(board: &Board, at: P2, zoom: f64, p: P2) -> P2 {
 /// `zoom` about `at`, clipped to the box `±half` and set about `centre`.
 /// Detached; nothing for a segment that is outside the box.
 #[allow(clippy::too_many_arguments)]
-fn magnify(
+pub(super) fn magnify(
     stage: &mut Stage<'_>,
     board: &Board,
     at: P2,
