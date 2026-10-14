@@ -306,6 +306,105 @@ pub mod circle {
         (edges + 1 - corners) as u64
     }
 
+    /// A corner of a region on the screen's unit circle.
+    pub type Corner = (f64, f64);
+
+    /// How many segments the circle is drawn with between two of its
+    /// neighbouring points at the most (an arc is a polyline in a picture).
+    const ARC_STEP_DEGREES: f64 = 3.0;
+
+    /// Every region the lines cut the unit disc into, as a convex polygon
+    /// (corners counter-clockwise): the disc, cut by each of the lines
+    /// through two points in turn. The arcs of the circle are polylines of
+    /// at most [`ARC_STEP_DEGREES`] a segment, and the points themselves are
+    /// corners. The walk is in floating point, from the exact points; the
+    /// count of faces equals [`regions`] (a test), and a region too thin to
+    /// be one (three lines meeting at one point leave slivers of rounding)
+    /// is dropped by area.
+    pub fn faces(points: &[Point]) -> Vec<Vec<Corner>> {
+        let float = |v: Q| v.n as f64 / v.d as f64;
+        let pts: Vec<Corner> = points.iter().map(|&(x, y)| (float(x), float(y))).collect();
+        // the disc: its corners are the points and the arcs between them
+        let mut angles: Vec<f64> = pts.iter().map(|&(x, y)| y.atan2(x)).collect();
+        angles.sort_by(f64::total_cmp);
+        let mut ring: Vec<f64> = Vec::new();
+        if angles.is_empty() {
+            let steps = (360.0 / ARC_STEP_DEGREES) as usize;
+            ring.extend((0..steps).map(|k| std::f64::consts::TAU * k as f64 / steps as f64));
+        } else {
+            for (i, &a) in angles.iter().enumerate() {
+                let b = if i + 1 < angles.len() {
+                    angles[i + 1]
+                } else {
+                    angles[0] + std::f64::consts::TAU
+                };
+                let n = ((b - a).to_degrees() / ARC_STEP_DEGREES).ceil().max(1.0) as usize;
+                ring.extend((0..n).map(|k| a + (b - a) * k as f64 / n as f64));
+            }
+        }
+        let disc: Vec<Corner> = ring.iter().map(|a| (a.cos(), a.sin())).collect();
+        let mut faces = vec![disc];
+        for (i, j) in lines(pts.len()) {
+            let (a, b) = (pts[i], pts[j]);
+            // the signed distance of a corner from the line: positive on the
+            // left of a to b
+            let length = (b.0 - a.0).hypot(b.1 - a.1);
+            let side = |c: Corner| ((b.0 - a.0) * (c.1 - a.1) - (b.1 - a.1) * (c.0 - a.0)) / length;
+            let mut next: Vec<Vec<Corner>> = Vec::with_capacity(faces.len() * 2);
+            for face in faces {
+                let sides: Vec<f64> = face.iter().map(|&c| side(c)).collect();
+                let inside = sides.iter().any(|&d| d > SIDE_EPS);
+                let outside = sides.iter().any(|&d| d < -SIDE_EPS);
+                if !(inside && outside) {
+                    next.push(face);
+                    continue;
+                }
+                let (mut left, mut right) = (Vec::new(), Vec::new());
+                for k in 0..face.len() {
+                    let (c, d) = (face[k], face[(k + 1) % face.len()]);
+                    let (sc, sd) = (sides[k], sides[(k + 1) % face.len()]);
+                    if sc >= -SIDE_EPS {
+                        left.push(c);
+                    }
+                    if sc <= SIDE_EPS {
+                        right.push(c);
+                    }
+                    if (sc > SIDE_EPS && sd < -SIDE_EPS) || (sc < -SIDE_EPS && sd > SIDE_EPS) {
+                        let t = sc / (sc - sd);
+                        let m = (c.0 + t * (d.0 - c.0), c.1 + t * (d.1 - c.1));
+                        left.push(m);
+                        right.push(m);
+                    }
+                }
+                next.push(left);
+                next.push(right);
+            }
+            faces = next;
+        }
+        faces.retain(|f| f.len() >= 3 && polygon_area(f) > MIN_FACE_AREA);
+        faces
+    }
+
+    /// A corner this close to a line (in units of the circle's radius) is
+    /// on it.
+    const SIDE_EPS: f64 = 1e-9;
+    /// A region under this area (of the unit disc's 3.14) is a sliver of
+    /// rounding, not a region.
+    const MIN_FACE_AREA: f64 = 1e-7;
+
+    /// The area of a polygon, from its corners in order.
+    pub fn polygon_area(corners: &[Corner]) -> f64 {
+        let n = corners.len();
+        (0..n)
+            .map(|k| {
+                let (a, b) = (corners[k], corners[(k + 1) % n]);
+                a.0 * b.1 - b.0 * a.1
+            })
+            .sum::<f64>()
+            .abs()
+            / 2.0
+    }
+
     /// The count when no three lines meet inside: one region to start, one
     /// more for every line and one more for every crossing, and every four
     /// points give exactly one crossing.
@@ -1124,6 +1223,54 @@ mod tests {
                 smallest > 0.008,
                 "{n} points: the smallest region is {smallest} of the disc"
             );
+        }
+    }
+
+    /// The faces the pictures fill are the regions the count is of: as many
+    /// faces as `regions`, every face convex, together the whole disc and no
+    /// two overlapping (their areas add up to the disc's), and for the six
+    /// drawn points none under a percent of it.
+    #[test]
+    fn the_faces_are_the_regions() {
+        // the disc is drawn as a polygon inscribed in the circle, a little
+        // under its area (a segment of three degrees is under a thousandth)
+        let disc = std::f64::consts::PI;
+        let inscribed = circle::polygon_area(&circle::faces(&[])[0]);
+        assert!(inscribed < disc && disc - inscribed < 2e-3, "{inscribed}");
+        let mut sets: Vec<(String, Vec<circle::Point>)> = (0..=7)
+            .map(|n| (format!("{n} drawn points"), circle::drawn(n)))
+            .collect();
+        sets.push(("three through one".to_owned(), circle::three_through_one()));
+        for (name, points) in sets {
+            let faces = circle::faces(&points);
+            assert_eq!(faces.len() as u64, circle::regions(&points), "{name}");
+            let total: f64 = faces.iter().map(|f| circle::polygon_area(f)).sum();
+            assert!(
+                total < disc && disc - total < 2e-3,
+                "{name}: the faces cover {total} of {disc}"
+            );
+            for f in &faces {
+                // convex: every turn is the same way
+                let n = f.len();
+                let turns: Vec<f64> = (0..n)
+                    .map(|k| {
+                        let (a, b, c) = (f[k], f[(k + 1) % n], f[(k + 2) % n]);
+                        (b.0 - a.0) * (c.1 - b.1) - (b.1 - a.1) * (c.0 - b.0)
+                    })
+                    .collect();
+                assert!(
+                    turns.iter().all(|&t| t >= -1e-9) || turns.iter().all(|&t| t <= 1e-9),
+                    "{name}: a face is not convex"
+                );
+            }
+        }
+        for n in 1..=6 {
+            let faces = circle::faces(&circle::drawn(n));
+            let least = faces
+                .iter()
+                .map(|f| circle::polygon_area(f))
+                .fold(f64::INFINITY, f64::min);
+            assert!(least / disc > 0.008, "{n} points: the least face is {}", least / disc);
         }
     }
 
