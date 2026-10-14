@@ -18,7 +18,7 @@ use fmn::prelude::*;
 use super::draw::{
     CARRY_HOLD_S, QuizFrame, SEA_DOT_R, Sea, SeaDot, Strip, fade_from_black, fade_in_all, fade_out_all, fail, find,
     flat, gold_tex, in_cell, line_style, map, pause, percent_tex, quote_card, say, sea_dots, sea_slot, sea_split,
-    search, tween_linear, wait_until,
+    search, tag, tween_linear, wait_until,
 };
 use crate::model::{Q, sea};
 
@@ -55,6 +55,14 @@ const DOTS_DIVIDED: &str = "÷";
 const STONE: &str = "Stone and others, 2014";
 const SUBJECTIVE: &str =
     "\u{201C}The probability distribution on which the search is based is therefore a subjective one.\u{201D}";
+/// 06_3's lower-third (R2: R3, D8): what a dot is. "If the wreck were at any
+/// of those twenty" is exact of a dot that carries this search's luck, not of
+/// a bare place, and the card says so while it is said.
+const DOT_LABEL: &str = "a dot";
+const DOT_WORDS: &str = "one equally likely way things could be, including whether this search would see it";
+/// 06_4's tag on B's ten, and how far over the row it stands.
+const MISSED_TAG: &str = "the wreck is here and the search missed it";
+const MISSED_TAG_RISE: f64 = 0.6;
 
 /// The row of lit dots: its left end, its width (the ruler, 0 to 100), its
 /// height, and the dots' size against the sea's.
@@ -246,6 +254,10 @@ impl SceneConstruct for NothingFound {
         // 06_3: those twenty go out, B cools and A, C and D deepen in the
         // same instant; the chances give way to counts of lit dots
         let line = say(&kit, stage, LINES[2])?;
+        // what a dot is, while "we would have it" is said (it leaves as the
+        // row of lit dots comes in under it)
+        let what_a_dot = quote_card(&kit, stage, DOT_LABEL, DOT_WORDS)?;
+        fade_in_all(stage, &[what_a_dot], 0.5)?;
         line.wait_for(stage, P_GO_OUT)?;
         let went: Vec<SeaDot> = in_b.iter().take(out_n).copied().collect();
         let mut together: Vec<Box<dyn Animation>> = Vec::new();
@@ -299,6 +311,7 @@ impl SceneConstruct for NothingFound {
         // 06_4: eighty left, ten of them B's: the lit dots drop into one
         // row under the sea, grouped A, B, C, D, against a fixed ruler
         let line = say(&kit, stage, LINES[3])?;
+        fade_out_all(stage, &[what_a_dot], 0.3)?;
         let ruler = ruler(&kit, stage)?;
         fade_in_all(stage, &ruler, 0.5)?;
         let lit = lit_after(&dots, b, out_n);
@@ -327,18 +340,25 @@ impl SceneConstruct for NothingFound {
             .filter(|(d, _)| d.cell == b)
             .map(|(_, &c)| c)
             .collect();
+        // B's ten are tagged in plain words: the wreck is at one of the
+        // eighty, and these are the ones where the search missed it
+        let b_first = lit.iter().position(|d| d.cell == b).unwrap_or(0);
+        let missed_at = v(row_x(b_first + b_copies.len() / 2, 1.0), ROW_Y + MISSED_TAG_RISE);
+        let missed_tag = tag(&kit, stage, MISSED_TAG, missed_at, 20.0)?;
+        fade_in_all(stage, &[missed_tag], 0.4)?;
         pulse(stage, &b_copies, 1.8, 0.25)?;
         line.wait_end(stage)?;
 
         // 06_5: your turn: ten dots out of eighty, what is B's chance now?
-        // the answer lands over B's ten, as the frame lifts
+        // the answer lands over B's ten, as the frame lifts (the tag steps
+        // aside for it)
         let line = say(&kit, stage, LINES[4])?;
+        fade_out_all(stage, &[missed_tag], 0.3)?;
         let frame = QuizFrame::your_turn(&kit, stage, &line)?;
         let answer = facts
             .get("F-Q.after_empty.answer")
             .ok_or_else(|| fail("no fact F-Q.after_empty.answer".into()))?
             .to_owned();
-        let b_first = lit.iter().position(|d| d.cell == b).unwrap_or(0);
         let mid_b = row_x(b_first + b_copies.len() / 2, 1.0);
         let answer_label = kit.text(stage, &format!("{answer}%"), 36.0, map(), v(mid_b, ROW_Y + 0.55))?;
         let mut anims = frame.lift(stage, 0.5)?;
@@ -645,6 +665,26 @@ mod tests {
         let (a, b) = (lines[0].chars().count(), lines[1].chars().count());
         assert!(a.abs_diff(b) <= 20, "{a} and {b}");
         assert!(b >= 30, "the second line is {lines:?}");
+    }
+
+    /// R2 (R3, D8): the card that says what a dot is fits the frame's foot
+    /// in at most three lines (the kit's card refuses more), and the tag over
+    /// B's ten stands inside the ruler's width, under the sea and over the
+    /// row's dots.
+    #[test]
+    fn the_dot_card_and_the_tag_over_bs_ten_stand_where_they_read() {
+        use super::super::draw::CHAR_UNITS_PER_POINT;
+        assert_eq!(DOT_LABEL, "a dot");
+        assert!(DOT_WORDS.starts_with("one equally likely way things could be"));
+        assert!(DOT_WORDS.ends_with("including whether this search would see it"));
+        // 40 of A's dots come before B's ten in the row
+        let mid = row_x(40 + 5, 1.0);
+        let w = MISSED_TAG.chars().count() as f64 * 20.0 * CHAR_UNITS_PER_POINT + 0.3;
+        assert!(mid - w / 2.0 > ROW_X0 && mid + w / 2.0 < ROW_X0 + ROW_W, "{mid} {w}");
+        // the tag is about 0.42 tall: under the sea's lowest row, over the row
+        let (top, bottom) = (ROW_Y + MISSED_TAG_RISE + 0.21, ROW_Y + MISSED_TAG_RISE - 0.21);
+        assert!(top < sea_rect(2).1, "{top}");
+        assert!(bottom > ROW_Y + SEA_DOT_R * ROW_SCALE + 0.05, "{bottom}");
     }
 
     #[test]
