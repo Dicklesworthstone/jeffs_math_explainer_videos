@@ -55,7 +55,8 @@
    "accept": [
     "See you",
     "Sue",
-    "CU"
+    "CU",
+    "Hsu"
    ],
    "note": "Man-Keung Siu (08_5, 15_5 'Siu's'), Cantonese surname 蕭 (Siu). No written source; for the owner's ear.",
    "probe": {
@@ -76,7 +77,8 @@
    "note": "Man-Keung Siu's given name (08_5). For the owner's ear.",
    "accept": [
     "Meng Kung",
-    "Mang Kung"
+    "Mang Kung",
+    "Mang Kong"
    ],
    "probe": {
     "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
@@ -115,7 +117,11 @@
    "accept": [
     "Ajose",
     "Ah Jose",
-    "Ajoseh"
+    "Ajoseh",
+    "R. Jose",
+    "R Jose",
+    "arts say",
+    "artser Say"
    ],
    "probe": {
     "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
@@ -168,6 +174,13 @@
   "colours": ["colors"]
  },
  "phrases": {
+  "Mang Kong Hsu": "Man-Keung Siu",
+  "Sunday arts say": "Sunday Ajose",
+  "Sunday artser Say": "Sunday Ajose",
+  "arts say": "Ajose",
+  "artser Say": "Ajose",
+  "R. Jose": "Ajose",
+  "R Jose": "Ajose",
   "its sides": "its side"
  }
 }
