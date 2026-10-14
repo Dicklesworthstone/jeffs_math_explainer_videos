@@ -18,6 +18,7 @@ use super::draw::{
     QuizCard, arrow_points, fade_in_all, fade_out_all, faded_line, flat, good, music_hold, numbers, result, rule, say,
     tick_mark, warn, whole,
 };
+use super::flow::{fade_in_anim, fade_out_anim};
 
 pub struct TheSeries {
     pub kit: Kit,
@@ -286,13 +287,6 @@ impl SceneConstruct for TheSeries {
             fade_in(stage.arena_mut(), answer, ORIGIN, 1.0)?.rt(0.4),
         );
         card.land(stage, &[], 0.25)?;
-        let mut leaving = card.mobs();
-        leaving.extend(&pieces);
-        leaving.extend(&bottoms);
-        leaving.extend(&arcs);
-        leaving.extend(&words);
-        leaving.push(answer);
-        fade_out_all(stage, &leaving, 0.3)?;
         // the row, with its bottoms written out
         let mut row = Vec::new();
         let columns = [-5.2, -3.8, -2.2, 0.6, 4.0];
@@ -326,7 +320,24 @@ impl SceneConstruct for TheSeries {
         let mut first = vec![row[0], row[1], row[2]];
         first.extend(&plus[..2]);
         first.extend([plus[2], row[3]]);
-        fade_in_all(stage, &first, 0.5)?;
+        // "X cubed over six" is said over the answer, fully up; the card
+        // goes as the row comes in, in one batch (so no frame between them
+        // is a black stage)
+        line.wait_first_sentence(stage)?;
+        let mut leaving = card.mobs();
+        leaving.extend(&pieces);
+        leaving.extend(&bottoms);
+        leaving.extend(&arcs);
+        leaving.extend(&words);
+        leaving.push(answer);
+        let mut swap: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in &leaving {
+            swap.push(fade_out_anim(stage, m, 0.3)?);
+        }
+        for &m in &first {
+            swap.push(fade_in_anim(stage, m, 0.5)?);
+        }
+        stage.play_prepared(swap)?;
         line.wait_for(stage, "Then x to the fourth")?;
         fade_in_all(stage, &[plus[3], row[4]], 0.6)?;
         line.wait_for(stage, "Each bottom number")?;

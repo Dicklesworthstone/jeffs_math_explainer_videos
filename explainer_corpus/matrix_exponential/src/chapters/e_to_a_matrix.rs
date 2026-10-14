@@ -47,6 +47,28 @@ const FAN_N: usize = 8;
 /// its ellipsis stood among them: the dense read of the scored draft).
 const E_LABEL_AT: [f64; 2] = [-3.6, -2.2];
 const E_LABEL_PT: f64 = 30.0;
+/// "1 radian = 57.3 degrees" at the end of 01_2: right of the dots and of
+/// their arrows (at (3.1, 2.0) the tag sat on the rim's arrows: the dense
+/// read of the scored draft).
+const RADIAN_TAG_AT: [f64; 2] = [5.5, 1.8];
+/// How far from the middle the stirring dots' arrows reach: the disc, the
+/// arrow's own length (a quarter turn scaled by 0.26), the stirring's
+/// amplitude and the head (what the tag's test measures it against).
+#[cfg(test)]
+const FIELD_REACH: f64 = DISC * 1.034 + 0.16 + 0.15;
+
+/// The tag that says how long a radian is (detached).
+fn radian_tag(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let words = format!("1 radian = {}\u{b0}", fact("F-V.01_2.degrees.shown")?);
+    chip(
+        kit,
+        stage,
+        &words,
+        30.0,
+        result(),
+        v(RADIAN_TAG_AT[0], RADIAN_TAG_AT[1]),
+    )
+}
 
 /// Row `row` of a grid applied to `arrow` as it is worked on screen,
 /// `0 \times 2 - 1 \times 1 = -1`, checked against what the machine hands back.
@@ -187,8 +209,7 @@ impl SceneConstruct for EToAMatrix {
         line.wait_for(stage, "by exactly one radian")?;
         // one unit of time: every dot goes round its arc; a few leave a gold
         // trail, and one arc says how long a radian is
-        let words = format!("1 radian = {}\u{b0}", fact("F-V.01_2.degrees.shown")?);
-        let arc = chip(&kit, stage, &words, 30.0, result(), plane.p(3.1, 2.0))?;
+        let arc = radian_tag(&kit, stage)?;
         play!(stage;
             tween(flow.levels[2], 1.0, 0.4)?,
             tween(t, 1.0, 2.4)?,
@@ -387,6 +408,35 @@ mod tests {
             );
             // and it is still under the big e, not floating off it
             assert!((E_LABEL_AT[0] + 3.3).abs() < 0.6 && E_LABEL_AT[1] > -2.6);
+            Ok(())
+        });
+    }
+
+    /// 01_2 (the dense read of the scored draft): the radian's tag stands
+    /// clear of the dots and their arrows, inside the frame.
+    #[test]
+    fn the_radian_tag_stands_off_the_arrows() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let tag = radian_tag(&kit, stage)?;
+            let (left, right) = (stage.get_left(tag)[0], stage.get_right(tag)[0]);
+            let (top, bottom) = (stage.get_top(tag)[1], stage.get_bottom(tag)[1]);
+            // the point of the tag nearest the middle of the plane
+            let gap = |lo: f64, hi: f64| {
+                if lo > 0.0 {
+                    lo
+                } else if hi < 0.0 {
+                    -hi
+                } else {
+                    0.0
+                }
+            };
+            let nearest = gap(left, right).hypot(gap(bottom, top));
+            assert!(
+                nearest > FIELD_REACH + 0.2,
+                "the tag's nearest point is {nearest:.2} from the middle, the arrows reach {FIELD_REACH:.2}"
+            );
+            assert!(right < 7.11 - 0.2 && top < 4.0 - 0.2, "{right:.2}, {top:.2}");
             Ok(())
         });
     }

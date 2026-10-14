@@ -30,11 +30,18 @@ use crate::model::{Mat, expm_t};
 // ------------------------------------------------------------------ choices
 
 /// The plane the shapes live on: its origin at the lower left, so the
-/// parallelograms (up to three units out) stay on the left of the frame.
+/// parallelograms (up to three units out) stay on the left of the frame. A
+/// unit is 1.55 on screen (it was 1.25: the square and its arrows were a
+/// small thing in a mostly empty frame, the dense read of the scored draft).
 const PLANE: Plane = Plane {
     centre: [-4.6, -2.2, 0.0],
-    unit: 1.25,
+    unit: 1.55,
 };
+/// 14_3's two squares, side by side at the left of the quiz card, and the
+/// names over them.
+const SMALL_UNIT: f64 = 1.6;
+const SMALL_AT: [Vec3; 2] = [[-5.5, -1.25, 0.0], [-2.5, -1.25, 0.0]];
+const SMALL_NAME_DY: f64 = 0.45;
 /// 14_1: the two shares, for the bars (growth factors e^a and e^b).
 const SHARE_A: f64 = 0.5;
 const SHARE_B: f64 = 0.4;
@@ -210,6 +217,38 @@ fn whole_entries(key: &str) -> fmn::Result<Vec<Vec<String>>> {
     entries(key, None)
 }
 
+/// 14_3's quiz card.
+const QUIZ_AT: Vec3 = [3.9, 0.3, 0.0];
+const QUIZ_SIZE: (f64, f64) = (5.6, 3.7);
+
+/// 14_3's two unit squares, "A, then B" and "B, then A", with the names over
+/// them (detached): left square, right square, left name, right name.
+fn two_squares(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 4]> {
+    let planes = SMALL_AT.map(|centre| Plane {
+        centre,
+        unit: SMALL_UNIT,
+    });
+    let ink = Palette::ink();
+    let left = outline(stage, &planes[0], ink);
+    let right = outline(stage, &planes[1], ink);
+    let name_y = |p: &Plane| p.centre[1] + p.unit + SMALL_NAME_DY;
+    let left_name = kit.text(
+        stage,
+        "A, then B",
+        30.0,
+        ink,
+        v(planes[0].centre[0] + SMALL_UNIT / 2.0, name_y(&planes[0])),
+    )?;
+    let right_name = kit.text(
+        stage,
+        "B, then A",
+        30.0,
+        ink,
+        v(planes[1].centre[0] + SMALL_UNIT / 2.0, name_y(&planes[1])),
+    )?;
+    Ok([left, right, left_name, right_name])
+}
+
 /// How far the "=" of "AB − BA =" stands from the commutator's left bracket
 /// (at a fixed offset it stood against the bracket: the dense read of the
 /// scored draft).
@@ -351,19 +390,8 @@ impl SceneConstruct for OrderMatters {
         let mut clear = first_in.clone();
         clear.extend(&second_in);
         fade_out_all(stage, &clear, 0.5)?;
-        let small = Plane {
-            centre: [-5.3, -0.9, 0.0],
-            unit: 1.3,
-        };
-        let small_right = Plane {
-            centre: [-2.3, -0.9, 0.0],
-            unit: 1.3,
-        };
-        let left_square = outline(stage, &small, ink);
-        let right_square = outline(stage, &small_right, ink);
-        let left_name = kit.text(stage, "A, then B", 30.0, ink, v(small.centre[0] + 0.65, 1.0))?;
-        let right_name = kit.text(stage, "B, then A", 30.0, ink, v(small_right.centre[0] + 0.65, 1.0))?;
-        let card = QuizCard::build(&kit, stage, "14_3", [3.9, 0.3, 0.0], (5.6, 3.7))?;
+        let [left_square, right_square, left_name, right_name] = two_squares(&kit, stage)?;
+        let card = QuizCard::build(&kit, stage, "14_3", QUIZ_AT, QUIZ_SIZE)?;
         let (middle, room, _) = card.content();
         let problem = kit.text(stage, "the same place?", 44.0, ink, v(middle[0], middle[1] + 0.2))?;
         fit_width(stage, problem, room);
@@ -574,6 +602,54 @@ mod tests {
             ..RuntimeConfig::default()
         };
         fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 14_2 to 14_4 (the dense read of J's first half): the squares are a
+    /// size the frame can hold: the two of 14_3 stand side by side with their
+    /// names over them and clear of the card, and the parallelograms of 14_4
+    /// and the diagonal stay left of the right column and inside the frame.
+    #[test]
+    fn the_squares_are_a_size_the_frame_holds() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let [l, r, ln, rn] = two_squares(&kit, stage)?;
+            let card_left = QUIZ_AT[0] - QUIZ_SIZE.0 / 2.0;
+            assert!(
+                stage.get_left(r)[0] - stage.get_right(l)[0] > 0.5,
+                "the squares are side by side"
+            );
+            assert!(card_left - stage.get_right(r)[0] > 0.4, "clear of the card");
+            assert!(stage.get_left(l)[0] > -7.11 + 0.3);
+            for (sq, name) in [(l, ln), (r, rn)] {
+                assert!(
+                    stage.get_bottom(name)[1] > stage.get_top(sq)[1] + 0.1,
+                    "the name sits on its square"
+                );
+            }
+            assert!(stage.get_width(l) >= 1.5, "{:.2}", stage.get_width(l));
+            // the shapes of 14_4 on the big plane
+            let (a, b) = (shear_right(), shear_up());
+            let poses = [then_pose(&a, &b, 2.0), then_pose(&b, &a, 2.0), both_pose(&a, &b, 1.0)];
+            let column_left = GRID_AT[0] - 1.4 - 1.0;
+            for pose in &poses {
+                for c in corners_under(&PLANE, pose) {
+                    assert!(
+                        c[0] < column_left - 0.2 && c[1] < 4.0 - 0.3,
+                        "a corner at {:.2}, {:.2}",
+                        c[0],
+                        c[1]
+                    );
+                }
+            }
+            let end = PLANE.p(3.2, 3.2);
+            assert!(
+                end[0] < column_left - 0.2 && end[1] < 4.0 - 0.3,
+                "the diagonal ends at {:.2}, {:.2}",
+                end[0],
+                end[1]
+            );
+            Ok(())
+        });
     }
 
     /// 14_5 (the dense read of the scored draft): the "=" of "AB − BA =" ends

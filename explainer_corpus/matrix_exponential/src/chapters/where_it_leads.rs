@@ -456,9 +456,6 @@ impl SceneConstruct for WhereItLeads {
 
         // ---- 16_4: a line of tiny steps wraps onto a circle of rotations
         let line = say(&kit, stage, "16_4")?;
-        let mut leave = card.mobs();
-        leave.extend([base_e, power.group, equals, answer_grid.group, words]);
-        fade_out_all(stage, &leave, 0.5)?;
         let spec = FlowSpec {
             plane: Plane {
                 centre: v(CIRCLE_AT[0], CIRCLE_AT[1]),
@@ -523,22 +520,31 @@ impl SceneConstruct for WhereItLeads {
         let line_name2 = kit.text(stage, "the Lie algebra", 30.0, teal, v(4.3, 1.9))?;
         let circle_name = kit.text(stage, "a circle of rotations:", 30.0, gold, v(4.3, 0.5))?;
         let circle_name2 = kit.text(stage, "the Lie group", 30.0, gold, v(4.3, 0.0))?;
-        line.wait_for(stage, "A rotation by one radian")?;
+        // "A rotation by one radian": the answer stays fully up while it is
+        // said, then the card gives way to the line of tiny steps
+        line.wait_first_sentence(stage)?;
+        let mut leave = card.mobs();
+        leave.extend([base_e, power.group, equals, answer_grid.group, words]);
         // the credit for the Lie algebra and the Lie group named on this
-        // screen: up for the whole line, where it was a swapped strip of
-        // half a second in 16_1
+        // screen: up for the rest of the line, where it was a swapped strip
+        // of half a second in 16_1
         let who = lower_third(
             &kit,
             stage,
             "who and when:",
             &format!("Sophus Lie, {}\u{2013}{}", cited::LIE_BORN, cited::LIE_DIED),
         )?;
-        fade_in_all(stage, &[who], 0.5)?;
-        let mut enter: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(turning_plane.levels[0], 0.8, 0.6)?)?];
+        let mut enter: Vec<Box<dyn Animation>> = vec![
+            stage.prepare(tween(turning_plane.levels[0], 0.8, 0.6)?)?,
+            fade_in_anim(stage, who, 0.5)?,
+        ];
         let mut shown_first = vec![circle, ruler, line_name, line_name2];
         shown_first.extend(&ticks);
         for &m in &shown_first {
             enter.push(fade_in_anim(stage, m, 0.6)?);
+        }
+        for &m in &leave {
+            enter.push(fade_out_anim(stage, m, 0.5)?);
         }
         stage.play_prepared(enter)?;
         line.wait_for(stage, "each point travels an arc as long as its radius")?;

@@ -19,10 +19,10 @@ use fmn::prelude::*;
 
 use super::a_matrix_in::spiral_corners;
 use super::draw::{
-    Plane, QuizCard, arrow, corners as quad_run, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, flat,
-    good, minus, music_hold, numbers, result, rule, say, substance, tween_linear, wait_until,
+    Plane, QuizCard, arrow, corners as quad_run, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line,
+    fit_width, flat, good, minus, music_hold, numbers, result, rule, say, substance, tween_linear, wait_until,
 };
-use super::flow::LiveMatrix;
+use super::flow::{LiveMatrix, fade_in_anim, fade_out_anim};
 use super::sound;
 use crate::model::{Mat, quarter_turn, series};
 
@@ -78,6 +78,29 @@ const PROOF: &str = "np.linalg.norm(A, 2); the proof: \u{2016}A^k/k!\u{2016} \u{
 /// The sizes of the terms of e^{5J}: the facts' own list, k from 0.
 fn term_sizes() -> fmn::Result<Vec<f64>> {
     numbers("F-S.terms")
+}
+
+/// Where the lines of 08_3's card stand from the content's middle: the three
+/// of the rule, then the question the voice asks, which the card lacked.
+const QUESTION: &str = "what happens to the terms from here?";
+const LINES_DY: [f64; 4] = [1.0, 0.45, -0.1, -0.7];
+
+/// 08_3's card lines (detached): what each new term does, in three lines,
+/// and the question; the last comes up with the ring.
+fn quiz_lines(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, room: f64) -> fmn::Result<[Mob; 4]> {
+    let at = |k: usize| v(centre[0], centre[1] + LINES_DY[k]);
+    let mut lines = Vec::new();
+    for (i, words) in YOUR_TURN_LINES.iter().enumerate() {
+        lines.push(kit.text(stage, words, 32.0, Palette::ink(), at(i))?);
+    }
+    lines.push(kit.text(stage, QUESTION, 30.0, Palette::ink(), at(3))?);
+    for &m in &lines {
+        fit_width(stage, m, room);
+    }
+    let [a, b, c, d] = lines[..] else {
+        return Err(super::draw::fail("08_3's card has four lines".to_owned()));
+    };
+    Ok([a, b, c, d])
 }
 
 /// A bar of the chart at `k`, `height` high (data units), flat in `style`.
@@ -268,18 +291,23 @@ impl SceneConstruct for DoesItSettle {
         // 08_3: your turn: each new term multiplies by five again and
         // divides by the next whole number
         let line = say(&kit, stage, "08_3")?;
+        // the spiral steps back while the card has its side of the frame (the
+        // card's fill let it show through behind the words)
+        let spiral = [unit_ring, path, lands];
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, path, "08_3:spiral")?;
+        fade_out_all(stage, &spiral, 0.4)?;
         let card = QuizCard::build(&kit, stage, "08_3", CARD_AT, CARD_SIZE)?;
-        let (centre, _, _) = card.content();
-        let mut said_lines = Vec::new();
-        for (i, words) in YOUR_TURN_LINES.iter().enumerate() {
-            said_lines.push(kit.text(stage, words, 32.0, ink, v(centre[0], centre[1] + 0.8 - 0.65 * i as f64))?);
-        }
+        let (centre, room, _) = card.content();
+        let said_lines = quiz_lines(&kit, stage, centre, room)?;
         let next_gap = BARS.p(6.0, 0.0);
         let ratio = kit.text(stage, NEXT_TERM, 34.0, result(), v(next_gap[0], next_gap[1] - 0.85))?;
-        let mut frame_in = said_lines.clone();
+        let mut frame_in = said_lines[..3].to_vec();
         frame_in.push(ratio);
         card.show_frame(stage, &frame_in, 0.6)?;
         line.wait_last(stage)?;
+        // the question comes up as it is asked, with the ring
+        fade_in_all(stage, &said_lines[3..], 0.4)?;
         card.arm(stage)?;
         card.count(&kit, stage)?;
 
@@ -320,11 +348,21 @@ impl SceneConstruct for DoesItSettle {
         // the card goes with its "x 5 / k", which stood where the live ratio
         // comes in: fading the old words out after the new ones were in left
         // "5 x / k 1.00" for 0.6 s (the dense read of the scored draft)
+        // "They collapse." is said over the answer, fully up
+        line.wait_first_sentence(stage)?;
         let mut card_gone = card.mobs();
         card_gone.extend(&said_lines);
         card_gone.push(answer);
         card_gone.push(ratio);
-        fade_out_all(stage, &card_gone, 0.5)?;
+        // the spiral comes back where the card was as it goes
+        let mut gone: Vec<Box<dyn Animation>> = Vec::new();
+        for &m in &card_gone {
+            gone.push(fade_out_anim(stage, m, 0.5)?);
+        }
+        for &m in &spiral {
+            gone.push(fade_in_anim(stage, m, 0.5)?);
+        }
+        stage.play_prepared(gone)?;
         fade_in_all(stage, &[ratio_is, live_ratio], 0.4)?;
         // the new words are in and nothing of the old ones is on the stage
         kit.lint_here(stage, "08_4: the ratio's words");
@@ -431,7 +469,6 @@ impl SceneConstruct for DoesItSettle {
         fade_out_all(stage, &leaving, 0.6)?;
         // a matrix takes the unit circle to an ellipse; its longest arrow is
         // its size
-        let strict = Mat::from_rows(&[&[3.0, 3.0], &[0.0, 3.0]]);
         let ellipse_plane = Plane {
             centre: LEFT_AT,
             unit: ELLIPSE_UNIT,
@@ -442,24 +479,8 @@ impl SceneConstruct for DoesItSettle {
                 ellipse_plane.p(a.cos(), a.sin())
             })
             .collect();
-        let ellipse_pts: Vec<Vec3> = (0..=96)
-            .map(|i| {
-                let a = std::f64::consts::TAU * f64::from(i) / 96.0;
-                let q = strict.apply(&[a.cos(), a.sin()]);
-                ellipse_plane.p(q[0], q[1])
-            })
-            .collect();
         let unit_circle = mk_line(stage, circle_pts, Palette::dim(), 3.0, 1.0);
-        let ellipse = mk_line(stage, ellipse_pts, rule(), 5.0, 1.0);
-        let (long, _) = longest_stretch(&strict);
-        let size_arrow = arrow(stage, LEFT_AT, ellipse_plane.p(long[0], long[1]), result(), 5.0)?;
-        let size_name = kit.text(
-            stage,
-            &format!("{SIZE} {}", fact("F-S.strict.size")?),
-            30.0,
-            result(),
-            v(LEFT_AT[0] + 1.2, LEFT_AT[1] + 2.1),
-        )?;
+        let (five_pic, strict_pic) = size_pictures(&kit, stage, &ellipse_plane)?;
         // ceilings size^k / k!, as outlines, and the bars of each matrix
         let ceilings = numbers("F-S.strict.ceilings")?;
         let strict_terms = numbers("F-S.strict.terms")?;
@@ -482,27 +503,17 @@ impl SceneConstruct for DoesItSettle {
             3.0,
             1.0,
         );
-        let touches = kit.text(stage, TOUCHES, 28.0, rule(), v(3.3, 2.55))?;
-        let lower = kit.text(stage, LOWER, 28.0, substance(), v(3.3, 2.55))?;
-        let bound = kit.tex(
-            stage,
-            &format!(
-                "\\sum_k \\frac{{5^{{k}}}}{{k!}} = e^{{5}} = {}",
-                fact("F-V.08_5.bound")?
-            ),
-            56.0,
-            good(),
-            &[],
-            v(3.3, 1.7),
-        )?;
+        let touches = kit.text(stage, TOUCHES, 28.0, rule(), v(3.3, CAPTION_Y))?;
+        let lower = kit.text(stage, LOWER, 28.0, substance(), v(3.3, CAPTION_Y))?;
+        let bound = bound_sum(&kit, stage)?;
         let norm = precisely(&kit, stage, PRECISELY_NORM)?;
         let coder = lower_third(&kit, stage, PROGRAMMERS, PROOF)?;
         // "It works for every square matrix": the circle and what a matrix
         // makes of it are on the stage as that is said (the narrated draft's
         // tile was blank for the first three seconds)
-        fade_in_all(stage, &[unit_circle, ellipse], 0.7)?;
+        fade_in_all(stage, &[unit_circle, five_pic.image], 0.7)?;
         line.wait_for(stage, "Call the most a matrix can stretch")?;
-        fade_in_all(stage, &[size_arrow, size_name], 0.6)?;
+        fade_in_all(stage, &[five_pic.arrow, five_pic.name], 0.6)?;
         fade_in_all(stage, &[norm], 0.5)?;
         line.wait_for(stage, "The k-th term is at most")?;
         let mut first = ceiling_five.clone();
@@ -514,12 +525,12 @@ impl SceneConstruct for DoesItSettle {
         line.wait_for(stage, "and the factorial always wins")?;
         let mut swap = filled_five.clone();
         swap.extend(&ceiling_five);
-        swap.push(touches);
+        swap.extend([touches, five_pic.image, five_pic.arrow, five_pic.name]);
         fade_out_all(stage, &swap, 0.4)?;
         fade_out_all(stage, &[norm], 0.3)?;
         let mut second = ceiling_strict.clone();
         second.extend(&filled_strict);
-        second.extend([lower, coder]);
+        second.extend([lower, coder, strict_pic.image, strict_pic.arrow, strict_pic.name]);
         fade_in_all(stage, &second, 0.7)?;
         line.wait_for(stage, "So what's still to come")?;
         fade_in_all(stage, &[bound], 0.6)?;
@@ -529,6 +540,111 @@ impl SceneConstruct for DoesItSettle {
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
+}
+
+/// 08_5's caption row and the sum of the ceilings under it, over the bars:
+/// the sum's subscript k hangs below its line and stood on the tallest
+/// bars' tops at 1.7 (the dense read of the scored draft). At 44 points and
+/// 2.45 its foot is 0.25 over the tallest bar (26, at 1.6), and the caption
+/// stands over it.
+const CAPTION_Y: f64 = 3.45;
+const BOUND_Y: f64 = 2.45;
+const BOUND_PT: f64 = 44.0;
+
+/// "sum of 5^k / k! = e^5 = 148.4", where the ceilings add up (detached).
+fn bound_sum(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    kit.tex(
+        stage,
+        &format!(
+            "\\sum_k \\frac{{5^{{k}}}}{{k!}} = e^{{5}} = {}",
+            fact("F-V.08_5.bound")?
+        ),
+        BOUND_PT,
+        good(),
+        &[],
+        v(3.3, BOUND_Y),
+    )
+}
+
+/// What a matrix makes of the unit circle, on `plane` (detached): the curve,
+/// its longest arrow (from the circle's point `tip` mapped, in the plane's
+/// units) and the size written beside it, `size_words`.
+struct SizePicture {
+    image: Mob,
+    arrow: Mob,
+    name: Mob,
+    /// How long the arrow is, in the matrix's own units (read by the tests,
+    /// to hold the tag against it).
+    #[cfg_attr(not(test), allow(dead_code))]
+    length: f64,
+    /// The size as written beside it (the same).
+    #[cfg_attr(not(test), allow(dead_code))]
+    words: String,
+}
+
+fn size_picture(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    plane: &Plane,
+    m: &Mat,
+    tip: [f64; 2],
+    size_words: &str,
+    name_dy: f64,
+) -> fmn::Result<SizePicture> {
+    let pts: Vec<Vec3> = (0..=96)
+        .map(|i| {
+            let a = std::f64::consts::TAU * f64::from(i) / 96.0;
+            let q = m.apply(&[a.cos(), a.sin()]);
+            plane.p(q[0], q[1])
+        })
+        .collect();
+    let image = stage
+        .arena_mut()
+        .add(polyline(pts).style(faded_line(rule(), 5.0, 1.0)).build());
+    let arrow = arrow(stage, plane.centre, plane.p(tip[0], tip[1]), result(), 5.0)?;
+    let name = kit.text(
+        stage,
+        &format!("{SIZE} {size_words}"),
+        30.0,
+        result(),
+        v(plane.centre[0] + 1.2, plane.centre[1] + name_dy),
+    )?;
+    Ok(SizePicture {
+        image,
+        arrow,
+        name,
+        length: tip[0].hypot(tip[1]),
+        words: size_words.to_owned(),
+    })
+}
+
+/// The second matrix of 08_5, three times a shear.
+fn second_matrix() -> Mat {
+    Mat::from_rows(&[&[3.0, 3.0], &[0.0, 3.0]])
+}
+
+/// 08_5's two pictures, in the order the line gives them: 5J, which turns
+/// the unit circle into a circle of radius 5 (the ceilings drawn with it
+/// first are 5's), then the second matrix, whose ellipse is 4.854 long (it was
+/// tagged "size 4.854" over the bars of 5J: the dense read of the scored
+/// draft). Each is written with the size the facts give, and the arrows
+/// point the same way.
+fn size_pictures(kit: &Kit, stage: &mut Stage<'_>, plane: &Plane) -> fmn::Result<(SizePicture, SizePicture)> {
+    let strict = second_matrix();
+    let (strict_tip, strict_len) = longest_stretch(&strict);
+    let five = numbers("F-S.size")?[0];
+    let five_tip = [strict_tip[0] * five / strict_len, strict_tip[1] * five / strict_len];
+    let first = size_picture(
+        kit,
+        stage,
+        plane,
+        &quarter_turn().scale(five),
+        five_tip,
+        &super::draw::whole(five),
+        2.45,
+    )?;
+    let second = size_picture(kit, stage, plane, &strict, strict_tip, fact("F-S.strict.size")?, 2.1)?;
+    Ok((first, second))
 }
 
 /// The point of the unit circle the matrix stretches most, mapped: where
@@ -548,9 +664,142 @@ fn longest_stretch(m: &Mat) -> ([f64; 2], f64) {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{quiz_at, show, testing, whole};
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
+    use super::super::draw::{quiz_at, quiz_log, show, testing, whole};
     use super::*;
     use crate::model::{expm_t, factorial_f64};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 08_3 (the dense read of J's first half): the card states the question
+    /// the voice asks, in the voice's words, and its four lines stand in the
+    /// card's content, clear of one another.
+    #[test]
+    fn the_card_asks_the_question_the_voice_asks() {
+        let said = crate::SCRIPT
+            .lines()
+            .find_map(|l| l.strip_prefix("08_3\t"))
+            .expect("08_3 is in the script");
+        assert_eq!(said.rsplit(". ").next().unwrap().to_lowercase(), QUESTION);
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "08_3", CARD_AT, CARD_SIZE)?;
+            let (centre, room, height) = card.content();
+            let lines = quiz_lines(&kit, stage, centre, room)?;
+            let (top, bottom) = (centre[1] + height / 2.0, centre[1] - height / 2.0);
+            assert!(stage.get_top(lines[0])[1] <= top + 0.02, "the first line pokes out");
+            assert!(
+                stage.get_bottom(lines[3])[1] >= bottom - 0.05,
+                "the question sinks into the foot"
+            );
+            for pair in lines.windows(2) {
+                assert!(
+                    stage.get_bottom(pair[0])[1] > stage.get_top(pair[1])[1] + 0.05,
+                    "{:.2} over {:.2}",
+                    stage.get_bottom(pair[0])[1],
+                    stage.get_top(pair[1])[1]
+                );
+            }
+            for &m in &lines {
+                assert!(stage.get_width(m) <= room + 1e-6);
+            }
+            Ok(())
+        });
+    }
+
+    /// 08_3: the spiral steps back before the card has the frame and is back
+    /// as the card goes, so no spiral shows through the card's words.
+    #[test]
+    fn the_spiral_is_out_of_the_cards_way() {
+        let a = testing::audit_quiz("08_3").unwrap();
+        let voiced = testing::run_voiced("08_does_it_settle").unwrap();
+        let events = quiz_log::take(&voiced.tag, "08_3:spiral");
+        let at = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+        let (down, up) = (
+            at("down").expect("the spiral steps back"),
+            at("up").expect("and comes back"),
+        );
+        assert!(
+            down <= a.card_shown,
+            "the spiral goes at {down:.1} s, the card is shown at {:.1} s",
+            a.card_shown
+        );
+        let leaves = a.answer_leaves.expect("the card leaves");
+        assert!(
+            up >= leaves - 0.2 && up <= leaves + 1.0,
+            "up at {up:.1} s, the card goes at {leaves:.1} s"
+        );
+    }
+
+    /// 08_5 (the dense read of the scored draft): each size tag is the size
+    /// of the picture it stands by: 5J's circle of radius 5 is tagged 5, and
+    /// the second matrix's ellipse 4.854, the facts' words for exactly the
+    /// lengths drawn (the ellipse was tagged 4.854 under the bars of 5J,
+    /// whose size is 5).
+    #[test]
+    fn each_size_tag_is_the_size_of_its_picture() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let plane = Plane {
+                centre: LEFT_AT,
+                unit: ELLIPSE_UNIT,
+            };
+            let (five, strict) = size_pictures(&kit, stage, &plane)?;
+            assert_eq!(whole(five.length), five.words);
+            assert_eq!(whole(five.length), whole(numbers("F-S.size")?[0]));
+            assert_eq!(show(strict.length, 3)?, strict.words);
+            assert_eq!(strict.words, fact("F-S.strict.size")?);
+            assert!(strict.length < five.length, "the second matrix is the smaller");
+            // the tags are in the words registered, one for each picture
+            let words: Vec<String> = kit.registered().into_iter().map(|r| r.source).collect();
+            assert!(words.contains(&format!("{SIZE} {}", five.words)), "{words:?}");
+            assert!(words.contains(&format!("{SIZE} {}", strict.words)), "{words:?}");
+            // 5J's circle (radius 5 on this plane) is drawn about the centre
+            // of the plane, wider than the second matrix's longest arrow
+            let width = stage.get_width(five.image);
+            assert!((width - 2.0 * five.length * ELLIPSE_UNIT).abs() < 0.05, "{width:.2}");
+            Ok(())
+        });
+    }
+
+    /// 08_5: the sum's subscript hangs clear of the tallest bar's top, and
+    /// the captions stand clear of the sum.
+    #[test]
+    fn the_sum_of_the_ceilings_clears_the_bars_and_the_captions() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let bound = bound_sum(&kit, stage)?;
+            let caption = kit.text(stage, LOWER, 28.0, substance(), v(3.3, CAPTION_Y))?;
+            let tallest = term_sizes()?.into_iter().fold(0.0, f64::max);
+            let bar_top = BARS.p(0.0, tallest)[1];
+            let foot = stage.get_bottom(bound)[1];
+            assert!(
+                foot > bar_top + 0.2,
+                "the sum's foot {foot:.2} over the tallest bar's top {bar_top:.2}"
+            );
+            let (caption_foot, top) = (stage.get_bottom(caption)[1], stage.get_top(bound)[1]);
+            assert!(
+                caption_foot > top + 0.1,
+                "the caption's foot {caption_foot:.2} over the sum's top {top:.2}"
+            );
+            assert!(stage.get_top(caption)[1] < 4.0 - 0.2, "the caption is in the frame");
+            Ok(())
+        });
+    }
 
     /// 08_1: the running total of e to the J ticks and stops on the matrix
     /// the facts print for t = 1; 08_2 and 08_4: the terms of 5J are 5^k / k!

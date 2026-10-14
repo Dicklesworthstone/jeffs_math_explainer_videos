@@ -16,8 +16,8 @@ use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, rect, thousands
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, corners, fact, fade_in_all, fade_out_all, faded_line, flat, music_hold, result, rule, say, substance,
-    whole,
+    QuizCard, corners, fact, fade_in_all, fade_out_all, faded_line, fit_width, flat, music_hold, result, rule, say,
+    substance, whole,
 };
 
 pub struct Growth {
@@ -39,6 +39,14 @@ const CARD_AT: Vec3 = [0.0, 0.3, 0.0];
 const CARD_SIZE: (f64, f64) = (9.6, 6.2);
 /// The totals the quiz keeps in view: how many steps in the year.
 const QUIZ_STEPS: [u32; 4] = [1, 2, 4, 12];
+/// The card's rows: their type size, where the first stands above the
+/// content's middle and the pitch down; and the question the voice asks, a
+/// row's worth under them (the card kept the totals and not the question).
+const ROW_PT: f64 = 52.0;
+const ROW_TOP: f64 = 1.5;
+const ROW_PITCH: f64 = 0.75;
+const QUESTION_DY: f64 = -1.5;
+const QUESTION: &str = "does the total grow without limit?";
 
 // the chapter's fixed words (numbers are built from facts)
 const YEARS: &str = "years";
@@ -128,6 +136,44 @@ fn curve(stage: &mut Stage<'_>, x1: f64, color: Srgb, width: f64) -> Mob {
         .add(polyline(pts).style(faded_line(color, width, 1.0)).build())
 }
 
+/// 03_3's rows, the totals of one, two, four and twelve steps, and under them
+/// the question the voice asks (detached): the card's content has `centre`
+/// as its middle and `room` as its width.
+fn quiz_rows(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, room: f64) -> fmn::Result<(Vec<Mob>, Mob)> {
+    let mut rows = Vec::new();
+    for (k, n) in QUIZ_STEPS.into_iter().enumerate() {
+        let value = match n {
+            1 => whole(
+                fact("F-N.compound.n1")?
+                    .parse::<f64>()
+                    .map_err(|e| super::draw::fail(e.to_string()))?,
+            ),
+            2 => fact("F-V.03_2.two_steps")?.to_owned(),
+            4 => fact("F-V.03_3.four_steps")?.to_owned(),
+            _ => fact("F-V.03_3.twelve_steps")?.to_owned(),
+        };
+        let src = format!("(1 + 1/{n})^{{{n}}} = {value}");
+        let y = centre[1] + ROW_TOP - ROW_PITCH * k as f64;
+        rows.push(kit.tex_left(
+            stage,
+            &src,
+            ROW_PT,
+            Palette::ink(),
+            &[],
+            v(centre[0] - room / 2.0 + 1.3, y),
+        )?);
+    }
+    let question = kit.text(
+        stage,
+        QUESTION,
+        36.0,
+        Palette::ink(),
+        v(centre[0], centre[1] + QUESTION_DY),
+    )?;
+    fit_width(stage, question, room);
+    Ok((rows, question))
+}
+
 /// The slope construction at `a` years: the height of the curve there (the
 /// amount), and the rise of its tangent over the next year (the rate), the
 /// two as vertical segments, with the point.
@@ -195,28 +241,15 @@ impl SceneConstruct for Growth {
         fade_out_all(stage, &leaving, 0.5)?;
         let card = QuizCard::build(&kit, stage, "03_3", CARD_AT, CARD_SIZE)?;
         let (centre, room, _) = card.content();
-        let mut rows = Vec::new();
-        for (k, n) in QUIZ_STEPS.into_iter().enumerate() {
-            let value = match n {
-                1 => whole(
-                    fact("F-N.compound.n1")?
-                        .parse::<f64>()
-                        .map_err(|e| super::draw::fail(e.to_string()))?,
-                ),
-                2 => fact("F-V.03_2.two_steps")?.to_owned(),
-                4 => fact("F-V.03_3.four_steps")?.to_owned(),
-                _ => fact("F-V.03_3.twelve_steps")?.to_owned(),
-            };
-            let src = format!("(1 + 1/{n})^{{{n}}} = {value}");
-            let y = centre[1] + 1.35 - 0.9 * k as f64;
-            rows.push(kit.tex_left(stage, &src, 64.0, ink, &[], v(centre[0] - room / 2.0 + 1.3, y))?);
-        }
+        let (rows, question) = quiz_rows(&kit, stage, centre, room)?;
         card.show_frame(stage, &rows[..2], 0.5)?;
         line.wait_for(stage, "Four steps give")?;
         fade_in_all(stage, &rows[2..3], 0.5)?;
         line.wait_for(stage, "Twelve give")?;
         fade_in_all(stage, &rows[3..], 0.5)?;
         line.wait_last(stage)?;
+        // the question comes up as it is asked, with the ring
+        fade_in_all(stage, &[question], 0.4)?;
         card.arm(stage)?;
         card.count(&kit, stage)?;
 
@@ -232,7 +265,7 @@ impl SceneConstruct for Growth {
         card.land(stage, &[answer], 0.3)?;
         let mut card_mobs = card.mobs();
         card_mobs.extend(&rows);
-        card_mobs.push(answer);
+        card_mobs.extend([question, answer]);
         // the card gives the screen back to the chart, with the curve the
         // steps settle on
         let shown_curve = curve(stage, curve_end(), result(), 6.0);
@@ -251,8 +284,19 @@ impl SceneConstruct for Growth {
         let chart_again = self::axes(&kit, stage)?;
         fade_out_all(stage, &card_mobs, 0.5)?;
         fade_in_all(stage, &chart_again, 0.5)?;
+        let who = lower_third(
+            &kit,
+            stage,
+            WHO_AND_WHEN,
+            &format!("Jacob Bernoulli asked this in {}", fact("F-B.bernoulli.year")?),
+        )?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, who, "03_4:credit")?;
         line.wait_for(stage, "A step every day")?;
-        fade_in_all(stage, &[daily], 0.5)?;
+        // the credit for the question the card just asked comes up with the
+        // first of the numbers that answer it, and stays through the line
+        // (it came with the last sentence and stood two seconds)
+        fade_in_all(stage, &[daily, who], 0.5)?;
         line.wait_for(stage, "A million steps")?;
         play!(stage;
             fade_in(stage.arena_mut(), million, ORIGIN, 1.0)?.rt(0.5),
@@ -260,13 +304,6 @@ impl SceneConstruct for Growth {
         );
         line.wait_for(stage, "That number is e")?;
         fade_in_all(stage, &[e_value], 0.6)?;
-        let who = lower_third(
-            &kit,
-            stage,
-            WHO_AND_WHEN,
-            &format!("Jacob Bernoulli asked this in {}", fact("F-B.bernoulli.year")?),
-        )?;
-        fade_in_all(stage, &[who], 0.5)?;
         kit.hold(stage)?;
 
         // 03_5: every step followed one rule: the rate equals the amount.
@@ -367,9 +404,85 @@ impl SceneConstruct for Growth {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{quiz_at, show, testing};
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
+    use super::super::draw::{quiz_at, quiz_log, show, testing};
     use super::*;
     use crate::model::compound;
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 03_3 (the dense read of J's first half): the card keeps the totals
+    /// and now the question the voice asks, in the voice's own words, under
+    /// them and inside the card's content.
+    #[test]
+    fn the_card_asks_the_question_the_voice_asks() {
+        let said = crate::SCRIPT
+            .lines()
+            .find_map(|l| l.strip_prefix("03_3\t"))
+            .expect("03_3 is in the script");
+        let asked = said.rsplit(". ").next().unwrap();
+        assert_eq!(asked.to_lowercase(), QUESTION, "the voice asks {asked:?}");
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "03_3", CARD_AT, CARD_SIZE)?;
+            let (centre, room, height) = card.content();
+            let (rows, question) = quiz_rows(&kit, stage, centre, room)?;
+            assert!(stage.get_width(question) <= room + 1e-6);
+            let (top, bottom) = (centre[1] + height / 2.0, centre[1] - height / 2.0);
+            assert!(stage.get_top(rows[0])[1] <= top + 0.02, "the first row pokes out");
+            assert!(
+                stage.get_bottom(question)[1] >= bottom - 0.05,
+                "the question sinks into the foot"
+            );
+            let last = *rows.last().unwrap();
+            assert!(
+                stage.get_bottom(last)[1] > stage.get_top(question)[1] + 0.1,
+                "the last row {:.2} over the question {:.2}",
+                stage.get_bottom(last)[1],
+                stage.get_top(question)[1]
+            );
+            for pair in rows.windows(2) {
+                assert!(stage.get_bottom(pair[0])[1] > stage.get_top(pair[1])[1], "rows overlap");
+            }
+            Ok(())
+        });
+    }
+
+    /// 03_4: the credit for Bernoulli's question stands from the first of
+    /// the answering numbers to the end of the line, not the two seconds
+    /// after its last words that it stood.
+    #[test]
+    fn the_credit_stands_through_the_answer() {
+        let voiced = testing::run_voiced("03_growth").unwrap();
+        let events = quiz_log::take(&voiced.tag, "03_4:credit");
+        let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+        let (up, down) = (when("up").expect("it comes up"), when("down").expect("it goes"));
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "03_4").cloned().unwrap();
+        assert!(
+            up > start && up < start + len * 0.6,
+            "up at {up:.1} s in a line from {start:.1} s"
+        );
+        assert!(
+            down >= start + len - 0.1,
+            "it goes at {down:.1} s, the line ends {:.1} s",
+            start + len
+        );
+        assert!(down - up >= 4.0, "it stood {:.1} s", down - up);
+    }
 
     /// 03_1 to 03_3: the staircase is the compound-interest totals, exactly,
     /// and the numbers on the screen are the facts that say them.

@@ -453,12 +453,19 @@ impl SceneConstruct for TwoTanks {
 
         // ---- 10_6: fifty each, and how fast
         let line = say(&kit, stage, "10_6")?;
+        // "Fifty grams in each": the answer stays fully up while it is said,
+        // and the tanks settle under it (they read 56 and 43 until now)
+        play!(stage; tween_linear(clock, LONG_RUN_MIN, 1.5)?);
+        line.wait_first_sentence(stage)?;
+        // then the plane comes back where the card was, and the clock goes
+        // back to show how fast
         let mut leave = card.mobs();
         leave.extend([problem, answer]);
         let mut back_in: Vec<Box<dyn Animation>> = vec![
             stage.prepare(tween(dot_level, 1.0, 0.5)?)?,
             stage.prepare(tween(arrow_level, 1.0, 0.5)?)?,
             stage.prepare(tween(trail_level, 1.0, 0.5)?)?,
+            stage.prepare(tween_linear(clock, 0.0, 0.7)?)?,
         ];
         for &m in &plane_in {
             back_in.push(fade_in_anim(stage, m, 0.5)?);
@@ -467,11 +474,6 @@ impl SceneConstruct for TwoTanks {
             back_in.push(fade_out_anim(stage, m, 0.5)?);
         }
         stage.play_prepared(back_in)?;
-        // "Fifty grams in each": the tanks settle while it is said (they
-        // read 56 and 43 until now), then the clock goes back to show how fast
-        play!(stage; tween_linear(clock, LONG_RUN_MIN, 1.5)?);
-        line.wait_for(stage, "And the exponential says how fast")?;
-        play!(stage; tween_linear(clock, 0.0, 0.7)?);
         let minutes: f64 = fact("F-V.10_6.minutes")?
             .parse()
             .map_err(|e| fail(format!("fact F-V.10_6.minutes: {e}")))?;

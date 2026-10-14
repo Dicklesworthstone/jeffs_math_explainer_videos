@@ -225,6 +225,17 @@ impl Spoken {
         wait_until(stage, t)
     }
 
+    /// Wait (if need be) until the line's first sentence has been said (or
+    /// the line is over, if it has one): the answer of a quiz stays fully up
+    /// until then, in the line that follows the countdown.
+    pub fn wait_first_sentence(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        if self.sentences.len() > 1 {
+            self.wait_sentence(stage, 1)
+        } else {
+            self.wait_end(stage)
+        }
+    }
+
     /// Wait (if need be) until the line's last sentence begins (a quiz's
     /// question).
     pub fn wait_last(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -1038,6 +1049,14 @@ pub struct QuizCard {
     /// section 5 audit apart (tests only).
     #[cfg(test)]
     chapter: String,
+    /// A mobject whose updater watches the card's frame and notes when,
+    /// fully shown, it begins to go (tests only: the audit of how long the
+    /// answer stays up).
+    #[cfg(test)]
+    watch: Mob,
+    /// The scene time the watch was put on the scene at (tests only).
+    #[cfg(test)]
+    since: std::rc::Rc<std::cell::Cell<f64>>,
 }
 
 impl QuizCard {
@@ -1116,6 +1135,36 @@ impl QuizCard {
             },
             true,
         )?;
+        #[cfg(test)]
+        let (watch, since) = {
+            let watch = stage.arena_mut().add(VMobject::new());
+            let (chapter, line) = (kit.chapter.clone(), quiz.line);
+            // the scene time the watch was put on the scene at, and the
+            // seconds it has seen since (the updater is given only dt)
+            let since = std::rc::Rc::new(std::cell::Cell::new(0.0));
+            let origin = std::rc::Rc::clone(&since);
+            let (mut full, mut gone, mut seen) = (false, false, 0.0);
+            stage.add_dt_updater(
+                watch,
+                move |s, _, dt| {
+                    seen += dt;
+                    // (called once as registered, with the frame at its
+                    // full opacity before the card fades in: not a sighting)
+                    if gone || seen == 0.0 {
+                        return;
+                    }
+                    let o = s.get_fill_opacity(back).unwrap_or(0.0);
+                    if o >= 0.9 {
+                        full = true;
+                    } else if full {
+                        gone = true;
+                        quiz_log::record(&chapter, line, "leave", origin.get() + seen);
+                    }
+                },
+                true,
+            )?;
+            (watch, since)
+        };
         Ok(Self {
             quiz,
             at,
@@ -1133,6 +1182,10 @@ impl QuizCard {
             anchor,
             #[cfg(test)]
             chapter: kit.chapter.clone(),
+            #[cfg(test)]
+            watch,
+            #[cfg(test)]
+            since,
         })
     }
 
@@ -1163,6 +1216,11 @@ impl QuizCard {
     /// and the ring's faint track, with `extra` fading in beside them.
     pub fn show_frame(&self, stage: &mut Stage<'_>, extra: &[Mob], rt: f64) -> fmn::Result<()> {
         stage.add_to_scene(self.anchor)?;
+        #[cfg(test)]
+        {
+            self.since.set(stage.scene().time().to_f64());
+            stage.add_to_scene(self.watch)?;
+        }
         let mut ins = vec![self.back, self.label, self.track, self.pause_line];
         ins.extend(extra);
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -1244,6 +1302,63 @@ impl QuizCard {
 
 fn quiz_color() -> Srgb {
     quiz()
+}
+
+/// Tests only: have `mob` watched through the run, noting in `quiz_log`
+/// under the chapter's name and `key` each time it is fully seen ("up": on
+/// the scene at nearly the opacity it was made with) and each time it has
+/// all but gone ("down": off the scene, or nearly transparent), scene
+/// seconds. A fade-out takes the mobject off the scene and gives it its
+/// opacity back, so both are read. The first thing seen is a state, not an
+/// event. Call it where the mobject is made, before anything fades it; how
+/// long a credit stands, or whether a picture is out of the way of a card,
+/// is then a number a test can read.
+#[cfg(test)]
+pub fn watch_dwell(kit: &Kit, stage: &mut Stage<'_>, mob: Mob, key: &'static str) -> fmn::Result<()> {
+    let watch = stage.arena_mut().add(VMobject::new());
+    let chapter = kit.chapter.clone();
+    let origin = stage.scene().time().to_f64();
+    let (mut base, mut seen, mut state) = (f64::NAN, 0.0, None::<bool>);
+    // the most opaque of the family (a group has no colour of its own)
+    let opacity = move |s: &fmn::mobject::Stage| {
+        s.family(mob).into_iter().fold(0.0, |o: f64, m| {
+            o.max(s.get_fill_opacity(m).unwrap_or(0.0))
+                .max(s.get_stroke_opacity(m).unwrap_or(0.0))
+        })
+    };
+    let on_scene = move |s: &fmn::mobject::Stage| s.roots().iter().any(|&r| r == mob || s.family(r).contains(&mob));
+    stage.add_dt_updater(
+        watch,
+        move |s, _, dt| {
+            seen += dt;
+            let o = opacity(s);
+            if base.is_nan() {
+                // as registered: the mobject's own opacity, before any fade,
+                // and whether it is up now (the state the first change is
+                // measured from)
+                base = o.max(1e-6);
+                state = Some(on_scene(s) && o >= 0.9 * base);
+                return;
+            }
+            let now = if on_scene(s) && o >= 0.9 * base {
+                Some(true)
+            } else if !on_scene(s) || o <= 0.1 * base {
+                Some(false)
+            } else {
+                state
+            };
+            if now != state {
+                if state.is_some() {
+                    let kind = if now == Some(true) { "up" } else { "down" };
+                    quiz_log::record(&chapter, key, kind, origin + seen);
+                }
+                state = now;
+            }
+        },
+        true,
+    )?;
+    stage.add_to_scene(watch)?;
+    Ok(())
 }
 
 // ------------------------------------------------------------ the harness
@@ -1331,11 +1446,20 @@ pub mod testing {
             .iter()
             .map(|w| (w.label.clone(), w.frame as f64 / fps, w.seconds))
             .collect();
+        let sentences = narrator
+            .said()
+            .into_iter()
+            .map(|(id, _)| {
+                let starts = (0..).map_while(|j| narrator.sentence_at(&id, j)).collect();
+                (id, starts)
+            })
+            .collect();
         Ok(Voiced {
             ran,
             tag,
             lines,
             listens,
+            sentences,
         })
     }
 
@@ -1381,6 +1505,9 @@ pub mod testing {
         pub lines: Vec<(String, f64, f64)>,
         /// Every listen window: its label, its start and its length, seconds.
         pub listens: Vec<(String, f64, f64)>,
+        /// Every line said: its id and where each of its sentences starts
+        /// (scene seconds).
+        pub sentences: Vec<(String, Vec<f64>)>,
     }
 
     /// What the quiz asked on one line did, measured (scene seconds).
@@ -1399,6 +1526,14 @@ pub mod testing {
         pub window: (f64, f64),
         /// When the answer began to land.
         pub answer_lands: f64,
+        /// When the card, with the answer on it, begins to go (None if it
+        /// stays to the chapter's end).
+        pub answer_leaves: Option<f64>,
+        /// When the first sentence of the next line has been said: the
+        /// answer stays fully up until then.
+        pub answer_said: Option<f64>,
+        /// When the whole of the next line has been said.
+        pub next_ends: Option<f64>,
         /// Lines whose start falls inside the countdown (there must be none).
         pub spoken_inside: Vec<String>,
         /// The next line and when it starts (None for the chapter's last).
@@ -1459,6 +1594,23 @@ pub mod testing {
             .filter(|(_, at, _)| *at > start)
             .min_by(|a, b| a.1.total_cmp(&b.1))
             .map(|(id, at, _)| (id.clone(), *at));
+        // the first sentence of the next line ends where its second begins,
+        // or where the line does if it has one sentence
+        let answer_said = next_line.as_ref().and_then(|(id, at)| {
+            let starts = voiced.sentences.iter().find(|(s, _)| s == id).map(|(_, st)| st)?;
+            match starts.get(1) {
+                Some(&second) => Some(second),
+                None => {
+                    let len = voiced.lines.iter().find(|(l, ..)| l == id).map(|&(_, _, len)| len)?;
+                    Some(at + len)
+                }
+            }
+        });
+        let next_ends = next_line.as_ref().and_then(|(id, at)| {
+            let len = voiced.lines.iter().find(|(l, ..)| l == id).map(|&(_, _, len)| len)?;
+            Some(at + len)
+        });
+        let answer_leaves = events.iter().find(|(k, _)| *k == "leave").map(|&(_, t)| t);
         Ok(QuizAudit {
             line: line.to_owned(),
             seconds: f64::from(quiz.seconds),
@@ -1467,6 +1619,9 @@ pub mod testing {
             ring_armed: at("ring")?,
             window,
             answer_lands: at("land")?,
+            answer_leaves,
+            answer_said,
+            next_ends,
             spoken_inside,
             next_line,
             chapter_seconds: voiced.ran.seconds,
@@ -1890,6 +2045,19 @@ mod tests {
                 "{line}: {next} starts inside the countdown or the answer's beat\n{said}"
             );
         }
+        // the answer stays fully up until the voice has said the first
+        // sentence after it (the producer's call on the dense read of J: a
+        // card that fades under the answer's own words is an answer not seen)
+        eprintln!(
+            "{line}: answer on screen from {:.1}s, card goes {:?}, first sentence after is said {:?}",
+            a.answer_lands, a.answer_leaves, a.answer_said
+        );
+        if let (Some(leaves), Some(said_at)) = (a.answer_leaves, a.answer_said) {
+            assert!(
+                leaves >= said_at - 0.05,
+                "{line}: the card goes at {leaves:.2} s, the first sentence after the answer is said at {said_at:.2} s\n{said}"
+            );
+        }
     }
 
     macro_rules! section_five_tests {
@@ -1910,5 +2078,30 @@ mod tests {
         quiz_06_3_follows_section_5: "06_3",
         quiz_07_3_follows_section_5: "07_3",
         quiz_08_3_follows_section_5: "08_3",
+        quiz_10_5_follows_section_5: "10_5",
+        quiz_11_3_follows_section_5: "11_3",
+        quiz_14_3_follows_section_5: "14_3",
+        quiz_15_2_follows_section_5: "15_2",
+        quiz_16_3_follows_section_5: "16_3",
+    }
+
+    /// 05_5 (the dense read of J's first half): the card the answer is worked
+    /// on goes once the line that works it is said, leaving the chart a
+    /// while with the marker's reading; it had stood eleven seconds, to the
+    /// chapter's last.
+    #[test]
+    fn quiz_05_5_card_goes_once_its_working_is_said() {
+        let a = testing::audit_quiz("05_5").unwrap();
+        let leaves = a.answer_leaves.expect("the card goes");
+        let ends = a.next_ends.expect("a line follows");
+        assert!(
+            leaves >= ends - 0.05,
+            "the card goes at {leaves:.1} s, the working's line ends {ends:.1} s"
+        );
+        assert!(
+            leaves <= a.chapter_seconds - 1.5,
+            "the card goes at {leaves:.1} s of a chapter of {:.1} s",
+            a.chapter_seconds
+        );
     }
 }

@@ -18,7 +18,7 @@ use explainer_kit::{Kit, Palette, fade_all, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Plane, QuizCard, arrow, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, flat, minus,
+    Plane, QuizCard, arrow, arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fit_width, flat, minus,
     music_hold, result, rule, say, turning, tween_linear, warn,
 };
 
@@ -54,6 +54,28 @@ const ONE_RADIAN: &str = "1 radian";
 const ARC_AS_RADIUS: &str = "an arc as long as the radius";
 const WHO_AND_WHEN: &str = "who and when:";
 const POINT_IS: &str = "e^{it}";
+/// 06_3's card: the question the voice asks, which the card lacked (it
+/// stated the rule and the step, not what to find), and where its lines stand
+/// from the content's middle.
+const QUESTION: &str = "what path do you trace?";
+const LINES_DY: [f64; 4] = [0.95, 0.45, -0.05, -0.7];
+
+/// The lines of 06_3's card (detached): follow the rule, in tiny steps, one
+/// small push sideways, and the question the voice asks; the first three
+/// are set up, the last comes with the ring.
+fn quiz_lines(kit: &Kit, stage: &mut Stage<'_>, centre: Vec3, room: f64) -> fmn::Result<[Mob; 4]> {
+    let at = |k: usize| v(centre[0], centre[1] + LINES_DY[k]);
+    let lines = [
+        kit.text(stage, FOLLOW, 34.0, Palette::ink(), at(0))?,
+        kit.text(stage, IN_TINY_STEPS, 34.0, Palette::ink(), at(1))?,
+        kit.text(stage, ONE_STEP_WORDS, 28.0, rule(), at(2))?,
+        kit.text(stage, QUESTION, 32.0, Palette::ink(), at(3))?,
+    ];
+    for &m in &lines {
+        fit_width(stage, m, room);
+    }
+    Ok(lines)
+}
 
 /// `steps` straight steps of the rule "a push at right angles" over a time
 /// `t`, from the point 1: the points, first to last.
@@ -224,16 +246,14 @@ impl SceneConstruct for Turning {
             1.0,
         );
         let card = QuizCard::build(&kit, stage, "06_3", CARD_AT, CARD_SIZE)?;
-        let (centre, _, _) = card.content();
-        let lines = [
-            kit.text(stage, FOLLOW, 34.0, ink, v(centre[0], centre[1] + 0.8))?,
-            kit.text(stage, IN_TINY_STEPS, 34.0, ink, v(centre[0], centre[1] + 0.2))?,
-            kit.text(stage, ONE_STEP_WORDS, 28.0, rule(), v(centre[0], centre[1] - 0.45))?,
-        ];
+        let (centre, room, _) = card.content();
+        let lines = quiz_lines(&kit, stage, centre, room)?;
         let mut ins = vec![start_dot, one_step];
-        ins.extend(lines);
+        ins.extend(&lines[..3]);
         card.show_frame(stage, &ins, 0.6)?;
         line.wait_last(stage)?;
+        // the question comes up as it is asked, with the ring
+        fade_in_all(stage, &lines[3..], 0.4)?;
         card.arm(stage)?;
         card.count(&kit, stage)?;
 
@@ -270,6 +290,8 @@ impl SceneConstruct for Turning {
             rule(),
             v(PANEL_X, 1.1),
         )?;
+        // "A circle." is said over the answer, fully up
+        line.wait_first_sentence(stage)?;
         let mut leaving = card.mobs();
         leaving.extend(lines);
         leaving.push(answer);
@@ -375,9 +397,62 @@ impl SceneConstruct for Turning {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{numbers, show, testing};
     use super::*;
     use crate::model::{quarter_turn, tiny_steps};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 06_3 (the dense read of J's first half): the card states the question
+    /// the voice asks, in the voice's words, and its four lines stand in the
+    /// card's content, clear of one another and of the ring's foot.
+    #[test]
+    fn the_card_asks_the_question_the_voice_asks() {
+        let said = crate::SCRIPT
+            .lines()
+            .find_map(|l| l.strip_prefix("06_3\t"))
+            .expect("06_3 is in the script");
+        assert_eq!(said.rsplit(". ").next().unwrap().to_lowercase(), QUESTION);
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "06_3", CARD_AT, CARD_SIZE)?;
+            let (centre, room, height) = card.content();
+            let lines = quiz_lines(&kit, stage, centre, room)?;
+            let (top, bottom) = (centre[1] + height / 2.0, centre[1] - height / 2.0);
+            assert!(stage.get_top(lines[0])[1] <= top + 0.02, "the first line pokes out");
+            assert!(
+                stage.get_bottom(lines[3])[1] >= bottom - 0.05,
+                "the question sinks into the foot"
+            );
+            for pair in lines.windows(2) {
+                assert!(
+                    stage.get_bottom(pair[0])[1] > stage.get_top(pair[1])[1] + 0.05,
+                    "{:.2} over {:.2}",
+                    stage.get_bottom(pair[0])[1],
+                    stage.get_top(pair[1])[1]
+                );
+            }
+            for &m in &lines {
+                assert!(stage.get_width(m) <= room + 1e-6);
+            }
+            Ok(())
+        });
+    }
 
     /// 06_4: the four-step and hundred-step paths end where the facts say
     /// the voice's "drift outward" and "hug it" end, and they are the model's

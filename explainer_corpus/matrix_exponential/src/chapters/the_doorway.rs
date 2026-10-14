@@ -24,7 +24,7 @@ use super::draw::{
     MatrixGrid, QuizCard, arrow, fact, fade_in_all, fade_out_all, faded_line, fit_width, music_hold, result, rule, say,
     tween_linear, whole,
 };
-use super::flow::{fade_in_anim, fade_out_anim, precisely_tex};
+use super::flow::{fade_in_anim, precisely_tex};
 use crate::facts::{cube_loop, shown, spin_axes};
 use crate::model::{Mat, angle_axis, expm_t, spins};
 
@@ -344,6 +344,10 @@ impl SceneConstruct for TheDoorway {
                 v(grid_at[0], grid_at[1] + 1.9),
             )?);
         }
+        #[cfg(test)]
+        for (g, key) in grids.iter().zip(["15_1:spin_x", "15_1:spin_y", "15_1:spin_z"]) {
+            super::draw::watch_dwell(&kit, stage, g.group, key)?;
+        }
         let mut shown_now = vec![grids[0].group, names[0]];
         fade_in_all(stage, &shown_now, 0.5)?;
         // the exact version comes in with the first spin, not after all
@@ -362,18 +366,19 @@ impl SceneConstruct for TheDoorway {
         play!(stage; tween_linear(turn, 1.2, 1.4)?);
         line.wait_for(stage, "Three dimensions have three")?;
         for k in 1..3 {
-            let mut swap: Vec<Box<dyn Animation>> = Vec::new();
-            for &m in &shown_now {
-                swap.push(fade_out_anim(stage, m, 0.4)?);
-            }
+            // the one spin's grid is gone before the next one comes: the two
+            // cross-faded in place, a few frames of digits over digits (the
+            // dense read of the scored draft)
+            fade_out_all(stage, &shown_now, 0.25)?;
             stage.set_tracker_value(which, k as f64)?;
             stage.set_tracker_value(turn, 0.0)?;
             shown_now = vec![grids[k].group, names[k]];
+            let mut next: Vec<Box<dyn Animation>> = Vec::new();
             for &m in &shown_now {
-                swap.push(fade_in_anim(stage, m, 0.4)?);
+                next.push(fade_in_anim(stage, m, 0.35)?);
             }
-            swap.push(stage.prepare(tween_linear(turn, 1.2, 1.4)?)?);
-            stage.play_prepared(swap)?;
+            next.push(stage.prepare(tween_linear(turn, 1.2, 1.4)?)?);
+            stage.play_prepared(next)?;
         }
         kit.hold(stage)?;
 
@@ -529,7 +534,7 @@ mod tests {
     use explainer_kit::stats::Data;
     use fmn::scene::{NullSceneSink, RuntimeConfig};
 
-    use super::super::draw::{fact, matrix, testing};
+    use super::super::draw::{fact, matrix, quiz_log, testing};
     use super::*;
     use crate::model::{expm, hat, quarter_turn, rotation_defect};
 
@@ -546,6 +551,31 @@ mod tests {
             ..RuntimeConfig::default()
         };
         fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 15_1 (the dense read of J's first half): each spin's grid is gone
+    /// before the next one comes, not cross-faded over it (two matrices'
+    /// digits stood over one another for a few frames).
+    #[test]
+    fn one_spins_grid_is_gone_before_the_next_comes() {
+        let voiced = testing::run_voiced("15_the_doorway").unwrap();
+        let at = |key: &str, kind: &str| {
+            quiz_log::take(&voiced.tag, key)
+                .iter()
+                .find(|(k, _)| *k == kind)
+                .map(|e| e.1)
+        };
+        let keys = ["15_1:spin_x", "15_1:spin_y", "15_1:spin_z"];
+        for pair in keys.windows(2) {
+            let gone = at(pair[0], "down").unwrap_or_else(|| panic!("{} never goes", pair[0]));
+            let came = at(pair[1], "up").unwrap_or_else(|| panic!("{} never comes", pair[1]));
+            assert!(
+                came - gone >= 0.2,
+                "{} is up at {came:.2} s, {} is gone at {gone:.2} s",
+                pair[1],
+                pair[0]
+            );
+        }
     }
 
     /// 15_2 (the dense read of the scored draft): the card states the

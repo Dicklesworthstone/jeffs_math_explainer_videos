@@ -513,6 +513,13 @@ impl SceneConstruct for OneFunction {
         fade_in_all(stage, &[power], 0.6)?;
         line.wait_for(stage, "Two point seven")?;
         fade_in_all(stage, &[reading], 0.5)?;
+        // the working has done its work once the line is said: the card goes
+        // and the chart is left a while with the marker's reading (the card
+        // stood on to the chapter's last second, eleven of them)
+        line.wait_end(stage)?;
+        let mut worked = card.mobs();
+        worked.extend([product, power, answer]);
+        fade_out_all(stage, &worked, 0.6)?;
         music_hold(&kit, stage)?;
 
         kit.hold(stage)?;
