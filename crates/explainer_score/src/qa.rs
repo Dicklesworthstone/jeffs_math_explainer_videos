@@ -381,10 +381,19 @@ pub use crate::meter::join_step_db;
 /// (`join_step_db`). The swell's 3 is set between what a held bed with its
 /// ceiling reads (-0.7 to 1.6 over Video F's 14 chapters) and what a released
 /// duck reads (10.6 to 15.3: F as it is), nearer the one a score can stay
-/// under without trying; the join's 1.5 is the bead's, a step a listener does
-/// not hear.
+/// under without trying. The join's 3.5 is set on the 91 joins of Videos E to
+/// K scored with the steady bed on (the studio's timelines of 2026-10-14):
+/// |step| median 0.9, 95th percentile 1.9, largest 3.3 (a join inside an
+/// authored silence's return is not read at all, [`Score::join_step_db`]).
+/// Where a chapter ends under its last line, the step is the bed's own level
+/// from one chapter to the next, which the held duck cannot move (the voice's
+/// frames stay as they were) and the open score has as well (I's 06 to 07 is
+/// -2.8 open, -3.3 steady); what the steady bed removes is the duck's release
+/// before a chapter's end, which reads 3 to 16 LU in the open scores (median
+/// 9.2). The first limit, 1.5 (the bead's, F's 13 joins were within 1.3),
+/// failed 10 chapters of E, G, H and I that way.
 pub const STEADY_BED_SWELL_LU: f64 = 3.0;
-pub const STEADY_JOIN_STEP_LU: f64 = 1.5;
+pub const STEADY_JOIN_STEP_LU: f64 = 3.5;
 
 /// How many narration lines a silence without an end mark may run over. The
 /// four we have authored that way and meant each hold exactly one (Video I's
@@ -1052,6 +1061,10 @@ mod tests {
         };
         assert_eq!(eval(true, -6.4).pass, Some(false));
         assert_eq!(eval(true, 1.0).pass, Some(true));
+        // a chapter that ends under its last line steps by the bed's own level
+        // from chapter to chapter: up to 3.3 LU over Videos E to K
+        assert_eq!(eval(true, -3.3).pass, Some(true));
+        assert_eq!(eval(true, 4.0).pass, Some(false));
         assert_eq!(eval(false, -6.4).pass, None, "reported, not judged, for an open duck");
         // a first chapter has no join to measure; a silent join is not a step
         let r = evaluate("c", &v, &flat, v.len(), Some(&steady_facts(true, None, vec![])));

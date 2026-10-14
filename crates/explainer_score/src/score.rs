@@ -955,14 +955,23 @@ pub struct Score {
 
 impl Score {
     /// The bed's level step across the join into chapter `k` (LU; see
-    /// [`crate::qa::join_step_db`]); `None` for the first chapter and where
-    /// the stem is silent at the join.
+    /// [`crate::qa::join_step_db`]); `None` for the first chapter, where the
+    /// stem is silent at the join, and where an authored silence is going out
+    /// or coming back around it (the music returning from nothing across the
+    /// join is the silence's, not a mix step: K's 04 to 05 read +6.6 LU).
     pub fn join_step_db(&self, k: usize) -> Option<f64> {
         let a = self.chapters.get(k)?.1;
         if k == 0 {
             return None;
         }
-        crate::qa::join_step_db(&self.music, a as f64 / FS)
+        let at = a as f64 / FS;
+        // the span the step is read over, 1.5 s either side of the join and
+        // the 0.2 s a 400 ms window reaches past it
+        let (from, to) = (at - 1.7, at + 1.7);
+        if self.silences.iter().any(|s| s.fade_start < to && s.back_end > from) {
+            return None;
+        }
+        crate::qa::join_step_db(&self.music, at)
     }
 
     /// The band QA judges hard rule 1 against (Hz): the measured narrator's,
@@ -3543,11 +3552,35 @@ mod tests {
         );
         let step = |x: &Score| x.join_step_db(1).unwrap();
         assert!(step(&open) < -3.0, "today's step {:.1} LU", step(&open));
+        // carried to its tolerance and a half dB (what QA lets through is 3.5)
         assert!(
-            step(&steady).abs() <= crate::qa::STEADY_JOIN_STEP_LU,
+            step(&steady).abs() <= crate::duck::CARRY_TOLERANCE_DB + 0.5,
             "carried to {:+.1} LU",
             step(&steady)
         );
+    }
+
+    #[test]
+    fn a_join_inside_an_authored_silences_return_is_not_read_as_a_step() {
+        let dir = std::env::temp_dir().join(format!("explainer_score_silence_join_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        let mark = |label: &str, secs: f64| crate::timeline::Mark {
+            label: label.into(),
+            frame: (secs * 60.0) as u64,
+        };
+        let id = Identity::hoeffding();
+        // chapter 2 starts at 40 s; the music is gone from 34 s to 39.5 s and
+        // fades back over 1.5 s, across the join
+        let plain = render(&id, &sections, None).unwrap();
+        assert!(plain.join_step_db(1).is_some());
+        sections[0].timeline.marks = vec![mark("silence:tail", 34.0), mark("silence_end:tail", 39.5)];
+        let silent = render(&id, &sections, None).unwrap();
+        let sp = &silent.silences[0];
+        assert!(sp.closed && sp.back > 39.4 && sp.back_end > 40.9, "{sp:?}");
+        assert_eq!(silent.join_step_db(1), None, "the return from silence is not a step");
+        // and QA has no step to judge for it
+        let facts = crate::qa::ScoreFacts::chapter(&silent, 1);
+        assert_eq!(facts.join_step_db, None);
     }
 
     #[test]
