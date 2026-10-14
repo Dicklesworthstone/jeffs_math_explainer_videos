@@ -28,6 +28,7 @@ pub mod plot;
 pub mod props;
 pub mod stats;
 pub mod storyboard;
+pub mod telemetry;
 
 pub use cli::{Chapter, Explainer};
 pub use facts::{Fact, Facts, choose, oracle_diff};
@@ -37,3 +38,9 @@ pub use narration::{Cue, CueFile, GapClass, LineGaps, Narrator, Script, classify
 pub use palette::{BACKGROUND, Palette, hex, ink_style, point_colors, stroke_style};
 pub use play::{Timed, fade_all, lagged, tween};
 pub use plot::{Frame2, add, children, dot_cloud, lerp, rect, signed_thousands, thousands, v};
+pub use telemetry::{
+    InvariantDiagnostic, LowerThirdAuditSpec, MobSnapshot, QuizAuditSpec, SceneFrame, SceneRecorder,
+    SpokenLineAuditSpec, box_area, check_invariant_lower_third, check_invariant_non_empty_stage,
+    check_invariant_point_count_stability, check_invariant_quiz_masking_and_dwell, check_reflection_morph_area,
+    guard_reflection_param, is_near_reflection_midpoint, normal_bulge_offset, shoelace_area,
+};
