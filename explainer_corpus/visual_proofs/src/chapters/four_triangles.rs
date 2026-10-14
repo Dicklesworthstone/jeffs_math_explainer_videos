@@ -72,7 +72,15 @@ pub(super) const ASSUMED_CORNER: &str = "the tilted corner sits on a straight si
 /// The card's Shown line, which chapter 15 reads back.
 pub(super) const SHOWN_TEX: &str = "\\text{for every right triangle, } a^{2}+b^{2}=c^{2}";
 const NOBODY: &str = "No source we found says who first drew this picture.";
+/// The earliest printing found is credited to Wheeler: the year is the
+/// fact's (`F-X.wheeler`), so the sentence is built in two parts (R2, 13_7).
+const EARLIEST_BEFORE: &str = "The earliest printing we found, in";
+const EARLIEST_AFTER: &str = "is credited to A. D. Wheeler.";
 const COUSIN: &str = "A close cousin is in a third-century Chinese commentary on the Zhoubi suanjing";
+/// 13_3's lower-third, with no words said: chapter 12's cut square (a big
+/// square, a small square and two equal rectangles) in letters (R2, 13_3).
+const CUT_SQUARE_LABEL: &str = "the same cut square as before:";
+const CUT_SQUARE_TEXT: &str = "(a + b)² = a² + 2ab + b²";
 
 // ---------------------------------------------------------------- the model
 
@@ -404,6 +412,9 @@ impl SceneConstruct for FourTriangles {
             }
         }
         stage.play_prepared(anims)?;
+        // no words say it: the square's cut, as chapter 12 cut it, in letters
+        let cut = lower_third(&kit, stage, CUT_SQUARE_LABEL, CUT_SQUARE_TEXT)?;
+        fade_in_all(stage, &[cut], 0.5)?;
         line.wait_for(stage, "what is left is two squares")?;
         fade_in_all(stage, &squares, 0.8)?;
 
@@ -452,6 +463,7 @@ impl SceneConstruct for FourTriangles {
         let mut leaving: Vec<Mob> = first.triangles.to_vec();
         leaving.extend(&squares);
         leaving.push(frame);
+        leaving.push(cut);
         fade_out_all(stage, &leaving, 0.5)?;
         let mut smalls = small_first.all();
         smalls.extend(small_second.all());
@@ -684,7 +696,15 @@ impl SceneConstruct for FourTriangles {
             SMALL_FIRST[1] + total * SMALL_CELL / 2.0,
         );
         file_on_shelf(stage, &filed, from, 2.0 * total * SMALL_CELL + 0.3, SLOT, 1.0)?;
-        let source = lower_third(&kit, stage, "", &format!("{NOBODY} {COUSIN}"))?;
+        // the earliest printing found, with its year from the facts, between
+        // the "no source" sentence and the cousin (R2, 13_7)
+        let wheeler = fact("F-X.wheeler")?;
+        let source = lower_third(
+            &kit,
+            stage,
+            "",
+            &format!("{NOBODY} {EARLIEST_BEFORE} {wheeler}, {EARLIEST_AFTER} {COUSIN}"),
+        )?;
         fade_in_all(stage, &[source], 0.6)?;
         breath(&kit, stage)?;
 
@@ -844,14 +864,26 @@ mod tests {
             "Pythagoras's theorem:",
             "the tilted corner sits on a straight side",
             "each pair of triangles closes into an a by b rectangle",
-            "A close cousin is in a third-century",
-            "Chinese commentary on the Zhoubi suanjing",
+            // R2, 13_3: the cut square in letters, no word said
+            "the same cut square as before:",
+            "(a + b)² = a² + 2ab + b²",
         ] {
             assert!(
                 words.iter().any(|w| w.contains(want)),
                 "the chapter never typesets {want:?}: {words:?}"
             );
         }
+        // R2, 13_7: the three sentences of the source line, whole and in
+        // this order, the year the fact's (the lines of a wrapped lower-third
+        // are registered one after another, so a phrase may be split between
+        // two of them: the whole line is looked for joined)
+        let said = words.join(" ");
+        let f = crate::facts::facts().unwrap();
+        let year = f.get("F-X.wheeler").unwrap();
+        assert_eq!(year, "1859");
+        let source = format!("{NOBODY} {EARLIEST_BEFORE} {year}, {EARLIEST_AFTER} {COUSIN}");
+        assert!(said.contains(&source), "the source line is not whole: {words:?}");
+        assert!(!said.contains(" …"), "a lower-third was cut short: {said}");
         assert!(ran.seconds > 40.0 && ran.seconds < 100.0, "{} s", ran.seconds);
     }
 }
