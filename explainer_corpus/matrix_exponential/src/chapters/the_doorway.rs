@@ -36,8 +36,8 @@ const CUBE_SCALE: f64 = 1.15;
 const CUBE_AT: Vec3 = [-4.0, -0.4, 0.0];
 /// The view: a turn about the vertical, then a tilt back (radians). The
 /// "from along z" view of 15_3 is the tilt of a quarter turn.
-const VIEW_YAW: f64 = 0.62;
-const VIEW_TILT: f64 = 1.05;
+pub const VIEW_YAW: f64 = 0.62;
+pub const VIEW_TILT: f64 = 1.05;
 const TOP_YAW: f64 = 0.0;
 const TOP_TILT: f64 = std::f64::consts::FRAC_PI_2;
 
@@ -126,14 +126,14 @@ pub fn degrees(r: &Mat) -> f64 {
 
 /// A wire cube with one gold face, redrawn from `pose(arena)` whenever the
 /// pose changes.
-struct Cube {
-    edges: Vec<Mob>,
-    face: Mob,
-    anchor: Mob,
+pub struct Cube {
+    pub edges: Vec<Mob>,
+    pub face: Mob,
+    pub anchor: Mob,
 }
 
 impl Cube {
-    fn build(
+    pub fn build(
         stage: &mut Stage<'_>,
         at: Vec3,
         scale: f64,
@@ -192,7 +192,7 @@ impl Cube {
         })
     }
 
-    fn mobs(&self) -> Vec<Mob> {
+    pub fn mobs(&self) -> Vec<Mob> {
         let mut out = self.edges.clone();
         out.push(self.face);
         out

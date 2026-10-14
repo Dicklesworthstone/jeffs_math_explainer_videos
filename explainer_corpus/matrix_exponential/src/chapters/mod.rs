@@ -22,6 +22,7 @@ pub mod the_series;
 pub mod turning;
 pub mod two_tanks;
 pub mod walks;
+pub mod where_it_leads;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -65,6 +66,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("13_how_computers_do_it", 0.4, how_computers_do_it::HowComputersDoIt),
         scene!("14_order_matters", 0.5, order_matters::OrderMatters),
         scene!("15_the_doorway", 0.65, the_doorway::TheDoorway),
-        animatic!("16_where_it_leads", 0.55),
+        scene!("16_where_it_leads", 0.55, where_it_leads::WhereItLeads),
     ]
 }

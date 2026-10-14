@@ -170,7 +170,7 @@ impl Machine {
 
 /// A row of mobjects laid left to right, their left edges `gap` apart from
 /// `left`, centred on `y`; returns each one's centre x.
-fn lay_row(stage: &mut Stage<'_>, mobs: &[Mob], left: f64, y: f64, gap: f64) -> Vec<f64> {
+pub fn lay_row(stage: &mut Stage<'_>, mobs: &[Mob], left: f64, y: f64, gap: f64) -> Vec<f64> {
     let mut x = left;
     let mut centres = Vec::with_capacity(mobs.len());
     for &m in mobs {
