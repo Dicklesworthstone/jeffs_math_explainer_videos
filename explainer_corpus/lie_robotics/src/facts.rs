@@ -589,6 +589,8 @@ fn steps_and_paths(f: &mut Facts, arm: &Arm) -> Result<(), String> {
         flag(run.q.iter().zip(model::LIMITS_DEG).all(|(x, lim)| x.abs() / DEG <= lim)),
     )?;
     f.add("G-I.ik.tolerances", format!("{},{}", model::TOL_SPIN, model::TOL_SLIDE))?;
+    // the stopping rule's length in millimetres, as 13_4's code panel prints it ("... and 0.1 mm")
+    f.add("G-D.ik.tolerance_mm", fx(model::TOL_SLIDE * 1000.0, 1))?;
     f.add("G-I.screw.angle", fx(screw.angle / DEG, 4))?;
     f.add("G-I.screw.axis", vec(&screw.axis, 4))?;
     f.add("G-I.screw.point", vec(&screw.point[..2], 4))?;

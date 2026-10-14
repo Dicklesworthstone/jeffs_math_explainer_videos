@@ -15,8 +15,8 @@ G-L (cited).
 The oracle may print more than the video: G-D rows are numbers docs/description.md
 states, each computed here from first principles by the functions below (not as
 a formula over another row's rounded value) and cross-checked. The video prints
-G-D.seam.*, G-D.halfway.from_each and G-D.leftover.turn_deg, because its scenes
-show them; every other G-D row is a research row only the oracle prints
+G-D.seam.*, G-D.halfway.from_each, G-D.leftover.turn_deg and G-D.ik.tolerance_mm,
+because its scenes show them; every other G-D row is a research row only the oracle prints
 (tools/description_numbers.py reads the oracle's values as facts).
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
@@ -816,6 +816,11 @@ def main():
     emit("G-D.ik.gains_mm", vec(gains, 2))
     check("each Newton step cuts the distance by a bigger factor than the last, while the gain in millimetres falls",
           all(x < y for x, y in zip(factors, factors[1:])) and all(x > y for x, y in zip(gains, gains[1:])))
+    # 13_4: the stopping rule's length in millimetres (the code panel prints "... and 0.1 mm"); the loop above stopped
+    # at the first step inside it
+    emit("G-D.ik.tolerance_mm", fx(tol_slide * 1000, 1))
+    check("the Newton loop stops at the first step inside the tolerance: the last distance is under it, the one before is not",
+          dist[-1] < tol_slide * 1000 < dist[-2])
     # 15_1: the width of the Euler-stepped body across its axis, as a percentage over the rigid 1
     width = np.linalg.svd(added, compute_uv=False)[0]
     emit("G-D.drift.width_percent", fx((width - 1) * 100, 2))

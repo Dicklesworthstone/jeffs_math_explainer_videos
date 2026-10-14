@@ -27,9 +27,4 @@
 60	(0, 60°, 0, 0, 0, 60°, 0)	structural	The two bent joints of the quiz pose whose tip is G-J.elbow_straight.p (joints 2 and 6 at 60 degrees).
 3	(3 hinges)	structural	A ball joint is three hinges.
 3	to 3 it is 5	structural	Joints 1 to 3: the line breaks inside the phrase.
-#
-# derived: the reason is an expression over the oracle's values, evaluated by the tool.
-# A 3 by 3 matrix has sqrt(G-R.numbers.matrix = 9) = 3 rows.
-3	3 by 3	derived	=sqrt(f("G-R.numbers.matrix"))
-# The tolerance 0.0001 m of G-I.ik.tolerances in millimetres.
-0.1	0.1 mm	derived	=f("G-I.ik.tolerances",1)*1000
+3	3 by 3	structural	The size of a matrix that is the statement itself: a turn matrix of space has three axes, so it is 3 by 3 ("R a 3 by 3 turn matrix"), and the platform's velocity matrix has rows for x, y and the heading ("the 3 by 3 velocity matrix").

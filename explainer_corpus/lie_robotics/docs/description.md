@@ -176,7 +176,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   `log(T_goal · inverse(T(q)))` and `J(q)`) the iterates are the same; with one of each the loop
   does not converge. In the space form the slide part of the error is the room origin's remaining
   distance, not the tip's, so "0.1 mm" means the tip's distance only in the body form. Near a
-  half turn the logarithm needs its own branch. [G-I.ik.tolerances]
+  half turn the logarithm needs its own branch. [G-I.ik.tolerances, G-D.ik.tolerance_mm]
 - **13_6.** Newton's method: from a guess, measure the miss, correct by it, repeat. "From here, three": from q = (0, 30°, 0, −60°, 0, 90°, 0) to the goal (0.400, 0.300,
   0.250) m with R = [0 −1 0; −1 0 0; 0 0 −1]. From other starts the count differs and the method
   can fail. For a chosen swing of the elbow this
@@ -239,7 +239,7 @@ Every number was computed by code and checked by a second program: `oracle.py` (
 the model that drew the scenes) and the video's own model. The loop of 13_4 is the whole method:
 
 ```
-# facts: G-I.ik.tolerances
+# facts: G-I.ik.tolerances, G-D.ik.tolerance_mm
 error = log(inverse(T(q)) * T_goal)       # a twist, read in the gripper's frame
 q     = q + pinv(J_body(q)) * error       # the smallest joint step that makes it
 repeat until error < 0.001 rad and 0.1 mm

@@ -14,9 +14,9 @@ at the end was copied from the oracle's output by a script, not typed.
   of 14 with SciPy 1.18.1 present, 18 of 18 with SciPy and the owner's
   source files present (`CMAES_EXPLAINER_DIR`).
 - **Result, 2026-10-14** (the build host, after the G-D rows):
-  `facts-check lie_robotics: 236 video facts against 252 oracle keys: PASS`,
-  the oracle's own cross-checks 21 of 21, and the description's numbers: 372,
-  127 facts, 16 allow-listed (years, citations, one structural), 0 unmatched.
+  `facts-check lie_robotics: 237 video facts against 253 oracle keys: PASS`,
+  the oracle's own cross-checks 22 of 22, and the description's numbers: 361,
+  127 facts, 138 formula digits, 23 allow-listed (years, citations, structure), 0 unmatched.
 - **Rust side:** `./x lie_robotics test`: 21 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** G-A the arm; G-B the book; G-E three angles; G-H halfway; G-R
@@ -633,7 +633,7 @@ G-C: the coda. The humanoid's counts; the determinant after 1,000 steps taken tw
 | `G-C.drift.exp` | 1.0000 |
 | `G-C.drift.width` | 1.0513 |
 
-G-D: the numbers docs/description.md states, each computed in oracle.py by its own functions and cross-checked there. The video prints the first four rows (`seam`, `halfway.from_each`, `leftover.turn_deg`: its scenes show them); every other G-D row is a research row only the oracle prints. `seam` is the two headings as plain numbers; `leftover.turn_deg` the sizes of the small turns and `off_z_deg` how far the leftover's axis leans from −z for each; `platform.euler` the base stepped in pieces of 0.01 s with the velocity turned by the heading each piece, and how far from the exact end it lands (mm); `elbow_straight.turn_per_m_s` the least turning (rad/s) with which the tip moves 1 m/s along the shoulder-wrist line at the elbow-straight pose; `near.apart_other_order` the angle between chapter 13's two triples with the rings nested x outside, z inside; `witness` the same gripper pose as the elbow's quarter turn reached at rank 6 (one-decimal angles, the exact angles, its rank, whether it is inside the limits, and how far the rounded angles miss the pose in mm and degrees); `rank.ell.without_k` the L shape's rank with joint k taken away; `ik.factors` and `ik.gains_mm` the Newton distance's ratios and differences from the unrounded distances; `drift.width_percent` how much wider than 1 the Euler-stepped body is across its axis.
+G-D: the numbers docs/description.md states, each computed in oracle.py by its own functions and cross-checked there. The video prints `seam`, `halfway.from_each`, `leftover.turn_deg` and `ik.tolerance_mm` (its scenes show them); every other G-D row is a research row only the oracle prints. `seam` is the two headings as plain numbers; `leftover.turn_deg` the sizes of the small turns and `off_z_deg` how far the leftover's axis leans from −z for each; `platform.euler` the base stepped in pieces of 0.01 s with the velocity turned by the heading each piece, and how far from the exact end it lands (mm); `elbow_straight.turn_per_m_s` the least turning (rad/s) with which the tip moves 1 m/s along the shoulder-wrist line at the elbow-straight pose; `near.apart_other_order` the angle between chapter 13's two triples with the rings nested x outside, z inside; `witness` the same gripper pose as the elbow's quarter turn reached at rank 6 (one-decimal angles, the exact angles, its rank, whether it is inside the limits, and how far the rounded angles miss the pose in mm and degrees); `rank.ell.without_k` the L shape's rank with joint k taken away; `ik.factors` and `ik.gains_mm` the Newton distance's ratios and differences from the unrounded distances; `drift.width_percent` how much wider than 1 the Euler-stepped body is across its axis.
 
 | Key | Value |
 |---|---|
@@ -656,6 +656,7 @@ G-D: the numbers docs/description.md states, each computed in oracle.py by its o
 | `G-D.rank.ell.without_5` | 6 |
 | `G-D.ik.factors` | 5.38,22.61,157.15 |
 | `G-D.ik.gains_mm` | 411.06,89.78,4.13 |
+| `G-D.ik.tolerance_mm` | 0.1 |
 | `G-D.drift.width_percent` | 5.13 |
 
 G-X: the edges of the always sentences (held / checked).
