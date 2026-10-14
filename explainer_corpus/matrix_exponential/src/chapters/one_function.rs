@@ -26,9 +26,13 @@ pub struct OneFunction {
     pub kit: Kit,
 }
 
-/// The window of 05_2: e to the x on its own scale (x up to 2.2).
+/// The window of 05_2: e to the x on its own scale (x up to 2.2). Both
+/// windows stand with their unit label (a window's bottom, a tick row and
+/// the label's row under it) clear of the one-line lower third that comes up
+/// under them at 05_2 and 05_4: at the old height "x" and "years" stood in
+/// the lower third's box.
 const UNIT_WINDOW: Frame2 = Frame2 {
-    center: [-2.6, -0.6, 0.0],
+    center: [-2.6, -0.1, 0.0],
     width: 6.4,
     height: 4.2,
     x: (0.0, 2.2),
@@ -36,7 +40,7 @@ const UNIT_WINDOW: Frame2 = Frame2 {
 };
 /// The window of 05_3 onwards: years across (forty), the amount up.
 const YEARS_WINDOW: Frame2 = Frame2 {
-    center: [-2.6, -0.6, 0.0],
+    center: [-2.6, -0.1, 0.0],
     width: 6.4,
     height: 4.2,
     x: (0.0, 40.0),
@@ -602,6 +606,34 @@ mod tests {
             assert_eq!(up, r > 0.0);
         }
         assert_eq!((0.0_f64 * 40.0).exp(), 1.0);
+    }
+
+    /// 05_2 and 05_4, the dense read of the scored draft: the one-line lower
+    /// third that comes up under each window (its box tops out at -3.14) is
+    /// clear of the window's tick numbers and its unit label; at the old
+    /// height "x" and "years" stood inside the box.
+    #[test]
+    fn the_windows_stand_clear_of_the_lower_third_under_them() {
+        use fmn::core::constants::FRAME_Y_RADIUS;
+        // props::lower_third: 0.2 over the frame's foot, 0.3 and a line of 0.36
+        let band_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 0.36;
+        for (name, w) in [("unit", UNIT_WINDOW), ("years", YEARS_WINDOW)] {
+            let ticks = w.bottom() - 0.3 - 0.15;
+            let label = w.bottom() - 0.62 - 0.15;
+            assert!(
+                ticks > band_top + 0.05,
+                "{name}: tick numbers reach {ticks:.2}, the band's top is {band_top:.2}"
+            );
+            assert!(
+                label > band_top + 0.05,
+                "{name}: the unit label reaches {label:.2}, the band's top is {band_top:.2}"
+            );
+            // the marker's own label at 05_5 stands on the same row
+            assert!(w.bottom() - 0.62 - 0.17 > band_top);
+        }
+        // and the window's top is under the dial's base (2.35)
+        assert!(YEARS_WINDOW.top() < DIAL_AT[1] - 0.2, "{}", YEARS_WINDOW.top());
+        assert!(UNIT_WINDOW.top() < DIAL_AT[1] - 0.2);
     }
 
     #[test]

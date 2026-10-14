@@ -36,6 +36,13 @@ const NP_EXP: &str = "this guess is np.exp(A); the real thing is scipy.linalg.ex
 /// The dots: a disc this wide, this far apart, and where it stands.
 const DISC: f64 = 2.0;
 const SPACING: f64 = 0.45;
+/// 02_2's four ones (a grid at `GUESS_PT`, outlined) and the tag under its
+/// outline: the tag's top clears the outline's bottom edge (at -2.0 it stood
+/// on it: the dense read of the scored draft).
+const GUESS_AT: Vec3 = [5.3, -0.9, 0.0];
+const GUESS_TAG_AT: Vec3 = [5.3, -2.25, 0.0];
+const GUESS_PT: f64 = 54.0;
+const GUESS_TAG_PT: f64 = 26.0;
 const PLANE: Plane = Plane {
     centre: [3.2, 0.0, 0.0],
     unit: 1.0,
@@ -109,9 +116,15 @@ impl SceneConstruct for TheObviousGuess {
         let z_label = label(&kit, stage, v(-2.05, -0.35))?;
         let z_guess = MatrixGrid::build(&kit, stage, &little_es(&zero_rows), 54.0, warn(), v(1.5, -0.9))?;
         let equals = kit.tex(stage, "=", 60.0, ink, &[], v(3.55, -0.9))?;
-        let z_ones = MatrixGrid::build(&kit, stage, &ones, 54.0, warn(), v(5.3, -0.9))?;
+        let z_ones = MatrixGrid::build(&kit, stage, &ones, GUESS_PT, warn(), v(GUESS_AT[0], GUESS_AT[1]))?;
         let z_frame = z_ones.outline(stage, warn())?;
-        let guess_tag = kit.text(stage, THE_GUESS, 26.0, warn(), v(5.3, -2.0))?;
+        let guess_tag = kit.text(
+            stage,
+            THE_GUESS,
+            GUESS_TAG_PT,
+            warn(),
+            v(GUESS_TAG_AT[0], GUESS_TAG_AT[1]),
+        )?;
         // J is on the stage under "So try the obvious repair" (the narrated
         // draft's tile was a blank stage for the first three seconds)
         fade_in_all(stage, &[j_in.group], 0.5)?;
@@ -224,9 +237,57 @@ impl SceneConstruct for TheObviousGuess {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{apply, matrix, testing};
     use super::*;
     use crate::model::{Mat, quarter_turn};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 02_2 (the dense read of the scored draft): "the guess" under the four
+    /// ones stands below the outline round them, not on its bottom edge, and
+    /// above the lower third that comes up at "Is that right".
+    #[test]
+    fn the_guess_tag_stands_under_the_outline_of_the_four_ones() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let ones = entries("F-H.zero.guess", None)?;
+            let grid = MatrixGrid::build(&kit, stage, &ones, GUESS_PT, warn(), v(GUESS_AT[0], GUESS_AT[1]))?;
+            let frame = grid.outline(stage, warn())?;
+            let tag = kit.text(
+                stage,
+                THE_GUESS,
+                GUESS_TAG_PT,
+                warn(),
+                v(GUESS_TAG_AT[0], GUESS_TAG_AT[1]),
+            )?;
+            let bottom = stage.get_center(frame)[1] - stage.get_height(frame) / 2.0;
+            let tag_top = stage.get_center(tag)[1] + stage.get_height(tag) / 2.0;
+            assert!(
+                tag_top < bottom - 0.08,
+                "the tag's top {tag_top:.2} against the outline's bottom {bottom:.2}"
+            );
+            // the one-line lower third's box tops out 0.2 + 0.3 + 0.36 over the foot
+            let band_top = -4.0 + 0.2 + 0.3 + 0.36;
+            let tag_bottom = stage.get_center(tag)[1] - stage.get_height(tag) / 2.0;
+            assert!(tag_bottom > band_top + 0.2, "{tag_bottom:.2} against {band_top:.2}");
+            Ok(())
+        });
+    }
 
     /// 02_2: "raise e to each entry" is `Mat::entrywise_exp`, and the
     /// facts that name it say the same: on J, e to 0, -1, 1, 0; on four

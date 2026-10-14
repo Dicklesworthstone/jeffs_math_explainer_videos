@@ -35,7 +35,12 @@ use crate::model::{KITE, Mat, Network, PAIR, expm_t, grid_heat};
 
 /// The bars of 12_2: x of each, the baseline, the width and the height of a
 /// bar holding all of the heat.
-const BAR_X: [f64; 4] = [0.9, 1.65, 2.4, 3.15];
+/// The four bars of the heat: with the last one's right edge 0.4 left of the
+/// matrix's left bracket (at 0.9 .. 3.15 the fourth bar stood against the
+/// bracket and the last row's numbers: the dense read of the scored draft).
+const BAR_X: [f64; 4] = [0.5, 1.25, 2.0, 2.75];
+/// The middle of the bars, where "heat", "chance" and "total" are centred.
+const BARS_MID: f64 = 1.625;
 const BAR_BASE: f64 = -1.55;
 const BAR_W: f64 = 0.46;
 const BAR_H: f64 = 2.6;
@@ -432,7 +437,7 @@ impl SceneConstruct for HeatAndChance {
 
         // ---- 12_2: the exponential: the heat spreads and levels out
         let line = say(&kit, stage, "12_2")?;
-        let label = kit.text(stage, "heat", 30.0, Palette::dim(), v(2.0, 1.45))?;
+        let label = kit.text(stage, "heat", 30.0, Palette::dim(), v(BARS_MID, 1.45))?;
         let mut names = Vec::new();
         for (i, &x) in BAR_X.iter().enumerate() {
             names.push(kit.text(stage, &(i + 1).to_string(), 26.0, Palette::dim(), v(x, BAR_BASE - 0.35))?);
@@ -470,14 +475,14 @@ impl SceneConstruct for HeatAndChance {
             &format!("total: {}, always", whole(heat_at(HEAT_T).iter().sum())),
             30.0,
             Palette::dim(),
-            v(2.0, 1.95),
+            v(BARS_MID, 1.95),
         )?;
         fade_in_all(stage, &[total], 0.5)?;
         kit.hold(stage)?;
 
         // ---- 12_3: heat, or the chance of finding a hopper: the same matrix
         let line = say(&kit, stage, "12_3")?;
-        let chance = kit.text(stage, "chance", 30.0, gold, v(2.0, 1.45))?;
+        let chance = kit.text(stage, "chance", 30.0, gold, v(BARS_MID, 1.45))?;
         let swap = vec![fade_out_anim(stage, label, 0.5)?, fade_in_anim(stage, chance, 0.5)?];
         stage.play_prepared(swap)?;
         line.wait_for(stage, "or as the chance of finding a random hopper")?;
@@ -761,9 +766,51 @@ impl SceneConstruct for HeatAndChance {
 mod tests {
     use std::f64::consts::{FRAC_PI_2, PI};
 
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{fact, numbers, show, testing};
     use super::*;
     use crate::model::grid_corner_walks;
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 12_1 and 12_2 (the dense read of the scored draft): the heat's bars
+    /// stand clear of the matrix -L (its left bracket is 0.4 right of the
+    /// last bar's edge, and the bars are evenly spaced), and the words
+    /// centred over them stand over their middle.
+    #[test]
+    fn the_bars_stand_clear_of_the_matrix() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let grid = MatrixGrid::build(&kit, stage, &whole_rows(&minus_l()), GRID_PT, Palette::teal(), GRID_AT)?;
+            let left = GRID_AT[0] - grid.size.0 / 2.0;
+            let last_edge = BAR_X[3] + BAR_W / 2.0;
+            assert!(
+                left - last_edge >= 0.35,
+                "the bracket at {left:.2}, the last bar's edge {last_edge:.2}"
+            );
+            let pitches: Vec<f64> = BAR_X.windows(2).map(|w| w[1] - w[0]).collect();
+            assert!(pitches.iter().all(|p| (p - pitches[0]).abs() < 1e-9), "{pitches:?}");
+            assert!(pitches[0] > BAR_W + 0.2, "bars apart: {pitches:?}");
+            assert!((BARS_MID - (BAR_X[0] + BAR_X[3]) / 2.0).abs() < 1e-9);
+            // the node 4 of the graph (right-most) is left of the first bar
+            assert!(node(3)[0] + NODE_R + 0.3 < BAR_X[0] - BAR_W / 2.0);
+            Ok(())
+        });
+    }
 
     fn close(a: &[f64], b: &[f64], tol: f64) -> bool {
         a.len() == b.len() && a.iter().zip(b).all(|(x, y)| (x - y).abs() < tol)

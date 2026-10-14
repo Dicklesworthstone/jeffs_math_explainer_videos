@@ -41,6 +41,13 @@ const CARD_AT: Vec3 = [4.0, 0.4, 0.0];
 const CARD_SIZE: (f64, f64) = (5.8, 3.9);
 /// How many steps long the walks drawn at 11_5 go.
 const WALK_STEPS: [u32; 3] = [2, 3, 4];
+/// 11_6's table of e^A: its cells' pitch (a cell is 0.92 of it), and how far
+/// under the table's top row line the note of the two scores stands: three
+/// pitches to the last row, half a cell, then the note's own half height and
+/// room (at 3.3 the note stood on the last row's bottom edge).
+const HEAT_PITCH: f64 = 0.95;
+const SCORES_DROP: f64 = 3.75;
+const SCORES_PT: f64 = 30.0;
 
 // ------------------------------------------------------------- the geometry
 
@@ -480,7 +487,7 @@ impl SceneConstruct for Walks {
         // e^A, each cell shaded by its value
         let exp = matrix("F-G.exp")?;
         let largest = exp.iter().flatten().copied().fold(0.0, f64::max);
-        let pitch = 0.95;
+        let pitch = HEAT_PITCH;
         let (left, top) = (A_AT[0] - 1.5 * pitch, A_AT[1] + 1.5 * pitch);
         let mut grid_in = Vec::new();
         for (i, row) in exp.iter().enumerate() {
@@ -529,9 +536,9 @@ impl SceneConstruct for Walks {
                 fact("F-V.11_6.one_to_three")?,
                 fact("F-V.11_6.one_to_two")?
             ),
-            30.0,
+            SCORES_PT,
             gold,
-            v(A_AT[0] + 0.2, top - 3.3),
+            v(A_AT[0] + 0.2, top - SCORES_DROP),
         )?;
         fade_in_all(stage, &[note], 0.5)?;
         let who = lower_third(
@@ -694,6 +701,32 @@ mod tests {
                 assert!(d > 3.0 * NODE_R, "nodes {i} and {j}: {d}");
             }
         }
+    }
+
+    /// 11_6 (the dense read of the scored draft): the note of the two scores
+    /// stands under the table of e^A, clear of its last row's bottom edge
+    /// (at the old offset the note's text stood on it), and over the lower
+    /// third that comes up under it (its box tops out at -3.14).
+    #[test]
+    fn the_scores_stand_clear_of_the_table_and_the_lower_third() {
+        let top = A_AT[1] + 1.5 * HEAT_PITCH;
+        let last_row_bottom = top - 3.0 * HEAT_PITCH - HEAT_PITCH * 0.92 / 2.0;
+        let half_text = SCORES_PT * 0.0125 / 2.0;
+        let note = top - SCORES_DROP;
+        assert!(
+            note + half_text < last_row_bottom - 0.1,
+            "the note's top {:.2} against the table's foot {last_row_bottom:.2}",
+            note + half_text
+        );
+        let band_top = -4.0 + 0.2 + 0.3 + 0.36;
+        assert!(
+            note - half_text > band_top + 0.2,
+            "{:.2} against {band_top:.2}",
+            note - half_text
+        );
+        // inside the frame sideways: 30 pt of "1 and 3: 2.62    1 and 2: 2.42"
+        let width = "1 and 3: 2.62    1 and 2: 2.42".chars().count() as f64 * SCORES_PT * 0.0045;
+        assert!(A_AT[0] + 0.2 + width / 2.0 < 7.11 - 0.15, "{width}");
     }
 
     /// The chapter runs on the storyboard with the layout lint clean, types

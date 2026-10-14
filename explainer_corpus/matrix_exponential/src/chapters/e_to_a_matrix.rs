@@ -43,6 +43,10 @@ const CORNER_SCALE: f64 = 0.33;
 const FAN_R: f64 = 2.3;
 /// Arrows in the fan.
 const FAN_N: usize = 8;
+/// "e = 2.718..." under the big e: out of the disc of dots (at (-3.3, -1.75)
+/// its ellipsis stood among them: the dense read of the scored draft).
+const E_LABEL_AT: [f64; 2] = [-3.6, -2.2];
+const E_LABEL_PT: f64 = 30.0;
 
 /// Row `row` of a grid applied to `arrow` as it is worked on screen,
 /// `0 \times 2 - 1 \times 1 = -1`, checked against what the machine hands back.
@@ -131,7 +135,13 @@ impl SceneConstruct for EToAMatrix {
         let line = say(&kit, stage, "01_1")?;
         let e = kit.tex(stage, "e", 230.0, Palette::ink(), &[], v(-3.3, -0.35))?;
         let e_value = format!("e = {}\u{2026}", fact("F-V.02_1.e")?);
-        let e_label = kit.text(stage, &e_value, 30.0, Palette::dim(), v(-3.3, -1.75))?;
+        let e_label = kit.text(
+            stage,
+            &e_value,
+            E_LABEL_PT,
+            Palette::dim(),
+            v(E_LABEL_AT[0], E_LABEL_AT[1]),
+        )?;
         let exponent = MatrixGrid::build(&kit, stage, &j_rows, 60.0, rule(), v(-1.7, 1.15))?;
         let equals = kit.tex(stage, "=", 150.0, Palette::ink(), &[], v(0.1, -0.35))?;
         let question = kit.text(stage, "?", 150.0, result(), v(1.55, -0.35))?;
@@ -335,8 +345,51 @@ impl SceneConstruct for EToAMatrix {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::testing;
     use super::*;
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 01_1 (the dense read of the scored draft): "e = 2.718..." stands
+    /// outside the disc of dots behind it: its corner nearest the middle is
+    /// past the disc's radius by more than a dot's, and the plane's stirring.
+    #[test]
+    fn the_value_of_e_stands_outside_the_dots() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let label = kit.text(
+                stage,
+                &format!("e = {}\u{2026}", fact("F-V.02_1.e")?),
+                E_LABEL_PT,
+                Palette::dim(),
+                v(E_LABEL_AT[0], E_LABEL_AT[1]),
+            )?;
+            let (right, top) = (stage.get_right(label)[0], stage.get_top(label)[1]);
+            let nearest = right.hypot(top);
+            assert!(
+                nearest > DISC + 0.2,
+                "the label's corner is {nearest:.2} from the middle, the dots reach {DISC}"
+            );
+            // and it is still under the big e, not floating off it
+            assert!((E_LABEL_AT[0] + 3.3).abs() < 0.6 && E_LABEL_AT[1] > -2.6);
+            Ok(())
+        });
+    }
 
     /// The machine of 01_4, worked as the storyboard works it: the rows of
     /// J on the arrow (2, 1) give (-1, 2), and a result that is not the

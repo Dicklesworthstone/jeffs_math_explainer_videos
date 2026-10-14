@@ -317,12 +317,17 @@ impl SceneConstruct for DoesItSettle {
             good(),
             v(BARS.p(17.0, 0.0)[0], BARS.p(0.0, 0.0)[1] + 1.25),
         )?;
+        // the card goes with its "x 5 / k", which stood where the live ratio
+        // comes in: fading the old words out after the new ones were in left
+        // "5 x / k 1.00" for 0.6 s (the dense read of the scored draft)
         let mut card_gone = card.mobs();
         card_gone.extend(&said_lines);
         card_gone.push(answer);
+        card_gone.push(ratio);
         fade_out_all(stage, &card_gone, 0.5)?;
         fade_in_all(stage, &[ratio_is, live_ratio], 0.4)?;
-        fade_out_all(stage, &[ratio], 0.2)?;
+        // the new words are in and nothing of the old ones is on the stage
+        kit.lint_here(stage, "08_4: the ratio's words");
         line.wait_for(stage, "Once you're dividing by six")?;
         // bars k = 6 .. 20 in one lagged reveal, the ratio running with them
         let reveal = rest.clone();

@@ -57,6 +57,16 @@ const DEMO_UNIT: f64 = 0.85;
 /// The quiz card.
 const CARD_AT: Vec3 = [0.0, 0.3, 0.0];
 const CARD_SIZE: (f64, f64) = (9.6, 5.8);
+/// Where the card's problem stands, left or right of its middle: "J² =", the
+/// "?" and, at 07_4, the answer that replaces the "?" (its left bracket at
+/// the old offset of -0.7 stood on the "=": 07's dense read).
+const J_SQUARED_DX: f64 = -2.6;
+const ASK_DX: f64 = -0.3;
+/// The answer's grid: its type size and offset (at 70 points it is 3.0 wide,
+/// and no offset leaves room on both sides: "J^2 =" ends 1.64 left of the
+/// middle, the fan begins 1.8 right of it).
+const ANSWER_PT: f64 = 64.0;
+const ANSWER_DX: f64 = 0.0;
 /// The plane of the spiral (07_5, 07_6) and how far the spiral is drawn.
 const SPIRAL: Plane = Plane {
     centre: [-3.4, -0.5, 0.0],
@@ -244,8 +254,15 @@ impl SceneConstruct for AMatrixIn {
         fade_out_all(stage, &[series_x, lhs, letter_i, rest, called, laguerre], 0.5)?;
         let card = QuizCard::build(&kit, stage, "07_3", CARD_AT, CARD_SIZE)?;
         let (centre, _, _) = card.content();
-        let j_squared = kit.tex(stage, "J^{2} =", 100.0, ink, &[], v(centre[0] - 2.6, centre[1]))?;
-        let ask = kit.text(stage, "?", 120.0, result(), v(centre[0] - 0.3, centre[1]))?;
+        let j_squared = kit.tex(
+            stage,
+            "J^{2} =",
+            100.0,
+            ink,
+            &[],
+            v(centre[0] + J_SQUARED_DX, centre[1]),
+        )?;
+        let ask = kit.text(stage, "?", 120.0, result(), v(centre[0] + ASK_DX, centre[1]))?;
         let fan_plane = Plane {
             centre: [centre[0] + 3.0, centre[1], 0.0],
             unit: 1.0,
@@ -265,7 +282,14 @@ impl SceneConstruct for AMatrixIn {
         // behaves exactly like i; the powers go round a dial beside i
         let line = say(&kit, stage, "07_4")?;
         let answer_rows = entries("F-J.power.k2", None)?;
-        let answer = MatrixGrid::build(&kit, stage, &answer_rows, 70.0, result(), v(centre[0] - 0.7, centre[1]))?;
+        let answer = MatrixGrid::build(
+            &kit,
+            stage,
+            &answer_rows,
+            ANSWER_PT,
+            result(),
+            v(centre[0] + ANSWER_DX, centre[1]),
+        )?;
         play!(stage;
             fade_out(stage.arena_mut(), ask, ORIGIN, 1.0)?.rt(0.2),
             fade_in(stage.arena_mut(), answer.group, ORIGIN, 1.0)?.rt(0.5),
@@ -523,9 +547,74 @@ impl SceneConstruct for AMatrixIn {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{matrix, numbers, show, testing};
     use super::*;
     use crate::model::{Mat, expm_t, factorial};
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 07_3 and 07_4 (the dense read of the scored draft): the answer's grid
+    /// lands where the "?" stood, its left bracket clear of the "=" of
+    /// "J² =" (at the old offset the bracket stood on the "="), and its right
+    /// edge left of the fan on the card.
+    #[test]
+    fn the_answer_lands_clear_of_the_equals_sign_and_the_fan() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let card = QuizCard::build(&kit, stage, "07_3", CARD_AT, CARD_SIZE)?;
+            let (centre, _, _) = card.content();
+            let lhs = kit.tex(
+                stage,
+                "J^{2} =",
+                100.0,
+                Palette::ink(),
+                &[],
+                v(centre[0] + J_SQUARED_DX, centre[1]),
+            )?;
+            let ask = kit.text(stage, "?", 120.0, result(), v(centre[0] + ASK_DX, centre[1]))?;
+            let rows = entries("F-J.power.k2", None)?;
+            let grid = MatrixGrid::build(
+                &kit,
+                stage,
+                &rows,
+                ANSWER_PT,
+                result(),
+                v(centre[0] + ANSWER_DX, centre[1]),
+            )?;
+            // the fan's arrows begin at 1.2 left of its centre, 3.0 right of the card's
+            let fan_left = centre[0] + 3.0 - 1.2;
+            let eq_right = stage.get_right(lhs)[0];
+            let (grid_left, grid_right) = (stage.get_left(grid.group)[0], stage.get_right(grid.group)[0]);
+            assert!(
+                grid_left > eq_right + 0.2,
+                "the grid's left edge {grid_left:.2} against the equals sign's right {eq_right:.2}"
+            );
+            assert!(
+                grid_right < fan_left - 0.2,
+                "the grid's right edge {grid_right:.2} against the fan's left {fan_left:.2}"
+            );
+            // it stands where the question mark did
+            let ask_mid = (stage.get_left(ask)[0] + stage.get_right(ask)[0]) / 2.0;
+            let grid_mid = (grid_left + grid_right) / 2.0;
+            assert!((grid_mid - ask_mid).abs() < 0.6, "{grid_mid:.2} against {ask_mid:.2}");
+            Ok(())
+        });
+    }
 
     /// 07_3 and 07_4: J times J is minus the matrix that changes nothing,
     /// the powers have the period the fact says and go round with i.
