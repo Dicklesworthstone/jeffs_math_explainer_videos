@@ -24,6 +24,7 @@ use super::draw::{
     fade_in_lagged, fade_out_all, faded_line, fail, file_on_shelf, flat, ground, hero, ink, lens, lens_mark,
     lower_third, pause, say, size, slide, tex_row,
 };
+use super::sound;
 
 pub struct FourTriangles {
     pub kit: Kit,
@@ -442,6 +443,10 @@ impl SceneConstruct for FourTriangles {
         fade_in_all(stage, &[cut], 0.5)?;
         line.wait_for(stage, "what is left is two squares")?;
         fade_in_all(stage, &squares, 0.8)?;
+        line.wait_end(stage)?;
+        // the triangles are in place and the two squares are all that is
+        // left: the arrangement is a finished chord
+        sound::bloom(&kit, stage, "squares")?;
 
         // ------------------------------------------------------------ 13_4
         // your turn: both arrangements side by side; how big was the tilted

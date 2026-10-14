@@ -22,6 +22,7 @@ use super::draw::{
     fade_in_lagged, fade_out_all, faded_line, fail, faint, fit_width, flash, flat, formula_third, frac_tex, hero, ink,
     lens, lens_mark, panel, pause, say, size, slide, source_line, tex_row, warn,
 };
+use super::sound::{self, Strike};
 use crate::model::lie;
 
 pub struct TheMissingSquare {
@@ -62,9 +63,34 @@ const QUIZ_LOOK: QuizLook = QuizLook {
 /// The shelf's slot the picture that lies would have taken.
 pub const SLOT: usize = 8;
 /// Silence with the cross on the screen, seconds (14_7).
-const SILENCE_S: f64 = 2.0;
+pub(super) const SILENCE_S: f64 = 2.0;
+/// 14_2's landing in sound (storyboard, "Sound plan": three of the four
+/// bloom, the fourth is missing): the second arrangement's pieces light in
+/// turn, each with the next note of the pentatonic's climb, and the empty
+/// tile, the fourth, lights in silence: the climb stops one short. Seconds
+/// from the window's start; the same spacing as each light's own length.
+const LANDING_AT: [f64; 3] = [0.0, 0.6, 1.2];
+/// A light on a piece, and the pause before the next.
+const LIGHT_S: f64 = 0.5;
+/// The strength of each note: soft, so the viewer counts the tiles under it
+/// (the beat's words: the grid shows, the music thinned).
+const LANDING_VELOCITY: f64 = 0.45;
 /// The type size of the rise and run written on the edges.
 const EDGE_PT: f64 = 24.0;
+
+/// The notes of 14_2's window: the first three landings of the climb, at
+/// [`LANDING_AT`]; there is no fourth.
+pub fn missing_strikes() -> Vec<Strike> {
+    LANDING_AT
+        .iter()
+        .enumerate()
+        .map(|(i, &at)| Strike {
+            at,
+            pitch: sound::landing_pitch(i),
+            velocity: LANDING_VELOCITY,
+        })
+        .collect()
+}
 
 // the big picture ends above the card's top edge, and so does the ring
 const _: () = assert!(BIG_AT[1] >= super::draw::CARD_TOP);
@@ -445,7 +471,28 @@ impl SceneConstruct for TheMissingSquare {
         flash(stage, &[small_hole], warn(), 1.4, 0.8)?;
         smalls.extend([small_hole, small_cross]);
         line.wait_end(stage)?;
-        breath(&kit, stage)?;
+        // the grid shows for the breath's length and the viewer counts; the
+        // arrangement is heard under it: three of the four bloom (the pieces
+        // that make the outline light, each with its note) and the fourth,
+        // the empty tile, is lit in silence
+        let wav = sound::strikes(
+            "proofs_missing_square_landings",
+            &missing_strikes(),
+            explainer_kit::animatic::HOLD_S,
+        )?;
+        kit.sonify(
+            stage,
+            explainer_kit::animatic::HOLD_S,
+            "14_the_missing_square:14_2",
+            &wav,
+        )?;
+        let lit = [small_second.big, small_second.small, small_second.long_l];
+        for (k, &m) in lit.iter().enumerate() {
+            flash(stage, &[m], hero(), 1.12, LIGHT_S)?;
+            let next = LANDING_AT.get(k + 1).copied().unwrap_or(LANDING_AT[k] + LIGHT_S + 0.1);
+            pause(stage, next - LANDING_AT[k] - LIGHT_S)?;
+        }
+        flash(stage, &[small_hole], warn(), 1.4, LIGHT_S + 0.2)?;
 
         // ------------------------------------------------------------ 14_3
         // the same pieces have room for one more tile: thirty-two against
@@ -774,7 +821,10 @@ impl SceneConstruct for TheMissingSquare {
         breath(&kit, stage)?;
 
         // ------------------------------------------------------------ 14_7
-        // neither picture was ever a triangle: the card fails
+        // neither picture was ever a triangle: the card fails. The music is
+        // out from this sentence on, so the red cross lands on nothing, and
+        // it stays out through the two seconds of silence after the line
+        kit.mark(stage, "silence:cross");
         let line = say(&kit, stage, "14_7")?;
         let mut gone = sliver.clone();
         gone.extend(&over_grid);
@@ -804,6 +854,10 @@ impl SceneConstruct for TheMissingSquare {
         // on the screen
         line.wait_end(stage)?;
         pause(stage, SILENCE_S)?;
+        // the silence ends here: the music may return at the next gap (the
+        // storyboard has it back at 15_1, a register lower, which is the
+        // score's to do)
+        kit.mark(stage, "silence_end:cross");
         // the card refuses to file: its slot on the shelf stays empty
         let slot = super::draw::empty_slot(stage, SLOT)?;
         #[cfg(test)]
@@ -1028,6 +1082,32 @@ mod tests {
         assert!(WINDOW_AT[1] + WINDOW.1 / 2.0 + 0.5 <= SHELF_FLOOR + 1e-9);
         // the overlay does not meet the panel
         assert!(OVER_AT[0] + OVER_CELL * w < PANEL_X - PANEL_W / 2.0);
+    }
+
+    /// 14_2's window (storyboard, "Sound plan": three of the four bloom, the
+    /// fourth is missing): three notes, the first three of the pentatonic's
+    /// climb that the landings use, spaced as the lights on the pieces are,
+    /// all inside the window of the breath they replace; the fourth step of
+    /// the climb never sounds.
+    #[test]
+    fn three_of_the_four_bloom_and_the_fourth_is_missing() {
+        let strikes = missing_strikes();
+        assert_eq!(strikes.len(), 3);
+        for (i, s) in strikes.iter().enumerate() {
+            assert_eq!(s.pitch, sound::landing_pitch(i), "note {i} of the climb");
+        }
+        assert!(strikes.iter().all(|s| s.pitch != sound::landing_pitch(3)));
+        assert!(strikes.windows(2).all(|w| w[1].at - w[0].at >= LIGHT_S + 0.05));
+        // the last note and its ring, and the silent light on the empty tile
+        // after it, end inside the window that took the breath's 2.5 s
+        let window = explainer_kit::animatic::HOLD_S;
+        let last = strikes.last().unwrap().at;
+        assert!(
+            last + LIGHT_S + 0.1 + LIGHT_S + 0.2 <= window + 0.05,
+            "{last} s of {window}"
+        );
+        // quiet: the viewer is counting tiles under it
+        assert!(strikes.iter().all(|s| s.velocity <= 0.5));
     }
 
     /// With the scratch voice placed each line starts within two seconds,

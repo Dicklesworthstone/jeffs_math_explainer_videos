@@ -1826,11 +1826,17 @@ pub mod testing {
             .iter()
             .map(|w| (w.label.clone(), w.frame as f64 / fps, w.seconds))
             .collect();
+        let marks = timeline
+            .marks
+            .iter()
+            .map(|m| (m.label.clone(), m.frame as f64 / fps))
+            .collect();
         Ok(Voiced {
             ran,
             tag,
             lines,
             listens,
+            marks,
         })
     }
 
@@ -2005,6 +2011,8 @@ pub mod testing {
         pub lines: Vec<(String, f64, f64)>,
         /// Every listen window: its label, its start and its length, seconds.
         pub listens: Vec<(String, f64, f64)>,
+        /// Every authored mark (`kit.mark`): its label and its time, seconds.
+        pub marks: Vec<(String, f64)>,
     }
 
     /// What the quiz asked on one line did, measured (scene seconds).

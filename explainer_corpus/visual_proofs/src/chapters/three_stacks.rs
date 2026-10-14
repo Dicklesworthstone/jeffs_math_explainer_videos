@@ -23,6 +23,7 @@ use super::draw::{
 use super::iso::{Anchor, Iso, P3, Solid, box_cells};
 use super::kinetics::{Moves, arrive, leave, play, prepared};
 use super::siu::{ROW, VIEW, WAIT, colour, edge_brace, legend, level, min_corner, placed, quarters_for};
+use super::sound;
 use crate::facts::shown;
 use crate::model::{layers, stacks};
 
@@ -377,6 +378,8 @@ impl SceneConstruct for ThreeStacks {
         let why_in = arrive(stage, why, 0.5)?;
         play(stage, vec![why_in], 0.0)?;
         line.wait_end(stage)?;
+        // the three stacks sit together: the arrangement is a finished chord
+        sound::bloom(&kit, stage, "stacks")?;
         let mut dots_out: Moves = dots
             .iter()
             .map(|&d| leave(stage, d, 0.3))

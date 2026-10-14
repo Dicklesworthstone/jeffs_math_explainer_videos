@@ -26,6 +26,7 @@ use super::draw::{
 };
 use super::iso::{Iso, Solid, ViewAt, box_cells};
 use super::kinetics::{together, zoom_about};
+use super::sound;
 use super::staircases::WAITING_AT;
 use crate::facts::shown;
 use crate::model::Rect;
@@ -462,7 +463,6 @@ impl SceneConstruct for Slabs {
         let tile = b1.slab(stage, one[0].rect, size(1));
         fade_in_all(stage, &[tile], 0.4)?;
         layers.push(vec![tile]);
-        kit.mark(stage, "pizz:layer");
         let mut brace = side_brace(&kit, stage, &b1, sides[0])?;
         fade_in_all(stage, &brace.mobs(), 0.4)?;
         together(stage, vec![light(&row, 0)?], 0.0)?;
@@ -484,7 +484,6 @@ impl SceneConstruct for Slabs {
         line.wait_for(stage, "must be cut in half")?;
         let pair = halves(stage, &b2, 2);
         let seams2 = cut_and_place(&kit, stage, &b2, cut2, pair, &two)?;
-        kit.mark(stage, "pizz:layer");
         let mut mobs = vec![corner2, pair.0, pair.1];
         mobs.extend(seams2);
         layers.push(mobs);
@@ -493,6 +492,9 @@ impl SceneConstruct for Slabs {
         brace = next;
         together(stage, vec![light(&row, 1)?], 0.0)?;
         line.wait_end(stage)?;
+        // the layer's one sound is the cut slab's split ping, which the score
+        // strikes at the end of this sentence: the music has the room for it
+        sound::room(&kit, stage)?;
 
         // ---------------------------------------------------------- 05_3
         // the three cube needs no cutting: a corner and a slab on each arm
@@ -514,7 +516,6 @@ impl SceneConstruct for Slabs {
         together(stage, landing, 0.0)?;
         line.wait_for(stage, "one on each arm")?;
         together(stage, arms, 0.3)?;
-        kit.mark(stage, "pizz:layer");
         layers.push(waiting3.clone());
         line.wait_for(stage, "six on a side")?;
         let next = side_brace(&kit, stage, &b3, sides[2])?;
@@ -522,6 +523,8 @@ impl SceneConstruct for Slabs {
         brace = next;
         together(stage, vec![light(&row, 2)?], 0.0)?;
         line.wait_end(stage)?;
+        // the three cube needs no cut: its layer is closed, a finished chord
+        sound::bloom(&kit, stage, "layer")?;
 
         // ---------------------------------------------------------- 05_4
         // your turn: the four cube's layer, its slabs waiting, its arms
@@ -580,7 +583,6 @@ impl SceneConstruct for Slabs {
         fade_out_all(stage, &[card.answer], 0.3)?;
         let pair = halves(stage, &b4, 4);
         let seams4 = cut_and_place(&kit, stage, &b4, waiting4[3], pair, &four)?;
-        kit.mark(stage, "pizz:layer");
         let mut mobs = waiting4[..3].to_vec();
         mobs.extend([pair.0, pair.1]);
         mobs.extend(seams4);
@@ -593,6 +595,8 @@ impl SceneConstruct for Slabs {
         brace = next;
         together(stage, vec![light(&row, 3)?], 0.0)?;
         line.wait_end(stage)?;
+        // the cut slab's split ping is this layer's one sound (see 05_2)
+        sound::room(&kit, stage)?;
 
         // ---------------------------------------------------------- 05_6
         // the five cube: no cut, two whole slabs along each arm, the square
@@ -618,7 +622,6 @@ impl SceneConstruct for Slabs {
             moves.push(to_place(&b5, waiting5[p.slab as usize], p, 0.8)?);
         }
         together(stage, moves, 0.25)?;
-        kit.mark(stage, "pizz:layer");
         layers.push(waiting5.clone());
         line.wait_for(stage, "fifteen on a side")?;
         let next = side_brace(&kit, stage, &b5, sides[4])?;
@@ -656,8 +659,12 @@ impl SceneConstruct for Slabs {
             stage.get_center(last)[1],
         );
         play!(stage; fly(fifteen, land, BRACE_PT / ANSWER_PT, 1.0)?);
-        kit.mark(stage, "pizz:total");
+        // the fifteen lands where the sum ends: the five layers are one
+        // finished picture, a finished chord (the layers before it, but the
+        // three cube's, were quiet)
+        kit.mark(stage, "reveal:total");
         flash(stage, &[fifteen], hero(), 1.15, 0.5)?;
+        sound::room(&kit, stage)?;
 
         // ---------------------------------------------------------- 05_7
         // the same tiles counted two ways

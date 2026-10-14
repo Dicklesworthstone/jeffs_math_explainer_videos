@@ -17,9 +17,9 @@ use explainer_kit::{Kit, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, CardLook, CardRow, ProofCard, Side, Words, aside, breath, dim, fact, fact_int, fact_ints, fade_in_all,
-    fade_out_all, fade_to, faded_line, fail, faint, fit_width_left, flat, hero, ink, lens_mark, question_card,
-    question_pause, say, size, warn,
+    Board, CardLook, CardRow, ProofCard, Side, Words, aside, dim, fact, fact_int, fact_ints, fade_in_all, fade_out_all,
+    fade_to, faded_line, fail, faint, fit_width_left, flat, hero, ink, lens_mark, question_card, question_pause, say,
+    size, warn,
 };
 use super::four_triangles::{ASSUMED_CORNER, CLOSES, SHARP_SUM, SHOWN_TEX, corners_f, left_over_f, slid_f, tilted_f};
 use super::the_missing_square::{EDGE_STRAIGHT, IT_BENDS, MED_AT, MED_CELL, NOTHING, P2, ZOOM, edge_of, magnify};
@@ -69,6 +69,16 @@ const ASIDE_AT_CH: Vec3 = [4.2, -2.1, 0.0];
 /// The names to search of 15_6: the left edge and the rows.
 const NAMES_X: f64 = -2.8;
 const NAMES_Y: [f64; 4] = [2.0, 1.15, 0.6, 0.0];
+/// The listen window the video's one resolution plays in (15_6): soundless,
+/// labelled for the score (`score::identity`'s theme "15_6", resolved), which
+/// writes the motif and its resolution into it. The score fits the theme's
+/// last note's onset before 2.5 s of the video's end, after the voice has
+/// cleared (0.35 s) and the breath before the window (0.6 s); the window, the
+/// fade after it (0.6 s) and the relaxed beat of the closing resolution make
+/// this the shortest that holds all six notes, with a margin.
+pub(super) const RESOLVE_S: f64 = 6.0;
+/// The window's label: the chapter and the line of the theme.
+pub(super) const RESOLVE_LABEL: &str = "15_what_makes_a_proof:15_6";
 
 // everything keeps under the shelf's row and inside the frame
 const _: () = assert!(QUESTION_AT[1] + 0.9 <= super::draw::SHELF_FLOOR + 1e-9);
@@ -506,7 +516,10 @@ impl SceneConstruct for WhatMakesAProof {
         line.wait_for(stage, "It shows you why")?;
         fade_in_all(stage, &[search, book_one, book_two, journal], 0.7)?;
         line.wait_end(stage)?;
-        breath(&kit, stage)?;
+        // the video's one resolution (storyboard: "pieces, then the whole"):
+        // the motif's three notes and their resolution, alone, in the
+        // music's own window over the names to search
+        kit.listen(stage, RESOLVE_S, RESOLVE_LABEL)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;

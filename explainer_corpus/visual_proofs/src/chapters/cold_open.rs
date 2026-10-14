@@ -54,8 +54,11 @@ pub const OPEN: f64 = 0.3;
 /// move's length after the one before).
 pub const DROP_S: f64 = 0.4;
 pub const DROP_LAG: f64 = 0.22;
-/// The listen window the landings play in (the last note rings out).
-pub const WINDOW_S: f64 = 2.0;
+/// The listen window the landings play in: the last piece lands 1.8 s in, the
+/// square's chord-bloom is struck with it, and the window leaves the bloom
+/// the clear second and a half the score wants before the next sentence (it
+/// skips a note cue with less than a second).
+pub const WINDOW_S: f64 = 3.4;
 /// The two views: the classic one of the row, and the flat one of the board.
 const ROOM_ROW: (f64, f64) = (13.4, 6.4);
 const ROOM_BOARD: (f64, f64) = (7.4, 7.0);
@@ -297,7 +300,9 @@ impl SceneConstruct for ColdOpen {
             drops.push(iso.land(stage, l.solid, board_corner(&l.piece, 0.0), DROP_S)?);
         }
         iso.play(stage, drops, DROP_LAG)?;
-        kit.mark(stage, "pizz:square");
+        // the last piece lands and the square is a finished chord: the bloom
+        // is struck with it, in the window's clear second
+        kit.mark(stage, "reveal:square");
         // the seams of the four halves stay visible in the finished square
         let flat = board_view(side);
         let mut seams: Vec<Mob> = Vec::new();
@@ -522,6 +527,13 @@ mod tests {
             last.at < WINDOW_S,
             "the last piece lands at {} s in a window of {WINDOW_S}",
             last.at
+        );
+        // the bloom struck with it needs a clear second before the voice
+        // (the score's CUE_MIN_GAP), and a margin
+        assert!(
+            WINDOW_S - last.at >= 1.0 + 0.3,
+            "the window leaves {} s after the last landing",
+            WINDOW_S - last.at
         );
         // the pitches stay inside the marimba's range
         assert!(strikes.iter().all(|s| (48.0..=96.0).contains(&s.pitch)));

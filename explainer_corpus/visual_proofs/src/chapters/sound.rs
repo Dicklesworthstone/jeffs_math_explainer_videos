@@ -22,10 +22,12 @@
 use std::f64::consts::PI;
 use std::path::PathBuf;
 
+use explainer_kit::Kit;
 use explainer_score::filter::{Biquad, Kind};
 use explainer_score::instr::{Instrument, Note, render};
 use explainer_score::theory::Chord;
 use explainer_score::{FS, Stereo};
+use fmn::prelude::Stage;
 
 use super::draw::fail;
 use crate::model::{Q, QUIZZES, Quiz};
@@ -214,6 +216,29 @@ pub fn countdown(quiz: &Quiz) -> fmn::Result<PathBuf> {
 }
 
 // ------------------------------------------------------------ the landings
+
+/// How long the music has the picture to itself after a landing's bloom
+/// (seconds). The score skips a note cue with less than a second before the
+/// next sentence, and the next line comes a breath after the window, so a
+/// bloom at a line's end sounds with about 1.5 s of the music's own.
+pub const BLOOM_ROOM_S: f64 = 1.2;
+
+/// [`BLOOM_ROOM_S`] of the music alone after the line that has just ended
+/// (the line's own sentence-end cue, a mark struck as it ended, has room).
+pub fn room(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    kit.music_breath(stage, BLOOM_ROOM_S)
+}
+
+/// A landing's chord-bloom (storyboard, "Sound plan": a finished picture is a
+/// finished chord): a `reveal:` mark where the line that told the landing
+/// has just ended, then [`room`], so the score has the clear second a note
+/// cue needs and the answer instrument rings in it. One a sentence, at the
+/// layer's, stack's or arrangement's last landing; the other landings are
+/// silent. Call it after `line.wait_end`.
+pub fn bloom(kit: &Kit, stage: &mut Stage<'_>, name: &str) -> fmn::Result<()> {
+    kit.mark(stage, &format!("reveal:{name}"));
+    room(kit, stage)
+}
 
 /// A note struck at `at` seconds into a sonification: its MIDI pitch and
 /// its strength.
@@ -527,5 +552,176 @@ mod tests {
         assert!((lufs - LEVEL_LUFS).abs() < 0.2, "{lufs} LUFS");
         assert_eq!((s.l[s.len() - 1], s.r[s.len() - 1]), (0.0, 0.0));
         assert!(energy_above(&s, 4_000.0) < 1e-4);
+    }
+
+    /// The storyboard's sound plan as the chapters leave it for the score,
+    /// every chapter run once with the scratch voice: which marks each
+    /// chapter writes (nothing the plan does not name), that a note cue has
+    /// the clear second the score asks before the next sentence (a cue
+    /// without it is skipped, and the plan's bloom would never sound), the
+    /// authored silence of 14_7 around the cross, and the resolution's
+    /// window at 15_6.
+    #[test]
+    fn the_chapters_leave_the_sound_plan_for_the_score() {
+        use std::collections::BTreeMap;
+
+        use crate::chapters::draw::testing;
+
+        let chapters = crate::chapters::registry();
+        let mut by_chapter: BTreeMap<&str, Vec<String>> = BTreeMap::new();
+        for chapter in &chapters {
+            let voiced = testing::run_voiced(chapter.key).unwrap();
+            let mut starts: Vec<(f64, f64)> = voiced.lines.iter().map(|(_, at, len)| (*at, at + len)).collect();
+            starts.sort_by(|a, b| a.0.total_cmp(&b.0));
+            let end = voiced.ran.seconds;
+            let mut labels: Vec<String> = Vec::new();
+            for (label, t) in &voiced.marks {
+                // the question card's own mark ("predict": the score's gap
+                // before an answer) is the card's, not this plan's
+                if label == "predict" {
+                    continue;
+                }
+                labels.push(label.clone());
+                let kind = label.split(':').next().unwrap_or("");
+                if !matches!(kind, "reveal" | "pizz") {
+                    continue;
+                }
+                // a note cue: its sentence's end (a mark inside a line is
+                // moved there if that is within 2 s) and the next onset
+                let inside = starts.iter().find(|s| *t >= s.0 - 0.15 && *t < s.1);
+                let cue_at = match inside {
+                    Some(s) => {
+                        assert!(
+                            s.1 - t <= 2.0,
+                            "{}: {label} at {t:.1} s is {:.1} s from its line's end: skipped",
+                            chapter.key,
+                            s.1 - t
+                        );
+                        s.1
+                    }
+                    None => *t,
+                };
+                let next = starts.iter().map(|s| s.0).find(|&a| a > cue_at + 0.01).unwrap_or(end);
+                assert!(
+                    next - cue_at >= 1.0 + 0.3 - 1e-6,
+                    "{}: {label} at {t:.2} s (struck at {cue_at:.2} s) has {:.2} s before the next line, \
+                     which starts at {next:.2} s: skipped by the score; lines {:?}",
+                    chapter.key,
+                    next - cue_at,
+                    starts
+                        .iter()
+                        .filter(|s| (s.0 - cue_at).abs() < 8.0 || (s.1 - cue_at).abs() < 8.0)
+                        .collect::<Vec<_>>()
+                );
+            }
+            labels.sort();
+            by_chapter.insert(chapter.key, labels);
+
+            // the silences and the window
+            let line = |id: &str| voiced.lines.iter().find(|l| l.0 == id).map(|l| (l.1, l.1 + l.2));
+            let mark = |label: &str| voiced.marks.iter().find(|m| m.0 == label).map(|m| m.1);
+            match chapter.key {
+                "02_five_for_five" => {
+                    let (start, _) = line("02_6").expect("02_6 is said");
+                    let at = mark("silence:thirty_one").expect("02_6's silence");
+                    assert!(at <= start + 0.05 && start - at < 3.0, "{at} s, 02_6 starts at {start}");
+                }
+                "14_the_missing_square" => {
+                    let (start, stop) = line("14_7").expect("14_7 is said");
+                    let begins = mark("silence:cross").expect("14_7's silence");
+                    let ends = mark("silence_end:cross").expect("its end");
+                    // before the sentence, in the gap, and over once the
+                    // cross has had its seconds of nothing
+                    assert!(
+                        begins <= start + 0.05 && start - begins < 3.0,
+                        "{begins} s, 14_7 starts at {start}"
+                    );
+                    assert!(
+                        ends >= stop + super::super::the_missing_square::SILENCE_S - 0.1,
+                        "{ends} s"
+                    );
+                    // the scene is the length of the line and the silence
+                    assert!(end >= ends, "the silence ends after the chapter");
+                }
+                "15_what_makes_a_proof" => {
+                    let (_, stop) = line("15_6").expect("15_6 is said");
+                    let (label, at, seconds) = voiced
+                        .listens
+                        .iter()
+                        .find(|w| w.0.ends_with(":15_6"))
+                        .expect("a listen window for the resolution");
+                    assert_eq!(label, super::super::what_makes_a_proof::RESOLVE_LABEL);
+                    assert!(*at >= stop, "the window opens at {at} s, 15_6 ends at {stop}");
+                    assert_eq!(*seconds, super::super::what_makes_a_proof::RESOLVE_S);
+                }
+                _ => {}
+            }
+        }
+        let label = |l: &[&str]| l.iter().map(|s| (*s).to_owned()).collect::<Vec<_>>();
+        let mut want: BTreeMap<&str, Vec<String>> = chapters.iter().map(|c| (c.key, Vec::new())).collect();
+        want.insert("01_cold_open", label(&["reveal:square"]));
+        want.insert(
+            "02_five_for_five",
+            label(&[
+                "silence:thirty_one",
+                "tick:total",
+                "tick:total",
+                "tick:total",
+                "tick:total",
+                "tick:total",
+            ]),
+        );
+        want.insert(
+            "04_staircases",
+            label(&[
+                "tick:column",
+                "tick:column",
+                "tick:column",
+                "tick:column",
+                "tick:column",
+            ]),
+        );
+        // the two cut slabs, the three cube's layer and the fifteen
+        want.insert(
+            "05_slabs",
+            label(&["pizz:split", "pizz:split", "reveal:layer", "reveal:total"]),
+        );
+        want.insert("07_three_stacks", label(&["reveal:stacks"]));
+        want.insert("09_every_height", label(&["reveal:level"]));
+        want.insert("13_four_triangles", label(&["reveal:squares"]));
+        want.insert("14_the_missing_square", label(&["silence:cross", "silence_end:cross"]));
+        assert_eq!(by_chapter, want);
+    }
+
+    /// 15_6's window is long enough for the score to write the whole theme
+    /// (the motif and its resolution) into it: the last note's onset, with
+    /// the closing resolution's relaxed beat, falls before 2.5 s from the
+    /// video's end.
+    #[test]
+    fn the_resolution_window_holds_the_whole_theme() {
+        use explainer_score::score::Theme;
+
+        let id = crate::score::identity();
+        assert_eq!(
+            id.theme_for(super::super::what_makes_a_proof::RESOLVE_LABEL),
+            Some(Theme::Resolved)
+        );
+        let beats: Vec<f64> = id
+            .motif
+            .durations
+            .iter()
+            .chain(&id.resolution.durations)
+            .copied()
+            .collect();
+        let before_last: f64 = beats[..beats.len() - 1].iter().sum();
+        // the voice clears 0.35 s after the line; the video ends 0.6 s (the
+        // breath) + the window + 0.6 s (the fade) after the line; the score's
+        // limit on an onset is 2.5 s before the end; a relaxed beat is 1.08
+        let needed = 0.35 + before_last * id.beat_s * 1.08 + 2.5 - 0.6 - 0.6;
+        let window = super::super::what_makes_a_proof::RESOLVE_S;
+        assert!(
+            window >= needed + 0.25,
+            "window {window} s, needs {needed:.2} s and a margin"
+        );
     }
 }

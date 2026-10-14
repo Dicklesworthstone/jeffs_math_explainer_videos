@@ -320,7 +320,9 @@ impl SceneConstruct for FiveForFive {
                 tween_to(running, hook.totals[k] as f64, 0.55)?,
                 fade_in(stage.arena_mut(), total, ORIGIN, 1.0)?.rt(0.4),
             );
-            kit.mark(stage, "pizz:total");
+            // the storyboard's woodblock tick on each total: a counter's tick
+            // lands on its mark, under the voice, and the score keeps it soft
+            kit.mark(stage, "tick:total");
             play!(stage; row.iso.glow(row.solids[k], hero(), 0.0, 0.3)?);
             adds.push(plus);
             totals.push(total);

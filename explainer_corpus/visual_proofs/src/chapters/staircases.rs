@@ -169,7 +169,8 @@ impl SceneConstruct for Staircases {
                 fade_in(stage.arena_mut(), m, v(0.0, -0.3), 1.0)?.rt(0.45),
                 tween_linear(tally, counts[k] as f64, 0.45)?,
             );
-            kit.mark(stage, "pizz:column");
+            // "a counter ticks": a tick on each column, with the spoken count
+            kit.mark(stage, "tick:column");
         }
         line.wait_end(stage)?;
 

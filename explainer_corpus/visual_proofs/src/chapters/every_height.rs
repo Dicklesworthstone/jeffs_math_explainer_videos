@@ -514,6 +514,10 @@ impl SceneConstruct for EveryHeight {
             .collect::<fmn::Result<Moves>>()?;
         play(stage, braces_in, 0.25)?;
         line.wait_end(stage)?;
+        // the new level is under every stack and the slab goes underneath:
+        // the block is a finished chord, struck as the line ends and rung in
+        // the breath that follows
+        kit.mark(stage, "reveal:level");
         breath(&kit, stage)?;
 
         // ---------------------------------------------------------- 09_3
