@@ -24,14 +24,14 @@ use std::f64::consts::{PI, TAU};
 
 use explainer_kit::animatic::wrap;
 use explainer_kit::props::lower_third;
-use explainer_kit::{Kit, Palette, fade_all, v};
+use explainer_kit::{Kit, Palette, fade_all, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::deck::{Deck, DeckSpec, scene_clock};
 use super::draw::{
-    arrow_points, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, group, items, numbers, own, panel,
-    predict_hold, pushes, say, tween_all, whole,
+    arrow_points, corners, fact, fade_in_all, fade_out_all, fade_out_anim, faded_line, fail, flat, group, items,
+    numbers, own, panel, predict_hold, pushes, say, tween_all, whole,
 };
 use super::the_bridge_that_swayed::{date_text, question_card};
 
@@ -604,6 +604,54 @@ pub struct TwoBridges {
     pub kit: Kit,
 }
 
+/// How far under the number line the axis's unit ("sideways swings a
+/// second") and the walker's own label stand, and how far in from the line's
+/// right end the unit's middle is. The label is wider than the room it has
+/// beside the unit, so it is shifted left until a `CAPTION_GAP` of clear
+/// air stands between them (they were 0.3 apart with half a unit of overlap:
+/// the dense read of 08_5, P5).
+const AXIS_CAPTION_DROP: f64 = 0.85;
+const AXIS_CAPTION_INSET: f64 = 1.2;
+const WALKER_LABEL_DROP: f64 = 1.15;
+const CAPTION_GAP: f64 = 0.3;
+
+/// The two captions under 08_5's number line, detached: the walker's label
+/// ("a walker's sway: 1 a second"), under the walker's mark as nearly as it
+/// can stand, and the axis's unit at the line's right end. Returns them in
+/// that order.
+fn number_line_captions(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    walker_hz: f64,
+    walker_color: Srgb,
+    unit_color: Srgb,
+) -> fmn::Result<(Mob, Mob)> {
+    let caption = kit.text(
+        stage,
+        "sideways swings a second",
+        22.0,
+        unit_color,
+        v(hz_x(LINE_MAX_HZ) - AXIS_CAPTION_INSET, LINE_Y - AXIS_CAPTION_DROP),
+    )?;
+    let label = kit.text(
+        stage,
+        &format!("a walker's sway: {} a second", whole(walker_hz)),
+        24.0,
+        walker_color,
+        v(hz_x(walker_hz), LINE_Y - WALKER_LABEL_DROP),
+    )?;
+    // the label's right edge stands `CAPTION_GAP` left of the unit's left
+    // edge if it would otherwise stand nearer: slide it left, no further
+    let unit_left = stage.get_center(caption)[0] - stage.get_width(caption) / 2.0;
+    let centre = stage.get_center(label);
+    let right = centre[0] + stage.get_width(label) / 2.0;
+    let allowed = unit_left - CAPTION_GAP;
+    if right > allowed {
+        stage.move_to(label, v(centre[0] - (right - allowed), centre[1]), ORIGIN);
+    }
+    Ok((label, caption))
+}
+
 impl SceneConstruct for TwoBridges {
     fn name(&self) -> &str {
         "08_two_bridges"
@@ -891,20 +939,7 @@ impl SceneConstruct for TwoBridges {
                 .style(faded_line(orange, 5.0, 1.0))
                 .build(),
         );
-        let walker_label = kit.text(
-            stage,
-            &format!("a walker's sway: {} a second", whole(walker_hz)),
-            24.0,
-            orange,
-            v(hz_x(walker_hz), LINE_Y - 1.15),
-        )?;
-        let axis_caption = kit.text(
-            stage,
-            "sideways swings a second",
-            22.0,
-            dim,
-            v(hz_x(LINE_MAX_HZ) - 1.2, LINE_Y - 0.85),
-        )?;
+        let (walker_label, axis_caption) = number_line_captions(&kit, stage, walker_hz, orange, dim)?;
         line_parts.extend([walker_mark, walker_label, axis_caption]);
         let dallard = lower_third(
             &kit,
@@ -941,12 +976,24 @@ impl SceneConstruct for TwoBridges {
         // ---- 08_7: neither trouble was strength: a mode and a push that grew with it
         let line = say(&kit, stage, "08_7")?;
         stage.clear_updaters(swing_grow, true);
-        tween_all(stage, &[(plan.shown, 0.0), (plan.push_on, 0.0)], 0.5)?;
-        plan.stop(stage);
+        // the plan view's curves and its labels go in the same half second
+        // (the curves went first and the labels stood on an empty plan)
         let mut gone = first.clone();
         gone.extend(&line_parts);
         gone.push(arup);
-        fade_out_all(stage, &gone, 0.5)?;
+        let mut together: Vec<Box<dyn Animation>> = vec![
+            stage.prepare(tween(plan.shown, 0.0, 0.5)?)?,
+            stage.prepare(tween(plan.push_on, 0.0, 0.5)?)?,
+        ];
+        for &m in &gone {
+            together.push(fade_out_anim(stage, m, 0.5)?);
+        }
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "08_7", "out_start", stage.scene().time().to_f64());
+        stage.play_prepared(together)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "08_7", "out_end", stage.scene().time().to_f64());
+        plan.stop(stage);
         let tacoma_gold = TwistDeck::build(
             stage,
             TwistSpec {
@@ -1027,6 +1074,8 @@ fn whole_or(x: f64) -> String {
 #[cfg(test)]
 mod tests {
     use super::super::carts::probe::run_scene;
+    use fmn::core::constants::FRAME_X_RADIUS;
+
     use super::super::draw::testing;
     use super::*;
 
@@ -1361,5 +1410,56 @@ mod tests {
         let s = testing::run_voiced("08_two_bridges").unwrap().ran.seconds;
         eprintln!("08_two_bridges: {s:.1} s on the scratch voice");
         assert!(s > 45.0 && s < 85.0, "{s} s");
+    }
+
+    /// 08_7: the plan view's curves and its labels, the number line and
+    /// Arup's lower-third go in the same half second (the curves went first
+    /// and the labels stood on an empty plan for half a second).
+    #[test]
+    fn the_plan_view_and_its_labels_leave_together() {
+        let voiced = testing::run_voiced("08_two_bridges").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "08_7");
+        let at = |k: &str| events.iter().find(|e| e.0 == k).unwrap_or_else(|| panic!("no {k}")).1;
+        let took = at("out_end") - at("out_start");
+        assert!((took - 0.5).abs() < 0.1, "the exit took {took:.2} s");
+    }
+
+    /// 08_5: the walker's label and the axis's unit ("sideways swings a
+    /// second") under the number line stand `CAPTION_GAP` apart, side by side,
+    /// with the label still under the walker's mark and both inside the frame
+    /// (they were 0.3 apart with half a unit of overlap).
+    #[test]
+    fn the_number_lines_two_captions_stand_apart_and_the_label_stays_under_its_mark() {
+        run_scene(|stage| {
+            let kit = Kit::new()?;
+            let walker = numbers("K-B2.walker_lateral_hz")?[0];
+            let (label, unit) = number_line_captions(&kit, stage, walker, pushes(), Palette::dim())?;
+            let box_of = |stage: &mut Stage<'_>, m: Mob| {
+                let c = stage.get_center(m);
+                let (hw, hh) = (stage.get_width(m) / 2.0, stage.get_height(m) / 2.0);
+                (c[0] - hw, c[0] + hw, c[1] - hh, c[1] + hh)
+            };
+            let (l, u) = (box_of(stage, label), box_of(stage, unit));
+            assert!(
+                u.0 - l.1 >= CAPTION_GAP - 1e-6,
+                "{} of clear air between them",
+                u.0 - l.1
+            );
+            let mark = hz_x(walker);
+            assert!(
+                l.0 < mark && mark < l.1,
+                "the label stands {:?}, its mark at {mark}",
+                (l.0, l.1)
+            );
+            // both stand under the row of tick numbers (22 pt at LINE_Y - 0.48)
+            assert!(l.3 < LINE_Y - 0.6 && u.3 < LINE_Y - 0.6, "{:?} {:?}", l, u);
+            assert!(
+                l.0 > -FRAME_X_RADIUS + 0.3 && u.1 < FRAME_X_RADIUS - 0.3,
+                "{:?} {:?}",
+                l,
+                u
+            );
+            Ok(())
+        });
     }
 }

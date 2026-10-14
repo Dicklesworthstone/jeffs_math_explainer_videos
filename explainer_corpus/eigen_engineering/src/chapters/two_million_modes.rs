@@ -448,29 +448,26 @@ impl SceneConstruct for TwoMillionModes {
             dim,
             v(0.0, -3.45),
         )?;
-        fade_in_all(stage, &[hall_box, speck, speck_words], 0.6)?;
+        fade_in_all(stage, &[hall_box, speck, speck_words], 0.4)?;
         line.wait_for(stage, "a concert hall")?;
-        play!(stage; tween_linear(grow, 1.0, 2.2)?);
-        fade_in_all(stage, &[width_words, depth_words, volume, model_tag], 0.6)?;
+        play!(stage; tween_linear(grow, 1.0, 1.8)?);
+        // the hall's lowest tone, the only place the video says it is below
+        // hearing, comes with the volume once the box has grown (it used to
+        // come with Boston, in the last 2 s of the line, and be taken out
+        // 1 s later) and stays under the 10_3 card, where its 3.8 Hz is the
+        // left end of the axis, until the count starts in 10_4
+        fade_in_all(stage, &[width_words, depth_words, volume, model_tag, lowest], 0.4)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "10_2", "lowest", stage.scene().time().to_f64());
         line.wait_for(stage, "Boston's Symphony Hall")?;
         fade_in_all(stage, &[boston], 0.5)?;
-        fade_in_all(stage, &[lowest], 0.5)?;
         kit.hold(stage)?;
 
         // ---- 10_3: how many modes below a thousand hertz?
         say(&kit, stage, "10_3")?;
         fade_out_all(
             stage,
-            &[
-                speck,
-                speck_words,
-                width_words,
-                depth_words,
-                volume,
-                model_tag,
-                boston,
-                lowest,
-            ],
+            &[speck, speck_words, width_words, depth_words, volume, model_tag, boston],
             0.4,
         )?;
         stage.remove_from_scene(boxer);
@@ -502,7 +499,9 @@ impl SceneConstruct for TwoMillionModes {
 
         // ---- 10_4: nearly two million
         let line = say(&kit, stage, "10_4")?;
-        fade_out_all(stage, &[q, ask, hall_box], 0.3)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "10_2", "lowest_out", stage.scene().time().to_f64());
+        fade_out_all(stage, &[q, ask, hall_box, lowest], 0.3)?;
         fade_out_all(stage, &axis_mobs, 0.4)?;
         let table = count_table();
         let sweep = stage.add_value_tracker(0.0);
@@ -1046,5 +1045,32 @@ mod tests {
             );
         }
         assert!(ran.seconds > 40.0 && ran.seconds < 110.0, "{} s", ran.seconds);
+    }
+
+    /// 10_2: the hall's lowest tone (3.8 Hz, far below hearing) comes in with
+    /// the volume, once the box has grown, and stays under the 10_3 card
+    /// until the count starts in 10_4; it used to come with Boston in the
+    /// last two seconds of the line and be gone a second later (the dense
+    /// read, P5).
+    #[test]
+    fn the_lowest_mode_stands_through_the_question() {
+        let voiced = testing::run_voiced("10_two_million_modes").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "10_2");
+        let at = events.iter().find(|e| e.0 == "lowest").expect("the line was shown").1;
+        let out = events.iter().find(|e| e.0 == "lowest_out").expect("the line left").1;
+        let said = |id: &str| voiced.lines.iter().find(|l| l.0 == id).cloned().unwrap();
+        let start = said("10_2").1;
+        let asked = said("10_3").1;
+        let counted = said("10_4").1;
+        assert!(
+            at >= start && at < asked,
+            "up at {at:.2}, the line starts {start:.2}, 10_3 {asked:.2}"
+        );
+        assert!(
+            out >= counted - 0.1 && out <= counted + 0.1,
+            "leaves at {out:.2}, the count starts at {counted:.2}"
+        );
+        assert!(out > asked, "10_3 asks at {asked:.2}");
+        assert!(out - at >= 4.0, "the line stands {:.2} s", out - at);
     }
 }

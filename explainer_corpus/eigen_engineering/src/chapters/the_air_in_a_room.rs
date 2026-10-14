@@ -515,7 +515,9 @@ impl SceneConstruct for TheAirInARoom {
         stage.set_tracker_value(shape_at, 3.0)?;
         fade_out_all(stage, &[humps[1]], 0.1)?;
         play!(stage; tween_linear(veil, 1.0, 0.3)?);
-        fade_in_all(stage, &[humps[2]], 0.3)?;
+        // the note that says how good the 40-slice table is comes with the
+        // third hump and stands for the rest of the line: it used to come in
+        // after the line, and 09_4 took it out 0.5 s later
         let bound = kit.text(
             stage,
             &format!(
@@ -527,8 +529,9 @@ impl SceneConstruct for TheAirInARoom {
             dim,
             v(0.0, -3.4),
         )?;
-        line.wait_end(stage)?;
-        fade_in_all(stage, &[bound], 0.5)?;
+        fade_in_all(stage, &[humps[2], bound], 0.3)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "09_3", "bound", stage.scene().time().to_f64());
         kit.hold(stage)?;
 
         // ---- 09_4: a round trip is five metres; how many a second?
@@ -1135,5 +1138,27 @@ mod tests {
         if let Some((next, at)) = &a.next_line {
             assert!(*at >= a.window.1 - 0.05, "{next} starts inside the countdown");
         }
+    }
+
+    /// 09_3: the note that says how good the 40-slice table is (within
+    /// 0.03%) comes in with the third hump, while the line is still being
+    /// said, and stands until 09_4; it used to come in after the line and be
+    /// gone half a second later (the dense read, P5).
+    ///
+    /// The bound is 1 s, not the 4 s the real narration gives: the scratch
+    /// voice this test runs on places "three, each" by its share of the
+    /// sentence's characters (about 11 s into a 13.5 s line), while the real
+    /// narration puts the third hump at about 8 s of 11.8 s. The old
+    /// placement stood 0.1 s on either voice.
+    #[test]
+    fn the_tables_error_note_stands_for_the_end_of_the_line() {
+        let voiced = testing::run_voiced("09_the_air_in_a_room").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "09_3");
+        let at = events.iter().find(|e| e.0 == "bound").expect("the note was shown").1;
+        let (_, start, len) = voiced.lines.iter().find(|l| l.0 == "09_3").cloned().unwrap();
+        let next = voiced.lines.iter().find(|l| l.0 == "09_4").unwrap().1;
+        assert!(at >= start, "the note is up before its line starts");
+        assert!(at < start + len, "the note comes in at {at:.2}, after its line");
+        assert!(next - at >= 1.0, "the note stands {:.2} s", next - at);
     }
 }
