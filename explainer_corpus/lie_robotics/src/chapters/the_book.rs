@@ -485,7 +485,7 @@ impl SceneConstruct for TheBook {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, fact, probe};
+    use super::super::draw::{CARD_W, LOWER_THIRD_TOP, SAFE, cut_texts, fact, probe};
     use super::*;
     use crate::model::{DEG, Z};
 
@@ -560,6 +560,7 @@ mod tests {
         probe(|stage| {
             let kit = Kit::new()?;
             let note = precisely(&kit, stage, TURN_SENSES)?;
+            assert!(cut_texts(&kit).is_empty(), "cut: {:?}", cut_texts(&kit));
             let (left, right) = (stage.get_left(note)[0], stage.get_right(note)[0]);
             let (top, bottom) = (stage.get_top(note)[1], stage.get_bottom(note)[1]);
             assert!(
