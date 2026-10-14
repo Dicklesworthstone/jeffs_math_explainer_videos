@@ -64,7 +64,10 @@ const THE_CORNER: &str = "the corner";
 const A_QUARTER: &str = "a quarter as big";
 const PRECISELY: &str = "precisely:";
 const ARCHIMEDES: &str = "Archimedes, Quadrature of the Parabola, Prop. 23:";
-const ARCHIMEDES_SAID: &str = "a finite sum plus a third of its last piece is exactly 4/3 of its first";
+/// Archimedes's hypothesis as well as his result (R2, 11_6): each piece a
+/// quarter of the one before, then the finite sum and the third of its last
+/// piece. The voice says only "quarters of quarters, stopping at a last piece".
+const ARCHIMEDES_SAID: &str = "if each piece is a quarter of the one before, a finite sum plus a third of its last piece is exactly 4/3 of its first";
 const AJOSE: &str = "S. A. Ajose and R. B. Nelsen, Mathematics Magazine";
 const EACH_SLIDES: &str = "each slides onto the other";
 const THIRD_OF_CORNER: &str = "each a third of the corner";
@@ -659,12 +662,23 @@ mod tests {
             "a quarter as big",
             "S. A. Ajose and R. B. Nelsen, Mathematics Magazine, 1994",
             "each slides onto the other",
+            "Archimedes, Quadrature of the Parabola, Prop. 23:",
         ] {
             assert!(
                 words.iter().any(|w| w.contains(want)),
                 "the chapter never typesets {want:?}: {words:?}"
             );
         }
+        // R2: the lower-third states Archimedes's hypothesis, and its words
+        // (wrapped in lines) are whole, with no ellipsis cutting any of them
+        let said: String = words.join(" ");
+        assert!(
+            said.contains(
+                "if each piece is a quarter of the one before, a finite sum plus a third of its last piece is exactly 4/3 of its first"
+            ),
+            "the lower-third's words are not whole: {words:?}"
+        );
+        assert!(!said.contains(" …"), "{said}");
         assert!(ran.seconds > 40.0 && ran.seconds < 90.0, "{} s", ran.seconds);
     }
 }
