@@ -7,10 +7,14 @@
 //! would have come back round; the resolution winds down 5̂ 3̂ 1̂ when a
 //! quiz's answer lands. F major, unhurried, a pad bed with an electric
 //! piano melody and a vibraphone answer (machined and warm, like the arm).
-//! Each countdown is a listen window: the music alone.
+//! Each countdown is a listen window: the music alone, one soft vibraphone
+//! note a second climbing the motif and left open, and the resolution
+//! winding down as the answer lands (`chapters/sound.rs`, built from this
+//! identity's own motif and resolution). The title card's window is the
+//! motif itself, left open.
 
 use explainer_score::instr::Instrument;
-use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette};
+use explainer_score::score::{BASS_UNDER_PAD_DB, Identity, Palette, Theme};
 use explainer_score::theory::{Chord, IONIAN, Key, Motif};
 
 pub fn identity() -> Identity {
@@ -43,6 +47,27 @@ pub fn identity() -> Identity {
         swing: 0.5,
         moods: Vec::new(),
         listen_chord: None,
-        themes: Vec::new(),
+        // 01_3: "listen 3 s (the motif)"
+        themes: vec![("01_3", Theme::Open)],
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_identity_is_one_the_engine_can_play() {
+        assert!(identity().validate().is_ok());
+    }
+
+    /// The title card's window plays the motif open; the quiz windows carry
+    /// their own sound and name no theme.
+    #[test]
+    fn the_title_cards_window_plays_the_motif_open() {
+        let id = identity();
+        assert_eq!(id.theme_for("01_the_book:01_3"), Some(Theme::Open));
+        assert_eq!(id.theme_for("01_the_book:01_1"), None);
+        assert_eq!(id.theme_for("03_three_angles:03_2"), None);
     }
 }

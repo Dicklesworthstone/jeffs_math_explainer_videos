@@ -22,6 +22,7 @@ use explainer_kit::{Facts, Kit, Palette, Script, Timed, hex, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
+use super::sound;
 use crate::model::{self, Arm, DEG, N, Pose, Q, Screw, V3, add, cross, dot, norm, scale, sub, unit};
 use crate::palette;
 
@@ -1925,9 +1926,11 @@ impl QuizCard {
         Ok(())
     }
 
-    /// The countdown: the narration silent, the music alone (a listen window
-    /// of exactly the quiz's seconds), the ring draining with the clock; at
-    /// zero the ring goes and the right choice is outlined and ticked.
+    /// The countdown: the narration silent, one soft note a second climbing
+    /// the motif and left open (a listen window of the quiz's seconds and the
+    /// answer's beat), the ring draining with the clock; at zero the ring goes,
+    /// the right choice is outlined and ticked and the resolution winds down
+    /// for [`sound::LAND_S`] before the next line.
     pub fn count(&self, kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let n = f64::from(self.seconds);
         // the question must be over before the window opens, or the clock
@@ -1945,7 +1948,10 @@ impl QuizCard {
             true,
         )?;
         let label = format!("{}:{}", kit.chapter, self.ask.line);
-        kit.listen(stage, n, &label)?;
+        let wav = sound::countdown(self.seconds)?;
+        kit.sonify(stage, n + sound::LAND_S, &label, &wav)?;
+        let start = stage.scene().time().to_f64();
+        wait_until(stage, start + n)?;
         stage.clear_updaters(self.clock, true);
         let _ = stage.set_tracker_value(self.left, 0.0);
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -1963,7 +1969,7 @@ impl QuizCard {
         for &d in &self.digits {
             stage.remove_from_scene(d);
         }
-        Ok(())
+        wait_until(stage, start + n + sound::LAND_S)
     }
 
     /// What the card still shows once the countdown is over.

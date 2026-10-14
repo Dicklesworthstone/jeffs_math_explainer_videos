@@ -13,6 +13,7 @@ pub mod lost_directions;
 pub mod one_turn;
 pub mod screws;
 pub mod seven_screws;
+pub mod sound;
 pub mod spin;
 pub mod steps;
 pub mod the_book;
