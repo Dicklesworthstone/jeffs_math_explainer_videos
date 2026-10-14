@@ -87,7 +87,7 @@ positive lengths), as the card in the video says.
   five stacks do not tile their only candidate boxes (4 by 5 by 6 and 5 by 5 by
   6), by exact-cover search [F-D.whole.side_least, F-D.whole.boxes,
   F-D.whole.filled, F-D.whole.fewest]. Three is the fewest under the video's rule, by the
-  size of the box [F-S.fewest, F-S.fewest.box]: a stack is 4 by 4 by 4 at its
+  size of the box [F-S.fewest, F-S.fewest.box, F-D.fewest.cubes]: a stack is 4 by 4 by 4 at its
   widest in every direction, so the only box that can hold one and has 30, 60
   or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
   for boxes on the cube lattice (whole width and depth, height in halves), not
@@ -115,7 +115,7 @@ positive lengths), as the card in the video says.
   in words [S12]. With a = 3 and b = 2 the cube's blocks are 27, 18, 12 and 8
   in 1, 3, 3 and 1 cases, and the fourth power's sixteen blocks have volumes
   81, 54, 36, 24 and 16 in 1, 4, 6, 4 and 1 cases, adding to 81 + 216 + 216 +
-  96 + 16 = 625 = 5⁴ [F-X.euclid, F-B.cube.each, F-B.cube.kinds, F-B.fourth.kinds, F-B.fourth.each,
+  96 + 16 = 625 = 5⁴ [F-X.euclid, F-B.parts, F-B.cube.each, F-B.cube.kinds, F-B.fourth.kinds, F-B.fourth.each,
   F-B.fourth.by_kind, F-B.fourth.total]. A block with four lengths at right
   angles cannot be built in three-dimensional space, so the fourth power is
   counted, not drawn: each count is the sum of two neighbours in the row
@@ -125,7 +125,7 @@ positive lengths), as the card in the video says.
   the identity does not care which is which.
 - **Four triangles.** Four copies of the 3-4-5 triangle in a 7 by 7 square
   leave a tilted square of 49 − 24 = 25; slid without turning they leave a 3
-  by 3 and a 4 by 4 [F-P.big, F-P.triangles, F-P.tilted, F-P.squares]. That
+  by 3 and a 4 by 4 [F-P.big, F-D.four_triangles.side, F-P.triangles, F-P.tilted, F-P.squares]. That
   second arrangement is the cut square of the section above, (a + b)² = a² +
   2ab + b², read against the four triangles. It
   holds for every pair of shorter sides a and b, because the tilted shape has
@@ -168,12 +168,12 @@ positive lengths), as the card in the video says.
   position: six give only 30, because the three long lines meet in the middle
   [F-C.evenly_spaced.regions], and eight give 88, not 99, because several lines
   meet inside (counted exactly in the oracle, in Q(√2)
-  [F-C.evenly_spaced.regions.eight]). The pattern is in Leo Moser's note "On the
+  [F-C.evenly_spaced.regions.eight, F-D.circle.general_position]). The pattern is in Leo Moser's note "On the
   Danger of Induction", *Mathematics Magazine* 23(2), November–December
   1949, p. 109 [S1, F-X.moser].
 - **Five tests in a row.** The doubling holds for 1 to 5 points and the cube
   totals 1, 9, 36, 100, 225 are squares: two patterns that pass five checks.
-  Five passing tests prove nothing about the sixth [F-C.regions,
+  Five passing tests prove nothing about the sixth [F-C.regions, F-D.circle.doubling_holds,
   F-C.cube_totals].
 - **A loop against a formula.** Adding 1 + 2 + … + n one at a time is n
   steps; n(n + 1) ÷ 2 is one multiplication and a halving, and n(n + 1) is
@@ -181,7 +181,7 @@ positive lengths), as the card in the video says.
   right: two staircases make a rectangle [F-T.count.hundred].
 - **Floats.** In 64-bit floating point the running sum ½ + ¼ + ⅛ + … is
   exactly 1.0 after 54 pieces: the machine cannot see the gap that the video
-  says never closes [F-H.float.reaches_one].
+  says never closes [F-H.float.reaches_one, F-D.float.sum_at_reach].
 - **Induction is a base case and a step.** The step from height n to n + 1
   in Siu's box is a function that returns the next solid from the last one;
   the chapter's check applies it for n = 1 to 24 and compares the cells

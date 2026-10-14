@@ -13,12 +13,17 @@ cut square, cube and fourth power), F-P (four triangles), F-L (the picture
 that lies), F-Q (the quizzes) and F-X (cited).
 
 The oracle may print more than the video: F-D rows are numbers docs/description.md
-states that no scene shows, each computed here from first principles by the
+states that src/facts.rs does not print, each computed here from first principles by the
 functions below (not typed, not a formula over another row) and cross-checked.
 They are research rows only the oracle prints (tools/description_numbers.py reads
 the oracle's values as facts): the circle's regions for eight points in general
-position, drawn line by line like the video's seven, and the stacks that fill a
-box with whole cubes, by exact-cover search. src/facts.rs prints none of them.
+position, drawn line by line like the video's seven, and for how many points
+doubling holds; the stacks that fill a box with whole cubes, by exact-cover
+search, and the cubes of one, two and three stacks; the side of the square the
+four triangles fill; and the float sum at its reach. src/facts.rs prints none of them.
+(07_2's tag does show the first two cube counts, 30 and 60, as F-S.stack and twice it,
+by arithmetic in the chapter: F-D.fewest.cubes is their oracle row until a video fact
+replaces it.)
 
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed. A key that ends in `.through` is the reach of a slow
@@ -423,6 +428,7 @@ def circle():
     check("the closed form agrees with the drawing at every count", closed == after_all)
     held = [n for n, (r, g) in enumerate(zip(after_all, doubling + [guess]), 1) if r == g]
     check("doubling holds for 1 to 5 points and fails at 6 and 7", held == [1, 2, 3, 4, 5])
+    emit("F-D.circle.doubling_holds", join(held))  # the description's "holds for 1 to 5 points"
     ANSWERS["regions"] = after[-1]
 
     through = [p for x, y in THREE_THROUGH_ONE for p in ((x, y), (-x, -y))]
@@ -939,6 +945,14 @@ def stacks():
     emit("F-S.fewest", fewest)
     emit("F-S.fewest.box", join(f"{w}x{d}x{frac(F(2 * h + 1, 2))}" for w, d, h in half_boxes(fewest)))
     check("one and two stacks make no such box, and three make exactly Siu's", fewest == 3 and half_boxes(3) == [(n, n + 1, n)])
+    # the description's "30, 60 or 90 cubes": the cubes of one, two and three stacks (up to the fewest), the
+    # volumes a box that holds one stack would have to have; only the last has such a box, and it is Siu's
+    cubes_of = [m * len(stack) for m in range(1, fewest + 1)]
+    emit("F-D.fewest.cubes", join(cubes_of))
+    check(
+        "only the last of the stack counts up to the fewest has a box, and its cubes are the box's volume",
+        [bool(half_boxes(m)) for m in range(1, fewest + 1)] == [False] * (fewest - 1) + [True] and cubes_of[-1] == b["volume"],
+    )
 
     running = [0]
 
@@ -1005,12 +1019,16 @@ def halves():
         return None
 
     # 10_4's note for programmers: a 64-bit float's running sum of the halves
-    total, piece, pieces = 0.0, 0.5, 0
+    total, piece, pieces, before = 0.0, 0.5, 0, 0.0
     while total < 1.0:
+        before = total
         total += piece
         piece /= 2
         pieces += 1
     emit("F-H.float.reaches_one", pieces)
+    # the description's "exactly 1.0": the sum at that piece, and the last float below one the piece before
+    emit("F-D.float.sum_at_reach", total)
+    check("the float sum is exactly 1.0 at that piece, and 1 - 2^-53, the last float below one, the piece before", total == 1.0 and before == 1 - 2.0**-53)
     reach("F-H.checked.through", checked)
 
 
@@ -1206,6 +1224,9 @@ def four_triangles(a, b):
     if area(squares[0]) + area(squares[1]) != out["tilted"]:
         return out, "the two squares are not the tilted square"
     out["moved"] = moved
+    xs = [p[0] for t in triangles for p in t]
+    ys = [p[1] for t in triangles for p in t]
+    out["side"] = (max(xs) - min(xs), max(ys) - min(ys))  # the square the four triangles fill, measured
     return out, None
 
 
@@ -1234,6 +1255,10 @@ def pythagoras():
         sys.exit(f"oracle: shorter sides {a} and {b}: {why}")
     emit("F-P.legs", join(LEGS))
     emit("F-P.big", frac(drawn["big"]))
+    # the description's "7 by 7 square": how wide and tall the four triangles are together
+    wide, tall = drawn["side"]
+    check("the four triangles fill a square, as wide as tall, of the area F-P.big and the two shorter sides together", wide == tall and wide * wide == drawn["big"] and wide == sum(LEGS))
+    emit("F-D.four_triangles.side", wide)
     emit("F-P.triangle", frac(drawn["triangle"]))
     emit("F-P.triangles", frac(4 * drawn["triangle"]))
     emit("F-P.tilted", frac(drawn["tilted"]))
