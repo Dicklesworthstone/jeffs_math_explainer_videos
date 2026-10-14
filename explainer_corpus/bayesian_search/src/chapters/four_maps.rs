@@ -23,8 +23,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     Heat, Lattice, Probe, QUIZ_LINES_Y, Spoken, Strip, carry_pause, fade_in_all, fade_in_lagged, fade_out_all, fail,
-    find, flat, found, last_known, line_style, map, panel as card_fill, pause, say, scatter, search, true_place,
-    tween_linear, wrong,
+    find, flat, found, last_known, line_style, map, out as slate, panel as card_fill, pause, say, scatter, search,
+    true_place, tween_linear, wrong,
 };
 use crate::facts::{facts, shown};
 use crate::model::{Q, y1968};
@@ -51,9 +51,25 @@ const LOOKED: &str = "how well you looked";
 const UPDATE: &str = "the update:";
 const UPDATE_RULE: &str = "p (1 − d) ÷ (1 − p d)";
 const RULE: &str = "search where the chance of a find is greatest";
-const NEVER_ADDS: &str = "the update multiplies and never adds: a place with no dots can never gain one";
 const BELIEVED: &str = "believed:";
-const SILENCE_LABEL: &str = "the silence";
+/// The listening tracks are not wrong, only doubted: no source says that map
+/// was (R2: S12, D11). Two lines, so the label stays inside its panel.
+const DOUBTED: [&str; 2] = ["doubted, so drawn", "both ways"];
+/// 14_4's room for the truth (R2: M2, R4, D5, S18): the little sea's
+/// captions, and the cost of a first map that gave the truth no chance.
+const ROOM_LETTERS: [&str; 4] = ["A", "B", "C", "D"];
+const ROOM_NO_DOTS: &str = "no dots there, so no chance there, ever";
+const ROOM_THIS_IS: &str = "this is the room";
+const COST_FIRST: &str = "a wrong first map costs time, not the answer, if it gave the truth some chance:";
+const COST_F6_ON: &str = "on the Navy’s map F6, with";
+const COST_F6_DOTS: &str = "dots, would be searched";
+const COST_EMPTY_OF: &str = "of the";
+const COST_EMPTY_WORDS: &str = "cells have no dots and are never searched (model)";
+const ALDRIDGE_FIRST: [&str; 3] = [
+    "chapter 11’s first map:",
+    "a guessed time put the dots almost",
+    "miles too far north",
+];
 const OFF_BY: &str = "hours off";
 const MEN: &str = "men";
 const RECEIPTS_CLAIM: &str = "Every number in this video is in the code, and each was checked a second way.";
@@ -86,8 +102,28 @@ const COLD_ROW_H: f64 = 0.46;
 /// under it.
 const BELIEF_ROW_H: f64 = 0.30;
 const BELIEF_AT: Vec3 = [0.0, 1.15, 0.0];
-/// The update, the rule and the small print of 14_4's hold, as heights.
-const HOLD_LINES_Y: [f64; 3] = [-2.0, -2.65, -3.3];
+/// The update and the rule of 14_4's hold, as heights, and under them the
+/// three lines of the cost of a first map with no room (18 pt).
+const HOLD_LINES_Y: [f64; 2] = [-1.8, -2.4];
+const COST_LINES_Y: [f64; 3] = [-2.9, -3.17, -3.44];
+const COST_PT: f64 = 18.0;
+/// The little sea of "room for the truth", left of 14_4's map: its centre, a
+/// cell's width and height, the caption's height under it, and how many dots
+/// a cell has from the first story, how many of them a search puts out (two
+/// in three, the model's) and how many the second story brings to each cell.
+const ROOM_AT: Vec3 = [-4.9, -0.3, 0.0];
+const ROOM_CELL: (f64, f64) = (1.2, 0.62);
+const ROOM_CAPTION_Y: f64 = -1.2;
+const ROOM_DOTS: usize = 6;
+const ROOM_OUT: usize = 4;
+const ROOM_BACK: usize = 3;
+/// Dots stay this far in from a cell's edges (across, down); seeds.
+const ROOM_PAD: (f64, f64) = (0.4, 0.3);
+const ROOM_SEED: u64 = 1_400;
+/// Beside the map's right edge, low: chapter 11's first map in words, three
+/// 18 pt lines centred here, the first at this height, 0.27 apart.
+const ALDRIDGE_AT: [f64; 2] = [4.95, -0.95];
+const ALDRIDGE_STEP: f64 = 0.27;
 /// The strip's bar against its cell's width, as the cold open draws it.
 const BAR_SHARE: f64 = 0.22;
 /// The strip's crossing and the dots going out, seconds.
@@ -118,6 +154,11 @@ const NNE_DEG: f64 = 22.5;
 const TRACKS: usize = 3;
 /// How many dots the small clouds of Aldridge's panel and 14_6 carry.
 const SMALL_CLOUD: usize = 36;
+/// The doubted listening tracks' two label lines under the first disc: size,
+/// the first line's height from the panel's middle and the step.
+const DOUBTED_PT: f64 = 18.0;
+const DOUBTED_TOP: f64 = -0.85;
+const DOUBTED_STEP: f64 = 0.25;
 
 /// Chapter 02's card for the 99, exactly as `ninety_nine.rs` sets it (its
 /// `RING_AT`, `RING_R`, and `NUMBER_DROP` of 1.3 under the ring's centre):
@@ -197,6 +238,47 @@ fn strip_share(feet: f64, feet_per_sea_mile: f64) -> f64 {
 /// The text of a "hours off" flaw, from the fact's hours.
 fn hours_off_words(hours: &str) -> String {
     format!("{hours} {OFF_BY}")
+}
+
+/// 30 as "30th", 2 as "2nd", 11 as "11th": a place in the order the model
+/// searches in.
+fn ordinal(n: u32) -> String {
+    let suffix = match (n % 10, n % 100) {
+        (_, 11..=13) => "th",
+        (1, _) => "st",
+        (2, _) => "nd",
+        (3, _) => "rd",
+        _ => "th",
+    };
+    format!("{n}{suffix}")
+}
+
+/// The three lines of the cost of a first map with no room, from the facts:
+/// F6 held `dots` of the 10,000 and would be searched `place`-th by the
+/// rule; `empty` of the `cells` cells have no dots and are never searched.
+fn cost_lines(dots: &str, place: u32, empty: &str, cells: &str) -> [String; 3] {
+    [
+        COST_FIRST.to_owned(),
+        format!("{COST_F6_ON} {dots} {COST_F6_DOTS} {};", ordinal(place)),
+        format!("{empty} {COST_EMPTY_OF} {cells} {COST_EMPTY_WORDS}"),
+    ]
+}
+
+/// Chapter 11's first map in words, the distance from the fact: the second
+/// line ends "almost 30" and the third carries on ("miles too far north").
+fn aldridge_lines(miles: &str) -> [String; 3] {
+    [
+        ALDRIDGE_FIRST[0].to_owned(),
+        format!("{} {miles}", ALDRIDGE_FIRST[1]),
+        ALDRIDGE_FIRST[2].to_owned(),
+    ]
+}
+
+/// Where cell `c` (0 to 3, A, B above C, D) of the little sea stands.
+fn room_cell(c: usize) -> Vec3 {
+    let (w, h) = ROOM_CELL;
+    let (col, row) = ((c % 2) as f64, (c / 2) as f64);
+    v(ROOM_AT[0] + (col - 0.5) * w, ROOM_AT[1] + (0.5 - row) * h)
 }
 
 // --------------------------------------------------------------- primitives
@@ -619,7 +701,9 @@ impl SceneConstruct for FourMaps {
             fade_in_all(stage, &[band, label], 0.5)?;
             flaws.extend([band, label]);
         }
-        // the silence: the listening tracks across the first map's disc
+        // the silence: the listening tracks across the first map's disc, in a
+        // dim outline and not red: the ships' silence was doubted, so the
+        // map was drawn both ways, and no source says the first map was wrong
         line.wait_sentence(stage, 1)?;
         {
             let pane = Pane::nth(2);
@@ -631,12 +715,20 @@ impl SceneConstruct for FourMaps {
                 tracks.push(
                     stage.arena_mut().add(
                         polyline(vec![v(c[0] - half, c[1] + dy), v(c[0] + half, c[1] + dy)])
-                            .style(line_style(wrong(), 3.0))
+                            .style(line_style(Palette::dim(), 3.0))
                             .build(),
                     ),
                 );
             }
-            tracks.push(kit.text(stage, SILENCE_LABEL, 20.0, wrong(), pane.p(-DISC_X, -0.85))?);
+            for (j, text) in DOUBTED.iter().enumerate() {
+                tracks.push(kit.text(
+                    stage,
+                    text,
+                    DOUBTED_PT,
+                    Palette::dim(),
+                    pane.p(-DISC_X, DOUBTED_TOP - DOUBTED_STEP * j as f64),
+                )?);
+            }
             fade_in_all(stage, &tracks, 0.5)?;
             flaws.extend(tracks);
         }
@@ -684,6 +776,67 @@ impl SceneConstruct for FourMaps {
         )?;
         line.wait_for(stage, "The first map")?;
         fade_in_all(stage, &[believe], 0.5)?;
+        // room for the truth, small, as it is said: the made-up sea with its
+        // second story left out, so that D has no dots and the wreck's ring
+        // sits in D; A, B and C are searched empty three times and D stays
+        // dark (R2: M2, R4, D5)
+        let (rw, rh) = ROOM_CELL;
+        let mut room_in: Vec<Mob> = Vec::new();
+        for (c, letter) in ROOM_LETTERS.iter().enumerate() {
+            let at = room_cell(c);
+            room_in.push(outline(stage, at, rw, rh, Palette::faint(), 1.5)?);
+            room_in.push(kit.text(
+                stage,
+                letter,
+                16.0,
+                Palette::dim(),
+                v(at[0] - rw / 2.0 + 0.14, at[1] + rh / 2.0 - 0.13),
+            )?);
+        }
+        let d_at = room_cell(3);
+        room_in.push(ring(stage, v(d_at[0] + 0.25, d_at[1] - 0.1), 0.07, true_place(), 2.5));
+        let mut twins: Vec<Vec<Mob>> = Vec::new();
+        for c in 0..3 {
+            let cloud = small_cloud(
+                stage,
+                room_cell(c),
+                ROOM_DOTS,
+                rw - ROOM_PAD.0,
+                rh - ROOM_PAD.1,
+                ROOM_SEED + c as u64,
+                map(),
+            );
+            // the two in three a search puts out: slate twins over them
+            let mut over = Vec::new();
+            for &m in cloud.iter().take(ROOM_OUT) {
+                let at = stage.get_center(m);
+                over.push(dot(stage, at, 0.046, slate()));
+            }
+            twins.push(over);
+            room_in.extend(cloud);
+        }
+        let room_no_dots = kit.text(stage, ROOM_NO_DOTS, 18.0, Palette::dim(), v(ROOM_AT[0], ROOM_CAPTION_Y))?;
+        room_in.push(room_no_dots);
+        // the second story's dots, a few in every cell, D's too, for the hold
+        let mut room_back: Vec<Mob> = Vec::new();
+        for c in 0..4 {
+            room_back.extend(small_cloud(
+                stage,
+                room_cell(c),
+                ROOM_BACK,
+                rw - ROOM_PAD.0,
+                rh - ROOM_PAD.1,
+                ROOM_SEED + 10 + c as u64,
+                map(),
+            ));
+        }
+        let room_this_is = kit.text(stage, ROOM_THIS_IS, 18.0, Palette::ink(), v(ROOM_AT[0], ROOM_CAPTION_Y))?;
+        line.wait_for(stage, "leave room for the truth")?;
+        fade_in_all(stage, &room_in, 0.6)?;
+        for over in &twins {
+            fade_in_all(stage, over, 0.35)?;
+            pause(stage, 0.15)?;
+        }
         // the strip is how well you looked: named beside its cell, which it
         // then crosses, and the dots go out and the map deepens
         line.wait_for(stage, "how well you really looked")?;
@@ -717,8 +870,35 @@ impl SceneConstruct for FourMaps {
             v(0.0, HOLD_LINES_Y[0]),
         )?;
         let rule = kit.text(stage, RULE, 34.0, find(), v(0.0, HOLD_LINES_Y[1]))?;
-        let edge = kit.text(stage, NEVER_ADDS, 22.0, Palette::dim(), v(0.0, HOLD_LINES_Y[2]))?;
-        fade_in_all(stage, &[update, rule, edge], 0.7)?;
+        // the edge of the claim, in dots: a place that had none gets some from
+        // the second story ("this is the room"), and what a first map with no
+        // room costs, on the Navy's own map and in chapter 11 (R2: M2, S18)
+        let number =
+            |key: &str| -> fmn::Result<u32> { fact(key)?.parse().map_err(|_| fail(format!("{key} is not a number"))) };
+        let cost = cost_lines(
+            &fact("F-R.F6")?,
+            number("F-R.model.F6.first_search")?,
+            &fact("F-R.grid.empty_cells")?,
+            &fact("F-R.grid.cells")?,
+        );
+        let mut costs: Vec<Mob> = Vec::new();
+        for (text, y) in cost.iter().zip(COST_LINES_Y) {
+            costs.push(kit.text(stage, text, COST_PT, Palette::dim(), v(0.0, y))?);
+        }
+        for (j, text) in aldridge_lines(&fact("F-C.aldridge.miles_south")?).iter().enumerate() {
+            costs.push(kit.text(
+                stage,
+                text,
+                COST_PT,
+                Palette::dim(),
+                v(ALDRIDGE_AT[0], ALDRIDGE_AT[1] - ALDRIDGE_STEP * j as f64),
+            )?);
+        }
+        fade_out_all(stage, &[room_no_dots], 0.3)?;
+        let mut hold_in = vec![update, rule, room_this_is];
+        hold_in.extend(&room_back);
+        hold_in.extend(&costs);
+        fade_in_all(stage, &hold_in, 0.7)?;
         kit.music_breath(stage, HOLD_S)?;
 
         // ------------------------------------------------------- 14_5
@@ -820,6 +1000,10 @@ mod tests {
         assert!(three.ends_with("So what does the method ask of you?"));
         let four = text_of("14_4");
         assert!(four.find("The first map").unwrap() < four.find("how well you really looked").unwrap());
+        // the little sea of "room for the truth" is drawn as that clause is
+        // said, between the first sentence and the third
+        assert!(four.find("The first map").unwrap() < four.find("leave room for the truth").unwrap());
+        assert!(four.find("leave room for the truth").unwrap() < four.find("how well you really looked").unwrap());
         assert!(text_of("14_5").contains("ninety-nine"));
     }
 
@@ -1018,12 +1202,20 @@ mod tests {
             "the update line needs the room under the map: {bottom}"
         );
         assert!(top < FRAME_Y_RADIUS - 0.4);
+        // the update and the rule (36 and 34 pt), then the three 18 pt lines
+        // of the cost of a first map with no room: none touching, all inside
+        // the stage
+        let heights: Vec<f64> = HOLD_LINES_Y.iter().chain(&COST_LINES_Y).copied().collect();
         assert!(
-            HOLD_LINES_Y.windows(2).all(|w| w[0] - w[1] >= 0.55),
-            "three lines, not touching"
+            heights[..2].windows(2).all(|w| w[0] - w[1] >= 0.55),
+            "the update and the rule, not touching"
         );
         assert!(
-            HOLD_LINES_Y.iter().all(|&y| y > -FRAME_Y_RADIUS + 0.3),
+            heights[1] - heights[2] >= 0.45 && heights[2..].windows(2).all(|w| w[0] - w[1] >= 0.25),
+            "the rule over the cost, and the cost's lines, not touching: {heights:?}"
+        );
+        assert!(
+            heights.iter().all(|&y| y > -FRAME_Y_RADIUS + 0.3),
             "every line is inside the stage"
         );
         let (cold_bottom, cold_top) = map_edges(COLD_ROW_H);
@@ -1056,6 +1248,144 @@ mod tests {
         for w in &want {
             assert!(src.contains(w.as_str()), "ninety_nine.rs no longer has: {w}");
         }
+    }
+
+    /// 14_3 (R2: S12, D11): the listening tracks' label is two lines that
+    /// stay inside the Air France panel, under the first disc, and say the
+    /// map was doubted, not wrong.
+    #[test]
+    fn the_doubted_label_stays_inside_its_panel_under_the_disc() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        assert_eq!(DOUBTED.join(" "), "doubted, so drawn both ways");
+        let pane = Pane::nth(2);
+        for (j, text) in DOUBTED.iter().enumerate() {
+            let half = text.chars().count() as f64 * DOUBTED_PT * UNITS / 2.0;
+            let x = pane.p(-DISC_X, 0.0)[0];
+            assert!(
+                x - half > pane.at[0] - PANEL_W / 2.0 + 0.05,
+                "{text:?} leaves its panel"
+            );
+            assert!(
+                x + half < pane.at[0] + PANEL_W / 2.0 - 0.05,
+                "{text:?} leaves its panel"
+            );
+            let y = DOUBTED_TOP - DOUBTED_STEP * j as f64;
+            assert!(y - 0.1 > -PANEL_H / 2.0 + 0.05, "line {j} at {y}");
+        }
+        // under the disc (centred 0.1 above the panel's middle), not in it
+        const {
+            assert!(DOUBTED_TOP + 0.1 < 0.1 - DISC_R);
+        }
+        assert!(!DOUBTED.iter().any(|l| l.contains("wrong")));
+    }
+
+    /// 14_4 (R2: M2, R4, D5, S18): the cost of a first map with no room is
+    /// the facts': F6 with 85 dots searched 30th, 40 of the 180 cells empty,
+    /// and chapter 11's first map almost 30 miles north; the little sea
+    /// puts out two in three of a cell's dots and leaves D with none.
+    #[test]
+    fn the_room_for_the_truth_and_its_cost_are_the_facts() {
+        let f = facts().unwrap();
+        assert_eq!(ordinal(1), "1st");
+        assert_eq!(ordinal(2), "2nd");
+        assert_eq!(ordinal(3), "3rd");
+        assert_eq!(ordinal(4), "4th");
+        assert_eq!(ordinal(11), "11th");
+        assert_eq!(ordinal(12), "12th");
+        assert_eq!(ordinal(13), "13th");
+        assert_eq!(ordinal(21), "21st");
+        assert_eq!(ordinal(30), "30th");
+        assert_eq!(ordinal(112), "112th");
+        let place: u32 = f.get("F-R.model.F6.first_search").unwrap().parse().unwrap();
+        assert_eq!(place, 30);
+        let cost = cost_lines(
+            f.get("F-R.F6").unwrap(),
+            place,
+            f.get("F-R.grid.empty_cells").unwrap(),
+            f.get("F-R.grid.cells").unwrap(),
+        );
+        assert_eq!(
+            cost,
+            [
+                "a wrong first map costs time, not the answer, if it gave the truth some chance:",
+                "on the Navy’s map F6, with 85 dots, would be searched 30th;",
+                "40 of the 180 cells have no dots and are never searched (model)"
+            ]
+        );
+        let aldridge = aldridge_lines(f.get("F-C.aldridge.miles_south").unwrap());
+        assert_eq!(aldridge[1], "a guessed time put the dots almost 30");
+        assert_eq!(
+            aldridge.join(" "),
+            "chapter 11’s first map: a guessed time put the dots almost 30 miles too far north"
+        );
+        // the little sea: two in three of a cell's dots go out, which is the
+        // model's seeing; D has no dots of the first story; the second brings
+        // a few to every cell
+        assert_eq!(Q::new(ROOM_OUT as i128, ROOM_DOTS as i128), shown::MAP_SEEING);
+        assert_eq!(f.get("F-U.zero_stays_zero"), Some("true"));
+        assert_eq!(ROOM_LETTERS.len(), 4);
+        const {
+            assert!(ROOM_BACK >= 1 && ROOM_BACK < ROOM_DOTS);
+        }
+    }
+
+    /// 14_4's little sea and its words stand left of the map, under "what you
+    /// believe", inside the frame and clear of the update; the cost's lines
+    /// and chapter 11's first map stand under and right of the map, not on
+    /// "how well you looked".
+    #[test]
+    fn the_room_the_cost_and_the_first_map_stand_clear_of_the_map_and_each_other() {
+        use super::super::draw::CHAR_UNITS_PER_POINT as UNITS;
+        let (rw, rh) = ROOM_CELL;
+        let cells: Vec<Vec3> = (0..4).map(room_cell).collect();
+        // A over C, B over D; A left of B
+        assert!(cells[0][0] < cells[1][0] && cells[0][1] > cells[2][1] && cells[1][0] == cells[3][0]);
+        let (left, right) = (ROOM_AT[0] - rw, ROOM_AT[0] + rw);
+        let map_left = BELIEF_AT[0] - LAT_COLS as f64 * BELIEF_ROW_H * y1968::CELL_MILES.1.f64() / 2.0;
+        assert!(
+            left > -FRAME_X_RADIUS + 0.3 && right < map_left - 0.2,
+            "{left} {right} {map_left}"
+        );
+        let top = ROOM_AT[1] + rh;
+        let believe_bottom = BELIEF_AT[1] - 0.15;
+        assert!(
+            top < believe_bottom - 0.3,
+            "the sea stands under its heading: {top} {believe_bottom}"
+        );
+        // its caption: 18 pt, inside the frame, under the sea and over the
+        // hold's first line's height
+        let cap_half = ROOM_NO_DOTS.chars().count().max(ROOM_THIS_IS.chars().count()) as f64 * 18.0 * UNITS / 2.0;
+        assert!(ROOM_AT[0] - cap_half > -FRAME_X_RADIUS + 0.2);
+        assert!(ROOM_CAPTION_Y + 0.1 < ROOM_AT[1] - rh);
+        const {
+            assert!(ROOM_CAPTION_Y - 0.1 > HOLD_LINES_Y[0] + 0.2);
+        }
+        // the cost's widest line is centred and inside the frame
+        let f = facts().unwrap();
+        let cost = cost_lines(
+            f.get("F-R.F6").unwrap(),
+            30,
+            f.get("F-R.grid.empty_cells").unwrap(),
+            f.get("F-R.grid.cells").unwrap(),
+        );
+        let widest = cost.iter().map(|l| l.chars().count()).max().unwrap() as f64;
+        assert!(widest * COST_PT * UNITS / 2.0 < FRAME_X_RADIUS - 0.3);
+        // chapter 11's first map: right of the map, in the frame, under the
+        // cell the search crosses ("how well you looked" stands at its height)
+        let aldridge = aldridge_lines("30");
+        let widest = aldridge.iter().map(|l| l.chars().count()).max().unwrap() as f64;
+        let half = widest * COST_PT * UNITS / 2.0;
+        let map_right = BELIEF_AT[0] + LAT_COLS as f64 * BELIEF_ROW_H * y1968::CELL_MILES.1.f64() / 2.0;
+        assert!(ALDRIDGE_AT[0] - half > map_right + 0.2 && ALDRIDGE_AT[0] + half < FRAME_X_RADIUS - 0.3);
+        let probe = cold_open_probe().unwrap();
+        let looked_y = BELIEF_AT[1] + (LAT_ROWS as f64 / 2.0 - (probe.row as f64 + 0.5)) * BELIEF_ROW_H;
+        assert!(
+            looked_y - 0.2 > ALDRIDGE_AT[1] + 0.15 + 0.2,
+            "{looked_y} over {}",
+            ALDRIDGE_AT[1]
+        );
+        let last = ALDRIDGE_AT[1] - ALDRIDGE_STEP * 2.0;
+        assert!(last - 0.1 > -FRAME_Y_RADIUS + 0.3);
     }
 
     /// The names to search for carry the paper's year from the facts.
