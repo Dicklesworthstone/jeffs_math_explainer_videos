@@ -54,5 +54,7 @@
 22.6	(5.4, 22.6	derived	=f("G-I.ik.dist_mm",1)/f("G-I.ik.dist_mm",2)
 # The first gain of the distance: 504.99 - 93.93 mm.
 411	(411, 90, 4.1 mm)	derived	=f("G-I.ik.dist_mm",0)-f("G-I.ik.dist_mm",1)
+# The last gain of the distance: 4.15 - 0.03 = 4.12 mm, which the text rounds to 4.1 (unrounded 4.127).
+4.1	(411, 90, 4.1 mm)	derived	=f("G-I.ik.dist_mm",2)-f("G-I.ik.dist_mm",3)
 # The width across the axis of the Euler-stepped book, G-C.drift.width = 1.0513, as a percentage over 1.
 5.1	5.1% wider	derived	=(f("G-C.drift.width")-1)*100
