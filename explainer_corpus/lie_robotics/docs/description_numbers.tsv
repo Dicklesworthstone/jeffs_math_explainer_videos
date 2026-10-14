@@ -1,0 +1,58 @@
+# Numbers of docs/description.md that are not a number of an oracle key (tools/description_numbers.py reads this).
+# Columns, tab separated: number, context (a piece of the line the number stands in), kind, reason.
+# A row nothing uses is an error. A derived row's reason is an expression over facts and nothing else; what it
+# means is said in the comment line above it.
+#
+# year: the year of a cited source (Sources and "Not verified" of docs/fact-sheet.md).
+74	winter of 1873	year	The second year of "the winter of 1873 - 74", MacTutor, "Sophus Lie" (quoted in docs/fact-sheet.md, History); the oracle's G-L.lie.year is 1873.
+1984	proceedings are dated 1984	year	Springer, Lecture Notes in Control and Information Sciences 58, 1984, the proceedings of MTNS-83 (G-L.brockett.year is 1983).
+1984	Brockett (1984)	year	The same 1984 volume of Brockett's paper (Sources).
+2000	Ceccarelli (2000)	year	M. Ceccarelli, Mechanism and Machine Theory 35 (2000), pp. 761-770 (Sources).
+2022	from the 2022 sheet	year	KUKA data sheet "LBR iiwa 14 R820", 0000-246-833, V1.2, 01.06.2022 (Sources).
+2015	2015 specification	year	KUKA's 2015 specification "Spez LBR iiwa V5", which agrees with the 2022 data sheet (docs/fact-sheet.md, Sources, The robots).
+#
+# cited: a name, equation, section or exercise number of a cited source (Sources).
+055	Comanche 055	cited	The name of the Apollo command module flight software, Comanche 055, routine GLOCKMON, listing p. 147 (docs/fact-sheet.md, History, Apollo): a program's name, not a quantity.
+13.10	Lynch and Park eq. 13.10	cited	Lynch and Park, eq. (13.10), p. 519: the mecanum wheel speeds (Sources).
+4.14	Lynch and Park eq. 4.14	cited	Lynch and Park, eq. (4.14), p. 142: the space form of the product of exponentials (Sources).
+5.11	space Jacobian (eq. 5.11)	cited	Lynch and Park, eqs. (5.9) to (5.11), pp. 179-180: the space Jacobian (Sources).
+2.2	Exercise 2.2	cited	Lynch and Park, Exercises 2.2 and 2.3, p. 38 (Sources).
+2.3	Exercise 2.3	cited	Lynch and Park, Exercises 2.2 and 2.3, p. 38 (Sources).
+6.2	Lynch and Park §6.2.2	cited	Lynch and Park, section 6.2.2, pp. 227-232: numerical inverse kinematics (Sources).
+9.7	eqs. 9.7 and 9.8	cited	Lynch and Park, section 9.2.1, pp. 326-328, eqs. (9.6) to (9.8) (Sources).
+9.8	eqs. 9.7 and 9.8	cited	Lynch and Park, section 9.2.1, pp. 326-328, eqs. (9.6) to (9.8) (Sources).
+#
+# cited, but computed: not a key of the oracle. Recomputed 2026-10-14 with oracle.py's own functions (rotx, roty, rotz,
+# chain, space_jacobian, rank) in a scratch run; independent reviewers had found the same (docs/reviews/lie_robotics/).
+# The weakest rows of this file; to be promoted to oracle keys when oracle.py and facts.rs are next opened.
+179.99	179.99° apart	cited	The angle between the triples (0, 89, 0) and (90, 89, 90) read as Rx Ry Rz, the other nesting order than G-E.rings.order = z,y,x: 179.9913 degrees (docs/reviews/lie_robotics/R2-modes-passes.md, 13_2 row; R2-claim-audit.md).
+111.8	and at rank 6 by (	cited	First angle of a witness to the rank-6 pose of G-K.ell.after_elbow: the exact witness found by Newton steps from this rounding is (-111.820, 38.987, 68.180, 90, -69.128, 41.021, 110.872) degrees; rank 6, inside the limits G-A.limits_deg (docs/reviews/lie_robotics/R2-claim-audit.md, q_b).
+39.0	and at rank 6 by (	cited	Second angle of the same witness (exact 38.987).
+68.2	and at rank 6 by (	cited	Third angle of the same witness (exact 68.180).
+69.1	and at rank 6 by (	cited	Fifth angle of the same witness (exact -69.128).
+41.0	and at rank 6 by (	cited	Sixth angle of the same witness (exact 41.021).
+110.9	110.9°), inside KUKA's limits	cited	Seventh angle of the same witness (exact 110.872).
+#
+# structural: a count or an index that is the statement itself.
+360	fmod(-340 + 180, 360)	structural	The degrees of a full turn, the modulus of the heading code line.
+10	1.741° at 10°	structural	The size of both turns (10 degrees) of the experiment the key G-B.leftover.10 names: the leftover is 1.7409 degrees there.
+#
+# derived: the reason is an expression over the oracle's values, evaluated by the tool.
+# The long way round between the headings G-H.a = 170 and G-H.b = -170: 170 - (-170) degrees.
+340	middle of the 340° way round	derived	=f("G-H.a")-f("G-H.b")
+# The difference b - a of the same two headings, -340, which the code line wraps.
+340	fmod(-340 + 180, 360)	derived	=f("G-H.a")-f("G-H.b")
+# 180 degrees is 10 degrees from each heading: half the gap G-H.gap = 20.
+10	(10° from each)	derived	=f("G-H.gap")/2
+# MTNS-83 is the 1983 conference (G-L.brockett.year).
+83	MTNS-83	derived	=f("G-L.brockett.year")-1900
+# The quiz pose's tip lies G-A.wrist_to_tip past the wrist centre, 60 degrees off the shoulder-wrist line (joints 2 and 6 at 60 degrees);
+# only a turn moves the tip along that line, at a lever of 0.126 sin 60 = 0.126 sqrt(3)/2, so 1 m/s needs at least 1 / that rad/s.
+9.2	costs 9.2 rad/s	derived	=1/(f("G-A.wrist_to_tip")*sqrt(3)/2)
+# The factors of the distance, G-I.ik.dist_mm = 504.99, 93.93, 4.15, 0.03 mm: first over second, second over third.
+5.4	(5.4, 22.6	derived	=f("G-I.ik.dist_mm",0)/f("G-I.ik.dist_mm",1)
+22.6	(5.4, 22.6	derived	=f("G-I.ik.dist_mm",1)/f("G-I.ik.dist_mm",2)
+# The first gain of the distance: 504.99 - 93.93 mm.
+411	(411, 90, 4.1 mm)	derived	=f("G-I.ik.dist_mm",0)-f("G-I.ik.dist_mm",1)
+# The width across the axis of the Euler-stepped book, G-C.drift.width = 1.0513, as a percentage over 1.
+5.1	5.1% wider	derived	=(f("G-C.drift.width")-1)*100

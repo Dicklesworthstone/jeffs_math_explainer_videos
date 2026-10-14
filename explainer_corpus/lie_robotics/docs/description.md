@@ -1,7 +1,9 @@
 # Why Robot Arms Think in Lie Groups: draft video description
 
-<!-- Draft YouTube description (R2, 2026-10-14). Every number here is an oracle key
-(oracle.py) or a fact-sheet row (fact-sheet.md); every source is a fact-sheet row. Chapter
+<!-- Draft YouTube description (R2, 2026-10-14). Every number here is a number of an oracle key
+(oracle.py), rounded as the text likes, or a row of description_numbers.tsv (a year, a cited
+equation or page number, a structural count, or an expression over oracle keys), which
+tools/description_numbers.py checks; every source is a fact-sheet row. Chapter
 timestamps come from the narrated cut (`./x lie_robotics chapters`). Sources not opened are
 listed as not verified. -->
 
@@ -112,7 +114,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   left, front right, rear left, rear right; Lynch and Park eq. 13.10): forward + + + +, sideways
   − + + −, spin − + − +. "Add six seconds of velocity onto the pose" is one big step on the
   numbers: (3, 0) and a heading of 180°. Stepping in small pieces and turning the velocity by the
-  heading each time is the wrap done piece by piece: 0.01 s steps land within 5 mm of the exact
+  heading each time is the wrap done piece by piece: 0.01 s steps land about 5 mm from the exact
   (0, 1.91).
 - **07_2, 07_3.** A twist's slide arrow, in the room's frame, is the velocity of the point at
   the room's origin: not the tip's and not the slide along the screw's axis. The tip's velocity is
@@ -141,10 +143,11 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   gripper pose can be reached by a singular and by a non-singular set of angles (a witness: the
   pose with the tip at (−0.526, 0, 0.780) m and R = [0 0 −1; 0 1 0; 1 0 0] is reached at rank 5
   by (0, 0, 0, 90°, 0, 0, 0) and at rank 6 by (−111.8°, 39.0°, 68.2°, 90°, −69.1°, 41.0°,
-  110.9°), inside KUKA's limits).
+  110.9°), inside KUKA's limits; the angles are given to a tenth of a degree).
   Singular settings are also found well inside the reach.
-- **11_5.** 54 and 160 °/s are for the elbow, for a pure pull of the gripper at 0.1 m/s with the
-  gripper's orientation held; they are the same however the other joints share the motion. The
+- **11_5.** 54.03 and 160.44 °/s (said as fifty-four and a hundred and sixty) are for the elbow,
+  for a pure pull of the gripper at 0.1 m/s with the gripper's orientation held; they are the
+  same however the other joints share the motion. The
   limit, 75 °/s, is KUKA's published speed for axis 4 at rated payload (14 kg), a data-sheet
   figure and not a law. The crossing is at a bend of 21.5°.
 - **11_6.** In the L shape rank J = 6 with joints 5 and 7 collinear; without any one of joints 1
@@ -168,11 +171,12 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   distance, not the tip's, so "0.1 mm" means the tip's distance only in the body form. Near a
   half turn the logarithm needs its own branch.
 - **13_6.** Newton's method: from a guess, measure the miss, correct by it, repeat. "From here, three": from q = (0, 30°, 0, −60°, 0, 90°, 0) to the goal (0.400, 0.300,
-  0.250) m with R = [0 −1 0; −1 0 0; 0 0 −1]. From other starts the count differs (5, 13, 10 and
-  4 steps in four others tried) and the method can fail. For a chosen swing of the elbow this
+  0.250) m with R = [0 −1 0; −1 0 0; 0 0 −1]. From other starts the count differs and the method
+  can fail. For a chosen swing of the elbow this
   arm's geometry (a spherical shoulder, an elbow, a spherical wrist, no offsets) gives a closed
   form; the video makes no claim about it. Each step cuts the error by a bigger factor than the
-  last (5.4, 22.6, 157 for the distance), while the absolute gain falls (411, 90, 4.1 mm).
+  last (5.4, 22.6, then more than a hundred for the distance), while the absolute gain falls
+  (411, 90, 4.1 mm).
 - **14_2, 14_3.** The determinant of a blend `(1 − s)R₀ + sR₁` of two turns that differ by the
   angle a is 1 − 2s(1 − s)(1 − cos a); at s = ½ it is cos²(a/2). For a quarter turn it is 0.5. The
   blend is the "lerp" of matrices; renormalising it ("nlerp") repairs the shape and not the
