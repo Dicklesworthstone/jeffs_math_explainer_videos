@@ -1,12 +1,5 @@
 #! legacy: not yet tagged. A number only has to equal some fact of the oracle; delete this line when the units that state numbers name their keys (tools/description_numbers.py)
 # Video F: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py mental_math).
-# number	context (a piece of the line it stands in)	kind (year, cited, structural, derived)	reason; a derived reason is =expression over facts, evaluated by the tool
-135	135² needs	derived	=f("F-T1.n135.front")*10+5
-7.5	7.5² =	derived	=sqrt(f("F-T1.half.squared"))
-51.5	= 51.5²	derived	=sqrt(f("F-D.half_middle.middle_squared"))
-97	97² = 94	derived	=(f("F-D.n97.tall")+f("F-D.n97.wide"))/2
-27	23 × 27	derived	=f("F-D.same_front.product")/23
-194	193 and 194	derived	=f("F-C1.feynman.pages",0)+1
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
+194	193 and 194	cited	Feynman 1985, "Lucky Numbers", pages 193 to 194 of that edition (F-C1.feynman.pages is 193-94; fact sheet S1)
 1975	a 1975 lecture	year	"Los Alamos From Below" is adapted from a 1975 lecture at Santa Barbara (fact sheet S2)
-87	87 × 73	derived	=f("F-C3.chase.pair")/73
-73	87 × 73	derived	=f("F-C3.chase.pair")/87

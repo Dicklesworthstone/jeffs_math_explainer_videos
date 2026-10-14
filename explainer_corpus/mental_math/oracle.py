@@ -254,6 +254,7 @@ def main():
     # --- F-T1: squares ending in 5 ---------------------------------------------
     for number in (35, 105, 135, 5, 55):
         steps, answer = worked("ends_in_five", ("square", number))
+        emit(f"F-T1.n{number}.number", number)
         emit(f"F-T1.n{number}.front", steps[0])
         emit(f"F-T1.n{number}.next", steps[1])
         emit(f"F-T1.n{number}.hundreds", steps[2])
@@ -264,6 +265,7 @@ def main():
     emit("F-T1.sweep.hundreds", join(sq // 100 for sq in squares))
     emit("F-T1.sweep.squares", join(squares))
     check("every swept square ends in 25", all(sq % 100 == 25 for sq in squares))
+    emit("F-T1.half.number", f"{float(F(15, 2)):g}")
     half = F(15, 2) ** 2
     emit("F-T1.half.squared", money(half * 100))
     check("7.5^2 is 7 x 8 and a quarter", half == 7 * 8 + F(1, 4))
@@ -425,16 +427,20 @@ def main():
 
     # --- F-D: numbers only docs/description.md states --------------------------------
     wide, tall, rectangle, overhang, cells = moved(97, 3)
+    emit("F-D.n97.number", 97)
     emit("F-D.n97.tall", tall)
     emit("F-D.n97.wide", wide)
     emit("F-D.n97.corner", overhang)
     emit("F-D.n97.square", 97 * 97)
     check("97^2 = 94 x 100 + 9", rectangle + overhang == 97 * 97 == 9409)
+    emit("F-D.same_front.factors", "23,27")
     emit("F-D.same_front.hundreds", 23 * 27 // 100)
     emit("F-D.same_front.ones", 23 * 27 % 100)
     emit("F-D.same_front.product", 23 * 27)
     check("23 x 27 is 2 x 3 in hundreds, then 3 x 7", 23 * 27 == 2 * 3 * 100 + 3 * 7)
     half_middle, half_gap = F(47 + 56, 2), F(56 - 47, 2)
+    emit("F-D.half_middle.middle", f"{float(half_middle):g}")
+    emit("F-D.half_middle.distance", f"{float(half_gap):g}")
     emit("F-D.half_middle.middle_squared", money(half_middle**2 * 100))
     emit("F-D.half_middle.distance_squared", money(half_gap**2 * 100))
     emit("F-D.half_middle.product", 47 * 56)
@@ -525,6 +531,7 @@ def main():
     emit("F-C3.chase.page", 60)
     emit("F-C3.chase.square", 1225)
     emit("F-C3.chase.pair", 6351)
+    emit("F-C3.chase.pair_numbers", "87,73")
     emit("F-C3.chase.near_fifty", 2809)
     check("Chase's three examples", 35 * 35 == 1225 and 87 * 73 == 6351 and 53 * 53 == 2809)
     # Karatsuba's algorithm on the digits of 23 x 46: 2 x 4, 3 x 6, and one product of

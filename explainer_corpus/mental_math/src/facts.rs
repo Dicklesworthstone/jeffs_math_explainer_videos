@@ -140,6 +140,7 @@ fn fives(f: &mut Facts) -> Result<(), String> {
     ] {
         let e = ends_in_five(number).ok_or("an example does not end in 5")?;
         let key = format!("F-T1.n{number}");
+        f.add(&format!("{key}.number"), number)?;
         f.add(&format!("{key}.front"), e.n)?;
         f.add(&format!("{key}.next"), e.n + 1)?;
         f.add(&format!("{key}.hundreds"), e.hundreds)?;
@@ -154,6 +155,12 @@ fn fives(f: &mut Facts) -> Result<(), String> {
     f.add("F-T1.sweep.squares", list(swept.iter().map(|e| e.square)))?;
     // seven and a half squared: the same digits with the point put back
     let e = ends_in_five(shown::FIVE_TENTHS).ok_or("75 ends in 5")?;
+    f.pin(
+        "F-T1.half.number",
+        format!("{}.{}", shown::FIVE_TENTHS / 10, shown::FIVE_TENTHS % 10),
+        "7.5",
+        "75 tenths",
+    )?;
     f.pin("F-T1.half.squared", money(e.square), "56.25", "7.5 x 7.5")?;
     Ok(())
 }
@@ -364,6 +371,7 @@ fn description(f: &mut Facts) -> Result<(), String> {
     // the move near a hundred: 97 squared is 94 by 100, and 9
     let (side, strip) = shown::NEAR_HUNDRED;
     let m = one_move(side, strip).ok_or("a strip deeper than its square")?;
+    f.add("F-D.n97.number", side)?;
     f.add("F-D.n97.tall", m.tall())?;
     f.add("F-D.n97.wide", m.wide())?;
     f.add("F-D.n97.corner", m.corner())?;
@@ -373,12 +381,16 @@ fn description(f: &mut Facts) -> Result<(), String> {
     let (x, y) = shown::SAME_FRONT;
     let p = pair(x, y).ok_or("the same-front pair has no middle")?;
     let five = ends_in_five(p.middle).ok_or("the middle does not end in 5")?;
+    f.add("F-D.same_front.factors", format!("{x},{y}"))?;
     f.add("F-D.same_front.hundreds", five.hundreds)?;
     f.add("F-D.same_front.ones", (x % 10) * (y % 10))?;
     f.add("F-D.same_front.product", p.product)?;
     // 47 × 56 has a half middle: in halves, (103 × 103 − 9 × 9) ÷ 4
     let (x, y) = shown::NO_PAIR;
     let (sum, gap) = (x + y, y - x);
+    let halves = |twice: u64| format!("{}.{}", twice / 2, twice % 2 * 5);
+    f.add("F-D.half_middle.middle", halves(sum))?;
+    f.add("F-D.half_middle.distance", halves(gap))?;
     f.add("F-D.half_middle.middle_squared", money((sum * sum) * 25))?;
     f.add("F-D.half_middle.distance_squared", money((gap * gap) * 25))?;
     f.add("F-D.half_middle.product", (sum * sum - gap * gap) / 4)?;
@@ -580,6 +592,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     let (x, y, product) = cited::CHASE_PAIR;
     let p = pair(x, y).ok_or("Chase's pair has no middle")?;
     f.pin("F-C3.chase.pair", p.product, &product.to_string(), chase)?;
+    f.pin("F-C3.chase.pair_numbers", format!("{x},{y}"), "87,73", chase)?;
     let (number, square) = cited::CHASE_NEAR_FIFTY;
     f.pin(
         "F-C3.chase.near_fifty",
