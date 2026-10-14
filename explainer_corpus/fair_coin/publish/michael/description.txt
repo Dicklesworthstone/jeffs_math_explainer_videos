@@ -1,17 +1,17 @@
 Toss an unfair coin twice. If the two results match, throw them away and toss two fresh ones. If they differ, heads-then-tails wins for one player and tails-then-heads for the other. The game is exactly fair whatever the coin's chance of heads, and nobody has to know that chance. This video shows why, what it costs, how it breaks, and how the same idea makes a fair die out of a loaded one.
 
 Chapters
-?:?? Call it
-?:?? Toss twice
-?:?? Every coin
-?:?? The price
-?:?? Where it breaks
-?:?? Same counts
-?:?? A die from a coin
-?:?? Loaded dice
-?:?? Six orders
-?:?? What is left
-?:?? The fair coin inside
+0:00 Call it
+0:57 Toss twice
+2:18 Every coin
+3:39 The price
+4:33 Where it breaks
+5:43 Same counts
+7:05 A die from a coin
+7:58 Loaded dice
+8:44 Six orders
+9:53 What is left
+11:01 The fair coin inside
 
 The exact versions
 The 80% coin is a model. A coin that is flipped and caught cannot be made to favour a side by weighting it (Gelman and Nolan 2002); a coin that is spun, or allowed to bounce, can.
