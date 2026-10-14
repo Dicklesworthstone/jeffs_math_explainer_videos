@@ -8,6 +8,7 @@
 pub mod a_third;
 pub mod cold_open;
 pub mod draw;
+pub mod every_cube;
 pub mod five_for_five;
 pub mod four_triangles;
 pub mod glyphs;
@@ -51,7 +52,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("03_layers", 0.4, layers::Layers),
         scene!("04_staircases", 0.4, staircases::Staircases),
         animatic!("05_slabs", 0.6),
-        animatic!("06_every_cube", 0.55),
+        scene!("06_every_cube", 0.55, every_cube::EveryCube),
         animatic!("07_three_stacks", 0.55),
         animatic!("08_the_box", 0.6),
         animatic!("09_every_height", 0.5),
