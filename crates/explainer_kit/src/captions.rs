@@ -156,18 +156,82 @@ pub fn wrap(text: &str) -> Vec<String> {
     lines
 }
 
-/// One sentence as captions over `[start, end)`: [`MAX_LINES`] lines at a
-/// time, the span shared in proportion to each caption's characters.
+/// The characters a caption's lines hold (the weight of its share of the
+/// sentence's span).
+fn weight(lines: &[String]) -> usize {
+    lines.iter().map(|l| l.chars().count()).sum()
+}
+
+/// A sentence's words in the fewest captions that hold them, each of at most
+/// [`MAX_LINES`] lines of [`LINE_CHARS`], split where the shortest caption is
+/// as long as the limits allow (then the longest as short as they allow).
+/// Wrapping the sentence once and taking the lines two at a time leaves
+/// the last caption whatever is over: the last word or two of the sentence,
+/// on a cue of a fraction of a second ("and forty.", "that.", "half.").
+fn balanced_captions(words: &[&str]) -> Vec<Vec<String>> {
+    let greedy = wrap(&words.join(" "));
+    let count = greedy.len().div_ceil(MAX_LINES);
+    let n = words.len();
+    if count <= 1 {
+        return if greedy.is_empty() { Vec::new() } else { vec![greedy] };
+    }
+    // best[k][j]: (shortest, longest) caption weight of the best split of
+    // words[..j] into k captions; from[k][j]: where its last caption starts
+    let mut best: Vec<Vec<Option<(usize, usize)>>> = vec![vec![None; n + 1]; count + 1];
+    let mut from = vec![vec![0usize; n + 1]; count + 1];
+    best[0][0] = Some((usize::MAX, 0));
+    for k in 1..=count {
+        for j in k..=n {
+            for i in (k - 1)..j {
+                let Some((lo, hi)) = best[k - 1][i] else {
+                    continue;
+                };
+                let lines = wrap(&words[i..j].join(" "));
+                if lines.len() > MAX_LINES {
+                    continue;
+                }
+                let w = weight(&lines);
+                let cand = (lo.min(w), hi.max(w));
+                let better = match best[k][j] {
+                    None => true,
+                    Some((blo, bhi)) => cand.0 > blo || (cand.0 == blo && cand.1 < bhi),
+                };
+                if better {
+                    best[k][j] = Some(cand);
+                    from[k][j] = i;
+                }
+            }
+        }
+    }
+    if best[count][n].is_none() {
+        // not reachable (the greedy wrap's own chunks are such a split)
+        return greedy.chunks(MAX_LINES).map(<[String]>::to_vec).collect();
+    }
+    let mut groups = Vec::with_capacity(count);
+    let mut j = n;
+    for k in (1..=count).rev() {
+        let i = from[k][j];
+        groups.push(wrap(&words[i..j].join(" ")));
+        j = i;
+    }
+    groups.reverse();
+    groups
+}
+
+/// One sentence as captions over `[start, end)`: at most [`MAX_LINES`] lines
+/// at a time, the span shared in proportion to each caption's characters. A
+/// sentence of more lines than one caption holds is shared out evenly between
+/// the captions it needs, so no cue is the sentence's last word on its own.
 pub fn sentence_captions(text: &str, start: f64, end: f64) -> Vec<Caption> {
-    let lines = wrap(text);
-    let groups: Vec<Vec<String>> = lines.chunks(MAX_LINES).map(<[String]>::to_vec).collect();
-    let weight = |g: &[String]| g.iter().map(|l| l.chars().count()).sum::<usize>() as f64;
-    let total: f64 = groups.iter().map(|g| weight(g)).sum();
+    let words: Vec<&str> = text.split_whitespace().collect();
+    let groups = balanced_captions(&words);
+    let share = |g: &[String]| weight(g) as f64;
+    let total: f64 = groups.iter().map(|g| share(g)).sum();
     let mut t = start;
     groups
         .into_iter()
         .map(|g| {
-            let e = t + (end - start) * weight(&g) / total;
+            let e = t + (end - start) * share(&g) / total;
             let c = Caption {
                 start: t,
                 end: e,
@@ -343,6 +407,88 @@ mod tests {
         assert!((caps[0].start - 10.0).abs() < 1e-12 && (caps[1].end - 16.0).abs() < 1e-12);
         assert!((caps[0].end - caps[1].start).abs() < 1e-12, "back to back");
         assert!(validate(&caps).is_ok());
+    }
+
+    /// The four sentences of Video F's final whose last words stood alone on
+    /// a cue of 0.33 to 0.62 s (EmeraldOwl's delivery check of e1b0ad3: cues
+    /// 38 'and forty.', 70 'that.', 128 'half.', 227 'hundreds.'), with the
+    /// spans their cues covered together: each is shared between the two
+    /// captions it needs so that neither is a stub, with the old code's
+    /// limits (two lines of 42, back to back, every word once, in order).
+    #[test]
+    fn a_sentence_is_never_left_with_its_last_words_on_a_cue_of_their_own() {
+        let cases = [
+            (
+                "The next number comes in because thirty-five sits halfway between thirty and forty.",
+                117.887,
+                122.387,
+            ),
+            (
+                "Twenty times four is eighty already, so twenty times forty has to be ten times that.",
+                218.260,
+                223.760,
+            ),
+            (
+                "The swap pays when one side is a friendly percent, like a tenth, a quarter or a half.",
+                405.557,
+                411.097,
+            ),
+            (
+                "Further out, the distance squared runs past two digits, and it spills into the hundreds.",
+                725.930,
+                731.870,
+            ),
+        ];
+        for (text, start, end) in cases {
+            let caps = sentence_captions(text, start, end);
+            let words = text.split_whitespace().collect::<Vec<_>>().join(" ");
+            assert_eq!(caps.len(), 2, "{text}: the fewest captions that hold it");
+            assert!(validate(&caps).is_ok(), "{caps:?}");
+            let said = caps
+                .iter()
+                .flat_map(|c| c.lines.iter().cloned())
+                .collect::<Vec<_>>()
+                .join(" ");
+            assert_eq!(said, words, "every word once, in order");
+            assert!((caps[0].start - start).abs() < 1e-9 && (caps[1].end - end).abs() < 1e-9);
+            assert!((caps[0].end - caps[1].start).abs() < 1e-9, "back to back");
+            let shortest = caps.iter().map(|c| c.end - c.start).fold(f64::INFINITY, f64::min);
+            assert!(
+                shortest >= 1.5,
+                "{text}: a cue of {shortest:.2} s ({:?} then {:?})",
+                caps[0].lines,
+                caps[1].lines
+            );
+            // the old split gave the second cue 0.33 to 0.62 s; neither is
+            // under a third of the other's characters now
+            let chars = |c: &Caption| c.lines.iter().map(|l| l.chars().count()).sum::<usize>();
+            assert!(chars(&caps[1]) * 3 >= chars(&caps[0]) && chars(&caps[0]) * 3 >= chars(&caps[1]));
+        }
+    }
+
+    #[test]
+    fn a_sentence_that_fits_one_caption_is_one_and_a_long_one_is_shared_evenly() {
+        // two lines or fewer: one caption, the greedy wrap as it was
+        let short = sentence_captions("Tens times tens are hundreds.", 0.0, 2.6);
+        assert_eq!(short.len(), 1);
+        assert_eq!(short[0].lines, ["Tens times tens are hundreds."]);
+        let two = "The counts carry the unfairness, and the order is perfectly fair, whatever the coin.";
+        let two = sentence_captions(two, 0.0, 6.0);
+        assert!(two.iter().all(|c| c.lines.len() <= MAX_LINES));
+        // five lines of words: three captions, each at least a quarter of the span
+        let long = "Every sentence of the narration is shared out between as few captions as its lines allow, \
+                    so that the cue that ends it is as long as the limits let it be, and no word of it is left \
+                    alone for a third of a second at the end of a sentence that took a while to say.";
+        let caps = sentence_captions(long, 10.0, 22.0);
+        assert!(caps.len() >= 3, "{caps:?}");
+        assert!(validate(&caps).is_ok(), "{caps:?}");
+        let each = 12.0 / caps.len() as f64;
+        assert!(
+            caps.iter().all(|c| c.end - c.start > each * 0.6),
+            "{:?}",
+            caps.iter().map(|c| c.end - c.start).collect::<Vec<_>>()
+        );
+        assert_eq!(sentence_captions("", 0.0, 1.0), Vec::<Caption>::new());
     }
 
     #[test]
