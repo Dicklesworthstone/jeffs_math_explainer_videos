@@ -14,8 +14,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     ARM_SCALE, ArmRig, Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, View, World, book,
-    circle_points, fact, fade_in_all, fade_in_lagged, faded_line, leave, line_style, point_fn, say, still, table, tag,
-    turned_about,
+    circle_points, entry, fact, fade_in_all, fade_in_lagged, faded_line, leave, line_style, point_fn, say, still,
+    table, tag, turned_about,
 };
 use crate::model::{self, Arm, ELBOW, Pose, SHOULDER, V3, add, cross, poses, scale, slide_of, spin_of, sub};
 use crate::palette;
@@ -31,10 +31,10 @@ const SPIN_ROWS: &str = "spin";
 const SLIDE_ROWS: &str = "slide";
 const JACOBIAN_EQ: &str = r"V = J(q)\,\dot q";
 const PROGRAMMERS: &str = "for programmers";
-const TWIST_SLIDE_NOTE: [&str; 2] = [
-    "a twist's slide is the velocity of the point at the room's origin;",
-    "the tip's velocity is slide + spin × tip position",
-];
+const TWIST_SLIDE_NOTE: &str = "a twist's slide is the velocity of the point at the room's origin;";
+/// The second line of the note, set in TeX so that its cross is the math
+/// font's (the text face's × is drawn in a heavier fallback face).
+const TIP_VELOCITY_TEX: &str = r"\text{the tip's velocity is slide } + \text{ spin } \times \text{ tip position}";
 const JACOBIAN_LABEL: &str = "the Jacobian:";
 const JACOBIAN_TEXT: &str = "the map from joint speeds to the gripper's twist, at the pose the arm is in";
 const WHICH_FASTEST: &str = "which joint moves the tip fastest?";
@@ -162,25 +162,23 @@ fn cm(metres: f64) -> String {
     }
 }
 
-/// An entry of the grid as printed: zero as 0, a whole number without
-/// places, the rest at two places (the fact's own precision).
-fn entry(text: &str) -> String {
-    let x: f64 = text.parse().unwrap_or(0.0);
-    if x.abs() < 0.005 {
-        "0".to_owned()
-    } else if (x - x.round()).abs() < 0.005 {
-        format!("{}", x.round() as i64)
-    } else {
-        format!("{x:.2}")
-    }
-}
-
-/// The L shape's Jacobian from its fact: six rows of seven entries.
+/// The L shape's Jacobian from its fact: six rows of seven entries, printed
+/// as the video prints a matrix entry (whole numbers plain, the rest at two
+/// places, a true minus sign, never "−0").
 fn grid_entries() -> fmn::Result<Vec<Vec<String>>> {
-    Ok(fact("G-J.ell.J")?
+    fact("G-J.ell.J")?
         .split(';')
-        .map(|row| row.split(',').map(entry).collect())
-        .collect())
+        .map(|row| {
+            row.split(',')
+                .map(|x| {
+                    x.trim()
+                        .parse::<f64>()
+                        .map(entry)
+                        .map_err(|_| super::draw::fail(format!("G-J.ell.J has {x:?}, not a number")))
+                })
+                .collect()
+        })
+        .collect()
 }
 
 fn arrow(from: V3, velocity: V3, color: Srgb, width: f64) -> Shape {
@@ -538,11 +536,10 @@ impl SceneConstruct for VelocitiesAdd {
         let eq = kit.tex(stage, JACOBIAN_EQ, 54.0, Palette::ink(), &[], v(4.0, -0.75))?;
         fade_in_all(stage, &[eq], 0.6)?;
         let programmers = tag(&kit, stage, PROGRAMMERS, v(2.2, -1.55), 24.0)?;
-        let notes: Vec<Mob> = TWIST_SLIDE_NOTE
-            .iter()
-            .enumerate()
-            .map(|(i, words)| kit.text_left(stage, words, 22.0, Palette::dim(), v(0.6, -2.0 - 0.36 * i as f64)))
-            .collect::<fmn::Result<_>>()?;
+        let notes = vec![
+            kit.text_left(stage, TWIST_SLIDE_NOTE, 22.0, Palette::dim(), v(0.6, -2.0))?,
+            kit.tex_left(stage, TIP_VELOCITY_TEX, 26.0, Palette::dim(), &[], v(0.6, -2.42))?,
+        ];
         let mut ins = vec![programmers];
         ins.extend(&notes);
         fade_in_all(stage, &ins, 0.6)?;
@@ -710,7 +707,9 @@ mod tests {
         for (r, row) in printed.iter().enumerate() {
             assert_eq!(row.len(), N);
             for (c, text) in row.iter().enumerate() {
-                let shown: f64 = text.parse().unwrap();
+                // the printed minus is the true one
+                assert!(!text.contains('-'), "{text:?} has a hyphen for a minus");
+                let shown: f64 = text.replace('−', "-").parse().unwrap();
                 assert!(
                     (shown - j[r][c]).abs() < 0.005 + 1e-9,
                     "[{r}][{c}] {text} against {}",
@@ -719,21 +718,25 @@ mod tests {
             }
         }
         let col2: Vec<f64> = fact_list("G-J.ell.col2").unwrap();
-        let from_grid: Vec<f64> = (0..6).map(|r| printed[r][1].parse().unwrap()).collect();
+        let from_grid: Vec<f64> = (0..6)
+            .map(|r| printed[r][1].replace('−', "-").parse().unwrap())
+            .collect();
         for (a, b) in col2.iter().zip(&from_grid) {
             assert!((a - b).abs() < 0.005, "{a} against {b}");
         }
     }
 
-    /// Entries are printed whole or at two places, zero as 0.
+    /// Entries are printed whole or at two places, zero as 0, and a negative
+    /// with the true minus sign (U+2212), as every matrix of the video is.
     #[test]
-    fn entries_print_whole_or_at_two_places() {
-        assert_eq!(entry("0.00"), "0");
-        assert_eq!(entry("-0.00"), "0");
-        assert_eq!(entry("1.00"), "1");
-        assert_eq!(entry("-1.00"), "-1");
-        assert_eq!(entry("-0.36"), "-0.36");
-        assert_eq!(entry("0.76"), "0.76");
+    fn entries_print_whole_or_at_two_places_with_a_true_minus() {
+        let rows = grid_entries().unwrap();
+        let all: Vec<&str> = rows.iter().flatten().map(String::as_str).collect();
+        assert_eq!(all.len(), 6 * N);
+        for want in ["0", "1", "−1", "−0.36", "0.36", "−0.42", "0.42", "−0.76"] {
+            assert!(all.contains(&want), "the grid has no {want:?}");
+        }
+        assert!(all.iter().all(|e| !e.contains('-') && *e != "−0" && *e != "0.00"));
     }
 
     /// The tag's claim: the tip's velocity is the slide plus the spin
@@ -907,6 +910,21 @@ mod tests {
                 assert!(stage.get_right(row)[0] < right - 0.15);
             }
             assert!(right < 7.1);
+            Ok(())
+        });
+    }
+
+    /// The two lines of the "for programmers" note end inside the frame's
+    /// margin (0.15 inside the 7.11 half width), the second set in TeX.
+    #[test]
+    fn the_programmers_note_ends_inside_the_margin() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let first = kit.text_left(stage, TWIST_SLIDE_NOTE, 22.0, Palette::dim(), v(0.6, -2.0))?;
+            let second = kit.tex_left(stage, TIP_VELOCITY_TEX, 26.0, Palette::dim(), &[], v(0.6, -2.42))?;
+            for m in [first, second] {
+                assert!(stage.get_right(m)[0] < 7.11 - 0.15, "ends at {}", stage.get_right(m)[0]);
+            }
             Ok(())
         });
     }
