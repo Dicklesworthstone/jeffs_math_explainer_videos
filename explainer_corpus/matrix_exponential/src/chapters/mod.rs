@@ -20,6 +20,7 @@ pub mod sound;
 pub mod the_doorway;
 pub mod the_obvious_guess;
 pub mod the_series;
+pub mod thumbnail;
 pub mod turning;
 pub mod two_tanks;
 pub mod walks;
