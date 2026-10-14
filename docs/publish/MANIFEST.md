@@ -129,6 +129,7 @@ upload has not, and v4 was uploaded separately and made Public.
 | Video F, Mental Math Tricks, michael v2 (0720552) | `explainer_corpus/mental_math/renders/final/mental_math_master.mp4` | `766f27760c86c2fa698ddc830699d550` | 15:34, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2); `tools/release.py check mental_math` PASS on this laptop copy, 2026-10-14; uploaded Private on 2026-10-14 and made **Public** the same day on the owner's word (https://youtu.be/wahnqlfOC84, row in Uploads above). F v1 (`renders/final_v1/`, `ccc684b23c200d6ed09094509d02d73b`) has orphan captions and v1's chapter times: do not upload |
 | Video E, Fair Coin, michael (fbe959c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `a5805f30aa28ad29470a3ed74c7d62f4` | 11:57, −17.6 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check fair_coin` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
 | Video G, Lie Robotics, michael (fbe959c) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `c4cd3fcade8d48953ecb9158b5be8ab4` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check lie_robotics` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
+| Video I, Proofs You Can See, michael v2 (4eb357a) | `explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4` | `5a08f714a8ab7631243dcf67fcc45a67` | 18:11, −17.9 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:29, after the 17:14 disk failure stopped v1 mid-final); fetched md5-checked; `./x visual_proofs release-check` PASS on this laptop copy, 2026-10-14 (captions from the kit at 4eb357a: no orphan tails); not uploaded: Private for the owner's review first, by BronzeRidge only. The delivery check (final_check) on mx-e-a-dza.11 before upload |
 
 **Hold E and G (2026-10-14, mx-vu2t): a v2 of each is rendering, and it replaces these rows.** Both
 fbe959c cuts predate fixes made for them: 46678ef (E's three listen windows, 02_8, 03_2 and 05_2, are
@@ -161,6 +162,13 @@ times filled from final timelines, c2b4a1b); captions `explainer_corpus/lie_robo
 1f44182, 0 orphan tails, final_check PASS); thumbnail `explainer_corpus/lie_robotics/renders/lie_robotics_thumbnail.png`
 (`7fc39fc8…`); the upload sheet is `python3 -I tools/release.py check lie_robotics` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
+
+Video I's text: `explainer_corpus/visual_proofs/publish/michael/{title,description,tags}.txt` (v2's
+chapter times, 0381fba); captions `explainer_corpus/visual_proofs/renders/final/visual_proofs.en.srt`
+(`02862100…`, VTT `601a14f4…`); thumbnail `explainer_corpus/visual_proofs/renders/visual_proofs_thumbnail.png`
+(`a78eb233…`); the upload sheet is `./x visual_proofs release-check`. Its one NOTE: d7e904b came after
+this cut; it adds to the score's validation a refusal of a theme chord equal to a bed chord and sets H's
+theme chord, so I's sound is unchanged by it.
 
 ## Corrected michael cuts (review 2 and later)
 
