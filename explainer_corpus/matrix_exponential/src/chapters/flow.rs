@@ -280,9 +280,19 @@ impl Levels {
     /// Trackers at `initial` for each of `mobs` (the updater is on the
     /// scene; the mobjects themselves must be, or be in a family that is).
     pub fn build(stage: &mut Stage<'_>, mobs: &[Mob], initial: f64) -> fmn::Result<Self> {
+        Self::build_with_strokes(stage, mobs, &[], initial)
+    }
+
+    /// As [`Levels::build`], with `strokes` (some of `mobs`) the open lines
+    /// of a drawing, brackets and the like: `set_opacity` writes the fill
+    /// alpha as well, and the fill of an open bracket is the solid bar
+    /// between its path and its chord (11's matrix A was drawn with bars
+    /// for brackets), so those pieces take their level in the stroke alone.
+    pub fn build_with_strokes(stage: &mut Stage<'_>, mobs: &[Mob], strokes: &[Mob], initial: f64) -> fmn::Result<Self> {
         let trackers: Vec<Mob> = mobs.iter().map(|_| stage.add_value_tracker(initial)).collect();
         let anchor = stage.arena_mut().add(VMobject::new());
         let (pieces, levels) = (mobs.to_vec(), trackers.clone());
+        let line: Vec<bool> = mobs.iter().map(|m| strokes.contains(m)).collect();
         let mut last = vec![f64::NAN; pieces.len()];
         stage.add_updater(
             anchor,
@@ -290,7 +300,11 @@ impl Levels {
                 for (i, (&m, &t)) in pieces.iter().zip(&levels).enumerate() {
                     let l = read(s, t);
                     if l.to_bits() != last[i].to_bits() {
-                        s.set_opacity(m, l, true);
+                        if line[i] {
+                            s.set_stroke(m, None, None, Some(l), None, true);
+                        } else {
+                            s.set_opacity(m, l, true);
+                        }
                         last[i] = l;
                     }
                 }

@@ -183,6 +183,23 @@ fn rows3(key: &str) -> fmn::Result<Vec<Vec<String>>> {
     entries(key, Some(3))
 }
 
+/// 13_3's red box round each entry of the 32-bit run (`ours`) whose sign is
+/// not the true entry's: `walks::cell_outline`, as wide as the number it
+/// rings (a square cut through the digits of -0.839).
+fn wrong_sign_rings(stage: &mut Stage<'_>, ours: &MatrixGrid) -> fmn::Result<Vec<Mob>> {
+    let exact_m = matrix("F-V.13_2.exact")?;
+    let ours_m = matrix("F-V.13_3.series")?;
+    let wrong = wrong_signs(
+        &Mat::from_rows(&ours_m.iter().map(|r| r.as_slice()).collect::<Vec<_>>()),
+        &Mat::from_rows(&exact_m.iter().map(|r| r.as_slice()).collect::<Vec<_>>()),
+    );
+    let mut rings = Vec::new();
+    for &(r, c) in &wrong {
+        rings.push(cell_outline(stage, ours, r, c, warn())?);
+    }
+    Ok(rings)
+}
+
 /// 13_5's citation for the ratio of polynomials (a one-line lower third).
 fn who_and_when(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
     lower_third(
@@ -368,16 +385,7 @@ impl SceneConstruct for HowComputersDoIt {
         line.wait_for(stage, "Every entry comes out wrong")?;
         fade_in_all(stage, &[ours.group, ours_name], 0.6)?;
         line.wait_for(stage, "one with the wrong sign")?;
-        let exact_m = matrix("F-V.13_2.exact")?;
-        let ours_m = matrix("F-V.13_3.series")?;
-        let wrong = wrong_signs(
-            &Mat::from_rows(&ours_m.iter().map(|r| r.as_slice()).collect::<Vec<_>>()),
-            &Mat::from_rows(&exact_m.iter().map(|r| r.as_slice()).collect::<Vec<_>>()),
-        );
-        let mut rings = Vec::new();
-        for &(r, c) in &wrong {
-            rings.push(cell_outline(stage, &ours, r, c, warn())?);
-        }
+        let rings = wrong_sign_rings(stage, &ours)?;
         fade_in_all(stage, &rings, 0.4)?;
         line.wait_for(stage, "The digits that mattered were thrown away")?;
         let stopped = fact("F-V.13_3.stopped_at_k")?;
@@ -665,6 +673,51 @@ mod tests {
                 let (l, r) = (stage.get_left(m)[0], stage.get_right(m)[0]);
                 assert!(l > -7.1 + 0.3 && r < 7.1 - 0.3, "{l:.2} to {r:.2}");
             }
+            Ok(())
+        });
+    }
+
+    /// 13_3 (the dense read of the scored draft): the red box on the one
+    /// wrong-sign entry spans its whole number with room to spare (it was a
+    /// square 0.9 of a row's pitch, 63 px on a number 115 px wide: its
+    /// edges cut through the minus sign and the last digit), inside the
+    /// grid's own brackets, and the box does ring the lower right entry.
+    #[test]
+    fn the_box_on_the_wrong_sign_spans_the_number() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let ours = MatrixGrid::build(&kit, stage, &rows3("F-V.13_3.series")?, 60.0, warn(), v(3.4, 0.7))?;
+            let rings = wrong_sign_rings(stage, &ours)?;
+            assert_eq!(rings.len(), 1, "one wrong sign");
+            let ring = rings[0];
+            let cell = ours.cells[1][1];
+            assert!(
+                stage.get_center(cell)[1] < stage.get_center(ours.cells[0][1])[1],
+                "the lower right entry"
+            );
+            let (cl, cr) = (stage.get_left(cell)[0], stage.get_right(cell)[0]);
+            let (rl, rr) = (stage.get_left(ring)[0], stage.get_right(ring)[0]);
+            assert!(
+                rl < cl - 0.1 && rr > cr + 0.1,
+                "the box spans {rl:.2} to {rr:.2}, the number {cl:.2} to {cr:.2}"
+            );
+            // the box stands inside the grid's brackets and clear of the
+            // entry above and the one to the left
+            let (bl, br) = (
+                stage.get_left(ours.brackets[0])[0],
+                stage.get_right(ours.brackets[1])[0],
+            );
+            assert!(
+                rl > bl && rr < br,
+                "the box {rl:.2} to {rr:.2} inside the brackets {bl:.2} to {br:.2}"
+            );
+            let left_cell = ours.cells[1][0];
+            assert!(rl > stage.get_right(left_cell)[0], "clear of the entry to its left");
+            let above = ours.cells[0][1];
+            assert!(
+                stage.get_top(ring)[1] <= stage.get_bottom(above)[1] + 0.05,
+                "clear of the entry above"
+            );
             Ok(())
         });
     }

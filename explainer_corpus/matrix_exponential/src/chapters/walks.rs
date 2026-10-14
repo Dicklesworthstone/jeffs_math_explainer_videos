@@ -134,6 +134,47 @@ pub fn shade(value: f64, largest: f64) -> f64 {
     0.08 + 0.62 * (value / largest).clamp(0.0, 1.0)
 }
 
+/// How far from a node's centre a line between nodes stops: the disc's edge
+/// and a hair more. The lit links, the arcs and the walks' traces were drawn
+/// from centre to centre over the discs, and struck through the numerals.
+pub const LINE_CLEAR: f64 = NODE_R + 0.03;
+
+/// `pts` without the part of its start that lies within `LINE_CLEAR` of
+/// `centre`, the new first point exactly on that circle.
+fn trim_start(pts: Vec<Vec3>, centre: Vec3) -> Vec<Vec3> {
+    let dist = |p: Vec3| (p[0] - centre[0]).hypot(p[1] - centre[1]);
+    let Some(i) = pts.iter().position(|&p| dist(p) >= LINE_CLEAR) else {
+        return pts;
+    };
+    if i == 0 {
+        return pts;
+    }
+    let (a, b) = (pts[i - 1], pts[i]);
+    let at = |t: f64| v(a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]));
+    let (mut lo, mut hi) = (0.0_f64, 1.0_f64);
+    for _ in 0..40 {
+        let mid = (lo + hi) / 2.0;
+        if dist(at(mid)) < LINE_CLEAR {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+    }
+    let mut out = vec![at(hi)];
+    out.extend_from_slice(&pts[i..]);
+    out
+}
+
+/// The points of a line from node `from` to node `to`, bowed `bulge` (see
+/// [`bow`]), from the edge of one disc to the edge of the other.
+pub fn link_path(from: usize, to: usize, bulge: f64, n: usize) -> Vec<Vec3> {
+    let mut pts = trim_start(bow(node(from), node(to), bulge, n), node(from));
+    pts.reverse();
+    let mut pts = trim_start(pts, node(to));
+    pts.reverse();
+    pts
+}
+
 // ------------------------------------------------------------ the network
 
 /// The four nodes with their links, drawn at `NODE_AT`.
@@ -161,7 +202,9 @@ impl Net {
                 .style(faded_line(Palette::dim(), 4.0, 0.7))
                 .build();
             links.push(stage.arena_mut().add(dim));
-            let on = polyline(vec![node(a), node(b)])
+            // lit from disc to disc: it comes in after the numerals, so a
+            // line to the centres would be drawn over them
+            let on = polyline(link_path(a, b, 0.0, 2))
                 .style(faded_line(rule(), 7.0, 1.0))
                 .build();
             lit.push(stage.arena_mut().add(on));
@@ -198,11 +241,29 @@ fn whole_rows(m: &Mat) -> Vec<Vec<String>> {
         .collect()
 }
 
-/// A rounded outline around the cell at (`row`, `col`) of `grid`.
+/// A level for each cell of `grid`, row by row, then its two brackets (so
+/// the brackets are pieces `n * n` and `n * n + 1`). The brackets are open
+/// lines, so their level is a stroke alpha: the fill alpha that
+/// `set_opacity` also writes turns an open bracket into a solid bar.
+pub fn grid_levels(stage: &mut Stage<'_>, grid: &MatrixGrid) -> fmn::Result<Levels> {
+    let mut pieces: Vec<Mob> = grid.cells.iter().flatten().copied().collect();
+    pieces.extend(grid.brackets);
+    Levels::build_with_strokes(stage, &pieces, &grid.brackets, 0.0)
+}
+
+/// How far a cell's outline stands out from the number on each side.
+pub const OUTLINE_PAD: f64 = 0.15;
+
+/// A rounded outline around the cell at (`row`, `col`) of `grid`: a square
+/// of a row's pitch for a digit, as wide as the number and `OUTLINE_PAD`
+/// either side when that is more (a square cut through the digits of
+/// -0.839).
 pub fn cell_outline(stage: &mut Stage<'_>, grid: &MatrixGrid, row: usize, col: usize, color: Srgb) -> fmn::Result<Mob> {
-    let c = stage.get_center(grid.cells[row][col]);
+    let cell = grid.cells[row][col];
+    let c = stage.get_center(cell);
+    let wide = stage.get_width(cell) + 2.0 * OUTLINE_PAD;
     let r = Rectangle::new()
-        .width(grid.pitch * 0.9)
+        .width((grid.pitch * 0.9).max(wide))
         .height(grid.pitch * 0.9)
         .corner_radius(0.08)
         .style(faded_line(color, 5.0, 1.0))
@@ -236,9 +297,7 @@ impl SceneConstruct for Walks {
         let a_name = kit.tex(stage, "A", 48.0, teal, &[], v(A_AT[0], A_AT[1] + 1.55))?;
         // the grid is on the scene from the start, every cell and bracket at
         // level 0, and comes in piece by piece
-        let mut pieces: Vec<Mob> = a_grid.cells.iter().flatten().copied().collect();
-        pieces.extend(a_grid.brackets);
-        let levels = Levels::build(stage, &pieces, 0.0)?;
+        let levels = grid_levels(stage, &a_grid)?;
         stage.add_to_scene(a_grid.group)?;
         let piece_of = |i: usize, j: usize| i * KITE.n + j;
         // the network is up from the line's first words, "who is linked to
@@ -249,7 +308,7 @@ impl SceneConstruct for Walks {
         line.wait_for(stage, "Write a one where two nodes are linked")?;
         let mut ins: Vec<Box<dyn Animation>> = vec![fade_in_anim(stage, a_name, 0.5)?];
         for b in 0..2 {
-            ins.push(stage.prepare(levels.tween(pieces.len() - 2 + b, 1.0, 0.5)?)?);
+            ins.push(stage.prepare(levels.tween(KITE.n * KITE.n + b, 1.0, 0.5)?)?);
         }
         stage.play_prepared(ins)?;
         // each link, as it lights, writes its two ones
@@ -393,7 +452,7 @@ impl SceneConstruct for Walks {
         let mut arcs = Vec::new();
         for &nb in &neighbours {
             for (from, to) in [(2, nb), (nb, 2)] {
-                let a = polyline(bow(node(from), node(to), 0.28, 14))
+                let a = polyline(link_path(from, to, 0.28, 14))
                     .style(faded_line(gold, 5.0, 1.0))
                     .build();
                 arcs.push(stage.arena_mut().add(a));
@@ -437,12 +496,14 @@ impl SceneConstruct for Walks {
             let mut layer = Vec::new();
             for w in walks_between(&KITE, 0, 3, k) {
                 let bulge = bulges.next().unwrap_or(0.5);
-                let mut pts: Vec<Vec3> = Vec::new();
+                // one line per step, each from disc to disc: a walk's trace
+                // through a node would run over its numeral
                 for pair in w.windows(2) {
-                    pts.extend(bow(node(pair[0]), node(pair[1]), bulge, 10));
+                    let m = polyline(link_path(pair[0], pair[1], bulge, 10))
+                        .style(faded_line(gold, 5.0, brightness(k)))
+                        .build();
+                    layer.push(stage.arena_mut().add(m));
                 }
-                let m = polyline(pts).style(faded_line(gold, 5.0, brightness(k))).build();
-                layer.push(stage.arena_mut().add(m));
             }
             layers.push(layer);
         }
@@ -557,6 +618,8 @@ impl SceneConstruct for Walks {
 
 #[cfg(test)]
 mod tests {
+    use fmn::scene::{NullSceneSink, RuntimeConfig};
+
     use super::super::draw::{fact, numbers, show, testing};
     use super::*;
     use crate::model::expm;
@@ -727,6 +790,158 @@ mod tests {
         // inside the frame sideways: 30 pt of "1 and 3: 2.62    1 and 2: 2.42"
         let width = "1 and 3: 2.62    1 and 2: 2.42".chars().count() as f64 * SCORES_PT * 0.0045;
         assert!(A_AT[0] + 0.2 + width / 2.0 < 7.11 - 0.15, "{width}");
+    }
+
+    /// Run `f` as a scene's `construct`, headless, at 10 fps.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = RuntimeConfig {
+            fps: 10,
+            ..RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// 11_1, 11_4 and 11_5 (the dense read of the scored draft): the lit
+    /// links, the arcs and the walks' traces came in after the numerals and
+    /// ran from centre to centre, so each struck through the digits. A line
+    /// between nodes now starts and ends on its discs' edges and comes
+    /// nowhere near the centre of any node, for every link, both ways, and
+    /// every bulge the chapter draws.
+    #[test]
+    fn a_line_between_nodes_stops_at_the_discs_and_never_crosses_a_numeral() {
+        let bulges = [0.0, 0.14, -0.14, 0.28, -0.28, 0.42, 0.5];
+        let from_centre = |p: Vec3, i: usize| (p[0] - node(i)[0]).hypot(p[1] - node(i)[1]);
+        for &(a, b) in KITE.links {
+            for (from, to) in [(a, b), (b, a)] {
+                for &bulge in &bulges {
+                    for n in [2, 10, 14] {
+                        let path = link_path(from, to, bulge, n);
+                        assert!(path.len() >= 2, "{from} to {to}: {path:?}");
+                        let (first, last) = (path[0], path[path.len() - 1]);
+                        assert!(
+                            (from_centre(first, from) - LINE_CLEAR).abs() < 1e-6,
+                            "{from} to {to}, bulge {bulge}: starts {} from its centre",
+                            from_centre(first, from)
+                        );
+                        assert!(
+                            (from_centre(last, to) - LINE_CLEAR).abs() < 1e-6,
+                            "{from} to {to}, bulge {bulge}: ends {} from its centre",
+                            from_centre(last, to)
+                        );
+                        for &p in &path {
+                            for i in 0..KITE.n {
+                                assert!(
+                                    from_centre(p, i) > NODE_R,
+                                    "{from} to {to}, bulge {bulge}: {:.3} from node {i}'s centre, inside its disc",
+                                    from_centre(p, i)
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // the dim links, drawn centre to centre under the discs, are the
+        // lit ones' length and more: the lit line is shorter by two edges
+        let lit = link_path(0, 2, 0.0, 2);
+        let full = bow(node(0), node(2), 0.0, 2);
+        let len = |p: &[Vec3]| {
+            p.windows(2)
+                .map(|w| (w[1][0] - w[0][0]).hypot(w[1][1] - w[0][1]))
+                .sum::<f64>()
+        };
+        assert!((len(&full) - len(&lit) - 2.0 * LINE_CLEAR).abs() < 1e-6);
+    }
+
+    /// 13_3 (the dense read): the outline round a cell is as wide as its
+    /// number and clear of it on both sides (a square cut through the digits
+    /// of -0.839), and a digit's cell keeps the square.
+    #[test]
+    fn an_outline_stands_clear_of_the_number_it_rings() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let rows = vec![
+                vec!["-0.839".to_string(), "1.234".to_string()],
+                vec!["10.5".to_string(), "0.003".to_string()],
+            ];
+            let grid = MatrixGrid::build(&kit, stage, &rows, 60.0, rule(), [0.0, 0.0, 0.0])?;
+            for (r, c) in [(0, 0), (0, 1), (1, 0), (1, 1)] {
+                let ring = cell_outline(stage, &grid, r, c, result())?;
+                let cell = grid.cells[r][c];
+                let (cl, cr) = (stage.get_left(cell)[0], stage.get_right(cell)[0]);
+                let (rl, rr) = (stage.get_left(ring)[0], stage.get_right(ring)[0]);
+                assert!(
+                    rl < cl - 0.1 && rr > cr + 0.1,
+                    "cell {r},{c}: the ring spans {rl:.2} to {rr:.2}, the number {cl:.2} to {cr:.2}"
+                );
+                let (ct, cb) = (stage.get_top(cell)[1], stage.get_bottom(cell)[1]);
+                let (rt, rb) = (stage.get_top(ring)[1], stage.get_bottom(ring)[1]);
+                assert!(
+                    rt > ct + 0.1 && rb < cb - 0.1,
+                    "cell {r},{c}: the ring is too low or too tight"
+                );
+            }
+            // a digit at 36 pt keeps the square of a row's pitch
+            let small = MatrixGrid::build(&kit, stage, &[vec!["3".to_string()]], 36.0, result(), [0.0, 0.0, 0.0])?;
+            let ring = cell_outline(stage, &small, 0, 0, result())?;
+            assert!((stage.get_width(ring) - small.pitch * 0.9).abs() < 0.02);
+            Ok(())
+        });
+    }
+
+    /// 11_1 (the dense read): the grid's brackets come in by their stroke
+    /// alone. `set_opacity` on an open bracket also writes its fill, and
+    /// the fill of "[" is the solid bar between its path and its chord: A was
+    /// drawn with thick green bars. At full level a bracket has no fill and a
+    /// full stroke, and the cells are full.
+    #[test]
+    fn the_brackets_of_a_grid_stay_lines_as_its_levels_rise() {
+        use explainer_kit::narration::wait_frames;
+        run(|stage| {
+            let kit = Kit::new()?;
+            let grid = MatrixGrid::build(&kit, stage, &whole_rows(&KITE.adjacency()), GRID_PT, rule(), A_AT)?;
+            let levels = grid_levels(stage, &grid)?;
+            stage.add_to_scene(grid.group)?;
+            let n = KITE.n * KITE.n;
+            assert_eq!(levels.trackers.len(), n + 2, "the cells, then the two brackets");
+            wait_frames(stage, 2)?;
+            for &b in &grid.brackets {
+                assert_eq!(
+                    stage.arena().get_fill_opacity(b),
+                    Some(0.0),
+                    "hidden bracket has no fill"
+                );
+                assert_eq!(stage.arena().get_stroke_opacity(b), Some(0.0), "and no stroke");
+            }
+            for &t in &levels.trackers {
+                stage.set_tracker_value(t, 1.0)?;
+            }
+            wait_frames(stage, 2)?;
+            for &b in &grid.brackets {
+                assert_eq!(
+                    stage.arena().get_fill_opacity(b),
+                    Some(0.0),
+                    "a bracket is a stroke, not a bar"
+                );
+                let o = stage.arena().get_stroke_opacity(b).unwrap_or(0.0);
+                assert!((o - 1.0).abs() < 1e-6, "its stroke is at its level: {o}");
+            }
+            // a typeset cell is a group: the most opaque of its family
+            let cell = grid.cells[0][1];
+            let o = stage
+                .arena()
+                .family(cell)
+                .into_iter()
+                .fold(0.0_f64, |o, m| o.max(stage.arena().get_fill_opacity(m).unwrap_or(0.0)));
+            assert!((o - 1.0).abs() < 1e-6, "a cell's fill is at its level: {o}");
+            Ok(())
+        });
     }
 
     /// The chapter runs on the storyboard with the layout lint clean, types
