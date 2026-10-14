@@ -393,9 +393,11 @@ fn month_year(iso: &str) -> Result<String, String> {
     Ok(format!("{} {y}", MONTH_NAMES[m - 1]))
 }
 
-/// The radius label's line width in characters: "40 nautical miles" and
-/// "(74 km)", each shorter than the spoke it stands over.
+/// The radius label's line width in characters ("40 nautical miles" and
+/// "(74 km)"), its size, and its distance right of the circle's rim.
 const RADIUS_LINE_CHARS: usize = 18;
+const RADIUS_PT: f64 = 20.0;
+const RADIUS_GAP: f64 = 0.15;
 
 /// "40 nautical miles (74 km)".
 fn radius_words(nm: &str, km: &str) -> String {
@@ -685,8 +687,9 @@ impl SceneConstruct for TheSilence {
                 .style(line_style(Palette::dim(), 2.0))
                 .build(),
         );
-        // two lines over the spoke: on one line the words were wider than
-        // the spoke and their last letters touched the rim
+        // two lines at the spoke's end, outside the rim: on one line over the
+        // spoke the words were wider than it and touched the rim, and over
+        // the spoke two lines stood on the 2010 area
         let radius_lines = wrap(
             &radius_words(&fact("F-A.circle.nm")?, &fact("F-A.circle.km")?),
             RADIUS_LINE_CHARS,
@@ -694,14 +697,14 @@ impl SceneConstruct for TheSilence {
         );
         let mut radius_texts: Vec<Mob> = Vec::new();
         for (j, text) in radius_lines.iter().enumerate() {
-            radius_texts.push(kit.text(
+            radius_texts.push(kit.text_left(
                 stage,
                 text,
-                24.0,
+                RADIUS_PT,
                 Palette::ink(),
                 v(
-                    CIRCLE_AT[0] + CIRCLE_R / 2.0,
-                    CIRCLE_AT[1] + 0.3 + 0.3 * (radius_lines.len() - 1 - j) as f64,
+                    CIRCLE_AT[0] + CIRCLE_R + RADIUS_GAP,
+                    CIRCLE_AT[1] + 0.15 - 0.35 * j as f64,
                 ),
             )?);
         }
@@ -812,9 +815,7 @@ impl SceneConstruct for TheSilence {
         for c in &small_discs {
             together.push(stage.prepare(tween(c.shown, 0.0, 1.2)?)?);
         }
-        // the radius label goes with the small maps: under the cloud it
-        // could not be read
-        for &m in small_mobs.iter().chain(&weight_labels).chain([&radius_label]) {
+        for &m in small_mobs.iter().chain(&weight_labels) {
             let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             together.push(stage.prepare(gone.rt(1.0))?);
         }
@@ -848,7 +849,7 @@ impl SceneConstruct for TheSilence {
         // the map drawn twice, once counting the silence and once leaving
         // it out
         let line = say(&kit, stage, LINES[4])?;
-        let mut main = vec![rim, centre_mark, spoke, heard, note];
+        let mut main = vec![rim, centre_mark, spoke, radius_label, heard, note];
         main.extend(&shaded);
         main.extend(&year_labels);
         main.extend(&lines);
@@ -1042,23 +1043,25 @@ mod tests {
         assert!(parts("2011-13-01").is_err());
     }
 
-    /// 12_2: the radius label is two lines, none of them longer than the
-    /// spoke it stands over (on one line "km)" touched the rim), and both
-    /// lines keep every word.
+    /// 12_2: the radius label is two lines at the spoke's end, right of the
+    /// circle's rim (on one line over the spoke "km)" touched the rim; over
+    /// it, two lines stood on the 2010 area), clear of the circle and of the
+    /// frame's safe edge, and both lines keep every word.
     #[test]
-    fn the_radius_label_fits_over_its_spoke() {
+    fn the_radius_label_stands_right_of_the_rim_and_in_the_frame() {
         use super::super::draw::CHAR_UNITS_PER_POINT;
         let f = facts().unwrap();
         let words = radius_words(f.get("F-A.circle.nm").unwrap(), f.get("F-A.circle.km").unwrap());
         let lines = wrap(&words, RADIUS_LINE_CHARS, 2);
         assert_eq!(lines, ["40 nautical miles", "(74 km)"]);
         assert_eq!(lines.join(" "), words);
-        for l in &lines {
-            let width = l.chars().count() as f64 * 24.0 * CHAR_UNITS_PER_POINT;
-            assert!(
-                width <= CIRCLE_R - 0.4,
-                "{l:?} is {width} wide over a spoke of {CIRCLE_R}"
-            );
+        let widest = lines.iter().map(|l| l.chars().count()).max().unwrap() as f64;
+        let end = CIRCLE_AT[0] + CIRCLE_R + RADIUS_GAP + widest * RADIUS_PT * CHAR_UNITS_PER_POINT;
+        assert!(end <= FRAME_X_RADIUS - 0.15, "the label ends at {end}");
+        // no area, however it is drawn, reaches the rim's right side
+        for a in &AREAS {
+            let reach = CIRCLE_AT[0] + (a.at.0 + a.semi.0.max(a.semi.1)) * CIRCLE_R;
+            assert!(reach < CIRCLE_AT[0] + CIRCLE_R, "an area reaches {reach}");
         }
     }
 
