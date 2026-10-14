@@ -89,6 +89,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   to both (10° from each). Two exactly opposite headings have two halfways. In code, wrap the
   difference with `atan2(sin d, cos d)`: in C, C++ and Java `%` and `fmod` keep the sign of the
   dividend, so `fmod(-340 + 180, 360) - 180` is -340, unchanged, where Python's `%` gives +20.
+  [G-H.mean, G-H.halfway, G-H.gap, G-D.seam.a_minus_b, G-D.seam.b_minus_a, G-D.halfway.from_each]
 - **04_5.** "The space is curved": a circle bends away from its flat piece (the tangent line)
   and closes up; as a line it has no curvature of its own. The space of orientations is curved in
   the strict sense. For poses it means that steady motions are not straight lines in pose
@@ -116,6 +117,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   numbers: (3, 0) and a heading of 180°. Stepping in small pieces and turning the velocity by the
   heading each time is the wrap done piece by piece: 0.01 s steps land about 5 mm from the exact
   (0, 1.91).
+  [G-P.spin_deg, G-P.naive, G-P.heading, G-P.end, G-L.kmr.speed_kmh, G-L.kmr.lateral_kmh, G-D.platform.euler.dt, G-D.platform.euler.miss_mm]
 - **07_2, 07_3.** A twist's slide arrow, in the room's frame, is the velocity of the point at
   the room's origin: not the tip's and not the slide along the screw's axis. The tip's velocity is
   slide + spin × tip position.
@@ -126,8 +128,9 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
 - **08_1, 08_2.** Turning about a line through c: x goes to c + R(x − c).
 - **08_6.** The formula is the space form (Lynch and Park eq. 4.14), `T(q) = e^{[S₁]q₁} ⋯ e^{[S₇]q₇} M`.
   "Hold each joint's twist for its joint angle": S is a unit twist, one radian a second, held
-  for q seconds with q in radians. Brockett presented it at MTNS-83 (Beer Sheva); the
-  proceedings are dated 1984.
+  for q seconds with q in radians. Brockett presented it in 1983 at the MTNS conference (Beer
+  Sheva); the proceedings are dated 1984.
+  [G-L.brockett.year]
 - **09_1.** The gripper's tip is the flange: no gripper is in the model.
 - **10_2, 10_3.** The Jacobian is the space Jacobian (eq. 5.11): column i is joint i's screw
   carried to the present pose, (ω, −ω × c) with ω the joint's unit axis and c any point on it,
@@ -139,12 +142,14 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   the line from shoulder to wrist; the gripper's tip, 0.126 m past the wrist centre, can still
   move along it while turning (1 m/s along it costs 9.2 rad/s of turning), so what is lost is a
   pure slide of the gripper. With the wrist straight the tip lies on the line and cannot.
+  [G-J.rank.elbow_straight, G-A.wrist_to_tip, G-D.elbow_straight.turn_per_m_s]
 - **11_4.** Singularity is a property of the joint angles, not of the gripper's pose: the same
   gripper pose can be reached by a singular and by a non-singular set of angles (a witness: the
   pose with the tip at (−0.526, 0, 0.780) m and R = [0 0 −1; 0 1 0; 1 0 0] is reached at rank 5
   by (0, 0, 0, 90°, 0, 0, 0) and at rank 6 by (−111.8°, 39.0°, 68.2°, 90°, −69.1°, 41.0°,
   110.9°), inside KUKA's limits; the angles are given to a tenth of a degree).
   Singular settings are also found well inside the reach.
+  [G-K.ell.after_elbow, G-J.rank.elbow_only, G-D.witness.q_deg, G-D.witness.rank, G-D.witness.within_limits]
 - **11_5.** 54.03 and 160.44 °/s (said as fifty-four and a hundred and sixty) are for the elbow,
   for a pure pull of the gripper at 0.1 m/s with the gripper's orientation held; they are the
   same however the other joints share the motion. The
@@ -154,6 +159,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   to 3 it is 5, without joint 7 (or 5) still 6. Not in every pose with a straight wrist: at
   (0, 90°, 0, 90°, 90°, 0, 0) the rank is 5. This wrist's axes go z, y, z, so its bad spot is the
   middle joint at zero; the rings' z, y, x had theirs at a quarter turn.
+  [G-J.rank.ell, G-J.rank.ell.without_3, G-J.rank.ell.without_7, G-D.rank.ell.without_1, G-D.rank.ell.without_2, G-D.rank.ell.without_5, G-J.rank.ell_wrist_turned]
 - **12_3.** The usual kinematic model: a ball joint at the shoulder (3 hinges), a hinge at the
   elbow, three at the wrist. The palm on the desk is Lynch and Park's Exercise 2.2; their
   Exercise 2.3 notes the forearm is really a closed chain.
@@ -162,6 +168,7 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
 - **13_2.** The orientations (0°, 89°, 0°) and (90°, 89°, 90°), as ring angles in the drawn order
   (outer about the vertical, middle about the line pointing away, inner about the line left to
   right), are 1.414° apart. In the other nesting order the same angles are 179.99° apart.
+  [G-E.near.triples, G-E.near.apart, G-D.near.apart_other_order]
 - **13_3, 13_4.** The method is Lynch and Park §6.2.2 with the error read in the gripper's frame
   and the pseudoinverse of the body Jacobian: `error = log(inverse(T(q)) · T_goal)`,
   `q = q + pinv(J_body(q)) · error`, stop below 0.001 rad and 0.1 mm. J_body is the Jacobian of
@@ -175,8 +182,8 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   can fail. For a chosen swing of the elbow this
   arm's geometry (a spherical shoulder, an elbow, a spherical wrist, no offsets) gives a closed
   form; the video makes no claim about it. Each step cuts the error by a bigger factor than the
-  last (5.4, 22.6, then more than a hundred for the distance), while the absolute gain falls
-  (411, 90, 4.1 mm).
+  last (5.4, 22.6, 157 for the distance), while the absolute gain falls (411, 89.8, 4.1 mm).
+  [G-I.start.q, G-I.goal.p, G-I.goal.R, G-D.ik.factors, G-D.ik.gains_mm]
 - **14_2, 14_3.** The determinant of a blend `(1 − s)R₀ + sR₁` of two turns that differ by the
   angle a is 1 − 2s(1 − s)(1 − cos a); at s = ½ it is cos²(a/2). For a quarter turn it is 0.5. The
   blend is the "lerp" of matrices; renormalising it ("nlerp") repairs the shape and not the
@@ -190,11 +197,13 @@ beat where it is said (chapter_beat). Notation: R a 3 by 3 turn matrix, [ω] the
   The exponential step does not. A unit quaternion renormalised each step also stays rigid. A
   humanoid is one robot here, the Unitree G1: 29 revolute joints, so 6 + 29 = 35 numbers of
   velocity and 3 + 4 + 29 = 36 of stored state (a position, a quaternion, the joints).
+  [G-C.drift.add, G-D.drift.width_percent, G-C.drift.steps, G-C.drift.dt, G-C.g1.joints, G-C.g1.velocity, G-C.g1.stored]
 - **15_3, 15_4.** With T the tilt-then-roll turn and U the roll-then-tilt turn, both about lines
   fixed in the room (tilt about x, roll about y), the leftover is T U⁻¹. For turns of angles a
   and b it is a turn by ab + O(3) radians about an axis that tends to ŷ × x̂ = −ẑ: 0.0175° at 1°
-  (0.7° off −z), 1.741° at 10° (7° off), 120° at 90°. The Lie bracket is the corresponding rule
+  (0.71° off −z), 1.741° at 10° (7.05° off), 120° at 90°. The Lie bracket is the corresponding rule
   on the flat piece, the cross product: [y, x] = −z (x is tilt's line, y roll's, z up).
+  [G-B.leftover.1.angle, G-B.leftover.10.angle, G-B.leftover.90.angle, G-D.leftover.turn_deg, G-D.leftover.off_z_deg]
 
 ## Numbers to test with
 

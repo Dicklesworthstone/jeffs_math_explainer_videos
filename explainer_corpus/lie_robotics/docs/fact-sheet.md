@@ -13,13 +13,18 @@ at the end was copied from the oracle's output by a script, not typed.
   The oracle prints 227 keys and passes 11 of 11 of its own cross-checks, 14
   of 14 with SciPy 1.18.1 present, 18 of 18 with SciPy and the owner's
   source files present (`CMAES_EXPLAINER_DIR`).
+- **Result, 2026-10-14** (the build host, after the G-D rows):
+  `facts-check lie_robotics: 236 video facts against 252 oracle keys: PASS`,
+  the oracle's own cross-checks 21 of 21, and the description's numbers: 372,
+  127 facts, 16 allow-listed (years, citations, one structural), 0 unmatched.
 - **Rust side:** `./x lie_robotics test`: 21 tests pass, clippy
   `-D warnings` and `fmt --check` clean.
 - **Rows:** G-A the arm; G-B the book; G-E three angles; G-H halfway; G-R
   spins; G-P the base; G-S screws; G-K the arm's poses; G-J velocities; G-I
   steps and paths; G-C the coda; G-X the edges of the always sentences, each
   as "how many hold of how many checked"; G-Q the quizzes; G-L cited
-  literals.
+  literals; G-D the numbers docs/description.md states (a few the video
+  prints, the rest oracle-only research rows).
 
 ## How the two sides get their numbers
 
@@ -628,6 +633,31 @@ G-C: the coda. The humanoid's counts; the determinant after 1,000 steps taken tw
 | `G-C.drift.exp` | 1.0000 |
 | `G-C.drift.width` | 1.0513 |
 
+G-D: the numbers docs/description.md states, each computed in oracle.py by its own functions and cross-checked there. The video prints the first four rows (`seam`, `halfway.from_each`, `leftover.turn_deg`: its scenes show them); every other G-D row is a research row only the oracle prints. `seam` is the two headings as plain numbers; `leftover.turn_deg` the sizes of the small turns and `off_z_deg` how far the leftover's axis leans from −z for each; `platform.euler` the base stepped in pieces of 0.01 s with the velocity turned by the heading each piece, and how far from the exact end it lands (mm); `elbow_straight.turn_per_m_s` the least turning (rad/s) with which the tip moves 1 m/s along the shoulder-wrist line at the elbow-straight pose; `near.apart_other_order` the angle between chapter 13's two triples with the rings nested x outside, z inside; `witness` the same gripper pose as the elbow's quarter turn reached at rank 6 (one-decimal angles, the exact angles, its rank, whether it is inside the limits, and how far the rounded angles miss the pose in mm and degrees); `rank.ell.without_k` the L shape's rank with joint k taken away; `ik.factors` and `ik.gains_mm` the Newton distance's ratios and differences from the unrounded distances; `drift.width_percent` how much wider than 1 the Euler-stepped body is across its axis.
+
+| Key | Value |
+|---|---|
+| `G-D.seam.a_minus_b` | 340 |
+| `G-D.seam.b_minus_a` | -340 |
+| `G-D.halfway.from_each` | 10.0000 |
+| `G-D.leftover.turn_deg` | 1,10,90 |
+| `G-D.leftover.off_z_deg` | 0.7071,7.0532,54.7356 |
+| `G-D.platform.euler.dt` | 0.01 |
+| `G-D.platform.euler.miss_mm` | 5.00 |
+| `G-D.elbow_straight.turn_per_m_s` | 9.1643 |
+| `G-D.near.apart_other_order` | 179.9913 |
+| `G-D.witness.q_deg` | -111.8,39.0,68.2,90.0,-69.1,41.0,110.9 |
+| `G-D.witness.exact_q_deg` | -111.820,38.987,68.180,90.000,-69.128,41.021,110.872 |
+| `G-D.witness.rank` | 6 |
+| `G-D.witness.within_limits` | 1 |
+| `G-D.witness.rounded_miss` | 0.38,0.047 |
+| `G-D.rank.ell.without_1` | 5 |
+| `G-D.rank.ell.without_2` | 5 |
+| `G-D.rank.ell.without_5` | 6 |
+| `G-D.ik.factors` | 5.38,22.61,157.15 |
+| `G-D.ik.gains_mm` | 411.06,89.78,4.13 |
+| `G-D.drift.width_percent` | 5.13 |
+
 G-X: the edges of the always sentences (held / checked).
 
 | Key | Value |
@@ -689,6 +719,7 @@ G-L: cited literals.
 | `G-L.kuka.axes` | 7 |
 | `G-L.kmr.speed_kmh` | 3.6 |
 | `G-L.kmr.speed_m_s` | 1.0 |
+| `G-L.kmr.lateral_kmh` | 2.0 |
 | `G-L.apollo.lamp_deg` | 70 |
 | `G-L.apollo.lost_deg` | 85 |
 | `G-L.apollo.gimbals` | 3 |
