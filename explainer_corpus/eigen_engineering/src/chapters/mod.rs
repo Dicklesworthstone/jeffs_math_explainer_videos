@@ -13,9 +13,12 @@ pub mod draw;
 pub mod glyphs;
 pub mod one_idea;
 pub mod own_patterns;
+pub mod the_air_in_a_room;
 pub mod the_split;
 pub mod truss;
+pub mod twenty_one_patterns;
 pub mod two_carts;
+pub mod two_million_modes;
 pub mod where_modes_rule;
 
 use explainer_kit::Chapter;
@@ -50,11 +53,11 @@ pub fn registry() -> Vec<Chapter> {
         scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
         scene!("04_the_split", 0.55, the_split::TheSplit),
         scene!("05_a_steel_truss", 0.5, a_steel_truss::ASteelTruss),
-        animatic!("06_twenty_one_patterns", 0.6),
+        scene!("06_twenty_one_patterns", 0.6, twenty_one_patterns::TwentyOnePatterns),
         animatic!("07_every_mode_a_note", 0.65),
         animatic!("08_two_bridges", 0.35),
-        animatic!("09_the_air_in_a_room", 0.5),
-        animatic!("10_two_million_modes", 0.55),
+        scene!("09_the_air_in_a_room", 0.5, the_air_in_a_room::TheAirInARoom),
+        scene!("10_two_million_modes", 0.55, two_million_modes::TwoMillionModes),
         scene!("11_where_modes_rule", 0.45, where_modes_rule::WhereModesRule),
         scene!("12_an_economy", 0.5, an_economy::AnEconomy),
         scene!("13_can_it_feed_itself", 0.55, can_it_feed_itself::CanItFeedItself),
