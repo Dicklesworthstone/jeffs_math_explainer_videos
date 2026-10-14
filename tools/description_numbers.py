@@ -32,7 +32,11 @@ requires each one to be
     Not checked against facts: 0 and 1, and the digits of a formula: a whole number under 100 that is a
     coefficient, an exponent or a term of an expression with a variable in it (`2k + 1`, `n(n + 1) / 2`,
     `x^2`, `√2`, `SE(3)`). A term of a sum of plain numbers is no formula digit (`6 + 29 = 35`, `3-4-5`): it
-    must be bound or have a row, and the sum itself is evaluated.
+    must be bound or have a row, and the sum itself is evaluated. A unit after a number is no variable
+    (`45 × 23 × 18 m` is a product of claims, `2k + 1` a formula). The digits of a formula are checked as
+    algebra instead: an equation with letters on both sides (`(a + b)² = a² + 2ab + b²`) is evaluated at
+    fixed points, and one that is no identity but would be with ONE number or sign changed (`3ab` for
+    `2ab`) fails; a conditional equation or a definition has no such neighbour and is left alone.
 
 Not read as numbers: HTML comments, the fact keys (G-A.joints), the beat ids (01_6), "chapter 13", "joints 5 and 7",
 "axis 4", "row 5", "Table 3" and "column B"-style indices, "§6.2.2", "57(2)" (the volume and issue of a journal),
@@ -52,6 +56,7 @@ import pathlib
 import re
 import sys
 from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal, InvalidOperation, getcontext
+from fractions import Fraction
 
 sys.dont_write_bytecode = True
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -310,7 +315,11 @@ def _expression_around(clean, start, end):
             hi += 1
         elif _is_letter(c) and not (hi + 1 < n and _is_letter(clean[hi + 1])) and not (hi > 0 and _is_letter(clean[hi - 1])):
             prv = clean[:hi].rstrip()[-1:]
-            if prv and (prv in "+−-×÷*/^=()" or prv.isdigit()):
+            # a letter joined to the expression: after an operator or bracket, or glued to a digit (2k). A letter a
+            # space after a number is a unit or a word (`18 m`, `20 Hz`) and its superscript is the unit's (`m³`),
+            # unless it is used like a variable: `50 e^{-0.2t}`, `3 x (y + 1)`, `2 n + 1`
+            used = clean[hi + 1:].lstrip()[:1] in tuple("^+−-×÷*/=(")
+            if prv and (prv in "+−-×÷*/^=()" or (prv.isdigit() and (clean[hi - 1] == prv or used))):
                 hi += 1
             else:
                 break
@@ -354,6 +363,8 @@ def _sum_left(line, eq):
     i = eq
     while i > 0:
         c = line[i - 1]
+        if c == "," and line[i:i + 1].isspace():
+            break  # a comma and a space separate things (`23 x 46, (2 + 3) x ...`); a thousands comma has none
         if c in ARITH_CHARS or (c == "x" and i - 2 >= 0 and not line[i - 2].isalpha() and line[i:i + 1] in (" ", "")):
             i -= 1
             continue
@@ -403,8 +414,9 @@ def arithmetic_problems(text):
                 continue
             glued = line[start - 1:start] if start else ""  # directly against the expression: k(k - 1), 2k + 1
             spaced = line[:start].rstrip()[-1:]  # the last thing before it: an operator makes it a part
+            separated = spaced == "," and line[:start].endswith(" ")  # `23 x 46, (2 + 3) x ...`: a comma and a space end what came before
             after = line[m.end():].lstrip()[:1]
-            if (glued and not glued.isspace()) or (spaced and spaced in "+−-–×÷*/^(.,_") or (after and (after in "+−-–×÷*/^(%°" or after in FORMULA_SUPERSCRIPTS or after.isdigit())):
+            if (glued and not glued.isspace()) or (spaced and spaced in "+−-–×÷*/^(.,_" and not separated) or (after and (after in "+−-–×÷*/^(%°" or after in FORMULA_SUPERSCRIPTS or after.isdigit())):
                 continue
             py = expr.replace(",", "").replace("−", "-").replace("–", "-").replace("×", "*").replace("÷", "/")
             py = re.sub(r"(?<=[\d)\s])x(?=[\d(\s])", "*", py)
@@ -434,6 +446,387 @@ def _operand_slack(expr, value):
         if x != 0:
             rel += Decimal(5).scaleb(-len(t.partition(".")[2]) - 1) / x
     return abs(value) * rel
+
+
+# ------------------------------------------------------------------ identities with letters
+#
+# `(a + b)² = a² + 2ab + b²` is a claim of algebra, and a digit in it is the claim: 2ab typed 3ab publishes a false
+# identity. Both sides are evaluated, exactly (Fractions), at several fixed points; the equation is an identity when
+# they agree at all of them. An equation that is no identity may still be right as typed (a conditional equation like
+# `p⁴ = 4p³(1 − p)` "exactly when p = 4(1 − p)", a definition, a law in other units): it is reported only when ONE
+# number (a coefficient or an exponent) changed to a nearby value would make it an identity, which is what a typo in
+# an identity looks like. Anything the small grammar does not read (functions, sums, ellipses, a letter glued to a
+# digit, words) is left alone, and so is an equation with a lone symbol or a number on either side.
+
+_SUP = {c: str(i) for i, c in enumerate("⁰¹²³⁴⁵⁶⁷⁸⁹")}
+_SUB = "₀₁₂₃₄₅₆₇₈₉"
+_VULGAR = {"½": Fraction(1, 2), "⅓": Fraction(1, 3), "⅔": Fraction(2, 3), "¼": Fraction(1, 4), "¾": Fraction(3, 4)}
+_STOP_WORDS = {"is", "as", "an", "of", "or", "to", "in", "on", "at", "by", "if", "it", "no", "so", "we", "be", "do", "up", "us", "my", "me", "am"}
+_MATH_OPERATORS = set("+−-–×÷*/^·±")
+_OP_MAP = {"+": "+", "−": "-", "-": "-", "–": "-", "×": "*", "·": "*", "*": "*", "÷": "/", "/": "/"}
+_MATH_CHARS = re.compile(r"^[A-Za-zα-ωΑ-Ω0-9.,()\[\]{}+−\-–×÷*/^·±⁰¹²³⁴⁵⁶⁷⁸⁹ⁿ₀₁₂₃₄₅₆₇₈₉½⅓⅔¼¾]+$")
+_POINTS = [
+    [2, 3, 5, 7, 4, 6, 8, 9], [3, 5, 2, 4, 9, 7, 6, 8], [-2, 3, -5, 4, 7, -3, 5, 2], [5, -2, 3, 8, -4, 2, 9, -6],
+    [Fraction(1, 2), Fraction(2, 3), Fraction(3, 2), Fraction(5, 4), Fraction(7, 3), Fraction(3, 5), 2, 3],
+    [Fraction(-3, 2), 2, Fraction(1, 3), Fraction(5, 2), -4, Fraction(7, 5), 3, Fraction(2, 7)],
+]
+
+
+def _math_tokens(s, base=0):
+    """Tokens of an algebraic expression: ('num', Fraction, id), ('var', name), ('sup', int or name), ('op', c), ('(',),
+    (')',). None when it holds anything the grammar does not read."""
+    tokens, i, n, ident = [], 0, len(s), base
+    while i < n:
+        c = s[i]
+        if c.isspace():
+            i += 1
+        elif c.isdigit() and c.isascii() or (c == "." and s[i + 1:i + 2].isdigit()):
+            m = re.match(r"\d*\.?\d+", s[i:])
+            tokens.append(("num", Fraction(m.group(0)), ident))
+            ident += 1
+            i += m.end()
+        elif c in _VULGAR:
+            tokens.append(("num", _VULGAR[c], ident))
+            ident += 1
+            i += 1
+        elif c.isalpha():
+            if s[i + 1:i + 2].isdigit() and s[i + 1:i + 2].isascii():
+                return None  # b2: a square, a subscript or a product of 2; not guessed
+            j = i + 1
+            while j < n and s[j] in _SUB:
+                j += 1
+            name = c + s[i + 1:j]
+            tokens.append(("var", name))
+            i = j
+        elif c in _SUP or c == "ⁿ":
+            if c == "ⁿ":
+                tokens.append(("sup", "n", None))
+                i += 1
+            else:
+                j = i
+                while j < n and s[j] in _SUP:
+                    j += 1
+                tokens.append(("sup", int("".join(_SUP[x] for x in s[i:j])), ident))
+                ident += 1
+                i = j
+        elif c in _OP_MAP:
+            tokens.append(("op", _OP_MAP[c]))
+            i += 1
+        elif c == "^":
+            tokens.append(("op", "^"))
+            i += 1
+        elif c in "([{":
+            tokens.append(("(",))
+            i += 1
+        elif c in ")]}":
+            tokens.append((")",))
+            i += 1
+        else:
+            return None
+    return tokens
+
+
+class _Syntax(ValueError):
+    pass
+
+
+class _ExprParser:
+    """Precedence parser: + - below * / below implicit multiplication below powers."""
+
+    def __init__(self, tokens, base=0):
+        self.t, self.i, self.base = tokens, 0, base
+
+    def peek(self):
+        return self.t[self.i] if self.i < len(self.t) else None
+
+    def starts_atom(self, tok):
+        return tok is not None and (tok[0] in ("num", "var", "("))
+
+    def parse(self):
+        node = self.expr()
+        if self.i != len(self.t):
+            raise _Syntax("trailing")
+        return node
+
+    def expr(self):
+        sign = None
+        tok = self.peek()
+        if tok == ("op", "-") or tok == ("op", "+"):
+            sign = tok[1]
+            self.i += 1
+        node = self.term()
+        if sign == "-":
+            node = ("neg", node)
+        while self.peek() in (("op", "+"), ("op", "-")):
+            op = self.t[self.i][1]
+            self.i += 1
+            rhs = self.term()
+            node = ("add" if op == "+" else "sub", node, rhs, self.base + self.i)  # the last is this sign's id
+        return node
+
+    def term(self):
+        node = self.implicit()
+        while self.peek() in (("op", "*"), ("op", "/")):
+            op = self.t[self.i][1]
+            self.i += 1
+            rhs = self.implicit()
+            node = ("mul" if op == "*" else "div", node, rhs)
+        return node
+
+    def implicit(self):
+        if self.peek() in (("op", "-"), ("op", "+")):  # a × −b
+            neg = self.t[self.i][1] == "-"
+            self.i += 1
+            node = self.implicit()
+            return ("neg", node) if neg else node
+        node = self.power()
+        while self.starts_atom(self.peek()):
+            if node[0] == "num" and self.peek()[0] == "num":
+                raise _Syntax("two numbers")
+            node = ("mul", node, self.power())
+        return node
+
+    def power(self):
+        node = self.atom()
+        while True:
+            tok = self.peek()
+            if tok is not None and tok[0] == "sup":
+                self.i += 1
+                exp = ("num", Fraction(tok[1]), tok[2]) if isinstance(tok[1], int) else ("var", tok[1])
+                node = ("pow", node, exp)
+            elif tok == ("op", "^"):
+                self.i += 1
+                node = ("pow", node, self.exponent())
+            else:
+                return node
+
+    def exponent(self):
+        tok = self.peek()
+        if tok == ("op", "-"):
+            self.i += 1
+            return ("neg", self.exponent())
+        if tok is None or tok[0] not in ("num", "var", "("):
+            raise _Syntax("exponent")
+        return self.atom()
+
+    def atom(self):
+        tok = self.peek()
+        if tok is None:
+            raise _Syntax("end")
+        self.i += 1
+        if tok[0] == "num":
+            return ("num", tok[1], tok[2])
+        if tok[0] == "var":
+            return ("var", tok[1])
+        if tok[0] == "(":
+            node = self.expr()
+            if self.peek() != (")",):
+                raise _Syntax("bracket")
+            self.i += 1
+            return node
+        raise _Syntax("atom")
+
+
+def _eval_tree(node, point, override):
+    kind = node[0]
+    if kind == "num":
+        return override.get(node[2], node[1])
+    if kind == "var":
+        return point[node[1]]
+    if kind == "neg":
+        return -_eval_tree(node[1], point, override)
+    a = _eval_tree(node[1], point, override)
+    b = _eval_tree(node[2], point, override)
+    if kind in ("add", "sub"):
+        kind = override.get(("sign", node[3]), kind)  # a candidate fix flips one sign
+    if kind == "add":
+        return a + b
+    if kind == "sub":
+        return a - b
+    if kind == "mul":
+        return a * b
+    if kind == "div":
+        return a / b  # ZeroDivisionError: the point is skipped
+    if kind == "pow":
+        if isinstance(b, Fraction) and b.denominator != 1 or abs(b) > 16:
+            raise ValueError("exponent")
+        return a**int(b)
+    raise _Syntax(kind)
+
+
+def _tree_vars(node, out):
+    if node[0] == "var":
+        out.add(node[1])
+    elif node[0] not in ("num",):
+        for child in node[1:]:
+            if isinstance(child, tuple):
+                _tree_vars(child, out)
+
+
+def _tree_literals(node, out, signs=None):
+    if node[0] == "num" and node[2] is not None:
+        out.append((node[2], node[1]))
+    elif node[0] not in ("var",):
+        if signs is not None and node[0] in ("add", "sub"):
+            signs.append((node[3], node[0]))
+        for child in node[1:]:
+            if isinstance(child, tuple):
+                _tree_literals(child, out, signs)
+
+
+def _agrees_at_points(left, right, names, override):
+    """True/False when both sides were evaluated at 3 or more points; None when fewer points could be evaluated."""
+    valid = 0
+    for p in _POINTS:
+        point = {name: Fraction(p[k % len(p)]) for k, name in enumerate(sorted(names))}
+        try:
+            a = _eval_tree(left, point, override)
+            b = _eval_tree(right, point, override)
+        except (ZeroDivisionError, ValueError):
+            continue
+        valid += 1
+        if a != b:
+            return False
+    return True if valid >= 3 else None
+
+
+def check_identity(left_text, right_text):
+    """('identity' | 'not' | 'near', detail) for `left = right`, or None when it is not read (see the note above).
+    'near' carries the literal change that makes it an identity."""
+    for text in (left_text, right_text):
+        if "±" in text:  # both signs, taken together: (50 ± b)² = 2500 ± 100b + b²
+            plus = check_identity(left_text.replace("±", "+"), right_text.replace("±", "+"))
+            minus = check_identity(left_text.replace("±", "−"), right_text.replace("±", "−"))
+            if plus is None or minus is None:
+                return None
+            return plus if plus[0] != "identity" else minus
+    sides = []
+    for base, text in ((0, left_text), (1000, right_text)):
+        tokens = _math_tokens(text, base)
+        if not tokens:
+            return None
+        try:
+            sides.append(_ExprParser(tokens, base).parse())
+        except _Syntax:
+            return None
+    left, right = sides
+    names_l, names_r = set(), set()
+    _tree_vars(left, names_l)
+    _tree_vars(right, names_r)
+    names = names_l | names_r
+    if not names_l or not names_r:
+        return None  # a number on a side: an instance of the formula, not the identity
+    if left[0] == "var" or right[0] == "var" or "ⁿ" in left_text + right_text:
+        return None  # x = 2y + 1: a definition or a condition, not an identity
+    agree = _agrees_at_points(left, right, names, {})
+    if agree is None:
+        return None
+    if agree:
+        return ("identity", "")
+    literals, signs = [], []
+    _tree_literals(left, literals, signs)
+    _tree_literals(right, literals, signs)
+    fixes = []
+    for ident, kind in signs:
+        flipped = "sub" if kind == "add" else "add"
+        if _agrees_at_points(left, right, names, {("sign", ident): flipped}):
+            fixes.append(("+" if kind == "add" else "−", "−" if kind == "add" else "+"))
+    for ident, value in literals:
+        if value.denominator != 1:
+            continue
+        v = int(value)
+        for cand in sorted({v - 1, v + 1, 2 * v, 10 * v, v // 2, v // 10, 0, 1, 2, 3, 4, 5, 6, 8, 10} - {v}):
+            if cand >= 0 and _agrees_at_points(left, right, names, {ident: Fraction(cand)}):
+                fixes.append((v, cand))
+    if fixes:
+        return ("near", "; ".join(f"{a} to {b}" for a, b in dict.fromkeys(fixes)))
+    return ("not", "")
+
+
+def _math_like(token, letters):
+    t = token.strip("*`_")
+    if not t or t.startswith("["):  # a [tag] or [citation] is no part of a formula
+        return False
+    if t == "=" or t in _MATH_OPERATORS:
+        return True
+    core = t.rstrip(",.;:")
+    if not core or not _MATH_CHARS.match(core):
+        return False
+    if re.search(r"[A-Za-zα-ωΑ-Ω]{3,}", core):
+        return False
+    if core.isalpha() and len(core) >= 2:
+        return core.lower() not in _STOP_WORDS and set(core) <= letters
+    return True
+
+
+def identity_reports(text):
+    """[(line, 'a = b' as written, status, detail)] for each equation with letters on both sides that the small
+    algebra grammar reads; status is 'identity', 'not' (no identity, nothing close: left alone) or 'near'."""
+    reports = []
+    rows = []  # (token, line)
+    fence = False
+    for no, line in enumerate(blank_comments(text).splitlines(), 1):
+        if line.strip().startswith("```"):
+            fence = not fence
+            continue
+        if fence or line.strip().startswith("|"):
+            continue
+        line = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", " ", line)  # a list marker
+        line = line.replace("**", " ").replace("`", " ")
+        line = re.sub(r"\s*=\s*", " = ", line)
+        for tok in line.split():
+            rows.append((tok, no))
+    toks = [t for t, _ in rows]
+    single = set()  # the letters used as symbols: standalone, or inside a token with brackets, digits or operators
+    for t in toks:
+        core = t.strip("()[]{}.,;:")
+        if t.startswith("[") or re.search(r"[A-Za-zα-ωΑ-Ω]{3,}", core):
+            continue
+        if len(core) == 1 and core.isalpha():
+            single.add(core)
+        elif not core.isalpha():
+            single.update(ch for ch in core if ch.isalpha())
+    i = 0
+    while i < len(toks):
+        if not _math_like(toks[i], single):
+            i += 1
+            continue
+        j = i
+        while j < len(toks):
+            if not _math_like(toks[j], single):
+                break
+            j += 1
+            if toks[j - 1].endswith((",", ";", ":", ".")) and len(toks[j - 1]) > 1:
+                break  # a comma or a full stop ends the run (`..., and`)
+        run = toks[i:j]
+        before = toks[i - 1] if i > 0 else ""
+        after = toks[j] if j < len(toks) else ""
+        # what stands beside the run must not be a piece of the formula the grammar failed to read (`log₂`, `Σ`)
+        plain = lambda w: (not w) or w.startswith("[") or not re.search(r"[0-9+−×÷*/^=²³⁴ⁿ₀₁₂₃₄₅₆₇₈₉…⋯]|\.\.\.", w)  # noqa: E731
+        stops = (",", ";", ":", ".")
+        cut_before = not (plain(before) or before.endswith(stops))  # the first side may be the tail of something longer
+        cut_after = not (plain(after) or run[-1].endswith(stops))  # and the last the head of something longer
+        if "=" in run:
+            joined = " ".join(run).rstrip(",.;:")
+            sides = [s.strip() for s in joined.split("=")]
+            if all(sides):
+                for k, (a, b) in enumerate(zip(sides, sides[1:])):
+                    if (k == 0 and cut_before) or (k == len(sides) - 2 and cut_after):
+                        continue
+                    result = check_identity(a, b)
+                    if result is not None:
+                        reports.append((rows[i][1], f"{a} = {b}", result[0], result[1]))
+        i = max(j, i + 1)
+    return reports
+
+
+def identity_problems(text):
+    """(line, message) for each equation with letters that is one number away from an identity."""
+    return [
+        (no, f"{eq} is no identity, but it would be with one number changed ({detail}): a typo in a formula")
+        for no, eq, status, detail in identity_reports(text)
+        if status == "near"
+    ]
 
 
 def extract(text):
@@ -613,7 +1006,7 @@ def check(description, oracle_text, allow_rows, verbose=False):
     for no, key in keys:
         if not key_exists(key, values):
             problems.append(f"line {no}: {key} is named but is no key of the oracle")
-    for no, message in arithmetic_problems(description):
+    for no, message in arithmetic_problems(description) + identity_problems(description):
         problems.append(f"line {no}: {message}")
     _, unit_tag = unit_tags(description)
     scope = {}  # unit id -> the oracle keys its tags stand for

@@ -289,6 +289,17 @@ class FormulaDigits(unittest.TestCase):
     def test_a_hyphen_after_a_letter_is_a_name(self):
         self.assertEqual(self.formula("MTNS-83 met"), [("83", False)])
 
+    def test_a_unit_after_a_number_is_not_a_variable(self):
+        # EmeraldOwl's plant (K): the m after 18 and the cube on it made the whole product a formula, so 45, 23 and 18 passed unchecked
+        for text in ("A box 45 × 23 × 18 m is 18,630 m³", "343 ÷ (2 × 2.5 m) = 68.6 Hz", "3 × 4 × 5 mm", "a 20 × 20 Hz grid"):
+            for number, is_formula in self.formula(text):
+                if "." not in number and len(number) < 3:
+                    self.assertFalse(is_formula, (text, number))
+        # a letter glued to the digit, or joined by an operator, still is one
+        self.assertEqual(self.formula("2k + 1 m"), [("2", True), ("1", True)])
+        self.assertEqual(self.formula("n + 3 m"), [("3", True)])
+        self.assertEqual(self.formula("x(t) = 50 + 50 e^{−0.2t}"), [("50", True), ("50", True), ("0.2", False)])  # the e takes ^: used
+
 
 class Sums(unittest.TestCase):
     def wrong(self, text):
@@ -309,6 +320,83 @@ class Sums(unittest.TestCase):
     def test_it_runs_inside_check(self):
         problems, _, _ = run("It is 6 + 29 = 36 [F-C.mvl.f32.terms].", ORACLE_REAL)
         self.assertTrue(any("does not come out" in p for p in problems), problems)
+
+    def test_a_comma_and_a_space_end_the_expression_on_the_left(self):
+        # EmeraldOwl's plant (F:101): after '23 x 46,' the sum was read as implicit multiplication and never evaluated
+        ok = "for 23 x 46, (2 + 3) x (4 + 6) - 8 - 18 = 24"
+        self.assertEqual(self.wrong(ok), [], ok)
+        self.assertEqual(len(self.wrong(ok.replace("= 24", "= 25"))), 1)
+        self.assertEqual(len(self.wrong("the table, 5 + 6 = 12")), 1)
+        # a thousands comma has no space and stays in the number
+        self.assertEqual(self.wrong("1,000 + 24 = 1,024"), [])
+        self.assertEqual(len(self.wrong("1,000 + 24 = 1,025")), 1)
+
+
+class Identities(unittest.TestCase):
+    """An equation with letters on both sides is evaluated on both sides at fixed points: a wrong coefficient shows."""
+
+    def problems(self, text):
+        return [m for _, m in dn.identity_problems(text)]
+
+    def test_true_identities_pass(self):
+        for text in (
+            "(a + b)² = a² + 2ab + b²",
+            "(a + b)(c + d) = ac + ad + bc + bd,",
+            "**The middle.** (a + b)(a − b) = a² − b², for any two numbers",
+            "- **Squares ending in 5.** (10n + 5)² = 100 × n × (n + 1) + 25 for every whole number n",
+            "**Near fifty.** (50 ± b)² = 2500 ± 100b + b². Then",
+            "n × (r − e) = n × r − n × e [F-X7]",
+            "so 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1) ÷ 6 [F-S.box]",
+        ):
+            self.assertEqual(self.problems(text), [], text)
+            self.assertIn("identity", [r[2] for r in dn.identity_reports(text)], text)  # it was read, and found true
+
+    def test_a_wrong_number_or_sign_in_an_identity_fails(self):
+        for text, fix in (
+            ("(a + b)² = a² + 3ab + b²", "3 to 2"),
+            ("(a + b)(c + d) = ac + ad + bc + 2bd,", "2 to 1"),
+            ("(a + b)(a − b) = a² + b², for any two numbers", "+ to −"),
+            ("(10n + 5)² = 100 × n × (n + 1) + 26 for every", "26 to 25"),
+            ("(50 ± b)² = 2500 ± 10b + b². Then", "10 to 100"),
+            ("n × (r − e) = n × r − 2 × n × e [F-X7]", "2 to 1"),
+            ("a² = (a − b)(a + b) + 2b², for every", "2 to 1"),
+            ("so 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1) ÷ 7 [F-S.box]", "7 to 6"),
+        ):
+            found = self.problems(text)
+            self.assertEqual(len(found), 1, (text, found))
+            self.assertIn(fix, found[0], text)
+
+    def test_what_is_no_identity_and_nothing_close_is_left_alone(self):
+        for text in (
+            "because p⁴ = 4p³(1 − p) exactly when p = 4(1 − p), which is",  # a conditional equation
+            "the table K = QΛQᵀ with",  # not read
+            "a² + b² = c², so",  # a relation
+            "x = 2y + 1, so",  # a definition
+            "so 6 + 29 = 35 numbers",  # numbers only: the sum check's
+            "1 + 3 + … + (2n − 1) = n², the hundredth",  # an ellipsis: the sides are cut
+            "T60 = 0.161 × volume ÷ absorption, which",  # words
+            "e^{−tB} e^{−tA} e^{tB} e^{tA} = I − t²(AB − BA) + O(t³) near",
+        ):
+            self.assertEqual(self.problems(text), [], text)
+
+    def test_it_runs_inside_check(self):
+        problems, _, _ = run("Squares: (a + b)² = a² + 3ab + b² for any a and b.", ORACLE_REAL)
+        self.assertEqual(len(problems), 1, problems)
+        self.assertIn("is no identity, but it would be with one number changed (3 to 2)", problems[0])
+        self.assertEqual(run("Squares: (a + b)² = a² + 2ab + b² for any a and b.", ORACLE_REAL)[0], [])
+
+
+class UnitDimensions(unittest.TestCase):
+    """The dimensions of K's box, bound to their fact once the unit letter is no variable."""
+
+    ORACLE = ORACLE + "K-H1.box\t45,23,18\nK-H1.box_m3\t18630\n"
+    TEXT = "A box 45 × 23 × 18 m is 18,630 m³ [K-H1.box, K-H1.box_m3]."
+
+    def test_the_box_passes_and_any_one_dimension_changed_fails(self):
+        self.assertEqual(run(self.TEXT, self.ORACLE)[0], [])
+        for old, new in (("45", "46"), ("23", "24"), ("18 m", "19 m"), ("18,630", "19,044")):
+            problems, _, _ = run(self.TEXT.replace(old, new, 1), self.ORACLE)
+            self.assertEqual(len(problems), 1, (old, new, problems))
 
 
 class AllowList(unittest.TestCase):

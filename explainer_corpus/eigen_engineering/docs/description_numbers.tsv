@@ -33,3 +33,4 @@
 99	99% of the total	structural	The threshold of the key K-E3.rounds_for_99_percent.
 40	k = 1 to 40	structural	The scaling steps k = 1 to 40 of the check.
 6	sizes 2 to 6	structural	The sizes of the symmetric tables checked.
+2	(2 × 2.5 m)	structural	A round trip along the longest side covers it twice: 343 ÷ (2 × 2.5 m) = 68.6 Hz.
