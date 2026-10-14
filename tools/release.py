@@ -45,6 +45,7 @@ ROOT = Path(__file__).resolve().parents[1]
 THUMB_SIZE = (1280, 720)
 THUMB_MAX_BYTES = 2 * 1024 * 1024
 DURATION_TOLERANCE_S = 0.1
+ENDS_SENTENCE = re.compile(r"[.?!…][\"”’')\]]*$")
 STAMP = re.compile(r"^(\d\d):(\d\d):(\d\d)[,.](\d\d\d) --> (\d\d):(\d\d):(\d\d)[,.](\d\d\d)")
 
 
@@ -310,6 +311,11 @@ def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, pr
                 bad.append(f"SRT cue {n}: starts {a:.3f} s, before cue {n - 1} ends ({srt_cues[n - 2][1]:.3f} s)")
             if not t:
                 bad.append(f"SRT cue {n}: no text")
+            # an orphan tail: the last word or two of the sentence the cue before began, alone and brief
+            # (F v1 had five, E's first captions nine; the kit's captions fix, 1f44182, makes none)
+            if n > 1 and not ENDS_SENTENCE.search(srt_cues[n - 2][2]) and (len(t.split()) <= 2 or b - a < 1.0):
+                bad.append(f"SRT cue {n}: {t!r} ({b - a:.2f} s) is the tail of the sentence cue {n - 1} began "
+                           "(rebuild the captions with the kit at or after 1f44182: ./x SLUG captions)")
         if duration is not None and srt_cues and srt_cues[-1][1] > duration + 0.05:
             bad.append(f"SRT: the last cue ends {srt_cues[-1][1]:.3f} s, after the master ({duration:.3f} s)")
         if len(vtts) == 1:

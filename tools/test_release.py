@@ -162,6 +162,17 @@ class Check(unittest.TestCase):
         self.failing("VTT: its cue texts are not the SRT's")
         self.final = make_cut(self.root, srt=SRT.replace("von Neumann's", "his"))
         self.failing("alpha.en.srt: the protected phrase 'von Neumann'")
+        # the last word of a sentence alone on a cue (E's first captions had nine)
+        orphan = SRT.replace("von Neumann's trick.", "von Neumann's trick, the").replace("The end.", "end.")
+        self.final = make_cut(self.root, srt=orphan)
+        self.failing("SRT cue 3: 'end.' (8.00 s) is the tail of the sentence cue 2 began")
+        # a brief tail of more words is one too; a whole short sentence after a full stop is not
+        orphan = SRT.replace("von Neumann's trick.", "von Neumann's trick, and").replace(
+            "00:02:10,000 --> 00:02:18,000\nThe end.", "00:02:10,000 --> 00:02:10,600\nthat is the end.")
+        self.final = make_cut(self.root, srt=orphan)
+        self.failing("'that is the end.' (0.60 s) is the tail")
+        self.final = make_cut(self.root, srt=SRT.replace("The end.", "End."))
+        self.assertEqual(self.check()[0], [])
 
     def test_the_thumbnail(self):
         thumb = self.root / "explainer_corpus" / "alpha" / "renders" / "alpha_thumbnail.png"
