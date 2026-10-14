@@ -1,6 +1,6 @@
 # Numbers in docs/description.md that are not a value of the oracle's output, each with where it comes from.
 # Checked by tools/description_numbers.py (python3 -I tools/description_numbers.py eigen_engineering); a row nothing uses fails it.
-# columns: number TAB context (a piece of the text it stands in) TAB kind TAB reason; kinds: year, cited, structural, derived (=expression over facts, evaluated)
+# columns: number TAB context (a piece of the text it stands in) TAB kind TAB reason; kinds: year, cited, structural. Every number the description computes is a fact (oracle.py's K-D rows, among others) and is tagged in its unit, not listed here.
 5400	a modified BS 5400 approach	cited	BS 5400, the British Standard for steel, concrete and composite bridges, as the engineers' paper (Dallard et al. 2001) names the design code (fact-sheet row 6)
 54	gives 54 tuned mass dampers	cited	the count of tuned mass dampers that a magazine of 1 February 2002 gives, as recorded in fact-sheet S3; the paper's own plan is 4 + 26 pairs and other accounts say 52 or over 50, which is why the description says only that the video shows the 4 sideways pairs
 2005	Strogatz and others (2005)	year	Strogatz, Abrams, McRobie, Eckhardt and Ott, Nature 438 (2005) (fact-sheet S4)
@@ -9,22 +9,9 @@
 29000	the US round figure, 29,000 ksi	cited	FHWA Steel Bridge Design Handbook (2012): E = 29,000 ksi for the structural steels of bridges (fact-sheet S21), which is the 200 GPa of K-T1.e_gpa to three figures
 210	Eurocode practice uses 210	cited	EN 1993-1-1 takes E = 210 GPa (210,000 N per mm2) for structural steel (fact-sheet row 12)
 46	NCHRP Web Document 46	cited	NCHRP Web Document 46 (2002), Improved Live Load Deflection Criteria for Steel Bridges, the document number (fact-sheet S21)
-3.54	1 : 1.99 : 2.51 : 3.54	derived	=f("K-V1.hz_2dp",3)/f("K-V1.hz_2dp",0)
-22.5	a parabola 22.5	cited	not a fact of the oracle: recomputed with numpy for the audit of this description (mx-zbp5), the angle between u and K u for u_j = j (41 - j), j = 1 to 40, on the 40-slice table of K-R1.slices: 22.53 degrees; pinning it in oracle.py and facts.rs would retire this row
-54.6	tube's length 54.6	cited	not a fact of the oracle: recomputed with numpy for the audit of this description (mx-zbp5), the same angle for the Gaussian exp(-((x - 1/2) / (1/8))^2 / 2) on the same 40 slices, x = j / 41: 54.606 degrees (54.6 holds for a standard deviation of about 0.105 to 0.15 of the length); pinning it would retire this row
 293.15	FrankenSim's air is 293.15 K	cited	the air temperature of FrankenSim's vibroacoustic code (fs-couple), 20 degrees C + 273.15 (fact-sheet S22)
-150	150 Hz: 68.6	structural	the top of the listed range, the 150 of the key K-R2.tones_to_150_hz
-2.2	blurred about 2.2	cited	a mode's half-power width is 2.2 / T60 (6.91 / (pi T60); the oracle computes it as ln(10^6) / (2 pi T60) for K-H2.mode_width_hz; fact-sheet row for 10_5)
-1.157	(1.157 before rounding)	derived	=log(1000000)/(2*pi)/f("K-H1.t60_s")
 1954	his 1954 figure was ten	year	Schroeder's first paper on the criterion (Acustica 4, 1954) proposed ten modes in a width, cut to three in 1962, as Skalevik, Schroeder Frequency Revisited (2011) tells it; the weakest year here: the ten was not read in the 1954 paper
 0.164	was 0.164 (Collected Papers	cited	Sabine's own metric constant, "K = .164", Collected Papers on Acoustics (1922), p. 50 (fact-sheet S10)
 1993	RD 1993/8)	year	Walker, BBC Research Department report RD 1993/8, "Optimum dimension ratios for small rooms" (fact-sheet S14)
-4.4	and 4.4 Hz below 200 Hz	derived	=log(1000000)/(2*pi)/f("K-R4.t60_s")
-5.38	would give (20, 5.38)	derived	=(f("K-E5.demand",0)*f("K-E2.other",0)+f("K-E5.demand",1)*f("K-E2.other",1))/(f("K-E2.other",0)**2+f("K-E2.other",1)**2)
-36.2	(36.2, 9.2)	derived	=(f("K-E5.demand",0)*f("K-E2.mix",0)+f("K-E5.demand",1)*f("K-E2.mix",1))/(f("K-E2.mix",0)**2+f("K-E2.mix",1)**2)*f("K-E2.mix",0)+(f("K-E5.demand",0)*f("K-E2.other",0)+f("K-E5.demand",1)*f("K-E2.other",1))/(f("K-E2.other",0)**2+f("K-E2.other",1)**2)*f("K-E2.other",0)
-9.2	(36.2, 9.2)	derived	=(f("K-E5.demand",0)*f("K-E2.mix",0)+f("K-E5.demand",1)*f("K-E2.mix",1))/(f("K-E2.mix",0)**2+f("K-E2.mix",1)**2)*f("K-E2.mix",1)+(f("K-E5.demand",0)*f("K-E2.other",0)+f("K-E5.demand",1)*f("K-E2.other",1))/(f("K-E2.other",0)**2+f("K-E2.other",1)**2)*f("K-E2.other",1)
-0.6	A hungrier table, [0.6	derived	=f("K-E4.table_tenths")/10
-0.4	a unit of food takes 0.4	derived	=f("K-E1.table_tenths",0)/10
-0.4	0.5; 0.4, 0.7]	derived	=f("K-E4.table_tenths",2)/10
 147	p. 147) and Hilbert	cited	Helmholtz, Die Lehre von den Tonempfindungen (1863), p. 147 (fact-sheet S8)
 54	D-15 to D-54	structural	decision numbers in docs/decisions.md; D-15 and D-54 are rows there (the claim walk's decisions run D-15 to D-54)

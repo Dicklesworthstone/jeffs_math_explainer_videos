@@ -144,7 +144,8 @@ That is true of this load, five equal pushes along the deck. For a lone
 100 kN load the softest pattern alone gives 42% of the drop under it at 4 m
 from the pin, 76% at 8 m and 86% at midspan, and a lone midspan load needs
 10 patterns to come within 2.5% under it (the P3 claim walk's recomputation,
-pinned as `K-P2.lone_pct.*` and `K-P2.lone_within_2p5.12m`; the closing card of
+pinned as `K-P2.lone_pct.*`, `K-P2.lone_within_2p5.12m` and
+`K-D1.lone_within_percent`; the closing card of
 chapter 06 says only that one sharp load needs many more patterns, and these
 are its numbers).
 The worst member force is off by 82 kN with one pattern (18% of the largest),
@@ -161,7 +162,7 @@ modes of K φ = ω² M φ are 5.91, 11.78, 14.86 and 20.93 Hz, in ratio
 1 : 1.99 : 2.51 : 3.54; the second mostly slides the deck along its length,
 because the right support is a roller, and the third bends it into an S. With
 8 tonne decks the lowest is 4.32 Hz, not 5.91 ÷ √2 = 4.18 Hz, since the steel
-did not get heavier [K-V1.*, K-V2.*]. The eigenvalue is ω², hertz = ω ÷ 2π.
+did not get heavier [K-V1.*, K-V2.*, K-D1.ratio.4]. The eigenvalue is ω², hertz = ω ÷ 2π.
 Only the lowest few modes are close to K's own patterns: the squared overlap of
 mode i with K's pattern i is 1.00, 0.99, 0.98, 0.86, 0.85, 0.79, then 0.10 and
 0.02, which is why the video says "at the low end" (`K-V1.overlap.*`). The frequency goes as the square root of stiffness over mass,
@@ -179,7 +180,8 @@ is within 0.03% of the continuous tube's [K-R1.error_percent,
 (−1, 2, −1), 35.3° away from itself, and one half of a sine wave comes back as
 itself, 0° away: any other hump does not (a parabola 22.5° away, a Gaussian
 with a standard deviation of an eighth of the tube's length 54.6°)
-[K-R1.lump_turn_deg]. The speed of sound is 343 m per second (air at
+[K-R1.lump_turn_deg, K-D4.parabola_turn_deg, K-D4.gaussian_turn_deg,
+K-D4.gaussian_sigma_fraction]. The speed of sound is 343 m per second (air at
 about 20 °C; FrankenSim's air is 293.15 K) [K-R0.sound_m_per_s]. For a box
 with hard walls the tones are (c ÷ 2) √((nx ÷ Lx)² + (ny ÷ Ly)² + (nz ÷ Lz)²)
 for whole numbers nx, ny, nz not all zero (Jacobsen and others, eq. 3.1.5);
@@ -189,7 +191,8 @@ swing of the bathroom's longest side is a round trip: 343 ÷ (2 × 2.5 m) =
 150 Hz: 68.6, 71.5, 99.1, 107.2, 127.3, 128.8, 137.2, 142.9 and 146.0 Hz, of
 which 68.6, 71.5, 107.2, 137.2 and 142.9 fit one side (the length, the height,
 the width, twice the length, twice the height) and the other four need two or
-three [K-R2.*; the tone list is `K-R2.tones_to_150_hz`].
+three [K-R2.*, K-D3.bathroom_window_hz, K-D3.bathroom_tones_in_window; the
+tone list is `K-R2.tones_to_150_hz`].
 
 **The concert hall.** A box 45 × 23 × 18 m is 18,630 m³, 99.4% of Boston
 Symphony Hall's 18,750 m³ (Beranek). Beranek's own width, height and length
@@ -201,7 +204,8 @@ gives 1,964,120), 5,802 in every hertz there (the slope of the cubic term)
 the volume, hardly on the shape. Occupied, at mid frequencies, the hall takes
 1.9 s to die away (Beranek), so each mode is blurred about 2.2 ÷ 1.9 = 1.2 Hz
 wide (1.157 before rounding), and 6,714 modes sit inside one mode's width at
-1 kHz [K-H1.t60_s, K-H2.mode_width_hz, .modes_per_width_at_1000]. The
+1 kHz [K-H1.t60_s, K-H2.mode_width_hz, .modes_per_width_at_1000,
+K-D1.mode_width_constant, K-D1.hall_mode_width_hz_3dp]. The
 Schroeder frequency 2000 √(T60 in seconds ÷
 volume in cubic metres) is
 20.2 Hz here, the bottom edge of hearing: a crossover, not a wall; above it
@@ -232,8 +236,8 @@ dimensions related by simple integers are especially poor" (Walker, BBC
 RD 1993/8); in a cube "threefold and even sixfold degeneracies are common"
 (Morse). Counted by the P3 claim walk (most modes inside one window of 0.5, 2
 and 4.4 Hz below 200 Hz): the cube 6, 6, 6; the narrow room 2, 4, 6; the study
-2, 4, 6. The cube is never worse and is the only one with exact
-coincidences; at the study's own mode width the three tie, so "piles its tones
+2, 4, 6 [K-D3.window_hz, K-D3.window_modes.*, K-D1.study_mode_width_hz]. The
+cube is never worse and is the only one with exact coincidences; at the study's own mode width the three tie, so "piles its tones
 up most" means tones at the same pitch, which is what the video says. An attic
 studio of 6 × 3 m with its ceiling sloping to 1.25 m, cut into 232 cells of
 0.25 m, has as a side-view slice its lowest modes at 29.8, 56.1 and 59.9 Hz;
@@ -251,21 +255,24 @@ its rooms, which FrankenSim does not hold.
 American Economy, 1941) had 44 sectors, 41 of them producing; Nobel prize in
 economics, 1973 [K-S.leontief.*]. The video's table is two industries and a
 model: a unit of food takes 0.4 food and 0.2 tools, a unit of tools 0.3 food
-and 0.5 tools [K-E1.*]. Its eigenvalues are 0.7, with the pattern (1, 1), and
+and 0.5 tools [K-E1.*, K-D2.table]. Its eigenvalues are 0.7, with the pattern (1, 1), and
 0.2, with (3, −2), which needs a negative amount of tools [K-E2.*]. 24 of
 each wanted takes 80 of each, in rounds of 24, 16.8, 11.76, 8.232 and so on
 (99% of the total after 13 rounds) [K-E3.*]; "three tenths kept" is true of
-equal amounts only: of (30, 10) the economy keeps 35%, of (10, 30) 25%. A
+equal amounts only: of (30, 10) the economy keeps 35%, of (10, 30) 25%
+[K-D2.kept_percent.30_10, K-D2.kept_percent.10_30]. A
 demand of (30, 10) is 18 of (1, 1) plus 4 of (3, −2), found by solving
 18 + 3 × 4 = 30 and 18 − 2 × 4 = 10: the truss's recipe (the dot product with
 each pattern, divided by its length squared) would give (20, 5.38) and rebuild
 (36.2, 9.2), because these two patterns are not at right angles. Divided by
 1 − 0.7 and 1 − 0.2 the shares give 60 and 5 of them, a plan of (75, 50), and
 its rounds run (30, 10), (15, 11), (9.3, 8.5),
-(6.27, 6.11) [K-E5.*]. A hungrier table, [0.6, 0.5; 0.4, 0.7], uses up 11 of
+(6.27, 6.11) [K-E5.*, K-D2.recipe_shares, K-D2.recipe_rebuilt]. A hungrier
+table, [0.6, 0.5; 0.4, 0.7], uses up 11 of
 each for 10 of each made, with largest eigenvalue 1.1: the rounds grow, and the
 formula still answers, 24 ÷ (1 − 1.1) = −240 of each, which is why a program
-should check the eigenvalue, or that the plan has no negative entry [K-E4.*].
+should check the eigenvalue, or that the plan has no negative entry [K-E4.*,
+K-D2.hungry_table].
 The exact statement: for a table C with no negative entry, every demand
 d ≥ 0 has a plan x ≥ 0 with x = Cx + d exactly when the largest eigenvalue of
 C is below 1 (equivalently the Hawkins and Simon condition, 1949), given enough
@@ -273,7 +280,8 @@ workers, land and machines, which are outside the table: the binding limit of a
 real economy is usually one of those, and that is the linear program of
 the coda. At 1 or more some demand fails, and every demand when C is irreducible, as here; a
 table that splits into separate parts may still meet some demands (the P3
-claim walk's table [1.1, 0; 0.3, 0.2] meets (0, 1) with the plan (0, 1.25)).
+claim walk's table [1.1, 0; 0.3, 0.2] meets (0, 1) with the plan (0, 1.25)
+[K-D2.split_table, K-D2.split_table_largest, K-D2.split_table_plan]).
 Checked on the video's table scaled by k ÷ 20 for k = 1 to 40, and by 10 ÷ 7
 (largest eigenvalue exactly 1): 41 of 41 agree with the inverse, 28 feed
 themselves, and at exactly 1 it does not [K-X7.*]. The rounds add up to
@@ -369,7 +377,7 @@ Perron–Frobenius, spectral theorem, linear programming, the simplex method.
 Computed numbers: every number the video shows or says that is computed (the
 carts, the truss, the modes, the rooms, the hall's counts, the economy, the
 factory) is printed by the video's own code and by a second, separately
-written program (`oracle.py`), and the two agree key by key (315 keys). The
+written program (`oracle.py`), and the two agree key by key. The
 second program derives the truss's forces by joint equilibrium, its sag by
 the unit-load sum and its eigenvalues from the table of member stretches, and
 counts room modes by a second enumeration. The P3 claim walk then recomputed

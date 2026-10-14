@@ -429,7 +429,7 @@ footbridge-specific deflection limit.
 
 ## Every fact (from the oracle's output)
 
-300 keys, as `oracle.py` printed them; `eigen facts` prints the same.
+As `oracle.py` printed them; `eigen facts` prints the same keys (the oracle prints more: its K-D rows are research the video does not show).
 
 ### The two bridges (cited, and arithmetic on the citations)
 
