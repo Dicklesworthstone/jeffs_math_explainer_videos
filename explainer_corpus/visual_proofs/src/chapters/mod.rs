@@ -9,6 +9,7 @@ pub mod a_third;
 pub mod cold_open;
 pub mod draw;
 pub mod five_for_five;
+pub mod four_triangles;
 pub mod glyphs;
 pub mod halves;
 pub mod iso;
@@ -56,7 +57,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("10_halves", 0.4, halves::Halves),
         scene!("11_a_third", 0.5, a_third::AThird),
         scene!("12_the_cut_cube", 0.55, the_cut_cube::TheCutCube),
-        animatic!("13_four_triangles", 0.6),
+        scene!("13_four_triangles", 0.6, four_triangles::FourTriangles),
         animatic!("14_the_missing_square", 0.3),
         animatic!("15_what_makes_a_proof", 0.45),
     ]
