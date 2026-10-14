@@ -21,21 +21,21 @@ come from the final cut (`./x lie_robotics chapters`; `tools/youtube_package.py 
 Tilt a book a quarter turn, then roll it a quarter turn, then do it in the other order: the book faces a different way. Slide it right then away, or away then right: it lands on the same spot. Positions add; orientations don't. This video follows what a seven-joint robot arm (a KUKA LBR iiwa 14) has to do about that: turns, the one move that makes them add (do the arithmetic on the flat piece that touches the curved space, then wrap the answer back on), screws, a product of seven exponentials, the Jacobian, the directions an arm can lose, its spare joint, and Newton's method on the group of poses in three steps. The last quiz asks what is left over when two small turns are made in two orders, and the answer is the Lie bracket. (Lie is said "Lee".)
 
 Chapters
-?:?? The book
-?:?? One turn
-?:?? Three angles
-?:?? Halfway
-?:?? Spin
-?:?? The platform
-?:?? Screws
-?:?? Seven screws
-?:?? By hand
-?:?? Velocities add
-?:?? Lost directions
-?:?? The spare joint
-?:?? Steps
-?:?? The steady path
-?:?? Everywhere
+0:00 The book
+1:03 One turn
+2:05 Three angles
+3:26 Halfway
+4:33 Spin
+5:52 The platform
+6:52 Screws
+7:55 Seven screws
+9:07 By hand
+10:08 Velocities add
+11:15 Lost directions
+12:33 The spare joint
+13:22 Steps
+14:27 The steady path
+15:21 Everywhere
 
 The exact versions
 Euler's theorem: every turn of space fixes an axis, and a product of turns is a turn.

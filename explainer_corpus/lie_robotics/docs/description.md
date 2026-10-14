@@ -4,7 +4,7 @@
 (oracle.py), rounded as the text likes, or a row of description_numbers.tsv (a year, a cited
 equation or page number, a structural count, or an expression over oracle keys), which
 tools/description_numbers.py checks; every source is a fact-sheet row. Chapter
-timestamps come from the narrated cut (`./x lie_robotics chapters`). Sources not opened are
+timestamps are the final cut's (`./x lie_robotics chapters`). Sources not opened are
 listed as not verified. -->
 
 Tilt a book a quarter turn, then roll it a quarter turn, then do it in the other order: the
@@ -19,23 +19,21 @@ bracket.
 
 ## Chapters
 
-(timestamps after the narrated cut)
-
-1. The book
-2. One turn
-3. Three angles
-4. Halfway
-5. Spin
-6. The platform
-7. Screws
-8. Seven screws
-9. By hand
-10. Velocities add
-11. Lost directions
-12. The spare joint
-13. Steps
-14. The steady path
-15. Everywhere
+0:00 The book
+1:03 One turn
+2:05 Three angles
+3:26 Halfway
+4:33 Spin
+5:52 The platform
+6:52 Screws
+7:55 Seven screws
+9:07 By hand
+10:08 Velocities add
+11:15 Lost directions
+12:33 The spare joint
+13:22 Steps
+14:27 The steady path
+15:21 Everywhere
 
 Names to search: Lie group, Lie algebra, SE(3), SO(3), screw theory (twist, wrench), product of
 exponentials, Chasles–Mozzi theorem, the matrix exponential and logarithm, Rodrigues' formula,
