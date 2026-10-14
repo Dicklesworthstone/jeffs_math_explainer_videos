@@ -27,8 +27,10 @@ pub struct AMapOfChances {
 /// The narration lines this chapter speaks, in order.
 pub const LINES: [&str; 7] = ["03_1", "03_2", "03_3", "03_4", "03_5", "03_6", "03_7"];
 
+/// The bare stage between the Navy's grid leaving and the made-up sea coming, seconds.
+const BEAT_S: f64 = 0.25;
+
 // the phrases the pictures land on (a test finds each in its line)
-const P_CHANCE: &str = "that gives every place its chance";
 const P_CELLS: &str = "Four cells";
 const P_STORIES: &str = "two stories";
 const P_A: &str = "most likely in cell A";
@@ -250,7 +252,10 @@ impl SceneConstruct for AMapOfChances {
             .to_owned();
 
         // 03_1: chapter 02 ended on the Navy's grid, a quarter painted; it
-        // leaves, and the stage stands empty for a beat
+        // stays under the whole line and leaves as 03_2 begins, and the
+        // stage stands empty for a beat (BEAT_S) before the made-up sea's
+        // tag (the grid left at "a map that gives every place its chance"
+        // and the stage stood empty for 2.4 s over the finished read)
         let grid = NavyGrid::build(stage, NAVY_CENTRE, NAVY_ROW_H)?;
         // the cells the broad-area track had painted (`F-H.track.cells`)
         let track_cells: usize = facts
@@ -263,20 +268,16 @@ impl SceneConstruct for AMapOfChances {
         for &m in &on_stage {
             stage.add_to_scene(m)?;
         }
-        // the grid stays under "the likeliest place" and leaves as the map
-        // that gives every place its chance is asked for, so the empty stage
-        // is a beat at the end of the line, not six seconds of nothing
         let line = say(&kit, stage, LINES[0])?;
-        line.wait_for(stage, P_CHANCE)?;
-        fade_out_all(stage, &on_stage, 0.7)?;
         line.wait_end(stage)?;
-        pause(stage, 0.3)?;
 
         // 03_2: four cells draw themselves, two by two, tagged; two story
         // cards beside them
         let line = say(&kit, stage, LINES[1])?;
         let sea_map = Sea::build(&kit, stage, [0; 4])?;
         let cards = [story_card(&kit, stage, 0)?, story_card(&kit, stage, 1)?];
+        fade_out_all(stage, &on_stage, 0.3)?;
+        pause(stage, BEAT_S)?;
         fade_in_all(stage, &[sea_map.tag], 0.4)?;
         line.wait_for(stage, P_CELLS)?;
         fade_in_lagged(stage, &sea_map.mobs(), 1.2, 0.5)?;
@@ -416,8 +417,7 @@ mod tests {
     use explainer_kit::Script;
 
     /// (line, phrase): every phrase a picture lands on.
-    const PHRASES: [(&str, &str); 14] = [
-        ("03_1", P_CHANCE),
+    const PHRASES: [(&str, &str); 13] = [
         ("03_2", P_CELLS),
         ("03_2", P_STORIES),
         ("03_3", P_A),
@@ -599,5 +599,39 @@ mod tests {
         }
         // the bottom row's sums stay above the question's band
         assert!(under(2, 2)[1] - 0.13 > super::super::draw::QUIZ_LINES_Y[0] + 0.2);
+    }
+
+    /// 03_1 (blank_stretches on the scored draft: no picture for 2.4 s): the
+    /// Navy's grid stays under the whole line and leaves as 03_2 begins, and
+    /// the bare stage before the made-up sea's tag is the authored beat
+    /// (BEAT_S), not the rest of the line and the gap after it. The line is
+    /// placed on the finished read's onsets (4.19 s into a 7.47 s line the
+    /// second sentence, "a map that gives every place its chance", begins).
+    #[test]
+    fn the_grid_leaves_with_the_next_line_and_the_bare_stage_is_a_beat() {
+        use super::super::draw::watch;
+        let w = watch::run_timed("03_a_map_of_chances", &[("03_1", &[0.0, 4.19], 7.47)]);
+        // the first fade-out is the grid's and the first fade-in the made-up sea's tag
+        let out = w.fades.iter().find(|f| !f.arriving).expect("the grid leaves");
+        let tag = w
+            .fades
+            .iter()
+            .find(|f| f.arriving)
+            .expect("the made-up sea's tag comes");
+        let next = w.line_start("03_2");
+        let bare = tag.from - (out.from + out.seconds);
+        eprintln!(
+            "03_1: the grid leaves at {:.2} s, 03_2 starts {next:.2} s, bare stage {bare:.2} s",
+            out.from
+        );
+        assert!(
+            out.from >= next - 1e-6,
+            "the grid leaves at {:.2} s, before 03_2 starts at {next:.2} s",
+            out.from
+        );
+        assert!(
+            (0.0..=0.5).contains(&bare),
+            "{bare:.2} s of bare stage between the grid and the sea"
+        );
     }
 }

@@ -31,7 +31,6 @@ pub struct TenThousandDots {
 pub const LINES: [&str; 7] = ["04_1", "04_2", "04_3", "04_4", "04_5", "04_6", "04_7"];
 
 // the phrases the pictures land on (a test finds each in its line)
-const P_SCIENTIST: &str = "A Navy scientist";
 const P_PALOMARES: &str = "lost in the sea off Palomares";
 const P_FISHERMAN: &str = "where a fisherman watched it fall";
 const P_NINE: &str = "set out nine stories";
@@ -192,7 +191,9 @@ impl SceneConstruct for TenThousandDots {
                 weights.push(stage.arena_mut().add(w));
             }
         }
-        line.wait_for(stage, P_SCIENTIST)?;
+        // the chapter opens on the first story cards with its first sentence
+        // (they came at "A Navy scientist", 2.6 s into the line in the
+        // finished read, over a bare stage)
         let first_three: Vec<Mob> = cards.iter().take(3).copied().collect();
         fade_in_lagged(stage, &first_three, 1.0, 0.6)?;
         line.wait_for(stage, P_PALOMARES)?;
@@ -502,8 +503,7 @@ mod tests {
     use super::*;
     use explainer_kit::Script;
 
-    const PHRASES: [(&str, &str); 16] = [
-        ("04_1", P_SCIENTIST),
+    const PHRASES: [(&str, &str); 15] = [
         ("04_1", P_PALOMARES),
         ("04_2", P_FISHERMAN),
         ("04_2", P_NINE),
@@ -679,5 +679,20 @@ mod tests {
                 .iter()
                 .all(|p| p[0].abs() < QUIZ_FRAME.0 && p[1].abs() < QUIZ_FRAME.1)
         );
+    }
+
+    /// 04_1 (blank_stretches on the scored draft: the chapter opened on 3.4 s
+    /// of nothing): the first story cards come in with the line's first
+    /// sentence, "The Navy's map was made the same way.", not at "A Navy
+    /// scientist" 2.6 s later. The line is placed on the finished read's own
+    /// onsets (the scratch voice puts the second sentence at its share of
+    /// the characters).
+    #[test]
+    fn the_chapter_opens_on_the_story_cards_with_its_first_sentence() {
+        use super::super::draw::watch;
+        let w = watch::run_timed("04_ten_thousand_dots", &[("04_1", &[0.0, 2.64, 8.29], 13.41)]);
+        let late = w.first_arrival() - w.line_start("04_1");
+        eprintln!("04_1: the first picture begins {late:.2} s after the line");
+        assert!(late <= 0.1, "the first picture comes {late:.2} s after the line starts");
     }
 }

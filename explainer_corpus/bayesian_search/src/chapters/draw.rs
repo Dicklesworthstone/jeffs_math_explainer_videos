@@ -343,6 +343,8 @@ pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) ->
     if mobs.is_empty() {
         return Ok(());
     }
+    #[cfg(test)]
+    watch::note(stage, mobs, true, rt);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
@@ -1832,9 +1834,30 @@ pub mod watch {
         pub fades: Vec<Fade>,
         /// The chapter's length, scene seconds.
         pub end: f64,
+        /// Every line said and the scene second it started.
+        pub lines: Vec<(String, f64)>,
     }
 
     impl Watched {
+        /// The scene second line `id` started. Panics if it was never said.
+        pub fn line_start(&self, id: &str) -> f64 {
+            self.lines
+                .iter()
+                .find(|(l, _)| l == id)
+                .unwrap_or_else(|| panic!("{id} was never said ({:?})", self.lines))
+                .1
+        }
+
+        /// The scene second the first fade-in of the chapter begins: the
+        /// first picture's.
+        pub fn first_arrival(&self) -> f64 {
+            self.fades
+                .iter()
+                .filter(|f| f.arriving)
+                .map(|f| f.from)
+                .fold(f64::INFINITY, f64::min)
+        }
+
         /// Seconds the text whose source is exactly `source` stood fully in
         /// view: from the end of its first fade-in to the start of the next
         /// fade-out (or the chapter's end if it never leaves). Panics if the
@@ -1865,6 +1888,14 @@ pub mod watch {
 
     /// Run chapter `key` headless with the scratch voice.
     pub fn run(key: &str) -> Watched {
+        run_timed(key, &[])
+    }
+
+    /// `run`, with the lines of `timed` placed on the finished narration's own
+    /// timing, `(id, sentence onsets, length)` as `narration/out/report.json`
+    /// records them (the scratch voice puts a sentence by its share of the
+    /// characters, a long first sentence is shorter there).
+    pub fn run_timed(key: &str, timed: &[(&str, &[f64], f64)]) -> Watched {
         struct Boxed(Box<dyn SceneConstruct>);
         impl SceneConstruct for Boxed {
             fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -1875,7 +1906,8 @@ pub mod watch {
             .into_iter()
             .find(|c| c.key == key)
             .unwrap_or_else(|| panic!("no chapter {key} in the registry"));
-        let narrator = Narrator::estimate(&Script::parse(crate::SCRIPT).unwrap());
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let narrator = Narrator::estimate_timed(&script, timed).unwrap();
         let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
         kit.chapter = key.to_owned();
         LOG.with(|l| l.borrow_mut().clear());
@@ -1892,7 +1924,8 @@ pub mod watch {
             .unwrap_or_else(|| panic!("{key} left no timeline"))
             .seconds();
         let fades = LOG.with(|l| l.borrow().clone());
-        Watched { kit, fades, end }
+        let lines = narrator.said();
+        Watched { kit, fades, end, lines }
     }
 }
 
