@@ -3,9 +3,10 @@ Draft video description for Video E (P3, 2026-10-12). Every statement below
 rests on a row of docs/fact-sheet.md or an oracle key; the bracketed tags
 name them. It holds the exact versions of what the narration simplifies
 (plan rule 11), the programmer notes that have no room on screen, and what
-review round R1 sent "to the description". The release package adds the
-chapter timestamps and the repository link, and trims this to what the upload
-page accepts, linking this file for the rest.
+review round R1 sent "to the description". The chapter timestamps are the
+final cut's (./x fair_coin chapters). The release package adds the repository
+link, and trims this to what the upload page accepts, linking this file for
+the rest.
 -->
 
 # How to Make a Fair Coin Out of an Unfair One
@@ -19,19 +20,17 @@ loaded one.
 
 ## Chapters
 
-(Timestamps come with the finished cut.)
-
-1. Call it
-2. Toss twice
-3. Every coin
-4. The price
-5. Where it breaks
-6. Same counts
-7. A die from a coin
-8. Loaded dice
-9. Six orders
-10. What is left
-11. The fair coin inside
+0:00 Call it
+0:57 Toss twice
+2:18 Every coin
+3:39 The price
+4:33 Where it breaks
+5:43 Same counts
+7:05 A die from a coin
+7:58 Loaded dice
+8:44 Six orders
+9:53 What is left
+11:01 The fair coin inside
 
 ## Precisely
 
