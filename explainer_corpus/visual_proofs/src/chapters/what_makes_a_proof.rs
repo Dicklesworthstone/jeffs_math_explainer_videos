@@ -37,16 +37,19 @@ const MINI_CELL: f64 = 0.22;
 const MINI_GAP: f64 = 0.45;
 const GROUP_GAP: f64 = 0.9;
 const MINI_Y: f64 = 0.45;
-/// The cards of 15_2: the question over them, and their scale and tops.
-const QUESTION_AT: Vec3 = [0.0, 2.05, 0.0];
+/// The cards of 15_2: the question over them, and their scale and tops. The
+/// question's top stands under the lowest thumbnail over it (the halved
+/// square's number line hangs below the shelf's floor), and the first card
+/// moves down with it, and the second a little.
+const QUESTION_AT: Vec3 = [0.0, 1.78, 0.0];
 const CARD_LOOK_A: CardLook = CardLook {
     x: 0.0,
-    top: 0.95,
+    top: 0.68,
     scale: 0.7,
 };
 const CARD_LOOK_B: CardLook = CardLook {
     x: 0.0,
-    top: -0.8,
+    top: -0.95,
     scale: 0.7,
 };
 /// The three lines of 15_3: where they start, their rows and size, and the
@@ -529,8 +532,38 @@ impl SceneConstruct for WhatMakesAProof {
 
 #[cfg(test)]
 mod tests {
-    use super::super::draw::{SHELF_FLOOR, testing};
+    use super::super::draw::{SHELF_FLOOR, shelf_log, testing};
     use super::*;
+
+    /// 15_2: the question card stands clear of the shelf's thumbnails over it:
+    /// the halved square's number line and its gold "1" hang below that
+    /// thumbnail's box, below the shelf's floor, and the card's top edge,
+    /// which stood at the floor, crossed them (the dense read, P5).
+    #[test]
+    fn the_question_card_stands_clear_of_the_shelfs_thumbnails() {
+        testing::bare(|kit, stage| {
+            let q = question_card(kit, stage, "So what makes a picture a proof?", QUESTION_AT)?;
+            let (c, w, h) = (stage.get_center(q), stage.get_width(q), stage.get_height(q));
+            let (left, right, top) = (c[0] - w / 2.0, c[0] + w / 2.0, c[1] + h / 2.0);
+            let mut lowest = f64::INFINITY;
+            for entry in super::super::SHELF {
+                let mobs = (entry.thumb)(kit, stage)?;
+                let Some((lo, hi)) = shelf_log::union_box(stage, &mobs) else {
+                    continue;
+                };
+                if hi[0] > left && lo[0] < right {
+                    lowest = lowest.min(lo[1]);
+                }
+            }
+            assert!(lowest.is_finite(), "no thumbnail stands over the card");
+            assert!(
+                top + 0.03 <= lowest,
+                "the card's top is {top:.3}, the thumbnails over it reach down to {lowest:.3}"
+            );
+            Ok(())
+        })
+        .unwrap();
+    }
 
     /// 15_5 and 15_6: the receipts and the names are the facts, and a number
     /// of thousands is written with its comma.

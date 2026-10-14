@@ -370,6 +370,171 @@ pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
     Ok(picture)
 }
 
+/// Where 13_6's live sum stands along the panel's row: the left edges of the
+/// squares on the two shorter sides and of the tilted square, and the centres
+/// of the "+" and the "=" in the gaps between them. The two signs were built
+/// and never put on the screen, so the row read "2.3  30.1  32.4".
+const SUM_AT: [f64; 3] = [-3.0, -0.8, 1.5];
+const SIGN_AT: [f64; 2] = [-1.45, 0.8];
+const SUM_Y: f64 = 0.4;
+
+/// The live sum of 13_6, all five parts on the screen from the call: the
+/// squares on the shorter sides, from the tracker `tracker` (the first
+/// shorter side, of `total` the big square's side) and the tilted square's
+/// area, with their signs. Returns them left to right.
+fn live_sum(kit: &Kit, stage: &mut Stage<'_>, tracker: Mob, total: f64, colours: [Srgb; 3]) -> fmn::Result<Vec<Mob>> {
+    let sq_a = move |s: &fmn::mobject::Stage| {
+        let x = s.tracker_value(tracker).unwrap_or(0.0);
+        x * x
+    };
+    let sq_b = move |s: &fmn::mobject::Stage| {
+        let y = total - s.tracker_value(tracker).unwrap_or(0.0);
+        y * y
+    };
+    let first = kit.live_value(
+        stage,
+        sq_a,
+        1,
+        false,
+        48.0,
+        colours[0],
+        v(PANEL_X + SUM_AT[0], SUM_Y),
+        LEFT,
+    )?;
+    let plus = kit.text(stage, "+", 48.0, ink(), v(PANEL_X + SIGN_AT[0], SUM_Y))?;
+    stage.add_to_scene(plus)?;
+    let second = kit.live_value(
+        stage,
+        sq_b,
+        1,
+        false,
+        48.0,
+        colours[1],
+        v(PANEL_X + SUM_AT[1], SUM_Y),
+        LEFT,
+    )?;
+    let equals = kit.text(stage, "=", 48.0, ink(), v(PANEL_X + SIGN_AT[1], SUM_Y))?;
+    stage.add_to_scene(equals)?;
+    let third = kit.live_value(
+        stage,
+        move |s| sq_a(s) + sq_b(s),
+        1,
+        false,
+        48.0,
+        colours[2],
+        v(PANEL_X + SUM_AT[2], SUM_Y),
+        LEFT,
+    )?;
+    Ok(vec![first, plus, second, equals, third])
+}
+
+/// The clear air between two neighbouring captions of a row.
+const CAPTION_GAP: f64 = 0.25;
+
+/// Centres for captions of `widths` wanted at `centres` (left to right):
+/// neighbours pushed apart, each by half of what they lack, until they stand
+/// `gap` clear. Captions already clear stay where they are.
+fn spread_apart(centres: &[f64], widths: &[f64], gap: f64) -> Vec<f64> {
+    let mut at = centres.to_vec();
+    for _ in 0..200 {
+        let mut moved = false;
+        for i in 1..at.len() {
+            let need = (widths[i - 1] + widths[i]) / 2.0 + gap;
+            let have = at[i] - at[i - 1];
+            if have < need - 1e-9 {
+                let d = (need - have) / 2.0;
+                at[i - 1] -= d;
+                at[i] += d;
+                moved = true;
+            }
+        }
+        if !moved {
+            break;
+        }
+    }
+    at
+}
+
+/// A row of terms at the panel's centre, height `row_y` (`tex_row`, 52 points),
+/// with a caption (22 points, `y` of its own) under each of the terms
+/// `captions` names (term index, words, colour). Each caption is centred on
+/// its term and then spread from its neighbours (the row's terms are closer
+/// together than their captions are wide, and captions at fixed offsets stood
+/// under the wrong terms: "on the side of four" under the 25, "left over"
+/// beside it). Detached; returns the row and the captions in order.
+fn captioned_row(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    parts: &[(&str, Srgb)],
+    row_y: f64,
+    captions: &[(usize, &str, Srgb)],
+    caption_y: f64,
+) -> fmn::Result<(Vec<Mob>, Vec<Mob>)> {
+    let row = tex_row(kit, stage, parts, 52.0, v(PANEL_X, row_y), 0.25, PANEL_W)?;
+    let mut notes = Vec::new();
+    for &(_, words, colour) in captions {
+        notes.push(kit.text(stage, words, 22.0, colour, v(PANEL_X, caption_y))?);
+    }
+    let wanted: Vec<f64> = captions.iter().map(|&(i, ..)| stage.get_center(row[i])[0]).collect();
+    let widths: Vec<f64> = notes.iter().map(|&m| stage.get_width(m)).collect();
+    for (&m, x) in notes.iter().zip(spread_apart(&wanted, &widths, CAPTION_GAP)) {
+        stage.move_to(m, v(x, caption_y), ORIGIN);
+    }
+    Ok((row, notes))
+}
+
+/// 13_5's two counts, detached: "9 + 16 = 25" with its two captions and
+/// "49 - 24 = 25" with its three, for legs `a` and `b`.
+struct Counts {
+    nine_sixteen: Vec<Mob>,
+    on: [Mob; 2],
+    count_two: Vec<Mob>,
+    caps: [Mob; 3],
+}
+
+fn counted_rows(kit: &Kit, stage: &mut Stage<'_>, a: f64, b: f64) -> fmn::Result<Counts> {
+    let big_n = fact("F-P.big")?;
+    let tri_n = fact("F-P.triangles")?;
+    let tilted_n = fact("F-P.tilted")?;
+    let squares_n = fact_ints("F-P.squares")?;
+    let violet = size(5);
+    let (nine, sixteen) = (squares_n[0].to_string(), squares_n[1].to_string());
+    let (nine_sixteen, on) = captioned_row(
+        kit,
+        stage,
+        &[
+            (nine.as_str(), length_colour(a)),
+            ("+", ink()),
+            (sixteen.as_str(), length_colour(b)),
+            ("=", ink()),
+            (tilted_n.as_str(), violet),
+        ],
+        2.3,
+        &[(0, ON_THREE, dim()), (2, ON_FOUR, dim())],
+        1.6,
+    )?;
+    let (count_two, caps) = captioned_row(
+        kit,
+        stage,
+        &[
+            (big_n.as_str(), ink()),
+            ("-", ink()),
+            (tri_n.as_str(), dim()),
+            ("=", ink()),
+            (tilted_n.as_str(), violet),
+        ],
+        0.4,
+        &[(0, BIG_SQUARE, dim()), (2, TRIANGLES, dim()), (4, LEFT_OVER, violet)],
+        -0.25,
+    )?;
+    Ok(Counts {
+        nine_sixteen,
+        on: [on[0], on[1]],
+        count_two,
+        caps: [caps[0], caps[1], caps[2]],
+    })
+}
+
 impl SceneConstruct for FourTriangles {
     fn name(&self) -> &str {
         "13_four_triangles"
@@ -515,54 +680,20 @@ impl SceneConstruct for FourTriangles {
         // nine plus sixteen, twenty-five: the same pile counted two ways
         let line = say(&kit, stage, "13_5")?;
         fade_out_all(stage, &card.mobs(), 0.4)?;
-        let big_n = fact("F-P.big")?;
-        let tri_n = fact("F-P.triangles")?;
         let tilted_n = fact("F-P.tilted")?;
-        let squares_n = fact_ints("F-P.squares")?;
         let long_n = fact("F-P.long_side")?;
         let violet = size(5);
-        let (nine, sixteen) = (squares_n[0].to_string(), squares_n[1].to_string());
+        let counts = counted_rows(&kit, stage, a, b)?;
         // the tilted square fills violet, a five by five slab
         stage.set_fill(small_first.squares[0], Some(violet), Some(1.0), None, false);
         line.wait_for(stage, "Nine plus sixteen")?;
-        let nine_sixteen = tex_row(
-            &kit,
-            stage,
-            &[
-                (nine.as_str(), length_colour(a)),
-                ("+", ink()),
-                (sixteen.as_str(), length_colour(b)),
-                ("=", ink()),
-                (tilted_n.as_str(), violet),
-            ],
-            52.0,
-            v(PANEL_X, 2.3),
-            0.25,
-            PANEL_W,
-        )?;
-        let on_three = kit.text(stage, ON_THREE, 22.0, dim(), v(PANEL_X - 1.9, 1.6))?;
-        let on_four = kit.text(stage, ON_FOUR, 22.0, dim(), v(PANEL_X + 1.9, 1.6))?;
+        let nine_sixteen = counts.nine_sixteen;
+        let [on_three, on_four] = counts.on;
         fade_in_all(stage, &nine_sixteen, 0.7)?;
         fade_in_all(stage, &[on_three, on_four], 0.5)?;
         line.wait_for(stage, "big square")?;
-        let count_two = tex_row(
-            &kit,
-            stage,
-            &[
-                (big_n.as_str(), ink()),
-                ("-", ink()),
-                (tri_n.as_str(), dim()),
-                ("=", ink()),
-                (tilted_n.as_str(), violet),
-            ],
-            52.0,
-            v(PANEL_X, 0.4),
-            0.25,
-            PANEL_W,
-        )?;
-        let cap_big = kit.text(stage, BIG_SQUARE, 22.0, dim(), v(PANEL_X - 2.3, -0.25))?;
-        let cap_tri = kit.text(stage, TRIANGLES, 22.0, dim(), v(PANEL_X - 0.4, -0.25))?;
-        let cap_left = kit.text(stage, LEFT_OVER, 22.0, violet, v(PANEL_X + 2.3, -0.25))?;
+        let count_two = counts.count_two;
+        let [cap_big, cap_tri, cap_left] = counts.caps;
         fade_in_all(stage, &count_two, 0.7)?;
         fade_in_all(stage, &[cap_big, cap_tri, cap_left], 0.5)?;
         line.wait_for(stage, "five times five")?;
@@ -611,49 +742,7 @@ impl SceneConstruct for FourTriangles {
         fade_in_all(stage, &[formula, words], 0.6)?;
         // the live numbers: the squares on the shorter sides and the tilted
         // square, from the tracker
-        let tracker = live.a;
-        let sq_a = move |s: &fmn::mobject::Stage| {
-            let x = s.tracker_value(tracker).unwrap_or(0.0);
-            x * x
-        };
-        let sq_b = move |s: &fmn::mobject::Stage| {
-            let y = total - s.tracker_value(tracker).unwrap_or(0.0);
-            y * y
-        };
-        let readout = vec![
-            kit.live_value(
-                stage,
-                sq_a,
-                1,
-                false,
-                48.0,
-                length_colour(a),
-                v(PANEL_X - 3.0, 0.4),
-                LEFT,
-            )?,
-            kit.text(stage, "+", 48.0, ink(), v(PANEL_X - 1.15, 0.4))?,
-            kit.live_value(
-                stage,
-                sq_b,
-                1,
-                false,
-                48.0,
-                length_colour(b),
-                v(PANEL_X - 0.8, 0.4),
-                LEFT,
-            )?,
-            kit.text(stage, "=", 48.0, ink(), v(PANEL_X + 1.15, 0.4))?,
-            kit.live_value(
-                stage,
-                move |s| sq_a(s) + sq_b(s),
-                1,
-                false,
-                48.0,
-                violet,
-                v(PANEL_X + 1.5, 0.4),
-                LEFT,
-            )?,
-        ];
+        let readout = live_sum(&kit, stage, live.a, total, [length_colour(a), length_colour(b), violet])?;
         line.wait_for(stage, "right triangle")?;
         // the shorter sides slide through other lengths while the theorem is
         // stated (its name is on screen only), then come to rest at the other
@@ -924,6 +1013,90 @@ mod tests {
         assert!(stands >= 5.0, "the source stands {stands:.1} s");
         let tail = v.ran.seconds - (at + len);
         assert!(tail <= 8.7, "the chapter runs {tail:.1} s after the voice");
+    }
+
+    /// 13_5: each caption stands under its own term. The row's terms are
+    /// closer together than their captions are wide, so captions at fixed
+    /// offsets from the row's middle stood under the wrong terms ("on the
+    /// side of four" under the 25, "left over" beside it; the dense read of
+    /// the re-render, P5). Neighbours stand `CAPTION_GAP` clear, the term is
+    /// over its caption, and everything is inside the frame.
+    #[test]
+    fn each_count_caption_stands_under_its_own_term() {
+        // the spreading: a pair wanted 1.2 apart, 1.9 wide each, ends 2.15
+        // apart about the same middle; captions already clear stay put
+        let at = spread_apart(&[0.0, 1.2], &[1.9, 1.9], CAPTION_GAP);
+        assert!((at[1] - at[0] - (1.9 + CAPTION_GAP)).abs() < 1e-9, "{at:?}");
+        assert!(((at[0] + at[1]) / 2.0 - 0.6).abs() < 1e-9, "{at:?}");
+        assert_eq!(spread_apart(&[0.0, 3.0], &[1.0, 1.0], CAPTION_GAP), vec![0.0, 3.0]);
+        let edge = fmn::core::constants::FRAME_X_RADIUS;
+        testing::bare(|kit, stage| {
+            let c = counted_rows(kit, stage, 3.0, 4.0)?;
+            let rows: [(&[Mob], Vec<Mob>, Vec<usize>); 2] = [
+                (&c.nine_sixteen, c.on.to_vec(), vec![0, 2]),
+                (&c.count_two, c.caps.to_vec(), vec![0, 2, 4]),
+            ];
+            for (row, caps, terms) in rows {
+                let mut last_right = f64::NEG_INFINITY;
+                for (&m, &t) in caps.iter().zip(&terms) {
+                    let (x, w) = (stage.get_center(m)[0], stage.get_width(m));
+                    let (l, r) = (x - w / 2.0, x + w / 2.0);
+                    let term = stage.get_center(row[t])[0];
+                    assert!(
+                        l <= term && term <= r,
+                        "the term at {term:.2} is not over its caption {l:.2}..{r:.2}"
+                    );
+                    assert!(
+                        l - last_right >= CAPTION_GAP - 1e-6,
+                        "{l:.2} is {:.2} from the caption before",
+                        l - last_right
+                    );
+                    last_right = r;
+                    assert!(
+                        l > -edge + 0.3 && r < edge - 0.3,
+                        "{l:.2}..{r:.2} is at the frame's edge"
+                    );
+                }
+            }
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    /// 13_6: the live sum has its "+" and "=" on the screen between its
+    /// three numbers (they were built and never added, so the row read
+    /// "2.3  30.1  32.4": the dense read, P5), and each sign stands clear of
+    /// the numbers either side (a number is under a unit wide at 48 points).
+    #[test]
+    fn the_live_sum_shows_its_signs_between_its_numbers() {
+        const NUMBER: f64 = 1.0;
+        const SIGN: f64 = 0.25;
+        const {
+            assert!(
+                SUM_AT[0] < SIGN_AT[0] && SIGN_AT[0] < SUM_AT[1] && SUM_AT[1] < SIGN_AT[1] && SIGN_AT[1] < SUM_AT[2]
+            );
+            assert!(SIGN_AT[0] - SIGN >= SUM_AT[0] + NUMBER + 0.2 && SIGN_AT[0] + SIGN + 0.2 <= SUM_AT[1]);
+            assert!(SIGN_AT[1] - SIGN >= SUM_AT[1] + NUMBER + 0.2 && SIGN_AT[1] + SIGN + 0.2 <= SUM_AT[2]);
+        }
+        testing::bare(|kit, stage| {
+            let tracker = stage.add_value_tracker(3.0);
+            let row = live_sum(kit, stage, tracker, 7.0, [hero(), hero(), ink()])?;
+            assert_eq!(row.len(), 5);
+            // (a text that was only built is not on the screen)
+            let built = kit.text(stage, "+", 48.0, ink(), v(0.0, 0.0))?;
+            assert!(
+                !stage.arena().roots().contains(&built),
+                "a detached text counts as on the screen"
+            );
+            for &m in &row {
+                assert!(
+                    stage.arena().roots().contains(&m),
+                    "a part of the sum is not on the screen"
+                );
+            }
+            Ok(())
+        })
+        .unwrap();
     }
 
     #[test]
