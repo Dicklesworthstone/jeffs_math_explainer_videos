@@ -3,9 +3,10 @@ Draft video description for Video F (P3, 2026-10-13). Every statement below
 rests on a row of docs/fact-sheet.md or an oracle key; the bracketed tags
 name them. It holds the exact versions of what the narration simplifies
 (plan rule 11), the programmer notes that have no room on screen, and what
-review round R1 sent "to the description". The release package adds the
-chapter timestamps and the repository link, and trims this to what the upload
-page accepts, linking this file for the rest.
+review round R1 sent "to the description". The chapter timestamps are the
+final cut's (./x mental_math chapters). The release package adds the
+repository link, and trims this to what the upload page accepts, linking this
+file for the rest.
 -->
 
 # Mental Math Tricks That Actually Work (and Why)
@@ -19,22 +20,20 @@ rectangle into easy pieces, or to trade it for an equal one.
 
 ## Chapters
 
-(Timestamps come with the finished cut.)
-
-1. Eighty-five squared
-2. Squares that end in five
-3. Your turn
-4. Any product, by parts
-5. A running total
-6. Percents: a tenth, and the swap
-7. Round numbers: half and double; round, then fix
-8. The middle
-9. Feynman, Bethe and forty-eight squared
-10. Squares near fifty
-11. Your turn
-12. Which trick?
-13. Nothing to grab
-14. Every number is near something you know
+0:00 Eighty-five squared
+0:58 Squares that end in five
+2:05 Your turn
+2:54 Any product, by parts
+4:14 A running total
+5:38 Percents: a tenth, and the swap
+6:54 Round numbers: half and double; round, then fix
+8:21 The middle
+9:38 Feynman, Bethe and forty-eight squared
+10:32 Squares near fifty
+11:45 Your turn
+12:36 Which trick?
+13:16 Nothing to grab
+14:12 Every number is near something you know
 
 ## The tricks, exactly
 
