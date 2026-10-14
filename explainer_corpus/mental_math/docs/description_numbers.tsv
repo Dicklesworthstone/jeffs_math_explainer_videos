@@ -1,3 +1,4 @@
+#! legacy: not yet tagged. A number only has to equal some fact of the oracle; delete this line when the units that state numbers name their keys (tools/description_numbers.py)
 # Video F: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py mental_math).
 # number	context (a piece of the line it stands in)	kind (year, cited, structural, derived)	reason; a derived reason is =expression over facts, evaluated by the tool
 135	135² needs	derived	=f("F-T1.n135.front")*10+5
