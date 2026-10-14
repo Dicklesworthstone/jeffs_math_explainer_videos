@@ -255,14 +255,25 @@ PY
     cargo clippy --workspace --all-targets $CARGO_FLAGS -- -D warnings
     # shellcheck disable=SC2086
     cargo test --workspace $CARGO_FLAGS
+    # Each tool test as its docstring runs it (numpy; Praat for prosody_qa). tools/test_narration_*.py
+    # test tools/narration.py, which x narrate no longer calls (433a39d): the narration tests that
+    # count are the skill's, of the narrate.py x runs, below.
     for tf in "$here"/tools/test_*.py; do
       [ -f "$tf" ] || continue
-      python3 -I "$tf"
+      case "$tf" in */test_narration_*.py) continue ;; esac
+      uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$tf"
+    done
+    N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
+    for tf in "$N"/test_*.py; do
+      [ -f "$tf" ] || continue
+      (cd "$N/.." && uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -B "scripts/${tf##*/}")
     done
     lint="$SKILLS/math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/lint_script.py"
     if [ -f "$lint" ]; then
       for s in "$here"/explainer_corpus/*/script.tsv; do
         [ -f "$s" ] || continue
+        # Video D's published script predates the NN_k line ids and stays as it was cut
+        case "$s" in */hoeffding_d/script.tsv) continue ;; esac
         python3 -I "$lint" "$s"
       done
     fi
