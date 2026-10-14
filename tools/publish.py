@@ -2,10 +2,14 @@
 """Assemble a per-video release bundle and YouTube package (plan §13, bead mx-e-w8-4ol.1).
 
 Dry-run by default: assembles `<slug>_4k_vN.mp4`, `<slug>_1080p_vN.mp4` (x264 CRF 18,
-audio copied), `<slug>.en.srt`, `<slug>.en.vtt`, `contact_sheet.png`, `release_notes.md`,
-and `SHA256SUMS` under the bundle directory, once `publish/youtube.md` and `publish/michael/*.txt`
-pass tools/youtube_package.py's check (against the master's timelines when it has them).
-Refuses `--upload` unless `ALLOW_PUBLISH_UPLOAD=1` is set in the environment (G10).
+audio copied), `<slug>.en.srt`, `<slug>.en.vtt`, `contact_sheet.png`, the thumbnail youtube.md names,
+`release_notes.md` and `SHA256SUMS` under the bundle directory (default `release_vN/` beside the cut's
+`final/`, under the ignored `renders/`: a 4K MP4 never sits in the tracked tree), once `publish/youtube.md`
+and `publish/michael/*.txt` pass tools/youtube_package.py's check (against the master's timelines when it
+has them) and docs/publish/MANIFEST.md names no other md5 for the master.
+`--upload` creates the GitHub Release `<slug>-vN` with the bundle as its assets (`gh release create`,
+the title from title.txt, the notes from release_notes.md), refusing a tag that exists; it refuses to
+run at all unless `ALLOW_PUBLISH_UPLOAD=1` is set in the environment (G10: the owner's approval).
 """
 
 from __future__ import annotations
@@ -249,9 +253,20 @@ def main(argv: list[str] | None = None) -> int:
     finals = master_mp4.parent
     # the upload text first: a bundle with no package to go with it is no release
     yt_path = ensure_youtube_md(crate, args.slug, finals)
+    import release  # noqa: PLC0415 (beside this file, on the path ensure_youtube_md set)
+
+    # the cut MANIFEST records, and no other
+    stale = release.manifest_mismatch(ROOT, master_mp4.resolve())
+    if stale:
+        print("publish: the master is not the cut MANIFEST records:\n  " + "\n  ".join(stale), file=sys.stderr)
+        return 2
 
     ver = args.version if args.version.startswith("v") else f"v{args.version}"
-    bundle = args.out or (crate / "publish" / f"release_{ver}")
+    tag = f"{args.slug}-{ver}"
+    if args.upload and subprocess.run(["gh", "release", "view", tag], capture_output=True).returncode == 0:
+        print(f"publish: the release {tag} exists already (a new cut takes a new --version)", file=sys.stderr)
+        return 2
+    bundle = args.out or (finals.parent / f"release_{ver}")
     bundle.mkdir(parents=True, exist_ok=True)
 
     master_dst = bundle / f"{args.slug}_4k_{ver}.mp4"
@@ -270,9 +285,19 @@ def main(argv: list[str] | None = None) -> int:
 
     ensure_captions(crate, finals, bundle, args.slug)
 
+    thumb_rel = release.thumbnail_rel(crate)
+    thumb_row = "none named in publish/youtube.md"
+    if thumb_rel and (crate / thumb_rel).is_file():
+        shutil.copy2(crate / thumb_rel, bundle / Path(thumb_rel).name)
+        thumb_row = f"`{Path(thumb_rel).name}` (1280x720, the YouTube thumbnail)"
+    elif thumb_rel:
+        thumb_row = f"missing: `{thumb_rel}` (./x {args.slug} thumbnail)"
+
     meta_4k = probe_video(master_dst)
     meta_1080 = probe_video(proxy_dst)
     commit = fmn_commit(ROOT)
+    repo_commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
+                                 capture_output=True, text=True).stdout.strip() or "unknown"
 
     notes = f"""# Release `{args.slug}-{ver}`
 
@@ -280,10 +305,12 @@ def main(argv: list[str] | None = None) -> int:
 |---|---|
 | Explainer | `{args.slug}` |
 | Version | `{ver}` |
+| Repository commit | `{repo_commit}` |
 | `franken_manim` commit | `{commit}` |
 | 4K master | `{master_dst.name}` (`{meta_4k['width']}x{meta_4k['height']}`, `{meta_4k['r_frame_rate']}` fps, `{meta_4k['codec_name']}`, `{meta_4k['duration']}`) |
 | 1080p proxy | `{proxy_dst.name}` (`{meta_1080['width']}x{meta_1080['height']}`, `{meta_1080['r_frame_rate']}` fps, `{meta_1080['codec_name']}`) |
 | Captions | `{args.slug}.en.srt`, `{args.slug}.en.vtt` |
+| Thumbnail | {thumb_row} |
 | YouTube package | `{yt_path.relative_to(ROOT)}` |
 """
     notes_dst.write_text(notes, encoding="utf-8")
@@ -296,7 +323,17 @@ def main(argv: list[str] | None = None) -> int:
         sha_lines.append(f"{digest}  {p.name}")
     (bundle / "SHA256SUMS").write_text("\n".join(sha_lines) + "\n", encoding="utf-8")
 
-    print(f"publish: assembled {args.slug}-{ver} in {bundle} (dry-run={not args.upload})")
+    print(f"publish: assembled {tag} in {bundle} (dry-run={not args.upload})")
+    if not args.upload:
+        return 0
+    title = (crate / "publish" / "michael" / "title.txt").read_text(encoding="utf-8").strip()
+    assets = [str(p) for p in sorted(bundle.iterdir()) if p.is_file()]
+    made = subprocess.run(["gh", "release", "create", tag, *assets, "--title", f"{title} ({ver})",
+                           "--notes-file", str(notes_dst)])
+    if made.returncode != 0:
+        print(f"publish: gh release create {tag} failed ({made.returncode})", file=sys.stderr)
+        return made.returncode
+    print(f"publish: released {tag} with {len(assets)} assets")
     return 0
 
 

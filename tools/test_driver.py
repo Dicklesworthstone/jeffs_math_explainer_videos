@@ -2,6 +2,7 @@
 """Corpus-driver metadata and argument checks. Fixtures exercise dispatch only;
 the real corpus lint/probe runs are separate acceptance checks. Nothing is deleted."""
 
+import hashlib
 import json
 import os
 import shutil
@@ -22,6 +23,7 @@ class Driver(unittest.TestCase):
         (self.root / "tools").mkdir(exist_ok=True)
         shutil.copyfile(ROOT / "tools" / "publish.py", self.root / "tools" / "publish.py")
         shutil.copyfile(ROOT / "tools" / "youtube_package.py", self.root / "tools" / "youtube_package.py")
+        shutil.copyfile(ROOT / "tools" / "release.py", self.root / "tools" / "release.py")
         self.corpus = self.root / "explainer_corpus"
         self.corpus.mkdir()
 
@@ -563,22 +565,62 @@ class Driver(unittest.TestCase):
         (pub / "michael" / "tags.txt").write_text("alpha, beta\n", encoding="utf-8")
         (pub / "michael" / "description.txt").write_text(desc, encoding="utf-8")
         (pub / "youtube.md").write_text(
-            f"# Alpha\n\n- Title: Alpha\n- Tags: alpha, beta\n\n```text\n{desc}```\n", encoding="utf-8"
+            f"# Alpha\n\n- Title: Alpha\n- Tags: alpha, beta\n- Thumbnail: `renders/alpha_thumbnail.png`\n\n"
+            f"```text\n{desc}```\n", encoding="utf-8"
         )
+        (crate / "renders" / "alpha_thumbnail.png").write_bytes(b"\x89PNG\r\n\x1a\n thumbnail")
+        # MANIFEST naming another md5 for this master: refused before anything is assembled
+        manifest = self.root / "docs" / "publish" / "MANIFEST.md"
+        manifest.parent.mkdir(parents=True)
+        path = "explainer_corpus/alpha/renders/final/alpha_master.mp4"
+        manifest.write_text(f"| Alpha | `{path}` | `{'0' * 32}` |\n", encoding="utf-8")
+        res = self.run_x("alpha", "publish")
+        self.assertEqual(res.returncode, 2)
+        self.assertIn("not the cut MANIFEST records", res.stderr)
+        self.assertFalse((crate / "renders" / "release_v1").exists())
+        manifest.write_text(f"| Alpha | `{path}` | `{hashlib.md5(master_mp4.read_bytes()).hexdigest()}` |\n",
+                            encoding="utf-8")
         res = self.run_x("alpha", "publish")
         self.assertEqual(res.returncode, 0, res.stderr)
-        bundle = crate / "publish" / "release_v1"
+        # the bundle sits under renders/ (ignored), never in the tracked publish/ directory
+        bundle = crate / "renders" / "release_v1"
+        self.assertFalse((crate / "publish" / "release_v1").exists())
         self.assertTrue((bundle / "alpha_4k_v1.mp4").is_file())
         self.assertTrue((bundle / "alpha_1080p_v1.mp4").is_file())
         self.assertTrue((bundle / "alpha.en.srt").is_file())
         self.assertTrue((bundle / "alpha.en.vtt").is_file())
         self.assertTrue((bundle / "contact_sheet.png").is_file())
+        self.assertTrue((bundle / "alpha_thumbnail.png").is_file())
         self.assertTrue((bundle / "release_notes.md").is_file())
-        self.assertTrue((bundle / "SHA256SUMS").is_file())
+        self.assertIn("`alpha_thumbnail.png`", (bundle / "release_notes.md").read_text(encoding="utf-8"))
+        self.assertIn("alpha_thumbnail.png", (bundle / "SHA256SUMS").read_text(encoding="utf-8"))
         self.assertTrue((crate / "publish" / "youtube.md").is_file())
         up = self.run_x("alpha", "publish", "--upload")
         self.assertEqual(up.returncode, 2)
         self.assertIn("G10", up.stderr)
+        # with the owner's approval: gh release create with the bundle, refused when the tag exists
+        bin_dir = self.root / "fake bin"
+        bin_dir.mkdir()
+        calls = self.root / "gh-calls.txt"
+        (bin_dir / "gh").write_text(
+            "#!/bin/sh\n"
+            f"printf '%s\\n' \"$*\" >> '{calls}'\n"
+            "[ \"$1 $2\" = 'release view' ] && exit \"${GH_VIEW_EXIT:-1}\"\n"
+            "exit 0\n", encoding="utf-8")
+        (bin_dir / "gh").chmod(0o755)
+        env = dict(os.environ, SKILLS=str(self.root / "missing skills"), ALLOW_PUBLISH_UPLOAD="1",
+                   PATH=f"{bin_dir}:{os.environ['PATH']}")
+        up = self.run_x("alpha", "publish", "--upload", env=env)
+        self.assertEqual(up.returncode, 0, up.stderr)
+        made = [c for c in calls.read_text(encoding="utf-8").splitlines() if c.startswith("release create")]
+        self.assertEqual(len(made), 1, made)
+        self.assertIn("release create alpha-v1 ", made[0])
+        self.assertIn("alpha_4k_v1.mp4", made[0])
+        self.assertIn("--title Alpha (v1) --notes-file", made[0])
+        env["GH_VIEW_EXIT"] = "0"
+        up = self.run_x("alpha", "publish", "--upload", env=env)
+        self.assertEqual(up.returncode, 2)
+        self.assertIn("exists already", up.stderr)
 
     def test_narration_prosody_passes_gate_line_gaps_when_crate_opts_into_thought(self):
         crate = self.crate("alpha")

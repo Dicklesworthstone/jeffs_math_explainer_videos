@@ -241,6 +241,21 @@ def png_size(path: Path) -> tuple[int, int] | None:
     return int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
 
 
+def manifest_mismatch(root: Path, master: Path) -> list[str]:
+    """docs/publish/MANIFEST.md's rows that name `master`'s path with an md5 that is not the file's, one line each
+    (a row with no md5, or no row at all, is not a mismatch: rows are written when a cut is recorded)."""
+    manifest = root / "docs" / "publish" / "MANIFEST.md"
+    if not manifest.is_file() or not master.is_relative_to(root):
+        return []
+    path, digest, out = master.relative_to(root).as_posix(), md5(master), []
+    for n, line in enumerate(manifest.read_text(encoding="utf-8").splitlines(), 1):
+        if f"`{path}`" in line:
+            written = re.findall(r"\b[0-9a-f]{32}\b", line)
+            if written and digest not in written:
+                out.append(f"docs/publish/MANIFEST.md line {n}: names {path} with md5 {written[0]}, the file is {digest}")
+    return out
+
+
 def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, probe=ffprobe,
           skills: Path | None = None) -> tuple[list[str], list[str]]:
     """(problems, the upload sheet's lines): no problems means the cut and its upload text are ready."""
@@ -313,15 +328,8 @@ def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, pr
             if r.returncode != 0:
                 bad.extend(f"protected_check: {line.strip()}" for line in r.stdout.splitlines()
                            if line.strip().startswith("MISSING"))
-    manifest = root / "docs" / "publish" / "MANIFEST.md"
-    if master is not None and manifest.is_file():
-        digest = md5(master)
-        for n, line in enumerate(manifest.read_text(encoding="utf-8").splitlines(), 1):
-            if f"`{rel(master)}`" in line:
-                written = re.findall(r"\b[0-9a-f]{32}\b", line)
-                if written and digest not in written:
-                    bad.append(f"docs/publish/MANIFEST.md line {n}: names {rel(master)} with md5 {written[0]}, "
-                               f"the file is {digest}")
+    if master is not None:
+        bad.extend(manifest_mismatch(root, master))
     sheet = []
     if not bad and master is not None:
         pub = crate / "publish" / voice
