@@ -107,8 +107,27 @@ pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
 /// The two levels [`join_step_db`] subtracts: the median momentary (400 ms)
 /// loudness (LUFS) 1.5 to 0.2 s before the join and 0.2 to 1.5 s after it.
 pub fn join_levels(music: &Stereo, join_s: f64) -> Option<(f64, f64)> {
-    let a = ((join_s - 1.6).max(0.0) * FS) as usize;
-    let b = (((join_s + 1.6) * FS) as usize).min(music.len());
+    levels_across(music, join_s, join_s)
+}
+
+/// The same two levels read either side of a stretch: 1.5 to 0.2 s before
+/// `from_s` and 0.2 to 1.5 s after `to_s`. A join is `from_s == to_s`; an
+/// authored silence over a join is read from where it begins to fade out to
+/// where its return has finished, so the level the music left at and the one
+/// it came back to are what is compared, not the nothing between.
+pub fn levels_across(music: &Stereo, from_s: f64, to_s: f64) -> Option<(f64, f64)> {
+    let (before, after) = (
+        level_near(music, from_s, -1.5, -0.2)?,
+        level_near(music, to_s, 0.2, 1.5)?,
+    );
+    (before > -100.0 && after > -100.0).then_some((before, after))
+}
+
+/// The median momentary (400 ms) loudness of the windows centred `lo` to `hi`
+/// seconds from `at_s`, read on the 3.2 s about it; `None` for fewer than 8.
+fn level_near(music: &Stereo, at_s: f64, lo: f64, hi: f64) -> Option<f64> {
+    let a = ((at_s - 1.6).max(0.0) * FS) as usize;
+    let b = (((at_s + 1.6) * FS) as usize).min(music.len());
     if a >= b {
         return None;
     }
@@ -118,20 +137,16 @@ pub fn join_levels(music: &Stereo, join_s: f64) -> Option<(f64, f64)> {
     };
     let m = windowed(&slice, 0.4, 0.1);
     let t0 = a as f64 / FS;
-    let level = |lo: f64, hi: f64| {
-        let v: Vec<f64> = m
-            .iter()
-            .enumerate()
-            .filter(|(k, _)| {
-                let t = t0 + *k as f64 * 0.1 + 0.2;
-                t >= join_s + lo && t < join_s + hi
-            })
-            .map(|(_, v)| v.max(-120.0))
-            .collect();
-        (v.len() >= 8).then(|| percentile(&v, 50.0))
-    };
-    let (before, after) = (level(-1.5, -0.2)?, level(0.2, 1.5)?);
-    (before > -100.0 && after > -100.0).then_some((before, after))
+    let v: Vec<f64> = m
+        .iter()
+        .enumerate()
+        .filter(|(k, _)| {
+            let t = t0 + *k as f64 * 0.1 + 0.2;
+            t >= at_s + lo && t < at_s + hi
+        })
+        .map(|(_, v)| v.max(-120.0))
+        .collect();
+    (v.len() >= 8).then(|| percentile(&v, 50.0))
 }
 
 /// Maximum momentary (400 ms) loudness, in LUFS.
@@ -231,6 +246,26 @@ mod tests {
         assert!((m[5] + 40.0).abs() < 0.2, "{}", m[5]);
         assert!((m[m.len() - 1] + 20.0).abs() < 0.2);
         assert!((max_momentary(&s) + 20.0).abs() < 0.2);
+    }
+
+    #[test]
+    fn the_levels_across_a_silence_are_the_ones_either_side_of_it() {
+        // 10 s of a tone, 10 s of nothing, 10 s of the tone 6 dB up
+        let s = concat(&[tone(-40.0, 10.0), Stereo::silence(10 * 48_000), tone(-34.0, 10.0)]);
+        let (before, after) = levels_across(&s, 10.0, 20.0).expect("both sides sound");
+        assert!(
+            (before + 40.0).abs() < 0.2 && (after + 34.0).abs() < 0.2,
+            "{before} {after}"
+        );
+        // read as a join inside the silence there is no level after it
+        assert_eq!(levels_across(&s, 10.0, 10.0), None);
+        assert_eq!(join_levels(&s, 15.0), None);
+        // a join with no silence near is the same two reads as before
+        let t = concat(&[tone(-40.0, 5.0), tone(-34.0, 5.0)]);
+        let (b, a) = join_levels(&t, 5.0).unwrap();
+        assert_eq!(join_levels(&t, 5.0), levels_across(&t, 5.0, 5.0));
+        assert!((a - b - 6.0).abs() < 0.3, "{}", a - b);
+        assert!((join_step_db(&t, 5.0).unwrap() - 6.0).abs() < 0.3);
     }
 
     #[test]

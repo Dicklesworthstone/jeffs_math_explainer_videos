@@ -668,7 +668,7 @@ pub fn evaluate(
             } else {
                 None
             },
-            "0.2 to 1.5 s after the chapter's start minus 0.2 to 1.5 s before it",
+            "0.2 to 1.5 s after the chapter's start (after the return of an authored silence over it) minus 0.2 to 1.5 s before it (before that silence)",
         );
     }
     // every chord sounding here, at its full length (one held through a
