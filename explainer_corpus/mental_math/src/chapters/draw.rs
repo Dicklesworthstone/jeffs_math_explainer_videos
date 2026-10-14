@@ -1798,6 +1798,37 @@ pub fn in_your_head(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, w: f64, h: f64) 
     Ok([frame, words])
 }
 
+/// How far a held number drifts at the most while it wavers.
+const WAVER: f64 = 0.06;
+
+/// Numbers held in the head start to waver: each drifts about its place and
+/// flickers, as much as the tracker `amount` (0 still, 1 fully) says. The
+/// returned anchor carries the updater and must stay in the scene.
+pub fn waver(stage: &mut Stage<'_>, mobs: &[Mob], amount: Mob) -> fmn::Result<Mob> {
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let homes: Vec<Vec3> = mobs.iter().map(|&m| stage.get_center(m)).collect();
+    let mobs = mobs.to_vec();
+    let mut clock = 0.0;
+    stage.add_dt_updater(
+        anchor,
+        move |s, _, dt| {
+            clock += dt;
+            let k = s.tracker_value(amount).unwrap_or(0.0);
+            for (i, (&m, home)) in mobs.iter().zip(&homes).enumerate() {
+                let phase = 1.9 * i as f64;
+                let dx = WAVER * k * (2.1 * clock + phase).sin();
+                let dy = 0.7 * WAVER * k * (2.9 * clock + 2.0 * phase).sin();
+                s.move_to(m, v(home[0] + dx, home[1] + dy), ORIGIN);
+                let flicker = 0.5 + 0.5 * (1.7 * clock + phase).sin();
+                s.set_opacity(m, 1.0 - 0.35 * k * flicker, true);
+            }
+        },
+        false,
+    )?;
+    stage.add_to_scene(anchor)?;
+    Ok(anchor)
+}
+
 // ----------------------------------------------------------- sheet of paper
 
 /// A sum set out as on a sheet of paper (01_4, 13_4): rows of digits in the

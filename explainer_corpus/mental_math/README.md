@@ -23,13 +23,12 @@ the answer worked through. In the last four the first job is to pick the
 trick: one is a product that no trick helps with, where paper is the right
 tool, and the last is a square that two tricks agree on.
 
-**Status: in production.** The brief, the facts and their oracle, the
-storyboard, the script and all fourteen scenes are done
-(`./x mental_math facts-check` passes; review R1 is in
-`docs/reviews/mental_math/`, the claim walk in `docs/claims.md`). The 540p
-drafts with the scratch voice run 16.6 minutes in all (the longest chapter
-85.7 s) and have been read as contact and cue sheets; they wait for the
-owner. Nothing has been narrated, scored or rendered at 4K yet.
+**Status: scored draft ready for review.** The brief, the facts and their
+oracle, the storyboard, the script, all fourteen scenes, the narration
+(`michael`), and the scored 540p draft (`936 s`) are done and verified
+(`./x mental_math facts-check` and `./x mental_math test` pass, score QA passes
+on all 14 chapters, and the quiz-timing and join checks pass). Awaiting owner
+review before the 4K60 master.
 
 ```bash
 ./x mental_math test          # tests, clippy -D warnings, fmt --check

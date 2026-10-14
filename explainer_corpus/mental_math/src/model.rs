@@ -303,14 +303,15 @@ pub fn near_fifty(number: u64) -> NearFifty {
     let distance = number as i64 - FIFTY as i64;
     let hundreds = 25 + distance;
     let corner = distance.unsigned_abs().pow(2);
-    let rough = (hundreds * 100) as u64;
+    let rough = (hundreds.max(0) as u64) * 100;
+    let square = (hundreds * 100 + corner as i64) as u64;
     NearFifty {
         number,
         distance,
         hundreds,
         corner,
         rough,
-        square: rough + corner,
+        square,
     }
 }
 

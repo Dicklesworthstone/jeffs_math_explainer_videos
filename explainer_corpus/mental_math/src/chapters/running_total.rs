@@ -20,7 +20,7 @@ use fmn::prelude::*;
 use super::draw::{
     Board, CutRect, NOTE_PT, NumberLine1, QuizCard, QuizLook, SIDE_PT, Side, corner, eq, fade_in_all, fade_out_all,
     faded_line, fail, flat, fly, glyphs, hundreds, in_your_head, middle_of, num, panel, paper_ink, pause, rgb, say,
-    swap, tag, waiting_card,
+    swap, tag, waiting_card, waver,
 };
 use crate::facts::shown;
 use crate::model::{ByParts, by_parts, ends_in_five, parts};
@@ -56,7 +56,6 @@ const HELD_AT: [Vec3; 4] = [
     [5.25, -1.15, 0.0],
 ];
 const HELD_PT: f64 = 84.0;
-const WAVER: f64 = 0.06;
 /// The running total held for the whole pour: one number.
 const HELD_TOTAL: usize = 1;
 
@@ -150,33 +149,6 @@ fn fly_paint(mob: Mob, to: Vec3, scale: f64, color: Srgb, rt: f64) -> fmn::Resul
         .scale(scale)?
         .move_to(to, ORIGIN)?
         .set_color(color)?)
-}
-
-/// The numbers held in the head waver as much as the tracker `amount` says
-/// (as in `by_parts.rs`). The returned anchor carries the updater.
-fn waver(stage: &mut Stage<'_>, mobs: &[Mob], amount: Mob) -> fmn::Result<Mob> {
-    let anchor = stage.arena_mut().add(VMobject::new());
-    let homes: Vec<Vec3> = mobs.iter().map(|&m| stage.get_center(m)).collect();
-    let mobs = mobs.to_vec();
-    let mut clock = 0.0;
-    stage.add_dt_updater(
-        anchor,
-        move |s, _, dt| {
-            clock += dt;
-            let k = s.tracker_value(amount).unwrap_or(0.0);
-            for (i, (&m, home)) in mobs.iter().zip(&homes).enumerate() {
-                let phase = 1.9 * i as f64;
-                let dx = WAVER * k * (2.1 * clock + phase).sin();
-                let dy = 0.7 * WAVER * k * (2.9 * clock + 2.0 * phase).sin();
-                s.move_to(m, v(home[0] + dx, home[1] + dy), ORIGIN);
-                let flicker = 0.5 + 0.5 * (1.7 * clock + phase).sin();
-                s.set_opacity(m, 1.0 - 0.35 * k * flicker, true);
-            }
-        },
-        false,
-    )?;
-    stage.add_to_scene(anchor)?;
-    Ok(anchor)
 }
 
 /// A piece carried rigidly from where it lies to where it lands: `w` by `h`

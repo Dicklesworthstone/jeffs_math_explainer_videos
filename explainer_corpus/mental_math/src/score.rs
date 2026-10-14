@@ -51,3 +51,26 @@ pub fn identity() -> Identity {
         themes: Vec::new(),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_identity_is_one_the_engine_can_play() {
+        let id = identity();
+        id.validate().unwrap();
+        assert_eq!(id.name, "mental_math");
+        assert_eq!(id.progression[0].root, id.key.tonic);
+        assert_eq!(id.progression[0].bass, id.key.tonic);
+    }
+
+    /// The motif climbs to 5̂ and stops unfinished; the resolution walks
+    /// back down to 1̂.
+    #[test]
+    fn the_motif_climbs_to_the_fifth_and_the_resolution_walks_back_to_the_tonic() {
+        let id = identity();
+        assert_eq!(id.motif.degrees, vec![1, 2, 3, 5]);
+        assert_eq!(id.resolution.degrees, vec![3, 2, 1]);
+    }
+}

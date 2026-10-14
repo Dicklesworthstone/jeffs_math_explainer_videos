@@ -17,7 +17,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, CutRect, NOTE_PT, SIDE_PT, Side, dim, eq, fade_in_all, fade_out_all, fail, flat, fly, glyphs, in_your_head,
-    middle_of, num, panel, paper_ink, quiz, repaint, rgb, say, slate, tag, waiting_card, why_pause,
+    middle_of, num, panel, paper_ink, quiz, repaint, rgb, say, slate, tag, waiting_card, waver, why_pause,
 };
 use crate::facts::shown;
 use crate::model::{Piece, by_parts, estimate, lead_and_zeros};
@@ -55,8 +55,6 @@ const HELD_AT: [Vec3; 4] = [
     [5.25, -1.15, 0.0],
 ];
 const HELD_PT: f64 = 84.0;
-/// How far a held number drifts at the most while it wavers.
-const WAVER: f64 = 0.06;
 
 /// The middle of the column beside this rectangle (it is wider than the
 /// kit's figure, so the column starts right of its grid, at x = 1.1).
@@ -210,34 +208,6 @@ fn play_lagged(stage: &mut Stage<'_>, anims: Vec<Box<dyn Animation>>, rt: f64, l
     let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);
     stage.play(g)?;
     Ok(())
-}
-
-/// Numbers held in the head start to waver: each drifts about its place and
-/// flickers, as much as the tracker `amount` (0 still, 1 fully) says. The
-/// returned anchor carries the updater and must stay in the scene.
-fn waver(stage: &mut Stage<'_>, mobs: &[Mob], amount: Mob) -> fmn::Result<Mob> {
-    let anchor = stage.arena_mut().add(VMobject::new());
-    let homes: Vec<Vec3> = mobs.iter().map(|&m| stage.get_center(m)).collect();
-    let mobs = mobs.to_vec();
-    let mut clock = 0.0;
-    stage.add_dt_updater(
-        anchor,
-        move |s, _, dt| {
-            clock += dt;
-            let k = s.tracker_value(amount).unwrap_or(0.0);
-            for (i, (&m, home)) in mobs.iter().zip(&homes).enumerate() {
-                let phase = 1.9 * i as f64;
-                let dx = WAVER * k * (2.1 * clock + phase).sin();
-                let dy = 0.7 * WAVER * k * (2.9 * clock + 2.0 * phase).sin();
-                s.move_to(m, v(home[0] + dx, home[1] + dy), ORIGIN);
-                let flicker = 0.5 + 0.5 * (1.7 * clock + phase).sin();
-                s.set_opacity(m, 1.0 - 0.35 * k * flicker, true);
-            }
-        },
-        false,
-    )?;
-    stage.add_to_scene(anchor)?;
-    Ok(anchor)
 }
 
 /// One of the three candidates of 04_4: a number on a card edged in the
