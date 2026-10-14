@@ -12,6 +12,7 @@ pub mod same_counts;
 pub mod six_orders;
 pub mod the_fair_coin_inside;
 pub mod the_price;
+pub mod thumbnail;
 pub mod toss_twice;
 pub mod what_is_left;
 pub mod where_it_breaks;

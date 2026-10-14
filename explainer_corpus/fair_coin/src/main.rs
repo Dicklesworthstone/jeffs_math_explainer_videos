@@ -39,7 +39,7 @@ const EXPLAINER: Explainer = Explainer {
     narration_gain_db: explainer_kit::narration::GAIN_DB,
     line_gaps: explainer_kit::narration::LineGaps::Thought,
     line_owner: None,
-    thumbnail: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {
