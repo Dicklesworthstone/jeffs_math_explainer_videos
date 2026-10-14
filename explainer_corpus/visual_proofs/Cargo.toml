@@ -1,0 +1,17 @@
+[package]
+name = "visual_proofs_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Proofs You Can See: eight visual proofs (the sum of cubes as slabs, three stacks for the sum of squares, a square quartered for one third, the cut cube, Pythagoras by rearrangement and more) and one picture that lies; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "proofs"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

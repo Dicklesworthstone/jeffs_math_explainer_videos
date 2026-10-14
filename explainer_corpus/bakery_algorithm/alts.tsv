@@ -1,0 +1,204 @@
+# Director alternates for the narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Each keeps the sentence's meaning and its on-screen claims. Pass 1 with michael (2026-10-11) flagged the base reads:
+# a misheard word that flips the meaning, a tense read wrong (read /rɛd/ vs /riːd/), a collision, hesitations, or a rushed read.
+# A winning alternate lands in narration/out/spoken.tsv; the chapter lane copies it into docs/storyboard.md.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 01_2	1	Back in nineteen seventy-three, that was considered impossible.
+01_6	1	Each reads forty-one, and each writes forty-two.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 01_6	1	Both of them read forty-one, and both write forty-two.
+03_1	1	Now picture a bakery.
+03_2	0	But the ticket machine is shared.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 03_2	0	But a ticket machine is shared by everyone.
+03_3	1	A zero means she's not in line.
+03_4	1	Blue reads a three, a zero, a zero, and a two.
+03_7	0	There's no shared ticket machine.
+05_4	1	You raise it before reading, and lower it after writing.
+05_8	1	Unlike the door sign, the flag is not a lock.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 07_3	0	Teal sees a one, and another one.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 07_3	0	Teal sees two ones.
+07_6	1	Who gets served first follows the grid exactly.
+08_3	1	If Blue is in the room, every other ticket holder has a bigger pair than hers.
+08_5	0	There are three places.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 08_5	0	Three possible places.
+08_7	1	Then Blue had read Green's real ticket, and went in only because her pair was smaller.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 08_7	1	Then Blue saw Green's real ticket, and went in only because her pair was smaller.
+08_7	3	And that's fact two.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 09_4	1	Now let every slate and every flag flicker while it's being written.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 09_5	1	The proof trusts just two glances at slates.
+09_5	1	It trusts only two glances at slates.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 11_5	0	The tickets climb to about thirty-one and a half billion, one per millisecond.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 11_5	1	That is too big for a thirty-two bit slate.
+13_4	1	He discovered it instead.
+# [off 2026-10-12: its words differ from script.tsv's sentence] 07_3	0	Then Teal sees one and one.
+07_3	0	Next, Teal sees two ones.
+05_1	0	But there's a sneakier crack.
+# Director pass 2026-10-12 (WindySwan). The words stay as script.tsv has them: these change punctuation only.
+# The 12 alternates switched off above said other words; 11_5's had won its slot and shipped a sentence the
+# script no longer has. Below: michael's stalls (a pause of 0.9 s or more inside a sentence), run-ons after
+# the last word, 04_2's 'read' said as 'red', 09_5's 'slates' without its s, and the most rushed reads.
+# [moved to reads.tsv 2026-10-12] 01_4	0	Two programs running at once share a scoreboard that reads forty-one.
+# [moved to reads.tsv 2026-10-12] 01_4	0	Two programs — running at once — share a scoreboard that reads forty-one.
+# [withdrawn 2026-10-12: it won, and michael stalls 1.6 s after 'Programmers' in it] 01_4	1	Programmers call it x and write x equals x plus one.
+# [moved to reads.tsv 2026-10-12] 01_4	1	Programmers call it x, and write: x equals x plus one.
+# [moved to reads.tsv 2026-10-12] 01_5	1	Read the score then write it back plus one.
+# [moved to reads.tsv 2026-10-12] 01_5	1	Read the score; then write it back plus one.
+# [moved to reads.tsv 2026-10-12] 02_2	1	Check that it says vacant, flip it to occupied and go in.
+# [moved to reads.tsv 2026-10-12] 02_2	1	Check that it says vacant; flip it to occupied; and go in.
+# [moved to reads.tsv 2026-10-12] 03_2	1	Two customers pressing at once could get the same ticket just like the lost point.
+# [moved to reads.tsv 2026-10-12] 03_2	1	Two customers pressing at once could get the same ticket — just like the lost point.
+# [moved to reads.tsv 2026-10-12] 03_3	0	So each customer gets her own slate and only she writes on it.
+# [moved to reads.tsv 2026-10-12] 03_3	0	So each customer gets her own slate — and only she writes on it.
+# [moved to reads.tsv 2026-10-12] 04_4	3	Purple is three and Teal is four so Purple goes first.
+# [moved to reads.tsv 2026-10-12] 04_4	3	Purple is three, and Teal is four; so Purple goes first.
+# [moved to reads.tsv 2026-10-12] 04_4	3	Purple is three and Teal is four: so Purple goes first.
+# [moved to reads.tsv 2026-10-12] 04_5	0	Put every pair on a grid: ticket across and customer number up, and sweep column by column.
+# [moved to reads.tsv 2026-10-12] 04_5	0	Put every pair on a grid, ticket across, and customer number up, and sweep column by column.
+# [moved to reads.tsv 2026-10-12] 04_5	0	Put every pair on a grid — ticket across and customer number up — and sweep column by column.
+# [moved to reads.tsv 2026-10-12] 05_4	2	Before comparing with someone: wait until their flag is down.
+# [moved to reads.tsv 2026-10-12] 05_4	2	Before comparing with someone — wait until their flag is down.
+# [moved to reads.tsv 2026-10-12] 05_4	2	Before comparing with someone wait until their flag is down.
+# [moved to reads.tsv 2026-10-12] 05_5	0	Same unlucky order: now with flags.
+# [moved to reads.tsv 2026-10-12] 05_5	0	Same unlucky order — now with flags.
+# [moved to reads.tsv 2026-10-12] 05_7	0	Without flags two customers visiting once have twenty-eight orders, and four put both in the room.
+# [moved to reads.tsv 2026-10-12] 05_7	0	Without flags, two customers visiting once have twenty-eight orders — and four put both in the room.
+# [moved to reads.tsv 2026-10-12] 05_8	2	Nobody waits to raise their own and many can be up at once.
+# [moved to reads.tsv 2026-10-12] 05_8	2	Nobody waits to raise their own — and many can be up at once.
+# [moved to reads.tsv 2026-10-12] 07_7	1	Green gets back in line and takes four behind Blue.
+# [moved to reads.tsv 2026-10-12] 07_7	1	Green gets back in line and takes four — behind Blue.
+# [moved to reads.tsv 2026-10-12] 07_6	0	Five visits: five points on the scoreboard, none lost.
+# [moved to reads.tsv 2026-10-12] 07_6	0	Five visits — five points on the scoreboard, none lost.
+# [moved to reads.tsv 2026-10-12] 09_3	1	A funny name since it's the least safe kind.
+# [moved to reads.tsv 2026-10-12] 09_3	1	A funny name — since it's the least safe kind.
+# [moved to reads.tsv 2026-10-12] 10_2	5	Green holds eight so Blue's ticket comes out nine, and she waits.
+# [moved to reads.tsv 2026-10-12] 10_2	5	Green holds eight; so Blue's ticket comes out nine, and she waits.
+# [moved to reads.tsv 2026-10-12] 11_2	1	Once you've taken your ticket each other customer can get ahead of you at most once.
+# [moved to reads.tsv 2026-10-12] 11_2	1	Once you've taken your ticket — each other customer can get ahead of you at most once.
+# [moved to reads.tsv 2026-10-12] 11_7	2	One customer, frozen while choosing, stalls everyone.
+# [moved to reads.tsv 2026-10-12] 12_2	1	Picture each one, running a customer.
+# [moved to reads.tsv 2026-10-12] 12_2	1	Picture each one — running a customer.
+# [moved to reads.tsv 2026-10-12] 12_2	1	Picture: each one running a customer.
+# [moved to reads.tsv 2026-10-12] 12_4	1	Both walk in while the real flags and slates still say nobody is even choosing.
+# [moved to reads.tsv 2026-10-12] 12_4	1	Both walk in — while the real flags and slates still say nobody is even choosing.
+# [moved to reads.tsv 2026-10-12] 09_3	0	Twelve years later, he named memory like that safe.
+# [moved to reads.tsv 2026-10-12] 09_3	0	Twelve years later he named memory like that: safe.
+# [moved to reads.tsv 2026-10-12] 13_4	1	He discovered it, instead.
+# [moved to reads.tsv 2026-10-12] 13_4	1	He discovered it — instead.
+# [moved to reads.tsv 2026-10-12] 04_2	1	Before anyone is served, Purple and Teal read, at the same moment.
+# [moved to reads.tsv 2026-10-12] 04_2	1	Before anyone is served: Purple and Teal read at the same moment.
+# [moved to reads.tsv 2026-10-12] 09_5	1	It trusts only two glances, at slates.
+# [moved to reads.tsv 2026-10-12] 09_5	1	It trusts only two glances — at slates.
+# [moved to reads.tsv 2026-10-12] 09_4	1	Let every slate, and every flag, flicker while it's written.
+# [moved to reads.tsv 2026-10-12] 09_4	1	Let every slate and every flag flicker, while it's written.
+# [moved to reads.tsv 2026-10-12] 11_5	0	Up to about — thirty-one and a half billion.
+# [moved to reads.tsv 2026-10-12] 11_5	0	Up to, about, thirty-one and a half billion.
+# [moved to reads.tsv 2026-10-12] 03_1	1	Now, picture a bakery.
+# [moved to reads.tsv 2026-10-12] 03_1	1	Now — picture a bakery.
+# [moved to reads.tsv 2026-10-12] 08_3	1	If Blue is in the room: every other ticket holder has a bigger pair than hers.
+# [withdrawn 2026-10-12: it won at 6.5 syllables a second with the s of 'hers' too weak for the line's ASR] 08_3	1	If Blue is in the room, every other ticket-holder has a bigger pair than hers.
+# [moved to reads.tsv 2026-10-12] 08_9	1	Only the proof covers — every case.
+# Rushed reads (over 5.5 syllables a second), 2026-10-12: a comma, colon or dash where a narrator would breathe.
+# [moved to reads.tsv 2026-10-12] 01_2	1	In nineteen seventy-three: that was considered impossible.
+# [moved to reads.tsv 2026-10-12] 01_2	1	In nineteen seventy-three, that was considered — impossible.
+# [moved to reads.tsv 2026-10-12] 01_9	0	Counting orders isn't measuring chances; but a fix has to work in every order.
+# [moved to reads.tsv 2026-10-12] 01_9	0	Counting orders isn't measuring chances, but a fix has to work, in every order.
+# [moved to reads.tsv 2026-10-12] 03_7	1	Nobody ever writes — on anyone else's slate.
+# [moved to reads.tsv 2026-10-12] 03_7	1	Nobody, ever, writes on anyone else's slate.
+# [moved to reads.tsv 2026-10-12] 10_2	4	That's fact one, the other way round.
+# [moved to reads.tsv 2026-10-12] 10_2	4	That's fact one — the other way round.
+# [moved to reads.tsv 2026-10-12] 11_2	2	So, nobody waits forever.
+# [moved to reads.tsv 2026-10-12] 11_2	2	So: nobody waits forever.
+# [moved to reads.tsv 2026-10-12] 11_3	0	The price is that tickets keep growing, while somebody is always in line.
+# [moved to reads.tsv 2026-10-12] 11_3	0	The price is that tickets keep growing — while somebody is always in line.
+# [moved to reads.tsv 2026-10-12] 11_7	0	And, it isn't cheap.
+# [moved to reads.tsv 2026-10-12] 11_7	0	And it isn't — cheap.
+# [moved to reads.tsv 2026-10-12] 11_7	1	Even alone, a customer makes three reads, for every other customer.
+# [moved to reads.tsv 2026-10-12] 11_7	1	Even alone: a customer makes three reads for every other customer.
+# [moved to reads.tsv 2026-10-12] 13_1	1	So, does the bakery still run anywhere?
+# [moved to reads.tsv 2026-10-12] 13_1	1	So — does the bakery still run, anywhere?
+# [moved to reads.tsv 2026-10-12] 04_5	2	Does she go before Pink, and Green?
+# [moved to reads.tsv 2026-10-12] 06_1	2	How many orders are there, now?
+# [moved to reads.tsv 2026-10-12] 05_3	1	Both — in the room.
+# After the first rebuild with quoted reads (2026-10-12): the 12 reads ftts cut short, final sounds the ASR did not hear (flags, hers, slates, agreeing), 'Pair' heard as 'Prepare', and the stalls that were left.
+# [withdrawn 2026-10-12: it won, and the editor kept only 'two steps': 'That's' sits before the dash's pause and was dropped with the lead-in] 01_5	0	That's — two steps.
+# [retired 2026-10-12: a number spelled another way than script.tsv; the renderer refuses it] 01_5	0	That's 2 steps.
+# [moved to reads.tsv 2026-10-12] 08_5	1	Not yet — choosing.
+# [moved to reads.tsv 2026-10-12] 08_5	1	Not yet choosing…
+# [withdrawn 2026-10-12: it won, with a 2.3 s stall at the dash] 08_7	0	Finished — choosing.
+# [moved to reads.tsv 2026-10-12] 08_7	0	Finished choosing…
+# [moved to reads.tsv 2026-10-12] 12_5	0	The fix is — a fence.
+# [moved to reads.tsv 2026-10-12] 12_5	0	The fix is: a fence.
+# [moved to reads.tsv 2026-10-12] 10_1	1	Is that — dangerous?
+# [moved to reads.tsv 2026-10-12] 09_2	2	Even two thousand, four hundred ninety-six.
+# [moved to reads.tsv 2026-10-12] 09_2	2	Even — two thousand four hundred ninety-six.
+# [moved to reads.tsv 2026-10-12] 12_2	0	Your laptop has several processors called cores.
+# [moved to reads.tsv 2026-10-12] 12_2	0	Your laptop has several processors — called cores.
+# [moved to reads.tsv 2026-10-12] 12_2	0	Your laptop has several processors, called 'cores'.
+# [moved to reads.tsv 2026-10-12] 10_3	1	In his words: the read may return any arbitrary value.
+# [moved to reads.tsv 2026-10-12] 10_3	1	In his words, the read may return any arbitrary value!
+# [moved to reads.tsv 2026-10-12] 10_3	1	In his words — the read may return any arbitrary value.
+# [moved to reads.tsv 2026-10-12] 08_1	0	Why can two customers never be in the room, at once?
+# [moved to reads.tsv 2026-10-12] 08_1	0	Why can two customers never be in the room — at once?
+# [moved to reads.tsv 2026-10-12] 05_7	1	With flags, there are three hundred twenty-two — and not one does.
+# [moved to reads.tsv 2026-10-12] 05_7	1	With flags there are three hundred twenty-two, and not one does.
+# [withdrawn 2026-10-12: it won, and ftts cut it short] 05_7	1	With flags, there are 322, and not one does.
+# [moved to reads.tsv 2026-10-12] 04_3	0	Our rule only waits for smaller tickets — so both can end up in the room at once.
+# [moved to reads.tsv 2026-10-12] 04_3	0	Our rule only waits for smaller tickets; so both can end up in the room at once.
+# [moved to reads.tsv 2026-10-12] 04_3	0	Our rule only waits for smaller tickets, so both can end up in the room, at once.
+# [moved to reads.tsv 2026-10-12] 09_1	1	Rewrite oh-nine as ten, one digit at a time, and a glance in between reads nineteen, or zero zero.
+# [moved to reads.tsv 2026-10-12] 09_1	1	Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen — or zero zero.
+# [moved to reads.tsv 2026-10-12] 09_1	1	Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen or zero zero.
+# [moved to reads.tsv 2026-10-12] 05_5	0	Same unlucky order; now with flags.
+# [moved to reads.tsv 2026-10-12] 05_5	0	Same unlucky order, now, with flags.
+# [moved to reads.tsv 2026-10-12] 08_3	1	If Blue is in the room — every other ticket holder has a bigger pair than hers.
+# [retired 2026-10-12: 'ticket-holder' is not how script.tsv writes it] 08_3	1	If Blue is in the room, every other ticket-holder has a bigger pair — than hers.
+# [retired 2026-10-12: a number spelled another way than script.tsv; the renderer refuses it] 09_5	1	It trusts only 2 glances at slates.
+# [moved to reads.tsv 2026-10-12] 09_5	1	It trusts only two glances: at slates.
+# [moved to reads.tsv 2026-10-12] 11_5	1	A thirty-two bit slate stops at about four billion, then rolls back to zero like a car's odometer — in under two months.
+# [moved to reads.tsv 2026-10-12] 11_5	1	A thirty-two bit slate stops at about four billion; then rolls back to zero, like a car's odometer, in under two months.
+# [moved to reads.tsv 2026-10-12] 13_3	1	It's in the ballot numbers of Paxos too — the method that keeps copies of a database agreeing.
+# [moved to reads.tsv 2026-10-12] 13_3	1	It's in the ballot numbers of Paxos too: the method that keeps copies of a database agreeing.
+# [moved to reads.tsv 2026-10-12] 04_4	1	Pair each ticket with its customer number and compare tickets first.
+# [moved to reads.tsv 2026-10-12] 04_4	1	Pair each ticket with its customer number — and compare tickets first.
+# [withdrawn 2026-10-12: it won, and a comma between subject and verb is not correct English: this text is what the captions show] 10_1	0	And a glance that catches Blue's old zero mid-write, lets Green straight in.
+# [moved to reads.tsv 2026-10-12] 01_4	1	Programmers call it x — and write x equals x plus one.
+# [moved to reads.tsv 2026-10-12] 05_4	2	Before comparing with someone, wait — until their flag is down.
+# [moved to reads.tsv 2026-10-12] 11_2	1	Once you've taken your ticket: each other customer can get ahead of you at most once.
+# [moved to reads.tsv 2026-10-12] 12_4	1	Both walk in; while the real flags and slates still say nobody is even choosing.
+# [moved to reads.tsv 2026-10-12] 01_6	2	Two points scored — one counted.
+# [moved to reads.tsv 2026-10-12] 01_6	2	Two points scored; one counted.
+# [moved to reads.tsv 2026-10-12] 01_7	1	Blue's steps go across, Green's go up — and the order we just saw is this staircase.
+# [moved to reads.tsv 2026-10-12] 01_7	1	Blue's steps go across; Green's go up; and the order we just saw is this staircase.
+# [moved to reads.tsv 2026-10-12] 03_6	0	Whoever is in the room plays their own tune — so only one tune sounds at a time.
+# [moved to reads.tsv 2026-10-12] 03_6	0	Whoever is in the room plays their own tune so only one tune sounds at a time.
+# After the second rebuild (2026-10-12): 08_3's 'Fact two.' starts with a pop 80 ms before its F; 08_1 is still cut inside the s of 'once'.
+# [retired 2026-10-12: a number spelled another way than script.tsv; the renderer refuses it] 08_3	0	Fact 2.
+# [moved to reads.tsv 2026-10-12] 08_3	0	Fact two:
+# [retired 2026-10-12: a number spelled another way than script.tsv; the renderer refuses it] 08_1	0	Why can 2 customers never be in the room at once?
+# After the third rebuild (2026-10-12): the two short sentences ftts still cuts short get a colon (each is followed by its explanation); 05_8 has a click in a 0.7 s comma pause.
+# [moved to reads.tsv 2026-10-12] 01_5	0	That's two steps:
+# [moved to reads.tsv 2026-10-12] 01_5	0	That's two steps —
+# [moved to reads.tsv 2026-10-12] 08_7	0	Finished choosing:
+# [moved to reads.tsv 2026-10-12] 08_7	0	Finished, choosing.
+# [moved to reads.tsv 2026-10-12] 05_8	1	Unlike the door sign the flag is not a lock.
+# [moved to reads.tsv 2026-10-12] 05_8	1	Unlike the door sign: the flag is not a lock.
+# [moved to reads.tsv 2026-10-12] 05_8	1	Unlike the door sign — the flag is not a lock.
+# After the fourth rebuild (2026-10-12): 08_6's statement ends rising (+5.9 st) and stops inside the vowel of 'through'; 09_5's chosen read says 'slate' for 'slates' (no ts after the vowel), and its next sentence lists the two glances, so a colon is right.
+# [moved to reads.tsv 2026-10-12] 08_6	1	Then Green's flag was up — and that check wouldn't have let Blue through.
+# [moved to reads.tsv 2026-10-12] 08_6	1	Then Green's flag was up; and that check wouldn't have let Blue through.
+# [moved to reads.tsv 2026-10-12] 08_6	1	Then Green's flag was up, and that check wouldn't have let Blue — through.
+# [moved to reads.tsv 2026-10-12] 09_5	1	It trusts only two glances at slates:
+# [moved to reads.tsv 2026-10-12] 09_5	1	It trusts only two glances at slates —
+# After the fifth rebuild (2026-10-12): 11_2's first sentence runs 6.5 s at 5.7 syllables a second with no breath; three yes/no questions end falling (04_1 -3.7 st, 13_1 -4.2, 10_5 -1.7).
+# [moved to reads.tsv 2026-10-12] 11_2	0	As long as everyone in the room comes out — and nobody stalls for good with a raised flag or a ticket — whoever holds the smallest pair gets through.
+# [moved to reads.tsv 2026-10-12] 11_2	0	As long as everyone in the room comes out, and nobody stalls for good, with a raised flag or a ticket, whoever holds the smallest pair gets through.
+# [withdrawn 2026-10-12: it won, and semicolons after dependent clauses are not correct English: this text is what the captions show] 11_2	0	As long as everyone in the room comes out; and nobody stalls for good with a raised flag or a ticket; whoever holds the smallest pair gets through.
+# [retired 2026-10-12: a number spelled another way than script.tsv; the renderer refuses it] 04_1	0	Can 2 customers get the same ticket?
+# [moved to reads.tsv 2026-10-12] 04_1	0	Can two customers get — the same ticket?
+# [moved to reads.tsv 2026-10-12] 13_1	1	So: does the bakery still run anywhere?
+# [moved to reads.tsv 2026-10-12] 13_1	1	So, does the bakery still run — anywhere?
+# [moved to reads.tsv 2026-10-12] 10_5	0	So — could computers take turns safely with memory like that?
+# [withdrawn 2026-10-12: it won, chopped at both commas and falling 5.8 st on a yes/no question (the script's read fell 1.7)] 10_5	0	So, could computers take turns safely, with memory like that?
+# After the sixth rebuild (2026-10-12), checked with the renderer's own rule: 08_8's third sentence starts with a click 40 ms before its L.
+# [moved to reads.tsv 2026-10-12] 08_8	2	Like me being taller than you — and you taller than me.
+# [moved to reads.tsv 2026-10-12] 08_8	2	Like me being taller than you; and you taller than me.
+# 2026-10-12: every alternate of this pass now lives in reads.tsv. An alternate here becomes the sentence's
+# text (and the captions'); those rows only shape the read, so the text stays script.tsv's own.

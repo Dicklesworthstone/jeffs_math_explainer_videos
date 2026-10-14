@@ -24,11 +24,10 @@ use fmn::prelude::*;
 use crate::captions;
 use crate::encode::{self, Quality};
 use crate::facts::Facts;
-use crate::kit::Kit;
+use crate::kit::{CameraShot, Kit};
 use crate::layout::Linter;
-use crate::narration::{Narrator, Script};
-use crate::palette::{BACKGROUND, Palette, ink_style};
-use crate::plot::v;
+use crate::narration::{LineGaps, Narrator, Script};
+use crate::palette::BACKGROUND;
 
 /// One chapter: its key (`NN_name`), its scene, and how intense its music is.
 pub struct Chapter {
@@ -46,7 +45,8 @@ pub struct Explainer {
     pub chapters: fn() -> Vec<Chapter>,
     /// Every number the video shows or says; `self_check` runs first, always.
     pub facts: fn() -> Result<Facts, String>,
-    /// Every Text and Tex string the video uses, for the glyph probe.
+    /// Supplemental sources built outside chapter scenes. The probe also
+    /// captures every chapter's actual kit/updater strings automatically.
     pub glyph_text: &'static [&'static str],
     pub glyph_tex: &'static [&'static str],
     /// Code and hex the video shows, set in CM Typewriter (`Kit::mono`).
@@ -56,9 +56,16 @@ pub struct Explainer {
     /// The narration's placement gain (dB): `narration::GAIN_DB` (0) under the
     /// score engine; an older video may keep its own balance until re-scored.
     pub narration_gain_db: f64,
+    /// How the silence between two narration lines is chosen:
+    /// `LineGaps::Constant` (the breath after every line) until the video's
+    /// owner has heard `LineGaps::Thought` (the silence follows the thought).
+    pub line_gaps: LineGaps,
     /// The chapter a script line belongs to, for line ids that do not follow
     /// `NN_k` (None: the line's `NN_` prefix names its chapter).
     pub line_owner: Option<fn(&str) -> Option<&'static str>>,
+    /// The video's thumbnail: its central picture and a short title, held
+    /// still (None: the video has none yet). `thumbnail` renders it.
+    pub thumbnail: Option<fn(Kit) -> Box<dyn SceneConstruct>>,
 }
 
 const USAGE: &str = "\
@@ -75,6 +82,8 @@ commands:
   master                   the PCM master: every chapter's cues replayed through fmn's own mixer and
                            null-tested against the soundtrack it muxed (renders made with --crf),
                            joined to OUT/CRATE_master.mp4 without re-encoding the video
+  thumbnail                the video's thumbnail scene as one PNG, OUT/CRATE_thumbnail.png, at
+                           --res (YouTube: 1280x720)
   captions                 OUT/CRATE.en.srt and .vtt, sentence by sentence, from the chapters'
                            timelines in OUT and the narration's report.json (--narration DIR)
   help                     show this text
@@ -85,7 +94,8 @@ render options:
   --out DIR         output directory (default renders)
   --narration DIR   the voice-over: one <id>.wav per script line; writes OUT/<chapter>.cues.tsv
                     (id, start s, length s), .cuelog.tsv (every cue, exact) and .timeline.tsv
-  --scratch-voice   time the beats from estimated line lengths (no audio; drafts)
+  --scratch-voice   time the beats from estimated line lengths (no audio; drafts); writes
+                    OUT/<chapter>.cues.tsv from those estimates, for draft cue sheets
   --silent          no narration
   --lint            layout lint at every beat: OUT/<chapter>.layout.tsv
   --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
@@ -303,7 +313,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
         return 0;
     }
     let result: Result<i32, Box<dyn Error>> = (|| {
-        let script = Script::parse(e.script)?;
+        let script = Script::parse(e.script)?.with_line_gaps(e.line_gaps);
         match args.command.as_str() {
             "facts" => print!("{}", facts.print()),
             "script" => {
@@ -316,11 +326,12 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
                     println!("{}", c.key);
                 }
             }
-            "glyphs" => return glyphs(e, &args),
+            "glyphs" => return crate::glyphs::probe(e, &args),
             "render" => render_chapters(e, &args, &script)?,
             "score" => return score_video(e, &args),
             "master" => return master_video(e, &args),
             "captions" => return captions_video(e, &args),
+            "thumbnail" => return thumbnail(e, &args),
             other => return Err(format!("unknown command {other}").into()),
         }
         Ok(0)
@@ -334,11 +345,79 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
     }
 }
 
-fn options(path: PathBuf, format: RenderFormat, res: (u32, u32), fps: u32) -> Result<RenderOptions, Box<dyn Error>> {
+pub(crate) fn options(
+    path: PathBuf,
+    format: RenderFormat,
+    res: (u32, u32),
+    fps: u32,
+) -> Result<RenderOptions, Box<dyn Error>> {
     let mut o = RenderOptions::with_format(path, format)?;
     o.config.camera.resolution = res;
     o.config.camera.fps = fps;
     o.config.camera.background_color = BACKGROUND.to_owned();
+    Ok(o)
+}
+
+/// A scene borrowed for the camera route, whose factory returns its program
+/// by value.
+struct Borrowed<'a>(&'a mut dyn SceneConstruct);
+
+impl SceneConstruct for Borrowed<'_> {
+    fn name(&self) -> &str {
+        self.0.name()
+    }
+    fn tex_preflight(&self) -> Vec<TypesetRequest<'_>> {
+        self.0.tex_preflight()
+    }
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.0.construct(stage)
+    }
+}
+
+/// A chapter that asked for the camera route ([`Kit::request_camera`]):
+/// rendered through [`encode::render_camera`] with `opts` (see
+/// [`camera_options`]); the rig starts at the shot's angles and reaches the
+/// scene through the kit.
+pub(crate) fn render_camera_chapter(
+    kit: &Kit,
+    shot: CameraShot,
+    scene: &mut dyn SceneConstruct,
+    opts: RenderOptions,
+) -> Result<fmn::rendering::RenderReport, fmn::rendering::RenderError> {
+    encode::render_camera(
+        |s, base| {
+            let mut start = base.clone();
+            start
+                .frame
+                .set_euler_angles(Some(shot.theta), Some(shot.phi), None)
+                .map_err(fmn::scene::SceneError::from)?;
+            let rig = fmn::scene::CameraRig::new(s, &start)?;
+            kit.bind_camera(rig, start);
+            Ok((Borrowed(scene), rig))
+        },
+        opts,
+    )
+}
+
+/// A camera-route chapter's options: the kit's runner-wrapped encoder, as
+/// a delivery render on the retained route has it. A draft (no `--crf`) gets
+/// fmn's own default rate control, x264 CRF 23 at preset medium, through
+/// that runner: the camera route installs no ffmpeg of its own.
+fn camera_options(path: &Path, opts: RenderOptions) -> Result<RenderOptions, Box<dyn Error>> {
+    if opts.ffmpeg.is_some() {
+        return Ok(opts);
+    }
+    let mut o = encode::delivery_options(
+        path.to_path_buf(),
+        RenderFormat::Mp4,
+        Quality {
+            quality: 23,
+            preset: "medium",
+            ..Quality::delivery()
+        },
+    )?;
+    o.config = opts.config;
+    o.max_frames = opts.max_frames;
     Ok(o)
 }
 
@@ -361,10 +440,18 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
     if args.crf.is_none() && (args.preset.is_some() || args.gpu.is_some()) {
         eprintln!("note: --preset and --gpu take effect only together with --crf");
     }
+    // A lane can review its finished chapter while another chapter awaits
+    // new narration. The full render still validates every scripted line.
+    let script = script.select(|id| {
+        wanted.iter().any(|c| match e.line_owner {
+            Some(owner) => owner(id) == Some(c.key),
+            None => c.key.starts_with(&format!("{}_", id.split('_').next().unwrap_or(id))),
+        })
+    });
     std::fs::create_dir_all(&args.out)?;
     let narrator = match (&args.narration, args.scratch_voice) {
-        (Some(dir), _) => Some(Narrator::load(script, dir, e.narration_gain_db)?),
-        (None, true) => Some(Narrator::estimate(script)),
+        (Some(dir), _) => Some(Narrator::load(&script, dir, e.narration_gain_db)?),
+        (None, true) => Some(Narrator::estimate(&script)),
         _ => None,
     };
     let (res, profiling) = if args.timeline_only {
@@ -414,6 +501,8 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 kit.stem = Some(dir.join(format!("{}.music.f32.wav", c.key)));
             }
             let finished = Rc::clone(&kit.finished);
+            // shares the kit's camera slot: `make` may ask for the camera route
+            let camera = kit.clone();
             let mut scene = (c.make)(kit);
             let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
             if let Some(n) = args.threads {
@@ -445,7 +534,14 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 o.max_frames = opts.max_frames;
                 opts = o;
             }
-            match render(scene.as_mut(), opts) {
+            let rendered = match camera.camera_shot() {
+                None => render(scene.as_mut(), opts),
+                Some(shot) => {
+                    let opts = camera_options(&path, opts)?;
+                    render_camera_chapter(&camera, shot, scene.as_mut(), opts)
+                }
+            };
+            match rendered {
                 Ok(report) => break (report, finished.borrow().clone()),
                 Err(error) if attempt < encode::RENDER_ATTEMPTS && encode::is_transient_eperm(&error) => {
                     // the race clusters under heavy host load: back off
@@ -480,7 +576,22 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                     )
                 })
                 .collect();
-            if args.narration.is_some() {
+            if args.narration.is_none() {
+                // a scratch-voice draft: its estimated line times, so the
+                // draft's cue sheets can be read before any narration exists
+                // (never the exact log or a timeline: nothing is scored or
+                // mastered from estimates). The scratch voice places no
+                // audio, so its lines are not in the timeline: take the
+                // moment each was said.
+                let cues: String = n
+                    .said()
+                    .iter()
+                    .map(|(id, at)| format!("{id}\t{at:.3}\t{:.3}\n", n.length(id).unwrap_or(0.0)))
+                    .collect();
+                let p = out_of("cues.tsv");
+                set_aside(&p)?;
+                std::fs::write(&p, cues)?;
+            } else {
                 for (ext, body) in [("cues.tsv", cues), ("cuelog.tsv", n.cue_log())] {
                     let p = out_of(ext);
                     set_aside(&p)?;
@@ -592,6 +703,28 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     if !s.skipped_marks.is_empty() {
         // deep in a sentence, at the very end, or too close to another cue
         println!("marks the score could not answer: {:?}", s.skipped_marks);
+    }
+    // the register is the voice's, measured from this cut's own narration
+    // (never the video's by name): the record of what was measured
+    if let Some(p) = &s.profile {
+        let (lo, hi) = s.voice_band();
+        println!(
+            "narrator measured from {} lines in {}: f0 {:.1}-{:.1} Hz (median {:.1}); the music keeps out of {lo:.1}-{hi:.1} Hz",
+            p.lines,
+            p.dir.display(),
+            p.p5,
+            p.p95,
+            p.median
+        );
+        std::fs::write(stems.join("voice_profile.tsv"), p.to_text())?;
+    }
+    if s.bed_trim_db < 0.0 {
+        // the open-loop bed sat too close to this voice: set by measurement
+        println!(
+            "bed lowered {:.2} dB to hold the music {:.0} LU under speech (median over the whole video)",
+            -s.bed_trim_db,
+            score::UNDER_SPEECH_LU
+        );
     }
     let mut failed = Vec::new();
     for (k, c) in chapters.iter().enumerate() {
@@ -738,108 +871,28 @@ fn master_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     Ok(i32::from(!ok))
 }
 
-/// The `glyphs` command: every Text and Tex string the video uses, on PNG
-/// pages; each failure reported by name, exit 1 if any (the pages are written
-/// either way). A string can typeset and still be wrong (math ρ/θ draw as
-/// ϱ/ϑ), so look at every page.
-fn glyphs(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
-    let out = args.targets.first().cloned().unwrap_or_else(|| "glyphs".into());
-    set_aside(Path::new(&out))?;
-    let mut scene = Glyphs {
-        kit: Kit::new()?,
-        text: e.glyph_text,
-        tex: e.glyph_tex,
-        mono: e.glyph_mono,
-        failures: Vec::new(),
-    };
-    let report = render(&mut scene, options(out.into(), RenderFormat::PngSequence, args.res, 1)?)?;
-    println!("glyph sheet -> {}", report.artifact.path.display());
-    if scene.failures.is_empty() {
-        Ok(0)
-    } else {
-        eprintln!(
-            "glyph probe: {} of {} strings failed to typeset:",
-            scene.failures.len(),
-            e.glyph_text.len() + e.glyph_tex.len() + e.glyph_mono.len()
-        );
-        for line in &scene.failures {
-            eprintln!("  {line}");
-        }
-        Ok(1)
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Row {
-    Text,
-    Tex,
-    Mono,
-}
-
-struct Glyphs {
-    kit: Kit,
-    text: &'static [&'static str],
-    tex: &'static [&'static str],
-    mono: &'static [&'static str],
-    failures: Vec<String>,
-}
-
-impl SceneConstruct for Glyphs {
-    fn name(&self) -> &str {
-        "glyphs"
-    }
-
-    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
-        const TOP: f64 = 3.5;
-        const BOTTOM: f64 = -3.3;
-        self.failures.clear();
-        let mut y = TOP;
-        let rows = self
-            .text
-            .iter()
-            .map(|s| (Row::Text, *s, 0.8))
-            .chain(self.tex.iter().map(|s| (Row::Tex, *s, 1.25)))
-            .chain(self.mono.iter().map(|s| (Row::Mono, *s, 0.8)));
-        for (row, s, step) in rows {
-            if y < BOTTOM {
-                // page full: capture it (1 s at the probe's 1 fps is one PNG)
-                stage.wait(1.0)?;
-                stage.scene_mut().clear();
-                y = TOP;
-            }
-            let added = if row == Row::Tex {
-                match Tex::new(s)
-                    .font_size(36.0)
-                    .style(ink_style(Palette::ink()))
-                    .build(stage.tex_engine()?)
-                {
-                    Ok(t) => Some(stage.add(t)?),
-                    Err(err) => {
-                        self.failures.push(format!("TEX FAIL {s:?}: {err}"));
-                        None
-                    }
-                }
-            } else {
-                let mut t = Text::new(s).font_size(34.0).style(ink_style(Palette::ink()));
-                if row == Row::Mono {
-                    t = t.font(crate::kit::MONO_FAMILY);
-                }
-                match t.build(&self.kit.book) {
-                    Ok(t) => Some(stage.add(t)?),
-                    Err(err) => {
-                        self.failures.push(format!("{row:?} FAIL {s:?}: {err}"));
-                        None
-                    }
-                }
-            };
-            if let Some(m) = added {
-                stage.move_to(m, v(-6.8, y), LEFT);
-            }
-            y -= step;
-        }
-        stage.wait(1.0)?;
-        Ok(())
-    }
+/// The `thumbnail` command: the video's thumbnail scene as one PNG,
+/// `OUT/<crate>_thumbnail.png` at `--res`. The scene ends on a one-second
+/// hold, which at 1 fps is exactly one frame; an earlier thumbnail is moved
+/// aside, never overwritten.
+fn thumbnail(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
+    let make = e.thumbnail.ok_or("this video has no thumbnail scene yet")?;
+    std::fs::create_dir_all(&args.out)?;
+    let frames = args.out.join("thumbnail");
+    set_aside(&frames)?;
+    let mut scene = make(Kit::new()?);
+    let report = render(scene.as_mut(), options(frames, RenderFormat::PngSequence, args.res, 1)?)?;
+    let mut pngs: Vec<PathBuf> = std::fs::read_dir(&report.artifact.path)?
+        .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+        .filter(|p| p.extension().is_some_and(|x| x == "png"))
+        .collect();
+    pngs.sort();
+    let last = pngs.last().ok_or("the thumbnail scene drew no frame")?;
+    let png = args.out.join(format!("{}_thumbnail.png", e.crate_name));
+    set_aside(&png)?;
+    std::fs::copy(last, &png)?;
+    println!("thumbnail {}x{} -> {}", args.res.0, args.res.1, png.display());
+    Ok(0)
 }
 
 #[cfg(test)]

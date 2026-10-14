@@ -1,0 +1,84 @@
+# lie_robotics: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Tilt a book a quarter turn about one line on the table. Then roll it a quarter turn about another. Now swap the order. Roll first, then tilt. Does the book end up the same way?
+01_2	No. Tilt first, and the cover ends up facing you. Roll first, and it faces the wall on your right.
+01_4	Sliding is different. Slide the book right, then away, or away, then right, and it lands on the same spot. So positions add, and orientations don't.
+01_5	This is a KUKA robot arm with seven joints. Its job is to put its gripper at a pose, a position and an orientation together.
+01_6	So its software must do arithmetic with things that refuse to add. The way out is about a hundred and fifty years old, and by the end you'll read it in one line.
+02_1	Look where tilt then roll left the book. It could have got there in a single turn, about a single axis.
+02_2	Two quarter turns went in. How big is that single turn?
+02_3	A third of a turn. Three of them bring the book home. Its axis leans equally from the book's three edges.
+02_4	That always works. Any turn followed by any turn is one turn about one axis. Euler showed it in seventeen seventy-five.
+02_5	And any turn can be undone. A collection where you can combine any two, and undo any one, is called a group. In this one, order usually matters.
+02_6	To compute, track where the book's three edges point. Three arrows, three numbers each. Nine numbers in a grid, a matrix. One turn after another is one grid times another.
+03_1	Nine numbers is a lot for one orientation. Three should do. Here is a machine that tries, a gimbal. Three rings, one inside the next, each turning about its own axis.
+03_2	Turn the middle ring a quarter turn. Now the outer ring's axis and the inner ring's axis line up. Do those two rings do different things any more?
+03_3	No. They turn the book about the same axis. Nothing is stuck, but three rings now give only two ways to turn. This is gimbal lock.
+03_4	The Apollo spacecraft had this problem. Its guidance unit hung in three gimbals. Past seventy degrees on the middle one, a warning lamp lit. Past eighty-five, the computer gave up, and the unit had to be realigned.
+03_5	On Apollo eleven, Michael Collins radioed a request. How about sending me a fourth gimbal for Christmas. A fourth ring would have given one to spare.
+03_6	The fault is in the three numbers. Name every orientation with only three, and somewhere there is a bad spot. So software stores nine numbers, or four, and the extra ones buy a naming with no bad spot.
+04_1	Angles hide a second trap. Take two headings for a robot. A hundred and seventy degrees to the left. And a hundred and seventy to the right, written minus a hundred and seventy.
+04_2	What heading is halfway between them?
+04_3	Average the numbers and you get zero. Straight ahead. But both arrows point almost straight back. The true halfway is a hundred and eighty, the exact opposite.
+04_4	The trouble is the ruler's seam. So peel the ruler off, and lay it flat against the circle, with its zero on the first heading. Now measure to the second. Twenty degrees. Take half. Ten degrees on from the first is a hundred and eighty.
+04_5	That is the whole trick, and the rest of this video uses it again and again. The space is curved. Do the arithmetic on the flat piece that touches it. Then wrap the answer back on.
+05_1	On the circle, a distance along the flat piece was so many degrees. Read it as a speed, held for one second. In space, the flat piece is made of such spins. Each is one arrow along its axis, as long as its speed.
+05_2	Arrows are easy to stretch, to average and to add. Add these two spins, and you get both turns at once, a third answer.
+05_3	Hold one spin steady for one second, and the book ends at some orientation. That move, from the flat piece back to the curved space, is the exponential.
+05_4	Spin the book about the line pointing between its three edge arrows, a third of a turn per second. After one second, where do its edges point?
+05_5	Each edge lands where the next one was. That is where the book ended in the first quiz, with roll first.
+05_6	The exponential has a formula, named after Rodrigues. Any point splits into a part along the axis, which stays, and a part that swings around.
+05_7	A group of motions that is smooth like this is a Lie group, after the Norwegian mathematician Sophus Lie. Its flat piece is its Lie algebra.
+06_1	Poses work the same way. Start on a floor, with a KUKA mobile platform. Its wheels carry slanted rollers, so it can drive forward, slide sideways and spin, all at once. Three numbers for its pose, three for its velocity.
+06_2	Hold one velocity for six seconds. Forward at half a meter per second, spinning at thirty degrees per second. Where does the platform end up?
+06_3	Beside where it started. Just under two meters to its left, facing backward. It drove a half circle.
+06_4	Add six seconds of velocity onto the pose, and you predict three meters straight ahead. That is the flat piece's answer. Wrap it onto the curved space, and the same three meters bend around a fixed point.
+07_1	Now leave the floor. On a floor, a pose could change in three independent ways. Forward, sideways, and turning. In how many ways can a pose change in space?
+07_2	Six. Three slides and three turns. So a velocity in space is two arrows, a slide and a spin. Six numbers, which roboticists call a twist.
+07_3	Hold a twist steady, and you get the motion of a screw. The body turns about an axis, and slides along that same axis.
+07_4	A door is a screw with no slide. A drawer is a screw with no turn. A bottle cap does both.
+07_5	Now pick up the book. Put it down anywhere, facing any way. One screw would have carried it there, every time.
+07_6	Michel Chasles published that in eighteen thirty. Giulio Mozzi had described such an axis in seventeen sixty-three.
+08_1	Back to the arm. Standing straight up, it is one point three meters tall. Each of its seven joints is a hinge, like the door. All it can do is turn about its own axis.
+08_2	A turn about an axis is a screw with no slide. So the arm is seven screws, stacked.
+08_3	Suppose only joint four turns, the elbow. Which parts of the arm move?
+08_4	Everything past the elbow, as one rigid piece. Nothing before it. Each joint applies its own screw to everything further out.
+08_5	That gives a recipe for the arithmetic. Start with the gripper's pose when every joint is at zero. Apply the screw of the last joint, then the one before, down to the first. That way, each axis is still where it stood at zero when its turn comes.
+08_6	Hold each joint's twist for its joint angle, and you get its screw, an exponential. So the gripper's pose is a product of seven exponentials, the line from the start. Roger Brockett presented it in nineteen eighty-three.
+09_1	Try it by hand, with the real arm's lengths.
+09_2	Bend two joints a quarter turn each, the shoulder and the elbow. The recipe says, elbow first. With the arm still straight up, the screw at the elbow swings the forearm over until it lies level.
+09_3	Then the screw at the shoulder swings everything above it, about the shoulder's axis, where it stood at zero. The upper arm comes down level, and the forearm points straight up.
+09_4	Now joint one, at the base, turns a quarter turn about the vertical. Where does the gripper go?
+09_5	Round to the side, at the same height. It was forty-two centimeters in front of the base. Now it is forty-two centimeters to the side.
+09_6	The recipe never asked where the elbow's axis is now. Each screw is written down once, with the arm at zero.
+10_1	A robot's real question runs the other way. This is the pose I want. Which joint angles get me there? The answer starts with speeds.
+10_2	For speeds, each axis counts where it is right now. A joint turning alone swings the gripper around its axis. That is a twist. And twists live on the flat piece, so they add.
+10_3	Seven joints, seven twists, six numbers each. Stand them side by side. A grid, six rows by seven columns, called the Jacobian. Joint speeds go in. The gripper's twist comes out.
+10_4	The arm is in an L shape. Which joint moves the gripper's tip fastest, at the same turning speed? Joint one, two or seven?
+10_5	Joint two. What counts is how far the tip is from each axis. Sixty-seven centimeters from the shoulder's. Forty-two from the base's. And the tip sits right on joint seven's axis, so that joint only spins it.
+11_1	Six rows allow six independent directions for the gripper. Usually, seven joints cover all six.
+11_2	Here the arm's elbow is straight. Can the gripper still move in all six directions?
+11_3	No. Along the arm, every joint's push on the wrist is zero. So the gripper can't slide further out, and it can't even begin to slide straight back. Five of the six directions are left.
+11_4	A pose like this is called a singularity. Close to one, a motion along the lost direction costs huge joint speeds.
+11_5	Pull the gripper straight back at ten centimeters per second. With the elbow bent thirty degrees, the elbow must turn at fifty-four degrees per second. Bent ten degrees, a hundred and sixty. Its limit is seventy-five.
+11_6	You have met this before. The wrist is three joints whose axes meet at one point, a gimbal. Straighten it, and two axes line up, like the rings. A six-joint arm, with two joints at the shoulder, would lose a direction here. This arm has a third, and it covers.
+12_1	Seven joints for six directions leaves one joint spare. What does it buy?
+12_2	Try it on yourself. Lay your palm flat on a desk and keep your shoulder still. Can your elbow still move?
+12_3	It can. It swings on an arc while your hand stays put. Counted the way a roboticist counts, your arm has seven joints too.
+12_4	The robot does the same. Its gripper holds one pose, while its elbow swings on a circle twenty-nine centimeters in radius.
+12_5	That is what the spare joint buys. The elbow can get out of the way while the gripper keeps working.
+13_1	Back to the question. Here is the pose I want. Which joint angles get me there?
+13_2	Subtracting angles walks into both traps. These two orientations are one point four degrees apart. Yet two of their three ring angles differ by ninety.
+13_3	So do it on the flat piece. Compare the pose the arm has with the pose it wants. One screw joins them. Read as a twist, that screw is the error.
+13_4	Then run the Jacobian backwards, from that twist to joint speeds, and move the joints that way. Look again, and repeat.
+13_5	The gripper starts half a meter from its goal, and a quarter turn off. How many steps until it is within a tenth of a millimeter?
+13_6	From here, three. Half a meter off. Then nine centimeters. Four millimeters. Three hundredths of a millimeter. It is Newton's method, on a curved space.
+14_1	One more question. Between the start and the goal, what should the gripper do on the way?
+14_2	Blend the two orientations, number by number. Half of one matrix plus half of the other. Is the result halfway there?
+14_3	It is not even an orientation. A gripper turned by that blend would be squashed to half its volume.
+14_4	The steady path is the screw. Do the halving on the flat piece. Take the twist that joins the two poses, and hold it for half a second. Half the turn and half the slide, and every pose on the way is a true pose.
+14_5	The tip may go straight instead, because positions do add. Here the two paths differ by seven point six centimeters.
+15_1	The same moves run far beyond this arm. Drones steer poses. Mapping robots estimate them. A physics engine can step each body by the exponential of a small twist, so the body stays rigid. And a humanoid's whole body floats as one free pose, plus twenty-nine joint angles.
+15_2	Last one. Tilt the book one degree, then roll it one degree. Then the other order. Do the two results still differ?
+15_3	They do, by less than two hundredths of a degree. And that leftover is itself a turn, almost exactly about the one axis neither turn used.
+15_4	For small turns, make both ten times smaller, and the leftover shrinks a hundredfold. On the flat piece, that leftover follows a rule of its own, called the Lie bracket. It measures how much order matters.
+15_5	So the arm multiplies its motions, and does its adding on the flat piece. That is what it means to think in Lie groups.

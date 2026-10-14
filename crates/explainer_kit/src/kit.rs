@@ -31,6 +31,8 @@ use explainer_score::timeline::ChapterTimeline;
 
 use fmn::library::TextMobjectError;
 use fmn::prelude::*;
+use fmn::rendering::CameraConfig;
+use fmn::scene::CameraRig;
 
 use crate::layout::Linter;
 use crate::narration::Narrator;
@@ -75,10 +77,12 @@ pub fn sound_file(label: &str, sound: &explainer_score::Stereo) -> std::io::Resu
 pub const DRAFT_SONIFY_DB: f64 = -8.0;
 
 /// What kind of text-like mobject a registry entry is.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum TextKind {
     Text,
     Tex,
+    /// Code and hex set in CM Typewriter.
+    Mono,
     /// A live readout, rebuilt every frame from a tracker.
     Live,
 }
@@ -89,6 +93,24 @@ pub struct Registered {
     pub mob: Mob,
     pub source: String,
     pub kind: TextKind,
+}
+
+/// A chapter's request for franken_manim's camera route (plan §6.3), made in
+/// its `make` with [`Kit::request_camera`]: where the camera starts, as Euler
+/// angles in radians (`phi` = 0 looks straight down the z axis, as the
+/// retained route does; `theta` turns about z).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct CameraShot {
+    pub theta: f64,
+    pub phi: f64,
+}
+
+/// The camera request and, once the CLI has built it, the rig with the
+/// shot's starting configuration.
+#[derive(Default)]
+struct CameraSlot {
+    shot: Option<CameraShot>,
+    rig: Option<(CameraRig, CameraConfig)>,
 }
 
 /// Shared, cheaply clonable resources for one scene.
@@ -106,6 +128,7 @@ pub struct Kit {
     pub stem: Option<PathBuf>,
     /// Where [`Kit::finish`] leaves the chapter's timeline for the CLI.
     pub finished: Rc<RefCell<Option<ChapterTimeline>>>,
+    camera: Rc<RefCell<CameraSlot>>,
 }
 
 impl Kit {
@@ -119,7 +142,55 @@ impl Kit {
             chapter: String::new(),
             stem: None,
             finished: Rc::new(RefCell::new(None)),
+            camera: Rc::new(RefCell::new(CameraSlot::default())),
         })
+    }
+
+    /// Ask for the camera route (call it in the chapter's `make`, before the
+    /// scene runs): the CLI then renders this chapter through
+    /// [`crate::encode::render_camera`] with the same encoder as every other
+    /// chapter (so the stream-copy join holds), the camera starting at
+    /// `shot`, and hands the scene its rig ([`Kit::camera`]). `fade_all`
+    /// takes the rig's paint-free root out of the scene too, so a camera
+    /// move after it fails: move the camera first.
+    pub fn request_camera(&self, shot: CameraShot) {
+        self.camera.borrow_mut().shot = Some(shot);
+    }
+
+    /// The chapter's camera request, if it made one.
+    pub fn camera_shot(&self) -> Option<CameraShot> {
+        self.camera.borrow().shot
+    }
+
+    /// The camera rig and the shot's starting configuration: `Some` only on
+    /// the camera route, once the CLI has built the rig.
+    pub fn camera(&self) -> Option<(CameraRig, CameraConfig)> {
+        self.camera.borrow().rig.clone()
+    }
+
+    /// Hand the scene the rig the camera route built (the CLI calls it).
+    pub(crate) fn bind_camera(&self, rig: CameraRig, start: CameraConfig) {
+        self.camera.borrow_mut().rig = Some((rig, start));
+    }
+
+    /// A camera move to `(theta, phi)`, to play like any animation (set its
+    /// run time with `.rt`). The rig interpolates quaternions linearly, so
+    /// keep each move's turn under π (plan E-C2): split a long orbit into
+    /// arcs.
+    ///
+    /// # Errors
+    /// Off the camera route, or for angles the camera refuses.
+    pub fn camera_to(&self, stage: &mut Stage<'_>, theta: f64, phi: f64) -> fmn::Result<Transform> {
+        let fail = |m: &'static str| fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(m));
+        let (rig, start) = self
+            .camera()
+            .ok_or_else(|| fail("camera_to: the chapter is not on the camera route (Kit::request_camera)"))?;
+        let mut target = start;
+        target
+            .frame
+            .set_euler_angles(Some(theta), Some(phi), None)
+            .map_err(fmn::scene::SceneError::from)?;
+        Ok(rig.animate_to(stage.scene_mut(), &target)?)
     }
 
     /// End the chapter (call it last in `construct`): let the last line
@@ -200,6 +271,29 @@ impl Kit {
         }
     }
 
+    /// Where each sentence of line `id` starts, seconds from the line's
+    /// start (see `Narrator::sentence_starts`); empty without a narrator.
+    pub fn sentence_starts(&self, id: &str) -> Vec<f64> {
+        self.narrator
+            .as_ref()
+            .map(|n| n.sentence_starts(id))
+            .unwrap_or_default()
+    }
+
+    /// Wait until sentence `j` of line `id` (already said) begins, so its
+    /// picture lands with its words; nothing if that moment has passed, or
+    /// without a narrator.
+    pub fn until_sentence(&self, stage: &mut Stage<'_>, id: &str, j: usize) -> fmn::Result<()> {
+        let Some(at) = self.narrator.as_ref().and_then(|n| n.sentence_at(id, j)) else {
+            return Ok(());
+        };
+        let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
+        if at > now {
+            crate::narration::wait_frames(stage, crate::narration::frames_covering(at - now, fps))?;
+        }
+        Ok(())
+    }
+
     /// An authored moment the score may answer (see `Narrator::mark`).
     pub fn mark(&self, stage: &Stage<'_>, label: &str) {
         if let Some(n) = &self.narrator {
@@ -258,6 +352,7 @@ impl Kit {
     }
 
     fn note(&self, mob: Mob, source: &str, kind: TextKind) {
+        crate::glyphs::record(kind, source);
         self.registry.borrow_mut().push(Registered {
             mob,
             source: source.to_owned(),
@@ -274,6 +369,29 @@ impl Kit {
         Ok(m)
     }
 
+    /// Detached text centred at `at` with substrings coloured (`t2c`: each
+    /// occurrence of a key in its colour; the rest in `color`), e.g. names
+    /// in their roles' colours. `\n` breaks lines.
+    pub fn text_t2c(
+        &self,
+        stage: &mut Stage<'_>,
+        s: &str,
+        size: f64,
+        color: Srgb,
+        t2c: &[(&str, Srgb)],
+        at: Vec3,
+    ) -> fmn::Result<Mob> {
+        let t = Text::new(s)
+            .font_size(size)
+            .style(ink_style(color))
+            .t2c(t2c)
+            .build(&self.book)?;
+        let m = stage.arena_mut().add(t);
+        stage.move_to(m, at, ORIGIN);
+        self.note(m, s, TextKind::Text);
+        Ok(m)
+    }
+
     /// Detached code or hex (`0x1D`) in the bundled CM Typewriter, centred at
     /// `at`. fmn's TeX has no `\texttt` (spike S-7), so code is Text.
     pub fn mono(&self, stage: &mut Stage<'_>, s: &str, size: f64, color: Srgb, at: Vec3) -> fmn::Result<Mob> {
@@ -284,7 +402,7 @@ impl Kit {
             .build(&self.book)?;
         let m = stage.arena_mut().add(t);
         stage.move_to(m, at, ORIGIN);
-        self.note(m, s, TextKind::Text);
+        self.note(m, s, TextKind::Mono);
         Ok(m)
     }
 
@@ -437,6 +555,7 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, edge);
             if fixed {
@@ -466,6 +585,31 @@ impl Kit {
         color: Srgb,
         at: Vec3,
     ) -> fmn::Result<Mob> {
+        self.live_count_pinned(stage, tracker, size, color, at, false)
+    }
+
+    /// As [`Kit::live_count`], pinned to the screen while a 3-D camera moves
+    /// (E-X3; Video C's cube counts its orders).
+    pub fn live_count_hud(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+    ) -> fmn::Result<Mob> {
+        self.live_count_pinned(stage, tracker, size, color, at, true)
+    }
+
+    fn live_count_pinned(
+        &self,
+        stage: &mut Stage<'_>,
+        tracker: Mob,
+        size: f64,
+        color: Srgb,
+        at: Vec3,
+        fixed: bool,
+    ) -> fmn::Result<Mob> {
         let book = Rc::clone(&self.book);
         let m = stage.always_redraw(move |s| {
             let value = s.tracker_value(tracker).unwrap_or(0.0).round();
@@ -476,8 +620,12 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, ORIGIN);
+            if fixed {
+                s.set_fixed_in_frame(m, 1.0, true);
+            }
             m
         });
         stage.add_to_scene(m)?;
@@ -508,6 +656,7 @@ impl Kit {
                 .color(color)
                 .build(&book)
                 .expect("bundled digits always lay out");
+            crate::glyphs::record(TextKind::Text, d.num_string());
             let m = s.add(d.into_vmob());
             s.move_to(m, at, edge);
             m

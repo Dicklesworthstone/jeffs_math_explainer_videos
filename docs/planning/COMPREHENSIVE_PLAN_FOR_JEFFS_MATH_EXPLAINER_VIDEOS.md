@@ -72,7 +72,8 @@ way:
 
 - the picture is written in Rust against `franken_manim`'s native facade (`fmn`),
   which typesets TeX natively, with no LaTeX and no Python;
-- the voice is FrankenTTS (`ftts`, voice `robert`), produced one sentence at a
+- the voice is FrankenTTS (`ftts`; one preset voice per video: `matt` for A,
+  `leo` for B, `michael` for C, `robert` for Hoeffding), produced one sentence at a
   time, scored by FrankenWhisper (`fw`) ASR, and never time-stretched;
 - every number on screen or in the narration is computed by the scene and pinned
   against an independent oracle;
@@ -1007,6 +1008,22 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
 | any cue during speech, loudest 400 ms | ≤ the speech's loudest 400 ms − 18 LU, low-passed ≤ 2.2 kHz, panned ≥ 30% off centre |
 | music stem true peak | ≤ −12 dBTP (the voice, at −7.5 dBTP, always sets the master gain) |
 
+The level under speech is set by measurement, not only by design. Each
+identity's bed level is an open-loop number (so many LU under V before the
+duck) set against one reference chord, and it lands at V − 18 LU for the
+voice the identity was tuned with; for another voice it may not (in a lower
+register Hoeffding's tonic chord loses its bass to 37 Hz, reads 3 dB quiet as
+the reference, and the bed comes out 2.5 dB hot). So `score::render` measures
+the finished stem as QA does (the median of voice minus music over 3 s windows
+centred in speech, whole video, after the true-peak cap) and, when it is
+under 18 LU by more than 0.05, lowers the bed bus alone by the shortfall and
+mixes again (`Score::bed_trim_db`; at most 6 dB). A cut that holds 18 LU is
+not touched. The true-peak cap stays one gain on the whole stem, so the
+video's loudest instant can still make the music quieter everywhere (by
+0.19 dB in Hoeffding's own cut), but never closer to the voice than the
+target; a sonification whose own peak would pass −12 dBTP is turned down by
+itself first.
+
 - **Duck offline with perfect look-ahead.** The narration timeline is known
   before the score is synthesized. Voice activity per placed line (10 ms frames,
   active when RMS > line loudness − 25 dB, dilated ±30 ms) gives speech
@@ -1030,13 +1047,48 @@ stem capped at −12 dBTP cannot push the sum into clipping. (The template's
   the author writes: `kit.music_breath(stage, 2.5)` at act boundaries and after
   big reveals, roughly once every 60–90 s.
 - **Key line.** At most twice per video, the music drops to silence 0.5 s
-  before a crucial sentence.
+  before a crucial sentence: `kit.mark(stage, "silence:<name>")` just before
+  the sentence (and `"silence_end:<name>"` where the music may return). The
+  same marks give a beat that must sound bare (A's Kosovo numbers, 15_1) and,
+  placed in a gap, a drop-out from the mark (A 13_8). The stem is exactly zero
+  inside (QA `authored_silence_peak`); `"thin:<name>"` only dips the bed.
 
 ### 7.3 Hard rules (rendering fails if violated)
 
-1. No sustained music fundamentals between 95 and 250 Hz during speech (the v5
-   narrator's 5th–95th percentile pitch is ≈105–216 Hz); bass stays below
-   95 Hz, upper voices from C4 (262 Hz) up (B3, at 247 Hz, would sit inside the band).
+1. No sustained music fundamentals inside the narrator's pitch band during
+   speech. The band belongs to the voice that reads a cut, not to the video
+   (a video's narrator can change, and `VOICE=<voice> ./x` makes variants in
+   other voices), so every score measures the narration it is mixed with:
+   `score::render` tracks the pitch of every narration line the timelines
+   place (`voice.rs`: YIN at 8 kHz, 30 ms frames every 10 ms, as
+   `docs/research/sound_design/scripts/yin2.py` does) and takes the 5th–95th
+   percentile of f0 over voiced frames, widened two semitones down and a
+   minor third up (stressed words rise past the 95th percentile, and an upper
+   voice's chorus needs room). The bass is the highest whole octave under the
+   band (one octave, so every root has a bass note), and the upper voices
+   start at the first semitone above it (`Register::from_f0` in `theory.rs`).
+   Nothing is looked up by a voice's name. Narration with no measurable pitch,
+   or with lines from more than one directory, is refused; QA judges this
+   rule against the measured band whatever register the music was written in
+   (`Score::voice_band`), and `./x <slug> score` leaves the measurement in
+   `stems/voice_profile.tsv`. Measured from each cut's narration on
+   2026-10-12 (61, 90, 104 and 85 lines):
+
+   | cut (voice) | f0 5th–95th (median) | no-fly band | bass | upper voices from |
+   |---|---|---|---|---|
+   | Hoeffding (`robert`) | 104–216 Hz (138) | 93–257 Hz | G1–F♯2 (49–92 Hz) | C4 (262 Hz) |
+   | A (`matt`) | 76–143 Hz (100) | 68–170 Hz | C♯1–C2 (35–65 Hz) | F3 (175 Hz) |
+   | B (`michael`) | 76–167 Hz (107) | 68–198 Hz | C♯1–C2 (35–65 Hz) | G♯3 (208 Hz) |
+   | C (`michael`) | 76–160 Hz (107) | 67–190 Hz | C♯1–C2 (35–65 Hz) | G3 (196 Hz) |
+
+   (Until 2026-10-12 each identity carried a register fixed from its first
+   narrator's takes: `robert` 95–250 Hz by hand, `matt` 69–179, `leo` 95–244,
+   `michael` 68–194. When B moved from `leo` to `michael`, a score would
+   have kept `leo`'s register and QA would have judged it against `leo`'s
+   band: a false pass. The constants remain in `score.rs` as reference
+   registers for tests only. Under the measured
+   registers C's and Hoeffding's stems come out byte for byte as before:
+   their notes sit in the same octaves.)
 2. Under speech, music content above 2.5 kHz is at least 12 dB down (low-pass
    plus pocket).
 3. No pure-sine voices above 100 Hz: at least three partials, chorus or noise.
@@ -1128,10 +1180,10 @@ lives inside it.
 
 - **Harmonic plan per chapter:** chords of 4–16 s; changes only in gaps or in
   intra-sentence pauses ≥ 0.2 s, never within 150 ms after a speech onset; a
-  voice-leading solver minimizes total motion with the bass in E1–E♭2 (one
-  octave, so every root has a bass note; E1–D2 left E♭ chords without one) and upper
-  voices from C4 (262 Hz) up, holding common tones; pedal points under dense
-  derivations.
+  voice-leading solver minimizes total motion inside the narrator's register
+  (§7.3 rule 1: a one-octave bass under the measured band, so every root has a
+  bass note, and upper voices over it), holding common tones; pedal points
+  under dense derivations.
 - **Intensity arc per chapter (0–1)** drives density, cutoff, register spread
   and reverb send: intro motif at V − 6 then down to the bed at the first line;
   development at density 1–2; thin out 1 s before each reveal; reveal cue in the
@@ -1163,6 +1215,66 @@ lives inside it.
 - **C:** swing drops out for chapters 07–08 (rubato, a pedal under the lemmas);
   the "two motifs at once = the bug" demonstrations in 05 and 10 get listen
   windows; spinning stays audible in 09, where it *is* the cost.
+
+**Revision 3** (music lane, 2026-10-11; `Identity` in `score.rs` is the
+source of truth, this is its summary):
+- **Moods per act.** A chapter plays its mood's progression (by chapter
+  number), else the identity's. A: *the lake* (01, 08, 15): the owner's
+  planing major sevenths moved from A♭ to F with their ninths, Fmaj9 Gmaj9
+  Dmaj9/F♯ Fmaj9 Cmaj9/E E♭maj9 Fmaj9 Em11 Gmaj9 F♯m11, the bass circling F
+  by step; *home* F Lydian; *doubt* (11, 13, 14) D Dorian, Dm9 G13 Cmaj9
+  Am11. B: *home* (01–06, 17); *the field* (07–12) on an E pedal; *spending
+  it* (13–16) C♯m9 Amaj9(♯11) F♯m11 B6sus4. C: *the bakery* turnaround;
+  *the race* (04, 05) Gm9 E♭maj7♯5 C9♯11 D7♯5; *the proof* (08–10) on a B♭
+  pedal; *the legacy* (11, 12) Gm9 E♭maj9 B♭maj9/D F7sus4.
+- **Listen chords.** Under a listen window that carries a sonification the
+  bed holds a chord with no semitone inside it and thins 4 dB, from the
+  window's start to the next pause: A F6/9, B E6/9, C B♭6sus2. A
+  sonification keeps to `Identity::listen_scale()`: A F G A C D, B E F♯ G♯
+  B C♯ (a byte's eight bit-notes), C B♭ C D E♭ F G (the whole bakery motif).
+  The score plays it through a 5.5 kHz low-pass (a mallet above E5 struck
+  in a quiet window otherwise trips the click gate) and fades its last
+  0.8 s.
+- **Themes.** Soundless listen windows the identity names by storyboard id
+  get the motif open (A 01_4, B 01_3, C 01_3) or resolved (A 08_3, B 17_7,
+  C 13_4), over a soft block chord; no lane needs a mark for them.
+- **The gaps.** A gap of 2.4 s or more first rolls a spread two-hand
+  voicing of the chord (felt piano for A and C, Karplus–Strong for B; five
+  notes 0.2 s apart, inside six onsets a second), entering on the gap's
+  chord change when one comes early, the pedal changed at each later change
+  and lifted 0.7 s before the voice; then the motif. Gap notes release 0.5 s
+  before the voice; after an authored window the music recedes over 0.8 s
+  and is fully ducked 0.2 s before the voice returns; through a hold the
+  author did not write for music (a gap under 4 s) the duck lifts only half
+  way. No phrase plays over a sonification.
+- **Levels.** A and C sit a dB under Hoeffding's balance (bed V − 13,
+  melody V − 13.5, listen V − 10): on the probe voices their gap music
+  measured V − 9.9 and V − 9.7 at its centre, plan §7.2's V − 10. No voicing,
+  bed or roll, puts a tone a minor ninth over another (a new QA metric,
+  `voicing_minor_ninths`).
+- **The bed's balance.** At unity the bass measured 4–6 LU over the pad in
+  every identity (K-weighted): the bed's level was mostly a 35–65 Hz hum, and
+  on small speakers, which lose it, a chord quieter than meant. A, B and C
+  set it 9 dB down (`bass_db`), so the pad leads by 3–6 LU; the bass thins
+  with the pad.
+- **One gesture per gap.** A gap an authored cue (reveal, pizzicato,
+  resolution) lands in is that cue's: no roll there, the motif 1.2 s after
+  it. The theme resolves once: after a resolved theme in the last chapter
+  (A 15_3, B 17_7, C 13_4) the last gap only rolls the tonic home.
+- **Warm tops.** The score's melody bus runs through a 4th-order 6 kHz
+  low-pass and sonifications through 5.5 kHz, each entering with a 10 ms
+  rise: a bright bar struck in a quiet moment otherwise puts its upper mode
+  past 8 kHz, which QA's click gate hears. A sonified window is the scene's
+  sound, so QA's beating gate does not read its strikes as a steady tone.
+- **On the real narration** (2026-10-11, `./x <slug> score`, engine
+  `8973936`) every chapter of the three videos passes every §7.6 metric:
+  A 15/15 (1052 s), B 17/17 (1261 s), C 13/13 (951 s). Voice − music median
+  19.5–22.3 LU (A's 15 aside: its authored silence zeroes the music under
+  the Kosovo numbers), p5 13.5–19.9, SII loss ≤ 0.023, music/voice 1–4 kHz
+  ≤ −23.7 dB, gap onsets ≤ 5 a second, no clicks, beating ≤ 4.4 dB. Each
+  video's `stems/listen/` holds the listening protocol's material (full
+  chapter mixes at −16 LUFS, three blind 20 s A/B pairs per chapter); the
+  listening itself is a person's.
 
 ### 7.6 Score QA (computed per chapter, JSON report; failing metrics fail `./x score`)
 
@@ -1227,8 +1339,11 @@ every concat join. The new master rebuilds the soundtrack from sources instead:
 The narration skill's pipeline is reused unchanged; only the driver and paths
 change.
 
-- **Voice:** FrankenTTS `robert` for every video (continuity across the corpus;
-  D-06, open question Q2).
+- **Voice:** one FrankenTTS preset per video (the owner, 2026-10-11): A
+  `matt`, B `leo`, C `michael`; Hoeffding keeps `robert` (D-06, Q2). Every
+  lexicon respelling was probed with `robert` and is re-probed with the new
+  voice before its narration runs; the music's no-fly band (§7.3 rule 1) is
+  measured by the score from the narration it is given, every time.
 - **Pipeline:** `script.tsv` → lint (`lint_script.py`) → lexicon (lookup,
   respell, probe with control and decoy, lock) → `run_pipeline.sh` on the GPU
   host (plan → TTS one call per sentence → fw ASR → choose takes) → triage with
@@ -2488,7 +2603,7 @@ W0 ─┬─ W9 ─┬─ A:P0..P3r ─┐
 | D-03 | Extract shared crates from the skill template, not from Hoeffding's older copies | the template is a superset (layout lint, script.tsv, stats kit, never-overwrite outputs) |
 | D-04 | Import Hoeffding faithfully first, migrate it later as v6 | v5 stays reproducible from this repo; the migration is a separate, reviewable step |
 | D-05 | ~13 min per new video, 10 chapters ≤ 85 s (the skill's default is 6–9 min) | these topics need the room to be deep without rushing; the cap per chapter keeps 4K renders under the raw-byte limit; owner may veto (Q1) |
-| D-06 | Voice `robert` for every video | continuity across the corpus; proven pipeline (Q2) |
+| D-06 | One preset voice per video: A `matt`, B `leo`, C `michael` (Hoeffding `robert`) | the owner's choice, 2026-10-11 (Q2); every name re-probed per voice |
 | D-07 | Notation: N, M, n, k and table cells a, b, u (fish); `\binom` (fixed upstream) with C(·,·) as fallback; α via `\mathsf{\alpha}` or `\text{α}` in one Tex | glyph safety; consistency with Feller via one mapping card |
 | D-08 | Music is ducked offline into the stem; `gain_to_background` is never used | the engine's duck is a step gain on the whole mix with no ramps |
 | D-09 | Music stems are f32 stereo 48 kHz WAV, frame-aligned (800 samples per 60 fps frame) | lossless; no dither needed; ≤ 174.8 s per file fits ≤ 85 s chapters |
@@ -2518,7 +2633,7 @@ These have working defaults (in brackets); none blocks pre-production.
 
 - **Q1.** Is ~13 minutes per video right, or should any of the three be split
   into two shorter videos? [keep ~13 min]
-- **Q2.** Keep the `robert` voice, or enroll or choose another? [robert]
+- **Q2.** Keep the `robert` voice, or enroll or choose another? [answered 2026-10-11: `matt`, `leo`, `michael` for A, B, C]
 - **Q3.** Production order after Hoeffding v6: A, then B and C? [yes]
 - **Q4.** Vendor the narration skill's scripts into `tools/`, or keep
   referencing the installed skills? [reference]

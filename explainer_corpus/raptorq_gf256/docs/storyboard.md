@@ -49,7 +49,7 @@ GF(256) once, in a lower-third), **the ex-or lottery**, **the danger meter**,
 **the byte clock** (each named aloud where it first appears), **result** (a
 card's right side, 03_1), **spare** (a card beyond one per piece, 06_1),
 **extra pieces** and **free cards** (RaptorQ's added unknowns and its
-agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
+agreed-in-advance cards whose result is zero, 15_7, 15_2), **block** (description),
 **factor** (never "split", 10_3).
 
 ## 01_hook: A million phones (~80 s)
@@ -57,7 +57,7 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 01_1 | I'm sending this picture to a million phones. Each one randomly loses about one packet in a hundred. | A tower; a field of about 1,000 phone glyphs (each stands for 1,000), each with its own red loss flecks (flat, grouped one mobject per row, E-B4) | particle field, seeded losses |  |
-| 01_2 | Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is an arithmetic where three times seven is nine. | `3 × 7 = 9` in chalk | write |  |
+| 01_2 | Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is a kind of arithmetic where three times seven is nine. | `3 × 7 = 9` in chalk | write |  |
 | 01_3 | *(title)* | **The Arithmetic Where 3 × 7 = 9** | title card | listen 3 s (the motif E–G♯–B–C♯) |
 | 01_4 | A file travels as thousands of packets, each carrying one small piece of it. Our picture is cut into ten thousand pieces. Lose some, and the usual fix is to ask again. | The picture slices into 10,000 pieces; each piece slides into its own packet | morph |  |
 | 01_5 | With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. A TV antenna can't ask at all. | Request arrows (at most 300, by placement) flood the tower; then "no return channel" | arrow swarm |  |
@@ -86,8 +86,8 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 |---|---|---|---|---|
 | 02_1 | First, how computers write numbers. Each spot holds a bit, a zero or a one, and each spot is worth double the one to its right. One, two, four, eight. | Place values under a row of eight bits | binary primer prop |  |
 | 02_2 | Five is four plus one, so it's one, zero, one. A byte is eight bits, so it holds zero to two fifty-five. | 101 lights; then 11111111 = 255 | bit row |  |
-| 02_3 | Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. The mixing move is called ex-or. | Two pieces merge into one packet card | statement card |  |
-| 02_4 | Line two numbers up in bits. Wherever the second has a one, flip that bit of the first, like a light switch. | Bit rows as light switches; 5 ⊕ 7 | bitwise animation |  |
+| 02_3 | Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. A piece of the picture is just numbers, so mixing pieces means mixing numbers. The mixing move is called ex-or, and it works like this. | Two pieces merge into one packet card | statement card |  |
+| 02_4 | Line up the two numbers in bits. Wherever the second has a one, flip that bit of the first, like a light switch. | Bit rows as light switches; 5 ⊕ 7 | bitwise animation |  |
 | 02_5 | ⟨predict⟩ Five is one, zero, one. Seven is one, one, one. What's five ex-or seven? | The two rows lined up | prediction card |  |
 | 02_6 | Zero, one, zero. Two. And flip twice, and you're back where you started. Two ex-or seven is five again. | 5 ⊕ 7 = 2; then 2 ⊕ 7 = 5 | bitwise animation | listen 3 s (a byte as a chord: each set bit a note; ex-or toggles notes) |
 
@@ -103,18 +103,18 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 |---|---|---|---|---|
 | 03_1 | Each packet says which pieces it mixed, and the result. That's an equation. We'll draw each packet as a card. | Cards A⊕C = 2, B⊕C⊕D = 6, A⊕B = 6, A⊕B⊕C⊕D = 3, the pieces as shape badges | equation cards |  |
 | 03_2 | The same cards as a grid. A row per card, and a dot where it uses a piece. | The grid (rows = cards, columns = pieces) builds beside them, one row per card | grid |  |
-| 03_3 | Solving works like elimination in algebra class. Ex-or card one with card three, and A cancels. B ex-or C is four. | Card 1 ⊕ card 3: A cancels, slowly | TransformMatchingTex |  |
+| 03_3 | Solving works like elimination in algebra class. Ex-or card one with card three, and the A cancels. B ex-or C is four. | Card 1 ⊕ card 3: A cancels, slowly | TransformMatchingTex |  |
 | 03_4 | Put that into card two, and D is two. And so on. | The rest fast-forward; "A? B? C? D?" fill in as 5, 3, 7, 2 | TransformMatchingTex |  |
 | 03_5 | The phone is just a bucket. It doesn't care which cards arrive, or in what order. It needs as many useful cards as there are pieces. Useful means it tells you something you couldn't already work out. | A bucket of four slots; it fills one slot per useful card | bucket prop |  |
 | 03_6 | ⟨predict⟩ Here's a fifth card. B ex-or C is four. Is it useful? | The card hovers over the full bucket | prediction card |  |
 | 03_7 | No. You could make it yourself from cards one and three. | The card bounces off | bounce |  |
-| 03_8 | A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same shuffled deck, so a packet's number tells the phone which pieces it mixed. | Fountain icon; "packet #48213 → pieces {…}" | statement card |  |
+| 03_8 | A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same recipe book, so a packet's number tells the phone which pieces it mixed. | Fountain icon; "packet #48213 → pieces {…}" | statement card |  |
 | 03_9 | The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven. This video is about the arithmetic inside it. | **RaptorQ** spelled once; beneath it "RFC 6330 · IETF Proposed Standard · August 2011" (R2 Ruth R15, Dev dev-08) | name card | hold |
 
 - **Lower-thirds:** "each piece is really a chunk, about a kilobyte; every
   operation runs across all its bytes at once"; "lost, not corrupted:
   checksums throw bad packets away; one that slipped through would poison the
-  decode" (D23 keeps both); 03_8: "the deck is a fixed recipe written into the
+  decode" (D23 keeps both); 03_8: "the recipe book is written into the
   standard (RFC 6330's packet number, the ESI, is the seed); the block size
   travels in a header" (D10).
 - **For programmers:** RAID-5 parity is one of these cards.
@@ -136,7 +136,7 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 | 05_1 | ⟨predict⟩ So for three random cards in a row, how often are all three useful? | The cube's three steps as fractions to fill: ?/8 · ?/8 · ?/8 | prediction card |  |
 | 05_2 | Seven eighths, times six eighths, times four eighths. About one time in three, so it fails two times in three. With many pieces it fails seventy-one percent of the time. Call it the ex-or lottery. | Retained route: 7/8 · 6/8 · 4/8 = 0.328 → failure 0.672 → 0.7112, labelled **model** (R2 Ruth R9) | live product |  |
 | 05_3 | Watch this danger meter as the bucket fills. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots. | **The danger meter**: the 03 bucket's rim shows the chance the next card is useless: flat near zero, then rising | danger meter prop |  |
-| 05_4 | Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one in two. Ten pieces or ten million, only the last few slots matter, so the lottery fails about seventy-one percent either way. | The rim reads 1/8, 1/4, 1/2 | danger meter prop | listen 3 s (the rank chord: each useful card adds a tone, each useless one is a muted thud; the thuds crowd in at the end) |
+| 05_4 | Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one time in two. Ten pieces or ten million, only the last few slots matter, so the lottery fails about seventy-one percent either way. | The rim reads 1/8, 1/4, 1/2 | danger meter prop | listen 3 s (the rank chord: each useful card adds a tone, each useless one is a muted thud; the thuds crowd in at the end) |
 
 - **Ruth:** P(K uniform 0/1 cards all useful) = ∏(1 − 2⁻ⁱ), i = 1…K (lower-third
   at 05_2, RB-05); 0.328 at K = 3, → 0.288788; almost all, not all, the danger
@@ -171,14 +171,14 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 | 07_2 | ⟨predict⟩ Try two times one twenty-eight on this clock. What do you get? | The bit row of 128 | prediction card |  |
 | 07_3 | The top bit slides off the end, and it's gone. Zero. | Bits slide left; the top bit drops into a dark gutter; `2·128 ≡ 0` | **fallen-bit animation** | listen 3 s (the byte's one note slides up off the top and leaves silence) |
 | 07_4 | So a card saying two times A is six can't tell you A. It could be three, or one thirty-one. | 2·3 = 6 and 2·131 = 262 → 6 | statement card |  |
-| 07_5 | Even amounts lose information, like two did. Odd ones never do. So with random byte amounts, only the last bit matters. | Each card's top seven bits fade to grey, leaving the last bit lit | bit fade |  |
-| 07_6 | That's ex-or's coin flip again. This lottery fails seventy-one percent of the time, just like ex-or. | The race: ex-or on the left in blue, wrap-around on the right in purple, same layout as every later race (creative B-18); both counters converge to 71% | **lottery race** |  |
+| 07_5 | Even amounts lose information, like two did. Odd ones never do. And a number is odd exactly when its last bit is one. So with random byte amounts, only the last bit matters. | Each card's top seven bits fade to grey, leaving the last bit lit | bit fade |  |
+| 07_6 | That's the coin flip from ex-or again. This lottery fails seventy-one percent of the time, just like ex-or. | The race: ex-or on the left in blue, wrap-around on the right in purple, same layout as every later race (creative B-18); both counters converge to 71% | **lottery race** |  |
 
 ## 08_prime_clocks (~50 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 08_1 | ⟨predict⟩ A prime number of hours fixes it. On a seven-hour clock, three times what is one? | The 7-hour clock | prediction card |  |
+| 08_1 | ⟨predict⟩ A prime number of hours fixes it. On a seven-hour clock, what times three is one? | The 7-hour clock; `? × 3 = 1` | prediction card |  |
 | 08_2 | Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide. | The 7-hour table; each row lights as a reshuffle | small table |  |
 | 08_3 | Zero sneaks in at two fifty-six because two fifty-six is two times one twenty-eight. The nearest prime is two fifty-seven, but that clock needs an hour two fifty-six, which doesn't fit in a byte. | 256 = 2 × 128 beside the 2·128 = 0 card; then 256 is written into an 8-bit box and its ninth bit spills out, lit red | factor split, byte box |  |
 | 08_4 | A number system where you can add, subtract, multiply, and divide by anything but zero, with all the usual rules of algebra, is called a field. We need one with exactly two hundred fifty-six members, one for every byte. So catch the falling bit, and fold it back in. | Name card "field"; the gutter bit lifts back | statement card | hold |
@@ -196,8 +196,8 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 09_1 | We need a field with two hundred fifty-six members. Whole numbers can't do it, but polynomials can. | Goal card | statement card |  |
-| 09_2 | Remember the place values, one, two, four, eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one. | 10000000 → x⁷; 00000011 → x + 1; the place values beneath morph into powers of x (bits typeset in TeX, E-B5) | bits → Tex morph |  |
+| 09_1 | So we need a field with two hundred fifty-six members. Whole numbers can't do it, but polynomials can. | Goal card | statement card |  |
+| 09_2 | Remember the place values, one, two, four, and eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one. | 10000000 → x⁷; 00000011 → x + 1; the place values beneath morph into powers of x (bits typeset in TeX, E-B5) | bits → Tex morph |  |
 | 09_3 | The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again. | `x + x = 0`; column-wise ex-or | callback to 02 |  |
 | 09_4 | ⟨predict⟩ Three is x plus one, and seven is x squared plus x plus one. Multiply them out, remembering that one plus one is zero. What do you get? | `(x + 1)(x² + x + 1)`; a "pause and try it" card | prediction card | hold |
 | 09_5 | Six terms, and two pairs match. x squared plus x squared vanishes, and so does x plus x. What's left is x cubed plus one, which is one, zero, zero, one. Nine. | FOIL one term at a time: x³ + x² + x + x² + x + 1; the matching pairs (never written "2x²") vanish; x³ + 1 = 1001 = 9 | **FOIL with vanishing terms** |  |
@@ -211,21 +211,21 @@ agreed-in-advance cards whose result is zero, 15_2), **block** (15_6),
 - **Maya:** the prediction card says "pause and try it": the 09_4 hold gives
   the viewer about 5 s with the hold (M27).
 
-## 10_the_fold (~85 s)
+## 10_the_fold (~75 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 10_1 | A product past x to the seventh doesn't fit in a byte. The simplest fold drops the fallen bit back in at the bottom. A rotation. | Rotation fold: the top bit wraps to bit 0 | fold animation |  |
 | 10_2 | ⟨predict⟩ Three times a byte is double it, ex-or itself. Under that fold, what's three times two fifty-five? | `3 · 255`; the hint card `3·a = 2·a ⊕ a` | prediction card |  |
 | 10_3 | Zero. The rotation turns x to the eighth into one, so x to the eighth plus one is zero. And it factors into x plus one, which is three, times a long polynomial, two fifty-five. Two fifty-six was two times one twenty-eight all over again. | First the hint worked: 11111111 rotates to itself, `2·255 = 255`, and `255 ⊕ 255 = 0`; then "x⁸ → 1", so `x⁸ + 1 → 0`; `(x + 1)(x⁷ + … + 1) = x⁸ + 1` with 3 and 255 under the factors; `3·255 = 0` | fold animation |  |
-| 10_4 | So we need a polynomial that can't be factored, a prime polynomial. Whenever an x to the eighth falls off, RaptorQ swaps in x to the fourth plus x cubed plus x squared plus one. | `x⁸ → x⁴ + x³ + x² + 1`: the right side is 29 (0x1D in hex beneath); the whole polynomial x⁸ + x⁴ + x³ + x² + 1 is 285 (0x11D) | the fold |  |
+| 10_4 | So we need a polynomial that can't be factored, a prime polynomial. RaptorQ uses x to the eighth plus x to the fourth plus x cubed plus x squared plus one. Treat it as zero, and an x to the eighth that falls off becomes the rest of it. | "a prime polynomial: it can't be factored" over the whole `x⁸ + x⁴ + x³ + x² + 1` (= 285, 0x11D beside it), which stays up through 10_6 (Maya R3 maya-02); at "Treat it as zero" the rule `x⁸ → x⁴ + x³ + x² + 1` under it, its right side 29 (0x1D) | the fold |  |
 | 10_5 | Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero. | The same bit row, gutter and scale as 07_3: the fallen bit lands back as 00011101 with place values | **overflow-fold animation** | listen 3 s (the same slide as 07_3, now blooming into the 0x1D chord E–G♯–B–C♯) |
 | 10_6 | And every nonzero byte now has a partner. Two times one forty-two is exactly one. So bytes form a field, the byte field. | 142 × 2 folded step by step; everything cancels except 1; then the name card "the byte field", lower-third "GF(256), also written GF(2⁸)" | fold |  |
-| 10_7 | A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree. | Side-by-side: 87 · 131 = 49 here, 193 in AES (hex beneath: 0x57 · 0x83 = 0x31 vs 0xC1) | side-by-side | hold |
 
-- **Code panel (for programmers), pinned in a corner from 10_4 to 10_7:**
-  `0x1D` lights orange as 10_5 folds 2·128 into 29; `mul(2, 142) == 1` lights at
-  10_6; at 10_7 `0x1D` swaps to `0x1B`, `0x31` flips to `0xC1` and the comment `mul(2, 142) == 1` flips to `mul(2, 141) == 1` (AES's inverse of 2; claim walk) (D6, D20).
+- **Code panel (for programmers), at 12_5 (R3: Dev D1 wants it readable and
+  spoken, Maya maya-14 wants it out of 10_5–10_6, and chapter 10 has no time
+  for a beat of its own):** centred and large while 12_5 says what it does,
+  then in the corner, where `0x1D` swaps to `0x1B`, `0x31` flips to `0xC1` and the comment `mul(2, 142) == 1` flips to `mul(2, 141) == 1` (AES's inverse of 2; claim walk) (D6, D20).
 
 ```rust
 fn xtime(a: u8) -> u8 { (a << 1) ^ if a & 0x80 != 0 { 0x1D } else { 0 } }
@@ -239,12 +239,12 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 - **Lower-thirds:** "written a CRC? Same move: shift, and if a bit falls off,
   ex-or in the polynomial. CRC-8/SAE-J1850 uses this very 0x1D" (D20); "p can't
   be factored ⇒ no two nonzero bytes multiply to 0 ⇒ each row of the table has
-  no repeats ⇒ it contains 1" (RB-21); "GF(2⁸) ≅ GF(2)[x]/(p) for any
-  irreducible p; all fields of order 256 are isomorphic; the polynomial is a
-  choice of labels".
+  no repeats ⇒ it contains 1" (RB-21); the labels lower-third ("GF(2⁸) ≅
+  GF(2)[x]/(p) for any irreducible p; all fields of order 256 are isomorphic;
+  the polynomial is a choice of labels") moved with the AES comparison to 12_5.
 - **Maya:** decimals first, hex beneath for programmers (M11).
 
-## 11_the_byte_clock (~85 s)
+## 11_the_byte_clock (~75 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
@@ -253,18 +253,20 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 | 11_3 | Now move every nonzero byte to the step where it was reached. The star untangles into a circle. | Bytes slide to their log positions; zero sits at the centre, off the clock | **star → circle untangling** |  |
 | 11_4 | Times two is one click around. A clock with two hundred fifty-five hours. Call it the byte clock. | The clock face, 255 hours; lower-third 11_4 (for programmers, D12): "Linux RAID-6 gives drive i the weight 2ⁱ; with AES's polynomial only 51 of those weights differ" | byte clock | listen 3 s (a gold dot laps the clock with a 255-step glide that climbs one octave and lands home) |
 | 11_5 | To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four. Seven clicks plus two is nine clicks. Fifty-eight. | 2⁷·2² = 2⁹ = 58, read off the clock; lower-third 11_5–11_6 (RB-D5, on screen only): "7 × 7: 198 + 198 = 396 → 141 clicks → 21; by hand (x²+x+1)² = x⁴+x²+1 = 21" | slide-rule rings |  |
-| 11_6 | One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm. | Two concentric rings; the inner ring rotates 25 clicks (labels counter-rotate) | rings |  |
-| 11_7 | That's how the standard multiplies. Look up two click counts, add them, and look up the answer. And every nonzero byte's partner sits at its mirror image across the top. | The 127 mirror pairs drawn across the circle as string art (log a⁻¹ = 255 − log a); 1 at the top is its own partner; zero stays at the centre with none | string art |  |
-| 11_8 | The wrong clock counted bytes, and multiplying on it broke. The right one counts clicks, two hundred fifty-five of them, and going around it is multiplying. | The two clocks side by side: "bytes" under the 256-hour clock, "clicks" under the 255-hour one | rhyme |  |
+| 11_6 | One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm. One fifty times itself goes past the top. Three hundred sixty clicks, less one full turn of two fifty-five, is a hundred five clicks. Twenty-six. | Two concentric rings; the inner ring rotates 25 clicks (labels counter-rotate); "log 150 = 180" with "in the byte field (base 2)" under it, not log₂ (Ruth R3-10); then 150 × 150: the hand goes 180 more clicks, past the top, to 105; `180 + 180 = 360`, `360 − 255 = 105 clicks → 26` (Dev R3 D4) | rings |  |
+| 11_7 | And every nonzero byte's partner sits at its mirror image across the top. | The 127 mirror pairs drawn across the circle as string art (log a⁻¹ = 255 − log a); 1 at the top is its own partner; zero stays at the centre with none | string art |  |
 
-## 12_the_times_table (~40 s)
+## 12_the_times_table (~65 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 12_1 | Every pair at once. Here's the whole times table in byte order. Each square's colour is its answer. It looks like noise. | The 256×256 table (per-point stroke strips, spike S-3) in byte order; row and column 0 set aside, dimmed | **table** |  |
+| 12_0 | That's how the standard multiplies. Look up two click counts, add them, and look up the answer. In code, zero has no clicks, so check it first. And two click counts can add up past two fifty-five, so the answer table is twice as long. | The byte clock, small at the left: two click counts added round it; then the lookup code panel (for programmers) alone, centred and large (Dev R3 D1), its zero guard and EXP's length lit as they are said, the u8-wrap count in its comments (Maya R3 maya-14) | lookup |  |
+| 12_1 | Every pair at once. Here's the whole times table in byte order. Each square's colour is its answer. And it looks like noise. | The 256×256 table (per-point stroke strips, spike S-3) in byte order; row and column 0 set aside, dimmed | **table** |  |
 | 12_2 | ⟨predict⟩ Sort the rows and the columns by clicks. What will the table look like? | The table, row and column 0 set aside, dimmed | prediction card |  |
 | 12_3 | *(no narration: the sort)* | Rows sort by clicks (3 s), then columns (3 s); a granular texture of the rows' chords settles into one held E chord as the stripes lock | **table reorder (S-3)** | listen 6 s |
-| 12_4 | Sorted by clicks, it's perfect diagonal stripes. Each stripe is one total of clicks. | The stripes; lower-third 12_4 (RB-20): "orders 1, 3, 5, 15, 17, 51, 85, 255 occur 1, 2, 4, …, 128 times; 255 = (2+1)(2²+1)(2⁴+1)" | stripes | hold |
+| 12_4 | Sorted by clicks, it's perfect diagonal stripes. Each stripe holds one total of clicks. | The stripes; lower-third 12_4 (RB-20): "orders 1, 3, 5, 15, 17, 51, 85, 255 occur 1, 2, 4, …, 128 times; 255 = (2+1)(2²+1)(2⁴+1)" | stripes | hold |
+| 12_5 | Here's the whole multiply as code. Keep doubling with the fold, and ex-or together the doublings that the other byte's bits pick. A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree. | The shift-and-add code panel alone, centred and large (Dev R3 D1), `xtime`'s fold byte and the loop lit as they are said; then it shrinks to the corner. Side-by-side: 87 · 131 = 49 here, 193 in AES (hex beneath: 0x57 · 0x83 = 0x31 vs 0xC1); the code panel flips; lower-third: every prime polynomial of degree 8 builds the same field, the polynomial a choice of labels | side-by-side |  |
+| 12_6 | The wrong clock counted bytes, and multiplying on it broke. The right one counts clicks, two hundred fifty-five of them, and going around it is multiplying. | The two clocks side by side: "bytes" under the 256-hour clock, "clicks" under the 255-hour one | rhyme | hold |
 
 - **Lower-thirds, each with its beat (R2 Ruth R19; each is also in the
   description under its beat, in full):** 11_2–11_3 RB-19 (0x11B: ord 2
@@ -272,7 +274,13 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
   (RAID-6); 11_5–11_6 RB-D5 (7 × 7); 12_4 RB-20, shortened to fit the hold
   (the full text, "each count is a power of 2 because 255 = (2+1)(2²+1)(2⁴+1);
   together they make 11111111₂ = 255", is in the description).
-- **For programmers (lower-third at 11_7, R2 Dev dev-03: the types are part of
+- **Moved (Codex review, lane B-2 round 1, P2):** with leo's narration 10
+  ran 91.1 s and 11 ran 92.2 s. 12_0 was 11_7's first two sentences, 12_5
+  was 10_7 and 12_6 was 11_8, word for word, so their takes are reused; 10
+  now ends on the byte field, 11 on the mirror pairs, and act II on the
+  rhyme. The table lookup leads into the whole table; AES's different labels
+  for the same field follow its stripes.
+- **For programmers (code panel at 12_0, R2 Dev dev-03: the types are part of
   the lesson; a `u8` LOG wraps at 256 for 32,131 of the 65,025 nonzero pairs,
   chapter 07's bug, which panics in debug builds and silently gives a wrong
   product in release builds):**
@@ -297,8 +305,8 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 | 13_3 | ⟨predict⟩ With random byte amounts, how often is a card useless at the last slot? | The meter turns gold | prediction card |  |
 | 13_4 | Only one time in two fifty-six. Fix every amount but one. Scaling by a nonzero byte reshuffles all two fifty-six values, so exactly one choice of that amount lands in the lit part. | The same gold danger meter at the last slot (R2 Maya M5, no ghost): the last card's 256 possible values of one amount spread as 256 dots; 255 land outside the teal lit part, 1 lands in it; lower-third (Ruth D1): "precisely: fix the other amounts; for a piece whose own card isn't lit, exactly one of its 256 amounts puts the card in the lit part" | dots on the meter |  |
 | 13_5 | So every extra byte card divides the risk by two fifty-six. With ex-or, each extra card only roughly halves it. | The risk ladder: each byte spare drops eight rungs; labelled **model**: 0.39% / 0.0015% / 0.000006% | risk ladder |  |
-| 13_6 | Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards rarely need even one. | The race (blue left, gold right): histograms of spares needed with this run's own counts; "exact, ten pieces: 1.6057 / 0.0039" (R2 Ruth R7, Dev dev-11); lower-third "with many pieces, 1 + 1/3 + 1/7 + 1/15 + … = 1.6067…; with ten pieces the sum stops at 1/1023: 1.6057. Erdős proved the full sum irrational in 1948" | **Monte Carlo race** |  |
-| 13_7 | One subtlety. A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field. All the gain comes from the other two fifty-four amounts. | The same 0/1 card in both fields: "same number of useful cards" | statement card | hold |
+| 13_6 | Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. The byte cards rarely need even one. | The race (blue left, gold right): histograms of spares needed with this run's own counts; "exact, ten pieces: 1.6057 / 0.0039" (R2 Ruth R7, Dev dev-11); lower-third "with many pieces, 1 + 1/3 + 1/7 + 1/15 + … = 1.6067…; with ten pieces the sum stops at 1/1023: 1.6057. Erdős proved the full sum irrational in 1948" | **Monte Carlo race** |  |
+| 13_7 | One subtlety. A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field. So our ring of five is still stuck. All the gain comes from the other two fifty-four amounts. | The same 0/1 card in both fields: "same number of useful cards" | statement card | hold |
 
 - **Precisely (lower-third at 13_5):** "union bound: P(fail) < 256^−h/255.
   Exact: 3.9215×10⁻³, 1.5319×10⁻⁵, 5.984×10⁻⁸ at h = 0, 1, 2 (the bound 1/255
@@ -318,14 +326,13 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 14_1 | So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day. | K³/3 count-up: ≈ 4.2×10¹³; "≈ 11.6 h at 10⁹/s"; lower-third (for programmers, R2 Dev dev-09): "even ten times faster, still ≈ 1.2 h; the matrix alone is 2.5 GB; double the pieces, eight times the work" | count-up |  |
+| 14_1 | So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day. | K³/3 count-up: ≈ 4.2×10¹³; "≈ 11.6 h at 10⁹/s"; lower-third (for programmers, R2 Dev dev-09): "even ten times faster, still ≈ 1.2 h; the matrix alone is 2.5 GB; double the pieces, eight times the work" | count-up |  |
 | 14_2 | Fast codes keep cards sparse. Each card mixes only a few pieces. About half mix two, and a few mix many. | Each card morphs into a dot joined to its pieces: the graph "pieces / packets"; degree histogram; lower-third (R2 Ruth R17): "RFC 6330's degrees: P(d) ≈ 1/(d(d−1)) for d = 2…29, the ideal soliton; mean 4.82" | graph prop |  |
-| 14_3 | Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling. | Peeling cascade on the five-piece toy: C, A, B, D, E; the ripple glows | **peeling cascade** | listen 3 s (each peeled piece a pluck stepping down the E pentatonic scale) |
+| 14_3 | Then decoding is a chain reaction, like Sudoku. Each dot is a card, and each line goes to a piece it uses. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling. | Peeling cascade on the five-piece toy: C, A, B, D, E; the ripple glows | **peeling cascade** | listen 3 s (each peeled piece a pluck stepping down the E pentatonic scale) |
 | 14_4 | ⟨predict⟩ Lose the card that starts it. What happens? | The starting card fades | prediction card |  |
 | 14_5 | Nothing moves. | The graph freezes; the music stops for 1.5 s | stall |  |
 | 14_6 | With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs get stuck around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken. | Progress bars stalling; caption "10,000 pieces, the standard's degree table, 5 seeded runs; one run with 2% extra stuck at 16%" | stall bars |  |
 | 14_7 | On average, about seventy of them aren't in any card. No decoder can find those. | Those pieces outlined red; caption "2% extra: on average ≈ 70 of the 10,000 pieces are in no card" | highlight |  |
-| 14_8 | *(for programmers)* Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must fix the packet count in advance, and with byte arithmetic it tops out around two hundred fifty-six. A fountain never runs dry. | Reed–Solomon vs fountain card; lower-third "Reed–Solomon over GF(256): N ≤ 257 (q + 1); RaptorQ: up to 2²⁴ ≈ 16.8 million packets per block" | card | hold |
 
 - **For programmers (lower-third at 14_3):** "per piece, a list of the cards
   that use it; plus a queue of cards with one unknown left (the ripple)" (D19).
@@ -344,11 +351,11 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 15_1 | RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card, of about seven pieces on average. | Blue ex-or cards, each with its handful of badges; "≈ 7 pieces per packet (average)" | cards |  |
-| 15_2 | Before sending, the sender adds some extra pieces, picked so that certain fixed cards all have the result zero. These free cards are never sent, because both sides know them. And every piece is in some free card, so even a piece no packet mixed can still be worked out. | The grid for ten pieces, 27 × 27: columns "10 pieces + 17 extra pieces", rows "7 free ex-or cards + 10 free byte cards + 10 packets" (R2 Maya M22), each free card's result "= 0"; a column no packet row uses, outlined red as in 14_7, lights in a free-card row | matrix schematic |  |
-| 15_6 | Big files are cut into blocks, each solved on its own. In every block, only ten to sixteen free cards are byte cards. In big blocks, hundreds of others are cheap ex-ors. | A file splits into blocks; then a schematic big block (not a zoom): "10,017 pieces + 252 extra pieces; 241 free ex-or cards + 11 free byte cards" | matrix schematic |  |
-| 15_3 | Remember the danger meter? Now the bucket has a slot for every piece, old and new, and it still doesn't care about order. Count the ex-or cards first, and they fill it up to the last ten to sixteen slots, before the danger starts. The byte cards fill those, where a card is useless only one time in two fifty-six. | One bucket, its block size on its label (R2 Ruth R16): the big block, 10,269 slots, blue water fills 10,258, the top 11 gold; an inset for ten pieces, 27 slots, 17 blue and 10 gold | danger meter callback |  |
-| 15_4 | ⟨predict⟩ What if those last cards were ex-or too? | The gold layer turns blue | prediction card |  |
+| 15_1 | RaptorQ does something cheaper. Its packets never use byte amounts. Each is a plain ex-or card of about seven pieces on average. | Blue ex-or cards, each with its handful of badges; "≈ 7 pieces per packet (average)" | cards |  |
+| 15_7 | First, the sender adds extra pieces. With three pieces, add P, equal to A ex-or B ex-or C. Then A ex-or B ex-or C ex-or P is always zero. Both sides know that card, so it's never sent. It's a free card. | Three piece badges A, B, C and a fourth, P = A ⊕ B ⊕ C, outlined as an extra piece; then the card A ⊕ B ⊕ C ⊕ P = 0 in chapter 3's card style, labelled "free card: both sides know it, never sent" (R3 Maya maya-01) | cards |  |
+| 15_2 | RaptorQ picks its extra pieces so that many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down. | The grid for ten pieces, 27 × 27: columns "27 unknowns: 10 pieces + 17 extra pieces" (R3 Dev D5), rows "7 free ex-or cards + 10 free byte cards + 10 packets" (R2 Maya M22), each free card's result "= 0"; a column no packet row uses, outlined red as in 14_7, lights in a free-card row | matrix schematic |  |
+| 15_3 | The bucket now has a slot for every piece, old and new, filled in any order. Count the ex-or cards first, and they almost always fill it up to the last ten to sixteen slots. The byte cards fill those, where a card is useless only one time in two fifty-six. | One bucket, its block size on its label (R2 Ruth R16): the big block, 10,269 slots, blue water fills 10,258, the top 11 gold; an inset for ten pieces, 27 slots, 17 blue and 10 gold | danger meter callback |  |
+| 15_4 | ⟨predict⟩ What if those last cards were plain ex-or cards? | The gold layer turns blue | prediction card |  |
 | 15_5 | The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand. | Ablation counters on the bucket: 70.7% vs 0.646%; caption "10 pieces · 10,000 / 100,000 trials · our RFC 6330 implementation" (R2 Ruth R9) | **ablation counters** | listen 3 s (the rank chord: the ex-or-only run ends in thuds and an unfinished chord; the byte run completes it) |
 
 - **R2 rewrite (Ruth R1, Maya M2, M8, M13, M22, Dev dev-01, dev-02):** as
@@ -360,13 +367,27 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
   old or new, sits in a free card (B-X7, all 477 block sizes), which is why the
   pieces no packet touched (14_7) are no longer lost. The bucket ignores order
   (03_5), so the ex-or cards are counted first and the byte cards close the
-  last H slots. Beat 15_6 is new at R2 (the old 15_2 split at its picture
+  last H slots. Beat 15_6 was new at R2 (the old 15_2 split at its picture
   change: the ten-piece grid, then the big block).
+- **R3 (Maya maya-01, Ruth R3-01, R3-02, R3-07, Dev D3, D5):** a free card is
+  shown on three pieces first (15_7: P = A ⊕ B ⊕ C makes A ⊕ B ⊕ C ⊕ P = 0),
+  then grown into the grid. 15_6 (blocks) left the video for the description,
+  so the free-card idea is not interrupted; its "ten to sixteen byte rows" is
+  still 15_3's. 15_2 no longer says a piece "can still be worked out"
+  (coverage is necessary, not sufficient: rank L decides, 16_3), and 15_3's
+  ex-or rows "almost always" fill to the last H slots (their rank falls short
+  0.098% of the time in the uniform model at ten pieces, more for sparse rows).
+  The grid's columns are "27 unknowns", since every original is itself an
+  ex-or card over the unknowns (D5). The 1.6× gap between one in 256 and the
+  measured six in a thousand is a 15_5 lower-third (D3).
 - **Precisely (lower-thirds):** 15_2 "precisely: RaptorQ adds S + H extra
   unknowns tied to the pieces by S + H fixed equations whose right side is
   zero; packets are ex-or cards over all of them; the sender solves for them all
-  so the first K′ packets are the originals" (D3, RB-26); 15_6 "big files are
-  cut into blocks of up to 56,403 pieces; each block decodes on its own" (D3).
+  so the first K packets are the originals; the K′ − K padding pieces are
+  known zeros, never sent; each original is one more ex-or card over the
+  unknowns" (D3, RB-26, R3 Ruth R3-07, Dev D5). 15_5 "precisely: a little
+  worse than one in 256, because RaptorQ's ex-or cards are sparse and fixed:
+  random rows of its shape fail 0.49%" (R3 Dev D3).
 - **Ruth (RB-01):** the ex-or cards always stop exactly H short of the
   unknowns (L − H = K′ + S), at every K′: 17 of 27 at ten pieces, 10,258 of
   10,269 at 10,017 (B-X7, B-F19). "About seven pieces" is B-F16's 7.152
@@ -384,8 +405,8 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 | 16_1 | Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece, here C. Call it little c, and carry it along like an unknown in algebra. | The frozen five-piece graph from 14_5; C's badge becomes a ghost "c" | ghost node |  |
 | 16_2 | Three of these are our cards from the start. A is two ex-or c, and B is six ex-or A. D is six ex-or B ex-or c, so the two c's cancel, and D is two. And E follows from D. | Chapter 03's card objects return for A ⊕ C = 2, B ⊕ C ⊕ D = 6, A ⊕ B = 6, beside the new D ⊕ E = 14 and B ⊕ E = 15 (R2 Maya M6); each line lights the card it comes from: A = 2 ⊕ c, B = 6 ⊕ A = 6 ⊕ 2 ⊕ c, D = 6 ⊕ (6 ⊕ 2 ⊕ c) ⊕ c = 2 (R2 Dev dev-05), E = 14 ⊕ D | peel with a ghost |  |
 | 16_3 | At the end, the leftover cards and the byte cards pin down the parked pieces. Here the leftover card, B ex-or E is fifteen, gives c as seven. It's elimination in a clever order, so it works exactly when the cards pin down every piece. | The leftover card B ⊕ E = 15 lights, with D ⊕ E = 14 and B ⊕ C ⊕ D = 6: c = 15 ⊕ 14 ⊕ 6 = 7; back-substitution A = 5, B = 3, D = 2, E = 12 | live solve |  |
-| 16_4 | ⟨predict⟩ Now the ring of five that ex-or couldn't solve. Let a byte card replace the fifth card, E plus two times A is six. Walk around the ring. Does A cancel this time? | The ring walk, one edge per beat; the fifth card turns gold in place (R2 Ruth R11: five cards, not six) | **ring walk** |  |
-| 16_5 | With ex-or, A met itself and cancelled. Now A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five. The same A, B, C, and D as at the start. | `A ⊕ 2A = (1 ⊕ 2)A = 3A`; the results `6 ⊕ 4 ⊕ 5 ⊕ 14 ⊕ 6 = 15` (R2 Maya M7); `3A = 15 ⇒ A = 5`; "three times five is fifteen here too, but three times seven was nine" | TransformMatchingTex | hold |
+| 16_4 | ⟨predict⟩ Now the ring of five that ex-or couldn't solve. Let a new byte card replace the fifth card, E plus two times A is six. Walk around the ring. This time, does the A cancel? | The ring walk, one edge per beat; the fifth card turns gold in place (R2 Ruth R11: five cards, not six) | **ring walk** |  |
+| 16_5 | With ex-or, A met itself and cancelled. Now one A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five. | `A ⊕ 2A = (1 ⊕ 2)A = 3A`; the results `6 ⊕ 4 ⊕ 5 ⊕ 14 ⊕ 6 = 15` (R2 Maya M7); `3A = 15 ⇒ A = 5`; "three times five is fifteen here too, but three times seven was nine" | TransformMatchingTex | hold |
 
 - **Lower-thirds:** "RaptorQ parks 158 pieces on purpose at 10,017 pieces;
   search: inactivation decoding"; "the sender also runs one solve, to send the
@@ -416,8 +437,8 @@ fn mul(a: u8, b: u8) -> u8 {                            // the tables are elided
 | 17_3 | Twenty-four. Two extra, just once. That's too rare to measure precisely. An unlucky phone just waits for one more packet. | Ticks "1 in 100 / 1 in 10,000 / 1 in a million" on the ladder; the measured 6,316 / 24 / 1 beside them; beside the "1": "95% interval: 0.025 to 5.6 per million" (R2 Ruth R8); lower-third (R2 Dev dev-10): "÷256 twice predicts ≈ 0.1 failures here; one or more happens ≈ 9% of the time" | log chart in words |  |
 | 17_4 | Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets. With one extra, one in ten thousand, and with two, one in a million. | RFC 6330 requirement overlaid, each tick beside its packet count (R2 Maya M9); lower-third "RFC 6330 §5.8: averaged over randomly chosen packet IDs, for each padded block size K′" | statement card |  |
 | 17_5 | The originals can go first, unchanged, so a phone with a clean connection does no decoding at all. | Originals then repair packets | statement card |  |
-| 17_6 | It's in a standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. The same byte field protects some disk arrays that survive two dead drives, and every QR code. | Text cards, no logos: "ATSC 3.0 (A/331:2021; the FEC is optional)", "3GPP MBMS, 2005 (Raptor)", "Linux RAID-6", "QR codes" (R2 Dev dev-07) | cards |  |
-| 17_7 | Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine. | The byte clock's mirror pairs; the fold glowing at the top; the bucket fills; the chalk `3 × 7 = 9` returns; the phone field turns green; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256), carry-less multiplication, primitive polynomial, Gaussian elimination; R2 Dev dev-13); credits lower-third from RFC 6330's header and §9.2 (R2 Ruth R20): "LT codes: Luby, 2002 · Raptor codes: Shokrollahi and Luby · RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer, Minder" | listen 3 s (the motif resolves) |
+| 17_6 | It's in a standard for next-generation TV broadcasts. The same byte field protects some disk arrays that survive two dead drives, and every QR code. | Text cards, no logos: "ATSC 3.0 (A/331:2021; the FEC is optional)", "Linux RAID-6", "QR codes" (R2 Dev dev-07); the older sibling (3GPP MBMS chose Raptor in 2005) is in the description since R3 (Codex R10: the chapter was 92.5 s) | cards |  |
+| 17_7 | Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine. | The byte clock's mirror pairs; the fold glowing at the top; the bucket fills; the chalk `3 × 7 = 9` returns; the phone field turns green; receipts card | coda; names-to-search lower-third (fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256), carry-less multiplication, irreducible polynomial, primitive polynomial, discrete logarithm, Gaussian elimination; R2 Dev dev-13, R3 Ruth R3-03, R3-10); credits lower-third from RFC 6330's header and §9.2 (R2 Ruth R20): "LT codes: Luby, 2002 · Raptor codes: Shokrollahi and Luby · RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer, Minder" | listen 3 s (the motif resolves) |
 
 - **Ruth:** the requirement is over uniformly random received packet IDs, at
   K′ (padded K); our measurement is K = K′ = 10 (0.631% at 101, 0.54% at 1,002

@@ -1,0 +1,133 @@
+{
+  "_comment": "Pronunciation lexicon for Video E (narration skill, PRONUNCIATION.md). Only respell and accept change narration; say/ipa/lang/sources/decoy/note/probe are the record. Looked up with lookup_pronunciation.py and probed with probe_names.py run --write in this video's voice, michael (2026-10-12, ftts 0.1.11, FrankenWhisper 0.10.0, 3 carriers, control + decoy). The script speaks two of these names: von Neumann (10_1) and Pascal (06_5). Peres and Elias are on screen only (10_4): their probes did not pass, so a later script that wants them spoken must first find a spelling that does. Not in this file because the video only shows them and no source for the person's own pronunciation was found: Forsythe, Samuelson, Blum, Diaconis, Bartoš, Hoeffding, Dijkstra (the lookup tool guessed Samuelson from German spelling rules, which is wrong for Paul Samuelson). Re-probe when the voice or the ftts version changes; the owner's pronunciation overrides every entry.",
+  "words": {
+    "von Neumann": {
+      "say": "von NOY-muhn",
+      "respell": [
+        "von Neumann",
+        "von Noy-man"
+      ],
+      "ipa": "vɒn ˈnɔɪmən",
+      "lang": "en",
+      "sources": [
+        "https://en.wikipedia.org/wiki/John_von_Neumann"
+      ],
+      "decoy": [
+        "von NEW-man"
+      ],
+      "probe": {
+        "date": "2026-10-12",
+        "voice": "michael",
+        "asr": "fw",
+        "winner": null,
+        "discriminates": false,
+        "results": {
+          "von Neumann": "control UNVERIFIED 0/3 (the ASR wrote 'von Neumann' every time)",
+          "von NOY-muhn": "candidate FAIL 0/3 (heard 'Von N-O-Y Moon', 'Von Neumoon', 'von Neumun'): dropped",
+          "von Noy-man": "candidate UNVERIFIED 0/3 (the ASR wrote 'von Neumann' every time)",
+          "von NEW-man": "decoy FOOLED the ASR in 2 of 3 carriers (written 'von Neumann')"
+        }
+      },
+      "note": "English usage, as Wikipedia's lead gives it. The ASR writes the famous name for the right reading and for the wrong one (NEW-man), so it cannot verify this name. Judged instead from spectrograms of the three reads of 'This is von Neumann.' (0 to 3.5 kHz): after the n, the plain spelling and 'von Noy-man' both show the second formant rising (the 'oy' glide), most clearly in the respelling, while the decoy's falls from high to low ('nyoo'). That is a reading of a picture, not a listener's verdict: the plain spelling is listed first, 'von Noy-man' is the alternate, and whoever directs the narration should look at 10_1's take for the same rise."
+    },
+    "Pascal": {
+      "say": "pass-KAL",
+      "respell": [
+        "Pa-skal"
+      ],
+      "ipa": "pæˈskæl",
+      "lang": "en",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Blaise_Pascal",
+        "https://en.wiktionary.org/wiki/Pascal#English"
+      ],
+      "decoy": [
+        "PASS-chul"
+      ],
+      "note": "Spoken as 'Pascal's triangle' (06_5). English usage; the French is pah-SKAHL. The plain spelling was heard as 'Pascale' and 'Pascoe' in two of three carriers; 'Pa-skal' passed in all three.",
+      "accept": [
+        "paschal"
+      ],
+      "probe": {
+        "date": "2026-10-12",
+        "voice": "michael",
+        "asr": "fw",
+        "winner": "Pa-skal",
+        "discriminates": true,
+        "results": {
+          "Pascal": "control FAIL 1/3",
+          "pass-KAL": "candidate PARTIAL 2/3",
+          "Pa-skal": "candidate PASS 3/3",
+          "PASS-chul": "decoy OK (heard differently) 0/3"
+        }
+      }
+    },
+    "Peres": {
+      "say": "PER-es",
+      "respell": [
+        "Peres"
+      ],
+      "ipa": "ˈpɛrɛs",
+      "lang": "en",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Shimon_Peres"
+      ],
+      "decoy": [
+        "puh-REEZ"
+      ],
+      "probe": {
+        "date": "2026-10-12",
+        "voice": "michael",
+        "asr": "fw",
+        "winner": null,
+        "discriminates": true,
+        "results": {
+          "Peres": "control FAIL 0/3 (written 'Peres' twice, 'Paris' once; the written name does not sound like the target to the scorer)",
+          "PER-es": "candidate FAIL 0/3 (heard 'Perez', 'Puri's', 'Paris')",
+          "Perr-ess": "candidate FAIL 1/3",
+          "puh-REEZ": "decoy OK (heard differently) 0/3"
+        }
+      },
+      "note": "On screen only; not verified for speech. Yuval Peres's article gives no pronunciation; the target is the English usage Wikipedia records for the same Hebrew surname (Shimon Peres), an inference about the name, not his own usage. The lookup tool's first answer (PAY-reess, from the Portuguese surname) is wrong for him and was not kept."
+    },
+    "Elias": {
+      "say": "ih-LY-us",
+      "respell": [
+        "Elias"
+      ],
+      "ipa": "ɪˈlaɪ.əs",
+      "lang": "en",
+      "sources": [
+        "https://en.wiktionary.org/wiki/Elias#English"
+      ],
+      "decoy": [
+        "ELL-ee-us"
+      ],
+      "probe": {
+        "date": "2026-10-12",
+        "voice": "michael",
+        "asr": "fw",
+        "winner": null,
+        "discriminates": true,
+        "results": {
+          "Elias": "control UNVERIFIED 0/3 (the ASR wrote 'Elias' every time)",
+          "ih-LY-us": "candidate FAIL 1/3 (heard 'I Like S', 'Aya Laius')",
+          "Ih-ly-us": "candidate FAIL 1/3 (one read ran on, repeating itself)",
+          "ELL-ee-us": "decoy OK (heard differently) 0/3"
+        }
+      },
+      "note": "On screen only; not verified for speech. The standard English reading of the name; Peter Elias's own usage was not verified. Hyphenated respellings made michael spell letters or run on; the plain spelling is the only usable one found."
+    }
+  },
+  "accept": {
+    "favours": [
+      "favors"
+    ],
+    "rolls": [
+      "roles"
+    ]
+  },
+  "phrases": {
+    "their one brick": "they're one brick"
+  }
+}

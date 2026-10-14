@@ -177,17 +177,17 @@ impl SceneConstruct for Counting {
 
         // Point 5 (R = 7, S = 7), in full, with the independence baseline.
         kit.say(stage, "c3")?;
-        self.sweep(stage, &f, &h, &dots, &mut q_cells, 4, Detail::Full)?;
+        self.sweep(stage, "c3", &f, &h, &dots, &mut q_cells, 4, Detail::Full)?;
         // Point 4 (R = 6, S = 4).
         kit.say(stage, "c5")?;
-        self.sweep(stage, &f, &h, &dots, &mut q_cells, 3, Detail::Brief)?;
+        self.sweep(stage, "c5", &f, &h, &dots, &mut q_cells, 3, Detail::Brief)?;
         // A tied point (R = 9, S = 9): seven strictly below-left, two twins.
         kit.say(stage, "c6")?;
-        self.sweep(stage, &f, &h, &dots, &mut q_cells, 7, Detail::Tie)?;
+        self.sweep(stage, "c6", &f, &h, &dots, &mut q_cells, 7, Detail::Tie)?;
         // The rest, quickly.
         kit.say(stage, "c7")?;
         for k in [0, 1, 2, 5, 6, 8, 9] {
-            self.sweep(stage, &f, &h, &dots, &mut q_cells, k, Detail::Quick)?;
+            self.sweep(stage, "c7", &f, &h, &dots, &mut q_cells, k, Detail::Quick)?;
         }
 
         let cells: Vec<Mob> = q_cells.iter().flatten().copied().collect();
@@ -241,10 +241,13 @@ enum Detail {
 }
 
 impl Counting {
+    /// One point's count, under narration line `line`: its texts wait for
+    /// the sentences that name them.
     #[allow(clippy::too_many_arguments)]
     fn sweep(
         &self,
         stage: &mut Stage<'_>,
+        line: &str,
         f: &Frame2,
         h: &stats::Hoeffding,
         dots: &[Mob],
@@ -305,6 +308,11 @@ impl Counting {
                 Palette::q(),
                 v(3.75, 0.3),
             )?;
+            if matches!(detail, Detail::Full | Detail::Tie) {
+                // c3 "Six people sit below and to the left, ...",
+                // c6 "Seven points sit strictly below and to the left."
+                kit.until_sentence(stage, line, 1)?;
+            }
             play!(stage; g.rt(1.4), fade_in(stage.arena_mut(), count, ORIGIN, 1.0)?.rt(1.4));
             texts.push(count);
             let qsrc = if detail == Detail::Tie {
@@ -317,6 +325,24 @@ impl Counting {
                 format!(r"Q_i = 1 + {} = {}", inside.len(), fmt(h.q[i]))
             };
             let qt = kit.tex(stage, &qsrc, 40.0, Palette::ink(), &rs, v(3.75, -0.45))?;
+            if detail == Detail::Tie {
+                let twins = kit.text(
+                    stage,
+                    "two exact twins share the spot: ¼ each",
+                    26.0,
+                    Palette::dim(),
+                    v(3.75, -1.25),
+                )?;
+                // "Its two twins add a quarter each."
+                kit.until_sentence(stage, line, 2)?;
+                play!(stage; fade_in(stage.arena_mut(), twins, ORIGIN, 1.0)?.rt(0.8));
+                texts.push(twins);
+                // "So Q is one plus seven plus a half."
+                kit.until_sentence(stage, line, 3)?;
+            } else if detail == Detail::Brief {
+                // c5 "So Q is four."
+                kit.until_sentence(stage, line, 1)?;
+            }
             play!(stage; write(stage.arena(), qt).rt(1.0));
             texts.push(qt);
             if detail == Detail::Full {
@@ -348,18 +374,7 @@ impl Counting {
                 texts.push(more);
                 stage.wait(2.2)?;
             } else if detail == Detail::Tie {
-                let twins = kit.text(
-                    stage,
-                    "two exact twins share the spot: ¼ each",
-                    26.0,
-                    Palette::dim(),
-                    v(3.75, -1.25),
-                )?;
-                play!(stage; fade_in(stage.arena_mut(), twins, ORIGIN, 1.0)?.rt(0.8));
-                texts.push(twins);
                 stage.wait(1.6)?;
-            } else {
-                stage.wait(1.0)?;
             }
         }
 

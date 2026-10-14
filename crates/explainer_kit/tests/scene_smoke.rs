@@ -12,6 +12,7 @@ use fmn::prelude::*;
 struct Seen {
     rect_dl: Option<Vec3>,
     text_center: Option<Vec3>,
+    named_center: Option<Vec3>,
     tex_left: Option<Vec3>,
     readout_left_after: Option<Vec3>,
     tracker_after: Option<f64>,
@@ -29,6 +30,14 @@ impl SceneConstruct for Smoke {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
         let title = kit.text(stage, "Hoeffding's D", 36.0, Palette::ink(), v(0.0, 2.0))?;
+        let named = kit.text_t2c(
+            stage,
+            "Blue and Green",
+            24.0,
+            Palette::ink(),
+            &[("Blue", Palette::blue()), ("Green", Palette::green())],
+            v(0.5, -3.0),
+        )?;
         let eq = kit.tex_left(
             stage,
             r"D = 30\cdot\frac{Q}{n}",
@@ -45,6 +54,7 @@ impl SceneConstruct for Smoke {
         {
             let mut seen = self.seen.borrow_mut();
             seen.text_center = Some(stage.get_center(title));
+            seen.named_center = Some(stage.get_center(named));
             seen.tex_left = Some(stage.get_left(eq));
             seen.rect_dl = Some(stage.get_corner(r, DL));
         }
@@ -96,6 +106,7 @@ fn the_kit_builds_and_plays_a_scene() {
     );
     let close = |a: Vec3, b: Vec3| (a[0] - b[0]).abs() < 1e-6 && (a[1] - b[1]).abs() < 1e-6;
     assert!(close(s.text_center.unwrap(), v(0.0, 2.0)), "{:?}", s.text_center);
+    assert!(close(s.named_center.unwrap(), v(0.5, -3.0)), "{:?}", s.named_center);
     assert!((s.tex_left.unwrap()[0] + 3.0).abs() < 1e-6, "{:?}", s.tex_left);
     assert!(close(s.rect_dl.unwrap(), v(1.0, -2.0)), "{:?}", s.rect_dl);
     assert_eq!(s.tracker_after, Some(2.5));
@@ -113,6 +124,7 @@ fn the_kit_builds_and_plays_a_scene() {
         kinds,
         vec![
             (TextKind::Text, "Hoeffding's D"),
+            (TextKind::Text, "Blue and Green"),
             (TextKind::Tex, r"D = 30\cdot\frac{Q}{n}"),
             (TextKind::Live, "live number"),
         ]

@@ -1,0 +1,1 @@
+Hoeffding's D, correlation, statistics, independence test, Pearson correlation, Spearman rank correlation, Kendall tau, rank statistics, permutation test, U-statistic, nonparametric statistics, math explainer

@@ -1,0 +1,15 @@
+# The numbers of docs/description.md that are no value of the oracle's output (tools/description_numbers.py).
+# number TAB context TAB kind TAB reason. The context is a piece of the line the number stands in; the reason names
+# the source (docs/fact-sheet.md) or what the number is. Years, citations and structure only: a number the video or
+# the oracle computes is a fact (the F-D rows of oracle.py), named in the brackets of the text that states it.
+1965	Golomb, 1965	year	S6: Golomb, "A Geometric Proof of a Famous Identity", The Mathematical Gazette 49(368), May 1965 (Cambridge Core page)
+1977	Love, 1977	year	S6: Love, "Proof without Words: Cubes and Squares", Mathematics Magazine 50(2), March 1977, p. 74 (Crossref)
+200	Chinese proof from 200 BC	cited	the date in a popular claim the video does not make and the description names only to deny it (fact sheet, Never said or shown; S13: the sources read date the Zhoubi to the first century BC and its figure to the third century CE); used twice
+4	III.4	cited	Aristotle, Physics III.4 (book III, chapter 4), the passage that uses the word gnomon (S17 of docs/fact-sheet.md).
+23	Proposition 23	cited	Archimedes, Quadrature of the Parabola, Proposition 23 (S11 of docs/fact-sheet.md).
+9	range(1, 9)	structural	The code's n = 1 to 8.
+0.0	k = 0.0, 0	structural	The code's float zero start.
+100	added 1 to 100	structural	The story of Gauss's sum that the video does not tell (Not said).
+64	64-bit floating point	structural	The width of the double-precision float of the code block.
+77	p. 77, "Sums of Squares I"	cited	Nelsen, Proofs Without Words: Exercises in Visual Thinking (MAA, 1993), p. 77, "Sums of Squares I", credit Man-Keung Siu; the page image was read (S8, S15 of docs/fact-sheet.md).
+114	pp. 109–114	cited	The "Mathematical Miscellany" column of Mathematics Magazine 23(2), November–December 1949, runs pp. 109–114, the range secondary sources cite for the item (Wikipedia, OEIS A000127); the note itself is on p. 109 (S1 of docs/fact-sheet.md).

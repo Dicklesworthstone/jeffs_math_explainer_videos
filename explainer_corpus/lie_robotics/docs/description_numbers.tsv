@@ -1,0 +1,30 @@
+# Numbers of docs/description.md that are not a number of an oracle key (tools/description_numbers.py reads this).
+# Columns, tab separated: number, context (a piece of the line the number stands in), kind, reason.
+# A row nothing uses is an error. Only years, citations and structure are here: every number the video or its
+# research computes is a fact of oracle.py (the G-D family), and the description names it in a [bracket].
+#
+# year: the year of a cited source (Sources and "Not verified" of docs/fact-sheet.md).
+74	winter of 1873	year	The second year of "the winter of 1873 - 74", MacTutor, "Sophus Lie" (quoted in docs/fact-sheet.md, History); the oracle's G-L.lie.year is 1873.
+1984	proceedings are dated 1984	year	Springer, Lecture Notes in Control and Information Sciences 58, 1984, the proceedings of MTNS-83 (G-L.brockett.year is 1983).
+1984	Brockett (1984)	year	The same 1984 volume of Brockett's paper (Sources).
+2000	Ceccarelli (2000)	year	M. Ceccarelli, Mechanism and Machine Theory 35 (2000), pp. 761-770 (Sources).
+2022	from the 2022 sheet	year	KUKA data sheet "LBR iiwa 14 R820", 0000-246-833, V1.2, 01.06.2022 (Sources).
+2015	2015 specification	year	KUKA's 2015 specification "Spez LBR iiwa V5", which agrees with the 2022 data sheet (docs/fact-sheet.md, Sources, The robots).
+#
+# cited: a name, equation, section or exercise number of a cited source (Sources).
+055	Comanche 055	cited	The name of the Apollo command module flight software, Comanche 055, routine GLOCKMON, listing p. 147 (docs/fact-sheet.md, History, Apollo): a program's name, not a quantity.
+13.10	Lynch and Park eq. 13.10	cited	Lynch and Park, eq. (13.10), p. 519: the mecanum wheel speeds (Sources).
+4.14	Lynch and Park eq. 4.14	cited	Lynch and Park, eq. (4.14), p. 142: the space form of the product of exponentials (Sources).
+5.11	space Jacobian (eq. 5.11)	cited	Lynch and Park, eqs. (5.9) to (5.11), pp. 179-180: the space Jacobian (Sources).
+2.2	Exercise 2.2	cited	Lynch and Park, Exercises 2.2 and 2.3, p. 38 (Sources).
+2.3	Exercise 2.3	cited	Lynch and Park, Exercises 2.2 and 2.3, p. 38 (Sources).
+9.7	eqs. 9.7 and 9.8	cited	Lynch and Park, section 9.2.1, pp. 326-328, eqs. (9.6) to (9.8) (Sources).
+9.8	eqs. 9.7 and 9.8	cited	Lynch and Park, section 9.2.1, pp. 326-328, eqs. (9.6) to (9.8) (Sources).
+14	iiwa 14	cited	The model name of the KUKA LBR iiwa 14 (whose rated payload also is 14 kg, G-L.kuka.payload_kg): a name, not a quantity of the video.
+#
+# structural: a count or an index that is the statement itself.
+360	fmod(-340 + 180, 360)	structural	The degrees of a full turn, the modulus of the heading code line.
+60	(0, 60°, 0, 0, 0, 60°, 0)	structural	The two bent joints of the quiz pose whose tip is G-J.elbow_straight.p (joints 2 and 6 at 60 degrees).
+3	(3 hinges)	structural	A ball joint is three hinges.
+3	to 3 it is 5	structural	Joints 1 to 3: the line breaks inside the phrase.
+3	3 by 3	structural	The size of a matrix that is the statement itself: a turn matrix of space has three axes, so it is 3 by 3 ("R a 3 by 3 turn matrix"), and the platform's velocity matrix has rows for x, y and the heading ("the 3 by 3 velocity matrix").

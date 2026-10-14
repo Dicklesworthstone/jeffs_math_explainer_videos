@@ -1,0 +1,17 @@
+# Video E: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py fair_coin).
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
+1960	1960s pennies	year	the classroom records of fact sheet S13 ("Using 1960's pennies, my students have 1878/5520"); E-C3.pennies holds the counts
+218	(2007, p. 218)	cited	Diaconis, Holmes and Montgomery 2007, abstract and p. 218 (fact sheet S11)
+95	95% credible interval	cited	Bartoš and others 2025: "Pr(same side) = 0.508, 95% credible interval (CI) [0.506, 0.509]" (fact sheet S12)
+0.506	0.506 to 0.509	cited	the same sentence of Bartoš and others 2025 (fact sheet S12)
+0.509	0.506 to 0.509	cited	the same sentence of Bartoš and others 2025 (fact sheet S12)
+100	A single run of 100 tosses	structural	the per-hundred base of the facts E-F10.*.per_hundred
+10	fewer than 10% heads	cited	Diaconis, Holmes and Montgomery 2007, p. 218: "several students had coins that came up fewer than 10% heads" (fact sheet S11)
+3	(Remark 3)	cited	Peres 1992, Remark 3: stopping his procedure, or Elias's, at m fair tosses does not give fair tosses (docs/claims.md; fact sheet S2)
+64	block of 64 tosses	structural	the block size of the facts E-F10.elias.block64.*, the largest block of the table (named by the tag beside it)
+20	19 times in 20	structural	the base of the fact E-D.fair_band.chances_in_20, whose value 19 is counted in twentieths
+9	for runs 1 to 9	structural	the label of the last seeded run, E-S9 (seeds 195101 to 195109, E-S0.seeds)
+5	In run 5	structural	the label of the seeded run E-S5 (the two coins)
+6	In run 6	structural	the label of the seeded run E-S6 (the coin with a memory)
+8	In run 8	structural	the label of the seeded run E-S8 (the loaded die)
+3	Run 3 is not used	structural	the label of the seeded run that has no facts: the oracle has E-S1, E-S2 and E-S4 to E-S9, no E-S3

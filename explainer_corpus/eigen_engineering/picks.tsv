@@ -1,0 +1,4 @@
+# The director's picks for Video K's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input, exactly as planned> TAB <why>. The named read wins whatever its score.
+# Triage of 2026-10-14 on the R2 script (voice michael): every take of a flagged sentence scored with the chooser's own analyze().
+03_5	0	“These are the system's own patterns.”	final s of 'patterns' present (analyze: s/z ok, cut_short 0, ASR ratio 1.00, frication strip F run then the voiced z); the chosen read (in doubled quotation marks, score 0.854) drops it and the plain read is cut short

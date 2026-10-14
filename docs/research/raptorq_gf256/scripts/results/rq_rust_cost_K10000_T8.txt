@@ -1,0 +1,31 @@
+K=10000 T=8 K'=10017 padding=17 transfer_length=80000 source_blocks=1 sub_blocks=1 alignment=1 seed=2026 runs=5
+encoder_setup Encoder::with_defaults: median 14.665 ms runs_ms=[15.125,12.081,14.665,11.168,14.709]
+get_encoded_packets(50010) [K source + 50010 repair]: 28.390 ms
+case=realistic mode=stream run=0 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10000 correct=true time_ms=11.932
+case=realistic mode=stream run=1 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10000 correct=true time_ms=10.822
+case=realistic mode=stream run=2 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10000 correct=true time_ms=13.706
+case=realistic mode=stream run=3 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10000 correct=true time_ms=11.503
+case=realistic mode=stream run=4 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10000 correct=true time_ms=12.529
+case=realistic mode=batch run=0 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10002 correct=true time_ms=10.493
+case=realistic mode=batch run=1 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10002 correct=true time_ms=10.142
+case=realistic mode=batch run=2 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10002 correct=true time_ms=11.994
+case=realistic mode=batch run=3 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10002 correct=true time_ms=10.017
+case=realistic mode=batch run=4 packets=K+2=10002 source_pkts=9900 repair_pkts=102 returned_some_at_packet=10002 correct=true time_ms=11.624
+case=repair_only mode=stream run=0 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10000 correct=true time_ms=13.393
+case=repair_only mode=stream run=1 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10000 correct=true time_ms=12.152
+case=repair_only mode=stream run=2 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10000 correct=true time_ms=11.472
+case=repair_only mode=stream run=3 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10000 correct=true time_ms=11.756
+case=repair_only mode=stream run=4 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10000 correct=true time_ms=13.635
+case=repair_only mode=batch run=0 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10002 correct=true time_ms=12.133
+case=repair_only mode=batch run=1 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10002 correct=true time_ms=14.554
+case=repair_only mode=batch run=2 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10002 correct=true time_ms=11.665
+case=repair_only mode=batch run=3 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10002 correct=true time_ms=12.460
+case=repair_only mode=batch run=4 packets=K+2=10002 source_pkts=0 repair_pkts=10002 returned_some_at_packet=10002 correct=true time_ms=14.246
+--- summary K=10000 T=8 (median of 5 runs, ms) ---
+encoder_setup median_ms=14.665 runs_ms=[15.125,12.081,14.665,11.168,14.709]
+get_encoded_packets(50010) ms=28.390 (single call)
+realistic stream median_ms=11.932 runs_ms=[11.932,10.822,13.706,11.503,12.529]
+realistic batch median_ms=10.493 runs_ms=[10.493,10.142,11.994,10.017,11.624]
+repair_only stream median_ms=12.152 runs_ms=[13.393,12.152,11.472,11.756,13.635]
+repair_only batch median_ms=12.460 runs_ms=[12.133,14.554,11.665,12.460,14.246]
+  0.34s user 0.01s system 99% cpu 0.348 total

@@ -438,6 +438,9 @@ def bf2():
     emit("B-F2.expected_misses_per_packet", n * p)
     emit("B-F2.sd_misses_per_packet", math.sqrt(float(n * p * (1 - p))))
     emit("B-F2.ln_P_packet_reaches_all", n * math.log(0.99))
+    # 01_1, 01_5: the hook's model, as said (a million phones, one packet in a hundred lost)
+    emit("B-F2.phones", n)
+    emit("B-F2.loss_one_in", 1 / p)
 
 
 # ==============================================================================================
@@ -467,6 +470,8 @@ def bf4():
     emit("B-F4.success_K3_check_7_8x6_8x4_8", Fraction(7, 8) * Fraction(6, 8) * Fraction(4, 8))
     emit("B-F4.success_limit", p_full_limit(2, 0))
     emit("B-F4.useless_prob_3pieces_2cards_held", Fraction(4, 8))
+    # 05_2 screen: three random cards over three pieces fail 1 - 21/64 of the time
+    emit("B-F4.fail_K3", 1 - p_full_finite(2, 3))
 
 
 # ==============================================================================================
@@ -479,6 +484,9 @@ def bf5():
     f = [1 - p_full_limit(2, h) for h in range(5)]
     emit("B-F5.ratio_fail_h0_over_h1", f[0] / f[1])
     emit("B-F5.ratio_fail_h3_over_h4", f[3] / f[4])
+    # 05_3-05_4, the danger meter on a ten-slot bucket: holding r useful ex-or cards of ten, a uniform card is
+    # useless (one the bucket can already make) with probability 2^r / 2^10
+    emit("B-F5.danger_meter_K10", [Fraction(2 ** r, 2 ** 10) for r in range(10)])
 
 
 # ==============================================================================================
@@ -774,6 +782,11 @@ def bf13():
     emit("B-F13.log7_plus_log7", LOG[7] + LOG[7])
     emit("B-F13.log7_plus_log7_mod_255", (LOG[7] + LOG[7]) % 255)
     emit("B-F13.exp_141", EXP[141])
+    # 11_6 (R3, Dev D4): one fifty times itself goes past the top: 180 + 180 = 360 clicks, less 255, is 105: 26
+    emit("B-F13.log150_plus_log150", LOG[150] + LOG[150])
+    emit("B-F13.log150_plus_log150_mod_255", (LOG[150] + LOG[150]) % 255)
+    emit("B-F13.exp_105", EXP[105])
+    emit("B-F13.mul_150_150", gmul(150, 150))
     # 11_7 picture: each byte's partner sits at its mirror image, log a^-1 = 255 - log a (1 is its own mirror)
     emit("B-F13.log_inverse_is_255_minus_log_all255_ok",
          all(LOG[INV[a]] == (255 - LOG[a]) % 255 for a in range(1, 256)))
@@ -1066,6 +1079,8 @@ def shape_model():
     exor = 1 - math.prod((1 - Fraction(1, 2 ** i) for i in range(H + 1, L + 1)), start=Fraction(1))
     byte = 1 - p_full_finite(256, H)
     emit("B-F21.shape_model.K10.ex_or_part_h0", exor)
+    # 15_5 lower-third (R3 Dev D3): "even random rows of its shape fail 0.49%"
+    emit("B-CH15.shown.shape_model_K10_h0_percent", f"{100 * float(fails[0]):.2g}")
     emit("B-F21.shape_model.K10.byte_part_h0", byte)
     emit("B-F21.shape_model.K10.product_form_equals_rank_sum_h0_ok", 1 - (1 - exor) * (1 - byte) == fails[0])
     emit("B-F21.shape_model.K10.ratio_h0_over_h1", fails[0] / fails[1])
@@ -1113,6 +1128,34 @@ def _binom_cdf_log(x, n, p):
         tot += math.exp(math.lgamma(n + 1) - math.lgamma(j + 1) - math.lgamma(n - j + 1)
                         + j * math.log(p) + (n - j) * math.log1p(-p))
     return tot
+
+
+# The hook's stream (R3 Ruth R3-09, Dev D7) and one big decode's cost (R3 Dev D2), recorded with the raptorq 2.0.0
+# crate itself: docs/research/raptorq_gf256/scripts/rq_rust (rq_stream.rs, rq_cost.rs).
+RECORDED_STREAM = ("rq_rust_stream_K1002_R200_5e6.txt", 1002,
+                   [(0, 5000000, 21186), (1, 5000000, 98), (2, 5000000, 3)])
+RECORDED_COST = {8: ("rq_rust_cost_K50000_T8.txt", "rq_rust_cost_K50000_T8_rep2.txt"),
+                 1280: ("rq_rust_cost_K50000_T1280.txt", "rq_rust_cost_K50000_T1280_rep2.txt")}
+
+
+def recorded_stream_and_cost():
+    fname, K, rows = RECORDED_STREAM
+    for h, trials, fails in rows:
+        emit(f"B-F22.stream.K{K}.h{h}.failures", fails)
+        emit(f"B-F22.stream.K{K}.h{h}.trials", trials)
+    emit(f"B-F22.stream.K{K}.provenance_check",
+         recorded_check(fname, rf"K={K} recv=K\+(\d+) trials=(\d+): failures=(\d+)", rows))
+    emit("B-F22.cost.pieces", 50000)
+    for T, files in RECORDED_COST.items():
+        # the medians, realistic (1% of the originals lost) then repair-only, each from both sets of runs
+        ms = []
+        for kind in ("realistic", "repair_only"):
+            for f in files:
+                txt = open(os.path.join(RESULTS, f), encoding="utf-8").read()
+                ms.append(float(re.search(rf"^{kind} stream median_ms=([0-9.]+)", txt, re.M).group(1)))
+        emit(f"B-F22.cost.T{T}.median_ms", ms)
+        lo, hi = f"{min(ms) / 1000:.1g}", f"{max(ms) / 1000:.1g}"
+        emit(f"B-CH14.shown.decode_seconds_T{T}", lo if lo == hi else f"{lo}\u2013{hi}")
 
 
 def bf22():
@@ -1190,6 +1233,39 @@ def bf24():
     emit("B-F24.phones_of_1e6_still_waiting_after_3_loops", late * n_phones)
     emit("B-F24.glyphs_of_1000_still_waiting_after_3_loops", late * 1000)
     carousel_packets(K, p, mean)
+    # the drawn field (01_1, 01_6): thresholds P(done by m) for one phone and for the last of a million, as doubles
+    phone_field([float(P_le(m, K)) for m in range(1, 13)], [float(P_le(m, K * n_phones)) for m in range(1, 13)])
+
+
+M64 = (1 << 64) - 1
+FIELD_SEED = 20261011   # the storyboard's date; never re-rolled for a nicer draw
+
+
+def splitmix64(seed):
+    """SplitMix64 (Steele, Lea & Flood 2014; Vigna's constants), the portable generator the video's model.rs
+    runs, so the scene draws the oracle's sample."""
+    state = seed
+    while True:
+        state = (state + 0x9E3779B97F4A7C15) & M64
+        z = state
+        z = ((z ^ (z >> 30)) * 0xBF58476D1CE4E5B9) & M64
+        z = ((z ^ (z >> 27)) * 0x94D049BB133111EB) & M64
+        yield z ^ (z >> 31)
+
+
+def phone_field(thr_phone, thr_million):
+    """01_6: the field draws a sample of 1,000 phones (one glyph per 1,000). Each finishes in the first loop m with
+    u < P(a phone is done by m), u uniform from the top 53 bits of SplitMix64(FIELD_SEED); the next draw gives the
+    loop the unluckiest of the million phones finishes in, by the same rule with P(all 10^6 done by m)."""
+    rng = splitmix64(FIELD_SEED)
+    uniform = lambda: (next(rng) >> 11) * (1.0 / 9007199254740992.0)
+    first = lambda u, thr: next((i + 1 for i, t in enumerate(thr) if u < t), len(thr) + 1)
+    loops = [first(uniform(), thr_phone) for _ in range(1000)]
+    emit("B-F24.field.seed", FIELD_SEED)
+    emit("B-F24.field.glyphs", len(loops))
+    emit("B-F24.field.phones_per_glyph", 10 ** 6 // len(loops))
+    emit("B-F24.field.glyphs_done_by_loop_1_to_6", [sum(t <= m for t in loops) for m in range(1, 7)])
+    emit("B-F24.field.unluckiest_of_1e6_loops", first(uniform(), thr_million))
 
 
 def carousel_packets(K, p, mean_loops):
@@ -1310,6 +1386,66 @@ def bf25():
     emit("B-F25.cert_exact_det_parity_agrees_with_mod2_rank", cert_parity_agree)
     emit("B-F25.cert_odd_det_count", cert_odd)
     emit("B-F25.cert_explicit_inverse_mod256_verified", cert_inverse_ok)
+
+
+def race07():
+    """07_6: the race, seeded (lane B-2). Ten random ex-or cards against ten random wrap-around cards on ten pieces,
+    2,000 rounds a side, drawn from numpy's PCG64DXSM(706) (the scene draws the same words with franken_manim's
+    bit-exact Pcg64Dxsm): the ex-or rounds first, one word per card (its top 10 bits, bit i = piece i), then the
+    wrap-around rounds, one word per amount (its top byte), card by card. Ex-or fails when the GF(2) rank is below
+    10. Wrap-around is decided here by the exact integer determinant's parity (Bareiss), a route independent of the
+    scene's elimination mod 256 with odd pivots, and certified against the mod-2 rank on every round."""
+    def det_bareiss(M):
+        A = [row[:] for row in M]
+        n = len(A)
+        sign, prev = 1, 1
+        for k in range(n - 1):
+            if A[k][k] == 0:
+                sw = next((i for i in range(k + 1, n) if A[i][k] != 0), None)
+                if sw is None:
+                    return 0
+                A[k], A[sw] = A[sw], A[k]
+                sign = -sign
+            for i in range(k + 1, n):
+                for j in range(k + 1, n):
+                    A[i][j] = (A[i][j] * A[k][k] - A[i][k] * A[k][j]) // prev
+            prev = A[k][k]
+        return sign * A[n - 1][n - 1]
+
+    K, T, SHOWN = 10, 2000, 4
+    words = [int(w) for w in np.random.PCG64DXSM(706).random_raw(T * K + T * K * K)]
+    xor_rounds = [[w >> 54 for w in words[t * K:(t + 1) * K]] for t in range(T)]
+    base = T * K
+    wrap_rounds = [[[words[base + t * K * K + r * K + c] >> 56 for c in range(K)] for r in range(K)] for t in range(T)]
+    xor_fail = [rank_gf2([[(w >> c) & 1 for c in range(K)] for w in cards]) < K for cards in xor_rounds]
+    wrap_fail = [det_bareiss(M) % 2 == 0 for M in wrap_rounds]
+    agree = all(f == (rank_gf2([[x & 1 for x in row] for row in M]) < K) for f, M in zip(wrap_fail, wrap_rounds))
+    emit("B-F25.race07.seed", 706)
+    emit("B-F25.race07.pieces", K)
+    emit("B-F25.race07.rounds_per_side", T)
+    emit("B-F25.race07.xor_failures", sum(xor_fail))
+    emit("B-F25.race07.wrap_failures", sum(wrap_fail))
+    emit("B-F25.race07.first_rounds_xor_fail", [int(f) for f in xor_fail[:SHOWN]])
+    emit("B-F25.race07.first_rounds_wrap_fail", [int(f) for f in wrap_fail[:SHOWN]])
+    emit("B-F25.race07.wrap_round1_amounts", [x for row in wrap_rounds[0] for x in row])
+    emit("B-F25.race07.det_parity_equals_mod2_rank_all_rounds_ok", agree)
+
+
+def b2_drawn():
+    """Numbers chapters 08 and 09 draw beyond the ledger rows (lane B-2): the seven-hour times table (08_2), the
+    product the hand counts out, 3 x 5 = 15 = 2 * 7 + 1 (08_2), 1001 (09_5), and the six FOIL terms of (x + 1)(x^2 +
+    x + 1) as exponents, before the pairs cancel (09_5)."""
+    emit("B-X4.z7_times_table", [a * b % 7 for a in range(7) for b in range(7)])
+    emit("B-X4.int_3x5", 3 * 5)
+    emit("B-X4.int_3x5_divmod_7", list(divmod(3 * 5, 7)))
+    emit("B-X4.bits_of_9", format(9, "04b"))
+    p3 = [i for i in range(8) if 3 >> i & 1][::-1]
+    p7 = [i for i in range(8) if 7 >> i & 1][::-1]
+    emit("B-F11.foil_3x7_terms", [i + j for i in p3 for j in p7])
+    # 10_4: the whole fold polynomial x^8 + x^4 + x^3 + x^2 + 1 as a number (0x11D)
+    emit("B-F11.fold_polynomial_0x11D_decimal", P_RQ)
+    # 11_2 lower-third "(its hand is 3)": the smallest byte whose powers reach all 255 under AES's polynomial
+    emit("B-F12.smallest_generator_0x11B", next(g for g in range(2, 256) if order_of(g, P_AES) == 255))
 
 
 # ==============================================================================================
@@ -1447,6 +1583,8 @@ def bx4():
     emit("B-X4.xor_twice_restores_all_65536_pairs_ok", all((a ^ b) ^ b == a for a in range(256) for b in range(256)))
     emit("B-X4.halvings_2^10", 2 ** 10)
     emit("B-X4.halvings_2^20", 2 ** 20)
+    # 06_5: a byte as the amount, 256 choices
+    emit("B-X4.byte_values_2^8", 2 ** 8)
     # 08: the seven-hour clock; 256 does not fit in a byte; the primes either side of 256
     emit("B-X4.z7_inverse_of_3", pow(3, -1, 7))
     emit("B-X4.z7_nonzero_rows_are_permutations_ok",
@@ -1589,10 +1727,78 @@ def bx8():
              for i in range(257) for j in range(i + 1, 257)))
 
 
+# ==============================================================================================
+# B-S1, B-S4  the 03_8 deck and the 03_9 name card
+# ==============================================================================================
+def bs_cards():
+    # 03_8: a toy deck stands in for RFC 6330's Tuple[K', ISI] (out of scope): a packet's number seeds SplitMix64,
+    # and its first draw picks a nonempty mix of A-D (bit i = piece i), the same on both sides
+    packets = [48213, 48214, 48215]
+    emit("B-S4.toy_deck.packets", packets)
+    emit("B-S4.toy_deck.masks", [1 + next(splitmix64(FIELD_SEED ^ n)) % 15 for n in packets])
+    # 03_9 name card "RFC 6330 · IETF Proposed Standard · August 2011" (RFC 6330 header, p. 1; B-S1)
+    emit("B-S1.sourced.rfc6330_number", 6330)
+    emit("B-S1.sourced.rfc6330_year", 2011)
+
+
+# ==============================================================================================
+# Chapter 13 (lane B-3): 13_1's byte card and the year 13_6's lower-third names
+# ==============================================================================================
+def ch13():
+    # 13_1: one card with random byte amounts on the pieces A-E: random.Random(1301).randrange(1, 256) five
+    # times, its result over GF(256) under RaptorQ's fold
+    rng = random.Random(1301)
+    amounts = [rng.randrange(1, 256) for _ in range(5)]
+    r = 0
+    for a, piece in zip(amounts, (5, 3, 7, 2, 12)):
+        r ^= gmul(a, piece)
+    emit("B-CH13.byte_card.seed", 1301)
+    emit("B-CH13.byte_card.amounts_A_to_E", amounts)
+    emit("B-CH13.byte_card.result", r)
+    # 13_6 lower-third "Erdos proved the full sum irrational in 1948" (J. Indian Math. Soc. 12, 63-66; fact sheet,
+    # open item 1, VERIFIED)
+    emit("B-F6.sourced.erdos_irrationality_year", 1948)
+
+
+# ==============================================================================================
+# Chapter 17 (lane B-3): the years on 17_6's cards and 17's credits (SOURCED)
+# ==============================================================================================
+def ch15():
+    # 15_7 (R3 Maya maya-01): with chapter 3's A, B, C = 5, 3, 7, the extra piece P = A xor B xor C and the free
+    # card A xor B xor C xor P
+    a, b, c = 5, 3, 7
+    emit("B-CH15.free_card.extra_piece_P", a ^ b ^ c)
+    emit("B-CH15.free_card.result", a ^ b ^ c ^ (a ^ b ^ c))
+
+
+def ch16():
+    # 16_5 lower-third (R3 Dev D8): 15 / 3 on the byte clock, log 15 - log 3 = clicks of 5
+    emit("B-CH16.division_15_by_3_clicks", [LOG[15], LOG[3], (LOG[15] - LOG[3]) % 255])
+
+
+def ch17():
+    # what 17 prints from the recorded runs (B-F22): the exact 95% intervals rounded as shown (17_1 caption in
+    # percent to 3 digits, 17_3 "0.025 to 5.6 per million"), the other block sizes in percent to 2 digits, and the
+    # 17_3 lower-third "dividing by 256 twice predicts about 0.1 failures; one or more happens about 9% of the time"
+    lo, hi = clopper_pearson(6316, 10 ** 6)
+    emit("B-CH17.shown.K10.h0.cp95_percent", f"{100 * lo:.3g}\u2013{100 * hi:.3g}")
+    lo, hi = clopper_pearson(1, 10 ** 6)
+    emit("B-CH17.shown.K10.h2.cp95_per_million", f"{1e6 * lo:.2g}\u2013{1e6 * hi:.2g}")
+    emit("B-CH17.shown.K101.h0.percent", f"{100 * 1262 / 200000:.2g}")
+    emit("B-CH17.shown.K1002.h0.percent", f"{100 * 108 / 20000:.2g}")
+    pred = 6316 / 256 ** 2
+    emit("B-CH17.shown.K10.h2_predicted", f"{pred:.1g}")
+    emit("B-CH17.shown.K10.h2_P_at_least_one_percent", f"{-100 * math.expm1(-pred):.0f}")
+    # credits "LT codes: Luby, 2002" (RFC 6330 section 9.2 [LTCodes], November 2002; B-S11)
+    emit("B-CH17.sourced.lt_codes_year", 2002)
+    # 17_6 card "A/331:2021" (the only ATSC 3.0 edition read; B-S1)
+    emit("B-CH17.sourced.atsc_a331_year", 2021)
+
+
 if __name__ == "__main__":
     for fn in (bf1, bf2, bf3, bf4, bf5, bf6, bf7, bf8, bf9, bf10, bf11, bf12, bf13, bf14, bf15, bf16, bf17,
-               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
-               bx7, bx8):
+               bf18, bf19, bf20, bf21, bf22, bf23, bf24, bf25, race07, b2_drawn, bf26, bf27, bf28, bx1, bx2, bx3, bx4, bx5, bx6,
+               bx7, bx8, bs_cards, ch13, ch15, ch16, ch17, recorded_stream_and_cost):
         fn()
     sys.stdout.flush()
     print(f"# {len(_KEYS)} keys in {time.time() - T0:.2f} s", file=sys.stderr)

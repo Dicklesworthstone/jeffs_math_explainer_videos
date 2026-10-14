@@ -15,6 +15,7 @@
 
 mod chapters;
 mod facts;
+mod model;
 
 use explainer_kit::Explainer;
 
@@ -28,12 +29,14 @@ const EXPLAINER: Explainer = Explainer {
     script: SCRIPT,
     chapters: chapters::registry,
     facts: facts::facts,
-    glyph_text: &[],
-    glyph_tex: &[],
-    glyph_mono: &[],
+    glyph_text: chapters::glyphs::TEXT,
+    glyph_tex: chapters::glyphs::TEX,
+    glyph_mono: chapters::glyphs::MONO,
     identity: explainer_score::score::Identity::bakery_algorithm,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {

@@ -46,8 +46,8 @@ storage, "a thirty-two bit slate"), **ticket** (never "number"), **customer
 number** (always in full: bare "number" appears only in "take a number"; R2 M3,
 R8; customers are named by colour aloud), **pair** (a ticket with its
 customer number, defined aloud at 04_4), **glance** (a read), **flag**,
-**choosing** (the time a flag is up; Lamport's "doorway" appears once, on
-screen), **served** (going into the room), **outbox** (a store buffer; the
+**choosing** (the time a flag is up; Lamport's "doorway" is in the
+description only, R3 maya-11), **served** (going into the room), **outbox** (a store buffer; the
 real name once, on screen, at 12_2). **Atomic** is never spoken loosely: the
 02_7 lower-third defines it once ("a step nobody can catch halfway is called
 atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
@@ -62,17 +62,28 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 01_3 | *(title)* | **The Algorithm Lamport Is Proudest Of** | title card | listen 3 s (the "take a number" motif) |
 | 01_4 | Two programs, running at once, share a scoreboard that reads forty-one. Programmers call it x, and write x equals x plus one. It isn't an equation. It means make x one bigger. | Scoreboard; it takes the label "x" as the voice names it (M21); two lanes, Blue and Green; "time runs left to right; a read is an arrow in, a write is an arrow out" | **space-time lanes** |  |
 | 01_5 | That's two steps. Read the score, then write it back plus one. | Arrows on the lanes | step animation |  |
-| 01_6 | Here's one unlucky order. Both read forty-one, and both write forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
-| 01_7 | ⟨predict⟩ Draw every order at once, as staircases from corner to corner. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the order just shown becomes the first staircase, then the other five draw in; lower-third "6 = C(4, 2): pick which 2 of the 4 steps are Blue's" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
+| 01_6 | Here's one unlucky order. Each reads forty-one, and each writes forty-two. Two points scored, one counted. | x ends at 42 | step animation |  |
+| 01_7 | ⟨predict⟩ Draw every order at once, as staircases. Blue's steps go across, Green's go up, and the order we just saw is this staircase. There are six. How many lose a point? | The lanes morph into the progress square: Blue's lane becomes the bottom axis, Green's rotates up to become the side; the bottom side pulses on "across" and the left side on "up"; the order just shown is drawn as the first staircase and pulses, then the other five draw in (R3 maya-01); lower-third "6 ways to pick which 2 of the 4 steps are Blue's: C(4, 2)" (`C-F1.binomial_4_choose_2`; R14) | **progress square** |  |
 | 01_8 | Four. Exactly the ones through the middle, where both have read and neither has written. The fix has to wall off the middle. | The 4 paths through (1,1) turn red | highlight |  |
-| 01_9 | Counting orders isn't measuring chances. Each program usually runs both steps back to back, so a bad order needs unlucky timing. But at billions of steps a second, unlucky timing happens constantly. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
+| 01_9 | Counting orders isn't measuring chances, but a fix has to work in every order. | The six orders shrink into one long strip of steps racing past; red flecks appear along it again and again; lower-third "6 orders, 4 bad: a count, not a probability" | time strip | hold |
 
 - **For programmers (lower-third):** even `add [x], 1` reads and writes
   separately unless it carries a lock prefix.
 - **Ruth:** six orders = C(4,2) interleavings of two 2-step programs (R11; on
   screen at 01_7 since R2, R14).
-- **01_9 (R2 dev-06):** no frequency claim: nothing in the repository measures
-  how often a hot counter loses updates (bead mx-e-c-7v0.17 is the measurement).
+- **01_7 (R3 maya-01):** the words now say how to read a staircase (Blue's
+  steps go across, Green's go up) and that the order just shown is one of
+  them; "from corner to corner" left the words to pay for it.
+- **01_9 (R3 ruth-06):** "Each program usually runs both steps back to
+  back" was an unmeasured rate; the sentence is cut (the strip still shows
+  the visits, labelled an illustration).
+- **01_9 (R2 dev-06; Codex R1, 2026-10-11):** no frequency claim: nothing in
+  the repository measures how often a hot counter loses updates (bead
+  mx-e-c-7v0.17 is the measurement), so the line ends on the correctness
+  point instead ("a fix has to work in every order"), not on how often the
+  unlucky orders happen; the strip shows the back-to-back visits and the
+  rare interleavings, so "a bad order needs unlucky timing" left the words
+  (01 ran 94 s narrated).
 
 ## 02_the_room (~80 s)
 
@@ -81,10 +92,10 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 02_1 | The fix seems obvious. Only one program at a time may touch the scoreboard. Call that stretch of code the room. | A room around the scoreboard; lower-third "critical section; the rule is called mutual exclusion" | room prop |  |
 | 02_2 | Put a sign on the door. Check that it says vacant, flip it to occupied, and go in. | Sign | sign prop |  |
 | 02_3 | ⟨predict⟩ Does the sign work? | The two lanes walk up to the sign | prediction card |  |
-| 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; lower-third "counting each read, write and successful wait as one step" | progress square |  |
-| 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who stops outside the room can't hold up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed lane outside the room that the other passes; lanes stretching in time | pictograms |  |
+| 02_4 | No. Both read vacant before either flips it. Of the fourteen orders, eight put both in the room at once. | Progress square with a red square "both inside"; the 14 staircases draw in and a counter ticks the 8 that cross it; under the counts, a note "20 ways to mix the steps, but a check that finds occupied waits, so 6 can't happen" (`C-F2.step_mixes`, `C-F2.step_mixes_that_cannot_run`; R3 maya-07); lower-third "counting each read, write and successful wait as one step" | progress square |  |
+| 02_5 | Dijkstra posed the problem properly in nineteen sixty-five. Never two in the room. Someone who isn't trying to get in can stop without holding up anyone else. And fast or slow, it still works. | Name card "Edsger W. Dijkstra, 1965" (the first name only on screen: lexicon, ftts reads it 'edger'); three pictograms on the lanes, numbered 1–3, parked in a corner: the red square; a dimmed, idle lane (not trying to get in) that the other passes; lanes stretching in time | pictograms |  |
 | 02_6 | A year later, Donald Knuth asked for more. Everyone who wants in gets in eventually. | Pictogram 4: every lane eventually reaches the room | pictograms |  |
-| 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
+| 02_7 | Hardware usually cheats, with a magic sign you can check and flip in one motion. Dijkstra showed that ordinary signs are enough, several of them used cleverly, as long as nobody can catch one halfway through a flip. | The magic sign, with the lower-third "names to search: test-and-set, compare-and-swap" (R3 dev-08), then several ordinary signs (never the single sign that just failed); lower-third "a step nobody can catch halfway is called atomic" (R2 R1: the one definition of the word) | statement card |  |
 | 02_8 | Now a harder question. What if a glance can catch a sign mid-flip, as a blur? Hold that thought. | A sign blurs | flicker | hold |
 
 - **Ruth:** the four rules as Lamport states Dijkstra's problem "as extended by
@@ -95,6 +106,12 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
   second rule is Dijkstra's (c), "not allowed to lead to potential blocking of
   the others", hence "anyone else" (R2 dev-07, R12); the description quotes
   (a)–(d).
+- **Rule 2 (Codex R9, 2026-10-11):** Dijkstra's "stopped well outside its
+  critical section" is Lamport's noncritical section (1974, condition 3,
+  p. 454), not everywhere outside the room: a customer frozen while choosing,
+  or paused in line, does stall the others (11_7, `C-X8`; the costs card,
+  `C-X9`). Hence "isn't trying to get in", and the pictogram's caption says
+  idle.
 - **Pictograms (creative C-12):** rule 1 is ticked at 08_8 ("never two in the
   room: done"), rule 4 at 11_2.
 
@@ -102,17 +119,26 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | In nineteen seventy-four, Leslie Lamport found an answer. Picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
-| 03_2 | But a ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own. | Dispenser with a drawn red ✗ (`exmark`) | statement card |  |
-| 03_3 | So each customer gets her own slate, and only she writes on it. A zero means not in line. | Five slates at the heads of the five lanes | slates prop |  |
-| 03_4 | ⟨predict⟩ To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads three, zero, zero, two. What does she write? | Read arrows from Blue's lane; slates 0, 3, 0, 0, 2 | prediction card |  |
+| 03_1 | In nineteen seventy-four, Leslie Lamport published an answer. Now picture a bakery. Take a number, and the lowest ticket is served next. From now on, each program is a customer, and being served means going into the room. | Dated card "Lamport, 1974" (`C-F14.bakery_paper.year`; M20); the two lanes get customer tags (Blue 1, Green 2); three more lanes join (Purple 3, Teal 4, Pink 5); the badges appear only after "the lowest ticket" is said, and the first chalk tickets are drawn beside the counter as it is said (M3); the room morphs into the serving counter; lower-third "programmers say process" | scene morph |  |
+| 03_2 | But the ticket machine is shared. Two customers pressing at once could get the same ticket, just like the lost point. It would need a room of its own. | Dispenser with a drawn red ✗ (`exmark`) | statement card |  |
+| 03_3 | So each customer gets her own slate, and only she writes on it. A zero means she's not in line. | Five slates at the heads of the five lanes | slates prop |  |
+| 03_4 | ⟨predict⟩ To take a ticket, read every other slate, one at a time, and write one more than the biggest. Blue reads a three, a zero, a zero, and a two. What does she write? | Read arrows from Blue's lane; slates 0, 3, 0, 0, 2 | prediction card |  |
 | 03_5 | Four. Then she waits until nobody with a smaller ticket is still in line. Here that's Pink, with two, then Green, with three, then Blue. | Slates now 4, 3, 0, 0, 2; served in turn: Pink → Green → Blue | queue |  |
 | 03_6 | Whoever is in the room plays their own tune, so only one tune sounds at a time. | Each served customer's lane grows note-heads as it plays: the lanes become a stave | lanes as a score | listen 3 s ("served" in Pink's, Green's and Blue's timbres, one after another) |
-| 03_7 | No shared ticket machine. Nobody ever writes on anyone else's slate. | Each lane's own slate glows in its colour; every arrow from another lane is a read, none a write | lanes, slates | hold |
+| 03_7 | There's no shared ticket machine. Nobody ever writes on anyone else's slate. | Each lane's own slate glows in its colour; every arrow from another lane is a read, none a write | lanes, slates | hold |
 
 - **For programmers (lower-third at 03_7):** a ticket lock is the machine
   Lamport avoided: one atomic fetch-and-add (Linux x86 FIFO ticket spinlocks,
   introduced in 2008; dev-15).
+- **03_1 (Codex R2, 2026-10-11):** "published", not "found": the paper was
+  received in September 1973 and revised in January 1974 (CACM 17(8), printed
+  p. 455) and published in August 1974 (`C-F14.bakery_paper.year`); the card
+  "Leslie Lamport, 1974" is the publication's date. No discovery month is
+  inferred from the submission date.
+- **R3 (maya-08):** as the badges appear at 03_1, each customer's name and
+  number rolls in beside her ("Blue 1" … "Pink 5", on screen: a voiced roll
+  call would pass the chapter's cap); 04_4 shows a rewind mark while Pink,
+  Green and Blue get 04_2's tickets back.
 - **Facts to pin:** Blue (customer 1) reading 3, 0, 0, 2 → 4, served Pink,
   Green, Blue (M3 moved the reader off customer 4; C-F7 is recomputed for this
   example).
@@ -146,15 +172,15 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | There's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. But she hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
+| 05_1 | But there's a sneakier crack. Blue reads Green's slate, sees zero, and decides on ticket one. She hasn't written it yet. | A fresh start: all five slates wipe to zero and Purple, Teal and Pink dim (M11); then a ghost "1" hovers over Blue's slate | step-through |  |
 | 05_2 | Green takes ticket one, checks Blue's slate, sees zero, which means not in line, and walks in. | Green enters | step-through |  |
 | 05_3 | Then Blue writes her one, sees a tie, wins it on her lower customer number, and walks in too. Both in the room. | Both inside | trace (a), 6 counted steps (`C-F6.a.steps_counted`; dev-10) | listen 3 s (two tunes at once: the bug) |
-| 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. Raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |
+| 05_4 | The fix is a flag that says, I'm choosing, don't judge me yet. You raise it before reading, and lower it after writing. Before comparing with someone, wait until their flag is down. | Amber flags | flag prop |  |
 | 05_5 | ⟨predict⟩ Same unlucky order, now with flags. What does Green do this time? | Scheduler slider replays the order: trace a's six steps in place, the flag steps slotted in, amber; any step count shown is 13, counted the 02_4 way (`C-F6.a_prime.steps_counted`; dev-10) | toggle replay |  |
 | 05_6 | She sees Blue's flag up, and waits. | Green waits | step-through |  |
 | 05_7 | Without flags, two customers visiting once have twenty-eight orders, and four put both in the room. With flags, there are three hundred twenty-two, and not one does. | The 28 staircases as strands, 4 through the red square; they collapse into a "28 orders, 4 bad" card; the lattice regrows to 7×7; the 322 draw in as edge ribbons with a lagged reveal and a counter (spike S-6); the both-inside point stays empty and pulses | **path sets (S-6 ribbons)** |  |
-| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag isn't a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); on screen once, "Lamport calls this the doorway"; "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
-| 05_9 | So two customers can still choose at once. The flag just shows everyone who's choosing, and the tie-breaker settles equal tickets. | Thesis card; two flags up together, then two equal tickets settled by their badges | statement card | hold |
+| 05_8 | The time your flag is up is your choosing time. Unlike the door sign, the flag is not a lock. Nobody waits to raise their own, and many can be up at once. | Choosing shaded on the lanes; 02_2's door sign returns beside the flag (M12); Lamport's word "doorway" stays in the description (one name per idea; R3 maya-11); "many at once": `C-X6.all_flags_up_at_once_reachable.*` = 1 | statement card |  |
+| 05_9 | So two customers can still choose at once. The flag just shows who's choosing, and the tie-breaker settles equal tickets. | Thesis card; two flags up together, then two equal tickets settled by their badges | statement card | hold |
 
 - **Ruth:** C-F3 (no flag 28 / 4 bad; flag 322 / 0), C-F4 (three customers
   2,126,816,238 / 0, chapter 06); one visit each, a wait counted once, when it succeeds
@@ -173,12 +199,17 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 06_1 | ⟨predict⟩ Now take three customers. The square becomes a cube. How many orders are there now? | The 7×7 square extrudes into a 10×10×10 cube; "two inside" beams, translucent, drawn last | **3D cube, orbit < π** |  |
-| 06_2 | Over two billion. And not one of them puts two in the room. | Sampled staircases thread the cube as glowing trails (sampled uniformly over orders, E-C2) while a counter climbs to 2,126,816,238; the beams stay dark; caption "trails: orders drawn uniformly at random from all 2,126,816,238, not as a real machine would run them" (R15) | **3D cube, orbit < π** | hold |
+| 06_2 | Over two billion. And not one of them puts two in the room. | Sampled staircases thread the cube as glowing trails (sampled uniformly over orders, E-C2) while a counter climbs to 2,126,816,238; the beams stay dark; caption "trails: drawn uniformly at random from all 2,126,816,238 orders, not as a real machine runs them" (R15; one line in the lower-third band) | **3D cube, orbit < π** | hold |
 
-- **Engine:** about 30 s on the camera route (≈ 5 min at S-5's 6.1 fps); about
-  200 sampled polylines on the 10×10×10 lattice; beams are depth-tested
-  translucent prisms drawn last; arcs under π (E-C2). Cut it first if the
-  video runs long: 05_7's ribbons carry the claim.
+- **Engine (as built):** the retained route, drawn orthographically: every
+  shape keeps its lattice coordinates and one updater re-projects them from
+  the view's trackers (spin, tilt, scale, place, trail reveal), so the tilt
+  and the orbit are tracker tweens. The camera route was tried first and
+  dropped: its per-pixel 3-D stroke sampling produced no frame of 200 trails
+  in 6 minutes at 540p. 200 sampled polylines on the 10×10×10 lattice; beams
+  are translucent faces drawn last; the orbit (0.75 rad) stays clear of the
+  face-on views. About 24 s. Cut it first if the video runs long: 05_7's
+  ribbons carry the claim.
 
 ## 07_one_run (~60 s)
 
@@ -186,14 +217,19 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 |---|---|---|---|---|
 | 07_1 | Here's one full run, fast. | The five lanes with their slates at the heads, Pink's lane dimmed (she stays home: trace d has four customers; dev-10); a step clock counting reads, writes and successful waits the 02_4 way, ending at 64 (`C-F6.d.steps_counted`) (no code panel during the run, C-7) | lanes + step clock |  |
 | 07_2 | Purple and Green arrive together, and both choose ticket one. Purple finishes first and finds Green's flag still up, so she waits. Without the flag, she'd have read Green's unwritten ticket as zero. | Fast-forward, slowing at the beat | step clock |  |
-| 07_3 | ⟨predict⟩ Teal sees one and one. What ticket does she take? | Teal reading | prediction card |  |
+| 07_3 | ⟨predict⟩ Next, Teal sees two ones. What ticket does she take? | Teal reading | prediction card |  |
 | 07_4 | Two. And the tie between Purple and Green goes to Green, customer two, ahead of Purple, customer three. | (1, Green 2) before (1, Purple 3) | ordering card |  |
-| 07_5 | Green goes in first. Blue, customer number one, arrives late and takes three. Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue. | The lanes in time order, as trace d runs (M14): Green enters, Blue takes 3, Green leaves before Blue's check of her (`C-F6.d.customer2_out_before_customer1_checks_her` = 1), Blue waits on Purple's 1 and Teal's 2 (`C-F6.d.customer1_waits_behind` = (1,3)(2,4)), Green takes 4 (`C-F6.d.tickets_taken`); each entry plays its customer's "served" motif (C-2) | step clock | |
-| 07_6 | Five visits, five points on the scoreboard, none lost. Who's served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; chapter 01's scoreboard sits inside the room and has ticked once per visit, 41 → 46, no point lost (Maya m6; `C-F6.d.room_entries` = 5, `C-F6.d.max_in_room` = 1) | callback | hold |
+| 07_5 | Green goes in first. Blue, customer number one, arrives late and takes three. | The lanes in time order, as trace d runs (M14), Blue's and Green's lanes lit: Green enters; Blue takes 3 (`C-F6.d.tickets_taken`), then the run stops while Blue's slate 3 pulses (R3, maya-02); each entry plays its customer's "served" motif (C-2) | step clock | hold |
+| 07_7 | Green is out before Blue checks her, so Blue only waits for Purple, then Teal. Green gets back in line and takes four, behind Blue. | All four lanes lit: Green leaves before Blue's check of her (`C-F6.d.customer2_out_before_customer1_checks_her` = 1), so the ring on that check finds Green's slate back at 0, and it pulses; Blue waits on Purple's 1 and Teal's 2 (`C-F6.d.customer1_waits_behind` = (1,3)(2,4)), Green takes 4 (`C-F6.d.tickets_taken`) | step clock | |
+| 07_6 | Five visits, five points on the scoreboard, none lost. Who gets served first follows the grid exactly. | (1, Green) → (1, Purple) → (2, Teal) → (3, Blue) → (4, Green), the grid sweep beside the lanes; chapter 01's scoreboard sits inside the room and has ticked once per visit, 41 → 46, no point lost (Maya m6; `C-F6.d.room_entries` = 5, `C-F6.d.max_in_room` = 1) | callback | hold |
 
 - **Engine:** slate values swap by replacement transforms at their step events, driven by the shared step clock, never redrawn every frame (E-C4).
 - **New beat 07_6 (R2):** 07_5 now runs in time order (M14), so its payoff
   moved to a beat of its own; 07_6 is the chapter's next free id.
+- **07_5 split (R3, maya-02):** four events in one 16 s line over small
+  dots was too much to follow, so the line is cut after "takes three" and
+  the run holds on Blue's 3; the rest is 07_7 (the chapter's next free id),
+  played between 07_5 and 07_6. The words are unchanged.
 - **For programmers (the description, "Code"; decided at R2, dev-08):** the
   text there, verbatim: "The owner's TypeScript lock compared pairs with
   `(t[j], j) < (t[i], i)`. In JavaScript that is the comma operator: each
@@ -211,12 +247,12 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 |---|---|---|---|---|
 | 08_1 | Why can two customers never be in the room at once? Picture Blue inside, and Green holding a ticket. | Lanes; Blue and Green; lower-third "the proof counts on: each customer's steps happen in order; a finished write is seen by every later read; the biggest ticket is found by reading each slate once" (M17: 12_1 calls it back in the same words) | lanes |  |
 | 08_2 | Fact one. If Blue finished choosing before Green started, and still holds that ticket, then Green's ticket is bigger. Green saw Blue's. | Fact one card, in colours | card |  |
-| 08_3 | Fact two. If Blue is in the room, everyone else holding a ticket has a bigger pair than hers. Why is that true? | Fact two card | card |  |
+| 08_3 | Fact two. If Blue is in the room, every other ticket holder has a bigger pair than hers. Why is that true? | Fact two card | card |  |
 | 08_4 | ⟨predict⟩ Take the last time Blue checked Green's flag, the check that let her through. Where could Green have been? | Green's choosing interval slides along the time axis against Blue's last flag check (labelled) | **sliding interval with zones** |  |
-| 08_5 | Three places. Not yet choosing. Blue had already finished choosing, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15) | zones |  |
+| 08_5 | There are three places. Not yet choosing. Blue only checks flags after she's chosen, so by fact one, Green's ticket will be bigger. | Zone "not yet"; Blue's finished choosing interval lights up to the left of her check (M15): her check comes after it, which is why she'd finished (R3, maya-09) | zones |  |
 | 08_6 | In the middle of choosing. Then Green's flag was up, and that check wouldn't have let Blue through. | Zone "choosing", forbidden | zones |  |
-| 08_7 | Finished choosing. Then Blue read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. That's fact two. | Zone "done" | zones |  |
-| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue); pictogram rule 1 ticks | TransformMatchingTex | hold |
+| 08_7 | Finished choosing. Then Blue had read Green's real ticket, and went in only because her pair was smaller. Either way, Green's pair is bigger. And that's fact two. | Zone "done" | zones |  |
+| 08_8 | Now suppose both were in the room. Then fact two says each one's pair is smaller than the other's. Like me being taller than you, and you taller than me. Impossible. | 04's grid returns: the scanline tries to reach both pairs first and tears; then (n_B, Blue) < (n_G, Green) < (n_B, Blue), with a key above it, n_B = Blue's ticket, n_G = Green's ticket (R3, maya-10); pictogram rule 1 ticks | TransformMatchingTex |  |
 | 08_9 | A computer search agrees, over every order, up to four customers, as long as tickets stay small. Only the proof covers every case. | Card "N = 4, tickets ≤ 4 (runs that would pass 4 are cut), indivisible reads and writes: 3,027,633 reachable states, no violation", then "every N" | card |  |
 
 - **Precisely (description, "Precisely" 08):** Lemma 1 and Lemma 2 exactly as
@@ -229,6 +265,8 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 - **R2:** 08_5 now says why fact one applies (M15); paid for by 08_9's shorter
   last sentence, so the chapter stays under the cap.
 - **Music:** swing drops out for 08–10 (rubato, a pedal under the lemmas).
+- **08_8 (G2, mx-e-c-7v0.9):** no music hold: rule 1's pictogram ticks
+  after "Impossible." (about 1 s), then 08_9; narrated 82.9 s.
 
 ## 09_reading_garbage_safely (~85 s)
 
@@ -238,7 +276,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 09_2 | Lamport went further. A glance during a write may return any number the slate could hold. Even two thousand four hundred ninety-six. | Wild values; the 01_1 slate's 2496 | flicker |  |
 | 09_3 | Twelve years later he named memory like that safe. A funny name, since it's the least safe kind. | "safe" card; "regular" and "atomic" on screen for Ruth | register zoo (screen) |  |
 | 09_4 | ⟨predict⟩ Back to the proof picture. Let every slate and every flag flicker while it's written. Does the proof ever trust a glance at a slate while it's being written? | 08's zones (08_4–08_7), same layout and scale (C-16; M22); glances that cross a write become white static | **overlay on the proof zones** | listen 3 s (a read that crosses a write smears its note with a slow tape bend) |
-| 09_5 | Never. It trusts just two glances at slates. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used; lower-third "a glance at a flag mid-raise counts as not yet choosing; mid-lowering, as finished" (R2, dev-11; pinned here at R2, R13) | zones |  |
+| 09_5 | Never. It trusts only two glances at slates. Green reading Blue's finished ticket, and Blue reading Green's finished ticket. Nobody was writing either slate. | The two trusted reads in gold; static lands in every zone, always on reads the proof never used; lower-third "a glance at a flag mid-raise counts as not yet choosing; mid-lowering, as finished" (R2, dev-11; pinned here at R2, R13) | zones |  |
 | 09_6 | A glance that catches garbage, say seven, just makes a customer take eight and wait longer. | Trace e1 inside the zones; corner card "model: flickering slates and flags, 3 customers, tickets ≤ 6: 269,550 states, never two in the room" (`C-F8.n3_k6_safe.states`, `.violation_found` = 0; R14) | trace |  |
 
 ## 10_the_old_zero (~55 s)
@@ -246,9 +284,9 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
 | 10_1 | ⟨predict⟩ And a glance that catches Blue's old zero mid-write lets Green straight in. Is that dangerous? | Trace e3 | prediction card |  |
-| 10_2 | No. Blue's flag is up while she takes a ticket, and Green had already seen it down. So Blue raised it after Green finished choosing. That's fact one the other way round, so Blue's ticket will be bigger, and she waits. | Blue's choosing begins after Green's ends: in trace e3 Green finishes choosing, then sees Blue's flag down, and only then does Blue raise it (`C-F6.e3.customer2_finished_choosing_at_step` = 14, `…saw_customer1_flag_down_at_step` = 17, `…customer1_began_raising_flag_again_at_step` = 21); the fact-one card from 08_2 returns with Blue and Green swapped (M6) | trace |  |
+| 10_2 | No. Green finished choosing at step fourteen. Only then did she check Blue's flag, and at step seventeen she saw it down. Blue raised it at step twenty-one, after Green was done. That's fact one the other way round. Green holds eight, so Blue's ticket comes out nine, and she waits. | Blue's choosing begins after Green's ends: in trace e3 Green finishes choosing, then sees Blue's flag down, and only then does Blue raise it (`C-F6.e3.customer2_finished_choosing_at_step` = 14, `…saw_customer1_flag_down_at_step` = 17, `…customer1_began_raising_flag_again_at_step` = 21); the fact-one card from 08_2 returns with Blue and Green swapped (M6) | trace |  |
 | 10_3 | Lamport noticed that the algorithm survives garbage only after writing the proof. In his words, the read may return any arbitrary value. His colleague Anatol Holt refused to believe it. | Quote cards, one at a time, one source each (M1): "The read may return any arbitrary value!" (CACM 17(8), 1974, p. 454); "I discovered that the bakery algorithm had this property after writing a proof of its correctness" and "He refused to believe it could be true" (Lamport, publications page) | quote card |  |
-| 10_4 | One caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. The obvious way reads a slate twice, once to compare and once to copy, and a flicker between them can break it. | The two-line max loop that reads twice; then only the outcome: two lanes in the room, two tunes clashing (C-13); card "Lamport, Reasoning About Nonatomic Operations, POPL 1983" (C-S20) | trace |  |
+| 10_4 | For programmers, one caution, from Lamport himself. Find the biggest ticket by reading each slate exactly once. Reading it twice, once to compare and once to copy, lets a flicker between the two reads break it. | The two-line max loop that reads twice; then only the outcome: two lanes in the room, two tunes clashing (C-13); card "Lamport, Reasoning About Nonatomic Operations, POPL 1983" (C-S20) | trace | listen 3 s (the two inside play "served" at once) |
 | 10_5 | So, could computers take turns safely with memory like that? Yes. | The 01_1 slate flickers 2496 beside a calmly waiting customer; the 01_2 question returns as text, then "Yes." (M1) | statement card | hold |
 
 - **Lower-thirds:** "today's chips don't tear an aligned word; the proof just
@@ -277,7 +315,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 11_2 | As long as everyone in the room comes out, and nobody stalls for good with a raised flag or a ticket, whoever holds the smallest pair gets through. Once you've taken your ticket, each other customer can get ahead of you at most once. So nobody waits forever. | Bounded bypass (`C-X5.bypass_from_ticket_write.*.worst` = 1); the smallest pair walks in (`C-X3`); pictogram rule 4 ticks on "forever" | lanes |  |
 | 11_3 | The price is that tickets keep growing while somebody is always in line. They reset only when the bakery empties. | Odometer 1, 2, 3, 4, 5, 6 (digits slide and fade; no clip primitive, E-C3); "only": `C-X7.largest_ticket_drops_to_nonzero.*` = 0 | odometer |  |
 | 11_4 | ⟨predict⟩ Lamport did the sum. At one customer a millisecond, how big do the tickets get in a year? | 31,557,600,000 ms in a 365.25-day year (R6) | prediction card |  |
-| 11_5 | Up to about thirty-one and a half billion, one per millisecond. That's too big for a thirty-two bit slate. Like the odometer, it could roll over in under two months. | 31,557,600,000 < 2³⁵ = 34,359,738,368, Lamport's bound (`C-F10.ms_per_year_billions_to_nearest_half` = 31.5); 2³² ms = 49.7 days, 2³¹ ms = 24.9 days (signed, as in Java's `int`); the 11_3 odometer rolls over (M7, R6) | arithmetic card |  |
+| 11_5 | Up to about thirty-one and a half billion. A thirty-two bit slate stops at about four billion, then rolls back to zero like a car's odometer, in under two months. | 31,557,600,000 < 2³⁵ = 34,359,738,368, Lamport's bound (`C-F10.ms_per_year_billions_to_nearest_half` = 31.5); 2³² ms = 49.7 days, 2³¹ ms = 24.9 days (signed, as in Java's `int`); the 11_3 odometer rolls over (M7, R6) | arithmetic card |  |
 | 11_6 | A sixty-four bit slate lasts centuries, even at a billion tickets a second. That sum assumes a glance never returns more than was really written. One huge glance makes the tickets after it huge too. | 584.5 years at 10⁹/s unsigned; 292.3 signed, as in Java; lower-third Lamport 1974 verbatim: "a read of number[i] can never obtain a value larger than one which has been written there"; one slate flickers to a huge value and the odometer jumps (M2) | arithmetic card |  |
 | 11_7 | And it isn't cheap. Even alone, a customer makes three reads for every other customer. One customer frozen while choosing stalls everyone. | Three beats on the lanes: spinning (a waiting lane fills with soft repeated notes); a customer frozen mid-choosing, every other lane stalled behind it after at most one more visit each (`C-X8.frozen_while_choosing.*.worst_entries_per_other_customer` = 1); two slates in one grey cache-line box bouncing between cores. The costs card slides in from the right at the start of 11_7 and stays through the listen window, at least 10 s | lanes, costs card | listen 3 s (spinning) |
 
@@ -309,7 +347,7 @@ atomic"), 12_7 says "atomic reads and writes", and the magic signs of 02_7 and
 | 12_3 | ⟨predict⟩ Both customers raise their flags and write their tickets, into their outboxes. Then each checks the other's flag and slate. What does she see? | Both outboxes full; the real flags and slates still zero; the order animated is the voiced one (`C-F9.voiced.*`: 12 steps, nothing delivered; R11) | **outbox x-ray** |  |
 | 12_4 | No flag, and no ticket. Both walk in, while the real flags and slates still say nobody is even choosing. | Both read arrows land on zeros (flag 0, then ticket 0); both enter (`C-F9.voiced.steps` = 12, `C-F9.voiced.in_room_at_end` = 2); memory frozen at zeros (`C-F9.voiced.memory_choosing_at_end`, `…memory_tickets_at_end` = 0,0) | outbox x-ray | listen 3 s (two tunes at once) |
 | 12_5 | The fix is a fence. Wait until your outbox is delivered before reading anyone else's slate. On an Intel or AMD chip, two fences each time you enter are enough, one after raising your flag, and one after lowering it. | A fence drains a tray with a whoosh; the two fence points marked F1 and F2 on the lanes; lower-third "x86: MFENCE, or a locked instruction such as XCHG" (dev-11; C-S10) | fence |  |
-| 12_6 | Arm chips, like the ones in recent Macs, shuffle more than an outbox does. Others can see your flag come down before your ticket lands, which is chapter five's bug again. | Arm outline; Blue's outbox delivers the flag letter before the ticket letter; Green sees no flag and no ticket and walks in, as at 05_2 (dev-02, M19; C-S11, C-S25) | statement card |  |
+| 12_6 | Arm chips, like the ones in recent Macs, shuffle more than an outbox does. Others can see your flag come down before your ticket lands, the unwritten ticket again. | Arm outline; Blue's outbox delivers the flag letter before the ticket letter; Green sees no flag and no ticket and walks in, as at 05_2 (dev-02, M19; C-S11, C-S25) | statement card |  |
 | 12_7 | For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes. Acquire and release are not enough here, because this needs your write to land before your next read. | SeqCst Rust panel (below) with a "for programmers" tag (M9); highlighted while the voice says it, marked F1 and F2 like the 12_5 lanes (dev-04): F1, line 3 (`choosing[i].store(true)`) → line 5 (the max's loads); F2, lines 6–7 (the ticket store and the flag-down store) → line 9 (`choosing[j].load`); held at least 6 s; card: C, C++ and Rust plain shared variables are undefined behaviour and `volatile` doesn't help; Java `AtomicLongArray` works, a `volatile long[]` doesn't; then the panel slides away and the picture holds on the outbox draining. The panel is in the description verbatim | code panel | hold |
 
 ```rust
@@ -367,7 +405,7 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 | 13_1 | ⟨predict⟩ In practice, people use the hardware's magic signs, which check and flip in one motion. So does the bakery still run anywhere? | The magic sign from 02_7; lower-third "atomic read-modify-write instructions: test-and-set, compare-and-swap, fetch-and-add" (R1); quote card "Although of little if any practical use, the bakery algorithm…" (Lamport, Turing lecture, CACM 58(6), 2015, §2.2; C-S26; D5) | prediction card |  |
 | 13_2 | Yes. Code that Arm itself publishes uses it while a core wakes up, before its fast memory is switched on. Until then, the magic signs aren't guaranteed to work, so the core takes a ticket, bakery style. | Text card: Trusted Firmware-A (TF-A): a bakery lock for a core waking with its cache off (no quotation marks, no logos; dev-12); "fast memory" is the data cache (M8, F2) | card |  |
 | 13_3 | And its trick of taking a ticket bigger than any you've seen, with customer numbers to break ties, reappears in how Lamport later ordered events across whole networks. It's in the ballot numbers of Paxos too, the method that keeps copies of a database agreeing. | 04's grid relabelled (clock value, process); timeline 1974 → 1978 → Paxos | callback |  |
-| 13_4 | Lamport says he didn't invent the bakery algorithm. He discovered it. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it. | The five lanes taking turns in a calm loop, one "served" motif at a time in five timbres, the gold scanline sweeping; the quotes set as captions over it; receipts card | coda | listen 3 s (the motif resolves) |
+| 13_4 | Lamport says he didn't invent the bakery algorithm. He discovered it instead. It just seemed to come out of thin air, and perhaps, he says, that's why he's proudest of it. | Five lanes and their tickets, Lamport's words as captions on their phrases; then, after the voice, one "served" motif at a time in five timbres in the run's service order, each room band lit on its first note as the gold scanline reaches it; receipts card | coda | listen 12.3 s (five "served", one at a time; the score resolves its theme in the last gap) |
 
 - **Precisely (lower-third at 13_2):** "TF-A uses the bakery lock immediately
   after reset and before the data cache is enabled in the warm boot path, and

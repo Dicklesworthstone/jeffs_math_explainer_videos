@@ -1,0 +1,36 @@
+# Numbers in docs/description.md that are not a value of the oracle's output, each with where it comes from.
+# Checked by tools/description_numbers.py (python3 -I tools/description_numbers.py eigen_engineering); a row nothing uses fails it.
+# columns: number TAB context (a piece of the text it stands in) TAB kind TAB reason; kinds: year, cited, structural. Every number the description computes is a fact (oracle.py's K-D rows, among others) and is tagged in its unit, not listed here.
+5400	a modified BS 5400 approach	cited	BS 5400, the British Standard for steel, concrete and composite bridges, as the engineers' paper (Dallard et al. 2001) names the design code (fact-sheet row 6)
+54	gives 54 tuned mass dampers	cited	the count of tuned mass dampers that a magazine of 1 February 2002 gives, as recorded in fact-sheet S3; the paper's own plan is 4 + 26 pairs and other accounts say 52 or over 50, which is why the description says only that the video shows the 4 sideways pairs
+2005	Strogatz and others (2005)	year	Strogatz, Abrams, McRobie, Eckhardt and Ott, Nature 438 (2005) (fact-sheet S4)
+2021	Belykh and others (2021)	year	Belykh and others, Nature Communications 12:7223 (2021) (fact-sheet S5)
+14	at 14 cycles a minute	cited	the board's report (Ammann, von Karman and Woodruff, 28 March 1941): the torsional frequency "suddenly changed from 37 to 14" cycles a minute (fact-sheet S6 and row 8)
+29000	the US round figure, 29,000 ksi	cited	FHWA Steel Bridge Design Handbook (2012): E = 29,000 ksi for the structural steels of bridges (fact-sheet S21); oracle.py checks that the 200 GPa of K-T1.e_gpa is 29,000 ksi to three figures
+210	Eurocode practice uses 210	cited	EN 1993-1-1 takes E = 210 GPa (210,000 N per mm2) for structural steel (fact-sheet row 12)
+46	NCHRP Web Document 46	cited	NCHRP Web Document 46 (2002), Improved Live Load Deflection Criteria for Steel Bridges, the document number (fact-sheet S21)
+293.15	FrankenSim's air is 293.15 K	cited	the air temperature of FrankenSim's vibroacoustic code (fs-couple), 20 degrees C + 273.15 (fact-sheet S22)
+1954	his 1954 figure was ten	year	Schroeder's first paper on the criterion (Acustica 4, 1954) proposed ten modes in a width, cut to three in 1962, as Skalevik, Schroeder Frequency Revisited (2011) tells it; the weakest year here: the ten was not read in the 1954 paper
+0.164	was 0.164 (Collected Papers	cited	Sabine's own metric constant, "K = .164", Collected Papers on Acoustics (1922), p. 50 (fact-sheet S10)
+1993	RD 1993/8)	year	Walker, BBC Research Department report RD 1993/8, "Optimum dimension ratios for small rooms" (fact-sheet S14)
+147	p. 147) and Hilbert	cited	Helmholtz, Die Lehre von den Tonempfindungen (1863), p. 147 (fact-sheet S8)
+54	D-15 to D-54	structural	decision numbers in docs/decisions.md; D-15 and D-54 are rows there (the claim walk's decisions run D-15 to D-54)
+15	D-15 to D-54	structural	Decision number D-15 in docs/decisions.md (the claim walk's decisions run D-15 to D-54).
+20	pp. 20 to 21	cited	Dallard, Fitzpatrick, Flint, Low, Ridsdill Smith, Willford and Roche (2001), the pages of the paper cited.
+21	pp. 20 to 21	cited	Dallard et al. (2001), the pages of the paper cited.
+50	p. 50)	cited	Sabine, Collected Papers on Acoustics (1922), p. 50 (fact-sheet S10).
+15	15 October 1900	cited	Symphony Hall opened on 15 October 1900 (K-S.sabine.opened is the year; fact-sheet S10).
+8	RD 1993/8	cited	The BBC Research Department report number RD 1993/8 (Walker; fact-sheet S14).
+3.1	eq. 3.1.5	cited	Jacobsen and others, equation 3.1.5 (S19 of docs/fact-sheet.md).
+5	eq. 3.1.5	cited	The same equation number 3.1.5.
+2000	frequency 2000	cited	Schroeder's constant: 2000 sqrt(T60 / V) (Schroeder and Kuttruff 1962; K-H3.schroeder_hz_1dp).
+20	about 20 °C	cited	The air temperature behind the speed of sound K-R0.sound_m_per_s, 343 m per second (air at about 20 degrees Celsius).
+# structural: a count, an index or a threshold that is the statement itself.
+4	at 4 m	structural	The position, 4 m from the pin, named by the key K-P2.lone_pct.4m.
+2	table, 2 down the	structural	The table's diagonal entry: the stiffness matrix with 2 on the diagonal and -1 beside it.
+2	(−1, 2, −1)	structural	The image (-1, 2, -1) of one slice pushed out of place under the table with 2 on the diagonal and -1 beside it.
+100	or below 100 Hz	structural	The frequency of the key K-H2.count.100.
+99	99% of the total	structural	The threshold of the key K-E3.rounds_for_99_percent.
+40	k = 1 to 40	structural	The scaling steps k = 1 to 40 of the check.
+6	sizes 2 to 6	structural	The sizes of the symmetric tables checked.
+2	(2 × 2.5 m)	structural	A round trip along the longest side covers it twice: 343 ÷ (2 × 2.5 m) = 68.6 Hz.

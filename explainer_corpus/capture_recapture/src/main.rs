@@ -14,14 +14,20 @@
 //! timelines, the score and the master run before the real scene exists.
 
 mod chapters;
+mod exact;
 mod facts;
+mod law;
 mod model;
+mod numpy;
+mod panel;
+mod runs;
 
 use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 const SCRIPT: &str = include_str!("../script.tsv");
 /// The storyboard: words, pictures, holds and listen windows per beat.
+#[cfg(test)]
 pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {
@@ -34,7 +40,9 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: &[],
     identity: explainer_score::score::Identity::capture_recapture,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {

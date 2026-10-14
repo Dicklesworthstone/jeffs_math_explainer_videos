@@ -1,0 +1,3 @@
+# The director's picks for Video G's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input, exactly as planned> TAB <why>. The named read wins whatever its score.
+09_1	0	“Try it by hand, with the real arm's lengths…”	final s of lengths present and not cut short (analyze on all 12 reads); heard arm's lengths alone; the higher-scored read was heard arms links in its one-sentence line (GreenCarp, 2026-10-13)

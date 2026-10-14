@@ -1,0 +1,599 @@
+# Extra ftts inputs for Video C's narration (tools/narration.py, director_files): <line_id> TAB <sentence index, 0-based> TAB <ftts input>.
+# An input here is one more read of that sentence; the sentence's text, and so the captions, stay script.tsv's.
+# Director pass 2026-10-12 (WindySwan), voice michael: punctuation moved or added to break a stall, slow a rushed
+# read or get a sentence finished (ftts cut 12 of 218 chosen reads short), each also inside “ ”; and a few numbers
+# as digits, which michael reads to the end where the spelled number is cut off.
+01_4	0	Two programs running at once share a scoreboard that reads forty-one.
+01_4	0	“Two programs running at once share a scoreboard that reads forty-one.”
+01_4	0	Two programs — running at once — share a scoreboard that reads forty-one.
+01_4	0	“Two programs — running at once — share a scoreboard that reads forty-one.”
+01_4	1	Programmers call it x, and write: x equals x plus one.
+01_4	1	“Programmers call it x, and write: x equals x plus one.”
+01_5	1	Read the score then write it back plus one.
+01_5	1	“Read the score then write it back plus one.”
+01_5	1	Read the score; then write it back plus one.
+01_5	1	“Read the score; then write it back plus one.”
+02_2	1	Check that it says vacant, flip it to occupied and go in.
+02_2	1	“Check that it says vacant, flip it to occupied and go in.”
+02_2	1	Check that it says vacant; flip it to occupied; and go in.
+02_2	1	“Check that it says vacant; flip it to occupied; and go in.”
+03_2	1	Two customers pressing at once could get the same ticket just like the lost point.
+03_2	1	“Two customers pressing at once could get the same ticket just like the lost point.”
+03_2	1	Two customers pressing at once could get the same ticket — just like the lost point.
+03_2	1	“Two customers pressing at once could get the same ticket — just like the lost point.”
+03_3	0	So each customer gets her own slate and only she writes on it.
+03_3	0	“So each customer gets her own slate and only she writes on it.”
+03_3	0	So each customer gets her own slate — and only she writes on it.
+03_3	0	“So each customer gets her own slate — and only she writes on it.”
+04_4	3	Purple is three and Teal is four so Purple goes first.
+04_4	3	“Purple is three and Teal is four so Purple goes first.”
+04_4	3	Purple is three, and Teal is four; so Purple goes first.
+04_4	3	“Purple is three, and Teal is four; so Purple goes first.”
+04_4	3	Purple is three and Teal is four: so Purple goes first.
+04_4	3	“Purple is three and Teal is four: so Purple goes first.”
+04_5	0	Put every pair on a grid: ticket across and customer number up, and sweep column by column.
+04_5	0	“Put every pair on a grid: ticket across and customer number up, and sweep column by column.”
+04_5	0	Put every pair on a grid, ticket across, and customer number up, and sweep column by column.
+04_5	0	“Put every pair on a grid, ticket across, and customer number up, and sweep column by column.”
+04_5	0	Put every pair on a grid — ticket across and customer number up — and sweep column by column.
+04_5	0	“Put every pair on a grid — ticket across and customer number up — and sweep column by column.”
+05_4	2	Before comparing with someone: wait until their flag is down.
+05_4	2	“Before comparing with someone: wait until their flag is down.”
+05_4	2	Before comparing with someone — wait until their flag is down.
+05_4	2	“Before comparing with someone — wait until their flag is down.”
+05_4	2	Before comparing with someone wait until their flag is down.
+05_4	2	“Before comparing with someone wait until their flag is down.”
+05_5	0	Same unlucky order: now with flags.
+05_5	0	“Same unlucky order: now with flags.”
+05_5	0	Same unlucky order — now with flags.
+05_5	0	“Same unlucky order — now with flags.”
+05_7	0	Without flags two customers visiting once have twenty-eight orders, and four put both in the room.
+05_7	0	“Without flags two customers visiting once have twenty-eight orders, and four put both in the room.”
+05_7	0	Without flags, two customers visiting once have twenty-eight orders — and four put both in the room.
+05_7	0	“Without flags, two customers visiting once have twenty-eight orders — and four put both in the room.”
+05_8	2	Nobody waits to raise their own and many can be up at once.
+05_8	2	“Nobody waits to raise their own and many can be up at once.”
+05_8	2	Nobody waits to raise their own — and many can be up at once.
+05_8	2	“Nobody waits to raise their own — and many can be up at once.”
+07_7	1	Green gets back in line and takes four behind Blue.
+07_7	1	“Green gets back in line and takes four behind Blue.”
+07_7	1	Green gets back in line and takes four — behind Blue.
+07_7	1	“Green gets back in line and takes four — behind Blue.”
+07_6	0	Five visits: five points on the scoreboard, none lost.
+07_6	0	“Five visits: five points on the scoreboard, none lost.”
+07_6	0	Five visits — five points on the scoreboard, none lost.
+07_6	0	“Five visits — five points on the scoreboard, none lost.”
+09_3	1	A funny name since it's the least safe kind.
+09_3	1	“A funny name since it's the least safe kind.”
+09_3	1	A funny name — since it's the least safe kind.
+09_3	1	“A funny name — since it's the least safe kind.”
+10_2	5	Green holds eight so Blue's ticket comes out nine, and she waits.
+10_2	5	“Green holds eight so Blue's ticket comes out nine, and she waits.”
+10_2	5	Green holds eight; so Blue's ticket comes out nine, and she waits.
+10_2	5	“Green holds eight; so Blue's ticket comes out nine, and she waits.”
+11_2	1	Once you've taken your ticket each other customer can get ahead of you at most once.
+11_2	1	“Once you've taken your ticket each other customer can get ahead of you at most once.”
+11_2	1	Once you've taken your ticket — each other customer can get ahead of you at most once.
+11_2	1	“Once you've taken your ticket — each other customer can get ahead of you at most once.”
+11_7	2	One customer, frozen while choosing, stalls everyone.
+11_7	2	“One customer, frozen while choosing, stalls everyone.”
+12_2	1	Picture each one, running a customer.
+12_2	1	“Picture each one, running a customer.”
+12_2	1	Picture each one — running a customer.
+12_2	1	“Picture each one — running a customer.”
+12_2	1	Picture: each one running a customer.
+12_2	1	“Picture: each one running a customer.”
+12_4	1	Both walk in while the real flags and slates still say nobody is even choosing.
+12_4	1	“Both walk in while the real flags and slates still say nobody is even choosing.”
+12_4	1	Both walk in — while the real flags and slates still say nobody is even choosing.
+12_4	1	“Both walk in — while the real flags and slates still say nobody is even choosing.”
+09_3	0	Twelve years later, he named memory like that safe.
+09_3	0	“Twelve years later, he named memory like that safe.”
+09_3	0	Twelve years later he named memory like that: safe.
+09_3	0	“Twelve years later he named memory like that: safe.”
+13_4	1	He discovered it, instead.
+13_4	1	“He discovered it, instead.”
+13_4	1	He discovered it — instead.
+13_4	1	“He discovered it — instead.”
+04_2	1	Before anyone is served, Purple and Teal read, at the same moment.
+04_2	1	“Before anyone is served, Purple and Teal read, at the same moment.”
+04_2	1	Before anyone is served: Purple and Teal read at the same moment.
+04_2	1	“Before anyone is served: Purple and Teal read at the same moment.”
+09_5	1	It trusts only two glances, at slates.
+09_5	1	“It trusts only two glances, at slates.”
+09_5	1	It trusts only two glances — at slates.
+09_5	1	“It trusts only two glances — at slates.”
+09_4	1	Let every slate, and every flag, flicker while it's written.
+09_4	1	“Let every slate, and every flag, flicker while it's written.”
+09_4	1	Let every slate and every flag flicker, while it's written.
+09_4	1	“Let every slate and every flag flicker, while it's written.”
+11_5	0	Up to about — thirty-one and a half billion.
+11_5	0	“Up to about — thirty-one and a half billion.”
+11_5	0	Up to, about, thirty-one and a half billion.
+11_5	0	“Up to, about, thirty-one and a half billion.”
+03_1	1	Now, picture a bakery.
+03_1	1	“Now, picture a bakery.”
+03_1	1	Now — picture a bakery.
+03_1	1	“Now — picture a bakery.”
+08_3	1	If Blue is in the room: every other ticket holder has a bigger pair than hers.
+08_3	1	“If Blue is in the room: every other ticket holder has a bigger pair than hers.”
+08_9	1	Only the proof covers — every case.
+08_9	1	“Only the proof covers — every case.”
+01_2	1	In nineteen seventy-three: that was considered impossible.
+01_2	1	“In nineteen seventy-three: that was considered impossible.”
+01_2	1	In nineteen seventy-three, that was considered — impossible.
+01_2	1	“In nineteen seventy-three, that was considered — impossible.”
+01_9	0	Counting orders isn't measuring chances; but a fix has to work in every order.
+01_9	0	“Counting orders isn't measuring chances; but a fix has to work in every order.”
+01_9	0	Counting orders isn't measuring chances, but a fix has to work, in every order.
+01_9	0	“Counting orders isn't measuring chances, but a fix has to work, in every order.”
+03_7	1	Nobody ever writes — on anyone else's slate.
+03_7	1	“Nobody ever writes — on anyone else's slate.”
+03_7	1	Nobody, ever, writes on anyone else's slate.
+03_7	1	“Nobody, ever, writes on anyone else's slate.”
+10_2	4	That's fact one, the other way round.
+10_2	4	“That's fact one, the other way round.”
+10_2	4	That's fact one — the other way round.
+10_2	4	“That's fact one — the other way round.”
+11_2	2	So, nobody waits forever.
+11_2	2	“So, nobody waits forever.”
+11_2	2	So: nobody waits forever.
+11_2	2	“So: nobody waits forever.”
+11_3	0	The price is that tickets keep growing, while somebody is always in line.
+11_3	0	“The price is that tickets keep growing, while somebody is always in line.”
+11_3	0	The price is that tickets keep growing — while somebody is always in line.
+11_3	0	“The price is that tickets keep growing — while somebody is always in line.”
+11_7	0	And, it isn't cheap.
+11_7	0	“And, it isn't cheap.”
+11_7	0	And it isn't — cheap.
+11_7	0	“And it isn't — cheap.”
+11_7	1	Even alone, a customer makes three reads, for every other customer.
+11_7	1	“Even alone, a customer makes three reads, for every other customer.”
+11_7	1	Even alone: a customer makes three reads for every other customer.
+11_7	1	“Even alone: a customer makes three reads for every other customer.”
+13_1	1	So, does the bakery still run anywhere?
+13_1	1	“So, does the bakery still run anywhere?”
+13_1	1	So — does the bakery still run, anywhere?
+13_1	1	“So — does the bakery still run, anywhere?”
+04_5	2	Does she go before Pink, and Green?
+04_5	2	“Does she go before Pink, and Green?”
+06_1	2	How many orders are there, now?
+06_1	2	“How many orders are there, now?”
+05_3	1	Both — in the room.
+05_3	1	“Both — in the room.”
+08_5	1	Not yet — choosing.
+08_5	1	“Not yet — choosing.”
+08_5	1	Not yet choosing…
+08_5	1	“Not yet choosing…”
+08_7	0	Finished choosing…
+08_7	0	“Finished choosing…”
+12_5	0	The fix is — a fence.
+12_5	0	“The fix is — a fence.”
+12_5	0	The fix is: a fence.
+12_5	0	“The fix is: a fence.”
+10_1	1	Is that — dangerous?
+10_1	1	“Is that — dangerous?”
+09_2	2	Even two thousand, four hundred ninety-six.
+09_2	2	“Even two thousand, four hundred ninety-six.”
+09_2	2	Even — two thousand four hundred ninety-six.
+09_2	2	“Even — two thousand four hundred ninety-six.”
+12_2	0	Your laptop has several processors called cores.
+12_2	0	“Your laptop has several processors called cores.”
+12_2	0	Your laptop has several processors — called cores.
+12_2	0	“Your laptop has several processors — called cores.”
+12_2	0	Your laptop has several processors, called 'cores'.
+12_2	0	“Your laptop has several processors, called 'cores'.”
+10_3	1	In his words: the read may return any arbitrary value.
+10_3	1	“In his words: the read may return any arbitrary value.”
+10_3	1	In his words, the read may return any arbitrary value!
+10_3	1	“In his words, the read may return any arbitrary value!”
+10_3	1	In his words — the read may return any arbitrary value.
+10_3	1	“In his words — the read may return any arbitrary value.”
+08_1	0	Why can two customers never be in the room, at once?
+08_1	0	“Why can two customers never be in the room, at once?”
+08_1	0	Why can two customers never be in the room — at once?
+08_1	0	“Why can two customers never be in the room — at once?”
+05_7	1	With flags, there are three hundred twenty-two — and not one does.
+05_7	1	“With flags, there are three hundred twenty-two — and not one does.”
+05_7	1	With flags there are three hundred twenty-two, and not one does.
+05_7	1	“With flags there are three hundred twenty-two, and not one does.”
+04_3	0	Our rule only waits for smaller tickets — so both can end up in the room at once.
+04_3	0	“Our rule only waits for smaller tickets — so both can end up in the room at once.”
+04_3	0	Our rule only waits for smaller tickets; so both can end up in the room at once.
+04_3	0	“Our rule only waits for smaller tickets; so both can end up in the room at once.”
+04_3	0	Our rule only waits for smaller tickets, so both can end up in the room, at once.
+04_3	0	“Our rule only waits for smaller tickets, so both can end up in the room, at once.”
+09_1	1	Rewrite oh-nine as ten, one digit at a time, and a glance in between reads nineteen, or zero zero.
+09_1	1	“Rewrite oh-nine as ten, one digit at a time, and a glance in between reads nineteen, or zero zero.”
+09_1	1	Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen — or zero zero.
+09_1	1	“Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen — or zero zero.”
+09_1	1	Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen or zero zero.
+09_1	1	“Rewrite oh-nine as ten one digit at a time, and a glance in between reads nineteen or zero zero.”
+05_5	0	Same unlucky order; now with flags.
+05_5	0	“Same unlucky order; now with flags.”
+05_5	0	Same unlucky order, now, with flags.
+05_5	0	“Same unlucky order, now, with flags.”
+08_3	1	If Blue is in the room — every other ticket holder has a bigger pair than hers.
+08_3	1	“If Blue is in the room — every other ticket holder has a bigger pair than hers.”
+09_5	1	It trusts only two glances: at slates.
+09_5	1	“It trusts only two glances: at slates.”
+11_5	1	A thirty-two bit slate stops at about four billion, then rolls back to zero like a car's odometer — in under two months.
+11_5	1	“A thirty-two bit slate stops at about four billion, then rolls back to zero like a car's odometer — in under two months.”
+11_5	1	A thirty-two bit slate stops at about four billion; then rolls back to zero, like a car's odometer, in under two months.
+11_5	1	“A thirty-two bit slate stops at about four billion; then rolls back to zero, like a car's odometer, in under two months.”
+13_3	1	It's in the ballot numbers of Paxos too — the method that keeps copies of a database agreeing.
+13_3	1	“It's in the ballot numbers of Paxos too — the method that keeps copies of a database agreeing.”
+13_3	1	It's in the ballot numbers of Paxos too: the method that keeps copies of a database agreeing.
+13_3	1	“It's in the ballot numbers of Paxos too: the method that keeps copies of a database agreeing.”
+04_4	1	Pair each ticket with its customer number and compare tickets first.
+04_4	1	“Pair each ticket with its customer number and compare tickets first.”
+04_4	1	Pair each ticket with its customer number — and compare tickets first.
+04_4	1	“Pair each ticket with its customer number — and compare tickets first.”
+01_4	1	Programmers call it x — and write x equals x plus one.
+01_4	1	“Programmers call it x — and write x equals x plus one.”
+05_4	2	Before comparing with someone, wait — until their flag is down.
+05_4	2	“Before comparing with someone, wait — until their flag is down.”
+11_2	1	Once you've taken your ticket: each other customer can get ahead of you at most once.
+11_2	1	“Once you've taken your ticket: each other customer can get ahead of you at most once.”
+12_4	1	Both walk in; while the real flags and slates still say nobody is even choosing.
+12_4	1	“Both walk in; while the real flags and slates still say nobody is even choosing.”
+01_6	2	Two points scored — one counted.
+01_6	2	“Two points scored — one counted.”
+01_6	2	Two points scored; one counted.
+01_6	2	“Two points scored; one counted.”
+01_7	1	Blue's steps go across, Green's go up — and the order we just saw is this staircase.
+01_7	1	“Blue's steps go across, Green's go up — and the order we just saw is this staircase.”
+01_7	1	Blue's steps go across; Green's go up; and the order we just saw is this staircase.
+01_7	1	“Blue's steps go across; Green's go up; and the order we just saw is this staircase.”
+03_6	0	Whoever is in the room plays their own tune — so only one tune sounds at a time.
+03_6	0	“Whoever is in the room plays their own tune — so only one tune sounds at a time.”
+03_6	0	Whoever is in the room plays their own tune so only one tune sounds at a time.
+03_6	0	“Whoever is in the room plays their own tune so only one tune sounds at a time.”
+08_3	0	Fact two:
+08_3	0	“Fact two:”
+01_5	0	That's two steps:
+01_5	0	“That's two steps:”
+01_5	0	That's two steps —
+01_5	0	“That's two steps —”
+08_7	0	Finished choosing:
+08_7	0	“Finished choosing:”
+08_7	0	Finished, choosing.
+08_7	0	“Finished, choosing.”
+05_8	1	Unlike the door sign the flag is not a lock.
+05_8	1	“Unlike the door sign the flag is not a lock.”
+05_8	1	Unlike the door sign: the flag is not a lock.
+05_8	1	“Unlike the door sign: the flag is not a lock.”
+05_8	1	Unlike the door sign — the flag is not a lock.
+05_8	1	“Unlike the door sign — the flag is not a lock.”
+08_6	1	Then Green's flag was up — and that check wouldn't have let Blue through.
+08_6	1	“Then Green's flag was up — and that check wouldn't have let Blue through.”
+08_6	1	Then Green's flag was up; and that check wouldn't have let Blue through.
+08_6	1	“Then Green's flag was up; and that check wouldn't have let Blue through.”
+08_6	1	Then Green's flag was up, and that check wouldn't have let Blue — through.
+08_6	1	“Then Green's flag was up, and that check wouldn't have let Blue — through.”
+09_5	1	It trusts only two glances at slates:
+09_5	1	“It trusts only two glances at slates:”
+09_5	1	It trusts only two glances at slates —
+09_5	1	“It trusts only two glances at slates —”
+11_2	0	As long as everyone in the room comes out — and nobody stalls for good with a raised flag or a ticket — whoever holds the smallest pair gets through.
+11_2	0	“As long as everyone in the room comes out — and nobody stalls for good with a raised flag or a ticket — whoever holds the smallest pair gets through.”
+11_2	0	As long as everyone in the room comes out, and nobody stalls for good, with a raised flag or a ticket, whoever holds the smallest pair gets through.
+11_2	0	“As long as everyone in the room comes out, and nobody stalls for good, with a raised flag or a ticket, whoever holds the smallest pair gets through.”
+04_1	0	Can two customers get — the same ticket?
+04_1	0	“Can two customers get — the same ticket?”
+13_1	1	So: does the bakery still run anywhere?
+13_1	1	“So: does the bakery still run anywhere?”
+13_1	1	So, does the bakery still run — anywhere?
+13_1	1	“So, does the bakery still run — anywhere?”
+10_5	0	So — could computers take turns safely with memory like that?
+10_5	0	“So — could computers take turns safely with memory like that?”
+08_8	2	Like me being taller than you — and you taller than me.
+08_8	2	“Like me being taller than you — and you taller than me.”
+08_8	2	Like me being taller than you; and you taller than me.
+08_8	2	“Like me being taller than you; and you taller than me.”
+08_1	0	Why can 2 customers never be in the room at once?
+08_1	0	“Why can 2 customers never be in the room at once?”
+04_1	0	Can 2 customers get the same ticket?
+04_1	0	“Can 2 customers get the same ticket?”
+01_5	0	That's 2 steps.
+01_5	0	“That's 2 steps.”
+09_5	1	It trusts only 2 glances at slates.
+09_5	1	“It trusts only 2 glances at slates.”
+08_3	0	Fact 2.
+08_3	0	“Fact 2.”
+10_1	0	And a glance that catches Blue's old zero mid-write, lets Green straight in.
+10_1	0	“And a glance that catches Blue's old zero mid-write, lets Green straight in.”
+11_2	0	As long as everyone in the room comes out; and nobody stalls for good with a raised flag or a ticket; whoever holds the smallest pair gets through.
+11_2	0	“As long as everyone in the room comes out; and nobody stalls for good with a raised flag or a ticket; whoever holds the smallest pair gets through.”
+# Other quotation marks around the script's own sentence: for a pop before the first sound (08_3 'Fact two.',
+# 08_8 'Like me…') and for the short labels ftts cuts short in “ ” as well.
+08_3	0	‘Fact two.’
+08_3	0	"Fact two."
+08_8	2	"Like me being taller than you, and you taller than me."
+08_8	2	‘Like me being taller than you, and you taller than me.’
+08_1	0	"Why can two customers never be in the room at once?"
+08_7	0	"Finished choosing."
+08_7	0	‘Finished choosing.’
+08_5	1	"Not yet choosing."
+08_5	1	‘Not yet choosing.’
+# After the tool's new ending measure (2026-10-12, the last 80 ms of sound): 16 chosen reads stop at speech level,
+# most of them short sentences with only two reads. Three more quotation styles around the script's own sentence.
+01_7	2	"There are six."
+01_7	2	‘There are six.’
+01_7	2	«There are six.»
+02_1	0	"The fix seems obvious."
+02_1	0	‘The fix seems obvious.’
+02_1	0	«The fix seems obvious.»
+02_4	2	"Of the fourteen orders, eight put both in the room at once."
+02_4	2	‘Of the fourteen orders, eight put both in the room at once.’
+02_4	2	«Of the fourteen orders, eight put both in the room at once.»
+02_5	2	"Someone who isn't trying to get in can stop without holding up anyone else."
+02_5	2	‘Someone who isn't trying to get in can stop without holding up anyone else.’
+02_5	2	«Someone who isn't trying to get in can stop without holding up anyone else.»
+02_5	3	"And fast or slow, it still works."
+02_5	3	‘And fast or slow, it still works.’
+02_5	3	«And fast or slow, it still works.»
+03_1	2	"Take a number, and the lowest ticket is served next."
+03_1	2	‘Take a number, and the lowest ticket is served next.’
+03_1	2	«Take a number, and the lowest ticket is served next.»
+03_4	1	"Blue reads a three, a zero, a zero, and a two."
+03_4	1	‘Blue reads a three, a zero, a zero, and a two.’
+03_4	1	«Blue reads a three, a zero, a zero, and a two.»
+04_1	0	"Can two customers get the same ticket?"
+04_1	0	‘Can two customers get the same ticket?’
+04_1	0	«Can two customers get the same ticket?»
+04_2	0	"Yes."
+04_2	0	‘Yes.’
+04_2	0	«Yes.»
+04_3	0	"Our rule only waits for smaller tickets, so both can end up in the room at once."
+04_3	0	‘Our rule only waits for smaller tickets, so both can end up in the room at once.’
+04_3	0	«Our rule only waits for smaller tickets, so both can end up in the room at once.»
+04_4	2	"Only if they're equal, compare customer numbers, the way a dictionary checks the second letter only when the first letters match."
+04_4	2	‘Only if they're equal, compare customer numbers, the way a dictionary checks the second letter only when the first letters match.’
+04_4	2	«Only if they're equal, compare customer numbers, the way a dictionary checks the second letter only when the first letters match.»
+05_4	2	"Before comparing with someone, wait until their flag is down."
+05_4	2	‘Before comparing with someone, wait until their flag is down.’
+05_4	2	«Before comparing with someone, wait until their flag is down.»
+05_9	1	"The flag just shows who's choosing, and the tie-breaker settles equal tickets."
+05_9	1	‘The flag just shows who's choosing, and the tie-breaker settles equal tickets.’
+05_9	1	«The flag just shows who's choosing, and the tie-breaker settles equal tickets.»
+08_1	1	"Picture Blue inside, and Green holding a ticket."
+08_1	1	‘Picture Blue inside, and Green holding a ticket.’
+08_1	1	«Picture Blue inside, and Green holding a ticket.»
+08_2	2	"Green saw Blue's."
+08_2	2	‘Green saw Blue's.’
+08_2	2	«Green saw Blue's.»
+08_6	0	"In the middle of choosing."
+08_6	0	‘In the middle of choosing.’
+08_6	0	«In the middle of choosing.»
+10_4	1	"Find the biggest ticket by reading each slate exactly once."
+10_4	1	‘Find the biggest ticket by reading each slate exactly once.’
+10_4	1	«Find the biggest ticket by reading each slate exactly once.»
+10_5	1	"Yes."
+10_5	1	‘Yes.’
+10_5	1	«Yes.»
+12_1	0	"The proof is right, but run as written on your laptop, the algorithm can fail."
+12_1	0	‘The proof is right, but run as written on your laptop, the algorithm can fail.’
+12_1	0	«The proof is right, but run as written on your laptop, the algorithm can fail.»
+12_6	0	"Arm chips, like the ones in recent Macs, shuffle more than an outbox does."
+12_6	0	‘Arm chips, like the ones in recent Macs, shuffle more than an outbox does.’
+12_6	0	«Arm chips, like the ones in recent Macs, shuffle more than an outbox does.»
+13_2	0	"Yes."
+13_2	0	‘Yes.’
+13_2	0	«Yes.»
+# 'Yes.' (04_2, 10_5, 13_2), 'There are six.' (01_7) and 'Green saw Blue's.' (08_2): all five reads of each end with the
+# WAV stopping in the last sound. Inputs that give ftts something after the word, so it writes the word out.
+04_2	0	Yes…
+04_2	0	Yes. …
+04_2	0	Yes. —
+04_2	0	(Yes.)
+04_2	0	“Yes.” —
+04_2	0	Yes!
+04_2	0	“Yes…”
+04_2	0	Yes. .
+04_2	0	— Yes.
+10_5	1	Yes…
+10_5	1	Yes. …
+10_5	1	Yes. —
+10_5	1	(Yes.)
+10_5	1	“Yes.” —
+10_5	1	Yes!
+10_5	1	“Yes…”
+10_5	1	Yes. .
+10_5	1	— Yes.
+13_2	0	Yes…
+13_2	0	Yes. …
+13_2	0	Yes. —
+13_2	0	(Yes.)
+13_2	0	“Yes.” —
+13_2	0	Yes!
+13_2	0	“Yes…”
+13_2	0	Yes. .
+13_2	0	— Yes.
+01_7	2	There are six…
+01_7	2	There are six. …
+01_7	2	There are six. —
+01_7	2	(There are six.)
+01_7	2	“There are six.” —
+01_7	2	There are six!
+01_7	2	“There are six…”
+01_7	2	There are six. .
+01_7	2	— There are six.
+08_2	2	Green saw Blue's…
+08_2	2	Green saw Blue's. …
+08_2	2	Green saw Blue's. —
+08_2	2	(Green saw Blue's.)
+08_2	2	“Green saw Blue's.” —
+08_2	2	Green saw Blue's!
+08_2	2	“Green saw Blue's…”
+08_2	2	Green saw Blue's. .
+08_2	2	— Green saw Blue's.
+# 'Yes.': of 14 reads only 'Yes. …' lets its s die away (the others stop it dead or run it into the end of the file).
+# More inputs of that kind.
+04_2	0	Yes. … …
+04_2	0	Yes. ….
+04_2	0	Yes. . .
+04_2	0	“Yes. …”
+04_2	0	Yes. … —
+04_2	0	Yes, …
+10_5	1	Yes. … …
+10_5	1	Yes. ….
+10_5	1	Yes. . .
+10_5	1	“Yes. …”
+10_5	1	Yes. … —
+10_5	1	Yes, …
+13_2	0	Yes. … …
+13_2	0	Yes. ….
+13_2	0	Yes. . .
+13_2	0	“Yes. …”
+13_2	0	Yes. … —
+13_2	0	Yes, …
+# The most rushed short reads left (over 6.3 syllables a second): 'Up to about thirty-one and a half billion.' (11_5),
+# 'After you.' (04_3), 'Impossible.' (08_8), 'How many lose a point?' (01_7), 'Fact one.' (08_2).
+11_5	0	"Up to about thirty-one and a half billion."
+11_5	0	‘Up to about thirty-one and a half billion.’
+11_5	0	«Up to about thirty-one and a half billion.»
+11_5	0	Up to about thirty-one and a half billion…
+11_5	0	Up to about thirty-one and a half billion. …
+11_5	0	— Up to about thirty-one and a half billion.
+11_5	0	Up to about: thirty-one and a half billion.
+11_5	0	Up to about 31 and a half billion.
+11_5	0	“Up to about 31 and a half billion.”
+11_5	0	Up to about thirty-one, and a half, billion.
+04_3	2	"After you."
+04_3	2	‘After you.’
+04_3	2	«After you.»
+04_3	2	After you…
+04_3	2	After you. …
+04_3	2	— After you.
+04_3	2	After, you.
+08_8	3	"Impossible."
+08_8	3	‘Impossible.’
+08_8	3	«Impossible.»
+08_8	3	Impossible…
+08_8	3	Impossible. …
+08_8	3	— Impossible.
+01_7	3	"How many lose a point?"
+01_7	3	‘How many lose a point?’
+01_7	3	«How many lose a point?»
+01_7	3	How many lose a point? …
+01_7	3	— How many lose a point?
+01_7	3	How many — lose a point?
+01_7	3	How many, lose a point?
+08_2	0	"Fact one."
+08_2	0	‘Fact one.’
+08_2	0	«Fact one.»
+08_2	0	Fact one…
+08_2	0	Fact one. …
+08_2	0	— Fact one.
+08_2	0	Fact one:
+# Statements that end rising (08_3 'If Blue is in the room…' +4.4 st, 05_7 'With flags…' +4.2, 02_8 'Hold that thought.' +3.8):
+# more quotation styles and a trailing ellipsis, for a read that closes falling.
+08_3	1	"If Blue is in the room, every other ticket holder has a bigger pair than hers."
+08_3	1	‘If Blue is in the room, every other ticket holder has a bigger pair than hers.’
+08_3	1	«If Blue is in the room, every other ticket holder has a bigger pair than hers.»
+08_3	1	If Blue is in the room, every other ticket holder has a bigger pair than hers. …
+08_3	1	“If Blue is in the room, every other ticket holder has a bigger pair than hers.” …
+08_3	1	— If Blue is in the room, every other ticket holder has a bigger pair than hers.
+08_3	1	If Blue is in the room, every other ticket holder has a bigger pair than hers…
+05_7	1	"With flags, there are three hundred twenty-two, and not one does."
+05_7	1	‘With flags, there are three hundred twenty-two, and not one does.’
+05_7	1	«With flags, there are three hundred twenty-two, and not one does.»
+05_7	1	With flags, there are three hundred twenty-two, and not one does. …
+05_7	1	“With flags, there are three hundred twenty-two, and not one does.” …
+05_7	1	— With flags, there are three hundred twenty-two, and not one does.
+05_7	1	With flags, there are three hundred twenty-two, and not one does…
+02_8	2	"Hold that thought."
+02_8	2	‘Hold that thought.’
+02_8	2	«Hold that thought.»
+02_8	2	Hold that thought. …
+02_8	2	“Hold that thought.” …
+02_8	2	— Hold that thought.
+02_8	2	Hold that thought…
+# 05_6 'She sees Blue's flag up, and waits.': its plain read opens with a thump (65 ms at speech level, then 0.27 s of
+# silence) that the editor takes for 'She'; its “ ” read is cut short. More reads to choose a clean one from.
+05_6	0	"She sees Blue's flag up, and waits."
+05_6	0	‘She sees Blue's flag up, and waits.’
+05_6	0	«She sees Blue's flag up, and waits.»
+05_6	0	She sees Blue's flag up, and waits. …
+05_6	0	— She sees Blue's flag up, and waits.
+05_6	0	She sees Blue's flag up and waits.
+05_6	0	“She sees Blue's flag up and waits.”
+05_6	0	She sees Blue's flag up — and waits.
+05_6	0	“She sees Blue's flag up — and waits.”
+05_6	0	“She sees Blue's flag up, and waits.” …
+# Owner review 2 (2026-10-12, codex-tts-audit): 12_7 'writes' ends without its s (final s/z check); 08_8 'other's' is cut
+# inside its s; 05_1 'Green's slate' (audit 5:26); 07_2 now cut short. Other quotation marks and a trailing ellipsis.
+12_7	0	"For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes."
+12_7	0	‘For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.’
+12_7	0	«For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.»
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes. …
+12_7	0	“For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes.” …
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads and writes…
+12_7	0	For programmers, the easy, correct way everywhere is sequentially consistent atomic reads, and writes.
+12_7	0	“For programmers, the easy, correct way everywhere is sequentially consistent atomic reads, and writes.”
+08_8	1	"Then fact two says each one's pair is smaller than the other's."
+08_8	1	‘Then fact two says each one's pair is smaller than the other's.’
+08_8	1	«Then fact two says each one's pair is smaller than the other's.»
+08_8	1	Then fact two says each one's pair is smaller than the other's. …
+08_8	1	“Then fact two says each one's pair is smaller than the other's.” …
+08_8	1	Then fact two says each one's pair is smaller than the other's…
+08_8	1	Then fact two says each one's pair is smaller than — the other's.
+08_8	1	“Then fact two says each one's pair is smaller than — the other's.”
+05_1	1	"Blue reads Green's slate, sees zero, and decides on ticket one."
+05_1	1	‘Blue reads Green's slate, sees zero, and decides on ticket one.’
+05_1	1	«Blue reads Green's slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Green's slate, sees zero, and decides on ticket one. …
+05_1	1	“Blue reads Green's slate, sees zero, and decides on ticket one.” …
+05_1	1	Blue reads Green's slate, sees zero, and decides on ticket one…
+05_1	1	Blue reads Green's slate — sees zero, and decides on ticket one.
+05_1	1	Blue reads Green's slate; sees zero, and decides on ticket one.
+05_1	1	“Blue reads Green's slate — sees zero, and decides on ticket one.”
+05_1	1	“Blue reads Green's slate; sees zero, and decides on ticket one.”
+07_2	1	"Purple finishes first and finds Green's flag still up, so she waits."
+07_2	1	‘Purple finishes first and finds Green's flag still up, so she waits.’
+07_2	1	«Purple finishes first and finds Green's flag still up, so she waits.»
+07_2	1	Purple finishes first and finds Green's flag still up, so she waits. …
+07_2	1	“Purple finishes first and finds Green's flag still up, so she waits.” …
+07_2	1	Purple finishes first and finds Green's flag still up, so she waits…
+07_2	1	Purple finishes first and finds Green's flag still up — so she waits.
+07_2	1	“Purple finishes first and finds Green's flag still up — so she waits.”
+# 05_1 'Green's slate': in the n-to-s join of 03_3 'her own slate' (no z) the sibilant lasts 125-140 ms; most 05_1 reads
+# give 110-170 ms, so the possessive z is merged away. ftts-only respellings of the possessive, to make the z its own sound.
+05_1	1	Blue reads Greenz slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Greenz slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Greenz slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Green-z slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Green-z slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Green-z slate, sees zero, and decides on ticket one.»
+05_1	1	Blue reads Greens slate, sees zero, and decides on ticket one.
+05_1	1	“Blue reads Greens slate, sees zero, and decides on ticket one.”
+05_1	1	«Blue reads Greens slate, sees zero, and decides on ticket one.»
+# Owner review 3 (2026-10-12, end-of-word hiss): 01_7 'staircases' ends without its final -es (50 ms of murmur, no hiss);
+# 04_6 'ties' has 25-50 ms of final s. Other quotation marks and a trailing ellipsis, for a read that finishes the word.
+01_7	0	"Draw every order at once, as staircases."
+01_7	0	‘Draw every order at once, as staircases.’
+01_7	0	«Draw every order at once, as staircases.»
+01_7	0	Draw every order at once, as staircases. …
+01_7	0	“Draw every order at once, as staircases.” …
+01_7	0	Draw every order at once, as staircases…
+01_7	0	— Draw every order at once, as staircases.
+01_7	0	Draw every order at once, as staircases. —
+01_7	0	«Draw every order at once, as staircases.» …
+01_7	0	Draw every order at once — as staircases.
+01_7	0	Draw every order at once as staircases.
+01_7	0	“Draw every order at once — as staircases.”
+01_7	0	“Draw every order at once as staircases.”
+04_6	2	"The customer number only breaks ties."
+04_6	2	‘The customer number only breaks ties.’
+04_6	2	«The customer number only breaks ties.»
+04_6	2	The customer number only breaks ties. …
+04_6	2	“The customer number only breaks ties.” …
+04_6	2	The customer number only breaks ties…
+04_6	2	— The customer number only breaks ties.
+04_6	2	The customer number only breaks ties. —
+04_6	2	«The customer number only breaks ties.» …
+04_6	2	The customer number only breaks — ties.
+04_6	2	The customer number, only, breaks ties.
+04_6	2	“The customer number only breaks — ties.”
+04_6	2	“The customer number, only, breaks ties.”

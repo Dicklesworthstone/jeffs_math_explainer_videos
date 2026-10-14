@@ -1,0 +1,47 @@
+# Hoeffding's D: YouTube package
+
+What goes on the upload page. The description is cut from `docs/description.md` (every
+number there is printed by `hoeffding stats`) and links back to it; the chapter times come
+from the final cut (`./x hoeffding_d chapters`).
+
+- Title: Hoeffding's D: The Ring That Correlation Can't See (exactly this: no voice or review suffix)
+- Voice: michael (the owner's choice; "Hoeffding" is read HERF-ding). The upload text is `publish/michael/{title,description,tags}.txt`; the description below equals `publish/michael/description.txt` byte for byte. robert's original cut and its text (`publish/robert/`) are kept.
+- Visibility: Public. The owner authorized publication on 2026-10-12, once the final fixes and checks are done; only the upload lane uploads it and makes it public. The earlier review uploads stay Private.
+- Category: Education. Audience: not made for kids.
+- Altered or synthetic content: Yes (disclosed, as on the review uploads: the narration is a synthetic voice; no real person, place or event is depicted). The description says so too.
+- Thumbnail: `renders/hoeffding_thumbnail.png` (`./x hoeffding_d thumbnail`)
+- Captions: English, `variants/michael/renders/final/hoeffding.en.srt` (`VOICE=michael ./x hoeffding_d captions`)
+- Tags: Hoeffding's D, correlation, statistics, independence test, Pearson correlation, Spearman rank correlation, Kendall tau, rank statistics, permutation test, U-statistic, nonparametric statistics, math explainer
+
+## Description
+
+```text
+Here is a ring of points. Anyone can see that X and Y are related, yet the three usual correlations each read about zero on it: Pearson's r is −0.012, Spearman's ρ is −0.013 and Kendall's τ is −0.010. Hoeffding's D, from 1948 (Wassily Hoeffding; say it roughly HERF-ding), asks a different question, whether X and Y could be independent at all, and on the same ring it reads 0.0375, where the 99th percentile of D over shuffles of Y is 0.0131. The video builds D from nothing: why a turn takes four points to see, how ranks and one count per point stand in for the 26,010,428,123,750 groups of four among 5,000 points, and a worked example on ten people's heights and weights that comes out to D = 0.4107.
+
+Chapters
+0:00 The ring that correlation can't see
+0:47 Six shapes, four measures
+2:17 Why a turn takes four points
+3:23 Ranks
+4:16 The count Q
+5:35 Three sums and one formula
+6:45 What shuffling destroys
+8:18 Recap
+
+Names to search: Hoeffding's D, Hoeffding's test of independence, Pearson's correlation coefficient, Spearman's rank correlation, Kendall's tau, rank statistics, U-statistic, permutation test.
+
+Sources
+W. Hoeffding, "A Non-Parametric Test of Independence", The Annals of Mathematical Statistics 19(4), 1948, pp. 546–557. doi:10.1214/aoms/1177730150
+J. Emanuel, "My Favorite Statistical Measure: Hoeffding's D", the article whose algorithm and worked example the video follows: https://github.com/Dicklesworthstone/hoeffdings_d_explainer
+SAS Institute, Base SAS 9.4 Procedures Guide: Statistical Procedures, PROC CORR, "Hoeffding Dependence Coefficient", for D's scale
+
+The code that draws the video computes every number in it:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/tree/main/explainer_corpus/hoeffding_d
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
+```
+
+## Chapter titles (in order; the times come from the final cut)
+
+The ring that correlation can't see | Six shapes, four measures | Why a turn takes four points |
+Ranks | The count Q | Three sums and one formula | What shuffling destroys | Recap

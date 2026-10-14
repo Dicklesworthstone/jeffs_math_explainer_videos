@@ -1,6 +1,6 @@
 # raptorq_gf256: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
 01_1	I'm sending this picture to a million phones. Each one randomly loses about one packet in a hundred.
-01_2	Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is an arithmetic where three times seven is nine.
+01_2	Yet almost every phone that catches just two packets more than it needs rebuilds the picture exactly. The secret is a kind of arithmetic where three times seven is nine.
 01_4	A file travels as thousands of packets, each carrying one small piece of it. Our picture is cut into ten thousand pieces. Lose some, and the usual fix is to ask again.
 01_5	With a million phones, each packet goes missing for about ten thousand of them, and the requests swamp the sender. A TV antenna can't ask at all.
 01_6	So send the file on a loop. Miss a piece, and you wait a whole loop for it. Most phones need two or three loops. The unluckiest of a million need five or six.
@@ -8,18 +8,18 @@
 01_8	On average, about ninety-eight thousand. The last few take forever, because you keep getting doubles.
 02_1	First, how computers write numbers. Each spot holds a bit, a zero or a one, and each spot is worth double the one to its right. One, two, four, eight.
 02_2	Five is four plus one, so it's one, zero, one. A byte is eight bits, so it holds zero to two fifty-five.
-02_3	Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. The mixing move is called ex-or.
-02_4	Line two numbers up in bits. Wherever the second has a one, flip that bit of the first, like a light switch.
+02_3	Instead of sending pieces, we'll send mixes of pieces, so no phone waits for one particular packet. A piece of the picture is just numbers, so mixing pieces means mixing numbers. The mixing move is called ex-or, and it works like this.
+02_4	Line up the two numbers in bits. Wherever the second has a one, flip that bit of the first, like a light switch.
 02_5	Five is one, zero, one. Seven is one, one, one. What's five ex-or seven?
 02_6	Zero, one, zero. Two. And flip twice, and you're back where you started. Two ex-or seven is five again.
 03_1	Each packet says which pieces it mixed, and the result. That's an equation. We'll draw each packet as a card.
 03_2	The same cards as a grid. A row per card, and a dot where it uses a piece.
-03_3	Solving works like elimination in algebra class. Ex-or card one with card three, and A cancels. B ex-or C is four.
+03_3	Solving works like elimination in algebra class. Ex-or card one with card three, and the A cancels. B ex-or C is four.
 03_4	Put that into card two, and D is two. And so on.
 03_5	The phone is just a bucket. It doesn't care which cards arrive, or in what order. It needs as many useful cards as there are pieces. Useful means it tells you something you couldn't already work out.
 03_6	Here's a fifth card. B ex-or C is four. Is it useful?
 03_7	No. You could make it yourself from cards one and three.
-03_8	A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same shuffled deck, so a packet's number tells the phone which pieces it mixed.
+03_8	A sender can make endless fresh mixes, like water from a fountain, so these are called fountain codes. Both sides own the same recipe book, so a packet's number tells the phone which pieces it mixed.
 03_9	The fountain code we'll open up is called RaptorQ, an internet standard since twenty eleven. This video is about the arithmetic inside it.
 04_1	Use three pieces for a moment. A card either uses a piece or it doesn't, so there are eight possible cards, from nothing at all to A, B and C together.
 04_2	Put them on the corners of a cube. One direction per piece. Step along A if the card uses A.
@@ -29,7 +29,7 @@
 05_1	So for three random cards in a row, how often are all three useful?
 05_2	Seven eighths, times six eighths, times four eighths. About one time in three, so it fails two times in three. With many pieces it fails seventy-one percent of the time. Call it the ex-or lottery.
 05_3	Watch this danger meter as the bucket fills. For almost the whole fill, a random card is nearly certain to help. Almost all the danger is in the last few slots.
-05_4	Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one in two. Ten pieces or ten million, only the last few slots matter, so the lottery fails about seventy-one percent either way.
+05_4	Three slots from the end, a random card is useless one time in eight. Then one in four. At the last slot, one time in two. Ten pieces or ten million, only the last few slots matter, so the lottery fails about seventy-one percent either way.
 06_1	Spares help. With two spare cards, beyond one per piece, how often does the lottery still fail?
 06_2	Nearly one time in four. The first spare takes it from seventy-one to forty-two percent, and each one after that roughly halves it. With a million phones, that's almost a quarter of a million stuck.
 06_3	Reaching one in a million takes about twenty spares. Ten halvings make about a thousand. Twenty make about a million.
@@ -40,14 +40,14 @@
 07_2	Try two times one twenty-eight on this clock. What do you get?
 07_3	The top bit slides off the end, and it's gone. Zero.
 07_4	So a card saying two times A is six can't tell you A. It could be three, or one thirty-one.
-07_5	Even amounts lose information, like two did. Odd ones never do. So with random byte amounts, only the last bit matters.
-07_6	That's ex-or's coin flip again. This lottery fails seventy-one percent of the time, just like ex-or.
-08_1	A prime number of hours fixes it. On a seven-hour clock, three times what is one?
+07_5	Even amounts lose information, like two did. Odd ones never do. And a number is odd exactly when its last bit is one. So with random byte amounts, only the last bit matters.
+07_6	That's the coin flip from ex-or again. This lottery fails seventy-one percent of the time, just like ex-or.
+08_1	A prime number of hours fixes it. On a seven-hour clock, what times three is one?
 08_2	Five. Every row of its times table, except zero's, is a reshuffle of all seven values. So every number but zero has a partner that multiplies it back to one, and that lets you divide.
 08_3	Zero sneaks in at two fifty-six because two fifty-six is two times one twenty-eight. The nearest prime is two fifty-seven, but that clock needs an hour two fifty-six, which doesn't fit in a byte.
 08_4	A number system where you can add, subtract, multiply, and divide by anything but zero, with all the usual rules of algebra, is called a field. We need one with exactly two hundred fifty-six members, one for every byte. So catch the falling bit, and fold it back in.
-09_1	We need a field with two hundred fifty-six members. Whole numbers can't do it, but polynomials can.
-09_2	Remember the place values, one, two, four, eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one.
+09_1	So we need a field with two hundred fifty-six members. Whole numbers can't do it, but polynomials can.
+09_2	Remember the place values, one, two, four, and eight? Swap the two for an x. One, x, x squared, x cubed. Three was two plus one, so now it's x plus one.
 09_3	The numbers in front are only zero or one, and one plus one is zero, like flipping a switch twice. So x plus x is zero, and adding is ex-or again.
 09_4	Three is x plus one, and seven is x squared plus x plus one. Multiply them out, remembering that one plus one is zero. What do you get?
 09_5	Six terms, and two pairs match. x squared plus x squared vanishes, and so does x plus x. What's left is x cubed plus one, which is one, zero, zero, one. Nine.
@@ -55,51 +55,51 @@
 10_1	A product past x to the seventh doesn't fit in a byte. The simplest fold drops the fallen bit back in at the bottom. A rotation.
 10_2	Three times a byte is double it, ex-or itself. Under that fold, what's three times two fifty-five?
 10_3	Zero. The rotation turns x to the eighth into one, so x to the eighth plus one is zero. And it factors into x plus one, which is three, times a long polynomial, two fifty-five. Two fifty-six was two times one twenty-eight all over again.
-10_4	So we need a polynomial that can't be factored, a prime polynomial. Whenever an x to the eighth falls off, RaptorQ swaps in x to the fourth plus x cubed plus x squared plus one.
+10_4	So we need a polynomial that can't be factored, a prime polynomial. RaptorQ uses x to the eighth plus x to the fourth plus x cubed plus x squared plus one. Treat it as zero, and an x to the eighth that falls off becomes the rest of it.
 10_5	Two times one twenty-eight is x to the eighth. Fold it, and you get sixteen plus eight plus four plus one. Twenty-nine. Not zero.
 10_6	And every nonzero byte now has a partner. Two times one forty-two is exactly one. So bytes form a field, the byte field.
-10_7	A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree.
 11_1	Start at one and keep multiplying by two. One, two, four, eight, sixteen, thirty-two, sixty-four, one twenty-eight. What comes next?
 11_2	Twenty-nine. Keep going, and you visit every nonzero byte exactly once before coming back. Two hundred fifty-five steps.
 11_3	Now move every nonzero byte to the step where it was reached. The star untangles into a circle.
 11_4	Times two is one click around. A clock with two hundred fifty-five hours. Call it the byte clock.
 11_5	To multiply, add clicks, just as two cubed times two to the fourth is two to the seventh. One twenty-eight times four. Seven clicks plus two is nine clicks. Fifty-eight.
-11_6	One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm.
-11_7	That's how the standard multiplies. Look up two click counts, add them, and look up the answer. And every nonzero byte's partner sits at its mirror image across the top.
-11_8	The wrong clock counted bytes, and multiplying on it broke. The right one counts clicks, two hundred fifty-five of them, and going around it is multiplying.
-12_1	Every pair at once. Here's the whole times table in byte order. Each square's colour is its answer. It looks like noise.
+11_6	One fifty times three? One fifty is a hundred eighty clicks, and three is twenty-five clicks. Together, two hundred five clicks, which is one sixty-seven. That click count is called a logarithm. One fifty times itself goes past the top. Three hundred sixty clicks, less one full turn of two fifty-five, is a hundred five clicks. Twenty-six.
+11_7	And every nonzero byte's partner sits at its mirror image across the top.
+12_0	That's how the standard multiplies. Look up two click counts, add them, and look up the answer. In code, zero has no clicks, so check it first. And two click counts can add up past two fifty-five, so the answer table is twice as long.
+12_1	Every pair at once. Here's the whole times table in byte order. Each square's colour is its answer. And it looks like noise.
 12_2	Sort the rows and the columns by clicks. What will the table look like?
-12_4	Sorted by clicks, it's perfect diagonal stripes. Each stripe is one total of clicks.
+12_4	Sorted by clicks, it's perfect diagonal stripes. Each stripe holds one total of clicks.
+12_5	Here's the whole multiply as code. Keep doubling with the fold, and ex-or together the doublings that the other byte's bits pick. A famous encryption standard picked a different prime polynomial. Then the same two bytes can multiply to different answers, so both ends must agree.
+12_6	The wrong clock counted bytes, and multiplying on it broke. The right one counts clicks, two hundred fifty-five of them, and going around it is multiplying.
 13_1	Now give every card random byte amounts. This design really exists. RaptorQ does something cheaper, but first see why it's so good.
 13_2	Remember the last slot. Half the corners were lit, so a random ex-or card was useless half the time.
 13_3	With random byte amounts, how often is a card useless at the last slot?
 13_4	Only one time in two fifty-six. Fix every amount but one. Scaling by a nonzero byte reshuffles all two fifty-six values, so exactly one choice of that amount lands in the lit part.
 13_5	So every extra byte card divides the risk by two fifty-six. With ex-or, each extra card only roughly halves it.
-13_6	Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. Byte cards rarely need even one.
-13_7	One subtlety. A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field. All the gain comes from the other two fifty-four amounts.
-14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces, cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day.
+13_6	Let's race them on ten pieces. Keep adding random cards until every piece is pinned down, a thousand times over. Ex-or needs one or two spares on average. The byte cards rarely need even one.
+13_7	One subtlety. A card whose amounts are only zeros and ones is still an ex-or card, even in the byte field. So our ring of five is still stuck. All the gain comes from the other two fifty-four amounts.
+14_1	So use random byte amounts everywhere? Solving cards that each use every piece takes about the number of pieces cubed, over three. For a file of fifty thousand pieces, that's about forty-two trillion steps. At a billion a second, half a day.
 14_2	Fast codes keep cards sparse. Each card mixes only a few pieces. About half mix two, and a few mix many.
-14_3	Then decoding is a chain reaction, like Sudoku. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling.
+14_3	Then decoding is a chain reaction, like Sudoku. Each dot is a card, and each line goes to a piece it uses. A card with one unknown left gives it away. Remove that piece everywhere, and new single-unknown cards appear. This is called peeling.
 14_4	Lose the card that starts it. What happens?
 14_5	Nothing moves.
 14_6	With exactly enough sparse cards, peeling usually gets stuck early. Even with two percent extra, most runs get stuck around ninety-eight percent. That sounds great, but over a hundred pieces are missing, and the picture is broken.
 14_7	On average, about seventy of them aren't in any card. No decoder can find those.
-14_8	Reed-Solomon codes are ideal. Any set of exactly enough packets rebuilds the picture. But the sender must fix the packet count in advance, and with byte arithmetic it tops out around two hundred fifty-six. A fountain never runs dry.
-15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Every one is a plain ex-or card, of about seven pieces on average.
-15_2	Before sending, the sender adds some extra pieces, picked so that certain fixed cards all have the result zero. These free cards are never sent, because both sides know them. And every piece is in some free card, so even a piece no packet mixed can still be worked out.
-15_6	Big files are cut into blocks, each solved on its own. In every block, only ten to sixteen free cards are byte cards. In big blocks, hundreds of others are cheap ex-ors.
-15_3	Remember the danger meter? Now the bucket has a slot for every piece, old and new, and it still doesn't care about order. Count the ex-or cards first, and they fill it up to the last ten to sixteen slots, before the danger starts. The byte cards fill those, where a card is useless only one time in two fifty-six.
-15_4	What if those last cards were ex-or too?
+15_1	RaptorQ does something cheaper. Its packets never use byte amounts. Each is a plain ex-or card of about seven pieces on average.
+15_7	First, the sender adds extra pieces. With three pieces, add P, equal to A ex-or B ex-or C. Then A ex-or B ex-or C ex-or P is always zero. Both sides know that card, so it's never sent. It's a free card.
+15_2	RaptorQ picks its extra pieces so that many fixed cards are zero like this. Every piece is in some free card, so no piece is out of reach. Even one that no packet mixed sits in an equation that can pin it down.
+15_3	The bucket now has a slot for every piece, old and new, filled in any order. Count the ex-or cards first, and they almost always fill it up to the last ten to sixteen slots. The byte cards fill those, where a card is useless only one time in two fifty-six.
+15_4	What if those last cards were plain ex-or cards?
 15_5	The ex-or lottery again. About seventy-one percent failure. With the byte cards, about six in a thousand.
 16_1	Back to the stuck Sudoku. In big blocks, RaptorQ's decoder mostly peels. When it's stuck, it parks one stubborn piece, here C. Call it little c, and carry it along like an unknown in algebra.
 16_2	Three of these are our cards from the start. A is two ex-or c, and B is six ex-or A. D is six ex-or B ex-or c, so the two c's cancel, and D is two. And E follows from D.
 16_3	At the end, the leftover cards and the byte cards pin down the parked pieces. Here the leftover card, B ex-or E is fifteen, gives c as seven. It's elimination in a clever order, so it works exactly when the cards pin down every piece.
-16_4	Now the ring of five that ex-or couldn't solve. Let a byte card replace the fifth card, E plus two times A is six. Walk around the ring. Does A cancel this time?
-16_5	With ex-or, A met itself and cancelled. Now A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five. The same A, B, C, and D as at the start.
+16_4	Now the ring of five that ex-or couldn't solve. Let a new byte card replace the fifth card, E plus two times A is six. Walk around the ring. This time, does the A cancel?
+16_5	With ex-or, A met itself and cancelled. Now one A plus two A is three A, because adding amounts is ex-or too, and one ex-or two is three. The five results ex-or to fifteen, so three A is fifteen, and A is five.
 17_1	We ran a real RaptorQ decoder a million times, on small blocks of ten pieces. With exactly enough packets, it failed six thousand three hundred sixteen times. About six in a thousand.
 17_2	One more ex-or packet usually fills one more slot, leaving a byte card spare, and that divides the risk by about two fifty-six. So how many failures now?
 17_3	Twenty-four. Two extra, just once. That's too rare to measure precisely. An unlucky phone just waits for one more packet.
 17_4	Averaged over random packets, the standard promises at most one failure in a hundred with exactly enough packets. With one extra, one in ten thousand, and with two, one in a million.
 17_5	The originals can go first, unchanged, so a phone with a clean connection does no decoding at all.
-17_6	It's in a standard for next-generation TV broadcasts. Its older sibling was chosen for mobile broadcast in two thousand five. The same byte field protects some disk arrays that survive two dead drives, and every QR code.
+17_6	It's in a standard for next-generation TV broadcasts. The same byte field protects some disk arrays that survive two dead drives, and every QR code.
 17_7	Two extra packets buy the standard's one in a million, because every nonzero byte has a partner to divide by. And that's because a polynomial refuses to factor. Three times seven is nine.

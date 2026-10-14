@@ -202,6 +202,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2af50177e190e07a26ab74f8b1efbfe2ef87da2116221318cb1c2e82baf7de06"
 
 [[package]]
+name = "bayesian_search_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "bincode-next"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -654,6 +663,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "eigen_engineering_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "either"
 version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -691,6 +709,15 @@ name = "explainer_score"
 version = "0.1.0"
 
 [[package]]
+name = "fair_coin_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -711,12 +738,12 @@ checksum = "aedcfb3409746eddb02b9e19ebda1c3394f759a152e48ee875a0844d1b955484"
 [[package]]
 name = "fmd-font"
 version = "0.3.3"
-source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=bd00a2471566d4fe87229fbc2391c99ac47b9697#bd00a2471566d4fe87229fbc2391c99ac47b9697"
+source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=126a5304e8d94eaea62b1b8e13bbe9c40918ac72#126a5304e8d94eaea62b1b8e13bbe9c40918ac72"
 
 [[package]]
 name = "fmd-math"
 version = "0.1.2"
-source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=bd00a2471566d4fe87229fbc2391c99ac47b9697#bd00a2471566d4fe87229fbc2391c99ac47b9697"
+source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=126a5304e8d94eaea62b1b8e13bbe9c40918ac72#126a5304e8d94eaea62b1b8e13bbe9c40918ac72"
 dependencies = [
  "fmd-font",
 ]
@@ -724,7 +751,7 @@ dependencies = [
 [[package]]
 name = "fmn"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-anim",
  "fmn-codec",
@@ -746,7 +773,7 @@ dependencies = [
 [[package]]
 name = "fmn-anim"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-dmath",
@@ -757,7 +784,7 @@ dependencies = [
 [[package]]
 name = "fmn-cache"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-hash",
  "fmn-platform",
@@ -766,7 +793,7 @@ dependencies = [
 [[package]]
 name = "fmn-codec"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-frame",
@@ -776,7 +803,7 @@ dependencies = [
 [[package]]
 name = "fmn-config"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-hash",
@@ -785,7 +812,7 @@ dependencies = [
 [[package]]
 name = "fmn-core"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-dmath",
  "fnp-random-core",
@@ -794,12 +821,12 @@ dependencies = [
 [[package]]
 name = "fmn-dmath"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 
 [[package]]
 name = "fmn-frame"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-dmath",
@@ -808,7 +835,7 @@ dependencies = [
 [[package]]
 name = "fmn-geom"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-dmath",
@@ -818,12 +845,12 @@ dependencies = [
 [[package]]
 name = "fmn-hash"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 
 [[package]]
 name = "fmn-library"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-anim",
  "fmn-codec",
@@ -843,7 +870,7 @@ dependencies = [
 [[package]]
 name = "fmn-mobject"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-dmath",
@@ -856,7 +883,7 @@ dependencies = [
 [[package]]
 name = "fmn-output"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-cache",
  "fmn-codec",
@@ -870,7 +897,7 @@ dependencies = [
 [[package]]
 name = "fmn-platform"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "asupersync",
  "fmn-core",
@@ -880,7 +907,7 @@ dependencies = [
 [[package]]
 name = "fmn-render"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-cache",
  "fmn-codec",
@@ -895,7 +922,7 @@ dependencies = [
 [[package]]
 name = "fmn-runtime"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-core",
  "fmn-platform",
@@ -904,7 +931,7 @@ dependencies = [
 [[package]]
 name = "fmn-scene"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmn-anim",
  "fmn-config",
@@ -918,7 +945,7 @@ dependencies = [
 [[package]]
 name = "fmn-tex"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmd-math",
  "fmn-cache",
@@ -932,7 +959,7 @@ dependencies = [
 [[package]]
 name = "fmn-text"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=e2eec6326cee490462e497509fce9289c8157bea#e2eec6326cee490462e497509fce9289c8157bea"
+source = "git+https://github.com/Dicklesworthstone/franken_manim?rev=a399d626c43ecc852a5c795288979f52b446bc5c#a399d626c43ecc852a5c795288979f52b446bc5c"
 dependencies = [
  "fmd-font",
  "fmn-core",
@@ -1079,7 +1106,7 @@ dependencies = [
 [[package]]
 name = "franken_markdown"
 version = "0.5.0"
-source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=bd00a2471566d4fe87229fbc2391c99ac47b9697#bd00a2471566d4fe87229fbc2391c99ac47b9697"
+source = "git+https://github.com/Dicklesworthstone/franken_markdown?rev=126a5304e8d94eaea62b1b8e13bbe9c40918ac72#126a5304e8d94eaea62b1b8e13bbe9c40918ac72"
 dependencies = [
  "clap",
  "fmd-font",
@@ -1388,6 +1415,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78"
 
 [[package]]
+name = "lie_robotics_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1407,6 +1443,15 @@ name = "log"
 version = "0.4.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
+
+[[package]]
+name = "matrix_exponential_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
 
 [[package]]
 name = "matrixmultiply"
@@ -1431,6 +1476,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "488016bfae457b036d996092f6cb448677611ce4449e970ceaf42695203f218a"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "mental_math_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
 ]
 
 [[package]]
@@ -2343,6 +2397,15 @@ name = "virtue-next"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d5208a9710a6ca1c2da0d64289a5dcca13deb05afdedf651f4e11bcd9fc53eb"
+
+[[package]]
+name = "visual_proofs_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
 
 [[package]]
 name = "wasi"

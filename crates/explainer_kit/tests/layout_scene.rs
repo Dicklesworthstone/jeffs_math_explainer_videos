@@ -37,9 +37,23 @@ impl SceneConstruct for Busy {
     }
 }
 
+/// A directory for this test's output that no run has used: the process id
+/// and the clock, skipping any path that already exists. Nothing is ever
+/// overwritten or deleted (AGENTS.md, rule 1); the OS's temp cleaning
+/// reclaims it.
+fn fresh_dir(tag: &str) -> std::path::PathBuf {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
+    (0u32..)
+        .map(|k| std::env::temp_dir().join(format!("explainer_kit_{tag}_{}_{nanos}_{k}", std::process::id())))
+        .find(|p| !p.exists())
+        .expect("an unused name")
+}
+
 #[test]
 fn the_lint_finds_what_a_viewer_would_see() {
-    let dir = std::env::temp_dir().join(format!("explainer_kit_layout_{}", std::process::id()));
+    let dir = fresh_dir("layout");
     let findings = Rc::new(RefCell::new(String::new()));
     let mut scene = Busy {
         kit: Kit::new().unwrap().with_lint(Rc::new(Linter::new())),
@@ -66,5 +80,4 @@ fn the_lint_finds_what_a_viewer_would_see() {
             .any(|r| r.contains("outside") && r.contains("an unlabeled shape")),
         "the group is measured by its painted rectangle: {report}"
     );
-    let _ = std::fs::remove_dir_all(&dir);
 }

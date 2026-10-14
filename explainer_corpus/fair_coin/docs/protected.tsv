@@ -1,0 +1,29 @@
+# Words every revision keeps (phrase TAB where TAB why). Checked with protected_check.py.
+heads four times in five	script	the coin the whole video is about (bent(): 4/5)
+Alice and Bob	script	the two players the bet and the trick are told through
+heads then tails	script	one of the two pairs the trick keeps
+tails then heads	script	the other kept pair
+toss two fresh ones	script	fresh tosses for every pair; reusing a thrown toss breaks the trick (02_7)
+the same on both tosses	script	condition 1 of the trick (03_7)
+one toss doesn't affect the next	script	condition 2 of the trick (03_7)
+which is what independent means	script	the owner's word for condition 2
+multiplying doesn't care about order	script	why the two blocks are equal: the owner's "the probabilities commute" (03_2)
+Equal for every p	script	the trick does not need the coin's chance (03_5)
+a coin with a memory	script	where the trick breaks (05_3)
+with the same chance every time and no memory	script	the fence on "order never changes a chance" (orchestrator, 2026-10-12)
+Same counts, same chance	script	the idea the dice need (06_5)
+Pascal's triangle	script	the groups' name (06_6)
+The order is perfectly fair	script	the act's recap (06_7)
+If the two rolls match, roll two fresh ones	script	the loaded-die rule (08_3)
+If any two match, roll three fresh ones	script	the three-roll rule (09_4)
+John von Neumann	script	whose trick it is (10_1)
+nineteen forty-nine	script	when he gave it (10_1)
+rigorously unbiased	script	his printed words (10_1)
+entropy	script	the ceiling's name (10_3)
+Intel	script	the hardware example (11_2)
+as long as it can land both ways	script	the edge of the closing claim (11_3; Ruth R1)
+von Neumann	description	credit for the trick
+Elias	description	credit for the deeper rows (on screen only, not spoken)
+Peres	description	credit for reusing both leftovers (on screen only, not spoken)
+Samuelson	description	credit for the memory cure
+Blum	description	credit for using every toss of a coin with memory

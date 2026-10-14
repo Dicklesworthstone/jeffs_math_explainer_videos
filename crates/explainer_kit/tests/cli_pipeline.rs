@@ -76,19 +76,79 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
         glyph_mono: &["0x1D"],
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
+        line_gaps: explainer_kit::narration::LineGaps::Constant,
         line_owner: None,
+        thumbnail: None,
     }
+}
+
+/// A thumbnail: one picture and a title, held for the one captured frame.
+struct ToyThumbnail {
+    kit: Kit,
+}
+
+impl SceneConstruct for ToyThumbnail {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let disc = Circle::new()
+            .radius(2.0)
+            .style(Style::default().fill(Palette::hero(), 1.0))
+            .build();
+        stage.add(disc)?;
+        let title = self.kit.text(stage, "toy", 60.0, Palette::ink(), v(0.0, -3.0))?;
+        stage.add_to_scene(title)?;
+        stage.wait(1.0)?;
+        Ok(())
+    }
+}
+
+/// Width and height from a PNG's IHDR chunk.
+fn png_size(path: &Path) -> (u32, u32) {
+    let b = std::fs::read(path).unwrap();
+    assert_eq!(&b[..8], b"\x89PNG\r\n\x1a\n", "{} is a PNG", path.display());
+    let be = |i: usize| u32::from_be_bytes([b[i], b[i + 1], b[i + 2], b[i + 3]]);
+    (be(16), be(20))
+}
+
+#[test]
+fn the_thumbnail_is_one_png_at_the_asked_size() {
+    let out = std::env::temp_dir().join(format!("explainer_kit_thumbnail_{}", std::process::id()));
+    let mut e = explainer(good_facts);
+    let argv = |s: &str| args(&format!("{s} --out {}", out.display()));
+    // a video without a thumbnail scene says so
+    assert_ne!(explainer_kit::cli::run(&e, argv("thumbnail --res 320x180")), 0);
+    e.thumbnail = Some(|kit| Box::new(ToyThumbnail { kit }));
+    assert_eq!(explainer_kit::cli::run(&e, argv("thumbnail --res 320x180")), 0);
+    let png = out.join("toy_thumbnail.png");
+    assert_eq!(png_size(&png), (320, 180));
+    // a second run moves the first aside instead of overwriting it
+    assert_eq!(explainer_kit::cli::run(&e, argv("thumbnail --res 640x360")), 0);
+    assert_eq!(png_size(&png), (640, 360));
+    assert!(
+        out.join("previous/toy_thumbnail.v1.png").is_file(),
+        "the first thumbnail kept"
+    );
 }
 
 fn args(s: &str) -> Vec<String> {
     s.split_whitespace().map(str::to_owned).collect()
 }
 
-/// A speech-like line: 2.5 s of pink noise low-passed near 4 kHz (roughly
-/// the long-term spectrum of speech: white noise would put most of its
-/// energy where speech has little, and the SII-lite gate would rightly judge
-/// it masked) with a 4 Hz syllable envelope, as a 48 kHz f32 file.
+/// A voice-like line: 2.5 s of a pulse train whose pitch glides between 95
+/// and 180 Hz, harmonics falling 6 dB per octave under 3.4 kHz (roughly the
+/// long-term spectrum of speech), with a 4 Hz syllable envelope, as a 48 kHz
+/// f32 file. The score measures its register from the narration it is given
+/// and refuses narration with no pitch, so a line has to be voiced.
 fn write_line(path: &Path, seed: u64) {
+    write_voice(path, (95.0, 180.0), seed);
+}
+
+fn write_voice(path: &Path, f0: (f64, f64), seed: u64) {
+    let m = explainer_score::voice::voiced_line(2.5, f0, seed);
+    wav::write(path, &Stereo::from_mono(&m), wav::Format::F32).unwrap();
+}
+
+/// 2.5 s of speech-shaped noise: loud enough to be speech, with no pitch.
+fn write_noise(path: &Path, seed: u64) {
     let mut pink = explainer_score::osc::Pink::new(seed);
     let mut lp = explainer_score::filter::OnePole::new(4_000.0);
     let n = (2.5 * 48_000.0) as usize;
@@ -99,6 +159,27 @@ fn write_line(path: &Path, seed: u64) {
         })
         .collect();
     wav::write(path, &Stereo::from_mono(&m), wav::Format::F32).unwrap();
+}
+
+/// Metadata for the four synthetic 2.5 s lines, not live narration QA.
+fn write_report(dir: &Path) {
+    let lines: serde_json::Map<String, serde_json::Value> = SCRIPT
+        .lines()
+        .map(|line| {
+            let (id, text) = line.split_once('\t').unwrap();
+            (
+                id.to_owned(),
+                serde_json::json!([{
+                    "sentence": text, "out_samples": 120_000, "gap_after_samples": 0
+                }]),
+            )
+        })
+        .collect();
+    std::fs::write(
+        dir.join("report.json"),
+        serde_json::json!({"meta": {"rate": 48_000}, "lines": lines}).to_string(),
+    )
+    .unwrap();
 }
 
 #[test]
@@ -117,9 +198,56 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
     for (k, id) in ["01_1", "01_2", "02_1", "02_2"].iter().enumerate() {
         write_line(&narration.join(format!("{id}.wav")), k as u64 + 1);
     }
+    write_report(&narration);
     let e = explainer(good_facts);
     let o = out.display().to_string();
     let n = narration.display().to_string();
+
+    // An unchanged WAV name cannot hide a changed script; nothing renders.
+    let mut stale = explainer(good_facts);
+    stale.script = "01_1\tOne.\n01_2\tChanged.\n02_1\tThree.\n02_2\tFour.\n";
+    let stale_out = root.join("stale_out");
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render --timeline-only --narration {n} --out {}",
+                stale_out.display()
+            ))
+        ),
+        1
+    );
+    assert!(
+        !stale_out.join("timeline/01_first.mp4").exists(),
+        "no stale chapter published"
+    );
+
+    // Stale text in an unrequested chapter does not block a finished one.
+    stale.script = "01_1\tOne.\n01_2\tTwo.\n02_1\tThree.\n02_2\tChanged.\n";
+    let partial_out = root.join("partial_out");
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render 01_first --timeline-only --narration {n} --out {}",
+                partial_out.display()
+            ))
+        ),
+        0
+    );
+    assert!(partial_out.join("timeline/01_first.mp4").is_file());
+    assert!(!partial_out.join("timeline/02_second.mp4").exists());
+    assert_eq!(
+        explainer_kit::cli::run(
+            &stale,
+            args(&format!(
+                "render all --timeline-only --narration {n} --out {}",
+                stale_out.display()
+            ))
+        ),
+        1,
+        "the full render still refuses stale narration"
+    );
 
     // a wrong pinned fact stops every command before it starts
     assert_eq!(explainer_kit::cli::run(&explainer(bad_facts), args("chapters")), 1);
@@ -154,6 +282,20 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
         assert!(stems.join(format!("qa/{key}.json")).exists());
     }
     let fp = std::fs::read_to_string(stems.join("score.fingerprint")).unwrap();
+    // the register was measured from this cut's own narration, and the record says so
+    let field = |text: &str, key: &str| {
+        let line = text.lines().find(|l| l.split('\t').next() == Some(key));
+        assert!(line.is_some(), "no {key} in {text}");
+        line.unwrap_or_default().to_owned()
+    };
+    let profile = std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap();
+    assert_eq!(
+        std::fs::canonicalize(field(&profile, "narration_dir").split('\t').nth(1).unwrap()).unwrap(),
+        std::fs::canonicalize(&narration).unwrap()
+    );
+    assert_eq!(field(&profile, "lines"), "lines\t4");
+    let p5: f64 = field(&profile, "f0_p5_hz").split('\t').nth(1).unwrap().parse().unwrap();
+    assert!((90.0..105.0).contains(&p5), "the lines glide from 95 Hz: {profile}");
     assert_eq!(
         explainer_kit::cli::run(&e, args(&format!("score --out {o}"))),
         0,
@@ -211,6 +353,35 @@ fn the_two_pass_score_runs_end_to_end_through_the_cli() {
         1
     );
     assert!(!wout.join("01_first.mp4").exists(), "nothing published");
+
+    // another voice reads the same lines (the narrator changed, or this is a
+    // variant of the cut): the score is written again around the voice it
+    // now hears, not around the one the video had before
+    let ids = ["01_1", "01_2", "02_1", "02_2"];
+    for (k, id) in ids.iter().enumerate() {
+        write_voice(&narration.join(format!("{id}.wav")), (150.0, 262.0), k as u64 + 1);
+    }
+    assert_eq!(explainer_kit::cli::run(&e, args(&format!("score --out {o}"))), 0);
+    let higher = std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap();
+    let fp_higher = std::fs::read_to_string(stems.join("score.fingerprint")).unwrap();
+    assert_ne!(fp_higher, fp);
+    assert_ne!(field(&higher, "narration_sha256"), field(&profile, "narration_sha256"));
+    assert_ne!(field(&higher, "no_fly_hz"), field(&profile, "no_fly_hz"));
+    assert_ne!(field(&higher, "bass_midi"), field(&profile, "bass_midi"));
+    // narration with no pitch to measure is refused: no register is assumed
+    // for it, and the last score stands untouched
+    for (k, id) in ids.iter().enumerate() {
+        write_noise(&narration.join(format!("{id}.wav")), k as u64 + 1);
+    }
+    assert_eq!(explainer_kit::cli::run(&e, args(&format!("score --out {o}"))), 1);
+    assert_eq!(
+        std::fs::read_to_string(stems.join("score.fingerprint")).unwrap(),
+        fp_higher
+    );
+    assert_eq!(
+        std::fs::read_to_string(stems.join("voice_profile.tsv")).unwrap(),
+        higher
+    );
 }
 
 #[test]
@@ -229,6 +400,7 @@ fn the_pcm_master_replays_nulls_and_joins() {
     for (k, id) in ["01_1", "01_2", "02_1", "02_2"].iter().enumerate() {
         write_line(&narration.join(format!("{id}.wav")), k as u64 + 11);
     }
+    write_report(&narration);
     let e = explainer(good_facts);
     let (o, n) = (out.display().to_string(), narration.display().to_string());
     let run = |s: &str| explainer_kit::cli::run(&e, args(s));

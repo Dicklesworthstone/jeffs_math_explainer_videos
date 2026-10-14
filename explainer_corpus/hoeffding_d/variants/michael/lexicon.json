@@ -1,0 +1,200 @@
+{
+ "_comment": "Hoeffding's D lexicon for the michael comparison variant (2026-10-12; robert's cut keeps ../../lexicon.json). ./x uses this file when VOICE=michael. Only respell and accept change narration; the rest is the pronunciation record. Voice michael (non-rhotic), ftts 0.1.11, fw 0.10.0; the name probed with probe_names.py (control + decoy, three carriers, then five possessive carriers from the script) and judged by formants; the other names probed with three carriers. 'add' heard 'at' is not accepted here: in michael's first cut c6.2 really read 'at a quarter' (short vowel, voiceless stop), found by the owner's audit.",
+ "words": {
+  "Hoeffding": {
+   "respell": [
+    "Herf-ding",
+    "Herfding"
+   ],
+   "accept": [
+    "herfding",
+    "herfting"
+   ],
+   "say": "HERF-ding",
+   "ipa": "ˈhœfdɪŋ",
+   "lang": "de",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Wassily_Hoeffding",
+    "https://en.wikipedia.org/wiki/H%C3%B8ffding"
+   ],
+   "decoy": [
+    "HEFF-ding"
+   ],
+   "note": "The owner's pronunciation (2026-10-12), which overrides every source: closer to HERF-ding, the rounded vowel of German ö. lookup_pronunciation.py (context 'statistician Wassily Hoeffding') finds no IPA in any source (the two Wikipedia pages listed); its rule-based reading of the German spelling is /ˈhœfdɪŋ/, and English has no /œ/, whose nearest vowel is the one in 'her'. Voice robert, ftts 0.1.11. The v5 narration said HEFF-ding, kept here as the decoy. Not read: the plain spelling (robert says HOFF-ding; heard 'hofting', 'Hoefding'), Herfding (weak f; heard 'curveding', 'Hervding', 'Herbding') and HERF-ding in capitals (split in two script sentences: 'Hurf, Dings, D', 'Herf Dings'). accept holds only the two ASR spellings of the HERF read, so a HEFF or HOFF read ('hefting', 'hofting') counts as a misheard name. michael (2026-10-12): michael is non-rhotic, so HERF is the NURSE vowel with no r: in the sentence-initial possessive carriers the first vowel of Herf-ding has F1 606-612, F2 1374-1411, F3 2435-2500 Hz, and Herfding F2 1354-1403, F3 2350-2437: central, unrounded, F3 high (no r-colouring), the usual English stand-in for German oe. v5's HEFF-ding in the same carriers has F2 1701-1713 (front). Hirf-ding drifts front (F2 1706-1822) and Hurf-ding was split once, so neither is read.",
+   "probe": {
+    "date": "2026-10-12",
+    "voice": "michael",
+    "asr": "fw",
+    "winner": "Herf-ding",
+    "discriminates": true,
+    "results": {
+     "Hoeffding": "control FAIL 0/3",
+     "Herf-ding": "candidate PASS 3/3",
+     "Hurfding": "candidate PASS 3/3",
+     "Hurf-ding": "candidate PARTIAL 2/3",
+     "Herfding": "candidate PASS 3/3",
+     "Hirf-ding": "candidate PASS 3/3",
+     "HERF-ding": "candidate PASS 3/3",
+     "HEFF-ding": "decoy OK (heard differently) 0/3"
+    },
+    "possessive": {
+     "results": {
+      "Hoeffding": "control FAIL 0/5",
+      "Herf-ding": "candidate PASS 5/5",
+      "Hurfding": "candidate PARTIAL 4/5",
+      "Hurf-ding": "candidate FAIL 3/5",
+      "Herfding": "candidate PASS 5/5",
+      "Hirf-ding": "candidate FAIL 3/5",
+      "HERF-ding": "candidate PARTIAL 4/5",
+      "HEFF-ding": "decoy OK (heard differently) 0/5"
+     }
+    },
+    "acoustic": {
+     "method": "LPC formants (order 12, 11.025 kHz, 25 ms frames) of the name's first voiced run in \"{w}'s D asks a deeper question.\" and \"{w}'s trick is to never list them at all.\", read beside a wideband spectrogram",
+     "Herf-ding": "F1 606-612, F2 1374-1411, F3 2435-2500",
+     "Herfding": "F1 550-598, F2 1354-1403, F3 2350-2437",
+     "Hurfding": "F2 1407-1456, F3 2381-2403",
+     "HEFF-ding (decoy)": "F1 537-552, F2 1701-1713, F3 2386-2419",
+     "Hoeffding (control)": "F2 1297 and 1640 (unsteady)",
+     "Hirf-ding": "F2 1706-1822",
+     "script": "the read chosen for each of the 9 name sentences in michael's build of 2026-10-12 16:53 (tools/narration.py b8253f1): the name's first vowel has F1 519-654, F2 1258-1470, F3 2308-2523 Hz in all nine (NURSE, central, no r-colouring, as michael is non-rhotic); v5's HEFF-ding in the same voice has F2 1700. h7.1 is a director's pick because its top-scored quoted reads had F2 1620."
+    }
+   }
+  },
+  "Wassily": {
+   "respell": [
+    "Vassily"
+   ],
+   "accept": [
+    "vasily",
+    "vassily",
+    "vasilly",
+    "vasili",
+    "vassili"
+   ],
+   "say": "VASS-ih-lee",
+   "lang": "ru",
+   "note": "Russian Vasily; the owner's reading. michael (2026-10-12): Vassily is heard Vasily 3/3 (V), the plain spelling Wassily 3/3 (W); the probe's verdict says UNVERIFIED only because the W decoy matches the canonical spelling."
+  },
+  "Spearman": {
+   "respell": [
+    "Speerman"
+   ],
+   "accept": [
+    "speerman",
+    "spearmen"
+   ],
+   "say": "SPEER-mun",
+   "ipa": "ˈspɪərmən",
+   "lang": "en",
+   "note": " michael (2026-10-12): plain and Speerman both PASS 3/3; decoy Spare-man heard Spareman."
+  },
+  "Pearson": {
+   "respell": [
+    "Peerson",
+    "Peer-son"
+   ],
+   "accept": [
+    "pierson",
+    "peerson",
+    "pearsons"
+   ],
+   "say": "PEER-sun",
+   "ipa": "ˈpɪərsən",
+   "lang": "en",
+   "note": "Plain 'Pearson' is heard as 'Person'. michael (2026-10-12): Peerson 3/3 and Peer-son 3/3 heard Pearson/Peer Sun; the plain spelling was heard Person once (decoy Person 0/3), so it is not read."
+  },
+  "manim": {
+   "respell": [
+    "Man-im",
+    "MAN-im"
+   ],
+   "accept": [
+    "manam",
+    "mannam",
+    "manum",
+    "manim",
+    "mannim"
+   ],
+   "say": "MAN-im",
+   "decoy": [
+    "Men-em"
+   ],
+   "note": "Coined name (math animation library): the project's own usage. 'Mannheim' is a wrong read. michael (2026-10-12): Man-im 3/3 (heard Man Im), MAN-im 3/3 (heard Manim); the plain spelling was heard Mannheim once; decoy Men-em heard Menem."
+  },
+  "tau": {
+   "respell": [
+    "tau",
+    "tao"
+   ],
+   "accept": [
+    "tao",
+    "tow",
+    "taue"
+   ],
+   "say": "TOW (rhymes with cow)",
+   "ipa": "taʊ",
+   "lang": "en",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Tau"
+   ],
+   "note": "Kendall's tau. English /taʊ/ (Wikipedia: Tau). Voice robert, 2026-10-12: sentence-final in h3 the plain read was once written 'tile' by the ASR, so a second spelling is auditioned and a misheard tau now counts as a misheard name. michael (2026-10-12): tau and tao PASS 3/3 (heard Tao/Tau); decoy toe heard told/Toes/Toe."
+  },
+  "scatter": {
+   "respell": [
+    "scatter",
+    "skatter"
+   ],
+   "accept": [
+    "scatterplot"
+   ],
+   "say": "SKAT-er",
+   "ipa": "ˈskætər",
+   "lang": "en",
+   "note": "Ordinary word, here because robert's read of r2 'as a scatter plot' was written 'statter plot' by the ASR at take and line level (2026-10-12): the k is weak. A second spelling is auditioned, and a 'statter' read now counts as a miss. michael (2026-10-12): skatter 3/3; the plain spelling heard scattered once; decoy statter heard differently."
+  },
+  "D": {
+   "respell": [
+    "D"
+   ],
+   "accept": [
+    "dee"
+   ],
+   "say": "DEE",
+   "lang": "en",
+   "note": "The statistic's letter. Listed only so that a misheard D counts as a miss: q1 'why can D see shapes' was read so that the ASR wrote 'these C shapes' (2026-10-12), and that read was being chosen. No respelling; nothing else changes."
+  }
+ },
+ "accept": {
+  "franken": [
+   "frankin"
+  ],
+  "y": [
+   "why"
+  ],
+  "tied": [
+   "tide"
+  ],
+  "see": [
+   "c"
+  ],
+  "dependence": [
+   "dependents"
+  ],
+  "sit": [
+   "sits"
+  ]
+ },
+ "phrases": {
+  "frank and": "franken",
+  "frank in": "franken",
+  "4x4": "four by four",
+  "herf ding": "hoeffding",
+  "herf dings": "hoeffdings",
+  "herf ding's": "hoeffding's",
+  "1/2": "a half",
+  "scatterplot": "scatter plot",
+  "dc": "d see",
+  "d.c.": "d see"
+ }
+}

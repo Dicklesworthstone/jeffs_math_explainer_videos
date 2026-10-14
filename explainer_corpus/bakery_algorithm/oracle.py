@@ -464,6 +464,25 @@ def row_cf2():
     check("C-F2 tree_count agrees", tc == (total, both, dead), f"tree_count {tc}")
     m, where = recorded("tree_count_out.txt", r"naive flag lock N=2: (\d+) complete schedules \| (\d+) put 2 in CS \| (\d+) deadlock")
     check("C-F2 matches recording", tuple(map(int, m.groups())) == (total, both, dead), where)
+    # R3 (maya-07, 02_4): mixing the two programs' three steps gives 20
+    # sequences; a check that finds "occupied" has to wait, so only the ones
+    # that never meet a closed check can run, and those are the orders above
+    steps = len(naive_sign_ops())
+    mixes = set(permutations([0] * steps + [1] * steps))
+    runnable = 0
+    for seq in mixes:
+        mem, pcs, ok = (0,), [0, 0], True
+        for i in seq:
+            r = apply_op(progs[i][pcs[i]], i, 1, mem, 0)
+            if r is None:
+                ok = False
+                break
+            mem, pcs[i] = r[0], pcs[i] + 1
+        runnable += ok
+    emit("C-F2.step_mixes", len(mixes))
+    emit("C-F2.step_mixes_that_cannot_run", len(mixes) - runnable)
+    check("C-F2 step mixes = C(6, 3)", len(mixes) == math.comb(2 * steps, steps), f"{len(mixes)}")
+    check("C-F2 runnable mixes are exactly the orders", runnable == total, f"{runnable} runnable, {total} orders")
 
 
 # ==========================================================================
@@ -1356,10 +1375,65 @@ def row_r2_misc():
          all(((tj, jj) < (ti, ii)) == (tj < ti or (tj == ti and jj < ii)) for tj, ti, jj, ii in grid))
 
 
+# The measured records of bead mx-e-c-7v0.17, by architecture: the tag, the
+# target the binary was built for (the record names it), the file.
+STRESS_RECORDS = (("arm", "aarch64", "bakery_stress_m5_ultra.txt"),
+                  ("x86", "x86_64", "bakery_stress_x86_threadripper.txt"))
+
+
+def row_c10_13():
+    """Chapters 10-13 (mx-e-c-7v0.10): the measured records of chapter 12, the
+    citation locators and the arithmetic their screens show."""
+    # C-M1 (RECORDED; bead mx-e-c-7v0.17): the 12_7 panel's lock on two machines,
+    # read from the tool's own output, every line cross-checked
+    for arch, target, fname in STRESS_RECORDS:
+        text = (OUTPUTS / fname).read_text(encoding="utf-8")
+        cpus = re.findall(r"^# cpu: (.+?) \((\S+?)-", text, re.M)
+        check(f"C-M1 {arch}: one CPU across the record, built for {target}",
+              len(set(cpus)) == 1 and cpus[0][1] == target, f"{cpus}")
+        emit(f"C-M1.{arch}.cpu", cpus[0][0])
+        blocks = re.split(r"^# bakery_stress:.*$", text, flags=re.M)[1:]
+        for block in blocks:
+            args = re.search(r"^# command: bakery_stress (.*)$", block, re.M).group(1).split()
+            opts = dict(zip(args[::2], args[1::2]))
+            threads, per, runs = int(opts["--threads"]), int(opts["--entries"]), int(opts["--runs"])
+            tag = f"{arch}.n{threads}_r{runs}"
+            emit(f"C-M1.{tag}.threads", threads)
+            rows = [line.split("\t") for line in block.splitlines() if line and not line.startswith(("#", "mode"))]
+            for mode in dict.fromkeys(r[0] for r in rows):
+                mine = [r for r in rows if r[0] == mode]
+                each = [r for r in mine if r[3] != "total"]
+                total = [r for r in mine if r[3] == "total"]
+                check(f"C-M1 {tag} {mode}: {runs} runs and one total", len(each) == runs and len(total) == 1)
+                check(f"C-M1 {tag} {mode}: every line has lost = entries - score, and the command's sizes",
+                      all(int(r[6]) == int(r[4]) - int(r[5]) and int(r[1]) == threads and int(r[2]) == per
+                          for r in mine))
+                check(f"C-M1 {tag} {mode}: each run is threads x entries per thread",
+                      all(int(r[4]) == threads * per for r in each))
+                check(f"C-M1 {tag} {mode}: the total sums the runs",
+                      [int(x) for x in total[0][4:7]] == [sum(int(r[k]) for r in each) for k in (4, 5, 6)])
+                emit(f"C-M1.{tag}.{mode}.runs", len(each))
+                emit(f"C-M1.{tag}.{mode}.entries_per_run", threads * per)
+                emit(f"C-M1.{tag}.{mode}.entries", sum(int(r[4]) for r in each))
+                emit(f"C-M1.{tag}.{mode}.lost", sum(int(r[6]) for r in each))
+    # CITED locators (fact-sheet open item 3, C-S21, C-S26, C-S27; F4)
+    emit("C-F14.bakery_paper.arbitrary_value_quote_page", 454)
+    emit("C-F14.bakery_paper.never_larger_quote_page", 455)
+    emit("C-F14.turing_lecture.practical_use_quote_section", "2.2")
+    emit("C-F14.abdulla_tso_fences.citation", "TACAS 2012")
+    emit("C-F14.chm_oral_history.year", 2016)
+    emit("C-F14.chm_oral_history.pages", "9-10")
+    # arithmetic on the 11 cards: the year, the 32-bit slate's top, the huge glance
+    emit("C-F10.days_per_year", 365.25)
+    emit("C-F10.u32_max", 2 ** 32 - 1)
+    emit("C-F11.huge_glance", 2 ** 63)
+    emit("C-F11.ticket_after_huge_glance", 2 ** 63 + 1)
+
+
 ROWS = [row_cf1, row_cf2, row_cf3, row_cf4, row_cf5, row_cf6, row_cf7, row_cf8, row_cf9,
         row_cf10, row_cf11, row_cf12, row_cf13, row_cf14, row_cx1, row_cx2, row_cx3,
         row_r2_counted_steps, row_r2_tso, row_r2_always_never, row_r2_liveness_edges,
-        row_r2_choosing_overlap, row_r2_misc]
+        row_r2_choosing_overlap, row_r2_misc, row_c10_13]
 
 if __name__ == "__main__":
     for row in ROWS:

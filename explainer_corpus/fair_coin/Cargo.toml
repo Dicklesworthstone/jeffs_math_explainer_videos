@@ -1,0 +1,17 @@
+[package]
+name = "fair_coin_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "How to Make a Fair Coin Out of an Unfair One: von Neumann's two-toss trick and what it grows into; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "coin"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

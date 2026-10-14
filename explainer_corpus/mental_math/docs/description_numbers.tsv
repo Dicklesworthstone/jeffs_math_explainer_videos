@@ -1,0 +1,11 @@
+# Video F: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py mental_math).
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
+194	193 and 194	cited	Feynman 1985, "Lucky Numbers", pages 193 to 194 of that edition (F-C1.feynman.pages is 193-94; fact sheet S1)
+1975	a 1975 lecture	year	"Los Alamos From Below" is adapted from a 1975 lecture at Santa Barbara (fact sheet S2)
+100	100 × n × (n + 1)	structural	The coefficient of the identity (10n + 5)² = 100 × n × (n + 1) + 25, a statement of the trick itself; F-X1.ends_in_five checks it for 10000 values of n.
+100	÷ 100	structural	Per hundred: x% of y is x × y ÷ 100, the definition of a percent; F-X5.swap checks x% of y = y% of x.
+5	ending in 5,	structural	The last digit that defines the numbers of Chase's rule (10), the squares ending in 5 (fact sheet S4).
+10	rule (10)	cited	Chase, The Elements of Arithmetic, Part Second (1844), p. 60: the rule number (10) for squaring a number ending in 5 (fact sheet S4).
+12	rule (12)	cited	Chase 1844, p. 60: the rule number (12) for the sum and difference of two numbers (fact sheet S4).
+13	rule (13)	cited	Chase 1844, p. 60: the rule number (13) for squaring a number between 50 and 60 (fact sheet S4).
+50	between 50 and 60	cited	Chase 1844, p. 60, rule (13): 'To square any number between 50 and 60'; the rule is for 50 to 60 only (fact sheet S4 and finding 8). The 60 is also F-C3.chase.page, the page.

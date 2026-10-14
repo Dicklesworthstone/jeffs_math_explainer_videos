@@ -1,0 +1,23 @@
+Here is a ring of points. Anyone can see that X and Y are related, yet the three usual correlations each read about zero on it: Pearson's r is −0.012, Spearman's ρ is −0.013 and Kendall's τ is −0.010. Hoeffding's D, from 1948 (Wassily Hoeffding; say it roughly HERF-ding), asks a different question, whether X and Y could be independent at all, and on the same ring it reads 0.0375, where the 99th percentile of D over shuffles of Y is 0.0131. The video builds D from nothing: why a turn takes four points to see, how ranks and one count per point stand in for the 26,010,428,123,750 groups of four among 5,000 points, and a worked example on ten people's heights and weights that comes out to D = 0.4107.
+
+Chapters
+0:00 The ring that correlation can't see
+0:46 Six shapes, four measures
+2:15 Why a turn takes four points
+3:20 Ranks
+4:10 The count Q
+5:24 Three sums and one formula
+6:31 What shuffling destroys
+8:00 Recap
+
+Names to search: Hoeffding's D, Hoeffding's test of independence, Pearson's correlation coefficient, Spearman's rank correlation, Kendall's tau, rank statistics, U-statistic, permutation test.
+
+Sources
+W. Hoeffding, "A Non-Parametric Test of Independence", The Annals of Mathematical Statistics 19(4), 1948, pp. 546–557. doi:10.1214/aoms/1177730150
+J. Emanuel, "My Favorite Statistical Measure: Hoeffding's D", the article whose algorithm and worked example the video follows: https://github.com/Dicklesworthstone/hoeffdings_d_explainer
+SAS Institute, Base SAS 9.4 Procedures Guide: Statistical Procedures, PROC CORR, "Hoeffding Dependence Coefficient", for D's scale
+
+The code that draws the video computes every number in it:
+https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/tree/main/explainer_corpus/hoeffding_d
+
+Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.

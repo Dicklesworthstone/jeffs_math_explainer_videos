@@ -483,6 +483,10 @@ def af14_feller_tails():
     emit("A-F14.P8500_K_le_100", t1)
     emit("A-F14.P12000_K_ge_100", t2)
     emit("A-F14.coverage_8500_12000", 1 - t1 - t2)
+    # 12_3's lower-third (2026-10-11, chapters 12-15 lane): Feller's printed range (1st ed. p. 38,
+    # recorded) and the three chances to one decimal place, as the lower-third prints them
+    emit("A-F14.recorded.feller_bet_range", "8500,12000")
+    emit("A-F14.pct_1dp", f"{float(t1) * 100:.1f},{float(t2) * 100:.1f},{float(1 - t1 - t2) * 100:.1f}")
 
 
 def af15_sd_of_k():
@@ -697,6 +701,14 @@ def af22_failure_modes(fails):
     for key in ("ideal", "bold_fish", "trap_happy", "trap_shy", "marks_lost_20pct", "newcomers_2000",
                 "deaths_30pct", "release_site", "far_side"):
         emit(f"A-F22.median.{key}", fails[key])
+        # 13's gauge reads each median to the nearest ten ("≈ 7,750"; chapters 12-15 lane)
+        emit(f"A-F22.median_rounded_10.{key}", int(round(fails[key] / 10)) * 10)
+    # the models' parameters as verify2_replay runs them (the gauge labels of 13_3-13_9 quote
+    # them; added 2026-10-11 by the chapters 12-15 lane): bold fish = 3 in 10 fish 3x as
+    # catchable both times; marked fish 1.5x / 2/3x as catchable the second time; each mark lost
+    # with chance 1/5; 2,000 newcomers; each fish dies with chance 3/10; 800 / 200 from the halves
+    emit("A-F22.params", "runs=400;bold=3/10 x3.0;happy=x1.5;shy=x2/3;lost=1/5;newcomers=2000;"
+                         "deaths=3/10;halves=800/200")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -723,6 +735,9 @@ def af23_laplace():
     est = ratio * 1_000_000
     emit("A-F23.population_estimate", est)
     emit("A-F23.population_estimate_rounded", round(est))
+    # 14_2's screen (chapters 12-15 lane): "≈ 28.35 people per birth", "≈ 28.4 million people"
+    emit("A-F23.ratio_2dp", f"{float(ratio):.2f}")
+    emit("A-F23.population_estimate_millions_1dp", f"{float(est) / 1e6:.1f}")
     emit("A-F23.recorded.odds_quote", "almost 300000 against 1 that the error is not half a million")
 
 
@@ -745,6 +760,9 @@ def af24_two_reviewers():
     ch = F((M + 1) * (n + 1), k + 1) - 1
     emit_exact("A-F24.chapman", ch)
     emit("A-F24.chapman_se", sqrt(float(F((M + 1) * (n + 1) * (M - k) * (n - k), (k + 1) ** 2 * (k + 2)))))
+    # 14_4's table cells (chapters 12-15 lane): found by A only, by B only
+    emit("A-F24.a_only", M - k)
+    emit("A-F24.b_only", n - k)
 
 
 def af25_kosovo():
@@ -756,6 +774,9 @@ def af25_kosovo():
     emit("A-F25.recorded.ci95_lo", lo)
     emit("A-F25.recorded.ci95_hi", hi)
     emit("A-F25.recorded.later_count_kmb", later)
+    lists = 4  # Ball et al. 2002, p. 3: "four sources"
+    emit("A-F25.recorded.lists", lists)
+    emit("A-F25.table_cells", len(list(itertools.product((False, True), repeat=lists))))
     emit("A-F25.later_count_inside_interval", lo <= later <= hi)
     emit("A-F25.estimate_over_named", est / named)
 
@@ -1245,6 +1266,14 @@ def ch03_portable(xs0, ys0):
         got.append(int(marked[near].sum()))
     emit(f"A-CH03.portable.nets{R2_NET}.marked_at_region_centres", ",".join(map(str, got)))
     emit(f"A-CH03.portable.nets{R2_NET}.marked_min_max", f"{min(got)},{max(got)}")
+    # 03_5's heard tray: the weed bed's net (the north-west region's centre)
+    # as the scene draws it, one fish in ten (every fish whose index is a
+    # multiple of 10 is drawn); one note per drawn fish, a bell per marked one
+    ex, ey = x - centres[6][0], y - centres[6][1]
+    near = np.lexsort((np.arange(n), ex * ex + ey * ey))[:R2_NET]
+    drawn = near[near % 10 == 0]
+    emit(f"A-CH03.portable.nets{R2_NET}.heard_tray.drawn", int(drawn.size))
+    emit(f"A-CH03.portable.nets{R2_NET}.heard_tray.drawn_marked", int(marked[drawn].sum()))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1286,6 +1315,13 @@ def af29_table_identity():
     emit_exact("A-F29.toy_ab_over_k", F(a * b, k))
     emit("A-F29.toy_u_hat", (a * b) // k)
     emit("A-F29.toy_N_hat", a + b + k + (a * b) // k)
+    # 07_5-07_6 (mx-e-a-8y5.9): the comparison from the table's cells at the mystery lake, 7 x 7 - 3 x 16
+    M, n = TOY[0], TOY[1]
+    emit("A-F29.toy_a", M - k)
+    emit("A-F29.toy_b", n - k)
+    emit("A-F29.toy_ab", a * b)
+    emit("A-F29.toy_k_times_u_hat", k * ((a * b) // k))
+    assert (M - k, n - k) == (a, b) and a * b - k * ((a * b) // k) == M * n - k * 33 == 1
 
 
 def af30_coin():
@@ -1475,6 +1511,8 @@ def ch14_reviewers():
         emit(f"{pre}.ci95_contains_true_share", float((where == 0).mean()))
         emit(f"{pre}.ci95_wholly_below_true_share", float((where == -1).mean()))
         emit(f"{pre}.ci95_wholly_above_true_share", float((where == 1).mean()))
+        # 14_6's card (chapters 12-15 lane): the range missed the true count in this percent of runs
+        emit(f"{pre}.ci95_missed_pct_0dp", int(round(float((where != 0).mean()) * 100)))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1596,6 +1634,17 @@ def ch09_panel():
     se = float(est.std(ddof=1)) / sqrt(est.size)
     emit(f"{pre}.sim_mean_standard_error", se)
     emit(f"{pre}.mean_gap_in_standard_errors", (float(est.mean()) - exact_line) / se)
+    # chapter 09's scene (mx-e-a-8y5.9): one key pins the whole stream of k, sum k_i 31^i mod 2^61 - 1,
+    # in run order; the histogram's range; "most land within about nine of it" (09_3)
+    P = (1 << 61) - 1
+    h, w = 0, 1
+    for v in k:
+        h = (h + int(v) * w) % P
+        w = w * 31 % P
+    emit(f"{pre}.k_polyhash", h)
+    emit(f"{pre}.k_min", int(k.min()))
+    emit(f"{pre}.k_max", int(k.max()))
+    emit(f"{pre}.k_within_9_of_100_share", float(((k >= 91) & (k <= 109)).mean()))
     # Dev D9 (description): in numpy, the soup guess at k = 0 is inf, with a RuntimeWarning
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
@@ -1617,6 +1666,11 @@ def ch12_ring_toss_panel(k, ring):
     emit(f"{pre}.all_runs", int(k.size))
     emit(f"{pre}.all_missed", int(miss.sum()))
     emit(f"{pre}.expected_missed", float((1 - cov) * int(k.size)))
+    # 12_2's counter, "(455 expected)" (2026-10-11, chapters 12-15 lane)
+    emit(f"{pre}.expected_missed_rounded", round((1 - cov) * int(k.size)))
+    # 12_2's first ring, labelled on screen: run 1's catch and its exact 95% range
+    lo1, hi1, _ = exact_ci(FM, FN_, int(k[0]))
+    emit(f"{pre}.run1_k_ci95", f"{int(k[0])},{lo1},{hi1}")
 
 
 def ch12_coverage_over_N():
@@ -1683,6 +1737,29 @@ def ch12_slider_r2():
         emit(f"{pre}.one_over_sqrt_k_pct", round(100 / sqrt(k), 6))
     for k in (10, 100):
         emit(f"A-CH12.planning.one_over_sqrt_k_pct_k{k}", 100 / sqrt(k))
+
+
+def ch12_zero_catch():
+    """A-CH12.zero_catch (Codex review A-3 R1): the careful range for a catch with nobody caught
+    twice, Feller's 1,000 and 1,000. P_N(K >= 0) = 1 for every N, so there is no upper end; the lower
+    end is the smallest N with P_N(K <= 0) = C(N - M, n) / C(N, n) > 1/40, in exact integers (the
+    chance only rises with N, so bisection finds it). At a lake of a million that catch has chance
+    C(999000, 1000) / C(1000000, 1000)."""
+    M = n = 1000
+    ok = lambda N: 40 * comb(N - M, n) > comb(N, n)
+    bad, good = M + n, 2 * (M + n)
+    while not ok(good):
+        bad, good = good, 2 * good
+    while good - bad > 1:
+        mid = (good + bad) // 2
+        if ok(mid):
+            good = mid
+        else:
+            bad = mid
+    assert ok(good) and not ok(good - 1)
+    emit("A-CH12.zero_catch.ci95_lo", good)
+    emit("A-CH12.zero_catch.ci95_hi", "none")
+    emit("A-CH12.zero_catch.P_k0_at_N1000000", F(comb(10 ** 6 - M, n), comb(10 ** 6, n)))
 
 
 def ch13_targets():
@@ -1762,6 +1839,7 @@ def main():
     ch12_coverage_over_N()
     ch12_slider_r2()
     ch13_targets()
+    ch12_zero_catch()
     sys.stdout.flush()
     print(f"oracle: {len(_seen)} keys in {time.perf_counter() - T_START:.1f} s", file=sys.stderr)
 

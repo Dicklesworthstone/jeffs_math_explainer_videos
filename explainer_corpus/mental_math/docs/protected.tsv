@@ -1,0 +1,59 @@
+# Protected facts of Video F: the words every revision must keep (protected_check.py checks they are
+# still there). One per line: <phrase> TAB <where> TAB <why>. <where>: script, captions,
+# description, title, comma-separated, or empty for anywhere. Presence only: whether the sentence
+# around a phrase is still right is read by eye after every change.
+#
+# The owner's centrepiece: squares of numbers ending in five
+The number in front of the five is three	script	names the owner's n before any letter is used (02_1)
+the next number up	script	the trick's one multiplication: n times n + 1, not n times n (02_2, 02_4)
+write twenty-five	script	the trick's second step (01_2, 02_3)
+stand it against the side	script	the move that makes the trick true (02_6, 10_1, 14_3)
+halfway between thirty and forty	script	the reason the next number comes in (02_9)
+every whole number that ends in five	script	the scope of the claim, tested to 99,995 (03_5)
+the small square is twenty-five	script	why the last two digits never change (03_5)
+only as easy as that one multiplication	script	the honest limit of the trick (03_7)
+# The owner's products by parts, and his "the hardest part is remembering the 4 numbers"
+twenty-three times forty-six	script	the owner's own example (04_1)
+round first	script	the estimate the owner's zeros rule rests on (04_1, 13_5)
+how big the piece has to be	script	the owner's rule for putting the zeros back (04_6)
+Tens times tens are hundreds	script	the reason for the zeros (04_5)
+four numbers to hold	script	the owner's point that holding the pieces is the hard part (04_8)
+Keep one running total	script	the cure for holding four numbers (05_1)
+each total was a floor	script	what a running total does and does not promise (R1 blocker D1, 05_3)
+# The owner's (a + b)(a - b): two numbers the same distance from a middle
+fifty squared, minus three squared	script	the trick on its first example (08_5)
+both easy to square	script	the condition the middle trick needs (08_8)
+# The Feynman and Bethe story (book text, pp. 193-94; two sentences quoted verbatim)
+Los Alamos	script,description	where the story happens
+Hans Bethe	script,description	the anecdote is his trick
+Richard Feynman	script,description	the anecdote is told by him
+Theoretical Division	script	who Bethe was there (the book and the Nobel biography)
+forty-eight squared	script	the number the story turns on
+Twenty-three hundred	script	Bethe's first answer
+twenty-three oh four	script	Bethe's exact answer, said after the first
+Don't you know how to square numbers near fifty	script	verbatim quote 1 (the book's "near 50")
+Every number was near something he knew	script	verbatim quote 2, echoed at 14_5
+Surely You're Joking, Mr. Feynman	description	the source of both quotes
+# Squares near fifty
+a hundred for each one below fifty	script	why 48 squared is 2300 and then 4 more (10_2)
+a hundred for each one above fifty	script	the same picture above fifty (10_6)
+Above fifty, add the distance	script	the rule's sign above fifty (10_7)
+Below fifty, take it off	script	the rule's sign below fifty (10_7)
+within nine of fifty	script	where the two-digit reading stops working (11_3)
+# The everyday tricks and where each stops paying
+Ten percent is one tenth	script	the percent trick's first step (06_1)
+Percent means cents on the dollar	script	why the swap is true (06_8)
+The swap pays when one side is a friendly percent	script	when the swap helps (06_8)
+It pays when doubling makes a round number	script	when halving and doubling helps (07_4)
+This one pays when the fix is small	script	when round, then fix helps (07_7)
+# Honest framing (the order, item 5)
+There's no shame in reaching for paper, or a calculator	script	a product no trick helps (13_4)
+That won't catch a small slip	script	what the estimate cannot do (13_5)
+Any trick that fits gives the same answer	script	the mixed round's lesson (14_2)
+They're the same move	script	the one picture behind three tricks (14_3)
+You don't need a gift for numbers	script	no "human calculator" framing (14_5)
+Every number is near something you know	script	the closing line, after Feynman (14_5)
+It always tells you how big the answer is	script	what nearness always gives (14_5)
+# Sources in the description
+Chase	description	the 1844 school arithmetic with three of the tricks
+Karatsuba	description	the programmers' note names its source

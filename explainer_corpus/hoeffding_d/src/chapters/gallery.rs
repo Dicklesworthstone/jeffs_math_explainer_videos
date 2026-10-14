@@ -295,6 +295,8 @@ impl SceneConstruct for Gallery {
             v(0.0, -0.45),
         )?;
         play!(stage; fade_in(stage.arena_mut(), moral_a, v(0.0, 0.25), 1.0)?.rt(1.2));
+        // "Hoeffding's D asks a deeper question."
+        kit.until_sentence(stage, "g10", 1)?;
         play!(stage; fade_in(stage.arena_mut(), moral_b, v(0.0, 0.25), 1.0)?.rt(1.2));
         stage.wait(1.5)?;
         kit.music_breath(stage, crate::kit::ACT_BREATH)?;

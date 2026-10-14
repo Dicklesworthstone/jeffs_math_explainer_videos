@@ -1,0 +1,1699 @@
+//! The pictures of Video I as exact pieces.
+//!
+//! Every proof in the video is one pile of pieces counted two ways, so each
+//! picture is built here as the list of its pieces (unit cells, rectangles
+//! and boxes with whole-number corners, triangles on the grid) and checked
+//! the slow way: nothing overlaps and nothing is left over. The chapters
+//! draw exactly these pieces; `facts.rs` reads its numbers off them; and
+//! `oracle.py` rebuilds every picture by its own route.
+//!
+//! Nothing here is floating point. Lengths are whole numbers; the infinite
+//! sums, the slopes of the lying picture and the points on the hook's circle
+//! are exact fractions ([`Q`]).
+
+use std::cmp::Ordering;
+use std::fmt;
+use std::ops::{Add, Div, Mul, Neg, Sub};
+
+const fn gcd(mut a: i128, mut b: i128) -> i128 {
+    while b != 0 {
+        let t = a % b;
+        a = b;
+        b = t;
+    }
+    if a < 0 { -a } else { a }
+}
+
+/// An exact fraction in lowest terms, the denominator positive.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Q {
+    n: i128,
+    d: i128,
+}
+
+/// `n / d`, reduced.
+///
+/// # Panics
+/// If `d` is zero.
+pub const fn q(n: i128, d: i128) -> Q {
+    assert!(d != 0, "a fraction needs a denominator");
+    let g = gcd(n, d);
+    if d < 0 {
+        Q { n: -n / g, d: -d / g }
+    } else {
+        Q { n: n / g, d: d / g }
+    }
+}
+
+impl Q {
+    pub const ZERO: Self = q(0, 1);
+    pub const ONE: Self = q(1, 1);
+
+    pub const fn int(n: i64) -> Self {
+        q(n as i128, 1)
+    }
+
+    /// One over two to the `k`.
+    pub const fn half_to(k: u32) -> Self {
+        q(1, 1i128 << k)
+    }
+
+    pub const fn signum(self) -> i32 {
+        if self.n > 0 {
+            1
+        } else if self.n < 0 {
+            -1
+        } else {
+            0
+        }
+    }
+
+    /// The value as a float, for placing a picture (every number the video
+    /// shows stays exact).
+    pub fn to_f64(self) -> f64 {
+        self.n as f64 / self.d as f64
+    }
+}
+
+impl Add for Q {
+    type Output = Self;
+    fn add(self, o: Self) -> Self {
+        q(self.n * o.d + o.n * self.d, self.d * o.d)
+    }
+}
+
+impl Sub for Q {
+    type Output = Self;
+    fn sub(self, o: Self) -> Self {
+        q(self.n * o.d - o.n * self.d, self.d * o.d)
+    }
+}
+
+impl Mul for Q {
+    type Output = Self;
+    fn mul(self, o: Self) -> Self {
+        q(self.n * o.n, self.d * o.d)
+    }
+}
+
+impl Div for Q {
+    type Output = Self;
+    fn div(self, o: Self) -> Self {
+        q(self.n * o.d, self.d * o.n)
+    }
+}
+
+impl Neg for Q {
+    type Output = Self;
+    fn neg(self) -> Self {
+        q(-self.n, self.d)
+    }
+}
+
+impl Ord for Q {
+    fn cmp(&self, o: &Self) -> Ordering {
+        (self.n * o.d).cmp(&(o.n * self.d))
+    }
+}
+
+impl PartialOrd for Q {
+    fn partial_cmp(&self, o: &Self) -> Option<Ordering> {
+        Some(self.cmp(o))
+    }
+}
+
+impl fmt::Display for Q {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.d == 1 {
+            write!(f, "{}", self.n)
+        } else {
+            write!(f, "{}/{}", self.n, self.d)
+        }
+    }
+}
+
+/// n choose k, counted by the product formula (exact at every step).
+pub fn choose(n: u64, k: u64) -> u64 {
+    if k > n {
+        return 0;
+    }
+    (0..k.min(n - k)).fold(1, |acc, i| acc * (n - i) / (i + 1))
+}
+
+/// A rectangle of unit cells: its lower-left corner and its size.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Rect {
+    pub x: i64,
+    pub y: i64,
+    pub w: i64,
+    pub h: i64,
+}
+
+impl Rect {
+    pub const fn new(x: i64, y: i64, w: i64, h: i64) -> Self {
+        Self { x, y, w, h }
+    }
+
+    pub const fn area(&self) -> i64 {
+        self.w * self.h
+    }
+
+    pub fn cells(&self) -> impl Iterator<Item = (i64, i64)> + use<> {
+        let r = *self;
+        (r.x..r.x + r.w).flat_map(move |x| (r.y..r.y + r.h).map(move |y| (x, y)))
+    }
+}
+
+/// The slow check behind every flat picture: the cells given cover the frame
+/// exactly once each, apart from the cells of `holes`, which nothing covers.
+pub fn tiles(cells: impl IntoIterator<Item = (i64, i64)>, frame: Rect, holes: &[Rect]) -> Result<(), String> {
+    let index = |(x, y): (i64, i64)| -> Option<usize> {
+        (x >= frame.x && x < frame.x + frame.w && y >= frame.y && y < frame.y + frame.h)
+            .then(|| ((x - frame.x) + (y - frame.y) * frame.w) as usize)
+    };
+    let mut seen = vec![0u8; (frame.w * frame.h) as usize];
+    for c in cells {
+        let i = index(c).ok_or_else(|| format!("cell {c:?} lies outside the frame"))?;
+        if seen[i] != 0 {
+            return Err(format!("cell {c:?} is covered twice"));
+        }
+        seen[i] = 1;
+    }
+    for c in holes.iter().flat_map(Rect::cells) {
+        let i = index(c).ok_or_else(|| format!("hole cell {c:?} lies outside the frame"))?;
+        if seen[i] != 0 {
+            return Err(format!("hole cell {c:?} is covered"));
+        }
+        seen[i] = 2;
+    }
+    match seen.iter().position(|&s| s == 0) {
+        Some(i) => Err(format!(
+            "cell ({}, {}) is left over",
+            frame.x + i as i64 % frame.w,
+            frame.y + i as i64 / frame.w
+        )),
+        None => Ok(()),
+    }
+}
+
+/// The first size in `1..=through` at which `check` fails, if any.
+pub fn first_failure(through: i64, check: impl Fn(i64) -> Result<(), String>) -> Option<(i64, String)> {
+    (1..=through).find_map(|n| check(n).err().map(|e| (n, e)))
+}
+
+/// The hook: points on a circle joined by straight lines, and the regions
+/// they cut the disc into (Leo Moser, "On the Danger of Induction", 1949).
+pub mod circle {
+    use std::collections::HashSet;
+
+    use super::{Q, choose, q};
+
+    pub type Point = (Q, Q);
+
+    /// The points the chapter draws, in the order it adds them, as the
+    /// parameters `p/d` of the unit circle's rational points
+    /// `((d² − p²)/(d² + p²), 2pd/(d² + p²))`: unevenly spaced, so that no
+    /// three of their lines meet at one point inside the circle, and spread
+    /// so that no region of the first six is under one percent of the disc
+    /// (the first draft's points left one at 0.04 percent, about 28 pixels
+    /// across at 4K, which the viewer could not count). The seventh is
+    /// only for `F-C.regions.seven`.
+    pub const DRAWN: [(i128, i128); 7] = [(1, 19), (-6, 1), (7, 3), (-1, 2), (4, 9), (-7, 6), (1, 1)];
+
+    /// A point's place on the unit circle as two floating-point numbers
+    /// (the pictures' coordinates; the exact point stays the model's).
+    pub fn xy(p: &Point) -> Corner {
+        (p.0.to_f64(), p.1.to_f64())
+    }
+
+    pub const fn point(p: i128, d: i128) -> Point {
+        (q(d * d - p * p, d * d + p * p), q(2 * p * d, d * d + p * p))
+    }
+
+    /// The first `n` drawn points.
+    pub fn drawn(n: usize) -> Vec<Point> {
+        DRAWN[..n].iter().map(|&(p, d)| point(p, d)).collect()
+    }
+
+    /// Six points whose three long lines all pass through the centre, as
+    /// six evenly spaced points' do: the pattern's other way of breaking.
+    pub fn three_through_one() -> Vec<Point> {
+        [(1, 2), (2, 3), (1, 4)]
+            .into_iter()
+            .flat_map(|(p, d)| {
+                let (x, y) = point(p, d);
+                [(x, y), (-x, -y)]
+            })
+            .collect()
+    }
+
+    /// Six evenly spaced points, as a regular hexagon's corners stretched
+    /// onto whole coordinates (a slanted stretch keeps every line straight and
+    /// every crossing where it was along its line, so the regions are the
+    /// regular hexagon's): the three long lines meet in the middle. This is
+    /// 02_6's "six evenly spaced points give 30".
+    pub fn evenly_spaced_hexagon() -> Vec<Point> {
+        [(1, 0), (0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1)]
+            .into_iter()
+            .map(|(x, y)| (Q::int(x), Q::int(y)))
+            .collect()
+    }
+
+    fn orient(a: Point, b: Point, c: Point) -> Q {
+        (b.0 - a.0) * (c.1 - a.1) - (b.1 - a.1) * (c.0 - a.0)
+    }
+
+    /// Where two lines' segments cross, if they cross between their ends.
+    fn crossing(a: Point, b: Point, c: Point, d: Point) -> Option<Point> {
+        let (o1, o2) = (orient(a, b, c), orient(a, b, d));
+        let (o3, o4) = (orient(c, d, a), orient(c, d, b));
+        (o1.signum() * o2.signum() < 0 && o3.signum() * o4.signum() < 0).then(|| {
+            let t = o3 / (o3 - o4);
+            (a.0 + t * (b.0 - a.0), a.1 + t * (b.1 - a.1))
+        })
+    }
+
+    /// Every pair of points joined: the lines, as index pairs.
+    pub fn lines(n: usize) -> Vec<(usize, usize)> {
+        (0..n).flat_map(|i| (i + 1..n).map(move |j| (i, j))).collect()
+    }
+
+    /// The distinct points inside the circle where lines cross.
+    pub fn crossings(points: &[Point]) -> Vec<Point> {
+        let mut seen = HashSet::new();
+        let mut out = Vec::new();
+        let lines = lines(points.len());
+        for (i, &(a, b)) in lines.iter().enumerate() {
+            for &(c, d) in &lines[i + 1..] {
+                if a == c || a == d || b == c || b == d {
+                    continue;
+                }
+                if let Some(p) = crossing(points[a], points[b], points[c], points[d])
+                    && seen.insert(p)
+                {
+                    out.push(p);
+                }
+            }
+        }
+        out
+    }
+
+    /// The regions, counted from the drawing itself by Euler's formula for a
+    /// connected map (regions = edges − corners + 1): the corners are the
+    /// points on the circle and the distinct crossings inside it, and the
+    /// edges are the arcs between neighbouring points and the stretches of
+    /// each line between its corners. Three lines through one point are
+    /// counted as they fall, with no assumption about the points.
+    pub fn regions(points: &[Point]) -> u64 {
+        let n = points.len();
+        if n == 0 {
+            return 1;
+        }
+        let lines = lines(n);
+        let mut inside: HashSet<Point> = HashSet::new();
+        let mut on_line: Vec<HashSet<Point>> = vec![HashSet::new(); lines.len()];
+        for i in 0..lines.len() {
+            for j in i + 1..lines.len() {
+                let ((a, b), (c, d)) = (lines[i], lines[j]);
+                if a == c || a == d || b == c || b == d {
+                    continue;
+                }
+                if let Some(p) = crossing(points[a], points[b], points[c], points[d]) {
+                    inside.insert(p);
+                    on_line[i].insert(p);
+                    on_line[j].insert(p);
+                }
+            }
+        }
+        let corners = n + inside.len();
+        let edges = n + on_line.iter().map(|s| 1 + s.len()).sum::<usize>();
+        (edges + 1 - corners) as u64
+    }
+
+    /// A corner of a region on the screen's unit circle.
+    pub type Corner = (f64, f64);
+
+    /// How many segments the circle is drawn with between two of its
+    /// neighbouring points at the most (an arc is a polyline in a picture).
+    const ARC_STEP_DEGREES: f64 = 3.0;
+
+    /// Every region the lines cut the unit disc into, as a convex polygon
+    /// (corners counter-clockwise): the disc, cut by each of the lines
+    /// through two points in turn. The arcs of the circle are polylines of
+    /// at most [`ARC_STEP_DEGREES`] a segment, and the points themselves are
+    /// corners. The walk is in floating point, from the exact points; the
+    /// count of faces equals [`regions`] (a test), and a region too thin to
+    /// be one (three lines meeting at one point leave slivers of rounding)
+    /// is dropped by area.
+    pub fn faces(points: &[Point]) -> Vec<Vec<Corner>> {
+        let float = |v: Q| v.n as f64 / v.d as f64;
+        let pts: Vec<Corner> = points.iter().map(|&(x, y)| (float(x), float(y))).collect();
+        // the disc: its corners are the points and the arcs between them
+        let mut angles: Vec<f64> = pts.iter().map(|&(x, y)| y.atan2(x)).collect();
+        angles.sort_by(f64::total_cmp);
+        let mut ring: Vec<f64> = Vec::new();
+        if angles.is_empty() {
+            let steps = (360.0 / ARC_STEP_DEGREES) as usize;
+            ring.extend((0..steps).map(|k| std::f64::consts::TAU * k as f64 / steps as f64));
+        } else {
+            for (i, &a) in angles.iter().enumerate() {
+                let b = if i + 1 < angles.len() {
+                    angles[i + 1]
+                } else {
+                    angles[0] + std::f64::consts::TAU
+                };
+                let n = ((b - a).to_degrees() / ARC_STEP_DEGREES).ceil().max(1.0) as usize;
+                ring.extend((0..n).map(|k| a + (b - a) * k as f64 / n as f64));
+            }
+        }
+        let disc: Vec<Corner> = ring.iter().map(|a| (a.cos(), a.sin())).collect();
+        let mut faces = vec![disc];
+        for (i, j) in lines(pts.len()) {
+            let (a, b) = (pts[i], pts[j]);
+            // the signed distance of a corner from the line: positive on the
+            // left of a to b
+            let length = (b.0 - a.0).hypot(b.1 - a.1);
+            let side = |c: Corner| ((b.0 - a.0) * (c.1 - a.1) - (b.1 - a.1) * (c.0 - a.0)) / length;
+            let mut next: Vec<Vec<Corner>> = Vec::with_capacity(faces.len() * 2);
+            for face in faces {
+                let sides: Vec<f64> = face.iter().map(|&c| side(c)).collect();
+                let inside = sides.iter().any(|&d| d > SIDE_EPS);
+                let outside = sides.iter().any(|&d| d < -SIDE_EPS);
+                if !(inside && outside) {
+                    next.push(face);
+                    continue;
+                }
+                let (mut left, mut right) = (Vec::new(), Vec::new());
+                for k in 0..face.len() {
+                    let (c, d) = (face[k], face[(k + 1) % face.len()]);
+                    let (sc, sd) = (sides[k], sides[(k + 1) % face.len()]);
+                    if sc >= -SIDE_EPS {
+                        left.push(c);
+                    }
+                    if sc <= SIDE_EPS {
+                        right.push(c);
+                    }
+                    if (sc > SIDE_EPS && sd < -SIDE_EPS) || (sc < -SIDE_EPS && sd > SIDE_EPS) {
+                        let t = sc / (sc - sd);
+                        let m = (c.0 + t * (d.0 - c.0), c.1 + t * (d.1 - c.1));
+                        left.push(m);
+                        right.push(m);
+                    }
+                }
+                next.push(left);
+                next.push(right);
+            }
+            faces = next;
+        }
+        faces.retain(|f| f.len() >= 3 && polygon_area(f) > MIN_FACE_AREA);
+        faces
+    }
+
+    /// A corner this close to a line (in units of the circle's radius) is
+    /// on it.
+    const SIDE_EPS: f64 = 1e-9;
+    /// A region under this area (of the unit disc's 3.14) is a sliver of
+    /// rounding, not a region.
+    const MIN_FACE_AREA: f64 = 1e-7;
+
+    /// The area of a polygon, from its corners in order.
+    pub fn polygon_area(corners: &[Corner]) -> f64 {
+        let n = corners.len();
+        (0..n)
+            .map(|k| {
+                let (a, b) = (corners[k], corners[(k + 1) % n]);
+                a.0 * b.1 - b.0 * a.1
+            })
+            .sum::<f64>()
+            .abs()
+            / 2.0
+    }
+
+    /// The count when no three lines meet inside: one region to start, one
+    /// more for every line and one more for every crossing, and every four
+    /// points give exactly one crossing.
+    pub fn closed_form(n: u64) -> u64 {
+        1 + choose(n, 2) + choose(n, 4)
+    }
+
+    /// How many regions the lines cut the disc into, and the smallest one's
+    /// share of the disc, both by sampling an `n` by `n` grid and grouping
+    /// the sample points inside the circle by which side of every line they
+    /// are on. A check on the drawing, not a fact: the exact crossings say
+    /// how many regions there are and not how small one can be, and a
+    /// region the viewer cannot see is one the viewer cannot count.
+    #[cfg(test)]
+    #[allow(clippy::cast_precision_loss)]
+    pub fn sampled_regions(points: &[Point], n: usize) -> (usize, f64) {
+        use std::collections::HashMap;
+
+        let float = |v: Q| v.n as f64 / v.d as f64;
+        let pts: Vec<(f64, f64)> = points.iter().map(|&(x, y)| (float(x), float(y))).collect();
+        let lines = lines(pts.len());
+        assert!(lines.len() <= 128, "a region's side-of-every-line key is 128 bits");
+        let mut groups: HashMap<u128, usize> = HashMap::new();
+        let mut inside = 0usize;
+        for i in 0..n {
+            for j in 0..n {
+                let x = -1.0 + 2.0 * (i as f64 + 0.5) / n as f64;
+                let y = -1.0 + 2.0 * (j as f64 + 0.5) / n as f64;
+                if x * x + y * y >= 1.0 {
+                    continue;
+                }
+                inside += 1;
+                let mut key = 0u128;
+                for (k, &(a, b)) in lines.iter().enumerate() {
+                    let (a, b) = (pts[a], pts[b]);
+                    if (b.0 - a.0) * (y - a.1) - (b.1 - a.1) * (x - a.0) > 0.0 {
+                        key |= 1 << k;
+                    }
+                }
+                *groups.entry(key).or_default() += 1;
+            }
+        }
+        let smallest = groups.values().min().copied().unwrap_or(0);
+        (groups.len(), smallest as f64 / inside as f64)
+    }
+}
+
+/// Unit squares in L-shaped layers, and staircases.
+pub mod layers {
+    pub type Cell = (i64, i64);
+
+    /// The `k`-th L-shaped layer (from 1): the cells of the k by k square
+    /// that the (k − 1) by (k − 1) square in the same corner does not have.
+    pub fn layer(k: i64) -> Vec<Cell> {
+        (0..k)
+            .flat_map(|x| (0..k).map(move |y| (x, y)))
+            .filter(|&(x, y)| x.max(y) == k - 1)
+            .collect()
+    }
+
+    /// A staircase of `n` columns: column x (from 0) holds x + 1 cells.
+    pub fn staircase(n: i64) -> Vec<Cell> {
+        (0..n).flat_map(|x| (0..=x).map(move |y| (x, y))).collect()
+    }
+
+    /// The same staircase turned half round, in the place where it locks
+    /// with [`staircase`] into a rectangle n wide and n + 1 tall.
+    pub fn turned(n: i64) -> Vec<Cell> {
+        staircase(n).into_iter().map(|(x, y)| (n - 1 - x, n - y)).collect()
+    }
+}
+
+/// The sum of cubes: each cube cut into square slabs, the slabs laid flat as
+/// one L-shaped layer (Alan L. Fry's picture, 1985; the layers are
+/// al-Karaji's, about the year 1000).
+pub mod cubes {
+    use super::Rect;
+
+    /// How much of a slab a piece is.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    pub enum Part {
+        Whole,
+        /// Half of the one slab an even cube has to cut, lying at the foot
+        /// of the layer's upright arm.
+        HalfRight,
+        /// Its other half, turned a quarter turn, at the far end of the
+        /// layer's top arm.
+        HalfTop,
+    }
+
+    /// One piece of the big square: which cube and slab it came from.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    pub struct Piece {
+        pub cube: i64,
+        /// The slab of that cube, from 0 (the corner square) to cube − 1.
+        pub slab: i64,
+        pub part: Part,
+        pub rect: Rect,
+    }
+
+    /// 1 + 2 + … + n, the side of the square after `n` layers.
+    pub const fn side(n: i64) -> i64 {
+        n * (n + 1) / 2
+    }
+
+    /// The `k`-th layer: cube k's k slabs, each k by k, wrapped round the
+    /// square of side 1 + … + (k − 1). The corner takes one slab. Each arm
+    /// is k wide and k(k − 1)/2 long, which is (k − 1)/2 slabs: a whole
+    /// number of slabs when k is odd, and a half slab over when k is even,
+    /// so an even cube cuts one slab in two and gives each arm a half.
+    pub fn layer(k: i64) -> Vec<Piece> {
+        let s = side(k - 1);
+        let whole = (k - 1) / 2;
+        let foot = if k % 2 == 0 { k / 2 } else { 0 };
+        let mut out = vec![Piece {
+            cube: k,
+            slab: 0,
+            part: Part::Whole,
+            rect: Rect::new(s, s, k, k),
+        }];
+        for i in 0..whole {
+            out.push(Piece {
+                cube: k,
+                slab: 1 + i,
+                part: Part::Whole,
+                rect: Rect::new(s, foot + i * k, k, k),
+            });
+        }
+        for i in 0..whole {
+            out.push(Piece {
+                cube: k,
+                slab: 1 + whole + i,
+                part: Part::Whole,
+                rect: Rect::new(foot + i * k, s, k, k),
+            });
+        }
+        if k % 2 == 0 {
+            out.push(Piece {
+                cube: k,
+                slab: k - 1,
+                part: Part::HalfRight,
+                rect: Rect::new(s, 0, k, k / 2),
+            });
+            out.push(Piece {
+                cube: k,
+                slab: k - 1,
+                part: Part::HalfTop,
+                rect: Rect::new(0, s, k / 2, k),
+            });
+        }
+        out
+    }
+
+    /// Every piece of the square built from cubes 1 to `n`.
+    pub fn square(n: i64) -> Vec<Piece> {
+        (1..=n).flat_map(layer).collect()
+    }
+
+    /// Nicomachus's observation (Introduction to Arithmetic II.20.5): the
+    /// `k` consecutive odd numbers that add up to k cubed, the first being
+    /// k(k − 1) + 1.
+    pub fn odd_run(k: i64) -> Vec<i64> {
+        (0..k).map(|i| k * (k - 1) + 1 + 2 * i).collect()
+    }
+}
+
+/// The sum of squares: three equal stacks of square layers that lock into a
+/// box (Man-Keung Siu's picture, 1984).
+pub mod stacks {
+    pub type Cell = (i64, i64, i64);
+
+    /// One stack as the video first shows it: layer l (from 0, the bottom)
+    /// is a square of side n − l, every layer pushed into the same corner.
+    pub fn standard(n: i64) -> Vec<Cell> {
+        (0..n)
+            .flat_map(move |l| (0..n - l).flat_map(move |i| (0..n - l).map(move |j| (i, j, l))))
+            .collect()
+    }
+
+    /// The three turns, as where each stack's own (i, j, l) axes point in
+    /// the box: stack 0 stays as it is; stacks 1 and 2 are the same solid
+    /// turned (each a rotation, never a mirror image).
+    pub const TURNS: [[[i64; 3]; 3]; 3] = [
+        [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+        [[0, 1, 0], [0, 0, -1], [-1, 0, 0]],
+        [[0, 0, -1], [1, 0, 0], [0, -1, 0]],
+    ];
+
+    /// Where a turned stack's corner cell (0, 0, 0) sits in the box.
+    pub const fn shift(n: i64, which: usize) -> Cell {
+        match which {
+            0 => (0, 0, 0),
+            1 => (0, n, n - 1),
+            _ => (n - 1, 0, n),
+        }
+    }
+
+    /// The cell of the box that stack `which`'s cell (i, j, l) fills.
+    pub const fn place(n: i64, which: usize, (i, j, l): Cell) -> Cell {
+        let m = TURNS[which];
+        let s = shift(n, which);
+        (
+            m[0][0] * i + m[0][1] * j + m[0][2] * l + s.0,
+            m[1][0] * i + m[1][1] * j + m[1][2] * l + s.1,
+            m[2][0] * i + m[2][1] * j + m[2][2] * l + s.2,
+        )
+    }
+
+    /// Stack `which` in its place: the box is n wide (x), n + 1 deep (y)
+    /// and n tall (z from 0), and height n is the layer that sticks out on
+    /// top.
+    pub fn placed(n: i64, which: usize) -> Vec<Cell> {
+        standard(n).into_iter().map(|c| place(n, which, c)).collect()
+    }
+
+    /// The determinant of a turn: +1 for a rotation, −1 for a mirror image.
+    pub const fn determinant(m: [[i64; 3]; 3]) -> i64 {
+        m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+            + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0])
+    }
+
+    /// The base layer stack `which` gains when the stacks grow from n − 1
+    /// layers to n: one flat square slab of side n, in its place in the box.
+    pub fn new_base(n: i64, which: usize) -> Vec<Cell> {
+        standard(n)
+            .into_iter()
+            .filter(|c| c.2 == 0)
+            .map(|c| place(n, which, c))
+            .collect()
+    }
+
+    /// The cubes in a stack of `n` levels: n² + (n − 1)² + … + 1.
+    const fn cubes_in_stack(n: i64) -> i64 {
+        n * (n + 1) * (2 * n + 1) / 6
+    }
+
+    /// The boxes `m` stacks of `n` levels can fill when only the cubes that
+    /// stick out on top may be sliced: `(width, depth, h)` with width at most
+    /// depth, for a box width by depth by h + ½ (h whole layers under one
+    /// half layer), which holds width × depth × (2h + 1) ÷ 2 cubes. A stack is
+    /// n by n by n at its widest in every direction, so a box that holds one
+    /// has both sides at least n and at least n − 1 whole layers under its
+    /// half layer. These are necessary conditions for stacks on the cube
+    /// lattice; that three of them do fill the one box left is what
+    /// [`fills_the_box`] shows. 07_2 asks for the fewest such stacks.
+    pub fn half_boxes(n: i64, m: i64) -> Vec<(i64, i64, i64)> {
+        let twice = 2 * m * cubes_in_stack(n); // width × depth × (2h + 1)
+        let mut out = Vec::new();
+        for width in n..=twice {
+            if width * width > twice {
+                break;
+            }
+            for depth in width..=twice / width {
+                if twice % (width * depth) != 0 {
+                    continue;
+                }
+                let odd = twice / (width * depth); // 2h + 1
+                if odd % 2 == 1 && (odd - 1) / 2 >= n - 1 {
+                    out.push((width, depth, (odd - 1) / 2));
+                }
+            }
+        }
+        out
+    }
+
+    /// The boxes of whole cubes `m` stacks of `n` levels can fill, as sorted
+    /// sides, by the same necessary conditions (every side at least n): the
+    /// whole-cube counterpart that 07_2's note and its test rest on.
+    #[cfg(test)]
+    pub fn whole_boxes(n: i64, m: i64) -> Vec<(i64, i64, i64)> {
+        let volume = m * cubes_in_stack(n);
+        let mut out = Vec::new();
+        for a in n..=volume {
+            if a * a * a > volume {
+                break;
+            }
+            for b in a..=volume / a {
+                if volume % (a * b) == 0 && volume / (a * b) >= b {
+                    out.push((a, b, volume / (a * b)));
+                }
+            }
+        }
+        out
+    }
+
+    /// The step from one height to the next, checked cube by cube: each
+    /// stack at height n is the same stack at height n − 1 lifted by one
+    /// cube, standing on, in front of or beside its new base slab. So the
+    /// locked solid of height n is the solid of height n − 1 with three new
+    /// slabs round it: one under it, one behind it, one beside it.
+    pub fn grows(n: i64) -> Result<(), String> {
+        for which in 0..3 {
+            let base = new_base(n, which);
+            let mut grown: Vec<Cell> = placed(n - 1, which)
+                .into_iter()
+                .map(|(x, y, z)| (x, y, z + 1))
+                .collect();
+            grown.extend(&base);
+            grown.sort_unstable();
+            let mut whole = placed(n, which);
+            whole.sort_unstable();
+            if grown != whole {
+                return Err(format!("stack {which} is not the last height lifted onto a new base"));
+            }
+            // the base is flat: n × n cells that agree in one coordinate
+            let flat = [0, 1, 2].iter().any(|&axis| {
+                let at = |c: &Cell| [c.0, c.1, c.2][axis];
+                base.iter().all(|c| at(c) == at(&base[0]))
+            });
+            if !flat || base.len() as i64 != n * n {
+                return Err(format!("stack {which}'s new base is not a flat slab of side {n}"));
+            }
+        }
+        Ok(())
+    }
+
+    /// The columns (x, y) of the cells that stick out above height n: a
+    /// staircase of 1 + 2 + … + n cubes, all from stack 2.
+    pub fn top(n: i64) -> Vec<(i64, i64)> {
+        (0..3)
+            .flat_map(|w| placed(n, w))
+            .filter(|c| c.2 == n)
+            .map(|c| (c.0, c.1))
+            .collect()
+    }
+
+    /// Where the upper half of the top cube over column (x, y) lands once
+    /// the top layer is sliced flat and the slice is turned half round.
+    pub const fn turned_half(n: i64, (x, y): (i64, i64)) -> (i64, i64) {
+        (n - 1 - x, n - y)
+    }
+
+    /// Everything, in half-height cells (x, y, 2z): the three stacks with the
+    /// top layer sliced and its upper half turned into the gap beside it.
+    pub fn half_cells(n: i64) -> Vec<Cell> {
+        let mut out = Vec::new();
+        for (x, y, z) in (0..3).flat_map(|w| placed(n, w)) {
+            if z < n {
+                out.extend([(x, y, 2 * z), (x, y, 2 * z + 1)]);
+            } else {
+                let (tx, ty) = turned_half(n, (x, y));
+                out.extend([(x, y, 2 * n), (tx, ty, 2 * n)]);
+            }
+        }
+        out
+    }
+
+    /// The slow check: [`half_cells`] fill the box n by n + 1 by 2n + 1
+    /// half-heights exactly once each.
+    pub fn fills_the_box(n: i64) -> Result<(), String> {
+        let (w, d, h) = (n, n + 1, 2 * n + 1);
+        let mut seen = vec![false; (w * d * h) as usize];
+        for (x, y, z) in half_cells(n) {
+            if !(0..w).contains(&x) || !(0..d).contains(&y) || !(0..h).contains(&z) {
+                return Err(format!("half-cell ({x}, {y}, {z}) lies outside the box"));
+            }
+            let i = (x + w * (y + d * z)) as usize;
+            if seen[i] {
+                return Err(format!("half-cell ({x}, {y}, {z}) is filled twice"));
+            }
+            seen[i] = true;
+        }
+        if seen.iter().all(|&s| s) {
+            Ok(())
+        } else {
+            Err("a half-cell of the box is empty".to_owned())
+        }
+    }
+}
+
+/// The two infinite sums: a square halved again and again, and a square
+/// quartered again and again.
+pub mod series {
+    use super::Q;
+
+    /// A rectangle with exact corners: x, y, width, height.
+    pub type Piece = (Q, Q, Q, Q);
+
+    /// How many pieces of the halved square a 64-bit float must add, from
+    /// the first, before the running sum is exactly 1.0: from then on the
+    /// machine cannot see the gap (the note for programmers at 10_4).
+    pub fn float_pieces_to_one() -> u32 {
+        let (mut sum, mut piece, mut pieces) = (0.0_f64, 0.5_f64, 0);
+        while sum < 1.0 {
+            sum += piece;
+            piece *= 0.5;
+            pieces += 1;
+        }
+        pieces
+    }
+
+    /// The `k`-th piece (from 1) of the unit square halved again and again:
+    /// odd steps keep the left half of what is left, even steps the bottom
+    /// half, so what is left shrinks into the top right corner.
+    pub fn half(k: u32) -> Piece {
+        // before step k: (k − 1)/2 upright cuts and (k − 1)/2 level cuts
+        // have been made, an upright one first
+        let (wide, tall) = (Q::half_to(k / 2), Q::half_to((k - 1) / 2));
+        let (x, y) = (Q::ONE - wide, Q::ONE - tall);
+        if k % 2 == 1 {
+            (x, y, wide * Q::half_to(1), tall)
+        } else {
+            (x, y, wide, tall * Q::half_to(1))
+        }
+    }
+
+    /// What is left of the square after `k` pieces.
+    pub fn left_after_halves(k: u32) -> Piece {
+        let (wide, tall) = (Q::half_to(k.div_ceil(2)), Q::half_to(k / 2));
+        (Q::ONE - wide, Q::ONE - tall, wide, tall)
+    }
+
+    /// Level `j` (from 1) of the quartered square: the corner square still
+    /// uncut, of side 1/2^(j−1), is cut in four. Three of the four are
+    /// kept, one for each share (`[counted, above it, beside it]`); the
+    /// fourth, in the far corner, is cut again at the next level.
+    pub fn quarters(j: u32) -> [Piece; 3] {
+        let s = Q::half_to(j);
+        let o = Q::ONE - s - s;
+        [(o, o, s, s), (o, o + s, s, s), (o + s, o, s, s)]
+    }
+
+    /// The square still uncut after level `j`.
+    pub fn left_after_quarters(j: u32) -> Piece {
+        let s = Q::half_to(j);
+        (Q::ONE - s, Q::ONE - s, s, s)
+    }
+
+    pub fn area(p: Piece) -> Q {
+        p.2 * p.3
+    }
+}
+
+/// A square, a cube and a four-dimensional block cut by one cut along every
+/// side (the binomial pictures).
+pub mod blocks {
+    /// One block of the cut: where it starts and how long it is along each
+    /// side, and how many of its sides are the short part `b`.
+    #[derive(Clone, Debug, PartialEq, Eq)]
+    pub struct Block {
+        pub origin: Vec<i64>,
+        pub sides: Vec<i64>,
+        pub bs: usize,
+    }
+
+    impl Block {
+        pub fn volume(&self) -> i64 {
+            self.sides.iter().product()
+        }
+    }
+
+    /// Every side of a `dim`-dimensional cube of side a + b cut once, at a:
+    /// 2^dim blocks.
+    pub fn cut(a: i64, b: i64, dim: usize) -> Vec<Block> {
+        (0..1usize << dim)
+            .map(|mask| {
+                let short = |i: usize| mask >> i & 1 == 1;
+                Block {
+                    origin: (0..dim).map(|i| if short(i) { a } else { 0 }).collect(),
+                    sides: (0..dim).map(|i| if short(i) { b } else { a }).collect(),
+                    bs: mask.count_ones() as usize,
+                }
+            })
+            .collect()
+    }
+
+    /// How many blocks have 0, 1, …, dim short sides, counted from the cut.
+    pub fn kinds(dim: usize) -> Vec<usize> {
+        let blocks = cut(2, 1, dim);
+        (0..=dim).map(|j| blocks.iter().filter(|b| b.bs == j).count()).collect()
+    }
+
+    /// The slow check: the blocks' unit cells fill the cube of side a + b
+    /// exactly once each, in any number of dimensions.
+    pub fn fills_the_cube(a: i64, b: i64, dim: usize) -> Result<(), String> {
+        let side = a + b;
+        let mut seen = vec![false; side.pow(dim as u32) as usize];
+        for block in cut(a, b, dim) {
+            let cells = block.volume();
+            for c in 0..cells {
+                // the c-th cell of the block, counted along its sides in turn
+                let (mut rest, mut index, mut stride) = (c, 0, 1);
+                for i in 0..dim {
+                    index += (block.origin[i] + rest % block.sides[i]) * stride;
+                    rest /= block.sides[i];
+                    stride *= side;
+                }
+                if std::mem::replace(&mut seen[index as usize], true) {
+                    return Err(format!("a cell of block {block:?} is filled twice"));
+                }
+            }
+        }
+        if seen.iter().all(|&s| s) {
+            Ok(())
+        } else {
+            Err("a cell of the cube is empty".to_owned())
+        }
+    }
+}
+
+/// Pythagoras by two arrangements of four right triangles in a square of
+/// side a + b.
+pub mod pythagoras {
+    use super::Rect;
+
+    pub type P = (i64, i64);
+
+    /// Twice the area of a polygon (the shoelace sum; positive when the
+    /// corners run anticlockwise).
+    pub fn area2(poly: &[P]) -> i64 {
+        (0..poly.len())
+            .map(|i| {
+                let (a, b) = (poly[i], poly[(i + 1) % poly.len()]);
+                a.0 * b.1 - b.0 * a.1
+            })
+            .sum()
+    }
+
+    /// The first arrangement: one triangle in each corner of the big
+    /// square, legs along its sides, right angle first.
+    pub const fn corners(a: i64, b: i64) -> [[P; 3]; 4] {
+        let s = a + b;
+        [
+            [(0, 0), (a, 0), (0, b)],
+            [(s, 0), (s, a), (a, 0)],
+            [(s, s), (b, s), (s, a)],
+            [(0, s), (0, b), (b, s)],
+        ]
+    }
+
+    /// The shape the four triangles leave: its corners, anticlockwise.
+    pub const fn tilted(a: i64, b: i64) -> [P; 4] {
+        let s = a + b;
+        [(a, 0), (s, a), (b, s), (0, b)]
+    }
+
+    /// The slide that takes each triangle to the second arrangement (the
+    /// first stays where it is; no triangle turns or flips).
+    pub const fn slides(a: i64, b: i64) -> [P; 4] {
+        [(0, 0), (0, b), (-b, -a), (a, 0)]
+    }
+
+    /// The second arrangement.
+    pub fn slid(a: i64, b: i64) -> [[P; 3]; 4] {
+        let (t, d) = (corners(a, b), slides(a, b));
+        std::array::from_fn(|i| t[i].map(|p| (p.0 + d[i].0, p.1 + d[i].1)))
+    }
+
+    /// The two squares the second arrangement leaves: on leg a, on leg b.
+    pub const fn left_over(a: i64, b: i64) -> (Rect, Rect) {
+        (Rect::new(0, b, a, a), Rect::new(a, 0, b, b))
+    }
+
+    /// Four equal sides and a right angle at every corner, in whole numbers.
+    pub fn is_square(c: &[P; 4]) -> bool {
+        let side = |i: usize| {
+            let (p, r) = (c[i], c[(i + 1) % 4]);
+            (r.0 - p.0, r.1 - p.1)
+        };
+        let len2 = |v: P| v.0 * v.0 + v.1 * v.1;
+        (0..4).all(|i| {
+            let (u, w) = (side(i), side((i + 1) % 4));
+            len2(u) == len2(side(0)) && u.0 * w.0 + u.1 * w.1 == 0
+        })
+    }
+
+    /// Whether three points lie on one straight line.
+    pub const fn straight(p: P, m: P, r: P) -> bool {
+        (m.0 - p.0) * (r.1 - p.1) == (m.1 - p.1) * (r.0 - p.0)
+    }
+}
+
+/// The picture that lies: the missing-square puzzle (Paul Curry's idea,
+/// 1953; the triangle form is Martin Gardner's, 1956).
+pub mod lie {
+    use super::pythagoras::P;
+    use super::{Q, q};
+
+    /// The triangle the pieces seem to fill: 13 wide and 5 tall.
+    pub const WIDE: i64 = 13;
+    pub const TALL: i64 = 5;
+
+    /// The four pieces: two right triangles and two L-shaped pieces of unit
+    /// squares.
+    #[derive(Clone, Debug, PartialEq, Eq)]
+    pub struct Arrangement {
+        /// The triangle with legs 8 and 3.
+        pub big: [P; 3],
+        /// The triangle with legs 5 and 2.
+        pub small: [P; 3],
+        /// The L of 8 unit squares.
+        pub long_l: Vec<P>,
+        /// The L of 7 unit squares.
+        pub short_l: Vec<P>,
+        /// Where the outline bends: the point both triangles touch.
+        pub bend: P,
+    }
+
+    fn cells(rows: &[(i64, i64, i64)]) -> Vec<P> {
+        rows.iter()
+            .flat_map(|&(y, x0, x1)| (x0..x1).map(move |x| (x, y)))
+            .collect()
+    }
+
+    /// The pieces as first shown: no hole.
+    pub fn first() -> Arrangement {
+        Arrangement {
+            big: [(8, 0), (8, 3), (0, 0)],
+            small: [(13, 3), (13, 5), (8, 3)],
+            short_l: cells(&[(0, 8, 13), (1, 8, 10)]),
+            long_l: cells(&[(1, 10, 13), (2, 8, 13)]),
+            bend: (8, 3),
+        }
+    }
+
+    /// How far each piece slides to make the second arrangement: big
+    /// triangle, small triangle, long L, short L. Nothing turns or flips.
+    pub const SLIDES: [P; 4] = [(5, 2), (-8, -3), (0, -1), (-3, 0)];
+
+    /// The same pieces slid: one square is empty.
+    pub fn second() -> Arrangement {
+        let a = first();
+        let by = |d: P| move |p: P| (p.0 + d.0, p.1 + d.1);
+        Arrangement {
+            big: a.big.map(by(SLIDES[0])),
+            small: a.small.map(by(SLIDES[1])),
+            long_l: a.long_l.into_iter().map(by(SLIDES[2])).collect(),
+            short_l: a.short_l.into_iter().map(by(SLIDES[3])).collect(),
+            bend: (5, 2),
+        }
+    }
+
+    /// The outline an arrangement really has: four corners, not three.
+    pub const fn outline(a: &Arrangement) -> [P; 4] {
+        [(0, 0), (WIDE, 0), (WIDE, TALL), a.bend]
+    }
+
+    /// The slope of a triangle's long side, rise over run.
+    pub fn slope(t: &[P; 3]) -> Q {
+        // right angle first, then the two ends of the long side
+        let (rise, run) = ((t[1].1 - t[2].1).abs(), (t[1].0 - t[2].0).abs());
+        q(i128::from(rise), i128::from(run))
+    }
+
+    /// How high the straight edge from corner to corner would be at x.
+    pub fn straight_edge_at(x: i64) -> Q {
+        q(i128::from(TALL * x), i128::from(WIDE))
+    }
+
+    /// How high an arrangement's sloping edge really is at x: one slope up
+    /// to the bend, the other after it.
+    pub fn edge_at(a: &Arrangement, x: i64) -> Q {
+        let (bx, by) = a.bend;
+        if x <= bx {
+            q(i128::from(by * x), i128::from(bx))
+        } else {
+            Q::int(by) + q(i128::from((TALL - by) * (x - bx)), i128::from(WIDE - bx))
+        }
+    }
+
+    /// A corner of a piece of the sliver: exact, because a cut along the
+    /// grid meets the sloping edges at fractions.
+    pub type QP = (Q, Q);
+
+    /// The sliver between the two outlines: a parallelogram with the two
+    /// bends and the outlines' shared corners.
+    pub fn sliver() -> [P; 4] {
+        [(0, 0), first().bend, (WIDE, TALL), second().bend]
+    }
+
+    /// Twice the area of a polygon, positive when its corners go
+    /// anticlockwise (the shoelace sum).
+    fn twice_signed_area(poly: &[QP]) -> Q {
+        (0..poly.len()).fold(Q::ZERO, |s, k| {
+            let (a, b) = (poly[k], poly[(k + 1) % poly.len()]);
+            s + a.0 * b.1 - b.0 * a.1
+        })
+    }
+
+    /// The area of a polygon, whichever way round its corners go.
+    pub fn polygon_area(poly: &[QP]) -> Q {
+        let twice = twice_signed_area(poly);
+        (if twice < Q::ZERO { -twice } else { twice }) / Q::int(2)
+    }
+
+    /// `poly` cut to the half plane `ax + by <= c` (Sutherland and Hodgman;
+    /// exact, for a convex polygon).
+    fn clip(poly: &[QP], (a, b, c): (i64, i64, i64)) -> Vec<QP> {
+        let side = |p: QP| Q::int(a) * p.0 + Q::int(b) * p.1 - Q::int(c);
+        let mut out = Vec::new();
+        for k in 0..poly.len() {
+            let (p, r) = (poly[k], poly[(k + 1) % poly.len()]);
+            let (fp, fr) = (side(p), side(r));
+            if fp <= Q::ZERO {
+                out.push(p);
+            }
+            if (fp < Q::ZERO && fr > Q::ZERO) || (fp > Q::ZERO && fr < Q::ZERO) {
+                let t = fp / (fp - fr);
+                out.push((p.0 + t * (r.0 - p.0), p.1 + t * (r.1 - p.1)));
+            }
+        }
+        out
+    }
+
+    /// The sliver cut along the grid's lines: each unit square it overlaps,
+    /// by its lower left corner, with the corners of the piece inside it,
+    /// row by row from the bottom.
+    pub fn sliver_pieces() -> Vec<(P, Vec<QP>)> {
+        let corners: Vec<QP> = sliver().iter().map(|&(x, y)| (Q::int(x), Q::int(y))).collect();
+        let mut out = Vec::new();
+        for j in 0..TALL {
+            for i in 0..WIDE {
+                let mut piece = corners.clone();
+                for half in [(-1, 0, -i), (1, 0, i + 1), (0, -1, -j), (0, 1, j + 1)] {
+                    piece = clip(&piece, half);
+                    if piece.len() < 3 {
+                        break;
+                    }
+                }
+                if piece.len() >= 3 && polygon_area(&piece) > Q::ZERO {
+                    out.push(((i, j), piece));
+                }
+            }
+        }
+        out
+    }
+
+    /// How far each piece of the sliver slides, by whole squares and in the
+    /// order of [`sliver_pieces`], to lie in the second arrangement's one
+    /// empty square.
+    pub fn fold() -> Vec<P> {
+        let hole = holes(&second());
+        let target = hole.first().copied().unwrap_or((0, 0));
+        sliver_pieces()
+            .iter()
+            .map(|&((i, j), _)| (target.0 - i, target.1 - j))
+            .collect()
+    }
+
+    /// The area two convex polygons share (`a` cut by each edge of `b`): a
+    /// check on the fold, used by its test.
+    #[cfg(test)]
+    pub fn overlap_area(a: &[QP], b: &[QP]) -> Q {
+        // the half plane to the left of each edge of b, whichever way b goes
+        let flip = twice_signed_area(b) < Q::ZERO;
+        let mut piece = a.to_vec();
+        for k in 0..b.len() {
+            let (p, r) = (b[k], b[(k + 1) % b.len()]);
+            let (p, r) = if flip { (r, p) } else { (p, r) };
+            // left of p to r: (r - p) x (x - p) >= 0, that is, -(...) <= 0
+            let (dx, dy) = (r.0 - p.0, r.1 - p.1);
+            let side = |s: QP| -(dx * (s.1 - p.1) - dy * (s.0 - p.0));
+            let mut out = Vec::new();
+            for m in 0..piece.len() {
+                let (u, v) = (piece[m], piece[(m + 1) % piece.len()]);
+                let (fu, fv) = (side(u), side(v));
+                if fu <= Q::ZERO {
+                    out.push(u);
+                }
+                if (fu < Q::ZERO && fv > Q::ZERO) || (fu > Q::ZERO && fv < Q::ZERO) {
+                    let t = fu / (fu - fv);
+                    out.push((u.0 + t * (v.0 - u.0), u.1 + t * (v.1 - u.1)));
+                }
+            }
+            piece = out;
+            if piece.len() < 3 {
+                return Q::ZERO;
+            }
+        }
+        polygon_area(&piece)
+    }
+
+    /// The unit squares inside the rectangle under the triangles that no
+    /// piece covers.
+    pub fn holes(a: &Arrangement) -> Vec<P> {
+        // the rectangle the two L-shaped pieces share: right of the left
+        // triangle, below the right one
+        let (x0, y1) = if a.bend == (8, 3) { (8, 3) } else { (5, 2) };
+        (x0..WIDE)
+            .flat_map(|x| (0..y1).map(move |y| (x, y)))
+            .filter(|c| !a.long_l.contains(c) && !a.short_l.contains(c))
+            .collect()
+    }
+}
+
+/// What a quiz asks; `facts.rs` computes each answer from the pictures.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Ask {
+    /// How many regions six points make.
+    Regions,
+    /// How many unit squares the next L-shaped layer needs.
+    NextLayer,
+    /// The rectangle two staircases make.
+    Rectangle,
+    /// How many of the fourth cube's slabs have to be cut.
+    CutSlabs,
+    /// How many stacks make a box.
+    Stacks,
+    /// The share of the quartered square one colour holds.
+    Share,
+    /// How many blocks of each kind the cut cube has.
+    Kinds,
+    /// The area of the tilted square on legs 3 and 4.
+    Tilted,
+    /// Which of the two slopes of the lying picture is steeper.
+    Slopes,
+}
+
+/// One quiz: its name in the fact keys, the storyboard line that asks it,
+/// its countdown, and what it asks.
+#[derive(Clone, Copy, Debug)]
+pub struct Quiz {
+    pub name: &'static str,
+    pub line: &'static str,
+    pub seconds: u32,
+    pub ask: Ask,
+}
+
+const fn quiz(name: &'static str, line: &'static str, seconds: u32, ask: Ask) -> Quiz {
+    Quiz {
+        name,
+        line,
+        seconds,
+        ask,
+    }
+}
+
+/// Every quiz of the video, in order. The storyboard's countdown beats are
+/// exactly these lines (a test in `main.rs`).
+pub const QUIZZES: &[Quiz] = &[
+    quiz("regions", "02_5", 4, Ask::Regions),
+    quiz("next_layer", "03_3", 4, Ask::NextLayer),
+    quiz("rectangle", "04_3", 5, Ask::Rectangle),
+    quiz("cut_slabs", "05_4", 8, Ask::CutSlabs),
+    quiz("stacks", "07_2", 7, Ask::Stacks),
+    quiz("share", "11_3", 6, Ask::Share),
+    quiz("kinds", "12_4", 8, Ask::Kinds),
+    quiz("tilted", "13_4", 6, Ask::Tilted),
+    quiz("slopes", "14_4", 8, Ask::Slopes),
+];
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fractions_reduce_compare_and_print() {
+        assert_eq!(q(20, 100), q(1, 5));
+        assert_eq!(q(1, -2), q(-1, 2));
+        assert!(q(3, 8) < q(5, 13) && q(5, 13) < q(2, 5));
+        assert_eq!((q(1, 2) + q(1, 3)).to_string(), "5/6");
+        assert_eq!((q(1, 2) - q(1, 2)).to_string(), "0");
+        assert_eq!((q(3, 4) / q(3, 8)).to_string(), "2");
+        assert_eq!(Q::half_to(5), q(1, 32));
+    }
+
+    #[test]
+    fn the_circle_s_regions_break_the_doubling_pattern_at_six() {
+        let counts: Vec<u64> = (0..=7).map(|n| circle::regions(&circle::drawn(n))).collect();
+        assert_eq!(counts, [1, 1, 2, 4, 8, 16, 31, 57]);
+        for n in 0..=7u64 {
+            assert_eq!(counts[n as usize], circle::closed_form(n), "n = {n}");
+        }
+        // no three of the drawn lines meet at one point inside: every four
+        // points give their own crossing
+        assert_eq!(circle::crossings(&circle::drawn(6)).len() as u64, choose(6, 4));
+        assert_eq!(circle::crossings(&circle::drawn(7)).len() as u64, choose(7, 4));
+        // every drawn point is on the unit circle
+        for (x, y) in circle::drawn(7) {
+            assert_eq!(x * x + y * y, Q::ONE);
+        }
+    }
+
+    /// 02_6 asks the viewer to count 31: every region of the six drawn
+    /// points must be big enough to see (the first draft's points left one
+    /// at 0.04 percent of the disc, and a speck is an off-by-one).
+    #[test]
+    fn every_region_of_the_drawn_points_is_big_enough_to_count() {
+        for n in 1..=6 {
+            let (regions, smallest) = circle::sampled_regions(&circle::drawn(n), 700);
+            assert_eq!(regions as u64, circle::closed_form(n as u64), "{n} points");
+            assert!(
+                smallest > 0.008,
+                "{n} points: the smallest region is {smallest} of the disc"
+            );
+        }
+    }
+
+    /// The faces the pictures fill are the regions the count is of: as many
+    /// faces as `regions`, every face convex, together the whole disc and no
+    /// two overlapping (their areas add up to the disc's), and for the six
+    /// drawn points none under a percent of it.
+    #[test]
+    fn the_faces_are_the_regions() {
+        // the disc is drawn as a polygon inscribed in the circle, a little
+        // under its area (a segment of three degrees is under a thousandth)
+        let disc = std::f64::consts::PI;
+        let inscribed = circle::polygon_area(&circle::faces(&[])[0]);
+        assert!(inscribed < disc && disc - inscribed < 2e-3, "{inscribed}");
+        let mut sets: Vec<(String, Vec<circle::Point>)> = (0..=7)
+            .map(|n| (format!("{n} drawn points"), circle::drawn(n)))
+            .collect();
+        sets.push(("three through one".to_owned(), circle::three_through_one()));
+        for (name, points) in sets {
+            let faces = circle::faces(&points);
+            assert_eq!(faces.len() as u64, circle::regions(&points), "{name}");
+            let total: f64 = faces.iter().map(|f| circle::polygon_area(f)).sum();
+            assert!(
+                total < disc && disc - total < 2e-3,
+                "{name}: the faces cover {total} of {disc}"
+            );
+            for f in &faces {
+                // convex: every turn is the same way
+                let n = f.len();
+                let turns: Vec<f64> = (0..n)
+                    .map(|k| {
+                        let (a, b, c) = (f[k], f[(k + 1) % n], f[(k + 2) % n]);
+                        (b.0 - a.0) * (c.1 - b.1) - (b.1 - a.1) * (c.0 - b.0)
+                    })
+                    .collect();
+                assert!(
+                    turns.iter().all(|&t| t >= -1e-9) || turns.iter().all(|&t| t <= 1e-9),
+                    "{name}: a face is not convex"
+                );
+            }
+        }
+        for n in 1..=6 {
+            let faces = circle::faces(&circle::drawn(n));
+            let least = faces
+                .iter()
+                .map(|f| circle::polygon_area(f))
+                .fold(f64::INFINITY, f64::min);
+            assert!(least / disc > 0.008, "{n} points: the least face is {}", least / disc);
+        }
+    }
+
+    #[test]
+    fn three_lines_through_one_point_lose_a_region() {
+        let six = circle::three_through_one();
+        assert_eq!(circle::crossings(&six).len(), 13);
+        assert_eq!(circle::regions(&six), 30);
+    }
+
+    #[test]
+    fn l_shaped_layers_build_every_square() {
+        for n in 1..=60 {
+            let cells = (1..=n).flat_map(layers::layer);
+            tiles(cells, Rect::new(0, 0, n, n), &[]).unwrap();
+            assert_eq!(layers::layer(n).len() as i64, 2 * n - 1);
+        }
+    }
+
+    #[test]
+    fn two_staircases_make_a_rectangle() {
+        for n in 1..=60 {
+            let both = layers::staircase(n).into_iter().chain(layers::turned(n));
+            tiles(both, Rect::new(0, 0, n, n + 1), &[]).unwrap();
+            assert_eq!(layers::staircase(n).len() as i64, n * (n + 1) / 2);
+        }
+    }
+
+    #[test]
+    fn the_cubes_slabs_tile_the_square() {
+        for n in 1..=40 {
+            let side = cubes::side(n);
+            let pieces = cubes::square(n);
+            tiles(
+                pieces.iter().flat_map(|p| p.rect.cells()),
+                Rect::new(0, 0, side, side),
+                &[],
+            )
+            .unwrap();
+            // layer n is cube n: n slabs of n by n, one of them cut when n is even
+            let layer = cubes::layer(n);
+            assert_eq!(layer.iter().map(|p| p.rect.area()).sum::<i64>(), n * n * n);
+            let mut slabs: Vec<i64> = layer.iter().map(|p| p.slab).collect();
+            slabs.sort_unstable();
+            slabs.dedup();
+            assert_eq!(slabs, (0..n).collect::<Vec<_>>());
+            let halves = layer.iter().filter(|p| p.part != cubes::Part::Whole).count();
+            assert_eq!(halves, if n % 2 == 0 { 2 } else { 0 });
+            for p in &layer {
+                match p.part {
+                    cubes::Part::Whole => assert_eq!((p.rect.w, p.rect.h), (n, n)),
+                    cubes::Part::HalfRight => assert_eq!((p.rect.w, p.rect.h), (n, n / 2)),
+                    cubes::Part::HalfTop => assert_eq!((p.rect.w, p.rect.h), (n / 2, n)),
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn each_cube_is_a_run_of_consecutive_odd_numbers() {
+        let mut next_odd = 1;
+        for k in 1..=200 {
+            let run = cubes::odd_run(k);
+            assert_eq!(run.len() as i64, k);
+            for &o in &run {
+                assert_eq!(o, next_odd, "the runs use every odd number once, in order");
+                next_odd += 2;
+            }
+            assert_eq!(run.iter().sum::<i64>(), k * k * k);
+        }
+        assert_eq!(cubes::odd_run(3), [7, 9, 11]);
+    }
+
+    #[test]
+    fn three_stacks_fill_siu_s_box() {
+        for n in 1..=24 {
+            stacks::fills_the_box(n).unwrap();
+            let squares: i64 = (1..=n).map(|k| k * k).sum();
+            for w in 0..3 {
+                assert_eq!(stacks::placed(n, w).len() as i64, squares);
+            }
+            assert_eq!(stacks::top(n).len() as i64, n * (n + 1) / 2);
+            // the three stacks, unsliced, share no cell
+            let mut all: Vec<_> = (0..3).flat_map(|w| stacks::placed(n, w)).collect();
+            all.sort_unstable();
+            all.dedup();
+            assert_eq!(all.len() as i64, 3 * squares);
+        }
+        for m in stacks::TURNS {
+            assert_eq!(stacks::determinant(m), 1, "a turn, not a mirror image");
+        }
+    }
+
+    #[test]
+    fn the_halves_and_the_quarters_fill_the_unit_square() {
+        let mut filled = Q::ZERO;
+        for k in 1..=40 {
+            let p = series::half(k);
+            assert_eq!(series::area(p), Q::half_to(k));
+            filled = filled + series::area(p);
+            let left = series::left_after_halves(k);
+            assert_eq!(filled + series::area(left), Q::ONE);
+            assert_eq!(series::area(left), Q::half_to(k), "the gap is the last piece");
+            // the piece and what is left split what was left before
+            let before = series::left_after_halves(k - 1);
+            assert_eq!((p.0, p.1), (before.0, before.1));
+            assert_eq!(series::area(p) + series::area(left), series::area(before));
+        }
+        let mut share = Q::ZERO;
+        for j in 1..=20 {
+            let [a, b, c] = series::quarters(j);
+            assert!(series::area(a) == series::area(b) && series::area(b) == series::area(c));
+            share = share + series::area(a);
+            let left = series::left_after_quarters(j);
+            assert_eq!(share + share + share + series::area(left), Q::ONE);
+            assert_eq!(q(1, 3) - share, series::area(left) * q(1, 3));
+        }
+    }
+
+    #[test]
+    fn the_cut_cube_s_blocks_fill_it_in_every_dimension() {
+        for dim in 1..=4 {
+            for a in 1..=5 {
+                for b in 1..=5 {
+                    blocks::fills_the_cube(a, b, dim).unwrap();
+                }
+            }
+            let kinds = blocks::kinds(dim);
+            for (j, &count) in kinds.iter().enumerate() {
+                assert_eq!(count as u64, choose(dim as u64, j as u64));
+            }
+            assert_eq!(kinds.iter().sum::<usize>(), 1 << dim);
+        }
+        assert_eq!(blocks::kinds(3), [1, 3, 3, 1]);
+        assert_eq!(blocks::kinds(4), [1, 4, 6, 4, 1]);
+    }
+
+    #[test]
+    fn each_height_is_the_last_one_on_three_new_slabs() {
+        for n in 1..=24 {
+            stacks::grows(n).unwrap();
+            // the three new slabs share no cube, and none of them is in the lifted solid
+            let mut slabs: Vec<_> = (0..3).flat_map(|w| stacks::new_base(n, w)).collect();
+            slabs.sort_unstable();
+            slabs.dedup();
+            assert_eq!(slabs.len() as i64, 3 * n * n);
+        }
+        // one under (z = 0), one behind (y = n), one beside (x = n − 1)
+        let n = 5;
+        assert!(stacks::new_base(n, 0).iter().all(|c| c.2 == 0));
+        assert!(stacks::new_base(n, 1).iter().all(|c| c.1 == n));
+        assert!(stacks::new_base(n, 2).iter().all(|c| c.0 == n - 1));
+    }
+
+    #[test]
+    fn four_triangles_two_ways() {
+        use pythagoras::{area2, corners, is_square, left_over, slid, straight, tilted};
+        for a in 1..=60 {
+            for b in 1..=60 {
+                let s = a + b;
+                let t = corners(a, b);
+                assert!(t.iter().all(|tri| area2(tri) == a * b), "four equal triangles");
+                let hole = tilted(a, b);
+                assert!(is_square(&hole));
+                assert_eq!(area2(&hole), 2 * (a * a + b * b));
+                assert_eq!(2 * s * s, area2(&hole) + t.iter().map(|x| area2(x)).sum::<i64>());
+                // the triangles meet along the big square's straight sides
+                assert!(straight((0, 0), (a, 0), (s, 0)) && straight((s, 0), (s, a), (s, s)));
+                let u = slid(a, b);
+                assert!(u.iter().all(|tri| area2(tri).abs() == a * b));
+                // each pair of slid triangles is one a by b rectangle cut corner to corner
+                let mut first: Vec<_> = u[0].iter().chain(&u[2]).copied().collect();
+                first.sort_unstable();
+                first.dedup();
+                assert_eq!(first, [(0, 0), (0, b), (a, 0), (a, b)]);
+                let mut second: Vec<_> = u[1].iter().chain(&u[3]).copied().collect();
+                second.sort_unstable();
+                second.dedup();
+                assert_eq!(second, [(a, b), (a, s), (s, b), (s, s)]);
+                let (on_a, on_b) = left_over(a, b);
+                assert_eq!((on_a.area(), on_b.area()), (a * a, b * b));
+                let rects = [Rect::new(0, 0, a, b), Rect::new(a, b, b, a), on_a, on_b];
+                tiles(rects.iter().flat_map(Rect::cells), Rect::new(0, 0, s, s), &[]).unwrap();
+            }
+        }
+    }
+
+    #[test]
+    fn the_lying_picture_is_not_a_triangle() {
+        use pythagoras::{area2, straight};
+        let (a, b) = (lie::first(), lie::second());
+        for arr in [&a, &b] {
+            assert_eq!(area2(&arr.big).abs(), 24);
+            assert_eq!(area2(&arr.small).abs(), 10);
+            assert_eq!((arr.long_l.len(), arr.short_l.len()), (8, 7));
+            assert_eq!(lie::slope(&arr.big), q(3, 8));
+            assert_eq!(lie::slope(&arr.small), q(2, 5));
+            let mut both = arr.long_l.clone();
+            both.extend(&arr.short_l);
+            both.sort_unstable();
+            both.dedup();
+            assert_eq!(both.len(), 15, "the two L-shaped pieces share no square");
+            assert!(!straight((0, 0), arr.bend, (lie::WIDE, lie::TALL)));
+        }
+        assert_eq!(lie::holes(&a), []);
+        assert_eq!(lie::holes(&b), [(7, 1)]);
+        // the outlines: 32 squares and 33, where a true triangle would hold 32 and a half
+        assert_eq!(area2(&lie::outline(&a)), 64);
+        assert_eq!(area2(&lie::outline(&b)), 66);
+        assert_eq!(lie::WIDE * lie::TALL, 65);
+        // the first outline dips under the straight edge, the second rises over it
+        assert!(Q::int(a.bend.1) < lie::straight_edge_at(a.bend.0));
+        assert!(Q::int(b.bend.1) > lie::straight_edge_at(b.bend.0));
+        // both edges start and end at the corners, and the second is never below the first
+        for arr in [&a, &b] {
+            assert_eq!(lie::edge_at(arr, 0), Q::ZERO);
+            assert_eq!(lie::edge_at(arr, lie::WIDE), Q::int(lie::TALL));
+            assert_eq!(lie::edge_at(arr, arr.bend.0), Q::int(arr.bend.1));
+        }
+        assert!((0..=lie::WIDE).all(|x| lie::edge_at(&b, x) >= lie::edge_at(&a, x)));
+    }
+
+    /// 14_6: the sliver between the two outlines, cut along the grid and
+    /// slid by whole squares, fills the one empty square exactly.
+    #[test]
+    fn the_sliver_folds_into_the_empty_square() {
+        let pieces = lie::sliver_pieces();
+        let hole = lie::holes(&lie::second());
+        assert_eq!(hole.len(), 1);
+        let (hx, hy) = hole[0];
+        // the sliver is the difference of the outlines, one square in all
+        let total = pieces.iter().fold(Q::ZERO, |s, (_, p)| s + lie::polygon_area(p));
+        assert_eq!(total, Q::ONE);
+        let slides = lie::fold();
+        assert_eq!(slides.len(), pieces.len());
+        // slid by whole squares, each piece lies inside the empty square
+        let moved: Vec<Vec<lie::QP>> = pieces
+            .iter()
+            .zip(&slides)
+            .map(|((_, piece), &(dx, dy))| piece.iter().map(|&(x, y)| (x + Q::int(dx), y + Q::int(dy))).collect())
+            .collect();
+        for piece in &moved {
+            for &(x, y) in piece {
+                assert!(
+                    x >= Q::int(hx) && x <= Q::int(hx + 1),
+                    "x = {x} is outside the empty square"
+                );
+                assert!(
+                    y >= Q::int(hy) && y <= Q::int(hy + 1),
+                    "y = {y} is outside the empty square"
+                );
+            }
+        }
+        // and no two pieces overlap, so together they are the square
+        for (i, a) in moved.iter().enumerate() {
+            for b in &moved[i + 1..] {
+                assert_eq!(lie::overlap_area(a, b), Q::ZERO);
+            }
+        }
+        // the overlap measure is not vacuous: a piece overlaps itself fully
+        assert!(lie::polygon_area(&moved[0]) > Q::ZERO);
+        assert_eq!(lie::overlap_area(&moved[0], &moved[0]), lie::polygon_area(&moved[0]));
+    }
+
+    /// 02_6's lower-third: six evenly spaced points make 30 regions, one
+    /// fewer than the drawn six, because three lines meet in the middle.
+    #[test]
+    fn six_evenly_spaced_points_make_thirty_regions() {
+        let hexagon = circle::evenly_spaced_hexagon();
+        assert_eq!(hexagon.len(), 6);
+        assert_eq!(circle::regions(&hexagon), 30);
+        assert_eq!(circle::crossings(&hexagon).len(), 13);
+        assert_eq!(circle::closed_form(6) - circle::regions(&hexagon), 1);
+        assert_eq!(circle::regions(&circle::drawn(6)), 31);
+    }
+
+    /// 10_4's note for programmers: a machine's running sum of the halves
+    /// is exactly 1.0 after 54 pieces, and its exact value is below one
+    /// after 53 (1 − 2⁻⁵³ is the last float under one).
+    #[test]
+    fn a_machine_sum_of_the_halves_reaches_one_exactly() {
+        assert_eq!(series::float_pieces_to_one(), 54);
+        let mut sum = 0.0_f64;
+        for k in 1..=53 {
+            sum += 0.5_f64.powi(k);
+        }
+        assert_eq!((1.0 - sum).to_bits(), 0.5_f64.powi(53).to_bits());
+    }
+
+    /// 07_2: three is the fewest stacks of four levels that make a box when
+    /// only the cubes that stick out on top may be sliced, and the box is the
+    /// one Siu's picture fills; six whole stacks make a box with no cutting.
+    #[test]
+    fn three_is_the_fewest_stacks_that_make_a_box() {
+        assert!(stacks::half_boxes(4, 1).is_empty());
+        assert!(stacks::half_boxes(4, 2).is_empty());
+        assert_eq!(stacks::half_boxes(4, 3), [(4, 5, 4)]); // 4 by 5 by 4 and a half
+        assert!(stacks::whole_boxes(4, 3).is_empty());
+        assert!(stacks::whole_boxes(4, 6).contains(&(4, 5, 9)));
+        // Siu's box is among the three stacks' boxes at every height, and from
+        // three levels up one and two stacks have none. (At two levels the
+        // conditions, which are only necessary, allow a 2 by 2 by 2 and a half
+        // box for two stacks; the video's stacks have four.)
+        for n in 2..=8 {
+            assert!(stacks::half_boxes(n, 3).contains(&(n, n + 1, n)), "n = {n}");
+        }
+        for n in 3..=8 {
+            assert!(stacks::half_boxes(n, 1).is_empty(), "n = {n}, one stack");
+            assert!(stacks::half_boxes(n, 2).is_empty(), "n = {n}, two stacks");
+        }
+        assert_eq!(stacks::half_boxes(2, 2), [(2, 2, 2)]);
+    }
+
+    /// 12_6: "slide the cut anywhere inside the cube". At the very end of the
+    /// slide (a part of length 0) all but one block lose their volume, so the
+    /// sentence says "inside".
+    #[test]
+    fn a_cut_at_the_end_of_a_side_leaves_one_block() {
+        let with_volume = |a, b, dim| blocks::cut(a, b, dim).iter().filter(|x| x.volume() > 0).count();
+        for dim in 1..=4usize {
+            assert_eq!(with_volume(0, 5, dim), 1, "a = 0, dim = {dim}");
+            assert_eq!(with_volume(5, 0, dim), 1, "b = 0, dim = {dim}");
+            for (a, b) in [(1, 4), (4, 1), (2, 2)] {
+                assert_eq!(with_volume(a, b, dim), 1 << dim, "a = {a}, b = {b}, dim = {dim}");
+            }
+        }
+    }
+
+    #[test]
+    fn first_failure_reports_the_first_bad_size() {
+        assert_eq!(first_failure(10, |_| Ok(())), None);
+        let bad = first_failure(10, |n| if n < 4 { Ok(()) } else { Err("no".into()) });
+        assert_eq!(bad, Some((4, "no".to_owned())));
+    }
+}

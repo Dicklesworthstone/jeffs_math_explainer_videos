@@ -58,12 +58,80 @@ pub fn integrated(audio: &Stereo) -> f64 {
     lufs(gated.iter().sum::<f64>() / gated.len() as f64)
 }
 
+/// The `p`-th percentile (0–100) of `v` by nearest rank; NaN for no values.
+pub fn percentile(v: &[f64], p: f64) -> f64 {
+    if v.is_empty() {
+        return f64::NAN;
+    }
+    let mut s = v.to_vec();
+    s.sort_by(f64::total_cmp);
+    let i = ((s.len() - 1) as f64 * p / 100.0).round() as usize;
+    s[i]
+}
+
+/// Voice minus music short-term (3 s) loudness (LU), one value per 0.1 s
+/// window whose centre lies in one of the `speech` regions (seconds). Silent
+/// music counts as −120 LUFS. QA's level gate judges these, and the score
+/// sets its bed by their median.
+pub fn voice_minus_music(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
+    let v = windowed(voice, 3.0, 0.1);
+    let m = windowed(music, 3.0, 0.1);
+    v.iter()
+        .zip(&m)
+        .enumerate()
+        .filter(|(k, _)| {
+            let t = *k as f64 * 0.1 + 1.5;
+            speech.iter().any(|&(a, b)| t >= a && t < b)
+        })
+        .map(|(_, (&a, &b))| a - b.max(-120.0))
+        .collect()
+}
+
 /// Loudness in sliding windows of `window_s` seconds, one value per `hop_s`
 /// (momentary = 0.4 s, short-term = 3 s). Values are LUFS.
 pub fn windowed(audio: &Stereo, window_s: f64, hop_s: f64) -> Vec<f64> {
     let block = (window_s * FS) as usize;
     let step = (hop_s * FS).max(1.0) as usize;
     block_powers(audio, block, step).into_iter().map(lufs).collect()
+}
+
+/// The music's level step across a chapter join at `join_s` (seconds in
+/// `music`): the median momentary (400 ms) loudness of the windows centred
+/// 0.2 to 1.5 s after the join minus 0.2 to 1.5 s before it (LU). `None` when
+/// either side is shorter than that or silent (an authored silence is not a
+/// mix step).
+pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
+    join_levels(music, join_s).map(|(before, after)| after - before)
+}
+
+/// The two levels [`join_step_db`] subtracts: the median momentary (400 ms)
+/// loudness (LUFS) 1.5 to 0.2 s before the join and 0.2 to 1.5 s after it.
+pub fn join_levels(music: &Stereo, join_s: f64) -> Option<(f64, f64)> {
+    let a = ((join_s - 1.6).max(0.0) * FS) as usize;
+    let b = (((join_s + 1.6) * FS) as usize).min(music.len());
+    if a >= b {
+        return None;
+    }
+    let slice = Stereo {
+        l: music.l[a..b].to_vec(),
+        r: music.r[a..b].to_vec(),
+    };
+    let m = windowed(&slice, 0.4, 0.1);
+    let t0 = a as f64 / FS;
+    let level = |lo: f64, hi: f64| {
+        let v: Vec<f64> = m
+            .iter()
+            .enumerate()
+            .filter(|(k, _)| {
+                let t = t0 + *k as f64 * 0.1 + 0.2;
+                t >= join_s + lo && t < join_s + hi
+            })
+            .map(|(_, v)| v.max(-120.0))
+            .collect();
+        (v.len() >= 8).then(|| percentile(&v, 50.0))
+    };
+    let (before, after) = (level(-1.5, -0.2)?, level(0.2, 1.5)?);
+    (before > -100.0 && after > -100.0).then_some((before, after))
 }
 
 /// Maximum momentary (400 ms) loudness, in LUFS.

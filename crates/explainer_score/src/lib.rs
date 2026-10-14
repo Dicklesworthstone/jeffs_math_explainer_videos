@@ -23,6 +23,7 @@ pub mod sonify;
 pub mod theory;
 pub mod timeline;
 pub mod units;
+pub mod voice;
 pub mod wav;
 
 /// The engine's sample rate, matching franken_manim's mixer.

@@ -14,7 +14,15 @@
 //! timelines, the score and the master run before the real scene exists.
 
 mod chapters;
+// How cards get solved (13–16): lands ahead of the chapters that use all of
+// it; drop the allow when 13–16 are built.
+#[allow(dead_code)]
+mod decoding;
 mod facts;
+// The shared model lands ahead of the chapters that use all of it; drop the
+// allow when all 17 chapters are built.
+#[allow(dead_code)]
+mod model;
 
 use explainer_kit::Explainer;
 
@@ -33,7 +41,9 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: &[],
     identity: explainer_score::score::Identity::raptorq_gf256,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {

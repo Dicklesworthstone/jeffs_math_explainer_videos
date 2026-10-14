@@ -1,0 +1,45 @@
+# Protected facts of Video G: the words every revision must keep (protected_check.py checks they
+# are still there). One per line: <phrase> TAB <where> TAB <why>. Presence is all the check sees:
+# whether the sentence around a phrase is still right is read by eye (docs/claims.md, the claim walk).
+about one line on the table	script	the book's answer depends on turning about lines fixed on the table, not the book's own edges (R1 M1)
+Tilt first, and the cover ends up facing you	script	the cold open's answer, as computed (G-B.tilt_then_roll.cover)
+positions add, and orientations don't	script	the hook's contrast; said of these turns, never "never"
+order usually matters	script	"usually": turns about one axis, and two perpendicular half turns, do swap (G-X2)
+Any turn followed by any turn is one turn about one axis	script	Euler's theorem, edge-tested 192 of 192 (G-X1)
+Euler showed it in seventeen seventy-five	script	E478 was presented on 9 October 1775
+Nothing is stuck	script	gimbal lock loses a direction; nothing jams (the chapter's misconception)
+Past seventy degrees on the middle one, a warning lamp lit	script	the Apollo computer's own threshold (Comanche 055, GLOCKMON)
+How about sending me a fourth gimbal for Christmas	script	verbatim from NASA's air-to-ground transcript, 04 09 00 30
+Michael Collins	script	who said it
+somewhere there is a bad spot	script	the theorem of 03_6, worded as a theorem about naming every orientation by three numbers
+The true halfway is a hundred and eighty	script	the honest answer to the halfway quiz (G-H.halfway)
+Do the arithmetic on the flat piece that touches it	script	the video's one move
+Then wrap the answer back on	script	the other half of the one move
+a third answer	script	adding two spins turns about both at once, neither order's result (G-B.both_at_once)
+is the exponential	script	the term is defined here
+named after Rodrigues	script	"named after", not "found by": where the formula sits in his 1840 paper was not verified
+after the Norwegian mathematician Sophus Lie	script	the name and how it is said (Lee)
+Just under two meters to its left, facing backward	script	the platform quiz's answer (G-P.end, G-P.heading)
+Three slides and three turns	script	six independent ways a pose can change
+slides along that same axis	script	what makes a motion a screw
+One screw would have carried it there, every time	script	Chasles's theorem, tested on 264 of 264 distinct poses (G-X3)
+Michel Chasles published that in eighteen thirty	script	the date from Rodrigues's own footnote of 1840
+Giulio Mozzi had described such an axis in seventeen sixty-three	script	Mozzi's priority, hedged: his 1763 book was not opened
+Each joint applies its own screw to everything further out	script	the product of exponentials in words
+each axis is still where it stood at zero when its turn comes	script	why the recipe applies the last joint's screw first
+Roger Brockett presented it in nineteen eighty-three	script	MTNS-83, Beer Sheva; "presented", the proceedings are dated 1984
+Sixty-seven centimeters from the shoulder's	script	the lever quiz's reason (G-J.ell.lever.2)
+Five of the six directions are left	script	the elbow-straight pose has rank 5, one lost direction (R1: not 4)
+Its limit is seventy-five	script	KUKA's speed for axis 4 at rated payload
+with two joints at the shoulder, would lose a direction here	script	which six-joint arm loses a direction (claim walk 1: not one without joint 7)
+your arm has seven joints too	script	Lynch and Park §5.1.6, p. 190, "a seven-joint open chain"
+twenty-nine centimeters in radius	script	the elbow's free circle (G-J.elbow.radius)
+From here, three	script	three steps is for this start only (R1 D3, R11)
+It is Newton's method, on a curved space	script	names the method
+squashed to half its volume	script	the blend's determinant 0.5 (G-I.blend.det)
+seven point six centimeters	script	the gap between the screw path and the straight line (G-I.bow)
+twenty-nine joint angles	script	the Unitree G1 file's 29 revolute joints
+by less than two hundredths of a degree	script	the leftover of two one-degree turns, 0.0175° (G-B.leftover.1.angle)
+almost exactly about the one axis neither turn used	script	"almost exactly": the axis is 0.7° off the third axis at 1° (R2)
+the leftover shrinks a hundredfold	script	second order: ten times smaller turns, a hundred times smaller leftover
+called the Lie bracket	script	the term is named here, as the rule the leftover follows on the flat piece

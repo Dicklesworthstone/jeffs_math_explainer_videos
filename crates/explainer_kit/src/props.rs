@@ -432,8 +432,14 @@ pub struct CodePanel {
 
 impl CodePanel {
     /// The panel: a "for programmers" header and the code lines in the
-    /// bundled typewriter face, `size` points, left-aligned.
+    /// bundled typewriter face, `size` points, left-aligned, each line's
+    /// leading spaces kept as indentation (one column per space).
     pub fn build(kit: &Kit, stage: &mut Stage<'_>, code: &[&str], size: f64, width: f64) -> fmn::Result<Self> {
+        // one column's advance: twenty zeros minus ten zeros. A line placed by
+        // its first glyph would otherwise lose its indentation.
+        let ten = kit.mono(stage, &"0".repeat(10), size, Palette::ink(), ORIGIN)?;
+        let twenty = kit.mono(stage, &"0".repeat(20), size, Palette::ink(), ORIGIN)?;
+        let col = (stage.get_width(twenty) - stage.get_width(ten)) / 10.0;
         let line_h = size / 48.0 * 0.5;
         let h = 0.9 + line_h * code.len() as f64;
         let centre = v(FRAME_X_RADIUS + width / 2.0 + 0.1, 0.0);
@@ -444,8 +450,10 @@ impl CodePanel {
         let mut lines = Vec::with_capacity(code.len());
         for (i, line) in code.iter().enumerate() {
             let y = top - 0.5 - line_h * i as f64;
-            let m = kit.mono(stage, line, size, Palette::ink(), v(left, y))?;
-            stage.move_to(m, v(left, y), LEFT);
+            let lead = line.chars().take_while(|&c| c == ' ').count();
+            let x = left + col * lead as f64;
+            let m = kit.mono(stage, line.trim_start(), size, Palette::ink(), v(x, y))?;
+            stage.move_to(m, v(x, y), LEFT);
             lines.push(m);
         }
         let mut all = vec![back, header];
@@ -475,16 +483,33 @@ const LOWER_THIRD_LINES: usize = 3;
 /// A lower-third band at the foot of the frame: a `label` in the hero role
 /// ("precisely:", "names to search:") and the wrapped `text` beside it.
 pub fn lower_third(kit: &Kit, stage: &mut Stage<'_>, label: &str, text: &str) -> fmn::Result<Mob> {
-    let lines = wrap(text, LOWER_THIRD_CHARS, LOWER_THIRD_LINES);
+    let w = 2.0 * FRAME_X_RADIUS - 0.8;
+    let left = -w / 2.0 + 0.25;
+    let tag = kit.text_left(stage, label, 26.0, Palette::hero(), v(left, 0.0))?;
+    let indent = left + stage.get_width(tag) + 0.2;
+    // the text wraps at LOWER_THIRD_CHARS unless a line would run past the
+    // band beside a long label; then narrower, until every line fits
+    let room = w / 2.0 - 0.25 - indent;
+    let mut chars = LOWER_THIRD_CHARS;
+    let mut lines = wrap(text, chars, LOWER_THIRD_LINES);
+    loop {
+        let mut widest: f64 = 0.0;
+        for l in &lines {
+            let m = kit.text(stage, l, 26.0, Palette::ink(), ORIGIN)?;
+            widest = widest.max(stage.get_width(m));
+        }
+        if widest <= room || chars <= 16 {
+            break;
+        }
+        chars -= 4;
+        lines = wrap(text, chars, LOWER_THIRD_LINES);
+    }
     let line_h = 0.36;
     let h = 0.3 + line_h * lines.len().max(1) as f64;
-    let w = 2.0 * FRAME_X_RADIUS - 0.8;
     let centre = v(0.0, -FRAME_Y_RADIUS + 0.2 + h / 2.0);
     let back = stage.arena_mut().add(card(w, h, centre)?);
-    let left = -w / 2.0 + 0.25;
     let top = centre[1] + h / 2.0 - 0.15 - line_h / 2.0;
-    let tag = kit.text_left(stage, label, 26.0, Palette::hero(), v(left, top))?;
-    let indent = left + stage.get_width(tag) + 0.2;
+    stage.move_to(tag, v(left, top), LEFT);
     let mut all = vec![back, tag];
     for (i, l) in lines.iter().enumerate() {
         all.push(kit.text_left(stage, l, 26.0, Palette::ink(), v(indent, top - line_h * i as f64))?);
@@ -521,7 +546,7 @@ pub fn receipts_card(kit: &Kit, stage: &mut Stage<'_>, lines: &[&str]) -> fmn::R
 
 #[cfg(test)]
 mod tests {
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
     use std::rc::Rc;
 
     use fmn::scene::{NullSceneSink, RuntimeConfig};
@@ -557,8 +582,9 @@ mod tests {
             let plain = bit_row(&kit, stage, 0, false, 0.6, ORIGIN)?;
             assert!(plain.places.is_empty());
             let bar = proportion_bar(stage, v(-3.0, 0.0), 6.0, 0.4, 0.1, Palette::hero(), Palette::dim())?;
-            assert!((stage.get_width(bar.part) - 0.6).abs() < 1e-9, "a tenth of 6 wide");
-            assert!((stage.get_width(bar.whole) - 6.0).abs() < 1e-9);
+            let (pw, ww) = (stage.get_width(bar.part), stage.get_width(bar.whole));
+            assert!((pw - 0.6).abs() < 1e-6, "a tenth of 6 wide: part {pw}, whole {ww}");
+            assert!((ww - 6.0).abs() < 1e-6, "whole {ww}");
             let frame = Frame2 {
                 center: ORIGIN,
                 width: 8.0,
@@ -629,6 +655,8 @@ mod tests {
             let tick = Rc::new(RefCell::new(0.0));
             let t = Rc::clone(&tick);
             let log = Rc::clone(&seen);
+            let logging = Rc::new(Cell::new(true));
+            let on = Rc::clone(&logging);
             stage.add_dt_updater(
                 rows[0],
                 move |s, _, dt| {
@@ -636,7 +664,9 @@ mod tests {
                     let shade = (*t.borrow() / 10.0).min(1.0);
                     assert!(g.recolor(s, &colors(shade)));
                     let n: usize = s.roots().iter().map(|&r| s.family(r).len()).sum();
-                    log.borrow_mut().push(n);
+                    if on.get() {
+                        log.borrow_mut().push(n);
+                    }
                 },
                 false,
             )?;
@@ -647,13 +677,17 @@ mod tests {
                 !shared.recolor(stage.arena_mut(), &[vec![Palette::blue(); 9]]),
                 "a mismatched grid is refused"
             );
-            // planted negative: rebuilding a strip every tick grows the scene
+            // planted negative: adding a mobject every tick (a rebuild without
+            // a removal) grows the scene, and the counter sees it
+            logging.set(false);
             let start = drawn(stage);
-            let template = shared.rows[0];
+            let lone = stage.arena_mut().add(Circle::new().radius(0.1).build());
+            let driver = stage.arena_mut().add(VMobject::new());
+            stage.add_to_scene(driver)?;
             stage.add_dt_updater(
-                template,
+                driver,
                 move |s, _, _| {
-                    let copy = s.copy_family(template).expect("the strip copies");
+                    let copy = s.copy_family(lone).expect("the template copies");
                     s.add_to_scene(copy).expect("the copy is added");
                 },
                 false,
@@ -745,6 +779,53 @@ mod tests {
     }
 
     #[test]
+    fn the_code_panel_keeps_indentation() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            // every line starts with the same glyph, so left edges differ by indentation only
+            let code = ["x = 0", "    x = 1", "        x = 2", "x = 3"];
+            let panel = CodePanel::build(&kit, stage, &code, 30.0, 6.0)?;
+            let ten = kit.mono(stage, &"0".repeat(10), 30.0, Palette::ink(), ORIGIN)?;
+            let twenty = kit.mono(stage, &"0".repeat(20), 30.0, Palette::ink(), ORIGIN)?;
+            let col = (stage.get_width(twenty) - stage.get_width(ten)) / 10.0;
+            assert!(col > 0.05, "a column has width: {col}");
+            let left = |i: usize| stage.get_bounding_box_point(panel.lines[i], LEFT)[0];
+            let base = left(0);
+            for (i, spaces) in [(1, 4.0), (2, 8.0), (3, 0.0)] {
+                let shift = left(i) - base;
+                assert!(
+                    (shift - spaces * col).abs() < 1e-6,
+                    "line {i} sits {shift} right of line 0, want {spaces} columns of {col}"
+                );
+            }
+            Ok(())
+        });
+    }
+
+    #[test]
+    fn a_long_label_wraps_its_text_inside_the_band() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let text = "test-and-set, compare-and-swap, fetch-and-add. A ticket lock takes its number with one \
+                        fetch-and-add; on x86 the SeqCst bakery fences every store.";
+            let long = lower_third(&kit, stage, "atomic read-modify-write instructions:", text)?;
+            let parts = children(stage, long);
+            let band_right = stage.get_bounding_box_point(parts[0], RIGHT)[0];
+            for &m in &parts[2..] {
+                let r = stage.get_bounding_box_point(m, RIGHT)[0];
+                assert!(
+                    r <= band_right - 0.1,
+                    "a line ends at {r}, past the band's edge {band_right}"
+                );
+            }
+            // a short label leaves the full width: the same text takes fewer lines
+            let short = lower_third(&kit, stage, "precisely:", text)?;
+            assert!(children(stage, short).len() < parts.len(), "the long label wraps more");
+            Ok(())
+        });
+    }
+
+    #[test]
     fn the_prediction_pause_holds_its_question() {
         run(|stage| {
             let kit = Kit::new()?;
@@ -752,7 +833,7 @@ mod tests {
             let q = predict_pause(&kit, stage, v(5.6, -2.6))?;
             let held = stage.scene().time().to_f64() - t0;
             assert!(
-                held >= PREDICT_HOLD_S + 0.29 && held < PREDICT_HOLD_S + 0.5,
+                (PREDICT_HOLD_S + 0.29..PREDICT_HOLD_S + 0.5).contains(&held),
                 "held {held} s"
             );
             assert!(stage.scene().mobjects().contains(&q), "the ? is on screen");

@@ -1,0 +1,6 @@
+rq_pool K=1002 T=8 R=20000 trials=20000 threads=4 seed=2026 sub_blocks=1
+K=1002 recv=K+0 trials=20000: failures=105 (Some-but-wrong-data=0) rate=5.250e-3
+K=1002 recv=K+1 trials=20000: failures=0 (Some-but-wrong-data=0) rate=0.000e0
+K=1002 recv=K+2 trials=20000: failures=0 (Some-but-wrong-data=0) rate=0.000e0
+time 16.4s
+$B/rq_pool 1002 20000 20000 4 2026  64.85s user 0.24s system 396% cpu 16.410 total

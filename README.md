@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<img src="docs/media/hero.webp" alt="Four shipped 4K60 math explainer videos: Hoeffding's D, How to Count Fish You've Never Seen, The Arithmetic Where 3 × 7 = 9, and The Algorithm Lamport Is Proudest Of" width="100%">
+
+<br/>
+
 [![License: MIT + Rider](https://img.shields.io/badge/License-MIT_+_OpenAI/Anthropic_Rider-blue.svg)](./LICENSE)
 [![Rust Edition](https://img.shields.io/badge/Rust-2024_Edition-orange.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)
 [![engine: franken_manim](https://img.shields.io/badge/engine-franken__manim-black.svg)](https://github.com/Dicklesworthstone/franken_manim)
@@ -16,10 +20,9 @@
 > **A note on tense.** Like franken_manim's README, this one describes the
 > *method* in the present tense, because the method is fixed and every video
 > follows it. What exists today is stated separately and plainly: see
-> [The corpus](#the-corpus) and [Status](#status). One video is finished; three
-> are researched and storyboarded. The sound engine is built and has re-scored
-> the finished video for a listening test that awaits the owner's verdict; the
-> shared scene kit is partly extracted; the corpus driver is not started.
+> [The corpus](#the-corpus) and [Status](#status). All four videos now have a
+> 4K60 master in the `michael` voice that passes the strict verify, and all
+> four are published on YouTube (the links are in [The corpus](#the-corpus)).
 
 ---
 
@@ -49,7 +52,7 @@ differently on every machine.
 | Timing | The picture waits for the voice: scenes are written as beats keyed to script lines, so re-recording a line re-times the animation. |
 | Sound | A std-only Rust synthesizer (band-limited drifting oscillators, ladder filters, chorus, tape colour, modal mallets, FM electric piano, plucked strings, an FDN reverb), ducked under the voice with perfect look-ahead and a spectral pocket, with harmony that moves and melody only in the gaps. Automated checks enforce level, masking and monotony budgets. |
 | Review | Every frame is looked at (layout lint, contact sheets, cue sheets). Each video is reviewed three times through three named viewers and a mathematician's audit, and the findings and their dispositions are committed. |
-| Delivery | 3840×2160 at 60 fps, explicit encoder quality, one fixed mastering gain to −16 LUFS, a strict verify, captions from the exact cue timings. Renders never enter git; finished cuts ship as GitHub Release assets. |
+| Delivery | 3840×2160 at 60 fps, explicit encoder quality, one fixed mastering gain to −16 LUFS (quieter when the −1.5 dBTP ceiling binds, as it does for the `michael` voice), a strict verify, captions from the exact cue timings. Renders never enter git; finished cuts ship as GitHub Release assets. |
 
 ---
 
@@ -57,10 +60,10 @@ differently on every machine.
 
 | # | Video | What it explains | Status |
 |---|---|---|---|
-| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. Its v6, re-scored by the new engine (QA 8 of 8 chapters) and mastered from PCM at 4K60, is rendered and awaits the owner's A/B verdict. |
-| 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | Researched (`docs/research/capture_recapture/`), storyboarded (plan §9) |
-| 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | Researched (`docs/research/raptorq_gf256/`), storyboarded (plan §10) |
-| 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | Researched (`docs/research/bakery_algorithm/`), storyboarded (plan §11) |
+| 1 | [**Hoeffding's D**](explainer_corpus/hoeffding_d/) | Why Pearson, Spearman and Kendall all read ≈ 0 on a ring of points, and how Hoeffding's D sees any dependence: ranks, quadruples, the bivariate count Q, the formula earned term by term, and a live permutation test. | **Finished** (v5: 8:27, 4K60, narration ASR QA 0.999). Imported from its [original repository](https://github.com/Dicklesworthstone/franken_manim_hoeffding_explainer); runs here on the shared kit and passes 20/20 tests (its 7 encoder tests moved into the kit); `hoeffding stats` prints exactly what v5 printed. Its v6, re-scored by the new engine (QA 8 of 8 chapters) and mastered from PCM at 4K60, is rendered. The owner then chose the `michael` voice for all four videos: the release cut is that variant (9:04, 8 chapters, music QA 8 of 8, −17.8 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions). **Published:** [youtu.be/C9xOzbLIARg](https://youtu.be/C9xOzbLIARg). |
+| 2 | **How to Count Fish You've Never Seen** | Capture–recapture from Feller's *Introduction to Probability Theory*, Vol. I: two catches form a four-cell table with one dark cell nobody caught; the hypergeometric distribution shows the best fill for that cell is the one that balances the table, which is the proportion guess; then honest uncertainty, simulation, failure modes, and the same table counting France, hidden bugs and the dead in Kosovo. | **4K60 master done** in the `michael` voice (18:12, 15 chapters, music QA 15 of 15, −18.1 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions). **Published:** [youtu.be/KNxRE255i-o](https://youtu.be/KNxRE255i-o). `matt`'s original cut (ASR QA 0.989) is kept. |
+| 3 | **The Arithmetic Where 3 × 7 = 9** | The finite-field mathematics behind RaptorQ fountain codes: packets as XOR equations, why exactly enough random ones fail 71% of the time and why that risk lives at the end, why wrapping around at 256 fails just as badly, bytes as polynomials folded by x⁸+x⁴+x³+x²+1, the 255-hour byte clock, and how RaptorQ spends 10–16 byte-field rows exactly where the danger lives. | **4K60 master done** in the `michael` voice (21:04, 17 chapters, music QA 17 of 17, −18.0 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions). **Published:** [youtu.be/uWDPs9JIwEk](https://youtu.be/uWDPs9JIwEk). `leo`'s cut (21:14, −16.0 LUFS) is kept as a comparison. |
+| 4 | **The Algorithm Lamport Is Proudest Of** | Lamport's bakery algorithm: lost updates as staircases through a progress square, tickets without a ticket machine, the two cracks and their fixes, a proof a mathematician will respect, why it survives memory that returns garbage, fairness and its price, and why your CPU still needs fences. | **4K60 master done** (15:43, voice `michael`, ASR QA 0.997, 13 chapters, music QA 13 of 13, −17.6 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); the lock measured on Arm and x86 for chapter 12. **Published:** [youtu.be/eXU6NC2fuCw](https://youtu.be/eXU6NC2fuCw). |
 
 ![One still from each chapter of the Hoeffding's D explainer](explainer_corpus/hoeffding_d/docs/media/chapters.jpg)
 
@@ -83,8 +86,9 @@ differently on every machine.
  4K60 chapters in parallel ─► PCM master (one fixed gain) ─► strict verify ─► release
 ```
 
-Each arrow is a gate that fails closed and is recorded by the `./x` driver, so
-an agent can resume after any interruption by asking the driver what is next.
+Each arrow is a gate that fails closed; the `./x` driver runs each step
+(recording the gates for `./x status`, so an agent can resume by asking what
+is next, is still to come).
 The full pipeline, with every gate, is §4 of the
 [plan](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md).
 
@@ -120,7 +124,8 @@ construction:
 - the bed 18 LU under the voice during speech and 10 LU under it in authored
   gaps, ducked offline with perfect look-ahead from the known narration
   timeline, with a 1–4 kHz pocket carved while the voice speaks;
-- no sustained music between 95 and 250 Hz during speech, no melody starting
+- no sustained music inside the narrator's pitch band during speech (measured
+  per voice from the real takes), no melody starting
   under a sentence, chords moving every 4–16 seconds, and a musical identity per
   video (key, palette, a leitmotif in scale degrees);
 - sonification only where it teaches, in authored listen windows: in the bakery
@@ -155,9 +160,18 @@ crates/
                          readouts, playback, plots, narration and the exact cue
                          log, layout lint, NumPy-parity stats, facts harness,
                          delivery encoder, the shared CLI with the two-pass score,
-                         the PCM master (captions are still to come)
+                         the PCM master, captions and thumbnails
 explainer_corpus/        one directory per video (each a Rust crate)
   hoeffding_d/           corpus entry 1 (finished; imported, now on the shared kit)
+  capture_recapture/     How to Count Fish You've Never Seen (binary `fish`)
+  raptorq_gf256/         The Arithmetic Where 3 × 7 = 9 (binary `gf256`)
+  bakery_algorithm/      The Algorithm Lamport Is Proudest Of (binary `bakery`)
+tools/                   storyboard → script.tsv, facts-check against the oracle,
+                         persona review packets, the private-details scan
+x                        the driver: build, test, draft, narrated, score, final,
+                         master, captions, verify, watch, thumbnail
+.github/workflows/       CI: the private-details scan, the storyboard check, and
+                         the score engine's tests on every push
 docs/
   planning/              the comprehensive plan (architecture, doctrine, all storyboards)
   research/              one memo per topic plus scripts that recompute every number
@@ -168,12 +182,12 @@ AGENTS.md                rules for coding agents working here
 LICENSE                  MIT with an OpenAI/Anthropic rider
 ```
 
-Still to come, per the plan's §3: the kit's captions,
-`templates/explainer/`, `tools/`, and the corpus-aware `./x` driver.
+Still to come, per the plan's §3: `templates/explainer/` (`./x new`) and the
+driver's gate tracking (`./x status`).
 
 ## Building
 
-What builds today is the Hoeffding explainer. It pins franken_manim by git
+Every video builds the same way. The workspace pins franken_manim by git
 revision, so nothing else needs to be checked out:
 
 ```bash
@@ -183,6 +197,19 @@ cargo test --release -p hoeffding_explainer   # rustup fetches the pinned nightl
 cargo build --release -p hoeffding_explainer
 target/release/hoeffding stats  # every number the video shows
 target/release/hoeffding render 01_hook --res 960x540 --fps 30 --silent --out draft
+```
+
+The newer videos run through the driver, which wraps the same binaries
+(`fish`, `gf256`, `bakery`; each also has `facts`, `script`, `chapters`):
+
+```bash
+./x raptorq_gf256 test          # tests, clippy -D warnings, fmt --check
+./x raptorq_gf256 facts-check   # every number against oracle.py
+./x raptorq_gf256 draft         # 960x540 scratch-voice drafts + layout lint; ./x … sheets
+./x raptorq_gf256 narrated      # with the real narration + the cue check and cue sheets
+./x raptorq_gf256 score         # the music: timeline pass, then stems with QA
+./x raptorq_gf256 final         # 3840x2160@60 chapters; then master, captions, verify
+./x raptorq_gf256 watch scored  # one file of the scored draft, to watch
 ```
 
 - `render` needs `ffmpeg` on `PATH`; `stats`, `script` and `cargo test` don't.
@@ -209,13 +236,14 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 | Piece | State |
 |---|---|
 | Hoeffding's D explainer | finished (v5); v6 rendered: the new score (QA 8 of 8), the PCM master at 4K60 (strict verify passes); v5 vs v6 excerpts await the owner's listening verdict |
-| Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm) |
+| Research for videos 2–4 | done: memos plus verification scripts (exact arithmetic, an RFC 6330 implementation byte-identical to an independent one, an exhaustive model checker for the bakery algorithm), plus the bakery lock measured on Arm and x86 |
 | The plan | revision 2: architecture, doctrines and beat-by-beat storyboards, revised after a five-reviewer round |
 | Shared workspace | built: root Cargo workspace, franken_manim pinned by git revision |
 | Score engine (`explainer_score`) | built and tested; the Hoeffding A/B passes its QA in 8 of 8 chapters (v5: 0 of 8) and awaits the owner's listening verdict |
-| Scene kit (`explainer_kit`) | extracted and tested, with the shared CLI (two-pass score) and the PCM master; captions are tracked in `.beads/` |
-| Corpus driver (`./x`), template, CI | not started; tracked in `.beads/` |
-| Videos 2–4 | storyboarded; production follows the plan's order (kit → score engine → Hoeffding v6 → fish → RaptorQ and bakery) |
+| Scene kit (`explainer_kit`) | built and tested: the shared CLI (two-pass score), the PCM master, captions, thumbnails, and shared props (code panels, proportion bars, row-strip tables) |
+| Corpus driver (`./x`) | runs every step from drafts to the verified master; gate tracking (`./x status`) and the template (`./x new`) are still to come |
+| CI | every push: the private-details scan, the storyboard check, and the score engine's fmt, clippy and tests |
+| Videos 2–4 | see [The corpus](#the-corpus): all three mastered at 4K60 in the `michael` voice and published on YouTube, as is Hoeffding's D |
 
 ## Limitations
 
@@ -224,12 +252,13 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
   published skills and is referenced by path. Without them you can build and
   render the pictures, but not regenerate the voice.
 - **Heavy work wants a big machine.** TTS, speech recognition and 4K finals run
-  best on a many-core Linux host with NVENC; a laptop can draft at 540p.
+  best on a many-core host (video B's 4K final, 75,359 frames with x264 at CRF
+  16, took 40 minutes on 36 cores); a laptop can draft at 540p.
 - **The engine has honest gaps** (from the plan's engine review): no 2D camera
   pan or zoom on the fast route, no bloom, a few Greek letters drawn in variant
   forms, 3D only on a slower CPU route. The videos work around each one, and
   §14 of the plan lists them for upstream.
-- **Renders are not in git.** At about 200 MB, a 4K master is over GitHub's
+- **Renders are not in git.** At 200–300 MB, a 4K master is over GitHub's
   100 MB file limit; finished cuts are published as release assets.
 
 ## FAQ

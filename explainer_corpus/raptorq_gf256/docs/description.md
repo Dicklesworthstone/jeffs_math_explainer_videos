@@ -42,7 +42,11 @@ a 256-element byte field, where bytes multiply as polynomials folded by one that
 The standard's figures, and our runs, are for packets chosen at random: RFC 6330 §5.8 averages over packet IDs drawn
 independently and uniformly from the whole ID range, for each padded block size K′ of its Table 2, and our decoder
 runs drew from a fixed pool of the K originals and 20,000 repair packets. A phone that loses random packets from a
-stream that sends the originals first receives a different mix of packets, which neither covers.
+stream that sends the originals first receives a different mix of packets, which neither covers, so we measured that
+too: with the same decoder at 1,002 pieces, the originals sent first and then repair packets, each packet lost with
+probability 1 in 100, 3 of 5,000,000 phones failed with two packets more than they needed (98 with one, 21,186 with
+none). On one core, that decoder rebuilt a 50,000-piece block in about a tenth of a second (8-byte pieces; 0.2 to
+0.3 s with 1,280-byte pieces), where 14_1's dense cards would take about K³/3 = 4.2×10¹³ steps.
 
 ## Precisely
 
@@ -69,7 +73,8 @@ two extra 10,002 (10,103.0 sent). Of the 97,876, the last piece alone takes 10,0
 **03_5** "Useful" means linearly independent of the cards already held; the bucket's filled slots are the rank.
 
 **03_8** The deck is a fixed recipe written into the standard: a packet's ID (the ESI) fixes its internal index, and
-RFC 6330's Tuple[K′, X] fixes which pieces it mixes; the block size travels in a header.
+RFC 6330's Tuple[K′, X] fixes which pieces it mixes; the block size travels in a header. "Endless" exactly: RaptorQ's
+packet IDs are 24 bits, so one block can send 16,777,216 different packets.
 
 **03_9** RaptorQ is RFC 6330, an IETF Proposed Standard published in August 2011.
 
@@ -110,9 +115,6 @@ GF(2⁸) = GF(2)[x]/(p) for any irreducible p of degree 8; all fields of order 2
 a choice of labels. The byte field is GF(256), also written GF(2⁸). RaptorQ's p is x⁸ + x⁴ + x³ + x² + 1 (285, 0x11D).
 For programmers: CRC-8/SAE-J1850 uses this very 0x1D (its 7 attested codewords reproduce with the panel's `xtime`).
 
-**10_7** AES (FIPS 197) folds by x⁸ + x⁴ + x³ + x + 1 (283, 0x11B): 87 · 131 is 49 under RaptorQ's polynomial and 193
-under AES's, and AES's partner of 2 is 141, not 142.
-
 **11_2** Under 0x11D, 2 reaches all 255 nonzero bytes (0x11D is primitive: 16 of the 30 irreducible degree-8
 polynomials are). Every finite field has such a clock. Under AES's polynomial, times two comes back to 1 after 51
 steps; its hand is 3.
@@ -123,13 +125,18 @@ those weights would differ.
 **11_5, 11_6** 7 × 7: 198 + 198 = 396, which is 141 clicks after one lap, and α¹⁴¹ = 21; by hand
 (x² + x + 1)² = x⁴ + x² + 1 = 21. 150 × 3: 180 + 25 = 205 clicks, α²⁰⁵ = 167.
 
-**11_7** RFC 6330 §5.7.2 defines multiplication through two tables, OCT_EXP and OCT_LOG; implementations may compute it
-other ways. A byte's partner sits at 255 − its clicks (mod 255): 127 mirror pairs, and 1 is its own partner; 0 has
-none. The code is below.
+**11_7** A byte's partner sits at minus its clicks, mod 255 (255 − its clicks, with a full turn counting as 0): 127
+mirror pairs, and 1 is its own partner; 0 has none.
+
+**12_0** RFC 6330 §5.7.2 defines multiplication through two tables, OCT_EXP and OCT_LOG; implementations may compute it
+other ways. The code is below.
 
 **12_4** The log-sorted times table is constant along anti-diagonals (a Hankel matrix). Element orders 1, 3, 5, 15, 17,
 51, 85, 255 occur 1, 2, 4, …, 128 times; each count is a power of 2 because 255 = (2 + 1)(2² + 1)(2⁴ + 1), and
 together they make 11111111₂ = 255.
+
+**12_5** AES (FIPS 197) folds by x⁸ + x⁴ + x³ + x + 1 (283, 0x11B): 87 · 131 is 49 under RaptorQ's polynomial and 193
+under AES's, and AES's partner of 2 is 141, not 142.
 
 **13_1** Cards with random amounts from a finite field are random linear network coding (Ho et al., 2006).
 
@@ -163,9 +170,12 @@ collapsed at 15.8%; at 5% extra, 98.65–99.03%. Peeling is not elimination: it 
 **14_7** At 2% extra (10,200 cards), a piece is in no card with probability (1 − 4.8166/10,000)^10,200 = 0.734%: 73.4 of
 the 10,000 on average (one in 136). With exactly enough cards it is one in 124.
 
-**14_8** Reed–Solomon codes are MDS: any K of the N packets rebuild the data. Over GF(256), N is at most 257 (q + 1,
-with the point at infinity); checked for K = 3 on 3,000 random triples of the 257 columns. RaptorQ's packet IDs are 24
-bits: 16,777,216 per block.
+**14_8** For programmers (this aside left the video to keep chapter 14 under 85 s): Reed–Solomon codes are the ideal.
+Any set of exactly enough packets rebuilds the picture, but the sender must fix the packet count in advance, and with
+byte arithmetic it tops out at 257. A fountain never runs dry. Precisely: Reed–Solomon codes are MDS: any K of the N
+packets rebuild the data. A Reed–Solomon code over GF(256) has at most 257 packets (q + 1, with the point at
+infinity); 3,000 random triples of its 257 columns check that all of them work at K = 3. (That bound is Reed–Solomon's,
+not every code's: at K = 3 a hyperoval, a conic plus its nucleus, gives 258 columns over GF(2⁸), any 3 independent.) RaptorQ's packet IDs are 24 bits: 16,777,216 per block.
 
 **15_1** "About seven pieces": a packet is the ex-or of 7.152 intermediate symbols on average, Table 1's mean degree
 4.82 plus 2.34 of the permanently inactivated symbols (modelling the standard's Rand[X, 3, 2] as uniform). The extra
@@ -173,15 +183,19 @@ pieces of 15_2 are counted.
 
 **15_2** RaptorQ adds S + H extra unknowns tied to the pieces by S + H fixed equations whose right side is zero (RFC
 6330 §5.3.3.3: they "evaluate to zero"); packets are ex-or cards over all of them, and the sender solves for them all
-so the first K′ packets are the originals. Every one of the L = K′ + S + H unknowns appears in some free card, for every
+so the first K packets are the originals (the K′ − K padding pieces are known zeros and are never sent); each
+original is itself one more ex-or card over the unknowns, rebuilt after that solve. On three pieces (15_7), the extra
+piece P = A ⊕ B ⊕ C makes the card A ⊕ B ⊕ C ⊕ P = 0 for every file. Being in a free card puts a piece within reach;
+whether it is recovered depends on the rank of all the cards (16_3). Every one of the L = K′ + S + H unknowns appears in some free card, for every
 one of the standard's 477 block sizes. Model: with exactly K′ = 10,017 packets, about 85 of the 10,111 LT symbols are in
 no packet; the 252 free cards still reach them.
 
-**15_6** Big files are cut into blocks of up to 56,403 pieces; each block decodes on its own. H, the number of byte
+**Blocks** Big files are cut into blocks of up to 56,403 pieces; each block decodes on its own. H, the number of byte
 rows, is between 10 and 16 for all 477 block sizes; at 10,017 pieces there are S = 241 ex-or rows and H = 11 byte rows.
 
-**15_3** The ex-or rows always stop exactly H short of the unknowns: L − H = K′ + S, so 17 of 27 slots at ten pieces
-and 10,258 of 10,269 at 10,017. "One time in 256" is the model for uniform byte rows; the standard's byte rows are
+**15_3** The ex-or rows always number exactly H fewer than the unknowns: L − H = K′ + S, so 17 of 27 slots at ten
+pieces and 10,258 of 10,269 at 10,017. They almost always fill those slots: in the uniform model the ex-or rows fall
+short with probability 0.098% at ten pieces, and RaptorQ's sparse rows do so somewhat more often. "One time in 256" is the model for uniform byte rows; the standard's byte rows are
 structured (at ten pieces, uniform random byte rows failed 137 / 20,000 = 0.685% and the standard's 0.646%).
 
 **15 (model)** Random rows in RaptorQ's own shape at ten pieces (17 uniform 0/1 rows and 10 uniform byte rows over 27
@@ -221,7 +235,7 @@ protected with FEC"). 3GPP chose Raptor (RFC 5053), RaptorQ's predecessor, for M
 editions were not checked).
 
 **17_7** Names to search: fountain code, LT code, Raptor, RaptorQ, RFC 6330, inactivation decoding, GF(256),
-carry-less multiplication, primitive polynomial, Gaussian elimination. LT codes: Luby (2002); Raptor codes: Shokrollahi
+carry-less multiplication, irreducible polynomial, primitive polynomial, discrete logarithm, Gaussian elimination. LT codes: Luby (2002); Raptor codes: Shokrollahi
 and Luby; RFC 6330 (2011): Luby, Shokrollahi, Watson, Stockhammer and Minder.
 
 ## Sources
@@ -264,8 +278,9 @@ fn mul(mut a: u8, mut b: u8) -> u8 {      // shift-and-add, no tables
 }
 ```
 
-The table multiply from chapter 11, as the standard writes it down. The log table needs 16-bit entries: with 8-bit
-logs, LOG[a] + LOG[b] wraps at 256 for 32,131 of the 65,025 nonzero pairs, chapter 7's broken clock again (a panic in
+The table multiply from chapter 11, as the standard writes it down. Logs fit in a u8 (0 to 254); it is their sum
+that must be widened. Added as u8s, LOG[a] + LOG[b] wraps at 256 for 32,131 of the 65,025 nonzero pairs (the panel
+stores LOG as u16 so the sum cannot wrap), chapter 7's broken clock again (a panic in
 a debug build, a wrong product in a release build). EXP has 510 entries because the largest index is 254 + 254 = 508,
 so no `% 255` is needed.
 

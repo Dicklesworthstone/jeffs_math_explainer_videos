@@ -29,9 +29,10 @@ method fails, and its uses from Laplace's France to software bugs and the war de
 14. France and the bugs
 15. Kosovo, and the coda
 
-Names to search: capture–recapture (mark–recapture), the hypergeometric distribution, maximum
-likelihood, Chapman's estimator, confidence intervals by test inversion, multiple systems
-estimation.
+Names to search: capture–recapture (mark–recapture), closed population, the hypergeometric
+distribution, maximum likelihood, the Lincoln–Petersen estimator (a name whose history is disputed;
+see Goudie and Goudie 2007), Chapman's estimator, confidence intervals by test inversion, multiple
+systems estimation.
 
 ## Precisely
 
@@ -55,13 +56,16 @@ the three dip squares were fixed before the first run, and nothing was re-run to
   Mn/k sets the observed k equal to that expectation.
 - **03_4.** The fish move by dX = −D∇U dt + c·J∇U dt + √(2D) dW with U = −log s, D = 0.01,
   c = 0.02 (J a quarter turn), time step 0.01, reflecting shores; the 1,000 fish nearest the dock
-  are marked. The share of marked fish across the nine regions goes from 0–65.9% at the start to
-  9.3–10.7% at t = 400, while the regions' fish counts stay about 12.8 times apart. The tint is the
-  simulated density, which drifts up to 14% from s itself because the circulation crosses the
-  shore; the marks spread evenly whatever the density settles to.
+  are marked. In the run on screen (the portable one of 03_6), the share of marked fish across the
+  nine regions goes from 0–65.9% at the start to 8.6–12.3% at t = 400, each within 1.2 binomial
+  standard deviations of 10%, while the regions' fish counts go from 12.8 to 13.8 times apart. The
+  tint is the simulated density; in the numpy run of the same model its time average drifts up to
+  14% from s itself, because the circulation crosses the shore. The marks spread evenly whatever
+  the density settles to.
 - **03_5.** The nets are real catches from the t = 400 frame, each the size of the story's second
-  catch: the 1,000 fish nearest each of the nine region centres hold 90 to 105 marked. Nets of 10 or 20 fish hold 0–3 and 0–5: small
-  catches wobble (chapter 9).
+  catch: the 1,000 fish nearest each of the nine region centres hold 90 to 105 marked. In the
+  numpy run, nets of 10 or 20 fish at the same centres hold 0–3 and 0–5: small catches wobble
+  (chapter 9).
 - **03_6.** The two corners are the most and the least crowded of the nine regions, picked by fish
   count alone: 2,811 fish with 282 marked (10.0%), and 204 with 25 (12.3%, within a 204-fish region's
   binomial wobble, one SD 2.1 points). The run on screen uses a portable noise source so the scene and
@@ -71,6 +75,8 @@ the three dip squares were fixed before the first run, and nothing was re-run to
 - **04_8.** The five chances exactly: 91/323, 455/969, 70/323, 10/323, 1/969.
 - **04_9.** P_N(K = k) = C(M, k)·C(N − M, n − k) / C(N, n), the hypergeometric distribution. The
   piles add up by Vandermonde's identity: Σₖ C(5, k)·C(15, 4 − k) = C(20, 4) = 4,845.
+- **05_6.** "Score" is our informal word for the likelihood L(N). In statistics, "the score" means
+  d log L/dN, which is zero at the top.
 - **05_7.** Summed over every lake size, the scores (likelihoods) give Σ_N L(N) = Mn/(k(k − 1))
   when k ≥ 2: 50/3 for the mystery lake, 10,000/99 ≈ 101.01 for Feller's catch. For k ≤ 1 the sum
   is infinite. So the scores are not probabilities over lake sizes. Feller (1950, p. 37): "It is,
@@ -123,10 +129,12 @@ the three dip squares were fixed before the first run, and nothing was re-run to
 - **12_1–12_2.** The careful range is an exact test inversion: its lower end is the smallest N
   with P_N(K ≤ 100) > 2.5%, its upper end the largest N with P_N(K ≥ 100) > 2.5%, giving
   [8,400, 12,073]. Each one-sided test rejects a true lake size with chance at most 2.5%, so the
-  procedure covers the true size at least 95% of the time, for every true size. Checked on 27,901
-  lake sizes from 1,000 to 1,000,000 (with M = n = 1,000): the lowest coverage is 95.007%, at
-  10,967; at 10,000 it is 95.45%. In the panel's 10,000 runs, 464 ranges missed 10,000, against
-  454.7 expected.
+  procedure covers the true size at least 95% of the time, for every true size. That count
+  includes the catch with nobody caught twice (chapter 10's division by zero): no lake is too big
+  for it, so its range is open above, from 272,086 fish up with these catches. In a lake of a
+  million that catch comes up 36.8% of the time. Checked on 27,901 lake sizes from 1,000 to
+  1,000,000 (with M = n = 1,000): the lowest coverage is 95.007%, at 10,967; at 10,000 it is
+  95.45%. In the panel's 10,000 runs, 464 ranges missed 10,000, against 454.7 expected.
 - **12_3.** Feller (1950, p. 38): "These figures would justify a bet that the true number n of fish
   lies somewhere between 8500 and 12,000." Exactly, the tails at 8,500 and 12,000 are 3.47% and
   2.89%, so his range is a 93.6% range. A probability for the lake size itself needs a starting
@@ -161,15 +169,21 @@ the three dip squares were fixed before the first run, and nothing was re-run to
   FSC-72-6015, 1972; his collected papers date the article 1970). p. 73: "In our application, of
   course, 'lake' is synonymous with 'system,' 'unmarked fish' is synonymous with 'indigenous
   errors,' 'marked fish' with 'calibration errors,' and 'catching fish' with 'testing process.'"
+  For two reviewers, "caught twice" means matched: two reports of the same bug, as for Kosovo the
+  same person named on two lists. A missed match acts like a lost mark (13_5) and pushes the
+  estimate up; a false match pulls it down.
 - **14_5.** The 30 / 24 / 12 example is made up. Its exact 95% range is 47 to 94 bugs (5 to 52
   still hiding); Chapman gives 58.6 ± 8.4.
 - **14_6.** Reviewers who read independently, each finding every bug with their own fixed chance,
-  keep the formula right on average: E[a]·E[b]/E[k] = N. In a simulation (60 bugs; chances 0.5 and
-  0.4) the median estimate is 60 and the careful range holds 60 in 97% of runs. Bugs that are
+  keep the formula right on average: E[A]·E[B]/E[k] = N, where A and B are the two reviewers'
+  totals (30 and 24 here); in the cells, E[a]·E[b]/E[k] = E[u]. In a simulation (60 bugs;
+  chances 0.5 and 0.4) the median estimate is 60 and the careful range holds 60 in 97% of runs. Bugs that are
   easier for everyone break it: with 30 easy bugs (0.8 and 0.7) and 30 hard ones (0.2 and 0.1),
   the median estimate is 41.25 and the range lies wholly below 60 in 77% of runs, never above.
   Briand et al. (2000), on software inspections: "When the number of inspectors is too small, no
-  model is sufficiently accurate and underestimation may be substantial."
+  model is sufficiently accurate and underestimation may be substantial." Reviewers who
+  specialise in different kinds of bug do the opposite: k shrinks and the estimate runs high, like
+  the fish that learn to avoid the bait in 13_4.
 - **15_1.** Ball et al. (2002) drew on four sources (interviews by ABA/CEELI, Human Rights Watch and
   the OSCE, and exhumation records for the ICTY). About 10,000 reports by name gave 4,400 unique
   victims, a count rather than an estimate. Multiple systems estimation with log-linear models on
@@ -177,7 +191,10 @@ the three dip squares were fixed before the first run, and nothing was re-run to
   interval of 9,002 to 12,122. Spagat (2014, p. 9) compared it with the Kosovo Memory Book's 9,790
   violent deaths for the period (which he gives as 20 March to 20 June), "right in the middle of
   the BBSDA range", and noted that false reports in the lists could make the estimate "a bit too
-  high".
+  high". Spagat restricts the Memory Book to violent deaths and states no ethnic restriction, so
+  the comparison is close to like for like but not exact; it is his. Four lists make a table of
+  2⁴ = 16 cells, one of them unseen; with more than two lists, log-linear models can include
+  terms for lists that depend on each other, which two lists cannot.
 
 ## Code
 
@@ -196,8 +213,28 @@ print(est.mean(), sum(M * n / j * p[j] for j in range(1, n + 1)))
 ```
 
 It prints `10088.586031204479 10082.498763370464`: the simulated average and the exact one,
-0.66 standard errors apart. Those digits were printed with numpy 2.5.4; a different numpy may
-draw a different random stream and print different digits. Every number in the video is computed
+0.66 standard errors apart. Those digits were printed with numpy 2.5.4 (and 2.4.1); a different
+numpy may draw a different random stream and print different digits.
+
+The careful range of chapter 12 for Feller's catch (Python 3, standard library only). It works in
+logarithms, since C(10,000, 1,000) has 1,410 digits:
+
+```python
+from math import exp, lgamma
+M = n = 1_000; k = 100
+def log_comb(a, b):
+    return lgamma(a + 1) - lgamma(b + 1) - lgamma(a - b + 1)
+def p(N, j):  # chance that j of the second catch are marked, in a lake of N
+    return exp(log_comb(M, j) + log_comb(N - M, n - j) - log_comb(N, n))
+def kept(N):  # neither one-sided test rejects N at 2.5%
+    at_most = sum(p(N, j) for j in range(k + 1))
+    at_least = 1 - at_most + p(N, k)
+    return at_most > 0.025 and at_least > 0.025
+sizes = [N for N in range(M + n, 20_001) if kept(N)]
+print(sizes[0], sizes[-1])
+```
+
+It prints `8400 12073`, and the sizes it keeps run unbroken between the two. Every number in the video is computed
 by `oracle.py` in the repository (repository link).
 
 ## Sources
@@ -215,7 +252,8 @@ by `oracle.py` in the repository (repository link).
 - Sadinle, CERAC Working Paper 13 (2008), p. 4, and Dettloff, *Fisheries Research* 265:106756
   (2023), §2.2.2, both reporting Wittes (1972) on Chapman's estimator.
 - Stigler, "The Epic Story of Maximum Likelihood", *Statistical Science* 22(4):598–620,
-  2007. doi:10.1214/07-STS249 (for the history behind "score": Feller, p. 38, credits R. A. Fisher).
+  2007. doi:10.1214/07-STS249 (for the history of maximum likelihood: Feller, p. 38, credits R. A.
+  Fisher).
 - Laplace, *Essai philosophique sur les probabilités* (1840 ed., pp. 82–83); English
   translation by Truscott and Emory (1902), pp. 66–67.
   https://www.gutenberg.org/ebooks/58881

@@ -55,7 +55,9 @@ concat.txt
 # are kept deliberately; see explainer_corpus/hoeffding_d/narration_v5/.
 
 # --- Music / score stems (regenerable from the score DSL) -------------------
+# stems_<cut>/ are an earlier cut's stems, set aside beside the ones replacing them.
 **/stems/
+**/stems_*/
 **/score_cache/
 
 # --- franken_whisper QA state (SQLite DB, WAL, temp audio) ------------------
@@ -78,6 +80,8 @@ project.env
 !.env.example
 !project.env.example
 .claude/settings.local.json
+# private machine/account names for tools/scan_private.sh (naming them here would publish them)
+.private_patterns
 
 # --- Profiling captures -----------------------------------------------------
 # macOS `sample` output embeds the host's process list and local paths.
@@ -119,6 +123,8 @@ venv/
 .beads/*.backup_*
 .beads/*.rebuild_*
 .beads/recovery*/
+.beads/.br_recovery/
+.beads/.br-wal-index-*/
 .beads_recovery/
 .beads_recovery_*/
 .bv/
@@ -158,3 +164,6 @@ core
 core.*
 rustc-ice-*.txt
 docs/reviews/*/R*-packet.md
+
+# --- A hook's local state (hook-state/) ------------------------------------
+**/.ee/

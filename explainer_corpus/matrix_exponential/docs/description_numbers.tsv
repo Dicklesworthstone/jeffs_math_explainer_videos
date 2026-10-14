@@ -1,0 +1,26 @@
+# Video J: the numbers of docs/description.md that are not themselves a number of a fact (python3 -I tools/description_numbers.py matrix_exponential).
+# number	context (a piece of the line it stands in)	kind (year, cited, structural, derived)	reason; a derived reason is =expression over facts, evaluated by the tool
+2010	Estrada and Higham 2010	year	Estrada and Higham, SIAM Review 52(4), 2010 (the Sources list of this file)
+2010	Baez and Huerta 2010	year	Baez and Huerta, Bull. AMS 47(3), 2010 (the Sources list of this file)
+2011	Al-Mohy and Higham 2011	year	Al-Mohy and Higham, SIAM J. Sci. Comput. 33(2), 2011, pp. 488-511, the paper behind scipy.sparse.linalg.expm_multiply: verified against the Manchester eprint and SciPy's source (fact sheet S22; the Sources list of this file)
+754	IEEE 754	cited	the standard's number
+370	IBM 370	cited	the machine Moler and Van Loan ran on (fact sheet finding 2)
+808	p. 808	cited	Moler and Van Loan 1978, p. 808 (the fact sheet reads pp. 807-808)
+16	base 16	structural	IBM's short floating point is hexadecimal: base 16
+16	k = 16	structural	the index in the facts' own key names F-C.mvl.term.k16 and .k17 (the largest term; test the_terms_swell_past_nine_million_with_alternating_signs)
+10	t = 10	structural	The time, 10 minutes, of the key F-T.at.t10.
+3	generator of `3` full turns	structural	The 3 of the 3-4-5 right triangle: X turns 3 times about the x-axis.
+4	generator of `4` full turns	structural	The 4 of the 3-4-5 right triangle: Y turns 4 times about the y-axis.
+7	about 7 decimal digits	cited	IEEE 754 binary32 carries about 7 decimal digits (a 24-bit significand).
+8	2003, p. 8	cited	Moler and Van Loan (2003), p. 8.
+6	6 hex digits = 24	cited	IBM 370 short floating point: 6 hexadecimal digits, 24 bits (Moler and Van Loan).
+4	`0` of `4` entries	structural	The four entries of a 2 by 2 matrix.
+20	(e.g. `s = 20`)	structural	The over-halving example s = 20 (the counts of halvings are the keys F-C.mvl.f32.halvings.*).
+3	A clean 3-by-3	structural	The size of the skew-symmetric generators X and Y (3 by 3).
+24	6 hex digits = 24	cited	IBM 370 short floating point: 6 hexadecimal digits are 24 bits (Moler and Van Loan).
+20	before the 20 squarings	structural	The over-halving example s = 20: twenty halvings, then twenty squarings.
+32	32-bit	structural	The width of f32 and of the video's own run (the series, in 32 bits).
+64	64-bit	structural	The width of f64.
+4	3-4-5 right triangle	structural	The Pythagorean triple 3-4-5: legs 3 and 4, hypotenuse 5.
+3	(3/5, 4/5, 0)	structural	The unit axis (3, 4, 0) / 5 of the 3-4-5 triangle.
+4	(3/5, 4/5, 0)	structural	The unit axis (3, 4, 0) / 5 of the 3-4-5 triangle.

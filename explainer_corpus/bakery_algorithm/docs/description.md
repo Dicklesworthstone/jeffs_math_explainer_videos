@@ -9,7 +9,7 @@ storyboard's notes send something to "the description".
 
 # The Algorithm Lamport Is Proudest Of
 
-In 1974 Leslie Lamport found a way for programs to take turns using only
+In 1974 Leslie Lamport published a way for programs to take turns using only
 memory that each of them writes alone: take a ticket bigger than any you see,
 break ties by customer number, and raise a flag while you choose. Its proof
 never trusts a read that overlaps a write, so the algorithm survives memory
@@ -65,7 +65,11 @@ outside its critical section, this is not allowed to lead to potential
 blocking of the others." "(d) If more than one computer is about to enter its
 critical section, it must be impossible to devise for them such finite speeds,
 that the decision to determine which one of them will enter its critical
-section first is postponed until eternity." Rule (d) already asks that
+section first is postponed until eternity." "Stopped well outside its
+critical section" means stopped where it isn't trying to get in, Lamport's
+noncritical section (1974, condition 3, p. 454): a customer frozen while
+choosing, or paused in line, does hold up the others (chapter 11 and
+"Costs" below). Rule (d) already asks that
 somebody gets in; Knuth's 1966 addition is that everyone who wants in
 eventually gets in (Lamport 1986: "This requirement was first stated and
 satisfied by Knuth"). [C-S1, C-F14]
@@ -251,7 +255,10 @@ writes: one to each 32-bit half. This can result in a situation where a thread
 sees the first 32 bits of a 64-bit value from one write, and the second 32 bits
 from another write." But "Writes and reads of volatile long and double values
 are always atomic." (JLS SE 21 §17.7), and `AtomicLongArray` gives its
-elements volatile access. [C-S22, C-S15]
+elements volatile access. [C-S22, C-S15] Lamport's garbage tolerance (10_5)
+assumes slates that can hold any integer: on a b-bit slate a glance may return
+2ᵇ − 1 and the next ticket overflows, so in practice it is paired with reads
+that never exceed what was written, which untorn aligned words give.
 
 **12_1–12_5.** The outbox is the store buffer. Intel: "Reads may be reordered
 with older writes to different locations but not with older writes to the same
@@ -298,6 +305,19 @@ shared variables race, and "Any such data race results in undefined behavior";
 `volatile` does not change that. In Java, `AtomicLongArray` works and a
 `volatile long[]` does not. [C-S15, C-S23]
 
+**12_1, 12_7 (measured).** `cargo run --release --bin bakery_stress`, the
+12_7 lock on two customers, each run 3,000,000 visits per customer, ten runs
+per kind of lock: 60,000,000 visits each. Points lost (a point is lost when
+two customers' read-then-write of the scoreboard interleave): AMD Ryzen
+Threadripper PRO 5995WX, SeqCst 0, Release/Acquire 1,173,616, Relaxed
+1,006,846; Apple M5 Ultra, SeqCst 0, Release/Acquire 0, Relaxed 2,314,899
+(and Release/Acquire 0 of 600,000,000 in a hundred runs; with four customers,
+SeqCst 0, Release/Acquire 0, Relaxed 6,694,918). A zero means none were seen
+in these runs, not that none are possible: no language promises
+Release/Acquire is enough here, and zero lost points never proves "never two
+in the room". The proof and sequential consistency do that, for SeqCst. A
+positive count does prove a failure. [C-M1, C-S12, C-S13]
+
 **13_1.** Lamport himself: "Although of little if any practical use, the bakery
 algorithm [11] has become a popular example of a mutual exclusion algorithm."
 (Turing lecture, 2015) [C-S26]
@@ -306,8 +326,11 @@ algorithm [11] has become a popular example of a mutual exclusion algorithm."
 cluster immediately after reset and before the data cache is enabled in the
 warm boot path. It is not currently possible to use 'exclusive' based
 spinlocks, therefore BL31 uses locks based on Lamport's Bakery algorithm
-instead." It uses them only on platforms that are not hardware-coherent
-(`HW_ASSISTED_COHERENCY == 0`); exclusive instructions "have defined behavior
+instead." Its PSCI code uses them only on platforms that are not
+hardware-coherent (`HW_ASSISTED_COHERENCY == 0`), while the power controller's
+lock (`arm_lock`) is a bakery lock in BL31 either way; the lock code still
+issues barriers (`dmbish`, `dsb`) and packs the choosing flag and the ticket
+into one word written by one store; exclusive instructions "have defined behavior
 only on certain memory types (cacheable and Normal memory in particular …)".
 [fact sheet open item 5, F2, C-S17]
 
@@ -359,8 +382,9 @@ pub fn unlock(i: usize, number: &[AtomicU64]) { number[i].store(0, SeqCst) }
 `(nj, j) > (t, i)` compares in dictionary order (Rust's documentation: "in
 PartialOrd and Ord, the elements are compared sequentially until the first
 non-equal set is found"), and the pairs never tie because j ≠ i. The maximum reads every slate once, its own included
-(it holds 0 at that point), so an entry makes 3N − 2 loads, 3(N − 1) of them of
-other customers' flags and slates. [C-S29, C-F12]
+(it holds 0 at that point), so an uncontended entry makes 3N − 2 loads,
+3(N − 1) of them of other customers' flags and slates. Waiting adds further
+loads as the loops repeat. [C-S29, C-F12]
 
 A trap from a TypeScript version of this lock: it compared pairs with
 `(t[j], j) < (t[i], i)`. In JavaScript that is the comma operator: each
@@ -373,9 +397,9 @@ C-S29]
 
 - **Customers are fixed in advance:** one flag and one slate per customer, 2N
   shared variables, N of them unbounded tickets.
-- **Every entry reads a lot, even alone:** each other customer's slate twice
-  (for the maximum and in the wait loop) and her flag once, 3(N − 1) reads.
-  [C-F12]
+- **Even an uncontended entry reads a lot:** each other customer's slate twice
+  (for the maximum and one wait-loop check) and her flag once, 3(N − 1) reads.
+  Waiting repeats the checks and adds reads. [C-F12]
 - **Waiting is spinning:** a waiting customer keeps re-reading.
 - **A customer frozen while choosing stalls everyone:** each other customer
   gets in at most once more, then nobody does. [C-X8]

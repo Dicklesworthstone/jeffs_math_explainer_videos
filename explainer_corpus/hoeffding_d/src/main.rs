@@ -7,6 +7,7 @@
 //! hoeffding stats                      # the numbers every chapter shows
 //! hoeffding glyphs OUT_DIR             # typesetting probe pages
 //! hoeffding script                     # narration lines as TSV (id, text)
+//! hoeffding owners                     # each line's chapter as TSV (id, chapter)
 //! hoeffding render all|<chapter>... [--res 1920x1080] [--fps 60] [--out DIR]
 //!                  [--narration DIR] [--crf N] [--preset P] [--silent] ...
 //! hoeffding help                       # the full option list
@@ -74,7 +75,9 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: &[],
     identity: explainer_score::score::Identity::hoeffding,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: Some(line_owner),
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 /// The same video with the v5 sound (see [`v5_sound`]).
@@ -90,12 +93,36 @@ fn main() {
         print_stats();
         return;
     }
+    if args.first().map(String::as_str) == Some("owners") && args.len() == 1 {
+        std::process::exit(print_owners());
+    }
     let e = if v5_sound() {
         &EXPLAINER_V5
     } else {
         &EXPLAINER
     };
     std::process::exit(explainer_kit::cli::run(e, args));
+}
+
+/// Each narration line's chapter, as TSV (id, chapter), for `cue_check.sh`:
+/// the corpus's cue check reads a line's chapter off an `NN_` id, which the
+/// v5 ids are not. Returns the exit code (1: a line with no chapter).
+fn print_owners() -> i32 {
+    let script = match explainer_kit::Script::parse(SCRIPT) {
+        Ok(script) => script,
+        Err(msg) => {
+            eprintln!("hoeffding: {msg}");
+            return 1;
+        }
+    };
+    for (id, _) in script.lines() {
+        let Some(chapter) = line_owner(id) else {
+            eprintln!("hoeffding: line {id} has no chapter");
+            return 1;
+        };
+        println!("{id}\t{chapter}");
+    }
+    0
 }
 
 /// Every number the video shows (the v5 `stats` output, unchanged).

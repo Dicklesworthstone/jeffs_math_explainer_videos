@@ -190,3 +190,15 @@ I walked 130 claims across the 82 spoken lines, plus the factual lower-thirds, c
 | 13_4 | It just seemed to come out of thin air; perhaps that's why he's proudest of it | CHM pp. 9–10 (F4): "…it just seemed to come out of thin air to me. There was nothing like it that preceded it, so perhaps that's why I'm proudest of it." | OK | The paraphrase drops "nothing like it preceded it", which is what "so perhaps" follows. Acceptable with attribution. |
 
 Lines with no checkable claim of their own (questions, transitions or the title): 01_3, 02_2, 02_3, 02_8, 03_1, 04_1, 06_1 (voice), 07_1.
+
+## Since the walk (R3, 2026-10-11)
+
+The rows above are the walker's verbatim answer. These are their status now.
+
+| line | claim | source | status | note |
+|---|---|---|---|---|
+| 12_7 | Sequentially consistent atomics are the easy, correct way everywhere | fact sheet C-S12 (C++ [intro.races], Rust `std::sync::atomic`, JLS §17.4.5); C-M1 (recorded stress runs, SeqCst 0 lost on both machines) | OK | The zeros corroborate; the guarantee is C-S12 plus the proof. |
+| 12_7 | Acquire/release aren't enough, because your write must land before your next read | C-S13 (x86 mapping: acquire/release are plain MOVs; `C-F9.no_fence` fails in 12 steps); C-M1 (x86 Release/Acquire lost 1,173,616 of 60,000,000) | OK | Arm saw none in its runs; the 12_7 table captions that zero "none seen; not promised" (R3 dev-01, ruth-01). |
+| 13_1 (lower-third) | A ticket lock takes its number with one fetch-and-add; on x86 the SeqCst bakery fences every store | fact sheet open item 6 (Linux commit 314cdbe, "x86: FIFO ticket spinlocks": "a 16-bit xadd"); C-S14 (Cambridge mapping page; SDM: XCHG always asserts LOCK#) | OK | R3 dev-03 (5d56abf). |
+| 13_2 (lower-third) | TF-A's PSCI code takes a bakery lock only when HW_ASSISTED_COHERENCY is 0; a bakery lock needs only aligned loads, stores and barriers | C-S17 (psci_private.h, plat_arm.h, bakery_lock_coherent.c at TF-A 5103554) | OK | R3 ruth-04 (135eeb0): `arm_lock` is a bakery lock in BL31 on every platform. |
+| 11_6 (caption) | A real huge glance: a 64-bit ticket written in two 32-bit halves (Java's plain long) | C-S22 (JLS §17.7, non-atomic treatment of `long`) | OK | R3 dev-07. |

@@ -240,6 +240,9 @@ B=$CARGO_TARGET_DIR/release/hoeffding       # or target/release/hoeffding
 $B stats                                     # every number the video shows
 $B script                                    # the narration as TSV
 $B render all --res 960x540 --fps 30 --narration narration_v5 --out draft       # fast draft (no score)
+explainer_corpus/hoeffding_d/cue_check.sh draft   # every line on its picture: the corpus cue check, which reads a
+                                             # line's chapter off an NN_ id, run on a view where the v5 ids carry
+                                             # theirs ($B owners). ./x hoeffding_d narrated's own cue step fails them.
 
 # the score: timelines at the delivery frame rate, then stems and QA
 $B render --timeline-only --narration narration_v5 --out renders/v6

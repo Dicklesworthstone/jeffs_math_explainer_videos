@@ -1,0 +1,22 @@
+# Director alternates for Video G's narration (narration skill, SCRIPT-CRAFT.md): <line_id> TAB <sentence index, 0-based> TAB <text>.
+# Same words as script.tsv, other punctuation, so ftts (deterministic) makes new reads. First pass with michael (2026-10-13):
+# every read of the first five drops the final s/z of its last word (degrees, Rodrigues, turns, lengths, radius) or is
+# stopped by ftts inside it; every read of 15_5.1 was heard 'lead groups' or 'league groups' for 'Lie groups'.
+04_4	3	Twenty degrees…
+04_4	3	Twenty degrees!
+04_4	3	— Twenty degrees.
+05_6	0	The exponential has a formula, named after Rodrigues…
+05_6	0	The exponential has a formula — named after Rodrigues.
+05_6	0	The exponential has a formula named after Rodrigues.
+07_2	1	Three slides, and three turns.
+07_2	1	Three slides and three turns…
+07_2	1	Three slides — and three turns.
+09_1	0	Try it by hand, with the real arm's lengths…
+09_1	0	Try it by hand with the real arm's lengths.
+09_1	0	Try it by hand — with the real arm's lengths.
+12_4	1	Its gripper holds one pose, while its elbow swings on a circle twenty-nine centimeters in radius…
+12_4	1	Its gripper holds one pose; while its elbow swings on a circle twenty-nine centimeters in radius.
+12_4	1	Its gripper holds one pose, while its elbow swings on a circle, twenty-nine centimeters in radius.
+15_5	1	That is what it means: to think in Lie groups.
+15_5	1	That is what it means to think in Lie groups…
+15_5	1	That is what it means, to think in Lie groups.
