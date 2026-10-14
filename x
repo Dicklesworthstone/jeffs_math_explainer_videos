@@ -48,6 +48,7 @@
 #   ./x <slug> master                           the PCM master of renders/final/ (every chapter final)
 #   ./x <slug> captions                         SRT and WebVTT from renders/final/ and the narration
 #   ./x <slug> verify                           the delivery gates on the master (verify_video.sh)
+#   ./x <slug> final-check [--clone DIR]        delivery check: final_check + blank_stretches + band_dwell
 #   ./x <slug> watch [scored|narrated|draft]    one file to watch: those renders in chapter order,
 #                                               stream-copied to renders/<slug>_<kind>_watch.mp4
 #   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
@@ -814,6 +815,30 @@ PY
     export EXPECT_RES=3840x2160 EXPECT_FPS=60 EXPECT_BT709=1 EXPECT_LUFS=-16 EXPECT_TP_MAX=-1.0
     "$check" "$master_mp4"
     mark verify.ok ;;
+  final-check)
+    clone="$here"
+    extra_args=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --clone) shift; [ $# -gt 0 ] || usage; clone="$1" ;;
+        *) extra_args="$extra_args $1" ;;
+      esac
+      shift
+    done
+    cd "$clone" || exit 1
+    echo "== $(date) $slug in $clone at $(git log -1 --format=%h 2>/dev/null || echo unknown)"
+    echo "== final_check"
+    nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/final_check.py" "$slug" "$clone" $extra_args
+    fc_code=$?
+    echo "final_check exit $fc_code"
+    echo "== blank_stretches"
+    nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/blank_stretches.py" "explainer_corpus/$slug/renders/final" -v
+    echo "blank exit $?"
+    echo "== band_dwell"
+    nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/band_dwell.py" "explainer_corpus/$slug/renders/final"
+    echo "band exit $?"
+    echo "== done $(date)"
+    exit $fc_code ;;
   publish)
     exec python3 -I "$here/tools/publish.py" "$slug" "$@" ;;
   thumbnail)

@@ -20,6 +20,10 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
 - docs/protected.tsv, when the video has one: every phrase it requires in the description or the title stands
   in description.txt or title.txt, matched as the skill's protected_check.py matches (case, punctuation and
   line breaks ignored, whole words). A cut of docs/description.md that drops a credit fails here.
+- the numbers, when the video binds its notes' numbers to its facts (docs/description_numbers.tsv, checked by
+  tools/description_numbers.py): every number of description.txt and title.txt (outside the chapter times
+  and the link) stands in docs/description.md or the script, so the upload text says only numbers the
+  notes do (thousands separators and signs folded). A number typed into the upload text alone fails here.
 
 `fill` writes those times into the `?:??` (or stale) chapter lines of both files, in chapter order, and then
 runs `check` against the same finals. Nothing is uploaded and nothing is deleted.
@@ -121,6 +125,39 @@ def protected_missing(protected: Path, texts: dict[str, str], names: dict[str, s
     return out
 
 
+NUMBER = re.compile(r"(?<![\w.])[-−]?\d+(?:,\d{3})*(?:\.\d+)?")
+
+
+def numbers(text: str) -> list[tuple[str, int]]:
+    """(number, offset) of each number in `text` outside links, separators and sign folded: '350,757' -> '350757'."""
+    text = re.sub(r"https?://\S+", lambda m: " " * len(m.group(0)), text)
+    return [(m.group(0).lstrip("-−").replace(",", ""), m.start()) for m in NUMBER.finditer(text)]
+
+
+def unbacked_numbers(crate: Path, texts: dict[str, str]) -> list[str]:
+    """The numbers of the upload text that docs/description.md and the script do not say, one line each; none
+    when the video does not bind its notes' numbers (no docs/description_numbers.tsv)."""
+    notes = crate / "docs" / "description.md"
+    if not (crate / "docs" / "description_numbers.tsv").is_file() or not notes.is_file():
+        return []
+    said = {n for n, _ in numbers(notes.read_text(encoding="utf-8"))}
+    script = crate / "script.tsv"
+    if script.is_file():
+        said |= {n for n, _ in numbers(script.read_text(encoding="utf-8"))}
+    out = []
+    for name, text in texts.items():
+        chapter_rows = {i for i, _ in chapter_lines(text)}
+        for i, line in enumerate(text.split("\n")):
+            if i in chapter_rows:
+                continue
+            for n, at in numbers(line):
+                if n not in said:
+                    where = line[max(0, at - 30): at + 30].strip()
+                    out.append(f"{name}: the number {n} ('...{where}...') stands nowhere in docs/description.md "
+                               "or the script")
+    return out
+
+
 def check(slug: str, voice: str = "michael", finals: Path | None = None, root: Path = ROOT) -> list[str]:
     """Every problem with the package, one line each (empty when it is ready to upload)."""
     p = paths(slug, voice, root)
@@ -162,6 +199,8 @@ def check(slug: str, voice: str = "michael", finals: Path | None = None, root: P
         bad.append("youtube.md: the ```text block is not description.txt byte for byte")
     protected = root / "explainer_corpus" / slug / "docs" / "protected.tsv"
     bad.extend(protected_missing(protected, {"description": desc, "title": title}))
+    crate = root / "explainer_corpus" / slug
+    bad.extend(unbacked_numbers(crate, {"description.txt": desc, "title.txt": title}))
     chapters = chapter_lines(desc)
     if len(chapters) < 3:
         bad.append(f"description.txt: {len(chapters)} chapter lines after 'Chapters' (YouTube needs 3)")
