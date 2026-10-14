@@ -50,7 +50,11 @@ macro_rules! animatic {
 
 pub fn registry() -> Vec<Chapter> {
     vec![
-        scene!("01_the_bridge_that_swayed", 0.4, the_bridge_that_swayed::TheBridgeThatSwayed),
+        scene!(
+            "01_the_bridge_that_swayed",
+            0.4,
+            the_bridge_that_swayed::TheBridgeThatSwayed
+        ),
         scene!("02_two_carts", 0.45, two_carts::TwoCarts),
         scene!("03_own_patterns", 0.6, own_patterns::OwnPatterns),
         scene!("04_the_split", 0.55, the_split::TheSplit),
