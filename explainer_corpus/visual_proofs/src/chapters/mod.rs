@@ -8,6 +8,7 @@
 pub mod a_third;
 pub mod cold_open;
 pub mod draw;
+pub mod five_for_five;
 pub mod glyphs;
 pub mod iso;
 
@@ -40,7 +41,7 @@ macro_rules! scene {
 pub fn registry() -> Vec<Chapter> {
     vec![
         scene!("01_cold_open", 0.5, cold_open::ColdOpen),
-        animatic!("02_five_for_five", 0.3),
+        scene!("02_five_for_five", 0.3, five_for_five::FiveForFive),
         animatic!("03_layers", 0.4),
         animatic!("04_staircases", 0.4),
         animatic!("05_slabs", 0.6),

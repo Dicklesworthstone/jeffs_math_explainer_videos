@@ -351,8 +351,19 @@ impl SceneConstruct for ColdOpen {
 
 #[cfg(test)]
 mod tests {
+    use super::super::draw::testing;
     use super::*;
     use crate::model::{Rect, tiles};
+
+    /// The scene constructs end to end (every phrase it waits for is in its
+    /// line, every fact it reads is there, every string typesets) and the
+    /// layout lint of the kit finds nothing.
+    #[test]
+    fn the_chapter_runs_and_the_layout_lint_is_clean() {
+        let ran = testing::run("01_cold_open").unwrap();
+        assert_eq!(ran.lint_count, 0, "{}", ran.lint);
+        assert!(ran.seconds > 20.0 && ran.seconds < 90.0, "{} s", ran.seconds);
+    }
 
     /// The chapter speaks exactly the script's 01_ lines, in order.
     #[test]

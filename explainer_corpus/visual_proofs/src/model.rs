@@ -220,6 +220,12 @@ pub mod circle {
     /// only for `F-C.regions.seven`.
     pub const DRAWN: [(i128, i128); 7] = [(1, 19), (-6, 1), (7, 3), (-1, 2), (4, 9), (-7, 6), (1, 1)];
 
+    /// A point's place on the unit circle as two floating-point numbers
+    /// (the pictures' coordinates; the exact point stays the model's).
+    pub fn xy(p: &Point) -> Corner {
+        (p.0.to_f64(), p.1.to_f64())
+    }
+
     pub const fn point(p: i128, d: i128) -> Point {
         (q(d * d - p * p, d * d + p * p), q(2 * p * d, d * d + p * p))
     }
