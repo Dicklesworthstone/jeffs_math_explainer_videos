@@ -301,7 +301,7 @@ impl SceneConstruct for OneIdea {
         let result = arrow_on(stage, CARTS, [0.0, 0.0], [push[0], push[1]], orange, 9.0, 1.0);
         let result_name = kit.text(
             stage,
-            &format!("the pushes of 02_3: {}, {}", whole(push[0]), minus(&whole(push[1]))),
+            &format!("the pushes from before: {}, {}", whole(push[0]), minus(&whole(push[1]))),
             24.0,
             orange,
             CARTS.p(push[0] - 0.1, push[1] - 0.5),
@@ -1093,7 +1093,7 @@ mod tests {
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         let words: Vec<&str> = ran.registered.iter().map(|r| r.source.as_str()).collect();
         for want in [
-            "the pushes of 02_3: 2, \u{2013}1",
+            "the pushes from before: 2, \u{2013}1",
             r"K = Q\,\Lambda\,Q^{T}",
             "columns of length 1",
             r"C = V\,\Lambda\,V^{-1}",
