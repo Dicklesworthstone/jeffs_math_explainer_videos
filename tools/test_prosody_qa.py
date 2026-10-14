@@ -111,6 +111,11 @@ def two_sentence_lines(n, reset_st, gaps, texts=("That is one thing to keep.", "
         {"text": texts[1], "start": 110.0 * 2 ** (reset_st / 12), "end": 105.0, "gap": 0.0}] for k in range(n)}
 
 
+def run_tool(*args):
+    """the tool as a command, bounded: its exit code is the thing under test, so a non-zero one is not an error here"""
+    return subprocess.run([sys.executable, "-I", str(TOOL), *map(str, args)], capture_output=True, text=True, check=False, timeout=300)
+
+
 def check(checks, name, scope="video"):
     return next(c for c in checks if c["check"] == name and c["scope"] == scope)
 
@@ -209,7 +214,7 @@ class Planted(unittest.TestCase):
         self.assertEqual(share["verdict"], "FLAG")
         self.assertGreater(share["value"], 0.9)
         self.assertIn("LibriVox alone 16-26%", share["band"])  # shown beside the human readers' range
-        run = lambda *a: subprocess.run([sys.executable, "-I", str(TOOL), str(self.jumpy), *a], capture_output=True)
+        run = lambda *a: run_tool(self.jumpy, *a)
         self.assertEqual(run().returncode, 0)
         self.assertEqual(run("--gate-room-tone", "--gate-regularity", "--gate-terminal", "--gate-gap-targets").returncode, 0)  # no gate for it
 
@@ -240,7 +245,7 @@ class Planted(unittest.TestCase):
         self.assertEqual(check(gated, "silence_floor")["verdict"], "FAIL")
 
     def test_the_exit_code_follows_the_verdicts(self):
-        run = lambda *a: subprocess.run([sys.executable, "-I", str(TOOL), *a], capture_output=True, text=True)
+        run = lambda *a: run_tool(*a)
         self.assertEqual(run(str(self.good)).returncode, 0)
         self.assertEqual(run(str(self.black)).returncode, 0)  # a flag does not fail
         self.assertEqual(run(str(self.black), "--gate-room-tone").returncode, 1)
@@ -249,14 +254,16 @@ class Planted(unittest.TestCase):
         missing = run(str(Path(self.tmp.name) / "nothing"))
         self.assertEqual(missing.returncode, 2)
         self.assertIn("prosody_qa:", missing.stderr)
-        bad = Path(self.tmp.name) / "bad"
-        bad.mkdir()
-        (bad / "report.json").write_text("{", encoding="utf-8")
-        self.assertEqual(run(str(bad)).returncode, 2)
+        for name, text in (("bad", "{"), ("norate", '{"meta": {"rate": 0}, "lines": {}}'), ("nolines", '{"meta": {"rate": 24000}, "lines": []}')):
+            broken = Path(self.tmp.name) / name
+            broken.mkdir()
+            (broken / "report.json").write_text(text, encoding="utf-8")
+            self.assertEqual(run(str(broken)).returncode, 2, name)
+            self.assertIn("report.json", run(str(broken)).stderr, name)
 
     def test_json_carries_every_row(self):
         out = Path(self.tmp.name) / "q.json"
-        r = subprocess.run([sys.executable, "-I", str(TOOL), str(self.good), "--json", str(out)], capture_output=True, text=True)
+        r = run_tool(self.good, "--json", out)
         self.assertEqual(r.returncode, 0, r.stderr)
         data = json.loads(out.read_text())
         self.assertEqual(len(data["result"]["joins"]), 24)
@@ -406,6 +413,18 @@ class LineGaps(unittest.TestCase):
             self.assertEqual(by["01_7", "01_8"]["class"], "WINDOW")
             (join,) = joins
             self.assertAlmostEqual(join["len"], 3.0 + 0.6, delta=0.05)  # this chapter's tail, the next one's lead
+
+    def test_a_timeline_without_a_frame_rate_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            write_timeline(d, "01_first", [("01_1", 0.6, 3.0), ("01_2", 4.2, 2.0)])
+            path = Path(d) / "01_first.timeline.tsv"
+            path.write_text(path.read_text().replace("fps\t60", "fps\t0"), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                qa.read_timeline(d)
+            write_narration(Path(d) / "out", two_sentence_lines(1, 6.0, [0.4]))
+            r = run_tool(Path(d) / "out", "--timeline", d)
+            self.assertEqual(r.returncode, 2)
+            self.assertIn("fps", r.stderr)
 
     def plain_res(self, lengths):
         gaps = [{"chapter": "01", "from": "a", "to": "b", "start": 0.0, "len": n, "class": c} for c, n in lengths]

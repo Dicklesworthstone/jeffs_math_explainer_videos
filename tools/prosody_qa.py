@@ -307,6 +307,8 @@ def read_timeline(timeline_dir):
                 c["breaths"].append((int(f[1]), float(f[2])))
             elif f[0] == "listen":
                 c["listens"].append((int(f[1]), float(f[2])))
+        if c["fps"] <= 0:
+            raise ValueError(f"{tl}: fps {c['fps']} is not positive")
         c["lines"] = [(k, fr / c["fps"], lengths[k]) for k, fr in starts]
         out[chapter] = c
     return out
@@ -357,11 +359,13 @@ def load_lines(out):
     must be what the report says"""
     try:
         rep = json.loads((Path(out) / "report.json").read_text(encoding="utf-8"))
-        rate = rep["meta"]["rate"]
-    except (json.JSONDecodeError, KeyError) as e:
+        rate, report_lines = rep["meta"]["rate"], rep["lines"]
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
         raise ValueError(f"{out}/report.json is not a narration report ({e!r})") from e
+    if not isinstance(rate, int) or rate <= 0 or not isinstance(report_lines, dict):
+        raise ValueError(f"{out}/report.json: expected a positive integer meta.rate and a lines object, got rate {rate!r}")
     lines = []
-    for lid, sents in rep["lines"].items():
+    for lid, sents in report_lines.items():
         pos, spans = 0, []
         for s in sents:
             n, g = s["out_samples"], s.get("gap_after_samples", 0)
@@ -376,7 +380,11 @@ def scan(out, timeline_dir=None, script=None, bounds=None):
     """measure a narration out dir -> a dict of rows (joins, sentences, inner pauses, gaps, floors) for verdicts()"""
     out = Path(out)
     rate, lines = load_lines(out)
-    spoken = read_tsv(script) if script else (read_tsv(out / "spoken.tsv") if (out / "spoken.tsv").exists() else {})
+    spoken = {}
+    if script:
+        spoken = read_tsv(script)
+    elif (out / "spoken.tsv").exists():
+        spoken = read_tsv(out / "spoken.tsv")
     timeline = read_timeline(timeline_dir) if timeline_dir else {}
     chapter_of = {k: c for c, v in timeline.items() for k, _, _ in v["lines"]}
     joins, sentences, pauses, floors = [], [], [], []
@@ -453,7 +461,12 @@ def verdicts(res, gates=()):
     def add(check, verdict, value, band, note="", items=(), scope="video"):
         out.append({"check": check, "scope": scope, "verdict": verdict, "value": value, "band": band, "note": note, "items": list(items)})
 
-    gated = lambda name, v: ("FAIL" if name in gates else "FLAG") if v else "PASS"
+    def gated(name, found):
+        """PASS, or FLAG - FAIL when the video opted in to the gate"""
+        if not found:
+            return "PASS"
+        return "FAIL" if name in gates else "FLAG"
+
     joins = res["joins"]
     k, n = share_beyond(joins)
     lo, hi = wilson(k, n)
@@ -543,7 +556,12 @@ def render(res, checks):
         if c["scope"] != "video":
             continue
         v = c["value"]
-        v = "" if v is None else f"{v * 100:.0f}%" if c["check"] in percent else str(v) if isinstance(v, int) else f"{v:.2f}"
+        if v is None:
+            v = ""
+        elif c["check"] in percent:
+            v = f"{v * 100:.0f}%"
+        else:
+            v = str(v) if isinstance(v, int) else f"{v:.2f}"
         lines.append(f"{c['verdict']:8s} {c['check']:24s} {v:>7s}  [{c['band']}]  {c['note']}".rstrip())
         lines += [f"           {i}" for i in c["items"]]
     chapters = [c for c in checks if c["scope"] != "video"]
