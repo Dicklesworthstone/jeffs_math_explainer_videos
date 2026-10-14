@@ -256,6 +256,16 @@ fn near() -> fmn::Result<([[i64; 3]; 2], [i64; 3])> {
     ))
 }
 
+/// How long the arm's world, and the words that stood on it, take to go
+/// at the start of 13_2.
+const ARM_GOES_S: f64 = 0.6;
+
+/// The arm's world goes and the words that stood on it ("the pose I want",
+/// "which joint angles?") go with it, in one beat.
+fn clear_the_arm(stage: &mut Stage<'_>, world_shown: Mob, words: &[Mob]) -> fmn::Result<()> {
+    leave(stage, words, &[world_shown], ARM_GOES_S)
+}
+
 impl SceneConstruct for Steps {
     fn name(&self) -> &str {
         "13_steps"
@@ -334,8 +344,7 @@ impl SceneConstruct for Steps {
 
         // 13_2: subtracting angles walks into both traps
         let line = say(&kit, stage, BEATS[1])?;
-        play!(stage; tween(world.shown, 0.0, 0.6)?);
-        leave(stage, &[which, goal_words], &[], 0.3)?;
+        clear_the_arm(stage, world.shown, &[which, goal_words])?;
         line.wait_for(stage, "Subtracting angles")?;
         rings.show(stage, 0.8)?;
         let seam = kit.text(stage, &seam_words()?, 28.0, Palette::ink(), v(SEAM_AT[0], SEAM_AT[1]))?;
@@ -558,6 +567,64 @@ mod tests {
             &mut fmn::scene::NullSceneSink,
         )
         .expect("the probe scene runs");
+    }
+
+    /// 13_2's first beat: the words that stood on the arm's world go with
+    /// it. There is no frame in which the world has gone and the words are
+    /// still on a stage with nothing else on it (the narrated draft's
+    /// frame at 6 s: "q = ?" and "the pose I want" alone), and the whole
+    /// takes [`ARM_GOES_S`].
+    #[test]
+    fn the_words_go_with_the_arm_and_are_not_left_on_an_empty_stage() {
+        use std::cell::RefCell;
+        use std::rc::Rc;
+
+        use explainer_kit::layout::visible_box;
+        use fmn::mobject::Stage as Arena;
+
+        // on the stage (a faded-out mobject is taken off it, its paint put
+        // back) and painting
+        fn on_stage(s: &Arena, m: Mob) -> bool {
+            visible_box(s, m).is_some() && s.roots().iter().any(|&r| s.family(r).into_iter().any(|f| f == m))
+        }
+
+        let seen: Rc<RefCell<Vec<(f64, bool)>>> = Rc::new(RefCell::new(Vec::new()));
+        let took: Rc<RefCell<f64>> = Rc::new(RefCell::new(f64::NAN));
+        let (log, clock) = (Rc::clone(&seen), Rc::clone(&took));
+        run(move |stage| {
+            let kit = Kit::new()?;
+            let words = kit.text(stage, "the pose I want", 30.0, Palette::ink(), v(0.0, 0.0))?;
+            stage.add_to_scene(words)?;
+            let world = stage.add_value_tracker(1.0);
+            let probe = stage.arena_mut().add(VMobject::new());
+            stage.add_to_scene(probe)?;
+            let log = Rc::clone(&log);
+            stage.add_dt_updater(
+                probe,
+                move |s, _, _| {
+                    let shown = s.tracker_value(world).unwrap_or(1.0);
+                    log.borrow_mut().push((shown, on_stage(s, words)));
+                },
+                true,
+            )?;
+            let start = stage.scene().time().to_f64();
+            clear_the_arm(stage, world, &[words])?;
+            *clock.borrow_mut() = stage.scene().time().to_f64() - start;
+            Ok(())
+        });
+        let took = *took.borrow();
+        assert!(
+            (took - ARM_GOES_S).abs() < 0.1,
+            "the arm and its words took {took:.2} s"
+        );
+        let seen = seen.borrow();
+        assert!(seen.iter().any(|f| f.1), "the words never showed");
+        let alone: Vec<f64> = seen.iter().filter(|f| f.0 < 1e-9 && f.1).map(|f| f.0).collect();
+        assert!(
+            alone.is_empty(),
+            "{} frames with the world gone and the words still painting",
+            alone.len()
+        );
     }
 
     #[test]

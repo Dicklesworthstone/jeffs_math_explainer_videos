@@ -682,6 +682,9 @@ impl SceneConstruct for VelocitiesAdd {
         play!(stage; tween(collar(SHOULDER), 1.0, 0.4)?);
         line.wait_for(stage, "What counts is how far")?;
         play!(stage; tween(shown(part::TRIANGLE), 1.0, 0.6)?);
+        // the card has done its work: the answer is said and what counts is
+        // drawn, so it goes (it stood to the end of the chapter)
+        leave(stage, &card.mobs(), &[], 0.4)?;
         line.wait_for(stage, "Sixty-seven centimeters")?;
         play!(stage;
             tween(shown(part::LEVER_SHOULDER), 1.0, 0.6)?,
@@ -1291,6 +1294,82 @@ mod tests {
             }
             Ok(())
         });
+    }
+
+    /// The seconds the quiz card is on the screen, in a whole run of the
+    /// chapter without a narrator (a line lasts its silent estimate): from
+    /// the first frame it shows to the last frame it paints, and the length
+    /// of the run.
+    fn card_on_screen() -> (f64, f64, f64) {
+        use std::cell::RefCell;
+        use std::rc::Rc;
+
+        use explainer_kit::layout::visible_box;
+
+        // on the stage (a faded-out mobject is taken off it, its paint put
+        // back) and painting
+        fn on_stage(s: &Arena, m: Mob) -> bool {
+            visible_box(s, m).is_some() && s.roots().iter().any(|&r| s.family(r).into_iter().any(|f| f == m))
+        }
+
+        struct Whole {
+            kit: Kit,
+            seen: Rc<RefCell<Vec<(f64, bool)>>>,
+        }
+        impl SceneConstruct for Whole {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                // one frame by frame look at whether the card's "your turn" paints
+                let probe = stage.arena_mut().add(VMobject::new());
+                stage.add_to_scene(probe)?;
+                let (kit, seen) = (self.kit.clone(), Rc::clone(&self.seen));
+                let mut now = 0.0;
+                stage.add_dt_updater(
+                    probe,
+                    move |s, _, dt| {
+                        now += dt;
+                        let on = kit
+                            .registered()
+                            .iter()
+                            .filter(|r| r.source == "your turn")
+                            .any(|r| on_stage(s, r.mob));
+                        seen.borrow_mut().push((now, on));
+                    },
+                    true,
+                )?;
+                VelocitiesAdd { kit: self.kit.clone() }.construct(stage)
+            }
+        }
+        let seen = Rc::new(RefCell::new(Vec::new()));
+        let mut whole = Whole {
+            kit: Kit::new().unwrap(),
+            seen: Rc::clone(&seen),
+        };
+        fmn::run_scene(
+            &mut whole,
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("the chapter runs");
+        let seen = seen.borrow();
+        let first = seen.iter().find(|f| f.1).map_or(f64::NAN, |f| f.0);
+        let last = seen.iter().rev().find(|f| f.1).map_or(f64::NAN, |f| f.0);
+        (first, last, seen.last().map_or(0.0, |f| f.0))
+    }
+
+    /// 10_5: the card has done its work when the answer is said ("Joint
+    /// two."), and what counts is drawn beside it: it goes as the reason
+    /// begins and does not stand to the end of the chapter (it was on the
+    /// screen for the last twenty seconds, over a picture that needed none
+    /// of it).
+    #[test]
+    fn the_card_leaves_as_the_reason_begins_and_not_at_the_chapters_end() {
+        let (first, last, end) = card_on_screen();
+        assert!(first.is_finite(), "the card never showed");
+        assert!(
+            end - last >= 5.0,
+            "the card paints until {last:.1} s of a {end:.1} s chapter"
+        );
     }
 
     #[test]

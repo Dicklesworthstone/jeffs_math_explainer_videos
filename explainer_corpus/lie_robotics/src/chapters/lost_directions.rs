@@ -82,6 +82,11 @@ const READOUT_AT: [f64; 2] = [-5.0, 3.35];
 const SPEED_CUT: f64 = 200.0;
 /// The bend 11_4's gauge first settles at, degrees.
 const FIRST_BEND_DEG: f64 = 30.0;
+/// Where the label of the plot's ten-degree point begins, from its dot: to
+/// its right and a little up, over the curve's lower side (the curve climbs
+/// steeply to the left of the dot and runs through a label centred above it,
+/// as the narrated draft's 11_5 had it).
+const TEN_LABEL_OFFSET: [f64; 2] = [0.25, 0.1];
 /// The bend plot's window: degrees across, degrees a second up.
 const BEND_MAX: f64 = 40.0;
 const PLOT: Frame2 = Frame2 {
@@ -597,12 +602,15 @@ impl SceneConstruct for LostDirections {
         fade_in_all(stage, &[marker, first_label], 0.5)?;
         line.wait_for(stage, "Bent ten degrees")?;
         let ten = format!("10° : {} °/s", elbow_speed(&arm, 10.0, pull).round() as i64);
-        let ten_label = kit.text(
+        let ten_label = kit.text_left(
             stage,
             &ten,
             26.0,
             Palette::ink(),
-            v(dot_at(10.0)[0] + 0.15, dot_at(10.0)[1] + 0.4),
+            v(
+                dot_at(10.0)[0] + TEN_LABEL_OFFSET[0],
+                dot_at(10.0)[1] + TEN_LABEL_OFFSET[1],
+            ),
         )?;
         let ten_dot = stage.arena_mut().add(
             Dot::new()
@@ -1143,6 +1151,42 @@ mod tests {
             }
             let two = kit.text(stage, SHOULDER_TWO, 26.0, Palette::dim(), v(-3.6, 1.2))?;
             assert!(stage.get_right(two)[0] < -1.0 && stage.get_left(two)[0] > -7.11 + 0.15);
+            Ok(())
+        });
+    }
+
+    /// 11_5: the words at the ten-degree point ("10° : 160 °/s") stand clear
+    /// of the curve and of the point's own dot, and inside the plot (the
+    /// narrated draft had the curve running through the "10°").
+    #[test]
+    fn the_ten_degree_label_stands_clear_of_the_curve() {
+        let arm = Arm::iiwa14();
+        let pull = fact_f64("G-J.blowup.pull").unwrap();
+        let points: Vec<[f64; 2]> = curve(&arm, pull)
+            .iter()
+            .map(|&(b, s)| {
+                let p = PLOT.p(b, s);
+                [p[0], p[1]]
+            })
+            .collect();
+        run(|stage| {
+            let kit = Kit::new()?;
+            let dot = PLOT.p(10.0, elbow_speed(&arm, 10.0, pull));
+            let words = format!("10° : {} °/s", elbow_speed(&arm, 10.0, pull).round() as i64);
+            let label = kit.text_left(
+                stage,
+                &words,
+                26.0,
+                Palette::ink(),
+                v(dot[0] + TEN_LABEL_OFFSET[0], dot[1] + TEN_LABEL_OFFSET[1]),
+            )?;
+            let b = box_of(stage, label);
+            for p in &points {
+                assert!(!inside(*p, b, 0.04), "the curve runs through the label at {p:?}");
+            }
+            assert!(!inside([dot[0], dot[1]], b, 0.12), "the label sits on its own dot");
+            assert!(b[1] < PLOT.right(), "the label ends at {:.2}, inside the plot", b[1]);
+            assert!(b[3] < PLOT.top(), "the label's top is inside the plot");
             Ok(())
         });
     }
