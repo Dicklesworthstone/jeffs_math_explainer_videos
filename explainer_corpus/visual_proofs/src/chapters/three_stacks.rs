@@ -93,6 +93,25 @@ fn stack(iso: &Iso, stage: &mut Stage<'_>, n: i64, c: Srgb, at: P3) -> fmn::Resu
     iso.solid(stage, &stacks::standard(n), c, at)
 }
 
+/// Where 07_3's four-line aside stands: `ASIDE_AT` lifted by 0.2, so its foot
+/// is 0.28 over the frame's bottom (at `ASIDE_AT` it was 0.08, under the
+/// 0.15 the bottom keeps).
+const WHY_AT: Vec3 = [ASIDE_AT[0], ASIDE_AT[1] + 0.2, ASIDE_AT[2]];
+
+/// The tag of 07_3: why one and two stacks cannot make a box.
+fn why_aside(kit: &Kit, stage: &mut Stage<'_>, stack: i64) -> fmn::Result<Mob> {
+    aside(
+        kit,
+        stage,
+        FEWEST_TAG,
+        &format!(
+            "one or two stacks, {stack} or {} cubes: no such box. The arithmetic is in the description.",
+            2 * stack
+        ),
+        WHY_AT,
+    )
+}
+
 /// What the chapter reads from the facts, checked against the model.
 struct Reads {
     layers: Vec<i64>,
@@ -386,17 +405,7 @@ impl SceneConstruct for ThreeStacks {
         // R2 (Dev D5): "fewest" was shown by nothing; with the three seated, a
         // tag says why one and two stacks cannot (the arithmetic is in the
         // description: F-S.fewest)
-        let why = aside(
-            &kit,
-            stage,
-            FEWEST_TAG,
-            &format!(
-                "one or two stacks, {} or {} cubes: no such box. The arithmetic is in the description.",
-                r.stack,
-                2 * r.stack
-            ),
-            ASIDE_AT,
-        )?;
+        let why = why_aside(&kit, stage, r.stack)?;
         let why_in = arrive(stage, why, 0.5)?;
         play(stage, vec![why_in], 0.0)?;
         line.wait_end(stage)?;
@@ -676,6 +685,24 @@ mod tests {
             .filter(|id| id.starts_with("07_"))
             .collect();
         assert_eq!(ids, LINES);
+    }
+
+    /// 07_3 (the pre-final check, the lint's `edge`): the aside "why three
+    /// is the fewest" keeps the 0.15 the frame's bottom wants (it stood
+    /// 0.08 from it) and stays inside the frame sideways.
+    #[test]
+    fn the_why_aside_keeps_off_the_bottom_edge() {
+        use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
+        let mut box_of = None;
+        testing::bare(|kit, stage| {
+            let m = why_aside(kit, stage, 30)?;
+            box_of = Some((stage.get_left(m)[0], stage.get_right(m)[0], stage.get_bottom(m)[1]));
+            Ok(())
+        })
+        .unwrap();
+        let (l, r, foot) = box_of.expect("the aside was built");
+        assert!(foot + FRAME_Y_RADIUS >= 0.25, "the aside's foot {foot:.2}");
+        assert!(l > -FRAME_X_RADIUS && r < FRAME_X_RADIUS - 0.15, "{l:.2} to {r:.2}");
     }
 
     /// The facts the chapter shows are the model's, and the quiz's answer is
