@@ -2034,7 +2034,12 @@ pub mod watch {
         let script = Script::parse(crate::SCRIPT).unwrap();
         let narrator = Narrator::estimate_timed(&script, timed).unwrap();
         let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
-        kit.chapter = key.to_owned();
+        // a name of this run's own: `dwell_log` is shared by the tests running in parallel threads, and two runs of
+        // one chapter under one name pool their events (one full run of the crate read the 03_7 band as 2.50 s,
+        // alone it is 3.30 s)
+        static RUNS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+        let n = RUNS.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        kit.chapter = format!("{key}#{n}");
         LOG.with(|l| l.borrow_mut().clear());
         let mut scene = Boxed((chapter.make)(kit.clone()));
         let config = fmn::scene::RuntimeConfig {
