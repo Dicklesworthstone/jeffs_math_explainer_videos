@@ -43,14 +43,17 @@ const P_FALLEN: &str = "Only B has fallen";
 
 // fixed words
 const BAYES: &str = "Bayes\u{2019} rule";
-const BAYES_NOTE: &str = "Thomas Bayes, died";
+const BAYES_NOTE: &str = "Thomas Bayes, a church minister, died";
 const LAPLACE_NOTE: &str = "As a rule for equally likely cases, which is what the dots are: Laplace,";
 const PRIOR: &str = "prior";
 const PRIOR_WORDS: &str = "the map before a search. Posterior: the map after it";
 const HEAD_CHANCE: &str = "chance";
 const HEAD_EMPTY: &str = "× chance of empty";
 const HEAD_PRODUCT: &str = "product";
-const HEAD_NEW: &str = "÷ what is left";
+/// The last column's head: what the products are divided by, and that the
+/// quotient is read as a percent (40 ÷ 80 is a half, which is 50%; R2: M4,
+/// D21, R10).
+const HEAD_NEW_PERCENT: &str = ", as a percent";
 const NOT_FOUND: &str = "a search of B cannot find a wreck that is somewhere else";
 const SUM_LABEL: &str = "the chance this search comes back empty";
 const OTHERS: &str = "every other cell: its own chance ÷ that same 1 − p d";
@@ -70,6 +73,10 @@ const SUM_Y: f64 = -0.15;
 /// The letters, the other cells' sentence and the name of the move, in the
 /// hold (the sum, its label and the note have gone by then).
 const HOLD_Y: [f64; 3] = [-0.4, -1.0, -1.5];
+/// B's row worked in full stands right of the sum, under the last column,
+/// in this much room.
+const WORKED_AT: [f64; 2] = [5.75, SUM_Y];
+const WORKED_ROOM: f64 = 1.9;
 /// The code panel is lowered to this height (it is built on the middle line).
 const PANEL_DROP: f64 = -2.55;
 /// Where the "dots a search would catch" label stands.
@@ -183,6 +190,24 @@ pub fn dots_text(q: Q) -> String {
     q.fixed(0)
 }
 
+/// The last column's head: "÷ 80, as a percent".
+pub fn head_new(left: Q) -> String {
+    format!("÷ {}{HEAD_NEW_PERCENT}", dots_text(left))
+}
+
+/// A row worked in full, so that the division is read as a percent:
+/// "10 ÷ 80 = 1/8 = 12.5%".
+pub fn worked_text(row: &Row, left: Q) -> String {
+    let share = row.then / Q::int(sea::DOTS);
+    format!(
+        "{} ÷ {} = {} = {}",
+        dots_text(row.product),
+        dots_text(left),
+        mixed_text(share),
+        pct_text(share)
+    )
+}
+
 /// A count that may carry a third, as plain text: "13 1/3", "6 2/3", "10".
 pub fn mixed_text(q: Q) -> String {
     let s = q.to_string();
@@ -284,7 +309,7 @@ impl SceneConstruct for BayesRule {
             cell_text(&kit, stage, HEAD_CHANCE, 22.0, Palette::dim(), v(COL_X[1], HEAD_Y))?,
             cell_text(&kit, stage, HEAD_EMPTY, 22.0, Palette::dim(), v(COL_X[2], HEAD_Y))?,
             cell_text(&kit, stage, HEAD_PRODUCT, 22.0, Palette::dim(), v(COL_X[3], HEAD_Y))?,
-            cell_text(&kit, stage, HEAD_NEW, 22.0, Palette::dim(), v(COL_X[4], HEAD_Y))?,
+            cell_text(&kit, stage, &head_new(left), 22.0, Palette::dim(), v(COL_X[4], HEAD_Y))?,
         ];
         for h in &heads[1..] {
             fit_width(stage, *h, 2.0);
@@ -378,13 +403,25 @@ impl SceneConstruct for BayesRule {
             )?);
         }
         fade_in_all(stage, &thens, 0.6)?;
+        // B's row worked in full (10 ÷ 80 = 1/8 = 12.5%): the division is
+        // read as a percent, and the 12.5 is B's own
+        let worked = cell_text(
+            &kit,
+            stage,
+            &worked_text(&rows[b], left),
+            20.0,
+            Palette::dim(),
+            v(WORKED_AT[0], WORKED_AT[1]),
+        )?;
+        fit_width(stage, worked, WORKED_ROOM);
+        fade_in_all(stage, &[worked], 0.5)?;
         line.wait_end(stage)?;
 
         // the hold: the letters land on B's row, the other cells' sentence,
         // the name of the move, and the first two lines of the code panel
         kit.hold(stage)?;
         // the sum, its label and the note have said their piece
-        fade_out_all(stage, &[why, total, total_label], 0.4)?;
+        fade_out_all(stage, &[why, total, total_label, worked], 0.4)?;
         let formula = kit.tex(
             stage,
             "\\frac{p(1-d)}{1-pd}",
@@ -799,6 +836,30 @@ mod tests {
         assert_eq!(dots_text(left), "80");
         let new_chances: Vec<String> = rows.iter().map(|r| pct_text(r.then / Q::int(100))).collect();
         assert_eq!(new_chances, ["50%", "12.5%", "25%", "12.5%"]);
+        // R2 (M4, D21, R10): the column's head says the quotient is a
+        // percent, and B's row is worked in full, as 40 ÷ 80 is a half and
+        // not 50 until it is read as a percent
+        assert_eq!(head_new(left), "÷ 80, as a percent");
+        assert_eq!(worked_text(&rows[b], left), "10 ÷ 80 = 1/8 = 12.5%");
+        assert_eq!(worked_text(&rows[0], left), "40 ÷ 80 = 1/2 = 50%");
+        // the head and the worked row fit the column's room at their size
+        let units = super::super::draw::CHAR_UNITS_PER_POINT;
+        assert!(head_new(left).chars().count() as f64 * 22.0 * units <= 2.0);
+        assert!(worked_text(&rows[b], left).chars().count() as f64 * 20.0 * units <= WORKED_ROOM);
+        // it stands right of the sum and inside the frame
+        const {
+            assert!(WORKED_AT[0] - WORKED_ROOM / 2.0 > COL_X[3] + 0.3);
+            assert!(WORKED_AT[0] + WORKED_ROOM / 2.0 < super::super::draw::QUIZ_FRAME.0 - 0.15);
+        }
+    }
+
+    /// R2 (M22): Bayes was a church minister, said on the card as well as
+    /// in the line.
+    #[test]
+    fn the_card_says_what_kind_of_minister_bayes_was() {
+        assert_eq!(BAYES_NOTE, "Thomas Bayes, a church minister, died");
+        let f = crate::facts::facts().unwrap();
+        assert_eq!(f.get("F-N.bayes.died"), Some("1761"));
     }
 
     /// 07_4's numbers are counts of dots with a third in them: set as text,
