@@ -30,8 +30,8 @@ use fmn::prelude::*;
 
 use super::deck::{Deck, DeckSpec, scene_clock};
 use super::draw::{
-    arrow_points, corners, fact, fade_in_all, fade_out_all, fade_out_anim, faded_line, fail, flat, group, items,
-    numbers, own, panel, predict_hold, pushes, say, tween_all, whole,
+    BAND_UP, arrow_points, corners, fact, fade_in_all, fade_out_all, fade_out_anim, faded_line, fail, flat, group,
+    items, now, numbers, own, panel, predict_hold, pushes, say, tween_all, wait_until, whole,
 };
 use super::the_bridge_that_swayed::{date_text, question_card};
 
@@ -870,7 +870,6 @@ impl SceneConstruct for TwoBridges {
         let line = say(&kit, stage, "08_5")?;
         tween_all(stage, &[(footbridge.edges_on, 0.0), (footbridge.walkers_on, 0.0)], 0.5)?;
         footbridge.stop(stage);
-        fade_out_all(stage, &[ask], 0.4)?;
         let lateral = numbers("K-B2.lateral_hz")?;
         let hz_text = items("K-B2.lateral_hz")?;
         let spans = spans_from(&lateral).ok_or_else(|| fail("K-B2.lateral_hz is not four rates".into()))?;
@@ -963,12 +962,22 @@ impl SceneConstruct for TwoBridges {
         line.wait_for(stage, "Its sideways modes")?;
         let mut first = labels.clone();
         first.push(not_to_scale);
-        tween_all(stage, &[(plan.shown, 1.0)], 0.7)?;
+        // the question goes as the curves come: the stage was bare for half
+        // a second between them
+        let handover: Vec<Box<dyn Animation>> = vec![
+            fade_out_anim(stage, ask, 0.4)?,
+            stage.prepare(tween(plan.shown, 1.0, 0.7)?)?,
+        ];
+        stage.play_prepared(handover)?;
         fade_in_all(stage, &first, 0.5)?;
         fade_in_all(stage, &line_parts, 0.7)?;
         fade_in_all(stage, &[dallard], 0.5)?;
+        let dallard_up = now(stage);
         line.wait_for(stage, "And the more the deck moved")?;
         tween_all(stage, &[(plan.push_on, 1.0)], 0.6)?;
+        // the push comes with its words; the band it shares the foot of the
+        // frame with stays until it has been up long enough to read
+        wait_until(stage, dallard_up + BAND_UP)?;
         fade_out_all(stage, &[dallard], 0.4)?;
         fade_in_all(stage, &[arup], 0.5)?;
         line.wait_for(stage, "to keep their balance")?;

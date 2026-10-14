@@ -283,6 +283,17 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
     Ok(())
 }
 
+/// The scene time now, seconds.
+pub fn now(stage: &Stage<'_>) -> f64 {
+    stage.scene().time().to_f64()
+}
+
+/// How long a lower-third stands whole before anything takes it away,
+/// seconds: `marks::probe` asks 2.5 of every band of a run, and a frame is
+/// a tenth of a second there. Take `now` when its fade-in is over and
+/// `wait_until(stage, up + BAND_UP)` before its fade-out.
+pub const BAND_UP: f64 = 2.6;
+
 /// Wait `seconds` (a beat of stillness after a reveal).
 pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
     let fps = stage.scene().time().fps();
@@ -388,13 +399,98 @@ pub fn group(stage: &mut Stage<'_>, members: &[Mob]) -> fmn::Result<Mob> {
 
 /// Bring several detached mobjects in together with a fade, `rt` seconds.
 pub fn fade_in_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    #[cfg(test)]
+    let targets = fade_log::targets(stage, mobs);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
         anims.push(stage.prepare(a.rt(rt))?);
     }
     stage.play_prepared(anims)?;
+    #[cfg(test)]
+    fade_log::check(stage, &targets);
     Ok(())
+}
+
+/// What the fade-ins of a test run left short of where they were going:
+/// franken_manim ends a fade that is playing when its mobject changes its
+/// number of points (an updater that rewrites a polyline of two vertices as
+/// forty-nine in the fade's first frame) at the opacity the fade began at, so
+/// the mobject is on the scene and never seen (11_1's rays, 14_6's curve).
+/// The fade helpers note every leaf that ended a fade-in under half the
+/// opacity it had when the fade was asked for.
+#[cfg(test)]
+pub mod fade_log {
+    use std::cell::RefCell;
+
+    use fmn::prelude::*;
+
+    /// A leaf that a fade-in ended well under its target.
+    #[derive(Debug, Clone, Copy)]
+    pub struct Short {
+        /// The scene time the fade ended, seconds.
+        pub at: f64,
+        pub points: usize,
+        /// The opacity it had when the fade-in was asked for, and the opacity
+        /// it had when the fade was over.
+        pub target: f64,
+        pub reached: f64,
+        /// Where it stands (centre), scene units.
+        pub centre: [f64; 2],
+    }
+
+    thread_local! {
+        static LOG: RefCell<Vec<Short>> = const { RefCell::new(Vec::new()) };
+    }
+
+    fn opacity(stage: &Stage<'_>, leaf: Mob) -> f64 {
+        stage
+            .get_fill_opacity(leaf)
+            .unwrap_or(0.0)
+            .max(stage.get_stroke_opacity(leaf).unwrap_or(0.0))
+    }
+
+    /// Every drawn leaf of the families of `mobs`, with the opacity it has.
+    pub fn targets(stage: &Stage<'_>, mobs: &[Mob]) -> Vec<(Mob, f64)> {
+        mobs.iter()
+            .flat_map(|&m| stage.family(m))
+            .filter(|&leaf| stage.get_points(leaf).is_some_and(|p| !p.is_empty()))
+            .map(|leaf| (leaf, opacity(stage, leaf)))
+            .collect()
+    }
+
+    /// After the fade: note the leaves that stand under half their target.
+    pub fn check(stage: &Stage<'_>, targets: &[(Mob, f64)]) {
+        let at = stage.scene().time().to_f64();
+        for &(leaf, target) in targets {
+            let reached = opacity(stage, leaf);
+            // (a leaf with no points at the end, a zero-length arrow say, is
+            // nothing to be seen and nothing a fade could have stopped on)
+            let points = stage.get_points(leaf).unwrap_or_default();
+            if target > 0.1 && reached < 0.5 * target && !points.is_empty() {
+                let c = stage.get_center(leaf);
+                LOG.with(|log| {
+                    log.borrow_mut().push(Short {
+                        at,
+                        points: points.len(),
+                        target,
+                        reached,
+                        centre: [c[0], c[1]],
+                    });
+                });
+            }
+        }
+    }
+
+    /// Forget what is noted (a run begins).
+    pub fn clear() {
+        LOG.with(|log| log.borrow_mut().clear());
+    }
+
+    /// What the run since the last [`clear`] noted.
+    pub fn take() -> Vec<Short> {
+        LOG.with(|log| std::mem::take(&mut *log.borrow_mut()))
+    }
 }
 
 /// Fade several mobjects out together, `rt` seconds.
@@ -427,6 +523,8 @@ pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) ->
     if mobs.is_empty() {
         return Ok(());
     }
+    #[cfg(test)]
+    let targets = fade_log::targets(stage, mobs);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
@@ -434,6 +532,8 @@ pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) ->
     }
     let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);
     stage.play(g)?;
+    #[cfg(test)]
+    fade_log::check(stage, &targets);
     Ok(())
 }
 
@@ -455,6 +555,8 @@ pub fn fade_out_anim(stage: &mut Stage<'_>, m: Mob, rt: f64) -> fmn::Result<Box<
 /// change of picture that does not wait for the old one to be gone before the
 /// new one comes (the voice is already on the next thing).
 pub fn cross_fade(stage: &mut Stage<'_>, leaving: &[Mob], arriving: &[Mob], rt: f64) -> fmn::Result<()> {
+    #[cfg(test)]
+    let targets = fade_log::targets(stage, arriving);
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in leaving {
         anims.push(fade_out_anim(stage, m, rt)?);
@@ -463,6 +565,8 @@ pub fn cross_fade(stage: &mut Stage<'_>, leaving: &[Mob], arriving: &[Mob], rt: 
         anims.push(fade_in_anim(stage, m, rt)?);
     }
     stage.play_prepared(anims)?;
+    #[cfg(test)]
+    fade_log::check(stage, &targets);
     Ok(())
 }
 
@@ -1098,19 +1202,33 @@ pub mod testing {
     /// Run chapter `key` of the registry at 64 by 36 and 10 frames a second,
     /// visual-only (no narrator: a line lasts its scratch-voice estimate).
     pub fn run(key: &str) -> Result<Ran, String> {
-        run_as(key, key, None).map(|(ran, _)| ran)
+        run_as(key, key, None, None).map(|(ran, _)| ran)
     }
 
     /// The same run with the scratch voice placed: every line starts when
     /// the voice would be free and lasts its estimated length, as in a
     /// scratch-voice draft, so the timing of a quiz can be measured.
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
+        voiced(key, None)
+    }
+
+    /// What a probe is: called once with the stage before the chapter's own
+    /// first line, to put an updater on it that reads the scene every frame.
+    pub type Probe = Box<dyn FnOnce(&mut Stage<'_>) -> fmn::Result<()>>;
+
+    /// [`run_voiced`] with `probe` on the stage, so a test can watch the
+    /// chapter frame by frame (`marks::probe`).
+    pub fn run_probed(key: &str, probe: Probe) -> Result<Voiced, String> {
+        voiced(key, Some(probe))
+    }
+
+    fn voiced(key: &str, probe: Option<Probe>) -> Result<Voiced, String> {
         let script = Script::parse(crate::SCRIPT)?;
         let narrator = Narrator::estimate(&script);
         // a name of its own, so the events of this run are not mixed with
         // another test's run of the same chapter
         let tag = format!("{key}#voiced");
-        let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)))?;
+        let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)), probe)?;
         let timeline = kit
             .finished
             .borrow()
@@ -1138,8 +1256,37 @@ pub mod testing {
         })
     }
 
-    /// Run chapter `key` with its kit named `name`, and a narrator if given.
-    fn run_as(key: &str, name: &str, narrator: Option<Rc<Narrator>>) -> Result<(Ran, Kit), String> {
+    /// A chapter's scene with a [`Probe`] run first.
+    struct Probed {
+        inner: Box<dyn SceneConstruct>,
+        probe: Option<Probe>,
+    }
+
+    impl SceneConstruct for Probed {
+        fn name(&self) -> &str {
+            self.inner.name()
+        }
+
+        fn tex_preflight(&self) -> Vec<TypesetRequest<'_>> {
+            self.inner.tex_preflight()
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            if let Some(probe) = self.probe.take() {
+                probe(stage)?;
+            }
+            self.inner.construct(stage)
+        }
+    }
+
+    /// Run chapter `key` with its kit named `name`, a narrator and a probe if
+    /// given.
+    fn run_as(
+        key: &str,
+        name: &str,
+        narrator: Option<Rc<Narrator>>,
+        probe: Option<Probe>,
+    ) -> Result<(Ran, Kit), String> {
         static RUNS: AtomicUsize = AtomicUsize::new(0);
         let chapter = crate::chapters::registry()
             .into_iter()
@@ -1152,6 +1299,9 @@ pub mod testing {
         }
         kit.chapter = name.to_owned();
         let mut scene = (chapter.make)(kit.clone());
+        if probe.is_some() {
+            scene = Box::new(Probed { inner: scene, probe });
+        }
         let n = RUNS.fetch_add(1, Ordering::Relaxed);
         let dir = std::env::temp_dir().join(format!("eigen_engineering_{key}_{}_{n}", std::process::id()));
         let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;

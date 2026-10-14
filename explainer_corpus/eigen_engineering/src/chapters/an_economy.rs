@@ -22,9 +22,9 @@ use fmn::prelude::*;
 
 use super::arrows::{ArrowTest, band_ends, own_lines, turn_deg, unit_at};
 use super::draw::{
-    Map2, MatrixGrid, Plane, QuizCard, arrow_points, chip, cross_fade, fact, fade_in_all, fade_out_all, faded_line,
-    fail, flat, fraction_value, good, ground, group, items, line_style, moves, numbers, own, pause, pushes, run, say,
-    show, tween_all, warn, whole,
+    BAND_UP, Map2, MatrixGrid, Plane, QuizCard, arrow_points, chip, cross_fade, fact, fade_in_all, fade_out_all,
+    faded_line, fail, flat, fraction_value, good, ground, group, items, line_style, moves, now, numbers, own, pause,
+    pushes, run, say, show, tween_all, wait_until, warn, whole,
 };
 use crate::facts::shown;
 
@@ -682,6 +682,7 @@ impl SceneConstruct for AnEconomy {
         play!(stage; tween(test.degrees, other_deg, 1.8)?);
         play!(stage; dashed.animate().set_anim_args(run(0.3))?.set_opacity(1.0)?);
         fade_in_all(stage, &[label_other, cited], 0.3)?;
+        let cited_up = now(stage);
         // and round to where it points into the quarter with tools negative
         line.wait_for(stage, "needs a negative amount of tools")?;
         let into_quarter = other_deg + 180.0;
@@ -692,6 +693,9 @@ impl SceneConstruct for AnEconomy {
         stage.play_prepared(fades)?;
         fade_in_all(stage, &[tag_negative], 0.3)?;
         line.wait_end(stage)?;
+        // the citation, which the voice does not read, has stood long enough
+        // to read before the chapter lets go of it
+        wait_until(stage, cited_up + BAND_UP)?;
 
         kit.hold(stage)?;
         test.stop(stage);

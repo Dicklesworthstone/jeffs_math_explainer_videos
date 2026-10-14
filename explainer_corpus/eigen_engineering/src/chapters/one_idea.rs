@@ -19,9 +19,9 @@ use fmn::prelude::*;
 use super::an_economy::{angle_readout, degree_sign, hatched_quarter, table_entries, table_of};
 use super::arrows::{ArrowTest, PlaneArrow, band_ends, own_lines, unit_at};
 use super::draw::{
-    MatrixGrid, Plane, arrow_points, corners, cross_fade, fact, fade_in_all, fade_out_all, faded_line, fail, flat,
-    fraction_tex, fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause, predict_hold, pushes,
-    run, say, tween_all, tween_linear, warn, whole,
+    BAND_UP, MatrixGrid, Plane, arrow_points, corners, cross_fade, fact, fade_in_all, fade_out_all, faded_line, fail,
+    flat, fraction_tex, fraction_value, good, items, matrix, minus, moves, now, numbers, own, panel, pause,
+    predict_hold, pushes, run, say, tween_all, tween_linear, wait_until, warn, whole,
 };
 
 pub struct OneIdea {
@@ -917,7 +917,10 @@ impl SceneConstruct for OneIdea {
         )?;
         line.wait_end(stage)?;
         fade_in_all(stage, &[powers, companion], 0.6)?;
-        pause(stage, 1.5)?;
+        // the companion video's band has to be up long enough to read (1.9 s
+        // was not), and the beat is a pause besides
+        let companion_up = now(stage);
+        wait_until(stage, companion_up + BAND_UP)?;
 
         // ---- 14_6: London's footbridge reopened: the pattern was
         // predicted; what would push along with it was not

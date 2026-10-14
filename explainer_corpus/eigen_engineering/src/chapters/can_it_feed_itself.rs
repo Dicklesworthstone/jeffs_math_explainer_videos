@@ -21,9 +21,9 @@ use fmn::prelude::*;
 use super::an_economy::{table_entries, table_of};
 use super::arrows::PlaneArrow;
 use super::draw::{
-    MatrixGrid, Plane, arrow_points, cross_fade, cross_mark, fact, fade_in_all, fade_in_lagged, fade_out_all,
-    faded_line, fail, flat, fraction_value, good, items, matrix, minus, moves, numbers, own, panel, pause,
-    predict_hold, pushes, run, say, show, tween_all, warn, whole,
+    BAND_UP, MatrixGrid, Plane, arrow_points, cross_fade, cross_mark, fact, fade_in_all, fade_in_lagged, fade_out_all,
+    faded_line, fail, flat, fraction_value, good, items, matrix, minus, moves, now, numbers, own, panel, pause,
+    predict_hold, pushes, run, say, show, tween_all, wait_until, warn, whole,
 };
 use crate::model::economy::{self, Table};
 
@@ -197,12 +197,17 @@ fn below_text(hawkins_simon_year: &str) -> String {
     )
 }
 
-/// The label and text of 13_7's Leontief band, which read "(his 1941 book,
-/// for 1919 and / 1929)": "1929)" stood alone on a second line.
+/// The label and text of 13_7's Leontief band: the storyboard's one band,
+/// his tables and his prize. Its first half read "(his 1941 book, for 1919
+/// and / 1929)": "1929)" stood alone on a second line.
 const LEONTIEF_LABEL: &str = "Wassily Leontief:";
 
-fn leontief_text(sectors: &str, book_year: &str) -> String {
-    format!("built such tables for the American economy, {sectors} sectors wide ({book_year} book, for 1919 and 1929)")
+fn leontief_text(sectors: &str, book_year: &str, prize_year: &str) -> String {
+    format!(
+        "built such tables for the American economy, {sectors} sectors wide ({book_year} book, for 1919 and 1929); \
+         Nobel prize in economics, {prize_year}, for the development of the input-output method and for its \
+         application to important economic problems"
+    )
 }
 
 // -------------------------------------------------------------- the scene
@@ -378,11 +383,15 @@ impl SceneConstruct for CanItFeedItself {
         let cross = cross_mark(stage, PLANE.p(total[0], total[1]), CROSS_HALF, own(), 6.0)?;
         let mut walk = extra_links.clone();
         walk.extend(&extra_stack);
-        fade_in_lagged(stage, &walk, 1.6, 0.12)?;
-        fade_in_all(stage, &[cross, check], 0.5)?;
+        // the names to search come in with the total, before the walk to it
+        // (after the walk they stood 1.4 s past the voice)
         let search = names_to_search(&kit, stage, &["Leontief inverse", "Neumann series"])?;
         fade_in_all(stage, &[search], 0.5)?;
+        let search_up = now(stage);
+        fade_in_lagged(stage, &walk, 1.6, 0.12)?;
+        fade_in_all(stage, &[cross, check], 0.5)?;
         line.wait_end(stage)?;
+        wait_until(stage, search_up + BAND_UP)?;
         pause(stage, 1.0)?;
 
         // ---- 13_4: a lopsided order settles onto equal amounts
@@ -601,14 +610,17 @@ impl SceneConstruct for CanItFeedItself {
             ),
         )?;
         fade_in_all(stage, &[programmer], 0.4)?;
-        pause(stage, 0.9)?;
+        let programmer_up = now(stage);
         let mut cleared = red.clone();
         cleared.extend(&plane_again);
         cleared.extend([counts, cannot, programmer]);
-        fade_out_all(stage, &cleared, 0.5)?;
 
-        // the test: the largest eigenvalue against one
+        // the test: the largest eigenvalue against one. The red chain and the
+        // programmer's note stand until the voice reaches it, and the note
+        // has been up long enough to read (it was cleared 1.2 s after it
+        // came, a second before the voice); then the card comes as they go
         line.wait_for(stage, "So the test is one number")?;
+        wait_until(stage, programmer_up + BAND_UP)?;
         let card = Rectangle::new()
             .width(10.4)
             .height(3.7)
@@ -649,29 +661,34 @@ impl SceneConstruct for CanItFeedItself {
             kit.text(stage, &show(big, 1)?, 34.0, warn(), v(x_of(big), base + 0.7))?,
         ];
         let cards = [card, test, axis];
-        fade_in_all(stage, &cards, 0.5)?;
+        cross_fade(stage, &cleared, &cards, 0.5)?;
         line.wait_for(stage, "With the largest eigenvalue below one")?;
         fade_in_all(stage, &[ticks[0], names[0], ticks[1], names[1]], 0.5)?;
         let below = precisely(&kit, stage, &below_text(fact("K-S.hawkins_simon_year")?))?;
         fade_in_all(stage, &[below], 0.5)?;
+        let below_up = now(stage);
         line.wait_for(stage, "At one or more")?;
-        fade_in_all(stage, &[ticks[2], names[2]], 0.5)?;
-        fade_out_all(stage, &[below], 0.3)?;
         let above = precisely(
             &kit,
             stage,
             "at one or more, some demand fails, and every demand when each industry feeds every other, directly or indirectly",
         )?;
-        fade_in_all(stage, &[above], 0.5)?;
+        // the tick and name of the big eigenvalue come as the band changes
+        // (fade-out, then fade-in, put the next band up a second late and
+        // the chapter's tail over the cue check's 5 s)
+        wait_until(stage, below_up + BAND_UP)?;
+        cross_fade(stage, &[below], &[above, ticks[2], names[2]], 0.5)?;
+        let above_up = now(stage);
         line.wait_end(stage)?;
 
         // the same kind of table, 44 sectors wide: the Leontief card is read
         // after the line (D-16 keeps it); the test card has been up since
-        // "below one", so it goes as the line ends
-        let mut shown_card = vec![card, test, axis, above];
+        // "below one", so it goes as the line ends, the grids coming as it
+        // goes, and the band of the test stands until it has been up long
+        // enough to read
+        let mut shown_card = vec![card, test, axis];
         shown_card.extend(&ticks);
         shown_card.extend(names);
-        fade_out_all(stage, &shown_card, 0.5)?;
         let small_grid = MatrixGrid::build(&kit, stage, &table_entries(&table)?, 44.0, ink, v(-3.4, 0.9))?;
         let sectors = fact("K-S.leontief.sectors")?;
         let lattice_at = v(2.6, 0.9);
@@ -685,28 +702,24 @@ impl SceneConstruct for CanItFeedItself {
         let wide = kit.text(stage, &format!("{sectors} sectors wide"), 28.0, dim, v(2.6, -0.95))?;
         let mut grids = vec![small_grid.group, wide];
         grids.extend(&big_grid);
+        // one band, as the storyboard has it (two bands of 1.3 s each could
+        // not be read)
         let leontief = lower_third(
             &kit,
             stage,
             LEONTIEF_LABEL,
-            &leontief_text(sectors, fact("K-S.leontief.book_year")?),
-        )?;
-        let prize = lower_third(
-            &kit,
-            stage,
-            "Leontief:",
-            &format!(
-                "Nobel prize in economics, {}, for the development of the input-output method and for its application to important economic problems",
-                fact("K-S.leontief.prize_year")?
+            &leontief_text(
+                sectors,
+                fact("K-S.leontief.book_year")?,
+                fact("K-S.leontief.prize_year")?,
             ),
         )?;
-        grids.push(leontief);
-        fade_in_all(stage, &grids, 0.6)?;
-        pause(stage, 1.3)?;
-        cross_fade(stage, &[leontief], &[prize], 0.4)?;
-        pause(stage, 0.8)?;
-        kit.hold(stage)?;
-        fade_all(stage, 0.8)?;
+        cross_fade(stage, &shown_card, &grids, 0.6)?;
+        wait_until(stage, above_up + BAND_UP)?;
+        cross_fade(stage, &[above], &[leontief], 0.4)?;
+        let leontief_up = now(stage);
+        wait_until(stage, leontief_up + BAND_UP)?;
+        fade_all(stage, 0.5)?;
         kit.finish(stage)
     }
 }
@@ -855,7 +868,11 @@ mod tests {
             ("precisely:", below_text(fact("K-S.hawkins_simon_year").unwrap())),
             (
                 LEONTIEF_LABEL,
-                leontief_text(sectors, fact("K-S.leontief.book_year").unwrap()),
+                leontief_text(
+                    sectors,
+                    fact("K-S.leontief.book_year").unwrap(),
+                    fact("K-S.leontief.prize_year").unwrap(),
+                ),
             ),
         ];
         for (label, text) in bands {
@@ -878,10 +895,12 @@ mod tests {
                     text,
                     "the lines of the band were not found in {made:?}"
                 );
-                assert!(lines.len() <= 2, "{lines:?}");
-                if let [a, b] = &lines[..] {
-                    let (a, b) = (a.chars().count(), b.chars().count());
-                    assert!(3 * b >= a, "the second line is a remnant: {lines:?}");
+                // all of it: a band shows three lines at most and ends a longer
+                // text with "…"
+                assert!(lines.len() <= 3, "{lines:?}");
+                for pair in lines.windows(2) {
+                    let (a, b) = (pair[0].chars().count(), pair[1].chars().count());
+                    assert!(3 * b >= a, "a line is a remnant of the one before: {lines:?}");
                 }
                 Ok(())
             });

@@ -19,8 +19,8 @@ use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
 use super::draw::{
-    MatrixGrid, QuizCard, corners, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, ground, items,
-    music_hold, numbers, own, panel, pause, say, show, squeezed, stretched, tween_linear, whole,
+    BAND_UP, MatrixGrid, QuizCard, corners, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, ground, items,
+    music_hold, now, numbers, own, panel, pause, say, show, squeezed, stretched, tween_linear, wait_until, whole,
 };
 use crate::model::rooms::{CUBE, NARROW, Room, STUDY, attic_section};
 
@@ -892,11 +892,14 @@ impl SceneConstruct for WhereModesRule {
             own(),
             v(-6.8, ROW_Y[2] - 0.7),
         )?;
-        fade_in_all(stage, &[sharing], 0.5)?;
+        // the sources come in with the answer, not after the line (they stood
+        // 1.6 s between the line's end and 11_5's first picture), and stay
+        // until they have been up long enough to read
         let sources = lower_third(&kit, stage, ROOMS_SOURCES, SHOEBOXES)?;
+        fade_in_all(stage, &[sharing, sources], 0.5)?;
+        let sources_up = now(stage);
         line.wait_end(stage)?;
-        fade_in_all(stage, &[sources], 0.6)?;
-        pause(stage, 1.2)?;
+        wait_until(stage, sources_up + BAND_UP)?;
         let _ = cube_stacks;
 
         // ------------------------------------------------------------ 11_5
