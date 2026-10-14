@@ -1526,4 +1526,22 @@ mod tests {
             );
         }
     }
+
+    /// One audit test per quiz whose chapter is a real scene (the others
+    /// are animatics until their lanes land them: a lane adds its line here
+    /// with its chapter).
+    macro_rules! section_five_tests {
+        ($($name:ident: $line:literal),* $(,)?) => {
+            $(
+                #[test]
+                fn $name() {
+                    section_five($line);
+                }
+            )*
+        };
+    }
+
+    section_five_tests! {
+        quiz_02_6_follows_section_5: "02_6",
+    }
 }
