@@ -13,9 +13,9 @@ use explainer_kit::{Kit, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, CardRow, Cell, LENS_AT, ProofCard, Side, Words, dim, fact, fact_ints, fade_to, fail, faint, file_on_shelf,
-    flash, fly, formula, ground, group, hero, ink, lens, lens_mark, line_style, pause, question_card, question_pause,
-    repaint, say, size, slide, source_line, tex_row, write_formula,
+    Board, CardRow, Cell, LENS_AT, ProofCard, Side, Words, breath, dim, fact, fact_ints, fade_to, fail, faint,
+    file_on_shelf, flash, fly, formula, ground, group, hero, ink, lens, lens_mark, line_style, pause, question_card,
+    question_pause, repaint, say, size, slide, source_line, tex_row, write_formula,
 };
 use super::kinetics::{Moves, arrive, fit_in, leave, play_with, rectangle, together};
 use crate::model::{Rect, cubes};
@@ -752,6 +752,9 @@ impl SceneConstruct for EveryCube {
         fit_in(stage, letters, COLUMN_ROOM, 1.0);
         play_with(stage, 0.0, |st| Ok(vec![arrive(st, letters, 0.6)?]))?;
         line.wait_end(stage)?;
+        // the storyboard's hold (R2: the strips and the letters line land in
+        // it): the music has the finished picture before the card of 06_4
+        breath(&kit, stage)?;
 
         // ---------------------------------------------------------- 06_4
         let line = say(&kit, stage, LINES[3])?;
