@@ -11,9 +11,9 @@ use explainer_kit::{BACKGROUND, Kit, Palette, Timed, fade_all, hex, play, thousa
 use fmn::prelude::*;
 
 use super::draw::{
-    COLUMN_LEFT, COLUMN_MID, SQUARE_AT, SQUARE_SIDE, alice, block_grey, bob, caption, column, die_face, fade_in_all,
-    fade_out_all, faded_line, fail, flat, gold, group, heads, lettered_disc, line_style, pair_tile, panel, pause, say,
-    tag, tails, thrown, wait_until,
+    COLUMN_LEFT, COLUMN_MID, Flip, LIFT_BY, SQUARE_AT, SQUARE_SIDE, alice, block_grey, bob, caption, column, die_face,
+    fade_in_all, fade_out_all, faded_line, fail, flat, gold, group, heads, lettered_disc, line_style, pair_tile, panel,
+    pause, say, tag, tails, thrown, wait_until,
 };
 use crate::facts::loaded_run;
 use crate::model::{Face, LOADED, PairLaw, Q, bent, die, tally};
@@ -340,7 +340,7 @@ impl Grid {
 
     /// A still copy of the block for (`first`, `second`), edged in gold, and
     /// the same shape mirrored in the diagonal with its corners in the same
-    /// order: `Transform::new(copy, mirror)` turns it over. Both detached.
+    /// order: `Flip::between(&[(copy, mirror)])` turns it over. Both detached.
     fn ghost_and_mirror(&self, stage: &mut Stage<'_>, first: usize, second: usize, color: Srgb, edge: f64) -> [Mob; 2] {
         let (u0, w0, u1, w1) = self.rect(first, second);
         let style = Style::default().fill(color, 0.92).stroke(gold(), edge, 1.0);
@@ -620,7 +620,7 @@ impl SceneConstruct for LoadedDice {
         stage.scene_mut().bring_to_front(&[diagonal])?;
         pause(stage, 0.5)?;
         wait_until(stage, line.at("as a five then a six")? - 1.5)?;
-        play!(stage; Transform::new(ghost, mirror).rt(1.5));
+        Flip::between(stage, &[(ghost, mirror)], LIFT_BY)?.play(stage, 1.5)?;
         let back = twin(&kit, stage, TILE_R, (second, first))?;
         let equals = kit.text(stage, EQUALS, 44.0, gold(), v(COLUMN_MID, TILES_Y))?;
         let mut arrives = back.to_vec();
@@ -641,11 +641,7 @@ impl SceneConstruct for LoadedDice {
         }
         fade_in_all(stage, &sheet, 0.3)?;
         stage.scene_mut().bring_to_front(&[diagonal])?;
-        let mut flips: Vec<Box<dyn Animation>> = Vec::new();
-        for (ghost, mirror) in turns {
-            flips.push(stage.prepare(Transform::new(ghost, mirror).rt(1.8))?);
-        }
-        stage.play_prepared(flips)?;
+        Flip::between(stage, &turns, LIFT_BY)?.play(stage, 1.8)?;
         // what a run of the die says, read two rolls at a time
         let pairs: Vec<(usize, usize)> = run.as_chunks::<2>().0.iter().map(|c| (c[0], c[1])).collect();
         let tallied = |keep: fn(usize, usize) -> bool| pairs.iter().filter(|&&(a, b)| keep(a, b)).count();

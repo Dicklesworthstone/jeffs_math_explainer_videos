@@ -13,12 +13,11 @@ use explainer_kit::animatic::HOLD_S;
 use explainer_kit::props::lower_third;
 use explainer_kit::{Kit, Palette, Timed, hex, play, tween, v};
 use fmn::animation::{grow_arrow, indicate, transform_from_copy};
-use fmn::core::rate::{linear, smooth};
 use fmn::prelude::*;
 
 use super::draw::{
-    Block, SQUARE_AT, SQUARE_SIDE, Square, SquarePose, SquareView, alice, bob, fade_all_but, fade_in_all, fade_out_all,
-    fail, flat, gold, heads, line_style, panel, pause, rgb, say, tails, thrown, wait_until,
+    Block, Flip, LIFT_BY, SQUARE_AT, SQUARE_SIDE, Square, SquarePose, SquareView, alice, bob, fade_all_but,
+    fade_in_all, fade_out_all, fail, flat, gold, heads, line_style, panel, pause, rgb, say, tails, thrown, wait_until,
 };
 use crate::facts::stops;
 use crate::model::{Face, PairLaw, Q, bent};
@@ -132,138 +131,41 @@ fn follow_edges(stage: &mut Stage<'_>, view: SquareView, labels: [Mob; 4]) -> fm
     Ok(anchor)
 }
 
-/// The share of a flip spent lifting the copy off its block.
-const LIFT_SHARE: f64 = 0.15;
-/// How far the copy lifts, away from the diagonal.
-const LIFT_BY: f64 = 0.14;
-
 /// One flip of the heads-then-tails block across the diagonal: a copy of the
-/// block (the real one stays), and whatever rides with it, drawn from one
-/// tracker. Every point travels straight to its own mirror image, so the
-/// copy turns over on the diagonal and lands on tails then heads.
-struct Flip {
-    /// 0: on its own block. 1: on the mirror image.
-    turn: Mob,
-    /// Carries the updater.
-    anchor: Mob,
-    /// The copy first, then what rides with it.
-    parts: Vec<Mob>,
-}
-
-impl Flip {
-    /// The flip of block `b` as the square stands now. `lines` are shapes on
-    /// stage that turn over with the copy (their points are mirrored);
-    /// `riders` are labels that travel with it and stay upright. Copies of
-    /// both are made; the originals stay where they are.
-    fn build(
-        stage: &mut Stage<'_>,
-        square: &Square,
-        b: Block,
-        color: Srgb,
-        lines: &[Mob],
-        riders: &[Mob],
-    ) -> fmn::Result<Self> {
-        let pose = square.pose(stage);
-        let points = |stage: &Stage<'_>, m: Mob| {
-            stage
-                .get_points(m)
-                .ok_or_else(|| fail("a flipped shape has no points".into()))
-        };
-        let [ghost, mirror] = square.ghost_and_mirror(stage, b, color);
-        let mut shapes = vec![(ghost, points(stage, ghost)?, points(stage, mirror)?)];
-        for &l in lines {
-            let c = stage.copy_family(l)?;
-            let from = points(stage, c)?;
-            let to = from.iter().map(|&q| mirrored(&pose, q)).collect();
-            shapes.push((c, from, to));
-        }
-        let mut carried = Vec::new();
-        for &r in riders {
-            let c = stage.copy_family(r)?;
-            let from = stage.get_center(c);
-            carried.push((c, from, mirrored(&pose, from)));
-        }
-        let mut parts: Vec<Mob> = shapes.iter().map(|s| s.0).collect();
-        parts.extend(carried.iter().map(|c| c.0));
-        let turn = stage.add_value_tracker(0.0);
-        let anchor = stage.arena_mut().add(VMobject::new());
-        let lift_by = LIFT_BY / 2f64.sqrt();
-        let mut last: Option<f64> = None;
-        stage.add_updater(
-            anchor,
-            move |s, _| {
-                let t = s.tracker_value(turn).unwrap_or(0.0).clamp(0.0, 1.0);
-                if last == Some(t) {
-                    return;
-                }
-                let lift = smooth((t / LIFT_SHARE).min(1.0));
-                let e = smooth(((t - LIFT_SHARE) / (1.0 - LIFT_SHARE)).clamp(0.0, 1.0));
-                // lifted up and to the left, away from the diagonal, until it lands
-                let off = lift_by * lift * (1.0 - e);
-                let at = |a: Vec3, b: Vec3| v(a[0] + (b[0] - a[0]) * e - off, a[1] + (b[1] - a[1]) * e + off);
-                for (m, from, to) in &shapes {
-                    let now: Vec<Vec3> = from.iter().zip(to).map(|(&a, &b)| at(a, b)).collect();
-                    // halfway over, the copy is edge-on (a line on the diagonal): keep the last shape
-                    if (e - 0.5).abs() >= 0.01 {
-                        let _ = s.set_points(*m, &now);
-                    }
-                }
-                for &(m, from, to) in &carried {
-                    s.move_to(m, at(from, to), ORIGIN);
-                }
-                last = Some(t);
-            },
-            true,
-        )?;
-        Ok(Self { turn, anchor, parts })
+/// block (the real one stays), and whatever rides with it, turned over by
+/// the shared [`Flip`] and landing on tails then heads. `lines` are shapes on
+/// stage that turn over with the copy (their points are mirrored); `riders`
+/// are labels that travel with it and stay upright. Copies of both are made;
+/// the originals stay where they are.
+fn flip_of_block(
+    stage: &mut Stage<'_>,
+    square: &Square,
+    b: Block,
+    color: Srgb,
+    lines: &[Mob],
+    riders: &[Mob],
+) -> fmn::Result<Flip> {
+    let pose = square.pose(stage);
+    let points = |stage: &Stage<'_>, m: Mob| {
+        stage
+            .get_points(m)
+            .ok_or_else(|| fail("a flipped shape has no points".into()))
+    };
+    let [ghost, mirror] = square.ghost_and_mirror(stage, b, color);
+    let mut shapes = vec![(ghost, points(stage, ghost)?, points(stage, mirror)?)];
+    for &l in lines {
+        let c = stage.copy_family(l)?;
+        let from = points(stage, c)?;
+        let to = from.iter().map(|&q| mirrored(&pose, q)).collect();
+        shapes.push((c, from, to));
     }
-
-    fn all(&self) -> Vec<Mob> {
-        let mut all = vec![self.anchor];
-        all.extend(&self.parts);
-        all
+    let mut carried = Vec::new();
+    for &r in riders {
+        let c = stage.copy_family(r)?;
+        let from = stage.get_center(c);
+        carried.push((c, from, mirrored(&pose, from)));
     }
-
-    /// Bring the copy in, on its block.
-    fn show(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
-        fade_in_all(stage, &self.all(), rt)
-    }
-
-    /// Lift it, turn it over and land it, `rt` seconds.
-    fn play(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
-        let a = self
-            .turn
-            .animate()
-            .set_anim_args(AnimateArgs {
-                run_time: Some(rt),
-                rate_func: Some(linear),
-                ..AnimateArgs::default()
-            })?
-            .set_value(1.0)?;
-        stage.play(a)?;
-        Ok(())
-    }
-
-    /// The same flip played by the clock, through whatever comes next (a
-    /// listen window has no animation of its own): it starts `delay` seconds
-    /// from now and takes `rt` seconds.
-    fn play_by_the_clock(&self, stage: &mut Stage<'_>, delay: f64, rt: f64) -> fmn::Result<()> {
-        let turn = self.turn;
-        let mut clock = 0.0;
-        stage.add_dt_updater(
-            self.anchor,
-            move |s, _, dt| {
-                clock += dt;
-                let _ = s.set_tracker_value(turn, ((clock - delay) / rt).clamp(0.0, 1.0));
-            },
-            false,
-        )?;
-        Ok(())
-    }
-
-    fn hide(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
-        fade_out_all(stage, &self.all(), rt)
-    }
+    Flip::new(stage, shapes, carried, LIFT_BY)
 }
 
 /// One side of the equation: three pieces (a chance, the times sign, a
@@ -660,7 +562,7 @@ impl SceneConstruct for EveryCoin {
         let diagonal = square.diagonal(stage)?;
         play!(stage; show_creation(diagonal).rt(0.6));
         let riders = [green_wide[0], green_wide[1], green_tall[0], green_tall[1]];
-        let flip = Flip::build(stage, &square, Block::HT, alice(), &[green_rule], &riders)?;
+        let flip = flip_of_block(stage, &square, Block::HT, alice(), &[green_rule], &riders)?;
         flip.show(stage, 0.3)?;
         flip.play(stage, 2.0)?;
         // only then the two products, as one equation: each block's width
@@ -727,7 +629,7 @@ impl SceneConstruct for EveryCoin {
         // each side takes its block's colour (once the chances have stopped
         // swinging round), and the copy is ready to flip once more, by
         // itself, in the listen window
-        let again = Flip::build(stage, &square, Block::HT, alice(), &[green_rule], &riders)?;
+        let again = flip_of_block(stage, &square, Block::HT, alice(), &[green_rule], &riders)?;
         let mut ins = unders.clone();
         ins.extend(again.all());
         fade_in_all(stage, &ins, 0.3)?;
@@ -782,7 +684,7 @@ impl SceneConstruct for EveryCoin {
         square.set_coin(stage, favours_tails.f64(), 0.8)?;
         // still mirror images, with the coin favouring tails
         line.wait_for(stage, "The two blocks stay")?;
-        let mirror = Flip::build(stage, &square, Block::HT, alice(), &[], &[])?;
+        let mirror = flip_of_block(stage, &square, Block::HT, alice(), &[], &[])?;
         mirror.show(stage, 0.2)?;
         mirror.play(stage, 1.0)?;
         mirror.hide(stage, 0.2)?;

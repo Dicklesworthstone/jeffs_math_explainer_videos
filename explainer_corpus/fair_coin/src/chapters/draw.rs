@@ -15,6 +15,7 @@
 use explainer_kit::animatic::wrap;
 use explainer_kit::narration::{frames_covering, wait_frames};
 use explainer_kit::{Kit, Palette, Script, Timed, hex, v};
+use fmn::core::rate::{linear, smooth};
 use fmn::prelude::*;
 
 use crate::model::Face;
@@ -759,7 +760,8 @@ impl Square {
     /// A still copy of block `b` as it stands now, for a flip across the
     /// diagonal (the real block stays where it is): the copy, and the same
     /// shape mirrored in the line from the square's lower-left corner to its
-    /// upper-right. `Transform::new(copy, mirror)` is the flip.
+    /// upper-right. `Flip::between(&[(copy, mirror)])` is the flip (a linear
+    /// `Transform` between them would fold the copy flat on the diagonal).
     pub fn ghost_and_mirror(&self, stage: &mut Stage<'_>, b: Block, color: Srgb) -> [Mob; 2] {
         let pose = self.pose(stage);
         let quad = pose.quad(b);
@@ -784,6 +786,173 @@ impl Square {
             .build()
             .map_err(|e| fail(format!("the square's diagonal: {e}")))?;
         Ok(stage.arena_mut().add(line))
+    }
+}
+
+/// The share of a flip spent lifting the copy off its block.
+pub const LIFT_SHARE: f64 = 0.15;
+/// How far the copy lifts, away from the diagonal.
+pub const LIFT_BY: f64 = 0.14;
+/// A frame this close to exactly edge-on (halfway over) is not drawn.
+pub const EDGE_ON: f64 = 0.01;
+
+/// How far a flip has lifted and how far it has turned at `t` (0 to 1): the
+/// copy lifts in the first [`LIFT_SHARE`], then turns over while it settles.
+fn flip_phase(t: f64) -> (f64, f64) {
+    let t = t.clamp(0.0, 1.0);
+    let lift = smooth((t / LIFT_SHARE).min(1.0));
+    let turn = smooth(((t - LIFT_SHARE) / (1.0 - LIFT_SHARE)).clamp(0.0, 1.0));
+    (lift, turn)
+}
+
+/// Where a point of a flip is at `t`: straight to its own mirror image `b`,
+/// lifted up and to the left (away from the diagonal) by up to `lift_by`
+/// until it lands.
+pub fn flipped_point(a: Vec3, b: Vec3, t: f64, lift_by: f64) -> Vec3 {
+    let (lift, e) = flip_phase(t);
+    let off = lift_by / 2f64.sqrt() * lift * (1.0 - e);
+    v(a[0] + (b[0] - a[0]) * e - off, a[1] + (b[1] - a[1]) * e + off)
+}
+
+/// A shape's points at `t` of a flip from `from` to its mirror image `to`
+/// (the same corners in the same order), or `None` for the frame that is
+/// edge-on. Halfway over, every point of the copy is on the diagonal and its
+/// area is nil (it is `|1 - 2e|` of the shape's own), so a polygon set from
+/// that frame has nothing to fill: the last shape stays instead.
+pub fn flipped(from: &[Vec3], to: &[Vec3], t: f64, lift_by: f64) -> Option<Vec<Vec3>> {
+    let (_, e) = flip_phase(t);
+    if (e - 0.5).abs() < EDGE_ON {
+        return None;
+    }
+    Some(
+        from.iter()
+            .zip(to)
+            .map(|(&a, &b)| flipped_point(a, b, t, lift_by))
+            .collect(),
+    )
+}
+
+/// A shape that turns over in a flip: the mobject, and its points before
+/// and after.
+pub type Turning = (Mob, Vec<Vec3>, Vec<Vec3>);
+/// A label that travels with a flip and stays upright: the mobject, and its
+/// centre before and after.
+pub type Riding = (Mob, Vec3, Vec3);
+
+/// One flip across the diagonal (chapters 03, 05 and 08): copies of blocks,
+/// and whatever rides with them, drawn from one tracker. Every point travels
+/// straight to its own mirror image, so the copy lifts off its block, turns
+/// over on the diagonal and lands on the mirror image.
+pub struct Flip {
+    /// 0: on its own block. 1: on the mirror image.
+    turn: Mob,
+    /// Carries the updater.
+    anchor: Mob,
+    /// The shapes first, then what rides with them.
+    parts: Vec<Mob>,
+}
+
+impl Flip {
+    /// The flip of `shapes` (they turn over) and `carried` (they ride along,
+    /// upright), lifting by up to `lift_by`. Nothing is shown yet: the flip's
+    /// mobjects are `all()`, for `show` to bring in.
+    pub fn new(stage: &mut Stage<'_>, shapes: Vec<Turning>, carried: Vec<Riding>, lift_by: f64) -> fmn::Result<Self> {
+        let mut parts: Vec<Mob> = shapes.iter().map(|s| s.0).collect();
+        parts.extend(carried.iter().map(|c| c.0));
+        let turn = stage.add_value_tracker(0.0);
+        let anchor = stage.arena_mut().add(VMobject::new());
+        let mut last: Option<f64> = None;
+        stage.add_updater(
+            anchor,
+            move |s, _| {
+                let t = s.tracker_value(turn).unwrap_or(0.0).clamp(0.0, 1.0);
+                if last == Some(t) {
+                    return;
+                }
+                for (m, from, to) in &shapes {
+                    if let Some(now) = flipped(from, to, t, lift_by) {
+                        let _ = s.set_points(*m, &now);
+                    }
+                }
+                for &(m, from, to) in &carried {
+                    s.move_to(m, flipped_point(from, to, t, lift_by), ORIGIN);
+                }
+                last = Some(t);
+            },
+            true,
+        )?;
+        Ok(Self { turn, anchor, parts })
+    }
+
+    /// The flip of shapes already on stage onto their mirror images: each
+    /// pair is the shape and the same shape mirrored, corner for corner (the
+    /// second as `Square::ghost_and_mirror` makes it: detached, read for its
+    /// points and never shown). On stage already, the flip is ready to `play`.
+    pub fn between(stage: &mut Stage<'_>, pairs: &[(Mob, Mob)], lift_by: f64) -> fmn::Result<Self> {
+        let points = |stage: &Stage<'_>, m: Mob| {
+            stage
+                .get_points(m)
+                .ok_or_else(|| fail("a flipped shape has no points".into()))
+        };
+        let mut shapes = Vec::new();
+        for &(copy, mirror) in pairs {
+            let (from, to) = (points(stage, copy)?, points(stage, mirror)?);
+            if from.len() != to.len() {
+                return Err(fail("a shape and its mirror image do not have the same corners".into()));
+            }
+            shapes.push((copy, from, to));
+        }
+        let flip = Self::new(stage, shapes, Vec::new(), lift_by)?;
+        stage.scene_mut().add(&[flip.anchor])?;
+        Ok(flip)
+    }
+
+    /// The flip's anchor and everything that moves with it.
+    pub fn all(&self) -> Vec<Mob> {
+        let mut all = vec![self.anchor];
+        all.extend(&self.parts);
+        all
+    }
+
+    /// Bring the copy in, on its block.
+    pub fn show(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+        fade_in_all(stage, &self.all(), rt)
+    }
+
+    /// Lift it, turn it over and land it, `rt` seconds.
+    pub fn play(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+        let a = self
+            .turn
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                rate_func: Some(linear),
+                ..AnimateArgs::default()
+            })?
+            .set_value(1.0)?;
+        stage.play(a)?;
+        Ok(())
+    }
+
+    /// The same flip played by the clock, through whatever comes next (a
+    /// listen window has no animation of its own): it starts `delay` seconds
+    /// from now and takes `rt` seconds.
+    pub fn play_by_the_clock(&self, stage: &mut Stage<'_>, delay: f64, rt: f64) -> fmn::Result<()> {
+        let turn = self.turn;
+        let mut clock = 0.0;
+        stage.add_dt_updater(
+            self.anchor,
+            move |s, _, dt| {
+                clock += dt;
+                let _ = s.set_tracker_value(turn, ((clock - delay) / rt).clamp(0.0, 1.0));
+            },
+            false,
+        )?;
+        Ok(())
+    }
+
+    pub fn hide(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+        fade_out_all(stage, &self.all(), rt)
     }
 }
 
@@ -2078,6 +2247,10 @@ impl QuoteCard {
 
 #[cfg(test)]
 mod tests {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
     use super::*;
 
     // ΔE2000 (Sharma, Wu and Dalal 2005), for the colour-role test.
@@ -2296,5 +2469,232 @@ mod tests {
         let at = |c: f64| (0..5).map(|k| group_chance(c, k).percent(2)).collect::<Vec<_>>();
         assert_eq!(at(0.8), ["40.96", "40.96", "15.36", "2.56", "0.16"]);
         assert_eq!(at(0.5), ["6.25", "25.00", "37.50", "25.00", "6.25"]);
+    }
+
+    /// The heads-then-tails block of a square of side 3 (across 0 to 2.4, up
+    /// 2.4 to 3) and the same four corners mirrored in the diagonal, in the
+    /// same order.
+    fn block_and_mirror() -> (Vec<Vec3>, Vec<Vec3>) {
+        let from: Vec<Vec3> = [(0.0, 2.4), (2.4, 2.4), (2.4, 3.0), (0.0, 3.0)]
+            .into_iter()
+            .map(|(x, y)| v(x, y))
+            .collect();
+        let to = from.iter().map(|p| v(p[1], p[0])).collect();
+        (from, to)
+    }
+
+    /// The shoelace area of a polygon's corners.
+    fn area(corners: &[Vec3]) -> f64 {
+        let n = corners.len();
+        let twice: f64 = (0..n)
+            .map(|i| corners[i][0] * corners[(i + 1) % n][1] - corners[(i + 1) % n][0] * corners[i][1])
+            .sum();
+        twice.abs() / 2.0
+    }
+
+    /// The turn at which a flip is exactly edge-on, and a flip drawn without
+    /// the guard: every point straight to its mirror image (a linear
+    /// `Transform` of the copy onto the mirror, which 05_2 and 08_4 used).
+    fn edge_on_turn() -> f64 {
+        LIFT_SHARE + (1.0 - LIFT_SHARE) * 0.5
+    }
+
+    #[test]
+    fn a_flip_starts_on_its_block_and_lands_on_the_mirror_image() {
+        let (from, to) = block_and_mirror();
+        for (got, want) in flipped(&from, &to, 0.0, LIFT_BY).unwrap().iter().zip(&from) {
+            assert_eq!(got, want);
+        }
+        for (got, want) in flipped(&from, &to, 1.0, LIFT_BY).unwrap().iter().zip(&to) {
+            assert!(
+                (got[0] - want[0]).abs() < 1e-12 && (got[1] - want[1]).abs() < 1e-12,
+                "{got:?} {want:?}"
+            );
+        }
+    }
+
+    /// A mirror flip scales the shape's area by `|1 - 2e|` (e: how far it has
+    /// turned) however far it is lifted: it is nil exactly halfway over, and
+    /// no path of straight lines to the mirror image can keep it away from
+    /// nil. So the flip does not draw the frames that are edge-on, and every
+    /// frame it does draw is a shape with room to fill.
+    #[test]
+    fn a_flip_draws_no_frame_that_is_flat() {
+        let (from, to) = block_and_mirror();
+        let whole = area(&from);
+        let mut skipped = 0;
+        for k in 0..=10_000 {
+            let t = f64::from(k) / 10_000.0;
+            let (_, e) = flip_phase(t);
+            match flipped(&from, &to, t, LIFT_BY) {
+                Some(now) => {
+                    let a = area(&now);
+                    assert!(a >= 0.0199 * whole, "t {t}: area {a} of {whole}");
+                    assert!((a - (1.0 - 2.0 * e).abs() * whole).abs() < 1e-9, "t {t}");
+                }
+                None => {
+                    skipped += 1;
+                    assert!((e - 0.5).abs() < EDGE_ON, "t {t} skipped at e {e}");
+                }
+            }
+        }
+        assert!(skipped > 0, "the edge-on frames are reached");
+        // the same on the hundred turns a 100-frame flip draws
+        for k in 0..100 {
+            if let Some(now) = flipped(&from, &to, f64::from(k) / 99.0, LIFT_BY) {
+                assert!(area(&now) > 0.019 * whole, "frame {k}");
+            }
+        }
+    }
+
+    /// What the guard is for: a linear `Transform` of the copy onto its
+    /// mirror image (every point to its own reflection) folds it flat on the
+    /// diagonal halfway over, a polygon with no area to fill.
+    #[test]
+    fn without_the_guard_a_flip_folds_flat_halfway_over() {
+        let (from, to) = block_and_mirror();
+        let t = edge_on_turn();
+        assert!(flipped(&from, &to, t, LIFT_BY).is_none());
+        let unguarded: Vec<Vec3> = from
+            .iter()
+            .zip(&to)
+            .map(|(&a, &b)| flipped_point(a, b, t, LIFT_BY))
+            .collect();
+        assert!(area(&unguarded) < 1e-9 * area(&from), "{}", area(&unguarded));
+        let linear: Vec<Vec3> = from
+            .iter()
+            .zip(&to)
+            .map(|(a, b)| v((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0))
+            .collect();
+        assert!(area(&linear) < 1e-9, "{}", area(&linear));
+    }
+
+    /// The copy lifts up and to the left, away from the diagonal, by
+    /// `LIFT_BY` before it turns, and has landed (no lift) at the end.
+    #[test]
+    fn the_copy_lifts_away_from_the_diagonal_and_lands_flat() {
+        let (from, to) = block_and_mirror();
+        let up = flipped(&from, &to, LIFT_SHARE, LIFT_BY).unwrap();
+        let side = LIFT_BY / 2f64.sqrt();
+        for (now, was) in up.iter().zip(&from) {
+            assert!((now[0] - (was[0] - side)).abs() < 1e-12 && (now[1] - (was[1] + side)).abs() < 1e-12);
+        }
+        // a rider travels the same way, and a label on the diagonal stays on it
+        let rider = flipped_point(v(1.0, 1.0), v(1.0, 1.0), 0.5, LIFT_BY);
+        assert!(rider[1] > rider[0], "lifted off the diagonal mid-flip");
+        assert_eq!(flipped_point(v(1.0, 1.0), v(1.0, 1.0), 1.0, LIFT_BY), v(1.0, 1.0));
+    }
+
+    /// A scene that is only what a function puts on the stage.
+    struct Bare<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>>(F);
+
+    impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Bare<F> {
+        fn name(&self) -> &str {
+            "bare"
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            (self.0)(stage)?;
+            pause(stage, 0.2)
+        }
+    }
+
+    /// Run `build` on a stage of its own, 64 by 36 at 10 frames a second.
+    fn bare(build: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) -> Result<(), String> {
+        static RUNS: AtomicUsize = AtomicUsize::new(0);
+        let n = RUNS.fetch_add(1, Ordering::Relaxed);
+        let dir = std::env::temp_dir().join(format!("fair_coin_bare_{}_{n}", std::process::id()));
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;
+        opts.config.camera.resolution = (64, 36);
+        opts.config.camera.fps = 10;
+        let mut scene = Bare(build);
+        fmn::render(&mut scene, opts).map_err(|e| format!("bare: {e}"))?;
+        Ok(())
+    }
+
+    /// `Flip::between` on a stage: the copy of the block turns over frame by
+    /// frame (20 s at 10 frames a second, so frames fall inside the edge-on
+    /// window), every frame the shape has is one with room to fill, and it
+    /// lands on the mirror image.
+    #[test]
+    fn between_turns_a_shape_over_on_stage_and_never_draws_it_flat() {
+        let (from, to) = block_and_mirror();
+        let whole = area(&from);
+        let seen: Rc<RefCell<Vec<Vec<Vec3>>>> = Rc::default();
+        let log = Rc::clone(&seen);
+        bare(move |stage| {
+            let style = Style::default().fill(alice(), 0.9).stroke(gold(), 2.5, 1.0);
+            let copy = stage.add(Polygon::new(from.clone()).style(style).build())?;
+            let mirror = stage.arena_mut().add(Polygon::new(to.clone()).style(style).build());
+            let flip = Flip::between(stage, &[(copy, mirror)], LIFT_BY)?;
+            let recorder = stage.add(VMobject::new())?;
+            let frames = Rc::clone(&log);
+            stage.add_updater(
+                recorder,
+                move |s, _| {
+                    if let Some(p) = s.get_points(copy) {
+                        frames.borrow_mut().push(p.to_vec());
+                    }
+                },
+                true,
+            )?;
+            flip.play(stage, 20.0)?;
+            let (landed, wanted) = (stage.get_points(copy), stage.get_points(mirror));
+            match (landed, wanted) {
+                (Some(l), Some(w)) if l.len() == w.len() => {
+                    for (a, b) in l.iter().zip(w.iter()) {
+                        if (a[0] - b[0]).abs() > 1e-9 || (a[1] - b[1]).abs() > 1e-9 {
+                            return Err(fail(format!("the copy landed at {a:?}, not at {b:?}")));
+                        }
+                    }
+                    Ok(())
+                }
+                _ => Err(fail("the copy or its mirror image lost its points".into())),
+            }
+        })
+        .unwrap();
+        let frames = seen.borrow();
+        assert!(frames.len() >= 150, "{} frames recorded", frames.len());
+        // a polygon's path is quadratic: its four corners are every second point
+        let areas: Vec<f64> = frames
+            .iter()
+            .map(|p| area(&p.iter().step_by(2).take(4).copied().collect::<Vec<_>>()))
+            .collect();
+        for (i, a) in areas.iter().enumerate() {
+            assert!(*a >= 0.0199 * whole, "frame {i}: area {a} of {whole}");
+        }
+        let least = areas.iter().copied().fold(f64::INFINITY, f64::min);
+        assert!(
+            least < 0.2 * whole,
+            "the shape turns through nearly edge-on (least {least})"
+        );
+    }
+
+    /// The three flips of this video are one: chapters 05 and 08 turn their
+    /// copies with `Flip::between`, and no chapter morphs a copy onto its
+    /// mirror image with a linear `Transform` (which folds it flat).
+    #[test]
+    fn every_chapter_flip_goes_through_the_shared_flip() {
+        let sources = [
+            ("every_coin", include_str!("every_coin.rs")),
+            ("where_it_breaks", include_str!("where_it_breaks.rs")),
+            ("loaded_dice", include_str!("loaded_dice.rs")),
+        ];
+        for (name, source) in sources {
+            for planted in ["Transform::new(ghost, mirror)", "Transform::new(copy, mirror)"] {
+                assert!(!source.contains(planted), "{name} turns a copy over with {planted}");
+            }
+        }
+        assert_eq!(
+            include_str!("where_it_breaks.rs")
+                .matches("Flip::between(stage,")
+                .count(),
+            1
+        );
+        assert_eq!(
+            include_str!("loaded_dice.rs").matches("Flip::between(stage,").count(),
+            2
+        );
+        assert!(include_str!("every_coin.rs").matches("flip_of_block(").count() >= 3);
     }
 }

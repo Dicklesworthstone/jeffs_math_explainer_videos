@@ -17,9 +17,9 @@ use fmn::animation::indicate;
 use fmn::prelude::*;
 
 use super::draw::{
-    Block, SQUARE_AT, SQUARE_SIDE, SplitBar, Square, SquarePose, SquareView, alice, bob, caption, disc, disc_row,
-    face_color, fade_all_but, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, gold, heads, lettered_disc,
-    line_style, rgb, say, tails, thrown, tween_all, wait_until, warn,
+    Block, Flip, LIFT_BY, SQUARE_AT, SQUARE_SIDE, SplitBar, Square, SquarePose, SquareView, alice, bob, caption, disc,
+    disc_row, face_color, fade_all_but, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, gold, heads,
+    lettered_disc, line_style, rgb, say, tails, thrown, tween_all, wait_until, warn,
 };
 use crate::facts::{after_heads, cited, decided_after, second_coin, sticky, sticky_run, two_coin_run};
 use crate::model::{Face, PairLaw, Q, bent, von_neumann};
@@ -655,7 +655,7 @@ impl SceneConstruct for WhereItBreaks {
         line.wait_for(stage, "so the blocks aren't mirror images")?;
         let [ghost, mirror] = square.ghost_and_mirror(stage, Block::HT, alice());
         fade_in_all(stage, &[ghost], 0.3)?;
-        play!(stage; Transform::new(ghost, mirror).rt(1.7));
+        Flip::between(stage, &[(ghost, mirror)], LIFT_BY)?.play(stage, 1.7)?;
         let landed = square.pose(stage);
         let (ht, th) = (landed.unit_rect(Block::HT), landed.unit_rect(Block::TH));
         // heads then tails, mirrored: across from its low edge to the square's
