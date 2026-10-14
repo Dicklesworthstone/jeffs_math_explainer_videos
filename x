@@ -49,6 +49,14 @@
 #   ./x <slug> captions                         SRT and WebVTT from renders/final/ and the narration
 #   ./x <slug> verify                           the delivery gates on the master (verify_video.sh)
 #   ./x <slug> final-check [--clone DIR]        delivery check: final_check + blank_stretches + band_dwell
+#   ./x <slug> release-fetch --from HOST:CLONE  on the upload machine: the verified final of a finals
+#                                               clone on the build host (master, captions, timelines,
+#                                               thumbnail), md5-checked, an older cut kept whole as
+#                                               renders/final_vN (tools/release.py)
+#   ./x <slug> release-check                    everything an upload needs, checked on this copy (the
+#                                               cut and its timelines, captions, thumbnail, upload
+#                                               text, MANIFEST md5); exit 1 on a problem, else the
+#                                               upload sheet
 #   ./x <slug> watch [scored|narrated|draft]    one file to watch: those renders in chapter order,
 #                                               stream-copied to renders/<slug>_<kind>_watch.mp4
 #   ./x <slug> thumbnail                        the video's thumbnail, 1280x720 PNG, into renders/
@@ -841,6 +849,11 @@ PY
     exit $fc_code ;;
   publish)
     exec python3 -I "$here/tools/publish.py" "$slug" "$@" ;;
+  release-fetch)
+    exec python3 -I "$here/tools/release.py" fetch "$slug" --finals "$finals" --voice "${voice:-michael}" "$@" ;;
+  release-check)
+    exec python3 -I "$here/tools/release.py" check "$slug" --finals "$finals" --voice "${voice:-michael}" \
+      --skills "$SKILLS" "$@" ;;
   thumbnail)
     [ $# -eq 0 ] || usage
     build_binary
