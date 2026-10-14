@@ -438,7 +438,7 @@ impl SceneConstruct for Steps {
             };
             rows.push(kit.text_left(
                 stage,
-                &format!("{label}:  {} and {}", distance(*d), turn_label(*a)),
+                &format!("{label}: {} and {}", distance(*d), turn_label(*a)),
                 TABLE_PT,
                 Palette::ink(),
                 v(TABLE_X, TABLE_Y - TABLE_ROW * k as f64),
@@ -686,7 +686,7 @@ mod tests {
             assert!(right < 7.1);
             let widest = kit.text_left(
                 stage,
-                &format!("{AFTER} 3:  {} and {}", distance(0.03), turn_label(0.0076)),
+                &format!("{AFTER} 3: {} and {}", distance(0.03), turn_label(0.0076)),
                 TABLE_PT,
                 Palette::ink(),
                 v(TABLE_X, 0.0),
