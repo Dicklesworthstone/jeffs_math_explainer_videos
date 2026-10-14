@@ -115,7 +115,9 @@ struct Hook {
     regions: Vec<i64>,
     doubling: Vec<i64>,
     answer: i64,
-    three: i64,
+    /// Regions of six evenly spaced points (`F-C.evenly_spaced.regions`),
+    /// the number the 02_6 lower-third gives beside 31.
+    evenly_spaced: i64,
 }
 
 impl Hook {
@@ -163,7 +165,7 @@ impl Hook {
             regions: drawn,
             doubling,
             answer,
-            three: fact_int("F-C.three_through_one.regions")?,
+            evenly_spaced: fact_int("F-C.evenly_spaced.regions")?,
         })
     }
 }
@@ -672,7 +674,7 @@ impl SceneConstruct for FiveForFive {
             .ok_or_else(|| fail("F-X.moser has no year".into()))?;
         let statement = format!(
             "{} when no three lines cross at one point inside the circle (six evenly spaced points give {}). Leo Moser, “On the Danger of Induction”, {}",
-            hook.answer, hook.three, year
+            hook.answer, hook.evenly_spaced, year
         );
         let third = lower_third(&kit, stage, PRECISELY, &statement)?;
         fade_in_all(stage, &[third], 0.5)?;
@@ -810,7 +812,7 @@ mod tests {
         assert_eq!(h.roots, [1, 3, 6, 10, 15]);
         assert_eq!(h.regions, [1, 2, 4, 8, 16, 31]);
         assert_eq!(h.doubling, [1, 2, 4, 8, 16, 32]);
-        assert_eq!((h.answer, h.three), (31, 30));
+        assert_eq!((h.answer, h.evenly_spaced), (31, 30));
         // the cubes' totals are squares, five times, and the sixth cube's is
         // a square too: the hook is that five is not a proof, not that the
         // pattern fails
