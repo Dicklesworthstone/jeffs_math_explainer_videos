@@ -53,3 +53,72 @@ pub fn registry() -> Vec<Chapter> {
         scene!("15_everywhere", 0.65, everywhere::Everywhere),
     ]
 }
+
+#[cfg(test)]
+mod tests {
+    use explainer_kit::{Kit, v};
+    use fmn::prelude::*;
+
+    use super::draw::{Ask, QuizCard, QuizLook};
+    use super::*;
+
+    /// Every chapter's quiz card, built at the one scale (the ratios are the
+    /// same at any scale): the tick of the answer's row clears the row's
+    /// words, and no row's words reach the card's right edge.
+    #[test]
+    fn every_quiz_answer_row_leaves_room_for_its_tick() {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let asks: [(&str, Ask); 15] = [
+            ("01", the_book::ASK),
+            ("02", one_turn::ASK),
+            ("03", three_angles::ASK),
+            ("04", halfway::ASK),
+            ("05", spin::ASK),
+            ("06", the_platform::ASK),
+            ("07", screws::ASK),
+            ("08", seven_screws::ASK),
+            ("09", by_hand::ASK),
+            ("10", velocities_add::ASK),
+            ("11", lost_directions::ASK),
+            ("12", the_spare_joint::ASK),
+            ("13", steps::ASK),
+            ("14", the_steady_path::ASK),
+            ("15", everywhere::ASK),
+        ];
+        let mut crowded = Vec::new();
+        fmn::run_scene(
+            &mut Probe(|stage: &mut Stage<'_>| {
+                let kit = Kit::new()?;
+                for (chapter, ask) in &asks {
+                    let card = QuizCard::build(&kit, stage, *ask, QuizLook::at(v(0.0, 0.0), 1.0))?;
+                    let answer = card.rows[ask.answer_index()?];
+                    let tick_left = stage.get_left(card.verdict[1])[0];
+                    let words_right = stage.get_right(answer)[0];
+                    if words_right > tick_left - 0.2 {
+                        crowded.push(format!(
+                            "{chapter} {:?}: words end at {words_right:.2}, the tick starts at {tick_left:.2}",
+                            ask.choices[ask.answer_index()?].label
+                        ));
+                    }
+                    let edge = stage.get_right(card.back)[0];
+                    for &row in &card.rows {
+                        if stage.get_right(row)[0] > edge - 0.15 {
+                            crowded.push(format!("{chapter}: a row reaches the card's edge"));
+                        }
+                    }
+                }
+                Ok(())
+            }),
+            fmn::scene::RuntimeConfig::default(),
+            7,
+            &mut fmn::scene::NullSceneSink,
+        )
+        .expect("the probe scene runs");
+        assert!(crowded.is_empty(), "answer rows crowd their tick:\n{}", crowded.join("\n"));
+    }
+}

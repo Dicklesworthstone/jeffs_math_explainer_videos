@@ -1692,7 +1692,7 @@ const CARD_LABEL: &str = "your turn";
 pub const CARD_W: f64 = 5.4;
 /// Where a choice's words stop, from the card's right edge: the tick of the
 /// right choice stands in that strip.
-const TICK_ROOM: f64 = 0.8;
+const TICK_ROOM: f64 = 1.0;
 const RING_R: f64 = 0.62;
 
 /// The ring: what is left of a circle of radius `r` at `c`, drained
