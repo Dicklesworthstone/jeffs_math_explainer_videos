@@ -85,7 +85,7 @@ positive lengths), as the card in the video says.
   least 4); six whole stacks can, 4 by 5 by 9, found by exhaustive search and
   checked cell by cell; six is also the fewest for whole cubes, since four and
   five stacks do not tile their only candidate boxes (4 by 5 by 6 and 5 by 5 by
-  6), by three independent exact-cover searches. Three is the fewest under the video's rule, by the
+  6), by exact-cover search. Three is the fewest under the video's rule, by the
   size of the box [F-S.fewest, F-S.fewest.box]: a stack is 4 by 4 by 4 at its
   widest in every direction, so the only box that can hold one and has 30, 60
   or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
