@@ -26,7 +26,7 @@ use crate::encode::{self, Quality};
 use crate::facts::Facts;
 use crate::kit::{CameraShot, Kit};
 use crate::layout::Linter;
-use crate::narration::{Narrator, Script};
+use crate::narration::{LineGaps, Narrator, Script};
 use crate::palette::BACKGROUND;
 
 /// One chapter: its key (`NN_name`), its scene, and how intense its music is.
@@ -56,6 +56,10 @@ pub struct Explainer {
     /// The narration's placement gain (dB): `narration::GAIN_DB` (0) under the
     /// score engine; an older video may keep its own balance until re-scored.
     pub narration_gain_db: f64,
+    /// How the silence between two narration lines is chosen:
+    /// `LineGaps::Constant` (the breath after every line) until the video's
+    /// owner has heard `LineGaps::Thought` (the silence follows the thought).
+    pub line_gaps: LineGaps,
     /// The chapter a script line belongs to, for line ids that do not follow
     /// `NN_k` (None: the line's `NN_` prefix names its chapter).
     pub line_owner: Option<fn(&str) -> Option<&'static str>>,
@@ -309,7 +313,7 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
         return 0;
     }
     let result: Result<i32, Box<dyn Error>> = (|| {
-        let script = Script::parse(e.script)?;
+        let script = Script::parse(e.script)?.with_line_gaps(e.line_gaps);
         match args.command.as_str() {
             "facts" => print!("{}", facts.print()),
             "script" => {

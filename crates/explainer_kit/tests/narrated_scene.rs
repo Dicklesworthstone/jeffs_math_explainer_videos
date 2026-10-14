@@ -8,7 +8,7 @@ use std::cell::RefCell;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
-use explainer_kit::{Kit, Narrator, Palette, Script, v};
+use explainer_kit::{Kit, LineGaps, Narrator, Palette, Script, v};
 use explainer_score::timeline::ChapterTimeline;
 use explainer_score::{Stereo, wav};
 use fmn::prelude::*;
@@ -300,4 +300,157 @@ fn a_sonification_window_lets_the_scene_animate_and_holds_the_next_line() {
             assert_eq!(placed, vec![(87, Some(explainer_kit::kit::DRAFT_SONIFY_DB))]);
         }
     }
+}
+
+/// Five 0.25 s lines whose neighbours are a continuation (`Then ...`), a beat,
+/// a topic (`Your turn.`), then a music breath before the last: where each
+/// starts depends on the line-gap rule alone.
+struct Thoughts {
+    kit: Kit,
+    timeline: Rc<RefCell<Option<ChapterTimeline>>>,
+}
+
+impl SceneConstruct for Thoughts {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        kit.say(stage, "01_1")?;
+        kit.hold(stage)?;
+        kit.mark(stage, "after_1");
+        kit.say(stage, "01_2")?;
+        kit.hold(stage)?;
+        kit.mark(stage, "after_2");
+        kit.say(stage, "01_3")?;
+        kit.say(stage, "01_4")?;
+        kit.music_breath(stage, 1.0)?;
+        kit.say(stage, "01_5")?;
+        kit.hold(stage)?;
+        *self.timeline.borrow_mut() = Some(kit.narrator.as_ref().unwrap().timeline(stage, "01_thoughts"));
+        Ok(())
+    }
+}
+
+fn tiny_render(dir: PathBuf) -> RenderOptions {
+    let mut opts = RenderOptions::with_format(dir, RenderFormat::PngSequence).unwrap();
+    opts.config.camera.resolution = (32, 18);
+    opts.config.camera.fps = 60;
+    opts
+}
+
+/// The timeline of `Thoughts` under a line-gap rule.
+fn thoughts(gaps: LineGaps) -> ChapterTimeline {
+    let dir = fresh_dir("thoughts");
+    std::fs::create_dir_all(&dir).unwrap();
+    let script = Script::parse(
+        "01_1\tWe start here.\n01_2\tThen we go on.\n01_3\tThat makes a pair.\n01_4\tYour turn.\n01_5\tIt ends here.\n",
+    )
+    .unwrap()
+    .with_line_gaps(gaps);
+    for (id, _) in script.lines() {
+        write_line(&dir.join(format!("{id}.wav")), 0.25);
+    }
+    write_report(&dir, &script);
+    let got = Rc::new(RefCell::new(None));
+    let mut scene = Thoughts {
+        kit: Kit::new()
+            .unwrap()
+            .with_narrator(Narrator::load(&script, &dir, 0.0).unwrap()),
+        timeline: Rc::clone(&got),
+    };
+    fmn::render(&mut scene, tiny_render(dir.join("frames"))).expect("render");
+    let tl = got.borrow().clone();
+    tl.expect("the scene recorded its timeline")
+}
+
+fn starts_of(tl: &ChapterTimeline) -> Vec<u64> {
+    tl.lines.iter().map(|l| l.start_frame).collect()
+}
+
+#[test]
+fn thought_gaps_move_the_lines_and_leave_authored_windows_and_the_off_rule_alone() {
+    // the constant breath, as it always was: every line 0.6 s after the one before
+    let off = thoughts(LineGaps::Constant);
+    assert_eq!(starts_of(&off), vec![36, 87, 138, 189, 300]);
+    assert_eq!(off.marks.iter().map(|m| m.frame).collect::<Vec<_>>(), vec![87, 138]);
+    assert_eq!((off.breaths[0].frame, off.breaths[0].seconds), (240, 1.0));
+    assert_eq!(off.frames, 351);
+
+    // the thought: the first line has nothing before it (the breath); `Then ...`
+    // carries on after 0.58 s; the beat after it waits 0.81 s; `Your turn.`
+    // opens a topic, 0.99 s
+    let on = thoughts(LineGaps::Thought);
+    assert_eq!(starts_of(&on), vec![36, 86, 150, 225, 336]);
+    // `hold` waits the shorter gap of a continuation, and never longer than the
+    // breath before a beat, so what an author puts after a hold keeps its place
+    assert_eq!(on.marks.iter().map(|m| m.frame).collect::<Vec<_>>(), vec![86, 137]);
+    // the window is 0.6 s after the line before it, as before, and the next line
+    // starts at its end, not a breath later
+    assert_eq!((on.breaths[0].frame, on.breaths[0].seconds), (276, 1.0));
+    assert_eq!(
+        on.breaths[0].frame - on.lines[3].start_frame,
+        off.breaths[0].frame - off.lines[3].start_frame
+    );
+    assert_eq!(on.lines[4].start_frame - on.breaths[0].frame, 60);
+    assert_eq!(off.lines[4].start_frame - off.breaths[0].frame, 60);
+    assert_eq!(on.frames, 387);
+    // the plain gaps between lines are no longer one value
+    let gaps = |tl: &ChapterTimeline| -> Vec<f64> {
+        [(0, 1), (1, 2), (2, 3)]
+            .iter()
+            .map(|&(a, b)| (tl.lines[b].start_frame - tl.lines[a].start_frame) as f64 / 60.0 - 0.25)
+            .collect()
+    };
+    explainer_kit::narration::check_gap_spread(&gaps(&on)).expect("continuation, beat and topic gaps spread");
+    assert!(
+        explainer_kit::narration::check_gap_spread(&gaps(&off)).is_err(),
+        "the constant rule is the planted negative"
+    );
+    // and each timeline round-trips through the score engine's text format
+    for tl in [&on, &off] {
+        assert_eq!(&ChapterTimeline::parse(&tl.to_text()).unwrap(), tl);
+    }
+}
+
+/// One line said at a chapter's start.
+struct Opening {
+    kit: Kit,
+    id: &'static str,
+}
+
+impl SceneConstruct for Opening {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.kit.say(stage, self.id)
+    }
+}
+
+#[test]
+fn a_chapter_rendered_alone_opens_where_the_whole_render_opens_it() {
+    // 02_1 opens a topic: 0.99 s of silence before it under the thought rule,
+    // the breath otherwise, whether or not chapter 1 is in the render
+    let opening = |gaps: LineGaps, partial: bool| -> u64 {
+        let dir = fresh_dir("opening");
+        std::fs::create_dir_all(&dir).unwrap();
+        let full = Script::parse("01_1\tWe start here.\n02_1\tYour turn.\n")
+            .unwrap()
+            .with_line_gaps(gaps);
+        let script = if partial {
+            full.select(|id| id.starts_with("02_"))
+        } else {
+            full
+        };
+        for (id, _) in script.lines() {
+            write_line(&dir.join(format!("{id}.wav")), 0.25);
+        }
+        write_report(&dir, &script);
+        let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
+        let mut scene = Opening {
+            kit: Kit::new().unwrap().with_narrator(Rc::clone(&narrator)),
+            id: "02_1",
+        };
+        fmn::render(&mut scene, tiny_render(dir.join("frames"))).expect("render");
+        narrator.cues()[0].frame
+    };
+    assert_eq!(opening(LineGaps::Thought, false), 60);
+    assert_eq!(opening(LineGaps::Thought, true), 60);
+    assert_eq!(opening(LineGaps::Constant, false), 36);
+    assert_eq!(opening(LineGaps::Constant, true), 36);
 }

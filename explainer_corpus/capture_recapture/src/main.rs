@@ -40,6 +40,7 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: &[],
     identity: explainer_score::score::Identity::capture_recapture,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
     thumbnail: Some(chapters::thumbnail::make),
 };

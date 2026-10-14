@@ -139,6 +139,7 @@ fn explainer(
         glyph_mono: mono,
         identity: Identity::hoeffding,
         narration_gain_db: 0.0,
+        line_gaps: explainer_kit::narration::LineGaps::Constant,
         line_owner: None,
         thumbnail: None,
     }

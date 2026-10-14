@@ -76,6 +76,7 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
         glyph_mono: &["0x1D"],
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
+        line_gaps: explainer_kit::narration::LineGaps::Constant,
         line_owner: None,
         thumbnail: None,
     }

@@ -40,6 +40,7 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: chapters::glyphs::MONO,
     identity: score::identity,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
     thumbnail: None,
 };
@@ -64,6 +65,64 @@ mod tests {
         explainer_kit::storyboard::check_video(STORYBOARD, SCRIPT, &keys()).unwrap();
         let script = Script::parse(SCRIPT).unwrap();
         check_script_owners(&script, &keys(), None).unwrap();
+    }
+
+    /// The line-gap classes of this video's real script. The ten plain
+    /// between-line pairs of chapters 02 and 07 are the ones the narration
+    /// pilot built and the owner will hear; the pair across every chapter join
+    /// is not one class; and the planned gaps of the whole script spread where
+    /// the constant breath is the planted negative. The video stays on the
+    /// constant rule until its owner has heard the other.
+    #[test]
+    fn the_thought_classes_of_the_real_script_follow_the_thought() {
+        use explainer_kit::GapClass::{Beat, Continuation, Topic};
+        use explainer_kit::LineGaps;
+        use explainer_kit::narration::{BREATH, check_gap_spread};
+
+        assert_eq!(
+            EXPLAINER.line_gaps,
+            LineGaps::Constant,
+            "opt in only after the owner's A/B (and then update this test)"
+        );
+        let script = Script::parse(SCRIPT).unwrap();
+        let class = |a: &str, b: &str| explainer_kit::classify_gap(script.text(a).unwrap(), script.text(b).unwrap());
+        for (a, b, want) in [
+            ("02_1", "02_2", Beat),
+            ("02_2", "02_3", Continuation),
+            ("02_3", "02_4", Continuation),
+            ("02_5", "02_6", Continuation),
+            ("02_7", "02_8", Beat),
+            ("02_8", "02_9", Continuation),
+            ("07_1", "07_2", Beat),
+            ("07_2", "07_3", Topic),
+            ("07_4", "07_5", Topic),
+            ("07_5", "07_6", Topic),
+        ] {
+            assert_eq!(class(a, b), want, "{a} -> {b}");
+        }
+        let lines = script.lines();
+        let chapter_of = |id: &str| id.split('_').next().unwrap_or(id).to_owned();
+        let (within, across): (Vec<_>, Vec<_>) = lines
+            .windows(2)
+            .partition(|w| chapter_of(&w[0].0) == chapter_of(&w[1].0));
+        let planned: Vec<f64> = within
+            .iter()
+            .map(|w| explainer_kit::classify_gap(&w[0].1, &w[1].1).audible_s())
+            .collect();
+        check_gap_spread(&planned).expect("the planned gaps of the real script spread");
+        assert!(
+            check_gap_spread(&vec![BREATH; planned.len()]).is_err(),
+            "constant gaps fail"
+        );
+        // the chapter joins are not ten copies of one value: all three classes open chapters
+        let joins: Vec<_> = across
+            .iter()
+            .map(|w| explainer_kit::classify_gap(&w[0].1, &w[1].1))
+            .collect();
+        assert_eq!(joins.len(), keys().len() - 1);
+        for want in [Beat, Continuation, Topic] {
+            assert!(joins.contains(&want), "no chapter opens as {want:?}: {joins:?}");
+        }
     }
 
     /// Every quiz in `model::QUIZZES` is a storyboard beat that asks a

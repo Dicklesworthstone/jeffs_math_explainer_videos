@@ -6,6 +6,10 @@
 //!   before it (plus a breath) and places `<id>.wav`; `hold` lets a line
 //!   finish before a wipe; `mark`, `music_breath` and `listen` author what the
 //!   score answers.
+//! - [`LineGaps`]: the breath is one constant ([`BREATH`]) until a video opts
+//!   in to [`LineGaps::Thought`], where the silence between two lines follows
+//!   the thought ([`classify_gap`]) and lands on the length human readers
+//!   leave there ([`GapClass::audible_s`]).
 //! - Every sound a scene places goes through [`Narrator::sound`], which checks
 //!   the file before franken_manim sees it (size, format, finite samples)
 //!   and logs it exactly: integer frames and fps, offset and gain as exact
@@ -41,12 +45,208 @@ pub const SCRATCH_WPS: f64 = 2.6;
 /// so V, the voice's loudness as placed, is the files' own −23 LUFS.
 pub const GAIN_DB: f64 = 0.0;
 
+// ----------------------------------------------------------------- line gaps
+
+/// How the silence between two consecutive narration lines is chosen.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum LineGaps {
+    /// [`BREATH`] after every line: the original rule, and what a video keeps
+    /// until its owner has heard the other.
+    #[default]
+    Constant,
+    /// The silence follows the thought: [`classify_gap`] reads the two lines'
+    /// text and [`GapClass::audible_s`] gives the silence the ear should
+    /// hear, less the two takes' own quiet edges ([`quiet_edges`]). A
+    /// chapter's first line is placed by the class of the pair that crosses
+    /// the chapter join. Authored windows (`music_breath`, `listen`,
+    /// `sonify`) keep their length and the breath after them, and `hold`
+    /// never waits longer than [`BREATH`], so whatever an author puts after a
+    /// `hold` keeps its place.
+    Thought,
+}
+
+/// What lies between two consecutive lines, read from their text.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum GapClass {
+    /// The next line carries the thought on: it opens with a connective, or
+    /// the line before ends unfinished.
+    Continuation,
+    /// A thought ended and the next starts.
+    Beat,
+    /// The next line opens a new example or a quiz: the end of a paragraph.
+    Topic,
+}
+
+/// Human readers of teaching prose leave this much audible silence between
+/// two sentences of one paragraph, seconds: the median of 18 sentence ends in
+/// three volunteer recordings of one calculus text. Audible silence is the
+/// stretch under the read's own top level less 24 dB, 40 ms or more, so it
+/// includes the quiet edges of the two takes.
+pub const WITHIN_PARAGRAPH_S: f64 = 0.58;
+/// The same at any sentence end (60 ends: the three recordings and one
+/// scripted explainer's narration).
+pub const SENTENCE_END_S: f64 = 0.81;
+/// The same at a paragraph end (11 ends in the three recordings).
+pub const PARAGRAPH_END_S: f64 = 0.99;
+// a continuation is shorter than a beat, and a beat shorter than a topic
+const _: () = assert!(WITHIN_PARAGRAPH_S < SENTENCE_END_S && SENTENCE_END_S < PARAGRAPH_END_S);
+/// The shortest silence the kit inserts between lines, seconds.
+pub const MIN_GAP_S: f64 = 0.10;
+/// The coefficient of variation the plain line gaps of a video must reach
+/// for [`check_gap_spread`] to pass. The constant breath, with the takes' own
+/// quiet edges added, varied by about 0.04 across Video F's plain line gaps;
+/// the three classes above, on that video's script, vary by 0.16.
+pub const MIN_GAP_CV: f64 = 0.10;
+
+/// Openers of the lines that start a new example or a quiz (the next line
+/// begins a paragraph); matched at the start of a line, on a word boundary.
+const TOPIC_OPENERS: &[&str] = &[
+    "Your turn",
+    "Take ",
+    "Here's",
+    "Last one",
+    "One more",
+    "Most ",
+    "The next",
+];
+/// Words that continue the thought of the line before when they open a line.
+const CONNECTIVES: &[&str] = &[
+    "And", "But", "So", "Then", "Now", "Because", "Which", "Plus", "Or", "That's",
+];
+
+impl GapClass {
+    /// The audible silence a human reader leaves at this kind of boundary.
+    pub const fn audible_s(self) -> f64 {
+        match self {
+            Self::Continuation => WITHIN_PARAGRAPH_S,
+            Self::Beat => SENTENCE_END_S,
+            Self::Topic => PARAGRAPH_END_S,
+        }
+    }
+}
+
+fn opens_with(text: &str, phrase: &str) -> bool {
+    text.strip_prefix(phrase)
+        .is_some_and(|rest| phrase.ends_with(' ') || !rest.starts_with(|c: char| c.is_alphanumeric() || c == '\''))
+}
+
+/// The class of the boundary between two consecutive lines, from their text:
+/// [`GapClass::Topic`] when `next` opens with one of the new-example or quiz
+/// openers; otherwise [`GapClass::Continuation`] when it opens with a
+/// connective (And, But, So, Then, Now, Because, Which, Plus, Or, That's) or
+/// `prev` does not end a sentence (a closing quote or bracket after the end
+/// mark does not hide it); otherwise [`GapClass::Beat`].
+pub fn classify_gap(prev: &str, next: &str) -> GapClass {
+    let next = next.trim_start().replace('\u{2019}', "'");
+    if TOPIC_OPENERS.iter().any(|o| opens_with(&next, o)) {
+        return GapClass::Topic;
+    }
+    let first = next.split_whitespace().next().unwrap_or("");
+    let word = first.trim_end_matches(|c: char| !c.is_alphanumeric());
+    if CONNECTIVES.contains(&word) {
+        return GapClass::Continuation;
+    }
+    let end = prev
+        .trim_end()
+        .trim_end_matches(['"', '\u{201d}', '\'', '\u{2019}', ')', ']']);
+    if end.ends_with(['.', '?', '!']) {
+        GapClass::Beat
+    } else {
+        GapClass::Continuation
+    }
+}
+
+const EDGE_FRAME_S: f64 = 0.020;
+const EDGE_HOP_S: f64 = 0.010;
+const EDGE_BELOW_TOP_DB: f64 = 24.0;
+const EDGE_MIN_FRAMES: usize = 4;
+
+/// The quiet stretch at the start and at the end of a take, seconds
+/// (lead, tail): 20 ms frames every 10 ms, a frame is quiet when its level is
+/// more than 24 dB under the 95th percentile of the take's frame levels, and
+/// a quiet run counts from 40 ms. This is the detector the human silences
+/// above were measured with, so a gap built as `class - tail - lead` is heard
+/// as the class (to within a frame). A take with no speech has none.
+pub fn quiet_edges(mono: &[f64], rate: u32) -> (f64, f64) {
+    let frame = (f64::from(rate) * EDGE_FRAME_S).round() as usize;
+    let hop = (f64::from(rate) * EDGE_HOP_S).round() as usize;
+    if frame == 0 || hop == 0 || mono.len() < frame {
+        return (0.0, 0.0);
+    }
+    let levels: Vec<f64> = mono
+        .windows(frame)
+        .step_by(hop)
+        .map(|s| 10.0 * (s.iter().map(|x| x * x).sum::<f64>() / frame as f64 + 1e-12).log10())
+        .collect();
+    let n = levels.len();
+    let mut sorted = levels.clone();
+    sorted.sort_by(f64::total_cmp);
+    let at = 0.95 * (n - 1) as f64;
+    let (lo, hi) = (at.floor() as usize, at.ceil() as usize);
+    let value = |k: usize| sorted.get(k).copied().unwrap_or(f64::NEG_INFINITY);
+    let top = value(lo) + (value(hi) - value(lo)) * (at - lo as f64);
+    let quiet = |l: f64| l < top - EDGE_BELOW_TOP_DB;
+    let lead = levels.iter().take_while(|&&l| quiet(l)).count();
+    let tail = levels.iter().rev().take_while(|&&l| quiet(l)).count();
+    if lead == n {
+        return (0.0, 0.0);
+    }
+    // a run of `count` quiet frames reaches from its first frame's start to
+    // its last frame's end
+    let seconds = |count: usize| {
+        if count >= EDGE_MIN_FRAMES {
+            ((count - 1) * hop + frame) as f64 / f64::from(rate)
+        } else {
+            0.0
+        }
+    };
+    (seconds(lead), seconds(tail))
+}
+
+/// The coefficient of variation (population standard deviation over the
+/// mean) of a set of gaps; `None` for fewer than two or a non-positive mean.
+pub fn gap_cv(gaps: &[f64]) -> Option<f64> {
+    if gaps.len() < 2 {
+        return None;
+    }
+    let mean = gaps.iter().sum::<f64>() / gaps.len() as f64;
+    if mean <= 0.0 {
+        return None;
+    }
+    let var = gaps.iter().map(|g| (g - mean).powi(2)).sum::<f64>() / gaps.len() as f64;
+    Some(var.sqrt() / mean)
+}
+
+/// The spread check on a video's plain line gaps (the silences between a
+/// line and the next with no authored window between): at least three gaps
+/// whose [`gap_cv`] reaches [`MIN_GAP_CV`]. One value everywhere fails it.
+///
+/// # Errors
+/// Names the count and the spread found.
+pub fn check_gap_spread(gaps: &[f64]) -> Result<(), String> {
+    if gaps.len() < 3 {
+        return Err(format!("{} plain line gaps: too few to judge their spread", gaps.len()));
+    }
+    let cv = gap_cv(gaps).unwrap_or(0.0);
+    if cv < MIN_GAP_CV {
+        return Err(format!(
+            "{} plain line gaps vary by {cv:.3} (coefficient of variation), under {MIN_GAP_CV}: one value serves every thought",
+            gaps.len()
+        ));
+    }
+    Ok(())
+}
+
 // ----------------------------------------------------------------- script
 
 /// The spoken lines of a video, in order.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Script {
     lines: Vec<(String, String)>,
+    /// Every line of the video in order. [`Script::select`] keeps it, so a
+    /// partial render still knows the line before its first.
+    all: Vec<(String, String)>,
+    line_gaps: LineGaps,
 }
 
 impl Script {
@@ -77,7 +277,23 @@ impl Script {
             }
             lines.push((id.to_owned(), rest.to_owned()));
         }
-        Ok(Self { lines })
+        Ok(Self {
+            all: lines.clone(),
+            lines,
+            line_gaps: LineGaps::Constant,
+        })
+    }
+
+    /// The script read under another line-gap rule (the video's choice; see
+    /// [`LineGaps`]).
+    #[must_use]
+    pub fn with_line_gaps(mut self, line_gaps: LineGaps) -> Self {
+        self.line_gaps = line_gaps;
+        self
+    }
+
+    pub fn line_gaps(&self) -> LineGaps {
+        self.line_gaps
     }
 
     pub fn lines(&self) -> &[(String, String)] {
@@ -92,6 +308,8 @@ impl Script {
     pub fn select(&self, keep: impl Fn(&str) -> bool) -> Self {
         Self {
             lines: self.lines.iter().filter(|(id, _)| keep(id)).cloned().collect(),
+            all: self.all.clone(),
+            line_gaps: self.line_gaps,
         }
     }
 }
@@ -121,6 +339,11 @@ impl CueFile {
 /// fmn itself reports bad cues only after the whole render; this refuses
 /// them when they are placed.
 pub fn inspect_cue(path: &Path) -> io::Result<CueFile> {
+    inspect_decoded(path).map(|(file, _)| file)
+}
+
+/// [`inspect_cue`] with the decoded samples, for a caller that also reads them.
+fn inspect_decoded(path: &Path) -> io::Result<(CueFile, wav::Decoded)> {
     let ctx = |e: io::Error| io::Error::new(e.kind(), format!("{}: {e}", path.display()));
     // the size first, from the file system: a mistaken multi-gigabyte file is
     // refused without being read
@@ -137,14 +360,15 @@ pub fn inspect_cue(path: &Path) -> io::Result<CueFile> {
     }
     let bytes = std::fs::read(path).map_err(ctx)?;
     let d = wav::parse(&bytes).map_err(|e| io::Error::new(e.kind(), format!("{}: {e}", path.display())))?;
-    Ok(CueFile {
+    let file = CueFile {
         path: path.to_path_buf(),
         sha256: digest::sha256_hex(&bytes),
         bytes: bytes.len() as u64,
         rate: d.rate,
         channels: d.channels,
         frames: d.frames(),
-    })
+    };
+    Ok((file, d))
 }
 
 /// One sound a scene placed, exactly as franken_manim placed it.
@@ -194,6 +418,25 @@ pub struct Narrator {
     gain_db: f64,
     busy_until: Cell<f64>,
     log: RefCell<Log>,
+    line_gaps: LineGaps,
+    /// Every line of the full script in order: the text a gap class is read from.
+    order: Vec<(String, String)>,
+    /// The (lead, tail) quiet seconds of each loaded take, measured only under
+    /// [`LineGaps::Thought`]; empty for the scratch voice.
+    edges: HashMap<String, (f64, f64)>,
+    after: RefCell<After>,
+}
+
+/// Where the narration stands, for the gap before the next line.
+#[derive(Clone, Debug, PartialEq, Eq)]
+enum After {
+    /// A chapter's start: nothing said yet.
+    Start,
+    /// This line was the last thing said.
+    Line(String),
+    /// An authored window was the last thing: its length and the breath after
+    /// it are the author's.
+    Window,
 }
 
 fn clock(stage: &Stage<'_>) -> (u64, u32, f64) {
@@ -394,10 +637,14 @@ impl Narrator {
     pub fn load(script: &Script, dir: &Path, gain_db: f64) -> io::Result<Rc<Self>> {
         let mut files = HashMap::new();
         let mut lengths = HashMap::new();
+        let mut edges = HashMap::new();
         for (id, _) in script.lines() {
-            let f = inspect_cue(&dir.join(format!("{id}.wav")))?;
+            let (f, decoded) = inspect_decoded(&dir.join(format!("{id}.wav")))?;
             lengths.insert(id.clone(), f.seconds());
             files.insert(id.clone(), f);
+            if script.line_gaps() == LineGaps::Thought {
+                edges.insert(id.clone(), quiet_edges(&decoded.mono(), decoded.rate));
+            }
         }
         let report_path = dir.join("report.json");
         let report = std::fs::read_to_string(&report_path)
@@ -429,6 +676,10 @@ impl Narrator {
             gain_db,
             busy_until: Cell::new(0.0),
             log: RefCell::new(Log::default()),
+            line_gaps: script.line_gaps(),
+            order: script.all.clone(),
+            edges,
+            after: RefCell::new(After::Start),
         }))
     }
 
@@ -454,12 +705,17 @@ impl Narrator {
             gain_db: GAIN_DB,
             busy_until: Cell::new(0.0),
             log: RefCell::new(Log::default()),
+            line_gaps: script.line_gaps(),
+            order: script.all.clone(),
+            edges: HashMap::new(),
+            after: RefCell::new(After::Start),
         })
     }
 
     /// Every chapter is its own scene whose clock starts at zero.
     pub fn reset(&self) {
         self.busy_until.set(0.0);
+        *self.after.borrow_mut() = After::Start;
         *self.log.borrow_mut() = Log::default();
         self.said_at.borrow_mut().clear();
     }
@@ -497,11 +753,89 @@ impl Narrator {
         self.lengths.get(id).copied()
     }
 
-    /// Wait until the current line, plus a breath, has finished.
-    pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    /// The text of line `id` in the full script.
+    fn text_of(&self, id: &str) -> Option<&str> {
+        self.order.iter().find(|l| l.0 == id).map(|l| l.1.as_str())
+    }
+
+    /// The id of the line before `id` in the full script.
+    fn line_before(&self, id: &str) -> Option<&str> {
+        let k = self.order.iter().position(|l| l.0 == id)?;
+        k.checked_sub(1).map(|k| self.order[k].0.as_str())
+    }
+
+    /// The id of the line after `id` in the full script.
+    fn line_after(&self, id: &str) -> Option<&str> {
+        let k = self.order.iter().position(|l| l.0 == id)?;
+        self.order.get(k + 1).map(|l| l.0.as_str())
+    }
+
+    /// The silence kept after the end of line `prev` before the start of line
+    /// `next` when `next` is said right after `prev`, seconds: [`BREATH`]
+    /// under [`LineGaps::Constant`]; under [`LineGaps::Thought`] the class of
+    /// the pair ([`classify_gap`]) less the two takes' quiet edges, never under
+    /// [`MIN_GAP_S`]. A line the script does not have gets the breath.
+    pub fn line_gap(&self, prev: &str, next: &str) -> f64 {
+        if self.line_gaps == LineGaps::Constant {
+            return BREATH;
+        }
+        self.class_gap(prev, next, true)
+    }
+
+    fn class_gap(&self, prev: &str, next: &str, with_tail: bool) -> f64 {
+        let (Some(a), Some(b)) = (self.text_of(prev), self.text_of(next)) else {
+            return BREATH;
+        };
+        let tail = if with_tail {
+            self.edges.get(prev).map_or(0.0, |e| e.1)
+        } else {
+            0.0
+        };
+        let lead = self.edges.get(next).map_or(0.0, |e| e.0);
+        (classify_gap(a, b).audible_s() - tail - lead).max(MIN_GAP_S)
+    }
+
+    /// The silence before `next`, given what was said last. A chapter's first
+    /// line has no take before it in this render (a partial render must place
+    /// it as the full render does), so only its own lead is taken off; after
+    /// an authored window the window's own breath stands.
+    fn gap_before(&self, next: &str) -> f64 {
+        if self.line_gaps == LineGaps::Constant {
+            return BREATH;
+        }
+        match &*self.after.borrow() {
+            After::Window => BREATH,
+            After::Line(prev) => self.class_gap(prev, next, true),
+            After::Start => self
+                .line_before(next)
+                .map_or(BREATH, |prev| self.class_gap(prev, next, false)),
+        }
+    }
+
+    fn wait_gap(&self, stage: &mut Stage<'_>, gap: f64) -> fmn::Result<()> {
         let (frame, fps, _) = clock(stage);
-        let target = frames_covering(self.busy_until.get() + BREATH, fps);
+        let target = frames_covering(self.busy_until.get() + gap, fps);
         wait_frames(stage, target.saturating_sub(frame))
+    }
+
+    /// Wait until the current line, plus the breath, has finished: what every
+    /// authored window does first.
+    fn hold_breath(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        self.wait_gap(stage, BREATH)
+    }
+
+    /// Wait until the current line, plus a breath, has finished. Under
+    /// [`LineGaps::Thought`] the breath is the gap the script's next line
+    /// will get when it is shorter than [`BREATH`] (a continuation), and never
+    /// longer, so an authored window or tail after a `hold` keeps its place.
+    pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let gap = match &*self.after.borrow() {
+            After::Line(prev) if self.line_gaps == LineGaps::Thought => self
+                .line_after(prev)
+                .map_or(BREATH, |next| self.class_gap(prev, next, true).min(BREATH)),
+            _ => BREATH,
+        };
+        self.wait_gap(stage, gap)
     }
 
     /// Speak line `id` now, once the previous line has finished. Call it
@@ -522,7 +856,7 @@ impl Narrator {
                 "narration line {id:?} is said twice in one chapter; give the repeat its own id in script.tsv"
             )));
         }
-        self.hold(stage)?;
+        self.wait_gap(stage, self.gap_before(id))?;
         let (frame, _, now) = clock(stage);
         self.said_at.borrow_mut().insert(id.to_owned(), now);
         if let (Some(dir), Some(file)) = (&self.dir, self.files.get(id)) {
@@ -536,6 +870,7 @@ impl Narrator {
             });
         }
         self.busy_until.set(now + len);
+        *self.after.borrow_mut() = After::Line(id.to_owned());
         Ok(())
     }
 
@@ -594,7 +929,7 @@ impl Narrator {
                 format!("sonification {label}: {e}").into_boxed_str(),
             )))
         })?;
-        self.hold(stage)?;
+        self.hold_breath(stage)?;
         let (frame, _, now) = clock(stage);
         self.log.borrow_mut().listens.push(Window {
             frame,
@@ -603,11 +938,12 @@ impl Narrator {
             sound: Some(wav.to_owned()),
         });
         self.busy_until.set(now + seconds - BREATH);
+        *self.after.borrow_mut() = After::Window;
         Ok(())
     }
 
     fn window(&self, stage: &mut Stage<'_>, seconds: f64, label: Option<&str>) -> fmn::Result<()> {
-        self.hold(stage)?;
+        self.hold_breath(stage)?;
         let (frame, _, now) = clock(stage);
         let w = Window {
             frame,
@@ -623,6 +959,7 @@ impl Narrator {
         wait_frames(stage, frames_covering(seconds, clock(stage).1))?;
         // the next line may start right after the window, not a breath later
         self.busy_until.set(now + seconds - BREATH);
+        *self.after.borrow_mut() = After::Window;
         Ok(())
     }
 
@@ -903,5 +1240,215 @@ mod tests {
         std::fs::write(&short, &std::fs::read(&good).unwrap()[..30]).unwrap();
         assert!(inspect_cue(&short).is_err(), "a truncated header");
         assert!(inspect_cue(&tmp("missing.wav")).is_err());
+    }
+
+    // ------------------------------------------------------------- line gaps
+
+    #[test]
+    fn a_boundary_is_classified_from_the_text_of_its_two_lines() {
+        use GapClass::{Beat, Continuation, Topic};
+        for next in [
+            "And the small square is the twenty-five.",
+            "But why the next number up?",
+            "So leave the zeros out.",
+            "Then write twenty-five.",
+            "Now draw it.",
+            "Because it is.",
+            "Which is rare.",
+            "Plus a bit.",
+            "Or not.",
+            "That\u{2019}s the trick.",
+        ] {
+            assert_eq!(classify_gap("Done.", next), Continuation, "{next}");
+        }
+        // a connective is the whole first word
+        for next in [
+            "Anders had it.",
+            "Soon after, it ends.",
+            "Thenceforth it holds.",
+            "Nowhere else.",
+        ] {
+            assert_eq!(classify_gap("Done.", next), Beat, "{next}");
+        }
+        // a line before that ends unfinished carries on; a closing quote or
+        // bracket after the end mark does not hide the end
+        assert_eq!(classify_gap("Add these up", "Twelve hundred."), Continuation);
+        assert_eq!(classify_gap("Why?", "Twelve hundred."), Beat);
+        assert_eq!(classify_gap("He said \"stop.\"", "Twelve hundred."), Beat);
+        assert_eq!(classify_gap("It is rare (see above.)", "Twelve hundred."), Beat);
+        // a new example or a quiz ends the paragraph, whatever else it opens with
+        for next in [
+            "Your turn. Sixteen times forty-five?",
+            "Take a price just under a round number.",
+            "Here's that trick on a smaller number.",
+            "Here\u{2019}s another.",
+            "Last one. Eighty-five squared.",
+            "One more.",
+            "Most problems aren't that neat.",
+            "The next number comes in.",
+        ] {
+            assert_eq!(classify_gap("Done.", next), Topic, "{next}");
+        }
+        // an opener is a whole phrase at the start of the line, never a prefix of a word
+        for next in [
+            "Takes a while.",
+            "Mostly it works.",
+            "Herein lies it.",
+            "Your turns come later.",
+            "It is your turn.",
+        ] {
+            assert_ne!(classify_gap("Done.", next), Topic, "{next}");
+        }
+    }
+
+    /// A take as a test file: `lead` s of silence, `voiced` s of a tone, `tail` s of silence, at 48 kHz.
+    fn take(lead: f64, voiced: f64, tail: f64) -> Vec<f64> {
+        let n = |s: f64| (s * 48_000.0).round() as usize;
+        let mut x = vec![0.0; n(lead)];
+        x.extend((0..n(voiced)).map(|i| 0.2 * (i as f64 * 0.3).sin()));
+        x.extend(vec![0.0; n(tail)]);
+        x
+    }
+
+    #[test]
+    fn quiet_edges_are_a_takes_own_silence_to_within_a_frame() {
+        for rate in [24_000, 48_000] {
+            let at = |s: f64| (s * f64::from(rate)).round() as usize;
+            let mut x = vec![0.0; at(0.30)];
+            x.extend((0..at(1.0)).map(|i| 0.2 * (i as f64 * 0.3).sin()));
+            x.extend(vec![0.0; at(0.25)]);
+            let (lead, tail) = quiet_edges(&x, rate);
+            assert!((lead - 0.30).abs() <= 0.02, "{rate}: lead {lead}");
+            assert!((tail - 0.25).abs() <= 0.02, "{rate}: tail {tail}");
+        }
+        // planted negatives: no silence, a lead under the 40 ms a quiet run needs,
+        // nothing but silence, and a take shorter than one frame have no edges
+        assert_eq!(quiet_edges(&take(0.0, 1.0, 0.0), 48_000), (0.0, 0.0));
+        let (lead, tail) = quiet_edges(&take(0.03, 1.0, 0.0), 48_000);
+        assert_eq!((lead, tail), (0.0, 0.0));
+        assert_eq!(quiet_edges(&vec![0.0; 48_000], 48_000), (0.0, 0.0));
+        assert_eq!(quiet_edges(&[0.1; 100], 48_000), (0.0, 0.0));
+        // a quiet breath well under the voice counts as the take's silence, a
+        // soft word 12 dB under it does not
+        let before = |level: f64| {
+            let mut x: Vec<f64> = (0..24_000).map(|i| level * (i as f64 * 0.7).sin()).collect();
+            x.extend(take(0.0, 1.0, 0.0));
+            x
+        };
+        let (lead, _) = quiet_edges(&before(0.0005), 48_000);
+        assert!((lead - 0.5).abs() <= 0.02, "breath lead {lead}");
+        assert_eq!(quiet_edges(&before(0.05), 48_000).0, 0.0, "a soft word is not silence");
+    }
+
+    /// A narration directory for `script` with the given takes and the report
+    /// the narrator needs (one sentence per line).
+    fn narration(tag: &str, script: &Script, takes: &[Vec<f64>]) -> PathBuf {
+        let dir = tmp(tag);
+        std::fs::create_dir_all(&dir).unwrap();
+        let mut lines = serde_json::Map::new();
+        for ((id, text), x) in script.lines().iter().zip(takes) {
+            let stereo = explainer_score::Stereo::from_mono(x);
+            wav::write(&dir.join(format!("{id}.wav")), &stereo, wav::Format::F32).unwrap();
+            lines.insert(
+                id.clone(),
+                serde_json::json!([{"sentence": text, "out_samples": x.len(), "gap_after_samples": 0}]),
+            );
+        }
+        let report = serde_json::json!({"meta": {"rate": 48_000}, "lines": lines});
+        std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
+        dir
+    }
+
+    #[test]
+    fn a_line_gap_is_the_class_less_the_takes_own_quiet_edges() {
+        let script =
+            Script::parse("01_1\tOne thing.\n01_2\tThen another.\n01_3\tYour turn.\n01_4\tIt ends.\n").unwrap();
+        let takes = [
+            take(0.15, 1.0, 0.20),
+            take(0.15, 1.0, 0.20),
+            take(0.15, 1.0, 0.20),
+            take(0.70, 1.0, 0.50),
+        ];
+        let dir = narration("gap_edges", &script, &takes);
+        let thought = Narrator::load(&script.clone().with_line_gaps(LineGaps::Thought), &dir, 0.0).unwrap();
+        let constant = Narrator::load(&script, &dir, 0.0).unwrap();
+        let near = |got: f64, want: f64| assert!((got - want).abs() < 0.03, "{got} against {want}");
+        // a continuation: 0.58 s less the 0.20 s tail and the 0.15 s lead
+        near(thought.line_gap("01_1", "01_2"), WITHIN_PARAGRAPH_S - 0.35);
+        // a topic: 0.99 s less the same
+        near(thought.line_gap("01_2", "01_3"), PARAGRAPH_END_S - 0.35);
+        // a beat whose edges are longer than the class leaves the floor, never zero
+        assert_eq!(thought.line_gap("01_3", "01_4"), MIN_GAP_S);
+        // the constant rule ignores text and edges; a line the script lacks gets the breath
+        for (a, b) in [("01_1", "01_2"), ("01_2", "01_3"), ("01_3", "01_4")] {
+            assert_eq!(constant.line_gap(a, b), BREATH);
+        }
+        assert_eq!(thought.line_gap("01_1", "elsewhere"), BREATH);
+        // what was said last decides the rule: a window keeps its own breath, a
+        // chapter's first line has no take before it in this render (a partial
+        // render must place it as the whole one does) so only its lead comes off,
+        // and the video's very first line has nothing before it
+        *thought.after.borrow_mut() = After::Window;
+        assert_eq!(thought.gap_before("01_2"), BREATH);
+        *thought.after.borrow_mut() = After::Line("01_1".into());
+        near(thought.gap_before("01_2"), WITHIN_PARAGRAPH_S - 0.35);
+        *thought.after.borrow_mut() = After::Start;
+        near(thought.gap_before("01_2"), WITHIN_PARAGRAPH_S - 0.15);
+        assert_eq!(thought.gap_before("01_1"), BREATH);
+        assert_eq!(constant.gap_before("01_2"), BREATH);
+        // the takes' edges were measured only because the rule needed them
+        assert_eq!(thought.edges.len(), 4);
+        assert!(constant.edges.is_empty());
+    }
+
+    #[test]
+    fn a_partial_render_places_a_chapters_first_line_as_the_whole_render_does() {
+        let full = Script::parse("01_1\tOne thing.\n02_1\tThen another.\n02_2\tIt ends.\n")
+            .unwrap()
+            .with_line_gaps(LineGaps::Thought);
+        let part = full.select(|id| id.starts_with("02_"));
+        assert_eq!(part.line_gaps(), LineGaps::Thought, "select keeps the rule");
+        assert_eq!(part.lines().len(), 2);
+        let all = [take(0.15, 1.0, 0.20), take(0.15, 1.0, 0.20), take(0.15, 1.0, 0.20)];
+        let whole = Narrator::load(&full, &narration("gap_whole", &full, &all), 0.0).unwrap();
+        let some = Narrator::load(&part, &narration("gap_part", &part, &all[1..]), 0.0).unwrap();
+        // 02_1 opens with "Then": a continuation across the join, though 01_1 is not loaded
+        assert_eq!(whole.gap_before("02_1"), some.gap_before("02_1"));
+        assert!((some.gap_before("02_1") - (WITHIN_PARAGRAPH_S - 0.15)).abs() < 0.03);
+        // a script without the rule reads every pair as the breath
+        let off = Narrator::load(
+            &part.clone().with_line_gaps(LineGaps::Constant),
+            &narration("gap_off", &part, &all[1..]),
+            0.0,
+        )
+        .unwrap();
+        assert_eq!(off.gap_before("02_1"), BREATH);
+    }
+
+    #[test]
+    fn constant_gaps_fail_the_spread_check_and_class_gaps_pass_it() {
+        // planted negatives: the breath plus the takes' own edges, as Video F's plain line gaps were
+        let constant = [0.69, 0.70, 0.68, 0.71, 0.69, 0.70];
+        assert!(
+            check_gap_spread(&constant)
+                .unwrap_err()
+                .contains("coefficient of variation")
+        );
+        assert!(check_gap_spread(&[BREATH; 8]).is_err());
+        assert_eq!(gap_cv(&[0.6; 8]), Some(0.0));
+        assert!(check_gap_spread(&[0.5, 0.9]).unwrap_err().contains("too few"));
+        assert_eq!((gap_cv(&[1.0]), gap_cv(&[0.0, 0.0])), (None, None));
+        // the three classes on a mix of boundaries clear it
+        let classes = [
+            GapClass::Continuation,
+            GapClass::Beat,
+            GapClass::Beat,
+            GapClass::Topic,
+            GapClass::Continuation,
+            GapClass::Beat,
+        ];
+        let gaps: Vec<f64> = classes.iter().map(|c| c.audible_s()).collect();
+        check_gap_spread(&gaps).unwrap();
+        assert!(gap_cv(&gaps).unwrap() > MIN_GAP_CV);
     }
 }

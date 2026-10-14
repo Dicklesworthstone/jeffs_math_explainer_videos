@@ -44,6 +44,7 @@ const EXPLAINER: Explainer = Explainer {
     glyph_mono: chapters::glyphs::MONO,
     identity: score::identity,
     narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Constant,
     line_owner: None,
     thumbnail: None,
 };

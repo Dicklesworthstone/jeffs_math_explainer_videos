@@ -119,6 +119,7 @@ fn a_chapter_can_ask_for_the_camera_route() {
         glyph_mono: &[],
         identity: Identity::hoeffding,
         narration_gain_db: explainer_kit::narration::GAIN_DB,
+        line_gaps: explainer_kit::narration::LineGaps::Constant,
         line_owner: None,
         thumbnail: None,
     };
