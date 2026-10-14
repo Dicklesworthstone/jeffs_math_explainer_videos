@@ -523,7 +523,11 @@ mod tests {
                     "dot {j} of {cell} at {}",
                     at[0]
                 );
-                let outer = if cell.is_multiple_of(2) { at[0] < mid } else { at[0] > mid };
+                let outer = if cell.is_multiple_of(2) {
+                    at[0] < mid
+                } else {
+                    at[0] > mid
+                };
                 assert!(outer, "dot {j} of cell {cell} is not on the outer half");
             }
         }
