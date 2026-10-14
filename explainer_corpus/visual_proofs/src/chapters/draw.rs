@@ -169,6 +169,27 @@ pub fn faded_line(c: Srgb, w: f64, o: f64) -> Style {
     Style::default().fill(c, 0.0).stroke(c, w, o)
 }
 
+/// A vertex list as the run of points a mobject keeps: the vertices as
+/// anchors with a handle at each midpoint (what `polyline` builds), always
+/// an odd count. `Stage::set_points` takes THAT, not a vertex list: an even
+/// count is refused and the mobject silently never changes, an odd one is
+/// drawn as curves with every second vertex a control point.
+pub fn corners(vertices: &[Vec3]) -> Vec<Vec3> {
+    let mut out = Vec::with_capacity(2 * vertices.len());
+    for w in vertices.windows(2) {
+        out.push(w[0]);
+        out.push([
+            (w[0][0] + w[1][0]) / 2.0,
+            (w[0][1] + w[1][1]) / 2.0,
+            (w[0][2] + w[1][2]) / 2.0,
+        ]);
+    }
+    if let Some(&last) = vertices.last() {
+        out.push(last);
+    }
+    out
+}
+
 /// An `Srgb` as the `[f32; 3]` that `indicate` and its kin take (never call
 /// `indicate` with no colour: its default yellow floods a fill).
 pub fn rgb(c: Srgb) -> [f32; 3] {
@@ -2057,7 +2078,10 @@ mod tests {
     }
 
     section_five_tests! {
+        quiz_02_5_follows_section_5: "02_5",
+        quiz_03_3_follows_section_5: "03_3",
         quiz_11_3_follows_section_5: "11_3",
+        quiz_12_4_follows_section_5: "12_4",
     }
 
     /// CIE L*a*b* (D65) of an sRGB colour.

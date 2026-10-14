@@ -11,6 +11,7 @@ pub mod draw;
 pub mod five_for_five;
 pub mod glyphs;
 pub mod iso;
+pub mod the_cut_cube;
 
 use explainer_kit::Chapter;
 use explainer_kit::animatic::Animatic;
@@ -51,7 +52,7 @@ pub fn registry() -> Vec<Chapter> {
         animatic!("09_every_height", 0.5),
         animatic!("10_halves", 0.4),
         scene!("11_a_third", 0.5, a_third::AThird),
-        animatic!("12_the_cut_cube", 0.55),
+        scene!("12_the_cut_cube", 0.55, the_cut_cube::TheCutCube),
         animatic!("13_four_triangles", 0.6),
         animatic!("14_the_missing_square", 0.3),
         animatic!("15_what_makes_a_proof", 0.45),
