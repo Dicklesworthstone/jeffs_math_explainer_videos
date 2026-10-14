@@ -19,6 +19,10 @@
 #                                               what it cuts (tools/narration.py), then the gates
 #   ./x <slug> narration-sheets [--takes] [LINE...]   spectrograms of the narration to read as images,
 #                                               into narration/sheets/ (tools/narration_sheets.py)
+#   ./x <slug> narration-prosody [--gate-...]   the human-calibrated prosody QA of narration/out: pitch
+#                                               resets, pauses, gaps, silence floor, terminal events,
+#                                               with the silences between lines from renders/scored;
+#                                               exit 1 on a FAIL (tools/prosody_qa.py --help)
 #   ./x <slug> narrated [CHAPTER...]            960x540@30 with the real narration (NARRATION, default
 #                                               narration/out) into renders/narrated/, then the cue
 #                                               check and cue sheets (renders/narrated/cue_sheets/)
@@ -314,6 +318,12 @@ case "$cmd" in
     cd "$crate"
     exec uv run --quiet --no-project --with numpy --with matplotlib python3 -I "$here/tools/narration_sheets.py" \
       "$SKILLS/natural-sounding-narration-with-frankentts/scripts" "$base/narration" "$base/narration/sheets" "$@" ;;
+  narration-prosody)
+    need_narration
+    timelines="$base/renders/scored"
+    [ -d "$timelines" ] || timelines="$base/renders/narrated"
+    exec uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$here/tools/prosody_qa.py" \
+      "$narration" --timeline "$timelines" "$@" ;;
   narrated)
     need_narration
     build_binary
