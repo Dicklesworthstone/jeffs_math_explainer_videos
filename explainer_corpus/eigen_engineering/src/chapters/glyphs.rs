@@ -6,7 +6,7 @@
 /// The digits and separators numbers are printed with. The minus of a number
 /// in plain text is the en dash the engine's live numbers print (the text
 /// face has no U+2212 of its own); TeX sets its own.
-pub const DIGITS: &str = "0123456789 , . % ° + – × ÷ = ( ) √";
+pub const DIGITS: &str = "0123456789 , . % ° + – − — × ÷ = ( ) √ ' ’ “ ” „ … : ? ² ³";
 
 pub const TITLE: &str = "The One Idea Behind Bridges, Concert Halls and Economies";
 
