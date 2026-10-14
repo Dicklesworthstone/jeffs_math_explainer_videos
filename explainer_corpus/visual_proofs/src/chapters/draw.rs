@@ -929,18 +929,134 @@ pub const COUNTED: &str = "Counted, not drawn";
 
 /// The card's top edge, its width, and its type size, at scale 1: a band
 /// across the foot of the frame, the same in every chapter. Keep the picture
-/// above `CARD_TOP` when the card comes. Two rows end at y = −3.2, three at
-/// −3.76 (the lower-third's band is in the way of a third row: fade it).
+/// above `CARD_TOP` when the card comes. Two rows end at y = −2.88, three at
+/// −3.38, and a statement of two lines is 0.34 more (the card then rises, to
+/// keep its foot inside the frame's safe area; the lower-third's band is in
+/// the way of a third row: fade it).
 pub const CARD_TOP: f64 = -1.6;
 pub const CARD_W: f64 = 12.8;
 pub const CARD_PT: f64 = 30.0;
 const CARD_REASON_PT: f64 = 26.0;
-const CARD_PAD: f64 = 0.24;
-const CARD_ROW: f64 = 0.56;
+const CARD_PAD: f64 = 0.14;
+const CARD_ROW: f64 = 0.5;
+/// The pitch of a statement's second line, and of a reason's two lines.
+const CARD_LINE: f64 = 0.34;
+const CARD_REASON_LINE: f64 = 0.25;
+/// The size of a reason of two lines: with its pitch, two adjacent rows'
+/// reasons stand as one block of evenly spaced lines.
+const CARD_REASON_TWO_PT: f64 = 22.0;
+/// A statement or reason that would be set smaller than this share of its
+/// size takes two lines.
+pub const CARD_FLOOR: f64 = 0.8;
 /// From the labels' left edge to the statements' left edge.
 const CARD_LABEL_COL: f64 = 1.75;
 /// The room an Assumed line keeps on its right for its mark and its reason.
 const CARD_MARK_ROOM: f64 = 3.6;
+
+/// The source of a statement.
+fn source_of<'a>(words: Words<'a>) -> &'a str {
+    match words {
+        Words::Text(s) | Words::Tex(s) => s,
+    }
+}
+
+/// `s` as the same kind of words as `words`.
+fn like<'a>(words: Words<'_>, s: &'a str) -> Words<'a> {
+    match words {
+        Words::Text(_) => Words::Text(s),
+        Words::Tex(_) => Words::Tex(s),
+    }
+}
+
+/// `words` broken into two lines of about the same length at a space: in
+/// plain text any space; in TeX a space of the top level or of a `\text{}`
+/// group (the group is closed on the first line and opened again on the
+/// second). `None` if there is no such space.
+fn two_lines(words: Words<'_>) -> Option<(String, String)> {
+    match words {
+        Words::Text(s) => {
+            let chars: Vec<char> = s.chars().collect();
+            let mut best: Option<(usize, usize)> = None;
+            for (i, &c) in chars.iter().enumerate() {
+                if c == ' ' && i > 0 && i + 1 < chars.len() {
+                    let gap = i.abs_diff(chars.len() - i - 1);
+                    if best.is_none_or(|(g, _)| gap < g) {
+                        best = Some((gap, i));
+                    }
+                }
+            }
+            let (_, i) = best?;
+            Some((chars[..i].iter().collect(), chars[i + 1..].iter().collect()))
+        }
+        Words::Tex(s) => tex_two_lines(s),
+    }
+}
+
+/// [`two_lines`] for TeX.
+fn tex_two_lines(src: &str) -> Option<(String, String)> {
+    // the groups open at each point: true for a `\text{}` group, false for
+    // any other
+    let mut open: Vec<bool> = Vec::new();
+    // what is shown before the point: letters, digits, symbols, and in a
+    // text group its spaces
+    let mut shown = 0usize;
+    let mut spaces: Vec<(usize, bool, usize)> = Vec::new();
+    let mut i = 0;
+    while i < src.len() {
+        let rest = &src[i..];
+        if rest.starts_with("\\text{") {
+            open.push(true);
+            i += "\\text{".len();
+            continue;
+        }
+        let c = rest.chars().next()?;
+        match c {
+            '\\' => {
+                let after = &rest[1..];
+                let name = after.chars().take_while(char::is_ascii_alphabetic).count();
+                i += 1 + if name > 0 {
+                    name
+                } else {
+                    after.chars().next().map_or(0, char::len_utf8)
+                };
+                shown += 1;
+            }
+            '{' => {
+                open.push(false);
+                i += 1;
+            }
+            '}' => {
+                open.pop();
+                i += 1;
+            }
+            '^' | '_' => i += 1,
+            ' ' => {
+                if open.iter().all(|&t| t) {
+                    spaces.push((i, !open.is_empty(), shown));
+                }
+                if open.last() == Some(&true) {
+                    shown += 1;
+                }
+                i += 1;
+            }
+            _ => {
+                shown += 1;
+                i += c.len_utf8();
+            }
+        }
+    }
+    let (at, in_text, _) = spaces
+        .into_iter()
+        .filter(|&(i, in_text, _)| {
+            i > 0 && !(in_text && (src[..i].ends_with("\\text{") || src[i + 1..].starts_with('}')))
+        })
+        .min_by_key(|&(_, _, before)| (2 * before).abs_diff(shown))?;
+    if in_text {
+        Some((format!("{}}}", &src[..at]), format!("\\text{{{}", &src[at + 1..])))
+    } else {
+        Some((src[..at].to_owned(), src[at + 1..].to_owned()))
+    }
+}
 
 /// One line of the card.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -980,7 +1096,9 @@ pub struct CardLine {
     /// The short reason beside the mark.
     pub reason: Option<Mob>,
     assumed: bool,
-    y: f64,
+    /// The statement's last line, which the mark stands after, and its y.
+    tail: Mob,
+    tail_y: f64,
 }
 
 /// THE CARD (storyboard header): **Shown** and **Assumed**, always in the
@@ -1001,51 +1119,89 @@ impl ProofCard {
         Self::build_at(kit, stage, rows, CardLook::HOME)
     }
 
-    /// As [`ProofCard::build`], somewhere else or at another size.
+    /// As [`ProofCard::build`], somewhere else or at another size. A
+    /// statement that would be set smaller than [`CARD_FLOOR`] of its size
+    /// takes two lines, and the card grows to hold them (it rises, so that
+    /// its foot stays inside the frame's safe area).
     pub fn build_at(kit: &Kit, stage: &mut Stage<'_>, rows: &[CardRow<'_>], look: CardLook) -> fmn::Result<Self> {
         if rows.is_empty() {
             return Err(fail("the card needs at least one line".into()));
         }
         let k = look.scale;
-        let (w, h) = (CARD_W * k, (2.0 * CARD_PAD + CARD_ROW * rows.len() as f64) * k);
+        let w = CARD_W * k;
+        let left = look.x - w / 2.0 + 0.4 * k;
+        let right = look.x + w / 2.0 - 0.4 * k;
+        // each row's label and statement (detached, at the origin's height)
+        let mut built: Vec<(Mob, Vec<Mob>, bool, f64, f64)> = Vec::new();
+        for row in rows {
+            let (name, words, assumed) = match *row {
+                CardRow::Shown(w) => (SHOWN, w, false),
+                CardRow::Assumed(w) => (ASSUMED, w, true),
+                CardRow::Counted(w) => (COUNTED, w, false),
+            };
+            let label = kit.text_styled(stage, name, CARD_PT * k, ink(), v(left, 0.0), true, false)?;
+            let from = left + (CARD_LABEL_COL * k).max(stage.get_width(label) + 0.35 * k);
+            let room = right - from - if assumed { CARD_MARK_ROOM * k } else { 0.0 };
+            let one = words.set_left(kit, stage, CARD_PT * k, ink(), v(from, 0.0))?;
+            let mut lines = vec![(one, source_of(words).to_owned())];
+            if stage.get_width(one) * CARD_FLOOR > room
+                && let Some((a, b)) = two_lines(words)
+            {
+                let first = like(words, &a).set_left(kit, stage, CARD_PT * k, ink(), v(from, 0.0))?;
+                let second = like(words, &b).set_left(kit, stage, CARD_PT * k, ink(), v(from, 0.0))?;
+                lines = vec![(first, a), (second, b)];
+            }
+            let mut mobs = Vec::new();
+            for (m, source) in lines {
+                #[cfg(test)]
+                fit_log::row(&source, stage.get_width(m), room);
+                let _ = &source;
+                fit_width_left(stage, m, room);
+                mobs.push(m);
+            }
+            // two lines are as far apart as their heights need (a fraction
+            // is taller than a letter), and no nearer than a text line
+            let pitch = match mobs[..] {
+                [a, b] => ((stage.get_height(a) + stage.get_height(b)) / 2.0 + 0.04 * k).max(CARD_LINE * k),
+                _ => 0.0,
+            };
+            built.push((label, mobs, assumed, from, pitch));
+        }
+        // the card's height, and its top: a taller card rises
+        let heights: Vec<f64> = built.iter().map(|(.., pitch)| CARD_ROW * k + pitch).collect();
+        let h = 2.0 * CARD_PAD * k + heights.iter().sum::<f64>();
+        let top = look.top.max(-FRAME_Y_RADIUS + 0.15 + h);
         let back = Rectangle::new()
             .width(w)
             .height(h)
             .corner_radius(0.14 * k)
             .style(Style::default().fill(panel(), 0.96).stroke(ink(), 2.0, 1.0))
             .build()?
-            .moved_to(v(look.x, look.top - h / 2.0));
+            .moved_to(v(look.x, top - h / 2.0));
         let back = stage.arena_mut().add(back);
-        let left = look.x - w / 2.0 + 0.4 * k;
-        let right = look.x + w / 2.0 - 0.4 * k;
         let mut lines = Vec::new();
-        for (i, row) in rows.iter().enumerate() {
-            let y = look.top - (CARD_PAD + CARD_ROW * (i as f64 + 0.5)) * k;
-            let (name, words, assumed) = match *row {
-                CardRow::Shown(w) => (SHOWN, w, false),
-                CardRow::Assumed(w) => (ASSUMED, w, true),
-                CardRow::Counted(w) => (COUNTED, w, false),
-            };
-            let label = kit.text_styled(stage, name, CARD_PT * k, ink(), v(left, y), true, false)?;
-            stage.move_to(label, v(left, y), LEFT);
-            let from = left + (CARD_LABEL_COL * k).max(stage.get_width(label) + 0.35 * k);
-            #[cfg(test)]
-            let source = match words {
-                Words::Text(t) | Words::Tex(t) => t,
-            };
-            let words = words.set_left(kit, stage, CARD_PT * k, ink(), v(from, y))?;
-            let room = right - from - if assumed { CARD_MARK_ROOM * k } else { 0.0 };
-            #[cfg(test)]
-            fit_log::row(source, stage.get_width(words), room);
-            fit_width_left(stage, words, room);
+        let mut row_top = top - CARD_PAD * k;
+        for ((label, mobs, assumed, from, pitch), height) in built.into_iter().zip(heights) {
+            // the row's lines stand about its middle, the label beside it
+            let middle = row_top - height / 2.0;
+            let first_y = middle + pitch / 2.0;
+            let tail_y = first_y - pitch * (mobs.len() - 1) as f64;
+            stage.move_to(label, v(left, middle), LEFT);
+            for (j, &m) in mobs.iter().enumerate() {
+                stage.move_to(m, v(from, first_y - pitch * j as f64), LEFT);
+            }
+            let tail = mobs[mobs.len() - 1];
+            let words = if mobs.len() == 1 { mobs[0] } else { group(stage, &mobs)? };
             lines.push(CardLine {
                 label,
                 words,
                 mark: None,
                 reason: None,
                 assumed,
-                y,
+                tail,
+                tail_y,
             });
+            row_top -= height;
         }
         Ok(Self {
             back,
@@ -1097,23 +1253,51 @@ impl ProofCard {
             return Err(fail(format!("the card's line {line} is not an unchecked Assumed line")));
         }
         let color = if ok { ink() } else { warn() };
-        let x = stage.get_right(row.words)[0] + 0.45 * k;
+        // the mark stands after the statement's last line
+        let x = stage.get_right(row.tail)[0] + 0.45 * k;
         let shape = if ok { checkmark(color) } else { exmark(color) };
         let side = 0.3 * k;
         let mark = stage
             .arena_mut()
-            .add(shape.with_height(side, false).moved_to(v(x + side / 2.0, row.y)));
+            .add(shape.with_height(side, false).moved_to(v(x + side / 2.0, row.tail_y)));
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         let a = fmn::animation::grow_from_center(stage.arena_mut(), mark, None)?;
         anims.push(stage.prepare(a.rt(0.4))?);
         row.mark = Some(mark);
         if !reason.is_empty() {
             let from = x + side + 0.22 * k;
+            let room = right - from;
             let color = if ok { dim() } else { warn() };
-            let words = kit.text_left(stage, reason, CARD_REASON_PT * k, color, v(from, row.y))?;
-            #[cfg(test)]
-            fit_log::row(reason, stage.get_width(words), right - from);
-            fit_width_left(stage, words, right - from);
+            let at = row.tail_y;
+            let one = kit.text_left(stage, reason, CARD_REASON_PT * k, color, v(from, at))?;
+            // a reason that would be set below the floor takes two lines,
+            // one over the other beside the mark, a size smaller so that the
+            // lines of two rows' reasons keep apart (a row is 0.5 high)
+            let split = if stage.get_width(one) * CARD_FLOOR > room {
+                two_lines(Words::Text(reason))
+            } else {
+                None
+            };
+            let (parts, pt) = match split {
+                Some((a, b)) => {
+                    let up = at + CARD_REASON_LINE * k / 2.0;
+                    let down = at - CARD_REASON_LINE * k / 2.0;
+                    let first = kit.text_left(stage, &a, CARD_REASON_TWO_PT * k, color, v(from, up))?;
+                    let second = kit.text_left(stage, &b, CARD_REASON_TWO_PT * k, color, v(from, down))?;
+                    (vec![(first, a), (second, b)], CARD_REASON_TWO_PT)
+                }
+                None => (vec![(one, reason.to_owned())], CARD_REASON_PT),
+            };
+            let mut mobs = Vec::new();
+            for (m, source) in parts {
+                // (logged as it would be at the full reason size)
+                #[cfg(test)]
+                fit_log::row(&source, stage.get_width(m) * CARD_REASON_PT / pt, room);
+                let _ = (&source, pt);
+                fit_width_left(stage, m, room);
+                mobs.push(m);
+            }
+            let words = if mobs.len() == 1 { mobs[0] } else { group(stage, &mobs)? };
             let a = fade_in(stage.arena_mut(), words, v(0.15, 0.0), 1.0)?;
             anims.push(stage.prepare(a.rt(0.5))?);
             row.reason = Some(words);
@@ -1863,13 +2047,20 @@ pub mod testing {
         let report = fmn::render(scene.as_mut(), opts).map_err(|e| format!("{key}: {e}"))?;
         let frames = report.artifact.frame_count as u64;
         shelf_checks(key)?;
+        let squeezed = super::fit_log::take();
+        if let Some((text, scale)) = squeezed.iter().find(|(_, s)| *s < super::CARD_FLOOR - 1e-9) {
+            return Err(format!(
+                "{key}: a card row is set at {scale:.2} of its size, under the floor {}: {text:?}",
+                super::CARD_FLOOR
+            ));
+        }
         let ran = Ran {
             frames,
             seconds: frames as f64 / 10.0,
             lint: lint.report(),
             lint_count: lint.count(),
             registered: kit.registered(),
-            squeezed: super::fit_log::take(),
+            squeezed,
         };
         Ok((ran, kit))
     }
