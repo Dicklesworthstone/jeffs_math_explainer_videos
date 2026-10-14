@@ -1,8 +1,8 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (fullest where the matrix first goes into the series, where the flow
 //! picture arrives and at the bridge to Lie theory; quieter for the honest
-//! failures and the computing chapter). A chapter not yet built stands in as
-//! its storyboard's animatic, and is replaced by its real scene as it lands.
+//! failures and the computing chapter). Every chapter is a real scene; the
+//! animatic stand-ins (`explainer_kit::animatic`) are gone.
 
 pub mod a_matrix_in;
 pub mod does_it_settle;
@@ -25,25 +25,12 @@ pub mod walks;
 pub mod where_it_leads;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
 
 macro_rules! scene {
     ($key:literal, $intensity:expr, $module:ident :: $scene:ident) => {
         Chapter {
             key: $key,
             make: |kit| Box::new($module::$scene { kit }),
-            intensity: $intensity,
-        }
-    };
-}
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
             intensity: $intensity,
         }
     };

@@ -16,10 +16,8 @@
 //! expm help                          # the full option list
 //! ```
 //!
-//! A chapter not yet built stands in as an animatic
-//! (`explainer_kit::animatic`): it speaks its storyboard lines over a card
-//! describing the planned picture, so drafts and timelines run before the
-//! real scene exists.
+//! Every chapter is a real scene (`chapters/`), built on `chapters/draw.rs`
+//! and tested by constructing it through the renderer with the layout lint on.
 
 mod chapters;
 mod facts;
@@ -30,7 +28,9 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 pub(crate) const SCRIPT: &str = include_str!("../script.tsv");
-/// The storyboard: words, pictures, holds and listen windows per beat.
+/// The storyboard: words, pictures, holds and listen windows per beat (the
+/// checks against the script and the quizzes read it; no scene does).
+#[cfg(test)]
 pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 const EXPLAINER: Explainer = Explainer {
     crate_name: "matrix_exponential",
