@@ -6,6 +6,10 @@
    "respell": [
     "Lee"
    ],
+   "accept": [
+    "league",
+    "lead"
+   ],
    "ipa": "liː",
    "lang": "no",
    "sources": [
@@ -18,7 +22,8 @@
    "note": "Sophus Lie, Norwegian [liː]: 'Lee'. Spoken at 15_4 ('Lie algebra', 'Lie group'). The ordinary spelling is not offered to the voice: it is the English word 'lie'. Copied from Video J's lexicon (same voice and ftts build); in this video spoken at 05_7 ('Sophus Lie'), 15_4 and 15_5 ('Lie group').",
    "probe": {
     "date": "2026-10-13, michael, ftts 0.1.11, fw 0.10.0, 3 carriers, control + decoy (probe_names.py run)",
-    "verdict": "VERIFIED as in Video J: 'Lee' heard as Lee 3/3; the plain spelling and the decoy 'Lye' heard as lie/Lye/Lai. The tool says UNVERIFIED only because the decoy's 'lie' is the name's own spelling."
+    "verdict": "VERIFIED as in Video J: 'Lee' heard as Lee 3/3; the plain spelling and the decoy 'Lye' heard as lie/Lye/Lai. The tool says UNVERIFIED only because the decoy's 'lie' is the name's own spelling.",
+    "context": "2026-10-14, 15_5.1 'to think in Lie groups' (michael, ftts 0.1.11, fw 0.10.0): all 12 reads of the sentence were heard 'league groups' or 'lead groups', and so were 4 of 4 plain 'Lee' reads in the same frame, while 'Lye' and 'Lie' were heard 'lie' (3 of 3) and true 'league' and 'lead' reads were heard as written (4 of 4): the ASR separates the vowel of 'lie' from [liː] and writes [liː] before 'groups' as the English word it prefers. Praat formants at 30-75% of the word before 'groups': all 12 reads and the 'Lee' decoys F1 230-445 Hz throughout and F2 rising to 2060-2490 Hz by 75% of the word (a close front [iː]); 'Lye' and 'Lie' F1 rising to 560-740 Hz and F2 staying near 940-1290 Hz. So 'league' and 'lead' are accepted spellings of this name, not a mispronunciation; the script has no word 'league' or 'lead'."
    }
   },
   "Euler": {
