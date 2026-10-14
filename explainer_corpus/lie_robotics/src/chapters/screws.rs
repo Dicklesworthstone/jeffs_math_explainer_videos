@@ -3,14 +3,15 @@
 //! screw (07_3); a door, a drawer, a bottle cap (07_4); any displacement of a
 //! rigid body is one screw (07_5); and who found it (07_6).
 
-use explainer_kit::props::{lower_third, precisely};
+use explainer_kit::animatic::wrap;
+use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, Timed, play, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Ask, BOOK_HALF, Choice, PartSpec, Pin, QuizCard, QuizLook, Shape, VIEW_AZIMUTH_DEG, View, World, cuboid, fact,
     fact_f64, fade_in_all, four_words, leave, mix, plate, pose_fn, say, screen_entry, screw_shapes, spin_arrow, still,
-    table, tween_linear, value,
+    table, tag, tween_linear, value,
 };
 use crate::facts::shown::{TOSS_SLIDE, TOSS_TURN_DEG};
 use crate::model::{
@@ -34,7 +35,14 @@ const TURN_WORD: &str = "turn";
 const SLIDE_LABEL: &str = "slide";
 const METRES: &str = "m";
 const DEGREE: &str = "°";
-const TWIST_NOTE: &str = "a twist's slide arrow is the velocity of the point at the origin; its sideways part moves the axis, as the platform's centre moved";
+const FOR_PROGRAMMERS: &str = "for programmers";
+/// 07_2's tag (R2 C-05): what the slide arrow of a twist is, in few words.
+const TWIST_NOTE: &str = "a twist's slide arrow is the velocity of the point at the room's origin";
+/// The tag's text wraps at this many characters; it stands in the right
+/// column, under the six numbers (its centre).
+const TAG_WRAP: usize = 30;
+const TAG_AT: [f64; 2] = [4.6, -1.5];
+const TAG_PT: f64 = 22.0;
 const DIFFERENT_POSES: &str = "different poses,";
 const SCREWS: &str = "screws";
 const MOZZI_NOTE: &str = "(for motion at an instant)";
@@ -42,6 +50,14 @@ const CHASLES_NOTE: &str = "every displacement of a rigid body is a screw displa
 
 /// The beats of the chapter, in order (storyboard ids).
 const BEATS: [&str; 6] = ["07_1", "07_2", "07_3", "07_4", "07_5", "07_6"];
+
+/// The words of 07_2's tag: the header, then the note on lines of at most
+/// `TAG_WRAP` characters.
+fn twist_tag_words() -> String {
+    let mut lines = vec![FOR_PROGRAMMERS.to_owned()];
+    lines.extend(wrap(TWIST_NOTE, TAG_WRAP, usize::MAX));
+    lines.join("\n")
+}
 
 /// 07_1's quiz: in how many ways can a pose change in space? The keys are
 /// the number as `G-Q.07_1.answer` prints it.
@@ -338,9 +354,9 @@ impl SceneConstruct for Screws {
         let mut group = vec![spin_head, slide_head];
         group.extend(&numbers);
         fade_in_all(stage, &group, 0.6)?;
-        // the exact version of the two arrows comes in with their numbers, not
-        // after the screw it also qualifies, so that it stays long enough
-        let note = lower_third(&kit, stage, "precisely:", TWIST_NOTE)?;
+        // what the slide arrow is comes in with the numbers, as a small tag
+        // under them, and stays through the line's end
+        let note = tag(&kit, stage, &twist_tag_words(), v(TAG_AT[0], TAG_AT[1]), TAG_PT)?;
         play!(stage; fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.5));
 
         // 07_3: hold a twist steady: a screw; the centre stands up into an
@@ -570,7 +586,7 @@ impl SceneConstruct for Screws {
 mod tests {
     use std::f64::consts::FRAC_PI_2;
 
-    use super::super::draw::fact_list;
+    use super::super::draw::{LOWER_THIRD_TOP, SAFE, fact_list, probe, run_chapter};
     use super::*;
     use crate::model::X;
 
@@ -612,6 +628,56 @@ mod tests {
             "x runs to the right"
         );
         assert!(model::gap(&floor_turn(1.0), &model::I3) < 1e-12, "flat at the end");
+    }
+
+    /// The whole chapter constructs, headless.
+    #[test]
+    fn the_chapter_constructs_end_to_end() {
+        run_chapter(&mut Screws {
+            kit: Kit::new().expect("the kit"),
+        });
+    }
+
+    /// 07_2: the "for programmers" tag says, in the storyboard's words, what
+    /// the slide arrow is; it stands in the right column under the six
+    /// numbers, inside the safe area, and off the floor's edges.
+    #[test]
+    fn the_programmers_tag_stands_under_the_numbers_and_off_the_floor() {
+        assert!(crate::STORYBOARD.contains(TWIST_NOTE), "the storyboard's tag differs");
+        let words = twist_tag_words();
+        assert!(words.starts_with(FOR_PROGRAMMERS));
+        assert_eq!(words.lines().skip(1).collect::<Vec<_>>().join(" "), TWIST_NOTE);
+        probe(|stage| {
+            let kit = Kit::new()?;
+            let t = tag(&kit, stage, &words, v(TAG_AT[0], TAG_AT[1]), TAG_PT)?;
+            let (left, right) = (stage.get_left(t)[0], stage.get_right(t)[0]);
+            let (bottom, top) = (stage.get_bottom(t)[1], stage.get_top(t)[1]);
+            assert!(
+                left > -SAFE[0] && right < SAFE[0],
+                "the tag runs {left:.2} to {right:.2}"
+            );
+            assert!(bottom > LOWER_THIRD_TOP + 0.1, "the tag's foot is at {bottom:.2}");
+            // the six numbers' lowest row stands at y = -0.15 (36 points)
+            assert!(top < -0.15 - 0.3, "the tag's top is at {top:.2}");
+            // the floor, flat, in this chapter's view: no edge crosses the tag
+            let view = View::new(1.35, v(-3.3, -0.6));
+            let corners = [
+                [FLOOR_LO[0], FLOOR_LO[1], 0.0],
+                [FLOOR_HI[0], FLOOR_LO[1], 0.0],
+                [FLOOR_HI[0], FLOOR_HI[1], 0.0],
+                [FLOOR_LO[0], FLOOR_HI[1], 0.0],
+            ];
+            for k in 0..4 {
+                let (a, b) = (view.project(corners[k]), view.project(corners[(k + 1) % 4]));
+                for s in 0..=60 {
+                    let f = f64::from(s) / 60.0;
+                    let p = (a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f);
+                    let inside = p.0 > left - 0.05 && p.0 < right + 0.05 && p.1 > bottom - 0.05 && p.1 < top + 0.05;
+                    assert!(!inside, "the floor's edge passes through the tag at {p:?}");
+                }
+            }
+            Ok(())
+        });
     }
 
     /// 07_2: a twist is two arrows, six numbers, and held for a second it
