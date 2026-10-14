@@ -40,7 +40,7 @@ pub const LINES: [&str; 6] = ["14_1", "14_2", "14_3", "14_4", "14_5", "14_6"];
 // the chapter's fixed words (numbers and dates are built from facts)
 const NAMES: [&str; 4] = ["Palomares", "Scorpion", "Air France 447", "John Aldridge"];
 const WHAT_PUT_IT_RIGHT: [&str; 4] = [
-    "found near the fisherman's mark",
+    "found near the fisherman’s mark",
     "widths re-measured after the find",
     "a second map",
     "re-run with new evidence",
@@ -711,7 +711,7 @@ impl SceneConstruct for FourMaps {
         kit.hold(stage)?;
         let update = kit.text(
             stage,
-            &format!("{UPDATE}  {UPDATE_RULE}"),
+            &format!("{UPDATE} {UPDATE_RULE}"),
             36.0,
             Palette::ink(),
             v(0.0, HOLD_LINES_Y[0]),
