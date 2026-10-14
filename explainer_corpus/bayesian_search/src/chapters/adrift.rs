@@ -529,10 +529,15 @@ impl SceneConstruct for Adrift {
         let one_flight = flight_words(&fact("F-D.track")?);
         let flight = tag(&kit, stage, &one_flight, flight_tag_at(&one_flight), FLIGHT_TAG_PT)?;
         fade_in_all(stage, &[table, flight], 0.6)?;
-        // in the hold: what sweep width is (R2: S2, R9, D13), said once, not
-        // as a hard edge
+        // what sweep width is (R2: S2, R9, D13), said once, not as a hard
+        // edge: it comes with the claim it qualifies, "counts on spotting
+        // someone ... only inside a narrow strip", and stands through "It is
+        // a tenth of a mile wide" (it came with that last sentence and stood
+        // 2.3 s whole over the finished read, for 19 words)
         let sweep = lower_third(&kit, stage, SWEEP_LABEL, EFFECTIVE_WIDTH)?;
-        line.wait_for(stage, "It is a tenth")?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, sweep, "10_3:sweep")?;
+        line.wait_for(stage, "counts on spotting")?;
         fade_in_all(stage, &[sweep], 0.5)?;
 
         // ------------------------------------------------------- 10_4
@@ -1152,6 +1157,29 @@ mod tests {
         assert!(
             whole >= STAND_UP - 0.1,
             "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
+    }
+
+    /// 10_3 (the finals' dense read of the scored render: the "sweep width"
+    /// band came with the last sentence and stood 2.33 s whole): it stands for
+    /// the floor and for a read at 4.5 words a second. The lines are on the
+    /// finished read's timing.
+    #[test]
+    fn the_sweep_width_band_stands_long_enough_to_be_read() {
+        use super::super::draw::{STAND_UP, watch};
+        let w = watch::run_timed(
+            "10_adrift",
+            &[
+                ("10_3", &[0.0, 2.545, 9.1], 10.9),
+                ("10_4", &[0.0, 6.005, 12.58, 17.745], 19.21),
+            ],
+        );
+        let whole = w.stood("10_3:sweep");
+        let words = format!("{SWEEP_LABEL} {EFFECTIVE_WIDTH}").split_whitespace().count() as f64;
+        let need = STAND_UP.max(words / 4.5);
+        assert!(
+            whole >= need - 0.1,
+            "the band stands whole {whole:.2} s, a read of {words} words takes {need:.2} s"
         );
     }
 }
