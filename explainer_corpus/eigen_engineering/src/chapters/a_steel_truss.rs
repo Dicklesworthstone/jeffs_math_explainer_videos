@@ -214,7 +214,10 @@ impl SceneConstruct for ASteelTruss {
             v(right[0] + 0.95, right[1] + LAYOUT.scale * depth_m / 2.0),
         )?;
         let model_tag = chip(&kit, stage, "a model", 26.0, dim, v(3.4, 1.55))?;
-        line.wait_for(stage, "a steel truss bridge")?;
+        // the truss starts to draw as the line starts (it waited for "a
+        // steel truss bridge", 0.3 s in, and the narrated draft's first mark
+        // came 0.9 s into the chapter, 0.3 s after the voice)
+        mark(&kit, stage, "05_1.truss_starts");
         play!(stage; tween_linear(pic.drawn, t.members.len() as f64, 3.4)?);
         line.wait_for(stage, "twenty-four metres long")?;
         let mut dims_in = dims.clone();
@@ -691,6 +694,21 @@ mod tests {
         let (_, s4, l4) = voiced.lines.iter().find(|(id, ..)| id == "05_4").cloned().unwrap();
         let (_, s5, _) = voiced.lines.iter().find(|(id, ..)| id == "05_5").cloned().unwrap();
         assert!(s5 - (s4 + l4) <= 6.5, "{:.1} s of silence before 05_5", s5 - (s4 + l4));
+    }
+
+    /// 05_1 (blank_stretches on the narrated draft): the chapter's first mark
+    /// came 0.3 s after the voice, because the truss waited for "a steel truss
+    /// bridge"; it now starts to draw as the line starts.
+    #[test]
+    fn the_truss_starts_to_draw_with_the_first_line() {
+        let voiced = testing::run_voiced("05_a_steel_truss").unwrap();
+        let (_, start, _) = voiced.lines.iter().find(|(id, ..)| id == "05_1").cloned().unwrap();
+        let drawn = marks::at(&voiced.tag, "05_1.truss_starts") - start;
+        eprintln!("05_1: the truss starts to draw {drawn:.2} s after the line");
+        assert!(
+            drawn <= 0.05,
+            "the truss starts to draw {drawn:.2} s after the line starts"
+        );
     }
 
     /// 05_6: the roller's "1.3 mm" stands under the roller's ground line and
