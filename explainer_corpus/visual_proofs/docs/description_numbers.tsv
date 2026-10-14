@@ -6,9 +6,3 @@
 1977	Love, 1977	year	S6: Love, "Proof without Words: Cubes and Squares", Mathematics Magazine 50(2), March 1977, p. 74 (Crossref)
 67	67(3), June 1994	cited	volume of Mathematics Magazine for Ajose and Nelsen, "Proof without Words: Geometric Series" (S10: Crossref and the archived MAA page); its year and page are F-X.ajose_nelsen
 200	Chinese proof from 200 BC	cited	the date in a popular claim the video does not make and the description names only to deny it (fact sheet, Never said or shown; S13: the sources read date the Zhoubi to the first century BC and its figure to the third century CE); used twice
-# 99 is the general-position count for eight points, 1 + C(8, 2) + C(8, 4): the closed form F-C.closed_form,
-# which agrees with the drawing up to seven points (F-C.regions.seven = 57), taken one step on by Pascal's rule
-# (C(8, 2) - C(7, 2) = C(7, 1) = 7, C(8, 4) - C(7, 4) = C(7, 3) = 35). oracle.py also pins the eight evenly spaced
-# points at 1 + C(8, 2) + C(8, 4) - 11 = 88 (F-C.evenly_spaced.regions.eight).
-99	57, 99	derived	=f("F-C.regions.seven")+7+7*6*5/6
-99	not 99	derived	=f("F-C.regions.seven")+7+7*6*5/6

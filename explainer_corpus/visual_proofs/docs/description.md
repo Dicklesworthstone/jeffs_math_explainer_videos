@@ -85,7 +85,8 @@ positive lengths), as the card in the video says.
   least 4); six whole stacks can, 4 by 5 by 9, found by exhaustive search and
   checked cell by cell; six is also the fewest for whole cubes, since four and
   five stacks do not tile their only candidate boxes (4 by 5 by 6 and 5 by 5 by
-  6), by exact-cover search. Three is the fewest under the video's rule, by the
+  6), by exact-cover search [F-D.whole.side_least, F-D.whole.boxes,
+  F-D.whole.filled, F-D.whole.fewest]. Three is the fewest under the video's rule, by the
   size of the box [F-S.fewest, F-S.fewest.box]: a stack is 4 by 4 by 4 at its
   widest in every direction, so the only box that can hold one and has 30, 60
   or 90 cubes is 4 by 5 by 4½. That is an argument from necessary conditions
@@ -160,8 +161,9 @@ positive lengths), as the card in the video says.
 
 - **Regions of a circle.** With n points on a circle and no three lines
   meeting at one point inside, the lines cut the disc into 1 + C(n, 2) +
-  C(n, 4) regions: 1, 2, 4, 8, 16, 31, 57, 99 for n = 1 to 8
-  [F-C.closed_form, to n = 7]. Evenly spaced points need not be in that
+  C(n, 4) regions: 1, 2, 4, 8, 16, 31, 57, 99 for n = 1 to 8, the first seven
+  drawn in the video and the eighth drawn the same way in the oracle
+  [F-C.closed_form, F-D.circle.general_position]. Evenly spaced points need not be in that
   position: six give only 30, because the three long lines meet in the middle
   [F-C.evenly_spaced.regions], and eight give 88, not 99, because several lines
   meet inside (counted exactly in the oracle, in Q(√2)
@@ -196,7 +198,7 @@ positive lengths), as the card in the video says.
 
 ```python
 from math import comb
-[1 + comb(n, 2) + comb(n, 4) for n in range(1, 9)]   # 1, 2, 4, 8, 16, 31, 57, 99
+[1 + comb(n, 2) + comb(n, 4) for n in range(1, 9)]   # 1, 2, 4, 8, 16, 31, 57, 99  [F-D.circle.general_position]
 
 s, k = 0.0, 0                                        # the halved square in floats
 while s < 1.0:
