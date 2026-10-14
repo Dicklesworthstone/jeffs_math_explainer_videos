@@ -142,8 +142,10 @@ and the largest error anywhere in the moves is 1.2 mm [K-P2.move_error_mm.1].
 That is true of this load, five equal pushes along the deck. For a lone
 100 kN load the softest pattern alone gives 41.8% of the drop under it at 4 m
 from the pin, 75.8% at 8 m and 86.3% at midspan, and a lone midspan load needs
-10 patterns to come within 2.5% under it (the P3 claim walk's recomputation;
-to be pinned as `K-P2.lone_pct.*`).
+10 patterns to come within 2.5% under it (the P3 claim walk's recomputation,
+pinned as `K-P2.lone_pct.*` and `K-P2.lone_within_2p5.12m`; the closing card of
+chapter 06 says only that one sharp load needs many more patterns, and these
+are its numbers).
 The worst member force is off by 82 kN with one pattern (18% of the largest),
 44 with five, 8 with fifteen and 0 with all 21 [K-P2.force_error_kn.*]. The
 split's formula is u = Σ (qᵢ · f) ÷ (λᵢ qᵢ · qᵢ) qᵢ; it reduces to qᵢ · f ÷ λᵢ

@@ -18,7 +18,9 @@ use fmn::prelude::*;
 use super::draw::{
     QuizCard, chip, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say, wait_until,
 };
+use super::marks::mark;
 use super::sound;
+use super::the_bridge_that_swayed::counted;
 use super::truss::{Layout, outline, supports};
 use super::twenty_one_patterns::{corners, deformed, sag_oriented, scaled_to};
 use crate::model::linalg::Eigen;
@@ -32,6 +34,15 @@ pub struct EveryModeANote {
 pub const SLOW: f64 = 6.0;
 /// The four tonnes of 07_2 and the eight of the quiz, kilograms.
 pub const HEAVY_KG: f64 = 2.0 * DECK_KG;
+/// 07_6: the three clean modes' trusses (their feet, scale, and the largest
+/// bend in metres) and the heights of the two captions around them. The mix
+/// caption stood at -0.9, 1-2 px over the middle truss's apex; the plane
+/// caption was 13 px off the lower-third.
+pub const CLEAN_Y: f64 = -1.9;
+pub const CLEAN_SCALE: f64 = 0.16;
+pub const CLEAN_BEND_M: f64 = 1.3;
+pub const MIX_Y: f64 = -0.6;
+pub const PLANE_Y: f64 = -2.55;
 
 // ------------------------------------------------------------ the model
 
@@ -117,6 +128,17 @@ fn swinger(
         )?;
     }
     Ok(Swinger { members, anchor })
+}
+
+/// Light row `on` of the three modes' rows and put the others back to a third
+/// (all lit for `None`): the picture of which tone is sounding.
+fn light_row(stage: &mut Stage<'_>, rows: &[Vec<Mob>], on: Option<usize>) {
+    for (k, parts) in rows.iter().enumerate() {
+        let opacity = if on.is_none_or(|i| i == k) { 1.0 } else { 0.35 };
+        for &m in parts {
+            stage.set_opacity(m, opacity, true);
+        }
+    }
 }
 
 /// The joints' mass as discs: dim, radius by the joint's mass, detached.
@@ -237,11 +259,14 @@ impl SceneConstruct for EveryModeANote {
             dim,
             v(-5.5, 3.7),
         )?;
+        // both counters open at 0 when they come in (they counted from 07_1's
+        // first word and arrived at "13 swings, 2.3 seconds")
+        let zero = stage.tracker_value(clock).unwrap_or(0.0);
         let swings = kit.live_value(
             stage,
             {
                 let f1 = hz[0];
-                move |s| (s.tracker_value(clock).unwrap_or(0.0) * f1).floor()
+                move |s| counted(s.tracker_value(clock).unwrap_or(0.0), zero, f1)
             },
             0,
             false,
@@ -253,7 +278,7 @@ impl SceneConstruct for EveryModeANote {
         let swings_words = kit.text(stage, "swings", 28.0, dim, v(5.3, 2.9))?;
         let seconds = kit.live_value(
             stage,
-            move |s| s.tracker_value(clock).unwrap_or(0.0),
+            move |s| (s.tracker_value(clock).unwrap_or(0.0) - zero).max(0.0),
             1,
             false,
             44.0,
@@ -354,6 +379,15 @@ impl SceneConstruct for EveryModeANote {
             labels.push(kit.text_left(stage, &hz_words[k], 44.0, own(), v(2.3, y + 0.35))?);
             labels.push(kit.text_left(stage, notes[k], 24.0, dim, v(2.3, y - 0.2))?);
         }
+        // each row's own parts (its swinging members and its two labels), so
+        // that the row whose tone is sounding can be the one that is lit
+        let row_parts: Vec<Vec<Mob>> = (0..3)
+            .map(|k| {
+                let mut p = trio[k].members.clone();
+                p.extend(&labels[2 * k..2 * k + 2]);
+                p
+            })
+            .collect();
         let mut ins = row_extras.clone();
         for s in &trio {
             ins.extend(&s.members);
@@ -380,6 +414,17 @@ impl SceneConstruct for EveryModeANote {
         let wav = sound::bridge(&Truss::pratt().hertz(DECK_KG))?;
         kit.sonify(stage, sound::BRIDGE_S, &format!("{}:07_3", kit.chapter), &wav)?;
         let start = stage.scene().time().to_f64();
+        mark(&kit, stage, "07_3.window_start");
+        // the row whose tone sounds is lit and the others stand back, mode
+        // by mode as the tones come, then all three for the chord
+        for k in 0..3 {
+            wait_until(stage, start + sound::BRIDGE_STEP_S * k as f64)?;
+            light_row(stage, &row_parts, Some(k));
+            mark(&kit, stage, ["07_3.lit_0", "07_3.lit_1", "07_3.lit_2"][k]);
+        }
+        wait_until(stage, start + sound::BRIDGE_TOGETHER_AT)?;
+        light_row(stage, &row_parts, None);
+        mark(&kit, stage, "07_3.lit_all");
         wait_until(stage, start + sound::BRIDGE_S)?;
         kit.hold(stage)?;
 
@@ -571,8 +616,8 @@ impl SceneConstruct for EveryModeANote {
         let mut bottom_still: Vec<Mob> = Vec::new();
         for (k, &f) in hz.iter().enumerate().take(3) {
             let layout = Layout {
-                origin: [-6.4 + 4.6 * k as f64, -1.9, 0.0],
-                scale: 0.16,
+                origin: [-6.4 + 4.6 * k as f64, CLEAN_Y, 0.0],
+                scale: CLEAN_SCALE,
             };
             bottom_still.extend(outline(stage, &t, layout, Palette::faint(), 1.0));
             bottom_still.extend(supports(stage, &t, layout));
@@ -580,15 +625,21 @@ impl SceneConstruct for EveryModeANote {
                 stage,
                 &t,
                 layout,
-                vec![(shaped(&t, &light, k, 1.3), f)],
+                vec![(shaped(&t, &light, k, CLEAN_BEND_M), f)],
                 clock,
                 own(),
                 4.0,
             )?);
         }
         let shake_words = kit.text(stage, "a messy shake of the bridge", 28.0, ink, v(0.0, 3.0))?;
-        let mix_words = kit.text(stage, "is a mix of three clean modes", 28.0, dim, v(0.0, -0.9))?;
-        let plane = kit.text(stage, "this model moves only in its own plane", 24.0, dim, v(0.0, -2.5))?;
+        let mix_words = kit.text(stage, "is a mix of three clean modes", 28.0, dim, v(0.0, MIX_Y))?;
+        let plane = kit.text(
+            stage,
+            "this model moves only in its own plane",
+            24.0,
+            dim,
+            v(0.0, PLANE_Y),
+        )?;
         let finder = names_to_search(
             &kit,
             stage,
@@ -624,7 +675,9 @@ impl SceneConstruct for EveryModeANote {
 #[cfg(test)]
 mod tests {
     use super::super::draw::{show, testing};
+    use super::super::marks;
     use super::*;
+    use crate::model::truss::DEPTH_M;
 
     /// 07_2 and 07_3: with four tonnes at each deck joint the modes are the
     /// facts' 5.9, 11.8, 14.9 hertz (5.91, 11.78, 14.86 to two places), in
@@ -731,6 +784,51 @@ mod tests {
             );
         }
         assert!(ran.seconds > 35.0 && ran.seconds < 120.0, "{} s", ran.seconds);
+    }
+
+    /// 07_3: the listen window lights the mode that is sounding, one by one
+    /// at the tones' own times (`sound::BRIDGE_STEP_S` apart), then all three
+    /// for the chord at `BRIDGE_TOGETHER_AT`.
+    #[test]
+    fn the_window_lights_each_mode_as_its_tone_sounds() {
+        let voiced = testing::run_voiced("07_every_mode_a_note").unwrap();
+        let tag = &voiced.tag;
+        let start = marks::at(tag, "07_3.window_start");
+        for (k, what) in ["07_3.lit_0", "07_3.lit_1", "07_3.lit_2"].into_iter().enumerate() {
+            let want = sound::BRIDGE_STEP_S * k as f64;
+            let at = marks::at(tag, what) - start;
+            assert!(
+                (at - want).abs() <= 0.11,
+                "{what}: {at:.2} s into the window, wanted {want:.2}"
+            );
+        }
+        let all = marks::at(tag, "07_3.lit_all") - start;
+        assert!((all - sound::BRIDGE_TOGETHER_AT).abs() <= 0.11, "{all:.2} s");
+        // each tone sounds inside its slot: the lit moment is not after its end
+        const { assert!(sound::BRIDGE_STEP_S * 2.0 + sound::BRIDGE_SOLO_S <= sound::BRIDGE_TOGETHER_AT) };
+    }
+
+    /// 07_2: the swings and the seconds open at 0 when they come in.
+    #[test]
+    fn the_swing_counter_opens_at_zero() {
+        let hz = Truss::pratt().hertz(DECK_KG)[0];
+        let c0 = 2.7; // what the clock read when 07_1 had run for 16 s
+        assert_eq!(counted(c0, c0, hz), 0.0);
+        assert_eq!(counted(c0 + 1.0 / hz, c0, hz), 1.0);
+    }
+
+    /// 07_6: the words around the three clean modes keep a gap from the
+    /// trusses (the mix words from the highest the trusses reach, the plane
+    /// words from the supports under them).
+    #[test]
+    fn the_captions_of_the_mix_keep_off_the_clean_trusses() {
+        // 28 pt words are about 0.34 high, 24 pt about 0.3; supports go 0.35
+        // below the feet; the shake's lowest point is its foot (1.0) less its
+        // largest bend (0.9 m at 0.3 a metre)
+        const TOP: f64 = CLEAN_Y + DEPTH_M * CLEAN_SCALE + CLEAN_BEND_M * CLEAN_SCALE;
+        const { assert!(MIX_Y - 0.17 >= TOP + 0.1, "mix words clear the trusses' apex") };
+        const { assert!(PLANE_Y + 0.15 <= CLEAN_Y - 0.35 - 0.1, "plane words clear the supports") };
+        const { assert!(MIX_Y + 0.17 < 1.0 - 0.9 * 0.3, "mix words under the shake") };
     }
 
     #[test]

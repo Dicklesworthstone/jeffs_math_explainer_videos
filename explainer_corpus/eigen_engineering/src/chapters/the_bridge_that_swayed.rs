@@ -25,9 +25,10 @@ use fmn::prelude::*;
 
 use super::deck::{Deck, DeckSpec, edge, oscillate};
 use super::draw::{
-    arrow_points, chip, corners, fact, fade_in_all, fade_out_all, faded_line, fail, flat, good, group, numbers, own,
-    panel, predict_hold, say, tick_mark, tween_all, tween_linear, warn, whole,
+    arrow_points, chip, corners, fact, fade_in_all, fade_in_anim, fade_out_all, fade_out_anim, faded_line, fail, flat,
+    good, group, numbers, own, panel, predict_hold, say, tick_mark, tween_all, tween_linear, warn, whole,
 };
+use super::marks::mark;
 use super::truss::{Layout, TrussPic};
 use crate::model::carts;
 use crate::model::linalg::jacobi_eigh;
@@ -61,6 +62,10 @@ const CURVE_AMP: f64 = 0.6;
 const WALKER_AT: Vec3 = [-0.6, -0.9, 0.0];
 const WALKER_SWAY: f64 = 0.55;
 const COUNTERS_X: f64 = 5.5;
+/// 01_1: how far along the deck from its middle the sway's bracket stands,
+/// and half the reading's size (30 pt, "7 cm"), scene units.
+const BRACKET_DX: f64 = 1.1;
+const READING_HALF: (f64, f64) = (0.45, 0.2);
 
 // ------------------------------------------------------------- the geometry
 
@@ -102,6 +107,24 @@ pub fn lowest_air_mode(n: usize) -> Vec<f64> {
     let top = mode.iter().fold(0.0_f64, |m, x| m.max(x.abs()));
     let sign = mode[n / 2].signum();
     mode.iter().map(|x| sign * x / top).collect()
+}
+
+/// Where 01_1 sets the sway's reading: above the highest the deck's top edge
+/// gets in the span of the words, at the full sway, so that no edge line ever
+/// crosses them (it stood on the deck and the lower edge went through it).
+pub fn reading_at(spec: &DeckSpec) -> Vec3 {
+    let x = spec.centre[0] + BRACKET_DX;
+    let top = edge(spec, SWAY, 1.0, 0.0, 1.0)
+        .iter()
+        .filter(|p| (p[0] - x).abs() <= READING_HALF.0 + 0.25)
+        .fold(f64::NEG_INFINITY, |m, p| m.max(p[1]));
+    v(x, top + READING_HALF.1 + 0.12)
+}
+
+/// How many whole swings (or sways) a counter that began at clock reading
+/// `zero` has counted at reading `now`, at `hz` a second: it opens at 0.
+pub fn counted(now: f64, zero: f64, hz: f64) -> f64 {
+    ((now - zero) * hz).floor().max(0.0)
 }
 
 /// The two ends of a range written as the facts write it, `80000-100000`.
@@ -194,7 +217,6 @@ impl SceneConstruct for TheBridgeThatSwayed {
         let walker_hz = numbers("K-B2.walker_lateral_hz")?[0];
 
         // ---- 01_1: the deck from above, already swinging under walkers
-        let line = say(&kit, stage, "01_1")?;
         let deck = Deck::build(stage, DECK, WALKERS)?;
         deck.start(stage)?;
         stage.set_tracker_value(deck.swings, deck_hz)?;
@@ -223,7 +245,7 @@ impl SceneConstruct for TheBridgeThatSwayed {
             &format!("{} cm", fact("K-B2.sway_cm")?),
             30.0,
             ink,
-            v(mid[0] + 1.95, mid[1]),
+            reading_at(&DECK),
         )?;
         let stamp_at = v(3.9, 2.3);
         let stamp = chip(&kit, stage, &format!("closed {closed}"), 36.0, warn(), stamp_at)?;
@@ -236,12 +258,17 @@ impl SceneConstruct for TheBridgeThatSwayed {
             "the first day:",
             &format!("{} to {} people", thousands(low), thousands(high)),
         )?;
+        // frame one is the swinging deck (R1 C4), whole before the date has
+        // faded in; it had come in over 1.6 s after the date, behind a black
+        // first second
+        stage.set_tracker_value(deck.edges_on, 1.0)?;
+        stage.set_tracker_value(deck.walkers_on, 1.0)?;
+        stage.set_tracker_value(deck.sway, SWAY)?;
+        mark(&kit, stage, "01_1.deck_whole");
+        // (said only now: `say` holds the first 0.6 s before its line begins,
+        // and the deck is to be there through them)
+        let line = say(&kit, stage, "01_1")?;
         fade_in_all(stage, &[date], 0.7)?;
-        tween_all(
-            stage,
-            &[(deck.edges_on, 1.0), (deck.walkers_on, 1.0), (deck.sway, SWAY)],
-            1.6,
-        )?;
         line.wait_for(stage, "sways sideways by about seven centimetres")?;
         fade_in_all(stage, &[ruler, sway_reading], 0.5)?;
         line.wait_for(stage, "Two days later it is closed")?;
@@ -417,21 +444,6 @@ impl SceneConstruct for TheBridgeThatSwayed {
 
         // ---- 01_6: a way of moving all its own, and a walker not in step
         let line = say(&kit, stage, "01_6")?;
-        tween_all(stage, &[(deck.walkers_on, 0.0), (deck.edges_on, 0.0)], 0.4)?;
-        fade_out_all(
-            stage,
-            &[
-                bounce_icon,
-                tick,
-                bounce_caption,
-                sway_icon,
-                question,
-                sway_caption,
-                ask,
-            ],
-            0.6,
-        )?;
-        deck.stop(stage);
         // the deck's sideways swing as a gold curve at the rate of one mode
         // (built visible and not yet on the scene: fading it in brings it in
         // at the opacity it has)
@@ -499,12 +511,35 @@ impl SceneConstruct for TheBridgeThatSwayed {
         let deck_caption = kit.text(stage, "swings", 24.0, dim, v(COUNTERS_X, 1.45))?;
         let walker_caption = kit.text(stage, "sways", 24.0, dim, v(COUNTERS_X, -1.55))?;
         line.wait_for(stage, "A way of moving all its own")?;
-        fade_in_all(stage, &[curve, deck_rate], 0.6)?;
+        // the deck and its icons go as the gold curve comes, in one change:
+        // fading them out first left the screen bare for a second under the
+        // line's first words
+        let mut change: Vec<Box<dyn Animation>> = Vec::new();
+        for m in [
+            bounce_icon,
+            tick,
+            bounce_caption,
+            sway_icon,
+            question,
+            sway_caption,
+            ask,
+        ] {
+            change.push(fade_out_anim(stage, m, 0.35)?);
+        }
+        change.push(stage.prepare(tween_linear(deck.walkers_on, 0.0, 0.35)?)?);
+        change.push(stage.prepare(tween_linear(deck.edges_on, 0.0, 0.35)?)?);
+        for m in [curve, deck_rate] {
+            change.push(fade_in_anim(stage, m, 0.6)?);
+        }
+        stage.play_prepared(change)?;
+        deck.stop(stage);
+        mark(&kit, stage, "01_6.curve_in");
         line.wait_for(stage, "Its sideways ones swing")?;
         fade_in_all(stage, &[deck_caption], 0.4)?;
+        let zero_deck = stage.tracker_value(clock).unwrap_or(0.0);
         let deck_count = kit.live_value(
             stage,
-            move |s| ((s.tracker_value(clock).unwrap_or(0.0) - t0) * deck_hz).floor(),
+            move |s| counted(s.tracker_value(clock).unwrap_or(0.0), zero_deck, deck_hz),
             0,
             false,
             64.0,
@@ -514,9 +549,10 @@ impl SceneConstruct for TheBridgeThatSwayed {
         )?;
         line.wait_for(stage, "And a walker sways left, right and back")?;
         fade_in_all(stage, &[figure, walker_rate, walker_caption], 0.6)?;
+        let zero_walker = stage.tracker_value(clock).unwrap_or(0.0);
         let walker_count = kit.live_value(
             stage,
-            move |s| ((s.tracker_value(clock).unwrap_or(0.0) - t0) * walker_hz).floor(),
+            move |s| counted(s.tracker_value(clock).unwrap_or(0.0), zero_walker, walker_hz),
             0,
             false,
             64.0,
@@ -547,6 +583,7 @@ fn play_all(stage: &mut Stage<'_>, anims: Vec<AnimBuilder>) -> fmn::Result<()> {
 #[cfg(test)]
 mod tests {
     use super::super::draw::testing;
+    use super::super::marks;
     use super::*;
 
     /// 01_1: the dates are the facts' and read as the storyboard writes
@@ -580,6 +617,61 @@ mod tests {
         assert!((5.0..=15.0).contains(&drift), "{drift} s");
         // "between half a swing and one swing a second": the lowest is 0.5 and the walker 1
         assert_eq!(fact("K-B2.lateral_lowest_hz").unwrap(), "0.5");
+    }
+
+    /// 01_1: frame one is the whole swinging deck (R1 C4), not a black second
+    /// and a deck that comes in behind the date; 01_6: the deck and the gold
+    /// curve change places in one 0.6 s change, so the first words of the
+    /// line are not said over a bare screen.
+    #[test]
+    fn frame_one_is_the_deck_and_the_curve_comes_as_the_deck_goes() {
+        let voiced = testing::run_voiced("01_the_bridge_that_swayed").unwrap();
+        let tag = &voiced.tag;
+        assert_eq!(marks::at(tag, "01_1.deck_whole"), 0.0);
+        let (_, start, _) = voiced.lines.iter().find(|(id, ..)| id == "01_6").cloned().unwrap();
+        let curve = marks::at(tag, "01_6.curve_in");
+        assert!(
+            curve - start <= 0.8,
+            "the curve is whole {:.2} s into 01_6",
+            curve - start
+        );
+    }
+
+    /// 01_1: the sway's reading stands above the highest the deck's top edge
+    /// reaches under it, at every moment of every measured swing, and above
+    /// the bracket it belongs to; the lower edge never goes through it.
+    #[test]
+    fn the_sway_reading_stands_clear_of_the_deck_at_every_sway() {
+        let at = reading_at(&DECK);
+        let bottom = at[1] - READING_HALF.1;
+        assert!(bottom > DECK.centre[1] + SWAY, "{bottom}: above the bracket's top");
+        for hz in numbers("K-B2.lateral_hz").unwrap() {
+            for step in 0..400 {
+                let t = f64::from(step) * 0.01 / hz;
+                for side in [1.0, -1.0] {
+                    let top = edge(&DECK, SWAY, hz, t, side)
+                        .iter()
+                        .filter(|p| (p[0] - at[0]).abs() <= READING_HALF.0)
+                        .fold(f64::NEG_INFINITY, |m, p| m.max(p[1]));
+                    assert!(
+                        top < bottom,
+                        "edge {side} at {top:.2} reaches the reading ({bottom:.2}) at t = {t:.2}"
+                    );
+                }
+            }
+        }
+    }
+
+    /// 01_6: each counter opens at 0 at the moment it appears and adds one
+    /// for every swing (sway) after that, whatever the clock read before.
+    #[test]
+    fn the_counters_open_at_zero_and_count_their_own_rate() {
+        assert_eq!(counted(41.2, 41.2, 0.95), 0.0);
+        assert_eq!(counted(41.2 + 1.0, 41.2, 0.95), 0.0);
+        assert_eq!(counted(41.2 + 1.1, 41.2, 0.95), 1.0);
+        assert_eq!(counted(41.2 + 10.0, 41.2, 1.0), 10.0);
+        // a clock that reads earlier than the zero never counts below it
+        assert_eq!(counted(3.0, 5.0, 1.0), 0.0);
     }
 
     /// 01_2: the air's lowest mode is one hump, as large at midspan as it

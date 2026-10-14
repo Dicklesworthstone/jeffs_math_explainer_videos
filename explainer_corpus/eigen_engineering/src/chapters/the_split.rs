@@ -23,6 +23,7 @@ use super::draw::{
     MatrixGrid, Plane, QuizCard, arrow_points, chip, entries, fade_in_all, fade_out_all, faded_line, fraction_tex,
     fraction_value, items, matrix, moves, numbers, own, predict_hold, pushes, run, say, tween_all, whole,
 };
+use super::marks;
 use super::two_carts::column_entries;
 
 // ------------------------------------------------------------------ choices
@@ -89,6 +90,20 @@ pub fn mix_tex(push: [f64; 2], mix: &[&str], soft: [f64; 2], stiff: [f64; 2]) ->
 /// `n` times the pattern `p`, a piece of the split in plane units.
 pub fn piece(n: f64, p: [f64; 2]) -> [f64; 2] {
     [n * p[0], n * p[1]]
+}
+
+/// The y at which the name of a list (`points` pt, one line) sits so that its
+/// words clear the list's brackets by a gap: above their top by 0.12 and half
+/// the words' height (about 0.0125 a point). The names touched the brackets
+/// when they were set a fixed 0.95 above the list's middle.
+fn name_above(list: &MatrixGrid, points: f64) -> f64 {
+    list.at[1] + list.size.1 / 2.0 + 0.12 + points * 0.0125 / 2.0
+}
+
+/// How far the bottom of `name` stands above the top of `list`'s brackets,
+/// as laid out (negative: the words are on the brackets).
+fn name_gap(stage: &Stage<'_>, name: Mob, list: &MatrixGrid) -> f64 {
+    (stage.get_center(name)[1] - stage.get_height(name) / 2.0) - (list.at[1] + list.size.1 / 2.0)
 }
 
 /// A one-column grid of exact fractions as the facts print them.
@@ -191,9 +206,11 @@ impl SceneConstruct for TheSplit {
         // one newton on the left cart: its hand and its arrow
         let hand_y = BIG_AT[1] + BIG_SCALE * (0.425 + 0.5);
         let push_arrow = given_push(stage, big.cart_at(0, 0.0)[0], hand_y, BIG_SCALE, push_left[0]);
-        let pushes_label = kit.text(stage, "pushes", 30.0, orange, v(-4.6, 0.55))?;
-        let moves_label = kit.text(stage, "moves", 30.0, blue, v(-1.9, 0.55))?;
         let pushes_list = MatrixGrid::build(&kit, stage, &column_entries(push_left), 52.0, orange, v(-4.6, -0.4))?;
+        let name_y = name_above(&pushes_list, 30.0);
+        let pushes_label = kit.text(stage, "pushes", 30.0, orange, v(-4.6, name_y))?;
+        let moves_label = kit.text(stage, "moves", 30.0, blue, v(-1.9, name_y))?;
+        marks::note(&kit, "04_1.name_gap", name_gap(stage, pushes_label, &pushes_list));
         let unknown = [
             kit.text(stage, "?", 60.0, blue, v(-1.9, -0.1))?,
             kit.text(stage, "?", 60.0, blue, v(-1.9, -0.7))?,
@@ -462,11 +479,14 @@ impl SceneConstruct for TheSplit {
         let card_hand_y = middle[1] + 1.05 + 0.5 * (0.425 + 0.5);
         let right_push = given_push(stage, card_carts.cart_at(1, 0.0)[0], card_hand_y, 0.5, 1.0);
         stage.set_tracker_value(card_carts.hands_on[1], 1.0)?;
-        let row_y = middle[1] - 0.55;
-        let card_pushes_label = kit.text(stage, "pushes", 28.0, orange, v(-4.5, row_y + 0.85))?;
-        let card_moves_label = kit.text(stage, "moves", 28.0, blue, v(-1.9, row_y + 0.85))?;
+        // lower than the carts' ruler by a hand, so the names fit between it and the brackets
+        let row_y = middle[1] - 0.85;
         let right_only = [0.0, 1.0];
         let card_pushes = MatrixGrid::build(&kit, stage, &column_entries(right_only), 42.0, orange, v(-4.5, row_y))?;
+        let card_name_y = name_above(&card_pushes, 28.0);
+        let card_pushes_label = kit.text(stage, "pushes", 28.0, orange, v(-4.5, card_name_y))?;
+        let card_moves_label = kit.text(stage, "moves", 28.0, blue, v(-1.9, card_name_y))?;
+        marks::note(&kit, "04_5.name_gap", name_gap(stage, card_pushes_label, &card_pushes));
         let card_unknown = [
             kit.text(stage, "?", 54.0, blue, v(-1.9, row_y + 0.3))?,
             kit.text(stage, "?", 54.0, blue, v(-1.9, row_y - 0.3))?,
@@ -602,6 +622,20 @@ mod tests {
     use super::super::draw::{fact, testing};
     use super::*;
     use crate::model::carts::moves as moves_for;
+
+    /// 04_1 and 04_5: the names "pushes" and "moves" stand clear above the
+    /// brackets of their lists, as laid out (they stood on them).
+    #[test]
+    fn the_names_clear_the_brackets_of_their_lists() {
+        let voiced = testing::run_voiced("04_the_split").unwrap();
+        for what in ["04_1.name_gap", "04_5.name_gap"] {
+            let gap = marks::at(&voiced.tag, what);
+            assert!(
+                gap >= 0.05,
+                "{what}: the name's bottom is {gap:.3} above the bracket's top"
+            );
+        }
+    }
 
     /// 04_1: the two equations are the table's rows set equal to the push,
     /// written the way the storyboard writes them.

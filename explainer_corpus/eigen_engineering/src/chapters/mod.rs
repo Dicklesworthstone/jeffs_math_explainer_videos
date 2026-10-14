@@ -13,6 +13,7 @@ pub mod deck;
 pub mod draw;
 pub mod every_mode_a_note;
 pub mod glyphs;
+pub mod marks;
 pub mod one_idea;
 pub mod own_patterns;
 pub mod sound;

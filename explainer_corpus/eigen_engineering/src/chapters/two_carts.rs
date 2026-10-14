@@ -19,9 +19,10 @@ use fmn::prelude::*;
 
 use super::carts::{CartsPic, CartsSpec, LEFT_ONLY, TOGETHER, pushes_for, row_sum_tex};
 use super::draw::{
-    MatrixGrid, QuizCard, arrow_points, entries, fade_in_all, fade_out_all, faded_line, group, matrix, minus, moves,
-    numbers, own, pushes, run, say, tween_all, whole,
+    MatrixGrid, QuizCard, arrow_points, entries, fade_in_all, fade_out_all, fade_out_anim, faded_line, group, matrix,
+    minus, moves, numbers, own, pushes, run, say, tween_all, whole,
 };
+use super::marks::mark;
 use super::truss::{self, Layout};
 use crate::model::truss::Truss;
 
@@ -36,6 +37,9 @@ const PUSHES_X: f64 = 3.4;
 const LOWER_Y: f64 = -1.1;
 /// The table's and the lists' type size.
 const GRID_SIZE: f64 = 52.0;
+/// How faint 02_4's backdrop is (ink at this opacity); at 0.2 it read as a
+/// second drawing crossing the walls and springs for 17 s.
+const BACKDROP_OPACITY: f64 = 0.12;
 
 // ------------------------------------------------------------- the geometry
 
@@ -220,13 +224,22 @@ impl SceneConstruct for TwoCarts {
         line.wait_for(stage, "Each part is tied to its neighbours")?;
         let mut seen = Vec::new();
         for &m in &back {
-            seen.push(stage.prepare(m.animate().set_anim_args(run(1.0))?.set_opacity(0.2)?)?);
+            seen.push(stage.prepare(m.animate().set_anim_args(run(1.0))?.set_opacity(BACKDROP_OPACITY)?)?);
         }
         stage.play_prepared(seen)?;
+        mark(&kit, stage, "02_4.back_faint");
 
         // ---- 02_5: the rule is a table, read along each row
         let line = say(&kit, stage, "02_5")?;
-        fade_out_all(stage, &[zero, minus_one], 0.4)?;
+        // the rings and the backdrop go as the table is begun: the backdrop
+        // is the thought of 02_4's last sentence, not a picture under the
+        // table's reading
+        let mut gone: Vec<Box<dyn Animation>> = Vec::new();
+        for m in [zero, minus_one].into_iter().chain(back.iter().copied()) {
+            gone.push(fade_out_anim(stage, m, 0.4)?);
+        }
+        stage.play_prepared(gone)?;
+        mark(&kit, stage, "02_5.back_gone");
         let table = MatrixGrid::build(
             &kit,
             stage,
@@ -305,7 +318,6 @@ impl SceneConstruct for TwoCarts {
             first_sum,
             second_sum,
         ]);
-        leaving.extend(&back);
         fade_out_all(stage, &leaving, 0.6)?;
         let card = QuizCard::build(&kit, stage, "02_6", v(0.0, 0.05), (11.6, 6.6))?;
         let (middle, _, _) = card.content();
@@ -396,8 +408,29 @@ impl SceneConstruct for TwoCarts {
 #[cfg(test)]
 mod tests {
     use super::super::draw::{fact, items, testing};
+    use super::super::marks;
     use super::*;
     use crate::model::carts::{eigen, table};
+
+    /// 02_4 and 02_5: the backdrop of a truss and a grid of air is faint (no
+    /// brighter than 0.12 of ink) and is gone as the table is begun, so it
+    /// is on screen for the one sentence that asks for it and not for the
+    /// 17 s of the table's reading behind it.
+    #[test]
+    fn the_backdrop_is_faint_and_gone_by_the_table() {
+        const { assert!(BACKDROP_OPACITY <= 0.12) };
+        let voiced = testing::run_voiced("02_two_carts").unwrap();
+        let tag = &voiced.tag;
+        let faint = marks::at(tag, "02_4.back_faint");
+        let gone = marks::at(tag, "02_5.back_gone");
+        let (_, five, _) = voiced.lines.iter().find(|(id, ..)| id == "02_5").cloned().unwrap();
+        assert!(
+            gone - five <= 0.5,
+            "the backdrop is gone {:.2} s into 02_5",
+            gone - five
+        );
+        assert!(gone - faint <= 6.0, "it is up for {:.1} s", gone - faint);
+    }
 
     /// 02_3: the lists are the facts: the pushes of the left cart's move
     /// are the table's first column, 2 and -1.

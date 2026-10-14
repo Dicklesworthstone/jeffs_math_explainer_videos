@@ -22,10 +22,12 @@ use explainer_kit::{Kit, Palette, Timed, fade_all, play, v};
 use fmn::library::TransformMatchingTex;
 use fmn::prelude::*;
 
+use super::carts::{AGAINST, CartsPic, CartsSpec, TOGETHER};
 use super::draw::{
-    QuizCard, arrow_points, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, flat, group, moves, own,
-    pause, pushes, say, tween_linear,
+    QuizCard, arrow_points, cross_fade, fact, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, flat, group,
+    moves, own, pause, pushes, say, tween_linear,
 };
+use super::marks::{count_unseen, mark, note};
 use super::truss::{Layout, displaced, load_arrow, outline, plate, supports};
 use crate::model::linalg::{Eigen, dot};
 use crate::model::truss::{Member, Truss};
@@ -120,6 +122,29 @@ const MINI_SCALE: f64 = 0.05;
 const BAR_X: f64 = -4.4;
 const BAR_LONG: f64 = 4.0;
 const BAR_H: f64 = 0.16;
+/// 06_3's card: where its two trusses stand above the card's middle (their
+/// chords), the largest move drawn (metres) and the picture's scale, and the
+/// height of the words under each. B's sag reaches CARD_SCALE x CARD_FIELD_M
+/// below its chord, which is where its words had been set.
+const CARD_A_DY: f64 = 0.45;
+const CARD_B_DY: f64 = -1.0;
+const CARD_FIELD_M: f64 = 2.2;
+const CARD_SCALE: f64 = 0.17;
+const CAPTION_A_DY: f64 = -0.05;
+const CAPTION_B_DY: f64 = -1.85;
+/// 06_4's two small cart pictures of chapter 03 (together, against): where
+/// they stand and how large.
+const CARTS_X: f64 = 4.5;
+const CARTS_SCALE: f64 = 0.28;
+const CARTS_TOP_Y: f64 = 2.85;
+const CARTS_FOOT_Y: f64 = -2.35;
+/// 06_7's table of what the force is off by: its left edge, the column of
+/// the numbers; and the closing card's two texts (the moral that D-28 moved
+/// off the voice, and one line).
+const FORCE_X: f64 = -6.5;
+const FORCE_VALUE_DX: f64 = 2.7;
+pub const CARD_HEAD: &str = "a few patterns tell you how a structure moves for this load, not everything inside it";
+pub const CARD_LINE: &str = "one sharp load needs many more patterns";
 
 fn rung_y(i: usize) -> f64 {
     LADDER_TOP - LADDER_STEP * i as f64
@@ -405,16 +430,16 @@ impl SceneConstruct for TwentyOnePatterns {
         let a_field = sag_oriented(&t, &e.vectors[RUNGS - 1]);
         let b_field = sag_oriented(&t, &e.vectors[0]);
         let layout_a = Layout {
-            origin: [centre[0] - 1.8, centre[1] + 0.45, 0.0],
-            scale: 0.17,
+            origin: [centre[0] - 1.8, centre[1] + CARD_A_DY, 0.0],
+            scale: CARD_SCALE,
         };
         let layout_b = Layout {
-            origin: [centre[0] - 1.8, centre[1] - 1.0, 0.0],
-            scale: 0.17,
+            origin: [centre[0] - 1.8, centre[1] + CARD_B_DY, 0.0],
+            scale: CARD_SCALE,
         };
         let mut choices = Vec::new();
         for (layout, field) in [(layout_a, &a_field), (layout_b, &b_field)] {
-            let field = scaled_to(field, 2.2);
+            let field = scaled_to(field, CARD_FIELD_M);
             for (a, b) in deformed(&t, layout, &field, 1.0) {
                 choices.push(
                     stage
@@ -430,14 +455,14 @@ impl SceneConstruct for TwentyOnePatterns {
             "neighbouring joints move opposite ways",
             22.0,
             dim,
-            v(centre[0] + 0.3, centre[1] + 0.05),
+            v(centre[0] + 0.3, centre[1] + CAPTION_A_DY),
         )?;
         let words_b = kit.text(
             stage,
             "the whole span sags as one",
             22.0,
             dim,
-            v(centre[0] + 0.3, centre[1] - 1.45),
+            v(centre[0] + 0.3, centre[1] + CAPTION_B_DY),
         )?;
         let ask = kit.text(
             stage,
@@ -488,19 +513,64 @@ impl SceneConstruct for TwentyOnePatterns {
             ink,
             v(2.6, 0.2),
         )?;
+        // the two own patterns of chapter 03's carts, small, beside the
+        // softest and the stiffest of the truss: the same two shapes, the
+        // whole moving together and the neighbours moving against
+        let u_together = [
+            stage.add_value_tracker(TOGETHER[0]),
+            stage.add_value_tracker(TOGETHER[1]),
+        ];
+        let u_against = [stage.add_value_tracker(AGAINST[0]), stage.add_value_tracker(AGAINST[1])];
+        let carts_together = CartsPic::build(
+            &kit,
+            stage,
+            CartsSpec {
+                centre: v(CARTS_X, CARTS_TOP_Y),
+                scale: CARTS_SCALE,
+            },
+            u_together,
+        )?;
+        let carts_against = CartsPic::build(
+            &kit,
+            stage,
+            CartsSpec {
+                centre: v(CARTS_X, CARTS_FOOT_Y),
+                scale: CARTS_SCALE,
+            },
+            u_against,
+        )?;
+        let together_name = kit.text(stage, "together", 24.0, dim, v(CARTS_X, CARTS_TOP_Y - 0.8))?;
+        let against_name = kit.text(stage, "against", 24.0, dim, v(CARTS_X, CARTS_FOOT_Y - 0.8))?;
         line4.wait_for(stage, "The single sag")?;
         let mut away: Vec<Mob> = card.mobs();
         away.extend(&choices);
         away.extend([name_a, name_b, words_a, words_b, ask, answer]);
         fade_out_all(stage, &away, 0.5)?;
         fade_in_all(stage, &[soft_tag, stiff_tag], 0.6)?;
+        line4.wait_for(stage, "Moving together")?;
+        carts_together.start(stage)?;
+        let mut together_in = carts_together.base();
+        together_in.push(together_name);
+        fade_in_all(stage, &together_in, 0.5)?;
+        mark(&kit, stage, "06_4.carts_together");
+        line4.wait_for(stage, "and moving against")?;
+        carts_against.start(stage)?;
+        let mut against_in = carts_against.base();
+        against_in.push(against_name);
+        fade_in_all(stage, &against_in, 0.5)?;
+        mark(&kit, stage, "06_4.carts_against");
         line4.wait_for(stage, "nearly four hundred times")?;
         fade_in_all(stage, &[times], 0.6)?;
         kit.hold(stage)?;
 
         // ---- 06_5: split the load into the patterns; the soft ones win
         let line5 = say(&kit, stage, "06_5")?;
-        fade_out_all(stage, &[soft_tag, stiff_tag, times], 0.4)?;
+        let mut gone = vec![soft_tag, stiff_tag, times, together_name, against_name];
+        gone.extend(carts_together.base());
+        gone.extend(carts_against.base());
+        fade_out_all(stage, &gone, 0.4)?;
+        carts_together.stop(stage);
+        carts_against.stop(stage);
         let load = t.deck_load();
         let (before, after) = shares(&e, &load);
         let bars: Vec<Mob> = (0..RUNGS)
@@ -613,7 +683,10 @@ impl SceneConstruct for TwentyOnePatterns {
         away.extend(&rails);
         away.extend(&small_frame);
         away.extend(&deck_arrows);
-        away.extend([load_words, letters, tag, tag2, top_name, foot_name, count]);
+        // (the ladder's three words went at 06_3: fading them again flashed
+        // them for 0.4 s)
+        away.extend([load_words, letters, tag, tag2]);
+        note(&kit, "06_6.away_unseen", count_unseen(stage, &away) as f64);
         fade_out_all(stage, &away, 0.6)?;
         stage.remove_from_scene(divider);
         let big = Layout {
@@ -697,7 +770,29 @@ impl SceneConstruct for TwentyOnePatterns {
         )?;
         let percent_sign = kit.text(stage, "%", 54.0, own(), v(5.3, 1.35))?;
         let readout_words = kit.text(stage, "of the sag at the middle", 28.0, dim, v(4.2, 2.4))?;
-        let how_many = kit.text(stage, "with the softest few patterns", 26.0, dim, v(4.2, 0.4))?;
+        // how many patterns the rebuilt truss is made of, live beside the
+        // percentage: the first reading is the softest alone, and the number
+        // that follows is read against the count that gave it
+        let used_words = kit.text(stage, "patterns used:", 26.0, dim, v(3.6, 0.4))?;
+        let used = kit.live_value(
+            stage,
+            {
+                let counts = counts.clone();
+                move |s| {
+                    counts[s
+                        .tracker_value(step)
+                        .unwrap_or(0.0)
+                        .round()
+                        .clamp(0.0, (counts.len() - 1) as f64) as usize] as f64
+                }
+            },
+            0,
+            false,
+            44.0,
+            own(),
+            v(5.6, 0.4),
+            RIGHT,
+        )?;
         let caption = kit.text(
             stage,
             "adding patterns wobbles around the true sag, then settles",
@@ -715,7 +810,7 @@ impl SceneConstruct for TwentyOnePatterns {
         let mut ins: Vec<Mob> = rest.clone();
         ins.extend(&truth);
         ins.extend(&approx);
-        ins.extend([readout_words, percent_sign, how_many]);
+        ins.extend([readout_words, percent_sign, used_words]);
         fade_in_all(stage, &ins, 0.7)?;
         line6.wait_for(stage, "The softest pattern alone")?;
         fade_in_all(stage, &[caption], 0.5)?;
@@ -729,77 +824,75 @@ impl SceneConstruct for TwentyOnePatterns {
 
         // ---- 06_7: not for what is inside it: the forces
         let line7 = say(&kit, stage, "06_7")?;
+        // what stands on screen from 06_7's first word to its last, in the
+        // order it is said: the sag's picture stays for "Not for what is
+        // inside it" (the sentence that turns away from it), the table of
+        // what the force is off by comes with the sentence about forces and
+        // is filled as the number is said, and the moral comes up beside it
+        // as the last number lands
         let mut away: Vec<Mob> = rest.clone();
         away.extend(&truth);
         away.extend(&approx);
-        away.extend([readout, readout_words, percent_sign, how_many, caption, this_load]);
-        fade_out_all(stage, &away, 0.5)?;
-        stage.remove_from_scene(rebuild);
+        away.extend([
+            readout,
+            used,
+            used_words,
+            readout_words,
+            percent_sign,
+            caption,
+            this_load,
+        ]);
         let counts_shown = [1usize, 5, 15, 21];
-        let mut error_mobs = Vec::new();
+        let heading = kit.text_left(stage, "the worst member force is off by", 28.0, dim, v(FORCE_X, 3.15))?;
+        let mut names = Vec::new();
+        let mut values = Vec::new();
         for (i, n) in counts_shown.iter().enumerate() {
-            let words = format!(
-                "{n} pattern{}: the worst force is off by {} kN",
-                if *n == 1 { "" } else { "s" },
-                fact(&format!("K-P2.force_error_kn.{n}"))?
-            );
+            let y = 2.25 - 0.85 * i as f64;
+            let name = format!("{n} pattern{}", if *n == 1 { "" } else { "s" });
+            let value = format!("{} kN", fact(&format!("K-P2.force_error_kn.{n}"))?);
             let colour = if i == 0 { Palette::red() } else { ink };
-            error_mobs.push(kit.text(stage, &words, 38.0, colour, v(0.0, 2.2 - 0.85 * i as f64))?);
+            names.push(kit.text_left(stage, &name, 38.0, ink, v(FORCE_X, y))?);
+            values.push(kit.text_left(stage, &value, 38.0, colour, v(FORCE_X + FORCE_VALUE_DX + 0.9, y))?);
         }
         let shrank = precisely(
             &kit,
             stage,
-            "dividing by stiffness shrank the stiff patterns' share of the move; a force multiplies it back",
+            "dividing by stiffness shrank the stiff patterns' share of the move; a force puts it back",
         )?;
+        // the closing frame's pieces, built now and brought in by the end
+        let card_at = v(3.45, 1.1);
+        let card = plate(stage, 6.8, 3.4, card_at, own())?;
+        let mut card_texts = Vec::new();
+        let mut y = card_at[1] + 1.05;
+        for (words, size, colour, width) in [(CARD_HEAD, 28.0, ink, 30), (CARD_LINE, 24.0, dim, 40)] {
+            for l in wrap(words, width, 5) {
+                y -= 0.4;
+                card_texts.push(kit.text(stage, &l, size, colour, v(card_at[0], y))?);
+            }
+            y -= 0.3;
+        }
         line7.wait_for(stage, "A force is a stretch times a stiffness")?;
-        fade_in_all(stage, &[shrank], 0.5)?;
+        let mut arriving = vec![heading];
+        arriving.extend(&names);
+        cross_fade(stage, &away, &arriving, 0.5)?;
+        stage.remove_from_scene(rebuild);
+        // (the strip comes after the old picture's words are gone: it stands
+        // where "this load" had been, and the two would be on one another)
+        fade_in_all(stage, &[shrank], 0.4)?;
+        mark(&kit, stage, "06_7.table_in");
         line7.wait_for(stage, "with one pattern")?;
-        fade_in_all(stage, &error_mobs[..1], 0.5)?;
+        fade_in_all(stage, &values[..1], 0.5)?;
+        mark(&kit, stage, "06_7.first_value");
         // the other three come while the line is still being said
-        fade_in_lagged(stage, &error_mobs[1..], 1.2, 0.5)?;
+        fade_in_lagged(stage, &values[1..], 1.2, 0.5)?;
+        let mut moral = vec![card];
+        moral.extend(&card_texts);
+        fade_in_all(stage, &moral, 0.5)?;
+        mark(&kit, stage, "06_7.card_in");
         kit.hold(stage)?;
         // one closing frame, so that the chapter ends on a read and not on a
-        // string of pauses: the card on the right, the wall of 21 beside a
-        // ladder of a million on the left with the softest few lit
-        let eight = fact("K-P2.lone_pct.8m")?;
-        let four = fact("K-P2.lone_pct.4m")?;
-        let need = fact("K-P2.lone_within_2p5.12m")?;
-        let mut fading = error_mobs.clone();
-        fading.push(shrank);
-        fade_out_all(stage, &fading, 0.3)?;
-        let card_at = v(3.45, 1.1);
-        let card = plate(stage, 6.8, 5.0, card_at, own())?;
-        let mut card_texts = Vec::new();
-        let blocks: [(String, f64, Srgb, usize); 3] = [
-            (
-                "a few patterns tell you how a structure moves for this load, not everything inside it".to_owned(),
-                28.0,
-                ink,
-                30,
-            ),
-            (
-                format!(
-                    "one sharp load needs many more: the softest alone gives {eight}% of the drop under a lone 100 kN load at 8 m, and {four}% at 4 m"
-                ),
-                24.0,
-                dim,
-                36,
-            ),
-            (
-                format!("{need} patterns bring a load at the middle within 2.5%"),
-                24.0,
-                dim,
-                36,
-            ),
-        ];
-        let mut y = card_at[1] + 2.0;
-        for (words, size, colour, width) in &blocks {
-            for l in wrap(words, *width, 5) {
-                y -= 0.4;
-                card_texts.push(kit.text(stage, &l, *size, *colour, v(card_at[0], y))?);
-            }
-            y -= 0.25;
-        }
+        // string of pauses: the wall of 21 beside a ladder of a million with
+        // the softest few lit, and the names to search, under the card
         let wall_x = -5.6;
         let tall_x = -3.0;
         let mut ladders: Vec<Mob> = Vec::new();
@@ -848,17 +941,18 @@ impl SceneConstruct for TwentyOnePatterns {
                 "a library call finds all 21: numpy.linalg.eigh",
             ],
         )?;
-        let mut ins = ladders.clone();
-        ins.extend([card, wall_words, tall_words, both_words, finder]);
-        ins.extend(&card_texts);
-        fade_in_all(stage, &ins, 0.5)?;
-        // the card's read is authored (storyboard 06_7: the limits, the wall
-        // beside the ladder of a million, the names to search): 2.3 s after
-        // the voice has ended, so that the chapter's tail stays under the
-        // cue check's 5 s
-        pause(stage, 2.3)?;
-
+        let mut leaving: Vec<Mob> = vec![heading, shrank];
+        leaving.extend(&names);
+        leaving.extend(&values);
+        let mut coming = ladders.clone();
+        coming.extend([wall_words, tall_words, both_words, finder]);
+        fade_out_all(stage, &leaving, 0.3)?;
+        fade_in_all(stage, &coming, 0.5)?;
+        // the card has been read for the last number, the voice's end and
+        // this beat; the wall and the names get a glance, not a read
+        pause(stage, 1.5)?;
         kit.hold(stage)?;
+        mark(&kit, stage, "06_7.card_out");
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -880,6 +974,7 @@ fn grouped(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::super::draw::{show, testing};
+    use super::super::marks;
     use super::*;
 
     /// 06_1 and 06_2: one push at one joint is turned 64 degrees from the
@@ -1024,14 +1119,31 @@ mod tests {
             "\u{d7} 393",
             "adding patterns wobbles around the true sag, then settles",
             "this load: five equal pushes along the deck",
-            "1 pattern: the worst force is off by 82 kN",
-            "21 patterns: the worst force is off by 0 kN",
+            "the worst member force is off by",
+            "1 pattern",
+            "82 kN",
+            "21 patterns",
+            "0 kN",
+            "patterns used:",
+            "together",
+            "against",
         ] {
             assert!(
                 words.iter().any(|w| w.contains(want)),
                 "the chapter never sets {want:?}: {words:?}"
             );
         }
+        // the closing card's two texts, as the lines they wrap to
+        for l in wrap(CARD_HEAD, 30, 5).into_iter().chain(wrap(CARD_LINE, 40, 5)) {
+            assert!(words.iter().any(|w| *w == l), "the card never sets {l:?}: {words:?}");
+        }
+        assert_eq!(
+            wrap(CARD_LINE, 40, 5).len(),
+            1,
+            "the card's second line stands on one line"
+        );
+        // and the lower-third stands on one line (it had left "back" alone)
+        assert!(!words.contains(&"back"), "{words:?}");
         assert!(ran.seconds > 35.0 && ran.seconds < 120.0, "{} s", ran.seconds);
     }
 
@@ -1050,7 +1162,105 @@ mod tests {
         }
     }
 
-    /// 06_7: the closing card's read is the authored tail (the limits, the wall beside the ladder of a million, the names to search); it ends under the corpus cue check's 5 s of picture after the last line (D-16 dropped the closing holds).
+    fn words(s: &str) -> f64 {
+        s.split_whitespace().count() as f64
+    }
+
+    /// 06_3: the words under each truss of the quiz card stand clear of the
+    /// lowest the truss above them reaches (B's sag had gone through "the
+    /// whole span sags as one").
+    #[test]
+    fn the_cards_captions_stand_clear_of_the_trusses_above_them() {
+        let t = Truss::pratt();
+        let e = t.patterns();
+        for (name, dy, field, caption_dy) in [
+            ("A", CARD_A_DY, sag_oriented(&t, &e.vectors[RUNGS - 1]), CAPTION_A_DY),
+            ("B", CARD_B_DY, sag_oriented(&t, &e.vectors[0]), CAPTION_B_DY),
+        ] {
+            let layout = Layout {
+                origin: [0.0, dy, 0.0],
+                scale: CARD_SCALE,
+            };
+            let lowest = deformed(&t, layout, &scaled_to(&field, CARD_FIELD_M), 1.0)
+                .iter()
+                .flat_map(|(a, b)| [a[1], b[1]])
+                .fold(f64::INFINITY, f64::min);
+            // 22 pt words are about 0.2 high
+            let caption_top = caption_dy + 0.1;
+            assert!(
+                lowest - caption_top >= 0.06,
+                "{name}: the truss reaches {lowest:.2}, its words' top is {caption_top:.2}"
+            );
+        }
+    }
+
+    /// 06_4: chapter 03's two own patterns of the carts stand small beside
+    /// the softest and the stiffest rungs, the together one as "moving
+    /// together" is said and the against one as "moving against" is.
+    #[test]
+    fn the_two_cart_pictures_of_chapter_three_come_with_their_words() {
+        let voiced = testing::run_voiced("06_twenty_one_patterns").unwrap();
+        let (together, against) = (
+            marks::at(&voiced.tag, "06_4.carts_together"),
+            marks::at(&voiced.tag, "06_4.carts_against"),
+        );
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "06_4").cloned().unwrap();
+        assert!(
+            start <= together && together < against && against <= start + len,
+            "{together} {against}"
+        );
+    }
+
+    /// 06_6: the ladder's three words are not faded a second time (they
+    /// flashed back for 0.4 s), and the readout says how many patterns it
+    /// is made of.
+    #[test]
+    fn nothing_already_gone_is_faded_again_and_the_count_is_on_screen() {
+        let voiced = testing::run_voiced("06_twenty_one_patterns").unwrap();
+        assert_eq!(marks::at(&voiced.tag, "06_6.away_unseen"), 0.0);
+        let words: Vec<&str> = voiced.ran.registered.iter().map(|r| r.source.as_str()).collect();
+        assert!(words.iter().any(|w| w.contains("patterns used:")));
+        assert!(!words.iter().any(|w| w.contains("softest few patterns")), "{words:?}");
+    }
+
+    /// 06_7: the screen is not bare for the sentences about forces (the sag's
+    /// picture stays to the sentence that turns from it and the table is in
+    /// within half a second of the next), the moral card is up before the
+    /// voice ends and is read for at least the time its words need at 4.5 a
+    /// second and 4 s (trimmed from 45 words to headline and one line).
+    #[test]
+    fn the_forces_beat_has_a_picture_throughout_and_the_moral_is_read() {
+        let voiced = testing::run_voiced("06_twenty_one_patterns").unwrap();
+        let tag = &voiced.tag;
+        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "06_7").cloned().unwrap();
+        let table = marks::at(tag, "06_7.table_in");
+        let first = marks::at(tag, "06_7.first_value");
+        let card_in = marks::at(tag, "06_7.card_in");
+        let card_out = marks::at(tag, "06_7.card_out");
+        assert!(
+            table - start <= 0.45 * len,
+            "the table is in {:.1} s into a {len:.1} s line",
+            table - start
+        );
+        assert!(first >= table, "the first number follows the table");
+        assert!(
+            card_in <= start + len + 0.6,
+            "the card is in {:.1} s after the line",
+            card_in - (start + len)
+        );
+        let card_words = words(CARD_HEAD) + words(CARD_LINE);
+        assert!(card_words <= 24.0, "{card_words} words");
+        let read = card_out - card_in;
+        assert!(
+            read >= card_words / 4.5 && read >= 4.0,
+            "{read:.1} s for {card_words} words"
+        );
+    }
+
+    /// 06_7: what the picture holds after the last line is the moral card,
+    /// the wall beside the ladder of a million and the names to search; it
+    /// ends under the corpus cue check's 5 s of picture after the last line
+    /// (D-16 dropped the closing holds).
     #[test]
     fn the_picture_after_the_last_line_stays_under_the_cue_checks_tail() {
         let voiced = testing::run_voiced("06_twenty_one_patterns").unwrap();

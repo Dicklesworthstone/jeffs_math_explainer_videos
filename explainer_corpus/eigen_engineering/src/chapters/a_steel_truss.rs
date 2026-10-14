@@ -21,13 +21,32 @@ use explainer_kit::{Kit, Palette, fade_all, play, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    chip, fact, fade_in_all, fade_out_all, flat, group, minus, moves, numbers, own, predict_hold, pushes, run, say,
-    squeezed, stretched, tween_all, tween_linear, whole,
+    chip, fact, fade_in_all, fade_in_anim, fade_out_all, flat, group, minus, moves, numbers, own, predict_hold, pushes,
+    run, say, squeezed, stretched, tween_all, tween_linear, wait_until, whole,
 };
+use super::marks::{mark, note};
 use super::truss::{Layout, StiffnessTable, TrussPic, dimension, load_arrow, supports};
 use crate::model::truss::{LONE_JOINT, Truss};
 
 // ------------------------------------------------------------------ choices
+
+/// Where 05_6's "1.3 mm" (the roller's slide) sits: above and to the right
+/// of the roller joint, in the clear between the end of the truss and the
+/// table's lattice (it stood 0.75 to the right and touched the lattice).
+pub fn slide_label_at(roller: Vec3) -> Vec3 {
+    v(roller[0] + 0.45, roller[1] + 0.45)
+}
+
+/// Where 05_8's "0 kN" tag sits: against the middle post, 0.34 to its right
+/// and 0.78 of the way up, where the right diagonal (it rises one to one from
+/// the post's foot) is still farther from the post than the words reach (at
+/// the post's middle, 0.7 to the right, it had the diagonal through it).
+pub fn post_label_at(bottom_mid: Vec3, top_mid: Vec3) -> Vec3 {
+    v(
+        bottom_mid[0] + 0.34,
+        bottom_mid[1] + 0.78 * (top_mid[1] - bottom_mid[1]),
+    )
+}
 
 /// The truss on screen: the pinned end, and scene units to a metre.
 const LAYOUT: Layout = Layout {
@@ -45,6 +64,28 @@ const CELL: f64 = 0.15;
 const PANEL_DROP: f64 = -1.7;
 /// The member of 05_2 that is a spring: the second bottom member.
 const SPRING_MEMBER: usize = 1;
+/// 05_4's two lower-thirds say, in words, what the voice no longer does
+/// (D-25): they are read for these seconds from the moment each is whole,
+/// words at 4.5 a second at the most (it was 0.5 s and 0.7 s, after the
+/// line had ended and nothing was left to hold them).
+const WHY_READ_S: f64 = 3.0;
+const ZERO_READ_S: f64 = 3.5;
+/// A strip's fade, in and out.
+const STRIP_FADE_S: f64 = 0.4;
+
+/// 05_4's first strip: its label and its words.
+const WHY: (&str, &str) = ("each member", "writes its spring only into its own two joints' rows");
+
+/// 05_4's second strip: its label and its words (the count is a fact).
+fn zero_words() -> fmn::Result<(&'static str, String)> {
+    Ok((
+        "without supports:",
+        format!(
+            "the table has {} own patterns of stiffness zero: slide, lift, turn",
+            fact("K-X3.unsupported_zero")?
+        ),
+    ))
+}
 /// The code panel's lines (storyboard 05_4: the direct stiffness method).
 const CODE: [&str; 9] = [
     "for each member from joint a to joint b:",
@@ -273,28 +314,36 @@ impl SceneConstruct for ASteelTruss {
             v(TABLE_AT[0] + table.size() / 2.0, TABLE_AT[1] + 0.35),
         )?;
         fade_in_all(stage, &[size_label], 0.4)?;
-        let why = lower_third(
-            &kit,
-            stage,
-            "each member",
-            "writes its spring only into its own two joints' rows",
-        )?;
-        line.wait_for(stage, "most of it stays empty")?;
-        // one member first, on its own: the truss member lights, its cells fill
+        let why = lower_third(&kit, stage, WHY.0, WHY.1)?;
+        line.wait_for(stage, "twenty-one by twenty-one")?;
+        // one member first, on its own: the strip says what a member does as
+        // its truss member lights and its cells fill, and stays for its read
+        fade_in_all(stage, &[why], STRIP_FADE_S)?;
+        mark(&kit, stage, "05_4.why_in");
+        let why_whole = stage.scene().time().to_f64();
         stage.set_tracker_value(pic.lit, 0.0)?;
         play!(stage;
-            tween_linear(table.progress, 1.0, 1.4)?,
-            tween_linear(pic.lit, 0.999, 1.4)?,
+            tween_linear(table.progress, 1.0, 1.2)?,
+            tween_linear(pic.lit, 0.999, 1.2)?,
         );
-        fade_in_all(stage, &[why], 0.5)?;
+        wait_until(stage, why_whole + WHY_READ_S)?;
         kit.hold(stage)?;
-        // then the rest in a rush
-        fade_out_all(stage, &[why], 0.3)?;
+        // then the rest in a rush, with the second strip coming as the first
+        // goes: it is about the table the rush fills
+        let (zero_label, zero_text) = zero_words()?;
+        let zero_strip = lower_third(&kit, stage, zero_label, &zero_text)?;
         let members = t.members.len() as f64;
-        play!(stage;
-            tween_linear(table.progress, members, 3.0)?,
-            tween_linear(pic.lit, members, 3.0)?,
-        );
+        mark(&kit, stage, "05_4.why_out");
+        // one strip goes before the next comes: both stand in the lower third
+        fade_out_all(stage, &[why], 0.3)?;
+        let zero_whole = stage.scene().time().to_f64() + STRIP_FADE_S;
+        note(&kit, "05_4.zero_whole", zero_whole);
+        let rush: Vec<Box<dyn Animation>> = vec![
+            fade_in_anim(stage, zero_strip, STRIP_FADE_S)?,
+            stage.prepare(tween_linear(table.progress, members, 2.0)?)?,
+            stage.prepare(tween_linear(pic.lit, members, 2.0)?)?,
+        ];
+        stage.play_prepared(rush)?;
         stage.set_tracker_value(pic.lit, -1.0)?;
         let mirror_in = vec![stage.prepare(mirror.animate().set_anim_args(run(0.5))?.set_opacity(0.9)?)?];
         stage.play_prepared(mirror_in)?;
@@ -303,17 +352,10 @@ impl SceneConstruct for ASteelTruss {
         stage.shift(panel.group, v(0.0, PANEL_DROP));
         stage.add_to_scene(panel.group)?;
         stage.play(panel.slide_in(0.8)?)?;
-        let zero_strip = lower_third(
-            &kit,
-            stage,
-            "without supports:",
-            &format!(
-                "the table has {} own patterns of stiffness zero: slide, lift, turn",
-                fact("K-X3.unsupported_zero")?
-            ),
-        )?;
-        fade_in_all(stage, &[zero_strip], 0.5)?;
+        // the second strip is read from the moment it was whole
+        wait_until(stage, zero_whole + ZERO_READ_S)?;
         kit.hold(stage)?;
+        mark(&kit, stage, "05_4.zero_out");
         fade_out_all(stage, &[zero_strip], 0.3)?;
 
         // ---- 05_5: a hundred kilonewtons on one joint: who moves?
@@ -390,8 +432,13 @@ impl SceneConstruct for ASteelTruss {
             &format!("{} mm", fact("K-T3.slide_mm")?),
             26.0,
             ink,
-            v(roller_pos[0] + 0.75, roller_pos[1] + 0.25),
+            slide_label_at(roller_pos),
         )?;
+        note(
+            &kit,
+            "05_6.slide_gap",
+            TABLE_AT[0] - (stage.get_center(lone_slide)[0] + stage.get_width(lone_slide) / 2.0),
+        );
         fade_in_all(stage, &[tag_mag, held_tag, lone_drop, lone_slide], 0.6)?;
         line.wait_for(stage, "still they all move")?;
         // the table turns into its inverse
@@ -531,7 +578,7 @@ impl SceneConstruct for ASteelTruss {
             &format!("{} kN", whole(post_kn)),
             26.0,
             dim,
-            v(mid[0] + 0.7, (mid[1] + mid_top[1]) / 2.0),
+            post_label_at(mid, mid_top),
         )?;
         fade_in_all(stage, &[top_label, bottom_label, post_label], 0.6)?;
         // the gauge: the stress against what makes the steel yield
@@ -596,9 +643,91 @@ impl SceneConstruct for ASteelTruss {
 #[cfg(test)]
 mod tests {
     use super::super::draw::testing;
+    use super::super::marks;
     use super::*;
     use crate::chapters::truss::{member_entries, nonzero_count, partial_table};
     use crate::model::truss::PANEL_M;
+
+    fn words(s: &str) -> f64 {
+        s.split_whitespace().count() as f64
+    }
+
+    /// 05_4: the two lower-thirds that say in words what D-25 took from the
+    /// voice are each on screen, whole, for a read of at most 4.5 words a
+    /// second (they were 0.5 s and 0.7 s, set after the line had ended), and
+    /// the beat's silence before 05_5 stays under 6.5 s.
+    #[test]
+    fn the_two_strips_of_the_table_beat_are_read_and_the_hold_stays_short() {
+        let voiced = testing::run_voiced("05_a_steel_truss").unwrap();
+        let tag = &voiced.tag;
+        let why = marks::at(tag, "05_4.why_out") - marks::at(tag, "05_4.why_in");
+        let zero = marks::at(tag, "05_4.zero_out") - marks::at(tag, "05_4.zero_whole");
+        let (zl, zt) = zero_words().unwrap();
+        let (why_words, zero_words) = (words(WHY.0) + words(WHY.1), words(zl) + words(&zt));
+        assert!(why >= why_words / 4.5, "{why:.2} s for {why_words} words");
+        assert!(why >= WHY_READ_S - 1e-6, "{why:.2} s");
+        assert!(zero >= zero_words / 4.5, "{zero:.2} s for {zero_words} words");
+        assert!(zero >= ZERO_READ_S - 1e-6, "{zero:.2} s");
+        let (_, s4, l4) = voiced.lines.iter().find(|(id, ..)| id == "05_4").cloned().unwrap();
+        let (_, s5, _) = voiced.lines.iter().find(|(id, ..)| id == "05_5").cloned().unwrap();
+        assert!(s5 - (s4 + l4) <= 6.5, "{:.1} s of silence before 05_5", s5 - (s4 + l4));
+    }
+
+    /// 05_6: the roller's "1.3 mm" ends clear of the lattice (0.15 or more);
+    /// 05_8: the "0 kN" tag has no member through it and stands beside the
+    /// middle post it names.
+    #[test]
+    fn the_roller_slide_and_the_post_tag_are_clear_of_what_they_were_on() {
+        let voiced = testing::run_voiced("05_a_steel_truss").unwrap();
+        let gap = marks::at(&voiced.tag, "05_6.slide_gap");
+        assert!(gap >= 0.15, "the lattice is {gap:.2} from the label");
+
+        let t = Truss::pratt();
+        let mid = LAYOUT.joint(&t, t.midspan());
+        let top = LAYOUT.at(t.span_m() / 2.0, 4.0);
+        let at = post_label_at(mid, top);
+        // "0 kN" at 26 pt is about 0.47 wide and 0.3 high; 0.04 is added all round
+        let (hw, hh) = (0.28, 0.2);
+        let hits = |a: Vec3, b: Vec3| {
+            // Liang-Barsky against the plate
+            let (mut t0, mut t1) = (0.0_f64, 1.0_f64);
+            let d = [b[0] - a[0], b[1] - a[1]];
+            for (p, q) in [
+                (-d[0], a[0] - (at[0] - hw)),
+                (d[0], (at[0] + hw) - a[0]),
+                (-d[1], a[1] - (at[1] - hh)),
+                (d[1], (at[1] + hh) - a[1]),
+            ] {
+                if p.abs() < 1e-12 {
+                    if q < 0.0 {
+                        return false;
+                    }
+                } else {
+                    let r = q / p;
+                    if p < 0.0 {
+                        t0 = t0.max(r);
+                    } else {
+                        t1 = t1.min(r);
+                    }
+                }
+            }
+            t0 <= t1
+        };
+        let crossing: Vec<(usize, usize)> = t
+            .members
+            .iter()
+            .filter(|m| hits(LAYOUT.joint(&t, m.a), LAYOUT.joint(&t, m.b)))
+            .map(|m| (m.a, m.b))
+            .collect();
+        assert!(crossing.is_empty(), "members through the tag: {crossing:?}");
+        // and it is the middle post's: its left edge is within 0.2 of the post
+        assert!(
+            (at[0] - hw - mid[0]).abs() <= 0.2,
+            "{:.2} from the post",
+            at[0] - hw - mid[0]
+        );
+        assert!(at[1] + hh < top[1], "below the top chord");
+    }
 
     /// 05_2: the spring is EA/L from the facts' steel, section and length,
     /// 300 kilonewtons a millimetre, and a weight of about thirty tonnes.

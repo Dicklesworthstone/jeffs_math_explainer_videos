@@ -136,10 +136,10 @@ pub fn countdown(seconds: u32) -> fmn::Result<PathBuf> {
 
 /// How long each mode sounds alone, and the gap between them (seconds):
 /// three tones one at a time, then all three together to the window's end.
-const BRIDGE_SOLO_S: f64 = 0.5;
-const BRIDGE_STEP_S: f64 = 0.55;
+pub const BRIDGE_SOLO_S: f64 = 0.5;
+pub const BRIDGE_STEP_S: f64 = 0.55;
 /// Where the three sound together.
-const BRIDGE_TOGETHER_AT: f64 = 1.7;
+pub const BRIDGE_TOGETHER_AT: f64 = 1.7;
 
 /// The three tones of the truss's modes in their true ratios: the lowest
 /// mode on the tonic an octave below the motif's (E3), the others at the
