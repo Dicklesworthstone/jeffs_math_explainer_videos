@@ -20,9 +20,9 @@ use fmn::prelude::*;
 
 use super::cold_open::{ROW_Y, lifted, row_x, stacked};
 use super::draw::{
-    ANSWER_PT, Board, Cell, Dimension, QuizCard, QuizLook, Side, Words, breath, dim, fact, fact_int, fact_ints,
-    fade_in_all, fade_in_lagged, fade_out_all, fade_to, faded_line, fail, flash, fly, hero, ink, line_style,
-    live_counter, quiz_named, say, size, slide, swap, tex_row, tween_linear,
+    ANSWER_PT, Board, Cell, Dimension, QuizCard, QuizLook, Side, Words, dim, fact, fact_int, fact_ints, fade_in_all,
+    fade_in_lagged, fade_out_all, fade_to, faded_line, fail, flash, fly, hero, ink, line_style, live_counter,
+    quiz_named, rgb, say, size, slide, swap, tex_row, tween_linear,
 };
 use super::iso::{Iso, Solid, ViewAt, box_cells};
 use super::kinetics::{together, zoom_about};
@@ -178,6 +178,22 @@ fn seams(stage: &mut Stage<'_>, board: &Board, pieces: &[Piece]) -> Vec<Mob> {
         .collect()
 }
 
+/// The beats of a cut, seconds: the halves open, light, one turns and both go
+/// to the feet of the arms, and the seams show. The first draft's were
+/// 0.4, 0.5, 0.5, 0.9 and 0.4 (3.2 s with the swap and the second move), and
+/// the picture finished 2.8 s after the voice at the end of 05_2 and 05_5;
+/// these are 2.5 s. A cut is the chapter's idea, so each is still seen.
+const CUT_OPEN_S: f64 = 0.3;
+const CUT_FLASH_S: f64 = 0.35;
+const CUT_TURN_S: f64 = 0.45;
+const CUT_PLACE_S: f64 = 0.7;
+const CUT_SEAM_S: f64 = 0.3;
+/// A step of the 05_7 count: the tally runs to the cubes so far while those
+/// layers light, together (they ran one after the other, 0.8 s and 0.5 s).
+const COUNT_STEP_S: f64 = 0.6;
+/// The hold at the end of 05_7 (storyboard: hold), seconds.
+const FORMULA_HOLD_S: f64 = 1.5;
+
 /// A slab's move to its piece's place: its centre to the piece's centre.
 fn to_place(board: &Board, slab: Mob, piece: &Piece, rt: f64) -> fmn::Result<AnimBuilder> {
     fly(slab, board.rect_centre(piece.rect), 1.0, rt)
@@ -206,17 +222,20 @@ fn cut_and_place(
     kit.mark(stage, "pizz:split");
     together(
         stage,
-        vec![slide(lower, v(0.0, -OPEN), 0.4)?, slide(upper, v(0.0, OPEN), 0.4)?],
+        vec![
+            slide(lower, v(0.0, -OPEN), CUT_OPEN_S)?,
+            slide(upper, v(0.0, OPEN), CUT_OPEN_S)?,
+        ],
         0.0,
     )?;
-    flash(stage, &[lower, upper], hero(), 1.1, 0.5)?;
+    flash(stage, &[lower, upper], hero(), 1.1, CUT_FLASH_S)?;
     // the upper half turns a quarter turn about its middle, the lower goes
-    let turn = Rotating::new(upper).with_angle(FRAC_PI_2).rt(0.5);
-    let drop = to_place(board, lower, right, 0.9)?;
+    let turn = Rotating::new(upper).with_angle(FRAC_PI_2).rt(CUT_TURN_S);
+    let drop = to_place(board, lower, right, CUT_PLACE_S)?;
     play!(stage; turn, drop);
-    stage.play(to_place(board, upper, top, 0.9)?)?;
+    stage.play(to_place(board, upper, top, CUT_PLACE_S)?)?;
     let marks = seams(stage, board, pieces);
-    fade_in_all(stage, &marks, 0.4)?;
+    fade_in_all(stage, &marks, CUT_SEAM_S)?;
     Ok(marks)
 }
 
@@ -579,7 +598,9 @@ impl SceneConstruct for Slabs {
             moves.push(to_place(&b4, waiting4[p.slab as usize], p, 0.8)?);
         }
         together(stage, moves, 0.3)?;
-        line.wait_for(stage, "one is cut in half")?;
+        // the cut begins as "and one is cut" is said (it began at "in half",
+        // the line's last words, and ran 3 s past the voice)
+        line.wait_for(stage, "and one is cut")?;
         fade_out_all(stage, &[card.answer], 0.3)?;
         let pair = halves(stage, &b4, 4);
         let seams4 = cut_and_place(&kit, stage, &b4, waiting4[3], pair, &four)?;
@@ -680,8 +701,13 @@ impl SceneConstruct for Slabs {
         let mut so_far = 0;
         for (k, mobs) in layers.iter().enumerate() {
             so_far += areas[k];
-            play!(stage; tween_linear(tally, so_far as f64, 0.8)?);
-            flash(stage, mobs, hero(), 1.05, 0.5)?;
+            let mut step: Vec<Box<dyn Animation>> =
+                vec![stage.prepare(tween_linear(tally, so_far as f64, COUNT_STEP_S)?)?];
+            for &m in mobs {
+                let a = fmn::animation::indicate(stage.arena_mut(), m, 1.05, Some(rgb(hero())))?;
+                step.push(stage.prepare(a.rt(COUNT_STEP_S))?);
+            }
+            stage.play_prepared(step)?;
         }
         if so_far != unit_squares {
             return Err(fail("the layers do not add to the square's tiles".into()));
@@ -712,10 +738,13 @@ impl SceneConstruct for Slabs {
             hero(),
             v(COLUMN_X, -2.1),
         )?;
-        fade_in_lagged(stage, &formula, 1.0, 0.1)?;
-        fade_in_all(stage, &[product], 0.5)?;
+        fade_in_lagged(stage, &formula, 0.8, 0.1)?;
+        fade_in_all(stage, &[product], 0.4)?;
         line.wait_end(stage)?;
-        breath(&kit, stage)?;
+        // the storyboard's hold for 05_7: the formula and the product, read;
+        // 1.5 s of the 2.5 s breath (the count used to run 3 s past the
+        // voice before they came in, and the breath was added to that)
+        kit.music_breath(stage, FORMULA_HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -726,6 +755,38 @@ mod tests {
     use super::super::draw::testing;
     use super::*;
     use crate::model::tiles;
+
+    /// P5 trims: the cuts finish near the voice (the first draft left 4.1 s
+    /// of silence before 05_3 and 4.3 s before 05_6, of which 1.8 s is the
+    /// split ping's room and the rest the picture running past the words),
+    /// and the count of 05_7 and its formula come in with the voice, so the
+    /// chapter ends a hold and a fade after the last line (it was 9.1 s).
+    #[test]
+    fn the_pictures_of_05_keep_up_with_the_voice() {
+        use super::super::sound::{BLOOM_ROOM_S, after_the_last_line, gap_between};
+        let v = testing::run_voiced("05_slabs").unwrap();
+        let room = 0.6 + BLOOM_ROOM_S;
+        for (before, after, most) in [("05_2", "05_3", room + 2.0), ("05_5", "05_6", room + 2.0)] {
+            let gap = gap_between(&v, before, after);
+            assert!(
+                gap <= most,
+                "{gap:.1} s between {before} and {after}, at most {most:.1}"
+            );
+        }
+        let tail = after_the_last_line(&v);
+        let most = 2.5 + FORMULA_HOLD_S + 0.8;
+        assert!(
+            tail <= most,
+            "{tail:.1} s of picture after the last line, at most {most:.1}"
+        );
+        // a cut's beats are the 2.5 s the notes name (the swap's 0.1, the
+        // opening, the flash, the two placings and the seams), and the
+        // count's five steps end within the sentence that names them
+        const {
+            assert!(0.1 + CUT_OPEN_S + CUT_FLASH_S + CUT_PLACE_S + CUT_PLACE_S + CUT_SEAM_S <= 2.5);
+            assert!(5.0 * COUNT_STEP_S <= 3.0);
+        }
+    }
 
     /// The chapter speaks exactly the script's 05_ lines, in order.
     #[test]

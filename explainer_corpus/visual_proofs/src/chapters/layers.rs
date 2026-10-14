@@ -18,10 +18,10 @@ use explainer_kit::{Kit, Timed, fade_all, play, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, breath, dim, fact_int,
-    fact_ints, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, file_on_shelf, flash, flat, fly, formula,
-    glyphs, hero, ink, lens, lens_mark, live_counter, lower_third, middle_of, morph, pause, quiz_named, rgb, say,
-    shelve, size, slide_in, swap, tween_linear,
+    ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, dim, fact_int, fact_ints,
+    fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, file_on_shelf, flash, flat, fly, formula, glyphs,
+    hero, ink, lens, lens_mark, live_counter, lower_third, middle_of, morph, pause, quiz_named, rgb, say, shelve, size,
+    slide_in, swap, tween_linear,
 };
 use crate::model::Rect;
 use crate::model::layers::layer;
@@ -608,8 +608,10 @@ impl SceneConstruct for Layers {
         picture.push(sixth);
         let middle = board.p((n + 1) as f64 / 2.0, (n + 1) as f64 / 2.0);
         file_on_shelf(stage, &picture, middle, (n + 1) as f64 * CELL, SLOT, 1.0)?;
+        // (no breath after the filing: the stage holds a thumbnail and
+        // nothing else, and the storyboard's hold of 03_6 is the card read
+        // before it goes, which it was)
         line.wait_end(stage)?;
-        breath(&kit, stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -624,6 +626,17 @@ mod tests {
     fn a_sum_s_terms_know_their_glyphs() {
         let terms: Vec<String> = ["1", "3", "15", "7"].map(String::from).to_vec();
         assert_eq!(term_glyphs(&terms), [(0, 1), (2, 1), (4, 2), (7, 1)]);
+    }
+
+    /// P5 trim: after the card is filed on the shelf the stage holds a
+    /// thumbnail and nothing else, so the chapter ends a fade (0.8 s) after
+    /// the last words and not 2.5 s of breath later (the first draft: blank
+    /// but for the thumbnail from 78 s to the end).
+    #[test]
+    fn the_chapter_ends_a_fade_after_its_last_line() {
+        let v = testing::run_voiced("03_layers").unwrap();
+        let tail = super::super::sound::after_the_last_line(&v);
+        assert!(tail <= 1.4, "{tail:.1} s of picture after the last line");
     }
 
     /// The chapter speaks exactly the script's 03_ lines, in order.

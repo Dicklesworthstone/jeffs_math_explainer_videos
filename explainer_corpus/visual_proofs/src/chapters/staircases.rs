@@ -20,9 +20,9 @@ use explainer_kit::{Kit, Timed, fade_all, play, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, breath, dim, fact_int,
-    fact_ints, fade_in_all, fade_in_lagged, fade_out_all, fail, file_on_shelf, flat, fly, formula, group, hero, ink,
-    lens, lens_mark, live_counter, lower_third, pause, quiz_named, say, shelf_so_far, shelve, size, swap, tex_row,
+    ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, dim, fact_int, fact_ints,
+    fade_in_all, fade_in_lagged, fade_out_all, fail, file_on_shelf, flat, fly, formula, group, hero, ink, lens,
+    lens_mark, live_counter, lower_third, pause, quiz_named, say, shelf_so_far, shelve, size, swap, tex_row,
     tween_linear,
 };
 use crate::model::Rect;
@@ -50,6 +50,15 @@ const SHOWN_TEX: &str =
 const ASSUMED_TEX: &str = r"\text{column } k \text{ and its partner } n + 1 - k \text{ add to } n + 1";
 const REASON: &str = "pairs of six at five columns";
 const PAIR_PLUS: &str = "+";
+/// The two heights that meet in a column are written under it as a column
+/// sum: the first over "+ the second", at this size, the plus a gap from
+/// its digit, the whole narrower than the column's pitch by the gutter.
+const PAIR_PT: f64 = 26.0;
+const PAIR_PLUS_GAP: f64 = 0.06;
+const PAIR_GUTTER: f64 = 0.12;
+/// Where the two lines of the sums stand under the rectangle, in cells
+/// below its foot.
+const PAIR_ROWS: (f64, f64) = (-0.45, -1.2);
 /// The quiz this chapter asks (`model::QUIZZES`).
 const QUIZ: &str = "rectangle";
 /// The slot of the shelf this proof takes (03, 04, 06, 09, ...).
@@ -104,6 +113,12 @@ fn turned_columns_of(stage: &mut Stage<'_>, board: &Board, n: i64) -> fmn::Resul
 /// staircase's `x + 1` tiles and the turned copy's `n − x`.
 fn pair(n: i64, x: i64) -> (i64, i64) {
     (x + 1, n - x)
+}
+
+/// The heights (scene units) of the two lines of the column sums under the
+/// rectangle on `board`: the first height's and "+ the second's".
+fn pair_lines_y(board: &Board) -> (f64, f64) {
+    (board.p(0.0, PAIR_ROWS.0)[1], board.p(0.0, PAIR_ROWS.1)[1])
 }
 
 /// The picture this card files, rebuilt as it stands on the shelf (the
@@ -247,28 +262,40 @@ impl SceneConstruct for Staircases {
         fade_in_all(stage, &braces, 0.5)?;
         // under every column, the two heights that meet in it
         line.wait_for(stage, "Each column of one staircase")?;
+        // (as a column sum, one over the other: side by side at 24 point,
+        // fitted to the column's pitch, each pair ran into its neighbours')
         let mut pairs: Vec<Vec<Mob>> = Vec::new();
+        let (upper_y, lower_y) = pair_lines_y(&board);
         for x in 0..n {
             let (a, b) = pair(n, x);
-            let at = board.p(x as f64 + 0.5, -0.45);
-            let parts = [
-                (a.to_string(), size(x as usize + 1)),
-                (PAIR_PLUS.to_owned(), ink()),
-                (b.to_string(), size((n - x) as usize)),
-            ];
-            let row = tex_row(
+            let at = board.p(x as f64 + 0.5, 0.0)[0];
+            let b_text = b.to_string();
+            let add_b = [(PAIR_PLUS, ink()), (b_text.as_str(), size((n - x) as usize))];
+            let second = tex_row(
                 &kit,
                 stage,
-                &parts.iter().map(|(s, c)| (s.as_str(), *c)).collect::<Vec<_>>(),
-                24.0,
-                at,
-                0.08,
-                CELL,
+                &add_b,
+                PAIR_PT,
+                v(at, lower_y),
+                PAIR_PLUS_GAP,
+                CELL - PAIR_GUTTER,
             )?;
-            pairs.push(row);
+            // the first height stands over the second's digit
+            let digit_x = stage.get_center(second[1])[0];
+            let first = kit.tex(
+                stage,
+                &a.to_string(),
+                PAIR_PT,
+                size(x as usize + 1),
+                &[],
+                v(digit_x, upper_y),
+            )?;
+            let mut column = vec![first];
+            column.extend(second);
+            pairs.push(column);
         }
-        for row in &pairs {
-            fade_in_all(stage, row, 0.35)?;
+        for column in &pairs {
+            fade_in_all(stage, column, 0.35)?;
         }
         line.wait_for(stage, "every pair comes to six")?;
         let sum_word = (n + 1).to_string();
@@ -277,7 +304,7 @@ impl SceneConstruct for Staircases {
             &format!("= {sum_word}"),
             30.0,
             hero(),
-            board.p(n as f64 + 0.45, -0.45),
+            v(board.p(n as f64 + 0.45, 0.0)[0], (upper_y + lower_y) / 2.0),
         )?;
         fade_in_all(stage, &[comes_to], 0.4)?;
         // thirty tiles, so fifteen in each staircase
@@ -401,11 +428,14 @@ impl SceneConstruct for Staircases {
         }
         fade_in_all(stage, &close, 0.5)?;
         line.wait_for(stage, "The cubes' square")?;
-        pause(stage, 0.3)?;
+        // (the beats here were 0.3 s, 0.8 s and a 1.0 s flight: with the
+        // filing they ran 4.4 s from "The cubes' square", 2.4 s past the
+        // voice, and a 2.5 s breath after that)
+        pause(stage, 0.15)?;
         card.tick(&kit, stage, 1, REASON)?;
         let tick = lens_mark(stage, LENS_AT, 0.7, true);
         fade_in_all(stage, &[tick], 0.3)?;
-        pause(stage, 0.8)?;
+        pause(stage, 0.4)?;
         // the fifteen lifts off in gold and waits in the corner
         let fifteen = kit.text(
             stage,
@@ -415,7 +445,7 @@ impl SceneConstruct for Staircases {
             board.p(n as f64 / 2.0, n as f64 / 2.0),
         )?;
         fade_in_all(stage, &[fifteen], 0.4)?;
-        play!(stage; fly(fifteen, WAITING_AT, 0.35, 1.0)?);
+        play!(stage; fly(fifteen, WAITING_AT, 0.35, 0.8)?);
         // the card has passed: its picture goes to the shelf
         let mut done = close.clone();
         done.push(tick);
@@ -423,8 +453,9 @@ impl SceneConstruct for Staircases {
         fade_out_all(stage, &done, 0.4)?;
         let middle = board.p(n as f64 / 2.0, (n as f64 + 1.0) / 2.0);
         file_on_shelf(stage, &locked, middle, (n as f64 + 1.0) * CELL, SLOT, 1.0)?;
+        // (no breath after the filing: the stage holds the shelf's thumbnails
+        // and the waiting fifteen, nothing else)
         line.wait_end(stage)?;
-        breath(&kit, stage)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -481,6 +512,61 @@ mod tests {
         }
     }
 
+    /// P5 trim: the chapter's end is the card's filing and nothing after it
+    /// (it had a 2.5 s breath over the shelf's thumbnails and the waiting
+    /// fifteen, 6.2 s of picture after the last line): a fade and the
+    /// filing's overrun, not more.
+    #[test]
+    fn the_chapter_ends_with_the_filing() {
+        let v = testing::run_voiced("04_staircases").unwrap();
+        let tail = super::super::sound::after_the_last_line(&v);
+        // 3.2 s measured with the scratch voice: the card passes, the fifteen
+        // lifts off and the filing runs about two seconds past the words
+        assert!(tail <= 3.4, "{tail:.1} s of picture after the last line");
+    }
+
+    /// The pairs under the columns are column sums, one over the other, each
+    /// narrower than the column's pitch by a gutter, so no two touch (side by
+    /// side at 24 point they were fitted to the pitch itself and ran
+    /// together), and their size is not smaller than the first draft's
+    /// fitted one.
+    #[test]
+    fn the_pair_sums_do_not_touch_their_neighbours() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                // the sum's own width at the chapter's size, unfitted
+                let width = |stage: &mut Stage<'_>, pt: f64, room: f64| -> fmn::Result<f64> {
+                    let row = tex_row(
+                        &kit,
+                        stage,
+                        &[(PAIR_PLUS, ink()), ("5", ink())],
+                        pt,
+                        v(0.0, 0.0),
+                        PAIR_PLUS_GAP,
+                        room,
+                    )?;
+                    Ok(stage.get_right(row[1])[0] - stage.get_left(row[0])[0])
+                };
+                let natural = width(stage, PAIR_PT, 100.0)?;
+                let fitted = width(stage, PAIR_PT, CELL - PAIR_GUTTER)?;
+                assert!(
+                    fitted <= CELL - PAIR_GUTTER + 1e-6,
+                    "{fitted:.2} wide in a pitch of {CELL}"
+                );
+                // the gutter between neighbours is real, and the sums are set
+                // at 20 point or more (the first draft's, "1 + 5" fitted to
+                // the pitch, were about 18.8)
+                let size = PAIR_PT * (CELL - PAIR_GUTTER).min(natural) / natural;
+                assert!(size >= 20.0, "the sums are set at {size:.1} point");
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
+    }
+
     /// A staircase of n columns is half of an n by n + 1 rectangle, and a
     /// hundred steps are 5,050 tiles.
     #[test]
@@ -500,8 +586,10 @@ mod tests {
             // number (0.14 further, 0.4 tall) are under the shelf's floor
             assert!(BOARD_AT[1] + 6.0 * CELL + 0.1 + 0.27 + 0.14 + 0.4 <= super::super::draw::SHELF_FLOOR + 1e-9);
             assert!(BOARD_AT[1] > super::super::draw::CARD_TOP);
-            // the pairs under the columns keep in the frame
-            assert!(BOARD_AT[1] - 0.45 - 0.2 > -FRAME_Y_RADIUS + 0.3);
+            // the pairs under the columns keep in the frame, both lines
+            assert!(BOARD_AT[1] + PAIR_ROWS.1 * CELL - 0.2 > -FRAME_Y_RADIUS + 0.3);
+            // and the lower third of 04_5 (a line, its top at -3.1) clears them
+            assert!(BOARD_AT[1] + PAIR_ROWS.1 * CELL - 0.2 > -3.1);
             assert!(BOARD_AT[0] + ASIDE + 5.0 * CELL <= 0.8 + 0.2);
             assert!(WAITING_AT[0] < FRAME_X_RADIUS - 0.4 && WAITING_AT[1] < FRAME_Y_RADIUS - 0.4);
             // the sweep's rectangle, twelve by thirteen, fits the same room

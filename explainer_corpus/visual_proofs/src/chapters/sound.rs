@@ -334,6 +334,29 @@ pub fn tonic_hold(seconds: f64) -> fmn::Result<PathBuf> {
     wav("proofs_tonic_hold", &tonic_hold_buffer(seconds))
 }
 
+/// The seconds of picture that follow the last line of a run (scratch
+/// voice): what the chapter's fixed holds and animations add after the
+/// words end. A test helper of the chapters' length tests.
+#[cfg(test)]
+pub fn after_the_last_line(v: &super::draw::testing::Voiced) -> f64 {
+    let end = v.lines.iter().map(|(_, at, len)| at + len).fold(0.0, f64::max);
+    v.ran.seconds - end
+}
+
+/// The seconds from the end of line `before` to the start of line `after`
+/// in a run (scratch voice): the silence between two lines.
+#[cfg(test)]
+pub fn gap_between(v: &super::draw::testing::Voiced, before: &str, after: &str) -> f64 {
+    let find = |id: &str| {
+        v.lines
+            .iter()
+            .find(|l| l.0 == id)
+            .unwrap_or_else(|| panic!("{id} was not said"))
+    };
+    let (b, a) = (find(before), find(after));
+    a.1 - (b.1 + b.2)
+}
+
 #[cfg(test)]
 mod tests {
     use explainer_score::fft::welch;

@@ -55,7 +55,7 @@ const TOTALS_RIGHT: f64 = 1.0;
 const SQUARES_LEFT: f64 = 1.45;
 const LEDGER_PT: f64 = 44.0;
 /// The running count of 02_1, and its word.
-const RUNNING_AT: Vec3 = [5.0, 0.35, 0.0];
+const RUNNING_AT: Vec3 = [5.6, 0.35, 0.0];
 const RUNNING_PT: f64 = 110.0;
 /// The cubes' row along the top.
 const ROW_CENTRE: (f64, f64) = (0.0, 3.0);
@@ -63,8 +63,10 @@ const ROW_ROOM: (f64, f64) = (10.6, 1.9);
 const ROW_GAP: f64 = 0.8;
 
 /// How long the statement of 02_6 stays after the line and its breath (it
-/// is two lines of about twenty-five words).
-const THIRD_READ_S: f64 = 2.0;
+/// is two lines of about twenty-five words) before 02_7 begins; it is on
+/// the screen through the breath and the first second of 02_7 too, so about
+/// five seconds of reading in all.
+const THIRD_READ_S: f64 = 0.6;
 /// The circle of 02_4 to 02_6: centre and radius.
 const CIRCLE_AT: Vec3 = [-3.4, 1.15, 0.0];
 const CIRCLE_R: f64 = 2.0;
@@ -761,9 +763,9 @@ impl SceneConstruct for FiveForFive {
         line.wait_for(stage, "Such a reason")?;
         let tag = aside(&kit, stage, FOR_PROGRAMMERS, TESTS_ASIDE, ASIDE_AT)?;
         fade_in_all(stage, &[tag], 0.5)?;
+        // (no breath after this line: its table and aside have been on the
+        // screen through it, and the storyboard has no hold here)
         line.wait_end(stage)?;
-        kit.hold(stage)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -787,6 +789,51 @@ mod tests {
         let ran = testing::run("02_five_for_five").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         assert!(ran.seconds > 20.0 && ran.seconds < 90.0, "{} s", ran.seconds);
+    }
+
+    /// P5 trims (storyboard: 02_7 has no hold, 02_6's is its breath): the
+    /// chapter ends a fade after its last line, with no breath of silence
+    /// over the table, and 02_6's statement gets its breath and a short read,
+    /// not the 5.1 s the first draft left before 02_7.
+    #[test]
+    fn the_chapter_ends_with_its_line_and_the_statement_has_its_breath_and_no_more() {
+        use super::super::sound::{after_the_last_line, gap_between};
+        let v = testing::run_voiced("02_five_for_five").unwrap();
+        let tail = after_the_last_line(&v);
+        assert!(tail <= 1.4, "{tail:.1} s of picture after the last line");
+        let gap = gap_between(&v, "02_6", "02_7");
+        let most = 0.6 + explainer_kit::animatic::HOLD_S + THIRD_READ_S + 0.6;
+        assert!(gap <= most, "{gap:.1} s between 02_6 and 02_7, at most {most:.1}");
+        assert!(
+            gap >= explainer_kit::animatic::HOLD_S,
+            "the breath is still there: {gap:.1} s"
+        );
+    }
+
+    /// The running total of 02_1 to 02_6 stands half a unit or more clear
+    /// of the ledger's ticks (it stood 0.3 from them at "225 ✓") and inside
+    /// the frame.
+    #[test]
+    fn the_running_total_stands_clear_of_the_ticks() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let total = kit.text(stage, "225", RUNNING_PT, ink(), v(RUNNING_AT[0], RUNNING_AT[1]))?;
+                let tick_right = SQUARES_LEFT + 2.3 + 0.34 / 2.0;
+                let (left, right) = (stage.get_left(total)[0], stage.get_right(total)[0]);
+                assert!(
+                    left - tick_right >= 0.5,
+                    "the total starts {:.2} from the ticks",
+                    left - tick_right
+                );
+                // inside the frame's margin (the frame is ±7.11, the safe area 0.15 in)
+                assert!(right <= 7.11 - 0.15, "the total ends at {right:.2}");
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
     }
 
     /// The chapter speaks exactly the script's 02_ lines, in order.

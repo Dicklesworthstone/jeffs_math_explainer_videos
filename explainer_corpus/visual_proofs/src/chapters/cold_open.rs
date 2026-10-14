@@ -15,7 +15,7 @@ use explainer_kit::{Kit, Timed, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    fact_int, fade_in_all, fade_out_all, fail, hero, ink, line_style, pause, question_card, question_pause, say, size,
+    fact_int, fade_in_all, fade_out_all, fail, hero, ink, line_style, question_card, question_pause, say, size,
     sound::{self, Strike},
 };
 use super::iso::{Axis, Iso, P3, Solid, ViewAt, box_cells};
@@ -56,9 +56,9 @@ pub const DROP_S: f64 = 0.4;
 pub const DROP_LAG: f64 = 0.22;
 /// The listen window the landings play in: the last piece lands 1.8 s in, the
 /// square's chord-bloom is struck with it, and the window leaves the bloom
-/// the clear second and a half the score wants before the next sentence (it
+/// the clear second and a third the score wants before the next sentence (it
 /// skips a note cue with less than a second).
-pub const WINDOW_S: f64 = 3.4;
+pub const WINDOW_S: f64 = 3.2;
 /// The two views: the classic one of the row, and the flat one of the board.
 const ROOM_ROW: (f64, f64) = (13.4, 6.4);
 const ROOM_BOARD: (f64, f64) = (7.4, 7.0);
@@ -348,7 +348,6 @@ impl SceneConstruct for ColdOpen {
         dimming.push(stage.prepare(a.rt(0.8))?);
         stage.play_prepared(dimming)?;
         kit.listen(stage, 3.0, "01_cold_open:01_4")?;
-        pause(stage, 0.2)?;
         fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
@@ -368,6 +367,22 @@ mod tests {
         let ran = testing::run("01_cold_open").unwrap();
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         assert!(ran.seconds > 20.0 && ran.seconds < 90.0, "{} s", ran.seconds);
+    }
+
+    /// P5: what follows the last line is authored and kept, the question
+    /// card's think time and the title's three seconds for the motif, and
+    /// nothing else (a 0.2 s pause after the window is gone): at most the
+    /// question's hold and breath, the title, the window and a fade.
+    #[test]
+    fn what_follows_the_last_line_is_the_question_and_the_title() {
+        use super::super::draw::QUESTION_HOLD_S;
+        let v = testing::run_voiced("01_cold_open").unwrap();
+        let tail = super::super::sound::after_the_last_line(&v);
+        // card in 0.5, the breath 0.6, the hold, card out 0.4, title in 0.8,
+        // the window 3.0, the fade 0.6; the card's fade-in starts before the
+        // line ends
+        let most = 0.5 + 0.6 + QUESTION_HOLD_S + 0.4 + 0.8 + 3.0 + 0.6 + 0.2;
+        assert!(tail <= most, "{tail:.1} s after the last line, at most {most:.1}");
     }
 
     /// The chapter speaks exactly the script's 01_ lines, in order.
