@@ -12,6 +12,13 @@ book), G-E (three angles), G-H (halfway), G-R (spins), G-P (the base), G-S
 (the coda), G-X (the edges of the always sentences), G-Q (the quizzes) and
 G-L (cited).
 
+The oracle may print more than the video: G-D rows are numbers docs/description.md
+states, each computed here from first principles by the functions below (not as
+a formula over another row's rounded value) and cross-checked. The video prints
+G-D.seam.*, G-D.halfway.from_each and G-D.leftover.turn_deg, because its scenes
+show them; every other G-D row is a research row only the oracle prints
+(tools/description_numbers.py reads the oracle's values as facts).
+
 stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
 cross-check failed.
 
@@ -56,6 +63,8 @@ _CHECKS = [0]
 
 DEG = math.pi / 180.0
 PI = math.pi
+# The small turns of the last quiz, degrees (src/facts.rs `shown::SMALL_TURNS`).
+SMALL_TURNS_DEG = (1, 10, 90)
 
 
 def emit(key, value):
@@ -416,7 +425,7 @@ def main():
     a, ax = angle_axis(both)
     emit("G-B.both_at_once.angle", fx(a))
     emit("G-B.both_at_once.axis", vec(ax))
-    for small in (1, 10, 90):
+    for small in SMALL_TURNS_DEG:
         s = small * DEG
         left = (roty(s) @ rotx(s)) @ (rotx(s) @ roty(s)).T
         a, ax = angle_axis(left)
@@ -725,6 +734,94 @@ def main():
     emit("G-C.drift.width", fx(np.linalg.svd(added, compute_uv=False)[0]))
     check("adding the spin swells the body by (1 + dt^2) per step", abs(np.linalg.det(added) - (1 + dt * dt) ** steps) < 1e-9)
 
+    # ------------------------------------------------------------ G-D numbers docs/description.md states
+    # Chapter 04's seam, as the code panel (04_4) and the trap of 13_2 print it: the two headings as numbers.
+    emit("G-D.seam.a_minus_b", ints([ha - hb]))
+    emit("G-D.seam.b_minus_a", ints([hb - ha]))
+    check("the headings differ as numbers by the gap measured on the flat piece less a full turn",
+          abs((hb - ha) - (gap - 360.0)) < 1e-9)
+    # 04_4: half of the step on the flat piece, wrapped back, is this far round the circle from either heading
+    emit("G-D.halfway.from_each", fx(angle_axis(ra.T @ half)[0]))
+    # 15_3, 15_4: the sizes of the small turns, and how far the leftover's axis leans from -z (the third axis)
+    emit("G-D.leftover.turn_deg", ints(SMALL_TURNS_DEG))
+    lean = []
+    for small in SMALL_TURNS_DEG:
+        s = small * DEG
+        _, ax_ = angle_axis((roty(s) @ rotx(s)) @ (rotx(s) @ roty(s)).T)
+        lean.append(math.atan2(math.hypot(ax_[0], ax_[1]), -ax_[2]) / DEG)
+    emit("G-D.leftover.off_z_deg", vec(lean))
+    check("the leftover's axis leans from -z by about (sqrt 2 / 2) times the turn, for the 1 and 10 degree turns",
+          all(abs(lean[k] / (SMALL_TURNS_DEG[k] * math.sqrt(0.5)) - 1) < 1e-2 for k in (0, 1)))
+    # 06: the base stepped in pieces of 0.01 s, the velocity turned by the heading each piece (forward Euler)
+    euler_dt = 0.01
+    ex = ey = eh = 0.0
+    for _ in range(round(t / euler_dt)):
+        ex += v * math.cos(eh) * euler_dt
+        ey += v * math.sin(eh) * euler_dt
+        eh += w * euler_dt
+    euler_miss_mm = math.hypot(ex - end[0, 2], ey - end[1, 2]) * 1000
+    emit("G-D.platform.euler.dt", fx(euler_dt, 2))
+    emit("G-D.platform.euler.miss_mm", fx(euler_miss_mm, 2))
+    # the same sum in closed form: a geometric series of the unit heading vectors
+    series = v * euler_dt * (1 - np.exp(1j * w * round(t / euler_dt) * euler_dt)) / (1 - np.exp(1j * w * euler_dt))
+    check("Euler steps of 0.01 s end where the geometric series of their headings says",
+          abs(ex - series.real) < 1e-9 and abs(ey - series.imag) < 1e-9)
+    # 11_3: at the elbow-straight pose, what the tip moving 1 m/s along the shoulder-wrist line costs in turning
+    f_es = chain(elbow_straight)[1]
+    tip_es = fk(elbow_straight)[:3, 3]
+    along_es = f_es[5][:3, 3] - f_es[1][:3, 3]
+    along_es = along_es / np.linalg.norm(along_es)
+    j_es = space_jacobian(elbow_straight)
+    pull_row = along_es @ (j_es[3:] - hat(tip_es) @ j_es[:3])  # tip velocity along the line, per joint speed
+    spin_gram = j_es[:3].T @ j_es[:3]
+    cheapest = 1 / math.sqrt(pull_row @ np.linalg.pinv(spin_gram) @ pull_row)  # least |spin| at 1 m/s along the line
+    emit("G-D.elbow_straight.turn_per_m_s", fx(cheapest))
+    check("the pull along the line can be had by turning (it is in the range of the spin rows)",
+          np.linalg.norm(pull_row - spin_gram @ np.linalg.pinv(spin_gram) @ pull_row) < 1e-6)
+    check("that least turn is 1 over the tip's distance from the line, from triangle geometry",
+          abs(cheapest - 1 / point_line(tip_es, f_es[1][:3, 3], along_es)) < 1e-6)
+    # 13_2: the same two triples of ring angles with the rings nested the other way round (x outside, z inside)
+    def xyz_rings(outer, middle, inner):
+        return rotx(outer * DEG) @ roty(middle * DEG) @ rotz(inner * DEG)
+
+    other = angle_axis(xyz_rings(0, 89, 0).T @ xyz_rings(90, 89, 90))[0]
+    emit("G-D.near.apart_other_order", fx(other))
+    cos_other = (np.trace(xyz_rings(0, 89, 0).T @ xyz_rings(90, 89, 90)) - 1) / 2
+    check("the other nesting order's angle agrees with the trace formula",
+          abs(other - math.acos(max(-1.0, min(1.0, cos_other))) / DEG) < 1e-4)
+    # 11_4: the same gripper pose reached at rank 6, polished from a one-decimal start by the same Newton steps as G-I
+    target = fk(elbow_only)
+    q_w = degs(-111.8, 39.0, 68.2, 90, -69.1, 41.0, 110.9)
+    for _ in range(30):
+        q_w = q_w + np.linalg.pinv(body_jacobian(q_w)) @ twist_of(logm(np.linalg.inv(fk(q_w)) @ target))
+    q_w_deg = q_w / DEG
+    given = degs(-111.8, 39.0, 68.2, 90, -69.1, 41.0, 110.9)
+    miss = np.linalg.inv(target) @ fk(given)
+    emit("G-D.witness.q_deg", vec(np.round(q_w_deg, 1), 1))
+    emit("G-D.witness.exact_q_deg", vec(q_w_deg, 3))
+    emit("G-D.witness.rank", rank(space_jacobian(q_w)))
+    emit("G-D.witness.within_limits", int(all(abs(a_) <= lim for a_, lim in zip(q_w_deg, LIMITS_DEG))))
+    emit("G-D.witness.rounded_miss", f"{fx(np.linalg.norm(miss[:3, 3]) * 1000, 2)},{fx(angle_axis(miss[:3, :3])[0], 3)}")
+    check("the witness reaches the pose of the elbow's quarter turn exactly, at rank 6 where that one has 5",
+          np.abs(fk(q_w) - target).max() < 1e-9 and rank(space_jacobian(q_w)) == 6 and rank(space_jacobian(elbow_only)) == 5)
+    check("the witness is the elbow at a quarter turn and its other angles, one decimal each, as the description gives them",
+          abs(q_w_deg[3] - 90) < 1e-9 and np.abs(np.round(q_w_deg, 1) - given / DEG).max() < 1e-9)
+    # 11_6: the L shape with one more joint taken away (G-J has joints 3 and 7)
+    for k in (1, 2, 5):
+        emit(f"G-D.rank.ell.without_{k}", rank(np.delete(j_ell, k - 1, axis=1)))
+    # 13_6: how much each Newton step gains, from the unrounded distances (G-I.ik.dist_mm prints them to 0.01 mm)
+    factors = [dist[i] / dist[i + 1] for i in range(len(dist) - 1)]
+    gains = [dist[i] - dist[i + 1] for i in range(len(dist) - 1)]
+    emit("G-D.ik.factors", vec(factors, 2))
+    emit("G-D.ik.gains_mm", vec(gains, 2))
+    check("each Newton step cuts the distance by a bigger factor than the last, while the gain in millimetres falls",
+          all(x < y for x, y in zip(factors, factors[1:])) and all(x > y for x, y in zip(gains, gains[1:])))
+    # 15_1: the width of the Euler-stepped body across its axis, as a percentage over the rigid 1
+    width = np.linalg.svd(added, compute_uv=False)[0]
+    emit("G-D.drift.width_percent", fx((width - 1) * 100, 2))
+    check("across its axis the body grows by (1 + dt^2) per step to the half power",
+          abs(width - (1 + dt * dt) ** (steps / 2)) < 1e-9)
+
     # ------------------------------------------------------------ G-X the edges
     angles = [0, 30, 60, 90, 120, 150]
     turns = [turn(axis, a) for axis in CUBE_AXES for a in angles]
@@ -832,6 +929,7 @@ def main():
     emit("G-L.kuka.axes", 7)
     emit("G-L.kmr.speed_kmh", "3.6")
     emit("G-L.kmr.speed_m_s", fx(3.6 / 3.6, 1))
+    emit("G-L.kmr.lateral_kmh", "2.0")
     emit("G-L.apollo.lamp_deg", 70)
     emit("G-L.apollo.lost_deg", 85)
     emit("G-L.apollo.gimbals", 3)

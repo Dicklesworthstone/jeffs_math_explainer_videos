@@ -25,6 +25,8 @@ pub mod cited {
     pub const KUKA_AXES: u32 = 7;
     /// KUKA, KMR iiwa data sheet: velocity in the longitudinal direction.
     pub const KMR_SPEED_KMH: f64 = 3.6;
+    /// The same data sheet: velocity in the lateral direction.
+    pub const KMR_LATERAL_KMH: f64 = 2.0;
     /// The Apollo guidance computer's gimbal monitor (Comanche 055,
     /// GLOCKMON): the lamp above 70 degrees of middle gimbal angle, the
     /// reference given up above 85; three gimbals.
@@ -260,6 +262,8 @@ fn the_book(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("{key}.axis"), vec(&axis, 4))?;
         f.add(&format!("{key}.product"), fx(s * s / DEG, 4))?;
     }
+    // the sizes of those turns, which 15_3 and 15_4 print beside the leftovers
+    f.add("G-D.leftover.turn_deg", ints(&shown::SMALL_TURNS)?)?;
     Ok(())
 }
 
@@ -312,6 +316,17 @@ fn halfway(f: &mut Facts) -> Result<(), String> {
     )?;
     f.pin("G-H.halfway", fx(half.abs(), 4), "180.0000", "straight back")?;
     f.add("G-H.off_by", fx(wrap_deg(half - mean).abs(), 4))?;
+    // the seam: the headings as plain numbers, as the code panel of 04_4 ("-340 becomes +20")
+    // and the first trap of 13_2 ("170 - (-170) = 340") print them
+    f.add("G-D.seam.a_minus_b", ints(&[a - b])?)?;
+    f.add("G-D.seam.b_minus_a", ints(&[b - a])?)?;
+    // 04_4: half of the step on the flat piece, wrapped back, is this far from either heading
+    f.pin(
+        "G-D.halfway.from_each",
+        fx(wrap_deg(half - a).abs(), 4),
+        "10.0000",
+        "half of the 20 degree gap (G-H.gap)",
+    )?;
     Ok(())
 }
 
@@ -913,6 +928,7 @@ fn sources(f: &mut Facts) -> Result<(), String> {
     f.add("G-L.kuka.axes", cited::KUKA_AXES)?;
     f.add("G-L.kmr.speed_kmh", cited::KMR_SPEED_KMH)?;
     f.add("G-L.kmr.speed_m_s", fx(cited::KMR_SPEED_KMH / 3.6, 1))?;
+    f.add("G-L.kmr.lateral_kmh", fx(cited::KMR_LATERAL_KMH, 1))?;
     f.add("G-L.apollo.lamp_deg", cited::APOLLO_LAMP_DEG)?;
     f.add("G-L.apollo.lost_deg", cited::APOLLO_LOST_DEG)?;
     f.add("G-L.apollo.gimbals", cited::APOLLO_GIMBALS)?;
