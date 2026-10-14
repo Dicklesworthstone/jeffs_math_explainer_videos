@@ -16,6 +16,7 @@ pub mod round_numbers;
 pub mod running_total;
 pub mod sound;
 pub mod the_middle;
+pub mod thumbnail;
 pub mod which_trick;
 pub mod your_turn;
 pub mod your_turn_fifty;
