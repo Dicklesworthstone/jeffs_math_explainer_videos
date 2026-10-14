@@ -80,6 +80,17 @@ const GRID_PITCH: f64 = 0.88;
 const GRID_Y0: f64 = 2.35;
 const GRID_ROW: f64 = 0.48;
 const GRID_PT: f64 = 27.0;
+/// How far under its last row a column's tie ends: the ties run from the
+/// joints (below and left of the grid) to the bottom of their columns, so no
+/// tie crosses a number.
+const TIE_BELOW: f64 = 0.45;
+/// Where 10_5's labels stand against the points they name (screen units):
+/// the levers' numbers (base: above its middle and a little left, clear of
+/// the wrist's; shoulder: left of its lever; wrist: right of the tip), the
+/// two legs' numbers, and "only spins it" right of the tip's twists.
+const LEVER_SHIFT: [[f64; 2]; 3] = [[-0.1, 0.45], [-0.95, 0.15], [0.85, 0.45]];
+const LEG_SHIFT: [[f64; 2]; 2] = [[0.0, -0.32], [0.95, 0.0]];
+const SPINS_ONLY_SHIFT: [f64; 2] = [1.5, 0.0];
 /// Metres drawn per metre a second of tip speed, so the arrows read.
 const ARROW_PER_SPEED: f64 = 0.5;
 /// The goal marker's opacity once its first moment has passed.
@@ -349,20 +360,19 @@ impl SceneConstruct for VelocitiesAdd {
             scale(add(f, tip), 0.5)
         };
         let mut lever_labels = Vec::new();
-        for (joint, words, shift) in [
-            (0, format!("{} cm", cm_whole(arm.lever(&q, 0))), v(0.0, 0.42)),
-            (
-                SHOULDER,
-                format!("{} cm", cm_whole(arm.lever(&q, SHOULDER))),
-                v(-0.75, -0.35),
-            ),
-        ] {
+        for (k, (joint, words)) in [
+            (0, format!("{} cm", cm_whole(arm.lever(&q, 0)))),
+            (SHOULDER, format!("{} cm", cm_whole(arm.lever(&q, SHOULDER)))),
+        ]
+        .into_iter()
+        .enumerate()
+        {
             let m = kit.text(stage, &words, 30.0, gold, v(0.0, 0.0))?;
             let at = lever_mid(joint);
             pins.push(Pin {
                 mob: m,
                 at: point_fn(move |_: &Arena| at),
-                shift,
+                shift: v(LEVER_SHIFT[k][0], LEVER_SHIFT[k][1]),
             });
             lever_labels.push(m);
         }
@@ -370,7 +380,7 @@ impl SceneConstruct for VelocitiesAdd {
         pins.push(Pin {
             mob: wrist_label,
             at: point_fn(move |_: &Arena| tip),
-            shift: v(0.0, 0.5),
+            shift: v(LEVER_SHIFT[2][0], LEVER_SHIFT[2][1]),
         });
         lever_labels.push(wrist_label);
         let leg_across = kit.text(stage, &cm(tip[0]), 26.0, Palette::dim(), v(0.0, 0.0))?;
@@ -380,18 +390,18 @@ impl SceneConstruct for VelocitiesAdd {
         pins.push(Pin {
             mob: leg_across,
             at: point_fn(move |_: &Arena| across_mid),
-            shift: v(0.0, -0.32),
+            shift: v(LEG_SHIFT[0][0], LEG_SHIFT[0][1]),
         });
         pins.push(Pin {
             mob: leg_up,
             at: point_fn(move |_: &Arena| up_mid),
-            shift: v(0.5, 0.0),
+            shift: v(LEG_SHIFT[1][0], LEG_SHIFT[1][1]),
         });
         let spins_only = kit.text(stage, ONLY_SPINS, 26.0, Palette::dim(), v(0.0, 0.0))?;
         pins.push(Pin {
             mob: spins_only,
             at: point_fn(move |_: &Arena| tip),
-            shift: v(1.05, -0.4),
+            shift: v(SPINS_ONLY_SHIFT[0], SPINS_ONLY_SHIFT[1]),
         });
 
         let world = World::build(stage, view, 1.4, 0.25, specs, pins)?;
@@ -490,7 +500,8 @@ impl SceneConstruct for VelocitiesAdd {
                 col.push(kit.text(stage, &row[c], GRID_PT, orange, v(x, GRID_Y0 - GRID_ROW * r as f64))?);
             }
             let joint_at = view.project(arm.joint(&q, c).0);
-            let tie = polyline(vec![joint_at, v(x, GRID_Y0 + 0.4)])
+            let tie_end = GRID_Y0 - GRID_ROW * (rows as f64 - 1.0) - TIE_BELOW;
+            let tie = polyline(vec![joint_at, v(x, tie_end)])
                 .style(faded_line(orange, 1.6, 0.55))
                 .build();
             ties.push(stage.arena_mut().add(tie));
@@ -924,6 +935,170 @@ mod tests {
             let second = kit.tex_left(stage, TIP_VELOCITY_TEX, 26.0, Palette::dim(), &[], v(0.6, -2.42))?;
             for m in [first, second] {
                 assert!(stage.get_right(m)[0] < 7.11 - 0.15, "ends at {}", stage.get_right(m)[0]);
+            }
+            Ok(())
+        });
+    }
+
+    /// 10_3: no tie from a joint to its column of the grid crosses a number:
+    /// each runs to the bottom of its column, under the last row, with the
+    /// real face's boxes for every entry.
+    #[test]
+    fn the_ties_cross_no_number() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let q = model::degrees(poses::ELL);
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let entries = grid_entries()?;
+            let (rows, cols) = (entries.len(), entries[0].len());
+            let mut boxes = Vec::new();
+            for (r, row) in entries.iter().enumerate() {
+                for (c, text) in row.iter().enumerate() {
+                    let at = v(GRID_X0 + GRID_PITCH * c as f64, GRID_Y0 - GRID_ROW * r as f64);
+                    let m = kit.text(stage, text, GRID_PT, Palette::ink(), at)?;
+                    boxes.push([
+                        stage.get_left(m)[0],
+                        stage.get_right(m)[0],
+                        stage.get_bottom(m)[1],
+                        stage.get_top(m)[1],
+                    ]);
+                }
+            }
+            for c in 0..cols {
+                let from = view.project(arm.joint(&q, c).0);
+                let to = [
+                    GRID_X0 + GRID_PITCH * c as f64,
+                    GRID_Y0 - GRID_ROW * (rows as f64 - 1.0) - TIE_BELOW,
+                ];
+                for k in 0..=300 {
+                    let t = f64::from(k) / 300.0;
+                    let p = [from[0] + (to[0] - from[0]) * t, from[1] + (to[1] - from[1]) * t];
+                    for b in &boxes {
+                        let inside =
+                            p[0] > b[0] - 0.05 && p[0] < b[1] + 0.05 && p[1] > b[2] - 0.05 && p[1] < b[3] + 0.05;
+                        assert!(!inside, "joint {}'s tie crosses a number at {p:?}", c + 1);
+                    }
+                }
+            }
+            Ok(())
+        });
+    }
+
+    /// 10_5: the levers' numbers, the legs' and "only spins it" stand apart
+    /// from one another, inside the margin, and the levers' off the arm.
+    #[test]
+    fn the_final_labels_stand_apart() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let q = model::degrees(poses::ELL);
+            let tip = arm.tip(&q).p;
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let shoulder_pt = arm.joint(&q, SHOULDER).0;
+            let corner = [tip[0], tip[1], shoulder_pt[2]];
+            let lever_mid = |joint: usize| {
+                let (point, dir) = arm.joint(&q, joint);
+                scale(add(foot(point, dir, tip), tip), 0.5)
+            };
+            let on = |p: V3, shift: [f64; 2]| {
+                let s = view.project(p);
+                v(s[0] + shift[0], s[1] + shift[1])
+            };
+            let (base_cm, shoulder_cm) = (cm_whole(arm.lever(&q, 0)), cm_whole(arm.lever(&q, SHOULDER)));
+            let spots = [
+                (
+                    format!("{base_cm} cm"),
+                    30.0,
+                    palette::screw(),
+                    on(lever_mid(0), LEVER_SHIFT[0]),
+                    true,
+                ),
+                (
+                    format!("{shoulder_cm} cm"),
+                    30.0,
+                    palette::screw(),
+                    on(lever_mid(SHOULDER), LEVER_SHIFT[1]),
+                    true,
+                ),
+                (
+                    ZERO_CM.to_owned(),
+                    30.0,
+                    palette::screw(),
+                    on(tip, LEVER_SHIFT[2]),
+                    true,
+                ),
+                (
+                    cm(tip[0]),
+                    26.0,
+                    Palette::dim(),
+                    on(scale(add(shoulder_pt, corner), 0.5), LEG_SHIFT[0]),
+                    false,
+                ),
+                (
+                    cm(tip[2] - shoulder_pt[2]),
+                    26.0,
+                    Palette::dim(),
+                    on(scale(add(corner, tip), 0.5), LEG_SHIFT[1]),
+                    false,
+                ),
+                (
+                    ONLY_SPINS.to_owned(),
+                    26.0,
+                    Palette::dim(),
+                    on(tip, SPINS_ONLY_SHIFT),
+                    false,
+                ),
+            ];
+            let mut boxes = Vec::new();
+            for (text, pt, color, at, _) in &spots {
+                let m = kit.text(stage, text, *pt, *color, *at)?;
+                boxes.push([
+                    stage.get_left(m)[0],
+                    stage.get_right(m)[0],
+                    stage.get_bottom(m)[1],
+                    stage.get_top(m)[1],
+                ]);
+            }
+            for (i, a) in boxes.iter().enumerate() {
+                assert!(
+                    a[1] < 7.11 - 0.15 && a[0] > -7.11 + 0.15,
+                    "{:?} leaves the margin",
+                    spots[i].0
+                );
+                for (j, b) in boxes.iter().enumerate().skip(i + 1) {
+                    let apart = a[1] + 0.05 < b[0] || b[1] + 0.05 < a[0] || a[3] + 0.05 < b[2] || b[3] + 0.05 < a[2];
+                    assert!(apart, "{:?} touches {:?}: {a:?} {b:?}", spots[i].0, spots[j].0);
+                }
+            }
+            // the levers' numbers are off the arm's links
+            let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(&q, j).0).collect();
+            joints.push(tip);
+            for pair in joints.windows(2) {
+                for k in 0..=12 {
+                    let t = f64::from(k) / 12.0;
+                    let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                    for (i, b) in boxes.iter().enumerate().filter(|(i, _)| spots[*i].4) {
+                        let inside = p[0] > b[0] && p[0] < b[1] && p[1] > b[2] && p[1] < b[3];
+                        assert!(!inside, "{:?} sits on the arm at {p:?}", spots[i].0);
+                    }
+                }
+            }
+            // and every label is off the twists' arrows at the tip (the
+            // shoulder's, the base's and their sum, drawn at ARROW_PER_SPEED)
+            let jac = arm.jacobian(&q);
+            let (v_sh, v_base) = (tip_velocity(&jac, SHOULDER, tip), tip_velocity(&jac, 0, tip));
+            for velocity in [v_sh, v_base, add(v_sh, v_base)] {
+                let end = add(tip, scale(velocity, ARROW_PER_SPEED));
+                for k in 0..=20 {
+                    let t = f64::from(k) / 20.0;
+                    let p = view.project(add(scale(tip, 1.0 - t), scale(end, t)));
+                    for (i, b) in boxes.iter().enumerate() {
+                        let inside =
+                            p[0] > b[0] - 0.03 && p[0] < b[1] + 0.03 && p[1] > b[2] - 0.03 && p[1] < b[3] + 0.03;
+                        assert!(!inside, "{:?} sits on a twist's arrow at {p:?}", spots[i].0);
+                    }
+                }
             }
             Ok(())
         });
