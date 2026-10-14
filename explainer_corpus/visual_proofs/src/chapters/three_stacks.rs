@@ -17,8 +17,8 @@ use explainer_kit::{Kit, fade_all, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, QuizLook, Words, boundary, dim, fact, fact_ints, fail, flat, group, hero, ink, line_style, panel, pause,
-    say, size,
+    ASIDE_AT, QuizCard, QuizLook, Words, aside, boundary, dim, fact, fact_ints, fail, fit_width, flat, group, hero,
+    ink, line_style, panel, pause, say, size,
 };
 use super::iso::{Anchor, Iso, P3, Solid, box_cells};
 use super::kinetics::{Moves, arrive, leave, play, prepared};
@@ -35,6 +35,14 @@ pub const LINES: [&str; 5] = ["07_1", "07_2", "07_3", "07_4", "07_5"];
 
 // the chapter's fixed words
 const QUESTION_CARD: &str = "? stacks make a box";
+/// Both rules of the question, kept under the card for the whole countdown
+/// (R2: the quiz is read once, then seven silent seconds).
+const RULES_CARD: [&str; 2] = [
+    "fewest stacks, each turned to fit;",
+    "cubes that end up on top may be sliced in half",
+];
+/// The tag at 07_3, once the three sit together: why three is the fewest.
+const FEWEST_TAG: &str = "why three is the fewest";
 const LEGEND_CAPTION: &str = "copies";
 const BLOCK_WORDS: [&str; 3] = ["4", "5", "4"];
 const STEP_WORDS: &str = "staircase";
@@ -266,11 +274,29 @@ impl SceneConstruct for ThreeStacks {
             Words::Text(&r.answer),
             QuizLook::BESIDE,
         )?;
+        // the two rules, under the card, up for the whole countdown
+        let (_, card_h) = QuizLook::BESIDE.size();
+        let rules_top = QuizLook::BESIDE.at[1] - card_h / 2.0 - 0.45;
+        let mut rule_lines = Vec::new();
+        for (i, words) in RULES_CARD.iter().enumerate() {
+            let m = kit.text(
+                stage,
+                words,
+                22.0,
+                ink(),
+                v(QuizLook::BESIDE.at[0], rules_top - 0.36 * i as f64),
+            )?;
+            fit_width(stage, m, 5.0);
+            rule_lines.push(m);
+        }
+        let rules = group(stage, &rule_lines)?;
         line.wait_sentence(stage, 3)?;
         let ghost_in = iso.fade(ghost, 0.3, 0.6)?;
         iso.play(stage, vec![ghost_in], 0.0)?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
+        let rules_in = arrive(stage, rules, 0.5)?;
+        play(stage, vec![rules_in], 0.0)?;
         card.count(&kit, stage)?;
 
         // ---------------------------------------------------------- 07_3
@@ -285,6 +311,7 @@ impl SceneConstruct for ThreeStacks {
         for &m in &card_mobs {
             outs.push(leave(stage, m, 0.4)?);
         }
+        outs.push(leave(stage, rules, 0.4)?);
         outs.push(arrive(stage, chip, 0.5)?);
         let fade_b = iso.fade(ghost, 1.0, 0.5)?;
         let fade_c = iso.fade(stack_c, 1.0, 0.5)?;
@@ -332,11 +359,28 @@ impl SceneConstruct for ThreeStacks {
                 return Err(fail(format!("stack {which} did not end on the model's cells")));
             }
         }
+        // R2 (Dev D5): "fewest" was shown by nothing; with the three seated, a
+        // tag says why one and two stacks cannot (the arithmetic is in the
+        // description: F-S.fewest)
+        let why = aside(
+            &kit,
+            stage,
+            FEWEST_TAG,
+            &format!(
+                "one or two stacks, {} or {} cubes: no such box. The arithmetic is in the description.",
+                r.stack,
+                2 * r.stack
+            ),
+            ASIDE_AT,
+        )?;
+        let why_in = arrive(stage, why, 0.5)?;
+        play(stage, vec![why_in], 0.0)?;
         line.wait_end(stage)?;
-        let dots_out: Moves = dots
+        let mut dots_out: Moves = dots
             .iter()
             .map(|&d| leave(stage, d, 0.3))
             .collect::<fmn::Result<Moves>>()?;
+        dots_out.push(leave(stage, why, 0.3)?);
         play(stage, dots_out, 0.0)?;
         for &d in &dots {
             iso.unpin(d);
