@@ -36,6 +36,8 @@ Chapters
 ?:?? The missing square
 ?:?? What makes a proof
 
+Five for five, the warning at the start: with n points on a circle, every pair joined by a line and no three lines meeting at one point inside, the lines cut the disc into 1, 2, 4, 8 and 16 regions for n = 1 to 5, then 31 for n = 6; six evenly spaced points give only 30, because the three long lines meet in the middle. Five passing tests prove nothing about the sixth.
+
 The proofs, exactly (each for every whole number n from 1)
 Odd numbers as layers: an L of 2k + 1 tiles turns the k by k square into the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n². The first hundred odd numbers add to 10,000.
 Two staircases: two copies of the staircase 1 + 2 + … + n lock into a rectangle n wide and n + 1 tall, so the sum is n(n + 1) ÷ 2; a hundred steps make 5,050.

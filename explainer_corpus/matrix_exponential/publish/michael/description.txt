@@ -22,8 +22,9 @@ What the video shows
 The obvious guess, raising e to each entry, fails: it sends the zero matrix to [1, 1; 1, 1], not to the matrix that changes nothing.
 Two definitions, one function: tiny steps, (I + A/n)^n, and the series of A^k / k! agree for every square matrix, and the series always settles, because its terms shrink for good once k passes the size of A.
 Two tanks trading salt at 0.1 per minute each way settle toward half and half; walks on a network are counted by the powers of its matrix; heat spreads by e^(−tL), and with −i in front the same equation is Schrödinger's, which never settles.
-How computers do it: summing the series in 32-bit floats on Moler and Van Loan's test matrix leaves no entry right to two digits; scaling and squaring gets it right.
+How computers do it: summing the series in 32-bit floats on Moler and Van Loan's test matrix leaves no entry right to two digits; scaling and squaring gets it right. Their own 1978 run was on an IBM 370 in hexadecimal arithmetic and printed two entries with the wrong sign, both in the right-hand column; the video shows the IEEE 32-bit run instead.
 Order matters: e^(A+B) = e^A e^B when AB = BA, and a loop of four small steps measures the commutator AB − BA, the doorway to Lie groups.
+Where it leads: the Standard Model's forces are built on SU(3), SU(2) and U(1), with 8 + 3 + 1 = 12 independent tiny steps. Precisely, the group that acts on the known matter is that product modulo a subgroup of Z6 that experiments cannot yet pin down; the Lie algebra, and so the count of 12, is the same either way.
 
 Every matrix and number in the video is computed by its own code and checked by an independent program. The exact statements, notes for programmers (why the raw series fails in floating point, Padé approximants, the action on one vector) and every source:
 https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/matrix_exponential/docs/description.md
@@ -34,5 +35,6 @@ Arthur Cayley, "A Memoir on the Theory of Matrices", Philosophical Transactions 
 Cleve Moler and Charles Van Loan, "Nineteen Dubious Ways to Compute the Exponential of a Matrix", SIAM Review 20(4), 1978; "Twenty-Five Years Later", SIAM Review 45(1), 2003
 Nicholas J. Higham, "The Scaling and Squaring Method for the Matrix Exponential Revisited", SIAM Journal on Matrix Analysis and Applications 26(4), 2005
 Ernesto Estrada and Desmond J. Higham, "Network Properties Revealed through Matrix Functions", SIAM Review 52(4), 2010
+John C. Baez and John Huerta, "The Algebra of Grand Unified Theories", Bulletin of the American Mathematical Society 47(3), 2010
 
 Narration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.
