@@ -111,7 +111,7 @@ pub fn crowd_range(text: &str) -> Option<(u64, u64)> {
 }
 
 /// Lines of a card, centred, on a dark plate edged in `edge`, detached.
-fn question_card(
+pub fn question_card(
     kit: &Kit,
     stage: &mut Stage<'_>,
     lines: &[&str],

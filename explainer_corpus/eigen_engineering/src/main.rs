@@ -14,9 +14,8 @@
 //! eigen help                          # the full option list
 //! ```
 //!
-//! Chapters start as animatics (`explainer_kit::animatic`): each speaks its
-//! storyboard lines over a card describing the planned picture, so drafts
-//! and timelines run before the real scene exists.
+//! Every chapter is a real scene (`chapters/`); the storyboard is checked
+//! against the script and the registry by the tests below.
 
 mod chapters;
 mod facts;
@@ -27,7 +26,9 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 pub(crate) const SCRIPT: &str = include_str!("../script.tsv");
-/// The storyboard: words, pictures, holds and listen windows per beat.
+/// The storyboard: words, pictures, holds and listen windows per beat
+/// (read by the tests that keep it, the script and the registry agreed).
+#[cfg(test)]
 pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {

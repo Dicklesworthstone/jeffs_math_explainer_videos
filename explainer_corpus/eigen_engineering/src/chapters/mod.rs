@@ -1,8 +1,8 @@
 //! One scene per chapter, in storyboard order, with the score's intensity
 //! arc (fullest where a pattern first comes back along itself and where the
-//! truss's modes ring, quieter for the two bridges and the limits). Each
-//! chapter starts as its storyboard's animatic and is replaced by its real
-//! scene as it is built.
+//! truss's modes ring, quieter for the two bridges and the limits). Every
+//! chapter is a real scene; the animatic stand-ins
+//! (`explainer_kit::animatic`) are gone.
 
 pub mod a_steel_truss;
 pub mod an_economy;
@@ -20,30 +20,18 @@ pub mod the_bridge_that_swayed;
 pub mod the_split;
 pub mod truss;
 pub mod twenty_one_patterns;
+pub mod two_bridges;
 pub mod two_carts;
 pub mod two_million_modes;
 pub mod where_modes_rule;
 
 use explainer_kit::Chapter;
-use explainer_kit::animatic::Animatic;
-
-use crate::STORYBOARD;
 
 macro_rules! scene {
     ($key:literal, $intensity:expr, $module:ident :: $scene:ident) => {
         Chapter {
             key: $key,
             make: |kit| Box::new($module::$scene { kit }),
-            intensity: $intensity,
-        }
-    };
-}
-
-macro_rules! animatic {
-    ($key:literal, $intensity:expr) => {
-        Chapter {
-            key: $key,
-            make: |kit| Box::new(Animatic::new(kit, STORYBOARD, $key)),
             intensity: $intensity,
         }
     };
@@ -62,7 +50,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("05_a_steel_truss", 0.5, a_steel_truss::ASteelTruss),
         scene!("06_twenty_one_patterns", 0.6, twenty_one_patterns::TwentyOnePatterns),
         scene!("07_every_mode_a_note", 0.65, every_mode_a_note::EveryModeANote),
-        animatic!("08_two_bridges", 0.35),
+        scene!("08_two_bridges", 0.35, two_bridges::TwoBridges),
         scene!("09_the_air_in_a_room", 0.5, the_air_in_a_room::TheAirInARoom),
         scene!("10_two_million_modes", 0.55, two_million_modes::TwoMillionModes),
         scene!("11_where_modes_rule", 0.45, where_modes_rule::WhereModesRule),

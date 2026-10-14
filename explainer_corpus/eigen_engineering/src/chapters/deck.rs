@@ -194,6 +194,27 @@ impl Deck {
     }
 }
 
+/// A tracker counting the scene's own seconds from the moment its anchor is
+/// in the scene (which this puts it): returns the tracker and the anchor,
+/// to clear with `clear_updaters` when the clock is no longer read.
+pub fn scene_clock(stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
+    let clock = stage.add_value_tracker(0.0);
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let mut t = 0.0_f64;
+    stage.add_dt_updater(
+        anchor,
+        move |s, _, dt| {
+            if dt > 0.0 {
+                t += dt;
+                let _ = s.set_tracker_value(clock, t);
+            }
+        },
+        false,
+    )?;
+    stage.add_to_scene(anchor)?;
+    Ok((clock, anchor))
+}
+
 /// A tracker that follows `0.5 (1 - cos)` of `clock` between `lo` and `hi`
 /// with a period of `period` seconds, from the moment it is added: the
 /// slow breathing of a picture ("sagging and springing back"). Returns the
