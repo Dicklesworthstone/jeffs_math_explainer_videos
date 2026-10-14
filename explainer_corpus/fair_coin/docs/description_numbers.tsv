@@ -1,10 +1,8 @@
 # Video E: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py fair_coin).
-# number	context (a piece of the line it stands in)	kind (year, cited, structural, derived)	reason; a derived reason is =expression over facts, evaluated by the tool
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
 1960	1960s pennies	year	the classroom records of fact sheet S13 ("Using 1960's pennies, my students have 1878/5520"); E-C3.pennies holds the counts
 218	(2007, p. 218)	cited	Diaconis, Holmes and Montgomery 2007, abstract and p. 218 (fact sheet S11)
-0.99	p = 0.99	derived	=(1+sqrt(1-4*f("E-F4.p99.ht")))/2
 95	95% credible interval	cited	Bartoš and others 2025: "Pr(same side) = 0.508, 95% credible interval (CI) [0.506, 0.509]" (fact sheet S12)
 0.506	0.506 to 0.509	cited	the same sentence of Bartoš and others 2025 (fact sheet S12)
 0.509	0.506 to 0.509	cited	the same sentence of Bartoš and others 2025 (fact sheet S12)
 100	A single run of 100 tosses	structural	the per-hundred base of the facts E-F10.*.per_hundred
-35	15, 15, 35 and 35	derived	=f("E-F7.blum.at_once.th")*100

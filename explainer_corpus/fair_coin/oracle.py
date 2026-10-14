@@ -888,6 +888,14 @@ def description_facts():
           shares[0] > shares[1] > shares[2] > F(1, 2) and abs(float(deadline_share(300, "H")) - 0.5) < 1e-9)
     check("the cure's deadline share at 8 tosses, listing every sequence, is the same",
           deadline_share_by_toss_listing(8) == shares[0])
+    # "about 101 at p = 0.99": the chance of the coin whose rows are E-F4.p99.*
+    emit("E-D.p99.chance", dec(STOPS[-1], 2))
+    check("the p99 coin's chance of heads is 99/100 and its expected tosses are 1/(p(1-p))",
+          STOPS[-1] == F(99, 100) and 1 / (STOPS[-1] * (1 - STOPS[-1])) == F(10000, 99))
+    # "15, 15, 35 and 35 percent where 25 each is fair; announced on return they are 25 each" (E-F7 in chances)
+    for name, on_return in (("at_once", False), ("on_return", True)):
+        chances, _ = blum_first_two(P, on_return=on_return)
+        emit(f"E-D.blum.{name}.percent", ",".join(pct(chances[k]) for k in ("HH", "HT", "TH", "TT")))
     # "four all differ 10.4% of the time" (E-F9 has the whole number per hundred)
     w = [F(x, sum(LOADED)) for x in LOADED]
     four = sum(math.prod(w[r] for r in rolls) for rolls in product(range(6), repeat=4) if len(set(rolls)) == 4)

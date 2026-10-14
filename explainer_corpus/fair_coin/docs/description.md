@@ -67,7 +67,7 @@ pair.
 **The price (chapter 4).** A pair differs with probability 2p(1 − p), so the
 number of pairs is geometric and the expected number of tosses is
 1/(p(1 − p)): 6.25 at p = 4/5, 4 at p = 1/2, about 101 at p = 0.99 [E-F3,
-E-F4]. The game ends with probability one, but for every n it is still going
+E-F4, E-D.p99.chance]. The game ends with probability one, but for every n it is still going
 after n pairs with probability (1 − 2p(1 − p))ⁿ > 0; at p = 4/5 that is 2.1%
 after ten pairs [E-F3]. No rule that always names a winner within a fixed
 number n of tosses is fair for every coin: at p near 1 the all-heads pattern
@@ -88,7 +88,8 @@ that repeats its last result with probability 4/5; its long-run share of
 heads is exactly one half. After two heads, heads-then-tails has probability
 4/5 × 1/5 and tails-then-heads 1/5 × 1/5 [E-F6]. Played to the end from
 there, the plain trick gives the heads-first player 8/13, and 5/13 after two
-tails; from a long-run start it is exactly one half, and so is the first pair
+tails [E-D.sticky.plain_rule.after_heads.exact,
+E-D.sticky.plain_rule.after_tails.exact]; from a long-run start it is exactly one half, and so is the first pair
 of a long run. That is why a tally of wins does not show this break: the
 winners come out half and half, but each result predicts the next.
 
@@ -104,7 +105,8 @@ trick applied to those alone is exactly fair when played to the end
 (Samuelson 1968, as described by Elias 1972, who credits the best form of it
 to John W. Pratt; Samuelson's own pages were not seen for this video). Under
 a deadline it is not fair: starting straight after a head, of the games
-decided within 8 tosses of this coin the heads-first player wins 64.7%,
+decided within 8 tosses of this coin the heads-first player wins 64.7%
+[E-D.cure.deadline.tosses, E-D.cure.deadline.heads_first_percent],
 because heads-then-tails can finish in two tosses while tails-then-heads must
 wait for the coin to return to heads.
 
@@ -120,7 +122,7 @@ of n different values are equally likely, whatever the die's chances. With
 the video's die (5, 5, 10, 10, 20 and 50 percent) two rolls differ 68.5% of
 the time, 2.9 rolls for each fair decision; three rolls all differ 32.6% of
 the time, 9.2 rolls for each roll of a fair die; four all differ 10.4% of the
-time [E-F9]. The face is read from the order alone, never from which numbers
+time [E-F9, E-D.dice.four_rolls.works_percent]. The face is read from the order alone, never from which numbers
 came up.
 
 **What is left (chapter 10).** The trick's long-run yield is p(1 − p) fair
@@ -153,12 +155,13 @@ procedure both approach the ceiling and never reach it [E-F10].
   announcing it at once is wrong. On a coin that repeats itself 80% of the
   time, the first two results announced at once come out 15, 15, 35 and 35
   percent where 25 each is fair; announced on return they are 25 each
-  [E-F7].
+  [E-F7, E-D.blum.at_once.percent, E-D.blum.on_return.percent].
 - **Peres's procedure, as code.** From pairs (a, b): output a when a ≠ b.
   Then recurse on two leftover streams: a XOR b for every pair, and a for
   every pair with a = b. Reusing only the second stream stops near 18 fair
   tosses per hundred at p = 4/5; only the first, near 39; both, they climb
-  to 72.2. On 100,000 simulated tosses, run until nothing was left, it gave
+  to 72.2 [E-D.peres.thrown_away_pairs_only.per_hundred,
+  E-D.peres.which_pairs_matched_only.per_hundred, E-F10]. On 100,000 simulated tosses, run until nothing was left, it gave
   69.6 per hundred [E-S9]. The price of climbing is memory and waiting: a
   block of 64 tosses must be held before anything comes out. And decide the
   number of tosses to read before you start: Peres stresses (Remark 3) that
@@ -228,5 +231,5 @@ twenty times the draw. Run 3 is not used.
 The fair bands on screen are two standard errors either side of what a fair
 coin or die would give: 469 to 531 games in a thousand, 136 to 181 rolls of a
 face in 949, 90 to 127 in 650. One count lands inside its band about 19 times
-in 20; all six faces of a fair die land inside together noticeably less often,
+in 20 [E-D.fair_band.chances_in_20]; all six faces of a fair die land inside together noticeably less often,
 so one face at the edge (the three, at 136) is no sign of unfairness.
