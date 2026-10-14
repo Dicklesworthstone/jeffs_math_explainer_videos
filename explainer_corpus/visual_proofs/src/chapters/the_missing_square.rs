@@ -850,6 +850,19 @@ impl SceneConstruct for TheMissingSquare {
         proof.cross(&kit, stage, 1, IT_BENDS)?;
         let on_bend = lens_mark(stage, LENS_AT, 0.55, false);
         fade_in_all(stage, &[on_bend], 0.3)?;
+        // 14_7's source (the dense read of the narrated draft): the card
+        // refuses to file, so its slot on the shelf stays empty, and the
+        // source of the picture is written as the two names are said. After
+        // the silence they came in 1.2 s before the chapter ended, and the
+        // citation could not be read.
+        line.wait_for(stage, "Martin Gardner credits")?;
+        let slot = super::draw::empty_slot(stage, SLOT)?;
+        #[cfg(test)]
+        super::draw::shelf_log::filed(stage, SLOT, &[slot]);
+        let source = source_line(&kit, stage, SOURCE, false)?;
+        fade_in_all(stage, &[slot, source], 0.6)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "14_7", "source_in", stage.scene().time().to_f64());
         // the narration runs on; then two seconds of silence with the cross
         // on the screen
         line.wait_end(stage)?;
@@ -858,12 +871,6 @@ impl SceneConstruct for TheMissingSquare {
         // storyboard has it back at 15_1, a register lower, which is the
         // score's to do)
         kit.mark(stage, "silence_end:cross");
-        // the card refuses to file: its slot on the shelf stays empty
-        let slot = super::draw::empty_slot(stage, SLOT)?;
-        #[cfg(test)]
-        super::draw::shelf_log::filed(stage, SLOT, &[slot]);
-        let source = source_line(&kit, stage, SOURCE, false)?;
-        fade_in_all(stage, &[slot, source], 0.6)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;
@@ -1139,6 +1146,42 @@ mod tests {
         }
         eprintln!("chapter {:.1} s", v.ran.seconds);
         assert!(late.is_empty(), "{late:?}");
+    }
+
+    /// 14_7 (the dense read of the narrated draft): the citation and the
+    /// empty slot come in as the two names are said and stand through the
+    /// silence, long enough to read: at least five seconds before the
+    /// chapter's closing fade and well before the voice has finished (they
+    /// came in after the silence, 1.2 s before the end).
+    #[test]
+    fn the_source_comes_in_with_the_names_and_can_be_read() {
+        use super::super::draw::quiz_log;
+        let v = testing::run_voiced("14_the_missing_square").unwrap();
+        let (_, at, len) = v.lines.iter().find(|l| l.0 == "14_7").cloned().unwrap();
+        let events = quiz_log::take(&v.tag, "14_7");
+        let source_in = events.iter().find(|e| e.0 == "source_in").map(|e| e.1).unwrap();
+        eprintln!(
+            "source in at {source_in:.1}, voice {at:.1}..{:.1}, chapter {:.1}",
+            at + len,
+            v.ran.seconds
+        );
+        // after the first sentence, while the names are being said
+        assert!(source_in > at && source_in < at + 0.5 * len, "{source_in:.1}");
+        let stands = v.ran.seconds - 0.6 - source_in;
+        assert!(stands >= 5.0, "the citation stands {stands:.1} s");
+        // the two seconds of silence are still the cross's own
+        assert!((SILENCE_S - 2.0).abs() < 1e-9);
+        let end = v
+            .marks
+            .iter()
+            .find(|m| m.0 == "silence_end:cross")
+            .map(|m| m.1)
+            .unwrap();
+        let start = v.marks.iter().find(|m| m.0 == "silence:cross").map(|m| m.1).unwrap();
+        assert!(
+            end - (at + len) >= SILENCE_S - 0.2 && start <= at + 0.1,
+            "{start:.1} {end:.1}"
+        );
     }
 
     #[test]

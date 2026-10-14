@@ -51,6 +51,12 @@ const PANEL_W: f64 = 7.0;
 const ZOOM: f64 = 8.0;
 /// Where the source line sits, clear of the lower-third's band.
 const SOURCE_Y: f64 = -2.45;
+/// How far under the question's lowest line the answer's top stands at
+/// least (the stacked third is taller than the ring it lands over: its
+/// numerator stood on the sum's "64", the dense read of the narrated draft),
+/// and how far over the card's foot its bottom stands at least.
+const ANSWER_CLEAR: f64 = 0.15;
+const ANSWER_FOOT: f64 = 0.2;
 
 // the picture keeps below the shelf's row and above the card's top, and the
 // quiz card and the right-hand panel stand clear of it
@@ -185,6 +191,31 @@ fn ajose_line() -> fmn::Result<String> {
     Ok(format!("{AJOSE}, {year}"))
 }
 
+/// The answer takes the room under the question inside the card, into the
+/// space of the ring and its note, which have gone when it lands: if it is
+/// taller than that room (the stacked third is, at the card's answer size)
+/// it is set smaller to fit it, and it stands in the room's middle only as
+/// far as it must move off the question. The card's own code is not touched.
+/// Returns the answer's height after.
+fn fit_answer(stage: &mut Stage<'_>, card: &QuizCard) -> f64 {
+    let (_, card_h) = card.look.size();
+    let top = stage.get_bottom(card.question)[1] - ANSWER_CLEAR;
+    let bottom = card.look.at[1] - card_h / 2.0 + ANSWER_FOOT;
+    let room = top - bottom;
+    if stage.get_height(card.answer) > room {
+        let at = stage.get_center(card.answer);
+        stage.set_height(card.answer, room, false);
+        stage.move_to(card.answer, at, ORIGIN);
+    }
+    let c = stage.get_center(card.answer);
+    let h = stage.get_height(card.answer);
+    // off the question first, then off the foot
+    let mut y = c[1].min(top - h / 2.0);
+    y = y.max(bottom + h / 2.0);
+    stage.move_to(card.answer, v(c[0], y), ORIGIN);
+    h
+}
+
 /// The picture this card files, rebuilt as it stands on the shelf (the
 /// chapters after this one open with the shelf so far): the corner after
 /// three sizes magnified eight times, the cascade of its pieces and the
@@ -286,6 +317,7 @@ impl SceneConstruct for AThird {
             Words::Tex(&answer_tex),
             QuizLook::BESIDE,
         )?;
+        fit_answer(stage, &card);
         line.wait_sentence(stage, 1)?;
         card.show(stage, 0.5)?;
         card.count(&kit, stage)?;
@@ -650,6 +682,62 @@ mod tests {
                 assert_eq!(*a, map(*b), "level {j} against level {}", j + READ_AFTER);
             }
         }
+    }
+
+    /// 11_3 and 11_4 (the dense read of the narrated draft): the answer
+    /// lands under the sum it answers, its top clear of the question's lowest
+    /// line (the stacked third's numerator stood on the "64"), and inside
+    /// the card above the bottom edge, set no smaller than half its size.
+    #[test]
+    fn the_answer_lands_under_the_sum_and_inside_the_card() {
+        use fmn::scene::{NullSceneSink, RuntimeConfig};
+        struct Probe;
+        impl SceneConstruct for Probe {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                let kit = Kit::new()?;
+                let pieces = list("F-R.pieces")?;
+                let answer = fact("F-Q.share.answer")?;
+                let mut sum: Vec<String> = pieces.iter().map(|p| frac_tex(p)).collect();
+                sum.push("\\cdots".to_owned());
+                let question = format!("{} = \\,?", sum.join(" + "));
+                let answer_tex = frac_tex(&answer);
+                let card = QuizCard::build(
+                    &kit,
+                    stage,
+                    "share",
+                    Words::Tex(&question),
+                    Words::Tex(&answer_tex),
+                    QuizLook::BESIDE,
+                )?;
+                let before = stage.get_bottom(card.question)[1] - stage.get_top(card.answer)[1];
+                let tall = stage.get_height(card.answer);
+                let height = fit_answer(stage, &card);
+                let after = stage.get_bottom(card.question)[1] - stage.get_top(card.answer)[1];
+                eprintln!("answer {tall:.2} high, {height:.2} after, {before:.2} then {after:.2} under the question");
+                assert!(
+                    before < ANSWER_CLEAR,
+                    "the stacked answer stood on the question: {before:.2}"
+                );
+                assert!(
+                    after >= ANSWER_CLEAR - 1e-9,
+                    "the answer's top is {after:.2} under the question"
+                );
+                // still a number to read across the room: at least half its size
+                assert!(
+                    height >= 0.5 * tall,
+                    "the answer was shrunk to {height:.2} from {tall:.2}"
+                );
+                // inside the card, above its bottom edge and clear of the
+                // sides
+                let (w, h) = QuizLook::BESIDE.size();
+                let at = QuizLook::BESIDE.at;
+                assert!(stage.get_bottom(card.answer)[1] > at[1] - h / 2.0 + ANSWER_FOOT - 1e-9);
+                assert!(stage.get_left(card.answer)[0] > at[0] - w / 2.0 + 0.2);
+                assert!(stage.get_right(card.answer)[0] < at[0] + w / 2.0 - 0.2);
+                Ok(())
+            }
+        }
+        fmn::run_scene(&mut Probe, RuntimeConfig::default(), 7, &mut NullSceneSink).expect("the probe runs");
     }
 
     /// The picture keeps clear of the shelf's row and the card's top (the

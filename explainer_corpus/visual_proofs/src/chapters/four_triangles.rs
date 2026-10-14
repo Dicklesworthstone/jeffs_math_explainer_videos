@@ -78,6 +78,14 @@ const NOBODY: &str = "No source we found says who first drew this picture.";
 const EARLIEST_BEFORE: &str = "The earliest printing we found, in";
 const EARLIEST_AFTER: &str = "is credited to A. D. Wheeler.";
 const COUSIN: &str = "A close cousin is in a third-century Chinese commentary on the Zhoubi suanjing";
+/// 13_7 tail (the dense read of the narrated draft): the card holds this
+/// long alone after its second tick, and the source stands this long (the
+/// breath and this) after the picture has gone to the shelf. The source is
+/// three lines and was on the screen about three and a half seconds, fading
+/// in after the card had held three alone; it now comes in as the card goes
+/// and stands five.
+const CARD_ALONE_S: f64 = 2.0;
+const SOURCE_AFTER_BREATH_S: f64 = 1.5;
 /// 13_3's lower-third, with no words said: chapter 12's cut square (a big
 /// square, a small square and two equal rectangles) in letters (R2, 13_3).
 const CUT_SQUARE_LABEL: &str = "the same cut square as before:";
@@ -712,13 +720,34 @@ impl SceneConstruct for FourTriangles {
         fade_in_all(stage, &[tick_one], 0.3)?;
         line.wait_end(stage)?;
         proof.tick(&kit, stage, 2, "")?;
-        // the card holds three seconds alone
-        pause(stage, 3.0)?;
-        // it has passed: the picture goes to the shelf, and the source is
-        // said with nothing else on the screen
+        // the card holds two seconds alone (three of them, and the source
+        // after, left the last thing the chapter says on the screen for
+        // three and a half seconds, three lines of it)
+        pause(stage, CARD_ALONE_S)?;
+        // it has passed: the source comes in as the card goes, and the
+        // picture goes to the shelf under it
+        let wheeler = fact("F-X.wheeler")?;
+        let source = lower_third(
+            &kit,
+            stage,
+            "",
+            &format!("{NOBODY} {EARLIEST_BEFORE} {wheeler}, {EARLIEST_AFTER} {COUSIN}"),
+        )?;
         let mut done = vec![g, ring, tick_one];
         done.extend(proof.mobs());
-        fade_out_all(stage, &done, 0.5)?;
+        {
+            let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+            for &m in &done {
+                stage.clear_updaters(m, true);
+                let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+                anims.push(stage.prepare(gone.rt(0.5))?);
+            }
+            let come = fade_in(stage.arena_mut(), source, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(come.rt(0.5))?);
+            stage.play_prepared(anims)?;
+        }
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "13_7", "source_in", stage.scene().time().to_f64());
         let mut filed = live.all();
         filed.extend(live_frames);
         let from = v(
@@ -727,16 +756,10 @@ impl SceneConstruct for FourTriangles {
         );
         file_on_shelf(stage, &filed, from, 2.0 * total * SMALL_CELL + 0.3, SLOT, 1.0)?;
         // the earliest printing found, with its year from the facts, between
-        // the "no source" sentence and the cousin (R2, 13_7)
-        let wheeler = fact("F-X.wheeler")?;
-        let source = lower_third(
-            &kit,
-            stage,
-            "",
-            &format!("{NOBODY} {EARLIEST_BEFORE} {wheeler}, {EARLIEST_AFTER} {COUSIN}"),
-        )?;
-        fade_in_all(stage, &[source], 0.6)?;
+        // the "no source" sentence and the cousin (R2, 13_7), is on the
+        // screen: the music's breath, and the time to read three lines
         breath(&kit, stage)?;
+        pause(stage, SOURCE_AFTER_BREATH_S)?;
 
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;
@@ -875,6 +898,32 @@ mod tests {
             prev = Some((id.clone(), at + len));
         }
         eprintln!("chapter {:.1} s", v.ran.seconds);
+    }
+
+    /// 13_7's tail (the dense read of the narrated draft, which showed the
+    /// three-line source for about three and a half seconds in the
+    /// chapter's last four): the source is on the screen for five seconds
+    /// or more, and the chapter's tail after the voice is no longer than it
+    /// was (8.7 s, with the card's second tick and its hold, the filing,
+    /// the music's breath and the source's reading time all in it).
+    #[test]
+    fn the_source_stands_long_enough_to_read_and_the_tail_is_not_longer() {
+        use super::super::draw::quiz_log;
+        let v = testing::run_voiced("13_four_triangles").unwrap();
+        let (_, at, len) = v.lines.iter().find(|l| l.0 == "13_7").cloned().unwrap();
+        let events = quiz_log::take(&v.tag, "13_7");
+        let source_in = events.iter().find(|e| e.0 == "source_in").map(|e| e.1).unwrap();
+        // on the screen from `source_in` (its fade is 0.5 s) until the
+        // chapter's closing fade (0.6 s) begins
+        let stands = v.ran.seconds - 0.6 - source_in;
+        eprintln!(
+            "source in at {source_in:.1}, chapter {:.1}, voice ends {:.1}",
+            v.ran.seconds,
+            at + len
+        );
+        assert!(stands >= 5.0, "the source stands {stands:.1} s");
+        let tail = v.ran.seconds - (at + len);
+        assert!(tail <= 8.7, "the chapter runs {tail:.1} s after the voice");
     }
 
     #[test]

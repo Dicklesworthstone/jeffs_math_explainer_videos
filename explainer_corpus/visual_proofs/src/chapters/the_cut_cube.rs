@@ -65,6 +65,16 @@ const CENTRE_PAIR: (f64, f64) = (-3.4, 0.7);
 const SHADES: [f64; 3] = [1.0, 0.74, 0.52];
 /// Where the count of the fourth power's blocks is set: under the shelf's floor.
 const COUNT_Y: f64 = 2.55;
+/// How far under a kind's own lowest corner its count stands in 12_5 (and
+/// its volume, a little further, in 12_6).
+const COUNT_DROP: f64 = 0.55;
+/// The fourth power's table of 12_7: its rows' first height and pitch, the
+/// words' left edge, the numbers' middle and their pitch.
+const TABLE_TOP: f64 = 2.3;
+const TABLE_PITCH: f64 = 0.9;
+const TABLE_WORDS_X: f64 = 0.4;
+const TABLE_NUMBERS_X: f64 = 4.6;
+const TABLE_NUMBER_PITCH: f64 = 0.95;
 /// The slot this proof takes on the shelf, after the quartered square's.
 pub const SLOT: usize = 6;
 
@@ -227,6 +237,39 @@ pub fn view_for(views: &[ViewAt; 3], vals: Vals) -> ViewAt {
         elevation: x.elevation,
     };
     mix(mix(cube, row, vals.row), pair, vals.pair)
+}
+
+/// Where each kind's count stands in the row of 12_5, as (middle x, y):
+/// centred under its cluster of blocks, `COUNT_DROP` under that cluster's
+/// own lowest corner. The row steps down to the right, and at one height
+/// the third count stood on the green blocks and the fourth volume behind
+/// the orange block (the dense read of the narrated draft).
+pub fn kind_spots(side: f64, long: f64) -> Vec<(f64, f64)> {
+    let all = views(side, long);
+    let at_row = Vals {
+        a: long,
+        drift: 1.0,
+        row: 1.0,
+        pair: 0.0,
+        kinds: 1.0,
+    };
+    let placed = layout(side, at_row);
+    let view = view_for(&all, at_row);
+    (0..4)
+        .map(|k| {
+            let (mut left, mut right, mut foot) = (f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY);
+            for p in placed.iter().filter(|p| p.set == 0 && p.short == k) {
+                for m in 0..8usize {
+                    let c = [0, 1, 2].map(|i| if m >> i & 1 == 1 { p.hi[i] } else { p.lo[i] });
+                    let s = view.project(c);
+                    left = left.min(s[0]);
+                    right = right.max(s[0]);
+                    foot = foot.min(s[1]);
+                }
+            }
+            ((left + right) / 2.0, foot - COUNT_DROP)
+        })
+        .collect()
 }
 
 /// The order to paint boxes in, farthest first, by the exact rule for boxes
@@ -693,34 +736,10 @@ impl SceneConstruct for TheCutCube {
         line.wait_for(stage, "Eight blocks")?;
         play_all(stage, &[(cube.kinds, 1.0, 0.8), (cube.drift, 1.0, 0.9)])?;
         play_all(stage, &[(cube.row, 1.0, 1.8)])?;
-        // each cluster named by how many blocks it holds
-        let all = views(side, long as f64);
-        let at_row = Vals {
-            a: long as f64,
-            drift: 1.0,
-            row: 1.0,
-            pair: 0.0,
-            kinds: 1.0,
-        };
-        let placed = layout(side, at_row);
-        let view = view_for(&all, at_row);
+        // each cluster named by how many blocks it holds, under its own blocks
         let mut tags = Vec::new();
-        for (k, &n) in counts_cube.iter().enumerate() {
-            let mine: Vec<&Placed> = placed.iter().filter(|p| p.set == 0 && p.short == k).collect();
-            let (x0, x1) = mine.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(l, r), p| {
-                (
-                    l.min(view.project(p.lo)[0]),
-                    r.max(view.project([p.hi[0], p.lo[1], p.lo[2]])[0]),
-                )
-            });
-            let base = view.project([0.0, 0.0, 0.0])[1];
-            tags.push(kit.text(
-                stage,
-                &n.to_string(),
-                52.0,
-                kind_colour(k),
-                v((x0 + x1) / 2.0, base - 0.75),
-            )?);
+        for (k, (&n, &(x, y))) in counts_cube.iter().zip(&kind_spots(side, long as f64)).enumerate() {
+            tags.push(kit.text(stage, &n.to_string(), 52.0, kind_colour(k), v(x, y))?);
         }
         line.wait_for(stage, "One, three, three, one")?;
         fade_in_lagged(stage, &tags, 1.2, 0.3)?;
@@ -870,10 +889,10 @@ impl SceneConstruct for TheCutCube {
             .collect::<fmn::Result<_>>()?;
         let mut pascal: Vec<Mob> = Vec::new();
         for (r, row) in rows.iter().enumerate() {
-            let y = 2.3 - 0.9 * r as f64;
-            pascal.push(kit.text_left(stage, FOURTH_ROWS[r], 24.0, dim(), v(0.4, y))?);
+            let y = TABLE_TOP - TABLE_PITCH * r as f64;
+            pascal.push(kit.text_left(stage, FOURTH_ROWS[r], 24.0, dim(), v(TABLE_WORDS_X, y))?);
             for (i, &n) in row.iter().enumerate() {
-                let x = 4.6 + 0.95 * (i as f64 - (row.len() as f64 - 1.0) / 2.0);
+                let x = TABLE_NUMBERS_X + TABLE_NUMBER_PITCH * (i as f64 - (row.len() as f64 - 1.0) / 2.0);
                 pascal.push(kit.text(stage, &n.to_string(), 44.0, kind_colour(i), v(x, y))?);
             }
         }
@@ -889,7 +908,13 @@ impl SceneConstruct for TheCutCube {
         // the card: the square and the cube are pictures; the fourth power
         // is counted, not built
         line.wait_for(stage, "We can count its blocks")?;
-        fade_out_all(stage, &[name], 0.3)?;
+        // the rows have said their piece, and the card's close-up ring stands
+        // where they do (LENS_AT is every card's): the table goes as it comes
+        let mut away = pascal.clone();
+        away.extend([sum_row, from, name]);
+        fade_out_all(stage, &away, 0.4)?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "12_7", "table_out", stage.scene().time().to_f64());
         let shown = format!(
             "\\text{{{LENGTHS} }} a \\text{{ and }} b\\text{{: }} (a+b)^{{2}}=a^{{2}}+2ab+b^{{2}} \\text{{ and }} (a+b)^{{3}}=a^{{3}}+3a^{{2}}b+3ab^{{2}}+b^{{3}}\\text{{, each block counted once}}"
         );
@@ -920,6 +945,8 @@ impl SceneConstruct for TheCutCube {
                 flat(kind_colour(k), 1.0),
             )?);
         }
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "12_7", "ring_in", stage.scene().time().to_f64());
         fade_in_all(stage, &close, 0.5)?;
         proof.tick(&kit, stage, 1, SIZE_IS_PRODUCT)?;
         let tick = lens_mark(stage, LENS_AT, 0.7, true);
@@ -930,8 +957,6 @@ impl SceneConstruct for TheCutCube {
         let mut leaving = close.clone();
         leaving.push(tick);
         leaving.extend(proof.mobs());
-        leaving.extend(&pascal);
-        leaving.extend([sum_row, from]);
         fade_out_all(stage, &leaving, 0.4)?;
         cube.stop(stage);
         let mut shelved = cube.all_faces();
@@ -1363,6 +1388,114 @@ mod tests {
         assert_eq!(together, [1, 4, 6, 4, 1]);
         assert_eq!(fact("F-B.fourth.kinds").unwrap(), "1,4,6,4,1");
         assert_eq!(fact("F-B.fourth.blocks").unwrap(), "16");
+    }
+
+    /// The screen box (left, right, bottom, top) of a text of `chars`
+    /// characters at `pt` points centred at (`x`, `y`): a digit is about
+    /// `0.0045 * pt` wide and a line `0.0125 * pt` high.
+    fn text_box(x: f64, y: f64, chars: usize, pt: f64) -> (f64, f64, f64, f64) {
+        let (w, h) = (chars as f64 * pt * 0.0045, pt * 0.0125);
+        (x - w / 2.0, x + w / 2.0, y - h / 2.0, y + h / 2.0)
+    }
+
+    fn apart(a: (f64, f64, f64, f64), b: (f64, f64, f64, f64)) -> bool {
+        a.1 < b.0 || b.1 < a.0 || a.3 < b.2 || b.3 < a.2
+    }
+
+    /// 12_5 and 12_6 (the dense read of the narrated draft): every kind's
+    /// count, and its volume under it, stands under its own cluster of
+    /// blocks and clear of every cluster's drawn box: at one height the
+    /// third count stood on the green blocks and the fourth volume was
+    /// hidden behind the orange block. And the volumes stay over the row
+    /// that adds them up.
+    #[test]
+    fn each_kind_is_counted_under_its_own_blocks() {
+        let (a, total) = parts();
+        let spots = kind_spots(total, a);
+        assert_eq!(spots.len(), 4);
+        let all = views(total, a);
+        let row = Vals {
+            a,
+            drift: 1.0,
+            row: 1.0,
+            pair: 0.0,
+            kinds: 1.0,
+        };
+        let view = view_for(&all, row);
+        let placed = layout(total, row);
+        let clusters: Vec<(f64, f64, f64, f64)> = (0..4)
+            .map(|k| {
+                let (mut l, mut r, mut b, mut t) = (f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY);
+                for p in placed.iter().filter(|p| p.set == 0 && p.short == k) {
+                    for m in 0..8usize {
+                        let c = [0, 1, 2].map(|i| if m >> i & 1 == 1 { p.hi[i] } else { p.lo[i] });
+                        let s = view.project(c);
+                        (l, r, b, t) = (l.min(s[0]), r.max(s[0]), b.min(s[1]), t.max(s[1]));
+                    }
+                }
+                (l, r, b, t)
+            })
+            .collect();
+        let counts = fact_ints("F-B.cube.each").unwrap();
+        for k in 0..4 {
+            let (x, y) = spots[k];
+            let count = text_box(x, y, 1, 52.0);
+            // the volume goes 0.6 under its count (36 points)
+            let volume = text_box(x, y - 0.6, counts[k].to_string().len(), 36.0);
+            for (name, b) in [("count", count), ("volume", volume)] {
+                for (j, c) in clusters.iter().enumerate() {
+                    assert!(
+                        apart(b, *c),
+                        "kind {k}'s {name} {b:?} meets the blocks of kind {j} {c:?}"
+                    );
+                }
+                assert!(
+                    b.2 > -3.1 + 0.3 + 0.1,
+                    "kind {k}'s {name} reaches {:.2}, the sum's row",
+                    b.2
+                );
+                assert!(b.0 > -FRAME_X_RADIUS + 0.15 && b.1 < FRAME_X_RADIUS - 0.15);
+            }
+            // under its own cluster, at its middle
+            assert!(((clusters[k].0 + clusters[k].1) / 2.0 - x).abs() < 1e-9);
+            assert!((clusters[k].2 - COUNT_DROP - y).abs() < 1e-9);
+            // and the counts of different kinds do not meet
+            for (j, &(ox, oy)) in spots.iter().enumerate().take(k) {
+                let other = text_box(ox, oy, 1, 52.0);
+                assert!(apart(count, other), "the counts of kinds {j} and {k} meet");
+            }
+        }
+    }
+
+    /// 12_7 (the dense read of the narrated draft): the card's close-up
+    /// ring stands where the table of rows does, over its "cube" and
+    /// "fourth power" numbers, so the table is faded out before the ring
+    /// comes in (the ring's tick landed on "1 3 3 1" for four seconds).
+    #[test]
+    fn the_table_goes_before_the_ring_closes_over_it() {
+        use super::super::draw::{LENS_R, quiz_log};
+        // the geometry that makes it necessary: the ring meets numbers
+        let rows = [3usize, 4, 5];
+        let mut met = 0;
+        for (r, &n) in rows.iter().enumerate() {
+            let y = TABLE_TOP - TABLE_PITCH * r as f64;
+            for i in 0..n {
+                let x = TABLE_NUMBERS_X + TABLE_NUMBER_PITCH * (i as f64 - (n as f64 - 1.0) / 2.0);
+                let b = text_box(x, y, 1, 44.0);
+                // the box's nearest point to the ring's middle
+                let (nx, ny) = (LENS_AT[0].clamp(b.0, b.1), LENS_AT[1].clamp(b.2, b.3));
+                if (nx - LENS_AT[0]).hypot(ny - LENS_AT[1]) < LENS_R {
+                    met += 1;
+                }
+            }
+        }
+        assert!(met >= 3, "the ring meets {met} numbers of the table");
+        // and the scene takes the table out first
+        let ran = testing::run_voiced("12_the_cut_cube").unwrap();
+        let events = quiz_log::take(&ran.tag, "12_7");
+        let at = |kind: &str| events.iter().find(|e| e.0 == kind).map(|e| e.1);
+        let (out, ring) = (at("table_out").unwrap(), at("ring_in").unwrap());
+        assert!(out <= ring, "the table leaves at {out:.1}, the ring comes at {ring:.1}");
     }
 
     /// The picture never keeps the voice waiting: with the scratch voice
