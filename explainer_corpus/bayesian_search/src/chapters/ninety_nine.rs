@@ -40,7 +40,6 @@ const P_OCEAN: &str = "searched the ocean";
 const P_FIVE_DAYS: &str = "five days before she was due";
 const P_ALL: &str = "All ninety-nine men";
 const P_AND_EVEN: &str = "And even to find the wreck";
-const P_QUESTION: &str = "the first question of any search";
 const P_WHERE: &str = "Where do you look?";
 const P_NOT_EVERYWHERE: &str = "Not everywhere";
 const P_STRIP: &str = "It saw a strip";
@@ -324,8 +323,7 @@ impl SceneConstruct for NinetyNine {
         // it southwest of the Azores is outlined
         let line = say(&kit, stage, LINES[3])?;
         line.wait_for(stage, P_AND_EVEN)?;
-        fade_out_all(stage, &[ring, ninety_nine], 0.6)?;
-        line.wait_for(stage, P_QUESTION)?;
+        fade_out_all(stage, &[ring, ninety_nine], 0.5)?;
         fade_in_all(stage, &atlantic, 0.6)?;
         line.wait_for(stage, P_WHERE)?;
         let patch = Rectangle::new()
@@ -512,7 +510,7 @@ mod tests {
     use crate::chapters::draw::QUIZ_FRAME;
     use explainer_kit::Script;
 
-    const PHRASES: [(&str, &str); 14] = [
+    const PHRASES: [(&str, &str); 13] = [
         ("02_1", P_SCORPION),
         ("02_2", P_DUE),
         ("02_2", P_NOT_ARRIVE),
@@ -521,7 +519,6 @@ mod tests {
         ("02_3", P_FIVE_DAYS),
         ("02_3", P_ALL),
         ("02_4", P_AND_EVEN),
-        ("02_4", P_QUESTION),
         ("02_4", P_WHERE),
         ("02_5", P_NOT_EVERYWHERE),
         ("02_5", P_STRIP),
