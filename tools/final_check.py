@@ -267,7 +267,7 @@ def check_final(
 
     cues = []
     if srts:
-        blocks = re.split(r"\n\s*\n", srts[0].read_text(encoding="utf-8").strip("\n") + "\n")
+        blocks = re.split(r"\n\s*\n", srts[0].read_text(encoding="utf-8").strip("\n"))
         stamp = re.compile(r"(\d\d):(\d\d):(\d\d),(\d\d\d) --> (\d\d):(\d\d):(\d\d),(\d\d\d)")
         for n, b in enumerate([b for b in blocks if b.strip()], 1):
             rows = b.split("\n")
@@ -422,7 +422,7 @@ def check_final(
         info(f"cues under 0.7 s: {len(short)}; over 25 characters a second: {len(fast)}")
 
     if vtts and cues:
-        body = [b for b in re.split(r"\n\s*\n", vtts[0].read_text(encoding="utf-8").strip("\n") + "\n") if b.strip()][
+        body = [b for b in re.split(r"\n\s*\n", vtts[0].read_text(encoding="utf-8").strip("\n")) if b.strip()][
             1:
         ]
         vt = [b.split("\n") for b in body]

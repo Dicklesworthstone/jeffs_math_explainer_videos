@@ -248,6 +248,30 @@ class TestFinalCheck(unittest.TestCase):
         )
         self.assertTrue(any("cue 1: 3 lines" in d for d in defects), f"Expected 3-lines defect, got: {defects}")
 
+    def test_two_line_last_cue(self):
+        # the kit writes a long last sentence as two lines and ends the file with a blank line: the file's
+        # end is no third line (it was, and G's final, whose last cue is two lines, failed as '3 lines')
+        srt = self.srt_content.replace("Third sentence.\n", "Third\nsentence.\n") + "\n"
+        vtt = self.vtt_content.replace("Third sentence.\n", "Third\nsentence.\n") + "\n"
+        (self.final / f"{self.slug}.en.srt").write_text(srt, encoding="utf-8")
+        (self.final / f"{self.slug}.en.vtt").write_text(vtt, encoding="utf-8")
+        defects = final_check.check_final(
+            slug=self.slug,
+            root=self.root,
+            probe_fn=self.make_probe_fn(),
+            ebur128_fn=self.make_ebur128_fn(),
+        )
+        self.assertEqual(defects, [], f"Expected 0 defects, got: {defects}")
+        # a last cue of three lines is still three
+        (self.final / f"{self.slug}.en.srt").write_text(srt.replace("Third\nsentence.\n", "Third\nsentence.\nmore\n"), encoding="utf-8")
+        defects = final_check.check_final(
+            slug=self.slug,
+            root=self.root,
+            probe_fn=self.make_probe_fn(),
+            ebur128_fn=self.make_ebur128_fn(),
+        )
+        self.assertTrue(any("cue 3: 3 lines" in d for d in defects), f"Expected 3-lines defect, got: {defects}")
+
     def test_43_character_line(self):
         # 43 characters with space
         long_line = "A" * 21 + " " + "B" * 21  # 21 + 1 + 21 = 43 chars
