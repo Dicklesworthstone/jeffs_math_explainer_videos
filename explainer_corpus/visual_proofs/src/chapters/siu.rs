@@ -21,7 +21,7 @@ pub type Turn = [[i64; 3]; 3];
 /// to its right on the screen's own horizontal (a lattice step of 5 in x and
 /// 3 in y is a step to the right of about 3.5 and none up), and the five
 /// slabs of 07_4 stand in two rows over the same ground.
-pub const VIEW: ViewAt = ViewAt::classic((-6.4, -1.9), 0.6);
+pub const VIEW: ViewAt = ViewAt::classic((-5.9, -1.9), 0.6);
 /// Where each slab of the block stands when the block is taken apart (07_4):
 /// the lowest stays, the next two in front, the last two behind.
 pub const ROW: [(f64, f64); 5] = [(0.0, 0.0), (4.5, 0.0), (9.0, 2.0), (0.0, 6.5), (4.5, 6.5)];

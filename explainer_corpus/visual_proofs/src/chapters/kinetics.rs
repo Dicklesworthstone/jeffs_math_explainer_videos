@@ -51,6 +51,24 @@ pub fn play(stage: &mut Stage<'_>, moves: Moves, lag: f64) -> fmn::Result<()> {
     Ok(())
 }
 
+/// Bring `mobs` in together (lagged by `lag`), each fading in over `rt`.
+pub fn show(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<()> {
+    let mut moves: Moves = Vec::with_capacity(mobs.len());
+    for &m in mobs {
+        moves.push(arrive(stage, m, rt)?);
+    }
+    play(stage, moves, lag)
+}
+
+/// Take `mobs` away together, each fading out over `rt`.
+pub fn hide(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut moves: Moves = Vec::with_capacity(mobs.len());
+    for &m in mobs {
+        moves.push(leave(stage, m, rt)?);
+    }
+    play(stage, moves, 0.0)
+}
+
 /// Build moves from the stage and play them (`stage` cannot be passed to
 /// [`play`] and used to build its moves in one expression).
 pub fn play_with(

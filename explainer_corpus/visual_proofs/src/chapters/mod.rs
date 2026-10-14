@@ -19,6 +19,7 @@ pub mod layers;
 pub mod siu;
 pub mod slabs;
 pub mod staircases;
+pub mod the_box;
 pub mod the_cut_cube;
 pub mod the_missing_square;
 pub mod three_stacks;
@@ -59,7 +60,7 @@ pub fn registry() -> Vec<Chapter> {
         scene!("05_slabs", 0.6, slabs::Slabs),
         scene!("06_every_cube", 0.55, every_cube::EveryCube),
         scene!("07_three_stacks", 0.55, three_stacks::ThreeStacks),
-        animatic!("08_the_box", 0.6),
+        scene!("08_the_box", 0.6, the_box::TheBox),
         animatic!("09_every_height", 0.5),
         scene!("10_halves", 0.4, halves::Halves),
         scene!("11_a_third", 0.5, a_third::AThird),
