@@ -15,8 +15,8 @@ use fmn::prelude::*;
 
 use super::draw::{
     ARM_SCALE, ArmRig, Ask, Choice, PartSpec, Pin, QSource, QuizCard, QuizLook, STAND_UP, Shape, View, World, fact,
-    fact_f64, fade_in_all, fade_in_lagged, faded_line, fail, leave, line_style, point_fn, say, still, table, value,
-    wait_until,
+    fact_f64, fade_in_all, fade_in_lagged, faded_line, fail, hand_over, leave, line_style, point_fn, say, still, table,
+    value, wait_until,
 };
 use super::velocities_add::{GOAL_DIMMED, curl, goal_parts, standing_goal};
 use crate::model::{self, Arm, DEG, ELBOW, N, Pose, SHOULDER, V3, WRIST, add, cross, dot, poses, scale, sub, unit};
@@ -678,6 +678,8 @@ impl SceneConstruct for LostDirections {
             Palette::dim(),
             v(PLOT.center[0], PLOT.bottom() - 1.4),
         )?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, limit_source, "11_5:notes")?;
         fade_in_lagged(stage, &[cut_a, cut_b, turns_label, geometry, limit_source], 1.2, 0.5)?;
         kit.music_breath(stage, 1.0)?;
 
@@ -696,9 +698,11 @@ impl SceneConstruct for LostDirections {
             cross_label,
         ]);
         done.extend([cut_a, cut_b, turns_label, geometry, limit_source]);
-        leave(stage, &done, &[], 0.6)?;
-        // the pose the story ends on: the L shape with its wrist bent, so
-        // that straightening it lines two axes up
+        // the plot and its notes stand through "You have met this before."
+        // and hand over to the wrist (they left as the line began: the last
+        // note, where the limit comes from, stood whole 1.2 s).
+        // Meanwhile the arm takes the pose the story ends on: the L shape
+        // with its wrist bent, so that straightening it lines two axes up
         tween_joints(
             stage,
             &[
@@ -766,7 +770,7 @@ impl SceneConstruct for LostDirections {
         }
         near.add_to_scene(stage)?;
         line.wait_for(stage, "The wrist is three joints")?;
-        near.show(stage, 0.8)?;
+        hand_over(stage, &done, &[], &[near.shown], 0.8)?;
         for axis in close::AXES {
             play!(stage; tween(near.parts[axis].shown, 1.0, 0.5)?);
         }
@@ -1249,6 +1253,29 @@ mod tests {
         assert!(
             whole >= STAND_UP - 0.1,
             "the band stands whole {whole:.2} s, not {STAND_UP} s"
+        );
+    }
+
+    /// 11_5's notes under the speed plot (the two bends not said, the turns
+    /// a second, and where the curve and the limit come from; the dense read
+    /// of the final render, fbe959c: they came in after the line and left as
+    /// 11_6 began, the last whole 1.2 s): the last of them stands
+    /// whole for the floor before the wrist takes the plot's place. The two
+    /// lines are on the finished read's timing (narration bc62a0b).
+    #[test]
+    fn the_notes_under_the_speed_plot_stand_the_floor() {
+        use super::super::draw::{STAND_UP, stands, timed_kit};
+        let kit = timed_kit(
+            "11_lost_directions#notes",
+            &[
+                ("11_5", &[0.0, 3.735, 9.635, 12.05], 14.075),
+                ("11_6", &[0.0, 1.945, 6.44, 10.375, 15.57], 17.855),
+            ],
+        );
+        let whole = stands(&kit, &mut LostDirections { kit: kit.clone() }, "11_5:notes");
+        assert!(
+            whole >= STAND_UP - 0.1,
+            "the notes stand whole {whole:.2} s, not {STAND_UP} s"
         );
     }
 }
