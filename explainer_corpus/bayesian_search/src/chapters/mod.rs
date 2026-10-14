@@ -18,6 +18,7 @@ pub mod ten_thousand_dots;
 pub mod the_question;
 pub mod the_second_pass;
 pub mod the_silence;
+pub mod thumbnail;
 pub mod twelve_hours;
 pub mod where_next;
 
