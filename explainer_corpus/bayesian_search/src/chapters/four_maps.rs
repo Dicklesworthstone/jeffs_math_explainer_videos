@@ -916,9 +916,11 @@ impl SceneConstruct for FourMaps {
 
         // ------------------------------------------------------- 14_6
         // the ring and its label stay; beside them, chapter 11's last frame:
-        // the cloud, the track, the green point; the motif resolves, once
+        // the cloud, the track, the green point. The motif resolves once,
+        // and the score does it: in the music's gap after this line, into
+        // 14_7's window (the identity's `themes`); a mark here would be a
+        // second resolution at the sentence's onset, which the score skips
         let line = say(&kit, stage, LINES[5])?;
-        kit.mark(stage, "resolve:method");
         let pane = Pane { at: v(4.2, 0.5) };
         let picture = aldridge(stage, pane, true);
         let mut frame = vec![card(stage, pane)?];

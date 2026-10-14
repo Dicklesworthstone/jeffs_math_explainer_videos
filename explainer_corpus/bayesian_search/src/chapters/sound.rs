@@ -8,6 +8,7 @@
 #![allow(dead_code, reason = "shared sounds land before the chapters that play them")]
 
 use std::path::PathBuf;
+use std::sync::Mutex;
 
 use explainer_score::filter::{Biquad, Kind};
 use explainer_score::instr::{Instrument, Note, render};
@@ -92,11 +93,18 @@ fn countdown_audio(seconds: u32) -> Stereo {
     finish(out, total)
 }
 
+/// One countdown is written at a time: `sound_file` writes through a temp
+/// name of its own per process, so two chapter tests (threads of one
+/// process) writing the same countdown rename each other's file away.
+static WRITING: Mutex<()> = Mutex::new(());
+
 /// A quiz's countdown as a WAV: one note a second, and the last as the
 /// answer lands.
 pub fn countdown(seconds: u32) -> fmn::Result<PathBuf> {
     let label = format!("h_countdown_{seconds}");
-    explainer_kit::sound_file(&label, &countdown_audio(seconds)).map_err(|e| fail(format!("sonification {label}: {e}")))
+    let audio = countdown_audio(seconds);
+    let _one_at_a_time = WRITING.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
+    explainer_kit::sound_file(&label, &audio).map_err(|e| fail(format!("sonification {label}: {e}")))
 }
 
 #[cfg(test)]
@@ -249,6 +257,187 @@ mod tests {
                     .unwrap();
                 assert_eq!(loudest, pitch, "{seconds} s: the note at {k} s");
             }
+        }
+    }
+
+    /// What a chapter left for the score, run headless at 10 frames a second
+    /// with the scratch voice (every line lasts its estimate, so the times
+    /// are the structure's: where in the line a mark sits, not the real
+    /// narration's seconds).
+    struct Ran {
+        timeline: explainer_score::timeline::ChapterTimeline,
+        /// Each line said: its id, when it began and how long it lasts.
+        lines: Vec<(String, f64, f64)>,
+    }
+
+    impl Ran {
+        /// The marks whose label starts with `prefix`, with their times.
+        fn marks(&self, prefix: &str) -> Vec<(String, f64)> {
+            let fps = f64::from(self.timeline.fps);
+            self.timeline
+                .marks
+                .iter()
+                .filter(|m| m.label.starts_with(prefix))
+                .map(|m| (m.label.clone(), m.frame as f64 / fps))
+                .collect()
+        }
+
+        /// The end of line `id`.
+        fn line_end(&self, id: &str) -> f64 {
+            let (_, at, len) = self
+                .lines
+                .iter()
+                .find(|l| l.0 == id)
+                .unwrap_or_else(|| panic!("{id} was not said"));
+            at + len
+        }
+    }
+
+    fn run(key: &str) -> Ran {
+        use std::rc::Rc;
+
+        use explainer_kit::{Kit, Narrator, Script};
+        use fmn::prelude::*;
+
+        struct Boxed(Box<dyn SceneConstruct>);
+        impl SceneConstruct for Boxed {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                self.0.construct(stage)
+            }
+        }
+        let chapter = crate::chapters::registry()
+            .into_iter()
+            .find(|c| c.key == key)
+            .unwrap_or_else(|| panic!("no chapter {key} in the registry"));
+        let narrator = Narrator::estimate(&Script::parse(crate::SCRIPT).unwrap());
+        let mut kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
+        kit.chapter = key.to_owned();
+        let mut scene = Boxed((chapter.make)(kit.clone()));
+        let config = fmn::scene::RuntimeConfig {
+            fps: 10,
+            ..fmn::scene::RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut scene, config, 7, &mut fmn::scene::NullSceneSink).unwrap_or_else(|e| panic!("{key}: {e}"));
+        let timeline = kit
+            .finished
+            .borrow()
+            .clone()
+            .unwrap_or_else(|| panic!("{key} left no timeline"));
+        let lines = narrator
+            .said()
+            .into_iter()
+            .map(|(id, at)| {
+                let len = narrator.length(&id).unwrap_or(0.0);
+                (id, at, len)
+            })
+            .collect();
+        Ran { timeline, lines }
+    }
+
+    /// The storyboard's sound plan, as the chapters leave it for the score
+    /// (every chapter run once, in this one test: the countdown files they
+    /// write are one per content). The search sound has one meaning and is
+    /// heard on a search of the map that came back empty only: 01_2, 06_1,
+    /// 07_5 (two: C, then A), the first search of 08_4, 11_1, 12_5, 14_4;
+    /// one plucked note at 11_6 where the track reaches the man, in the gap
+    /// after the line and no sooner; the motif resolves once and no chapter
+    /// marks a resolution of its own; two silences of two and a half
+    /// seconds, at 02 and 14; the title's 3 s and the receipts' 4 s
+    /// windows, and a countdown window of each quiz's seconds plus the
+    /// landing with its sound.
+    #[test]
+    fn the_chapters_leave_the_sound_plan_for_the_score() {
+        let whooshes = [
+            ("01_the_question", 1),
+            ("06_nothing_found", 1),
+            ("07_bayes_rule", 2),
+            ("08_where_next", 1),
+            ("11_twelve_hours", 1),
+            ("12_the_silence", 1),
+            ("14_four_maps", 1),
+        ];
+        let mut countdowns: Vec<(String, f64)> = Vec::new();
+        let mut windows: Vec<(String, f64)> = Vec::new();
+        for chapter in crate::chapters::registry() {
+            let ran = run(chapter.key);
+            let want = whooshes.iter().find(|w| w.0 == chapter.key).map_or(0, |w| w.1);
+            let got = ran.marks(SEARCH_MARK);
+            assert_eq!(got.len(), want, "{}: the search sound at {got:?}", chapter.key);
+            assert!(
+                ran.marks("resolve").is_empty(),
+                "{}: the motif resolves once, in the score's gap, not at a mark",
+                chapter.key
+            );
+            let pizz = ran.marks("pizz");
+            if chapter.key == "11_twelve_hours" {
+                assert_eq!(pizz.len(), 1, "one plucked note: {pizz:?}");
+                assert_eq!(pizz[0].0, "pizz:found");
+                // after the line that tells it (a note struck inside a
+                // sentence is skipped by the score: no clear second)
+                let end = ran.line_end("11_6");
+                assert!(
+                    pizz[0].1 >= end - 0.05,
+                    "pizz:found at {} s, inside 11_6 which ends at {end} s",
+                    pizz[0].1
+                );
+            } else {
+                assert!(pizz.is_empty(), "{}: a plucked note at {pizz:?}", chapter.key);
+            }
+            let silences = ran.marks("silence:");
+            let ends = ran.marks("silence_end:");
+            if chapter.key == "02_ninety_nine" || chapter.key == "14_four_maps" {
+                assert_eq!(
+                    (silences.len(), ends.len()),
+                    (1, 1),
+                    "{}: {silences:?} {ends:?}",
+                    chapter.key
+                );
+                assert_eq!(silences[0].0["silence:".len()..], ends[0].0["silence_end:".len()..]);
+                // two and a half seconds of nothing after the last line
+                // said before the silence ends: no music breath, no cue
+                let before = ran
+                    .lines
+                    .iter()
+                    .rfind(|l| l.1 < ends[0].1)
+                    .expect("a line before the silence ends");
+                let gap = ends[0].1 - (before.1 + before.2);
+                assert!(
+                    (2.5..=2.7).contains(&gap),
+                    "{}: {gap} s of silence after {}",
+                    chapter.key,
+                    before.0
+                );
+            } else {
+                assert!(silences.is_empty() && ends.is_empty(), "{}: a silence", chapter.key);
+            }
+            for w in &ran.timeline.listens {
+                match &w.sound {
+                    Some(_) => countdowns.push((w.label.clone(), w.seconds)),
+                    None => windows.push((w.label.clone(), w.seconds)),
+                }
+            }
+        }
+        windows.sort_by(|a, b| a.0.cmp(&b.0));
+        assert_eq!(
+            windows,
+            vec![
+                ("01_the_question:01_3".to_owned(), 3.0),
+                ("14_four_maps:14_7".to_owned(), 4.0)
+            ],
+            "the title's motif left open and the receipts' resolved"
+        );
+        assert_eq!(countdowns.len(), crate::model::QUIZZES.len(), "{countdowns:?}");
+        for q in crate::model::QUIZZES {
+            let w = countdowns
+                .iter()
+                .find(|c| c.0.ends_with(&format!(":{}", q.line)))
+                .unwrap_or_else(|| panic!("no countdown window for {}", q.line));
+            assert!(
+                (w.1 - (f64::from(q.seconds) + LAND_S)).abs() < 1e-9,
+                "{}: {} s",
+                q.line,
+                w.1
+            );
         }
     }
 

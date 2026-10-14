@@ -886,6 +886,14 @@ impl Lattice {
     /// over them), every cell's blue recounted from the dots still lit, and
     /// the strip leaving.
     pub fn search(&self, kit: &Kit, stage: &mut Stage<'_>, k: usize, cross_s: f64, move_s: f64) -> fmn::Result<()> {
+        kit.mark(stage, sound::SEARCH_MARK);
+        self.search_silent(stage, k, cross_s, move_s)
+    }
+
+    /// [`Lattice::search`] without the search's mark: the searches after the
+    /// first of a run that sounds once (08_4's four: the search sound has
+    /// one meaning and is heard on the first move only).
+    pub fn search_silent(&self, stage: &mut Stage<'_>, k: usize, cross_s: f64, move_s: f64) -> fmn::Result<()> {
         let p = *self.probes.get(k).ok_or_else(|| {
             fail(format!(
                 "the lattice plans {} searches, not {}",
@@ -893,7 +901,6 @@ impl Lattice {
                 k + 1
             ))
         })?;
-        kit.mark(stage, sound::SEARCH_MARK);
         let strip = Strip::build(stage, self.cell_rect(p.row, p.col), STRIP_BAR_SHARE * self.cell_w)?;
         for m in strip.mobs() {
             stage.add_to_scene(m)?;

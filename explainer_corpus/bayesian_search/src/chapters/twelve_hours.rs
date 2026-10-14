@@ -926,8 +926,7 @@ impl SceneConstruct for TwelveHours {
                 .build(),
         );
         play!(stage; show_creation(west).rt(0.9));
-        // the track reaches him: one plucked note, and the point turns green
-        kit.mark(stage, "pizz:found");
+        // the track reaches him and the point turns green
         let saved = stage.arena_mut().add(
             Dot::new()
                 .point(track_point(night.offshore))
@@ -972,6 +971,11 @@ impl SceneConstruct for TwelveHours {
         line.wait_for(stage, "clinging to two lobster buoys")?;
         fade_in_all(stage, &[buoys], 0.5)?;
         line.wait_end(stage)?;
+        // the one plucked note: he was found. In the gap after the line and
+        // no sooner, because the score skips a note struck inside a sentence
+        // (it needs a clear second before the voice), and 11_6 runs on
+        // from "a helicopter" to the end of the line
+        kit.mark(stage, "pizz:found");
         // in the hold: the software did not find him (R2: S3)
         let froze = lower_third(&kit, stage, FROZE_LABEL, FROZE_TEXT)?;
         fade_in_all(stage, &[froze], 0.5)?;

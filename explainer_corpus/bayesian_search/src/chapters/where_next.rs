@@ -862,9 +862,15 @@ impl SceneConstruct for WhereNext {
         }
         stage.play(tween_linear(sweep.phase, 1.0, 2.0)?)?;
         // the rule: E5 first, with the search sound, then the next three
+        // (the sound plan: the search sound is heard on the first search of
+        // 08_4 only; the other three are silent moves)
         line.wait_for(stage, "The other follows the rule")?;
         for k in 0..probes.len() {
-            lattice.search(&kit, stage, k, 0.8, 0.8)?;
+            if k == 0 {
+                lattice.search(&kit, stage, k, 0.8, 0.8)?;
+            } else {
+                lattice.search_silent(stage, k, 0.8, 0.8)?;
+            }
         }
         line.wait_end(stage)?;
 
