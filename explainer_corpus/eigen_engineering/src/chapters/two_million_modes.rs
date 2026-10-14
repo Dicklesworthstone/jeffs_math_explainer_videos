@@ -255,6 +255,34 @@ fn spectrum_points(tones: &[f64], width: f64, upto: f64) -> Vec<Vec3> {
         .collect()
 }
 
+/// 10_6's crowd curve, detached, redrawn up to the frequency the tracker
+/// `upto` holds by an updater on a mobject of its own (added to the scene
+/// here; the curve is the caller's to fade in).
+fn spectrum_curve(stage: &mut Stage<'_>, tones: &[f64], width: f64, upto: Mob) -> fmn::Result<Mob> {
+    let spec = stage.arena_mut().add(
+        polyline(spectrum_points(tones, width, 0.2))
+            .style(faded_line(own(), 4.0, 1.0))
+            .build(),
+    );
+    let reveal = stage.arena_mut().add(VMobject::new());
+    let tones = tones.to_vec();
+    let mut last = f64::NAN;
+    stage.add_updater(
+        reveal,
+        move |s, _| {
+            let hz = s.tracker_value(upto).unwrap_or(0.2);
+            if hz.to_bits() == last.to_bits() {
+                return;
+            }
+            last = hz;
+            let _ = s.set_points(spec, &corners(&spectrum_points(&tones, width, hz)));
+        },
+        true,
+    )?;
+    stage.add_to_scene(reveal)?;
+    Ok(spec)
+}
+
 impl SceneConstruct for TwoMillionModes {
     fn name(&self) -> &str {
         "10_two_million_modes"
@@ -774,29 +802,7 @@ impl SceneConstruct for TwoMillionModes {
         )?;
         let tones: Vec<f64> = HALL.modes_below(SPEC_HZ as u64).iter().map(|m| m.1).collect();
         let upto = stage.add_value_tracker(0.2);
-        let spec = stage.arena_mut().add(
-            polyline(spectrum_points(&tones, width, 0.2))
-                .style(faded_line(own(), 4.0, 1.0))
-                .build(),
-        );
-        let reveal = stage.arena_mut().add(VMobject::new());
-        {
-            let tones = tones.clone();
-            let mut last = f64::NAN;
-            stage.add_updater(
-                reveal,
-                move |s, _| {
-                    let hz = s.tracker_value(upto).unwrap_or(0.2);
-                    if hz.to_bits() == last.to_bits() {
-                        return;
-                    }
-                    last = hz;
-                    let _ = s.set_points(spec, &corners(&spectrum_points(&tones, width, hz)));
-                },
-                true,
-            )?;
-        }
-        stage.add_to_scene(reveal)?;
+        let spec = spectrum_curve(stage, &tones, width, upto)?;
         let baseline = stage.arena_mut().add(
             polyline(vec![v(SPEC_X0, SPEC_Y), v(SPEC_X1, SPEC_Y)])
                 .style(faded_line(dim, 3.0, 1.0))
@@ -885,8 +891,55 @@ impl SceneConstruct for TwoMillionModes {
 
 #[cfg(test)]
 mod tests {
+    use super::super::carts::probe::run_scene;
     use super::super::draw::{numbers, testing};
     use super::*;
+
+    /// 10_6: the crowd curve is really drawn and really grows with the
+    /// tracker. The curve is built with the 3 vertices of its first 0.2 Hz
+    /// and rewritten with up to 601; a state probe (and the narrated draft's
+    /// frames) show the engine takes that run, and the test keeps it so. A
+    /// test of the state, not the lint.
+    #[test]
+    fn the_crowd_curve_is_drawn_and_grows_with_the_tracker() {
+        let tones: Vec<f64> = HALL.modes_below(SPEC_HZ as u64).iter().map(|m| m.1).collect();
+        let width = blur_hz(HALL_T60_S);
+        run_scene(|stage| {
+            let upto = stage.add_value_tracker(0.2);
+            let spec = spectrum_curve(stage, &tones, width, upto)?;
+            stage.add_to_scene(spec)?;
+            stage.wait(0.2)?;
+            let start = stage.get_points(spec).expect("the curve has points");
+            // a quad path of the first 0.2 Hz: an odd run
+            assert_eq!(start.len() % 2, 1);
+            assert_eq!(start.len(), corners(&spectrum_points(&tones, width, 0.2)).len());
+            // (the engine keeps single precision: 1e-4 is the tolerance)
+            let tip = |pts: &[Vec3]| pts[pts.len() - 1];
+            assert!(
+                (tip(&start)[0] - spec_x(0.2)).abs() < 1e-4,
+                "starts at the axis's left end"
+            );
+            let mut sizes = vec![start.len()];
+            for hz in [30.0, SPEC_HZ] {
+                stage.set_tracker_value(upto, hz)?;
+                stage.wait(0.2)?;
+                let pts = stage.get_points(spec).expect("the curve has points");
+                let want = corners(&spectrum_points(&tones, width, hz));
+                assert_eq!(pts.len(), want.len(), "the run at {hz} Hz");
+                assert!(
+                    (tip(&pts)[0] - spec_x(hz)).abs() < 1e-4,
+                    "reaches {hz} Hz: {:?}",
+                    tip(&pts)
+                );
+                let top = pts.iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
+                let top_want = want.iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
+                assert!((top - top_want).abs() < 1e-4, "{top} against {top_want}");
+                sizes.push(pts.len());
+            }
+            assert!(sizes.windows(2).all(|w| w[0] < w[1]), "the curve grows: {sizes:?}");
+            Ok(())
+        });
+    }
 
     /// 10_1: the mode with one hump along the length is most squeezed at
     /// one end wall and most thinned out at the other, and at rest in the
