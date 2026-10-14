@@ -71,6 +71,33 @@ const COL_GAP: f64 = 0.9;
 const COL_BASE: f64 = -1.1;
 const COL_PER_DOT: f64 = 0.13;
 
+/// 08_1's loop, seconds a search takes: the gold border's jump, the strip's
+/// crossing and the dots dropping onto the stack (eight at about 0.6 s end
+/// with the line, not seconds after it).
+const LOOP_JUMP_S: f64 = 0.12;
+const LOOP_STRIP_S: f64 = 0.2;
+const LOOP_DROP_S: f64 = 0.3;
+
+/// How far under a window's bottom its x label stands (its tick numbers
+/// stand 0.26 under it).
+const X_LABEL_DROP: f64 = 0.6;
+/// How far under the stack's window the count of orders stands: a row under
+/// the x label, which it would otherwise run on into ("= 65,536 search").
+const BRUTE_DROP: f64 = 1.05;
+
+/// 08_3's code panel, in the left half the stack leaves empty: type size,
+/// width, height of its centre.
+const CODE_PT: f64 = 24.0;
+const CODE_W: f64 = 5.8;
+const CODE_Y: f64 = -0.3;
+
+/// 08_5's legend: the first row's height and the rows' pitch, and how far
+/// the two nearest curves' end labels move apart (up for the rule, down for
+/// the map never updated), so 49.8% and 44.3% never touch.
+const LEGEND_Y: f64 = -1.85;
+const LEGEND_PITCH: f64 = 0.32;
+const END_LABEL_SPREAD: f64 = 0.12;
+
 /// One search of the rule over the made-up sea, with what it puts out of the
 /// first hundred dots and what is still lit.
 struct Step {
@@ -151,6 +178,20 @@ fn slice_tex(q: Q) -> String {
     }
 }
 
+/// Code lines as the panel shows them: each line's code, then its `#`
+/// comment on a line of its own, so no line is longer than the code itself
+/// (a line with its comment ran 80 columns, and 17 points was what fitted).
+fn code_over_comments<'a>(code: &[&'a str]) -> Vec<&'a str> {
+    let mut out = Vec::with_capacity(2 * code.len());
+    for &line in code {
+        match line.find('#') {
+            Some(at) => out.extend([line[..at].trim_end(), &line[at..]]),
+            None => out.push(line),
+        }
+    }
+    out
+}
+
 /// "4 × 4 × … × 4 = 65,536": every order of `searches` searches of `cells`
 /// cells, as a product the viewer can count.
 fn orders_line(cells: usize, searches: usize, total: u64) -> String {
@@ -207,12 +248,13 @@ fn furniture(kit: &Kit, stage: &mut Stage<'_>, f: &Frame2, x_ticks: &[f64], y_la
         let p = f.p(f.x.0, pct);
         out.push(kit.text(stage, &format!("{pct:.0}"), 22.0, Palette::dim(), v(p[0] - 0.3, p[1]))?);
     }
+    // under the row of ticks, not in it (the last tick's number was on it)
     out.push(kit.text(
         stage,
         X_LABEL,
         22.0,
         Palette::dim(),
-        v(f.right() - 0.5, f.bottom() - 0.26),
+        v(f.right() - 0.5, f.bottom() - X_LABEL_DROP),
     )?);
     out.push(kit.text_left(stage, y_label, 22.0, Palette::dim(), v(f.left(), f.top() + 0.28))?);
     Ok(out)
@@ -292,13 +334,6 @@ impl SceneConstruct for WhereNext {
         }
         let ticks: Vec<f64> = (1..=shown::BRUTE).map(|k| k as f64).collect();
         let axes = furniture(&kit, stage, &w, &ticks, Y_LABEL)?;
-        let mut ins = cells.clone();
-        ins.extend(&sums);
-        fade_in_all(stage, &ins, 0.7)?;
-        fade_in_all(stage, &axes, 0.5)?;
-        for &m in &live {
-            stage.add_to_scene(m)?;
-        }
         // the rule's choice is the cell with the biggest gold number: a gold
         // border jumps to it
         let first = the_sea.rect(steps[0].cell);
@@ -310,7 +345,26 @@ impl SceneConstruct for WhereNext {
                 .build()?
                 .moved_to(v((first.0 + first.2) / 2.0, (first.1 + first.3) / 2.0)),
         );
-        fade_in_all(stage, &[choice], 0.3)?;
+        // the sea, the chart and the border come in together: the first
+        // search begins while the first sentence is still being said
+        let mut ins = cells.clone();
+        ins.extend(&sums);
+        ins.extend(&axes);
+        ins.push(choice);
+        fade_in_all(stage, &ins, 0.6)?;
+        for &m in &live {
+            stage.add_to_scene(m)?;
+        }
+        // the question the line ends on is set as its sentence begins, over
+        // the loop, so it is up while it is spoken (a loop of eight searches
+        // at a second each ran past the whole line)
+        let words = line
+            .sentence_texts()
+            .pop()
+            .ok_or_else(|| fail("08_1 has no sentences".into()))?;
+        let question = kit.text(stage, &words, 26.0, Palette::ink(), v(0.0, QUIZ_LINES_Y[0]))?;
+        let question_at = line.sentence(line.sentences() - 1)?;
+        let mut question_in = false;
         let mut bars: Vec<Mob> = Vec::new();
         let mut tops: Vec<Mob> = Vec::new();
         for (k, s) in steps.iter().enumerate() {
@@ -320,7 +374,7 @@ impl SceneConstruct for WhereNext {
             let jump = choice
                 .animate()
                 .set_anim_args(AnimateArgs {
-                    run_time: Some(0.2),
+                    run_time: Some(LOOP_JUMP_S),
                     ..AnimateArgs::default()
                 })?
                 .shift([at[0] - here[0], at[1] - here[1], 0.0])?;
@@ -329,7 +383,7 @@ impl SceneConstruct for WhereNext {
             for m in strip.mobs() {
                 stage.add_to_scene(m)?;
             }
-            stage.play(tween_linear(strip.phase, 1.0, 0.35)?)?;
+            stage.play(tween_linear(strip.phase, 1.0, LOOP_STRIP_S)?)?;
             // the cell's dots go out: every lit count moves (the heat and
             // both readouts follow), and the slice drops onto the stack
             let b = stacked(stage, &w, (k + 1) as f64, before_of(k).f64(), s.cumulative.f64(), out())?;
@@ -338,25 +392,28 @@ impl SceneConstruct for WhereNext {
             tops.push(top);
             let mut together: Vec<Box<dyn Animation>> = Vec::new();
             for (c, &t) in the_sea.lit.iter().enumerate() {
-                together.push(stage.prepare(tween(t, s.lit[c].f64(), 0.4)?)?);
+                together.push(stage.prepare(tween(t, s.lit[c].f64(), LOOP_DROP_S)?)?);
             }
             let drop = fade_in(stage.arena_mut(), b, v(0.0, 0.5), 1.0)?;
-            together.push(stage.prepare(drop.rt(0.4))?);
+            together.push(stage.prepare(drop.rt(LOOP_DROP_S))?);
             let tracing = fade_in(stage.arena_mut(), top, ORIGIN, 1.0)?;
-            together.push(stage.prepare(tracing.rt(0.4))?);
+            together.push(stage.prepare(tracing.rt(LOOP_DROP_S))?);
             for m in [strip.wash, strip.bar] {
                 let gone = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-                together.push(stage.prepare(gone.rt(0.3))?);
+                together.push(stage.prepare(gone.rt(LOOP_DROP_S * 0.75))?);
+            }
+            if !question_in && stage.scene().time().to_f64() >= question_at {
+                let asked = fade_in(stage.arena_mut(), question, ORIGIN, 1.0)?;
+                together.push(stage.prepare(asked.rt(0.4))?);
+                question_in = true;
             }
             stage.play_prepared(together)?;
         }
         // the question to carry: the line's own last sentence, two seconds
-        let words = line
-            .sentence_texts()
-            .pop()
-            .ok_or_else(|| fail("08_1 has no sentences".into()))?;
-        let question = kit.text(stage, &words, 26.0, Palette::ink(), v(0.0, QUIZ_LINES_Y[0]))?;
-        fade_in_all(stage, &[question], 0.4)?;
+        // (brought in here only if the loop ended before the sentence began)
+        if !question_in {
+            fade_in_all(stage, &[question], 0.4)?;
+        }
         carry_pause(&kit, stage)?;
         fade_out_all(stage, &[question], 0.3)?;
 
@@ -453,17 +510,28 @@ impl SceneConstruct for WhereNext {
             &orders_line(sea::CELLS.len(), shown::BRUTE, total),
             22.0,
             Palette::dim(),
-            v(w.center[0], w.bottom() - 0.72),
+            v(w.center[0], w.bottom() - BRUTE_DROP),
         )?;
         fade_in_all(stage, &[brute], 0.5)?;
         line.wait_end(stage)?;
-        // in the hold: the theorem, and the last two lines of the code panel
+        // in the hold: the theorem, and the last two lines of the code panel,
+        // each code line over its comment so that they are set large enough
+        // to read, in the left half the stack leaves empty
         let chew = lower_third(&kit, stage, &format!("{CHEW_LABEL} {}:", fact("F-N.chew")?), CHEW_TEXT)?;
-        let panel = CodePanel::build(&kit, stage, &glyphs::CODE[2..], 17.0, 7.4)?;
-        stage.shift(panel.group, [0.0, -2.15, 0.0]);
+        let panel = CodePanel::build(&kit, stage, &code_over_comments(&glyphs::CODE[2..]), CODE_PT, CODE_W)?;
+        // it is built to come in from the right; it comes in from the left
+        stage.shift(panel.group, [-(2.0 * FRAME_X_RADIUS + CODE_W + 0.2), CODE_Y, 0.0]);
         fade_in_all(stage, &[chew], 0.5)?;
         stage.add_to_scene(panel.group)?;
-        stage.play(panel.slide_in(0.8)?)?;
+        let slide = panel
+            .group
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(0.8),
+                ..AnimateArgs::default()
+            })?
+            .shift([CODE_W + 0.45, 0.0, 0.0])?;
+        stage.play(slide)?;
         kit.music_breath(stage, HOLD_S)?;
 
         // ------------------------------------------------------- 08_4
@@ -563,16 +631,24 @@ impl SceneConstruct for WhereNext {
                 Palette::dim(),
                 BY_ROW,
                 "F-R.model.sweep.found_by.20",
+                0.0,
             ),
             (
                 y1968::Rule::Once,
                 Palette::ink(),
                 NEVER_UPDATED,
                 "F-R.model.once.found_by.20",
+                -END_LABEL_SPREAD,
             ),
-            (y1968::Rule::Best, find(), BY_RULE, "F-R.model.best.found_by.20"),
+            (
+                y1968::Rule::Best,
+                find(),
+                BY_RULE,
+                "F-R.model.best.found_by.20",
+                END_LABEL_SPREAD,
+            ),
         ];
-        for (i, (rule, color, name, key)) in plans.iter().enumerate() {
+        for (i, (rule, color, name, key, nudge)) in plans.iter().enumerate() {
             let pct = curve_percent(*rule, n);
             let mut pts = vec![chart.p(0.0, 0.0)];
             pts.extend(pct.iter().enumerate().map(|(k, &p)| chart.p((k + 1) as f64, p)));
@@ -585,9 +661,9 @@ impl SceneConstruct for WhereNext {
                 &format!("{}%", fact(key)?),
                 24.0,
                 *color,
-                v(end[0] + 0.15, end[1]),
+                v(end[0] + 0.15, end[1] + nudge),
             )?;
-            let y = -2.2 - 0.32 * i as f64;
+            let y = LEGEND_Y - LEGEND_PITCH * i as f64;
             let swatch = stage.arena_mut().add(
                 polyline(vec![v(-3.3, y), v(-2.9, y)])
                     .style(line_style(*color, 5.0))
@@ -747,6 +823,56 @@ mod tests {
         );
         assert_eq!(f.get("F-U.brute.rule_is_best"), Some("true"));
         assert_eq!(f.get("F-U.slices.rule_takes_biggest"), Some("true"));
+    }
+
+    /// The narrated draft's overlaps in 08_3 and 08_5: the code panel's
+    /// pieces (code, then comment) are set at a size the panel's width holds
+    /// and it stands in the left half, clear of the stack's window; the
+    /// legend's rows stand clear of the model tag; the two nearest curves'
+    /// end labels are further apart than a line of text is high.
+    #[test]
+    fn the_code_panel_the_legend_and_the_end_labels_clear_what_they_stood_on() {
+        let pieces = code_over_comments(&glyphs::CODE[2..]);
+        assert_eq!(pieces.len(), 4, "two lines, each over its comment");
+        assert!(pieces[0].starts_with("find = ") && pieces[1].starts_with("# chance of a find"));
+        assert!(pieces[2].starts_with("i = find.index") && pieces[3].starts_with("# search there next"));
+        for (piece, line) in pieces.chunks(2).zip(&glyphs::CODE[2..]) {
+            // nothing of the line is lost or added: the same characters
+            assert_eq!(
+                format!("{} {}", piece[0], piece[1]).replace(' ', ""),
+                line.replace(' ', "")
+            );
+            assert!(piece[1].starts_with('#') && !piece[0].contains('#'));
+        }
+        let widest = pieces.iter().map(|p| p.chars().count()).max().unwrap() as f64;
+        // a typewriter column is about 0.005 of a scene unit a point
+        assert!(
+            widest * CODE_PT * 0.0052 <= CODE_W - 0.8,
+            "{widest} columns at {CODE_PT} pt"
+        );
+        let (left, right) = (-FRAME_X_RADIUS + 0.35, -FRAME_X_RADIUS + 0.35 + CODE_W);
+        assert!(
+            right < stack_window().left() - 0.3,
+            "{right} against {}",
+            stack_window().left()
+        );
+        assert!(left > -FRAME_X_RADIUS);
+        const {
+            // the panel (a unit high either way of its middle) is on the stage
+            assert!(CODE_Y.abs() + 1.0 < FRAME_Y_RADIUS);
+            // the third legend row against the model tag's height (-3.0)
+            assert!(LEGEND_Y - 2.0 * LEGEND_PITCH - (-3.0) >= 0.4);
+            // the x label stands under the ticks' row, the count of orders
+            // a row under that
+            assert!(X_LABEL_DROP >= 0.26 + 0.3);
+            assert!(BRUTE_DROP >= X_LABEL_DROP + 0.3);
+        }
+        // the 08_5 chart: 49.8% and 44.3% end 5.5 points apart on a chart
+        // three units high; the labels move 0.12 each way
+        let f = facts().unwrap();
+        let end = |k: &str| f.get(k).unwrap().parse::<f64>().unwrap();
+        let apart = (end("F-R.model.best.found_by.20") - end("F-R.model.once.found_by.20")) * 3.0 / 100.0;
+        assert!(apart + 2.0 * END_LABEL_SPREAD >= 0.35, "{apart}");
     }
 
     /// 08_4 and 08_5: the Navy's map is searched at E5, B7, C5 and G5, and
