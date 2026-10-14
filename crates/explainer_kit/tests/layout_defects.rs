@@ -374,6 +374,109 @@ fn the_sampling_survives_a_wipe_that_clears_every_updater() {
 }
 
 #[test]
+fn the_sampling_survives_a_wipe_that_clears_updaters_but_leaves_the_probe_on_the_stage() {
+    // the probe stays a scene root with no updater: only a probe that checks its own updater is put back
+    let after_clear = lint(true, |kit, stage| {
+        kit.say(stage, "t_1")?;
+        shown(kit, stage, "3", 40.0, v(-4.0, -2.0))?;
+        stage.wait(0.5)?;
+        for m in stage.scene().mobjects().to_vec() {
+            stage.clear_updaters(m, true);
+        }
+        sweep(0.4, 1.8, 2.6)(kit, stage)
+    });
+    let crossed = rows_of(&after_clear, "crossed");
+    assert_eq!(crossed.len(), 1, "{after_clear}");
+}
+
+#[test]
+fn one_text_crossed_by_several_strokes_is_one_finding_and_is_not_counted_again_in_the_same_look() {
+    // three strokes through one text: one row, and no "still there": the others must not re-count in the same look
+    let report = lint(false, |kit, stage| {
+        shown(kit, stage, "HEIGHT", 60.0, v(0.0, 0.0))?;
+        for dy in [-0.1, 0.0, 0.1] {
+            line(stage, v(-1.5, dy), v(1.5, dy), 6.0)?;
+        }
+        Ok(())
+    });
+    assert_eq!(rows_of(&report, "crossed").len(), 1, "{report}");
+    assert!(!report.contains("still there"), "{report}");
+    // a stroke under the text and one over it are two findings of two kinds
+    let both = lint(false, |kit, stage| {
+        line(stage, v(-1.5, 0.0), v(1.5, 0.0), 6.0)?;
+        shown(kit, stage, "HEIGHT", 60.0, v(0.0, 0.0))?;
+        line(stage, v(-1.5, 0.05), v(1.5, 0.05), 6.0)?;
+        Ok(())
+    });
+    assert_eq!(rows_of(&both, "crossed").len(), 1, "{both}");
+    assert_eq!(rows_of(&both, "behind").len(), 1, "{both}");
+}
+
+#[test]
+fn an_opaque_bar_painted_over_a_label_is_found_and_a_card_under_it_or_a_translucent_one_is_not() {
+    let bar = |style: Style, first: bool| {
+        lint(false, move |kit, stage| {
+            if first {
+                add(stage, rect(v(-1.6, -0.5), 3.2, 1.0, style)?)?;
+            }
+            shown(kit, stage, "total 42", 36.0, v(0.0, 0.0))?;
+            if !first {
+                add(stage, rect(v(-1.6, -0.5), 3.2, 1.0, style)?)?;
+            }
+            Ok(())
+        })
+    };
+    let over = bar(ink_style(Palette::teal()), false);
+    assert_eq!(rows_of(&over, "covered").len(), 1, "{over}");
+    let card = bar(ink_style(Palette::faint()), true);
+    assert!(card.is_empty(), "a card the text stands on: {card}");
+    let glass = bar(Style::default().fill(Palette::teal(), 0.5), false);
+    assert!(glass.is_empty(), "a translucent fill hides nothing: {glass}");
+    // a bar that hides only the first letter of eight is not the label hidden
+    let sliver = lint(false, |kit, stage| {
+        let t = shown(kit, stage, "total 42", 36.0, v(0.0, 0.0))?;
+        let left = stage.get_left(t)[0];
+        add(stage, rect(v(left - 0.2, -0.5), 0.4, 1.0, ink_style(Palette::teal()))?)?;
+        Ok(())
+    });
+    assert!(rows_of(&sliver, "covered").is_empty(), "{sliver}");
+    // a small dot on the middle of a letter does not hide it (E 02_8: a 0.04 dot over an "H")
+    let dot = lint(false, |kit, stage| {
+        shown(kit, stage, "H", 48.0, v(0.0, 0.0))?;
+        add(stage, rect(v(-0.02, -0.02), 0.04, 0.04, ink_style(Palette::teal()))?)?;
+        Ok(())
+    });
+    assert!(rows_of(&dot, "covered").is_empty(), "{dot}");
+}
+
+#[test]
+fn a_text_cut_by_the_frame_inside_a_group_with_a_full_frame_backdrop_is_found() {
+    // the group's box is the backdrop's: the old root check had nothing to say, and the text was cut
+    let grouped = |x: f64| {
+        lint(false, move |kit, stage| {
+            let text = kit.text(stage, "the right edge of the frame", 40.0, Palette::ink(), v(x, 0.0))?;
+            let (w, h) = (2.0 * FRAME_X_RADIUS, 2.0 * FRAME_Y_RADIUS);
+            let backdrop = stage.arena_mut().add(rect(
+                v(-FRAME_X_RADIUS, -FRAME_Y_RADIUS),
+                w,
+                h,
+                ink_style(Palette::faint()),
+            )?);
+            let group = stage.arena_mut().add(VMobject::new());
+            stage.arena_mut().attach(group, backdrop).expect("attach the backdrop");
+            stage.arena_mut().attach(group, text).expect("attach the text");
+            stage.add_to_scene(group)?;
+            Ok(())
+        })
+    };
+    let cut = grouped(5.2);
+    assert_eq!(rows_of(&cut, "outside").len(), 1, "{cut}");
+    assert!(cut.contains("inside a group"), "{cut}");
+    let inside = grouped(0.0);
+    assert!(inside.is_empty(), "{inside}");
+}
+
+#[test]
 fn a_crossing_that_lasts_less_than_a_second_is_a_transition_not_a_finding() {
     // pictures change over a second or so, their old and new parts passing through each other
     let brief = lint(true, sweep(0.4, 1.0, 2.0));

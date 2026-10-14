@@ -21,13 +21,17 @@
 //!   fill painted over it (the disc under a node's numeral). Seen in Video J: a
 //!   box edge cutting its own number, a lit link striking the numerals of its
 //!   nodes, a tag standing on a border. One finding for each text and kind;
+//! - `covered`: at least half of a visible text's glyphs sit under an opaque
+//!   fill (a bar, a card, a disc) that is painted after the text and hides it;
+//!   a card the text stands on is painted before it and hides nothing;
 //! - `openfill`: an open path (a bracket, a polyline) painted with a fill,
 //!   which fills the area between the path and its chord into a solid bar
 //!   (`set_opacity(.., true)` on a bracket, the pitfall in `fmn-opacity`).
 //!
 //! `outside` and `edge` leave out what is not on the screen at all (a shape
 //! parked far outside the frame to come in later) and a backdrop that covers
-//! the whole frame.
+//! the whole frame; the texts inside such a group (or inside any group whose
+//! own box was not named) are held to the frame one by one.
 //!
 //! "Visible" means painted with alpha > 0: vector strokes and fills
 //! (including a parent's own paint, such as an arrow's shaft), dot clouds
@@ -71,6 +75,9 @@ pub const GLYPH_CORE: f64 = 0.15;
 /// How much of a glyph's core a stroke has to run through, as a share of the core's smaller side, to cross it: a
 /// leader line that starts at the edge of its label does not.
 pub const INSIDE_MIN: f64 = 0.3;
+/// Of the nine samples laid over a glyph's box, this many have to lie under an opaque fill for the glyph to count
+/// as hidden (`covered`): a dot over the middle of a letter does not hide it.
+pub const GLYPH_HIDDEN_SAMPLES: usize = 6;
 /// A fill with every point's alpha at least this hides what is under it (see [`opaque_fill_core`]): a label's
 /// card is a little translucent and still hides the line it stands on.
 pub const OPAQUE: f32 = 0.8;
@@ -83,6 +90,44 @@ const STROKE_UNIT: f64 = 0.01;
 
 /// An axis-aligned box: (lower-left, upper-right).
 pub type Box2 = ([f64; 2], [f64; 2]);
+
+/// The frame, as a box.
+pub const FRAME: Box2 = ([-FRAME_X_RADIUS, -FRAME_Y_RADIUS], [FRAME_X_RADIUS, FRAME_Y_RADIUS]);
+
+/// Does the box reach every edge of the frame (a backdrop)?
+pub fn covers_frame((lo, hi): Box2) -> bool {
+    lo[0] <= FRAME.0[0] + 0.02 && lo[1] <= FRAME.0[1] + 0.02 && hi[0] >= FRAME.1[0] - 0.02 && hi[1] >= FRAME.1[1] - 0.02
+}
+
+/// Is the point inside the box?
+pub fn point_in_box((lo, hi): Box2, p: [f64; 2]) -> bool {
+    (lo[0]..=hi[0]).contains(&p[0]) && (lo[1]..=hi[1]).contains(&p[1])
+}
+
+/// Is the point inside the polygons, by the even-odd rule (a hole is a second polygon)?
+pub fn point_in_polygons(polys: &[Vec<[f64; 2]>], p: [f64; 2]) -> bool {
+    let mut inside = false;
+    for poly in polys.iter().filter(|poly| poly.len() >= 3) {
+        let mut j = poly.len() - 1;
+        for i in 0..poly.len() {
+            let (a, b) = (poly[i], poly[j]);
+            if (a[1] > p[1]) != (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0] {
+                inside = !inside;
+            }
+            j = i;
+        }
+    }
+    inside
+}
+
+/// The box of polygons' points.
+pub fn polygons_box(polys: &[Vec<[f64; 2]>]) -> Option<Box2> {
+    polys
+        .iter()
+        .flatten()
+        .map(|&p| (p, p))
+        .reduce(|(a, z), (lo, hi)| ([a[0].min(lo[0]), a[1].min(lo[1])], [z[0].max(hi[0]), z[1].max(hi[1])]))
+}
 
 /// `outside` (crosses the frame), `edge` (inside but within the margin), or
 /// nothing for a box comfortably inside a `±xr × ±yr` frame.
@@ -291,6 +336,7 @@ impl Linter {
         };
         let mut on_stage: HashSet<Mob> = HashSet::new();
         let mut families: Vec<(Mob, Vec<Mob>)> = Vec::new();
+        let mut flagged: HashSet<Mob> = HashSet::new();
         for &m in arena.roots() {
             let family = arena.family(m);
             on_stage.extend(family.iter().copied());
@@ -299,15 +345,12 @@ impl Linter {
                 continue;
             };
             if let Some(kind) = edge_kind(b, FRAME_X_RADIUS, FRAME_Y_RADIUS) {
-                // not on the screen at all (parked, to come in later), or a backdrop that covers all of it
-                let frame = ([-FRAME_X_RADIUS, -FRAME_Y_RADIUS], [FRAME_X_RADIUS, FRAME_Y_RADIUS]);
-                let backdrop = b.0[0] <= frame.0[0] + 0.02
-                    && b.0[1] <= frame.0[1] + 0.02
-                    && b.1[0] >= frame.1[0] - 0.02
-                    && b.1[1] >= frame.1[1] - 0.02;
-                if boxes_apart(b, frame) || backdrop {
+                // not on the screen at all (parked, to come in later), or a backdrop that covers all of it (the
+                // texts inside such a group are judged one by one, `check_text_edges`)
+                if boxes_apart(b, FRAME) || covers_frame(b) {
                     continue;
                 }
+                flagged.insert(m);
                 self.record(
                     format!("{kind}|{m:?}"),
                     at,
@@ -351,9 +394,139 @@ impl Linter {
                 );
             }
         }
+        self.check_text_edges(&shown, &families, &flagged, at);
         self.check_tight(&shown, at);
         self.check_crossed(arena, texts, &shown, &families, &label_of, at);
+        self.check_covered(arena, texts, &shown, &families, &label_of, at);
         self.check_open_fills(arena, texts, &families, &label_of, at);
+    }
+
+    /// `outside` / `edge` for a text that is nested in a group: the group's own box may hold a backdrop that fills
+    /// the frame (and says nothing), or other things that make its finding about the group; each text is held to
+    /// the frame by itself. A text that is a scene root, or whose root was already named, is not named twice.
+    fn check_text_edges(
+        &self,
+        shown: &[(Mob, String, Box2)],
+        families: &[(Mob, Vec<Mob>)],
+        flagged: &HashSet<Mob>,
+        at: &str,
+    ) {
+        for (mob, label, b) in shown {
+            let root = families
+                .iter()
+                .find(|(_, family)| family.contains(mob))
+                .map(|(r, _)| *r);
+            if root == Some(*mob) || root.is_some_and(|r| flagged.contains(&r)) || boxes_apart(*b, FRAME) {
+                continue;
+            }
+            if let Some(kind) = edge_kind(*b, FRAME_X_RADIUS, FRAME_Y_RADIUS) {
+                self.record(
+                    format!("{kind}|text|{label}"),
+                    at,
+                    kind,
+                    &format!(
+                        "{label:?} (inside a group) spans x {:.2}..{:.2}, y {:.2}..{:.2}; frame ±{:.2} × ±{:.2}, safe area ±{:.2} × ±{:.2}",
+                        b.0[0],
+                        b.1[0],
+                        b.0[1],
+                        b.1[1],
+                        FRAME_X_RADIUS,
+                        FRAME_Y_RADIUS,
+                        FRAME_X_RADIUS - MARGIN,
+                        FRAME_Y_RADIUS - MARGIN
+                    ),
+                );
+            }
+        }
+    }
+
+    /// `covered`: an opaque fill painted over a visible text hides it: at least half of its glyphs sit under a
+    /// filled shape that comes later in the painter's order (a bar, a card, a disc drawn after the label). A card
+    /// the text stands on is painted before it and hides nothing. Fills the chapter declares with
+    /// [`Linter::allow_crossing`] (a mask meant to hide) are left alone.
+    fn check_covered(
+        &self,
+        arena: &Arena,
+        texts: &[Registered],
+        shown: &[(Mob, String, Box2)],
+        families: &[(Mob, Vec<Mob>)],
+        label_of: &dyn Fn(Mob) -> String,
+        at: &str,
+    ) {
+        let in_text: HashSet<Mob> = texts.iter().flat_map(|t| arena.family(t.mob)).collect();
+        let declared: HashSet<Mob> = self.allowed.borrow().iter().flat_map(|&m| arena.family(m)).collect();
+        let mut order: HashMap<Mob, usize> = HashMap::new();
+        for (_, members) in families {
+            for &m in members {
+                order.insert(m, order.len());
+            }
+        }
+        /// An opaque fill: its root, its place in the painter's order, its outline, the box of that outline.
+        type Fill = (Mob, usize, Vec<Vec<[f64; 2]>>, Box2);
+        let mut fills: Vec<Fill> = Vec::new();
+        for (root, members) in families {
+            for &m in members.iter().filter(|m| !in_text.contains(m) && !declared.contains(m)) {
+                if let Some(polys) = opaque_fill_polygons(arena, m)
+                    && let Some(bounds) = polygons_box(&polys)
+                    && shown.iter().any(|(_, _, t)| !boxes_apart(*t, bounds))
+                {
+                    fills.push((*root, order[&m], polys, bounds));
+                }
+            }
+        }
+        if fills.is_empty() {
+            return;
+        }
+        for (text, label, tbox) in shown {
+            let glyphs: Vec<(Mob, Box2)> = arena
+                .family(*text)
+                .into_iter()
+                .filter_map(|g| member_box(arena, g).map(|b| (g, b)))
+                .collect();
+            if glyphs.is_empty() {
+                continue;
+            }
+            let (mut covered, mut by) = (0usize, None::<(Mob, Box2)>);
+            for &(g, (lo, hi)) in &glyphs {
+                let rank = order.get(&g).copied().unwrap_or(0);
+                // nine samples over the glyph's box: a dot or a line that covers its middle hides nothing
+                let mut hidden = 0;
+                for fx in [1.0 / 6.0, 0.5, 5.0 / 6.0] {
+                    for fy in [1.0 / 6.0, 0.5, 5.0 / 6.0] {
+                        let p = [lo[0] + fx * (hi[0] - lo[0]), lo[1] + fy * (hi[1] - lo[1])];
+                        let hit = fills.iter().find(|(_, r, polys, bounds)| {
+                            *r > rank && point_in_box(*bounds, p) && point_in_polygons(polys, p)
+                        });
+                        if let Some((root, _, _, bounds)) = hit {
+                            hidden += 1;
+                            by.get_or_insert((*root, *bounds));
+                        }
+                    }
+                }
+                if hidden >= GLYPH_HIDDEN_SAMPLES {
+                    covered += 1;
+                }
+            }
+            if let Some((root, bounds)) = by
+                && covered * 2 >= glyphs.len()
+            {
+                let (cx, cy) = ((tbox.0[0] + tbox.1[0]) / 2.0, (tbox.0[1] + tbox.1[1]) / 2.0);
+                self.record(
+                    format!("covered|{label}|{:.1},{:.1}", (cx * 2.0).round() / 2.0, (cy * 2.0).round() / 2.0),
+                    at,
+                    "covered",
+                    &format!(
+                        "{label:?} is under an opaque fill of {} painted over it (x {:.2}..{:.2}, y {:.2}..{:.2}): {covered} of its {} glyphs are hidden",
+                        label_of(root),
+                        bounds.0[0],
+                        bounds.1[0],
+                        bounds.0[1],
+                        bounds.1[1],
+                        glyphs.len()
+                    ),
+                );
+            }
+        }
     }
 
     /// `tight`: a text nearer than [`TEXT_MARGIN`] to the left, right or top edge, but not yet within
@@ -704,6 +877,53 @@ pub fn opaque_fill_core(arena: &Arena, m: Mob) -> Option<Box2> {
     let (lo, hi) = member_box(arena, m)?;
     let (dx, dy) = ((hi[0] - lo[0]) / 6.0, (hi[1] - lo[1]) / 6.0);
     Some(([lo[0] + dx, lo[1] + dy], [hi[0] - dx, hi[1] - dy]))
+}
+
+/// The outline of a mobject whose fill is opaque everywhere, as polygons in scene coordinates (each subpath
+/// flattened, each curve into three pieces); `None` for anything else. Even-odd: a hole is a second subpath.
+pub fn opaque_fill_polygons(arena: &Arena, m: Mob) -> Option<Vec<Vec<[f64; 2]>>> {
+    let e = arena.get(m)?;
+    let b = &e.buffer;
+    let fill = b.read_column("fill_rgba")?;
+    let alphas = fill.as_chunks::<4>().0;
+    if alphas.len() < 3 || alphas.iter().any(|c| c[3] < OPAQUE) {
+        return None;
+    }
+    let points = b.read_column("point")?;
+    let pts = points.as_chunks::<3>().0;
+    let placement = e.placement();
+    let at = |i: usize| {
+        let p = pts[i];
+        let q = placement.apply_point([f64::from(p[0]), f64::from(p[1]), f64::from(p[2])]);
+        [q[0], q[1]]
+    };
+    let mut polys: Vec<Vec<[f64; 2]>> = Vec::new();
+    let mut cur: Vec<[f64; 2]> = Vec::new();
+    let mut i = 0;
+    while i + 2 < pts.len() {
+        if cur.is_empty() {
+            cur.push(at(i));
+        }
+        if pts[i] == pts[i + 1] && pts[i] != pts[i + 2] {
+            // the jump to the next subpath
+            polys.push(std::mem::take(&mut cur));
+            cur.push(at(i + 2));
+        } else {
+            let (p0, p1, p2) = (at(i), at(i + 1), at(i + 2));
+            for k in 1..=3 {
+                let t = f64::from(k) / 3.0;
+                let u = 1.0 - t;
+                cur.push([
+                    u * u * p0[0] + 2.0 * u * t * p1[0] + t * t * p2[0],
+                    u * u * p0[1] + 2.0 * u * t * p1[1] + t * t * p2[1],
+                ]);
+            }
+        }
+        i += 2;
+    }
+    polys.push(cur);
+    polys.retain(|p| p.len() >= 3);
+    (!polys.is_empty()).then_some(polys)
 }
 
 /// The box that holds all of `pieces`, padded by their half widths.
