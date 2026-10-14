@@ -22,7 +22,8 @@ use fmn::prelude::*;
 use super::draw::{
     ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, breath, dim, fact_int,
     fact_ints, fade_in_all, fade_in_lagged, fade_out_all, fail, file_on_shelf, flat, fly, formula, group, hero, ink,
-    lens, lens_mark, live_counter, lower_third, pause, quiz_named, say, size, swap, tex_row, tween_linear,
+    lens, lens_mark, live_counter, lower_third, pause, quiz_named, say, shelf_so_far, shelve, size, swap, tex_row,
+    tween_linear,
 };
 use crate::model::Rect;
 use crate::model::layers::{staircase, turned};
@@ -53,14 +54,15 @@ const PAIR_PLUS: &str = "+";
 /// The quiz this chapter asks (`model::QUIZZES`).
 const QUIZ: &str = "rectangle";
 /// The slot of the shelf this proof takes (03, 04, 06, 09, ...).
-const SLOT: usize = 1;
+pub const SLOT: usize = 1;
 
 // ------------------------------------------------------------------ geometry
 
 /// Scene units a tile (as chapter 03's), and the board's lower-left corner:
-/// the rectangle is five by six, 3.72 tall, under the shelf's floor.
-const CELL: f64 = 0.62;
-const BOARD_AT: Vec3 = [-5.9, -0.8, 0.0];
+/// the rectangle is five by six, 3.48 tall, and its width brace and number
+/// above it keep under the shelf's floor, with the card's top below it.
+const CELL: f64 = 0.58;
+const BOARD_AT: Vec3 = [-5.9, -1.5, 0.0];
 /// How far the copy hovers to the right of the first staircase, scene units.
 const ASIDE: f64 = 3.5;
 /// The column of readouts beside the picture: its middle.
@@ -69,8 +71,8 @@ const COLUMN_X: f64 = 2.9;
 const TOTAL_PT: f64 = 96.0;
 /// Where a fifteen waits for chapter 05, in a corner of the frame.
 pub const WAITING_AT: Vec3 = [6.1, 3.3, 0.0];
-/// The sweep's tile: twelve columns and thirteen rows are 3.51 tall.
-const SWEEP_CELL: f64 = 0.27;
+/// The sweep's tile: twelve columns and thirteen rows are 3.38 tall.
+const SWEEP_CELL: f64 = 0.26;
 /// How many columns the sweep grows to, and the steps of the last line.
 const SWEEP_TO: i64 = 12;
 const STEPS: i64 = 100;
@@ -105,6 +107,20 @@ fn pair(n: i64, x: i64) -> (i64, i64) {
     (x + 1, n - x)
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the two staircases
+/// locked into their five by six rectangle, thumbnail size in its slot.
+/// Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let n = fact_ints("F-T.columns")?.len() as i64;
+    let board = Board::new(BOARD_AT, CELL);
+    let mut locked = columns_of(stage, &board, n)?;
+    locked.extend(turned_columns_of(stage, &board, n)?);
+    let middle = board.p(n as f64 / 2.0, (n as f64 + 1.0) / 2.0);
+    shelve(stage, &locked, middle, (n as f64 + 1.0) * CELL, SLOT);
+    Ok(locked)
+}
+
 impl SceneConstruct for Staircases {
     fn name(&self) -> &str {
         "04_staircases"
@@ -112,6 +128,7 @@ impl SceneConstruct for Staircases {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        shelf_so_far(&kit, stage, 4)?;
 
         // the numbers, and the tiles they must agree with
         let columns = fact_ints("F-T.columns")?;
@@ -479,8 +496,12 @@ mod tests {
     #[test]
     fn the_layout_stands_between_the_shelf_and_the_card() {
         const {
-            assert!(BOARD_AT[1] + 6.0 * CELL <= super::super::draw::SHELF_FLOOR + 1e-9);
-            assert!(BOARD_AT[1] - 0.45 - 0.2 > super::super::draw::CARD_TOP - 0.3);
+            // the brace above the rectangle (0.1 off it, 0.27 deep) and its
+            // number (0.14 further, 0.4 tall) are under the shelf's floor
+            assert!(BOARD_AT[1] + 6.0 * CELL + 0.1 + 0.27 + 0.14 + 0.4 <= super::super::draw::SHELF_FLOOR + 1e-9);
+            assert!(BOARD_AT[1] > super::super::draw::CARD_TOP);
+            // the pairs under the columns keep in the frame
+            assert!(BOARD_AT[1] - 0.45 - 0.2 > -FRAME_Y_RADIUS + 0.3);
             assert!(BOARD_AT[0] + ASIDE + 5.0 * CELL <= 0.8 + 0.2);
             assert!(WAITING_AT[0] < FRAME_X_RADIUS - 0.4 && WAITING_AT[1] < FRAME_Y_RADIUS - 0.4);
             // the sweep's rectangle, twelve by thirteen, fits the same room

@@ -20,8 +20,8 @@ use fmn::prelude::*;
 use super::draw::{
     ANSWER_PT, Board, CardRow, Cell, LENS_AT, ProofCard, QuizCard, QuizLook, Side, Words, breath, dim, fact_int,
     fact_ints, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail, file_on_shelf, flash, flat, fly, formula,
-    glyphs, hero, ink, lens, lens_mark, live_counter, lower_third, middle_of, morph, pause, quiz_named, rgb, say, size,
-    slide_in, swap, tween_linear,
+    glyphs, hero, ink, lens, lens_mark, live_counter, lower_third, middle_of, morph, pause, quiz_named, rgb, say,
+    shelve, size, slide_in, swap, tween_linear,
 };
 use crate::model::Rect;
 use crate::model::layers::layer;
@@ -53,7 +53,7 @@ const COLUMNS_WORD: &str = "columns";
 /// The quiz this chapter asks (`model::QUIZZES`).
 const QUIZ: &str = "next_layer";
 /// The slot of the shelf this proof takes (03, 04, 06, 09, 10, 11, ...).
-const SLOT: usize = 0;
+pub const SLOT: usize = 0;
 
 // ------------------------------------------------------------------ geometry
 
@@ -102,6 +102,23 @@ fn far_strips(near: i64, through: i64) -> Vec<Rect> {
             }
         })
         .collect()
+}
+
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the five layers and
+/// the sixth in gold, a square six tiles on a side, thumbnail size in its
+/// slot. Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let n = fact_ints("F-O.layers")?.len() as i64;
+    let board = Board::new(BOARD_AT, CELL);
+    let mut picture = Vec::new();
+    for k in 1..=n {
+        picture.push(board.tiles(stage, &layer(k), size(k as usize))?);
+    }
+    picture.push(board.tiles(stage, &layer(n + 1), hero())?);
+    let middle = board.p((n + 1) as f64 / 2.0, (n + 1) as f64 / 2.0);
+    shelve(stage, &picture, middle, (n + 1) as f64 * CELL, SLOT);
+    Ok(picture)
 }
 
 impl SceneConstruct for Layers {

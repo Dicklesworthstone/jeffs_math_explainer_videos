@@ -45,7 +45,7 @@ const PANEL_W: f64 = 6.6;
 /// its size: the seams between pieces.
 const SEAM: f64 = 0.04;
 /// The slot this proof takes on the shelf: after the cut cube's.
-const SLOT: usize = 7;
+pub const SLOT: usize = 7;
 
 // the chapter's fixed words
 const LONG_SIDE: &str = "long side";
@@ -337,6 +337,30 @@ fn corner_closeup(
     Ok(out)
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): both arrangements
+/// of the four triangles in their frames, the tilted square violet, at
+/// thumbnail size in its slot. Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let (la, lb) = legs("F-P.legs")?;
+    let (a, b) = (la as f64, lb as f64);
+    let total = a + b;
+    let first_small = Board::new(SMALL_FIRST, SMALL_CELL);
+    let second_small = Board::new(SMALL_SECOND, SMALL_CELL);
+    let live = Live::build(stage, total, a, first_small, second_small)?;
+    stage.set_fill(live.first.squares[0], Some(size(5)), Some(1.0), None, false);
+    let frame_pts = [(0.0, 0.0), (total, 0.0), (total, total), (0.0, total)];
+    let mut picture = live.all();
+    picture.push(outline(stage, &first_small, &frame_pts, faded_line(ink(), 2.5, 1.0)));
+    picture.push(outline(stage, &second_small, &frame_pts, faded_line(ink(), 2.5, 1.0)));
+    let from = v(
+        (SMALL_FIRST[0] + SMALL_SECOND[0] + total * SMALL_CELL) / 2.0,
+        SMALL_FIRST[1] + total * SMALL_CELL / 2.0,
+    );
+    super::draw::shelve(stage, &picture, from, 2.0 * total * SMALL_CELL + 0.3, SLOT);
+    Ok(picture)
+}
+
 impl SceneConstruct for FourTriangles {
     fn name(&self) -> &str {
         "13_four_triangles"
@@ -344,6 +368,7 @@ impl SceneConstruct for FourTriangles {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 13)?;
         let (la, lb) = legs("F-P.legs")?;
         let (a, b) = (la as f64, lb as f64);
         let total = a + b;

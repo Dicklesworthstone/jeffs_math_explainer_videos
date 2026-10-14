@@ -313,6 +313,7 @@ impl SceneConstruct for Slabs {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 5)?;
         let n = shown::CUBES;
         if n as usize != CELLS.len() {
             return Err(fail("the pulled-back sizes are not one a cube".into()));

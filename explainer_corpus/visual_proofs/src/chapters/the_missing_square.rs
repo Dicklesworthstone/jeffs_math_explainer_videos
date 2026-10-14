@@ -18,9 +18,9 @@ use explainer_kit::{Kit, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, CardRow, LENS_AT, LENS_R, ProofCard, QuizCard, QuizLook, THUMB, Words, breath, dim, fact, fade_in_all,
+    Board, CardRow, LENS_AT, LENS_R, ProofCard, QuizCard, QuizLook, Words, breath, dim, fact, fade_in_all,
     fade_in_lagged, fade_out_all, faded_line, fail, faint, fit_width, flash, flat, formula_third, frac_tex, hero, ink,
-    lens, lens_mark, panel, pause, say, shelf_slot, size, slide, source_line, tex_row, warn,
+    lens, lens_mark, panel, pause, say, size, slide, source_line, tex_row, warn,
 };
 use crate::model::lie;
 
@@ -60,7 +60,7 @@ const QUIZ_LOOK: QuizLook = QuizLook {
     scale: 0.62,
 };
 /// The shelf's slot the picture that lies would have taken.
-const SLOT: usize = 8;
+pub const SLOT: usize = 8;
 /// Silence with the cross on the screen, seconds (14_7).
 const SILENCE_S: f64 = 2.0;
 /// The type size of the rise and run written on the edges.
@@ -359,6 +359,12 @@ fn lens_edges(stage: &mut Stage<'_>, a: &lie::Arrangement) -> Vec<Mob> {
     out
 }
 
+/// The slot this card leaves empty, as it stands on the shelf (the chapter
+/// after this one opens with the shelf so far: the gap stays). Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    Ok(vec![super::draw::empty_slot(stage, SLOT)?])
+}
+
 impl SceneConstruct for TheMissingSquare {
     fn name(&self) -> &str {
         "14_the_missing_square"
@@ -366,6 +372,7 @@ impl SceneConstruct for TheMissingSquare {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 14)?;
         let (first, second) = (lie::first(), lie::second());
         let slides = pairs("F-L.slides")?;
         let hole = pairs("F-L.hole.at")?
@@ -798,15 +805,9 @@ impl SceneConstruct for TheMissingSquare {
         line.wait_end(stage)?;
         pause(stage, SILENCE_S)?;
         // the card refuses to file: its slot on the shelf stays empty
-        let slot = stage.arena_mut().add(
-            Rectangle::new()
-                .width(THUMB)
-                .height(THUMB)
-                .corner_radius(0.08)
-                .style(faded_line(faint(), 2.0, 1.0))
-                .build()?
-                .moved_to(shelf_slot(SLOT)),
-        );
+        let slot = super::draw::empty_slot(stage, SLOT)?;
+        #[cfg(test)]
+        super::draw::shelf_log::filed(stage, SLOT, &[slot]);
         let source = source_line(&kit, stage, SOURCE, false)?;
         fade_in_all(stage, &[slot, source], 0.6)?;
 

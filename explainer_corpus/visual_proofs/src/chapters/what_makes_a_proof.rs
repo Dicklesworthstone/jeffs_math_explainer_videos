@@ -193,24 +193,6 @@ fn thumb_frame(stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
     ))
 }
 
-/// A staircase of `columns` columns, column `c` of `c` tiles in the size
-/// colour: the tiles counted of chapter 04. Detached.
-fn staircase_thumb(stage: &mut Stage<'_>, at: Vec3, columns: i64) -> fmn::Result<Vec<Mob>> {
-    let room = 2.0 * THUMB_R - 0.3;
-    let board = Board::fit(
-        [at[0] - room / 2.0, at[1] - room / 2.0, 0.0],
-        columns,
-        columns,
-        (room, room),
-    );
-    let mut out = Vec::new();
-    for c in 1..=columns {
-        let cells: Vec<(i64, i64)> = (0..c).map(|r| (c - 1, r)).collect();
-        out.push(board.tiles(stage, &cells, size(c as usize))?);
-    }
-    Ok(out)
-}
-
 /// The straight edge and the edge that hangs off it, eight times closer, as
 /// in chapter 14's window. Detached.
 fn bend_thumb(stage: &mut Stage<'_>, at: Vec3) -> Vec<Mob> {
@@ -258,6 +240,7 @@ impl SceneConstruct for WhatMakesAProof {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 15)?;
         let (a, b) = legs("F-P.legs")?;
         let long = fact_int("F-P.long_side")?.max(1) as usize;
         let (first, second) = (lie::first(), lie::second());
@@ -379,24 +362,22 @@ impl SceneConstruct for WhatMakesAProof {
         for at in thumb_at {
             thumbs.push(vec![thumb_frame(stage, at)?]);
         }
-        thumbs[0].extend(staircase_thumb(stage, thumb_at[0], 4)?);
+        let small = 2.0 * THUMB_R - 0.3;
+        thumbs[0].extend(super::draw::shelf_copy(
+            &kit,
+            stage,
+            super::staircases::SLOT,
+            thumb_at[0],
+            small,
+        )?);
         thumbs[1].extend(bend_thumb(stage, thumb_at[1]));
-        let board = Board::fit(
-            [
-                thumb_at[2][0] - (THUMB_R - 0.15),
-                thumb_at[2][1] - (THUMB_R - 0.15),
-                0.0,
-            ],
-            cubes::side(n),
-            cubes::side(n),
-            (2.0 * (THUMB_R - 0.15), 2.0 * (THUMB_R - 0.15)),
-        );
-        for (cube, m) in square_of(stage, &board, n) {
-            if cube < n {
-                stage.set_opacity(m, DIMMED, true);
-            }
-            thumbs[2].push(m);
-        }
+        thumbs[2].extend(super::draw::shelf_copy(
+            &kit,
+            stage,
+            super::every_cube::SLOT,
+            thumb_at[2],
+            small,
+        )?);
         for j in 0..3 {
             line.wait_sentence(stage, j + 1)?;
             let mut ins = vec![rows[j]];

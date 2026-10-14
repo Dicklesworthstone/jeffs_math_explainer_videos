@@ -200,6 +200,7 @@ impl SceneConstruct for ThreeStacks {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 7)?;
         let r = reads()?;
         let n = shown::STACK;
         let iso = Iso::new(stage, VIEW)?;

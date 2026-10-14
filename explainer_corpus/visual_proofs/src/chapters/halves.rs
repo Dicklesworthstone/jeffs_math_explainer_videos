@@ -40,6 +40,11 @@ pub const LINES: [&str; 6] = ["10_1", "10_2", "10_3", "10_4", "10_5", "10_6"];
 
 // ---------------------------------------------------------------- geometry
 
+/// Where 10_2's readout of what is filled is set: its fraction's top keeps
+/// under the shelf's floor.
+const FILLED_Y: f64 = 2.3;
+/// Where the question of 10_3 is set: its top keeps under the shelf's floor.
+const QUESTION_Y: f64 = 1.4;
 /// The unit square: its side, and its lower left corner, in scene units.
 pub const SIDE: f64 = 3.6;
 pub const SQUARE_X: f64 = 2.5;
@@ -400,6 +405,78 @@ fn cross(stage: &mut Stage<'_>, at: Vec3, height: f64) -> Mob {
         .add(exmark(warn()).with_height(height, false).moved_to(at))
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the halved square
+/// with its eight pieces and the gap, the number line under it with its
+/// ticks, the two guesses struck, the band, and the gold 1, all at
+/// thumbnail size in its slot. Detached.
+pub fn thumb(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let read = reads()?;
+    let c = corner();
+    let mut picture: Vec<Mob> = vec![
+        stage.arena_mut().add(
+            Polygon::new(vec![at(0.0, 0.0), at(1.0, 0.0), at(1.0, 1.0), at(0.0, 1.0)])
+                .style(line_style(ink(), 3.0))
+                .build(),
+        ),
+    ];
+    for k in 1..=DRAWN_PIECES {
+        picture.push(piece(stage, k, size(4), c, 1.0));
+    }
+    picture.push(gap_outline(stage, DRAWN_PIECES, c, 1.0));
+    // the line, its two ends and numerals, and a tick for every piece up to
+    // the one that passes the first guess (that one gold)
+    picture.push(
+        stage.arena_mut().add(
+            polyline(vec![v(SQUARE_X, LINE_Y), line_end()])
+                .style(line_style(ink(), 3.0))
+                .build(),
+        ),
+    );
+    picture.push(tick(stage, SQUARE_X, 0.2, ink()));
+    picture.push(tick(stage, right(), 0.2, ink()));
+    picture.push(kit.tex(stage, "0", 34.0, ink(), &[], v(SQUARE_X, LINE_Y - NUMERAL_DROP))?);
+    picture.push(kit.tex(stage, "1", 34.0, ink(), &[], v(right(), LINE_Y - NUMERAL_DROP))?);
+    let to_first = read.passes[0].0;
+    for k in 1..=to_first {
+        let colour = if k == to_first { hero() } else { size(4) };
+        picture.push(tick(stage, line_x(filled(k), 1.0), TICK, colour));
+    }
+    // the two guesses, struck where they sit on the line
+    for (_, value, _) in GUESSES {
+        picture.push(cross(stage, v(line_x(value, 1.0), LINE_Y + 0.3), 0.4 * 0.44));
+    }
+    // the band: each piece's share of the line, with its cross at the end
+    for j in 1..=BAND_PIECES {
+        let (from, to) = (filled(j - 1), filled(j));
+        picture.push(rectangle(
+            stage,
+            v(line_x(from, 1.0), LINE_Y - 0.08),
+            (to - from) * SIDE,
+            0.16,
+            0.0,
+            warn(),
+            0.4,
+        ));
+        picture.push(cross(stage, v(line_x(to, 1.0), LINE_Y + 0.3), 0.22));
+    }
+    picture.push(gap_bar(stage, BAND_PIECES));
+    // the card of the last guess turned gold: 1
+    let gold_text = kit.text(stage, "1", 26.0, hero(), v(right(), LINE_Y + 0.55))?;
+    let gold_back = stage.arena_mut().add(
+        Rectangle::new()
+            .width(0.8)
+            .height(0.46)
+            .corner_radius(0.1)
+            .style(Style::default().fill(panel(), 0.96).stroke(hero(), 2.5, 1.0))
+            .build()?
+            .moved_to(v(right(), LINE_Y + 0.55)),
+    );
+    picture.push(group(stage, &[gold_back, gold_text])?);
+    super::draw::shelve(stage, &picture, at(0.5, 0.5), SIDE, SLOT);
+    Ok(picture)
+}
+
 impl SceneConstruct for Halves {
     fn name(&self) -> &str {
         "10_halves"
@@ -407,6 +484,7 @@ impl SceneConstruct for Halves {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 10)?;
         let read = reads()?;
         let n = shown::HALVES;
 
@@ -449,14 +527,14 @@ impl SceneConstruct for Halves {
         step(stage, Some(&pcs[2]), &pcs[3], 0.5)?;
         step(stage, Some(&pcs[3]), &pcs[4], 0.5)?;
         let readout_x = -5.8;
-        let filled_label = kit.text_left(stage, READOUT_FILLED, 34.0, dim(), v(readout_x, 2.5))?;
+        let filled_label = kit.text_left(stage, READOUT_FILLED, 34.0, dim(), v(readout_x, FILLED_Y))?;
         let filled_value = kit.tex_left(
             stage,
             &tex_fraction(&read.filled),
             60.0,
             ink(),
             &[],
-            v(readout_x + 1.9, 2.5),
+            v(readout_x + 1.9, FILLED_Y),
         )?;
         let gap_label = kit.text_left(stage, READOUT_GAP, 34.0, dim(), v(readout_x, 0.9))?;
         let gap_value = kit.tex_left(
@@ -490,7 +568,7 @@ impl SceneConstruct for Halves {
             .sentence_texts()
             .pop()
             .ok_or_else(|| fail("10_3 has no sentences".into()))?;
-        let question = question_card(&kit, stage, &words, v(-3.4, 1.7))?;
+        let question = question_card(&kit, stage, &words, v(-3.4, QUESTION_Y))?;
         // the labels and readouts have said their piece
         let labels: Vec<Mob> = pcs.iter().filter_map(|p| p.label).collect();
         play_with(stage, 0.0, |s| {

@@ -1637,7 +1637,95 @@ pub fn file_on_shelf(
     if !anims.is_empty() {
         stage.play_prepared(anims)?;
     }
+    #[cfg(test)]
+    shelf_log::filed(stage, slot, mobs);
     Ok(())
+}
+
+/// A filed picture as it stands on the shelf, rebuilt by its chapter: the
+/// mobjects it files, at thumbnail scale in its slot (detached, as
+/// [`shelve`] leaves them).
+pub type ThumbFn = fn(&Kit, &mut Stage<'_>) -> fmn::Result<Vec<Mob>>;
+
+/// One chapter's place on the shelf (the table is `chapters::SHELF`): the
+/// chapter whose card files a picture, the slot it takes, and the function
+/// that rebuilds the filed thumbnail for the chapters after it.
+#[derive(Clone, Copy)]
+pub struct Filed {
+    pub chapter: usize,
+    pub slot: usize,
+    pub thumb: ThumbFn,
+}
+
+/// `mobs` (detached, as they stood when their card passed) moved to slot
+/// `slot` at once: the move [`file_on_shelf`] plays, without the animation.
+/// Each mobject is scaled by `THUMB / size` about its own centre and
+/// carried so that the picture, `size` scene units across and centred at
+/// `from`, is a thumbnail centred in the slot.
+pub fn shelve(stage: &mut Stage<'_>, mobs: &[Mob], from: Vec3, size: f64, slot: usize) {
+    let k = THUMB / size;
+    let to = shelf_slot(slot);
+    for &m in mobs {
+        let c = stage.get_center(m);
+        let target = v(to[0] + k * (c[0] - from[0]), to[1] + k * (c[1] - from[1]));
+        stage.scale(m, k);
+        stage.move_to(m, target, ORIGIN);
+    }
+}
+
+/// The shelf as it stands when chapter `chapter` (from 1) opens: every
+/// thumbnail filed by the chapters before it, in its slot, on the stage at
+/// once with no animation (each chapter is its own scene, so a chapter that
+/// shares the screen with the shelf begins with this call). A chapter whose
+/// card refused to file leaves its empty slot (`chapters::SHELF`). The
+/// pictures a chapter draws beside the shelf keep under [`SHELF_FLOOR`].
+pub fn shelf_so_far(kit: &Kit, stage: &mut Stage<'_>, chapter: usize) -> fmn::Result<Vec<Mob>> {
+    let mut all = Vec::new();
+    for filed in super::SHELF.iter().filter(|f| f.chapter < chapter) {
+        let mobs = (filed.thumb)(kit, stage)?;
+        for &m in &mobs {
+            stage.add_to_scene(m)?;
+        }
+        #[cfg(test)]
+        shelf_log::opened(stage, filed.slot, &mobs);
+        all.extend(mobs);
+    }
+    #[cfg(test)]
+    shelf_log::watch(stage, &all)?;
+    Ok(all)
+}
+
+/// The thumbnail filed in slot `slot`, built again and carried to `at`,
+/// `size` across (the small pictures "from the shelf" of 15_3). Detached.
+pub fn shelf_copy(kit: &Kit, stage: &mut Stage<'_>, slot: usize, at: Vec3, size: f64) -> fmn::Result<Vec<Mob>> {
+    let filed = super::SHELF
+        .iter()
+        .find(|f| f.slot == slot)
+        .ok_or_else(|| fail(format!("nothing is filed in slot {slot}")))?;
+    let mobs = (filed.thumb)(kit, stage)?;
+    let (k, from) = (size / THUMB, shelf_slot(slot));
+    for &m in &mobs {
+        let c = stage.get_center(m);
+        let target = v(at[0] + k * (c[0] - from[0]), at[1] + k * (c[1] - from[1]));
+        stage.scale(m, k);
+        stage.move_to(m, target, ORIGIN);
+    }
+    Ok(mobs)
+}
+
+/// The empty outline a card that refused to file leaves in its slot
+/// (storyboard 14_7: the shelf keeps the gap). Detached.
+pub fn empty_slot(stage: &mut Stage<'_>, slot: usize) -> fmn::Result<Mob> {
+    let m = stage.arena_mut().add(
+        Rectangle::new()
+            .width(THUMB)
+            .height(THUMB)
+            .corner_radius(0.08)
+            .style(faded_line(faint(), 2.0, 1.0))
+            .build()?
+            .moved_to(shelf_slot(slot)),
+    );
+    Ok(m)
 }
 
 /// Where the magnifier ring sits (storyboard, "The card": the Assumed line is
@@ -1756,6 +1844,7 @@ pub mod testing {
         opts.config.camera.background_color = super::ground_hex().to_owned();
         let report = fmn::render(scene.as_mut(), opts).map_err(|e| format!("{key}: {e}"))?;
         let frames = report.artifact.frame_count as u64;
+        shelf_checks(key)?;
         let ran = Ran {
             frames,
             seconds: frames as f64 / 10.0,
@@ -1764,6 +1853,134 @@ pub mod testing {
             registered: kit.registered(),
         };
         Ok((ran, kit))
+    }
+
+    /// Chapters from 04 on whose scene does not yet open with
+    /// `shelf_so_far`: a lane that lands the call takes its number off.
+    const NOT_YET_OPENING: &[usize] = &[8, 9];
+    /// Chapters whose card files a picture and that have no `chapters::SHELF`
+    /// entry yet: a lane that lands its `thumb` takes its number off.
+    const NOT_YET_FILING: &[usize] = &[9];
+    /// How many updates (frames, at the tests' 10 a second) a picture may be
+    /// over the shelf: a move across it is not a place.
+    const STAYS_FRAMES: u32 = 15;
+
+    /// What the run of chapter `key` did with the shelf, against the table
+    /// (`chapters::SHELF`): (a) it opened with exactly the slots the
+    /// chapters before it file; (c) no picture of it reached above the
+    /// shelf's floor over them at any frame; (b) the picture it files stands
+    /// where its `thumb` has it (the same box, to a hundredth of a unit).
+    fn shelf_checks(key: &str) -> Result<(), String> {
+        let n: usize = key
+            .split('_')
+            .next()
+            .and_then(|d| d.parse().ok())
+            .ok_or_else(|| format!("{key} has no chapter number"))?;
+        let log = super::shelf_log::take();
+        let shelf = crate::chapters::SHELF;
+        // (a) the opening
+        let mut got: Vec<usize> = log.opened.iter().map(|&(s, _)| s).collect();
+        got.sort_unstable();
+        let mut want: Vec<usize> = shelf.iter().filter(|f| f.chapter < n).map(|f| f.slot).collect();
+        want.sort_unstable();
+        if NOT_YET_OPENING.contains(&n) {
+            if !got.is_empty() {
+                return Err(format!("{key} opens with the shelf: take {n} off NOT_YET_OPENING"));
+            }
+        } else if got != want {
+            return Err(format!(
+                "{key} opens with slots {got:?}; the chapters before it file {want:?} (open with draw::shelf_so_far(stage, {n}))"
+            ));
+        }
+        // (c) nothing over the shelf
+        // (a picture sliding across the thumbnails for a moment is a move, not
+        // a place: it has to stay over them for more than half a second)
+        let stays: Vec<String> = log
+            .strays
+            .iter()
+            .filter(|st| st.frames >= STAYS_FRAMES)
+            .map(|st| format!("from update {} for {}: {}", st.from, st.frames, st.note))
+            .collect();
+        if !stays.is_empty() {
+            return Err(format!("{key}: pictures over the shelf:\n{}", stays.join("\n")));
+        }
+        // (b) what it files, and the thumbnail of it
+        let own = shelf.iter().find(|f| f.chapter == n);
+        match own {
+            None if NOT_YET_FILING.contains(&n) => {}
+            None => {
+                if !log.filed.is_empty() {
+                    return Err(format!(
+                        "{key} files slot {:?} and has no entry in chapters::SHELF",
+                        log.filed.iter().map(|(s, _)| s).collect::<Vec<_>>()
+                    ));
+                }
+            }
+            Some(entry) => {
+                if NOT_YET_FILING.contains(&n) {
+                    return Err(format!("{key} has a SHELF entry: take {n} off NOT_YET_FILING"));
+                }
+                let filed: Vec<_> = log.filed.iter().filter(|(s, _)| *s == entry.slot).collect();
+                if filed.len() != 1 || log.filed.len() != 1 {
+                    return Err(format!(
+                        "{key} files slots {:?}; SHELF has it take slot {} once",
+                        log.filed.iter().map(|(s, _)| s).collect::<Vec<_>>(),
+                        entry.slot
+                    ));
+                }
+                let want = filed[0].1;
+                let mut got = None;
+                bare(|kit, stage| {
+                    let mobs = (entry.thumb)(kit, stage)?;
+                    got = super::shelf_log::union_box(stage, &mobs);
+                    Ok(())
+                })?;
+                let got = got.ok_or_else(|| format!("{key}: its thumbnail shows nothing"))?;
+                for (g, w, what) in [
+                    (got.0[0], want.0[0], "left"),
+                    (got.0[1], want.0[1], "bottom"),
+                    (got.1[0], want.1[0], "right"),
+                    (got.1[1], want.1[1], "top"),
+                ] {
+                    if (g - w).abs() >= 0.01 {
+                        return Err(format!(
+                            "{key}: the thumbnail's {what} is {g:.3}, the filed picture's {w:.3}"
+                        ));
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+
+    /// A scene that is only what a function puts on the stage, rendered tiny
+    /// (the shelf's thumbnails are built from a stage and need no chapter).
+    struct Bare<F: FnMut(&Kit, &mut Stage<'_>) -> fmn::Result<()>>(Kit, F);
+
+    impl<F: FnMut(&Kit, &mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Bare<F> {
+        fn name(&self) -> &str {
+            "bare"
+        }
+
+        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+            (self.1)(&self.0, stage)?;
+            super::pause(stage, 0.2)
+        }
+    }
+
+    /// Run `build` on a stage of its own, 64 by 36, and report an error it
+    /// returns.
+    pub fn bare(build: impl FnMut(&Kit, &mut Stage<'_>) -> fmn::Result<()>) -> Result<(), String> {
+        static RUNS: AtomicUsize = AtomicUsize::new(0);
+        let n = RUNS.fetch_add(1, Ordering::Relaxed);
+        let dir = std::env::temp_dir().join(format!("visual_proofs_bare_{}_{n}", std::process::id()));
+        let mut opts = RenderOptions::with_format(&dir, RenderFormat::PngSequence).map_err(|e| e.to_string())?;
+        opts.config.camera.resolution = (64, 36);
+        opts.config.camera.fps = 10;
+        opts.config.camera.background_color = super::ground_hex().to_owned();
+        let mut scene = Bare(Kit::new().map_err(|e| e.to_string())?, build);
+        fmn::render(&mut scene, opts).map_err(|e| format!("bare: {e}"))?;
+        Ok(())
     }
 
     /// A chapter run with the scratch voice placed.
@@ -1908,6 +2125,126 @@ pub mod quiz_log {
     }
 }
 
+/// What the shelf did in a test run on this thread: the boxes of what
+/// `file_on_shelf` filed, of what `shelf_so_far` put up, and every picture
+/// seen above the shelf's floor beside it.
+#[cfg(test)]
+pub mod shelf_log {
+    use std::cell::RefCell;
+    use std::collections::HashSet;
+
+    use explainer_kit::layout::{Box2, visible_box};
+    use fmn::prelude::*;
+
+    use super::{SHELF_FLOOR, SHELF_Y, THUMB, shelf_slot};
+
+    #[derive(Default)]
+    pub struct Log {
+        /// (slot, box) of each picture filed, as it landed.
+        pub filed: Vec<(usize, Box2)>,
+        /// (slot, box) of each thumbnail the chapter opened with.
+        pub opened: Vec<(usize, Box2)>,
+        /// Pictures that reached the shelf's row over occupied slots: what
+        /// and where, the update it began at, and for how many updates.
+        pub strays: Vec<Stray>,
+    }
+
+    pub struct Stray {
+        pub mob: Mob,
+        pub note: String,
+        pub from: u32,
+        pub frames: u32,
+    }
+
+    thread_local! {
+        static LOG: RefCell<Log> = RefCell::new(Log::default());
+    }
+
+    /// Forget everything (a test starts a run with this).
+    pub fn clear() {
+        LOG.with(|l| *l.borrow_mut() = Log::default());
+    }
+
+    /// Take what the run logged.
+    pub fn take() -> Log {
+        LOG.with(|l| std::mem::take(&mut *l.borrow_mut()))
+    }
+
+    /// The box of what `mobs` show.
+    pub fn union_box(stage: &Stage<'_>, mobs: &[Mob]) -> Option<Box2> {
+        mobs.iter()
+            .filter_map(|&m| visible_box(stage.arena(), m))
+            .reduce(|(a, b), (c, d)| ([a[0].min(c[0]), a[1].min(c[1])], [b[0].max(d[0]), b[1].max(d[1])]))
+    }
+
+    pub fn filed(stage: &Stage<'_>, slot: usize, mobs: &[Mob]) {
+        if let Some(b) = union_box(stage, mobs) {
+            LOG.with(|l| l.borrow_mut().filed.push((slot, b)));
+        }
+    }
+
+    pub fn opened(stage: &Stage<'_>, slot: usize, mobs: &[Mob]) {
+        if let Some(b) = union_box(stage, mobs) {
+            LOG.with(|l| l.borrow_mut().opened.push((slot, b)));
+        }
+    }
+
+    /// Watch every frame: a visible mobject that reaches above the shelf's
+    /// floor over the slots that hold something is a stray. `thumbs` are
+    /// the shelf's own.
+    pub fn watch(stage: &mut Stage<'_>, thumbs: &[Mob]) -> fmn::Result<()> {
+        let slots: Vec<usize> = LOG.with(|l| l.borrow().opened.iter().map(|&(s, _)| s).collect());
+        let Some(&last) = slots.iter().max() else {
+            return Ok(());
+        };
+        let band = (shelf_slot(0)[0] - THUMB / 2.0, shelf_slot(last)[0] + THUMB / 2.0);
+        let own: HashSet<Mob> = thumbs.iter().flat_map(|&m| stage.arena().family(m)).collect();
+        let anchor = stage.arena_mut().add(VMobject::new());
+        stage.add_to_scene(anchor)?;
+        let mut frame = 0u32;
+        stage.add_updater(
+            anchor,
+            move |s, _| {
+                frame += 1;
+                let found: Vec<(Mob, Box2)> = s
+                    .roots()
+                    .iter()
+                    .filter(|m| **m != anchor && !own.contains(m))
+                    .filter_map(|&m| visible_box(s, m).map(|b| (m, b)))
+                    .filter(|(_, (lo, hi))| {
+                        // above the thumbnails' bottom edge (the floor has a margin
+                        // of 0.05 under it), over a slot that holds one; a veil over
+                        // the whole frame is not a picture
+                        hi[1] > SHELF_Y - THUMB / 2.0 + 0.015
+                            && lo[0] < band.1
+                            && hi[0] > band.0
+                            && hi[0] - lo[0] < 2.0 * FRAME_X_RADIUS
+                    })
+                    .collect();
+                for (m, (lo, hi)) in found {
+                    LOG.with(|l| {
+                        let mut l = l.borrow_mut();
+                        match l.strays.iter_mut().find(|st| st.mob == m) {
+                            Some(st) => st.frames += 1,
+                            None => l.strays.push(Stray {
+                                mob: m,
+                                note: format!(
+                                    "{m:?} spans x {:.2}..{:.2}, y {:.2}..{:.2}: reaches the shelf's row (floor {SHELF_FLOOR}) over x {:.2}..{:.2}",
+                                    lo[0], hi[0], lo[1], hi[1], band.0, band.1
+                                ),
+                                from: frame,
+                                frames: 1,
+                            }),
+                        }
+                    });
+                }
+            },
+            false,
+        )?;
+        Ok(())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1997,6 +2334,21 @@ mod tests {
         quiz_12_4_follows_section_5: "12_4",
         quiz_13_4_follows_section_5: "13_4",
         quiz_14_4_follows_section_5: "14_4",
+    }
+
+    // ------------------------------------------------------- the shelf
+
+    /// The shelf table is in the order the cards pass, one slot to a
+    /// chapter, left to right. (What each chapter does with it, opening and
+    /// filing, is checked on every run of a chapter: `testing::run`.)
+    #[test]
+    fn the_shelf_table_is_in_the_order_the_cards_pass() {
+        let shelf = crate::chapters::SHELF;
+        assert!(
+            shelf.windows(2).all(|w| w[0].chapter < w[1].chapter),
+            "chapters in order"
+        );
+        assert!(shelf.windows(2).all(|w| w[0].slot < w[1].slot), "slots left to right");
     }
 
     /// CIE L*a*b* (D65) of an sRGB colour.

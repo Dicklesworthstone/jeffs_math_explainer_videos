@@ -28,6 +28,8 @@ pub mod what_makes_a_proof;
 
 use explainer_kit::Chapter;
 
+use self::draw::Filed;
+
 /// A chapter that is a real scene: `$module::$ty { kit }`.
 macro_rules! scene {
     ($key:literal, $intensity:expr, $module:ident::$ty:ident) => {
@@ -38,6 +40,55 @@ macro_rules! scene {
         }
     };
 }
+
+/// The proofs whose cards file a picture on the shelf, in the order the cards
+/// pass: the chapter that files, its slot, and the function that rebuilds
+/// the filed thumbnail (every chapter after it opens with
+/// `draw::shelf_so_far`, which puts these up). A chapter that lands its
+/// filing adds its line here; a card that refuses (chapter 14) leaves its
+/// slot's empty outline.
+pub const SHELF: &[Filed] = &[
+    Filed {
+        chapter: 3,
+        slot: layers::SLOT,
+        thumb: layers::thumb,
+    },
+    Filed {
+        chapter: 4,
+        slot: staircases::SLOT,
+        thumb: staircases::thumb,
+    },
+    Filed {
+        chapter: 6,
+        slot: every_cube::SLOT,
+        thumb: every_cube::thumb,
+    },
+    Filed {
+        chapter: 10,
+        slot: halves::SLOT,
+        thumb: halves::thumb,
+    },
+    Filed {
+        chapter: 11,
+        slot: a_third::SLOT,
+        thumb: a_third::thumb,
+    },
+    Filed {
+        chapter: 12,
+        slot: the_cut_cube::SLOT,
+        thumb: the_cut_cube::thumb,
+    },
+    Filed {
+        chapter: 13,
+        slot: four_triangles::SLOT,
+        thumb: four_triangles::thumb,
+    },
+    Filed {
+        chapter: 14,
+        slot: the_missing_square::SLOT,
+        thumb: the_missing_square::thumb,
+    },
+];
 
 pub fn registry() -> Vec<Chapter> {
     vec![

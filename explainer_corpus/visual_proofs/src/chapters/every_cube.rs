@@ -406,6 +406,35 @@ fn strip(stage: &mut Stage<'_>, k: i64, x0: f64, y: f64) -> (Vec<Mob>, Vec<f64>)
     (mobs, mids)
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the five cubes'
+/// square with the sixth layer round it in gold, its slabs outlined, at
+/// thumbnail size in its slot. The numerals in the arms are left out (at
+/// this size they are a speck). Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let r = reads()?;
+    let board = Board::new(BOARD_AT, CELL);
+    let k = SIXTH;
+    let mut picture: Vec<Mob> = cubes::square(FIVE)
+        .iter()
+        .map(|p| piece(stage, p.rect, size(p.cube as usize)))
+        .collect();
+    let sixth_layer = cubes::layer(SIXTH);
+    let sixth_cells: Vec<Cell> = sixth_layer.iter().flat_map(|p| p.rect.cells()).collect();
+    // the corner and the arms' pieces, the layer in gold, a gold outline
+    // round each whole slab, and the layer's own outline
+    for p in &sixth_layer {
+        picture.push(piece(stage, p.rect, hero()));
+    }
+    for p in sixth_layer.iter().filter(|p| p.rect.w == k && p.rect.h == k) {
+        picture.push(board.rect_outline(stage, p.rect, line_style(hero(), 3.0))?);
+    }
+    picture.push(board.outline(stage, &sixth_cells, super::draw::faded_line(dim(), 2.5, 1.0))?);
+    let side = r.sixth_side as f64;
+    super::draw::shelve(stage, &picture, board.p(side / 2.0, side / 2.0), side * CELL, SLOT);
+    Ok(picture)
+}
+
 impl SceneConstruct for EveryCube {
     fn name(&self) -> &str {
         "06_every_cube"
@@ -413,6 +442,7 @@ impl SceneConstruct for EveryCube {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 6)?;
         let r = reads()?;
         let board = Board::new(BOARD_AT, CELL);
         let (s, k) = (r.side, SIXTH);

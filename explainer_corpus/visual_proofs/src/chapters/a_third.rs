@@ -40,7 +40,7 @@ const LEVELS: u32 = 8;
 /// The type size of the label of each of the first three coloured pieces.
 const LABELLED: [f64; 3] = [46.0, 32.0, 21.0];
 /// The slot this proof takes on the shelf (03, 04, 06, 09, 10, then this).
-const SLOT: usize = 5;
+pub const SLOT: usize = 5;
 /// The corner after this many sizes is the one the readouts are about.
 const READ_AFTER: u32 = 3;
 /// The centre of the right-hand panel and its width.
@@ -185,6 +185,23 @@ fn ajose_line() -> fmn::Result<String> {
     Ok(format!("{AJOSE}, {year}"))
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the corner after
+/// three sizes magnified eight times, the cascade of its pieces and the
+/// last square, at thumbnail size in its slot. Detached.
+pub fn thumb(_kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let board = Board::new(SQUARE_AT, SIDE);
+    let levels: Vec<Level> = (1..=LEVELS).map(|j| Level::build(stage, &board, j)).collect();
+    let corner_f = corner(READ_AFTER);
+    let mut zoom: Vec<Mob> = levels[READ_AFTER as usize..].iter().flat_map(Level::staged).collect();
+    zoom.push(rect(stage, &board, corner(LEVELS), faded_line(dim(), 0.6, 1.0)));
+    zoom.push(rect(stage, &board, corner_f, faded_line(hero(), 4.0, 1.0)));
+    // magnified `ZOOM` times about the corner and then filed at `SIDE`: one
+    // move, the corner's middle to the slot and the sizes with it
+    super::draw::shelve(stage, &zoom, centre_of(&board, corner_f), SIDE / ZOOM, SLOT);
+    Ok(zoom)
+}
+
 impl SceneConstruct for AThird {
     fn name(&self) -> &str {
         "11_a_third"
@@ -192,6 +209,7 @@ impl SceneConstruct for AThird {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 11)?;
         let board = Board::new(SQUARE_AT, SIDE);
         let square_mid = board.p(0.5, 0.5);
         let pieces = list("F-R.pieces")?;

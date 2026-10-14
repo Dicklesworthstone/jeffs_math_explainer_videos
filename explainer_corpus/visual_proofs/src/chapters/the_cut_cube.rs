@@ -41,8 +41,8 @@ const PANEL_X: f64 = 2.9;
 const PANEL_W: f64 = 7.0;
 /// Where the legend chip's rows start (the top row's y) and their pitch.
 const LEGEND_X: f64 = 0.55;
-const LEGEND_Y: f64 = 2.75;
-const LEGEND_PITCH: f64 = 0.52;
+const LEGEND_Y: f64 = 2.25;
+const LEGEND_PITCH: f64 = 0.4;
 /// How far a block's faces stand in from its edges, lattice units: the
 /// seams of a cut cube.
 const INSET: f64 = 0.04;
@@ -63,8 +63,10 @@ const ROOM_PAIR: (f64, f64) = (6.8, 3.0);
 const CENTRE_PAIR: (f64, f64) = (-3.4, 0.7);
 /// How bright a face is: the top, the front and the right side.
 const SHADES: [f64; 3] = [1.0, 0.74, 0.52];
+/// Where the count of the fourth power's blocks is set: under the shelf's floor.
+const COUNT_Y: f64 = 2.55;
 /// The slot this proof takes on the shelf, after the quartered square's.
-const SLOT: usize = 6;
+pub const SLOT: usize = 6;
 
 // the chapter's fixed words
 const NO_SHORT: [&str; 5] = ["none short", "one short", "two short", "three short", "four short"];
@@ -361,29 +363,7 @@ impl Boxes {
                     pair: now[3],
                     kinds: now[4],
                 };
-                let placed = layout(total, vals);
-                let view = view_for(&all, vals);
-                // paint each copy in its own order, the second after the first
-                let mut order: Vec<usize> = Vec::new();
-                for set in 0..2 {
-                    let idx: Vec<usize> = (0..placed.len()).filter(|&i| placed[i].set == set).collect();
-                    let boxes: Vec<(P3, P3)> = idx.iter().map(|&i| (placed[i].lo, placed[i].hi)).collect();
-                    order.extend(paint_order(&boxes).into_iter().map(|k| idx[k]));
-                }
-                let mut kids: Vec<Mob> = Vec::with_capacity(order.len() * 3);
-                for &i in &order {
-                    let p = placed[i];
-                    let quads = face_quads(&view, p.lo, p.hi);
-                    let colour = blend(dim(), kind_colour(p.short), vals.kinds);
-                    // the second copy comes in with the pair; all fade with `on`
-                    let opacity = now[5] * if p.set == 1 { vals.pair } else { 1.0 };
-                    for (f, quad) in quads.iter().enumerate() {
-                        let m = face_ids[i][f];
-                        let _ = s.set_points(m, &super::draw::corners(quad));
-                        s.set_fill(m, Some(shade(colour, SHADES[f])), Some(opacity), None, false);
-                        kids.push(m);
-                    }
-                }
+                let kids = place_faces(s, &face_ids, &all, total, vals, now[5]);
                 if kids != painted {
                     let _ = s.replace_children(group_id, &kids);
                     painted = kids;
@@ -404,6 +384,14 @@ impl Boxes {
         })
     }
 
+    /// Set the faces once, as they stand with the trackers at `vals` and
+    /// `on` (a picture that is only to be filed: no updater need run).
+    pub fn settle(&self, stage: &mut Stage<'_>, total: f64, vals: Vals, on: f64) {
+        let all = views(total, vals.a);
+        let kids = place_faces(stage.arena_mut(), &self.faces, &all, total, vals, on);
+        let _ = stage.arena_mut().replace_children(self.group, &kids);
+    }
+
     /// Put the boxes on the stage (shown when `on` rises).
     pub fn start(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         stage.add_to_scene(self.anchor)?;
@@ -420,6 +408,42 @@ impl Boxes {
     pub fn all_faces(&self) -> Vec<Mob> {
         self.faces.iter().flatten().copied().collect()
     }
+}
+
+/// Every face set from the trackers' values: its quad, its colour and its
+/// opacity; returns the faces in paint order (each copy in its own order,
+/// the second after the first).
+fn place_faces(
+    s: &mut fmn::mobject::Stage,
+    face_ids: &[[Mob; 3]],
+    all: &[ViewAt; 3],
+    total: f64,
+    vals: Vals,
+    on: f64,
+) -> Vec<Mob> {
+    let placed = layout(total, vals);
+    let view = view_for(all, vals);
+    let mut order: Vec<usize> = Vec::new();
+    for set in 0..2 {
+        let idx: Vec<usize> = (0..placed.len()).filter(|&i| placed[i].set == set).collect();
+        let boxes: Vec<(P3, P3)> = idx.iter().map(|&i| (placed[i].lo, placed[i].hi)).collect();
+        order.extend(paint_order(&boxes).into_iter().map(|k| idx[k]));
+    }
+    let mut kids: Vec<Mob> = Vec::with_capacity(order.len() * 3);
+    for &i in &order {
+        let p = placed[i];
+        let quads = face_quads(&view, p.lo, p.hi);
+        let colour = blend(dim(), kind_colour(p.short), vals.kinds);
+        // the second copy comes in with the pair; all fade with `on`
+        let opacity = on * if p.set == 1 { vals.pair } else { 1.0 };
+        for (f, quad) in quads.iter().enumerate() {
+            let m = face_ids[i][f];
+            let _ = s.set_points(m, &super::draw::corners(quad));
+            s.set_fill(m, Some(shade(colour, SHADES[f])), Some(opacity), None, false);
+            kids.push(m);
+        }
+    }
+    kids
 }
 
 // --------------------------------------------------------- small drawings
@@ -452,7 +476,7 @@ fn legend(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
 /// The same chip in one row across the top, for the picture that fills the
 /// frame (12_5). Detached; returns every mobject.
 fn legend_row(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
-    let y = 3.4;
+    let y = 2.5;
     let mut out = vec![kit.text_left(stage, SHORT_SIDES, 24.0, dim(), v(-6.7, y))?];
     for (k, words) in ["none", "one", "two", "three", "four"].iter().enumerate() {
         let x = -3.9 + 2.0 * k as f64;
@@ -479,6 +503,46 @@ fn sum_parts(each: &[i64], counts: &[i64], total: i64) -> Vec<(String, Srgb)> {
     parts
 }
 
+/// The picture this card files, rebuilt as it stands on the shelf (the
+/// chapters after this one open with the shelf so far): the cube and its
+/// copy, the blocks in their kinds' colours, "x 3" and "x 2" under them, the
+/// dashed line between and the count of blocks of the fourth power, at
+/// thumbnail size in its slot. Detached.
+pub fn thumb(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let parts = fact_ints("F-B.parts")?;
+    let (long, short) = (parts[0], parts[1]);
+    let side = (long + short) as f64;
+    let cube = Boxes::build(stage, side, long as f64)?;
+    let vals = Vals {
+        a: long as f64,
+        drift: 0.0,
+        row: 0.0,
+        pair: 1.0,
+        kinds: 1.0,
+    };
+    cube.settle(stage, side, vals, 1.0);
+    stage.clear_updaters(cube.anchor, true);
+    let mut picture = cube.all_faces();
+    let pair_view = views(side, long as f64)[2];
+    for (set, words) in TIMES.iter().enumerate() {
+        let off = if set == 0 { 0.0 } else { side + PAIR_GAP };
+        let x0 = pair_view.project([off, 0.0, 0.0]);
+        let x1 = pair_view.project([off + side, 0.0, 0.0]);
+        picture.push(kit.text(stage, words, 40.0, hero(), v((x0[0] + x1[0]) / 2.0, x0[1] - 0.7))?);
+    }
+    let a = pair_view.project([side, side / 2.0, side / 2.0]);
+    let b = pair_view.project([side + PAIR_GAP, side / 2.0, side / 2.0]);
+    let dashed = DashedLine::new(a, b)
+        .dash_length(0.12)
+        .style(faded_line(dim(), 3.0, 1.0))
+        .build()?;
+    picture.push(stage.arena_mut().add(dashed));
+    picture.push(kit.text(stage, &fact("F-B.fourth.blocks")?, 56.0, hero(), v(-3.4, COUNT_Y))?);
+    let mid = v(CENTRE_PAIR.0, CENTRE_PAIR.1);
+    super::draw::shelve(stage, &picture, mid, ROOM_PAIR.0, SLOT);
+    Ok(picture)
+}
+
 impl SceneConstruct for TheCutCube {
     fn name(&self) -> &str {
         "12_the_cut_cube"
@@ -486,6 +550,7 @@ impl SceneConstruct for TheCutCube {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
+        super::draw::shelf_so_far(&kit, stage, 12)?;
         let parts = fact_ints("F-B.parts")?;
         let (long, short) = (parts[0], parts[1]);
         let total = long + short;
@@ -794,7 +859,7 @@ impl SceneConstruct for TheCutCube {
                 .build()?;
             stage.arena_mut().add(d)
         };
-        let count = kit.text(stage, &blocks_four, 56.0, hero(), v(-3.4, 3.1))?;
+        let count = kit.text(stage, &blocks_four, 56.0, hero(), v(-3.4, COUNT_Y))?;
         fade_in_all(stage, &tags, 0.5)?;
         fade_in_all(stage, &[dashed, count], 0.5)?;
         // rows 1 2 1, 1 3 3 1, 1 4 6 4 1; each the sum of the two above it
