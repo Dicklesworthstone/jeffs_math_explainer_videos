@@ -66,7 +66,7 @@ HUNDRED = 100  # "after a hundred layers"; the hundred-step staircase
 
 # The circle: seven points, each from a parameter p/d, in the order the
 # chapter adds them; the video draws the first six.
-CIRCLE_PARAMETERS = ((12, 11), (-19, 6), (3, 17), (17, 3), (-5, 13), (-8, 7), (4, 7))
+CIRCLE_PARAMETERS = ((1, 19), (-6, 1), (7, 3), (-1, 2), (4, 9), (-7, 6), (1, 1))
 CIRCLE_SHOWN = 6
 # Three lines through one point: these three points and their opposites.
 THREE_THROUGH_ONE = ((F(3, 5), F(4, 5)), (F(5, 13), F(12, 13)), (F(15, 17), F(8, 17)))
@@ -110,12 +110,12 @@ QUIZZES = (
     ("regions", "02_5", 4),
     ("next_layer", "03_3", 4),
     ("rectangle", "04_3", 5),
-    ("cut_slabs", "05_4", 6),
-    ("stacks", "07_2", 5),
+    ("cut_slabs", "05_4", 8),
+    ("stacks", "07_2", 7),
     ("share", "11_3", 6),
-    ("kinds", "12_4", 6),
+    ("kinds", "12_4", 8),
     ("tilted", "13_4", 6),
-    ("slopes", "14_4", 6),
+    ("slopes", "14_4", 8),
 )
 
 # --- Printing and checking ------------------------------------------------------

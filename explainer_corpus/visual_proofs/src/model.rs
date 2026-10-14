@@ -198,7 +198,7 @@ pub fn first_failure(through: i64, check: impl Fn(i64) -> Result<(), String>) ->
 /// The hook: points on a circle joined by straight lines, and the regions
 /// they cut the disc into (Leo Moser, "On the Danger of Induction", 1949).
 pub mod circle {
-    use std::collections::HashSet;
+    use std::collections::{HashMap, HashSet};
 
     use super::{Q, choose, q};
 
@@ -207,8 +207,12 @@ pub mod circle {
     /// The points the chapter draws, in the order it adds them, as the
     /// parameters `p/d` of the unit circle's rational points
     /// `((d² − p²)/(d² + p²), 2pd/(d² + p²))`: unevenly spaced, so that no
-    /// three of their lines meet at one point inside the circle.
-    pub const DRAWN: [(i128, i128); 7] = [(12, 11), (-19, 6), (3, 17), (17, 3), (-5, 13), (-8, 7), (4, 7)];
+    /// three of their lines meet at one point inside the circle, and spread
+    /// so that no region of the first six is under one percent of the disc
+    /// (the first draft's points left one at 0.04 percent, about 28 pixels
+    /// across at 4K, which the viewer could not count). The seventh is
+    /// only for `F-C.regions.seven`.
+    pub const DRAWN: [(i128, i128); 7] = [(1, 19), (-6, 1), (7, 3), (-1, 2), (4, 9), (-7, 6), (1, 1)];
 
     pub const fn point(p: i128, d: i128) -> Point {
         (q(d * d - p * p, d * d + p * p), q(2 * p * d, d * d + p * p))
@@ -307,6 +311,42 @@ pub mod circle {
     /// points give exactly one crossing.
     pub fn closed_form(n: u64) -> u64 {
         1 + choose(n, 2) + choose(n, 4)
+    }
+
+    /// How many regions the lines cut the disc into, and the smallest one's
+    /// share of the disc, both by sampling an `n` by `n` grid and grouping
+    /// the sample points inside the circle by which side of every line they
+    /// are on. A check on the drawing, not a fact: the exact crossings say
+    /// how many regions there are and not how small one can be, and a
+    /// region the viewer cannot see is one the viewer cannot count.
+    #[allow(clippy::cast_precision_loss)]
+    pub fn sampled_regions(points: &[Point], n: usize) -> (usize, f64) {
+        let float = |v: Q| v.n as f64 / v.d as f64;
+        let pts: Vec<(f64, f64)> = points.iter().map(|&(x, y)| (float(x), float(y))).collect();
+        let lines = lines(pts.len());
+        assert!(lines.len() <= 128, "a region's side-of-every-line key is 128 bits");
+        let mut groups: HashMap<u128, usize> = HashMap::new();
+        let mut inside = 0usize;
+        for i in 0..n {
+            for j in 0..n {
+                let x = -1.0 + 2.0 * (i as f64 + 0.5) / n as f64;
+                let y = -1.0 + 2.0 * (j as f64 + 0.5) / n as f64;
+                if x * x + y * y >= 1.0 {
+                    continue;
+                }
+                inside += 1;
+                let mut key = 0u128;
+                for (k, &(a, b)) in lines.iter().enumerate() {
+                    let (a, b) = (pts[a], pts[b]);
+                    if (b.0 - a.0) * (y - a.1) - (b.1 - a.1) * (x - a.0) > 0.0 {
+                        key |= 1 << k;
+                    }
+                }
+                *groups.entry(key).or_default() += 1;
+            }
+        }
+        let smallest = groups.values().min().copied().unwrap_or(0);
+        (groups.len(), smallest as f64 / inside as f64)
     }
 }
 
@@ -917,12 +957,12 @@ pub const QUIZZES: &[Quiz] = &[
     quiz("regions", "02_5", 4, Ask::Regions),
     quiz("next_layer", "03_3", 4, Ask::NextLayer),
     quiz("rectangle", "04_3", 5, Ask::Rectangle),
-    quiz("cut_slabs", "05_4", 6, Ask::CutSlabs),
-    quiz("stacks", "07_2", 5, Ask::Stacks),
+    quiz("cut_slabs", "05_4", 8, Ask::CutSlabs),
+    quiz("stacks", "07_2", 7, Ask::Stacks),
     quiz("share", "11_3", 6, Ask::Share),
-    quiz("kinds", "12_4", 6, Ask::Kinds),
+    quiz("kinds", "12_4", 8, Ask::Kinds),
     quiz("tilted", "13_4", 6, Ask::Tilted),
-    quiz("slopes", "14_4", 6, Ask::Slopes),
+    quiz("slopes", "14_4", 8, Ask::Slopes),
 ];
 
 #[cfg(test)]
@@ -954,6 +994,18 @@ mod tests {
         // every drawn point is on the unit circle
         for (x, y) in circle::drawn(7) {
             assert_eq!(x * x + y * y, Q::ONE);
+        }
+    }
+
+    /// 02_6 asks the viewer to count 31: every region of the six drawn
+    /// points must be big enough to see (the first draft's points left one
+    /// at 0.04 percent of the disc, and a speck is an off-by-one).
+    #[test]
+    fn every_region_of_the_drawn_points_is_big_enough_to_count() {
+        for n in 1..=6 {
+            let (regions, smallest) = circle::sampled_regions(&circle::drawn(n), 700);
+            assert_eq!(regions as u64, circle::closed_form(n as u64), "{n} points");
+            assert!(smallest > 0.008, "{n} points: the smallest region is {smallest} of the disc");
         }
     }
 

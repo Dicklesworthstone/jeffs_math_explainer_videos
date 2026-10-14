@@ -56,52 +56,58 @@ square; that Moser proved or named the circle problem.
 
 | Term | First said or shown | As spoken | On screen |
 |---|---|---|---|
-| region | 02_4 | "join every pair with a straight line. One point, one region" | the tinted pieces of the disc |
-| layer (L-shaped) | 03_1 | "wrap an L-shaped layer around it" | lower-third at 03_5: "gnomon" |
+| region | 02_4 | "The lines cut the circle into pieces, and each piece is a region" | the tinted pieces of the disc |
+| layer (L-shaped) | 03_1 | "wrap an L-shaped layer around it"; "each as wide as its cube" (05_2) | lower-third at 03_5: "gnomon" |
+| thin layer | 06_5 | "Cut every cube's layer into thin layers, one tile wide" | chapter 03's layers, regrouped by cube |
 | the card | 03_6 | "what the picture showed, and what it took for granted" | **Shown** / **Assumed** |
+| proof | 02_7, 03_6 | "Such a reason is called a proof"; "A picture that shows why is a proof" | the card |
+| guess | 02_5, 07_2 | "Guess before you count" (the quiz the viewer cannot derive) | the card |
 | staircase | 04_1 | "Build a staircase of tiles. One, two, three, four, five" | lower-third at 04_5: "triangular numbers" |
 | slab | 01_1, 05_1 | "A cube five tiles on a side is five slabs, each five by five" | the slices of a cube |
-| arm, corner | 03_4, 05_2 | "one more at the end of each arm"; "The single tile is the corner" | the two straight parts of a layer and the square where they meet |
-| stack | 07_1 | "Stack them, biggest at the bottom, every layer pushed into the same corner" | Siu's solid |
-| induction | 09_4 (screen only) | not spoken | lower-third: "the name for this kind of reason: induction" |
+| arm, corner | 03_1 (labelled), 03_4, 05_2 | "one for the corner"; "One slab fits the corner of the L" | the two straight parts of a layer and the square where they meet |
+| row, column | 03_4 | "One tile at the end of every row, one on top of every column" | the rows and columns of the square |
+| stack, level | 07_1 | "Stack them, biggest at the bottom, every level pushed into the same corner" | Siu's solid; its levels of 16, 9, 4 and 1 cubes (never "layers") |
+| mathematical induction | 09_4 (screen only) | not spoken | lower-third: "mathematical induction: the first case, and each case leads to the next. Not guessing from cases, as in chapter 2" |
 | geometric series | 10_5 (screen only) | not spoken | lower-third |
-| block | 12_4 | "How many blocks does the cube fall into" | the parts of the cut cube |
+| block, short side | 12_4 | "A block's kind is how many of its sides are short" | the parts of the cut cube, coloured by short sides |
 | Pascal's triangle | 12_7 (screen only) | not spoken | lower-third |
 | long side, shorter sides | 13_1 | "A right triangle with shorter sides three and four" | hypotenuse and legs are never said |
+| Pythagoras's theorem | 13_6 | "This is the theorem that carries Pythagoras's name" | lower-third: "Pythagoras's theorem" |
 
 ## Simplification → exact
 
 | Line | Said | Exact |
 |---|---|---|
 | 02_6 | "Thirty-one." | 31 regions when no three lines pass through one point inside the circle; six evenly spaced points give 30 (`F-C.three_through_one.regions`). On screen in the lower-third |
-| 03_5 | "it would still work after a hundred layers" | for every whole number n ≥ 1, 1 + 3 + … + (2n − 1) = n² |
+| 03_4, 03_5, 03_6 | "each layer is two longer"; "The same picture works a hundred layers on"; "at every size" | for every whole number n ≥ 1, an L of two arms each as long as the side k of the square it wraps and one corner tile is 2k + 1 tiles and makes the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n² |
 | 06_4 | "The cubes up to any number make a square whose side is the staircase up to that number." | for every whole number n ≥ 1, 1³ + … + n³ = (1 + … + n)² = (n(n + 1)/2)² |
-| 06_5 | "Al-Karaji proved the rule with L-shaped layers around the year one thousand." | Heath: "a proof … by means of a figure with gnomons drawn in it"; "tenth-eleventh century" |
-| 08_4 | "one stack, the sum of the squares, is a third of the box" | 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1)/6, for every whole number n ≥ 1. On screen in the lower-third |
+| 06_5 | "Nicomachus noticed that every cube is a run of odd numbers" | cube k is the k consecutive odd numbers from k(k − 1) + 1 (`F-K.odd_runs`; k = 1 to 200 tested), so the cubes up to n³ are the first 1 + 2 + … + n odd numbers, which add to (1 + … + n)². He did not state the rule that carries his name (S2, S3) |
+| 06_6 | "Al-Karaji proved the rule with L-shaped layers around the year one thousand." | Heath: "a proof … by means of a figure with gnomons drawn in it"; "tenth-eleventh century" |
+| 08_4 | "With any number of levels, the box is that many cubes wide, one more deep, and that many and a half tall. And one stack, the sum of the squares, is a third of the box" | 1² + … + n² = ⅓ n (n + 1)(n + ½) = n(n + 1)(2n + 1)/6, for every whole number n ≥ 1. On screen in the lower-third |
 | 09_4 | "That covers every height." | induction on the number of layers: the solid of height n + 1 is the solid of height n lifted by one cube with three new n + 1 by n + 1 slabs, under, behind and beside (`model::stacks::grows`); height 1 is three cubes |
-| 10_5 | "this endless sum equals one" | the partial sums 1 − 1/2ⁿ are all below 1 and exceed every number below 1. On screen in the lower-third |
-| 11_5 | "Each colour holds one third." | after n cuts each colour holds (1 − 1/4ⁿ)/3; the limit is 1/3. On screen in the lower-third |
+| 10_4, 10_5 | "no number smaller than one is big enough to be the total"; "nothing ever passes one"; "this endless sum equals one" | the partial sums 1 − 1/2ⁿ are all below 1 (the pieces lie inside the square) and exceed every number below 1; for pieces that are all positive that is what "equals one" means. On screen in the lower-third |
+| 11_5 | "each colour, with its share of the corner, is exactly one third" | after n cuts each colour holds (1 − 1/4ⁿ)/3, and with a third of the uncut corner (1/4ⁿ)/3 that is exactly 1/3 at every n (`F-R.short` at n = 3); the limit of what a colour holds is 1/3. On screen in the lower-third |
 | 11_6 | "Archimedes added quarters of quarters like these" | Proposition 23 is a finite identity with a remainder, A + … + Z + ⅓Z = (4/3)A; he does not sum an infinite series (S11) |
 | 12_6 | "nothing depended on three and two" | (a + b)³ = a³ + 3a²b + 3ab² + b³ for all positive lengths a and b; the video slides the cut through whole and half values |
-| 12_7 | "every block of the cube appears twice" | (a + b)⁴ = a·(a + b)³ + b·(a + b)³; the count with j short sides is C(4, j) = C(3, j) + C(3, j − 1) |
+| 12_7 | "every block of the cube appears twice"; "no one can build it in our space" | (a + b)⁴ = a·(a + b)³ + b·(a + b)³; the count with j short sides is C(4, j) = C(3, j) + C(3, j − 1) |
 | 13_6 | "It holds for every right triangle." | for all positive legs a and b: the tilted shape has four sides of length √(a² + b²) and four right angles, and its area is (a + b)² − 2ab |
-| 14_6 | "never more than an eighth of a square thick" | the two bent edges are 1/8 apart, measured straight up, from x = 5 to x = 8, and closer elsewhere (`F-L.sliver.thickest`); each bend is 1/13 off the straight line (`F-L.dip`, `F-L.bulge`) |
-| 14_7 | "The trick goes back to Paul Curry … in nineteen fifty-three. Martin Gardner found this triangle form" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
+| 14_6 | "One edge sags below the true line, the other bulges above"; "The sliver was exactly one tile" | the two bent edges are 1/8 apart at most, measured straight up, from x = 5 to x = 8, and closer elsewhere (`F-L.sliver.thickest`, on screen); each bend is 1/13 off the straight line, measured straight up (`F-L.dip`, `F-L.bulge`); the sliver is the parallelogram with sides (5, 2) and (8, 3), area 8 × 2 − 3 × 5 = 1, a fundamental domain of the integer lattice, so its 17 pieces slide by whole tiles into the one empty tile |
+| 14_7 | "The trick goes back to Paul Curry … in nineteen fifty-three. Martin Gardner found triangle forms like this one and published them three years later" | Gardner (1956): Curry "conceived the brilliant notion" in 1953, shown as a rectangle; "My own small contribution … is the discovery of simple triangular forms" (S14) |
 
 ## Misconceptions
 
 | Chapter | The wrong belief | The beat that defuses it |
 |---|---|---|
 | 02 | a pattern that holds five times is as good as proved | 02_6: 31, not 32 |
-| 03 | a picture of five layers is only about five layers | 03_4: every layer is two longer than the last |
-| 05 | cutting a slab is a fudge | 05_5: an even cube's arm is a whole number of slabs and a half |
-| 07 | three stacks might be mirror images | 07_3 and 09_5: turned, never mirrored (`F-S.turns`) |
+| 03 | a picture of five layers is only about five layers | 03_4: each arm is as long as the side it wraps, at every size |
+| 05 | cutting a slab is a fudge | 01_2 says so at once; 05_5: an even cube's arm is a whole number of slabs and a half |
+| 07 | three stacks make a box of whole cubes | 07_2 and 08_2: they cannot (90 cubes have no box with every side at least 4); a half cube makes the box |
 | 08 | the half in n + ½ is a trick of algebra | 08_2: a layer of cubes sliced flat |
 | 09 | a picture drawn at four layers proves it for four layers | 09_2: three new slabs take any height to the next |
-| 10 | "equals one" means "gets close to one" | 10_5: no number below one is big enough |
+| 10 | "equals one" means "gets close to one" | 10_4: every guess below one is passed; one is not |
 | 13 | the rearrangement proves it by itself | 13_7: the tilted shape must be a square and the edges straight |
 | 14 | pieces that look as if they fit, fit | 14_5: two in five against three in eight |
-| 15 | a program's check is a proof | 15_5: "That is still only checking." |
+| 15 | a program's check is a proof | 15_5: "That is still only checking. A check up to some size says nothing about the next size." |
 
 ## Facts
 
@@ -111,8 +117,13 @@ Each table: the key, its value as `proofs facts` prints it, and what it is.
 
 **The drawn points.** Seven points of the unit circle, in the order the
 chapter adds them, each from a parameter p/d as ((d² − p²)/(d² + p²),
-2pd/(d² + p²)): p/d = 12/11, −19/6, 3/17, 17/3, −5/13, −8/7, 4/7. The video
-uses the first six; the seventh is for `F-C.regions.seven`. **Regions** are
+2pd/(d² + p²)): p/d = 1/19, −6/1, 7/3, −1/2, 4/9, −7/6, 1/1. The video
+uses the first six; the seventh is for `F-C.regions.seven`. They are
+unevenly spaced (about 6°, −161°, 134°, −53°, 48°, −99° round the circle),
+no three of their lines meet inside, and no region of the six is under
+0.9 percent of the disc (sampled: 0.97 percent; the first draft's points
+left one at 0.04 percent, about 28 pixels across at 4K, which a viewer
+asked to "count them" at 02_6 could not see; R1, finding C2). **Regions** are
 counted from the drawing: every pair of points joined; corners = the points
 plus the distinct crossings inside; edges = the arcs plus each line's
 stretches between corners; regions = edges − corners + 1. **Three through
@@ -384,22 +395,22 @@ Every countdown in the storyboard is one of these (a test in `main.rs`).
 | `F-Q.rectangle.seconds` | `5` | its countdown |
 | `F-Q.rectangle.answer` | `5x6` | the rectangle of two five-column staircases |
 | `F-Q.cut_slabs.line` | `05_4` | "The four cube has four slabs. How many of them will have to be cut?" |
-| `F-Q.cut_slabs.seconds` | `6` | its countdown |
+| `F-Q.cut_slabs.seconds` | `8` | its countdown |
 | `F-Q.cut_slabs.answer` | `1` | slabs of the four cube that are cut |
 | `F-Q.stacks.line` | `07_2` | "How many of these stacks does it take to build a solid box?" |
-| `F-Q.stacks.seconds` | `5` | its countdown |
+| `F-Q.stacks.seconds` | `7` | its countdown |
 | `F-Q.stacks.answer` | `3` | stacks in Siu's box |
 | `F-Q.share.line` | `11_3` | "What fraction of the whole square is coloured?" |
 | `F-Q.share.seconds` | `6` | its countdown |
 | `F-Q.share.answer` | `1/3` | the limit of one colour's share |
 | `F-Q.kinds.line` | `12_4` | "How many blocks does the cube fall into, and how many of each kind?" |
-| `F-Q.kinds.seconds` | `6` | its countdown |
+| `F-Q.kinds.seconds` | `8` | its countdown |
 | `F-Q.kinds.answer` | `1,3,3,1` | blocks of the cut cube by number of short sides |
 | `F-Q.tilted.line` | `13_4` | "So how big was the tilted square?" |
 | `F-Q.tilted.seconds` | `6` | its countdown |
 | `F-Q.tilted.answer` | `25` | the tilted square on shorter sides 3 and 4, in tiles |
 | `F-Q.slopes.line` | `14_4` | "Which triangle is steeper, the big one or the small one?" |
-| `F-Q.slopes.seconds` | `6` | its countdown |
+| `F-Q.slopes.seconds` | `8` | its countdown |
 | `F-Q.slopes.answer` | `small` | the triangle with the greater rise over run |
 
 ### F-X: cited numbers
@@ -432,22 +443,22 @@ nothing, with the test that tries its edges (`src/facts.rs` and
 
 | Line | Sentence | Edge tried | Test |
 |---|---|---|---|
-| 03_4 | "they always close up into a square" | n = 1 (one tile, no arms) to 60 | `l_shaped_layers_build_every_square` |
+| 03_4, 03_6 | "each layer is two longer"; "at every size" | n = 1 (one tile, no arms) to 60 | `l_shaped_layers_build_every_square` |
 | 04_5 | "Two staircases always make a rectangle one taller than it is wide." | n = 1 (two tiles, 1 by 2) to 60 | `two_staircases_make_a_rectangle` |
 | 06_3 | "the arms always take one slab fewer than the cube has" | k = 1 (no arms), k = 2 (the first cut), odd and even to 40 | `the_cubes_slabs_tile_the_square`, `the_edges_of_every_always` |
 | 06_4 | "every cube fits, at every size" | as above; the sum to n = 1000 | `F-K.tiled.through`, `F-K.sum.through` |
 | 06_5 | "every cube is a run of odd numbers" | k = 1 to 200, and that the runs use every odd number once | `each_cube_is_a_run_of_consecutive_odd_numbers` |
-| 07_3 | (shown) the stacks are turned, never mirrored | the determinant of each turn | `three_stacks_fill_siu_s_box` |
-| 08_4 | "At any height the box is …" | n = 1 (three cubes) to 24 | `three_stacks_fill_siu_s_box` |
+| 07_3 | (shown) each stack is the first one turned | the determinant of each turn is 1 | `three_stacks_fill_siu_s_box` |
+| 08_4 | "With any number of levels, the box is …" | n = 1 (three cubes) to 24 | `three_stacks_fill_siu_s_box` |
 | 09_3 | "nothing overlaps" | the three new slabs and the lifted solid, n = 1 to 24 | `each_height_is_the_last_one_on_three_new_slabs` |
 | 09_4 | "That covers every height." | the step for n = 1 to 24, and height 1 | `F-S.grows.through`, `F-S.one.box` |
 | 10_4 | "Not after any number of steps." | every partial sum to 60 pieces is below 1 | `the_edges_of_every_always` |
-| 10_5 | "no number smaller than one is big enough" | the gap after n pieces is exactly 1/2ⁿ, to 40 | `F-H.checked.through` |
+| 10_4 | "no number smaller than one is big enough"; "nothing ever passes one" | the gap after n pieces is exactly 1/2ⁿ, to 40 | `F-H.checked.through` |
 | 11_4 | "At every size there are three equal squares" | levels 1 to 20 | `F-R.checked.through` |
 | 12_6 | "nothing depended on three and two … it is still eight blocks" | a and b from 1 to 5, including a = b and a < b | `the_cut_cube_s_blocks_fill_it_in_every_dimension` |
 | 12_7 | "every block of the cube appears twice" | the 16 blocks counted by kind against two shifted copies of 1, 3, 3, 1 | `F-B.fourth.from_cube` |
 | 13_3, 14_2 | "Nothing turns, nothing flips." | each slide is one translation, the same for every corner of the piece | `four_triangles_two_ways`, `the_lying_picture_is_not_a_triangle` |
 | 13_6 | "It holds for every right triangle." | equal sides (1, 1), (7, 7); far apart (1, 60), (60, 1); all pairs to 60 | `the_edges_of_every_always`, `F-P.checked.through` |
-| 14_6 | "never more than an eighth of a square thick" | the gap at every whole x from 0 to 13 | `F-L.sliver.thickest`, `the_lying_picture_is_not_a_triangle` |
+| 14_6 | (on screen) the sliver is never more than an eighth of a tile thick | the gap at every whole x from 0 to 13 | `F-L.sliver.thickest`, `the_lying_picture_is_not_a_triangle` |
 | 14_7 | "Neither picture was ever a triangle." | neither bend lies on the straight edge | `F-L.bends.on_the_edge` |
-| 02_7 | "Five checks in a row prove nothing." | the doubling holds for 1 to 5 drawn points and fails at 6 and 7 | `the_edges_of_every_always` |
+| 02_7 | "Five checks in a row prove nothing about the sixth." | the doubling holds for 1 to 5 drawn points and fails at 6 and 7 | `the_edges_of_every_always` |
