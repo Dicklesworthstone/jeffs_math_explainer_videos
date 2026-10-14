@@ -1430,7 +1430,9 @@ pub mod testing {
     /// scratch voice puts a first sentence by its share of the characters,
     /// so "No." ends at 0.3 s there and at 0.82 s in the real read; a card
     /// that leaves on a fixed beat passes on the one and goes early on the
-    /// other.
+    /// other. Two lines more, whose pictures stand or leave by their
+    /// sentences: 13_3 (the programmers' note under it) and 16_2 (the fine
+    /// print that must be gone before 16_3's card).
     // (06_4's third sentence starts at 3.14 s: seconds, not pi)
     #[allow(clippy::approx_constant)]
     pub const REAL_TIMING: &[(&str, &[f64], f64)] = &[
@@ -1441,8 +1443,10 @@ pub mod testing {
         ("08_4", &[0.0, 1.24, 5.42, 8.53], 10.69),
         ("10_6", &[0.0, 1.82, 4.33], 7.91),
         ("11_4", &[0.0, 0.73, 4.17], 5.87),
+        ("13_3", &[0.0, 0.82, 4.27, 5.985], 9.18),
         ("14_4", &[0.0, 0.82, 3.12, 9.69], 11.71),
         ("15_3", &[0.0, 0.82, 5.04], 7.95),
+        ("16_2", &[0.0, 8.345], 13.23),
         ("16_4", &[0.0, 2.63, 7.39, 12.57], 13.58),
     ];
 

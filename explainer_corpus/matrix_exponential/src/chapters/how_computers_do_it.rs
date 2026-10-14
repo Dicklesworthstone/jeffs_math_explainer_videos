@@ -387,7 +387,12 @@ impl SceneConstruct for HowComputersDoIt {
         line.wait_for(stage, "one with the wrong sign")?;
         let rings = wrong_sign_rings(stage, &ours)?;
         fade_in_all(stage, &rings, 0.4)?;
-        line.wait_for(stage, "The digits that mattered were thrown away")?;
+        // the note comes with "The mathematics is fine", two sentences from
+        // the end, so it has its seconds inside this line and is gone
+        // before 13_4's picture (it came with the last sentence, stood
+        // through 13_4's first and went at its second, stale under the new
+        // picture)
+        line.wait_for(stage, "The mathematics is fine")?;
         let stopped = fact("F-V.13_3.stopped_at_k")?;
         let wide = format!(
             "this video\u{2019}s own run: 32-bit, term \u{d7} A then \u{f7} k, stopped at k = {stopped}; \
@@ -401,9 +406,9 @@ impl SceneConstruct for HowComputersDoIt {
 
         // ---- 13_4: halve, sum a short series, square back
         let line = say(&kit, stage, "13_4")?;
-        // (the programmers' note of 13_3 stays up through the first sentence,
-        // which it had only a few seconds to be read in)
-        let mut clear = vec![truth.group, ours.group, truth_name, ours_name];
+        // (the programmers' note of 13_3 goes with the pictures it belongs
+        // to, before 13_4's own comes in)
+        let mut clear = vec![truth.group, ours.group, truth_name, ours_name, programmers];
         clear.extend(&rings);
         fade_out_all(stage, &clear, 0.5)?;
         let halvings = fact("F-C.mvl.f32.scaled.halvings")?
@@ -420,8 +425,6 @@ impl SceneConstruct for HowComputersDoIt {
         let big_rule = kit.tex(stage, rule_src, 90.0, ink, &rule_colors, v(0.0, 0.4))?;
         let rule_of_thumb = kit.tex(stage, rule_src, 54.0, ink, &rule_colors, v(0.0, 3.0))?;
         fade_in_all(stage, &[big_rule], 0.6)?;
-        line.wait_for(stage, "Half the time, run twice")?;
-        fade_out_all(stage, &[programmers], 0.5)?;
         line.wait_for(stage, "So halve the matrix eight times")?;
         let to_top = vec![
             fade_out_anim(stage, big_rule, 0.4)?,
@@ -864,36 +867,47 @@ mod tests {
         assert_eq!(fact("F-C.diag.tanks.rebuilt").unwrap(), "true");
     }
 
-    /// 13_3's programmers' note has time to be read: it comes up inside 13_3,
-    /// with the last sentence, and stands through the first sentence of 13_4,
-    /// fully shown for at least three seconds. Cleared as 13_4 begins, or raised
-    /// only after the line, it fails this.
+    /// 13_3's programmers' note has time to be read and is gone before 13_4's
+    /// own picture: it comes up inside 13_3 and stands fully shown for at
+    /// least three seconds, and it goes as 13_4 begins, before the rule of
+    /// thumb comes in (it stood through 13_4's first sentence, stale under the
+    /// new picture, 2.8 s). Run on the scratch voice and on the finished
+    /// read's own timing for 13_3 (`REAL_TIMING`).
     #[test]
-    fn the_programmers_note_stands_three_seconds_through_the_next_lines_first_sentence() {
-        let voiced = testing::run_voiced("13_how_computers_do_it").unwrap();
-        let events = quiz_log::take(&voiced.tag, "13_3:programmers");
-        let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
-        let (up, down) = (
-            when("up").expect("the note comes up"),
-            when("down").expect("the note goes"),
-        );
-        let (_, start, len) = voiced.lines.iter().find(|(id, ..)| id == "13_3").cloned().unwrap();
-        let first_of_next = voiced
-            .sentences
-            .iter()
-            .find(|(id, _)| id == "13_4")
-            .and_then(|(_, starts)| starts.get(1).copied())
-            .expect("13_4 has a second sentence");
-        assert!(
-            up > start && up < start + len,
-            "up at {up:.1} s in a line from {start:.1} s to {:.1} s",
-            start + len
-        );
-        assert!(
-            down >= first_of_next - 0.1,
-            "it goes at {down:.1} s, 13_4's first sentence ends at {first_of_next:.1} s"
-        );
-        assert!(down - up >= 3.0, "it stands {:.1} s ({up:.1} to {down:.1})", down - up);
+    fn the_programmers_note_stands_three_seconds_and_is_gone_before_13_4s_picture() {
+        for real in [false, true] {
+            let voiced = if real {
+                testing::run_voiced_real("13_how_computers_do_it")
+            } else {
+                testing::run_voiced("13_how_computers_do_it")
+            }
+            .unwrap();
+            let events = quiz_log::take(&voiced.tag, "13_3:programmers");
+            let when = |kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+            let (up, down) = (
+                when("up").expect("the note comes up"),
+                when("down").expect("the note goes"),
+            );
+            let line_at = |id: &str| voiced.lines.iter().find(|(i, ..)| i == id).cloned().unwrap();
+            let (_, start, len) = line_at("13_3");
+            let (_, next, _) = line_at("13_4");
+            assert!(
+                up > start && up < start + len,
+                "real {real}: up at {up:.1} s in a line from {start:.1} s to {:.1} s",
+                start + len
+            );
+            assert!(
+                down - up >= 3.0,
+                "real {real}: it stands {:.1} s ({up:.1} to {down:.1})",
+                down - up
+            );
+            // the clearing fade of 13_4 takes 0.5 s and the rule of thumb
+            // comes in after it: the note is down by then
+            assert!(
+                down <= next + 0.6,
+                "real {real}: it goes at {down:.1} s, 13_4 begins at {next:.1} s"
+            );
+        }
     }
 
     /// The matrix rows of a fact, as a model matrix.

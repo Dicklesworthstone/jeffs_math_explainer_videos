@@ -421,18 +421,22 @@ impl SceneConstruct for WhereItLeads {
         )?;
         fade_in_all(stage, &[brace_label, gluon_label, twelve], 0.6)?;
         let fine = lower_third(&kit, stage, "precisely:", "the fine print is in the description")?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, fine, "16_2:fine")?;
         fade_in_all(stage, &[fine], 0.5)?;
         kit.hold(stage)?;
 
         // ---- 16_3: one last time, your turn: e to the quarter turn
         let line = say(&kit, stage, "16_3")?;
-        // (the fine print stays until the question's own sentence: it was up
-        // about a second before the next line)
-        let mut off = vec![groups, brace_label, gluon_label, twelve];
+        // (the fine print goes with the twelve tiles, before the card comes
+        // in: it stood under the card and its countdown for 6 s)
+        let mut off = vec![groups, brace_label, gluon_label, twelve, fine];
         off.extend(&counts);
         off.extend(&tiles);
         fade_out_all(stage, &off, 0.5)?;
         let card = QuizCard::build(&kit, stage, "16_3", QUIZ_AT, QUIZ_SIZE)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, card.mobs()[0], "16_3:card")?;
         let (middle, _, _) = card.content();
         let Problem {
             base_e,
@@ -446,7 +450,6 @@ impl SceneConstruct for WhereItLeads {
         // as the question itself is asked
         card.show_frame(stage, &[base_e, power.group, equals, ask], 0.6)?;
         line.wait_last(stage)?;
-        fade_out_all(stage, &[fine], 0.3)?;
         card.arm(stage)?;
         card.count(&kit, stage)?;
         let words = kit.text(
@@ -718,6 +721,44 @@ mod tests {
     use super::super::draw::{fact, quiz_log, testing};
     use super::*;
     use crate::model::{quarter_turn, su_dim};
+
+    /// 16_2 and 16_3: the fine print ("precisely: the fine print is in the
+    /// description") stands fully up at least 2.6 s (K's floor for a lower
+    /// third) and is gone before the quiz card of 16_3 comes in, so nothing
+    /// sits under a quiz card (it stood under the card and its countdown for
+    /// 6 s). Run on the scratch voice and on the finished read's timing for
+    /// 16_2 (`REAL_TIMING`).
+    #[test]
+    fn the_fine_print_has_its_seconds_and_is_gone_before_the_quiz_card_comes_in() {
+        const FLOOR: f64 = 2.6;
+        for real in [false, true] {
+            let voiced = if real {
+                testing::run_voiced_real("16_where_it_leads")
+            } else {
+                testing::run_voiced("16_where_it_leads")
+            }
+            .unwrap();
+            let fine = quiz_log::take(&voiced.tag, "16_2:fine");
+            let card = quiz_log::take(&voiced.tag, "16_3:card");
+            let when =
+                |events: &[(&'static str, f64)], kind: &str| events.iter().find(|(k, _)| *k == kind).map(|e| e.1);
+            let (up, down) = (
+                when(&fine, "up").expect("the fine print comes up"),
+                when(&fine, "down").expect("the fine print goes"),
+            );
+            let card_up = when(&card, "up").expect("the quiz card comes up");
+            assert!(
+                down - up >= FLOOR,
+                "real {real}: the fine print stands {:.1} s ({up:.1} to {down:.1})",
+                down - up
+            );
+            // the card fades in over 0.6 s: it is visible from card_up - 0.54
+            assert!(
+                down <= card_up - 0.5,
+                "real {real}: the fine print goes at {down:.1} s, the card is fully up at {card_up:.1} s"
+            );
+        }
+    }
 
     /// 16_5 (the dense read of the scored draft): the receipts card, with the
     /// link and the names to search, comes in as the line ends (it came after
