@@ -16,7 +16,7 @@ use explainer_kit::props::{lower_third, receipts_card};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
-use super::an_economy::{angle_readout, hatched_quarter, table_entries, table_of};
+use super::an_economy::{angle_readout, degree_sign, hatched_quarter, table_entries, table_of};
 use super::arrows::{ArrowTest, PlaneArrow, band_ends, own_lines, unit_at};
 use super::draw::{
     MatrixGrid, Plane, arrow_points, corners, cross_fade, fact, fade_in_all, fade_out_all, faded_line, fail, flat,
@@ -36,6 +36,12 @@ const CARTS: Plane = Plane {
     unit: 1.0,
 };
 const CARTS_REACH: (f64, f64) = (2.4, 2.0);
+/// Where "the move" begins (its left edge), plane units: past the blue
+/// arrow's tip at (1, 0), a little above the axis.
+const MOVE_NAME_AT: (f64, f64) = (1.25, 0.3);
+/// How far right of (and above) the orange arrow's tip the left edge of
+/// "the pushes from before" stands, plane units.
+const RESULT_NAME_GAP: (f64, f64) = (0.25, 0.0);
 /// The right-hand column of 14_1, where the steps are written.
 const STEPS_X: f64 = 3.6;
 /// The two little planes of 14_3.
@@ -59,6 +65,9 @@ const SHEAR: Plane = Plane {
     unit: 0.45,
 };
 const SHEAR_REACH: (f64, f64) = (2.0, 1.6);
+/// Where the angle readout's number ends (its right edge) in 14_5; the
+/// degree sign stands against it.
+const READOUT_AT: Vec3 = [5.0, -0.5, 0.0];
 /// The factory's plane: bicycles across, scooters up, `unit` scene units a
 /// unit, the window `WINDOW` units square.
 const FACTORY: Plane = Plane {
@@ -86,6 +95,11 @@ const SWAY: f64 = 0.28;
 /// swing.
 const _: () = assert!(DECK_Y + SWAY < 3.0 && DECK_Y - SWAY > 0.0);
 const DAMPERS: usize = 9;
+/// How many segments the gold curve is drawn in.
+const CURVE_STEPS: usize = 48;
+/// The breath of 14_7 as strokes: each takes this many seconds to reach this
+/// swing (+1 one way, -1 the other, 0 at rest).
+const BREATH: [(f64, f64); 3] = [(1.4, 1.0), (2.8, -1.0), (1.4, 0.0)];
 /// People on the deck.
 const WALKERS: usize = 14;
 
@@ -122,6 +136,29 @@ fn long_date(iso: &str) -> fmn::Result<String> {
 /// A list of fractions (`1/2,1/6`) as TeX, in order.
 fn fractions(key: &str) -> fmn::Result<Vec<String>> {
     Ok(items(key)?.into_iter().map(fraction_tex).collect())
+}
+
+/// "the move" in 14_1, detached: above the first axis, just past the blue
+/// arrow's tip. Nothing of the picture runs through that corner: the gold
+/// arms are at 45 degrees (far above it at this distance across), and the
+/// second half's arrow stays on the line x + y = 1, which is left of it at
+/// this height.
+fn name_the_move(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let at = CARTS.p(MOVE_NAME_AT.0, MOVE_NAME_AT.1);
+    kit.text_left(stage, "the move", 24.0, moves(), at)
+}
+
+/// "the pushes from before: 2, -1" in 14_1, detached, in three short lines,
+/// its left edge a little right of the orange arrow's tip: the room between
+/// the plane and the steps, clear of the gold arms and of the arrows.
+fn name_the_pushes(kit: &Kit, stage: &mut Stage<'_>, push: &[f64]) -> fmn::Result<Mob> {
+    let at = CARTS.p(push[0] + RESULT_NAME_GAP.0, push[1] + RESULT_NAME_GAP.1);
+    let words = format!(
+        "the pushes\nfrom before:\n{}, {}",
+        whole(push[0]),
+        minus(&whole(push[1]))
+    );
+    kit.text_left(stage, &words, 24.0, pushes(), at)
 }
 
 /// A static arrow from `a` to `b` (plane units) on `plane`, detached.
@@ -174,15 +211,54 @@ fn round_the_polygon(corners: &[[f64; 2]]) -> Vec<[f64; 2]> {
     sorted
 }
 
+/// The gold curve's vertices when it swings by `amp` (-1 to 1): lying along
+/// the deck at 0, a half wave of height `SWAY` at 1. The curve is BUILT with
+/// all of them (straight), so every rewrite has the point count it was made
+/// with: `Stage::set_points` does not take a run of another size, and the
+/// curve built as two vertices never moved.
+fn curve_vertices(amp: f64) -> Vec<Vec3> {
+    (0..=CURVE_STEPS)
+        .map(|k| {
+            let t = k as f64 / CURVE_STEPS as f64;
+            v(
+                -DECK_HALF + 2.0 * DECK_HALF * t,
+                DECK_Y + amp * SWAY * (std::f64::consts::PI * t).sin(),
+            )
+        })
+        .collect()
+}
+
+/// The swing `seconds` into the breath of 14_7: out to one side, across to
+/// the other and back to rest, each stroke eased at both ends.
+fn breath_amplitude(seconds: f64) -> f64 {
+    let (mut from, mut start) = (0.0, 0.0);
+    for &(length, to) in &BREATH {
+        if seconds < start + length {
+            let u = (seconds - start) / length;
+            return from + (to - from) * u * u * (3.0 - 2.0 * u);
+        }
+        from = to;
+        start += length;
+    }
+    from
+}
+
 /// The bridge seen from above: two edges of the deck, a gold curve lying
 /// along it whose sideways swing a tracker sets, small pistons beside it
 /// and people walking along it. Everything is rewritten by one updater.
 struct Footbridge {
     /// Edges, pistons, the gold curve and the walkers.
     parts: Vec<Mob>,
-    /// How far the gold curve swings (-1 to 1), and whether people walk.
+    /// The gold curve (read by the tests of its state).
+    #[cfg(test)]
+    curve: Mob,
+    /// How far the gold curve swings (-1 to 1; set by the tests, driven by
+    /// `breath` in the chapter), whether people walk, and whether it is
+    /// breathing (the swing then follows `BREATH` by itself).
+    #[cfg(test)]
     swing: Mob,
     walking: Mob,
+    breath: Mob,
     anchor: Mob,
 }
 
@@ -213,11 +289,9 @@ impl Footbridge {
                 ),
             );
         }
-        let curve = stage.arena_mut().add(
-            polyline(vec![v(-DECK_HALF, DECK_Y), v(DECK_HALF, DECK_Y)])
-                .style(faded_line(own(), 4.0, 1.0))
-                .build(),
-        );
+        let curve = stage
+            .arena_mut()
+            .add(polyline(curve_vertices(0.0)).style(faded_line(own(), 4.0, 1.0)).build());
         parts.push(curve);
         let mut walkers = Vec::new();
         for i in 0..WALKERS {
@@ -231,14 +305,22 @@ impl Footbridge {
         }
         let swing = stage.add_value_tracker(0.0);
         let walking = stage.add_value_tracker(0.0);
+        let breath = stage.add_value_tracker(0.0);
         let anchor = stage.arena_mut().add(VMobject::new());
         let mut last = [f64::NAN; 2];
         let mut travelled = 0.0_f64;
+        let mut breathed = 0.0_f64;
         let marks: Vec<(Mob, f64, f64)> = walkers;
         let template: Vec<Vec3> = Dot::new().radius(0.05).build().points().to_vec();
         stage.add_dt_updater(
             anchor,
             move |s, _, dt| {
+                // the breath runs on the picture's clock, not on a play that
+                // would hold the lines of the voice back
+                if s.tracker_value(breath).unwrap_or(0.0) > 0.5 && dt > 0.0 {
+                    breathed += dt;
+                    let _ = s.set_tracker_value(swing, breath_amplitude(breathed));
+                }
                 let amp = s.tracker_value(swing).unwrap_or(0.0);
                 let on = s.tracker_value(walking).unwrap_or(0.0) > 0.5;
                 if on && dt > 0.0 {
@@ -253,24 +335,27 @@ impl Footbridge {
                 }
                 if amp.to_bits() != last[0].to_bits() {
                     last[0] = amp;
-                    let pts: Vec<Vec3> = (0..=48)
-                        .map(|k| {
-                            let t = f64::from(k) / 48.0;
-                            let x = -DECK_HALF + 2.0 * DECK_HALF * t;
-                            v(x, DECK_Y + amp * SWAY * (std::f64::consts::PI * t).sin())
-                        })
-                        .collect();
-                    let _ = s.set_points(curve, &corners(&pts));
+                    let _ = s.set_points(curve, &corners(&curve_vertices(amp)));
                 }
             },
             false,
         )?;
         Ok(Self {
             parts,
+            #[cfg(test)]
+            curve,
+            #[cfg(test)]
             swing,
             walking,
+            breath,
             anchor,
         })
+    }
+
+    /// Let the gold curve breathe once, on the picture's clock.
+    fn breathe(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        stage.set_tracker_value(self.breath, 1.0)?;
+        Ok(())
     }
 }
 
@@ -299,14 +384,8 @@ impl SceneConstruct for OneIdea {
         let part_a = PlaneArrow::build(stage, CARTS, blue, orange, 6.0, 0.22, [0.0, 0.0], up)?;
         let part_b = PlaneArrow::build(stage, CARTS, blue, orange, 6.0, 0.22, up, [1.0, 0.0])?;
         let result = arrow_on(stage, CARTS, [0.0, 0.0], [push[0], push[1]], orange, 9.0, 1.0);
-        let result_name = kit.text(
-            stage,
-            &format!("the pushes from before: {}, {}", whole(push[0]), minus(&whole(push[1]))),
-            24.0,
-            orange,
-            CARTS.p(push[0] - 0.1, push[1] - 0.5),
-        )?;
-        let move_name = kit.text(stage, "the move", 24.0, blue, CARTS.p(1.05, 0.28))?;
+        let result_name = name_the_pushes(&kit, stage, &push)?;
+        let move_name = name_the_move(&kit, stage)?;
         let table = MatrixGrid::build(
             &kit,
             stage,
@@ -551,9 +630,9 @@ impl SceneConstruct for OneIdea {
         let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
         let spin = ArrowTest::build(stage, TURN, quarter, u, TURN_REACH)?;
         let turn_name = kit.text(stage, "a quarter turn", 30.0, ink, TURN.p(0.0, TURN_REACH.1 + 0.35))?;
-        let readout = angle_readout(&kit, stage, &spin, v(4.0, -0.5))?;
+        let readout = angle_readout(&kit, stage, &spin, READOUT_AT)?;
         let readout_name = kit.text(stage, "angle between the arrows", 26.0, dim, v(4.9, 0.4))?;
-        let degrees = kit.text(stage, "\u{b0}", 56.0, ink, v(5.35, -0.5))?;
+        let degrees = degree_sign(&kit, stage, READOUT_AT)?;
         // the shear: one own line, small
         let shear_map = [[1.0, 1.0], [0.0, 1.0]];
         let s = [stage.add_value_tracker(0.5), stage.add_value_tracker(1.0)];
@@ -917,9 +996,10 @@ impl SceneConstruct for OneIdea {
             asked.push(kit.text(stage, q, 40.0, ink, v(0.0, 0.2 - 0.95 * i as f64))?);
         }
         stage.set_tracker_value(bridge.walking, 0.0)?;
-        play!(stage; tween(bridge.swing, 1.0, 1.4)?);
-        play!(stage; tween(bridge.swing, -1.0, 2.8)?);
-        play!(stage; tween(bridge.swing, 0.0, 1.4)?);
+        // the gold curve breathes once on the picture's clock (5.6 s inside
+        // the line's 6.7): plays here would run to their end before the
+        // first question, and the three would arrive after the voice
+        bridge.breathe(stage)?;
         line.wait_for(stage, "How strong is it")?;
         fade_in_all(stage, &asked[..1], 0.4)?;
         line.wait_for(stage, "How does it want to move")?;
@@ -958,6 +1038,7 @@ impl SceneConstruct for OneIdea {
 #[cfg(test)]
 mod tests {
     use super::super::draw::testing;
+    use super::super::draw::testing::Room;
     use super::*;
     use crate::model::factory;
 
@@ -1098,7 +1179,8 @@ mod tests {
         assert_eq!(ran.lint_count, 0, "{}", ran.lint);
         let words: Vec<&str> = ran.registered.iter().map(|r| r.source.as_str()).collect();
         for want in [
-            "the pushes from before: 2, \u{2013}1",
+            "the pushes\nfrom before:\n2, \u{2013}1",
+            "the move",
             r"K = Q\,\Lambda\,Q^{T}",
             "columns of length 1",
             r"C = V\,\Lambda\,V^{-1}",
@@ -1123,6 +1205,150 @@ mod tests {
             "a lower-third was cut short: {words:?}"
         );
         assert!(ran.seconds > 40.0 && ran.seconds < 95.0, "{} s", ran.seconds);
+    }
+
+    /// 14_1: "the move" and "the pushes from before" stand where no stroke
+    /// of the picture runs through them: not the axes, not the gold arms,
+    /// not any of the arrows (the halves, the stretched half and the pushes
+    /// at their ends). Both were crossed.
+    #[test]
+    fn the_names_of_the_move_and_the_pushes_stand_clear_of_the_strokes() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let push = numbers("K-A1.push.left")?;
+            let (move_box, push_box) = (
+                {
+                    let m = name_the_move(&kit, stage)?;
+                    Room::of(stage, m)
+                },
+                {
+                    let m = name_the_pushes(&kit, stage, &push)?;
+                    Room::of(stage, m)
+                },
+            );
+            let shares = items("K-A3.mix")?;
+            let half = fraction_value(shares[0])?;
+            let rungs = numbers("K-A2.eigenvalues")?;
+            let (up, down) = ([half, half], [half, -half]);
+            let end_b = [up[0] + rungs[1] * down[0], up[1] + rungs[1] * down[1]];
+            let (rx, ry) = CARTS_REACH;
+            // the strokes, plane units, with the half width each is drawn with
+            let mut strokes: Vec<([f64; 2], [f64; 2], f64)> = vec![
+                ([-rx, 0.0], [rx, 0.0], 0.04),
+                ([0.0, -ry], [0.0, ry], 0.04),
+                ([0.0, 0.0], [1.0, 0.0], 0.08),
+                ([0.0, 0.0], up, 0.06),
+                (up, end_b, 0.06),
+                ([0.0, 0.0], [push[0], push[1]], 0.08),
+            ];
+            for dir in [[1.0, 1.0], [1.0, -1.0]] {
+                let (a, b) = band_ends(dir, rx, ry);
+                strokes.push((a, b, 0.13));
+            }
+            for (name, room) in [("the move", move_box), ("the pushes", push_box)] {
+                for &(a, b, half_width) in &strokes {
+                    assert!(
+                        !room.grown(half_width).crosses(CARTS.p(a[0], a[1]), CARTS.p(b[0], b[1])),
+                        "{name} {room:?} is crossed by the stroke {a:?} to {b:?}"
+                    );
+                }
+            }
+            // they do not stand over each other (the steps beside them are
+            // checked by the layout lint on the whole chapter)
+            assert!(!move_box.overlaps(&push_box));
+            Ok(())
+        });
+    }
+
+    /// 14_5: the readout's degree sign is against its number (a quarter turn
+    /// reads 90 all the way round), as in 12_5.
+    #[test]
+    fn the_degree_sign_is_against_the_readout() {
+        super::super::carts::probe::run_scene(|stage| {
+            let kit = Kit::new()?;
+            let quarter = [[0.0, -1.0], [1.0, 0.0]];
+            let u = [stage.add_value_tracker(0.0), stage.add_value_tracker(0.0)];
+            let spin = ArrowTest::build(stage, TURN, quarter, u, TURN_REACH)?;
+            let readout = angle_readout(&kit, stage, &spin, READOUT_AT)?;
+            let sign = degree_sign(&kit, stage, READOUT_AT)?;
+            spin.start(stage)?;
+            stage.set_tracker_value(spin.polar, 1.0)?;
+            stage.set_tracker_value(spin.radius, 2.2)?;
+            stage.add_to_scene(readout)?;
+            stage.add_to_scene(sign)?;
+            stage.wait(0.2)?;
+            let (number, sign) = (Room::of(stage, readout), Room::of(stage, sign));
+            assert!((number.x1 - READOUT_AT[0]).abs() < 1e-6, "{number:?}");
+            let gap = sign.x0 - number.x1;
+            assert!(gap > 0.0 && gap < 0.1, "the sign stands {gap} off the number");
+            Ok(())
+        });
+    }
+
+    /// 14_6 and 14_7: the gold curve is really drawn and really moves. It was
+    /// built as two vertices and rewritten as forty-nine, which the engine
+    /// refuses without a word: the curve was never on the screen and the deck
+    /// never swayed. A test of the state, not the lint.
+    #[test]
+    fn the_gold_curve_is_drawn_and_swings_with_the_tracker() {
+        super::super::carts::probe::run_scene(|stage| {
+            let bridge = Footbridge::build(stage)?;
+            stage.add_to_scene(bridge.anchor)?;
+            stage.add_to_scene(bridge.curve)?;
+            stage.wait(0.2)?;
+            let at_rest = stage.get_points(bridge.curve).expect("the curve has points");
+            // 49 vertices as a quad path: an odd run
+            assert_eq!(at_rest.len(), 2 * (CURVE_STEPS + 1) - 1);
+            // (the engine keeps single precision: 1e-5 is the tolerance)
+            assert!(
+                at_rest.iter().all(|p| (p[1] - DECK_Y).abs() < 1e-5),
+                "lies along the deck"
+            );
+            stage.set_tracker_value(bridge.swing, 1.0)?;
+            stage.wait(0.2)?;
+            let swung = stage.get_points(bridge.curve).expect("the curve has points");
+            assert_eq!(swung.len(), at_rest.len());
+            let top = swung.iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
+            assert!((top - (DECK_Y + SWAY)).abs() < 1e-5, "the swing reached {top}");
+            // the ends stay on the deck's ends
+            assert!((swung[0][1] - DECK_Y).abs() < 1e-5 && (swung[swung.len() - 1][1] - DECK_Y).abs() < 1e-5);
+            Ok(())
+        });
+    }
+
+    /// 14_7: the breath is one stroke each way and back, 5.6 s in all, and
+    /// it runs by itself: the tracker is driven from the picture's clock.
+    #[test]
+    fn the_breath_goes_out_across_and_back_by_itself() {
+        let total: f64 = BREATH.iter().map(|&(s, _)| s).sum();
+        assert!((total - 5.6).abs() < 1e-9);
+        assert_eq!(breath_amplitude(0.0), 0.0);
+        let mut at = 0.0;
+        for &(length, to) in &BREATH {
+            at += length;
+            assert!((breath_amplitude(at) - to).abs() < 1e-9, "{at}");
+        }
+        assert_eq!(breath_amplitude(total + 3.0), 0.0);
+        // eased: it never overshoots a stroke's end
+        for k in 0..=56 {
+            let a = breath_amplitude(f64::from(k) / 10.0);
+            assert!(a.abs() <= 1.0 + 1e-12);
+        }
+        super::super::carts::probe::run_scene(|stage| {
+            let bridge = Footbridge::build(stage)?;
+            stage.add_to_scene(bridge.anchor)?;
+            bridge.breathe(stage)?;
+            stage.wait(BREATH[0].0)?;
+            let out = stage.tracker_value(bridge.swing).unwrap_or(f64::NAN);
+            assert!(out > 0.9, "after the first stroke the swing is {out}");
+            stage.wait(BREATH[1].0)?;
+            let across = stage.tracker_value(bridge.swing).unwrap_or(f64::NAN);
+            assert!(across < -0.9, "after the second stroke the swing is {across}");
+            stage.wait(BREATH[2].0 + 0.3)?;
+            let rest = stage.tracker_value(bridge.swing).unwrap_or(f64::NAN);
+            assert!(rest.abs() < 1e-6, "at rest the swing is {rest}");
+            Ok(())
+        });
     }
 
     /// 14_8: the receipts card, the 2.5 s window in which the music resolves and the closing fade are the authored tail; it ends under the corpus cue check's 5 s of picture after the last line.
