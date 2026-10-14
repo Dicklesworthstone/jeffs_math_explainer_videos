@@ -63,6 +63,13 @@ const COUNTED: [(&str, std::ops::Range<usize>); 3] = [(SHOULDER_NAME, 0..3), (EL
 const ARM_AT: [f64; 2] = [-3.1, -2.55];
 const CARD_AT: [f64; 2] = [4.45, 0.0];
 const CARD_SCALE: f64 = 0.92;
+/// 12_1's sum stands where the card will be, so it is gone by then; 12_3's
+/// count of the person's joints stands above the card's top edge.
+const SUM_AT: [f64; 2] = [4.3, 2.4];
+const TOTAL_AT: [f64; 2] = [4.3, 2.85];
+/// "29 cm" stands left of the elbow's circle, where no link of the swinging
+/// arm goes (to its right the forearm covers its first digit).
+const RADIUS_SHIFT: [f64; 2] = [-1.4, 0.0];
 /// 12_4's readout: its label's left edge and height, the right edge of the
 /// live number, and where "cm" is centred, left to right without overlap.
 const MOVED_AT: [f64; 2] = [0.75, 1.9];
@@ -360,7 +367,7 @@ impl SceneConstruct for TheSpareJoint {
         pins.push(Pin {
             mob: radius_label,
             at: point_fn(move |_: &Arena| mid),
-            shift: v(0.7, 0.0),
+            shift: v(RADIUS_SHIFT[0], RADIUS_SHIFT[1]),
         });
         let world = World::build(stage, view, 1.4, 0.25, specs, pins)?;
         let hidden: Vec<usize> = ArmRig::GOLD_COLLARS
@@ -383,7 +390,7 @@ impl SceneConstruct for TheSpareJoint {
             72.0,
             Palette::ink(),
             &[(spare.as_str(), gold)],
-            v(4.3, 2.4),
+            v(SUM_AT[0], SUM_AT[1]),
         )?;
         line.wait_for(stage, "Seven joints")?;
         fade_in_all(stage, &[sum], 0.7)?;
@@ -392,10 +399,13 @@ impl SceneConstruct for TheSpareJoint {
         // 12_2: try it on yourself; the card; the person at the desk
         let line = say(&kit, stage, BEATS[1])?;
         let card = QuizCard::build(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;
-        play!(stage; tween(world.shown, 0.0, 0.7)?);
+        // the person comes in as the robot goes out, so the frame is never
+        // empty while "try it on yourself" is said
+        play!(stage;
+            tween(world.shown, 0.0, 0.7)?,
+            tween(person_world.shown, 1.0, 0.8)?,
+        );
         leave(stage, &[sum], &[], 0.3)?;
-        line.wait_for(stage, "Lay your palm flat on a desk")?;
-        person_world.show(stage, 0.8)?;
         line.wait_for(stage, "keep your shoulder still")?;
         line.wait_last(stage)?;
         card.show(stage, 0.5)?;
@@ -417,7 +427,7 @@ impl SceneConstruct for TheSpareJoint {
             60.0,
             Palette::ink(),
             &[],
-            v(4.3, 2.4),
+            v(TOTAL_AT[0], TOTAL_AT[1]),
         )?;
         line.wait_for(stage, "your arm has seven joints too")?;
         fade_in_all(stage, &[total], 0.6)?;
@@ -425,8 +435,10 @@ impl SceneConstruct for TheSpareJoint {
 
         // 12_4: the robot does the same
         let line = say(&kit, stage, BEATS[3])?;
+        // the card has done its work; its place is the readout's
         let mut away = vec![total];
         away.extend(&counts);
+        away.extend(card.mobs());
         leave(
             stage,
             &away,
@@ -485,12 +497,14 @@ impl SceneConstruct for TheSpareJoint {
             tween(walk, far_end, 3.0)?,
         );
         line.wait_for(stage, "while the gripper keeps working")?;
+        // the words come first: the arrows' walk is long, and the words must
+        // be on screen long enough to read before the chapter ends
+        let nothing = lower_third(&kit, stage, NULL_SPACE_LABEL, NULL_SPACE_TEXT)?;
+        fade_in_all(stage, &[nothing], 0.6)?;
         for i in part::ARROWS {
             play!(stage; tween(shown(i), 1.0, 0.12)?);
         }
         play!(stage; tween(chain, 1.0, 1.8)?);
-        let nothing = lower_third(&kit, stage, NULL_SPACE_LABEL, NULL_SPACE_TEXT)?;
-        fade_in_all(stage, &[nothing], 0.6)?;
         line.wait_end(stage)?;
         kit.finish(stage)
     }
@@ -721,6 +735,66 @@ mod tests {
         assert!(OBSTACLE_FROM > far, "the obstacle starts outside everything");
     }
 
+    /// 12_4: "29 cm" stands clear of every link of the arm as the elbow
+    /// swings round its circle, and of the circle itself.
+    #[test]
+    fn the_radius_label_stands_clear_of_the_swinging_arm() {
+        run(|stage| {
+            let kit = Kit::new()?;
+            let arm = Arm::iiwa14();
+            let q0 = model::degrees(poses::SWING);
+            let (keys, _) = swing_keys(&arm, &q0);
+            let view = View::new(ARM_SCALE, v(ARM_AT[0], ARM_AT[1]));
+            let (centre, elbow0) = {
+                let (shoulder_pt, wrist_pt) = (arm.joint(&q0, SHOULDER).0, arm.joint(&q0, WRIST).0);
+                let elbow0 = arm.joint(&q0, ELBOW).0;
+                let axis = unit(sub(wrist_pt, shoulder_pt));
+                let r = sub(elbow0, shoulder_pt);
+                (add(shoulder_pt, scale(axis, dot(r, axis))), elbow0)
+            };
+            let at = view.project(scale(add(centre, elbow0), 0.5));
+            let label = kit.text(
+                stage,
+                &format!("{} {CM}", cm_whole(arm.elbow_radius(&q0))),
+                32.0,
+                palette::screw(),
+                v(at[0] + RADIUS_SHIFT[0], at[1] + RADIUS_SHIFT[1]),
+            )?;
+            let b = [
+                stage.get_left(label)[0],
+                stage.get_right(label)[0],
+                stage.get_bottom(label)[1],
+                stage.get_top(label)[1],
+            ];
+            for q in keys.iter().step_by(3) {
+                let mut joints: Vec<V3> = (0..N).map(|j| arm.joint(q, j).0).collect();
+                joints.push(arm.tip(q).p);
+                for pair in joints.windows(2) {
+                    for k in 0..=12 {
+                        let t = f64::from(k) / 12.0;
+                        let p = view.project(add(scale(pair[0], 1.0 - t), scale(pair[1], t)));
+                        let inside =
+                            p[0] > b[0] - 0.05 && p[0] < b[1] + 0.05 && p[1] > b[2] - 0.05 && p[1] < b[3] + 0.05;
+                        assert!(!inside, "'29 cm' sits on the arm at {p:?}");
+                    }
+                }
+            }
+            // the circle's own points (radius `r` about the centre, in its plane)
+            let axis = unit(sub(arm.joint(&q0, WRIST).0, arm.joint(&q0, SHOULDER).0));
+            let (e1, e2) = super::super::draw::perp_basis(axis);
+            let r = arm.elbow_radius(&q0);
+            for k in 0..64 {
+                let a = std::f64::consts::TAU * f64::from(k) / 64.0;
+                let p3 = add(centre, add(scale(e1, r * a.cos()), scale(e2, r * a.sin())));
+                let p = view.project(p3);
+                let inside = p[0] > b[0] && p[0] < b[1] && p[1] > b[2] && p[1] < b[3];
+                assert!(!inside, "'29 cm' sits on the circle at {p:?}");
+            }
+            assert!(b[0] > -7.11 + 0.15);
+            Ok(())
+        });
+    }
+
     #[test]
     fn the_quiz_rows_fit_and_the_tally_fits() {
         run(|stage| {
@@ -738,9 +812,24 @@ mod tests {
                 72.0,
                 Palette::ink(),
                 &[],
-                v(4.3, 2.4),
+                v(SUM_AT[0], SUM_AT[1]),
             )?;
             assert!(stage.get_right(sum)[0] < 7.0, "the tally fits");
+            // 12_3's count of the person's joints stands clear above the card
+            let (counted, total_words) = (["3", "1", "3"].join(" + "), fact("G-A.joints")?);
+            let total = kit.tex(
+                stage,
+                &format!("{counted} = {total_words}"),
+                60.0,
+                Palette::ink(),
+                &[],
+                v(TOTAL_AT[0], TOTAL_AT[1]),
+            )?;
+            assert!(
+                stage.get_bottom(total)[1] > stage.get_top(card.back)[1] + 0.1,
+                "the count touches the card's top edge"
+            );
+            assert!(stage.get_top(total)[1] < 3.85 && stage.get_right(total)[0] < 7.11 - 0.15);
             Ok(())
         });
     }
