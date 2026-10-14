@@ -97,6 +97,14 @@ pub const MIN_GAP_S: f64 = 0.10;
 /// quiet edges added, varied by about 0.04 across Video F's plain line gaps;
 /// the three classes above, on that video's script, vary by 0.16.
 pub const MIN_GAP_CV: f64 = 0.10;
+/// The longest gap between two lines that is a plain one, seconds: the
+/// silence between the end of a line and the start of the next, with no
+/// authored window between them, under this. A longer one is what the scene
+/// waited for (a picture wait, a prediction pause): counted, it hides a
+/// constant breath behind a few long waits (Video F under the constant rule:
+/// the 52 pairs with no window between vary by 0.72, its 45 under 1.0 s by
+/// 0.04).
+pub const PLAIN_GAP_MAX_S: f64 = 1.0;
 
 /// Openers of the lines that start a new example or a quiz (the next line
 /// begins a paragraph); matched at the start of a line, on a word boundary.
@@ -166,7 +174,11 @@ const EDGE_MIN_FRAMES: usize = 4;
 /// more than 24 dB under the 95th percentile of the take's frame levels, and
 /// a quiet run counts from 40 ms. This is the detector the human silences
 /// above were measured with, so a gap built as `class - tail - lead` is heard
-/// as the class (to within a frame). A take with no speech has none.
+/// as about the class: to within a frame on synthetic takes with a constant
+/// level, and to about 0.1 s on Video F's real takes (a median of 0.03 to
+/// 0.05 s longer than the class), because the detector here takes each take's
+/// own 95th percentile as its reference and the human numbers were measured
+/// against a whole recording's. A take with no speech has none.
 pub fn quiet_edges(mono: &[f64], rate: u32) -> (f64, f64) {
     let frame = (f64::from(rate) * EDGE_FRAME_S).round() as usize;
     let hop = (f64::from(rate) * EDGE_HOP_S).round() as usize;
@@ -217,21 +229,46 @@ pub fn gap_cv(gaps: &[f64]) -> Option<f64> {
     Some(var.sqrt() / mean)
 }
 
-/// The spread check on a video's plain line gaps (the silences between a
-/// line and the next with no authored window between): at least three gaps
-/// whose [`gap_cv`] reaches [`MIN_GAP_CV`]. One value everywhere fails it.
+/// The plain gaps of a chapter, seconds: for each pair of consecutive lines
+/// (`lines`: each one's start and length, seconds, in order) the silence from
+/// the end of the first to the start of the second, kept when no authored
+/// window starts between them (`windows`: each window's start, seconds) and it
+/// is under [`PLAIN_GAP_MAX_S`]. The input of [`check_gap_spread`].
+pub fn plain_line_gaps(lines: &[(f64, f64)], windows: &[f64]) -> Vec<f64> {
+    lines
+        .windows(2)
+        .filter_map(|pair| {
+            let end = pair[0].0 + pair[0].1;
+            let gap = pair[1].0 - end;
+            let windowed = windows.iter().any(|&w| w >= end && w <= pair[1].0);
+            (!windowed && gap < PLAIN_GAP_MAX_S).then_some(gap)
+        })
+        .collect()
+}
+
+/// The spread check on a video's plain line gaps: the gaps between a line and
+/// the next with no authored window between them (see [`plain_line_gaps`]),
+/// of which only those under [`PLAIN_GAP_MAX_S`] count (a longer one is what
+/// the scene waited for, not the narration's breath). At least three of them
+/// must be left, and their [`gap_cv`] must reach [`MIN_GAP_CV`]: one value
+/// everywhere fails it.
 ///
 /// # Errors
 /// Names the count and the spread found.
 pub fn check_gap_spread(gaps: &[f64]) -> Result<(), String> {
-    if gaps.len() < 3 {
-        return Err(format!("{} plain line gaps: too few to judge their spread", gaps.len()));
+    let plain: Vec<f64> = gaps.iter().copied().filter(|&g| g < PLAIN_GAP_MAX_S).collect();
+    if plain.len() < 3 {
+        return Err(format!(
+            "{} plain line gaps (of {} given, under {PLAIN_GAP_MAX_S} s): too few to judge their spread",
+            plain.len(),
+            gaps.len()
+        ));
     }
-    let cv = gap_cv(gaps).unwrap_or(0.0);
+    let cv = gap_cv(&plain).unwrap_or(0.0);
     if cv < MIN_GAP_CV {
         return Err(format!(
             "{} plain line gaps vary by {cv:.3} (coefficient of variation), under {MIN_GAP_CV}: one value serves every thought",
-            gaps.len()
+            plain.len()
         ));
     }
     Ok(())
@@ -1450,5 +1487,50 @@ mod tests {
         let gaps: Vec<f64> = classes.iter().map(|c| c.audible_s()).collect();
         check_gap_spread(&gaps).unwrap();
         assert!(gap_cv(&gaps).unwrap() > MIN_GAP_CV);
+    }
+
+    #[test]
+    fn plain_gaps_leave_out_what_the_scene_waited_for() {
+        // lines 2 s long: a plain 0.6 s; a 0.9 s with a window opening in it; a
+        // 1.5 s picture wait; a plain 0.99 s; a plain 0.91 s. A window inside
+        // the first line, or after the last, is not between any pair.
+        let lines = [
+            (0.0, 2.0),
+            (2.6, 2.0),
+            (5.5, 2.0),
+            (9.0, 2.0),
+            (11.99, 2.0),
+            (14.9, 2.0),
+        ];
+        let plain = plain_line_gaps(&lines, &[1.0, 5.0, 20.0]);
+        let want = [0.6, 0.99, 0.91];
+        assert_eq!(plain.len(), want.len(), "{plain:?}");
+        assert!(plain.iter().zip(want).all(|(a, b)| (a - b).abs() < 1e-9), "{plain:?}");
+        // without the window the 0.9 s pair is plain too
+        assert_eq!(plain_line_gaps(&lines, &[]).len(), 4);
+        assert!(plain_line_gaps(&lines[..1], &[]).is_empty());
+
+        // Video F under the constant rule, in miniature: 45 gaps of 0.66 to 0.72 s
+        // and seven things the scene waited for. Counted whole they vary by more
+        // than 0.5 and would pass; the plain ones vary by next to nothing.
+        let mut f_like: Vec<f64> = (0..45u32).map(|k| 0.66 + 0.01 * f64::from(k % 7)).collect();
+        f_like.extend([2.6, 2.6, 1.5, 1.54, 1.4, 6.0, 4.0]);
+        assert!(gap_cv(&f_like).unwrap() > 0.5, "the waits hide the constant breath");
+        let err = check_gap_spread(&f_like).unwrap_err();
+        assert!(err.contains("45 plain line gaps vary by"), "{err}");
+        // the classes, with the same waits, still pass
+        let mut thought: Vec<f64> = [0.58, 0.81, 0.99, 0.58, 0.81, 0.81, 0.58, 0.99]
+            .iter()
+            .cycle()
+            .take(45)
+            .copied()
+            .collect();
+        thought.extend([2.6, 2.6, 1.5, 1.54, 1.4, 6.0, 4.0]);
+        check_gap_spread(&thought).unwrap();
+        // the limit: 0.99 s counts, 1.0 s does not
+        check_gap_spread(&[0.7, 0.7, 0.7, 0.99]).unwrap();
+        assert!(check_gap_spread(&[0.7, 0.7, 0.7, 1.0]).is_err());
+        let few = check_gap_spread(&[0.4, 0.6, 1.0, 1.2]).unwrap_err();
+        assert!(few.contains("2 plain line gaps (of 4 given"), "{few}");
     }
 }
