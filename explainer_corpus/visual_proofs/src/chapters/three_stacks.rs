@@ -71,6 +71,15 @@ fn below(iso: &Iso, stage: &Stage<'_>, p: P3, drop: f64) -> Vec3 {
     v(s[0], s[1] - drop)
 }
 
+/// 07_3's beats (seconds): a quarter turn, the lining up and the slide in.
+/// The first draft's were 0.8, 0.5 and 0.9: the two copies took 7 s from the
+/// line's start to be seated and the voice (5.4 s) was done 3 s before, so the
+/// next line waited 3.7 s on the picture. The turns are still seen one by one
+/// (0.65 s is a quarter turn at an easy pace).
+const TURN_S: f64 = 0.65;
+const ALIGN_S: f64 = 0.35;
+const SLIDE_S: f64 = 0.7;
+
 /// Moves of the cube kit and arrivals together, started `lag` apart.
 fn with(stage: &mut Stage<'_>, moves: Vec<AnimBuilder>, extra: Moves, lag: f64) -> fmn::Result<()> {
     let mut all = prepared(stage, moves)?;
@@ -221,12 +230,25 @@ impl SceneConstruct for ThreeStacks {
             stage.move_to(label, at, ORIGIN);
             counts.push(label);
         }
-        // one, four, nine, sixteen: the smallest first
+        // "Now add up the squares": the four squares come up, the smallest
+        // first (the frame was empty for the first four seconds of the line)
+        line.wait_for(stage, "Now add up the squares")?;
+        #[cfg(test)]
+        super::draw::quiz_log::record(&kit.chapter, "07_1", "slabs_in", stage.scene().time().to_f64());
+        let mut coming = Vec::new();
+        for i in [3usize, 2, 1, 0] {
+            coming.push(iso.fade(slabs[i], 1.0, 0.5)?);
+        }
+        iso.play(stage, coming, 0.25)?;
+        // one, four, nine, sixteen: each square's count as it is said
         for (word, i) in [("One,", 3usize), ("four", 2), ("nine", 1), ("sixteen", 0)] {
             line.wait_for(stage, word)?;
-            let fade = iso.fade(slabs[i], 1.0, 0.5)?;
+            #[cfg(test)]
+            if i == 3 {
+                super::draw::quiz_log::record(&kit.chapter, "07_1", "first_count", stage.scene().time().to_f64());
+            }
             let label = arrive(stage, counts[i], 0.5)?;
-            with(stage, vec![fade], vec![label], 0.0)?;
+            play(stage, vec![label], 0.0)?;
         }
         // stack them, biggest at the bottom, every level in the same corner
         line.wait_sentence(stage, 3)?;
@@ -347,13 +369,13 @@ impl SceneConstruct for ThreeStacks {
                 wait[2] + n as f64 / 2.0,
             ];
             for (axis, q) in seq {
-                let m = iso.turn(stage, solid, axis, q, pivot, 0.8)?;
+                let m = iso.turn(stage, solid, axis, q, pivot, TURN_S)?;
                 iso.play(stage, vec![m], 0.0)?;
             }
             let target = min_corner(&placed(n, which));
-            let align = iso.land(stage, solid, [wait[0], target[1], target[2]], 0.5)?;
+            let align = iso.land(stage, solid, [wait[0], target[1], target[2]], ALIGN_S)?;
             iso.play(stage, vec![align], 0.0)?;
-            let slide_in = iso.land(stage, solid, target, 0.9)?;
+            let slide_in = iso.land(stage, solid, target, SLIDE_S)?;
             iso.play(stage, vec![slide_in], 0.0)?;
             let mut want = placed(n, which);
             want.sort_unstable();
@@ -598,6 +620,50 @@ mod tests {
     use super::super::draw::testing;
     use super::super::siu::max_corner;
     use super::*;
+
+    /// P5 verify (07_1): the four squares come up as "Now add up the
+    /// squares" is said, before the first count, so the frame is not empty
+    /// for the first four seconds of the line (it showed the shelf alone
+    /// until "One,").
+    #[test]
+    fn the_squares_come_up_with_the_words_that_name_them() {
+        let voiced = testing::run_voiced("07_three_stacks").unwrap();
+        let events = super::super::draw::quiz_log::take(&voiced.tag, "07_1");
+        let at = |k: &str| {
+            events
+                .iter()
+                .find(|e| e.0 == k)
+                .unwrap_or_else(|| panic!("no {k}: {events:?}"))
+                .1
+        };
+        let (_, start, _) = voiced.lines.iter().find(|l| l.0 == "07_1").cloned().unwrap();
+        let (slabs, first) = (at("slabs_in"), at("first_count"));
+        assert!(
+            slabs - start <= 3.5,
+            "the squares come up {:.1} s into the line",
+            slabs - start
+        );
+        assert!(
+            first - slabs >= 0.8,
+            "{:.1} s between the squares and the first count",
+            first - slabs
+        );
+    }
+
+    /// P5 verify (07_3): the picture keeps up with the voice: the next line
+    /// waits no more than two and a half seconds on the turns (it waited 3.7 s), and
+    /// each quarter turn still takes the half second a viewer needs to see
+    /// it.
+    #[test]
+    fn the_turns_keep_up_with_the_voice() {
+        let v = testing::run_voiced("07_three_stacks").unwrap();
+        let gap = super::super::sound::gap_between(&v, "07_3", "07_4");
+        eprintln!("07_3 to 07_4: {gap:.2} s");
+        assert!(gap <= 2.5, "{gap:.1} s of silence between 07_3 and 07_4");
+        const {
+            assert!(TURN_S >= 0.5 && SLIDE_S >= 0.6);
+        }
+    }
 
     /// The chapter speaks exactly the script's 07_ lines, in order.
     #[test]

@@ -1005,7 +1005,9 @@ impl SceneConstruct for Halves {
                 .collect::<fmn::Result<Moves>>()
         })?;
         file_on_shelf(stage, &picture, PICTURE_AT, SIDE * PICTURE_K, SLOT, 1.0)?;
-        pause(stage, 0.6)?;
+        // (no pause after the filing: the stage holds the shelf's thumbnails
+        // and nothing else, and the fade follows; it was 0.6 s of a still
+        // shelf on top of the fade)
         fade_all(stage, 0.6)?;
         kit.finish(stage)
     }
@@ -1204,6 +1206,24 @@ mod tests {
             "the last piece goes down at {last:.2}, the sentence ends {s1:.2}"
         );
         assert!(last < s1, "and before the next sentence ({s1:.2})");
+    }
+
+    /// P5 verify: what follows the last line is the statement's read (the
+    /// tonic's window, 3 s), the card with its close-up and its tick (read
+    /// about 4 s) and the filing: each authored; the chapter does not hold a
+    /// still shelf after the filing. The bound is what those add up to and
+    /// no pause more.
+    #[test]
+    fn what_follows_the_last_line_is_the_statement_the_card_and_the_filing() {
+        let v = testing::run_voiced("10_halves").unwrap();
+        let tail = super::super::sound::after_the_last_line(&v);
+        // the statement in 0.5 and read for PRECISELY_S, out in 0.4; the card
+        // in 0.6, 0.8, the ring in 0.5, the tick (0.5 + 0.3), 1.2, out 0.4,
+        // the filing 1.0 and the closing fade 0.6, and 0.6 s for the voice's
+        // own breath: the 0.6 s pause after the filing would not fit
+        let most = 0.5 + PRECISELY_S + 0.4 + 0.6 + 0.8 + 0.5 + 0.8 + 1.2 + 0.4 + 1.0 + 0.6 + 0.6;
+        eprintln!("10 tail: {tail:.2} s of at most {most:.1}");
+        assert!(tail <= most, "{tail:.1} s after the last line, at most {most:.1}");
     }
 
     /// The scene constructs end to end (every phrase it waits for is in its
