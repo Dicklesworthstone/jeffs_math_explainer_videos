@@ -1,0 +1,5 @@
+# Extra reads for Video J's narration (tools/narration.py, director_files):
+# <line_id> TAB <sentence index, 0-based> TAB <ftts input>. One more read of that sentence whose input goes to ftts only; the text stays the script's.
+# The letter t after 'time' (09_5 sentence 1, "Then for a time t more."): none of the nine planned reads says it (heard 'to', 's, 'tis', 'small', 'and more', 'timed', or not at all). A respelling as 'tee', plain and inside the double quote wrap, gives the letter name.
+09_5	1	Then for a time tee more.
+09_5	1	““Then for a time tee more.””
