@@ -129,13 +129,13 @@ upload has not, and v4 was uploaded separately and made Public.
 | Video F, Mental Math Tricks, michael v2 (0720552) | `explainer_corpus/mental_math/renders/final/mental_math_master.mp4` | `766f27760c86c2fa698ddc830699d550` | 15:34, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2); `tools/release.py check mental_math` PASS on this laptop copy, 2026-10-14; uploaded Private on 2026-10-14 and made **Public** the same day on the owner's word (https://youtu.be/wahnqlfOC84, row in Uploads above). F v1 (`renders/final_v1/`, `ccc684b23c200d6ed09094509d02d73b`) has orphan captions and v1's chapter times: do not upload |
 | Video E, Fair Coin, michael v2 (29d168c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `ab9b2cfc71f4600c74a02abb74d804ef` | 11:57, −17.7 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:55; with 46678ef's three listen windows); delivery check (final_check) PASS on mx-e-a-e-e-k23.11; fetched md5-checked; `./x fair_coin release-check` PASS on this laptop copy, 2026-10-14 (nothing to its sources since 29d168c); not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`a5805f30…`, its listen windows soundless) is at `renders/final_v1/`: do not upload |
 | Video G, Lie Robotics, michael v2 (8086fe4) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `b158f58a24f43878cea07c2c782b6c24` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 20:22; with 5b31523's plot notes, chapter 11 the only change, PeachPuma's comparison on mx-e-a-suh.13); fetched md5-checked; `./x lie_robotics release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`c4cd3fca…`) is at `renders/final_v1/` and again at `renders/final_v2/`: do not upload |
+| Video H, How to Find a Lost Submarine, michael v2 (ab6c734) | `explainer_corpus/bayesian_search/renders/final/bayesian_search_master.mp4` | `797dac61555d252bd544e595149d85af` | 15:54, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 21:24; with 1261dd3's 10_3 band dwell and d7e904b's theme chord); fetched md5-checked; `./x bayesian_search release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`bdcc3dcbf92a6d39ff94ced91d540ada`) is at `renders/final_v1_fbe959c/`: do not upload |
 | Video I, Proofs You Can See, michael v2 (4eb357a) | `explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4` | `5a08f714a8ab7631243dcf67fcc45a67` | 18:11, −17.9 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:29, after the 17:14 disk failure stopped v1 mid-final); fetched md5-checked; `./x visual_proofs release-check` PASS on this laptop copy, 2026-10-14 (captions from the kit at 4eb357a: no orphan tails); not uploaded: Private for the owner's review first, by BronzeRidge only. The delivery check (final_check) on mx-e-a-dza.11 before upload |
 | Video J, What Does It Mean to Raise e to a Matrix?, michael v2 (a425038) | `explainer_corpus/matrix_exponential/renders/final/matrix_exponential_master.mp4` | `0d08270c475f772de2c70e793c8228c9` | 18:08, −18.0 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (clone 1, 21:01; with a425038's four bands held to 2.6 s); fetched md5-checked; `./x matrix_exponential release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The v1 final (`ab6c734` finals) is at `renders/final_v1_ab6c734/`: do not upload |
 
-**E, G and J are their v2 now (2026-10-14, mx-vu2t).** Their earlier cuts predated fixes made for them:
+**E, G, H and J are their v2 now (2026-10-14, mx-vu2t).** Their earlier cuts predated fixes made for them:
 46678ef (E's three listen windows, 02_8, 03_2 and 05_2, were soundless), 5b31523 (G 11_5/11_6's plot
-notes), and a425038 (J's four bands held to 2.6 s); the rows above are the v2 cuts that carry them, and only those are to be uploaded. H's v2
-(1261dd3, 10_3's band) is rendering; K renders after H.
+notes), 1261dd3 (H 10_3's band dwell), and a425038 (J's four bands held to 2.6 s); the rows above are the v2 cuts that carry them, and only those are to be uploaded. K renders now.
 
 **Hold I (2026-10-14 21:22): do not upload I v2.** 7ca56f3 (after it) fixes 07_3's aside 'why three is the
 fewest', which stood whole 1.47 s on the v2 final; I v3 is rendering in clone 1 at a305d08 and its row will
@@ -166,6 +166,11 @@ times filled from final timelines, c2b4a1b); captions `explainer_corpus/lie_robo
 1f44182, 0 orphan tails, final_check PASS); thumbnail `explainer_corpus/lie_robotics/renders/lie_robotics_thumbnail.png`
 (`7fc39fc8…`); the upload sheet is `python3 -I tools/release.py check lie_robotics` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
+
+Video H's text: `explainer_corpus/bayesian_search/publish/michael/{title,description,tags}.txt` (v2's
+chapter times); captions `explainer_corpus/bayesian_search/renders/final/bayesian_search.en.srt`
+(`644c9c29…`, VTT `44cf8763…`); thumbnail `explainer_corpus/bayesian_search/renders/bayesian_search_thumbnail.png`
+(`35bb4628…`); the upload sheet is `./x bayesian_search release-check`.
 
 Video I's text: `explainer_corpus/visual_proofs/publish/michael/{title,description,tags}.txt` (v2's
 chapter times, 0381fba); captions `explainer_corpus/visual_proofs/renders/final/visual_proofs.en.srt`
