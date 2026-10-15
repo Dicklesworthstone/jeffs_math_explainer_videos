@@ -20,20 +20,20 @@ them over the `?:??`, as `./x eigen_engineering chapters` computes them, and `ch
 A bridge, the air in a room and an economy have a few special patterns of their own: patterns the system hands back unchanged except for size. Described in those patterns, a tangle of equations in which everything pulls on everything falls apart into separate one-line problems. That one calculation, the eigendecomposition of a table of numbers, tells an engineer how a steel truss sags and sways, which notes a room sings back and whether an economy can feed itself, and it is just as useful to know where it stops.
 
 Chapters
-?:?? The bridge that swayed
-?:?? Two carts
-?:?? Own patterns
-?:?? The split
-?:?? A steel truss
-?:?? Twenty-one patterns
-?:?? Every mode a note
-?:?? Two bridges
-?:?? The air in a room
-?:?? Two million modes
-?:?? Where modes rule
-?:?? An economy
-?:?? Can it feed itself
-?:?? One idea
+0:00 The bridge that swayed
+0:54 Two carts
+2:03 Own patterns
+3:07 The split
+4:13 A steel truss
+5:21 Twenty-one patterns
+6:36 Every mode a note
+7:34 Two bridges
+8:30 The air in a room
+9:35 Two million modes
+10:29 Where modes rule
+11:31 An economy
+12:32 Can it feed itself
+13:42 One idea
 
 What the video shows
 The Millennium Bridge in London opened on 10 June 2000 and closed two days later. Its measured sideways modes on the centre span were 0.48 and 0.95 Hz, and walkers push sideways at half their walking frequency, about 1.0 Hz. It reopened in 2002 with dampers. Tacoma Narrows failed on 7 November 1940 by torsional flutter, a self-excitation, at 12 twists a minute.
