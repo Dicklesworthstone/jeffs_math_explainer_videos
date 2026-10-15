@@ -81,6 +81,9 @@ heads-then-tails three times in four. Equality at every history is sufficient,
 not necessary: unequal histories could cancel in total. The chance may even
 drift from pair to pair, and depend on earlier results, as long as the two
 tosses of a pair are independent with the same chance given what came before.
+The condition makes the output fair whenever the game returns one; that it
+returns one with probability one is a separate condition (it holds for
+independent tosses of a coin that can land both ways).
 
 **The price (chapter 4).** A pair differs with probability 2p(1 − p), so the
 number of pairs is geometric and the expected number of tosses is
