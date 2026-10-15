@@ -4,9 +4,10 @@ rests on a row of docs/fact-sheet.md, an oracle key, or the P3 claim walk's
 own recomputation; the bracketed tags name them. It holds the exact versions
 of what the narration simplifies (plan rule 11), the programmer notes that
 have no room on screen, and what review round R1 sent "to the description"
-(R1.md: D8, D12, D13, D19, D20, D27, D30, R7, R26). The release package adds
-the chapter timestamps and the repository link, and trims this to what the
-upload page accepts, linking this file for the rest.
+(R1.md: D8, D12, D13, D19, D20, D27, D30, R7, R26). The chapter timestamps are
+the final cut's (./x eigen_engineering chapters). The release package adds the
+repository link, and trims this to what the upload page accepts, linking this
+file for the rest.
 -->
 
 # The One Idea Behind Bridges, Concert Halls and Economies
@@ -21,22 +22,20 @@ feed itself, and it is just as useful to know where it stops.
 
 ## Chapters
 
-(Timestamps come with the finished cut.)
-
-1. The bridge that swayed
-2. Two carts
-3. Own patterns
-4. The split
-5. A steel truss
-6. Twenty-one patterns
-7. Every mode a note
-8. Two bridges
-9. The air in a room
-10. Two million modes
-11. Where modes rule
-12. An economy
-13. Can it feed itself
-14. One idea
+0:00 The bridge that swayed
+0:54 Two carts
+2:03 Own patterns
+3:07 The split
+4:13 A steel truss
+5:21 Twenty-one patterns
+6:36 Every mode a note
+7:34 Two bridges
+8:30 The air in a room
+9:35 Two million modes
+10:29 Where modes rule
+11:31 An economy
+12:32 Can it feed itself
+13:42 One idea
 
 ## Precisely
 
