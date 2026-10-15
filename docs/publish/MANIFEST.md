@@ -127,15 +127,14 @@ upload has not, and v4 was uploaded separately and made Public.
 | RaptorQ leo (the original voice, a comparison) | `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4` | `130493a0d35ce4e4f61eeb39047b6b73` | 21:14, −16.0 LUFS | verified; the owner chose michael, so upload only if he asks to compare |
 | fish michael, v1 (superseded by v2) | `explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4` | `3476fd0d155af2322d8f3597a0b66cfa` | 18:04, −18.1 LUFS | verified, but three endings ("size", "times", "things") lack their s: do not upload; v2 follows |
 | Video F, Mental Math Tricks, michael v2 (0720552) | `explainer_corpus/mental_math/renders/final/mental_math_master.mp4` | `766f27760c86c2fa698ddc830699d550` | 15:34, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2); `tools/release.py check mental_math` PASS on this laptop copy, 2026-10-14; uploaded Private on 2026-10-14 and made **Public** the same day on the owner's word (https://youtu.be/wahnqlfOC84, row in Uploads above). F v1 (`renders/final_v1/`, `ccc684b23c200d6ed09094509d02d73b`) has orphan captions and v1's chapter times: do not upload |
-| Video E, Fair Coin, michael (fbe959c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `a5805f30aa28ad29470a3ed74c7d62f4` | 11:57, −17.6 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check fair_coin` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
-| Video G, Lie Robotics, michael (fbe959c) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `c4cd3fcade8d48953ecb9158b5be8ab4` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals); `tools/release.py check lie_robotics` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only |
+| Video E, Fair Coin, michael v2 (29d168c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `ab9b2cfc71f4600c74a02abb74d804ef` | 11:57, −17.7 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:55; with 46678ef's three listen windows); delivery check (final_check) PASS on mx-e-a-e-e-k23.11; fetched md5-checked; `./x fair_coin release-check` PASS on this laptop copy, 2026-10-14 (nothing to its sources since 29d168c); not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`a5805f30…`, its listen windows soundless) is at `renders/final_v1/`: do not upload |
+| Video G, Lie Robotics, michael v2 (8086fe4) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `b158f58a24f43878cea07c2c782b6c24` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 20:22; with 5b31523's plot notes, chapter 11 the only change, PeachPuma's comparison on mx-e-a-suh.13); fetched md5-checked; `./x lie_robotics release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`c4cd3fca…`) is at `renders/final_v1/` and again at `renders/final_v2/`: do not upload |
 | Video I, Proofs You Can See, michael v2 (4eb357a) | `explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4` | `5a08f714a8ab7631243dcf67fcc45a67` | 18:11, −17.9 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:29, after the 17:14 disk failure stopped v1 mid-final); fetched md5-checked; `./x visual_proofs release-check` PASS on this laptop copy, 2026-10-14 (captions from the kit at 4eb357a: no orphan tails); not uploaded: Private for the owner's review first, by BronzeRidge only. The delivery check (final_check) on mx-e-a-dza.11 before upload |
 
-**Hold E and G (2026-10-14, mx-vu2t): a v2 of each is rendering, and it replaces these rows.** Both
-fbe959c cuts predate fixes made for them: 46678ef (E's three listen windows, 02_8, 03_2 and 05_2, are
-soundless in this cut; its message says the final "needs score + final + master + verify again") and
-5b31523 (G 11_5/11_6's plot notes, a defect found on this final). H's v2 (1261dd3) follows them. Upload
-the v2 once it is verified, not these.
+**E and G are their v2 now (2026-10-14, mx-vu2t).** Their fbe959c cuts predated fixes made for them:
+46678ef (E's three listen windows, 02_8, 03_2 and 05_2, were soundless) and 5b31523 (G 11_5/11_6's plot
+notes); the rows above are the v2 cuts that carry them, and only those are to be uploaded. H's v2
+(1261dd3, 10_3's band) and J's v2 (a425038, four bands held to 2.6 s) are rendering; K renders after H.
 
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
@@ -149,9 +148,9 @@ tags, category, audience, Private and the synthetic-content line of `publish/you
 
 Video E's text: `explainer_corpus/fair_coin/publish/michael/{title,description,tags}.txt` (chapter
 times filled from final timelines, f8bcb2b); captions `explainer_corpus/fair_coin/renders/final/fair_coin.en.srt`
-(`92a2d8cb…`, VTT `f1f89fa6…`: rebuilt from the same narration and timelines by the kit's captions fix
-1f44182, byte-identical in PeachPuma's and EmeraldOwl's runs, final_check PASS; the finals clone's
-fbe959c captions, `446ee8d4…`, have nine orphan tails and are kept at `renders/final/orphan_captions_fbe959c/`:
+(`92a2d8cb…`, VTT `f1f89fa6…`: v2's own, made by the kit at 29d168c, after its captions fix 1f44182,
+byte-identical to the ones rebuilt for v1 in PeachPuma's and EmeraldOwl's runs, final_check PASS; v1's
+fbe959c captions, `446ee8d4…`, with nine orphan tails, are at `renders/final_v1/orphan_captions_fbe959c/`:
 do not upload them); thumbnail `explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png`
 (`728c23b9…`); the upload sheet is `python3 -I tools/release.py check fair_coin` (the description,
 tags, category, audience, Private and the synthetic-content line of `publish/youtube.md`).
