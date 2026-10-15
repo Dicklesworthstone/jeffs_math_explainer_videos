@@ -13,7 +13,7 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
   space counts its two quotes); youtube.md's "- Tags:" line holds the same tags.
 - description.txt: at most 5000 characters, no angle brackets (YouTube refuses them), byte for byte the
   ```text block of youtube.md.
-- the chapter list (the lines after a line "Chapters" up to a blank line): `M:SS Title`, the first at 0:00,
+- the chapter list (the lines after a line "Chapters" up to a blank line): `M:SS Title` or `MM:SS Title`, the first at 0:00,
   at least three, rising, each at least 10 s after the one before; a time still written `?:??` means the final
   has not been cut yet and fails. With `--finals DIR`, one chapter per `DIR/*.timeline.tsv` and the times
   equal the ones `./x SLUG chapters` prints for that final (a start rounded down to the second).
@@ -26,7 +26,7 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
   notes do (thousands separators and signs folded). A number typed into the upload text alone fails here.
 
 `fill` writes those times into the `?:??` (or stale) chapter lines of both files, in chapter order, and then
-runs `check` against the same finals. Nothing is uploaded and nothing is deleted.
+runs `check` against the same finals. Existing padded minute fields stay padded. Nothing is uploaded and nothing is deleted.
 """
 from __future__ import annotations
 
@@ -225,7 +225,8 @@ def check(slug: str, voice: str = "michael", finals: Path | None = None, root: P
             bad.append(f"description.txt: {len(chapters)} chapters, the final has {len(starts)}")
         else:
             for (key, s), (i, mt) in zip(starts, chapters):
-                if mt is not None and mt.group(1) != "?:??" and mt.group(1) != clock(s):
+                if (mt is not None and mt.group(1) != "?:??"
+                        and f"{int(mt.group(2))}:{mt.group(3)}" != clock(s)):
                     bad.append(f"description.txt line {i + 1}: {mt.group(1)}, the final's {key} starts at {clock(s)}")
     return bad
 
@@ -238,7 +239,10 @@ def fill_text(text: str, starts: list[tuple[str, int]]) -> str:
     for (i, mt), (_, s) in zip(chapters, starts):
         if mt is None:
             raise ValueError(f"line {i + 1} is not a chapter line: {lines[i]!r}")
-        lines[i] = f"{clock(s)} {mt.group(4)}"
+        timestamp = clock(s)
+        if mt.group(2) is not None and len(mt.group(2)) >= 2:
+            timestamp = f"{s // 60:02d}:{s % 60:02d}"
+        lines[i] = f"{timestamp} {mt.group(4)}"
     return "\n".join(lines)
 
 

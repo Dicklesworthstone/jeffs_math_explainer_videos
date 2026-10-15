@@ -1,16 +1,16 @@
 Toss an unfair coin twice. If the two results match, throw them away and toss two fresh ones. If they differ, heads-then-tails wins for one player and tails-then-heads for the other. The game is exactly fair whatever the coin's chance of heads, and nobody has to know that chance. This video shows why, what it costs, how it breaks, and how the same idea makes a fair die out of a loaded one.
 
 Chapters
-0:00 Call it
-0:57 Toss twice
-2:18 Every coin
-3:39 The price
-4:33 Where it breaks
-5:42 Same counts
-7:04 A die from a coin
-7:57 Loaded dice
-8:44 Six orders
-9:53 What is left
+00:00 Call it
+00:57 Toss twice
+02:18 Every coin
+03:39 The price
+04:33 Where it breaks
+05:42 Same counts
+07:04 A die from a coin
+07:57 Loaded dice
+08:44 Six orders
+09:53 What is left
 11:00 The fair coin inside
 
 The exact versions

@@ -75,6 +75,23 @@ class Package(unittest.TestCase):
         self.assertEqual(len(bad), 1, bad)
         self.assertIn("02_two starts at 1:01", bad[0])
 
+    def test_padded_minutes_match_the_final_and_survive_fill(self):
+        desc = DESC.replace("?:?? One", "00:00 One").replace("?:?? Two", "01:01 Two").replace("?:?? Three", "01:48 Three")
+        self.write(desc)
+        self.assertEqual(self.check(self.finals), [])
+        self.assertEqual(yp.fill("alpha", self.finals, "michael", self.root), [])
+        self.assertEqual((self.pub / "michael" / "description.txt").read_text(encoding="utf-8"), desc)
+        self.assertEqual(self.check(self.finals), [])
+
+    def test_padding_does_not_hide_a_wrong_start_or_invalid_seconds(self):
+        for wrong in ("01:02", "00:61"):
+            with self.subTest(timestamp=wrong):
+                self.write(DESC.replace("?:?? One", "00:00 One")
+                           .replace("?:?? Two", f"{wrong} Two").replace("?:?? Three", "01:48 Three"))
+                bad = self.check(self.finals)
+                self.assertEqual(len(bad), 1, bad)
+                self.assertIn("02_two starts at 1:01", bad[0])
+
     def test_youtubes_limits(self):
         self.write(DESC + "x" * 5000)
         self.assertTrue(any("5000" in b for b in self.check()))
