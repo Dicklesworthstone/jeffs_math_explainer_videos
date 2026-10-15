@@ -130,16 +130,13 @@ upload has not, and v4 was uploaded separately and made Public.
 | Video E, Fair Coin, michael v2 (29d168c) | `explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4` | `ab9b2cfc71f4600c74a02abb74d804ef` | 11:57, −17.7 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:55; with 46678ef's three listen windows); delivery check (final_check) PASS on mx-e-a-e-e-k23.11; fetched md5-checked; `./x fair_coin release-check` PASS on this laptop copy, 2026-10-14 (nothing to its sources since 29d168c); not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`a5805f30…`, its listen windows soundless) is at `renders/final_v1/`: do not upload |
 | Video G, Lie Robotics, michael v2 (8086fe4) | `explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4` | `b158f58a24f43878cea07c2c782b6c24` | 16:38, −17.8 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 20:22; with 5b31523's plot notes, chapter 11 the only change, PeachPuma's comparison on mx-e-a-suh.13); fetched md5-checked; `./x lie_robotics release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`c4cd3fca…`) is at `renders/final_v1/` and again at `renders/final_v2/`: do not upload |
 | Video H, How to Find a Lost Submarine, michael v2 (ab6c734) | `explainer_corpus/bayesian_search/renders/final/bayesian_search_master.mp4` | `797dac61555d252bd544e595149d85af` | 15:54, −18.1 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 21:24; with 1261dd3's 10_3 band dwell and d7e904b's theme chord); fetched md5-checked; `./x bayesian_search release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The fbe959c cut (`bdcc3dcbf92a6d39ff94ced91d540ada`) is at `renders/final_v1_fbe959c/`: do not upload |
-| Video I, Proofs You Can See, michael v2 (4eb357a) | `explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4` | `5a08f714a8ab7631243dcf67fcc45a67` | 18:11, −17.9 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (finals2, 19:29, after the 17:14 disk failure stopped v1 mid-final); fetched md5-checked; `./x visual_proofs release-check` PASS on this laptop copy, 2026-10-14 (captions from the kit at 4eb357a: no orphan tails); not uploaded: Private for the owner's review first, by BronzeRidge only. The delivery check (final_check) on mx-e-a-dza.11 before upload |
+| Video I, Proofs You Can See, michael v3 (a305d08) | `explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4` | `f3c7a03a821b86b9deb4c680670a0cd5` | 18:11, −17.9 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (clone 1, 21:54; with 7ca56f3's 07_3 aside, which now stands about 6.5 s, seen on the final's frames); delivery check (final_check, blank_stretches, band_dwell) as v2's: the same four notes for the owner on mx-e-a-dza.11 and band_dwell's one 13_7 flag, a picture zooming in, not a band; fetched md5-checked; `./x visual_proofs release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The v2 cut (`5a08f714…`, 07_3's aside 1.47 s) is at `renders/final_v1/`: do not upload |
 | Video J, What Does It Mean to Raise e to a Matrix?, michael v2 (a425038) | `explainer_corpus/matrix_exponential/renders/final/matrix_exponential_master.mp4` | `0d08270c475f772de2c70e793c8228c9` | 18:08, −18.0 LUFS (true peak at the −1.5 dBTP ceiling) | verified on the build host (clone 1, 21:01; with a425038's four bands held to 2.6 s); fetched md5-checked; `./x matrix_exponential release-check` PASS on this laptop copy, 2026-10-14; not uploaded: Private for the owner's review first, by BronzeRidge only. The v1 final (`ab6c734` finals) is at `renders/final_v1_ab6c734/`: do not upload |
 
 **E, G, H and J are their v2 now (2026-10-14, mx-vu2t).** Their earlier cuts predated fixes made for them:
 46678ef (E's three listen windows, 02_8, 03_2 and 05_2, were soundless), 5b31523 (G 11_5/11_6's plot
-notes), 1261dd3 (H 10_3's band dwell), and a425038 (J's four bands held to 2.6 s); the rows above are the v2 cuts that carry them, and only those are to be uploaded. K renders now.
-
-**Hold I (2026-10-14 21:22): do not upload I v2.** 7ca56f3 (after it) fixes 07_3's aside 'why three is the
-fewest', which stood whole 1.47 s on the v2 final; I v3 is rendering in clone 1 at a305d08 and its row will
-replace I's above once it is verified.
+notes), 1261dd3 (H 10_3's band dwell), and a425038 (J's four bands held to 2.6 s); the rows above are the v2 cuts that carry them, and only those are to be uploaded. I is its v3 (a305d08, 7ca56f3's 07_3 aside). K's v2 (c777b7e) had two
+bands under 2.6 s (04_7 2.53 s, 07_5 2.30 s), fixed in 08b72fd: K v3 renders in clone 1 at 6c2af21, and only it is to be uploaded.
 
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
@@ -174,10 +171,8 @@ chapter times); captions `explainer_corpus/bayesian_search/renders/final/bayesia
 
 Video I's text: `explainer_corpus/visual_proofs/publish/michael/{title,description,tags}.txt` (v2's
 chapter times, 0381fba); captions `explainer_corpus/visual_proofs/renders/final/visual_proofs.en.srt`
-(`02862100…`, VTT `601a14f4…`); thumbnail `explainer_corpus/visual_proofs/renders/visual_proofs_thumbnail.png`
-(`a78eb233…`); the upload sheet is `./x visual_proofs release-check`. Its one NOTE: d7e904b came after
-this cut; it adds to the score's validation a refusal of a theme chord equal to a bed chord and sets H's
-theme chord, so I's sound is unchanged by it.
+(`02862100…`, VTT `601a14f4…`: v3's, the same bytes as v2's, for no line moved); thumbnail `explainer_corpus/visual_proofs/renders/visual_proofs_thumbnail.png`
+(`a78eb233…`); the upload sheet is `./x visual_proofs release-check`.
 
 Video J's text: `explainer_corpus/matrix_exponential/publish/michael/{title,description,tags}.txt` (v2's
 chapter times); captions `explainer_corpus/matrix_exponential/renders/final/matrix_exponential.en.srt`
