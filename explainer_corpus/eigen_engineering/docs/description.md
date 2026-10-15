@@ -29,13 +29,13 @@ feed itself, and it is just as useful to know where it stops.
 4:13 A steel truss
 5:21 Twenty-one patterns
 6:36 Every mode a note
-7:34 Two bridges
-8:30 The air in a room
-9:35 Two million modes
-10:29 Where modes rule
-11:31 An economy
-12:32 Can it feed itself
-13:42 One idea
+7:35 Two bridges
+8:31 The air in a room
+9:36 Two million modes
+10:30 Where modes rule
+11:32 An economy
+12:33 Can it feed itself
+13:43 One idea
 
 ## Precisely
 
