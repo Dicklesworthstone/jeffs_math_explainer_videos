@@ -1,0 +1,33 @@
+Video E (fair_coin), michael v3: delivery receipt, 2026-10-14 (EmeraldOwl, for BronzeRidge; release bead mx-e-a-e-e-k23.13)
+
+Revision      9ea6f85 = the sources of v2 (29d168c) + one picks.tsv row (05_2 sentence 3). abb129f's score change re-scores E bit-identically.
+Render        build host, second render clone: narrate 22:17, score 22:31, scored 22:36, final 22:45, master 22:46, captions 22:46,
+              verify PASS 22:50 (software full decode 0 errors, hwaccel full decode 0 errors, A/V 0.000 s).
+Master        explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4
+              md5 4471f2580e022b41374d61be59c0ce11, 89,244,021 bytes, 716.40 s, 42,984 frames,
+              3840x2160 at 60 fps, BT.709, H.264 High + AAC 48 kHz stereo
+Captions      explainer_corpus/fair_coin/renders/final/fair_coin.en.srt  md5 4b3f28952aafff485dd34f0229afa5e8  (183 cues, 0.60-702.22 s, 14,482 bytes)
+              explainer_corpus/fair_coin/renders/final/fair_coin.en.vtt  md5 a9dc8f8dad228911d0247cac0c32e045  (13,866 bytes)
+Thumbnail     explainer_corpus/fair_coin/renders/fair_coin_thumbnail.png  md5 728c23b9b061a4b3e46b9d79b5cf15e6 (unchanged)
+Chapters      0:00 Call it | 0:57 Toss twice | 2:18 Every coin | 3:39 The price | 4:33 Where it breaks | 5:42 Same counts |
+              7:04 A die from a coin | 7:57 Loaded dice | 8:44 Six orders | 9:53 What is left | 11:00 The fair coin inside
+              (from this cut's timelines; publish/michael/description.txt and docs/description.md carry the same 11 lines, 1e2e379;
+              v2's were 5:43, 7:05, 7:58, 8:44, 9:53, 11:01). Longest chapter 06 at 81.87 s.
+Checks        ./x fair_coin release-check PASS on the laptop copy (the MANIFEST row names this md5); tools/final_check.py PASS but for the
+              fixed-gain loudness below (1,548 of 1,548 words in order, exact sentences, inside each line's audio, VTT = SRT);
+              blank_stretches 0 flags; band_dwell's one flag, 06_7's band from 74.33 s (2.47 s), is the same band of v2, a band that
+              grows in place, unchanged picture; narration of this cut: 62 lines, ASR mean 0.995, 0 below 0.90, edges 0 failures,
+              final s/z 0; score QA PASS in all 11 chapters.
+Voice         FIXED  05_2 "Alice wins four games in five, as if they'd never bothered." (v2 read it 'Elise': 95-135 ms of a close front
+              vowel in the first syllable; the plain unseeded read 05_2__s3__d7e408d8 has the open first vowel and is heard 'Alice',
+              also on the chapter's final mix by BronzeRidge's fw 0.9.2). Only 05_2.wav (0.6 s shorter) and the report's records changed;
+              the other 61 line WAVs are byte-identical to v2's.
+              ACCEPTED  10_3.1 "Guess heads and you're right" (heard 'in your'): the take, whole, says 'and you're'; 7 of 9 reads are heard
+              right and the assembled line has the same waveform: an ASR context reading of a reduced 'and'.
+Loudness      -17.7 LUFS integrated, true peak -1.50 dBTP, LRA 4.9 LU: the fixed gain sits at the -1.5 dBTP mastering ceiling (verify's
+              own note), so it is ceiling-bound; +1.7 LU toward -16 would put the true peak at +0.2 dBTP, past the -1.0 gate. Same as v2.
+Versus v2     chapter 05 is 4,169 frames against 4,205 (-0.60 s); each later chapter starts 0.60 s earlier. The other ten chapters' video
+              packets are byte-identical to v2's; their audio is re-scored on the new timeline (chapters 01-04 about -38 dB re the signal
+              from v2's, 06-11 about -21 dB), QA PASS.
+Preserved     renders/final_v2/ (v2, md5 ab9b2cfc71f4600c74a02abb74d804ef; its Private upload is superseded) and renders/final_v1/
+              (fbe959c, a5805f30...): do not upload either. Nothing was deleted.
