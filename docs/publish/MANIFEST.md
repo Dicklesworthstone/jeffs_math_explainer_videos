@@ -137,6 +137,10 @@ upload has not, and v4 was uploaded separately and made Public.
 notes), and a425038 (J's four bands held to 2.6 s); the rows above are the v2 cuts that carry them, and only those are to be uploaded. H's v2
 (1261dd3, 10_3's band) is rendering; K renders after H.
 
+**Hold I (2026-10-14 21:22): do not upload I v2.** 7ca56f3 (after it) fixes 07_3's aside 'why three is the
+fewest', which stood whole 1.47 s on the v2 final; I v3 is rendering in clone 1 at a305d08 and its row will
+replace I's above once it is verified.
+
 RaptorQ leo's text: `explainer_corpus/raptorq_gf256/publish/leo/{title,description,tags}.txt`;
 captions `explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256.en.srt`
 (`96fc2e5c…`); thumbnail `explainer_corpus/raptorq_gf256/renders/raptorq_gf256_thumbnail.png`.
