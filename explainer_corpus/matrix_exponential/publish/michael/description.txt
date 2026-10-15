@@ -1,22 +1,22 @@
 Put a grid of four numbers, [0, −1; 1, 0], in the exponent of e, and what comes out is a rotation of the plane by one radian, about [0.540, −0.841; 0.841, 0.540]. One picture carries the whole video: the exponential turns a rule for tiny steps into where you end up. Put a number in, and growth comes out; put i in, and turning comes out; put a matrix in, and the motion of a whole linked system comes out.
 
 Chapters
-?:?? e to a matrix
-?:?? The obvious guess
-?:?? Growth
-?:?? The series
-?:?? One function
-?:?? Turning
-?:?? A matrix in
-?:?? Does it settle
-?:?? Follow the arrows
-?:?? Two tanks
-?:?? Walks
-?:?? Heat and chance
-?:?? How computers do it
-?:?? Order matters
-?:?? The doorway
-?:?? Where it leads
+0:00 e to a matrix
+0:48 The obvious guess
+1:39 Growth
+2:52 The series
+4:02 One function
+5:09 Turning
+6:14 A matrix in
+7:23 Does it settle
+8:37 Follow the arrows
+9:49 Two tanks
+10:55 Walks
+12:07 Heat and chance
+13:21 How computers do it
+14:32 Order matters
+15:50 The doorway
+16:59 Where it leads
 
 What the video shows
 The obvious guess, raising e to each entry, fails: it sends the zero matrix to [1, 1; 1, 1], not to the matrix that changes nothing.

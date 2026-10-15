@@ -3,9 +3,10 @@ Draft video description for Video J (2026-10-14). Every statement below rests
 on a row of docs/fact-sheet.md or an oracle key; the bracketed tags name them.
 It holds the exact versions of what the narration simplifies (plan rule 11),
 the programmer notes that have no room on screen, and what review round R1
-sent "to the description". The release package adds the chapter timestamps and
-the repository link, and trims this to what the upload page accepts, linking
-this file for the rest.
+sent "to the description". The chapter timestamps are the final cut's
+(`./x matrix_exponential chapters`). The release package adds the repository
+link, and trims this to what the upload page accepts, linking this file for
+the rest.
 -->
 
 # What Does It Mean to Raise e to a Matrix?
@@ -19,24 +20,22 @@ out; put a matrix in, and the motion of a whole linked system comes out.
 
 ## Chapters
 
-(Timestamps come with the finished cut.)
-
-1. e to a matrix
-2. The obvious guess
-3. Growth
-4. The series
-5. One function
-6. Turning
-7. A matrix in
-8. Does it settle
-9. Follow the arrows
-10. Two tanks
-11. Walks
-12. Heat and chance
-13. How computers do it
-14. Order matters
-15. The doorway
-16. Where it leads
+0:00 e to a matrix
+0:48 The obvious guess
+1:39 Growth
+2:52 The series
+4:02 One function
+5:09 Turning
+6:14 A matrix in
+7:23 Does it settle
+8:37 Follow the arrows
+9:49 Two tanks
+10:55 Walks
+12:07 Heat and chance
+13:21 How computers do it
+14:32 Order matters
+15:50 The doorway
+16:59 Where it leads
 
 ## Precisely
 
