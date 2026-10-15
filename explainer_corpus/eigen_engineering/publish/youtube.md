@@ -27,13 +27,13 @@ Chapters
 4:13 A steel truss
 5:21 Twenty-one patterns
 6:36 Every mode a note
-7:34 Two bridges
-8:30 The air in a room
-9:35 Two million modes
-10:29 Where modes rule
-11:31 An economy
-12:32 Can it feed itself
-13:42 One idea
+7:35 Two bridges
+8:31 The air in a room
+9:36 Two million modes
+10:30 Where modes rule
+11:32 An economy
+12:33 Can it feed itself
+13:43 One idea
 
 What the video shows
 The Millennium Bridge in London opened on 10 June 2000 and closed two days later. Its measured sideways modes on the centre span were 0.48 and 0.95 Hz, and walkers push sideways at half their walking frequency, about 1.0 Hz. It reopened in 2002 with dampers. Tacoma Narrows failed on 7 November 1940 by torsional flutter, a self-excitation, at 12 twists a minute.
