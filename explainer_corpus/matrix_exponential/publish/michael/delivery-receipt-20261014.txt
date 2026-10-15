@@ -1,0 +1,40 @@
+Video J (matrix_exponential), michael v3: delivery receipt, 2026-10-14 (EmeraldOwl, for BronzeRidge; release bead mx-e-a-j-8yq7.12)
+
+Revision      4937137 = the sources of v2 (a425038) + reads.tsv and picks.tsv (09_5.1 and 12_6.1). The only other change since a425038,
+              abb129f's score change, re-scores J's v2 bit-identically.
+Render        build host, second render clone: score 22:56, scored 23:02, final 23:14, master 23:16, captions 23:16, verify PASS 23:21
+              (software full decode 0 errors, hwaccel full decode 0 errors, A/V 0.000 s).
+Master        explainer_corpus/matrix_exponential/renders/final/matrix_exponential_master.mp4
+              md5 b02772d1b9fd044d167b5ff3c72dfc92, 132,694,307 bytes, 1089.333 s, 65,360 frames,
+              3840x2160 at 60 fps, BT.709, H.264 High + AAC 48 kHz stereo
+Captions      explainer_corpus/matrix_exponential/renders/final/matrix_exponential.en.srt  md5 8e5823f7a27f8531601f85797f296cce  (303 cues, 0.61-1082.30 s, 22,572 bytes)
+              explainer_corpus/matrix_exponential/renders/final/matrix_exponential.en.vtt  md5 cfda9e9f40d601b890969b2d7f74f5e7  (21,476 bytes)
+Thumbnail     explainer_corpus/matrix_exponential/renders/matrix_exponential_thumbnail.png  md5 634f318fd87bfbd514b3f356888465ff (unchanged)
+Chapters      0:00 e to a matrix | 0:48 The obvious guess | 1:39 Growth | 2:52 The series | 4:02 One function | 5:09 Turning |
+              6:14 A matrix in | 7:23 Does it settle | 8:37 Follow the arrows | 9:49 Two tanks | 10:55 Walks | 12:07 Heat and chance |
+              13:21 How computers do it | 14:32 Order matters | 15:50 The doorway | 16:59 Where it leads
+              All 16 starts are v2's to the second (chapters 09 and 12 are 2 and 27 frames longer); publish/michael/description.txt and
+              docs/description.md already carry them (7f17875). Longest chapter 14 at 78.05 s.
+Checks        ./x matrix_exponential release-check PASS on the laptop copy (the MANIFEST row names this md5); tools/final_check.py PASS but
+              for the fixed-gain loudness below (2,330 of 2,330 words in order, exact sentences, inside each line's audio, VTT = SRT);
+              blank_stretches 0 flags; band_dwell 0 bands under 2.6 s; narration of this cut: 87 lines, ASR mean 0.994, 0 below 0.90,
+              edges 0 failures, final s/z 0; score QA PASS in all 16 chapters. Only 09_5.wav and 12_6.wav differ from v2's narration
+              (6.66 -> 6.69 s and 11.20 -> 11.64 s); the other 85 line WAVs are byte-identical.
+Voice         FIXED  09_5.1 "Then for a time t more.": v2 had a t release and no vowel before "more" (heard "Then for a time more.");
+              now the input is respelled 'tee' in the double quote wrap, seed 2 (reads.tsv), heard "Then for a time T more", a t burst and
+              an [i:] of about 0.25 s.  FIXED  12_6.1 "Remember what I did to growth.": v2 ended in the vowel of "grow" (0 ms of
+              frication after it); read 12_6__s1__315fcf24 has about 0.2 s of diffuse 3-6 kHz noise, the th, heard "growth" in the line.
+              BronzeRidge's full unprompted fw of this exact master: both resolved.
+              ACCEPTED  11_5.1 "So e to this matrix": a contextual ASR variant. fw 0.11.0 and fw 0.9.2 on the v2 master clip both give
+              "So, E to this matrix"; 9 of 9 planned reads are heard "E to"; the noise after the e is a t release (85 ms, spectral
+              centroid 5.65 kHz, like the other reads 4.4-6.1 kHz), not the [tS] of a decoy "So each of ..." (80 ms, 4.4 kHz).
+              ACCEPTED  13_1.2 "Moler and Van Loan": the input is "Mohler ... Van Loan" (the lexicon's respelling); the vowel of Loan has
+              F1 560 / F2 1260-1320 Hz and is flat (F2 1323 -> 1313 Hz over a 190 ms core), where a decoy with the input "Loon" has F2
+              rising 1379 -> 1500 Hz over 100 ms; the take alone is heard "Van Lone" (= LOHN), 13 of 18 planned reads "Lone", none "Loon";
+              "Loon" is the assembled line's context reading of that vowel. Other remaining differences of the full fw (contraction
+              expansion, round/around, Pade spellings) are ASR formatting, not the voice.
+Loudness      -18.0 LUFS integrated, true peak -1.50 dBTP, LRA 7.5 LU: the fixed gain sits at the -1.5 dBTP mastering ceiling (verify's own
+              note), so it is ceiling-bound; +2.0 LU toward -16 would put the true peak at +0.5 dBTP, past the -1.0 gate, so the master
+              cannot be louder without breaching the peak gate (the narration is never loudnormed). Same as v2.
+Preserved     v2 (md5 0d08270c475f772de2c70e793c8228c9, never uploaded) at renders/final_v1/ on the laptop and in clone 1's renders/final on
+              the build host; the ab6c734 cut at renders/final_v1_ab6c734/ there. Do not upload either. Nothing was deleted.
