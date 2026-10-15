@@ -16,7 +16,8 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    QuizCard, chip, cross_fade, fact, fade_in_all, fade_out_all, faded_line, flat, items, own, pause, say, wait_until,
+    BAND_UP, QuizCard, chip, cross_fade, fact, fade_in_all, fade_out_all, faded_line, flat, items, now, own, pause,
+    say, wait_until,
 };
 use super::marks::mark;
 use super::sound;
@@ -593,7 +594,11 @@ impl SceneConstruct for EveryModeANote {
             SLOW_TAG_AT,
         )?;
         fade_in_all(stage, &[naive, solver, slow_again], 0.6)?;
+        // the solver's band stands whole BAND_UP before 07_6 takes it: after
+        // the voice and its beat alone it stood 2.30 s on the final
+        let solver_up = now(stage);
         kit.hold(stage)?;
+        wait_until(stage, solver_up + BAND_UP)?;
 
         // ---- 07_6: any small motion is a mix of its modes
         let line = say(&kit, stage, "07_6")?;

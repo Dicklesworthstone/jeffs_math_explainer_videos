@@ -1209,7 +1209,7 @@ pub mod testing {
     /// the voice would be free and lasts its estimated length, as in a
     /// scratch-voice draft, so the timing of a quiz can be measured.
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
-        voiced(key, None)
+        voiced(key, None, false)
     }
 
     /// What a probe is: called once with the stage before the chapter's own
@@ -1219,15 +1219,48 @@ pub mod testing {
     /// [`run_voiced`] with `probe` on the stage, so a test can watch the
     /// chapter frame by frame (`marks::probe`).
     pub fn run_probed(key: &str, probe: Probe) -> Result<Voiced, String> {
-        voiced(key, Some(probe))
+        voiced(key, Some(probe), false)
     }
 
-    fn voiced(key: &str, probe: Option<Probe>) -> Result<Voiced, String> {
+    /// The finished narration's timing of the lines of 04 and 07, each
+    /// `(id, sentence onsets, length)` in seconds as the finals'
+    /// `narration/out/report.json` has it (onset k: the `out_samples +
+    /// gap_after_samples` of the sentences before it, over the rate; the
+    /// length: those of them all). The scratch voice ends 04_7 and 07_5
+    /// sooner than the read does: their bands stood 2.5 s and more in every
+    /// run here, and 2.53 s and 2.30 s on the 4K final (tools/band_dwell.py).
+    pub const REAL_TIMING: &[(&str, &[f64], f64)] = &[
+        ("04_1", &[0.0, 2.885, 6.71], 7.995),
+        ("04_2", &[0.0, 3.03], 5.765),
+        ("04_3", &[0.0, 5.645, 9.645], 13.155),
+        ("04_4", &[0.0, 1.315], 6.67),
+        ("04_5", &[0.0, 1.055, 3.11], 4.585),
+        ("04_6", &[0.0, 2.39], 4.635),
+        ("04_7", &[0.0, 3.035], 8.53),
+        ("07_1", &[0.0, 2.435, 4.865], 11.92),
+        ("07_2", &[0.0, 6.175], 7.61),
+        ("07_3", &[0.0], 4.5),
+        ("07_4", &[0.0, 1.055, 3.365], 6.985),
+        ("07_5", &[0.0], 3.78),
+        ("07_6", &[0.0, 5.445], 9.5),
+    ];
+
+    /// [`run_probed`] with the lines of [`REAL_TIMING`] placed as the
+    /// finished narration says them.
+    pub fn run_probed_real(key: &str, probe: Probe) -> Result<Voiced, String> {
+        voiced(key, Some(probe), true)
+    }
+
+    fn voiced(key: &str, probe: Option<Probe>, real: bool) -> Result<Voiced, String> {
         let script = Script::parse(crate::SCRIPT)?;
-        let narrator = Narrator::estimate(&script);
+        let narrator = if real {
+            Narrator::estimate_timed(&script, REAL_TIMING)?
+        } else {
+            Narrator::estimate(&script)
+        };
         // a name of its own, so the events of this run are not mixed with
         // another test's run of the same chapter
-        let tag = format!("{key}#voiced");
+        let tag = format!("{key}#{}", if real { "real" } else { "voiced" });
         let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)), probe)?;
         let timeline = kit
             .finished

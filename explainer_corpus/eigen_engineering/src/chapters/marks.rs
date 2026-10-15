@@ -322,11 +322,25 @@ pub mod probe {
     /// Run chapter `key` with the scratch voice placed and the probe on its
     /// stage.
     pub fn watch(key: &str) -> Result<(Voiced, Watch), String> {
+        watch_with(key, false)
+    }
+
+    /// [`watch`] with the lines of `testing::REAL_TIMING` placed as the
+    /// finished narration says them.
+    pub fn watch_real(key: &str) -> Result<(Voiced, Watch), String> {
+        watch_with(key, true)
+    }
+
+    fn watch_with(key: &str, real: bool) -> Result<(Voiced, Watch), String> {
         let seen = Rc::new(RefCell::new(Watch::default()));
         let log = Rc::clone(&seen);
         let probe: Probe = Box::new(move |stage| install(stage, &log));
         fade_log::clear();
-        let voiced = testing::run_probed(key, probe)?;
+        let voiced = if real {
+            testing::run_probed_real(key, probe)?
+        } else {
+            testing::run_probed(key, probe)?
+        };
         Ok((voiced, finish(seen)))
     }
 
@@ -352,7 +366,7 @@ mod tests {
     use fmn::prelude::*;
 
     use super::super::draw::testing::{Room, Voiced};
-    use super::super::draw::{corners, cross_fade, fade_in_all, fade_out_all, faded_line, pause};
+    use super::super::draw::{BAND_UP, corners, cross_fade, fade_in_all, fade_out_all, faded_line, pause};
     use super::probe::{self, BAND_CLEARANCE, BAND_DWELL, SEAM, Watch};
 
     fn room(r: &Room) -> String {
@@ -526,6 +540,44 @@ mod tests {
     #[test]
     fn one_idea_keeps_the_invariants_of_its_pictures() {
         keeps_the_invariants("14_one_idea");
+    }
+
+    /// I-3 on the finished read: with its lines timed as the 4K final says
+    /// them (`testing::REAL_TIMING`), every lower-third of chapter `key`
+    /// stands whole `BAND_UP`, the floor tools/band_dwell.py holds a render
+    /// to. 04_7's names to search and 07_5's solver passed on the scratch
+    /// voice and stood 2.53 s and 2.30 s on the final.
+    fn keeps_its_bands_up_on_the_finished_read(key: &str) {
+        let (voiced, watch) = probe::watch_real(key).unwrap();
+        let dwells = watch.band_dwells();
+        assert!(!dwells.is_empty(), "{key}: no lower-third seen");
+        let short: Vec<String> = dwells
+            .iter()
+            .filter(|&&(_, seconds, _)| seconds < BAND_UP)
+            .map(|(began, seconds, r)| {
+                let line = voiced
+                    .lines
+                    .iter()
+                    .filter(|(_, start, _)| start <= began)
+                    .max_by(|a, b| a.1.total_cmp(&b.1))
+                    .map_or("before the first line", |l| l.0.as_str());
+                format!(
+                    "the lower-third from {began:.1} s ({line}) stands {seconds:.1} s, {}",
+                    room(r)
+                )
+            })
+            .collect();
+        assert!(short.is_empty(), "{key}:\n{}", short.join("\n"));
+    }
+
+    #[test]
+    fn the_split_keeps_its_bands_up_on_the_finished_read() {
+        keeps_its_bands_up_on_the_finished_read("04_the_split");
+    }
+
+    #[test]
+    fn every_mode_a_note_keeps_its_bands_up_on_the_finished_read() {
+        keeps_its_bands_up_on_the_finished_read("07_every_mode_a_note");
     }
 
     // ---- the probe against planted defects: each check fails on the old

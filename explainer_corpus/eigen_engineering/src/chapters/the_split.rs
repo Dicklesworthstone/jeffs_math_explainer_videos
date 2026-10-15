@@ -20,8 +20,9 @@ use fmn::prelude::*;
 use super::arrows::{PlaneArrow, own_lines};
 use super::carts::{CartsPic, CartsSpec, NEWTON};
 use super::draw::{
-    MatrixGrid, Plane, QuizCard, arrow_points, chip, entries, fade_in_all, fade_out_all, faded_line, fraction_tex,
-    fraction_value, items, matrix, moves, numbers, own, predict_hold, pushes, run, say, tween_all, whole,
+    BAND_UP, MatrixGrid, Plane, QuizCard, arrow_points, chip, entries, fade_in_all, fade_out_all, faded_line,
+    fraction_tex, fraction_value, items, matrix, moves, now, numbers, own, predict_hold, pushes, run, say, tween_all,
+    wait_until, whole,
 };
 use super::marks;
 use super::two_carts::column_entries;
@@ -611,7 +612,11 @@ impl SceneConstruct for TheSplit {
              these patterns are at right angles",
         )?;
         fade_in_all(stage, &[strip], 0.5)?;
+        // the band stands whole BAND_UP before the chapter's end fade: after
+        // the voice and its beat alone it stood 2.53 s on the final
+        let strip_up = now(stage);
         kit.hold(stage)?;
+        wait_until(stage, strip_up + BAND_UP)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
