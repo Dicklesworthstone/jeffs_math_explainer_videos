@@ -17,8 +17,8 @@ use explainer_kit::{Kit, fade_all, tween, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    ASIDE_AT, QuizCard, QuizLook, Words, aside, boundary, dim, fact, fact_ints, fail, fit_width, flat, group, hero,
-    ink, line_style, panel, pause, say, size,
+    QuizCard, QuizLook, Words, aside, boundary, dim, fact, fact_ints, fail, fit_width, flat, group, hero, ink,
+    line_style, panel, pause, say, size,
 };
 use super::iso::{Anchor, Iso, P3, Solid, box_cells};
 use super::kinetics::{Moves, arrive, leave, play, prepared};
@@ -93,10 +93,12 @@ fn stack(iso: &Iso, stage: &mut Stage<'_>, n: i64, c: Srgb, at: P3) -> fmn::Resu
     iso.solid(stage, &stacks::standard(n), c, at)
 }
 
-/// Where 07_3's four-line aside stands: `ASIDE_AT` lifted by 0.2, so its foot
-/// is 0.28 over the frame's bottom (at `ASIDE_AT` it was 0.08, under the
-/// 0.15 the bottom keeps).
-const WHY_AT: Vec3 = [ASIDE_AT[0], ASIDE_AT[1] + 0.2, ASIDE_AT[2]];
+/// Where 07_3's four-line aside stands: over the middle of the frame, between
+/// the shelf (its thumbnails end at x -2.9) and the legend (from x 2.06), above
+/// the stacks (their tops stay under y 1.3 as they wait, turn and seat). It
+/// comes with the answer and stands through the turns; in the aside corner
+/// (`ASIDE_AT`) the third stack, waiting and turning at `WAIT[2]`, ran into it.
+const WHY_AT: Vec3 = [-0.3, 2.4, 0.0];
 
 /// The tag of 07_3: why one and two stacks cannot make a box.
 fn why_aside(kit: &Kit, stage: &mut Stage<'_>, stack: i64) -> fmn::Result<Mob> {
@@ -372,10 +374,20 @@ impl SceneConstruct for ThreeStacks {
             iso.pin(stage, dot, Anchor::On(s, [0.5, 0.5, n as f64]), [0.0, 0.0, 0.0])?;
             dots.push(dot);
         }
-        let dots_in: Moves = dots
+        // R2 (Dev D5): "fewest" was shown by nothing; a tag says why one and
+        // two stacks cannot (the arithmetic is in the description:
+        // F-S.fewest). It comes with the answer and stands beside the turns
+        // until the line is done: put up once the stacks had seated, it stood
+        // 1.47 s on the finished read (the 4K final at 4eb357a), the turns
+        // running past the line's end
+        let why = why_aside(&kit, stage, r.stack)?;
+        #[cfg(test)]
+        super::draw::watch_dwell(&kit, stage, why, &format!("band:{FEWEST_TAG}"))?;
+        let mut dots_in: Moves = dots
             .iter()
             .map(|&d| arrive(stage, d, 0.4))
             .collect::<fmn::Result<Moves>>()?;
+        dots_in.push(arrive(stage, why, 0.4)?);
         play(stage, dots_in, 0.0)?;
         // the second, then the third: turned in place, lined up, slid in
         for (which, solid) in [(1usize, ghost), (2, stack_c)] {
@@ -402,12 +414,6 @@ impl SceneConstruct for ThreeStacks {
                 return Err(fail(format!("stack {which} did not end on the model's cells")));
             }
         }
-        // R2 (Dev D5): "fewest" was shown by nothing; with the three seated, a
-        // tag says why one and two stacks cannot (the arithmetic is in the
-        // description: F-S.fewest)
-        let why = why_aside(&kit, stage, r.stack)?;
-        let why_in = arrive(stage, why, 0.5)?;
-        play(stage, vec![why_in], 0.0)?;
         line.wait_end(stage)?;
         // the three stacks sit together: the arrangement is a finished chord
         sound::bloom(&kit, stage, "stacks")?;
@@ -674,6 +680,30 @@ mod tests {
         }
     }
 
+    /// 07_3's aside "why three is the fewest" (four lines) stands whole at
+    /// least the 2.6 s a lower third gets, on the finished read's timing:
+    /// 07_3 is "Three." at 0 s and the next sentence at 0.735 s, 5.615 s in
+    /// all (narration/out/report.json at 4eb357a). Put up once the stacks
+    /// had seated, it stood 1.47 s on the 4K final, because the turns run
+    /// past the line's end; the scratch voice did not show it.
+    #[test]
+    fn the_why_aside_stands_on_the_finished_read() {
+        let v = testing::run_timed("07_three_stacks", &[("07_3", &[0.0, 0.735], 5.615)]).unwrap();
+        let mut events = super::super::draw::quiz_log::take(&v.tag, &format!("band:{FEWEST_TAG}"));
+        events.sort_by(|a, b| a.1.total_cmp(&b.1));
+        events.dedup_by(|a, b| a.0 == b.0 && (a.1 - b.1).abs() < 1e-9);
+        let up = events.iter().find(|e| e.0 == "up").map(|e| e.1);
+        let down = events.iter().find(|e| e.0 == "down").map(|e| e.1);
+        let (Some(up), Some(down)) = (up, down) else {
+            panic!("the aside was not seen up and taken down: {events:?}");
+        };
+        assert!(
+            down - up >= 2.6,
+            "the aside stands {:.2} s ({up:.2} to {down:.2})",
+            down - up
+        );
+    }
+
     /// The chapter speaks exactly the script's 07_ lines, in order.
     #[test]
     fn the_chapter_speaks_the_scripts_lines_in_order() {
@@ -687,22 +717,46 @@ mod tests {
         assert_eq!(ids, LINES);
     }
 
-    /// 07_3 (the pre-final check, the lint's `edge`): the aside "why three
-    /// is the fewest" keeps the 0.15 the frame's bottom wants (it stood
-    /// 0.08 from it) and stays inside the frame sideways.
+    /// 07_3: the aside "why three is the fewest" stands inside the frame
+    /// with room to spare, right of the shelf's three thumbnails (where it
+    /// rises above the shelf's floor) and left of the legend chip. It stood
+    /// in the bottom corner, first 0.08 from the frame's bottom (the lint's
+    /// `edge`), then where the third stack ran into it.
     #[test]
-    fn the_why_aside_keeps_off_the_bottom_edge() {
+    fn the_why_aside_keeps_inside_the_frame_and_clear_of_shelf_and_legend() {
+        use super::super::draw::{SHELF_FLOOR, THUMB, shelf_slot};
         use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
-        let mut box_of = None;
+        let mut boxes = None;
         testing::bare(|kit, stage| {
             let m = why_aside(kit, stage, 30)?;
-            box_of = Some((stage.get_left(m)[0], stage.get_right(m)[0], stage.get_bottom(m)[1]));
+            let chip = legend_chip(kit, stage, LEGEND_AT)?;
+            boxes = Some((
+                [
+                    stage.get_left(m)[0],
+                    stage.get_right(m)[0],
+                    stage.get_bottom(m)[1],
+                    stage.get_top(m)[1],
+                ],
+                stage.get_left(chip)[0],
+            ));
             Ok(())
         })
         .unwrap();
-        let (l, r, foot) = box_of.expect("the aside was built");
-        assert!(foot + FRAME_Y_RADIUS >= 0.25, "the aside's foot {foot:.2}");
+        let ([l, r, foot, top], chip_left) = boxes.expect("the aside was built");
+        assert!(
+            foot + FRAME_Y_RADIUS >= 0.25 && top < FRAME_Y_RADIUS - 0.25,
+            "the aside spans y {foot:.2} to {top:.2}"
+        );
         assert!(l > -FRAME_X_RADIUS && r < FRAME_X_RADIUS - 0.15, "{l:.2} to {r:.2}");
+        let shelf_right = shelf_slot(2)[0] + THUMB / 2.0;
+        assert!(
+            top < SHELF_FLOOR || l > shelf_right + 0.2,
+            "the aside ({l:.2}..{r:.2}, top {top:.2}) reaches the shelf (to x {shelf_right:.2})"
+        );
+        assert!(
+            r < chip_left - 0.2,
+            "the aside's right edge {r:.2} reaches the legend chip (from x {chip_left:.2})"
+        );
     }
 
     /// The facts the chapter shows are the model's, and the quiz's answer is

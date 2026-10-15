@@ -2056,10 +2056,24 @@ pub mod testing {
     /// scratch-voice draft, so the timing of a quiz can be measured.
     pub fn run_voiced(key: &str) -> Result<Voiced, String> {
         let script = Script::parse(crate::SCRIPT)?;
-        let narrator = Narrator::estimate(&script);
         // a name of its own, so the events of this run are not mixed with
         // another test's run of the same chapter
-        let tag = format!("{key}#voiced");
+        run_narrated(key, &format!("{key}#voiced"), Narrator::estimate(&script))
+    }
+
+    /// `run_voiced` with the named lines on a finished read's own timing
+    /// (`Narrator::estimate_timed`: each line's sentence onsets and length,
+    /// from narration/out/report.json); the other lines keep the scratch
+    /// voice. A picture that only waits on the turns or a fixed beat can
+    /// pass the scratch voice and fail the real one: 07_3's aside stood
+    /// 1.47 s on the 4K final at 4eb357a.
+    pub fn run_timed(key: &str, timed: &[(&str, &[f64], f64)]) -> Result<Voiced, String> {
+        let script = Script::parse(crate::SCRIPT)?;
+        run_narrated(key, &format!("{key}#timed"), Narrator::estimate_timed(&script, timed)?)
+    }
+
+    fn run_narrated(key: &str, tag: &str, narrator: Rc<Narrator>) -> Result<Voiced, String> {
+        let tag = tag.to_owned();
         let (ran, kit) = run_as(key, &tag, Some(Rc::clone(&narrator)))?;
         let timeline = kit
             .finished
