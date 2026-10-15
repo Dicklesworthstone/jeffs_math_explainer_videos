@@ -23,8 +23,8 @@
 > [The corpus](#the-corpus) and [Status](#status). All four videos now have a
 > 4K60 master in the `michael` voice that passes the strict verify, and all
 > four are published on YouTube (the links are in [The corpus](#the-corpus)).
-> Seven more, videos 5 to 11, follow: the Fair Coin (5) and Mental Math Tricks (6)
-> are published too, and the other five have verified 4K60 masters, not yet published.
+> Seven more, videos 5 to 11, follow: the Fair Coin (5), Mental Math Tricks (6) and the
+> matrix exponential (10) are published too, and the other four have verified 4K60 masters, not yet published.
 
 ---
 
@@ -71,7 +71,7 @@ differently on every machine.
 | 7 | [**Why Robot Arms Think in Lie Groups**](explainer_corpus/lie_robotics/) | Turns that refuse to add and the one move that makes them add (do the arithmetic on the flat piece, then wrap it back on), screws, a seven-joint arm as a product of exponentials, the Jacobian, the directions an arm can lose, its spare joint, and Newton's method on the group of poses. | **4K60 master done** in the `michael` voice (16:38, 15 chapters, −17.8 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); not yet published. |
 | 8 | [**How to Find a Lost Submarine**](explainer_corpus/bayesian_search/) | Bayesian search by counting dots: a map of where the thing could be, a rule for where to look next, and the update that turns "we found nothing" into new knowledge, then the same move at Palomares, on the USS *Scorpion*, for Air France 447 and in a Coast Guard rescue. | **4K60 master done** in the `michael` voice (15:54, 14 chapters, −18.1 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); not yet published. |
 | 9 | [**Proofs You Can See**](explainer_corpus/visual_proofs/) | Eight proofs you can see and one picture that lies: odd numbers as layers, two staircases, the sum of cubes, Siu's three stacks, halves and quarters, the cut cube, four triangles and the missing square, each asking whether the next size would fit. | **4K60 master done** in the `michael` voice (18:11, 15 chapters, −17.9 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); not yet published. |
-| 10 | [**What Does It Mean to Raise e to a Matrix?**](explainer_corpus/matrix_exponential/) | The exponential turns a rule for tiny steps into where you end up: a number in the exponent gives growth, `i` gives turning, and a matrix gives the motion of a whole linked system, down to how computers actually compute it. | **4K60 master done** in the `michael` voice (18:09, 16 chapters, −18.0 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); not yet published. |
+| 10 | [**What Does It Mean to Raise e to a Matrix?**](explainer_corpus/matrix_exponential/) | The exponential turns a rule for tiny steps into where you end up: a number in the exponent gives growth, `i` gives turning, and a matrix gives the motion of a whole linked system, down to how computers actually compute it. | **4K60 master done** in the `michael` voice (18:09, 16 chapters, −18.0 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions). **Published:** [youtu.be/KHcukYSw53E](https://youtu.be/KHcukYSw53E). |
 | 11 | [**The One Idea Behind Bridges, Concert Halls and Economies**](explainer_corpus/eigen_engineering/) | The patterns a system hands back unchanged except for size: described in them, a tangle of equations falls apart into one-line problems, for how a steel truss sags and sways, which notes a room sings back and whether an economy can feed itself, and where the idea stops. | **4K60 master done** in the `michael` voice (15:02, 14 chapters, −18.1 LUFS at the −1.5 dBTP ceiling, strict verify passes, captions); not yet published. |
 
 ![One still from each chapter of the Hoeffding's D explainer](explainer_corpus/hoeffding_d/docs/media/chapters.jpg)
@@ -260,7 +260,7 @@ need numpy or the `raptorq` package, as each folder's `scripts/README.md` says.
 | Corpus driver (`./x`) | runs every step from drafts to the verified master; gate tracking (`./x status`) and the template (`./x new`) are still to come |
 | CI | every push: the private-details scan, the storyboard check, and the score engine's fmt, clippy and tests |
 | Videos 2–4 | see [The corpus](#the-corpus): all three mastered at 4K60 in the `michael` voice and published on YouTube, as is Hoeffding's D |
-| Videos 5–11 | see [The corpus](#the-corpus): each has its oracle-pinned facts, a description whose every number is checked against them, a thumbnail scene and a YouTube package; the Fair Coin (5) and Mental Math Tricks (6) are published, and the other five have verified 4K60 masters, not yet published |
+| Videos 5–11 | see [The corpus](#the-corpus): each has its oracle-pinned facts, a description whose every number is checked against them, a thumbnail scene and a YouTube package; the Fair Coin (5), Mental Math Tricks (6) and the matrix exponential (10) are published, and the other four have verified 4K60 masters, not yet published |
 
 ## Limitations
 
