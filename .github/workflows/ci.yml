@@ -26,8 +26,7 @@ jobs:
 
   tools:
     # The Python tools' own tests (the publish and QA gates among them), run
-    # as ./x all test runs them; tools/test_narration_*.py test the retired
-    # tools/narration.py, and the narration tests that count are the skill's.
+    # as ./x all test runs them; the narration tests are the skill's.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -39,7 +38,6 @@ jobs:
       - name: Tool tests
         run: |
           for tf in tools/test_*.py; do
-            case "$tf" in tools/test_narration_*.py) continue ;; esac
             echo "== $tf"
             uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$tf"
           done

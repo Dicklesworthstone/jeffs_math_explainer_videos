@@ -264,12 +264,10 @@ PY
     cargo clippy --workspace --all-targets $CARGO_FLAGS -- -D warnings
     # shellcheck disable=SC2086
     cargo test --workspace $CARGO_FLAGS
-    # Each tool test as its docstring runs it (numpy; Praat for prosody_qa). tools/test_narration_*.py
-    # test tools/narration.py, which x narrate no longer calls (433a39d): the narration tests that
-    # count are the skill's, of the narrate.py x runs, below.
+    # Each tool test as its docstring runs it (numpy; Praat for prosody_qa); the narration tests are
+    # the skill's, of the narrate.py x narrate runs, below.
     for tf in "$here"/tools/test_*.py; do
       [ -f "$tf" ] || continue
-      case "$tf" in */test_narration_*.py) continue ;; esac
       uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$tf"
     done
     N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
