@@ -25,12 +25,12 @@ loaded one.
 2:18 Every coin
 3:39 The price
 4:33 Where it breaks
-5:43 Same counts
-7:05 A die from a coin
-7:58 Loaded dice
+5:42 Same counts
+7:04 A die from a coin
+7:57 Loaded dice
 8:44 Six orders
 9:53 What is left
-11:01 The fair coin inside
+11:00 The fair coin inside
 
 ## Precisely
 
