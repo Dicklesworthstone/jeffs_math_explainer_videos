@@ -198,7 +198,7 @@ Baez and Huerta 2010), all sharing the same 12-dimensional Lie algebra.
   connecting `e^{ix}` to `cos x + i sin x`, §138, p. 104).
 - Arthur Cayley, "A Memoir on the Theory of Matrices", *Philosophical
   Transactions of the Royal Society of London* 148, 1858, pp. 17–37.
-- Sophus Lie and Friedrich Engels, *Theorie der Transformationsgruppen*, 3
+- Sophus Lie and Friedrich Engel, *Theorie der Transformationsgruppen*, 3
   vols., Teubner, 1888–1893.
 - Henri Padé, "Sur la représentation approchée d'une fonction par des fractions
   rationnelles", *Annales scientifiques de l'École Normale Supérieure* (3) 9,
