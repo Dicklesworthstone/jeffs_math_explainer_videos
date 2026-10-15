@@ -17,7 +17,7 @@
 
 use std::f64::consts::{FRAC_PI_2, PI, TAU};
 
-use super::draw::lower_third;
+use super::draw::{hold_band, lower_third, now};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
@@ -268,10 +268,14 @@ impl SceneConstruct for AMatrixIn {
             &format!("Laguerre, {}", fact("F-B.laguerre.year")?),
         )?;
         fade_in_all(stage, &[laguerre], 0.5)?;
+        let laguerre_up = now(stage);
         kit.hold(stage)?;
 
         // 07_3: your turn: J squared
         let line = say(&kit, stage, "07_3")?;
+        // the band came with 07_2's last words: on the finals' read the next
+        // line began 2.3 s later
+        hold_band(stage, laguerre_up)?;
         fade_out_all(stage, &[series_x, lhs, letter_i, rest, called, laguerre], 0.5)?;
         let card = QuizCard::build(&kit, stage, "07_3", CARD_AT, CARD_SIZE)?;
         let (centre, _, _) = card.content();

@@ -16,7 +16,7 @@
 //! `F-V.13_4.scaled` with `F-C.mvl.f32.scaled.*`, the sweep
 //! `F-C.mvl.f32.halvings.*`, the Padé numbers `F-V.13_5.*`.
 
-use super::draw::lower_third;
+use super::draw::{hold_band, lower_third, now};
 use explainer_kit::{Frame2, Kit, Palette, fade_all, thousands, v};
 use fmn::prelude::*;
 
@@ -551,6 +551,7 @@ impl SceneConstruct for HowComputersDoIt {
             &format!("not too many halvings: {sweep} leave {digits_left} digits"),
         )?;
         fade_in_all(stage, &[strip], 0.5)?;
+        let strip_up = now(stage);
         kit.hold(stage)?;
 
         // ---- 13_5: a ratio of two polynomials; and eigenvalues point to K
@@ -568,6 +569,9 @@ impl SceneConstruct for HowComputersDoIt {
         // stays up for those words (the stage was cleared at the line's first
         // frame, so the sentence began over a black one)
         line.wait_for(stage, "with a ratio of two polynomials")?;
+        // the programmers' strip goes with the ladder: on the finals' read
+        // that phrase came 2.53 s after it was up
+        hold_band(stage, strip_up)?;
         fade_out_all(stage, &tidy, 0.5)?;
         let ratio = kit.tex(
             stage,

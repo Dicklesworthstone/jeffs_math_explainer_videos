@@ -15,7 +15,7 @@
 //! four `F-G.exp.one_to_four.running`, the grid of e^A `F-G.exp`, the two
 //! scores `F-V.11_6.*`, the quiz answer `F-Q.11_3.answer`.
 
-use super::draw::lower_third;
+use super::draw::{hold_band, lower_third, now};
 use explainer_kit::{Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
@@ -350,9 +350,13 @@ impl SceneConstruct for Walks {
         stage.play_prepared(zeros)?;
         let adjacency_note = lower_third(&kit, stage, "precisely:", "the adjacency matrix")?;
         fade_in_all(stage, &[adjacency_note], 0.5)?;
+        let note_up = now(stage);
 
         // ---- 11_2: multiply it by itself: two-step walks
         let line = say(&kit, stage, "11_2")?;
+        // the band came as 11_1's zeros faded: on the finals' read the next
+        // line began 2.0 s later
+        hold_band(stage, note_up)?;
         fade_out_all(stage, &[adjacency_note], 0.4)?;
         let two = KITE.walks(2);
         let a2_rows: Vec<Vec<String>> = two.iter().map(|r| r.iter().map(|&x| x.to_string()).collect()).collect();

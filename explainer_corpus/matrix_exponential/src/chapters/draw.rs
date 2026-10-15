@@ -248,6 +248,23 @@ impl Spoken {
     }
 }
 
+/// The least a band stands fully up before anything takes it away: the
+/// floor tools/band_dwell.py holds every final to.
+pub const BAND_FLOOR_S: f64 = 2.6;
+
+/// The scene time now (when a band came fully up, for [`hold_band`]).
+pub fn now(stage: &Stage<'_>) -> f64 {
+    stage.scene().time().to_f64()
+}
+
+/// Wait (if need be) until a band fully up since `up` has stood
+/// [`BAND_FLOOR_S`]: before the beat that takes it away, which on a quick
+/// read can come too soon (the next line's first frame, or one of its
+/// phrases).
+pub fn hold_band(stage: &mut Stage<'_>, up: f64) -> fmn::Result<()> {
+    wait_until(stage, up + BAND_FLOOR_S)
+}
+
 /// Wait (if need be) until scene time `t`.
 pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
     let now = stage.scene().time().to_f64();
@@ -1455,29 +1472,36 @@ pub mod testing {
     }
 
     /// The finished narration's own timing (`narration/out/report.json` of
-    /// the scored draft of 2026-10-14: each sentence's onset and the line's
-    /// length, seconds) of the ten lines that follow a quiz's countdown. The
-    /// scratch voice puts a first sentence by its share of the characters,
-    /// so "No." ends at 0.3 s there and at 0.82 s in the real read; a card
-    /// that leaves on a fixed beat passes on the one and goes early on the
-    /// other. Two lines more, whose pictures stand or leave by their
-    /// sentences: 13_3 (the programmers' note under it) and 16_2 (the fine
-    /// print that must be gone before 16_3's card).
-    // (06_4's third sentence starts at 3.14 s: seconds, not pi)
-    #[allow(clippy::approx_constant)]
+    /// the finals' read, ab6c734, report md5 7c561a3e: each sentence's onset
+    /// in its line, the sum of the sentences before it, `out_samples` and
+    /// `gap_after_samples`, over the rate, and the line's length, seconds) of
+    /// the ten lines that follow a quiz's countdown. The scratch voice puts a
+    /// first sentence by its share of the characters, so "No." ends at 0.3 s
+    /// there and at 0.82 s in the real read; a card that leaves on a fixed
+    /// beat passes on the one and goes early on the other. Two lines more,
+    /// whose pictures stand or leave by their sentences: 13_3 (the
+    /// programmers' note under it) and 16_2 (the fine print that must be
+    /// gone before 16_3's card). And the four lines whose band the next beat
+    /// takes (05_4, 07_2, 11_1, 13_4): on the scratch voice each stood its
+    /// floor, on the finals' read 2.10, 2.30, 2.00 and 2.53 s
+    /// (tools/band_dwell.py on the finals' scored render).
     pub const REAL_TIMING: &[(&str, &[f64], f64)] = &[
-        ("03_4", &[0.0, 0.82, 2.06, 5.44, 9.12], 10.35),
-        ("04_5", &[0.0, 2.08, 4.75, 9.06], 10.62),
-        ("06_4", &[0.0, 1.14, 3.14, 4.72, 9.445, 13.945], 15.76),
-        ("07_4", &[0.0, 1.1, 2.98, 6.16], 8.57),
-        ("08_4", &[0.0, 1.24, 5.42, 8.53], 10.69),
-        ("10_6", &[0.0, 1.82, 4.33], 7.91),
-        ("11_4", &[0.0, 0.73, 4.17], 5.87),
-        ("13_3", &[0.0, 0.82, 4.27, 5.985], 9.18),
-        ("14_4", &[0.0, 0.82, 3.12, 9.69], 11.71),
-        ("15_3", &[0.0, 0.82, 5.04], 7.95),
-        ("16_2", &[0.0, 8.345], 13.23),
-        ("16_4", &[0.0, 2.63, 7.39, 12.57], 13.58),
+        ("03_4", &[0.0, 0.82, 2.06, 5.44, 9.115], 10.35),
+        ("04_5", &[0.0, 2.075, 4.755, 8.945], 10.96),
+        ("05_4", &[0.0, 1.135, 6.45], 8.02),
+        ("06_4", &[0.0, 1.235, 3.235, 4.745, 9.175, 13.325], 14.95),
+        ("07_2", &[0.0, 2.715], 8.215),
+        ("07_4", &[0.0, 1.105, 2.985, 6.095], 8.06),
+        ("08_4", &[0.0, 1.24, 5.44, 8.545], 10.71),
+        ("10_6", &[0.0, 1.935, 4.315], 8.05),
+        ("11_1", &[0.0, 3.68, 5.005], 9.48),
+        ("11_4", &[0.0, 0.735, 3.96], 5.66),
+        ("13_3", &[0.0, 0.82, 4.37, 6.585], 9.5),
+        ("13_4", &[0.0, 2.505, 6.315, 10.255], 12.455),
+        ("14_4", &[0.0, 0.82, 3.12, 8.355], 10.37),
+        ("15_3", &[0.0, 0.82, 5.04], 7.945),
+        ("16_2", &[0.0, 8.345], 12.755),
+        ("16_4", &[0.0, 2.63, 7.95, 12.945], 13.88),
     ];
 
     /// `run_voiced` with the lines of `REAL_TIMING` placed as the finished
@@ -1773,12 +1797,16 @@ mod tests {
     /// stand to the chapter's end are measured to the closing fade (0.8 s).
     /// The pre-final check of 2026-10-14 found 03's "precisely: f' = f" and
     /// 05's "precisely: if g' = g too ..." standing about a second: each came
-    /// with the line's end, and the next line's first beat took it.
+    /// with the line's end, and the next line's first beat took it. The
+    /// finals' read found four more, timed only by the scratch voice here
+    /// then: 05_4, 07_2, 11_1 and 13_4, now in `REAL_TIMING` and held by
+    /// `hold_band`.
     #[test]
     fn every_band_stands_long_enough_to_read() {
-        // K's bar for a band (marks::probe asks 2.5 of every one; a frame is
-        // a tenth of a second there and in the log's times)
-        const STAND_S: f64 = 2.5;
+        // the floor tools/band_dwell.py holds the final to (it was 2.5, K's
+        // marks::probe bar, and the finals' read put four bands between 2.0
+        // and 2.53 s); a frame is a tenth of a second in the log's times
+        const STAND_S: f64 = BAND_FLOOR_S;
         let mut short = Vec::new();
         let mut seen = 0;
         for real in [false, true] {

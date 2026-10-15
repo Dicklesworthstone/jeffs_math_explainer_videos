@@ -12,7 +12,7 @@
 //! the product and the factor `F-V.05_6.*`, the quiz's answer
 //! `F-Q.05_5.answer`, the rate and years of the quiz `F-N.growth.*`.
 
-use super::draw::precisely;
+use super::draw::{hold_band, now, precisely};
 use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, play, tween, v};
 use fmn::prelude::*;
 
@@ -415,10 +415,14 @@ impl SceneConstruct for OneFunction {
         line.wait_for(stage, "One function handles them all")?;
         let ode = precisely(&kit, stage, PRECISELY_ODE)?;
         fade_in_all(stage, &[ode], 0.5)?;
+        let ode_up = now(stage);
         kit.hold(stage)?;
 
         // 05_5: your turn: five percent a year for twenty years
         let line = say(&kit, stage, "05_5")?;
+        // the band came with 05_4's last sentence: on the finals' read the
+        // next line began 2.1 s later
+        hold_band(stage, ode_up)?;
         fade_out_all(stage, &[name, ode], 0.4)?;
         play!(stage; tween(rate, 0.05, 0.8)?);
         let rate_5 = numbers("F-N.growth.rate")?[0];
