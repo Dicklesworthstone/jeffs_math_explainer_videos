@@ -47,11 +47,18 @@ The often-repeated
 figure of 80% tails for a spun penny has no data behind it that we could
 find, and the video does not use it.
 
-**Calling it blind.** A call is an even bet only on average over the caller's
-choice: a caller as likely to name either side wins ½ · 4/5 + ½ · 1/5 = ½.
-For this coin and a given call the chance is 4/5 or 1/5
-[E-D.coin.heads_chance.exact, E-D.coin.tails_chance.exact]. The trick is fair
-in the stronger sense: for the coin as it is, over its tosses alone.
+**Calling it blind.** Whether a call is an even bet depends on how the call is
+made, not on what the caller knows. A call chosen independently of the coin and
+as likely to name either side wins ½ · 4/5 + ½ · 1/5 = ½, whether or not the
+caller knows the coin; a fixed call, from a caller who knows or merely guesses,
+wins 4/5 or 1/5 on this coin [E-D.coin.heads_chance.exact,
+E-D.coin.tails_chance.exact]. So knowing the coin is neither necessary nor
+sufficient for equal chances, and ignorance alone guarantees nothing: an
+independent, unbiased call brings the randomness in from outside the coin. The
+narration's "a call is fair only if the caller has no idea which side the coin
+favours" (01_4) is the hook's simplification, about a caller who uses what they
+know, not a theorem. The trick is fair in the stronger sense: for the coin as it
+is, over its tosses alone, with nothing but the tosses to rely on.
 
 **Two bars at 41%.** With four tosses of this coin, four heads and three heads
 are exactly as likely (40.96% each), because p⁴ = 4p³(1 − p) exactly when
@@ -63,10 +70,17 @@ probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads),
 for every p in [0, 1] [E-F1.square.ht, E-F1.square.th, E-F4.p50.ht]. The
 game needs 0 < p < 1: a coin that
 cannot land both ways never produces a differing pair. Independence with one
-shared p is enough, not necessary: all the trick uses is that swapping the
-two tosses of a pair leaves the pair's probability unchanged. The chance may
-even drift from one pair to the next, as long as it is the same within each
-pair.
+shared p is enough, not necessary. More generally, it is enough that
+heads-then-tails and tails-then-heads have equal conditional probability after
+any discarded pairs, that is, given the history of matching pairs that led to
+this one. Equal chances for each numbered pair taken alone are not enough: a
+four-toss sequence that is HH then HT with probability a half, HT then TH with
+a quarter, and TH then TH with a quarter gives each pair equal chances of
+heads-then-tails and tails-then-heads, yet the first differing pair is
+heads-then-tails three times in four. Equality at every history is sufficient,
+not necessary: unequal histories could cancel in total. The chance may even
+drift from pair to pair, and depend on earlier results, as long as the two
+tosses of a pair are independent with the same chance given what came before.
 
 **The price (chapter 4).** A pair differs with probability 2p(1 − p), so the
 number of pairs is geometric and the expected number of tosses is

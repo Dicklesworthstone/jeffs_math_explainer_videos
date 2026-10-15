@@ -33,8 +33,9 @@ Chapters
 11:00 The fair coin inside
 
 The exact versions
+Calling it: ignorance alone does not guarantee fairness. An independent 50/50 call does; the extractor is fair over the coin tosses alone.
 The 80% coin is a model. A coin that is flipped and caught cannot be made to favour a side by weighting it (Gelman and Nolan 2002); a coin that is spun, or allowed to bounce, can.
-For two independent tosses with the same probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads), for every p in [0, 1]. A coin that cannot land both ways never produces a differing pair. Independence with one shared p is enough, not necessary: all the trick uses is that swapping the two tosses of a pair leaves the pair's probability unchanged.
+For two independent tosses with the same probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads), for every p in [0, 1]. A coin that cannot land both ways never produces a differing pair. More generally, it is enough that heads-then-tails and tails-then-heads have equal conditional probability after any discarded pairs.
 A pair differs with probability 2p(1 − p), so the number of pairs is geometric and the expected number of tosses is 1/(p(1 − p)): 6.25 at p = 4/5, 4 at p = 1/2, about 101 at p = 0.99. No rule that always names a winner within a fixed number n of tosses is fair for every coin: at p near 1 the all-heads pattern has nearly all the probability, and it belongs to one player.
 With chances p₁ then p₂, the two differing pairs have probabilities p₁(1 − p₂) and (1 − p₁)p₂, equal exactly when p₁ = p₂.
 For a coin that remembers only its last toss, the tosses that come straight after a head are independent with one shared chance, so the trick applied to those alone is exactly fair when played to the end (Samuelson 1968, as described by Elias 1972, who credits the best form of it to John W. Pratt; Samuelson's own pages were not seen for this video).
