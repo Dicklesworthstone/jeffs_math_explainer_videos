@@ -804,7 +804,8 @@ const MIN_SILENCE_FADE: f64 = 0.1;
 /// A `silence:` mark this far or more before the next sentence, in a gap,
 /// drops the music out from the mark itself (s).
 const DROP_ROOM: f64 = 1.0;
-/// The music's return after an authored silence (s).
+/// The music's return after an authored silence (s): shorter, ending on its
+/// first note, when a phrase is struck in it (see [`return_with`]).
 pub const RETURN_FADE: f64 = 1.5;
 
 /// The authored silences of a video: each `silence:` mark's span (see
@@ -893,6 +894,24 @@ fn authored_silences(
         }
     }
     (spans, notes)
+}
+
+/// A phrase whose melody is struck while the music comes back from an
+/// authored silence brings the music back with it: that return ends on the
+/// phrase's first note instead of [`RETURN_FADE`] after `back`, so every note
+/// of it is heard at its own level. A phrase starts 0.3 s after the voice
+/// clears, and an open silence comes back where its line ends, so on K's
+/// final (c777b7e) the receipts' resolution (14_8, after the last question
+/// said in silence) was struck 0.3 s into a 1.5 s return: its 5̂ at −20 dB,
+/// its 3̂ at −7, its 1̂ at −2. A gap that opens on a rolled chord keeps the
+/// slow return (the roll unfolds from the bass and the melody enters after
+/// it). `onsets` are the phrases' first notes (seconds).
+fn return_with(spans: &mut [SilenceSpan], onsets: &[f64]) {
+    for sp in spans {
+        if let Some(&t) = onsets.iter().find(|&&t| t >= sp.back && t < sp.back_end) {
+            sp.back_end = t.max(sp.back + MIN_SILENCE_FADE);
+        }
+    }
 }
 
 /// The gain the authored silences leave the music (1 outside them, raised
@@ -2385,6 +2404,9 @@ fn compose(
     events.retain(|e| matches!(e.track, Track::Bed | Track::Bass) || !silent(e.start));
     sfx.retain(|f| !silent(f.start));
     phrases.retain(|p: &(f64, f64)| !silent(p.0));
+    let mut silences = silences;
+    let firsts: Vec<f64> = phrases.iter().map(|p| p.0).collect();
+    return_with(&mut silences, &firsts);
 
     // rule 7 for as long as a note sounds: a melody, answer or cue note held
     // into a chord it would clash with is released at that chord's change;
@@ -4225,6 +4247,64 @@ mod tests {
             let r = crate::qa::evaluate("01_a", &s.chapter_voice(0), &music, music.len(), Some(&facts));
             assert_eq!(r.get("authored_silence_peak").unwrap().pass, Some(false));
         }
+    }
+
+    #[test]
+    fn a_phrase_struck_as_the_music_returns_from_a_silence_brings_it_back() {
+        // K's 14_8: the last question is said in silence (no end mark) and
+        // the receipts' resolution was struck 0.3 s into the music's 1.5 s
+        // return, its first note at −20 dB. Here a key line at 6.6 s with no
+        // end mark: the music is gone to the end of the region (12 s), and
+        // the gap from 12 to 16 s follows
+        let dir = std::env::temp_dir().join(format!("explainer_score_return_{}", std::process::id()));
+        let mut sections = synthetic_sections(&dir);
+        sections[0].timeline.marks = vec![crate::timeline::Mark {
+            label: "silence:key".into(),
+            frame: (6.55 * 60.0) as u64,
+        }];
+        let mut id = Identity::capture_recapture();
+        let first_melody = |s: &Score, t: f64| {
+            s.events
+                .iter()
+                .filter(|e| e.track == Track::Melody && e.start >= t)
+                .map(|e| e.start)
+                .fold(f64::INFINITY, f64::min)
+        };
+        // the gap opens on a rolled chord and its melody enters after the
+        // roll, past the return: the slow return stands
+        let plain = render(&id, &sections, None).unwrap();
+        let key = plain.silences[0].clone();
+        assert!(key.back >= 12.0 && key.back < 12.2, "{key:?}");
+        assert!((key.back_end - key.back - RETURN_FADE).abs() < 1e-9, "{key:?}");
+        assert!(first_melody(&plain, key.back) >= key.back_end, "{key:?}");
+        // the title's window in that gap: the theme's motif is struck over a
+        // block chord where the music would still be coming back, and the
+        // music comes back with it
+        sections[0].timeline.listens = vec![crate::timeline::Window {
+            frame: (13.0 * 60.0) as u64,
+            seconds: 2.5,
+            label: "01_a:01_3".into(),
+            sound: None,
+        }];
+        id.themes = vec![("01_3", Theme::Open)];
+        let themed = render(&id, &sections, None).unwrap();
+        let key = themed.silences[0].clone();
+        let first = first_melody(&themed, key.back);
+        assert!(first < key.back + RETURN_FADE, "the motif at {first:.2} s, {key:?}");
+        assert!((key.back_end - first).abs() < 1e-9, "the return ends on it: {key:?}");
+        let g = silence_gain(&themed.silences, themed.music.len());
+        assert_eq!(g[(first * FS).ceil() as usize], 1.0, "its first note at its own level");
+        // still exactly zero inside, and still a fade back, not a step
+        let (i, j) = ((key.fade_end * FS).ceil() as usize, (key.back * FS) as usize);
+        assert!(g[i..j].iter().all(|&x| x == 0.0));
+        let mid = g[((key.back + key.back_end) / 2.0 * FS) as usize];
+        assert!(mid > 0.0 && mid < 1.0, "{mid}");
+        // the stem the QA reads holds the same spans
+        let facts = crate::qa::ScoreFacts::chapter(&themed, 0);
+        assert_eq!(facts.silences.len(), 1);
+        let music = themed.chapter_music(0);
+        let r = crate::qa::evaluate("01_a", &themed.chapter_voice(0), &music, music.len(), Some(&facts));
+        assert_eq!(r.get("authored_silence_peak").unwrap().pass, Some(true));
     }
 
     #[test]
