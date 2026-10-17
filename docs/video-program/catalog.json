@@ -1506,7 +1506,7 @@
       "working_title": "Why turning a square can make the whole box smaller",
       "pitch": "Five unit squares; construct a side `2 + √2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
       "work_epic": "mx-video-program-program-87do.5",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -1518,6 +1518,16 @@
             "https://x.com/ojoshe/status/2110944570704015547",
             "https://x.com/doodlestein/status/2110955463453843549"
           ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
@@ -1526,7 +1536,20 @@
         "https://x.com/doodlestein/status/2110955463453843549"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "In development; no reviewed draft or verified master.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -1534,7 +1557,7 @@
       "working_title": "Two bad echoes can make one perfect measurement",
       "pitch": "Golay complementary pairs; aperiodic autocorrelation, exact sidelobe cancellation, recursive construction, and the stationary-channel assumption that makes the cancellation useful.",
       "work_epic": "mx-video-program-program-87do.6",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -1545,6 +1568,16 @@
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
             "https://x.com/modkin_mp/status/2110804114301124779"
           ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
@@ -1552,7 +1585,20 @@
         "https://x.com/modkin_mp/status/2110804114301124779"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "In development; no reviewed draft or verified master.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -1560,7 +1606,7 @@
       "working_title": "Why P-Values Confuse Even Doctors",
       "pitch": "Doctors-survey opening; medical natural frequencies explain conditional reversal; derive a study null-tail probability. Optional stopping is a possible sequel.",
       "work_epic": "mx-video-program-program-87do.7",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -1572,6 +1618,16 @@
             "https://x.com/cdilga/status/2110846290578080154",
             "docs/video-program/research-20261016/evidence/pvalues-medical-opening.md"
           ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
@@ -1580,7 +1636,20 @@
         "docs/video-program/research-20261016/evidence/pvalues-medical-opening.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "In development; no reviewed draft or verified master.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -2823,7 +2892,9 @@
         "https://doi.org/10.2307/2308663",
         "https://doi.org/10.2307/2311156"
       ],
-      "related_video_ids": ["visual_proofs"],
+      "related_video_ids": [
+        "visual_proofs"
+      ],
       "revisions": [],
       "publications": []
     }

@@ -22,7 +22,11 @@ The [v1 schema](catalog.schema.json) and [read-only validator](../../tools/video
 
 The useful next lanes are N1's approved Michael reference/baseline pack, enrolling genuinely qualified cut checks through A4, and S1's source/competition qualification. The bounded antecedent experiment has fresh audio and a blind review page in `narration_lab/michael-antecedent-20261017/listen.html`; its technical checks do not supply a human listening verdict. N12's accent/speaker triage can proceed after labels exist but does not block N5/N7's human listening experiment. N13–N16 remain bounded experiments with their own prerequisites, not an instruction to download every model or train one.
 
-Provisional editorial leads are square packing, Golay echo cancellation and the owner-requested medical p-value explanation, with randomized response and discrete tomography as reserves. The [slate](research-20261016/SLATE.md) explains their hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims. The owner-requested [epsilon–delta candidate](briefs/epsilon-delta.md), added on 2026-10-17, joins the provisional shortlist: continuous curves with a discontinuous limit, constructive delta choices from the supplied Sprague/Davis notes, and the neighborhood idea behind topology. Its historical attribution and full competition review remain qualification work.
+The owner authorized a first production wave on 2026-10-17 and delegated selection: **Golay echo cancellation, square packing and the medical p-value explanation**. Each has a `v1-michael-20261017` revision and one first-chapter task, respectively `mx-video-program-program-87do.6.1`, `.5.1` and `.7.1`. The three Claude Code Opus 5.5 lanes own disjoint corpus directories; central verification precedes task closure. This authorizes development, not publication or invented audio/visual passes. See the scoped amendment in [AGENTS.md](../../AGENTS.md).
+
+The fresh launch reached the actual Opus 5.5 prompt in all three panes, but every first assignment returned Claude's weekly limit. The three chapter tasks are blocked in Beads; no implementation or acoustic credit was claimed. The owned NTM session retains its assignments for provider recovery. Consult live Beads rather than treating this dated launch record as current capacity.
+
+The [slate](research-20261016/SLATE.md) explains the hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims. The owner-requested [epsilon–delta candidate](briefs/epsilon-delta.md) is the leading next-slot candidate: continuous curves with a discontinuous limit, constructive delta choices from the supplied Sprague/Davis notes, and the neighborhood idea behind topology. Its historical attribution and full competition review remain qualification work. Randomized response and discrete tomography remain reserves.
 
 For narration, start with the [current continuity and cadence handoff](NARRATION-CONSISTENCY.md), which records owner feedback through the contextual pickup repair and links the revised canonical skill. The owner has heard improvements from manual pauses and contextual repair; this does not yet qualify a whole chapter or identify a universal method. The [original voice ideas](research-20261016/VOICE_IDEA_WIZARD.md) and [model matrix](research-20261016/evidence/voice-model-matrix.md) remain dated research, not automatic next steps. Speaker, accent, cadence, gaps and lexical correctness remain separate judgments.
 
@@ -48,13 +52,13 @@ The following tables are a 2026-10-17 rendering of `catalog.json`, not a second 
 | `matrix_exponential` | What Does It Mean to Raise e to a Matrix? | [Public cut](https://www.youtube.com/watch?v=KHcukYSw53E) | `mx-e-a-j-8yq7` |
 | `eigen_engineering` | The One Idea Behind Bridges, Concert Halls and Economies | [Public cut](https://www.youtube.com/watch?v=tBfbz7qU4hU) | `mx-e-a-e-k-oq4` |
 
-### Provisional shortlist
+### Selected production wave and provisional shortlist
 
 | Video identity | Working title | Recorded disposition | Beads anchor |
 |---|---|---|---|
-| `square_packing` | Why turning a square can make the whole box smaller | shortlisted | `mx-video-program-program-87do.5` |
-| `golay_echoes` | Two bad echoes can make one perfect measurement | shortlisted | `mx-video-program-program-87do.6` |
-| `p_values_medical` | Why P-Values Confuse Even Doctors | shortlisted | `mx-video-program-program-87do.7` |
+| `square_packing` | Why turning a square can make the whole box smaller | selected for production | `mx-video-program-program-87do.5` |
+| `golay_echoes` | Two bad echoes can make one perfect measurement | selected for production | `mx-video-program-program-87do.6` |
+| `p_values_medical` | Why P-Values Confuse Even Doctors | selected for production | `mx-video-program-program-87do.7` |
 | `randomized_response` | How to learn a secret about a crowd without learning each person's answer | shortlisted | `mx-video-program-program-87do.8` |
 | `discrete_tomography` | Two shadows can lie—even when every number is right | shortlisted | `mx-video-program-program-87do.9` |
 | `epsilon_delta` | Epsilon and Delta: Why Getting Closer Wasn't Enough | shortlisted | `mx-video-program-program-87do.58` |
