@@ -6,7 +6,9 @@
 #   ./x new <slug> "Title"                    scaffold explainer_corpus/<slug> from templates/explainer
 #   ./x doctor                                toolchain, fmn pin, ftts/fw/ffmpeg versions, skills path
 #   ./x all test                              workspace fmt, clippy, tests, tool tests and script lints
-#   ./x <slug> status [--porcelain]           gate status and next command for <slug>
+#   ./x <slug> status [--revision ID] [--voice NAME] [--porcelain]  exact-cut receipts and next blocker
+#   ./x <slug> gate-close --revision ID --issue ID [--voice NAME]  revalidate receipts and close native task
+#   ./x <slug> legacy-status [--porcelain]     historical mtime hints, never exact-cut approval
 #   ./x <slug> review storyboard|script|draft   persona review packet (plan §5.2)
 #   ./x <slug> facts-check                      every video number against its oracle.py (G1)
 #   ./x <slug> storyboard                       G2 checks; writes script.tsv from the storyboard
@@ -100,6 +102,8 @@ if [ "${1:-}" = "--fmn-local" ]; then
   shift
 fi
 if [ -n "$FMN_LOCAL" ]; then
+  # Preserve the explicit mode across the producer-lock re-exec below.
+  export X_FMN_LOCAL="$FMN_LOCAL"
   fm_raw="${FRANKEN_MANIM:-$here/../franken_manim}"
   [ -d "$fm_raw/crates/fmn" ] || die "--fmn-local: no franken_manim checkout at $fm_raw"
   fm_abs=$(cd "$fm_raw" && pwd -P)
@@ -119,6 +123,18 @@ case "${VOICE:-}" in
   ''|matt|michael|leo|robert) ;;
   *) die "unsupported VOICE '${VOICE}' (choose matt, michael, leo or robert)" ;;
 esac
+
+# Validate inherited descriptors before trusting the recursion marker. Global
+# producers which write this checkout use the same reservation as per-cut work.
+if [ -n "${VIDEO_PRODUCER_LOCK_FD:-}" ]; then
+  uv run --quiet --no-project --with jsonschema python3 -I "$here/tools/video_lifecycle.py" verify-reservation
+else
+  case "${1:-}" in
+    new|fetch)
+      exec uv run --quiet --no-project --with jsonschema python3 -I "$here/tools/video_lifecycle.py" \
+        reserve -- "$here/x" "$@" ;;
+  esac
+fi
 
 need_remote() {
   [ -n "${REMOTE_HOST:-}" ] && [ -n "${REMOTE_DIR:-}" ] || die "set REMOTE_HOST and REMOTE_DIR in project.env"
@@ -268,7 +284,7 @@ PY
     # the skill's, of the narrate.py x narrate runs, below.
     for tf in "$here"/tools/test_*.py; do
       [ -f "$tf" ] || continue
-      uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$tf"
+      uv run --quiet --no-project --with numpy --with praat-parselmouth --with jsonschema python3 -I "$tf"
     done
     N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
     for tf in "$N"/test_*.py; do
@@ -344,6 +360,22 @@ slug=$1; cmd=$2; shift 2
 case "$slug" in
   */*|.*|'') die "bad slug '$slug'" ;;
 esac
+# Catalog-only ideas need status too; do this before requiring a corpus crate.
+case "$cmd" in
+  status|gate-close)
+    action=status
+    [ "$cmd" != gate-close ] || action=close
+    if [ -n "${VOICE:-}" ]; then set -- --voice "$VOICE" "$@"; fi
+    exec uv run --quiet --no-project --with jsonschema python3 -I "$here/tools/video_lifecycle.py" \
+      "$action" --video "$slug" "$@" ;;
+esac
+# All per-video producer commands cooperate with the exact-cut closure lock.
+# Legacy status is read-only. The lock file persists; OS descriptor lifetime
+# releases the reservation even when the command fails.
+if [ "$cmd" != legacy-status ] && [ -z "${VIDEO_PRODUCER_LOCK_FD:-}" ]; then
+  exec uv run --quiet --no-project --with jsonschema python3 -I "$here/tools/video_lifecycle.py" \
+    reserve -- "$here/x" "$slug" "$cmd" "$@"
+fi
 crate="$here/explainer_corpus/$slug"
 [ -d "$crate" ] || die "no explainer at explainer_corpus/$slug"
 pkg=$(sed -n 's/^name = "\(.*\)"$/\1/p' "$crate/Cargo.toml" | head -n 1)
@@ -423,7 +455,8 @@ mark() {
 }
 
 case "$cmd" in
-  status)
+  legacy-status)
+    echo "x: legacy mtime hints only; use status for exact revision/voice evidence" >&2
     [ $# -le 1 ] || usage
     porcelain=0
     if [ "${1:-}" = "--porcelain" ]; then porcelain=1; elif [ $# -gt 0 ]; then usage; fi
@@ -641,9 +674,8 @@ PY
     [ -n "$voice" ] || die "no voice chosen for $slug (add it to the voice table at the top of ./x)"
     [ -n "$headroom" ] || die "no limiter headroom measured for voice $voice (add it to ./x; limiter_sweep.py)"
     N="$SKILLS/natural-sounding-narration-with-frankentts/scripts"
-    # One ftts build for every read. A take is keyed by its text and voice, not by the engine that
-    # made it, so another build first on someone's PATH mixes its reads in unseen (262 of the fish
-    # video's takes once came from an old one). FTTS in project.env names the binary to use.
+    # Pin the expected CLI contract; the cache below additionally hashes executable,
+    # model and voice bytes. A matching version string alone cannot qualify a take.
     FTTS=$(command -v "${FTTS:-ftts}") || die "ftts not found: set FTTS in project.env or put it on PATH"
     # The batch consumes FTTS as a filename after we cd into the crate.
     FTTS="$(cd "$(dirname "$FTTS")" && pwd)/$(basename "$FTTS")"
@@ -666,11 +698,10 @@ PY
     # Two options a run opts into (the owner's A/B decides which video keeps them, so neither is a default):
     # SEEDS=N adds the reads of `ftts --seed 1..N` beside the wrappers as candidates, JOINT=1 picks each
     # line's reads together instead of one sentence at a time (the skill's narrate.py, beads mx-4kc2, mx-t9cg);
-    # plan lists the seeded reads in takes.tsv and tts_batch.py makes them.
-    seeds=""
-    [ -z "${SEEDS:-}" ] || seeds="--seeds=$SEEDS"
-    py "$N/narrate.py" plan script.tsv "$work" --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon" $seeds
-    python3 -I "$N/tts_batch.py" "$work/takes.tsv" "$work/takes" --voice "$voice" --workers "${WORKERS:-8}"
+    # The installed planner keeps its seeded reads; our adapter binds their tags to
+    # every generation input and only reuses WAVs with verified completion receipts.
+    py "$here/tools/narration_cache.py" --planner "$N/narrate.py" --script script.tsv --work "$work" \
+      --voice "$voice" --model "${FTTS_MODEL:-}" --lexicon "$lexicon" --seeds "${SEEDS:-0}" --workers "${WORKERS:-8}"
     python3 -I "$N/asr_batch.py" "$work/takes" "$work/asr.json"
     # A joint build can pass every take's own transcript and still lose a line's first word once the
     # sentences are assembled (P-2's "But"): a line that fails a line-level gate gives up the reads the
@@ -724,11 +755,14 @@ PY
       if grep -Rq 'LineGaps::Thought' "$crate/src" 2>/dev/null; then
         prosody_args="--gate-line-gaps"
       fi
+      prosody_status=0
       uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$here/tools/prosody_qa.py" \
-        "$narration" --timeline "$out" $prosody_args > "$out/prosody.txt" 2>&1 || true
+        "$narration" --timeline "$out" $prosody_args > "$out/prosody.txt" 2>&1 || prosody_status=$?
       grep -E '^(FAIL|FLAG)' "$out/prosody.txt" | sed 's/^/x: prosody /'
-      if grep -q '^FAIL' "$out/prosody.txt"; then status=1; fi
-      grep -q -E '^(PASS|FLAG|FAIL|ADVISORY)' "$out/prosody.txt" || echo "x: the prosody report did not run; see $out/prosody.txt" >&2
+      if ! python3 -I "$here/tools/check_prosody_report.py" "$out/prosody.txt" "$prosody_status"; then
+        echo "x: failed, crashed or missing prosody report blocks narrated.ok; see $out/prosody.txt" >&2
+        status=1
+      fi
       echo "x: prosody report in $out/prosody.txt"
     fi
     if [ "$1" = all ] && [ "$status" -eq 0 ]; then mark narrated.ok; fi

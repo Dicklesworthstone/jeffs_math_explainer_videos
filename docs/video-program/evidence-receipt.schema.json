@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scoped video evidence receipt v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": 1},
+    "gate": {"enum": ["script", "dry_voice", "timing", "visuals", "mix", "master", "package", "public_metadata"]},
+    "subject": {
+      "type": "object",
+      "properties": {"video_id": {"type": "string", "minLength": 1}, "revision_id": {"type": "string", "minLength": 1}, "voice": {"type": "string", "minLength": 1}},
+      "required": ["video_id", "revision_id", "voice"], "additionalProperties": false
+    },
+    "inputs": {"type": "object"},
+    "checker": {
+      "type": "object",
+      "properties": {
+        "command": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "version": {"type": "string", "minLength": 1},
+        "source_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+        "executable_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "required": ["command", "version", "source_sha256", "executable_sha256"], "additionalProperties": false
+    },
+    "recorded_at_utc": {"type": "string", "format": "date-time"},
+    "reviewer": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["required", "advisory"]},
+    "verdict": {"enum": ["pass", "fail", "unknown"]},
+    "returncode": {"type": ["integer", "null"]},
+    "duration_seconds": {"type": "number", "minimum": 0},
+    "report": {"type": ["object", "null"]},
+    "stdout": {"type": "string"},
+    "stderr": {"type": "string"},
+    "outputs": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "problems": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["schema_version", "gate", "subject", "inputs", "checker", "recorded_at_utc", "reviewer", "classification", "verdict", "returncode", "duration_seconds", "report", "stdout", "stderr", "outputs", "problems"],
+  "additionalProperties": false
+}

@@ -39,7 +39,7 @@ jobs:
         run: |
           for tf in tools/test_*.py; do
             echo "== $tf"
-            uv run --quiet --no-project --with numpy --with praat-parselmouth python3 -I "$tf"
+            uv run --quiet --no-project --with numpy --with praat-parselmouth --with jsonschema python3 -I "$tf"
           done
 
   score:

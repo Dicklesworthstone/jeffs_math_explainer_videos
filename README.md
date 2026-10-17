@@ -234,6 +234,12 @@ The newer videos run through the driver, which wraps the same binaries
   committed (see the explainer's README).
 - Producing narration uses the owner's FrankenTTS narration skills, referenced
   by path rather than vendored here.
+- `x narrate` now requires FTTS generation receipts: the effective seed, voice and
+  model hashes must match, and the model must have reached EOS. Cache schema 2
+  retains older takes but does not reuse their weaker receipts. Use the verified
+  build selected by local `project.env`; an older same-version binary without
+  receipts is refused. This checks termination and provenance, not Michael's accent
+  or perceptual acceptance. See [the N10 native checks](narration_lab/provenance-20261017/RESULTS.md).
 
 The sound engine and its A/B on the Hoeffding narration (the demo reads the
 explainer's timeline pass, run with the v5 narration WAVs; see the example's

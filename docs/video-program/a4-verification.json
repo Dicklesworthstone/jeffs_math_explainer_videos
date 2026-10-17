@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-17T04:40:18.731368+00:00",
+  "scope": "A4 dirty-byte verification; no commit/production-media qualification",
+  "files": {
+    "x": "3d6f4f2e3653bce888471539cfe45975667277b81eb6473bfda1615300d239cc",
+    ".beads/policy.yaml": "eb40f1a314a7caa35a9ce68f48b0ff986a713cb5a8aeeb2e80ceebbeebaa80d0",
+    "docs/video-program/gate-policy.json": "216e7bdd62908db8b1e78b38f9c3b1703d0d1ac25bc4122a3f3a18dbd08b01f9",
+    "tools/video_lifecycle.py": "658c05c1b58a8aa35dbafa1345b6de20f7289b8056b05b37aff438d4b4ef2952",
+    "tools/check_prosody_report.py": "c99d1990f9d89c0e84028d2eb5ddb016cec46c3fcc540477dde7fa42fae5014b",
+    "tools/test_video_lifecycle.py": "2ec052cbe443e2b75a9dd0b7f5e88a0271851632746a35766eaf75b8bb54e5c5",
+    "tools/video_evidence.py": "34efed6adc124683d0d447292a87a7698bdc18755e27b90614fe6f144c861505",
+    "tools/test_video_evidence.py": "a466cba5a2c15de3617e2c5640a8c2e0ce7e2f8896885821ab719ef54a10f322",
+    "tools/video_catalog.py": "3967888a1776a7d12fcf178ced9a86e3b0fb8d04061015b2a479876eca27a070",
+    "tools/test_video_catalog.py": "76e21333afbd106154d59778e2c073fc6ccdb74d83064ee02d8664433b995770",
+    ".github/workflows/ci.yml": "8942ac6f067946a703a28e4bd94eecbd6f7c30618ab513bcab5b88d54786549b"
+  },
+  "tests": {
+    "catalog": 15,
+    "evidence": 17,
+    "lifecycle": 12,
+    "native_br_tests_skipped": 0
+  },
+  "retained_native_run": "/var/folders/vt/n2xyn_s51b97_j3yh2qbqcnc0000gn/T/video-lifecycle-tests-4wnbe2iy",
+  "independent_review": false
+}

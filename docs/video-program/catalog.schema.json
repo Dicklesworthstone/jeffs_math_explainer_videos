@@ -1,8 +1,64 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Canonical video catalog v1",
+  "$defs": {
+    "artifactId": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"},
+    "artifactRefs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/artifactId"}
+    },
+    "waiver": {
+      "type": "object",
+      "properties": {
+        "measurement": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "disposition": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "minLength": 1}
+      },
+      "required": ["measurement", "owner", "disposition", "scope", "source_ref"],
+      "additionalProperties": false
+    },
+    "waiverRule": {
+      "if": {"properties": {"evidence_state": {"const": "waived"}}, "required": ["evidence_state"]},
+      "then": {"required": ["waiver"]},
+      "else": {"not": {"required": ["waiver"]}}
+    },
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/artifactId"},
+        "kind": {"enum": ["script", "lexicon", "voice", "take", "cue", "scene", "music", "master", "package", "model", "tool", "settings"]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "inputs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/artifactId"}},
+        "evidence_state": {"enum": ["pass", "fail", "unknown", "stale", "waived"]},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "waiver": {"$ref": "#/$defs/waiver"}
+      },
+      "required": ["artifact_id", "kind", "path", "sha256", "inputs", "evidence_state", "evidence_refs"],
+      "allOf": [{"$ref": "#/$defs/waiverRule"}],
+      "additionalProperties": false
+    },
+    "cutArtifacts": {
+      "type": "object", "minProperties": 1,
+      "properties": {
+        "script": {"$ref": "#/$defs/artifactRefs"},
+        "lexicon": {"$ref": "#/$defs/artifactRefs"},
+        "voice": {"$ref": "#/$defs/artifactRefs"},
+        "take": {"$ref": "#/$defs/artifactRefs"},
+        "cue": {"$ref": "#/$defs/artifactRefs"},
+        "scene": {"$ref": "#/$defs/artifactRefs"},
+        "music": {"$ref": "#/$defs/artifactRefs"},
+        "master": {"$ref": "#/$defs/artifactRefs"},
+        "package": {"$ref": "#/$defs/artifactRefs"}
+      },
+      "additionalProperties": false
+    }
+  },
   "type": "object",
   "properties": {
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}},
     "schema_version": {
       "const": 1
     },
@@ -147,6 +203,7 @@
             "items": {
               "type": "object",
               "properties": {
+                "artifact_refs": {"$ref": "#/$defs/cutArtifacts"},
                 "revision_id": {
                   "type": "string",
                   "minLength": 1
@@ -161,7 +218,9 @@
                 },
                 "master": {
                   "type": "object",
+                  "allOf": [{"$ref": "#/$defs/waiverRule"}],
                   "properties": {
+                    "waiver": {"$ref": "#/$defs/waiver"},
                     "path": {
                       "type": "string",
                       "pattern": "^(?!/)(?!.*\\.\\./).+"
@@ -236,7 +295,9 @@
                   "type": "array",
                   "items": {
                     "type": "object",
+                    "allOf": [{"$ref": "#/$defs/waiverRule"}],
                     "properties": {
+                      "waiver": {"$ref": "#/$defs/waiver"},
                       "stage": {
                         "enum": [
                           "brief_qualified",
@@ -299,7 +360,9 @@
             "type": "array",
             "items": {
               "type": "object",
+              "allOf": [{"$ref": "#/$defs/waiverRule"}],
               "properties": {
+                "waiver": {"$ref": "#/$defs/waiver"},
                 "venue": {
                   "enum": [
                     "youtube",

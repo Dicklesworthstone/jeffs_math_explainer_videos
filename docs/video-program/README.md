@@ -2,7 +2,7 @@
 
 This is the canonical entry point for the channel owner and producers. [catalog.json](catalog.json) records every known video identity, editorial disposition, documented cut and upload. The repository's `.beads` owns task status, assignee, priority and dependencies. [BEADS_INDEX.md](BEADS_INDEX.md) maps plan keys to actual issues; [HANDOFF.md](HANDOFF.md) records migration checks and bounded limitations. There is no second editable task board.
 
-As of 2026-10-16: **64 video identities, 37 documented master cuts, 17 upload records, 11 selected public videos.** The 53 proposed topics include ideas that are unapproved, parked or declined. They are not a commitment to produce 53 videos. Publication observations come from the 2026-10-15 audit and historical [publishing manifest](../publish/MANIFEST.md), not a new browser audit. Earlier private and unuploaded cuts retain their dispositions. A public video may still have open work for another venue or a future revision.
+As of 2026-10-17: **65 video identities, 37 documented master cuts, 17 upload records, 11 selected public videos.** The 54 proposed topics include ideas that are unapproved, parked or declined. They are not a commitment to produce 54 videos. Publication observations come from the 2026-10-15 audit and historical [publishing manifest](../publish/MANIFEST.md), not a new browser audit. Earlier private and unuploaded cuts retain their dispositions. A public video may still have open work for another venue or a future revision.
 
 The repository was copied from the production checkout at `63674d8075522f95987cc73a8024cbb397ecda3f`, including dirty work and media. The older local checkout was preserved separately. All 233 existing issues were imported through native `br`; new work is here. Per-machine settings and copied gate markers are not local runtime qualification. No production code, voice model, render or upload changed during this setup.
 
@@ -16,13 +16,13 @@ The repository was copied from the production checkout at `63674d8075522f95987cc
 6. **Attach exact evidence.** Keep source/voice/script/audio/package identities and receipt references with the revision. Preserve measured failures and scoped owner exceptions. `unknown`, `stale` and `historical_record` do not mean pass. A music-only change need not invalidate dry voice; it does invalidate integrated mix/master checks. Metadata-only changes require package/public-metadata checks.
 7. **Close with proof and export.** Record actual commands, bytes, verdict and scope through `br comments add`; close only the completed task, then `br sync --flush-only`. A completed negative experiment is useful but cannot qualify a production method. Commit only when requested, with exact paths.
 
-The [v1 schema](catalog.schema.json) validates the initial catalog structure. Cross-record uniqueness, Beads anchors and publication links were checked during handoff. Rich per-artifact manifests, automatic invalidation, `x`/native gate enforcement and a derived live view are **future A2–A6 tasks**, not implemented features. Until then, producers check the evidence manually; a catalog edit cannot bypass a gate. Native Beads gates alone bind task state, not media bytes, and do not travel as supported JSONL evidence.
+The [v1 schema](catalog.schema.json) and [read-only validator](../../tools/video_catalog.py) validate structure, scoped revision identities, artifact dependencies, publication links and waiver records. The [artifact contract](ARTIFACT-MANIFESTS.md) explains exact-cut inspection and absent provenance. Run `uv run --no-project --with jsonschema python3 -I tools/video_catalog.py validate` from the repository root; the existing tool-test lanes also validate the real catalog. The historical catalog has not been backfilled with invented artifact hashes. The [A3 receipt helper](EVIDENCE-RECEIPTS.md) binds checker results to actual current file bytes. [A4's integration](LIFECYCLE-GATES.md) now provides `x VIDEO status` by revision/voice and `x VIDEO gate-close` with fresh receipt checks and native gates. Its qualified checker mapping starts empty: historical provenance and acoustic qualification are not invented. A5's live board and A6's full production lifecycle qualification remain future work. Native Beads gates alone bind task state, not media bytes, and do not travel as supported JSONL evidence.
 
 ## What to tackle next
 
-The three useful parallel lanes are N1's approved Michael reference/baseline pack, A2's precise revision contract, and S1's source/competition qualification. The first audio experiment uses current tools and fresh outputs before new production plumbing. N12's accent/speaker triage can proceed after labels exist but does not block N5/N7's human listening experiment. N13–N16 remain conditional research, not an instruction to download every model or train one.
+The useful next lanes are N1's approved Michael reference/baseline pack, enrolling genuinely qualified cut checks through A4, and S1's source/competition qualification. The bounded antecedent experiment has fresh audio and a blind review page in `narration_lab/michael-antecedent-20261017/listen.html`; its technical checks do not supply a human listening verdict. N12's accent/speaker triage can proceed after labels exist but does not block N5/N7's human listening experiment. N13–N16 remain bounded experiments with their own prerequisites, not an instruction to download every model or train one.
 
-Provisional editorial leads are square packing, Golay echo cancellation and the owner-requested medical p-value explanation, with randomized response and discrete tomography as reserves. The [slate](research-20261016/SLATE.md) explains their hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims.
+Provisional editorial leads are square packing, Golay echo cancellation and the owner-requested medical p-value explanation, with randomized response and discrete tomography as reserves. The [slate](research-20261016/SLATE.md) explains their hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims. The owner-requested [epsilon–delta candidate](briefs/epsilon-delta.md), added on 2026-10-17, joins the provisional shortlist: continuous curves with a discontinuous limit, constructive delta choices from the supplied Sprague/Davis notes, and the neighborhood idea behind topology. Its historical attribution and full competition review remain qualification work.
 
 For narration, start with the [current continuity and cadence handoff](NARRATION-CONSISTENCY.md), which records owner feedback through the contextual pickup repair and links the revised canonical skill. The owner has heard improvements from manual pauses and contextual repair; this does not yet qualify a whole chapter or identify a universal method. The [original voice ideas](research-20261016/VOICE_IDEA_WIZARD.md) and [model matrix](research-20261016/evidence/voice-model-matrix.md) remain dated research, not automatic next steps. Speaker, accent, cadence, gaps and lexical correctness remain separate judgments.
 
@@ -30,7 +30,7 @@ The requested independent Claude/Codex duel remains incomplete: fresh Claude ret
 
 ## Dated catalog view
 
-The following tables are a 2026-10-16 rendering of `catalog.json`, not a second place to edit status. Rebuild them from that file after intake changes. Use Beads for current task state.
+The following tables are a 2026-10-17 rendering of `catalog.json`, not a second place to edit status. Rebuild them from that file after intake changes. Use Beads for current task state. Publication observations retain their original dates.
 
 ### Public topics
 
@@ -57,6 +57,7 @@ The following tables are a 2026-10-16 rendering of `catalog.json`, not a second 
 | `p_values_medical` | Why P-Values Confuse Even Doctors | shortlisted | `mx-video-program-program-87do.7` |
 | `randomized_response` | How to learn a secret about a crowd without learning each person's answer | shortlisted | `mx-video-program-program-87do.8` |
 | `discrete_tomography` | Two shadows can lie—even when every number is right | shortlisted | `mx-video-program-program-87do.9` |
+| `epsilon_delta` | Epsilon and Delta: Why Getting Closer Wasn't Enough | shortlisted | `mx-video-program-program-87do.58` |
 
 ### Other ideas, including parked and declined
 
