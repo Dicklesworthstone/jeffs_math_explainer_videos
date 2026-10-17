@@ -71,7 +71,7 @@ These come from the explainer skills and from the incidents that produced them. 
 2. **Every number on screen or in the narration comes from the explainer's `facts`**, computed by the scene from the data it draws and pinned against an independent oracle (`./x <slug> facts-check`). A typed number is a defect.
 3. **Every always/never sentence is tested at its edges before it is voiced.**
 4. **Every name and term is looked up and its pronunciation verified** (lookup, respell, probe against a control and a decoy, lock into `lexicon.json` with sources) before narration. The owner's pronunciation overrides every source.
-5. **One TTS call per sentence.** ftts is deterministic per (text, voice, seed): `--seed 1..N` gives different reads of the same words (seed 0 is the same as none), so a new take keeps the script's text; record the seed with the take (the narration skill's N-63, which corrects N-10). Choose a line's takes together so the joins sound like one reader, and set line-to-line gaps by the thought, never one constant (N-64).
+5. **Choose bounded coherent narration units.** Owner amendment 2026-10-17: use FrankenTTS Michael with his approved English accent, accepted B as the reference, contextual whole-thought takes/repairs and authored semantic pauses. Sentence synthesis remains a comparison route, not a universal requirement. Follow the current canonical narration skill and `docs/video-program/NARRATION-CONSISTENCY.md`. Pin the actual executable, model, voice conditioning, text, seed and emitted generation receipt; seed 0 can equal omitted, while positive seeds produce candidates in tested builds. Neither one request nor a resident proves unbroken context, and replay does not generalize across builds/backends. Transcript, speaker/accent scores and EOS evidence do not establish listening acceptance. Other models primarily support diagnosis.
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
 8. **Chapters stay ≤ ~85 s** (editorial pacing; the kit raises the engine's byte caps).
@@ -86,6 +86,29 @@ Work around engine gaps in this repository and record them (§14 of the plan). F
 ---
 
 ## Working in the Swarm (the build host)
+
+### Owner-authorized first production wave — 2026-10-17
+
+The owner authorizes three Claude Code lanes on Opus 5.5, one video per lane,
+starting with Golay echoes, square packing and the medical p-value explanation.
+This authorizes production work, not publication or bypassing proof/audio gates.
+Use the current local canonical checkout. Do not touch older studio/research
+sessions, start remote SSH work, or edit upstream engines. Agent Mail is attempted
+once; if unavailable, use the assigned disjoint paths and exact NTM pane messages.
+The orchestrator owns shared workspace/driver/catalog files and Beads structure.
+
+Run a small code-first wave: each lane owns its topic directory, writes real
+scene/facts code plus independent oracle/tests and a usable spoken/storyboard
+slice, performs cheap syntax/oracle checks, then hands off exact paths and commit.
+Leave its task `in_progress` with a `batch_pending` label/comment; this label is
+an operational handoff, not a newly enforced native status. Only the orchestrator
+runs the combined Rust checks and bounded draft render, reviews the actual frames
+and audio, then closes accepted work with revision-bound evidence. Do not launch
+three redundant full builds or parallel full narration batches. No speculative
+frameworks, placeholder scenes, weakened assertions, self-closes, or claims that
+a commit/fixture/report is a finished video. A failed proof or model screen remains
+visible and cannot close the positive production task. One bounded active task
+per lane; verification before advancing to the next three topics.
 
 The three videos are built in parallel by an NTM swarm on the build host: Claude Code lanes write chapters, narration and music; Codex lanes review. Everyone works in **one checkout** (no git worktrees) and coordinates through **Agent Mail file reservations**. The orchestrator assigns lanes through beads.
 
