@@ -1116,6 +1116,8 @@ mod tests {
             "Pythagoras's theorem:",
             "the tilted corner sits on a straight side",
             "each pair of triangles closes into an a by b rectangle",
+            "A close cousin is in a third-century",
+            "Chinese commentary on the Zhoubi suanjing",
             // R2, 13_3: the cut square in letters, no word said
             "the same cut square as before:",
             "(a + b)² = a² + 2ab + b²",
@@ -1127,13 +1129,12 @@ mod tests {
         }
         // R2, 13_7: the three sentences of the source line, whole and in
         // this order, the year the fact's (the lines of a wrapped lower-third
-        // are registered one after another, so a phrase may be split between
-        // two of them: the whole line is looked for joined)
+        // are registered one after another)
         let said = words.join(" ");
         let f = crate::facts::facts().unwrap();
         let year = f.get("F-X.wheeler").unwrap();
         assert_eq!(year, "1859");
-        let source = format!("{NOBODY} {EARLIEST_BEFORE} {year}, {EARLIEST_AFTER} {COUSIN}");
+        let source = format!("{NOBODY} {EARLIEST_BEFORE} {year}, {EARLIEST_AFTER} {COUSIN}",);
         assert!(said.contains(&source), "the source line is not whole: {words:?}");
         assert!(!said.contains(" …"), "a lower-third was cut short: {said}");
         assert!(ran.seconds > 40.0 && ran.seconds < 100.0, "{} s", ran.seconds);
