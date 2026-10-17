@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-17",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -2800,11 +2800,37 @@
       "related_video_ids": [],
       "revisions": [],
       "publications": []
+    },
+    {
+      "video_id": "epsilon_delta",
+      "working_title": "Epsilon and Delta: Why Getting Closer Wasn't Enough",
+      "pitch": "Continuous curves with a discontinuous limit motivate precise quantifier dependencies; Sprague and Davis make delta constructive; sequences and open-set preimages explain alternative views, with historically careful foundations.",
+      "work_epic": "mx-video-program-program-87do.58",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-17",
+          "decision": "shortlisted",
+          "by": "owner suggestion; Codex editorial intake",
+          "reason": "Owner explicitly proposed an informative video using the two supplied notes, calculus foundations and topology. Promoted to the provisional editorial shortlist for qualification; this does not record full-production approval or a finished competition/history audit.",
+          "source_refs": [
+            "docs/video-program/briefs/epsilon-delta.md#owner-intake"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/briefs/epsilon-delta.md",
+        "https://doi.org/10.2307/2308663",
+        "https://doi.org/10.2307/2311156"
+      ],
+      "related_video_ids": ["visual_proofs"],
+      "revisions": [],
+      "publications": []
     }
   ],
   "coverage": {
-    "as_of": "2026-10-16",
-    "video_identities": "11 public topics, 30 independent Codex topic candidates, 11 additional X suggestions, 12 additional prior-plan proposals; overlaps linked, not duplicated.",
+    "as_of": "2026-10-17",
+    "video_identities": "11 public topics, 30 independent Codex topic candidates, 11 additional X suggestions, 12 additional prior-plan proposals, and one owner-requested epsilon-delta candidate; overlaps linked, not duplicated.",
     "revision_import": "17 uploaded cuts and 20 other explicitly documented master cuts from the publishing manifest. This is not an enumeration of every intermediate render, chapter or take.",
     "historical_limits": "Historical hashes and paths are records, not fresh local media verification. Missing/partial provenance remains unknown. Original manifest retains richer receipts and copy-location details."
   }
