@@ -20,11 +20,12 @@
 > **A note on tense.** Like franken_manim's README, this one describes the
 > *method* in the present tense, because the method is fixed and every video
 > follows it. What exists today is stated separately and plainly: see
-> [The corpus](#the-corpus) and [Status](#status). All four videos now have a
-> 4K60 master in the `michael` voice that passes the strict verify, and all
-> four are published on YouTube (the links are in [The corpus](#the-corpus)).
-> Seven more, videos 5 to 11, follow: the Fair Coin (5), Mental Math Tricks (6) and the
-> matrix exponential (10) are published too, and the other four have verified 4K60 masters, not yet published.
+> [The canonical video catalog](docs/video-program/README.md). Eleven selected
+> Michael cuts were public at the 2026-10-15 audit. The catalog preserves their
+> publication records, earlier cuts and all known future proposals; Beads owns
+> the work graph. Older build-status prose below is historical and does not
+> supersede those dated records. Proposed narration improvements are research,
+> not claims that the current audio has passed new listening tests.
 
 ---
 

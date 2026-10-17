@@ -1,0 +1,116 @@
+# Every video, from idea to publication
+
+This is the canonical entry point for the channel owner and producers. [catalog.json](catalog.json) records every known video identity, editorial disposition, documented cut and upload. The repository's `.beads` owns task status, assignee, priority and dependencies. [BEADS_INDEX.md](BEADS_INDEX.md) maps plan keys to actual issues; [HANDOFF.md](HANDOFF.md) records migration checks and bounded limitations. There is no second editable task board.
+
+As of 2026-10-16: **64 video identities, 37 documented master cuts, 17 upload records, 11 selected public videos.** The 53 proposed topics include ideas that are unapproved, parked or declined. They are not a commitment to produce 53 videos. Publication observations come from the 2026-10-15 audit and historical [publishing manifest](../publish/MANIFEST.md), not a new browser audit. Earlier private and unuploaded cuts retain their dispositions. A public video may still have open work for another venue or a future revision.
+
+The repository was copied from the production checkout at `63674d8075522f95987cc73a8024cbb397ecda3f`, including dirty work and media. The older local checkout was preserved separately. All 233 existing issues were imported through native `br`; new work is here. Per-machine settings and copied gate markers are not local runtime qualification. No production code, voice model, render or upload changed during this setup.
+
+## How to use it
+
+1. **Capture an idea immediately.** Add one stable `video_id`, a working title, source and disposition in `catalog.json`; create a deferred video epic with `br`, then store its ID as `work_epic`. Reuse an existing identity when it is the same proposed video; use `related_video_ids` for distinct but related treatments. Do not create a corpus crate just to remember a vague idea.
+2. **Select deliberately.** Record the owner's editorial decision and a bounded primary-source/proof/coverage brief. A shortlist is not full-production approval. Retain reasons for parked and declined ideas. Candidate epics remain deferred until selected.
+3. **Work through Beads.** Run `br ready --json`, read the whole issue, and claim it with `br update ID --status in_progress`. Use `br show ID --json` for current status and blockers. Existing live work is not reassigned by this document. Use `bv --robot-plan` or `bv --robot-triage`, never bare `bv`.
+4. **Record each cut separately.** Add an immutable `revision_id` under its video when production begins. Track achieved milestones and their evidence: qualified brief → locked script → accepted dry voice → accepted storyboard → reviewed draft → verified master → upload. A revision may exist before a master does. `master_recorded` only records a historical file; it is not `master_verified`. Preserve failed, replaced and rejected cuts.
+5. **Keep publication separate.** Each venue record points to exactly one revision and stores its external ID, visibility, source and observation date. Changing a title does not create a new video identity. A new cut does not overwrite the public cut's record. YouTube publication does not mean GitHub release authorization. Never infer new-cut approval from `historical_granted`.
+6. **Attach exact evidence.** Keep source/voice/script/audio/package identities and receipt references with the revision. Preserve measured failures and scoped owner exceptions. `unknown`, `stale` and `historical_record` do not mean pass. A music-only change need not invalidate dry voice; it does invalidate integrated mix/master checks. Metadata-only changes require package/public-metadata checks.
+7. **Close with proof and export.** Record actual commands, bytes, verdict and scope through `br comments add`; close only the completed task, then `br sync --flush-only`. A completed negative experiment is useful but cannot qualify a production method. Commit only when requested, with exact paths.
+
+The [v1 schema](catalog.schema.json) validates the initial catalog structure. Cross-record uniqueness, Beads anchors and publication links were checked during handoff. Rich per-artifact manifests, automatic invalidation, `x`/native gate enforcement and a derived live view are **future A2–A6 tasks**, not implemented features. Until then, producers check the evidence manually; a catalog edit cannot bypass a gate. Native Beads gates alone bind task state, not media bytes, and do not travel as supported JSONL evidence.
+
+## What to tackle next
+
+The three useful parallel lanes are N1's approved Michael reference/baseline pack, A2's precise revision contract, and S1's source/competition qualification. The first audio experiment uses current tools and fresh outputs before new production plumbing. N12's accent/speaker triage can proceed after labels exist but does not block N5/N7's human listening experiment. N13–N16 remain conditional research, not an instruction to download every model or train one.
+
+Provisional editorial leads are square packing, Golay echo cancellation and the owner-requested medical p-value explanation, with randomized response and discrete tomography as reserves. The [slate](research-20261016/SLATE.md) explains their hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims.
+
+For narration, start with the [current continuity and cadence handoff](NARRATION-CONSISTENCY.md), which records owner feedback through the contextual pickup repair and links the revised canonical skill. The owner has heard improvements from manual pauses and contextual repair; this does not yet qualify a whole chapter or identify a universal method. The [original voice ideas](research-20261016/VOICE_IDEA_WIZARD.md) and [model matrix](research-20261016/evidence/voice-model-matrix.md) remain dated research, not automatic next steps. Speaker, accent, cadence, gaps and lexical correctness remain separate judgments.
+
+The requested independent Claude/Codex duel remains incomplete: fresh Claude returned its weekly limit and the Gemini substitute requires login. The existing blocked Bead retains that work. Source research, local listening results and the catalog are usable; no second-family slate or cross-scores were fabricated.
+
+## Dated catalog view
+
+The following tables are a 2026-10-16 rendering of `catalog.json`, not a second place to edit status. Rebuild them from that file after intake changes. Use Beads for current task state.
+
+### Public topics
+
+| Video identity | Working title | Recorded disposition | Beads anchor |
+|---|---|---|---|
+| `hoeffding_d` | Hoeffding's D: The Ring That Correlation Can't See | [Public cut](https://www.youtube.com/watch?v=C9xOzbLIARg) | `mx-e-w3-y3g` |
+| `capture_recapture` | How to Count Fish You've Never Seen | [Public cut](https://www.youtube.com/watch?v=KNxRE255i-o) | `mx-e-a-8y5` |
+| `raptorq_gf256` | The Arithmetic Where 3 × 7 = 9 | [Public cut](https://www.youtube.com/watch?v=uWDPs9JIwEk) | `mx-e-b-qyy` |
+| `bakery_algorithm` | The Algorithm Lamport Is Proudest Of | [Public cut](https://www.youtube.com/watch?v=eXU6NC2fuCw) | `mx-e-c-7v0` |
+| `fair_coin` | How to Make a Fair Coin Out of an Unfair One | [Public cut](https://www.youtube.com/watch?v=f6iskjcSQCQ) | `mx-e-a-e-e-k23` |
+| `mental_math` | Mental Math Tricks That Actually Work (and Why) | [Public cut](https://www.youtube.com/watch?v=wahnqlfOC84) | `mx-e-a-f-ms4` |
+| `lie_robotics` | Why Robot Arms Think in Lie Groups | [Public cut](https://www.youtube.com/watch?v=G9P5aDGMAGU) | `mx-e-a-suh` |
+| `bayesian_search` | How to Find a Lost Submarine | [Public cut](https://www.youtube.com/watch?v=JY88xN-0Jjw) | `mx-e-a-h-6ix2` |
+| `visual_proofs` | Proofs You Can See | [Public cut](https://www.youtube.com/watch?v=MCPzPBy_bhM) | `mx-e-a-dza` |
+| `matrix_exponential` | What Does It Mean to Raise e to a Matrix? | [Public cut](https://www.youtube.com/watch?v=KHcukYSw53E) | `mx-e-a-j-8yq7` |
+| `eigen_engineering` | The One Idea Behind Bridges, Concert Halls and Economies | [Public cut](https://www.youtube.com/watch?v=tBfbz7qU4hU) | `mx-e-a-e-k-oq4` |
+
+### Provisional shortlist
+
+| Video identity | Working title | Recorded disposition | Beads anchor |
+|---|---|---|---|
+| `square_packing` | Why turning a square can make the whole box smaller | shortlisted | `mx-video-program-program-87do.5` |
+| `golay_echoes` | Two bad echoes can make one perfect measurement | shortlisted | `mx-video-program-program-87do.6` |
+| `p_values_medical` | Why P-Values Confuse Even Doctors | shortlisted | `mx-video-program-program-87do.7` |
+| `randomized_response` | How to learn a secret about a crowd without learning each person's answer | shortlisted | `mx-video-program-program-87do.8` |
+| `discrete_tomography` | Two shadows can lie—even when every number is right | shortlisted | `mx-video-program-program-87do.9` |
+
+### Other ideas, including parked and declined
+
+| Video identity | Working title | Recorded disposition | Beads anchor |
+|---|---|---|---|
+| `group_testing` | Find the bad samples without testing them all | parked | `mx-video-program-program-87do.10` |
+| `good_turing` | How much of the next sample will be something you've never seen? | inbox | `mx-video-program-program-87do.11` |
+| `german_tank` | How many machines were built, from a handful of serial numbers? | inbox | `mx-video-program-program-87do.12` |
+| `inspection_paradox` | Why the average passenger waits longer than half the average gap | inbox | `mx-video-program-program-87do.13` |
+| `bus_bunching` | Why buses bunch even when every driver tries to stay on time | inbox | `mx-video-program-program-87do.14` |
+| `parrondo` | Two losing games, one winning schedule | inbox | `mx-video-program-program-87do.15` |
+| `braess` | The road that makes everybody slower | parked | `mx-video-program-program-87do.16` |
+| `abelian_sandpile` | Why this avalanche ignores the order of the falling grains | inbox | `mx-video-program-program-87do.17` |
+| `resistor_random_walk` | A resistor network is secretly answering a probability question | inbox | `mx-video-program-program-87do.18` |
+| `rotor_router` | How arrows can imitate randomness without a random number | inbox | `mx-video-program-program-87do.19` |
+| `planar_rigidity` | How many bars stop a framework from folding? Counting alone is not enough | inbox | `mx-video-program-program-87do.20` |
+| `maxwell_cremona` | The second drawing that tells you whether a structure can hold itself up | inbox | `mx-video-program-program-87do.21` |
+| `crofton` | Measure a curve by throwing lines at it | inbox | `mx-video-program-program-87do.22` |
+| `freivalds` | Check a giant matrix product without doing the product again | inbox | `mx-video-program-program-87do.23` |
+| `distinct_streaming` | Remember almost nothing, yet count a river of different things | inbox | `mx-video-program-program-87do.24` |
+| `random_min_cut` | Why one random cut can solve a problem that looks global | inbox | `mx-video-program-program-87do.25` |
+| `discrepancy` | How to balance many overlapping demands at once | inbox | `mx-video-program-program-87do.26` |
+| `benford` | The first-digit fraud detector that can accuse an innocent ledger | parked | `mx-video-program-program-87do.27` |
+| `steiner_tree` | Why the shortest connecting network adds a point nobody asked for | inbox | `mx-video-program-program-87do.28` |
+| `stable_matching` | The matching that is stable—and still rewards someone for lying | parked | `mx-video-program-program-87do.29` |
+| `apportionment` | How adding a seat can make a state lose one | inbox | `mx-video-program-program-87do.30` |
+| `necklace_splitting` | Can one cut be fair when everyone wants different pieces? | inbox | `mx-video-program-program-87do.31` |
+| `moment_of_inertia` | Two objects with the same mass can be radically different to turn | inbox | `mx-video-program-program-87do.32` |
+| `belt_trick` | Why a full turn can leave something untwisted only after another full turn | parked | `mx-video-program-program-87do.33` |
+| `argument_principle` | Count hidden roots without finding any of them | inbox | `mx-video-program-program-87do.34` |
+| `fertility_eigenvalues` | Relative fertility, replacement and eigenvalues | inbox | `mx-video-program-program-87do.35` |
+| `probability_paradoxes` | Monty Hall, boy/girl and St Petersburg puzzles | parked | `mx-video-program-program-87do.36` |
+| `fourier_fft` | Fourier, FFT and linear algebra | parked | `mx-video-program-program-87do.37` |
+| `game_theory` | Game theory, prisoners dilemma and Nash equilibrium | parked | `mx-video-program-program-87do.38` |
+| `complex_analysis` | Visual complex analysis | inbox | `mx-video-program-program-87do.39` |
+| `hopf_fibration` | Hopf fibration, spinors and fibre bundles | parked | `mx-video-program-program-87do.40` |
+| `negative_times_negative` | Why negative times negative is positive | parked | `mx-video-program-program-87do.41` |
+| `math_invented_discovered` | Is mathematics invented or discovered? | parked | `mx-video-program-program-87do.42` |
+| `recent_ai_math` | Recent AI mathematical solves | declined | `mx-video-program-program-87do.43` |
+| `visual_proofs_more` | More proofs you can see | inbox | `mx-video-program-program-87do.44` |
+| `mh370_inference` | What inference can and cannot say about MH370 | parked | `mx-video-program-program-87do.45` |
+| `shamir_secret_sharing` | Shamir secret sharing | inbox | `mx-video-program-program-87do.46` |
+| `reed_solomon_qr` | Reed–Solomon and QR codes | inbox | `mx-video-program-program-87do.47` |
+| `logical_clocks` | Lamport clocks and vector clocks | inbox | `mx-video-program-program-87do.48` |
+| `paxos` | Paxos | inbox | `mx-video-program-program-87do.49` |
+| `bloom_filters` | Bloom filters | inbox | `mx-video-program-program-87do.50` |
+| `birthday_hash_collisions` | Birthday paradox and hash collisions | inbox | `mx-video-program-program-87do.51` |
+| `secretary_problem` | The secretary problem | inbox | `mx-video-program-program-87do.52` |
+| `kalman_filter` | The Kalman filter | inbox | `mx-video-program-program-87do.53` |
+| `pagerank` | PageRank and Markov chains | inbox | `mx-video-program-program-87do.54` |
+| `huffman_entropy` | Huffman coding and entropy | inbox | `mx-video-program-program-87do.55` |
+| `diffie_hellman` | Diffie–Hellman | inbox | `mx-video-program-program-87do.56` |
+| `merkle_trees` | Merkle trees | inbox | `mx-video-program-program-87do.57` |
+
+## Scope and retirement
+
+This catalog prevents duplicate ideas, lost cuts and stale publication assumptions. Keep identities/history here while the project is active; replace a derived view when its generator changes, not the underlying history. The original production plan remains the architecture reference; the [research snapshot](research-20261016/README.md) is retired when its model pins or production plan are superseded. Do not turn this into a parallel scheduler or an endless labeling project.

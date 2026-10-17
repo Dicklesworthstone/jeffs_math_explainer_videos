@@ -1,0 +1,392 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical video catalog v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "updated_on": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_tracker": {
+      "const": ".beads"
+    },
+    "consumer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "as_of": {
+          "type": "string",
+          "minLength": 1
+        },
+        "video_identities": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_import": {
+          "type": "string",
+          "minLength": 1
+        },
+        "historical_limits": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "as_of",
+        "video_identities",
+        "revision_import",
+        "historical_limits"
+      ],
+      "additionalProperties": false
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "working_title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pitch": {
+            "type": "string",
+            "minLength": 1
+          },
+          "work_epic": {
+            "type": "string",
+            "pattern": "^mx-"
+          },
+          "production_approval": {
+            "enum": [
+              "not_requested",
+              "historical_granted",
+              "explicit_current_grant"
+            ]
+          },
+          "decisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "on": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "decision": {
+                  "enum": [
+                    "inbox",
+                    "shortlisted",
+                    "parked",
+                    "declined",
+                    "selected",
+                    "published"
+                  ]
+                },
+                "by": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "on",
+                "decision",
+                "by",
+                "reason",
+                "source_refs"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "related_video_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "revisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "revision_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "voice": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "master": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^(?!/)(?!.*\\.\\./).+"
+                    },
+                    "digest": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "algorithm": {
+                              "enum": [
+                                "md5",
+                                "sha256"
+                              ]
+                            },
+                            "value": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{32}([a-f0-9]{32})?$"
+                            }
+                          },
+                          "required": [
+                            "algorithm",
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "historical_digest_prefix": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{1,31}$"
+                    },
+                    "evidence_state": {
+                      "enum": [
+                        "pass",
+                        "fail",
+                        "unknown",
+                        "stale",
+                        "waived",
+                        "historical_record"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "digest",
+                    "evidence_state"
+                  ],
+                  "additionalProperties": false
+                },
+                "generation_provenance": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "disposition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "milestones": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "stage": {
+                        "enum": [
+                          "brief_qualified",
+                          "script_locked",
+                          "voice_accepted",
+                          "storyboard_accepted",
+                          "draft_reviewed",
+                          "master_recorded",
+                          "master_verified",
+                          "uploaded"
+                        ]
+                      },
+                      "recorded_as_of": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "evidence_state": {
+                        "enum": [
+                          "pass",
+                          "fail",
+                          "unknown",
+                          "stale",
+                          "waived",
+                          "historical_record"
+                        ]
+                      },
+                      "evidence_refs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "stage",
+                      "recorded_as_of",
+                      "evidence_state",
+                      "evidence_refs"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "revision_id",
+                "label",
+                "voice",
+                "generation_provenance",
+                "evidence_refs",
+                "disposition",
+                "milestones"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "publications": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "venue": {
+                  "enum": [
+                    "youtube",
+                    "github_release"
+                  ]
+                },
+                "external_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "url": {
+                  "type": "string",
+                  "pattern": "^https://"
+                },
+                "revision_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "visibility": {
+                  "enum": [
+                    "private",
+                    "unlisted",
+                    "public",
+                    "unknown"
+                  ]
+                },
+                "recorded_as_of": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence_state": {
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "unknown",
+                    "stale",
+                    "waived",
+                    "historical_record"
+                  ]
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "venue",
+                "external_id",
+                "url",
+                "revision_id",
+                "visibility",
+                "recorded_as_of",
+                "evidence_state",
+                "evidence_refs"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "video_id",
+          "working_title",
+          "work_epic",
+          "production_approval",
+          "decisions",
+          "source_refs",
+          "related_video_ids",
+          "revisions",
+          "publications"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "updated_on",
+    "work_tracker",
+    "consumer",
+    "authority",
+    "coverage",
+    "videos"
+  ],
+  "additionalProperties": false
+}
