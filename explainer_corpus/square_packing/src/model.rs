@@ -210,7 +210,7 @@ impl Surd {
 
     /// Rounded to `places` decimals, as the screen and the narration give it.
     pub fn decimals(self, places: usize) -> String {
-        format!("{:.*}", places, self.to_f64())
+        format!("{:.places$}", self.to_f64())
     }
 }
 
@@ -537,7 +537,10 @@ impl<T: Num> Packing<T> {
     }
 
     /// The least clearance anywhere: between two tiles, or between a tile and
-    /// the walls. Non-negative exactly when the packing fits.
+    /// the walls. Non-negative exactly when the packing fits. The tests read
+    /// it on every sampled frame of the chapter's motions; the scene draws
+    /// those frames and never needs the number.
+    #[cfg(test)]
     pub fn worst(&self) -> T {
         let mut worst = wall_clearance(&self.tiles[0], self.side);
         for (i, a) in self.tiles.iter().enumerate() {
@@ -652,10 +655,13 @@ pub fn small_turn() -> (Surd, Surd) {
 
 // ---------------------------------------------------- the chapter's motions
 
-/// The box the turn happens in: the straight grid's.
-pub const TURN_BOX: f64 = 3.0;
+/// The box the turn happens in: the straight grid's, three wide.
+pub fn turn_box() -> f64 {
+    f64::from(grid_side(TILES))
+}
 
-/// The first motion: in the box of three, the middle tile turned through
+/// The first motion, frame by frame as the chapter draws it (01_5): in the
+/// box of three ([`turn_box`]), the middle tile turned through
 /// `angle` radians (0 straight, π/4 an eighth of a turn). Every angle gives a
 /// packing: each corner of the middle tile is √2/2 from the box's centre, so
 /// the whole tile lies in the disc of that radius about the centre; the point
@@ -664,15 +670,18 @@ pub const TURN_BOX: f64 = 3.0;
 /// meets each corner tile only at its inner corner, and the insides never
 /// overlap. The middle tile touches its neighbours only when it is straight.
 pub fn turning(angle: f64) -> Packing<f64> {
-    corners_and_middle(TURN_BOX, angle.cos(), angle.sin())
+    corners_and_middle(turn_box(), angle.cos(), angle.sin())
 }
 
-/// The second motion: the box `side` wide, from 3 down to [`turned_side`],
+/// The second motion, frame by frame as the chapter draws it (01_6 and
+/// 01_10): the box `side` wide, from 3 down to [`turned_side`],
 /// the corner tiles in its corners and the middle tile an eighth of a turn
 /// round at its centre. Every side in that range gives a packing: the turned
 /// tile is the set where |x − c| + |y − c| ≤ √2/2 (c = side/2), the point
 /// of a corner tile nearest it in that measure is the inner corner, at
 /// side − 2, and side − 2 ≥ √2/2 down to the stop, where it is equal.
+/// Below the stop every frame overlaps: 01_10 shows those in red, as what
+/// fails, never as a packing.
 pub fn squeezed(side: f64) -> Packing<f64> {
     let c = std::f64::consts::FRAC_1_SQRT_2;
     corners_and_middle(side, c, c)
@@ -903,7 +912,7 @@ mod tests {
     /// all four overlap it.
     #[test]
     fn the_squeeze_never_collides_and_stops_at_the_touch() {
-        let (from, to) = (TURN_BOX, turned_side().to_f64());
+        let (from, to) = (turn_box(), turned_side().to_f64());
         let steps = 2000;
         for k in 0..=steps {
             let side = from + (to - from) * f64::from(k) / f64::from(steps);
@@ -921,7 +930,7 @@ mod tests {
     /// already touches all four corner tiles in the box of three.
     #[test]
     fn a_straight_middle_cannot_be_squeezed() {
-        let p = corners_and_middle(TURN_BOX - 1e-6, 1.0, 0.0);
+        let p = corners_and_middle(turn_box() - 1e-6, 1.0, 0.0);
         assert_eq!(p.check(EPS).overlapping.len(), 4);
     }
 }

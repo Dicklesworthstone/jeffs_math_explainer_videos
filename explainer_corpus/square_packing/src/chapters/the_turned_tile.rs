@@ -10,11 +10,12 @@
 //! red (01_10); a picture that fits is not a proof that nothing smaller does
 //! (01_11).
 //!
-//! From 01_5 on, every tile and the box are redrawn each frame from
-//! `model::corners_and_middle` at the frame's box width and turn (one
-//! updater, two trackers), so the picture is the model's packing at every
-//! frame, and the model's tests check those frames: `turning` and `squeezed`
-//! never overlap. Only 01_10 goes past the stop, and it says so in red.
+//! From 01_5 on, every tile and the box are redrawn each frame from one of
+//! the model's motions, `model::turning` (01_5) and `model::squeezed` (01_6
+//! to 01_10), at the frame's tracker value, so the picture is the packing
+//! the model's tests check frame by frame: neither motion overlaps between
+//! straight and the stop. Only 01_10 goes past the stop, and it says so in
+//! red.
 
 use explainer_kit::{BACKGROUND, Kit, fade_all, hex, tween, v};
 use fmn::library::{SpanMapData, TransformMatchingTex};
@@ -24,7 +25,7 @@ use super::draw::{
     Board, arc_points, common, corner, dim, dot, fact, fact_int, fade_in_lagged, fail, faint, flat, fly, grow, ink,
     line_style, path, pause, polygon, reshape, retrace, ring, say, swap, together, touch, turned, warn,
 };
-use crate::model::{self, MIDDLE, TILES};
+use crate::model::{self, MIDDLE, Packing, TILES};
 
 pub struct TheTurnedTile {
     pub kit: Kit,
@@ -71,6 +72,8 @@ pub const THINK_S: f64 = 4.0;
 /// overlaps are seen. A drawing distance: no number on screen is typed from
 /// it (the width readout shows the frame's width as it is).
 pub const OVERSHOOT: f64 = 0.15;
+/// Where the question stands, over the box.
+pub const QUESTION_AT: Vec3 = [0.0, 3.35, 0.0];
 /// Where the five tiles wait in 01_1: a row about the frame's middle, this
 /// many tiles from one centre to the next.
 pub const ROW_Y: f64 = -0.35;
@@ -149,40 +152,57 @@ fn cell(stage: &mut Stage<'_>, side: f64, q: (f64, f64), c: Srgb) -> Mob {
     path(stage, b.outline(1.0), line_style(c, 3.0))
 }
 
-/// The tiles, the box and the overlap patches as the model has them, for a
-/// box `side` wide and a middle tile turned `degrees`, every frame either
-/// tracker moves (one updater on an anchor in the scene).
-struct Layout {
-    side: Mob,
-    degrees: Mob,
+/// Where tile `i` of the row of five waits in 01_1, the gold one last.
+fn row_at(i: usize) -> Vec3 {
+    let n = f64::from(TILES);
+    v(BOARD.k * ROW_PITCH * (i as f64 - (n - 1.0) / 2.0), ROW_Y)
+}
+
+/// The height of the width readout, under the box `side` wide.
+fn width_y(side: f64) -> f64 {
+    BOARD.p(side, (0.0, 0.0))[1] - 0.5
+}
+
+/// One of the model's motions: the packing it is in when its tracker has a
+/// value.
+type Frame = fn(f64) -> Packing<f64>;
+
+/// The turn of 01_5 with its tracker in degrees: `model::turning`.
+fn turn_frame(degrees: f64) -> Packing<f64> {
+    model::turning(degrees.to_radians())
+}
+
+/// A motion drawn as it goes: every frame its tracker moves, the tiles, the
+/// box and the overlap patches are redrawn from `frame(tracker)` (one
+/// updater on an anchor in the scene), so the picture is the model's packing
+/// at that frame.
+struct Motion {
+    tracker: Mob,
     anchor: Mob,
 }
 
-impl Layout {
+impl Motion {
     fn install(
         stage: &mut Stage<'_>,
         tiles: [Mob; 5],
         outline: Mob,
         patches: [Mob; 4],
-        side: f64,
+        start: f64,
+        frame: Frame,
     ) -> fmn::Result<Self> {
-        let side_t = stage.add_value_tracker(side);
-        let degrees_t = stage.add_value_tracker(0.0);
+        let tracker = stage.add_value_tracker(start);
         let anchor = stage.arena_mut().add(VMobject::new());
-        let mut last = (f64::NAN, f64::NAN);
+        let mut last = f64::NAN;
         stage.add_updater(
             anchor,
             move |s: &mut fmn::mobject::Stage, _| {
-                let now = (
-                    s.tracker_value(side_t).unwrap_or(side),
-                    s.tracker_value(degrees_t).unwrap_or(0.0),
-                );
-                if now.0.to_bits() == last.0.to_bits() && now.1.to_bits() == last.1.to_bits() {
+                let now = s.tracker_value(tracker).unwrap_or(start);
+                if now.to_bits() == last.to_bits() {
                     return;
                 }
                 last = now;
-                let (w, a) = (now.0, now.1.to_radians());
-                let p = model::corners_and_middle(w, a.cos(), a.sin());
+                let p = frame(now);
+                let w = p.side;
                 for (m, t) in tiles.iter().zip(&p.tiles) {
                     reshape(s, *m, BOARD.tile(w, t));
                 }
@@ -201,11 +221,12 @@ impl Layout {
             true,
         )?;
         stage.add_to_scene(anchor)?;
-        Ok(Self {
-            side: side_t,
-            degrees: degrees_t,
-            anchor,
-        })
+        Ok(Self { tracker, anchor })
+    }
+
+    /// Stop redrawing; the next motion takes over from the same frame.
+    fn stop(&self, stage: &mut Stage<'_>) {
+        stage.clear_updaters(self.anchor, true);
     }
 }
 
@@ -246,13 +267,11 @@ impl SceneConstruct for TheTurnedTile {
 
         // ---------------------------------------------------------- 01_1
         // five tiles in a row, the gold one last: the fifth
-        let n = TILES as usize;
         let tiles: [Mob; 5] = std::array::from_fn(|i| {
-            let x = BOARD.k * ROW_PITCH * (i as f64 - (n as f64 - 1.0) / 2.0);
             let c = if i == MIDDLE { turned() } else { corner() };
-            lone_tile(stage, v(x, ROW_Y), c)
+            lone_tile(stage, row_at(i), c)
         });
-        let question = kit.text(stage, QUESTION, 44.0, ink(), v(0.0, 3.35))?;
+        let question = kit.text(stage, QUESTION, 44.0, ink(), QUESTION_AT)?;
         let line = say(&kit, stage, LINES[0])?;
         fade_in_lagged(stage, &tiles, 1.8, 0.3)?;
         line.wait_for(stage, "How small")?;
@@ -277,7 +296,8 @@ impl SceneConstruct for TheTurnedTile {
         // ---------------------------------------------------------- 01_3
         // the box of three: corners and middle; room for four more
         let line = say(&kit, stage, LINES[2])?;
-        let straight = model::corners_and_middle(three, 1.0, 0.0);
+        // the turn's first frame: the five straight in the box of three
+        let straight = turn_frame(0.0);
         let mut moves = vec![grow(outline, three / two, 1.2)?];
         for (k, t) in straight.tiles.iter().enumerate() {
             moves.push(fly(tiles[k], BOARD.p(three, t.centre), 1.2)?);
@@ -326,16 +346,15 @@ impl SceneConstruct for TheTurnedTile {
         // ---------------------------------------------------------- 01_5
         // the turn, inside the circle through the inner corners
         let patches: [Mob; 4] = std::array::from_fn(|_| polygon(stage, vec![BOARD.at; 3], flat(warn(), 0.9)));
-        let layout = Layout::install(stage, tiles, outline, patches, three)?;
+        let turn = Motion::install(stage, tiles, outline, patches, 0.0, turn_frame)?;
         let line = say(&kit, stage, LINES[4])?;
         let reach = ring(stage, BOARD.at, BOARD.k * r.reach, faint(), 4.0);
-        let inner = model::corners_and_middle(three, 1.0, 0.0);
         let marks: Vec<Mob> = (0..4)
-            .map(|k| dot(stage, BOARD.p(three, inner.inner_corner(k)), 0.06, dim()))
+            .map(|k| dot(stage, BOARD.p(three, straight.inner_corner(k)), 0.06, dim()))
             .collect();
         let label = kit.text_left(stage, TURNED_BY, 34.0, dim(), v(PANEL_X - 1.6, 1.6))?;
         let degree_at = v(PANEL_X + 0.6, 1.6);
-        let readout = kit.live_number(stage, layout.degrees, 0, false, 44.0, turned(), degree_at, RIGHT)?;
+        let readout = kit.live_number(stage, turn.tracker, 0, false, 44.0, turned(), degree_at, RIGHT)?;
         let degree = kit.text_left(
             stage,
             DEGREE,
@@ -348,30 +367,32 @@ impl SceneConstruct for TheTurnedTile {
         swap(stage, &[], &ins, 0.6)?;
         line.wait_for(stage, "Its corners")?;
         let rt = line.left(stage, 2.5) - 0.3;
-        drive(stage, layout.degrees, f64::from(r.degrees), rt)?;
+        drive(stage, turn.tracker, f64::from(r.degrees), rt)?;
 
         // ---------------------------------------------------------- 01_6
-        // the squeeze, with the box of three as a ghost
+        // the squeeze, from the turn's last frame, with the box of three as a
+        // ghost
+        turn.stop(stage);
+        let squeeze = Motion::install(stage, tiles, outline, patches, three, model::squeezed)?;
         let line = say(&kit, stage, LINES[5])?;
         let ghost = path(stage, BOARD.outline(three), line_style(faint(), 3.0));
         let mut outs = vec![reach, label, degree, readout];
         outs.extend(&marks);
         swap(stage, &outs, &[ghost], 0.5)?;
-        let width_y = BOARD.at[1] - BOARD.k * three / 2.0 - 0.5;
-        let width_label = kit.text_left(stage, WIDTH, 32.0, dim(), v(BOARD.at[0] - 2.1, width_y))?;
+        let width_label = kit.text_left(stage, WIDTH, 32.0, dim(), v(BOARD.at[0] - 2.1, width_y(three)))?;
         swap(stage, &[], &[width_label], 0.3)?;
         kit.live_number(
             stage,
-            layout.side,
+            squeeze.tracker,
             2,
             false,
             40.0,
             ink(),
-            v(BOARD.at[0] + 0.3, width_y),
+            v(BOARD.at[0] + 0.3, width_y(three)),
             LEFT,
         )?;
         let rt = line.left(stage, 3.0) - 0.3;
-        drive(stage, layout.side, r.stop, rt)?;
+        drive(stage, squeeze.tracker, r.stop, rt)?;
 
         // ---------------------------------------------------------- 01_7
         // the four touches, at the middles of the turned tile's sides
@@ -449,10 +470,10 @@ impl SceneConstruct for TheTurnedTile {
         }
         let bite = kit.text(stage, OVERLAP, 40.0, warn(), v(PANEL_X, -1.0))?;
         let rt = (line.left(stage, 1.6) * 0.5).max(0.8);
-        drive(stage, layout.side, r.stop - OVERSHOOT, rt)?;
+        drive(stage, squeeze.tracker, r.stop - OVERSHOOT, rt)?;
         swap(stage, &[], &[bite], 0.3)?;
         pause(stage, 0.8)?;
-        drive(stage, layout.side, r.stop, 0.9)?;
+        drive(stage, squeeze.tracker, r.stop, 0.9)?;
         swap(stage, &[bite], &[], 0.3)?;
 
         // ---------------------------------------------------------- 01_11
@@ -494,7 +515,7 @@ impl SceneConstruct for TheTurnedTile {
         )?;
         swap(stage, &[], &[proof, source], 0.6)?;
         kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
-        stage.clear_updaters(layout.anchor, true);
+        squeeze.stop(stage);
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }
@@ -508,17 +529,18 @@ mod tests {
     /// label fits in the strip under the turned tile.
     #[test]
     fn the_layout_fits_the_frame() {
-        let half = BOARD.k * 3.0 / 2.0;
-        assert!(BOARD.at[0] - half > -FRAME_X_RADIUS + 0.3);
-        assert!(BOARD.at[1] + half < 3.35 - 0.4, "the question clears the box");
+        let three = model::turn_box();
+        let (lo, hi) = (BOARD.p(three, (0.0, 0.0)), BOARD.p(three, (three, three)));
+        assert!(lo[0] > -FRAME_X_RADIUS + 0.3, "the box is in the frame");
+        assert!(hi[1] < QUESTION_AT[1] - 0.4, "the question clears the box");
         assert!(
-            BOARD.at[1] - half - 0.5 > -FRAME_Y_RADIUS + 0.3,
+            width_y(three) > -FRAME_Y_RADIUS + 0.3,
             "the width readout is in the frame"
         );
-        assert!(BOARD.at[0] + half < PANEL_X - 2.4, "the panel clears the box");
+        assert!(hi[0] < PANEL_X - 2.4, "the panel clears the box");
         // the row of five
-        let last = BOARD.k * ROW_PITCH * 2.0 + BOARD.k / 2.0;
-        assert!(last < FRAME_X_RADIUS - 0.3);
+        let last = row_at(TILES as usize - 1);
+        assert!(last[0] + BOARD.k / 2.0 < FRAME_X_RADIUS - 0.3, "{last:?}");
         // under the turned tile at the stop, the strip between the lower corner
         // tiles is clear up to the tile's bottom corner
         let stop = model::turned_side().to_f64();
@@ -534,7 +556,7 @@ mod tests {
     #[test]
     fn the_overshoot_overlaps_and_the_stop_does_not() {
         let stop = model::turned_side().to_f64();
-        assert!(model::squeezed(stop - OVERSHOOT).check(1e-12).overlapping.len() == 4);
+        assert_eq!(model::squeezed(stop - OVERSHOOT).check(1e-12).overlapping.len(), 4);
         assert!(model::squeezed(stop).check(1e-12).fits());
     }
 
