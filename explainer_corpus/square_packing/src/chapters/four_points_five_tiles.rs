@@ -23,7 +23,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, arc_points, corner, dim, dot, fact, fail, faint, flat, ink, line_style, path, polygon, reshape, retrace,
-    ring, say, swap, touch, turned, warn,
+    ring, say, stand, swap, touch, turned, warn,
 };
 use super::the_corner_lemma::{EDGE_BAND, LAYER_MARKS, LAYER_RING, POINT_R, RING_R_POINT};
 use super::the_turned_tile::{BOARD, RING_AT, RING_R, THINK_S};
@@ -505,7 +505,10 @@ impl SceneConstruct for FourPointsFiveTiles {
         let shared = caption(stage, SHARED, touch(), 5)?;
         swap(stage, &[], &[no_growth, shared], 0.5)?;
 
-        kit.hold(stage)?;
+        // the line and its breath, and the closing reveal stands before the
+        // wipe (it comes on the line's last words)
+        let up = stage.scene().time().to_f64();
+        stand(&kit, stage, up)?;
         fade_all(stage, 0.8)?;
         kit.finish(stage)
     }

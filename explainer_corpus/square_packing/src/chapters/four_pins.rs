@@ -28,7 +28,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     arc_points, common, corner, dim, dot, fact, fact_int, fade_to, fail, faint, flat, ink, line_style, path, polygon,
-    redot, reshape, retrace, ring, say, swap, together, turned, warn,
+    redot, reshape, retrace, ring, say, stand, swap, together, turned, warn,
 };
 use super::the_turned_tile::{BOARD, PANEL_X, PRECISELY, RING_AT, RING_R, THINK_S};
 use crate::model::{self, MIDDLE, Packing, Surd, Tile};
@@ -587,7 +587,10 @@ impl SceneConstruct for FourPins {
         )?;
         swap(stage, &[], &[no_pin, width_note], 0.5)?;
 
-        kit.hold(stage)?;
+        // the line and its breath, and the closing reveal stands before the
+        // wipe (it comes after the squeeze, near the line's end)
+        let up = stage.scene().time().to_f64();
+        stand(&kit, stage, up)?;
         squeeze.stop(stage);
         fade_all(stage, 0.8)?;
         kit.finish(stage)

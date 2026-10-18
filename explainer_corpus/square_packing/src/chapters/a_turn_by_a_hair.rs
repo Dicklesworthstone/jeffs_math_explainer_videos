@@ -23,7 +23,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     arc_points, common, corner, dim, dot, fact, fact_int, fade_to, fail, faint, flat, ink, line_style, path, polygon,
-    redot, reshape, retrace, ring, say, swap, together, touch, turned, warn,
+    redot, reshape, retrace, ring, say, stand, swap, together, touch, turned, warn,
 };
 use super::the_turned_tile::{BOARD, DEGREE, PRECISELY, RING_AT, RING_R, THINK_S};
 use crate::facts::shown;
@@ -536,7 +536,10 @@ impl SceneConstruct for ATurnByAHair {
         let smaller = kit.text_left(stage, SMALLER, 24.0, dim(), v(TEXT_X, 2.4))?;
         swap(stage, &[], &[smaller], 0.5)?;
 
-        kit.hold(stage)?;
+        // the line and its breath, and the closing reveal stands before the
+        // wipe
+        let up = stage.scene().time().to_f64();
+        stand(&kit, stage, up)?;
         stage.clear_updaters(turn.anchor, true);
         fade_all(stage, 0.8)?;
         kit.finish(stage)
