@@ -1,0 +1,15 @@
+# Protected facts: the qualifiers every revision must keep, the ones whose loss would make the mathematics false
+# (checked with the canonical protected_check.py against script.tsv and docs/description.md).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions, description, title.
+about two point seven one	script	2.71 is a rounding of B, never the box itself (turned.side.2dp)
+exactly two plus one over the square root of two	script	the exact box B = 2 + 1/√2, the cutoff of the lower bound (turned.side; 07_1, 08_5)
+It can't show that nothing smaller fits	script	a fitting picture is not a proof of a minimum (01_11)
+this only counts straight tiles	script	the pins argument of chapter 2 covers straight tiles only (02_8)
+only that this one turn is blocked	script	chapter 3 is a local fact about one motion, not global optimality (03_8)
+perhaps only on its edge	script	the lemmas' covering is closed: a point may sit on a tile's edge (06_6)
+each point sits on the edges of two tiles	script	why covering alone cannot count tiles against points where five fit (06_7)
+strictly inside it, by at least half the growth	script	the strict step of the lower bound, (λ − 1)/2 > 0 (07_5, scale.margin)
+That shows the box is big enough, nothing more	script	a checked larger packing is a fit, not a lower bound (08_3)
+both are roundings	description	2.71 and 2.70711 are roundings of B
+not proved here	description	the ten-tile lower bound is a published theorem, credited, not reproduced
+not the smallest known	description	the eleven-tile box was chosen for exact arithmetic, not as a record
