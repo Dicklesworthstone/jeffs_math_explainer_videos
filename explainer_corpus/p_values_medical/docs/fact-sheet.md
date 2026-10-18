@@ -104,10 +104,24 @@ and compares with `math.comb`. Neither uses a normal approximation.
 
 | Key | Value | Obtained | Where |
 |---|---|---|---|
-| M-T1.pairs | 20 | the study | 03 |
-| M-T1.observed | 15 | the synthetic data (pairs 3, 7, 11, 16, 19 went the other way) | 03 |
-| M-T1.assignments | 1048576 | 2^20, the world listed | 03, 04 |
-| M-T1.null.counts | 1,20,190,…,20,1 | assignments with k favouring pairs, k = 0…20 | 03 histogram |
+| M-T1.pairs | 20 | the study | 02_10 tag; 03_1, 03_4, 03_7 said "twenty" |
+| M-T1.patients | 40 | two patients a pair | 03_8 card ("the same 40 patients in 20 pairs") |
+| M-T1.observed | 15 | the synthetic data (pairs 3, 7, 11, 16, 19 went the other way) | 03_4 said and lit, after 03_3's null in words; 03_9 said; the study's dot on the histogram |
+| M-T1.assignments | 1048576 | 2^20, the world listed | 03_7 said "just over a million", shown 1,048,576 |
+| M-T1.null.counts | 1,20,190,…,20,1 | assignments with k favouring pairs, k = 0…20 | 03_7 histogram |
+| M-T1.null.max / .mode | 184756 / 10 | the tallest bar and where it stands | 03_7, above the tallest bar |
+| M-T3.retoss.seed | 2006 | fixed before any toss was looked at | not shown |
+| M-T3.retoss.assignments | 216459, 666002, 803510, 64675 | four whole assignments: the low 20 bits of four draws of `Data::new(2006).raw()` (NumPy `PCG64DXSM(2006).random_raw()`), one fair bit a pair | 03_5, 03_6: the rings jump to these |
+| M-T3.retoss.counts | 12, 12, 11, 12 | each re-toss's pairs favouring the treatment | 03_5, 03_6 the live count and the row of tosses; 03_7 dots on their bars |
+
+Chapter 03's assumptions, on screen: pairs matched before treatment, one fair
+coin per pair, no ties (the model's order bits cannot tie), and the sharp
+null: no patient's recovery would change treated or untreated, and no patient
+affects another. A zero average effect alone does not make every assignment
+equally likely to produce these exact counts; the 03_3 lower-third says so.
+The study's bits are an order and a label (`Study::faster_a`, `treated_a`):
+the video draws who recovered first and who was treated, never a recovery
+time, because the model has none.
 | M-T1.tail.at_least | 21700 | K ≥ 15 counted; pinned to the brief | 04 |
 | M-T1.p.exact / _10dp | 5425/262144 / 0.0206947327 | 21,700 / 1,048,576; pinned to the brief | 04 |
 | M-T1.p_percent_2dp / _1dp | 2.07 / 2.1 | | 04 ("about two percent") |
@@ -124,6 +138,7 @@ and compares with `math.comb`. Neither uses a normal approximation.
 | M-X1.more_than / _percent_2dp | 6196 / 0.59 | K > 15: leaves out the observation itself |
 | M-X1.at_most | 1042380 | K ≤ 15: the other direction (everything but the more extreme) |
 | M-X1.two_sided / _percent_2dp | 43400 / 4.14 | K ≥ 15 or K ≤ 5: a different, two-sided question, not this predeclared one-sided test |
+| M-X3.a_treated | 9 | how many A patients the coins treated: a planted wrong statistic, not the count of pairs favouring the treatment (15); its world is the same binomial, so only the statistic tells them apart |
 
 Tests that hold these apart: `model.rs` `swapping_the_condition_changes_the_number`,
 `swapping_the_condition_in_the_second_clinic_changes_the_number_too`,
@@ -178,6 +193,9 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 | 02_7 | "a positive result means about sixty-seven percent" | P(disease \| positive) = 900/1,350 = 2/3 ≈ 66.67% for a person chosen at random from clinic B's positives (02_9's card) |
 | 02_8 | "the false alarms barely moved" | 495 → 450 false alarms, the rate 5% in both (the outlined ledgers and fractions) |
 | 02_9 | "the chance a positive result is right" | the positive predictive value, P(disease \| positive): 2/13 in clinic A, 2/3 in clinic B (the card) |
+| 03_3 | "Each patient would have recovered at the same time either way" | the sharp null: every patient's recovery the same treated or untreated, no interference; a zero average effect alone would not give this world (the lower-third) |
+| 03_7 | "just over a million ways, all equally likely" | 2^20 = 1,048,576 assignments, each with probability 1/2^20 because each pair's coin is fair and independent (the title) |
+| 03_8 | "Same patients, coins tossed again" | the randomization distribution: the same 40 patients, the treatment labels re-assigned; not a sample of new patients, and not the probability that the treatment does nothing (the card) |
 
 ## Terms (first use)
 
@@ -189,10 +207,14 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 | group | 01_11 (shown) | the people a share is taken of; outlined in ink |
 | false-alarm rate | 02_5 (shown), 02_9 said | the share of people without the disease who test positive |
 | positive predictive value | 02_9 (shown once, on the card) | "the chance a positive result is right" |
+| favours the treatment | 03_2 | "a pair favours the treatment if its treated patient recovered first", decided before looking |
+| sharp null | 03_3 (shown once, on the lower-third) | "the treatment changed nobody's recovery" |
 
 ## Always / never
 
-Chapters 01 and 02 say no always or never. 02_8's "barely moved" is
+Chapter 03's "who recovered first stays fixed" is the sharp null itself, not
+a claim about the data; the tests hold the model to it (re-tosses move only
+labels). Chapters 01 and 02 say no always or never. 02_8's "barely moved" is
 qualitative and shown exactly (495 and 450). The model's own edges are tested: a rate
 that would split a person is refused; a p-value in the study is never zero
 (the most favourable K gives 1/2^20) and the least favourable gives 1; the
