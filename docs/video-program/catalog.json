@@ -1556,6 +1556,43 @@
               "square_packing.silent-20261018.4271647521fc"
             ]
           }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "3126b0aad59de0f07542802463d5b164f03529b2228e15473ea32b78747664de"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Actual full narrated 960x540/30fps preview: 14801 frames, 493.366667s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.5.10",
+            "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+            "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "square_packing.narrated-draft-20261018.script.d415e5e9103b"
+            ],
+            "cue": [
+              "square_packing.narrated-draft-20261018.cue.3674ea4ffb90"
+            ],
+            "master": [
+              "square_packing.narrated-draft-20261018.master.3126b0aad59d"
+            ],
+            "package": [
+              "square_packing.narrated-draft-20261018.package.574305f28a1c",
+              "square_packing.narrated-draft-20261018.package.3444f26e4548"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1615,6 +1652,43 @@
               "golay_echoes.silent-20261018.f7f12b0ec5ec"
             ]
           }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d32140c9f01b9759b20838549ccc964419b2b8110394c426280e962cf41a877b"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Actual full narrated 960x540/60fps preview: 15010 frames, 250.166667s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6.7",
+            "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+            "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "golay_echoes.narrated-draft-20261018.script.697b1146768b"
+            ],
+            "cue": [
+              "golay_echoes.narrated-draft-20261018.cue.1ebfc2c16daf"
+            ],
+            "master": [
+              "golay_echoes.narrated-draft-20261018.master.d32140c9f01b"
+            ],
+            "package": [
+              "golay_echoes.narrated-draft-20261018.package.34bc32a3d842",
+              "golay_echoes.narrated-draft-20261018.package.0fbbfd60647f"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1672,6 +1746,43 @@
           "artifact_refs": {
             "scene": [
               "p_values_medical.silent-20261018.76bfa23e55c1"
+            ]
+          }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Actual full narrated 960x540/60fps preview: 21878 frames, 364.633333s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.7.8",
+            "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+            "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "p_values_medical.narrated-draft-20261018.script.8395f9c6bf9e"
+            ],
+            "cue": [
+              "p_values_medical.narrated-draft-20261018.cue.fd4790f4cafa"
+            ],
+            "master": [
+              "p_values_medical.narrated-draft-20261018.master.b1073a93c528"
+            ],
+            "package": [
+              "p_values_medical.narrated-draft-20261018.package.c1de7c7f1bd0",
+              "p_values_medical.narrated-draft-20261018.package.2e328f20ca35"
             ]
           }
         }
@@ -2981,6 +3092,216 @@
       "evidence_refs": [
         "mx-video-program-program-87do.6.6",
         "mx-video-program-program-87do.6.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.script.d415e5e9103b",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/square_packing/inputs/script.tsv",
+      "sha256": "d415e5e9103b05a9fe46ccefdfd0baa4b61cca3dbea0848ab35d0b286dcf2a10",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.cue.3674ea4ffb90",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+      "sha256": "3674ea4ffb906a9898579da0cf1761984565640afce9987994cba04c84aaea94",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.master.3126b0aad59d",
+      "kind": "master",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing_master.mp4",
+      "sha256": "3126b0aad59de0f07542802463d5b164f03529b2228e15473ea32b78747664de",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.package.574305f28a1c",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+      "sha256": "574305f28a1c75c5f828ee33c2eb915ac39cd2e13049e953a939a285d1ca3dcf",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.package.3444f26e4548",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.vtt",
+      "sha256": "3444f26e4548feec02c035e4607d84fc06aa2e55e974e8096259c62e97fa7595",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.script.697b1146768b",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/golay_echoes/inputs/script.tsv",
+      "sha256": "697b1146768b52a747be293bc2bf7b4f99de34cdd30c46a90988e5dd2f4d1df4",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.cue.1ebfc2c16daf",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+      "sha256": "1ebfc2c16daf50a5f4c41b2aeb2a1e94d748ada3bb8b7d8c6fde402ffe468760",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.master.d32140c9f01b",
+      "kind": "master",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes_master.mp4",
+      "sha256": "d32140c9f01b9759b20838549ccc964419b2b8110394c426280e962cf41a877b",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.package.34bc32a3d842",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+      "sha256": "34bc32a3d8425d34ba6fa2fd8d87ca42b5cf9661630aef7ee3a4dac095fd5f6e",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.package.0fbbfd60647f",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.vtt",
+      "sha256": "0fbbfd60647f82d55777e8c02a4ff852890d13abe37feb762c1c249b7650cf0c",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.script.8395f9c6bf9e",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/p_values_medical/inputs/script.tsv",
+      "sha256": "8395f9c6bf9e90078f93f53187ea781b09e05053c797fe3f4d16ce1c8d199be5",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.cue.fd4790f4cafa",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+      "sha256": "fd4790f4cafa640748dc3f45f780874b5c480c164dae539d3ce1f55e85954970",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.master.b1073a93c528",
+      "kind": "master",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical_master.mp4",
+      "sha256": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.package.c1de7c7f1bd0",
+      "kind": "package",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+      "sha256": "c1de7c7f1bd0aa1a70a7521375d15af88719df754bee71199d984a2cdcfee985",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.package.2e328f20ca35",
+      "kind": "package",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.vtt",
+      "sha256": "2e328f20ca35bc10ede82ea53bc221414ce36518a6aa4254c3cd16f6be565b7c",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
         "docs/video-program/NARRATION-CONSISTENCY.md"
       ]
     }
