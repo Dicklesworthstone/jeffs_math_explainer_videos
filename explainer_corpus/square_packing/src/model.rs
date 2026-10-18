@@ -941,10 +941,7 @@ pub fn pin_owners(p: &Packing<Surd>) -> Vec<Vec<usize>> {
 pub fn wander(t: f64, side: f64) -> Point<f64> {
     let room = side - 1.0;
     let turn = std::f64::consts::TAU * t;
-    (
-        room * 0.5 * (1.0 - turn.cos()),
-        room * 0.5 * (1.0 - (2.0 * turn).cos()),
-    )
+    (room * 0.5 * (1.0 - turn.cos()), room * 0.5 * (1.0 - (2.0 * turn).cos()))
 }
 
 #[cfg(test)]

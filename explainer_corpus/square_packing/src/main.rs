@@ -65,15 +65,22 @@ mod tests {
         check_script_owners(&script, &keys(), None).unwrap();
     }
 
-    /// The one prediction beat is the think window the chapter opens, and it
-    /// lasts what the storyboard says.
+    /// Each chapter's one prediction beat is the think window its scene
+    /// opens, and it lasts what the storyboard says.
     #[test]
-    fn the_think_window_is_the_storyboard_s() {
+    fn every_think_window_is_the_storyboard_s() {
         let board = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
-        let beats: Vec<_> = board.iter().flat_map(|c| &c.beats).collect();
-        let asks: Vec<_> = beats.iter().filter(|b| b.predict()).collect();
-        assert_eq!(asks.len(), 1);
-        assert_eq!(asks[0].id, chapters::the_turned_tile::LINES[3]);
-        assert_eq!(asks[0].listen_s(), Some(chapters::the_turned_tile::THINK_S));
+        let asks: Vec<(String, Option<f64>)> = board
+            .iter()
+            .flat_map(|c| &c.beats)
+            .filter(|b| b.predict())
+            .map(|b| (b.id.clone(), b.listen_s()))
+            .collect();
+        let think = Some(chapters::the_turned_tile::THINK_S);
+        let want = vec![
+            (chapters::the_turned_tile::LINES[3].to_owned(), think),
+            (chapters::four_pins::LINES[4].to_owned(), think),
+        ];
+        assert_eq!(asks, want);
     }
 }

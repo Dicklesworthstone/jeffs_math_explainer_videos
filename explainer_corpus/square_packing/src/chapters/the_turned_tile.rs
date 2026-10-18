@@ -563,7 +563,12 @@ mod tests {
     #[test]
     fn the_lines_are_the_chapters() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
-        let ids: Vec<&str> = script.lines().iter().map(|(id, _)| id.as_str()).collect();
+        let ids: Vec<&str> = script
+            .lines()
+            .iter()
+            .map(|(id, _)| id.as_str())
+            .filter(|id| id.starts_with("01_"))
+            .collect();
         assert_eq!(ids, LINES.to_vec());
     }
 }

@@ -15,6 +15,9 @@ pub const TEX: &[&str] = &[
     super::the_turned_tile::GAP_TIMES,
     super::the_turned_tile::GAP_IS,
     super::the_turned_tile::ONE_OVER_ROOT,
+    super::four_pins::MARK_LO,
+    super::four_pins::MARK_HI,
+    super::four_pins::UNDER_ONE,
 ];
 /// Code, set in CM Typewriter.
 pub const MONO: &[&str] = &[];

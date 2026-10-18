@@ -67,8 +67,8 @@ pub fn identity() -> Identity {
         moods: Vec::new(),
         listen_chord: None,
         theme_chord: None,
-        // the think window asks with the motif left open (01_4)
-        themes: vec![("01_4", Theme::Open)],
+        // each think window asks with the motif left open (01_4, 02_5)
+        themes: vec![("01_4", Theme::Open), ("02_5", Theme::Open)],
     }
 }
 
@@ -119,12 +119,13 @@ mod tests {
         }
     }
 
-    /// The think window is the motif left open, and it is the storyboard's
-    /// one listen window.
+    /// Each think window is the motif left open, and they are the
+    /// storyboard's only listen windows.
     #[test]
-    fn the_think_window_asks_with_the_motif() {
+    fn the_think_windows_ask_with_the_motif() {
         let id = identity();
         assert_eq!(id.theme_for("01_the_turned_tile:01_4"), Some(Theme::Open));
+        assert_eq!(id.theme_for("02_four_pins:02_5"), Some(Theme::Open));
         assert_ne!(id.motif.degrees.last(), Some(&1));
         assert_eq!(id.resolution.degrees.last(), Some(&1));
         let board = explainer_kit::storyboard::parse(crate::STORYBOARD).unwrap();
@@ -134,7 +135,7 @@ mod tests {
             .filter(|b| b.listen_s().is_some())
             .map(|b| b.id.as_str())
             .collect();
-        assert_eq!(windows, vec!["01_4"]);
+        assert_eq!(windows, vec!["01_4", "02_5"]);
     }
 
     /// Key, tempo and lead differ from every other identity in the corpus as

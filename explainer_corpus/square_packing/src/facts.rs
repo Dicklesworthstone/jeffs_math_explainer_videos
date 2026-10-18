@@ -159,9 +159,18 @@ fn pins(f: &mut Facts) -> Result<(), String> {
     f.add("pins.threshold", threshold)?;
     f.add("pins.lemma", step(model::every_shadow_holds_a_mark(side)))?;
     f.add("pins.lemma.at3", step(model::every_shadow_holds_a_mark(threshold)))?;
-    f.add("pins.lemma.half", step(model::every_shadow_holds_a_mark(Surd::ratio(1, 2))))?;
-    f.add("pins.closed.at3", step(model::every_closed_shadow_touches_a_mark(threshold)))?;
-    f.add("pins.straight_lemma", step(model::every_straight_tile_holds_a_pin(side)))?;
+    f.add(
+        "pins.lemma.half",
+        step(model::every_shadow_holds_a_mark(Surd::ratio(1, 2))),
+    )?;
+    f.add(
+        "pins.closed.at3",
+        step(model::every_closed_shadow_touches_a_mark(threshold)),
+    )?;
+    f.add(
+        "pins.straight_lemma",
+        step(model::every_straight_tile_holds_a_pin(side)),
+    )?;
     f.add(
         "pins.straight_lemma.at3",
         step(model::every_straight_tile_holds_a_pin(threshold)),
