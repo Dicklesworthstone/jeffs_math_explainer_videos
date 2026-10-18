@@ -183,6 +183,13 @@ pub fn survey() -> Srgb {
     Palette::teal()
 }
 
+/// The treatment as the coin assigned it (chapter 03 on): the ring on a
+/// treated patient, and a pair lit because its treated patient recovered
+/// first.
+pub fn treated() -> Srgb {
+    hex("#C59BF2")
+}
+
 /// A wrong reading: the tempting answer, the disputed key.
 pub fn warn() -> Srgb {
     Palette::red()

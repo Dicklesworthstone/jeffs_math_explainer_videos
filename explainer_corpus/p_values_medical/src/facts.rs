@@ -59,6 +59,11 @@ const BRIEF: &str = "docs/video-program/research-20261016/evidence/pvalues-medic
 /// gcd block of clinic A is 45 wide too; `model` tests that they agree).
 pub const BLOCK_COLS: u64 = 45;
 
+/// Chapter 03's re-tosses: the seed (fixed before any toss was looked at:
+/// the year the survey's data were collected) and how many tosses it shows.
+pub const RETOSS_SEED: u64 = 2006;
+pub const RETOSSES: usize = 4;
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     survey(&mut f)?;
@@ -181,10 +186,31 @@ fn trial(f: &mut Facts) -> Result<(), String> {
     let k = s.observed();
     let total: u64 = world.iter().sum();
     f.add("M-T1.pairs", s.pairs)?;
+    f.add("M-T1.patients", 2 * s.pairs)?;
     f.add("M-T1.observed", k)?;
     f.add("M-T1.assignments", total)?;
     let counts: Vec<String> = world.iter().map(u64::to_string).collect();
     f.add("M-T1.null.counts", counts.join(","))?;
+    // the histogram's tallest bar and where it stands (chapter 03)
+    let (mode, max) = world
+        .iter()
+        .enumerate()
+        .max_by_key(|&(_, &c)| c)
+        .map(|(k, &c)| (k, c))
+        .ok_or("an empty null world")?;
+    f.add("M-T1.null.max", max)?;
+    f.add("M-T1.null.mode", mode)?;
+    // chapter 03's re-tosses of the coins: whole assignments from the seeded
+    // stream, and the count each gives (M-T3)
+    let tosses = s.retosses(RETOSS_SEED, RETOSSES);
+    let toss_counts: Vec<u32> = tosses.iter().map(|&a| s.favouring(a)).collect();
+    let list = |xs: &[u32]| xs.iter().map(u32::to_string).collect::<Vec<_>>().join(",");
+    f.add("M-T3.retoss.seed", RETOSS_SEED)?;
+    f.add("M-T3.retoss.assignments", list(&tosses))?;
+    f.add("M-T3.retoss.counts", list(&toss_counts))?;
+    // the planted wrong statistic: how many A patients the coins treated
+    // (not the count of pairs favouring the treatment)
+    f.add("M-X3.a_treated", s.treated_a.count_ones())?;
     f.pin(
         "M-T1.tail.at_least",
         tail_count(&world, k, Tail::AtLeast),
@@ -297,20 +323,30 @@ mod tests {
         assert_ne!(f.get("M-F1.ppv.exact"), f.get("M-F2.ppv.exact"));
     }
 
-    /// The oracle prints every key the video prints, with the same value
-    /// (this test runs the oracle when a Python 3 is on PATH; facts-check is
-    /// the gate either way).
+    /// The oracle prints every key the video prints, with the same value,
+    /// and no other (the oracle is run the way facts-check runs it).
     #[test]
-    fn the_oracle_agrees_when_python_is_here() {
+    fn the_oracle_agrees() {
+        // run exactly as `./x p_values_medical facts-check` does: through uv,
+        // with NumPy, which the oracle needs to replay chapter 03's seeded
+        // re-tosses (a bare python3 may have no NumPy); a failure to run it
+        // is a failure, never a skip
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        let Ok(out) = std::process::Command::new("python3")
-            .args(["-I", "-B", "oracle.py"])
+        let out = std::process::Command::new("uv")
+            .args([
+                "run",
+                "--quiet",
+                "--no-project",
+                "--with",
+                "numpy",
+                "python3",
+                "-I",
+                "-B",
+                "oracle.py",
+            ])
             .current_dir(dir)
             .output()
-        else {
-            eprintln!("no python3: facts-check is the gate");
-            return;
-        };
+            .expect("uv runs the oracle with NumPy (as tools/facts_check.py does); install uv");
         assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
         let ours = facts().unwrap().print();
         let oracle = String::from_utf8(out.stdout).unwrap();

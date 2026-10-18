@@ -22,7 +22,9 @@ How the values are obtained, independently of the Rust model:
     by `itertools.product` over the pairs (not by bit tricks) and compares
     with `math.comb`;
   * CITED literals from the sources in docs/fact-sheet.md.
-No third-party package is needed.
+  * chapter 03's re-tosses replayed with NumPy's own PCG64DXSM (the one
+    numpy use; `./x p_values_medical facts-check` runs the oracle with numpy),
+    and small studies listed exhaustively over every finishing order.
 """
 import math
 import sys
@@ -322,13 +324,60 @@ def tail(world, k, kind):
     return sum(c for j, c in enumerate(world) if keep(j))
 
 
+RETOSS_SEED = 2006  # chapter 03, fixed before any toss was looked at
+RETOSSES = 4
+
+
+def chapter_03(world, observed):
+    """The re-tossed coins, the histogram's top, and the planted mistakes."""
+    import numpy as np
+
+    faster = bits(FASTER_A)
+    top = max(world)
+    emit("M-T1.null.max", top)
+    emit("M-T1.null.mode", world.index(top))
+    raw = np.random.PCG64DXSM(RETOSS_SEED).random_raw(RETOSSES)
+    tosses = [int(r) % 2**PAIRS for r in raw]
+    counts = [favouring(bits(a), faster) for a in tosses]
+    emit("M-T3.retoss.seed", RETOSS_SEED)
+    emit("M-T3.retoss.assignments", ",".join(str(a) for a in tosses))
+    emit("M-T3.retoss.counts", ",".join(str(k) for k in counts))
+    check("chapter 03's re-tosses are four new assignments, none the observed one",
+          len(set(tosses + [TREATED_A])) == RETOSSES + 1)
+    # the planted wrong statistic: patients A treated, not pairs favouring
+    a_treated = sum(bits(TREATED_A))
+    emit("M-X3.a_treated", a_treated)
+    check("patients A treated (9) is not the pairs favouring (15)", (a_treated, observed) == (9, 15))
+    # one swapped label changes that pair only, by exactly one
+    treated = bits(TREATED_A)
+    ok = True
+    for i in range(PAIRS):
+        swapped = treated[:i] + [1 - treated[i]] + treated[i + 1:]
+        ok &= abs(favouring(swapped, faster) - observed) == 1
+    check("swapping any one pair's labels moves the count by exactly one", ok)
+    # small studies, every finishing order, every assignment: the binomial,
+    # and each assignment in exactly one bar
+    ok = True
+    for n in range(1, 8):
+        assignments = list(product((0, 1), repeat=n))
+        for order in assignments:
+            bars = {}
+            for a in assignments:
+                bars.setdefault(favouring(a, order), []).append(a)
+            ok &= [len(bars.get(k, [])) for k in range(n + 1)] == [math.comb(n, k) for k in range(n + 1)]
+            ok &= sorted(a for bar in bars.values() for a in bar) == sorted(assignments)
+    check("1 to 7 pairs, every finishing order: binomial bars, no assignment counted twice", ok)
+
+
 def study():
     observed, world = null_world()
     total = sum(world)
     emit("M-T1.pairs", PAIRS)
+    emit("M-T1.patients", len([patient for _ in range(PAIRS) for patient in ("A", "B")]))
     emit("M-T1.observed", observed)
     emit("M-T1.assignments", total)
     emit("M-T1.null.counts", ",".join(str(c) for c in world))
+    chapter_03(world, observed)
     at_least = tail(world, observed, "at_least")
     p = F(at_least, total)
     emit("M-T1.tail.at_least", at_least)

@@ -6,6 +6,7 @@
 pub mod draw;
 pub mod five_percent;
 pub mod glyphs;
+pub mod imaginary_world;
 pub mod same_test;
 
 use explainer_kit::Chapter;
@@ -24,5 +25,6 @@ pub fn registry() -> Vec<Chapter> {
     vec![
         scene!("01_five_percent_of_what", 0.35, five_percent::FivePercentOfWhat),
         scene!("02_the_same_test", 0.4, same_test::TheSameTest),
+        scene!("03_the_imaginary_world", 0.45, imaginary_world::TheImaginaryWorld),
     ]
 }

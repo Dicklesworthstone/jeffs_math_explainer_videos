@@ -43,16 +43,11 @@ denominators highlighted (495 out of 9,900; 90 out of 585) and the lower-third
 - **02_the_same_test**: built (its beats are below). The clinic's mix
   changes, the test does not; both clinics side by side; the bridge card on
   a cleared stage; it ends on the study's 20 pairs, no result shown.
-- **03_the_imaginary_world** (~80 s): opens on chapter 02's 20 pairs of
-  patients matched before treatment, a coin in each pair giving one of them
-  the treatment. The sharp null on screen as words first: "if the treatment
-  changed no one's recovery"; only then the observed result, 15 pairs
-  favouring the treatment (M-T1.observed), so no result is shown before its
-  null model. The recovery times
-  stay; the labels swap; a handful of the 2^20 assignments shown one by one,
-  each with its count of favouring pairs; then the histogram of every
-  assignment (M-T1.null.counts) grows. ⟨predict⟩ "How often would chance
-  alone give fifteen or more?"
+- **03_the_imaginary_world**: built (its beats are below). The direction
+  decided in advance, the sharp null in words, only then the observed 15;
+  four real re-tosses of the coins with their counts; the histogram of all
+  2^20 assignments; it ends on the question how often fifteen or more
+  occurs, and chapter 04 earns the tail and its name.
 - **04_count_the_whole_tail** (~75 s): the bars 15 to 20 light and are
   counted: 15,504 + 4,845 + 1,140 + 190 + 20 + 1 = 21,700 of 1,048,576
   (M-T1.tail.at_least, M-T1.assignments), about two percent (M-T1.p_10dp);
@@ -85,6 +80,9 @@ data colour.
 | a person before anything about them is known | grey `#6B7280` |
 | the place of a person who has left the array for the block of positives | near-background `#1C222C` |
 | the survey's measured numbers (bars, answering residents) | teal `#5CD0B3` |
+| the treatment as the coin assigned it: the ring on a treated patient, a pair lit because its treated patient recovered first, the study's 15 on the histogram (chapter 03 on) | lavender `#C59BF2` |
+| the patient who recovered first: a short bar under the disc, fixed in place | `ink` |
+| the count of every assignment (the histogram's bars) | `dim` |
 | the group a percent is a share of (its denominator): outlines and glows only, never a fill | `ink` |
 | a wrong reading (the tempting 95%, a disputed answer key) | `warn` red `#FC6255` |
 | the prediction pause, the title | `hero` gold `#FFD866` |
@@ -156,3 +154,25 @@ populations).
 | 02_8 | Why? The false alarms barely moved, but the test caught ten times as many people with the disease. *(M-F2.caught_vs_a)* | At "false alarms" both ledgers' false-alarm lines are outlined (495 and 450) with both 5% fractions; at "ten times" both "test positive" lines are outlined (90 and 900) and a chip "× 10" lands between them | highlight; chip | |
 | 02_9 | So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. | The stage clears. Two cards side by side: "false-alarm rate · P(positive \| no disease) = 1/20 · the same in both clinics" in blue, and "positive predictive value · P(disease \| positive) = 2/13 in clinic A, 2/3 in clinic B · moves with the clinic" in gold, a "≠" between them; at "neither one" a third line beneath: "Neither is a p-value." | cards; TeX | |
 | 02_10 | A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing. *(M-T1.pairs on screen; no result is shown)* | The cards leave. Twenty pairs of patients appear one pair after another, two plain discs in each pair's box, with "a synthetic study: 20 pairs of patients, a coin in each pair picks who is treated (model)"; at "imaginary world" a caption: "imagine the treatment changed no one's recovery". No pair is marked as favouring anything | lagged reveal; caption | hold |
+
+## 03_the_imaginary_world: The imaginary world (~76 s at the kit's scratch rate)
+
+Opens on chapter 02's last picture as it rests (the tag, the twenty pairs as
+plain discs, "imagine the treatment changed no one's recovery"). The study is
+the model's (`model::study`): which patient of each pair recovered first and
+which was treated are bits, an order and a label, never invented recovery
+days. Assumptions on screen: matched before treatment, one fair coin per pair,
+no ties, the sharp null (no patient's recovery changes and no patient affects
+another; a zero average effect alone would not give this world).
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment. *(M-T1.pairs)* | Legend: a lavender ring, "treated, by the coin". At "a fair coin" each pair's treated patient gets the ring, pair after pair: the study's actual assignment (`Study::treated_a`) | lagged reveal | |
+| 03_2 | Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first. | The rule appears under the pairs before any outcome is shown: "favours the treatment: its treated patient recovered first (decided before looking)" | caption | |
+| 03_3 | Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way. *(the sharp null; the lower-third keeps the exact version and why a zero average effect alone is weaker)* | The caption "imagine the treatment changed no one's recovery" glows; lower-third, precisely: "sharp null: each patient's recovery would be the same treated or untreated, and no patient affects another. A zero average effect alone would not give this world." | lower-third; highlight | |
+| 03_4 | Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first. *(M-T1.observed, .pairs)* | In each pair a short ink bar marks the patient who recovered first (`Study::faster_a`; legend "recovered first"); the boxes whose ring and bar sit on the same patient light lavender, and "pairs favouring the treatment" counts to 15 | live count; lagged reveal | |
+| 03_5 | If the treatment did nothing, who recovered first stays fixed. Only the coins could have landed differently. Toss them again. | At "stays fixed" the twenty bars pulse and stay put; at "Toss them again" the rings jump to the other patient in every pair whose coin landed the other way, the lit boxes follow, and the count becomes 12 (the first of four seeded re-tosses, M-T3) | morph that keeps identity; live count | |
+| 03_6 | And again, and again. Each toss gives its own count. | Three more re-tosses, rings jumping, bars still: 12, 11, 12; each count joins a row beneath, "toss 1: 12 · toss 2: 12 · …" | live count; lagged | |
+| 03_7 | The twenty coins can land in just over a million ways, all equally likely. Count them all. *(M-T1.assignments, .pairs)* | The pairs move to the left half, small; on the right the histogram of all 1,048,576 assignments grows from its axis, a bar for each count from 0 to 20 (M-T1.null.counts, tallest 184,756 at 10); the four tosses land as dots on their bars, and the study's 15 is marked on its bar | histogram grows; data window | |
+| 03_8 | Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is. | A card under the pairs: "the same 40 patients in 20 pairs, the coins tossed again: not new patients. This world assumes the treatment did nothing; it does not say how likely that is." (M-T1.patients, .pairs) | card | |
+| 03_9 | ⟨predict⟩ In this world, how often do fifteen or more pairs favour the treatment? *(M-T1.observed)* | The card leaves; the think ring drains under the pairs; the histogram waits, its 15 marked and nothing shaded | predict pause | |

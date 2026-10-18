@@ -975,7 +975,11 @@ mod tests {
                 };
                 let world = s.null_world();
                 for (k, &c) in world.iter().enumerate() {
-                    assert_eq!(u128::from(c), choose(u64::from(pairs), k as u64), "{pairs} {faster_a:b} {k}");
+                    assert_eq!(
+                        u128::from(c),
+                        choose(u64::from(pairs), k as u64),
+                        "{pairs} {faster_a:b} {k}"
+                    );
                 }
                 // no double counting: the assignments sorted by their count
                 // are a partition of all 2^pairs assignments

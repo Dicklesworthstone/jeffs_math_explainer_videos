@@ -19,3 +19,12 @@
 02_8	Why? The false alarms barely moved, but the test caught ten times as many people with the disease.
 02_9	So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value.
 02_10	A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing.
+03_1	Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment.
+03_2	Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first.
+03_3	Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way.
+03_4	Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first.
+03_5	If the treatment did nothing, who recovered first stays fixed. Only the coins could have landed differently. Toss them again.
+03_6	And again, and again. Each toss gives its own count.
+03_7	The twenty coins can land in just over a million ways, all equally likely. Count them all.
+03_8	Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is.
+03_9	In this world, how often do fifteen or more pairs favour the treatment?

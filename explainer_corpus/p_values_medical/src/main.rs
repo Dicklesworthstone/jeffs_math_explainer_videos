@@ -104,6 +104,12 @@ mod tests {
         ("02_7", "sixty-seven percent", "M-F2.ppv_percent", "67"),
         ("02_7", "not fifteen", "M-F1.ppv_percent", "15"),
         ("02_8", "ten times as many", "M-F2.caught_vs_a", "10"),
+        ("03_1", "the twenty pairs", "M-T1.pairs", "20"),
+        ("03_4", "In fifteen of the twenty", "M-T1.observed", "15"),
+        ("03_4", "the twenty pairs", "M-T1.pairs", "20"),
+        ("03_7", "The twenty coins", "M-T1.pairs", "20"),
+        ("03_7", "just over a million", "M-T1.assignments", "1048576"),
+        ("03_9", "fifteen or more", "M-T1.observed", "15"),
     ];
 
     #[test]
