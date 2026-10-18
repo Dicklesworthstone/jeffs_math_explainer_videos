@@ -70,6 +70,10 @@ def read_units(script_path, units_path):
 def generate(args):
     script, units = read_units(args.script, args.units)
     selected = [u for u in units if not args.chapter or u["line_ids"][0].startswith(args.chapter + "_")]
+    if args.unit:
+        if len(set(args.unit)) != len(args.unit) or set(args.unit) - {u["id"] for u in selected}:
+            raise ValueError("repair selection contains duplicate or unknown units")
+        selected = [u for u in selected if u["id"] in args.unit]
     if not selected:
         raise ValueError("selected chapter has no units")
     env = cache.child_environment(os.environ)
@@ -212,6 +216,7 @@ def main():
         gen.add_argument("--" + option, required=True)
     gen.add_argument("--lexicon", type=Path, required=True)
     gen.add_argument("--seed", type=int, default=2)
+    gen.add_argument("--unit", action="append", help="generate only this existing unit; repeat for a bounded repair")
     assemble_parser.add_argument("--spans", type=Path, required=True)
     v = commands.add_parser("verify")
     v.add_argument("out", type=Path)
