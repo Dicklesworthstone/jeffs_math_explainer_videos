@@ -1,10 +1,12 @@
-//! Chapter 07, four points, five tiles: the lower bound. Suppose five tiles
-//! fit a box narrower than 2.71 (07_1, the supposition, drawn as an empty
-//! box). Enlarge everything by λ = B/s until the box is 2.71 wide: every
-//! tile grows by λ, its width shown, and none overlap (07_2, one real tile
-//! grown with the box). Keep a unit core in each grown tile: does it cover a
-//! point? (07_3, a four-second think.) It lies in the box of 2.71, so by
-//! chapters 04 to 06 it covers one, at worst on its edge (07_4). The grown
+//! Chapter 07, four points, five tiles: the lower bound. Our box is exactly
+//! B = 2 + 1/√2 wide (about 2.70711, which is less than 2.71: the cutoff is
+//! B itself, never a rounded number); suppose five tiles fit a narrower one
+//! (07_1, the supposition, drawn as an empty box). Enlarge everything by
+//! λ = B/s until the box is ours: every tile grows by λ, its width shown,
+//! and none overlap (07_2, one real tile grown with the box). Keep a unit
+//! core in each grown tile: does it cover a point? (07_3, a four-second
+//! think.) It lies in our box, so by chapters 04 to 06 it covers one, at
+//! worst on its edge (07_4). The grown
 //! tile reaches (λ − 1)/2 further on every side, so the point is strictly
 //! inside (07_5). Five tiles each holding a point strictly inside, no two
 //! sharing one: four points are not enough (07_6, a schematic count). So no
@@ -36,14 +38,15 @@ pub const LINES: [&str; 8] = ["07_1", "07_2", "07_3", "07_4", "07_5", "07_6", "0
 
 // the chapter's fixed words
 pub const SUPPOSED: &str = "supposed, to be ruled out:";
-pub const NARROWER: &str = "five tiles in a box narrower than 2.71";
+pub const NARROWER: &str = "five tiles in a box narrower than B";
+pub const OURS: &str = "our box, exactly";
 pub const ONE_OF: &str = "one of the five";
-pub const BOX: &str = "box";
-pub const SIDE: &str = "tile side";
+pub const BOX: &str = "box width, about";
+pub const SIDE: &str = "tile side, about";
 pub const LAMBDA: &str = r"\lambda = \frac{B}{s} > 1";
 pub const SCALED: &str = "every length times the same factor";
 pub const CORE: &str = "a unit core, same centre and turn";
-pub const COVERS: &str = "in the box of 2.71, so it covers a point";
+pub const COVERS: &str = "in our box, B wide: it covers a point";
 pub const STRICT: &str = "strictly inside the grown tile";
 pub const DEPTH: &str = r"\text{depth} \ge \frac{\lambda - 1}{2} > 0";
 pub const SCHEMATIC: &str = "schematic: tiles and points, not a packing";
@@ -56,7 +59,7 @@ pub const SHARED: &str = "so points sit on edges, shared by two tiles";
 
 // ---------------------------------------------------------------- layout
 
-/// The close view of 07_3 to 07_5: the box of 2.71 at 2.6 scene units a
+/// The close view of 07_3 to 07_5: our box, B wide, at 2.6 scene units a
 /// tile, centred on the box's centre, near the core's.
 pub const CLOSE: Board = Board {
     at: [-3.1, -0.25, 0.0],
@@ -65,7 +68,7 @@ pub const CLOSE: Board = Board {
 /// The left edge of the panel's text.
 pub const TEXT_X: f64 = 1.2;
 /// The panel's rows.
-pub const ROWS: [f64; 6] = [2.9, 2.35, 1.6, 1.0, 0.4, -0.2];
+pub const ROWS: [f64; 8] = [3.1, 2.55, 1.9, 1.35, 0.8, 0.25, -0.3, -0.85];
 /// Where the schematic count of 07_6 stands: the tiles' row and the points'
 /// row (y), the first of each (x), the spacing, and an icon's width.
 pub const COUNT_ROWS: (f64, f64) = (1.4, -1.2);
@@ -78,6 +81,7 @@ struct Reads {
     side: f64,
     lambda: f64,
     small: f64,
+    about: String,
     margin: String,
     tiles: usize,
     points: usize,
@@ -111,6 +115,11 @@ fn reads() -> fmn::Result<Reads> {
         .and_then(|(a, b)| Some((a.parse().ok()?, b.parse().ok()?)))
         .ok_or_else(|| fail(format!("scale.count is {count:?}")))?;
     let lambda = Surd::ratio(model::GROWTH.0, model::GROWTH.1);
+    // B exactly, and its decimal only ever as "about"
+    if fact("turned.side")? != model::turned_side().to_string() {
+        return Err(fail("turned.side is not the model's B".into()));
+    }
+    let about = format!("B is about {}", fact("turned.side.5dp")?);
     let margin = fact("scale.margin.2dp")?;
     if margin
         != model::depth_sized(
@@ -126,6 +135,7 @@ fn reads() -> fmn::Result<Reads> {
         side: model::turned_side().to_f64(),
         lambda: lambda.to_f64(),
         small: (model::turned_side() * lambda.recip()).to_f64(),
+        about,
         margin,
         tiles,
         points,
@@ -143,9 +153,9 @@ fn as_f64(t: &Tile<Surd>) -> Tile<f64> {
 
 /// The supposed box `small` wide and the shown tile, both grown by `lambda`
 /// about the box's corner: the box's outline and the tile's corners (λ
-/// wide) in box coordinates. At λ = 1 the tile is the core shrunk with the
-/// box of 2.71 to the supposed box, a unit tile in it; at λ = 2.71 / small
-/// it is the core's own place, λ wide.
+/// wide) in box coordinates. At λ = 1 the tile is the core shrunk with our
+/// box, B wide, to the supposed box, a unit tile in it; at λ = B / small it
+/// is the core's own place, λ wide.
 fn growth_frame(small: f64, core: &Tile<f64>, lambda: f64) -> ([Point<f64>; 5], [Point<f64>; 4]) {
     let w = small * lambda;
     let start = model::grown(core, small / model::turned_side().to_f64());
@@ -186,28 +196,33 @@ impl SceneConstruct for FourPointsFiveTiles {
         };
 
         // ---------------------------------------------------------- 07_1
-        // the supposition: an empty box narrower than 2.71, inside the
-        // outline of the box of 2.71
-        say(&kit, stage, LINES[0])?;
+        // our box, B wide exactly (its decimal only ever "about"); the
+        // supposition: an empty box narrower than B inside its outline
+        let line_1 = say(&kit, stage, LINES[0])?;
         let big_outline = path(stage, BOARD.outline(side), line_style(faint(), 3.0));
+        let b_def = kit.tex(stage, B_IS, 34.0, ink(), &[], v(TEXT_X + 1.6, ROWS[0]))?;
+        let ours = caption(stage, OURS, dim(), 1)?;
+        let about = kit.text_left(stage, &r.about, 24.0, dim(), v(TEXT_X + 2.6, ROWS[1]))?;
+        swap(stage, &[], &[big_outline, b_def, ours, about], 0.6)?;
+        line_1.wait_for(stage, "Suppose five tiles")?;
         let (outline0, tile0) = growth_frame(r.small, &core, 1.0);
         let small_box = path(
             stage,
             outline0.iter().map(|&q| at_box(q)).collect(),
             line_style(ink(), 4.0),
         );
-        let supposed = caption(stage, SUPPOSED, warn(), 0)?;
-        let narrower = caption(stage, NARROWER, ink(), 1)?;
-        swap(stage, &[], &[big_outline, small_box, supposed, narrower], 0.6)?;
+        let supposed = caption(stage, SUPPOSED, warn(), 2)?;
+        let narrower = caption(stage, NARROWER, ink(), 3)?;
+        swap(stage, &[], &[small_box, supposed, narrower], 0.6)?;
 
         // ---------------------------------------------------------- 07_2
-        // everything grows by λ about the box's corner: the box to 2.71, one
-        // tile (a real unit tile placed in the supposed box) to λ wide; its
-        // width and the box's read live
+        // everything grows by λ = B/s about the box's corner (B still on
+        // screen): the box to ours, one tile (a real unit tile placed in the
+        // supposed box) to λ wide; its width and the box's read live, about
         let line_2 = say(&kit, stage, LINES[1])?;
         let shown = polygon(stage, tile0.iter().map(|&q| at_box(q)).collect(), flat(corner(), 0.85));
         let one_of = kit.text(stage, ONE_OF, 22.0, dim(), at_box((tile0[0].0, tile0[0].1 - 0.25)))?;
-        let lambda_tex = kit.tex(stage, LAMBDA, 32.0, ink(), &[], v(TEXT_X + 1.4, ROWS[2]))?;
+        let lambda_tex = kit.tex(stage, LAMBDA, 32.0, ink(), &[], v(TEXT_X + 1.4, ROWS[4]))?;
         swap(stage, &[], &[shown, one_of, lambda_tex], 0.5)?;
         let growth = stage.add_value_tracker(1.0);
         let anchor = stage.arena_mut().add(VMobject::new());
@@ -226,8 +241,8 @@ impl SceneConstruct for FourPointsFiveTiles {
         stage.add_to_scene(anchor)?;
         let label =
             |stage: &mut Stage<'_>, s: &str, row: usize| kit.text_left(stage, s, 28.0, dim(), v(TEXT_X, ROWS[row]));
-        let box_label = label(stage, BOX, 3)?;
-        let side_label = label(stage, SIDE, 4)?;
+        let box_label = label(stage, BOX, 5)?;
+        let side_label = label(stage, SIDE, 6)?;
         let readout = |stage: &mut Stage<'_>, scale: f64, row: usize| {
             kit.live_value(
                 stage,
@@ -240,9 +255,9 @@ impl SceneConstruct for FourPointsFiveTiles {
                 RIGHT,
             )
         };
-        let box_value = readout(stage, small, 3)?;
-        let side_value = readout(stage, 1.0, 4)?;
-        let scaled = caption(stage, SCALED, dim(), 5)?;
+        let box_value = readout(stage, small, 5)?;
+        let side_value = readout(stage, 1.0, 6)?;
+        let scaled = caption(stage, SCALED, dim(), 7)?;
         swap(
             stage,
             &[one_of],
@@ -274,7 +289,7 @@ impl SceneConstruct for FourPointsFiveTiles {
         stage.set_z_index(core_line, LAYER_MARKS, true);
         let core_caption = caption(stage, CORE, ink(), 2)?;
         let mut leaving = vec![big_outline, small_box, shown, supposed, narrower, lambda_tex, scaled];
-        leaving.extend([box_label, side_label, box_value, side_value]);
+        leaving.extend([box_label, side_label, box_value, side_value, b_def, ours, about]);
         swap(stage, &leaving, &[grown_tile], 0.6)?;
         line_3.wait_for(stage, "keep a unit tile")?;
         swap(stage, &[], &[core_fill, core_line, core_caption], 0.5)?;
@@ -541,8 +556,8 @@ mod tests {
     }
 
     /// The growth keeps units honest: the shown tile starts a unit tile in
-    /// the supposed box, ends λ wide at the core's own place in the box of
-    /// 2.71, and both fit their boxes; the box's outline ends 2.71 wide.
+    /// the supposed box, ends λ wide at the core's own place in our box, B
+    /// wide, and both fit their boxes; the box's outline ends B wide.
     #[test]
     fn the_growth_scales_the_tile_with_the_box() {
         let side = model::turned_side().to_f64();
@@ -561,7 +576,7 @@ mod tests {
         let end = side / small;
         assert!((end - lambda).abs() < 1e-12);
         let (outline, last) = growth_frame(small, &core, end);
-        assert!((outline[2].0 - side).abs() < 1e-12, "the box ends 2.71 wide");
+        assert!((outline[2].0 - side).abs() < 1e-12, "the box ends B wide");
         assert!(
             (width(&last) - lambda).abs() < 1e-12,
             "the tile ends λ wide, not a unit"

@@ -49,10 +49,10 @@
 06_5	Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two, so all stay beyond it, and the triangle misses the centre.
 06_6	With sides at most one and the centre in the triangle, neither can happen. So the tile covers a corner, perhaps only on its edge.
 06_7	So every tile in the box covers a point. But where five tiles fit, each point sits on the edges of two tiles, and counting needs one more step.
-07_1	Suppose five tiles fit a box narrower than two point seven one.
-07_2	Enlarge everything until the box is two point seven one wide. Each tile grows by the same factor, still not overlapping.
+07_1	Our box is exactly two plus one over the square root of two wide. Suppose five tiles fit a narrower one.
+07_2	Enlarge everything until that box is as wide as ours. Each tile grows by the same factor, still not overlapping.
 07_3	Inside each grown tile, keep a unit tile with the same centre. Does it cover one of the four points?
-07_4	Yes. It lies in the box of two point seven one, so it covers a point, at worst on its edge.
+07_4	Yes. It lies in our box, so it covers a point, at worst on its edge.
 07_5	The grown tile reaches further on every side, so that point is strictly inside it, by at least half the growth.
 07_6	Five tiles, each holding a point strictly inside, and no two can share one without overlapping. Four points are not enough.
 07_7	So no narrower box holds five, and the turned packing fits this one. It is the smallest.

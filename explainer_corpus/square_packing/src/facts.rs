@@ -1043,17 +1043,33 @@ mod tests {
         assert!(l7.contains("each point sits on the edges of two tiles"), "{l7}");
     }
 
-    /// What chapter 07's voice says, on the facts: the supposed box
-    /// narrower than 2.71 and the grown one 2.71, the shown tile in each;
+    /// What chapter 07's voice says, on the facts: our box B wide exactly,
+    /// and a narrower one supposed; never a rounded cutoff, since B is about
+    /// 2.70711, below 2.71; the shown tile in the supposed box and grown;
     /// the unit core covering a point on its edge; that point strictly inside
     /// the grown tile by (λ − 1)/2, on the edge at λ = 1 and lost below it;
     /// five tiles against four points, a shared point overlapping once
     /// grown; the turned packing fitting, its points shared on edges.
     #[test]
     fn four_points_five_tiles_says_the_facts() {
-        assert_eq!(value("turned.side.2dp"), "2.71");
-        assert!(line("07_1").contains(&format!("narrower than {}", spoken("2.71"))));
-        assert!(value("scale.small.2dp").parse::<f64>().unwrap() < 2.71);
+        assert_eq!(value("turned.side"), "2 + 1/2*sqrt(2)");
+        assert_eq!(value("turned.gap"), "1/2*sqrt(2)");
+        let l1 = line("07_1");
+        assert!(
+            l1.contains("exactly two plus one over the square root of two wide"),
+            "{l1}"
+        );
+        assert!(l1.contains("Suppose five tiles fit a narrower one"), "{l1}");
+        assert!(
+            value("turned.side.5dp").parse::<f64>().unwrap() < 2.71,
+            "rounding up would be wrong"
+        );
+        for id in ["07_1", "07_2", "07_4", "07_7"] {
+            assert!(!line(id).contains(&spoken("2.71")), "{id} speaks a rounded cutoff");
+        }
+        assert!(line("07_2").contains("as wide as ours"));
+        assert!(line("07_4").contains("It lies in our box"));
+        assert!(value("scale.small.2dp").parse::<f64>().unwrap() < value("turned.side.5dp").parse::<f64>().unwrap());
         assert_eq!(value("scale.small.walls"), "inside the walls");
         assert_eq!(value("scale.grown.walls"), "inside the walls");
         assert!(line("07_2").contains("Each tile grows by the same factor"));

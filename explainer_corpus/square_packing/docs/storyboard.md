@@ -208,18 +208,22 @@ scale. No counting of tiles against points is claimed: that is chapter 07.
 The lower bound, as `model.rs` § four points, five tiles proves it: the
 covering of chapters 04 to 06 is closed, so the strict step enlarges a
 supposed narrower packing by λ = B/s > 1 and keeps a unit core in each
-grown tile. Nothing is drawn as five tiles in a box narrower than 2.71: that
-is the supposition ruled out. One real unit tile (`model::scale_core`,
+grown tile. The cutoff is B = 2 + 1/√2 exactly, defined on screen before
+λ = B/s and spoken as "ours" or "our box", never as a rounded number: B is
+about 2.70711, less than 2.71, so a box narrower than 2.71 can still hold
+five. Every decimal on screen says "about". Nothing is drawn as five tiles
+in a box narrower than B: that is the supposition ruled out. One real unit
+tile (`model::scale_core`,
 shrunk with the box into the supposed one) grows with the box, its width
 read live, so the units stay honest; the counting picture is labelled a
 schematic. The last beats return to the real packing of chapter 01.
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 07_1 | Suppose five tiles fit a box narrower than two point seven one. | The outline of the box of 2.71, faint, and inside it an empty box 5/6 as wide, "supposed, to be ruled out: five tiles in a box narrower than 2.71" *(scale.small)* | box | |
-| 07_2 | Enlarge everything until the box is two point seven one wide. Each tile grows by the same factor, still not overlapping. | One unit tile in the supposed box, "one of the five"; λ = B/s > 1; the box and the tile grow together about the box's corner, live readouts of the box (2.26 to 2.71) and the tile's side (1.00 to 1.20) *(scale.lambda, scale.small.2dp, scale.small.walls, scale.grown.walls)*: "every length times the same factor" | tracker, live readout | |
+| 07_1 | Our box is exactly two plus one over the square root of two wide. Suppose five tiles fit a narrower one. | The outline of our box, faint; B = 2 + 1/√2, "our box, exactly", "B is about 2.70711" *(turned.side, turned.side.5dp)*; at "Suppose", inside it an empty box 5/6 as wide: "supposed, to be ruled out: five tiles in a box narrower than B" *(scale.small)* | box, formula | |
+| 07_2 | Enlarge everything until that box is as wide as ours. Each tile grows by the same factor, still not overlapping. | B still defined above; one unit tile in the supposed box, "one of the five"; λ = B/s > 1; the box and the tile grow together about the box's corner, live readouts "box width, about" (2.26 to 2.71) and "tile side, about" (1.00 to 1.20) *(scale.lambda, scale.small.2dp, scale.small.walls, scale.grown.walls)*: "every length times the same factor" | tracker, live readout | |
 | 07_3 | Inside each grown tile, keep a unit tile with the same centre. ⟨predict⟩ Does it cover one of the four points? | Close up, the grown tile 1.2 wide and, at "keep a unit tile", its unit core outlined inside it: "a unit core, same centre and turn"; the picture holds while the think ring drains | highlight | listen 4 s (think) |
-| 07_4 | Yes. It lies in the box of two point seven one, so it covers a point, at worst on its edge. | The four points ringed by what the core covers: one on its edge, green, two inside, yellow *(scale.core.held)*: "in the box of 2.71, so it covers a point" | highlight | |
+| 07_4 | Yes. It lies in our box, so it covers a point, at worst on its edge. | The four points ringed by what the core covers: one on its edge, green, two inside, yellow *(scale.core.held)*: "in our box, B wide: it covers a point" | highlight | |
 | 07_5 | The grown tile reaches further on every side, so that point is strictly inside it, by at least half the growth. | The rings now read the grown tile: all yellow *(scale.grown.held)*; from the point on the core's edge, a red bar out to the grown tile's edge, 0.10 *(scale.margin.2dp, scale.margin)*: "strictly inside the grown tile", depth ≥ (λ − 1)/2 > 0 *(scale.margin.at1, scale.margin.below)* | highlight, formula | |
 | 07_6 | Five tiles, each holding a point strictly inside, and no two can share one without overlapping. Four points are not enough. | "schematic: tiles and points, not a packing": five tile icons above four points *(scale.count)*, "each tile needs its own point"; at "no two can share", an arrow from each tile to a point, the fifth to a point already taken, ringed red: "a shared point inside both: they overlap" *(scale.shared)* | lagged reveal, highlight | |
 | 07_7 | So no narrower box holds five, and the turned packing fits this one. It is the smallest. | The five tiles where they fit in the box of 2.71 *(turned.check)*: B = 2 + 1/√2, "fits; nothing narrower does" | box | |
