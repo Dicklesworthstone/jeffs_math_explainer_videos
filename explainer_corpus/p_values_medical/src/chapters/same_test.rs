@@ -59,9 +59,9 @@ const IN_CLINIC: &str = "in clinic";
 const SAME_IN_BOTH: &str = "the same in both clinics";
 const MOVES: &str = "moves with the clinic";
 const NEITHER: &str = "Neither is a p-value.";
-const STUDY_A: &str = "a synthetic study:";
-const STUDY_B: &str = "pairs of patients, a coin in each pair picks who is treated (model)";
-const NULL_WORLD: &str = "imagine the treatment changed no one's recovery";
+pub(super) const STUDY_A: &str = "a synthetic study:";
+pub(super) const STUDY_B: &str = "pairs of patients, a coin in each pair picks who is treated (model)";
+pub(super) const NULL_WORLD: &str = "imagine the treatment changed no one's recovery";
 
 // --- layout (scene units; the frame is 14.2 by 8)
 
@@ -91,10 +91,51 @@ const LABEL_Y: f64 = -3.3;
 const ASK_AT: Vec3 = [4.2, 2.1, 0.0];
 const ASK_R: f64 = 0.55;
 /// The study's pairs: five to a row, four rows.
-const PAIR_COLS: usize = 5;
-const PAIR_DX: f64 = 2.1;
-const PAIR_DY: f64 = 1.05;
-const PAIR_TOP: f64 = 1.9;
+pub(super) const PAIR_COLS: usize = 5;
+pub(super) const PAIR_DX: f64 = 2.1;
+pub(super) const PAIR_DY: f64 = 1.05;
+pub(super) const PAIR_TOP: f64 = 1.9;
+/// A pair's box, and its two patients (A on the left, B on the right).
+pub(super) const PAIR_W: f64 = 1.5;
+pub(super) const PAIR_H: f64 = 0.75;
+pub(super) const DISC_R: f64 = 0.2;
+pub(super) const DISC_DX: f64 = 0.33;
+/// The study's tag above the pairs, and 02_10's caption beneath them.
+pub(super) const STUDY_TAG_Y: f64 = 3.2;
+pub(super) const NULL_Y: f64 = -2.5;
+
+/// Where pair `i` of the study sits: five to a row, four rows.
+pub(super) fn pair_at(i: usize) -> Vec3 {
+    let (row, col) = ((i / PAIR_COLS) as f64, (i % PAIR_COLS) as f64);
+    v(
+        (col - (PAIR_COLS as f64 - 1.0) / 2.0) * PAIR_DX,
+        PAIR_TOP - row * PAIR_DY,
+    )
+}
+
+/// One pair of the study: its box and its two patients as plain discs,
+/// detached, as one group (02_10; chapter 03 opens on them).
+pub(super) fn study_pair(stage: &mut Stage<'_>, i: usize) -> fmn::Result<Mob> {
+    let at = pair_at(i);
+    let back = Rectangle::new()
+        .width(PAIR_W)
+        .height(PAIR_H)
+        .corner_radius(0.12)
+        .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
+        .build()?
+        .moved_to(at);
+    let back = stage.arena_mut().add(back);
+    let mut parts = vec![back];
+    for dx in [-DISC_DX, DISC_DX] {
+        let d = Circle::new()
+            .radius(DISC_R)
+            .style(flat(person(), 1.0))
+            .build()
+            .moved_to(v(at[0] + dx, at[1]));
+        parts.push(stage.arena_mut().add(d));
+    }
+    group(stage, &parts)
+}
 
 /// The centre of cell (row, col) of half `p`'s array.
 fn cell_in(p: usize, row: usize, col: usize) -> Vec3 {
@@ -794,38 +835,16 @@ impl SceneConstruct for TheSameTest {
             &format!("{STUDY_A} {pairs} {STUDY_B}"),
             22.0,
             Palette::dim(),
-            v(0.0, 3.2),
+            v(0.0, STUDY_TAG_Y),
         )?;
         let mut boxes = Vec::new();
         for i in 0..pairs {
-            let (row, col) = ((i / PAIR_COLS) as f64, (i % PAIR_COLS) as f64);
-            let at = v(
-                (col - (PAIR_COLS as f64 - 1.0) / 2.0) * PAIR_DX,
-                PAIR_TOP - row * PAIR_DY,
-            );
-            let back = Rectangle::new()
-                .width(1.5)
-                .height(0.75)
-                .corner_radius(0.12)
-                .style(Style::default().fill(panel(), 0.94).stroke(Palette::faint(), 1.5, 1.0))
-                .build()?
-                .moved_to(at);
-            let back = stage.arena_mut().add(back);
-            let mut parts = vec![back];
-            for dx in [-0.33, 0.33] {
-                let d = Circle::new()
-                    .radius(0.2)
-                    .style(flat(person(), 1.0))
-                    .build()
-                    .moved_to(v(at[0] + dx, at[1]));
-                parts.push(stage.arena_mut().add(d));
-            }
-            boxes.push(group(stage, &parts)?);
+            boxes.push(study_pair(stage, i)?);
         }
         fade_in_all(stage, &[tag], 0.4)?;
         fade_in_lagged(stage, &boxes, 1.6, 0.15)?;
         line.wait_for(stage, "imaginary world")?;
-        let null = kit.text(stage, NULL_WORLD, 28.0, Palette::ink(), v(0.0, -2.5))?;
+        let null = kit.text(stage, NULL_WORLD, 28.0, Palette::ink(), v(0.0, NULL_Y))?;
         fade_in_all(stage, &[null], 0.6)?;
         kit.hold(stage)?;
         kit.music_breath(stage, 1.0)?;

@@ -488,6 +488,33 @@ impl Study {
         self.favouring(self.treated_a)
     }
 
+    /// Whether patient A of `pair` recovered first (a fixed fact of the
+    /// study: the sharp null never moves it).
+    pub fn faster_is_a(&self, pair: u32) -> bool {
+        self.faster_a >> pair & 1 == 1
+    }
+
+    /// Whether the assignment `treated_a` gives patient A of `pair` the
+    /// treatment (one fair coin per pair).
+    pub fn treated_is_a(&self, treated_a: u32, pair: u32) -> bool {
+        treated_a >> pair & 1 == 1
+    }
+
+    /// Whether `pair` favours the treatment under `treated_a`: its treated
+    /// patient is the one who recovered first.
+    pub fn favours(&self, treated_a: u32, pair: u32) -> bool {
+        self.treated_is_a(treated_a, pair) == self.faster_is_a(pair)
+    }
+
+    /// `n` more tosses of the study's coins, each a whole assignment: the
+    /// low `pairs` bits of one draw of the seeded stream (one fair, independent
+    /// bit per pair), so `oracle.py` replays them with NumPy's
+    /// `PCG64DXSM(seed).random_raw()`.
+    pub fn retosses(&self, seed: u64, n: usize) -> Vec<u32> {
+        let mut data = explainer_kit::stats::Data::new(seed);
+        (0..n).map(|_| (data.raw() & u64::from(self.mask())) as u32).collect()
+    }
+
     /// The imaginary world of the sharp null: if the treatment changed no
     /// one's recovery, every recovery time stays where it is and only the
     /// labels move, so each of the 2^pairs assignments is equally likely.
@@ -931,5 +958,94 @@ mod tests {
         assert_eq!(tail_share(&world, 20, Tail::AtLeast), Q::ratio(1, 1 << 20));
         // the middle is two-sided p = 1
         assert_eq!(tail_share(&world, 10, Tail::TwoSided), Q::ONE);
+    }
+
+    /// Chapter 03's world does not depend on who recovered first: for every
+    /// orientation of the finishing order in every small study, listing all
+    /// assignments gives the binomial counts, each assignment counted once.
+    #[test]
+    fn every_finishing_order_gives_the_same_world_and_each_assignment_counts_once() {
+        for pairs in 1..=8u32 {
+            let all = (1u32 << pairs) - 1;
+            for faster_a in 0..=all {
+                let s = Study {
+                    pairs,
+                    faster_a,
+                    treated_a: 0,
+                };
+                let world = s.null_world();
+                for (k, &c) in world.iter().enumerate() {
+                    assert_eq!(u128::from(c), choose(u64::from(pairs), k as u64), "{pairs} {faster_a:b} {k}");
+                }
+                // no double counting: the assignments sorted by their count
+                // are a partition of all 2^pairs assignments
+                let mut seen = vec![false; 1 << pairs];
+                for k in 0..=pairs {
+                    for a in (0..=all).filter(|&a| s.favouring(a) == k) {
+                        assert!(!seen[a as usize], "assignment {a:b} counted twice");
+                        seen[a as usize] = true;
+                    }
+                }
+                assert!(seen.iter().all(|&x| x));
+                // the per-pair view agrees with the whole-assignment count
+                for a in 0..=all {
+                    let by_pair = (0..pairs).filter(|&i| s.favours(a, i)).count() as u32;
+                    assert_eq!(by_pair, s.favouring(a));
+                }
+            }
+        }
+    }
+
+    /// Swapping one pair's treatment label changes only that pair, and moves
+    /// the count by exactly one; the finishing order never moves.
+    #[test]
+    fn swapping_one_pairs_labels_moves_the_count_by_one() {
+        let s = study();
+        for i in 0..s.pairs {
+            let swapped = s.treated_a ^ (1 << i);
+            let before = s.favouring(s.treated_a);
+            let after = s.favouring(swapped);
+            assert_eq!(before.abs_diff(after), 1, "pair {i}");
+            assert_eq!(s.favours(swapped, i), !s.favours(s.treated_a, i));
+            for j in (0..s.pairs).filter(|&j| j != i) {
+                assert_eq!(s.favours(swapped, j), s.favours(s.treated_a, j));
+            }
+            assert_eq!(s.faster_is_a(i), s.faster_a >> i & 1 == 1);
+        }
+        // the five pairs that went the other way are exactly the non-favouring ones
+        let against: Vec<u32> = (0..s.pairs).filter(|&i| !s.favours(s.treated_a, i)).collect();
+        assert_eq!(against, vec![3, 7, 11, 16, 19]);
+    }
+
+    /// The chapter's re-tosses are real, distinct assignments of the same
+    /// study, and planted mistakes give different numbers: counting the
+    /// pairs whose patient A was treated is not the statistic, and flipping
+    /// one coin of the observed assignment is not the observed count.
+    #[test]
+    fn the_retosses_are_distinct_and_planted_mistakes_are_caught() {
+        let s = study();
+        let tosses = s.retosses(2006, 4);
+        assert_eq!(tosses.len(), 4);
+        let mut all = tosses.clone();
+        all.push(s.treated_a);
+        all.sort_unstable();
+        all.dedup();
+        assert_eq!(all.len(), 5, "four new assignments, none the observed one");
+        assert!(tosses.iter().all(|&a| a < 1 << s.pairs));
+        assert_eq!(s.retosses(2006, 4), tosses, "the same seed gives the same tosses");
+        // planted: the number of A patients treated is not the statistic
+        let a_treated = s.treated_a.count_ones();
+        assert_eq!((a_treated, s.observed()), (9, 15));
+        assert_ne!(a_treated, s.observed());
+        // planted: one wrong coin is a different count
+        assert_ne!(s.favouring(s.treated_a ^ 1), s.observed());
+        // planted: a world counted by the A-treated statistic is still a
+        // binomial, but it puts the observed assignment in a different bar
+        let wrong = Study {
+            faster_a: (1 << s.pairs) - 1,
+            ..s
+        };
+        assert_eq!(wrong.null_world(), s.null_world());
+        assert_eq!(wrong.observed(), a_treated);
     }
 }
