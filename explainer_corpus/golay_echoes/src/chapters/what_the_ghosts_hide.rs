@@ -371,7 +371,7 @@ impl SceneConstruct for WhatTheGhostsHide {
         fade_in_all(stage, &[above.line, top_name, bottom_name], 0.3)?;
         above.stand(stage, &a, 0.4)?;
         chart.stand(stage, &a, 0.4)?;
-        line.wait_for(stage, "never cancel")?;
+        line.wait_for(stage, "doubles its ghosts")?;
         let falling = above.take();
         fade_out_all(stage, &[above.line, top_name], 0.2)?;
         chart.settle_all(stage, &falling, 0.7, 0.3)?;
@@ -450,7 +450,7 @@ mod tests {
             ("02_9", "Thirty-two"),
             ("02_9", "eight at three"),
             ("02_9", "The scene"),
-            ("02_10", "never cancel"),
+            ("02_10", "doubles its ghosts"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");

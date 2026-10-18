@@ -334,6 +334,10 @@ def chapter_02():
     emit("G-F9.a_twice.scores", csv(window(twice, first, last)))
     emit("G-F9.a_twice.at_quiet", twice.get(quiet, 0))
     emit("G-F9.a_twice.at_one_step", csv([twice.get(loud - 1, 0), twice.get(loud + 1, 0)]))
+    ghost_ratios = {Fraction(twice.get(k, 0), ra[k]) for k in ra if k not in (loud, quiet) and ra[k] != 0}
+    if len(ghost_ratios) != 1:
+        raise SystemExit(f"oracle: sending A twice scales its ghosts by {ghost_ratios}")
+    emit("G-F9.a_twice.ghost_ratio", ghost_ratios.pop())
 
     codes = list(product((1, -1), repeat=len(CODE_A)))
     times = 2 * len(CODE_A)

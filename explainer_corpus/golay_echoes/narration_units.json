@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "9b325a7f4eab4e9486be8762151dc023a43a6ebb8a0f293c94d0ab5259ecce8c",
+  "script_sha256": "5bcb14bde7f94a2a1ef01ab6ef4c71e7a13f8f9afc672147897fe9f4b16487ac",
   "units": [
     {
       "id": "01u1",
@@ -44,7 +44,7 @@
         "02_9",
         "02_10"
       ],
-      "text": "One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo. Pattern B's ghosts have the other sign. What will B score at three steps? Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over. Sending pattern A twice would not help. Copies of the same ghosts never cancel, so the quiet one stays hidden."
+      "text": "One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo. Pattern B's ghosts have the other sign. What will B score at three steps? Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over. Sending pattern A twice just doubles its ghosts, and the quiet one stays hidden."
     },
     {
       "id": "03u1",

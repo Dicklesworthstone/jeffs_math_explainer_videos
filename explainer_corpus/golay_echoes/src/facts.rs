@@ -567,6 +567,16 @@ fn chapter_02(f: &mut Facts) -> Result<(), String> {
         "G-F9.a_twice.at_one_step",
         model::csv(&[twice.at(loud_step - 1), twice.at(loud_step + 1)]),
     )?;
+    // "just doubles its ghosts": A twice over A at every one of A's ghosts
+    let ratios: BTreeSet<String> = a
+        .ghost_shifts(&[loud_step, quiet_step])
+        .iter()
+        .map(|&k| ratio(twice.at(k), a.at(k)))
+        .collect::<Result<_, _>>()?;
+    if ratios.len() != 1 {
+        return Err(format!("sending A twice scales its ghosts by {ratios:?}"));
+    }
+    f.add("G-F9.a_twice.ghost_ratio", ratios.into_iter().collect::<String>())?;
     let [pairs, giving_back, giving_back_complementary, complementary] = pairs_giving_back();
     f.add("G-X2.pairs", pairs)?;
     f.add("G-X2.giving_back", giving_back)?;
@@ -620,6 +630,7 @@ mod tests {
             ("G-F7.b.over_quiet", "2"),
             ("G-F8.magnification", "8"),
             ("G-F9.a_twice.at_quiet", "0"),
+            ("G-F9.a_twice.ghost_ratio", "2"),
             ("G-X2.giving_back", "32"),
             ("G-X2.giving_back_complementary", "32"),
             ("G-F2.a.scores", "-1,0,1,4,1,0,-1"),
