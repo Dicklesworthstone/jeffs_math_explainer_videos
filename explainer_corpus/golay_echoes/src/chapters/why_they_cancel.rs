@@ -413,8 +413,12 @@ impl SceneConstruct for WhyTheyCancel {
         swap(stage, &[reach], &[still], 0.3)?;
         let unflipped = row(stage, &four.0, X0, BOT_Y, palette::pattern_a())?;
         let name_again = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(BOT_Y))?;
+        // the identity and the X, Y labels belong to the flipped pair: they
+        // leave before the unflipped pair's arcs are drawn, so the identity
+        // is never seen over the wrong pair (the 2026-10-18 draft's 03_10)
         let mut old = bottom.mobs();
-        old.extend([name_b, names[2], names[3]]);
+        old.extend([name_b, identity]);
+        old.extend(&names);
         let mut new = unflipped.mobs();
         new.extend([name_again]);
         swap(stage, &old, &new, 0.4)?;
@@ -432,7 +436,7 @@ impl SceneConstruct for WhyTheyCancel {
         let mut leaving = top.mobs();
         leaving.extend(unflipped.mobs());
         leaving.extend(far_a.arcs.iter().chain(&far_again.arcs));
-        leaving.extend([name_a, name_again, names[0], names[1], identity, ticks[0], ticks[1]]);
+        leaving.extend([name_a, name_again, ticks[0], ticks[1]]);
         fade_out_all(stage, &leaving, 0.3)?;
         let no_flip = model::autocorrelation(&four.0).scaled(2);
         let rest = no_flip.plus(&Scores {
