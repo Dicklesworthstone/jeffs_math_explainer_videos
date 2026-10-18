@@ -27,7 +27,7 @@ also carry an independently verified literal. Scores are listed from shift
 | F4 | the echo moved between the sends | "one step" (01_11) | `facts::echo_step` | `G-F4.moved.step` | `1` | computed |
 | F4 | the two rows added, the echo moved | the last row (01_11), from shift −3 | `model::two_measurements(A, still, B, moved)` | `G-F4.moved.first_shift`, `G-F4.moved.scores` | `-3`; `-1,1,1,3,5,-1,-1,1` | computed |
 | F4 | ghosts that return, and where | "ghosts return"; the flashing columns; "3" and "5" over the split echo | same | `G-F4.moved.largest_ghost`, `G-F4.moved.ghost_shifts` | `1`; `-3,-2,-1,2,3,4` | computed |
-| X1 | far-shift score sizes, every pattern of 2 to 10 pulses | "With more than one pulse, every pattern of ups and downs leaves ghosts" (01_7) and its lower-third | `model::far_shift_score` over all 2,046 patterns | `G-X1.far_shift_sizes` | `1` | computed (edge test) |
+| X1 | far-shift score sizes, every pattern of 2 to 10 pulses | "With more than one pulse, every pattern leaves ghosts" (01_7) and its lower-third | `model::far_shift_score` over all 2,046 patterns | `G-X1.far_shift_sizes` | `1` | computed (edge test) |
 
 ## Claims (non-numeric)
 

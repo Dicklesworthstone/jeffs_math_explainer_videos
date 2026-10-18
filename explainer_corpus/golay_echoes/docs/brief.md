@@ -13,7 +13,7 @@ Values I chose without the owner are marked `(default)`.
 | The one picture | The score row as columns of blocks: an agreement is a green block above the line, a disagreement a red block that cancels a green one or hangs below. Adding two rows is dropping one onto the other. |
 | Worked example | Pattern A = up, up, up, down; pattern B = up, up, down, up (the length-four pair in Wikipedia's *Complementary sequences* and the slate's toy check). A scores −1, 0, 1, 4, 1, 0, −1; B scores 1, 0, −1, 4, −1, 0, 1; added, 0, 0, 0, 8, 0, 0, 0. |
 | Audience | a curious 14-year-old with school algebra; a programmer who could implement it afterwards; a mathematician who finds nothing wrong (default, plan §1.2) |
-| Length target | chapter 01 under 85 s (storyboard estimate 80.9 s plus about 2 s more think time than the tool counts); later chapters are planned in the storyboard's arc, not yet written |
+| Length target | chapter 01 under 85 s: 83.9 s estimated with thought gaps, the four-second countdown, the 2 s hold and the ending (words at 2.68 a second, a rate that already includes pauses, so likely long); the narrated draft measures it. Later chapters are planned in the storyboard's arc, not yet written |
 | Format | 3840×2160 @ 60 fps, H.264, AAC 256k, −16 LUFS target with a −1.0 dBTP ceiling; quieter when the ceiling binds, never loudnormed (default) |
 | Voice | FrankenTTS `michael` with the owner's English accent. The latest Michael sample (a 25 s Golay opening in `narration_lab/michael-coherent-20261017`) is pending owner listening; no voice approval is inferred here. |
 | Look | 3Blue1Brown: dark background, role colors, continuous motion (default) |

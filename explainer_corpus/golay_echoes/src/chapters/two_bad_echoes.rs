@@ -294,7 +294,7 @@ impl SceneConstruct for TwoBadEchoes {
         flash_all(stage, &ends, 0.6)?;
         let rule = precisely(&kit, stage, &far_rule()?)?;
         fade_in_all(stage, &[rule], 0.4)?;
-        line.wait_for(stage, "So send a second one")?;
+        line.wait_for(stage, "So send a second")?;
         let mut labels = vec![peak, echo_word];
         labels.extend(&ghost_words);
         fade_out_all(stage, &labels, 0.3)?;
@@ -472,7 +472,7 @@ impl SceneConstruct for TwoBadEchoes {
         wait_until(stage, end)?;
         pause(stage, 0.8)?;
 
-        fade_all(stage, 1.0)?;
+        fade_all(stage, 0.8)?;
         kit.finish(stage)?;
         Ok(())
     }
@@ -509,7 +509,7 @@ mod tests {
             ("01_5", "A score of one"),
             ("01_5", "where nothing is"),
             ("01_6", "a quarter the size"),
-            ("01_7", "So send a second one"),
+            ("01_7", "So send a second"),
             ("01_7", "Up, up, down, up"),
             ("01_8", "What if we add"),
             ("01_9", "Only the echo"),
