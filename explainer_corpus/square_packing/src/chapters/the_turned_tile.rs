@@ -341,7 +341,6 @@ impl SceneConstruct for TheTurnedTile {
             false,
         )?;
         kit.listen(stage, THINK_S, LINES[3])?;
-        swap(stage, &[track, arc, think], &[], 0.4)?;
 
         // ---------------------------------------------------------- 01_5
         // the turn, inside the circle through the inner corners
@@ -364,7 +363,8 @@ impl SceneConstruct for TheTurnedTile {
         )?;
         let mut ins = vec![reach, label, degree];
         ins.extend(&marks);
-        swap(stage, &[], &ins, 0.6)?;
+        // the think ring goes as the turn's picture comes, under the words
+        swap(stage, &[track, arc, think], &ins, 0.6)?;
         line.wait_for(stage, "Its corners")?;
         let rt = line.left(stage, 2.5) - 0.3;
         drive(stage, turn.tracker, f64::from(r.degrees), rt)?;
@@ -460,26 +460,25 @@ impl SceneConstruct for TheTurnedTile {
         swap(stage, &[], &[precisely, exact], 0.6)?;
 
         // ---------------------------------------------------------- 01_10
-        // one step further: the corners bite in, in red; then back
-        let line = say(&kit, stage, LINES[9])?;
+        // one step further: the corners bite in, in red; then back, all of it
+        // inside the line (the word "overlap" goes with 01_11's first wipe)
+        say(&kit, stage, LINES[9])?;
         let mut outs = vec![gap, diagonal, one, measure, measure_label];
         outs.extend(&dots);
-        swap(stage, &outs, &[], 0.4)?;
+        swap(stage, &outs, &[], 0.3)?;
         for &m in &patches {
             stage.add_to_scene(m)?;
         }
         let bite = kit.text(stage, OVERLAP, 40.0, warn(), v(PANEL_X, -1.0))?;
-        let rt = (line.left(stage, 1.6) * 0.5).max(0.8);
-        drive(stage, squeeze.tracker, r.stop - OVERSHOOT, rt)?;
+        drive(stage, squeeze.tracker, r.stop - OVERSHOOT, 0.9)?;
         swap(stage, &[], &[bite], 0.3)?;
-        pause(stage, 0.8)?;
-        drive(stage, squeeze.tracker, r.stop, 0.9)?;
-        swap(stage, &[bite], &[], 0.3)?;
+        pause(stage, 0.5)?;
+        drive(stage, squeeze.tracker, r.stop, 0.7)?;
 
         // ---------------------------------------------------------- 01_11
         // it fits; that nothing smaller fits needs a proof
         let line = say(&kit, stage, LINES[10])?;
-        let f3_out = vec![f3.mob, precisely, exact, ghost];
+        let f3_out = vec![f3.mob, precisely, exact, ghost, bite];
         swap(stage, &f3_out, &[], 0.5)?;
         let tick_at = v(PANEL_X - 1.2, 1.2);
         let tick = path(
@@ -514,7 +513,8 @@ impl SceneConstruct for TheTurnedTile {
             v(-FRAME_X_RADIUS + 0.45, -3.6),
         )?;
         swap(stage, &[], &[proof, source], 0.6)?;
-        kit.music_breath(stage, explainer_kit::animatic::HOLD_S)?;
+        // the line and its breath, then the wipe: no authored hold here
+        kit.hold(stage)?;
         squeeze.stop(stage);
         fade_all(stage, 0.8)?;
         kit.finish(stage)

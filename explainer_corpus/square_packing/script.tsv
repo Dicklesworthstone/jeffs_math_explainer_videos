@@ -1,12 +1,12 @@
 # square_packing: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	Five equal square tiles. How small a square box can hold them all?
+01_1	Five equal square tiles. How small a square box holds them all?
 01_2	Four fit in a box two wide. The fifth has nowhere to go.
 01_3	The obvious box is three wide, with room for four more.
-01_4	Every tile lines up with the walls. Could turning one let the box shrink?
+01_4	Every tile lines up with the walls. Could turning one shrink the box?
 01_5	Turn the middle tile. Its corners stay on a circle that only touches its neighbours, so nothing collides.
-01_6	Now squeeze. The corner tiles slide in, the box shrinks, and no two tiles ever overlap.
+01_6	Now squeeze. The corner tiles slide in, and no two tiles ever overlap.
 01_7	They stop when each inner corner touches the middle of a side of the turned tile.
 01_8	Across the square gap, opposite inner corners are now one tile apart.
 01_9	A square's diagonal is its side times the square root of two. So the gap is one over the square root of two, and the box is two plus that, about two point seven one.
 01_10	Any further, and the corners bite in.
-01_11	Five tiles fit in this box. But a picture can't show that nothing smaller fits. That needs a proof.
+01_11	This shows five tiles fit. It can't show that nothing smaller fits. That needs a proof.
