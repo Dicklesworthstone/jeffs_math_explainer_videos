@@ -11,16 +11,18 @@ assignments listed, whose whole tail is the p-value.
 
 **Status (2026-10-18):** chapters 01 (`01_five_percent_of_what`), 02
 (`02_the_same_test`) and 03 (`03_the_imaginary_world`) are code the
-orchestrator accepted as silent drafts, with 04 (`04_count_the_whole_tail`)
-and 05 (`05_what_two_percent_does_not_say`) (e6a446e, a201b4a, b41aa80,
-b89bd37 and 1f99bf2: tests, strict clippy and fmt, facts parity, glyph, cue,
-layout and frame review; 82.2 s, 74.4 s, 80.5 s and 81.4 s for chapters 02
-to 05). Chapter 06 (`06_the_question_again`: the survey's keyed answer as
-reprinted, for p > 0.05, beside this study's 0.0207; the question with its
-world, randomness, statistic and tail named, answered by the tail; what it
-leaves open; the viewer's question) is written as code, about 62 s at the
-kit's scratch rate, and awaits the same central checks. Nothing has been
-narrated; no audio is accepted.
+orchestrator accepted as silent drafts, with 04 (`04_count_the_whole_tail`),
+05 (`05_what_two_percent_does_not_say`) and 06 (`06_the_question_again`)
+(e6a446e, a201b4a, b41aa80, b89bd37, 1f99bf2 and 765f081: tests, strict
+clippy and fmt, facts parity, glyph, cue, layout and frame review; 82.2 s,
+74.4 s, 80.5 s, 81.4 s and 61.4 s for chapters 02 to 06): all six chapters
+exist as silent drafts. The thumbnail (`src/chapters/thumbnail.rs`, wired to
+`./x p_values_medical thumbnail`) and the delivery text
+([`docs/description.md`](docs/description.md), every number tagged with its
+fact; [`docs/protected.tsv`](docs/protected.tsv)) are written and await the
+orchestrator's render and review. Nothing has been narrated: the narration
+voice awaits the owner's listening, so no audio, timing or chapter
+timestamps are final.
 
 | File | What it holds |
 |---|---|
@@ -33,12 +35,16 @@ narrated; no audio is accepted.
 | `src/chapters/count_tail.rs` | chapter 04's scene, and its last picture rebuilt for chapter 05 |
 | `src/chapters/does_not_say.rs` | chapter 05's scene, and its last picture rebuilt for chapter 06 |
 | `src/chapters/question_again.rs` | chapter 06's scene |
+| `src/chapters/thumbnail.rs` | the thumbnail: the title over chapter 01's block of positives, "5% of what?" |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
 | `docs/fact-sheet.md` | every number's source, what was read, competing explanations |
+| `docs/description.md` | the delivery description, every number tagged with its fact |
+| `docs/protected.tsv` | the words every revision must keep (sharp null, whole tail, synthetic labels, not a truth probability, survey scope) |
 | `docs/brief.md` | the brief |
 
 ```bash
 uv run --no-project --with numpy python3 -I -B oracle.py   # every number, and 62 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check p_values_medical
 ./x p_values_medical facts-check              # the Rust facts against the oracle (builds)
+python3 -I ../../tools/description_numbers.py p_values_medical   # every number of the description is a fact
 ```

@@ -9,6 +9,7 @@ pub mod glyphs;
 pub mod imaginary_world;
 pub mod question_again;
 pub mod same_test;
+pub mod thumbnail;
 
 use explainer_kit::Chapter;
 
