@@ -37,6 +37,16 @@ pub const STILL: [i64; 1] = [1];
 /// The same thing one step further away: it moved between the two sends.
 pub const MOVED: [i64; 2] = [0, 1];
 
+/// The same thing at the same place, its echo upside down (chapter 04): a
+/// strength of −1, not a new reflector and not a negative distance. In radar
+/// a half turn of phase between the sends does this (Chi, Pezeshki and
+/// Calderbank, eq. 8: the second response picks up e^{jνT}).
+pub const FLIPPED: [i64; 1] = [-1];
+
+/// One stray blip the receiver picks up during the first send, just after
+/// the echo (chapter 04), added to the recording sample by sample.
+pub const NOISE_BLIP: [i64; 5] = [0, 0, 0, 0, 1];
+
 /// Chapter 02's scene: a loud thing (strength 4) where the recording starts
 /// and a quiet one (strength 1) three steps farther, the same for both sends.
 pub const LOUD_AND_QUIET: [i64; 4] = [4, 0, 0, 1];
@@ -242,6 +252,21 @@ pub fn measure(code: &[i64], scene: &[i64], noise: &[i64]) -> Scores {
 /// pair, the sum is that scene magnified 2N times, with no ghosts.
 pub fn two_measurements(a: &[i64], scene_a: &[i64], b: &[i64], scene_b: &[i64]) -> Scores {
     measure(a, scene_a, &[]).plus(&measure(b, scene_b, &[]))
+}
+
+/// What changed between two scenes, step by step: `first − second`, the
+/// shorter scene extended by zeros past its end (chapter 04).
+///
+/// With a complementary pair (a, b) of N pulses, the two measurements add to
+/// 2N times the second scene plus pattern a's row of this difference:
+/// S_a(first) + S_b(second) = S_a(second) + S_b(second) + S_a(first − second),
+/// because a measurement is linear in its scene, and the first two terms are
+/// the pair's rows added (2N at shift 0, zero elsewhere) laid on the second
+/// scene. Rows are finite and extended by zero; nothing wraps around.
+pub fn difference(first: &[i64], second: &[i64]) -> Vec<i64> {
+    (0..first.len().max(second.len()))
+        .map(|d| first.get(d).copied().unwrap_or(0) - second.get(d).copied().unwrap_or(0))
+        .collect()
 }
 
 /// What each echo of `scene` adds to `code`'s scores, one entry per echo:
@@ -834,5 +859,128 @@ mod tests {
             autocorrelation(&a),
             row(-9, &[1, 2, -1, -2, 1, 0, -1, 0, -3, 10, -3, 0, -1, 0, 1, -2, -1, 2, 1])
         );
+    }
+
+    /// Pattern 1, narration truth for chapter 04: the control, the moved
+    /// echo, the flipped echo, the identity's factor, and the noise blip.
+    #[test]
+    fn the_broken_cases_are_the_ones_on_screen() {
+        // "The same scene for both sends, and every ghost cancels."
+        let control = two_measurements(&CODE_A, &STILL, &CODE_B, &STILL);
+        assert_eq!(control, row(-3, &[0, 0, 0, 8, 0, 0, 0]));
+        // "The echo splits into three and five, with ghosts at six shifts."
+        let moved = two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED);
+        assert_eq!((moved.at(0), moved.at(1)), (3, 5));
+        assert_eq!(moved.ghost_shifts(&[0, 1]).len(), 6);
+        // "Not a new object, and not a negative distance": one echo, at step
+        // 0, with strength −1
+        assert_eq!(FLIPPED.len(), STILL.len());
+        assert_eq!(FLIPPED[0], -STILL[0]);
+        // "It cancels, and every ghost doubles instead."
+        let flipped = two_measurements(&CODE_A, &STILL, &CODE_B, &FLIPPED);
+        let a = autocorrelation(&CODE_A);
+        assert_eq!(flipped.at(0), 0);
+        for k in [-3, -2, -1, 1, 2, 3] {
+            assert_eq!(flipped.at(k), 2 * a.at(k), "at {k}");
+        }
+        // "eight times the second scene, plus pattern A's row of whatever
+        // changed"
+        for second in [&MOVED[..], &FLIPPED[..], &STILL[..]] {
+            let sum = two_measurements(&CODE_A, &STILL, &CODE_B, second);
+            let want = measure(&CODE_A, &difference(&STILL, second), &[]).plus(&row(
+                0,
+                &second.iter().map(|h| 8 * h).collect::<Vec<_>>(),
+            ));
+            for k in -4..=5 {
+                assert_eq!(sum.at(k), want.at(k), "{second:?} at {k}");
+            }
+        }
+        // "A stray blip gets its own little row": the peak stays 8
+        let noisy = measure(&CODE_A, &STILL, &NOISE_BLIP).plus(&measure(&CODE_B, &STILL, &[]));
+        assert_eq!(noisy, row(-3, &[0, 0, 0, 8, -1, 1, 1, 1]));
+        let blip = correlate(&NOISE_BLIP, &CODE_A);
+        let scored: Vec<(i64, i64)> = (blip.first..=blip.last())
+            .filter(|&k| blip.at(k) != 0)
+            .map(|k| (k, blip.at(k)))
+            .collect();
+        assert_eq!(scored, [(1, -1), (2, 1), (3, 1), (4, 1)]);
+    }
+
+    /// The changed-scene identity, through its argument: for every
+    /// complementary pair of 1 to 4 pulses and every two scenes of 2 steps
+    /// with strengths −1 to 1, and for patterns A and B over every two scenes
+    /// of 3 steps with strengths −2 to 2, the two rows add to 2N times the
+    /// second scene plus pattern A's row of the difference, at every shift.
+    #[test]
+    fn a_changed_scene_leaves_pattern_as_row_of_the_change() {
+        let check = |a: &[i64], b: &[i64], first: &[i64], second: &[i64]| {
+            let n = a.len() as i64;
+            let sum = two_measurements(a, first, b, second);
+            let scaled: Vec<i64> = second.iter().map(|h| 2 * n * h).collect();
+            let want = measure(a, &difference(first, second), &[]).plus(&row(0, &scaled));
+            let reach = (n + first.len().max(second.len()) as i64) + 1;
+            for k in -reach..=reach {
+                assert_eq!(sum.at(k), want.at(k), "{a:?} {b:?} {first:?} {second:?} at {k}");
+            }
+        };
+        let small: Vec<Vec<i64>> = (0..9).map(|m| vec![m % 3 - 1, m / 3 - 1]).collect();
+        for n in 1..=4 {
+            for (a, b) in pairs(n) {
+                for first in &small {
+                    for second in &small {
+                        check(&a[..], &b[..], first.as_slice(), second.as_slice());
+                    }
+                }
+            }
+        }
+        let wide = scenes(3);
+        for first in &wide {
+            for second in &wide {
+                check(&CODE_A[..], &CODE_B[..], first.as_slice(), second.as_slice());
+            }
+        }
+    }
+
+    /// The flipped echo, as a theorem: for every complementary pair of up to
+    /// eight pulses, a single echo whose second send comes back upside down
+    /// scores zero where it is (each pattern's own peak is N, and N − N = 0),
+    /// while every other shift holds twice the first pattern's ghost (B's
+    /// ghosts are minus A's). A boundary: the moved echo still scores at its
+    /// two places, so a change need not erase the echo.
+    #[test]
+    fn a_flipped_echo_cancels_itself_and_doubles_the_ghosts() {
+        for n in 1..=8 {
+            for (a, b) in pairs(n) {
+                let sum = two_measurements(&a, &STILL, &b, &FLIPPED);
+                let own = autocorrelation(&a);
+                assert_eq!(sum.at(0), 0, "{a:?} {b:?}");
+                for k in (1 - n as i64)..(n as i64) {
+                    if k != 0 {
+                        assert_eq!(sum.at(k), 2 * own.at(k), "{a:?} {b:?} at {k}");
+                    }
+                }
+            }
+        }
+        let moved = two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED);
+        assert!(moved.at(0) != 0 && moved.at(1) != 0);
+    }
+
+    /// Noise is scored like any recording, and the pair's identity says
+    /// nothing about it: the blip's own row is the code read backwards from
+    /// where the blip sits, it is not zero, and the clean peak is untouched.
+    #[test]
+    fn a_noise_blip_is_scored_and_the_peak_survives() {
+        let clean = two_measurements(&CODE_A, &STILL, &CODE_B, &STILL);
+        let noisy = measure(&CODE_A, &STILL, &NOISE_BLIP).plus(&measure(&CODE_B, &STILL, &[]));
+        let blip = correlate(&NOISE_BLIP, &CODE_A);
+        let at = NOISE_BLIP.iter().position(|&v| v != 0).unwrap() as i64;
+        for k in -4..=6 {
+            assert_eq!(noisy.at(k), clean.at(k) + blip.at(k), "at {k}");
+            // the blip at sample `at` meets copy pulse at − k
+            let want = usize::try_from(at - k).ok().and_then(|j| CODE_A.get(j)).copied().unwrap_or(0);
+            assert_eq!(blip.at(k), want, "at {k}");
+        }
+        assert_eq!(noisy.at(0), clean.at(0), "the peak survives");
+        assert!(noisy.largest_ghost(&[0]) > 0, "and the blip is not cancelled");
     }
 }
