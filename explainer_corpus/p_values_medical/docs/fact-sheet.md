@@ -69,11 +69,26 @@ the count in both.
 | M-F1.grid.cols / .rows | 100 / 100 | layout of the array, checked to fit the counts | 01_6 |
 | M-F1.grid.disease_rows | 1 | 100 people with the disease fill one row | 01_7 said "one row" |
 | M-F1.grid.false_pos_per_row | 5 | 495 false alarms over 99 rows | 01_8 the stripe |
-| M-F1.block.cols / .rows / .disease_rows | 45 / 13 / 2 | gcd(90, 495) = 45; 585/45; 90/45; so 2/13 is visible as rows | 01_9, 01_10 ("2 rows of 13") |
-| M-F2.prevalence.exact | 1/10 | clinic B | 02 |
-| M-F2.with / .without | 1000 / 9000 | counted | 02 |
-| M-F2.true_pos / .false_pos / .positives | 900 / 450 / 1350 | counted; positives pinned to the brief | 02 |
-| M-F2.ppv.exact / _percent_2dp | 2/3 / 66.67 | counted = Bayes; pinned to the brief | 02 |
+| M-F1.block.cols / .rows / .disease_rows | 45 / 13 / 2 | rows of 45 (= gcd(90, 495)); 585/45; 90/45; so 2/13 is visible as rows | 01_9, 01_10 ("2 rows of 13"); 02 clinic A's block |
+| M-F2.people / .prevalence.exact / .one_in | 10000 / 1/10 / 10 | clinic B: the same 10,000, the disease ten times as common | 02_1 said "one person in ten"; header |
+| M-F2.sensitivity.exact / _percent | 9/10 / 90 | the same test (assumed) | 02_2 said "catches nine in ten"; the test's card |
+| M-F2.false_alarm.exact / _percent | 1/20 / 5 | the same test (assumed) | 02_2, 02_5 said; the card; 450 / 9,000 = 5% |
+| M-F2.with / .without | 1000 / 9000 | counted | 02_4, 02_5 said; ledger |
+| M-F2.true_pos / .false_neg | 900 / 100 | counted | 02_4, 02_6 said; 900 tiles; the tenth gold row stays dark |
+| M-F2.false_pos / .true_neg | 450 / 8550 | counted | 02_5 said; 450 tiles |
+| M-F2.positives | 1350 | counted; pinned to the brief | 02_6 said "thirteen hundred fifty"; the fraction's bottom |
+| M-F2.ppv.exact / _percent / _2dp | 2/3 / 67 / 66.67 | counted = Bayes; the 2-place value pinned | 02_6 said "two in three", 02_7 "about sixty-seven percent", shown "≈ 67%" |
+| M-F2.reverse.exact / _percent_2dp | 1/3 / 33.33 | P(no disease \| positive) in clinic B | not shown (the negative check) |
+| M-F2.tempting_percent | 95 | 1 − the false-alarm rate, the same as clinic A's | not shown |
+| M-F2.grid.disease_rows / .false_pos_per_row | 10 / 5 | 1,000 people fill ten rows; 450 false alarms over 90 rows | 02_1 ten rows turn gold; 02_5 the stripe |
+| M-F2.block.cols / .rows / .disease_rows | 45 / 30 / 20 | rows of 45 like clinic A's; 1,350/45; 900/45; so 2/3 is visible as rows | 02_6 ("20 rows of 30") |
+| M-F2.prevalence_vs_a | 10 | (1/10) / (1/100) | the two headers |
+| M-F2.caught_vs_a | 10 | 900 / 90 | 02_8 said "ten times as many"; the "× 10" chip |
+
+Chapter 02's assumption, on screen as "(assumed)": the test's two rates are
+the same in both clinics. Real tests can perform differently in different
+populations; the chapter compares the same model test, and `facts::compare`
+refuses to build if the two clinics' rates differ.
 
 ## M-T · the study's null world (synthetic)
 
@@ -104,14 +119,21 @@ and compares with `math.comb`. Neither uses a normal approximation.
 |---|---|---|
 | M-F1.tempting_percent | 95 | the share of negatives among people without the disease; not the share of the disease among positives (2/13) |
 | M-F1.reverse.exact | 11/13 | P(no disease \| positive): the complement of the PPV; the false-alarm rate 1/20 is not 1 − PPV |
+| M-F2.reverse.exact | 1/3 | clinic B's reversal: the false-alarm rate stays 1/20 from A to B while its reversal falls from 11/13 to 1/3 |
 | M-X1.exactly / _percent_2dp | 15504 / 1.48 | K = 15 only: leaves out the more extreme outcomes |
 | M-X1.more_than / _percent_2dp | 6196 / 0.59 | K > 15: leaves out the observation itself |
 | M-X1.at_most | 1042380 | K ≤ 15: the other direction (everything but the more extreme) |
 | M-X1.two_sided / _percent_2dp | 43400 / 4.14 | K ≥ 15 or K ≤ 5: a different, two-sided question, not this predeclared one-sided test |
 
 Tests that hold these apart: `model.rs` `swapping_the_condition_changes_the_number`,
+`swapping_the_condition_in_the_second_clinic_changes_the_number_too`,
+`the_same_test_keeps_its_rates_while_the_ppv_moves_with_the_clinic` (a
+counted sweep over seven prevalences: the two rates never move, the PPV only
+rises), `the_second_clinic_counts_whole_people_and_near_misses_are_refused`
+(10,001 people at 1 in 10, 1,000 at 1 in 100), `both_clinics_regroup_into_rows_of_forty_five`
+(a 1-in-20 clinic's 450 and 475 positives are refused),
 `the_p_value_counts_the_whole_tail_and_the_wrong_tails_differ`; `oracle.py`
-cross-checks of the same names (24 in all).
+cross-checks of the same claims, computed its own way (42 in all).
 
 ## Sources
 
@@ -152,6 +174,10 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 | 01_10 | "about fifteen percent" | 90/585 = 2/13 ≈ 15.38% (01_11 lower-third) |
 | 01_11 | "a share of people without the disease", "a share of people who tested positive" | P(positive \| no disease) = 1/20, P(disease \| positive) = 2/13; neither is a p-value (lower-third) |
 | 01_7 | "the test catches ninety" | sensitivity 9/10, assumed, and assumed the same in every clinic (storyboard 02) |
+| 02_2 | "The test hasn't changed" | the model test's sensitivity and false-alarm rate are assumed the same in both clinics (the card says "assumed") |
+| 02_7 | "a positive result means about sixty-seven percent" | P(disease \| positive) = 900/1,350 = 2/3 ≈ 66.67% for a person chosen at random from clinic B's positives (02_9's card) |
+| 02_8 | "the false alarms barely moved" | 495 → 450 false alarms, the rate 5% in both (the outlined ledgers and fractions) |
+| 02_9 | "the chance a positive result is right" | the positive predictive value, P(disease \| positive): 2/13 in clinic A, 2/3 in clinic B (the card) |
 
 ## Terms (first use)
 
@@ -161,10 +187,13 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 | false alarm | 01_4 | "a false alarm to five percent of people without the disease" |
 | share | 01_11 | what a percent is: a part of a group |
 | group | 01_11 (shown) | the people a share is taken of; outlined in ink |
+| false-alarm rate | 02_5 (shown), 02_9 said | the share of people without the disease who test positive |
+| positive predictive value | 02_9 (shown once, on the card) | "the chance a positive result is right" |
 
 ## Always / never
 
-Chapter 01 says no always or never. The model's own edges are tested: a rate
+Chapters 01 and 02 say no always or never. 02_8's "barely moved" is
+qualitative and shown exactly (495 and 450). The model's own edges are tested: a rate
 that would split a person is refused; a p-value in the study is never zero
 (the most favourable K gives 1/2^20) and the least favourable gives 1; the
 two-sided p at the middle is 1.

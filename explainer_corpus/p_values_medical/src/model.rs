@@ -742,7 +742,11 @@ mod tests {
             let c = clinic.counts().unwrap();
             let people = IconArray::build(&c, 100).unwrap();
             let people = people.people();
-            assert_eq!(share(people, positive, no_disease).unwrap(), Q::new(1, 20), "{prevalence}");
+            assert_eq!(
+                share(people, positive, no_disease).unwrap(),
+                Q::new(1, 20),
+                "{prevalence}"
+            );
             if prevalence > Q::ZERO {
                 assert_eq!(share(people, positive, disease).unwrap(), Q::new(9, 10), "{prevalence}");
             }
@@ -776,7 +780,11 @@ mod tests {
         };
         let s = silent.counts().unwrap();
         let s_people = IconArray::build(&s, 100).unwrap();
-        assert!(share(s_people.people(), disease, positive).unwrap_err().contains("empty"));
+        assert!(
+            share(s_people.people(), disease, positive)
+                .unwrap_err()
+                .contains("empty")
+        );
     }
 
     /// The swapped conditional in the second clinic: the false-alarm rate
@@ -790,7 +798,10 @@ mod tests {
         let false_alarm = share(people, positive, no_disease).unwrap();
         let reversed = share(people, no_disease, positive).unwrap();
         let ppv = share(people, disease, positive).unwrap();
-        assert_eq!((false_alarm, reversed, ppv), (Q::new(1, 20), Q::new(1, 3), Q::new(2, 3)));
+        assert_eq!(
+            (false_alarm, reversed, ppv),
+            (Q::new(1, 20), Q::new(1, 3), Q::new(2, 3))
+        );
         assert_ne!(false_alarm, reversed);
         assert_eq!(reversed, ppv.complement());
         let tempting = false_alarm.complement();
@@ -851,7 +862,10 @@ mod tests {
         assert_eq!((block_b.rows, block_b.disease_rows), (30, 20));
         for (block, c) in [(block_a, a), (block_b, b)] {
             assert_eq!(block.cols * block.rows, c.positives());
-            assert_eq!(Q::ratio(block.disease_rows, block.rows), Q::ratio(c.true_pos, c.positives()));
+            assert_eq!(
+                Q::ratio(block.disease_rows, block.rows),
+                Q::ratio(c.true_pos, c.positives())
+            );
         }
         let twentieth = Clinic {
             prevalence: Q::new(1, 20),

@@ -90,6 +90,20 @@ mod tests {
         ("01_10", "four hundred ninety-five", "M-F1.false_pos", "495"),
         ("01_10", "about fifteen percent", "M-F1.ppv_percent", "15"),
         ("01_11", "Five percent", "M-F1.false_alarm_percent", "5"),
+        ("02_1", "one person in ten", "M-F2.prevalence.one_in", "10"),
+        ("02_2", "catches nine in ten", "M-F2.sensitivity.exact", "9/10"),
+        ("02_2", "five percent of the rest", "M-F2.false_alarm_percent", "5"),
+        ("02_4", "A thousand", "M-F2.with", "1000"),
+        ("02_4", "nine hundred of them", "M-F2.true_pos", "900"),
+        ("02_5", "nine thousand", "M-F2.without", "9000"),
+        ("02_5", "five percent", "M-F2.false_alarm_percent", "5"),
+        ("02_5", "four hundred fifty", "M-F2.false_pos", "450"),
+        ("02_6", "Nine hundred", "M-F2.true_pos", "900"),
+        ("02_6", "thirteen hundred fifty", "M-F2.positives", "1350"),
+        ("02_6", "two in three", "M-F2.ppv.exact", "2/3"),
+        ("02_7", "sixty-seven percent", "M-F2.ppv_percent", "67"),
+        ("02_7", "not fifteen", "M-F1.ppv_percent", "15"),
+        ("02_8", "ten times as many", "M-F2.caught_vs_a", "10"),
     ];
 
     #[test]

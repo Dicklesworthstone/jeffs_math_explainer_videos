@@ -180,7 +180,14 @@ fn survey_bar(kit: &Kit, stage: &mut Stage<'_>, y: f64, words: &str, share: Q, v
 
 /// A fraction in TeX with its value in text after it (`= 5%`), the pair
 /// centred on `x`; one group, detached.
-pub(super) fn fraction(kit: &Kit, stage: &mut Stage<'_>, tex: &str, top: Srgb, value: &str, x: f64) -> fmn::Result<Mob> {
+pub(super) fn fraction(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    tex: &str,
+    top: Srgb,
+    value: &str,
+    x: f64,
+) -> fmn::Result<Mob> {
     let numerator = tex
         .strip_prefix(r"\frac{")
         .and_then(|t| t.split('}').next())

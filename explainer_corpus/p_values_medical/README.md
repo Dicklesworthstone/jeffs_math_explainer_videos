@@ -9,15 +9,15 @@ of ten thousand people, means the disease about fifteen percent of the
 time; then a treatment study's imaginary world, every one of its 2^20 label
 assignments listed, whose whole tail is the p-value.
 
-**Status (2026-10-18):** chapter 01 (`01_five_percent_of_what`) is code:
-its scene, facts, model and independent oracle. The orchestrator's central
-pass at 8f154b5 ran its tests, strict clippy and fmt, facts-check and glyph
-probe, and read a 540p scratch draft that measured 90.1 s; the chapter was
-then trimmed to an estimated 82 s at the kit's scratch rate, to be measured
-again centrally. Nothing has been narrated; no audio is accepted.
-The continuation (chapters 02 to 06) is written out in
-[`docs/storyboard.md`](docs/storyboard.md) §2, and its numbers are already
-computed and oracle-checked.
+**Status (2026-10-18):** chapter 01 (`01_five_percent_of_what`) is code
+the orchestrator accepted as a silent draft at e6a446e (tests, strict clippy
+and fmt, facts parity, glyph, cue and layout review; under 85 s). Chapter 02
+(`02_the_same_test`: the same test in a clinic where one person in ten has
+the disease, the bridge, and the study's twenty pairs) is written as code,
+about 81 s at the kit's scratch rate, and awaits the same central checks.
+Nothing has been narrated; no audio is accepted. The continuation (chapters
+03 to 06) is written out in [`docs/storyboard.md`](docs/storyboard.md) §2,
+and its numbers are already computed and oracle-checked.
 
 | File | What it holds |
 |---|---|
@@ -25,6 +25,7 @@ computed and oracle-checked.
 | `src/facts.rs` | every number the video shows or says, pinned to its source |
 | `oracle.py` | the same numbers computed independently (standard library only) |
 | `src/chapters/five_percent.rs` | chapter 01's scene |
+| `src/chapters/same_test.rs` | chapter 02's scene |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
 | `docs/fact-sheet.md` | every number's source, what was read, competing explanations |
 | `docs/brief.md` | the brief |

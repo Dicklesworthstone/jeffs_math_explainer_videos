@@ -8,8 +8,8 @@
 use explainer_kit::Facts;
 
 use crate::model::{
-    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, disease, negative, no_disease, positive,
-    positives_block_of, share, study, tail_count, tail_share,
+    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, disease, negative, no_disease, positive, positives_block_of,
+    share, study, tail_count, tail_share,
 };
 
 /// Dates and printed numbers from the sources (fact sheet rows M-C; the
@@ -68,7 +68,12 @@ pub fn facts() -> Result<Facts, String> {
         ("reverse_percent_2dp", "84.62"),
     ];
     clinic(&mut f, "M-F1", clinic_a(), &pins_a)?;
-    clinic(&mut f, "M-F2", clinic_b(), &[("positives", "1350"), ("ppv_percent_2dp", "66.67")])?;
+    clinic(
+        &mut f,
+        "M-F2",
+        clinic_b(),
+        &[("positives", "1350"), ("ppv_percent_2dp", "66.67")],
+    )?;
     compare(&mut f)?;
     trial(&mut f)?;
     Ok(f)
@@ -256,6 +261,40 @@ mod tests {
         for (key, value) in want {
             assert_eq!(f.get(key), Some(value), "{key}");
         }
+    }
+
+    /// Chapter 02's picture: clinic B counted, its block 45 wide like clinic
+    /// A's (30 rows, 20 of them with the disease), the same test's rates in
+    /// both, and ten times the people caught.
+    #[test]
+    fn the_second_clinic_is_the_counts() {
+        let f = facts().unwrap();
+        let want = [
+            ("M-F2.people", "10000"),
+            ("M-F2.prevalence.one_in", "10"),
+            ("M-F2.with", "1000"),
+            ("M-F2.true_pos", "900"),
+            ("M-F2.without", "9000"),
+            ("M-F2.false_pos", "450"),
+            ("M-F2.positives", "1350"),
+            ("M-F2.ppv.exact", "2/3"),
+            ("M-F2.ppv_percent", "67"),
+            ("M-F2.reverse.exact", "1/3"),
+            ("M-F2.grid.disease_rows", "10"),
+            ("M-F2.grid.false_pos_per_row", "5"),
+            ("M-F2.block.cols", "45"),
+            ("M-F2.block.rows", "30"),
+            ("M-F2.block.disease_rows", "20"),
+            ("M-F2.caught_vs_a", "10"),
+            ("M-F2.prevalence_vs_a", "10"),
+        ];
+        for (key, value) in want {
+            assert_eq!(f.get(key), Some(value), "{key}");
+        }
+        for rate in ["sensitivity.exact", "false_alarm.exact", "false_alarm_percent"] {
+            assert_eq!(f.get(&format!("M-F1.{rate}")), f.get(&format!("M-F2.{rate}")), "{rate}");
+        }
+        assert_ne!(f.get("M-F1.ppv.exact"), f.get("M-F2.ppv.exact"));
     }
 
     /// The oracle prints every key the video prints, with the same value
