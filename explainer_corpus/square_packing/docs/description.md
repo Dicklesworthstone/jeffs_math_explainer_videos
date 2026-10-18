@@ -51,10 +51,12 @@ This argument covers straight tiles only. The turned tile holds no pin, which
 is why it can beat three.
 
 **A local fact (chapter 3).** With the box, the corner tiles and the middle
-tile's centre held where they are, turning the middle tile by an angle δ
-pushes the inner corners into it by ½(1 − cos δ): tiny for a small turn, but
-never zero. That shows this one motion is blocked. It is not a proof that no
-other arrangement fits a smaller box.
+tile's centre held where they are, turning the middle tile by a small angle
+δ, other than zero and at most an eighth of a turn either way, pushes the
+inner corners into it by ½(1 − cos δ): tiny, but never zero for such a turn.
+(A quarter turn brings a square back onto itself, so this is a statement
+about small turns only.) That shows this one motion is blocked. It is not a
+proof that no other arrangement fits a smaller box.
 
 **Points no tile can dodge (chapters 4 to 6).** Every unit tile inside the
 box B wide covers one of four points, one tile in from each pair of walls:
@@ -110,7 +112,9 @@ known, and the video says nothing about the smallest box for eleven.
 - That 2.71 or 2.70711 is the box: both are roundings of B.
 - That the straight-tile argument of chapter 2 covers turned tiles.
 - That the blocked turn of chapter 3 proves anything beyond that one motion.
-- Anything about the smallest boxes for ten or eleven tiles.
+- A proof of any lower bound for ten or eleven tiles. That no narrower box
+  holds ten is Stromquist's published theorem, credited and not reproduced
+  here; nothing is claimed about the smallest box for eleven.
 
 ## Sources
 
