@@ -1,7 +1,5 @@
-//! One scene per chapter, in storyboard order. Chapters 01 to 05 are
-//! built; the last (06) is written out in
-//! `docs/storyboard.md` §2 and joins this registry, with its storyboard
-//! rows, chapter by chapter.
+//! One scene per chapter, in storyboard order, all six built from
+//! `docs/storyboard.md` (its §2 arc, then one section of rows a chapter).
 
 pub mod count_tail;
 pub mod does_not_say;
@@ -9,6 +7,7 @@ pub mod draw;
 pub mod five_percent;
 pub mod glyphs;
 pub mod imaginary_world;
+pub mod question_again;
 pub mod same_test;
 
 use explainer_kit::Chapter;
@@ -34,5 +33,6 @@ pub fn registry() -> Vec<Chapter> {
             0.45,
             does_not_say::WhatTwoPercentDoesNotSay
         ),
+        scene!("06_the_question_again", 0.4, question_again::TheQuestionAgain),
     ]
 }

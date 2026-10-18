@@ -60,8 +60,11 @@ denominators highlighted (495 out of 9,900; 90 out of 585) and the lower-third
   versions of the recovery days with the same signs and different sizes,
   so the same count and tail. No normal-model inset, no optional stopping
   (narrowed by the orchestrator).
-- **06_the_question_again** (~60 s): the survey's keyed answer beside a
-  version that names its group and assumptions; names to search; receipts.
+- **06_the_question_again**: built (its beats are below). The survey's
+  keyed answer back, as Gao reprints it, for p > 0.05, beside this study's
+  0.0207; the question with its world, randomness, statistic and tail named,
+  answered by the tail; what a p-value leaves open; the viewer's question.
+  Names to search and receipts go to the description (packaging).
 
 Optional stopping stays out of this video's core (research brief); one
 closing sentence may point to a sequel.
@@ -228,3 +231,26 @@ the days, and "typically" is the median among the 15 favouring pairs only.
 | 05_8 | The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days. *(M-D.versions)* | Everything but the study's tag leaves; two titled strips, "version 1, made up for illustration, not trial data" and "version 2, …", the note "each bar: untreated minus treated days in one pair, an observed difference, not a treatment effect"; at "two made-up sets" one bar per pair grows in each (M-D1.differences, M-D2.differences): up and lavender where the treated patient recovered sooner, down and unlit otherwise | data window; lagged reveal | |
 | 05_9 | Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other. *(M-D1.favouring, M-D2.favouring; M-D1.median_sooner_days, M-D2.median_sooner_days, medians among the 15 favouring pairs only)* | A row of + and − under each strip, read from the days, the same in both; right of each, "15 of 20 pairs favouring"; at "Among those", "median among those 15:"; at "a day sooner", "1 day sooner" by version 1, its bars pulse; at "a week in the other", "7 days sooner" by version 2, its bars pulse | lagged reveal; highlight | |
 | 05_10 | Same signs, same count, same two percent. The test never asked how much sooner. A patient would. *(M-D1.p_percent_0dp, M-D2.p_percent_0dp)* | Right of each strip, "one-sided p ≈ 2.07%", the same; at "never asked how much sooner" both strips' up bars pulse; at "A patient would", a caption: "how much sooner is what a patient asks, and this count never measured it" | highlight; caption | hold |
+
+## 06_the_question_again: The question again (~62 s at the kit's scratch rate)
+
+Opens on chapter 05's last picture as it rests (`does_not_say::last_picture`).
+The survey comes back exactly as chapter 01 showed it: choice c verbatim as
+Gao 2020 reprints it, the answer marked correct for p > 0.05, never a
+questionnaire stem; most of the 277 who answered picked it; Gao disputed the
+key. The item's p > 0.05 is not this study's p ≈ 0.0207. The question is
+then written with its parts named, each tagged: the assumed world (an ink
+outline, the denominator's role), the randomness, the statistic and how
+extreme; the answer is the world's lavender tail, this study's one-sided
+p-value, one example and not a formula for every test. No effect size,
+benefit or posterior is computed.
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | Back to the survey. Most residents who answered picked this answer, marked correct. A later paper disputed it. *(M-C1.survey.keyed_percent; M-C2.gao.year)* | Chapter 05's strips leave; chapter 01's tag lines return ("published in JAMA, 2007 · data collected February to July 2006", "11 internal-medicine residency programs, Connecticut"); at "picked this answer", chapter 01's quote card (choice c verbatim, "as reprinted by Gao 2020") and "58.8% of the 277 who answered picked it"; at "A later paper", the chip "Gao 2020: none of the four choices is correct" | card; caption | |
+| 06_2 | It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how? *(M-C1.survey.keyed_for_percent)* | Right of the card: "the survey's item: p > 0.05" and, in lavender, "this video's synthetic study: p ≈ 0.0207"; at "chance alone", "“chance alone”: of what? counted how?" | caption; highlight | |
+| 06_3 | ⟨predict⟩ For our study, what did the two percent actually count? *(M-T1.p_percent_0dp)* | The think ring drains under the question | predict pause | |
+| 06_4 | If the treatment changed no one's recovery, and the coins were tossed again, fifteen or more pairs would favour it about two percent of the time. *(M-T1.observed, M-T1.p_percent_0dp)* | The survey leaves; the study's tag; four tagged parts appear as said: "assumed world" the treatment changed no patient's recovery (ink outline) with a small histogram of every assignment; "randomness" the fair coins tossed again; at "fifteen or more", "statistic" pairs favouring the treatment, "as extreme or more" 15 or more, and the small histogram's lavender tail with "15 or more"; at "about two percent", "how often?" 21,700 / 1,048,576 ≈ 2.07% | data window; lagged reveal; fractions | |
+| 06_5 | That's this study's one-sided p-value. A world assumed, a tail counted. *(the name; one example, not a formula)* | Under the answer, in lavender, "this study's one-sided p-value", and dim "one example: other tests assume other worlds and count other things"; the world's outline pulses, then the tail | highlight; caption | |
+| 06_6 | It doesn't say how much sooner, whether that matters to a patient, or how uncertain that difference is. | Across the foot, each as said: "how much sooner?", "does it matter to a patient?", "how uncertain is the difference?" (no number) | caption | |
+| 06_7 | So when you meet a p-value, ask what world it assumed, what it counted, and how big the difference is. | Everything leaves but the questions: "when you meet a p-value, ask:" then, as said, "what world did it assume?", "what did it count?", "how big is the difference?" | caption | hold |

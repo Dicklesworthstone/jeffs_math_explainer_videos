@@ -22,7 +22,8 @@ starts from checked numbers.
 | M-C1.survey.keyed_choice | c | S2: "58.8% of the residents selected choice c which was designated by the authors as the correct answer" | 01_2 bar label and quote card |
 | M-C1.survey.keyed_percent | 58.8 | S2, same sentence | 01_2 second bar |
 | M-C1.survey.keyed_percent_spoken | 59 | 58.8 rounded half away from zero | 01_2 said ("about fifty-nine percent") |
-| M-C2.gao.year | 2020 | S2 | 01_2 quote card and the dispute chip |
+| M-C2.gao.year | 2020 | S2 | 01_2 quote card and the dispute chip; 06_1 the same card and chip |
+| M-C1.survey.keyed_for / _percent | p > 0.05 / 5 | S2: choice c is one of "four potential answers for a correct interpretation of p > 0.05" | 01_2 card head; 06_2 "a p-value above five percent", "the survey's item: p > 0.05", set beside this study's p ≈ 0.0207 (oracle: 0.0207 < 0.05) |
 
 Connecticut and the dates: S1's methods, in JAMA's indexed publisher text
 (jamanetwork.com/journals/jama/fullarticle/208638), say the data were
@@ -198,9 +199,13 @@ off-by-one and wrong-direction mutations refused), `each_highlighted_set_is_its_
 `a_changed_sign_changes_the_statistic` (14 and 16),
 `days_that_are_not_recovery_times_are_refused` (ties, zero days, differences
 up to the ends of i64, unequal lengths, more than 30 pairs), and chapter 05's
-`the_pictures_are_the_models_numbers`; `oracle.py` cross-checks of the same
-claims, computed its own way, with its own patient-by-patient copy of the
-constructed days (61 in all).
+`the_pictures_are_the_models_numbers`; chapter 06's
+`the_question_names_its_world_randomness_statistic_and_tail` (the world and
+the coins are the condition, the data never are; no truth-probability
+claim) and `the_survey_is_quoted_and_attributed_as_reprinted`, and the
+script's `the_closing_question_is_conditioned_the_way_it_was_counted`;
+`oracle.py` cross-checks of the same claims, computed its own way, with its
+own patient-by-patient copy of the constructed days (62 in all).
 
 ## Sources
 

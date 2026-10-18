@@ -96,6 +96,9 @@ PROGRAMS = 11
 CONFIDENT_PERCENT = 88
 KEYED_CHOICE = "c"
 KEYED_PERCENT = F(588, 10)
+# Gao reprints choice c as one of "four potential answers for a correct
+# interpretation of p > 0.05"
+KEYED_FOR = F(5, 100)
 GAO_YEAR = 2020
 
 
@@ -114,6 +117,11 @@ def cited():
     emit("M-C1.survey.programs", PROGRAMS)
     emit("M-C1.survey.confident_percent", CONFIDENT_PERCENT)
     emit("M-C1.survey.keyed_choice", KEYED_CHOICE)
+    # the keyed answer is one of four for p > 0.05 (Gao's reprint)
+    emit("M-C1.survey.keyed_for", f"p > {dec(KEYED_FOR, 2)}")
+    emit("M-C1.survey.keyed_for_percent", pct(KEYED_FOR, 0))
+    check("the survey item's p > 0.05 is not this video's study's p",
+          F(21_700, 2**20) < KEYED_FOR)
     emit("M-C1.survey.keyed_percent", dec(KEYED_PERCENT, 1))
     # "about fifty-nine percent": the printed 58.8 rounded to a whole percent
     emit("M-C1.survey.keyed_percent_spoken", dec(KEYED_PERCENT, 0))

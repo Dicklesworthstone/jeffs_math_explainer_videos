@@ -22,6 +22,7 @@ use super::draw::{
     fade_in_all, fade_in_lagged, fade_out_all, flat, imagined, line_style, say, think_pause, treated, warn,
 };
 use super::five_percent::outline;
+use super::imaginary_world::study_tag;
 use super::same_test::small_fraction;
 use crate::facts::CONVENTION_PERCENT;
 use crate::model::{Days, Q, Tail, constructed_days, study, tail_count, tail_share};
@@ -207,6 +208,78 @@ fn strip(stage: &mut Stage<'_>, days: &Days, base: f64) -> fmn::Result<(Mob, Vec
         }
     }
     Ok((baseline, bars, up))
+}
+
+/// The strips' titles and the note under the first; detached.
+fn strip_titles(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let mut titles = Vec::new();
+    for (n, y) in STRIP_TITLE_Y.iter().enumerate() {
+        titles.push(kit.text_left(
+            stage,
+            &format!("{VERSION} {}, {MADE_UP}", n + 1),
+            22.0,
+            Palette::ink(),
+            v(ROW_X, *y),
+        )?);
+    }
+    titles.push(kit.text_left(stage, BAR_NOTE, 18.0, Palette::dim(), v(ROW_X, NOTE_Y))?);
+    Ok(titles)
+}
+
+/// Strip `n`'s facts column, read from its days: the count, the median's
+/// heading, the median among the favouring pairs, the one-sided p; detached.
+fn facts_column(kit: &Kit, stage: &mut Stage<'_>, n: usize, days: &Days, world: &[u64]) -> fmn::Result<[Mob; 4]> {
+    let k = days.favouring();
+    let count = format!("{k} {OF} {} {PAIRS_FAVOURING}", days.pairs());
+    let median = days
+        .median_sooner()
+        .ok_or_else(|| super::draw::fail(format!("version {} has no favouring pair", n + 1)))?;
+    let share = tail_share(world, k, Tail::AtLeast);
+    Ok([
+        kit.text_left(stage, &count, 20.0, treated(), info_at(n, 0))?,
+        kit.text_left(
+            stage,
+            &format!("{MEDIAN_AMONG} {k}:"),
+            20.0,
+            Palette::ink(),
+            info_at(n, 1),
+        )?,
+        kit.text_left(stage, &sooner_words(median), 20.0, Palette::ink(), info_at(n, 2))?,
+        kit.text_left(
+            stage,
+            &format!("{P_SHORT} {}%", share.percent(2)),
+            20.0,
+            treated(),
+            info_at(n, 3),
+        )?,
+    ])
+}
+
+/// The closing caption (05_10).
+fn closing(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    kit.text(stage, CLOSING, 22.0, Palette::ink(), v(0.0, CAPTION_Y))
+}
+
+/// Chapter 05's last picture, rebuilt still, for chapter 06 to open on: the
+/// study's tag, both strips with their titles, signs and facts columns, and
+/// the closing caption. Returns everything it put on the stage.
+pub(super) fn last_picture(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let s = study();
+    let world = s.null_world();
+    let mut all = vec![study_tag(kit, stage, s.pairs)?];
+    all.extend(strip_titles(kit, stage)?);
+    for (n, (days, base)) in constructed_days().iter().zip(STRIP_BASE).enumerate() {
+        let (baseline, bars, _) = strip(stage, days, base)?;
+        all.push(baseline);
+        all.extend(bars);
+        all.extend(sign_row(kit, stage, days, base)?);
+        all.extend(facts_column(kit, stage, n, days, &world)?);
+    }
+    all.push(closing(kit, stage)?);
+    for &m in &all {
+        stage.add_to_scene(m)?;
+    }
+    Ok(all)
 }
 
 /// The signs under a strip, one per pair, read from its days; detached.
@@ -395,17 +468,7 @@ impl SceneConstruct for WhatTwoPercentDoesNotSay {
         wipe.extend(moved);
         fade_out_all(stage, &wipe, 0.6)?;
         let versions = constructed_days();
-        let mut titles = Vec::new();
-        for (n, y) in STRIP_TITLE_Y.iter().enumerate() {
-            titles.push(kit.text_left(
-                stage,
-                &format!("{VERSION} {}, {MADE_UP}", n + 1),
-                22.0,
-                Palette::ink(),
-                v(ROW_X, *y),
-            )?);
-        }
-        titles.push(kit.text_left(stage, BAR_NOTE, 18.0, Palette::dim(), v(ROW_X, NOTE_Y))?);
+        let titles = strip_titles(&kit, stage)?;
         fade_in_all(stage, &titles, 0.4)?;
         line.wait_for(stage, "two made-up sets")?;
         let (mut baselines, mut bars, mut up) = (Vec::new(), Vec::new(), Vec::new());
@@ -422,51 +485,33 @@ impl SceneConstruct for WhatTwoPercentDoesNotSay {
         let line = say(&kit, stage, "05_9")?;
         line.wait_for(stage, "same fifteen favouring pairs")?;
         let mut signs = Vec::new();
-        let mut counts = Vec::new();
+        let mut columns = Vec::new();
         for (n, (days, base)) in versions.iter().zip(STRIP_BASE).enumerate() {
             signs.extend(sign_row(&kit, stage, days, base)?);
-            let words = format!("{} {OF} {} {PAIRS_FAVOURING}", days.favouring(), days.pairs());
-            counts.push(kit.text_left(stage, &words, 20.0, treated(), info_at(n, 0))?);
+            columns.push(facts_column(&kit, stage, n, days, &world)?);
         }
         fade_in_lagged(stage, &signs, 1.0, 0.03)?;
-        fade_in_all(stage, &counts, 0.4)?;
+        fade_in_all(stage, &[columns[0][0], columns[1][0]], 0.4)?;
         line.wait_for(stage, "Among those")?;
-        let mut among = Vec::new();
-        for (n, days) in versions.iter().enumerate() {
-            let words = format!("{MEDIAN_AMONG} {}:", days.favouring());
-            among.push(kit.text_left(stage, &words, 20.0, Palette::ink(), info_at(n, 1))?);
-        }
-        fade_in_all(stage, &among, 0.4)?;
-        let mut sooner = Vec::new();
-        for (n, (days, phrase)) in versions.iter().zip(["a day sooner", "a week in the other"]).enumerate() {
+        fade_in_all(stage, &[columns[0][1], columns[1][1]], 0.4)?;
+        for (n, phrase) in ["a day sooner", "a week in the other"].into_iter().enumerate() {
             line.wait_for(stage, phrase)?;
-            let median = days
-                .median_sooner()
-                .ok_or_else(|| super::draw::fail(format!("version {} has no favouring pair", n + 1)))?;
-            let words = kit.text_left(stage, &sooner_words(median), 20.0, Palette::ink(), info_at(n, 2))?;
-            fade_in_all(stage, &[words], 0.4)?;
+            fade_in_all(stage, &[columns[n][2]], 0.4)?;
             pulse(stage, &up[n], 1.08, 0.5)?;
-            sooner.push(words);
         }
 
         // 05_10: same signs, same count, same two percent; never how much
         let line = say(&kit, stage, "05_10")?;
         line.wait_for(stage, "same two percent")?;
-        let mut shares = Vec::new();
-        for (n, days) in versions.iter().enumerate() {
-            let share = tail_share(&world, days.favouring(), Tail::AtLeast);
-            let words = format!("{P_SHORT} {}%", share.percent(2));
-            shares.push(kit.text_left(stage, &words, 20.0, treated(), info_at(n, 3))?);
-        }
-        fade_in_all(stage, &shares, 0.4)?;
+        fade_in_all(stage, &[columns[0][3], columns[1][3]], 0.4)?;
         line.wait_for(stage, "never asked how much sooner")?;
         pulse(stage, &up.concat(), 1.08, 0.6)?;
         line.wait_for(stage, "A patient would")?;
-        let caption = kit.text(stage, CLOSING, 22.0, Palette::ink(), v(0.0, CAPTION_Y))?;
+        let caption = closing(&kit, stage)?;
         fade_in_all(stage, &[caption], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, 0.8)?;
-        // chapter 06 returns to the survey's question
+        // chapter 06 opens on this picture as it rests (`last_picture`)
         kit.finish(stage)
     }
 }

@@ -32,14 +32,14 @@ pub struct FivePercentOfWhat {
 }
 
 // the chapter's fixed words (numbers are built from facts)
-const PUBLISHED_IN: &str = "published in JAMA,";
-const COLLECTED: &str = "data collected";
-const PROGRAMS_TAG: &str = "internal-medicine residency programs, Connecticut";
-const ANSWERED: &str = "residents answered";
+pub(super) const PUBLISHED_IN: &str = "published in JAMA,";
+pub(super) const COLLECTED: &str = "data collected";
+pub(super) const PROGRAMS_TAG: &str = "internal-medicine residency programs, Connecticut";
+pub(super) const ANSWERED: &str = "residents answered";
 const CONFIDENT: &str = "fair to complete confidence about p-values";
 const KEYED: &str = "picked the answer marked correct, choice";
 const AS_REPORTED: &str = "shares of the residents who answered, as reported";
-const NO_CHOICE: &str = "none of the four choices is correct";
+pub(super) const NO_CHOICE: &str = "none of the four choices is correct";
 const RESULT: &str = "test result: POSITIVE";
 const THE_LAB: &str = "the lab says:";
 const FALSE_ALARM_FOR: &str = "a false alarm for";

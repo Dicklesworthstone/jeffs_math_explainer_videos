@@ -106,6 +106,14 @@ fn survey(f: &mut Facts) -> Result<(), String> {
     f.add("M-C1.survey.programs", PROGRAMS)?;
     f.add("M-C1.survey.confident_percent", CONFIDENT_PERCENT)?;
     f.add("M-C1.survey.keyed_choice", KEYED_CHOICE)?;
+    // the item the keyed answer belongs to was about p > 0.05 (06_2 "a
+    // p-value above five percent"), not this video's study
+    f.add("M-C1.survey.keyed_for", KEYED_FOR)?;
+    let hundredths: i128 = KEYED_FOR
+        .strip_prefix("p > 0.")
+        .and_then(|d| d.parse().ok())
+        .ok_or_else(|| format!("{KEYED_FOR:?} is not a threshold"))?;
+    f.add("M-C1.survey.keyed_for_percent", Q::new(hundredths, 100).percent(0))?;
     let keyed = Q::new(KEYED_PERMILLE, 10);
     f.add("M-C1.survey.keyed_percent", keyed.decimal(1))?;
     f.add("M-C1.survey.keyed_percent_spoken", keyed.decimal(0))?;

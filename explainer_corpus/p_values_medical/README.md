@@ -12,16 +12,15 @@ assignments listed, whose whole tail is the p-value.
 **Status (2026-10-18):** chapters 01 (`01_five_percent_of_what`), 02
 (`02_the_same_test`) and 03 (`03_the_imaginary_world`) are code the
 orchestrator accepted as silent drafts, with 04 (`04_count_the_whole_tail`)
-(e6a446e, a201b4a, b41aa80 and b89bd37: tests, strict clippy and fmt, facts
-parity, glyph, cue, layout and frame review; 82.2 s, 74.4 s and 80.5 s for
-chapters 02 to 04). Chapter 05 (`05_what_two_percent_does_not_say`: the
-world apart from the question; not the chance of no effect or of a wrong
-study; an imagined 14 at 5.77% either side of a 5% convention; two made-up
-versions of the recovery days with the same signs and so the same two
-percent) is written as code, about 81 s at the kit's scratch rate, and
-awaits the same central checks. Nothing has been narrated; no audio is
-accepted. Chapter 06 is written out in [`docs/storyboard.md`](docs/storyboard.md)
-§2.
+and 05 (`05_what_two_percent_does_not_say`) (e6a446e, a201b4a, b41aa80,
+b89bd37 and 1f99bf2: tests, strict clippy and fmt, facts parity, glyph, cue,
+layout and frame review; 82.2 s, 74.4 s, 80.5 s and 81.4 s for chapters 02
+to 05). Chapter 06 (`06_the_question_again`: the survey's keyed answer as
+reprinted, for p > 0.05, beside this study's 0.0207; the question with its
+world, randomness, statistic and tail named, answered by the tail; what it
+leaves open; the viewer's question) is written as code, about 62 s at the
+kit's scratch rate, and awaits the same central checks. Nothing has been
+narrated; no audio is accepted.
 
 | File | What it holds |
 |---|---|
@@ -32,13 +31,14 @@ accepted. Chapter 06 is written out in [`docs/storyboard.md`](docs/storyboard.md
 | `src/chapters/same_test.rs` | chapter 02's scene |
 | `src/chapters/imaginary_world.rs` | chapter 03's scene, and its last picture rebuilt for chapter 04 |
 | `src/chapters/count_tail.rs` | chapter 04's scene, and its last picture rebuilt for chapter 05 |
-| `src/chapters/does_not_say.rs` | chapter 05's scene |
+| `src/chapters/does_not_say.rs` | chapter 05's scene, and its last picture rebuilt for chapter 06 |
+| `src/chapters/question_again.rs` | chapter 06's scene |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
 | `docs/fact-sheet.md` | every number's source, what was read, competing explanations |
 | `docs/brief.md` | the brief |
 
 ```bash
-uv run --no-project --with numpy python3 -I -B oracle.py   # every number, and 61 cross-checks on stderr
+uv run --no-project --with numpy python3 -I -B oracle.py   # every number, and 62 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check p_values_medical
 ./x p_values_medical facts-check              # the Rust facts against the oracle (builds)
 ```

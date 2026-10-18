@@ -159,6 +159,15 @@ mod tests {
         ("05_9", "a week in the other", "M-D2.median_sooner_days", "7"),
         ("05_10", "same two percent", "M-D1.p_percent_0dp", "2"),
         ("05_10", "same two percent", "M-D2.p_percent_0dp", "2"),
+        (
+            "06_2",
+            "a p-value above five percent",
+            "M-C1.survey.keyed_for_percent",
+            "5",
+        ),
+        ("06_3", "the two percent", "M-T1.p_percent_0dp", "2"),
+        ("06_4", "fifteen or more pairs", "M-T1.observed", "15"),
+        ("06_4", "about two percent", "M-T1.p_percent_0dp", "2"),
     ];
 
     #[test]
@@ -223,6 +232,44 @@ mod tests {
         // most residents picked the keyed answer: the dispute is about the key
         let keyed: f64 = f.get("M-C1.survey.keyed_percent").unwrap().parse().unwrap();
         assert!(keyed > 50.0, "most residents picked the keyed answer");
+    }
+
+    /// The closing question is conditioned as the study was counted: the
+    /// world and the coins are the condition, fifteen or more is what is
+    /// counted. No line turns a p-value into the chance a hypothesis is true
+    /// or the chance the treatment works, or conditions the other way round.
+    #[test]
+    fn the_closing_question_is_conditioned_the_way_it_was_counted() {
+        let script = Script::parse(SCRIPT).unwrap();
+        let line = |id: &str| {
+            script
+                .lines()
+                .iter()
+                .find(|(i, _)| i == id)
+                .map(|(_, t)| t.clone())
+                .unwrap()
+        };
+        let q = line("06_4");
+        assert!(q.starts_with("If the treatment changed no one's recovery, and the coins were tossed again,"));
+        let (condition, counted) = q.split_once("again,").unwrap();
+        assert!(!condition.contains("fifteen") && counted.contains("fifteen or more pairs would favour it"));
+        let all: String = script
+            .lines()
+            .iter()
+            .map(|(_, t)| t.to_lowercase())
+            .collect::<Vec<_>>()
+            .join(" ");
+        for wrong in [
+            "chance the treatment works",
+            "chance that the treatment works",
+            "probability the treatment",
+            "given fifteen",
+            "chance the null",
+            "percent chance the treatment did nothing",
+        ] {
+            assert!(!all.contains(wrong), "the script says {wrong:?}");
+        }
+        assert!(line("06_2").contains("chance alone. Chance of what, counted how?"));
     }
 
     #[test]

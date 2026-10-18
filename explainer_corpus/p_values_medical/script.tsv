@@ -48,3 +48,10 @@
 05_8	The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days.
 05_9	Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other.
 05_10	Same signs, same count, same two percent. The test never asked how much sooner. A patient would.
+06_1	Back to the survey. Most residents who answered picked this answer, marked correct. A later paper disputed it.
+06_2	It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how?
+06_3	For our study, what did the two percent actually count?
+06_4	If the treatment changed no one's recovery, and the coins were tossed again, fifteen or more pairs would favour it about two percent of the time.
+06_5	That's this study's one-sided p-value. A world assumed, a tail counted.
+06_6	It doesn't say how much sooner, whether that matters to a patient, or how uncertain that difference is.
+06_7	So when you meet a p-value, ask what world it assumed, what it counted, and how big the difference is.
