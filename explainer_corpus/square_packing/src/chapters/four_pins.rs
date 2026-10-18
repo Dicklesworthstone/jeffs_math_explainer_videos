@@ -14,6 +14,14 @@
 //! `model::wander`, `corners_and_middle`, `turning` and `squeezed`. The
 //! frames where tiles overlap (02_6, 02_7 below three) show the overlap in
 //! red and are never called a packing.
+//!
+//! What draws over what is set by layer, not by when a part arrives: every
+//! addition to the scene (an animation's too) re-sorts it by z index and
+//! then by order of addition, so a tile revealed late would otherwise cover
+//! the pins. The tiles sit at 0, the red overlaps above them, the marks,
+//! pins and outline above those, and the halos, thin rings, on top: in the
+//! box of 2.71 each shared pin lies inside its red overlap, and a ring
+//! leaves the red in view.
 
 use explainer_kit::{Kit, Palette, fade_all, tween, v};
 use fmn::prelude::*;
@@ -49,9 +57,15 @@ pub const NO_PIN: &str = "turned tile: no pin inside";
 /// Half a mark's tick, across the side it marks (tiles).
 pub const TICK: f64 = 0.12;
 /// A pin's radius and its halo's (scene units), and the halo's opacity.
-pub const PIN_R: f64 = 0.075;
-pub const HALO_R: f64 = 0.13;
+pub const PIN_R: f64 = 0.055;
+pub const HALO_R: f64 = 0.12;
 pub const HALO_O: f64 = 0.95;
+/// A halo's ring width (Reference stroke units).
+pub const HALO_W: f64 = 4.0;
+/// Draw layers (z index; the tiles and the shadow are at 0).
+pub const LAYER_OVERLAPS: i32 = 1;
+pub const LAYER_MARKS: i32 = 2;
+pub const LAYER_HALOS: i32 = 3;
 /// The shadow's bar under the floor (tiles below the floor line).
 pub const SHADOW: (f64, f64) = (-0.32, -0.2);
 /// How far 02_2 widens the box towards three and back, as a share of the
@@ -155,9 +169,10 @@ fn tick(stage: &mut Stage<'_>) -> Mob {
     path(stage, vec![BOARD.at, BOARD.at], line_style(Palette::purple(), 5.0))
 }
 
-/// A yellow halo for a caught mark or pin. Detached.
+/// A yellow halo for a caught mark or pin: a ring, so what is under it
+/// stays in view. Detached; shown and hidden by its stroke's opacity.
 fn halo(stage: &mut Stage<'_>) -> Mob {
-    dot(stage, BOARD.at, HALO_R, Palette::yellow())
+    ring(stage, BOARD.at, HALO_R, Palette::yellow(), HALO_W)
 }
 
 /// Redraw everything a frame shows.
@@ -185,7 +200,14 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, tiles: &[Mob], shown: &Shown
         }
     };
     for (i, &h) in parts.floor_halos.iter().enumerate() {
-        s.set_opacity(h, if inside.contains(&i) { HALO_O } else { 0.0 }, true);
+        s.set_stroke(
+            h,
+            None,
+            None,
+            Some(if inside.contains(&i) { HALO_O } else { 0.0 }),
+            None,
+            true,
+        );
     }
     let caught: Vec<usize> = if shown.pins {
         shown.tiles.iter().flat_map(|t| model::pins_inside(t, w)).collect()
@@ -195,7 +217,8 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, tiles: &[Mob], shown: &Shown
     for (k, &p) in model::pins(w).iter().enumerate() {
         redot(s, parts.pins[k], BOARD.p(w, p), PIN_R);
         redot(s, parts.halos[k], BOARD.p(w, p), HALO_R);
-        s.set_opacity(parts.halos[k], if caught.contains(&k) { HALO_O } else { 0.0 }, true);
+        let o = if caught.contains(&k) { HALO_O } else { 0.0 };
+        s.set_stroke(parts.halos[k], None, None, Some(o), None, true);
     }
     let middle = (shown.tiles.len() == 5).then(|| shown.tiles[MIDDLE].corners());
     for (k, &m) in parts.patches.iter().enumerate() {
@@ -279,11 +302,10 @@ impl SceneConstruct for FourPins {
         let stop = r.stop;
         let three = f64::from(r.threshold);
 
-        // the board's filled parts enter the scene now, in drawing order
-        // (tiles under the patches, patches under the pins, halos on top),
-        // unseen, and are revealed by opacity; the outline and the ticks are
-        // strokes, which an opacity change would fill, so they stay detached
-        // and fade in on top when their beat comes
+        // the board's filled parts enter the scene now, unseen, and are
+        // revealed by opacity; the outline and the ticks are strokes, which an
+        // opacity change would fill, so they stay detached and fade in when
+        // their beat comes. Their layers are set first (module doc).
         let hidden = || vec![BOARD.at; 3];
         let outline = path(stage, BOARD.outline(stop), line_style(ink(), 4.0));
         let shadow = polygon(stage, hidden(), flat(Palette::purple(), 0.8));
@@ -307,6 +329,15 @@ impl SceneConstruct for FourPins {
             halos,
             patches,
         };
+        for &m in &patches {
+            stage.set_z_index(m, LAYER_OVERLAPS, true);
+        }
+        for &m in [outline].iter().chain(&floor).chain(&wall).chain(&pins) {
+            stage.set_z_index(m, LAYER_MARKS, true);
+        }
+        for &m in floor_halos.iter().chain(&halos) {
+            stage.set_z_index(m, LAYER_HALOS, true);
+        }
         let mut board: Vec<Mob> = vec![shadow, probe];
         board.extend(corners);
         board.extend([mid_straight, mid_turned]);
@@ -594,6 +625,26 @@ mod tests {
         );
         let right = BOARD.p(model::turn_box(), (model::turn_box(), 0.0))[0];
         assert!(right < PANEL_X - 2.1, "the widest box clears the panel");
+    }
+
+    /// In 02_6 each shared pin lies inside its red overlap, and the overlap
+    /// is wider than the pin's dot, so the red stays in view around it.
+    #[test]
+    fn each_shared_pin_sits_in_its_red_overlap() {
+        let stop = model::turned_side().to_f64();
+        let p = model::corners_and_middle(stop, 1.0, 0.0);
+        let middle = p.tiles[MIDDLE].corners();
+        for (k, pin) in model::pins(stop).iter().enumerate() {
+            let bite = common(&p.tiles[k].corners(), &middle);
+            assert!(bite.len() >= 3, "corner tile {k} overlaps the fifth");
+            let xs = bite.iter().map(|q| q.0);
+            let (lo, hi) = (
+                xs.clone().fold(f64::INFINITY, f64::min),
+                xs.fold(f64::NEG_INFINITY, f64::max),
+            );
+            assert!(lo < pin.0 && pin.0 < hi, "pin {k} is inside its overlap");
+            assert!((hi - lo) * BOARD.k > 3.0 * PIN_R, "overlap {k} is wider than the pin");
+        }
     }
 
     /// Every frame the chapter draws in 02_7 below three overlaps, and the

@@ -46,7 +46,7 @@ chapter 01.
 | what fails | warn red `#FC6255` | overlap patches, the word "overlap" |
 | measures | dim `#8A93A3` | the diagonal, the gap's side, labels |
 | marks and pins | purple `#9A72AC` | the floor and wall marks, the four pins, a shadow's bar |
-| a caught pin | yellow `#FFFF00` | a halo on a mark or pin strictly inside a tile (highlight only) |
+| a caught pin | yellow `#FFFF00` | a thin ring round a mark or pin strictly inside a tile (highlight only); layers keep the red overlaps over the tiles and the pins and rings over both |
 
 ## 3 The arc
 
