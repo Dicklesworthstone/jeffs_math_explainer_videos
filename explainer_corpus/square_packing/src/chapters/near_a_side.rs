@@ -25,6 +25,7 @@
 //! that tile, and every readout reads the frame drawn ([`pose_of`]).
 
 use std::cell::Cell;
+use std::convert::identity;
 use std::rc::Rc;
 
 use explainer_kit::{Kit, Palette, fade_all, tween, v};
@@ -219,6 +220,16 @@ fn pose_of(f: &Frame) -> [f64; 6] {
         f.gap,
         model::shadow_width((t.cos, t.sin)),
     ]
+}
+
+/// The turn `theta` (radians, in [0, 90°)) as the readout shows it: whole
+/// degrees, rounded to the nearest, with 90 shown as 0 (a quarter turn is the
+/// same tile). The readout's formatter truncates toward zero when it shows no
+/// decimals, so the drawn turn must reach it already whole: an atan2 a hair
+/// under 30° would otherwise read 29.
+fn shown_degrees(theta: f64) -> f64 {
+    let d = theta.to_degrees().round();
+    if d >= 90.0 { d - 90.0 } else { d }
 }
 
 /// A pose the motions run between.
@@ -608,12 +619,12 @@ impl SceneConstruct for NearASide {
         for &m in &walls {
             stage.set_z_index(m, LAYER_MARKS, true);
         }
-        // a readout of the frame drawn: `k` of [`pose_of`], scaled
-        let readout = |stage: &mut Stage<'_>, k: usize, scale: f64, places: usize, c: Srgb, y: f64| {
+        // a readout of the frame drawn: `k` of [`pose_of`], as `show` gives it
+        let readout = |stage: &mut Stage<'_>, k: usize, show: fn(f64) -> f64, places: usize, c: Srgb, y: f64| {
             let p = Rc::clone(&pose);
             kit.live_value(
                 stage,
-                move |_: &fmn::mobject::Stage| p.get()[k] * scale,
+                move |_: &fmn::mobject::Stage| show(p.get()[k]),
                 places,
                 false,
                 34.0,
@@ -679,9 +690,9 @@ impl SceneConstruct for NearASide {
         let line_2 = say(&kit, stage, LINES[1])?;
         let turn_label = kit.text_left(stage, TURN, 30.0, dim(), v(TEXT_X, ROWS[0]))?;
         let degree = kit.text_left(stage, DEGREE, 34.0, turned(), v(TEXT_X + 2.46, ROWS[0] + 0.1))?;
-        let turn_value = readout(stage, 2, 180.0 / std::f64::consts::PI, 0, turned(), ROWS[0])?;
+        let turn_value = readout(stage, 2, shown_degrees, 0, turned(), ROWS[0])?;
         let shadow_label = kit.text_left(stage, SHADOW, 30.0, dim(), v(TEXT_X, ROWS[1]))?;
-        let shadow_value = readout(stage, 5, 1.0, 2, Palette::purple(), ROWS[1])?;
+        let shadow_value = readout(stage, 5, identity, 2, Palette::purple(), ROWS[1])?;
         reveal(stage, &[(shadow, 0.85)], 0.4)?;
         swap(
             stage,
@@ -729,9 +740,9 @@ impl SceneConstruct for NearASide {
         // the frame); lower is narrower, so the tile comes back to the floor
         let line_4 = say(&kit, stage, LINES[3])?;
         let gap_label = kit.text_left(stage, GAP, 30.0, dim(), v(TEXT_X, ROWS[2]))?;
-        let gap_value = readout(stage, 4, 1.0, 2, dim(), ROWS[2])?;
+        let gap_value = readout(stage, 4, identity, 2, dim(), ROWS[2])?;
         let cut_label = kit.text_left(stage, CUT, 30.0, ink(), v(TEXT_X, ROWS[3]))?;
-        let cut_value = readout(stage, 3, 1.0, 2, ink(), ROWS[3])?;
+        let cut_value = readout(stage, 3, identity, 2, ink(), ROWS[3])?;
         swap(stage, &[], &[cut, gap_label, gap_value, cut_label, cut_value], 0.5)?;
         line_4.wait_for(stage, "Lower is narrower")?;
         let rt = line_4.left(stage, 1.2) - 0.1;
@@ -1109,6 +1120,45 @@ mod tests {
             assert!((top - s).abs() < 1e-12 && (cy - 0.5 * s).abs() < 1e-12, "{deg}");
             let (sn, cs) = theta.sin_cos();
             assert!((cut - (s - f.height) / (sn * cs)).abs() < 1e-9, "{deg}");
+        }
+    }
+
+    /// The turn readout shows the drawn turn in whole degrees: the settled
+    /// split of 05_5 reads SPLIT_DEG and the eighth-turned dodges of 05_7
+    /// read 45, from the frames the scene draws, whatever hair atan2 lands
+    /// under; either side of a rounding boundary goes to the nearer degree; a
+    /// quarter turn reads 0, the same tile; and every value is whole, so the
+    /// formatter's truncation shows it as it is.
+    #[test]
+    fn the_turn_readout_shows_whole_degrees() {
+        let gap = model::turned_gap().to_f64();
+        let mid = 1.0 + 0.5 * gap;
+        let split = resting(mid, SPLIT_DEG, gap);
+        assert_eq!(shown_degrees(pose_of(&blend(split, split, 1.0))[2]), SPLIT_DEG);
+        let eighth = resting(mid, 45.0, gap);
+        let from = blend(eighth, resting(mid, SPLIT_DEG, gap), 0.0);
+        assert_eq!(shown_degrees(pose_of(&from)[2]), 45.0);
+        let dodges = model::strip_dodges();
+        for d in [&dodges[0], &dodges[2]] {
+            let end = blend(resting(mid, 0.0, gap), dodge_key(d), 1.0);
+            assert_eq!(shown_degrees(pose_of(&end)[2]), 45.0, "{}", d.key);
+        }
+        let deg = |x: f64| shown_degrees(x.to_radians());
+        assert_eq!(deg(29.999_999_999), 30.0);
+        assert_eq!(deg(30.000_000_001), 30.0);
+        assert_eq!(deg(29.49), 29.0);
+        assert_eq!(deg(29.51), 30.0);
+        assert_eq!(deg(44.6), 45.0);
+        assert_eq!(deg(0.0), 0.0);
+        assert_eq!(deg(0.4), 0.0);
+        assert_eq!(deg(89.4), 89.0);
+        assert_eq!(deg(89.6), 0.0);
+        let quarter = std::f64::consts::FRAC_PI_2;
+        assert_eq!(shown_degrees((-1e-15_f64).rem_euclid(quarter)), 0.0);
+        for k in 0..=900 {
+            let shown = deg(f64::from(k) / 10.0);
+            assert_eq!(shown, shown.trunc(), "{k}");
+            assert!((0.0..90.0).contains(&shown), "{k}");
         }
     }
 
