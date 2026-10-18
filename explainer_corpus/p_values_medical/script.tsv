@@ -1,0 +1,11 @@
+# p_values_medical: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	In two thousand seven, researchers surveyed two hundred seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident about p-values.
+01_2	But only about fifty-nine percent picked the answer marked correct. And a later paper argued even that answer is wrong.
+01_4	A medical test comes back positive. It gives a false alarm to five percent of people without the disease.
+01_5	So is there a ninety-five percent chance you have the disease?
+01_6	Count people instead. Picture ten thousand of them, and one in a hundred has the disease.
+01_7	That's one row of a hundred. Say the test catches ninety of them.
+01_8	The other nine thousand nine hundred don't have it. Five percent of them still test positive. That's four hundred ninety-five false alarms.
+01_9	Now gather everyone who tested positive.
+01_10	Ninety of them have the disease, and four hundred ninety-five don't. So among the positives, only about fifteen percent have the disease.
+01_11	Five percent was a share of people without the disease. Your question is a share of people who tested positive.
