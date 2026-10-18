@@ -20,7 +20,7 @@ pulses on screen.
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_two_bad_echoes` | send a pattern, score it against its echo at every shift; every single pattern leaves ghosts; a second pattern's ghosts are the same size with the opposite sign; added, only the echo is left, twice as tall; the guarantee's assumption: the same scene for both sends | storyboarded; scene in progress, not yet compiled or rendered |
-| 02 what the ghosts hide *(planned)* | two things in the scene, one loud and one quiet, three steps apart: pattern A hides the quiet one completely, pattern B doubles it, the sum shows both at eight times their strength (`model::two_measurements` with the scene 4, 0, 0, 1) | not storyboarded |
+| `02_what_the_ghosts_hide` | two things in the scene, one loud and one quiet, three steps apart: their echoes overlap and add; pattern A's row is each echo's own row added, and the loud one's ghost erases the quiet one's peak (a zero score where something is); pattern B's ghost doubles it; added, the scene itself, eight times over; sending A twice keeps the quiet one hidden (`model::two_measurements` with the scene 4, 0, 0, 1) | storyboarded; scene in progress, not yet compiled or rendered |
 | 03 why they cancel *(planned)* | each ghost as its pairs of pulses; why B's pairs are A's with one sign changed; the doubling that builds the pair from a single pulse (`model::double`), proved for every length | not storyboarded; the doubling proof is written in `model.rs` and tested to length 64, not yet staged |
 | 04 when it breaks *(planned)* | the scene changes between the sends: moved one step, or the echo returns upside down (the echo itself cancels and every ghost doubles; the radar case of a half-turn of phase, Chi, Pezeshki and Calderbank eq. 8); noise picked up by the receiver is scored like any recording, and the identity does not remove it | not storyboarded |
 
@@ -86,3 +86,43 @@ every shift, side by side).
   0.81 to 0.83 s, the think window 5.2 s, the tail 2.8 s. This revision cuts
   15 words, one line and the 2 s hold, and ends its last animation before
   the last line does: about 82 s by the same measures.
+
+## 02_what_the_ghosts_hide: What the ghosts hide (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | Now two things echo back. A loud one, and a quiet one three steps farther. | "the scene" at the top: two gold outlines on one line, four units tall at step 0 ("loud") and one unit tall at step 3 ("quiet"), the true answer the receiver never sees directly | scene built from the facts | |
+| 02_2 | Pattern A's two echoes overlap, and the receiver records their sum. | Pattern A comes back twice: the loud echo, four times as tall, from step 0, and the quiet echo, normal size, from step 3, on a row of its own. The quiet row rises into the loud one; where they overlap (step 3) four down and one up become three down: the recording, 4, 4, 4, −3, 1, 1, −1 | motion, rows that add | |
+| 02_3 | Score it as before. The loud one stands tall at zero. At three steps, where the quiet one is, the score is zero. | A copy of A sweeps along the recording and A's row stands in thin slabs, one per unit: tall at 0, nothing at 3. A gold dashed line drops from the quiet outline to shift 3, where the score 0 appears | fast slide, chart, highlight | |
+| 02_4 | Zero is not empty. Each echo brings its own row of scores, and at three steps they collide. | A's row splits into each echo's own row: the loud echo's row (A's row four times over, centred on 0) held above, the quiet echo's row (A's row as it is, centred on 3) below; both columns at 3 flash. A "for programmers" lower-third: the filter is linear | chart, highlight, lower-third (code) | |
+| 02_5 | The loud one's ghost there is minus four. The quiet one's peak is plus four. They cancel. | "−4" under the loud row's column 3 (four red slabs), "+4" over the quiet row's (four green); on "They cancel" the loud row drops onto the quiet one, every slab meets its match or stacks, and column 3 empties: A's row again | blocks cancel, stack | |
+| 02_6 | One step either side, the loud ghosts stand four tall, as tall as the quiet echo. | Columns −1 and 1 flash with "4" over each; at 3 a gold outline four units tall shows what the quiet echo alone would score | highlight | |
+| 02_7 | Pattern B's ghosts have the other sign. What will B score at three steps? ⟨predict⟩ | A's row rises to wait above; a "?" over shift 3 on the empty line below; the countdown | chart | |
+| 02_8 | Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. | B's row stands below: at 3, eight green slabs, "8", twice the gold outline | chart, highlight | |
+| 02_9 | Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over. | A's row drops onto B's: every ghost meets its opposite and vanishes; 32 stands at 0 and 8 at 3, four to one like the scene's outlines, which flash with them. A "precisely" lower-third: the same still scene for both sends; receiver noise is scored too and is not guaranteed to cancel | blocks cancel, stack, highlight, lower-third | |
+| 02_10 | Sending A twice would not help. Its ghosts never cancel themselves, so the quiet one stays hidden. | The sum clears; A's row stands above and again below, and drops: every column doubles, 0 stays 0 at three steps, the ghosts beside the loud one stand eight tall. A "precisely" lower-third: of the 256 ordered pairs of four-pulse patterns, exactly the 32 whose ghosts cancel give this scene back | chart, stack, highlight, lower-third | |
+
+### Notes for 02
+
+- Every row is computed: A's, B's and the sum from `model::measure` and
+  `model::two_measurements` on the scene 4, 0, 0, 1; each echo's own row from
+  `model::contributions`. A column's height is its score, one slab per unit,
+  and every row is checked against the model when it is drawn.
+- Zero is not empty: A scores 0 at the quiet echo's step (an echo there) and
+  scores at six shifts where nothing is (`G-F6.a.zero_at_echo`,
+  `G-F6.a.score_without_echo`). Only the pair's sum is zero exactly where the
+  scene is empty.
+- Assumptions, kept on screen at 02_9: the same still (linear, unchanging)
+  scene for both sends; finite rows, nothing wrapping around; receiver noise
+  is scored too and is not guaranteed to cancel.
+- The wrong pair (02_10) is a theorem, not a sample: for any ordered pair of
+  four-pulse patterns and any scene with an echo, the two rows add to 8 times
+  the scene exactly when the pair is complementary, because the difference
+  is the scene convolved with the pair's leftover ghosts and the last nonzero
+  score of that convolution is the product of the two rows' last nonzero
+  scores (`model::tests::only_a_pair_whose_ghosts_cancel_gives_the_scene_back`).
+- Prediction (02_7): the question is on screen by its last word; four
+  seconds of silence with the countdown; B's row appears only with 02_8.
+- Budget, by chapter 01's measured draft: 160 words at 2.6 a second plus
+  0.4 s a line, thought gaps 0.82 s, the think window 5.0 s, a 1.8 s tail:
+  about 79.5 s.

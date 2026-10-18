@@ -9,3 +9,13 @@
 01_8	Its ghosts are the same size, at the same shifts. What if we add the two rows?
 01_9	Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost.
 01_10	But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return.
+02_1	Now two things echo back. A loud one, and a quiet one three steps farther.
+02_2	Pattern A's two echoes overlap, and the receiver records their sum.
+02_3	Score it as before. The loud one stands tall at zero. At three steps, where the quiet one is, the score is zero.
+02_4	Zero is not empty. Each echo brings its own row of scores, and at three steps they collide.
+02_5	The loud one's ghost there is minus four. The quiet one's peak is plus four. They cancel.
+02_6	One step either side, the loud ghosts stand four tall, as tall as the quiet echo.
+02_7	Pattern B's ghosts have the other sign. What will B score at three steps?
+02_8	Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it.
+02_9	Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over.
+02_10	Sending A twice would not help. Its ghosts never cancel themselves, so the quiet one stays hidden.

@@ -7,11 +7,15 @@ use std::collections::BTreeSet;
 
 use explainer_kit::Facts;
 
-use crate::model::{self, CODE_A, CODE_B, MOVED, STILL, Scores};
+use crate::model::{self, CODE_A, CODE_B, LOUD_AND_QUIET, MOVED, STILL, Scores};
 
 /// The shifts chapter 01 draws a score for: −3 to 3 for one echo, and one
 /// more on the right for the echo that moved.
 pub const SHIFTS: (i64, i64) = (-3, 4);
+
+/// The shifts chapter 02 draws: every shift a four-pulse pattern scores in
+/// the loud-and-quiet scene.
+pub const SHIFTS_02: (i64, i64) = (-3, 6);
 
 /// Code A's scores against its own echo.
 pub fn score_a() -> Scores {
@@ -31,6 +35,78 @@ pub fn sum() -> Scores {
 /// The two measurements added when the echo moved one step in between.
 pub fn moved() -> Scores {
     model::two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED)
+}
+
+/// Chapter 02: pattern A sent into the loud-and-quiet scene, scored.
+pub fn hidden_a() -> Scores {
+    model::measure(&CODE_A, &LOUD_AND_QUIET, &[])
+}
+
+/// Chapter 02: pattern B sent into the same scene, scored.
+pub fn hidden_b() -> Scores {
+    model::measure(&CODE_B, &LOUD_AND_QUIET, &[])
+}
+
+/// Chapter 02: the two rows added.
+pub fn hidden_sum() -> Scores {
+    model::two_measurements(&CODE_A, &LOUD_AND_QUIET, &CODE_B, &LOUD_AND_QUIET)
+}
+
+/// Chapter 02's wrong pair: pattern A sent twice, the two rows added.
+pub fn a_twice() -> Scores {
+    model::two_measurements(&CODE_A, &LOUD_AND_QUIET, &CODE_A, &LOUD_AND_QUIET)
+}
+
+/// Chapter 02's two echoes, (step, strength): the loud one, then the quiet.
+pub fn loud_and_quiet() -> Result<[(i64, i64); 2], String> {
+    let echoes: Vec<(i64, i64)> = LOUD_AND_QUIET
+        .iter()
+        .enumerate()
+        .filter(|&(_, &h)| h != 0)
+        .map(|(d, &h)| (d as i64, h))
+        .collect();
+    match echoes[..] {
+        [loud, quiet] if loud.1 > quiet.1 && quiet.1 > 0 => Ok([loud, quiet]),
+        _ => Err(format!("{LOUD_AND_QUIET:?} is not a loud echo and then a quiet one")),
+    }
+}
+
+/// What the echo at `step` adds to the row at shift `k`.
+pub fn part(parts: &[(i64, Scores)], step: i64, k: i64) -> i64 {
+    parts.iter().find(|(d, _)| *d == step).map_or(0, |(_, r)| r.at(k))
+}
+
+/// Every code of `n` up/down pulses.
+fn codes(n: usize) -> Vec<Vec<i64>> {
+    (0u32..(1 << n))
+        .map(|m| (0..n).map(|i| if (m >> i) & 1 == 1 { -1 } else { 1 }).collect())
+        .collect()
+}
+
+/// Over every ordered pair of four-pulse patterns: how many pairs, how many
+/// give chapter 02's scene back exactly (their rows add to 2N times it), how
+/// many of those are complementary, and how many are complementary.
+fn pairs_giving_back() -> [usize; 4] {
+    let all = codes(CODE_A.len());
+    let times = 2 * CODE_A.len() as i64;
+    let want = |k: i64| {
+        usize::try_from(k)
+            .ok()
+            .and_then(|d| LOUD_AND_QUIET.get(d))
+            .map_or(0, |&h| times * h)
+    };
+    let mut counts = [all.len() * all.len(), 0, 0, 0];
+    for a in &all {
+        for b in &all {
+            let s = model::two_measurements(a, &LOUD_AND_QUIET, b, &LOUD_AND_QUIET);
+            let back = (s.first..=s.last()).all(|k| s.at(k) == want(k));
+            let complementary = model::is_complementary(a, b);
+            counts[1] += usize::from(back);
+            counts[2] += usize::from(back && complementary);
+            counts[3] += usize::from(complementary);
+        }
+    }
+    counts
 }
 
 /// The key's two pairs (01_3), pulses of pattern A: its first two (they
@@ -79,12 +155,8 @@ pub fn far_shift_size() -> Result<i64, String> {
 /// The size of the far-shift score of every code of 2 to 10 up/down pulses.
 fn far_shift_sizes() -> BTreeSet<i64> {
     (2..=10usize)
-        .flat_map(|n| {
-            (0u32..(1 << n)).map(move |m| {
-                let code: Vec<i64> = (0..n).map(|i| if (m >> i) & 1 == 1 { -1 } else { 1 }).collect();
-                model::far_shift_score(&code).abs()
-            })
-        })
+        .flat_map(codes)
+        .map(|code| model::far_shift_score(&code).abs())
         .collect()
 }
 
@@ -157,8 +229,102 @@ pub fn facts() -> Result<Facts, String> {
             ));
         }
     }
+    chapter_02(&mut f)?;
     f.self_check()?;
     Ok(f)
+}
+
+/// Chapter 02's numbers: a loud and a quiet echo three steps apart.
+fn chapter_02(f: &mut Facts) -> Result<(), String> {
+    let [(loud_step, loud), (quiet_step, quiet)] = loud_and_quiet()?;
+    let (a, b, sum, twice) = (hidden_a(), hidden_b(), hidden_sum(), a_twice());
+    let parts_a = model::contributions(&CODE_A, &LOUD_AND_QUIET);
+    let parts_b = model::contributions(&CODE_B, &LOUD_AND_QUIET);
+    let echo_at = |k: i64| k == loud_step || k == quiet_step;
+
+    // 02_1, 02_2: the scene and pattern A's recording of it
+    f.pin(
+        "G-F5.scene",
+        model::csv(&LOUD_AND_QUIET),
+        "4,0,0,1",
+        "the chapter's fixed scene (mx-video-program-program-87do.6.2)",
+    )?;
+    f.add("G-F5.echoes", parts_a.len())?;
+    f.add("G-F5.loud", loud)?;
+    f.add("G-F5.quiet", quiet)?;
+    f.add("G-F5.quiet_step", quiet_step - loud_step)?;
+    f.add("G-F5.recording_a", model::csv(&model::echo(&CODE_A, &LOUD_AND_QUIET)))?;
+
+    // 02_3 to 02_6: pattern A hides the quiet echo
+    f.add("G-F6.a.scores", a.csv())?;
+    f.add("G-F6.a.at_quiet", a.at(quiet_step))?;
+    f.add("G-F6.a.loud_part_at_quiet", part(&parts_a, loud_step, quiet_step))?;
+    f.add("G-F6.a.quiet_part_at_quiet", part(&parts_a, quiet_step, quiet_step))?;
+    let beside = [
+        part(&parts_a, loud_step, loud_step - 1),
+        part(&parts_a, loud_step, loud_step + 1),
+    ];
+    f.add("G-F6.a.loud_ghosts_one_step", model::csv(&beside))?;
+    let hidden: Vec<i64> = (a.first..=a.last()).filter(|&k| echo_at(k) && a.at(k) == 0).collect();
+    let ghosts: Vec<i64> = (a.first..=a.last()).filter(|&k| !echo_at(k) && a.at(k) != 0).collect();
+    f.add("G-F6.a.zero_at_echo", model::csv(&hidden))?;
+    f.add("G-F6.a.score_without_echo", model::csv(&ghosts))?;
+
+    // 02_7, 02_8: pattern B doubles it
+    f.add("G-F7.b.scores", b.csv())?;
+    f.add("G-F7.b.at_quiet", b.at(quiet_step))?;
+    f.add("G-F7.b.loud_part_at_quiet", part(&parts_b, loud_step, quiet_step))?;
+    f.add(
+        "G-F7.b.over_quiet",
+        ratio(b.at(quiet_step), part(&parts_a, quiet_step, quiet_step))?,
+    )?;
+
+    // 02_9: added, the scene itself
+    f.pin(
+        "G-F8.sum.scores",
+        sum.csv(),
+        "0,0,0,32,0,0,8,0,0,0",
+        "8 times the scene 4, 0, 0, 1 (definition 1 with N = 4), shifts -3 to 6",
+    )?;
+    f.add("G-F8.sum.at_loud", sum.at(loud_step))?;
+    f.add("G-F8.sum.at_quiet", sum.at(quiet_step))?;
+    f.add("G-F8.sum.largest_ghost", sum.largest_ghost(&[loud_step, quiet_step]))?;
+    let (by_loud, by_quiet) = (ratio(sum.at(loud_step), loud)?, ratio(sum.at(quiet_step), quiet)?);
+    if by_loud != by_quiet {
+        return Err(format!(
+            "the sum magnifies the loud echo {by_loud} times, the quiet one {by_quiet}"
+        ));
+    }
+    f.add("G-F8.magnification", by_quiet)?;
+
+    // 02_10: the wrong pair, A sent twice, and the theorem's edge
+    let sends = [CODE_A, CODE_A];
+    f.add("G-F9.a_twice.sends", sends.len())?;
+    f.add("G-F9.a_twice.scores", twice.csv())?;
+    f.add("G-F9.a_twice.at_quiet", twice.at(quiet_step))?;
+    f.add(
+        "G-F9.a_twice.at_one_step",
+        model::csv(&[twice.at(loud_step - 1), twice.at(loud_step + 1)]),
+    )?;
+    let [pairs, giving_back, giving_back_complementary, complementary] = pairs_giving_back();
+    f.add("G-X2.pairs", pairs)?;
+    f.add("G-X2.giving_back", giving_back)?;
+    f.add("G-X2.giving_back_complementary", giving_back_complementary)?;
+    f.add("G-X2.complementary", complementary)?;
+
+    // every row chapter 02 draws fits its shifts
+    let mut rows = vec![("A", &a), ("B", &b), ("the sum", &sum), ("A twice", &twice)];
+    rows.extend(parts_a.iter().map(|(_, r)| ("an echo's part of A", r)));
+    for (name, row) in rows {
+        if row.first < SHIFTS_02.0 || row.last() > SHIFTS_02.1 {
+            return Err(format!(
+                "{name}'s scores run {}..={}, past chapter 02's shifts {SHIFTS_02:?}",
+                row.first,
+                row.last()
+            ));
+        }
+    }
+    Ok(())
 }
 
 #[cfg(test)]
@@ -171,6 +337,19 @@ mod tests {
     fn the_facts_print_what_the_oracle_prints() {
         let f = facts().unwrap();
         for (key, value) in [
+            ("G-F5.recording_a", "4,4,4,-3,1,1,-1"),
+            ("G-F6.a.scores", "-4,0,4,15,4,1,0,1,0,-1"),
+            ("G-F6.a.at_quiet", "0"),
+            ("G-F6.a.loud_part_at_quiet", "-4"),
+            ("G-F6.a.quiet_part_at_quiet", "4"),
+            ("G-F6.a.zero_at_echo", "3"),
+            ("G-F6.a.score_without_echo", "-3,-1,1,2,4,6"),
+            ("G-F7.b.scores", "4,0,-4,17,-4,-1,8,-1,0,1"),
+            ("G-F7.b.over_quiet", "2"),
+            ("G-F8.magnification", "8"),
+            ("G-F9.a_twice.at_quiet", "0"),
+            ("G-X2.giving_back", "32"),
+            ("G-X2.giving_back_complementary", "32"),
             ("G-F2.a.scores", "-1,0,1,4,1,0,-1"),
             ("G-F2.b.scores", "1,0,-1,4,-1,0,1"),
             ("G-F2.a.one_off.products", "1,1,-1"),

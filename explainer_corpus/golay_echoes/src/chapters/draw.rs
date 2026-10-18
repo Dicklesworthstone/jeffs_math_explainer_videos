@@ -370,15 +370,22 @@ pub fn row(stage: &mut Stage<'_>, pattern: &[i64], first_x: f64, line_y: f64, co
 /// One block: green for a product of +1, red for −1, centred at `at`, its
 /// side scaled by `scale`. Detached.
 pub fn block(stage: &mut Stage<'_>, sign: i64, at: Vec3, scale: f64) -> fmn::Result<Mob> {
+    slab(stage, sign, at, BLOCK_SIDE * scale, BLOCK_SIDE * scale)
+}
+
+/// One unit of score drawn `w` wide and `h` tall: green for +1, red for −1,
+/// centred at `at` (a square [`block`], or a flat slab when a column must
+/// hold dozens of units). Detached.
+pub fn slab(stage: &mut Stage<'_>, sign: i64, at: Vec3, w: f64, h: f64) -> fmn::Result<Mob> {
     let color = if sign > 0 {
         palette::agree()
     } else {
         palette::disagree()
     };
     let b = Rectangle::new()
-        .width(BLOCK_SIDE * scale)
-        .height(BLOCK_SIDE * scale)
-        .corner_radius(0.035 * scale)
+        .width(w)
+        .height(h)
+        .corner_radius(0.035 * (h / BLOCK_SIDE))
         .style(flat(color, 1.0))
         .build()?
         .moved_to(at);
@@ -427,35 +434,59 @@ pub fn settle<T: Copy>(column: &mut Vec<(T, i64)>, arriving: &[(T, i64)]) -> Vec
     out
 }
 
-/// Where a chart stands: the point of shift 0 on its line, and its size.
+/// A slab's pitch over a block's (chapter 02's columns hold up to 32 units).
+pub const SLAB_RISE: f64 = 0.27;
+/// A slab's width: most of a step, so a column reads as one bar of units.
+pub const SLAB_W: f64 = 0.5;
+
+/// Where a chart stands: the point of shift 0 on its line, its size across
+/// (`scale`) and up (`rise`: a unit's pitch over [`BLOCK`]), how wide one
+/// unit is drawn, and the shifts it draws.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Place {
     pub origin: Vec3,
     pub scale: f64,
+    pub rise: f64,
+    pub unit_w: f64,
+    pub shifts: (i64, i64),
 }
 
 impl Place {
+    /// Chapter 01's square blocks, `scale` both ways, over its shifts.
+    fn blocks(origin: Vec3, scale: f64) -> Self {
+        Self {
+            origin,
+            scale,
+            rise: scale,
+            unit_w: BLOCK_SIDE * scale,
+            shifts: SHIFTS,
+        }
+    }
+
     /// The main chart, under the rows.
     pub fn main() -> Self {
-        Self {
-            origin: v(X0, CHART_Y),
-            scale: 1.0,
-        }
+        Self::blocks(v(X0, CHART_Y), 1.0)
     }
 
     /// A chart held over the main one, column above column.
     pub fn hover() -> Self {
-        Self {
-            origin: v(X0, HOVER_Y),
-            scale: 1.0,
-        }
+        Self::blocks(v(X0, HOVER_Y), 1.0)
     }
 
     /// A small chart set aside at the upper right.
     pub fn shelf() -> Self {
+        Self::blocks(v(4.9, 2.55), 0.45)
+    }
+
+    /// A chart of flat slabs on the line `y`, over `shifts`, its columns
+    /// under the same steps as the rows.
+    pub fn slabs(y: f64, shifts: (i64, i64)) -> Self {
         Self {
-            origin: v(4.9, 2.55),
-            scale: 0.45,
+            origin: v(X0, y),
+            scale: 1.0,
+            rise: SLAB_RISE,
+            unit_w: SLAB_W,
+            shifts,
         }
     }
 
@@ -463,54 +494,81 @@ impl Place {
         self.origin[0] + STEP * self.scale * k as f64
     }
 
-    /// The centre of the block `level` out from the line on the `sign` side.
+    /// The centre of the unit `level` out from the line on the `sign` side.
     pub fn slot(&self, k: i64, level: usize, sign: i64) -> Vec3 {
-        let dy = (level as f64 - 0.5) * BLOCK * self.scale;
+        let dy = (level as f64 - 0.5) * BLOCK * self.rise;
         v(self.column_x(k), self.origin[1] + if sign >= 0 { dy } else { -dy })
     }
 
-    /// Just past a column of `height` blocks (above it, or below a column
+    /// Just past a column of `height` units (above it, or below a column
     /// hanging down), `gap` further out: where its label goes.
     pub fn past(&self, k: i64, height: i64, gap: f64) -> Vec3 {
-        let d = (height.unsigned_abs() as f64 * BLOCK + gap) * self.scale;
+        let d = height.unsigned_abs() as f64 * BLOCK * self.rise + gap * self.scale;
         v(self.column_x(k), self.origin[1] + if height >= 0 { d } else { -d })
     }
 
     /// The middle of the chart's line over the drawn shifts.
     pub fn line_centre(&self) -> Vec3 {
         v(
-            (self.column_x(SHIFTS.0) + self.column_x(SHIFTS.1)) / 2.0,
+            (self.column_x(self.shifts.0) + self.column_x(self.shifts.1)) / 2.0,
             self.origin[1],
         )
     }
+
+    /// One detached unit of this chart's size at `at`.
+    pub fn unit(&self, stage: &mut Stage<'_>, sign: i64, at: Vec3) -> fmn::Result<Mob> {
+        slab(stage, sign, at, self.unit_w, BLOCK_SIDE * self.rise)
+    }
 }
 
-/// A score chart: a line over the drawn shifts, and a column of blocks at
+/// A score chart: a line over the drawn shifts, and a column of units at
 /// each shift.
 pub struct Chart {
     pub place: Place,
     pub line: Mob,
-    /// Per shift from `SHIFTS.0`: the blocks from the line out, with signs.
+    /// Per shift from `place.shifts.0`: the units from the line out, with
+    /// signs.
     columns: Vec<Vec<(Mob, i64)>>,
 }
 
 impl Chart {
     /// An empty chart at `place`; its line is detached.
     pub fn new(stage: &mut Stage<'_>, place: Place) -> Self {
-        let half = (SHIFTS.1 - SHIFTS.0) as f64 * STEP * place.scale / 2.0 + 0.45 * place.scale;
+        let (first, last) = place.shifts;
+        let half = (last - first) as f64 * STEP * place.scale / 2.0 + 0.45 * place.scale;
         let c = place.line_centre();
         let line = stage
             .arena_mut()
             .add(hline(c[0] - half, c[0] + half, c[1], Palette::dim(), 2.0));
-        let columns = (SHIFTS.0..=SHIFTS.1).map(|_| Vec::new()).collect();
+        let columns = (first..=last).map(|_| Vec::new()).collect();
         Self { place, line, columns }
     }
 
+    /// The shifts the chart draws, in order.
+    fn shifts(&self) -> std::ops::RangeInclusive<i64> {
+        self.place.shifts.0..=self.place.shifts.1
+    }
+
     fn index(&self, k: i64) -> fmn::Result<usize> {
-        usize::try_from(k - SHIFTS.0)
+        let (first, last) = self.place.shifts;
+        usize::try_from(k - first)
             .ok()
-            .filter(|_| k <= SHIFTS.1)
-            .ok_or_else(|| fail(format!("shift {k} is outside the chart {SHIFTS:?}")))
+            .filter(|_| k <= last)
+            .ok_or_else(|| fail(format!("shift {k} is outside the chart {:?}", self.place.shifts)))
+    }
+
+    /// A row that scores anything outside the drawn shifts cannot be drawn
+    /// whole: refuse it rather than drop a column.
+    fn fits(&self, scores: &crate::model::Scores, what: &str) -> fmn::Result<()> {
+        let outside = (scores.first..=scores.last()).find(|&k| scores.at(k) != 0 && self.index(k).is_err());
+        match outside {
+            Some(k) => Err(fail(format!(
+                "{what}: scores {} at shift {k}, outside the chart {:?}",
+                scores.at(k),
+                self.place.shifts
+            ))),
+            None => Ok(()),
+        }
     }
 
     /// The column's height: its blocks' signs summed (the score it shows).
@@ -529,7 +587,7 @@ impl Chart {
     /// Take the blocks out of the chart (for another chart to settle); the
     /// line stays.
     pub fn take(&mut self) -> Vec<(i64, Vec<(Mob, i64)>)> {
-        (SHIFTS.0..=SHIFTS.1)
+        self.shifts()
             .zip(self.columns.iter_mut())
             .map(|(k, c)| (k, std::mem::take(c)))
             .filter(|(_, c)| !c.is_empty())
@@ -580,9 +638,16 @@ impl Chart {
         Ok(())
     }
 
-    /// Move the chart (line and blocks) to `place` over `rt` seconds.
+    /// Move the chart (line and units) to `place` over `rt` seconds: the same
+    /// shifts, scaled alike across and up (so a unit keeps its shape).
     pub fn move_to(&mut self, stage: &mut Stage<'_>, place: Place, rt: f64) -> fmn::Result<()> {
         let rel = place.scale / self.place.scale;
+        if place.shifts != self.place.shifts || (place.rise / self.place.rise - rel).abs() > 1e-9 {
+            return Err(fail(format!(
+                "a chart over {:?} cannot move to {place:?}",
+                self.place.shifts
+            )));
+        }
         let args = || AnimateArgs {
             run_time: Some(rt),
             ..AnimateArgs::default()
@@ -595,7 +660,7 @@ impl Chart {
             .scale(rel)?
             .move_to(place.line_centre(), ORIGIN)?;
         anims.push(stage.prepare(a)?);
-        for (k, column) in (SHIFTS.0..=SHIFTS.1).zip(&self.columns) {
+        for (k, column) in self.shifts().zip(&self.columns) {
             for (level, &(m, sign)) in column.iter().enumerate() {
                 let a = m
                     .animate()
@@ -615,7 +680,8 @@ impl Chart {
     pub fn shift_columns(&mut self, stage: &mut Stage<'_>, by: i64, rt: f64) -> fmn::Result<()> {
         let mut moved: Vec<Vec<(Mob, i64)>> = self.columns.iter().map(|_| Vec::new()).collect();
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        for (k, column) in (SHIFTS.0..=SHIFTS.1).zip(std::mem::take(&mut self.columns)) {
+        let shifts = self.shifts();
+        for (k, column) in shifts.zip(std::mem::take(&mut self.columns)) {
             if column.is_empty() {
                 continue;
             }
@@ -640,7 +706,8 @@ impl Chart {
     /// The chart stands exactly as the model scores (a render-time check of
     /// the picture against the arithmetic).
     pub fn check(&self, want: &crate::model::Scores, what: &str) -> fmn::Result<()> {
-        for k in SHIFTS.0..=SHIFTS.1 {
+        self.fits(want, what)?;
+        for k in self.shifts() {
             if self.height(k) != want.at(k) {
                 return Err(fail(format!(
                     "{what}: the column at shift {k} stands {} blocks, the model scores {}",
@@ -652,21 +719,48 @@ impl Chart {
         Ok(())
     }
 
-    /// Stand a whole row of scores at once, block by block from the line
-    /// (detached blocks, faded in over `rt`).
+    /// Stand a whole row of scores at once, unit by unit from the line
+    /// (detached units, faded in over `rt`).
     pub fn stand(&mut self, stage: &mut Stage<'_>, scores: &crate::model::Scores, rt: f64) -> fmn::Result<()> {
+        self.fits(scores, "a row to stand")?;
         let mut new = Vec::new();
-        for k in SHIFTS.0..=SHIFTS.1 {
+        for k in self.shifts() {
             let i = self.index(k)?;
             let s = scores.at(k);
             let sign = s.signum();
             for level in 1..=s.unsigned_abs() as usize {
-                let m = block(stage, sign, self.place.slot(k, level, sign), self.place.scale)?;
+                let m = self.place.unit(stage, sign, self.place.slot(k, level, sign))?;
                 self.columns[i].push((m, sign));
                 new.push(m);
             }
         }
         fade_in_all(stage, &new, rt)
+    }
+
+    /// Detached units for a whole row, stacked over (`lift` above) the
+    /// columns they will settle into, ready to fade in and then settle
+    /// (`settle_all`): the arrivals for one row added onto this chart.
+    pub fn arrivals(
+        &self,
+        stage: &mut Stage<'_>,
+        scores: &crate::model::Scores,
+        lift: f64,
+    ) -> fmn::Result<Vec<(i64, Vec<(Mob, i64)>)>> {
+        self.fits(scores, "a row to add")?;
+        let mut out = Vec::new();
+        for k in self.shifts() {
+            let s = scores.at(k);
+            let sign = s.signum();
+            let mut column = Vec::new();
+            for level in 1..=s.unsigned_abs() as usize {
+                let at = self.place.slot(k, level, sign);
+                column.push((self.place.unit(stage, sign, v(at[0], at[1] + lift))?, sign));
+            }
+            if !column.is_empty() {
+                out.push((k, column));
+            }
+        }
+        Ok(out)
     }
 }
 

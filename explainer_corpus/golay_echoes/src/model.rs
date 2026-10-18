@@ -37,6 +37,10 @@ pub const STILL: [i64; 1] = [1];
 /// The same thing one step further away: it moved between the two sends.
 pub const MOVED: [i64; 2] = [0, 1];
 
+/// Chapter 02's scene: a loud thing (strength 4) where the recording starts
+/// and a quiet one (strength 1) three steps farther, the same for both sends.
+pub const LOUD_AND_QUIET: [i64; 4] = [4, 0, 0, 1];
+
 /// A row of scores: `values[i]` is the score at shift `first + i`, and
 /// every shift outside the row scores zero.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -96,6 +100,22 @@ impl Scores {
     /// `-1,0,1,4,1,0,-1`: the values as the facts print them.
     pub fn csv(&self) -> String {
         csv(&self.values)
+    }
+
+    /// Every score times `factor`.
+    pub fn scaled(&self, factor: i64) -> Self {
+        Self {
+            first: self.first,
+            values: self.values.iter().map(|v| v * factor).collect(),
+        }
+    }
+
+    /// The same scores, `by` shifts later.
+    pub fn shifted(&self, by: i64) -> Self {
+        Self {
+            first: self.first + by,
+            values: self.values.clone(),
+        }
     }
 }
 
@@ -199,6 +219,22 @@ pub fn measure(code: &[i64], scene: &[i64], noise: &[i64]) -> Scores {
 /// pair, the sum is that scene magnified 2N times, with no ghosts.
 pub fn two_measurements(a: &[i64], scene_a: &[i64], b: &[i64], scene_b: &[i64]) -> Scores {
     measure(a, scene_a, &[]).plus(&measure(b, scene_b, &[]))
+}
+
+/// What each echo of `scene` adds to `code`'s scores, one entry per echo:
+/// (its step, the code's own row scaled by its strength and moved to its
+/// step). Recording and scoring are both sums of products, so the scene's
+/// row is exactly the sum of these (`measure(code, scene, &[])`): two echoes
+/// never interact except by adding, which is how a ghost of one can erase,
+/// or double, the peak of another.
+pub fn contributions(code: &[i64], scene: &[i64]) -> Vec<(i64, Scores)> {
+    let own = autocorrelation(code);
+    scene
+        .iter()
+        .enumerate()
+        .filter(|&(_, &strength)| strength != 0)
+        .map(|(d, &strength)| (d as i64, own.scaled(strength).shifted(d as i64)))
+        .collect()
 }
 
 /// The score at the far shift, N − 1, where only the code's two end pulses
@@ -483,5 +519,149 @@ mod tests {
         assert_eq!(overlaps(4, 4, 3), [(3, 0)]);
         assert_eq!(overlaps(4, 4, -3), [(0, 3)]);
         assert!(overlaps(4, 4, 4).is_empty());
+        assert_eq!(r.scaled(-2), row(-1, &[-2, -4, -6]));
+        assert_eq!(r.shifted(3), row(2, &[1, 2, 3]));
+    }
+
+    /// Every scene of exactly `len` steps with strengths −2 to 2 (shorter
+    /// scenes appear with trailing zeros).
+    fn scenes(len: usize) -> Vec<Vec<i64>> {
+        let mut out = vec![Vec::new()];
+        for _ in 0..len {
+            out = out
+                .into_iter()
+                .flat_map(|s: Vec<i64>| {
+                    (-2..=2).map(move |h| {
+                        let mut t = s.clone();
+                        t.push(h);
+                        t
+                    })
+                })
+                .collect();
+        }
+        out
+    }
+
+    /// The scene's strength at shift `k` (zero off the scene).
+    fn strength(scene: &[i64], k: i64) -> i64 {
+        usize::try_from(k).ok().and_then(|d| scene.get(d)).copied().unwrap_or(0)
+    }
+
+    /// The last shift with a nonzero score, and that score.
+    fn lead(r: &Scores) -> Option<(i64, i64)> {
+        (r.first..=r.last()).rev().find(|&k| r.at(k) != 0).map(|k| (k, r.at(k)))
+    }
+
+    /// Pattern 1, narration truth for chapter 02.
+    #[test]
+    fn the_loud_and_quiet_rows_are_the_ones_on_screen() {
+        let scene = LOUD_AND_QUIET;
+        // "Pattern A's two echoes overlap, and the receiver records their sum."
+        assert_eq!(echo(&CODE_A, &scene), [4, 4, 4, -3, 1, 1, -1]);
+        let a = measure(&CODE_A, &scene, &[]);
+        let b = measure(&CODE_B, &scene, &[]);
+        assert_eq!(a, row(-3, &[-4, 0, 4, 15, 4, 1, 0, 1, 0, -1]));
+        assert_eq!(b, row(-3, &[4, 0, -4, 17, -4, -1, 8, -1, 0, 1]));
+        // "At three steps, where the quiet one is, the score is zero."
+        assert_eq!((scene[3], a.at(3)), (1, 0));
+        // "The loud one's ghost there is minus four. The quiet one's peak is
+        // plus four."
+        let parts = contributions(&CODE_A, &scene);
+        assert_eq!(parts.iter().map(|&(d, _)| d).collect::<Vec<_>>(), [0, 3]);
+        assert_eq!((parts[0].1.at(3), parts[1].1.at(3)), (-4, 4));
+        // "One step either side, the loud ghosts stand four tall, as tall as
+        // the quiet echo."
+        assert_eq!((parts[0].1.at(-1), parts[0].1.at(1)), (4, 4));
+        assert_eq!((a.at(-1), a.at(1)), (4, 4), "and so does the row there");
+        // "Eight. Its ghost lands on the quiet echo instead of erasing it,
+        // and doubles it."
+        let parts_b = contributions(&CODE_B, &scene);
+        assert_eq!((parts_b[0].1.at(3), parts_b[1].1.at(3), b.at(3)), (4, 4, 8));
+        // "Thirty-two at zero, eight at three, zero everywhere else. The
+        // scene, eight times over."
+        let sum = two_measurements(&CODE_A, &scene, &CODE_B, &scene);
+        assert_eq!(sum, row(-3, &[0, 0, 0, 32, 0, 0, 8, 0, 0, 0]));
+        assert!((sum.first..=sum.last()).all(|k| sum.at(k) == 8 * strength(&scene, k)));
+        // "Sending A twice would not help ... the quiet one stays hidden."
+        let twice = two_measurements(&CODE_A, &scene, &CODE_A, &scene);
+        assert_eq!(twice, a.scaled(2));
+        assert_eq!((twice.at(3), twice.at(-1), twice.at(1)), (0, 8, 8));
+    }
+
+    /// A scene's row is the sum of its echoes' rows (the code's own row,
+    /// scaled and moved), for every code of up to four pulses and every
+    /// scene of three or four steps with strengths −2 to 2.
+    #[test]
+    fn a_scenes_row_is_the_sum_of_its_echoes_rows() {
+        for n in 1..=4 {
+            for code in codes(n) {
+                for scene in scenes(3).into_iter().chain(scenes(4)) {
+                    let whole = measure(&code, &scene, &[]);
+                    let summed = contributions(&code, &scene)
+                        .into_iter()
+                        .fold(row(0, &[]), |acc, (_, r)| acc.plus(&r));
+                    for k in -8..=8 {
+                        assert_eq!(whole.at(k), summed.at(k), "{code:?} {scene:?} at {k}");
+                    }
+                }
+            }
+        }
+    }
+
+    /// "Zero is not empty": a zero score is not an absent echo, and a
+    /// nonzero score is not an echo. In the chapter's scene pattern A scores
+    /// zero at the quiet echo and scores at six shifts where nothing is;
+    /// only the pair's sum is zero exactly where the scene is empty.
+    #[test]
+    fn a_zero_score_is_not_an_absent_echo() {
+        let scene = LOUD_AND_QUIET;
+        let a = measure(&CODE_A, &scene, &[]);
+        let hidden: Vec<i64> = (a.first..=a.last())
+            .filter(|&k| strength(&scene, k) != 0 && a.at(k) == 0)
+            .collect();
+        let ghosts: Vec<i64> = (a.first..=a.last())
+            .filter(|&k| strength(&scene, k) == 0 && a.at(k) != 0)
+            .collect();
+        assert_eq!(hidden, [3]);
+        assert_eq!(ghosts, [-3, -1, 1, 2, 4, 6]);
+        let sum = two_measurements(&CODE_A, &scene, &CODE_B, &scene);
+        assert!((sum.first..=sum.last()).all(|k| (sum.at(k) != 0) == (strength(&scene, k) != 0)));
+    }
+
+    /// The wrong-pair case, as a theorem: for every ordered pair of
+    /// four-pulse patterns and every scene with an echo in it, the two rows
+    /// add to 8 times the scene exactly when the pair is complementary. The
+    /// reason, checked as it is: the sum minus 8 times the scene is the scene
+    /// convolved with the pair's leftover g = C_a + C_b − 8δ, and the last
+    /// nonzero score of a convolution is the product of the two rows' last
+    /// nonzero scores, so it is never zero when both are nonzero. Exactly
+    /// the 32 complementary pairs give the chapter's scene back.
+    #[test]
+    fn only_a_pair_whose_ghosts_cancel_gives_the_scene_back() {
+        let mut checked: Vec<Vec<i64>> = scenes(3).into_iter().filter(|s| s.iter().any(|&h| h != 0)).collect();
+        checked.push(LOUD_AND_QUIET.to_vec());
+        let (mut pairs_seen, mut giving_back) = (0, 0);
+        for a in codes(4) {
+            for b in codes(4) {
+                pairs_seen += 1;
+                let g = autocorrelation(&a).plus(&autocorrelation(&b)).plus(&row(0, &[-8]));
+                assert_eq!(lead(&g).is_none(), is_complementary(&a, &b), "{a:?} {b:?}");
+                for scene in &checked {
+                    let eight: Vec<i64> = scene.iter().map(|h| -8 * h).collect();
+                    let residual = two_measurements(&a, scene, &b, scene).plus(&row(0, &eight));
+                    let want = match (lead(&g), lead(&row(0, scene))) {
+                        (None, _) => None,
+                        (Some((kg, cg)), Some((ks, cs))) => Some((kg + ks, cg * cs)),
+                        (Some(_), None) => unreachable!("every scene checked has an echo"),
+                    };
+                    assert_eq!(lead(&residual), want, "{a:?} {b:?} {scene:?}");
+                }
+                let back = two_measurements(&a, &LOUD_AND_QUIET, &b, &LOUD_AND_QUIET);
+                if (back.first..=back.last()).all(|k| back.at(k) == 8 * strength(&LOUD_AND_QUIET, k)) {
+                    giving_back += 1;
+                }
+            }
+        }
+        assert_eq!((pairs_seen, giving_back), (256, 32));
     }
 }

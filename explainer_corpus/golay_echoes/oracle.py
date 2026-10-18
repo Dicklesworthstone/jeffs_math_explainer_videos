@@ -37,6 +37,7 @@ CODE_A = (1, 1, 1, -1)
 CODE_B = (1, 1, -1, 1)
 STILL = (1,)
 MOVED = (0, 1)
+LOUD_AND_QUIET = (4, 0, 0, 1)
 
 
 def emit(key, value):
@@ -170,7 +171,77 @@ def facts():
         for code in product((1, -1), repeat=length):
             far.add(abs(scores(code, code)[length - 1]))
     emit("G-X1.far_shift_sizes", csv(sorted(far)))
+    chapter_02()
     return ra, rb, both, moved
+
+
+def lone_echo(scene, step):
+    """The scene with only its echo at `step` left."""
+    return tuple(h if d == step else 0 for d, h in enumerate(scene))
+
+
+def chapter_02():
+    """A loud and a quiet echo. Each echo's part is measured on its own
+    (the pattern sent into a scene holding only that echo), not scaled from
+    the pattern's row as the Rust side does."""
+    scene = LOUD_AND_QUIET
+    steps = [d for d, h in enumerate(scene) if h != 0]
+    loud, quiet = sorted(steps, key=lambda d: -scene[d])
+    first, last = -(len(CODE_A) - 1), len(scene) + len(CODE_A) - 2
+
+    emit("G-F5.scene", csv(scene))
+    emit("G-F5.echoes", len(steps))
+    emit("G-F5.loud", scene[loud])
+    emit("G-F5.quiet", scene[quiet])
+    emit("G-F5.quiet_step", quiet - loud)
+    emit("G-F5.recording_a", csv(echo(CODE_A, scene)))
+
+    ra = measurement(CODE_A, scene)
+    loud_a = measurement(CODE_A, lone_echo(scene, loud))
+    quiet_a = measurement(CODE_A, lone_echo(scene, quiet))
+    emit("G-F6.a.scores", csv(window(ra, first, last)))
+    emit("G-F6.a.at_quiet", ra.get(quiet, 0))
+    emit("G-F6.a.loud_part_at_quiet", loud_a.get(quiet, 0))
+    emit("G-F6.a.quiet_part_at_quiet", quiet_a.get(quiet, 0))
+    emit("G-F6.a.loud_ghosts_one_step", csv([loud_a.get(loud - 1, 0), loud_a.get(loud + 1, 0)]))
+    emit("G-F6.a.zero_at_echo", csv([k for k in range(first, last + 1) if k in steps and ra.get(k, 0) == 0]))
+    emit("G-F6.a.score_without_echo", csv([k for k in range(first, last + 1) if k not in steps and ra.get(k, 0) != 0]))
+
+    rb = measurement(CODE_B, scene)
+    loud_b = measurement(CODE_B, lone_echo(scene, loud))
+    emit("G-F7.b.scores", csv(window(rb, first, last)))
+    emit("G-F7.b.at_quiet", rb.get(quiet, 0))
+    emit("G-F7.b.loud_part_at_quiet", loud_b.get(quiet, 0))
+    emit("G-F7.b.over_quiet", Fraction(rb.get(quiet, 0), quiet_a.get(quiet, 0)))
+
+    total = add(ra, rb)
+    emit("G-F8.sum.scores", csv(window(total, first, last)))
+    emit("G-F8.sum.at_loud", total.get(loud, 0))
+    emit("G-F8.sum.at_quiet", total.get(quiet, 0))
+    emit("G-F8.sum.largest_ghost", largest_ghost(total, set(steps)))
+    emit("G-F8.magnification", Fraction(total.get(quiet, 0), scene[quiet]))
+
+    twice = add(measurement(CODE_A, scene), measurement(CODE_A, scene))
+    emit("G-F9.a_twice.sends", 2)
+    emit("G-F9.a_twice.scores", csv(window(twice, first, last)))
+    emit("G-F9.a_twice.at_quiet", twice.get(quiet, 0))
+    emit("G-F9.a_twice.at_one_step", csv([twice.get(loud - 1, 0), twice.get(loud + 1, 0)]))
+
+    codes = list(product((1, -1), repeat=len(CODE_A)))
+    times = 2 * len(CODE_A)
+    giving_back = giving_back_complementary = complementary_pairs = 0
+    for a in codes:
+        for b in codes:
+            s = add(measurement(a, scene), measurement(b, scene))
+            back = all(v == times * (scene[k] if 0 <= k < len(scene) else 0) for k, v in s.items())
+            comp = complementary(a, b)
+            giving_back += back
+            giving_back_complementary += back and comp
+            complementary_pairs += comp
+    emit("G-X2.pairs", len(codes) ** 2)
+    emit("G-X2.giving_back", giving_back)
+    emit("G-X2.giving_back_complementary", giving_back_complementary)
+    emit("G-X2.complementary", complementary_pairs)
 
 
 # -------------------------------------------------------------- cross-checks
@@ -228,6 +299,34 @@ def cross_checks(ra, rb, both, moved):
     for _ in range(2):
         a, b = a + b, a + tuple(-x for x in b)
     check("doubling (1),(1) twice gives the chapter's pair", (a, b) == (CODE_A, CODE_B))
+
+    # chapter 02's wrong-pair theorem, through its proof: for every ordered
+    # pair of four-pulse patterns and every scene with an echo, the sum minus
+    # 8 times the scene is the scene convolved with g = C_a + C_b - 8 delta,
+    # and its last nonzero score is (last echo) x (last entry of g), so it is
+    # zero exactly when g is: when the pair is complementary
+    scenes = [s for s in product(range(-2, 3), repeat=3) if any(s)] + [LOUD_AND_QUIET]
+    codes = list(product((1, -1), repeat=4))
+    rows = {c: scores(c, c) for c in codes}
+    bad = 0
+    for a in codes:
+        for b in codes:
+            g = add(rows[a], rows[b], {0: -8})
+            g = {k: v for k, v in g.items() if v}
+            for scene in scenes:
+                residual = add(measurement(a, scene), measurement(b, scene), {d: -8 * h for d, h in enumerate(scene)})
+                residual = {k: v for k, v in residual.items() if v}
+                conv = {}
+                for d, h in enumerate(scene):
+                    for k, v in g.items():
+                        conv[d + k] = conv.get(d + k, 0) + h * v
+                conv = {k: v for k, v in conv.items() if v}
+                lead_scene = max(d for d, h in enumerate(scene) if h)
+                lead = (lead_scene + max(g), scene[lead_scene] * g[max(g)]) if g else None
+                got = (max(residual), residual[max(residual)]) if residual else None
+                if residual != conv or got != lead or (not residual) != complementary(a, b):
+                    bad += 1
+    check(f"wrong pairs: residual = scene * g and its last score is the product, {len(codes) ** 2} pairs x {len(scenes)} scenes", bad == 0)
 
     # another implementation: numpy.correlate, "full" mode
     try:
