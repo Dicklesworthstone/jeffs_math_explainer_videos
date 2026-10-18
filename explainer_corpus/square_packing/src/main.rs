@@ -80,6 +80,7 @@ mod tests {
         let want = vec![
             (chapters::the_turned_tile::LINES[3].to_owned(), think),
             (chapters::four_pins::LINES[4].to_owned(), think),
+            (chapters::a_turn_by_a_hair::LINES[2].to_owned(), think),
         ];
         assert_eq!(asks, want);
     }

@@ -54,15 +54,16 @@ chapter 01.
 |---|---|---|
 | I. A turn that helps | 01 the turned tile | the obvious box is three wide; turning the middle tile lets a squeeze reach 2 + 1/√2; that picture shows five tiles fit, not that nothing smaller does |
 | II. Why straight tiles need three | 02 four pins | marks at a third and two thirds cut each side into pieces shorter than a tile, so every straight tile in a box narrower than three holds a pin strictly inside; tiles cannot share one, so at most four fit; at exactly three the pins sit on edges and five fit; the turned tile holds no pin, so the argument cannot reach it |
-| III. Why the turn escapes | 03 slipping between pins | the turned tile holds none of the four pins; the same picture as 01, now with the pins: a turned tile is not caught by the straight argument |
-| IV. Can it wiggle? | 04 a turn by a hair | local motion at the fixed box: the middle tile's turn costs nothing at first and then bites by the square of the turn (reported by the case page; recomputed in `model.rs` before it is scripted) |
-| V. Nothing smaller fits | 05 four points no tile can dodge | Göbel's four unavoidable points for any tile, turned or not, in the box 2 + 1/√2 (Friedman's Theorem 2 with Lemmas 1–3), and the scale-up that turns "touch" into "too many" |
-| VI. Beyond five | 06 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof |
+| III. Can it wiggle? | 03 a turn by a hair | the pins miss the turned tile (02's last picture), so what holds it? With the box, the corner tiles and the middle tile's centre held, the corners lie on the circle inside the middle tile; any turn moves the sides off them, so they sink in by ½(1 − cos δ), the square of the turn, tiny but never zero; magnified honestly; a local fact about one motion, not a proof about all arrangements |
+| IV. Nothing smaller fits | 04 four points no tile can dodge | Göbel's four unavoidable points for any tile, turned or not, in the box 2 + 1/√2 (Friedman's Theorem 2 with Lemmas 1–3), and the scale-up that turns "touch" into "too many" |
+| V. Beyond five | 05 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof |
 
-Chapters 02 to 06 are not boarded yet: each is boarded only after its
-mathematics is in `model.rs` with an oracle, and chapter 05 only after the
-lower-bound proof is reconstructed and checked (the slate's gate: if it cannot
-be taught honestly, the video ends on construction versus proof instead).
+The planned chapter on why the turn escapes the pins became 02's last beat
+and 03's first line, so chapters 04 and 05 are not boarded yet: each is
+boarded only after its mathematics is in `model.rs` with an oracle, and
+chapter 04 only after the lower-bound proof is reconstructed and checked (the
+slate's gate: if it cannot be taught honestly, the video ends on construction
+versus proof instead).
 
 The payoff is previewed in chapter 01 itself (the box of 2.71 against the
 grid's 3); the video ends on the rigorous form of the opening picture: the
@@ -104,3 +105,25 @@ not overlap.
 | 02_6 | Four at most, one per pin. So five straight tiles need a box at least three wide. | A fifth straight tile lands in the middle: it holds all four pins and the corners overlap it in red *(pins.owners.straight, planted.straight_squeezed)*; "at most 4 straight tiles"; a "precisely" line: any box narrower than 3, and one narrower than one tile holds none *(pins.count, pins.threshold, pins.lemma.half)* | highlight | |
 | 02_7 | At exactly three, each piece is a whole tile long. Tiles can then touch the marks with their edges only, and five fit. | The box widens to three with the five straight tiles (`model::corners_and_middle`): the red overlaps shrink to nothing and every halo goes out as the pins reach tile edges *(pins.lemma.at3, pins.owners.at3, straight.check)*; "3 ÷ 3 = 1" | tracker, formula | |
 | 02_8 | But this only counts straight tiles. In the turned packing, no pin is inside the turned tile, so the pins can't rule out its smaller box. | The middle tile becomes gold and turns (`model::turning`), then the squeeze (`model::squeezed`) carries the box back to 2.71, the pins with it: each corner tile's pin haloed, none on the gold tile *(pins.owners.turned)*; "no pin inside" by the gold tile | tracker, highlight | |
+
+## 03_a_turn_by_a_hair: A turn by a hair (budgeted from measured timings: about 80 s)
+
+Held throughout, and said: the box of 2.71, the four corner tiles and the
+middle tile's centre. Only the middle tile turns. The exact turn shown is
+the one whose half-angle has tangent 1/20 (about 5.7°), then twice that; the
+board draws them at true scale, where the bite is under a pixel, and the
+lens draws one corner 44 times larger with the same geometry and a scale
+bar. The depth ½(1 − cos δ) is exact for every turn below an eighth of a
+turn; the triangle the lens shows is the whole overlap only up to 30°, and
+the turns shown are far inside that (`model.rs` § a turn by a hair).
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | The pins miss the turned tile, but something still holds it. Fix the box, the corner tiles and the middle tile's centre. | The turned packing at true scale; a dot on the middle tile's centre; "held fixed: the box, the corner tiles, the centre" | lagged reveal | |
+| 03_2 | Each corner it touches sits half a tile from that centre, on the circle that just fits inside the middle tile. | The circle inside the gold tile, its radius drawn and labelled ½ *(hair.inner2 = hair.inradius2)*; the four held corners as green dots on it | circle, highlight | |
+| 03_3 | Now turn the middle tile just a little. ⟨predict⟩ Do the corners still only touch it? | The picture holds; the think ring drains over four seconds, the voice silent | tracker | listen 4 s (think) |
+| 03_4 | No. The circle turns in place, but the sides now meet it elsewhere, so every corner on it ends up inside the tile. | One tracker turns the gold tile about its held centre by the exact small turn (`model::hair`) *(hair.turn, hair.degrees.1dp)*; small dots ride the middles of its sides, off the green corners; the overlaps, under a pixel here, are drawn in red *(hair.check)* | tracker, live readout | |
+| 03_5 | Here is one corner, magnified forty four times. Turn twice as far, and it sinks almost four times deeper. | A square lens joined to the lower right corner: the same geometry 44 times larger *(hair.lens.mag)*, a 0.01-tile scale bar *(hair.lens.bar)*, the red triangle of overlap *(hair.area, hair.vertices)*; a live "bite" readout 0.0025 *(hair.depth.4dp)*; the turn doubles *(hair.degrees2.1dp)*, the bite reads 0.0100 *(hair.depth2.4dp)*, "×3.99 deeper" *(hair.ratio.2dp)*; the window holds it *(hair.lens.fits)* | tracker, live readout, highlight | |
+| 03_6 | A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero. | Beside the lens, bite = ½(1 − cos turn) ≈ ¼ turn², turn in radians about the fixed centre *(hair.depth)*; ever smaller turns still bite *(hair.tiny)* | formula | |
+| 03_7 | In the box of three, the corners sat on the outer circle, and the tile turned freely. Held here, it cannot turn at all. | A small box of three in the corner of the panel, its corners on the circle round the turning tile *(turn.inner2, hair.roomy)*; on the board the tile turns the other way, and the corners bite in again *(hair.minus, hair.check.minus)*; then back to contact | tracker | |
+| 03_8 | This shows only that this one turn is blocked. Whether any arrangement fits a smaller box needs a proof about all of them. | "blocked: this one turn, with all else held" and "a smaller box? a proof about every arrangement"; the turned packing as it was | box | |

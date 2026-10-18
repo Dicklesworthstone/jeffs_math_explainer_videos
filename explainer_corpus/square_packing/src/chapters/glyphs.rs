@@ -4,7 +4,7 @@
 //! signs numbers are printed with through [`DIGITS`].
 
 /// The digits and signs numbers and labels are printed with.
-pub const DIGITS: &str = "0123456789 . , : ? ° ö";
+pub const DIGITS: &str = "0123456789 . , : ? ° ö ×";
 
 pub const TITLE: &str = "Why Turning a Square Can Make the Whole Box Smaller";
 
@@ -18,6 +18,8 @@ pub const TEX: &[&str] = &[
     super::four_pins::MARK_LO,
     super::four_pins::MARK_HI,
     super::four_pins::UNDER_ONE,
+    super::a_turn_by_a_hair::HALF,
+    super::a_turn_by_a_hair::FORMULA,
 ];
 /// Code, set in CM Typewriter.
 pub const MONO: &[&str] = &[];

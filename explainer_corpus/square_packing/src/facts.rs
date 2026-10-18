@@ -451,4 +451,35 @@ mod tests {
         assert!(line("02_8").contains("no pin is inside the turned tile"));
         assert!(value("pins.owners.turned").ends_with("|none"));
     }
+
+    /// What chapter 03's voice says, on the numbers the model computes: the
+    /// held corners half a tile out, on the inner circle; the lens's
+    /// magnification; a doubled turn almost four times deeper, not four; the
+    /// overlap both ways, never zero; the free turn in the box of three.
+    #[test]
+    fn the_turn_by_a_hair_says_the_facts() {
+        assert_eq!(value("hair.inner2"), "1/4");
+        assert_eq!(value("hair.inradius2"), value("hair.inner2"));
+        assert!(line("03_2").contains("half a tile from that centre"));
+        let mag = int("hair.lens.mag");
+        let tens = [
+            "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
+        ];
+        let said = match mag % 10 {
+            0 => tens[(mag / 10) as usize].to_owned(),
+            ones => format!("{} {}", tens[(mag / 10) as usize], word(ones)),
+        };
+        let l5 = line("03_5");
+        assert!(l5.contains(&format!("magnified {said} times")), "{l5}");
+        let ratio: f64 = value("hair.ratio.2dp").parse().unwrap();
+        assert!(ratio < 4.0 && (ratio.round() - 4.0).abs() < 1e-9, "{ratio}");
+        assert!(l5.contains("almost four times deeper"), "{l5}");
+        assert_eq!(value("hair.check"), "overlap:0-4,1-4,2-4,3-4");
+        assert_eq!(value("hair.check.minus"), value("hair.check"));
+        assert!(line("03_6").contains("never zero"));
+        assert!(value("hair.tiny").split(',').all(|d| d.starts_with("1/")));
+        assert_eq!(value("hair.roomy"), "free|free");
+        assert!(line("03_7").contains("turned freely"));
+        assert!(line("03_8").contains("only that this one turn is blocked"));
+    }
 }

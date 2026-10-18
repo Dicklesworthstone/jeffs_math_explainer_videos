@@ -18,3 +18,11 @@
 02_6	Four at most, one per pin. So five straight tiles need a box at least three wide.
 02_7	At exactly three, each piece is a whole tile long. Tiles can then touch the marks with their edges only, and five fit.
 02_8	But this only counts straight tiles. In the turned packing, no pin is inside the turned tile, so the pins can't rule out its smaller box.
+03_1	The pins miss the turned tile, but something still holds it. Fix the box, the corner tiles and the middle tile's centre.
+03_2	Each corner it touches sits half a tile from that centre, on the circle that just fits inside the middle tile.
+03_3	Now turn the middle tile just a little. Do the corners still only touch it?
+03_4	No. The circle turns in place, but the sides now meet it elsewhere, so every corner on it ends up inside the tile.
+03_5	Here is one corner, magnified forty four times. Turn twice as far, and it sinks almost four times deeper.
+03_6	A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero.
+03_7	In the box of three, the corners sat on the outer circle, and the tile turned freely. Held here, it cannot turn at all.
+03_8	This shows only that this one turn is blocked. Whether any arrangement fits a smaller box needs a proof about all of them.
