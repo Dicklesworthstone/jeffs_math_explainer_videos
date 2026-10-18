@@ -579,4 +579,13 @@ mod tests {
             .collect();
         assert_eq!(ids, LINES.to_vec());
     }
+
+    /// The question at the top of the screen is the one the voice asks in
+    /// 01_1, word for word, as that line's last sentence.
+    #[test]
+    fn the_screen_shows_the_question_the_voice_asks() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let first = script.text(LINES[0]).unwrap();
+        assert!(first.ends_with(&format!(". {QUESTION}")), "{first}");
+    }
 }

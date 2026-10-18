@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "d415e5e9103b05a9fe46ccefdfd0baa4b61cca3dbea0848ab35d0b286dcf2a10",
+  "script_sha256": "4f372ed2a091bd5c74ecb5a25c83c29b270b695d2b150d59d23efe8c858e3618",
   "units": [
     {
       "id": "01u1",
@@ -10,7 +10,7 @@
         "01_3",
         "01_4"
       ],
-      "text": "Five equal square tiles. How small a square box holds them all? Four fit in a box two wide. The fifth has nowhere to go. The obvious box is three wide, with room for four more. Every tile lines up with the walls. Could turning one shrink the box?"
+      "text": "Five equal square tiles have to fit in a square box. How small can the box be? Four fit in a box two wide. The fifth has nowhere to go. The obvious box is three wide, with room for four more. Every tile lines up with the walls. Could turning one tile make the box smaller?"
     },
     {
       "id": "01u2",
