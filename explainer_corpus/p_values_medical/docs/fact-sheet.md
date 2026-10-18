@@ -56,7 +56,7 @@ the count in both.
 |---|---|---|---|
 | M-F1.people | 10000 | the clinic | 01_6 said; the array's label |
 | M-F1.prevalence.exact / .one_in | 1/100 / 100 | the clinic | 01_6 said "one in a hundred"; ledger |
-| M-F1.sensitivity.exact / _percent | 9/10 / 90 | the clinic (assumed the same in every clinic) | 01_7 "catches ninety of them" |
+| M-F1.sensitivity.exact / _percent | 9/10 / 90 | the clinic (assumed the same in every clinic) | 01_7 "catches ninety" |
 | M-F1.false_alarm.exact / _percent | 1/20 / 5 | the clinic (assumed the same in every clinic) | 01_4, 01_8, 01_11 said; the lab's card |
 | M-F1.with / .without | 100 / 9900 | counted | 01_7, 01_8 said; ledger |
 | M-F1.true_pos / .false_neg | 90 / 10 | counted | 01_7, 01_10 said; 90 tiles |
@@ -148,7 +148,7 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 
 | Line | Simplified | Exact (where it appears) |
 |---|---|---|
-| 01_5 | "a ninety-five percent chance you have the disease" | the chance for a person chosen at random from this model clinic's positives (01_11 lower-third) |
+| 01_5 | "a ninety-five percent chance you have it" | the chance for a person chosen at random from this model clinic's positives (01_11 lower-third) |
 | 01_10 | "about fifteen percent" | 90/585 = 2/13 ≈ 15.38% (01_11 lower-third) |
 | 01_11 | "a share of people without the disease", "a share of people who tested positive" | P(positive \| no disease) = 1/20, P(disease \| positive) = 2/13; neither is a p-value (lower-third) |
 | 01_7 | "the test catches ninety" | sensitivity 9/10, assumed, and assumed the same in every clinic (storyboard 02) |

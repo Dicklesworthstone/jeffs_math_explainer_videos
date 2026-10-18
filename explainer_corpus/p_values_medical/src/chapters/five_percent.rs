@@ -15,7 +15,7 @@
 use std::rc::Rc;
 
 use explainer_kit::props::{RowStrips, precisely};
-use explainer_kit::{Kit, Palette, Timed, dot_cloud, fade_all, play, rect, stroke_style, thousands, tween, v};
+use explainer_kit::{Kit, Palette, Timed, dot_cloud, play, rect, stroke_style, thousands, tween, v};
 use fmn::core::color::color_gradient;
 use fmn::prelude::*;
 
@@ -57,8 +57,8 @@ const SHARE_A: [&str; 2] = ["positive, among people", "without the disease"];
 const SHARE_B: [&str; 2] = ["the disease, among people", "who tested positive"];
 const NOT_A_P_VALUE: &str = "Neither number is a p-value.";
 
-/// The title card's listen window (storyboard 01_3: listen 2.5 s).
-pub const TITLE_S: f64 = 2.5;
+/// The title card's listen window (storyboard 01_3: listen 2 s).
+pub const TITLE_S: f64 = 2.0;
 /// The listen label of the title card, the score's open motif.
 pub const TITLE_LABEL: &str = "01_five_percent_of_what:01_3";
 
@@ -266,7 +266,7 @@ impl FivePercentOfWhat {
             &format!("{}%", Q::new(KEYED_PERMILLE, 10).decimal(1)),
         )?;
         let note = kit.text_left(stage, AS_REPORTED, 20.0, Palette::dim(), v(BAR_LEFT, BAR_Y[1] - 0.45))?;
-        line.wait_for(stage, "And a later paper")?;
+        line.wait_for(stage, "A later paper")?;
         let head = format!("choice {KEYED_CHOICE}, the answer marked correct for {KEYED_FOR}:");
         let foot = format!("as reprinted by Gao {GAO_YEAR}");
         let quote = card(
@@ -291,16 +291,25 @@ impl FivePercentOfWhat {
             v(3.4, -3.2),
         )?;
         fade_in_all(stage, &[dispute], 0.5)?;
-        kit.hold(stage)?;
-        fade_all(stage, 0.6)
+        kit.hold(stage)
     }
 
-    /// 01_3: the title, in the score's open motif.
+    /// 01_3: the title, in the score's open motif. The survey crossfades
+    /// into it (one 0.6 s move, not a wipe and then a fade).
     fn title(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let leaving: Vec<Mob> = stage.scene().mobjects().to_vec();
         let t = self.kit.text(stage, TITLE, 48.0, Palette::hero(), v(0.0, 0.2))?;
-        fade_in_all(stage, &[t], 0.8)?;
+        let mut cross: Vec<Box<dyn Animation>> = Vec::new();
+        for m in leaving {
+            stage.clear_updaters(m, true);
+            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            cross.push(stage.prepare(a.rt(0.6))?);
+        }
+        let a = fade_in(stage.arena_mut(), t, ORIGIN, 1.0)?;
+        cross.push(stage.prepare(a.rt(0.6))?);
+        stage.play_prepared(cross)?;
         self.kit.listen(stage, TITLE_S, TITLE_LABEL)?;
-        fade_out_all(stage, &[t], 0.6)
+        fade_out_all(stage, &[t], 0.4)
     }
 }
 
@@ -368,7 +377,7 @@ impl SceneConstruct for FivePercentOfWhat {
             moves.push(stage.prepare(a.rt(0.6))?);
         }
         stage.play_prepared(moves)?;
-        line.wait_for(stage, "Picture ten thousand")?;
+        line.wait_for(stage, "Ten thousand")?;
         let (gold, blue) = (
             color_gradient(&[person(), disease_dark()], RAMP),
             color_gradient(&[person(), healthy_dark()], RAMP),
@@ -435,7 +444,9 @@ impl SceneConstruct for FivePercentOfWhat {
         )?;
         kit.allow_crossing(row);
         fade_in_all(stage, &[row], 0.4)?;
-        line.wait_for(stage, "catches ninety")?;
+        // the tiles start with "Say the test" so the count reaches ninety as
+        // the word is said and the row is lit before the line ends
+        line.wait_for(stage, "Say the test")?;
         let mut caught = Vec::new();
         for r in 0..array.disease_rows {
             for col in 0..array.cols {
@@ -458,8 +469,8 @@ impl SceneConstruct for FivePercentOfWhat {
         )?;
         let w_caught = ledger(&kit, stage, 1, OF_THEM_POSITIVE, disease())?;
         fade_in_all(stage, &[w_caught], 0.3)?;
-        let mut both: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(caught_n, c.true_pos as f64, 2.0)?)?];
-        both.push(Box::new(lagged(stage, &caught, 2.0, 0.03)?));
+        let mut both: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(caught_n, c.true_pos as f64, 1.8)?)?];
+        both.push(Box::new(lagged(stage, &caught, 1.8, 0.03)?));
         stage.play_prepared(both)?;
         fade_out_all(stage, &[row], 0.3)?;
 
@@ -527,12 +538,12 @@ impl SceneConstruct for FivePercentOfWhat {
                 .move_to(block_at(j as u64, block.cols), ORIGIN)?;
             flights.push(stage.prepare(a)?);
         }
-        let flight = AnimationGroup::with_lag_ratio(stage.arena_mut(), flights, 0.004)?.with_run_time(2.8);
+        let flight = AnimationGroup::with_lag_ratio(stage.arena_mut(), flights, 0.004)?.with_run_time(2.4);
         stage.play(flight)?;
 
         // 01_10: two rows of thirteen have the disease: about fifteen percent
         let line = say(&kit, stage, "01_10")?;
-        line.wait_for(stage, "Ninety of them")?;
+        line.wait_for(stage, "Ninety have")?;
         let block_right = BLOCK_X0 + BC * block.cols as f64;
         let block_bottom = BLOCK_Y0 - BC * block.rows as f64;
         let with_words = kit.text_left(
@@ -634,16 +645,8 @@ impl SceneConstruct for FivePercentOfWhat {
             (block_right + 0.05, block_bottom - 0.05),
         )?;
         kit.allow_crossing(group_b);
-        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        for &g in &groups_a {
-            let a = fade_out(stage.arena_mut(), g, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.5))?);
-        }
-        for m in [second_words, group_b] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.6))?);
-        }
-        stage.play_prepared(anims)?;
+        // the exact version arrives with the second group, so it is read
+        // while the line finishes rather than after it
         let exact = format!(
             "in this model clinic, P(positive | no disease) = {} and P(disease | positive) = {} ≈ {}%. {NOT_A_P_VALUE}",
             clinic.false_alarm,
@@ -651,11 +654,20 @@ impl SceneConstruct for FivePercentOfWhat {
             ppv.percent(2)
         );
         let lower = precisely(&kit, stage, &exact)?;
-        fade_in_all(stage, &[lower], 0.5)?;
+        let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+        for &g in &groups_a {
+            let a = fade_out(stage.arena_mut(), g, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.5))?);
+        }
+        for m in [second_words, group_b, lower] {
+            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(a.rt(0.6))?);
+        }
+        stage.play_prepared(anims)?;
         kit.hold(stage)?;
-        kit.music_breath(stage, 1.5)?;
+        kit.music_breath(stage, 0.8)?;
         // chapter 02 opens on this picture as it rests: only the lower-third goes
-        fade_out_all(stage, &[lower], 0.5)?;
+        fade_out_all(stage, &[lower], 0.4)?;
         kit.finish(stage)
     }
 }
