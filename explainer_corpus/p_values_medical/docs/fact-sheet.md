@@ -122,9 +122,26 @@ equally likely to produce these exact counts; the 03_3 lower-third says so.
 The study's bits are an order and a label (`Study::faster_a`, `treated_a`):
 the video draws who recovered first and who was treated, never a recovery
 time, because the model has none.
-| M-T1.tail.at_least | 21700 | K ≥ 15 counted; pinned to the brief | 04 |
-| M-T1.p.exact / _10dp | 5425/262144 / 0.0206947327 | 21,700 / 1,048,576; pinned to the brief | 04 |
-| M-T1.p_percent_2dp / _1dp | 2.07 / 2.1 | | 04 ("about two percent") |
+
+Chapter 04 counts the whole tail in assignments before it names anything.
+What was fixed before the data is the statistic K and its favourable
+direction (more pairs favouring is better news); the boundary 15 is the
+observed result, not a cutoff chosen in advance, so the tail is "this result
+or more favourable". The share is the one-sided p-value under the sharp null
+and the fair coins, never a probability that the treatment does nothing, an
+efficacy or an effect size. One predicate, `Tail::holds`, decides every lit
+or outlined set and every count (`tail_members`, `tail_count`).
+
+| Key | Value | Obtained | Where |
+|---|---|---|---|
+| M-T4.tail_counts | 15504,4845,1140,190,20,1 | the listed world's bars 15 to 20, in assignments; `math.comb` in the oracle | 04_3 lavender overlays; 04_6 ledger |
+| M-T4.tail_bars | 6 | the counts 15 to 20, both ends included | 04_3 |
+| M-T4.count_20 / .count_19 | 1 / 20 | enumerated: assignments with all 20, or exactly 19, pairs favouring | 04_4 "only one way", 04_5 "Twenty ways"; the small pairs show `favouring_all_but(&[])`, then three of the twenty `favouring_all_but(&[j])` |
+| M-T4.k_one_against | 19 | the count after one pair of the all-favouring assignment is turned over | 04_5 "For nineteen" |
+| M-T1.tail.at_least | 21700 | K ≥ 15 counted; pinned to the brief | 04_6 said, the ledger's total; 04_7 numerator |
+| M-T1.p.exact / _10dp | 5425/262144 / 0.0206947327 | 21,700 / 1,048,576; pinned to the brief | 04_7 |
+| M-T1.p_percent_0dp / _4dp | 2 / 0.0207 | | 04_7 "about two percent", ≈ 2% / the lower-third |
+| M-T1.p_percent_2dp / _1dp | 2.07 / 2.1 | | not said in 04 (it says the whole percent) |
 | M-T2.observed / .tail.at_least / .p_10dp | 14 / 60460 / 0.0576591492 | K ≥ 14; pinned to the brief | 05 |
 
 ## M-X · the wrong readings (each a different number, each tested)
@@ -136,8 +153,9 @@ time, because the model has none.
 | M-F2.reverse.exact | 1/3 | clinic B's reversal: the false-alarm rate stays 1/20 from A to B while its reversal falls from 11/13 to 1/3 |
 | M-X1.exactly / _percent_2dp | 15504 / 1.48 | K = 15 only: leaves out the more extreme outcomes |
 | M-X1.more_than / _percent_2dp | 6196 / 0.59 | K > 15: leaves out the observation itself |
+| M-X1.exactly_percent_1dp / .more_than_percent_1dp | 1.5 / 0.6 | 04_8 says both, each beside a red outline round its own bars: other subsets, other numbers, neither the test |
 | M-X1.at_most | 1042380 | K ≤ 15: the other direction (everything but the more extreme) |
-| M-X1.two_sided / _percent_2dp | 43400 / 4.14 | K ≥ 15 or K ≤ 5: a different, two-sided question, not this predeclared one-sided test |
+| M-X1.two_sided / _percent_2dp | 43400 / 4.14 | K ≥ 15 or K ≤ 5: a different two-sided question, which would have to be chosen in advance itself; not this one-sided test, and never "the one-sided p doubled" as a rule (not shown in 04) |
 | M-X3.a_treated | 9 | how many A patients the coins treated: a planted wrong statistic, not the count of pairs favouring the treatment (15); its world is the same binomial, so only the statistic tells them apart |
 
 Tests that hold these apart: `model.rs` `swapping_the_condition_changes_the_number`,
@@ -147,8 +165,14 @@ counted sweep over seven prevalences: the two rates never move, the PPV only
 rises), `the_second_clinic_counts_whole_people_and_near_misses_are_refused`
 (10,001 people at 1 in 10, 1,000 at 1 in 100), `both_clinics_regroup_into_rows_of_forty_five`
 (a 1-in-20 clinic's 450 and 475 positives are refused),
-`the_p_value_counts_the_whole_tail_and_the_wrong_tails_differ`; `oracle.py`
-cross-checks of the same claims, computed its own way (42 in all).
+`the_p_value_counts_the_whole_tail_and_the_wrong_tails_differ`,
+`the_tail_is_counted_in_assignments_with_its_endpoint_included` (inclusive
+endpoints, all six counts, the extremes 0 and 20, the mirror, and the
+off-by-one and wrong-direction mutations refused), `each_highlighted_set_is_its_inequality`,
+`twenty_has_one_way_and_nineteen_has_one_per_pair` (enumerated), and chapter
+04's own `the_wrong_tails_are_other_subsets_of_the_tail` and
+`the_words_say_what_was_fixed_and_what_was_set`; `oracle.py` cross-checks of
+the same claims, computed its own way (53 in all).
 
 ## Sources
 

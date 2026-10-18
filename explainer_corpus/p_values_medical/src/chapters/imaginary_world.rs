@@ -62,10 +62,10 @@ const TOSS_DX: f64 = 3.1;
 /// How far under a patient the "recovered first" bar sits.
 const BAR_DY: f64 = 0.3;
 /// The pairs' place in 03_7: the left half, scaled.
-const SMALL: f64 = 0.55;
-const SMALL_AT: Vec3 = [-3.9, 0.45, 0.0];
+pub(super) const SMALL: f64 = 0.55;
+pub(super) const SMALL_AT: Vec3 = [-3.9, 0.45, 0.0];
 /// The small pairs' label ("these pairs: the last re-toss"), above them.
-const SHOWN_Y: f64 = 2.05;
+pub(super) const SHOWN_Y: f64 = 2.05;
 /// The histogram's window, the right half (k = 0..20 across).
 const HIST: Frame2 = Frame2 {
     center: [3.55, -0.25, 0.0],
@@ -79,7 +79,7 @@ const ASK_AT: Vec3 = [-3.9, -2.0, 0.0];
 const ASK_R: f64 = 0.5;
 
 /// Patient A's or B's disc in pair `i`.
-fn disc_at(i: usize, a: bool) -> Vec3 {
+pub(super) fn disc_at(i: usize, a: bool) -> Vec3 {
     let at = pair_at(i);
     v(if a { at[0] - DISC_DX } else { at[0] + DISC_DX }, at[1])
 }
@@ -90,7 +90,7 @@ fn grid_centre() -> Vec3 {
 }
 
 /// Where a point of the full-size pairs goes when they move to the left half.
-fn small(p: Vec3) -> Vec3 {
+pub(super) fn small(p: Vec3) -> Vec3 {
     let c = grid_centre();
     v(SMALL_AT[0] + (p[0] - c[0]) * SMALL, SMALL_AT[1] + (p[1] - c[1]) * SMALL)
 }
@@ -115,7 +115,7 @@ fn first_bar(stage: &mut Stage<'_>, disc: Vec3) -> Mob {
 }
 
 /// A pair lit because its treated patient recovered first.
-fn lit_box(stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+pub(super) fn lit_box(stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
     let r = Rectangle::new()
         .width(PAIR_W)
         .height(PAIR_H)
@@ -144,6 +144,243 @@ fn to_small(stage: &mut Stage<'_>, m: Mob, centre: Vec3) -> fmn::Result<Box<dyn 
         .scale(SMALL)?
         .move_to(small(centre), ORIGIN)?;
     stage.prepare(a)
+}
+
+/// The study's tag above the pairs (chapter 02's, rebuilt).
+fn study_tag(kit: &Kit, stage: &mut Stage<'_>, pairs: u32) -> fmn::Result<Mob> {
+    kit.text(
+        stage,
+        &format!("{STUDY_A} {pairs} {STUDY_B}"),
+        22.0,
+        Palette::dim(),
+        v(0.0, STUDY_TAG_Y),
+    )
+}
+
+/// The legend's first item: a ring, "treated, by the coin" (03_1).
+fn legend_ring(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
+    let swatch = ring(stage, v(-6.45, LEGEND_Y));
+    let words = kit.text_left(stage, TREATED_BY_COIN, 20.0, Palette::dim(), v(-6.15, LEGEND_Y))?;
+    Ok([swatch, words])
+}
+
+/// The legend's second item: a bar, "recovered first" (03_4).
+fn legend_bar(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
+    let swatch = first_bar(stage, v(-2.45, LEGEND_Y + BAR_DY));
+    let words = kit.text_left(stage, FIRST, 20.0, Palette::dim(), v(-2.15, LEGEND_Y))?;
+    Ok([swatch, words])
+}
+
+/// The small pairs' label: "these pairs: the last re-toss, 12 favouring".
+fn shown_label(kit: &Kit, stage: &mut Stage<'_>, favouring: u32) -> fmn::Result<Mob> {
+    kit.text(
+        stage,
+        &format!("{THESE_PAIRS} {favouring} {FAVOURING_SHORT}"),
+        20.0,
+        Palette::dim(),
+        v(SMALL_AT[0], SHOWN_Y),
+    )
+}
+
+/// The histogram's window, scaled to the world's tallest bar.
+pub(super) fn hist_frame(world: &[u64]) -> Frame2 {
+    let top = world.iter().copied().max().unwrap_or(1);
+    Frame2 {
+        y: (0.0, top as f64),
+        ..HIST
+    }
+}
+
+/// The histogram's title (two lines), axis, ticks every five and axis label.
+fn hist_furniture(kit: &Kit, stage: &mut Stage<'_>, frame: &Frame2, total: u64, pairs: u32) -> fmn::Result<Vec<Mob>> {
+    let title = kit.text(
+        stage,
+        &format!("{} {WAYS}", thousands(total)),
+        22.0,
+        Palette::ink(),
+        v(frame.center[0], 2.25),
+    )?;
+    let title_2 = kit.text(stage, EQUALLY, 22.0, Palette::dim(), v(frame.center[0], 1.93))?;
+    let axis = polyline(vec![v(frame.left(), frame.bottom()), v(frame.right(), frame.bottom())])
+        .style(line_style(Palette::dim(), 2.0))
+        .build();
+    let axis = stage.arena_mut().add(axis);
+    let mut furniture = vec![title, title_2, axis];
+    for k in (0..=pairs).step_by(5) {
+        let x = frame.p(f64::from(k), 0.0)[0];
+        furniture.push(kit.text(stage, &k.to_string(), 20.0, Palette::dim(), v(x, frame.bottom() - 0.25))?);
+    }
+    furniture.push(kit.text(
+        stage,
+        AXIS,
+        20.0,
+        Palette::dim(),
+        v(frame.center[0], frame.bottom() - 0.62),
+    )?);
+    Ok(furniture)
+}
+
+/// The world's bars, one per count of favouring pairs, detached.
+fn hist_bars(stage: &mut Stage<'_>, frame: &Frame2, world: &[u64]) -> fmn::Result<Mob> {
+    let heights: Vec<(f64, f64)> = world.iter().enumerate().map(|(k, &c)| (k as f64, c as f64)).collect();
+    Ok(stage.arena_mut().add(histogram(frame, &heights, 0.8, Palette::dim())?))
+}
+
+/// What sits on the bars: the tallest bar's count, the tosses as dots on
+/// their bars, the study's fifteen marked on its bar.
+pub(super) struct HistMarks {
+    pub tallest: Mob,
+    pub toss_dots: Vec<Mob>,
+    pub toss_legend: Mob,
+    pub study_dot: Mob,
+    pub study_label: Mob,
+}
+
+impl HistMarks {
+    pub(super) fn all(&self) -> Vec<Mob> {
+        let mut all = vec![self.tallest];
+        all.extend(&self.toss_dots);
+        all.extend([self.toss_legend, self.study_dot, self.study_label]);
+        all
+    }
+}
+
+fn hist_marks(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    frame: &Frame2,
+    world: &[u64],
+    s: &Study,
+    tosses: &[u32],
+) -> fmn::Result<HistMarks> {
+    let top = world.iter().copied().max().unwrap_or(1);
+    let mode = world.iter().position(|&c| c == top).unwrap_or(0);
+    let tallest = kit.text(
+        stage,
+        &thousands(top),
+        18.0,
+        Palette::dim(),
+        v(frame.p(mode as f64, 0.0)[0], frame.top() + 0.15),
+    )?;
+    let mut toss_dots = Vec::new();
+    let mut stacked = vec![0usize; world.len()];
+    for &a in tosses {
+        let k = s.favouring(a) as usize;
+        let foot = frame.p(k as f64, world[k] as f64);
+        let at = v(foot[0], foot[1] + 0.12 + 0.14 * stacked[k] as f64);
+        stacked[k] += 1;
+        let d = Dot::new().point(at).radius(0.05).color(Palette::ink()).build();
+        toss_dots.push(stage.arena_mut().add(d));
+    }
+    let toss_legend = kit.text_left(stage, DOTS, 18.0, Palette::dim(), v(4.9, 1.0))?;
+    let k_obs = s.observed() as usize;
+    let foot = frame.p(k_obs as f64, world[k_obs] as f64);
+    let obs_dot = Dot::new()
+        .point(v(foot[0], foot[1] + 0.14))
+        .radius(0.07)
+        .color(treated())
+        .build();
+    let study_dot = stage.arena_mut().add(obs_dot);
+    // beside its dot, over the near-empty bars above 15 (not over bar 14)
+    let study_label = kit.text_left(
+        stage,
+        &format!("{THE_STUDY} {k_obs}"),
+        20.0,
+        treated(),
+        v(foot[0] + 0.15, foot[1] + 0.14),
+    )?;
+    Ok(HistMarks {
+        tallest,
+        toss_dots,
+        toss_legend,
+        study_dot,
+        study_label,
+    })
+}
+
+/// A mark built at full size moved, as 03_7 moves it, to its place among
+/// the small pairs: scaled about itself, its centre at `small(centre)`.
+pub(super) fn place_small(stage: &mut Stage<'_>, m: Mob, centre: Vec3) {
+    stage.scale(m, SMALL);
+    stage.move_to(m, small(centre), ORIGIN);
+}
+
+/// Chapter 03's last picture, rebuilt still, for chapter 04 to open on: the
+/// tag and legend, the small pairs showing the last re-toss with their label,
+/// and the histogram (still, its bars never move) with what sits on them.
+pub(super) struct Closing {
+    pub frame: Frame2,
+    /// The legend's two items (ring and bar, each with its words).
+    pub legend: Vec<Mob>,
+    pub boxes: Vec<Mob>,
+    pub rings: Vec<Mob>,
+    pub bars: Vec<Mob>,
+    pub lit: Vec<Option<Mob>>,
+    /// The assignment the small pairs' rings show: the last re-toss.
+    pub assignment: u32,
+    pub shown: Mob,
+    pub marks: HistMarks,
+}
+
+pub(super) fn closing_frame(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Closing> {
+    let s = study();
+    let world = s.null_world();
+    let total: u64 = world.iter().sum();
+    let tosses = s.retosses(RETOSS_SEED, RETOSSES);
+    let last = tosses[RETOSSES - 1];
+    let mut still = vec![study_tag(kit, stage, s.pairs)?];
+    let mut legend = legend_ring(kit, stage)?.to_vec();
+    legend.extend(legend_bar(kit, stage)?);
+    still.extend(&legend);
+    // the small pairs in 03's stacking order: boxes, lit boxes, rings, bars
+    let (mut boxes, mut lit, mut rings, mut bars) = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+    for i in 0..s.pairs {
+        let p = i as usize;
+        let b = study_pair(stage, p)?;
+        place_small(stage, b, pair_at(p));
+        boxes.push(b);
+        lit.push(if s.favours(last, i) {
+            let m = lit_box(stage, pair_at(p))?;
+            place_small(stage, m, pair_at(p));
+            Some(m)
+        } else {
+            None
+        });
+        let ring_at = disc_at(p, s.treated_is_a(last, i));
+        let r = ring(stage, ring_at);
+        place_small(stage, r, ring_at);
+        rings.push(r);
+        let under = disc_at(p, s.faster_is_a(i));
+        let f = first_bar(stage, under);
+        place_small(stage, f, v(under[0], under[1] - BAR_DY));
+        bars.push(f);
+    }
+    let shown = shown_label(kit, stage, s.favouring(last))?;
+    let frame = hist_frame(&world);
+    still.extend(hist_furniture(kit, stage, &frame, total, s.pairs)?);
+    let hist = hist_bars(stage, &frame, &world)?;
+    let marks = hist_marks(kit, stage, &frame, &world, &s, &tosses)?;
+    let mut all = still;
+    all.extend(&boxes);
+    all.extend(lit.iter().flatten());
+    all.extend(&rings);
+    all.extend(&bars);
+    all.extend([shown, hist]);
+    all.extend(marks.all());
+    for m in all {
+        stage.add_to_scene(m)?;
+    }
+    Ok(Closing {
+        frame,
+        legend,
+        boxes,
+        rings,
+        bars,
+        lit,
+        assignment: last,
+        shown,
+        marks,
+    })
 }
 
 /// The pairs' marks as they stand: one ring per pair (on the treated
@@ -211,13 +448,7 @@ impl SceneConstruct for TheImaginaryWorld {
         let tosses = s.retosses(RETOSS_SEED, RETOSSES);
 
         // chapter 02's last picture, as it rests
-        let tag = kit.text(
-            stage,
-            &format!("{STUDY_A} {pairs} {STUDY_B}"),
-            22.0,
-            Palette::dim(),
-            v(0.0, STUDY_TAG_Y),
-        )?;
+        let tag = study_tag(&kit, stage, s.pairs)?;
         let mut boxes = Vec::with_capacity(pairs);
         for i in 0..pairs {
             boxes.push(study_pair(stage, i)?);
@@ -229,8 +460,7 @@ impl SceneConstruct for TheImaginaryWorld {
 
         // 03_1: in each pair a fair coin chose who got the treatment
         let line = say(&kit, stage, "03_1")?;
-        let swatch = ring(stage, v(-6.45, LEGEND_Y));
-        let swatch_words = kit.text_left(stage, TREATED_BY_COIN, 20.0, Palette::dim(), v(-6.15, LEGEND_Y))?;
+        let [swatch, swatch_words] = legend_ring(&kit, stage)?;
         fade_in_all(stage, &[swatch, swatch_words], 0.5)?;
         line.wait_for(stage, "a fair coin")?;
         let rings: Vec<Mob> = (0..s.pairs)
@@ -263,8 +493,7 @@ impl SceneConstruct for TheImaginaryWorld {
         let bars: Vec<Mob> = (0..s.pairs)
             .map(|i| first_bar(stage, disc_at(i as usize, s.faster_is_a(i))))
             .collect();
-        let bar_swatch = first_bar(stage, v(-2.45, LEGEND_Y + BAR_DY));
-        let bar_words = kit.text_left(stage, FIRST, 20.0, Palette::dim(), v(-2.15, LEGEND_Y))?;
+        let [bar_swatch, bar_words] = legend_bar(&kit, stage)?;
         let mut first: Vec<Mob> = vec![bar_swatch, bar_words];
         first.extend(&bars);
         fade_in_lagged(stage, &first, 1.2, 0.06)?;
@@ -339,13 +568,7 @@ impl SceneConstruct for TheImaginaryWorld {
         }
         // the small pairs still show the last re-toss: say so, with its own
         // count, so they are never read as the study's fifteen
-        let shown = kit.text(
-            stage,
-            &format!("{THESE_PAIRS} {} {FAVOURING_SHORT}", s.favouring(marks.assignment)),
-            20.0,
-            Palette::dim(),
-            v(SMALL_AT[0], SHOWN_Y),
-        )?;
+        let shown = shown_label(&kit, stage, s.favouring(marks.assignment))?;
         let anim = fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?;
         moves.push(stage.prepare(anim.rt(0.6))?);
         // the rule, the caption, the count and the row of tosses make room
@@ -358,80 +581,16 @@ impl SceneConstruct for TheImaginaryWorld {
         }
         stage.play_prepared(moves)?;
         line.wait_for(stage, "just over a million")?;
-        let top = world.iter().copied().max().unwrap_or(1);
-        let frame = Frame2 {
-            y: (0.0, top as f64),
-            ..HIST
-        };
-        let title = kit.text(
-            stage,
-            &format!("{} {WAYS}", thousands(total)),
-            22.0,
-            Palette::ink(),
-            v(frame.center[0], 2.25),
-        )?;
-        let title_2 = kit.text(stage, EQUALLY, 22.0, Palette::dim(), v(frame.center[0], 1.93))?;
-        let axis = polyline(vec![v(frame.left(), frame.bottom()), v(frame.right(), frame.bottom())])
-            .style(line_style(Palette::dim(), 2.0))
-            .build();
-        let axis = stage.arena_mut().add(axis);
-        let mut furniture = vec![title, title_2, axis];
-        for k in (0..=s.pairs).step_by(5) {
-            let x = frame.p(f64::from(k), 0.0)[0];
-            furniture.push(kit.text(stage, &k.to_string(), 20.0, Palette::dim(), v(x, frame.bottom() - 0.25))?);
-        }
-        furniture.push(kit.text(
-            stage,
-            AXIS,
-            20.0,
-            Palette::dim(),
-            v(frame.center[0], frame.bottom() - 0.62),
-        )?);
+        let frame = hist_frame(&world);
+        let furniture = hist_furniture(&kit, stage, &frame, total, s.pairs)?;
         fade_in_all(stage, &furniture, 0.5)?;
         line.wait_for(stage, "all equally likely")?;
-        let heights: Vec<(f64, f64)> = world.iter().enumerate().map(|(k, &c)| (k as f64, c as f64)).collect();
-        let hist = stage.arena_mut().add(histogram(&frame, &heights, 0.8, Palette::dim())?);
+        let hist = hist_bars(stage, &frame, &world)?;
         stage.add_to_scene(hist)?;
         let grow = grow_histogram(stage, hist, 0.04)?;
         stage.play(grow.with_run_time(1.6))?;
-        // the tallest bar's count, the four tosses as dots on their bars, the
-        // study's fifteen marked on its bar
-        let mode = world.iter().position(|&c| c == top).unwrap_or(0);
-        let tallest = kit.text(
-            stage,
-            &thousands(top),
-            18.0,
-            Palette::dim(),
-            v(frame.p(mode as f64, 0.0)[0], frame.top() + 0.15),
-        )?;
-        let mut marks_on_bars = vec![tallest];
-        let mut stacked = vec![0usize; pairs + 1];
-        for &a in &tosses {
-            let k = s.favouring(a) as usize;
-            let foot = frame.p(k as f64, world[k] as f64);
-            let at = v(foot[0], foot[1] + 0.12 + 0.14 * stacked[k] as f64);
-            stacked[k] += 1;
-            let d = Dot::new().point(at).radius(0.05).color(Palette::ink()).build();
-            marks_on_bars.push(stage.arena_mut().add(d));
-        }
-        marks_on_bars.push(kit.text_left(stage, DOTS, 18.0, Palette::dim(), v(4.9, 1.0))?);
-        let k_obs = s.observed() as usize;
-        let foot = frame.p(k_obs as f64, world[k_obs] as f64);
-        let obs_dot = Dot::new()
-            .point(v(foot[0], foot[1] + 0.14))
-            .radius(0.07)
-            .color(treated())
-            .build();
-        marks_on_bars.push(stage.arena_mut().add(obs_dot));
-        // beside its dot, over the near-empty bars above 15 (not over bar 14)
-        marks_on_bars.push(kit.text_left(
-            stage,
-            &format!("{THE_STUDY} {k_obs}"),
-            20.0,
-            treated(),
-            v(foot[0] + 0.15, foot[1] + 0.14),
-        )?);
-        fade_in_all(stage, &marks_on_bars, 0.5)?;
+        let on_bars = hist_marks(&kit, stage, &frame, &world, &s, &tosses)?;
+        fade_in_all(stage, &on_bars.all(), 0.5)?;
 
         // 03_8: the same patients, the coins tossed again; it assumes, it does not measure
         say(&kit, stage, "03_8")?;

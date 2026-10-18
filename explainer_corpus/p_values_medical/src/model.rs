@@ -506,6 +506,14 @@ impl Study {
         self.treated_is_a(treated_a, pair) == self.faster_is_a(pair)
     }
 
+    /// The assignment under which every pair favours the treatment except
+    /// the (distinct) pairs in `against`: every coin on the patient who
+    /// recovered first, then those pairs' coins turned over. With no pair
+    /// against it is the one assignment that gives all `pairs`.
+    pub fn favouring_all_but(&self, against: &[u32]) -> u32 {
+        against.iter().fold(self.faster_a, |a, &i| a ^ (1 << i)) & self.mask()
+    }
+
     /// `n` more tosses of the study's coins, each a whole assignment: the
     /// low `pairs` bits of one draw of the seeded stream (one fair, independent
     /// bit per pair), so `oracle.py` replays them with NumPy's
@@ -532,8 +540,9 @@ impl Study {
 /// Which outcomes a tail counts, for an observed statistic k.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Tail {
-    /// k or more: as favourable as the observation, or more (the p-value
-    /// of the predeclared one-sided test).
+    /// k or more: as favourable as the observation, or more (the one-sided
+    /// p-value: the statistic and the direction were fixed in advance; the
+    /// boundary k is the observed result).
     AtLeast,
     /// Exactly k (a wrong tail: leaves out the more extreme outcomes).
     Exactly,
@@ -546,23 +555,34 @@ pub enum Tail {
     TwoSided,
 }
 
+impl Tail {
+    /// Whether the count `j` of a world of `n` pairs belongs to this tail at
+    /// the observed count `k`: the inequality said on screen.
+    pub fn holds(self, j: u32, k: u32, n: u32) -> bool {
+        let (j, k, n) = (i64::from(j), i64::from(k), i64::from(n));
+        match self {
+            Tail::AtLeast => j >= k,
+            Tail::Exactly => j == k,
+            Tail::MoreThan => j > k,
+            Tail::AtMost => j <= k,
+            Tail::TwoSided => (2 * j - n).abs() >= (2 * k - n).abs(),
+        }
+    }
+}
+
+/// The counts (bars) a tail at `observed` takes in a world of `pairs` pairs:
+/// what chapter 04 highlights for each tail.
+pub fn tail_members(pairs: u32, observed: u32, tail: Tail) -> Vec<u32> {
+    (0..=pairs).filter(|&j| tail.holds(j, observed, pairs)).collect()
+}
+
 /// How many assignments of a null world the tail at `observed` counts.
 pub fn tail_count(world: &[u64], observed: u32, tail: Tail) -> u64 {
-    let n = world.len() as i64 - 1;
-    let k = i64::from(observed);
+    let n = world.len() as u32 - 1;
     world
         .iter()
         .enumerate()
-        .filter(|&(j, _)| {
-            let j = j as i64;
-            match tail {
-                Tail::AtLeast => j >= k,
-                Tail::Exactly => j == k,
-                Tail::MoreThan => j > k,
-                Tail::AtMost => j <= k,
-                Tail::TwoSided => (2 * j - n).abs() >= (2 * k - n).abs(),
-            }
-        })
+        .filter(|&(j, _)| tail.holds(j as u32, observed, n))
         .map(|(_, &c)| c)
         .sum()
 }
@@ -1019,6 +1039,113 @@ mod tests {
         // the five pairs that went the other way are exactly the non-favouring ones
         let against: Vec<u32> = (0..s.pairs).filter(|&i| !s.favours(s.treated_a, i)).collect();
         assert_eq!(against, vec![3, 7, 11, 16, 19]);
+    }
+
+    /// Chapter 04's tail, counted from the listed world: the bars 15 to 20
+    /// hold 15,504 + 4,845 + 1,140 + 190 + 20 + 1 = 21,700 assignments (six
+    /// bars, not six assignments); the endpoints are inclusive, the extremes
+    /// and the mirror hold, and the wrong tails and off-by-one tails differ.
+    #[test]
+    fn the_tail_is_counted_in_assignments_with_its_endpoint_included() {
+        let s = study();
+        let world = s.null_world();
+        let tail: Vec<u64> = world[15..].to_vec();
+        assert_eq!(tail, vec![15_504, 4_845, 1_140, 190, 20, 1]);
+        assert_eq!(tail.iter().sum::<u64>(), tail_count(&world, 15, Tail::AtLeast));
+        assert_eq!(tail.len(), 6, "six bars");
+        assert!(
+            tail.iter().sum::<u64>() > tail.len() as u64 * 1_000,
+            "assignments, not bars"
+        );
+        // the observed endpoint 15 is in the tail, not in the strict one
+        assert_eq!(
+            tail_count(&world, 15, Tail::AtLeast) - tail_count(&world, 15, Tail::MoreThan),
+            world[15]
+        );
+        assert_eq!(tail_count(&world, 15, Tail::Exactly), world[15]);
+        // the extremes
+        assert_eq!(tail_count(&world, 0, Tail::AtLeast), 1 << 20);
+        assert_eq!(tail_count(&world, 20, Tail::AtLeast), 1);
+        assert_eq!(tail_count(&world, 0, Tail::AtMost), 1);
+        assert_eq!(tail_count(&world, 20, Tail::MoreThan), 0);
+        // the mirror: k and 20 - k hold the same number of assignments, so
+        // the other direction's tail at 5 equals ours at 15
+        for k in 0..=20 {
+            assert_eq!(world[k], world[20 - k], "k = {k}");
+        }
+        assert_eq!(
+            tail_count(&world, 5, Tail::AtMost),
+            tail_count(&world, 15, Tail::AtLeast)
+        );
+        // mutations of the tail are different numbers
+        let right = tail_count(&world, 15, Tail::AtLeast);
+        for wrong in [
+            tail_count(&world, 16, Tail::AtLeast),
+            tail_count(&world, 14, Tail::AtLeast),
+            tail_count(&world, 15, Tail::Exactly),
+            tail_count(&world, 15, Tail::MoreThan),
+            tail_count(&world, 15, Tail::AtMost),
+            tail_count(&world, 15, Tail::TwoSided),
+        ] {
+            assert_ne!(wrong, right);
+        }
+        assert_eq!(tail_share(&world, 15, Tail::Exactly).percent(1), "1.5");
+        assert_eq!(tail_share(&world, 15, Tail::MoreThan).percent(1), "0.6");
+        assert_eq!(tail_share(&world, 15, Tail::AtLeast).percent(0), "2");
+        assert_eq!(tail_share(&world, 15, Tail::AtLeast).decimal(4), "0.0207");
+    }
+
+    /// What chapter 04 lights for each tail is that tail's inequality: the
+    /// tail in the predeclared direction from the observed 15 is bars 15 to
+    /// 20, the exact one 15 alone, the strict one 16 to 20, and each set's
+    /// assignments are its count.
+    #[test]
+    fn each_highlighted_set_is_its_inequality() {
+        let world = study().null_world();
+        assert_eq!(tail_members(20, 15, Tail::AtLeast), vec![15, 16, 17, 18, 19, 20]);
+        assert_eq!(tail_members(20, 15, Tail::Exactly), vec![15]);
+        assert_eq!(tail_members(20, 15, Tail::MoreThan), vec![16, 17, 18, 19, 20]);
+        assert_eq!(tail_members(20, 15, Tail::AtMost).len(), 16);
+        assert_eq!(
+            tail_members(20, 15, Tail::TwoSided),
+            vec![0, 1, 2, 3, 4, 5, 15, 16, 17, 18, 19, 20]
+        );
+        for tail in [
+            Tail::AtLeast,
+            Tail::Exactly,
+            Tail::MoreThan,
+            Tail::AtMost,
+            Tail::TwoSided,
+        ] {
+            let lit: u64 = tail_members(20, 15, tail).iter().map(|&j| world[j as usize]).sum();
+            assert_eq!(lit, tail_count(&world, 15, tail), "{tail:?}");
+        }
+        // exact and strict are disjoint and together make the whole tail
+        let mut both = tail_members(20, 15, Tail::Exactly);
+        both.extend(tail_members(20, 15, Tail::MoreThan));
+        assert_eq!(both, tail_members(20, 15, Tail::AtLeast));
+    }
+
+    /// The counts chapter 04 earns with real assignments: exactly one gives
+    /// all twenty, and the assignments giving nineteen are exactly the twenty
+    /// that turn over one pair's coin.
+    #[test]
+    fn twenty_has_one_way_and_nineteen_has_one_per_pair() {
+        let s = study();
+        let all: Vec<u32> = (0..1u32 << s.pairs).filter(|&a| s.favouring(a) == 20).collect();
+        assert_eq!(all, vec![s.favouring_all_but(&[])]);
+        let mut nineteen: Vec<u32> = (0..1u32 << s.pairs).filter(|&a| s.favouring(a) == 19).collect();
+        let mut one_over: Vec<u32> = (0..s.pairs).map(|j| s.favouring_all_but(&[j])).collect();
+        nineteen.sort_unstable();
+        one_over.sort_unstable();
+        assert_eq!(nineteen, one_over);
+        assert_eq!(nineteen.len(), 20);
+        for j in 0..s.pairs {
+            let a = s.favouring_all_but(&[j]);
+            assert!(!s.favours(a, j) && (0..s.pairs).filter(|&i| i != j).all(|i| s.favours(a, i)));
+        }
+        assert_eq!(s.favouring(s.favouring_all_but(&[3, 7, 11, 16, 19])), 15);
+        assert_eq!(s.favouring_all_but(&[3, 7, 11, 16, 19]), s.treated_a);
     }
 
     /// The chapter's re-tosses are real, distinct assignments of the same

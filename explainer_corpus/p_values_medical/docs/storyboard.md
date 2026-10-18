@@ -48,13 +48,11 @@ denominators highlighted (495 out of 9,900; 90 out of 585) and the lower-third
   four real re-tosses of the coins with their counts; the histogram of all
   2^20 assignments; it ends on the question how often fifteen or more
   occurs, and chapter 04 earns the tail and its name.
-- **04_count_the_whole_tail** (~75 s): the bars 15 to 20 light and are
-  counted: 15,504 + 4,845 + 1,140 + 190 + 20 + 1 = 21,700 of 1,048,576
-  (M-T1.tail.at_least, M-T1.assignments), about two percent (M-T1.p_10dp);
-  only then the name "p-value" and the formula as the count it is. The
-  wrong tails, struck through, each a different number: exactly 15 (1.48%,
-  M-X1.exactly_percent_2dp), more than 15 (0.59%), the other direction, and
-  the two-sided question (4.14%) labelled as a different question.
+- **04_count_the_whole_tail**: built (its beats are below). The whole
+  tail counted in assignments, then named; the exact and strict tails as
+  different subsets and numbers; the two-sided question is left for 05 or
+  the description (a different predeclared question, 4.14% here, never "a
+  one-sided p doubled" as a rule).
 - **05_what_two_percent_does_not_say** (~75 s): not the chance the
   treatment does nothing, not the chance the study is wrong; 14 pairs gives
   5.77% (M-T2.p_10dp), a different amount of evidence, not a different
@@ -176,3 +174,27 @@ another; a zero average effect alone would not give this world).
 | 03_7 | The twenty coins can land in just over a million ways, all equally likely. Count them all. *(M-T1.assignments, .pairs)* | The pairs move to the left half, small; on the right the histogram of all 1,048,576 assignments grows from its axis, a bar for each count from 0 to 20 (M-T1.null.counts, tallest 184,756 at 10); the four tosses land as dots on their bars, and the study's 15 is marked on its bar | histogram grows; data window | |
 | 03_8 | Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is. | A card under the pairs: "the same 40 patients in 20 pairs, the coins tossed again: not new patients. This world assumes the treatment did nothing; it does not say how likely that is." (M-T1.patients, .pairs) | card | |
 | 03_9 | ⟨predict⟩ In this world, how often do fifteen or more pairs favour the treatment? *(M-T1.observed)* | The card leaves; the think ring drains under the pairs; the histogram waits, its 15 marked and nothing shaded | predict pause | |
+
+## 04_count_the_whole_tail: Count the whole tail (~79 s at the kit's scratch rate)
+
+Opens on chapter 03's last picture as it rests (the small pairs showing the
+last re-toss, labelled with its 12; the histogram with its tosses and the
+study's 15). Every highlighted set is the inequality spoken: lavender is the
+tail in the direction fixed in advance, starting at this result (15 or
+more); red outlines are the wrong ones (exactly 15, more than 15). What was
+predeclared is the statistic and the favourable direction; the boundary 15 is
+the observed result, not a cutoff chosen in advance. Counts are of
+assignments, never of bars.
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | The study found fifteen. We decided in advance that more favouring pairs is better news. *(M-T1.observed)* | The toss dots and their note leave; "the study: 15" stays by its bar | | |
+| 04_2 | ⟨predict⟩ So which bars hold an outcome at least as favourable as fifteen? | The think ring drains under the small pairs; nothing is lit yet | predict pause | |
+| 04_3 | Fifteen itself, and everything above it, up to twenty. *(M-T1.observed, .pairs)* | Bars 15 to 20 turn lavender one after another (overlays drawn from the world's counts); a lavender bracket over them, "15 or more" | lagged reveal; highlight | |
+| 04_4 | Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first. *(M-T1.pairs; M-T4.count_20)* | The small pairs take that assignment (`Study::favouring_all_but(&[])`): every ring jumps onto its pair's first-recovered patient, all twenty boxes light; their label reads "these pairs: the one way to get 20"; a ledger under them begins "20 favouring · 1" | morph that keeps identity; ledger | |
+| 04_5 | For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. *(M-T4.k_one_against, M-T1.pairs, M-T4.count_19)* | One pair's ring jumps back and its box goes dark; then the same happens to a second pair and a third, each an actual assignment `favouring_all_but(&[j])`; the label reads "these pairs: one of the 20 ways to get 19"; the ledger adds "19 favouring · 20" | morph; ledger | |
+| 04_6 | Down to fifteen, the counts grow fast. Altogether, twenty-one thousand seven hundred ways. *(M-T4.tail_counts; M-T1.tail.at_least)* | The ledger fills 18 · 190, 17 · 1,140, 16 · 4,845, 15 · 15,504 (M-T4.tail_counts); at "Altogether" a rule, "15 or more", and a total that counts up to 21,700 "of 1,048,576" | live count; ledger | |
+| 04_7 | Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. *(M-T1.assignments, .p_percent_0dp)* | The small pairs and the legend leave and the ledger rises into their place; at "about two percent", under it 21,700 / 1,048,576 ≈ 2% in TeX; at "one-sided p-value" its name appears over the fraction in lavender, with the lower-third (two lines, under the histogram's axis), precisely: "one-sided p-value: under the sharp null, 21,700 / 1,048,576 ≈ 0.0207 of fair-coin assignments give 15 or more favouring. Not P(no effect)." | equation; lower-third | |
+| 04_8 | Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. *(M-X1.exactly_percent_1dp, .more_than_percent_1dp)* | The lower-third leaves; a red outline around bar 15 alone and "exactly 15: 15,504 of 1,048,576 ≈ 1.5%"; then a red outline around bars 16 to 20 alone and "more than 15: 6,196 of 1,048,576 ≈ 0.6%"; the lavender tail stays | highlight; fractions | |
+| 04_9 | Neither is our test. The direction was fixed in advance. We count this result or anything more favourable. *(the statistic and the direction were predeclared; the boundary is the observed 15)* | The red outlines and their lines leave; under the fraction, at "fixed in advance": "fixed in advance: the statistic and its direction"; at "this result", in lavender: "set by the data: the tail starts at this result, 15", and the bracket and the p-value pulse | highlight | |
+| 04_10 | And every one of those ways lives in a world where the treatment did nothing. | The histogram's title, "1,048,576 ways the coins can land", is outlined: the denominator; a caption beneath: "every one of them in the world where the treatment changed no one's recovery" | caption; glow outline | hold |

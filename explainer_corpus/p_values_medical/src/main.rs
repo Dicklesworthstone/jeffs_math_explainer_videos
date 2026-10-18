@@ -110,6 +110,38 @@ mod tests {
         ("03_7", "The twenty coins", "M-T1.pairs", "20"),
         ("03_7", "just over a million", "M-T1.assignments", "1048576"),
         ("03_9", "fifteen or more", "M-T1.observed", "15"),
+        ("04_1", "found fifteen", "M-T1.observed", "15"),
+        ("04_2", "as favourable as fifteen", "M-T1.observed", "15"),
+        ("04_3", "Fifteen itself", "M-T1.observed", "15"),
+        ("04_3", "up to twenty", "M-T1.pairs", "20"),
+        ("04_4", "All twenty pairs", "M-T1.pairs", "20"),
+        ("04_4", "only one way", "M-T4.count_20", "1"),
+        ("04_5", "For nineteen", "M-T4.k_one_against", "19"),
+        ("04_5", "any of the twenty", "M-T1.pairs", "20"),
+        ("04_5", "Twenty ways", "M-T4.count_19", "20"),
+        ("04_6", "Down to fifteen", "M-T1.observed", "15"),
+        (
+            "04_6",
+            "twenty-one thousand seven hundred",
+            "M-T1.tail.at_least",
+            "21700",
+        ),
+        ("04_7", "just over a million", "M-T1.assignments", "1048576"),
+        ("04_7", "about two percent", "M-T1.p_percent_0dp", "2"),
+        ("04_8", "exactly fifteen", "M-T1.observed", "15"),
+        (
+            "04_8",
+            "about one and a half percent",
+            "M-X1.exactly_percent_1dp",
+            "1.5",
+        ),
+        ("04_8", "more than fifteen", "M-T1.observed", "15"),
+        (
+            "04_8",
+            "about six tenths of a percent",
+            "M-X1.more_than_percent_1dp",
+            "0.6",
+        ),
     ];
 
     #[test]

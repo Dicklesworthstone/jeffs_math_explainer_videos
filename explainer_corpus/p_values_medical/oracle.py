@@ -370,6 +370,37 @@ def chapter_03(world, observed):
     check("1 to 7 pairs, every finishing order: binomial bars, no assignment counted twice", ok)
 
 
+def chapter_04(world, observed):
+    """The whole tail, counted in assignments by binomial coefficients, and
+    checked against the listed world; the rounded shares the voice says."""
+    total = 2**PAIRS
+    tail = [math.comb(PAIRS, k) for k in range(observed, PAIRS + 1)]
+    emit("M-T4.tail_counts", ",".join(str(c) for c in tail))
+    emit("M-T4.tail_bars", len(tail))
+    emit("M-T4.count_20", math.comb(PAIRS, PAIRS))
+    emit("M-T4.count_19", math.comb(PAIRS, PAIRS - 1))
+    check("the tail's coefficients are the listed world's bars 15 to 20", tail == world[observed:])
+    check("15,504 + 4,845 + 1,140 + 190 + 20 + 1 = 21,700", sum(tail) == 21_700)
+    p = F(sum(tail), total)
+    emit("M-T1.p_percent_0dp", pct(p, 0))
+    emit("M-T1.p_4dp", dec(p, 4))
+    emit("M-X1.exactly_percent_1dp", pct(F(world[observed], total), 1))
+    emit("M-X1.more_than_percent_1dp", pct(F(sum(world[observed + 1:]), total), 1))
+    check("at least includes 15; more than does not", sum(world[observed:]) - sum(world[observed + 1:]) == world[observed])
+    check("the extremes: K >= 0 is everything, K >= 20 is one assignment", (sum(world), world[PAIRS]) == (total, 1))
+    check("the mirror: k and 20 - k hold the same count", all(world[k] == world[PAIRS - k] for k in range(PAIRS + 1)))
+    check("off-by-one tails are different numbers",
+          sum(world[observed + 1:]) != sum(tail) != sum(world[observed - 1:]))
+    # the twenty single flips of the all-favouring assignment are the
+    # assignments that give nineteen
+    faster = bits(FASTER_A)
+    flips = [faster[:j] + [1 - faster[j]] + faster[j + 1:] for j in range(PAIRS)]
+    emit("M-T4.k_one_against", favouring(flips[0], faster))
+    check("one pair turned over gives 19, twenty different ways",
+          favouring(faster, faster) == 20 and all(favouring(a, faster) == 19 for a in flips)
+          and len({tuple(a) for a in flips}) == math.comb(PAIRS, PAIRS - 1))
+
+
 def study():
     observed, world = null_world()
     total = sum(world)
@@ -379,6 +410,7 @@ def study():
     emit("M-T1.assignments", total)
     emit("M-T1.null.counts", ",".join(str(c) for c in world))
     chapter_03(world, observed)
+    chapter_04(world, observed)
     at_least = tail(world, observed, "at_least")
     p = F(at_least, total)
     emit("M-T1.tail.at_least", at_least)

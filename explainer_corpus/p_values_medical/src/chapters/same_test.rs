@@ -182,7 +182,7 @@ fn tex_fraction(top: u64, bottom: u64) -> String {
 
 /// A fraction in TeX with its value in text after it, the pair centred at
 /// `(x, y)`, in this chapter's smaller sizes; one group, detached.
-fn small_fraction(
+pub(super) fn small_fraction(
     kit: &Kit,
     stage: &mut Stage<'_>,
     (top, bottom): (u64, u64),

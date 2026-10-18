@@ -1,8 +1,9 @@
-//! One scene per chapter, in storyboard order. Chapters 01 and 02 are
-//! built; the continuation (03 to 06) is written out in
+//! One scene per chapter, in storyboard order. Chapters 01 to 04 are
+//! built; the continuation (05 and 06) is written out in
 //! `docs/storyboard.md` §2 and joins this registry, with its storyboard
 //! rows, chapter by chapter.
 
+pub mod count_tail;
 pub mod draw;
 pub mod five_percent;
 pub mod glyphs;
@@ -26,5 +27,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("01_five_percent_of_what", 0.35, five_percent::FivePercentOfWhat),
         scene!("02_the_same_test", 0.4, same_test::TheSameTest),
         scene!("03_the_imaginary_world", 0.45, imaginary_world::TheImaginaryWorld),
+        scene!("04_count_the_whole_tail", 0.45, count_tail::CountTheWholeTail),
     ]
 }

@@ -211,13 +211,33 @@ fn trial(f: &mut Facts) -> Result<(), String> {
     // the planted wrong statistic: how many A patients the coins treated
     // (not the count of pairs favouring the treatment)
     f.add("M-X3.a_treated", s.treated_a.count_ones())?;
+    // chapter 04: the tail's bars counted in assignments (M-T4), the one way
+    // to get twenty and the twenty ways to get nineteen as actual assignments,
+    // and the rounded shares the narration says
+    let tail: Vec<String> = world[k as usize..].iter().map(u64::to_string).collect();
+    f.add("M-T4.tail_counts", tail.join(","))?;
+    f.add("M-T4.tail_bars", tail.len())?;
+    let count = |n: u32| (0..=(1u32 << s.pairs) - 1).filter(|&a| s.favouring(a) == n).count();
+    f.add("M-T4.count_20", count(s.pairs))?;
+    f.add("M-T4.count_19", count(s.pairs - 1))?;
+    f.add("M-T4.k_one_against", s.pairs - 1)?;
+    let p = tail_share(&world, k, Tail::AtLeast);
+    f.add("M-T1.p_percent_0dp", p.percent(0))?;
+    f.add("M-T1.p_4dp", p.decimal(4))?;
+    f.add(
+        "M-X1.exactly_percent_1dp",
+        tail_share(&world, k, Tail::Exactly).percent(1),
+    )?;
+    f.add(
+        "M-X1.more_than_percent_1dp",
+        tail_share(&world, k, Tail::MoreThan).percent(1),
+    )?;
     f.pin(
         "M-T1.tail.at_least",
         tail_count(&world, k, Tail::AtLeast),
         "21700",
         BRIEF,
     )?;
-    let p = tail_share(&world, k, Tail::AtLeast);
     f.add("M-T1.p.exact", p)?;
     f.pin("M-T1.p_10dp", p.decimal(10), "0.0206947327", BRIEF)?;
     f.add("M-T1.p_percent_2dp", p.percent(2))?;
