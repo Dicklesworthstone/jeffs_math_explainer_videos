@@ -55,15 +55,16 @@ chapter 01.
 | I. A turn that helps | 01 the turned tile | the obvious box is three wide; turning the middle tile lets a squeeze reach 2 + 1/√2; that picture shows five tiles fit, not that nothing smaller does |
 | II. Why straight tiles need three | 02 four pins | marks at a third and two thirds cut each side into pieces shorter than a tile, so every straight tile in a box narrower than three holds a pin strictly inside; tiles cannot share one, so at most four fit; at exactly three the pins sit on edges and five fit; the turned tile holds no pin, so the argument cannot reach it |
 | III. Can it wiggle? | 03 a turn by a hair | the pins miss the turned tile (02's last picture), so what holds it? With the box, the corner tiles and the middle tile's centre held, the corners lie on the circle inside the middle tile; any turn moves the sides off them, so they sink in by ½(1 − cos δ), the square of the turn, tiny but never zero; magnified honestly; a local fact about one motion, not a proof about all arrangements |
-| IV. Nothing smaller fits | 04 four points no tile can dodge | Göbel's four unavoidable points for any tile, turned or not, in the box 2 + 1/√2 (Friedman's Theorem 2 with Lemmas 1–3), and the scale-up that turns "touch" into "too many" |
-| V. Beyond five | 05 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof |
+| IV. Points no tile can dodge: the corners | 04 the corner lemma | Friedman's Lemma 1, proved by projections: any tile in a corner, its centre within one tile of both walls, covers the point one tile from both walls; turning widens the shadow, the walls push the centre out by half of it, and the point stays within s (1 − s/2) = ½ − ½ (s − 1)² ≤ ½ along the tile's sides; equality only for a straight tile on a wall; drop an assumption and it fails; in the box of 2.71 this settles the four corner blocks of centres and leaves the edges and the middle |
+| V. Points no tile can dodge: the edges | 05 near a side | Friedman's Lemma 2 for centres in the strips between corner blocks (not boarded) |
+| VI. Points no tile can dodge: the middle | 06 a triangle of points | Friedman's Lemma 3 for centres in the middle (not boarded) |
+| VII. Nothing smaller fits | 07 four points, five tiles | every tile in the box of 2.71 covers one of the four points; the scale-up that turns that into "five tiles need at least 2 + 1/√2" (not boarded) |
+| VIII. Beyond five | 08 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof (not boarded) |
 
-The planned chapter on why the turn escapes the pins became 02's last beat
-and 03's first line, so chapters 04 and 05 are not boarded yet: each is
-boarded only after its mathematics is in `model.rs` with an oracle, and
-chapter 04 only after the lower-bound proof is reconstructed and checked (the
-slate's gate: if it cannot be taught honestly, the video ends on construction
-versus proof instead).
+Chapters 05 to 08 are boarded only after their mathematics is in `model.rs`
+with an oracle, one lemma a chapter, so the lower bound gets the time it
+needs; until chapter 07 is checked, nothing claims that 2 + 1/√2 is the
+smallest box.
 
 The payoff is previewed in chapter 01 itself (the box of 2.71 against the
 grid's 3); the video ends on the rigorous form of the opening picture: the
@@ -127,3 +128,24 @@ the turns shown are far inside that (`model.rs` § a turn by a hair).
 | 03_6 | A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero. | Beside the lens, bite = ½(1 − cos turn) ≈ ¼ turn², turn in radians about the fixed centre *(hair.depth)*; ever smaller turns still bite *(hair.tiny)* | formula | |
 | 03_7 | In the box of three, the corners sat on the outer circle, and the tile turned freely. Held here, it cannot turn at all. | A small box of three in the corner of the panel, its corners on the circle round the turning tile *(turn.inner2, hair.roomy)*; on the board the tile turns the other way, and the corners bite in again *(hair.minus, hair.check.minus)*; then back to contact | tracker | |
 | 03_8 | This shows only that this one turn is blocked. Whether any arrangement fits a smaller box needs a proof about all of them. | "blocked: this one turn, with all else held" and "a smaller box? a proof about every arrangement"; the turned packing as it was | box | |
+
+## 04_the_corner_lemma: The corner lemma (budgeted from measured timings: about 80 s)
+
+Friedman's Lemma 1 (fact sheet S2): any unit square inside the first
+quadrant whose centre is in [0, 1]² contains (1, 1). His proof reduces to a
+square touching both axes; the video's proof is by projections, written out
+in `model.rs` § the corner lemma, with no reduction. "Covers" means inside or
+on the edge. The corner view shows the quadrant two and a half times larger
+than the box of chapter 01; the last beat returns to the box at its usual
+scale.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | To rule out a smaller box, we need points no tile can dodge. Start with a tile in a corner. | A corner of a box, close up: the floor and the left wall; a purple point one tile from both *(corner.point)*; a blue tile in the corner | lagged reveal | |
+| 04_2 | If its centre is within one tile of both walls, it always covers this point, one tile across and one tile up. | The square of centres within one tile of both walls, outlined; the tile wanders through varied allowed positions and turns (`model::corner_wander`: examples; the proof covers every one), its centre a dot, a ring on the point yellow while it is inside and green on the edge | tracker, highlight | |
+| 04_3 | A turned tile casts a wider shadow on the floor. ⟨predict⟩ So could a turned tile slip past the point? | The tile's shadow, a purple bar on the floor, with a live readout from 1 to 1.41 *(corner.shadow.min, corner.shadow.max.2dp)*; the picture holds while the think ring drains | tracker, live readout | listen 4 s (think) |
+| 04_4 | No. The walls keep its centre at least half a shadow out, so across and up, the point is at most one minus half a shadow away. | The tile pushed into the corner as it turns (`model::corner_pushed`), the centres it allows shaded, the point's gap across and its gap up drawn from the centre (each at most 1 − s/2; the straight-line distance is larger, √2 − 1 at an eighth of a turn, which is why 04_5 measures along the tile's sides) | tracker | |
+| 04_5 | Along the tile's own sides, that is at most the shadow times one minus half the shadow, which never passes one half. | The tile's two half-sides drawn from its centre; live readouts of the point's distance along each, both under 0.50 *(corner.bound.max, corner.bound.eighth)*; s (1 − s/2) = ½ − ½ (s − 1)² ≤ ½ | formula, live readout | |
+| 04_6 | Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it. | The tile turns back to straight in the corner, then slides up the left wall: the ring turns green, the point on its edge *(corner.edges, corner.turned, corner.margin.eighth)* | tracker, highlight | |
+| 04_7 | Drop a wall, or let the centre stray past one tile, and the point can escape. | The straight tile slides out past one tile: the ring turns red *(corner.fail.centre)*; then a turned tile pokes through both walls, its centre too close: red again *(corner.fail.wall)* | tracker, highlight | |
+| 04_8 | In the box of two point seven one, this settles centres near the corners. The edges and the middle come next. | The box of 2.71 at the usual scale: Friedman's four points *(corner.box.points)*; the region of every centre, its four corner blocks green *(corner.box.block, corner.box.covered)*, the cross between them grey *(corner.box.left, corner.box.middle)*: "settled: centres within one tile of a corner" and "next: the edges and the middle" | box | |

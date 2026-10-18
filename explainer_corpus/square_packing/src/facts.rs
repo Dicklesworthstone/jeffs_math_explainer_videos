@@ -44,6 +44,9 @@ pub mod cited {
     pub const SIDE_5DP: &str = "2.70711";
     /// "A 3×3 grid would need side 3" (the case page).
     pub const GRID: &str = "3";
+    /// Friedman's four points for five tiles (DS7, Theorem 2), in his order
+    /// and the facts' form: 1/√2 = 1/2*sqrt(2).
+    pub const FOUR_POINTS: &str = "(1, 1) (1, 1 + 1/2*sqrt(2)) (1 + 1/2*sqrt(2), 1) (1 + 1/2*sqrt(2), 1 + 1/2*sqrt(2))";
 }
 
 fn ensure(ok: bool, what: impl FnOnce() -> String) -> Result<(), String> {
@@ -58,6 +61,7 @@ pub fn facts() -> Result<Facts, String> {
     planted(&mut f)?;
     pins(&mut f)?;
     hair(&mut f)?;
+    corner(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -283,6 +287,100 @@ fn hair(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 04: the corner lemma (Friedman, DS7, Lemma 1). The point it guarantees;
+/// the shadow's range and the proof's bound at its two ends; the lemma
+/// checked exactly and completely at every checked turn, with its least
+/// margin at an eighth of a turn; its edges (a straight tile on a wall: on
+/// the edge; clear of the walls or turned: inside); two failures with an
+/// assumption dropped; and the box of 2.71: Friedman's four points, the
+/// centre region, the corner blocks settled and what is left.
+fn corner(f: &mut Facts) -> Result<(), String> {
+    let point: Point<Surd> = model::corner_point();
+    f.add("corner.point", format!("{},{}", point.0, point.1))?;
+    let straight = (Surd::int(1), Surd::ZERO);
+    let eighth = model::eighth_turn();
+    f.add("corner.shadow.min", model::shadow(straight))?;
+    f.add("corner.shadow.max", model::shadow(eighth))?;
+    f.add("corner.shadow.max.2dp", model::shadow(eighth).decimals(2))?;
+    f.add("corner.bound.max", model::corner_bound(model::shadow(straight)))?;
+    f.add("corner.bound.eighth", model::corner_bound(model::shadow(eighth)))?;
+    let turns = model::corner_turns();
+    let holds = turns.iter().all(|&t| model::corner_lemma_margin(t) >= Surd::ZERO);
+    ensure(holds, || "the corner lemma fails at a checked turn".to_owned())?;
+    f.add("corner.lemma", "yes")?;
+    f.add("corner.turns", turns.len())?;
+    f.add("corner.margin.eighth", model::corner_lemma_margin(eighth))?;
+    let h = Surd::ratio(1, 2);
+    let edges: Vec<&str> = [
+        (h, h),
+        (h, Surd::ratio(4, 5)),
+        (Surd::ratio(4, 5), h),
+        (Surd::ratio(3, 4), Surd::ratio(3, 4)),
+    ]
+    .iter()
+    .map(|&c| model::corner_holds(c, straight).word())
+    .collect();
+    f.add("corner.edges", edges.join("|"))?;
+    let turned_inside = turns.iter().filter(|&&t| model::shadow(t) > Surd::int(1)).all(|&t| {
+        model::corner_extremes(t)
+            .iter()
+            .all(|&c| model::corner_holds(c, t) == model::Holds::Inside)
+    });
+    f.add(
+        "corner.turned",
+        if turned_inside { "inside" } else { "not always inside" },
+    )?;
+    let past = (Surd::ratio(8, 5), h);
+    let in_quadrant = model::in_quadrant(&model::Tile::straight(past.0, past.1));
+    f.add(
+        "corner.fail.centre",
+        format!(
+            "{}|{}",
+            model::corner_holds(past, straight).word(),
+            quadrant_word(in_quadrant)
+        ),
+    )?;
+    let crossing = model::Tile {
+        centre: (h, h),
+        cos: eighth.0,
+        sin: eighth.1,
+    };
+    f.add(
+        "corner.fail.wall",
+        format!(
+            "{}|{}",
+            model::corner_holds((h, h), eighth).word(),
+            quadrant_word(model::in_quadrant(&crossing))
+        ),
+    )?;
+    let side = model::turned_side();
+    let pts: Vec<String> = model::corner_points(side)
+        .iter()
+        .map(|(x, y)| format!("({x}, {y})"))
+        .collect();
+    f.pin(
+        "corner.box.points",
+        pts.join(" "),
+        cited::FOUR_POINTS,
+        "Friedman DS7, Theorem 2: P = {(1,1), (1,1+1/√2), (1+1/√2,1), (1+1/√2,1+1/√2)}",
+    )?;
+    let (lo, hi) = model::centre_region(side);
+    let region = (hi - lo) * (hi - lo);
+    let block = Surd::int(1) - lo;
+    let covered = Surd::int(4) * block * block;
+    f.add("corner.box.region", region)?;
+    f.add("corner.box.block", block)?;
+    f.add("corner.box.covered", covered)?;
+    f.add("corner.box.left", region - covered)?;
+    f.add("corner.box.middle", side - Surd::int(2))?;
+    Ok(())
+}
+
+/// Whether a tile keeps inside the walls, as the facts print it.
+fn quadrant_word(inside: bool) -> &'static str {
+    if inside { "inside the walls" } else { "through a wall" }
+}
+
 /// A step's verdict as the facts print it.
 fn step(verdict: Option<bool>) -> &'static str {
     match verdict {
@@ -481,5 +579,40 @@ mod tests {
         assert_eq!(value("hair.roomy"), "free|free");
         assert!(line("03_7").contains("turned freely"));
         assert!(line("03_8").contains("only that this one turn is blocked"));
+    }
+
+    /// What chapter 04's voice says, on the facts: the point one tile
+    /// across and one tile up, centres within one tile of both walls; the
+    /// bound never past one half, the reach half a tile; only a straight tile
+    /// on a wall touches; the point can escape without an assumption; the
+    /// box of 2.71 and what is left.
+    #[test]
+    fn the_corner_lemma_says_the_facts() {
+        assert_eq!(value("corner.point"), "1,1");
+        let l2 = line("04_2");
+        assert!(l2.contains("within one tile of both walls"), "{l2}");
+        assert!(l2.contains("one tile across and one tile up"), "{l2}");
+        assert_eq!(value("corner.lemma"), "yes");
+        assert_eq!(value("corner.bound.max"), "1/2");
+        assert!(line("04_5").contains("never passes one half"));
+        assert_eq!(value("hair.inradius2"), "1/4");
+        let l6 = line("04_6");
+        assert!(l6.contains("Half a tile is how far a tile reaches"), "{l6}");
+        assert!(
+            l6.contains("Only a straight tile resting on a wall just touches it"),
+            "{l6}"
+        );
+        assert_eq!(value("corner.edges"), "edge|edge|edge|inside");
+        assert_eq!(value("corner.turned"), "inside");
+        assert!(line("04_7").contains("the point can escape"));
+        assert!(value("corner.fail.centre").starts_with("outside|inside the walls"));
+        assert!(value("corner.fail.wall").starts_with("outside|through a wall"));
+        let l8 = line("04_8");
+        assert!(
+            l8.contains(&format!("box of {}", spoken(&value("turned.side.2dp")))),
+            "{l8}"
+        );
+        assert_eq!(value("corner.box.covered"), "1");
+        assert_eq!(value("corner.box.left"), "1/2 + sqrt(2)");
     }
 }

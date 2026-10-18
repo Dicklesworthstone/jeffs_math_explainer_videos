@@ -407,6 +407,73 @@ def main():
     quad = clip(corner_tiles(side)[0], turned(*half_angle(3)))
     put("hair.beyond", f"{len(quad)}|{area(quad)}")
 
+    # chapter 04, the corner lemma (Friedman DS7, Lemma 1), by polygons: a
+    # tile is a unit square turned about its centre; its shadow is the width
+    # of its vertices on the floor; the point's depth is its least distance
+    # to an edge (positive inside, zero on an edge)
+    def tile_at(cx, cy, cd, sd):
+        sq = [(q2(cx) - HALF, q2(cy) - HALF), (q2(cx) + HALF, q2(cy) - HALF),
+              (q2(cx) + HALF, q2(cy) + HALF), (q2(cx) - HALF, q2(cy) + HALF)]
+        return rotate(sq, (q2(cx), q2(cy)), q2(cd), q2(sd))
+
+    def width(poly):
+        xs = [v[0] for v in poly]
+        return max(xs) - min(xs)
+
+    def where(poly, p):
+        d = depth_in(poly, p)
+        return "inside" if d > 0 else ("edge" if d == 0 else "outside")
+
+    def walls(poly):
+        return "inside the walls" if all(v[0] >= 0 and v[1] >= 0 for v in poly) else "through a wall"
+
+    corner_pt = (q2(1), q2(1))
+    put("corner.point", "1,1")
+    straight_t, eighth_t = (1, 0), (r, r)
+    put("corner.shadow.min", width(tile_at(2, 2, *straight_t)))
+    s_max = width(tile_at(2, 2, *eighth_t))
+    put("corner.shadow.max", s_max)
+    put("corner.shadow.max.2dp", s_max.rounded(2))
+    put("corner.bound.max", 1 * (1 - HALF))
+    put("corner.bound.eighth", s_max * (1 - s_max * HALF))
+    checked = [straight_t, eighth_t]
+    for n in range(2, 21):
+        cd_n, sd_n = half_angle(n)
+        checked += [(cd_n, sd_n), (sd_n, cd_n)]
+    margins = []
+    for cd_n, sd_n in checked:
+        s_n = width(tile_at(2, 2, cd_n, sd_n))
+        lo_n = s_n * HALF
+        # the least depth over the four extreme centres of [s/2, 1]^2
+        m = min(depth_in(tile_at(x, y, cd_n, sd_n), corner_pt) for x in (lo_n, q2(1)) for y in (lo_n, q2(1)))
+        if not (m == HALF * (s_n - 1) * (s_n - 1)):
+            sys.exit(f"oracle: corner margin {m} is not half the square of {s_n} - 1")
+        margins.append(m)
+    put("corner.lemma", "yes" if all(m >= 0 for m in margins) else "no")
+    put("corner.turns", len(checked))
+    put("corner.margin.eighth", margins[1])
+    put("corner.edges", "|".join(where(tile_at(x, y, *straight_t), corner_pt) for x, y in
+                                 ((HALF, HALF), (HALF, Fraction(4, 5)), (Fraction(4, 5), HALF), (Fraction(3, 4), Fraction(3, 4)))))
+    turned_ok = all(where(tile_at(x, y, cd_n, sd_n), corner_pt) == "inside"
+                    for cd_n, sd_n in checked if width(tile_at(2, 2, cd_n, sd_n)) > 1
+                    for x in (width(tile_at(2, 2, cd_n, sd_n)) * HALF, q2(1))
+                    for y in (width(tile_at(2, 2, cd_n, sd_n)) * HALF, q2(1)))
+    put("corner.turned", "inside" if turned_ok else "not always inside")
+    past = tile_at(Fraction(8, 5), HALF, *straight_t)
+    put("corner.fail.centre", f"{where(past, corner_pt)}|{walls(past)}")
+    crossing = tile_at(HALF, HALF, *eighth_t)
+    put("corner.fail.wall", f"{where(crossing, corner_pt)}|{walls(crossing)}")
+    far = side - 1
+    put("corner.box.points", " ".join(f"({x}, {y})" for x, y in ((q2(1), q2(1)), (q2(1), far), (far, q2(1)), (far, far))))
+    lo_c, hi_c = q2(HALF), side - HALF
+    region = (hi_c - lo_c) * (hi_c - lo_c)
+    block = 1 - lo_c
+    put("corner.box.region", region)
+    put("corner.box.block", block)
+    put("corner.box.covered", 4 * block * block)
+    put("corner.box.left", region - 4 * block * block)
+    put("corner.box.middle", side - 2)
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])

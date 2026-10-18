@@ -1,11 +1,12 @@
 //! One scene per chapter, in storyboard order. Every chapter is a real
 //! scene; a module is declared here only once its file is committed
-//! (chapters 04 and 05 of the storyboard's arc are not boarded yet).
+//! (chapters 05 to 08 of the storyboard's arc are not boarded yet).
 
 pub mod a_turn_by_a_hair;
 pub mod draw;
 pub mod four_pins;
 pub mod glyphs;
+pub mod the_corner_lemma;
 pub mod the_turned_tile;
 
 use explainer_kit::Chapter;
@@ -26,5 +27,6 @@ pub fn registry() -> Vec<Chapter> {
         scene!("01_the_turned_tile", 0.45, the_turned_tile::TheTurnedTile),
         scene!("02_four_pins", 0.5, four_pins::FourPins),
         scene!("03_a_turn_by_a_hair", 0.45, a_turn_by_a_hair::ATurnByAHair),
+        scene!("04_the_corner_lemma", 0.45, the_corner_lemma::TheCornerLemma),
     ]
 }

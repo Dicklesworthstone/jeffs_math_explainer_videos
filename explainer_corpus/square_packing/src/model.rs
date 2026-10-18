@@ -1086,6 +1086,198 @@ pub fn polygon_area(pts: &[Point<Surd>]) -> Surd {
     twice * Surd::ratio(1, 2)
 }
 
+// --------------------------------------------- the corner lemma (chapter 04)
+//
+// Friedman (DS7, Lemma 1): any unit tile inside the first quadrant (x ≥ 0,
+// y ≥ 0) whose centre lies in [0, 1]² contains the point (1, 1), on its edge
+// at least. Friedman's sketch first reduces to a tile touching both axes;
+// the proof here needs no reduction.
+//
+// Proof. A quarter turn gives back the same tile, so take its turn θ in
+// [0°, 90°). Its shadow on either axis is s = cos θ + sin θ, from 1
+// (straight) to √2 (an eighth of a turn). Inside the quadrant its centre
+// (a, b) is at least s/2 from each wall, and a, b ≤ 1, so the point lies
+// 0 ≤ 1 − a ≤ 1 − s/2 across and 0 ≤ 1 − b ≤ 1 − s/2 up. Along the tile's
+// first side (cos θ, sin θ), both of whose parts are ≥ 0, its distance from
+// the centre is (1 − a) cos θ + (1 − b) sin θ, between 0 and
+// (1 − s/2) s = ½ − ½ (s − 1)² ≤ ½. Along the second side (−sin θ, cos θ)
+// it is −(1 − a) sin θ + (1 − b) cos θ, between −(1 − s/2) and 1 − s/2, and
+// 1 − s/2 ≤ ½ because s ≥ 1. A tile reaches half a tile along each of its
+// sides, so the point is in the tile. ∎
+//
+// Equality: the first bound is ½ only when s = 1 (a straight tile) and then
+// a = ½; the second only when s = 1 and b = ½. So the point is on the edge
+// exactly for a straight tile resting on a wall, and strictly inside every
+// other allowed tile; turned, at worst ½ (s − 1)² inside.
+//
+// For one turn the check is also exact and complete, not a sample: the
+// tiles that contain the point are those centred in the tile of the same
+// turn centred at the point (a tile is symmetric about its centre); the
+// depth of the point, ½ minus the larger of two absolute values of affine
+// functions of the centre, is concave in the centre, so its least value over
+// the allowed rectangle [s/2, 1]² is at one of its four corners
+// ([`corner_lemma_margin`]).
+//
+// In the box [`turned_side`] the lemma, applied at each corner, settles every
+// tile whose centre is within one tile of a corner in both directions: it
+// covers the point one tile from both walls of that corner, Friedman's four
+// points. The centres between those corner blocks (the edges and the middle)
+// are not settled here; Theorem 2 needs his Lemmas 2 and 3 for them, and a
+// last step to turn "every tile covers a point" into "five tiles cannot
+// fit", none of which is claimed by this lemma.
+
+/// A tile's shadow on either axis: |cos| + |sin|, 1 straight, √2 at an
+/// eighth of a turn.
+pub fn shadow<T: Num>(turn: Point<T>) -> T {
+    larger(turn.0, -turn.0) + larger(turn.1, -turn.1)
+}
+
+/// The proof's bound on the point's distance from the centre along the
+/// tile's first side, for shadow `s`: s (1 − s/2).
+pub fn corner_bound<T: Num>(s: T) -> T {
+    s * (T::ratio(1, 1) - s * T::ratio(1, 2))
+}
+
+/// The point the corner lemma guarantees: one tile from both walls.
+pub fn corner_point<T: Num>() -> Point<T> {
+    (T::ratio(1, 1), T::ratio(1, 1))
+}
+
+/// The four extreme centres a tile turned by `turn` may have under the
+/// lemma's assumptions: the corners of [s/2, 1]².
+pub fn corner_extremes(turn: Point<Surd>) -> [Point<Surd>; 4] {
+    let (lo, hi) = (shadow(turn) * Surd::ratio(1, 2), Surd::int(1));
+    [(lo, lo), (hi, lo), (lo, hi), (hi, hi)]
+}
+
+/// The lemma for one turn, exactly and completely: the least depth of the
+/// corner point inside a tile turned by `turn` whose centre is allowed (the
+/// least over the four extreme centres is the least over all of them, see
+/// the section's note). Not negative exactly when the lemma holds for this
+/// turn.
+pub fn corner_lemma_margin(turn: Point<Surd>) -> Surd {
+    corner_extremes(turn)
+        .iter()
+        .map(|&c| {
+            depth_inside(
+                &Tile {
+                    centre: c,
+                    cos: turn.0,
+                    sin: turn.1,
+                },
+                corner_point(),
+            )
+        })
+        .reduce(smaller)
+        .expect("four centres")
+}
+
+/// The turns the lemma is checked at exactly: straight, every half-angle
+/// tangent 1/n from 1/2 to 1/20 and their complements (the same angles past
+/// 45°), and an eighth of a turn.
+pub fn corner_turns() -> Vec<Point<Surd>> {
+    let mut out = vec![(Surd::int(1), Surd::ZERO), eighth_turn()];
+    for n in 2..=20 {
+        let (c, s) = half_angle_turn(n);
+        out.push((c, s));
+        out.push((s, c));
+    }
+    out
+}
+
+/// Whether tile `t` lies inside the first quadrant (every corner at x ≥ 0
+/// and y ≥ 0), the lemma's wall assumption.
+pub fn in_quadrant<T: Num>(t: &Tile<T>) -> bool {
+    let zero = T::ratio(0, 1);
+    t.corners().iter().all(|&(x, y)| x >= zero && y >= zero)
+}
+
+/// Where a tile holds a point: strictly inside, on its edge, or not at all.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Holds {
+    Inside,
+    OnEdge,
+    Outside,
+}
+
+impl Holds {
+    /// From the point's depth inside the tile.
+    pub fn of<T: Num>(depth: T) -> Self {
+        let zero = T::ratio(0, 1);
+        if depth > zero {
+            Holds::Inside
+        } else if depth < zero {
+            Holds::Outside
+        } else {
+            Holds::OnEdge
+        }
+    }
+
+    /// As the facts print it.
+    pub fn word(self) -> &'static str {
+        match self {
+            Holds::Inside => "inside",
+            Holds::OnEdge => "edge",
+            Holds::Outside => "outside",
+        }
+    }
+}
+
+/// Where a tile turned by `turn` and centred at `centre` holds the corner
+/// point.
+pub fn corner_holds(centre: Point<Surd>, turn: Point<Surd>) -> Holds {
+    let t = Tile {
+        centre,
+        cos: turn.0,
+        sin: turn.1,
+    };
+    Holds::of(depth_inside(&t, corner_point()))
+}
+
+/// The tile 04 shows wandering through varied allowed positions (t from 0
+/// to 1): its turn sweeps a quarter of a turn, and its centre roams the
+/// rectangle [s/2, 1]² that turn allows, starting in the corner. A path of
+/// examples, not a sweep of every centre and turn: the proof covers those.
+pub fn corner_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let theta = std::f64::consts::FRAC_PI_2 * 0.5 * (1.0 - (tau * t).cos()) * 0.999;
+    let (c, s) = (theta.cos(), theta.sin());
+    let low = 0.5 * (c + s);
+    let roam = |k: f64| low + (1.0 - low) * 0.5 * (1.0 - (tau * k * t).cos());
+    Tile {
+        centre: (roam(2.0), roam(3.0)),
+        cos: c,
+        sin: s,
+    }
+}
+
+/// A tile turned `theta` radians, pushed into the corner: its centre half
+/// a shadow from both walls, (s/2, s/2), touching both. 04_4 to 04_6 turn it
+/// this way; every frame keeps the lemma's assumptions.
+pub fn corner_pushed(theta: f64) -> Tile<f64> {
+    let (c, s) = (theta.cos(), theta.sin());
+    let half = 0.5 * shadow((c, s));
+    Tile {
+        centre: (half, half),
+        cos: c,
+        sin: s,
+    }
+}
+
+/// The centre region of every tile in the box `side` wide: [½, side − ½]²
+/// (a straight tile's; a turned tile's lies inside it). The corner blocks
+/// the lemma settles are its four corners [½, 1]² and their mirror images.
+pub fn centre_region(side: Surd) -> (Surd, Surd) {
+    (Surd::ratio(1, 2), side - Surd::ratio(1, 2))
+}
+
+/// Friedman's four points for the box `side` wide, in his order: one tile
+/// from both walls of each corner.
+pub fn corner_points(side: Surd) -> [Point<Surd>; 4] {
+    let (one, far) = (Surd::int(1), side - Surd::int(1));
+    [(one, one), (one, far), (far, one), (far, far)]
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1512,6 +1704,146 @@ mod tests {
                 depth_inside(&p.tiles[MIDDLE], p.inner_corner(0)),
                 (Surd::int(1) - turn.0) * Surd::ratio(1, 2)
             );
+        }
+    }
+
+    /// The proof's bound: s (1 − s/2) = ½ − ½ (s − 1)², at most ½ and ½
+    /// only straight; the shadow runs from 1 (straight) to √2 (an eighth).
+    #[test]
+    fn the_corner_bound_never_passes_a_half() {
+        let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+        assert_eq!(shadow((one, Surd::ZERO)), one);
+        assert_eq!(shadow(eighth_turn()), Surd::sqrt2());
+        for turn in corner_turns() {
+            let s = shadow(turn);
+            assert!(one <= s && s <= Surd::sqrt2(), "{turn:?}");
+            assert_eq!(corner_bound(s), half - half * (s - one) * (s - one), "{turn:?}");
+            assert!(corner_bound(s) <= half && one - s * half <= half, "{turn:?}");
+        }
+        assert_eq!(corner_bound(one), half);
+        assert_eq!(corner_bound(Surd::sqrt2()), Surd::sqrt2() - one);
+    }
+
+    /// The lemma for each checked turn, exactly and over every allowed
+    /// centre: the point's least depth is ½ (s − 1)², never negative and
+    /// zero only straight; every extreme centre keeps the tile in the
+    /// quadrant.
+    #[test]
+    fn the_corner_lemma_holds_at_every_checked_turn() {
+        let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            assert_eq!(turn.0 * turn.0 + turn.1 * turn.1, one);
+            let s = shadow(turn);
+            let margin = corner_lemma_margin(turn);
+            assert_eq!(margin, half * (s - one) * (s - one), "{turn:?}");
+            assert!(margin >= Surd::ZERO, "{turn:?}");
+            for c in corner_extremes(turn) {
+                let t = Tile {
+                    centre: c,
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                assert!(in_quadrant(&t), "{turn:?} at {c:?}");
+            }
+        }
+        assert_eq!(corner_lemma_margin((one, Surd::ZERO)), Surd::ZERO);
+        assert_eq!(corner_lemma_margin(eighth_turn()), Surd::ratio(3, 2) - Surd::sqrt2());
+    }
+
+    /// The edges of the lemma and its assumptions: a straight tile resting
+    /// on a wall has the point on its edge, one clear of the walls and every
+    /// turned tile strictly inside; with the centre past one tile, or a wall
+    /// crossed, the point can be missed.
+    #[test]
+    fn the_corner_lemma_edges_and_failures() {
+        let straight = (Surd::int(1), Surd::ZERO);
+        let h = Surd::ratio(1, 2);
+        assert_eq!(corner_holds((h, h), straight), Holds::OnEdge);
+        assert_eq!(corner_holds((h, Surd::ratio(4, 5)), straight), Holds::OnEdge);
+        assert_eq!(corner_holds((Surd::ratio(4, 5), h), straight), Holds::OnEdge);
+        assert_eq!(
+            corner_holds((Surd::ratio(3, 4), Surd::ratio(3, 4)), straight),
+            Holds::Inside
+        );
+        for turn in corner_turns() {
+            if shadow(turn) > Surd::int(1) {
+                for c in corner_extremes(turn) {
+                    assert_eq!(corner_holds(c, turn), Holds::Inside, "{turn:?} at {c:?}");
+                }
+            }
+        }
+        let past = (Surd::ratio(8, 5), h);
+        assert!(in_quadrant(&Tile::straight(past.0, past.1)));
+        assert_eq!(corner_holds(past, straight), Holds::Outside);
+        let e = eighth_turn();
+        let crossing = Tile {
+            centre: (h, h),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert!(!in_quadrant(&crossing));
+        assert_eq!(corner_holds((h, h), e), Holds::Outside);
+    }
+
+    /// Every sampled frame of 04's wandering tile keeps the assumptions and
+    /// holds the point, on its edge at worst (the proof covers the rest).
+    #[test]
+    fn the_wandering_corner_tile_always_holds_the_point() {
+        assert_eq!(corner_wander(0.0).centre, (0.5, 0.5));
+        for k in 0..=2000 {
+            let t = corner_wander(f64::from(k) / 2000.0);
+            assert!(t.corners().iter().all(|&(x, y)| x >= -EPS && y >= -EPS), "{k}");
+            assert!(t.centre.0 <= 1.0 + EPS && t.centre.1 <= 1.0 + EPS, "{k}");
+            assert!(depth_inside(&t, corner_point()) >= -EPS, "{k}");
+        }
+    }
+
+    /// The box of 2.71: its centre region, the four corner blocks the lemma
+    /// settles (each a quarter), what is left (the middle square, the gap
+    /// wide, and four edge strips), and the lemma mirrored at another corner.
+    #[test]
+    fn the_corner_blocks_in_the_box() {
+        let side = turned_side();
+        let (lo, hi) = centre_region(side);
+        assert_eq!(hi - lo, Surd::int(1) + turned_gap());
+        assert_eq!(Surd::int(1) - lo, Surd::ratio(1, 2));
+        let region = (hi - lo) * (hi - lo);
+        assert_eq!(region, Surd::ratio(3, 2) + Surd::sqrt2());
+        assert_eq!(region - Surd::int(1), Surd::ratio(1, 2) + Surd::sqrt2());
+        let far = Surd::int(1) + turned_gap();
+        assert_eq!(corner_points(side)[3], (far, far));
+        assert_eq!(hi - far, Surd::ratio(1, 2), "the far corner block is half a tile wide");
+        // lower right corner: the point one tile from both its walls
+        let point = (far, Surd::int(1));
+        let e = eighth_turn();
+        let half_shadow = shadow(e) * Surd::ratio(1, 2);
+        let pushed = Tile {
+            centre: (side - half_shadow, half_shadow),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert_eq!(Holds::of(depth_inside(&pushed, point)), Holds::Inside);
+        let resting = Tile::straight(side - Surd::ratio(1, 2), Surd::ratio(1, 2));
+        assert_eq!(Holds::of(depth_inside(&resting, point)), Holds::OnEdge);
+    }
+
+    /// The tile pushed into the corner, at every sampled turn of a quarter
+    /// turn: inside the walls, touching both, centre within one tile, the
+    /// point held (on the edge only when straight).
+    #[test]
+    fn the_pushed_corner_tile_holds_the_point() {
+        for k in 0..2000 {
+            let theta = std::f64::consts::FRAC_PI_2 * f64::from(k) / 2000.0;
+            let t = corner_pushed(theta);
+            let low = t.corners().iter().fold(f64::INFINITY, |m, c| m.min(c.0.min(c.1)));
+            assert!(low.abs() < EPS, "{theta}: touches both walls");
+            assert!(t.centre.0 <= 1.0 && t.centre.1 <= 1.0, "{theta}");
+            let depth = depth_inside(&t, corner_point());
+            if k == 0 {
+                assert!(depth.abs() < EPS, "straight: on the edge");
+            } else {
+                assert!(depth > 0.0, "{theta}: inside");
+            }
         }
     }
 }

@@ -20,6 +20,8 @@ pub const TEX: &[&str] = &[
     super::four_pins::UNDER_ONE,
     super::a_turn_by_a_hair::HALF,
     super::a_turn_by_a_hair::FORMULA,
+    super::the_corner_lemma::AT_MOST,
+    super::the_corner_lemma::BOUND,
 ];
 /// Code, set in CM Typewriter.
 pub const MONO: &[&str] = &[];
