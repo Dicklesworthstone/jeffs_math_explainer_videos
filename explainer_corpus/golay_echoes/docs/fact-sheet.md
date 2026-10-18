@@ -13,15 +13,15 @@ also carry an independently verified literal. Scores are listed from shift
 | F1 | pattern B | "Up, up, down, up" (01_7) | `model::CODE_B` | `G-F1.code_b` | `1,1,-1,1` | pinned: same |
 | F1 | A and B are complementary | the whole chapter | `model::is_complementary` | `G-F1.complementary` | `true` | pinned: Chi, Pezeshki and Calderbank, definition 1 |
 | F1 | the key's products | "+1", "−1" on screen; "add a block", "take one away" (01_3) | `facts::key_pairs` | `G-F1.key.agree`, `G-F1.key.disagree` | `1`, `-1` | computed |
-| F2 | A's score row | the first row of blocks (01_4 to 01_6) | `model::autocorrelation(CODE_A)` | `G-F2.a.scores` | `-1,0,1,4,1,0,-1` | computed |
+| F2 | A's score row | the first row of blocks (01_4 to 01_6); the thumbnail's row A | `model::autocorrelation(CODE_A)` | `G-F2.a.scores` | `-1,0,1,4,1,0,-1` | computed |
 | F2 | A's score at its echo | "all four agree", "A score of four" (01_4) | same, shift 0 | `G-F2.a.peak` | `4` | pinned |
 | F2 | the products one step off | three blocks, two green and one red (01_5) | `model::products(A, A, 1)` | `G-F2.a.one_off.products` | `1,1,-1` | computed |
 | F2 | pairs, agreements, disagreements, score one step off | "three pairs line up. Two agree, one disagrees. A score of one" (01_5) | same | `G-F2.a.one_off.pairs`, `.agree`, `.disagree`, `.score` | `3`, `2`, `1`, `1` | computed |
 | F2 | ghost size against the echo | "a quarter the echo's size" (01_6) | largest ghost ÷ peak | `G-F2.ghost_fraction` | `1/4` | computed |
 | F2 | where A's ghosts are | "ghost" labels (01_6) | `Scores::ghost_shifts` | `G-F2.a.ghost_shifts` | `-3,-1,1,3` | computed |
 | F2 | A's far-shift score | the far columns flash (01_7) | `model::far_shift_score` | `G-F2.a.far_shift_score` | `-1` | computed |
-| F2 | B's score row, ghosts and their size | the second row (01_8); "the same size, at the same shifts" | `model::autocorrelation(CODE_B)` | `G-F2.b.scores`, `G-F2.b.ghost_shifts`, `G-F2.b.largest_ghost` | `1,0,-1,4,-1,0,1`; `-3,-1,1,3`; `1` | computed |
-| F3 | the two rows added | the merged row (01_9) | `model::two_measurements(A, still, B, still)` | `G-F3.sum.scores` | `0,0,0,8,0,0,0` | pinned: Wikipedia's sum (8, 0, 0, 0) at lags 0 to 3, mirrored |
+| F2 | B's score row, ghosts and their size | the second row (01_8); "the same size, at the same shifts"; the thumbnail's row B | `model::autocorrelation(CODE_B)` | `G-F2.b.scores`, `G-F2.b.ghost_shifts`, `G-F2.b.largest_ghost` | `1,0,-1,4,-1,0,1`; `-3,-1,1,3`; `1` | computed |
+| F3 | the two rows added | the merged row (01_9); the thumbnail's sum | `model::two_measurements(A, still, B, still)` | `G-F3.sum.scores` | `0,0,0,8,0,0,0` | pinned: Wikipedia's sum (8, 0, 0, 0) at lags 0 to 3, mirrored |
 | F3 | the added echo, the largest ghost left | "8"; "not a single ghost" (01_9) | same | `G-F3.sum.peak`, `G-F3.sum.largest_ghost` | `8`, `0` | pinned: definition 1, 2N δ(k) with N = 4 |
 | F3 | added echo against one row's | "twice as tall" (01_9) | 8 ÷ 4 | `G-F3.peak_ratio` | `2` | computed |
 | F4 | the echo moved between the sends | "one step" (01_10) | `facts::echo_step` | `G-F4.moved.step` | `1` | computed |
