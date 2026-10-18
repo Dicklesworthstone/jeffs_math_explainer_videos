@@ -40,18 +40,15 @@ Chapter 01 ends on the regrouped block and the two fractions with their
 denominators highlighted (495 out of 9,900; 90 out of 585) and the lower-third
 "neither number is a p-value". Chapter 02 opens on that picture as it rests:
 
-- **02_the_same_test** (~70 s): the clinic's mix changes, the test does not:
-  one in ten has the disease (M-F2): 1,000 with it, 900 caught; 9,000
-  without, 450 false alarms; 1,350 positives, of whom 900 have it, two in
-  three (66.67%, M-F2.ppv_percent_2dp). Both clinics side by side, the
-  false-alarm rate identical, the PPV not. Then the mandatory bridge card,
-  on a cleared stage: "A false-alarm rate is not a positive predictive value.
-  Neither number is a p-value." Then: "Keep the direction of the question in
-  mind. Now we ask a new question, about a treatment study."
-- **03_the_imaginary_world** (~80 s): 20 pairs of patients matched before
-  treatment; a coin in each pair gives one of them the treatment; 15 pairs
-  favour the treatment (M-T1.observed). The sharp null on screen as words
-  first: "if the treatment changed no one's recovery". The recovery times
+- **02_the_same_test**: built (its beats are below). The clinic's mix
+  changes, the test does not; both clinics side by side; the bridge card on
+  a cleared stage; it ends on the study's 20 pairs, no result shown.
+- **03_the_imaginary_world** (~80 s): opens on chapter 02's 20 pairs of
+  patients matched before treatment, a coin in each pair giving one of them
+  the treatment. The sharp null on screen as words first: "if the treatment
+  changed no one's recovery"; only then the observed result, 15 pairs
+  favouring the treatment (M-T1.observed), so no result is shown before its
+  null model. The recovery times
   stay; the labels swap; a handful of the 2^20 assignments shown one by one,
   each with its count of favouring pairs; then the histogram of every
   assignment (M-T1.null.counts) grows. ⟨predict⟩ "How often would chance
@@ -138,3 +135,24 @@ is said "about fifty-nine percent" and shown as printed.
 | 01_9 | Now gather everyone who tested positive. | The 585 bright cells lift off the array and fly right, growing, into a block of 13 rows of 45: the 90 gold on top (2 rows), the 495 blue below (11 rows). Their places in the array go faint | morph that keeps identity; lagged | |
 | 01_10 | Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it. *(M-F1.true_pos, .false_pos, .ppv_percent)* | Words on the block: "90 with the disease" by the gold rows, "495 without" by the blue; the fraction 90 / 585 ≈ 15% beneath ("2 rows of 13"); the small "95%?" is struck through in red | fraction; highlight | |
 | 01_11 | Five percent was a share of people without the disease. Your question is a share of people who tested positive. *(M-F1.false_alarm_percent; M-F1.ppv.exact)* | Two fractions side by side, each with its group: "495 / 9,900 = 5%: positive, among people without the disease" (the array's 99 blue rows and the block's 11 blue rows outlined in ink) and "90 / 585 ≈ 15%: the disease, among people who tested positive" (the block outlined). Lower-third, precisely: "in this model clinic, P(positive | no disease) = 1/20 and P(disease | positive) = 2/13 ≈ 15.4%. Neither number is a p-value." | fractions; glow outlines; lower-third | hold |
+
+## 02_the_same_test: The same test in another clinic (~81 s at the kit's scratch rate)
+
+Opens on chapter 01's last picture as it rests (the array with its vacated
+positives, the block of 13 rows of 45, the two fractions, the struck "95%?").
+Assumption on screen throughout: the test's two rates are the same in both
+clinics (a model; real tests can perform differently in different
+populations).
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | Take the same test to a clinic where one person in ten has the disease. *(M-F2.prevalence.one_in)* | Chapter 01's picture gathers into the left half as clinic A: its array redrawn small, its block of positives scaled into place beside it, both fractions moved under it; the struck "95%?" and the word labels leave. Headers: "clinic A · 1 in 100 has the disease" and "clinic B · 1 in 10 has the disease". Clinic B's array of 10,000 grey people fades in on the right; at "one person in ten" its top ten rows turn dark gold | morph that keeps identity (the block scales, the fractions slide); grid of row strips; tracker recolour | |
+| 02_2 | The test hasn't changed. It still catches nine in ten, and still gives five percent of the rest a false alarm. *(M-F2.sensitivity.exact, .false_alarm_percent)* | A card across the middle: "the same test in both clinics (assumed): catches 9 in 10 with the disease · a false alarm for 5% of people without it". Clinic A's ledger is already under its array: 100, 90, 9,900, 495 | card | |
+| 02_3 | ⟨predict⟩ So will a positive result mean more here, or less? | A "?" where clinic B's block will be; the think ring drains with "pause for more time" | predict pause | |
+| 02_4 | Count again. A thousand have the disease, and nine hundred of them test positive. *(M-F2.with, .true_pos)* | Clinic B's ledger begins: "1,000 · have the disease"; along its nine full gold rows 900 tiles brighten one after another as the count runs to 900, "of them test positive"; the tenth gold row stays dark | live count; lagged reveal | |
+| 02_5 | Of the other nine thousand, five percent is four hundred fifty false alarms. *(M-F2.without, .false_alarm_percent, .false_pos)* | Clinic B's other 90 rows turn dark blue ("9,000 · don't have the disease"); a stripe five cells wide lights down them as the count runs to 450 ("false alarms"); then clinic B's false-alarm fraction 450 / 9,000 = 5% appears beside clinic A's 495 / 9,900 = 5% | live count; fraction | |
+| 02_6 | Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three. *(M-F2.true_pos, .positives, .ppv.exact)* | Clinic B's 1,350 tiles fly into its block, 45 wide like clinic A's: 30 rows, the 20 gold rows on top; "20 rows of 30" beneath; at "two in three" the fraction 900 / 1,350 ≈ 67% appears under clinic B | morph that keeps identity; fraction | |
+| 02_7 | So here a positive result means about sixty-seven percent, not fifteen. *(M-F2.ppv_percent; M-F1.ppv_percent)* | Both blocks outlined in ink, the groups the two answers are shares of; the two fractions 90 / 585 ≈ 15% and 900 / 1,350 ≈ 67% glow | glow outlines | |
+| 02_8 | Why? The false alarms barely moved, but the test caught ten times as many people with the disease. *(M-F2.caught_vs_a)* | At "false alarms" both ledgers' false-alarm lines are outlined (495 and 450) with both 5% fractions; at "ten times" both "test positive" lines are outlined (90 and 900) and a chip "× 10" lands between them | highlight; chip | |
+| 02_9 | So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. | The stage clears. Two cards side by side: "false-alarm rate · P(positive \| no disease) = 1/20 · the same in both clinics" in blue, and "positive predictive value · P(disease \| positive) = 2/13 in clinic A, 2/3 in clinic B · moves with the clinic" in gold, a "≠" between them; at "neither one" a third line beneath: "Neither is a p-value." | cards; TeX | |
+| 02_10 | A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing. *(M-T1.pairs on screen; no result is shown)* | The cards leave. Twenty pairs of patients appear one pair after another, two plain discs in each pair's box, with "a synthetic study: 20 pairs of patients, a coin in each pair picks who is treated (model)"; at "imaginary world" a caption: "imagine the treatment changed no one's recovery". No pair is marked as favouring anything | lagged reveal; caption | hold |

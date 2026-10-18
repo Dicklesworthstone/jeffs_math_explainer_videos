@@ -422,6 +422,28 @@ pub fn positives_block(c: &Counts) -> Result<PositivesBlock, String> {
     })
 }
 
+/// The positive results regrouped into rows of exactly `cols` (chapter 02
+/// draws both clinics' blocks 45 wide, so their heights compare: 13 rows
+/// with 2 of the disease, 30 rows with 20), or why not: both groups must
+/// fill whole rows, or the disease's share of the rows would not be the
+/// positive predictive value.
+pub fn positives_block_of(c: &Counts, cols: u64) -> Result<PositivesBlock, String> {
+    if cols == 0 || c.positives() == 0 {
+        return Err("no rows to regroup into".into());
+    }
+    if !c.true_pos.is_multiple_of(cols) || !c.false_pos.is_multiple_of(cols) {
+        return Err(format!(
+            "{} and {} positives do not both fill rows of {cols}",
+            c.true_pos, c.false_pos
+        ));
+    }
+    Ok(PositivesBlock {
+        cols,
+        rows: c.positives() / cols,
+        disease_rows: c.true_pos / cols,
+    })
+}
+
 // -------------------------------------------------- the study's null world
 
 /// A synthetic treatment study (a teaching model, not a protocol): `pairs`
@@ -695,6 +717,150 @@ mod tests {
             ..c
         };
         assert!(positives_block(&none).is_err());
+    }
+
+    /// Chapter 02's claim: the test's own rates do not depend on the clinic,
+    /// and the positive predictive value does. Counted over whole-person
+    /// clinics at every prevalence the sweep can hold, independently of
+    /// Bayes' rule: the two counted rates never move, the PPV only rises.
+    #[test]
+    fn the_same_test_keeps_its_rates_while_the_ppv_moves_with_the_clinic() {
+        let mut last = None;
+        for prevalence in [
+            Q::ZERO,
+            Q::new(1, 100),
+            Q::new(1, 20),
+            Q::new(1, 10),
+            Q::new(1, 4),
+            Q::new(1, 2),
+            Q::new(9, 10),
+        ] {
+            let clinic = Clinic {
+                prevalence,
+                ..clinic_a()
+            };
+            let c = clinic.counts().unwrap();
+            let people = IconArray::build(&c, 100).unwrap();
+            let people = people.people();
+            assert_eq!(share(people, positive, no_disease).unwrap(), Q::new(1, 20), "{prevalence}");
+            if prevalence > Q::ZERO {
+                assert_eq!(share(people, positive, disease).unwrap(), Q::new(9, 10), "{prevalence}");
+            }
+            let ppv = share(people, disease, positive).unwrap();
+            if let Some(before) = last {
+                assert!(ppv > before, "the PPV rises with the prevalence: {before} then {ppv}");
+            }
+            last = Some(ppv);
+        }
+        // the two clinics of chapters 01 and 02: ten times the prevalence,
+        // ten times the people caught, about a tenth fewer false alarms
+        let (a, b) = (clinic_a().counts().unwrap(), clinic_b().counts().unwrap());
+        assert_eq!(clinic_b().prevalence / clinic_a().prevalence, Q::int(10));
+        assert_eq!(Q::ratio(b.true_pos, a.true_pos), Q::int(10));
+        assert_eq!((a.false_pos, b.false_pos), (495, 450));
+        assert_eq!(Q::ratio(a.true_pos, a.positives()), Q::new(2, 13));
+        assert_eq!(Q::ratio(b.true_pos, b.positives()), Q::new(2, 3));
+        // a clinic with no disease has no true positives: its PPV is zero, not undefined
+        let none = Clinic {
+            prevalence: Q::ZERO,
+            ..clinic_a()
+        };
+        let n = none.counts().unwrap();
+        assert_eq!((n.true_pos, n.false_pos), (0, 500));
+        // and a test that never alarms leaves nothing to share among positives
+        // when no one has the disease
+        let silent = Clinic {
+            prevalence: Q::ZERO,
+            false_alarm: Q::ZERO,
+            ..clinic_a()
+        };
+        let s = silent.counts().unwrap();
+        let s_people = IconArray::build(&s, 100).unwrap();
+        assert!(share(s_people.people(), disease, positive).unwrap_err().contains("empty"));
+    }
+
+    /// The swapped conditional in the second clinic: the false-alarm rate
+    /// stays one in twenty while its reversal is one in three, and the
+    /// tempting ninety-five percent is neither the PPV nor its complement.
+    #[test]
+    fn swapping_the_condition_in_the_second_clinic_changes_the_number_too() {
+        let b = clinic_b().counts().unwrap();
+        let array = IconArray::build(&b, 100).unwrap();
+        let people = array.people();
+        let false_alarm = share(people, positive, no_disease).unwrap();
+        let reversed = share(people, no_disease, positive).unwrap();
+        let ppv = share(people, disease, positive).unwrap();
+        assert_eq!((false_alarm, reversed, ppv), (Q::new(1, 20), Q::new(1, 3), Q::new(2, 3)));
+        assert_ne!(false_alarm, reversed);
+        assert_eq!(reversed, ppv.complement());
+        let tempting = false_alarm.complement();
+        assert!(tempting != ppv && tempting != reversed);
+        // the reversal is not even the same direction of change: from clinic
+        // A to B the false-alarm rate holds while its reversal falls from
+        // 11/13 to 1/3
+        let a = clinic_a().counts().unwrap();
+        let a_people = IconArray::build(&a, 100).unwrap();
+        assert_eq!(share(a_people.people(), no_disease, positive).unwrap(), Q::new(11, 13));
+        assert!(reversed < Q::new(11, 13));
+    }
+
+    /// Whole people at the edges: the second clinic divides exactly, and the
+    /// clinics a near miss would need are refused rather than rounded.
+    #[test]
+    fn the_second_clinic_counts_whole_people_and_near_misses_are_refused() {
+        let b = clinic_b().counts().unwrap();
+        assert_eq!(
+            (b.with, b.without, b.true_pos, b.false_neg, b.false_pos, b.true_neg),
+            (1_000, 9_000, 900, 100, 450, 8_550)
+        );
+        assert_eq!(b.positives(), 1_350);
+        // one person more, and a tenth of them is not a whole number
+        let odd = Clinic {
+            people: 10_001,
+            ..clinic_b()
+        };
+        assert!(odd.counts().unwrap_err().contains("not a whole number"));
+        // a thousand people at one in a hundred: 990 without the disease,
+        // and a twentieth of them is 49.5
+        let small = Clinic {
+            people: 1_000,
+            ..clinic_a()
+        };
+        assert!(small.counts().unwrap_err().contains("false alarms"));
+        // the icon array: ten disease rows, ninety rows of five false alarms
+        let array = IconArray::build(&b, 100).unwrap();
+        assert_eq!((array.disease_rows, array.false_pos_per_row), (10, 5));
+        assert!(array.at(8, 99).positive && !array.at(9, 0).positive);
+        // a clinic of only the disease has no rows for false alarms to fill
+        let all = Clinic {
+            prevalence: Q::ONE,
+            ..clinic_a()
+        };
+        assert!(IconArray::build(&all.counts().unwrap(), 100).is_err());
+    }
+
+    /// Both blocks are 45 wide, and their gold rows are the PPV; a clinic
+    /// whose positives cannot fill rows of 45 is refused.
+    #[test]
+    fn both_clinics_regroup_into_rows_of_forty_five() {
+        let (a, b) = (clinic_a().counts().unwrap(), clinic_b().counts().unwrap());
+        let block_a = positives_block_of(&a, 45).unwrap();
+        let block_b = positives_block_of(&b, 45).unwrap();
+        assert_eq!(block_a, positives_block(&a).unwrap(), "chapter 01's block is the same");
+        assert_eq!((block_a.rows, block_a.disease_rows), (13, 2));
+        assert_eq!((block_b.rows, block_b.disease_rows), (30, 20));
+        for (block, c) in [(block_a, a), (block_b, b)] {
+            assert_eq!(block.cols * block.rows, c.positives());
+            assert_eq!(Q::ratio(block.disease_rows, block.rows), Q::ratio(c.true_pos, c.positives()));
+        }
+        let twentieth = Clinic {
+            prevalence: Q::new(1, 20),
+            ..clinic_a()
+        };
+        let t = twentieth.counts().unwrap();
+        assert_eq!((t.true_pos, t.false_pos), (450, 475));
+        assert!(positives_block_of(&t, 45).unwrap_err().contains("rows of 45"));
+        assert!(positives_block_of(&a, 0).is_err());
     }
 
     #[test]

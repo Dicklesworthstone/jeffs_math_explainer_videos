@@ -9,3 +9,13 @@
 01_9	Now gather everyone who tested positive.
 01_10	Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it.
 01_11	Five percent was a share of people without the disease. Your question is a share of people who tested positive.
+02_1	Take the same test to a clinic where one person in ten has the disease.
+02_2	The test hasn't changed. It still catches nine in ten, and still gives five percent of the rest a false alarm.
+02_3	So will a positive result mean more here, or less?
+02_4	Count again. A thousand have the disease, and nine hundred of them test positive.
+02_5	Of the other nine thousand, five percent is four hundred fifty false alarms.
+02_6	Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three.
+02_7	So here a positive result means about sixty-seven percent, not fifteen.
+02_8	Why? The false alarms barely moved, but the test caught ten times as many people with the disease.
+02_9	So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value.
+02_10	A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing.

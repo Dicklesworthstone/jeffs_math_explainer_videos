@@ -8,8 +8,8 @@
 use explainer_kit::Facts;
 
 use crate::model::{
-    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, disease, negative, no_disease, positive, positives_block,
-    share, study, tail_count, tail_share,
+    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, disease, negative, no_disease, positive,
+    positives_block_of, share, study, tail_count, tail_share,
 };
 
 /// Dates and printed numbers from the sources (fact sheet rows M-C; the
@@ -55,11 +55,21 @@ pub const GRID_COLS: usize = 100;
 /// The pinned literals' source: the research brief's checked arithmetic.
 const BRIEF: &str = "docs/video-program/research-20261016/evidence/pvalues-medical-opening.md";
 
+/// The width both chapters draw their blocks of positives at (chapter 01's
+/// gcd block of clinic A is 45 wide too; `model` tests that they agree).
+pub const BLOCK_COLS: u64 = 45;
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     survey(&mut f)?;
-    clinic(&mut f, "M-F1", clinic_a(), true)?;
-    clinic(&mut f, "M-F2", clinic_b(), false)?;
+    let pins_a = [
+        ("positives", "585"),
+        ("ppv_percent_2dp", "15.38"),
+        ("reverse_percent_2dp", "84.62"),
+    ];
+    clinic(&mut f, "M-F1", clinic_a(), &pins_a)?;
+    clinic(&mut f, "M-F2", clinic_b(), &[("positives", "1350"), ("ppv_percent_2dp", "66.67")])?;
+    compare(&mut f)?;
     trial(&mut f)?;
     Ok(f)
 }
@@ -88,9 +98,10 @@ fn survey(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
-/// A clinic's counts, the shares counted over its icon array, and (for the
-/// chapter's own clinic) the grid and the regrouped block.
-fn clinic(f: &mut Facts, prefix: &str, clinic: Clinic, full: bool) -> Result<(), String> {
+/// A clinic's counts, the shares counted over its icon array, its grid and
+/// its block of positives in rows of [`BLOCK_COLS`]; `pins` are the keys
+/// (after the prefix) checked against the research brief's literals.
+fn clinic(f: &mut Facts, prefix: &str, clinic: Clinic, pins: &[(&str, &str)]) -> Result<(), String> {
     let c = clinic.counts()?;
     let array = IconArray::build(&c, GRID_COLS)?;
     let people = array.people();
@@ -100,41 +111,62 @@ fn clinic(f: &mut Facts, prefix: &str, clinic: Clinic, full: bool) -> Result<(),
     if formula != ppv {
         return Err(format!("{prefix}: counting gives {ppv}, Bayes' rule {formula}"));
     }
-    let key = |k: &str| format!("{prefix}.{k}");
-    f.add(&key("prevalence.exact"), clinic.prevalence)?;
-    f.add(&key("with"), c.with)?;
-    f.add(&key("without"), c.without)?;
-    f.add(&key("true_pos"), c.true_pos)?;
-    f.add(&key("false_pos"), c.false_pos)?;
-    let (want_positives, want_ppv) = if full { ("585", "15.38") } else { ("1350", "66.67") };
-    f.pin(&key("positives"), c.positives(), want_positives, BRIEF)?;
-    f.add(&key("ppv.exact"), ppv)?;
-    f.pin(&key("ppv_percent_2dp"), ppv.percent(2), want_ppv, BRIEF)?;
-    if !full {
-        return Ok(());
-    }
-    f.add(&key("people"), c.people)?;
-    f.add(&key("prevalence.one_in"), Q::ONE / clinic.prevalence)?;
-    f.add(&key("sensitivity.exact"), clinic.sensitivity)?;
-    f.add(&key("sensitivity_percent"), clinic.sensitivity.percent(0))?;
-    f.add(&key("false_alarm.exact"), clinic.false_alarm)?;
-    f.add(&key("false_alarm_percent"), clinic.false_alarm.percent(0))?;
-    f.add(&key("false_neg"), c.false_neg)?;
-    f.add(&key("true_neg"), c.true_neg)?;
-    f.add(&key("ppv_percent"), ppv.percent(0))?;
     let reverse = share(people, no_disease, positive)?;
-    f.add(&key("reverse.exact"), reverse)?;
-    f.pin(&key("reverse_percent_2dp"), reverse.percent(2), "84.62", BRIEF)?;
     let tempting = share(people, negative, no_disease)?;
-    f.add(&key("tempting_percent"), tempting.percent(0))?;
-    f.add(&key("grid.cols"), array.cols)?;
-    f.add(&key("grid.rows"), array.rows)?;
-    f.add(&key("grid.disease_rows"), array.disease_rows)?;
-    f.add(&key("grid.false_pos_per_row"), array.false_pos_per_row)?;
-    let block = positives_block(&c)?;
-    f.add(&key("block.cols"), block.cols)?;
-    f.add(&key("block.rows"), block.rows)?;
-    f.add(&key("block.disease_rows"), block.disease_rows)?;
+    let block = positives_block_of(&c, BLOCK_COLS)?;
+    let values: Vec<(&str, String)> = vec![
+        ("prevalence.exact", clinic.prevalence.to_string()),
+        ("with", c.with.to_string()),
+        ("without", c.without.to_string()),
+        ("true_pos", c.true_pos.to_string()),
+        ("false_pos", c.false_pos.to_string()),
+        ("positives", c.positives().to_string()),
+        ("ppv.exact", ppv.to_string()),
+        ("ppv_percent_2dp", ppv.percent(2)),
+        ("people", c.people.to_string()),
+        ("prevalence.one_in", (Q::ONE / clinic.prevalence).to_string()),
+        ("sensitivity.exact", clinic.sensitivity.to_string()),
+        ("sensitivity_percent", clinic.sensitivity.percent(0)),
+        ("false_alarm.exact", clinic.false_alarm.to_string()),
+        ("false_alarm_percent", clinic.false_alarm.percent(0)),
+        ("false_neg", c.false_neg.to_string()),
+        ("true_neg", c.true_neg.to_string()),
+        ("ppv_percent", ppv.percent(0)),
+        ("reverse.exact", reverse.to_string()),
+        ("reverse_percent_2dp", reverse.percent(2)),
+        ("tempting_percent", tempting.percent(0)),
+        ("grid.cols", array.cols.to_string()),
+        ("grid.rows", array.rows.to_string()),
+        ("grid.disease_rows", array.disease_rows.to_string()),
+        ("grid.false_pos_per_row", array.false_pos_per_row.to_string()),
+        ("block.cols", block.cols.to_string()),
+        ("block.rows", block.rows.to_string()),
+        ("block.disease_rows", block.disease_rows.to_string()),
+    ];
+    for (k, value) in values {
+        let key = format!("{prefix}.{k}");
+        match pins.iter().find(|(p, _)| *p == k) {
+            Some((_, want)) => f.pin(&key, value, want, BRIEF)?,
+            None => f.add(&key, value)?,
+        };
+    }
+    if let Some((k, _)) = pins.iter().find(|(k, _)| f.get(&format!("{prefix}.{k}")).is_none()) {
+        return Err(format!("{prefix}: a pin names {k}, which the clinic does not register"));
+    }
+    Ok(())
+}
+
+/// What changes from clinic A to clinic B (chapter 02): ten times the
+/// prevalence, ten times the people caught, and the false-alarm rate not at
+/// all (each clinic registers its own).
+fn compare(f: &mut Facts) -> Result<(), String> {
+    let (a, b) = (clinic_a(), clinic_b());
+    let (ca, cb) = (a.counts()?, b.counts()?);
+    f.add("M-F2.prevalence_vs_a", b.prevalence / a.prevalence)?;
+    f.add("M-F2.caught_vs_a", Q::ratio(cb.true_pos, ca.true_pos))?;
+    if a.sensitivity != b.sensitivity || a.false_alarm != b.false_alarm {
+        return Err("chapter 02 compares the same test: its two rates must be the same in both clinics".into());
+    }
     Ok(())
 }
 

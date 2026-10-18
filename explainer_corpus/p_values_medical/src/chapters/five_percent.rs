@@ -44,17 +44,17 @@ const RESULT: &str = "test result: POSITIVE";
 const THE_LAB: &str = "the lab says:";
 const FALSE_ALARM_FOR: &str = "a false alarm for";
 const OF_PEOPLE_WITHOUT: &str = "of people without the disease";
-const PEOPLE_MODEL: &str = "people (model)";
+pub(super) const PEOPLE_MODEL: &str = "people (model)";
 const HAVE_IT: &str = "have the disease,";
 const IN: &str = "in";
 const OF_THEM_POSITIVE: &str = "of them test positive";
 const DONT_HAVE_IT: &str = "don't have the disease";
 const FALSE_ALARMS: &str = "test positive anyway: false alarms";
-const WITH_THE_DISEASE: &str = "with the disease";
-const WITHOUT_THE_DISEASE: &str = "without the disease";
-const ROWS_OF: &str = "rows of";
-const SHARE_A: [&str; 2] = ["positive, among people", "without the disease"];
-const SHARE_B: [&str; 2] = ["the disease, among people", "who tested positive"];
+pub(super) const WITH_THE_DISEASE: &str = "with the disease";
+pub(super) const WITHOUT_THE_DISEASE: &str = "without the disease";
+pub(super) const ROWS_OF: &str = "rows of";
+pub(super) const SHARE_A: [&str; 2] = ["positive, among people", "without the disease"];
+pub(super) const SHARE_B: [&str; 2] = ["the disease, among people", "who tested positive"];
 const NOT_A_P_VALUE: &str = "Neither number is a p-value.";
 
 /// The title card's listen window (storyboard 01_3: listen 2 s).
@@ -75,24 +75,27 @@ const BAR_W: f64 = 5.0;
 const BAR_H: f64 = 0.34;
 const BAR_Y: [f64; 2] = [1.6, 0.3];
 /// The icon array: top-left corner and cell size (100 by 100 cells).
-const GRID_X0: f64 = -6.7;
-const GRID_Y0: f64 = 2.8;
-const GC: f64 = 0.054;
+pub(super) const GRID_X0: f64 = -6.7;
+pub(super) const GRID_Y0: f64 = 2.8;
+pub(super) const GC: f64 = 0.054;
 /// The ledger beside the array: numbers right-aligned here, words after.
 const LEDGER_NUM: f64 = 1.6;
 const LEDGER_WORDS: f64 = 1.85;
 const LEDGER_Y: [f64; 4] = [2.4, 1.8, 0.8, 0.2];
 /// The block of positives: top-left corner and cell size.
-const BLOCK_X0: f64 = 0.9;
-const BLOCK_Y0: f64 = 1.9;
-const BC: f64 = 0.12;
-/// The tempting answer's place once it has been asked.
-const CORNER: Vec3 = [6.2, 3.35, 0.0];
+pub(super) const BLOCK_X0: f64 = 0.9;
+pub(super) const BLOCK_Y0: f64 = 1.9;
+pub(super) const BC: f64 = 0.12;
+/// The tempting answer's place once it has been asked, and its size there
+/// (64-point type scaled by 0.45).
+pub(super) const CORNER: Vec3 = [6.2, 3.35, 0.0];
+pub(super) const CORNER_SCALE: f64 = 0.45;
+pub(super) const ASK_SIZE: f64 = 64.0;
 /// The fractions' row.
-const FRACTION_Y: f64 = -1.0;
-const FRACTION_X: [f64; 2] = [1.9, 5.1];
+pub(super) const FRACTION_Y: f64 = -1.0;
+pub(super) const FRACTION_X: [f64; 2] = [1.9, 5.1];
 /// How many steps a colour crossfade of the array takes.
-const RAMP: usize = 17;
+pub(super) const RAMP: usize = 17;
 
 fn dot_at(i: usize) -> Vec3 {
     let (row, col) = ((i / DOTS_COLS) as f64, (i % DOTS_COLS) as f64);
@@ -109,14 +112,14 @@ fn cell_at(row: usize, col: usize) -> Vec3 {
 }
 
 /// The centre of the block's place `j`, row by row.
-fn block_at(j: u64, cols: u64) -> Vec3 {
+pub(super) fn block_at(j: u64, cols: u64) -> Vec3 {
     let (row, col) = ((j / cols) as f64, (j % cols) as f64);
     v(BLOCK_X0 + BC * (col + 0.5), BLOCK_Y0 - BC * (row + 0.5))
 }
 
 /// An outline around a rectangle of the scene, `(left, top)` to
 /// `(right, bottom)`, in the "this group" role.
-fn outline(stage: &mut Stage<'_>, (l, t): (f64, f64), (r, b): (f64, f64)) -> fmn::Result<Mob> {
+pub(super) fn outline(stage: &mut Stage<'_>, (l, t): (f64, f64), (r, b): (f64, f64)) -> fmn::Result<Mob> {
     let o = Rectangle::new()
         .width(r - l)
         .height(t - b)
@@ -129,7 +132,12 @@ fn outline(stage: &mut Stage<'_>, (l, t): (f64, f64), (r, b): (f64, f64)) -> fmn
 /// The array's colours: unknown grey crossfading to dark gold (the disease)
 /// or dark blue by `(disease step, no-disease step)`; a positive's cell goes
 /// dark once its tile has left.
-fn grid_colors(array: &IconArray, gold: &[Srgb], blue: &[Srgb], (d, h, left): (usize, usize, bool)) -> Vec<Vec<Srgb>> {
+pub(super) fn grid_colors(
+    array: &IconArray,
+    gold: &[Srgb],
+    blue: &[Srgb],
+    (d, h, left): (usize, usize, bool),
+) -> Vec<Vec<Srgb>> {
     (0..array.rows)
         .map(|r| {
             (0..array.cols)
@@ -148,7 +156,7 @@ fn grid_colors(array: &IconArray, gold: &[Srgb], blue: &[Srgb], (d, h, left): (u
         .collect()
 }
 
-fn ramp_step(t: f64) -> usize {
+pub(super) fn ramp_step(t: f64) -> usize {
     (t.clamp(0.0, 1.0) * (RAMP - 1) as f64).round() as usize
 }
 
@@ -172,7 +180,7 @@ fn survey_bar(kit: &Kit, stage: &mut Stage<'_>, y: f64, words: &str, share: Q, v
 
 /// A fraction in TeX with its value in text after it (`= 5%`), the pair
 /// centred on `x`; one group, detached.
-fn fraction(kit: &Kit, stage: &mut Stage<'_>, tex: &str, top: Srgb, value: &str, x: f64) -> fmn::Result<Mob> {
+pub(super) fn fraction(kit: &Kit, stage: &mut Stage<'_>, tex: &str, top: Srgb, value: &str, x: f64) -> fmn::Result<Mob> {
     let numerator = tex
         .strip_prefix(r"\frac{")
         .and_then(|t| t.split('}').next())
@@ -195,7 +203,7 @@ fn fraction(kit: &Kit, stage: &mut Stage<'_>, tex: &str, top: Srgb, value: &str,
 }
 
 /// Two lines of words under a fraction at `x`.
-fn under(kit: &Kit, stage: &mut Stage<'_>, lines: [&str; 2], color: Srgb, x: f64) -> fmn::Result<Mob> {
+pub(super) fn under(kit: &Kit, stage: &mut Stage<'_>, lines: [&str; 2], color: Srgb, x: f64) -> fmn::Result<Mob> {
     let a = kit.text(stage, lines[0], 22.0, color, v(x, FRACTION_Y - 0.75))?;
     let b = kit.text(stage, lines[1], 22.0, color, v(x, FRACTION_Y - 1.07))?;
     group(stage, &[a, b])
@@ -354,7 +362,7 @@ impl SceneConstruct for FivePercentOfWhat {
         let ask = kit.text(
             stage,
             &format!("{}%?", tempting.percent(0)),
-            64.0,
+            ASK_SIZE,
             Palette::ink(),
             ask_at,
         )?;
@@ -369,7 +377,7 @@ impl SceneConstruct for FivePercentOfWhat {
                 run_time: Some(0.8),
                 ..AnimateArgs::default()
             })?
-            .scale(0.45)?
+            .scale(CORNER_SCALE)?
             .move_to(CORNER, ORIGIN)?;
         let mut moves: Vec<Box<dyn Animation>> = vec![stage.prepare(to_corner)?];
         for m in [result, rule] {

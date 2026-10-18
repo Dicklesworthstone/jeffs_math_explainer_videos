@@ -123,11 +123,13 @@ def cited():
 def people_of(n, prevalence, sensitivity, false_alarm):
     """Every person of a clinic as (disease, positive), built one by one."""
     with_ = F(n) * prevalence
-    assert with_.denominator == 1, "the disease splits a person"
+    if with_.denominator != 1:
+        raise ValueError(f"the disease splits a person: {with_} of {n}")
     with_ = int(with_)
     tp = F(with_) * sensitivity
     fp = F(n - with_) * false_alarm
-    assert tp.denominator == 1 and fp.denominator == 1, "a rate splits a person"
+    if tp.denominator != 1 or fp.denominator != 1:
+        raise ValueError(f"a rate splits a person: {tp} caught, {fp} false alarms")
     tp, fp = int(tp), int(fp)
     people = []
     for i in range(with_):
@@ -154,7 +156,10 @@ def bayes(q, s, f):
     return s * q / (s * q + f * (1 - q))
 
 
-def clinic(prefix, n, q, s, f, full):
+BLOCK_COLS = 45  # both chapters draw the positives in rows of 45
+
+
+def clinic(prefix, n, q, s, f):
     people = people_of(n, q, s, f)
     count = lambda pred: sum(1 for p in people if pred(p))  # noqa: E731
     with_, without = count(DISEASE), count(NO_DISEASE)
@@ -177,8 +182,6 @@ def clinic(prefix, n, q, s, f, full):
     emit(f"{prefix}.positives", pos)
     emit(f"{prefix}.ppv.exact", exact(ppv))
     emit(f"{prefix}.ppv_percent_2dp", pct(ppv, 2))
-    if not full:
-        return people, ppv
     emit(f"{prefix}.people", n)
     emit(f"{prefix}.prevalence.one_in", exact(1 / q))
     emit(f"{prefix}.sensitivity.exact", exact(s))
@@ -210,8 +213,9 @@ def clinic(prefix, n, q, s, f, full):
     emit(f"{prefix}.grid.rows", rows)
     emit(f"{prefix}.grid.disease_rows", with_ // cols)
     emit(f"{prefix}.grid.false_pos_per_row", fp // healthy_rows)
-    # the regrouped positives: the widest row both groups fill exactly
-    block = math.gcd(tp, fp)
+    # the regrouped positives, in rows of 45: both groups must fill whole rows
+    block = BLOCK_COLS
+    check(f"{prefix}: both groups of positives fill rows of {block}", tp % block == 0 and fp % block == 0)
     check(f"{prefix}: the block's disease rows are the PPV", F(tp // block, pos // block) == ppv)
     emit(f"{prefix}.block.cols", block)
     emit(f"{prefix}.block.rows", pos // block)
@@ -219,12 +223,52 @@ def clinic(prefix, n, q, s, f, full):
     return people, ppv
 
 
+def refused(n, q, s, f):
+    """True when a clinic would split a person (so it cannot be drawn)."""
+    try:
+        people_of(n, q, s, f)
+    except ValueError:
+        return True
+    return False
+
+
 def clinics():
-    people_a, ppv_a = clinic("M-F1", 10_000, F(1, 100), F(9, 10), F(1, 20), True)
-    people_b, ppv_b = clinic("M-F2", 10_000, F(1, 10), F(9, 10), F(1, 20), False)
+    people_a, ppv_a = clinic("M-F1", 10_000, F(1, 100), F(9, 10), F(1, 20))
+    people_b, ppv_b = clinic("M-F2", 10_000, F(1, 10), F(9, 10), F(1, 20))
     check("the same test in another clinic: the false-alarm rate holds and the PPV moves",
           given(people_a, POSITIVE, NO_DISEASE) == given(people_b, POSITIVE, NO_DISEASE)
           and ppv_a != ppv_b)
+    check("the same test in another clinic: the share caught holds too",
+          given(people_a, POSITIVE, DISEASE) == given(people_b, POSITIVE, DISEASE) == F(9, 10))
+    check("chapter 02's shift is 2/13 to 2/3", (ppv_a, ppv_b) == (F(2, 13), F(2, 3)))
+    check("chapter 01's widest block (gcd 90, 495) is the 45 both chapters draw",
+          math.gcd(90, 495) == BLOCK_COLS)
+    # M-F2 against M-F1: ten times the prevalence, ten times the people caught
+    tp_a = sum(1 for p in people_a if p[0] and p[1])
+    tp_b = sum(1 for p in people_b if p[0] and p[1])
+    emit("M-F2.prevalence_vs_a", exact(F(1, 10) / F(1, 100)))
+    emit("M-F2.caught_vs_a", exact(F(tp_b, tp_a)))
+    # the swapped conditional in clinic B, counted: 1/20 one way, 1/3 the other
+    check("clinic B: P(positive | no disease) = 1/20, P(no disease | positive) = 1/3",
+          given(people_b, POSITIVE, NO_DISEASE) == F(1, 20) and given(people_b, NO_DISEASE, POSITIVE) == F(1, 3))
+    # the PPV rises with the prevalence while the test's rates stay put (counted, not by formula)
+    sweep, rates_hold = [], True
+    for q in (F(0), F(1, 100), F(1, 20), F(1, 10), F(1, 4), F(1, 2), F(9, 10)):
+        ppl = people_of(10_000, q, F(9, 10), F(1, 20))
+        rates_hold &= given(ppl, POSITIVE, NO_DISEASE) == F(1, 20)
+        if q:
+            rates_hold &= given(ppl, POSITIVE, DISEASE) == F(9, 10)
+        sweep.append(given(ppl, DISEASE, POSITIVE))
+    check("over seven clinics the test's rates hold", rates_hold)
+    check("over seven clinics the PPV only rises", all(a < b for a, b in zip(sweep, sweep[1:])))
+    # whole people at the edges: near misses are refused, not rounded
+    check("10,001 people at 1 in 10 would split a person", refused(10_001, F(1, 10), F(9, 10), F(1, 20)))
+    check("1,000 people at 1 in 100 would give 49.5 false alarms", refused(1_000, F(1, 100), F(9, 10), F(1, 20)))
+    t = people_of(10_000, F(1, 20), F(9, 10), F(1, 20))
+    tp_t = sum(1 for p in t if p[0] and p[1])
+    fp_t = sum(1 for p in t if not p[0] and p[1])
+    check("a 1-in-20 clinic's positives (450, 475) cannot fill rows of 45",
+          (tp_t, fp_t) == (450, 475) and fp_t % BLOCK_COLS != 0)
     # Bayes against counting over a sweep of whole-person clinics
     ok = True
     for q in (F(1, 100), F(1, 20), F(1, 10), F(1, 4), F(1, 2)):
