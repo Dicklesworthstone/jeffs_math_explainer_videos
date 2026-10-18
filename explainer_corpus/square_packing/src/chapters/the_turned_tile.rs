@@ -47,6 +47,9 @@ pub const FITS: &str = "fits";
 pub const SMALLER: &str = "smaller?";
 pub const PROOF: &str = "needs a proof";
 pub const PRECISELY: &str = "precisely:";
+/// 01_9's lower third: the exact side, then its rounding (rounded, so ≈ and
+/// no ellipsis: 2.70711 is not the start of 2.7071067…).
+pub const EXACTLY: &str = "exactly:";
 pub const SOURCE: &str = "this packing: F. Göbel,";
 pub const GAP_TIMES: &str = r"\text{gap} \times \sqrt{2} = 1";
 pub const GAP_IS: &str = r"\text{gap} = \frac{1}{\sqrt{2}}";
@@ -454,10 +457,10 @@ impl SceneConstruct for TheTurnedTile {
         let box_is = format!(r"\text{{box}} = 2 + \frac{{1}}{{\sqrt{{2}}}} \approx {}", r.side_2dp);
         let f3 = formula(&kit, stage, &box_is, f_at)?;
         morph(stage, &f2, &f3, 1.0)?;
-        let precisely = kit.text_left(stage, PRECISELY, 28.0, turned(), v(PANEL_X - 2.3, 0.3))?;
-        let exact_src = format!(r"2 + \tfrac{{\sqrt{{2}}}}{{2}} = {}\ldots", r.side_5dp);
+        let exactly = kit.text_left(stage, EXACTLY, 28.0, turned(), v(PANEL_X - 2.3, 0.3))?;
+        let exact_src = format!(r"2 + \tfrac{{\sqrt{{2}}}}{{2}} \approx {}", r.side_5dp);
         let exact = kit.tex_left(stage, &exact_src, 30.0, dim(), &[], v(PANEL_X - 0.6, 0.3))?;
-        swap(stage, &[], &[precisely, exact], 0.6)?;
+        swap(stage, &[], &[exactly, exact], 0.6)?;
 
         // ---------------------------------------------------------- 01_10
         // one step further: the corners bite in, in red; then back, all of it
@@ -478,7 +481,7 @@ impl SceneConstruct for TheTurnedTile {
         // ---------------------------------------------------------- 01_11
         // it fits; that nothing smaller fits needs a proof
         let line = say(&kit, stage, LINES[10])?;
-        let f3_out = vec![f3.mob, precisely, exact, ghost, bite];
+        let f3_out = vec![f3.mob, exactly, exact, ghost, bite];
         swap(stage, &f3_out, &[], 0.5)?;
         let tick_at = v(PANEL_X - 1.2, 1.2);
         let tick = path(
