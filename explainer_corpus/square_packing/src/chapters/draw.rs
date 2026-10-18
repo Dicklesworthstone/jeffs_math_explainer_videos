@@ -240,15 +240,34 @@ pub fn common(a: &[Point<f64>], b: &[Point<f64>]) -> Vec<Point<f64>> {
 /// kit's scratch voice estimates them.
 const SILENT_WPS: f64 = 2.6;
 
-/// A line being spoken: when it began and how long it runs, so a picture can
-/// land on the words it illustrates. A phrase's moment is its share of the
-/// line's characters (the voice reads at a nearly even rate); the cue sheets
-/// of the narrated draft check the result.
+/// A line being spoken: when it began, how long it runs and where its
+/// sentences start, so a picture can land on the words it illustrates. A
+/// sentence starts where the narrator measured it (real audio: the
+/// narration report's samples, the pauses between sentences included), or
+/// at its share of the line's characters when there is no narrator; a
+/// phrase's moment is its share of its sentence's characters from there
+/// (the voice reads a sentence at a nearly even rate). The cue sheets of the
+/// narrated draft check the result.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
     pub len: f64,
     text: String,
+    /// Each sentence's first character and its start, seconds into the line.
+    sentences: Vec<(usize, f64)>,
+}
+
+/// The character each sentence of `text` starts at: after `.`, `?` or `!`
+/// and a space, the sentences the kit's narrator times.
+fn sentence_offsets(text: &str) -> Vec<usize> {
+    let chars: Vec<char> = text.chars().collect();
+    let mut out = vec![0];
+    for i in 0..chars.len().saturating_sub(2) {
+        if matches!(chars[i], '.' | '?' | '!') && chars[i + 1] == ' ' {
+            out.push(i + 2);
+        }
+    }
+    out
 }
 
 /// Speak line `id` now (after the previous line has finished), as
@@ -266,24 +285,60 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         .as_ref()
         .and_then(|n| n.length(id))
         .unwrap_or(words / SILENT_WPS + 0.4);
-    Ok(Spoken {
-        id: id.to_owned(),
-        start: stage.scene().time().to_f64(),
-        len,
-        text,
-    })
+    let measured = kit.sentence_starts(id);
+    let line = Spoken::new(id, stage.scene().time().to_f64(), len, text, &measured);
+    // real audio is never timed by estimate
+    if kit.narrator.as_ref().is_some_and(|n| n.has_audio()) && measured.len() != line.sentences.len() {
+        return Err(fail(format!(
+            "line {id}: the narration times {} sentences, the line has {}",
+            measured.len(),
+            line.sentences.len()
+        )));
+    }
+    Ok(line)
 }
 
 impl Spoken {
+    /// Line `id`, begun at scene time `start` and `len` seconds long, its
+    /// sentences starting `measured` seconds into it, or at their shares of
+    /// its characters when `measured` does not time each of its sentences.
+    fn new(id: &str, start: f64, len: f64, text: String, measured: &[f64]) -> Self {
+        let offsets = sentence_offsets(&text);
+        let all = text.chars().count().max(1) as f64;
+        let sentences = offsets
+            .iter()
+            .enumerate()
+            .map(|(j, &at)| {
+                let onset = if measured.len() == offsets.len() {
+                    measured[j]
+                } else {
+                    len * at as f64 / all
+                };
+                (at, onset)
+            })
+            .collect();
+        Self {
+            id: id.to_owned(),
+            start,
+            len,
+            text,
+            sentences,
+        }
+    }
+
     /// When `phrase` begins (scene seconds).
     pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
         let byte = self
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
-        let i = self.text[..byte].chars().count() as f64;
-        let all = self.text.chars().count().max(1) as f64;
-        Ok(self.start + self.len * i / all)
+        let i = self.text[..byte].chars().count();
+        let all = self.text.chars().count().max(1);
+        let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
+        let (from, t0) = self.sentences[j];
+        let (to, t1) = self.sentences.get(j + 1).copied().unwrap_or((all, self.len));
+        let share = (i - from) as f64 / (to - from).max(1) as f64;
+        Ok(self.start + t0 + (t1 - t0) * share)
     }
 
     /// When the line ends.
@@ -424,5 +479,34 @@ mod tests {
         }
         assert_eq!(b.outline(3.0).len(), 5);
         assert!((b.p(3.0, (3.0, 0.0))[0] - 4.0).abs() < 1e-12);
+    }
+
+    /// A phrase lands at its sentence's measured start, then at its share
+    /// of that sentence; with no measured starts, or not one per sentence,
+    /// at its share of the whole line.
+    #[test]
+    fn a_phrase_lands_where_its_sentence_was_measured() {
+        let text = "One two. Three four.";
+        let heard = Spoken::new("x", 10.0, 4.0, text.to_owned(), &[0.0, 2.5]);
+        assert!((heard.at("Three").unwrap() - 12.5).abs() < 1e-12);
+        // "four" is 6 of the second sentence's 11 characters in
+        assert!((heard.at("four").unwrap() - (12.5 + 1.5 * 6.0 / 11.0)).abs() < 1e-12);
+        assert!((heard.at("two").unwrap() - (10.0 + 2.5 * 4.0 / 9.0)).abs() < 1e-12);
+        for measured in [&[][..], &[0.0][..], &[0.0, 1.0, 2.0][..]] {
+            let even = Spoken::new("x", 10.0, 4.0, text.to_owned(), measured);
+            assert!((even.at("Three").unwrap() - (10.0 + 4.0 * 9.0 / 20.0)).abs() < 1e-12);
+        }
+        assert!(heard.at("five").is_err());
+    }
+
+    /// Every line splits into the sentences the kit's narrator times, so a
+    /// narrated render places each phrase from measured starts.
+    #[test]
+    fn every_line_has_the_sentences_the_narrator_times() {
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let narrator = explainer_kit::Narrator::estimate(&script);
+        for (id, text) in script.lines() {
+            assert_eq!(sentence_offsets(text).len(), narrator.sentence_starts(id).len(), "{id}");
+        }
     }
 }
