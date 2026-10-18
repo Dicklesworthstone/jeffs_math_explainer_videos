@@ -489,7 +489,10 @@ impl SceneConstruct for TheCornerLemma {
         swap(stage, &[], &[edge], 0.4)?;
 
         // ---------------------------------------------------------- 04_7
-        // drop an assumption and the point escapes
+        // drop an assumption and the point escapes: first the centre strays
+        // past one tile, then a turned tile pokes through the walls. The
+        // bound and the edge status hold only under the assumptions, so
+        // they leave before either move; the live geometry stays
         resting.stop(stage);
         let stray = Motion::install(
             stage,
@@ -500,8 +503,9 @@ impl SceneConstruct for TheCornerLemma {
         )?;
         let line = say(&kit, stage, LINES[6])?;
         let dropped = kit.text_left(stage, DROPPED, 26.0, warn(), v(TEXT_X, -1.35))?;
-        swap(stage, &[], &[dropped], 0.3)?;
-        let rt = ((line.left(stage, 2.0) - 0.4) / 2.0).max(1.0);
+        swap(stage, &[le, reach, bound, precise, s_is, edge], &[dropped], 0.4)?;
+        let wall = line.at("or drop a wall")?;
+        let rt = (wall - stage.scene().time().to_f64() - 0.1).max(1.0);
         drive(stage, stray.tracker, 1.0, rt)?;
         stray.stop(stage);
         let crossing = Motion::install(
@@ -511,6 +515,8 @@ impl SceneConstruct for TheCornerLemma {
             0.0,
             Box::new(|u| between((1.6, 0.5), (0.5, 0.5), 45.0, u)),
         )?;
+        line.wait_for(stage, "drop a wall")?;
+        let rt = (line.left(stage, 1.2) - 0.1).max(1.0);
         drive(stage, crossing.tracker, 1.0, rt)?;
 
         // ---------------------------------------------------------- 04_8
@@ -522,12 +528,6 @@ impl SceneConstruct for TheCornerLemma {
         ];
         let panel = [
             along,
-            le,
-            reach,
-            bound,
-            precise,
-            s_is,
-            edge,
             dropped,
             turn_label,
             shadow_label,

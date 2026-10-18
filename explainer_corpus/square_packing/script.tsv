@@ -32,5 +32,5 @@
 04_4	No. The walls keep its centre at least half a shadow out, so across and up, the point is at most one minus half a shadow away.
 04_5	Along the tile's own sides, that is at most the shadow times one minus half the shadow, which never passes one half.
 04_6	Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it.
-04_7	Drop a wall, or let the centre stray past one tile, and the point can escape.
+04_7	Let the centre stray past one tile, or drop a wall, and the point can escape.
 04_8	In the box of two point seven one, this settles centres near the corners. The edges and the middle come next.
