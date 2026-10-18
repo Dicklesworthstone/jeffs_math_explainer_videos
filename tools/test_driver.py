@@ -24,6 +24,8 @@ class Driver(unittest.TestCase):
         shutil.copyfile(ROOT / "tools" / "publish.py", self.root / "tools" / "publish.py")
         shutil.copyfile(ROOT / "tools" / "youtube_package.py", self.root / "tools" / "youtube_package.py")
         shutil.copyfile(ROOT / "tools" / "release.py", self.root / "tools" / "release.py")
+        for name in ("video_lifecycle.py", "video_evidence.py", "video_catalog.py"):
+            shutil.copyfile(ROOT / "tools" / name, self.root / "tools" / name)
         self.corpus = self.root / "explainer_corpus"
         self.corpus.mkdir()
 
@@ -140,7 +142,8 @@ class Driver(unittest.TestCase):
         self.assertEqual(self.run_x("alpha", "lint", "extra").returncode, 2)
 
     def narration_dispatch(self, version="0.1.11"):
-        # Dispatch-only fixture: stop at plan, before any speech synthesis.
+        # Dispatch-only fixture: stop at the cache adapter, before synthesis.
+        # Cache receipts and real adapter behavior are covered by test_narration_cache.py.
         self.crate("capture_recapture")
         binary_dir = self.root / "local tools"
         binary_dir.mkdir()
@@ -157,7 +160,7 @@ class Driver(unittest.TestCase):
         scripts = self.root / "skills" / "natural-sounding-narration-with-frankentts" / "scripts"
         scripts.mkdir(parents=True)
         observed = self.root / "observed-ftts.txt"
-        (scripts / "narrate.py").write_text(
+        (self.root / "tools" / "narration_cache.py").write_text(
             "import os, sys\nfrom pathlib import Path\n"
             "p = Path(os.environ['FTTS'])\n"
             f"Path({str(observed)!r}).write_text(str(p), encoding='utf-8')\n"
@@ -190,8 +193,9 @@ class Driver(unittest.TestCase):
         self.assertFalse(observed.exists())
 
     def narrate_recorded(self, edges_failures, env_extra=None):
-        # The whole `narrate` command with every tool a recorder: the skill's narrate.py and batch
-        # scripts, and uv. calls.log is what each was asked; edges fails `edges_failures` times, then passes.
+        # Dispatch only: the cache adapter, skill scripts and uv record arguments.
+        # No cache hit, generation receipt or acoustic acceptance is fabricated here.
+        # edges fails `edges_failures` times, then passes.
         crate = self.crate("capture_recapture")
         (crate / "script.tsv").write_text("01_1\tOne.\n", encoding="utf-8")
         bin_dir = self.root / "local bin"
@@ -214,6 +218,7 @@ class Driver(unittest.TestCase):
         scripts.mkdir(parents=True)
         for name in ("narrate.py", "tts_batch.py", "asr_batch.py", "qa_lines.py", "validate_narration.py"):
             (scripts / name).write_text(recorder, encoding="utf-8")
+        (self.root / "tools" / "narration_cache.py").write_text(recorder, encoding="utf-8")
         env = {k: v for k, v in os.environ.items() if k not in ("FTTS", "JOINT", "JOINT_CREAK", "SEEDS", "EXCLUDE_EXIT")}
         env.update(SKILLS=str(self.root / "skills"), FTTS_VERSION="0.1.11",
                    PATH=str(bin_dir) + os.pathsep + os.environ["PATH"], **(env_extra or {}))
@@ -224,25 +229,34 @@ class Driver(unittest.TestCase):
         result, calls = self.narrate_recorded(edges_failures=1)
         self.assertEqual(result.returncode, 1, result.stderr)
         narration = [c for c in calls if c.startswith("narrate.py")]
-        self.assertEqual([c.split()[1] for c in narration], ["plan", "choose", "edges"])
-        self.assertFalse(any("--seeds" in c or "--joint" in c or "exclude" in c for c in calls), calls)
+        self.assertEqual([c.split()[1] for c in narration], ["choose", "edges"])
+        cache_calls = [c for c in calls if c.startswith("narration_cache.py ")]
+        self.assertEqual(len(cache_calls), 1, calls)
+        self.assertIn("--seeds 0", cache_calls[0])
+        self.assertFalse(any("--joint" in c or "exclude" in c for c in calls), calls)
         self.assertFalse(any("praat-parselmouth" in c for c in calls), calls)
 
     def test_narrate_with_joint_and_seeds_chooses_again_after_a_gate_excludes_a_read(self):
         result, calls = self.narrate_recorded(edges_failures=1, env_extra={"JOINT": "1", "SEEDS": "2"})
         self.assertEqual(result.returncode, 0, result.stderr)
         narration = [c.split()[1] for c in calls if c.startswith("narrate.py")]
-        self.assertEqual(narration, ["plan", "choose", "edges", "exclude", "choose", "edges"])
-        plan = next(c for c in calls if c.startswith("narrate.py plan"))
-        self.assertIn("--seeds=2", plan)
+        self.assertEqual(narration, ["choose", "edges", "exclude", "choose", "edges"])
+        cache_calls = [c for c in calls if c.startswith("narration_cache.py ")]
+        self.assertEqual(len(cache_calls), 1, calls)
+        self.assertIn("--seeds 2", cache_calls[0])
+        self.assertIn("--voice matt", cache_calls[0])
+        self.assertIn("--script script.tsv", cache_calls[0])
+        self.assertIn("--planner ", cache_calls[0])
         self.assertEqual(sum("--joint" in c for c in calls if c.startswith("narrate.py choose")), 2)
-        self.assertTrue(all("--with praat-parselmouth" in c for c in calls if c.startswith("uv ")), calls)
+        narration_uv = [c for c in calls if c.startswith("uv ") and "video_lifecycle.py" not in c]
+        self.assertTrue(narration_uv, calls)
+        self.assertTrue(all("--with praat-parselmouth" in c for c in narration_uv), calls)
 
     def test_narrate_with_joint_stops_when_there_is_nothing_new_to_exclude(self):
         result, calls = self.narrate_recorded(edges_failures=99, env_extra={"JOINT": "1", "EXCLUDE_EXIT": "1"})
         self.assertEqual(result.returncode, 1, result.stderr)
         narration = [c.split()[1] for c in calls if c.startswith("narrate.py")]
-        self.assertEqual(narration, ["plan", "choose", "edges", "exclude"])
+        self.assertEqual(narration, ["choose", "edges", "exclude"])
 
     def test_narrate_with_joint_gives_up_after_twelve_exclusion_rounds(self):
         result, calls = self.narrate_recorded(edges_failures=99, env_extra={"JOINT": "1"})
@@ -424,7 +438,10 @@ class Driver(unittest.TestCase):
     def test_default_and_same_voice_watch_use_primary_cut(self):
         for slug, voice, kind in (("capture_recapture", None, "narrated"),
                                   ("raptorq_gf256", "michael", "scored"),
-                                  ("raptorq_gf256", "leo", "draft")):
+                                  ("raptorq_gf256", "leo", "draft"),
+                                  ("golay_echoes", "michael", "narrated"),
+                                  ("square_packing", "michael", "narrated"),
+                                  ("p_values_medical", "michael", "narrated")):
             with self.subTest(slug=slug, voice=voice, kind=kind):
                 case = Driver()
                 case.setUp()
@@ -504,11 +521,11 @@ class Driver(unittest.TestCase):
         self.assertEqual(bad.returncode, 2)
         self.assertIn("snake_case", bad.stderr)
 
-    def test_status_and_reviewed_track_gate_transitions_and_staleness(self):
+    def test_legacy_status_and_reviewed_track_gate_transitions_and_staleness(self):
         shutil.copytree(ROOT / "templates", self.root / "templates")
         self.assertEqual(self.run_x("new", "demo_explainer", "Demo").returncode, 0)
         crate = self.corpus / "demo_explainer"
-        res = self.run_x("demo_explainer", "status", "--porcelain")
+        res = self.run_x("demo_explainer", "legacy-status", "--porcelain")
         self.assertEqual(res.returncode, 0, res.stderr)
         gates = {line.split("\t")[0]: line.split("\t")[1] for line in res.stdout.splitlines()}
         self.assertEqual(gates["G0 brief"], "todo")
@@ -517,7 +534,7 @@ class Driver(unittest.TestCase):
         # Clear TODOs in brief.md -> G0 brief becomes ok
         brief = crate / "docs" / "brief.md"
         brief.write_text(brief.read_text(encoding="utf-8").replace("TODO", "filled"), encoding="utf-8")
-        res2 = self.run_x("demo_explainer", "status", "--porcelain")
+        res2 = self.run_x("demo_explainer", "legacy-status", "--porcelain")
         gates2 = {line.split("\t")[0]: line.split("\t")[1] for line in res2.stdout.splitlines()}
         self.assertEqual(gates2["G0 brief"], "ok")
         # Record reviewed draft
@@ -632,7 +649,9 @@ class Driver(unittest.TestCase):
         observed = self.root / "prosody-args.json"
         self.dispatch_executable(
             binary_dir, "uv",
-            "#!/usr/bin/env python3\nimport json, sys\nfrom pathlib import Path\n"
+            "#!/usr/bin/env python3\nimport json, os, sys\nfrom pathlib import Path\n"
+            "if any(Path(arg).name == 'video_lifecycle.py' for arg in sys.argv[1:]):\n"
+            "    os.execvp('python3', sys.argv[sys.argv.index('python3'):])\n"
             f"Path({str(observed)!r}).write_text(json.dumps(sys.argv[1:]))\n"
             "raise SystemExit(0)\n",
         )

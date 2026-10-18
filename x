@@ -388,7 +388,7 @@ drafts="$crate/renders/draft"
 case "$slug" in
   capture_recapture) own_voice=matt ;;
   raptorq_gf256|bakery_algorithm|fair_coin|mental_math|lie_robotics|bayesian_search|visual_proofs|\
-  matrix_exponential|eigen_engineering) own_voice=michael ;;
+  matrix_exponential|eigen_engineering|golay_echoes|square_packing|p_values_medical) own_voice=michael ;;
   hoeffding_d) own_voice=robert ;;
   *) own_voice= ;;
 esac
