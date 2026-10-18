@@ -103,7 +103,7 @@ fn reads() -> fmn::Result<Reads> {
         }
     }
     let shadow_max = fact("corner.shadow.max.2dp")?;
-    if shadow_max != model::shadow(model::eighth_turn()).decimals(2) {
+    if shadow_max != model::shadow_width(model::eighth_turn()).decimals(2) {
         return Err(fail("corner.shadow.max.2dp is not the model's".into()));
     }
     Ok(Reads {
@@ -145,7 +145,7 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, pose: &Cell<[f64; 3]>, t: &T
     let (cx, cy) = t.centre;
     reshape(s, parts.tile, CORNER.tile(VIEW, t));
     redot(s, parts.centre, at(t.centre), CENTRE_R);
-    let sh = model::shadow((t.cos, t.sin));
+    let sh = model::shadow_width((t.cos, t.sin));
     let (x0, x1) = (cx - sh / 2.0, cx + sh / 2.0);
     let (y0, y1) = SHADOW_Y;
     reshape(
@@ -391,7 +391,7 @@ impl SceneConstruct for TheCornerLemma {
             stage,
             move |_: &fmn::mobject::Stage| {
                 let th = p.get()[2];
-                model::shadow((th.cos(), th.sin()))
+                model::shadow_width((th.cos(), th.sin()))
             },
             2,
             false,

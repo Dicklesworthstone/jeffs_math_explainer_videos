@@ -1126,9 +1126,10 @@ pub fn polygon_area(pts: &[Point<Surd>]) -> Surd {
 // last step to turn "every tile covers a point" into "five tiles cannot
 // fit", none of which is claimed by this lemma.
 
-/// A tile's shadow on either axis: |cos| + |sin|, 1 straight, √2 at an
-/// eighth of a turn.
-pub fn shadow<T: Num>(turn: Point<T>) -> T {
+/// The width of a tile's shadow on either axis: |cos| + |sin|, 1 straight,
+/// √2 at an eighth of a turn. (Not the private `shadow`, which projects a
+/// tile's corners onto one direction for the separating-axis test.)
+pub fn shadow_width<T: Num>(turn: Point<T>) -> T {
     larger(turn.0, -turn.0) + larger(turn.1, -turn.1)
 }
 
@@ -1146,7 +1147,7 @@ pub fn corner_point<T: Num>() -> Point<T> {
 /// The four extreme centres a tile turned by `turn` may have under the
 /// lemma's assumptions: the corners of [s/2, 1]².
 pub fn corner_extremes(turn: Point<Surd>) -> [Point<Surd>; 4] {
-    let (lo, hi) = (shadow(turn) * Surd::ratio(1, 2), Surd::int(1));
+    let (lo, hi) = (shadow_width(turn) * Surd::ratio(1, 2), Surd::int(1));
     [(lo, lo), (hi, lo), (lo, hi), (hi, hi)]
 }
 
@@ -1256,7 +1257,7 @@ pub fn corner_wander(t: f64) -> Tile<f64> {
 /// this way; every frame keeps the lemma's assumptions.
 pub fn corner_pushed(theta: f64) -> Tile<f64> {
     let (c, s) = (theta.cos(), theta.sin());
-    let half = 0.5 * shadow((c, s));
+    let half = 0.5 * shadow_width((c, s));
     Tile {
         centre: (half, half),
         cos: c,
@@ -1712,11 +1713,11 @@ mod tests {
     #[test]
     fn the_corner_bound_never_passes_a_half() {
         let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
-        assert_eq!(shadow((one, Surd::ZERO)), one);
-        assert_eq!(shadow(eighth_turn()), Surd::sqrt2());
+        assert_eq!(shadow_width((one, Surd::ZERO)), one);
+        assert_eq!(shadow_width(eighth_turn()), Surd::sqrt2());
         for turn in corner_turns() {
-            let s = shadow(turn);
-            assert!(one <= s && s <= Surd::sqrt2(), "{turn:?}");
+            let s = shadow_width(turn);
+            assert!((one..=Surd::sqrt2()).contains(&s), "{turn:?}");
             assert_eq!(corner_bound(s), half - half * (s - one) * (s - one), "{turn:?}");
             assert!(corner_bound(s) <= half && one - s * half <= half, "{turn:?}");
         }
@@ -1733,7 +1734,7 @@ mod tests {
         let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
         for turn in corner_turns() {
             assert_eq!(turn.0 * turn.0 + turn.1 * turn.1, one);
-            let s = shadow(turn);
+            let s = shadow_width(turn);
             let margin = corner_lemma_margin(turn);
             assert_eq!(margin, half * (s - one) * (s - one), "{turn:?}");
             assert!(margin >= Surd::ZERO, "{turn:?}");
@@ -1766,7 +1767,7 @@ mod tests {
             Holds::Inside
         );
         for turn in corner_turns() {
-            if shadow(turn) > Surd::int(1) {
+            if shadow_width(turn) > Surd::int(1) {
                 for c in corner_extremes(turn) {
                     assert_eq!(corner_holds(c, turn), Holds::Inside, "{turn:?} at {c:?}");
                 }
@@ -1816,7 +1817,7 @@ mod tests {
         // lower right corner: the point one tile from both its walls
         let point = (far, Surd::int(1));
         let e = eighth_turn();
-        let half_shadow = shadow(e) * Surd::ratio(1, 2);
+        let half_shadow = shadow_width(e) * Surd::ratio(1, 2);
         let pushed = Tile {
             centre: (side - half_shadow, half_shadow),
             cos: e.0,

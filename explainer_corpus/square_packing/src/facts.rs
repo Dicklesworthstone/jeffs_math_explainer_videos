@@ -299,11 +299,11 @@ fn corner(f: &mut Facts) -> Result<(), String> {
     f.add("corner.point", format!("{},{}", point.0, point.1))?;
     let straight = (Surd::int(1), Surd::ZERO);
     let eighth = model::eighth_turn();
-    f.add("corner.shadow.min", model::shadow(straight))?;
-    f.add("corner.shadow.max", model::shadow(eighth))?;
-    f.add("corner.shadow.max.2dp", model::shadow(eighth).decimals(2))?;
-    f.add("corner.bound.max", model::corner_bound(model::shadow(straight)))?;
-    f.add("corner.bound.eighth", model::corner_bound(model::shadow(eighth)))?;
+    f.add("corner.shadow.min", model::shadow_width(straight))?;
+    f.add("corner.shadow.max", model::shadow_width(eighth))?;
+    f.add("corner.shadow.max.2dp", model::shadow_width(eighth).decimals(2))?;
+    f.add("corner.bound.max", model::corner_bound(model::shadow_width(straight)))?;
+    f.add("corner.bound.eighth", model::corner_bound(model::shadow_width(eighth)))?;
     let turns = model::corner_turns();
     let holds = turns.iter().all(|&t| model::corner_lemma_margin(t) >= Surd::ZERO);
     ensure(holds, || "the corner lemma fails at a checked turn".to_owned())?;
@@ -321,11 +321,14 @@ fn corner(f: &mut Facts) -> Result<(), String> {
     .map(|&c| model::corner_holds(c, straight).word())
     .collect();
     f.add("corner.edges", edges.join("|"))?;
-    let turned_inside = turns.iter().filter(|&&t| model::shadow(t) > Surd::int(1)).all(|&t| {
-        model::corner_extremes(t)
-            .iter()
-            .all(|&c| model::corner_holds(c, t) == model::Holds::Inside)
-    });
+    let turned_inside = turns
+        .iter()
+        .filter(|&&t| model::shadow_width(t) > Surd::int(1))
+        .all(|&t| {
+            model::corner_extremes(t)
+                .iter()
+                .all(|&c| model::corner_holds(c, t) == model::Holds::Inside)
+        });
     f.add(
         "corner.turned",
         if turned_inside { "inside" } else { "not always inside" },
