@@ -26,7 +26,11 @@ is shown in `warn` red as what fails.
 side), **straight** (lined up with the walls), **turn** (never "rotate" or
 "tilt"), **squeeze** (the box shrinking with the corner tiles), **touch**,
 **overlap**, **fit**, **inner corner** (the corner of a corner tile nearest
-the middle), **gap** (the square between the corner tiles), **proof**.
+the middle), **gap** (the square between the corner tiles), **proof**;
+from chapter 02 **mark** (a point a third or two thirds along a side),
+**piece** (what the marks cut a side into), **shadow** (a tile's extent on
+the floor or the wall), **pin** (where a floor mark meets a wall mark) and
+**strictly inside** (inside, not at an edge).
 "Packing" is the formal word, on screen once (01_11), never spoken in
 chapter 01.
 
@@ -41,13 +45,15 @@ chapter 01.
 | a touch | green `#83C167` | contact dots (never the only carrier: a dot, not a tint) |
 | what fails | warn red `#FC6255` | overlap patches, the word "overlap" |
 | measures | dim `#8A93A3` | the diagonal, the gap's side, labels |
+| marks and pins | purple `#9A72AC` | the floor and wall marks, the four pins, a shadow's bar |
+| a caught pin | yellow `#FFFF00` | a halo on a mark or pin strictly inside a tile (highlight only) |
 
 ## 3 The arc
 
 | Act | Chapters | Spine |
 |---|---|---|
 | I. A turn that helps | 01 the turned tile | the obvious box is three wide; turning the middle tile lets a squeeze reach 2 + 1/√2; that picture shows five tiles fit, not that nothing smaller does |
-| II. Why straight tiles need three | 02 four pins | four pins placed in any box narrower than three: every straight tile in that box swallows one, so at most four straight tiles fit (the argument of the brief, exact for straight tiles only) |
+| II. Why straight tiles need three | 02 four pins | marks at a third and two thirds cut each side into pieces shorter than a tile, so every straight tile in a box narrower than three holds a pin strictly inside; tiles cannot share one, so at most four fit; at exactly three the pins sit on edges and five fit; the turned tile holds no pin, so the argument cannot reach it |
 | III. Why the turn escapes | 03 slipping between pins | the turned tile holds none of the four pins; the same picture as 01, now with the pins: a turned tile is not caught by the straight argument |
 | IV. Can it wiggle? | 04 a turn by a hair | local motion at the fixed box: the middle tile's turn costs nothing at first and then bites by the square of the turn (reported by the case page; recomputed in `model.rs` before it is scripted) |
 | V. Nothing smaller fits | 05 four points no tile can dodge | Göbel's four unavoidable points for any tile, turned or not, in the box 2 + 1/√2 (Friedman's Theorem 2 with Lemmas 1–3), and the scale-up that turns "touch" into "too many" |
@@ -77,3 +83,24 @@ same five tiles with Göbel's four points drawn in, each tile on one.
 | 01_9 | A square's diagonal is its side times the square root of two. So the gap is one over the square root of two, and the box is two plus that, about two point seven one. | Beside the box, a derivation: gap × √2 = 1, then gap = 1/√2 *(turned.gap)*, then box = 2 + 1/√2 ≈ 2.71 *(turned.side, turned.side.2dp)*, each step a TransformMatchingTex of the one before; a "precisely" lower-third 2 + √2/2 = 2.70711… *(turned.side.5dp)* | formula, TransformMatchingTex | |
 | 01_10 | Any further, and the corners bite in. | The squeeze goes on past the stop: red overlap patches where the corner tiles bite the gold one, the word "overlap" in red *(planted.squeeze_further)*; then it comes back to the stop and the patches go, all within the line | tracker, highlight | |
 | 01_11 | This shows five tiles fit. It can't show that nothing smaller fits. That needs a proof. | The packing alone; to its right a tick beside "fits" over 2.71 *(turned.check)* and a question mark beside "smaller?"; a source line "this packing: F. Göbel, 1979" *(source.gobel)*; then the breath and the fade | box | |
+
+## 02_four_pins: Four pins (budgeted from the measured chapter 01 timings: about 81 s)
+
+The proof, in the order the picture builds it (`model.rs` §four pins has the
+written proof; every step's exact check is a fact). The box is the turned
+packing's, 2 + 1/√2 wide, so the pins can meet the turned tile at the end.
+Below three, every piece is shorter than a tile; a box narrower than one tile
+holds no tile at all (on screen in 02_6's "precisely" line). The two
+assumptions are said in words: the tiles are straight, and their insides do
+not overlap.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | Why do straight tiles need a box three wide? Take a narrower box, and mark its floor a third and two thirds of the way along. | The empty box of the turned packing *(turned.side.2dp)*; at "mark its floor", two purple ticks on the floor at a third and two thirds, labelled ⅓ and ⅔ *(model::marks)* | lagged reveal | |
+| 02_2 | The marks cut the floor into three equal pieces, and each is shorter than one tile. | Live readouts "box 2.71" and "each piece 0.90 < 1" *(turned.side.2dp, pins.piece.2dp)*; one tracker widens the box towards three and back, the marks moving with it, the piece readout staying under 1 | tracker, live readout | |
+| 02_3 | So a straight tile's shadow on the floor can't fit inside one piece. A mark always lands strictly inside it, away from its ends. | A straight blue tile slides along the floor and back, its shadow a purple bar under the floor; the mark strictly inside the shadow wears a yellow halo at every frame *(pins.lemma)* | tracker, highlight | |
+| 02_4 | Mark the left wall the same way. Then every straight tile has one of these four pins strictly inside it. | Wall ticks; four purple pins where the marks cross *(pins.count)*; the tile wanders through the box on a loop (`model::wander`), the pin strictly inside it haloed at every frame *(pins.straight_lemma)* | tracker, highlight, grid | |
+| 02_5 | Two tiles can't share a pin, because their insides never overlap. ⟨predict⟩ So how many straight tiles fit? | The wandering tile leaves; four blue tiles in the corners, each with its own pin haloed *(pins.owners.straight)*; the think ring drains over four seconds, the voice silent | lagged reveal, tracker | listen 4 s (think) |
+| 02_6 | Four at most, one per pin. So five straight tiles need a box at least three wide. | A fifth straight tile lands in the middle: it holds all four pins and the corners overlap it in red *(pins.owners.straight, planted.straight_squeezed)*; "at most 4 straight tiles"; a "precisely" line: any box narrower than 3, and one narrower than one tile holds none *(pins.count, pins.threshold, pins.lemma.half)* | highlight | |
+| 02_7 | At exactly three, each piece is a whole tile long. Tiles can then touch the marks with their edges only, and five fit. | The box widens to three with the five straight tiles (`model::corners_and_middle`): the red overlaps shrink to nothing and every halo goes out as the pins reach tile edges *(pins.lemma.at3, pins.owners.at3, straight.check)*; "3 ÷ 3 = 1" | tracker, formula | |
+| 02_8 | But this only counts straight tiles. In the turned packing, no pin is inside the turned tile, so the pins can't rule out its smaller box. | The middle tile becomes gold and turns (`model::turning`), then the squeeze (`model::squeezed`) carries the box back to 2.71, the pins with it: each corner tile's pin haloed, none on the gold tile *(pins.owners.turned)*; "no pin inside" by the gold tile | tracker, highlight | |

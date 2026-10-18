@@ -10,7 +10,7 @@
 
 use explainer_kit::Facts;
 
-use crate::model::{self, MIDDLE, TILES};
+use crate::model::{self, MIDDLE, Packing, Surd, TILES};
 
 /// Literals quoted from the sources (docs/fact-sheet.md §Sources; the oracle
 /// prints the same values).
@@ -39,6 +39,7 @@ pub fn facts() -> Result<Facts, String> {
     turn(&mut f)?;
     turned(&mut f)?;
     planted(&mut f)?;
+    pins(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -136,6 +137,64 @@ fn planted(f: &mut Facts) -> Result<(), String> {
         f.add(&format!("planted.{}", p.key), v.summary())?;
     }
     Ok(())
+}
+
+/// 02: the four pins. In the turned packing's box the marks cut each side
+/// into three pieces shorter than a tile; every shadow and every straight
+/// tile holds a mark or a pin strictly inside (checked exactly for every
+/// position); not at three, where the closed version still "holds"; no room
+/// at all below one tile; and who holds which pin in the chapter's three
+/// pictures.
+fn pins(f: &mut Facts) -> Result<(), String> {
+    let side = model::turned_side();
+    let threshold = model::pin_threshold();
+    f.add("pins.count", model::pins(side).len())?;
+    let piece = model::longest_piece(side);
+    ensure(piece < Surd::int(1), || format!("a piece of the turned box is {piece}"))?;
+    f.add("pins.piece", piece)?;
+    f.add("pins.piece.2dp", piece.decimals(2))?;
+    ensure(model::longest_piece(threshold) == Surd::int(1), || {
+        format!("at {threshold} a piece is not one tile")
+    })?;
+    f.add("pins.threshold", threshold)?;
+    f.add("pins.lemma", step(model::every_shadow_holds_a_mark(side)))?;
+    f.add("pins.lemma.at3", step(model::every_shadow_holds_a_mark(threshold)))?;
+    f.add("pins.lemma.half", step(model::every_shadow_holds_a_mark(Surd::ratio(1, 2))))?;
+    f.add("pins.closed.at3", step(model::every_closed_shadow_touches_a_mark(threshold)))?;
+    f.add("pins.straight_lemma", step(model::every_straight_tile_holds_a_pin(side)))?;
+    f.add(
+        "pins.straight_lemma.at3",
+        step(model::every_straight_tile_holds_a_pin(threshold)),
+    )?;
+    let straight = model::corners_and_middle(side, Surd::int(1), Surd::ZERO);
+    f.add("pins.owners.straight", owners(&straight))?;
+    f.add("pins.owners.turned", owners(&model::five_turned()))?;
+    f.add("pins.owners.at3", owners(&model::five_straight()))?;
+    Ok(())
+}
+
+/// A step's verdict as the facts print it.
+fn step(verdict: Option<bool>) -> &'static str {
+    match verdict {
+        Some(true) => "yes",
+        Some(false) => "no",
+        None => "no room",
+    }
+}
+
+/// Each tile's pins strictly inside it, tile by tile: `0|1|2|3|0,1,2,3`.
+fn owners(p: &Packing<Surd>) -> String {
+    let rows: Vec<String> = model::pin_owners(p)
+        .iter()
+        .map(|held| {
+            if held.is_empty() {
+                "none".to_owned()
+            } else {
+                held.iter().map(usize::to_string).collect::<Vec<_>>().join(",")
+            }
+        })
+        .collect();
+    rows.join("|")
 }
 
 #[cfg(test)]
@@ -241,5 +300,45 @@ mod tests {
         }
         assert_eq!(f.get("turned.check"), Some("fits"));
         assert_eq!(f.get("straight.check"), Some("fits"));
+    }
+
+    /// What chapter 02's voice says, on the numbers the model computes:
+    /// the marks at a third and two thirds, three pieces each shorter than a
+    /// tile, four pins, at most four straight tiles, three as the boundary
+    /// where five fit, and no pin inside the turned tile.
+    #[test]
+    fn the_four_pins_say_the_facts() {
+        let three = word(int("pins.threshold"));
+        let unit = model::marks(Surd::int(1));
+        assert_eq!(unit, [Surd::ratio(1, 3), Surd::ratio(2, 3)]);
+        let l1 = line("02_1");
+        assert!(l1.contains(&format!("a box {three} wide")), "{l1}");
+        assert!(l1.contains("a third and two thirds"), "{l1}");
+        let l2 = line("02_2");
+        let pieces = word(u32::try_from(unit.len()).unwrap() + 1);
+        assert!(l2.contains(&format!("{pieces} equal pieces")), "{l2}");
+        assert!(l2.contains("shorter than one tile"), "{l2}");
+        assert!(value("pins.piece.2dp").parse::<f64>().unwrap() < 1.0);
+        assert_eq!(value("pins.lemma"), "yes");
+        assert!(line("02_3").contains("strictly inside"));
+        let pins = word(int("pins.count"));
+        let l4 = line("02_4");
+        assert!(l4.contains(&format!("these {pins} pins strictly inside")), "{l4}");
+        assert_eq!(value("pins.straight_lemma"), "yes");
+        let l6 = line("02_6");
+        assert!(l6.starts_with(&format!("{} at most", capital(pins))), "{l6}");
+        let five = word(int("tiles"));
+        assert!(
+            l6.contains(&format!("{five} straight tiles need a box at least {three} wide")),
+            "{l6}"
+        );
+        let l7 = line("02_7");
+        assert!(l7.starts_with(&format!("At exactly {three},")), "{l7}");
+        assert!(l7.ends_with(&format!("{five} fit.")), "{l7}");
+        assert_eq!(value("pins.lemma.at3"), "no");
+        assert_eq!(value("straight.check"), "fits");
+        assert_eq!(value("pins.owners.at3"), "none|none|none|none|none");
+        assert!(line("02_8").contains("no pin is inside the turned tile"));
+        assert!(value("pins.owners.turned").ends_with("|none"));
     }
 }

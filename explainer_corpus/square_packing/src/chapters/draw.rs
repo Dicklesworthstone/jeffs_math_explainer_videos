@@ -168,6 +168,25 @@ pub fn dot(stage: &mut Stage<'_>, at: Vec3, r: f64, c: Srgb) -> Mob {
         .add(Circle::new().radius(r).arc_center(at).style(flat(c, 1.0)).build())
 }
 
+/// Move a dot made by [`dot`] so it is centred at `at` (in an updater).
+pub fn redot(s: &mut fmn::mobject::Stage, m: Mob, at: Vec3, r: f64) {
+    let fresh = Circle::new().radius(r).arc_center(at).build();
+    let _ = s.set_points(m, fresh.points());
+}
+
+/// A mobject already in the scene brought to `opacity`, `rt` seconds (the
+/// board's parts enter the scene once, in drawing order, and are revealed
+/// this way, so the pins stay above the tiles).
+pub fn fade_to(mob: Mob, opacity: f64, rt: f64) -> fmn::Result<AnimBuilder> {
+    Ok(mob
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(rt),
+            ..AnimateArgs::default()
+        })?
+        .set_opacity(opacity)?)
+}
+
 /// A circle outline of radius `r` about `at`. Detached.
 pub fn ring(stage: &mut Stage<'_>, at: Vec3, r: f64, c: Srgb, w: f64) -> Mob {
     stage

@@ -760,6 +760,193 @@ pub fn planted() -> Vec<Planted> {
     ]
 }
 
+// ------------------------------------------------- four pins (chapter 02)
+//
+// The theorem: in a square box narrower than 3, at most four straight tiles
+// fit, so five straight tiles need a box at least 3 wide.
+//
+// Proof. Let the box be [0, L]² with L < 3. If L < 1, no tile fits at all.
+// Otherwise mark each side at L/3 and 2L/3. The marks cut [0, L] into three
+// pieces of length L/3 < 1. Take a straight tile; its shadow on the floor is
+// [a, a + 1] ⊆ [0, L]. If no mark were strictly inside, the open interval
+// (a, a + 1), being connected and missing both marks, would lie in one
+// piece; but it is 1 long and every piece is shorter. So a floor mark lies
+// strictly inside (a, a + 1), and likewise a wall mark inside the shadow on
+// the wall: the pin where they cross is in the tile's interior. Two tiles
+// whose insides do not overlap cannot share an interior point, so no pin
+// serves two tiles, and four pins allow at most four tiles. ∎
+//
+// At L = 3 the pieces are exactly 1 long: [1, 2] holds the marks only at its
+// ends, a tile can touch pins with its edges, and five straight tiles fit
+// (`five_straight`). Strictness is the whole argument: with closed
+// intervals every tile "holds" a pin at L = 3 too, and the conclusion would
+// be false (`closed_marks_would_prove_too_much`). The pins say nothing about
+// turned tiles: in the box [`turned_side`] the turned tile holds none.
+//
+// The functions below make each step checkable: [`marks_inside`] is the
+// one-dimensional step for one shadow, [`every_shadow_holds_a_mark`] checks
+// it for every shadow in one box, exactly and completely (the marks inside
+// can change only where a mark meets an end of the shadow, so the critical
+// positions and the midpoints between them stand for all the others), and
+// [`pins_inside`] is the step for any tile, straight or turned.
+
+/// The marks on one side of a box `side` wide: a third and two thirds of
+/// the way along.
+pub fn marks<T: Num>(side: T) -> [T; 2] {
+    [side * T::ratio(1, 3), side * T::ratio(2, 3)]
+}
+
+/// The longest of the three pieces the marks cut a side into (they are
+/// equal: side/3).
+pub fn longest_piece<T: Num>(side: T) -> T {
+    let [lo, hi] = marks(side);
+    larger(larger(lo, hi - lo), side - hi)
+}
+
+/// The four pins, where the floor's marks meet the wall's, in the corner
+/// tiles' order: lower left, lower right, upper left, upper right.
+pub fn pins<T: Num>(side: T) -> [Point<T>; 4] {
+    let [lo, hi] = marks(side);
+    [(lo, lo), (hi, lo), (lo, hi), (hi, hi)]
+}
+
+/// The marks strictly inside the shadow [a, a + 1] (inside, not at an end).
+pub fn marks_inside<T: Num>(a: T, side: T) -> Vec<usize> {
+    let end = a + T::ratio(1, 1);
+    marks(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &m)| a < m && m < end)
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// The marks a closed shadow [a, a + 1] touches, ends included: the wrong
+/// version of the step, kept to show what strictness buys.
+pub fn marks_touched<T: Num>(a: T, side: T) -> Vec<usize> {
+    let end = a + T::ratio(1, 1);
+    marks(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &m)| a <= m && m <= end)
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// Whether point `p` is strictly inside tile `t` (in its interior), for any
+/// turn: along each of the tile's sides, p is less than half a tile from
+/// its centre.
+pub fn holds<T: Num>(t: &Tile<T>, p: Point<T>) -> bool {
+    let h = T::ratio(1, 2);
+    let d = (p.0 - t.centre.0, p.1 - t.centre.1);
+    t.axes().iter().all(|ax| {
+        let s = d.0 * ax.0 + d.1 * ax.1;
+        -h < s && s < h
+    })
+}
+
+/// The pins strictly inside tile `t` in the box `side` wide.
+pub fn pins_inside<T: Num>(t: &Tile<T>, side: T) -> Vec<usize> {
+    pins(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &p)| holds(t, p))
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// Where the shadow [a, a + 1] can start in the box `side` wide (a from 0 to
+/// side − 1) at the positions where the marks inside it can change: its two
+/// extremes and wherever a mark meets one of its ends (a = m or a = m − 1).
+/// Sorted, without repeats.
+pub fn critical_shadows(side: Surd) -> Vec<Surd> {
+    let one = Surd::int(1);
+    let last = side - one;
+    let mut out = vec![Surd::ZERO, last];
+    for m in marks(side) {
+        out.push(m);
+        out.push(m - one);
+    }
+    out.retain(|&a| Surd::ZERO <= a && a <= last);
+    out.sort();
+    out.dedup();
+    out
+}
+
+/// The one-dimensional step, checked for every shadow in the box `side`
+/// wide: whether each [a, a + 1] ⊆ [0, side] has a mark strictly inside.
+/// Between two neighbouring critical positions the marks inside do not
+/// change, so the critical positions and the midpoints between them stand
+/// for every a: an exact, complete check for this box, not a sample. None
+/// when no shadow fits (a box narrower than one tile holds no tile).
+pub fn every_shadow_holds_a_mark(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    Some(shadows.iter().all(|&a| !marks_inside(a, side).is_empty()))
+}
+
+/// The same check with closed shadows (ends included): true at 3 as well,
+/// which is why the argument needs the strict version.
+pub fn every_closed_shadow_touches_a_mark(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    Some(shadows.iter().all(|&a| !marks_touched(a, side).is_empty()))
+}
+
+/// The critical positions and the midpoints between neighbours; None when
+/// the box is narrower than one tile.
+fn all_shadows(side: Surd) -> Option<Vec<Surd>> {
+    if side < Surd::int(1) {
+        return None;
+    }
+    let critical = critical_shadows(side);
+    let mut all = critical.clone();
+    for w in critical.windows(2) {
+        all.push((w[0] + w[1]) * Surd::ratio(1, 2));
+    }
+    Some(all)
+}
+
+/// The two-dimensional step for the box `side` wide: every straight tile
+/// in it, at every critical position on both axes and between them, holds a
+/// pin strictly inside (the product of the one-dimensional step). None for a
+/// box narrower than one tile.
+pub fn every_straight_tile_holds_a_pin(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    let h = Surd::ratio(1, 2);
+    Some(shadows.iter().all(|&a| {
+        shadows
+            .iter()
+            .all(|&b| !pins_inside(&Tile::straight(a + h, b + h), side).is_empty())
+    }))
+}
+
+/// The box width at which the pieces stop being shorter than a tile: the
+/// side is cut into equal pieces, one more than the marks, so a piece is a
+/// whole tile long when the side is that many tiles.
+pub fn pin_threshold() -> Surd {
+    let pieces = marks(Surd::int(1)).len() + 1;
+    Surd::int(pieces as i64)
+}
+
+/// Each tile's pins strictly inside it, for a packing: the pigeonhole. In a
+/// packing that fits, these lists are disjoint (a shared pin would be a
+/// shared interior point).
+pub fn pin_owners(p: &Packing<Surd>) -> Vec<Vec<usize>> {
+    p.tiles.iter().map(|t| pins_inside(t, p.side)).collect()
+}
+
+/// A straight tile's lower left corner wandering through the box `side`
+/// wide (t from 0 to 1, a closed loop from the lower left corner, where
+/// 02_3's sliding tile stops): 02_4's probe. Across the floor once and up
+/// and down twice; every position keeps the tile inside the box.
+pub fn wander(t: f64, side: f64) -> Point<f64> {
+    let room = side - 1.0;
+    let turn = std::f64::consts::TAU * t;
+    (
+        room * 0.5 * (1.0 - turn.cos()),
+        room * 0.5 * (1.0 - (2.0 * turn).cos()),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -932,5 +1119,101 @@ mod tests {
     fn a_straight_middle_cannot_be_squeezed() {
         let p = corners_and_middle(turn_box() - 1e-6, 1.0, 0.0);
         assert_eq!(p.check(EPS).overlapping.len(), 4);
+    }
+
+    /// Below three each piece is shorter than a tile; at three a piece is a
+    /// whole tile; the pins sit where the marks cross.
+    #[test]
+    fn the_marks_cut_pieces_shorter_than_a_tile_below_three() {
+        let side = turned_side();
+        assert_eq!(longest_piece(side), side * Surd::ratio(1, 3));
+        for s in [side, Surd::ratio(299, 100), Surd::int(2), Surd::int(1)] {
+            assert!(longest_piece(s) < Surd::int(1), "{s}");
+        }
+        assert_eq!(pin_threshold(), Surd::int(3));
+        assert_eq!(longest_piece(pin_threshold()), Surd::int(1));
+        let at3 = pins(pin_threshold());
+        assert_eq!(at3[0], (Surd::int(1), Surd::int(1)));
+        assert_eq!(at3[3], (Surd::int(2), Surd::int(2)));
+    }
+
+    /// The one-dimensional and two-dimensional steps, checked exactly for
+    /// every shadow and every straight tile: true below three (the turned
+    /// packing's box, 2.99, 2, 7/5 and 1), false at 3 and 7/2, and no room at
+    /// all below one tile.
+    #[test]
+    fn every_shadow_holds_a_mark_below_three_and_not_from_three() {
+        for s in [
+            turned_side(),
+            Surd::ratio(299, 100),
+            Surd::int(2),
+            Surd::ratio(7, 5),
+            Surd::int(1),
+        ] {
+            assert_eq!(every_shadow_holds_a_mark(s), Some(true), "{s}");
+            assert_eq!(every_straight_tile_holds_a_pin(s), Some(true), "{s}");
+        }
+        for s in [Surd::int(3), Surd::ratio(7, 2)] {
+            assert_eq!(every_shadow_holds_a_mark(s), Some(false), "{s}");
+            assert_eq!(every_straight_tile_holds_a_pin(s), Some(false), "{s}");
+        }
+        assert_eq!(every_shadow_holds_a_mark(Surd::ratio(1, 2)), None);
+        assert_eq!(every_straight_tile_holds_a_pin(Surd::ratio(99, 100)), None);
+        // at three the shadow [1, 2] has the marks only at its ends
+        assert!(marks_inside(Surd::int(1), Surd::int(3)).is_empty());
+        assert_eq!(marks_touched(Surd::int(1), Surd::int(3)), vec![0, 1]);
+        // the critical positions in the turned packing's box
+        assert_eq!(critical_shadows(turned_side()).len(), 4);
+    }
+
+    /// With ends included the step "holds" at three as well, where five
+    /// straight tiles fit: a proof with closed shadows would prove something
+    /// false.
+    #[test]
+    fn closed_marks_would_prove_too_much() {
+        assert_eq!(every_closed_shadow_touches_a_mark(Surd::int(3)), Some(true));
+        let five = five_straight();
+        assert!(five.check_exact().fits());
+        assert!(pin_owners(&five).iter().all(Vec::is_empty));
+    }
+
+    /// The pigeonhole on the chapter's pictures: in the turned packing's box
+    /// each corner tile holds its own pin, a straight middle tile holds all
+    /// four (and overlaps all four corner tiles), the turned middle tile
+    /// holds none; in a packing that fits no pin serves two tiles.
+    #[test]
+    fn the_pins_and_the_tiles() {
+        let side = turned_side();
+        let straight = corners_and_middle(side, Surd::int(1), Surd::ZERO);
+        let owners = pin_owners(&straight);
+        assert_eq!(owners[..4], [vec![0], vec![1], vec![2], vec![3]]);
+        assert_eq!(owners[MIDDLE], vec![0, 1, 2, 3]);
+        assert_eq!(straight.check_exact().overlapping, vec![(0, 4), (1, 4), (2, 4), (3, 4)]);
+        let turned = pin_owners(&five_turned());
+        assert_eq!(turned[..4], [vec![0], vec![1], vec![2], vec![3]]);
+        assert!(turned[MIDDLE].is_empty());
+        for p in [five_turned(), five_straight()] {
+            assert!(p.check_exact().fits());
+            let mut seen: Vec<usize> = pin_owners(&p).concat();
+            let n = seen.len();
+            seen.sort_unstable();
+            seen.dedup();
+            assert_eq!(seen.len(), n, "a pin serves two tiles");
+        }
+    }
+
+    /// The probe of 02_4 stays in the box and holds a pin at every sampled
+    /// frame (a check of the frames drawn; the proof covers the rest).
+    #[test]
+    fn the_wandering_tile_always_holds_a_pin() {
+        let side = turned_side().to_f64();
+        assert_eq!(wander(0.0, side), (0.0, 0.0));
+        for k in 0..=2000 {
+            let t = f64::from(k) / 2000.0;
+            let (a, b) = wander(t, side);
+            let tile = Tile::straight(a + 0.5, b + 0.5);
+            assert!(wall_clearance(&tile, side) >= -EPS, "{t}");
+            assert!(!pins_inside(&tile, side).is_empty(), "{t}");
+        }
     }
 }

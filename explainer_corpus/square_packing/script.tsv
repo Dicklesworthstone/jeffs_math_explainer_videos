@@ -10,3 +10,11 @@
 01_9	A square's diagonal is its side times the square root of two. So the gap is one over the square root of two, and the box is two plus that, about two point seven one.
 01_10	Any further, and the corners bite in.
 01_11	This shows five tiles fit. It can't show that nothing smaller fits. That needs a proof.
+02_1	Why do straight tiles need a box three wide? Take a narrower box, and mark its floor a third and two thirds of the way along.
+02_2	The marks cut the floor into three equal pieces, and each is shorter than one tile.
+02_3	So a straight tile's shadow on the floor can't fit inside one piece. A mark always lands strictly inside it, away from its ends.
+02_4	Mark the left wall the same way. Then every straight tile has one of these four pins strictly inside it.
+02_5	Two tiles can't share a pin, because their insides never overlap. So how many straight tiles fit?
+02_6	Four at most, one per pin. So five straight tiles need a box at least three wide.
+02_7	At exactly three, each piece is a whole tile long. Tiles can then touch the marks with their edges only, and five fit.
+02_8	But this only counts straight tiles. In the turned packing, no pin is inside the turned tile, so the pins can't rule out its smaller box.

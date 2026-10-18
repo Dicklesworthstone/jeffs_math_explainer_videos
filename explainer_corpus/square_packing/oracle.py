@@ -295,6 +295,57 @@ def main():
             sys.exit(f"oracle: the planted failure {key} was not caught")
         put(f"planted.{key}", v)
 
+    # chapter 02, the four pins, by gaps rather than shadows: cut [0, L] at
+    # L/3 and 2L/3; an open unit interval with no mark inside it exists
+    # exactly when some piece between neighbouring cut points is at least one
+    # tile long, and a closed one misses every mark exactly when some piece is
+    # longer than one tile
+    def pieces(length):
+        cuts = sorted(q2(x) for x in (0, length * Fraction(1, 3), length * Fraction(2, 3), length))
+        return [b - a for a, b in zip(cuts, cuts[1:])]
+
+    def open_step(length):  # every shadow holds a mark strictly inside
+        if q2(length) < 1:
+            return "no room"
+        return "yes" if all(p < 1 for p in pieces(length)) else "no"
+
+    def closed_step(length):  # every closed shadow touches a mark
+        if q2(length) < 1:
+            return "no room"
+        return "yes" if all(p <= 1 for p in pieces(length)) else "no"
+
+    piece = max(pieces(side))
+    put("pins.count", len([(x, y) for x in (1, 2) for y in (1, 2)]))
+    put("pins.piece", piece)
+    put("pins.piece.2dp", piece.rounded(2))
+    # the threshold by a scan of widths in hundredths, exactly
+    threshold = next(Fraction(k, 100) for k in range(100, 1001) if max(pieces(Fraction(k, 100))) >= 1)
+    put("pins.threshold", threshold)
+    put("pins.lemma", open_step(side))
+    put("pins.lemma.at3", open_step(3))
+    put("pins.lemma.half", open_step(Fraction(1, 2)))
+    put("pins.closed.at3", closed_step(3))
+    # straight tiles: the step on the floor and on the wall at once
+    put("pins.straight_lemma", open_step(side))
+    put("pins.straight_lemma.at3", open_step(3))
+
+    def strictly_in(poly, p):  # strictly inside a counter-clockwise convex polygon
+        return all(cross(poly[i], poly[(i + 1) % len(poly)], p).sign() > 0 for i in range(len(poly)))
+
+    def owners(length, tiles):
+        m1, m2 = q2(length) * Fraction(1, 3), q2(length) * Fraction(2, 3)
+        pin_list = [(m1, m1), (m2, m1), (m1, m2), (m2, m2)]
+        rows = []
+        for t in tiles:
+            held = [str(i) for i, p in enumerate(pin_list) if strictly_in(t, p)]
+            rows.append(",".join(held) or "none")
+        return "|".join(rows)
+
+    straight_middle = corner_tiles(side) + [square(c - HALF, c - HALF)]
+    put("pins.owners.straight", owners(side, straight_middle))
+    put("pins.owners.turned", owners(side, tiles))
+    put("pins.owners.at3", owners(side3, straight))
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])
