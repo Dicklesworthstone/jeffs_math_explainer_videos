@@ -120,14 +120,14 @@ is said "about fifty-nine percent" and shown as printed.
 |---|---|
 | "a five percent false-alarm rate means a positive is ninety-five percent reliable" | 01_5 to 01_10: count the positives |
 | "the survey shows most doctors picked a wrong answer" | 01_2: most picked the keyed answer; the dispute is about the key |
-| "the survey sampled all doctors" | 01_1 and its tag: 277 of 367 internal-medicine residents, 11 programs, Connecticut, 2007 |
+| "the survey sampled all doctors" | 01_1 and its tag: 277 of 367 internal-medicine residents, 11 programs, Connecticut; collected in 2006, published in 2007 |
 | "fifteen percent is a fact about the test" | 01_11 and the continuation: it is a fact about this test in this clinic (02 changes only the clinic) |
 
 ## 01_five_percent_of_what: Five percent of what? (~80 s)
 
 | id | draft words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | In two thousand seven, researchers surveyed two hundred seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident about p-values. *(M-C1.survey.year, .respondents, .confident_percent)* | Cold open. Left: one dot for each of the 367 residents of the surveyed programs, all faint; the 277 who answered light teal, one by one. Tag above: "JAMA 2007 · 11 internal-medicine residency programs, Connecticut"; under the dots "277 of 367 residents answered (75.5%)". Right: a teal bar grows to 88%, "fair to complete confidence about p-values (as reported)" | lagged reveal; proportion bar | |
+| 01_1 | A survey published in two thousand seven tested two hundred seventy-seven internal medicine residents in Connecticut on statistics. Eighty-eight percent felt at least fairly confident about p-values. *(M-C1.survey.published_year, .respondents, .confident_percent; the data were collected February to July 2006, so the year said is the publication's)* | Cold open. Left: one dot for each of the 367 residents of the surveyed programs, all faint; the 277 who answered light teal, one by one. Tag above, two lines: "published in JAMA, 2007 · data collected February to July 2006" and "11 internal-medicine residency programs, Connecticut"; under the dots "277 of 367 residents answered (75.5%)". Right: a teal bar grows to 88%, "fair to complete confidence about p-values (as reported)" | lagged reveal; proportion bar | |
 | 01_2 | But only about fifty-nine percent picked the answer marked correct. And a later paper argued even that answer is wrong. *(M-C1.survey.keyed_percent_spoken; Gao 2020)* | A second teal bar grows to 58.8%, "picked the answer marked correct". Under it a quote card, verbatim: the keyed choice c for p > 0.05, "The probability is greater than 1 in 20 that a difference this large could occur by chance alone." with "as reprinted by Gao 2020". At "even that answer" a red tag lands on the card: "Gao 2020: none of the four choices is correct" | proportion bar; quote card; highlight | |
 | 01_3 | *(title)* | Title card: **Why P-Values Confuse Even Doctors** | title card | listen 2.5 s (the motif: left open) |
 | 01_4 | A medical test comes back positive. It gives a false alarm to five percent of people without the disease. *(M-F1.false_alarm_percent)* | A result card "POSITIVE"; beside it the lab's rule as a card: "false alarm: 5% of people without the disease" | card | |

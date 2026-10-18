@@ -11,7 +11,9 @@ starts from checked numbers.
 
 | Key | Value | Source | Where |
 |---|---|---|---|
-| M-C1.survey.year | 2007 | S1 (JAMA 2007;298(9)) | 01_1 said and on the tag |
+| M-C1.survey.published_year | 2007 | S1 (JAMA 2007;298(9), published 5 September 2007) | 01_1 said ("published in two thousand seven") and on the tag |
+| M-C1.survey.published | 2007-09-05 | S1's publication date | not shown |
+| M-C1.survey.collected_year / .collected_months | 2006 / February to July | S1 methods: data collected February–July 2006 | 01_1 tag ("data collected February to July 2006"); never spoken as the survey's year |
 | M-C1.survey.respondents | 277 | S1 abstract: "completed by 277 of 367 residents (75.5%)" | 01_1 said; 277 lit dots |
 | M-C1.survey.residents | 367 | S1 abstract | 01_1: 367 dots |
 | M-C1.survey.response_percent | 75.5 | computed 277/367, pinned to S1's printed 75.5% | 01_1 under the dots |
@@ -22,11 +24,16 @@ starts from checked numbers.
 | M-C1.survey.keyed_percent_spoken | 59 | 58.8 rounded half away from zero | 01_2 said ("about fifty-nine percent") |
 | M-C2.gao.year | 2020 | S2 | 01_2 quote card and the dispute chip |
 
-Connecticut: from S1's main text as recorded by the 2026-10-16 research brief
-(publisher-indexed text). This session read S1's abstract only, which does
-not name the state; re-reading the state in S1's own text is the one survey
-detail still to confirm before narration (the claim is not new: the brief
-and the slate both carry it).
+Connecticut and the dates: S1's methods, in JAMA's indexed publisher text
+(jamanetwork.com/journals/jama/fullarticle/208638), say the data were
+collected February to July 2006 in 11 Connecticut programs; the article was
+published on 5 September 2007. The orchestrator (SageBasin) read that indexed
+text on 2026-10-17 through a web search restricted to jamanetwork.com; a
+direct fetch of the page timed out. BrownThrush read only S1's abstract
+(Europe PMC), which names neither the state nor the dates. The first draft of
+01_1 said "In two thousand seven, researchers surveyed", which put the
+publication year on the fieldwork; it now says "published in two thousand
+seven".
 
 The quote on the 01_2 card is choice c **verbatim as S2 reprints it**, the
 keyed one of "four potential answers for a correct interpretation of p >
@@ -110,7 +117,7 @@ cross-checks of the same names (24 in all).
 
 | | Source | Read in this session | Used for |
 |---|---|---|---|
-| S1 | Windish DM, Huot SJ, Green ML. Medicine residents' understanding of the biostatistics and results in the medical literature. JAMA 2007;298(9):1010–1022. doi:10.1001/jama.298.9.1010 | abstract, via Europe PMC (2026-10-17); full text not retrieved | 277 of 367, 75.5%, 11 programs, internal medicine; the state from the brief's reading |
+| S1 | Windish DM, Huot SJ, Green ML. Medicine residents' understanding of the biostatistics and results in the medical literature. JAMA 2007;298(9):1010–1022. doi:10.1001/jama.298.9.1010 | abstract, via Europe PMC (2026-10-17); the methods (Connecticut, February–July 2006) read by the orchestrator in JAMA's indexed publisher text, direct fetch timed out | 277 of 367, 75.5%, 11 programs, internal medicine, Connecticut; collected 2006, published 2007 |
 | S2 | Gao J. P-values – a chronic conundrum. BMC Medical Research Methodology 2020;20:167. doi:10.1186/s12874-020-01051-6 | full text, Europe PMC PMC7315482 (2026-10-17) | 88%, 58.8%, choice c verbatim, the dispute ("none of the four choices are correct") |
 | S3 | Wasserstein RL, Lazar NA. The ASA's statement on p-values: context, process, and purpose. The American Statistician 2016;70(2):129–133. doi:10.1080/00031305.2016.1154108 | not re-read (the brief read it) | act II: what a p-value is and is not |
 | S4 | Hoffrage U, Gigerenzer G. Using natural frequencies to improve diagnostic inferences. Academic Medicine 1998;73(5):538–540 | not re-read (the brief read the abstract) | why the chapter counts people (not quoted in the video) |
@@ -119,7 +126,8 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 
 ## The survey: what the video says, and what it does not
 
-- Said: a 2007 survey of 277 internal-medicine residents in Connecticut;
+- Said: a survey published in 2007 (run in 2006) of 277 internal-medicine
+  residents in Connecticut;
   88% at least fairly confident; about 59% picked the keyed answer; a later
   paper argued the keyed answer is wrong too.
 - Not said: anything about all doctors or a national sample (S1 is 277 of

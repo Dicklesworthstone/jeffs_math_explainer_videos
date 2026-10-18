@@ -1,7 +1,7 @@
 # Why P-Values Confuse Even Doctors
 
-A 2007 survey found 88% of 277 internal-medicine residents in Connecticut
-at least fairly confident about p-values; about 59% picked the answer
+A survey published in 2007 (run in 2006) found 88% of 277 internal-medicine
+residents in Connecticut at least fairly confident about p-values; about 59% picked the answer
 marked correct, and a later paper argued that answer is wrong too. This
 video makes the trap visible by counting: a positive result from a test
 that falsely alarms five percent of people without the disease, counted out

@@ -1,5 +1,5 @@
 # p_values_medical: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	In two thousand seven, researchers surveyed two hundred seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident about p-values.
+01_1	A survey published in two thousand seven tested two hundred seventy-seven internal medicine residents in Connecticut on statistics. Eighty-eight percent felt at least fairly confident about p-values.
 01_2	But only about fifty-nine percent picked the answer marked correct. And a later paper argued even that answer is wrong.
 01_4	A medical test comes back positive. It gives a false alarm to five percent of people without the disease.
 01_5	So is there a ninety-five percent chance you have the disease?

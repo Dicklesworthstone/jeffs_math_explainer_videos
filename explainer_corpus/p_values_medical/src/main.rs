@@ -59,7 +59,12 @@ mod tests {
     /// for and the value those words denote. A changed rate, count or word
     /// breaks this test before it reaches a listener.
     const SPOKEN: &[(&str, &str, &str, &str)] = &[
-        ("01_1", "two thousand seven", "M-C1.survey.year", "2007"),
+        (
+            "01_1",
+            "published in two thousand seven",
+            "M-C1.survey.published_year",
+            "2007",
+        ),
         ("01_1", "two hundred seventy-seven", "M-C1.survey.respondents", "277"),
         ("01_1", "Eighty-eight percent", "M-C1.survey.confident_percent", "88"),
         (
@@ -137,10 +142,15 @@ mod tests {
         ] {
             assert!(!all.contains(wrong), "the script says {wrong:?}");
         }
-        assert!(
-            facts::cited::KEYED_PERMILLE > 500,
-            "most residents picked the keyed answer"
-        );
+        // the spoken year is the publication's: the survey ran the year before
+        assert!(all.contains("published in two thousand seven"));
+        assert!(!all.contains("In two thousand seven"), "the survey did not run in 2007");
+        let f = facts::facts().unwrap();
+        let year = |key: &str| f.get(key).unwrap().parse::<u32>().unwrap();
+        assert!(year("M-C1.survey.collected_year") < year("M-C1.survey.published_year"));
+        // most residents picked the keyed answer: the dispute is about the key
+        let keyed: f64 = f.get("M-C1.survey.keyed_percent").unwrap().parse().unwrap();
+        assert!(keyed > 50.0, "most residents picked the keyed answer");
     }
 
     #[test]

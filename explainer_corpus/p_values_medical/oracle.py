@@ -71,11 +71,15 @@ def pct(x, places=0):
 # ------------------------------------------------------------------- cited
 
 # S1: Windish, Huot and Green, JAMA 2007;298(9):1010-1022,
-# doi 10.1001/jama.298.9.1010. Abstract (read via Europe PMC, 2026-10-17):
-# "The survey was completed by 277 of 367 residents (75.5%) in 11 residency
-# programs." Connecticut: the JAMA main text as recorded by the 2026-10-16
-# research brief (not re-read in this session).
-SURVEY_YEAR = 2007
+# doi 10.1001/jama.298.9.1010, published 2007-09-05. Abstract (read via Europe
+# PMC, 2026-10-17): "The survey was completed by 277 of 367 residents (75.5%)
+# in 11 residency programs." Methods (JAMA's indexed publisher text, read by
+# the orchestrator on 2026-10-17; a direct fetch timed out): data collected
+# February to July 2006, in 11 Connecticut programs. Published 2007, run 2006.
+PUBLISHED_YEAR = 2007
+PUBLISHED = "2007-09-05"
+COLLECTED_YEAR = 2006
+COLLECTED_MONTHS = "February to July"
 RESPONDENTS = 277
 RESIDENTS = 367
 RESPONSE_PERCENT_PRINTED = "75.5"
@@ -92,7 +96,12 @@ GAO_YEAR = 2020
 
 
 def cited():
-    emit("M-C1.survey.year", SURVEY_YEAR)
+    emit("M-C1.survey.published_year", PUBLISHED_YEAR)
+    emit("M-C1.survey.published", PUBLISHED)
+    emit("M-C1.survey.collected_year", COLLECTED_YEAR)
+    emit("M-C1.survey.collected_months", COLLECTED_MONTHS)
+    check("the survey was collected before it was published",
+          COLLECTED_YEAR < PUBLISHED_YEAR and PUBLISHED.startswith(str(PUBLISHED_YEAR)))
     emit("M-C1.survey.respondents", RESPONDENTS)
     emit("M-C1.survey.residents", RESIDENTS)
     response = pct(F(RESPONDENTS, RESIDENTS), 1)

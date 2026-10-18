@@ -17,9 +17,16 @@ use crate::model::{
 pub mod cited {
     /// Windish, Huot and Green, "Medicine Residents' Understanding of the
     /// Biostatistics and Results in the Medical Literature", JAMA
-    /// 2007;298(9):1010–1022: "The survey was completed by 277 of 367
-    /// residents (75.5%) in 11 residency programs."
-    pub const SURVEY_YEAR: u32 = 2007;
+    /// 2007;298(9):1010–1022, published 5 September 2007. Abstract: "The
+    /// survey was completed by 277 of 367 residents (75.5%) in 11 residency
+    /// programs." Methods (JAMA's indexed publisher text, read by the
+    /// orchestrator on 2026-10-17; a direct fetch timed out): data collected
+    /// February to July 2006, in 11 Connecticut programs. So the video says
+    /// the survey was *published* in 2007, never that it ran then.
+    pub const PUBLISHED_YEAR: u32 = 2007;
+    pub const PUBLISHED: &str = "2007-09-05";
+    pub const COLLECTED_YEAR: u32 = 2006;
+    pub const COLLECTED_MONTHS: &str = "February to July";
     pub const RESPONDENTS: u64 = 277;
     pub const RESIDENTS: u64 = 367;
     pub const RESPONSE_PERCENT: &str = "75.5";
@@ -59,7 +66,10 @@ pub fn facts() -> Result<Facts, String> {
 
 fn survey(f: &mut Facts) -> Result<(), String> {
     use cited::*;
-    f.add("M-C1.survey.year", SURVEY_YEAR)?;
+    f.add("M-C1.survey.published_year", PUBLISHED_YEAR)?;
+    f.add("M-C1.survey.published", PUBLISHED)?;
+    f.add("M-C1.survey.collected_year", COLLECTED_YEAR)?;
+    f.add("M-C1.survey.collected_months", COLLECTED_MONTHS)?;
     f.add("M-C1.survey.respondents", RESPONDENTS)?;
     f.add("M-C1.survey.residents", RESIDENTS)?;
     f.pin(

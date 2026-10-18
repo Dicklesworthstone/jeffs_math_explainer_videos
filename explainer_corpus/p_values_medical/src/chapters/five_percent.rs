@@ -32,6 +32,8 @@ pub struct FivePercentOfWhat {
 }
 
 // the chapter's fixed words (numbers are built from facts)
+const PUBLISHED_IN: &str = "published in JAMA,";
+const COLLECTED: &str = "data collected";
 const PROGRAMS_TAG: &str = "internal-medicine residency programs, Connecticut";
 const ANSWERED: &str = "residents answered";
 const CONFIDENT: &str = "fair to complete confidence about p-values";
@@ -205,17 +207,24 @@ impl FivePercentOfWhat {
         use cited::*;
         let kit = &self.kit;
         let line = say(kit, stage, "01_1")?;
+        let when = kit.text(
+            stage,
+            &format!("{PUBLISHED_IN} {PUBLISHED_YEAR} · {COLLECTED} {COLLECTED_MONTHS} {COLLECTED_YEAR}"),
+            22.0,
+            Palette::dim(),
+            v(0.0, 3.55),
+        )?;
         let tag = kit.text(
             stage,
-            &format!("JAMA {SURVEY_YEAR} · {PROGRAMS} {PROGRAMS_TAG}"),
-            24.0,
+            &format!("{PROGRAMS} {PROGRAMS_TAG}"),
+            22.0,
             Palette::dim(),
-            v(0.0, 3.4),
+            v(0.0, 3.22),
         )?;
         let everyone: Vec<Vec3> = (0..RESIDENTS as usize).map(dot_at).collect();
         let faint = vec![Palette::faint(); everyone.len()];
         let all = stage.arena_mut().add(dot_cloud(&everyone, &faint, DOT_R));
-        fade_in_all(stage, &[tag, all], 0.6)?;
+        fade_in_all(stage, &[when, tag, all], 0.6)?;
         let answered: Vec<Mob> = (0..RESPONDENTS as usize)
             .map(|i| {
                 let d = Dot::new()
