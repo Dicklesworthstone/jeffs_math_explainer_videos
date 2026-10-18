@@ -1759,7 +1759,7 @@
               "algorithm": "sha256",
               "value": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203"
             },
-            "evidence_state": "unknown"
+            "evidence_state": "fail"
           },
           "generation_provenance": "Actual full narrated 960x540/60fps preview: 21878 frames, 364.633333s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
           "evidence_refs": [
@@ -1768,7 +1768,7 @@
             "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
             "docs/video-program/NARRATION-CONSISTENCY.md"
           ],
-          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "disposition": "Owner listened on 2026-10-18 and rejected this exact cut: \"the cadence, pauses, prosody, etc. are still very poor and unnatural.\" Retained as a failed production rendition for diagnosis; technical integrity checks do not override this listening judgment. Whole-thought performance and semantic pacing repair are required before production promotion. The separate 25.23-second coherent comparison remains approved only in its exact scope. No publication.",
           "milestones": [],
           "artifact_refs": {
             "script": [
@@ -3269,7 +3269,7 @@
       "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical_master.mp4",
       "sha256": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203",
       "inputs": [],
-      "evidence_state": "unknown",
+      "evidence_state": "fail",
       "evidence_refs": [
         "mx-video-program-program-87do.7.8",
         "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
