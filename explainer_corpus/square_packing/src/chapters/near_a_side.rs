@@ -7,9 +7,10 @@
 //! centre and a tile reaches that far straight up (05_3), so it cuts their
 //! line there, and dodging both means that cut fits between them; lower is
 //! narrower, so the tile rests on the floor (05_4). Resting, it stands one
-//! shadow s tall, and the cut is the base of the corner above the points'
-//! line, (s − y)/(sin θ cos θ): shorter than the gap only if the points
-//! stand above h = s − gap (s² − 1)/2 (05_5). h bends down as the shadow
+//! shadow s tall; its corner above the points' line splits at its top into
+//! two right triangles of height d = s − y whose bases, d cot θ and
+//! d tan θ, add to the cut, d / (sin θ cos θ): shorter than the gap only if
+//! the points stand above h = s − gap (s² − 1)/2 (05_5). h bends down as the shadow
 //! grows, so it is least at an end: exactly one, straight, where the points
 //! stand, so nothing slips through (05_6). Drop the floor, raise the points
 //! or widen the gap, and a tile slips through (05_7). Turned to every side
@@ -53,8 +54,12 @@ pub const GAP: &str = "gap";
 pub const CUT: &str = "cut";
 pub const UP: &str = "the points: at most half a tile above the centre";
 pub const REACH: &str = "a tile: half a tile straight up";
-pub const Y_IS: &str = "y: the points' height";
-pub const CUT_IS: &str = r"\text{cut} = \frac{s-y}{\sin\theta\,\cos\theta}";
+pub const D_IS: &str = "y: the points' height, d = s - y";
+pub const D_TEX: &str = "d";
+pub const THETA: &str = r"\theta";
+pub const D_TAN: &str = r"d\tan\theta";
+pub const D_COT: &str = r"d\cot\theta";
+pub const CUT_IS: &str = r"\text{cut} = d\tan\theta + d\cot\theta = \frac{d}{\sin\theta\,\cos\theta}";
 pub const BEATS: &str = r"\text{cut} < \text{gap}\ \text{only if}\ y > s - \text{gap}\,\sin\theta\cos\theta";
 pub const SLIP: &str = r"y > s - \text{gap}\cdot\tfrac{s^2-1}{2} = h";
 pub const IDENTITY: &str = r"s^2 = 1 + 2\sin\theta\cos\theta";
@@ -98,6 +103,9 @@ pub const TALL_X: (f64, f64) = (-0.14, -0.07);
 /// How high 05_3 lifts the eighth-turned tile's centre (tiles): inside the
 /// strip, which reaches one tile up.
 pub const LIFT: f64 = 0.95;
+/// The turn 05_5 splits the corner at (degrees): not an eighth, so its two
+/// right triangles differ (tan 30° ≠ cot 30°).
+pub const SPLIT_DEG: f64 = 30.0;
 
 /// What the chapter reads from the facts, checked against the model.
 struct Reads {
@@ -282,7 +290,10 @@ struct Parts {
     allowed: Mob,
     shadow: Mob,
     tall: Mob,
-    cap: Mob,
+    /// The corner above the points' line, split at its top: left, right.
+    cap: [Mob; 2],
+    /// Its height d, the vertical from the line to the top corner.
+    rise: Mob,
     line: Mob,
     points: [Mob; 2],
     rings: [Mob; 2],
@@ -290,6 +301,40 @@ struct Parts {
     reach: Mob,
     cut: Mob,
     marker: Mob,
+}
+
+/// Tile `t`'s top corner, and the part of the tile above the line `y` cut
+/// by the vertical through that corner: left and right. While the line
+/// passes over both side corners each is a right triangle of height d (the
+/// corner's height over the line); the right one's angle at the top is the
+/// turn θ, so its base is d tan θ, and the left one's is d cot θ.
+fn corner_split(t: &Tile<f64>, y: f64, side: f64) -> ((f64, f64), [Vec<(f64, f64)>; 2]) {
+    let corners = t.corners();
+    let top = corners
+        .iter()
+        .copied()
+        .fold(corners[0], |m, c| if c.1 > m.1 { c } else { m });
+    let (lo, hi, sky) = (-1.0, side + 1.0, 9.0);
+    let cap = common(&corners, &[(lo, y), (hi, y), (hi, sky), (lo, sky)]);
+    let left = common(&cap, &[(lo, y), (top.0, y), (top.0, sky), (lo, sky)]);
+    let right = common(&cap, &[(top.0, y), (hi, y), (hi, sky), (top.0, sky)]);
+    (top, [left, right])
+}
+
+/// The labels of 05_5's split corner for frame `f`: d beside the vertical,
+/// the turn θ at the top corner inside the right triangle, and the two
+/// bases under the points' line. Detached.
+fn split_labels(kit: &Kit, stage: &mut Stage<'_>, f: &Frame, side: f64) -> fmn::Result<[Mob; 4]> {
+    let at = |q: (f64, f64)| SIDE.p(side, q);
+    let y = f.height;
+    let (top, _) = corner_split(&f.tile, y, side);
+    let (l, r) = model::cut_at(&f.tile, y).unwrap_or((top.0, top.0));
+    Ok([
+        kit.tex(stage, D_TEX, 26.0, ink(), &[], at((top.0 - 0.07, 0.5 * (y + top.1))))?,
+        kit.tex(stage, THETA, 24.0, ink(), &[], at((top.0 + 0.05, top.1 - 0.2)))?,
+        kit.tex(stage, D_COT, 22.0, ink(), &[], at((0.5 * (l + top.0), y - 0.2)))?,
+        kit.tex(stage, D_TAN, 22.0, ink(), &[], at((0.5 * (top.0 + r), y - 0.2)))?,
+    ])
 }
 
 /// Redraw frame `f`, and record what the readouts read ([`pose_of`]).
@@ -307,17 +352,22 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, pose: &Cell<[f64; 6]>, f: &F
     reshape(s, parts.shadow, rect((cx - low, cx + low), SHADOW_Y));
     let x = cx - low;
     reshape(s, parts.tall, rect((x + TALL_X.0, x + TALL_X.1), (cy - low, cy + low)));
-    // the part of the tile above the points' line: the corner whose base is
-    // the cut
-    let above = [
-        (-1.0, f.height),
-        (parts.side + 1.0, f.height),
-        (parts.side + 1.0, 9.0),
-        (-1.0, 9.0),
-    ];
-    let cap = common(&corners, &above);
-    let cap = if cap.len() < 3 { vec![(cx, f.height); 3] } else { cap };
-    reshape(s, parts.cap, cap.iter().map(|&q| at(q)).collect());
+    // the part of the tile above the points' line, split at its top corner:
+    // two right triangles whose bases make the cut
+    let (top, halves) = corner_split(t, f.height, parts.side);
+    for (m, half) in parts.cap.into_iter().zip(halves) {
+        let pts = if half.len() < 3 {
+            vec![at((cx, f.height)); 3]
+        } else {
+            half.iter().map(|&q| at(q)).collect()
+        };
+        reshape(s, m, pts);
+    }
+    retrace(
+        s,
+        parts.rise,
+        vec![at((top.0, f.height)), at((top.0, top.1.max(f.height)))],
+    );
     retrace(s, parts.line, vec![at((0.0, f.height)), at((parts.side, f.height))]);
     let pts = model::strip_points(f.gap, f.height);
     let says = Ring::of(pts.map(|p| model::depth_inside(t, p)));
@@ -475,7 +525,10 @@ impl SceneConstruct for NearASide {
         };
         let blocks = [block(stage, 0.5, 1.0), block(stage, side - 1.0, side - 0.5)];
         let tile = polygon(stage, hidden(), flat(corner(), 1.0));
-        let cap = polygon(stage, hidden(), flat(turned(), 0.55));
+        let caps = [
+            polygon(stage, hidden(), flat(turned(), 0.65)),
+            polygon(stage, hidden(), flat(turned(), 0.35)),
+        ];
         let shadow = polygon(stage, hidden(), flat(Palette::purple(), 0.85));
         let tall = polygon(stage, hidden(), flat(Palette::purple(), 0.85));
         let centre = dot(stage, at(home), CENTRE_R, ink());
@@ -491,7 +544,7 @@ impl SceneConstruct for NearASide {
             stage.set_z_index(m, LAYER_MARKS, true);
         }
         let filled = [
-            allowed, blocks[0], blocks[1], tile, cap, shadow, tall, centre, points[0], points[1], marker,
+            allowed, blocks[0], blocks[1], tile, caps[0], caps[1], shadow, tall, centre, points[0], points[1], marker,
         ];
         for &m in &filled {
             stage.add_to_scene(m)?;
@@ -502,11 +555,12 @@ impl SceneConstruct for NearASide {
         let up = stroke(stage, dim(), 7.0);
         let reach = stroke(stage, ink(), 2.5);
         let cut = stroke(stage, ink(), 6.0);
+        let rise = stroke(stage, ink(), 3.0);
         let rings = [
             ring(stage, at(home), RING_R_POINT, faint(), 5.0),
             ring(stage, at(home), RING_R_POINT, faint(), 5.0),
         ];
-        for &m in &[line, up, reach, cut] {
+        for &m in &[line, up, reach, cut, rise] {
             stage.set_z_index(m, LAYER_MARKS, true);
         }
         for &m in &rings {
@@ -519,7 +573,8 @@ impl SceneConstruct for NearASide {
             allowed,
             shadow,
             tall,
-            cap,
+            cap: caps,
+            rise,
             line,
             points,
             rings,
@@ -671,23 +726,35 @@ impl SceneConstruct for NearASide {
         go(stage, parts, &pose, lifted, eighth, rt)?;
 
         // ---------------------------------------------------------- 05_5
-        // resting, one shadow tall; the corner above the points' line, whose
-        // base is the cut; the cut against the gap gives the slip height
+        // resting, one shadow tall; rolled to 30° so the two right triangles
+        // differ; the corner above the points' line split at its top: its
+        // height d = s − y, the turn θ at the top, bases d cot θ and d tan θ
+        // adding to the cut, d / (sin θ cos θ); the cut against the gap gives
+        // the slip height. Each equation replaces the one before
+        let split = resting(mid, SPLIT_DEG, gap);
         let line_5 = say(&kit, stage, LINES[4])?;
         swap(stage, &[up_caption, reach_caption, up, reach], &[], 0.4)?;
         reveal(stage, &[(tall, 0.85)], 0.4)?;
-        line_5.wait_for(stage, "the cut is the base")?;
-        let cut_is = kit.tex(stage, CUT_IS, 30.0, ink(), &[], v(FORMULA_X, DERIVE_Y.0))?;
-        let y_is = kit.text_left(stage, Y_IS, 24.0, dim(), v(TEXT_X, DERIVE_Y.1))?;
-        reveal(stage, &[(cap, 0.55)], 0.4)?;
-        swap(stage, &[], &[cut_is, y_is], 0.4)?;
+        let ask = line_5.at("Split its corner")?;
+        let rt = (ask - stage.scene().time().to_f64() - 0.1).max(0.8);
+        go(stage, parts, &pose, eighth, split, rt)?;
+        line_5.wait_for(stage, "two right triangles")?;
+        let labels = split_labels(&kit, stage, &blend(split, split, 0.0), side)?;
+        let d_is = kit.text_left(stage, D_IS, 24.0, dim(), v(TEXT_X, DERIVE_Y.1))?;
+        reveal(stage, &[(caps[0], 0.65), (caps[1], 0.35)], 0.4)?;
+        let mut shown = labels.to_vec();
+        shown.extend([rise, d_is]);
+        swap(stage, &[], &shown, 0.4)?;
+        line_5.wait_for(stage, "add to the cut")?;
+        let cut_is = kit.tex(stage, CUT_IS, 28.0, ink(), &[], v(FORMULA_X, DERIVE_Y.0))?;
+        swap(stage, &[], &[cut_is], 0.4)?;
         line_5.wait_for(stage, "shorter than the gap")?;
         let beats = kit.tex(stage, BEATS, 28.0, ink(), &[], v(FORMULA_X, DERIVE_Y.0))?;
         swap(stage, &[cut_is], &[beats], 0.5)?;
         line_5.wait_for(stage, "higher than this")?;
         let slip = kit.tex(stage, SLIP, 32.0, ink(), &[], v(FORMULA_X, DERIVE_Y.0))?;
         let identity = kit.tex(stage, IDENTITY, 26.0, dim(), &[], v(FORMULA_X, DERIVE_Y.1))?;
-        swap(stage, &[beats, y_is], &[slip, identity], 0.5)?;
+        swap(stage, &[beats, d_is], &[slip, identity], 0.5)?;
 
         // ---------------------------------------------------------- 05_6
         // h against the shadow: bends down, above its chord, least at an end;
@@ -723,9 +790,11 @@ impl SceneConstruct for NearASide {
         );
         let straight_tick = kit.text(stage, STRAIGHT, 24.0, dim(), v(x0, y0 - 0.35))?;
         let eighth_tick = kit.text(stage, EIGHTH, 24.0, dim(), v(x1, y0 - 0.35))?;
+        let mut done = labels.to_vec();
+        done.push(rise);
         swap(
             stage,
-            &[],
+            &done,
             &[axes, curve, level, chord, straight_tick, eighth_tick],
             0.5,
         )?;
@@ -736,7 +805,7 @@ impl SceneConstruct for NearASide {
         let straight = resting(mid, 0.0, gap);
         let ends = line_6.at("exactly one")?;
         let rt = (ends - stage.scene().time().to_f64() - 0.1).max(1.2);
-        go(stage, parts, &pose, eighth, straight, rt)?;
+        go(stage, parts, &pose, split, straight, rt)?;
         let one_end = plot_p(1.0, 1.0);
         let one = kit.text(stage, ONE, 30.0, ink(), v(one_end[0] - 0.3, one_end[1] + 0.3))?;
         let lowest = kit.text_left(stage, LOWEST, 24.0, touch(), v(TEXT_X, -3.65))?;
@@ -882,7 +951,8 @@ mod tests {
         let mid = 1.0 + 0.5 * gap;
         for (a, b) in [
             (from, resting(mid, 45.0, gap)),
-            (resting(mid, 45.0, gap), resting(mid, 0.0, gap)),
+            (resting(mid, 45.0, gap), resting(mid, SPLIT_DEG, gap)),
+            (resting(mid, SPLIT_DEG, gap), resting(mid, 0.0, gap)),
         ] {
             for k in 0..=200 {
                 let f = blend(a, b, f64::from(k) / 200.0);
@@ -907,6 +977,41 @@ mod tests {
         let turn = (lifted.tile.cos, lifted.tile.sin);
         assert!(lifted.tile.centre.1 <= 1.0);
         assert!(model::cut_length(&lifted.tile, 1.0) > model::floor_cut(turn, 1.0));
+    }
+
+    /// 05_5's picture: for a turned tile resting on the floor, the corner
+    /// above the points' line splits at its top into a left part from the
+    /// cut's left end and a right part to its right end, each as tall as the
+    /// corner's height d over the line; the bases are d cot θ and d tan θ and
+    /// add to the cut, d / (sin θ cos θ).
+    #[test]
+    fn the_corner_splits_into_two_right_triangles() {
+        let gap = model::turned_gap().to_f64();
+        let side = model::turned_side().to_f64();
+        for deg in [10.0, SPLIT_DEG, 45.0, 60.0, 80.0] {
+            let f = blend(resting(1.3, deg, gap), resting(1.3, deg, gap), 0.0);
+            let (top, [left, right]) = corner_split(&f.tile, f.height, side);
+            let (l, r) = model::cut_at(&f.tile, f.height).unwrap();
+            let d = top.1 - f.height;
+            let th = f64::to_radians(deg);
+            let span = |p: &[(f64, f64)]| {
+                let xs = p.iter().map(|q| q.0);
+                let ys = p.iter().map(|q| q.1);
+                (
+                    xs.clone().fold(f64::INFINITY, f64::min),
+                    xs.fold(f64::NEG_INFINITY, f64::max),
+                    ys.fold(f64::NEG_INFINITY, f64::max),
+                )
+            };
+            let (l0, l1, lt) = span(&left);
+            let (r0, r1, rt) = span(&right);
+            assert!((l0 - l).abs() < 1e-9 && (l1 - top.0).abs() < 1e-9, "{deg}");
+            assert!((r0 - top.0).abs() < 1e-9 && (r1 - r).abs() < 1e-9, "{deg}");
+            assert!((lt - top.1).abs() < 1e-9 && (rt - top.1).abs() < 1e-9, "{deg}");
+            assert!((top.0 - l - d / th.tan()).abs() < 1e-9, "{deg}: d cot θ");
+            assert!((r - top.0 - d * th.tan()).abs() < 1e-9, "{deg}: d tan θ");
+            assert!((r - l - d / (th.sin() * th.cos())).abs() < 1e-9, "{deg}");
+        }
     }
 
     /// The moves of 05_7 start from the straight tile on the floor, which

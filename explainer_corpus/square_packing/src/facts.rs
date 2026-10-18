@@ -756,12 +756,11 @@ mod tests {
         assert_eq!(value("strip.lemma"), "yes");
         assert!(line("05_3").contains("at most half a tile above its centre"));
         assert!(line("05_4").contains("Lower is narrower"));
-        assert!(line("05_5").contains("one shadow tall"));
+        let l5 = line("05_5");
+        assert!(l5.contains("one shadow tall"), "{l5}");
+        assert!(l5.contains("two right triangles"), "{l5}");
         let l6 = line("05_6");
-        assert!(
-            l6.contains("lowest at an end, straight, where it is exactly one"),
-            "{l6}"
-        );
+        assert!(l6.contains("lowest at an end, exactly one when straight"), "{l6}");
         assert_eq!(value("strip.least"), "straight");
         assert_eq!(value("strip.height.straight"), "1");
         assert!(value("strip.height.eighth.2dp").parse::<f64>().unwrap() > 1.0);
