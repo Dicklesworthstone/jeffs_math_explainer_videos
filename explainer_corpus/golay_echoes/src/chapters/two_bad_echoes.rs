@@ -545,7 +545,7 @@ mod tests {
         assert!(HOVER_Y + deepest_a * BLOCK > CHART_Y + tallest_b * BLOCK);
         // a shift's products sit between the copy's down pulses and the
         // peak's label
-        assert!(COPY_Y - PULSE_H > STAGE_Y + 0.12, "under the copy");
+        const { assert!(COPY_Y - PULSE_H > STAGE_Y + 0.12, "under the copy") };
         assert!(
             Place::main().past(0, a.at(0), 0.6)[1] + 0.12 < STAGE_Y - 0.12,
             "over the echo's word"
