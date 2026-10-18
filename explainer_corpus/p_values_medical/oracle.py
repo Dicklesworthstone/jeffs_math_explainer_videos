@@ -28,6 +28,7 @@ How the values are obtained, independently of the Rust model:
     and small studies listed exhaustively over every finishing order.
 """
 import math
+import statistics
 import sys
 from fractions import Fraction as F
 from itertools import product
@@ -401,6 +402,66 @@ def chapter_04(world, observed):
           and len({tuple(a) for a in flips}) == math.comb(PAIRS, PAIRS - 1))
 
 
+# chapter 05's two constructed versions of the study's recovery days
+# (src/model.rs `constructed_days`; illustration, never trial data), written
+# out patient by patient as (treated, untreated) days for pairs 0 to 19
+DAYS = (
+    ([11, 13, 9, 14, 14, 11, 8, 16, 12, 10, 11, 16, 12, 10, 12, 11, 17, 9, 12, 16],
+     [12, 14, 11, 13, 15, 12, 10, 14, 13, 11, 12, 15, 14, 11, 13, 12, 16, 10, 13, 14]),
+    ([5, 8, 3, 14, 8, 7, 1, 16, 6, 5, 4, 16, 7, 2, 8, 5, 17, 4, 5, 16],
+     [12, 14, 11, 13, 15, 12, 10, 14, 13, 11, 12, 15, 14, 11, 13, 12, 16, 10, 13, 14]),
+)
+CONVENTION = F(5, 100)  # the line chapter 05 draws: a decision convention
+
+
+def chapter_05(world, observed):
+    """The imagined result one pair away and its own inclusive tail; the 5%
+    convention between the two; the constructed days, whose statistic is
+    read from who recovered first in each pair and nothing else."""
+    total = 2**PAIRS
+    near = observed - 1
+    at_least = lambda k: sum(math.comb(PAIRS, j) for j in range(k, PAIRS + 1))
+    p15, p14 = F(at_least(observed), total), F(at_least(near), total)
+    emit("M-T2.moved", observed - near)
+    emit("M-T2.bar", math.comb(PAIRS, near))
+    emit("M-T2.p_percent_2dp", pct(p14, 2))
+    emit("M-T2.p_percent_1dp", pct(p14, 1))
+    emit("M-T5.line_percent", int(CONVENTION * 100))
+    check("14 or more includes bar 14: 60,460 - 21,700 = C(20, 14)",
+          at_least(near) - at_least(observed) == math.comb(PAIRS, near) == world[near])
+    check("the 5% convention falls between 2.07% and 5.77%", p15 < CONVENTION < p14)
+    emit("M-D.versions", len(DAYS))
+    treated_a, faster = bits(TREATED_A), bits(FASTER_A)
+    signs = []
+    for n, (treated, untreated) in enumerate(DAYS, 1):
+        key = lambda name: f"M-D{n}.{name}"
+        check(f"version {n}: one whole, positive, untied time per patient",
+              len(treated) == len(untreated) == PAIRS
+              and all(isinstance(d, int) and d >= 1 for d in treated + untreated)
+              and all(t != u for t, u in zip(treated, untreated)))
+        # each patient's days by the coin, then who recovered first
+        a_days = [t if a else u for t, u, a in zip(treated, untreated, treated_a)]
+        b_days = [u if a else t for t, u, a in zip(treated, untreated, treated_a)]
+        check(f"version {n}: the study's order in every pair",
+              [int(a < b) for a, b in zip(a_days, b_days)] == faster)
+        diffs = [u - t for t, u in zip(treated, untreated)]
+        k = sum(d > 0 for d in diffs)
+        emit(key("treated_days"), ",".join(map(str, treated)))
+        emit(key("untreated_days"), ",".join(map(str, untreated)))
+        emit(key("differences"), ",".join(map(str, diffs)))
+        emit(key("favouring"), k)
+        emit(key("median_sooner_days"), statistics.median(d for d in diffs if d > 0))
+        emit(key("tail.at_least"), at_least(k))
+        emit(key("p_percent_0dp"), pct(F(at_least(k), total), 0))
+        signs.append([(d > 0) - (d < 0) for d in diffs])
+    check("the two versions: the same sign in every pair, different sizes",
+          signs[0] == signs[1] and DAYS[0] != DAYS[1])
+    turned = [u - t for t, u in zip(*DAYS[1])]
+    turned[0] = -turned[0]
+    check("a pair turned the other way changes the statistic: 14, and 60,460",
+          sum(d > 0 for d in turned) == near and at_least(near) == 60_460)
+
+
 def study():
     observed, world = null_world()
     total = sum(world)
@@ -447,6 +508,7 @@ def study():
     # the edges of "a p-value here is never zero" and "the least favourable count has p = 1"
     check("K >= 0 has p = 1", tail(world, 0, "at_least") == total)
     check("the most favourable count has p = 1/2**20, not zero", tail(world, PAIRS, "at_least") == 1)
+    chapter_05(world, observed)
 
 
 def main():

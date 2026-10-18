@@ -147,7 +147,7 @@ fn to_small(stage: &mut Stage<'_>, m: Mob, centre: Vec3) -> fmn::Result<Box<dyn 
 }
 
 /// The study's tag above the pairs (chapter 02's, rebuilt).
-fn study_tag(kit: &Kit, stage: &mut Stage<'_>, pairs: u32) -> fmn::Result<Mob> {
+pub(super) fn study_tag(kit: &Kit, stage: &mut Stage<'_>, pairs: u32) -> fmn::Result<Mob> {
     kit.text(
         stage,
         &format!("{STUDY_A} {pairs} {STUDY_B}"),
@@ -192,7 +192,13 @@ pub(super) fn hist_frame(world: &[u64]) -> Frame2 {
 }
 
 /// The histogram's title (two lines), axis, ticks every five and axis label.
-fn hist_furniture(kit: &Kit, stage: &mut Stage<'_>, frame: &Frame2, total: u64, pairs: u32) -> fmn::Result<Vec<Mob>> {
+pub(super) fn hist_furniture(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    frame: &Frame2,
+    total: u64,
+    pairs: u32,
+) -> fmn::Result<Vec<Mob>> {
     let title = kit.text(
         stage,
         &format!("{} {WAYS}", thousands(total)),
@@ -221,7 +227,7 @@ fn hist_furniture(kit: &Kit, stage: &mut Stage<'_>, frame: &Frame2, total: u64, 
 }
 
 /// The world's bars, one per count of favouring pairs, detached.
-fn hist_bars(stage: &mut Stage<'_>, frame: &Frame2, world: &[u64]) -> fmn::Result<Mob> {
+pub(super) fn hist_bars(stage: &mut Stage<'_>, frame: &Frame2, world: &[u64]) -> fmn::Result<Mob> {
     let heights: Vec<(f64, f64)> = world.iter().enumerate().map(|(k, &c)| (k as f64, c as f64)).collect();
     Ok(stage.arena_mut().add(histogram(frame, &heights, 0.8, Palette::dim())?))
 }
@@ -245,7 +251,7 @@ impl HistMarks {
     }
 }
 
-fn hist_marks(
+pub(super) fn hist_marks(
     kit: &Kit,
     stage: &mut Stage<'_>,
     frame: &Frame2,

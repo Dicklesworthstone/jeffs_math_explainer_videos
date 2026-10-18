@@ -19,8 +19,12 @@ use fmn::prelude::*;
 
 use super::draw::{fade_in_all, fade_in_lagged, fade_out_all, line_style, say, think_pause, treated, warn};
 use super::five_percent::outline;
-use super::imaginary_world::{Closing, SHOWN_Y, SMALL_AT, closing_frame, disc_at, lit_box, place_small, small};
+use super::imaginary_world::{
+    Closing, SHOWN_Y, SMALL_AT, closing_frame, disc_at, hist_bars, hist_frame, hist_furniture, hist_marks, lit_box,
+    place_small, small, study_tag,
+};
 use super::same_test::{pair_at, small_fraction};
+use crate::facts::{RETOSS_SEED, RETOSSES};
 use crate::model::{Study, Tail, study, tail_count, tail_members, tail_share};
 
 pub struct CountTheWholeTail {
@@ -107,13 +111,192 @@ fn precise_text(world: &[u64], k: u32) -> String {
     )
 }
 
-/// One ledger row, "17 favouring" and its count right-aligned, detached.
-fn ledger_row(kit: &Kit, stage: &mut Stage<'_>, j: u32, n: u64, pairs: u32) -> fmn::Result<[Mob; 2]> {
-    let y = row_y(j, pairs);
+/// One ledger row, "17 favouring" and its count right-aligned, `lift` above
+/// its place under the small pairs; detached.
+fn ledger_row(kit: &Kit, stage: &mut Stage<'_>, j: u32, n: u64, pairs: u32, lift: f64) -> fmn::Result<[Mob; 2]> {
+    let y = row_y(j, pairs) + lift;
     let words = kit.text_left(stage, &format!("{j} {FAVOURING}"), 22.0, Palette::ink(), v(ROW_X, y))?;
     let num = kit.text(stage, &thousands(n), 22.0, treated(), v(NUM_X, y))?;
     stage.move_to(num, v(NUM_X, y), RIGHT);
     Ok([words, num])
+}
+
+/// The ledger's foot, `lift` above its place under the small pairs: the
+/// rule, "15 or more", "of 1,048,576" and the total's still words (right-
+/// aligned at the counts); detached.
+fn ledger_total(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    first: u32,
+    (tail_sum, total): (u64, u64),
+    pairs: u32,
+    lift: f64,
+) -> fmn::Result<[Mob; 4]> {
+    let rule_y = row_y(first, pairs) - RULE_DY + lift;
+    let rule = polyline(vec![v(ROW_X, rule_y), v(NUM_X + 0.1, rule_y)])
+        .style(line_style(Palette::dim(), 2.0))
+        .build();
+    let rule = stage.arena_mut().add(rule);
+    let total_y = row_y(first, pairs) - TOTAL_DY + lift;
+    let words = kit.text_left(
+        stage,
+        &format!("{first} {OR_MORE}"),
+        24.0,
+        Palette::ink(),
+        v(ROW_X, total_y),
+    )?;
+    let of_all = kit.text_left(
+        stage,
+        &format!("{OF} {}", thousands(total)),
+        22.0,
+        Palette::dim(),
+        v(NUM_X + 0.2, total_y),
+    )?;
+    let still = kit.text(stage, &thousands(tail_sum), 24.0, treated(), v(NUM_X, total_y))?;
+    stage.move_to(still, v(NUM_X, total_y), RIGHT);
+    Ok([rule, words, of_all, still])
+}
+
+/// One overlay per bar of `members` in `color`, over the world's bars
+/// (04_3's lavender tail; 05's imagined bar); detached.
+pub(super) fn bar_overlays(
+    stage: &mut Stage<'_>,
+    frame: &Frame2,
+    world: &[u64],
+    members: &[u32],
+    color: Srgb,
+) -> fmn::Result<Vec<Mob>> {
+    let mut overlays = Vec::new();
+    for &j in members {
+        let bar = histogram(frame, &[(f64::from(j), world[j as usize] as f64)], 0.8, color)?;
+        overlays.push(stage.arena_mut().add(bar));
+    }
+    Ok(overlays)
+}
+
+/// The height of the tail's bracket over bar `j` (04_3).
+pub(super) fn bracket_y(frame: &Frame2, world: &[u64], j: u32) -> f64 {
+    frame.p(f64::from(j), world[j as usize] as f64)[1] + BRACKET_DY
+}
+
+/// A bracket at height `y` over the bars `first` to `last`, its words above
+/// it; detached.
+pub(super) fn bracket(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    frame: &Frame2,
+    (first, last): (u32, u32),
+    y: f64,
+    words: &str,
+    color: Srgb,
+) -> fmn::Result<[Mob; 2]> {
+    let (xl, xr) = bar_span(frame, first, last);
+    let b = polyline(vec![
+        v(xl, y - BRACKET_TICK),
+        v(xl, y),
+        v(xr, y),
+        v(xr, y - BRACKET_TICK),
+    ])
+    .style(line_style(color, 3.0))
+    .build();
+    let b = stage.arena_mut().add(b);
+    let w = kit.text(stage, words, 20.0, color, v((xl + xr) / 2.0, y + BRACKET_WORDS_DY))?;
+    Ok([b, w])
+}
+
+/// The p-value's fraction, 21,700 / 1,048,576 ≈ 2%, under the risen ledger.
+fn p_fraction(kit: &Kit, stage: &mut Stage<'_>, world: &[u64], k: u32) -> fmn::Result<Mob> {
+    small_fraction(
+        kit,
+        stage,
+        (tail_count(world, k, Tail::AtLeast), world.iter().sum()),
+        treated(),
+        &format!("≈ {}%", tail_share(world, k, Tail::AtLeast).percent(0)),
+        (SMALL_AT[0], P_Y),
+    )
+}
+
+/// 04_9's two lines: what was fixed in advance, what the data set.
+fn cards(kit: &Kit, stage: &mut Stage<'_>, k: u32) -> fmn::Result<[Mob; 2]> {
+    let fixed = kit.text_left(stage, FIXED, 20.0, Palette::ink(), v(ROW_X, CARD_Y[0]))?;
+    let set_by = kit.text_left(stage, &format!("{SET_BY} {k}"), 20.0, treated(), v(ROW_X, CARD_Y[1]))?;
+    Ok([fixed, set_by])
+}
+
+/// The outline around the histogram's title: the denominator (04_10).
+fn title_box(kit: &Kit, stage: &mut Stage<'_>, frame: &Frame2) -> fmn::Result<Mob> {
+    let b = outline(
+        stage,
+        (frame.center[0] - TITLE_HALF_W, TITLE_TOP),
+        (frame.center[0] + TITLE_HALF_W, TITLE_BOTTOM),
+    )?;
+    kit.allow_crossing(b);
+    Ok(b)
+}
+
+/// Chapter 04's last picture, rebuilt still, for chapter 05 to open on: the
+/// study's tag; the histogram with its tallest count, the study's dot and
+/// label, the lavender tail, its bracket and the title's outline; the risen
+/// ledger, the p-value's name and fraction, 04_9's two lines; the caption.
+pub(super) struct LastPicture {
+    pub frame: Frame2,
+    /// The histogram and everything on it.
+    pub hist: Vec<Mob>,
+    /// The risen ledger: its rows, rule and total.
+    pub ledger: Vec<Mob>,
+    pub name: Mob,
+    pub p_value: Mob,
+    pub cards: [Mob; 2],
+    pub caption: Mob,
+}
+
+pub(super) fn last_picture(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<LastPicture> {
+    let s = study();
+    let world = s.null_world();
+    let total: u64 = world.iter().sum();
+    let (pairs, k) = (s.pairs, s.observed());
+    let lit_tail = tail_members(pairs, k, Tail::AtLeast);
+    let (first, last) = (lit_tail[0], lit_tail[lit_tail.len() - 1]);
+    let frame = hist_frame(&world);
+    let tag = study_tag(kit, stage, pairs)?;
+    let mut hist = hist_furniture(kit, stage, &frame, total, pairs)?;
+    hist.push(hist_bars(stage, &frame, &world)?);
+    // the tosses' dots left in 04_1; the rest of what sits on the bars stays
+    let marks = hist_marks(kit, stage, &frame, &world, &s, &s.retosses(RETOSS_SEED, RETOSSES))?;
+    hist.extend([marks.tallest, marks.study_dot, marks.study_label]);
+    hist.extend(bar_overlays(stage, &frame, &world, &lit_tail, treated())?);
+    let y = bracket_y(&frame, &world, first);
+    let words = format!("{first} {OR_MORE}");
+    hist.extend(bracket(kit, stage, &frame, (first, last), y, &words, treated())?);
+    hist.push(title_box(kit, stage, &frame)?);
+    let mut ledger = Vec::new();
+    for j in (first..=pairs).rev() {
+        ledger.extend(ledger_row(kit, stage, j, world[j as usize], pairs, LIFT)?);
+    }
+    let sums = (tail_count(&world, k, Tail::AtLeast), total);
+    ledger.extend(ledger_total(kit, stage, first, sums, pairs, LIFT)?);
+    let p_value = p_fraction(kit, stage, &world, k)?;
+    let name = kit.text(stage, P_NAME, 26.0, treated(), v(SMALL_AT[0], P_NAME_Y))?;
+    let cards = cards(kit, stage, k)?;
+    let caption = kit.text(stage, DENOMINATOR, 22.0, Palette::ink(), v(0.0, CAPTION_Y))?;
+    let mut all = vec![tag];
+    all.extend(&hist);
+    all.extend(&ledger);
+    all.extend([p_value, name]);
+    all.extend(cards);
+    all.push(caption);
+    for m in all {
+        stage.add_to_scene(m)?;
+    }
+    Ok(LastPicture {
+        frame,
+        hist,
+        ledger,
+        name,
+        p_value,
+        cards,
+        caption,
+    })
 }
 
 /// The move of `m` so that its `edge` lands at `to`, prepared.
@@ -223,30 +406,11 @@ impl SceneConstruct for CountTheWholeTail {
 
         // 04_3: fifteen itself and everything above it, up to twenty
         say(&kit, stage, "04_3")?;
-        let mut overlays = Vec::new();
-        for &j in &lit_tail {
-            let bar = histogram(&frame, &[(f64::from(j), world[j as usize] as f64)], 0.8, treated())?;
-            overlays.push(stage.arena_mut().add(bar));
-        }
+        let overlays = bar_overlays(stage, &frame, &world, &lit_tail, treated())?;
         fade_in_lagged(stage, &overlays, 1.0, 0.15)?;
-        let y = frame.p(f64::from(first), world[first as usize] as f64)[1] + BRACKET_DY;
-        let (xl, xr) = bar_span(&frame, first, last);
-        let bracket = polyline(vec![
-            v(xl, y - BRACKET_TICK),
-            v(xl, y),
-            v(xr, y),
-            v(xr, y - BRACKET_TICK),
-        ])
-        .style(line_style(treated(), 3.0))
-        .build();
-        let bracket = stage.arena_mut().add(bracket);
-        let bracket_words = kit.text(
-            stage,
-            &format!("{first} {OR_MORE}"),
-            20.0,
-            treated(),
-            v((xl + xr) / 2.0, y + BRACKET_WORDS_DY),
-        )?;
+        let y = bracket_y(&frame, &world, first);
+        let words = format!("{first} {OR_MORE}");
+        let [bracket, bracket_words] = bracket(&kit, stage, &frame, (first, last), y, &words, treated())?;
         fade_in_all(stage, &[bracket, bracket_words], 0.4)?;
 
         // 04_4: count ways, not bars: all twenty favouring happens one way
@@ -254,7 +418,7 @@ impl SceneConstruct for CountTheWholeTail {
         line.wait_for(stage, "only one way")?;
         set_small(stage, &s, &mut c, s.favouring_all_but(&[]), 0.8)?;
         relabel(&kit, stage, &mut c, &format!("{ONE_WAY} {pairs}"))?;
-        let row = ledger_row(&kit, stage, pairs, world[pairs as usize], pairs)?;
+        let row = ledger_row(&kit, stage, pairs, world[pairs as usize], pairs, 0.0)?;
         fade_in_all(stage, &row, 0.4)?;
         let mut rows = vec![(pairs, row)];
 
@@ -274,7 +438,7 @@ impl SceneConstruct for CountTheWholeTail {
             set_small(stage, &s, &mut c, s.favouring_all_but(&[j]), 0.45)?;
         }
         line.wait_for(stage, "Twenty ways")?;
-        let row = ledger_row(&kit, stage, nineteen, world[nineteen as usize], pairs)?;
+        let row = ledger_row(&kit, stage, nineteen, world[nineteen as usize], pairs, 0.0)?;
         fade_in_all(stage, &row, 0.4)?;
         rows.push((nineteen, row));
 
@@ -282,36 +446,16 @@ impl SceneConstruct for CountTheWholeTail {
         let line = say(&kit, stage, "04_6")?;
         let mut rest = Vec::new();
         for j in (first..nineteen).rev() {
-            let row = ledger_row(&kit, stage, j, world[j as usize], pairs)?;
+            let row = ledger_row(&kit, stage, j, world[j as usize], pairs, 0.0)?;
             rest.extend(row);
             rows.push((j, row));
         }
         fade_in_lagged(stage, &rest, 1.4, 0.1)?;
         line.wait_for(stage, "Altogether")?;
-        let rule_y = row_y(first, pairs) - RULE_DY;
-        let rule = polyline(vec![v(ROW_X, rule_y), v(NUM_X + 0.1, rule_y)])
-            .style(line_style(Palette::dim(), 2.0))
-            .build();
-        let rule = stage.arena_mut().add(rule);
-        let total_y = row_y(first, pairs) - TOTAL_DY;
-        let total_words = kit.text_left(
-            stage,
-            &format!("{first} {OR_MORE}"),
-            24.0,
-            Palette::ink(),
-            v(ROW_X, total_y),
-        )?;
-        let of_all = kit.text_left(
-            stage,
-            &format!("{OF} {}", thousands(total)),
-            22.0,
-            Palette::dim(),
-            v(NUM_X + 0.2, total_y),
-        )?;
+        let (rule_y, total_y) = (row_y(first, pairs) - RULE_DY, row_y(first, pairs) - TOTAL_DY);
         // the total's final words, still: they take over from the live count
         // when the ledger rises, and their width right-aligns the live count
-        let still_total = kit.text(stage, &thousands(tail_sum), 24.0, treated(), v(NUM_X, total_y))?;
-        stage.move_to(still_total, v(NUM_X, total_y), RIGHT);
+        let [rule, total_words, of_all, still_total] = ledger_total(&kit, stage, first, (tail_sum, total), pairs, 0.0)?;
         let half = stage.get_width(still_total) / 2.0;
         fade_in_all(stage, &[rule, total_words, of_all], 0.3)?;
         let so_far: u64 = world[nineteen as usize..].iter().sum();
@@ -349,15 +493,7 @@ impl SceneConstruct for CountTheWholeTail {
         moves.push(stage.prepare(anim.rt(0.8))?);
         stage.play_prepared(moves)?;
         line.wait_for(stage, "about two percent")?;
-        let share = tail_share(&world, k, Tail::AtLeast);
-        let p_value = small_fraction(
-            &kit,
-            stage,
-            (tail_sum, total),
-            treated(),
-            &format!("≈ {}%", share.percent(0)),
-            (SMALL_AT[0], P_Y),
-        )?;
+        let p_value = p_fraction(&kit, stage, &world, k)?;
         fade_in_all(stage, &[p_value], 0.6)?;
         line.wait_for(stage, "one-sided p-value")?;
         let name = kit.text(stage, P_NAME, 26.0, treated(), v(SMALL_AT[0], P_NAME_Y))?;
@@ -396,10 +532,9 @@ impl SceneConstruct for CountTheWholeTail {
         let line = say(&kit, stage, "04_9")?;
         fade_out_all(stage, &wrong, 0.4)?;
         line.wait_for(stage, "fixed in advance")?;
-        let fixed = kit.text_left(stage, FIXED, 20.0, Palette::ink(), v(ROW_X, CARD_Y[0]))?;
+        let [fixed, set_by] = cards(&kit, stage, k)?;
         fade_in_all(stage, &[fixed], 0.4)?;
         line.wait_for(stage, "this result")?;
-        let set_by = kit.text_left(stage, &format!("{SET_BY} {k}"), 20.0, treated(), v(ROW_X, CARD_Y[1]))?;
         fade_in_all(stage, &[set_by], 0.4)?;
         let mut pulse: Vec<Box<dyn Animation>> = Vec::new();
         for m in [bracket, p_value] {
@@ -410,17 +545,12 @@ impl SceneConstruct for CountTheWholeTail {
 
         // 04_10: every one of those ways lives in the world of no effect
         say(&kit, stage, "04_10")?;
-        let title_box = outline(
-            stage,
-            (frame.center[0] - TITLE_HALF_W, TITLE_TOP),
-            (frame.center[0] + TITLE_HALF_W, TITLE_BOTTOM),
-        )?;
-        kit.allow_crossing(title_box);
+        let title_box = title_box(&kit, stage, &frame)?;
         let caption = kit.text(stage, DENOMINATOR, 22.0, Palette::ink(), v(0.0, CAPTION_Y))?;
         fade_in_all(stage, &[title_box, caption], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, 0.8)?;
-        // chapter 05 opens on the tail, its p-value and the world it counts in
+        // chapter 05 opens on this picture as it rests (`last_picture`)
         kit.finish(stage)
     }
 }

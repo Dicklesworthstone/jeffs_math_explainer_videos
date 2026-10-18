@@ -25,6 +25,12 @@
 //!    tail (only the observed count, only the more extreme ones, the other
 //!    direction) gives a different number, and the tests pin each.
 //!
+//! Chapter 05 adds two constructed versions of the study's recovery days
+//! ([`Days`], [`constructed_days`]): the same order in every pair, so the
+//! same sign statistic and the same tail, but treated patients sooner by
+//! about a day in one and about a week in the other. The statistic reads
+//! only which patient recovered first, never by how much.
+//!
 //! Neither example's numbers are real patients: they are model numbers,
 //! labelled so on screen. A diagnostic false-alarm rate is not a p-value and
 //! a positive predictive value is not one either; the module keeps them as
@@ -446,6 +452,10 @@ pub fn positives_block_of(c: &Counts, cols: u64) -> Result<PositivesBlock, Strin
 
 // -------------------------------------------------- the study's null world
 
+/// The most pairs a study (or its constructed days) may have: one bit of a
+/// `u32` per pair, and a null world small enough to list in full.
+pub const MAX_PAIRS: u32 = 30;
+
 /// A synthetic treatment study (a teaching model, not a protocol): `pairs`
 /// pairs of patients matched before treatment, one patient of each pair
 /// given the treatment by a fair coin, recovery time measured, lower is
@@ -473,7 +483,7 @@ pub fn study() -> Study {
 
 impl Study {
     fn mask(&self) -> u32 {
-        assert!(self.pairs <= 30, "{} pairs is too many to list", self.pairs);
+        assert!(self.pairs <= MAX_PAIRS, "{} pairs is too many to list", self.pairs);
         (1u32 << self.pairs) - 1
     }
 
@@ -590,6 +600,145 @@ pub fn tail_count(world: &[u64], observed: u32, tail: Tail) -> u64 {
 /// The tail's share of every assignment.
 pub fn tail_share(world: &[u64], observed: u32, tail: Tail) -> Q {
     Q::ratio(tail_count(world, observed, tail), world.iter().sum())
+}
+
+// ------------------------------------ constructed recovery days (chapter 05)
+
+/// Recovery days for the pairs of a study, the treated and the untreated
+/// patient's in each pair: constructed for illustration (chapter 05), never
+/// trial data. Whole days, so a time is finite and never negative by its
+/// type; [`Days::new`] refuses what the type allows but a recovery time
+/// cannot be, or the sign statistic cannot read: zero days, a tie (a tie has
+/// no patient who recovered first), and more pairs than a study's bits hold
+/// ([`MAX_PAIRS`]).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Days {
+    treated: Vec<u32>,
+    untreated: Vec<u32>,
+}
+
+impl Days {
+    pub fn new(treated: Vec<u32>, untreated: Vec<u32>) -> Result<Days, String> {
+        if treated.is_empty() || treated.len() != untreated.len() {
+            return Err(format!(
+                "{} treated and {} untreated patients: one of each per pair",
+                treated.len(),
+                untreated.len()
+            ));
+        }
+        if treated.len() > MAX_PAIRS as usize {
+            return Err(format!("{} pairs: a study holds at most {MAX_PAIRS}", treated.len()));
+        }
+        for (i, (&t, &u)) in treated.iter().zip(&untreated).enumerate() {
+            if t == 0 || u == 0 {
+                return Err(format!("pair {i}: a recovery takes at least one day"));
+            }
+            if t == u {
+                return Err(format!(
+                    "pair {i}: a tie ({t} days each) has no patient who recovered first"
+                ));
+            }
+        }
+        Ok(Days { treated, untreated })
+    }
+
+    /// Built from each pair's untreated patient's days and its observed
+    /// difference, untreated minus treated.
+    pub fn from_differences(untreated: &[u32], differences: &[i64]) -> Result<Days, String> {
+        if untreated.len() != differences.len() {
+            return Err(format!(
+                "{} pairs of days and {} differences",
+                untreated.len(),
+                differences.len()
+            ));
+        }
+        let treated = untreated
+            .iter()
+            .zip(differences)
+            .enumerate()
+            .map(|(i, (&u, &d))| {
+                i64::from(u)
+                    .checked_sub(d)
+                    .and_then(|t| u32::try_from(t).ok())
+                    .ok_or_else(|| format!("pair {i}: {u} days less {d} is not a recovery time"))
+            })
+            .collect::<Result<Vec<u32>, String>>()?;
+        Days::new(treated, untreated.to_vec())
+    }
+
+    pub fn pairs(&self) -> usize {
+        self.treated.len()
+    }
+
+    pub fn treated(&self) -> &[u32] {
+        &self.treated
+    }
+
+    pub fn untreated(&self) -> &[u32] {
+        &self.untreated
+    }
+
+    /// The observed paired differences, untreated minus treated, in days:
+    /// positive when the treated patient recovered sooner. What happened in
+    /// each pair, not what the treatment caused.
+    pub fn differences(&self) -> Vec<i64> {
+        self.untreated
+            .iter()
+            .zip(&self.treated)
+            .map(|(&u, &t)| i64::from(u) - i64::from(t))
+            .collect()
+    }
+
+    /// The sign statistic, read from the days: the pairs whose treated
+    /// patient recovered first.
+    pub fn favouring(&self) -> u32 {
+        self.differences().iter().filter(|&&d| d > 0).count() as u32
+    }
+
+    /// The order the days imply, as a study's bits: bit `i` set when patient
+    /// A of pair `i` recovered first, given who the coins treated.
+    pub fn faster_a(&self, treated_a: u32) -> u32 {
+        (0..self.pairs()).fold(0, |bits, i| {
+            let (t, u) = (self.treated[i], self.untreated[i]);
+            let a = if treated_a >> i & 1 == 1 { t } else { u };
+            let b = if treated_a >> i & 1 == 1 { u } else { t };
+            if a < b { bits | 1 << i } else { bits }
+        })
+    }
+
+    /// How much sooner the treated patient recovered, typically, in the pairs
+    /// that favour the treatment: the median of the positive differences.
+    pub fn median_sooner(&self) -> Option<Q> {
+        let mut sooner: Vec<i64> = self.differences().into_iter().filter(|&d| d > 0).collect();
+        sooner.sort_unstable();
+        let n = sooner.len();
+        match n {
+            0 => None,
+            _ if n.is_multiple_of(2) => Some(Q::new(i128::from(sooner[n / 2 - 1] + sooner[n / 2]), 2)),
+            _ => Some(Q::int(i128::from(sooner[n / 2]))),
+        }
+    }
+}
+
+/// The untreated patients' days in chapter 05's constructed versions (the
+/// same in both).
+const UNTREATED_DAYS: [u32; 20] = [
+    12, 14, 11, 13, 15, 12, 10, 14, 13, 11, 12, 15, 14, 11, 13, 12, 16, 10, 13, 14,
+];
+/// Each pair's observed difference in the two versions: the study's signs
+/// (pairs 3, 7, 11, 16 and 19 negative, the same in both), the treated
+/// patients sooner by about a day in the first and about a week in the
+/// second.
+const SOONER: [[i64; 20]; 2] = [
+    [1, 1, 2, -1, 1, 1, 2, -2, 1, 1, 1, -1, 2, 1, 1, 1, -1, 1, 1, -2],
+    [7, 6, 8, -1, 7, 5, 9, -2, 7, 6, 8, -1, 7, 9, 5, 7, -1, 6, 8, -2],
+];
+
+/// The two constructed versions of the study's recovery days that chapter
+/// 05 sets side by side: the same order as the study in every pair, so the
+/// same 15 pairs favour the treatment, but different sizes.
+pub fn constructed_days() -> [Days; 2] {
+    SOONER.map(|d| Days::from_differences(&UNTREATED_DAYS, &d).expect("the constructed days are valid"))
 }
 
 #[cfg(test)]
@@ -1178,5 +1327,125 @@ mod tests {
         };
         assert_eq!(wrong.null_world(), s.null_world());
         assert_eq!(wrong.observed(), a_treated);
+    }
+
+    /// Chapter 05's two constructed versions keep the study's order in every
+    /// pair (read from the days, not from a label), so both give the study's
+    /// 15 and its tail; they differ only in how much sooner.
+    #[test]
+    fn the_constructed_days_keep_the_order_and_differ_in_size() {
+        let s = study();
+        let world = s.null_world();
+        let [small, large] = constructed_days();
+        for days in [&small, &large] {
+            assert_eq!(days.pairs(), s.pairs as usize);
+            assert_eq!(days.faster_a(s.treated_a), s.faster_a, "the study's order");
+            assert_eq!(days.favouring(), s.observed());
+            assert_eq!(tail_count(&world, days.favouring(), Tail::AtLeast), 21_700);
+            assert!(
+                days.treated()
+                    .iter()
+                    .chain(days.untreated())
+                    .all(|&d| (1..=30).contains(&d))
+            );
+        }
+        let signs = |d: &Days| d.differences().iter().map(|x| x.signum()).collect::<Vec<_>>();
+        assert_eq!(signs(&small), signs(&large), "the same signs, pair by pair");
+        assert_ne!(small.differences(), large.differences(), "different sizes");
+        assert_eq!(small.median_sooner(), Some(Q::int(1)), "about a day");
+        assert_eq!(large.median_sooner(), Some(Q::int(7)), "about a week");
+        // any change of size that keeps every sign keeps the statistic
+        for factor in 1..=4 {
+            let scaled: Vec<i64> = small
+                .differences()
+                .iter()
+                .map(|&d| if d > 0 { d * factor } else { d })
+                .collect();
+            let days = Days::from_differences(&UNTREATED_DAYS, &scaled).unwrap();
+            assert_eq!(days.favouring(), small.favouring(), "factor {factor}");
+            assert_eq!(days.faster_a(s.treated_a), s.faster_a);
+        }
+    }
+
+    /// A changed sign changes the statistic and the tail: one favouring pair
+    /// turned gives 14 and 60,460 assignments; one pair against turned gives 16.
+    #[test]
+    fn a_changed_sign_changes_the_statistic() {
+        let s = study();
+        let world = s.null_world();
+        let [_, large] = constructed_days();
+        let mut fewer = large.differences();
+        fewer[0] = -fewer[0];
+        let fewer = Days::from_differences(&UNTREATED_DAYS, &fewer).unwrap();
+        assert_eq!(fewer.favouring(), 14);
+        assert_ne!(fewer.faster_a(s.treated_a), s.faster_a);
+        assert_eq!(tail_count(&world, fewer.favouring(), Tail::AtLeast), 60_460);
+        let mut more = large.differences();
+        more[3] = -more[3];
+        let more = Days::from_differences(&UNTREATED_DAYS, &more).unwrap();
+        assert_eq!(more.favouring(), 16);
+    }
+
+    /// What a recovery time cannot be is refused, and said: a tie, zero
+    /// days, a difference larger than the untreated patient's days (up to the
+    /// ends of i64), a pair missing its other patient, more pairs than a
+    /// study's bits. Negative and non-finite days cannot be written at all
+    /// (whole days, unsigned).
+    #[test]
+    fn days_that_are_not_recovery_times_are_refused() {
+        let tie = Days::new(vec![5, 7], vec![6, 7]).unwrap_err();
+        assert!(tie.contains("pair 1") && tie.contains("tie"), "{tie}");
+        let zero = Days::new(vec![0, 7], vec![6, 8]).unwrap_err();
+        assert!(zero.contains("at least one day"), "{zero}");
+        assert!(Days::new(vec![5], vec![6, 7]).is_err());
+        assert!(Days::new(vec![], vec![]).is_err());
+        let too_big = Days::from_differences(&[10, 12], &[2, 13]).unwrap_err();
+        assert!(too_big.contains("pair 1"), "{too_big}");
+        assert!(Days::from_differences(&[10, 12], &[2, 12]).is_err(), "zero days");
+        assert!(Days::from_differences(&[10, 12], &[2, 0]).is_err(), "a tie");
+        assert!(Days::from_differences(&[10], &[2, 3]).is_err());
+        // differences at the ends of i64 are refused, not overflowed
+        let low = Days::from_differences(&[10, 12], &[2, i64::MIN]).unwrap_err();
+        assert!(low.contains("pair 1"), "{low}");
+        assert!(Days::from_differences(&[10, 12], &[i64::MAX, 2]).is_err());
+        // no more pairs than a study's bits hold
+        let n = MAX_PAIRS as usize;
+        assert!(Days::new(vec![1; n], vec![2; n]).is_ok());
+        let many = Days::new(vec![1; n + 1], vec![2; n + 1]).unwrap_err();
+        assert!(many.contains("at most 30"), "{many}");
+        assert_eq!(Days::from_differences(&[10, 12], &[2, -3]).unwrap().favouring(), 1);
+        // no favouring pair, no median; an even number takes the middle two
+        assert_eq!(Days::new(vec![9], vec![8]).unwrap().median_sooner(), None);
+        assert_eq!(
+            Days::new(vec![1, 1], vec![2, 5]).unwrap().median_sooner(),
+            Some(Q::new(5, 2))
+        );
+    }
+
+    /// Chapter 05's two results, each with its inclusive tail: 14 or more is
+    /// 60,460 assignments (bar 14 included), 15 or more 21,700; one pair
+    /// apart, they fall either side of a 5% line, which is a convention, not
+    /// a property of either world (both are the same world).
+    #[test]
+    fn fourteen_and_fifteen_have_their_own_inclusive_tails() {
+        let world = study().null_world();
+        let (fourteen, fifteen) = (
+            tail_count(&world, 14, Tail::AtLeast),
+            tail_count(&world, 15, Tail::AtLeast),
+        );
+        assert_eq!((fourteen, fifteen), (60_460, 21_700));
+        assert_eq!(fourteen - fifteen, world[14], "bar 14 is in its own tail");
+        assert_eq!(tail_count(&world, 14, Tail::MoreThan), fifteen);
+        let (p14, p15) = (
+            tail_share(&world, 14, Tail::AtLeast),
+            tail_share(&world, 15, Tail::AtLeast),
+        );
+        assert_eq!((p14.percent(2), p15.percent(2)), ("5.77".to_owned(), "2.07".to_owned()));
+        assert_eq!(p14.percent(1), "5.8");
+        let line = Q::new(5, 100);
+        assert!(p15 < line && line < p14);
+        // the off-by-one tails are other numbers
+        assert_ne!(tail_count(&world, 13, Tail::AtLeast), fourteen);
+        assert_ne!(tail_count(&world, 14, Tail::Exactly), fourteen);
     }
 }

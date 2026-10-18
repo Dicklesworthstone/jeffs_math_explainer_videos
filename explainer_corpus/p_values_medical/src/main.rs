@@ -142,6 +142,23 @@ mod tests {
             "M-X1.more_than_percent_1dp",
             "0.6",
         ),
+        ("05_1", "Two percent", "M-T1.p_percent_0dp", "2"),
+        ("05_2", "is two percent", "M-T1.p_percent_0dp", "2"),
+        ("05_3", "The two percent", "M-T1.p_percent_0dp", "2"),
+        ("05_5", "one more pair", "M-T2.moved", "1"),
+        ("05_5", "Fourteen.", "M-T2.observed", "14"),
+        ("05_6", "Fourteen or more", "M-T2.observed", "14"),
+        ("05_6", "about five point eight percent", "M-T2.p_percent_1dp", "5.8"),
+        ("05_7", "a line at five percent", "M-T5.line_percent", "5"),
+        ("05_7", "Fifteen falls under it", "M-T1.observed", "15"),
+        ("05_7", "fourteen over", "M-T2.observed", "14"),
+        ("05_8", "two made-up sets", "M-D.versions", "2"),
+        ("05_9", "the same fifteen favouring pairs", "M-D1.favouring", "15"),
+        ("05_9", "the same fifteen favouring pairs", "M-D2.favouring", "15"),
+        ("05_9", "typically a day sooner", "M-D1.median_sooner_days", "1"),
+        ("05_9", "a week in the other", "M-D2.median_sooner_days", "7"),
+        ("05_10", "same two percent", "M-D1.p_percent_0dp", "2"),
+        ("05_10", "same two percent", "M-D2.p_percent_0dp", "2"),
     ];
 
     #[test]

@@ -53,12 +53,13 @@ denominators highlighted (495 out of 9,900; 90 out of 585) and the lower-third
   different subsets and numbers; the two-sided question is left for 05 or
   the description (a different predeclared question, 4.14% here, never "a
   one-sided p doubled" as a rule).
-- **05_what_two_percent_does_not_say** (~75 s): not the chance the
-  treatment does nothing, not the chance the study is wrong; 14 pairs gives
-  5.77% (M-T2.p_10dp), a different amount of evidence, not a different
-  truth; the sizes of the differences never entered the count, so the
-  benefit in days is a separate question (the normal-model inset of the
-  research brief, if it fits).
+- **05_what_two_percent_does_not_say**: built (its beats are below). The
+  world kept apart from the question asked in it; not the chance the
+  treatment does nothing, not the chance the study is wrong; an imagined
+  14 with its own tail, 5.77%, either side of a 5% convention; two made-up
+  versions of the recovery days with the same signs and different sizes,
+  so the same count and tail. No normal-model inset, no optional stopping
+  (narrowed by the orchestrator).
 - **06_the_question_again** (~60 s): the survey's keyed answer beside a
   version that names its group and assumptions; names to search; receipts.
 
@@ -83,6 +84,8 @@ data colour.
 | the count of every assignment (the histogram's bars) | `dim` |
 | the group a percent is a share of (its denominator): outlines and glows only, never a fill | `ink` |
 | a wrong reading (the tempting 95%, a disputed answer key) | `warn` red `#FC6255` |
+| an imagined other result and its tail (chapter 05's 14): never the study's | yellow-green `#A6D96A` |
+| a constructed pair whose treated patient recovered sooner (chapter 05's strips): a bar up, like a lit pair; a pair the other way is a bar down, unlit (outline only) | lavender; `dim` outline |
 | the prediction pause, the title | `hero` gold `#FFD866` |
 
 Colour is never the only cue: the disease is also position (the array's top
@@ -198,3 +201,30 @@ assignments, never of bars.
 | 04_8 | Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. *(M-X1.exactly_percent_1dp, .more_than_percent_1dp)* | The lower-third leaves; a red outline around bar 15 alone and "exactly 15: 15,504 of 1,048,576 ≈ 1.5%"; then a red outline around bars 16 to 20 alone and "more than 15: 6,196 of 1,048,576 ≈ 0.6%"; the lavender tail stays | highlight; fractions | |
 | 04_9 | Neither is our test. The direction was fixed in advance. We count this result or anything more favourable. *(the statistic and the direction were predeclared; the boundary is the observed 15)* | The red outlines and their lines leave; under the fraction, at "fixed in advance": "fixed in advance: the statistic and its direction"; at "this result", in lavender: "set by the data: the tail starts at this result, 15", and the bracket and the p-value pulse | highlight | |
 | 04_10 | And every one of those ways lives in a world where the treatment did nothing. | The histogram's title, "1,048,576 ways the coins can land", is outlined: the denominator; a caption beneath: "every one of them in the world where the treatment changed no one's recovery" | caption; glow outline | hold |
+
+## 05_what_two_percent_does_not_say: What two percent does not say (~81 s at the kit's scratch rate)
+
+Opens on chapter 04's last picture as it rests (`count_tail::last_picture`).
+The world (assumed, the denominator: an ink outline) and the question asked
+in it (lavender) stay visibly apart; the two percent is said not to be the
+chance the treatment did nothing nor the chance the study is wrong, and no
+posterior number is computed or shown. The imagined 14 is yellow-green and
+says "imagined"; the design, the null and the direction stay the study's.
+The 5% line is called a convention for deciding. The two versions of the
+recovery days are constructed (`model::constructed_days`, labelled made up,
+not trial data): their bars are observed paired differences, untreated
+minus treated, never treatment effects; every count on them is read from
+the days, and "typically" is the median among the 15 favouring pairs only.
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Two percent is a share of that imaginary world, where no one's recovery changed. *(M-T1.p_percent_0dp)* | The ledger, 04_9's lines and the caption leave; at "imaginary world", top left in an ink outline: "assumed world: no one's recovery changes" / "1,048,576 coin assignments, all equally likely"; under it in lavender "asked in it: how often 15 or more?"; the p-value's name and fraction stay below, the histogram right | outline; caption | |
+| 05_2 | ⟨predict⟩ So is two percent the chance that the treatment did nothing? *(M-T1.p_percent_0dp)* | The think ring drains under the fraction | predict pause | |
+| 05_3 | No. The two percent was counted inside that world. It can't be the chance that world is true. *(M-T1.p_percent_0dp)* | The world's outline pulses at "counted inside that world"; at "can't be", in red: "2% is not the chance the treatment did nothing" | highlight; caption | |
+| 05_4 | Nor the chance the study is wrong. Both need more than this count. | A second red line: "2% is not the chance the study is wrong" | caption | |
+| 05_5 | Now imagine one more pair had gone the other way. Same design, same direction. Fourteen. *(M-T2.moved, M-T2.observed)* | The left column clears; "the study: 15 or more" with 21,700 / 1,048,576 ≈ 2.07%; at "one more pair", bar 14 turns yellow-green and a yellow-green bracket over 14 to 20, "imagined: 14 or more", stands above the lavender one; at "Fourteen", the words "imagined: 14 or more" on the left | highlight; fractions | |
+| 05_6 | Fourteen or more is about five point eight percent of the same world. *(M-T2.observed, M-T2.p_percent_1dp)* | Beside it, 60,460 / 1,048,576 ≈ 5.77% (M-T2.tail.at_least, .p_percent_2dp) | fractions | |
+| 05_7 | A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide. It doesn't switch the truth. *(M-T5.line_percent; M-T1.observed, M-T2.observed)* | A share line from 0% to 8% with the two results as dots (15 lavender at 2.07%, 14 yellow-green at 5.77%); at "five percent" a line at 5%, "5%: a convention for deciding"; each dot pulses as it is said; at "That line helps decide": "1 pair apart: the evidence moved a little" / "nothing in nature switches at 5%" | data window (number line); highlight | |
+| 05_8 | The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days. *(M-D.versions)* | Everything but the study's tag leaves; two titled strips, "version 1, made up for illustration, not trial data" and "version 2, …", the note "each bar: untreated minus treated days in one pair, an observed difference, not a treatment effect"; at "two made-up sets" one bar per pair grows in each (M-D1.differences, M-D2.differences): up and lavender where the treated patient recovered sooner, down and unlit otherwise | data window; lagged reveal | |
+| 05_9 | Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other. *(M-D1.favouring, M-D2.favouring; M-D1.median_sooner_days, M-D2.median_sooner_days, medians among the 15 favouring pairs only)* | A row of + and − under each strip, read from the days, the same in both; right of each, "15 of 20 pairs favouring"; at "Among those", "median among those 15:"; at "a day sooner", "1 day sooner" by version 1, its bars pulse; at "a week in the other", "7 days sooner" by version 2, its bars pulse | lagged reveal; highlight | |
+| 05_10 | Same signs, same count, same two percent. The test never asked how much sooner. A patient would. *(M-D1.p_percent_0dp, M-D2.p_percent_0dp)* | Right of each strip, "one-sided p ≈ 2.07%", the same; at "never asked how much sooner" both strips' up bars pulse; at "A patient would", a caption: "how much sooner is what a patient asks, and this count never measured it" | highlight; caption | hold |

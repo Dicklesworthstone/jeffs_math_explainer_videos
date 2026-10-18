@@ -190,6 +190,12 @@ pub fn treated() -> Srgb {
     hex("#C59BF2")
 }
 
+/// An imagined other result and its tail (chapter 05's 14): yellow-green,
+/// unlike every data colour, so it is never read as the study's.
+pub fn imagined() -> Srgb {
+    hex("#A6D96A")
+}
+
 /// A wrong reading: the tempting answer, the disputed key.
 pub fn warn() -> Srgb {
     Palette::red()

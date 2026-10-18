@@ -142,7 +142,28 @@ or outlined set and every count (`tail_members`, `tail_count`).
 | M-T1.p.exact / _10dp | 5425/262144 / 0.0206947327 | 21,700 / 1,048,576; pinned to the brief | 04_7 |
 | M-T1.p_percent_0dp / _4dp | 2 / 0.0207 | | 04_7 "about two percent", ≈ 2% / the lower-third |
 | M-T1.p_percent_2dp / _1dp | 2.07 / 2.1 | | not said in 04 (it says the whole percent) |
-| M-T2.observed / .tail.at_least / .p_10dp | 14 / 60460 / 0.0576591492 | K ≥ 14; pinned to the brief | 05 |
+| M-T2.observed / .tail.at_least / .p_10dp | 14 / 60460 / 0.0576591492 | K ≥ 14, an imagined other result one pair away (design, null and direction unchanged); pinned to the brief | 05_5–05_7 |
+| M-T2.moved / .bar | 1 / 38760 | pairs between the two results; bar 14, inside its own inclusive tail (60,460 − 21,700) | 05_5 "one more pair" |
+| M-T2.p_percent_1dp / _2dp | 5.8 / 5.77 | | 05_6 "about five point eight percent", ≈ 5.77% |
+| M-T5.line_percent | 5 | a decision convention drawn between 2.07% and 5.77%, not computed by the model and not a property of either result (`facts::CONVENTION_PERCENT`; facts refuse it if it is not between them) | 05_7 |
+
+Chapter 05 keeps the world (assumed: no one's recovery changes; the
+denominator, 1,048,576 assignments) apart from the question asked in it (how
+often 15 or more): the share is counted inside the world, so it is neither
+the chance the treatment did nothing nor the chance the study is wrong, and
+no posterior is computed. Its two versions of the recovery days are
+constructed (M-D below), never trial data.
+
+| Key | Value | Obtained | Where |
+|---|---|---|---|
+| M-D.versions | 2 | `model::constructed_days` | 05_8 "two made-up sets" |
+| M-D1.untreated_days, M-D2.untreated_days | 12,14,11,13,15,12,10,14,13,11,12,15,14,11,13,12,16,10,13,14 | constructed, the same in both versions | not shown |
+| M-D1.treated_days | 11,13,9,14,14,11,8,16,12,10,11,16,12,10,12,11,17,9,12,16 | constructed | not shown |
+| M-D2.treated_days | 5,8,3,14,8,7,1,16,6,5,4,16,7,2,8,5,17,4,5,16 | constructed | not shown |
+| M-D1.differences / M-D2.differences | 1,1,2,−1,… / 7,6,8,−1,… | untreated minus treated, per pair: observed paired differences, not treatment effects | 05_8 the strips' bars |
+| M-D1.favouring / M-D2.favouring | 15 / 15 | read from the days (positive differences); both versions reproduce the study's order bit for bit | 05_9 said; the + and − rows |
+| M-D1.median_sooner_days / M-D2.median_sooner_days | 1 / 7 | the median of the positive differences only, among the 15 favouring pairs (not a whole-study median, not a benefit) | 05_9 "typically a day sooner", "a week in the other"; "median among those 15" |
+| M-D1.tail.at_least / M-D2.tail.at_least, .p_percent_0dp | 21700, 2 | each version's own count in the same null world | 05_10 "same two percent", ≈ 2.07% |
 
 ## M-X · the wrong readings (each a different number, each tested)
 
@@ -171,8 +192,15 @@ endpoints, all six counts, the extremes 0 and 20, the mirror, and the
 off-by-one and wrong-direction mutations refused), `each_highlighted_set_is_its_inequality`,
 `twenty_has_one_way_and_nineteen_has_one_per_pair` (enumerated), and chapter
 04's own `the_wrong_tails_are_other_subsets_of_the_tail` and
-`the_words_say_what_was_fixed_and_what_was_set`; `oracle.py` cross-checks of
-the same claims, computed its own way (53 in all).
+`the_words_say_what_was_fixed_and_what_was_set`;
+`fourteen_and_fifteen_have_their_own_inclusive_tails`,
+`the_constructed_days_keep_the_order_and_differ_in_size`,
+`a_changed_sign_changes_the_statistic` (14 and 16),
+`days_that_are_not_recovery_times_are_refused` (ties, zero days, differences
+up to the ends of i64, unequal lengths, more than 30 pairs), and chapter 05's
+`the_pictures_are_the_models_numbers`; `oracle.py` cross-checks of the same
+claims, computed its own way, with its own patient-by-patient copy of the
+constructed days (61 in all).
 
 ## Sources
 

@@ -8,9 +8,13 @@
 use explainer_kit::Facts;
 
 use crate::model::{
-    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, disease, negative, no_disease, positive, positives_block_of,
-    share, study, tail_count, tail_share,
+    Clinic, IconArray, Q, Tail, bayes, clinic_a, clinic_b, constructed_days, disease, negative, no_disease, positive,
+    positives_block_of, share, study, tail_count, tail_share,
 };
+
+/// The line chapter 05 draws at 5%: a decision convention, not a number the
+/// model computes (fact sheet M-T5).
+pub const CONVENTION_PERCENT: u32 = 5;
 
 /// Dates and printed numbers from the sources (fact sheet rows M-C; the
 /// oracle prints the same literals).
@@ -81,6 +85,7 @@ pub fn facts() -> Result<Facts, String> {
     )?;
     compare(&mut f)?;
     trial(&mut f)?;
+    illustration(&mut f)?;
     Ok(f)
 }
 
@@ -266,6 +271,48 @@ fn trial(f: &mut Facts) -> Result<(), String> {
         "0.0576591492",
         BRIEF,
     )?;
+    // chapter 05: the imagined result one pair away, its own inclusive tail
+    // (bar 14 in it), and the 5% convention between the two shares
+    let p_near = tail_share(&world, near, Tail::AtLeast);
+    f.add("M-T2.moved", k - near)?;
+    f.add("M-T2.bar", world[near as usize])?;
+    f.add("M-T2.p_percent_2dp", p_near.percent(2))?;
+    f.add("M-T2.p_percent_1dp", p_near.percent(1))?;
+    let line = Q::new(i128::from(CONVENTION_PERCENT), 100);
+    if p >= line || line >= p_near {
+        return Err(format!(
+            "the {CONVENTION_PERCENT}% line is not between {p} and {p_near}"
+        ));
+    }
+    f.add("M-T5.line_percent", CONVENTION_PERCENT)?;
+    Ok(())
+}
+
+/// Chapter 05's two constructed versions of the study's recovery days (M-D,
+/// illustration, never trial data): each version's statistic is read from
+/// its days, then counted in the same null world.
+fn illustration(f: &mut Facts) -> Result<(), String> {
+    let s = study();
+    let world = s.null_world();
+    let versions = constructed_days();
+    f.add("M-D.versions", versions.len())?;
+    let list = |xs: &[u32]| xs.iter().map(u32::to_string).collect::<Vec<_>>().join(",");
+    for (n, days) in versions.iter().enumerate() {
+        let key = |name: &str| format!("M-D{}.{name}", n + 1);
+        if days.faster_a(s.treated_a) != s.faster_a {
+            return Err(format!("version {} breaks the study's order", n + 1));
+        }
+        let k = days.favouring();
+        let sooner = days.median_sooner().ok_or("no pair favours the treatment")?;
+        f.add(&key("treated_days"), list(days.treated()))?;
+        f.add(&key("untreated_days"), list(days.untreated()))?;
+        let diffs: Vec<String> = days.differences().iter().map(i64::to_string).collect();
+        f.add(&key("differences"), diffs.join(","))?;
+        f.add(&key("favouring"), k)?;
+        f.add(&key("median_sooner_days"), sooner)?;
+        f.add(&key("tail.at_least"), tail_count(&world, k, Tail::AtLeast))?;
+        f.add(&key("p_percent_0dp"), tail_share(&world, k, Tail::AtLeast).percent(0))?;
+    }
     Ok(())
 }
 
