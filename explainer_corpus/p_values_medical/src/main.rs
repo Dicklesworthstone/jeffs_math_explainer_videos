@@ -22,7 +22,10 @@ use explainer_kit::Explainer;
 
 /// The narration, generated from the storyboard by `tools/storyboard.py`.
 pub(crate) const SCRIPT: &str = include_str!("../script.tsv");
-/// The storyboard: words, pictures, holds and listen windows per beat.
+/// The storyboard: words, pictures, holds and listen windows per beat. Only
+/// the tests read it (the script, the score's motif windows and the title's
+/// listen window are checked against it); the binary reads `script.tsv`.
+#[cfg(test)]
 pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
 
 const EXPLAINER: Explainer = Explainer {
