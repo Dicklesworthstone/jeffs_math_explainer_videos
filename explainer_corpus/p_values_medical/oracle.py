@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Facts oracle for "Why P-Values Confuse Even Doctors" (p_values_medical).
 
-Run from this folder (`./x p_values_medical facts-check` does):
+Run from this folder, with NumPy (`./x p_values_medical facts-check` and the
+crate's `the_oracle_agrees` test both do exactly this):
 
-    python3 -I -B oracle.py
+    uv run --quiet --no-project --with numpy python3 -I -B oracle.py
 
 stdout: one `KEY<TAB>VALUE` line per fact, the same keys `pvalues facts`
 prints (src/facts.rs), in the rows of docs/fact-sheet.md: M-C (cited), M-F
