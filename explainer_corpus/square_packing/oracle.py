@@ -474,6 +474,114 @@ def main():
     put("corner.box.left", region - 4 * block * block)
     put("corner.box.middle", side - 2)
 
+    # chapter 05, the side strip (Friedman DS7, Lemma 2), by polygons: a tile
+    # rests on the floor when its polygon is shifted down onto it; a line
+    # cuts it where it meets its edges; the slip height is read off the cap
+    # over the tile's top vertex (its two edges' run per unit of rise), not
+    # from the formula the video derives; the tile's centre is the mean of
+    # its vertices
+    def rest(a, cd, sd):
+        poly = tile_at(a, 2, cd, sd)
+        low = min(v[1] for v in poly)
+        return [(v[0], v[1] - low) for v in poly]
+
+    def cut_len(poly, yy):
+        xs = []
+        for i, p in enumerate(poly):
+            q = poly[(i + 1) % len(poly)]
+            lo, hi = (p, q) if p[1] <= q[1] else (q, p)
+            if lo[1] <= yy <= hi[1]:
+                if lo[1] == hi[1]:
+                    xs += [lo[0], hi[0]]
+                else:
+                    xs.append(lo[0] + (yy - lo[1]) * (hi[0] - lo[0]) / (hi[1] - lo[1]))
+        return max(xs) - min(xs) if xs else Q2(0)
+
+    def size(d):
+        return d if d.sign() >= 0 else -d
+
+    def slip(poly, gap_x):
+        """The line height above which the resting tile's cut is shorter than gap_x."""
+        top = max(v[1] for v in poly)
+        tops = [i for i, v in enumerate(poly) if v[1] == top]
+        if len(tops) == 2:  # straight: above its top edge the line misses it
+            return top
+        t = poly[tops[0]]
+        sides = [poly[(tops[0] - 1) % 4], poly[(tops[0] + 1) % 4]]
+        run = sum((size(v[0] - t[0]) / (t[1] - v[1]) for v in sides), Q2(0))
+        h = t[1] - gap_x / run
+        if h < max(v[1] for v in sides):
+            sys.exit("oracle: the slip height is below the cap")
+        return h
+
+    def centre_of(poly):
+        return (sum((v[0] for v in poly), Q2(0)) * Fraction(1, 4), sum((v[1] for v in poly), Q2(0)) * Fraction(1, 4))
+
+    def broken(poly, gap_x, y_s):
+        cx, cy = centre_of(poly)
+        kept = [("0<x<=1", 0 < gap_x <= 1), ("0<y<=1", 0 < y_s <= 1),
+                ("x+2y<2sqrt2", gap_x + 2 * y_s < 2 * SQRT2), ("quadrant", walls(poly) == "inside the walls"),
+                ("centre", 1 <= cx <= 1 + gap_x and 0 <= cy <= y_s)]
+        return [name for name, ok in kept if not ok]
+
+    def strip_words(poly, gap_x, y_s):
+        return ",".join(where(poly, p) for p in ((q2(1), q2(y_s)), (1 + q2(gap_x), q2(y_s))))
+
+    gap = side - 2
+    one = q2(1)
+    strip_pts = [(one, one), (one + gap, one)]
+    if strip_pts != [(q2(1), q2(1)), (far, q2(1))]:
+        sys.exit("oracle: the strip's points are not two of the four")
+    put("strip.points", " ".join(f"({x}, {y})" for x, y in strip_pts))
+    put("strip.sum", gap + 2)
+    put("strip.assumed", "yes" if not broken(rest(1, 1, 0), gap, one) else "no")
+    def admits(cd, sd, y_s):  # some centre at most y_s up keeps the tile above the floor
+        return min(v[1] for v in tile_at(0, y_s, cd, sd)) >= 0
+
+    if not all(admits(cd_n, sd_n, one) for cd_n, sd_n in checked):
+        sys.exit("oracle: a checked turn admits no centre one tile up")
+    cuts = [cut_len(rest(0, cd_n, sd_n), one) for cd_n, sd_n in checked]
+    slips = [slip(rest(0, cd_n, sd_n), gap) for cd_n, sd_n in checked]
+    if any((c >= gap) != (s_h >= 1) for c, s_h in zip(cuts, slips)):
+        sys.exit("oracle: the floor cut and the slip height disagree")
+    put("strip.lemma", "yes" if all(c >= gap for c in cuts) else "no")
+    put("strip.turns", len(checked))
+    h_straight, h_eighth = slips[0], slips[1]
+    put("strip.height.straight", h_straight)
+    put("strip.height.eighth", h_eighth)
+    put("strip.height.eighth.2dp", h_eighth.rounded(2))
+    put("strip.least", "straight" if h_straight < h_eighth else ("eighth" if h_eighth < h_straight else "both"))
+    put("strip.cut.straight", cuts[0])
+    put("strip.cut.eighth", cuts[1])
+    put("strip.cut.eighth.2dp", cuts[1].rounded(2))
+    put("strip.margin.eighth", cuts[1] - gap)
+    quarter = Fraction(1, 4)
+    put("strip.vacuous", f"{'a centre' if admits(r, r, quarter) else 'no centre'}|{cut_len(rest(0, r, r), quarter)}")
+    put("strip.edges", "|".join(strip_words(rest(a, *straight_t), gap, one) for a in (one, one + gap * HALF, one + gap)))
+    put("strip.alternatives", "|".join(strip_words(rest(a, *eighth_t), gap, one)
+                                        for a in (Fraction(11, 10), one + gap * HALF, Fraction(9, 10) + gap)))
+    turned_in = True
+    for cd_n, sd_n in checked:
+        w_n = width(tile_at(2, 2, cd_n, sd_n))
+        if w_n > 1:
+            for x_c in (one, one + gap):
+                for y_c in (w_n * HALF, one):
+                    words = strip_words(tile_at(x_c, y_c, cd_n, sd_n), gap, one).split(",")
+                    turned_in = turned_in and "inside" in words
+    put("strip.turned", "inside" if turned_in else "not always inside")
+    put("strip.one", strip_words(tile_at(Fraction(8, 5), HALF, *straight_t), gap, one))
+    dodges = [("floor", tile_at(one + gap * HALF, HALF, *eighth_t), gap, one),
+              ("high", rest(one + gap * HALF, *straight_t), gap, Fraction(21, 20)),
+              ("wide", rest(Fraction(3, 2), *eighth_t), one, one),
+              ("past", rest(Fraction(8, 5), *straight_t), Fraction(6, 5), Fraction(3, 4))]
+    for key, poly, gap_x, y_s in dodges:
+        put(f"strip.fail.{key}", f"{strip_words(poly, gap_x, y_s)}|{walls(poly)}|{','.join(broken(poly, gap_x, y_s))}")
+    strip_area = (far - 1) * (1 - lo_c)
+    covered = 4 * (1 - lo_c) * (1 - lo_c) + 4 * strip_area
+    put("strip.box.strip", strip_area)
+    put("strip.box.covered", covered)
+    put("strip.box.left", region - covered)
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])

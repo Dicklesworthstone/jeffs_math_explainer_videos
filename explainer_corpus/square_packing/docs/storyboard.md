@@ -30,7 +30,9 @@ the middle), **gap** (the square between the corner tiles), **proof**;
 from chapter 02 **mark** (a point a third or two thirds along a side),
 **piece** (what the marks cut a side into), **shadow** (a tile's extent on
 the floor or the wall), **pin** (where a floor mark meets a wall mark) and
-**strictly inside** (inside, not at an edge).
+**strictly inside** (inside, not at an edge); from chapter 05 **cut** (the
+part of the points' line inside a tile) and **slip through** (a tile
+dodging both points).
 "Packing" is the formal word, on screen once (01_11), never spoken in
 chapter 01.
 
@@ -56,12 +58,12 @@ chapter 01.
 | II. Why straight tiles need three | 02 four pins | marks at a third and two thirds cut each side into pieces shorter than a tile, so every straight tile in a box narrower than three holds a pin strictly inside; tiles cannot share one, so at most four fit; at exactly three the pins sit on edges and five fit; the turned tile holds no pin, so the argument cannot reach it |
 | III. Can it wiggle? | 03 a turn by a hair | the pins miss the turned tile (02's last picture), so what holds it? With the box, the corner tiles and the middle tile's centre held, the corners lie on the circle inside the middle tile; any turn moves the sides off them, so they sink in by ½(1 − cos δ), the square of the turn, tiny but never zero; magnified honestly; a local fact about one motion, not a proof about all arrangements |
 | IV. Points no tile can dodge: the corners | 04 the corner lemma | Friedman's Lemma 1, proved by projections: any tile in a corner, its centre within one tile of both walls, covers the point one tile from both walls; turning widens the shadow, the walls push the centre out by half of it, and the point stays within s (1 − s/2) = ½ − ½ (s − 1)² ≤ ½ along the tile's sides; equality only for a straight tile on a wall; drop an assumption and it fails; in the box of 2.71 this settles the four corner blocks of centres and leaves the edges and the middle |
-| V. Points no tile can dodge: the edges | 05 near a side | Friedman's Lemma 2 for centres in the strips between corner blocks (not boarded) |
+| V. Points no tile can dodge: the edges | 05 near a side | Friedman's Lemma 2 with the points a gap apart, one tile up: a tile centred between them, within one tile of the floor, cuts their line above its centre, so dodging both means that cut fits between them; lower is narrower, so the tile rests on the floor, one shadow s tall, and its cut, the base of the corner above the line, beats the gap unless the points stand above h = s − gap (s² − 1)/2; h bends down, so it is least at an end, exactly one straight, where the points stand (not at an eighth, as Friedman's sketch has it); drop the floor, raise the points or widen the gap and a tile slips through; in the box of 2.71 this settles the four side strips and leaves the middle |
 | VI. Points no tile can dodge: the middle | 06 a triangle of points | Friedman's Lemma 3 for centres in the middle (not boarded) |
 | VII. Nothing smaller fits | 07 four points, five tiles | every tile in the box of 2.71 covers one of the four points; the scale-up that turns that into "five tiles need at least 2 + 1/√2" (not boarded) |
 | VIII. Beyond five | 08 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof (not boarded) |
 
-Chapters 05 to 08 are boarded only after their mathematics is in `model.rs`
+Chapters 06 to 08 are boarded only after their mathematics is in `model.rs`
 with an oracle, one lemma a chapter, so the lower bound gets the time it
 needs; until chapter 07 is checked, nothing claims that 2 + 1/√2 is the
 smallest box.
@@ -149,3 +151,29 @@ scale.
 | 04_6 | Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it. | The tile turns back to straight in the corner, then slides up the left wall: the ring turns green, the point on its edge *(corner.edges, corner.turned, corner.margin.eighth)* | tracker, highlight | |
 | 04_7 | Let the centre stray past one tile, or drop a wall, and the point can escape. | First the bound, its caption and the edge status leave (they hold only under the assumptions) and "an assumption dropped" arrives; the straight tile slides out past one tile: the ring turns red and the live distance along its side passes 0.50 *(corner.fail.centre)*; at "drop a wall", a turned tile pokes through both walls, its centre too close: red again *(corner.fail.wall)* | tracker, highlight | |
 | 04_8 | In the box of two point seven one, this settles centres near the corners. The edges and the middle come next. | The box of 2.71 at the usual scale: Friedman's four points *(corner.box.points)*; the region of every centre, its four corner blocks green *(corner.box.block, corner.box.covered)*, the cross between them grey *(corner.box.left, corner.box.middle)*: "settled: centres within one tile of a corner" and "next: the edges and the middle" | box | |
+
+## 05_near_a_side: Near a side (budgeted against 04's measured timing: about 80 s)
+
+Friedman's Lemma 2 (fact sheet S2): for 0 < x ≤ 1, 0 < y ≤ 1 and
+x + 2y < 2√2, any unit square inside the first quadrant whose centre is in
+[1, 1 + x] × [0, y] contains (1, y) or (1 + x, y). The video's case is the
+box's: x the gap, 1/√2, and y = 1. The proof is reconstructed in `model.rs`
+§ the side strip (straight up; dodging is fitting between; lower is
+narrower; the cut over the top corner; the slip height h, a parabola
+opening downward in the shadow, least at an end). Friedman's sketch puts
+the least at 45°, which is false for the gap (h is 1 straight and 3√2/4 at
+an eighth); the screen says only "lowest at the straight end, not the
+eighth". "Covers" means inside or on the edge. The side view shows the
+floor of the box of 2.71 at 2.2 scene units a tile; the first and last
+beats show the box at its usual scale.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Near a side, one point is not enough, so take two. A tile centred between them, within a tile of the floor, covers one. | The box of 2.71 as 04 left it, its bottom strip of centres purple; then the floor close up, the corner blocks of centres green: 04's stray tile misses the corner's point, its ring faint; the second point a gap along, its ring green *(strip.one, strip.points)*; the strip of centres the tile's turn allows; the tile wanders through varied allowed positions and turns (`model::strip_wander`: examples; the proof covers every one), each ring yellow while its point is inside and green on the edge | lagged reveal, tracker, highlight | |
+| 05_2 | Turned an eighth, its top is a narrow corner. ⟨predict⟩ Could it slip up between the points? | Its shadow s, a purple bar under the floor, and live readouts of the turn and the shadow; the tile rolls on the floor to an eighth of a turn between the points; the picture holds while the think ring drains | tracker, live readout | listen 4 s (think) |
+| 05_3 | No. The points are at most half a tile above its centre, and a tile reaches that far straight up. | From the centre straight up: the distance to the points' line (at most 1 − s/2 ≤ ½) and the half tile the tile reaches, past the line; the tile lifted to 0.95 keeps both | tracker | |
+| 05_4 | Dodging both, its cut on their line must fit between them. Lower is narrower, so rest it on the floor. | The cut along the points' line, drawn, and live readouts of the gap and the cut, read off the frame *(turned.gap.2dp)*; the tile lowered to the floor, the cut shrinking to 0.83 *(strip.cut.eighth.2dp)* | tracker, live readout | |
+| 05_5 | Resting, it stands one shadow tall, and the cut is the base of its corner above their line. That is shorter than the gap only when the points stand higher than this. | A purple bar beside the tile, one shadow tall; the corner above the points' line shaded gold, its base the cut; cut = (s − y)/(sin θ cos θ), with y the points' height; then cut < gap only if y > s − gap sin θ cos θ; then, with s² = 1 + 2 sin θ cos θ, y > s − gap (s² − 1)/2 = h | formula | |
+| 05_6 | That height bends down as the shadow grows, so it is lowest at an end, straight, where it is exactly one. The points stand at one, so nothing slips through. | A plot of h against the shadow, from straight to an eighth, above its chord, the points' height a purple line, the eighth's end labelled 1.06 *(strip.height.eighth.2dp)*; the tile rolls back to straight on the floor and a dot runs along the curve to its lower end, labelled 1 *(strip.height.straight)*: "lowest at the straight end, not the eighth" *(strip.least)*; both points on the straight tile's top edge, rings green: "straight, on the floor: on the edge" *(strip.edges, strip.turned)* | plot, tracker, highlight | |
+| 05_7 | Drop the floor, raise the points, or widen the gap, and a tile slips through. | First the formula, the plot and the edge status leave (they hold only under the assumptions) and "an assumption dropped" arrives; from the straight tile on the floor: an eighth-turned tile half a tile up pokes through the floor, both rings red *(strip.fail.floor)*; the points raised to 1.05, the straight tile passes under them *(strip.fail.high: x + 2y < 2√2 still holds)*; the gap widened to a whole tile, the gap readout 1.00, an eighth-turned tile on the floor slips between *(strip.fail.wide)* | tracker, highlight | |
+| 05_8 | Turned to every side, this settles centres near a side. Only the middle is left. | The box of 2.71 at the usual scale: the corner blocks green, the four side strips turning green *(strip.box.strip, strip.box.covered)*, the middle square grey *(strip.box.left)*: "settled: centres near a corner or a side" and "next: the middle" | box | |

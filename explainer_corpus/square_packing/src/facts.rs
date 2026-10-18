@@ -62,6 +62,7 @@ pub fn facts() -> Result<Facts, String> {
     pins(&mut f)?;
     hair(&mut f)?;
     corner(&mut f)?;
+    strip(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -379,6 +380,126 @@ fn corner(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 05: the side strip (Friedman, DS7, Lemma 2) with the points a gap apart,
+/// one tile up: the points, two of the box's four; the assumptions kept;
+/// the lemma checked exactly and completely at every checked turn; the slip
+/// height at the two ends of the shadow's range, least straight (not at an
+/// eighth of a turn, as Friedman's sketch says), and the floor cut at both
+/// ends; the edges, the alternatives and 04's stray tile; the dodges, each
+/// with one assumption dropped; and the box of 2.71 with the strips settled.
+fn strip(f: &mut Facts) -> Result<(), String> {
+    let (gap, one, h) = (model::turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+    let side = model::turned_side();
+    let pts = model::strip_points(gap, one);
+    let four = model::corner_points(side);
+    ensure(pts == [four[0], four[2]], || {
+        "the strip's points are not two of the four".to_owned()
+    })?;
+    let shown: Vec<String> = pts.iter().map(|(x, y)| format!("({x}, {y})")).collect();
+    f.add("strip.points", shown.join(" "))?;
+    f.add("strip.sum", gap + Surd::int(2) * one)?;
+    let straight = (one, Surd::ZERO);
+    let allowed = model::strip_broken(gap, one, &model::on_floor(one, straight)).is_empty();
+    f.add("strip.assumed", if allowed { "yes" } else { "no" })?;
+    let turns = model::corner_turns();
+    let margins: Vec<Option<Surd>> = turns.iter().map(|&t| model::strip_margin(t, gap, one)).collect();
+    ensure(margins.iter().all(Option::is_some), || {
+        "a checked turn admits no centre one tile up".to_owned()
+    })?;
+    let holds = margins.iter().flatten().all(|&m| m >= Surd::ZERO);
+    ensure(holds, || "the side strip lemma fails at a checked turn".to_owned())?;
+    // the proof's step 4, for every turn at once: the points stand no higher
+    // than the least slip height
+    ensure(model::least_slip_height(gap) >= one, || {
+        "the points stand above the least slip height".to_owned()
+    })?;
+    f.add("strip.lemma", "yes")?;
+    f.add("strip.turns", turns.len())?;
+    let eighth = model::eighth_turn();
+    f.add("strip.height.straight", model::slip_height(one, gap))?;
+    let high = model::slip_height(Surd::sqrt2(), gap);
+    f.add("strip.height.eighth", high)?;
+    f.add("strip.height.eighth.2dp", high.decimals(2))?;
+    f.add("strip.least", model::least_slip_end(gap))?;
+    f.add("strip.cut.straight", model::floor_cut(straight, one))?;
+    let cut = model::floor_cut(eighth, one);
+    f.add("strip.cut.eighth", cut)?;
+    f.add("strip.cut.eighth.2dp", cut.decimals(2))?;
+    let margin = model::strip_margin(eighth, gap, one).ok_or("an eighth admits no centre one tile up")?;
+    f.add("strip.margin.eighth", margin)?;
+    // the points a quarter up: an eighth admits no centre, so its short
+    // floor cut is no dodge (the lemma holds there vacuously)
+    let quarter = Surd::ratio(1, 4);
+    let vacuous = match model::strip_margin(eighth, gap, quarter) {
+        None => "no centre",
+        Some(_) => "a centre",
+    };
+    f.add(
+        "strip.vacuous",
+        format!("{vacuous}|{}", model::floor_cut(eighth, quarter)),
+    )?;
+    let held = |t: &model::Tile<Surd>| model::strip_holds(t, gap, one).map(model::Holds::word).join(",");
+    let row = |turn: Point<Surd>, across: &[Surd]| {
+        across
+            .iter()
+            .map(|&a| held(&model::on_floor(a, turn)))
+            .collect::<Vec<_>>()
+            .join("|")
+    };
+    f.add("strip.edges", row(straight, &[one, one + gap * h, one + gap]))?;
+    f.add(
+        "strip.alternatives",
+        row(eighth, &[Surd::ratio(11, 10), one + gap * h, Surd::ratio(9, 10) + gap]),
+    )?;
+    let turned_inside = turns.iter().filter(|&&t| model::shadow_width(t) > one).all(|&t| {
+        let low = model::shadow_width(t) * h;
+        [(one, low), (one + gap, low), (one, one), (one + gap, one)]
+            .iter()
+            .all(|&centre| {
+                let tile = model::Tile {
+                    centre,
+                    cos: t.0,
+                    sin: t.1,
+                };
+                model::strip_holds(&tile, gap, one).contains(&model::Holds::Inside)
+            })
+    });
+    f.add(
+        "strip.turned",
+        if turned_inside { "inside" } else { "not always inside" },
+    )?;
+    f.add("strip.one", held(&model::Tile::straight(Surd::ratio(8, 5), h)))?;
+    for d in model::strip_dodges() {
+        let broken = model::strip_broken(d.x, d.y, &d.tile);
+        ensure(broken == [d.breaks], || {
+            format!("the dodge {} breaks {broken:?}, not {}", d.key, d.breaks)
+        })?;
+        let words = model::strip_holds(&d.tile, d.x, d.y).map(model::Holds::word);
+        ensure(words == ["outside"; 2], || format!("the dodge {} holds a point", d.key))?;
+        f.add(
+            &format!("strip.fail.{}", d.key),
+            format!(
+                "{}|{}|{}",
+                words.join(","),
+                quadrant_word(model::in_quadrant(&d.tile)),
+                broken.join(",")
+            ),
+        )?;
+    }
+    let (lo, hi) = model::centre_region(side);
+    let region = (hi - lo) * (hi - lo);
+    let block = one - lo;
+    let strip_area = gap * block;
+    let covered = Surd::int(4) * (block * block + strip_area);
+    ensure(region - covered == gap * gap, || {
+        "the strips and corner blocks do not leave the middle square".to_owned()
+    })?;
+    f.add("strip.box.strip", strip_area)?;
+    f.add("strip.box.covered", covered)?;
+    f.add("strip.box.left", region - covered)?;
+    Ok(())
+}
+
 /// Whether a tile keeps inside the walls, as the facts print it.
 fn quadrant_word(inside: bool) -> &'static str {
     if inside { "inside the walls" } else { "through a wall" }
@@ -617,5 +738,53 @@ mod tests {
         );
         assert_eq!(value("corner.box.covered"), "1");
         assert_eq!(value("corner.box.left"), "1/2 + sqrt(2)");
+    }
+
+    /// What chapter 05's voice says, on the facts: past a corner block one
+    /// point is not enough (04's stray tile), so two, one tile up; the lemma;
+    /// the reach; least at the straight end, exactly one, and higher at an
+    /// eighth; the points at one; three dropped assumptions, each a dodge;
+    /// the strips settled and the middle left.
+    #[test]
+    fn near_a_side_says_the_facts() {
+        assert_eq!(value("strip.one"), "outside,edge");
+        let l1 = line("05_1");
+        assert!(l1.contains("one point is not enough, so take two"), "{l1}");
+        assert!(l1.contains("within a tile of the floor, covers one"), "{l1}");
+        assert_eq!(value("strip.points"), "(1, 1) (1 + 1/2*sqrt(2), 1)");
+        assert_eq!(value("strip.assumed"), "yes");
+        assert_eq!(value("strip.lemma"), "yes");
+        assert!(line("05_3").contains("at most half a tile above its centre"));
+        assert!(line("05_4").contains("Lower is narrower"));
+        assert!(line("05_5").contains("one shadow tall"));
+        let l6 = line("05_6");
+        assert!(
+            l6.contains("lowest at an end, straight, where it is exactly one"),
+            "{l6}"
+        );
+        assert_eq!(value("strip.least"), "straight");
+        assert_eq!(value("strip.height.straight"), "1");
+        assert!(value("strip.height.eighth.2dp").parse::<f64>().unwrap() > 1.0);
+        assert!(l6.contains("The points stand at one"), "{l6}");
+        assert!(
+            value("strip.points")
+                .split(") (")
+                .all(|p| p.trim_end_matches(')').ends_with(", 1"))
+        );
+        let l7 = line("05_7");
+        assert!(
+            l7.contains("Drop the floor, raise the points, or widen the gap"),
+            "{l7}"
+        );
+        for key in ["floor", "high", "wide", "past"] {
+            assert!(
+                value(&format!("strip.fail.{key}")).starts_with("outside,outside|"),
+                "{key}"
+            );
+        }
+        assert!(line("05_8").contains("Only the middle is left"));
+        assert_eq!(value("strip.box.left"), "1/2");
+        assert_eq!(value("strip.box.covered"), "1 + sqrt(2)");
+        assert_eq!(value("strip.vacuous"), "no centre|1/2");
     }
 }

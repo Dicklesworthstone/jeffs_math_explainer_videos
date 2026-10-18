@@ -82,6 +82,7 @@ mod tests {
             (chapters::four_pins::LINES[4].to_owned(), think),
             (chapters::a_turn_by_a_hair::LINES[2].to_owned(), think),
             (chapters::the_corner_lemma::LINES[2].to_owned(), think),
+            (chapters::near_a_side::LINES[1].to_owned(), think),
         ];
         assert_eq!(asks, want);
     }

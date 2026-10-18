@@ -311,17 +311,27 @@ pub trait Num:
 {
     /// The rational p / q.
     fn ratio(p: i64, q: i64) -> Self;
+    /// 1 / self (self not zero).
+    fn recip(self) -> Self;
 }
 
 impl Num for f64 {
     fn ratio(p: i64, q: i64) -> Self {
         p as f64 / q as f64
     }
+
+    fn recip(self) -> Self {
+        1.0 / self
+    }
 }
 
 impl Num for Surd {
     fn ratio(p: i64, q: i64) -> Self {
         Surd::ratio(p, q)
+    }
+
+    fn recip(self) -> Self {
+        Surd::recip(self)
     }
 }
 
@@ -1279,6 +1289,272 @@ pub fn corner_points(side: Surd) -> [Point<Surd>; 4] {
     [(one, one), (one, far), (far, one), (far, far)]
 }
 
+// ---------------------------------------------- the side strip (chapter 05)
+//
+// Friedman (DS7, Lemma 2): let 0 < x ≤ 1, 0 < y ≤ 1 and x + 2y < 2√2. Any
+// unit tile inside the first quadrant whose centre lies in [1, 1 + x] ×
+// [0, y] contains (1, y) or (1 + x, y), on its edge at least. In the box of
+// 2.71 the case is x = the gap, 1/√2, and y = 1: the two of Friedman's four
+// points one tile above the floor.
+//
+// Proof (reconstructed here; Friedman's sketch is below). Only the floor
+// matters: the centre is at least 1 from the left wall, and half a shadow is
+// at most √2/2. Take the turn θ in [0°, 90°), c = cos θ, s = sin θ, the
+// shadow w = c + s and the centre (a, b). The floor keeps b ≥ w/2, so the
+// points' line lies 0 ≤ y − b ≤ 1 − w/2 ≤ ½ above the centre.
+//
+// 1. Straight up. The point t above the centre is t s along the tile's
+//    first side and t c along its second, both at most ½ for 0 ≤ t ≤ ½, so
+//    it is in the tile. The tile cuts the points' line in a segment [l, r]
+//    that contains a, and 1 ≤ a ≤ 1 + x.
+// 2. Dodging is fitting between. If the tile holds neither point, l > 1
+//    (else 1 is in [l, a]) and r < 1 + x (else 1 + x is in [a, r]): the cut
+//    is shorter than x.
+// 3. Lower is narrower. A turned tile's cut along a line d above or below
+//    its centre is 1 / max(c, s) long while |d| ≤ |c − s|/2, and
+//    (w/2 − |d|) / (c s) beyond: never longer farther from the centre. So
+//    lowering the tile onto the floor (b = w/2) only shortens the cut.
+//    There the line is y above the lowest corner, and the cut is
+//    (w − y) / (c s) when the line passes over both side corners, and at
+//    least 1 ≥ x otherwise (a straight tile's is 1).
+// 4. The bound. (w − y) / (c s) < x exactly when y > w − x c s, and
+//    2 c s = w² − 1, so a tile slips between the points only if
+//    y > h(w) = w − x (w² − 1)/2. In w that is a parabola opening downward,
+//    so over [1, √2] it is least at an end: h(1) = 1 (straight) or
+//    h(√2) = √2 − x/2 (an eighth of a turn). y ≤ 1 and x + 2y < 2√2 keep y
+//    at or below both, so no tile dodges both points. ∎
+//
+// Friedman's sketch reaches the same function, f(θ) = cos θ + sin θ −
+// x sin θ cos θ, and says its least value is at 45°. That is false whenever
+// x < 2√2 − 2 ≈ 0.83, the gap included: h(1) = 1 < h(√2) = 3√2/4. The lemma
+// survives because its y ≤ 1 covers the straight end.
+//
+// Equality, for x = 1/√2 and y = 1: h(w) − 1 = (w − 1)(2√2 − 1 − w)/(2√2),
+// zero only straight. A straight tile resting on the floor has a point on
+// its top edge; a turned tile holds one strictly inside (the point above its
+// centre is strictly inside, its cut is longer than the gap, and a
+// horizontal line never runs along a turned tile's edge).
+//
+// For one turn the check is exact and complete, not a sample: steps 1 to 3
+// hold for every centre, so the lemma holds at that turn exactly when the
+// cut of the tile resting on the floor is at least x ([`strip_margin`]); if
+// it is shorter, that tile slid until its cut sits between the points
+// dodges both. This needs the turn to admit a centre at all, w/2 ≤ y: for
+// y = ¼ and an eighth of a turn no tile above the floor has its centre so
+// low, the lemma holds there vacuously, and the floor cut (½, below the
+// gap) is no dodge. With y = 1 every turn admits one.
+//
+// Turned to each side of the box of 2.71, the lemma settles every tile whose
+// centre lies in one of the four strips between the corner blocks (between
+// two points, within one tile of the wall). The middle square of centres is
+// not settled here: that needs Friedman's Lemma 3, and the step from "every
+// tile covers a point" to "five tiles cannot fit" is not claimed either.
+
+/// The two points of the strip for points `x` apart at height `y`: (1, y)
+/// and (1 + x, y).
+pub fn strip_points<T: Num>(x: T, y: T) -> [Point<T>; 2] {
+    let one = T::ratio(1, 1);
+    [(one, y), (one + x, y)]
+}
+
+/// Where tile `t` cuts the line at height `y`: the ends of the segment it
+/// covers there, or None when the line misses it. The tile is two bands,
+/// within ½ of its centre along each of its sides; the line crosses each in
+/// an interval (all of it, or none, for a band that runs along the line).
+pub fn cut_at<T: Num>(t: &Tile<T>, y: T) -> Option<(T, T)> {
+    let (h, zero) = (T::ratio(1, 2), T::ratio(0, 1));
+    let d = y - t.centre.1;
+    let mut ends: Option<(T, T)> = None;
+    for ax in t.axes() {
+        let along = d * ax.1;
+        if ax.0 == zero {
+            if along > h || along < -h {
+                return None;
+            }
+            continue;
+        }
+        let k = ax.0.recip();
+        let (p, q) = ((-h - along) * k, (h - along) * k);
+        let (p, q) = (smaller(p, q), larger(p, q));
+        ends = Some(match ends {
+            None => (p, q),
+            Some((l, r)) => (larger(l, p), smaller(r, q)),
+        });
+    }
+    match ends {
+        Some((l, r)) if l <= r => Some((t.centre.0 + l, t.centre.0 + r)),
+        _ => None,
+    }
+}
+
+/// The length of the cut [`cut_at`]: zero when the line misses the tile.
+pub fn cut_length<T: Num>(t: &Tile<T>, y: T) -> T {
+    cut_at(t, y).map_or(T::ratio(0, 1), |(l, r)| r - l)
+}
+
+/// A tile turned by `turn`, resting on the floor (its lowest corner on it),
+/// its centre `a` across.
+pub fn on_floor<T: Num>(a: T, turn: Point<T>) -> Tile<T> {
+    Tile {
+        centre: (a, shadow_width(turn) * T::ratio(1, 2)),
+        cos: turn.0,
+        sin: turn.1,
+    }
+}
+
+/// The cut a tile turned by `turn` makes on the line `y` up while it rests
+/// on the floor: the shortest over every centre at or below the line (step
+/// 3 of the proof).
+pub fn floor_cut<T: Num>(turn: Point<T>, y: T) -> T {
+    cut_length(&on_floor(T::ratio(0, 1), turn), y)
+}
+
+/// The height the points must pass for a tile of shadow `w`, resting on the
+/// floor, to slip between two points `x` apart: h(w) = w − x (w² − 1)/2
+/// (step 4 of the proof).
+pub fn slip_height<T: Num>(w: T, x: T) -> T {
+    w - x * (w * w - T::ratio(1, 1)) * T::ratio(1, 2)
+}
+
+/// The least slip height over every turn, by the proof: h is a parabola
+/// opening downward in the shadow, so it is least at an end of [1, √2].
+pub fn least_slip_height(x: Surd) -> Surd {
+    smaller(slip_height(Surd::int(1), x), slip_height(Surd::sqrt2(), x))
+}
+
+/// Which end of the shadow's range the slip height is least at, as the
+/// facts print it.
+pub fn least_slip_end(x: Surd) -> &'static str {
+    let (straight, eighth) = (slip_height(Surd::int(1), x), slip_height(Surd::sqrt2(), x));
+    match straight.cmp(&eighth) {
+        Ordering::Less => "straight",
+        Ordering::Greater => "eighth",
+        Ordering::Equal => "both",
+    }
+}
+
+/// The lemma for one turn, exactly and completely (see the section's note),
+/// for x ≤ 1 and y ≤ 1: None when the turn admits no centre at all (half
+/// its shadow is higher than y, so a tile above the floor cannot have its
+/// centre that low: the lemma holds there vacuously, and the floor cut says
+/// nothing); otherwise the cut of the tile resting on the floor less the gap
+/// between the points, not negative exactly when no tile so turned and
+/// centred in the strip dodges both.
+pub fn strip_margin(turn: Point<Surd>, x: Surd, y: Surd) -> Option<Surd> {
+    if shadow_width(turn) * Surd::ratio(1, 2) > y {
+        return None;
+    }
+    Some(floor_cut(turn, y) - x)
+}
+
+/// Where tile `t` holds each of the strip's two points.
+pub fn strip_holds(t: &Tile<Surd>, x: Surd, y: Surd) -> [Holds; 2] {
+    strip_points(x, y).map(|p| Holds::of(depth_inside(t, p)))
+}
+
+/// The assumptions of Lemma 2 that a tile and its strip break, in the
+/// statement's order: `0<x<=1`, `0<y<=1`, `x+2y<2sqrt2`, `quadrant` (the
+/// tile inside the first quadrant), `centre` (centred in the strip).
+pub fn strip_broken(x: Surd, y: Surd, t: &Tile<Surd>) -> Vec<&'static str> {
+    let (zero, one) = (Surd::ZERO, Surd::int(1));
+    let (a, b) = t.centre;
+    [
+        ("0<x<=1", zero < x && x <= one),
+        ("0<y<=1", zero < y && y <= one),
+        ("x+2y<2sqrt2", x + Surd::int(2) * y < Surd::int(2) * Surd::sqrt2()),
+        ("quadrant", in_quadrant(t)),
+        ("centre", (one..=one + x).contains(&a) && (zero..=y).contains(&b)),
+    ]
+    .iter()
+    .filter(|&&(_, kept)| !kept)
+    .map(|&(name, _)| name)
+    .collect()
+}
+
+/// A tile that dodges both points of its strip once one assumption is
+/// dropped (05_7 shows the first three).
+#[derive(Clone, Copy, Debug)]
+pub struct Dodge {
+    /// Its fact key: `strip.fail.<key>`.
+    pub key: &'static str,
+    /// The assumption it breaks, as [`strip_broken`] names it.
+    pub breaks: &'static str,
+    pub x: Surd,
+    pub y: Surd,
+    pub tile: Tile<Surd>,
+}
+
+/// The dodges, each breaking exactly one assumption: an eighth-turned tile
+/// centred between the points but half a tile up, through the floor; the
+/// points raised to 21/20, where x + 2y < 2√2 still holds, so a straight
+/// tile resting on the floor slips under them (Friedman's 45° check alone
+/// would allow it); the gap widened to a whole tile, so x + 2y = 3 and an
+/// eighth-turned tile on the floor slips between; and the gap past a tile,
+/// 6/5 with the points at 3/4, so a straight tile fits between.
+pub fn strip_dodges() -> Vec<Dodge> {
+    let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+    let e = eighth_turn();
+    let straight = (one, Surd::ZERO);
+    let mid = one + gap * h;
+    vec![
+        Dodge {
+            key: "floor",
+            breaks: "quadrant",
+            x: gap,
+            y: one,
+            tile: Tile {
+                centre: (mid, h),
+                cos: e.0,
+                sin: e.1,
+            },
+        },
+        Dodge {
+            key: "high",
+            breaks: "0<y<=1",
+            x: gap,
+            y: Surd::ratio(21, 20),
+            tile: on_floor(mid, straight),
+        },
+        Dodge {
+            key: "wide",
+            breaks: "x+2y<2sqrt2",
+            x: one,
+            y: one,
+            tile: on_floor(Surd::ratio(3, 2), e),
+        },
+        Dodge {
+            key: "past",
+            breaks: "0<x<=1",
+            x: Surd::ratio(6, 5),
+            y: Surd::ratio(3, 4),
+            tile: on_floor(Surd::ratio(8, 5), straight),
+        },
+    ]
+}
+
+/// The tile 05 shows wandering through varied allowed positions (t from 0
+/// to 1): its turn sweeps a quarter of a turn and back, its centre roams
+/// the strip [1, 1 + gap] × [s/2, 1] that turn allows, starting where 04's
+/// stray tile stopped, (8/5, ½), and resting on the floor at t = ½. A path
+/// of examples, not a sweep of every centre and turn: the proof covers
+/// those.
+pub fn strip_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let gap = turned_gap().to_f64();
+    let theta = std::f64::consts::FRAC_PI_2 * 0.5 * (1.0 - (tau * t).cos()) * 0.999;
+    let (c, s) = (theta.cos(), theta.sin());
+    let low = 0.5 * (c + s);
+    // the phase that starts the centre 0.6 past the left point
+    let start = (1.0 - 2.0 * 0.6 / gap).acos();
+    let across = 1.0 + gap * 0.5 * (1.0 - (start + tau * 3.0 * t).cos());
+    let up = low + (1.0 - low) * 0.5 * (1.0 - (tau * 2.0 * t).cos());
+    Tile {
+        centre: (across, up),
+        cos: c,
+        sin: s,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1846,5 +2122,284 @@ mod tests {
                 assert!(depth > 0.0, "{theta}: inside");
             }
         }
+    }
+
+    /// The strip's points are two of Friedman's four, and the strip of the
+    /// box keeps every assumption: x + 2y = 2 + √2/2 < 2√2.
+    #[test]
+    fn the_strip_is_two_of_the_four_points() {
+        let (gap, one) = (turned_gap(), Surd::int(1));
+        let four = corner_points(turned_side());
+        assert_eq!(strip_points(gap, one), [four[0], four[2]]);
+        assert!(strip_broken(gap, one, &on_floor(one, (one, Surd::ZERO))).is_empty());
+        assert!(gap + Surd::int(2) < Surd::int(2) * Surd::sqrt2());
+    }
+
+    /// The cut is where the line meets the tile's edges: both ends on an
+    /// edge and its middle inside, exactly, at every checked turn and three
+    /// heights through the tile; a line over the tile misses it.
+    #[test]
+    fn the_cut_ends_on_the_tiles_edges() {
+        let one = Surd::int(1);
+        for turn in corner_turns() {
+            let t = on_floor(one, turn);
+            let w = shadow_width(turn);
+            for y in [Surd::ratio(1, 3), w * Surd::ratio(1, 2), w - Surd::ratio(1, 100)] {
+                let (l, r) = cut_at(&t, y).expect("the line crosses the tile");
+                assert!(l < r, "{turn:?} at {y}");
+                assert_eq!(depth_inside(&t, (l, y)), Surd::ZERO, "{turn:?} at {y}");
+                assert_eq!(depth_inside(&t, (r, y)), Surd::ZERO, "{turn:?} at {y}");
+                let mid = ((l + r) * Surd::ratio(1, 2), y);
+                assert!(depth_inside(&t, mid) > Surd::ZERO, "{turn:?} at {y}");
+            }
+            assert!(cut_at(&t, w + Surd::ratio(1, 100)).is_none(), "{turn:?}");
+        }
+    }
+
+    /// Step 1 of the proof, exactly at the four extreme centres of every
+    /// checked turn: the point of the points' line straight above the
+    /// centre is in the tile, strictly once turned; a straight tile resting
+    /// on the floor has it on its top edge.
+    #[test]
+    fn the_point_straight_above_the_centre_is_held() {
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            let low = shadow_width(turn) * h;
+            for (a, b) in [(one, low), (one + gap, low), (one, one), (one + gap, one)] {
+                let t = Tile {
+                    centre: (a, b),
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                let depth = depth_inside(&t, (a, one));
+                assert!(depth >= Surd::ZERO, "{turn:?} at {a}, {b}");
+                if shadow_width(turn) > one {
+                    assert!(depth > Surd::ZERO, "{turn:?} at {a}, {b}");
+                }
+            }
+        }
+        assert_eq!(depth_inside(&Tile::straight(one, h), (one, one)), Surd::ZERO);
+    }
+
+    /// Step 3, exactly at every checked turn: lifting a tile from the floor
+    /// towards the points' line never shortens its cut there, so the floor
+    /// cut is the shortest.
+    #[test]
+    fn lower_is_narrower() {
+        let one = Surd::int(1);
+        for turn in corner_turns() {
+            let low = shadow_width(turn) * Surd::ratio(1, 2);
+            let cuts: Vec<Surd> = [low, (low + one) * Surd::ratio(1, 2), one]
+                .iter()
+                .map(|&b| {
+                    let t = Tile {
+                        centre: (one, b),
+                        cos: turn.0,
+                        sin: turn.1,
+                    };
+                    cut_length(&t, one)
+                })
+                .collect();
+            assert!(cuts.windows(2).all(|p| p[0] <= p[1]), "{turn:?}: {cuts:?}");
+            assert_eq!(cuts[0], floor_cut(turn, one), "{turn:?}");
+        }
+    }
+
+    /// Steps 3 and 4, exactly at every checked turn: resting on the floor, a
+    /// turned tile's cut one tile up crosses its top corner and is
+    /// (w − 1)/(c s), with 2 c s = w² − 1; it beats the gap by exactly
+    /// (h(w) − 1)/(c s); and h(w) − 1 = (w − 1)(2√2 − 1 − w)/(2√2). A
+    /// straight tile's cut is its top edge, 1.
+    #[test]
+    fn the_floor_cut_is_the_corner_cap() {
+        let (gap, one, two, root) = (turned_gap(), Surd::int(1), Surd::int(2), Surd::sqrt2());
+        for turn in corner_turns() {
+            let (c, s) = turn;
+            let w = shadow_width(turn);
+            let cut = floor_cut(turn, one);
+            assert_eq!(strip_margin(turn, gap, one), Some(cut - gap));
+            let h = slip_height(w, gap);
+            assert_eq!(h - one, (w - one) * (two * root - one - w) * (two * root).recip());
+            if s == Surd::ZERO {
+                assert_eq!(cut, one);
+                continue;
+            }
+            let cs = c * s;
+            assert_eq!(cs + cs, w * w - one);
+            assert!(one > larger(c, s), "{turn:?}: the line passes over both side corners");
+            assert_eq!(cut, (w - one) * cs.recip(), "{turn:?}");
+            assert_eq!((cut - gap) * cs, h - one, "{turn:?}");
+            assert!(h > one && cut > gap, "{turn:?}");
+        }
+    }
+
+    /// The bound's two ends, and the error in Friedman's sketch: for the gap
+    /// the slip height is least straight (1), not at an eighth of a turn
+    /// (3√2/4), so a check at 45° alone misses the straight end, which y ≤ 1
+    /// covers. For a whole-tile gap the eighth is the lower end, and at
+    /// x = 2√2 − 2 they tie: both ends are needed. A parabola opening
+    /// downward lies above its chord, so at every checked turn h is at
+    /// least the lower end.
+    #[test]
+    fn the_slip_height_is_least_at_an_end_not_always_the_eighth() {
+        let (gap, one, root) = (turned_gap(), Surd::int(1), Surd::sqrt2());
+        assert_eq!(slip_height(one, gap), one);
+        assert_eq!(slip_height(root, gap), Surd::ratio(3, 4) * root);
+        assert_eq!(slip_height(root, gap), root - gap * Surd::ratio(1, 2));
+        assert!(slip_height(one, gap) < slip_height(root, gap));
+        assert_eq!(least_slip_height(gap), one);
+        assert_eq!(least_slip_end(gap), "straight");
+        assert_eq!(least_slip_end(one), "eighth");
+        assert_eq!(least_slip_height(one), root - Surd::ratio(1, 2));
+        assert_eq!(least_slip_end(Surd::int(2) * root - Surd::int(2)), "both");
+        for turn in corner_turns() {
+            let w = shadow_width(turn);
+            let chord = one + (w - one) * (slip_height(root, gap) - one) * (root - one).recip();
+            assert!(slip_height(w, gap) >= chord, "{turn:?}");
+            assert!(slip_height(w, gap) >= least_slip_height(gap), "{turn:?}");
+        }
+    }
+
+    /// The lemma at every checked turn, exactly and completely (each turn
+    /// over every centre, by the section's note), and at the four extreme
+    /// centres a point held, strictly inside once turned.
+    #[test]
+    fn the_strip_lemma_holds_at_every_checked_turn() {
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            let margin = strip_margin(turn, gap, one);
+            assert!(margin.is_some_and(|m| m >= Surd::ZERO), "{turn:?}: {margin:?}");
+            let w = shadow_width(turn);
+            let low = w * h;
+            for centre in [(one, low), (one + gap, low), (one, one), (one + gap, one)] {
+                let t = Tile {
+                    centre,
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                assert!(strip_broken(gap, one, &t).is_empty(), "{turn:?} at {centre:?}");
+                let held = strip_holds(&t, gap, one);
+                assert!(held.iter().any(|&k| k != Holds::Outside), "{turn:?} at {centre:?}");
+                if w > one {
+                    assert!(held.contains(&Holds::Inside), "{turn:?} at {centre:?}");
+                }
+            }
+        }
+    }
+
+    /// A turn that admits no centre is vacuous, not a dodge: with the points
+    /// a quarter up, an eighth-turned tile above the floor cannot have its
+    /// centre that low (half its shadow is √2/2), so there is no margin,
+    /// though its floor cut there, ½, is shorter than the gap. A straight
+    /// tile admits none either (half its shadow, ½, is above ¼); with the
+    /// points one up, every turn admits a centre.
+    #[test]
+    fn a_turn_with_no_centre_is_vacuous_not_a_dodge() {
+        let (gap, one, quarter) = (turned_gap(), Surd::int(1), Surd::ratio(1, 4));
+        let e = eighth_turn();
+        assert!(strip_margin(e, gap, quarter).is_none());
+        assert_eq!(floor_cut(e, quarter), Surd::ratio(1, 2));
+        assert!(floor_cut(e, quarter) < gap);
+        let lowest = on_floor(one + gap * Surd::ratio(1, 2), e);
+        assert_eq!(strip_broken(gap, quarter, &lowest), vec!["centre"]);
+        assert!(strip_margin((one, Surd::ZERO), gap, quarter).is_none());
+        assert!(corner_turns().iter().all(|&t| strip_margin(t, gap, one).is_some()));
+    }
+
+    /// Where a straight tile resting on the floor holds the points (on its
+    /// top edge), an eighth-turned one (the left, both, the right), 04's
+    /// stray tile (one point is not enough), and a straight tile off the
+    /// floor (strictly inside).
+    #[test]
+    fn the_strip_edges_and_alternatives() {
+        use Holds::{Inside, OnEdge, Outside};
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let straight = (one, Surd::ZERO);
+        let e = eighth_turn();
+        let at = |a: Surd, turn: Point<Surd>| strip_holds(&on_floor(a, turn), gap, one);
+        assert_eq!(at(one, straight), [OnEdge, Outside]);
+        assert_eq!(at(one + gap * h, straight), [OnEdge, OnEdge]);
+        assert_eq!(at(one + gap, straight), [Outside, OnEdge]);
+        assert_eq!(at(Surd::ratio(11, 10), e), [Inside, Outside]);
+        assert_eq!(at(one + gap * h, e), [Inside, Inside]);
+        assert_eq!(at(Surd::ratio(9, 10) + gap, e), [Outside, Inside]);
+        let stray = Tile::straight(Surd::ratio(8, 5), h);
+        assert!(strip_broken(gap, one, &stray).is_empty());
+        assert_eq!(strip_holds(&stray, gap, one), [Outside, OnEdge]);
+        let lifted = Tile::straight(Surd::ratio(8, 5), Surd::ratio(3, 4));
+        assert_eq!(strip_holds(&lifted, gap, one), [Outside, Inside]);
+    }
+
+    /// Every dodge breaks exactly its one assumption and misses both points,
+    /// its cut shorter than its gap. The raised points keep x + 2y < 2√2 and
+    /// Friedman's y < √2 − x/2, and the line passes over the straight tile;
+    /// with a whole-tile gap the eighth's floor cut is 2√2 − 2 < 1.
+    #[test]
+    fn every_dodge_breaks_exactly_one_assumption() {
+        let dodges = strip_dodges();
+        assert_eq!(dodges.len(), 4);
+        for d in &dodges {
+            assert_eq!(strip_broken(d.x, d.y, &d.tile), vec![d.breaks], "{}", d.key);
+            assert_eq!(strip_holds(&d.tile, d.x, d.y), [Holds::Outside; 2], "{}", d.key);
+            assert!(cut_length(&d.tile, d.y) < d.x, "{}", d.key);
+        }
+        let high = dodges[1];
+        assert!(high.y < Surd::sqrt2() - high.x * Surd::ratio(1, 2));
+        assert_eq!(cut_length(&high.tile, high.y), Surd::ZERO);
+        let wide = dodges[2];
+        assert_eq!(
+            floor_cut(eighth_turn(), wide.y),
+            Surd::int(2) * Surd::sqrt2() - Surd::int(2)
+        );
+        assert!(least_slip_height(wide.x) < wide.y);
+    }
+
+    /// Every sampled frame of 05's wandering tile keeps the assumptions and
+    /// covers a point, on its edge at worst; it starts at 04's stray tile and
+    /// rests on the floor halfway.
+    #[test]
+    fn the_wandering_strip_tile_always_covers_a_point() {
+        let gap = turned_gap().to_f64();
+        let start = strip_wander(0.0);
+        assert!((start.centre.0 - 1.6).abs() < EPS && (start.centre.1 - 0.5).abs() < EPS);
+        let rest = strip_wander(0.5);
+        assert!((rest.centre.1 - 0.5 * shadow_width((rest.cos, rest.sin))).abs() < EPS);
+        for k in 0..=2000 {
+            let t = strip_wander(f64::from(k) / 2000.0);
+            assert!(t.corners().iter().all(|&(_, y)| y >= -EPS), "{k}");
+            let (a, b) = t.centre;
+            assert!((1.0 - EPS..=1.0 + gap + EPS).contains(&a) && b <= 1.0 + EPS, "{k}");
+            let best = strip_points(gap, 1.0)
+                .iter()
+                .map(|&p| depth_inside(&t, p))
+                .fold(f64::NEG_INFINITY, f64::max);
+            assert!(best >= -EPS, "{k}");
+        }
+    }
+
+    /// The box of 2.71 once the strips are settled too: corner blocks and
+    /// strips cover 1 + √2 of the centre region, leaving the middle square,
+    /// the gap squared; the lemma mirrored to the left wall and the top.
+    #[test]
+    fn the_side_strips_in_the_box() {
+        let side = turned_side();
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let (lo, hi) = centre_region(side);
+        let block = one - lo;
+        let covered = Surd::int(4) * (block * block + gap * block);
+        assert_eq!(covered, one + Surd::sqrt2());
+        assert_eq!((hi - lo) * (hi - lo) - covered, gap * gap);
+        let far = one + gap;
+        let e = eighth_turn();
+        let left = Tile {
+            centre: (shadow_width(e) * h, one + gap * h),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert_eq!(Holds::of(depth_inside(&left, (one, one))), Holds::Inside);
+        assert_eq!(Holds::of(depth_inside(&left, (one, far))), Holds::Inside);
+        let top = Tile::straight(one + gap * h, side - h);
+        assert_eq!(Holds::of(depth_inside(&top, (one, far))), Holds::OnEdge);
+        assert_eq!(Holds::of(depth_inside(&top, (far, far))), Holds::OnEdge);
     }
 }
