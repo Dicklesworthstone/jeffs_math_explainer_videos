@@ -4,15 +4,16 @@
 //! sides (01_6); every pattern of more than one pulse has them, so send a
 //! second (01_7); its ghosts are the same size at the same shifts, and the
 //! two rows are about to be added (01_8, a prediction); added, only the echo
-//! is left, twice as tall (01_9, 01_10); the guarantee needs the same scene
-//! for both sends, and one step of movement brings the ghosts back (01_11).
+//! is left, twice as tall, and not a single ghost (01_9); the guarantee needs
+//! the same scene for both sends, and one step of movement brings the ghosts
+//! back (01_10).
 
 use explainer_kit::props::{lower_third, precisely};
 use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CHART_Y, COPY_Y, Chart, ECHO_Y, HOVER_Y, LABEL_X, Place, Row, SEND_Y, STAGE_Y, STEP, TICK_Y, X0, block,
+    CHART_Y, COPY_Y, Chart, ECHO_Y, HOVER_Y, LABEL_X, NAME_X, Place, Row, SEND_Y, STAGE_Y, STEP, TICK_Y, X0, block,
     fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, flat, pause, product_text, pulse, row, say, score_text,
     shift_all, swap, think, wait_until, x_of,
 };
@@ -39,9 +40,14 @@ const MOVED_TAG: &str = "moved one step";
 const PROGRAMMERS: &str = "for programmers:";
 const SCORE_CODE: &str = "score[k] = sum over n of echo[n] * copy[n - k]";
 
-/// Where the sender and the thing that bounces the pulses back stand.
+/// Where the sender and the thing that bounces the pulses back stand; the
+/// thing hangs below the sent row's line, inside the title-safe area.
 const SENDER_X: f64 = -6.4;
 const THING_X: f64 = 6.4;
+const THING_Y: f64 = SEND_Y - 0.35;
+const THING_H: f64 = 0.8;
+/// The dot that runs to the thing and back, under the sent row.
+const DOT_Y: f64 = SEND_Y - 0.5;
 /// The sent pattern's first pulse (01_1), before it becomes the copy.
 const SENT_X: f64 = -5.6;
 /// The key (01_3): the pulse pairs, the blocks, the words.
@@ -60,11 +66,12 @@ fn far_rule() -> fmn::Result<String> {
     ))
 }
 
-/// The exact version of 01_10: what the pair removes (the patterns' own
-/// ghosts), and what it does not promise to remove (receiver noise).
+/// The exact version of 01_9's "not a single ghost": under which condition
+/// the ghosts are exactly gone, and what is not promised (receiver noise).
+/// Two lines on the card, so it clears the shift numbers.
 fn exact_claim() -> String {
     format!(
-        "when both sends meet the same still scene, every score away from the echo is exactly {}. The pair removes the patterns' own ghosts. Noise picked up by the receiver is scored too, and is not guaranteed to cancel",
+        "with the same still scene for both sends, every score away from the echo is exactly {}. Receiver noise is scored too, and is not guaranteed to cancel",
         score_text(facts::sum().largest_ghost(&[0]))
     )
 }
@@ -172,11 +179,11 @@ impl SceneConstruct for TwoBadEchoes {
         let sender = stage.arena_mut().add(sender);
         let thing = Rectangle::new()
             .width(0.45)
-            .height(1.1)
+            .height(THING_H)
             .corner_radius(0.08)
             .style(flat(Palette::dim(), 0.6))
             .build()?
-            .moved_to(v(THING_X, SEND_Y));
+            .moved_to(v(THING_X, THING_Y));
         let thing = stage.arena_mut().add(thing);
         let sent = row(stage, &CODE_A, SENT_X, SEND_Y, palette::pattern_a())?;
         fade_in_all(stage, &[sender, thing, sent.line], 0.4)?;
@@ -189,12 +196,12 @@ impl SceneConstruct for TwoBadEchoes {
             .radius(0.09)
             .style(flat(palette::pattern_a(), 1.0))
             .build()
-            .moved_to(v(SENDER_X + 0.3, SEND_Y - 0.5));
+            .moved_to(v(SENDER_X + 0.3, DOT_Y));
         let dot = stage.arena_mut().add(dot);
         let run = THING_X - 0.35 - (SENDER_X + 0.3);
         fade_in_all(stage, &[dot], 0.15)?;
-        shift_all(stage, &[dot], run, 0.0, 0.8)?;
-        shift_all(stage, &[dot], -run, 0.0, 0.8)?;
+        shift_all(stage, &[dot], run, 0.0, 0.65)?;
+        shift_all(stage, &[dot], -run, 0.0, 0.65)?;
         let echo = row(stage, &CODE_A, X0, ECHO_Y, palette::pattern_a())?;
         let echo_label = kit.text(stage, ECHO, 24.0, Palette::dim(), v(LABEL_X, ECHO_Y))?;
         let mut arriving = echo.mobs();
@@ -216,7 +223,7 @@ impl SceneConstruct for TwoBadEchoes {
         frame.push(kit.text(stage, SCORE, 22.0, Palette::dim(), v(LABEL_X, CHART_Y))?);
         frame.push(kit.text(stage, SHIFT, 22.0, Palette::dim(), v(LABEL_X, TICK_Y))?);
         fade_in_all(stage, &frame, 0.5)?;
-        line.wait_for(stage, "slide a copy")?;
+        line.wait_for(stage, "Slide a copy")?;
         while at_shift < 0 {
             shift_all(stage, &copy.mobs(), STEP, 0.0, 0.4)?;
             at_shift += 1;
@@ -283,7 +290,7 @@ impl SceneConstruct for TwoBadEchoes {
             let h = chart.height(k);
             ghost_words.push(kit.text(stage, GHOST, 20.0, Palette::dim(), chart.place.past(k, h, 0.25))?);
         }
-        line.wait_for(stage, "a quarter the size")?;
+        line.wait_for(stage, "a quarter the echo")?;
         fade_in_lagged(stage, &ghost_words, 0.8, 0.3)?;
 
         // 01_7: the far shifts always score; a second pattern is sent
@@ -346,28 +353,17 @@ impl SceneConstruct for TwoBadEchoes {
         chart.settle_all(stage, &arrivals, 0.5, 0.25)?;
         chart.check(&b, "pattern B")?;
         line.wait_for(stage, "What if we add")?;
-        let name_a = kit.text_left(
-            stage,
-            PATTERN_A,
-            22.0,
-            palette::pattern_a(),
-            v(LABEL_X - 0.75, HOVER_Y + 0.35),
-        )?;
-        let name_b = kit.text_left(
-            stage,
-            PATTERN_B,
-            22.0,
-            palette::pattern_b(),
-            v(LABEL_X - 0.75, CHART_Y + 0.35),
-        )?;
+        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), v(NAME_X, HOVER_Y + 0.35))?;
+        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), v(NAME_X, CHART_Y + 0.35))?;
         fade_out_all(stage, &[shelf_name], 0.2)?;
         chart_a.move_to(stage, Place::hover(), 0.9)?;
         fade_in_all(stage, &[name_a, name_b], 0.3)?;
         let q = think(&kit, stage, v(5.3, 0.6))?;
 
-        // 01_9: A's row drops onto B's: every ghost meets its opposite
+        // 01_9: A's row drops onto B's: every ghost meets its opposite; only
+        // the echo is left; on "not a single ghost", the exact claim
         let line = say(&kit, stage, "01_9")?;
-        let added = kit.text_left(stage, ADDED, 22.0, Palette::ink(), v(LABEL_X - 0.75, CHART_Y + 0.35))?;
+        let added = kit.text_left(stage, ADDED, 22.0, Palette::ink(), v(NAME_X, CHART_Y + 0.35))?;
         let falling = chart_a.take();
         fade_out_all(stage, &[q, chart_a.line, name_a], 0.3)?;
         chart.settle_all(stage, &falling, 1.0, 0.4)?;
@@ -384,19 +380,15 @@ impl SceneConstruct for TwoBadEchoes {
         )?;
         let echo_word = kit.text(stage, ECHO, 28.0, palette::echo(), chart.place.past(0, h, 0.6))?;
         fade_in_all(stage, &[peak, echo_word], 0.4)?;
-
-        // 01_10: not a single ghost, precisely
-        let line = say(&kit, stage, "01_10")?;
         line.wait_for(stage, "not a single ghost")?;
         let exact = precisely(&kit, stage, &exact_claim())?;
         fade_in_all(stage, &[exact], 0.4)?;
-        // the storyboard's hold, kept short: thought gaps already lengthen
-        // the chapter, which must stay under 85 s
-        kit.music_breath(stage, 2.0)?;
 
-        // 01_11: the same scene for both sends; one step of movement
-        let line = say(&kit, stage, "01_11")?;
-        let mut leaving = vec![exact, peak, echo_word, added];
+        // 01_10: the two sends apart again while the guarantee's assumption
+        // is said (the card stays); on "Move the echo" B's row steps right
+        // and A's drops onto it, done before the line ends
+        let line = say(&kit, stage, "01_10")?;
+        let mut leaving = vec![peak, echo_word, added];
         leaving.extend(
             chart
                 .take()
@@ -405,20 +397,8 @@ impl SceneConstruct for TwoBadEchoes {
         );
         fade_out_all(stage, &leaving, 0.4)?;
         let mut chart_a = Chart::new(stage, Place::hover());
-        let name_a = kit.text_left(
-            stage,
-            PATTERN_A,
-            22.0,
-            palette::pattern_a(),
-            v(LABEL_X - 0.75, HOVER_Y + 0.35),
-        )?;
-        let name_b = kit.text_left(
-            stage,
-            PATTERN_B,
-            22.0,
-            palette::pattern_b(),
-            v(LABEL_X - 0.75, CHART_Y + 0.35),
-        )?;
+        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), v(NAME_X, HOVER_Y + 0.35))?;
+        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), v(NAME_X, CHART_Y + 0.35))?;
         fade_in_all(stage, &[chart_a.line, name_a, name_b], 0.3)?;
         chart_a.stand(stage, &model::measure(&CODE_A, &STILL, &[]), 0.4)?;
         chart.stand(stage, &model::measure(&CODE_B, &STILL, &[]), 0.4)?;
@@ -428,13 +408,7 @@ impl SceneConstruct for TwoBadEchoes {
             facts::echo_step(&MOVED).map_err(fail)?,
         ];
         let step = echoes[1] - echoes[0];
-        let tag = kit.text_left(
-            stage,
-            MOVED_TAG,
-            20.0,
-            Palette::dim(),
-            v(LABEL_X - 0.75, CHART_Y - 0.35),
-        )?;
+        let tag = kit.text_left(stage, MOVED_TAG, 20.0, Palette::dim(), v(NAME_X, CHART_Y - 0.35))?;
         let tick = kit.text(
             stage,
             &score_text(SHIFTS.1),
@@ -442,13 +416,12 @@ impl SceneConstruct for TwoBadEchoes {
             Palette::dim(),
             v(x_of(SHIFTS.1), TICK_Y),
         )?;
-        fade_in_all(stage, &[tag, tick], 0.3)?;
+        swap(stage, &[exact], &[tag, tick], 0.3)?;
         chart.shift_columns(stage, step, 0.6)?;
         chart.check(&model::measure(&CODE_B, &MOVED, &[]), "pattern B, moved")?;
-        line.wait_for(stage, "and ghosts return")?;
         let falling = chart_a.take();
         fade_out_all(stage, &[chart_a.line, name_a], 0.3)?;
-        chart.settle_all(stage, &falling, 0.9, 0.35)?;
+        chart.settle_all(stage, &falling, 0.7, 0.3)?;
         let moved = facts::moved();
         chart.check(&moved, "both rows added, moved")?;
         let mut ghosts = Vec::new();
@@ -467,12 +440,12 @@ impl SceneConstruct for TwoBadEchoes {
             )?);
         }
         fade_in_all(stage, &split, 0.3)?;
-        flash_all(stage, &ghosts, 0.6)?;
+        flash_all(stage, &ghosts, 0.5)?;
         let end = line.start + line.len;
         wait_until(stage, end)?;
-        pause(stage, 0.8)?;
+        pause(stage, 0.5)?;
 
-        fade_all(stage, 0.8)?;
+        fade_all(stage, 0.6)?;
         kit.finish(stage)?;
         Ok(())
     }
@@ -489,9 +462,21 @@ mod tests {
         let rule = far_rule().unwrap();
         assert!(rule.contains("+1 or \u{2212}1, never 0"), "{rule}");
         let claim = exact_claim();
+        assert!(claim.contains("same still scene for both sends"), "{claim}");
         assert!(claim.contains("exactly 0."), "{claim}");
         assert!(claim.contains("not guaranteed to cancel"), "{claim}");
         assert!(!claim.contains("does not cancel"), "{claim}");
+    }
+
+    /// Both "precisely" cards wrap to two lines at the lower-third's width,
+    /// so the band stays under the shift numbers (a three-line card covered
+    /// them in the 2026-10-18 draft). The layout lint checks the drawn band.
+    #[test]
+    fn the_precisely_cards_are_two_lines() {
+        for text in [far_rule().unwrap(), exact_claim()] {
+            let lines = explainer_kit::animatic::wrap(&text, 92, 3);
+            assert!(lines.len() <= 2, "{} lines: {text}", lines.len());
+        }
     }
 
     /// Every phrase the scene waits for is in its line of script.tsv (a
@@ -502,20 +487,19 @@ mod tests {
         for (id, phrase) in [
             ("01_1", "Up, up"),
             ("01_1", "Something"),
-            ("01_2", "slide a copy"),
+            ("01_2", "Slide a copy"),
             ("01_2", "and multiply"),
             ("01_3", "Opposite ways"),
             ("01_4", "A score of four"),
             ("01_5", "A score of one"),
             ("01_5", "where nothing is"),
-            ("01_6", "a quarter the size"),
+            ("01_6", "a quarter the echo"),
             ("01_7", "So send a second"),
             ("01_7", "Up, up, down, up"),
             ("01_8", "What if we add"),
             ("01_9", "Only the echo"),
-            ("01_10", "not a single ghost"),
-            ("01_11", "Move the echo"),
-            ("01_11", "and ghosts return"),
+            ("01_9", "not a single ghost"),
+            ("01_10", "Move the echo"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -534,6 +518,28 @@ mod tests {
     #[test]
     fn the_layout_keeps_its_pieces_apart() {
         use crate::chapters::draw::{BLOCK, PULSE_H};
+        use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
+        // the 2026-10-18 draft's findings: names 0.16 from the left edge, the
+        // thing touching the top; text wants 0.25 in, shapes the 0.15 safe area
+        const { assert!(NAME_X >= -FRAME_X_RADIUS + 0.25, "names inside the title-safe edge") };
+        const {
+            assert!(
+                THING_Y + THING_H / 2.0 <= FRAME_Y_RADIUS - 0.15,
+                "the thing inside the safe area"
+            )
+        };
+        const {
+            assert!(
+                SEND_Y + PULSE_H <= FRAME_Y_RADIUS - 0.15,
+                "the sent pulses inside the safe area"
+            )
+        };
+        const {
+            assert!(
+                DOT_Y > THING_Y - THING_H / 2.0 && DOT_Y < THING_Y + THING_H / 2.0,
+                "the dot meets the thing"
+            )
+        };
         assert!(
             x_of(SHIFTS.0) - 0.35 > LABEL_X + 0.5,
             "the copy's far left clears the names"

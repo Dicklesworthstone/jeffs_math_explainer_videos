@@ -34,8 +34,9 @@ pub fn fail(message: String) -> fmn::Error {
 pub const STEP: f64 = 0.75;
 /// The echo's first pulse, and the score column of shift 0, are at this x.
 pub const X0: f64 = -2.5;
-/// The sent pattern's line (01_1).
-pub const SEND_Y: f64 = 3.45;
+/// The sent pattern's line (01_1): its up pulses stay inside the title-safe
+/// area (±3.85).
+pub const SEND_Y: f64 = 3.35;
 /// The echo row's line.
 pub const ECHO_Y: f64 = 2.55;
 /// The copy row's line.
@@ -44,12 +45,15 @@ pub const COPY_Y: f64 = 1.35;
 pub const STAGE_Y: f64 = 0.55;
 /// The score chart's line.
 pub const CHART_Y: f64 = -1.6;
-/// The line of a second chart held over the first (01_8 to 01_11).
+/// The line of a second chart held over the first (01_8 to 01_10).
 pub const HOVER_Y: f64 = 0.9;
 /// The shift numbers under the chart.
 pub const TICK_Y: f64 = -2.45;
-/// The row and chart names, left of everything.
+/// The row and chart names, left of everything (centred here).
 pub const LABEL_X: f64 = -6.2;
+/// Where a longer name starts ("pattern A", "both rows added"): the
+/// title-safe edge, 0.25 in from the frame's (−7.11), and a little more.
+pub const NAME_X: f64 = -6.8;
 /// One block's pitch in a column.
 pub const BLOCK: f64 = 0.28;
 const BLOCK_SIDE: f64 = 0.23;
@@ -301,7 +305,7 @@ pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
         },
         true,
     )?;
-    fade_in_all(stage, &[anchor, ring, q, note], 0.3)?;
+    fade_in_all(stage, &[anchor, ring, q, note], 0.2)?;
     let drain = left
         .animate()
         .set_anim_args(AnimateArgs {
@@ -311,7 +315,7 @@ pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
         })?
         .set_value(0.0)?;
     stage.play(drain)?;
-    fade_out_all(stage, &[anchor, ring, note], 0.25)?;
+    fade_out_all(stage, &[anchor, ring, note], 0.2)?;
     Ok(q)
 }
 

@@ -70,15 +70,15 @@ mod tests {
         ("01_5", "Two agree", "G-F2.a.one_off.agree", "2"),
         ("01_5", "one disagrees", "G-F2.a.one_off.disagree", "1"),
         ("01_5", "A score of one", "G-F2.a.one_off.score", "1"),
-        ("01_6", "a quarter the size", "G-F2.ghost_fraction", "1/4"),
+        ("01_6", "a quarter the echo's size", "G-F2.ghost_fraction", "1/4"),
         ("01_7", "With more than one pulse", "G-X1.far_shift_sizes", "1"),
         ("01_7", "Up, up, down, up", "G-F1.code_b", "1,1,-1,1"),
         ("01_8", "the same size", "G-F2.b.largest_ghost", "1"),
         ("01_8", "at the same shifts", "G-F2.b.ghost_shifts", "-3,-1,1,3"),
         ("01_9", "twice as tall", "G-F3.peak_ratio", "2"),
-        ("01_10", "not a single ghost", "G-F3.sum.largest_ghost", "0"),
-        ("01_11", "one step", "G-F4.moved.step", "1"),
-        ("01_11", "ghosts return", "G-F4.moved.largest_ghost", "1"),
+        ("01_9", "not a single ghost", "G-F3.sum.largest_ghost", "0"),
+        ("01_10", "one step", "G-F4.moved.step", "1"),
+        ("01_10", "ghosts return", "G-F4.moved.largest_ghost", "1"),
     ];
 
     #[test]

@@ -50,21 +50,20 @@ every shift, side by side).
 | a ghost's word | `dim` |
 | baselines, shift numbers, the sender and the thing | `faint` and `dim` |
 
-## 01_two_bad_echoes: Two bad echoes (~83 s)
+## 01_two_bad_echoes: Two bad echoes (~82 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | Send out four pulses. Up, up, up, down. Something out there bounces them back. | A sender on the left. Pattern A's four blue pulses appear at it one by one on "Up, up, up, down", travel right to a dim block on the far right, and return to the top row as the echo | pulses built from the pattern in facts, motion | |
-| 01_2 | To find the echo, slide a copy along what came back, and multiply the pulses that line up. | The copy, pale blue, appears under the echo three steps to the left and slides right one step at a time until it sits exactly under it. A "for programmers" lower-third gives the score as code | slide, lower-third (code) | |
+| 01_1 | Send out four pulses. Up, up, up, down. Something bounces them back. | A sender on the left. Pattern A's four blue pulses appear at it one by one on "Up, up, up, down"; a dot runs right to a dim block on the far right and back, and the pattern returns as the echo row | pulses built from the pattern in facts, motion | |
+| 01_2 | Slide a copy along what came back, and multiply the pulses that line up. | The sent pattern is the copy: it comes down under the echo, three steps to the left, and slides right one step at a time until it sits exactly under it. A "for programmers" lower-third gives the score as code | slide, lower-third (code) | |
 | 01_3 | Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. | A key on the right: two up pulses over a green block, an up over a down over a red block, each with its product (+1, −1) | legend built from the products | |
-| 01_4 | Lined up exactly, all four agree. A score of four, right where the echo is. | At shift 0 the four lined-up pairs light, four green blocks appear between the rows and drop into the score column under the copy's start; the gold word "echo" above it, the score 4 beside it | blocks from the products, highlight, chart | |
+| 01_4 | Lined up exactly, all four agree. A score of four, at the echo. | At shift 0 the four lined-up pairs light, four green blocks appear between the rows and drop into the score column under the copy's start; the gold word "echo" above it, the score 4 beside it | blocks from the products, highlight, chart | |
 | 01_5 | One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. | The copy steps right by one; three pairs light: two green blocks and one red. In the column the red block lands on a green one and both vanish; one green block is left, and the word "ghost" | blocks cancel, highlight | |
-| 01_6 | Slide all the way, and ghosts appear on both sides, a quarter the size of the echo. | The copy steps quickly through every other shift, scoring each; the full row stands: one block up at one step either side, one block hanging down at three steps either side, nothing at two; "ghost" by each | fast slide, chart, lagged labels | |
+| 01_6 | Slide all the way, and ghosts appear on both sides, a quarter the echo's size. | The copy steps quickly through every other shift, scoring each; the full row stands: one block up at one step either side, one block hanging down at three steps either side, nothing at two; "ghost" by each | fast slide, chart, lagged labels | |
 | 01_7 | With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up. | The two far columns flash: only the end pulses meet there. Pattern A's row shrinks to a shelf at the upper right; the echo and copy become pattern B's violet pulses (up, up, down, up). A "precisely" lower-third states the far-shift rule | highlight, morph rows, lower-third | |
-| 01_8 | It leaves ghosts too, the same size, at the same shifts. What if we add the two rows, shift by shift? ⟨predict⟩ | B's row is scored quickly: the same echo of four, ghosts of one at the same shifts but on the other side of the line. A's row comes down from the shelf and hovers over B's, column above column | fast slide, chart | |
-| 01_9 | Every ghost meets its opposite, and they cancel. Only the echo is left, twice as tall. | A's row drops onto B's: at every ghost a green and a red block meet and vanish together; at the echo A's four blocks stack on B's four. The score 8, the gold "echo" above it | blocks cancel, stack, highlight | |
-| 01_10 | Two bad echoes, and together, not a single ghost. | The clean row holds; a "precisely" lower-third keeps the exact claim (same still scene for both sends; the pair removes the patterns' own ghosts; noise picked up by the receiver is scored too and is not guaranteed to cancel) | lower-third | hold |
-| 01_11 | But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return. | The row clears; A's row returns as it was, B's row stands one step to the right; they drop together again, and this time ghosts are left at six shifts and the echo is split three and five | chart, blocks cancel, highlight | |
+| 01_8 | Its ghosts are the same size, at the same shifts. What if we add the two rows? ⟨predict⟩ | B's row is scored quickly: the same echo of four, ghosts of one at the same shifts but on the other side of the line. A's row comes down from the shelf and hovers over B's, column above column | fast slide, chart | |
+| 01_9 | Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost. | A's row drops onto B's: at every ghost a green and a red block meet and vanish together; at the echo A's four blocks stack on B's four. The score 8, the gold "echo" above it. On "not a single ghost" a two-line "precisely" lower-third keeps the exact claim (same still scene for both sends; receiver noise is scored too and is not guaranteed to cancel) | blocks cancel, stack, highlight, lower-third | |
+| 01_10 | But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return. | The added row clears; A's row returns over B's, as the two sends were. On "Move the echo" B's row steps one shift right and A's drops onto it: this time ghosts are left at six shifts and the echo is split three and five | chart, blocks cancel, highlight | |
 
 ### Notes for 01
 
@@ -74,10 +73,16 @@ every shift, side by side).
   of silence with the countdown; the answer starts with 01_9.
 - Exact versions kept on screen: 01_7 (every pattern of two or more pulses
   scores one up or one down at its last shift; a single pulse has no other
-  shift) and 01_10 (exactly zero away from the echo when both sends meet the
+  shift) and 01_9 (exactly zero away from the echo when both sends meet the
   same still scene; noise picked up by the receiver is scored too and is not
-  guaranteed to cancel).
-- 01_11 states the guarantee's assumption and one tested way to break it (the
+  guaranteed to cancel). Both cards are two lines, so they clear the shift
+  numbers.
+- 01_10 states the guarantee's assumption and one tested way to break it (the
   echo moved one step); it does not claim that every change breaks the
   cancellation (`model::tests::a_changed_scene_leaves_ghosts` keeps the
   general identity: what is left is the change, scored by pattern A).
+- Budget (2026-10-18 scratch draft at 8f154b5: 92.2 s): the kit's scratch
+  voice reads 2.6 words a second plus 0.4 s a line, thought gaps measured
+  0.81 to 0.83 s, the think window 5.2 s, the tail 2.8 s. This revision cuts
+  15 words, one line and the 2 s hold, and ends its last animation before
+  the last line does: about 82 s by the same measures.
