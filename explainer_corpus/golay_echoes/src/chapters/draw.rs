@@ -551,7 +551,7 @@ pub struct Place {
 
 impl Place {
     /// Chapter 01's square blocks, `scale` both ways, over its shifts.
-    fn blocks(origin: Vec3, scale: f64) -> Self {
+    pub fn blocks(origin: Vec3, scale: f64) -> Self {
         Self {
             origin,
             scale,

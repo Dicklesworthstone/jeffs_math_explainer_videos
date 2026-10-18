@@ -38,7 +38,7 @@ const EXPLAINER: Explainer = Explainer {
     // the owner's narration direction: authored, thought-following gaps
     line_gaps: explainer_kit::narration::LineGaps::Thought,
     line_owner: None,
-    thumbnail: None,
+    thumbnail: Some(chapters::thumbnail::make),
 };
 
 fn main() {

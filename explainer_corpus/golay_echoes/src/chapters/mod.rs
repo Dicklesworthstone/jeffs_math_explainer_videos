@@ -4,6 +4,7 @@
 
 pub mod draw;
 pub mod glyphs;
+pub mod thumbnail;
 pub mod two_bad_echoes;
 pub mod what_the_ghosts_hide;
 pub mod when_it_breaks;
