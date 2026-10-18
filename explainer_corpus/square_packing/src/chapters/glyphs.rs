@@ -1,0 +1,20 @@
+//! The fixed on-screen strings the glyph probe checks beyond what the
+//! chapters record themselves (`squares glyphs`): the chapters build their
+//! text from constants and from `facts`, and the probe covers the digits and
+//! signs numbers are printed with through [`DIGITS`].
+
+/// The digits and signs numbers and labels are printed with.
+pub const DIGITS: &str = "0123456789 . , : ? ° ö";
+
+pub const TITLE: &str = "Why Turning a Square Can Make the Whole Box Smaller";
+
+/// Plain text (Computer Modern roman, the kit's default face).
+pub const TEXT: &[&str] = &[DIGITS, TITLE];
+/// Mathematics (Computer Modern, native TeX).
+pub const TEX: &[&str] = &[
+    super::the_turned_tile::GAP_TIMES,
+    super::the_turned_tile::GAP_IS,
+    super::the_turned_tile::ONE_OVER_ROOT,
+];
+/// Code, set in CM Typewriter.
+pub const MONO: &[&str] = &[];
