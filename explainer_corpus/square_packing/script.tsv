@@ -33,7 +33,7 @@
 04_5	Along the tile's own sides, that is at most the shadow times one minus half the shadow, which never passes one half.
 04_6	Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it.
 04_7	Let the centre stray past one tile, or drop a wall, and the point can escape.
-04_8	In the box of two point seven one, this settles centres near the corners. The edges and the middle come next.
+04_8	In our box, about two point seven one wide, this settles centres near the corners. The edges and the middle come next.
 05_1	Near a side, one point is not enough, so take two. A tile centred between them, within a tile of the floor, covers one.
 05_2	Turned an eighth, its top is a narrow corner. Could it slip up between the points?
 05_3	No. The points are at most half a tile above its centre, and a tile reaches that far straight up.
@@ -42,7 +42,7 @@
 05_6	That height bends down, so it is lowest at an end, exactly one when straight. The points stand at one, so nothing slips through.
 05_7	Drop the floor, raise the points, or widen the gap, and a tile slips through.
 05_8	Turned to every side, this settles centres near a side. Only the middle is left.
-06_1	Only the middle is left, the square the four points bound. Cut it along its diagonal, one tile long.
+06_1	The middle is the square the four points bound. Cut it along its diagonal, one tile long.
 06_2	Each triangle's sides are at most one. Must a tile centred in one cover a corner of it?
 06_3	Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides.
 06_4	If two lay past opposite sides, they would be over a tile apart, so the triangle would have a side longer than one.

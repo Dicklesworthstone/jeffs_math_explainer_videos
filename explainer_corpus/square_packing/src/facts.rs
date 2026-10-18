@@ -892,6 +892,23 @@ mod tests {
         assert_eq!(capital("five"), "Five");
     }
 
+    /// 2.71 is a rounding of B, never the box itself: wherever the voice
+    /// says it, "about" comes first (04_8 once said "the box of two point
+    /// seven one").
+    #[test]
+    fn the_voice_says_the_rounded_box_only_after_about() {
+        let rounded = spoken(&value("turned.side.2dp"));
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let mut said = 0;
+        for (id, text) in script.lines() {
+            for (at, _) in text.match_indices(&rounded) {
+                assert!(text[..at].ends_with("about "), "{id}: {text}");
+                said += 1;
+            }
+        }
+        assert!(said > 0, "the voice says the rounding somewhere");
+    }
+
     /// Every planted failure is in the facts, and none of them fits.
     #[test]
     fn every_planted_failure_is_a_fact_and_a_failure() {
@@ -978,8 +995,8 @@ mod tests {
     /// What chapter 04's voice says, on the facts: the point one tile
     /// across and one tile up, centres within one tile of both walls; the
     /// bound never past one half, the reach half a tile; only a straight tile
-    /// on a wall touches; the point can escape without an assumption; the
-    /// box of 2.71 and what is left.
+    /// on a wall touches; the point can escape without an assumption; our
+    /// box, about 2.71 wide, and what is left.
     #[test]
     fn the_corner_lemma_says_the_facts() {
         assert_eq!(value("corner.point"), "1,1");
@@ -1003,7 +1020,7 @@ mod tests {
         assert!(value("corner.fail.wall").starts_with("outside|through a wall"));
         let l8 = line("04_8");
         assert!(
-            l8.contains(&format!("box of {}", spoken(&value("turned.side.2dp")))),
+            l8.contains(&format!("our box, about {} wide", spoken(&value("turned.side.2dp")))),
             "{l8}"
         );
         assert_eq!(value("corner.box.covered"), "1");

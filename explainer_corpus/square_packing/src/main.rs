@@ -89,4 +89,24 @@ mod tests {
         ];
         assert_eq!(asks, want);
     }
+
+    /// Played end to end, no chapter opens on the sentence the chapter
+    /// before it closed on (06 once opened "Only the middle is left, …"
+    /// just after 05 closed on "Only the middle is left.").
+    #[test]
+    fn no_chapter_opens_on_the_words_the_last_one_closed_on() {
+        let script = Script::parse(SCRIPT).unwrap();
+        let chapter = |id: &str| id.split_once('_').map(|(c, _)| c.to_owned());
+        let mut joins = 0;
+        for pair in script.lines().windows(2) {
+            let ((was, closing), (now, opening)) = (&pair[0], &pair[1]);
+            if chapter(was) == chapter(now) {
+                continue;
+            }
+            let last = closing.split_terminator(['.', '?']).last().unwrap().trim();
+            assert!(!opening.starts_with(last), "{was} closes and {now} opens on \"{last}\"");
+            joins += 1;
+        }
+        assert_eq!(joins, keys().len() - 1);
+    }
 }
