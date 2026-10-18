@@ -27,19 +27,24 @@ pub const HOOK: [&str; 2] = ["ONE TURN", "SMALLER BOX"];
 pub const THREE: &str = "3";
 pub const SIDE: &str = r"2 + \frac{1}{\sqrt{2}}";
 
-/// The hook's two lines: where they stand, and their size.
-const HOOK_Y: [f64; 2] = [3.2, 2.15];
-const HOOK_PT: f64 = 100.0;
-/// One scale for both packings: a tile is K scene units wide.
-pub const K: f64 = 1.35;
-/// Both boxes stand on one floor; the straight box's centre across, and the
-/// turned box's.
-const FLOOR: f64 = -2.85;
+/// The hook's two lines: where they stand, and their size (the two-line
+/// title geometry of the Golay thumbnail, whose layout test passes).
+const HOOK_Y: [f64; 2] = [3.05, 1.9];
+const HOOK_PT: f64 = 92.0;
+/// One scale for both packings: a tile is K scene units wide (the box of
+/// three, 3K tall, stands clear under the hook).
+pub const K: f64 = 1.25;
+/// Both boxes stand on one floor, high enough that the labels under them
+/// (the TeX label's fraction is the tallest) keep clear of the frame's
+/// foot; the straight box's centre across, and the turned box's.
+const FLOOR: f64 = -2.6;
 const LEFT_X: f64 = -3.55;
 const RIGHT_X: f64 = 3.35;
-/// The labels under the boxes: where, and their size.
-const LABEL_Y: f64 = -3.4;
-const LABEL_PT: f64 = 64.0;
+/// The labels under the boxes: where they centre, the size of "3", and the
+/// size of the TeX label 2 + 1/√2.
+const LABEL_Y: f64 = -3.2;
+const LABEL_PT: f64 = 56.0;
+const SIDE_PT: f64 = 40.0;
 /// The outlines' widths: the boxes', and the box of three around the turned
 /// five.
 const BOX_W: f64 = 5.0;
@@ -122,7 +127,7 @@ pub fn lay(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Parts> {
     );
     let labels = [
         kit.text_styled(stage, THREE, LABEL_PT, dim(), v(LEFT_X, LABEL_Y), true, false)?,
-        kit.tex(stage, SIDE, LABEL_PT * 0.75, turned(), &[], v(RIGHT_X, LABEL_Y))?,
+        kit.tex(stage, SIDE, SIDE_PT, turned(), &[], v(RIGHT_X, LABEL_Y))?,
     ];
     Ok(Parts {
         hook,
