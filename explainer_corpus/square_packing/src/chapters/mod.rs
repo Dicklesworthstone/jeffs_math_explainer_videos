@@ -11,6 +11,7 @@ pub mod glyphs;
 pub mod near_a_side;
 pub mod the_corner_lemma;
 pub mod the_turned_tile;
+pub mod thumbnail;
 pub mod what_is_proved;
 
 use explainer_kit::Chapter;
