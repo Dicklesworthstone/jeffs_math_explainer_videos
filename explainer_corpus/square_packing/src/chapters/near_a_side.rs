@@ -303,12 +303,22 @@ struct Parts {
     marker: Mob,
 }
 
+/// The corner of a tile above a line, split by the vertical through its top
+/// corner ([`corner_split`]).
+struct SplitCorner {
+    /// The tile's top corner.
+    top: (f64, f64),
+    /// The part of the tile above the line left of that vertical, and right
+    /// of it (outlines, counter-clockwise; empty when the line misses it).
+    halves: [Vec<(f64, f64)>; 2],
+}
+
 /// Tile `t`'s top corner, and the part of the tile above the line `y` cut
 /// by the vertical through that corner: left and right. While the line
 /// passes over both side corners each is a right triangle of height d (the
 /// corner's height over the line); the right one's angle at the top is the
 /// turn θ, so its base is d tan θ, and the left one's is d cot θ.
-fn corner_split(t: &Tile<f64>, y: f64, side: f64) -> ((f64, f64), [Vec<(f64, f64)>; 2]) {
+fn corner_split(t: &Tile<f64>, y: f64, side: f64) -> SplitCorner {
     let corners = t.corners();
     let top = corners
         .iter()
@@ -318,7 +328,10 @@ fn corner_split(t: &Tile<f64>, y: f64, side: f64) -> ((f64, f64), [Vec<(f64, f64
     let cap = common(&corners, &[(lo, y), (hi, y), (hi, sky), (lo, sky)]);
     let left = common(&cap, &[(lo, y), (top.0, y), (top.0, sky), (lo, sky)]);
     let right = common(&cap, &[(top.0, y), (hi, y), (hi, sky), (top.0, sky)]);
-    (top, [left, right])
+    SplitCorner {
+        top,
+        halves: [left, right],
+    }
 }
 
 /// The labels of 05_5's split corner for frame `f`: d beside the vertical,
@@ -327,7 +340,7 @@ fn corner_split(t: &Tile<f64>, y: f64, side: f64) -> ((f64, f64), [Vec<(f64, f64
 fn split_labels(kit: &Kit, stage: &mut Stage<'_>, f: &Frame, side: f64) -> fmn::Result<[Mob; 4]> {
     let at = |q: (f64, f64)| SIDE.p(side, q);
     let y = f.height;
-    let (top, _) = corner_split(&f.tile, y, side);
+    let top = corner_split(&f.tile, y, side).top;
     let (l, r) = model::cut_at(&f.tile, y).unwrap_or((top.0, top.0));
     Ok([
         kit.tex(stage, D_TEX, 26.0, ink(), &[], at((top.0 - 0.07, 0.5 * (y + top.1))))?,
@@ -342,7 +355,6 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, pose: &Cell<[f64; 6]>, f: &F
     let at = |q: (f64, f64)| SIDE.p(parts.side, q);
     let t = &f.tile;
     let (cx, cy) = t.centre;
-    let corners = t.corners();
     reshape(s, parts.tile, SIDE.tile(parts.side, t));
     redot(s, parts.centre, at(t.centre), CENTRE_R);
     let w = model::shadow_width((t.cos, t.sin));
@@ -354,7 +366,7 @@ fn draw(s: &mut fmn::mobject::Stage, parts: &Parts, pose: &Cell<[f64; 6]>, f: &F
     reshape(s, parts.tall, rect((x + TALL_X.0, x + TALL_X.1), (cy - low, cy + low)));
     // the part of the tile above the points' line, split at its top corner:
     // two right triangles whose bases make the cut
-    let (top, halves) = corner_split(t, f.height, parts.side);
+    let SplitCorner { top, halves } = corner_split(t, f.height, parts.side);
     for (m, half) in parts.cap.into_iter().zip(halves) {
         let pts = if half.len() < 3 {
             vec![at((cx, f.height)); 3]
@@ -990,7 +1002,10 @@ mod tests {
         let side = model::turned_side().to_f64();
         for deg in [10.0, SPLIT_DEG, 45.0, 60.0, 80.0] {
             let f = blend(resting(1.3, deg, gap), resting(1.3, deg, gap), 0.0);
-            let (top, [left, right]) = corner_split(&f.tile, f.height, side);
+            let SplitCorner {
+                top,
+                halves: [left, right],
+            } = corner_split(&f.tile, f.height, side);
             let (l, r) = model::cut_at(&f.tile, f.height).unwrap();
             let d = top.1 - f.height;
             let th = f64::to_radians(deg);
