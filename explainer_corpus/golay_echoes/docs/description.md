@@ -15,9 +15,9 @@ to what the upload page accepts, linking this file for the rest.
 
 Send a short pattern of up and down pulses, listen for its echo, and slide a
 copy of the pattern along what comes back, scoring how well it lines up at
-every shift. The score is tallest where the echo really is, but it is not zero
-anywhere else: every pattern of more than one pulse leaves ghosts, scores
-where nothing is. This video shows how a second pattern, chosen as a partner
+every shift. The score is tallest where the echo really is, but it need not be
+zero away from the echo: every pattern of more than one pulse leaves ghosts,
+scores where nothing is. This video shows how a second pattern, chosen as a partner
 to the first, leaves ghosts of the same size with the opposite sign, so that
 adding the two measurements of the same still scene, with nothing else added,
 leaves only the real echoes; why the two cancel; and exactly what the trick
@@ -107,10 +107,17 @@ ghosts, not the receiver's noise.
 
 ## For programmers
 
-The score at shift k is Σₙ recording[n]·copy[n − k], over every n where both
-exist, for shifts from −(N − 1) to N − 1: the aperiodic cross-correlation of
-the recording with the pattern. A recording is the scene's echoes added, each
-one the pattern delayed by its step and scaled by its strength. The receiver
+Sample 0 is the moment the pattern is sent. The recording holds M samples,
+recording[n] for n from 0 to M − 1, and the copy is the pattern's N pulses,
+copy[j] for j from 0 to N − 1; both are taken as zero outside those samples.
+The score at shift k is Σₙ recording[n]·copy[n − k] over all n: the aperiodic
+cross-correlation of the recording with the pattern. Shift k lines the copy's
+first pulse up with sample k, so an echo returning d steps late scores its
+peak at shift d. Only shifts from −(N − 1) to M − 1 can score anything; every
+other shift scores 0. A recording is the scene's echoes added, each one the
+pattern delayed by its step and scaled by its strength, so a scene of L
+steps gives M = L + N − 1 samples, or more if the receiver's noise runs on
+past the last echo. The receiver
 for a complementary pair is two correlations and one addition. The video's
 numbers are exact integers, computed by its Rust code and recomputed by an
 independent Python script from polynomial products
