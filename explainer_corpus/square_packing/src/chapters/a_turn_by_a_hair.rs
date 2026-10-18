@@ -482,9 +482,12 @@ impl SceneConstruct for ATurnByAHair {
         // ---------------------------------------------------------- 03_6
         // the square of the turn
         let line = say(&kit, stage, LINES[5])?;
-        let formula = kit.tex(stage, FORMULA, 32.0, ink(), &[], v(3.6, 2.75))?;
-        let precise = kit.text_left(stage, PRECISELY, 24.0, turned(), v(TEXT_X, 2.2))?;
-        let radians = kit.text_left(stage, RADIANS, 24.0, dim(), v(TEXT_X + 1.35, 2.2))?;
+        // the formula a row higher, and the caption on its own line under
+        // "precisely:", from the panel's left edge, so it ends well inside
+        // the safe area (beside the label it ran to x 7.05)
+        let formula = kit.tex(stage, FORMULA, 32.0, ink(), &[], v(3.6, 3.05))?;
+        let precise = kit.text_left(stage, PRECISELY, 24.0, turned(), v(TEXT_X, 2.55))?;
+        let radians = kit.text_left(stage, RADIANS, 24.0, dim(), v(TEXT_X, 2.25))?;
         swap(stage, &[], &[formula, precise, radians], 0.6)?;
         line.wait_for(stage, "never zero")?;
 
@@ -517,7 +520,9 @@ impl SceneConstruct for ATurnByAHair {
         let box_of = kit.text_left(stage, &format!("{BOX_OF} {}:", r.three), 24.0, dim(), v(3.6, 2.85))?;
         let outer = kit.text_left(stage, OUTER, 22.0, dim(), v(3.6, 2.45))?;
         mini_parts.extend([box_of, outer]);
-        swap(stage, &[formula, precise, radians], &mini_parts, 0.6)?;
+        // the ×3.99 comparison belongs to the doubled turn: it goes before
+        // the control and the return move the live bite elsewhere
+        swap(stage, &[formula, precise, radians, deeper], &mini_parts, 0.6)?;
         line.wait_for(stage, "Held here")?;
         drive(stage, turn.tracker, -r.one, 1.2)?;
         drive(stage, turn.tracker, 0.0, 0.7)?;
@@ -529,7 +534,7 @@ impl SceneConstruct for ATurnByAHair {
         swap(stage, &mini_parts, &[blocked], 0.5)?;
         line.wait_for(stage, "Whether any")?;
         let smaller = kit.text_left(stage, SMALLER, 24.0, dim(), v(TEXT_X, 2.4))?;
-        swap(stage, &[deeper], &[smaller], 0.5)?;
+        swap(stage, &[], &[smaller], 0.5)?;
 
         kit.hold(stage)?;
         stage.clear_updaters(turn.anchor, true);
