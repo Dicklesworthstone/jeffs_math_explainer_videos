@@ -34,9 +34,9 @@
 04_3	B's row slides with it, and its ghosts miss their opposites.
 04_4	The echo splits into three and five, with ghosts at six shifts.
 04_5	Now keep it in place, and let the second send's echo come back upside down.
-04_6	Not a new object, and not a negative distance. The same echo, flipped. In radar, half a turn of phase does this.
+04_6	Compared with the first send, it is the same echo at the same distance, only flipped. In radar, half a turn of phase does this.
 04_7	What happens to the true echo when we add?
-04_8	It cancels, and every ghost doubles instead.
+04_8	Cancelled out, and every ghost doubles instead.
 04_9	In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed.
 04_10	Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels.
 04_11	So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added.

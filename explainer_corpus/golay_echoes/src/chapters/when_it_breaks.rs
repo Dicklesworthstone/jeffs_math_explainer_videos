@@ -1,7 +1,7 @@
 //! Chapter 04, when it breaks: the clean control, set on a shelf beside
 //! every failure (04_1); the echo moves one step between the sends (04_2 to
-//! 04_4); the same echo comes back upside down, which is not a new object
-//! and not a negative distance (04_5, 04_6); the true echo cancels and every
+//! 04_4); the same echo comes back upside down, at the same distance, only
+//! flipped (04_5, 04_6); the true echo cancels and every
 //! ghost doubles (04_7, a prediction, and 04_8); the identity for any change
 //! (04_9); a noise blip is scored and the peak survives (04_10); the ending
 //! (04_11).
@@ -229,11 +229,12 @@ impl SceneConstruct for WhenItBreaks {
         let turned = scene_row(stage, &FLIPPED, SECOND_Y, SCENE_UNIT)?;
         swap(stage, &second.pulses, &turned.pulses, 0.4)?;
 
-        // 04_6: not a new object, not a negative distance
+        // 04_6: compared with the first send, the same echo at the same
+        // distance, only flipped
         let line = say(&kit, stage, "04_6")?;
         let card = precisely(&kit, stage, &phase_claim()?)?;
         fade_in_all(stage, &[card], 0.4)?;
-        line.wait_for(stage, "The same echo")?;
+        line.wait_for(stage, "the same echo")?;
         flash_all(stage, &[turned.pulses[0], first.pulses[0]], 0.6)?;
 
         // 04_7: what happens to the true echo? B's row turned over hangs from
@@ -411,7 +412,7 @@ mod tests {
             ("04_4", "three and five"),
             ("04_4", "six shifts"),
             ("04_5", "upside down"),
-            ("04_6", "The same echo"),
+            ("04_6", "the same echo"),
             ("04_7", "when we add"),
             ("04_8", "every ghost doubles"),
             ("04_9", "In general"),

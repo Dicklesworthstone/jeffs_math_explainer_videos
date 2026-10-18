@@ -874,11 +874,11 @@ mod tests {
         let moved = two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED);
         assert_eq!((moved.at(0), moved.at(1)), (3, 5));
         assert_eq!(moved.ghost_shifts(&[0, 1]).len(), 6);
-        // "Not a new object, and not a negative distance": one echo, at step
-        // 0, with strength −1
+        // "it is the same echo at the same distance, only flipped": one echo,
+        // at step 0, with strength −1
         assert_eq!(FLIPPED.len(), STILL.len());
         assert_eq!(FLIPPED[0], -STILL[0]);
-        // "It cancels, and every ghost doubles instead."
+        // "Cancelled out, and every ghost doubles instead."
         let flipped = two_measurements(&CODE_A, &STILL, &CODE_B, &FLIPPED);
         let a = autocorrelation(&CODE_A);
         assert_eq!(flipped.at(0), 0);

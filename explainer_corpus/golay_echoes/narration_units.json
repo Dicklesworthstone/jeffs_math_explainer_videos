@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "697b1146768b52a747be293bc2bf7b4f99de34cdd30c46a90988e5dd2f4d1df4",
+  "script_sha256": "ec77737c345b8635050717948eb53ed64a037d46a9ad03fa88535ea3c756a7fb",
   "units": [
     {
       "id": "01u1",
@@ -86,7 +86,7 @@
         "04_7",
         "04_8"
       ],
-      "text": "Now keep it in place, and let the second send's echo come back upside down. Not a new object, and not a negative distance. The same echo, flipped. In radar, half a turn of phase does this. What happens to the true echo when we add? It cancels, and every ghost doubles instead."
+      "text": "Now keep it in place, and let the second send's echo come back upside down. Compared with the first send, it is the same echo at the same distance, only flipped. In radar, half a turn of phase does this. What happens to the true echo when we add? Cancelled out, and every ghost doubles instead."
     },
     {
       "id": "04u3",

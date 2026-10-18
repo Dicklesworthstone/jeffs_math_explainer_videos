@@ -110,7 +110,7 @@ mod tests {
         ("04_4", "six shifts", "G-F14.moved.ghost_count", "6"),
         ("04_5", "the second send's echo", "G-F18.sends", "2"),
         ("04_6", "half a turn", "G-F15.phase.flip_factor", "-1"),
-        ("04_8", "It cancels", "G-F15.phase.at_echo", "0"),
+        ("04_8", "Cancelled out", "G-F15.phase.at_echo", "0"),
         ("04_8", "every ghost doubles", "G-F15.phase.ghost_ratio", "2"),
         ("04_9", "four-pulse pair", "G-F16.pulses", "4"),
         ("04_9", "eight times the second scene", "G-F16.factor", "8"),
