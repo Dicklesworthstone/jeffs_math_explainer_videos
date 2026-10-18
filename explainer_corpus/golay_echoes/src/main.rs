@@ -108,6 +108,7 @@ mod tests {
         ("04_2", "one step", "G-F14.moved.step", "1"),
         ("04_4", "three and five", "G-F14.moved.at_echoes", "3,5"),
         ("04_4", "six shifts", "G-F14.moved.ghost_count", "6"),
+        ("04_5", "the second send's echo", "G-F18.sends", "2"),
         ("04_6", "half a turn", "G-F15.phase.flip_factor", "-1"),
         ("04_8", "It cancels", "G-F15.phase.at_echo", "0"),
         ("04_8", "every ghost doubles", "G-F15.phase.ghost_ratio", "2"),
@@ -156,6 +157,30 @@ mod tests {
         assert_eq!(pulses("Up, up, down, up"), model::CODE_B);
         let f = facts::facts().unwrap();
         assert_eq!(f.get("G-F2.a.ghost_shifts"), f.get("G-F2.b.ghost_shifts"));
+    }
+
+    /// The synthesis input, narration_units.json, was built from this
+    /// script: it names the script's hash, and holds every line once, in
+    /// order (`python3 -I -B narration_units.py` checks the rest; `--write`
+    /// rebuilds it after a script edit).
+    #[test]
+    fn the_narration_units_are_built_from_this_script() {
+        let units = include_str!("../narration_units.json");
+        let hash = explainer_score::digest::sha256_hex(SCRIPT.as_bytes());
+        assert!(
+            units.contains(&format!("\"script_sha256\": \"{hash}\"")),
+            "narration_units.json is stale: run python3 -I -B narration_units.py --write"
+        );
+        let script = Script::parse(SCRIPT).unwrap();
+        let mut from = 0;
+        for (id, _) in script.lines() {
+            let quoted = format!("\"{id}\"");
+            assert_eq!(units.matches(&quoted).count(), 1, "{id} is not in exactly one unit");
+            let at = units[from..]
+                .find(&quoted)
+                .unwrap_or_else(|| panic!("{id} is out of script order"));
+            from += at + quoted.len();
+        }
     }
 
     #[test]

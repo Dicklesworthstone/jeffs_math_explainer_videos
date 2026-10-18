@@ -628,10 +628,12 @@ mod tests {
         let parts = contributions(&CODE_A, &scene);
         assert_eq!(parts.iter().map(|&(d, _)| d).collect::<Vec<_>>(), [0, 3]);
         assert_eq!((parts[0].1.at(3), parts[1].1.at(3)), (-4, 4));
-        // "One step either side, the loud ghosts stand four tall, as tall as
-        // the quiet echo."
+        // "One step either side of the loud echo, its ghosts stand four
+        // tall, as tall as the quiet echo."
         assert_eq!((parts[0].1.at(-1), parts[0].1.at(1)), (4, 4));
         assert_eq!((a.at(-1), a.at(1)), (4, 4), "and so does the row there");
+        // either side of the quiet echo the row is not four tall
+        assert_eq!((a.at(2), a.at(4)), (1, 1));
         // "Eight. Its ghost lands on the quiet echo instead of erasing it,
         // and doubles it."
         let parts_b = contributions(&CODE_B, &scene);

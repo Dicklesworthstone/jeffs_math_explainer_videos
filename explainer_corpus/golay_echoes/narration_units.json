@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "script_sha256": "697b1146768b52a747be293bc2bf7b4f99de34cdd30c46a90988e5dd2f4d1df4",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3",
+        "01_4",
+        "01_5",
+        "01_6"
+      ],
+      "text": "Send out four pulses. Up, up, up, down. Something bounces them back. Slide a copy along what came back, and multiply the pulses that line up. Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. Lined up exactly, all four agree. A score of four, at the echo. One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. Slide all the way, and ghosts appear on both sides, a quarter the echo's size."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_7",
+        "01_8",
+        "01_9",
+        "01_10"
+      ],
+      "text": "With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up. Its ghosts are the same size, at the same shifts. What if we add the two rows? Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost. But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return."
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1",
+        "02_2",
+        "02_3",
+        "02_4",
+        "02_5"
+      ],
+      "text": "Now two things echo back. A loud one, and a quiet one three steps farther. Pattern A's two echoes overlap, and the receiver records their sum. Score it as before. The loud one stands tall at zero. At three steps, where the quiet one is, the score is zero. Zero is not empty. Each echo brings its own row of scores, and at three steps they collide. The loud one's ghost there is minus four. The quiet one's peak is plus four. They cancel."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_6",
+        "02_7",
+        "02_8",
+        "02_9",
+        "02_10"
+      ],
+      "text": "One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo. Pattern B's ghosts have the other sign. What will B score at three steps? Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over. Sending A twice would not help. Its ghosts never cancel themselves, so the quiet one stays hidden."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2",
+        "03_3",
+        "03_4",
+        "03_5",
+        "03_6"
+      ],
+      "text": "Where do pairs like these come from? Start with one pulse, paired with itself. Now double it. Write the first, then the other. Then the first again, and the other flipped. Double again, and out come patterns A and B. Why do their ghosts cancel? Slide each copy one step, and look at the pairs that line up. Inside a half, B matches A, or has both pulses flipped. Those products don't change. A pair across the halves has exactly one flipped pulse, so its product changes sign."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_7",
+        "03_8",
+        "03_9",
+        "03_10"
+      ],
+      "text": "So what's left when we add A's and B's products here? The crossing products cancel in pairs. The rest is twice the old pair's rows, whose ghosts already cancel. This split works at every shift, for every doubling. Each doubling of a cancelling pair gives a new one, twice as long. Leave out the flip, and the crossing products add instead. The ghosts come back."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2",
+        "04_3",
+        "04_4"
+      ],
+      "text": "Back to the clean case. Both sends meet the same scene, and every ghost cancels. Now let the echo move one step between the sends. B's row slides with it, and its ghosts miss their opposites. The echo splits into three and five, with ghosts at six shifts."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_5",
+        "04_6",
+        "04_7",
+        "04_8"
+      ],
+      "text": "Now keep it in place, and let the second send's echo come back upside down. Not a new object, and not a negative distance. The same echo, flipped. In radar, half a turn of phase does this. What happens to the true echo when we add? It cancels, and every ghost doubles instead."
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_9",
+        "04_10",
+        "04_11"
+      ],
+      "text": "In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed. Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels. So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added."
+    }
+  ]
+}
