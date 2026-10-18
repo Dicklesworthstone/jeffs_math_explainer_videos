@@ -1598,19 +1598,21 @@
           "revision_id": "v1-michael-20261017",
           "label": "First production revision",
           "voice": "michael",
-          "generation_provenance": "Native silent assembly of 4 centrally accepted chapter drafts, 320.0 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
+          "generation_provenance": "Native silent assembly of 4 centrally accepted chapter drafts, 320.0 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration. Chapter 03 opening context repaired at f9d256e4f0b0bb662b9cc4d417bb7c804217c843 with unchanged cue timing; all 9600 decoded frames of this assembly match its four chapter inputs. The previous silent assembly is retained.",
           "evidence_refs": [
             "AGENTS.md",
             "docs/video-program/NARRATION-CONSISTENCY.md",
             "explainer_corpus/golay_echoes/renders/central-20261018T0240/full-draft.mp4",
             "mx-video-program-program-87do.6.4",
-            "mx-video-program-program-87do.6.5"
+            "mx-video-program-program-87do.6.5",
+            "explainer_corpus/golay_echoes/renders/central-20261018T0454/full-draft.mp4",
+            "mx-video-program-program-87do.6.6"
           ],
           "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance in the referenced Bead.",
           "milestones": [],
           "artifact_refs": {
             "scene": [
-              "golay_echoes.silent-20261018.104aa4b4e2d7"
+              "golay_echoes.silent-20261018.f7f12b0ec5ec"
             ]
           }
         }
@@ -2966,6 +2968,19 @@
       "evidence_refs": [
         "mx-video-program-program-87do.7.6",
         "mx-video-program-program-87do.7.7",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.silent-20261018.f7f12b0ec5ec",
+      "kind": "scene",
+      "path": "explainer_corpus/golay_echoes/renders/central-20261018T0454/full-draft.mp4",
+      "sha256": "f7f12b0ec5ec72bbb467c28c10d406be43446c4ff81c5d02fc610b1ca74607d5",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.6",
+        "mx-video-program-program-87do.6.5",
         "docs/video-program/NARRATION-CONSISTENCY.md"
       ]
     }
