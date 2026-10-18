@@ -370,7 +370,13 @@ impl<T: Num> Tile<T> {
     /// Its corners, counter-clockwise, starting from the one that is lower
     /// left when the tile is straight.
     pub fn corners(&self) -> [Point<T>; 4] {
-        let h = T::ratio(1, 2);
+        self.corners_sized(T::ratio(1, 1))
+    }
+
+    /// Its corners were it `side` wide about the same centre, with the same
+    /// turn (chapter 07's grown tiles), in [`Tile::corners`]' order.
+    pub fn corners_sized(&self, side: T) -> [Point<T>; 4] {
+        let h = side * T::ratio(1, 2);
         let (ux, uy) = (self.cos * h, self.sin * h);
         let (vx, vy) = (-self.sin * h, self.cos * h);
         let (cx, cy) = self.centre;
@@ -414,7 +420,12 @@ fn shadow<T: Num>(corners: &[Point<T>; 4], axis: Point<T>) -> (T, T) {
 /// with no overlap. Negative: their insides overlap, and minus the value is
 /// the shortest push that would part them.
 pub fn clearance<T: Num>(a: &Tile<T>, b: &Tile<T>) -> T {
-    let (pa, pb) = (a.corners(), b.corners());
+    clearance_sized(a, b, T::ratio(1, 1))
+}
+
+/// [`clearance`] for two tiles each `side` wide (chapter 07's grown tiles).
+pub fn clearance_sized<T: Num>(a: &Tile<T>, b: &Tile<T>, side: T) -> T {
+    let (pa, pb) = (a.corners_sized(side), b.corners_sized(side));
     let [a1, a2] = a.axes();
     let [b1, b2] = b.axes();
     let gap = |axis: Point<T>| {
@@ -1783,6 +1794,70 @@ pub fn middle_wander(t: f64) -> Tile<f64> {
     }
 }
 
+// --------------------------------------- four points, five tiles (chapter 07)
+//
+// The lower bound: no box narrower than B = 2 + 1/√2 holds five unit tiles.
+// Chapters 04 to 06 show that every unit tile in the box B wide covers one
+// of Friedman's four points, but only closed: on its edge at worst, and
+// where five fit at B each point is on two tiles' edges. The strict step:
+//
+// Suppose five unit tiles fit, insides apart, in a box s < B wide. Enlarge
+// the whole picture by λ = B/s > 1 about a corner of the box: the box
+// becomes B wide; every tile becomes λ wide with the same turn, its centre
+// at λ times its own ([`grown`]); a similarity scales every clearance by λ,
+// so the insides still do not overlap. Inside each grown tile keep its core,
+// the unit tile with the same centre and turn: the core lies in the grown
+// tile, so in the box B wide, and so it covers one of the four points: that
+// point is at most ½ from the centre along each of the tile's sides. The
+// grown tile reaches λ/2 > ½ along each, so the point is strictly inside it,
+// at least (λ − 1)/2 deep ([`depth_sized`]). Five grown tiles each hold a
+// point strictly inside; two cannot hold the same one, or their insides
+// would overlap about it; four points cannot serve five tiles. So no
+// narrower box holds five, and the turned packing of chapter 01 fits the box
+// B wide: B is the smallest. ∎
+//
+// At λ = 1 nothing grows, and the depth can be 0: the points may sit on
+// edges, shared, as where five fit. Below 1 the "grown" tile is smaller than
+// its core and may miss the point it covered.
+//
+// Nothing here places five tiles in a box narrower than B: that is the
+// supposition the argument rules out. Chapter 07 grows one real tile with
+// computed geometry ([`scale_core`], by [`GROWTH`]) and draws the count as
+// a schematic.
+
+/// The growth chapter 07 shows, λ = 6/5 (a box 5/6 of B, supposed).
+pub const GROWTH: (i64, i64) = (6, 5);
+
+/// Tile `t` enlarged by `lambda` about the box's corner, the origin: its
+/// centre moves to λ times itself and its turn is kept (it is then λ wide;
+/// the functions taking a `side` say so).
+pub fn grown<T: Num>(t: &Tile<T>, lambda: T) -> Tile<T> {
+    Tile {
+        centre: (t.centre.0 * lambda, t.centre.1 * lambda),
+        cos: t.cos,
+        sin: t.sin,
+    }
+}
+
+/// How deep `q` lies inside tile `t` were it `side` wide (same centre and
+/// turn): half the side less q's larger distance from the centre along the
+/// tile's two sides. Positive strictly inside, zero on an edge.
+pub fn depth_sized<T: Num>(t: &Tile<T>, side: T, q: Point<T>) -> T {
+    let (u, v) = tile_frame(t, q);
+    side * T::ratio(1, 2) - larger(larger(u, -u), larger(v, -v))
+}
+
+/// The core 07 grows, a real unit tile in the box B wide: centred
+/// (7/5, 13/10), turned by cos 4/5, sin 3/5 (about 37°). Of the four points it
+/// holds (1, 1) at the middle of its edge and two others strictly inside.
+pub fn scale_core() -> Tile<Surd> {
+    Tile {
+        centre: (Surd::ratio(7, 5), Surd::ratio(13, 10)),
+        cos: Surd::ratio(4, 5),
+        sin: Surd::ratio(3, 5),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2862,5 +2937,160 @@ mod tests {
             assert!(on.iter().all(|&(_, h)| h == Holds::OnEdge), "{k}");
             assert!(on.iter().any(|&(i, _)| i == MIDDLE), "{k}");
         }
+    }
+
+    /// The tiles 07 checks the strict step on: every middle-lemma example
+    /// (each triangle's corners, side middles and centroid, at every checked
+    /// turn), and 07's own core.
+    fn covering_cores() -> Vec<Tile<Surd>> {
+        let mut out = vec![scale_core()];
+        for tri in middle_triangles(turned_side()) {
+            for centre in triangle_centres(&tri) {
+                for turn in corner_turns() {
+                    out.push(Tile {
+                        centre,
+                        cos: turn.0,
+                        sin: turn.1,
+                    });
+                }
+            }
+        }
+        out
+    }
+
+    /// The strict step, exactly, for every checked core and every point it
+    /// covers: grown to λ about the same centre, the point is
+    /// (λ − 1)/2 deeper. Above 1 that is strictly inside, at least
+    /// (λ − 1)/2 deep; at 1 an edge point stays on the edge; below 1 an edge
+    /// point falls outside, so claiming strictness there would be false.
+    #[test]
+    fn growing_a_tile_puts_every_covered_point_strictly_inside() {
+        let one = Surd::int(1);
+        let half = Surd::ratio(1, 2);
+        let pts = corner_points(turned_side());
+        let mut edge_cases = 0;
+        for core in covering_cores() {
+            for &p in &pts {
+                let depth = depth_inside(&core, p);
+                assert_eq!(depth_sized(&core, one, p), depth, "side 1 is the unit tile");
+                if depth < Surd::ZERO {
+                    continue;
+                }
+                for lambda in [Surd::ratio(11, 10), Surd::ratio(6, 5), Surd::ratio(3, 2)] {
+                    let grown_depth = depth_sized(&core, lambda, p);
+                    assert_eq!(grown_depth, depth + (lambda - one) * half);
+                    assert!(grown_depth >= (lambda - one) * half && grown_depth > Surd::ZERO);
+                }
+                if depth == Surd::ZERO {
+                    edge_cases += 1;
+                    let below = Surd::ratio(9, 10);
+                    assert!(depth_sized(&core, below, p) < Surd::ZERO, "below 1 the point is lost");
+                }
+            }
+        }
+        assert!(edge_cases > 0, "some core covers a point only on its edge");
+        let core = scale_core();
+        assert_eq!(depth_inside(&core, pts[0]), Surd::ZERO);
+        assert_eq!(
+            depth_sized(&core, Surd::ratio(GROWTH.0, GROWTH.1), pts[0]),
+            Surd::ratio(1, 10)
+        );
+        assert_eq!(depth_sized(&core, Surd::ratio(9, 10), pts[0]), Surd::ratio(-1, 20));
+    }
+
+    /// The depth of a point in a grown tile is unmoved by turning and
+    /// shifting the tile and the point together.
+    #[test]
+    fn the_grown_depth_is_unmoved_by_turning_and_shifting() {
+        let turn = (Surd::ratio(5, 13), Surd::ratio(12, 13));
+        let shift = (Surd::ratio(3, 7), Surd::ratio(-2, 9));
+        let mv = |p: Point<Surd>| {
+            let q = compose(turn, p);
+            (q.0 + shift.0, q.1 + shift.1)
+        };
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        for core in covering_cores().into_iter().step_by(37) {
+            let (cos, sin) = compose(turn, (core.cos, core.sin));
+            let moved = Tile {
+                centre: mv(core.centre),
+                cos,
+                sin,
+            };
+            for p in corner_points(turned_side()) {
+                assert_eq!(depth_sized(&moved, lambda, mv(p)), depth_sized(&core, lambda, p));
+            }
+        }
+    }
+
+    /// Enlarging a genuinely valid layout (the five straight tiles in the
+    /// box of three, and the turned five in the box of 2.71; neither is the
+    /// supposed narrower packing) by λ about the box's corner scales every
+    /// clearance, tile to tile and tile to wall, by λ: what was apart stays
+    /// apart, a touch stays a touch, and the grown tiles fit the grown box.
+    #[test]
+    fn enlarging_a_layout_scales_every_clearance() {
+        for lambda in [Surd::ratio(6, 5), Surd::ratio(3, 2)] {
+            for p in [five_straight(), five_turned()] {
+                let box_side = p.side * lambda;
+                for (i, a) in p.tiles.iter().enumerate() {
+                    let ga = grown(a, lambda);
+                    for b in &p.tiles[i + 1..] {
+                        let gb = grown(b, lambda);
+                        assert_eq!(clearance_sized(&ga, &gb, lambda), clearance(a, b) * lambda);
+                        assert!(clearance_sized(&ga, &gb, lambda) >= Surd::ZERO);
+                    }
+                    let walls = Surd::ZERO..=box_side;
+                    for (q, c) in ga.corners_sized(lambda).iter().zip(a.corners()) {
+                        assert_eq!((q.0, q.1), (c.0 * lambda, c.1 * lambda));
+                        assert!(walls.contains(&q.0) && walls.contains(&q.1));
+                    }
+                }
+            }
+        }
+    }
+
+    /// Two tiles cannot share a point strictly inside: where five fit, the
+    /// turned tile and a corner tile share a point on their edges and only
+    /// touch; grown in place, both hold it strictly inside, and their
+    /// insides overlap.
+    #[test]
+    fn tiles_sharing_a_point_strictly_inside_overlap() {
+        let five = five_turned();
+        let point = corner_points(turned_side())[0];
+        let (corner_tile, middle) = (five.tiles[0], five.tiles[MIDDLE]);
+        assert_eq!(depth_inside(&corner_tile, point), Surd::ZERO);
+        assert_eq!(depth_inside(&middle, point), Surd::ZERO);
+        assert_eq!(clearance(&corner_tile, &middle), Surd::ZERO);
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        assert!(depth_sized(&corner_tile, lambda, point) > Surd::ZERO);
+        assert!(depth_sized(&middle, lambda, point) > Surd::ZERO);
+        assert!(clearance_sized(&corner_tile, &middle, lambda) < Surd::ZERO);
+    }
+
+    /// 07's core is a unit tile in the box B wide holding (1, 1) on its edge
+    /// and two other points inside; grown by 6/5 it holds all four strictly
+    /// inside and still lies in the box; its smaller original sits in the
+    /// box 5/6 as wide.
+    #[test]
+    fn the_shown_core_and_its_growth() {
+        let side = turned_side();
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        let core = scale_core();
+        let pts = corner_points(side);
+        assert_eq!(
+            held(&core, &pts),
+            [Holds::OnEdge, Holds::Outside, Holds::Inside, Holds::Inside]
+        );
+        assert!(in_quadrant(&core) && wall_clearance(&core, side) >= Surd::ZERO);
+        assert!(pts.iter().all(|&p| depth_sized(&core, lambda, p) > Surd::ZERO));
+        let inside_box = |c: &[Point<Surd>; 4], s: Surd| {
+            let walls = Surd::ZERO..=s;
+            c.iter().all(|q| walls.contains(&q.0) && walls.contains(&q.1))
+        };
+        assert!(inside_box(&core.corners_sized(lambda), side));
+        let small_side = side * lambda.recip();
+        let small = grown(&core, lambda.recip());
+        assert!(inside_box(&small.corners(), small_side));
+        assert_eq!(grown(&small, lambda), core);
     }
 }

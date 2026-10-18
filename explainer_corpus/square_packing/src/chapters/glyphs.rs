@@ -30,6 +30,10 @@ pub const TEX: &[&str] = &[
     super::near_a_side::BEATS,
     super::near_a_side::SLIP,
     super::near_a_side::IDENTITY,
+    super::four_points_five_tiles::LAMBDA,
+    super::four_points_five_tiles::DEPTH,
+    super::four_points_five_tiles::B_IS,
+    super::four_points_five_tiles::NO_GROWTH,
 ];
 /// Code, set in CM Typewriter.
 pub const MONO: &[&str] = &[];

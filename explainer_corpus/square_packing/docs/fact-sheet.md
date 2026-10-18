@@ -61,7 +61,10 @@ read: Wikipedia "Square packing"; MathWorld "Square Packing"; xkcd 2740
 "Square Packing" (the seventeen-square record) and its explainxkcd page. No
 video was watched. A fuller competition review remains open.
 
-**Never said or shown**: that the picture proves nothing smaller fits; that
+**Never said or shown**: that the picture proves nothing smaller fits (the
+proof is chapters 04 to 07, `model.rs` § four points, five tiles, which
+draws no five tiles in a box narrower than 2 + 1/√2: that is the
+supposition it rules out); that
 the packing is rigid (chapter 04 will recompute it); that five is "the first
 case where tilting beats the grid" (S1 says so; not yet checked against the
 cases below five); anything about counts beyond five.

@@ -666,6 +666,50 @@ def main():
     put("middle.packing.inside", ",".join(inside_pts) or "none")
     put("middle.box.left", region - (4 * (1 - lo_c) * (1 - lo_c) + 4 * gap * (1 - lo_c) + gap * gap))
 
+    # chapter 07, four points, five tiles, by polygons: a tile grown to lam
+    # wide is its unit square scaled about its own centre; a point's depth in
+    # it is its least distance to an edge (edges lam long); growing a whole
+    # picture moves each centre to lam times itself; two grown tiles meet as
+    # their clipped polygon says
+    def grown_poly(cx, cy, cd, sd, lam):
+        h = q2(lam) * HALF
+        sq = [(q2(cx) - h, q2(cy) - h), (q2(cx) + h, q2(cy) - h), (q2(cx) + h, q2(cy) + h), (q2(cx) - h, q2(cy) + h)]
+        return rotate(sq, (q2(cx), q2(cy)), q2(cd), q2(sd))
+
+    def depth_grown(poly, p, lam):
+        return min(cross(poly[i], poly[(i + 1) % 4], p) for i in range(4)) / q2(lam)
+
+    def grade(d):
+        return "inside" if d > 0 else ("edge" if d == 0 else "outside")
+
+    def about(poly, lam):
+        cx, cy = centre_of(poly)
+        return [(cx + lam * (v[0] - cx), cy + lam * (v[1] - cy)) for v in poly]
+
+    lam = Fraction(6, 5)
+    put("scale.lambda", lam)
+    small_box = side / q2(lam)
+    put("scale.small", small_box)
+    put("scale.small.2dp", small_box.rounded(2))
+    core_c, core_t = (Fraction(7, 5), Fraction(13, 10)), (Fraction(4, 5), Fraction(3, 5))
+    core = tile_at(*core_c, *core_t)
+    put("scale.core.held", ",".join(where(core, p) for p in four))
+    big_tile = grown_poly(*core_c, *core_t, lam)
+    put("scale.grown.held", ",".join(grade(depth_grown(big_tile, p, lam)) for p in four))
+    margin = depth_grown(big_tile, four[0], lam)
+    if where(core, four[0]) != "edge" or margin != (lam - 1) * HALF:
+        sys.exit("oracle: the grown depth of the core's edge point is not (lam - 1)/2")
+    put("scale.margin", margin)
+    put("scale.margin.2dp", margin.rounded(2))
+    for key, l in (("scale.margin.at1", Fraction(1)), ("scale.margin.below", Fraction(9, 10))):
+        d = depth_grown(grown_poly(*core_c, *core_t, l), four[0], l)
+        put(key, f"{d}|{grade(d)}")
+    put("scale.grown.walls", "through a wall" if escaped(big_tile, side) else "inside the walls")
+    small_tile = tile_at(core_c[0] / lam, core_c[1] / lam, *core_t)
+    put("scale.small.walls", "through a wall" if escaped(small_tile, small_box) else "inside the walls")
+    put("scale.count", f"{len(tiles)}|{len(four)}")
+    put("scale.shared", f"{relation(tiles[0], tiles[4])}|{relation(about(tiles[0], lam), about(tiles[4], lam))}")
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])

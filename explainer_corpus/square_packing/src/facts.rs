@@ -64,6 +64,7 @@ pub fn facts() -> Result<Facts, String> {
     corner(&mut f)?;
     strip(&mut f)?;
     middle(&mut f)?;
+    scale(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -636,6 +637,77 @@ fn middle(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 07: four points, five tiles. The growth shown, λ = 6/5, and the narrower
+/// box it supposes, B/λ; the shown core (a real unit tile in the box B
+/// wide) and what it and its growth hold; the point on its edge, how deep it
+/// is once grown (λ − 1)/2, at λ = 1 and below 1; that the grown tile fits
+/// the box B and its original the box B/λ; the count; and where five fit,
+/// the shared point's two tiles touching, overlapping once both grow.
+fn scale(f: &mut Facts) -> Result<(), String> {
+    let side = model::turned_side();
+    let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+    let lambda = Surd::ratio(model::GROWTH.0, model::GROWTH.1);
+    let pts = model::corner_points(side);
+    let words = |h: &[model::Holds]| h.iter().map(|h| h.word()).collect::<Vec<_>>().join(",");
+    let in_box = |c: &[Point<Surd>; 4], s: Surd| {
+        let walls = Surd::ZERO..=s;
+        quadrant_word(c.iter().all(|q| walls.contains(&q.0) && walls.contains(&q.1)))
+    };
+    f.add("scale.lambda", lambda)?;
+    let small_side = side * lambda.recip();
+    f.add("scale.small", small_side)?;
+    f.add("scale.small.2dp", small_side.decimals(2))?;
+    let core = model::scale_core();
+    f.add("scale.core.held", words(&model::held(&core, &pts)))?;
+    let grown_held: Vec<model::Holds> = pts
+        .iter()
+        .map(|&p| model::Holds::of(model::depth_sized(&core, lambda, p)))
+        .collect();
+    f.add("scale.grown.held", words(&grown_held))?;
+    let point = pts[0];
+    let edge = model::depth_inside(&core, point);
+    ensure(edge == Surd::ZERO, || {
+        "the shown core's point is not on its edge".to_owned()
+    })?;
+    let margin = model::depth_sized(&core, lambda, point);
+    ensure(margin == edge + (lambda - one) * half && margin > Surd::ZERO, || {
+        "the grown depth is not (λ − 1)/2".to_owned()
+    })?;
+    f.add("scale.margin", margin)?;
+    f.add("scale.margin.2dp", margin.decimals(2))?;
+    let at = |l: Surd| {
+        let d = model::depth_sized(&core, l, point);
+        format!("{d}|{}", model::Holds::of(d).word())
+    };
+    f.add("scale.margin.at1", at(one))?;
+    f.add("scale.margin.below", at(Surd::ratio(9, 10)))?;
+    f.add("scale.grown.walls", in_box(&core.corners_sized(lambda), side))?;
+    let small = model::grown(&core, lambda.recip());
+    f.add("scale.small.walls", in_box(&small.corners(), small_side))?;
+    ensure(model::grown(&small, lambda) == core, || {
+        "the growth does not undo".to_owned()
+    })?;
+    let tiles = usize::try_from(TILES).map_err(|e| e.to_string())?;
+    ensure(tiles > pts.len(), || "there are as many points as tiles".to_owned())?;
+    f.add("scale.count", format!("{tiles}|{}", pts.len()))?;
+    let five = model::five_turned();
+    let (a, b) = (five.tiles[0], five.tiles[MIDDLE]);
+    let relation = |c: Surd| match model::contact(c, Surd::ZERO) {
+        model::Contact::Apart => "apart",
+        model::Contact::Touching => "touch",
+        model::Contact::Overlapping => "overlap",
+    };
+    f.add(
+        "scale.shared",
+        format!(
+            "{}|{}",
+            relation(model::clearance(&a, &b)),
+            relation(model::clearance_sized(&a, &b, lambda))
+        ),
+    )?;
+    Ok(())
+}
+
 /// How a tile meets a triangle, as the facts print it: `holds`, or the way
 /// it misses every corner with the sides involved.
 fn meets_word(m: model::Meets) -> String {
@@ -969,5 +1041,46 @@ mod tests {
         );
         assert_eq!(value("middle.packing.inside"), "none");
         assert!(l7.contains("each point sits on the edges of two tiles"), "{l7}");
+    }
+
+    /// What chapter 07's voice says, on the facts: the supposed box
+    /// narrower than 2.71 and the grown one 2.71, the shown tile in each;
+    /// the unit core covering a point on its edge; that point strictly inside
+    /// the grown tile by (λ − 1)/2, on the edge at λ = 1 and lost below it;
+    /// five tiles against four points, a shared point overlapping once
+    /// grown; the turned packing fitting, its points shared on edges.
+    #[test]
+    fn four_points_five_tiles_says_the_facts() {
+        assert_eq!(value("turned.side.2dp"), "2.71");
+        assert!(line("07_1").contains(&format!("narrower than {}", spoken("2.71"))));
+        assert!(value("scale.small.2dp").parse::<f64>().unwrap() < 2.71);
+        assert_eq!(value("scale.small.walls"), "inside the walls");
+        assert_eq!(value("scale.grown.walls"), "inside the walls");
+        assert!(line("07_2").contains("Each tile grows by the same factor"));
+        assert!(line("07_3").contains("keep a unit tile with the same centre"));
+        assert!(value("scale.core.held").split(',').any(|h| h == "edge"));
+        assert!(line("07_4").contains("at worst on its edge"));
+        let lambda: Vec<f64> = value("scale.lambda").split('/').map(|n| n.parse().unwrap()).collect();
+        let margin: Vec<f64> = value("scale.margin").split('/').map(|n| n.parse().unwrap()).collect();
+        assert!((margin[0] / margin[1] - (lambda[0] / lambda[1] - 1.0) / 2.0).abs() < 1e-12);
+        assert!(line("07_5").contains("strictly inside it, by at least half the growth"));
+        assert_eq!(value("scale.margin.at1"), "0|edge");
+        assert!(value("scale.margin.below").ends_with("|outside"));
+        let count = value("scale.count");
+        let (tiles, points) = count.split_once('|').unwrap();
+        let (tiles, points): (u32, u32) = (tiles.parse().unwrap(), points.parse().unwrap());
+        assert!(tiles > points);
+        let l6 = line("07_6");
+        assert!(l6.starts_with(&format!("{} tiles", capital(word(tiles)))), "{l6}");
+        assert!(
+            l6.contains(&format!("{} points are not enough", capital(word(points)))),
+            "{l6}"
+        );
+        assert_eq!(value("scale.shared"), "touch|overlap");
+        assert!(l6.contains("no two can share one without overlapping"), "{l6}");
+        assert_eq!(value("turned.check"), "fits");
+        assert!(line("07_7").contains("the turned packing fits this one"));
+        assert_eq!(value("middle.packing.inside"), "none");
+        assert!(line("07_8").contains("shared by two tiles"));
     }
 }
