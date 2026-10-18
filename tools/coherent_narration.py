@@ -3,7 +3,9 @@
 
 Generation reuses narration_cache's actual EOS and asset checks. Assembly never
 guesses alignments: a director supplies measured sentence ends in source samples.
-All source PCM is retained, in order, with optional authored silence. Output is
+All selected target PCM is retained, in order, with optional authored silence.
+A contextual pickup may exclude only its explicitly recorded following context.
+Output is
 the existing per-cue WAV/report.json interface, not a new rendering path.
 Technical validation is not a listening judgment.
 """
@@ -67,6 +69,20 @@ def read_units(script_path, units_path):
     return script, units
 
 
+def request_text(unit, script, context_after=None):
+    """Following context is the next canonical cue, never invented coverage."""
+    if context_after is None:
+        return unit["text"]
+    cues = list(script)
+    at = cues.index(unit["line_ids"][-1]) + 1
+    if at == len(cues) or context_after != cues[at]:
+        raise ValueError("following context must be the next canonical script cue")
+    text = unit["text"] + " " + script[context_after]
+    if len(text.split()) > 100:
+        raise ValueError("target plus following context exceeds 100 words")
+    return text
+
+
 def generate(args):
     script, units = read_units(args.script, args.units)
     selected = [u for u in units if not args.chapter or u["line_ids"][0].startswith(args.chapter + "_")]
@@ -83,13 +99,22 @@ def generate(args):
                                   args.lexicon, env, options)
     context = capture()
     inputs = {"script": cache.identity(args.script), "units": cache.identity(args.units)}
+    following = {}
+    if args.following_context:
+        cues = list(script)
+        for u in selected:
+            at = cues.index(u["line_ids"][-1]) + 1
+            if at == len(cues):
+                raise ValueError("final unit has no canonical following context")
+            following[u["id"]] = cues[at]
     plan = {u["id"]: [{"j": 0, "reads": [{"tag": f"{u['id']}_s{args.seed}", "seed": args.seed,
-                      "text": u["text"], "tts": u["text"]}]}] for u in selected}
+                      "text": u["text"], "tts": request_text(u, script, following.get(u["id"]))}]}] for u in selected}
     jobs = cache.bind_plan(plan, context)
     # This directory is an immutable run, not a silently refreshed plan.
     args.out.mkdir(parents=True, exist_ok=False)
     cache.write_new(args.out / "plan.json", {"inputs": inputs, "units": selected, "plan": plan,
-                    "request_budget": len(jobs), "retry_budget": 0, "seed": args.seed})
+                    "request_budget": len(jobs), "retry_budget": 0, "seed": args.seed,
+                    "following_context": following})
     def verify_inputs():
         if capture() != context or inputs != {"script": cache.identity(args.script), "units": cache.identity(args.units)}:
             raise ValueError("generation inputs changed; preserve attempts, do not qualify outputs")
@@ -112,7 +137,8 @@ def unit_spans(unit, script, record):
     info, pcm = wav_pcm(wav_path)
     if info != receipt["wav"] or info["sha256"] != record["sha256"]:
         raise ValueError("source audio no longer matches generation receipt")
-    if receipt["returncode"] != 0 or receipt["request"]["submitted_text"] != unit["text"]:
+    context_after = record.get("context_after")
+    if receipt["returncode"] != 0 or receipt["request"]["submitted_text"] != request_text(unit, script, context_after):
         raise ValueError("generation request does not contain this unit's script")
     cache.validate_generation(receipt["generation"], receipt["request"], receipt["completion"])
     if receipt["completion"]["event"] != "run_complete" or receipt["completion"]["exit_code"] != 0:
@@ -125,8 +151,15 @@ def unit_spans(unit, script, record):
         raise ValueError("each scripted sentence needs one measured end and authored gap")
     if any(type(n) is not int for n in ends + gaps):
         raise ValueError("sample boundaries and gaps must be integers")
-    if not ends or ends[-1] != info["frames"] or any(b <= a for a, b in zip([0] + ends, ends)):
-        raise ValueError("source spans must cover every sample once, in increasing order")
+    target_end = info["frames"]
+    if context_after is not None:
+        target_end = record.get("target_end_sample")
+        if type(target_end) is not int or not 0 < target_end < info["frames"]:
+            raise ValueError("contextual pickup needs a measured target prefix before the source end")
+    elif "target_end_sample" in record:
+        raise ValueError("a target crop requires bound canonical following context")
+    if not ends or ends[-1] != target_end or any(b <= a for a, b in zip([0] + ends, ends)):
+        raise ValueError("source spans must cover every selected target sample once, in increasing order")
     if any(n < 0 or n > 24000 * 5 for n in gaps):
         raise ValueError("authored inserted silence must be between zero and five seconds")
     start = 0
@@ -217,6 +250,8 @@ def main():
     gen.add_argument("--lexicon", type=Path, required=True)
     gen.add_argument("--seed", type=int, default=2)
     gen.add_argument("--unit", action="append", help="generate only this existing unit; repeat for a bounded repair")
+    gen.add_argument("--following-context", action="store_true",
+                     help="append the next canonical cue as synthesis-only context; assembly needs a measured target prefix")
     assemble_parser.add_argument("--spans", type=Path, required=True)
     v = commands.add_parser("verify")
     v.add_argument("out", type=Path)

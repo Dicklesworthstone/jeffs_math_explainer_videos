@@ -145,6 +145,39 @@ class CoherentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             m.unit_spans(unit, script, record)
 
+    def test_contextual_target_preserves_prefix_and_refuses_unbound_crops(self):
+        record, receipt = self.source()
+        script = m.read_script(self.script)
+        script["02_1"] = "The next complete thought follows."
+        unit = self.plan["units"][0]
+        expected = unit["text"] + " " + script["02_1"]
+        self.assertEqual(m.request_text(unit, script, "02_1"), expected)
+        for wrong in ("01_1", "02_2", ""):
+            with self.assertRaises(ValueError):
+                m.request_text(unit, script, wrong)
+        with self.assertRaises(ValueError):
+            m.request_text(unit, {**script, "02_1": "word " * 100}, "02_1")
+        pickup = dict(record, context_after="02_1", target_end_sample=2100,
+                      sentence_ends=[600, 1500, 2100])
+        # A claimed pickup cannot relabel a normal producer receipt.
+        with self.assertRaises(ValueError):
+            m.unit_spans(unit, script, pickup)
+        receipt["request"]["submitted_text"] = expected
+        Path(record["generation_receipt"]).write_text(json.dumps(receipt))
+        rows = m.unit_spans(unit, script, pickup)
+        _, raw = m.wav_pcm(Path(record["wav"]))
+        self.assertEqual(b"".join(pcm[:r["out_samples"] * 2] for _, r, pcm in rows), raw[:2100 * 2])
+        self.assertEqual([r["sentence"] for _, r, _ in rows], m.sentences(unit["text"]))
+        for bad in (dict(pickup, target_end_sample=True), dict(pickup, target_end_sample=2400),
+                    dict(pickup, sentence_ends=[600, 1500, 2099]),
+                    dict(pickup, context_after=None), dict(pickup, context_after="01_1")):
+            with self.assertRaises(ValueError):
+                m.unit_spans(unit, script, bad)
+        receipt["request"]["submitted_text"] = unit["text"]
+        Path(record["generation_receipt"]).write_text(json.dumps(receipt))
+        with self.assertRaises(ValueError):
+            m.unit_spans(unit, script, dict(record, target_end_sample=2100))
+
 
 if __name__ == "__main__":
     unittest.main()
