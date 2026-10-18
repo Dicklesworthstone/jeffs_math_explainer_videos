@@ -44,10 +44,7 @@ pub const LOUD_AND_QUIET: [i64; 4] = [4, 0, 0, 1];
 /// Golay's complementary pair of length 10, as Wikipedia's *Complementary
 /// sequences* gives it (read 2026-10-17): a pair whose ghosts cancel that the
 /// doubling cannot build, since 10 is not a power of two (chapter 03).
-pub const GOLAY_10: ([i64; 10], [i64; 10]) = (
-    [1, 1, -1, 1, -1, 1, -1, -1, 1, 1],
-    [1, 1, -1, 1, 1, 1, 1, 1, -1, -1],
-);
+pub const GOLAY_10: ([i64; 10], [i64; 10]) = ([1, 1, -1, 1, -1, 1, -1, -1, 1, 1], [1, 1, -1, 1, 1, 1, 1, 1, -1, -1]);
 
 /// A row of scores: `values[i]` is the score at shift `first + i`, and
 /// every shift outside the row scores zero.
@@ -733,15 +730,17 @@ mod tests {
         let spans: Vec<Span> = a.iter().map(|&(_, s)| s).collect();
         assert_eq!(spans, [Span::Inside, Span::Across, Span::Inside]);
         let values = |r: &[(Product, Span)]| r.iter().map(|(p, _)| p.value).collect::<Vec<_>>();
-        assert_eq!(
-            (values(&a[..]), values(&b[..])),
-            (vec![1, 1, -1], vec![1, -1, -1])
-        );
+        assert_eq!((values(&a[..]), values(&b[..])), (vec![1, 1, -1], vec![1, -1, -1]));
         // "The crossing products cancel in pairs. The rest is twice the old
         // pair's rows, whose ghosts already cancel."
         let old = autocorrelation(x).plus(&autocorrelation(y));
         assert_eq!(old.at(1), 0);
-        let inside: i64 = a.iter().chain(&b).filter(|(_, s)| *s == Span::Inside).map(|(p, _)| p.value).sum();
+        let inside: i64 = a
+            .iter()
+            .chain(&b)
+            .filter(|(_, s)| *s == Span::Inside)
+            .map(|(p, _)| p.value)
+            .sum();
         assert_eq!(inside, 2 * old.at(1));
         // "twice as long", and the new rows add to twice the old peak
         assert_eq!(four.0.len(), 2 * two.0.len());
@@ -821,10 +820,7 @@ mod tests {
             }
         }
         // the chapter's case: A with A
-        assert_eq!(
-            autocorrelation(&CODE_A).scaled(2),
-            row(-3, &[-2, 0, 2, 8, 2, 0, -2])
-        );
+        assert_eq!(autocorrelation(&CODE_A).scaled(2), row(-3, &[-2, 0, 2, 8, 2, 0, -2]));
     }
 
     /// Not every complementary pair is a doubling: Golay's pair of length 10
@@ -834,6 +830,9 @@ mod tests {
         let (a, b) = GOLAY_10;
         assert!(is_complementary(&a, &b));
         assert!(!a.len().is_power_of_two());
-        assert_eq!(autocorrelation(&a), row(-9, &[1, 2, -1, -2, 1, 0, -1, 0, -3, 10, -3, 0, -1, 0, 1, -2, -1, 2, 1]));
+        assert_eq!(
+            autocorrelation(&a),
+            row(-9, &[1, 2, -1, -2, 1, 0, -1, 0, -3, 10, -3, 0, -1, 0, 1, -2, -1, 2, 1])
+        );
     }
 }

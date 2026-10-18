@@ -44,10 +44,26 @@ also carry an independently verified literal. Scores are listed from shift
 | F9 | A sent twice: sends, row, at the quiet echo, one step either side | "Sending A twice", "stays hidden" (02_10) | `facts::a_twice` | `G-F9.a_twice.sends`, `.scores`, `.at_quiet`, `.at_one_step` | `2`; `-8,0,8,30,8,2,0,2,0,-2`; `0`; `8,8` | computed |
 | X2 | ordered pairs of 4-pulse patterns; how many give this scene back; of those, complementary; complementary in all | the 02_10 lower-third | `facts::pairs_giving_back` | `G-X2.pairs`, `.giving_back`, `.giving_back_complementary`, `.complementary` | `256`; `32`; `32`; `32` | computed (exhaustive; the theorem is `only_a_pair_whose_ghosts_cancel_gives_the_scene_back`) |
 
+### Chapter 03 (the doubling; halves X = 1, 1 and Y = 1, −1)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F10 | the seed, its length; the pair of length 2; of length 4 | rows (03_1 to 03_3); "one pulse" | `facts::doublings` (`model::double`) | `G-F10.seed`, `.seed_length`, `.length_two`, `.length_four` | `1;1`; `1`; `1,1;1,-1`; `1,1,1,-1;1,1,-1,1` | pinned: the seed; Wikipedia's length-4 pair |
+| F10 | the shift; A's and B's products there, inside and across | arcs and blocks (03_4 to 03_6); "one step" | `facts::split` | `G-F10.shift`, `.a.inside`, `.a.across`, `.b.inside`, `.b.across` | `1`; `1,-1`; `1`; `1,-1`; `-1` | computed; the oracle classifies by index |
+| F10 | pulses B flips in a crossing pair | "exactly one flipped pulse" (03_6) | `facts::chapter_03` | `G-F10.flipped_in_crossing` | `1` | computed |
+| F10 | the old halves' scores at one step; inside total; total | "2(1 + (−1)) = 0" (03_8) | `facts::doubling_numbers` | `G-F10.old_rows_at_shift`, `.inside_total`, `.total` | `1,-1`; `0`; `0` | computed |
+| F10 | the identity's factor; the length factor | "twice the old pair's rows", "twice as long"; the identity (03_9) | same | `G-F10.factor`, `G-F10.length_factor` | `2`; `2` | computed |
+| F11 | lengths doubling reaches from one pulse, each checked; Golay's pair of length 10 | the 03_9 lower-third | `facts::doubling_lengths`, `model::GOLAY_10` | `G-F11.lengths`, `.length10`, `.length10_complementary`, `.length10_power_of_two` | `1,2,4,8,16,32,64`; `10`; `true`; `false` | computed; the length-10 pair from Wikipedia, its cancelling checked |
+| F12 | A paired with itself: row, far products, far score | 03_10 | `model::autocorrelation(A)` times 2 | `G-F12.no_flip.scores`, `.far_products`, `.far` | `-2,0,2,8,2,0,-2`; `-1,-1`; `-2` | computed |
+| X3 | crossing pairs at shifts 0 to 3 (halves of 2) | storyboard notes | `facts::split` | `G-X3.crossing_counts` | `0,1,2,1` | computed (boundary test, all halves to 6) |
+
 ## Claims (non-numeric)
 
 | id | claim as narrated or shown | source | verified how |
 |---|---|---|---|
+| C10 | Doubling (X then Y, X then −Y) keeps a pair cancelling, at every shift, for any equal-length halves: inside products repeat, crossing products flip sign (03_5 to 03_9) | the argument in `model::double`'s documentation; the identity S(X then Y) + S(X then −Y) = 2(S(X) + S(Y)), old rows extended by zero | `the_doubling_identity_holds_pair_by_pair` (pair by pair, all up/down halves of 1 to 4 and all halves of 1 or 2 values in −2 to 2); the oracle checks the identity on every pair of halves of 1 to 5 |
+| C11 | Leave out the flip and the ghosts come back (03_10) | at the far shift the one crossing pair gives 2·X[0]·Y[n − 1], never zero | `leaving_out_the_flip_brings_the_ghosts_back` (every complementary pair of 1 to 4 pulses; flipping the first half also works, flipping both does not) |
+| C12 | Doubling does not build every cancelling pair | Golay's length-10 pair (Wikipedia) | `some_pairs_are_not_doublings` |
 | C7 | Two echoes overlap and add; a scene's row is each echo's own row added (02_2, 02_4) | the measurement model (chapter eq. 33) is linear in the scene | `a_scenes_row_is_the_sum_of_its_echoes_rows`: every code of 1 to 4 pulses, every scene of 3 or 4 steps with strengths −2 to 2; the oracle measures each echo alone |
 | C8 | A zero score is not an empty step; a nonzero score is not an echo; only the pair's sum is zero exactly where the scene is empty (02_3, 02_4) | the rows above | `a_zero_score_is_not_an_absent_echo` |
 | C9 | Sending A twice does not help; only a pair whose ghosts cancel gives the scene back, and any other pair gets every scene with an echo wrong (02_10) | definition 1; the residual is the scene convolved with the pair's leftover ghosts, whose last nonzero score is the product of the two last scores | `only_a_pair_whose_ghosts_cancel_gives_the_scene_back` (all 256 ordered pairs × 125 scenes, the lemma checked as stated); the oracle repeats it by its own convolution |

@@ -438,6 +438,39 @@ pub fn block(stage: &mut Stage<'_>, sign: i64, at: Vec3, scale: f64) -> fmn::Res
     slab(stage, sign, at, BLOCK_SIDE * scale, BLOCK_SIDE * scale)
 }
 
+/// A block for a product whose pair reaches across the middle of a doubled
+/// pattern (chapter 03): a [`block`] with a ring in the across role.
+pub fn block_across(stage: &mut Stage<'_>, sign: i64, at: Vec3) -> fmn::Result<Mob> {
+    let color = if sign > 0 {
+        palette::agree()
+    } else {
+        palette::disagree()
+    };
+    let b = Rectangle::new()
+        .width(BLOCK_SIDE)
+        .height(BLOCK_SIDE)
+        .corner_radius(0.035)
+        .style(Style::default().fill(color, 1.0).stroke(palette::across(), 3.0, 1.0))
+        .build()?
+        .moved_to(at);
+    Ok(stage.arena_mut().add(b))
+}
+
+/// An arc over a row from `from` to `to` (two pulses' tops), rising
+/// `height` at its middle: one lined-up pair. Detached-ready shape.
+pub fn arc(from: Vec3, to: Vec3, height: f64, color: Srgb) -> VMobject {
+    let points: Vec<Vec3> = (0..=16)
+        .map(|i| {
+            let t = f64::from(i) / 16.0;
+            v(
+                from[0] + (to[0] - from[0]) * t,
+                from[1] + (to[1] - from[1]) * t + height * 4.0 * t * (1.0 - t),
+            )
+        })
+        .collect();
+    polyline(points).style(line_style(color, 2.5)).build()
+}
+
 /// One unit of score drawn `w` wide and `h` tall: green for +1, red for −1,
 /// centred at `at` (a square [`block`], or a flat slab when a column must
 /// hold dozens of units). Detached.

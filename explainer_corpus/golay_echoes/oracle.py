@@ -172,7 +172,70 @@ def facts():
             far.add(abs(scores(code, code)[length - 1]))
     emit("G-X1.far_shift_sizes", csv(sorted(far)))
     chapter_02()
+    chapter_03()
     return ra, rb, both, moved
+
+
+def pairs_at(x, y, k):
+    """(value, inside?) of every lined-up pair of `x then y` at shift k >= 0,
+    one pulse at i and the other at i + k, from the definition."""
+    whole = list(x) + list(y)
+    n = len(x)
+    return [(whole[i] * whole[i + k], (i < n) == (i + k < n)) for i in range(len(whole) - k)]
+
+
+def chapter_03():
+    """The doubling: concatenation written out, products classified by
+    index, rows from the polynomial products above."""
+    seed = ((1,), (1,))
+    two = (seed[0] + seed[1], seed[0] + tuple(-v for v in seed[1]))
+    four = (two[0] + two[1], two[0] + tuple(-v for v in two[1]))
+    pair = lambda p: f"{csv(p[0])};{csv(p[1])}"
+    emit("G-F10.seed", pair(seed))
+    emit("G-F10.seed_length", len(seed[0]))
+    emit("G-F10.length_two", pair(two))
+    emit("G-F10.length_four", pair(four))
+
+    x, y = two
+    shift = 1
+    a = pairs_at(x, y, shift)
+    b = pairs_at(x, tuple(-v for v in y), shift)
+    emit("G-F10.shift", shift)
+    emit("G-F10.a.inside", csv([v for v, inside in a if inside]))
+    emit("G-F10.a.across", csv([v for v, inside in a if not inside]))
+    emit("G-F10.b.inside", csv([v for v, inside in b if inside]))
+    emit("G-F10.b.across", csv([v for v, inside in b if not inside]))
+    whole_a, whole_b = four
+    n = len(x)
+    flips = sorted({sum(whole_a[j] != whole_b[j] for j in (i, i + shift))
+                    for i in range(len(whole_a) - shift) if (i < n) != (i + shift < n)})
+    emit("G-F10.flipped_in_crossing", csv(flips))
+    sx, sy = scores(x, x), scores(y, y)
+    emit("G-F10.old_rows_at_shift", csv([sx.get(shift, 0), sy.get(shift, 0)]))
+    emit("G-F10.inside_total", sum(v for v, inside in a + b if inside))
+    emit("G-F10.total", sum(v for v, _ in a + b))
+    new = add(scores(whole_a, whole_a), scores(whole_b, whole_b))
+    emit("G-F10.factor", Fraction(new[0], sx[0] + sy[0]))
+    emit("G-F10.length_factor", Fraction(len(whole_a), len(x)))
+
+    lengths, p = [], seed
+    for _ in range(7):
+        if not complementary(*p):
+            raise SystemExit(f"oracle: the doubling of length {len(p[0])} does not cancel")
+        lengths.append(len(p[0]))
+        p = (p[0] + p[1], p[0] + tuple(-v for v in p[1]))
+    emit("G-F11.lengths", csv(lengths))
+    g10 = ((1, 1, -1, 1, -1, 1, -1, -1, 1, 1), (1, 1, -1, 1, 1, 1, 1, 1, -1, -1))
+    emit("G-F11.length10", len(g10[0]))
+    emit("G-F11.length10_complementary", str(complementary(*g10)).lower())
+    emit("G-F11.length10_power_of_two", str(len(g10[0]) & (len(g10[0]) - 1) == 0).lower())
+
+    no_flip = {k: 2 * v for k, v in scores(whole_a, whole_a).items()}
+    far = 2 * n - 1
+    emit("G-F12.no_flip.scores", csv(window(no_flip, -(len(whole_a) - 1), len(whole_a) - 1)))
+    emit("G-F12.no_flip.far_products", csv([v for v, _ in pairs_at(x, y, far)] * 2))
+    emit("G-F12.no_flip.far", no_flip[far])
+    emit("G-X3.crossing_counts", csv([sum(1 for _, inside in pairs_at(x, y, k) if not inside) for k in range(2 * n)]))
 
 
 def lone_echo(scene, step):
@@ -327,6 +390,20 @@ def cross_checks(ra, rb, both, moved):
                 if residual != conv or got != lead or (not residual) != complementary(a, b):
                     bad += 1
     check(f"wrong pairs: residual = scene * g and its last score is the product, {len(codes) ** 2} pairs x {len(scenes)} scenes", bad == 0)
+
+    # chapter 03's identity on every pair of equal-length up/down halves of 1
+    # to 5 pulses, from the polynomial products: S(x+y) + S(x-y) = 2 (S(x) + S(y))
+    bad = 0
+    for length in range(1, 6):
+        halves = list(product((1, -1), repeat=length))
+        rows = {h: scores(h, h) for h in halves}
+        for hx in halves:
+            for hy in halves:
+                left = add(scores(hx + hy, hx + hy), scores(hx + tuple(-v for v in hy), hx + tuple(-v for v in hy)))
+                right = {k: 2 * v for k, v in add(rows[hx], rows[hy]).items()}
+                if any(left.get(k, 0) != right.get(k, 0) for k in set(left) | set(right)):
+                    bad += 1
+    check("doubling identity on every pair of up/down halves of 1 to 5 pulses", bad == 0)
 
     # another implementation: numpy.correlate, "full" mode
     try:

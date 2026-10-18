@@ -19,9 +19,9 @@ pulses on screen.
 
 | Chapter | Spine | Status |
 |---|---|---|
-| `01_two_bad_echoes` | send a pattern, score it against its echo at every shift; every single pattern leaves ghosts; a second pattern's ghosts are the same size with the opposite sign; added, only the echo is left, twice as tall; the guarantee's assumption: the same scene for both sends | storyboarded; scene in progress, not yet compiled or rendered |
-| `02_what_the_ghosts_hide` | two things in the scene, one loud and one quiet, three steps apart: their echoes overlap and add; pattern A's row is each echo's own row added, and the loud one's ghost erases the quiet one's peak (a zero score where something is); pattern B's ghost doubles it; added, the scene itself, eight times over; sending A twice keeps the quiet one hidden (`model::two_measurements` with the scene 4, 0, 0, 1) | storyboarded; scene in progress, not yet compiled or rendered |
-| 03 why they cancel *(planned)* | each ghost as its pairs of pulses; why B's pairs are A's with one sign changed; the doubling that builds the pair from a single pulse (`model::double`), proved for every length | not storyboarded; the doubling proof is written in `model.rs` and tested to length 64, not yet staged |
+| `01_two_bad_echoes` | send a pattern, score it against its echo at every shift; every single pattern leaves ghosts; a second pattern's ghosts are the same size with the opposite sign; added, only the echo is left, twice as tall; the guarantee's assumption: the same scene for both sends | silent scratch draft accepted centrally at a201b4a (native tests, facts, glyphs, cues, frames); narration and the full video not yet accepted |
+| `02_what_the_ghosts_hide` | two things in the scene, one loud and one quiet, three steps apart: their echoes overlap and add; pattern A's row is each echo's own row added, and the loud one's ghost erases the quiet one's peak (a zero score where something is); pattern B's ghost doubles it; added, the scene itself, eight times over; sending A twice keeps the quiet one hidden (`model::two_measurements` with the scene 4, 0, 0, 1) | silent scratch draft accepted centrally at a201b4a (80.5 s; native tests, facts, glyphs, cues, frames); narration and the full video not yet accepted |
+| `03_why_they_cancel` | one pulse paired with itself, doubled into the length-2 pair, doubled again into A and B (`model::double`); at one step, every lined-up pair sits inside a half or reaches across the middle: inside products match in both rows, crossing products flip sign; added, the crossing ones cancel and the rest is twice the old pair's rows, at every shift and every doubling; leave out the flip and the ghosts come back | storyboarded; scene in progress, not yet compiled or rendered |
 | 04 when it breaks *(planned)* | the scene changes between the sends: moved one step, or the echo returns upside down (the echo itself cancels and every ghost doubles; the radar case of a half-turn of phase, Chi, Pezeshki and Calderbank eq. 8); noise picked up by the receiver is scored like any recording, and the identity does not remove it | not storyboarded |
 
 ## Vocabulary (one word per idea)
@@ -48,6 +48,7 @@ every shift, side by side).
 | a disagreement, and a block below the line | red `#FC6255` |
 | the echo: where the thing really is; "echo" and its column marker | `hero` gold `#FFD866`, strokes and words only, never a block |
 | a ghost's word | `dim` |
+| a pair across the middle of a doubled pattern (chapter 03): its arc, and a ring on its block | teal `#5CD0B3`, strokes only |
 | baselines, shift numbers, the sender and the thing | `faint` and `dim` |
 
 ## 01_two_bad_echoes: Two bad echoes (~82 s)
@@ -126,3 +127,41 @@ every shift, side by side).
 - Budget, by chapter 01's measured draft: 160 words at 2.6 a second plus
   0.4 s a line, thought gaps 0.82 s, the think window 5.0 s, a 1.8 s tail:
   about 79.5 s.
+
+## 03_why_they_cancel: Why they cancel (~77 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | Where do pairs like these come from? Start with one pulse, paired with itself. | One up pulse on the top line ("first"), one on the bottom line ("other"): the pair of length one | rows built from `model::double`'s seed | |
+| 03_2 | Now double it. Write the first, then the other. Then the first again, and the other flipped. | A copy of the other rises to the right of the first; the other slides right and a copy of the first drops in on its left; the other flips over: up, up on top, up, down below | motion, morph rows | |
+| 03_3 | Double again, and out come patterns A and B. | The same moves on the two-pulse pair: up, up, up, down on top, up, up, down, up below, renamed pattern A and pattern B; a thin tick marks the middle of each | motion, morph rows | |
+| 03_4 | Why do their ghosts cancel? Slide each copy one step, and look at the pairs that line up. | Faint copies slide one step under each row; then arcs over each row join the pulses that lined up, a product block on each arc. Arcs that cross the middle tick are teal and their blocks wear a teal ring | slide, arcs, blocks from the products | |
+| 03_5 | Inside a half, B matches A, or has both pulses flipped. Those products don't change. | The inside arcs flash in both rows, block by block the same colour; B's second half and A's second half flash: every pulse flipped | highlight | |
+| 03_6 | A pair across the halves has exactly one flipped pulse, so its product changes sign. | The teal arcs flash: green over A, red over B | highlight | |
+| 03_7 | So what's left when we add A's and B's products here? ⟨predict⟩ | The blocks wait; the score line and its shift numbers below; the countdown | chart | |
+| 03_8 | The crossing products cancel in pairs. The rest is twice the old pair's rows, whose ghosts already cancel. | The two ringed blocks drop into the column at shift 1 and vanish together; then the four inside blocks drop, two green and two red, and vanish in pairs: 0. Beside it, from the old pair at one step: 2(1 + (−1)) = 0 | blocks cancel, TeX numbers, chart | |
+| 03_9 | This split works at every shift, for every doubling. Each doubling of a cancelling pair gives a new one, twice as long. | Shifts 2 and 3 in quick succession: only teal arcs, each pair of blocks meets between the rows and vanishes. X and Y over A's halves, X and −Y over B's; the identity S over X,Y plus S over X,−Y equals 2(S of X plus S of Y). A "precisely" lower-third: for halves of the same length at every shift; doubling from one pulse gives lengths 1, 2, 4, 8 and on, but one pair of length 10 cancels too | blocks cancel, TeX derivation, lower-third | |
+| 03_10 | Leave out the flip, and the crossing products add instead. The ghosts come back. | B's second half flips back: both rows are pattern A. At the far shift both teal arcs carry a red block; they stack, two below the line; the rows clear and the rest of A-twice stands, ghosts on both sides. A "precisely" lower-third: the same still scene for both sends; receiver noise is scored too and is not guaranteed to cancel | arcs, blocks stack, chart, lower-third | |
+
+### Notes for 03
+
+- Every pattern shown is `model::double`'s output from one pulse; every
+  product is `facts::split` of the shown halves; the column is checked
+  against the model when it settles.
+- The argument is a proof, not a sample: at shift k each lined-up pair of
+  (X then −Y) is the matching pair of (X then Y) with its product unchanged
+  inside a half and negated across the middle, so the rows add to twice X's
+  and Y's rows (old rows extended by zero) for any equal-length halves and
+  every shift. Tested pair by pair in
+  `model::tests::the_doubling_identity_holds_pair_by_pair`; the oracle
+  checks the identity on every pair of halves of 1 to 5 pulses.
+- Boundaries: shift 0 has no crossing pair; shift k from 1 to 2n − 1 has
+  min(k, 2n − k); from shift n on every pair crosses (`G-X3`,
+  `crossing_pairs_begin_at_one_step_and_fill_the_far_shifts`).
+- The planted negative (03_10): without the flip the crossing products add,
+  and at the far shift that is 2·X[0]·Y[n − 1], never zero, for every pair.
+  Flipping the first half instead also works; flipping both does not.
+- Not every pair whose ghosts cancel is a doubling: Golay's pair of length
+  10 (`model::GOLAY_10`). The chapter does not claim otherwise.
+- Budget: 153 words at 2.6 a second plus 0.4 s a line, thought gaps 0.82 s,
+  the think window 5.0 s, a 1.8 s tail: about 76.8 s.

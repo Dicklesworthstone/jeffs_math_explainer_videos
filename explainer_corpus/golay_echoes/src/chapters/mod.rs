@@ -6,6 +6,7 @@ pub mod draw;
 pub mod glyphs;
 pub mod two_bad_echoes;
 pub mod what_the_ghosts_hide;
+pub mod why_they_cancel;
 
 use explainer_kit::Chapter;
 
@@ -20,6 +21,11 @@ pub fn registry() -> Vec<Chapter> {
             key: "02_what_the_ghosts_hide",
             make: |kit| Box::new(what_the_ghosts_hide::WhatTheGhostsHide { kit }),
             intensity: 0.55,
+        },
+        Chapter {
+            key: "03_why_they_cancel",
+            make: |kit| Box::new(why_they_cancel::WhyTheyCancel { kit }),
+            intensity: 0.5,
         },
     ]
 }

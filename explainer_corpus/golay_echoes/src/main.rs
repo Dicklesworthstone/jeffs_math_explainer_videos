@@ -99,6 +99,12 @@ mod tests {
         ("02_9", "eight times over", "G-F8.magnification", "8"),
         ("02_10", "Sending A twice", "G-F9.a_twice.sends", "2"),
         ("02_10", "stays hidden", "G-F9.a_twice.at_quiet", "0"),
+        ("03_1", "one pulse", "G-F10.seed_length", "1"),
+        ("03_4", "one step", "G-F10.shift", "1"),
+        ("03_5", "Inside a half", "G-F10.length_factor", "2"),
+        ("03_6", "exactly one flipped pulse", "G-F10.flipped_in_crossing", "1"),
+        ("03_8", "twice the old pair's rows", "G-F10.factor", "2"),
+        ("03_9", "twice as long", "G-F10.length_factor", "2"),
     ];
 
     #[test]

@@ -29,6 +29,12 @@ pub fn echo() -> Srgb {
     Palette::hero()
 }
 
+/// A pair that reaches across the middle of a doubled pattern (chapter
+/// 03): its arc, and the ring on its block. Strokes only.
+pub fn across() -> Srgb {
+    Palette::teal()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -41,6 +47,7 @@ mod tests {
             agree(),
             disagree(),
             echo(),
+            across(),
             Palette::ink(),
             Palette::dim(),
             Palette::faint(),

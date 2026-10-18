@@ -7,7 +7,7 @@ use std::collections::BTreeSet;
 
 use explainer_kit::Facts;
 
-use crate::model::{self, CODE_A, CODE_B, LOUD_AND_QUIET, MOVED, STILL, Scores};
+use crate::model::{self, CODE_A, CODE_B, LOUD_AND_QUIET, MOVED, Product, STILL, Scores, Span};
 
 /// The shifts chapter 01 draws a score for: −3 to 3 for one echo, and one
 /// more on the right for the echo that moved.
@@ -107,6 +107,64 @@ pub fn pairs_giving_back() -> [usize; 4] {
         }
     }
     counts
+}
+
+/// The shift chapter 03 looks at: one step.
+pub const SHIFT_03: i64 = 1;
+
+/// Chapter 03's pairs: one pulse paired with itself, doubled, and doubled
+/// again (patterns A and B).
+pub fn doublings() -> [(Vec<i64>, Vec<i64>); 3] {
+    let seed = (vec![1], vec![1]);
+    let two = model::double(&seed.0, &seed.1);
+    let four = model::double(&two.0, &two.1);
+    [seed, two, four]
+}
+
+/// The products of the pattern `x then y` at shift `k`, each with where it
+/// sits (inside a half, or across the middle).
+pub fn split(x: &[i64], y: &[i64], k: i64) -> Vec<(Product, Span)> {
+    let whole: Vec<i64> = x.iter().chain(y).copied().collect();
+    model::products(&whole, &whole, k)
+        .into_iter()
+        .map(|p| (p, model::span(x.len(), &p)))
+        .collect()
+}
+
+/// The doubling identity's numbers at chapter 03's shift: its factor (the
+/// new pair's peak over the old pair's), the old halves' scores there, and
+/// the new pair's total there.
+pub fn doubling_numbers() -> Result<(String, [i64; 2], i64), String> {
+    let [_, two, four] = doublings();
+    let (row_x, row_y) = (model::autocorrelation(&two.0), model::autocorrelation(&two.1));
+    let new = model::autocorrelation(&four.0).plus(&model::autocorrelation(&four.1));
+    let factor = ratio(new.at(0), row_x.at(0) + row_y.at(0))?;
+    Ok((factor, [row_x.at(SHIFT_03), row_y.at(SHIFT_03)], new.at(SHIFT_03)))
+}
+
+/// The lengths doubling reaches from one pulse, each pair checked to
+/// cancel (1 to 64).
+pub fn doubling_lengths() -> Result<Vec<i64>, String> {
+    let [seed, ..] = doublings();
+    let (mut p, mut q) = seed;
+    let mut lengths = Vec::new();
+    for _ in 0..=6 {
+        if !model::is_complementary(&p, &q) {
+            return Err(format!("the doubling of length {} does not cancel", p.len()));
+        }
+        lengths.push(p.len() as i64);
+        (p, q) = model::double(&p, &q);
+    }
+    Ok(lengths)
+}
+
+/// The values of the products in `pairs` that sit `want`.
+fn values(pairs: &[(Product, Span)], want: Option<Span>) -> Vec<i64> {
+    pairs
+        .iter()
+        .filter(|(_, s)| want.is_none_or(|w| *s == w))
+        .map(|(p, _)| p.value)
+        .collect()
 }
 
 /// The key's two pairs (01_3), pulses of pattern A: its first two (they
@@ -230,8 +288,91 @@ pub fn facts() -> Result<Facts, String> {
         }
     }
     chapter_02(&mut f)?;
+    chapter_03(&mut f)?;
     f.self_check()?;
     Ok(f)
+}
+
+/// Chapter 03's numbers: the doubling, one shift's products sorted by where
+/// they sit, the identity's factor, its reach and its limits.
+fn chapter_03(f: &mut Facts) -> Result<(), String> {
+    let [seed, two, four] = doublings();
+    let pair = |p: &(Vec<i64>, Vec<i64>)| format!("{};{}", model::csv(&p.0), model::csv(&p.1));
+    f.pin("G-F10.seed", pair(&seed), "1;1", "one pulse, paired with itself")?;
+    f.add("G-F10.seed_length", seed.0.len())?;
+    f.add("G-F10.length_two", pair(&two))?;
+    f.pin(
+        "G-F10.length_four",
+        pair(&four),
+        "1,1,1,-1;1,1,-1,1",
+        "Wikipedia, Complementary sequences (read 2026-10-17): the length-4 pair",
+    )?;
+    if four.0 != CODE_A || four.1 != CODE_B {
+        return Err(format!("doubling twice gives {four:?}, not patterns A and B"));
+    }
+
+    // 03_4 to 03_8: one step, A's and B's products, sorted by where they sit
+    let (x, y) = (&two.0, &two.1);
+    let flipped: Vec<i64> = y.iter().map(|v| -v).collect();
+    let (a, b) = (split(x, y, SHIFT_03), split(x, &flipped, SHIFT_03));
+    f.add("G-F10.shift", SHIFT_03)?;
+    f.add("G-F10.a.inside", model::csv(&values(&a, Some(Span::Inside))))?;
+    f.add("G-F10.a.across", model::csv(&values(&a, Some(Span::Across))))?;
+    f.add("G-F10.b.inside", model::csv(&values(&b, Some(Span::Inside))))?;
+    f.add("G-F10.b.across", model::csv(&values(&b, Some(Span::Across))))?;
+    // how many of a crossing pair's two pulses B holds flipped against A
+    let flips: BTreeSet<i64> = a
+        .iter()
+        .filter(|(_, s)| *s == Span::Across)
+        .map(|(p, _)| {
+            [p.recording, p.copy]
+                .iter()
+                .filter(|&&i| four.0[i] != four.1[i])
+                .count() as i64
+        })
+        .collect();
+    f.add(
+        "G-F10.flipped_in_crossing",
+        model::csv(&flips.into_iter().collect::<Vec<_>>()),
+    )?;
+    let (factor, old_at_shift, new_at_shift) = doubling_numbers()?;
+    f.add("G-F10.old_rows_at_shift", model::csv(&old_at_shift))?;
+    let both: Vec<(Product, Span)> = a.iter().chain(&b).copied().collect();
+    let total = values(&both, None).iter().sum::<i64>();
+    if total != new_at_shift {
+        return Err(format!("the products add to {total}, the new rows to {new_at_shift}"));
+    }
+    f.add(
+        "G-F10.inside_total",
+        values(&both, Some(Span::Inside)).iter().sum::<i64>(),
+    )?;
+    f.add("G-F10.total", total)?;
+    f.add("G-F10.factor", factor)?;
+    f.add("G-F10.length_factor", ratio(four.0.len() as i64, two.0.len() as i64)?)?;
+
+    // 03_9: how far doubling from one pulse reaches, and a pair it misses
+    f.add("G-F11.lengths", model::csv(&doubling_lengths()?))?;
+    let (g10a, g10b) = model::GOLAY_10;
+    f.add("G-F11.length10", g10a.len())?;
+    f.add("G-F11.length10_complementary", model::is_complementary(&g10a, &g10b))?;
+    f.add("G-F11.length10_power_of_two", g10a.len().is_power_of_two())?;
+
+    // 03_10: the flip left out, pattern A paired with itself
+    let no_flip = model::autocorrelation(&four.0).scaled(2);
+    let far = 2 * x.len() as i64 - 1;
+    // both rows hold pattern A, so each gives the same far product
+    let far_one = values(&split(x, y, far), None);
+    let far_products = [far_one.as_slice(), far_one.as_slice()].concat();
+    f.add("G-F12.no_flip.scores", no_flip.csv())?;
+    f.add("G-F12.no_flip.far_products", model::csv(&far_products))?;
+    f.add("G-F12.no_flip.far", no_flip.at(far))?;
+
+    // where crossing products begin and end, for the chapter's halves
+    let counts: Vec<i64> = (0..2 * x.len() as i64)
+        .map(|k| values(&split(x, y, k), Some(Span::Across)).len() as i64)
+        .collect();
+    f.add("G-X3.crossing_counts", model::csv(&counts))?;
+    Ok(())
 }
 
 /// Chapter 02's numbers: a loud and a quiet echo three steps apart.
@@ -337,6 +478,17 @@ mod tests {
     fn the_facts_print_what_the_oracle_prints() {
         let f = facts().unwrap();
         for (key, value) in [
+            ("G-F10.length_two", "1,1;1,-1"),
+            ("G-F10.a.inside", "1,-1"),
+            ("G-F10.a.across", "1"),
+            ("G-F10.b.across", "-1"),
+            ("G-F10.flipped_in_crossing", "1"),
+            ("G-F10.total", "0"),
+            ("G-F10.factor", "2"),
+            ("G-F11.lengths", "1,2,4,8,16,32,64"),
+            ("G-F11.length10_complementary", "true"),
+            ("G-F12.no_flip.scores", "-2,0,2,8,2,0,-2"),
+            ("G-X3.crossing_counts", "0,1,2,1"),
             ("G-F5.recording_a", "4,4,4,-3,1,1,-1"),
             ("G-F6.a.scores", "-4,0,4,15,4,1,0,1,0,-1"),
             ("G-F6.a.at_quiet", "0"),
