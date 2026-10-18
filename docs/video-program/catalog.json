@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-17",
+  "updated_on": "2026-10-18",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -1541,13 +1541,21 @@
           "revision_id": "v1-michael-20261017",
           "label": "First production revision",
           "voice": "michael",
-          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "generation_provenance": "Native silent assembly of 8 centrally accepted chapter drafts, 613.1 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
           "evidence_refs": [
             "AGENTS.md",
-            "docs/video-program/NARRATION-CONSISTENCY.md"
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/square_packing/renders/central-20261018T0431/full-draft.mp4",
+            "mx-video-program-program-87do.5.8",
+            "mx-video-program-program-87do.5"
           ],
-          "disposition": "In development; no reviewed draft or verified master.",
-          "milestones": []
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Thumbnail and delivery description are in progress under mx-video-program-program-87do.5.9.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "square_packing.silent-20261018.4271647521fc"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1590,13 +1598,21 @@
           "revision_id": "v1-michael-20261017",
           "label": "First production revision",
           "voice": "michael",
-          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "generation_provenance": "Native silent assembly of 4 centrally accepted chapter drafts, 320.0 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
           "evidence_refs": [
             "AGENTS.md",
-            "docs/video-program/NARRATION-CONSISTENCY.md"
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/golay_echoes/renders/central-20261018T0240/full-draft.mp4",
+            "mx-video-program-program-87do.6.4",
+            "mx-video-program-program-87do.6.5"
           ],
-          "disposition": "In development; no reviewed draft or verified master.",
-          "milestones": []
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance in the referenced Bead.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "golay_echoes.silent-20261018.104aa4b4e2d7"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1641,13 +1657,21 @@
           "revision_id": "v1-michael-20261017",
           "label": "First production revision",
           "voice": "michael",
-          "generation_provenance": "Production begun; no audio or master generated for this revision. English-accent continuity required; accepted B is an anchor, not automatic approval of new narration.",
+          "generation_provenance": "Native silent assembly of 6 centrally accepted chapter drafts, 463.066667 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
           "evidence_refs": [
             "AGENTS.md",
-            "docs/video-program/NARRATION-CONSISTENCY.md"
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/p_values_medical/renders/central-20261018T0323/full-draft.mp4",
+            "mx-video-program-program-87do.7.6",
+            "mx-video-program-program-87do.7.7"
           ],
-          "disposition": "In development; no reviewed draft or verified master.",
-          "milestones": []
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance in the referenced Bead.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "p_values_medical.silent-20261018.76bfa23e55c1"
+            ]
+          }
         }
       ],
       "publications": []
@@ -2904,5 +2928,46 @@
     "video_identities": "11 public topics, 30 independent Codex topic candidates, 11 additional X suggestions, 12 additional prior-plan proposals, and one owner-requested epsilon-delta candidate; overlaps linked, not duplicated.",
     "revision_import": "17 uploaded cuts and 20 other explicitly documented master cuts from the publishing manifest. This is not an enumeration of every intermediate render, chapter or take.",
     "historical_limits": "Historical hashes and paths are records, not fresh local media verification. Missing/partial provenance remains unknown. Original manifest retains richer receipts and copy-location details."
-  }
+  },
+  "artifacts": [
+    {
+      "artifact_id": "golay_echoes.silent-20261018.104aa4b4e2d7",
+      "kind": "scene",
+      "path": "explainer_corpus/golay_echoes/renders/central-20261018T0240/full-draft.mp4",
+      "sha256": "104aa4b4e2d7513fddf386f565e6767b231a933f610a3ec20c6936407f4651fb",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.4",
+        "mx-video-program-program-87do.6.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.silent-20261018.4271647521fc",
+      "kind": "scene",
+      "path": "explainer_corpus/square_packing/renders/central-20261018T0431/full-draft.mp4",
+      "sha256": "4271647521fc861b78812721006f5a66902b40dbbb2998dc1ee6875cf061ccad",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.8",
+        "mx-video-program-program-87do.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.silent-20261018.76bfa23e55c1",
+      "kind": "scene",
+      "path": "explainer_corpus/p_values_medical/renders/central-20261018T0323/full-draft.mp4",
+      "sha256": "76bfa23e55c11c17c393380bbe7773a19826cbef0ad9dac5f46aeeb427f7ff44",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.6",
+        "mx-video-program-program-87do.7.7",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    }
+  ]
 }
