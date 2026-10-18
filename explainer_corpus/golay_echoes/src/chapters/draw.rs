@@ -226,8 +226,8 @@ pub struct Spoken {
 fn sentence_offsets(text: &str) -> Vec<usize> {
     let chars: Vec<char> = text.chars().collect();
     let mut out = vec![0];
-    for i in 0..chars.len().saturating_sub(2) {
-        if matches!(chars[i], '.' | '?' | '!') && chars[i + 1] == ' ' {
+    for (i, pair) in chars.windows(2).enumerate() {
+        if matches!(pair[0], '.' | '?' | '!') && pair[1] == ' ' && i + 2 < chars.len() {
             out.push(i + 2);
         }
     }
