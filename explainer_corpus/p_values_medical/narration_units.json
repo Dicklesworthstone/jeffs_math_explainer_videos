@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "611ef24a7e5fbe00fd567d3ce2f069a75b147fd95d72aebb8e87cf5979f45595",
+  "script_sha256": "0edb36d4f170079eec658804864bedfa6f44b062ee0b6a2cd507978334333aa0",
   "units": [
     {
       "id": "01u1",
@@ -50,7 +50,7 @@
         "02_9",
         "02_10"
       ],
-      "text": "So here a positive result means about sixty-seven percent, not fifteen. Why? The false alarms barely moved, but the test caught ten times as many people with the disease. So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing."
+      "text": "So here a positive result means about sixty-seven percent, not fifteen. Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease. Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing."
     },
     {
       "id": "03u1",

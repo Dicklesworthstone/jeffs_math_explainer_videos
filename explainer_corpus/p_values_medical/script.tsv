@@ -16,8 +16,8 @@
 02_5	Of the other nine thousand, five percent is four hundred fifty false alarms.
 02_6	Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three.
 02_7	So here a positive result means about sixty-seven percent, not fifteen.
-02_8	Why? The false alarms barely moved, but the test caught ten times as many people with the disease.
-02_9	So keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value.
+02_8	Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease.
+02_9	Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value.
 02_10	A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing.
 03_1	Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment.
 03_2	Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first.

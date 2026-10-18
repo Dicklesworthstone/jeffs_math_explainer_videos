@@ -63,6 +63,12 @@ pub(super) const STUDY_A: &str = "a synthetic study:";
 pub(super) const STUDY_B: &str = "pairs of patients, a coin in each pair picks who is treated (model)";
 pub(super) const NULL_WORLD: &str = "imagine the treatment changed no one's recovery";
 
+// what 02_8 and 02_9's pictures land on: 02_8 asks its whole question, then
+// answers it (the test below holds each phrase to its line and sentence)
+const ALARMS_AT: &str = "The false alarms";
+const TEN_TIMES_AT: &str = "ten times as many";
+const NEITHER_AT: &str = "neither one";
+
 // --- layout (scene units; the frame is 14.2 by 8)
 
 /// The two clinics' halves: their left edges.
@@ -751,12 +757,14 @@ impl SceneConstruct for TheSameTest {
         kit.allow_crossing(ring_a);
         fade_in_all(stage, &[ring_a], 0.4)?;
 
-        // 02_8: why: the false alarms barely moved; ten times as many caught
+        // 02_8: why a positive means more here, asked whole and then answered:
+        // the false alarms barely moved; ten times as many caught. During the
+        // question the two answers stay, the outlines go
         let line = say(&kit, stage, "02_8")?;
         let mut old = groups.clone();
         old.extend([ring_a, ring_b]);
         fade_out_all(stage, &old, 0.4)?;
-        line.wait_for(stage, "The false alarms")?;
+        line.wait_for(stage, ALARMS_AT)?;
         let mut alarms_lit = vec![ledger_box(stage, 0, 3)?, ledger_box(stage, 1, 3)?];
         alarms_lit.push(around(
             stage,
@@ -769,7 +777,7 @@ impl SceneConstruct for TheSameTest {
             kit.allow_crossing(m);
         }
         fade_in_all(stage, &alarms_lit, 0.5)?;
-        line.wait_for(stage, "ten times as many")?;
+        line.wait_for(stage, TEN_TIMES_AT)?;
         let caught_lit = [ledger_box(stage, 0, 1)?, ledger_box(stage, 1, 1)?];
         for &m in &caught_lit {
             kit.allow_crossing(m);
@@ -822,7 +830,7 @@ impl SceneConstruct for TheSameTest {
         )?;
         let not_equal = kit.tex(stage, r"\neq", 60.0, Palette::ink(), &[], v(0.0, 1.0))?;
         fade_in_lagged(stage, &[left, not_equal, right], 1.2, 0.4)?;
-        line.wait_for(stage, "neither one")?;
+        line.wait_for(stage, NEITHER_AT)?;
         let neither = kit.text(stage, NEITHER, 40.0, Palette::hero(), v(0.0, -1.6))?;
         fade_in_all(stage, &[neither], 0.5)?;
 
@@ -856,6 +864,43 @@ impl SceneConstruct for TheSameTest {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 02_8 asks a whole question before its answer (not a bare "Why?") and
+    /// its pictures land in the answer; 02_9 opens a new paragraph without a
+    /// connective. Each phrase is said once, in the sentence the narrator
+    /// times it in.
+    #[test]
+    fn the_why_is_a_whole_question_then_its_answer() {
+        use crate::chapters::draw::sentence_offsets;
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let text = |id: &str| script.text(id).unwrap();
+        let why = text("02_8");
+        let starts = sentence_offsets(why);
+        assert_eq!(starts.len(), 2);
+        let question = &why[..starts[1] - 1];
+        assert!(
+            question.ends_with('?') && question.split_whitespace().count() >= 6,
+            "{question:?}"
+        );
+        assert!(question.contains("positive result") && question.contains("here"));
+        assert!(!text("02_9").starts_with("So "));
+        for (id, phrase, sentence, opens) in [
+            ("02_8", ALARMS_AT, 1, true),
+            ("02_8", TEN_TIMES_AT, 1, false),
+            ("02_9", NEITHER_AT, 2, false),
+        ] {
+            let t = text(id);
+            assert_eq!(t.matches(phrase).count(), 1, "{id} says {phrase:?} once");
+            let at = t[..t.find(phrase).unwrap()].chars().count();
+            let starts = sentence_offsets(t);
+            assert_eq!(
+                starts.iter().rposition(|&s| s <= at),
+                Some(sentence),
+                "{id}: {phrase:?}"
+            );
+            assert_eq!(starts.contains(&at), opens, "{id}: {phrase:?}");
+        }
+    }
 
     /// The layout holds the counts: both arrays are the clinics', both
     /// blocks are 45 wide and fit their halves, nothing crosses the middle.
