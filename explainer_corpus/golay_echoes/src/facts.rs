@@ -311,6 +311,29 @@ pub fn facts() -> Result<Facts, String> {
     Ok(f)
 }
 
+/// Chapter 04's identity on a drawn total: `total` (the pair's two
+/// measurements, `first` then `second`) is 2N times `second` plus pattern
+/// A's row of what changed, `model::difference(first, second)`, at every
+/// shift, scenes and rows zero past their ends.
+fn check_identity(first: &[i64], second: &[i64], total: &Scores) -> Result<(), String> {
+    let n = CODE_A.len() as i64;
+    let change = model::measure(&CODE_A, &model::difference(first, second), &[]);
+    let lo = total.first.min(change.first).min(0);
+    let hi = total.last().max(change.last()).max(second.len() as i64 - 1);
+    for k in lo..=hi {
+        let laid = usize::try_from(k)
+            .ok()
+            .and_then(|d| second.get(d))
+            .map_or(0, |h| 2 * n * h);
+        if total.at(k) != laid + change.at(k) {
+            return Err(format!(
+                "the 04_9 identity fails for {first:?} then {second:?} at shift {k}"
+            ));
+        }
+    }
+    Ok(())
+}
+
 /// Chapter 04's numbers: the still control, the moved echo, the flipped
 /// echo, the identity's factor, the noise blip.
 fn chapter_04(f: &mut Facts) -> Result<(), String> {
@@ -358,6 +381,10 @@ fn chapter_04(f: &mut Facts) -> Result<(), String> {
     f.add("G-F16.factor", ratio(control.at(still), STILL[0])?)?;
     f.add("G-F16.pulses", n)?;
     f.add("G-F16.per_pulse", ratio(control.at(still), STILL[0] * n)?)?;
+    // and the identity 04_9 shows holds on every total the chapter draws
+    for (second, total) in [(&STILL[..], &control), (&MOVED[..], &moved), (&FLIPPED[..], &flipped)] {
+        check_identity(&STILL, second, total)?;
+    }
 
     // 04_10: a noise blip
     f.add("G-F17.noise.blip", model::csv(&NOISE_BLIP))?;
@@ -640,5 +667,18 @@ mod tests {
         assert_eq!(echo_step(&MOVED), Ok(1));
         assert!(echo_step(&[1, 1]).is_err());
         assert!(echo_step(&[0]).is_err());
+    }
+
+    /// The identity check passes the totals chapter 04 draws and refuses a
+    /// total paired with the wrong second scene.
+    #[test]
+    fn the_identity_check_refuses_a_wrong_total() {
+        assert_eq!(check_identity(&STILL, &STILL, &sum()), Ok(()));
+        assert_eq!(check_identity(&STILL, &MOVED, &moved()), Ok(()));
+        assert_eq!(check_identity(&STILL, &FLIPPED, &flipped()), Ok(()));
+        // the flipped total read as if nothing changed: 0 at the echo, not 8
+        assert!(check_identity(&STILL, &STILL, &flipped()).is_err());
+        // the clean total read as if the echo moved: 0 at shift 1, not 5
+        assert!(check_identity(&STILL, &MOVED, &sum()).is_err());
     }
 }

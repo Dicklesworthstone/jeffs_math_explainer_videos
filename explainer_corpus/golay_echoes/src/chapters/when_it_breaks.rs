@@ -444,7 +444,7 @@ mod tests {
             .max()
             .unwrap_or(0) as f64;
         assert!(IDENTITY_AT[1] - 0.3 > CHART_Y + top * BLOCK);
-        assert!(IDENTITY_AT[1] + 0.3 < HOVER_Y);
+        const { assert!(IDENTITY_AT[1] + 0.3 < HOVER_Y) };
         // a row's name stays short, left of the shift −3 column, near
         // chapter 02's "both rows added" (15 characters)
         for name in [
