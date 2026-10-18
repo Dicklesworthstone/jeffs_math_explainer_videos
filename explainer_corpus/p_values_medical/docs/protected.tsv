@@ -4,7 +4,7 @@
 If the treatment changed no one's recovery, and the coins were tossed again	script	06's question: the assumed world (the sharp null) and the randomness are the condition of the count (M-T1)
 a fair coin	script	the randomization every assignment's equal chance rests on (03_1)
 the sharp null	description	the condition the p-value is computed under, named
-We count this result or anything more favourable	script	the whole tail, its direction fixed in advance and its boundary this result (04_9; M-T1.tail.at_least)
+we count this result or anything more favourable	script	the whole tail, its direction fixed in advance and its boundary this result (04_9; M-T1.tail.at_least)
 The whole tail, not a piece of it	description	exactly 15 and more than 15 are other numbers (M-X1)
 two made-up sets of recovery days	script	the paired-difference data are constructed, not trial data (M-D)
 not a treatment effect	description	the bars are observed differences in constructed data (M-D)

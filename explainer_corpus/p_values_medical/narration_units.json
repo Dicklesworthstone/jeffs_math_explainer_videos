@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "0edb36d4f170079eec658804864bedfa6f44b062ee0b6a2cd507978334333aa0",
+  "script_sha256": "81bdea666f2100e12f2567990a9bcde24ef045219a1bfc03f272b4a2dfce74c5",
   "units": [
     {
       "id": "01u1",
@@ -40,7 +40,7 @@
         "02_5",
         "02_6"
       ],
-      "text": "Take the same test to a clinic where one person in ten has the disease. The test hasn't changed. It still catches nine in ten, and still gives five percent of the rest a false alarm. So will a positive result mean more here, or less? Count again. A thousand have the disease, and nine hundred of them test positive. Of the other nine thousand, five percent is four hundred fifty false alarms. Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three."
+      "text": "Take the same test to a clinic where one person in ten has the disease. The test hasn't changed, so it still catches nine in ten and gives five percent of the rest a false alarm. So will a positive result mean more here, or less? This time, a thousand have the disease, and nine hundred of them test positive. Of the other nine thousand, five percent is four hundred fifty false alarms. Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three."
     },
     {
       "id": "02u2",
@@ -83,7 +83,7 @@
         "04_5",
         "04_6"
       ],
-      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen? Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first. For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast. Altogether, twenty-one thousand seven hundred ways."
+      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen? Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first. For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all."
     },
     {
       "id": "04u2",
@@ -93,7 +93,7 @@
         "04_9",
         "04_10"
       ],
-      "text": "Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. Neither is our test. The direction was fixed in advance. We count this result or anything more favourable. And every one of those ways lives in a world where the treatment did nothing."
+      "text": "Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable. And every one of those ways lives in a world where the treatment did nothing."
     },
     {
       "id": "05u1",
@@ -112,7 +112,7 @@
         "05_6",
         "05_7"
       ],
-      "text": "Now imagine one more pair had gone the other way. Same design, same direction. Fourteen. Fourteen or more is about five point eight percent of the same world. A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide. It doesn't switch the truth."
+      "text": "Now imagine one more pair had gone the other way. Same design, same direction. Fourteen. Fourteen or more is about five point eight percent of the same world. A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth."
     },
     {
       "id": "05u3",

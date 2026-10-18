@@ -98,7 +98,7 @@ mod tests {
         ("02_1", "one person in ten", "M-F2.prevalence.one_in", "10"),
         ("02_2", "catches nine in ten", "M-F2.sensitivity.exact", "9/10"),
         ("02_2", "five percent of the rest", "M-F2.false_alarm_percent", "5"),
-        ("02_4", "A thousand", "M-F2.with", "1000"),
+        ("02_4", "a thousand have the disease", "M-F2.with", "1000"),
         ("02_4", "nine hundred of them", "M-F2.true_pos", "900"),
         ("02_5", "nine thousand", "M-F2.without", "9000"),
         ("02_5", "five percent", "M-F2.false_alarm_percent", "5"),

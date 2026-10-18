@@ -10,9 +10,9 @@
 01_10	Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it.
 01_11	Five percent was a share of people without the disease. Your question is a share of people who tested positive.
 02_1	Take the same test to a clinic where one person in ten has the disease.
-02_2	The test hasn't changed. It still catches nine in ten, and still gives five percent of the rest a false alarm.
+02_2	The test hasn't changed, so it still catches nine in ten and gives five percent of the rest a false alarm.
 02_3	So will a positive result mean more here, or less?
-02_4	Count again. A thousand have the disease, and nine hundred of them test positive.
+02_4	This time, a thousand have the disease, and nine hundred of them test positive.
 02_5	Of the other nine thousand, five percent is four hundred fifty false alarms.
 02_6	Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three.
 02_7	So here a positive result means about sixty-seven percent, not fifteen.
@@ -33,10 +33,10 @@
 04_3	Fifteen itself, and everything above it, up to twenty.
 04_4	Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first.
 04_5	For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways.
-04_6	Down to fifteen, the counts grow fast. Altogether, twenty-one thousand seven hundred ways.
+04_6	Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all.
 04_7	Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value.
 04_8	Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent.
-04_9	Neither is our test. The direction was fixed in advance. We count this result or anything more favourable.
+04_9	Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable.
 04_10	And every one of those ways lives in a world where the treatment did nothing.
 05_1	Two percent is a share of that imaginary world, where no one's recovery changed.
 05_2	So is two percent the chance that the treatment did nothing?
@@ -44,7 +44,7 @@
 05_4	Nor the chance the study is wrong. Both need more than this count.
 05_5	Now imagine one more pair had gone the other way. Same design, same direction. Fourteen.
 05_6	Fourteen or more is about five point eight percent of the same world.
-05_7	A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide. It doesn't switch the truth.
+05_7	A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth.
 05_8	The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days.
 05_9	Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other.
 05_10	Same signs, same count, same two percent. The test never asked how much sooner. A patient would.

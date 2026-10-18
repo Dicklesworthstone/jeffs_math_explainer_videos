@@ -48,6 +48,8 @@ const MORE_THAN: &str = "more than";
 /// (the boundary is the observed count, never a cutoff chosen in advance).
 const FIXED: &str = "fixed in advance: the statistic and its direction";
 const SET_BY: &str = "set by the data: the tail starts at this result,";
+// the words 04_6's total lands on (the test below holds it to the line)
+const TOTAL_AT: &str = "twenty-one thousand seven hundred";
 const DENOMINATOR: &str = "every one of them in the world where the treatment changed no one's recovery";
 
 /// The pairs 04_5 turns over, one at a time: three of the twenty single-pair
@@ -442,7 +444,7 @@ impl SceneConstruct for CountTheWholeTail {
         fade_in_all(stage, &row, 0.4)?;
         rows.push((nineteen, row));
 
-        // 04_6: down to fifteen the counts grow; altogether 21,700 ways
+        // 04_6: down to fifteen the counts grow, 21,700 in all
         let line = say(&kit, stage, "04_6")?;
         let mut rest = Vec::new();
         for j in (first..nineteen).rev() {
@@ -451,7 +453,7 @@ impl SceneConstruct for CountTheWholeTail {
             rows.push((j, row));
         }
         fade_in_lagged(stage, &rest, 1.4, 0.1)?;
-        line.wait_for(stage, "Altogether")?;
+        line.wait_for(stage, TOTAL_AT)?;
         let (rule_y, total_y) = (row_y(first, pairs) - RULE_DY, row_y(first, pairs) - TOTAL_DY);
         // the total's final words, still: they take over from the live count
         // when the ledger rises, and their width right-aligns the live count
@@ -562,6 +564,18 @@ mod tests {
     use super::super::imaginary_world::{SMALL, hist_frame};
     use super::super::same_test::{PAIR_H, STUDY_TAG_Y};
     use super::*;
+
+    /// 04_6 is one sentence (the take ran its two together with no quiet to
+    /// lengthen), and its total lands on the number itself, said once.
+    #[test]
+    fn the_total_lands_on_its_number() {
+        use crate::chapters::draw::sentence_offsets;
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let line = script.text("04_6").unwrap();
+        assert_eq!(sentence_offsets(line).len(), 1);
+        assert_eq!(line.matches(TOTAL_AT).count(), 1);
+        assert!(!line.contains("Altogether"));
+    }
 
     /// The ledger is the tail's bars counted in assignments and sums to the
     /// tail; the tail starts at this result; each flipped pair gives one of
