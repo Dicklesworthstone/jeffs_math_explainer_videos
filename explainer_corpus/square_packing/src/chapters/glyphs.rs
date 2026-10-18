@@ -34,6 +34,9 @@ pub const TEX: &[&str] = &[
     super::four_points_five_tiles::DEPTH,
     super::four_points_five_tiles::B_IS,
     super::four_points_five_tiles::NO_GROWTH,
+    super::what_is_proved::TEN_SIDE,
+    super::what_is_proved::ELEVEN_SIDE,
+    super::what_is_proved::ELEVEN_TURN,
 ];
 /// Code, set in CM Typewriter.
 pub const MONO: &[&str] = &[];

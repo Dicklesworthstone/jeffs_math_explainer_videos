@@ -1858,6 +1858,126 @@ pub fn scale_core() -> Tile<Surd> {
     }
 }
 
+// ------------------------------------------------- beyond five (chapter 08)
+//
+// Two larger packings, each checked exactly as chapter 01's is ([`Packing::
+// check_exact`]: every tile a true turn, no two overlapping, all inside).
+// A check shows that a box is big enough, and nothing about smaller boxes.
+//
+// Ten tiles (W. Stromquist, "Packing 10 or 11 unit squares in a square",
+// Electron. J. Combin. 10 (2003) #R8, Figure 1, left): the box 3 + h wide,
+// h = 1/√2, the gap of chapter 01; nine straight tiles [x, x + 1] ×
+// [y, y + 1], x in {0, 1, 2 + h}, y in {0, 1 + h, 2 + h}; the tenth turned
+// an eighth and centred in the h-wide gap at (2 + h/2, 1 + h/2), touching
+// four of them at the middles of its sides, as the middle tile of five does.
+// That no narrower box holds ten is that paper's theorem; nothing here
+// proves it.
+//
+// Eleven tiles: an exact member of the family of W. Trump's construction
+// (as reconstructed by Ellsworth), its parameters chosen for exactness,
+// not to be the smallest known: the box T = 1939/500 wide, five tiles turned
+// by cos 105/137, sin 88/137 (about 39.97°, not 40°), six straight. With
+// ρ = 1 − (T − 3)c, η = ((1 + ρ)c − 1)/s, v = c − s,
+// ζ = (T − 1)/s − ρ − (3 + η)c/s and x0 = 1 + 2/c − (T − 2)s/c: the straight
+// tiles A(0, 0), A(T − 1, 0), A(x0, T − 1), A(0, T − 1), A(1, T − 1),
+// A(0, T − 2), with A(x, y) = [x, x + 1] × [y, y + 1], and the turned ones
+// F(A(0, 0)), F(A(η, −1)), F(A(1, v)), F(A(η + 1, v − 1)), F(A(η + 2, −ζ)),
+// where F(x, y) = (1 + c x − s (y − ρ), 1 + s x + c (y − ρ)) turns the
+// plane by (c, s) and shifts it.
+// Nothing is claimed about the smallest box for eleven. The same formulas
+// with an eighth of a turn do not give a packing ([`eleven_with`]'s test).
+
+/// The straight unit tile [x, x + 1] × [y, y + 1].
+fn square_at(x: Surd, y: Surd) -> Tile<Surd> {
+    let h = Surd::ratio(1, 2);
+    Tile::straight(x + h, y + h)
+}
+
+/// Stromquist's ten tiles in the box 3 + 1/√2 wide.
+pub fn ten() -> Packing<Surd> {
+    let (zero, one, h) = (Surd::ZERO, Surd::int(1), turned_gap());
+    let mut tiles = Vec::new();
+    for x in [zero, one, Surd::int(2) + h] {
+        for y in [zero, one + h, Surd::int(2) + h] {
+            tiles.push(square_at(x, y));
+        }
+    }
+    let half = Surd::ratio(1, 2);
+    let (c, s) = eighth_turn();
+    tiles.push(Tile {
+        centre: (Surd::int(2) + h * half, one + h * half),
+        cos: c,
+        sin: s,
+    });
+    Packing {
+        side: Surd::int(3) + h,
+        tiles,
+    }
+}
+
+/// The eleven-tile construction for the box `t` wide and the turn
+/// (`c`, `s`): six straight tiles, then five turned by (c, s).
+pub fn eleven_with(t: Surd, c: Surd, s: Surd) -> Packing<Surd> {
+    let (one, two, three) = (Surd::int(1), Surd::int(2), Surd::int(3));
+    let (ic, is) = (c.recip(), s.recip());
+    let rho = one - (t - three) * c;
+    let eta = ((one + rho) * c - one) * is;
+    let v = c - s;
+    let zeta = (t - one) * is - rho - (three + eta) * c * is;
+    let x0 = one + two * ic - (t - two) * s * ic;
+    let half = Surd::ratio(1, 2);
+    // the turned tile that F makes of A(a, b): centred at F of A's centre
+    let turned_at = |a: Surd, b: Surd| {
+        let (x, y) = (a + half, b + half - rho);
+        Tile {
+            centre: (one + c * x - s * y, one + s * x + c * y),
+            cos: c,
+            sin: s,
+        }
+    };
+    let zero = Surd::ZERO;
+    Packing {
+        side: t,
+        tiles: vec![
+            square_at(zero, zero),
+            square_at(t - one, zero),
+            square_at(x0, t - one),
+            square_at(zero, t - one),
+            square_at(one, t - one),
+            square_at(zero, t - two),
+            turned_at(zero, zero),
+            turned_at(eta, -one),
+            turned_at(one, v),
+            turned_at(eta + one, v - one),
+            turned_at(eta + two, -zeta),
+        ],
+    }
+}
+
+/// The eleven tiles chapter 08 shows: the box 1939/500 = 3.878 wide, the
+/// turn cos 105/137, sin 88/137.
+pub fn eleven() -> Packing<Surd> {
+    eleven_with(Surd::ratio(1939, 500), Surd::ratio(105, 137), Surd::ratio(88, 137))
+}
+
+/// Chapter 08's planted failures, each a packing that must fail its check:
+/// the ten and the eleven in boxes 1/100 narrower (tiles escape), and the
+/// eleven with its first tile doubled (an overlap).
+pub fn beyond_planted() -> Vec<(&'static str, Packing<Surd>)> {
+    let hair = Surd::ratio(1, 100);
+    let narrower = |p: Packing<Surd>| Packing {
+        side: p.side - hair,
+        tiles: p.tiles,
+    };
+    let mut doubled = eleven();
+    doubled.tiles.push(doubled.tiles[0]);
+    vec![
+        ("ten_narrower", narrower(ten())),
+        ("eleven_narrower", narrower(eleven())),
+        ("eleven_doubled", doubled),
+    ]
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -3092,5 +3212,100 @@ mod tests {
         let small = grown(&core, lambda.recip());
         assert!(inside_box(&small.corners(), small_side));
         assert_eq!(grown(&small, lambda), core);
+    }
+
+    /// Every tile of `p` is a true unit square: its turn is one (cos² + sin²
+    /// = 1), and its corners are a tile apart along sides at right angles.
+    fn all_unit_squares(p: &Packing<Surd>) {
+        for (i, t) in p.tiles.iter().enumerate() {
+            assert_eq!(t.cos * t.cos + t.sin * t.sin, Surd::int(1), "{i}");
+            let c = t.corners();
+            for (k, &a) in c.iter().enumerate() {
+                let (b, d) = (c[(k + 1) % 4], c[(k + 2) % 4]);
+                let (u, w) = ((b.0 - a.0, b.1 - a.1), (d.0 - b.0, d.1 - b.1));
+                assert_eq!(u.0 * u.0 + u.1 * u.1, Surd::int(1), "{i}: side {k}");
+                assert_eq!(u.0 * w.0 + u.1 * w.1, Surd::ZERO, "{i}: corner {k}");
+            }
+        }
+    }
+
+    /// Stromquist's ten fit the box 3 + 1/√2 exactly: ten unit tiles, none
+    /// overlapping, all inside; the turned one's side middles are four of the
+    /// straight tiles' corners, as the middle tile of five touches its
+    /// neighbours.
+    #[test]
+    fn the_ten_fit_exactly() {
+        let p = ten();
+        assert_eq!(p.tiles.len(), 10);
+        assert_eq!(p.side, Surd::int(3) + turned_gap());
+        all_unit_squares(&p);
+        let v = p.check_exact();
+        assert!(v.fits(), "{}", v.summary());
+        assert_eq!(p.tiles.iter().filter(|t| t.sin != Surd::ZERO).count(), 1);
+        let turned_tile = p.tiles[9];
+        let touched = turned_tile
+            .midpoints()
+            .iter()
+            .filter(|&&m| p.tiles[..9].iter().any(|t| t.corners().contains(&m)))
+            .count();
+        assert_eq!(touched, 4);
+        assert!(v.touching.iter().filter(|&&(_, j)| j == 9).count() >= 4);
+    }
+
+    /// The eleven fit the box 1939/500 exactly: eleven unit tiles, five
+    /// turned by cos 105/137, sin 88/137, none overlapping, all inside; every
+    /// corner within the box. The angle shown, "about 40°", is the rounding
+    /// of 39.97°, not 40 itself; the side shown is exactly 3.878.
+    #[test]
+    fn the_eleven_fit_exactly() {
+        let p = eleven();
+        assert_eq!(p.tiles.len(), 11);
+        all_unit_squares(&p);
+        let v = p.check_exact();
+        assert!(v.fits(), "{}", v.summary());
+        let turned: Vec<&Tile<Surd>> = p.tiles.iter().filter(|t| t.sin != Surd::ZERO).collect();
+        assert_eq!(turned.len(), 5);
+        assert!(
+            turned
+                .iter()
+                .all(|t| (t.cos, t.sin) == (Surd::ratio(105, 137), Surd::ratio(88, 137)))
+        );
+        let walls = Surd::ZERO..=p.side;
+        for t in &p.tiles {
+            assert!(t.corners().iter().all(|q| walls.contains(&q.0) && walls.contains(&q.1)));
+        }
+        let degrees = 88f64.atan2(105.0).to_degrees();
+        assert_eq!(format!("{degrees:.0}"), "40");
+        assert_eq!(format!("{degrees:.2}"), "39.97");
+        assert!((degrees - 40.0).abs() > 0.01, "about 40, not 40");
+        assert_eq!(p.side.decimals(3), "3.878");
+        assert_eq!(p.side * Surd::int(500), Surd::int(1939));
+    }
+
+    /// Each planted failure fails its check as planted: the narrower boxes
+    /// let tiles escape, the doubled tile overlaps its twin; and the eleven's
+    /// formulas with an eighth of a turn, in the box 2 + 4√2/3, overlap: they
+    /// are not a family to slide along.
+    #[test]
+    fn beyond_five_planted_failures_fail() {
+        for (key, p) in beyond_planted() {
+            let v = p.check_exact();
+            assert!(!v.fits(), "{key} fits");
+            match key {
+                "ten_narrower" | "eleven_narrower" => {
+                    assert!(
+                        !v.escaped.is_empty() && v.overlapping.is_empty(),
+                        "{key}: {}",
+                        v.summary()
+                    );
+                }
+                "eleven_doubled" => assert_eq!(v.overlapping, vec![(0, 11)], "{key}"),
+                other => panic!("an unknown planted failure {other}"),
+            }
+        }
+        let (c, s) = eighth_turn();
+        let t = Surd::int(2) + Surd::ratio(4, 3) * Surd::sqrt2();
+        let v = eleven_with(t, c, s).check_exact();
+        assert!(!v.overlapping.is_empty(), "{}", v.summary());
     }
 }

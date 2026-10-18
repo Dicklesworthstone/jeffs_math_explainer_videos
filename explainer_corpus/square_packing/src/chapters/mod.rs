@@ -1,6 +1,6 @@
 //! One scene per chapter, in storyboard order. Every chapter is a real
 //! scene; a module is declared here only once its file is committed
-//! (chapter 08 of the storyboard's arc is not boarded yet).
+//! (every chapter of the storyboard's arc is boarded).
 
 pub mod a_triangle_of_points;
 pub mod a_turn_by_a_hair;
@@ -11,6 +11,7 @@ pub mod glyphs;
 pub mod near_a_side;
 pub mod the_corner_lemma;
 pub mod the_turned_tile;
+pub mod what_is_proved;
 
 use explainer_kit::Chapter;
 
@@ -38,5 +39,6 @@ pub fn registry() -> Vec<Chapter> {
             0.5,
             four_points_five_tiles::FourPointsFiveTiles
         ),
+        scene!("08_what_is_proved", 0.45, what_is_proved::WhatIsProved),
     ]
 }

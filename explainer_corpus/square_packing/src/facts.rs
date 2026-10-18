@@ -36,6 +36,10 @@ pub mod cited {
     /// (ed.), *Packing and Covering in Combinatorics*, Math Centrum Tracts 106
     /// (1979), 179–199 (Friedman, DS7, reference [7]): the five-tile packing.
     pub const GOBEL: u32 = 1979;
+    /// W. Stromquist, "Packing 10 or 11 unit squares in a square",
+    /// *Electronic Journal of Combinatorics* 10 (2003) #R8 (fact sheet S4):
+    /// the ten-tile packing chapter 08 shows is its Figure 1.
+    pub const STROMQUIST: u32 = 2003;
     /// The case page's side for five tiles, 2 + √2/2, in the facts' form;
     /// Friedman's Table 1 writes it 2 + 1/√2.
     pub const SIDE: &str = "2 + 1/2*sqrt(2)";
@@ -65,7 +69,9 @@ pub fn facts() -> Result<Facts, String> {
     strip(&mut f)?;
     middle(&mut f)?;
     scale(&mut f)?;
+    beyond(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
+    f.add("source.stromquist", cited::STROMQUIST)?;
     Ok(f)
 }
 
@@ -708,6 +714,52 @@ fn scale(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 08: beyond five. Stromquist's ten in the box 3 + 1/√2 and the eleven in
+/// the box 1939/500, each checked exactly (a fit, nothing about smaller
+/// boxes): their sides, counts, turned tiles, the eleven's turn and its angle
+/// as shown, the ten's turned tile's four touches; and the planted
+/// failures, each caught.
+fn beyond(f: &mut Facts) -> Result<(), String> {
+    let ten = model::ten();
+    let v = ten.check_exact();
+    ensure(v.fits() && ten.tiles.len() == 10, || {
+        format!("the ten do not fit: {}", v.summary())
+    })?;
+    f.add("beyond.ten.side", ten.side)?;
+    f.add("beyond.ten.side.2dp", ten.side.decimals(2))?;
+    f.add("beyond.ten.check", v.summary())?;
+    f.add("beyond.ten.count", ten.tiles.len())?;
+    let turned = |p: &Packing<Surd>| p.tiles.iter().filter(|t| t.sin != Surd::ZERO).count();
+    f.add("beyond.ten.turned", turned(&ten))?;
+    let last = ten.tiles.len() - 1;
+    f.add(
+        "beyond.ten.touches",
+        v.touching.iter().filter(|&&(i, j)| i == last || j == last).count(),
+    )?;
+    let eleven = model::eleven();
+    let v = eleven.check_exact();
+    ensure(v.fits() && eleven.tiles.len() == 11, || {
+        format!("the eleven do not fit: {}", v.summary())
+    })?;
+    f.add("beyond.eleven.side", eleven.side)?;
+    f.add("beyond.eleven.side.3dp", eleven.side.decimals(3))?;
+    f.add("beyond.eleven.side.2dp", eleven.side.decimals(2))?;
+    f.add("beyond.eleven.check", v.summary())?;
+    f.add("beyond.eleven.count", eleven.tiles.len())?;
+    f.add("beyond.eleven.turned", turned(&eleven))?;
+    let t = eleven.tiles[eleven.tiles.len() - 1];
+    f.add("beyond.eleven.turn", format!("{},{}", t.cos, t.sin))?;
+    let degrees = t.sin.to_f64().atan2(t.cos.to_f64()).to_degrees();
+    f.add("beyond.eleven.degrees.2dp", format!("{degrees:.2}"))?;
+    f.add("beyond.eleven.degrees.0dp", format!("{degrees:.0}"))?;
+    for (key, p) in model::beyond_planted() {
+        let v = p.check_exact();
+        ensure(!v.fits(), || format!("the planted failure {key} passes the check"))?;
+        f.add(&format!("beyond.fail.{key}"), v.summary())?;
+    }
+    Ok(())
+}
+
 /// How a tile meets a triangle, as the facts print it: `holds`, or the way
 /// it misses every corner with the sides involved.
 fn meets_word(m: model::Meets) -> String {
@@ -1098,5 +1150,47 @@ mod tests {
         assert!(line("07_7").contains("the turned packing fits this one"));
         assert_eq!(value("middle.packing.inside"), "none");
         assert!(line("07_8").contains("shared by two tiles"));
+    }
+
+    /// What chapter 08's voice says, on the facts: ten in a box 3 + 1/√2,
+    /// nine straight and one turned; eleven in a box about 3.88, five turned
+    /// about 40° (39.97°, not 40); each checked exactly and fitting, with
+    /// every planted failure caught; and the five's box exactly 2 + 1/√2.
+    #[test]
+    fn what_is_proved_says_the_facts() {
+        assert_eq!(value("beyond.ten.side"), "3 + 1/2*sqrt(2)");
+        let ten = int("beyond.ten.count");
+        let l1 = line("08_1");
+        let opening = format!(
+            "{} tiles fit a box three plus one over the square root of two wide",
+            capital(word(ten))
+        );
+        assert!(l1.starts_with(&opening), "{l1}");
+        let turned = int("beyond.ten.turned");
+        let nine_and_one = format!("{} straight and {} turned", word(ten - turned), word(turned));
+        assert!(l1.contains(&nine_and_one), "{l1}");
+        let l2 = line("08_2");
+        assert_eq!(int("beyond.eleven.count"), 11);
+        assert!(l2.starts_with("Eleven fit"), "{l2}");
+        let side = format!("about {} wide", spoken(&value("beyond.eleven.side.2dp")));
+        assert!(l2.contains(&side), "{l2}");
+        let five = format!("{} of them turned", word(int("beyond.eleven.turned")));
+        assert!(l2.contains(&five), "{l2}");
+        assert_eq!(value("beyond.eleven.degrees.0dp"), "40");
+        assert_ne!(value("beyond.eleven.degrees.2dp"), "40.00");
+        assert!(l2.contains("about forty degrees"), "{l2}");
+        assert_eq!(value("beyond.ten.check"), "fits");
+        assert_eq!(value("beyond.eleven.check"), "fits");
+        for key in ["ten_narrower", "eleven_narrower", "eleven_doubled"] {
+            assert_ne!(value(&format!("beyond.fail.{key}")), "fits", "{key}");
+        }
+        let l3 = line("08_3");
+        assert!(
+            l3.contains("every tile is a true unit square, none overlap, and all are inside"),
+            "{l3}"
+        );
+        assert!(l3.contains("big enough, nothing more"), "{l3}");
+        assert_eq!(value("turned.side"), "2 + 1/2*sqrt(2)");
+        assert!(line("08_5").contains("exactly two plus one over the square root of two"));
     }
 }

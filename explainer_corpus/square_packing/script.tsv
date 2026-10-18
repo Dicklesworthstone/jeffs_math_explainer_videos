@@ -57,3 +57,8 @@
 07_6	Five tiles, each holding a point strictly inside, and no two can share one without overlapping. Four points are not enough.
 07_7	So no narrower box holds five, and the turned packing fits this one. It is the smallest.
 07_8	Here nothing grew, so its points can sit on edges, shared by two tiles, as they do.
+08_1	Ten tiles fit a box three plus one over the square root of two wide, nine straight and one turned, as in the middle of five.
+08_2	Eleven fit a box about three point eight eight wide, five of them turned about forty degrees. Does this picture prove that box is the smallest?
+08_3	No. Checked exactly, every tile is a true unit square, none overlap, and all are inside. That shows the box is big enough, nothing more.
+08_4	Proving that no smaller box works takes an argument about every arrangement, like the one we built for five.
+08_5	For five tiles we have both, the turned packing and the proof. The smallest box is exactly two plus one over the square root of two.

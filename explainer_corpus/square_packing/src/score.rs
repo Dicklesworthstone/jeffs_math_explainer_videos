@@ -68,7 +68,7 @@ pub fn identity() -> Identity {
         listen_chord: None,
         theme_chord: None,
         // each think window asks with the motif left open (01_4, 02_5, 03_3,
-        // 04_3, 05_2, 06_2, 07_3)
+        // 04_3, 05_2, 06_2, 07_3, 08_2)
         themes: vec![
             ("01_4", Theme::Open),
             ("02_5", Theme::Open),
@@ -77,6 +77,7 @@ pub fn identity() -> Identity {
             ("05_2", Theme::Open),
             ("06_2", Theme::Open),
             ("07_3", Theme::Open),
+            ("08_2", Theme::Open),
         ],
     }
 }
@@ -140,6 +141,7 @@ mod tests {
         assert_eq!(id.theme_for("05_near_a_side:05_2"), Some(Theme::Open));
         assert_eq!(id.theme_for("06_a_triangle_of_points:06_2"), Some(Theme::Open));
         assert_eq!(id.theme_for("07_four_points_five_tiles:07_3"), Some(Theme::Open));
+        assert_eq!(id.theme_for("08_what_is_proved:08_2"), Some(Theme::Open));
         assert_ne!(id.motif.degrees.last(), Some(&1));
         assert_eq!(id.resolution.degrees.last(), Some(&1));
         let board = explainer_kit::storyboard::parse(crate::STORYBOARD).unwrap();
@@ -149,7 +151,10 @@ mod tests {
             .filter(|b| b.listen_s().is_some())
             .map(|b| b.id.as_str())
             .collect();
-        assert_eq!(windows, vec!["01_4", "02_5", "03_3", "04_3", "05_2", "06_2", "07_3"]);
+        assert_eq!(
+            windows,
+            vec!["01_4", "02_5", "03_3", "04_3", "05_2", "06_2", "07_3", "08_2"]
+        );
     }
 
     /// Key, tempo and lead differ from every other identity in the corpus as

@@ -715,6 +715,71 @@ def main():
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])
     put("source.gobel", 1979)
 
+    # chapter 08, beyond five, by polygons: the ten from straight squares and
+    # one diamond; the eleven's turned tiles as the map F applied to each
+    # unit square's four vertices, not built from a centre and a turn; every
+    # polygon checked to be a unit square (sides of length 1 at right
+    # angles); fits decided by clipping, as for chapter 01
+    def unit_square(poly):
+        for k in range(4):
+            a, b, d = poly[k], poly[(k + 1) % 4], poly[(k + 2) % 4]
+            u, w = (b[0] - a[0], b[1] - a[1]), (d[0] - b[0], d[1] - b[1])
+            if u[0] * u[0] + u[1] * u[1] != 1 or u[0] * w[0] + u[1] * w[1] != 0:
+                return False
+        return True
+
+    def turned_count(polys):
+        return sum(1 for p in polys if p[1][1] != p[0][1])
+
+    h10 = r
+    ten_side = 3 + h10
+    ten_tiles = [square(x, y) for x in (0, 1, 2 + h10) for y in (0, 1 + h10, 2 + h10)]
+    ten_tiles.append(diamond(2 + h10 * HALF, 1 + h10 * HALF, h10))
+    if not all(unit_square(t) for t in ten_tiles):
+        sys.exit("oracle: a tile of the ten is not a unit square")
+    put("beyond.ten.side", ten_side)
+    put("beyond.ten.side.2dp", ten_side.rounded(2))
+    put("beyond.ten.check", verdict(ten_side, ten_tiles))
+    put("beyond.ten.count", len(ten_tiles))
+    put("beyond.ten.turned", turned_count(ten_tiles))
+    last10 = str(len(ten_tiles) - 1)
+    put("beyond.ten.touches", sum(1 for pair in touching(ten_tiles).split(",") if last10 in pair.split("-")))
+
+    t11 = Fraction(1939, 500)
+    c11, s11 = Fraction(105, 137), Fraction(88, 137)
+    if c11 * c11 + s11 * s11 != 1:
+        sys.exit("oracle: the eleven's turn is not a turn")
+    rho = 1 - (t11 - 3) * c11
+    eta = ((1 + rho) * c11 - 1) / s11
+    v11 = c11 - s11
+    zeta = (t11 - 1) / s11 - rho - (3 + eta) * c11 / s11
+    x0 = 1 + 2 / c11 - (t11 - 2) * s11 / c11
+
+    def moved(a, b):
+        def f(x, y):
+            return (q2(1 + c11 * x - s11 * (y - rho)), q2(1 + s11 * x + c11 * (y - rho)))
+        return [f(a, b), f(a + 1, b), f(a + 1, b + 1), f(a, b + 1)]
+
+    eleven_tiles = [square(0, 0), square(t11 - 1, 0), square(x0, t11 - 1), square(0, t11 - 1),
+                    square(1, t11 - 1), square(0, t11 - 2),
+                    moved(0, 0), moved(eta, -1), moved(1, v11), moved(eta + 1, v11 - 1), moved(eta + 2, -zeta)]
+    if not all(unit_square(t) for t in eleven_tiles):
+        sys.exit("oracle: a tile of the eleven is not a unit square")
+    put("beyond.eleven.side", t11)
+    put("beyond.eleven.side.3dp", Q2(t11).rounded(3))
+    put("beyond.eleven.side.2dp", Q2(t11).rounded(2))
+    put("beyond.eleven.check", verdict(q2(t11), eleven_tiles))
+    put("beyond.eleven.count", len(eleven_tiles))
+    put("beyond.eleven.turned", turned_count(eleven_tiles))
+    put("beyond.eleven.turn", f"{c11},{s11}")
+    angle = math.degrees(math.atan2(s11.numerator * c11.denominator, c11.numerator * s11.denominator))
+    put("beyond.eleven.degrees.2dp", f"{angle:.2f}")
+    put("beyond.eleven.degrees.0dp", f"{angle:.0f}")
+    put("beyond.fail.ten_narrower", verdict(ten_side - HUNDREDTH, ten_tiles))
+    put("beyond.fail.eleven_narrower", verdict(q2(t11) - HUNDREDTH, eleven_tiles))
+    put("beyond.fail.eleven_doubled", verdict(q2(t11), eleven_tiles + [eleven_tiles[0]]))
+    put("source.stromquist", 2003)
+
     print("\n".join(out))
 
 
