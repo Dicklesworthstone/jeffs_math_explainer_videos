@@ -572,7 +572,7 @@ impl SceneConstruct for TheSameTest {
             }
         }
         let caught_n = stage.add_value_tracker(0.0);
-        let n_caught = kit.live_number(
+        kit.live_number(
             stage,
             caught_n,
             0,
@@ -608,7 +608,7 @@ impl SceneConstruct for TheSameTest {
             }
         }
         let alarm_n = stage.add_value_tracker(0.0);
-        let n_alarms = kit.live_number(
+        kit.live_number(
             stage,
             alarm_n,
             0,
