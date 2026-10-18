@@ -74,16 +74,22 @@
       "text": "If the treatment did nothing, who recovered first stays fixed. Only the coins could have landed differently. Toss them again. And again, and again. Each toss gives its own count. The twenty coins can land in just over a million ways, all equally likely. Count them all. Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is. In this world, how often do fifteen or more pairs favour the treatment?"
     },
     {
-      "id": "04u1",
+      "id": "04u1a",
       "line_ids": [
         "04_1",
         "04_2",
         "04_3",
-        "04_4",
+        "04_4"
+      ],
+      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen? Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first."
+    },
+    {
+      "id": "04u1b",
+      "line_ids": [
         "04_5",
         "04_6"
       ],
-      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen? Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first. For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all."
+      "text": "For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all."
     },
     {
       "id": "04u2",
@@ -106,13 +112,19 @@
       "text": "Two percent is a share of that imaginary world, where no one's recovery changed. So is two percent the chance that the treatment did nothing? No. The two percent was counted inside that world. It can't be the chance that world is true. Nor the chance the study is wrong. Both need more than this count."
     },
     {
-      "id": "05u2",
+      "id": "05u2a",
       "line_ids": [
-        "05_5",
+        "05_5"
+      ],
+      "text": "Now imagine one more pair had gone the other way. Same design, same direction. Fourteen."
+    },
+    {
+      "id": "05u2b",
+      "line_ids": [
         "05_6",
         "05_7"
       ],
-      "text": "Now imagine one more pair had gone the other way. Same design, same direction. Fourteen. Fourteen or more is about five point eight percent of the same world. A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth."
+      "text": "Fourteen or more is about five point eight percent of the same world. A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth."
     },
     {
       "id": "05u3",

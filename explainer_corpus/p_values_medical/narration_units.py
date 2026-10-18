@@ -20,7 +20,9 @@ The rules (`problems` checks each one):
   * every line of script.tsv is in exactly one unit, and the units read the
     lines in script order: none left out, repeated or moved;
   * a unit holds the lines of one chapter, and its id names that chapter and
-    its place in it (01u1, 01u2, ...);
+    its place in it (01u1, 01u2, ...); a unit split into separate requests
+    keeps its place and letters its parts in order (04u1a, 04u1b), two or
+    more of them;
   * a unit's text is its lines exactly, joined by one space, no stage
     direction or paraphrase; it ends a sentence; it has at most 100 words
     (split on whitespace, so "seventy-seven" is one);
@@ -32,6 +34,11 @@ units are shorter because their thought is: the survey before chapter 01's
 title card (01u1), the positives gathered after the count (01u3), the
 imagined 14 between the wrong readings and the made-up days (05u2), and the
 survey's question before its answer (06u1).
+
+A list of groups in GROUPS is one unit split into separate requests where a
+take ran two lines together with no silence between them (no cut there can
+keep both words whole): 04u1 at "first. | For nineteen" and 05u2 at
+"Fourteen. | Fourteen or more" (root, Mail 3384). 05u2a is one line.
 """
 import hashlib
 import json
@@ -45,7 +52,7 @@ UNITS = HERE / "narration_units.json"
 
 SCHEMA_VERSION = 1
 MAX_WORDS = 100
-UNIT_ID = re.compile(r"(\d\d)u([1-9]\d*)")
+UNIT_ID = re.compile(r"(\d\d)u([1-9]\d*)([a-z]?)")
 KEYS = {"schema_version", "script_sha256", "units"}
 UNIT_KEYS = {"id", "line_ids", "text"}
 
@@ -64,14 +71,16 @@ GROUPS = [
     ("03_1", "03_2", "03_3", "03_4"),
     # the coins tossed again, every assignment, the question asked in that world
     ("03_5", "03_6", "03_7", "03_8", "03_9"),
-    # 04: which bars, then the ways counted up to 21,700
-    ("04_1", "04_2", "04_3", "04_4", "04_5", "04_6"),
+    # 04: which bars and the one way to get twenty | the other counts up to
+    # 21,700 (split where the take ran "first" into "For")
+    [("04_1", "04_2", "04_3", "04_4"), ("04_5", "04_6")],
     # the share and its name, the wrong tails, the world it lives in
     ("04_7", "04_8", "04_9", "04_10"),
     # 05: what two percent is not
     ("05_1", "05_2", "05_3", "05_4"),
-    # an imagined fourteen and the five percent convention
-    ("05_5", "05_6", "05_7"),
+    # an imagined fourteen | its tail and the five percent convention (split
+    # where the take ran "Fourteen." into "Fourteen or more")
+    [("05_5",), ("05_6", "05_7")],
     # the two made-up versions of the recovery days
     ("05_8", "05_9", "05_10"),
     # 06: the survey's keyed answer, and the question for our study
@@ -130,7 +139,7 @@ def problems(doc, lines, script_bytes):
     if not isinstance(units, list) or not units:
         return [*out, "units must be a non-empty list"]
     text_of = dict(lines)
-    said, per_chapter = [], {}
+    said, place, parts = [], {}, {}
     for k, unit in enumerate(units, 1):
         if not isinstance(unit, dict) or set(unit) != UNIT_KEYS:
             out.append(f"unit {k}: must be an object with exactly the keys {sorted(UNIT_KEYS)}")
@@ -148,10 +157,18 @@ def problems(doc, lines, script_bytes):
         if len(chapters) > 1:
             out.append(f"{name}: holds lines of chapters {chapters}; a unit stays in one chapter")
         else:
-            per_chapter[chapters[0]] = per_chapter.get(chapters[0], 0) + 1
-            expected = f"{chapters[0]}u{per_chapter[chapters[0]]}"
-            if not isinstance(uid, str) or not UNIT_ID.fullmatch(uid) or uid != expected:
-                out.append(f"{name}: the id must be {expected!r}, its chapter and its place in it")
+            c = chapters[0]
+            n, letter = place.get(c, (0, ""))
+            allowed = [f"{c}u{n + 1}", f"{c}u{n + 1}a"] + ([f"{c}u{n}{chr(ord(letter) + 1)}"] if letter else [])
+            m = UNIT_ID.fullmatch(uid) if isinstance(uid, str) else None
+            if m is None or uid not in allowed:
+                out.append(f"{name}: the id must be {allowed[0]!r}, its chapter and its place in it "
+                           f"(or {', '.join(map(repr, allowed[1:]))} for a split unit's part)")
+                place[c] = (n + 1, "")
+            else:
+                place[c] = (int(m.group(2)), m.group(3))
+                if m.group(3):
+                    parts.setdefault(uid[:-1], []).append(m.group(3))
         if not isinstance(text, str):
             out.append(f"{name}: text must be a string")
             continue
@@ -165,6 +182,9 @@ def problems(doc, lines, script_bytes):
             out.append(f"{name}: text must end a sentence")
         if words(text) > MAX_WORDS:
             out.append(f"{name}: {words(text)} words, more than {MAX_WORDS}")
+    for base, letters in parts.items():
+        if len(letters) < 2:
+            out.append(f"split unit {base} has only part {letters[0]!r}: a split unit has two parts or more")
     order = [i for i, _ in lines]
     missing = [i for i in order if i not in said]
     if missing:
@@ -184,14 +204,17 @@ def build(lines, script_bytes, groups=GROUPS):
     result breaks a rule (a line the groups leave out, say)."""
     text_of = dict(lines)
     units, per_chapter = [], {}
-    for ids in groups:
-        chapter = chapter_of(ids[0])
+    for group in groups:
+        split = isinstance(group, list)
+        members = group if split else [group]
+        chapter = chapter_of(members[0][0])
         per_chapter[chapter] = per_chapter.get(chapter, 0) + 1
-        units.append({
-            "id": f"{chapter}u{per_chapter[chapter]}",
-            "line_ids": list(ids),
-            "text": " ".join(text_of.get(i, "") for i in ids),
-        })
+        for j, ids in enumerate(members):
+            units.append({
+                "id": f"{chapter}u{per_chapter[chapter]}" + (chr(ord("a") + j) if split else ""),
+                "line_ids": list(ids),
+                "text": " ".join(text_of.get(i, "") for i in ids),
+            })
     doc = {
         "schema_version": SCHEMA_VERSION,
         "script_sha256": hashlib.sha256(script_bytes).hexdigest(),
