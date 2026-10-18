@@ -12,6 +12,6 @@ It can't be the chance that world is true	script	the p-value is counted inside t
 the chance the study is wrong	script	nor the probability of an error (05_4)
 It is not the chance that the treatment did nothing	description	the p-value is not a posterior
 internal medicine residents in Connecticut	script	the survey's scope: a regional sample of residents (M-C1.survey)
-A later paper argued even that answer is wrong	script	the keyed answer is disputed (Gao 2020, M-C2)
+a later paper argued that even that answer was wrong	script	the keyed answer is disputed (Gao 2020, M-C2); the owner-accepted opening reading's words
 as Gao reprints it	description	the keyed answer is quoted from Gao's reprint; the original stem was not retrieved
 not doctors in general	description	the survey's scope, said in the published text

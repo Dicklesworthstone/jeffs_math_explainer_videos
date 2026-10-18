@@ -43,7 +43,7 @@ pub struct Spoken {
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
 /// `!` and its space, as the narrator splits a line.
-fn sentence_offsets(text: &str) -> Vec<usize> {
+pub(super) fn sentence_offsets(text: &str) -> Vec<usize> {
     let chars: Vec<char> = text.chars().collect();
     let mut out = vec![0];
     for (i, pair) in chars.windows(2).enumerate() {

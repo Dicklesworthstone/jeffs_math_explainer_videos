@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "8395f9c6bf9e90078f93f53187ea781b09e05053c797fe3f4d16ce1c8d199be5",
+  "script_sha256": "611ef24a7e5fbe00fd567d3ce2f069a75b147fd95d72aebb8e87cf5979f45595",
   "units": [
     {
       "id": "01u1",
@@ -8,7 +8,7 @@
         "01_1",
         "01_2"
       ],
-      "text": "A survey published in two thousand seven tested two hundred seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident about p-values. Only about fifty-nine percent picked the answer marked correct. A later paper argued even that answer is wrong."
+      "text": "How well do doctors understand p-values? A survey published in two thousand seven tested two hundred and seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident. Yet only about fifty-nine percent chose the answer marked correct. And a later paper argued that even that answer was wrong."
     },
     {
       "id": "01u2",

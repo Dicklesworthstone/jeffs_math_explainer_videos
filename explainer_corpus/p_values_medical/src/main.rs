@@ -68,7 +68,12 @@ mod tests {
             "M-C1.survey.published_year",
             "2007",
         ),
-        ("01_1", "two hundred seventy-seven", "M-C1.survey.respondents", "277"),
+        (
+            "01_1",
+            "two hundred and seventy-seven",
+            "M-C1.survey.respondents",
+            "277",
+        ),
         ("01_1", "Eighty-eight percent", "M-C1.survey.confident_percent", "88"),
         (
             "01_2",
@@ -203,7 +208,8 @@ mod tests {
 
     /// The survey is spoken as it was: a regional sample of residents, most
     /// of whom picked the keyed answer; never "most doctors" or a majority
-    /// for a wrong choice (research brief, S1 and S2).
+    /// for a wrong choice (research brief, S1 and S2). Doctors are only ever
+    /// asked about (the opening question), never the subject of a statement.
     #[test]
     fn the_survey_is_not_inflated() {
         let script = Script::parse(SCRIPT).unwrap();
@@ -222,6 +228,13 @@ mod tests {
             "got it wrong",
         ] {
             assert!(!all.contains(wrong), "the script says {wrong:?}");
+        }
+        for (id, text) in script.lines() {
+            for sentence in text.split_inclusive(['.', '?', '!']) {
+                if sentence.to_lowercase().contains("doctor") {
+                    assert!(sentence.ends_with('?'), "{id} states {sentence:?}");
+                }
+            }
         }
         // the spoken year is the publication's: the survey ran the year before
         assert!(all.contains("published in two thousand seven"));

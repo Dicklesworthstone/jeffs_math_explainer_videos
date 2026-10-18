@@ -57,6 +57,16 @@ pub(super) const SHARE_A: [&str; 2] = ["positive, among people", "without the di
 pub(super) const SHARE_B: [&str; 2] = ["the disease, among people", "who tested positive"];
 const NOT_A_P_VALUE: &str = "Neither number is a p-value.";
 
+// what the survey's pictures land on, in the owner-accepted opening reading
+// (01_1 three sentences, the question first; 01_2 two); the test below holds
+// each to its line and sentence
+const SURVEY_AT: &str = "A survey published";
+const ANSWERED_AT: &str = "two hundred and seventy-seven";
+const CONFIDENT_AT: &str = "Eighty-eight percent";
+const KEYED_AT: &str = "fifty-nine percent";
+const QUOTE_AT: &str = "And a later paper";
+const DISPUTE_AT: &str = "even that answer";
+
 /// The title card's listen window (storyboard 01_3: listen 2 s).
 pub const TITLE_S: f64 = 2.0;
 /// The listen label of the title card, the score's open motif.
@@ -217,7 +227,9 @@ pub(super) fn under(kit: &Kit, stage: &mut Stage<'_>, lines: [&str; 2], color: S
 }
 
 impl FivePercentOfWhat {
-    /// 01_1 and 01_2: the survey, its confidence and its keyed answer.
+    /// 01_1 and 01_2: the survey, its confidence and its keyed answer. The
+    /// opening question has the residents it asks about on screen; the
+    /// survey's tag comes with "A survey published".
     fn survey(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         use cited::*;
         let kit = &self.kit;
@@ -239,7 +251,9 @@ impl FivePercentOfWhat {
         let everyone: Vec<Vec3> = (0..RESIDENTS as usize).map(dot_at).collect();
         let faint = vec![Palette::faint(); everyone.len()];
         let all = stage.arena_mut().add(dot_cloud(&everyone, &faint, DOT_R));
-        fade_in_all(stage, &[when, tag, all], 0.6)?;
+        fade_in_all(stage, &[all], 0.6)?;
+        line.wait_for(stage, SURVEY_AT)?;
+        fade_in_all(stage, &[when, tag], 0.6)?;
         let answered: Vec<Mob> = (0..RESPONDENTS as usize)
             .map(|i| {
                 let d = Dot::new()
@@ -250,7 +264,7 @@ impl FivePercentOfWhat {
                 stage.arena_mut().add(d)
             })
             .collect();
-        line.wait_for(stage, "two hundred seventy-seven")?;
+        line.wait_for(stage, ANSWERED_AT)?;
         fade_in_lagged(stage, &answered, 2.2, 0.02)?;
         let response = format!(
             "{RESPONDENTS} of {RESIDENTS} {ANSWERED} ({}%)",
@@ -258,7 +272,7 @@ impl FivePercentOfWhat {
         );
         let count = kit.text(stage, &response, 24.0, Palette::dim(), v(DOTS_AT[0], DOTS_AT[1] - 2.1))?;
         fade_in_all(stage, &[count], 0.5)?;
-        line.wait_for(stage, "Eighty-eight percent")?;
+        line.wait_for(stage, CONFIDENT_AT)?;
         let confident = Q::new(i128::from(CONFIDENT_PERCENT), 100);
         survey_bar(
             kit,
@@ -270,7 +284,7 @@ impl FivePercentOfWhat {
         )?;
 
         let line = say(kit, stage, "01_2")?;
-        line.wait_for(stage, "fifty-nine percent")?;
+        line.wait_for(stage, KEYED_AT)?;
         let keyed = Q::new(KEYED_PERMILLE, 1000);
         survey_bar(
             kit,
@@ -281,7 +295,7 @@ impl FivePercentOfWhat {
             &format!("{}%", Q::new(KEYED_PERMILLE, 10).decimal(1)),
         )?;
         let note = kit.text_left(stage, AS_REPORTED, 20.0, Palette::dim(), v(BAR_LEFT, BAR_Y[1] - 0.45))?;
-        line.wait_for(stage, "A later paper")?;
+        line.wait_for(stage, QUOTE_AT)?;
         let head = format!("choice {KEYED_CHOICE}, the answer marked correct for {KEYED_FOR}:");
         let foot = format!("as reprinted by Gao {GAO_YEAR}");
         let quote = card(
@@ -296,7 +310,7 @@ impl FivePercentOfWhat {
             v(3.4, -1.75),
         )?;
         fade_in_all(stage, &[note, quote], 0.6)?;
-        line.wait_for(stage, "even that answer")?;
+        line.wait_for(stage, DISPUTE_AT)?;
         let dispute = chip(
             kit,
             stage,
@@ -740,6 +754,41 @@ mod tests {
         assert!(BLOCK_Y0 - BC * block.rows as f64 - 0.3 > FRACTION_Y + 0.6);
         // the array sits above the lower-third's band
         assert!(GRID_Y0 - GC * array.rows as f64 > -2.75);
+    }
+
+    /// The survey's pictures wait on words the owner-accepted reading says,
+    /// each in the sentence the narrator times it in: 01_1 is three
+    /// sentences, the question first, and 01_2 two. The reading before it
+    /// ("two hundred seventy-seven", 01_2 opening on "Only", two sentences
+    /// in 01_1) fails here, not in a render waiting on a phrase.
+    #[test]
+    fn the_survey_waits_on_the_accepted_reading() {
+        use crate::chapters::draw::sentence_offsets;
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        let text = |id: &str| script.text(id).unwrap();
+        assert!(text("01_1").starts_with("How well do doctors understand p-values? "));
+        assert_eq!(sentence_offsets(text("01_1")).len(), 3);
+        assert_eq!(sentence_offsets(text("01_2")).len(), 2);
+        for (id, phrase, sentence, opens) in [
+            ("01_1", SURVEY_AT, 1, true),
+            ("01_1", ANSWERED_AT, 1, false),
+            ("01_1", CONFIDENT_AT, 2, true),
+            ("01_2", KEYED_AT, 0, false),
+            ("01_2", QUOTE_AT, 1, true),
+            ("01_2", DISPUTE_AT, 1, false),
+        ] {
+            let t = text(id);
+            assert_eq!(t.matches(phrase).count(), 1, "{id} says {phrase:?} once");
+            let at = t[..t.find(phrase).unwrap()].chars().count();
+            let starts = sentence_offsets(t);
+            assert_eq!(
+                starts.iter().rposition(|&s| s <= at),
+                Some(sentence),
+                "{id}: {phrase:?}"
+            );
+            // a phrase that opens its sentence lands on that sentence's measured onset
+            assert_eq!(starts.contains(&at), opens, "{id}: {phrase:?}");
+        }
     }
 
     #[test]
