@@ -664,7 +664,7 @@ impl SceneConstruct for NearASide {
         line_1.wait_for(stage, "so take two")?;
         reveal(stage, &[(points[1], 1.0)], 0.3)?;
         swap(stage, &[], &[rings[1]], 0.3)?;
-        line_1.wait_for(stage, "Centred between them")?;
+        line_1.wait_for(stage, "centred between them")?;
         reveal(stage, &[(allowed, 0.3)], 0.4)?;
         let rt = line_1.left(stage, 2.5) - 0.2;
         drive(stage, wander.tracker, 0.5, rt)?;
@@ -921,6 +921,34 @@ mod tests {
             .filter(|id| id.starts_with("05_"))
             .collect();
         assert_eq!(ids, LINES.to_vec());
+        // every phrase a beat waits for or times a move by is in the line
+        // that beat speaks, exactly (case included), in the order the beat
+        // uses them: the scene's cues read from its own source
+        let source = include_str!("near_a_side.rs");
+        let mut from = [0usize; LINES.len()];
+        let mut cues = 0;
+        for (k, _) in source.match_indices("line_") {
+            let rest = &source[k + "line_".len()..];
+            let Some(n) = rest.chars().next().and_then(|c| c.to_digit(10)) else {
+                continue;
+            };
+            let call = &rest[1..];
+            let Some(phrase) = [".wait_for(stage, \"", ".at(\""]
+                .iter()
+                .find_map(|p| call.strip_prefix(p))
+                .and_then(|s| s.split('"').next())
+            else {
+                continue;
+            };
+            let i = n as usize - 1;
+            let text = script.text(LINES[i]).unwrap();
+            let at = text[from[i]..]
+                .find(phrase)
+                .unwrap_or_else(|| panic!("{} has no {phrase:?} at or after its earlier cues", LINES[i]));
+            from[i] += at;
+            cues += 1;
+        }
+        assert!(cues >= 16, "only {cues} cues found");
     }
 
     /// The side view stays in the frame and left of the panel, with room
