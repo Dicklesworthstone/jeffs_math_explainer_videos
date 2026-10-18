@@ -103,7 +103,7 @@ mod tests {
             if chapter(was) == chapter(now) {
                 continue;
             }
-            let last = closing.split_terminator(['.', '?']).last().unwrap().trim();
+            let last = closing.split_terminator(['.', '?']).next_back().unwrap().trim();
             assert!(!opening.starts_with(last), "{was} closes and {now} opens on \"{last}\"");
             joins += 1;
         }
