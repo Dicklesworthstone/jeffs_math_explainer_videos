@@ -17,7 +17,7 @@
 use explainer_kit::{Kit, Palette, Timed, thousands, v};
 use fmn::prelude::*;
 
-use super::count_tail::{bar_overlays, bracket, bracket_y, last_picture};
+use super::count_tail::{bar_overlays, bracket, bracket_y, last_picture as tail_last_picture};
 use super::draw::{
     fade_in_all, fade_in_lagged, fade_out_all, flat, imagined, line_style, say, think_pause, treated, warn,
 };
@@ -313,7 +313,7 @@ impl SceneConstruct for WhatTwoPercentDoesNotSay {
             tail_share(&world, k, Tail::AtLeast),
             tail_share(&world, near, Tail::AtLeast),
         );
-        let pic = last_picture(&kit, stage)?;
+        let pic = tail_last_picture(&kit, stage)?;
         let frame = pic.frame;
 
         // 05_1: two percent is a share of that world; the world and the
