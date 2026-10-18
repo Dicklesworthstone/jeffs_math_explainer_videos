@@ -50,9 +50,10 @@ class TheRealUnits(unittest.TestCase):
         # chapter 01's silent title card (01_3) is no line, so no unit says it
         self.assertNotIn("01_3", said)
 
-    # the one unit under 30 words: a one-line request split off at a seam the
-    # take ran together (root, Mail 3384)
-    SHORT = {"05u2a"}
+    # the units under 30 words: requests split off where a take ran two lines
+    # together, the one-line 05u2a (root, Mail 3384) and 04u1a, which ends on
+    # 04_2's question (Mail 3420)
+    SHORT = {"04u1a", "05u2a"}
 
     def test_units_are_whole_thoughts_within_a_chapter(self):
         for u in self.doc["units"]:
@@ -123,8 +124,8 @@ class Boundaries(unittest.TestCase):
         self.assertIn("holds lines of chapters ['01', '02']", found[0])
 
     def test_lines_moved_within_a_unit(self):
-        set_lines(unit(self.doc, "04u1a"), ["04_1", "04_3", "04_2", "04_4"])
-        self.fails(self.doc, "the units leave script order at '04_3', where the script has '04_2'")
+        set_lines(unit(self.doc, "04u2"), ["04_7", "04_9", "04_8", "04_10"])
+        self.fails(self.doc, "the units leave script order at '04_9', where the script has '04_8'")
 
     def test_units_swapped(self):
         units = self.doc["units"]
@@ -184,17 +185,25 @@ class Boundaries(unittest.TestCase):
 
     def test_the_two_split_units_keep_their_places(self):
         ids = [u["id"] for u in self.doc["units"]]
-        self.assertEqual(ids[ids.index("04u1a"):ids.index("04u1a") + 3], ["04u1a", "04u1b", "04u2"])
+        self.assertEqual(ids[ids.index("04u1a"):ids.index("04u1a") + 4], ["04u1a", "04u1b", "04u1c", "04u2"])
         self.assertEqual(ids[ids.index("05u2a"):ids.index("05u2a") + 3], ["05u2a", "05u2b", "05u3"])
-        self.assertEqual(unit(self.doc, "04u1a")["line_ids"][-1], "04_4")
-        self.assertEqual(unit(self.doc, "04u1b")["line_ids"], ["04_5", "04_6"])
+        # 04u1a ends on the question; its answer starts the next request
+        self.assertEqual(unit(self.doc, "04u1a")["line_ids"], ["04_1", "04_2"])
+        self.assertTrue(unit(self.doc, "04u1a")["text"].endswith("?"))
+        self.assertEqual(unit(self.doc, "04u1b")["line_ids"], ["04_3", "04_4"])
+        self.assertEqual(unit(self.doc, "04u1c")["line_ids"], ["04_5", "04_6"])
         self.assertEqual(unit(self.doc, "05u2a")["line_ids"], ["05_5"])
 
     def test_a_split_unit_with_one_part(self):
-        u = unit(self.doc, "04u1b")
-        set_lines(unit(self.doc, "04u1a"), unit(self.doc, "04u1a")["line_ids"] + u["line_ids"])
+        u = unit(self.doc, "05u2b")
+        set_lines(unit(self.doc, "05u2a"), unit(self.doc, "05u2a")["line_ids"] + u["line_ids"])
         self.doc["units"].remove(u)
-        self.fails(self.doc, "split unit 04u1 has only part 'a'")
+        self.fails(self.doc, "split unit 05u2 has only part 'a'")
+
+    def test_a_third_part_out_of_place(self):
+        # a third part follows the second; after the first it skips a letter
+        unit(self.doc, "04u1b")["id"] = "04u1c"
+        self.fails(self.doc, "('04u1c'): the id must be '04u2', its chapter and its place in it (or '04u2a', '04u1b'")
 
     def test_a_split_part_out_of_order(self):
         unit(self.doc, "04u1a")["id"] = "04u1b"

@@ -21,7 +21,7 @@ The rules (`problems` checks each one):
     lines in script order: none left out, repeated or moved;
   * a unit holds the lines of one chapter, and its id names that chapter and
     its place in it (01u1, 01u2, ...); a unit split into separate requests
-    keeps its place and letters its parts in order (04u1a, 04u1b), two or
+    keeps its place and letters its parts in order (04u1a, 04u1b, ...), two or
     more of them;
   * a unit's text is its lines exactly, joined by one space, no stage
     direction or paraphrase; it ends a sentence; it has at most 100 words
@@ -35,10 +35,13 @@ title card (01u1), the positives gathered after the count (01u3), the
 imagined 14 between the wrong readings and the made-up days (05u2), and the
 survey's question before its answer (06u1).
 
-A list of groups in GROUPS is one unit split into separate requests where a
-take ran two lines together with no silence between them (no cut there can
-keep both words whole): 04u1 at "first. | For nineteen" and 05u2 at
-"Fourteen. | Fourteen or more" (root, Mail 3384). 05u2a is one line.
+A list of groups in GROUPS is one unit split into separate requests. 04u1
+and 05u2 were split where a take ran two lines together with no silence
+between them, so no cut there could keep both words whole: "first. | For
+nineteen" and "Fourteen. | Fourteen or more" (root, Mail 3384). 04u1 was
+split again after its question, "fifteen? | Fifteen itself", where the take
+left only shallow quiet before the answer (Mail 3420). So 04u1a ends on the
+question and 05u2a is one line.
 """
 import hashlib
 import json
@@ -71,9 +74,10 @@ GROUPS = [
     ("03_1", "03_2", "03_3", "03_4"),
     # the coins tossed again, every assignment, the question asked in that world
     ("03_5", "03_6", "03_7", "03_8", "03_9"),
-    # 04: which bars and the one way to get twenty | the other counts up to
-    # 21,700 (split where the take ran "first" into "For")
-    [("04_1", "04_2", "04_3", "04_4"), ("04_5", "04_6")],
+    # 04: the study's fifteen and which bars count | fifteen and up, and the
+    # one way to get twenty | the other counts up to 21,700 (split after the
+    # question, and where the take ran "first" into "For")
+    [("04_1", "04_2"), ("04_3", "04_4"), ("04_5", "04_6")],
     # the share and its name, the wrong tails, the world it lives in
     ("04_7", "04_8", "04_9", "04_10"),
     # 05: what two percent is not

@@ -31,7 +31,7 @@
 04_1	The study found fifteen. We decided in advance that more favouring pairs is better news.
 04_2	So which bars hold an outcome at least as favourable as fifteen?
 04_3	Fifteen itself, and everything above it, up to twenty.
-04_4	Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first.
+04_4	Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin picks the patient with the quicker recovery.
 04_5	For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways.
 04_6	Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all.
 04_7	Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value.

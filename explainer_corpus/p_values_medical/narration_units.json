@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "81bdea666f2100e12f2567990a9bcde24ef045219a1bfc03f272b4a2dfce74c5",
+  "script_sha256": "e718677121b0302b673e9ea11544213d249dbd606c8ba93d430998f59b3cb201",
   "units": [
     {
       "id": "01u1",
@@ -77,14 +77,20 @@
       "id": "04u1a",
       "line_ids": [
         "04_1",
-        "04_2",
-        "04_3",
-        "04_4"
+        "04_2"
       ],
-      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen? Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin on the patient who recovered first."
+      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen?"
     },
     {
       "id": "04u1b",
+      "line_ids": [
+        "04_3",
+        "04_4"
+      ],
+      "text": "Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin picks the patient with the quicker recovery."
+    },
+    {
+      "id": "04u1c",
       "line_ids": [
         "04_5",
         "04_6"
