@@ -124,6 +124,9 @@ def facts():
     emit("G-F1.code_a", csv(CODE_A))
     emit("G-F1.code_b", csv(CODE_B))
     emit("G-F1.complementary", str(complementary(CODE_A, CODE_B)).lower())
+    # 01_3: the key's pairs are A's first two pulses and its last two
+    emit("G-F1.key.agree", CODE_A[0] * CODE_A[1])
+    emit("G-F1.key.disagree", CODE_A[2] * CODE_A[3])
 
     # 01_4 to 01_6: code A on its own
     emit("G-F2.a.scores", csv(window(ra, first, last)))

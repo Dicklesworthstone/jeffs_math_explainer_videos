@@ -366,7 +366,11 @@ pub fn row(stage: &mut Stage<'_>, pattern: &[i64], first_x: f64, line_y: f64, co
 /// One block: green for a product of +1, red for −1, centred at `at`, its
 /// side scaled by `scale`. Detached.
 pub fn block(stage: &mut Stage<'_>, sign: i64, at: Vec3, scale: f64) -> fmn::Result<Mob> {
-    let color = if sign > 0 { palette::agree() } else { palette::disagree() };
+    let color = if sign > 0 {
+        palette::agree()
+    } else {
+        palette::disagree()
+    };
     let b = Rectangle::new()
         .width(BLOCK_SIDE * scale)
         .height(BLOCK_SIDE * scale)
@@ -507,7 +511,8 @@ impl Chart {
 
     /// The column's height: its blocks' signs summed (the score it shows).
     pub fn height(&self, k: i64) -> i64 {
-        self.index(k).map_or(0, |i| self.columns[i].iter().map(|&(_, s)| s).sum())
+        self.index(k)
+            .map_or(0, |i| self.columns[i].iter().map(|&(_, s)| s).sum())
     }
 
     /// The blocks of the column at `k`.

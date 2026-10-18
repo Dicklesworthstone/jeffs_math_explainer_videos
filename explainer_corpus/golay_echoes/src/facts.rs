@@ -33,9 +33,19 @@ pub fn moved() -> Scores {
     model::two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED)
 }
 
+/// The key's two pairs (01_3), pulses of pattern A: its first two (they
+/// agree) and its last two (they disagree).
+pub fn key_pairs() -> [(i64, i64); 2] {
+    [(CODE_A[0], CODE_A[1]), (CODE_A[2], CODE_A[3])]
+}
+
 /// Where a scene's one echo is (its step).
 pub fn echo_step(scene: &[i64]) -> Result<i64, String> {
-    let mut steps = scene.iter().enumerate().filter(|&(_, &h)| h != 0).map(|(d, _)| d as i64);
+    let mut steps = scene
+        .iter()
+        .enumerate()
+        .filter(|&(_, &h)| h != 0)
+        .map(|(d, _)| d as i64);
     match (steps.next(), steps.next()) {
         (Some(d), None) => Ok(d),
         _ => Err(format!("scene {scene:?} does not hold exactly one echo")),
@@ -98,6 +108,9 @@ pub fn facts() -> Result<Facts, String> {
         "true",
         defined,
     )?;
+    let [(a0, a1), (a2, a3)] = key_pairs();
+    f.add("G-F1.key.agree", a0 * a1)?;
+    f.add("G-F1.key.disagree", a2 * a3)?;
 
     // 01_4 to 01_7: code A on its own
     f.add("G-F2.a.scores", a.csv())?;

@@ -22,7 +22,7 @@ pulses on screen.
 | `01_two_bad_echoes` | send a pattern, score it against its echo at every shift; every single pattern leaves ghosts; a second pattern's ghosts are the same size with the opposite sign; added, only the echo is left, twice as tall; the guarantee's assumption: the same scene for both sends | storyboarded; scene in progress, not yet compiled or rendered |
 | 02 what the ghosts hide *(planned)* | two things in the scene, one loud and one quiet, three steps apart: pattern A hides the quiet one completely, pattern B doubles it, the sum shows both at eight times their strength (`model::two_measurements` with the scene 4, 0, 0, 1) | not storyboarded |
 | 03 why they cancel *(planned)* | each ghost as its pairs of pulses; why B's pairs are A's with one sign changed; the doubling that builds the pair from a single pulse (`model::double`), proved for every length | not storyboarded; the doubling proof is written in `model.rs` and tested to length 64, not yet staged |
-| 04 when it breaks *(planned)* | the scene changes between the sends: moved one step, or the echo returns upside down (the echo itself cancels and every ghost doubles; the radar case of a half-turn of phase, Chi, Pezeshki and Calderbank eq. 8); noise picked up by the receiver is scored, not removed | not storyboarded |
+| 04 when it breaks *(planned)* | the scene changes between the sends: moved one step, or the echo returns upside down (the echo itself cancels and every ghost doubles; the radar case of a half-turn of phase, Chi, Pezeshki and Calderbank eq. 8); noise picked up by the receiver is scored like any recording, and the identity does not remove it | not storyboarded |
 
 ## Vocabulary (one word per idea)
 
@@ -63,7 +63,7 @@ every shift, side by side).
 | 01_7 | With more than one pulse, every pattern of ups and downs leaves ghosts. So send a second one. Up, up, down, up. | The two far columns flash: only the end pulses meet there. Pattern A's row shrinks to a shelf at the upper right; the echo and copy become pattern B's violet pulses (up, up, down, up). A "precisely" lower-third states the far-shift rule | highlight, morph rows, lower-third | |
 | 01_8 | It leaves ghosts too, the same size, at the same shifts. What if we add the two rows, shift by shift? ⟨predict⟩ | B's row is scored quickly: the same echo of four, ghosts of one at the same shifts but on the other side of the line. A's row comes down from the shelf and hovers over B's, column above column | fast slide, chart | |
 | 01_9 | Every ghost meets its opposite, and they cancel. Only the echo is left, twice as tall. | A's row drops onto B's: at every ghost a green and a red block meet and vanish together; at the echo A's four blocks stack on B's four. The score 8, the gold "echo" above it | blocks cancel, stack, highlight | |
-| 01_10 | Two bad echoes, and together, not a single ghost. | The clean row holds; a "precisely" lower-third keeps the exact claim (same still scene for both sends; noise picked up by the receiver is not removed) | lower-third | hold |
+| 01_10 | Two bad echoes, and together, not a single ghost. | The clean row holds; a "precisely" lower-third keeps the exact claim (same still scene for both sends; the pair removes the patterns' own ghosts; noise picked up by the receiver is scored too and is not guaranteed to cancel) | lower-third | hold |
 | 01_11 | But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return. | The row clears; A's row returns as it was, B's row stands one step to the right; they drop together again, and this time ghosts are left at six shifts and the echo is split three and five | chart, blocks cancel, highlight | |
 
 ### Notes for 01
@@ -75,7 +75,8 @@ every shift, side by side).
 - Exact versions kept on screen: 01_7 (every pattern of two or more pulses
   scores one up or one down at its last shift; a single pulse has no other
   shift) and 01_10 (exactly zero away from the echo when both sends meet the
-  same still scene; noise picked up by the receiver is scored too).
+  same still scene; noise picked up by the receiver is scored too and is not
+  guaranteed to cancel).
 - 01_11 states the guarantee's assumption and one tested way to break it (the
   echo moved one step); it does not claim that every change breaks the
   cancellation (`model::tests::a_changed_scene_leaves_ghosts` keeps the

@@ -21,8 +21,9 @@
 //! cancel at every shift where there is no echo, provided both
 //! measurements see the same scene ([`two_measurements`]): the sum is then
 //! the scene itself, magnified 2N times (the chapter's definition 1:
-//! C_a(k) + C_b(k) = 2N·δ(k)). Noise added at the receiver passes through
-//! the scoring like any recording and is not cancelled.
+//! C_a(k) + C_b(k) = 2N·δ(k)). That identity removes the patterns' own
+//! ghosts; noise added at the receiver is scored like any recording, and
+//! nothing in the identity makes it cancel.
 
 /// The first code: up, up, up, down.
 pub const CODE_A: [i64; 4] = [1, 1, 1, -1];
@@ -226,7 +227,10 @@ pub fn is_complementary(a: &[i64], b: &[i64]) -> bool {
 /// (a then b, a then −b), twice as long. The cross terms between the two
 /// halves appear with opposite signs in the two new codes, so the new
 /// score rows add to twice the old sum: complementary again.
-#[allow(dead_code, reason = "the recursion is a later chapter; chapter 01 draws only its result")]
+#[allow(
+    dead_code,
+    reason = "the recursion is a later chapter; chapter 01 draws only its result"
+)]
 pub fn double(a: &[i64], b: &[i64]) -> (Vec<i64>, Vec<i64>) {
     let first = a.iter().chain(b).copied().collect();
     let second = a.iter().copied().chain(b.iter().map(|&x| -x)).collect();
@@ -436,9 +440,10 @@ mod tests {
     }
 
     /// Noise added at the receiver is scored like any recording: the sum is
-    /// the magnified scene plus the noise's own scores, which do not cancel.
+    /// the magnified scene plus the noise's own scores, which the identity
+    /// does not remove (here one noise sample leaves ghosts at four shifts).
     #[test]
-    fn noise_is_not_cancelled() {
+    fn receiver_noise_is_scored_not_removed() {
         let noise = [0, 0, 0, 0, 0, 1];
         let clean = two_measurements(&CODE_A, &STILL, &CODE_B, &STILL);
         let noisy = measure(&CODE_A, &STILL, &noise).plus(&measure(&CODE_B, &STILL, &[]));

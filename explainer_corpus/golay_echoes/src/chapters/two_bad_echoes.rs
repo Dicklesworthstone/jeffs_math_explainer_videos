@@ -12,9 +12,9 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    CHART_Y, COPY_Y, Chart, ECHO_Y, HOVER_Y, LABEL_X, Place, Row, SEND_Y, STAGE_Y, STEP, TICK_Y, X0, block, fade_in_all,
-    fade_in_lagged, fade_out_all, fail, flash_all, flat, pause, product_text, pulse, row, say, score_text, shift_all,
-    swap, think, wait_until, x_of,
+    CHART_Y, COPY_Y, Chart, ECHO_Y, HOVER_Y, LABEL_X, Place, Row, SEND_Y, STAGE_Y, STEP, TICK_Y, X0, block,
+    fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, flat, pause, product_text, pulse, row, say, score_text,
+    shift_all, swap, think, wait_until, x_of,
 };
 use crate::facts::{self, SHIFTS};
 use crate::model::{self, CODE_A, CODE_B, MOVED, STILL};
@@ -127,7 +127,7 @@ fn score_shift(
 /// The key: two pulses that agree over a green block, two that disagree over
 /// a red one, each with its word and its product. Detached, one list each.
 fn key(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Vec<Mob>; 2]> {
-    let pairs = [(CODE_A[0], CODE_A[1]), (CODE_A[2], CODE_A[3])];
+    let pairs = facts::key_pairs();
     let mut out = [Vec::new(), Vec::new()];
     for (i, (&(top, bottom), &y)) in pairs.iter().zip(&KEY_Y).enumerate() {
         let product = top * bottom;
@@ -142,7 +142,13 @@ fn key(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Vec<Mob>; 2]> {
             (DISAGREE, palette::disagree())
         };
         out[i].push(kit.text_left(stage, word, 24.0, color, v(KEY_X + 0.95, y - 0.1))?);
-        out[i].push(kit.text_left(stage, &product_text(product), 24.0, Palette::ink(), v(KEY_X + 2.15, y - 0.1))?);
+        out[i].push(kit.text_left(
+            stage,
+            &product_text(product),
+            24.0,
+            Palette::ink(),
+            v(KEY_X + 2.15, y - 0.1),
+        )?);
     }
     Ok(out)
 }
@@ -178,11 +184,12 @@ impl SceneConstruct for TwoBadEchoes {
         let spoken = line.at("Something")? - line.at("Up, up")?;
         fade_in_lagged(stage, &sent.pulses, spoken.clamp(0.8, 2.0), 0.6)?;
         line.wait_for(stage, "Something")?;
+        // under the sent row, at the height of the thing it bounces off
         let dot = Circle::new()
             .radius(0.09)
             .style(flat(palette::pattern_a(), 1.0))
             .build()
-            .moved_to(v(SENDER_X + 0.3, SEND_Y - 0.6));
+            .moved_to(v(SENDER_X + 0.3, SEND_Y - 0.5));
         let dot = stage.arena_mut().add(dot);
         let run = THING_X - 0.35 - (SENDER_X + 0.3);
         fade_in_all(stage, &[dot], 0.15)?;
@@ -231,7 +238,13 @@ impl SceneConstruct for TwoBadEchoes {
         score_shift(stage, &mut chart, &echo, &copy, &CODE_A, 0, SLOW)?;
         line.wait_for(stage, "A score of four")?;
         let h = chart.height(0);
-        let peak = kit.text(stage, &score_text(h), 30.0, Palette::ink(), chart.place.past(0, h, 0.25))?;
+        let peak = kit.text(
+            stage,
+            &score_text(h),
+            30.0,
+            Palette::ink(),
+            chart.place.past(0, h, 0.25),
+        )?;
         let echo_word = kit.text(stage, ECHO, 28.0, palette::echo(), chart.place.past(0, h, 0.6))?;
         fade_in_all(stage, &[peak, echo_word], 0.4)?;
 
@@ -242,7 +255,13 @@ impl SceneConstruct for TwoBadEchoes {
         score_shift(stage, &mut chart, &echo, &copy, &CODE_A, at_shift, SLOW)?;
         line.wait_for(stage, "A score of one")?;
         let h = chart.height(at_shift);
-        let one = kit.text(stage, &score_text(h), 30.0, Palette::ink(), chart.place.past(at_shift, h, 0.25))?;
+        let one = kit.text(
+            stage,
+            &score_text(h),
+            30.0,
+            Palette::ink(),
+            chart.place.past(at_shift, h, 0.25),
+        )?;
         fade_in_all(stage, &[one], 0.3)?;
         line.wait_for(stage, "where nothing is")?;
         let first_ghost = kit.text(stage, GHOST, 20.0, Palette::dim(), chart.place.past(at_shift, h, 0.55))?;
@@ -253,7 +272,8 @@ impl SceneConstruct for TwoBadEchoes {
         fade_out_all(stage, &[one, first_ghost], 0.25)?;
         let rest: Vec<i64> = (at_shift + 1..=a.last()).chain((a.first..0).rev()).collect();
         for k in rest {
-            shift_all(stage, &copy.mobs(), STEP * (k - at_shift) as f64, 0.0, FAST.step)?;
+            let steps = (k - at_shift) as f64;
+            shift_all(stage, &copy.mobs(), STEP * steps, 0.0, FAST.step * steps.abs())?;
             at_shift = k;
             score_shift(stage, &mut chart, &echo, &copy, &CODE_A, k, FAST)?;
         }
@@ -272,7 +292,7 @@ impl SceneConstruct for TwoBadEchoes {
         let mut ends = chart.column(-far);
         ends.extend(chart.column(far));
         flash_all(stage, &ends, 0.6)?;
-        let rule = precisely(&kit, stage, &far_rule())?;
+        let rule = precisely(&kit, stage, &far_rule()?)?;
         fade_in_all(stage, &[rule], 0.4)?;
         line.wait_for(stage, "So send a second one")?;
         let mut labels = vec![peak, echo_word];
@@ -282,7 +302,13 @@ impl SceneConstruct for TwoBadEchoes {
         let mut chart = Chart::new(stage, Place::main());
         chart_a.move_to(stage, Place::shelf(), 0.8)?;
         let shelf = Place::shelf().line_centre();
-        let shelf_name = kit.text(stage, PATTERN_A, 22.0, palette::pattern_a(), v(shelf[0], shelf[1] + 0.85))?;
+        let shelf_name = kit.text(
+            stage,
+            PATTERN_A,
+            22.0,
+            palette::pattern_a(),
+            v(shelf[0], shelf[1] + 0.85),
+        )?;
         fade_in_all(stage, &[shelf_name, chart.line], 0.4)?;
         line.wait_for(stage, "Up, up, down, up")?;
         let echo_b = row(stage, &CODE_B, X0, ECHO_Y, palette::pattern_b())?;
@@ -320,8 +346,20 @@ impl SceneConstruct for TwoBadEchoes {
         chart.settle_all(stage, &arrivals, 0.5, 0.25)?;
         chart.check(&b, "pattern B")?;
         line.wait_for(stage, "What if we add")?;
-        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), v(LABEL_X - 0.75, HOVER_Y + 0.35))?;
-        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), v(LABEL_X - 0.75, CHART_Y + 0.35))?;
+        let name_a = kit.text_left(
+            stage,
+            PATTERN_A,
+            22.0,
+            palette::pattern_a(),
+            v(LABEL_X - 0.75, HOVER_Y + 0.35),
+        )?;
+        let name_b = kit.text_left(
+            stage,
+            PATTERN_B,
+            22.0,
+            palette::pattern_b(),
+            v(LABEL_X - 0.75, CHART_Y + 0.35),
+        )?;
         fade_out_all(stage, &[shelf_name], 0.2)?;
         chart_a.move_to(stage, Place::hover(), 0.9)?;
         fade_in_all(stage, &[name_a, name_b], 0.3)?;
@@ -337,7 +375,13 @@ impl SceneConstruct for TwoBadEchoes {
         swap(stage, &[name_b], &[added], 0.3)?;
         line.wait_for(stage, "Only the echo")?;
         let h = chart.height(0);
-        let peak = kit.text(stage, &score_text(h), 30.0, Palette::ink(), chart.place.past(0, h, 0.25))?;
+        let peak = kit.text(
+            stage,
+            &score_text(h),
+            30.0,
+            Palette::ink(),
+            chart.place.past(0, h, 0.25),
+        )?;
         let echo_word = kit.text(stage, ECHO, 28.0, palette::echo(), chart.place.past(0, h, 0.6))?;
         fade_in_all(stage, &[peak, echo_word], 0.4)?;
 
@@ -346,23 +390,58 @@ impl SceneConstruct for TwoBadEchoes {
         line.wait_for(stage, "not a single ghost")?;
         let exact = precisely(&kit, stage, &exact_claim())?;
         fade_in_all(stage, &[exact], 0.4)?;
-        kit.music_breath(stage, 2.5)?;
+        // the storyboard's hold, kept short: thought gaps already lengthen
+        // the chapter, which must stay under 85 s
+        kit.music_breath(stage, 2.0)?;
 
         // 01_11: the same scene for both sends; one step of movement
         let line = say(&kit, stage, "01_11")?;
         let mut leaving = vec![exact, peak, echo_word, added];
-        leaving.extend(chart.take().into_iter().flat_map(|(_, c)| c.into_iter().map(|(m, _)| m)));
+        leaving.extend(
+            chart
+                .take()
+                .into_iter()
+                .flat_map(|(_, c)| c.into_iter().map(|(m, _)| m)),
+        );
         fade_out_all(stage, &leaving, 0.4)?;
         let mut chart_a = Chart::new(stage, Place::hover());
-        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), v(LABEL_X - 0.75, HOVER_Y + 0.35))?;
-        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), v(LABEL_X - 0.75, CHART_Y + 0.35))?;
+        let name_a = kit.text_left(
+            stage,
+            PATTERN_A,
+            22.0,
+            palette::pattern_a(),
+            v(LABEL_X - 0.75, HOVER_Y + 0.35),
+        )?;
+        let name_b = kit.text_left(
+            stage,
+            PATTERN_B,
+            22.0,
+            palette::pattern_b(),
+            v(LABEL_X - 0.75, CHART_Y + 0.35),
+        )?;
         fade_in_all(stage, &[chart_a.line, name_a, name_b], 0.3)?;
         chart_a.stand(stage, &model::measure(&CODE_A, &STILL, &[]), 0.4)?;
         chart.stand(stage, &model::measure(&CODE_B, &STILL, &[]), 0.4)?;
         line.wait_for(stage, "Move the echo")?;
-        let step = facts::echo_step(&MOVED).map_err(super::draw::fail)? - facts::echo_step(&STILL).map_err(super::draw::fail)?;
-        let tag = kit.text_left(stage, MOVED_TAG, 20.0, Palette::dim(), v(LABEL_X - 0.75, CHART_Y - 0.35))?;
-        let tick = kit.text(stage, &score_text(SHIFTS.1), 20.0, Palette::dim(), v(x_of(SHIFTS.1), TICK_Y))?;
+        let echoes = [
+            facts::echo_step(&STILL).map_err(fail)?,
+            facts::echo_step(&MOVED).map_err(fail)?,
+        ];
+        let step = echoes[1] - echoes[0];
+        let tag = kit.text_left(
+            stage,
+            MOVED_TAG,
+            20.0,
+            Palette::dim(),
+            v(LABEL_X - 0.75, CHART_Y - 0.35),
+        )?;
+        let tick = kit.text(
+            stage,
+            &score_text(SHIFTS.1),
+            20.0,
+            Palette::dim(),
+            v(x_of(SHIFTS.1), TICK_Y),
+        )?;
         fade_in_all(stage, &[tag, tick], 0.3)?;
         chart.shift_columns(stage, step, 0.6)?;
         chart.check(&model::measure(&CODE_B, &MOVED, &[]), "pattern B, moved")?;
@@ -372,7 +451,6 @@ impl SceneConstruct for TwoBadEchoes {
         chart.settle_all(stage, &falling, 0.9, 0.35)?;
         let moved = facts::moved();
         chart.check(&moved, "both rows added, moved")?;
-        let echoes = [facts::echo_step(&STILL).map_err(super::draw::fail)?, facts::echo_step(&MOVED).map_err(super::draw::fail)?];
         let mut ghosts = Vec::new();
         for k in moved.ghost_shifts(&echoes) {
             ghosts.extend(chart.column(k));
@@ -380,13 +458,19 @@ impl SceneConstruct for TwoBadEchoes {
         let mut split = Vec::new();
         for k in echoes {
             let h = chart.height(k);
-            split.push(kit.text(stage, &score_text(h), 26.0, Palette::ink(), chart.place.past(k, h, 0.25))?);
+            split.push(kit.text(
+                stage,
+                &score_text(h),
+                26.0,
+                Palette::ink(),
+                chart.place.past(k, h, 0.25),
+            )?);
         }
         fade_in_all(stage, &split, 0.3)?;
         flash_all(stage, &ghosts, 0.6)?;
         let end = line.start + line.len;
         wait_until(stage, end)?;
-        pause(stage, 1.2)?;
+        pause(stage, 0.8)?;
 
         fade_all(stage, 1.0)?;
         kit.finish(stage)?;
@@ -398,34 +482,77 @@ impl SceneConstruct for TwoBadEchoes {
 mod tests {
     use super::*;
 
-    /// The words on screen say what the facts say.
+    /// The words on screen say what the facts say, and no more: the noise
+    /// sentence promises nothing either way.
     #[test]
     fn the_exact_versions_are_built_from_the_facts() {
-        assert!(far_rule().contains("+1 or \u{2212}1, never 0"), "{}", far_rule());
-        assert!(exact_claim().contains("exactly 0."), "{}", exact_claim());
+        let rule = far_rule().unwrap();
+        assert!(rule.contains("+1 or \u{2212}1, never 0"), "{rule}");
+        let claim = exact_claim();
+        assert!(claim.contains("exactly 0."), "{claim}");
+        assert!(claim.contains("not guaranteed to cancel"), "{claim}");
+        assert!(!claim.contains("does not cancel"), "{claim}");
+    }
+
+    /// Every phrase the scene waits for is in its line of script.tsv (a
+    /// changed line fails here, not in the middle of a render).
+    #[test]
+    fn every_phrase_the_scene_waits_for_is_in_its_line() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        for (id, phrase) in [
+            ("01_1", "Up, up"),
+            ("01_1", "Something"),
+            ("01_2", "slide a copy"),
+            ("01_2", "and multiply"),
+            ("01_3", "Opposite ways"),
+            ("01_4", "A score of four"),
+            ("01_5", "A score of one"),
+            ("01_5", "where nothing is"),
+            ("01_6", "a quarter the size"),
+            ("01_7", "So send a second one"),
+            ("01_7", "Up, up, down, up"),
+            ("01_8", "What if we add"),
+            ("01_9", "Only the echo"),
+            ("01_10", "not a single ghost"),
+            ("01_11", "Move the echo"),
+            ("01_11", "and ghosts return"),
+        ] {
+            let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
+            assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
+        }
     }
 
     /// The key's two pairs are pulses of pattern A: one agreeing pair and one
     /// disagreeing pair.
     #[test]
     fn the_key_shows_one_agreement_and_one_disagreement() {
-        assert_eq!(CODE_A[0] * CODE_A[1], 1);
-        assert_eq!(CODE_A[2] * CODE_A[3], -1);
+        let products: Vec<i64> = facts::key_pairs().iter().map(|&(t, b)| t * b).collect();
+        assert_eq!(products, [1, -1]);
     }
 
-    /// The chapter's layout keeps its pieces apart: the copy's slide stays
-    /// in the frame, the hovering chart clears the main one, the blocks a
-    /// shift's products make clear the copy row.
+    /// The chapter's layout keeps its pieces apart.
     #[test]
     fn the_layout_keeps_its_pieces_apart() {
-        assert!(x_of(SHIFTS.0) - 0.35 > LABEL_X + 0.5, "the copy's far left clears the names");
-        let a = facts::score_a();
-        let tallest = (a.first..=a.last()).map(|k| a.at(k)).max().unwrap_or(0) as f64;
-        let deepest = (a.first..=a.last()).map(|k| a.at(k)).min().unwrap_or(0) as f64;
-        assert!(HOVER_Y + deepest * super::super::draw::BLOCK > CHART_Y + tallest * super::super::draw::BLOCK);
-        let sum_top = CHART_Y + facts::sum().at(0) as f64 * super::super::draw::BLOCK;
-        assert!(sum_top + 0.9 < COPY_Y + 1.2, "the added row and its words stay under the rows' place");
-        assert!(STAGE_Y + 0.27 * 3.0 + 0.12 < COPY_Y + PULSE_H + 1.0);
-        assert!(COPY_Y - PULSE_H > STAGE_Y + 0.12, "a shift's products sit under the copy");
+        use crate::chapters::draw::{BLOCK, PULSE_H};
+        assert!(
+            x_of(SHIFTS.0) - 0.35 > LABEL_X + 0.5,
+            "the copy's far left clears the names"
+        );
+        // the hovering row (A) clears the main row (B) column above column
+        let (a, b) = (facts::score_a(), facts::score_b());
+        let deepest_a = (a.first..=a.last()).map(|k| a.at(k)).min().unwrap_or(0) as f64;
+        let tallest_b = (b.first..=b.last()).map(|k| b.at(k)).max().unwrap_or(0) as f64;
+        assert!(HOVER_Y + deepest_a * BLOCK > CHART_Y + tallest_b * BLOCK);
+        // a shift's products sit between the copy's down pulses and the
+        // peak's label
+        assert!(COPY_Y - PULSE_H > STAGE_Y + 0.12, "under the copy");
+        assert!(
+            Place::main().past(0, a.at(0), 0.6)[1] + 0.12 < STAGE_Y - 0.12,
+            "over the echo's word"
+        );
+        // the key stands right of every row and under the shelf
+        assert!(KEY_X - 0.1 > x_of(a.last()) + STEP * 3.0 + 0.35);
+        let shelf = Place::shelf();
+        assert!(KEY_Y[0] + 0.12 + 0.6 * PULSE_H < shelf.slot(0, 1, -1)[1] - 0.12);
     }
 }
