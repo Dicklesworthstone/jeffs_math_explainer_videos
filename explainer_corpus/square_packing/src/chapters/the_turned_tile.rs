@@ -23,7 +23,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, arc_points, common, corner, dim, dot, fact, fact_int, fade_in_lagged, fail, faint, flat, fly, grow, ink,
-    line_style, path, pause, polygon, reshape, retrace, ring, say, swap, together, touch, turned, warn,
+    line_style, path, pause, polygon, reshape, retrace, ring, say, stand, swap, together, touch, turned, warn,
 };
 use crate::model::{self, MIDDLE, Packing, TILES};
 
@@ -424,7 +424,10 @@ impl SceneConstruct for TheTurnedTile {
         );
         let diagonal = path(stage, vec![a, b], line_style(dark, 5.0));
         let one = kit.tex(stage, ONE, 40.0, dark, &[], v(BOARD.at[0] - 0.22, BOARD.at[1] + 0.22))?;
-        swap(stage, &[], &[diagonal, one], 0.8)?;
+        swap(stage, &[], &[diagonal], 0.8)?;
+        // the length when the voice gives it
+        line.wait_for(stage, "one tile apart")?;
+        swap(stage, &[], &[one], 0.5)?;
 
         // ---------------------------------------------------------- 01_9
         // gap × √2 = 1, so gap = 1/√2, and the box is 2 + 1/√2 ≈ 2.71
@@ -516,8 +519,10 @@ impl SceneConstruct for TheTurnedTile {
             v(-FRAME_X_RADIUS + 0.45, -3.6),
         )?;
         swap(stage, &[], &[proof, source], 0.6)?;
-        // the line and its breath, then the wipe: no authored hold here
-        kit.hold(stage)?;
+        // the line and its breath, and the conclusion and its source stand
+        // before the wipe (they come on the line's last words)
+        let up = stage.scene().time().to_f64();
+        stand(&kit, stage, up)?;
         squeeze.stop(stage);
         fade_all(stage, 0.8)?;
         kit.finish(stage)

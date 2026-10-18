@@ -375,6 +375,18 @@ pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
     wait_frames(stage, frames_covering(seconds, fps))
 }
 
+/// How long a chapter's last reveal stands whole before the chapter fades,
+/// seconds: the floor the corpus's bands keep.
+pub const STAND_UP: f64 = 2.6;
+
+/// Before a chapter's fade: the last line and its breath (`Kit::hold`), and
+/// at least [`STAND_UP`] since `up`, when its last reveal became whole, so a
+/// reveal on a line's last words is not wiped as soon as it is read.
+pub fn stand(kit: &Kit, stage: &mut Stage<'_>, up: f64) -> fmn::Result<()> {
+    kit.hold(stage)?;
+    wait_until(stage, up + STAND_UP)
+}
+
 // ------------------------------------------------------------------- plays
 
 /// Fade `out` away and `ins` in, in one move of `rt` seconds.
@@ -508,5 +520,47 @@ mod tests {
         for (id, text) in script.lines() {
             assert_eq!(sentence_offsets(text).len(), narrator.sentence_starts(id).len(), "{id}");
         }
+    }
+
+    /// Run `f` as a scene, headless, ten frames a second.
+    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
+        struct Probe<F>(F);
+        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
+            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+                (self.0)(stage)
+            }
+        }
+        let config = fmn::scene::RuntimeConfig {
+            fps: 10,
+            ..fmn::scene::RuntimeConfig::default()
+        };
+        fmn::run_scene(&mut Probe(f), config, 7, &mut fmn::scene::NullSceneSink).expect("the probe scene runs");
+    }
+
+    /// Chapter 01's close as the coherent take measured it (cues-v1: 01_11's
+    /// sentences at 0, 2.00 and 3.87 s of 4.51 s): a reveal on "needs a
+    /// proof" got under a second from the line and its breath alone; it now
+    /// stands STAND_UP before the fade may take it.
+    #[test]
+    fn the_last_reveal_stands_before_the_fade() {
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let narrator =
+            explainer_kit::Narrator::estimate_timed(&script, &[("01_11", &[0.0, 2.0, 3.87][..], 4.51)]).unwrap();
+        let kit = Kit::new().unwrap().with_narrator(narrator);
+        let mut stood = (f64::NAN, f64::NAN);
+        run(|stage| {
+            let line = say(&kit, stage, "01_11")?;
+            line.wait_for(stage, "needs a proof")?;
+            // the reveal's fade-in
+            pause(stage, 0.6)?;
+            let up = stage.scene().time().to_f64();
+            kit.hold(stage)?;
+            let held = stage.scene().time().to_f64() - up;
+            stand(&kit, stage, up)?;
+            stood = (held, stage.scene().time().to_f64() - up);
+            Ok(())
+        });
+        assert!(stood.0 < 1.0, "the line and its breath alone: {:.2} s", stood.0);
+        assert!(stood.1 >= STAND_UP - 1e-9, "{:.2} s", stood.1);
     }
 }
