@@ -126,6 +126,13 @@ fn block_box(p: usize, block: &PositivesBlock) -> (f64, f64, f64, f64) {
     )
 }
 
+/// A clinic's test, read off its counted people: the share caught among
+/// people with the disease, and the false-alarm rate among people without it
+/// (what the 02_2 card and the 02_9 card print).
+fn counted_rates(c: &Counts) -> (Q, Q) {
+    (Q::ratio(c.true_pos, c.with), Q::ratio(c.false_pos, c.without))
+}
+
 /// A fraction's TeX, thousands written the TeX way (`9{,}900`).
 fn tex_fraction(top: u64, bottom: u64) -> String {
     let tex = |n: u64| thousands(n).replace(',', "{,}");
@@ -216,8 +223,8 @@ fn tile_in(stage: &mut Stage<'_>, p: usize, row: usize, col: usize, color: Srgb)
 fn lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<AnimationGroup> {
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
-        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-        anims.push(stage.prepare(a)?);
+        let anim = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(anim)?);
     }
     Ok(AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt))
 }
@@ -354,8 +361,8 @@ impl SceneConstruct for TheSameTest {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
-        let (a, b) = (clinic_a(), clinic_b());
-        let (ca, cb) = (a.counts().map_err(fail)?, b.counts().map_err(fail)?);
+        let (model_a, model_b) = (clinic_a(), clinic_b());
+        let (ca, cb) = (model_a.counts().map_err(fail)?, model_b.counts().map_err(fail)?);
         let (array_a, array_b) = (
             IconArray::build(&ca, GRID_COLS).map_err(fail)?,
             IconArray::build(&cb, GRID_COLS).map_err(fail)?,
@@ -368,8 +375,14 @@ impl SceneConstruct for TheSameTest {
             Q::ratio(ca.true_pos, ca.positives()),
             Q::ratio(cb.true_pos, cb.positives()),
         );
-        if a.sensitivity != b.sensitivity || a.false_alarm != b.false_alarm {
-            return Err(fail("chapter 02 needs the same test in both clinics".into()));
+        // the test's two rates as counted in each clinic's people: the cards
+        // read these, and the chapter refuses clinics whose counts disagree
+        let ((caught_a, alarm_a), (caught_b, alarm_b)) = (counted_rates(&ca), counted_rates(&cb));
+        if caught_a != caught_b || alarm_a != alarm_b {
+            return Err(fail(format!(
+                "chapter 02 needs the same test in both clinics: catches {caught_a} and {caught_b}, \
+                 false alarms {alarm_a} and {alarm_b}"
+            )));
         }
         let start = opening(&kit, stage, &ca, &array_a)?;
         let (gold, blue) = (
@@ -386,7 +399,7 @@ impl SceneConstruct for TheSameTest {
             &grid_colors(&array_a, &gold, &blue, (RAMP - 1, RAMP - 1, true)),
         )?;
         let (al, at, ar, ab) = block_box(0, &block_a);
-        let header_a = header(&kit, stage, 0, "A", &a)?;
+        let header_a = header(&kit, stage, 0, "A", &model_a)?;
         let rows_a = kit.text(
             stage,
             &format!("{} {ROWS_OF} {}", block_a.disease_rows, block_a.rows),
@@ -449,15 +462,15 @@ impl SceneConstruct for TheSameTest {
         let mut out = start.leaving.clone();
         out.push(start.grid);
         for m in out {
-            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            moves.push(stage.prepare(a.rt(0.8))?);
+            let anim = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            moves.push(stage.prepare(anim.rt(0.8))?);
         }
         let mut ins = vec![small_a.group, header_a, rows_a];
         ins.extend(&ledger_a);
         ins.extend(labels_a);
         for m in ins {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            moves.push(stage.prepare(a.rt(0.9))?);
+            let anim = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            moves.push(stage.prepare(anim.rt(0.9))?);
         }
         stage.play_prepared(moves)?;
         line.wait_for(stage, "a clinic where")?;
@@ -494,19 +507,19 @@ impl SceneConstruct for TheSameTest {
         )?;
         fade_in_all(stage, &[strips_b.group, painter], 0.6)?;
         line.wait_for(stage, "one person in ten")?;
-        let header_b = header(&kit, stage, 1, "B", &b)?;
+        let header_b = header(&kit, stage, 1, "B", &model_b)?;
         let mut anims: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(sick_t, 1.0, 0.8)?)?];
-        let a = fade_in(stage.arena_mut(), header_b, ORIGIN, 1.0)?;
-        anims.push(stage.prepare(a.rt(0.6))?);
+        let anim = fade_in(stage.arena_mut(), header_b, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(anim.rt(0.6))?);
         stage.play_prepared(anims)?;
 
         // 02_2: the test has not changed
         let line = say(&kit, stage, "02_2")?;
         let words = format!(
             "{THE_SAME_TEST} {} {IN} {} {WITH_IT} {}% {WITHOUT_IT}",
-            b.sensitivity.num(),
-            b.sensitivity.den(),
-            b.false_alarm.percent(0)
+            caught_b.num(),
+            caught_b.den(),
+            alarm_b.percent(0)
         );
         let test_card = card(
             &kit,
@@ -542,11 +555,11 @@ impl SceneConstruct for TheSameTest {
         let n_with = ledger_number(&kit, stage, 1, 0, cb.with, disease())?;
         let w_with = ledger_words(&kit, stage, 1, 0, disease())?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
-        let a = fade_out(stage.arena_mut(), ask, ORIGIN, 1.0)?;
-        anims.push(stage.prepare(a.rt(0.4))?);
+        let anim = fade_out(stage.arena_mut(), ask, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(anim.rt(0.4))?);
         for m in [n_with, w_with] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.5))?);
+            let anim = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(anim.rt(0.5))?);
         }
         stage.play_prepared(anims)?;
         line.wait_for(stage, "and nine hundred")?;
@@ -581,8 +594,8 @@ impl SceneConstruct for TheSameTest {
         let w_without = ledger_words(&kit, stage, 1, 2, healthy())?;
         let mut anims: Vec<Box<dyn Animation>> = vec![stage.prepare(tween(well_t, 1.0, 0.6)?)?];
         for m in [n_without, w_without] {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.6))?);
+            let anim = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(anim.rt(0.6))?);
         }
         stage.play_prepared(anims)?;
         line.wait_for(stage, "five percent")?;
@@ -639,7 +652,7 @@ impl SceneConstruct for TheSameTest {
         let grow = PC * 0.86 / AC;
         let mut flights: Vec<Box<dyn Animation>> = Vec::new();
         for (j, &piece) in tiles.iter().enumerate() {
-            let a = piece
+            let anim = piece
                 .animate()
                 .set_anim_args(AnimateArgs {
                     run_time: Some(1.0),
@@ -647,7 +660,7 @@ impl SceneConstruct for TheSameTest {
                 })?
                 .scale(grow)?
                 .move_to(place_in(1, j as u64), ORIGIN)?;
-            flights.push(stage.prepare(a)?);
+            flights.push(stage.prepare(anim)?);
         }
         let flight = AnimationGroup::with_lag_ratio(stage.arena_mut(), flights, 0.0008)?.with_run_time(2.0);
         stage.play(flight)?;
@@ -731,12 +744,12 @@ impl SceneConstruct for TheSameTest {
         )?;
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for &m in &alarms_lit {
-            let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.4))?);
+            let anim = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(anim.rt(0.4))?);
         }
         for m in caught_lit.into_iter().chain([times]) {
-            let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
-            anims.push(stage.prepare(a.rt(0.5))?);
+            let anim = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+            anims.push(stage.prepare(anim.rt(0.5))?);
         }
         stage.play_prepared(anims)?;
 
@@ -748,7 +761,7 @@ impl SceneConstruct for TheSameTest {
             &kit,
             stage,
             Some(FALSE_ALARM_RATE),
-            &format!("{P_FALSE_ALARM} {}", a.false_alarm),
+            &format!("{P_FALSE_ALARM} {alarm_a}"),
             Some(SAME_IN_BOTH),
             (28.0, 22),
             healthy(),
@@ -854,6 +867,32 @@ mod tests {
         // the think ring and its note sit inside clinic B's block area
         let (l, t, _, b) = block_box(1, &bb);
         assert!(ASK_AT[0] - ASK_R > l && ASK_AT[1] + ASK_R < t && ASK_AT[1] - ASK_R > b);
+    }
+
+    /// The cards print the rates counted in the clinics' people, and those
+    /// are the facts both clinics register: the same in A and B, so the 02_9
+    /// card's "the same in both clinics" is a computed statement.
+    #[test]
+    fn the_cards_read_the_counted_rates_which_are_the_facts() {
+        let f = crate::facts::facts().unwrap();
+        let (ca, cb) = (clinic_a().counts().unwrap(), clinic_b().counts().unwrap());
+        let (rates_a, rates_b) = (counted_rates(&ca), counted_rates(&cb));
+        assert_eq!(rates_a, rates_b);
+        for prefix in ["M-F1", "M-F2"] {
+            let caught = f.get(&format!("{prefix}.sensitivity.exact")).unwrap();
+            let alarm = f.get(&format!("{prefix}.false_alarm.exact")).unwrap();
+            assert_eq!(
+                (rates_a.0.to_string(), rates_a.1.to_string()),
+                (caught.to_owned(), alarm.to_owned())
+            );
+        }
+        // a clinic whose test caught fewer people would be refused by the comparison
+        let other = Counts {
+            true_pos: cb.true_pos - 100,
+            false_neg: cb.false_neg + 100,
+            ..cb
+        };
+        assert_ne!(counted_rates(&other), rates_a);
     }
 
     #[test]
