@@ -1,0 +1,12 @@
+# golay_echoes: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Send out four pulses. Up, up, up, down. Something out there bounces them back.
+01_2	To find the echo, slide a copy along what came back, and multiply the pulses that line up.
+01_3	Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away.
+01_4	Lined up exactly, all four agree. A score of four, right where the echo is.
+01_5	One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is.
+01_6	Slide all the way, and ghosts appear on both sides, a quarter the size of the echo.
+01_7	With more than one pulse, every pattern of ups and downs leaves ghosts. So send a second one. Up, up, down, up.
+01_8	It leaves ghosts too, the same size, at the same shifts. What if we add the two rows, shift by shift?
+01_9	Every ghost meets its opposite, and they cancel. Only the echo is left, twice as tall.
+01_10	Two bad echoes, and together, not a single ghost.
+01_11	But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return.

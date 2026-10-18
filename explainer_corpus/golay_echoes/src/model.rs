@@ -1,0 +1,482 @@
+//! The mathematics of the two echoes (plan §3.5: pure math with tests;
+//! chapters only draw). Everything here is exact integer arithmetic.
+//!
+//! A *code* is a row of pulses, each up (+1) or down (−1). The *scene* is
+//! what sends echoes back: `scene[d]` is the strength of the echo that
+//! returns `d` steps late. The *recording* is the sum of those delayed,
+//! scaled copies of the code ([`echo`]), plus whatever noise the receiver
+//! adds. This is the measurement model of Chi, Pezeshki and Calderbank
+//! (*Complementary Waveforms for Sidelobe Suppression and Radar
+//! Polarimetry*, eq. 33: delay, scattering, additive noise), sampled one
+//! value per pulse and with no Doppler.
+//!
+//! The receiver slides its own copy of the code along the recording and, at
+//! every shift, adds the products of the pulses that line up
+//! ([`correlate`], the matched filter): that sum is the shift's *score*. A
+//! product is +1 where two pulses agree and −1 where they disagree. The
+//! scores of a code against itself are its aperiodic autocorrelation.
+//!
+//! Golay's pair: neither code's score row is clean on its own (no row of
+//! ±1 pulses longer than one is, [`far_shift_score`]), but the two rows
+//! cancel at every shift where there is no echo, provided both
+//! measurements see the same scene ([`two_measurements`]): the sum is then
+//! the scene itself, magnified 2N times (the chapter's definition 1:
+//! C_a(k) + C_b(k) = 2N·δ(k)). Noise added at the receiver passes through
+//! the scoring like any recording and is not cancelled.
+
+/// The first code: up, up, up, down.
+pub const CODE_A: [i64; 4] = [1, 1, 1, -1];
+
+/// Its partner: up, up, down, up.
+pub const CODE_B: [i64; 4] = [1, 1, -1, 1];
+
+/// One thing that reflects, right where the recording starts (chapter 01).
+pub const STILL: [i64; 1] = [1];
+
+/// The same thing one step further away: it moved between the two sends.
+pub const MOVED: [i64; 2] = [0, 1];
+
+/// A row of scores: `values[i]` is the score at shift `first + i`, and
+/// every shift outside the row scores zero.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Scores {
+    pub first: i64,
+    pub values: Vec<i64>,
+}
+
+impl Scores {
+    /// The last shift the row holds (`first − 1` when it is empty).
+    pub fn last(&self) -> i64 {
+        self.first + self.values.len() as i64 - 1
+    }
+
+    /// The score at `shift` (zero outside the row).
+    pub fn at(&self, shift: i64) -> i64 {
+        usize::try_from(shift - self.first)
+            .ok()
+            .and_then(|i| self.values.get(i))
+            .copied()
+            .unwrap_or(0)
+    }
+
+    /// The two rows added shift by shift, over every shift either holds.
+    pub fn plus(&self, other: &Self) -> Self {
+        if other.values.is_empty() {
+            return self.clone();
+        }
+        if self.values.is_empty() {
+            return other.clone();
+        }
+        let first = self.first.min(other.first);
+        let last = self.last().max(other.last());
+        Self {
+            first,
+            values: (first..=last).map(|k| self.at(k) + other.at(k)).collect(),
+        }
+    }
+
+    /// The largest score, in size, at a shift with no echo (`echoes` are the
+    /// shifts where the scene has one): the tallest ghost, or 0.
+    pub fn largest_ghost(&self, echoes: &[i64]) -> i64 {
+        (self.first..=self.last())
+            .filter(|k| !echoes.contains(k))
+            .map(|k| self.at(k).abs())
+            .max()
+            .unwrap_or(0)
+    }
+
+    /// The shifts with no echo whose score is not zero.
+    pub fn ghost_shifts(&self, echoes: &[i64]) -> Vec<i64> {
+        (self.first..=self.last())
+            .filter(|k| !echoes.contains(k) && self.at(*k) != 0)
+            .collect()
+    }
+
+    /// `-1,0,1,4,1,0,-1`: the values as the facts print them.
+    pub fn csv(&self) -> String {
+        csv(&self.values)
+    }
+}
+
+/// `1,1,1,-1`: integers as the facts print them.
+pub fn csv(values: &[i64]) -> String {
+    values.iter().map(i64::to_string).collect::<Vec<_>>().join(",")
+}
+
+/// The pairs that line up at shift `k` when a copy of a code `copy_len`
+/// long lies `k` steps along a recording `recording_len` long: (index in
+/// the recording, index in the copy), the recording's index increasing.
+pub fn overlaps(recording_len: usize, copy_len: usize, k: i64) -> Vec<(usize, usize)> {
+    (0..recording_len)
+        .filter_map(|n| {
+            let j = usize::try_from(n as i64 - k).ok()?;
+            (j < copy_len).then_some((n, j))
+        })
+        .collect()
+}
+
+/// One lined-up pair at a shift: where it sits, and its product (+1 when
+/// the two pulses agree, −1 when they disagree, for ±1 pulses).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Product {
+    pub recording: usize,
+    pub copy: usize,
+    pub value: i64,
+}
+
+/// The products the receiver adds at shift `k`, in the recording's order.
+pub fn products(recording: &[i64], code: &[i64], k: i64) -> Vec<Product> {
+    overlaps(recording.len(), code.len(), k)
+        .into_iter()
+        .map(|(n, j)| Product {
+            recording: n,
+            copy: j,
+            value: recording[n] * code[j],
+        })
+        .collect()
+}
+
+/// The matched filter: the recording scored against the code at every
+/// shift where they overlap, score(k) = Σₙ recording[n]·code[n − k], for k
+/// from −(code length − 1) to recording length − 1.
+pub fn correlate(recording: &[i64], code: &[i64]) -> Scores {
+    if recording.is_empty() || code.is_empty() {
+        return Scores {
+            first: 0,
+            values: Vec::new(),
+        };
+    }
+    let first = 1 - code.len() as i64;
+    let last = recording.len() as i64 - 1;
+    Scores {
+        first,
+        values: (first..=last)
+            .map(|k| products(recording, code, k).iter().map(|p| p.value).sum())
+            .collect(),
+    }
+}
+
+/// A code's scores against itself (its aperiodic autocorrelation), shifts
+/// −(N − 1) to N − 1.
+pub fn autocorrelation(code: &[i64]) -> Scores {
+    correlate(code, code)
+}
+
+/// What comes back from `scene`: every echo returns the code, delayed by its
+/// step and scaled by its strength, and the recording is their sum,
+/// recording[n] = Σ_d scene[d]·code[n − d].
+pub fn echo(code: &[i64], scene: &[i64]) -> Vec<i64> {
+    if code.is_empty() || scene.is_empty() {
+        return Vec::new();
+    }
+    let mut recording = vec![0; code.len() + scene.len() - 1];
+    for (d, &strength) in scene.iter().enumerate() {
+        for (i, &pulse) in code.iter().enumerate() {
+            recording[d + i] += strength * pulse;
+        }
+    }
+    recording
+}
+
+/// One measurement: send `code` into `scene`, add `noise` to the recording
+/// (sample by sample from its start; empty for none), and score the
+/// recording against the code.
+pub fn measure(code: &[i64], scene: &[i64], noise: &[i64]) -> Scores {
+    let mut recording = echo(code, scene);
+    if recording.len() < noise.len() {
+        recording.resize(noise.len(), 0);
+    }
+    for (r, &n) in recording.iter_mut().zip(noise) {
+        *r += n;
+    }
+    correlate(&recording, code)
+}
+
+/// Golay's two measurements: send `a` while the scene is `scene_a`, then
+/// `b` while it is `scene_b`, score each recording against its own code and
+/// add the two score rows. With one scene for both and a complementary
+/// pair, the sum is that scene magnified 2N times, with no ghosts.
+pub fn two_measurements(a: &[i64], scene_a: &[i64], b: &[i64], scene_b: &[i64]) -> Scores {
+    measure(a, scene_a, &[]).plus(&measure(b, scene_b, &[]))
+}
+
+/// The score at the far shift, N − 1, where only the code's two end pulses
+/// overlap: their product, never zero for a code of nonzero pulses longer
+/// than one (±1 for up and down pulses). So no single such code is free of
+/// ghosts.
+pub fn far_shift_score(code: &[i64]) -> i64 {
+    autocorrelation(code).at(code.len() as i64 - 1)
+}
+
+/// `a` and `b` are complementary: equal lengths, and their score rows add
+/// to 2N at shift zero and to zero at every other shift.
+pub fn is_complementary(a: &[i64], b: &[i64]) -> bool {
+    if a.len() != b.len() || a.is_empty() {
+        return false;
+    }
+    let sum = autocorrelation(a).plus(&autocorrelation(b));
+    let peak = 2 * a.len() as i64;
+    (sum.first..=sum.last()).all(|k| {
+        let want = if k == 0 { peak } else { 0 };
+        sum.at(k) == want
+    })
+}
+
+/// The doubling construction: from a complementary pair `(a, b)`, the pair
+/// (a then b, a then −b), twice as long. The cross terms between the two
+/// halves appear with opposite signs in the two new codes, so the new
+/// score rows add to twice the old sum: complementary again.
+#[allow(dead_code, reason = "the recursion is a later chapter; chapter 01 draws only its result")]
+pub fn double(a: &[i64], b: &[i64]) -> (Vec<i64>, Vec<i64>) {
+    let first = a.iter().chain(b).copied().collect();
+    let second = a.iter().copied().chain(b.iter().map(|&x| -x)).collect();
+    (first, second)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn row(first: i64, values: &[i64]) -> Scores {
+        Scores {
+            first,
+            values: values.to_vec(),
+        }
+    }
+
+    /// Every code of `n` up/down pulses.
+    fn codes(n: usize) -> Vec<Vec<i64>> {
+        (0u32..(1 << n))
+            .map(|m| (0..n).map(|i| if (m >> i) & 1 == 1 { -1 } else { 1 }).collect())
+            .collect()
+    }
+
+    /// Every complementary pair of `n` up/down pulses, by search.
+    fn pairs(n: usize) -> Vec<(Vec<i64>, Vec<i64>)> {
+        let all = codes(n);
+        let mut out = Vec::new();
+        for a in &all {
+            for b in &all {
+                if is_complementary(a, b) {
+                    out.push((a.clone(), b.clone()));
+                }
+            }
+        }
+        out
+    }
+
+    /// Pattern 1, narration truth: the rows chapter 01 draws and says.
+    #[test]
+    fn the_chapter_scores_are_the_ones_on_screen() {
+        let a = autocorrelation(&CODE_A);
+        let b = autocorrelation(&CODE_B);
+        assert_eq!(a, row(-3, &[-1, 0, 1, 4, 1, 0, -1]), "code A's scores");
+        assert_eq!(b, row(-3, &[1, 0, -1, 4, -1, 0, 1]), "code B's scores");
+        // "Lined up exactly, all four agree."
+        assert!(products(&CODE_A, &CODE_A, 0).iter().all(|p| p.value == 1));
+        // "One step off, three pairs line up. Two agree, one disagrees."
+        let one_off: Vec<i64> = products(&CODE_A, &CODE_A, 1).iter().map(|p| p.value).collect();
+        assert_eq!(one_off, [1, 1, -1]);
+        assert_eq!(a.at(1), 1, "a score of one, where nothing is");
+        // "a quarter as tall": the tallest ghost against the echo
+        assert_eq!((a.largest_ghost(&[0]), a.at(0)), (1, 4));
+        assert_eq!(b.largest_ghost(&[0]), 1, "ghosts of the same size");
+        assert_eq!(a.ghost_shifts(&[0]), b.ghost_shifts(&[0]), "at the same shifts");
+        // "Every ghost meets its opposite. Only the echo is left, twice as tall."
+        let both = two_measurements(&CODE_A, &STILL, &CODE_B, &STILL);
+        assert_eq!(both, row(-3, &[0, 0, 0, 8, 0, 0, 0]));
+        assert_eq!(both.at(0), 2 * a.at(0));
+        // "Move the echo one step between them, and ghosts return."
+        let moved = two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED);
+        assert_eq!(moved, row(-3, &[-1, 1, 1, 3, 5, -1, -1, 1]));
+        assert_eq!(moved.ghost_shifts(&[0, 1]), [-3, -2, -1, 2, 3, 4]);
+    }
+
+    /// Pattern 2, a second formula: the score at shift k is the recording
+    /// convolved with the code reversed, read at k + N − 1.
+    #[test]
+    fn the_matched_filter_is_convolution_with_the_reversed_code() {
+        for n in 1..=4 {
+            for code in codes(n) {
+                let reversed: Vec<i64> = code.iter().rev().copied().collect();
+                for len in 1..=6 {
+                    for recording in codes(len) {
+                        let conv = echo(&recording, &reversed);
+                        let scores = correlate(&recording, &code);
+                        assert_eq!(scores.values.len(), conv.len());
+                        assert_eq!(scores.first, 1 - n as i64);
+                        assert_eq!(scores.values, conv, "{recording:?} against {code:?}");
+                    }
+                }
+            }
+        }
+    }
+
+    /// The echo of a scene is the sum of its echoes, each a shifted, scaled
+    /// copy of the code (written out the long way).
+    #[test]
+    fn a_recording_is_the_sum_of_shifted_scaled_copies() {
+        let scene = [4, 0, -2, 1];
+        let mut want = vec![0; CODE_A.len() + scene.len() - 1];
+        for (d, &h) in scene.iter().enumerate() {
+            let mut copy = vec![0; want.len()];
+            copy[d..d + CODE_A.len()].copy_from_slice(&CODE_A.map(|x| h * x));
+            for (w, c) in want.iter_mut().zip(copy) {
+                *w += c;
+            }
+        }
+        assert_eq!(echo(&CODE_A, &scene), want);
+        assert_eq!(echo(&CODE_A, &STILL), CODE_A, "one echo returns the code itself");
+    }
+
+    /// The claim: one scene for both measurements gives back the scene
+    /// magnified 2N times, ghost-free, for every complementary pair of up to
+    /// eight pulses and every scene of three steps with strengths −2 to 2.
+    #[test]
+    fn the_same_scene_twice_returns_the_scene_magnified() {
+        let strengths = [-2, -1, 0, 1, 2];
+        for n in [1, 2, 4, 8] {
+            for (a, b) in pairs(n) {
+                for &h0 in &strengths {
+                    for &h1 in &strengths {
+                        for &h2 in &strengths {
+                            let scene = [h0, h1, h2];
+                            let sum = two_measurements(&a, &scene, &b, &scene);
+                            for k in sum.first..=sum.last() {
+                                let want = usize::try_from(k)
+                                    .ok()
+                                    .and_then(|d| scene.get(d))
+                                    .map_or(0, |&h| 2 * n as i64 * h);
+                                assert_eq!(sum.at(k), want, "{a:?} {b:?} {scene:?} at {k}");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Pattern 3, the edges of every always/never sentence.
+    ///
+    /// "Every ghost meets its opposite": for a complementary pair, code B's
+    /// score is minus code A's at every shift but zero.
+    #[test]
+    fn a_pairs_ghosts_are_always_opposite() {
+        for n in 1..=8 {
+            for (a, b) in pairs(n) {
+                let (ra, rb) = (autocorrelation(&a), autocorrelation(&b));
+                for k in ra.first..=ra.last() {
+                    if k != 0 {
+                        assert_eq!(ra.at(k), -rb.at(k), "{a:?} {b:?} at {k}");
+                    }
+                }
+            }
+        }
+    }
+
+    /// Complementary pairs of up/down pulses exist only at some lengths
+    /// (exhaustive counts of ordered pairs; oracle.py counts them its own
+    /// way).
+    #[test]
+    fn complementary_pairs_by_length() {
+        let counts: Vec<usize> = (1..=8).map(|n| pairs(n).len()).collect();
+        assert_eq!(counts, [4, 8, 0, 32, 0, 0, 0, 192]);
+        assert!(is_complementary(&CODE_A, &CODE_B));
+        assert!(!is_complementary(&CODE_A, &CODE_A), "a code is never its own partner");
+        assert!(!is_complementary(&CODE_A, &CODE_B[..3]), "different lengths");
+        assert!(!is_complementary(&[], &[]));
+    }
+
+    /// "No single code is free of ghosts": at the far shift only the two end
+    /// pulses overlap, so the score there is ±1, for every code longer than
+    /// one pulse. One pulse has no other shift (the edge).
+    #[test]
+    fn every_code_longer_than_one_pulse_has_a_ghost() {
+        for n in 2..=10 {
+            for code in codes(n) {
+                let s = far_shift_score(&code);
+                assert_eq!(s.abs(), 1, "{code:?}");
+                assert_eq!(s, code[0] * code[n - 1]);
+                assert!(autocorrelation(&code).largest_ghost(&[0]) >= 1);
+            }
+        }
+        assert_eq!(autocorrelation(&[1]), row(0, &[1]));
+        assert_eq!(autocorrelation(&[-1]).largest_ghost(&[0]), 0);
+    }
+
+    /// The condition: when the scene changes between the two sends, the
+    /// ghosts are not cancelled.
+    #[test]
+    fn a_changed_scene_leaves_ghosts() {
+        // moved one step: the chapter's case
+        let moved = two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED);
+        assert_eq!(moved.largest_ghost(&[0, 1]), 1);
+        assert_eq!((moved.at(0), moved.at(1)), (3, 5), "and neither echo is the full 8");
+        // the second echo comes back upside down (in radar, a phase change
+        // of half a turn between the sends): the echo itself cancels and
+        // every ghost doubles
+        let flipped = two_measurements(&CODE_A, &STILL, &CODE_B, &[-1]);
+        assert_eq!(flipped, row(-3, &[-2, 0, 2, 0, 2, 0, -2]));
+        // the second echo comes back twice as strong
+        let stronger = two_measurements(&CODE_A, &STILL, &CODE_B, &[2]);
+        assert_eq!(stronger, row(-3, &[1, 0, -1, 12, -1, 0, 1]));
+        // what is left is always the change, scored by code A alone:
+        // A·sa + B·sb = A·(sa − sb) + (A + B)·sb
+        let scenes: [&[i64]; 5] = [&[0, 1], &[-1], &[2], &[1, 1], &[0, 0, 3]];
+        for scene_b in scenes {
+            let change: Vec<i64> = (0..scene_b.len().max(STILL.len()))
+                .map(|d| STILL.get(d).copied().unwrap_or(0) - scene_b.get(d).copied().unwrap_or(0))
+                .collect();
+            let want = measure(&CODE_A, &change, &[]).plus(&two_measurements(&CODE_A, scene_b, &CODE_B, scene_b));
+            let have = two_measurements(&CODE_A, &STILL, &CODE_B, scene_b);
+            for k in -4..=6 {
+                assert_eq!(have.at(k), want.at(k), "{scene_b:?} at {k}");
+            }
+        }
+    }
+
+    /// Noise added at the receiver is scored like any recording: the sum is
+    /// the magnified scene plus the noise's own scores, which do not cancel.
+    #[test]
+    fn noise_is_not_cancelled() {
+        let noise = [0, 0, 0, 0, 0, 1];
+        let clean = two_measurements(&CODE_A, &STILL, &CODE_B, &STILL);
+        let noisy = measure(&CODE_A, &STILL, &noise).plus(&measure(&CODE_B, &STILL, &[]));
+        let left = correlate(&noise, &CODE_A);
+        for k in -3..=5 {
+            assert_eq!(noisy.at(k), clean.at(k) + left.at(k), "at {k}");
+        }
+        assert_eq!(noisy.largest_ghost(&[0]), 1);
+        assert_eq!(noisy.ghost_shifts(&[0]), [2, 3, 4, 5]);
+    }
+
+    /// The doubling construction builds the chapter's pair from one pulse,
+    /// and every doubling stays complementary (lengths up to 64).
+    #[test]
+    fn doubling_builds_the_pair_and_keeps_it_complementary() {
+        let two = double(&[1], &[1]);
+        assert_eq!(two, (vec![1, 1], vec![1, -1]));
+        let four = double(&two.0, &two.1);
+        assert_eq!((four.0.as_slice(), four.1.as_slice()), (&CODE_A[..], &CODE_B[..]));
+        let (mut a, mut b) = (vec![1], vec![1]);
+        for _ in 0..6 {
+            (a, b) = double(&a, &b);
+            assert!(is_complementary(&a, &b), "length {}", a.len());
+        }
+        assert_eq!(a.len(), 64);
+    }
+
+    #[test]
+    fn rows_add_and_window_by_shift() {
+        let r = row(-1, &[1, 2, 3]);
+        assert_eq!((r.last(), r.at(-2), r.at(-1), r.at(1), r.at(2)), (1, 0, 1, 3, 0));
+        assert_eq!(r.plus(&row(1, &[10, 20])), row(-1, &[1, 2, 13, 20]));
+        assert_eq!(r.plus(&row(0, &[])), r);
+        assert_eq!(row(0, &[]).plus(&r), r);
+        assert_eq!(r.csv(), "1,2,3");
+        assert_eq!(csv(&CODE_A), "1,1,1,-1");
+        assert_eq!(overlaps(4, 4, 3), [(3, 0)]);
+        assert_eq!(overlaps(4, 4, -3), [(0, 3)]);
+        assert!(overlaps(4, 4, 4).is_empty());
+    }
+}
