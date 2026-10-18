@@ -887,10 +887,8 @@ mod tests {
         // changed"
         for second in [&MOVED[..], &FLIPPED[..], &STILL[..]] {
             let sum = two_measurements(&CODE_A, &STILL, &CODE_B, second);
-            let want = measure(&CODE_A, &difference(&STILL, second), &[]).plus(&row(
-                0,
-                &second.iter().map(|h| 8 * h).collect::<Vec<_>>(),
-            ));
+            let want = measure(&CODE_A, &difference(&STILL, second), &[])
+                .plus(&row(0, &second.iter().map(|h| 8 * h).collect::<Vec<_>>()));
             for k in -4..=5 {
                 assert_eq!(sum.at(k), want.at(k), "{second:?} at {k}");
             }
@@ -977,7 +975,11 @@ mod tests {
         for k in -4..=6 {
             assert_eq!(noisy.at(k), clean.at(k) + blip.at(k), "at {k}");
             // the blip at sample `at` meets copy pulse at − k
-            let want = usize::try_from(at - k).ok().and_then(|j| CODE_A.get(j)).copied().unwrap_or(0);
+            let want = usize::try_from(at - k)
+                .ok()
+                .and_then(|j| CODE_A.get(j))
+                .copied()
+                .unwrap_or(0);
             assert_eq!(blip.at(k), want, "at {k}");
         }
         assert_eq!(noisy.at(0), clean.at(0), "the peak survives");

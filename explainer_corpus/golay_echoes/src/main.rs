@@ -105,6 +105,15 @@ mod tests {
         ("03_6", "exactly one flipped pulse", "G-F10.flipped_in_crossing", "1"),
         ("03_8", "twice the old pair's rows", "G-F10.factor", "2"),
         ("03_9", "twice as long", "G-F10.length_factor", "2"),
+        ("04_2", "one step", "G-F14.moved.step", "1"),
+        ("04_4", "three and five", "G-F14.moved.at_echoes", "3,5"),
+        ("04_4", "six shifts", "G-F14.moved.ghost_count", "6"),
+        ("04_6", "half a turn", "G-F15.phase.flip_factor", "-1"),
+        ("04_8", "It cancels", "G-F15.phase.at_echo", "0"),
+        ("04_8", "every ghost doubles", "G-F15.phase.ghost_ratio", "2"),
+        ("04_9", "four-pulse pair", "G-F16.pulses", "4"),
+        ("04_9", "eight times the second scene", "G-F16.factor", "8"),
+        ("04_11", "two bad echoes", "G-F18.sends", "2"),
     ];
 
     #[test]

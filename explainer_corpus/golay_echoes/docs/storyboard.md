@@ -21,8 +21,8 @@ pulses on screen.
 |---|---|---|
 | `01_two_bad_echoes` | send a pattern, score it against its echo at every shift; every single pattern leaves ghosts; a second pattern's ghosts are the same size with the opposite sign; added, only the echo is left, twice as tall; the guarantee's assumption: the same scene for both sends | silent scratch draft accepted centrally at a201b4a (native tests, facts, glyphs, cues, frames); narration and the full video not yet accepted |
 | `02_what_the_ghosts_hide` | two things in the scene, one loud and one quiet, three steps apart: their echoes overlap and add; pattern A's row is each echo's own row added, and the loud one's ghost erases the quiet one's peak (a zero score where something is); pattern B's ghost doubles it; added, the scene itself, eight times over; sending A twice keeps the quiet one hidden (`model::two_measurements` with the scene 4, 0, 0, 1) | silent scratch draft accepted centrally at a201b4a (80.5 s; native tests, facts, glyphs, cues, frames); narration and the full video not yet accepted |
-| `03_why_they_cancel` | one pulse paired with itself, doubled into the length-2 pair, doubled again into A and B (`model::double`); at one step, every lined-up pair sits inside a half or reaches across the middle: inside products match in both rows, crossing products flip sign; added, the crossing ones cancel and the rest is twice the old pair's rows, at every shift and every doubling; leave out the flip and the ghosts come back | storyboarded; scene in progress, not yet compiled or rendered |
-| 04 when it breaks *(planned)* | the scene changes between the sends: moved one step, or the echo returns upside down (the echo itself cancels and every ghost doubles; the radar case of a half-turn of phase, Chi, Pezeshki and Calderbank eq. 8); noise picked up by the receiver is scored like any recording, and the identity does not remove it | not storyboarded |
+| `03_why_they_cancel` | one pulse paired with itself, doubled into the length-2 pair, doubled again into A and B (`model::double`); at one step, every lined-up pair sits inside a half or reaches across the middle: inside products match in both rows, crossing products flip sign; added, the crossing ones cancel and the rest is twice the old pair's rows, at every shift and every doubling; leave out the flip and the ghosts come back | silent scratch draft accepted centrally at b7665b6 (76 s; native tests, facts, cues, frames); narration and the full video not yet accepted |
+| `04_when_it_breaks` | the clean control first and kept beside every failure; the echo moves one step between the sends (it splits three and five, ghosts at six shifts); the same echo comes back upside down (not a new object, not a negative distance; in radar a half turn of phase, Chi, Pezeshki and Calderbank eq. 8): the true echo cancels and every ghost doubles; in general, with no added noise, our four-pulse pair sums to eight times the second scene plus A's row of the change (2N at length N); a noise blip is scored, not guaranteed to cancel, and the peak survives; the ending: two bad echoes make one perfect measurement only in the ideal case, the same echoes in both sends and no added noise | scene and tests written, awaiting central compile, tests and draft; not yet rendered or accepted |
 
 ## Vocabulary (one word per idea)
 
@@ -165,3 +165,54 @@ every shift, side by side).
   10 (`model::GOLAY_10`). The chapter does not claim otherwise.
 - Budget: 153 words at 2.6 a second plus 0.4 s a line, thought gaps 0.82 s,
   the think window 5.0 s, a 1.8 s tail: about 76.8 s.
+
+## 04_when_it_breaks: When it breaks (~82 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Back to the clean case. Both sends meet the same scene, and every ghost cancels. | At the top, each send's scene as a gold outline: "first send" and "second send", one echo at step 0 in both. A's row stands above, B's below; A's drops onto B's: 8 at 0 and nothing else, its name now "both rows added". That control shrinks to a shelf at the upper right, "same scene, A + B", and stays there | scene outlines, chart, blocks cancel | |
+| 04_2 | Now let the echo move one step between the sends. | The second send's outline slides one step right | motion | |
+| 04_3 | B's row slides with it, and its ghosts miss their opposites. | A's row stands above, B's below and slides one step right with the echo; A's drops onto it: green and red no longer meet everywhere | chart, blocks cancel | |
+| 04_4 | The echo splits into three and five, with ghosts at six shifts. | 3 over shift 0 and 5 over shift 1; the six ghost columns flash, next to the clean control on its shelf | highlight | |
+| 04_5 | Now keep it in place, and let the next echo come back upside down. | The row clears; the second send's outline returns to step 0 and turns over: it hangs below the line | morph | |
+| 04_6 | Not a new object, and not a negative distance. The same echo, flipped. In radar, half a turn of phase does this. | The flipped outline flashes in the same column as the first send's, one outline, one place. A "precisely" lower-third: half a turn of phase between the sends multiplies the second echo by −1 (Chi, Pezeshki and Calderbank, eq. 8); the same reflector at the same distance | highlight, lower-third | |
+| 04_7 | What happens to the true echo when we add? ⟨predict⟩ | A's row above; below, B's row for the flipped echo, every column B's own turned over; the countdown | chart | |
+| 04_8 | It cancels, and every ghost doubles instead. | A's row drops onto it: at 0 four green meet four red and vanish, 0; the ghosts stack two high, flashing; the control still on its shelf | blocks cancel, stack, highlight | |
+| 04_9 | In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed. | h₁ and h₂ beside the two sends; the identity S_A(h₁) + S_B(h₂) = 8h₂ + S_A(h₁ − h₂). A "precisely" lower-third: S_A(h) is A's row for scene h; rows and scenes are zero past their ends; the identity is for no added noise; 8 = 2N for our N = 4 pulses, and any complementary pair of length N gives 2N | TeX derivation, lower-third | |
+| 04_10 | Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels. | The flipped outline turns back; the clean total stands again below, still "both rows added". The first recording, with one stray dim blip after the echo; the blip's own row stands above (A read backwards from the blip) and drops: 8 stays 8, the blip's scores remain, and the total is renamed "both rows + blip" | chart, highlight | |
+| 04_11 | So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added. | The noisy row clears; the clean control comes back from the shelf to full size under the two still scenes, "both rows added"; the title, "Two bad echoes, one perfect measurement". A "precisely" lower-third: perfect means exactly 8 times the scene with no ghosts, in the ideal case: the same echo response in both sends and no added noise; added noise is scored, not guaranteed to cancel | chart, title, lower-third | |
+
+### Notes for 04
+
+- Every row is the model's: the control and the moved row from
+  `two_measurements`, the flipped row with `model::FLIPPED` (one echo at
+  step 0, strength −1), the blip from `model::NOISE_BLIP`. Each chart is
+  checked against the model as it is drawn.
+- The flipped echo is a theorem, not a sample: each pattern's own peak is N,
+  so the echo scores N − N = 0, and B's ghosts are minus A's, so every ghost
+  doubles, for every complementary pair
+  (`a_flipped_echo_cancels_itself_and_doubles_the_ghosts`). The moved echo
+  still scores at both its places: a change need not erase the echo.
+- The identity (04_9) follows from linearity:
+  S_A(h₁) + S_B(h₂) = S_A(h₂) + S_B(h₂) + S_A(h₁ − h₂) = 8h₂ + S_A(h₁ − h₂),
+  scenes and rows extended by zero past their ends
+  (`a_changed_scene_leaves_pattern_as_row_of_the_change`; the oracle checks
+  all 125 × 125 pairs of three-step scenes).
+- Noise: the blip is scored as A read backwards from where it sits; the
+  peak is untouched, and nothing in the pair's identity cancels the blip.
+  No claim that noise or motion always destroys the echo.
+- The eq. 8 claim stays within the chapter's support: a phase factor on the
+  second send's response, a half turn giving −1.
+- The identity's 8 is this four-pulse pair's: two for every pulse
+  (`G-F16.pulses`, `G-F16.per_pulse`); a complementary pair of length N
+  gives 2N (the oracle checks every pair of 1 to 8 pulses). The identity
+  is for no added noise; 04_10 shows what noise adds.
+- The ending names its conditions in the sentence that makes the promise:
+  the ideal case, the same echoes in both sends and no added noise, so the
+  last line keeps the limitation 04_10 has just shown.
+- Every label names the row beside it as it stands: "pattern A" and
+  "pattern B" only while their rows stand, "both rows added" for a total,
+  "both rows + blip" once the blip's row has dropped, and the shelf's
+  "same scene, A + B".
+- Budget: 166 words at 2.6 a second plus 0.4 s a line, thought gaps 0.82 s,
+  the think window 5.0 s, a 1.8 s tail: about 82 s.

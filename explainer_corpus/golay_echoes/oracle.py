@@ -173,7 +173,52 @@ def facts():
     emit("G-X1.far_shift_sizes", csv(sorted(far)))
     chapter_02()
     chapter_03()
+    chapter_04()
     return ra, rb, both, moved
+
+
+FLIPPED = (-1,)
+NOISE_BLIP = (0, 0, 0, 0, 1)
+
+
+def chapter_04():
+    """When it breaks: every row from the polynomial products, the noise
+    blip scored by its own definition (the blip meets copy pulse i at shift
+    position - i)."""
+    still = STILL.index(1)
+    control = add(measurement(CODE_A, STILL), measurement(CODE_B, STILL))
+    emit("G-F13.control.scores", csv(window(control, -3, 3)))
+    emit("G-F13.control.largest_ghost", largest_ghost(control, {still}))
+
+    moved = add(measurement(CODE_A, STILL), measurement(CODE_B, MOVED))
+    echoes = [still, MOVED.index(1)]
+    emit("G-F14.moved.step", echoes[1] - echoes[0])
+    emit("G-F14.moved.at_echoes", csv([moved[echoes[0]], moved[echoes[1]]]))
+    emit("G-F14.moved.ghost_count", len(ghosts(moved, set(echoes))))
+
+    flipped = add(measurement(CODE_A, STILL), measurement(CODE_B, FLIPPED))
+    ra = scores(CODE_A, CODE_A)
+    emit("G-F15.phase.scene", csv(FLIPPED))
+    emit("G-F15.phase.flip_factor", Fraction(FLIPPED[0], STILL[0]))
+    emit("G-F15.phase.scores", csv(window(flipped, -3, 3)))
+    emit("G-F15.phase.at_echo", flipped.get(still, 0))
+    ratios = {Fraction(flipped[k], ra[k]) for k in ra if k != still and ra[k] != 0}
+    if len(ratios) != 1:
+        raise SystemExit(f"oracle: the flipped echo scales A's ghosts by {ratios}")
+    emit("G-F15.phase.ghost_ratio", ratios.pop())
+
+    emit("G-F16.factor", Fraction(control[still], STILL[still]))
+    emit("G-F16.pulses", len(CODE_A))
+    emit("G-F16.per_pulse", Fraction(control[still], STILL[still] * len(CODE_A)))
+
+    position = NOISE_BLIP.index(1)
+    blip = {position - i: NOISE_BLIP[position] * c for i, c in enumerate(CODE_A)}
+    noisy = add(control, blip)
+    emit("G-F17.noise.blip", csv(NOISE_BLIP))
+    emit("G-F17.noise.blip_row", csv(window(blip, -3, 4)))
+    emit("G-F17.noise.scores", csv(window(noisy, -3, 4)))
+    emit("G-F17.noise.peak", noisy[still])
+    emit("G-F18.sends", len((CODE_A, CODE_B)))
 
 
 def pairs_at(x, y, k):
@@ -404,6 +449,29 @@ def cross_checks(ra, rb, both, moved):
                 if any(left.get(k, 0) != right.get(k, 0) for k in set(left) | set(right)):
                     bad += 1
     check("doubling identity on every pair of up/down halves of 1 to 5 pulses", bad == 0)
+
+    # chapter 04's identity on every two scenes of 3 steps (strengths -2..2):
+    # the sum is 8 times the second scene plus A's row of their difference
+    bad = 0
+    for first in product(range(-2, 3), repeat=3):
+        for second in product(range(-2, 3), repeat=3):
+            left = add(measurement(CODE_A, first), measurement(CODE_B, second))
+            change = tuple(x - y for x, y in zip(first, second))
+            right = add({d: 8 * h for d, h in enumerate(second)}, measurement(CODE_A, change))
+            if any(left.get(k, 0) != right.get(k, 0) for k in set(left) | set(right)):
+                bad += 1
+    check("changed scene: sum = 8 x second scene + A's row of the change, 125 x 125 scenes", bad == 0)
+    # a noise blip: the measurement with noise equals the clean one plus the
+    # blip scored on its own, for every blip position
+    bad = 0
+    for position in range(8):
+        noise = tuple(1 if i == position else 0 for i in range(position + 1))
+        noisy = add(measurement(CODE_A, STILL, noise), measurement(CODE_B, STILL))
+        clean = add(measurement(CODE_A, STILL), measurement(CODE_B, STILL))
+        want = add(clean, {position - i: c for i, c in enumerate(CODE_A)})
+        if any(want.get(k, 0) != noisy.get(k, 0) for k in set(noisy) | set(want)):
+            bad += 1
+    check("noise blips are scored, every position 0 to 7", bad == 0)
 
     # another implementation: numpy.correlate, "full" mode
     try:

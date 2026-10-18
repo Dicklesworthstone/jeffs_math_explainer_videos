@@ -57,6 +57,17 @@ also carry an independently verified literal. Scores are listed from shift
 | F12 | A paired with itself: row, far products, far score | 03_10 | `model::autocorrelation(A)` times 2 | `G-F12.no_flip.scores`, `.far_products`, `.far` | `-2,0,2,8,2,0,-2`; `-1,-1`; `-2` | computed |
 | X3 | crossing pairs at shifts 0 to 3 (halves of 2) | storyboard notes | `facts::split` | `G-X3.crossing_counts` | `0,1,2,1` | computed (boundary test, all halves to 6) |
 
+### Chapter 04 (what breaks the pair; the blip's rows from shift −3 to 4)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F13 | the control: both rows added, the same scene; its largest ghost | "both rows added", then the shelf "same scene, A + B" (04_1); "every ghost cancels" | `facts::sum` | `G-F13.control.scores`, `.largest_ghost` | `0,0,0,8,0,0,0`; `0` | computed (the row F3 pins) |
+| F14 | the step moved; the total at the two echo steps; ghost count | "one step" (04_2); "three and five", "six shifts" (04_4) | `facts::moved` | `G-F14.moved.step`, `.at_echoes`, `.ghost_count` | `1`; `3,5`; `6` | computed |
+| F15 | the flipped scene; the flip factor; the total; at the echo; ghosts against A's | the hanging outline (04_5); "half a turn" and the card's −1 (04_6); "It cancels", "every ghost doubles" (04_8) | `facts::flipped`, `model::FLIPPED` | `G-F15.phase.scene`, `.flip_factor`, `.scores`, `.at_echo`, `.ghost_ratio` | `-1`; `-1`; `-2,0,2,0,2,0,-2`; `0`; `2` | computed; the −1 is Chi, Pezeshki and Calderbank eq. 8's half turn of phase |
+| F16 | the identity's factor; pulses per pattern; factor per pulse | "our four-pulse pair", "eight times the second scene" (04_9); the identity and its card, "8 = 2N for our N = 4 pulses" | `facts::chapter_04` | `G-F16.factor`, `.pulses`, `.per_pulse` | `8`; `4`; `2` | computed; 2N at shift 0, definition 1 |
+| F17 | the blip; its own row; the total with it; the peak | the dim blip, "the blip's own row" (04_10); "both rows + blip", "8" | `facts::blip_row`, `facts::noisy` | `G-F17.noise.blip`, `.blip_row`, `.scores`, `.peak` | `0,0,0,0,1`; `0,0,0,0,-1,1,1,1`; `0,0,0,8,-1,1,1,1`; `8` | computed; the oracle builds the blip's row from where the blip meets each copy pulse |
+| F18 | sends | "two bad echoes" (04_11) | `facts::chapter_04` | `G-F18.sends` | `2` | computed |
+
 ## Claims (non-numeric)
 
 | id | claim as narrated or shown | source | verified how |
@@ -73,6 +84,11 @@ also carry an independently verified literal. Scores are listed from shift
 | C4 | Added, the two measurements of the same scene leave the scene itself, 2N times, with no ghosts (exact version: same still scene, no noise) | definition 1 and the chapter's eq. 9 | `the_same_scene_twice_returns_the_scene_magnified`: every pair up to 8 pulses × all 125 scenes of three steps with strengths −2 to 2; oracle repeats it independently |
 | C5 | The guarantee needs the same scene for both sends; a one-step move brings ghosts back | the chapter's eqs. 7–8 and section 2.2 (Doppler between the two transmissions spoils the sum); Purdue notes ("where there is not significant motion between measurements") | `a_changed_scene_leaves_ghosts` (moved, upside down, stronger) and the identity A·sa + B·sb = A·(sa − sb) + (A + B)·sb; the chapter claims the assumption is needed for the guarantee, not that every change breaks it |
 | C6 | Noise picked up by the receiver is scored too, and is not guaranteed to cancel; the pair removes the patterns' own ghosts | the chapter's measurement model eq. 33 (an added noise term) | `receiver_noise_is_scored_not_removed` (one noise sample leaves ghosts at four shifts); the lower-third promises nothing more |
+| C13 | The echo upside down in the second send is the same reflector at the same distance, not a new object or a negative distance; half a turn of phase multiplies the second response by −1 (04_6) | Chi, Pezeshki and Calderbank eq. 8 (a phase factor on the second transmission's response), used for nothing more | `model::FLIPPED` is one echo at step 0 with strength −1; `the_broken_cases_are_the_ones_on_screen` |
+| C14 | Flipped, the true echo cancels and every ghost doubles (04_8) | each pattern's own peak is N, so N − N = 0; B's ghosts are minus A's, so A's row minus B's is twice A's off the echo | `a_flipped_echo_cancels_itself_and_doubles_the_ghosts` (every complementary pair of 1 to 8 pulses); a moved echo still scores at both its steps, so no claim that every change erases the echo |
+| C15 | With no added noise, S_A(h₁) + S_B(h₂) = 2N·h₂ + S_A(h₁ − h₂): 8 for this four-pulse pair (04_9) | linearity and definition 1, scenes and rows zero past their ends | `a_changed_scene_leaves_pattern_as_row_of_the_change` (every complementary pair of 1 to 4 pulses × two-step scenes in −1 to 1, and A, B × every three-step scene in −2 to 2); the oracle checks 125 × 125 scene pairs |
+| C16 | A noise blip is scored as its own row and is not guaranteed to cancel; here the peak survives (04_10) | the measurement model eq. 33 (an added noise term) | `a_noise_blip_is_scored_and_the_peak_survives`; the oracle checks a blip at every position 0 to 7 |
+| C17 | Two bad echoes make one perfect measurement, exactly 2N times the scene with no ghosts, only in the ideal case: the same echoes in both sends and no added noise (04_11) | C4, C5, C15, C16 | the spoken line names both conditions; the 04_11 card repeats them |
 
 ## Conventions chosen
 

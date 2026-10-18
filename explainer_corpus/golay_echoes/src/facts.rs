@@ -7,7 +7,7 @@ use std::collections::BTreeSet;
 
 use explainer_kit::Facts;
 
-use crate::model::{self, CODE_A, CODE_B, LOUD_AND_QUIET, MOVED, Product, STILL, Scores, Span};
+use crate::model::{self, CODE_A, CODE_B, FLIPPED, LOUD_AND_QUIET, MOVED, NOISE_BLIP, Product, STILL, Scores, Span};
 
 /// The shifts chapter 01 draws a score for: −3 to 3 for one echo, and one
 /// more on the right for the echo that moved.
@@ -35,6 +35,23 @@ pub fn sum() -> Scores {
 /// The two measurements added when the echo moved one step in between.
 pub fn moved() -> Scores {
     model::two_measurements(&CODE_A, &STILL, &CODE_B, &MOVED)
+}
+
+/// Chapter 04: the two measurements added when the second echo comes back
+/// upside down.
+pub fn flipped() -> Scores {
+    model::two_measurements(&CODE_A, &STILL, &CODE_B, &FLIPPED)
+}
+
+/// Chapter 04: the still scene's two measurements, a noise blip in the
+/// first recording.
+pub fn noisy() -> Scores {
+    model::measure(&CODE_A, &STILL, &NOISE_BLIP).plus(&model::measure(&CODE_B, &STILL, &[]))
+}
+
+/// Chapter 04: the blip's own row, scored against pattern A.
+pub fn blip_row() -> Scores {
+    model::correlate(&NOISE_BLIP, &CODE_A)
 }
 
 /// Chapter 02: pattern A sent into the loud-and-quiet scene, scored.
@@ -289,8 +306,84 @@ pub fn facts() -> Result<Facts, String> {
     }
     chapter_02(&mut f)?;
     chapter_03(&mut f)?;
+    chapter_04(&mut f)?;
     f.self_check()?;
     Ok(f)
+}
+
+/// Chapter 04's numbers: the still control, the moved echo, the flipped
+/// echo, the identity's factor, the noise blip.
+fn chapter_04(f: &mut Facts) -> Result<(), String> {
+    let (control, moved, flipped, noisy, blip) = (sum(), moved(), flipped(), noisy(), blip_row());
+    let still = echo_step(&STILL)?;
+
+    // 04_1: the control
+    f.add("G-F13.control.scores", control.csv())?;
+    f.add("G-F13.control.largest_ghost", control.largest_ghost(&[still]))?;
+
+    // 04_2 to 04_4: the echo moves one step
+    let echoes = [still, echo_step(&MOVED)?];
+    f.add("G-F14.moved.step", echoes[1] - echoes[0])?;
+    f.add(
+        "G-F14.moved.at_echoes",
+        model::csv(&[moved.at(echoes[0]), moved.at(echoes[1])]),
+    )?;
+    f.add("G-F14.moved.ghost_count", moved.ghost_shifts(&echoes).len())?;
+
+    // 04_5 to 04_8: the same echo, upside down
+    if echo_step(&FLIPPED)? != still {
+        return Err("the flipped echo must sit where the still one does".into());
+    }
+    f.add("G-F15.phase.scene", model::csv(&FLIPPED))?;
+    f.add("G-F15.phase.flip_factor", ratio(FLIPPED[0], STILL[0])?)?;
+    f.add("G-F15.phase.scores", flipped.csv())?;
+    f.add("G-F15.phase.at_echo", flipped.at(still))?;
+    let a = score_a();
+    let ratios: BTreeSet<String> = a
+        .ghost_shifts(&[still])
+        .iter()
+        .map(|&k| ratio(flipped.at(k), a.at(k)))
+        .collect::<Result<_, _>>()?;
+    if ratios.len() != 1 {
+        return Err(format!("the flipped echo scales A's ghosts by {ratios:?}"));
+    }
+    f.add("G-F15.phase.ghost_ratio", ratios.into_iter().collect::<String>())?;
+
+    // 04_9: the identity's factor, the pair's peak over the echo's strength,
+    // for this pair of four pulses: two for every pulse, 2N at length N
+    if CODE_A.len() != CODE_B.len() {
+        return Err("the pair's patterns must be one length".into());
+    }
+    let n = CODE_A.len() as i64;
+    f.add("G-F16.factor", ratio(control.at(still), STILL[0])?)?;
+    f.add("G-F16.pulses", n)?;
+    f.add("G-F16.per_pulse", ratio(control.at(still), STILL[0] * n)?)?;
+
+    // 04_10: a noise blip
+    f.add("G-F17.noise.blip", model::csv(&NOISE_BLIP))?;
+    f.add("G-F17.noise.blip_row", blip.csv())?;
+    f.add("G-F17.noise.scores", noisy.csv())?;
+    f.add("G-F17.noise.peak", noisy.at(still))?;
+
+    // 04_11: two sends
+    f.add("G-F18.sends", [CODE_A, CODE_B].len())?;
+
+    // every row chapter 04 draws fits chapter 01's shifts
+    for (name, row) in [
+        ("the moved sum", &moved),
+        ("the flipped sum", &flipped),
+        ("the noisy sum", &noisy),
+        ("the blip", &blip),
+    ] {
+        if row.first < SHIFTS.0 || row.last() > SHIFTS.1 {
+            return Err(format!(
+                "{name}'s scores run {}..={}, past the drawn shifts {SHIFTS:?}",
+                row.first,
+                row.last()
+            ));
+        }
+    }
+    Ok(())
 }
 
 /// Chapter 03's numbers: the doubling, one shift's products sorted by where
@@ -514,6 +607,18 @@ mod tests {
             ("G-F4.moved.scores", "-1,1,1,3,5,-1,-1,1"),
             ("G-F4.moved.ghost_shifts", "-3,-2,-1,2,3,4"),
             ("G-X1.far_shift_sizes", "1"),
+            ("G-F13.control.scores", "0,0,0,8,0,0,0"),
+            ("G-F14.moved.at_echoes", "3,5"),
+            ("G-F14.moved.ghost_count", "6"),
+            ("G-F15.phase.scores", "-2,0,2,0,2,0,-2"),
+            ("G-F15.phase.at_echo", "0"),
+            ("G-F15.phase.ghost_ratio", "2"),
+            ("G-F16.factor", "8"),
+            ("G-F16.pulses", "4"),
+            ("G-F16.per_pulse", "2"),
+            ("G-F17.noise.blip_row", "0,0,0,0,-1,1,1,1"),
+            ("G-F17.noise.scores", "0,0,0,8,-1,1,1,1"),
+            ("G-F17.noise.peak", "8"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }
