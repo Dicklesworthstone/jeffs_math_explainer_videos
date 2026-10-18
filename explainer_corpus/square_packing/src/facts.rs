@@ -63,6 +63,7 @@ pub fn facts() -> Result<Facts, String> {
     hair(&mut f)?;
     corner(&mut f)?;
     strip(&mut f)?;
+    middle(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -500,6 +501,151 @@ fn strip(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// 06: the middle (Friedman, DS7, Lemma 3). The middle square cut along its
+/// diagonal into two triangles, by corner (indices into the four points),
+/// their squared sides and the diagonal's; the lemma checked exactly at
+/// every checked turn and centre; the box's centre on their shared edge; the
+/// eighth-turned tile there holding all four points on its edges, the
+/// straight one holding them inside; the two ways to miss every corner, each
+/// with its assumption dropped; where five fit, each point on two tiles'
+/// edges; and nothing of the centre region left.
+fn middle(f: &mut Facts) -> Result<(), String> {
+    let side = model::turned_side();
+    let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+    let pts = model::corner_points(side);
+    let tris = model::middle_triangles(side);
+    let words = |h: &[model::Holds]| h.iter().map(|h| h.word()).collect::<Vec<_>>().join(",");
+    let squares = |tri: &[Point<Surd>; 3]| {
+        model::sides2(tri)
+            .iter()
+            .map(Surd::to_string)
+            .collect::<Vec<_>>()
+            .join(",")
+    };
+    let corners: Vec<String> = model::MIDDLE_TRIANGLES
+        .iter()
+        .map(|tri| tri.map(|i| i.to_string()).join(","))
+        .collect();
+    f.add("middle.triangles", corners.join("|"))?;
+    let short = tris.iter().all(|tri| model::sides2(tri).iter().all(|&s| s <= one));
+    ensure(short, || "a middle triangle has a side longer than a tile".to_owned())?;
+    f.add("middle.sides2", tris.iter().map(squares).collect::<Vec<_>>().join("|"))?;
+    let (dx, dy) = (pts[3].0 - pts[0].0, pts[3].1 - pts[0].1);
+    f.add("middle.diagonal2", dx * dx + dy * dy)?;
+    let mut checks = 0usize;
+    for tri in &tris {
+        for centre in model::triangle_centres(tri) {
+            ensure(model::triangle_holds(tri, centre) != model::Holds::Outside, || {
+                format!("{centre:?} is not in its triangle")
+            })?;
+            for turn in model::corner_turns() {
+                let t = model::Tile {
+                    centre,
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                let how = model::meets(&t, tri);
+                ensure(matches!(how, model::Meets::Holds(_)), || {
+                    format!("the tile at {centre:?} turned {turn:?} misses its triangle: {how:?}")
+                })?;
+                checks += 1;
+            }
+        }
+    }
+    f.add("middle.lemma", "yes")?;
+    f.add("middle.checks", checks)?;
+    let turned_tile = model::five_turned().tiles[MIDDLE];
+    f.add("middle.edge.holds", words(&model::held(&turned_tile, &pts)))?;
+    let straight = model::Tile::straight(side * half, side * half);
+    f.add("middle.straight.holds", words(&model::held(&straight, &pts)))?;
+    let on: Vec<&str> = tris
+        .iter()
+        .map(|tri| model::triangle_holds(tri, turned_tile.centre).word())
+        .collect();
+    f.add("middle.centre.on", on.join("|"))?;
+    let (big, tile) = model::middle_too_large();
+    let tri = model::MIDDLE_TRIANGLES[0].map(|i| big[i]);
+    // what each way of missing forces: the pair past opposite sides is more
+    // than a tile apart; every corner beside a diagonal is strictly beyond
+    // it, and the centre on it
+    if let model::Meets::Apart(i, j, _) = model::meets(&tile, &tri) {
+        let (dx, dy) = (tri[i].0 - tri[j].0, tri[i].1 - tri[j].1);
+        ensure(dx * dx + dy * dy > one, || {
+            "two corners past opposite sides are within a tile".to_owned()
+        })?;
+    }
+    let out = model::centre_outside();
+    if let model::Meets::Beside(k) = model::meets(&out, &tris[0]) {
+        let beyond = tris[0].iter().all(|&p| model::beyond(&out, p, k) > Surd::ZERO);
+        ensure(beyond && model::beyond(&out, out.centre, k) == Surd::ZERO, || {
+            "the corners beside a diagonal are not all beyond it".to_owned()
+        })?;
+    }
+    f.add(
+        "middle.fail.large",
+        format!(
+            "{}|{}|{}",
+            meets_word(model::meets(&tile, &tri)),
+            squares(&tri),
+            words(&model::held(&tile, &big))
+        ),
+    )?;
+    f.add(
+        "middle.fail.out",
+        format!(
+            "{}|{}|{}|{}",
+            meets_word(model::meets(&out, &tris[0])),
+            model::triangle_holds(&tris[0], out.centre).word(),
+            words(&model::held(&out, &tris[0])),
+            model::Holds::of(model::depth_inside(&out, pts[1])).word()
+        ),
+    )?;
+    let packing = model::five_turned();
+    let covers: Vec<String> = pts
+        .iter()
+        .map(|&p| {
+            packing
+                .tiles
+                .iter()
+                .enumerate()
+                .filter(|(_, t)| model::depth_inside(t, p) >= Surd::ZERO)
+                .map(|(i, _)| i.to_string())
+                .collect::<Vec<_>>()
+                .join(",")
+        })
+        .collect();
+    f.add("middle.packing.covers", covers.join("|"))?;
+    let inside: Vec<String> = pts
+        .iter()
+        .enumerate()
+        .filter(|&(_, &p)| packing.tiles.iter().any(|t| model::depth_inside(t, p) > Surd::ZERO))
+        .map(|(k, _)| k.to_string())
+        .collect();
+    f.add(
+        "middle.packing.inside",
+        if inside.is_empty() {
+            "none".to_owned()
+        } else {
+            inside.join(",")
+        },
+    )?;
+    let (lo, hi) = model::centre_region(side);
+    let (gap, block) = (model::turned_gap(), one - lo);
+    let settled = Surd::int(4) * block * block + Surd::int(4) * gap * block + gap * gap;
+    f.add("middle.box.left", (hi - lo) * (hi - lo) - settled)?;
+    Ok(())
+}
+
+/// How a tile meets a triangle, as the facts print it: `holds`, or the way
+/// it misses every corner with the sides involved.
+fn meets_word(m: model::Meets) -> String {
+    match m {
+        model::Meets::Holds(_) => "holds".to_owned(),
+        model::Meets::Apart(_, _, k) => format!("apart:{},{}", model::SIDES[k], model::SIDES[(k + 2) % 4]),
+        model::Meets::Beside(k) => format!("beside:{},{}", model::SIDES[k], model::SIDES[(k + 1) % 4]),
+    }
+}
+
 /// Whether a tile keeps inside the walls, as the facts print it.
 fn quadrant_word(inside: bool) -> &'static str {
     if inside { "inside the walls" } else { "through a wall" }
@@ -785,5 +931,43 @@ mod tests {
         assert_eq!(value("strip.box.left"), "1/2");
         assert_eq!(value("strip.box.covered"), "1 + sqrt(2)");
         assert_eq!(value("strip.vacuous"), "no centre|1/2");
+    }
+
+    /// What chapter 06's voice says, on the facts: the diagonal one tile
+    /// long and every side at most one; the lemma; a long side parting two
+    /// corners past opposite sides; the centre outside leaving the corners
+    /// beside a diagonal; covering perhaps only on the edge; every centre
+    /// settled; where five fit, each point on two tiles' edges and inside
+    /// none.
+    #[test]
+    fn a_triangle_of_points_says_the_facts() {
+        assert_eq!(value("middle.diagonal2"), "1");
+        assert!(line("06_1").contains("its diagonal, one tile long"));
+        assert!(value("middle.sides2").split(['|', ',']).all(|s| s == "1" || s == "1/2"));
+        assert!(line("06_2").contains("sides are at most one"));
+        assert_eq!(value("middle.lemma"), "yes");
+        let large = value("middle.fail.large");
+        assert!(large.starts_with("apart:left,right|9/16,9/16,9/8|"), "{large}");
+        assert!(line("06_4").contains("over a tile apart"));
+        assert!(line("06_4").contains("a side longer than one"));
+        let out = value("middle.fail.out");
+        assert!(out.starts_with("beside:"), "{out}");
+        assert!(out.contains("|outside|outside,outside,outside|"), "{out}");
+        let l5 = line("06_5");
+        assert!(l5.contains("past two neighbouring sides only"), "{l5}");
+        assert!(l5.contains("past one of the other two"), "{l5}");
+        assert!(l5.contains("the triangle misses the centre"), "{l5}");
+        assert_eq!(value("middle.edge.holds"), "edge,edge,edge,edge");
+        assert!(line("06_6").contains("perhaps only on its edge"));
+        assert_eq!(value("middle.box.left"), "0");
+        let l7 = line("06_7");
+        assert!(l7.contains("every tile in the box covers a point"), "{l7}");
+        assert!(
+            value("middle.packing.covers")
+                .split('|')
+                .all(|c| c.split(',').count() == 2)
+        );
+        assert_eq!(value("middle.packing.inside"), "none");
+        assert!(l7.contains("each point sits on the edges of two tiles"), "{l7}");
     }
 }

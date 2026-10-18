@@ -582,6 +582,90 @@ def main():
     put("strip.box.covered", covered)
     put("strip.box.left", region - covered)
 
+    # chapter 06, the middle (Friedman DS7, Lemma 3), by polygons: a corner is
+    # past a side of the tile when it is strictly outside that edge's line;
+    # a tile holds a corner when the corner's depth is not negative; the
+    # lemma's examples are checked by those depths alone, not by the video's
+    # case split; a triangle holds a point by the signs of its edge crosses,
+    # and one of no area only on its segments
+    def tri_holds(tri, p):
+        area2 = cross(tri[0], tri[1], tri[2])
+        if area2 == 0:
+            for k in range(3):
+                a, b = tri[k], tri[(k + 1) % 3]
+                if cross(a, b, p) == 0 and (p[0] - a[0]) * (p[0] - b[0]) + (p[1] - a[1]) * (p[1] - b[1]) <= 0:
+                    return "edge"
+            return "outside"
+        s = [cross(tri[k], tri[(k + 1) % 3], p) * area2.sign() for k in range(3)]
+        if any(v < 0 for v in s):
+            return "outside"
+        return "inside" if all(v > 0 for v in s) else "edge"
+
+    side_names = ["right", "top", "left", "bottom"]  # the tile's edges 1-2, 2-3, 3-0, 0-1
+
+    def past(poly, p):
+        return [cross(poly[(k + 1) % 4], poly[(k + 2) % 4], p) < 0 for k in range(4)]
+
+    def how_missed(poly, tri):
+        flags = [past(poly, p) for p in tri]
+        if any(not any(f) for f in flags):
+            return "holds"
+        for i in range(3):
+            for j in range(i + 1, 3):
+                for k in range(4):
+                    if flags[i][k] and flags[j][(k + 2) % 4]:
+                        return f"apart:{side_names[k]},{side_names[(k + 2) % 4]}"
+        passed = [any(f[k] for f in flags) for k in range(4)]
+        for k in range(4):
+            if all(not passed[m] or m in (k, (k + 1) % 4) for m in range(4)):
+                return f"beside:{side_names[k]},{side_names[(k + 1) % 4]}"
+        sys.exit("oracle: three outside corners pass opposite sides without an opposite pair")
+
+    def squares(tri):
+        return ",".join(str((tri[(k + 1) % 3][0] - tri[k][0]) * (tri[(k + 1) % 3][0] - tri[k][0])
+                            + (tri[(k + 1) % 3][1] - tri[k][1]) * (tri[(k + 1) % 3][1] - tri[k][1])) for k in range(3))
+
+    four = [(q2(1), q2(1)), (q2(1), far), (far, q2(1)), (far, far)]
+    split = [[0, 2, 3], [0, 3, 1]]  # the diagonal from (1, 1) to (far, far)
+    tris = [[four[i] for i in t] for t in split]
+    if any(area(t).sign() <= 0 for t in tris) or area(tris[0]) + area(tris[1]) != gap * gap:
+        sys.exit("oracle: the two triangles are not the middle square, counter-clockwise")
+    put("middle.triangles", "|".join(",".join(map(str, t)) for t in split))
+    put("middle.sides2", "|".join(squares(t) for t in tris))
+    put("middle.diagonal2", (far - 1) * (far - 1) + (far - 1) * (far - 1))
+    n_checks = 0
+    for tri in tris:
+        centres = list(tri) + [((tri[k][0] + tri[(k + 1) % 3][0]) * HALF, (tri[k][1] + tri[(k + 1) % 3][1]) * HALF)
+                               for k in range(3)]
+        centres.append(((tri[0][0] + tri[1][0] + tri[2][0]) * Fraction(1, 3), (tri[0][1] + tri[1][1] + tri[2][1]) * Fraction(1, 3)))
+        for cx, cy in centres:
+            if tri_holds(tri, (cx, cy)) == "outside":
+                sys.exit("oracle: a checked centre is outside its triangle")
+            for cd_n, sd_n in checked:
+                poly = tile_at(cx, cy, cd_n, sd_n)
+                if not any(depth_in(poly, p) >= 0 for p in tri):
+                    sys.exit(f"oracle: the middle lemma fails at {cx}, {cy}")
+                n_checks += 1
+    put("middle.lemma", "yes")
+    put("middle.checks", n_checks)
+    put("middle.edge.holds", ",".join(where(tiles[4], p) for p in four))
+    put("middle.straight.holds", ",".join(where(tile_at(c, c, 1, 0), p) for p in four))
+    put("middle.centre.on", "|".join(tri_holds(t, (c, c)) for t in tris))
+    one4 = Fraction(7, 4)
+    big = [(q2(1), q2(1)), (q2(1), q2(one4)), (q2(one4), q2(1)), (q2(one4), q2(one4))]
+    big_tri = [big[i] for i in split[0]]
+    big_tile = tile_at(Fraction(11, 8), Fraction(11, 8), r, r)
+    put("middle.fail.large", f"{how_missed(big_tile, big_tri)}|{squares(big_tri)}|{','.join(where(big_tile, p) for p in big)}")
+    out_tile = tile_at(Fraction(11, 10), Fraction(9, 10) + gap, 1, 0)
+    out_centre = centre_of(out_tile)
+    put("middle.fail.out", f"{how_missed(out_tile, tris[0])}|{tri_holds(tris[0], out_centre)}|"
+                           f"{','.join(where(out_tile, p) for p in tris[0])}|{where(out_tile, four[1])}")
+    put("middle.packing.covers", "|".join(",".join(str(i) for i, t in enumerate(tiles) if depth_in(t, p) >= 0)
+                                          for p in four))
+    inside_pts = [str(k) for k, p in enumerate(four) if any(depth_in(t, p) > 0 for t in tiles)]
+    put("middle.packing.inside", ",".join(inside_pts) or "none")
+    put("middle.box.left", region - (4 * (1 - lo_c) * (1 - lo_c) + 4 * gap * (1 - lo_c) + gap * gap))
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])

@@ -1555,6 +1555,234 @@ pub fn strip_wander(t: f64) -> Tile<f64> {
     }
 }
 
+// -------------------------------------------------- the middle (chapter 06)
+//
+// Friedman (DS7, Lemma 3): if the centre of a unit tile lies in a triangle
+// whose sides are each at most 1, the tile contains one of the triangle's
+// corners. Both are closed: the centre may be on the triangle's edge, and
+// the corner on the tile's.
+//
+// Proof (a separating line; Friedman's sketch uses the sectors of the
+// tile's diagonals, whose ties on a diagonal this avoids). Work in the
+// tile's own frame: its centre at the origin, (x, y) along its two sides,
+// so the tile is [−½, ½]². Suppose all three corners are outside it. Each
+// then lies past at least one of its four sides: x > ½ (right), y > ½
+// (top), x < −½ (left) or y < −½ (bottom).
+//
+// 1. Apart. If two corners lie past opposite sides, say x > ½ and x < −½,
+//    they are more than 1 apart along x, so the triangle has a side longer
+//    than 1.
+// 2. Beside. Otherwise the sides passed are at most two neighbouring ones,
+//    say right and top: every corner has x ≥ −½ and y ≥ −½, and x > ½ or
+//    y > ½, so x + y > 0. The whole triangle lies strictly beyond the line
+//    x + y = 0, the tile's diagonal between those sides, through its centre:
+//    it misses the centre, even on its edge.
+//
+// So a triangle with sides at most 1 that holds the centre (on its edge
+// counts) has a corner in the tile. ∎ Degenerate triangles are no
+// exception.
+//
+// Equality: two corners exactly 1 apart can both be on opposite edges of the
+// tile only. The eighth-turned tile centred in the middle square does this
+// with the square's two diagonal corners, and holds the other two on its
+// edges too: covering can be only on the edge.
+//
+// In the box of 2.71 the four points bound the middle square of centres,
+// [1, 1 + gap]², whose diagonal from (1, 1) is gap √2 = 1 long. Cut there, it
+// is two triangles with sides gap, gap and 1; a centre in the square lies in
+// one of them (closed), so its tile covers one of that triangle's corners.
+// With the corner blocks (04) and the side strips (05), every tile in the
+// box covers one of the four points. Covering allows the edge: where five
+// tiles fit, each point lies on the edges of two tiles, so tiles cannot yet
+// be counted against points; that step (a strict version) is not claimed
+// here.
+
+/// A tile's sides, in the order [`past_sides`] and [`reach`] use: along its
+/// first axis, its second, and back.
+pub const SIDES: [&str; 4] = ["right", "top", "left", "bottom"];
+
+/// Point `p` in tile `t`'s own frame: its offsets from the centre along the
+/// tile's two sides.
+pub fn tile_frame<T: Num>(t: &Tile<T>, p: Point<T>) -> Point<T> {
+    let d = (p.0 - t.centre.0, p.1 - t.centre.1);
+    let [u, v] = t.axes();
+    (d.0 * u.0 + d.1 * u.1, d.0 * v.0 + d.1 * v.1)
+}
+
+/// How far point `p` lies out from tile `t`'s centre toward side `k` (in
+/// [`SIDES`]' order); past that side exactly when more than ½.
+pub fn reach<T: Num>(t: &Tile<T>, p: Point<T>, k: usize) -> T {
+    let (x, y) = tile_frame(t, p);
+    [x, y, -x, -y][k]
+}
+
+/// The sides of tile `t` that point `p` lies strictly past, as flags in
+/// [`SIDES`]' order: none exactly when `p` is in the tile (edges included).
+pub fn past_sides<T: Num>(t: &Tile<T>, p: Point<T>) -> [bool; 4] {
+    let h = T::ratio(1, 2);
+    std::array::from_fn(|k| reach(t, p, k) > h)
+}
+
+/// How a tile meets a triangle, by the proof: a corner in it, or the one of
+/// the two ways it can miss all three.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Meets {
+    /// Corner i is in the tile (the first, in corner order).
+    Holds(usize),
+    /// Corners i and j lie past opposite sides, k and k + 2 (in [`SIDES`]'
+    /// order): more than a tile apart.
+    Apart(usize, usize, usize),
+    /// Every corner lies past sides among k and k + 1 only, so every corner,
+    /// and the whole triangle, is strictly beyond the tile's diagonal between
+    /// them ([`beyond`] > 0): it misses the centre.
+    Beside(usize),
+}
+
+/// How tile `t` meets triangle `tri` ([`Meets`]).
+pub fn meets<T: Num>(t: &Tile<T>, tri: &[Point<T>; 3]) -> Meets {
+    let past = tri.map(|p| past_sides(t, p));
+    if let Some(i) = past.iter().position(|s| s.iter().all(|&b| !b)) {
+        return Meets::Holds(i);
+    }
+    let apart = (0..3)
+        .flat_map(|i| (i + 1..3).map(move |j| (i, j)))
+        .find_map(|(i, j)| (0..4).find(|&k| past[i][k] && past[j][(k + 2) % 4]).map(|k| (i, j, k)));
+    if let Some((i, j, k)) = apart {
+        return Meets::Apart(i, j, k);
+    }
+    // no opposite pair: the sides passed lie among two neighbouring ones
+    let passed: [bool; 4] = std::array::from_fn(|k| past.iter().any(|s| s[k]));
+    let k = (0..4)
+        .find(|&k| (0..4).all(|m| !passed[m] || m == k || m == (k + 1) % 4))
+        .expect("sides passed with no opposite pair lie among two neighbours");
+    Meets::Beside(k)
+}
+
+/// How far point `p` lies beyond the line through tile `t`'s centre along
+/// its diagonal between sides `k` and k + 1, toward the corner they meet at
+/// (√2 times the distance): positive strictly beyond, 0 on the line, which
+/// holds the centre.
+pub fn beyond<T: Num>(t: &Tile<T>, p: Point<T>, k: usize) -> T {
+    reach(t, p, k) + reach(t, p, (k + 1) % 4)
+}
+
+/// Where the closed triangle `tri` holds point `p`, either way round. A
+/// triangle of no area is a segment or a point: it holds `p` only on it, and
+/// then on its edge (it has no inside).
+pub fn triangle_holds<T: Num>(tri: &[Point<T>; 3], p: Point<T>) -> Holds {
+    let zero = T::ratio(0, 1);
+    let cross = |a: Point<T>, b: Point<T>, q: Point<T>| (b.0 - a.0) * (q.1 - a.1) - (b.1 - a.1) * (q.0 - a.0);
+    let area = cross(tri[0], tri[1], tri[2]);
+    if area == zero {
+        // on the segment from a to b: on its line, and not beyond either end
+        let on = |a: Point<T>, b: Point<T>| {
+            cross(a, b, p) == zero && (p.0 - a.0) * (p.0 - b.0) + (p.1 - a.1) * (p.1 - b.1) <= zero
+        };
+        let held = (0..3).any(|k| on(tri[k], tri[(k + 1) % 3]));
+        return if held { Holds::OnEdge } else { Holds::Outside };
+    }
+    let s = [
+        cross(tri[0], tri[1], p),
+        cross(tri[1], tri[2], p),
+        cross(tri[2], tri[0], p),
+    ]
+    .map(|v| if area > zero { v } else { -v });
+    if s.iter().any(|&v| v < zero) {
+        Holds::Outside
+    } else if s.iter().all(|&v| v > zero) {
+        Holds::Inside
+    } else {
+        Holds::OnEdge
+    }
+}
+
+/// The squared lengths of `tri`'s sides, corner 0 to 1, 1 to 2, 2 to 0.
+pub fn sides2<T: Num>(tri: &[Point<T>; 3]) -> [T; 3] {
+    std::array::from_fn(|k| {
+        let (a, b) = (tri[k], tri[(k + 1) % 3]);
+        (b.0 - a.0) * (b.0 - a.0) + (b.1 - a.1) * (b.1 - a.1)
+    })
+}
+
+/// Where tile `t` holds each of `pts`.
+pub fn held<const N: usize>(t: &Tile<Surd>, pts: &[Point<Surd>; N]) -> [Holds; N] {
+    pts.map(|p| Holds::of(depth_inside(t, p)))
+}
+
+/// The middle square of centres cut along its diagonal from (1, 1): the
+/// lower right triangle and the upper left one, counter-clockwise, as
+/// indices into [`corner_points`].
+pub const MIDDLE_TRIANGLES: [[usize; 3]; 2] = [[0, 2, 3], [0, 3, 1]];
+
+/// The two triangles of [`MIDDLE_TRIANGLES`] for the box `side` wide.
+pub fn middle_triangles(side: Surd) -> [[Point<Surd>; 3]; 2] {
+    let p = corner_points(side);
+    MIDDLE_TRIANGLES.map(|tri| tri.map(|i| p[i]))
+}
+
+/// The centres the lemma is checked at, exactly, in each triangle: its
+/// corners, the middles of its sides, and its centroid.
+pub fn triangle_centres(tri: &[Point<Surd>; 3]) -> Vec<Point<Surd>> {
+    let h = Surd::ratio(1, 2);
+    let third = Surd::ratio(1, 3);
+    let mut out = tri.to_vec();
+    for (k, &a) in tri.iter().enumerate() {
+        let b = tri[(k + 1) % 3];
+        out.push(((a.0 + b.0) * h, (a.1 + b.1) * h));
+    }
+    out.push((
+        (tri[0].0 + tri[1].0 + tri[2].0) * third,
+        (tri[0].1 + tri[1].1 + tri[2].1) * third,
+    ));
+    out
+}
+
+/// A middle square too large for the lemma: side 3/4 from (1, 1), so its
+/// diagonal is 3√2/4 > 1; its four corners, in [`corner_points`]' order, and
+/// the eighth-turned tile at its centre, which misses all four.
+pub fn middle_too_large() -> ([Point<Surd>; 4], Tile<Surd>) {
+    let (one, far) = (Surd::int(1), Surd::ratio(7, 4));
+    let mid = Surd::ratio(11, 8);
+    let e = eighth_turn();
+    (
+        [(one, one), (one, far), (far, one), (far, far)],
+        Tile {
+            centre: (mid, mid),
+            cos: e.0,
+            sin: e.1,
+        },
+    )
+}
+
+/// A straight tile centred outside the lower right triangle, in the upper
+/// left one near (1, 1 + gap): it misses the lower right triangle's three
+/// corners and holds (1, 1 + gap), a corner of the other.
+pub fn centre_outside() -> Tile<Surd> {
+    Tile::straight(Surd::ratio(11, 10), Surd::ratio(9, 10) + turned_gap())
+}
+
+/// The tile 06 shows wandering through the lower right triangle (t from 0
+/// to 1), from its centroid, straight, and back: its centre a weighted
+/// middle of the corners, every weight at least 1/3 − 0.3 > 0 before
+/// normalizing, so it stays strictly inside; its turn swinging up to about
+/// 34° either way. A path of examples: the proof covers every centre and
+/// turn.
+pub fn middle_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let [a, b, c] = middle_triangles(turned_side())[0].map(|p| (p.0.to_f64(), p.1.to_f64()));
+    let swing = 0.3 * (std::f64::consts::PI * t).sin();
+    let w: [f64; 3] = std::array::from_fn(|k| 1.0 / 3.0 + swing * (tau * (2.0 * t + k as f64 / 3.0)).cos());
+    let total: f64 = w.iter().sum();
+    let x = (a.0 * w[0] + b.0 * w[1] + c.0 * w[2]) / total;
+    let y = (a.1 * w[0] + b.1 * w[1] + c.1 * w[2]) / total;
+    let theta = 0.6 * (tau * t).sin();
+    Tile {
+        centre: (x, y),
+        cos: theta.cos(),
+        sin: theta.sin(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2401,5 +2629,238 @@ mod tests {
         let top = Tile::straight(one + gap * h, side - h);
         assert_eq!(Holds::of(depth_inside(&top, (one, far))), Holds::OnEdge);
         assert_eq!(Holds::of(depth_inside(&top, (far, far))), Holds::OnEdge);
+    }
+
+    /// A triangle holds a point inside, on an edge or not, either way round;
+    /// one of no area (a segment, or a point) holds only what is on it, on
+    /// its edge, and nothing on its line beyond its ends.
+    #[test]
+    fn a_triangle_holds_what_its_closed_hull_holds() {
+        let r = |p: i64, q: i64| Surd::ratio(p, q);
+        let tri = [(r(0, 1), r(0, 1)), (r(1, 1), r(0, 1)), (r(0, 1), r(1, 1))];
+        let back = [tri[0], tri[2], tri[1]];
+        for (p, want) in [
+            ((r(1, 4), r(1, 4)), Holds::Inside),
+            ((r(1, 2), r(1, 2)), Holds::OnEdge),
+            ((r(0, 1), r(0, 1)), Holds::OnEdge),
+            ((r(3, 4), r(1, 2)), Holds::Outside),
+        ] {
+            assert_eq!(triangle_holds(&tri, p), want, "{p:?}");
+            assert_eq!(triangle_holds(&back, p), want, "{p:?} the other way round");
+        }
+        let flat = [(r(0, 1), r(0, 1)), (r(1, 2), r(0, 1)), (r(1, 1), r(0, 1))];
+        assert_eq!(
+            triangle_holds(&flat, (r(2, 1), r(0, 1))),
+            Holds::Outside,
+            "beyond its end"
+        );
+        assert_eq!(
+            triangle_holds(&flat, (r(-1, 10), r(0, 1))),
+            Holds::Outside,
+            "beyond its start"
+        );
+        assert_eq!(triangle_holds(&flat, (r(3, 4), r(0, 1))), Holds::OnEdge);
+        assert_eq!(triangle_holds(&flat, (r(1, 1), r(0, 1))), Holds::OnEdge);
+        assert_eq!(
+            triangle_holds(&flat, (r(1, 4), r(1, 10))),
+            Holds::Outside,
+            "off its line"
+        );
+        let dot = [(r(1, 1), r(1, 1)); 3];
+        assert_eq!(triangle_holds(&dot, (r(1, 1), r(1, 1))), Holds::OnEdge);
+        assert_eq!(triangle_holds(&dot, (r(1, 1), r(2, 1))), Holds::Outside);
+    }
+
+    /// The middle square's two triangles: their corners are four points,
+    /// their sides the gap, the gap and the diagonal, 1 long; the box's
+    /// centre is on the edge they share, and their areas make the square.
+    #[test]
+    fn the_middle_square_is_two_short_triangles() {
+        let side = turned_side();
+        let (gap, one, half) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let tris = middle_triangles(side);
+        let centre = (side * half, side * half);
+        let mut area = Surd::ZERO;
+        for tri in &tris {
+            let mut s = sides2(tri);
+            s.sort();
+            assert_eq!(s, [half, half, one]);
+            assert_eq!(triangle_holds(tri, centre), Holds::OnEdge);
+            let a = polygon_area(tri);
+            assert!(a > Surd::ZERO, "counter-clockwise");
+            area = area + a;
+        }
+        assert_eq!(area, gap * gap);
+    }
+
+    /// The lemma at every checked turn and centre (each triangle's corners,
+    /// side middles and centroid), exactly: the proof's classification finds
+    /// a corner held, and it is in the tile. Examples: the proof covers
+    /// every centre and turn.
+    #[test]
+    fn every_checked_tile_in_a_middle_triangle_holds_a_corner() {
+        let mut checks = 0;
+        for tri in middle_triangles(turned_side()) {
+            for centre in triangle_centres(&tri) {
+                assert_ne!(triangle_holds(&tri, centre), Holds::Outside);
+                for turn in corner_turns() {
+                    let t = Tile {
+                        centre,
+                        cos: turn.0,
+                        sin: turn.1,
+                    };
+                    match meets(&t, &tri) {
+                        Meets::Holds(i) => assert!(depth_inside(&t, tri[i]) >= Surd::ZERO),
+                        other => panic!("{other:?} at {centre:?} turned {turn:?}"),
+                    }
+                    checks += 1;
+                }
+            }
+        }
+        assert_eq!(checks, 2 * 7 * 40);
+    }
+
+    /// The proof's two ways to miss every corner, each forcing its
+    /// conclusion: the too-large square puts two corners past opposite sides,
+    /// more than a tile apart; the centre outside puts every corner past two
+    /// neighbouring sides, strictly beyond the diagonal between them, so the
+    /// triangle misses the centre. That tile holds a corner of the other
+    /// triangle, which holds its centre.
+    #[test]
+    fn missing_every_corner_needs_a_long_side_or_the_centre_outside() {
+        let half = Surd::ratio(1, 2);
+        let (pts, tile) = middle_too_large();
+        let tri = MIDDLE_TRIANGLES[0].map(|i| pts[i]);
+        assert_eq!(held(&tile, &pts), [Holds::Outside; 4]);
+        assert_eq!(triangle_holds(&tri, tile.centre), Holds::OnEdge);
+        let Meets::Apart(i, j, k) = meets(&tile, &tri) else {
+            panic!("{:?}", meets(&tile, &tri));
+        };
+        assert_eq!((i, j, SIDES[k]), (0, 2, "left"));
+        assert!(reach(&tile, tri[i], k) > half && reach(&tile, tri[j], (k + 2) % 4) > half);
+        let (dx, dy) = (tri[i].0 - tri[j].0, tri[i].1 - tri[j].1);
+        assert!(dx * dx + dy * dy > Surd::int(1));
+        assert_eq!(
+            sides2(&tri),
+            [Surd::ratio(9, 16), Surd::ratio(9, 16), Surd::ratio(9, 8)]
+        );
+        let side = turned_side();
+        let out = centre_outside();
+        let tris = middle_triangles(side);
+        assert_eq!(triangle_holds(&tris[0], out.centre), Holds::Outside);
+        assert_eq!(held(&out, &tris[0]), [Holds::Outside; 3]);
+        assert_eq!(meets(&out, &tris[0]), Meets::Beside(3));
+        assert!(tris[0].iter().all(|&p| beyond(&out, p, 3) > Surd::ZERO));
+        assert_eq!(beyond(&out, out.centre, 3), Surd::ZERO);
+        assert_eq!(triangle_holds(&tris[1], out.centre), Holds::Inside);
+        assert_eq!(Holds::of(depth_inside(&out, corner_points(side)[1])), Holds::Inside);
+    }
+
+    /// Covering is not holding inside: the eighth-turned tile at the box's
+    /// centre (where five fit) has all four points on its edges, two of them
+    /// a tile apart on opposite edges; the straight tile there holds all four
+    /// strictly inside.
+    #[test]
+    fn the_middle_lemma_covers_on_the_edge_not_always_inside() {
+        let side = turned_side();
+        let half = Surd::ratio(1, 2);
+        let pts = corner_points(side);
+        let turned_tile = five_turned().tiles[MIDDLE];
+        assert_eq!(held(&turned_tile, &pts), [Holds::OnEdge; 4]);
+        for tri in middle_triangles(side) {
+            assert!(matches!(meets(&turned_tile, &tri), Meets::Holds(_)));
+        }
+        let (dx, dy) = (pts[3].0 - pts[0].0, pts[3].1 - pts[0].1);
+        assert_eq!(dx * dx + dy * dy, Surd::int(1));
+        assert!((0..4).any(|k| reach(&turned_tile, pts[0], k) == half));
+        assert!((0..4).any(|k| reach(&turned_tile, pts[3], k) == half));
+        let straight = Tile::straight(side * half, side * half);
+        assert_eq!(held(&straight, &pts), [Holds::Inside; 4]);
+    }
+
+    /// The proof does not care where the picture is or how it is turned: the
+    /// tile and triangle turned and shifted together meet the same way,
+    /// corner for corner.
+    #[test]
+    fn the_middle_lemma_is_unmoved_by_turning_and_shifting_everything() {
+        let turn = (Surd::ratio(3, 5), Surd::ratio(4, 5));
+        let shift = (Surd::ratio(-7, 3), Surd::ratio(5, 2));
+        let mv = |p: Point<Surd>| {
+            let q = compose(turn, p);
+            (q.0 + shift.0, q.1 + shift.1)
+        };
+        let mv_tile = |t: Tile<Surd>| {
+            let (cos, sin) = compose(turn, (t.cos, t.sin));
+            Tile {
+                centre: mv(t.centre),
+                cos,
+                sin,
+            }
+        };
+        let side = turned_side();
+        let (pts, large) = middle_too_large();
+        let cases = [
+            (large, MIDDLE_TRIANGLES[0].map(|i| pts[i])),
+            (centre_outside(), middle_triangles(side)[0]),
+            (five_turned().tiles[MIDDLE], middle_triangles(side)[1]),
+        ];
+        for (t, tri) in cases {
+            let (t2, tri2) = (mv_tile(t), tri.map(mv));
+            assert_eq!(meets(&t2, &tri2), meets(&t, &tri));
+            assert_eq!(held(&t2, &tri2), held(&t, &tri));
+            assert_eq!(triangle_holds(&tri2, t2.centre), triangle_holds(&tri, t.centre));
+        }
+    }
+
+    /// Every sampled frame of 06's wandering tile has its centre strictly
+    /// inside the lower right triangle and holds a corner of it, on the edge
+    /// at worst; it starts and ends straight at the centroid.
+    #[test]
+    fn the_wandering_middle_tile_holds_a_corner() {
+        let tri = middle_triangles(turned_side())[0].map(|p| (p.0.to_f64(), p.1.to_f64()));
+        let centroid = (
+            (tri[0].0 + tri[1].0 + tri[2].0) / 3.0,
+            (tri[0].1 + tri[1].1 + tri[2].1) / 3.0,
+        );
+        for t in [middle_wander(0.0), middle_wander(1.0)] {
+            assert!((t.centre.0 - centroid.0).abs() < EPS && (t.centre.1 - centroid.1).abs() < EPS);
+            assert!(t.sin.abs() < EPS);
+        }
+        for k in 0..=2000 {
+            let t = middle_wander(f64::from(k) / 2000.0);
+            assert_eq!(triangle_holds(&tri, t.centre), Holds::Inside, "{k}");
+            let best = tri
+                .iter()
+                .map(|&p| depth_inside(&t, p))
+                .fold(f64::NEG_INFINITY, f64::max);
+            assert!(best >= -EPS, "{k}");
+        }
+    }
+
+    /// With the middle settled, the corner blocks, the side strips and the
+    /// middle square make up the box's whole centre region; where five tiles
+    /// fit, each point is covered by two tiles, a corner tile and the turned
+    /// one, and only on their edges.
+    #[test]
+    fn the_centre_region_is_settled_but_points_are_shared_on_edges() {
+        let side = turned_side();
+        let (gap, one) = (turned_gap(), Surd::int(1));
+        let (lo, hi) = centre_region(side);
+        let block = one - lo;
+        let parts = Surd::int(4) * block * block + Surd::int(4) * gap * block + gap * gap;
+        assert_eq!(parts, (hi - lo) * (hi - lo));
+        let packing = five_turned();
+        for (k, &pt) in corner_points(side).iter().enumerate() {
+            let on: Vec<(usize, Holds)> = packing
+                .tiles
+                .iter()
+                .enumerate()
+                .map(|(i, t)| (i, Holds::of(depth_inside(t, pt))))
+                .filter(|&(_, h)| h != Holds::Outside)
+                .collect();
+            assert_eq!(on.len(), 2, "{k}: {on:?}");
+            assert!(on.iter().all(|&(_, h)| h == Holds::OnEdge), "{k}");
+            assert!(on.iter().any(|&(i, _)| i == MIDDLE), "{k}");
+        }
     }
 }

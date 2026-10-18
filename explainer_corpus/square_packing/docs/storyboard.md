@@ -32,7 +32,8 @@ from chapter 02 **mark** (a point a third or two thirds along a side),
 the floor or the wall), **pin** (where a floor mark meets a wall mark) and
 **strictly inside** (inside, not at an edge); from chapter 05 **cut** (the
 part of the points' line inside a tile) and **slip through** (a tile
-dodging both points).
+dodging both points); from chapter 06 **past a side** (beyond the line of a
+tile's side, so outside the tile).
 "Packing" is the formal word, on screen once (01_11), never spoken in
 chapter 01.
 
@@ -59,11 +60,11 @@ chapter 01.
 | III. Can it wiggle? | 03 a turn by a hair | the pins miss the turned tile (02's last picture), so what holds it? With the box, the corner tiles and the middle tile's centre held, the corners lie on the circle inside the middle tile; any turn moves the sides off them, so they sink in by ½(1 − cos δ), the square of the turn, tiny but never zero; magnified honestly; a local fact about one motion, not a proof about all arrangements |
 | IV. Points no tile can dodge: the corners | 04 the corner lemma | Friedman's Lemma 1, proved by projections: any tile in a corner, its centre within one tile of both walls, covers the point one tile from both walls; turning widens the shadow, the walls push the centre out by half of it, and the point stays within s (1 − s/2) = ½ − ½ (s − 1)² ≤ ½ along the tile's sides; equality only for a straight tile on a wall; drop an assumption and it fails; in the box of 2.71 this settles the four corner blocks of centres and leaves the edges and the middle |
 | V. Points no tile can dodge: the edges | 05 near a side | Friedman's Lemma 2 with the points a gap apart, one tile up: a tile centred between them, within one tile of the floor, cuts their line above its centre, so dodging both means that cut fits between them; lower is narrower, so the tile rests on the floor, one shadow s tall, and its cut, the base of the corner above the line, beats the gap unless the points stand above h = s − gap (s² − 1)/2; h bends down, so it is least at an end, exactly one straight, where the points stand (not at an eighth, as Friedman's sketch has it); drop the floor, raise the points or widen the gap and a tile slips through; in the box of 2.71 this settles the four side strips and leaves the middle |
-| VI. Points no tile can dodge: the middle | 06 a triangle of points | Friedman's Lemma 3 for centres in the middle (not boarded) |
+| VI. Points no tile can dodge: the middle | 06 a triangle of points | Friedman's Lemma 3: the middle square the four points bound, cut along its diagonal (one tile) into two triangles with sides at most one; a tile missing all three corners of one would have them past its sides, either two past opposite sides (over a tile apart: a side longer than one) or all past two neighbouring sides (beyond one diagonal: the triangle misses the centre), so it covers a corner, perhaps only on its edge; every tile in the box of 2.71 covers a point, but where five fit each point is on two tiles' edges, so counting needs one more step |
 | VII. Nothing smaller fits | 07 four points, five tiles | every tile in the box of 2.71 covers one of the four points; the scale-up that turns that into "five tiles need at least 2 + 1/√2" (not boarded) |
 | VIII. Beyond five | 08 what is proved and what is found | the same three questions for ten and eleven tiles: a record found by search is a fit, not a proof (not boarded) |
 
-Chapters 06 to 08 are boarded only after their mathematics is in `model.rs`
+Chapters 07 and 08 are boarded only after their mathematics is in `model.rs`
 with an oracle, one lemma a chapter, so the lower bound gets the time it
 needs; until chapter 07 is checked, nothing claims that 2 + 1/√2 is the
 smallest box.
@@ -177,3 +178,27 @@ beats show the box at its usual scale.
 | 05_6 | That height bends down, so it is lowest at an end, exactly one when straight. The points stand at one, so nothing slips through. | A plot of h against the shadow, from straight to an eighth, above its chord, the points' height a purple line, the eighth's end labelled 1.06 *(strip.height.eighth.2dp)*; the tile rolls back to straight on the floor and a dot runs along the curve to its lower end, labelled 1 *(strip.height.straight)*: "lowest at the straight end, not the eighth" *(strip.least)*; both points on the straight tile's top edge, rings green: "straight, on the floor: on the edge" *(strip.edges, strip.turned)* | plot, tracker, highlight | |
 | 05_7 | Drop the floor, raise the points, or widen the gap, and a tile slips through. | First the formula, the plot and the edge status leave (they hold only under the assumptions) and "an assumption dropped" arrives; from the straight tile on the floor: an eighth-turned tile half a tile up pokes through the floor, both rings red *(strip.fail.floor)*; the points raised to 1.05, the straight tile passes under them *(strip.fail.high: x + 2y < 2√2 still holds)*; the gap widened to a whole tile, the gap readout 1.00, an eighth-turned tile on the floor slips between *(strip.fail.wide)* | tracker, highlight | |
 | 05_8 | Turned to every side, this settles centres near a side. Only the middle is left. | The box of 2.71 at the usual scale: the corner blocks green, the four side strips turning green *(strip.box.strip, strip.box.covered)*, the middle square grey *(strip.box.left)*: "settled: centres near a corner or a side" and "next: the middle" | box | |
+
+## 06_a_triangle_of_points: A triangle of points (budgeted against 05's measured timing: about 75 s)
+
+Friedman's Lemma 3 (fact sheet S2): if the centre of a unit square lies in
+a triangle whose sides are each at most 1, the square contains a corner of
+the triangle; both closed. The proof is the separating line of `model.rs`
+§ the middle, not Friedman's sectors: were all three corners outside, each
+lies past a side of the tile; two past opposite sides are over a tile apart,
+and otherwise all lie past two neighbouring sides, strictly beyond one
+diagonal of the tile, so the triangle misses the centre. The two dodges
+(`middle.fail.*`) are those two cases with an assumption dropped. "Covers"
+means inside or on the edge. The middle view shows the middle square at 2.3
+scene units a tile; the first and last beats show the box at its usual
+scale. No counting of tiles against points is claimed: that is chapter 07.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | Only the middle is left, the square the four points bound. Cut it along its diagonal, one tile long. | The box of 2.71 as 05 left it, its middle square lit; then the middle close up, its four points ringed; the diagonal drawn, labelled 1 *(middle.diagonal2)*, two sides 0.71 *(turned.gap.2dp)*: two triangles *(middle.triangles, middle.sides2)* | lagged reveal, highlight | |
+| 06_2 | Each triangle's sides are at most one. ⟨predict⟩ Must a tile centred in one cover a corner of it? | The lower right triangle tinted; a tile wanders with its centre in it and back (`model::middle_wander`: examples; the proof covers every one), each ring yellow while its corner is inside and green on the edge; the picture holds while the think ring drains | tracker, highlight | listen 4 s (think) |
+| 06_3 | Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides. | "if a tile missed all three corners," "each would lie past one of its sides"; the lines of the tile's four sides drawn across the view | tracker | |
+| 06_4 | If two lay past opposite sides, they would be over a tile apart, so the triangle would have a side longer than one. | "a side longer than one": the middle square grows to 3/4 and the tile moves to its centre, turned an eighth; all four rings red; the two corners past its left and right sides marked, the side between them red: "these two: 1.06 apart" *(middle.fail.large)* | tracker, highlight | |
+| 06_5 | Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two, so all stay beyond it, and the triangle misses the centre. | "the centre outside the triangle": the square back, the tile straight, centred outside the lower right triangle; its three corners red, past the tile's bottom and right sides only, the lines of its top and left sides drawn as fences: "past two neighbouring sides only"; at "Crossing", the diagonal between bottom and right through the centre, and the L-shaped region outside the tile within the fences shaded: it meets the diagonal only at two corners of the tile, so every corner of the triangle in it is beyond the diagonal: "crossing the diagonal: past one of the other two", "all beyond it: the triangle misses the centre" *(middle.fail.out)*; the upper left triangle's corner yellow | tracker, highlight | |
+| 06_6 | With sides at most one and the centre in the triangle, neither can happen. So the tile covers a corner, perhaps only on its edge. | "sides at most one, the centre in the triangle"; the tile moves to the box's centre, turned an eighth, as where five fit: all four rings green, on its edges *(middle.edge.holds, middle.centre.on, middle.lemma)*: "covers: inside or on the edge" | tracker, highlight | |
+| 06_7 | So every tile in the box covers a point. But where five tiles fit, each point sits on the edges of two tiles, and counting needs one more step. | The box of 2.71 at the usual scale, every region of centres green *(middle.box.left)*: "every tile covers one of the four points"; the five tiles where they fit, each point ringed green on two tiles' edges *(middle.packing.covers, middle.packing.inside)*: "each point on two tiles' edges", "next: from covering to counting" | box, highlight | |

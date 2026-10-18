@@ -42,3 +42,10 @@
 05_6	That height bends down, so it is lowest at an end, exactly one when straight. The points stand at one, so nothing slips through.
 05_7	Drop the floor, raise the points, or widen the gap, and a tile slips through.
 05_8	Turned to every side, this settles centres near a side. Only the middle is left.
+06_1	Only the middle is left, the square the four points bound. Cut it along its diagonal, one tile long.
+06_2	Each triangle's sides are at most one. Must a tile centred in one cover a corner of it?
+06_3	Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides.
+06_4	If two lay past opposite sides, they would be over a tile apart, so the triangle would have a side longer than one.
+06_5	Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two, so all stay beyond it, and the triangle misses the centre.
+06_6	With sides at most one and the centre in the triangle, neither can happen. So the tile covers a corner, perhaps only on its edge.
+06_7	So every tile in the box covers a point. But where five tiles fit, each point sits on the edges of two tiles, and counting needs one more step.
