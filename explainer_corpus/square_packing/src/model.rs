@@ -94,15 +94,24 @@ impl Ratio {
     pub fn to_f64(self) -> f64 {
         self.num as f64 / self.den as f64
     }
+
+    /// 1 / self.
+    ///
+    /// # Panics
+    /// If self is zero.
+    pub fn recip(self) -> Self {
+        Self::new(self.den, self.num)
+    }
 }
 
 impl Add for Ratio {
     type Output = Self;
+    /// Over the least common denominator, so that adding numbers with the
+    /// same denominator (cos² + sin² of an exact turn) never squares it.
     fn add(self, o: Self) -> Self {
-        Self::new(
-            plus(times(self.num, o.den), times(o.num, self.den)),
-            times(self.den, o.den),
-        )
+        let g = i128::try_from(gcd(self.den.unsigned_abs(), o.den.unsigned_abs())).expect("a divisor fits i128");
+        let (left, right) = (self.den / g, o.den / g);
+        Self::new(plus(times(self.num, right), times(o.num, left)), times(self.den, right))
     }
 }
 
@@ -206,6 +215,19 @@ impl Surd {
 
     pub fn to_f64(self) -> f64 {
         self.a.to_f64() + self.b.to_f64() * std::f64::consts::SQRT_2
+    }
+
+    /// 1 / self, exactly: (a − b√2) / (a² − 2b²), whose denominator is
+    /// rational and nonzero unless self is zero (√2 is irrational).
+    ///
+    /// # Panics
+    /// If self is zero.
+    pub fn recip(self) -> Self {
+        let norm = (self.a * self.a - Ratio::int(2) * self.b * self.b).recip();
+        Self {
+            a: self.a * norm,
+            b: -self.b * norm,
+        }
     }
 
     /// Rounded to `places` decimals, as the screen and the narration give it.
@@ -650,7 +672,15 @@ pub fn compose<T: Num>(a: Point<T>, b: Point<T>) -> Point<T> {
 /// A small exact turn, about 5.7 degrees: the angle whose half has tangent
 /// 1/20, so cos = 399/401 and sin = 40/401 (a Pythagorean triple).
 pub fn small_turn() -> (Surd, Surd) {
-    (Surd::ratio(399, 401), Surd::ratio(40, 401))
+    half_angle_turn(20)
+}
+
+/// The exact turn whose half-angle has tangent 1/n: cos = (n² − 1)/(n² + 1),
+/// sin = 2n/(n² + 1), so cos² + sin² = 1 in rationals. Larger n, smaller
+/// turn, as small as one likes with no rounding.
+pub fn half_angle_turn(n: i64) -> (Surd, Surd) {
+    let (sq, den) = (n * n - 1, n * n + 1);
+    (Surd::ratio(sq, den), Surd::ratio(2 * n, den))
 }
 
 // ---------------------------------------------------- the chapter's motions
@@ -944,6 +974,118 @@ pub fn wander(t: f64, side: f64) -> Point<f64> {
     (room * 0.5 * (1.0 - turn.cos()), room * 0.5 * (1.0 - (2.0 * turn).cos()))
 }
 
+// --------------------------------------------- a turn by a hair (chapter 03)
+//
+// Hold the box [`turned_side`] wide, the four corner tiles and the middle
+// tile's centre; turn only the middle tile, by a further angle δ from its
+// eighth of a turn. Each held inner corner p is half a tile from the centre:
+// it lies on the circle inscribed in the middle tile, at the middle of a
+// side. In the turned tile's own directions p sits at (½ cos δ, ½ sin δ),
+// so its depth inside the tile, ½ minus the larger of the two, is
+// ½(1 − cos δ) = sin²(δ/2) for |δ| below an eighth of a turn: zero at δ = 0
+// with zero slope there, positive for every other δ, about δ²/4 when δ is
+// small. A point strictly inside the tile has a small disc around it inside
+// the tile, so the corner tile's corner really overlaps it; the overlap is
+// found by clipping one polygon against the other exactly, not inferred from
+// the depth.
+//
+// While |δ| ≤ 30° (|sin δ| ≤ ½) that overlap is the triangle cut off the
+// corner tile's corner by the turned side, of area (1 − cos δ)² / (4 cos 2δ):
+// the side's two ends are the middle tile's corners at (c − ½√2 cos δ,
+// c − ½√2 sin δ) and (c + ½√2 sin δ, c − ½√2 cos δ), c = 1 + ¼√2, so neither
+// has crossed into the corner tile (y ≤ 1, x ≤ 1) until sin δ passes ½ one
+// way or the other. Past 30° a corner of the middle tile is inside and the
+// overlap has four sides: at half-angle tangent 1/3 (sin 3/5) its area is
+// 1/56, not the triangle's 1/28 (`the_triangle_holds_to_thirty_degrees`).
+// The turns the chapter shows, about 5.7° and 11.4°, are well inside.
+//
+// Scope: one motion (a centred turn, the corners held), in one box. This
+// says nothing about turns combined with other motions, nor about any other
+// arrangement, nor about the smallest box. In the box of three the same
+// corners lie on the circle around the tile instead (`turn_inner2`), and the
+// turn is free (`turning`).
+
+/// The turned packing with the middle tile turned a further `extra` (cos,
+/// sin) about its held centre; the box and the corner tiles as they were.
+pub fn hair_turned(extra: Point<Surd>) -> Packing<Surd> {
+    let (c, s) = compose(eighth_turn(), extra);
+    corners_and_middle(turned_side(), c, s)
+}
+
+/// The same in the box of three, where the corners are further out.
+pub fn hair_turned_roomy(extra: Point<Surd>) -> Packing<Surd> {
+    let (c, s) = compose(eighth_turn(), extra);
+    corners_and_middle(Surd::int(grid_side(TILES).into()), c, s)
+}
+
+/// The frames 03 draws: the middle tile turned `delta` radians past its
+/// eighth of a turn, in the box [`turned_side`], everything else held.
+pub fn hair(delta: f64) -> Packing<f64> {
+    let a = std::f64::consts::FRAC_PI_4 + delta;
+    corners_and_middle(turned_side().to_f64(), a.cos(), a.sin())
+}
+
+/// How deep `q` lies inside tile `t`: half a tile minus the larger of its
+/// distances from the centre along the tile's two directions. Positive
+/// strictly inside, zero on an edge, negative outside.
+pub fn depth_inside<T: Num>(t: &Tile<T>, q: Point<T>) -> T {
+    let d = (q.0 - t.centre.0, q.1 - t.centre.1);
+    let [u, v] = t.axes().map(|ax| d.0 * ax.0 + d.1 * ax.1);
+    let reach = larger(larger(u, -u), larger(v, -v));
+    T::ratio(1, 2) - reach
+}
+
+/// The common part of tiles `a` and `b`, exactly: `a` clipped by each side
+/// of `b` in turn (closed half-planes), counter-clockwise; empty when they
+/// are apart, a point or a segment when they only touch.
+pub fn overlap_polygon(a: &Tile<Surd>, b: &Tile<Surd>) -> Vec<Point<Surd>> {
+    let cross = |p: Point<Surd>, q: Point<Surd>, r: Point<Surd>| (q.0 - p.0) * (r.1 - p.1) - (q.1 - p.1) * (r.0 - p.0);
+    let edges = b.corners();
+    let mut out: Vec<Point<Surd>> = a.corners().to_vec();
+    for (i, &p) in edges.iter().enumerate() {
+        let q = edges[(i + 1) % edges.len()];
+        let pts = std::mem::take(&mut out);
+        for (j, &s) in pts.iter().enumerate() {
+            let e = pts[(j + 1) % pts.len()];
+            let (ds, de) = (cross(p, q, s), cross(p, q, e));
+            if ds.signum() >= 0 {
+                out.push(s);
+            }
+            if ds.signum() * de.signum() < 0 {
+                let t = ds * (ds - de).recip();
+                out.push((s.0 + t * (e.0 - s.0), s.1 + t * (e.1 - s.1)));
+            }
+        }
+        if out.is_empty() {
+            break;
+        }
+    }
+    out
+}
+
+/// The depth of a held corner inside the middle tile turned a further
+/// `turn` from contact, worked in the tile's own frame (its centre at the
+/// origin, the corner at the middle of a side, (½, 0)): the same
+/// [`depth_inside`], in numbers small enough for any exact turn.
+pub fn held_corner_depth(turn: Point<Surd>) -> Surd {
+    let tile = Tile {
+        centre: (Surd::ZERO, Surd::ZERO),
+        cos: turn.0,
+        sin: turn.1,
+    };
+    depth_inside(&tile, (Surd::ratio(1, 2), Surd::ZERO))
+}
+
+/// A polygon's area (shoelace; counter-clockwise is positive).
+pub fn polygon_area(pts: &[Point<Surd>]) -> Surd {
+    let mut twice = Surd::ZERO;
+    for (i, &p) in pts.iter().enumerate() {
+        let q = pts[(i + 1) % pts.len()];
+        twice = twice + (p.0 * q.1 - q.0 * p.1);
+    }
+    twice * Surd::ratio(1, 2)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1211,6 +1353,165 @@ mod tests {
             let tile = Tile::straight(a + 0.5, b + 0.5);
             assert!(wall_clearance(&tile, side) >= -EPS, "{t}");
             assert!(!pins_inside(&tile, side).is_empty(), "{t}");
+        }
+    }
+
+    fn flip(turn: Point<Surd>) -> Point<Surd> {
+        (turn.0, -turn.1)
+    }
+
+    /// The held corners lie on the circle inside the middle tile (half a
+    /// tile from its centre, squared 1/4) in the box of 2.71, and on the
+    /// circle around it (squared 1/2) in the box of three.
+    #[test]
+    fn the_held_corners_sit_on_the_inner_circle() {
+        let p = five_turned();
+        let c = p.tiles[MIDDLE].centre;
+        let mid = p.tiles[MIDDLE].midpoints()[0];
+        let inradius2 = (mid.0 - c.0) * (mid.0 - c.0) + (mid.1 - c.1) * (mid.1 - c.1);
+        assert_eq!(inradius2, Surd::ratio(1, 4));
+        for k in 0..4 {
+            let q = p.inner_corner(k);
+            let d2 = (q.0 - c.0) * (q.0 - c.0) + (q.1 - c.1) * (q.1 - c.1);
+            assert_eq!(d2, inradius2, "corner {k}");
+            assert_eq!(
+                depth_inside(&p.tiles[MIDDLE], q),
+                Surd::ZERO,
+                "corner {k} is on an edge"
+            );
+        }
+        assert_eq!(turn_inner2(), Surd::ratio(1, 2));
+    }
+
+    /// The exact bite of the small turn, both ways and twice as far: depth
+    /// ½(1 − cos) at every corner, the separating-axis push the same, an
+    /// overlap triangle whose clipped area is the closed form, and a depth
+    /// ratio a little under four.
+    #[test]
+    fn a_turn_by_a_hair_bites_by_its_square() {
+        let one = small_turn();
+        let two = compose(one, one);
+        let half = Surd::ratio(1, 2);
+        for (turn, depth) in [
+            (one, Surd::ratio(1, 401)),
+            (flip(one), Surd::ratio(1, 401)),
+            (two, Surd::ratio(1600, 160801)),
+        ] {
+            assert_eq!((Surd::int(1) - turn.0) * half, depth);
+            let p = hair_turned(turn);
+            assert_eq!(p.check_exact().summary(), "overlap:0-4,1-4,2-4,3-4");
+            let mid = p.tiles[MIDDLE];
+            for k in 0..4 {
+                assert_eq!(depth_inside(&mid, p.inner_corner(k)), depth, "corner {k}");
+                assert_eq!(clearance(&p.tiles[k], &mid), -depth, "corner {k}");
+                let bite = overlap_polygon(&p.tiles[k], &mid);
+                assert_eq!(bite.len(), 3, "corner {k}");
+                let (c, s) = (turn.0, turn.1);
+                let cos2 = c * c - s * s;
+                let closed = (Surd::int(1) - c) * (Surd::int(1) - c) * (Surd::int(4) * cos2).recip();
+                assert_eq!(polygon_area(&bite), closed, "corner {k}");
+            }
+        }
+        let area = polygon_area(&overlap_polygon(
+            &hair_turned(one).tiles[1],
+            &hair_turned(one).tiles[MIDDLE],
+        ));
+        assert_eq!(area, Surd::ratio(1, 157601));
+        let ratio = Surd::ratio(1600, 160801) * Surd::ratio(1, 401).recip();
+        assert_eq!(ratio, Surd::ratio(641600, 160801));
+        assert!(Surd::ratio(39, 10) < ratio && ratio < Surd::int(4));
+    }
+
+    /// Never zero: ever smaller exact turns (half-angle tangent 1/n) still
+    /// push the held corner in, by exactly 1/(n² + 1), in the tile's own
+    /// frame; and the whole packing, worked exactly, overlaps at n = 20 as at
+    /// every frame drawn. The depth is the same in both frames.
+    #[test]
+    fn the_bite_is_never_zero_however_small_the_turn() {
+        for n in [20, 100, 1000, 10_000, 1_000_000] {
+            let turn = half_angle_turn(n);
+            assert_eq!(turn.0 * turn.0 + turn.1 * turn.1, Surd::int(1));
+            assert_eq!(held_corner_depth(turn), Surd::ratio(1, n * n + 1), "n {n}");
+            assert_eq!(held_corner_depth(flip(turn)), Surd::ratio(1, n * n + 1), "n {n}");
+        }
+        assert_eq!(held_corner_depth((Surd::int(1), Surd::ZERO)), Surd::ZERO);
+        let p = hair_turned(small_turn());
+        assert_eq!(
+            depth_inside(&p.tiles[MIDDLE], p.inner_corner(0)),
+            held_corner_depth(small_turn())
+        );
+        assert_eq!(p.check_exact().overlapping.len(), 4);
+    }
+
+    /// The controls: no turn touches without overlapping; in the box of
+    /// three the same turns, either way, fit and touch nothing.
+    #[test]
+    fn no_turn_touches_and_the_roomy_box_turns_freely() {
+        let none = hair_turned((Surd::int(1), Surd::ZERO));
+        assert_eq!(none, five_turned());
+        let v = none.check_exact();
+        assert!(v.fits() && v.touching.len() == 4);
+        for turn in [small_turn(), flip(small_turn())] {
+            let roomy = hair_turned_roomy(turn).check_exact();
+            assert!(roomy.fits(), "{roomy:?}");
+            assert!(roomy.touching.is_empty(), "{roomy:?}");
+        }
+    }
+
+    /// Every sampled frame of the drawn turn, either way up to an eighth of
+    /// a turn, overlaps all four corner tiles (a check of the frames drawn;
+    /// the depth formula covers the rest).
+    #[test]
+    fn every_drawn_hair_frame_overlaps() {
+        for k in 1..=1000 {
+            let delta = std::f64::consts::FRAC_PI_4 * f64::from(k) / 1000.0 * 0.999;
+            for d in [delta, -delta] {
+                let v = hair(d).check(EPS);
+                assert_eq!(v.overlapping.len(), 4, "{d}");
+            }
+        }
+        assert!(hair(0.0).check(EPS).fits());
+    }
+
+    /// The triangle and its area formula hold exactly up to 30°: every
+    /// half-angle tangent 1/n from 1/4 (about 28°) down to 1/20, clipped
+    /// exactly, is a triangle of area (1 − cos)² / (4 cos 2δ). Past 30° a
+    /// corner of the middle tile is inside and the overlap has four sides:
+    /// tangent 1/3 gives 1/56 where the formula says 1/28, tangent 2/5 gives
+    /// 7/328 where it says 16/41. The depth formula holds throughout.
+    #[test]
+    fn the_triangle_holds_to_thirty_degrees() {
+        let formula =
+            |(c, s): Point<Surd>| (Surd::int(1) - c) * (Surd::int(1) - c) * (Surd::int(4) * (c * c - s * s)).recip();
+        for n in 4..=20 {
+            let turn = half_angle_turn(n);
+            assert!(turn.1 <= Surd::ratio(1, 2), "n {n} is within 30 degrees");
+            let p = hair_turned(turn);
+            for k in [0, 1] {
+                let bite = overlap_polygon(&p.tiles[k], &p.tiles[MIDDLE]);
+                assert_eq!(bite.len(), 3, "n {n}, corner {k}");
+                assert_eq!(polygon_area(&bite), formula(turn), "n {n}, corner {k}");
+            }
+        }
+        for (turn, area, triangle) in [
+            (half_angle_turn(3), Surd::ratio(1, 56), Surd::ratio(1, 28)),
+            (
+                (Surd::ratio(21, 29), Surd::ratio(20, 29)),
+                Surd::ratio(7, 328),
+                Surd::ratio(16, 41),
+            ),
+        ] {
+            assert!(turn.1 > Surd::ratio(1, 2));
+            assert_eq!(formula(turn), triangle);
+            let p = hair_turned(turn);
+            let bite = overlap_polygon(&p.tiles[0], &p.tiles[MIDDLE]);
+            assert_eq!(bite.len(), 4);
+            assert_eq!(polygon_area(&bite), area);
+            assert_ne!(area, triangle);
+            assert_eq!(
+                depth_inside(&p.tiles[MIDDLE], p.inner_corner(0)),
+                (Surd::int(1) - turn.0) * Surd::ratio(1, 2)
+            );
         }
     }
 }

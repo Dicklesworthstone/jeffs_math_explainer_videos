@@ -10,10 +10,27 @@
 
 use explainer_kit::Facts;
 
-use crate::model::{self, MIDDLE, Packing, Surd, TILES};
+use crate::model::{self, MIDDLE, Packing, Point, Surd, TILES};
 
 /// Literals quoted from the sources (docs/fact-sheet.md §Sources; the oracle
 /// prints the same values).
+/// What chapter 03 chooses to show (the oracle prints the same choices):
+/// the lens's magnification over the board, the half-width of the window it
+/// shows (tiles) and its scale bar, the held corner it watches, and the
+/// ever smaller turns whose bite is quoted.
+pub mod shown {
+    pub const LENS_MAG: u32 = 44;
+    pub const LENS_HALF: (i64, i64) = (1, 40);
+    pub const LENS_BAR: (i64, i64) = (1, 100);
+    /// The lower right corner tile: its inner corner is the one magnified.
+    pub const LENS_CORNER: usize = 1;
+    /// Half-angle tangents 1/n of the tiny turns.
+    pub const TINY: [i64; 2] = [100, 10_000];
+    /// Half-angle tangent 1/n of the turn past 30° whose overlap has four
+    /// sides.
+    pub const BEYOND: i64 = 3;
+}
+
 pub mod cited {
     /// F. Göbel, "Geometrical Packing and Covering Problems", in A. Schrijver
     /// (ed.), *Packing and Covering in Combinatorics*, Math Centrum Tracts 106
@@ -40,6 +57,7 @@ pub fn facts() -> Result<Facts, String> {
     turned(&mut f)?;
     planted(&mut f)?;
     pins(&mut f)?;
+    hair(&mut f)?;
     f.add("source.gobel", cited::GOBEL)?;
     Ok(f)
 }
@@ -179,6 +197,89 @@ fn pins(f: &mut Facts) -> Result<(), String> {
     f.add("pins.owners.straight", owners(&straight))?;
     f.add("pins.owners.turned", owners(&model::five_turned()))?;
     f.add("pins.owners.at3", owners(&model::five_straight()))?;
+    Ok(())
+}
+
+/// 03: a turn by a hair. The box, the corner tiles and the middle tile's
+/// centre held; the middle tile turned a further exact small turn, either
+/// way, and twice as far. Every held corner on the inner circle; its depth
+/// inside the turned tile, the same at all four; the overlap at the
+/// magnified corner, clipped exactly; the box of three, where the same turn
+/// is free; ever smaller turns, never zero; the lens's choices, and that its
+/// window holds the larger overlap; and the four-sided overlap past 30°.
+fn hair(f: &mut Facts) -> Result<(), String> {
+    let p = model::five_turned();
+    let c = p.tiles[MIDDLE].centre;
+    let d2 = |q: Point<Surd>| (q.0 - c.0) * (q.0 - c.0) + (q.1 - c.1) * (q.1 - c.1);
+    let inner = d2(p.inner_corner(0));
+    ensure((0..4).all(|k| d2(p.inner_corner(k)) == inner), || {
+        "the held corners are not all the same distance from the centre".to_owned()
+    })?;
+    f.add("hair.inner2", inner)?;
+    f.add("hair.inradius2", d2(p.tiles[MIDDLE].midpoints()[0]))?;
+    let one = model::small_turn();
+    let two = model::compose(one, one);
+    let minus = (one.0, -one.1);
+    f.add("hair.turn", format!("{},{}", one.0, one.1))?;
+    let degrees = |t: Point<Surd>| t.1.to_f64().atan2(t.0.to_f64()).to_degrees();
+    f.add("hair.degrees.1dp", format!("{:.1}", degrees(one)))?;
+    f.add("hair.degrees2.1dp", format!("{:.1}", degrees(two)))?;
+    let depth = model::held_corner_depth;
+    for turn in [one, two, minus] {
+        let q = model::hair_turned(turn);
+        ensure(
+            (0..4).all(|k| model::depth_inside(&q.tiles[MIDDLE], q.inner_corner(k)) == depth(turn)),
+            || "the held corners do not all sink the same depth".to_owned(),
+        )?;
+    }
+    let (d1, d2v) = (depth(one), depth(two));
+    f.add("hair.depth", d1)?;
+    f.add("hair.depth.4dp", d1.decimals(4))?;
+    f.add("hair.depth2", d2v)?;
+    f.add("hair.depth2.4dp", d2v.decimals(4))?;
+    let ratio = d2v * d1.recip();
+    f.add("hair.ratio", ratio)?;
+    f.add("hair.ratio.2dp", ratio.decimals(2))?;
+    let k = shown::LENS_CORNER;
+    let bite = |turn: Point<Surd>| {
+        let q = model::hair_turned(turn);
+        model::overlap_polygon(&q.tiles[k], &q.tiles[MIDDLE])
+    };
+    let (b1, b2, bm) = (bite(one), bite(two), bite(minus));
+    f.add("hair.vertices", b1.len())?;
+    f.add("hair.area", model::polygon_area(&b1))?;
+    f.add("hair.area2", model::polygon_area(&b2))?;
+    f.add("hair.minus", format!("{}|{}", depth(minus), model::polygon_area(&bm)))?;
+    f.add("hair.check", model::hair_turned(one).check_exact().summary())?;
+    f.add("hair.check.minus", model::hair_turned(minus).check_exact().summary())?;
+    let roomy: Vec<&str> = [one, minus]
+        .iter()
+        .map(|&turn| {
+            let v = model::hair_turned_roomy(turn).check_exact();
+            if v.fits() && v.touching.is_empty() {
+                "free"
+            } else {
+                "blocked"
+            }
+        })
+        .collect();
+    f.add("hair.roomy", roomy.join("|"))?;
+    let tiny: Vec<String> = shown::TINY
+        .iter()
+        .map(|&n| depth(model::half_angle_turn(n)).to_string())
+        .collect();
+    f.add("hair.tiny", tiny.join(","))?;
+    let half = Surd::ratio(shown::LENS_HALF.0, shown::LENS_HALF.1);
+    f.add("hair.lens.mag", shown::LENS_MAG)?;
+    f.add("hair.lens.half", half)?;
+    f.add("hair.lens.bar", Surd::ratio(shown::LENS_BAR.0, shown::LENS_BAR.1))?;
+    let held = p.inner_corner(k);
+    let near = |x: Surd, y: Surd| x - y <= half && y - x <= half;
+    let fits = b2.iter().all(|v| near(v.0, held.0) && near(v.1, held.1));
+    f.add("hair.lens.fits", if fits { "yes" } else { "no" })?;
+    let beyond = model::hair_turned(model::half_angle_turn(shown::BEYOND));
+    let quad = model::overlap_polygon(&beyond.tiles[0], &beyond.tiles[MIDDLE]);
+    f.add("hair.beyond", format!("{}|{}", quad.len(), model::polygon_area(&quad)))?;
     Ok(())
 }
 

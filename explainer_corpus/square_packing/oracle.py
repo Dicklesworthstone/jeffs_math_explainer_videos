@@ -346,6 +346,67 @@ def main():
     put("pins.owners.turned", owners(side, tiles))
     put("pins.owners.at3", owners(side3, straight))
 
+    # chapter 03, a turn by a hair, by distances to edges rather than tile
+    # coordinates: the box of 2.71, the corner tiles and the middle tile's
+    # centre held; the middle tile's diamond turned about that centre
+    def turned(cd, sd, centre=c):
+        return rotate(diamond(centre, centre, r), (centre, centre), q2(cd), q2(sd))
+
+    def depth_in(poly, p):  # the least distance from p to an edge (edges are a tile long)
+        return min(cross(poly[i], poly[(i + 1) % len(poly)], p) for i in range(len(poly)))
+
+    def half_angle(n):  # the turn whose half-angle has tangent 1/n
+        return Fraction(n * n - 1, n * n + 1), Fraction(2 * n, n * n + 1)
+
+    centre = (c, c)
+    held = [(q2(1), q2(1)), (side - 1, q2(1)), (q2(1), side - 1), (side - 1, side - 1)]
+    put("hair.inner2", (held[0][0] - c) * (held[0][0] - c) + (held[0][1] - c) * (held[0][1] - c))
+    flat_tile = tiles[4]
+    edge_gap = cross(flat_tile[0], flat_tile[1], centre)
+    put("hair.inradius2", edge_gap * edge_gap)
+    cd, sd = half_angle(20)
+    put("hair.turn", f"{cd},{sd}")
+    cd2, sd2 = cd * cd - sd * sd, 2 * cd * sd
+    put("hair.degrees.1dp", f"{math.degrees(math.atan2(sd, cd)):.1f}")
+    put("hair.degrees2.1dp", f"{math.degrees(math.atan2(sd2, cd2)):.1f}")
+    lens_corner = 1  # the lower right corner tile's inner corner is magnified
+    one, two, minus = turned(cd, sd), turned(cd2, sd2), turned(cd, -sd)
+    for poly in (one, two, minus):
+        depths = {str(depth_in(poly, p)) for p in held}
+        if len(depths) != 1:
+            sys.exit("oracle: the held corners sink different depths")
+    d1, d2 = depth_in(one, held[0]), depth_in(two, held[0])
+    put("hair.depth", d1)
+    put("hair.depth.4dp", d1.rounded(4))
+    put("hair.depth2", d2)
+    put("hair.depth2.4dp", d2.rounded(4))
+    put("hair.ratio", d2 / d1)
+    put("hair.ratio.2dp", (d2 / d1).rounded(2))
+    corner = corner_tiles(side)[lens_corner]
+    b1, b2, bm = clip(corner, one), clip(corner, two), clip(corner, minus)
+    put("hair.vertices", len(b1))
+    put("hair.area", area(b1))
+    put("hair.area2", area(b2))
+    put("hair.minus", f"{depth_in(minus, held[0])}|{area(bm)}")
+    put("hair.check", verdict(side, corner_tiles(side) + [one]))
+    put("hair.check.minus", verdict(side, corner_tiles(side) + [minus]))
+    c3 = Fraction(side3, 2)
+    roomy = []
+    for s in (sd, -sd):
+        ts = corner_tiles(side3) + [turned(cd, s, c3)]
+        roomy.append("free" if verdict(q2(side3), ts) == "fits" and touching(ts) == "" else "blocked")
+    put("hair.roomy", "|".join(roomy))
+    put("hair.tiny", ",".join(str(depth_in(turned(*half_angle(n)), held[0])) for n in (100, 10_000)))
+    lens_half, lens_bar = Fraction(1, 40), Fraction(1, 100)
+    put("hair.lens.mag", 44)
+    put("hair.lens.half", lens_half)
+    put("hair.lens.bar", lens_bar)
+    p_held = held[lens_corner]
+    near = all(v[i] - p_held[i] <= lens_half and p_held[i] - v[i] <= lens_half for v in b2 for i in (0, 1))
+    put("hair.lens.fits", "yes" if near else "no")
+    quad = clip(corner_tiles(side)[0], turned(*half_angle(3)))
+    put("hair.beyond", f"{len(quad)}|{area(quad)}")
+
     # cited: F. Goebel, "Geometrical Packing and Covering Problems", in A.
     # Schrijver (ed.), Packing and Covering in Combinatorics, Math Centrum
     # Tracts 106 (1979) 179-199 (Friedman, DS7, reference [7])
