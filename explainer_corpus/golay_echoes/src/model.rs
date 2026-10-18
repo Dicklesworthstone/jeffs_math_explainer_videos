@@ -41,6 +41,14 @@ pub const MOVED: [i64; 2] = [0, 1];
 /// and a quiet one (strength 1) three steps farther, the same for both sends.
 pub const LOUD_AND_QUIET: [i64; 4] = [4, 0, 0, 1];
 
+/// Golay's complementary pair of length 10, as Wikipedia's *Complementary
+/// sequences* gives it (read 2026-10-17): a pair whose ghosts cancel that the
+/// doubling cannot build, since 10 is not a power of two (chapter 03).
+pub const GOLAY_10: ([i64; 10], [i64; 10]) = (
+    [1, 1, -1, 1, -1, 1, -1, -1, 1, 1],
+    [1, 1, -1, 1, 1, 1, 1, 1, -1, -1],
+);
+
 /// A row of scores: `values[i]` is the score at shift `first + i`, and
 /// every shift outside the row scores zero.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -143,6 +151,24 @@ pub struct Product {
     pub recording: usize,
     pub copy: usize,
     pub value: i64,
+}
+
+/// Where a lined-up pair sits in a pattern made of two halves (chapter 03).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Span {
+    /// Both pulses in the same half.
+    Inside,
+    /// One pulse in each half: the pair reaches across the middle.
+    Across,
+}
+
+/// Where the pair `p` of a pattern whose halves are `half` pulses long sits.
+pub fn span(half: usize, p: &Product) -> Span {
+    if (p.recording < half) == (p.copy < half) {
+        Span::Inside
+    } else {
+        Span::Across
+    }
 }
 
 /// The products the receiver adds at shift `k`, in the recording's order.
@@ -259,14 +285,25 @@ pub fn is_complementary(a: &[i64], b: &[i64]) -> bool {
     })
 }
 
-/// The doubling construction: from a complementary pair `(a, b)`, the pair
-/// (a then b, a then −b), twice as long. The cross terms between the two
-/// halves appear with opposite signs in the two new codes, so the new
-/// score rows add to twice the old sum: complementary again.
-#[allow(
-    dead_code,
-    reason = "the recursion is a later chapter; chapter 01 draws only its result"
-)]
+/// The doubling construction (chapter 03): from a pair `(a, b)` of equal
+/// length, the pair (a then b, a then −b), twice as long.
+///
+/// Why it keeps a cancelling pair cancelling, at every shift k and for any
+/// equal-length halves: a lined-up pair of the new pattern either sits
+/// inside one half or reaches across the middle ([`span`]). Inside the first
+/// half both new patterns hold a, inside the second they hold b and −b, and
+/// (−x)(−y) = xy, so every inside product is the same in both rows; summed
+/// over both halves they are a's row plus b's row. Across the middle exactly
+/// one of the two pulses is negated in the second pattern, so every crossing
+/// product changes sign. Added:
+///
+/// S(a then b)(k) + S(a then −b)(k) = 2 (S(a)(k) + S(b)(k)),
+///
+/// the old rows extended by zero past their ends. If a's and b's rows add to
+/// 2N at shift 0 and to 0 elsewhere, the new rows add to 4N = 2(2N) at 0 and
+/// to 0 elsewhere: a complementary pair twice as long. This builds pairs of
+/// every power-of-two length from one pulse; it does not build every
+/// complementary pair ([`GOLAY_10`]).
 pub fn double(a: &[i64], b: &[i64]) -> (Vec<i64>, Vec<i64>) {
     let first = a.iter().chain(b).copied().collect();
     let second = a.iter().copied().chain(b.iter().map(|&x| -x)).collect();
@@ -663,5 +700,140 @@ mod tests {
             }
         }
         assert_eq!((pairs_seen, giving_back), (256, 32));
+    }
+
+    /// The products of the pattern `x then y` at shift `k`, with where each
+    /// sits.
+    fn sorted(x: &[i64], y: &[i64], k: i64) -> Vec<(Product, Span)> {
+        let whole: Vec<i64> = x.iter().chain(y).copied().collect();
+        products(&whole, &whole, k)
+            .into_iter()
+            .map(|p| (p, span(x.len(), &p)))
+            .collect()
+    }
+
+    /// Pattern 1, narration truth for chapter 03.
+    #[test]
+    fn the_doubling_rows_are_the_ones_on_screen() {
+        // "Start with one pulse, paired with itself."
+        assert!(is_complementary(&[1], &[1]));
+        // "Write the first, then the other. Then the first again, and the
+        // other flipped."
+        let two = double(&[1], &[1]);
+        assert_eq!(two, (vec![1, 1], vec![1, -1]));
+        // "Double again, and out come patterns A and B."
+        let four = double(&two.0, &two.1);
+        assert_eq!((four.0.as_slice(), four.1.as_slice()), (&CODE_A[..], &CODE_B[..]));
+        // "Slide each copy one step": A's pairs inside, across, inside; B's
+        // the same pairs, the crossing product flipped
+        let (x, y) = (&two.0, &two.1);
+        let neg: Vec<i64> = y.iter().map(|v| -v).collect();
+        let a = sorted(x, y, 1);
+        let b = sorted(x, &neg, 1);
+        let spans: Vec<Span> = a.iter().map(|&(_, s)| s).collect();
+        assert_eq!(spans, [Span::Inside, Span::Across, Span::Inside]);
+        let values = |r: &[(Product, Span)]| r.iter().map(|(p, _)| p.value).collect::<Vec<_>>();
+        assert_eq!(
+            (values(&a[..]), values(&b[..])),
+            (vec![1, 1, -1], vec![1, -1, -1])
+        );
+        // "The crossing products cancel in pairs. The rest is twice the old
+        // pair's rows, whose ghosts already cancel."
+        let old = autocorrelation(x).plus(&autocorrelation(y));
+        assert_eq!(old.at(1), 0);
+        let inside: i64 = a.iter().chain(&b).filter(|(_, s)| *s == Span::Inside).map(|(p, _)| p.value).sum();
+        assert_eq!(inside, 2 * old.at(1));
+        // "twice as long", and the new rows add to twice the old peak
+        assert_eq!(four.0.len(), 2 * two.0.len());
+        let new = autocorrelation(&four.0).plus(&autocorrelation(&four.1));
+        assert_eq!(new.at(0), 2 * old.at(0));
+    }
+
+    /// The doubling identity, checked as its proof argues it: for every pair
+    /// of equal-length halves (all up/down halves of 1 to 4 pulses, and all
+    /// halves of 1 or 2 values from −2 to 2) and every shift, each lined-up
+    /// pair of (x then −y) has the same product as the matching pair of
+    /// (x then y) when it sits inside a half and the opposite product when it
+    /// reaches across; so the rows add to twice the halves' rows.
+    #[test]
+    fn the_doubling_identity_holds_pair_by_pair() {
+        let mut halves: Vec<Vec<i64>> = (1..=4).flat_map(codes).collect();
+        halves.extend(scenes(1).into_iter().chain(scenes(2)));
+        for x in &halves {
+            for y in halves.iter().filter(|y| y.len() == x.len()) {
+                let neg: Vec<i64> = y.iter().map(|v| -v).collect();
+                let n = 2 * x.len() as i64;
+                for k in 1 - n..n {
+                    let (first, second) = (sorted(x, y, k), sorted(x, &neg, k));
+                    assert_eq!(first.len(), second.len());
+                    for ((p, s), (q, t)) in first.iter().zip(&second) {
+                        assert_eq!((p.recording, p.copy, s), (q.recording, q.copy, t));
+                        let want = if *s == Span::Inside { p.value } else { -p.value };
+                        assert_eq!(q.value, want, "{x:?} {y:?} at {k}: {p:?}");
+                    }
+                    let (a, b) = double(x, y);
+                    let left = autocorrelation(&a).at(k) + autocorrelation(&b).at(k);
+                    let right = 2 * (autocorrelation(x).at(k) + autocorrelation(y).at(k));
+                    assert_eq!(left, right, "{x:?} {y:?} at {k}");
+                }
+            }
+        }
+    }
+
+    /// Where crossing products begin and end (the boundary shifts): with
+    /// halves of n pulses, shift 0 has none, shift k from 1 to 2n − 1 has
+    /// min(k, 2n − k), and from shift n on there are no inside pairs at all.
+    #[test]
+    fn crossing_pairs_begin_at_one_step_and_fill_the_far_shifts() {
+        for n in 1..=6usize {
+            let x = vec![1; n];
+            for k in 0..2 * n as i64 {
+                let pairs = sorted(&x, &x, k);
+                let across = pairs.iter().filter(|(_, s)| *s == Span::Across).count() as i64;
+                let inside = pairs.len() as i64 - across;
+                let want = if k == 0 { 0 } else { k.min(2 * n as i64 - k) };
+                assert_eq!(across, want, "halves of {n} at {k}");
+                assert_eq!(inside > 0, k < n as i64, "halves of {n} at {k}");
+            }
+        }
+    }
+
+    /// The planted negative: leave out the flip and the crossing products
+    /// add instead of cancelling. Sending (x then y) twice gives twice the
+    /// halves' rows plus twice the crossing products, and at the far shift,
+    /// where only the two end pulses meet across the middle, that is
+    /// 2·x[0]·y[n − 1], never zero: the ghosts come back for every pair.
+    /// Flipping the first half instead works as well; flipping both does
+    /// not.
+    #[test]
+    fn leaving_out_the_flip_brings_the_ghosts_back() {
+        for n in 1..=4 {
+            for (x, y) in pairs(n) {
+                let whole: Vec<i64> = x.iter().chain(&y).copied().collect();
+                let twice = autocorrelation(&whole).scaled(2);
+                let far = 2 * n as i64 - 1;
+                assert_eq!(twice.at(far), 2 * x[0] * y[n - 1], "{x:?} {y:?}");
+                assert!(!is_complementary(&whole, &whole));
+                let flip_first: Vec<i64> = x.iter().map(|v| -v).chain(y.iter().copied()).collect();
+                assert!(is_complementary(&whole, &flip_first), "{x:?} {y:?}");
+                let flip_both: Vec<i64> = whole.iter().map(|v| -v).collect();
+                assert!(!is_complementary(&whole, &flip_both), "{x:?} {y:?}");
+            }
+        }
+        // the chapter's case: A with A
+        assert_eq!(
+            autocorrelation(&CODE_A).scaled(2),
+            row(-3, &[-2, 0, 2, 8, 2, 0, -2])
+        );
+    }
+
+    /// Not every complementary pair is a doubling: Golay's pair of length 10
+    /// cancels, and 10 is not a power of two.
+    #[test]
+    fn some_pairs_are_not_doublings() {
+        let (a, b) = GOLAY_10;
+        assert!(is_complementary(&a, &b));
+        assert!(!a.len().is_power_of_two());
+        assert_eq!(autocorrelation(&a), row(-9, &[1, 2, -1, -2, 1, 0, -1, 0, -3, 10, -3, 0, -1, 0, 1, -2, -1, 2, 1]));
     }
 }
