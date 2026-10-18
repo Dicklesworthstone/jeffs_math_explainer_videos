@@ -3,14 +3,26 @@
   "script_sha256": "4f372ed2a091bd5c74ecb5a25c83c29b270b695d2b150d59d23efe8c858e3618",
   "units": [
     {
-      "id": "01u1",
+      "id": "01u1a",
       "line_ids": [
-        "01_1",
+        "01_1"
+      ],
+      "text": "Five equal square tiles have to fit in a square box. How small can the box be?"
+    },
+    {
+      "id": "01u1b",
+      "line_ids": [
         "01_2",
-        "01_3",
+        "01_3"
+      ],
+      "text": "Four fit in a box two wide. The fifth has nowhere to go. The obvious box is three wide, with room for four more."
+    },
+    {
+      "id": "01u1c",
+      "line_ids": [
         "01_4"
       ],
-      "text": "Five equal square tiles have to fit in a square box. How small can the box be? Four fit in a box two wide. The fifth has nowhere to go. The obvious box is three wide, with room for four more. Every tile lines up with the walls. Could turning one tile make the box smaller?"
+      "text": "Every tile lines up with the walls. Could turning one tile make the box smaller?"
     },
     {
       "id": "01u2",
