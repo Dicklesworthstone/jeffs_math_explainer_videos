@@ -1,4 +1,5 @@
-//! Chapter 03, why they cancel: one pulse paired with itself (03_1),
+//! Chapter 03, why they cancel: from the pair A and B the opening question
+//! asks about to one pulse paired with itself (03_1),
 //! doubled (03_2) and doubled again into patterns A and B (03_3); at one
 //! step every lined-up pair sits inside a half or reaches across the middle
 //! (03_4): inside, B's products are A's (03_5); across, they flip sign
@@ -7,7 +8,9 @@
 //! every doubling, the identity on screen (03_9); without the flip the
 //! crossing products add and the ghosts come back (03_10).
 //!
-//! Every pattern is `model::double`'s, from one pulse; every product is
+//! Every pattern is `model::double`'s, from one pulse, except the opening's
+//! A and B, the model's codes, which the facts check are the second
+//! doubling; every product is
 //! `facts::split` of the halves on screen; the column is checked against the
 //! model as it settles. A pair across the middle is drawn in the across
 //! role: a teal arc, and a teal ring on its block.
@@ -231,7 +234,18 @@ impl SceneConstruct for WhyTheyCancel {
         let [seed, two, four] = facts::doublings();
         let name_at = |y: f64| v(NAME_X, y + 0.35);
 
-        // 03_1: one pulse, paired with itself
+        // 03_1: the pair the question asks about, patterns A and B as the
+        // earlier chapters drew them, in before the line begins (the fade is
+        // shorter than the lead-in, so the line keeps its start); then one
+        // pulse, paired with itself
+        let known = (model::CODE_A.to_vec(), model::CODE_B.to_vec());
+        let asked_rows = pair_rows(stage, &known)?;
+        let known_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(TOP_Y))?;
+        let known_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), name_at(BOT_Y))?;
+        let mut asked = asked_rows.0.mobs();
+        asked.extend(asked_rows.1.mobs());
+        asked.extend([known_a, known_b]);
+        fade_in_all(stage, &asked, 0.5)?;
         let line = say(&kit, stage, "03_1")?;
         let rows = pair_rows(stage, &seed)?;
         let first = kit.text_left(stage, FIRST, 22.0, Palette::dim(), name_at(TOP_Y))?;
@@ -240,7 +254,7 @@ impl SceneConstruct for WhyTheyCancel {
         let mut all = rows.0.mobs();
         all.extend(rows.1.mobs());
         all.extend([first, other]);
-        fade_in_all(stage, &all, 0.5)?;
+        swap(stage, &asked, &all, 0.5)?;
 
         // 03_2: double it, move by move
         let line = say(&kit, stage, "03_2")?;
@@ -479,6 +493,14 @@ mod tests {
         assert!(reach.contains("a pair of length 10 cancels too"), "{reach}");
         assert!(STILL_SCENE.contains("same still scene for both sends"));
         assert!(STILL_SCENE.contains("not guaranteed to cancel"));
+    }
+
+    /// The pair shown during the opening question is the pair the doublings
+    /// arrive at in 03_3.
+    #[test]
+    fn the_opening_pair_is_the_doubled_pair() {
+        let [_, _, four] = facts::doublings();
+        assert_eq!(four, (model::CODE_A.to_vec(), model::CODE_B.to_vec()));
     }
 
     /// Both "precisely" cards wrap to two lines, clear of the shift numbers.
