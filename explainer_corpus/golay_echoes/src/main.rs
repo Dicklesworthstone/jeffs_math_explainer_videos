@@ -79,6 +79,26 @@ mod tests {
         ("01_9", "not a single ghost", "G-F3.sum.largest_ghost", "0"),
         ("01_10", "one step", "G-F4.moved.step", "1"),
         ("01_10", "ghosts return", "G-F4.moved.largest_ghost", "1"),
+        ("02_1", "two things", "G-F5.echoes", "2"),
+        ("02_1", "three steps farther", "G-F5.quiet_step", "3"),
+        ("02_2", "two echoes", "G-F5.echoes", "2"),
+        ("02_3", "At three steps", "G-F5.quiet_step", "3"),
+        ("02_3", "the score is zero", "G-F6.a.at_quiet", "0"),
+        ("02_4", "Zero is not empty", "G-F6.a.zero_at_echo", "3"),
+        ("02_4", "at three steps", "G-F5.quiet_step", "3"),
+        ("02_5", "minus four", "G-F6.a.loud_part_at_quiet", "-4"),
+        ("02_5", "plus four", "G-F6.a.quiet_part_at_quiet", "4"),
+        ("02_6", "four tall", "G-F6.a.loud_ghosts_one_step", "4,4"),
+        ("02_6", "as tall as the quiet echo", "G-F6.a.quiet_part_at_quiet", "4"),
+        ("02_7", "three steps", "G-F5.quiet_step", "3"),
+        ("02_8", "Eight", "G-F7.b.at_quiet", "8"),
+        ("02_8", "doubles it", "G-F7.b.over_quiet", "2"),
+        ("02_9", "Thirty-two at zero", "G-F8.sum.at_loud", "32"),
+        ("02_9", "eight at three", "G-F8.sum.at_quiet", "8"),
+        ("02_9", "zero everywhere else", "G-F8.sum.largest_ghost", "0"),
+        ("02_9", "eight times over", "G-F8.magnification", "8"),
+        ("02_10", "Sending A twice", "G-F9.a_twice.sends", "2"),
+        ("02_10", "stays hidden", "G-F9.a_twice.at_quiet", "0"),
     ];
 
     #[test]
@@ -92,7 +112,8 @@ mod tests {
         }
         // and no line carries a number word the table above does not know
         let numbers = [
-            "one", "two", "three", "four", "quarter", "twice", "second", "half", "eight",
+            "zero", "one", "two", "three", "four", "quarter", "twice", "second", "half", "eight", "thirty", "minus",
+            "plus", "doubles",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

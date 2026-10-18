@@ -86,7 +86,7 @@ fn codes(n: usize) -> Vec<Vec<i64>> {
 /// Over every ordered pair of four-pulse patterns: how many pairs, how many
 /// give chapter 02's scene back exactly (their rows add to 2N times it), how
 /// many of those are complementary, and how many are complementary.
-fn pairs_giving_back() -> [usize; 4] {
+pub fn pairs_giving_back() -> [usize; 4] {
     let all = codes(CODE_A.len());
     let times = 2 * CODE_A.len() as i64;
     let want = |k: i64| {

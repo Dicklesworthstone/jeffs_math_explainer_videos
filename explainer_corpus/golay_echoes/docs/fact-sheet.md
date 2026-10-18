@@ -29,10 +29,28 @@ also carry an independently verified literal. Scores are listed from shift
 | F4 | ghosts that return, and where | "ghosts return"; the flashing columns; "3" and "5" over the split echo | same | `G-F4.moved.largest_ghost`, `G-F4.moved.ghost_shifts` | `1`; `-3,-2,-1,2,3,4` | computed |
 | X1 | far-shift score sizes, every pattern of 2 to 10 pulses | "With more than one pulse, every pattern leaves ghosts" (01_7) and its lower-third | `model::far_shift_score` over all 2,046 patterns | `G-X1.far_shift_sizes` | `1` | computed (edge test) |
 
+### Chapter 02 (scene 4, 0, 0, 1; rows from shift −3 to 6)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F5 | the scene; its echoes; loud, quiet; the quiet one's step | outlines (02_1); "two things", "three steps farther" | `model::LOUD_AND_QUIET`, `facts::loud_and_quiet` | `G-F5.scene`, `.echoes`, `.loud`, `.quiet`, `.quiet_step` | `4,0,0,1`; `2`; `4`; `1`; `3` | pinned: the task's fixed scene |
+| F5 | pattern A's recording | the merged row (02_2) | `model::echo(A, scene)` | `G-F5.recording_a` | `4,4,4,-3,1,1,-1` | computed |
+| F6 | A's row; its score at the quiet echo | the row of slabs; "the score is zero" (02_3) | `facts::hidden_a` | `G-F6.a.scores`, `G-F6.a.at_quiet` | `-4,0,4,15,4,1,0,1,0,-1`; `0` | computed |
+| F6 | each echo's part at shift 3 | "minus four", "plus four" (02_5) | `model::contributions` | `G-F6.a.loud_part_at_quiet`, `G-F6.a.quiet_part_at_quiet` | `-4`; `4` | computed; the oracle measures each echo alone |
+| F6 | the loud ghosts one step either side | "four tall, as tall as the quiet echo" (02_6) | same | `G-F6.a.loud_ghosts_one_step` | `4,4` | computed |
+| F6 | zero at an echo; scores with no echo | "Zero is not empty" (02_4) | `facts::chapter_02` | `G-F6.a.zero_at_echo`, `G-F6.a.score_without_echo` | `3`; `-3,-1,1,2,4,6` | computed (boundary test) |
+| F7 | B's row; its score at the quiet echo; its loud part there; against the quiet echo | "Eight", "doubles it" (02_8) | `facts::hidden_b` | `G-F7.b.scores`, `.at_quiet`, `.loud_part_at_quiet`, `.over_quiet` | `4,0,-4,17,-4,-1,8,-1,0,1`; `8`; `4`; `2` | computed |
+| F8 | the two rows added; at each echo; largest ghost; magnification | "Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over." (02_9) | `facts::hidden_sum` | `G-F8.sum.scores`, `.at_loud`, `.at_quiet`, `.largest_ghost`, `G-F8.magnification` | `0,0,0,32,0,0,8,0,0,0`; `32`; `8`; `0`; `8` | pinned: 8 times the scene (definition 1, N = 4) |
+| F9 | A sent twice: sends, row, at the quiet echo, one step either side | "Sending A twice", "stays hidden" (02_10) | `facts::a_twice` | `G-F9.a_twice.sends`, `.scores`, `.at_quiet`, `.at_one_step` | `2`; `-8,0,8,30,8,2,0,2,0,-2`; `0`; `8,8` | computed |
+| X2 | ordered pairs of 4-pulse patterns; how many give this scene back; of those, complementary; complementary in all | the 02_10 lower-third | `facts::pairs_giving_back` | `G-X2.pairs`, `.giving_back`, `.giving_back_complementary`, `.complementary` | `256`; `32`; `32`; `32` | computed (exhaustive; the theorem is `only_a_pair_whose_ghosts_cancel_gives_the_scene_back`) |
+
 ## Claims (non-numeric)
 
 | id | claim as narrated or shown | source | verified how |
 |---|---|---|---|
+| C7 | Two echoes overlap and add; a scene's row is each echo's own row added (02_2, 02_4) | the measurement model (chapter eq. 33) is linear in the scene | `a_scenes_row_is_the_sum_of_its_echoes_rows`: every code of 1 to 4 pulses, every scene of 3 or 4 steps with strengths −2 to 2; the oracle measures each echo alone |
+| C8 | A zero score is not an empty step; a nonzero score is not an echo; only the pair's sum is zero exactly where the scene is empty (02_3, 02_4) | the rows above | `a_zero_score_is_not_an_absent_echo` |
+| C9 | Sending A twice does not help; only a pair whose ghosts cancel gives the scene back, and any other pair gets every scene with an echo wrong (02_10) | definition 1; the residual is the scene convolved with the pair's leftover ghosts, whose last nonzero score is the product of the two last scores | `only_a_pair_whose_ghosts_cancel_gives_the_scene_back` (all 256 ordered pairs × 125 scenes, the lemma checked as stated); the oracle repeats it by its own convolution |
 | C1 | Sliding a copy along the recording and adding the lined-up products finds the echo (the matched filter) | Chi, Pezeshki and Calderbank eqs. 5–6 (the zero-Doppler ambiguity function is the autocorrelation); Purdue notes (matched filters) | `model::correlate`; `model::tests::the_matched_filter_is_convolution_with_the_reversed_code` |
 | C2 | Every pattern of more than one up/down pulse leaves a ghost; one pulse has no other shift | the far shift overlaps only the two end pulses, so it scores ±1 | `every_code_longer_than_one_pulse_has_a_ghost` (lengths 2 to 10, all codes); `G-X1` |
 | C3 | B's ghosts are A's with the other sign, at every shift | definition 1 (the sum is zero off shift 0) | `a_pairs_ghosts_are_always_opposite`: every complementary pair of 1 to 8 pulses (4, 8, 0, 32, 0, 0, 0, 192 ordered pairs) |

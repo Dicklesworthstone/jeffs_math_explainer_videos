@@ -365,6 +365,71 @@ pub fn row(stage: &mut Stage<'_>, pattern: &[i64], first_x: f64, line_y: f64, co
     Ok(Row { line, pulses })
 }
 
+/// Recorded values drawn as a row: a bar `unit` tall per unit of value for
+/// each nonzero value (up for positive, down for negative), a step apart
+/// from `first_x`, on the line `line_y`. Detached; `pulses` holds the bars
+/// of the nonzero values, in order.
+pub fn value_row(
+    stage: &mut Stage<'_>,
+    values: &[i64],
+    first_x: f64,
+    line_y: f64,
+    unit: f64,
+    color: Srgb,
+) -> fmn::Result<Row> {
+    let last_x = first_x + STEP * values.len().saturating_sub(1) as f64;
+    let line = stage
+        .arena_mut()
+        .add(hline(first_x - 0.35, last_x + 0.35, line_y, Palette::faint(), 2.0));
+    let mut pulses = Vec::new();
+    for (i, &value) in values.iter().enumerate() {
+        if value == 0 {
+            continue;
+        }
+        let h = unit * value.unsigned_abs() as f64;
+        let y = if value > 0 { line_y + h / 2.0 } else { line_y - h / 2.0 };
+        let bar = Rectangle::new()
+            .width(PULSE_W)
+            .height(h)
+            .corner_radius(0.04_f64.min(h / 2.0))
+            .style(flat(color, 1.0))
+            .build()?
+            .moved_to(v(first_x + STEP * i as f64, y));
+        pulses.push(stage.arena_mut().add(bar));
+    }
+    Ok(Row { line, pulses })
+}
+
+/// A scene drawn as gold outlines on the line `line_y`: one per echo, at its
+/// step's x and `unit` tall per unit of strength. Detached; `pulses` holds
+/// the outlines in step order.
+pub fn scene_row(stage: &mut Stage<'_>, scene: &[i64], line_y: f64, unit: f64) -> fmn::Result<Row> {
+    let last = scene.len().saturating_sub(1) as i64;
+    let line = stage
+        .arena_mut()
+        .add(hline(x_of(0) - 0.35, x_of(last) + 0.35, line_y, Palette::faint(), 2.0));
+    let mut pulses = Vec::new();
+    for (d, &strength) in scene.iter().enumerate() {
+        if strength == 0 {
+            continue;
+        }
+        let h = unit * strength.unsigned_abs() as f64;
+        let y = if strength > 0 {
+            line_y + h / 2.0
+        } else {
+            line_y - h / 2.0
+        };
+        let outline = Rectangle::new()
+            .width(0.34)
+            .height(h)
+            .style(line_style(palette::echo(), 3.0))
+            .build()?
+            .moved_to(v(x_of(d as i64), y));
+        pulses.push(stage.arena_mut().add(outline));
+    }
+    Ok(Row { line, pulses })
+}
+
 // ------------------------------------------------------------------ blocks
 
 /// One block: green for a product of +1, red for −1, centred at `at`, its
@@ -735,32 +800,6 @@ impl Chart {
             }
         }
         fade_in_all(stage, &new, rt)
-    }
-
-    /// Detached units for a whole row, stacked over (`lift` above) the
-    /// columns they will settle into, ready to fade in and then settle
-    /// (`settle_all`): the arrivals for one row added onto this chart.
-    pub fn arrivals(
-        &self,
-        stage: &mut Stage<'_>,
-        scores: &crate::model::Scores,
-        lift: f64,
-    ) -> fmn::Result<Vec<(i64, Vec<(Mob, i64)>)>> {
-        self.fits(scores, "a row to add")?;
-        let mut out = Vec::new();
-        for k in self.shifts() {
-            let s = scores.at(k);
-            let sign = s.signum();
-            let mut column = Vec::new();
-            for level in 1..=s.unsigned_abs() as usize {
-                let at = self.place.slot(k, level, sign);
-                column.push((self.place.unit(stage, sign, v(at[0], at[1] + lift))?, sign));
-            }
-            if !column.is_empty() {
-                out.push((k, column));
-            }
-        }
-        Ok(out)
     }
 }
 
