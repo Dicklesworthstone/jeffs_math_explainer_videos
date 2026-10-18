@@ -233,9 +233,12 @@ class TheGenerator(unittest.TestCase):
         # valid, but not the grouping GROUPS chose: stale
         regrouped = copy.deepcopy(doc)
         set_lines(regrouped["units"][0], ["01_1"])
-        regrouped["units"].insert(1, {"id": "01u2", "line_ids": ["01_2"], "text": TEXT_OF["01_2"]})
-        for k, u in enumerate(regrouped["units"][2:5], 3):
-            u["id"] = f"01u{k}" if u["id"].startswith("01") else u["id"]
+        regrouped["units"].insert(1, {"id": "", "line_ids": ["01_2"], "text": TEXT_OF["01_2"]})
+        per_chapter = {}
+        for u in regrouped["units"]:
+            c = nu.chapter_of(u["line_ids"][0])
+            per_chapter[c] = per_chapter.get(c, 0) + 1
+            u["id"] = f"{c}u{per_chapter[c]}"
         self.assertEqual(nu.problems(regrouped, LINES, SCRIPT_BYTES), [])
         code, err = self.check(nu.dump(regrouped))
         self.assertEqual(code, 1)

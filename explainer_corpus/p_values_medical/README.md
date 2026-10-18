@@ -19,10 +19,11 @@ clippy and fmt, facts parity, glyph, cue, layout and frame review; 82.2 s,
 exist as silent drafts. The thumbnail (`src/chapters/thumbnail.rs`, wired to
 `./x p_values_medical thumbnail`) and the delivery text
 ([`docs/description.md`](docs/description.md), every number tagged with its
-fact; [`docs/protected.tsv`](docs/protected.tsv)) are written and await the
-orchestrator's render and review. Nothing has been narrated: the narration
-voice awaits the owner's listening, so no audio, timing or chapter
-timestamps are final.
+fact; [`docs/protected.tsv`](docs/protected.tsv)) were accepted at c64c222.
+Nothing has been narrated yet. The owner approved the narration voice on
+2026-10-18; [`narration_units.json`](narration_units.json) groups the 56
+script lines into 14 takes for the central synthesis. No audio, measured
+timing or chapter timestamps exist yet.
 
 | File | What it holds |
 |---|---|
@@ -37,6 +38,7 @@ timestamps are final.
 | `src/chapters/question_again.rs` | chapter 06's scene |
 | `src/chapters/thumbnail.rs` | the thumbnail: the title over chapter 01's block of positives, "5% of what?" |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
+| `narration_units.json` | the script's lines grouped into takes for synthesis, each unit the exact text of its lines; written and checked by `narration_units.py` |
 | `docs/fact-sheet.md` | every number's source, what was read, competing explanations |
 | `docs/description.md` | the delivery description, every number tagged with its fact |
 | `docs/protected.tsv` | the words every revision must keep (sharp null, whole tail, synthetic labels, not a truth probability, survey scope) |
@@ -45,6 +47,8 @@ timestamps are final.
 ```bash
 uv run --no-project --with numpy python3 -I -B oracle.py   # every number, and 62 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check p_values_medical
+python3 -I narration_units.py --check         # every script line in one take, exact text, at most 100 words
+python3 -I test_narration_units.py            # the same rules, each shown to fail when broken
 ./x p_values_medical facts-check              # the Rust facts against the oracle (builds)
 python3 -I ../../tools/description_numbers.py p_values_medical   # every number of the description is a fact
 ```
