@@ -236,18 +236,21 @@ impl SceneConstruct for WhenItBreaks {
         line.wait_for(stage, "The same echo")?;
         flash_all(stage, &[turned.pulses[0], first.pulses[0]], 0.6)?;
 
-        // 04_7: what happens to the true echo?
+        // 04_7: what happens to the true echo? B's row turned over hangs from
+        // the line above, where its −4 has room (under the main line it
+        // would cover the shift numbers); A's row stands below
         let line = say(&kit, stage, "04_7")?;
-        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(HOVER_Y))?;
-        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), name_at(CHART_Y))?;
-        fade_in_all(stage, &[name_a, name_b], 0.2)?;
-        above.stand(stage, &row_a(&STILL), 0.4)?;
-        chart.stand(stage, &row_b(&FLIPPED), 0.4)?;
-        chart.check(&row_b(&FLIPPED), "pattern B, the echo upside down")?;
+        let name_b = kit.text_left(stage, PATTERN_B, 22.0, palette::pattern_b(), name_at(HOVER_Y))?;
+        let name_a = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(CHART_Y))?;
+        fade_in_all(stage, &[name_b, name_a], 0.2)?;
+        above.stand(stage, &row_b(&FLIPPED), 0.4)?;
+        above.check(&row_b(&FLIPPED), "pattern B, the echo upside down")?;
+        chart.stand(stage, &row_a(&STILL), 0.4)?;
+        chart.check(&row_a(&STILL), "pattern A")?;
         line.wait_for(stage, "when we add")?;
         let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 04_8: it cancels; every ghost doubles
+        // 04_8: it cancels; every ghost doubles. B's row drops onto A's
         let line = say(&kit, stage, "04_8")?;
         fade_out_all(stage, &[q], 0.2)?;
         let falling = above.take();
@@ -285,10 +288,11 @@ impl SceneConstruct for WhenItBreaks {
         swap(stage, &[card], &[scope], 0.3)?;
 
         // 04_10: a noise blip is scored; the peak survives. The total stands
-        // again, the same scene in both sends, still "both rows added"
+        // again, the same scene in both sends, still "both rows added"; the
+        // identity leaves with its no-added-noise card, as the noise arrives
         let line = say(&kit, stage, "04_10")?;
         let mut leaving = take_all(&mut chart);
-        leaving.extend([identity, h1, h2]);
+        leaving.extend([identity, h1, h2, scope]);
         let upright = scene_row(stage, &STILL, SECOND_Y, SCENE_UNIT)?;
         leaving.extend(&turned.pulses);
         swap(stage, &leaving, &upright.pulses, 0.4)?;
@@ -320,9 +324,12 @@ impl SceneConstruct for WhenItBreaks {
         let falling = above.take();
         chart.settle_all(stage, &falling, 0.6, 0.3)?;
         chart.check(&facts::noisy(), "the control with a noise blip")?;
+        // the line above is empty now, and the peak's label stands where it
+        // was: the line leaves first
+        fade_out_all(stage, &[above.line, blip_name], 0.2)?;
         let peak = score_label(&kit, stage, &chart, still)?;
         let noisy_name = kit.text_left(stage, ADDED_NOISY, 22.0, Palette::ink(), name_at(CHART_Y))?;
-        swap(stage, &[added, blip_name], &[noisy_name, peak], 0.3)?;
+        swap(stage, &[added], &[noisy_name, peak], 0.3)?;
         let mut scored = Vec::new();
         for k in blip_scores.first..=blip_scores.last() {
             if blip_scores.at(k) != 0 {
@@ -335,7 +342,7 @@ impl SceneConstruct for WhenItBreaks {
         let line = say(&kit, stage, "04_11")?;
         let mut leaving = take_all(&mut chart);
         leaving.extend(recording.mobs());
-        leaving.extend([blip, rec_name, noisy_name, peak, shelf_name, chart.line, above.line]);
+        leaving.extend([blip, rec_name, noisy_name, peak, shelf_name, chart.line]);
         fade_out_all(stage, &leaving, 0.4)?;
         control.move_to(stage, Place::main(), 0.8)?;
         control.check(&clean, "the control, back")?;
@@ -344,7 +351,7 @@ impl SceneConstruct for WhenItBreaks {
         fade_in_all(stage, &[back, title], 0.4)?;
         line.wait_for(stage, "the ideal case")?;
         let closing = precisely(&kit, stage, &closing_claim()?)?;
-        swap(stage, &[scope], &[closing], 0.3)?;
+        fade_in_all(stage, &[closing], 0.3)?;
         let end = line.start + line.len;
         wait_until(stage, end)?;
         pause(stage, 0.8)?;
@@ -459,5 +466,57 @@ mod tests {
         ] {
             assert!(name.chars().count() <= 18, "{name}");
         }
+    }
+
+    /// Rows keep clear of each other and of the shift numbers, and a
+    /// score's label clears the line above it.
+    #[test]
+    fn the_rows_and_labels_clear_each_other() {
+        // every row standing on the main line keeps its deepest block above
+        // the shift numbers; B's row turned over (−4 at its echo) would
+        // not, so it hangs from the line above instead
+        let lowest = |s: &Scores| (s.first..=s.last()).map(|k| s.at(k)).min().unwrap_or(0).min(0) as f64;
+        for (what, row) in [
+            ("B's row", row_b(&STILL)),
+            ("B's row, moved", row_b(&MOVED)),
+            ("the moved total", facts::moved()),
+            ("A's row", row_a(&STILL)),
+            ("the flipped total", facts::flipped()),
+            ("the clean total", facts::sum()),
+            ("the noisy total", facts::noisy()),
+        ] {
+            assert!(CHART_Y + lowest(&row) * BLOCK > TICK_Y + 0.15, "{what}");
+        }
+        assert!(CHART_Y + lowest(&row_b(&FLIPPED)) * BLOCK <= TICK_Y + 0.15);
+        // a row held above clears the row standing below, column by column
+        // (a held column of 0 is the line itself)
+        for (what, held, standing) in [
+            ("04_1", row_a(&STILL), row_b(&STILL)),
+            ("04_3", row_a(&STILL), row_b(&MOVED)),
+            ("04_7", row_b(&FLIPPED), row_a(&STILL)),
+            ("04_10", facts::blip_row(), facts::sum()),
+        ] {
+            for k in SHIFTS.0..=SHIFTS.1 {
+                let bottom = HOVER_Y + held.at(k).min(0) as f64 * BLOCK;
+                let top = CHART_Y + standing.at(k).max(0) as f64 * BLOCK;
+                assert!(bottom - top > 0.1, "{what} at shift {k}");
+            }
+        }
+        // the labels 3 and 5 (04_4) and 0 (04_8) clear the line above
+        let main = Place::main();
+        let still = facts::echo_step(&STILL).unwrap();
+        let moved_to = facts::echo_step(&MOVED).unwrap();
+        let (moved, flipped) = (facts::moved(), facts::flipped());
+        for (k, h) in [
+            (still, moved.at(still)),
+            (moved_to, moved.at(moved_to)),
+            (still, flipped.at(still)),
+        ] {
+            assert!(main.past(k, h, 0.25)[1] + 0.15 < HOVER_Y, "the label {h}");
+        }
+        // the peak's label (04_10) stands where that line was, so the line
+        // leaves first; the label clears the recording's lowest pulse
+        let noisy = facts::noisy();
+        assert!(main.past(still, noisy.at(still), 0.25)[1] + 0.15 < REC_Y - PULSE_H);
     }
 }
