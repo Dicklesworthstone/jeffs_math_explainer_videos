@@ -206,15 +206,52 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
 /// kit's scratch voice estimates them.
 const SILENT_WPS: f64 = 2.6;
 
-/// A line being spoken: when it began and how long it runs, so a picture
-/// can land on the phrase it illustrates. A phrase's moment is its share of
-/// the line's characters (the voice reads at a nearly even rate); the
+/// A line being spoken: when it began, how long it runs and where its
+/// sentences start, so a picture can land on the phrase it illustrates. A
+/// phrase's moment is its sentence's start, as the narrator measured it,
+/// plus its share of that sentence's characters (the voice reads at a
+/// nearly even rate inside a sentence; the pauses fall between them); the
 /// narrated draft's cue sheets check the result.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
     pub len: f64,
     text: String,
+    /// Each sentence's first character and its start, seconds into the line.
+    sentences: Vec<(usize, f64)>,
+}
+
+/// The character each sentence of `text` starts at: after a `.`, `?` or
+/// `!` and its space, as the narrator splits a line.
+fn sentence_offsets(text: &str) -> Vec<usize> {
+    let chars: Vec<char> = text.chars().collect();
+    let mut out = vec![0];
+    for i in 0..chars.len().saturating_sub(2) {
+        if matches!(chars[i], '.' | '?' | '!') && chars[i + 1] == ' ' {
+            out.push(i + 2);
+        }
+    }
+    out
+}
+
+/// Line `id`'s sentences, each with its start in seconds into the line:
+/// the narrator's `measured` onsets, one per sentence, or with no narrator
+/// (an empty list) each sentence's share of `len` by characters. A
+/// narrator that splits the line differently is an error, never a guess.
+fn timed_sentences(id: &str, text: &str, len: f64, measured: &[f64]) -> fmn::Result<Vec<(usize, f64)>> {
+    let offsets = sentence_offsets(text);
+    if measured.is_empty() {
+        let all = text.chars().count().max(1) as f64;
+        return Ok(offsets.into_iter().map(|at| (at, len * at as f64 / all)).collect());
+    }
+    if measured.len() != offsets.len() {
+        return Err(fail(format!(
+            "line {id} has {} sentences, but the narrator timed {}",
+            offsets.len(),
+            measured.len()
+        )));
+    }
+    Ok(offsets.into_iter().zip(measured.iter().copied()).collect())
 }
 
 /// Speak line `id` now (after the previous line), as `Kit::say`.
@@ -231,24 +268,30 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         .as_ref()
         .and_then(|n| n.length(id))
         .unwrap_or(words / SILENT_WPS + 0.4);
+    let sentences = timed_sentences(id, &text, len, &kit.sentence_starts(id))?;
     Ok(Spoken {
         id: id.to_owned(),
         start: stage.scene().time().to_f64(),
         len,
         text,
+        sentences,
     })
 }
 
 impl Spoken {
     /// When `phrase` begins (scene seconds).
     pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
-        let i = self
+        let byte = self
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
-        let before = self.text[..i].chars().count() as f64;
-        let all = self.text.chars().count().max(1) as f64;
-        Ok(self.start + self.len * before / all)
+        let i = self.text[..byte].chars().count();
+        let all = self.text.chars().count().max(1);
+        let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
+        let (from, t0) = self.sentences[j];
+        let (to, t1) = self.sentences.get(j + 1).copied().unwrap_or((all, self.len));
+        let share = (i - from) as f64 / (to - from).max(1) as f64;
+        Ok(self.start + t0 + (t1 - t0) * share)
     }
 
     /// Wait (if need be) until `phrase` begins.
@@ -937,5 +980,55 @@ mod tests {
         assert_eq!(score_text(-1), "\u{2212}1");
         assert_eq!(product_text(1), "+1");
         assert_eq!(product_text(-1), "\u{2212}1");
+    }
+
+    /// A phrase that opens a sentence lands on the narrator's measured
+    /// onset, wherever the pause before it put that; inside a sentence it
+    /// keeps its share of that sentence.
+    #[test]
+    fn a_phrase_lands_with_its_measured_sentence() {
+        let text = "One two. Three four.";
+        let sentences = timed_sentences("x", text, 6.0, &[0.0, 4.0]).unwrap();
+        assert_eq!(sentences.iter().map(|&(at, _)| at).collect::<Vec<_>>(), [0, 9]);
+        let line = Spoken {
+            id: "x".to_owned(),
+            start: 10.0,
+            len: 6.0,
+            text: text.to_owned(),
+            sentences,
+        };
+        let close = |phrase: &str, t: f64| (line.at(phrase).unwrap() - t).abs() < 1e-9;
+        // by the whole line's characters "Three" would come at 12.7 s
+        assert!(close("Three", 14.0));
+        assert!(close("two", 10.0 + 4.0 * 4.0 / 9.0));
+        assert!(close("four", 14.0 + 2.0 * 6.0 / 11.0));
+        assert!(
+            timed_sentences("x", text, 6.0, &[0.0]).is_err(),
+            "a narrator's other split"
+        );
+    }
+
+    /// With no narrator every phrase of every line keeps its share of the
+    /// whole line's characters, as before sentences were timed.
+    #[test]
+    fn with_no_narrator_a_phrase_keeps_its_share_of_the_line() {
+        let script = Script::parse(crate::SCRIPT).unwrap();
+        let len = 7.0;
+        for (id, text) in script.lines() {
+            let line = Spoken {
+                id: id.clone(),
+                start: 0.0,
+                len,
+                text: text.clone(),
+                sentences: timed_sentences(id, text, len, &[]).unwrap(),
+            };
+            let all = text.chars().count() as f64;
+            for (space, _) in text.match_indices(' ') {
+                let phrase = &text[space + 1..];
+                let found = text.find(phrase).unwrap();
+                let share = len * text[..found].chars().count() as f64 / all;
+                assert!((line.at(phrase).unwrap() - share).abs() < 1e-9, "{id}: {phrase:?}");
+            }
+        }
     }
 }
