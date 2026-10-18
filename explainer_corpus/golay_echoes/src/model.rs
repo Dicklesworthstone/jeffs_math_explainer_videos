@@ -643,7 +643,8 @@ mod tests {
         let sum = two_measurements(&CODE_A, &scene, &CODE_B, &scene);
         assert_eq!(sum, row(-3, &[0, 0, 0, 32, 0, 0, 8, 0, 0, 0]));
         assert!((sum.first..=sum.last()).all(|k| sum.at(k) == 8 * strength(&scene, k)));
-        // "Sending A twice would not help ... the quiet one stays hidden."
+        // "Sending pattern A twice would not help ... the quiet one stays
+        // hidden."
         let twice = two_measurements(&CODE_A, &scene, &CODE_A, &scene);
         assert_eq!(twice, a.scaled(2));
         assert_eq!((twice.at(3), twice.at(-1), twice.at(1)), (0, 8, 8));

@@ -97,7 +97,7 @@ mod tests {
         ("02_9", "eight at three", "G-F8.sum.at_quiet", "8"),
         ("02_9", "zero everywhere else", "G-F8.sum.largest_ghost", "0"),
         ("02_9", "eight times over", "G-F8.magnification", "8"),
-        ("02_10", "Sending A twice", "G-F9.a_twice.sends", "2"),
+        ("02_10", "Sending pattern A twice", "G-F9.a_twice.sends", "2"),
         ("02_10", "stays hidden", "G-F9.a_twice.at_quiet", "0"),
         ("03_1", "one pulse", "G-F10.seed_length", "1"),
         ("03_4", "one step", "G-F10.shift", "1"),

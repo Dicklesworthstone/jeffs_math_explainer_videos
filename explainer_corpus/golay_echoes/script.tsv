@@ -18,7 +18,7 @@
 02_7	Pattern B's ghosts have the other sign. What will B score at three steps?
 02_8	Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it.
 02_9	Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over.
-02_10	Sending A twice would not help. Its ghosts never cancel themselves, so the quiet one stays hidden.
+02_10	Sending pattern A twice would not help. Copies of the same ghosts never cancel, so the quiet one stays hidden.
 03_1	Where do pairs like these come from? Start with one pulse, paired with itself.
 03_2	Now double it. Write the first, then the other. Then the first again, and the other flipped.
 03_3	Double again, and out come patterns A and B.
