@@ -42,6 +42,8 @@ const EQUALLY: &str = "each equally likely in this world";
 const AXIS: &str = "pairs favouring the treatment";
 const DOTS: &str = "dots: the tosses";
 const THE_STUDY: &str = "the study:";
+const THESE_PAIRS: &str = "these pairs: the last re-toss,";
+const FAVOURING_SHORT: &str = "favouring";
 const THE_SAME: &str = "the same";
 const PATIENTS_IN: &str = "patients in";
 const NOT_NEW: &str = "pairs, the coins tossed again: not new patients. This world assumes the treatment did \
@@ -62,6 +64,8 @@ const BAR_DY: f64 = 0.3;
 /// The pairs' place in 03_7: the left half, scaled.
 const SMALL: f64 = 0.55;
 const SMALL_AT: Vec3 = [-3.9, 0.45, 0.0];
+/// The small pairs' label ("these pairs: the last re-toss"), above them.
+const SHOWN_Y: f64 = 2.05;
 /// The histogram's window, the right half (k = 0..20 across).
 const HIST: Frame2 = Frame2 {
     center: [3.55, -0.25, 0.0],
@@ -333,6 +337,17 @@ impl SceneConstruct for TheImaginaryWorld {
                 moves.push(to_small(stage, m, pair_at(p))?);
             }
         }
+        // the small pairs still show the last re-toss: say so, with its own
+        // count, so they are never read as the study's fifteen
+        let shown = kit.text(
+            stage,
+            &format!("{THESE_PAIRS} {} {FAVOURING_SHORT}", s.favouring(marks.assignment)),
+            20.0,
+            Palette::dim(),
+            v(SMALL_AT[0], SHOWN_Y),
+        )?;
+        let anim = fade_in(stage.arena_mut(), shown, ORIGIN, 1.0)?;
+        moves.push(stage.prepare(anim.rt(0.6))?);
         // the rule, the caption, the count and the row of tosses make room
         let mut leaving = vec![rule, null, tally_words, tally_number];
         leaving.extend(&entries);
@@ -408,12 +423,13 @@ impl SceneConstruct for TheImaginaryWorld {
             .color(treated())
             .build();
         marks_on_bars.push(stage.arena_mut().add(obs_dot));
-        marks_on_bars.push(kit.text(
+        // beside its dot, over the near-empty bars above 15 (not over bar 14)
+        marks_on_bars.push(kit.text_left(
             stage,
             &format!("{THE_STUDY} {k_obs}"),
             20.0,
             treated(),
-            v(foot[0], foot[1] + 0.45),
+            v(foot[0] + 0.15, foot[1] + 0.14),
         )?);
         fade_in_all(stage, &marks_on_bars, 0.5)?;
 
@@ -464,6 +480,12 @@ mod tests {
             let lit = (0..s.pairs).filter(|&i| s.favours(a, i)).count() as u32;
             assert_eq!(lit, s.favouring(a));
         }
+        // the small pairs in 03_7 show the last re-toss, labelled with its own
+        // count, which is not the study's
+        let tosses = s.retosses(RETOSS_SEED, RETOSSES);
+        let last = s.favouring(tosses[RETOSSES - 1]);
+        assert_eq!(last, 12);
+        assert_ne!(last, s.observed());
         // "just over a million"
         let total: u64 = s.null_world().iter().sum();
         assert!(total > 1_000_000 && total < 1_100_000, "{total}");
@@ -483,6 +505,9 @@ mod tests {
         }
         let top = HIST.center[1] + HIST.height / 2.0;
         assert!(top + 0.9 < LEGEND_Y && HIST.right() < 6.9);
+        // the last re-toss's label sits between the legend and the small pairs
+        let grid_top = small(pair_at(0))[1] + PAIR_H * SMALL / 2.0;
+        assert!(grid_top + 0.2 < SHOWN_Y && SHOWN_Y + 0.35 < LEGEND_Y, "{grid_top}");
         assert!(ASK_AT[0] + ASK_R + 0.2 + 1.9 < HIST.left());
     }
 }
