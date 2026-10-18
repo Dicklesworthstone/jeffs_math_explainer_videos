@@ -3,16 +3,22 @@
   "script_sha256": "5bcb14bde7f94a2a1ef01ab6ef4c71e7a13f8f9afc672147897fe9f4b16487ac",
   "units": [
     {
-      "id": "01u1",
+      "id": "01u1a",
       "line_ids": [
-        "01_1",
+        "01_1"
+      ],
+      "text": "Send out four pulses. Up, up, up, down. Something bounces them back."
+    },
+    {
+      "id": "01u1b",
+      "line_ids": [
         "01_2",
         "01_3",
         "01_4",
         "01_5",
         "01_6"
       ],
-      "text": "Send out four pulses. Up, up, up, down. Something bounces them back. Slide a copy along what came back, and multiply the pulses that line up. Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. Lined up exactly, all four agree. A score of four, at the echo. One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. Slide all the way, and ghosts appear on both sides, a quarter the echo's size."
+      "text": "Slide a copy along what came back, and multiply the pulses that line up. Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. Lined up exactly, all four agree. A score of four, at the echo. One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. Slide all the way, and ghosts appear on both sides, a quarter the echo's size."
     },
     {
       "id": "01u2",

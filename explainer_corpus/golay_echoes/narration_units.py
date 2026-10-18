@@ -17,19 +17,23 @@ edit only the grouping needs a look.
 The check (exit 1 on any failure, each one printed): schema_version 1; the
 hash of the script.tsv on disk; every line of the script in exactly one unit,
 in script order; no unit across two chapters; unit ids <chapter>u1, u2, ... in
-order; each text exactly its lines joined; at most 100 words a unit. The
+order, a unit split into consecutive takes keeping its number with letters
+a, b, ... (at least two parts: 01u1a, 01u1b); each text exactly its lines
+joined; at most 100 words a unit. The
 shared synthesis adapter may check the same contract; this copy goes when it
 does.
 """
 import hashlib
 import json
 import pathlib
+import re
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 SCRIPT = HERE / "script.tsv"
 UNITS = HERE / "narration_units.json"
 MAX_WORDS = 100
+UNIT_ID = re.compile(r"(\d\d)u([1-9][0-9]*)([a-z]?)")
 
 
 def parse_script(data):
@@ -47,17 +51,18 @@ def chapter(line_id):
     return line_id.split("_", 1)[0]
 
 
-def build(groups, data):
-    """The units file for `groups` (lists of line ids) and script bytes."""
+def build(groups, data, unit_ids=None):
+    """The units file for `groups` (lists of line ids) and script bytes, the
+    units named `unit_ids` when given, else numbered in order."""
     text = dict(parse_script(data))
     units, ordinal, last = [], 0, None
-    for ids in groups:
+    for k, ids in enumerate(groups):
         here = chapter(ids[0]) if ids else ""
         ordinal = ordinal + 1 if here == last else 1
         last = here
         units.append(
             {
-                "id": f"{here}u{ordinal}",
+                "id": unit_ids[k] if unit_ids else f"{here}u{ordinal}",
                 "line_ids": list(ids),
                 "text": " ".join(text.get(i, "") for i in ids),
             }
@@ -84,7 +89,26 @@ def check(doc, data):
     if not isinstance(units, list) or not units:
         return errors + ["there are no units"]
     said = []
-    counts = {}
+    # per chapter, the last unit's number and letter ("" when not split)
+    named = {}
+
+    def name_unit(n, unit_id, here):
+        m = UNIT_ID.fullmatch(str(unit_id))
+        last_n, last_letter = named.get(here, (0, ""))
+        if last_letter == "a" and not (m and int(m.group(2)) == last_n and m.group(3) == "b"):
+            errors.append(f"{here}u{last_n}a is split into one part")
+        if not m or m.group(1) != here:
+            errors.append(f"unit {n} is {unit_id!r}, not a unit id of chapter {here}")
+            return
+        number, letter = int(m.group(2)), m.group(3)
+        if letter in ("", "a"):
+            if number != last_n + 1:
+                errors.append(f"unit {n} is {unit_id!r}, not {here}u{last_n + 1}{letter}")
+        elif not last_letter or number != last_n or ord(letter) != ord(last_letter) + 1:
+            wanted = f"{here}u{last_n}{chr(ord(last_letter) + 1)}" if last_letter else f"{here}u{last_n + 1}"
+            errors.append(f"unit {n} is {unit_id!r}, not {wanted}")
+        named[here] = (number, letter)
+
     for n, unit in enumerate(units):
         if not isinstance(unit, dict) or set(unit) != {"id", "line_ids", "text"}:
             errors.append(f"unit {n} is not {{id, line_ids, text}}")
@@ -100,10 +124,7 @@ def check(doc, data):
         chapters = sorted({chapter(i) for i in ids})
         if len(chapters) > 1:
             errors.append(f"{unit['id']} joins chapters {' and '.join(chapters)}")
-        here = chapter(ids[0])
-        counts[here] = counts.get(here, 0) + 1
-        if unit["id"] != f"{here}u{counts[here]}":
-            errors.append(f"unit {n} is {unit['id']!r}, not {here}u{counts[here]}")
+        name_unit(n, unit["id"], chapter(ids[0]))
         joined = " ".join(text[i] for i in ids)
         if unit["text"] != joined:
             errors.append(f"{unit['id']}'s text is not its lines joined: {unit['text']!r}")
@@ -111,6 +132,7 @@ def check(doc, data):
         if words > MAX_WORDS:
             errors.append(f"{unit['id']} has {words} words, over {MAX_WORDS}")
         said.extend(ids)
+    errors.extend(f"{here}u{n}a is split into one part" for here, (n, letter) in named.items() if letter == "a")
     order = [i for i, _ in lines]
     for i in order:
         times = said.count(i)
@@ -125,6 +147,10 @@ def check(doc, data):
 
 def groups_of(doc):
     return [unit["line_ids"] for unit in doc["units"]]
+
+
+def ids_of(doc):
+    return [unit["id"] for unit in doc["units"]]
 
 
 def self_test(doc, data):
@@ -143,31 +169,55 @@ def self_test(doc, data):
 
     if check(doc, data):
         failed.append(f"the committed file fails: {check(doc, data)}")
-    if build(groups_of(doc), data) != doc:
+    if build(groups_of(doc), data, ids_of(doc)) != doc:
         failed.append("--write would change the committed file")
-    first, second = groups_of(doc)[0], groups_of(doc)[1]
-    expect("a line left out", regrouped(lambda g: g[0].remove(first[1])), f"{first[1]} is in no unit")
-    expect("a line said twice", regrouped(lambda g: g[1].insert(0, first[-1])), f"{first[-1]} is in 2 units")
+    # the first unit of two lines or more, and the unit after it
+    f = next(k for k, g in enumerate(groups_of(doc)) if len(g) >= 2)
+    first, second = groups_of(doc)[f], groups_of(doc)[f + 1]
+    expect("a line left out", regrouped(lambda g: g[f].remove(first[1])), f"{first[1]} is in no unit")
+    expect("a line said twice", regrouped(lambda g: g[f + 1].insert(0, first[-1])), f"{first[-1]} is in 2 units")
     expect(
         "two lines swapped",
-        regrouped(lambda g: g[0].__setitem__(slice(0, 2), [first[1], first[0]])),
+        regrouped(lambda g: g[f].__setitem__(slice(0, 2), [first[1], first[0]])),
         "do not follow the script's order",
     )
-    cross = next(k for k, g in enumerate(groups_of(doc)) if chapter(g[0]) != chapter(first[0]))
+    cross = next(k for k, g in enumerate(groups_of(doc)) if chapter(g[0]) != chapter(groups_of(doc)[0][0]))
+
+    def whole_chapter(g):
+        g[: cross] = [[i for group in g[: cross] for i in group]]
+
     expect(
         "a unit across a chapter boundary",
         regrouped(lambda g: g[cross - 1].append(g[cross].pop(0))),
         "joins chapters",
     )
-    expect("a unit of a whole chapter", regrouped(lambda g: g[0].extend(g.pop(1))), "over 100")
+    expect("a unit of a whole chapter", regrouped(whole_chapter), "over 100")
     paraphrased = json.loads(json.dumps(doc))
     paraphrased["units"][0]["text"] = paraphrased["units"][0]["text"].replace("Up, up", "Up up", 1)
     expect("a paraphrased text", paraphrased, "text is not its lines joined")
     expect("an edited script", doc, "the units are stale", script=data.replace(b"four pulses", b"4 pulses", 1))
-    renamed = json.loads(json.dumps(doc))
-    ch = chapter(second[0])
+    # unit names, on the file regrouped into numbered units (01u1, 01u2, ...)
+    plain = build(groups_of(doc), data)
+    ch = chapter(plain["units"][0]["line_ids"][0])
+    renamed = json.loads(json.dumps(plain))
     renamed["units"][1]["id"] = f"{ch}u3"
     expect("a skipped unit number", renamed, f"is '{ch}u3', not {ch}u2")
+    split = json.loads(json.dumps(plain))
+    split["units"][0]["id"], split["units"][1]["id"] = f"{ch}u1a", f"{ch}u1b"
+    for later in split["units"][2:]:
+        if chapter(later["line_ids"][0]) == ch:
+            later["id"] = f"{ch}u{int(UNIT_ID.fullmatch(later['id']).group(2)) - 1}"
+    if check(split, data):
+        failed.append(f"a unit split into {ch}u1a and {ch}u1b is refused: {check(split, data)}")
+    skipped = json.loads(json.dumps(split))
+    skipped["units"][1]["id"] = f"{ch}u1c"
+    expect("a split part's letter skipped", skipped, f"is '{ch}u1c', not {ch}u1b")
+    lone = json.loads(json.dumps(split))
+    lone["units"][1]["id"] = f"{ch}u2"
+    expect("a split into one part", lone, f"{ch}u1a is split into one part")
+    backwards = json.loads(json.dumps(split))
+    backwards["units"][0]["id"], backwards["units"][1]["id"] = f"{ch}u1b", f"{ch}u1a"
+    expect("split parts out of order", backwards, f"is '{ch}u1b', not {ch}u1")
     extra = json.loads(json.dumps(doc))
     extra["units"][0]["voice"] = "michael"
     expect("a field the schema does not have", extra, "is not {id, line_ids, text}")
@@ -194,7 +244,7 @@ def main(argv):
     data = SCRIPT.read_bytes()
     doc = json.loads(UNITS.read_text(encoding="utf-8"))
     if "--write" in argv:
-        doc = build(groups_of(doc), data)
+        doc = build(groups_of(doc), data, ids_of(doc))
         UNITS.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     if "--self-test" in argv:
         failed = self_test(doc, data)
