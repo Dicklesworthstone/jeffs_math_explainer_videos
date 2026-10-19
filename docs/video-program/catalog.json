@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-19",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -1593,6 +1593,84 @@
               "square_packing.narrated-draft-20261018.package.3444f26e4548"
             ]
           }
+        },
+        {
+          "revision_id": "directed-scored-20261018-v3",
+          "label": "Repaired narration with procedural score, 540p60 review",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/square_packing_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "f9e66b29ac15380f9f41a32910298702730c34162a66365f98efc63229ed477e"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Full 960x540/60fps scored cut: 30637 frames, 510.616667s. Selected original QUICK Michael takes and exact pause edits are bound by the cue assembly and original request receipts. Native soundtrack replay null checks, score QA, canonical captions and timeline comparisons passed. Every decoded video frame matches the reviewed chapter inputs. Root inspected every cue image, chapter-join frames and 2-second interval samples across the whole cut. These observations do not establish continuous audiovisual or perceptual acceptance. Artifact input lists remain incomplete catalog lineage; detailed source mappings are in the assembly.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.5.10",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/interval-sheets",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/square_packing.en.srt"
+          ],
+          "disposition": "Local review cut, no publication or full-video acceptance. Fixed-gain -22.76 LUFS/-1.50 dBTP is permitted by the existing peak-bound mastering exception. Read-only peak inspection attributes binding peaks to voiced onsets, without evidence of splice clicks. Continuous audiovisual listening review remains open. Final-resolution rendering and QC are tracked separately; all earlier cuts retained.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "square_packing.directed-scored-20261018-v3.script.4f372ed2a091"
+            ],
+            "cue": [
+              "square_packing.directed-scored-20261018-v3.cue.153443b16e97"
+            ],
+            "master": [
+              "square_packing.directed-scored-20261018-v3.master.f9e66b29ac15"
+            ],
+            "package": [
+              "square_packing.directed-scored-20261018-v3.package.1ba1d5b473fb"
+            ]
+          }
+        },
+        {
+          "revision_id": "directed-4k60-20261019-v3",
+          "label": "Full 4K60 scored export with technical and sampled visual QC",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "5ffdc61ffadd1f2cef4c1aa4c15d2d15638ab4acab8ace11e5a2e5b869105b02"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 30637 frames, 510.616667 seconds, 48 kHz stereo AAC and embedded English captions. All eight native chapter soundtrack replay null checks passed. Timelines, captured pre-master soundtracks and canonical SRT are unchanged from the scored 540p60 v3 cut. Native layout checks reported zero issues. Installed metadata/audio verification and complete software and VideoToolbox hardware decodes passed; both full decodes emitted zero errors. Root viewed all 63 cue images, all seven chapter-join triptychs and native 4K dense equation details. This records sampled visual and technical verification; continuous audiovisual listening is unreviewed. Detailed input mappings are in the cue assembly; empty artifact input lists remain incomplete catalog lineage.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.5.10",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/technical-verification.json",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/qc",
+            "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing.en.srt",
+            ".x/first-wave-20261017/directed-repair-20261018T2000-packing-4k60-v3-verify.log"
+          ],
+          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Continuous audiovisual listening and full-video acceptance remain open. Fixed-gain -22.76 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. No publication; all earlier cuts retained.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "square_packing.directed-scored-20261018-v3.script.4f372ed2a091"
+            ],
+            "cue": [
+              "square_packing.directed-scored-20261018-v3.cue.153443b16e97"
+            ],
+            "master": [
+              "square_packing.directed-4k60-20261019-v3.master.5ffdc61ffadd"
+            ],
+            "package": [
+              "square_packing.directed-4k60-20261019-v3.package.1ba1d5b473fb"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1689,6 +1767,122 @@
               "golay_echoes.narrated-draft-20261018.package.0fbbfd60647f"
             ]
           }
+        },
+        {
+          "revision_id": "directed-scored-20261018-v3",
+          "label": "Repaired narration with procedural score, 540p60 review",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/golay_echoes_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "5355c5cdedfe2f52de65ac77b54402d8ecbb38572a50fdcd18b472386f7e96a9"
+            },
+            "evidence_state": "fail"
+          },
+          "generation_provenance": "Full 960x540/60fps scored cut: 14829 frames, 247.15s. Selected original QUICK Michael takes and exact pause edits are bound by the cue assembly and original request receipts. Native soundtrack replay null checks, score QA, canonical captions and timeline comparisons passed. Every decoded video frame matches the reviewed chapter inputs. Root inspected every cue image, chapter-join frames and 2-second interval samples across the whole cut. These observations do not establish continuous audiovisual or perceptual acceptance. Artifact input lists remain incomplete catalog lineage; detailed source mappings are in the assembly.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6.7",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/interval-sheets",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/golay_echoes.en.srt",
+            "narration_lab/production-20261018/golay_echoes/scored-v3-peak-qc/v3/zooms/01u2-end.png"
+          ],
+          "disposition": "Withheld: later source/PCM inspection found retained 01u2 ends abruptly during the last word of chapter 01. Root independently inspected that endpoint. The full cut is preserved while a bounded following-context repair is integrated. Fixed-gain -23.76 LUFS/-1.50 dBTP satisfies the existing peak-bound mastering exception; loudness does not repair the incomplete ending. No continuous listening or full-video acceptance.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "golay_echoes.directed-scored-20261018-v3.script.5bcb14bde7f9"
+            ],
+            "cue": [
+              "golay_echoes.directed-scored-20261018-v3.cue.e576ac76deed"
+            ],
+            "master": [
+              "golay_echoes.directed-scored-20261018-v3.master.5355c5cdedfe"
+            ],
+            "package": [
+              "golay_echoes.directed-scored-20261018-v3.package.f8bdeb11414d"
+            ]
+          }
+        },
+        {
+          "revision_id": "directed-4k60-20261019-v3-withheld",
+          "label": "Preserved 4K60 export withheld for truncated narration ending",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/golay_echoes_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "3d3bc94b873428ec9ab5e4db5b90b817c90c3528824079061030462517f182d8"
+            },
+            "evidence_state": "fail"
+          },
+          "generation_provenance": "Full 3840x2160/60fps scored H.264 BT.709 export with embedded captions: 14829 frames, 247.15s. Four native PCM replay null checks, metadata/audio verification and sampled visual checks passed. Timelines, raw soundtracks and SRT match scored540v3. Root viewed all41 final-resolution cue images and dense equation details. This export is withheld because source inspection found an abrupt active endpoint during return in retained01u2; valid media does not establish complete narration. Full decode and continuous listening qualification were not performed on this withheld export. Earlier bytes are preserved; detailed source mappings are in the cue assembly and empty artifact inputs mean incomplete catalog lineage.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6.7",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+            "narration_lab/production-20261018/golay_echoes/scored-v3-peak-qc/v3/zooms/01u2-end.png"
+          ],
+          "disposition": "Withheld for measured abrupt chapter01 narration endpoint. Superseded by the following-context repair; this file is retained unchanged. No full-video acceptance or publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "golay_echoes.directed-scored-20261018-v3.script.5bcb14bde7f9"
+            ],
+            "cue": [
+              "golay_echoes.directed-scored-20261018-v3.cue.e576ac76deed"
+            ],
+            "master": [
+              "golay_echoes.directed-4k60-20261019-v3-withheld.master.3d3bc94b8734"
+            ],
+            "package": [
+              "golay_echoes.directed-4k60-20261019-v3-withheld.package.f8bdeb11414d"
+            ]
+          }
+        },
+        {
+          "revision_id": "directed-4k60-20261019-v4",
+          "label": "Corrected narration with procedural score, full 4K60 export",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/golay_echoes_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "ac061172e849afaf3c88658a70cd3ac148075536de6a681233de4e8012554923"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02–04 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6.7",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/frame-fidelity.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/chapter01-cue-review.json",
+            "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
+            ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
+          ],
+          "disposition": "Final-resolution export complete; technical and sampled visual QC passed. Fixed gain +5.41 dB gives -23.80 LUFS/-1.50 dBTP under the existing peak-bound exception. Continuous audiovisual listening and full-video perceptual acceptance remain open. Owner subsequently explicitly authorized public YouTube publication after being told this review scope. Publication must be recorded separately from listening acceptance. Earlier withheld masters remain preserved.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "golay_echoes.directed-4k60-20261019-v4.script.5bcb14bde7f9"
+            ],
+            "cue": [
+              "golay_echoes.directed-4k60-20261019-v4.cue.97e1d7c176e9"
+            ],
+            "master": [
+              "golay_echoes.directed-4k60-20261019-v4.master.ac061172e849"
+            ],
+            "package": [
+              "golay_echoes.directed-4k60-20261019-v4.package.edc49a70dfc8"
+            ]
+          }
         }
       ],
       "publications": []
@@ -1783,6 +1977,47 @@
             "package": [
               "p_values_medical.narrated-draft-20261018.package.c1de7c7f1bd0",
               "p_values_medical.narrated-draft-20261018.package.2e328f20ca35"
+            ]
+          }
+        },
+        {
+          "revision_id": "directed-4k60-20261019-v4",
+          "label": "Repaired narration with procedural score, full 4K60 review export",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical_review.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e665ae4534e72a3b5cf75012dd1a791c890cce072a45f470dcb5ac9010e25492"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 23552 frames, 392.533333 seconds, 48 kHz stereo AAC and embedded English captions. The 56 cue WAVs exactly match chapter selections approved-A-v3, 02-pacing-v3, 03-pacing-v3, 04-pacing-v5, 05-pacing-v4 and 06-pacing-v2. Root reconstructed the ten new chapter04 cues from source PCM and measured silence; six retained chapter04 cues are unchanged. All six native soundtrack replay null checks and score QA passed. Final 4K timelines match score inputs exactly. Unified chapter03 ends at 3684 frames rather than isolated 3704: the native hold uses the following chapter cue quiet lead; question narration is unchanged and the four-second prediction ring is retained. Root viewed all 56 cue images, five actual chapter joins, four native 4K detail frames, chapter03 prediction ending and chapter04 question/reveal samples. Layout checks report zero entries. Installed metadata/audio verification and complete software and VideoToolbox decodes passed with zero decode errors. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.7.8",
+            "mx-video-program-program-87do.2.11",
+            "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+            "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+            "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/cue-review.json",
+            "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/qc",
+            "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+            ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
+            ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
+          ],
+          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Fixed-gain -22.70 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. Continuous audiovisual listening and full-video acceptance remain open. Only the exact separate 20.86-second medical opening reading A has owner listening acceptance; that acceptance does not extend to this full cut. The older rejected narrated master remains rejected and preserved. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "p_values_medical.directed-4k60-20261019-v4.script.e718677121b0"
+            ],
+            "cue": [
+              "p_values_medical.directed-4k60-20261019-v4.cue.6646ce1def42"
+            ],
+            "master": [
+              "p_values_medical.directed-4k60-20261019-v4.master.e665ae4534e7"
+            ],
+            "package": [
+              "p_values_medical.directed-4k60-20261019-v4.package.faa1ff4b3238"
             ]
           }
         }
@@ -3303,6 +3538,324 @@
         "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
         "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
         "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-scored-20261018-v3.script.5bcb14bde7f9",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/input-a08b82c/script.tsv",
+      "sha256": "5bcb14bde7f94a2a1ef01ab6ef4c71e7a13f8f9afc672147897fe9f4b16487ac",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-scored-20261018-v3.cue.e576ac76deed",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+      "sha256": "e576ac76deedf989e1290de40836b8e096bd94abae99cd3234fdedde09e54fdf",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-scored-20261018-v3.master.5355c5cdedfe",
+      "kind": "master",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/golay_echoes_review.mp4",
+      "sha256": "5355c5cdedfe2f52de65ac77b54402d8ecbb38572a50fdcd18b472386f7e96a9",
+      "inputs": [],
+      "evidence_state": "fail",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-scored-20261018-v3.package.f8bdeb11414d",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/golay_echoes.en.srt",
+      "sha256": "f8bdeb11414d652dbb184cc3064f92e2e166441360425a633804fea8fc166236",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-scored-20261018-v3.script.4f372ed2a091",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/input-6607b0f/script.tsv",
+      "sha256": "4f372ed2a091bd5c74ecb5a25c83c29b270b695d2b150d59d23efe8c858e3618",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-scored-20261018-v3.cue.153443b16e97",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+      "sha256": "153443b16e9728fa59f9da86b09f03e35c89022492da9ecc2d32f1b5690d948b",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-scored-20261018-v3.master.f9e66b29ac15",
+      "kind": "master",
+      "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/square_packing_review.mp4",
+      "sha256": "f9e66b29ac15380f9f41a32910298702730c34162a66365f98efc63229ed477e",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-scored-20261018-v3.package.1ba1d5b473fb",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/square_packing.en.srt",
+      "sha256": "1ba1d5b473fbb250960e8907dfd179b863f24d09bc9935d2c9eb19d3bbfd1bbe",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/scored-v3/frame-fidelity.json"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-4k60-20261019-v3.master.5ffdc61ffadd",
+      "kind": "master",
+      "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing_review.mp4",
+      "sha256": "5ffdc61ffadd1f2cef4c1aa4c15d2d15638ab4acab8ace11e5a2e5b869105b02",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/technical-verification.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/qc",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-packing-4k60-v3-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.directed-4k60-20261019-v3.package.1ba1d5b473fb",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing.en.srt",
+      "sha256": "1ba1d5b473fbb250960e8907dfd179b863f24d09bc9935d2c9eb19d3bbfd1bbe",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/directed-repair-20261018T2000/square_packing/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/technical-verification.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/qc",
+        "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-packing-4k60-v3-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.directed-4k60-20261019-v4.script.e718677121b0",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/input-75b2f7e/script.tsv",
+      "sha256": "e718677121b0302b673e9ea11544213d249dbd606c8ba93d430998f59b3cb201",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/cue-review.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.directed-4k60-20261019-v4.cue.6646ce1def42",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+      "sha256": "6646ce1def42514a9ef0f5bf082a3808cacb6ae57f86efcbe69dd06de173c836",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/cue-review.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.directed-4k60-20261019-v4.master.e665ae4534e7",
+      "kind": "master",
+      "path": "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical_review.mp4",
+      "sha256": "e665ae4534e72a3b5cf75012dd1a791c890cce072a45f470dcb5ac9010e25492",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/cue-review.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.directed-4k60-20261019-v4.package.faa1ff4b3238",
+      "kind": "package",
+      "path": "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+      "sha256": "faa1ff4b323891d2928839f418193032754ad38d33bc6693cccd9e317e3b8e44",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/p_values_medical/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/cue-review.json",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        "explainer_corpus/p_values_medical/renders/directed-repair-20261018T2000/4k60-v4/p_values_medical.en.srt",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v3-withheld.master.3d3bc94b8734",
+      "kind": "master",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/golay_echoes_review.mp4",
+      "sha256": "3d3bc94b873428ec9ab5e4db5b90b817c90c3528824079061030462517f182d8",
+      "inputs": [],
+      "evidence_state": "fail",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+        "narration_lab/production-20261018/golay_echoes/scored-v3-peak-qc/v3/zooms/01u2-end.png"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v3-withheld.package.f8bdeb11414d",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/golay_echoes.en.srt",
+      "sha256": "f8bdeb11414d652dbb184cc3064f92e2e166441360425a633804fea8fc166236",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v3-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v3/cue-review.json",
+        "narration_lab/production-20261018/golay_echoes/scored-v3-peak-qc/v3/zooms/01u2-end.png"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v4.script.5bcb14bde7f9",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/input-a08b82c/script.tsv",
+      "sha256": "5bcb14bde7f94a2a1ef01ab6ef4c71e7a13f8f9afc672147897fe9f4b16487ac",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/frame-fidelity.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/chapter01-cue-review.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v4.cue.97e1d7c176e9",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+      "sha256": "97e1d7c176e999c5b690414c18e62d11495370fa68fcd8d3f6456d747d561182",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/frame-fidelity.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/chapter01-cue-review.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v4.master.ac061172e849",
+      "kind": "master",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/golay_echoes_review.mp4",
+      "sha256": "ac061172e849afaf3c88658a70cd3ac148075536de6a681233de4e8012554923",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/frame-fidelity.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/chapter01-cue-review.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.directed-4k60-20261019-v4.package.edc49a70dfc8",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/golay_echoes.en.srt",
+      "sha256": "edc49a70dfc8ecbd304f5b72fc42a7351446b59bdbbace13f6ee82226dd3b1ba",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "mx-video-program-program-87do.2.11",
+        "narration_lab/production-20261018/golay_echoes/directed-repair-20261018T2000/full-directed-v4-cues/assembly.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/technical-verification.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/frame-fidelity.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/chapter01-cue-review.json",
+        "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
+        ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
       ]
     }
   ]
