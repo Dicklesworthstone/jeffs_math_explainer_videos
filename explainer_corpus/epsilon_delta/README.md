@@ -164,10 +164,51 @@ notes the owner supplied) and the open-set picture behind topology.
     the details):
     - the prediction was answered before it was asked (S1);
     - 05_8's narration left out the domain (M1).
-  - The repair changes 05_6, 05_7 and 05_8's words and pictures only. Root
-    has not yet rebuilt or rendered it, and draft11 predates it. The lane's
-    checks of it are source-level (oracle, storyboard, lint, units, rustfmt,
-    and a Python emulation of the script-facing tests), and it inspected no
+  - The repair changes 05_6, 05_7 and 05_8's words and pictures only.
+    TanElm's source follow-up (4156) found S1 and M1 resolved, the M2 note
+    accurate, and no new defect.
+  - Root's central48 (Mail 4157, root's evidence) passed:
+    - fmt, strict all-target release Clippy, the 3 scene tests and the
+      spoken-number, name-passage and storyboard/registry/script tests;
+    - the build and render, with 17 input hashes stable and the model,
+      facts, oracle and chapter 04 unchanged from central47;
+    - the silent draft12 chapter 05, 2799 frames, 93.30 s (SHA b250e49e…),
+      with an empty layout report.
+  - TanElm's pixel review of draft12 (4159):
+    - Nothing of the answer shows from 44.0 to 54.8 s: no outline, no widest
+      row, no edge ring.
+    - The outline begins at 54.80 s, after the "?" fades, and the row is
+      full by 55.2 s. The edge ring appears at 56.23 s, on "where the curve
+      leaves the band".
+    - Proof line 2 relights at 74.70 s, on the domain phrase.
+    - Chapter 04's last frame and chapter 05's first are visually identical.
+    - One cosmetic collision: the think window's "pause for more time" ran
+      about 5 px (at 540p) into the found window's left edge.
+  - The think ring moved 0.25 left (`RING_AT` x −4.4 → −4.65; 4165 → 4168).
+    Root's central49 (Mail 4171, root's evidence) passed fmt, strict Clippy,
+    the 3 scene tests, the build and the render:
+    - the final silent draft13 chapter 05, 2799 frames, 93.30 s (SHA
+      5b05ee1f…), with an empty layout report and cues byte-identical to
+      draft12;
+    - root viewed frames at 49.1, 51.5, 53.8 and 57.0 s.
+  - TanElm's delta check of draft13 (4178) passed:
+    - the note is visible 49.73–54.10 s (132 frames), at least 10 px (at
+      540p) short of the window's edge and at least 24 px from the y-axis;
+    - outside the note's box, draft12 and draft13 differ only by codec
+      noise.
+  - FuchsiaHawk's review (4160) of the first-five assembly, assembled01
+    (13781 frames, 459.37 s, with chapter 05 from draft12), found:
+    - it is frame-identical to the five chapters;
+    - the four joins are invisible;
+    - there is no viewer-facing defect;
+    - one bookkeeping nit: the global cues are written to 3 decimals
+      (±0.33 ms). Root keeps those and writes a 6-decimal sidecar
+      separately.
+  - Draft11, draft12, draft13 and assembled01 are all kept. This qualifies
+    the mathematics, the sources and sampled and measured frames only: not
+    audio, 4K, continuous motion or the full video. The lane's own checks
+    were source-level (oracle, storyboard, lint, units, rustfmt, ubs, and a
+    Python emulation of the script-facing tests), and it inspected no
     image.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
@@ -175,10 +216,9 @@ target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
 keep the prediction time and not speed anything up. Chapter 03's draft runs
 92.60 s against a storyboard estimate of 83.9 s; root let it run over to
 keep the mathematics readable (Mail 4001). Chapter 04's draft10 runs
-93.03 s against a storyboard estimate of 84.7 s. Chapter 05's draft11 ran
-90.97 s against 82.3 s. The repaired prediction adds seven words: the
-storyboard estimate is now 84.5 s, and the lane's scratch estimate, which
-gave 90.8 s for draft11, is about 93 s, unmeasured.
+93.03 s against a storyboard estimate of 84.7 s. Chapter 05's draft13 runs
+93.30 s against a storyboard estimate of 84.5 s. Draft11, before the
+prediction repair added seven words, ran 90.97 s against 82.3 s.
 Narration pacing and the full audiovisual cut are not qualified. Whole-video,
 audio and continuous-playback acceptance are not claimed for any chapter.
 The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
@@ -590,8 +630,8 @@ The checks are samples and demonstrations, not proofs:
   - The widest row stands about 38 s.
   - The "next:" line stands about 4 s.
   - The chapter runs about 93 s silent by the same estimate, over the ~85 s
-    target as the others do (draft11, before the repair, measured
-    90.97 s against an estimate of 90.8 s).
+    target as the others do. Draft13 measured 93.30 s; draft11, before the
+    repair, measured 90.97 s against an estimate of 90.8 s.
 
 ## Narration
 

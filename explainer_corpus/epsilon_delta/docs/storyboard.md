@@ -64,9 +64,10 @@ in the chapter headings below. Root kept the prediction time and sped
 nothing up. Pacing is settled only with qualified narration, which is still
 on hold. The 02_4 sub-pixel marker became an arrow after review 3881; root's
 draft05 (central15, Mail 3910) keeps 02 at 87.27 s, with cues identical to
-draft04. Root's later silent drafts run 92.60 s for 03 (draft08, central27)
-and 93.03 s for 04 (draft10, central41); both chapters are built and
-root-checked on source, mathematics and sampled frames, not on audio.
+draft04. Root's later silent drafts run 92.60 s for 03 (draft08, central27),
+93.03 s for 04 (draft10, central41) and 93.30 s for 05 (draft13,
+central49). All three chapters are built and root-checked on source,
+mathematics and sampled frames, not on audio.
 
 After chapter 02 the picture rests on the plot at n = 1000 with its
 under-axis strip, the window at ×1000 and the two summary lines. Chapter 03
