@@ -87,12 +87,31 @@ Work around engine gaps in this repository and record them (§14 of the plan). F
 
 ## Working in the Swarm (the build host)
 
+### Owner rejection and withdrawal — 2026-10-19
+
+The owner rejected all three first-wave 4K60 cuts for severe accent drift,
+multiple-speaker sound, mispronunciation, rushed/clipped timing and poor
+cadence/prosody. All three YouTube uploads were immediately changed to PRIVATE
+and verified in Studio. They must remain private unless the owner explicitly
+instructs publication again. The orchestrator published without completing
+continuous listening; technical and sampled visual checks did not qualify the
+audio. All three cuts are rejected, with every file preserved for diagnosis.
+
+Fresh independent Claude Code Opus 5.5 review through NTM is now explicitly
+required by the owner. Reviewers must inspect actual source/assembly/export
+evidence and compare the older public baseline; no invented listening or
+acceptance from ASR, plots or valid media. Existing second-wave mathematical
+and source work may continue, but the rejected narration method must not be
+propagated into new full synthesis or publication. The older authority below
+records history and does not override this withdrawal.
+
 ### Owner-authorized publication and second production wave — 2026-10-19
 
 The owner explicitly authorized public YouTube publication of the completed
 square-packing, medical p-value and Golay exports, followed only after all three
-were public by five new Claude Code Opus 5.5 production lanes. All three are now
-public; exact upload IDs, revision bindings and observations are in the catalog.
+were public by five new Claude Code Opus 5.5 production lanes. All three were
+briefly public before the rejection and withdrawal above; exact upload IDs,
+revision bindings and observations are in the catalog.
 Technical and sampled visual QC passed. Continuous audiovisual listening and
 full-video perceptual acceptance remain open; publication does not close them.
 

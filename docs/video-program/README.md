@@ -2,7 +2,15 @@
 
 This is the canonical entry point for the channel owner and producers. [catalog.json](catalog.json) records every known video identity, editorial disposition, documented cut and upload. The repository's `.beads` owns task status, assignee, priority and dependencies. [BEADS_INDEX.md](BEADS_INDEX.md) maps plan keys to actual issues; [HANDOFF.md](HANDOFF.md) records migration checks and bounded limitations. There is no second editable task board.
 
-On **2026-10-19**, the three new 4K60 exports were published publicly under the
+On **2026-10-19**, the owner rejected all three new cuts for accent drift,
+multiple-speaker sound, mispronunciation, rushed/clipped timing and poor
+cadence/prosody. All three are now **PRIVATE**, verified in YouTube Studio.
+The orchestrator published without completing continuous listening. Technical
+checks did not qualify the audio. Independent Opus 5.5 review is required;
+these cuts must not be republished without a new explicit owner instruction.
+All files and accepted short comparison samples remain preserved.
+
+Earlier on **2026-10-19**, the three new 4K60 exports were published under the
 owner's explicit instruction: [square packing](https://www.youtube.com/watch?v=1TKyhCcu2U8),
 [medical p-values](https://www.youtube.com/watch?v=7Vtkg6fwrXw), and
 [Golay echoes](https://www.youtube.com/watch?v=u4P0xR35Dhk). Studio visibility,
@@ -11,7 +19,8 @@ The catalog binds each upload to its exact local revision. Technical and sampled
 visual QC passed; continuous audiovisual listening and full-cut perceptual
 acceptance remain open. Publication is recorded separately from those gates.
 
-The owner's next instruction is now active: five Opus 5.5 production lanes for
+The five Opus 5.5 lanes remain limited to mathematical and source work after
+the withdrawal, with narration and publication deferred. Their topics are
 **epsilon–delta, randomized response, discrete tomography, resistor networks and
 random walks, and Freivalds' matrix verification**. These reuse existing catalog
 identities and Beads epics. Epsilon–delta follows the owner's requested notes and
