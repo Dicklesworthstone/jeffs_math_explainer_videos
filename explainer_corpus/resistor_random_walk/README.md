@@ -31,8 +31,8 @@ those. No audio or music exists, and none is accepted.
   and root closed the task.
 - **Chapter 03** (`03_round_after_round`, task `.18.3`) adds repeated
   averaging with real iterates, its facts (`R-F7`, `R-F8`, `R-X6`, `R-X7`,
-  104 fact keys in all) and their oracle rows. Root's central17 batch (BlueSalmon, Mail 3918) passed fmt, strict
-  clippy, 43 tests, the release build, the 104-fact comparison with the
+  104 fact keys in all) and their oracle rows. Root's central17 batch
+  (BlueSalmon, Mail 3918) passed fmt, strict clippy, 43 tests, the release build, the 104-fact comparison with the
   oracle (15 checks) and an empty layout lint; its silent scratch draft05
   ran 2489 frames, 82.97 s. An image review of draft05 (EmeraldLeopard,
   Mail 3927) found three cards on screen under 4 s, round 5's 307/512
@@ -45,8 +45,33 @@ those. No audio or music exists, and none is accepted.
   prediction leak. Root viewed the revised cards and glyph pages 0, 3, 4
   and 5, and EmeraldLeopard (Mail 3964) independently verified the repair.
   That accepts source and sampled visuals only: no audio, music, 4K,
-  continuous-playback or full-video acceptance. Closing the task is
-  root's.
+  continuous-playback or full-video acceptance. It is committed at
+  39eed75, and root closed the task.
+- **Chapter 04** (`04_only_one`, task `.18.4`) is source written in this
+  lane: why the rule has only one solution, by the difference of two
+  solutions with the same top and bottom and its peak (the maximum
+  principle) on the drawn network, and the island where the argument
+  fails; its facts (`R-F9`, `R-X8`, 121 fact keys in all) and their oracle
+  rows (18 cross-checks). An independent math review (EmeraldLeopard, Mail
+  4027) passed, and root narrowed two cards (Mail 4030: card B's route
+  "here, to the top", card C "at most one solution") and bound the spoken
+  zero chance to the no-path fact. Root's central29 passed fmt but failed
+  strict clippy (`eq_op`, a value less itself in `facts::difference_ends`);
+  that function now checks the circuit's ends against the battery and
+  returns exact zero (Mail 4047). Root's central31 then passed fmt, strict
+  clippy, 51 tests, the 121-fact comparison with the oracle, the glyph probe
+  (123 sources, no failures), the build and a silent scratch render, draft09
+  (2470 frames, 82.33 s); but its layout lint flagged peak tokens overlapping
+  ("M" on "M", 27 %, at 32.6 s) and root's frames showed tokens on junction
+  dots. Those were repaired in the scene (Mail 4058): one mark per far end,
+  landing clear of its dot, and handovers that fade one M out before the
+  next comes in. Root's central33 passed fmt, strict clippy, the six changed
+  scene tests, the build and draft10 (2470 frames, 82.33 s, an empty layout
+  lint); root viewed 11 frames and all 15 glyph pages, and TanElm's
+  independent review of the actual frames (Mail 4069) found no concrete
+  defect, its three cards up 14.63, 23.20 and 15.67 s. That accepts source,
+  math and sampled silent visuals only: no audio, music, 4K,
+  continuous-playback or full-video acceptance. Closing the task is root's.
 
 The owner's 2026-10-19 rejection of the first-wave narration (`AGENTS.md`)
 holds for this video too: `narration_units.json` is a script grouping, not
@@ -54,19 +79,20 @@ a synthesis instruction.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | exact fractions; a network of positive conductances; the voltages by Ohm's and Kirchhoff's laws (Gaussian elimination), the walker's chances by its absorbing chain (`(I − Q)⁻¹`), the balance's determinant, the edges (an island, a family of 729 networks) |
+| `src/model.rs` | exact fractions; a network of positive conductances; the voltages by Ohm's and Kirchhoff's laws (Gaussian elimination), the walker's chances by its absorbing chain (`(I − Q)⁻¹`), the balance's determinant, the paths a peak spreads along and the walk step by step, the edges (an island, a family of 729 networks) |
 | `src/facts.rs` | every number the video shows or says, and Doyle and Snell's own worked example pinned |
 | `oracle.py` | the same numbers computed independently: spanning-forest counts, Cramer's rule, permutation determinants; cross-checks on stderr |
 | `src/chapters/the_same_number.rs` | chapter 01's scene |
 | `src/chapters/why_an_average.rs` | chapter 02's scene: the current balance at the left junction wire by wire, derived to the average; the walker's first step over the same four wires; the general conductance-weighted rule |
 | `src/chapters/round_after_round.rs` | chapter 03's scene: repeated averaging from a guess of zero, every middle junction at once from the previous round's values; a table of the real rounds and their gaps; never exactly, within a thousandth after five rounds; the ends averaged too as the edge |
+| `src/chapters/only_one.rs` | chapter 04's scene: a supposed second solution beside the circuit, their difference (0 at both ends), its peak spreading along wires to the top, and the island of two junctions wired only to each other, where any equal pair keeps the rule and a walker's chance of reaching the top is 0 |
 | `src/chapters/draw.rs` | the network picture (side-by-side wires, the battery, values beside wires, arrowheads of flow), playback, line timing and the countdown |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
 | `narration_units.json` | the script's lines grouped into whole-thought units (three per chapter, each prediction question ending its take); written and checked by `narration_units.py` |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | every number's source, the brief, the words every revision keeps |
 
 ```bash
-python3 -I -B oracle.py                               # every number; 15 cross-checks on stderr (numpy optional)
+python3 -I -B oracle.py                               # every number; 18 cross-checks on stderr (numpy optional)
 python3 -I ../../tools/storyboard.py --check resistor_random_walk
 python3 -I ../../tools/lint_script.py script.tsv
 python3 -I -B narration_units.py --check
@@ -148,9 +174,12 @@ to check by hand.
 ## Scope and remaining limits
 
 - The claim "only one solution" needs every middle junction joined by wires
-  to the top or the bottom, and positive conductances. The island (`R-X2`)
-  shows it failing; the family (`R-X3`) checks it and the agreement on all
-  729 small networks. The model refuses zero and negative conductances.
+  to the top or the bottom, and positive conductances. Chapter 04 proves it
+  on screen for the drawn network and states the hypothesis; the island
+  (`R-X2`, `R-X8`) shows it failing; the family (`R-X3`, `R-X8.family`)
+  checks it, a second solution existing exactly where a junction is cut
+  off, and the agreement on all 729 small networks. The model refuses zero
+  and negative conductances.
 - Ideal components throughout (identical resistors, an ideal battery,
   steady currents). No physical claim beyond Ohm's law and Kirchhoff's
   current law.
@@ -159,8 +188,10 @@ to check by hand.
   silent scratch draft04 measured 81.6 s (2448 frames). Chapter 03 is 173
   words; its estimate is about 83 s, and root's silent scratch drafts
   measured 82.97 s (2489 frames) both before the card repair (draft05) and
-  after it (draft06). No chapter has been
-  timed with a real voice.
+  after it (draft06). Chapter 04 is 172 words; its estimate is about 82 s,
+  and root's silent scratch drafts measured 82.33 s (2470 frames) both
+  before the token repair (draft09) and after it (draft10). No chapter has
+  been timed with a real voice.
 - Chapter 03's repeated averaging updates every middle junction at once from
   the previous round (Jacobi's method), and says so; the one-at-a-time kind
   (Gauss-Seidel) is only a card's comparison. Its gap bound is exact for
@@ -173,11 +204,21 @@ to check by hand.
   where need be.
 - Chapter 02 derives the rule at the left junction only, using the right
   junction's known 2/5; why the two averages together have one solution is
-  chapter 01's (and a later chapter's) argument. A current is written as
+  chapter 01's claim and chapter 04's argument. A current is written as
   its drop over the wires' common resistance, never as a bare number of
   amperes.
+- Chapter 04 never draws a second solution as if it existed: the copy is
+  "a second solution?" with "?" until the argument shows it is the first.
+  No path of wires joins the island to an end, so its walker is never
+  there after any number of steps (the 12 steps followed agree), and its
+  chance of reaching the top first is 0; that 0 is one number, while the
+  rule leaves the island's voltage any equal pair. The proof card says "at
+  most one solution", what the maximum and minimum argument proves; the
+  circuit's voltages are one.
 - Not yet established: any narration or music for any chapter; a
   continuous review of a chapter's every frame (root sampled the frames
   named above); chapter 03's full test suite after the card repair
   (central20 ran the 5 targeted tests; central17 ran all 43 before it);
-  the whole video.
+  chapter 04's full test suite after the token repair (central33 ran the
+  six changed scene tests; central31 ran all 51 before it); the whole
+  video.

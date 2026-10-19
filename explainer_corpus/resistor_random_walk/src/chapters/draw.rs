@@ -36,7 +36,7 @@ pub const JUNCTION_R: f64 = 0.17;
 /// How far apart two wires side by side bow at their middle.
 pub const SPREAD: f64 = 0.2;
 /// A wire's stroke width.
-const WIRE_W: f64 = 4.0;
+pub const WIRE_W: f64 = 4.0;
 /// How far a travelling value sits from its wire: a fraction's half height
 /// at [`TOKEN_SIZE`] and a margin, so the wire never crosses it.
 pub const TOKEN_GAP: f64 = 0.32;

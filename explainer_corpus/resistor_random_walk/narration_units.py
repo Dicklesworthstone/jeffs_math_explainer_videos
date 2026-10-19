@@ -75,6 +75,13 @@ GROUPS = [
     ("03_5", "03_6"),
     # never exactly, the limit, and why the ends stay fixed
     ("03_7", "03_8", "03_9"),
+    # 04: the supposed second solution, the difference, and its peak
+    ("04_1", "04_2", "04_3"),
+    # the peak spreads to the top, so one solution; the island's question,
+    # ending its take
+    ("04_4", "04_5", "04_6"),
+    # the island's peak stops short, the hypothesis, and the walker there
+    ("04_7", "04_8", "04_9"),
 ]
 
 

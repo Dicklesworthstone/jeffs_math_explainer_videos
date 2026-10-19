@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "91c27e2099281ff1c033fdbec803637dede481ca7af88032f0c9bbc7ae406db3",
+  "script_sha256": "7980a70108552612f9713374f0b9bcf5680ff4d9cc292dbbc37d6547e7420806",
   "units": [
     {
       "id": "01u1",
@@ -80,6 +80,33 @@
         "03_9"
       ],
       "text": "Never. Each round makes halves, quarters, eighths and so on, and three fifths is none of them. But after five rounds both are within a thousandth. The values close in on three fifths and two fifths, the only pair that keeps every average. The top and bottom must stay fixed. Average them too, and every junction drifts to the same number."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2",
+        "04_3"
+      ],
+      "text": "Here's why there is only one solution. Suppose another set of values keeps the rule, with the same top and bottom. Subtract them. The difference is zero at the top and bottom, and it keeps the rule too. Take its largest value. If above zero, it sits at a middle junction, an average of far ends no larger."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_4",
+        "04_5",
+        "04_6"
+      ],
+      "text": "An average reaches its largest part only if every part equals it. So the peak spreads along wires to the top, which is zero. So the peak is zero, and likewise the lowest value. Both solutions are the same. Now add an island, two junctions wired only to each other. Is there still only one solution?"
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_7",
+        "04_8",
+        "04_9"
+      ],
+      "text": "No. The island's peak crosses its one wire and stops, never reaching the top or bottom. Any equal pair keeps the rule. So the proof needs every middle junction to reach the top or the bottom along wires. A walker on the island never reaches the top. Its chance is zero, but the island's voltage is left free."
     }
   ]
 }

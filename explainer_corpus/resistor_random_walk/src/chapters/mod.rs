@@ -4,6 +4,7 @@
 
 pub mod draw;
 pub mod glyphs;
+pub mod only_one;
 pub mod round_after_round;
 pub mod the_same_number;
 pub mod why_an_average;
@@ -25,6 +26,11 @@ pub fn registry() -> Vec<Chapter> {
         Chapter {
             key: "03_round_after_round",
             make: |kit| Box::new(round_after_round::RoundAfterRound { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "04_only_one",
+            make: |kit| Box::new(only_one::OnlyOne { kit }),
             intensity: 0.5,
         },
     ]

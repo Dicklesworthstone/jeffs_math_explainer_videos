@@ -33,7 +33,9 @@ chain):
     (checked against the closed form 1/4**n);
   * for the opening network, the walk's chance once more as a sum over all
     routes (a geometric series), a seeded simulation, and numpy's float
-    solve when numpy is installed.
+    solve when numpy is installed;
+  * chapter 04's paths breadth first, its groups of joined junctions by
+    spreading labels, and its island walker pushed one step at a time.
 """
 import random
 import sys
@@ -322,6 +324,131 @@ def chapter_03(net, v):
     return rounds
 
 
+ISLAND_STEPS = 12
+
+
+def groups(net):
+    """Each junction's group label: junctions joined by a path of links,
+    through any junctions, share one (labels spread until nothing changes;
+    the Rust model instead searches outward from the two ends)."""
+    label = list(range(net.size))
+    changed = True
+    while changed:
+        changed = False
+        for a, b, _ in net.links:
+            low = min(label[a], label[b])
+            if (label[a], label[b]) != (low, low):
+                label[a] = label[b] = low
+                changed = True
+    return label
+
+
+def cut_off(net):
+    label = groups(net)
+    return [x for x in net.middle if label[x] not in (label[net.top], label[net.bottom])]
+
+
+def bfs_path(net, start, goal):
+    """The fewest links from start to goal, passing on only through
+    junctions that are not ends, breadth first in link order."""
+    before = {start: None}
+    queue = [start]
+    while queue:
+        x = queue.pop(0)
+        if x == goal:
+            path = []
+            while x is not None:
+                path.append(x)
+                x = before[x]
+            return path[::-1]
+        if x != start and x in (net.top, net.bottom):
+            continue
+        for a, b, _ in net.links:
+            for p, q in ((a, b), (b, a)):
+                if p == x and q not in before:
+                    before[q] = x
+                    queue.append(q)
+    return None
+
+
+def keeps_balance(net, values):
+    """Every middle junction balanced: its total conductance times its value
+    is the conductance-weighted sum of its neighbours' values."""
+    return all(net.at(x) * values[x] == sum(net.c(x, y) * values[y] for y in range(net.size)) for x in net.middle)
+
+
+def chapter_04(net, v):
+    """Chapter 04: the difference of two solutions, 0 at both ends; a
+    peak's path of links to the top, breadth first; the only solution with
+    both ends at 0, by Cramer's rule; the island by label groups, balance
+    sums and its walker pushed step by step; and the family's second
+    solutions exactly where a junction is cut off."""
+    # a second solution is held at the circuit's top and bottom, the
+    # battery's 1 and 0 (checked on the forest voltages), so their
+    # difference there is exactly 0
+    assert (v[TOP], v[BOTTOM]) == (1, 0), "the forest voltages' ends are not the battery's"
+    emit("R-F9.ends", csv([Fraction(0), Fraction(0)]))
+    emit("R-F9.left.far_ends", ",".join(NAMES[y] for y in far_ends(LEFT)))
+    for x in (LEFT, RIGHT):
+        emit(f"R-F9.path.{NAMES[x]}", ",".join(NAMES[y] for y in bfs_path(net, x, TOP)))
+    zero = [Fraction(0)] * net.size
+    for x, value in zip(net.middle, cramer(balance(net), [Fraction(0)] * len(net.middle))):
+        zero[x] = value
+    emit("R-F9.peak", max(zero))
+    emit("R-F9.low", min(zero))
+
+    island = Net(6, LINKS + ((4, 5, 1),), TOP, BOTTOM)
+    cut = cut_off(island)
+    label = groups(island)
+    emit("R-X8.island.junctions", len(cut))
+    emit("R-X8.island.wires", sum((c for a, b, c in island.links if a in cut and b in cut), Fraction(0)))
+    emit("R-X8.island.path", flag(any(label[x] in (label[TOP], label[BOTTOM]) for x in cut)))
+    levels = [Fraction(0), Fraction(1, 2), Fraction(1)]
+    pair = lambda a, b: list(v) + [a, b]
+    emit("R-X8.island.levels", csv(levels))
+    emit("R-X8.island.keeps", ",".join(flag(keeps_balance(island, pair(c, c))) for c in levels))
+    emit("R-X8.island.unequal", flag(keeps_balance(island, pair(levels[0], levels[-1]))))
+    # the walker from the island, its chances pushed one step at a time
+    # over links (each link's conductance over the junction's total)
+    at = [Fraction(0)] * island.size
+    at[cut[0]] = Fraction(1)
+    tops, bottoms, on = [], [], []
+    for _ in range(ISLAND_STEPS):
+        nxt = [Fraction(0)] * island.size
+        for x, p in enumerate(at):
+            if p == 0:
+                continue
+            if x in (TOP, BOTTOM):
+                nxt[x] += p
+                continue
+            for y in range(island.size):
+                if island.c(x, y):
+                    nxt[y] += p * island.c(x, y) / island.at(x)
+        at = nxt
+        tops.append(at[TOP])
+        bottoms.append(at[BOTTOM])
+        on.append(sum(at[x] for x in cut))
+    emit("R-X8.island.steps", ISLAND_STEPS)
+    emit("R-X8.island.at_ends", csv([max(tops), max(bottoms)]))
+    emit("R-X8.island.on_island", min(on))
+
+    # the family: marking the cut-off junctions 1 and the rest 0 balances
+    # with both ends at 0 wherever a junction is cut off; elsewhere Cramer's
+    # rule with nothing pushed in gives 0 alone
+    pairs = list(combinations(range(4), 2))
+    free = only_zero = 0
+    for ks in product(range(3), repeat=len(pairs)):
+        fam = Net(4, [(a, b, k) for (a, b), k in zip(pairs, ks) if k], TOP, BOTTOM)
+        fam_cut = cut_off(fam)
+        if fam_cut:
+            free += keeps_balance(fam, [Fraction(1 if x in fam_cut else 0) for x in range(fam.size)])
+        else:
+            inside = cramer(balance(fam), [Fraction(0)] * len(fam.middle))
+            only_zero += inside is not None and all(z == 0 for z in inside)
+    emit("R-X8.family.free", free)
+    emit("R-X8.family.only_zero", only_zero)
+
+
 def chapter_02(net, v, h):
     """Chapter 02 at the left junction: the drops along its four wires from
     the forest voltages, the walker's first step by counting wires, its
@@ -461,6 +588,7 @@ def facts():
         tally["between_ends"] += all(0 <= fv[x] <= 1 for x in fam.middle)
     for key in ("networks", "determined", "cut_off", "singular", "agree", "between_ends"):
         emit(f"R-X3.family.{key}", tally[key])
+    chapter_04(net, v)
 
     # the primary source's worked examples
     ds = Net(4, ((0, 2, 1), (0, 3, 1), (1, 2, 1), (1, 3, 2), (2, 3, 2)), 0, 1)
@@ -541,6 +669,20 @@ def cross_checks(net, v, h):
         a, b = b, a
         swaps_ok &= (a + b) / 2 == Fraction(1, 2) and abs(a - Fraction(1, 2)) == Fraction(1, 2)
     check("two junctions on one wire, both averaged, swap for ever around their kept mean", swaps_ok and (a, b) == (1, 0))
+
+    # chapter 04: on a grid of differences, quarter steps from -1 to 1 at
+    # both middle junctions with both ends at 0, only (0, 0) keeps the rule
+    grid = [Fraction(k, 4) for k in range(-4, 5)]
+    keeping = [(a, b) for a in grid for b in grid if keeps_balance(net, [Fraction(0), a, b, Fraction(0)])]
+    check("of 81 differences in quarter steps, both ends 0, only (0, 0) keeps the rule", keeping == [(0, 0)])
+    # a peak M at either middle junction: three of its four wires reach an
+    # end, where the difference is 0, so its average is at most M/4
+    end_share = {Fraction(sum(1 for y in far_ends(x) if y in (TOP, BOTTOM)), len(far_ends(x))) for x in net.middle}
+    check("three of each middle junction's four wires reach an end, so a peak averages at most a quarter of itself", end_share == {Fraction(3, 4)})
+    # the island's walker never leaves its group, which holds neither end
+    island = Net(6, LINKS + ((4, 5, 1),), TOP, BOTTOM)
+    label = groups(island)
+    check("the island's group is its two junctions and holds neither end", [x for x in range(6) if label[x] == label[4]] == [4, 5])
 
     # the averaging rule, each middle junction against its neighbours
     for x in net.middle:

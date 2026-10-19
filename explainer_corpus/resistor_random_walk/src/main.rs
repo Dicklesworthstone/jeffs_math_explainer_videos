@@ -130,6 +130,31 @@ mod tests {
         ("03_7", "after five rounds", "R-F7.within", "5"),
         ("03_7", "within a thousandth", "R-F7.tolerance", "1/1000"),
         ("03_8", "three fifths and two fifths", "R-F7.limit", "3/5,2/5"),
+        ("04_1", "only one solution", "R-X1.solutions", "1"),
+        ("04_2", "zero at the top and bottom", "R-F9.ends", "0,0"),
+        ("04_3", "If above zero", "R-F9.ends", "0,0"),
+        ("04_4", "spreads along wires to the top", "R-F9.path.left", "left,top"),
+        ("04_4", "the top, which is zero", "R-F9.ends", "0,0"),
+        ("04_5", "the peak is zero", "R-F9.peak", "0"),
+        ("04_5", "likewise the lowest value", "R-F9.low", "0"),
+        (
+            "04_6",
+            "two junctions wired only to each other",
+            "R-X8.island.junctions",
+            "2",
+        ),
+        ("04_6", "still only one solution", "R-X1.solutions", "1"),
+        ("04_7", "crosses its one wire", "R-X8.island.wires", "1"),
+        ("04_7", "never reaching the top or bottom", "R-X8.island.path", "false"),
+        (
+            "04_7",
+            "Any equal pair keeps the rule",
+            "R-X8.island.keeps",
+            "true,true,true",
+        ),
+        // for all time by no path of wires; the 12 steps followed agree
+        ("04_9", "Its chance is zero", "R-X8.island.path", "false"),
+        ("04_9", "Its chance is zero", "R-X8.island.at_ends", "0,0"),
     ];
 
     #[test]
@@ -213,9 +238,10 @@ mod tests {
         check_script_owners(&script, &keys(), None).unwrap();
     }
 
-    /// Each chapter asks one prediction, its walk question, and the next
-    /// line's first words answer it: the opening's chance from the left
-    /// junction, chapter 02's chance of a first step up.
+    /// Each chapter asks one prediction, and the next line's first words
+    /// answer it: the opening's chance from the left junction, chapter 02's
+    /// chance of a first step up, chapter 03's round that reaches the
+    /// answer, chapter 04's count of solutions once an island is added.
     #[test]
     fn the_prediction_is_asked_once_and_answered_next() {
         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
@@ -223,6 +249,7 @@ mod tests {
             ("01_the_same_number", "left junction?", "Three fifths"),
             ("02_why_an_average", "reaches the top?", "One half"),
             ("03_round_after_round", "exactly three fifths?", "Never"),
+            ("04_only_one", "only one solution?", "No"),
         ];
         assert_eq!(boards.len(), expected.len());
         for (board, (key, asks, answers)) in boards.iter().zip(expected) {

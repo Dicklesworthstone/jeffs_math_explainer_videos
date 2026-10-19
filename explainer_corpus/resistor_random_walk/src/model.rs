@@ -696,6 +696,83 @@ impl Network {
             .all(|p| p[0] < self.size && p[1] < self.size && !self.between(p[0], p[1]).is_zero());
         !before.is_empty() && steps_ok && self.is_end(last) && before.iter().all(|&x| !self.is_end(x))
     }
+
+    /// The fewest wires from `from` to `to`, as the junctions along the way
+    /// (both included), passing on only through middle junctions: the path
+    /// a peak at `from` spreads along to `to` (chapter 04). `None` when no
+    /// such path of wires joins them.
+    pub fn path(&self, from: usize, to: usize) -> Option<Vec<usize>> {
+        if from >= self.size || to >= self.size {
+            return None;
+        }
+        let mut came_from: Vec<Option<usize>> = vec![None; self.size];
+        let mut seen = vec![false; self.size];
+        seen[from] = true;
+        let mut queue = std::collections::VecDeque::from([from]);
+        while let Some(x) = queue.pop_front() {
+            if x == to {
+                let mut out = vec![to];
+                let mut at = to;
+                while let Some(back) = came_from[at] {
+                    out.push(back);
+                    at = back;
+                }
+                out.reverse();
+                return Some(out);
+            }
+            // an end is where a path stops, never a junction it passes
+            if x != from && self.is_end(x) {
+                continue;
+            }
+            for y in self.wires.iter().filter_map(|w| w.far(x)) {
+                if !seen[y] {
+                    seen[y] = true;
+                    came_from[y] = Some(x);
+                    queue.push_back(y);
+                }
+            }
+        }
+        None
+    }
+
+    /// Where a walker from `from` stands after each of its first `steps`
+    /// steps: its chance of being at each junction, the top and the bottom
+    /// keeping whatever reaches them. Unlike [`Network::still_walking`] it
+    /// needs no end within reach, so it follows a walker that never stops
+    /// (chapter 04's island). Refused for a junction outside the network,
+    /// or when the walker could stand at a middle junction with no wire.
+    pub fn step_chances(&self, from: usize, steps: usize) -> Result<Vec<Vec<Q>>, String> {
+        if from >= self.size {
+            return Err(format!("junction {from} is outside 0..{}", self.size));
+        }
+        let mut at = vec![Q::ZERO; self.size];
+        at[from] = Q::ONE;
+        let mut out = Vec::with_capacity(steps);
+        for _ in 0..steps {
+            let mut next = vec![Q::ZERO; self.size];
+            for (x, &p) in at.iter().enumerate() {
+                if p.is_zero() {
+                    continue;
+                }
+                if self.is_end(x) {
+                    next[x] = next[x] + p;
+                    continue;
+                }
+                let total = self.total(x);
+                if total.is_zero() {
+                    return Err(format!("junction {x} has no wire to step along"));
+                }
+                for w in &self.wires {
+                    if let Some(y) = w.far(x) {
+                        next[y] = next[y] + p * w.conductance / total;
+                    }
+                }
+            }
+            out.push(next.clone());
+            at = next;
+        }
+        Ok(out)
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1042,6 +1119,94 @@ mod tests {
         assert!(island.kirchhoff(Q::ONE, Q::ZERO).is_err());
         assert!(island.walk().is_err());
         assert!(island.still_walking(LEFT, 3).is_err());
+    }
+
+    /// Chapter 04: a peak spreads along a path of wires through middle
+    /// junctions. From either middle junction of the opening the top is one
+    /// wire away; from the island no path reaches either end, and a path
+    /// never passes through an end. Across the family a middle junction has
+    /// a path to the top or the bottom exactly when it is not cut off, and
+    /// marking the cut-off junctions 1 and every other 0 keeps the balance
+    /// with both ends at 0: a second solution beside 0, where elsewhere 0 is
+    /// the only one.
+    #[test]
+    fn a_peak_reaches_an_end_exactly_where_a_path_of_wires_does() {
+        let net = opening().unwrap();
+        assert_eq!(net.path(LEFT, TOP), Some(vec![LEFT, TOP]));
+        assert_eq!(net.path(RIGHT, TOP), Some(vec![RIGHT, TOP]));
+        assert_eq!(net.path(LEFT, LEFT), Some(vec![LEFT]));
+        assert_eq!(net.path(LEFT, 9), None);
+        let row = line(3).unwrap();
+        assert_eq!(row.path(1, 3), Some(vec![1, 2, 3]));
+        // the top is reached from junction 1 only through the bottom: no path
+        let blocked = Network::new(
+            4,
+            vec![wire(1, 3, Q::ONE), wire(3, 0, Q::ONE), wire(2, 0, Q::ONE)],
+            0,
+            3,
+        )
+        .unwrap();
+        assert_eq!(blocked.path(1, 0), None);
+        assert_eq!(blocked.path(1, 3), Some(vec![1, 3]));
+        assert_eq!(blocked.path(2, 0), Some(vec![2, 0]));
+        let island = with_island().unwrap();
+        for x in island.cut_off() {
+            assert_eq!(island.path(x, TOP), None);
+            assert_eq!(island.path(x, BOTTOM), None);
+        }
+        assert_eq!(island.path(4, 5), Some(vec![4, 5]));
+        let (mut free, mut only_zero) = (0, 0);
+        for fam in family().unwrap() {
+            let cut = fam.cut_off();
+            for x in fam.middle() {
+                let reaches = fam.path(x, TOP).is_some() || fam.path(x, BOTTOM).is_some();
+                assert_eq!(reaches, !cut.contains(&x), "junction {x} of {:?}", fam.wires());
+            }
+            if cut.is_empty() {
+                let zero = fam.kirchhoff(Q::ZERO, Q::ZERO).unwrap();
+                assert!(zero.iter().all(|q| q.is_zero()), "{:?}", fam.wires());
+                only_zero += 1;
+            } else {
+                let marked: Vec<Q> = (0..fam.size())
+                    .map(|x| if cut.contains(&x) { Q::ONE } else { Q::ZERO })
+                    .collect();
+                let keeps = fam.middle().iter().all(|&x| fam.net_out(&marked, x).is_zero());
+                assert!(keeps, "{:?}", fam.wires());
+                free += 1;
+            }
+        }
+        assert_eq!((free, only_zero), (57, 672));
+    }
+
+    /// The walk followed step by step: on the opening network the chance of
+    /// still being in the middle is chapter 01's 1/4 to the n, and the rest
+    /// has reached an end; from the island the walker crosses its one wire
+    /// every step and is never at either end.
+    #[test]
+    fn the_walk_step_by_step_and_the_walker_that_never_stops() {
+        let net = opening().unwrap();
+        let steps = net.step_chances(LEFT, 6).unwrap();
+        let still = net.still_walking(LEFT, 6).unwrap();
+        assert_eq!(steps[0], [q(1, 2), Q::ZERO, q(1, 4), q(1, 4)]);
+        for (n, s) in steps.iter().enumerate() {
+            assert_eq!(s[LEFT] + s[RIGHT], still[n], "step {}", n + 1);
+            assert_eq!(s.iter().fold(Q::ZERO, |t, &p| t + p), Q::ONE, "step {}", n + 1);
+            assert!(s[TOP] < q(3, 5), "step {}", n + 1);
+        }
+        assert!(steps.windows(2).all(|w| w[1][TOP] > w[0][TOP]));
+        let island = with_island().unwrap();
+        let from = island.cut_off()[0];
+        for (n, s) in island.step_chances(from, 12).unwrap().iter().enumerate() {
+            assert_eq!((s[TOP], s[BOTTOM]), (Q::ZERO, Q::ZERO), "step {}", n + 1);
+            let there = if n % 2 == 0 { from + 1 } else { from };
+            assert_eq!(s[there], Q::ONE, "step {}", n + 1);
+        }
+        // refused: a junction outside the network, a middle junction with no
+        // wire; a walker at an end stays there
+        assert!(net.step_chances(9, 1).is_err());
+        let lonely = Network::new(3, vec![wire(0, 2, Q::ONE)], 0, 2).unwrap();
+        assert!(lonely.step_chances(1, 1).unwrap_err().contains("no wire"));
+        assert_eq!(lonely.step_chances(0, 2).unwrap()[1], [Q::ONE, Q::ZERO, Q::ZERO]);
     }
 
     #[test]

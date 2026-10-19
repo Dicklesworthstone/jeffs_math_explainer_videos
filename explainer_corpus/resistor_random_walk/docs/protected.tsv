@@ -6,4 +6,6 @@ the average of the voltages at the far ends of its four wires	script	the electri
 one, one, two fifths and zero average to three fifths	script	the worked check on the drawn network (R-F2.left.far_ends, R-F2.left.average)
 the average of its chances from the far ends of its four wires	script	the same rule in the walk, by its first step (R-F3.left.far_ends)
 only one solution	script	why the voltage and the chance must agree: uniqueness, not coincidence (R-X1, R-X2)
+every middle junction to reach the top or the bottom along wires	script	the hypothesis uniqueness needs, stated in chapter 04; the island breaks it (R-X8)
+Its chance is zero, but the island's voltage is left free	script	not unique is not a chance of zero: the walker's 0 against the island's free voltage (R-X8)
 The walker is a model, not a claim about electrons	script	the slate's scope limit: the walk models the equations, not charge in a wire

@@ -1,9 +1,10 @@
 //! Every number the video shows or says, computed from [`crate::model`] and
 //! printed for [`oracle.py`](../oracle.py) (`./x resistor_random_walk
 //! facts-check`): the rows of docs/fact-sheet.md. R-F1 to R-F3 rows are what
-//! the opening shows and says, R-F4 to R-F6 chapter 02's derivation, R-X rows
-//! the edges of the always/never sentences, R-P rows the primary source's own
-//! worked examples.
+//! the opening shows and says, R-F4 to R-F6 chapter 02's derivation, R-F7
+//! and R-F8 chapter 03's rounds, R-F9 chapter 04's difference argument, R-X
+//! rows the edges of the always/never sentences, R-P rows the primary
+//! source's own worked examples.
 
 use std::collections::BTreeSet;
 
@@ -25,10 +26,13 @@ pub fn network() -> Result<Network, String> {
     model::opening()
 }
 
-/// The opening network's voltages, the top at one volt and the bottom at
-/// zero, junction by junction.
+/// What the battery holds the top and the bottom at: one volt and zero.
+pub const BATTERY: [Q; 2] = [Q::ONE, Q::ZERO];
+
+/// The opening network's voltages, the top and the bottom held at
+/// [`BATTERY`], junction by junction.
 pub fn voltages() -> Result<Vec<Q>, String> {
-    network()?.kirchhoff(Q::ONE, Q::ZERO)
+    network()?.kirchhoff(BATTERY[0], BATTERY[1])
 }
 
 /// The walker's chance, from every junction, of reaching the top first.
@@ -248,6 +252,58 @@ pub fn drift() -> Result<(Vec<Vec<Q>>, Q), String> {
     }
 }
 
+/// Chapter 04: the difference of two solutions with the circuit's top and
+/// bottom, at the top and at the bottom. Both are held at the battery's
+/// values there, so it is exactly 0 at each; refused unless the solved
+/// circuit does sit at the battery's values at its ends.
+pub fn difference_ends() -> Result<(Q, Q), String> {
+    let v = voltages()?;
+    if [v[TOP], v[BOTTOM]] != BATTERY {
+        return Err(format!(
+            "the circuit's ends are {} and {}, not the battery's {} and {}",
+            v[TOP], v[BOTTOM], BATTERY[0], BATTERY[1]
+        ));
+    }
+    Ok((Q::ZERO, Q::ZERO))
+}
+
+/// Chapter 04's island: the opening network with two more junctions wired
+/// only to each other, and those two junctions (the ones it cuts off).
+pub fn island() -> Result<(Network, Vec<usize>), String> {
+    let net = model::with_island()?;
+    let cut = net.cut_off();
+    if cut.len() != 2 {
+        return Err(format!("the island cuts off junctions {cut:?}, not two"));
+    }
+    Ok((net, cut))
+}
+
+/// Chapter 04: the equal values the island's two junctions are shown
+/// taking, in turn.
+pub fn island_levels() -> [Q; 3] {
+    [Q::ZERO, Q::new(1, 2), Q::ONE]
+}
+
+/// Chapter 04: how many steps a walker on the island is followed for.
+pub const ISLAND_STEPS: usize = 12;
+
+/// Chapter 04: the island network's values, the circuit at its voltages
+/// and the island's two junctions at `a` and `b`.
+pub fn with_island_values(a: Q, b: Q) -> Result<Vec<Q>, String> {
+    let (net, cut) = island()?;
+    let mut values = voltages()?;
+    values.resize(net.size(), Q::ZERO);
+    values[cut[0]] = a;
+    values[cut[1]] = b;
+    Ok(values)
+}
+
+/// Whether `values` keep the rule on `net`: every middle junction is the
+/// conductance-weighted average of its far ends.
+pub fn keeps_rule(net: &Network, values: &[Q]) -> bool {
+    net.middle().iter().all(|&x| net.average(values, x) == Some(values[x]))
+}
+
 /// A junction's name, as the facts print it.
 fn name(x: usize) -> &'static str {
     ["top", "left", "right", "bottom"].get(x).copied().unwrap_or("?")
@@ -335,6 +391,7 @@ pub fn facts() -> Result<Facts, String> {
     chapter_02(&mut f, &net, &v, &walk)?;
     chapter_03(&mut f, &net, &v)?;
     family(&mut f)?;
+    chapter_04(&mut f, &net)?;
 
     // the primary source's own numbers
     let ds = model::doyle_snell()?;
@@ -598,6 +655,89 @@ fn family(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// Chapter 04's numbers: why the rule has one solution here (two solutions
+/// with the same top and bottom differ by values that are 0 at both ends
+/// and keep the rule; a peak spreads along a path of wires to the top, so
+/// the only such difference is 0) and its edge, an island: any equal pair
+/// keeps its rule, a walker there is never at either end, and across the
+/// family a second solution exists exactly where a junction is cut off.
+fn chapter_04(f: &mut Facts, net: &Network) -> Result<(), String> {
+    let (top, bottom) = difference_ends()?;
+    f.add("R-F9.ends", csv(&[top, bottom]))?;
+    let ends: Vec<&str> = net.far_ends(LEFT)?.into_iter().map(name).collect();
+    f.add("R-F9.left.far_ends", ends.join(","))?;
+    for x in [LEFT, RIGHT] {
+        let path = net
+            .path(x, TOP)
+            .ok_or_else(|| format!("no path of wires joins the {} junction to the top", name(x)))?;
+        let names: Vec<&str> = path.into_iter().map(name).collect();
+        f.add(&format!("R-F9.path.{}", name(x)), names.join(","))?;
+    }
+    // the only solution with both ends at 0: its largest and smallest value
+    let zero = net.kirchhoff(Q::ZERO, Q::ZERO)?;
+    f.add("R-F9.peak", zero.iter().copied().max().ok_or("no junctions")?)?;
+    f.add("R-F9.low", zero.iter().copied().min().ok_or("no junctions")?)?;
+
+    // the island: two junctions, one wire between them, no path to an end
+    let (island, cut) = island()?;
+    f.add("R-X8.island.junctions", cut.len())?;
+    let inside = island
+        .wires()
+        .iter()
+        .filter(|w| cut.contains(&w.a) && cut.contains(&w.b))
+        .fold(Q::ZERO, |s, w| s + w.conductance);
+    f.add("R-X8.island.wires", inside)?;
+    let reaches = cut
+        .iter()
+        .any(|&x| island.path(x, island.top()).is_some() || island.path(x, island.bottom()).is_some());
+    f.add("R-X8.island.path", reaches)?;
+    // any equal pair keeps its rule, beside the circuit's own values; an
+    // unequal pair does not
+    let levels = island_levels();
+    let keeps: Vec<String> = levels
+        .iter()
+        .map(|&c| with_island_values(c, c).map(|values| keeps_rule(&island, &values).to_string()))
+        .collect::<Result<_, _>>()?;
+    f.add("R-X8.island.levels", csv(&levels))?;
+    f.add("R-X8.island.keeps", keeps.join(","))?;
+    let unequal = with_island_values(levels[0], levels[levels.len() - 1])?;
+    f.add("R-X8.island.unequal", keeps_rule(&island, &unequal))?;
+    // a walker from the island, step by step: never at either end, always
+    // on the island
+    let steps = island.step_chances(cut[0], ISLAND_STEPS)?;
+    let most_at = |end: usize| steps.iter().map(|s| s[end]).max().unwrap_or(Q::ZERO);
+    let on = steps
+        .iter()
+        .map(|s| cut.iter().fold(Q::ZERO, |t, &x| t + s[x]))
+        .min()
+        .unwrap_or(Q::ZERO);
+    f.add("R-X8.island.steps", ISLAND_STEPS)?;
+    f.add(
+        "R-X8.island.at_ends",
+        csv(&[most_at(island.top()), most_at(island.bottom())]),
+    )?;
+    f.add("R-X8.island.on_island", on)?;
+
+    // across the family: where a junction is cut off, marking the cut-off
+    // junctions 1 and every other 0 keeps the balance with both ends at 0,
+    // a second solution beside 0; everywhere else 0 is the only one
+    let (mut free, mut only_zero) = (0usize, 0usize);
+    for fam in model::family()? {
+        let cut = fam.cut_off();
+        if cut.is_empty() {
+            only_zero += usize::from(fam.kirchhoff(Q::ZERO, Q::ZERO)?.iter().all(|q| q.is_zero()));
+        } else {
+            let marked: Vec<Q> = (0..fam.size())
+                .map(|x| if cut.contains(&x) { Q::ONE } else { Q::ZERO })
+                .collect();
+            free += usize::from(fam.middle().iter().all(|&x| fam.net_out(&marked, x).is_zero()));
+        }
+    }
+    f.add("R-X8.family.free", free)?;
+    f.add("R-X8.family.only_zero", only_zero)?;
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -679,6 +819,23 @@ mod tests {
             ("R-X6.kept", "true"),
             ("R-X7.island.round1", "1,0"),
             ("R-X7.island.round2", "0,1"),
+            ("R-F9.ends", "0,0"),
+            ("R-F9.left.far_ends", "top,top,right,bottom"),
+            ("R-F9.path.left", "left,top"),
+            ("R-F9.path.right", "right,top"),
+            ("R-F9.peak", "0"),
+            ("R-F9.low", "0"),
+            ("R-X8.island.junctions", "2"),
+            ("R-X8.island.wires", "1"),
+            ("R-X8.island.path", "false"),
+            ("R-X8.island.levels", "0,1/2,1"),
+            ("R-X8.island.keeps", "true,true,true"),
+            ("R-X8.island.unequal", "false"),
+            ("R-X8.island.steps", "12"),
+            ("R-X8.island.at_ends", "0,0"),
+            ("R-X8.island.on_island", "1"),
+            ("R-X8.family.free", "57"),
+            ("R-X8.family.only_zero", "672"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }
