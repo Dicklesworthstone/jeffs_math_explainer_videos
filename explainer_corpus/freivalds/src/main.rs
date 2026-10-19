@@ -81,6 +81,51 @@ mod tests {
         ("01_10", "more than half", "F-F5.bound_per_toss", "1/2"),
         ("01_10", "Twenty fresh tosses", "F-F5.again", "20"),
         (
+            "02_1",
+            "C minus the true product",
+            "F-F6.slip.mistake",
+            "0,0,0;0,1,0;0,0,0",
+        ),
+        ("02_2", "Two in one row", "F-F7.two_in_a_row.wrong_count", "2"),
+        ("02_2", "both one too big", "F-F7.two_in_a_row.wrong_values", "1,1"),
+        ("02_2", "Two of eight", "F-X2.two_in_a_row.misses", "2"),
+        ("02_2", "of eight", "F-F4.tosses", "8"),
+        (
+            "02_3",
+            "one too big and one too small",
+            "F-F7.cancelling.wrong_values",
+            "1,-1",
+        ),
+        ("02_3", "Four of eight", "F-X2.cancelling.misses", "4"),
+        ("02_3", "half again", "F-F7.cancelling.miss_share", "1/2"),
+        (
+            "02_4",
+            "one, one and minus one",
+            "F-F7.three_in_a_row.wrong_values",
+            "1,1,-1",
+        ),
+        ("02_5", "Three", "F-X2.three_in_a_row.misses", "3"),
+        ("02_5", "Not half", "F-F7.three_in_a_row.miss_share", "3/8"),
+        (
+            "02_5",
+            "not a power of two",
+            "F-F7.three_in_a_row.power_of_two",
+            "false",
+        ),
+        (
+            "02_6",
+            "one wrong entry in each row and column",
+            "F-F7.every_column.wrong_per_row_and_column",
+            "1",
+        ),
+        ("02_6", "only from all tails", "F-F7.every_column.hides_from", "000"),
+        ("02_7", "more than half", "F-F5.bound_per_toss", "1/2"),
+        ("02_8", "by the wrong entry", "F-F8.changes", "1,1,1,1"),
+        // the proof's constant, not the example's most
+        ("02_8", "At most one of each pair", "F-F8.misses_per_pair_bound", "1"),
+        ("02_9", "every toss once", "F-F8.partners_per_toss", "1"),
+        ("02_9", "at most half of all tosses", "F-F8.pairs_over_tosses", "1/2"),
+        (
             "01_10",
             "once in a million",
             "F-F5.again.under_one_in_a_million",
@@ -100,7 +145,7 @@ mod tests {
         // and no line carries a number word the table above does not know
         let numbers = [
             "one", "single", "two", "three", "four", "seven", "eight", "nine", "twenty", "thousand", "million",
-            "billion", "half", "once",
+            "billion", "half", "once", "minus",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

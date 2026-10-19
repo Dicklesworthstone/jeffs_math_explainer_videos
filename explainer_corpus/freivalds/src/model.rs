@@ -51,7 +51,9 @@ pub const B2: Matrix<2> = [[2, 1], [1, 0]];
 /// Mistakes of different shapes (D = C − A·B), each with its name: one
 /// wrong entry (the example's own), two in a row that add, two in a row that
 /// cancel, three in a row that pass three tosses of eight (not a power of
-/// two), one in each of two rows, and one in every column.
+/// two), one in each of two rows, and one in each row and each column
+/// (`every_column`; being wrong in every column alone is not enough, as the
+/// three-in-a-row shows).
 pub const SHAPES: [(&str, Matrix<SIDE>); 6] = [
     ("one_entry", [[0, 0, 0], [0, 1, 0], [0, 0, 0]]),
     ("two_in_a_row", [[0, 0, 0], [0, 1, 1], [0, 0, 0]]),
@@ -207,6 +209,46 @@ pub fn passing<const N: usize>(a: &Matrix<N>, b: &Matrix<N>, c: &Matrix<N>) -> V
         .into_iter()
         .filter(|(_, ch)| ch.passes())
         .map(|(t, _)| t)
+        .collect()
+}
+
+/// The mistake `d` hides from `toss`: its heads columns add up to zero in
+/// every row. With C = A·B + D this is exactly when the check passes, since
+/// C·r − A·(B·r) = D·r in exact arithmetic.
+pub fn hides<const N: usize>(d: &Matrix<N>, toss: &Toss<N>) -> bool {
+    kept_sum(d, toss).iter().all(|&x| x == 0)
+}
+
+/// The tosses paired by coin `j`: each toss with coin `j` tails, in counting
+/// order, and the one toss that differs from it only there. Every toss is
+/// in exactly one pair, at any size: 2^(N−1) pairs of the 2^N tosses.
+pub fn coin_pairs<const N: usize>(j: usize) -> Vec<(Toss<N>, Toss<N>)> {
+    tosses::<N>()
+        .into_iter()
+        .filter(|t| !t[j])
+        .map(|t| {
+            let mut partner = t;
+            partner[j] = true;
+            (t, partner)
+        })
+        .collect()
+}
+
+/// Across each pair by coin `j`, how much row `i` of the mistake's
+/// heads-column sum changes: always `d[i][j]`, the wrong entry the flip
+/// adds, exactly.
+pub fn pair_changes<const N: usize>(d: &Matrix<N>, i: usize, j: usize) -> Vec<i64> {
+    coin_pairs::<N>(j)
+        .iter()
+        .map(|(tails, heads)| kept_sum(d, heads)[i] - kept_sum(d, tails)[i])
+        .collect()
+}
+
+/// Of each pair by coin `j`, how many tosses the mistake `d` hides from.
+pub fn misses_per_pair<const N: usize>(d: &Matrix<N>, j: usize) -> Vec<usize> {
+    coin_pairs::<N>(j)
+        .iter()
+        .map(|(tails, heads)| [tails, heads].into_iter().filter(|&&t| hides(d, &t)).count())
         .collect()
 }
 
@@ -508,6 +550,83 @@ mod tests {
         }
         assert_eq!(blind_spot(&[true]), None);
         assert!(blind_spot(&[false]).is_some());
+    }
+
+    /// The check sees only the mistake: on every toss and every shape the
+    /// two columns differ by the mistake's heads columns, and a toss passes
+    /// exactly when the mistake hides from it.
+    #[test]
+    fn the_check_sees_only_the_mistake() {
+        let (ab, _) = product(&A, &B);
+        for (_, d) in SHAPES {
+            let c = plus(&ab, &d);
+            for (t, ch) in checks(&A, &B, &c) {
+                let diff: Column<3> = std::array::from_fn(|i| ch.cr[i] - ch.a_br[i]);
+                assert_eq!(diff, kept_sum(&d, &t), "{}", toss_text(&t));
+                assert_eq!(ch.passes(), hides(&d, &t), "{}", toss_text(&t));
+            }
+        }
+    }
+
+    /// The pairing, at every size up to three and for every coin: every toss
+    /// is in exactly one pair, there are half as many pairs as tosses, and
+    /// partners differ only in that coin.
+    #[test]
+    fn the_coin_pairs_cover_every_toss_once() {
+        fn covers<const N: usize>() {
+            for j in 0..N {
+                let pairs = coin_pairs::<N>(j);
+                assert_eq!(2 * pairs.len(), tosses::<N>().len());
+                let mut seen: Vec<Toss<N>> = pairs.iter().flat_map(|&(t, u)| [t, u]).collect();
+                seen.sort_unstable();
+                seen.dedup();
+                assert_eq!(seen.len(), tosses::<N>().len());
+                for (t, u) in &pairs {
+                    let differ: Vec<usize> = (0..N).filter(|&k| t[k] != u[k]).collect();
+                    assert_eq!(differ, [j]);
+                    assert!(!t[j] && u[j]);
+                }
+            }
+        }
+        covers::<1>();
+        covers::<2>();
+        covers::<3>();
+    }
+
+    /// The proof's step on every small mistake: for every wrong entry, the
+    /// flip of its coin changes its row's sum by exactly that entry, so at
+    /// most one toss of each pair hides it. The hypothesis is needed: by the
+    /// coin of a column where the mistake is right, nothing moves, and all
+    /// tails and its partner both hide. The three-in-a-row is the chapter's
+    /// worked case, and the slip the negative.
+    #[test]
+    fn a_flip_changes_the_row_by_the_wrong_entry() {
+        let values = [-1, 0, 1];
+        for code in 0..values.len().pow(9) {
+            let d = numbered::<3>(&values, code);
+            for (i, j) in wrong_entries(&d) {
+                assert!(
+                    pair_changes(&d, i, j).iter().all(|&c| c == d[i][j]),
+                    "{d:?} at ({i}, {j})"
+                );
+                assert!(misses_per_pair(&d, j).iter().all(|&m| m <= 1), "{d:?} by coin {j}");
+            }
+            for j in (0..3).filter(|&j| d.iter().all(|row| row[j] == 0)) {
+                assert_eq!(misses_per_pair(&d, j)[0], 2, "{d:?} by coin {j}, where it is right");
+            }
+        }
+        let three = SHAPES[3].1;
+        assert_eq!(pair_changes(&three, 1, 0), [1, 1, 1, 1]);
+        assert_eq!(misses_per_pair(&three, 0), [1, 1, 0, 1]);
+        // the slip paired by coin 1, over a column it is right in: its row's
+        // sum never moves, and two pairs hide twice; by coin 2, over its
+        // wrong column, one toss of each pair hides
+        let slip = SHAPES[0].1;
+        assert_eq!(pair_changes(&slip, 1, 0), [0, 0, 0, 0]);
+        assert_eq!(misses_per_pair(&slip, 0), [2, 2, 0, 0]);
+        assert_eq!(misses_per_pair(&slip, 1), [1, 1, 1, 1]);
+        // a right answer has nothing to hide, so every toss passes
+        assert!(tosses::<3>().iter().all(|t| hides(&[[0; 3]; 3], t)));
     }
 
     #[test]

@@ -7,15 +7,39 @@ each column, add up the heads columns of B and multiply by A, add up the
 heads columns of C, and compare. A right answer always passes. A wrong
 answer passes at most half the tosses, and fresh tosses multiply that down.
 
-**Status.** First slice only: the exact model (`src/model.rs`), every
-number (`src/facts.rs`), an independent oracle (`oracle.py`), chapter 01's
-scene (`src/chapters/check_with_coins.rs`) and its words and pictures
-(`docs/storyboard.md`, generated `script.tsv`, and `narration_units.json`, an
-unqualified and unfrozen grouping proposal). Chapters 02 to 04 are named in the storyboard's arc
-and not written yet. Nothing here has been compiled, rendered, narrated or
-listened to by the lane that wrote it; root's native batch does that. No
+**Status.** The exact model (`src/model.rs`), every number
+(`src/facts.rs`), an independent oracle (`oracle.py`), and the scenes of
+chapters 01 (`src/chapters/check_with_coins.rs`) and 02
+(`src/chapters/never_more_than_half.rs`), with their words and pictures
+(`docs/storyboard.md`, the generated `script.tsv`, and `narration_units.json`,
+an unqualified and unfrozen grouping proposal). Chapters 03 and 04 are named
+in the storyboard's arc and not written yet.
+
+- **Chapter 01:** source and silent visual checkpoint accepted by root at
+  `94988fd`, on root's evidence, not this lane's. Root's central06 ran fmt,
+  strict release clippy, all 32 tests, the release build, and the 92
+  native/oracle facts with 17 oracle checks. Root read all six glyph pages
+  and the changed and prediction frames of draft02 (2,524 frames, empty
+  layout lint), and central07 reran the changed SPOKEN test.
+- **Chapter 02:** source, native checks and sampled silent visuals accepted
+  by root for `.23.2`, on root's evidence, not this lane's.
+  - Root read the final changed source, all eight glyph pages, nine cue-end
+    frames and twelve pairing and prediction frames.
+  - Root's central14 passed fmt, strict release all-target clippy, 42 tests
+    and the build. All 150 native and oracle fact rows are equal, the 20
+    oracle checks pass, and the 81 glyph sources show zero failures.
+  - Draft04's chapter 02 is 2,483 frames (82.766667 s), silent, 960 × 540 at
+    30 fps, with an empty layout lint. Its SHA-256 is
+    `8dd755a7edaa22d0c5a66bfb209c73f181c078898734cb17e8d751b34d5bd8fd`.
+  - EmeraldLeopard's independent review of the actual images (Mail 3894)
+    found no blocking defect. Root accepted its three cosmetic notes with no
+    change.
+  - Not accepted: audio, continuous playback, or the full video.
+
+The lane that writes the code never compiles, renders or narrates it. No
 narration is requested: after the owner's 2026-10-19 rejection of the
-first-wave narration, the coherent route is under independent review.
+first-wave narration, the coherent route is under independent review, and
+no audio of this video has been generated or accepted.
 
 ## What the video claims, exactly
 
@@ -48,6 +72,26 @@ first-wave narration, the coherent route is under independent review.
   where integers differ from arithmetic mod 2); the same toss used twice
   gains nothing; every toss can be beaten by a wrong C written by someone
   who saw it first.
+- Chapter 02 checks these on every toss of every shape:
+  - C·r − A·(B·r) = (C − AB)·r exactly, so the check sees only the mistake,
+    and misses exactly when the mistake's heads columns sum to zero in
+    every row (F-F6).
+  - The edges of its always-sentences (F-X5): two of one sign in a row hide
+    only from tails on both their coins (18 sign and size cases); one too
+    big and one too small hide exactly when their coins agree (6); one wrong
+    entry per row and column hides only from all tails (384 patterns).
+  - Being wrong in every column is not enough for that last one: the
+    1, 1, −1 row is wrong in every column and hides from three tosses.
+  - On the actual tosses (F-F8), coin 1's four pairs each move row 2's sum
+    by exactly the wrong entry (+1), and no pair holds more than one hidden
+    toss. That "one" is the proof's constant (`facts::MISSES_PER_PAIR`,
+    pinned as F-F8.misses_per_pair_bound): the example is checked against
+    it, never used to find it, and the scene refuses to draw if it exceeds it.
+  - The proof needs a column where C is wrong (F-X5.right_column): paired
+    by coin 1, over a column the slip is right in, the slip's row sum never
+    moves and two of the four pairs hide twice (2, 2, 0, 0). The model's
+    test checks the same for every three by three mistake with a right
+    column.
 - **Not claimed:** anything about floating point. In IEEE doubles (`F-X4`,
   `model::ROUNDED_*`), a right answer fails one toss of four and a wrong one
   passes all four, so the exact bound does not transfer; a tolerance makes a
@@ -107,10 +151,13 @@ lookup and probe (`lexicon.json`).
 Cheap, no compilation (run in this lane):
 
 ```bash
-python3 -I -B oracle.py                                   # from this folder: the facts, and 11 cross-checks
+python3 -I -B oracle.py                                   # from this folder: the facts, and 20 cross-checks
 python3 -I tools/storyboard.py --check freivalds          # from the repo root: G2, script.tsv current
-python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins
+python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins,02_never_more_than_half
 ```
+
+The oracle ran 11 cross-checks in the first slice and 17 at `94988fd`. The
+three chapter 02 checks bring it to 20.
 
 Native, root's batch: `./x freivalds facts-check`, the crate's fmt, clippy
 and tests, the glyph probe, and a 540p scratch-voice draft with the layout

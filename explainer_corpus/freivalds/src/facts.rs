@@ -5,10 +5,12 @@
 //! their coins (`110`), and rows and columns count from 1, as the screen
 //! does.
 
+use std::collections::BTreeSet;
+
 use explainer_kit::Facts;
 
 use crate::model::{
-    self, A, A2, B, B2, C, Check, FIRST_TOSS, Matrix, ROUNDED_PASSES, ROUNDED_REJECTS, SHAPES, SIDE, SPOT, Toss,
+    self, A, A2, B, B2, C, Check, Column, FIRST_TOSS, Matrix, ROUNDED_PASSES, ROUNDED_REJECTS, SHAPES, SIDE, SPOT, Toss,
 };
 
 /// The size chapter 01 quotes for scale (01_2): a thousand rows and columns.
@@ -22,6 +24,47 @@ pub const MILLION: u64 = 1_000_000;
 /// the bound's edge test.
 pub const SWEEP_3: [i64; 3] = [-1, 0, 1];
 const SWEEP_2: [i64; 5] = [-2, -1, 0, 1, 2];
+
+/// The mistakes chapter 02 shows, in order (`model::SHAPES` names): the
+/// slip, two in one row of one sign, a cancelling pair, the three-in-a-row
+/// and one per row and column.
+pub const CHAPTER_02_SHAPES: [&str; 5] = [
+    "one_entry",
+    "two_in_a_row",
+    "cancelling",
+    "three_in_a_row",
+    "every_column",
+];
+
+/// The mistake chapter 02 pairs the tosses of, to show the proof's step.
+pub const PROOF_SHAPE: &str = "three_in_a_row";
+
+/// A mistake shape by its name in `model::SHAPES`.
+pub fn shape(name: &str) -> Result<Matrix<SIDE>, String> {
+    SHAPES
+        .iter()
+        .find(|(n, _)| *n == name)
+        .map(|&(_, d)| d)
+        .ok_or_else(|| format!("no mistake shape {name}"))
+}
+
+/// The tosses the mistake `d` hides from, in counting order.
+pub fn hiding(d: &Matrix<SIDE>) -> Vec<Toss<SIDE>> {
+    model::tosses::<SIDE>()
+        .into_iter()
+        .filter(|t| model::hides(d, t))
+        .collect()
+}
+
+/// Where the proof's mistake is first wrong, (row, column) counted from 0:
+/// the row whose sum the flip moves, and the column whose coin it flips.
+pub fn proof_entry() -> Result<(usize, usize), String> {
+    let d = shape(PROOF_SHAPE)?;
+    model::wrong_entries(&d)
+        .first()
+        .copied()
+        .ok_or_else(|| format!("{PROOF_SHAPE} has no wrong entry"))
+}
 
 /// A·B, the true product.
 pub fn true_product() -> Matrix<SIDE> {
@@ -58,14 +101,19 @@ pub fn spot_products() -> Vec<i64> {
     model::products_at(&A, &B, SPOT.0, SPOT.1)
 }
 
-/// The pairing proof's bound on one toss, (num, den), for any ring and any
-/// n (UIUC CS 473, Fall 2019, lecture 12). Pick a column j where C is wrong
-/// and pair each toss with the one that differs only in coin j. Between the
-/// two, a row where C is wrong in column j changes by that nonzero error, so
-/// at most one toss of each pair of two passes. With fair coins, all
-/// independent and tossed after C is fixed, every toss is equally likely,
-/// so that share is the chance.
-const PAIRING_BOUND: (u64, u64) = (1, 2);
+/// The pairing proof's step, for any ring and any n (UIUC CS 473, Fall
+/// 2019, lecture 12). Pick a column j where C is wrong and pair each toss
+/// with the one that differs only in coin j. Between the two, the sum of a
+/// row where C is wrong in column j changes by that nonzero error, so at
+/// most this many tosses of each pair miss. A constant of the proof: the
+/// example's pairs are checked against it, never used to find it.
+pub const MISSES_PER_PAIR: usize = 1;
+
+/// The pairing proof's bound on one toss, (num, den): at most
+/// [`MISSES_PER_PAIR`] of each pair of two. With fair coins, all independent
+/// and tossed after C is fixed, every toss is equally likely, so that share
+/// is the chance.
+const PAIRING_BOUND: (u64, u64) = (MISSES_PER_PAIR as u64, 2);
 
 /// One finite check of `bound` at one size of the edge test. The worst
 /// small mistake (`most` of `tosses`) passes no more than the bound, no coin
@@ -174,6 +222,172 @@ fn sweep_facts(f: &mut Facts, key: &str, values: &[i64], s: model::Sweep, tosses
             "at {key} a mistake passes {} of {tosses} tosses ({} coin pairs pass twice): the bound fails",
             s.most, s.pairs_both_passing
         ));
+    }
+    Ok(())
+}
+
+/// Chapter 02's numbers: the mistake on its own, each shape it shows, the
+/// edges of its always-sentences, and the pairing on the actual tosses.
+fn chapter_02(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
+    let tosses = model::tosses::<SIDE>();
+
+    // 02_1: the slip's mistake, and what the check sees of any mistake
+    let slip = model::mistake(&C, ab);
+    f.add("F-F6.slip.mistake", matrix_text(&slip))?;
+    f.add("F-F6.first_toss.heads_sum", csv(&model::kept_sum(&slip, &FIRST_TOSS)))?;
+    let (mut differs_by_mistake, mut misses_are_zero) = (true, true);
+    for (_, d) in SHAPES {
+        let c = model::plus(ab, &d);
+        for (t, ch) in model::checks(&A, &B, &c) {
+            let diff: Column<SIDE> = std::array::from_fn(|i| ch.cr[i] - ch.a_br[i]);
+            differs_by_mistake &= diff == model::kept_sum(&d, &t);
+            misses_are_zero &= ch.passes() == model::hides(&d, &t);
+        }
+    }
+    f.add("F-F6.difference_is_mistake_sum", differs_by_mistake)?;
+    f.add("F-F6.misses_are_zero_sums", misses_are_zero)?;
+
+    // 02_2 to 02_6: each shape, what it hides from
+    for name in CHAPTER_02_SHAPES {
+        let d = shape(name)?;
+        let wrong: Vec<i64> = model::wrong_entries(&d).iter().map(|&(i, j)| d[i][j]).collect();
+        let hide = hiding(&d);
+        let texts: Vec<String> = hide.iter().map(model::toss_text).collect();
+        f.add(&format!("F-F7.{name}.mistake"), matrix_text(&d))?;
+        f.add(&format!("F-F7.{name}.wrong_count"), wrong.len())?;
+        f.add(&format!("F-F7.{name}.wrong_values"), csv(&wrong))?;
+        f.add(&format!("F-F7.{name}.hides_from"), texts.join(","))?;
+        f.add(
+            &format!("F-F7.{name}.miss_share"),
+            ratio(hide.len() as i64, tosses.len() as i64)?,
+        )?;
+        f.add(&format!("F-F7.{name}.power_of_two"), hide.len().is_power_of_two())?;
+    }
+    let each = shape("every_column")?;
+    let mut per: BTreeSet<usize> = each.iter().map(|row| row.iter().filter(|&&x| x != 0).count()).collect();
+    per.extend((0..SIDE).map(|j| each.iter().filter(|row| row[j] != 0).count()));
+    f.add(
+        "F-F7.every_column.wrong_per_row_and_column",
+        csv(&per.into_iter().collect::<Vec<_>>()),
+    )?;
+
+    // the edges of "both one too big hide only when both coins land tails",
+    // "one too big and one too small hide whenever their coins agree" and
+    // "one per row and column hides only from all tails", any sizes
+    let (mut same_cases, mut same_bad, mut cancel_cases, mut cancel_bad) = (0, 0, 0, 0);
+    for a in -3..=3i64 {
+        for b in -3..=3i64 {
+            if a == 0 || b == 0 {
+                continue;
+            }
+            let d = [[0, 0, 0], [0, a, b], [0, 0, 0]];
+            if a.signum() == b.signum() {
+                same_cases += 1;
+                same_bad += tosses
+                    .iter()
+                    .filter(|t| model::hides(&d, t) != (!t[1] && !t[2]))
+                    .count();
+            }
+            if b == -a {
+                cancel_cases += 1;
+                cancel_bad += tosses.iter().filter(|t| model::hides(&d, t) != (t[1] == t[2])).count();
+            }
+        }
+    }
+    f.add("F-X5.same_sign.cases", same_cases)?;
+    f.add("F-X5.same_sign.violations", same_bad)?;
+    f.add("F-X5.cancelling.cases", cancel_cases)?;
+    f.add("F-X5.cancelling.violations", cancel_bad)?;
+    let (mut each_cases, mut each_bad) = (0, 0);
+    let all_tails = [false; SIDE];
+    for code in 0..SIDE * SIDE * SIDE {
+        let cols = [code % SIDE, code / SIDE % SIDE, code / (SIDE * SIDE)];
+        if cols[0] == cols[1] || cols[0] == cols[2] || cols[1] == cols[2] {
+            continue;
+        }
+        for values in 0..64usize {
+            let entry = |i: usize| [-2, -1, 1, 2][(values >> (2 * i)) & 3];
+            let d: Matrix<SIDE> =
+                std::array::from_fn(|i| std::array::from_fn(|j| if j == cols[i] { entry(i) } else { 0 }));
+            each_cases += 1;
+            each_bad += tosses
+                .iter()
+                .filter(|t| model::hides(&d, t) != (**t == all_tails))
+                .count();
+        }
+    }
+    f.add("F-X5.one_per_row_and_column.cases", each_cases)?;
+    f.add("F-X5.one_per_row_and_column.violations", each_bad)?;
+    // why 02_6 says one per row and column, not just wrong in every column
+    let three = shape(PROOF_SHAPE)?;
+    f.add(
+        "F-X5.three_in_a_row.wrong_in_every_column",
+        (0..SIDE).all(|j| three.iter().any(|row| row[j] != 0)),
+    )?;
+    if same_bad + cancel_bad + each_bad != 0 {
+        return Err("a chapter 02 sentence fails at its edges".into());
+    }
+
+    // 02_7 to 02_9: the pairing on the actual tosses
+    let (row, column) = proof_entry()?;
+    let pairs = model::coin_pairs::<SIDE>(column);
+    let pair_texts: Vec<String> = pairs
+        .iter()
+        .map(|(t, u)| format!("{}-{}", model::toss_text(t), model::toss_text(u)))
+        .collect();
+    let tails_sums: Vec<i64> = pairs.iter().map(|(t, _)| model::kept_sum(&three, t)[row]).collect();
+    let heads_sums: Vec<i64> = pairs.iter().map(|(_, u)| model::kept_sum(&three, u)[row]).collect();
+    let changes = model::pair_changes(&three, row, column);
+    let per_pair = model::misses_per_pair(&three, column);
+    f.add("F-F8.row", row + 1)?;
+    f.add("F-F8.column", column + 1)?;
+    f.add("F-F8.wrong_entry", three[row][column])?;
+    f.add("F-F8.pairs", pair_texts.join(","))?;
+    f.add("F-F8.row_sums.tails", csv(&tails_sums))?;
+    f.add("F-F8.row_sums.heads", csv(&heads_sums))?;
+    f.add("F-F8.changes", csv(&changes))?;
+    f.add("F-F8.misses_per_pair", csv(&per_pair))?;
+    f.pin(
+        "F-F8.misses_per_pair_bound",
+        MISSES_PER_PAIR,
+        "1",
+        "the pairing proof: across a pair the row sum moves by a nonzero wrong entry, so at most one of the two \
+         is zero; UIUC CS 473 (Fall 2019) lecture 12",
+    )?;
+    // the example's own most, checked against the proof's bound below
+    f.add("F-F8.most_misses_per_pair", per_pair.iter().max().copied().unwrap_or(0))?;
+    f.add("F-F8.pair_count", pairs.len())?;
+    let partners: BTreeSet<usize> = tosses
+        .iter()
+        .map(|t| pairs.iter().filter(|(a, b)| a == t || b == t).count())
+        .collect();
+    f.add("F-F8.partners_per_toss", csv(&partners.into_iter().collect::<Vec<_>>()))?;
+    f.add(
+        "F-F8.pairs_over_tosses",
+        ratio(pairs.len() as i64, tosses.len() as i64)?,
+    )?;
+    if changes.iter().any(|&c| c != three[row][column]) || per_pair.iter().any(|&m| m > MISSES_PER_PAIR) {
+        return Err("the pairing step fails on the proof's mistake".into());
+    }
+
+    // the hypothesis matters: paired by the coin of a column where C is
+    // right, the slip's row sum never moves, and both tosses of a pair miss
+    let (slip_row, _) = model::wrong_entries(&slip)
+        .first()
+        .copied()
+        .ok_or("the slip has no wrong entry")?;
+    let right = (0..SIDE)
+        .find(|&j| slip.iter().all(|r| r[j] == 0))
+        .ok_or("the slip is wrong in every column")?;
+    let right_misses = model::misses_per_pair(&slip, right);
+    f.add("F-X5.right_column.column", right + 1)?;
+    f.add("F-X5.right_column.misses_per_pair", csv(&right_misses))?;
+    f.add(
+        "F-X5.right_column.changes",
+        csv(&model::pair_changes(&slip, slip_row, right)),
+    )?;
+    if right_misses.iter().all(|&m| m <= MISSES_PER_PAIR) {
+        return Err("paired by a column where C is right, no pair misses twice: the negative is lost".into());
     }
     Ok(())
 }
@@ -353,6 +567,7 @@ pub fn facts() -> Result<Facts, String> {
         small.iter().filter(|&t| model::rounded_passes(&a, &b, &c, t)).count(),
     )?;
 
+    chapter_02(&mut f, &ab)?;
     f.self_check()?;
     Ok(f)
 }
@@ -422,6 +637,38 @@ mod tests {
             ("F-X4.pass.wrong_entries", "1"),
             ("F-X4.pass.exact_passes", "2"),
             ("F-X4.pass.rounded_passes", "4"),
+            ("F-F6.slip.mistake", "0,0,0;0,1,0;0,0,0"),
+            ("F-F6.first_toss.heads_sum", "0,1,0"),
+            ("F-F6.difference_is_mistake_sum", "true"),
+            ("F-F6.misses_are_zero_sums", "true"),
+            ("F-F7.two_in_a_row.hides_from", "000,100"),
+            ("F-F7.cancelling.hides_from", "000,011,100,111"),
+            ("F-F7.three_in_a_row.wrong_values", "1,1,-1"),
+            ("F-F7.three_in_a_row.hides_from", "000,011,101"),
+            ("F-F7.three_in_a_row.miss_share", "3/8"),
+            ("F-F7.three_in_a_row.power_of_two", "false"),
+            ("F-F7.every_column.hides_from", "000"),
+            ("F-F7.every_column.wrong_per_row_and_column", "1"),
+            ("F-X5.same_sign.cases", "18"),
+            ("F-X5.same_sign.violations", "0"),
+            ("F-X5.cancelling.cases", "6"),
+            ("F-X5.one_per_row_and_column.cases", "384"),
+            ("F-X5.one_per_row_and_column.violations", "0"),
+            ("F-X5.three_in_a_row.wrong_in_every_column", "true"),
+            ("F-F8.row", "2"),
+            ("F-F8.column", "1"),
+            ("F-F8.pairs", "000-100,001-101,010-110,011-111"),
+            ("F-F8.row_sums.tails", "0,-1,1,0"),
+            ("F-F8.row_sums.heads", "1,0,2,1"),
+            ("F-F8.changes", "1,1,1,1"),
+            ("F-F8.misses_per_pair", "1,1,0,1"),
+            ("F-F8.misses_per_pair_bound", "1"),
+            ("F-F8.most_misses_per_pair", "1"),
+            ("F-F8.partners_per_toss", "1"),
+            ("F-F8.pairs_over_tosses", "1/2"),
+            ("F-X5.right_column.column", "1"),
+            ("F-X5.right_column.misses_per_pair", "2,2,0,0"),
+            ("F-X5.right_column.changes", "0,0,0,0"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

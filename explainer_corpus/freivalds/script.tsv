@@ -9,3 +9,12 @@
 01_8	Check all eight. Four of them miss, exactly half.
 01_9	Because every miss leaves out the column that holds the wrong entry.
 01_10	But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million.
+02_1	Look at the mistake on its own, C minus the true product. The check misses exactly when its heads columns add up to zero in every row.
+02_2	Two in one row, both one too big, hide only when both coins land tails. Two of eight.
+02_3	But one too big and one too small hide whenever their coins agree. Four of eight, half again.
+02_4	Now one, one and minus one in a row. How many tosses does it hide from?
+02_5	Three. Not half, and not a power of two.
+02_6	Put one wrong entry in each row and column, and it hides only from all tails.
+02_7	Why never more than half? Pick a column where C is wrong. Pair the tosses that differ only in its coin.
+02_8	Because that row's sum changes across a pair by the wrong entry, both can't be zero. At most one of each pair misses.
+02_9	Pairs cover every toss once, so at most half of all tosses miss, for matrices of any size.

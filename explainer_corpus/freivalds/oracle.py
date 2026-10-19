@@ -36,7 +36,7 @@ heads columns of B and C and multiplies A by that column, entry by entry):
 """
 import sys
 from fractions import Fraction
-from itertools import product
+from itertools import permutations, product
 
 _EMITTED = {}
 _FAILED = []
@@ -62,8 +62,10 @@ SHAPES = (
 )
 # The pairing proof (UIUC CS 473, Fall 2019, lecture 12): two tosses that
 # differ only in the coin of a column where C is wrong cannot both pass, so at
-# most one toss of each pair of two passes, for any n over any ring.
-PAIRING_BOUND = Fraction(1, 2)
+# most one toss of each pair of two passes, for any n over any ring. A
+# constant of the proof; the example's pairs are checked against it.
+MISSES_PER_PAIR = 1
+PAIRING_BOUND = Fraction(MISSES_PER_PAIR, 2)
 BIG = 10**16
 ROUNDED_REJECTS = (((1, 1), (0, 0)), ((BIG, 1), (-BIG, 1)), ((0, 2), (0, 0)))
 ROUNDED_PASSES = (((BIG, 1), (0, 0)), ((1, 0), (1, 0)), ((BIG, 0), (0, 0)))
@@ -316,7 +318,106 @@ def facts():
     emit("F-X4.pass.wrong_entries", sum(1 for row in mistake for x in row if x != 0))
     emit("F-X4.pass.exact_passes", sum(1 for t in two if apply(a, apply(b, t)) == apply(c, t)))
     emit("F-X4.pass.rounded_passes", sum(1 for t in two if rounded_passes(a, b, c, t)))
+    chapter_02(ab)
     return ab, d, passing
+
+
+CHAPTER_02_SHAPES = ("one_entry", "two_in_a_row", "cancelling", "three_in_a_row", "every_column")
+PROOF_SHAPE = "three_in_a_row"
+
+
+def toss_text(t):
+    return "".join(str(x) for x in t)
+
+
+def chapter_02(ab):
+    """Chapter 02's facts, by multiplying the mistake by the 0/1 column."""
+    n = len(A)
+    all_tosses = tosses(n)
+    shapes = dict(SHAPES)
+    zero = (0,) * n
+
+    slip = minus(C, ab)
+    emit("F-F6.slip.mistake", matrix_text(slip))
+    emit("F-F6.first_toss.heads_sum", csv(apply(slip, FIRST_TOSS)))
+    differs = zero_ok = True
+    for shape in shapes.values():
+        c = plus(ab, shape)
+        for t in all_tosses:
+            a_br, cr = apply(A, apply(B, t)), apply(c, t)
+            differs &= tuple(x - y for x, y in zip(cr, a_br)) == apply(shape, t)
+            zero_ok &= (a_br == cr) == (apply(shape, t) == zero)
+    emit("F-F6.difference_is_mistake_sum", differs)
+    emit("F-F6.misses_are_zero_sums", zero_ok)
+
+    for name in CHAPTER_02_SHAPES:
+        shape = shapes[name]
+        wrong = [x for row in shape for x in row if x != 0]
+        hide = [t for t in all_tosses if apply(shape, t) == zero]
+        emit(f"F-F7.{name}.mistake", matrix_text(shape))
+        emit(f"F-F7.{name}.wrong_count", len(wrong))
+        emit(f"F-F7.{name}.wrong_values", csv(wrong))
+        emit(f"F-F7.{name}.hides_from", ",".join(toss_text(t) for t in hide))
+        emit(f"F-F7.{name}.miss_share", Fraction(len(hide), len(all_tosses)))
+        emit(f"F-F7.{name}.power_of_two", len(hide) > 0 and len(hide) & (len(hide) - 1) == 0)
+    each = shapes["every_column"]
+    counts = {sum(1 for x in row if x) for row in each} | {sum(1 for row in each if row[j]) for j in range(n)}
+    emit("F-F7.every_column.wrong_per_row_and_column", csv(sorted(counts)))
+
+    nonzero = [x for x in range(-3, 4) if x]
+    same = [(a, b) for a in nonzero for b in nonzero if (a > 0) == (b > 0)]
+    same_bad = sum(1 for a, b in same for t in all_tosses
+                   if (apply(((0, 0, 0), (0, a, b), (0, 0, 0)), t) == zero) != (t[1] == 0 and t[2] == 0))
+    cancel_bad = sum(1 for a in nonzero for t in all_tosses
+                     if (apply(((0, 0, 0), (0, a, -a), (0, 0, 0)), t) == zero) != (t[1] == t[2]))
+    emit("F-X5.same_sign.cases", len(same))
+    emit("F-X5.same_sign.violations", same_bad)
+    emit("F-X5.cancelling.cases", len(nonzero))
+    emit("F-X5.cancelling.violations", cancel_bad)
+    each_cases = each_bad = 0
+    for cols in permutations(range(n)):
+        for vals in product((-2, -1, 1, 2), repeat=n):
+            dd = tuple(tuple(vals[i] if j == cols[i] else 0 for j in range(n)) for i in range(n))
+            each_cases += 1
+            each_bad += sum(1 for t in all_tosses if (apply(dd, t) == zero) != (t == zero))
+    emit("F-X5.one_per_row_and_column.cases", each_cases)
+    emit("F-X5.one_per_row_and_column.violations", each_bad)
+    three = shapes[PROOF_SHAPE]
+    emit("F-X5.three_in_a_row.wrong_in_every_column", all(any(row[j] for row in three) for j in range(n)))
+
+    row, column = next((i, j) for i in range(n) for j in range(n) if three[i][j])
+    pairs = [(t, t[:column] + (1,) + t[column + 1:]) for t in all_tosses if t[column] == 0]
+    tails = [apply(three, t)[row] for t, _ in pairs]
+    heads = [apply(three, u)[row] for _, u in pairs]
+    per_pair = [sum(1 for x in pair if apply(three, x) == zero) for pair in pairs]
+    emit("F-F8.row", row + 1)
+    emit("F-F8.column", column + 1)
+    emit("F-F8.wrong_entry", three[row][column])
+    emit("F-F8.pairs", ",".join(f"{toss_text(t)}-{toss_text(u)}" for t, u in pairs))
+    emit("F-F8.row_sums.tails", csv(tails))
+    emit("F-F8.row_sums.heads", csv(heads))
+    emit("F-F8.changes", csv(h - t for t, h in zip(tails, heads)))
+    emit("F-F8.misses_per_pair", csv(per_pair))
+    emit("F-F8.misses_per_pair_bound", MISSES_PER_PAIR)
+    emit("F-F8.most_misses_per_pair", max(per_pair))
+    emit("F-F8.pair_count", len(pairs))
+    emit("F-F8.partners_per_toss", csv(sorted({sum(1 for pair in pairs if t in pair) for t in all_tosses})))
+    emit("F-F8.pairs_over_tosses", Fraction(len(pairs), len(all_tosses)))
+    check("chapter 02: every edge sentence holds", same_bad == cancel_bad == each_bad == 0)
+    check("chapter 02: each flip moves the row sum by the wrong entry, so no pair holds more than the proof's bound",
+          all(h - t == three[row][column] for t, h in zip(tails, heads)) and max(per_pair) <= MISSES_PER_PAIR)
+
+    # the hypothesis matters: paired by the coin of a column where C is
+    # right, the slip's row sum never moves and both tosses of a pair miss
+    (slip_row, _), = [(i, j) for i in range(n) for j in range(n) if slip[i][j]]
+    right = next(j for j in range(n) if all(r[j] == 0 for r in slip))
+    right_pairs = [(t, t[:right] + (1,) + t[right + 1:]) for t in all_tosses if t[right] == 0]
+    right_misses = [sum(1 for x in pair if apply(slip, x) == zero) for pair in right_pairs]
+    emit("F-X5.right_column.column", right + 1)
+    emit("F-X5.right_column.misses_per_pair", csv(right_misses))
+    emit("F-X5.right_column.changes", csv(apply(slip, u)[slip_row] - apply(slip, t)[slip_row] for t, u in right_pairs))
+    check("chapter 02: paired by a column where C is right, a pair misses twice",
+          max(right_misses) > MISSES_PER_PAIR)
 
 
 def cross_checks(ab, d, passing):
