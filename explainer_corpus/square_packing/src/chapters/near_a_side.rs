@@ -858,6 +858,7 @@ impl SceneConstruct for NearASide {
                 curve,
                 level,
                 chord,
+                marker,
                 straight_tick,
                 eighth_tick,
                 one,
@@ -868,6 +869,9 @@ impl SceneConstruct for NearASide {
             &[],
             0.4,
         )?;
+        // the fade-out detaches the marker at its begin-time opacity, and the
+        // reveal below re-roots it: zero it first so it never shows again
+        stage.set_opacity(marker, 0.0, true);
         let dropped = kit.text_left(stage, DROPPED, 26.0, warn(), v(TEXT_X, DERIVE_Y.0))?;
         swap(stage, &[], &[dropped], 0.3)?;
         reveal(stage, &[(marker, 0.0), (tall, 0.0)], 0.2)?;
