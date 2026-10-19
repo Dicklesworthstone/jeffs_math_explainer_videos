@@ -1,0 +1,12 @@
+# randomized_response: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Ask a class of twenty if they've ever copied homework. Anyone who did has a reason to say no.
+01_2	Only we can see the truth. Four of them did.
+01_3	So everyone flips a coin where nobody can see. Heads, tell the truth.
+01_4	Tails, flip a second coin, and let it answer. Heads for yes, tails for no.
+01_5	On average, half the class tells the truth. Two of our four say yes.
+01_6	The other ten get the second coin. Five yes, five no, whatever the truth.
+01_7	Seven yes, thirteen no. That's all the survey sees.
+01_8	From those two numbers, how could the survey get back to four?
+01_9	Take away the second coin's yeses. On average that's five, a quarter of the class. Two are left.
+01_10	Those two came from the half who told the truth. So double them. Four.
+01_11	No answer is a confession. But someone who copied says yes three times as often as someone who didn't.

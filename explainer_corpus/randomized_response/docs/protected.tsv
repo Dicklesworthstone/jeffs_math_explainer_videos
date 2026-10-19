@@ -1,0 +1,7 @@
+# Protected facts: the words every revision must keep (./x randomized_response protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere".
+Heads, tell the truth	script	the rule is defined before any number is derived (01_3)
+let it answer. Heads for yes, tails for no	script	the second coin's half of the rule (01_4)
+On average	script	the opening's counts are average counts, not what every class gets (R-F3; the 01_5 card)
+three times as often	script	a yes is not harmless: 3/4 against 1/4 (R-F5.ratio.yes); the brief's kill criterion

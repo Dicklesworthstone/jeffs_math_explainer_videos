@@ -1,0 +1,28 @@
+# Brief — How to Learn a Secret About a Crowd Without Learning Each Person's Answer
+
+Values I chose without the owner are marked `(default)`.
+
+| Field | Value |
+|---|---|
+| Topic (owner's words) | The second-wave selection "randomized response" (catalog `randomized_response`, revision `v1-michael-20261019`; slate C04 in `docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md`) |
+| One-sentence takeaway | A coin that sometimes answers for you lets a survey count a secret behaviour in a crowd, exactly on average, while each answer stays deniable: never more than three times likelier from someone with the secret, a privacy that asking the same person again with fresh coins spends. |
+| The promise | In the first 20 seconds: a direct question exposes whoever says yes, and a coin rule fixes that. It matters to anyone who collects data about people: the count survives the noise, the person's answer is only partly hidden, and the cost is precision. |
+| Vocabulary (one word per idea) | class, copied, coin and second coin, heads and tails, tell the truth, answer, the survey, on average (storyboard, "Vocabulary") |
+| Protected facts | `docs/protected.tsv` |
+| The hook (where the obvious tool fails) | Asking directly: a yes is a confession, so anyone who copied has a reason to say no. No data is claimed about how often people lie; the failure is the exposure itself |
+| The one picture | The coin rule as a table: rows are routes (the truth, the second coin), columns are answers (yes, no); students travel through it and land in cells, and the survey sees only the two column totals |
+| Worked example | An invented class of 20, the 4 who copied in seats 2, 6, 13, 17. On average (every coin outcome equally often): 10 tell the truth (2 yes, 8 no), 10 get the second coin (5 yes, 5 no); 7 yes and 13 no; 7 − 20/4 = 2, doubled, 4 (`R-F1` to `R-F4`) |
+| Audience | a curious 14-year-old with school algebra; a programmer who could implement it afterwards; a mathematician who finds nothing wrong (default, plan §1.2) |
+| Length target | every chapter at most 85 s; chapter 01 is 158 words, about 81 s by the Golay draft's measures before animation waits (storyboard notes); 13–17 min for the whole video if the planned arc holds (slate estimate, default) |
+| Format | 3840×2160 @ 60 fps, H.264, AAC 256k, −16 LUFS target with a −1.0 dBTP ceiling; quieter when the ceiling binds, never loudnormed (default) |
+| Voice | FrankenTTS `michael` with the owner's approved English accent; three coherent units for chapter 01 (`narration_units.json`), semantic pause targets in the storyboard. No narration exists for this video; no voice approval is inferred. The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md): no synthesis for this video with that method until it is requalified |
+| Look | 3Blue1Brown: dark background, role colors, continuous motion (default) |
+| References | README.md, "Sources" (Dwork and Roth 2014 read; Erlingsson, Pihur and Korolova 2014 read; Warner 1965 **not read**) |
+| Competing explanations | README.md, "Closest treatments" (one video known only by its metadata; three written or interactive treatments read through text) |
+| Owner script supplied? | no |
+| Oracle(s) | `oracle.py`: the rule as a written-out lookup table, the class tallied person by person, the yes distribution by a person-by-person dynamic program over 4²⁰ outcomes, Bayes by counting (person, outcome) pairs, sampling variance by enumerating one person's joint distribution, repeated asks by `itertools.product`, RAPPOR's example by exact binomial likelihoods; 21 cross-checks (`./x randomized_response facts-check`) |
+| Pronunciations | chapter 01 says no name and no term of art (`lexicon.json` is empty on purpose); "Warner", "RAPPOR" and "differential privacy" need lookup and probing before any line says them |
+| Render host | the build host (`project.env`); BlueSalmon / SageBasin runs the combined native batch for the second wave |
+| franken_manim | the workspace pin (`Cargo.toml`, `FRANKEN_MANIM.pin`); not compiled by this lane |
+| Out of scope | whether randomized response makes real people more honest (an empirical question; no participation or honesty effect is claimed), Warner's spinner in the video itself, other designs (unrelated-question, other forced-response variants), RAPPOR's Bloom filters, the general theory of local differential privacy |
+| Assumptions | (1) Everyone follows the rule; the coins are fair and private (RAPPOR §1 names compliance as an assumption that may not hold for people). (2) Chapter 01's counts are average counts, said and carded as such; a real class scatters (`R-F7`). (3) The class is fixed: its scatter is the coins' alone (variance 3n/4 for the estimated count, 3/(4n) for the share). Independent draws, with replacement or from a large population, add p(1 − p)/n to the share's variance (n·p(1 − p) to the count's; `R-F8`); drawing all N = n without replacement adds nothing. Kept apart in the planned chapter 03. (4) The privacy statement is about what one answer says about its own giver under this rule, nothing about other data |

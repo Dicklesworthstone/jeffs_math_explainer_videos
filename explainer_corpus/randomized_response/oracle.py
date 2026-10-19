@@ -1,0 +1,403 @@
+#!/usr/bin/env python3
+"""Facts oracle for "How to Learn a Secret About a Crowd Without Learning Each
+Person's Answer".
+
+Run from this folder (`./x randomized_response facts-check` does, with numpy
+through uv):
+
+    python3 -I -B oracle.py
+
+stdout: one `KEY<TAB>VALUE` line per fact, the same keys `survey facts` prints
+(src/facts.rs), in the rows of docs/fact-sheet.md: R-F (computed), R-X (the
+edges of the always/never sentences).
+
+stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
+cross-check failed.
+
+How the values are obtained, independently of the Rust model (which counts
+each coin pair's route, tallies a class whose coins land on average, convolves
+two binomial counts for the yes distribution and runs the rule over base-4
+coin outcomes for repeated asks):
+  * the rule as a lookup table of the two coins' faces ("HH", "HT", "TH",
+    "TT"), written out here, not computed from a route;
+  * the class on average by giving every person the coin outcomes in turn,
+    group by group, and counting answers per (row, answer) cell;
+  * the yes count's exact distribution by multiplying the class's people in
+    one at a time: a dynamic program over people, each adding their own
+    outcome counts (no binomial coefficients), with Python's big integers;
+  * Bayes for the answers' meaning by counting (person, coin outcome) pairs;
+  * sampling variance by enumerating one random person's (truth, coin) joint
+    distribution and taking E[X^2] - E[X]^2 of their contribution;
+  * repeated asks by itertools.product over every coin outcome of every ask,
+    and RAPPOR's 75-of-100 example by exact binomial likelihoods (big
+    integers: 4^100 is no obstacle here);
+  * numpy.random parity is not needed: nothing in this video is sampled.
+"""
+import math
+import sys
+from fractions import Fraction
+from itertools import product
+
+_EMITTED = {}
+_FAILED = []
+_CHECKS = [0]
+
+# The class (src/model.rs): twenty seats in rows of five; these four copied.
+CLASS_SIZE = 20
+COLUMNS = 5
+COPIED_SEATS = (2, 6, 13, 17)
+# Chapter 04's person is asked this many times.
+ASKS = 3
+# RAPPOR's example: yeses out of answers.
+RAPPOR = (75, 100)
+WORST_LISTED = 5
+MAX_ASKS = 10
+
+# The rule, written out: (first coin, second coin) -> answer for someone who
+# copied, answer for someone who didn't; and what decided it.
+OUTCOMES = ("HH", "HT", "TH", "TT")
+RULE = {
+    "HH": (True, False, "truth"),
+    "HT": (True, False, "truth"),
+    "TH": (True, True, "forced yes"),
+    "TT": (False, False, "forced no"),
+}
+
+
+def emit(key, value):
+    if key in _EMITTED:
+        raise SystemExit(f"oracle: {key} emitted twice")
+    _EMITTED[key] = str(value)
+    print(f"{key}\t{value}")
+
+
+def check(name, ok):
+    _CHECKS[0] += 1
+    if not ok:
+        _FAILED.append(name)
+    print(f"# {'ok  ' if ok else 'FAIL'} {name}", file=sys.stderr)
+
+
+def csv(values):
+    return ",".join(str(v) for v in values)
+
+
+def says(copied, outcome):
+    yes_if_copied, yes_if_not, _ = RULE[outcome]
+    return yes_if_copied if copied else yes_if_not
+
+
+def percent(q):
+    """Nearest whole percent, halves up, exactly."""
+    return math.floor(Fraction(q) * 100 + Fraction(1, 2))
+
+
+# ------------------------------------------------------------ the rule
+
+def p_yes(copied):
+    return Fraction(sum(says(copied, o) for o in OUTCOMES), len(OUTCOMES))
+
+
+def ratio(said_yes):
+    """P(said | truth = said) / P(said | truth = other)."""
+    def p(copied):
+        return Fraction(sum(says(copied, o) == said_yes for o in OUTCOMES), len(OUTCOMES))
+    return p(said_yes) / p(not said_yes)
+
+
+def channel(t):
+    """The dial: P(yes | copied), P(yes | didn't) for truth chance t, fair second coin,
+    computed by weighting the three routes."""
+    return t + (1 - t) / 2, (1 - t) / 2
+
+
+def estimate(yes, n, t):
+    """Solve E[yes] = n (1 - t)/2 + k t for k; None when nobody tells the truth."""
+    try:
+        return (yes - n * (1 - t) / 2) / t
+    except ZeroDivisionError:
+        return None
+
+
+def worst_ratio(t):
+    yc, yd = channel(t)
+    ratios = []
+    for a, b in ((yc, yd), (1 - yd, 1 - yc)):
+        if b == 0:
+            return None
+        ratios.append(a / b)
+    return max(ratios)
+
+
+# ------------------------------------------------------------ the class
+
+def average_class():
+    """Every seat's outcome, handing out HH, HT, TH, TT in turn within each group."""
+    turn = {True: 0, False: 0}
+    seats = []
+    for seat in range(CLASS_SIZE):
+        copied = seat in COPIED_SEATS
+        seats.append((copied, OUTCOMES[turn[copied] % len(OUTCOMES)]))
+        turn[copied] += 1
+    return seats, turn
+
+
+def cells(seats):
+    """(row, answer) -> [didn't, copied] counts; row is 'truth' or 'coin'."""
+    out = {}
+    for copied, outcome in seats:
+        row = "truth" if RULE[outcome][2] == "truth" else "coin"
+        key = (row, says(copied, outcome))
+        out.setdefault(key, [0, 0])[int(copied)] += 1
+    return out
+
+
+# ------------------------------------------------------------ scatter
+
+def yes_distribution(people):
+    """ways[y] over all 4^len(people) coin outcomes, one person at a time."""
+    ways = [1]
+    for copied in people:
+        yes_ways = sum(says(copied, o) for o in OUTCOMES)
+        no_ways = len(OUTCOMES) - yes_ways
+        nxt = [0] * (len(ways) + 1)
+        for y, w in enumerate(ways):
+            nxt[y] += w * no_ways
+            nxt[y + 1] += w * yes_ways
+        ways = nxt
+    total = len(OUTCOMES) ** len(people)
+    return [Fraction(w, total) for w in ways], total
+
+
+def moments(dist, f):
+    m = sum(p * f(y) for y, p in enumerate(dist))
+    return m, sum(p * f(y) ** 2 for y, p in enumerate(dist)) - m * m
+
+
+def person_variance(share, t):
+    """One random person's contribution to the estimated share, (yes - (1-t)/2)/t:
+    its variance over (truth, route, answer), enumerated."""
+    joint = []
+    for copied, w in ((True, share), (False, 1 - share)):
+        for route, pr in (("truth", t), ("forced yes", (1 - t) / 2), ("forced no", (1 - t) / 2)):
+            yes = copied if route == "truth" else route == "forced yes"
+            joint.append((w * pr, (Fraction(int(yes)) - (1 - t) / 2) / t))
+    mean = sum(p * x for p, x in joint)
+    return sum(p * x * x for p, x in joint) - mean * mean, mean
+
+
+# ------------------------------------------------------------ asking again
+
+def repeated(asks, memoized=False):
+    """sequence (tuple of answers) -> [didn't, copied] outcome counts."""
+    out = {}
+    for copied in (False, True):
+        if memoized:
+            runs = ((o,) * asks for o in OUTCOMES)
+        else:
+            runs = product(OUTCOMES, repeat=asks)
+        for run in runs:
+            seq = tuple(says(copied, o) for o in run)
+            out.setdefault(seq, [0, 0])[int(copied)] += 1
+    return out
+
+
+def posterior(prior, copied_ways, didnt_ways):
+    num = prior * copied_ways
+    return num / (num + (1 - prior) * didnt_ways)
+
+
+def main():
+    # R-F1: the class
+    n, copiers = CLASS_SIZE, len(COPIED_SEATS)
+    share = Fraction(copiers, n)
+    emit("R-F1.class", n)
+    emit("R-F1.columns", COLUMNS)
+    emit("R-F1.rows", -(-n // COLUMNS))
+    emit("R-F1.copied", copiers)
+    emit("R-F1.copied_seats", csv(COPIED_SEATS))
+    emit("R-F1.copied_share", share)
+
+    # R-F2: the rule
+    emit("R-F2.coins", len(OUTCOMES[0]))
+    emit("R-F2.coin_outcomes", len(OUTCOMES))
+    emit("R-F2.yes_outcomes.copied", sum(says(True, o) for o in OUTCOMES))
+    emit("R-F2.yes_outcomes.didnt", sum(says(False, o) for o in OUTCOMES))
+    emit("R-F2.p_yes.copied", p_yes(True))
+    emit("R-F2.p_yes.didnt", p_yes(False))
+    emit("R-F2.p_no.copied", 1 - p_yes(True))
+    emit("R-F2.p_no.didnt", 1 - p_yes(False))
+    yes_share = share * p_yes(True) + (1 - share) * p_yes(False)
+    emit("R-F2.yes_share", yes_share)
+    check("Dwork and Roth 2.3: yes share = 1/4 + p/2", yes_share == Fraction(1, 4) + share / 2)
+    routes = [Fraction(sum(RULE[o][2] == r for o in OUTCOMES), len(OUTCOMES))
+              for r in ("truth", "forced yes", "forced no")]
+    emit("R-F2.route_chances", csv(routes))
+    check("the dial at 1/2 is the counted rule", channel(Fraction(1, 2)) == (p_yes(True), p_yes(False)))
+
+    # R-F3: the class on average
+    seats, turn = average_class()
+    check("each group is a multiple of four", all(v % len(OUTCOMES) == 0 for v in turn.values()))
+    c = cells(seats)
+    get = lambda row, said: c.get((row, said), [0, 0])
+    truthful = sum(get("truth", s)[0] + get("truth", s)[1] for s in (True, False))
+    emit("R-F3.truthful", truthful)
+    emit("R-F3.truthful_share", Fraction(truthful, n))
+    emit("R-F3.truthful.yes", sum(get("truth", True)))
+    emit("R-F3.truthful.no", sum(get("truth", False)))
+    emit("R-F3.forced", sum(get("coin", True)) + sum(get("coin", False)))
+    emit("R-F3.forced.yes", sum(get("coin", True)))
+    emit("R-F3.forced.no", sum(get("coin", False)))
+    emit("R-F3.forced.yes.copied", get("coin", True)[1])
+    emit("R-F3.forced.no.copied", get("coin", False)[1])
+    yes = sum(get(r, True)[0] + get(r, True)[1] for r in ("truth", "coin"))
+    no = n - yes
+    emit("R-F3.yes", yes)
+    emit("R-F3.no", no)
+    emit("R-F3.counts_seen", len({True, False}))
+    check("seven of twenty is the average yes share", Fraction(yes, n) == yes_share)
+
+    # R-F4: undo the coins, the survey's way: solve E[yes] = n/4 + k/2 for k
+    t = Fraction(1, 2)
+    forced_yes = n * (1 - t) / 2
+    k = (yes - forced_yes) / t
+    emit("R-F4.forced_yes", forced_yes)
+    emit("R-F4.forced_yes_share", forced_yes / n)
+    emit("R-F4.left", yes - forced_yes)
+    emit("R-F4.factor", 1 / t)
+    emit("R-F4.estimate", k)
+    emit("R-F4.matches_truth", "true" if k == copiers else "false")
+    emit("R-F4.twice_yes", yes / t)
+    emit("R-F4.half_class", n * t)
+    check("Dwork and Roth: estimate p as twice the yes share minus 1/2",
+          k / n == 2 * Fraction(yes, n) - Fraction(1, 2))
+
+    # R-F5: both answers' ratios
+    emit("R-F5.ratio.yes", ratio(True))
+    emit("R-F5.ratio.no", ratio(False))
+    emit("R-F5.worst_ratio", worst_ratio(t))
+    emit("R-F5.epsilon", f"{math.log(worst_ratio(t)):.4f}")
+    check("both ratios equal the worst", ratio(True) == ratio(False) == worst_ratio(t))
+
+    # R-F6: who the yeses and noes are, counted person by coin outcome
+    pairs = [(seat in COPIED_SEATS, o) for seat in range(n) for o in OUTCOMES]
+    yes_pairs = [cp for cp, o in pairs if says(cp, o)]
+    no_pairs = [cp for cp, o in pairs if not says(cp, o)]
+    emit("R-F6.yes.copied", get("truth", True)[1] + get("coin", True)[1])
+    emit("R-F6.no.copied", get("truth", False)[1] + get("coin", False)[1])
+    given_yes = Fraction(sum(yes_pairs), len(yes_pairs))
+    given_no = Fraction(sum(no_pairs), len(no_pairs))
+    check("counted on average = Bayes over every coin outcome (yes)",
+          given_yes == Fraction(get("truth", True)[1] + get("coin", True)[1], yes))
+    check("counted on average = Bayes over every coin outcome (no)",
+          given_no == Fraction(get("truth", False)[1] + get("coin", False)[1], no))
+    emit("R-F6.posterior.yes", given_yes)
+    emit("R-F6.posterior.no", given_no)
+    emit("R-F6.percent.prior", percent(share))
+    emit("R-F6.percent.yes", percent(given_yes))
+    emit("R-F6.percent.no", percent(given_no))
+
+    # R-F7: the scatter of a real class of twenty
+    people = [seat in COPIED_SEATS for seat in range(n)]
+    dist, total = yes_distribution(people)
+    check("the distribution sums to one", sum(dist) == 1)
+    mean, var = moments(dist, lambda y: y)
+    est_mean, est_var = moments(dist, lambda y: 2 * y - Fraction(n, 2))
+    emit("R-F7.outcomes", total)
+    emit("R-F7.mean_yes", mean)
+    emit("R-F7.var_yes", var)
+    emit("R-F7.var_estimate", est_var)
+    emit("R-F7.sd_estimate", f"{math.sqrt(est_var):.2f}")
+    check("the estimate is right on average", est_mean == copiers)
+    for other in range(n + 1):
+        d, _ = yes_distribution([True] * other + [False] * (n - other))
+        m, v = moments(d, lambda y: 2 * y - Fraction(n, 2))
+        if m != other or v != Fraction(3 * n, 4):
+            check(f"unbiased with variance 3n/4 at {other} copiers", False)
+            break
+    else:
+        check("unbiased with variance 3n/4 for every number of copiers 0..20", True)
+    per_person, _ = person_variance(Fraction(0), t)
+    per_person_copier, _ = person_variance(Fraction(1), t)
+    emit("R-F7.coin_variance_per_person", per_person)
+    check("the coins' variance is the same for both truths", per_person == per_person_copier)
+    check("the mean yes count is a whole number", mean.denominator == 1)
+    exactly = dist[int(mean)]
+    emit("R-F7.p_exactly_right", exactly)
+    emit("R-F7.percent.exactly_right", percent(exactly))
+    negative = sum(p for y, p in enumerate(dist) if 2 * y - Fraction(n, 2) < 0)
+    emit("R-F7.p_negative", negative)
+    emit("R-F7.percent.negative", percent(negative))
+
+    # R-F8: independent draws (with replacement, or from a large population)
+    # at the class's share
+    coins_var, mean_share = person_variance(share, t)
+    check("one random person's contribution is unbiased", mean_share == share)
+    direct = share * (1 - share)
+    emit("R-F8.variance_n1.direct", direct)
+    emit("R-F8.variance_n1.coins", coins_var)
+    emit("R-F8.cost", coins_var / direct)
+    emit("R-F8.cost_2dp", f"{float(coins_var / direct):.2f}")
+    # the coins' part alone: the enumerated total less the direct variance
+    emit("R-F8.added_cost", (coins_var - direct) / direct)
+    big_p = channel(t)[0]
+    emit("R-F8.warner_extra", big_p * (1 - big_p) / (2 * big_p - 1) ** 2)
+    check("coins = direct + Warner's term", coins_var == direct + big_p * (1 - big_p) / (2 * big_p - 1) ** 2)
+
+    # R-F9: asking again
+    rep = repeated(ASKS)
+    emit("R-F9.asks", ASKS)
+    emit("R-F9.outcomes", len(OUTCOMES) ** ASKS)
+    by = [[0, 0] for _ in range(ASKS + 1)]
+    for seq, cnt in rep.items():
+        by[sum(seq)][0] += cnt[0]
+        by[sum(seq)][1] += cnt[1]
+    emit("R-F9.by_yeses.didnt", csv(b[0] for b in by))
+    emit("R-F9.by_yeses.copied", csv(b[1] for b in by))
+    all_yes = rep[(True,) * ASKS]
+    emit("R-F9.all_yes.copied", all_yes[1])
+    emit("R-F9.all_yes.didnt", all_yes[0])
+    emit("R-F9.ratios", csv(Fraction(b[1], b[0]) for b in by))
+    check("every pattern's ratio is 3^(2y - k), whatever the order",
+          all(Fraction(c[1], c[0]) == Fraction(3) ** (2 * sum(s) - ASKS) for s, c in rep.items()))
+    after = posterior(share, all_yes[1], all_yes[0])
+    emit("R-F9.posterior.all_yes", after)
+    emit("R-F9.percent.all_yes", percent(after))
+    majority = Fraction(sum(c[1] for s, c in rep.items() if 2 * sum(s) > ASKS), len(OUTCOMES) ** ASKS)
+    emit("R-F9.majority_right", majority)
+    emit("R-F9.percent.majority_right", percent(majority))
+    worst = []
+    for k in range(1, WORST_LISTED + 1):
+        worst.append(max(Fraction(c[1], c[0]) for c in repeated(k).values()))
+    emit("R-F9.worst_ratio_by_asks", csv(worst))
+    check("each fresh ask multiplies the worst ratio by three",
+          all(w == Fraction(3) ** (i + 1) for i, w in enumerate(worst)))
+    memo = repeated(ASKS, memoized=True)
+    emit("R-F10.memoized.ratio", Fraction(memo[(True,) * ASKS][1], memo[(True,) * ASKS][0]))
+    check("a memoized answer gives only all-yes or all-no",
+          all(len(set(s)) == 1 for s in memo))
+    check("a memoized all-yes stays at three for every ask count to ten",
+          all(Fraction(repeated(k, True)[(True,) * k][1], repeated(k, True)[(True,) * k][0]) == 3
+              for k in range(1, MAX_ASKS + 1)))
+
+    # R-X: the edges
+    emit("R-X1.direct.worst_ratio", "unbounded" if worst_ratio(Fraction(1)) is None else worst_ratio(Fraction(1)))
+    emit("R-X1.pure_coin.worst_ratio", worst_ratio(Fraction(0)))
+    emit("R-X1.pure_coin.estimate", "none" if estimate(yes, n, Fraction(0)) is None else estimate(yes, n, Fraction(0)))
+    check("a pure coin's answers are as likely from everyone", channel(Fraction(0))[0] == channel(Fraction(0))[1])
+    emit("R-X2.estimate.no_yes", (0 - forced_yes) / t)
+    emit("R-X2.estimate.all_yes", (n - forced_yes) / t)
+    emit("R-X4.average_needs_multiple_of", len(OUTCOMES))
+    ry, rn = RAPPOR
+    like_yes = math.comb(rn, ry) * 3 ** ry          # copied: 3/4 each yes, 1/4 each no (x 4^n)
+    like_no = math.comb(rn, ry) * 3 ** (rn - ry)    # didn't: 1/4 each yes, 3/4 each no
+    no_after = Fraction(like_no, like_yes + like_no)
+    emit("R-X3.rappor.no_after_75_of_100", f"{float(no_after):.2e}")
+    check("RAPPOR 1: No after 75 of 100 is 1/(3^50 + 1)", no_after == Fraction(1, 3 ** 50 + 1))
+
+    print(f"# {_CHECKS[0]} checks, {len(_FAILED)} failed", file=sys.stderr)
+    return 1 if _FAILED else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

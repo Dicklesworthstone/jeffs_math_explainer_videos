@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "script_sha256": "00124a6d6799dd0206e9a68bfcbe89a6669cbeac53beceaf88c41a8677b86283",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3",
+        "01_4"
+      ],
+      "text": "Ask a class of twenty if they've ever copied homework. Anyone who did has a reason to say no. Only we can see the truth. Four of them did. So everyone flips a coin where nobody can see. Heads, tell the truth. Tails, flip a second coin, and let it answer. Heads for yes, tails for no."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_5",
+        "01_6",
+        "01_7",
+        "01_8"
+      ],
+      "text": "On average, half the class tells the truth. Two of our four say yes. The other ten get the second coin. Five yes, five no, whatever the truth. Seven yes, thirteen no. That's all the survey sees. From those two numbers, how could the survey get back to four?"
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_9",
+        "01_10",
+        "01_11"
+      ],
+      "text": "Take away the second coin's yeses. On average that's five, a quarter of the class. Two are left. Those two came from the half who told the truth. So double them. Four. No answer is a confession. But someone who copied says yes three times as often as someone who didn't."
+    }
+  ]
+}
