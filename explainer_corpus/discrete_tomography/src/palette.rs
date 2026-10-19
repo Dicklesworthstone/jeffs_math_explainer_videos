@@ -15,9 +15,15 @@ pub fn switch() -> Srgb {
     Palette::hero()
 }
 
-/// A beam counting the squares along a row or a column. Strokes only.
+/// A route along rows and columns: a beam counting squares (chapter 01), a
+/// unit of water's path (chapter 02). Strokes only.
 pub fn beam() -> Srgb {
     Palette::teal()
+}
+
+/// Water taken back out of a square, and the way it goes back (chapter 02).
+pub fn taken_back() -> Srgb {
+    Palette::purple()
 }
 
 /// A count that matches the face's.
@@ -40,6 +46,7 @@ mod tests {
             filled(),
             switch(),
             beam(),
+            taken_back(),
             matches(),
             impossible(),
             Palette::ink(),

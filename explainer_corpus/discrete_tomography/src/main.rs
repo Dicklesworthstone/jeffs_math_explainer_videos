@@ -72,6 +72,22 @@ mod tests {
         ("01_10", "a square in every row", "DT-F4.bottleneck.asks", "5"),
         ("01_10", "the middle row is empty", "DT-F1.face.empty_rows", "2"),
         ("01_11", "two questions", "DT-F7.questions", "2"),
+        ("02_3", "at most one unit", "DT-F8.square", "1"),
+        ("02_4", "one unit at a time", "DT-F8.room", "1"),
+        ("02_5", "Eight are through", "DT-F8.before.through", "8"),
+        ("02_5", "has one left", "DT-F8.stuck.left", "1"),
+        // rows and columns are numbered from 0 in the facts: the bottom row
+        // is row 4, the first column 0, the fourth column 3
+        ("02_5", "The bottom row", "DT-F8.stuck.row", "4"),
+        ("02_6", "the first column", "DT-F8.takeback.column", "0"),
+        ("02_6", "the top row", "DT-F8.takeback.row", "0"),
+        ("02_7", "the fourth column", "DT-F8.takeback.to_column", "3"),
+        ("02_7", "still needs one", "DT-F8.takeback.to_needs", "1"),
+        ("02_7", "one unit short", "DT-F8.short", "1"),
+        ("02_8", "they aren't the face", "DT-F8.built.is_face", "false"),
+        ("02_8", "sixty-four", "DT-F3.fits", "64"),
+        ("02_9", "whenever one exists", "DT-F8.built.fits", "true"),
+        ("02_9", "the only one", "DT-F8.built.only_one", "false"),
     ];
 
     #[test]
@@ -93,10 +109,12 @@ mod tests {
             .collect();
         assert_eq!(f.get("DT-F4.bottleneck.asks"), Some(size[0].to_string().as_str()));
         assert_eq!(f.get("DT-F1.face.empty_rows"), Some((size[0] / 2).to_string().as_str()));
+        // "the bottom row": the stuck row is the last one
+        assert_eq!(f.get("DT-F8.stuck.row"), Some((size[0] - 1).to_string().as_str()));
         // and no line carries a number word the table above does not know
         let numbers = [
             "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "sixty", "half",
-            "twice", "hundred",
+            "twice", "hundred", "first", "second", "third", "fourth", "fifth",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

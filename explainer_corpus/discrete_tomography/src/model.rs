@@ -13,7 +13,7 @@
 //! is D. Gale's (Pacific Journal of Mathematics 7, 1957).
 
 use std::collections::hash_map::Entry;
-use std::collections::{HashMap, VecDeque};
+use std::collections::{HashMap, HashSet, VecDeque};
 
 /// Chapter 01's face: two eyes, an empty middle row, a smile.
 pub const FACE: [&str; 5] = ["01010", "01010", "00000", "10001", "01110"];
@@ -438,6 +438,48 @@ pub fn walk(from: &Picture, to: &Picture) -> Option<Vec<Switch>> {
 
 // ---------------------------------------------------------------- the flow
 
+/// What one square's pipe carries at most: one unit of water.
+pub const SQUARE: usize = 1;
+
+/// A node of Gale's network: the source that feeds every row's tap, a row,
+/// a column, and the sink every column's drain empties into.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum Node {
+    Source,
+    Row(usize),
+    Col(usize),
+    Sink,
+}
+
+/// One augmenting path the flow took: its nodes from the source to the sink,
+/// and how much it sent. A row-to-column step wets that square; a
+/// column-to-row step takes water back out of that square.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Augmenting {
+    pub nodes: Vec<Node>,
+    pub room: usize,
+}
+
+impl Augmenting {
+    /// Its squares in path order: (row, column, whether it wets the square
+    /// or takes the water in it back).
+    pub fn steps(&self) -> Vec<(usize, usize, bool)> {
+        self.nodes
+            .windows(2)
+            .filter_map(|pair| match (pair[0], pair[1]) {
+                (Node::Row(r), Node::Col(c)) => Some((r, c, true)),
+                (Node::Col(c), Node::Row(r)) => Some((r, c, false)),
+                _ => None,
+            })
+            .collect()
+    }
+
+    /// Whether it takes water back out of some square.
+    pub fn takes_back(&self) -> bool {
+        self.steps().iter().any(|&(_, _, wets)| !wets)
+    }
+}
+
 /// The largest flow through Gale's network for a pair of shadows (D. Gale,
 /// "A theorem on flows in networks", 1957): water enters each row as much
 /// as its count, crosses any square of the row into that square's column
@@ -453,28 +495,45 @@ pub struct Flow {
     /// capacity. The columns it cannot reach are the sink's side of the
     /// minimum cut with the smallest source side.
     pub reached: Vec<bool>,
+    /// Every augmenting path, in the order they were sent ([`replay`]
+    /// rebuilds and checks the flow from them).
+    pub paths: Vec<Augmenting>,
 }
 
-/// [`Flow`] by shortest augmenting paths (Edmonds and Karp): send one more
-/// unit along a path with room left, possibly taking water back from a
-/// square an earlier path used, until no path is left. Nodes: 0 the source,
-/// 1 to m the rows, then the n columns, then the sink.
+/// [`Flow`] by Ford and Fulkerson's labeling method (Canadian Journal of
+/// Mathematics 9, 1957, pp. 210–218), labeling breadth first, so each path is
+/// a shortest one: send one more unit along a path with room, where a square
+/// already carrying water has room backwards (that water can be taken back),
+/// until no path is left. Nodes: 0 the source, 1 to m the rows, then the n
+/// columns, then the sink, scanned in that order.
 pub fn max_flow(s: &Shadows) -> Flow {
     let (m, n) = (s.rows.len(), s.cols.len());
     let (source, sink) = (0, m + n + 1);
     let size = m + n + 2;
+    let node = |k: usize| {
+        if k == source {
+            Node::Source
+        } else if k == sink {
+            Node::Sink
+        } else if k <= m {
+            Node::Row(k - 1)
+        } else {
+            Node::Col(k - 1 - m)
+        }
+    };
     // spare[u][v]: how much more can go from u to v
     let mut spare = vec![vec![0usize; size]; size];
     for (i, &r) in s.rows.iter().enumerate() {
         spare[source][1 + i] = r;
         for j in 0..n {
-            spare[1 + i][1 + m + j] = 1;
+            spare[1 + i][1 + m + j] = SQUARE;
         }
     }
     for (j, &c) in s.cols.iter().enumerate() {
         spare[1 + m + j][sink] = c;
     }
     let mut value = 0;
+    let mut paths = Vec::new();
     loop {
         // breadth first from the source, along edges with room
         let mut came_from = vec![usize::MAX; size];
@@ -503,24 +562,127 @@ pub fn max_flow(s: &Shadows) -> Flow {
                 value,
                 carried,
                 reached,
+                paths,
             };
         }
-        let mut room = usize::MAX;
+        let mut path = vec![sink];
         let mut w = sink;
         while w != source {
-            let u = came_from[w];
-            room = room.min(spare[u][w]);
-            w = u;
+            w = came_from[w];
+            path.push(w);
         }
-        let mut w = sink;
-        while w != source {
-            let u = came_from[w];
-            spare[u][w] -= room;
-            spare[w][u] += room;
-            w = u;
+        path.reverse();
+        let room = path.windows(2).map(|e| spare[e[0]][e[1]]).min().unwrap_or(0);
+        for e in path.windows(2) {
+            spare[e[0]][e[1]] -= room;
+            spare[e[1]][e[0]] += room;
         }
         value += room;
+        paths.push(Augmenting {
+            nodes: path.iter().map(|&k| node(k)).collect(),
+            room,
+        });
     }
+}
+
+/// The water after some augmenting paths: the wet squares, and how much each
+/// row's tap has sent and each column's drain has taken.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct FlowState {
+    pub wet: Picture,
+    pub sent: Vec<usize>,
+    pub drained: Vec<usize>,
+}
+
+impl FlowState {
+    /// How many units have got through.
+    pub fn through(&self) -> usize {
+        self.drained.iter().sum()
+    }
+}
+
+/// Replay augmenting `paths` on the shadows' network, starting with no water,
+/// and check every one: it runs from the source into a row, then alternates
+/// a column and a row, and leaves through a column into the sink, never
+/// visiting a row or a column twice; it sends one unit; it wets only dry
+/// squares and takes water back only from wet ones; no tap sends more than
+/// its row's count and no drain takes more than its column's count. Those
+/// rules keep every row and column balanced (each row has sent, and each
+/// column drained, exactly what its wet squares carry); the replay asserts
+/// that balance after each path as a structural invariant, not as a separate
+/// way a path can fail. Returns the state after each path.
+pub fn replay(s: &Shadows, paths: &[Augmenting]) -> Result<Vec<FlowState>, String> {
+    let (m, n) = (s.rows.len(), s.cols.len());
+    let mut state = FlowState {
+        wet: Picture::empty(m, n),
+        sent: vec![0; m],
+        drained: vec![0; n],
+    };
+    let mut out = Vec::with_capacity(paths.len());
+    for (k, path) in paths.iter().enumerate() {
+        let bad = |why: String| format!("path {k}: {why}");
+        if path.room != SQUARE {
+            return Err(bad(format!("sends {} units, not {SQUARE}", path.room)));
+        }
+        let inner = match path.nodes.as_slice() {
+            [Node::Source, inner @ .., Node::Sink] => inner,
+            _ => return Err(bad("does not run from the source to the sink".into())),
+        };
+        let (pairs, rest) = inner.as_chunks::<2>();
+        if pairs.is_empty() || !rest.is_empty() {
+            return Err(bad("is not rows and columns in turn".into()));
+        }
+        let mut seen = HashSet::with_capacity(inner.len());
+        if let Some(node) = inner.iter().find(|&&node| !seen.insert(node)) {
+            return Err(bad(format!("visits {node:?} twice, a walk with a cycle")));
+        }
+        let mut squares = Vec::with_capacity(pairs.len());
+        for pair in pairs {
+            match pair {
+                [Node::Row(r), Node::Col(c)] if *r < m && *c < n => squares.push((*r, *c)),
+                _ => return Err(bad(format!("{pair:?} is not a row and then a column of the grid"))),
+            }
+        }
+        let (Some(&(tap, _)), Some(&(_, drain))) = (squares.first(), squares.last()) else {
+            return Err(bad("has no square".into()));
+        };
+        if state.sent[tap] >= s.rows[tap] {
+            return Err(bad(format!("row {tap}'s tap has no water left")));
+        }
+        state.sent[tap] += 1;
+        for (j, &(r, c)) in squares.iter().enumerate() {
+            if j > 0 {
+                let back = squares[j - 1].1;
+                if !state.wet.get(r, back) {
+                    return Err(bad(format!("takes water back from the dry square ({r}, {back})")));
+                }
+                state.wet.flip(r, back);
+            }
+            if state.wet.get(r, c) {
+                return Err(bad(format!("wets the square ({r}, {c}), already wet")));
+            }
+            state.wet.flip(r, c);
+        }
+        if state.drained[drain] >= s.cols[drain] {
+            return Err(bad(format!("column {drain}'s drain is already full")));
+        }
+        state.drained[drain] += 1;
+        // the invariant the rules above imply, asserted rather than trusted
+        if state.sent != state.wet.row_counts() || state.drained != state.wet.col_counts() {
+            return Err(bad("leaves a row or a column unbalanced".into()));
+        }
+        out.push(state.clone());
+    }
+    Ok(out)
+}
+
+/// Whether one more unit could get through without taking any water back:
+/// a row with water left, a dry square in it, and that square's column with
+/// room in its drain.
+pub fn forward_room(s: &Shadows, state: &FlowState) -> bool {
+    (0..s.rows.len()).any(|r| {
+        state.sent[r] < s.rows[r] && (0..s.cols.len()).any(|c| !state.wet.get(r, c) && state.drained[c] < s.cols[c])
+    })
 }
 
 /// What the flow says about a pair of shadows.
@@ -844,5 +1006,132 @@ mod tests {
         assert_eq!(walk(&face, &tree()), None);
         let rings: BTreeSet<usize> = distances.values().copied().collect();
         assert_eq!(rings.into_iter().collect::<Vec<_>>(), [0, 1, 2, 3]);
+    }
+
+    /// Every flow the method sends, on every 4x4 pair of shadows with equal
+    /// totals (counts 0 to 4), replays path by path within every capacity
+    /// and with every row and column balanced, one unit a path, and ends at
+    /// the flow's own wet squares and value; where it stops, not even a path
+    /// that takes nothing back is left.
+    #[test]
+    fn every_flow_replays_within_its_capacities() {
+        let counts: Vec<Vec<usize>> = (0..625usize)
+            .map(|k| (0..4u32).map(|i| k / 5usize.pow(i) % 5).collect())
+            .collect();
+        let mut replayed = 0;
+        for rows in &counts {
+            for cols in &counts {
+                let s = Shadows::new(rows, cols);
+                if s.row_total() != s.col_total() {
+                    continue;
+                }
+                let flow = max_flow(&s);
+                let states = replay(&s, &flow.paths).unwrap_or_else(|e| panic!("{s:?}: {e}"));
+                assert_eq!(states.len(), flow.value, "{s:?}");
+                let last = states.last().cloned().unwrap_or_else(|| FlowState {
+                    wet: Picture::empty(4, 4),
+                    sent: vec![0; 4],
+                    drained: vec![0; 4],
+                });
+                assert_eq!(last.wet, flow.carried, "{s:?}");
+                assert_eq!(last.through(), flow.value);
+                assert!(flow.paths.iter().all(|p| p.room == SQUARE));
+                // a stopped flow has no room left even without taking back
+                assert!(!forward_room(&s, &last), "{s:?}");
+                replayed += 1;
+            }
+        }
+        assert_eq!(replayed, 38_165);
+    }
+
+    /// Chapter 02's trace: on the face's shadows the method sends eight
+    /// units straight down, finds the bottom row stuck without taking back,
+    /// then sends a ninth that takes the top row's unit back out of the first
+    /// column; it ends at a picture with the face's shadows that is not the
+    /// face.
+    #[test]
+    fn the_face_flow_takes_water_back_once() {
+        let face = face();
+        let s = face.shadows();
+        let flow = max_flow(&s);
+        let states = replay(&s, &flow.paths).unwrap();
+        assert_eq!(flow.paths.len(), 9);
+        let back: Vec<usize> = (0..9).filter(|&k| flow.paths[k].takes_back()).collect();
+        assert_eq!(back, [8]);
+        assert!(flow.paths[..8].iter().all(|p| p.steps().len() == 1));
+        assert!(!forward_room(&s, &states[7]));
+        assert_eq!(states[7].through(), 8);
+        assert_eq!(
+            flow.paths[8].nodes,
+            [
+                Node::Source,
+                Node::Row(4),
+                Node::Col(0),
+                Node::Row(0),
+                Node::Col(3),
+                Node::Sink
+            ]
+        );
+        assert_eq!(flow.paths[8].steps(), [(4, 0, true), (0, 0, false), (0, 3, true)]);
+        let built = &states[8].wet;
+        assert_eq!(built.pattern(), "01010/01100/00000/01010/10011");
+        assert_eq!(built.shadows(), s);
+        assert_ne!(*built, face);
+        assert!(fits(&s).contains(built));
+    }
+
+    /// The replay refuses every way a path can break the network's rules.
+    #[test]
+    fn replay_refuses_broken_paths() {
+        use Node::{Col, Row, Sink, Source};
+        // rows 2 and 1, columns 2 and 1: the first row can send twice, the
+        // second row and the second column only once
+        let s = Shadows::new(&[2, 1], &[2, 1]);
+        let path = |nodes: &[Node]| Augmenting {
+            nodes: nodes.to_vec(),
+            room: SQUARE,
+        };
+        let first = path(&[Source, Row(0), Col(0), Sink]);
+        assert!(replay(&s, std::slice::from_ref(&first)).is_ok());
+        // a walk through the top row twice: within the counts, every square
+        // it wets dry and every square it takes back from wet, yet not a
+        // path (the method's breadth-first paths never repeat a node)
+        let cyclic = path(&[Source, Row(0), Col(0), Row(0), Col(1), Sink]);
+        let cases: [(&str, Vec<Augmenting>); 9] = [
+            ("twice", vec![cyclic]),
+            ("already wet", vec![first.clone(), first.clone()]),
+            (
+                "dry square",
+                vec![path(&[Source, Row(0), Col(0), Row(1), Col(1), Sink])],
+            ),
+            (
+                "no water left",
+                vec![
+                    path(&[Source, Row(1), Col(0), Sink]),
+                    path(&[Source, Row(1), Col(1), Sink]),
+                ],
+            ),
+            (
+                "already full",
+                vec![
+                    path(&[Source, Row(0), Col(1), Sink]),
+                    path(&[Source, Row(1), Col(1), Sink]),
+                ],
+            ),
+            ("from the source", vec![path(&[Row(0), Col(0), Sink])]),
+            ("in turn", vec![path(&[Source, Row(0), Sink])]),
+            ("of the grid", vec![path(&[Source, Row(0), Col(5), Sink])]),
+            (
+                "units",
+                vec![Augmenting {
+                    nodes: first.nodes.clone(),
+                    room: 2,
+                }],
+            ),
+        ];
+        for (why, paths) in cases {
+            let e = replay(&s, &paths).unwrap_err();
+            assert!(e.contains(why), "{why}: {e}");
+        }
     }
 }

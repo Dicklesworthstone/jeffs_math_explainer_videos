@@ -49,7 +49,7 @@ const THINK_AT: [f64; 2] = [4.4, 0.6];
 const GALLERY: [f64; 2] = [3.65, 0.35];
 const GALLERY_COLS: usize = 8;
 const PITCH: f64 = 0.62;
-const THUMB_CELL: f64 = 0.09;
+pub(crate) const THUMB_CELL: f64 = 0.09;
 /// Where 01_9 to 01_11 write, right of the face's board.
 const TEXT_X: f64 = 0.9;
 /// A "−1 +1" tag's offset from a row's count, and from a column's.
@@ -71,8 +71,9 @@ fn gallery_label(count: usize, farthest: usize) -> String {
 }
 
 /// Where the gallery's `k`th of `count` thumbnails stands: rows of
-/// [`GALLERY_COLS`], centred on [`GALLERY`].
-fn gallery_at(k: usize, count: usize) -> Vec3 {
+/// [`GALLERY_COLS`], centred on [`GALLERY`] (chapter 02 shows the same
+/// gallery).
+pub(crate) fn gallery_at(k: usize, count: usize) -> Vec3 {
     let rows = count.div_ceil(GALLERY_COLS);
     let (row, col) = (k / GALLERY_COLS, k % GALLERY_COLS);
     v(

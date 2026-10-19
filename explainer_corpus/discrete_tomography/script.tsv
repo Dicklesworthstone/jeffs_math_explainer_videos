@@ -10,3 +10,12 @@
 01_9	Change the column counts but keep their total, and no picture fits at all.
 01_10	This column needs a square in every row, but the middle row is empty.
 01_11	So shadows raise two questions. Does any picture fit? And is it the only one?
+02_1	Turn the grid into pipes. Each row's tap lets out its count in units of water.
+02_2	A unit runs along its row, turns down through a square, and drains out of that column.
+02_3	A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits.
+02_4	Send one unit at a time, along any path with room.
+02_5	Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?
+02_6	No. Send it into the first column anyway, and take back the unit the top row sent there.
+02_7	The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short.
+02_8	The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four.
+02_9	Water finds a picture whenever one exists. It never says whether that's the only one.

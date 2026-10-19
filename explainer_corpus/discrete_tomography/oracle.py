@@ -430,8 +430,218 @@ def edges():
     )
 
 
+# ------------------------------------------------------- chapter 02, water
+
+# a square's pipe carries at most one unit: a square is filled or empty
+SQUARE = 1
+# L. R. Ford Jr. and D. R. Fulkerson, "A simple algorithm for finding maximal
+# network flows and an application to the Hitchcock problem", Canadian Journal
+# of Mathematics 9 (1957) 210-218; D. Gale, Pacific J. Math. 7 (1957) 1073-1082
+FORD_FULKERSON_YEAR = 1957
+GALE_YEAR = 1957
+
+
+def water_trace(rows, cols):
+    """The method's paths, rebuilt with room kept per directed edge in a
+    dictionary: each path is the first one found breadth first, scanning the
+    source, the rows top to bottom, the columns left to right, then the sink;
+    it sends as much as its tightest edge allows. Returns (nodes, units) per
+    path, nodes as "s", ("r", i), ("c", j), "t"."""
+    m, n = len(rows), len(cols)
+    order = ["s"] + [("r", i) for i in range(m)] + [("c", j) for j in range(n)] + ["t"]
+    room = {}
+
+    def edge(u, w, c):
+        room[(u, w)] = room.get((u, w), 0) + c
+        room.setdefault((w, u), 0)
+
+    for i, r in enumerate(rows):
+        edge("s", ("r", i), r)
+        for j in range(n):
+            edge(("r", i), ("c", j), SQUARE)
+    for j, c in enumerate(cols):
+        edge(("c", j), "t", c)
+    paths = []
+    while True:
+        parent = {"s": None}
+        queue = deque(["s"])
+        while queue:
+            u = queue.popleft()
+            for w in order:
+                if w not in parent and room.get((u, w), 0) > 0:
+                    parent[w] = u
+                    queue.append(w)
+        if "t" not in parent:
+            return paths
+        nodes = ["t"]
+        while nodes[-1] != "s":
+            nodes.append(parent[nodes[-1]])
+        nodes.reverse()
+        units = min(room[e] for e in zip(nodes, nodes[1:]))
+        for u, w in zip(nodes, nodes[1:]):
+            room[(u, w)] -= units
+            room[(w, u)] += units
+        paths.append((nodes, units))
+
+
+def path_text(nodes):
+    return "".join(f"{kind}{k}" for kind, k in nodes[1:-1])
+
+
+def water_states(rows, cols, paths, allow_repeats=False):
+    """Apply the paths to an empty grid, keeping each square's water and
+    each tap's and drain's count; raise ValueError on any path that is not
+    source, row, column, (row, column)..., sink, that visits a row or a column
+    twice, sends other than one unit, wets a wet square, takes back from a dry
+    one, overdraws a tap or overfills a drain. Those rules keep every row and
+    column balanced; the balance is asserted after each path as an invariant
+    they imply, not as a separate way a path can fail."""
+    m, n = len(rows), len(cols)
+    flow = {(i, j): 0 for i in range(m) for j in range(n)}
+    sent, drained = [0] * m, [0] * n
+    states = []
+    for k, (nodes, units) in enumerate(paths):
+        if units != SQUARE:
+            raise ValueError(f"path {k} sends {units} units")
+        if len(nodes) < 4 or nodes[0] != "s" or nodes[-1] != "t":
+            raise ValueError(f"path {k} does not run from the source to the sink")
+        inner = nodes[1:-1]
+        kinds = [node[0] for node in inner]
+        if kinds != ["r", "c"] * (len(inner) // 2) or len(inner) % 2:
+            raise ValueError(f"path {k} is not rows and columns in turn")
+        if any(not 0 <= (node[1]) < (m if node[0] == "r" else n) for node in inner):
+            raise ValueError(f"path {k} leaves the grid")
+        if not allow_repeats and len(set(inner)) != len(inner):
+            raise ValueError(f"path {k} visits a row or a column twice")
+        tap, drain = inner[0][1], inner[-1][1]
+        if sent[tap] + 1 > rows[tap]:
+            raise ValueError(f"path {k}: row {tap}'s tap is empty")
+        sent[tap] += 1
+        for u, w in zip(inner, inner[1:]):
+            if u[0] == "r":
+                if flow[(u[1], w[1])] != 0:
+                    raise ValueError(f"path {k} wets the wet square {(u[1], w[1])}")
+                flow[(u[1], w[1])] = 1
+            else:
+                if flow[(w[1], u[1])] != 1:
+                    raise ValueError(f"path {k} takes back from the dry square {(w[1], u[1])}")
+                flow[(w[1], u[1])] = 0
+        if drained[drain] + 1 > cols[drain]:
+            raise ValueError(f"path {k}: column {drain}'s drain is full")
+        drained[drain] += 1
+        for i in range(m):
+            if sent[i] != sum(flow[(i, j)] for j in range(n)):
+                raise ValueError(f"path {k}: row {i} is unbalanced")
+        for j in range(n):
+            if drained[j] != sum(flow[(i, j)] for i in range(m)):
+                raise ValueError(f"path {k}: column {j} is unbalanced")
+        # (the two balance loops above are the invariant, asserted)
+        wet = frozenset(sq for sq, f in flow.items() if f)
+        states.append((wet, list(sent), list(drained)))
+    return states
+
+
+def refused(rows, cols, paths, allow_repeats=False):
+    try:
+        water_states(rows, cols, paths, allow_repeats)
+    except ValueError:
+        return True
+    return False
+
+
+def chapter_02(rows, cols, every, from_face):
+    m, n = len(rows), len(cols)
+    face = parse(FACE)
+    paths = water_trace(rows, cols)
+    states = water_states(rows, cols, paths)
+    total = sum(rows)
+    k = next(i for i, (nodes, _) in enumerate(paths) if len(nodes) > 4)
+    before = states[k - 1]
+    wet, sent, drained = before
+    nodes = paths[k][0]
+    (_, stuck), (_, into), (_, from_row), (_, onto) = nodes[1:-1]
+    dry = [j for j in range(n) if (stuck, j) not in wet]
+    forward = any(
+        sent[i] < rows[i] and any((i, j) not in wet and drained[j] < cols[j] for j in range(n)) for i in range(m)
+    )
+    built = states[-1][0]
+    emit("DT-F8.square", SQUARE)
+    emit("DT-F8.paths", len(paths))
+    emit("DT-F8.room", csv(sorted({units for _, units in paths})))
+    emit("DT-F8.trace", ",".join(path_text(p) for p, _ in paths))
+    emit("DT-F8.direct", sum(1 for p, _ in paths if len(p) == 4))
+    emit("DT-F8.takebacks", sum(1 for p, _ in paths if len(p) > 4))
+    emit("DT-F8.before.through", sum(drained))
+    emit("DT-F8.before.wet", pattern(wet, m, n))
+    emit("DT-F8.before.forward_room", flag(forward))
+    emit("DT-F8.stuck.row", stuck)
+    emit("DT-F8.stuck.left", rows[stuck] - sent[stuck])
+    emit("DT-F8.stuck.dry_full", csv(dry))
+    emit("DT-F8.takeback.column", into)
+    emit("DT-F8.takeback.row", from_row)
+    emit("DT-F8.takeback.to_column", onto)
+    emit("DT-F8.takeback.to_needs", cols[onto] - drained[onto])
+    emit("DT-F8.short", total - sum(drained))
+    emit("DT-F8.through", sum(states[-1][2]))
+    emit("DT-F8.built", pattern(built, m, n))
+    emit("DT-F8.built.fits", flag(built in set(every)))
+    emit("DT-F8.built.is_face", flag(built == face))
+    emit("DT-F8.built.only_one", flag(len(every) == 1))
+    emit("DT-F8.built.from_face", from_face[built])
+    emit("DT-S2.ford_fulkerson", FORD_FULKERSON_YEAR)
+    emit("DT-S3.gale", GALE_YEAR)
+
+    check("chapter 02: exactly one path takes water back, and it is the last", k == len(paths) - 1)
+    check("chapter 02: the stuck row's dry squares all lead to full drains", all(drained[j] == cols[j] for j in dry))
+    check("chapter 02: the water taken back had been sent there by that row", (from_row, into) in wet)
+    check("chapter 02: the flow reaches the smallest cut", sum(states[-1][2]) == max_flow_cut(rows, cols) == total)
+    check("chapter 02: the water's picture casts the face's shadows", shadows(built, m, n) == (tuple(rows), tuple(cols)))
+    check("chapter 02: the water's picture is the depth-first flow's size too", max_flow_dfs(rows, cols) == len(paths))
+
+    # the checker refuses broken traces built from the real one
+    first = paths[0]
+    empty_row = rows.index(0)
+    full_col = paths[0][0][2][1]
+    broken = {
+        "a unit wetting a wet square": [first, first],
+        "a unit from an empty tap": [(["s", ("r", empty_row), ("c", 0), "t"], 1)],
+        "a unit into a full drain": [first, (["s", ("r", 1), ("c", full_col), "t"], 1)],
+        "taking back from a dry square": [(["s", ("r", 1), ("c", 1), ("r", 0), ("c", 3), "t"], 1)],
+        "two units at once": [(first[0], 2)],
+        "a path that skips its column": [(["s", ("r", 0), "t"], 1)],
+        "the take-back path without its first eight": [paths[k]],
+        # within every count, yet a walk through the top row twice
+        "a cyclic walk s,r0,c0,r0,c1,t": [(["s", ("r", 0), ("c", 0), ("r", 0), ("c", 1), "t"], 1)],
+    }
+    check(
+        "chapter 02: with the no-repeat rule off, the same checker accepts the cyclic walk",
+        not refused(rows, cols, broken["a cyclic walk s,r0,c0,r0,c1,t"], allow_repeats=True),
+    )
+    for name, trace in broken.items():
+        check(f"chapter 02: the checker refuses {name}", refused(rows, cols, trace))
+    check("chapter 02: the checker accepts the real trace", not refused(rows, cols, paths))
+
+    # the same method on every 3x3 pair of shadows with equal totals: each
+    # trace replays within its capacities and reaches the smallest cut
+    bad = 0
+    for r in product(range(4), repeat=3):
+        for c in product(range(4), repeat=3):
+            if sum(r) != sum(c):
+                continue
+            trace = water_trace(r, c)
+            try:
+                got = water_states(r, c, trace)
+            except ValueError:
+                bad += 1
+                continue
+            if (sum(got[-1][2]) if got else 0) != max_flow_cut(r, c):
+                bad += 1
+    check("chapter 02: every 3x3 trace replays and reaches the smallest cut", bad == 0)
+
+
 def main():
-    facts()
+    rows, cols = facts()
+    chapter_02(rows, cols, fits(rows, cols), distances(parse(FACE)))
     edges()
     print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
     return 1 if _FAILED else 0

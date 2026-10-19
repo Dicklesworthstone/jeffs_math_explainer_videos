@@ -42,6 +42,14 @@ pub fn segment(stage: &mut Stage<'_>, a: Vec3, b: Vec3, color: Srgb, width: f64)
         .add(polyline(vec![a, b]).style(line_style(color, width)).build())
 }
 
+/// An open stroke through `points` (a route along rows and columns).
+/// Detached.
+pub fn path_line(stage: &mut Stage<'_>, points: &[Vec3], color: Srgb, width: f64) -> Mob {
+    stage
+        .arena_mut()
+        .add(polyline(points.to_vec()).style(line_style(color, width)).build())
+}
+
 /// A closed stroke through `corners`. Detached.
 fn outline(stage: &mut Stage<'_>, corners: &[Vec3], color: Srgb, width: f64) -> Mob {
     let mut points = corners.to_vec();

@@ -10,7 +10,7 @@ use std::fmt::Display;
 use explainer_kit::Facts;
 
 use crate::chapters::same_shadows::QUESTIONS;
-use crate::model::{self, Picture, Reconstruction, Shadows, Switch};
+use crate::model::{self, Augmenting, FlowState, Node, Picture, Reconstruction, Shadows, Switch};
 
 /// The year of Ryser's paper, shown on chapter 01's "precisely" card: H. J.
 /// Ryser, "Combinatorial properties of matrices of zeros and ones",
@@ -88,6 +88,49 @@ fn losses_and_gains(s: Switch, p: &Picture) -> Result<Vec<(usize, usize)>, Strin
         out.push((on(&sides.emptied), on(&sides.filled)));
     }
     Ok(out)
+}
+
+/// The years on chapter 02's "precisely" card: L. R. Ford Jr. and D. R.
+/// Fulkerson, "A simple algorithm for finding maximal network flows and an
+/// application to the Hitchcock problem", Canadian Journal of Mathematics 9
+/// (1957) 210–218 (the labeling method, its termination, and Lemmas 1 and 2:
+/// what it ends with is a flow, and a largest one); D. Gale, "A theorem on
+/// flows in networks", Pacific Journal of Mathematics 7 (1957) 1073–1082
+/// (filling a 0-1 matrix to given row and column sums is a flow problem).
+pub const FORD_FULKERSON_YEAR: u32 = 1957;
+pub const GALE_YEAR: u32 = 1957;
+
+/// Chapter 02: the flow through the face's shadows, its augmenting paths in
+/// the order they were sent, and the water after each (checked by
+/// [`model::replay`]).
+pub fn face_flow() -> Result<(Vec<Augmenting>, Vec<FlowState>), String> {
+    let s = model::face().shadows();
+    let flow = model::max_flow(&s);
+    let states = model::replay(&s, &flow.paths)?;
+    match states.last() {
+        Some(last) if last.wet == flow.carried && last.through() == flow.value => Ok((flow.paths, states)),
+        _ => Err("the replayed water is not the flow's".into()),
+    }
+}
+
+/// Chapter 02's turning point: the first path that takes water back.
+pub fn first_takeback(paths: &[Augmenting]) -> Result<usize, String> {
+    paths
+        .iter()
+        .position(Augmenting::takes_back)
+        .ok_or_else(|| "no path takes water back".to_string())
+}
+
+/// A path as its rows and columns in order: "r4c0r0c3".
+fn path_text(p: &Augmenting) -> String {
+    p.nodes
+        .iter()
+        .filter_map(|node| match node {
+            Node::Row(r) => Some(format!("r{r}")),
+            Node::Col(c) => Some(format!("c{c}")),
+            Node::Source | Node::Sink => None,
+        })
+        .collect()
 }
 
 /// The edge checks on every 4x4 picture (rows DT-X).
@@ -237,12 +280,81 @@ pub fn facts() -> Result<Facts, String> {
     f.add("DT-F6.tree.fits", model::fits(&tree.shadows()).len())?;
     f.add("DT-F6.tree.switches", model::switches(&tree).len())?;
 
+    // chapter 02: the water's real paths through the face's shadows
+    let (paths, states) = face_flow()?;
+    let k = first_takeback(&paths)?;
+    let before = k
+        .checked_sub(1)
+        .map(|j| &states[j])
+        .ok_or("the first path already takes water back")?;
+    let steps = paths[k].steps();
+    let (Some(&(stuck_row, into_col, true)), Some(&(from_row, back_col, false)), Some(&(_, to_col, true))) =
+        (steps.first(), steps.get(1), steps.last())
+    else {
+        return Err(format!("the take-back path is not in, back and on: {steps:?}"));
+    };
+    if back_col != into_col || steps.len() != 3 {
+        return Err(format!(
+            "the take-back path does not take back where it went in: {steps:?}"
+        ));
+    }
+    let room = paths[0].room;
+    if paths.iter().any(|p| p.room != room) {
+        return Err("the paths send different amounts".into());
+    }
+    let dry: Vec<usize> = (0..cols.len()).filter(|&c| !before.wet.get(stuck_row, c)).collect();
+    if dry.iter().any(|&c| before.drained[c] < cols[c]) {
+        return Err("a dry square of the stuck row leads to a drain with room".into());
+    }
+    let last = states.last().ok_or("the face's flow sends nothing")?;
+    let from_face = gallery
+        .iter()
+        .find(|(p, _)| *p == last.wet)
+        .map(|(_, d)| *d)
+        .ok_or("the water's picture is not among the face's")?;
+    f.pin("DT-F8.square", model::SQUARE, "1", "a square is filled or empty")?;
+    f.add("DT-F8.paths", paths.len())?;
+    f.add("DT-F8.room", room)?;
+    let trace: Vec<String> = paths.iter().map(path_text).collect();
+    f.add("DT-F8.trace", trace.join(","))?;
+    f.add("DT-F8.direct", paths.iter().filter(|p| !p.takes_back()).count())?;
+    f.add("DT-F8.takebacks", paths.iter().filter(|p| p.takes_back()).count())?;
+    f.add("DT-F8.before.through", before.through())?;
+    f.add("DT-F8.before.wet", before.wet.pattern())?;
+    f.add("DT-F8.before.forward_room", flag(model::forward_room(&shadows, before)))?;
+    f.add("DT-F8.stuck.row", stuck_row)?;
+    f.add("DT-F8.stuck.left", rows[stuck_row] - before.sent[stuck_row])?;
+    f.add("DT-F8.stuck.dry_full", csv(&dry))?;
+    f.add("DT-F8.takeback.column", into_col)?;
+    f.add("DT-F8.takeback.row", from_row)?;
+    f.add("DT-F8.takeback.to_column", to_col)?;
+    f.add("DT-F8.takeback.to_needs", cols[to_col] - before.drained[to_col])?;
+    f.add("DT-F8.short", shadows.row_total() - before.through())?;
+    f.add("DT-F8.through", last.through())?;
+    f.add("DT-F8.built", last.wet.pattern())?;
+    f.add("DT-F8.built.fits", flag(fit.contains(&last.wet)))?;
+    f.add("DT-F8.built.is_face", flag(last.wet == face))?;
+    f.add("DT-F8.built.only_one", flag(fit.len() == 1))?;
+    f.add("DT-F8.built.from_face", from_face)?;
+
     f.add("DT-F7.questions", QUESTIONS.len())?;
     f.pin(
         "DT-S1.ryser",
         RYSER_YEAR,
         "1957",
         "H. J. Ryser, Canad. J. Math. 9 (1957) 371-377",
+    )?;
+    f.pin(
+        "DT-S2.ford_fulkerson",
+        FORD_FULKERSON_YEAR,
+        "1957",
+        "L. R. Ford Jr. and D. R. Fulkerson, Canad. J. Math. 9 (1957) 210-218",
+    )?;
+    f.pin(
+        "DT-S3.gale",
+        GALE_YEAR,
+        "1957",
+        "D. Gale, Pacific J. Math. 7 (1957) 1073-1082",
     )?;
 
     let e = edges();
@@ -297,6 +409,33 @@ mod tests {
         assert_eq!(at, end);
         let farthest = gallery().iter().map(|(_, d)| *d).max().unwrap();
         assert_eq!(chain.len(), farthest);
+    }
+
+    /// Chapter 02's numbers: nine one-unit paths, eight straight down and one
+    /// that takes water back; stuck at eight without it; a picture that fits
+    /// and is not the face.
+    #[test]
+    fn the_flow_trace_facts_hold() {
+        let f = facts().unwrap();
+        assert_eq!(
+            f.get("DT-F8.trace"),
+            Some("r0c0,r0c1,r1c1,r1c2,r3c1,r3c3,r4c3,r4c4,r4c0r0c3")
+        );
+        assert_eq!(f.get("DT-F8.before.forward_room"), Some("false"));
+        assert_eq!(f.get("DT-F8.through"), f.get("DT-F5.face.flow"));
+        assert_eq!(f.get("DT-F8.built.fits"), Some("true"));
+        assert_eq!(f.get("DT-F8.built.is_face"), Some("false"));
+        let (paths, states) = face_flow().unwrap();
+        let k = first_takeback(&paths).unwrap();
+        assert_eq!(states[k - 1].through() + 1, states[k].through());
+        // every state the chapter draws keeps each row and column within its count
+        let s = model::face().shadows();
+        for st in &states {
+            assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
+            assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
+            assert_eq!(st.sent, st.wet.row_counts());
+            assert_eq!(st.drained, st.wet.col_counts());
+        }
     }
 
     /// The gallery is every picture that fits, each exactly once.

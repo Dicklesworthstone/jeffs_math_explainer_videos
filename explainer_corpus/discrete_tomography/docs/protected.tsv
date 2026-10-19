@@ -7,3 +7,6 @@ Sixty-four	script	the face's shadows fit 64 pictures (DT-F3.fits)
 keep their total	script	equal totals are not enough for a picture to fit (DT-F4.totals, DT-F4.fits)
 Does any picture fit?	script	feasibility, kept apart from uniqueness
 is it the only one?	script	uniqueness, kept apart from feasibility
+take back the unit the top row sent there	script	the take-back move: why the water never gets stuck when a picture exists (DT-F8.takebacks)
+but they aren't the face	script	the flow finds a picture, not the face (DT-F8.built.is_face)
+It never says whether that's the only one	script	feasibility from the flow, kept apart from uniqueness (DT-F8.built.only_one)

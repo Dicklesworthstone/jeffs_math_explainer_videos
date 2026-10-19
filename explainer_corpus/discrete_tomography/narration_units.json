@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "4d57d93423c053713b70fccfafea5ea0d7d60cef7e60ff356a56ea356d3189c8",
+  "script_sha256": "d3707b9e9a28cdc4f83846f846531e25f7a3a23b596bba1d459822be3acce97c",
   "units": [
     {
       "id": "01u1",
@@ -36,6 +36,39 @@
         "01_11"
       ],
       "text": "Change the column counts but keep their total, and no picture fits at all. This column needs a square in every row, but the middle row is empty. So shadows raise two questions. Does any picture fit? And is it the only one?"
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1",
+        "02_2",
+        "02_3"
+      ],
+      "text": "Turn the grid into pipes. Each row's tap lets out its count in units of water. A unit runs along its row, turns down through a square, and drains out of that column. A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_4",
+        "02_5"
+      ],
+      "text": "Send one unit at a time, along any path with room. Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?"
+    },
+    {
+      "id": "02u3",
+      "line_ids": [
+        "02_6",
+        "02_7"
+      ],
+      "text": "No. Send it into the first column anyway, and take back the unit the top row sent there. The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short."
+    },
+    {
+      "id": "02u4",
+      "line_ids": [
+        "02_8",
+        "02_9"
+      ],
+      "text": "The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. Water finds a picture whenever one exists. It never says whether that's the only one."
     }
   ]
 }
