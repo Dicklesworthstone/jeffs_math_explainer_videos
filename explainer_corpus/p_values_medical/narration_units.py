@@ -48,6 +48,9 @@ are each about the length of the owner-accepted opening, 01u1's 51. 05u1
 is split at its prediction hold for the reason 04u1a was: its take left
 0.10 s between "did nothing?" and "No.", where the scene then held five
 seconds, and 0.09 s at "true. | Nor" (the v4 cut's measured boundaries).
+06u1 is split before 06_3's question: its take ran "counted how? | For our
+study" together, and that cue join had no two-band-quiet point to cut at,
+so 06u1b is the question alone, ten words, and its prediction hold follows.
 """
 import hashlib
 import json
@@ -95,8 +98,9 @@ GROUPS = [
     [("05_5",), ("05_6", "05_7")],
     # the two made-up versions of the recovery days
     ("05_8", "05_9", "05_10"),
-    # 06: the survey's keyed answer, and the question for our study
-    ("06_1", "06_2", "06_3"),
+    # 06: the survey's keyed answer and the key's own words | the question
+    # for our study (split before the question)
+    [("06_1", "06_2"), ("06_3",)],
     # the answer, its name, what it leaves open, what to ask
     ("06_4", "06_5", "06_6", "06_7"),
 ]

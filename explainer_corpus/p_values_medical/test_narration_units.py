@@ -52,8 +52,9 @@ class TheRealUnits(unittest.TestCase):
 
     # the units under 30 words: requests split off where a take ran two lines
     # together, the one-line 05u2a (root, Mail 3384), 04u1a, which ends on
-    # 04_2's question (Mail 3420), and 05u1a, which ends on 05_2's (Mail 4297)
-    SHORT = {"04u1a", "05u1a", "05u2a"}
+    # 04_2's question (Mail 3420), 05u1a, which ends on 05_2's (Mail 4297), and
+    # 06u1b, 06_3's question alone
+    SHORT = {"04u1a", "05u1a", "05u2a", "06u1b"}
 
     def test_units_are_whole_thoughts_within_a_chapter(self):
         for u in self.doc["units"]:
@@ -159,7 +160,7 @@ class Boundaries(unittest.TestCase):
         self.fails(self.doc, "text differs")
 
     def test_a_trailing_space(self):
-        unit(self.doc, "06u1")["text"] += " "
+        unit(self.doc, "06u1a")["text"] += " "
         self.fails(self.doc, "text differs")
 
     def test_a_hundred_words_pass_and_a_hundred_and_one_fail(self):
@@ -196,6 +197,10 @@ class Boundaries(unittest.TestCase):
         self.assertEqual(unit(self.doc, "05u1a")["line_ids"], ["05_1", "05_2"])
         self.assertTrue(unit(self.doc, "05u1a")["text"].endswith("?"))
         self.assertTrue(unit(self.doc, "05u1b")["text"].startswith("No. "))
+        # 06_3's question is its own request: no take runs 06_2's questions into it
+        self.assertEqual(ids[ids.index("06u1a"):], ["06u1a", "06u1b", "06u2"])
+        self.assertEqual(unit(self.doc, "06u1a")["line_ids"], ["06_1", "06_2"])
+        self.assertEqual(unit(self.doc, "06u1b")["line_ids"], ["06_3"])
         # 04u1a ends on the question; its answer starts the next request
         self.assertEqual(unit(self.doc, "04u1a")["line_ids"], ["04_1", "04_2"])
         self.assertTrue(unit(self.doc, "04u1a")["text"].endswith("?"))

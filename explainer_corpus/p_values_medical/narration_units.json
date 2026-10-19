@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "ba954a8e1a16c3849dfc7b643629e274dfd7fa8c7ccd579c892173418157d7db",
+  "script_sha256": "1f3535c3be0741db24606f08da96d5eb317af36693f754d8a8c4866658f44599",
   "units": [
     {
       "id": "01u1",
@@ -154,13 +154,19 @@
       "text": "The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days. Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other. Same signs, same count, same two percent. The test never asked how much sooner. A patient would."
     },
     {
-      "id": "06u1",
+      "id": "06u1a",
       "line_ids": [
         "06_1",
-        "06_2",
+        "06_2"
+      ],
+      "text": "Back to the survey, where most residents who answered picked this answer, marked correct. A later paper disputed it. It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how?"
+    },
+    {
+      "id": "06u1b",
+      "line_ids": [
         "06_3"
       ],
-      "text": "Back to the survey. Most residents who answered picked this answer, marked correct. A later paper disputed it. It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how? For our study, what did the two percent actually count?"
+      "text": "For our study, what did the two percent actually count?"
     },
     {
       "id": "06u2",
