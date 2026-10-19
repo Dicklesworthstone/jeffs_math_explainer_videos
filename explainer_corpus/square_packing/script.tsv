@@ -40,7 +40,7 @@
 05_4	Its cut on their line must fit between them, or it covers a point. Lower is narrower, so rest it on the floor.
 05_5	Resting, it stands one shadow tall. Split its corner above their line into two right triangles. Their bases add to the cut. The cut is shorter than the gap only when the points stand higher than this.
 05_6	That height bends down, so it is lowest at an end. It is exactly one for a straight tile. The points stand at one, so nothing slips through.
-05_7	Drop the floor, raise the points, or widen the gap, and a tile slips through.
+05_7	Drop the floor, and a turned tile slips through. Raise the points, and a tile slips under. Widen the gap, and a turned tile slips through.
 05_8	Turned to every side, this settles centres near a side. Only the middle is left.
 06_1	The middle is the square the four points bound. Cut it along its diagonal, one tile long.
 06_2	Each triangle's sides are at most one. Must a tile centred in one cover a corner of it?

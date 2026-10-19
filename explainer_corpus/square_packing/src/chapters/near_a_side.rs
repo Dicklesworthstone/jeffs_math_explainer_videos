@@ -13,7 +13,8 @@
 //! the points stand above h = s − gap (s² − 1)/2 (05_5). h bends down as the shadow
 //! grows, so it is least at an end: exactly one, straight, where the points
 //! stand, so nothing slips through (05_6). Drop the floor, raise the points
-//! or widen the gap, and a tile slips through (05_7). Turned to every side
+//! or widen the gap, each its own sentence and escape, and a tile slips
+//! through (05_7). Turned to every side
 //! of the box of 2.71, this settles the centres near a side; the middle is
 //! left (05_8).
 //!
@@ -98,6 +99,9 @@ pub const DERIVE_Y: (f64, f64) = (0.75, 0.2);
 /// (x0, y0, x1, y1) and the heights its bottom and top stand for.
 pub const PLOT: [f64; 4] = [0.9, -2.85, 5.4, -0.6];
 pub const PLOT_H: (f64, f64) = (0.98, 1.08);
+/// The "lowest at the straight end" caption: above the plot, under the
+/// derivation's note (below the plot it sat 33 px from the frame's foot).
+pub const LOWEST_Y: f64 = -0.25;
 /// The bar beside a tile resting on the floor that shows it one shadow
 /// tall, left of its shadow (tiles).
 pub const TALL_X: (f64, f64) = (-0.14, -0.07);
@@ -831,7 +835,7 @@ impl SceneConstruct for NearASide {
         go(stage, parts, &pose, split, straight, rt)?;
         let one_end = plot_p(1.0, 1.0);
         let one = kit.text(stage, ONE, 30.0, ink(), v(one_end[0] - 0.3, one_end[1] + 0.3))?;
-        let lowest = kit.text_left(stage, LOWEST, 24.0, touch(), v(TEXT_X, -3.65))?;
+        let lowest = kit.text_left(stage, LOWEST, 24.0, touch(), v(TEXT_X, LOWEST_Y))?;
         swap(stage, &[], &[one, lowest], 0.4)?;
         line_6.wait_for(stage, "nothing slips through")?;
         let edge = kit.text_left(stage, EDGE, 24.0, touch(), v(TEXT_X, DERIVE_Y.1))?;
@@ -840,11 +844,12 @@ impl SceneConstruct for NearASide {
         // ---------------------------------------------------------- 05_7
         // drop an assumption and a tile slips through: no floor, the points
         // raised past one, the gap a whole tile. The bound, its plot and the
-        // edge status hold only under the assumptions, so they leave first;
-        // each move starts from the straight tile on the floor and ends on
-        // one of the model's dodges; the gap and cut readouts follow
+        // edge status hold only under the assumptions, so they leave first,
+        // and only then does the header arrive in the bound's row; each move
+        // starts from the straight tile on the floor, waits for the sentence
+        // that names it and ends on one of the model's dodges; the gap and
+        // cut readouts follow
         let line_7 = say(&kit, stage, LINES[6])?;
-        let dropped = kit.text_left(stage, DROPPED, 26.0, warn(), v(TEXT_X, DERIVE_Y.0))?;
         swap(
             stage,
             &[
@@ -860,20 +865,25 @@ impl SceneConstruct for NearASide {
                 lowest,
                 edge,
             ],
-            &[dropped],
+            &[],
             0.4,
         )?;
+        let dropped = kit.text_left(stage, DROPPED, 26.0, warn(), v(TEXT_X, DERIVE_Y.0))?;
+        swap(stage, &[], &[dropped], 0.3)?;
         reveal(stage, &[(marker, 0.0), (tall, 0.0)], 0.2)?;
         let [floor_dodge, high_dodge, wide_dodge] = [0, 1, 2].map(|k| dodge_key(&r.dodges[k]));
         let caption = |stage: &mut Stage<'_>, s: &str| kit.text_left(stage, s, 24.0, warn(), v(TEXT_X, DERIVE_Y.1));
+        line_7.wait_for(stage, "Drop the floor")?;
         let no_floor = caption(stage, NO_FLOOR)?;
         swap(stage, &[], &[no_floor], 0.3)?;
         go(stage, parts, &pose, straight, floor_dodge, 1.4)?;
         go(stage, parts, &pose, floor_dodge, straight, 0.4)?;
+        line_7.wait_for(stage, "Raise the points")?;
         let high = caption(stage, HIGH)?;
         swap(stage, &[no_floor], &[high], 0.3)?;
         go(stage, parts, &pose, straight, high_dodge, 1.1)?;
         go(stage, parts, &pose, high_dodge, straight, 0.4)?;
+        line_7.wait_for(stage, "Widen the gap")?;
         let wide = caption(stage, WIDE)?;
         swap(stage, &[high], &[wide], 0.3)?;
         let rt = (line_7.left(stage, 1.2) - 0.1).max(1.2);
@@ -987,6 +997,10 @@ mod tests {
             assert!(p[1] > y0 && p[1] < y1, "the curve stays in the plot at {s}");
         }
         assert!(plot_p(root, model::slip_height(root, gap))[1] + 0.35 < DERIVE_Y.1 - 0.2);
+        assert!(
+            LOWEST_Y > y1 + 0.3 && LOWEST_Y < DERIVE_Y.1 - 0.4,
+            "the 'lowest' caption sits between the plot and the derivation's note"
+        );
         assert!(ROWS.windows(2).all(|r| r[0] - r[1] >= 0.5) && ROWS[3] - DERIVE_Y.0 >= 0.5);
         assert!(
             BOARD.p(side, (side, side))[0] < BOX_TEXT_X - 0.8,

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "a8fb0570f423ebe21f07d4f4ae16144ddee6da4c0fa184a36b3b6242f92c77ed",
+  "script_sha256": "6812add69ea48b4deccefbeb48e8ea4aca6f8a253236a3a3c807798721a1b6f1",
   "units": [
     {
       "id": "01u1a",
@@ -151,7 +151,7 @@
         "05_7",
         "05_8"
       ],
-      "text": "Drop the floor, raise the points, or widen the gap, and a tile slips through. Turned to every side, this settles centres near a side. Only the middle is left."
+      "text": "Drop the floor, and a turned tile slips through. Raise the points, and a tile slips under. Widen the gap, and a turned tile slips through. Turned to every side, this settles centres near a side. Only the middle is left."
     },
     {
       "id": "06u1",

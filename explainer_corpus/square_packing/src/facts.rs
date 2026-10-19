@@ -1037,7 +1037,10 @@ mod tests {
         assert_eq!(value("strip.one"), "outside,edge");
         let l1 = line("05_1");
         assert!(l1.contains("one point is not enough, so take two"), "{l1}");
-        assert!(l1.contains("within a tile of the floor, covers one"), "{l1}");
+        assert!(
+            l1.contains("within a tile of the floor, always covers one of them"),
+            "{l1}"
+        );
         assert_eq!(value("strip.points"), "(1, 1) (1 + 1/2*sqrt(2), 1)");
         assert_eq!(value("strip.assumed"), "yes");
         assert_eq!(value("strip.lemma"), "yes");
@@ -1047,7 +1050,10 @@ mod tests {
         assert!(l5.contains("one shadow tall"), "{l5}");
         assert!(l5.contains("two right triangles"), "{l5}");
         let l6 = line("05_6");
-        assert!(l6.contains("lowest at an end, exactly one when straight"), "{l6}");
+        assert!(
+            l6.contains("lowest at an end. It is exactly one for a straight tile"),
+            "{l6}"
+        );
         assert_eq!(value("strip.least"), "straight");
         assert_eq!(value("strip.height.straight"), "1");
         assert!(value("strip.height.eighth.2dp").parse::<f64>().unwrap() > 1.0);
@@ -1058,10 +1064,13 @@ mod tests {
                 .all(|p| p.trim_end_matches(')').ends_with(", 1"))
         );
         let l7 = line("05_7");
-        assert!(
-            l7.contains("Drop the floor, raise the points, or widen the gap"),
-            "{l7}"
-        );
+        for case in [
+            "Drop the floor, and a turned tile slips through.",
+            "Raise the points, and a tile slips under.",
+            "Widen the gap, and a turned tile slips through.",
+        ] {
+            assert!(l7.contains(case), "{l7}");
+        }
         for key in ["floor", "high", "wide", "past"] {
             assert!(
                 value(&format!("strip.fail.{key}")).starts_with("outside,outside|"),
