@@ -291,6 +291,107 @@ for i, t in enumerate(TOLERANCES):
     emit(f"C3.eps.{i}", fr(t))
     emit(f"C3.delta.{i}", fr(w))
 
+# ---------------------------------------------------------------- chapter 04
+
+CHALLENGE, WIDE, LUCKY = Fraction(1, 10), Fraction(1, 5), Fraction(1, 20)
+PICKS = [Fraction(-2, 25), Fraction(1, 25), Fraction(9, 100)]
+GOOD, BAD = Fraction(1), Fraction(3, 2)
+
+
+def dec(f):
+    """A Fraction of either sign as its exact decimal."""
+    return plain(to_decimal(f))
+
+
+def within(v, centre, t):
+    return abs(v - centre) < t
+
+
+emit("C4.eps", fr(CHALLENGE))
+w4 = CHALLENGE / abs(quotient[1])  # |slope - target| = |h|
+emit("C4.delta", fr(w4))
+for i, h in enumerate(PICKS):
+    check(h != 0 and abs(h) < w4 and within(slope(h), target, CHALLENGE), f"pick {dec(h)} is in the window and lands in the band")
+    emit(f"C4.pick.{i}", dec(h))
+    emit(f"C4.pick_slope.{i}", dec(slope(h)))
+emit("C4.wide", fr(WIDE))
+check(abs(LUCKY) < WIDE and within(slope(LUCKY), target, CHALLENGE), "the lucky pick is inside the wide window and lands")
+emit("C4.lucky", dec(LUCKY))
+emit("C4.lucky_slope", dec(slope(LUCKY)))
+# every pick stays an input of the square's domain: 0 <= 1/2 + h <= 1
+REACH = min(A, 1 - A)
+
+
+def in_domain_picks(d, steps=2000):
+    """A grid of nonzero picks h with |h| < d and 1/2 + h in [0, 1]."""
+    top = min(d, REACH)
+    return [top * Fraction(k, steps) for k in range(-steps, steps + 1) if k and abs(top * Fraction(k, steps)) < d]
+
+
+# the wide window loses: an independent grid search of its in-domain picks
+# finds misses; the midpoint (t + delta)/2 shown is one of them
+misses = [h for h in in_domain_picks(WIDE) if not within(slope(h), target, CHALLENGE)]
+catch = (CHALLENGE + WIDE) / 2
+check(bool(misses) and abs(catch) < WIDE and abs(catch) <= REACH and not within(slope(catch), target, CHALLENGE),
+      f"the window {fr(WIDE)} loses at {dec(catch)} (grid search: {len(misses)} misses)")
+check(all(any(not within(slope(h), target, CHALLENGE) for h in in_domain_picks(d, 400))
+          for d in [Fraction(11, 100), Fraction(9, 10), Fraction(91, 100), Fraction(1), Fraction(7, 3), Fraction(1000)]),
+      "grid search: every wider window tried, up to 1000, has an in-domain pick that misses")
+check(all(abs(h) < d and abs(h) <= REACH and not within(slope(h), target, CHALLENGE)
+          for d in [Fraction(9, 10), Fraction(91, 100), Fraction(7, 3)] for h in [min((CHALLENGE + d) / 2, REACH)]),
+      "the model's formula min((t + d)/2, 1/2) checked: in the window and the domain, and a miss")
+emit("C4.catch", dec(catch))
+emit("C4.catch_slope", dec(slope(catch)))
+
+
+def g(h, fill):
+    """The slope's graph with its hole filled."""
+    return fill if h == 0 else slope(h)
+
+
+# filled with 1: the grid holds h = 0 and every in-domain pick (the
+# argument for every h is |g(h) - 1| = |h| < delta = epsilon, and g(0) = 1)
+check(all(within(g(h, GOOD), g(0, GOOD), CHALLENGE) for h in [Fraction(0)] + in_domain_picks(w4, 200)),
+      "filled with 1, the window |h| < 1/10 holds h = 0 and every grid pick (sampled)")
+emit("C4.fill.good", fr(GOOD))
+emit("C4.fill.bad", dec(BAD))
+apart = abs(target - BAD)
+room = apart - CHALLENGE
+gap4 = apart - room / 2
+check(room < REACH and gap4 > CHALLENGE, f"room {fr(room)} inside the reach, gap {fr(gap4)} over the tolerance")
+check(all(abs(g(h, BAD) - BAD) >= gap4 for h in [room / 2 * Fraction(k, 500) for k in range(1, 501)]),
+      "every pick in (0, room/2] leaves g at least the gap from 1.5 (sampled)")
+emit("C4.fill.room", fr(room))
+emit("C4.fill.gap", fr(gap4))
+# filled with 3/2: an independent grid search finds a losing in-domain pick
+# in every window tried; h = 0 passes in all of them (g(0) = 3/2)
+windows = [Fraction(1, 1000), Fraction(1, 40), Fraction(1, 10), Fraction(2, 5), Fraction(1), Fraction(7, 3)]
+check(all(within(g(0, BAD), BAD, CHALLENGE) and any(not within(g(h, BAD), BAD, CHALLENGE) for h in in_domain_picks(d, 400))
+          for d in windows),
+      "filled with 3/2, grid search: every window tried has a losing in-domain pick, and h = 0 passes")
+witness = min(w4, room) / 2
+check(all(0 < h < d and abs(h) <= REACH and not within(g(h, BAD), BAD, CHALLENGE)
+          for d in windows for h in [min(d, room, REACH) / 2]),
+      "the model's formula min(d, room, 1/2)/2 checked: in the window and the domain, and losing")
+emit("C4.fill.witness", dec(witness))
+emit("C4.fill.witness_value", dec(g(witness, BAD)))
+blind = abs(witness) / 2
+check(not abs(witness) < blind, "a window of |h|/2 does not hold h")
+emit("C4.cheat.delta", fr(blind))
+
+# continuity of x^2 at 1 on [0, 1] against 1/2: |x^2 - 1| < 1/2 exactly when
+# x^2 > 1/2, that is x > 2^(-1/2); x = 1 is in the domain and the window
+emit("C4.end.x", 1)
+emit("C4.end.power", 2)
+emit("C4.end.eps", frac(HALF))
+emit("C4.end.level", fr(1 - HALF))
+with localcontext() as ctx:
+    ctx.prec = 60
+    edge = Decimal(2).sqrt() / 2
+check(abs(edge**2 - Decimal("0.5")) < Decimal("1e-55") and 1**2 > HALF, "the window's edge is where x^2 = 1/2, and x = 1 is inside")
+emit("C4.end.edge.4dp", rounded(edge, 4))
+emit("C4.end.delta.4dp", rounded(1 - edge, 4))
+
 # ------------------------------------------------- continuation (brief §3–4)
 
 

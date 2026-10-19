@@ -24,7 +24,7 @@ closer is not a guarantee until that order is fixed.
 | Act | Chapters (brief §"Episode shape") | Spine |
 |---|---|---|
 | I. A limit that jumps | 01 a limit that jumps (built); 02 the shrinking region (built) | unbroken curves x^n on [0, 1], a limit that is 0 then 1; a fixed point waits a finite time, the moving point x_n = 2^(−1/n) keeps a gap of 1/2; a thin region is not an empty one |
-| II. The guarantee | 03 what the old objection was about (built), 04 the challenge game, 05 why written proofs hide the search | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
+| II. The guarantee | 03 what the old objection was about (built), 04 the challenge game (built), 05 why written proofs hide the search | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
 | III. Making δ | 06 Sprague's recentring, 07 Davis's bound, 08 fixed or moving, precisely | δ = √(4 + ε) − 2 for x² at 2, the simpler δ = min(1, ε/5), the cubic's C = 22; the naive ε/4 fails at ε = 1 with h = 6/25; pointwise against uniform as an order of choices |
 | IV. Repair and other languages | 09 the three-piece bridge, 10 sequences and bounds, 11 preimages, 12 what the definition does not supply | uniform convergence repairs the opening; one bad sequence refutes continuity; open sets pull back to open sets; completeness is a separate assumption |
 
@@ -64,7 +64,9 @@ in the chapter headings below. Root kept the prediction time and sped
 nothing up. Pacing is settled only with qualified narration, which is still
 on hold. The 02_4 sub-pixel marker became an arrow after review 3881; root's
 draft05 (central15, Mail 3910) keeps 02 at 87.27 s, with cues identical to
-draft04.
+draft04. Root's later silent drafts run 92.60 s for 03 (draft08, central27)
+and 93.03 s for 04 (draft10, central41); both chapters are built and
+root-checked on source, mathematics and sampled frames, not on audio.
 
 After chapter 02 the picture rests on the plot at n = 1000 with its
 under-axis strip, the window at ×1000 and the two summary lines. Chapter 03
@@ -89,7 +91,40 @@ After chapter 03 the picture rests on the plot (x², the base point, the
 chord at h = −1/10, the gold line of slope 1) and the slope panel with its
 band and window at 1/20, the limit, the line "next: who picks the
 tolerance, and when?" and the precisely card. The challenge game (04)
-opens on it.
+opens on it:
+
+- **04_the_challenge_game**: built (its beats are below, task
+  mx-video-program-program-87do.58.4). It rebuilds chapter 03's last
+  picture with chapter 03's own builders (`old_objection::final_picture`).
+  The game has strict turns: the challenger's tolerance ε, then the
+  defender's window δ > 0, then any h in the window but 0.
+  - The honest answer δ = ε wins for every pick, because the slope is
+    exactly |h| from 1.
+  - A lucky pick does not save the wider window 1/5. It loses at
+    h = (ε + δ)/2 = 0.15, the model's `window_failure`, whose pick is
+    capped at 1/2 so that 1/2 + h stays in [0, 1].
+  - A limit leaves h = 0 out; continuity puts it in and aims at the value
+    there, and the third rule becomes |h| < δ. Filled with 1, the graph is
+    continuous. Filled with 1.5, no window works, and the screen says why
+    for every window, not just the one played: any δ holds the pick
+    h = ½·min(δ, 2/5), whose value is at least 3/10 from 1.5
+    (`fill_failure`; h = 0.05 for δ = 1/10).
+  - A defender who saw a nonzero h first could answer with a window too
+    narrow to hold it (`blind_window`); h = 0 is in every window but passes,
+    g(0) being within ε of itself. So δ may depend on ε, the point and the
+    curve, never on the later h.
+  - Last, continuity of x² at x = 1, the end of its domain [0, 1], against
+    1/2. The window runs from 2^(−1/2) ≈ 0.7071, which it leaves out (x² is
+    exactly 1/2 there), up to 1, which it holds; δ ≈ 0.2929. No Sprague or
+    Davis method is used: the bound is x² > 1/2 exactly when x > 2^(−1/2).
+  - The precise domain conditions follow the Toronto MAT237 notes §1.2
+    (README sources).
+
+After chapter 04 the picture rests on the plot (x², the band within 1/2 of
+1, the window from 2^(−1/2) to 1 with its end marks and its edge's label,
+the highlighted piece), the right column's domain note, tolerance and four
+rows, and the line "next: how a window is found, and why a written proof
+hides the search". Chapter 05 opens on it.
 
 ## 3 Color roles
 
@@ -113,6 +148,8 @@ data colour.
 | a chord, the change h + h², and the graph of the chord's slope against h | green `#83C167` for the chord and the graph (the change is the curve's, blue) |
 | where the slopes go (chapter 03): the line of slope 1, the level 1, the limit, the tolerance band | gold, as the limit; the band translucent |
 | the step that fails: h set to zero, 0/0, the fan of lines that all fit | red, as the gap and the jump |
+| chapter 04's challenger: the tolerance rule (gold, as the band), the defender's window rule (lavender, as the window), the challenger's pick (lavender, a dot on the graph); a pick that misses the band | the band's and window's colours; a miss is ringed red |
+| the hole filled with a value (chapter 04) | green, as the graph |
 | axes and their numbers | `dim` |
 | the prediction ring, the title, the trace of an unbroken curve, a glow | `hero` gold `#FFD866` |
 
@@ -148,6 +185,15 @@ vanish"; the modern step says "keep h nonzero" and "the limit". The
 narration says Berkeley "questioned" and "objected"; it never says the old
 calculus was wrong, and it says the old answer, one, is right.
 
+Chapter 04 names the two quantities: **epsilon** is the tolerance and
+**delta** the window, each said once with its word in 04_1. After that the
+narration keeps to **tolerance** and **window**, and the screen writes ε
+and δ. It also adds **challenger**, who picks the tolerance and then the
+input; **defender**, who picks the window; and **pick**, an input the
+challenger chooses. The narration says "continuity" and "limit" as two
+different checks: the limit leaves the point out, and continuity puts it
+in and aims at the value there.
+
 Numbers: decimals are said digit by digit after "point" as the screen
 writes them ("point seven two nine" for 0.729); one half is said "one half"
 and shown 1/2; zero and one are the interval's ends and the limit's two
@@ -169,6 +215,10 @@ values.
 | "early calculus was nonsense until the limit came along" | 03_3, 03_6: Berkeley questioned a step, the narration says so in those words, and the answer one is right |
 | "a limit is the value you get by plugging in" | 03_6 to 03_7: the hollow mark at h = 0; the window 0 < \|h\| < t leaves h = 0 out, and the limit is reached without it |
 | "this definition settles every question about limits" | 03_8: whether a limit exists at all is a separate question, saved for the end |
+| "a few picks that land prove the window works" | 04_2: the reason for every pick is \|Q(h) − 1\| = \|h\| < δ = ε; 04_3: a lucky pick lands and the window still loses at 0.15 |
+| "the defender may answer after seeing the input" | 04_5 to 04_6: then even the misfilled graph would win, with a window too narrow to hold the pick |
+| "a limit and continuity are the same check" | 04_4: the limit leaves h = 0 out; filled with 1.5, the limit is still 1 but continuity fails for every window |
+| "a window is symmetric even at the end of the domain" | 04_7: at x = 1 only x ≤ 1 is in the domain; the window is 2^(−1/2) < x ≤ 1 |
 
 ## Narration units and timing
 
@@ -209,6 +259,17 @@ Chapter 03's units:
 
 The question 03_4 is followed by the same 4 s think window, its answer
 ("None.") hidden until the window ends. The chapter ends on a hold.
+
+Chapter 04's units:
+- **04u1** (04_1 to 04_3, 77 words): the turns, the honest round and the
+  wide window that loses.
+- **04u2** (04_4, 04_5, 49 words): limit against continuity, ending on the
+  question.
+- **04u3** (04_6 to 04_8, 76 words): the answer and the rule for δ, the end
+  of the square's domain, and what comes next.
+
+The question 04_5 is followed by the same 4 s think window, its answer
+("Yes") hidden until the window ends. The chapter ends on a hold.
 
 **Hold (2026-10-19):** the owner rejected the first wave's narrated cuts
 and withdrew them; the rejected narration method must not be carried into
@@ -257,3 +318,17 @@ qualified method, not an instruction to synthesize. No take exists.
 | 03_6 | One is still the right answer, reached without h ever being zero. Shrink h from both sides, and the slopes close in on one. *(C3.limit, C3.h.to; C3.h.0 to C3.h.5, C3.slope.0 to C3.slope.5 on screen)* | The fan, the 0/0, the steps, the example and the heading go. At the right, a panel of the chord's slope against h, h from −0.6 to 0.6 with −1/2, 0 and 1/2 under it and 1 beside the slope axis: a gold dashed line at slope 1 with a hollow green mark on it at h = 0, the formula Q(h) = ((1/2 + h)² − (1/2)²)/h = 1 + h (h ≠ 0) above, and "slope of the chord, against h". At "Shrink h", the far point and its chord return at h = 1/2, a green dot lands on the panel at (1/2, 1.5), and "h = 1/2: slope 1.5" under it; the far point hops to h = 1/4, 1/10, −1/2, −1/4 and −1/10, the chord turning with it, each slope landing on the panel with its readout (1.25, 1.1, 0.5, 0.75, 0.9). At "close in on one", the readout goes, the graph of 1 + h is drawn through the dots in two pieces that stop at the hollow mark, and on the plot the gold line of slope 1 through the base point | plot; morph that keeps identity | |
 | 03_7 | For every h within one tenth of zero, other than zero, the slope is within one tenth of one. Any tolerance works the same way, so the limit is one. *(C3.delta.0, C3.h.to, C3.eps.0, C3.limit; C3.eps.1, C3.delta.1 on screen)* | At "h within one tenth of zero", a lavender window over 0 < \|h\| < 1/10 up the panel, labelled 0 < \|h\| < 1/10 at its foot; at "the slope is within one tenth", a gold band from 0.9 to 1.1 across the panel, labelled tolerance 1/10. Inside the window the graph stays inside the band, reaching its corners only at \|h\| = 1/10, which the window leaves out. At "Any tolerance", band and window narrow together to 1/20, their labels with them, and then a lower-third, precisely: for every h ≠ 0, ((1/2 + h)^2 − 1/4)/h = 1 + h, so for every tolerance t > 0, 0 < \|h\| < t puts it within t of 1. At h = 0 it is 0/0, which the limit never uses (C3.base.height, C3.at_zero). It stays to the chapter's end, through 03_8 (about 17 s fully shown at the scratch rate). At "the limit is one", under the panel in gold: lim_{h→0} Q(h) = 1 | highlight; lower-third; morph that keeps identity | |
 | 03_8 | This never needs the step Berkeley questioned. Who picks the tolerance, and when, comes next. Whether a limit exists at all is a separate question, for the end. *(The Analyst §§XIII–XIV, pp. 5–6 of Wilkins's edition)* | The precisely card stays. At "never needs", a glow at the hollow mark. At "Who picks the tolerance", under the limit and above the card, dim: "next: who picks the tolerance, and when?" | highlight | hold |
+
+## 04_the_challenge_game: The challenge game (~84 s at the kit's scratch rate)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Make it a game with strict turns. The challenger names a tolerance, epsilon. The defender answers with a window, delta. Then the challenger picks any h in it but zero. *(C3.h.to)* | Chapter 03's last picture, rebuilt by its own builders. The limit, the "next:" line, the precisely card, the formula, the panel's title and the six hop dots go; the band and window at 1/20 stay. Over the panel, one rule with each turn: in gold "first the challenger picks a tolerance ε > 0", in lavender "then the defender picks a window δ > 0", in ink "then the challenger picks any h, 0 < \|h\| < δ" | card | |
+| 04_2 | Against one tenth, the defender answers one tenth. Every h the challenger can pick lands in the band, since each slope is as far from one as h is from zero. *(C4.eps, C4.delta, C3.limit, C3.h.to; C4.pick.0 to C4.pick.2, C4.pick_slope.0 to C4.pick_slope.2 on screen)* | At "Against one tenth" the band narrows to within 1/10 of 1, labelled ε = 1/10; at "answers one tenth" the window to \|h\| < 1/10, labelled δ = 1/10, the hole still left out. At "Every h the challenger", a lavender pick lands on the graph at h = −0.08, then moves to 0.04 and 0.09, a glow at each landing and its readout in the panel's bottom right: "h = −0.08: slope 0.92", "h = 0.04: slope 1.04", "h = 0.09: slope 1.09". At "since each slope", under the panel in green: \|Q(h) − 1\| = \|h\| < δ = ε, the reason for every pick at once | morph that keeps identity; highlight | |
+| 04_3 | Catching some h is not enough. Answer one fifth instead, and point one five lands outside. *(C4.wide, C4.catch; C4.lucky, C4.lucky_slope, C4.catch_slope on screen)* | At "Catching some h", the pick moves to h = 0.05: "h = 0.05: slope 1.05", in the band. At "Answer one fifth", the window widens to δ = 1/5 and the green reason goes (it no longer holds). At "point one five", the pick moves to h = 0.15, inside the window, and its slope 1.15 lands above the band: a red ring, and the readout "h = 0.15: slope 1.15" in red. This pick is the model's `window_failure`, (1/10 + 1/5)/2 | morph that keeps identity; highlight | |
+| 04_4 | A limit leaves zero out. Continuity puts zero in and aims at the value there. Fill the hole with one, and it is continuous. Fill it with one and a half, and no window works. *(C3.h.to, C4.fill.good, C4.fill.bad; C4.fill.witness, C4.fill.witness_value, C4.fill.room, C4.fill.gap on screen)* | The pick, its ring and readout go; the window returns to δ = 1/10. At "leaves zero out", under the panel: limit: 0 < \|h\| < δ ⇒ \|Q(h) − 1\| < ε, and a glow at the hollow mark. At "Continuity puts zero in", under it: continuity: \|h\| < δ ⇒ \|g(h) − g(0)\| < ε, and a lower-third, precisely: a limit at a checks only the domain's points other than a, and needs some in every window; continuity at a point a of the domain checks a too, against f(a). Here g(h) = 1 + h for h ≠ 0, and g(0) is the filled value (C3.quotient). The third rule becomes continuity's: "then the challenger picks any h, \|h\| < δ", h = 0 let in. At "Fill the hole with one", a green dot fills the hollow mark. At "one and a half", the dot rises to (0, 1.5), leaving the hollow mark behind, and the band moves to within 1/10 of 1.5, its label under it. A pick lands at h = 0.05, inside the window, its value 1.05 far below the band: a red ring and "h = 0.05: g = 1.05". Over it, the argument for every window, so that one losing window is not all: "any δ: h = ½ min(δ, 2/5)" and, in red, "\|g(h) − 1.5\| ≥ 3/10 > ε". The pick shown is δ = 1/10's; the model's `fill_failure` gives the same pick for every δ, capped to stay in the domain | morph that keeps identity; lower-third; highlight | |
+| 04_5 | ⟨predict⟩ But if the defender could see h first, could this broken graph still win? | A "?" in the think ring in the plot's empty top left, which drains for 4 s with "pause for more time" under it; the answer stays hidden until it ends | predict pause | think 4 s, the answer hidden until it ends |
+| 04_6 | Yes, always, with a window too narrow to hold it. So the window may depend on the tolerance, the point and the curve, never on the later h. *(C4.cheat.delta on screen)* | The "?" goes. At "too narrow", the window shrinks to δ = 1/40, leaving the pick at 0.05 outside it: its ring, readout and the argument go, and in dim "h = 0.05: not in the window" (the model's `blind_window`, \|h\|/2). Over it, dim, the case no window can shut out: "h = 0 is in every window;" "\|g(0) − g(0)\| = 0 < ε": it passes anyway, so only nonzero picks can be hidden. At "So the window may depend", the precisely card gives way to a line under the definitions: δ may depend on ε, the point and the curve, never on the h picked after it; a glow at the defender's rule | morph that keeps identity; highlight | |
+| 04_7 | Continuity at x equals one, where the square's domain ends. Against one half, the window starts where x squared is one half, and every x from there to one passes. *(C4.end.x, C4.end.eps, C4.end.power, C4.end.level; C4.end.edge.4dp, C4.end.delta.4dp, C1.domain.left, C1.domain.right on screen)* | Everything on the right, the rules, the definitions, the δ line, and on the plot the base point, chord, far point and gold line go; the square, its label and the axes stay. At "x equals one", a glow at (1, 1) and, dim at the right, "domain [0, 1]: no x beyond 1". At "Against one half", a gold band on the plot from y = 1/2 up past 1, and ε = 1/2 around 1 at the right. At "the window starts", a lavender window from x = 2^(−1/2) to 1, a hollow mark at its left end (x² is exactly 1/2 there, not within) and a filled mark at 1, which belongs; under the axis 2^(−1/2) ≈ 0.7071. At "every x from there", the square's piece over the window lights up inside the band, and the rows: 2^(−1/2) < x ≤ 1: 1/2 < x² ≤ 1; so \|x² − 1\| < 1/2 for every such x; dim, x = 2^(−1/2): x² = 1/2 exactly, not within; δ = 1 − 2^(−1/2) ≈ 0.2929 | plot; highlight; derivation | |
+| 04_8 | A winning answer covers every input in its window. Finding them is a search that written proofs hide. | At "covers every input", a glow over the window. At "Finding them", centred under everything, dim: "next: how a window is found, and why a written proof hides the search" | highlight | hold |
+

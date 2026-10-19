@@ -100,12 +100,52 @@ notes the owner supplied) and the open-set picture behind topology.
   and sampled frames only: not audio, 4K or continuous motion. The lane's
   own checks were source-level (oracle, storyboard, lint, units, rustfmt,
   ubs), and it inspected no image.
+- **Chapter 04** (`04_the_challenge_game`, task `.58.4`) is built. It
+  opens on chapter 03's last picture, rebuilt by chapter 03's own builders
+  (`old_objection::final_picture`).
+  - Chapter 03's scene itself changed only in that its three strings (the
+    Q(h) formula, the limit, the exact card) are now built by functions both
+    chapters share, with the same text.
+  - Root's central35 (Mail 4087, root's evidence) passed on the first
+    source:
+    - fmt, strict Clippy, 60 native tests and the build;
+    - 131 facts and 159 glyph sources;
+    - a rebuilt chapter 03 byte-identical to the accepted one (SHA 07c0aa94);
+    - a 93 s draft09, from which root viewed 12 frames and all 15 glyph
+      pages and found no spatial defect.
+  - EmeraldLeopard's source review (4086) found no math error, but withheld
+    the chapter on an explanatory gap and three smaller points:
+    - 04_4 concluded discontinuity from one losing window, right after 04_3
+      showed that one losing window decides nothing;
+    - 04_8 said every answer covers its window;
+    - h = 0 in the continuity game was left implicit;
+    - `window_failure`'s test picks left [0, 1] for large windows.
+  - All four were repaired (4099); the scope limits below give the details.
+    Two corrections followed:
+    - `reach` is described as the symmetric safe radius, and t < reach as
+      the supported range, not an impossibility (root, 4103 → 4105);
+    - central40's strict Clippy flagged one constant assertion, now in a
+      `const` block with the same inequality (4107 → 4110).
+  - Root's central41 (Mail 4120, root's evidence) passed:
+    - fmt, strict all-target release Clippy, 60 tests and 133 facts;
+    - the glyphs;
+    - the silent draft10, `.x/second-wave-20261019/draft10/epsilon_delta`:
+      2791 frames, 93.03 s, SHA 66363662…, empty layout report.
+  - Root inspected 12 final frames. EmeraldLeopard (4118) independently
+    found no blocker in the new proof, the continuity rule, the h = 0 note,
+    the prediction or the card timing. Optional typography notes remain and
+    are not blockers.
+  - This qualifies the mathematics, the sources and sampled frames only:
+    not audio, 4K, continuous motion or the full video. The lane's own checks
+    were source-level (oracle, storyboard, lint, units, rustfmt, ubs), and it
+    inspected no image.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
 keep the prediction time and not speed anything up. Chapter 03's draft runs
 92.60 s against a storyboard estimate of 83.9 s; root let it run over to
-keep the mathematics readable (Mail 4001).
+keep the mathematics readable (Mail 4001). Chapter 04's draft10 runs
+93.03 s against a storyboard estimate of 84.7 s.
 Narration pacing and the full audiovisual cut are not qualified. Whole-video,
 audio and continuous-playback acceptance are not claimed for any chapter.
 The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
@@ -114,18 +154,19 @@ oracle-checked.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, the constructive deltas and the naive one that fails |
+| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, chapter 04's exact witnesses (the pick that beats a wide window, the pick that beats every window for a misfilled hole, the window too narrow to hold a seen pick), the constructive deltas and the naive one that fails |
 | `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it; chapter 03's page references |
 | `oracle.py` | the same keys computed independently (Python decimal and fractions, binomial sums; standard library only) |
 | `src/chapters/limit_that_jumps.rs` | chapter 01's scene, and the builders chapter 02 rebuilds its last picture with |
 | `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing; and its resting picture, rebuilt for chapter 03 |
-| `src/chapters/old_objection.rs` | chapter 03's scene: the step on the square, 0/0 at h = 0, the slope panel, the tolerance and window |
+| `src/chapters/old_objection.rs` | chapter 03's scene: the step on the square, 0/0 at h = 0, the slope panel, the tolerance and window; and its last picture, rebuilt for chapter 04 |
+| `src/chapters/challenge_game.rs` | chapter 04's scene: the turns, the honest and the wide window, limit against continuity, the blind window, continuity of x² at the end of [0, 1] |
 | `src/chapters/draw.rs` | the plot, the bright curve's morph, the colour roles, phrase timing, the think ring |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), colour roles, vocabulary, narration units and timing |
 | `narration_units.json` | the script grouped into coherent narration units, bound to `script.tsv`'s bytes |
 
 ```bash
-python3 -I -B oracle.py                          # 107 keys, cross-checks on stderr
+python3 -I -B oracle.py                          # 131 keys, cross-checks on stderr
 python3 -I tools/storyboard.py --check epsilon_delta
 python3 -I tools/lint_script.py explainer_corpus/epsilon_delta/script.tsv
 ./x epsilon_delta facts-check                    # the Rust facts against the oracle (builds)
@@ -150,7 +191,19 @@ Read for this chapter (2026-10-19):
   a limit at a needs a to be a limit point of the domain S and uses
   0 < |x − a| < δ with x in S; continuity at a in S uses |x − a| < δ with x
   in S; Theorem 5 states the preimage form, and the notes add that f need
-  not be invertible. Read for chapters 04 and 11.
+  not be invertible. Read for chapters 04 and 11. Re-read for chapter 04 on
+  2026-10-19 (the brief's link), in the page's own words:
+  - lim f(x) = L means "∀ε > 0, ∃δ > 0 such that if x ∈ S and
+    0 < |x − a| < δ, then |f(x) − L| < ε";
+  - for this to make sense a must be a limit point of S: "∀δ > 0, ∃x ∈ S
+    such that 0 < |x − a| < δ";
+  - f is continuous at a ∈ S if "∀ε > 0, ∃δ > 0 such that if x ∈ S and
+    |x − a| < δ, then |f(x) − f(a)| < ε";
+  - at a limit point, continuity at a is the limit equalling f(a).
+
+  Chapter 04's two definitions and its precisely card follow these. Its
+  window at x = 1 keeps x ∈ [0, 1], and its strict inequalities are the
+  page's.
 - **Sprague (1960) and Davis (1961)**, American Mathematical Monthly: their
   bibliographic identity and displayed mathematics come from the brief,
   which read the owner's screenshots and JSTOR's issue records. They were
@@ -322,6 +375,90 @@ competition review remains open.
     separate question);
   - any date for Cauchy or Weierstrass;
   - that anyone was the first to write it.
+
+## Scope limits kept in chapter 04
+
+- The order is the definition's: the challenger's tolerance, then the
+  defender's window, then any pick in it. The narration says the window may
+  depend on the tolerance, the point and the curve, never on the later h.
+  The screen shows why: a defender who saw a nonzero pick could answer with
+  a window too narrow to hold it (`blind_window`, |h|/2), and would win even
+  against the misfilled graph.
+- The rules on screen follow the game being played. The limit game's third
+  rule is 0 < |h| < δ. From "Continuity puts zero in" on, it becomes
+  |h| < δ. h = 0 is then a legal pick that no window can shut out, but it
+  always passes, since |g(0) − g(0)| = 0 < ε; 04_6 shows this as a note
+  beside the hidden pick.
+- The limit is punctured and continuity is not. The limit's line says
+  0 < |h| < δ against 1; continuity's says |h| < δ against g(0).
+- Every pick played or tested is an input of the square's domain:
+  1/2 + h ∈ [0, 1]. The model keeps |h| within the symmetric safe radius
+  `reach(a)` = min(a, 1 − a), which is 1/2 here.
+  - `window_failure`'s pick is min((ε + δ)/2, 1/2): the midpoint up to
+    δ = 9/10, where it is exactly 1/2, and the domain's edge after that.
+  - `fill_failure` caps its pick the same way.
+  - `window_failure` supports only tolerances below the safe radius
+    (t < 1/2), and refuses a larger one as out of its range. That is not a
+    claim that no pick misses: at t = 1/2, the legal pick h = 1/2 is
+    exactly 1/2 away, and so misses the strict tolerance. A test keeps both
+    the refusal and that miss.
+
+The arguments for every input are algebra:
+- **The honest window.** For every h with 0 < |h| < δ = ε, the slope is
+  1 + h, so |Q(h) − 1| = |h| < ε. This is the green line in 04_2. Filled
+  with 1, g(0) = 1 adds |g(0) − 1| = 0, so the same window is continuous.
+- **A wider window.** For ε < 1/2 (the safe radius) and δ > ε, the pick
+  h = min((ε + δ)/2, 1/2) lies inside the window and the domain. If the
+  midpoint is chosen, ε < h < δ. If the cap 1/2 is chosen, h = 1/2 > ε,
+  and δ ≥ 1 − ε > 1/2. Either way |Q − 1| = h > ε.
+- **The fill 1.5.** For every δ, the pick h = ½·min(δ, 2/5) has
+  0 < h < δ and h ≤ 1/5, so g(h) = 1 + h ≤ 1.2, at least 3/10 below 1.5 and
+  more than ε = 1/10. No window works. 04_4 now says so ("no window
+  works"), and the screen shows the argument beside the window played:
+  "any δ: h = ½ min(δ, 2/5)" and "|g(h) − 1.5| ≥ 3/10 > ε". The pick shown,
+  h = 0.05, is the case δ = 1/10.
+- **The end of the domain.** For 2^(−1/2) < x ≤ 1, squaring is increasing
+  on [0, 1], so 1/2 < x² ≤ 1.
+
+The checks are samples and demonstrations, not proofs:
+- **The model's tests:**
+  - every δ = k/100 from 11/100 to 3, plus 101/1000, 7/3 and 1000, with
+    the exact edges 89/100, 9/10 and 91/100;
+  - the fill 1.5 at nine windows from 1/1000 to 1000, its widest pick 1/5
+    exactly, and the domain cap on a far fill;
+  - grids of picks for the fill 1;
+  - rationals across the window at x = 1.
+- **The oracle:**
+  - an independent grid search of in-domain picks finds a miss in every
+    wider window tried (up to 1000) and in every window for the fill 1.5;
+  - it then checks the model's witness formulas separately, which is a
+    check of the same formula, not an independent search.
+- The narration does not say "for every tolerance". The scene plays 1/10,
+  and the model refuses a fill closer to 1 than the tolerance.
+- Continuity at x = 1 keeps the domain's hypothesis: x ∈ [0, 1], so the
+  window is 2^(−1/2) < x ≤ 1, open at its left end, where x² is exactly 1/2
+  and so not within. δ = 1 − 2^(−1/2) ≈ 0.2929 is chapter 02's certified
+  width at n = 2; the edge 0.7071 is chapter 01's certified crossing.
+- No Sprague or Davis method appears (chapters 06 and 07): the end-of-domain
+  bound is the monotonicity x² > 1/2 ⟺ x > 2^(−1/2) on [0, 1].
+- Names and words:
+  - No name or date is said.
+  - "Epsilon" and "delta" are said once each, in 04_1, with their words;
+    the screen writes ε and δ only in TeX.
+  - 04_8 says "A winning answer covers every input in its window"; the
+    chapter also shows answers that lose.
+- Reading time, estimated from source at the scratch rate (root measures
+  the render):
+  - Each pick's readout stands about 1.4 s. The last ones stand longer: the
+    honest round's through to 04_3, the miss into 04_4.
+  - The reason |Q(h) − 1| = |h| < δ = ε stands about 7 s.
+  - The precisely card (215 characters) stands from 04_4's second sentence
+    to 04_6's second, about 27 s.
+  - The δ rule stands about 8 s.
+  - 04_7's rows stand about 10 s, to the end.
+  - The chapter runs about 93 s silent by the same estimate, over the ~85 s
+    target as the others do; root's draft10 measured 93.03 s. EmeraldLeopard
+    found no blocker in the prediction or card timing on it (4118).
 
 ## Narration
 

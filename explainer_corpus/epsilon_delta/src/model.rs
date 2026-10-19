@@ -782,6 +782,119 @@ pub fn clip_unit(x0: f64, y0: f64, s: f64) -> Result<[(f64, f64); 2], String> {
     }
 }
 
+// ------------------------------------------- chapter 04: the challenge game
+
+/// The challenger's tolerance in chapter 04's honest round, and the
+/// defender's wider answer, which loses (facts `C4.eps`, `C4.wide`).
+pub const CHALLENGE: Frac = Frac { num: 1, den: 10 };
+pub const WIDE: Frac = Frac { num: 1, den: 5 };
+/// The challenger's picks against the honest window, from both sides, and
+/// the pick that happens to land against the wide one (facts `C4.pick.*`,
+/// `C4.lucky`): none is zero, and each sits clear of the hollow mark.
+pub const PICKS: [Frac; 3] = [
+    Frac { num: -2, den: 25 },
+    Frac { num: 1, den: 25 },
+    Frac { num: 9, den: 100 },
+];
+pub const LUCKY: Frac = Frac { num: 1, den: 20 };
+/// The values chapter 04 fills the hole at h = 0 with: the limit itself,
+/// and another (facts `C4.fill.*`).
+pub const FILLS: [Frac; 2] = [Frac { num: 1, den: 1 }, Frac { num: 3, den: 2 }];
+
+/// The symmetric safe radius around the base point a, for a inside (0, 1):
+/// every h with |h| ≤ min(a, 1 − a) keeps the input a + h in the square's
+/// domain [0, 1]. On one side the domain may reach farther; this is the
+/// radius that is safe on both. Every pick chapter 04 plays or tests stays
+/// within it.
+pub fn reach(a: Frac) -> Result<Frac, String> {
+    let rest = Frac::whole(1).minus(a)?;
+    if a <= Frac::whole(0) || rest <= Frac::whole(0) {
+        return Err(format!("the base point {a} is not inside (0, 1)"));
+    }
+    Ok(if a < rest { a } else { rest })
+}
+
+fn least(x: Frac, y: Frac) -> Frac {
+    if x < y { x } else { y }
+}
+
+fn size(x: Frac) -> Result<Frac, String> {
+    if x < Frac::whole(0) { x.negated() } else { Ok(x) }
+}
+
+/// A pick, inside the domain, that beats the window 0 < |h| < delta
+/// against the tolerance t around the slopes' limit at a, if there is one.
+/// The slope is the limit plus h exactly ([`chord_slope`]), so the window
+/// works when delta ≤ t (None). When delta > t, the pick
+/// h = min((t + delta)/2, [`reach`]) has t < h < delta, since the reach is
+/// more than t, and a + h stays in [0, 1]; its slope is h away from the
+/// limit.
+///
+/// Only tolerances below the safe radius are supported (t < reach), and a
+/// larger one is refused. That is a limit of this function, not a claim
+/// that no pick misses: at a = 1/2 and t = 1/2, the legal pick h = 1/2 is
+/// exactly 1/2 away and misses the strict tolerance for any delta > 1/2.
+pub fn window_failure(a: Frac, t: Frac, delta: Frac) -> Result<Option<Frac>, String> {
+    let t = window(t)?;
+    if delta <= Frac::whole(0) {
+        return Err(format!("a window is strictly positive, not {delta}"));
+    }
+    let far = reach(a)?;
+    if t >= far {
+        return Err(format!(
+            "a tolerance of {t} is outside the supported range: it must be below the safe radius {far}"
+        ));
+    }
+    if delta <= t {
+        return Ok(None);
+    }
+    Ok(Some(least(t.plus(delta)?.over(Frac::whole(2))?, far)))
+}
+
+/// The slope's graph with its hole filled: g(h) is the chord's slope for
+/// h ≠ 0 and g(0) = fill. Continuity at 0 against the tolerance t, for the
+/// window |h| < delta, aims at g(0). The pick h = 0 is in every window and
+/// always passes, since g(0) is within every tolerance of itself; only a
+/// nonzero pick can lose.
+/// - fill is the limit L: the rest is the limit's game, so the window works
+///   when delta ≤ t and otherwise loses at [`window_failure`]'s pick.
+/// - |L − fill| > t: every window loses at
+///   h = min(delta, |L − fill| − t, [`reach`])/2, which is in the window and
+///   the domain, with |g(h) − fill| ≥ |L − fill| − h > t.
+///
+/// A fill closer to L than t is refused: that tolerance does not tell the
+/// two apart, and the chapter never plays it.
+pub fn fill_failure(a: Frac, fill: Frac, t: Frac, delta: Frac) -> Result<Option<Frac>, String> {
+    let t = window(t)?;
+    if delta <= Frac::whole(0) {
+        return Err(format!("a window is strictly positive, not {delta}"));
+    }
+    let limit = chord_limit(a)?;
+    if fill == limit {
+        return window_failure(a, t, delta);
+    }
+    let apart = size(limit.minus(fill)?)?;
+    if apart <= t {
+        return Err(format!(
+            "a tolerance of {t} does not tell {fill} from the limit {limit}"
+        ));
+    }
+    let room = apart.minus(t)?;
+    Ok(Some(least(least(delta, room), reach(a)?).over(Frac::whole(2))?))
+}
+
+/// The window a defender who saw the challenger's nonzero pick h first
+/// could answer with: |h|/2, too narrow to hold h. In the continuity game
+/// h = 0 is also a pick, but it is in every window and passes anyway,
+/// since g(0) is within any tolerance of itself: only a nonzero pick can
+/// be shut out, and none is refused here but 0.
+pub fn blind_window(h: Frac) -> Result<Frac, String> {
+    if h.is_zero() {
+        return Err("no window shuts out h = 0, which passes anyway".to_owned());
+    }
+    size(h)?.over(Frac::whole(2))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1281,6 +1394,153 @@ mod tests {
         }
         assert!(clip_unit(0.5, 2.0, 0.0).is_err());
         assert!(clip_unit(5.0, 0.0, 1.0).is_err());
+    }
+
+    /// The honest window loses to no pick; a wider one loses to the pick
+    /// min((t + delta)/2, 1/2), which is inside it, keeps 1/2 + h in [0, 1]
+    /// and whose slope misses the band: up to delta = 9/10 it is the
+    /// midpoint, exactly 1/2 there, and from then on the domain's edge.
+    #[test]
+    fn a_wider_window_loses_at_a_pick_inside_the_domain() {
+        let limit = chord_limit(BASE).unwrap();
+        let t = CHALLENGE;
+        let far = reach(BASE).unwrap();
+        assert_eq!(far, q(1, 2));
+        for k in 1..=10 {
+            assert_eq!(window_failure(BASE, t, q(k, 100)).unwrap(), None, "delta = {k}/100");
+        }
+        for delta in (11..=300).map(|k| q(k, 100)).chain([q(101, 1000), q(7, 3), q(1000, 1)]) {
+            let h = window_failure(BASE, t, delta).unwrap().unwrap();
+            assert!(t < h && h < delta, "delta = {delta}: pick {h} inside the window");
+            assert!(
+                h <= far && (0.0..=1.0).contains(&BASE.plus(h).unwrap().f64()),
+                "delta = {delta}: in [0, 1]"
+            );
+            assert!(
+                !chord_slope(BASE, h).unwrap().within(limit, t).unwrap(),
+                "delta = {delta}"
+            );
+        }
+        assert_eq!(window_failure(BASE, t, WIDE).unwrap(), Some(q(3, 20)));
+        assert_eq!(
+            window_failure(BASE, t, q(9, 10)).unwrap(),
+            Some(far),
+            "the midpoint meets the edge"
+        );
+        assert_eq!(
+            window_failure(BASE, t, q(91, 100)).unwrap(),
+            Some(far),
+            "past it, the edge"
+        );
+        assert_eq!(window_failure(BASE, t, q(89, 100)).unwrap(), Some(q(99, 200)));
+        assert!(
+            window_failure(BASE, far, q(1, 1)).is_err(),
+            "t = 1/2 is outside the supported range t < 1/2"
+        );
+        // refused as unsupported, not impossible: h = 1/2 is a legal pick
+        // exactly 1/2 away, so it misses the strict tolerance 1/2
+        assert!(!chord_slope(BASE, far).unwrap().within(limit, far).unwrap());
+        assert!(reach(q(0, 1)).is_err() && reach(q(1, 1)).is_err());
+        assert_eq!(reach(q(1, 4)).unwrap(), q(1, 4));
+        for h in PICKS {
+            assert!(
+                h.within(q(0, 1), t).unwrap() && !h.is_zero(),
+                "{h} is a pick of the window"
+            );
+            assert!(chord_slope(BASE, h).unwrap().within(limit, t).unwrap(), "{h}");
+        }
+        assert!(LUCKY < WIDE && chord_slope(BASE, LUCKY).unwrap().within(limit, t).unwrap());
+        assert!(window_failure(BASE, q(0, 1), WIDE).is_err() && window_failure(BASE, t, q(0, 1)).is_err());
+    }
+
+    /// Filled with the limit, the graph is continuous at 0: the honest
+    /// window holds h = 0 and every pick. Filled with 3/2, every window
+    /// loses at h = min(delta, 2/5)/2, inside it and the domain and more
+    /// than t away. (These are checks at chosen windows and picks; the
+    /// argument for every window is the triangle inequality in
+    /// `fill_failure`'s doc.)
+    #[test]
+    fn a_hole_filled_wrong_loses_every_window() {
+        let t = CHALLENGE;
+        let [good, bad] = FILLS;
+        assert_eq!(good, chord_limit(BASE).unwrap());
+        assert_eq!(fill_failure(BASE, good, t, t).unwrap(), None);
+        assert!(good.within(good, t).unwrap(), "g(0) is within t of itself");
+        for k in (-99..=99).filter(|&k| k != 0) {
+            let h = t.times(q(k, 100)).unwrap();
+            assert!(chord_slope(BASE, h).unwrap().within(good, t).unwrap(), "h = {h}");
+        }
+        assert_eq!(fill_failure(BASE, good, t, WIDE).unwrap(), Some(q(3, 20)));
+        // h = 0 is in every window, and passes against any fill: only
+        // nonzero picks lose
+        assert!(bad.within(bad, t).unwrap());
+        let gap = q(3, 10);
+        for delta in [
+            q(1, 1000),
+            q(1, 40),
+            q(1, 20),
+            t,
+            q(2, 5),
+            q(1, 2),
+            q(1, 1),
+            q(7, 3),
+            q(1000, 1),
+        ] {
+            let h = fill_failure(BASE, bad, t, delta).unwrap().unwrap();
+            assert!(q(0, 1) < h && h < delta && h <= q(1, 5), "delta = {delta}: pick {h}");
+            let miss = chord_slope(BASE, h).unwrap().minus(bad).unwrap();
+            assert!(
+                miss <= gap.negated().unwrap(),
+                "delta = {delta}: at least 3/10 below 1.5"
+            );
+        }
+        assert_eq!(fill_failure(BASE, bad, t, t).unwrap(), Some(q(1, 20)));
+        assert_eq!(
+            fill_failure(BASE, bad, t, q(2, 5)).unwrap(),
+            Some(q(1, 5)),
+            "the widest pick, g = 1.2"
+        );
+        // a fill far off is capped by the domain: min(7/3, 19/10, 1/2)/2
+        assert_eq!(fill_failure(BASE, q(3, 1), t, q(7, 3)).unwrap(), Some(q(1, 4)));
+        assert!(
+            fill_failure(BASE, q(11, 10), t, t).is_err(),
+            "t does not tell 11/10 from 1"
+        );
+    }
+
+    /// A defender who saw the pick first could answer with a window too
+    /// narrow to hold it.
+    #[test]
+    fn a_blind_window_never_holds_the_pick() {
+        for h in PICKS.into_iter().chain([LUCKY, q(-3, 7)]) {
+            let w = blind_window(h).unwrap();
+            assert!(
+                q(0, 1) < w && !h.within(q(0, 1), w).unwrap(),
+                "{h} is outside 0 < |h| < {w}"
+            );
+        }
+        assert_eq!(blind_window(LUCKY).unwrap(), q(1, 40));
+        assert!(blind_window(q(0, 1)).is_err());
+    }
+
+    /// Continuity of x² at x = 1 on [0, 1] against 1/2: the window is
+    /// 2^(−1/2) < x ≤ 1. Rational points just inside it have x² > 1/2,
+    /// just outside do not, and x = 1 itself does; x² ≤ 1 on the domain, so
+    /// |x² − 1| < 1/2 exactly on the window.
+    #[test]
+    fn the_square_is_continuous_at_the_end_of_its_domain() {
+        assert_eq!(half_height_rounded(2, 4).unwrap(), "0.7071");
+        assert_eq!(width_rounded(2, 1, 4).unwrap(), "0.2929");
+        let d: u32 = half_height_rounded(2, 6).unwrap()[2..].parse().unwrap();
+        let (outside, inside) = (r(2 * d - 1, 2_000_000), r(2 * d + 1, 2_000_000));
+        assert!(!above_half(outside, 2) && above_half(inside, 2));
+        assert!(above_half(r(1, 1), 2), "x = 1 is in the window: 1² = 1");
+        // across the window, from just inside its edge up to just below 1
+        let start = 2 * d + 1;
+        for k in 0..=100 {
+            let x = r(start + k * (1_999_999 - start) / 100, 2_000_000);
+            assert!(above_half(x, 2), "{x}");
+        }
     }
 
     /// The plot is 1296 pixels wide in the 4K picture; the strip is narrower

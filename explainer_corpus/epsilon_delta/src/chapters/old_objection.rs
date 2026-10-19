@@ -77,7 +77,7 @@ const NEXT_AT: &str = "Who picks the tolerance";
 
 /// The right column's left edge, and its rows: the author, the sections,
 /// the modern example, the three steps, Berkeley's sentence and its page.
-const RIGHT_X: f64 = 0.6;
+pub(super) const RIGHT_X: f64 = 0.6;
 const AUTHOR_Y: f64 = 3.4;
 const SECTIONS_Y: f64 = 2.95;
 const MODERN_Y: f64 = 2.35;
@@ -93,7 +93,7 @@ const RING_AT: Vec3 = [3.75, -0.75, 0.0];
 const RING_R: f64 = 0.45;
 /// The slope panel: h from −0.6 to 0.6 across, slopes from 0.25 to 1.75 up,
 /// so the graph of 1 + h over |h| ≤ 1/2 stays inside it.
-const SLOPES: Plot = Plot {
+pub(super) const SLOPES: Plot = Plot {
     frame: Frame2 {
         center: [3.75, 0.95, 0.0],
         width: 4.8,
@@ -109,8 +109,8 @@ const FORMULA_Y: f64 = 3.25;
 const TITLE_Y: f64 = 2.62;
 /// Under the panel: the readout (03_6) and the limit (03_7) on one row,
 /// what comes next (03_8) under it.
-const READ_Y: f64 = -1.55;
-const NEXT_Y: f64 = -2.15;
+pub(super) const READ_Y: f64 = -1.55;
+pub(super) const NEXT_Y: f64 = -2.15;
 /// The window's label sits inside the panel, this far over its foot, at
 /// h = 0; the tolerance's label in the panel's empty top left (data units).
 const WINDOW_LABEL_UP: f64 = 0.3;
@@ -160,7 +160,7 @@ const _: () = assert!(BAND_LABEL.1 > 1.0 + BAND_LABEL.0 + 0.5);
 const _: () = assert!(ZERO_READ_S >= NO_SLOPE.len() as f64 / READ_CPS + 1.0);
 
 /// A fact's fraction ("1/2", "-1/4", "1") as TeX: \tfrac{1}{2}, -\tfrac{1}{4}, 1.
-fn tex_frac(s: &str) -> String {
+pub(super) fn tex_frac(s: &str) -> String {
     let (sign, body) = s.strip_prefix('-').map_or(("", s), |b| ("-", b));
     match body.split_once('/') {
         Some((n, d)) => format!(r"{sign}\tfrac{{{n}}}{{{d}}}"),
@@ -169,7 +169,7 @@ fn tex_frac(s: &str) -> String {
 }
 
 /// A fact's fraction as text, with a true minus sign: "−1/4".
-fn shown(s: &str) -> String {
+pub(super) fn shown(s: &str) -> String {
     s.replace('-', "−")
 }
 
@@ -348,8 +348,147 @@ fn glide(stage: &mut Stage<'_>, mob: Mob, to: Vec3, rt: f64) -> fmn::Result<()> 
     Ok(())
 }
 
+/// The quotient's formula above the panel (03_6 on), from facts.
+fn formula_tex(f: &Facts) -> fmn::Result<String> {
+    let hx = tex_frac(&fact(f, "C3.base")?);
+    let square = fact(f, "C3.power")?;
+    let quotient = fact(f, "C3.quotient")?;
+    let zero = fact(f, "C3.h.to")?;
+    Ok(format!(
+        r"Q(h) = \frac{{\left({hx} + h\right)^{{{square}}} - \left({hx}\right)^{{{square}}}}}{{h}} = {quotient} \quad (h \neq {zero})"
+    ))
+}
+
+/// The limit under the panel (03_7 on), from facts.
+fn limit_tex(f: &Facts) -> fmn::Result<String> {
+    let zero = fact(f, "C3.h.to")?;
+    let target = fact(f, "C3.limit")?;
+    Ok(format!(r"\lim_{{h \to {zero}}} Q(h) = {target}"))
+}
+
+/// The exact statement on the precisely card (03_7 to the end), from facts.
+fn exact_text(f: &Facts) -> fmn::Result<String> {
+    let zero = fact(f, "C3.h.to")?;
+    let half = fact(f, "C3.base")?;
+    let square = fact(f, "C3.power")?;
+    let quotient = fact(f, "C3.quotient")?;
+    let target = fact(f, "C3.limit")?;
+    let at_zero = fact(f, "C3.at_zero")?;
+    Ok(format!(
+        "for every h ≠ {zero}, (({half} + h)^{square} − {})/h = {quotient}, so for every tolerance t > {zero}, \
+         {zero} < |h| < t puts it within t of {target}. At h = {zero} it is {at_zero}, which the limit never uses.",
+        fact(f, "C3.base.height")?,
+    ))
+}
+
+/// This chapter's last picture, for the chapter after it, split by what
+/// that chapter does with each part.
+pub(super) struct Final {
+    /// The base point (its guide, its 1/2 and its dot), the chord and far
+    /// point at h = −1/10, and the gold line of slope 1. (The plot's axes,
+    /// the square and its label stay in the scene and are not returned.)
+    pub on_plot: Vec<Mob>,
+    /// The slope panel's axes and its limit's dashed level: they stay.
+    pub panel: Vec<Mob>,
+    /// The hollow mark at h = 0 and the graph's two pieces.
+    pub hole: Mob,
+    pub graph: [Mob; 2],
+    /// The band and window at 1/20, and their labels.
+    pub band: Mob,
+    pub window: Mob,
+    pub labels: [Mob; 2],
+    /// What the chapter after clears at once: the formula, the panel's title,
+    /// the six hop dots, the limit, the "next:" line and the precisely card.
+    pub clear: Vec<Mob>,
+}
+
+/// This chapter's last picture, rebuilt with its own builders in the state
+/// 03_8 leaves it, back to front as 03_6 to 03_8 stack it: the plot (axes,
+/// the square, its label; the base point's guide and 1/2, the chord and the
+/// gold line, then the base point and the far point on top); the panel (its
+/// axes, the formula and title, the window and band at 1/20 with their
+/// labels, then the graph, the dashed level, the hollow mark and the dots on
+/// top); the precisely card, the limit and the "next:" line.
+pub(super) fn final_picture(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Final> {
+    let mut plot = PLOT.axes(kit, stage)?;
+    plot.push(PLOT.curve(stage, SQUARE, curve_color(), BRIGHT_W)?);
+    plot.push(curve_label(kit, stage, SQUARE)?);
+    let (x0, y0) = base();
+    let guide = PLOT.dashed(stage, (x0, 0.0), (x0, y0), fixed())?;
+    let foot = PLOT.p(x0, 0.0);
+    let half_mark = kit.tex(
+        stage,
+        &tex_frac(&fact(f, "C3.base")?),
+        26.0,
+        fixed(),
+        &[],
+        v(foot[0], foot[1] - NUMBER_DROP),
+    )?;
+    let last = NUDGES[NUDGES.len() - 1];
+    let chord_at = chord(stage, last)?;
+    let tangent = line_through(stage, chord_limit(BASE).map_err(fail)?.f64(), limit_color(), CHORD_W)?;
+    let point = PLOT.dot(stage, x0, y0, fixed());
+    let far_point = far_dot(stage, last.f64())?;
+    let on_plot = vec![guide, half_mark, chord_at, tangent, point, far_point];
+
+    let mut panel = panel_axes(kit, stage, f)?;
+    let formula = kit.tex(
+        stage,
+        &formula_tex(f)?,
+        28.0,
+        Palette::ink(),
+        &[],
+        v(SLOPES.frame.center[0], FORMULA_Y),
+    )?;
+    let title = kit.text(
+        stage,
+        SLOPE_OF,
+        22.0,
+        Palette::dim(),
+        v(SLOPES.frame.center[0], TITLE_Y),
+    )?;
+    let at = TOLERANCES.len() - 1;
+    let [band, window] = band_and_window(stage, TOLERANCES[at].f64())?;
+    let labels = tolerance_labels(kit, stage, f, at)?;
+    let graph = panel_graph(stage)?;
+    let [level, hole] = panel_limit(stage)?;
+    panel.push(level);
+    let mut dots = Vec::new();
+    for &h in &NUDGES {
+        dots.push(SLOPES.dot(stage, h.f64(), chord_slope(BASE, h).map_err(fail)?.f64(), slope_color()));
+    }
+    let card = precisely(kit, stage, &exact_text(f)?)?;
+    let limit_line = kit.tex_left(stage, &limit_tex(f)?, 30.0, limit_color(), &[], v(RIGHT_X, READ_Y))?;
+    let next = kit.text_left(stage, NEXT, 22.0, Palette::dim(), v(RIGHT_X, NEXT_Y))?;
+
+    let mut order = plot;
+    order.extend(&on_plot);
+    order.extend(&panel[..panel.len() - 1]);
+    order.extend([
+        formula, title, window, labels[1], band, labels[0], graph[0], graph[1], level, hole,
+    ]);
+    order.extend(&dots);
+    order.extend([card, limit_line, next]);
+    for &m in &order {
+        stage.add_to_scene(m)?;
+    }
+    let mut clear = vec![formula, title];
+    clear.extend(dots);
+    clear.extend([card, limit_line, next]);
+    Ok(Final {
+        on_plot,
+        panel,
+        hole,
+        graph,
+        band,
+        window,
+        labels,
+        clear,
+    })
+}
+
 /// Prepared crossfades from `from` to `to`, `rt` seconds.
-fn swap(stage: &mut Stage<'_>, from: &[Mob], to: &[Mob], rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
+pub(super) fn swap(stage: &mut Stage<'_>, from: &[Mob], to: &[Mob], rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in from {
         let out = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
@@ -590,9 +729,7 @@ impl SceneConstruct for WhatTheOldObjectionWasAbout {
         let mut panel = panel_axes(&kit, stage, &f)?;
         let formula = kit.tex(
             stage,
-            &format!(
-                r"Q(h) = \frac{{\left({hx} + h\right)^{{{square}}} - \left({hx}\right)^{{{square}}}}}{{h}} = {quotient} \quad (h \neq {zero})"
-            ),
+            &formula_tex(&f)?,
             28.0,
             Palette::ink(),
             &[],
@@ -682,22 +819,10 @@ impl SceneConstruct for WhatTheOldObjectionWasAbout {
         // the exact statement comes in as the window narrows and stands to
         // the chapter's end, through 03_8: the slope is exactly 1 + h for
         // every h ≠ 0, every tolerance has its window, and h = 0 gives 0/0
-        let exact = format!(
-            "for every h ≠ {zero}, (({half} + h)^{square} − {})/h = {quotient}, so for every tolerance t > {zero}, \
-             {zero} < |h| < t puts it within t of {target}. At h = {zero} it is {at_zero}, which the limit never uses.",
-            fact(&f, "C3.base.height")?,
-        );
-        let lower = precisely(&kit, stage, &exact)?;
+        let lower = precisely(&kit, stage, &exact_text(&f)?)?;
         fade_in_all(stage, &[lower], 0.5)?;
         line.wait_for(stage, LIMIT_AT)?;
-        let limit_line = kit.tex_left(
-            stage,
-            &format!(r"\lim_{{h \to {zero}}} Q(h) = {target}"),
-            30.0,
-            limit_color(),
-            &[],
-            v(RIGHT_X, READ_Y),
-        )?;
+        let limit_line = kit.tex_left(stage, &limit_tex(&f)?, 30.0, limit_color(), &[], v(RIGHT_X, READ_Y))?;
         fade_in_all(stage, &[limit_line], 0.6)?;
 
         // 03_8: the limit never needs the questioned step; who picks the

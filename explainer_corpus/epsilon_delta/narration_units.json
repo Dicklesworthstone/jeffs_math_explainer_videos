@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "9e16160dd3a128554b35e2a272dfe28386eece0bbefe65120a84d49f50979efd",
+  "script_sha256": "2387a9bdb85d7ce1ec4ce3ffa10d4dce72dbed436a4de899776c6d7844ab195b",
   "units": [
     {
       "id": "01u1",
@@ -82,6 +82,32 @@
         "03_8"
       ],
       "text": "None. Both points are then the same point, and the change is zero over zero. One is still the right answer, reached without h ever being zero. Shrink h from both sides, and the slopes close in on one. For every h within one tenth of zero, other than zero, the slope is within one tenth of one. Any tolerance works the same way, so the limit is one. This never needs the step Berkeley questioned. Who picks the tolerance, and when, comes next. Whether a limit exists at all is a separate question, for the end."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2",
+        "04_3"
+      ],
+      "text": "Make it a game with strict turns. The challenger names a tolerance, epsilon. The defender answers with a window, delta. Then the challenger picks any h in it but zero. Against one tenth, the defender answers one tenth. Every h the challenger can pick lands in the band, since each slope is as far from one as h is from zero. Catching some h is not enough. Answer one fifth instead, and point one five lands outside."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_4",
+        "04_5"
+      ],
+      "text": "A limit leaves zero out. Continuity puts zero in and aims at the value there. Fill the hole with one, and it is continuous. Fill it with one and a half, and no window works. But if the defender could see h first, could this broken graph still win?"
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_6",
+        "04_7",
+        "04_8"
+      ],
+      "text": "Yes, always, with a window too narrow to hold it. So the window may depend on the tolerance, the point and the curve, never on the later h. Continuity at x equals one, where the square's domain ends. Against one half, the window starts where x squared is one half, and every x from there to one passes. A winning answer covers every input in its window. Finding them is a search that written proofs hide."
     }
   ]
 }

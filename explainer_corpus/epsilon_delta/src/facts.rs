@@ -17,9 +17,10 @@ use fmn::core::constants::FRAME_WIDTH;
 
 use crate::chapters::draw::{LENS_H, LENS_HEIGHTS, LENS_W, PLOT};
 use crate::model::{
-    BASE, Frac, HALF, MORE_POWERS, NUDGES, POWERS, Ratio, SQUARE, TOLERANCES, ZOOMS, change_at, chord_formula,
-    chord_limit, chord_slope, davis_delta, decimal_power, first_within, gap, half_height_rounded, limit, local_bound,
-    recenter, round_half_up, sprague_delta_rounded, square_change, width_rounded, window,
+    BASE, CHALLENGE, FILLS, Frac, HALF, LUCKY, MORE_POWERS, NUDGES, PICKS, POWERS, Ratio, SQUARE, TOLERANCES, WIDE,
+    ZOOMS, above_half, blind_window, change_at, chord_formula, chord_limit, chord_slope, davis_delta, decimal_power,
+    fill_failure, first_within, gap, half_height_rounded, limit, local_bound, reach, recenter, round_half_up,
+    sprague_delta_rounded, square_change, width_rounded, window, window_failure,
 };
 
 /// The point chapter 01 pins, a/10^k: nine tenths.
@@ -88,8 +89,99 @@ pub fn facts() -> Result<Facts, String> {
     opening(&mut f)?;
     strip(&mut f)?;
     objection(&mut f)?;
+    game(&mut f)?;
     continuation(&mut f)?;
     Ok(f)
+}
+
+/// A fraction of either sign as its exact decimal ("-0.08", "1.5").
+fn signed_decimal(x: Frac) -> Result<String, String> {
+    if x < Frac::whole(0) {
+        Ok(format!("-{}", decimal(x.negated()?)?))
+    } else {
+        decimal(x)
+    }
+}
+
+/// Chapter 04: the honest round (tolerance, window, picks and their
+/// slopes), the wide window and the pick that beats it, the two fills of
+/// the hole and the pick that beats every window for the wrong one, the
+/// window a defender who saw the pick could answer with, and continuity of
+/// x² at the end of its domain against one half.
+fn game(f: &mut Facts) -> Result<(), String> {
+    let target = chord_limit(BASE)?;
+    f.add("C4.eps", CHALLENGE)?;
+    let delta = window(CHALLENGE)?;
+    f.add("C4.delta", delta)?;
+    // every pick is in the honest window, so it must land in the band
+    for (i, &h) in PICKS.iter().enumerate() {
+        let s = chord_slope(BASE, h)?;
+        if h.is_zero() || !h.within(Frac::whole(0), delta)? || !s.within(target, CHALLENGE)? {
+            return Err(format!("the pick {h} is not an honest pick in the band"));
+        }
+        f.add(&format!("C4.pick.{i}"), signed_decimal(h)?)?;
+        f.add(&format!("C4.pick_slope.{i}"), decimal(s)?)?;
+    }
+    // the wide window: a lucky pick lands, and the midpoint pick does not
+    f.add("C4.wide", WIDE)?;
+    let lucky = chord_slope(BASE, LUCKY)?;
+    if !LUCKY.within(Frac::whole(0), WIDE)? || !lucky.within(target, CHALLENGE)? {
+        return Err(format!("{LUCKY} is not a lucky pick for the window {WIDE}"));
+    }
+    f.add("C4.lucky", decimal(LUCKY)?)?;
+    f.add("C4.lucky_slope", decimal(lucky)?)?;
+    let catch = window_failure(BASE, CHALLENGE, WIDE)?.ok_or("the wide window must lose")?;
+    f.add("C4.catch", decimal(catch)?)?;
+    f.add("C4.catch_slope", decimal(chord_slope(BASE, catch)?)?)?;
+    // the fills: the limit is continuous with the honest window, the other
+    // loses that window (and every other) at its witness pick
+    let [good, bad] = FILLS;
+    if fill_failure(BASE, good, CHALLENGE, delta)?.is_some() {
+        return Err(format!(
+            "the hole filled with {good} must be continuous for the window {delta}"
+        ));
+    }
+    f.add("C4.fill.good", good)?;
+    f.add("C4.fill.bad", decimal(bad)?)?;
+    let witness = fill_failure(BASE, bad, CHALLENGE, delta)?.ok_or("the wrong fill must lose")?;
+    f.add("C4.fill.witness", decimal(witness)?)?;
+    f.add("C4.fill.witness_value", decimal(chord_slope(BASE, witness)?)?)?;
+    // the argument for every window, as the screen states it: the pick
+    // min(δ, room)/2 with room = |L − fill| − ε (inside the domain's reach
+    // here) leaves g at least gap = |L − fill| − room/2 from the fill
+    let apart = bad.minus(target)?;
+    let apart = if apart < Frac::whole(0) {
+        apart.negated()?
+    } else {
+        apart
+    };
+    let room = apart.minus(CHALLENGE)?;
+    if room >= reach(BASE)? {
+        return Err(format!("the room {room} must stay inside the domain's reach"));
+    }
+    let gap = apart.minus(room.over(Frac::whole(2))?)?;
+    if gap <= CHALLENGE {
+        return Err(format!("the gap {gap} must be more than the tolerance"));
+    }
+    f.add("C4.fill.room", room)?;
+    f.add("C4.fill.gap", gap)?;
+    // a defender who saw that pick first could hide it outside the window
+    f.add("C4.cheat.delta", blind_window(witness)?)?;
+    // continuity of x² at x = 1, the end of [0, 1], against one half: the
+    // window runs from 2^(−1/2), where x² is exactly one half, up to 1
+    let end = Ratio::point(1, 1)?;
+    f.add("C4.end.x", end.num)?;
+    f.add("C4.end.power", SQUARE)?;
+    f.add("C4.end.eps", HALF)?;
+    let half = Frac::whole(i64::from(HALF.num)).over(Frac::whole(i64::from(HALF.den)))?;
+    let level = Frac::whole(1).minus(half)?;
+    f.add("C4.end.level", level)?;
+    if !above_half(end, SQUARE) {
+        return Err("x = 1 must keep x² within one half of 1".to_owned());
+    }
+    f.add("C4.end.edge.4dp", half_height_rounded(SQUARE, PLACES)?)?;
+    f.add("C4.end.delta.4dp", width_rounded(SQUARE, 1, PLACES)?)?;
+    Ok(())
 }
 
 /// A positive fraction's exact decimal ("1.25").
@@ -444,6 +536,34 @@ mod tests {
         let (above, below) = slopes.split_at(3);
         assert!(above.windows(2).all(|w| num(w[1]) < num(w[0])) && above.iter().all(|&s| num(s) > 1.0));
         assert!(below.windows(2).all(|w| num(w[1]) > num(w[0])) && below.iter().all(|&s| num(s) < 1.0));
+    }
+
+    /// The numbers chapter 04 puts on screen or says, as they will read.
+    #[test]
+    fn the_game_numbers_read_as_shown() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        assert_eq!(
+            (get("C4.eps"), get("C4.delta"), get("C4.wide")),
+            ("1/10", "1/10", "1/5")
+        );
+        let picks: Vec<&str> = (0..PICKS.len()).map(|i| get(&format!("C4.pick.{i}"))).collect();
+        let slopes: Vec<&str> = (0..PICKS.len()).map(|i| get(&format!("C4.pick_slope.{i}"))).collect();
+        assert_eq!(picks, ["-0.08", "0.04", "0.09"]);
+        assert_eq!(slopes, ["0.92", "1.04", "1.09"]);
+        assert_eq!((get("C4.lucky"), get("C4.lucky_slope")), ("0.05", "1.05"));
+        assert_eq!((get("C4.catch"), get("C4.catch_slope")), ("0.15", "1.15"));
+        assert_eq!((get("C4.fill.good"), get("C4.fill.bad")), ("1", "1.5"));
+        assert_eq!((get("C4.fill.witness"), get("C4.fill.witness_value")), ("0.05", "1.05"));
+        assert_eq!((get("C4.fill.room"), get("C4.fill.gap")), ("2/5", "3/10"));
+        assert_eq!(get("C4.cheat.delta"), "1/40");
+        assert_eq!(
+            (get("C4.end.x"), get("C4.end.power"), get("C4.end.eps")),
+            ("1", "2", "1/2")
+        );
+        assert_eq!(get("C4.end.level"), "1/2");
+        assert_eq!((get("C4.end.edge.4dp"), get("C4.end.delta.4dp")), ("0.7071", "0.2929"));
+        assert_eq!(signed_decimal(Frac::whole(-3)).unwrap(), "-3");
     }
 
     #[test]

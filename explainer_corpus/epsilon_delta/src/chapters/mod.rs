@@ -1,7 +1,8 @@
 //! One scene per chapter, in storyboard order (`docs/storyboard.md`).
-//! Chapters 01 to 03 are built; the continuation is written out in the
+//! Chapters 01 to 04 are built; the continuation is written out in the
 //! storyboard.
 
+pub mod challenge_game;
 pub mod draw;
 pub mod glyphs;
 pub mod limit_that_jumps;
@@ -29,5 +30,6 @@ pub fn registry() -> Vec<Chapter> {
             0.4,
             old_objection::WhatTheOldObjectionWasAbout
         ),
+        scene!("04_the_challenge_game", 0.4, challenge_game::TheChallengeGame),
     ]
 }
