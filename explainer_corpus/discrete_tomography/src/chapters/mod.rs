@@ -7,6 +7,7 @@ pub mod glyphs;
 pub mod only;
 pub mod same_shadows;
 pub mod stops;
+pub mod third;
 pub mod water;
 
 use explainer_kit::Chapter;
@@ -31,6 +32,11 @@ pub fn registry() -> Vec<Chapter> {
         Chapter {
             key: "04_the_only_picture",
             make: |kit| Box::new(only::TheOnlyPicture { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "05_a_third_shadow",
+            make: |kit| Box::new(third::AThirdShadow { kit }),
             intensity: 0.45,
         },
     ]

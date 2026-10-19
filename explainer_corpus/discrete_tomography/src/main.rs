@@ -112,6 +112,27 @@ mod tests {
         ("04_6", "the tree has no switch", "DT-F10.tree.built.switches", "0"),
         ("04_7", "no other picture fits", "DT-F6.tree.fits", "1"),
         ("04_8", "whether it's the only one", "DT-X4.disagree", "0"),
+        ("05_1", "sixty-four pictures", "DT-F3.fits", "64"),
+        ("05_1", "one more shadow", "DT-F11.shadows", "3"),
+        ("05_2", "takes a square from two diagonals", "DT-F11.twin.losers", "2"),
+        ("05_2", "gives both to a third", "DT-F11.twin.gain.by", "2"),
+        ("05_3", "the fourteen pictures one switch", "DT-F11.one_switch", "14"),
+        ("05_3", "none of the fourteen", "DT-F11.one_switch.pass", "0"),
+        ("05_3", "all sixty-four", "DT-F3.fits", "64"),
+        ("05_4", "Two.", "DT-F11.survivors", "2"),
+        ("05_4", "Sixty-two fail", "DT-F11.dropped", "62"),
+        ("05_4", "one other picture", "DT-F11.others", "1"),
+        ("05_4", "all three of the face's shadows", "DT-F11.shadows", "3"),
+        ("05_5", "six squares", "DT-F11.other.differ", "6"),
+        ("05_5", "loses one square", "DT-F11.other.loses", "1"),
+        ("05_5", "gains one", "DT-F11.other.gains", "1"),
+        ("05_5", "all three shadows stay", "DT-F11.shadows", "3"),
+        ("05_6", "Two shadows", "DT-F1.directions", "2"),
+        ("05_6", "left sixty-four", "DT-F3.fits", "64"),
+        ("05_6", "A third still leaves two", "DT-F11.survivors", "2"),
+        ("05_6", "even three shadows lie", "DT-F11.only_one", "false"),
+        ("05_7", "the two questions", "DT-F7.questions", "2"),
+        ("05_7", "the only one", "DT-F11.only_one", "false"),
     ];
 
     /// The counts 04_3 reads out are the tree's, its rows then its columns.
@@ -187,8 +208,8 @@ mod tests {
         // and no line carries a number word the table above does not know
         let numbers = [
             "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
-            "sixty", "half", "twice", "hundred", "first", "second", "third", "fourth", "fifth", "sixth", "seventh",
-            "eighth", "ninth",
+            "fourteen", "forty", "sixty", "half", "twice", "hundred", "first", "second", "third", "fourth", "fifth",
+            "sixth", "seventh", "eighth", "ninth",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

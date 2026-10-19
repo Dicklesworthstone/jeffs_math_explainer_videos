@@ -137,6 +137,39 @@ pub fn tree_flow() -> Result<(Flow, Vec<FlowState>), String> {
     }
 }
 
+/// Chapter 05: the face's 64 pictures that also cast its diagonal shadow
+/// ([`model::diagonal_counts`]), in increasing order; the face is one.
+pub fn diagonal_survivors() -> Vec<Picture> {
+    let target = model::diagonal_counts(&model::face());
+    let mut out: Vec<Picture> = gallery()
+        .into_iter()
+        .map(|(p, _)| p)
+        .filter(|p| model::diagonal_counts(p) == target)
+        .collect();
+    out.sort();
+    out
+}
+
+/// What each line through the squares where `a` and `b` differ loses and
+/// gains from `a` to `b`: one (lost, gained) pair for each row, then each
+/// column, then each diagonal that holds any of those squares.
+pub fn line_changes(a: &Picture, b: &Picture) -> Vec<(usize, usize)> {
+    let differ = a.differences(b);
+    let families: [fn((usize, usize)) -> usize; 3] = [|(r, _)| r, |(_, c)| c, |(r, c)| r + c];
+    let mut out = Vec::new();
+    for line_of in families {
+        let mut lines: Vec<usize> = differ.iter().map(|&rc| line_of(rc)).collect();
+        lines.sort_unstable();
+        lines.dedup();
+        for line in lines {
+            let on: Vec<(usize, usize)> = differ.iter().copied().filter(|&rc| line_of(rc) == line).collect();
+            let lost = on.iter().filter(|&&(r, c)| a.get(r, c)).count();
+            out.push((lost, on.len() - lost));
+        }
+    }
+    out
+}
+
 /// Column counts from largest to smallest, as Gale's table takes them.
 pub fn largest_first(cols: &[usize]) -> Vec<usize> {
     let mut sorted = cols.to_vec();
@@ -203,6 +236,8 @@ pub struct Edges {
     /// no switch disagree.
     pub nested: usize,
     pub nested_disagree: usize,
+    /// (picture, switch) pairs whose switch keeps the diagonal shadow.
+    pub diagonal_kept: usize,
 }
 
 pub fn edges() -> Edges {
@@ -214,14 +249,17 @@ pub fn edges() -> Edges {
     let (mut pairs, mut failed) = (0, 0);
     let (mut alone, mut no_switch, mut disagree) = (0, 0, 0);
     let (mut nested, mut nested_disagree) = (0, 0);
+    let mut diagonal_kept = 0;
     for p in &pictures {
         let switches = model::switches(p);
+        let diagonal = model::diagonal_counts(p);
         for s in &switches {
             pairs += 1;
             let kept = s
                 .apply(p)
                 .is_some_and(|q| q.shadows() == p.shadows() && p.differences(&q).len() == 4);
             failed += usize::from(!kept);
+            diagonal_kept += usize::from(s.apply(p).is_some_and(|q| model::diagonal_counts(&q) == diagonal));
         }
         let only = groups[&p.shadows()].len() == 1;
         alone += usize::from(only);
@@ -253,6 +291,7 @@ pub fn edges() -> Edges {
         built_disagree,
         nested,
         nested_disagree,
+        diagonal_kept,
     }
 }
 
@@ -492,6 +531,76 @@ pub fn facts() -> Result<Facts, String> {
     f.add("DT-F10.tree.rectangles", model::rectangles(tree_built))?;
     f.add("DT-F10.tree.nested", flag(model::rows_nested(tree_built)))?;
 
+    // chapter 05: a third shadow, the diagonals, on the face's 64 pictures
+    let face_diagonal = model::diagonal_counts(&face);
+    let twin_diagonal = model::diagonal_counts(&twin);
+    let diagonals = 0..face_diagonal.len();
+    let lose: Vec<usize> = diagonals
+        .clone()
+        .filter(|&k| twin_diagonal[k] < face_diagonal[k])
+        .collect();
+    let gain: Vec<usize> = diagonals.filter(|&k| twin_diagonal[k] > face_diagonal[k]).collect();
+    let &[gained] = gain.as_slice() else {
+        return Err(format!("the opening switch gives to diagonals {gain:?}, not one"));
+    };
+    f.add("DT-F11.shadows", [rows, cols, &face_diagonal].len())?;
+    f.add("DT-F11.diagonals", face_diagonal.len())?;
+    f.add("DT-F11.face.diag", csv(&face_diagonal))?;
+    f.add("DT-F11.twin.diag", csv(&twin_diagonal))?;
+    f.add("DT-F11.twin.lose", csv(&lose))?;
+    f.add("DT-F11.twin.losers", lose.len())?;
+    f.add("DT-F11.twin.gain", gained)?;
+    f.add("DT-F11.twin.gain.by", twin_diagonal[gained] - face_diagonal[gained])?;
+    let keeping = model::switches(&face)
+        .iter()
+        .filter(|s| {
+            s.apply(&face)
+                .is_some_and(|q| model::diagonal_counts(&q) == face_diagonal)
+        })
+        .count();
+    f.add("DT-F11.face.switches.keeping", keeping)?;
+    let one_switch: Vec<&Picture> = gallery.iter().filter(|(_, d)| *d == 1).map(|(p, _)| p).collect();
+    f.add("DT-F11.one_switch", one_switch.len())?;
+    f.add(
+        "DT-F11.one_switch.pass",
+        one_switch
+            .iter()
+            .filter(|p| model::diagonal_counts(p) == face_diagonal)
+            .count(),
+    )?;
+    let survivors = diagonal_survivors();
+    let others: Vec<&Picture> = survivors.iter().filter(|p| **p != face).collect();
+    let &[other] = others.as_slice() else {
+        return Err(format!(
+            "{} pictures other than the face cast its three shadows",
+            others.len()
+        ));
+    };
+    let other_from_face = gallery
+        .iter()
+        .find(|(p, _)| p == other)
+        .map(|(_, d)| *d)
+        .ok_or("the other survivor is not among the face's pictures")?;
+    let changes = line_changes(&face, other);
+    let &[(loses, gains), ..] = changes.as_slice() else {
+        return Err("the face and the other survivor do not differ".into());
+    };
+    if changes.iter().any(|&lg| lg != (loses, gains)) {
+        return Err(format!(
+            "the lines through the six squares change unevenly: {changes:?}"
+        ));
+    }
+    f.add("DT-F11.survivors", survivors.len())?;
+    f.add("DT-F11.dropped", gallery.len() - survivors.len())?;
+    f.add("DT-F11.others", others.len())?;
+    f.add("DT-F11.other", other.pattern())?;
+    f.add("DT-F11.other.from_face", other_from_face)?;
+    f.add("DT-F11.other.differ", face.differences(other).len())?;
+    f.add("DT-F11.other.lines", changes.len())?;
+    f.add("DT-F11.other.loses", loses)?;
+    f.add("DT-F11.other.gains", gains)?;
+    f.add("DT-F11.only_one", flag(survivors.len() == 1))?;
+
     f.add("DT-F7.questions", QUESTIONS.len())?;
     f.pin(
         "DT-S1.ryser",
@@ -532,6 +641,12 @@ pub fn facts() -> Result<Facts, String> {
         e.nested_disagree,
         "0",
         "no switch exactly when the rows nest",
+    )?;
+    f.pin(
+        "DT-X6.kept",
+        e.diagonal_kept,
+        "0",
+        "no switch keeps the diagonal shadow",
     )?;
     Ok(f)
 }
@@ -664,6 +779,44 @@ mod tests {
             assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
             assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
         }
+    }
+
+    /// Chapter 05's numbers: the opening switch takes a square from two
+    /// diagonals and gives both to a third; none of the face's switches
+    /// keeps its diagonal shadow; two of the 64 cast it, the face and one
+    /// picture two switches away, six squares apart, every line through them
+    /// losing one and gaining one; no switch of any 4x4 picture keeps it.
+    #[test]
+    fn the_third_shadow_facts_hold() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("DT-F11.face.diag"), Some("0,1,1,2,1,1,1,2,0"));
+        assert_eq!(f.get("DT-F11.twin.diag"), Some("0,0,1,2,3,1,1,1,0"));
+        assert_eq!(f.get("DT-F11.twin.lose"), Some("1,7"));
+        assert_eq!(f.get("DT-F11.twin.gain"), Some("4"));
+        assert_eq!(f.get("DT-F11.twin.gain.by"), Some("2"));
+        assert_eq!(f.get("DT-F11.face.switches.keeping"), Some("0"));
+        assert_eq!(f.get("DT-F11.one_switch"), f.get("DT-F3.face.switches"));
+        assert_eq!(f.get("DT-F11.one_switch.pass"), Some("0"));
+        assert_eq!(f.get("DT-F11.survivors"), Some("2"));
+        assert_eq!(f.get("DT-F11.dropped"), Some("62"));
+        assert_eq!(f.get("DT-F11.other"), Some("01010/01100/00000/00011/11010"));
+        assert_eq!(f.get("DT-F11.other.from_face"), Some("2"));
+        assert_eq!(f.get("DT-F11.other.differ"), Some("6"));
+        assert_eq!(f.get("DT-F11.other.lines"), Some("9"));
+        assert_eq!(f.get("DT-X6.kept"), Some("0"));
+        let survivors = diagonal_survivors();
+        let face = model::face();
+        assert!(survivors.contains(&face));
+        for p in &survivors {
+            assert_eq!(p.shadows(), face.shadows());
+            assert_eq!(model::diagonal_counts(p), model::diagonal_counts(&face));
+        }
+        // the line changes of a switch: its two rows and two columns, and
+        // the three diagonals its corners stand on
+        let twin = twin().unwrap();
+        let changes = line_changes(&face, &twin);
+        assert_eq!(changes.len(), 2 + 2 + 3);
+        assert!(changes[..4].iter().all(|&lg| lg == (1, 1)));
     }
 
     /// The gallery is every picture that fits, each exactly once.

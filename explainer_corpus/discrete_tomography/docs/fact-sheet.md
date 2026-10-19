@@ -70,6 +70,7 @@ state with its own bookkeeping.
 | X3 | 4 × 4 pictures alone with their shadows; with no switch; disagreements | 04_7 (no switch, so no other picture) | same | `DT-X3.alone`, `.no_switch`, `.disagree` | `6902`; `6902`; `0` | computed (edge test) |
 | X4 | 4 × 4 pairs of shadows where the flow's picture having no switch and being the only picture disagree | "A switch in the water's picture answers whether it's the only one" (04_8) | `facts::edges` with `model::built_switches` | `DT-X4.disagree` | `0` | pinned (edge test; the oracle with its own trace) |
 | X5 | 4 × 4 pictures whose rows nest; disagreements with having no switch | "of any two rows in the tree, one has every square the other has. So the tree has no switch" (04_6) | `facts::edges` with `model::rows_nested` | `DT-X5.nested`, `.disagree` | `6902`; `0` | `.disagree` pinned (edge test) |
+| X6 | (picture, switch) pairs of every 4 × 4 picture whose switch keeps the diagonal shadow | "A switch keeps every row and column count, but always changes a diagonal count" (05_2) | `facts::edges` with `model::diagonal_counts` | `DT-X6.kept` | `0` | pinned (edge test; the oracle walks each diagonal square by square) |
 
 ### Chapter 03 (the face's rows with columns 5, 1, 1, 1, 1; where the water stops)
 
@@ -108,6 +109,27 @@ also reads every rectangle corner by corner.
 | F10 | the picture it builds; whether it is the tree; its switches | "It is the tree itself" (04_4); "So the tree has no switch" (04_6) | the last replayed state; `model::switches` | `DT-F10.tree.built`, `.tree.built.is_tree`, `.tree.built.switches` | `00100/01110/11111/00100/00100`; `true`; `0` | computed; the oracle also builds it by Gale's n-step method |
 | F10 | its rectangles; whether its rows nest | "0 switches among 100 rectangles"; the nested outlines (04_6) | `model::rectangles`, `model::rows_nested` | `DT-F10.tree.rectangles`, `.tree.nested` | `100`; `true` | computed; the oracle reads all 100 corner by corner |
 
+### Chapter 05 (the face's 64 pictures and a third shadow)
+
+The pictures are chapter 01's 64 (`facts::gallery`); the third shadow is
+`model::diagonal_counts`, the squares on each diagonal from lower left to
+upper right (diagonal k: row plus column equals k); the survivors are
+`facts::diagonal_survivors`, and the lines through the squares where two
+pictures differ are `facts::line_changes`. The oracle generates the 64 by
+its own column-by-column enumeration and walks each diagonal square by
+square.
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F11 | shadows now; diagonals on the grid | "one more shadow" (05_1); "all three" (05_4, 05_5) | rows, columns, diagonals; `model::diagonal_counts` | `DT-F11.shadows`, `.diagonals` | `3`; `9` | computed |
+| F11 | the face's diagonal counts | the counts past the diagonals' ends (05_1) | `model::diagonal_counts` | `DT-F11.face.diag` | `0,1,1,2,1,1,1,2,0` | computed |
+| F11 | the opening switch's picture: its diagonal counts, the diagonals that lose, how many, the one that gains, by how much | the red counts (05_2); "takes a square from two diagonals and gives both to a third" | the same, on `facts::twin` | `DT-F11.twin.diag`, `.twin.lose`, `.twin.losers`, `.twin.gain`, `.twin.gain.by` | `0,0,1,2,3,1,1,1,0`; `1,7`; `2`; `4`; `2` | computed |
+| F11 | the face's switches that keep its diagonal shadow; pictures one switch away; how many of them pass | "none of the fourteen pictures one switch from the face can pass" (05_3) | `model::switches`; `facts::gallery` at distance 1 | `DT-F11.face.switches.keeping`, `.one_switch`, `.one_switch.pass` | `0`; `14`; `0` | computed |
+| F11 | the 64 that cast the face's diagonal shadow too; those that fail; the others besides the face | "Two. Sixty-two fail, but one other picture" (05_4); "2 of 64 cast the face's diagonal shadow too" | `facts::diagonal_survivors` | `DT-F11.survivors`, `.dropped`, `.others` | `2`; `62`; `1` | computed; the oracle by its own enumeration |
+| F11 | the other picture; switches from the face; squares it differs in | the right-hand picture (05_4); "six squares" (05_5) | same; `facts::gallery`; `Picture::differences` | `DT-F11.other`, `.other.from_face`, `.other.differ` | `01010/01100/00000/00011/11010`; `2`; `6` | computed |
+| F11 | lines through those squares; what each loses and gains | "Each row, column and diagonal through them loses one square and gains one" (05_5); "−1 +1" | `facts::line_changes` | `DT-F11.other.lines`, `.other.loses`, `.other.gains` | `9`; `1`; `1` | computed |
+| F11 | whether the face is the only picture with all three shadows | "even three shadows lie" (05_6); "no: 2 pictures cast all 3 shadows" (05_7) | `DT-F11.survivors` = 1 | `DT-F11.only_one` | `false` | computed |
+
 `oracle.py` also checks, on stderr: the count of fits by a memoized count over
 columns; that every one of the 64 has a switch and every two of them are at
 most 3 switches apart; both flow methods and the listed cuts agree; Gale's
@@ -145,6 +167,14 @@ have the same shadows, differ in six squares, are not one switch apart and
 are two apart. Its edge rows add, on every pair of 4 × 4 shadows some
 picture casts, its own trace's picture against being alone (`DT-X4`), and
 on every 4 × 4 picture, nesting rows against having no switch (`DT-X5`).
+For chapter 05 it checks that the face's diagonal counts add up to its
+squares; that every line through the six squares where the face and the
+other picture differ loses one and gains one; that the other picture casts
+all three of the face's shadows; that the count over the columns agrees
+there are 64 pictures to test; and, for the notes only, that the other
+diagonal direction alone also leaves two of the 64 and both directions
+together leave the face alone. Its edge rows add every switch of every
+4 × 4 picture against the diagonal shadow (`DT-X6`).
 
 ## Non-numeric claims
 
@@ -167,4 +197,7 @@ on every 4 × 4 picture, nesting rows against having no switch (`DT-X5`).
 | Sending whole units along paths with room, taking back where needed, ends at a largest flow | 02_9 ("Water finds a picture whenever one exists") and its card | Ford and Fulkerson 1957, pp. 212–213 (read: the labeling method on the room matrix, termination because each step sends a positive whole number, Lemma 1 that the result is a flow, Lemma 2 that it is a largest one); with Gale's equivalence, a picture exists exactly when both shadows share one total and that flow reaches it (rows 1, 1 with columns 2, 1 reach their row total and fit nothing) |
 | Without taking back, this fill stops one unit short | 02_7 | after the first eight paths no row with water left has a dry square into a drain with room (`DT-F8.before.forward_room` = false; `model` test; the oracle's own check) |
 | The water's picture is not the only one | 02_8, 02_9 | `DT-F8.built.is_face` = false and `DT-F3.fits` = 64: the method finds a picture, not the face, and says nothing about uniqueness |
-| With three or more directions, reconstruction is NP-hard in general | chapter 05 (planned) | Batenburg 2006, §1.1, citing Gardner, Gritzmann and Prangenberg, Discrete Math. 202 (1999) 45–71; **the original not read** |
+| A switch keeps every row and column count but always changes a diagonal count | 05_2 | the diagonal through a switch's top-left corner holds no other corner (rows r0 < r1, columns c0 < c1: r0 + c0 is less than r0 + c1, r1 + c0 and r1 + c1), so its count changes; X6 on every switch of every 4 × 4 picture; `model` test |
+| None of the fourteen pictures one switch from the face can pass | 05_3 | the line above; `DT-F11.one_switch.pass` = 0 |
+| Here, three shadows still fit two pictures | 05_4 to 05_7 | `facts::diagonal_survivors` and the oracle's own enumeration; this example only: nothing is claimed about any other picture, direction or number of directions |
+| With three or more directions, reconstruction is NP-hard in general | **not claimed**: omitted from chapter 05 | Gardner, Gritzmann and Prangenberg, Discrete Math. 202 (1999) 45–71 is the source for it; on 2026-10-19 the original could not be read (the publisher answered 403 to this lane's fetches; two university repositories answered with a bot challenge, not bypassed). Its abstract and Batenburg's citation are not used as proof; the claim can return once the paper is read and its problem, directions and data assumptions are recorded |

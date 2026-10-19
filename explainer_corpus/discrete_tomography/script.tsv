@@ -35,3 +35,10 @@
 04_6	But of any two rows in the tree, one has every square the other has. So the tree has no switch.
 04_7	Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits.
 04_8	So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one.
+05_1	Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal.
+05_2	A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third.
+05_3	So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?
+05_4	Two. Sixty-two fail, but one other picture casts all three of the face's shadows.
+05_5	They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same.
+05_6	Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie.
+05_7	So keep the two questions apart. Does any picture fit? And is it the only one?

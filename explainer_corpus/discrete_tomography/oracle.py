@@ -389,12 +389,14 @@ def edges():
     groups = {}
     for p in pics:
         groups.setdefault(shadows(p, m, n), []).append(p)
-    pairs = failed = 0
+    pairs = failed = diagonal_kept = 0
     for p in pics:
+        here = diagonal(p, m, n)
         for sw in switches(p):
             q = switched(p, sw)
             pairs += 1
             failed += shadows(q, m, n) != shadows(p, m, n) or len(p ^ q) != 4
+            diagonal_kept += diagonal(q, m, n) == here
     emit("DT-X1.pairs", pairs)
     emit("DT-X1.failed", failed)
     emit("DT-X2.shadow_pairs", len(groups))
@@ -417,6 +419,8 @@ def edges():
     nested = [rows_nest(p, m) for p in pics]
     emit("DT-X5.nested", sum(nested))
     emit("DT-X5.disagree", sum(a != b for a, b in zip(nested, lonely)))
+    # no switch keeps the diagonal shadow
+    emit("DT-X6.kept", diagonal_kept)
 
     # every pair of 4x4 shadows (counts 0 to 4): Gale's test, Gale's
     # construction and the closed-form flow each pick out exactly the
@@ -860,11 +864,90 @@ def chapter_04(rows, cols):
     )
 
 
+# ---------------------------------------------- chapter 05, a third shadow
+
+
+def diagonal(cells, m, n):
+    """Squares on each diagonal from lower left to upper right, diagonal k
+    walked square by square: (k, 0), (k - 1, 1), ... while inside."""
+    return tuple(
+        sum(1 for r in range(m) if 0 <= k - r < n and (r, k - r) in cells) for k in range(m + n - 1)
+    )
+
+
+def falling(cells, m, n):
+    """The other diagonals, upper left to lower right (column minus row)."""
+    return tuple(sum(1 for r in range(m) if 0 <= r + j < n and (r, r + j) in cells) for j in range(1 - m, n))
+
+
+def chapter_05(rows, cols):
+    m, n = len(rows), len(cols)
+    face = parse(FACE)
+    twin = switched(face, OPENING)
+    every = fits(rows, cols)
+    target = diagonal(face, m, n)
+    t = diagonal(twin, m, n)
+    lose = [k for k in range(len(target)) if t[k] < target[k]]
+    gain = [k for k in range(len(target)) if t[k] > target[k]]
+    survivors = sorted((p for p in every if diagonal(p, m, n) == target), key=lambda p: pattern(p, m, n))
+    others = [p for p in survivors if p != face]
+    other = others[0]
+    six = face ^ other
+    changes = []
+    for line_of in (lambda rc: rc[0], lambda rc: rc[1], lambda rc: rc[0] + rc[1]):
+        for line in sorted({line_of(rc) for rc in six}):
+            on = [rc for rc in six if line_of(rc) == line]
+            lost = sum(1 for rc in on if rc in face)
+            changes.append((lost, len(on) - lost))
+    emit("DT-F11.shadows", len((rows, cols, target)))
+    emit("DT-F11.diagonals", len(target))
+    emit("DT-F11.face.diag", csv(target))
+    emit("DT-F11.twin.diag", csv(t))
+    emit("DT-F11.twin.lose", csv(lose))
+    emit("DT-F11.twin.losers", len(lose))
+    emit("DT-F11.twin.gain", csv(gain))
+    emit("DT-F11.twin.gain.by", t[gain[0]] - target[gain[0]])
+    emit("DT-F11.face.switches.keeping", sum(1 for sw in switches(face) if diagonal(switched(face, sw), m, n) == target))
+    near = [p for p, d in distances(face).items() if d == 1]
+    emit("DT-F11.one_switch", len(near))
+    emit("DT-F11.one_switch.pass", sum(1 for p in near if diagonal(p, m, n) == target))
+    emit("DT-F11.survivors", len(survivors))
+    emit("DT-F11.dropped", len(every) - len(survivors))
+    emit("DT-F11.others", len(others))
+    emit("DT-F11.other", pattern(other, m, n))
+    emit("DT-F11.other.from_face", distances(face)[other])
+    emit("DT-F11.other.differ", len(six))
+    emit("DT-F11.other.lines", len(changes))
+    emit("DT-F11.other.loses", changes[0][0])
+    emit("DT-F11.other.gains", changes[0][1])
+    emit("DT-F11.only_one", flag(len(survivors) == 1))
+
+    check("chapter 05: each diagonal count adds up to the face's squares", sum(target) == len(face))
+    check("chapter 05: every line through the six squares loses one and gains one", set(changes) == {(1, 1)})
+    check(
+        "chapter 05: the other survivor casts all three of the face's shadows",
+        shadows(other, m, n) == (tuple(rows), tuple(cols)) and diagonal(other, m, n) == target,
+    )
+    check(
+        "chapter 05: the count over the columns agrees that 64 pictures were tested",
+        count_fits(tuple(sorted(rows)), cols) == len(every),
+    )
+    # this example only, for the notes: the other diagonals also leave two,
+    # and both directions together leave the face alone
+    down = falling(face, m, n)
+    check(
+        "chapter 05: the other diagonal direction alone also leaves two of the 64, both together one",
+        sum(1 for p in every if falling(p, m, n) == down) == 2
+        and [p for p in every if falling(p, m, n) == down and diagonal(p, m, n) == target] == [face],
+    )
+
+
 def main():
     rows, cols = facts()
     chapter_02(rows, cols, fits(rows, cols), distances(parse(FACE)))
     chapter_03(rows, cols)
     chapter_04(rows, cols)
+    chapter_05(rows, cols)
     edges()
     print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
     return 1 if _FAILED else 0

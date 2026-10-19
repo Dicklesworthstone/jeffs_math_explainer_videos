@@ -46,7 +46,7 @@ const RIGHT: [f64; 2] = [2.4, 0.35];
 /// The think ring's centre (01_3).
 const THINK_AT: [f64; 2] = [4.4, 0.6];
 /// The gallery (01_8): its centre, columns, pitch, and a thumbnail's square.
-const GALLERY: [f64; 2] = [3.65, 0.35];
+pub(crate) const GALLERY: [f64; 2] = [3.65, 0.35];
 const GALLERY_COLS: usize = 8;
 const PITCH: f64 = 0.62;
 pub(crate) const THUMB_CELL: f64 = 0.09;

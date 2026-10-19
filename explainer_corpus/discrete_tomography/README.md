@@ -7,8 +7,10 @@ corners of a rectangle alternate filled, empty, filled, empty, swapping filled
 and empty there (a switch) turns one into another without changing a single
 count; the same row counts with other column counts of the same total fit no
 picture at all. Later chapters build a picture by letting water flow through
-the grid (Gale, 1957), show where the water stops when none fits, and prove
-that a picture is the only one exactly when it has no switch (Ryser, 1957).
+the grid (Gale, 1957), show where the water stops when none fits, prove
+that a picture is the only one exactly when it has no switch (Ryser, 1957),
+and add a third shadow, the diagonal counts, which leaves two of the face's
+64 pictures standing.
 
 **Status (2026-10-19, revision `v1-michael-20261019`):** chapter 01
 (`01_same_shadows`, `.9.1`) is source and silent visuals verified by root at
@@ -41,17 +43,28 @@ switches recount, and the tree's rows nest; the Ryser card stands whole
 This lane compiled, rendered and synthesized nothing. No chapter has narration, and no continuous audio or
 whole-video acceptance is claimed; the owner's 2026-10-19 rejection of the
 first-wave narration applies, and the narration units are a proposed text
-grouping only. Chapter 05 is planned in the storyboard's arc, not written.
+grouping only. Chapter 05 (`05_a_third_shadow`, `.9.5`: the diagonal
+counts, the two of the 64 that cast them, the facts, the oracle and the
+tests) is source and silent visuals verified by root: fmt, strict clippy,
+59 tests, a build, 136/136 facts against the oracle and 102 glyph sources
+without failure; after two repairs (the closing card's "one diagonal
+direction" and the result caption's dwell), fmt, strict clippy, the 4
+changed scene tests, a build and a render. Its silent draft10 runs 70.53 s
+(2,116 frames, scratch-voice timing; sha256 `be0a3f0f29d0…`) with no layout
+findings; root read eight of its frames, and an independent reviewer
+checked the mathematics and the actual frames of draft09 and draft10. It
+makes no complexity claim (see Limits).
 
 | File | What it holds |
 |---|---|
 | `src/model.rs` | the mathematics: pictures, shadows, switches, every picture that fits, walks by switches, Gale's network and its largest flow with every augmenting path it sends, the replay that rebuilds the water path by path, refusing a path that repeats a row or column or breaks a capacity (row and column balance asserted as an invariant), the cut where the water stops, Gale's table and test, the bottleneck; rectangles, rows that nest, and the water's picture with its switches |
 | `src/facts.rs` | every number the video shows or says, and the edge checks on every 4 × 4 picture |
-| `oracle.py` | the same numbers computed independently (standard library only), and 45 cross-checks |
-| `src/chapters/same_shadows.rs` | chapter 01's scene; its counts, squares and switch swap are chapter 04's too |
+| `oracle.py` | the same numbers computed independently (standard library only), and 50 cross-checks |
+| `src/chapters/same_shadows.rs` | chapter 01's scene; its counts, squares and switch swap are chapter 04's and 05's too, its gallery chapter 05's |
 | `src/chapters/water.rs` | chapter 02's scene: the real trace, drawn from replayed states only; its plumbing (counters, units in transit) is chapter 03's too |
 | `src/chapters/stops.rs` | chapter 03's scene: where the no-fit water stops, the cut there, and Gale's table; its reading hold is chapter 04's too |
 | `src/chapters/only.rs` | chapter 04's scene: the water's picture and its switches, the tree's water, why the tree has no switch, Ryser's theorem |
+| `src/chapters/third.rs` | chapter 05's scene: the diagonal shadow, the 64 tested, the two that pass and the six squares between them |
 | `src/chapters/draw.rs` | the grid, its squares and counts, switches, thumbnails, the think ring, line timing |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), the arc of the planned chapters |
 | `narration_units.json` | the script's lines grouped into whole thoughts for a future take (four a chapter), each the exact text of its lines |
@@ -59,7 +72,7 @@ grouping only. Chapter 05 is planned in the storyboard's arc, not written.
 | `docs/brief.md`, `docs/protected.tsv` | the brief; the words every revision must keep |
 
 ```bash
-python3 -I -B oracle.py                                   # every number, 45 cross-checks on stderr
+python3 -I -B oracle.py                                   # every number, 50 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check discrete_tomography
 python3 -I ../../tools/lint_script.py script.tsv
 ./x discrete_tomography protected                        # docs/protected.tsv against the script
@@ -98,7 +111,9 @@ python3 -I ../../tools/lint_script.py script.tsv
   contains a switching component (his Theorem 2, citing Ryser's 1963
   monograph, not read here); the number of solutions can be exponential in
   the image size; reconstruction from more than two projections is NP-hard
-  (citing Gardner, Gritzmann and Prangenberg 1999, **not read here**).
+  (citing Gardner, Gritzmann and Prangenberg 1999, **not read here**: the
+  original could not be fetched on 2026-10-19, so the video does not make
+  that claim).
 
 ## Limits that remain open
 
@@ -106,9 +121,14 @@ python3 -I ../../tools/lint_script.py script.tsv
   found no comparable video and one unopened title; no video was watched.
   A complete review of the closest treatments, including nonogram and CT
   explainers, is still owed before the script locks.
-- **Scope.** Two directions, exact counts, filled-or-empty squares. Real
-  tomography is continuous, noisy and many-angled; the NP-hardness claim for
-  three or more directions is known here only through Batenburg's citation.
+- **Scope.** Exact counts of filled-or-empty squares on a 5 × 5 grid: two
+  directions in chapters 01 to 04, and one added diagonal direction in
+  chapter 05, whose result (two pictures still fit) is this example's only.
+  The video
+  says nothing about how hard reconstruction is in general, and nothing
+  about real tomography or scanners; the complexity paper (Gardner,
+  Gritzmann and Prangenberg 1999) is known here only through its abstract
+  and Batenburg's citation.
 - **Review.** The silent drafts of chapters 01 to 04 were rendered and
   read by root (layout lint empty for all four; chapter 02's two cards
   legible in two lines). Chapter 03's first draft failed review three ways:
@@ -117,7 +137,12 @@ python3 -I ../../tools/lint_script.py script.tsv
   three were repaired (strokes over the reached columns only, the full
   label, a 176-character card held for reading) and read again in the next
   draft. Chapter 04's draft passed root's frame reading and an independent
-  frame review with no repairs. Nothing was compiled or rendered in this
+  frame review with no repairs. Chapter 05's draft09 passed its
+  prediction, reveal and closing frames, but its "2 of 64" result caption
+  was fully readable for only about 0.45 s; it now moves over the other
+  picture and stays about 18.6 s (draft10, measured independently). A
+  five-frame overlap of the caption's two copies as it moves is a known
+  cosmetic note, not repaired. Nothing was compiled or rendered in this
   lane. The drafts use the scratch voice: real
   timing, the runs of units against their words, and every question and
   reveal against a voice remain unmeasured.

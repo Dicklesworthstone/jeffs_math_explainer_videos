@@ -17,3 +17,6 @@ Swap the corners of any of them, and every count stays	script	one switch shows t
 Could another picture cast the same shadows?	script	the prediction: the tree has no switch, so it is the only one (DT-F6.tree.fits)
 one has every square the other has	script	rows that nest leave no switch, exactly (DT-X5)
 From the tree, no chain can start	script	Ryser's chain of switches: no switch means no other picture (DT-X3, DT-F6.tree.fits)
+always changes a diagonal count	script	a switch never keeps the diagonal shadow (DT-X6), so a third shadow can tell switched pictures apart
+How many of all sixty-four do?	script	the prediction: two of the 64 cast all three of the face's shadows (DT-F11.survivors)
+so here even three shadows lie	script	this example only: three shadows still fit two pictures, no general claim (DT-F11.survivors)

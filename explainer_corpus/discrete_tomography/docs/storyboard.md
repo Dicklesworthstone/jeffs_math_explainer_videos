@@ -27,8 +27,8 @@ on.
 | `01_same_shadows` | the face and its two shadows; hidden, could another picture cast them? (prediction); the other picture differs at a rectangle's alternating corners, and swapping filled and empty there keeps every count: a switch; 64 pictures fit, each within 3 switches of the face (Ryser's theorem on the card); the face's rows with columns 5, 1, 1, 1, 1 fit nothing, because that column needs a square in every row and the middle row is empty; the two questions | source and silent visuals verified by root on 2026-10-19 at 6bae9ea (`.9.1`: strict clippy, tests, 48/48 oracle facts, glyph probe, a 540p30 silent draft with no layout findings, cue-end and question/reveal frames read); no narration or audio exists or is claimed |
 | `02_water_through_the_grid` | Gale's network drawn on the grid itself: each row a tap that lets out its count, each square a pipe carrying at most one unit down into its column, each column a drain holding at most its count; the method's real augmenting paths, one unit each (`model::max_flow` records them, `model::replay` rebuilds and checks every state); eight go straight down, then the bottom row is stuck without taking back (prediction); the ninth unit takes the top row's unit back out of the first column, and the top row sends it to the fourth; every unit through, a picture with the face's shadows that is not the face, one of the 64; the water finds a picture whenever one exists and never says whether it is the only one | source and silent visuals verified by root on 2026-10-19 (`.9.2`): fmt, strict release all-target clippy, 35 tests, release build, 73/73 facts against the oracle's 31 checks; a silent 960x540 30 fps draft, 2,452 frames, 81.73 s by scratch-voice timing, no layout findings; all 9 cue ends, 12 frames of the first and ninth units in transit (counters leave and arrive correctly, the fourth column's unit in transit before "through: 9 of 9"), 6 prediction and reveal frames (the answer held back through the hold) and all 5 glyph pages read; the take-back trace and counters independently reviewed; no narration or audio exists or is claimed |
 | `03_where_the_water_stops` | the face's rows with columns 5, 1, 1, 1, 1: the method's real units, eight straight down, then the stop (prediction: could taking water back get the ninth through?); no: the first column needs five, each row sends it at most one, only four rows have water; everywhere the water can still go, taking back included, misses that column, and the cut there lets four units into it and four out of the other drains, eight in all (`facts::no_fit_flow`, `Flow::cut`); any k columns get at most min(count, k) from a row; Gale's table, the k largest columns against what the rows can give (`model::gale_table`); with equal totals the test is complete, because the columns the water cannot reach always ask too much; the face's shadows pass and 64 pictures fit: the test decides feasibility, not uniqueness | source and silent visuals verified by root on 2026-10-19 (`.9.3`). First native run: fmt, strict clippy, 43 tests, 96/96 facts against the oracle's 38 checks, 69 glyph sources. An independent image review of the first draft found three faults: teal reach strokes crossing the cut-off first column, a reach label cut short ("taking back") and the 218-character Gale card whole for only 7.27 s, mostly under speech. All three were repaired in this lane. After the repairs: fmt, strict clippy, a build, the 4 changed scene tests (the other 40 unchanged) and 68 glyph sources without failure. Silent draft06: 2,591 frames at 30 fps, 86.37 s by scratch-voice timing (sha256 `dd54be19d333…`), empty layout lint; the reach and theorem frames were read, and the 176-character card stands whole 11.93 s. It runs 1.37 s past 85 s for that reading hold, by root's decision. No narration or audio exists or is claimed |
-| `04_the_only_picture` | the water's picture for the face's shadows (chapter 02's) has twelve switches; swapping one's corners keeps every count, so a second picture fits; the tree's shadows only, and the method's real units build the tree itself (prediction: could another picture cast them?); no: a switch needs two rows that each have a filled square where the other is empty, and of any two of the tree's rows one has every square of the other, so the tree has no switch; any two pictures with the same shadows are joined by a chain of switches (Ryser 1957, Theorem 3.1, scoped on the card), and from the tree none can start, so it is the only one; the water answers whether any picture fits, a switch in its picture whether it is the only one (`model::switches`, `model::rows_nested`, `model::built_switches`, `facts::tree_flow`) | source written 2026-10-19 (`.9.4`): scene, facts, oracle and tests; not compiled, rendered, narrated or reviewed in this lane |
-| 05 *(planned)* more shadows, and the limits | a third direction can tell some of the 64 apart, but reconstruction from three or more directions is NP-hard in general (Gardner, Gritzmann and Prangenberg 1999, as cited by Batenburg 2006); real CT scanners measure continuous densities along many angles, not counts of filled squares | not written; sources for the complexity claim not yet read in the original |
+| `04_the_only_picture` | the water's picture for the face's shadows (chapter 02's) has twelve switches; swapping one's corners keeps every count, so a second picture fits; the tree's shadows only, and the method's real units build the tree itself (prediction: could another picture cast them?); no: a switch needs two rows that each have a filled square where the other is empty, and of any two of the tree's rows one has every square of the other, so the tree has no switch; any two pictures with the same shadows are joined by a chain of switches (Ryser 1957, Theorem 3.1, scoped on the card), and from the tree none can start, so it is the only one; the water answers whether any picture fits, a switch in its picture whether it is the only one (`model::switches`, `model::rows_nested`, `model::built_switches`, `facts::tree_flow`) | source and silent visuals verified by root on 2026-10-19 (`.9.4`, committed at fb90763): fmt, strict all-target clippy, 53 tests, 114/114 facts against the oracle, 93 glyph sources without failure and a build; silent draft07, 2,470 frames at 30 fps, 82.33 s by scratch-voice timing, empty layout lint, six frames and all nine glyph pages read by root; an independent frame review passed with no repairs (the tree's real rerouting, no answer during the prediction's hold, the 12 switches recounted, the nesting; the Ryser card whole 11.03 s, the closing questions with their answers 11.93 s and 9.13 s); no narration or audio exists or is claimed |
+| `05_a_third_shadow` | back to the face's 64 pictures and a third shadow: the counts along the diagonals that run from lower left to upper right; a switch keeps every row and column count but always changes a diagonal count (the opening switch takes a square from two diagonals and gives both to a third); every one of the 64 tested against the face's diagonal counts (prediction: how many pass?); two pass, the face and one other picture, six squares apart, every row, column and diagonal through them losing one square and gaining one; here even three shadows lie; the two questions kept apart, inside a bounded model (`model::diagonal_counts`, `facts::diagonal_survivors`). No complexity claim and no comparison with real scanners: the complexity paper (Gardner, Gritzmann and Prangenberg 1999) could not be read in the original | source and silent visuals verified by root on 2026-10-19 (`.9.5`): fmt, strict clippy, 59 tests, a build, 136/136 facts and 102 glyph sources without failure, the 20 pinned inputs unchanged; an independent source and mathematics review passed (an independent recount of the 64, the diagonals, the survivors and the six squares). Draft09's frames passed except the "2 of 64" caption, readable about 0.45 s; after that repair and the card's "one diagonal direction", fmt, strict clippy, the 4 changed scene tests, a build and a render passed. Silent draft10: 2,116 frames at 30 fps, 70.53 s by scratch-voice timing (sha256 `be0a3f0f29d0…`), empty layout lint, eight frames read by root; the independent frame review measured the caption readable about 18.6 s with the right-hand picture's timing unchanged and no answer before the hold ends (a five-frame overlap of the caption's two copies as it moves is a known cosmetic note). No narration or audio exists or is claimed |
 
 ## Vocabulary (one word per idea)
 
@@ -336,3 +336,76 @@ from a tap to a drain), **room** (what a pipe can still carry), **take back**
   and the switch (04u1), the tree and the prediction (04u2), the answer and
   why (04u3), the two questions answered (04u4). Boundaries are not frozen
   and nothing is synthesized.
+
+## 05_a_third_shadow: A third shadow (~71 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. | The face on the left, "the face" above it, its counts 2, 2, 0, 2, 3 left of the rows and 1, 3, 1, 3, 1 under the columns *(face.rows, face.cols)*; on "along each diagonal", teal beams run along the nine diagonals from lower left to upper right, one after another, and each leaves its count one step past its upper-right end: 0, 1, 1, 2, 1, 1, 1, 2, 0 *(face.diag)*, and the dim label "diagonal shadow" | lagged reveal, grid | |
+| 05_2 | A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. | On "A switch keeps", chapter 01's opening switch, its gold rectangle and rings; its filled corners empty as its empty corners fill, and the row and column counts flash, unchanged *(switch)*; on "always changes", the diagonal counts it changes become the other picture's, red: 0, 3 and 1 *(twin.diag, twin.lose, twin.gain)*; on "This one takes", those three flash | highlight | |
+| 05_3 | So none of the fourteen pictures one switch from the face can pass. ⟨predict⟩ How many of all sixty-four do? | The switch is undone and the face's diagonal counts return; chapter 01's gallery of 64 on the right, the face's frame white, "64 pictures with the face's rows and columns" above it *(fits)*; on "none of the fourteen", the fourteen thumbnails one switch from the face fade *(one_switch, one_switch.pass)*; on "all sixty-four", the face's diagonal counts flash; the think ring, four seconds, the voice silent, nothing moving | lagged reveal, tracker | |
+| 05_4 | Two. Sixty-two fail, but one other picture casts all three of the face's shadows. | The ring goes; on "Sixty-two fail", the other forty-eight that fail fade, and the caption becomes "2 of 64 cast the face's diagonal shadow too" *(survivors, dropped)*; on "one other picture", the gallery goes as that caption moves over the right side, where it stays, and the other picture stands on the right, "another picture" above it, its row, column and diagonal counts all green *(other)* | highlight | |
+| 05_5 | They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same. | On "six squares", gold rings on the six squares in both pictures *(other.differ)*; on "Each row", the three rows', three columns' and three diagonals' counts through them flash on the right, and "each row, column and diagonal through them: −1 +1" *(other.lines, other.loses, other.gains)*; on "all three shadows", every count on screen flashes | highlight | |
+| 05_6 | Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie. | On "A third still leaves two", the "2 of 64" caption goes and "3 shadows, 2 pictures" stands above the two pictures *(shadows, survivors)* | highlight | |
+| 05_7 | So keep the two questions apart. Does any picture fit? And is it the only one? | The other picture, its counts and marks go; a "precisely" lower-third bounding the model: everything in this video is about 5 by 5 pictures of filled and empty squares, counted exactly along rows, columns and here one diagonal direction *(size)*; on the right, chapter 01's two questions, each with its answer for these three shadows as it is asked: "Does any picture fit?", "yes: the face, and one more"; "Is it the only one?", "no: 2 pictures cast all 3 shadows" *(questions, survivors, only_one)*; held until they can be read, then the fade | lower-third, highlight | |
+
+### Notes for 05
+
+- **The 64 are chapter 01's.** The pictures tested are exactly the ones
+  that fit the face's row and column counts (`facts::gallery`, the same 64
+  `model::fits` enumerates); the third shadow is `model::diagonal_counts`,
+  the squares on each diagonal from lower left to upper right (diagonal k:
+  row plus column equals k, nine of them on a 5 × 5 grid). The survivors
+  are `facts::diagonal_survivors`: the face and 01010/01100/00000/00011/11010,
+  two switches from the face.
+- **A switch always changes a diagonal count (05_2).** Its four corners
+  stand on three or four diagonals. The diagonal through its top-left
+  corner holds no other corner: rows r0 < r1 and columns c0 < c1 give
+  r0 + c0 less than each of r0 + c1, r1 + c0 and r1 + c1. So that diagonal
+  gains or loses a square, whichever way the switch goes (`DT-X6`: no switch
+  of any 4 × 4 picture keeps the diagonal shadow; a `model` test; none of
+  the face's 14 switches, `DT-F11.face.switches.keeping`). The opening
+  switch empties squares on diagonals 1 and 7 and fills two on diagonal 4.
+- **Prediction (05_3).** Because a single switch always changes a
+  diagonal count, none of the 14 pictures one switch from the face can pass
+  (`DT-F11.one_switch.pass` = 0); the viewer can reason that far. The
+  question ends unit 05u1; the think ring drains for four seconds with the
+  voice silent and nothing moving; "Two." opens 05u2. Nothing on screen
+  shows which of the other 50 pass before then.
+- **Six squares, every line balanced (05_5).** The face holds (1, 3),
+  (3, 0) and (4, 2); the other picture holds (1, 2), (3, 3) and (4, 0)
+  instead. Rows 1, 3 and 4, columns 0, 2 and 3 and diagonals 3, 4 and 6
+  each hold one square of each, so each loses one and gains one
+  (`facts::line_changes`; the oracle walks every line). It plays the part a
+  switch plays for two shadows; no general claim is made about such moves.
+- **What is and is not claimed (05_6, 05_7).** Only this example: with
+  rows, columns and these diagonals, two pictures fit the face's counts.
+  The video does not say that a third direction, or any number of
+  directions, settles uniqueness or fails to; it makes no claim about how
+  hard reconstruction is in general. For the notes only, this example
+  again: the other diagonal direction alone also leaves two of the 64, and
+  both diagonal directions together leave the face alone (the oracle).
+- **The complexity claim is omitted.** The planned line said
+  reconstruction from three or more directions is NP-hard in general
+  (Gardner, Gritzmann and Prangenberg, Discrete Mathematics 202 (1999)
+  45–71). On 2026-10-19 the original could not be read: the publisher's
+  page and its PDF returned 403 to this lane's fetches, and the two
+  university repositories found answered with a bot challenge, which was not
+  bypassed. Abstracts and secondary citations are not used as proof, so the
+  video says nothing about it; it can return if the paper is read and its
+  exact problem, directions and data assumptions are recorded.
+- **No scanner comparison.** The card bounds the model to the video's own
+  pictures and counts; nothing is said about real tomography.
+- **Reading holds.** The card stands whole at least its characters / 15
+  seconds after its fade-in, the closing questions and answers at least
+  theirs after the first fades in (the provisional scene convention). The
+  "2 of 64" result was first readable for only about 0.45 s in draft09
+  (independent frame review, 2026-10-19); it now stays over the other
+  picture from "one other picture" until 05_6's words replace it, without
+  delaying that picture.
+- **Budget.** 136 spoken words, 7 lines: about 67 s by the Golay measures,
+  about 71 s with the closing hold; no voice has measured it.
+- **Narration units.** 05u1 to 05u4 are a proposed grouping: the new shadow
+  and the question (05u1), the answer and the six squares (05u2), the
+  conclusion (05u3), the two questions (05u4). Boundaries are not frozen and
+  nothing is synthesized.

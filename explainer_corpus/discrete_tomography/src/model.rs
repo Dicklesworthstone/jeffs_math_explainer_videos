@@ -409,6 +409,19 @@ pub fn reachable(start: &Picture) -> Vec<(Picture, usize)> {
     out
 }
 
+/// A third shadow: how many squares each diagonal of `p` holds. The
+/// diagonals run from lower left to upper right; diagonal `k` is the squares
+/// whose row and column add to `k`, from 0 (the top-left corner) to rows +
+/// cols − 2 (the bottom-right). A switch never keeps it: the diagonal through
+/// its top-left corner gains or loses a square and no other corner is on it.
+pub fn diagonal_counts(p: &Picture) -> Vec<usize> {
+    let mut out = vec![0; (p.rows + p.cols).saturating_sub(1)];
+    for (r, c) in p.filled() {
+        out[r + c] += 1;
+    }
+    out
+}
+
 /// How many rectangles `p` has, two rows times two columns: every place a
 /// switch could be.
 pub fn rectangles(p: &Picture) -> usize {
@@ -1048,6 +1061,24 @@ mod tests {
         assert_eq!(built_switches(&tree.shadows()), Some((tree, vec![])));
         let (built, found) = built_switches(&face().shadows()).unwrap();
         assert!(built != face() && found.len() > 1);
+    }
+
+    /// The diagonal shadow counts every square once, on the diagonal its row
+    /// and column add to; no switch of any 4x4 picture keeps it; the face's
+    /// is 0, 1, 1, 2, 1, 1, 1, 2, 0.
+    #[test]
+    fn no_switch_keeps_the_diagonal_shadow() {
+        for p in all_pictures(4, 4) {
+            let d = diagonal_counts(&p);
+            assert_eq!(d.len(), 7);
+            assert_eq!(d.iter().sum::<usize>(), p.count());
+            for s in switches(&p) {
+                let q = s.apply(&p).unwrap();
+                assert_ne!(diagonal_counts(&q), d, "{} {s:?}", p.pattern());
+            }
+        }
+        assert_eq!(diagonal_counts(&face()), [0, 1, 1, 2, 1, 1, 1, 2, 0]);
+        assert_eq!(diagonal_counts(&Picture::empty(1, 1)), [0]);
     }
 
     /// Ryser's theorem joins pictures by a chain, not always by one switch:

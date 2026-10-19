@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "0660c3c5ae3f9373156104dab7c8336ae97b97768ba6f497580438cc3391e33f",
+  "script_sha256": "1356340e78e69fbbc45cd0e237f7016095aefa30ad77ce4160708cf4dbdd74c2",
   "units": [
     {
       "id": "01u1",
@@ -133,6 +133,37 @@
         "04_8"
       ],
       "text": "So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2",
+        "05_3"
+      ],
+      "text": "Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?"
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_4",
+        "05_5"
+      ],
+      "text": "Two. Sixty-two fail, but one other picture casts all three of the face's shadows. They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_6"
+      ],
+      "text": "Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie."
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_7"
+      ],
+      "text": "So keep the two questions apart. Does any picture fit? And is it the only one?"
     }
   ]
 }
