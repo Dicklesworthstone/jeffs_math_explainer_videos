@@ -1655,7 +1655,7 @@
             "explainer_corpus/square_packing/renders/directed-repair-20261018T2000/4k60-v3/square_packing.en.srt",
             ".x/first-wave-20261017/directed-repair-20261018T2000-packing-4k60-v3-verify.log"
           ],
-          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Continuous audiovisual listening and full-video acceptance remain open. Fixed-gain -22.76 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. No publication; all earlier cuts retained.",
+          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Continuous audiovisual listening and full-video acceptance remain open. Fixed-gain -22.76 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. All earlier cuts retained. Public YouTube publication, 2160p60 playback availability and English captions observed 2026-10-19 under the owner's explicit instruction; see the separate publication record. This does not expand the listening acceptance.",
           "milestones": [],
           "artifact_refs": {
             "script": [
@@ -1673,7 +1673,21 @@
           }
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "1TKyhCcu2U8",
+          "url": "https://www.youtube.com/watch?v=1TKyhCcu2U8",
+          "revision_id": "directed-4k60-20261019-v3",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=1TKyhCcu2U8",
+            "narration_lab/production-20261018/youtube-three-public-20261019.jpg"
+          ]
+        }
+      ]
     },
     {
       "video_id": "golay_echoes",
@@ -1867,7 +1881,7 @@
             "explainer_corpus/golay_echoes/renders/directed-repair-20261018T2000/4k60-v4/qc",
             ".x/first-wave-20261017/directed-repair-20261018T2000-golay-4k60-v4-render.log"
           ],
-          "disposition": "Final-resolution export complete; technical and sampled visual QC passed. Fixed gain +5.41 dB gives -23.80 LUFS/-1.50 dBTP under the existing peak-bound exception. Continuous audiovisual listening and full-video perceptual acceptance remain open. Owner subsequently explicitly authorized public YouTube publication after being told this review scope. Publication must be recorded separately from listening acceptance. Earlier withheld masters remain preserved.",
+          "disposition": "Final-resolution export complete; technical and sampled visual QC passed. Fixed gain +5.41 dB gives -23.80 LUFS/-1.50 dBTP under the existing peak-bound exception. Continuous audiovisual listening and full-video perceptual acceptance remain open. Owner subsequently explicitly authorized public YouTube publication after being told this review scope. Publication must be recorded separately from listening acceptance. Earlier withheld masters remain preserved. Public YouTube publication, 2160p60 playback availability and English captions observed 2026-10-19 under the owner's explicit instruction; see the separate publication record. This does not expand the listening acceptance.",
           "milestones": [],
           "artifact_refs": {
             "script": [
@@ -1885,7 +1899,21 @@
           }
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "u4P0xR35Dhk",
+          "url": "https://www.youtube.com/watch?v=u4P0xR35Dhk",
+          "revision_id": "directed-4k60-20261019-v4",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=u4P0xR35Dhk",
+            "narration_lab/production-20261018/youtube-three-public-20261019.jpg"
+          ]
+        }
+      ]
     },
     {
       "video_id": "p_values_medical",
@@ -2004,7 +2032,7 @@
             ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-render.log",
             ".x/first-wave-20261017/directed-repair-20261018T2000-medical-4k60-v4-verify.log"
           ],
-          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Fixed-gain -22.70 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. Continuous audiovisual listening and full-video acceptance remain open. Only the exact separate 20.86-second medical opening reading A has owner listening acceptance; that acceptance does not extend to this full cut. The older rejected narrated master remains rejected and preserved. No publication.",
+          "disposition": "Local final-resolution export available; technical and sampled visual QC passed. Fixed-gain -22.70 LUFS/-1.50 dBTP uses the existing peak-bound mastering exception. Continuous audiovisual listening and full-video acceptance remain open. Only the exact separate 20.86-second medical opening reading A has owner listening acceptance; that acceptance does not extend to this full cut. The older rejected narrated master remains rejected and preserved. Public YouTube publication, 2160p60 playback availability and English captions observed 2026-10-19 under the owner's explicit instruction; see the separate publication record. This does not expand the listening acceptance.",
           "milestones": [],
           "artifact_refs": {
             "script": [
@@ -2022,14 +2050,28 @@
           }
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "7Vtkg6fwrXw",
+          "url": "https://www.youtube.com/watch?v=7Vtkg6fwrXw",
+          "revision_id": "directed-4k60-20261019-v4",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=7Vtkg6fwrXw",
+            "narration_lab/production-20261018/youtube-three-public-20261019.jpg"
+          ]
+        }
+      ]
     },
     {
       "video_id": "randomized_response",
       "working_title": "How to learn a secret about a crowd without learning each person's answer",
       "pitch": "Randomized response; a coin-operated channel, unbiased aggregate inversion, variance cost, bounded likelihood ratios, and repeated-answer leakage.",
       "work_epic": "mx-video-program-program-87do.8",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2039,13 +2081,38 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "selected",
+          "by": "owner delegated next-five selection; orchestrator SageBasin",
+          "reason": "A coin-operated privacy channel gives a concrete inference story, quantitative uncertainty and repeated-answer leakage. Selected after all three first-wave videos were verified public. Five Claude Code Opus 5.5 production lanes explicitly authorized; qualification gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261019",
+          "label": "Second-wave first production revision",
+          "voice": "michael",
+          "generation_provenance": "Production initiated under the owner's delegated next-five selection. No narration generated and no render produced for this revision at creation. Existing Michael reference acceptance does not qualify new material.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "mx-video-program-program-87do.8"
+          ],
+          "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -2053,7 +2120,7 @@
       "working_title": "Two shadows can lie—even when every number is right",
       "pitch": "Binary discrete tomography; identical row/column sums, 2×2 switching components, flow reconstruction, feasibility versus uniqueness.",
       "work_epic": "mx-video-program-program-87do.9",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2063,13 +2130,38 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "selected",
+          "by": "owner delegated next-five selection; orchestrator SageBasin",
+          "reason": "Matching row and column shadows make an immediate visual puzzle, with constructive flow reconstruction and a clear feasibility-versus-uniqueness distinction. Selected after all three first-wave videos were verified public. Five Claude Code Opus 5.5 production lanes explicitly authorized; qualification gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261019",
+          "label": "Second-wave first production revision",
+          "voice": "michael",
+          "generation_provenance": "Production initiated under the owner's delegated next-five selection. No narration generated and no render produced for this revision at creation. Existing Michael reference acceptance does not qualify new material.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "mx-video-program-program-87do.9"
+          ],
+          "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -2271,7 +2363,7 @@
       "working_title": "A resistor network is secretly answering a probability question",
       "pitch": "Harmonic voltage equals a random walk's hitting probability; solve the same boundary-value problem two ways.",
       "work_epic": "mx-video-program-program-87do.18",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2281,13 +2373,38 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "selected",
+          "by": "owner delegated next-five selection; orchestrator SageBasin",
+          "reason": "The same weighted boundary-value problem links an electrical picture and a probability picture through a complete, computable proof. Selected after all three first-wave videos were verified public. Five Claude Code Opus 5.5 production lanes explicitly authorized; qualification gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261019",
+          "label": "Second-wave first production revision",
+          "voice": "michael",
+          "generation_provenance": "Production initiated under the owner's delegated next-five selection. No narration generated and no render produced for this revision at creation. Existing Michael reference acceptance does not qualify new material.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "mx-video-program-program-87do.18"
+          ],
+          "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -2391,7 +2508,7 @@
       "working_title": "Check a giant matrix product without doing the product again",
       "pitch": "Freivalds verification; errors survive a random vector projection with bounded probability, and independent repetitions amplify confidence.",
       "work_epic": "mx-video-program-program-87do.23",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2401,13 +2518,38 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "selected",
+          "by": "owner delegated next-five selection; orchestrator SageBasin",
+          "reason": "A strong programmer-facing surprise: a random projection checks matrix multiplication cheaply, with exact-arithmetic error bounds and honest negative examples. Selected after all three first-wave videos were verified public. Five Claude Code Opus 5.5 production lanes explicitly authorized; qualification gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261019",
+          "label": "Second-wave first production revision",
+          "voice": "michael",
+          "generation_provenance": "Production initiated under the owner's delegated next-five selection. No narration generated and no render produced for this revision at creation. Existing Michael reference acceptance does not qualify new material.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "mx-video-program-program-87do.23"
+          ],
+          "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
+          "milestones": []
+        }
+      ],
       "publications": []
     },
     {
@@ -3247,7 +3389,7 @@
       "working_title": "Epsilon and Delta: Why Getting Closer Wasn't Enough",
       "pitch": "Continuous curves with a discontinuous limit motivate precise quantifier dependencies; Sprague and Davis make delta constructive; sequences and open-set preimages explain alternative views, with historically careful foundations.",
       "work_epic": "mx-video-program-program-87do.58",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-17",
@@ -3256,6 +3398,17 @@
           "reason": "Owner explicitly proposed an informative video using the two supplied notes, calculus foundations and topology. Promoted to the provisional editorial shortlist for qualification; this does not record full-production approval or a finished competition/history audit.",
           "source_refs": [
             "docs/video-program/briefs/epsilon-delta.md#owner-intake"
+          ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "selected",
+          "by": "owner delegated next-five selection; orchestrator SageBasin",
+          "reason": "Owner-requested candidate: a moving witness makes hidden quantifier dependencies visible, followed by constructive delta choices and earned topology. Selected after all three first-wave videos were verified public. Five Claude Code Opus 5.5 production lanes explicitly authorized; qualification gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "docs/video-program/research-20261016/SLATE.md"
           ]
         }
       ],
@@ -3267,7 +3420,21 @@
       "related_video_ids": [
         "visual_proofs"
       ],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261019",
+          "label": "Second-wave first production revision",
+          "voice": "michael",
+          "generation_provenance": "Production initiated under the owner's delegated next-five selection. No narration generated and no render produced for this revision at creation. Existing Michael reference acceptance does not qualify new material.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/README.md",
+            "mx-video-program-program-87do.58"
+          ],
+          "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
+          "milestones": []
+        }
+      ],
       "publications": []
     }
   ],

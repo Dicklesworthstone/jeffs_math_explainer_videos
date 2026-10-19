@@ -2,6 +2,28 @@
 
 This is the canonical entry point for the channel owner and producers. [catalog.json](catalog.json) records every known video identity, editorial disposition, documented cut and upload. The repository's `.beads` owns task status, assignee, priority and dependencies. [BEADS_INDEX.md](BEADS_INDEX.md) maps plan keys to actual issues; [HANDOFF.md](HANDOFF.md) records migration checks and bounded limitations. There is no second editable task board.
 
+On **2026-10-19**, the three new 4K60 exports were published publicly under the
+owner's explicit instruction: [square packing](https://www.youtube.com/watch?v=1TKyhCcu2U8),
+[medical p-values](https://www.youtube.com/watch?v=7Vtkg6fwrXw), and
+[Golay echoes](https://www.youtube.com/watch?v=u4P0xR35Dhk). Studio visibility,
+public watch pages, 2160p60 availability and English captions were checked.
+The catalog binds each upload to its exact local revision. Technical and sampled
+visual QC passed; continuous audiovisual listening and full-cut perceptual
+acceptance remain open. Publication is recorded separately from those gates.
+
+The owner's next instruction is now active: five Opus 5.5 production lanes for
+**epsilon–delta, randomized response, discrete tomography, resistor networks and
+random walks, and Freivalds' matrix verification**. These reuse existing catalog
+identities and Beads epics. Epsilon–delta follows the owner's requested notes and
+the moving-witness story; randomized response turns privacy into a visible
+inference tradeoff; tomography turns two matching shadows into a reconstruction
+puzzle; resistor networks connect one boundary-value problem to two physical and
+probabilistic pictures; Freivalds shows why checking a calculation can be much
+cheaper than repeating it. The choice favors distinct visual mechanisms and
+checkable proofs over another broad survey. Each starts with source/proof
+qualification and a real opening scene, with one central build/render/TTS lane.
+See the current [owner amendment](../../AGENTS.md) for scope and ownership.
+
 As of 2026-10-17: **65 video identities, 37 documented master cuts, 17 upload records, 11 selected public videos.** The 54 proposed topics include ideas that are unapproved, parked or declined. They are not a commitment to produce 54 videos. Publication observations come from the 2026-10-15 audit and historical [publishing manifest](../publish/MANIFEST.md), not a new browser audit. Earlier private and unuploaded cuts retain their dispositions. A public video may still have open work for another venue or a future revision.
 
 The repository was copied from the production checkout at `63674d8075522f95987cc73a8024cbb397ecda3f`, including dirty work and media. The older local checkout was preserved separately. All 233 existing issues were imported through native `br`; new work is here. Per-machine settings and copied gate markers are not local runtime qualification. No production code, voice model, render or upload changed during this setup.

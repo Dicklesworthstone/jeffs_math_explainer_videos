@@ -87,6 +87,33 @@ Work around engine gaps in this repository and record them (§14 of the plan). F
 
 ## Working in the Swarm (the build host)
 
+### Owner-authorized publication and second production wave — 2026-10-19
+
+The owner explicitly authorized public YouTube publication of the completed
+square-packing, medical p-value and Golay exports, followed only after all three
+were public by five new Claude Code Opus 5.5 production lanes. All three are now
+public; exact upload IDs, revision bindings and observations are in the catalog.
+Technical and sampled visual QC passed. Continuous audiovisual listening and
+full-video perceptual acceptance remain open; publication does not close them.
+
+The owner delegated selection from the existing slate. The selected second wave
+is `epsilon_delta`, `randomized_response`, `discrete_tomography`,
+`resistor_random_walk` and `freivalds`, one lane per topic, using the explicit
+model `claude-opus-5-5`. This supersedes the previous three-lane count and the
+old planning-only restriction for these selected topics. Preserve the original
+three-agent session and every earlier variant. No SSH, account changes, credits,
+upstream engine edits or GitHub releases are authorized. New videos still need
+their own source, mathematical, narration and final-render qualification.
+
+Use one shared local checkout and disjoint `explainer_corpus/<topic>/` ownership.
+Only the orchestrator edits Beads and shared workspace/driver/catalog files.
+Begin with real facts/model code, an independent oracle and a working opening
+scene plus its spoken/storyboard slice. Workers run cheap source/arithmetic
+checks and report exact evidence; the orchestrator owns the single serial
+native build/render/TTS lane, reviews actual diffs and outputs, and closes only
+accepted tasks. No placeholder scenes, speculative frameworks, self-closes or
+duplicate tests. Existing production and narration doctrine continues to apply.
+
 ### Owner-authorized first production wave — 2026-10-17
 
 The owner authorizes three Claude Code lanes on Opus 5.5, one video per lane,
