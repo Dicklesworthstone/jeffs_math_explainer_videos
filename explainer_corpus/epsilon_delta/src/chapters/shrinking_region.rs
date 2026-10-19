@@ -20,8 +20,8 @@ use explainer_kit::{BACKGROUND, Facts, Frame2, Kit, Palette, Timed, hex, rect, t
 use fmn::prelude::*;
 
 use super::draw::{
-    BRIGHT_W, Bright, GHOST_W, LENS_H, LENS_W, PLOT, Plot, curve_color, curve_label, fact, fade_in_all, fade_in_lagged,
-    fade_out_all, fail, flat, gap_color, ghost, line_style, move_to, moving, say, step, think_pause,
+    BRIGHT_W, Bright, END_R, GHOST_W, LENS_H, LENS_W, PLOT, Plot, curve_color, curve_label, fact, fade_in_all,
+    fade_in_lagged, fade_out_all, fail, flat, gap_color, ghost, line_style, move_to, moving, say, step, think_pause,
 };
 use super::limit_that_jumps::{
     card_fix_first, card_move_with, fixed_back, gap_note, gap_span, half_line, witness_at, witness_formula,
@@ -91,6 +91,13 @@ const RING_R: f64 = 0.45;
 /// The main plot's gap strip, just under its x axis.
 const MAIN_STRIP_DROP: f64 = 0.13;
 const MAIN_STRIP_H: f64 = 0.05;
+/// The arrow that points at that strip once it is narrower than a pixel:
+/// its tip this far right of x = 1, its shaft this long. It sits at the
+/// strip's height, between the limit's hollow mark above and the axis
+/// numeral below; a ring there touched both (review 3881).
+const POINTER_GAP: f64 = 0.14;
+const POINTER_LEN: f64 = 0.2;
+const POINTER_HEAD: f64 = 0.05;
 
 // everything sits inside the frame and above a three-line lower-third
 // (its top at -2.42); the strips sit under the panel and above the legends
@@ -99,6 +106,10 @@ const _: () = assert!(ZOOM_Y + 0.2 < 4.0);
 const _: () = assert!(GAP_Y - STRIP_H / 2.0 - MARK_R > LEGEND_Y[0] + 0.2);
 const _: () = assert!(READ_Y[2] - 0.2 > -2.42 && READ_Y[0] < LEGEND_Y[1] - 0.3);
 const _: () = assert!(RING_AT[0] + RING_R < 7.1 && RING_AT[1] - RING_R - 0.45 > READ_Y[1]);
+// the arrow's tip sits right of the hollow mark at (1, 0) and of the numeral
+// 1 under it (narrower than the mark), with room for both strokes, and its
+// head stays under the mark
+const _: () = assert!(POINTER_GAP > END_R + 0.06 && MAIN_STRIP_DROP - POINTER_HEAD > END_R);
 
 /// The zoom window at a stretch of m: [1 − 1/m, 1] across the panel.
 fn lens(m: u32) -> Plot {
@@ -272,6 +283,25 @@ fn main_strip(stage: &mut Stage<'_>, n: u32) -> fmn::Result<Mob> {
     let x = half_height(n).map_err(fail)?;
     let y = PLOT.frame.bottom() - MAIN_STRIP_DROP;
     strip(stage, &PLOT, x, y, MAIN_STRIP_H, gap_color())
+}
+
+/// A short arrow pointing left at the main plot's strip from just right of
+/// x = 1, at the strip's height, detached: where the strip is once it is
+/// narrower than a pixel, not how wide it is.
+fn pointer(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let end = PLOT.p(1.0, 0.0);
+    let y = PLOT.frame.bottom() - MAIN_STRIP_DROP;
+    let tip = v(end[0] + POINTER_GAP, y);
+    let ends = [
+        v(tip[0] + POINTER_LEN, y),
+        v(tip[0] + POINTER_HEAD * 1.4, y + POINTER_HEAD),
+        v(tip[0] + POINTER_HEAD * 1.4, y - POINTER_HEAD),
+    ];
+    let mut lines = Vec::new();
+    for e in ends {
+        lines.push(Line::new(e, tip).style(line_style(Palette::hero(), 3.0)).build()?);
+    }
+    Ok(stage.arena_mut().add(v_group(lines)))
 }
 
 /// The readout of the n-th strip's width, detached.
@@ -471,14 +501,7 @@ impl SceneConstruct for TheShrinkingRegion {
                 v(READ_X, READ_Y[2]),
             )?,
         ];
-        let here = PLOT.p(1.0, 0.0);
-        let here = Circle::new()
-            .radius(0.1)
-            .arc_center(v(here[0], here[1] - MAIN_STRIP_DROP))
-            .style(line_style(Palette::hero(), 3.0))
-            .build();
-        let here = stage.arena_mut().add(here);
-        kit.allow_crossing(here);
+        let here = pointer(stage)?;
         fade_in_lagged(stage, &[here, notes[0], notes[1]], 1.0, 0.3)?;
 
         // 02_5: the prediction; the answer stays hidden while the ring drains

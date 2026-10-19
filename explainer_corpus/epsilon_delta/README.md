@@ -31,9 +31,9 @@ notes the owner supplied) and the open-set picture behind topology.
   - root viewed all 10 opening cue-end frames, all 9 chapter 02 cue-end
     frames, and 12 prediction, zoom, reset and card frames at 37, 39, 42,
     45, 47, 50, 54.3, 58.2, 60.5, 62.3, 65 and 67.5 s. Root reported correct
-    endpoints, no overlap, an intact prediction interval, the window label
-    going 10 → 100 → 1000 through the reset, and the short card on one line,
-    visible from 62.3 through 67.5 s. The layout lint report was empty.
+    endpoints, an intact prediction interval, the window label going 10 →
+    100 → 1000 through the reset, and the short card on one line, visible
+    from 62.3 through 67.5 s. The layout lint report was empty.
 
   The drafts are in `.x/second-wave-20261019/draft04/epsilon_delta`
   (silent, 960×540, 30 fps):
@@ -41,14 +41,27 @@ notes the owner supplied) and the open-set picture behind topology.
     identical cues;
   - chapter 02: 2618 frames, 87.27 s.
 
-  The independent review of the repairs is TanElm's (3822, 3855). The lane's
-  own checks were source-level only, and it inspected no image.
+  **Marker repair.** TanElm's image review of draft04 (3881) found one
+  overlap the central13 check had not caught: from 33.5 to 42 s the ring
+  marking the main plot's sub-pixel strip touched the axis numeral 1 and
+  the hollow limit mark. A short arrow pointing at the strip from the right
+  replaced it. The orchestrator's batch central15 (Mail 3910), root's
+  evidence again:
+  - fmt, strict release all-target Clippy and the release build passed;
+  - the draft05 chapter 02 is 2618 frames, 87.27 s (silent, 960×540,
+    30 fps), its layout report empty, its cues byte-identical to draft04;
+  - root viewed six frames and an enlarged crop at 37 s, and TanElm
+    independently confirmed the collision is resolved (3908).
+
+  A transient text crossfade at 48 s is unchanged; it is an accepted
+  caveat. The independent reviews are TanElm's (3822, 3855, 3881, 3908).
+  The lane's own checks were source-level only, and it inspected no image.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
 keep the prediction time and not speed anything up. Narration pacing and the
-full audiovisual cut are not qualified. Whole-video and audio acceptance are
-not claimed for either chapter. The
+full audiovisual cut are not qualified. Whole-video, audio and
+continuous-playback acceptance are not claimed for either chapter. The
 continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md) §2,
 and the deltas its chapters need are already computed and oracle-checked.
 
@@ -139,7 +152,9 @@ competition review remains open.
   "heights ×1/3". The facts refuse to build if a label disagrees with the
   geometry, and a test checks the same. The magnifier box on the plot is the
   window at its true width, about 1.3 pixels of the 4K picture at ×1000.
-  Below a pixel, a ring marks where the strip is, not how wide.
+  Below a pixel, a short arrow from the right points at where the strip
+  is, not how wide; a ring there touched the axis numeral and the hollow
+  mark (review 3881).
 - 02_7 resets only the window, and says so before it raises anything
   ("Reset the window to x to the tenth"); the main plot stays at x¹⁰⁰⁰.
   The window leaves n = 1000 for n = 10 on those words, goes to 100 at
