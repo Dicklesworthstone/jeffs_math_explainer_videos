@@ -229,6 +229,18 @@ pub fn gap_color() -> Srgb {
     Palette::red()
 }
 
+/// A chord's slope (chapter 03): the chord on the curve, and the graph of
+/// its slope against the increment h.
+pub fn slope_color() -> Srgb {
+    Palette::green()
+}
+
+/// The step that fails (chapter 03): h set to zero, where the slope is 0/0.
+/// Red, as the gap and the jump.
+pub fn fails() -> Srgb {
+    Palette::red()
+}
+
 // ------------------------------------------------------------------ styles
 
 /// A flat fill and no outline.
@@ -404,7 +416,7 @@ pub const LENS_H: f64 = PLOT.frame.height * LENS_HEIGHTS.num as f64 / LENS_HEIGH
 
 /// How far the axes run past 1, and how far under the x axis its numbers sit.
 const AXIS_PAST: f64 = 0.3;
-const NUMBER_DROP: f64 = 0.32;
+pub(super) const NUMBER_DROP: f64 = 0.32;
 
 /// The radius of the limit's two end marks (the hollow one at (1, 0) and
 /// the filled one at (1, 1)).

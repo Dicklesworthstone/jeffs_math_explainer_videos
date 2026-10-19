@@ -18,3 +18,11 @@
 02_7	Reset the window to x to the tenth. Raise the power tenfold and stretch tenfold, then again. It looks almost the same. Its width shrinks like point six nine over n, and the strip is never empty.
 02_8	And the moving point is always inside it, with its gap of one half.
 02_9	A picture shows a few powers, at finite resolution. What we need is a guarantee for every point at once, and an order for who chooses what.
+03_1	The guarantee has to answer an old objection. In seventeen thirty four, George Berkeley questioned a step in an argument for how fast a power changes.
+03_2	Here is that kind of argument for a square, in modern notation. Move x from one half by h, not zero. The height changes by h plus h squared. Divide by h, and the slope is one plus h.
+03_3	Then the argument lets h vanish, so one plus h becomes one. Berkeley objected that h was something for the division and nothing afterward, yet the result was kept.
+03_4	So what slope does h equal to zero give?
+03_5	None. Both points are then the same point, and the change is zero over zero.
+03_6	One is still the right answer, reached without h ever being zero. Shrink h from both sides, and the slopes close in on one.
+03_7	For every h within one tenth of zero, other than zero, the slope is within one tenth of one. Any tolerance works the same way, so the limit is one.
+03_8	This never needs the step Berkeley questioned. Who picks the tolerance, and when, comes next. Whether a limit exists at all is a separate question, for the end.

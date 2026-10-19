@@ -110,12 +110,51 @@ mod tests {
         ("02_7", "stretch tenfold", "C2.zoom.step", "10"),
         ("02_7", "point six nine", "C2.ln2.2dp", "0.69"),
         ("02_8", "gap of one half.", "C1.witness.gap", "1/2"),
+        ("03_1", "seventeen thirty four", "C3.year", "1734"),
+        ("03_2", "for a square", "C3.power", "2"),
+        ("03_2", "from one half", "C3.base", "1/2"),
+        ("03_2", "by h, not zero.", "C3.h.to", "0"),
+        ("03_2", "h plus h squared", "C3.change", "h + h^2"),
+        ("03_2", "slope is one plus h.", "C3.quotient", "1 + h"),
+        ("03_3", "so one plus h", "C3.quotient", "1 + h"),
+        ("03_3", "becomes one.", "C3.limit", "1"),
+        ("03_4", "h equal to zero", "C3.h.to", "0"),
+        ("03_5", "zero over zero", "C3.at_zero", "0/0"),
+        ("03_6", "One is still", "C3.limit", "1"),
+        ("03_6", "ever being zero.", "C3.h.to", "0"),
+        ("03_6", "close in on one.", "C3.limit", "1"),
+        ("03_7", "h within one tenth", "C3.delta.0", "1/10"),
+        ("03_7", "of zero,", "C3.h.to", "0"),
+        ("03_7", "other than zero,", "C3.h.to", "0"),
+        ("03_7", "slope is within one tenth", "C3.eps.0", "1/10"),
+        ("03_7", "tenth of one.", "C3.limit", "1"),
+        ("03_7", "limit is one.", "C3.limit", "1"),
     ];
 
     /// The words that carry a number in this script.
     const NUMBER_WORDS: &[&str] = &[
-        "zero", "one", "half", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "tenth",
-        "tenths", "tenfold", "square", "fifty", "hundred", "thousand",
+        "zero",
+        "one",
+        "half",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "tenth",
+        "tenths",
+        "tenfold",
+        "square",
+        "squared",
+        "seventeen",
+        "thirty",
+        "fifty",
+        "hundred",
+        "thousand",
     ];
 
     /// Number words used as plain language, not as a quantity a fact holds.
@@ -169,9 +208,28 @@ mod tests {
         }
     }
 
+    /// The historical names the narration says, the only lines that say
+    /// each, and the reference those lines' storyboard rows carry: the
+    /// passage read at page level (the README's sources).
+    const NAMED: &[(&str, &[&str], &str)] =
+        &[("berkeley", &["03_1", "03_3", "03_8"], "The Analyst §§XIII–XIV, pp. 5–6")];
+
+    /// What no line says: names whose attribution was not read at page level
+    /// (brief), and priority claims.
+    const UNNAMED: &[&str] = &[
+        "cauchy",
+        "weierstrass",
+        "bolzano",
+        "newton",
+        "leibniz",
+        "dedekind",
+        "heine",
+        "invented",
+        "first to",
+    ];
+
     /// The opening never claims the picture proves the limit, never calls
-    /// the failure one of uniform continuity, and never dates or names an
-    /// inventor: the historical attribution is not yet qualified (brief).
+    /// the failure one of uniform continuity, and names and dates no one.
     #[test]
     fn the_opening_claims_only_what_it_shows() {
         let all = all_text();
@@ -182,14 +240,6 @@ mod tests {
             "uniformly continuous",
             "the picture proves",
             "as you can see, the limit",
-            "cauchy",
-            "weierstrass",
-            "bolzano",
-            "berkeley",
-            "newton",
-            "leibniz",
-            "invented",
-            "first to",
         ] {
             assert!(!lower.contains(wrong), "the script says {wrong:?}");
         }
@@ -197,6 +247,43 @@ mod tests {
             !all.chars().any(|c| c.is_ascii_digit()),
             "numbers are spelled as spoken"
         );
+        let script = Script::parse(SCRIPT).unwrap();
+        for (id, text) in script.lines() {
+            if id.starts_with("01_") || id.starts_with("02_") {
+                let lower = text.to_lowercase();
+                for (name, ..) in NAMED {
+                    assert!(!lower.contains(name), "{id} names {name}");
+                }
+                assert!(!lower.contains("seventeen"), "{id} gives a year");
+            }
+        }
+    }
+
+    /// A historical name is said only in the lines whose storyboard rows
+    /// cite the passage read for it, and no unread attribution is said at
+    /// all; the one year said is the one that edition gives.
+    #[test]
+    fn every_name_said_has_its_passage() {
+        let script = Script::parse(SCRIPT).unwrap();
+        for (id, text) in script.lines() {
+            let lower = text.to_lowercase();
+            for wrong in UNNAMED {
+                assert!(!lower.contains(wrong), "{id} says {wrong:?}");
+            }
+            for (name, lines, _) in NAMED {
+                assert_eq!(lower.contains(name), lines.contains(&id.as_str()), "{id} and {name}");
+            }
+        }
+        for (_, lines, reference) in NAMED {
+            for id in *lines {
+                let row = STORYBOARD
+                    .lines()
+                    .find(|l| l.starts_with(&format!("| {id} |")))
+                    .unwrap_or_else(|| panic!("no storyboard row {id}"));
+                assert!(row.contains(reference), "{id}'s row cites {reference:?}");
+            }
+        }
+        assert!(script.text("03_1").unwrap().contains("seventeen thirty four"));
     }
 
     /// The fixed point and the moving point are kept apart: the fixed point

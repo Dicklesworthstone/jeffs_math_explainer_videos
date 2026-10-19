@@ -23,17 +23,18 @@ closer is not a guarantee until that order is fixed.
 
 | Act | Chapters (brief §"Episode shape") | Spine |
 |---|---|---|
-| I. A limit that jumps | 01 a limit that jumps (built); 02 the shrinking region | unbroken curves x^n on [0, 1], a limit that is 0 then 1; a fixed point waits a finite time, the moving point x_n = 2^(−1/n) keeps a gap of 1/2; a thin region is not an empty one |
-| II. The guarantee | 03 what the old objection was about, 04 the challenge game, 05 why written proofs hide the search | the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
+| I. A limit that jumps | 01 a limit that jumps (built); 02 the shrinking region (built) | unbroken curves x^n on [0, 1], a limit that is 0 then 1; a fixed point waits a finite time, the moving point x_n = 2^(−1/n) keeps a gap of 1/2; a thin region is not an empty one |
+| II. The guarantee | 03 what the old objection was about (built), 04 the challenge game, 05 why written proofs hide the search | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
 | III. Making δ | 06 Sprague's recentring, 07 Davis's bound, 08 fixed or moving, precisely | δ = √(4 + ε) − 2 for x² at 2, the simpler δ = min(1, ε/5), the cubic's C = 22; the naive ε/4 fails at ε = 1 with h = 6/25; pointwise against uniform as an order of choices |
 | IV. Repair and other languages | 09 the three-piece bridge, 10 sequences and bounds, 11 preimages, 12 what the definition does not supply | uniform convergence repairs the opening; one bad sequence refutes continuity; open sets pull back to open sets; completeness is a separate assumption |
 
 One picture runs through act I: the plot of [0, 1] with the curves, the gold
 limit, the teal fixed point and the lavender moving point. Act II's picture
 is the tolerance band and the input band over the same kind of plot, so the
-moving point returns as the challenger's choice. Historical names and dates
-stay out of the narration until their page-level attribution is qualified
-(brief); chapter 03 is written only after that check.
+moving point returns as the challenger's choice. Chapters 01 and 02 name no
+one. Chapter 03 names one person and one year, George Berkeley and 1734,
+from the passage read at page level (the README's sources), and calls its
+own example modern; no other name or date is spoken, and a test holds it.
 
 ### The exact continuation after chapter 01
 
@@ -67,9 +68,28 @@ draft04.
 
 After chapter 02 the picture rests on the plot at n = 1000 with its
 under-axis strip, the window at ×1000 and the two summary lines. Chapter 03
-in the arc table needs the brief's page-level attribution check before it
-is written; if that check is not ready, the challenge game (04) can come
-next, opening on this picture.
+opens on it:
+
+- **03_what_the_old_objection_was_about**: built (its beats are below,
+  task mx-video-program-program-87do.58.3). It rebuilds chapter 02's
+  resting picture with chapter 02's own builders and keeps the axes and the
+  bright curve. Berkeley's objection in The Analyst (1734, §§XIII–XIV) is
+  to a step in an argument for the fluxion of a power: suppose an increment,
+  divide by it, then suppose it is nothing and keep what the division gave.
+  The chapter shows that step on its own modern example, the square at
+  x = 1/2, where the chord's slope is exactly 1 + h for every h ≠ 0. Setting
+  h to zero merges the two points: the quotient is 0/0, and any line through
+  the point fits. The limit never uses h = 0. The slopes at ±1/2, ±1/4 and
+  ±1/10 land on a panel around a hollow mark at h = 0. Every h with
+  0 < |h| < t is within t of 1, for each tolerance t drawn. The chapter
+  ends on the band and window at t = 1/20 and the question of who picks the
+  tolerance, which is chapter 04's.
+
+After chapter 03 the picture rests on the plot (x², the base point, the
+chord at h = −1/10, the gold line of slope 1) and the slope panel with its
+band and window at 1/20, the limit, the line "next: who picks the
+tolerance, and when?" and the precisely card. The challenge game (04)
+opens on it.
 
 ## 3 Color roles
 
@@ -88,8 +108,13 @@ data colour.
 | the strip where the gap is at least 1/2 (chapter 02) | red, as the gap |
 | an end mark: filled when the end belongs to the strip, hollow when it does not | the strip's colour |
 | the zoom window's border and the magnifier on the plot | `dim`, connectors `faint` |
+| the base point (1/2, 1/4) of chapter 03, chosen first and held | teal, as the fixed point |
+| the increment h, the far point and the window of h (chapter 03) | lavender, as what moves; the window translucent |
+| a chord, the change h + h², and the graph of the chord's slope against h | green `#83C167` for the chord and the graph (the change is the curve's, blue) |
+| where the slopes go (chapter 03): the line of slope 1, the level 1, the limit, the tolerance band | gold, as the limit; the band translucent |
+| the step that fails: h set to zero, 0/0, the fan of lines that all fit | red, as the gap and the jump |
 | axes and their numbers | `dim` |
-| the prediction ring, the title, the trace of an unbroken curve | `hero` gold `#FFD866` |
+| the prediction ring, the title, the trace of an unbroken curve, a glow | `hero` gold `#FFD866` |
 
 Colour is never the only cue: the fixed point is a dashed vertical line with
 its value under the axis, the moving point sits on a dashed horizontal line
@@ -114,6 +139,15 @@ the share its heights are drawn at) and **width**
 (of a strip, 1 − x_n). It never says the strip "disappears": it says
 narrower, thinner than a pixel, never empty.
 
+Chapter 03 adds **h** (the increment, said as the letter, never
+"infinitesimal"), **slope** (of a chord, the change over h), **tolerance**
+(how close to the limit a slope must be) and **modern notation** (our
+example, said as ours before any step is shown). "Vanish" is said only
+for the old argument's step, which Berkeley wrote as "let the Increments
+vanish"; the modern step says "keep h nonzero" and "the limit". The
+narration says Berkeley "questioned" and "objected"; it never says the old
+calculus was wrong, and it says the old answer, one, is right.
+
 Numbers: decimals are said digit by digit after "point" as the screen
 writes them ("point seven two nine" for 0.729); one half is said "one half"
 and shown 1/2; zero and one are the interval's ends and the limit's two
@@ -131,6 +165,10 @@ values.
 | "where the curve is above 1/2, it is far from its limit" | 02_1 to 02_3: at x = 1 the curve is above 1/2 and the gap is zero; the two strips differ exactly at their ends |
 | "a strip thinner than a pixel is gone" | 02_5 to 02_6: stretched ×1000 it fills about 69% of the window |
 | "the width is ln 2/n" | 02_7: it shrinks like ln 2/n; the card calls n·w(n) → ln 2 a limit, not a finite equality, and w(n) > 0 |
+| "the slope at h = 0 is 1, since 1 + h is 1 there" | 03_4 to 03_5: at h = 0 the quotient is 0/0 and every line through the point fits; 1 + h equals the quotient only for h ≠ 0 |
+| "early calculus was nonsense until the limit came along" | 03_3, 03_6: Berkeley questioned a step, the narration says so in those words, and the answer one is right |
+| "a limit is the value you get by plugging in" | 03_6 to 03_7: the hollow mark at h = 0; the window 0 < \|h\| < t leaves h = 0 out, and the limit is reached without it |
+| "this definition settles every question about limits" | 03_8: whether a limit exists at all is a separate question, saved for the end |
 
 ## Narration units and timing
 
@@ -160,6 +198,17 @@ Chapter 02's units:
 The question 02_5 is followed by the same 4 s think window, its answer
 ("No.") hidden until the window ends. The stretches in 02_6 land on "a
 hundred times" and "a thousand times". The chapter ends on a hold.
+
+Chapter 03's units:
+- **03u1** (03_1, 03_2, 65 words): Berkeley's objection named, then the
+  modern step on the square up to the slope one plus h.
+- **03u2** (03_3, 03_4, 38 words): the old step and Berkeley's objection
+  to it, ending on the question.
+- **03u3** (03_5 to 03_8, 97 words): the answer zero over zero, the limit
+  reached with h never zero, the tolerance, and what comes next.
+
+The question 03_4 is followed by the same 4 s think window, its answer
+("None.") hidden until the window ends. The chapter ends on a hold.
 
 **Hold (2026-10-19):** the owner rejected the first wave's narrated cuts
 and withdrew them; the rejected narration method must not be carried into
@@ -195,3 +244,16 @@ qualified method, not an instruction to synthesize. No take exists.
 | 02_7 | Reset the window to x to the tenth. Raise the power tenfold and stretch tenfold, then again. It looks almost the same. Its width shrinks like point six nine over n, and the strip is never empty. *(C2.restart_power, C2.zoom.step, C2.ln2.2dp; C2.share.n10.3dp, n100, n1000 on screen)* | The magnifier, readout and pixel lines go; the main plot stays at x¹⁰⁰⁰ (only the window resets). On "Reset the window to x to the tenth", the window goes back to n = 10 at ×10, its label saying so, with the row "n = 10, stretched ×10: the strip fills 0.670 of the window". At "Raise the power tenfold", n = 100 at ×100 and its row, 0.691; at "then again", n = 1000 at ×1000 and its row, 0.693: nearly the same picture each time. At "Its width shrinks", lower-third, precisely: w(n) = 1 − 2^(−1/n) > 0; n·w(n) → ln 2 ≈ 0.6931. This is a limit, not a finite equality (C2.ln2.4dp; short enough to read in this sentence; the two-sided bounds behind it are in model.rs, oracle.py and the README) | morph that keeps identity; table; lower-third | |
 | 02_8 | And the moving point is always inside it, with its gap of one half. *(C1.witness.gap)* | The lower-third goes. At "always inside it", glows on the window's moving point and on the red strip's filled left end | highlight | |
 | 02_9 | A picture shows a few powers, at finite resolution. What we need is a guarantee for every point at once, and an order for who chooses what. | At "What we need", the rows go and two lines replace them: "a guarantee for every x at once" and, dim, "who chooses first: how close, which power, which point?" | card | hold |
+
+## 03_what_the_old_objection_was_about: What the old objection was about (~84 s at the kit's scratch rate)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | The guarantee has to answer an old objection. In seventeen thirty four, George Berkeley questioned a step in an argument for how fast a power changes. *(C3.year; The Analyst §§XIII–XIV, pp. 5–6 of Wilkins's edition, read 2026-10-19)* | Chapter 02's resting picture, rebuilt by its own builders: the plot at x¹⁰⁰⁰ over its dim curves, the limit, the half line, the moving point and its gap bar, the strip under the axis, the window at ×1000 with its strips, end marks and legends, and the two summary lines. Everything but the axes, the bright curve and "a guarantee for every x at once" fades. At "George Berkeley" that line goes and, at the right, "George Berkeley, The Analyst (1734)" and, dim, "§§XIII–XIV, pp. 5–6: the fluxion of any power" (C3.year, C3.page.first, C3.page.last) | card | |
+| 03_2 | Here is that kind of argument for a square, in modern notation. Move x from one half by h, not zero. The height changes by h plus h squared. Divide by h, and the slope is one plus h. *(C3.power, C3.base, C3.h.to, C3.change, C3.quotient)* | At "for a square" the bright x¹⁰⁰⁰ morphs into y = x², its label swapping, and under the heading: our modern example: y = x² at x = 1/2. At "Move x from one half", a teal dashed line up to the base point (1/2, 1/4), 1/2 under the axis, a teal dot; then the far point (1, 1) for h = 1/2 in lavender, the run h along y = 1/4 (C3.h.0). At "The height changes", the rise up to the far point in blue, labelled h + h², and the first step: (1/2 + h)² − (1/2)² = h + h². At "Divide by h", the chord through both points in green, across the plot, and the second step: (h + h²)/h = 1 + h, with (h ≠ 0) beside it in lavender | morph that keeps identity; derivation | |
+| 03_3 | Then the argument lets h vanish, so one plus h becomes one. Berkeley objected that h was something for the division and nothing afterward, yet the result was kept. *(C3.quotient, C3.limit; The Analyst §§XIII–XIV, pp. 5–6 of Wilkins's edition)* | At "lets h vanish", the third step in red: then h = 0, so 1 + h = 1. At "Berkeley objected", his sentence, verbatim with two phrases left out where the ellipses stand: “the former Supposition that the Increments were something … is destroyed, and yet a Consequence of that Supposition … is retained.” and, dim, "Berkeley, The Analyst, §XIII, p. 6 (Wilkins's 2002 edition)" (C3.quote.page, C3.edition). The book and its year head the column above it; that Berkeley writes o for the increment and treats every power of x is in the README, not on screen. The sentence stays up through 03_4's question | derivation; quote | |
+| 03_4 | ⟨predict⟩ So what slope does h equal to zero give? *(C3.h.to)* | Berkeley's sentence and the third step stay while the question is asked; when it ends they cross-fade into a "?" in the think ring under the first two steps, which stay. The ring drains for 4 s with "pause for more time" under it; the answer stays hidden until it ends | predict pause | think 4 s, the answer hidden until it ends |
+| 03_5 | None. Both points are then the same point, and the change is zero over zero. *(C3.at_zero)* | The "?", the chord, the run, the rise and their labels go. The far point glides down the curve onto the base point at an even speed. At "zero over zero", seven red dashed lines through the point, at slopes from −1/2 to 3, and the step in red: h = 0: ((1/2 + 0)² − (1/2)²)/0 = 0/0, with, dim, "every line through the point fits: no slope" | highlight; derivation | |
+| 03_6 | One is still the right answer, reached without h ever being zero. Shrink h from both sides, and the slopes close in on one. *(C3.limit, C3.h.to; C3.h.0 to C3.h.5, C3.slope.0 to C3.slope.5 on screen)* | The fan, the 0/0, the steps, the example and the heading go. At the right, a panel of the chord's slope against h, h from −0.6 to 0.6 with −1/2, 0 and 1/2 under it and 1 beside the slope axis: a gold dashed line at slope 1 with a hollow green mark on it at h = 0, the formula Q(h) = ((1/2 + h)² − (1/2)²)/h = 1 + h (h ≠ 0) above, and "slope of the chord, against h". At "Shrink h", the far point and its chord return at h = 1/2, a green dot lands on the panel at (1/2, 1.5), and "h = 1/2: slope 1.5" under it; the far point hops to h = 1/4, 1/10, −1/2, −1/4 and −1/10, the chord turning with it, each slope landing on the panel with its readout (1.25, 1.1, 0.5, 0.75, 0.9). At "close in on one", the readout goes, the graph of 1 + h is drawn through the dots in two pieces that stop at the hollow mark, and on the plot the gold line of slope 1 through the base point | plot; morph that keeps identity | |
+| 03_7 | For every h within one tenth of zero, other than zero, the slope is within one tenth of one. Any tolerance works the same way, so the limit is one. *(C3.delta.0, C3.h.to, C3.eps.0, C3.limit; C3.eps.1, C3.delta.1 on screen)* | At "h within one tenth of zero", a lavender window over 0 < \|h\| < 1/10 up the panel, labelled 0 < \|h\| < 1/10 at its foot; at "the slope is within one tenth", a gold band from 0.9 to 1.1 across the panel, labelled tolerance 1/10. Inside the window the graph stays inside the band, reaching its corners only at \|h\| = 1/10, which the window leaves out. At "Any tolerance", band and window narrow together to 1/20, their labels with them, and then a lower-third, precisely: for every h ≠ 0, ((1/2 + h)^2 − 1/4)/h = 1 + h, so for every tolerance t > 0, 0 < \|h\| < t puts it within t of 1. At h = 0 it is 0/0, which the limit never uses (C3.base.height, C3.at_zero). It stays to the chapter's end, through 03_8 (about 17 s fully shown at the scratch rate). At "the limit is one", under the panel in gold: lim_{h→0} Q(h) = 1 | highlight; lower-third; morph that keeps identity | |
+| 03_8 | This never needs the step Berkeley questioned. Who picks the tolerance, and when, comes next. Whether a limit exists at all is a separate question, for the end. *(The Analyst §§XIII–XIV, pp. 5–6 of Wilkins's edition)* | The precisely card stays. At "never needs", a glow at the hollow mark. At "Who picks the tolerance", under the limit and above the card, dim: "next: who picks the tolerance, and when?" | highlight | hold |

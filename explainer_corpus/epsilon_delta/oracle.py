@@ -11,8 +11,10 @@ by binomial sums instead of synthetic division. `./x epsilon_delta facts-check`
 compares the two outputs key by key. Standard library only.
 
 Exit 1 if any cross-check fails. The inputs the video chooses (the powers drawn,
-the fixed point 9/10, the tolerance 1/2, the waits' points, ε = 1/10, the two
-polynomials of Davis's note) are restated here; everything else is computed.
+the fixed point 9/10, the tolerance 1/2, the waits' points, chapter 03's point
+1/2, increments and tolerances, ε = 1/10, the two polynomials of Davis's note)
+and chapter 03's page references are restated here; everything else is
+computed.
 """
 import math
 import sys
@@ -215,6 +217,79 @@ for n in range(1, 61):
         break
 else:
     check(True, "n = 1..60: the printed width is 1 minus the printed crossing")
+
+# ---------------------------------------------------------------- chapter 03
+
+# the passage cited, as read in D. R. Wilkins's 2002 edition of The Analyst
+# (restated, not computed): its note on the text (p. iii) dates the first
+# editions 1734; §§XIII–XIV run over printed pages 5 and 6; the quoted
+# sentence is on page 6
+emit("C3.year", 1734)
+emit("C3.edition", 2002)
+emit("C3.page.first", 5)
+emit("C3.page.last", 6)
+emit("C3.quote.page", 6)
+
+A = Fraction(1, 2)  # our modern example, not Berkeley's notation: the square at x = 1/2
+NUDGES = [Fraction(1, 2), Fraction(1, 4), Fraction(1, 10), Fraction(-1, 2), Fraction(-1, 4), Fraction(-1, 10)]
+TOLERANCES = [Fraction(1, 10), Fraction(1, 20)]
+
+
+def fr(f):
+    """A Fraction as "1/2", "-1/4", or "1" when whole."""
+    return str(f.numerator) if f.denominator == 1 else f"{f.numerator}/{f.denominator}"
+
+
+def in_h(coeffs):
+    """A polynomial in h, lowest power first, as the screen writes it ("1 + h")."""
+    terms = []
+    for k, c in enumerate(coeffs):
+        if c == 0:
+            continue
+        check(c.denominator == 1 and c > 0, f"the coefficient {c} of h^{k} is a whole positive number")
+        power = "" if k == 0 else "h" if k == 1 else f"h^{k}"
+        terms.append(str(c.numerator) if k == 0 else power if c == 1 else f"{c.numerator}{power}")
+    return " + ".join(terms) or "0"
+
+
+def slope(h):
+    """The chord's slope from 1/2 to 1/2 + h, computed directly (raises at h = 0)."""
+    return ((A + h) ** 2 - A**2) / h
+
+
+emit("C3.power", 2)
+emit("C3.base", fr(A))
+emit("C3.base.height", fr(A**2))
+# (a + h)^2 - a^2 by the binomial theorem: the coefficient of h^k is
+# C(2, k) a^(2 - k), and the constant term cancels; dividing by h != 0
+# lowers every power by one
+change = [Fraction(0)] + [math.comb(2, k) * A ** (2 - k) for k in (1, 2)]
+quotient = change[1:]
+emit("C3.change", in_h(change))
+emit("C3.quotient", in_h(quotient))
+target = quotient[0]  # the slope is quotient[0] + quotient[1]·h, with quotient[1] = 1
+emit("C3.limit", fr(target))
+emit("C3.h.to", 0)
+try:
+    slope(Fraction(0))
+    check(False, "the slope at h = 0 has no value")
+except ZeroDivisionError:
+    check((A + 0) ** 2 - A**2 == 0, "at h = 0 the change is 0 and the slope is 0/0: no value")
+emit("C3.at_zero", f"{fr((A + 0) ** 2 - A**2)}/0")
+for i, h in enumerate(NUDGES):
+    s = slope(h)
+    check(s == quotient[0] + quotient[1] * h, f"h = {fr(h)}: the slope {fr(s)} is 1 + h")
+    emit(f"C3.h.{i}", fr(h))
+    emit(f"C3.slope.{i}", plain(to_decimal(s)))
+check(all(abs(slope(sign * Fraction(1, 10**k)) - target) == Fraction(1, 10**k) for k in range(1, 13) for sign in (1, -1)),
+      "h = ±10^-k: the slope is exactly 10^-k from 1, k = 1..12")
+for i, t in enumerate(TOLERANCES):
+    w = t / abs(quotient[1])  # |slope - target| = |quotient[1]|·|h|
+    inside = all(abs(slope(w * Fraction(k, 1000)) - target) < t for k in range(-999, 1000) if k)
+    edge = all(abs(slope(h) - target) == t for h in (w, -w))
+    check(inside and edge, f"tolerance {fr(t)}: every h with 0 < |h| < {fr(w)} tried is within it; |h| = {fr(w)} is not")
+    emit(f"C3.eps.{i}", fr(t))
+    emit(f"C3.delta.{i}", fr(w))
 
 # ------------------------------------------------- continuation (brief §3–4)
 

@@ -56,28 +56,76 @@ notes the owner supplied) and the open-set picture behind topology.
   A transient text crossfade at 48 s is unchanged; it is an accepted
   caveat. The independent reviews are TanElm's (3822, 3855, 3881, 3908).
   The lane's own checks were source-level only, and it inspected no image.
+- **Chapter 03** (`03_what_the_old_objection_was_about`, task `.58.3`) is
+  built. It opens on chapter 02's resting picture, rebuilt by chapter 02's
+  own builders (`shrinking_region::resting`). It shows Berkeley's objection
+  to a step: dividing by a nonzero increment, then setting it to zero. It
+  shows that step on a modern example, the square at x = 1/2, then the
+  limit, which never uses h = 0. All of the following is the orchestrator's
+  and TanElm's evidence, not this lane's:
+  - Source and history: TanElm (3994) fetched the primary PDF
+    independently. It confirmed the quote verbatim on p. 6 with its two
+    elisions, the page map, 1734, the paraphrases and the arithmetic, and
+    found no defect.
+  - Root's source review (3991) found the exact card shown too briefly and a
+    long source card competing with the quote; both were repaired before
+    native work (3998).
+  - Central23 stopped on a missing `Timed` import (E0599), fixed in 4004.
+  - Central24: fmt, strict all-target release Clippy, 52 native tests and
+    the build passed; all 107 fact rows equal the oracle; 130 glyph sources
+    rendered with 0 failures, and root viewed all 12 pages.
+  - Root viewed draft06's frames:
+    - the join with chapter 02's last frame (86 s);
+    - the modern algebra;
+    - the quotation at 36 and 43 s;
+    - the prediction at 47 s;
+    - the slope panel at 63 s;
+    - the end at 77 and 91 s.
+  - One finding from draft06: the Q(h) header stood 0.21 from the top,
+    inside the 0.25 title-safe margin. It was lowered, with its guard now
+    asserting that margin (4013), and passed in central25.
+  - TanElm (4017) measured the 0/0 step, its fan and its note at full
+    opacity for only about 1.3 s in draft07. They now carry into 03_6's
+    first sentence (4025).
+  - Central27: fmt, strict Clippy, the build and the 3 tests touching the
+    changed scene passed (49 unchanged tests filtered), with no input drift
+    and an empty layout report.
+  - The model, facts and glyphs are unchanged since central24's full run.
+  - TanElm (4033) measured the red 0/0 at full opacity from 55.667 to
+    59.967 s (4.33 s) and the note from 55.767 s (4.23 s). They clear from
+    60.0 to 60.4 s, before a clean panel and hops. Root's frames agree.
+
+  The draft is `.x/second-wave-20261019/draft08/epsilon_delta`: chapter 03
+  silent, 2778 frames, 92.60 s. This qualifies the mathematics, the sources
+  and sampled frames only: not audio, 4K or continuous motion. The lane's
+  own checks were source-level (oracle, storyboard, lint, units, rustfmt,
+  ubs), and it inspected no image.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
-keep the prediction time and not speed anything up. Narration pacing and the
-full audiovisual cut are not qualified. Whole-video, audio and
-continuous-playback acceptance are not claimed for either chapter. The
-continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md) §2,
-and the deltas its chapters need are already computed and oracle-checked.
+keep the prediction time and not speed anything up. Chapter 03's draft runs
+92.60 s against a storyboard estimate of 83.9 s; root let it run over to
+keep the mathematics readable (Mail 4001).
+Narration pacing and the full audiovisual cut are not qualified. Whole-video,
+audio and continuous-playback acceptance are not claimed for any chapter.
+The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
+§2, and the deltas its chapters need are already computed and
+oracle-checked.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, the constructive deltas and the naive one that fails |
-| `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it |
+| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, the constructive deltas and the naive one that fails |
+| `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it; chapter 03's page references |
 | `oracle.py` | the same keys computed independently (Python decimal and fractions, binomial sums; standard library only) |
 | `src/chapters/limit_that_jumps.rs` | chapter 01's scene, and the builders chapter 02 rebuilds its last picture with |
-| `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing |
+| `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing; and its resting picture, rebuilt for chapter 03 |
+| `src/chapters/old_objection.rs` | chapter 03's scene: the step on the square, 0/0 at h = 0, the slope panel, the tolerance and window |
 | `src/chapters/draw.rs` | the plot, the bright curve's morph, the colour roles, phrase timing, the think ring |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), colour roles, vocabulary, narration units and timing |
 | `narration_units.json` | the script grouped into coherent narration units, bound to `script.tsv`'s bytes |
 
 ```bash
-python3 -I -B oracle.py                          # 78 keys, cross-checks on stderr
+python3 -I -B oracle.py                          # 107 keys, cross-checks on stderr
 python3 -I tools/storyboard.py --check epsilon_delta
 python3 -I tools/lint_script.py explainer_corpus/epsilon_delta/script.tsv
 ./x epsilon_delta facts-check                    # the Rust facts against the oracle (builds)
@@ -109,6 +157,46 @@ Read for this chapter (2026-10-19):
   not re-read in this pass. `model.rs` reproduces the brief's arithmetic
   independently: δ = √(4 + ε) − 2 = 0.0248456731 at ε = 1/10, C = 22 and 187.
 
+Read for chapter 03 (2026-10-19, the brief's links; page numbers are the
+printed ones, with the PDF's 1-based page in parentheses):
+
+- **George Berkeley, *The Analyst***, D. R. Wilkins's 2002 edition of the
+  1734 text
+  ([PDF](https://www.maths.tcd.ie/pub/HistMath/People/Berkeley/Analyst/Analyst.pdf)).
+  - The note on the text, p. iii (3), says the edition is based on the 1734
+    first editions, London and Dublin. That is the year said in 03_1.
+  - §XIII begins at the foot of p. 5 (17) and runs onto p. 6 (18); §XIV is
+    on p. 6. The argument he examines lets x become x + o, expands (x + o)^n,
+    divides both increments by o to get 1 and nx^(n−1) + …, and then says
+    "Let now the Increments vanish".
+  - His objection, on p. 6, is the sentence 03_3 shows with two phrases
+    elided: "the former Supposition that the Increments were something, or
+    that there were Increments, is destroyed, and yet a Consequence of that
+    Supposition, i. e. an Expression got by virtue thereof, is retained."
+  - §XIV restates it. He has supposed "that o is something", then supposes
+    "that o is nothing", yet begs "leave to retain nx^(n−1)": "a most
+    inconsistent way of arguing".
+  - §§XV–XVI, p. 7 (19), were read for context and are not quoted. §XVI
+    notes that had the second supposition come "before the common Division
+    by o, all had vanished at once", and calls the move "this Artifice of
+    first dividing, and then changing your Supposition".
+  - Page numbering: the task note gives PDF pages 16–17 for printed 5–6. In
+    the copy read here, printed 5, 6 and 7 are PDF pages 17, 18 and 19, so
+    the chapter cites printed pages only.
+- **Richard Dedekind, preface to *Continuity and Irrational Numbers***,
+  dated March 20, 1872, in W. W. Beman's 1901 authorised translation
+  ([Project Gutenberg PDF](https://www.gutenberg.org/files/21016/21016-pdf.pdf)).
+  - The passage is on p. 1 (6); the task note gives PDF page 5, which is the
+    copyright page here.
+  - In the autumn of 1858, lecturing on the differential calculus in
+    Zürich, he "had recourse to geometric evidences" in proving "that every
+    magnitude which grows continually, but not beyond all limits, must
+    certainly approach a limiting value".
+  - That is a question about completeness, separate from Berkeley's
+    objection. Chapter 03 does not name him. Its last line says only that
+    whether a limit exists at all is a separate question. The passage is
+    recorded for chapter 12.
+
 Competing treatments inspected (page text only; no video was watched):
 [3Blue1Brown's epsilon–delta lesson](https://www.3blue1brown.com/lessons/epsilon-delta/)
 (2017) defines limits with input and output ranges, uses a rational function
@@ -125,8 +213,8 @@ competition review remains open.
 
 ## Scope limits kept in chapter 01
 
-- No historical names or dates are spoken (a test enforces it) until the
-  brief's page-level attribution check is done.
+- No historical names or dates are spoken in chapters 01 and 02 (a test
+  enforces it).
 - The narration says "unbroken". The lower-third states continuity on
   [0, 1] exactly. At the jump, the screen says that x = 1 is the domain's
   right end, where x arrives only from the left.
@@ -171,6 +259,69 @@ competition review remains open.
   are not shown on screen.
 - The window shares 0.670, 0.691 and 0.693 are shown as numbers, and the
   narration says "almost the same", not "the same".
+
+## Scope limits kept in chapter 03
+
+- Names and dates:
+  - One name and one year are spoken: George Berkeley and 1734, in 03_1,
+    03_3 and 03_8.
+  - A test holds that no other line says the name, and that each line that
+    does has a storyboard row citing The Analyst §§XIII–XIV, pp. 5–6.
+  - It also holds that no attribution not read at page level is said
+    anywhere: Cauchy, Weierstrass, Bolzano, Newton, Leibniz, Dedekind,
+    Heine, "invented" or "first to".
+- What is said about the history:
+  - The narration says Berkeley "questioned" and "objected" to a step. It
+    does not say early calculus was wrong, and it calls the answer, one,
+    right.
+  - It does not say whose argument he examines, and it names no one else.
+- The example is ours and modern: x² at x = 1/2, "in modern notation", said
+  before any step is shown. The screen says the same. That Berkeley writes o
+  for the increment and treats every power of x is stated here (Sources),
+  not on screen.
+- The citation on screen is concise. The column's heading gives the book,
+  its year and "§§XIII–XIV, pp. 5–6", and the quote's own line gives
+  "§XIII, p. 6 (Wilkins's 2002 edition)". An earlier draft also had a
+  210-character source lower-third competing with the quote during 03_3 and
+  03_4 (root's source review, Mail 3991); it was removed.
+- Reading time:
+  - The 130-character quote and its 59-character attribution stay up
+    through 03_4's question, then cross-fade into the think ring. That is
+    about 11.6 s fully shown, estimated from source; root viewed it at 36
+    and 43 s.
+  - The 0/0 step, its fan and its 43-character note stay fully shown at
+    least 4 s from the completed reveal. They carry into 03_6's first
+    sentence, which says the answer is reached without h ever being zero.
+  - A const assert holds that 4 s to at least the note's characters at
+    15 a second plus 1 s. TanElm measured 4.33 s for the 0/0 and 4.23 s for
+    the note in draft08 (4033). Draft07 showed them for about 1.3 s (4017).
+  - The precisely card (160 characters) comes in at "Any tolerance", as the
+    window narrows, and stays to the chapter's end through 03_8: about
+    16.8 s fully shown, estimated from source.
+  - Root saw the card on two lines, clear of the "next:" line (4010). It
+    still says that the slope is exactly 1 + h for every h ≠ 0, that every
+    tolerance has its window, and that h = 0 gives 0/0, which the limit
+    never uses.
+  - The first source showed a 217-character card only on "the limit is one"
+    and removed it as 03_8 began, about 1.9 s (Mail 3991).
+- The model computes the chord's slope only for h ≠ 0. At h = 0 it refuses
+  0/0, and the facts refuse to build if it ever accepts it. The tests and the
+  oracle (fractions, independently) check that:
+  - the slope is exactly 1 + h for every nonzero rational h tried, on both
+    sides;
+  - the window 0 < |h| < t keeps it strictly within t of 1;
+  - at |h| = t it is exactly t away, so no wider window works.
+- The tolerances:
+  - 1/10 is said and 1/20 is shown. A test holds that each window is drawn
+    wider than the hollow mark at h = 0, so it reads around it.
+  - "Epsilon" and "delta" are not said yet; the narration says "tolerance".
+- The fan of 03_5 is drawn at slopes from −1/2 to 3 to show that any line
+  through one point fits 0/0. Those slopes are not printed.
+- Not claimed:
+  - that this definition settles whether limits exist (03_8 calls that a
+    separate question);
+  - any date for Cauchy or Weierstrass;
+  - that anyone was the first to write it.
 
 ## Narration
 

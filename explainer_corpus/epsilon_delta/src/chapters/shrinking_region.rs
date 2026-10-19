@@ -145,7 +145,7 @@ fn end_mark(stage: &mut Stage<'_>, at: Vec3, color: Srgb, belongs: bool) -> Mob 
 }
 
 /// A ring that glows around `at` and fades: a highlight that leaves nothing.
-fn glow(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, r: f64) -> fmn::Result<()> {
+pub(super) fn glow(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, r: f64) -> fmn::Result<()> {
     let ring = Circle::new()
         .radius(r)
         .arc_center(at)
@@ -356,6 +356,82 @@ fn opening(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Opening> 
         dot,
         bar,
         panel,
+    })
+}
+
+/// This chapter's last picture as it rests, for the chapter after it: the
+/// axes (in the scene, not returned, since they stay), the bright curve, and
+/// `rest` and `summary`, which that chapter clears.
+pub(super) struct Resting {
+    pub bright: Bright,
+    pub rest: Vec<Mob>,
+    pub summary: [Mob; 2],
+}
+
+/// This chapter's last picture, rebuilt with its own builders and in the
+/// state 02_9 leaves it: the main plot at x¹⁰⁰⁰ over the dim curves the
+/// opening drew and the copies 02_4 left of x¹⁰⁰, x²⁰⁰ and x⁵⁰⁰ (02_4 also
+/// leaves a copy of x⁵⁰ exactly on the opening's dim x⁵⁰; it is drawn once
+/// here, and the opaque stroke differs at most in antialiasing), the limit,
+/// the half line, the moving point with its gap bar and the strip under the
+/// axis; the window at ×1000 with its fixed parts, its view of x¹⁰⁰⁰ (strips
+/// and end marks) and the two legends; and the two summary lines. Everything
+/// faded before 02_9 ends (the panel, readouts, pixel notes, magnifier,
+/// arrow, share rows, lower-thirds) is not rebuilt.
+pub(super) fn resting(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Resting> {
+    let last = MORE_POWERS[MORE_POWERS.len() - 1];
+    let zoom = ZOOMS[ZOOMS.len() - 1];
+    let axes = PLOT.axes(kit, stage)?;
+    let mut rest = PLOT.limit(stage)?.to_vec();
+    for &n in &POWERS {
+        rest.push(PLOT.curve(stage, n, ghost(), GHOST_W)?);
+    }
+    rest.extend(half_line(kit, stage)?);
+    for &n in &MORE_POWERS[..MORE_POWERS.len() - 1] {
+        rest.push(PLOT.curve(stage, n, ghost(), GHOST_W)?);
+    }
+    let curve = PLOT.curve(stage, last, curve_color(), BRIGHT_W)?;
+    let label = curve_label(kit, stage, last)?;
+    rest.push(main_strip(stage, last)?);
+    // the window's fixed parts sit where 02_1 put them at ×10: its border,
+    // half line and limit are drawn relative to the panel, the same at every
+    // stretch
+    let window = lens(zoom);
+    rest.push(stage.arena_mut().add(window.frame.border(Palette::dim())?));
+    rest.push(window.dashed(stage, (window.frame.x.0, 0.5), (1.0, 0.5), moving())?);
+    rest.extend(window.limit(stage)?);
+    rest.push(kit.text(
+        stage,
+        &fact(f, "C1.domain.right")?,
+        22.0,
+        Palette::dim(),
+        v(window.p(1.0, 0.0)[0], ENDS_Y),
+    )?);
+    let view = View::build(kit, stage, f, last, zoom)?;
+    rest.extend(view.shapes);
+    rest.extend(view.marks.into_iter().flatten());
+    rest.extend(view.labels);
+    let legend_x = LENS_CENTER[0] - LENS_W / 2.0;
+    rest.push(kit.tex_left(stage, ABOVE_LEGEND, 28.0, moving(), &[], v(legend_x, LEGEND_Y[0]))?);
+    rest.push(kit.tex_left(stage, GAP_LEGEND, 28.0, gap_color(), &[], v(legend_x, LEGEND_Y[1]))?);
+    let [dot, bar] = witness_at(stage, last)?;
+    let summary = [
+        kit.text_left(stage, EVERY_POINT, 26.0, Palette::ink(), v(READ_X, READ_Y[0]))?,
+        kit.text_left(stage, WHO_FIRST, 22.0, Palette::dim(), v(READ_X, READ_Y[1] - 0.05))?,
+    ];
+    for &m in axes
+        .iter()
+        .chain(&rest)
+        .chain(&[curve, label, bar, dot])
+        .chain(&summary)
+    {
+        stage.add_to_scene(m)?;
+    }
+    rest.extend([bar, dot]);
+    Ok(Resting {
+        bright: Bright::new(curve, label, last),
+        rest,
+        summary,
     })
 }
 

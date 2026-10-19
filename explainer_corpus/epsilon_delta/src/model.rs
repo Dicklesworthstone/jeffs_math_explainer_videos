@@ -584,6 +584,204 @@ pub fn change_at(shifted: &[i128], hn: i128, hd: i128) -> Result<(i128, i128), S
     Ok((num / g, den / g))
 }
 
+// ------------------------------------------ chapter 03: the old objection
+
+/// A signed exact fraction num/den in lowest terms, den > 0: chapter 03's
+/// increments h and what the square does with them.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Frac {
+    pub num: i64,
+    pub den: i64,
+}
+
+impl Frac {
+    /// num/den in lowest terms; a zero denominator is refused. (The tests
+    /// build fractions with it; the chapter's are constants.)
+    #[cfg(test)]
+    pub fn new(num: i64, den: i64) -> Result<Self, String> {
+        Self::reduced(i128::from(num), i128::from(den))
+    }
+
+    pub const fn whole(n: i64) -> Self {
+        Self { num: n, den: 1 }
+    }
+
+    fn reduced(num: i128, den: i128) -> Result<Self, String> {
+        if den == 0 {
+            return Err(format!("{num}/0 is not a number"));
+        }
+        // den ≠ 0, so g ≥ 1
+        let g = i128::try_from(gcd(num.unsigned_abs(), den.unsigned_abs())).map_err(|_| "a fraction overflows")?;
+        let (num, den) = (den.signum() * num / g, den.signum() * den / g);
+        let overflow = || format!("{num}/{den} overflows");
+        Ok(Self {
+            num: i64::try_from(num).map_err(|_| overflow())?,
+            den: i64::try_from(den).map_err(|_| overflow())?,
+        })
+    }
+
+    fn wide(self) -> (i128, i128) {
+        (i128::from(self.num), i128::from(self.den))
+    }
+
+    pub fn plus(self, o: Self) -> Result<Self, String> {
+        let ((a, b), (c, d)) = (self.wide(), o.wide());
+        Self::reduced(a * d + c * b, b * d)
+    }
+
+    pub fn minus(self, o: Self) -> Result<Self, String> {
+        let ((a, b), (c, d)) = (self.wide(), o.wide());
+        Self::reduced(a * d - c * b, b * d)
+    }
+
+    pub fn times(self, o: Self) -> Result<Self, String> {
+        let ((a, b), (c, d)) = (self.wide(), o.wide());
+        Self::reduced(a * c, b * d)
+    }
+
+    /// self / o; dividing by zero is refused, never approximated.
+    pub fn over(self, o: Self) -> Result<Self, String> {
+        if o.num == 0 {
+            return Err(format!("{self}/0 is not a number"));
+        }
+        let ((a, b), (c, d)) = (self.wide(), o.wide());
+        Self::reduced(a * d, b * c)
+    }
+
+    pub fn negated(self) -> Result<Self, String> {
+        let (a, b) = self.wide();
+        Self::reduced(-a, b)
+    }
+
+    pub fn is_zero(self) -> bool {
+        self.num == 0
+    }
+
+    /// Whether self is within `tol` of `centre`, strictly: |self − centre| < tol.
+    pub fn within(self, centre: Self, tol: Self) -> Result<bool, String> {
+        let d = self.minus(centre)?;
+        Ok(d < tol && d > tol.negated()?)
+    }
+
+    pub fn f64(self) -> f64 {
+        self.num as f64 / self.den as f64
+    }
+}
+
+impl Ord for Frac {
+    fn cmp(&self, other: &Self) -> Ordering {
+        // both denominators are positive
+        let ((a, b), (c, d)) = (self.wide(), other.wide());
+        (a * d).cmp(&(c * b))
+    }
+}
+
+impl PartialOrd for Frac {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for Frac {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.den == 1 {
+            write!(f, "{}", self.num)
+        } else {
+            write!(f, "{}/{}", self.num, self.den)
+        }
+    }
+}
+
+/// Chapter 03's example, ours and modern, not Berkeley's: his §§XIII–XIV
+/// treat any power x^n and write o for the increment. Here the square, at
+/// x = 1/2 (fact `C3.base`).
+pub const BASE: Frac = Frac { num: 1, den: 2 };
+/// The square's power (fact `C3.power`).
+pub const SQUARE: u32 = 2;
+
+/// The increments chapter 03 shrinks, from above and then from below (facts
+/// `C3.h.*`). None is zero, so every chord has two distinct ends, and each
+/// keeps 1/2 + h inside the plot's [0, 1].
+pub const NUDGES: [Frac; 6] = [
+    Frac { num: 1, den: 2 },
+    Frac { num: 1, den: 4 },
+    Frac { num: 1, den: 10 },
+    Frac { num: -1, den: 2 },
+    Frac { num: -1, den: 4 },
+    Frac { num: -1, den: 10 },
+];
+
+/// The tolerances chapter 03 draws around the limit (facts `C3.eps.*`).
+pub const TOLERANCES: [Frac; 2] = [Frac { num: 1, den: 10 }, Frac { num: 1, den: 20 }];
+
+/// (a + h)² − a², the square's change from a to a + h, exactly. At h = 0
+/// it is zero.
+pub fn square_change(a: Frac, h: Frac) -> Result<Frac, String> {
+    let moved = a.plus(h)?;
+    moved.times(moved)?.minus(a.times(a)?)
+}
+
+/// The slope of the chord of y = x² from x = a to x = a + h,
+/// ((a + h)² − a²)/h, for h ≠ 0 only. At h = 0 the chord's two ends are one
+/// point and the quotient is 0/0, which names no number: it is refused,
+/// never evaluated.
+pub fn chord_slope(a: Frac, h: Frac) -> Result<Frac, String> {
+    if h.is_zero() {
+        return Err(format!(
+            "at h = 0 the chord's slope is (({a})² − ({a})²)/0 = 0/0, which is no number"
+        ));
+    }
+    square_change(a, h)?.over(h)
+}
+
+/// The change and the slope as polynomials in h, coefficients lowest power
+/// first: (a + h)² − a² = 0 + 2a·h + h², and for h ≠ 0 only, dividing by h
+/// leaves the slope 2a + h. The tests hold [`chord_slope`] to it.
+pub fn chord_formula(a: Frac) -> Result<([Frac; 3], [Frac; 2]), String> {
+    let two_a = a.times(Frac::whole(2))?;
+    let one = Frac::whole(1);
+    Ok(([Frac::whole(0), two_a, one], [two_a, one]))
+}
+
+/// Where the chord slopes go as h → 0 through nonzero h: 2a. The slope is
+/// 2a + h exactly, so its distance from 2a is |h|: for every tolerance t > 0
+/// the window 0 < |h| < t ([`window`]) keeps it within t, and no wider window
+/// does, since at |h| = t the distance is t itself.
+pub fn chord_limit(a: Frac) -> Result<Frac, String> {
+    a.times(Frac::whole(2))
+}
+
+/// The half-width of the window of nonzero h that keeps every chord slope
+/// within the tolerance t of [`chord_limit`]: t itself, for t > 0.
+pub fn window(t: Frac) -> Result<Frac, String> {
+    if t <= Frac::whole(0) {
+        Err(format!("a tolerance is strictly positive, not {t}"))
+    } else {
+        Ok(t)
+    }
+}
+
+/// The line through (x0, y0) with slope s, clipped to the square [0, 1]²:
+/// its ends, left to right. Floating point: it is drawn, never printed.
+pub fn clip_unit(x0: f64, y0: f64, s: f64) -> Result<[(f64, f64); 2], String> {
+    let y = |x: f64| y0 + s * (x - x0);
+    let (mut lo, mut hi) = (0.0f64, 1.0f64);
+    if s == 0.0 {
+        if !(0.0..=1.0).contains(&y0) {
+            return Err(format!("the flat line y = {y0} misses [0, 1]²"));
+        }
+    } else {
+        let (at0, at1) = (x0 - y0 / s, x0 + (1.0 - y0) / s);
+        lo = lo.max(at0.min(at1));
+        hi = hi.min(at0.max(at1));
+    }
+    if lo < hi {
+        Ok([(lo, y(lo)), (hi, y(hi))])
+    } else {
+        Err(format!("the line through ({x0}, {y0}) with slope {s} misses [0, 1]²"))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -971,6 +1169,118 @@ mod tests {
         assert_eq!(width_rounded(1, 1, 1).unwrap(), "0.5");
         assert!(width_rounded(1, 3, 3).is_err(), "3 × 1/2 is not below 1");
         assert!(width_rounded(5, 0, 3).is_err() && width_rounded(5, 1, 0).is_err() && width_rounded(0, 1, 3).is_err());
+    }
+
+    fn q(num: i64, den: i64) -> Frac {
+        Frac::new(num, den).unwrap()
+    }
+
+    #[test]
+    fn signed_fractions_are_exact_and_refuse_zero_denominators() {
+        assert_eq!(q(2, -4), q(-1, 2));
+        assert_eq!(q(-3, -6).to_string(), "1/2");
+        assert_eq!(q(4, 2).to_string(), "2");
+        assert_eq!(q(-1, 10).to_string(), "-1/10");
+        assert_eq!(q(1, 3).plus(q(1, 6)).unwrap(), q(1, 2));
+        assert_eq!(q(1, 3).minus(q(1, 2)).unwrap(), q(-1, 6));
+        assert_eq!(q(-2, 3).times(q(3, 4)).unwrap(), q(-1, 2));
+        assert_eq!(q(1, 2).over(q(-1, 4)).unwrap(), q(-2, 1));
+        assert_eq!(q(1, 4).negated().unwrap(), q(-1, 4));
+        assert!(Frac::new(1, 0).is_err());
+        assert!(q(1, 2).over(q(0, 5)).is_err(), "no division by zero");
+        assert!(q(-1, 2) < q(-1, 3) && q(1, 3) < q(1, 2) && q(0, 1) == Frac::whole(0));
+        assert!(q(11, 10).within(q(1, 1), q(1, 5)).unwrap());
+        assert!(!q(6, 5).within(q(1, 1), q(1, 5)).unwrap(), "strictly within");
+        assert!(!q(4, 5).within(q(1, 1), q(1, 5)).unwrap(), "strictly within, below too");
+    }
+
+    /// The modern step on the square: for every nonzero h tried, from either
+    /// side, the change is 2a·h + h² and the chord's slope is exactly 2a + h;
+    /// at h = 0 the change is zero, so the quotient would be 0/0, and it is
+    /// refused.
+    #[test]
+    fn the_chord_slope_is_two_a_plus_h_for_every_nonzero_h() {
+        for a in [BASE, q(0, 1), q(3, 4), q(-2, 3)] {
+            let (change, slope) = chord_formula(a).unwrap();
+            assert_eq!(change, [q(0, 1), a.times(q(2, 1)).unwrap(), q(1, 1)]);
+            assert_eq!(slope, [chord_limit(a).unwrap(), q(1, 1)]);
+            assert!(square_change(a, q(0, 1)).unwrap().is_zero(), "nothing changes at h = 0");
+            assert!(chord_slope(a, q(0, 1)).is_err(), "0/0 is refused at a = {a}");
+            for k in (-60..=60).filter(|&k| k != 0) {
+                for den in [1, 7, 40, 1000] {
+                    let h = q(k, den);
+                    let want_change = change[1].times(h).unwrap().plus(h.times(h).unwrap()).unwrap();
+                    assert_eq!(square_change(a, h).unwrap(), want_change, "a = {a}, h = {h}");
+                    let want = slope[0].plus(h).unwrap();
+                    assert_eq!(chord_slope(a, h).unwrap(), want, "a = {a}, h = {h}");
+                }
+            }
+        }
+        assert_eq!(chord_limit(BASE).unwrap(), q(1, 1));
+        let slopes: Vec<String> = NUDGES
+            .iter()
+            .map(|&h| chord_slope(BASE, h).unwrap().to_string())
+            .collect();
+        assert_eq!(slopes, ["3/2", "5/4", "11/10", "1/2", "3/4", "9/10"]);
+    }
+
+    /// The limit, exactly: for each tolerance t, every rational h with
+    /// 0 < |h| < t tried puts the slope strictly within t of 1, and at
+    /// |h| = t it is exactly t away, so no wider window works.
+    #[test]
+    fn the_window_keeps_every_nonzero_h_within_the_tolerance() {
+        let limit = chord_limit(BASE).unwrap();
+        for t in TOLERANCES.into_iter().chain([q(1, 2), q(3, 1000), q(7, 3)]) {
+            let w = window(t).unwrap();
+            assert_eq!(w, t);
+            for k in (-999..=999).filter(|&k| k != 0) {
+                let h = w.times(q(k, 1000)).unwrap();
+                assert!(
+                    chord_slope(BASE, h).unwrap().within(limit, t).unwrap(),
+                    "t = {t}, h = {h}"
+                );
+            }
+            for edge in [w, w.negated().unwrap()] {
+                let d = chord_slope(BASE, edge).unwrap().minus(limit).unwrap();
+                assert!(d == t || d == t.negated().unwrap(), "at |h| = t the slope is t away");
+            }
+            let wider = w.times(q(1001, 1000)).unwrap();
+            let outside = w.plus(wider).unwrap().over(q(2, 1)).unwrap();
+            assert!(!chord_slope(BASE, outside).unwrap().within(limit, t).unwrap());
+        }
+        assert!(window(q(0, 1)).is_err() && window(q(-1, 10)).is_err());
+    }
+
+    /// Every chord drawn passes through both of its points and ends on the
+    /// edge of the square; so does the line of slope 1, and the fan of
+    /// lines through the base point.
+    #[test]
+    fn the_chords_are_clipped_to_the_square_through_their_points() {
+        let (x0, y0) = (BASE.f64(), BASE.f64() * BASE.f64());
+        let on_edge = |(x, y): (f64, f64)| {
+            let near = |a: f64, b: f64| (a - b).abs() < 1e-12;
+            (-1e-12..=1.0 + 1e-12).contains(&x)
+                && (-1e-12..=1.0 + 1e-12).contains(&y)
+                && (near(x, 0.0) || near(x, 1.0) || near(y, 0.0) || near(y, 1.0))
+        };
+        let mut slopes: Vec<f64> = NUDGES.iter().map(|&h| chord_slope(BASE, h).unwrap().f64()).collect();
+        slopes.extend([0.75, 1.0, 1.25]);
+        for (i, &s) in slopes.iter().enumerate() {
+            let [a, b] = clip_unit(x0, y0, s).unwrap();
+            assert!(a.0 < b.0 && on_edge(a) && on_edge(b), "slope {s}");
+            assert!(a.0 <= x0 && x0 <= b.0);
+            if let Some(&h) = NUDGES.get(i) {
+                let x = BASE.plus(h).unwrap().f64();
+                assert!((0.0..=1.0).contains(&x), "1/2 + {h} is in the plot");
+                assert!(
+                    a.0 - 1e-12 <= x && x <= b.0 + 1e-12,
+                    "h = {h}: the far point is on the drawn chord"
+                );
+                assert!((y0 + s * (x - x0) - x * x).abs() < 1e-12);
+            }
+        }
+        assert!(clip_unit(0.5, 2.0, 0.0).is_err());
+        assert!(clip_unit(5.0, 0.0, 1.0).is_err());
     }
 
     /// The plot is 1296 pixels wide in the 4K picture; the strip is narrower

@@ -5,9 +5,10 @@
 //! `oracle.py`, which computes the same keys independently (Python's
 //! fractions and decimal modules, binomial sums, no shared code).
 //!
-//! Chapter 01's keys start `C1.`; the continuation's constructive deltas
-//! (brief §3–4: Sprague's note `S.`, Davis's `D1.`/`D2.`, the naive guess
-//! that fails `N.`) are computed and checked now, before their chapters.
+//! Chapter 01's keys start `C1.`, chapter 02's `C2.`, chapter 03's `C3.`;
+//! the continuation's constructive deltas (brief §3–4: Sprague's note `S.`,
+//! Davis's `D1.`/`D2.`, the naive guess that fails `N.`) are computed and
+//! checked now, before their chapters.
 
 use std::f64::consts::LN_2;
 
@@ -16,8 +17,9 @@ use fmn::core::constants::FRAME_WIDTH;
 
 use crate::chapters::draw::{LENS_H, LENS_HEIGHTS, LENS_W, PLOT};
 use crate::model::{
-    HALF, MORE_POWERS, POWERS, Ratio, ZOOMS, change_at, davis_delta, decimal_power, first_within, gap,
-    half_height_rounded, limit, local_bound, recenter, round_half_up, sprague_delta_rounded, width_rounded,
+    BASE, Frac, HALF, MORE_POWERS, NUDGES, POWERS, Ratio, SQUARE, TOLERANCES, ZOOMS, change_at, chord_formula,
+    chord_limit, chord_slope, davis_delta, decimal_power, first_within, gap, half_height_rounded, limit, local_bound,
+    recenter, round_half_up, sprague_delta_rounded, square_change, width_rounded, window,
 };
 
 /// The point chapter 01 pins, a/10^k: nine tenths.
@@ -34,6 +36,16 @@ pub const WAITS: [(u32, u32); 3] = [(9, 1), (99, 2), (999, 3)];
 /// Where the pinned literals come from.
 const MIT: &str = "MIT 18.100B Spring 2025, lecture 20, Example 1 (f = 0 on [0, 1), f(1) = 1)";
 const BRIEF: &str = "docs/video-program/briefs/epsilon-delta.md";
+
+/// The passage chapter 03 cites, as read (2026-10-19) in D. R. Wilkins's
+/// 2002 edition of Berkeley's The Analyst (the brief's link): its note on
+/// the text (page iii) dates the first editions 1734; §§XIII–XIV run over
+/// its printed pages 5 and 6, and the sentence the chapter quotes is on page
+/// 6. Restated here and in the oracle, not computed.
+const ANALYST_YEAR: u32 = 1734;
+const ANALYST_EDITION: u32 = 2002;
+const ANALYST_PAGES: (u32, u32) = (5, 6);
+const QUOTE_PAGE: u32 = 6;
 
 /// a/10^k as an exact point of [0, 1].
 pub fn decimal_point((a, k): (u32, u32)) -> Result<Ratio, String> {
@@ -75,8 +87,96 @@ pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     opening(&mut f)?;
     strip(&mut f)?;
+    objection(&mut f)?;
     continuation(&mut f)?;
     Ok(f)
+}
+
+/// A positive fraction's exact decimal ("1.25").
+fn decimal(x: Frac) -> Result<String, String> {
+    let num = u128::try_from(x.num).map_err(|_| format!("{x} is negative"))?;
+    terminating(num, u128::from(x.den.unsigned_abs()))
+}
+
+/// A polynomial in h from its coefficients, lowest power first, as the
+/// screen writes it: "1 + h", "h + h^2". A zero coefficient is left out;
+/// only whole positive ones are written.
+fn in_h(coeffs: &[Frac]) -> Result<String, String> {
+    let mut terms = Vec::new();
+    for (k, &c) in coeffs.iter().enumerate() {
+        if c.is_zero() {
+            continue;
+        }
+        if c.den != 1 || c.num < 0 {
+            return Err(format!("the coefficient {c} of h^{k} is not a whole positive number"));
+        }
+        let power = match k {
+            0 => String::new(),
+            1 => "h".to_owned(),
+            _ => format!("h^{k}"),
+        };
+        terms.push(match (k, c.num) {
+            (0, n) => n.to_string(),
+            (_, 1) => power,
+            (_, n) => format!("{n}{power}"),
+        });
+    }
+    Ok(if terms.is_empty() {
+        "0".to_owned()
+    } else {
+        terms.join(" + ")
+    })
+}
+
+/// Chapter 03: the passage it cites; the square at x = 1/2, its change and
+/// its chord's slope for nonzero h, the slope at each increment drawn, the
+/// 0/0 at h = 0, where the slopes go, and the window that keeps them within
+/// each tolerance drawn.
+fn objection(f: &mut Facts) -> Result<(), String> {
+    f.add("C3.year", ANALYST_YEAR)?;
+    f.add("C3.edition", ANALYST_EDITION)?;
+    f.add("C3.page.first", ANALYST_PAGES.0)?;
+    f.add("C3.page.last", ANALYST_PAGES.1)?;
+    f.add("C3.quote.page", QUOTE_PAGE)?;
+
+    f.add("C3.power", SQUARE)?;
+    f.add("C3.base", BASE)?;
+    f.add("C3.base.height", BASE.times(BASE)?)?;
+    let (change, slope) = chord_formula(BASE)?;
+    f.add("C3.change", in_h(&change)?)?;
+    f.add("C3.quotient", in_h(&slope)?)?;
+    let target = chord_limit(BASE)?;
+    f.add("C3.limit", target)?;
+    // h goes to 0 and is never 0: there the change is 0 too, the quotient
+    // would be 0/0, and the model refuses it
+    let zero = Frac::whole(0);
+    f.add("C3.h.to", zero)?;
+    if chord_slope(BASE, zero).is_ok() {
+        return Err("the chord's slope at h = 0 must be refused".to_owned());
+    }
+    f.add("C3.at_zero", format!("{}/{zero}", square_change(BASE, zero)?))?;
+    for (i, &h) in NUDGES.iter().enumerate() {
+        let s = chord_slope(BASE, h)?;
+        if s != slope[0].plus(h.times(slope[1])?)? {
+            return Err(format!("at h = {h} the slope {s} is not {}", in_h(&slope)?));
+        }
+        f.add(&format!("C3.h.{i}"), h)?;
+        f.add(&format!("C3.slope.{i}"), decimal(s)?)?;
+    }
+    // each window works and is no wider than it must be: halfway out the
+    // slope is within the tolerance, at the window's edge it is not
+    for (i, &t) in TOLERANCES.iter().enumerate() {
+        let w = window(t)?;
+        let half = w.over(Frac::whole(2))?;
+        for (h, inside) in [(half, true), (half.negated()?, true), (w, false), (w.negated()?, false)] {
+            if chord_slope(BASE, h)?.within(target, t)? != inside {
+                return Err(format!("tolerance {t}: the window {w} misjudges h = {h}"));
+            }
+        }
+        f.add(&format!("C3.eps.{i}"), t)?;
+        f.add(&format!("C3.delta.{i}"), w)?;
+    }
+    Ok(())
 }
 
 /// Chapter 02: the strip's widths as the power grows, the zoom windows and
@@ -316,6 +416,46 @@ mod tests {
         assert!(widths.windows(2).all(|w| w[1] < w[0]) && widths.iter().all(|&w| w > 0.0));
         let shares: Vec<f64> = ZOOMS.iter().map(|m| num(format!("C2.share.n{m}.3dp"))).collect();
         assert!(shares.windows(2).all(|s| s[1] >= s[0]) && shares.iter().all(|&s| s < LN_2));
+    }
+
+    /// The numbers chapter 03 puts on screen or says, as they will read; the
+    /// slopes close in on 1 from each side, and the zero increment gives 0/0.
+    #[test]
+    fn the_objection_numbers_read_as_shown() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        assert_eq!(get("C3.year"), "1734");
+        assert_eq!(get("C3.page.first"), "5");
+        assert_eq!(get("C3.quote.page"), "6");
+        assert_eq!(get("C3.power"), "2");
+        assert_eq!(get("C3.base"), "1/2");
+        assert_eq!(get("C3.base.height"), "1/4");
+        assert_eq!(get("C3.change"), "h + h^2");
+        assert_eq!(get("C3.quotient"), "1 + h");
+        assert_eq!(get("C3.limit"), "1");
+        assert_eq!(get("C3.h.to"), "0");
+        assert_eq!(get("C3.at_zero"), "0/0");
+        assert_eq!(get("C3.h.4"), "-1/4");
+        assert_eq!(get("C3.eps.1"), "1/20");
+        assert_eq!(get("C3.delta.0"), "1/10");
+        let slopes: Vec<&str> = (0..NUDGES.len()).map(|i| get(&format!("C3.slope.{i}"))).collect();
+        assert_eq!(slopes, ["1.5", "1.25", "1.1", "0.5", "0.75", "0.9"]);
+        let num = |s: &str| -> f64 { s.parse().unwrap() };
+        let (above, below) = slopes.split_at(3);
+        assert!(above.windows(2).all(|w| num(w[1]) < num(w[0])) && above.iter().all(|&s| num(s) > 1.0));
+        assert!(below.windows(2).all(|w| num(w[1]) > num(w[0])) && below.iter().all(|&s| num(s) < 1.0));
+    }
+
+    #[test]
+    fn polynomials_in_h_read_as_written() {
+        let w = |n: i64| Frac::whole(n);
+        assert_eq!(in_h(&[w(0), w(1), w(1)]).unwrap(), "h + h^2");
+        assert_eq!(in_h(&[w(1), w(1)]).unwrap(), "1 + h");
+        assert_eq!(in_h(&[w(4), w(0), w(3)]).unwrap(), "4 + 3h^2");
+        assert_eq!(in_h(&[w(0)]).unwrap(), "0");
+        assert!(in_h(&[w(1), w(-1)]).is_err() && in_h(&[BASE]).is_err());
+        assert_eq!(decimal(BASE).unwrap(), "0.5");
+        assert!(decimal(w(-1)).is_err());
     }
 
     #[test]
