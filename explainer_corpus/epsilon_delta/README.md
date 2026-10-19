@@ -9,29 +9,62 @@ video turns that difference, who chooses the point and when, into epsilon
 and delta, then into constructive choices of delta (the Sprague and Davis
 notes the owner supplied) and the open-set picture behind topology.
 
-**Status (2026-10-19, revision `v1-michael-20261019`, task
-`mx-video-program-program-87do.58.1`):** chapter 01
-(`01_a_limit_that_jumps`, 82.9 s by the storyboard's estimate) is written
-as code: its scene, facts, model and independent oracle, with its
-storyboard, script and narration units. Nothing has been compiled,
-rendered or narrated here; the corpus orchestrator runs the central build,
-tests, draft render and frame review. A scratch draft must confirm the
-chapter stays under 85 s. The continuation is outlined in
-[`docs/storyboard.md`](docs/storyboard.md) §2, and the deltas its chapters
-need are already computed and oracle-checked.
+**Status (2026-10-19, revision `v1-michael-20261019`):**
+
+- **Chapter 01** (`01_a_limit_that_jumps`, task
+  `mx-video-program-program-87do.58.1`) landed in commit 520dff7. The
+  orchestrator verified it, not this lane (Mail 3766): strict Clippy, 33
+  native tests, all 55 facts against the oracle, a rebuilt and rendered
+  opening, and its own viewing of all 10 cue-end frames, all 6 glyph pages
+  and the prediction and reveal frames at 32.9, 37.9 and 39.2 s. The
+  question holds without the answer; the reveal follows it. The lane's own
+  checks were source-level only (oracle, storyboard, lint, rustfmt, ubs);
+  it inspected no rendered image.
+- **Chapter 02** (`02_the_shrinking_region`, task `.58.2`) is built. Its
+  right-panel pieces are rebuilt from chapter 01's own builders. The
+  orchestrator's batch central13 ran on handoff 3868 (Mail 3871); all of
+  the following is root's evidence, not this lane's:
+  - fmt, strict release all-target Clippy, 42 tests and the build passed;
+  - all 78 native fact rows equal the independent oracle, whose 58
+    cross-checks pass;
+  - 97 glyph sources rendered with 0 failures, and root viewed all 9 pages;
+  - root viewed all 10 opening cue-end frames, all 9 chapter 02 cue-end
+    frames, and 12 prediction, zoom, reset and card frames at 37, 39, 42,
+    45, 47, 50, 54.3, 58.2, 60.5, 62.3, 65 and 67.5 s. Root reported correct
+    endpoints, no overlap, an intact prediction interval, the window label
+    going 10 → 100 → 1000 through the reset, and the short card on one line,
+    visible from 62.3 through 67.5 s. The layout lint report was empty.
+
+  The drafts are in `.x/second-wave-20261019/draft04/epsilon_delta`
+  (silent, 960×540, 30 fps):
+  - the opening: 2795 frames, 93.17 s, byte-identical to draft01 with
+    identical cues;
+  - chapter 02: 2618 frames, 87.27 s.
+
+  The independent review of the repairs is TanElm's (3822, 3855). The lane's
+  own checks were source-level only, and it inspected no image.
+
+**Limits.** Both silent scratch drafts run longer than the ~85 s chapter
+target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
+keep the prediction time and not speed anything up. Narration pacing and the
+full audiovisual cut are not qualified. Whole-video and audio acceptance are
+not claimed for either chapter. The
+continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md) §2,
+and the deltas its chapters need are already computed and oracle-checked.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: the curves, the limit, the moving point, exact big-integer certificates for every printed decimal, the constructive deltas and the naive one that fails |
+| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, the constructive deltas and the naive one that fails |
 | `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it |
 | `oracle.py` | the same keys computed independently (Python decimal and fractions, binomial sums; standard library only) |
-| `src/chapters/limit_that_jumps.rs` | chapter 01's scene |
-| `src/chapters/draw.rs` | the plot, the colour roles, phrase timing, the think ring |
+| `src/chapters/limit_that_jumps.rs` | chapter 01's scene, and the builders chapter 02 rebuilds its last picture with |
+| `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing |
+| `src/chapters/draw.rs` | the plot, the bright curve's morph, the colour roles, phrase timing, the think ring |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), colour roles, vocabulary, narration units and timing |
 | `narration_units.json` | the script grouped into coherent narration units, bound to `script.tsv`'s bytes |
 
 ```bash
-python3 -I -B oracle.py                          # 55 keys, cross-checks on stderr
+python3 -I -B oracle.py                          # 78 keys, cross-checks on stderr
 python3 -I tools/storyboard.py --check epsilon_delta
 python3 -I tools/lint_script.py explainer_corpus/epsilon_delta/script.tsv
 ./x epsilon_delta facts-check                    # the Rust facts against the oracle (builds)
@@ -91,6 +124,41 @@ competition review remains open.
   gap's supremum over [0, 1] is 1 for every n, and is never reached.
 - "Uniform continuity" is never said: every x^n is uniformly continuous on
   [0, 1]. Pointwise and uniform convergence are named in chapter 08.
+
+## Scope limits kept in chapter 02
+
+- Two strips are kept apart by their ends, with exact tests at n = 1, where
+  the crossing 1/2 is a fraction. The curve is above 1/2 on x_n < x ≤ 1,
+  which holds x = 1. The gap is at least 1/2 on x_n ≤ x < 1, which holds
+  the moving point and not x = 1, where the curve and the limit are both 1.
+  The narration's strip from 02_3 on is the gap strip.
+- Nothing is drawn wider than it says. The zoom window is exactly as wide as
+  the plot, so its labelled ×10, ×100 and ×1000 are the true sideways
+  stretches (an earlier draft's 5.6-unit window made them ×(7/6)m; review
+  3822). Its heights are drawn at 1/3 of the plot's, and the label says
+  "heights ×1/3". The facts refuse to build if a label disagrees with the
+  geometry, and a test checks the same. The magnifier box on the plot is the
+  window at its true width, about 1.3 pixels of the 4K picture at ×1000.
+  Below a pixel, a ring marks where the strip is, not how wide.
+- 02_7 resets only the window, and says so before it raises anything
+  ("Reset the window to x to the tenth"); the main plot stays at x¹⁰⁰⁰.
+  The window leaves n = 1000 for n = 10 on those words, goes to 100 at
+  "Raise the power tenfold", and to 1000 at "then again".
+- The pixel claim is resolution-bound and stated as such: the plot is 1296
+  pixels wide in the 3840-pixel final picture, so the strip is narrower
+  than one of them from n = 898. A smaller screen reaches that sooner. The
+  narration says only "thinner than a pixel".
+- The width is spoken as shrinking "like point six nine over n". The card
+  is kept short enough to read in 02_7's last sentence: "w(n) = 1 − 2^(−1/n)
+  > 0; n·w(n) → ln 2 ≈ 0.6931. This is a limit, not a finite equality." The
+  two-sided bounds behind it, ln 2/n − (ln 2)²/(2n²) < w(n) < ln 2/n for
+  every n, are tested in `model.rs` and `oracle.py` and stated here; they
+  are not shown on screen.
+- The window shares 0.670, 0.691 and 0.693 are shown as numbers, and the
+  narration says "almost the same", not "the same".
+
+## Narration
+
 - Narration is on hold. The owner rejected the first wave's narrated cuts on
   2026-10-19, and the rejected method must not carry into new synthesis. The
   units and semantic gaps in the storyboard are a proposal for the next

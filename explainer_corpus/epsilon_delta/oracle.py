@@ -133,6 +133,89 @@ for n in POWERS:
 else:
     check(True, "every drawn curve has gaps above 0.999 just below x = 1")
 
+# ---------------------------------------------------------------- chapter 02
+
+MORE_POWERS = [100, 200, 500, 1000]
+ZOOMS = [10, 100, 1000]
+PLOT_WIDTH = Fraction(48, 10)  # scene units: the plot's width
+FRAME_WIDTH = Fraction(8) * Fraction(16, 9)  # 8 units tall at 16:9
+PIXELS_ACROSS = 3840  # the final picture
+
+emit("C2.powers", ",".join(map(str, MORE_POWERS)))
+
+
+def width(n):
+    """1 − 2^(−1/n) to 60 digits."""
+    with localcontext() as ctx:
+        ctx.prec = 60
+        return 1 - Decimal(2) ** (Decimal(-1) / Decimal(n))
+
+
+for n in [POWERS[-1], *MORE_POWERS]:
+    emit(f"C2.width.n{n}.6dp", rounded(width(n), 6))
+emit("C2.gap_at_one", 1 ** POWERS[-1] - 1)  # the curve and the limit are both 1 at x = 1
+for i, m in enumerate(ZOOMS):
+    emit(f"C2.zoom.{i}", m)
+    emit(f"C2.window.x{m}", plain(1 - Decimal(1) / Decimal(m)))
+    with localcontext() as ctx:
+        ctx.prec = 60
+        emit(f"C2.share.n{m}.3dp", rounded(m * width(m), 3))
+emit("C2.zoom.step", ZOOMS[1] // ZOOMS[0])
+LENS_WIDTH, LENS_HEIGHT = PLOT_WIDTH, Fraction(16, 10)  # scene units: the zoom window
+PLOT_HEIGHT = Fraction(48, 10)
+check(all(LENS_WIDTH / (PLOT_WIDTH / m) == m for m in ZOOMS),
+      "the window labelled ×m draws [1 − 1/m, 1] exactly m times as wide as the plot does")
+emit("C2.lens.heights", frac(LENS_HEIGHT / PLOT_HEIGHT))
+emit("C2.restart_power", ZOOMS[0])  # 02_7 starts the paired run over at n = m = 10
+with localcontext() as ctx:
+    ctx.prec = 60
+    ln2 = Decimal(2).ln()
+emit("C2.ln2.4dp", rounded(ln2, 4))
+emit("C2.ln2.2dp", rounded(ln2, 2))
+px = PLOT_WIDTH / FRAME_WIDTH * PIXELS_ACROSS
+check(px.denominator == 1, f"the plot spans {px} pixels of the 4K picture, a whole number")
+emit("C2.pixels.plot_4k", px.numerator)
+pixel_point, power_n, n = 1 - 1 / px, Fraction(1), 0
+while power_n >= HALF:
+    power_n *= pixel_point
+    n += 1
+emit("C2.subpixel_from", n)
+check(width(n) < Decimal(1) / Decimal(px.numerator) <= width(n - 1),
+      f"the strip is narrower than one of {px} pixels from n = {n}, not at n = {n - 1}")
+
+# the two strips: curve above 1/2 on (x_n, 1], gap at least 1/2 on [x_n, 1)
+def above_half(x, n):
+    return x**n > HALF
+
+
+def gap_at_least_half(x, n):
+    return x < 1 and x**n >= HALF
+
+
+check(above_half(Fraction(1), 50) and not gap_at_least_half(Fraction(1), 50),
+      "x = 1 is in the curve-above strip and not in the gap strip")
+check(not above_half(HALF, 1) and gap_at_least_half(HALF, 1),
+      "n = 1, x = 1/2 exactly: the curve is not above 1/2, the gap is 1/2")
+with localcontext() as ctx:
+    ctx.prec = 60
+    ok = True
+    for n in [1, 2, 10, 50, 100, 200, 500, 898, 1000, 10**6]:
+        t = ln2 / n
+        w = width(n)
+        ok = ok and t - t * t / 2 < w < t
+    check(ok, "ln 2/n − (ln 2)²/(2n²) < 1 − x_n < ln 2/n at every n tried")
+    scaled = [n * width(n) for n in [10, 100, 1000, 10**4, 10**5]]
+    check(all(a < b < ln2 for a, b in zip(scaled, scaled[1:])), "n(1 − x_n) climbs toward ln 2 from below")
+for n in range(1, 61):
+    with localcontext() as ctx:
+        ctx.prec = 60
+        x4 = Decimal(2) ** (Decimal(-1) / Decimal(n))
+    if Fraction(rounded(width(n), 4)) + Fraction(rounded(x4, 4)) != 1:
+        check(False, f"n = {n}: the printed width is 1 minus the printed crossing")
+        break
+else:
+    check(True, "n = 1..60: the printed width is 1 minus the printed crossing")
+
 # ------------------------------------------------- continuation (brief §3–4)
 
 

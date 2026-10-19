@@ -362,21 +362,111 @@ pub fn half_height_rounded(n: u32, places: u32) -> Result<String, String> {
     let x = half_height(n)?;
     let scale = 10u32.pow(places);
     let guess = (x * f64::from(scale)).round() as u32;
-    let mut mid: Option<Nat> = None;
     for d in [guess, guess.saturating_sub(1), guess + 1] {
         if d == 0 || d >= scale {
             continue;
         }
-        let mid = mid.get_or_insert_with(|| Nat::pow(2 * scale, n));
-        let low = Nat::pow(2 * d - 1, n).mul_small(2);
-        let high = Nat::pow(2 * d + 1, n).mul_small(2);
-        if low <= *mid && *mid < high {
+        let lower_ok = half_height_vs(n, 2 * d - 1, 2 * scale) != Ordering::Less;
+        if lower_ok && half_height_vs(n, 2 * d + 1, 2 * scale) == Ordering::Less {
             return Ok(format!("0.{d:0width$}", width = places as usize));
         }
     }
     Err(format!(
         "2^(-1/{n}) has no certified {places}-place rounding below 1 (near {guess})"
     ))
+}
+
+/// Where the moving point x_n lies against the fraction num/den, exactly:
+/// x_n < num/den exactly when 1/2 < (num/den)^n, that is den^n < 2·num^n
+/// (both sides positive, t ↦ t^n increasing). Equal only when num/den is
+/// x_n itself, which a fraction can be only at n = 1.
+pub fn half_height_vs(n: u32, num: u32, den: u32) -> Ordering {
+    Nat::pow(den, n).cmp(&Nat::pow(num, n).mul_small(2))
+}
+
+// ------------------------------------------------ chapter 02: the strip
+
+/// The powers chapter 02 raises the bright curve through after the
+/// opening's last, 50 (fact `C2.powers`).
+pub const MORE_POWERS: [u32; 4] = [100, 200, 500, 1000];
+
+/// Chapter 02's sideways stretches: at m the zoom window is [1 − 1/m, 1]
+/// drawn as wide as the inset (fact `C2.zoom.*`); each is ten times the last.
+pub const ZOOMS: [u32; 3] = [10, 100, 1000];
+
+/// The width 1 − x_n of the strip where the n-th curve is above one half
+/// (and of the strip where its gap is at least one half), in floating
+/// point: 1 − e^(−ln 2/n), computed without cancellation.
+pub fn width(n: u32) -> Result<f64, String> {
+    check_power(n)?;
+    Ok(-(-std::f64::consts::LN_2 / f64::from(n)).exp_m1())
+}
+
+/// Bounds on the width for every n, from t − t²/2 < 1 − e^(−t) < t with
+/// t = ln 2/n. So n·(1 − x_n) climbs toward ln 2 as n grows: an asymptotic
+/// statement. At no n is the width ln 2/n, and at none is it zero. (Chapter
+/// 02's card shows only the exact width, its positivity and the limit; these
+/// bounds support it in the tests, the oracle and the README, and nothing
+/// drawn is computed from them.)
+#[cfg(test)]
+pub fn width_bounds(n: u32) -> Result<(f64, f64), String> {
+    check_power(n)?;
+    let t = std::f64::consts::LN_2 / f64::from(n);
+    Ok((t - t * t / 2.0, t))
+}
+
+/// m·(1 − x_n), the n-th strip's width stretched m times, rounded half up
+/// to `places` places (1 to 9) and certified like the witness. With
+/// A = 2·10^p·m, the digits W returned satisfy
+/// (W − ½)/10^p ≤ m(1 − x_n) < (W + ½)/10^p, that is
+/// (A − 2W − 1)/A < x_n ≤ (A − 2W + 1)/A. m = 1 gives the width itself;
+/// m = n gives the share of a window 1/n wide that the strip fills.
+pub fn width_rounded(n: u32, m: u32, places: u32) -> Result<String, String> {
+    check_power(n)?;
+    if m == 0 || !(1..=9).contains(&places) {
+        return Err(format!(
+            "a stretch of {m} at {places} places: stretch at least 1, show 1 to 9"
+        ));
+    }
+    let scale = 10u32.pow(places);
+    let a = scale
+        .checked_mul(2)
+        .and_then(|s| s.checked_mul(m))
+        .ok_or_else(|| format!("{places} places at a stretch of {m} overflow"))?;
+    let stretched = f64::from(m) * width(n)?;
+    if stretched >= 1.0 {
+        return Err(format!("{m}·(1 − x_{n}) = {stretched} is not below 1"));
+    }
+    let guess = (stretched * f64::from(scale)).round() as u32;
+    for d in [guess, guess.saturating_sub(1), guess + 1] {
+        if d >= scale {
+            continue;
+        }
+        // at least (2d − 1)/(2·10^p), so x_n ≤ (A − 2d + 1)/A; below
+        // (2d + 1)/(2·10^p), so x_n > (A − 2d − 1)/A
+        let lower_ok = d == 0 || half_height_vs(n, a - 2 * d + 1, a) != Ordering::Greater;
+        if lower_ok && half_height_vs(n, a - 2 * d - 1, a) == Ordering::Greater {
+            return Ok(format!("0.{d:0width$}", width = places as usize));
+        }
+    }
+    Err(format!(
+        "{m}·(1 − x_{n}) has no certified {places}-place rounding (near {guess})"
+    ))
+}
+
+/// Whether the n-th curve is above one half at the point x of [0, 1],
+/// exactly: x^n > 1/2. This region is (x_n, 1]: it contains x = 1, where
+/// the curve is 1, and not x_n, where the curve is exactly 1/2.
+pub fn above_half(x: Ratio, n: u32) -> bool {
+    Nat::pow(x.num, n).mul_small(2) > Nat::pow(x.den, n)
+}
+
+/// Whether the n-th curve's gap to the limit is at least one half at the
+/// point x of [0, 1], exactly: x < 1 and x^n ≥ 1/2. This region is
+/// [x_n, 1): it contains x_n, where the gap is exactly 1/2, and not x = 1,
+/// where the curve and the limit are both 1 and the gap is zero.
+pub fn gap_at_least_half(x: Ratio, n: u32) -> bool {
+    x.num < x.den && Nat::pow(x.num, n).mul_small(2) >= Nat::pow(x.den, n)
 }
 
 // ------------------------------------------- the continuation's deltas (§3–4)
@@ -805,5 +895,92 @@ mod tests {
         }
         assert_eq!(sprague_delta_rounded(r(161, 1600), 2).unwrap(), "0.03");
         assert_eq!(sprague_delta_rounded(r(4809, 160_000), 3).unwrap(), "0.008");
+    }
+
+    /// The two strips differ exactly at their ends. The curve is above 1/2
+    /// on (x_n, 1], which holds x = 1; the gap is at least 1/2 on [x_n, 1),
+    /// which holds x_n and not x = 1, where the gap is zero. At n = 1 the
+    /// crossing x_1 = 1/2 is a fraction, so both ends are tested exactly;
+    /// for larger n, at fractions just either side of the crossing.
+    #[test]
+    fn the_two_strips_differ_only_at_their_ends() {
+        let (zero, one) = (r(0, 1), r(1, 1));
+        for n in [1, 2, 50, 1000] {
+            assert!(above_half(one, n), "n = {n}: the curve is 1 at x = 1");
+            assert!(!gap_at_least_half(one, n), "n = {n}: the gap is 0 at x = 1");
+            assert_eq!(gap(1.0, n).unwrap(), 0.0);
+            assert!(!above_half(zero, n) && !gap_at_least_half(zero, n));
+        }
+        assert_eq!(half_height_vs(1, 1, 2), Ordering::Equal);
+        assert!(!above_half(HALF, 1), "at x_1 the curve is exactly 1/2, not above it");
+        assert!(gap_at_least_half(HALF, 1), "at x_1 the gap is exactly 1/2");
+        for n in [2, 10, 50, 100, 1000] {
+            let d: u32 = half_height_rounded(n, 6).unwrap()[2..].parse().unwrap();
+            let (left, right) = (r(2 * d - 1, 2_000_000), r(2 * d + 1, 2_000_000));
+            assert_eq!(half_height_vs(n, left.num, left.den), Ordering::Greater, "n = {n}");
+            assert_eq!(half_height_vs(n, right.num, right.den), Ordering::Less, "n = {n}");
+            assert!(!above_half(left, n) && !gap_at_least_half(left, n), "n = {n}");
+            assert!(above_half(right, n) && gap_at_least_half(right, n), "n = {n}");
+        }
+    }
+
+    /// The width 1 − x_n lies strictly between ln 2/n − (ln 2)²/(2n²) and
+    /// ln 2/n, falls as n grows, never reaches zero, and n times it climbs
+    /// toward ln 2 from below: a limit, not a value any n attains.
+    #[test]
+    fn the_strip_narrows_like_ln2_over_n_and_is_never_empty() {
+        let ln2 = std::f64::consts::LN_2;
+        let mut last = (f64::INFINITY, 0.0);
+        for n in [1, 2, 10, 50, 100, 200, 500, 897, 898, 1000, 10_000, 1_000_000] {
+            let w = width(n).unwrap();
+            let (lo, hi) = width_bounds(n).unwrap();
+            assert!(lo < w && w < hi, "n = {n}: {lo} < {w} < {hi}");
+            assert!((w - (1.0 - half_height(n).unwrap())).abs() < 1e-12, "n = {n}");
+            let scaled = f64::from(n) * w;
+            assert!(w < last.0 && scaled > last.1 && scaled < ln2, "n = {n}");
+            assert!(ln2 - scaled < ln2 * ln2 / (2.0 * f64::from(n)), "n = {n}");
+            last = (w, scaled);
+        }
+        let w = width(u32::MAX).unwrap();
+        assert!(w > 0.0 && w < width_bounds(u32::MAX).unwrap().1);
+        assert!(width(0).is_err() && width_bounds(0).is_err());
+    }
+
+    /// The printed widths are certified, and they are 1 minus the printed
+    /// witness: no crossing is exactly halfway, so the two roundings agree.
+    #[test]
+    fn widths_are_printed_to_certified_digits() {
+        let want = [
+            (50, "0.013767"),
+            (100, "0.006908"),
+            (200, "0.003460"),
+            (500, "0.001385"),
+            (1000, "0.000693"),
+        ];
+        for (n, s) in want {
+            assert_eq!(width_rounded(n, 1, 6).unwrap(), s, "n = {n}");
+        }
+        for (m, s) in [(10, "0.670"), (100, "0.691"), (1000, "0.693")] {
+            assert_eq!(width_rounded(m, m, 3).unwrap(), s, "m = {m}");
+        }
+        for n in 1..=60 {
+            let w: u32 = width_rounded(n, 1, 4).unwrap()[2..].parse().unwrap();
+            let x: u32 = half_height_rounded(n, 4).unwrap()[2..].parse().unwrap();
+            assert_eq!(w + x, 10_000, "n = {n}");
+        }
+        assert_eq!(width_rounded(1, 1, 1).unwrap(), "0.5");
+        assert!(width_rounded(1, 3, 3).is_err(), "3 × 1/2 is not below 1");
+        assert!(width_rounded(5, 0, 3).is_err() && width_rounded(5, 1, 0).is_err() && width_rounded(0, 1, 3).is_err());
+    }
+
+    /// The plot is 1296 pixels wide in the 4K picture; the strip is narrower
+    /// than one of them exactly when x_n > 1295/1296, from n = 898 on.
+    #[test]
+    fn the_strip_goes_below_a_pixel_at_898() {
+        let pixel = r(1295, 1296);
+        assert_eq!(first_within(pixel, HALF).unwrap(), 898);
+        assert_eq!(half_height_vs(898, 1295, 1296), Ordering::Greater);
+        assert_eq!(half_height_vs(897, 1295, 1296), Ordering::Less);
+        assert!(width(898).unwrap() < 1.0 / 1296.0 && width(897).unwrap() > 1.0 / 1296.0);
     }
 }

@@ -1,9 +1,11 @@
 //! One scene per chapter, in storyboard order (`docs/storyboard.md`).
-//! Chapter 01 is built; the continuation is written out in the storyboard.
+//! Chapters 01 and 02 are built; the continuation is written out in the
+//! storyboard.
 
 pub mod draw;
 pub mod glyphs;
 pub mod limit_that_jumps;
+pub mod shrinking_region;
 
 use explainer_kit::Chapter;
 
@@ -18,5 +20,8 @@ macro_rules! scene {
 }
 
 pub fn registry() -> Vec<Chapter> {
-    vec![scene!("01_a_limit_that_jumps", 0.35, limit_that_jumps::ALimitThatJumps)]
+    vec![
+        scene!("01_a_limit_that_jumps", 0.35, limit_that_jumps::ALimitThatJumps),
+        scene!("02_the_shrinking_region", 0.4, shrinking_region::TheShrinkingRegion),
+    ]
 }

@@ -9,3 +9,12 @@
 01_9	Now let the point move. On each curve, mark where it crosses half height.
 01_10	There the curve is at one half and the limit is zero. As the power grows, the crossing creeps toward one, but the gap stays one half.
 01_11	So it matters who picks the point. Fix it first, and the gap shrinks to zero. Let it move with the curve, and the gap never does.
+02_1	Shade every x where the curve is still above one half. That's a strip from the crossing up to one, and x equals one belongs to it.
+02_2	But at one, the curve and the limit are both at height one. The gap there is zero.
+02_3	So the gap is at least one half only on a strip that starts at the crossing and stops just short of one.
+02_4	As the power grows, that strip gets narrower.
+02_5	Once it's thinner than a pixel, is the trouble gone?
+02_6	No. Stretch the end of the interval sideways, ten times, a hundred times, a thousand times. The strip is still there.
+02_7	Reset the window to x to the tenth. Raise the power tenfold and stretch tenfold, then again. It looks almost the same. Its width shrinks like point six nine over n, and the strip is never empty.
+02_8	And the moving point is always inside it, with its gap of one half.
+02_9	A picture shows a few powers, at finite resolution. What we need is a guarantee for every point at once, and an order for who chooses what.

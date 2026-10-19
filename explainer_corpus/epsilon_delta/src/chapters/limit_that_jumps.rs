@@ -18,8 +18,8 @@ use explainer_kit::{Facts, Kit, Palette, Timed, play, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    PLOT, curve_color, fade_in_all, fade_in_lagged, fade_out_all, fail, fixed, gap_color, ghost, limit_color,
-    line_style, move_to, moving, say, think_pause,
+    BRIGHT_W, Bright, GHOST_W, PLOT, curve_color, curve_label, fact, fade_in_all, fade_in_lagged, fade_out_all, fail,
+    fixed, gap_color, ghost, limit_color, line_style, move_to, moving, say, step, think_pause,
 };
 use super::glyphs::{SUBTITLE, TITLE};
 use crate::facts::{EXACT_UP_TO, FIXED, PLACES, WAITS, decimal_point, facts};
@@ -99,29 +99,8 @@ const _: () = assert!(CARD_X - TABLE_VALUE > 1.6);
 // every n", about 2.9 units) ends inside the frame
 const _: () = assert!(TABLE_VALUE + 2.1 < CARD_X && CARD_X + 3.0 < 7.1);
 
-/// The bright curve's width, the dim copies'.
-const BRIGHT_W: f64 = 5.0;
-const GHOST_W: f64 = 3.0;
-
 fn row_y(i: usize) -> f64 {
     TABLE_ROW0_Y - TABLE_STEP * i as f64
-}
-
-/// A fact by key, or a scene error naming it.
-fn fact(f: &Facts, key: &str) -> fmn::Result<String> {
-    f.get(key)
-        .map(str::to_owned)
-        .ok_or_else(|| fail(format!("no fact {key}")))
-}
-
-/// The label of the n-th curve: y = x, y = x², …, at the plot's top left.
-fn curve_label(kit: &Kit, stage: &mut Stage<'_>, n: u32) -> fmn::Result<Mob> {
-    let src = if n == 1 {
-        "y = x".to_owned()
-    } else {
-        format!("y = x^{{{n}}}")
-    };
-    kit.tex_left(stage, &src, 34.0, curve_color(), &[], PLOT.p(0.04, 0.92))
 }
 
 /// The fixed point's height after n steps as the table shows it: exact up
@@ -143,57 +122,120 @@ fn table_row(kit: &Kit, stage: &mut Stage<'_>, i: usize, n: u32, value: &str, co
     Ok([left, right])
 }
 
-/// The bright curve and its label, and the dim copies it has left behind.
-struct Bright {
-    curve: Mob,
-    label: Mob,
-    n: u32,
-    copies: Vec<Mob>,
+/// The moving point's height and its limit's at x on the n-th curve: the
+/// red bar stands on the limit and is as tall as the computed gap.
+pub(super) fn gap_span(x: f64, n: u32) -> fmn::Result<(f64, f64)> {
+    let floor = limit(x).map_err(fail)?;
+    Ok((floor, floor + gap(x, n).map_err(fail)?))
 }
 
-impl Bright {
-    fn new(curve: Mob, label: Mob, n: u32) -> Self {
-        Self {
-            curve,
-            label,
-            n,
-            copies: Vec::new(),
-        }
+/// The half-height line and its 1/2 by the y axis, detached.
+pub(super) fn half_line(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
+    let line = PLOT.dashed(stage, (0.0, 0.5), (1.0, 0.5), moving())?;
+    let side = PLOT.p(0.0, 0.5);
+    let label = kit.tex(stage, r"\tfrac{1}{2}", 30.0, moving(), &[], v(side[0] - 0.35, side[1]))?;
+    Ok([line, label])
+}
+
+/// The moving point on the n-th curve and its gap bar, at rest, detached.
+pub(super) fn witness_at(stage: &mut Stage<'_>, n: u32) -> fmn::Result<[Mob; 2]> {
+    let x = half_height(n).map_err(fail)?;
+    let (floor, top) = gap_span(x, n)?;
+    let bar = PLOT.segment(stage, (x, top), (x, floor), gap_color(), 6.0)?;
+    let dot = PLOT.dot(stage, x, top, moving());
+    Ok([dot, bar])
+}
+
+/// The moving point's table header, detached.
+pub(super) fn witness_head(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
+    let n_head = kit.tex(stage, "n", 30.0, Palette::dim(), &[], v(TABLE_N - 0.07, TABLE_HEAD_Y))?;
+    let x_head = kit.text_left(stage, CROSSING_AT, 24.0, moving(), v(TABLE_VALUE, TABLE_HEAD_Y))?;
+    Ok([n_head, x_head])
+}
+
+/// The moving point's table row i, for the power POWERS[i], detached.
+pub(super) fn witness_row(kit: &Kit, stage: &mut Stage<'_>, f: &Facts, i: usize) -> fmn::Result<[Mob; 2]> {
+    let n = POWERS[i];
+    let x_text = fact(f, &format!("C1.witness.n{n}.{PLACES}dp"))?;
+    table_row(kit, stage, i, n, &x_text, moving())
+}
+
+/// The note under the table: the gap at the crossing, detached.
+pub(super) fn gap_note(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    let gap = fact(f, "C1.witness.gap")?;
+    kit.text_left(
+        stage,
+        &format!("{GAP_AT_CROSSING} {gap}"),
+        24.0,
+        gap_color(),
+        v(NOTE_X, NOTE_Y[1]),
+    )
+}
+
+/// The moving point's formula under the table, detached.
+pub(super) fn witness_formula(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    kit.tex_left(stage, r"x = 2^{-1/n}", 30.0, moving(), &[], v(NOTE_X, NOTE_Y[0]))
+}
+
+/// The fixed point back on the plot: its dashed line and its dot on the
+/// n-th curve, detached.
+pub(super) fn fixed_back(stage: &mut Stage<'_>, n: u32) -> fmn::Result<[Mob; 2]> {
+    let x0 = decimal_point(FIXED).map_err(fail)?.f64();
+    let guide = PLOT.dashed(stage, (x0, 0.0), (x0, 1.0), fixed())?;
+    let sunk = PLOT.dot(stage, x0, power(x0, n).map_err(fail)?, fixed());
+    Ok([guide, sunk])
+}
+
+/// The card "fix x first" with the fixed points' waits, detached.
+pub(super) fn card_fix_first(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Vec<Mob>> {
+    let mut card = vec![
+        kit.text_left(stage, FIX_FIRST, 28.0, fixed(), v(CARD_X, CARD_Y[0]))?,
+        kit.text_left(
+            stage,
+            &format!("{GAP_BELOW} {} {FROM}", fact(f, "C1.wait.tolerance")?),
+            20.0,
+            Palette::dim(),
+            v(CARD_X, CARD_Y[0] - CARD_STEP),
+        )?,
+    ];
+    for (i, &point) in WAITS.iter().enumerate() {
+        let shown = decimal_power(point.0, point.1, 1).map_err(fail)?;
+        let wait = fact(f, &format!("C1.wait.x{shown}"))?;
+        card.push(kit.text_left(
+            stage,
+            &format!("{shown}: {N_IS} {wait}"),
+            24.0,
+            Palette::ink(),
+            v(CARD_X, CARD_Y[0] - CARD_STEP * (i as f64 + 2.0)),
+        )?);
     }
+    Ok(card)
+}
+
+/// The card "let x move with n", detached.
+pub(super) fn card_move_with(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<[Mob; 3]> {
+    let gap = fact(f, "C1.witness.gap")?;
+    Ok([
+        kit.text_left(stage, MOVE_WITH, 28.0, moving(), v(CARD_X, CARD_Y[1]))?,
+        kit.tex_left(
+            stage,
+            r"x = 2^{-1/n}",
+            28.0,
+            moving(),
+            &[],
+            v(CARD_X, CARD_Y[1] - CARD_STEP - 0.05),
+        )?,
+        kit.text_left(
+            stage,
+            &format!("gap = {gap}, {FOR_EVERY_N}"),
+            24.0,
+            gap_color(),
+            v(CARD_X, CARD_Y[1] - 2.0 * CARD_STEP - 0.1),
+        )?,
+    ])
 }
 
 impl ALimitThatJumps {
-    /// Morph the bright curve into x^to over `rt` seconds, leaving a dim copy
-    /// of the old one behind and swapping the label, with `with` (prepared
-    /// animations) playing alongside; the new curve ends on top.
-    fn step(
-        &self,
-        stage: &mut Stage<'_>,
-        b: &mut Bright,
-        to: u32,
-        rt: f64,
-        with: Vec<Box<dyn Animation>>,
-    ) -> fmn::Result<()> {
-        let copy = PLOT.curve(stage, b.n, ghost(), GHOST_W)?;
-        stage.add_to_scene(copy)?;
-        b.copies.push(copy);
-        let next = PLOT.curve(stage, to, curve_color(), BRIGHT_W)?;
-        let next_label = curve_label(&self.kit, stage, to)?;
-        let morph = fmn::animation::replacement_transform(b.curve, next).rt(rt);
-        let mut anims = with;
-        anims.push(stage.prepare(morph)?);
-        let out = fade_out(stage.arena_mut(), b.label, ORIGIN, 1.0)?;
-        anims.push(stage.prepare(out.rt(rt * 0.5))?);
-        let inn = fade_in(stage.arena_mut(), next_label, ORIGIN, 1.0)?;
-        anims.push(stage.prepare(inn.rt(rt))?);
-        stage.play_prepared(anims)?;
-        stage.scene_mut().bring_to_front(&[next])?;
-        b.curve = next;
-        b.label = next_label;
-        b.n = to;
-        Ok(())
-    }
-
     /// 01_1 to 01_7: the curves, the fixed point, the endpoint, the
     /// prediction, the limit and why arithmetic, not the picture, proves it.
     fn the_jump(&self, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<()> {
@@ -211,10 +253,10 @@ impl ALimitThatJumps {
         );
         let mut b = Bright::new(first, label, POWERS[0]);
         line.wait_for(stage, SQUARE_AT)?;
-        self.step(stage, &mut b, POWERS[1], 1.0, Vec::new())?;
+        step(kit, stage, &mut b, POWERS[1], 1.0, Vec::new())?;
         line.wait_for(stage, HIGHER_AT)?;
         for &n in &POWERS[2..] {
-            self.step(stage, &mut b, n, 0.35, Vec::new())?;
+            step(kit, stage, &mut b, n, 0.35, Vec::new())?;
         }
 
         // 01_2: every curve runs unbroken from (0, 0) to (1, 1)
@@ -397,12 +439,7 @@ impl ALimitThatJumps {
     fn the_moving_point(&self, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<()> {
         let kit = &self.kit;
         let half = fact(f, "C1.half")?;
-        let witness = |n: u32| -> fmn::Result<(f64, String)> {
-            Ok((
-                half_height(n).map_err(fail)?,
-                fact(f, &format!("C1.witness.n{n}.{PLACES}dp"))?,
-            ))
-        };
+        let gap = fact(f, "C1.witness.gap")?;
 
         // 01_9: the plot again, then the half-height line and its crossing
         let line = say(kit, stage, "01_9")?;
@@ -417,44 +454,26 @@ impl ALimitThatJumps {
         fade_in_all(stage, &back, 0.8)?;
         let mut b = Bright::new(first, label, POWERS[0]);
         line.wait_for(stage, HALF_AT)?;
-        let half_line = PLOT.dashed(stage, (0.0, 0.5), (1.0, 0.5), moving())?;
-        let side = PLOT.p(0.0, 0.5);
-        let half_label = kit.tex(stage, r"\tfrac{1}{2}", 30.0, moving(), &[], v(side[0] - 0.35, side[1]))?;
-        let (x1, x1_text) = witness(b.n)?;
-        let dot = PLOT.dot(stage, x1, 0.5, moving());
-        let n_head = kit.tex(stage, "n", 30.0, Palette::dim(), &[], v(TABLE_N - 0.07, TABLE_HEAD_Y))?;
-        let x_head = kit.text_left(stage, CROSSING_AT, 24.0, moving(), v(TABLE_VALUE, TABLE_HEAD_Y))?;
-        let row = table_row(kit, stage, 0, b.n, &x1_text, moving())?;
-        fade_in_all(stage, &[half_line, half_label, dot, n_head, x_head], 0.5)?;
+        let [half_mark, half_label] = half_line(kit, stage)?;
+        let [dot, bar] = witness_at(stage, b.n)?;
+        let [n_head, x_head] = witness_head(kit, stage)?;
+        let row = witness_row(kit, stage, f, 0)?;
+        fade_in_all(stage, &[half_mark, half_label, dot, n_head, x_head], 0.5)?;
         fade_in_all(stage, &row, 0.35)?;
 
-        // 01_10: the gap at the crossing, then the crossing creeps toward 1;
-        // the bar stands on the limit and is as tall as the computed gap
+        // 01_10: the gap at the crossing, then the crossing creeps toward 1
         let line = say(kit, stage, "01_10")?;
-        let gap_at = |x: f64, n: u32| -> fmn::Result<(f64, f64)> {
-            let floor = limit(x).map_err(fail)?;
-            Ok((floor, floor + gap(x, n).map_err(fail)?))
-        };
-        let (floor, top) = gap_at(x1, b.n)?;
-        let bar = PLOT.segment(stage, (x1, top), (x1, floor), gap_color(), 6.0)?;
-        let gap = fact(f, "C1.witness.gap")?;
-        let gap_note = kit.text_left(
-            stage,
-            &format!("{GAP_AT_CROSSING} {gap}"),
-            24.0,
-            gap_color(),
-            v(NOTE_X, NOTE_Y[1]),
-        )?;
+        let note = gap_note(kit, stage, f)?;
         play!(stage;
             show_creation(bar).rt(0.8),
-            fade_in(stage.arena_mut(), gap_note, ORIGIN, 1.0)?.rt(0.6)
+            fade_in(stage.arena_mut(), note, ORIGIN, 1.0)?.rt(0.6)
         );
         line.wait_for(stage, GROWS_AT)?;
         for (i, &n) in POWERS.iter().enumerate().skip(1) {
-            let (x, x_text) = witness(n)?;
-            let row = table_row(kit, stage, i, n, &x_text, moving())?;
+            let x = half_height(n).map_err(fail)?;
+            let row = witness_row(kit, stage, f, i)?;
             // the dot rides the half line as the curve it sits on morphs
-            let (floor, top) = gap_at(x, n)?;
+            let (floor, top) = gap_span(x, n)?;
             let dot_move = move_to(dot, PLOT.p(x, top), 0.5)?;
             let bar_move = move_to(bar, PLOT.p(x, f64::midpoint(floor, top)), 0.5)?;
             let mut with: Vec<Box<dyn Animation>> = vec![stage.prepare(dot_move)?, stage.prepare(bar_move)?];
@@ -462,62 +481,21 @@ impl ALimitThatJumps {
                 let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
                 with.push(stage.prepare(a.rt(0.5))?);
             }
-            self.step(stage, &mut b, n, 0.5, with)?;
+            step(kit, stage, &mut b, n, 0.5, with)?;
             stage.scene_mut().bring_to_front(&[bar, dot])?;
         }
-        let formula = kit.tex_left(stage, r"x = 2^{-1/n}", 30.0, moving(), &[], v(NOTE_X, NOTE_Y[0]))?;
+        let formula = witness_formula(kit, stage)?;
         fade_in_all(stage, &[formula], 0.5)?;
         kit.hold(stage)?;
         kit.music_breath(stage, 0.6)?;
 
         // 01_11: a fixed point waits a finite time; the moving one never gets there
         let line = say(kit, stage, "01_11")?;
-        let x0 = decimal_point(FIXED).map_err(fail)?.f64();
-        let guide = PLOT.dashed(stage, (x0, 0.0), (x0, 1.0), fixed())?;
-        let sunk = PLOT.dot(stage, x0, power(x0, b.n).map_err(fail)?, fixed());
-        let mut card_a = vec![
-            kit.text_left(stage, FIX_FIRST, 28.0, fixed(), v(CARD_X, CARD_Y[0]))?,
-            kit.text_left(
-                stage,
-                &format!("{GAP_BELOW} {} {FROM}", fact(f, "C1.wait.tolerance")?),
-                20.0,
-                Palette::dim(),
-                v(CARD_X, CARD_Y[0] - CARD_STEP),
-            )?,
-        ];
-        for (i, &point) in WAITS.iter().enumerate() {
-            let shown = decimal_power(point.0, point.1, 1).map_err(fail)?;
-            let wait = fact(f, &format!("C1.wait.x{shown}"))?;
-            card_a.push(kit.text_left(
-                stage,
-                &format!("{shown}: {N_IS} {wait}"),
-                24.0,
-                Palette::ink(),
-                v(CARD_X, CARD_Y[0] - CARD_STEP * (i as f64 + 2.0)),
-            )?);
-        }
-        let mut ins = vec![guide, sunk];
-        ins.extend(&card_a);
+        let mut ins = fixed_back(stage, b.n)?.to_vec();
+        ins.extend(card_fix_first(kit, stage, f)?);
         fade_in_lagged(stage, &ins, 1.6, 0.15)?;
         line.wait_for(stage, MOVES_AT)?;
-        let card_b = [
-            kit.text_left(stage, MOVE_WITH, 28.0, moving(), v(CARD_X, CARD_Y[1]))?,
-            kit.tex_left(
-                stage,
-                r"x = 2^{-1/n}",
-                28.0,
-                moving(),
-                &[],
-                v(CARD_X, CARD_Y[1] - CARD_STEP - 0.05),
-            )?,
-            kit.text_left(
-                stage,
-                &format!("gap = {gap}, {FOR_EVERY_N}"),
-                24.0,
-                gap_color(),
-                v(CARD_X, CARD_Y[1] - 2.0 * CARD_STEP - 0.1),
-            )?,
-        ];
+        let card_b = card_move_with(kit, stage, f)?;
         let exact = format!(
             "every curve is continuous on [0, 1], and at each fixed x the gap to f shrinks to 0. \
              But the n-th curve crosses {half} at x = 2^(−1/n) < 1, where f is 0: a gap of exactly {gap}, for every n."

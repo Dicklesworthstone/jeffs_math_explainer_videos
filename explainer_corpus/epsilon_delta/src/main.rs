@@ -94,12 +94,28 @@ mod tests {
         ("01_10", "toward one,", "C1.domain.right", "1"),
         ("01_10", "gap stays one half.", "C1.witness.gap", "1/2"),
         ("01_11", "shrinks to zero.", "C1.limit.below_one", "0"),
+        ("02_1", "above one half.", "C1.half", "1/2"),
+        ("02_1", "up to one,", "C1.domain.right", "1"),
+        ("02_1", "x equals one belongs", "C1.domain.right", "1"),
+        ("02_2", "at one,", "C1.domain.right", "1"),
+        ("02_2", "at height one.", "C1.limit.at_one", "1"),
+        ("02_2", "The gap there is zero.", "C2.gap_at_one", "0"),
+        ("02_3", "at least one half", "C1.half", "1/2"),
+        ("02_3", "short of one.", "C1.domain.right", "1"),
+        ("02_6", "ten times,", "C2.zoom.0", "10"),
+        ("02_6", "a hundred times,", "C2.zoom.1", "100"),
+        ("02_6", "a thousand times.", "C2.zoom.2", "1000"),
+        ("02_7", "x to the tenth.", "C2.restart_power", "10"),
+        ("02_7", "power tenfold", "C2.zoom.step", "10"),
+        ("02_7", "stretch tenfold", "C2.zoom.step", "10"),
+        ("02_7", "point six nine", "C2.ln2.2dp", "0.69"),
+        ("02_8", "gap of one half.", "C1.witness.gap", "1/2"),
     ];
 
     /// The words that carry a number in this script.
     const NUMBER_WORDS: &[&str] = &[
-        "zero", "one", "half", "two", "three", "four", "five", "seven", "eight", "nine", "tenths", "square", "fifty",
-        "hundred",
+        "zero", "one", "half", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "tenth",
+        "tenths", "tenfold", "square", "fifty", "hundred", "thousand",
     ];
 
     /// Number words used as plain language, not as a quantity a fact holds.

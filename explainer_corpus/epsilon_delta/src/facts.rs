@@ -9,11 +9,15 @@
 //! (brief §3–4: Sprague's note `S.`, Davis's `D1.`/`D2.`, the naive guess
 //! that fails `N.`) are computed and checked now, before their chapters.
 
-use explainer_kit::Facts;
+use std::f64::consts::LN_2;
 
+use explainer_kit::Facts;
+use fmn::core::constants::FRAME_WIDTH;
+
+use crate::chapters::draw::{LENS_H, LENS_HEIGHTS, LENS_W, PLOT};
 use crate::model::{
-    HALF, POWERS, Ratio, change_at, davis_delta, decimal_power, first_within, half_height_rounded, limit, local_bound,
-    recenter, round_half_up, sprague_delta_rounded,
+    HALF, MORE_POWERS, POWERS, Ratio, ZOOMS, change_at, davis_delta, decimal_power, first_within, gap,
+    half_height_rounded, limit, local_bound, recenter, round_half_up, sprague_delta_rounded, width_rounded,
 };
 
 /// The point chapter 01 pins, a/10^k: nine tenths.
@@ -63,11 +67,83 @@ fn terminating(num: u128, den: u128) -> Result<String, String> {
     Err(format!("{num}/{den} does not terminate in 18 places"))
 }
 
+/// The width in pixels of the final picture: 3840 by 2160 (the corpus's
+/// final-render gate). Chapter 02 counts how many of them the plot spans.
+pub const FINAL_PIXELS_ACROSS: u32 = 3840;
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     opening(&mut f)?;
+    strip(&mut f)?;
     continuation(&mut f)?;
     Ok(f)
+}
+
+/// Chapter 02: the strip's widths as the power grows, the zoom windows and
+/// the share of a 1/n-wide window the strip fills (toward ln 2), and the
+/// pixels the plot spans in the final picture.
+fn strip(f: &mut Facts) -> Result<(), String> {
+    f.add("C2.powers", list(MORE_POWERS))?;
+    let from = POWERS[POWERS.len() - 1];
+    for n in std::iter::once(from).chain(MORE_POWERS) {
+        f.add(&format!("C2.width.n{n}.6dp"), width_rounded(n, 1, 6)?)?;
+    }
+    // at x = 1 the curve and the limit are both 1
+    f.add("C2.gap_at_one", gap(1.0, from)?)?;
+    for (i, &m) in ZOOMS.iter().enumerate() {
+        f.add(&format!("C2.zoom.{i}"), m)?;
+        let k = m.ilog10();
+        if 10u32.pow(k) != m {
+            return Err(format!("zoom {m} is not a power of ten"));
+        }
+        f.add(&format!("C2.window.x{m}"), decimal_power(m - 1, k, 1)?)?;
+        f.add(&format!("C2.share.n{m}.3dp"), width_rounded(m, m, 3)?)?;
+    }
+    let step = ZOOMS[1] / ZOOMS[0];
+    if ZOOMS.windows(2).any(|w| w[1] != w[0] * step) {
+        return Err("the zooms do not grow by one factor".to_owned());
+    }
+    f.add("C2.zoom.step", step)?;
+    // the window's labels against what it draws: [1 − 1/m, 1] across the
+    // window's width is m times its width on the plot, and its heights are
+    // drawn at LENS_HEIGHTS of the plot's
+    for &m in &ZOOMS {
+        let stretch = LENS_W / (PLOT.frame.width / f64::from(m));
+        if (stretch - f64::from(m)).abs() > 1e-9 {
+            return Err(format!("the window labelled ×{m} stretches ×{stretch}"));
+        }
+    }
+    if (LENS_H / PLOT.frame.height - LENS_HEIGHTS.f64()).abs() > 1e-12 {
+        return Err(format!(
+            "the window labelled heights ×{LENS_HEIGHTS} draws them at {}",
+            LENS_H / PLOT.frame.height
+        ));
+    }
+    f.add("C2.lens.heights", LENS_HEIGHTS)?;
+    // 02_7 starts the paired run over at n = m, the first stretch
+    f.add("C2.restart_power", ZOOMS[0])?;
+    f.pin("C2.ln2.4dp", format!("{:.4}", LN_2), "0.6931", "ln 2 = 0.693147…")?;
+    f.add("C2.ln2.2dp", format!("{:.2}", LN_2))?;
+    let across = PLOT.frame.width / FRAME_WIDTH * f64::from(FINAL_PIXELS_ACROSS);
+    if (across - across.round()).abs() > 1e-6 {
+        return Err(format!("the plot spans {across} pixels, not a whole number"));
+    }
+    let px = across.round() as u32;
+    f.pin(
+        "C2.pixels.plot_4k",
+        px,
+        "1296",
+        "4.8 of the frame's 8 × 16/9 = 128/9 units, across 3840 pixels",
+    )?;
+    // narrower than one pixel: 1 − x_n < 1/px, that is x_n > (px − 1)/px,
+    // that is ((px − 1)/px)^n < 1/2
+    f.pin(
+        "C2.subpixel_from",
+        first_within(Ratio::point(px - 1, px)?, HALF)?,
+        "898",
+        "ln 2 / −ln(1295/1296) = 897.97, rounded up",
+    )?;
+    Ok(())
 }
 
 /// Chapter 01: the curves, the fixed point, the endpoint, the limit, the
@@ -213,6 +289,33 @@ mod tests {
             .map(|&p| num(format!("C1.wait.{}", point_key(p).unwrap())))
             .collect();
         assert!(waits.windows(2).all(|w| w[1] > w[0]));
+    }
+
+    /// The numbers chapter 02 puts on screen or says, as they will read;
+    /// the widths fall and the shares rise toward ln 2 without reaching it.
+    #[test]
+    fn the_strip_numbers_read_as_shown() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        assert_eq!(get("C2.powers"), "100,200,500,1000");
+        assert_eq!(get("C2.width.n50.6dp"), "0.013767");
+        assert_eq!(get("C2.width.n1000.6dp"), "0.000693");
+        assert_eq!(get("C2.gap_at_one"), "0");
+        assert_eq!(get("C2.window.x1000"), "0.999");
+        assert_eq!(get("C2.zoom.step"), "10");
+        assert_eq!(get("C2.ln2.2dp"), "0.69");
+        assert_eq!(get("C2.pixels.plot_4k"), "1296");
+        assert_eq!(get("C2.subpixel_from"), "898");
+        assert_eq!(get("C2.lens.heights"), "1/3");
+        assert_eq!(get("C2.restart_power"), "10");
+        let num = |k: String| -> f64 { f.get(&k).unwrap().parse().unwrap() };
+        let widths: Vec<f64> = std::iter::once(50)
+            .chain(MORE_POWERS)
+            .map(|n| num(format!("C2.width.n{n}.6dp")))
+            .collect();
+        assert!(widths.windows(2).all(|w| w[1] < w[0]) && widths.iter().all(|&w| w > 0.0));
+        let shares: Vec<f64> = ZOOMS.iter().map(|m| num(format!("C2.share.n{m}.3dp"))).collect();
+        assert!(shares.windows(2).all(|s| s[1] >= s[0]) && shares.iter().all(|&s| s < LN_2));
     }
 
     #[test]

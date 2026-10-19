@@ -10,16 +10,23 @@
 //! moving things (each curve is short pieces).
 
 use explainer_kit::narration::{frames_covering, wait_frames};
-use explainer_kit::{BACKGROUND, Frame2, Kit, Palette, Script, Timed, hex, v};
+use explainer_kit::{BACKGROUND, Facts, Frame2, Kit, Palette, Script, Timed, hex, v};
 use fmn::prelude::*;
 
-use crate::model::curve;
+use crate::model::{Ratio, curve, power};
 
 /// A scene error carrying `message` (a missing phrase, a broken invariant).
 pub fn fail(message: String) -> fmn::Error {
     fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
         message.into_boxed_str(),
     )))
+}
+
+/// A fact by key, or a scene error naming it.
+pub fn fact(f: &Facts, key: &str) -> fmn::Result<String> {
+    f.get(key)
+        .map(str::to_owned)
+        .ok_or_else(|| fail(format!("no fact {key}")))
 }
 
 // ------------------------------------------------------------ line timing
@@ -290,6 +297,83 @@ pub fn move_to(mob: Mob, to: Vec3, rt: f64) -> fmn::Result<AnimBuilder> {
 /// are cut into short pieces (kit engine rules, spike S-2).
 const PIECE: usize = 20;
 
+/// Segments of a curve drawn across a zoom window ([`Plot::curve_window`]).
+pub const WINDOW_SEGMENTS: usize = 120;
+
+/// A polyline through `pts` cut into pieces of [`PIECE`] segments sharing
+/// their ends, as one group.
+fn pieces(pts: &[Vec3], color: Srgb, width: f64) -> VMobject {
+    v_group(
+        pts.windows(PIECE + 1)
+            .step_by(PIECE)
+            .map(|w| polyline(w.to_vec()).style(line_style(color, width)).build()),
+    )
+}
+
+/// The bright curve's stroke width, the dim copies'.
+pub const BRIGHT_W: f64 = 5.0;
+pub const GHOST_W: f64 = 3.0;
+
+/// The label of the n-th curve: y = x, y = x², …, at the plot's top left.
+pub fn curve_label(kit: &Kit, stage: &mut Stage<'_>, n: u32) -> fmn::Result<Mob> {
+    let src = if n == 1 {
+        "y = x".to_owned()
+    } else {
+        format!("y = x^{{{n}}}")
+    };
+    kit.tex_left(stage, &src, 34.0, curve_color(), &[], PLOT.p(0.04, 0.92))
+}
+
+/// The bright curve and its label, and the dim copies it has left behind.
+pub struct Bright {
+    pub curve: Mob,
+    pub label: Mob,
+    pub n: u32,
+    pub copies: Vec<Mob>,
+}
+
+impl Bright {
+    pub fn new(curve: Mob, label: Mob, n: u32) -> Self {
+        Self {
+            curve,
+            label,
+            n,
+            copies: Vec::new(),
+        }
+    }
+}
+
+/// Morph the bright curve into x^to over `rt` seconds, leaving a dim copy
+/// of the old one behind and swapping the label, with `with` (prepared
+/// animations) playing alongside; the new curve ends on top.
+pub fn step(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    b: &mut Bright,
+    to: u32,
+    rt: f64,
+    with: Vec<Box<dyn Animation>>,
+) -> fmn::Result<()> {
+    let copy = PLOT.curve(stage, b.n, ghost(), GHOST_W)?;
+    stage.add_to_scene(copy)?;
+    b.copies.push(copy);
+    let next = PLOT.curve(stage, to, curve_color(), BRIGHT_W)?;
+    let next_label = curve_label(kit, stage, to)?;
+    let morph = fmn::animation::replacement_transform(b.curve, next).rt(rt);
+    let mut anims = with;
+    anims.push(stage.prepare(morph)?);
+    let out = fade_out(stage.arena_mut(), b.label, ORIGIN, 1.0)?;
+    anims.push(stage.prepare(out.rt(rt * 0.5))?);
+    let inn = fade_in(stage.arena_mut(), next_label, ORIGIN, 1.0)?;
+    anims.push(stage.prepare(inn.rt(rt))?);
+    stage.play_prepared(anims)?;
+    stage.scene_mut().bring_to_front(&[next])?;
+    b.curve = next;
+    b.label = next_label;
+    b.n = to;
+    Ok(())
+}
+
 /// The plot of [0, 1] × [0, 1] the chapters draw on: its window, its axes
 /// and the shapes of the curves and the limit in scene coordinates.
 #[derive(Clone, Copy, Debug)]
@@ -308,6 +392,15 @@ pub const PLOT: Plot = Plot {
         y: (0.0, 1.0),
     },
 };
+
+/// The zoom window (chapter 02) is exactly as wide as the plot, so showing
+/// [1 − 1/m, 1] across it stretches that stretch of x exactly m times
+/// sideways. Its heights are drawn at this share of the plot's, and its
+/// label says so.
+pub const LENS_HEIGHTS: Ratio = Ratio { num: 1, den: 3 };
+/// The zoom window's panel: the plot's width, [`LENS_HEIGHTS`] of its height.
+pub const LENS_W: f64 = PLOT.frame.width;
+pub const LENS_H: f64 = PLOT.frame.height * LENS_HEIGHTS.num as f64 / LENS_HEIGHTS.den as f64;
 
 /// How far the axes run past 1, and how far under the x axis its numbers sit.
 const AXIS_PAST: f64 = 0.3;
@@ -351,11 +444,27 @@ impl Plot {
     /// point (each point straight down: the samples share their x).
     pub fn curve_shape(&self, n: u32, color: Srgb, width: f64) -> fmn::Result<VMobject> {
         let pts: Vec<Vec3> = curve(n).map_err(fail)?.into_iter().map(|(x, y)| self.p(x, y)).collect();
-        Ok(v_group(
-            pts.windows(PIECE + 1)
-                .step_by(PIECE)
-                .map(|w| polyline(w.to_vec()).style(line_style(color, width)).build()),
-        ))
+        Ok(pieces(&pts, color, width))
+    }
+
+    /// The n-th curve across this plot's own x range (a zoom window), evenly
+    /// sampled in [`WINDOW_SEGMENTS`] segments, detached: every window's curve
+    /// has the same pieces, so one window's curve morphs into another's.
+    pub fn curve_window(&self, stage: &mut Stage<'_>, n: u32, color: Srgb, width: f64) -> fmn::Result<Mob> {
+        let (lo, hi) = self.frame.x;
+        let pts = (0..=WINDOW_SEGMENTS)
+            .map(|k| {
+                // the last sample is the window's right end exactly (x = 1
+                // must not round past the domain)
+                let x = if k == WINDOW_SEGMENTS {
+                    hi
+                } else {
+                    lo + (hi - lo) * k as f64 / WINDOW_SEGMENTS as f64
+                };
+                Ok(self.p(x, power(x, n).map_err(fail)?))
+            })
+            .collect::<fmn::Result<Vec<Vec3>>>()?;
+        Ok(stage.arena_mut().add(pieces(&pts, color, width)))
     }
 
     /// The n-th curve, detached.
@@ -365,11 +474,12 @@ impl Plot {
     }
 
     /// The limit, detached, as three mobjects: the flat stretch along y = 0
-    /// from x = 0 up to the hollow mark at x = 1 (it stops at the mark's
-    /// edge: f(1) is not 0), the hollow mark, and the filled point (1, 1).
+    /// from the plot's left edge (x = 0, or a zoom window's left end) up to
+    /// the hollow mark at x = 1 (it stops at the mark's edge: f(1) is not 0),
+    /// the hollow mark, and the filled point (1, 1).
     pub fn limit(&self, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 3]> {
         let c = limit_color();
-        let (o, x1, top) = (self.p(0.0, 0.0), self.p(1.0, 0.0), self.p(1.0, 1.0));
+        let (o, x1, top) = (self.p(self.frame.x.0, 0.0), self.p(1.0, 0.0), self.p(1.0, 1.0));
         let flat_part = Line::new(o, v(x1[0] - END_R, x1[1]))
             .style(line_style(c, 7.0))
             .build()?;
