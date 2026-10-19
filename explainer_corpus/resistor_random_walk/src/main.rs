@@ -105,6 +105,31 @@ mod tests {
         ("02_6", "its two currents", "R-F5.top_wires", "2"),
         ("02_7", "Down, it's zero", "R-F3.bottom_chance", "0"),
         ("02_7", "A quarter of each", "R-F3.wire_chance", "1/4"),
+        ("03_1", "Guess zero for both", "R-F7.start", "0,0"),
+        ("03_2", "its four wires", "R-F1.wires_at_middle", "4"),
+        ("03_3", "one, one, zero and zero", "R-F7.round1.left_ends", "1,1,0,0"),
+        ("03_3", "one and three zeros", "R-F7.round1.right_ends", "1,0,0,0"),
+        (
+            "03_3",
+            "to one half. The right averages one and three zeros to one quarter",
+            "R-F7.round1",
+            "1/2,1/4",
+        ),
+        ("03_4", "Nine sixteenths and three eighths", "R-F7.round2", "9/16,3/8"),
+        (
+            "03_4",
+            "nineteen thirty-seconds and twenty-five sixty-fourths",
+            "R-F7.round3",
+            "19/32,25/64",
+        ),
+        ("03_5", "shrinks to a quarter every round", "R-F7.shrink", "1/4"),
+        ("03_5", "only one wire at each junction", "R-F7.unknown_wires", "1"),
+        ("03_6", "exactly three fifths", "R-F2.left", "3/5"),
+        ("03_7", "halves, quarters, eighths and so on", "R-F7.dyadic", "true"),
+        ("03_7", "three fifths is none of them", "R-F7.never", "true"),
+        ("03_7", "after five rounds", "R-F7.within", "5"),
+        ("03_7", "within a thousandth", "R-F7.tolerance", "1/1000"),
+        ("03_8", "three fifths and two fifths", "R-F7.limit", "3/5,2/5"),
     ];
 
     #[test]
@@ -118,8 +143,32 @@ mod tests {
         }
         // and no line carries a number word the table above does not know
         let numbers = [
-            "zero", "one", "two", "three", "four", "five", "fifth", "fifths", "third", "half", "quarter", "twice",
-            "doubled", "once",
+            "zero",
+            "zeros",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "nine",
+            "nineteen",
+            "twenty",
+            "thirty",
+            "sixty",
+            "fifth",
+            "fifths",
+            "third",
+            "half",
+            "halves",
+            "quarter",
+            "quarters",
+            "eighths",
+            "sixteenths",
+            "fourths",
+            "thousandth",
+            "twice",
+            "doubled",
+            "once",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();
@@ -173,6 +222,7 @@ mod tests {
         let expected = [
             ("01_the_same_number", "left junction?", "Three fifths"),
             ("02_why_an_average", "reaches the top?", "One half"),
+            ("03_round_after_round", "exactly three fifths?", "Never"),
         ];
         assert_eq!(boards.len(), expected.len());
         for (board, (key, asks, answers)) in boards.iter().zip(expected) {

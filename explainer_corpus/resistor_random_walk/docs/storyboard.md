@@ -23,8 +23,9 @@ previews the whole payoff; the later chapters earn each step.
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_the_same_number` | the circuit: current in equals current out, so each middle junction is the average of its wires' far ends (3/5 and 2/5 pass); the walker on the same wires: one step ahead, its chance is the same average; prediction; the same number, because one rule with the same top and bottom has only one solution; the walker is a model of the equations, not of electrons | source at 38e52c0 (`mx-video-program-program-87do.18.1`); root's central05 batch passed fmt, strict release clippy, 32 tests, the release build, the 47-fact oracle comparison, the glyph probe and a silent scratch render of the opening, and root viewed its final and prediction frames and the three glyph pages; no audio, music or full-video acceptance; the task's closure is root's, pending its receipt |
-| `02_why_an_average` | at the left junction, wire by wire: each wire's current is its voltage drop over the same resistance; the pair's two drops of 2/5 flow in, 1/5 and 3/5 flow out, and they balance; with the voltage unknown the balance is 4v = 1 + 1 + 2/5 + 0, the average; the walker's first step over the same four wires, up with chance 1/2, not 1/3 (prediction); the first-step equation gives each wire the same quarter; the general rule weights each far end by its wire's conductance, and the walker chooses wires in that proportion | source by SandyMountain for `mx-video-program-program-87do.18.2`, corrected after review 3798; root's central10 batch passed fmt, strict release all-target clippy, 38 tests, the release build and the 72/72 fact comparison with the independent oracle (12 checks, numpy included); its silent scratch render draft04 ran 2448 frames, 81.6 s, with an empty layout lint, and root viewed the corrected 02_1, 02_3, 02_7 and 02_8 frames and all eight glyph pages (59 sources); an independent Opus review (3827) accepted the corrected source; accepted as source, native checks and sampled visuals only, with no audio, music or full-video acceptance |
-| later chapters (not yet boarded) | finding the values by repeated averaging; why there is only one solution (the maximum principle, and the island where it fails); every route added up for this network (a geometric series) against the rule that needs no routes; the current as the walker's net crossings (Doyle and Snell §1.3.3) | proposals only |
+| `02_why_an_average` | at the left junction, wire by wire: each wire's current is its voltage drop over the same resistance; the pair's two drops of 2/5 flow in, 1/5 and 3/5 flow out, and they balance; with the voltage unknown the balance is 4v = 1 + 1 + 2/5 + 0, the average; the walker's first step over the same four wires, up with chance 1/2, not 1/3 (prediction); the first-step equation gives each wire the same quarter; the general rule weights each far end by its wire's conductance, and the walker chooses wires in that proportion | source by SandyMountain for `mx-video-program-program-87do.18.2`, corrected after review 3798; root's central10 batch passed fmt, strict release all-target clippy, 38 tests, the release build and the 72/72 fact comparison with the independent oracle (12 checks, numpy included); its silent scratch render draft04 ran 2448 frames, 81.6 s, with an empty layout lint, and root viewed the corrected 02_1, 02_3, 02_7 and 02_8 frames and all eight glyph pages (59 sources); an independent Opus review (3827) accepted the corrected source; accepted as source, native checks and sampled visuals only, with no audio, music or full-video acceptance; committed at d17decc, and root closed the task |
+| `03_round_after_round` | guess zero at both middle junctions and average, every junction at once from the previous round's values (Jacobi's method, chosen and kept); the real rounds 1/2 and 1/4, 9/16 and 3/8, …; the bigger gap shrinks to exactly a quarter a round because one wire at each junction leads to an unknown; prediction: no round ever reaches 3/5 (power-of-two denominators), though five rounds come within a thousandth; the limit is the pair that keeps every average; the ends must stay fixed, or everything drifts to 1/2 | source by SandyMountain for `mx-video-program-program-87do.18.3`; root's central17 batch passed fmt, strict clippy, 43 tests, the release build and the 104/104 fact comparison with the independent oracle (15 checks); draft05's short card dwell, early round-5 example and battery-held table beside the counterfactual (EmeraldLeopard, 3927) were repaired (3954); central20 passed the build, fmt, strict clippy, the 5 targeted tests and the glyph probe (100 sources), and draft06 ran 2489 frames, 82.97 s, with an empty layout lint and its cards up about 13.8, 13.0, 18.9 and 8.3 s; root viewed the revised cards and glyph pages, and EmeraldLeopard (3964) verified the repair; accepted as source and sampled visuals only, with no audio, music or full-video acceptance; root closes the task |
+| later chapters (not yet boarded) | why there is only one solution (the maximum principle, and the island where it fails); every route added up for this network (a geometric series) against the rule that needs no routes; the current as the walker's net crossings (Doyle and Snell §1.3.3) | proposals only |
 
 ## Vocabulary (one word per idea)
 
@@ -157,3 +158,61 @@ builds on the right, row by row, every number from `R-F4` to `R-F6`.
   pauses before 02_5 (the picture changes from circuit to walk) and before
   02_8 (the general rule). Directions only; no synthesis under the current
   owner amendment.
+
+## 03_round_after_round: Average, and average again (~83 s)
+
+The circuit stands where chapter 02 had it, on the left; on the right a
+table of rounds: round, left, right, and later the bigger gap. Every number
+is `R-F7`, `R-F8` or `R-X6`.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | Here's a way to find the middle voltages without solving anything. Guess zero for both, then average. | The circuit (battery, 1 volt, 0 volts), its middle junctions labelled 0 and coloured as 0. On the right the table's header, round, left, right, and its first row: 0, 0, 0. On "Guess zero" the two zeros flash | table, highlight | |
+| 03_2 | Each round, every middle junction takes the average of the far ends of its four wires, using the values from the round before. | Both middle junctions' wires flash. On "using the values" a "precisely" lower-third: every middle junction updates at once from the previous round (Jacobi's method); one at a time with the newest values (Gauss-Seidel), the gap shrinks to 1/16 a round from round 2 on. It stays over round one, which shows it | highlight, lower-third | |
+| 03_3 | Round one. The left averages one, one, zero and zero to one half. The right averages one and three zeros to one quarter. | Both junctions' far-end values from round 0 appear at once beside their wires (left 1, 1, 0, 0; right 1, 0, 0, 0). The left's slide in and it becomes 1/2; then the right's slide in, its token from the left still reading the old 0, and it becomes 1/4. The table's row 1: 1/2, 1/4. Each junction's colour moves with its value | values travelling along wires, table | |
+| 03_4 | Round two uses those. Nine sixteenths and three eighths. Then nineteen thirty-seconds and twenty-five sixty-fourths. | The card goes as round 2's far-end values (left 1, 1, 1/4, 0; right 1, 1/2, 0, 0) appear; they slide into both junctions together; 9/16 and 3/8, row 2. On "Then nineteen" round 3 lands without tokens (19/32, 25/64, row 3), and round 4 after it without words (153/256, 51/128, row 4) | values travelling along wires, table | |
+| 03_5 | The bigger gap to the answer shrinks to a quarter every round, because only one wire at each junction leads to an unknown. | The table's fourth column, "bigger gap", fills down rounds 0 to 4: 3/5, 3/20, 3/80, 3/320, 3/1280, and a "precisely" lower-third comes in under it: 3 of each junction's 4 far ends never change, so its new gap is 1/4 of the other's old one: the bigger gap is exactly 1/4 of the last, 3/5, 3/20, 3/80, 3/320 and 3/1280 by round 4 (the card stops at the rows on screen, so round 5 waits for the prediction). On "only one wire" the one wire joining the two middle junctions flashes | table, highlight, lower-third | |
+| 03_6 | So after how many rounds is the left exactly three fifths? ⟨predict⟩ | The card stays while the question is asked and goes as it ends. Through the countdown the table holds rounds 0 to 4 and nothing else; nothing shows round 5 or a limit. The countdown sits in the panel under the table | prediction pause, think time | |
+| 03_7 | Never. Each round makes halves, quarters, eighths and so on, and three fifths is none of them. But after five rounds both are within a thousandth. | A "precisely" lower-third: each new value is the other junction's previous value plus a whole number, divided by 4, so from the guess of 0 every value is over a power of 2, like 9/16 and 153/256 (rows already shown), and never 3/5; the gaps go to 0, so the values have a limit. It stays over 03_8. On "But after five rounds" row 5 lands, 307/512, 409/1024, gap 3/5120, and the junction labels follow | lower-third, table, highlight | |
+| 03_8 | The values close in on three fifths and two fifths, the only pair that keeps every average. | The 03_7 card stays. Under the table, set apart, a "limit" row: 3/5, 2/5, gap 0. The labels on the junctions stay at round 5's values: the picture shows rounds, the limit row shows where they go | table, highlight | |
+| 03_9 | The top and bottom must stay fixed. Average them too, and every junction drifts to the same number. | A counterfactual, shown as one. As the line begins the whole table (its rounds and its battery-held limit row 3/5, 2/5) and the 03_7 card go, and a "precisely" lower-third comes: with the top and bottom averaged too, 1, 3/5, 2/5, 0 drift to 1/2, their mean weighted by wires 3, 4, 4, 3. On "Average them too" the battery, its two labels and the middle labels fade; all four junctions are averaged together from the solved voltages, round by round (6 rounds, to within 1/1000, `R-X6.within`), and their colours run together to one. No number on screen then belongs to the battery-held network | colour drift, lower-third | |
+
+### Notes for 03
+
+- The chapter chooses previous-round updates (Jacobi) and keeps them: every
+  round's two new values are computed from the round before, which is why
+  round 1's token from the left still reads 0 while the left already shows
+  1/2. One-at-a-time updates (Gauss-Seidel) appear only in the 03_2 card,
+  as a comparison (`R-F8`).
+- The error bound is exact, not estimated: each middle junction's only
+  wire to an unknown carries weight 1/4 (`R-F7.unknown_wires`,
+  `R-F7.unknown_weight`), every other far end is fixed, so the bigger gap is
+  3/5 over 4 to the n (`R-F7.gaps`, `R-F7.shrink`, checked over 40 rounds by
+  the model and in closed form by the oracle). "Within a thousandth after
+  five rounds" is `R-F7.within` against `R-F7.tolerance`.
+- Finite against limit: no round equals 3/5 or 2/5 (`R-F7.dyadic`,
+  `R-F7.never`, 40 rounds checked; the card gives the reason for every
+  round). The limit row is the solved pair (`R-F7.limit`); that the limit
+  keeps every average, and is the only pair that does, is chapter 01's
+  claim, proved in a later chapter.
+- Edges: the ends averaged too (`R-X6`: the weighted mean 1/2 is kept every
+  round and, on this network, every value settles there) shows why the ends
+  stay fixed; 03_9 says it as a counterfactual. A kept mean alone does not
+  make values settle: two junctions joined by one wire, both averaged, swap
+  1 and 0 for ever (a model test and an oracle check, not shown). An island
+  of two junctions wired only to each other swaps its values for ever too
+  (`R-X7`, a fact and a test, not shown). On screen the drift is claimed
+  for the network shown only.
+- Prediction (03_6): the tempting answers are a round count read off the
+  table; the answer is never. Nothing shows round 5 or the limit before
+  the countdown ends.
+- Card dwell: every lower-third stays up at least its reading time at
+  fifteen characters a second, counted from when it is fully in (the
+  scene's `wait_until`): 03_2's over round one (03_3), 03_5's from the gap
+  column to the question's end, 03_7's over the limit (03_8), 03_9's from
+  the line's start. By the scratch voice each fits inside the lines it
+  stays over, so no time is added; a test checks it.
+- Pauses for the narration (no audio exists): the one prediction hold after
+  03_6; a reveal pause after "Never."; completed-thought pauses before 03_5
+  (the gaps) and before 03_9 (the edge). Directions only; no synthesis under
+  the current owner amendment.

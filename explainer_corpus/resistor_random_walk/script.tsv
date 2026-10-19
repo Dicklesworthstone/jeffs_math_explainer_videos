@@ -15,3 +15,12 @@
 02_6	One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents.
 02_7	Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average.
 02_8	With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule.
+03_1	Here's a way to find the middle voltages without solving anything. Guess zero for both, then average.
+03_2	Each round, every middle junction takes the average of the far ends of its four wires, using the values from the round before.
+03_3	Round one. The left averages one, one, zero and zero to one half. The right averages one and three zeros to one quarter.
+03_4	Round two uses those. Nine sixteenths and three eighths. Then nineteen thirty-seconds and twenty-five sixty-fourths.
+03_5	The bigger gap to the answer shrinks to a quarter every round, because only one wire at each junction leads to an unknown.
+03_6	So after how many rounds is the left exactly three fifths?
+03_7	Never. Each round makes halves, quarters, eighths and so on, and three fifths is none of them. But after five rounds both are within a thousandth.
+03_8	The values close in on three fifths and two fifths, the only pair that keeps every average.
+03_9	The top and bottom must stay fixed. Average them too, and every junction drifts to the same number.

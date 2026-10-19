@@ -592,6 +592,62 @@ impl Network {
             .fold(Q::ZERO, |s, q| s + q)
     }
 
+    /// One round of repeated averaging with the ends held (chapter 03): every
+    /// middle junction takes the conductance-weighted average of its far
+    /// ends' values from the previous round, all at once (Jacobi's method);
+    /// the top and the bottom keep theirs. Refused at a junction with no
+    /// wire.
+    pub fn averaging_round(&self, values: &[Q]) -> Result<Vec<Q>, String> {
+        (0..self.size)
+            .map(|x| {
+                if self.is_end(x) {
+                    Ok(values[x])
+                } else {
+                    self.average(values, x)
+                        .ok_or_else(|| format!("junction {x} has no wire to average"))
+                }
+            })
+            .collect()
+    }
+
+    /// The same round taken one middle junction at a time, in order, each
+    /// using the newest values, its own neighbours' included (Gauss-Seidel).
+    pub fn sequential_round(&self, values: &[Q]) -> Result<Vec<Q>, String> {
+        let mut out = values.to_vec();
+        for x in self.middle() {
+            let newest = self
+                .average(&out, x)
+                .ok_or_else(|| format!("junction {x} has no wire to average"))?;
+            out[x] = newest;
+        }
+        Ok(out)
+    }
+
+    /// A round with the ends averaged as well, as if no battery held them
+    /// (chapter 03's edge).
+    pub fn free_round(&self, values: &[Q]) -> Result<Vec<Q>, String> {
+        (0..self.size)
+            .map(|x| {
+                self.average(values, x)
+                    .ok_or_else(|| format!("junction {x} has no wire to average"))
+            })
+            .collect()
+    }
+
+    /// The mean of `values` with each junction counted by its total
+    /// conductance. A free round never changes it, but keeping it is not
+    /// settling: two junctions joined by one wire swap their values every
+    /// free round for ever. The opening network does settle there, being
+    /// connected and holding a triangle (the top, the left and the right),
+    /// so its walk is aperiodic. Refused for a network with no wire.
+    pub fn weighted_mean(&self, values: &[Q]) -> Result<Q, String> {
+        let all = (0..self.size).fold(Q::ZERO, |s, x| s + self.total(x));
+        if all.is_zero() {
+            return Err("a network with no wire has no weighted mean".into());
+        }
+        Ok((0..self.size).fold(Q::ZERO, |s, x| s + self.total(x) * values[x]) / all)
+    }
+
     /// The voltage drop towards junction `x` along each of its identical
     /// wires, in `far_ends` order: the far end's voltage minus `x`'s.
     /// Positive where current flows in; each wire's current is its drop
@@ -856,6 +912,85 @@ mod tests {
         let halves = Network::new(3, vec![wire(0, 1, q(1, 2)), wire(1, 2, Q::ONE)], 0, 2).unwrap();
         let vh = halves.kirchhoff(Q::ONE, Q::ZERO).unwrap();
         assert!(halves.drops_into(&vh, 1).is_err());
+    }
+
+    /// Chapter 03's repeated averaging on the opening network: the bigger
+    /// gap is exactly 3/5 over 4 to the n, every iterate has a power-of-two
+    /// denominator and so never equals 3/5; one junction at a time shrinks
+    /// the gap by 1/16 a round from round 2; with the ends averaged too the
+    /// weighted mean is kept and every value drifts to 1/2, while on a
+    /// connected pair the mean is kept and nothing settles; on an island the
+    /// two values swap for ever.
+    #[test]
+    fn repeated_averaging_closes_in_and_its_edges_fail() {
+        let net = opening().unwrap();
+        let solved = net.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        let mut now = vec![Q::ONE, Q::ZERO, Q::ZERO, Q::ZERO];
+        for n in 0..=40u32 {
+            let gap = (solved[LEFT] - now[LEFT]).max(solved[RIGHT] - now[RIGHT]);
+            assert_eq!(gap, q(3, 5) / Q::new(4i128.pow(n), 1), "round {n}");
+            for x in [LEFT, RIGHT] {
+                let d = now[x].denom();
+                assert_eq!(d & (d - 1), 0, "round {n}: {} is not over a power of two", now[x]);
+                assert_ne!(now[x], solved[x], "round {n}");
+            }
+            now = net.averaging_round(&now).unwrap();
+        }
+        // one at a time, the newest values: 1/6 first, then 1/16 a round
+        let mut seq = vec![Q::ONE, Q::ZERO, Q::ZERO, Q::ZERO];
+        let mut gaps = Vec::new();
+        for _ in 0..=6 {
+            gaps.push((solved[LEFT] - seq[LEFT]).max(solved[RIGHT] - seq[RIGHT]));
+            seq = net.sequential_round(&seq).unwrap();
+        }
+        assert_eq!(gaps[1] / gaps[0], q(1, 6));
+        for w in gaps[1..].windows(2) {
+            assert_eq!(w[1] / w[0], q(1, 16));
+        }
+        // the ends averaged too: the weighted mean stays, the battery is lost
+        let mut free = solved.clone();
+        let mean = net.weighted_mean(&free).unwrap();
+        assert_eq!(mean, q(1, 2));
+        free = net.free_round(&free).unwrap();
+        assert_eq!(free, [q(8, 15), q(3, 5), q(2, 5), q(7, 15)]);
+        for _ in 1..6 {
+            free = net.free_round(&free).unwrap();
+            assert_eq!(net.weighted_mean(&free).unwrap(), mean);
+        }
+        assert!(free.iter().all(|&x| (x - mean).max(mean - x) < q(1, 1000)));
+        // a kept mean is not settling: two junctions joined by one wire, both
+        // averaged, swap 1 and 0 for ever around their mean 1/2
+        let pair = Network::new(2, vec![wire(0, 1, Q::ONE)], 0, 1).unwrap();
+        let start = vec![Q::ONE, Q::ZERO];
+        let mut now = start.clone();
+        for round in 1..=8 {
+            now = pair.free_round(&now).unwrap();
+            assert_eq!(pair.weighted_mean(&now).unwrap(), q(1, 2), "round {round}");
+            let swapped = if round % 2 == 1 {
+                [Q::ZERO, Q::ONE]
+            } else {
+                [Q::ONE, Q::ZERO]
+            };
+            assert_eq!(now, swapped, "round {round}");
+            assert!(now.iter().all(|&x| (x - q(1, 2)).max(q(1, 2) - x) == q(1, 2)));
+        }
+        assert_eq!(now, start);
+        // an island's two values swap for ever: nothing settles there
+        let island = with_island().unwrap();
+        let start = vec![Q::ONE, Q::ZERO, Q::ZERO, Q::ZERO, Q::ZERO, Q::ONE];
+        let once = island.averaging_round(&start).unwrap();
+        assert_eq!(once[4..], [Q::ONE, Q::ZERO]);
+        assert_eq!(island.averaging_round(&once).unwrap()[4..], [Q::ZERO, Q::ONE]);
+        // a junction with no wire has nothing to average
+        let lonely = Network::new(3, vec![wire(0, 2, Q::ONE)], 0, 2).unwrap();
+        assert!(lonely.averaging_round(&[Q::ONE, Q::ZERO, Q::ZERO]).is_err());
+        assert!(lonely.sequential_round(&[Q::ONE, Q::ZERO, Q::ZERO]).is_err());
+        assert!(
+            Network::new(2, vec![], 0, 1)
+                .unwrap()
+                .weighted_mean(&[Q::ONE, Q::ZERO])
+                .is_err()
+        );
     }
 
     /// The solvers refuse what they cannot solve and say why.

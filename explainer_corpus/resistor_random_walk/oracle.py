@@ -213,6 +213,115 @@ def opening():
     return Net(4, LINKS, TOP, BOTTOM)
 
 
+ROUNDS, CHECK_ROUNDS, TOLERANCE = 5, 40, Fraction(1, 1000)
+
+
+def plain_round(values, update):
+    """One round: each junction in `update` becomes the plain average of
+    the values at the far ends of its identical wires (every wire once),
+    all from `values`; the others keep theirs."""
+    return [sum(values[y] for y in far_ends(x)) / len(far_ends(x)) if x in update else values[x]
+            for x in range(len(values))]
+
+
+def far_ends_all(x):
+    """far_ends for any junction of the opening network, the ends included."""
+    out = []
+    for a, b, k in LINKS:
+        if x in (a, b):
+            out.extend([b if x == a else a] * k)
+    return out
+
+
+def chapter_03(net, v):
+    """Chapter 03: repeated averaging, every middle junction at once from
+    the previous round, by plain averages over each wire; checked against
+    the closed form of its gaps; one junction at a time; the ends averaged
+    too, settling at the wire-count-weighted mean; an island swapping."""
+    middle = set(net.middle)
+    guess = [v[x] if x in (TOP, BOTTOM) else Fraction(0) for x in range(4)]
+    rounds = [guess]
+    for _ in range(CHECK_ROUNDS):
+        rounds.append(plain_round(rounds[-1], middle))
+    shown = rounds[:ROUNDS + 1]
+    emit("R-F7.start", csv([guess[LEFT], guess[RIGHT]]))
+    emit("R-F7.left", csv(r[LEFT] for r in shown))
+    emit("R-F7.right", csv(r[RIGHT] for r in shown))
+    for n in (1, 2):
+        for x in (LEFT, RIGHT):
+            emit(f"R-F7.round{n}.{NAMES[x]}_ends", csv(shown[n - 1][y] for y in far_ends(x)))
+    for n in (1, 2, 3, ROUNDS):
+        emit(f"R-F7.round{n}", csv([shown[n][LEFT], shown[n][RIGHT]]))
+    gaps = [max(abs(v[LEFT] - r[LEFT]), abs(v[RIGHT] - r[RIGHT])) for r in rounds]
+    emit("R-F7.gaps", csv(gaps[:ROUNDS + 1]))
+    ratios = {b / a for a, b in zip(gaps, gaps[1:])}
+    assert len(ratios) == 1
+    emit("R-F7.shrink", ratios.pop())
+    unknown = {sum(1 for y in far_ends(x) if y in middle) for x in middle}
+    assert len(unknown) == 1
+    emit("R-F7.unknown_wires", unknown.pop())
+    weights = {Fraction(sum(1 for y in far_ends(x) if y in middle), len(far_ends(x))) for x in middle}
+    assert len(weights) == 1
+    emit("R-F7.unknown_weight", weights.pop())
+    emit("R-F7.tolerance", TOLERANCE)
+    emit("R-F7.within", next(n for n, g in enumerate(gaps) if g < TOLERANCE))
+    power_of_two = lambda d: d & (d - 1) == 0
+    emit("R-F7.dyadic", flag(all(power_of_two(r[x].denominator) for r in rounds for x in (LEFT, RIGHT))))
+    emit("R-F7.never", flag(all(r[LEFT] != v[LEFT] and r[RIGHT] != v[RIGHT] for r in rounds)))
+    emit("R-F7.limit", csv([v[LEFT], v[RIGHT]]))
+
+    # one junction at a time, the newest values first
+    seq = [guess]
+    for _ in range(8):
+        now = list(seq[-1])
+        for x in sorted(middle):
+            now[x] = sum(now[y] for y in far_ends(x)) / len(far_ends(x))
+        seq.append(now)
+    sgaps = [max(abs(v[LEFT] - r[LEFT]), abs(v[RIGHT] - r[RIGHT])) for r in seq]
+    emit("R-F8.gs.left", csv(r[LEFT] for r in seq[:4]))
+    emit("R-F8.gs.right", csv(r[RIGHT] for r in seq[:4]))
+    emit("R-F8.gs.first_ratio", sgaps[1] / sgaps[0])
+    later = {b / a for a, b in zip(sgaps[1:], sgaps[2:])}
+    assert len(later) == 1
+    emit("R-F8.gs.from", 2)
+    emit("R-F8.gs.shrink", later.pop())
+
+    # the ends averaged too, from the solved voltages: each junction's
+    # weight is its number of wires, and the weighted mean never moves
+    counts = [len(far_ends_all(x)) for x in range(4)]
+    settle = sum(c * x for c, x in zip(counts, v)) / sum(counts)
+    free = [list(v)]
+    while max(abs(x - settle) for x in free[-1]) >= TOLERANCE:
+        r = free[-1]
+        free.append([sum(r[y] for y in far_ends_all(x)) / len(far_ends_all(x)) for x in range(4)])
+    emit("R-X6.weights", csv(counts))
+    emit("R-X6.limit", settle)
+    emit("R-X6.round1", csv(free[1]))
+    emit("R-X6.within", len(free) - 1)
+    emit("R-X6.kept", flag(all(sum(c * x for c, x in zip(counts, r)) / sum(counts) == settle for r in free)))
+
+    # an island: junctions 4 and 5 wired only to each other, the top at 1,
+    # junction 5 starting at 1 and every other junction at 0; averaged from
+    # the previous round, the two swap every round
+    island = LINKS + ((4, 5, 1),)
+
+    def island_ends(x):
+        out = []
+        for a, b, k in island:
+            if x in (a, b):
+                out.extend([b if x == a else a] * k)
+        return out
+
+    start = [Fraction(1), Fraction(0), Fraction(0), Fraction(0), Fraction(0), Fraction(1)]
+    step = lambda r: [r[x] if x in (TOP, BOTTOM) else sum(r[y] for y in island_ends(x)) / len(island_ends(x))
+                      for x in range(6)]
+    once = step(start)
+    twice = step(once)
+    emit("R-X7.island.round1", csv(once[4:]))
+    emit("R-X7.island.round2", csv(twice[4:]))
+    return rounds
+
+
 def chapter_02(net, v, h):
     """Chapter 02 at the left junction: the drops along its four wires from
     the forest voltages, the walker's first step by counting wires, its
@@ -313,6 +422,7 @@ def facts():
     emit("R-F3.same", flag(h == v))
 
     chapter_02(net, v, h)
+    chapter_03(net, v)
 
     # 01_7: one solution, and its edge
     d = det(balance(net))
@@ -409,6 +519,28 @@ def cross_checks(net, v, h):
     check("two of four wires up is the conductance weight 2/4", Fraction(far_ends(LEFT).count(TOP), 4) == p(LEFT, TOP))
     # the derivation's equation: 4v = 1 + 1 + 2/5 + 0 at v = the left voltage
     check("4 times the left voltage is the far ends' sum", 4 * v[LEFT] == sum(v[y] for y in far_ends(LEFT)))
+
+    # chapter 03: the iterates against the closed form of their gaps. Each
+    # junction's new gap is a quarter of the other's old one, so from
+    # gaps (3/5, 2/5) the left's is 3/5 or 2/5 over 4**n, alternating
+    left, right = Fraction(0), Fraction(0)
+    closed_ok = True
+    for n in range(0, 41):
+        a, b = (v[LEFT], v[RIGHT]) if n % 2 == 0 else (v[RIGHT], v[LEFT])
+        closed_ok &= (v[LEFT] - left, v[RIGHT] - right) == (a / 4**n, b / 4**n)
+        # the left's far ends are 1, 1, the right and 0; the right's 1, the
+        # left, 0 and 0
+        left, right = (2 + right) / 4, (1 + left) / 4
+    check("40 rounds of averaging match the closed form of their gaps", closed_ok)
+    check("after 5 rounds the bigger gap is 3/5120, under 1/1000", max(v[LEFT] - Fraction(307, 512), v[RIGHT] - Fraction(409, 1024)) == Fraction(3, 5120))
+    # a kept mean is not settling: two junctions joined by one wire, both
+    # averaged, trade values every round, their mean 1/2 kept, never closer
+    a, b = Fraction(1), Fraction(0)
+    swaps_ok = True
+    for _ in range(8):
+        a, b = b, a
+        swaps_ok &= (a + b) / 2 == Fraction(1, 2) and abs(a - Fraction(1, 2)) == Fraction(1, 2)
+    check("two junctions on one wire, both averaged, swap for ever around their kept mean", swaps_ok and (a, b) == (1, 0))
 
     # the averaging rule, each middle junction against its neighbours
     for x in net.middle:

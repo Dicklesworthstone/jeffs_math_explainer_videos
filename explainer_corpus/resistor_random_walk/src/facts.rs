@@ -113,6 +113,141 @@ pub fn single_pair() -> Result<(Q, Vec<Q>, Vec<Q>), String> {
     Ok((up, one.kirchhoff(Q::ONE, Q::ZERO)?, one.walk()?.top))
 }
 
+/// Chapter 03: the rounds of repeated averaging the table shows (after
+/// round 0, the guess), and how many the always/never checks run.
+pub const ROUNDS: usize = 5;
+pub const CHECK_ROUNDS: usize = 40;
+
+/// Chapter 03's "within a thousandth".
+pub fn tolerance() -> Q {
+    Q::new(1, 1000)
+}
+
+/// Chapter 03's guess: the top and the bottom at their voltages, both
+/// middle junctions at zero.
+pub fn guess() -> Result<Vec<Q>, String> {
+    let net = network()?;
+    let v = net.kirchhoff(Q::ONE, Q::ZERO)?;
+    Ok((0..net.size())
+        .map(|x| if net.is_end(x) { v[x] } else { Q::ZERO })
+        .collect())
+}
+
+/// Chapter 03: the guess and `n` rounds of repeated averaging after it,
+/// every middle junction updated at once from the previous round's values.
+pub fn rounds(n: usize) -> Result<Vec<Vec<Q>>, String> {
+    let net = network()?;
+    let mut out = vec![guess()?];
+    for _ in 0..n {
+        let next = net.averaging_round(out.last().ok_or("no round to start from")?)?;
+        out.push(next);
+    }
+    Ok(out)
+}
+
+/// Chapter 03: the bigger of the two middle junctions' gaps to their
+/// voltages.
+pub fn bigger_gap(values: &[Q]) -> Result<Q, String> {
+    let v = voltages()?;
+    let gap = |x: usize| {
+        if v[x] >= values[x] {
+            v[x] - values[x]
+        } else {
+            values[x] - v[x]
+        }
+    };
+    Ok(gap(LEFT).max(gap(RIGHT)))
+}
+
+/// Chapter 03's comparison: the guess and `n` rounds taken one middle
+/// junction at a time, each using the newest values.
+pub fn sequential_rounds(n: usize) -> Result<Vec<Vec<Q>>, String> {
+    let net = network()?;
+    let mut out = vec![guess()?];
+    for _ in 0..n {
+        let next = net.sequential_round(out.last().ok_or("no round to start from")?)?;
+        out.push(next);
+    }
+    Ok(out)
+}
+
+/// The bigger gap of each round.
+pub fn gaps(rounds: &[Vec<Q>]) -> Result<Vec<Q>, String> {
+    rounds.iter().map(|r| bigger_gap(&r[..])).collect()
+}
+
+/// The one factor by which every gap from round `from` on is the one
+/// before it, or an error when there is not exactly one.
+pub fn steady_factor(gaps: &[Q], from: usize) -> Result<Q, String> {
+    let ratios: BTreeSet<Q> = gaps
+        .get(from.saturating_sub(1)..)
+        .unwrap_or(&[])
+        .windows(2)
+        .map(|w| w[1] / w[0])
+        .collect();
+    match (ratios.first(), ratios.len()) {
+        (Some(&r), 1) => Ok(r),
+        _ => Err(format!(
+            "from round {from} the gaps shrink by {ratios:?}, not one factor"
+        )),
+    }
+}
+
+/// The round from which one-junction-at-a-time updates shrink the gap by
+/// one steady factor (round 1's factor differs).
+pub const SEQUENTIAL_FROM: usize = 2;
+
+/// How many wires at each middle junction lead to another middle junction,
+/// and the weight of that wire in its junction's average: one number each
+/// for every middle junction, or an error.
+pub fn unknown_link() -> Result<(usize, Q), String> {
+    let net = network()?;
+    let middle = net.middle();
+    let counts: BTreeSet<usize> = middle
+        .iter()
+        .map(|&x| net.far_ends(x).map(|e| e.iter().filter(|&&y| !net.is_end(y)).count()))
+        .collect::<Result<_, _>>()?;
+    let weights: BTreeSet<Q> = middle
+        .iter()
+        .flat_map(|&x| middle.iter().filter(move |&&y| y != x).map(move |&y| (x, y)))
+        .map(|(x, y)| net.between(x, y) / net.total(x))
+        .collect();
+    match (counts.first(), counts.len(), weights.first(), weights.len()) {
+        (Some(&k), 1, Some(&w), 1) => Ok((k, w)),
+        _ => Err(format!(
+            "unknown wires {counts:?} with weights {weights:?}, not one each"
+        )),
+    }
+}
+
+/// Chapter 03's edge: free rounds (the ends averaged too) from the solved
+/// voltages, until every value is within [`tolerance`] of where they settle;
+/// the rounds and that number.
+pub fn drift() -> Result<(Vec<Vec<Q>>, Q), String> {
+    let net = network()?;
+    let mut out = vec![voltages()?];
+    let mean = net.weighted_mean(&out[0])?;
+    loop {
+        let last = out.last().ok_or("no round")?;
+        let off = last
+            .iter()
+            .map(|&x| if x >= mean { x - mean } else { mean - x })
+            .max()
+            .unwrap_or(Q::ZERO);
+        if off < tolerance() {
+            return Ok((out, mean));
+        }
+        if out.len() > CHECK_ROUNDS {
+            return Err(format!(
+                "free rounds are not within {} of {mean} after {CHECK_ROUNDS}",
+                tolerance()
+            ));
+        }
+        let next = net.free_round(last)?;
+        out.push(next);
+    }
+}
+
 /// A junction's name, as the facts print it.
 fn name(x: usize) -> &'static str {
     ["top", "left", "right", "bottom"].get(x).copied().unwrap_or("?")
@@ -198,6 +333,7 @@ pub fn facts() -> Result<Facts, String> {
         island.kirchhoff(Q::ONE, Q::ZERO).is_err() && island.walk().is_err(),
     )?;
     chapter_02(&mut f, &net, &v, &walk)?;
+    chapter_03(&mut f, &net, &v)?;
     family(&mut f)?;
 
     // the primary source's own numbers
@@ -326,6 +462,112 @@ fn chapter_02(f: &mut Facts, net: &Network, v: &[Q], walk: &Walk) -> Result<(), 
     Ok(())
 }
 
+/// The two middle junctions' values in a round, as the facts print them.
+fn pair(values: &[Q]) -> String {
+    csv(&[values[LEFT], values[RIGHT]])
+}
+
+/// Chapter 03's numbers: the guess and the rounds the table shows, the far
+/// ends each of the first two rounds averages, the bigger gap and how it
+/// shrinks (and why: one wire at each junction leads to an unknown), when
+/// it falls under a thousandth, the power-of-two denominators that keep
+/// every round off 3/5, one junction at a time for comparison, and two
+/// edges: the ends averaged too, and an island.
+fn chapter_03(f: &mut Facts, net: &Network, v: &[Q]) -> Result<(), String> {
+    let all = rounds(CHECK_ROUNDS)?;
+    let shown = &all[..=ROUNDS];
+    let column = |x: usize| csv(&shown.iter().map(|r| r[x]).collect::<Vec<_>>());
+    f.add("R-F7.start", pair(&shown[0]))?;
+    f.add("R-F7.left", column(LEFT))?;
+    f.add("R-F7.right", column(RIGHT))?;
+    for n in [1, 2] {
+        let before = &shown[n - 1];
+        for x in [LEFT, RIGHT] {
+            let ends: Vec<Q> = net.far_ends(x)?.into_iter().map(|y| before[y]).collect();
+            if mean(&ends)? != shown[n][x] {
+                return Err(format!("round {n} at junction {x} is not its far ends' average"));
+            }
+            f.add(&format!("R-F7.round{n}.{}_ends", name(x)), csv(&ends))?;
+        }
+    }
+    for n in [1, 2, 3, ROUNDS] {
+        f.add(&format!("R-F7.round{n}"), pair(&shown[n]))?;
+    }
+
+    // the bigger gap, shrinking to a quarter every round, over every round
+    // the check runs
+    let all_gaps = gaps(&all)?;
+    f.add("R-F7.gaps", csv(&all_gaps[..=ROUNDS]))?;
+    f.add("R-F7.shrink", steady_factor(&all_gaps, 1)?)?;
+    // why a quarter: at each middle junction one wire leads to an unknown,
+    // and its weight is a quarter
+    let (unknown, weight) = unknown_link()?;
+    f.add("R-F7.unknown_wires", unknown)?;
+    f.add("R-F7.unknown_weight", weight)?;
+    let within = all_gaps
+        .iter()
+        .position(|&g| g < tolerance())
+        .ok_or("the gap never falls under the tolerance")?;
+    f.add("R-F7.tolerance", tolerance())?;
+    f.add("R-F7.within", within)?;
+    // every round's values are over a power of two, and none is the answer
+    let dyadic = all
+        .iter()
+        .all(|r| [LEFT, RIGHT].iter().all(|&x| (r[x].denom() & (r[x].denom() - 1)) == 0));
+    let never = all.iter().all(|r| r[LEFT] != v[LEFT] && r[RIGHT] != v[RIGHT]);
+    f.add("R-F7.dyadic", dyadic)?;
+    f.add("R-F7.never", never)?;
+    f.add("R-F7.limit", pair(v))?;
+
+    // one junction at a time, with the newest values (the card's comparison)
+    let seq = sequential_rounds(8)?;
+    let seq_gaps = gaps(&seq)?;
+    let first = seq_gaps[1] / seq_gaps[0];
+    let steady = steady_factor(&seq_gaps, SEQUENTIAL_FROM)?;
+    if steady == first {
+        return Err(format!(
+            "one at a time the gap shrinks by {first} from round 1, so the card's round {SEQUENTIAL_FROM} is wrong"
+        ));
+    }
+    f.add(
+        "R-F8.gs.left",
+        csv(&seq[..4].iter().map(|r| r[LEFT]).collect::<Vec<_>>()),
+    )?;
+    f.add(
+        "R-F8.gs.right",
+        csv(&seq[..4].iter().map(|r| r[RIGHT]).collect::<Vec<_>>()),
+    )?;
+    f.add("R-F8.gs.first_ratio", first)?;
+    f.add("R-F8.gs.from", SEQUENTIAL_FROM)?;
+    f.add("R-F8.gs.shrink", steady)?;
+
+    // edge: the ends averaged too, from the solved voltages
+    let (free, settle) = drift()?;
+    let totals: Vec<Q> = (0..net.size()).map(|x| net.total(x)).collect();
+    let kept = free
+        .iter()
+        .map(|r| net.weighted_mean(r))
+        .collect::<Result<Vec<_>, _>>()?
+        .iter()
+        .all(|&m| m == settle);
+    f.add("R-X6.weights", csv(&totals))?;
+    f.add("R-X6.limit", settle)?;
+    f.add("R-X6.round1", csv(free.get(1).ok_or("no free round")?))?;
+    f.add("R-X6.within", free.len() - 1)?;
+    f.add("R-X6.kept", kept)?;
+
+    // edge: an island's two values swap each round and never settle
+    let island = model::with_island()?;
+    let mut start = vec![Q::ZERO; island.size()];
+    start[island.top()] = Q::ONE;
+    start[model::JUNCTIONS + 1] = Q::ONE;
+    let once = island.averaging_round(&start)?;
+    let twice = island.averaging_round(&once)?;
+    f.add("R-X7.island.round1", csv(&once[model::JUNCTIONS..]))?;
+    f.add("R-X7.island.round2", csv(&twice[model::JUNCTIONS..]))?;
+    Ok(())
+}
+
 /// Every network of the opening's family (the six possible links each
 /// absent, one wire or two): how many there are, how many leave no junction
 /// cut off, how many do, how many have a singular balance, and among the
@@ -419,6 +661,24 @@ mod tests {
             ("R-X4.single.voltages", "1,5/11,4/11,0"),
             ("R-X4.single.chances", "1,5/11,4/11,0"),
             ("R-X5.top_average", "8/15"),
+            ("R-F7.left", "0,1/2,9/16,19/32,153/256,307/512"),
+            ("R-F7.right", "0,1/4,3/8,25/64,51/128,409/1024"),
+            ("R-F7.round2.left_ends", "1,1,1/4,0"),
+            ("R-F7.round2.right_ends", "1,1/2,0,0"),
+            ("R-F7.gaps", "3/5,3/20,3/80,3/320,3/1280,3/5120"),
+            ("R-F7.shrink", "1/4"),
+            ("R-F7.unknown_weight", "1/4"),
+            ("R-F7.within", "5"),
+            ("R-F7.dyadic", "true"),
+            ("R-F7.never", "true"),
+            ("R-F8.gs.first_ratio", "1/6"),
+            ("R-F8.gs.shrink", "1/16"),
+            ("R-X6.limit", "1/2"),
+            ("R-X6.round1", "8/15,3/5,2/5,7/15"),
+            ("R-X6.within", "6"),
+            ("R-X6.kept", "true"),
+            ("R-X7.island.round1", "1,0"),
+            ("R-X7.island.round2", "0,1"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

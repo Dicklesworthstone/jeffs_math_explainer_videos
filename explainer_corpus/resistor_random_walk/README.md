@@ -26,9 +26,27 @@ those. No audio or music exists, and none is accepted.
   an empty layout lint. Root viewed the corrected 02_1, 02_3, 02_7 and 02_8
   frames and all eight glyph pages (59 sources), and an independent Opus
   review (3827) accepted the corrected source. That accepts source, native
-  checks and sampled visuals only. It adds a scene, its facts (`R-F4` to
-  `R-F6`, `R-X4`, `R-X5`, 72 fact keys in all) and their oracle rows. The
-  task's commit and closure are root's.
+  checks and sampled visuals only. It added a scene, its facts (`R-F4` to
+  `R-F6`, `R-X4`, `R-X5`) and their oracle rows. It is committed at d17decc,
+  and root closed the task.
+- **Chapter 03** (`03_round_after_round`, task `.18.3`) adds repeated
+  averaging with real iterates, its facts (`R-F7`, `R-F8`, `R-X6`, `R-X7`,
+  104 fact keys in all) and their oracle rows. Root's central17 batch (BlueSalmon, Mail 3918) passed fmt, strict
+  clippy, 43 tests, the release build, the 104-fact comparison with the
+  oracle (15 checks) and an empty layout lint; its silent scratch draft05
+  ran 2489 frames, 82.97 s. An image review of draft05 (EmeraldLeopard,
+  Mail 3927) found three cards on screen under 4 s, round 5's 307/512
+  cited before its row, and the battery-held table left beside the
+  battery-free counterfactual. Those were repaired in source (Mail 3954).
+  Root's central20 (Mail 3971) then passed the build, fmt, strict clippy,
+  the 5 targeted tests and the glyph probe (100 sources); draft06 ran 2489
+  frames, 82.97 s, with an empty layout lint, its four cards up about 13.8,
+  13.0, 18.9 and 8.3 s, the table cleared for the battery-free case and no
+  prediction leak. Root viewed the revised cards and glyph pages 0, 3, 4
+  and 5, and EmeraldLeopard (Mail 3964) independently verified the repair.
+  That accepts source and sampled visuals only: no audio, music, 4K,
+  continuous-playback or full-video acceptance. Closing the task is
+  root's.
 
 The owner's 2026-10-19 rejection of the first-wave narration (`AGENTS.md`)
 holds for this video too: `narration_units.json` is a script grouping, not
@@ -41,13 +59,14 @@ a synthesis instruction.
 | `oracle.py` | the same numbers computed independently: spanning-forest counts, Cramer's rule, permutation determinants; cross-checks on stderr |
 | `src/chapters/the_same_number.rs` | chapter 01's scene |
 | `src/chapters/why_an_average.rs` | chapter 02's scene: the current balance at the left junction wire by wire, derived to the average; the walker's first step over the same four wires; the general conductance-weighted rule |
+| `src/chapters/round_after_round.rs` | chapter 03's scene: repeated averaging from a guess of zero, every middle junction at once from the previous round's values; a table of the real rounds and their gaps; never exactly, within a thousandth after five rounds; the ends averaged too as the edge |
 | `src/chapters/draw.rs` | the network picture (side-by-side wires, the battery, values beside wires, arrowheads of flow), playback, line timing and the countdown |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
-| `narration_units.json` | the script's lines grouped into whole-thought units (three per chapter); written and checked by `narration_units.py` |
+| `narration_units.json` | the script's lines grouped into whole-thought units (three per chapter, each prediction question ending its take); written and checked by `narration_units.py` |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | every number's source, the brief, the words every revision keeps |
 
 ```bash
-python3 -I -B oracle.py                               # every number; 12 cross-checks on stderr (numpy optional)
+python3 -I -B oracle.py                               # every number; 15 cross-checks on stderr (numpy optional)
 python3 -I ../../tools/storyboard.py --check resistor_random_walk
 python3 -I ../../tools/lint_script.py script.tsv
 python3 -I -B narration_units.py --check
@@ -137,13 +156,28 @@ to check by hand.
   current law.
 - Chapter 01 is close to the 85 s cap by the scratch-voice estimate (about
   84 s). Chapter 02 is 173 words; its estimate is about 82 s, and root's
-  silent scratch draft04 measured 81.6 s (2448 frames). Neither chapter has
-  been timed with a real voice.
+  silent scratch draft04 measured 81.6 s (2448 frames). Chapter 03 is 173
+  words; its estimate is about 83 s, and root's silent scratch drafts
+  measured 82.97 s (2489 frames) both before the card repair (draft05) and
+  after it (draft06). No chapter has been
+  timed with a real voice.
+- Chapter 03's repeated averaging updates every middle junction at once from
+  the previous round (Jacobi's method), and says so; the one-at-a-time kind
+  (Gauss-Seidel) is only a card's comparison. Its gap bound is exact for
+  this network, because each middle junction has one wire to an unknown,
+  weighted 1/4; it is not claimed for other networks. No finite round is
+  claimed to reach the answer: every round's values have power-of-two
+  denominators (40 rounds checked, and the card gives the reason for all).
+  Each of its lower-thirds stays up at least its reading time, fifteen
+  characters a second from when it is fully in, over the lines after it
+  where need be.
 - Chapter 02 derives the rule at the left junction only, using the right
   junction's known 2/5; why the two averages together have one solution is
   chapter 01's (and a later chapter's) argument. A current is written as
   its drop over the wires' common resistance, never as a bare number of
   amperes.
-- Not yet established: any narration or music for either chapter; a
+- Not yet established: any narration or music for any chapter; a
   continuous review of a chapter's every frame (root sampled the frames
-  named above); the whole video.
+  named above); chapter 03's full test suite after the card repair
+  (central20 ran the 5 targeted tests; central17 ran all 43 before it);
+  the whole video.

@@ -69,6 +69,12 @@ GROUPS = [
     ("02_5",),
     # the answer, the first-step average, and the general rule
     ("02_6", "02_7", "02_8"),
+    # 03: the guess, the rule for a round, and the first rounds
+    ("03_1", "03_2", "03_3", "03_4"),
+    # the gap's quarter, and the prediction question, ending its take
+    ("03_5", "03_6"),
+    # never exactly, the limit, and why the ends stay fixed
+    ("03_7", "03_8", "03_9"),
 ]
 
 
