@@ -392,6 +392,41 @@ check(abs(edge**2 - Decimal("0.5")) < Decimal("1e-55") and 1**2 > HALF, "the win
 emit("C4.end.edge.4dp", rounded(edge, 4))
 emit("C4.end.delta.4dp", rounded(1 - edge, 4))
 
+# ---------------------------------------------------------------- chapter 05
+
+# continuity of x^2 at 1/2 on the domain [0, 1] against 1/10, searched for
+A5, EPS5 = Fraction(1, 2), Fraction(1, 10)
+emit("C5.a", fr(A5))
+emit("C5.value", fr(A5 * A5))
+# the factor x + 1/2 over [0, 1]: a straight line, so its largest value is at
+# an end; check the ends and a grid independently
+grid = [Fraction(k, 1000) for k in range(1001)]
+bound5 = max(x + A5 for x in (Fraction(0), Fraction(1)))
+check(all(x + A5 <= bound5 for x in grid) and Fraction(1) + A5 == bound5, f"x + 1/2 <= {fr(bound5)} on [0, 1], equal at x = 1")
+emit("C5.bound", fr(bound5))
+emit("C5.near", fr(A5 + A5))
+ratio5 = 1 / bound5
+emit("C5.ratio", fr(ratio5))
+emit("C5.eps", fr(EPS5))
+delta5 = ratio5 * EPS5
+# the chain on every grid point: |x^2 - 1/4| = |x - 1/2| (x + 1/2) <= (3/2)|x - 1/2|,
+# and so every grid point of the window passes (sampled; the chain is the proof)
+check(all(abs(x * x - A5 * A5) <= bound5 * abs(x - A5) for x in grid), "|x^2 - 1/4| <= (3/2)|x - 1/2| at every grid point of [0, 1]")
+check(all(abs(x * x - A5 * A5) < EPS5 for x in grid if abs(x - A5) < delta5), f"every grid point with |x - 1/2| < {fr(delta5)} passes")
+emit("C5.delta", fr(delta5))
+emit("C5.delta.3dp", rounded(to_decimal(delta5), 3))
+# the widest symmetric window, measured from the curve: the right side
+# reaches x^2 = 1/4 + 1/10 first
+with localcontext() as ctx:
+    ctx.prec = 60
+    right = (to_decimal(A5 * A5 + EPS5)).sqrt() - to_decimal(A5)
+    left = to_decimal(A5) - (to_decimal(A5 * A5 - EPS5)).sqrt()
+widest5 = min(right, left)
+check(right < left and Fraction(delta5) < Fraction(widest5), f"the widest window {widest5:.6f} (right side) is wider than {fr(delta5)}")
+beyond = A5 + Fraction(2, 25)
+check(abs(beyond - A5) > delta5 and abs(beyond * beyond - A5 * A5) < EPS5, "x = 0.58 is outside the window found and still passes")
+emit("C5.widest.3dp", rounded(widest5, 3))
+
 # ------------------------------------------------- continuation (brief §3–4)
 
 

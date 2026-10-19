@@ -24,7 +24,7 @@ closer is not a guarantee until that order is fixed.
 | Act | Chapters (brief §"Episode shape") | Spine |
 |---|---|---|
 | I. A limit that jumps | 01 a limit that jumps (built); 02 the shrinking region (built) | unbroken curves x^n on [0, 1], a limit that is 0 then 1; a fixed point waits a finite time, the moving point x_n = 2^(−1/n) keeps a gap of 1/2; a thin region is not an empty one |
-| II. The guarantee | 03 what the old objection was about (built), 04 the challenge game (built), 05 why written proofs hide the search | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
+| II. The guarantee | 03 what the old objection was about (built), 04 the challenge game (built), 05 why written proofs hide the search (built) | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
 | III. Making δ | 06 Sprague's recentring, 07 Davis's bound, 08 fixed or moving, precisely | δ = √(4 + ε) − 2 for x² at 2, the simpler δ = min(1, ε/5), the cubic's C = 22; the naive ε/4 fails at ε = 1 with h = 6/25; pointwise against uniform as an order of choices |
 | IV. Repair and other languages | 09 the three-piece bridge, 10 sequences and bounds, 11 preimages, 12 what the definition does not supply | uniform convergence repairs the opening; one bad sequence refutes continuity; open sets pull back to open sets; completeness is a separate assumption |
 
@@ -124,7 +124,37 @@ After chapter 04 the picture rests on the plot (x², the band within 1/2 of
 1, the window from 2^(−1/2) to 1 with its end marks and its edge's label,
 the highlighted piece), the right column's domain note, tolerance and four
 rows, and the line "next: how a window is found, and why a written proof
-hides the search". Chapter 05 opens on it.
+hides the search". Chapter 05 opens on it:
+
+- **05_why_written_proofs_hide_the_search**: built (its beats are below,
+  task mx-video-program-program-87do.58.5). It rebuilds chapter 04's last
+  picture with chapter 04's own builders (`challenge_game::end_picture`).
+  Its example is continuity of x² at x = 1/2 on the stated domain [0, 1].
+  - It first shows a finished proof whose δ = (2/3)ε comes unexplained.
+  - Then the search, backward from the goal |x² − 1/4| < ε:
+    - the gap factors as |x − 1/2|·|x + 1/2|;
+    - on [0, 1] the second factor is at most 3/2, reached at x = 1. This
+      is a deliberately generous bound, since near 1/2 it is about 1;
+    - so |x − 1/2| < (2/3)ε is enough. That is δ (the model's
+      `found_window`, ε/(1 + a)).
+  - The prediction is quantitative: against ε = 1/10, where the window
+    found is 1/15 ≈ 0.067, about how large could δ be and still work? The
+    answer comes only after the think window: the widest symmetric window,
+    measured where the curve leaves the band on the right, is ≈ 0.092
+    (`widest_window_rounded`, certified, not derived on screen). 1/15 is
+    smaller and still enough.
+  - The finished proof is then read forward, line by line, in the
+    definition's order, saying both conditions on x: in the domain and in
+    the window.
+  - It overlaps neither of the next two chapters' methods: Sprague's exact
+    solution of a recentred bound, and Davis's coefficient sum.
+  - It names no one.
+
+After chapter 05 the picture rests on the plot (x², the band within 1/10
+of 1/4, the base point, the window found and the widest window's outline,
+the edge where the curve leaves the band), the finished proof lit, the
+search's six rows, the two comparison rows and "next: making that search
+systematic".
 
 ## 3 Color roles
 
@@ -150,6 +180,8 @@ data colour.
 | the step that fails: h set to zero, 0/0, the fan of lines that all fit | red, as the gap and the jump |
 | chapter 04's challenger: the tolerance rule (gold, as the band), the defender's window rule (lavender, as the window), the challenger's pick (lavender, a dot on the graph); a pick that misses the band | the band's and window's colours; a miss is ringed red |
 | the hole filled with a value (chapter 04) | green, as the graph |
+| chapter 05's finished proof: bright when shown or read, dim while the search runs; the search's rows | ink, the proof dimmed to `dim`; the found δ in lavender, as the window |
+| the widest window (chapter 05), an outline only, and where the curve leaves the band | lavender stroke; the edge ringed in `hero` |
 | axes and their numbers | `dim` |
 | the prediction ring, the title, the trace of an unbroken curve, a glow | `hero` gold `#FFD866` |
 
@@ -194,6 +226,12 @@ challenger chooses. The narration says "continuity" and "limit" as two
 different checks: the limit leaves the point out, and continuity puts it
 in and aims at the value there.
 
+Chapter 05 adds the **search** (the scratchwork, backward from the goal)
+and the **proof** (the same argument, written forward from δ). It adds
+**generous** for a bound chosen bigger than needed, and **widest** for
+the widest window that works. It never calls the found δ best or optimal,
+and it never derives the widest one.
+
 Numbers: decimals are said digit by digit after "point" as the screen
 writes them ("point seven two nine" for 0.729); one half is said "one half"
 and shown 1/2; zero and one are the interval's ends and the limit's two
@@ -219,6 +257,9 @@ values.
 | "the defender may answer after seeing the input" | 04_5 to 04_6: then even the misfilled graph would win, with a window too narrow to hold the pick |
 | "a limit and continuity are the same check" | 04_4: the limit leaves h = 0 out; filled with 1.5, the limit is still 1 but continuity fails for every window |
 | "a window is symmetric even at the end of the domain" | 04_7: at x = 1 only x ≤ 1 is in the domain; the window is 2^(−1/2) < x ≤ 1 |
+| "a written proof shows how δ was found" | 05_1 to 05_5: the proof opens with δ = (2/3)ε; the search that found it runs the other way, from the goal |
+| "δ must be the widest window" | 05_6 to 05_7: at ε = 1/10 the widest is about 0.092; 1/15 is smaller and still works; a window only has to work for every input |
+| "bounding a factor needs the factor near the point" | 05_4: the bound 3/2 holds on the whole domain [0, 1]; it is generous on purpose, and still enough |
 
 ## Narration units and timing
 
@@ -270,6 +311,18 @@ Chapter 04's units:
 
 The question 04_5 is followed by the same 4 s think window, its answer
 ("Yes") hidden until the window ends. The chapter ends on a hold.
+
+Chapter 05's units:
+- **05u1** (05_1 to 05_3, 59 words): the finished proof, the goal and the
+  factoring.
+- **05u2** (05_4 to 05_6, 50 words): the domain's bound, the window found,
+  ending on the question.
+- **05u3** (05_7 to 05_9, 91 words): the answer, the proof read forward,
+  and the two directions.
+
+The question 05_6 is followed by the same 4 s think window, its answer
+("About point zero nine two") hidden until the window ends. The chapter
+ends on a hold.
 
 **Hold (2026-10-19):** the owner rejected the first wave's narrated cuts
 and withdrew them; the rejected narration method must not be carried into
@@ -331,4 +384,19 @@ qualified method, not an instruction to synthesize. No take exists.
 | 04_6 | Yes, always, with a window too narrow to hold it. So the window may depend on the tolerance, the point and the curve, never on the later h. *(C4.cheat.delta on screen)* | The "?" goes. At "too narrow", the window shrinks to δ = 1/40, leaving the pick at 0.05 outside it: its ring, readout and the argument go, and in dim "h = 0.05: not in the window" (the model's `blind_window`, \|h\|/2). Over it, dim, the case no window can shut out: "h = 0 is in every window;" "\|g(0) − g(0)\| = 0 < ε": it passes anyway, so only nonzero picks can be hidden. At "So the window may depend", the precisely card gives way to a line under the definitions: δ may depend on ε, the point and the curve, never on the h picked after it; a glow at the defender's rule | morph that keeps identity; highlight | |
 | 04_7 | Continuity at x equals one, where the square's domain ends. Against one half, the window starts where x squared is one half, and every x from there to one passes. *(C4.end.x, C4.end.eps, C4.end.power, C4.end.level; C4.end.edge.4dp, C4.end.delta.4dp, C1.domain.left, C1.domain.right on screen)* | Everything on the right, the rules, the definitions, the δ line, and on the plot the base point, chord, far point and gold line go; the square, its label and the axes stay. At "x equals one", a glow at (1, 1) and, dim at the right, "domain [0, 1]: no x beyond 1". At "Against one half", a gold band on the plot from y = 1/2 up past 1, and ε = 1/2 around 1 at the right. At "the window starts", a lavender window from x = 2^(−1/2) to 1, a hollow mark at its left end (x² is exactly 1/2 there, not within) and a filled mark at 1, which belongs; under the axis 2^(−1/2) ≈ 0.7071. At "every x from there", the square's piece over the window lights up inside the band, and the rows: 2^(−1/2) < x ≤ 1: 1/2 < x² ≤ 1; so \|x² − 1\| < 1/2 for every such x; dim, x = 2^(−1/2): x² = 1/2 exactly, not within; δ = 1 − 2^(−1/2) ≈ 0.2929 | plot; highlight; derivation | |
 | 04_8 | A winning answer covers every input in its window. Finding them is a search that written proofs hide. | At "covers every input", a glow over the window. At "Finding them", centred under everything, dim: "next: how a window is found, and why a written proof hides the search" | highlight | hold |
+
+## 05_why_written_proofs_hide_the_search: Why written proofs hide the search (~84 s at the kit's scratch rate)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | A finished proof opens with a choice like delta equals two thirds of epsilon, and never says where it came from. Here is the search. *(C5.ratio)* | Chapter 04's last picture, rebuilt by its own builders; everything but the plot's axes, the square and its label goes. Top right, a finished proof in three lines: Let ε > 0 and δ = (2/3)ε. If x ∈ [0, 1] and \|x − 1/2\| < δ, then \|x² − 1/4\| = \|x − 1/2\|·\|x + 1/2\| ≤ (3/2)\|x − 1/2\| < (3/2)δ = ε (C5.a, C5.value, C5.bound, C1.domain.left, C1.domain.right). At "never says where it came from", a glow at its δ = (2/3)ε; at "Here is the search", the proof dims | derivation; highlight | |
+| 05_2 | Start from what the challenger demands. x squared must be within epsilon of a quarter, for every x near one half. *(C5.value, C5.a)* | At "what the challenger demands", the search's first row: goal: \|x² − 1/4\| < ε; on the plot a gold band around y = 1/4, labelled within ε of 1/4, and the base point (1/2, 1/4) with its teal guide and 1/2 under the axis. At "for every x near one half", a lavender window around x = 1/2, labelled δ = ? | derivation; plot | |
+| 05_3 | That gap is the distance from one half, times x plus one half. *(C5.a)* | The second row: \|x² − 1/4\| = \|x − 1/2\| · \|x + 1/2\| | derivation | |
+| 05_4 | On the domain, zero to one, x plus one half is never more than three halves. That is the deliberate, generous step. *(C1.domain.left, C1.domain.right, C5.a, C5.bound; C5.near on screen)* | At "On the domain", the third row: x ∈ [0, 1] ⇒ \|x + 1/2\| ≤ 3/2, and a glow at x = 1 on the axis, where the factor is largest. At "deliberate, generous step", dim: near x = 1/2 it is only about 1 | derivation; highlight | |
+| 05_5 | So a distance below two thirds of epsilon is enough. That is where delta came from. *(C5.ratio)* | At "So a distance below", the fourth row: (3/2)\|x − 1/2\| < ε when \|x − 1/2\| < (2/3)ε. At "That is where delta came from", in lavender: δ = (2/3)ε, the window's label swaps to it, and a glow at the dimmed proof's δ | derivation; highlight | |
+| 05_6 | ⟨predict⟩ Against one tenth, about how large could delta be, and still work? *(C5.eps; C5.delta, C5.delta.3dp on screen)* | At "Against one tenth", the band's label becomes ε = 1/10 and, under the search, in lavender: ε = 1/10: δ = 1/15 ≈ 0.067, the window found there (the band and window are drawn to this scale throughout). At "about how large could delta be", a "?" in the think ring in the plot's empty top left, which drains for 4 s with "pause for more time" under it. No widest outline and no number for it until the ring ends | predict pause | think 4 s, the answer hidden until it ends |
+| 05_7 | About point zero nine two, where the curve leaves the band. One fifteenth is smaller, and still enough. A window only has to work for every input, not be the widest. *(C5.widest.3dp, C5.delta)* | The "?" goes. At "About point zero nine two", the answer: a lavender outline of the widest symmetric window, ≈ 0.092 either side of 1/2, and, dim: widest window: δ ≈ 0.092. At "where the curve leaves the band", a hero ring there, on the right (x² = 0.35 exactly there, so not within), and a glow on it. At "One fifteenth is smaller", a glow at the window found's row. The widest is measured from the curve and certified (`widest_window_rounded`), not derived | plot; highlight | |
+| 05_8 | Now read the proof forward, as it is written. Given epsilon, take delta as two thirds of epsilon. For every x in the domain and in the window, the gap is below three halves of delta, which is epsilon. *(C5.ratio, C5.bound)* | The proof's lines light again one at a time, each with a glow: at "Given epsilon" its first, at "For every x in the domain and in the window" its second (x ∈ [0, 1] and \|x − 1/2\| < δ), at "the gap is below" its third | highlight; derivation | |
+| 05_9 | The search ran backward from the goal. The proof runs forward, and hides it. Next, ways to make that search systematic. | At "The search ran backward", glows at the search's goal, then at its δ; at "The proof runs forward", glows at the proof's δ, then at its last line, ε. At "Next, ways", centred under everything, dim: "next: making that search systematic" | highlight | hold |
+
 

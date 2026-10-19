@@ -24,12 +24,12 @@
 
 use explainer_kit::layout::TEXT_MARGIN;
 use explainer_kit::props::precisely;
-use explainer_kit::{BACKGROUND, Kit, Palette, Timed, hex, rect, v};
+use explainer_kit::{BACKGROUND, Facts, Kit, Palette, Timed, hex, rect, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    END_R, NUMBER_DROP, PLOT, fact, fade_in_all, fade_in_lagged, fade_out_all, fail, fails, flat, limit_color,
-    line_style, move_to, moving, say, slope_color, think_pause,
+    BRIGHT_W, END_R, NUMBER_DROP, PLOT, curve_color, curve_label, fact, fade_in_all, fade_in_lagged, fade_out_all,
+    fail, fails, flat, limit_color, line_style, move_to, moving, say, slope_color, think_pause,
 };
 use super::old_objection::{NEXT_Y, READ_Y, RIGHT_X, SLOPES, final_picture, shown, swap, tex_frac};
 use super::shrinking_region::glow;
@@ -564,14 +564,9 @@ impl SceneConstruct for TheChallengeGame {
         leaving.extend([limit_def, continuity_def, rule]);
         fade_out_all(stage, &leaving, 0.6)?;
         line.wait_for(stage, END_AT)?;
-        let one = fact(&f, "C4.end.x")?;
         let domain = kit.text_left(
             stage,
-            &format!(
-                "{DOMAIN} [{}, {}]: {BEYOND} {one}",
-                fact(&f, "C1.domain.left")?,
-                fact(&f, "C1.domain.right")?
-            ),
+            &end_domain_text(&f)?,
             22.0,
             Palette::dim(),
             v(RIGHT_X, END_ROWS[0]),
@@ -579,80 +574,24 @@ impl SceneConstruct for TheChallengeGame {
         fade_in_all(stage, &[domain], 0.5)?;
         glow(&kit, stage, PLOT.p(1.0, 1.0), 0.2)?;
         line.wait_for(stage, HALF_AT)?;
-        let half = fact(&f, "C4.end.eps")?;
-        let end_level = fact(&f, "C4.end.level")?;
         // the band is |y − 1| < 1/2: from the level 1 − 1/2 up past the top
-        let lo = PLOT.p(0.0, level_frac(&end_level)?.f64());
-        let hi = PLOT.p(1.0, 1.0 + BAND_PAST);
-        let end_band = rect(lo, hi[0] - lo[0], hi[1] - lo[1], flat(limit_color(), 0.22))?;
-        let end_band = stage.arena_mut().add(end_band);
+        let band_at_end = end_band(stage, &f)?;
         let end_eps = kit.tex_left(
             stage,
-            &format!(r"\varepsilon = {} \text{{ around }} {one}", tex_frac(&half)),
+            &end_eps_tex(&f)?,
             28.0,
             limit_color(),
             &[],
             v(RIGHT_X, END_ROWS[1]),
         )?;
-        fade_in_all(stage, &[end_band, end_eps], 0.5)?;
+        fade_in_all(stage, &[band_at_end, end_eps], 0.5)?;
         line.wait_for(stage, STARTS_AT)?;
-        let n = fact(&f, "C4.end.power")?;
         let edge = half_height(SQUARE).map_err(fail)?;
-        let w_lo = PLOT.p(edge, 0.0);
-        let w_hi = PLOT.p(1.0, 1.0 + BAND_PAST);
-        let end_window = rect(w_lo, w_hi[0] - w_lo[0], w_hi[1] - w_lo[1], flat(moving(), 0.22))?;
-        let end_window = stage.arena_mut().add(end_window);
-        let marks = [end_mark(stage, edge, false), end_mark(stage, 1.0, true)];
-        let root = format!(r"2^{{-1/{n}}}");
-        let edge_label = kit.tex(
-            stage,
-            &format!(r"{root} \approx {}", fact(&f, "C4.end.edge.4dp")?),
-            22.0,
-            moving(),
-            &[],
-            v(w_lo[0], w_lo[1] - NUMBER_DROP),
-        )?;
-        fade_in_all(stage, &[end_window, marks[0], marks[1], edge_label], 0.6)?;
+        let window_at_end = end_window(&kit, stage, &f)?;
+        fade_in_all(stage, &window_at_end, 0.6)?;
         line.wait_for(stage, PASSES_AT)?;
         let piece = passing_piece(stage, edge)?;
-        let lvl = tex_frac(&end_level);
-        let rows = [
-            kit.tex_left(
-                stage,
-                &format!(r"{root} < x \le {one}:\quad {lvl} < x^{{{n}}} \le {one}"),
-                28.0,
-                Palette::ink(),
-                &[],
-                v(RIGHT_X, END_ROWS[2]),
-            )?,
-            kit.tex_left(
-                stage,
-                &format!(
-                    r"\text{{so }} |x^{{{n}}} - {one}| < {} \text{{ for every such }} x",
-                    tex_frac(&half)
-                ),
-                28.0,
-                Palette::ink(),
-                &[],
-                v(RIGHT_X, END_ROWS[3]),
-            )?,
-            kit.tex_left(
-                stage,
-                &format!(r"x = {root}:\ x^{{{n}}} = {lvl}{EXACTLY}"),
-                24.0,
-                Palette::dim(),
-                &[],
-                v(RIGHT_X, END_ROWS[4]),
-            )?,
-            kit.tex_left(
-                stage,
-                &format!(r"\delta = {one} - {root} \approx {}", fact(&f, "C4.end.delta.4dp")?),
-                28.0,
-                moving(),
-                &[],
-                v(RIGHT_X, END_ROWS[5]),
-            )?,
-        ];
+        let rows = end_rows(&kit, stage, &f)?;
         let mut ins = vec![piece];
         ins.extend(rows);
         fade_in_lagged(stage, &ins, 1.2, 0.25)?;
@@ -669,6 +608,153 @@ impl SceneConstruct for TheChallengeGame {
         kit.music_breath(stage, 0.8)?;
         kit.finish(stage)
     }
+}
+
+/// 04_7's domain note, from facts.
+fn end_domain_text(f: &Facts) -> fmn::Result<String> {
+    Ok(format!(
+        "{DOMAIN} [{}, {}]: {BEYOND} {}",
+        fact(f, "C1.domain.left")?,
+        fact(f, "C1.domain.right")?,
+        fact(f, "C4.end.x")?
+    ))
+}
+
+/// 04_7's tolerance around 1, from facts.
+fn end_eps_tex(f: &Facts) -> fmn::Result<String> {
+    Ok(format!(
+        r"\varepsilon = {} \text{{ around }} {}",
+        tex_frac(&fact(f, "C4.end.eps")?),
+        fact(f, "C4.end.x")?
+    ))
+}
+
+/// 04_7's band on the plot, |y − 1| < 1/2, from the level up past the top,
+/// detached.
+fn end_band(stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    let lo = PLOT.p(0.0, level_frac(&fact(f, "C4.end.level")?)?.f64());
+    let hi = PLOT.p(1.0, 1.0 + BAND_PAST);
+    let band = rect(lo, hi[0] - lo[0], hi[1] - lo[1], flat(limit_color(), 0.22))?;
+    Ok(stage.arena_mut().add(band))
+}
+
+/// 04_7's window on the plot, from 2^(−1/2) to 1, its end marks and its
+/// edge's label, detached.
+fn end_window(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<[Mob; 4]> {
+    let edge = half_height(SQUARE).map_err(fail)?;
+    let w_lo = PLOT.p(edge, 0.0);
+    let w_hi = PLOT.p(1.0, 1.0 + BAND_PAST);
+    let window = rect(w_lo, w_hi[0] - w_lo[0], w_hi[1] - w_lo[1], flat(moving(), 0.22))?;
+    let window = stage.arena_mut().add(window);
+    let marks = [end_mark(stage, edge, false), end_mark(stage, 1.0, true)];
+    let edge_label = kit.tex(
+        stage,
+        &format!(r"{} \approx {}", end_root(f)?, fact(f, "C4.end.edge.4dp")?),
+        22.0,
+        moving(),
+        &[],
+        v(w_lo[0], w_lo[1] - NUMBER_DROP),
+    )?;
+    Ok([window, marks[0], marks[1], edge_label])
+}
+
+/// 2^(−1/n) for the end's power, as TeX.
+fn end_root(f: &Facts) -> fmn::Result<String> {
+    Ok(format!(r"2^{{-1/{}}}", fact(f, "C4.end.power")?))
+}
+
+/// 04_7's four rows, detached.
+fn end_rows(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<[Mob; 4]> {
+    let one = fact(f, "C4.end.x")?;
+    let n = fact(f, "C4.end.power")?;
+    let half = tex_frac(&fact(f, "C4.end.eps")?);
+    let lvl = tex_frac(&fact(f, "C4.end.level")?);
+    let root = end_root(f)?;
+    Ok([
+        kit.tex_left(
+            stage,
+            &format!(r"{root} < x \le {one}:\quad {lvl} < x^{{{n}}} \le {one}"),
+            28.0,
+            Palette::ink(),
+            &[],
+            v(RIGHT_X, END_ROWS[2]),
+        )?,
+        kit.tex_left(
+            stage,
+            &format!(r"\text{{so }} |x^{{{n}}} - {one}| < {half} \text{{ for every such }} x"),
+            28.0,
+            Palette::ink(),
+            &[],
+            v(RIGHT_X, END_ROWS[3]),
+        )?,
+        kit.tex_left(
+            stage,
+            &format!(r"x = {root}:\ x^{{{n}}} = {lvl}{EXACTLY}"),
+            24.0,
+            Palette::dim(),
+            &[],
+            v(RIGHT_X, END_ROWS[4]),
+        )?,
+        kit.tex_left(
+            stage,
+            &format!(r"\delta = {one} - {root} \approx {}", fact(f, "C4.end.delta.4dp")?),
+            28.0,
+            moving(),
+            &[],
+            v(RIGHT_X, END_ROWS[5]),
+        )?,
+    ])
+}
+
+/// This chapter's last picture, for the chapter after it: everything 04_7
+/// and 04_8 leave on screen. (The plot's axes, the square and its label stay
+/// in the scene and are not returned.)
+pub(super) struct End {
+    /// What the chapter after clears: the domain note, the band within 1/2
+    /// of 1 and its tolerance, the window from 2^(−1/2) to 1 with its end
+    /// marks and its edge's label, the lit piece, the four rows and the
+    /// "next:" line.
+    pub clear: Vec<Mob>,
+}
+
+/// This chapter's last picture, rebuilt with its own builders in the state
+/// 04_8 leaves it, back to front as 04_7 and 04_8 add it: the plot (axes,
+/// the square, its label); the domain note; the band and its tolerance; the
+/// window, its end marks and its edge's label; the lit piece and the rows;
+/// the "next:" line.
+pub(super) fn end_picture(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<End> {
+    let mut plot = PLOT.axes(kit, stage)?;
+    plot.push(PLOT.curve(stage, SQUARE, curve_color(), BRIGHT_W)?);
+    plot.push(curve_label(kit, stage, SQUARE)?);
+    let domain = kit.text_left(
+        stage,
+        &end_domain_text(f)?,
+        22.0,
+        Palette::dim(),
+        v(RIGHT_X, END_ROWS[0]),
+    )?;
+    let band = end_band(stage, f)?;
+    let eps = kit.tex_left(
+        stage,
+        &end_eps_tex(f)?,
+        28.0,
+        limit_color(),
+        &[],
+        v(RIGHT_X, END_ROWS[1]),
+    )?;
+    let window = end_window(kit, stage, f)?;
+    let piece = passing_piece(stage, half_height(SQUARE).map_err(fail)?)?;
+    let rows = end_rows(kit, stage, f)?;
+    let next = kit.text(stage, NEXT, 22.0, Palette::dim(), v(0.0, RULE_LINE_Y))?;
+    let mut clear = vec![domain, band, eps];
+    clear.extend(window);
+    clear.push(piece);
+    clear.extend(rows);
+    clear.push(next);
+    for &m in plot.iter().chain(&clear) {
+        stage.add_to_scene(m)?;
+    }
+    Ok(End { clear })
 }
 
 /// A fact's fraction ("1/2") as an exact fraction.

@@ -139,13 +139,46 @@ notes the owner supplied) and the open-set picture behind topology.
     not audio, 4K, continuous motion or the full video. The lane's own checks
     were source-level (oracle, storyboard, lint, units, rustfmt, ubs), and it
     inspected no image.
+- **Chapter 05** (`05_why_written_proofs_hide_the_search`, task `.58.5`)
+  is built. It opens on chapter 04's last picture, rebuilt by chapter 04's
+  own builders (`challenge_game::end_picture`).
+  - Chapter 04's scene changed only in that 04_7's domain note, band,
+    tolerance, window and rows are now built by functions both chapters
+    share, with the same text, sizes, places and order.
+  - Two native batches stopped before it passed:
+    - central45 on a layout guard that missed by one ulp in floating point
+      (−0.55 − (−1.15) = 0.5999999999999999); the row moved to −1.16 with
+      the guard unchanged (4144 → 4146);
+    - central46 on a test-only helper flagged as dead code; it is now
+      `#[cfg(test)]` (4149 → 4151).
+  - Root's central47 (Mail 4153, root's evidence) passed:
+    - fmt, strict all-target release Clippy, 66 tests and the build;
+    - 142 facts and 178 glyph sources;
+    - a rebuilt chapter 04 byte-identical to draft10 (SHA 66363662…);
+    - the silent draft11 chapter 05, 2729 frames, 90.97 s (SHA a4cc9a59…),
+      with an empty layout report. Root viewed 9 frames and found no
+      collision.
+  - TanElm's independent source review (4152) found the proof, the exact
+    values, the oracle and the chapter 04 extraction correct. It found two
+    things to fix, both now repaired in source (the scope limits below give
+    the details):
+    - the prediction was answered before it was asked (S1);
+    - 05_8's narration left out the domain (M1).
+  - The repair changes 05_6, 05_7 and 05_8's words and pictures only. Root
+    has not yet rebuilt or rendered it, and draft11 predates it. The lane's
+    checks of it are source-level (oracle, storyboard, lint, units, rustfmt,
+    and a Python emulation of the script-facing tests), and it inspected no
+    image.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
 keep the prediction time and not speed anything up. Chapter 03's draft runs
 92.60 s against a storyboard estimate of 83.9 s; root let it run over to
 keep the mathematics readable (Mail 4001). Chapter 04's draft10 runs
-93.03 s against a storyboard estimate of 84.7 s.
+93.03 s against a storyboard estimate of 84.7 s. Chapter 05's draft11 ran
+90.97 s against 82.3 s. The repaired prediction adds seven words: the
+storyboard estimate is now 84.5 s, and the lane's scratch estimate, which
+gave 90.8 s for draft11, is about 93 s, unmeasured.
 Narration pacing and the full audiovisual cut are not qualified. Whole-video,
 audio and continuous-playback acceptance are not claimed for any chapter.
 The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
@@ -154,19 +187,20 @@ oracle-checked.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, chapter 04's exact witnesses (the pick that beats a wide window, the pick that beats every window for a misfilled hole, the window too narrow to hold a seen pick), the constructive deltas and the naive one that fails |
+| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, chapter 04's exact witnesses (the pick that beats a wide window, the pick that beats every window for a misfilled hole, the window too narrow to hold a seen pick), chapter 05's window found by bounding a factor on the domain and the widest window's certified rounding, the constructive deltas and the naive one that fails |
 | `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it; chapter 03's page references |
 | `oracle.py` | the same keys computed independently (Python decimal and fractions, binomial sums; standard library only) |
 | `src/chapters/limit_that_jumps.rs` | chapter 01's scene, and the builders chapter 02 rebuilds its last picture with |
 | `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing; and its resting picture, rebuilt for chapter 03 |
 | `src/chapters/old_objection.rs` | chapter 03's scene: the step on the square, 0/0 at h = 0, the slope panel, the tolerance and window; and its last picture, rebuilt for chapter 04 |
-| `src/chapters/challenge_game.rs` | chapter 04's scene: the turns, the honest and the wide window, limit against continuity, the blind window, continuity of x² at the end of [0, 1] |
+| `src/chapters/challenge_game.rs` | chapter 04's scene: the turns, the honest and the wide window, limit against continuity, the blind window, continuity of x² at the end of [0, 1]; and its last picture, rebuilt for chapter 05 |
+| `src/chapters/hidden_search.rs` | chapter 05's scene: the finished proof, the search backward from the goal, the generous bound on the domain, the window found against the widest, the proof read forward |
 | `src/chapters/draw.rs` | the plot, the bright curve's morph, the colour roles, phrase timing, the think ring |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), colour roles, vocabulary, narration units and timing |
 | `narration_units.json` | the script grouped into coherent narration units, bound to `script.tsv`'s bytes |
 
 ```bash
-python3 -I -B oracle.py                          # 131 keys, cross-checks on stderr
+python3 -I -B oracle.py                          # 142 keys, cross-checks on stderr
 python3 -I tools/storyboard.py --check epsilon_delta
 python3 -I tools/lint_script.py explainer_corpus/epsilon_delta/script.tsv
 ./x epsilon_delta facts-check                    # the Rust facts against the oracle (builds)
@@ -203,7 +237,8 @@ Read for this chapter (2026-10-19):
 
   Chapter 04's two definitions and its precisely card follow these. Its
   window at x = 1 keeps x ∈ [0, 1], and its strict inequalities are the
-  page's.
+  page's. Chapter 05's proof is the continuity form with S = [0, 1] and
+  a = 1/2. That chapter reads no new source and attributes nothing.
 - **Sprague (1960) and Davis (1961)**, American Mathematical Monthly: their
   bibliographic identity and displayed mathematics come from the brief,
   which read the owner's screenshots and JSTOR's issue records. They were
@@ -459,6 +494,104 @@ The checks are samples and demonstrations, not proofs:
   - The chapter runs about 93 s silent by the same estimate, over the ~85 s
     target as the others do; root's draft10 measured 93.03 s. EmeraldLeopard
     found no blocker in the prediction or card timing on it (4118).
+
+## Scope limits kept in chapter 05
+
+- The domain is stated. The proof's second line says x ∈ [0, 1], and 05_4
+  says "On the domain, zero to one". The bound |x + 1/2| ≤ 3/2 holds on
+  that domain and is reached at x = 1, where a glow marks the axis.
+- It is continuity at x = 1/2, as in chapter 04's continuity rule: the
+  window |x − 1/2| < δ holds x = 1/2 itself, where the gap is 0 < ε.
+- The argument for every input is algebra, shown as the proof's three
+  lines:
+  - for every ε > 0, take δ = (2/3)ε > 0;
+  - for every x ∈ [0, 1] with |x − 1/2| < δ,
+    |x² − 1/4| = |x − 1/2|·|x + 1/2| ≤ (3/2)|x − 1/2| < (3/2)δ = ε.
+  - The ≤ is not strict, since the factor is exactly 3/2 at x = 1. The
+    last step is strict for every such x, x = 1/2 included, since
+    |x − 1/2| < δ and 3/2 > 0.
+- The search and the proof are the same chain:
+  - The search's rows read it from the goal: |x² − 1/4| < ε, the factoring,
+    the bound on [0, 1], then (3/2)|x − 1/2| < ε when |x − 1/2| < (2/3)ε,
+    then δ.
+  - 05_8 lights the proof's lines in the definition's order: ε first, δ
+    from ε (for this point and this curve), then every x in the domain and
+    in the window.
+  - The narration says both conditions on x, as the proof's second line
+    does (TanElm, M1). The domain matters: for ε > 3/4 the window reaches
+    past [0, 1], and there the bound fails. For example, at ε = 3, δ = 2,
+    x = 2.4 gives a gap of 5.51 > 3.
+- The window found is sufficient, not the widest:
+  - At ε = 1/10 it is 1/15 ≈ 0.067. The widest symmetric window there is
+    √(1/4 + 1/10) − 1/2 = √0.35 − 0.5 ≈ 0.0916, printed 0.092.
+  - The right side binds: x² reaches 0.35 at x = √0.35 ≈ 0.5916. The left
+    side alone would allow 1/2 − √0.15 ≈ 0.1127.
+  - The widest is a measured, certified number, not derived on screen; the
+    narration says "about".
+    - The model certifies its 3-place rounding by exact squares at the
+      half-unit ends.
+    - The oracle computes it independently with 60-digit decimal square
+      roots and confirms the right side is the tighter.
+    - The facts refuse to build unless 1/15 is below the rounding's
+      certified lower end, 0.0915.
+  - The words are "widest" and "generous", never "best" or "optimal". 05_7
+    says "A window only has to work for every input, not be the widest".
+  - That the window found is narrower than the widest holds for every
+    ε < 3/4, not always (TanElm, M2). At ε = 3/4 the window found equals the
+    widest, δ = 1/2, the bound being attained at x = 1. For ε > 3/4 every
+    window works on the domain. The chapter claims only the case it shows,
+    ε = 1/10, and the narration never says "never".
+- The model's tests and the oracle are checks at chosen points, not the
+  proof:
+  - the chain and the window at all 1001 points k/1000 of [0, 1];
+  - x = 0.58, outside the window found, still passes;
+  - 0.5915 passes and 0.5917 fails, exactly;
+  - 0.4 passes on the left.
+- The prediction is quantitative: 05_6 asks "Against one tenth, about how
+  large could delta be, and still work?". The 4 s think window follows.
+  - An earlier version asked "Is two thirds of epsilon the widest window
+    that works?". TanElm found it answered before it was asked (4152, S1):
+    05_4 had just called the step generous, and a yes/no question invited
+    that word's answer.
+  - With the question, at "Against one tenth", come the band's label
+    ε = 1/10 and the window found there, δ = 1/15 ≈ 0.067, as an anchor. No
+    widest outline, ring or number is on screen before 05_7.
+  - The answer opens 05_7: at "About point zero nine two" the widest
+    outline and the row "widest window: δ ≈ 0.092" appear. At "where the
+    curve leaves the band" a ring marks that point, and at "One fifteenth
+    is smaller" a glow marks the window found's row. A test holds that no
+    line before 05_7 says the number, and that 05_7 opens with it.
+  - The "only about 1" row of 05_4 invites a guess near one tenth. The
+    curve allows a little less, since on the right the factor x + 1/2 is
+    about 1.09.
+- The plot draws the band and the window at ε = 1/10 from 05_2 on, while the
+  narration keeps ε general until "Against one tenth". The band's label reads
+  "within ε of 1/4" until then, and "ε = 1/10" after. Before the answer, the
+  curve can be seen staying in the band a little past the window's edges.
+  That is a picture to estimate from, not a number.
+- No Sprague or Davis method appears (chapters 06 and 07):
+  - no recentring and no exact solve for δ;
+  - no first restriction δ ≤ 1 and no coefficient sum, min(1, ε/C).
+  - The bound is the stated domain's, for this one curve and point. 05_9
+    leaves "ways to make that search systematic" to the next chapters.
+- Names and words:
+  - No name or date is said; the names test covers every line.
+  - "The challenger" carries over from chapter 04.
+  - The search and the proof are named in the storyboard's vocabulary.
+- Reading time, estimated from source at the scratch rate (root measures
+  the render):
+  - The finished proof stands lit about 6.6 s before it dims. It stays on
+    screen, dim, and each line is lit again in 05_8, standing 15 to 22 s to
+    the end.
+  - The window found's row stands about 4.5 s before the question ends.
+  - The think window leaves about 5.1 s from the question's end to the
+    answer.
+  - The search's goal row stands about 80 s.
+  - The widest row stands about 38 s.
+  - The "next:" line stands about 4 s.
+  - The chapter runs about 93 s silent by the same estimate, over the ~85 s
+    target as the others do (draft11, before the repair, measured
+    90.97 s against an estimate of 90.8 s).
 
 ## Narration
 

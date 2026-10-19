@@ -17,10 +17,11 @@ use fmn::core::constants::FRAME_WIDTH;
 
 use crate::chapters::draw::{LENS_H, LENS_HEIGHTS, LENS_W, PLOT};
 use crate::model::{
-    BASE, CHALLENGE, FILLS, Frac, HALF, LUCKY, MORE_POWERS, NUDGES, PICKS, POWERS, Ratio, SQUARE, TOLERANCES, WIDE,
-    ZOOMS, above_half, blind_window, change_at, chord_formula, chord_limit, chord_slope, davis_delta, decimal_power,
-    fill_failure, first_within, gap, half_height_rounded, limit, local_bound, reach, recenter, round_half_up,
-    sprague_delta_rounded, square_change, width_rounded, window, window_failure,
+    BASE, CHALLENGE, FILLS, Frac, HALF, LUCKY, MORE_POWERS, NUDGES, PICKS, POWERS, Ratio, SEARCH_EPS, SQUARE,
+    TOLERANCES, WIDE, ZOOMS, above_half, blind_window, change_at, chord_formula, chord_limit, chord_slope, davis_delta,
+    decimal_power, factor_bound, fill_failure, first_within, found_window, gap, half_height_rounded, limit,
+    local_bound, reach, recenter, round_half_up, sprague_delta_rounded, square_change, widest_window_rounded,
+    width_rounded, window, window_failure,
 };
 
 /// The point chapter 01 pins, a/10^k: nine tenths.
@@ -90,8 +91,60 @@ pub fn facts() -> Result<Facts, String> {
     strip(&mut f)?;
     objection(&mut f)?;
     game(&mut f)?;
+    search(&mut f)?;
     continuation(&mut f)?;
     Ok(f)
+}
+
+/// A fraction strictly between 0 and 1, rounded half up to `places` places
+/// exactly: floor(x·10^p + 1/2) in integers ("0.067" for 1/15).
+fn rounded_below_one(x: Frac, places: u32) -> Result<String, String> {
+    let scale = 10i128.pow(places);
+    let (num, den) = (i128::from(x.num), i128::from(x.den));
+    if num <= 0 || num >= den {
+        return Err(format!("{x} is not strictly between 0 and 1"));
+    }
+    let d = (2 * num * scale + den) / (2 * den);
+    if d >= scale {
+        return Err(format!("{x} rounds up to 1 at {places} places"));
+    }
+    Ok(format!("0.{d:0width$}", width = places as usize))
+}
+
+/// Chapter 05: the square at x = 1/2 on [0, 1]; the bound on the factor
+/// x + 1/2 the search uses, the factor near 1/2, the ratio the bound gives,
+/// the window found at the tolerance compared, and the widest window there,
+/// measured.
+fn search(f: &mut Facts) -> Result<(), String> {
+    let a = BASE;
+    f.add("C5.a", a)?;
+    f.add("C5.value", a.times(a)?)?;
+    let bound = factor_bound(a)?;
+    f.add("C5.bound", bound)?;
+    f.add("C5.near", a.times(Frac::whole(2))?)?;
+    let ratio = Frac::whole(1).over(bound)?;
+    f.add("C5.ratio", ratio)?;
+    f.add("C5.eps", SEARCH_EPS)?;
+    let delta = found_window(a, SEARCH_EPS)?;
+    if delta != ratio.times(SEARCH_EPS)? {
+        return Err(format!("the window found, {delta}, is not {ratio} of {SEARCH_EPS}"));
+    }
+    f.add("C5.delta", delta)?;
+    f.add("C5.delta.3dp", rounded_below_one(delta, PLACES - 1)?)?;
+    // the widest window, measured; the window found lies strictly inside it,
+    // below even the widest's certified lower end (D − 1/2)/10^p
+    let widest = widest_window_rounded(a, SEARCH_EPS, PLACES - 1)?;
+    let digits: i64 = widest[2..]
+        .parse()
+        .map_err(|_| format!("the widest window prints as {widest}"))?;
+    let floor = Frac::whole(2 * digits - 1).over(Frac::whole(2 * 10i64.pow(PLACES - 1)))?;
+    if delta >= floor {
+        return Err(format!(
+            "the window found, {delta}, is not narrower than the widest, {widest}"
+        ));
+    }
+    f.add("C5.widest.3dp", widest)?;
+    Ok(())
 }
 
 /// A fraction of either sign as its exact decimal ("-0.08", "1.5").
@@ -564,6 +617,26 @@ mod tests {
         assert_eq!(get("C4.end.level"), "1/2");
         assert_eq!((get("C4.end.edge.4dp"), get("C4.end.delta.4dp")), ("0.7071", "0.2929"));
         assert_eq!(signed_decimal(Frac::whole(-3)).unwrap(), "-3");
+    }
+
+    /// The numbers chapter 05 puts on screen or says, as they will read.
+    #[test]
+    fn the_search_numbers_read_as_shown() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        assert_eq!((get("C5.a"), get("C5.value"), get("C5.bound")), ("1/2", "1/4", "3/2"));
+        assert_eq!((get("C5.near"), get("C5.ratio"), get("C5.eps")), ("1", "2/3", "1/10"));
+        assert_eq!(
+            (get("C5.delta"), get("C5.delta.3dp"), get("C5.widest.3dp")),
+            ("1/15", "0.067", "0.092")
+        );
+        assert_eq!(
+            rounded_below_one(Frac::whole(1).over(Frac::whole(8)).unwrap(), 2).unwrap(),
+            "0.13"
+        );
+        assert!(rounded_below_one(Frac::whole(1), 3).is_err());
+        let near_one = Frac::whole(9999).over(Frac::whole(10000)).unwrap();
+        assert!(rounded_below_one(near_one, 3).is_err(), "would print 1.000");
     }
 
     #[test]

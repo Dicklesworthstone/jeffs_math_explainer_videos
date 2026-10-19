@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "2387a9bdb85d7ce1ec4ce3ffa10d4dce72dbed436a4de899776c6d7844ab195b",
+  "script_sha256": "37cde31592e33da68dff935c51ed98bb0e4294cdbaabd66c71b69c955fe41b36",
   "units": [
     {
       "id": "01u1",
@@ -108,6 +108,33 @@
         "04_8"
       ],
       "text": "Yes, always, with a window too narrow to hold it. So the window may depend on the tolerance, the point and the curve, never on the later h. Continuity at x equals one, where the square's domain ends. Against one half, the window starts where x squared is one half, and every x from there to one passes. A winning answer covers every input in its window. Finding them is a search that written proofs hide."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2",
+        "05_3"
+      ],
+      "text": "A finished proof opens with a choice like delta equals two thirds of epsilon, and never says where it came from. Here is the search. Start from what the challenger demands. x squared must be within epsilon of a quarter, for every x near one half. That gap is the distance from one half, times x plus one half."
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_4",
+        "05_5",
+        "05_6"
+      ],
+      "text": "On the domain, zero to one, x plus one half is never more than three halves. That is the deliberate, generous step. So a distance below two thirds of epsilon is enough. That is where delta came from. Against one tenth, about how large could delta be, and still work?"
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_7",
+        "05_8",
+        "05_9"
+      ],
+      "text": "About point zero nine two, where the curve leaves the band. One fifteenth is smaller, and still enough. A window only has to work for every input, not be the widest. Now read the proof forward, as it is written. Given epsilon, take delta as two thirds of epsilon. For every x in the domain and in the window, the gap is below three halves of delta, which is epsilon. The search ran backward from the goal. The proof runs forward, and hides it. Next, ways to make that search systematic."
     }
   ]
 }

@@ -895,6 +895,80 @@ pub fn blind_window(h: Frac) -> Result<Frac, String> {
     size(h)?.over(Frac::whole(2))
 }
 
+// ------------------------------------- chapter 05: the search behind delta
+
+/// Chapter 05's tolerance for its comparison (fact `C5.eps`): the found
+/// window and the widest one, side by side.
+pub const SEARCH_EPS: Frac = Frac { num: 1, den: 10 };
+
+/// On the square's domain [0, 1], the factor x + a of
+/// x² − a² = (x − a)(x + a) is at most 1 + a, reached at x = 1 (for a in
+/// [0, 1]). The search's deliberate, generous step: near x = a the factor
+/// is only about 2a.
+pub fn factor_bound(a: Frac) -> Result<Frac, String> {
+    if a < Frac::whole(0) || a > Frac::whole(1) {
+        return Err(format!("the point {a} is not in the domain [0, 1]"));
+    }
+    a.plus(Frac::whole(1))
+}
+
+/// The window the search finds for continuity of x² at a on [0, 1]:
+/// δ = ε/(1 + a). For every x in [0, 1] with |x − a| < δ,
+/// |x² − a²| = |x − a|·(x + a) ≤ (1 + a)·|x − a| < (1 + a)·δ = ε. It is
+/// sufficient, and generally narrower than the widest window
+/// ([`widest_window_rounded`]).
+pub fn found_window(a: Frac, eps: Frac) -> Result<Frac, String> {
+    window(eps)?.over(factor_bound(a)?)
+}
+
+/// Whether x² is within eps of a², strictly, exactly: |x² − a²| < eps. (The
+/// tests check chosen inputs with it; nothing drawn is computed from it.)
+#[cfg(test)]
+pub fn square_within(a: Frac, x: Frac, eps: Frac) -> Result<bool, String> {
+    x.times(x)?.within(a.times(a)?, eps)
+}
+
+/// The widest symmetric window around a in which x² stays within eps of
+/// a², rounded half up to `places` places (1 to 6) and certified: it is
+/// √(a² + eps) − a, the right side being the tighter one (x² climbs faster
+/// there), for 0 < a, eps ≤ a² and √(a² + eps) ≤ 1. The digits D satisfy
+/// (a + (D − ½)/10^p)² ≤ a² + eps < (a + (D + ½)/10^p)², in exact
+/// fractions. Measured only, for comparison: chapter 05 does not derive it.
+pub fn widest_window_rounded(a: Frac, eps: Frac, places: u32) -> Result<String, String> {
+    let eps = window(eps)?;
+    let square = a.times(a)?;
+    if a <= Frac::whole(0) || eps > square {
+        return Err(format!(
+            "the window around {a} for {eps} would leave the domain on the left"
+        ));
+    }
+    let top = square.plus(eps)?;
+    if top > Frac::whole(1) {
+        return Err(format!(
+            "the window around {a} for {eps} would leave the domain on the right"
+        ));
+    }
+    if !(1..=6).contains(&places) {
+        return Err(format!("{places} places: show 1 to 6"));
+    }
+    let scale = 10i64.pow(places);
+    // (a + k/(2·10^p))² against a² + eps, exactly; increasing in k ≥ 0
+    let at = |k: i64| -> Result<Ordering, String> {
+        let x = a.plus(Frac::whole(k).over(Frac::whole(2 * scale))?)?;
+        Ok(x.times(x)?.cmp(&top))
+    };
+    let guess = ((top.f64().sqrt() - a.f64()) * scale as f64).round() as i64;
+    for d in [guess, guess - 1, guess + 1] {
+        if d < 1 || d >= scale {
+            continue;
+        }
+        if at(2 * d - 1)? != Ordering::Greater && at(2 * d + 1)? == Ordering::Greater {
+            return Ok(format!("0.{d:0width$}", width = places as usize));
+        }
+    }
+    Err(format!("no certified rounding of the widest window near {guess}"))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1541,6 +1615,65 @@ mod tests {
             let x = r(start + k * (1_999_999 - start) / 100, 2_000_000);
             assert!(above_half(x, 2), "{x}");
         }
+    }
+
+    /// The search's steps on [0, 1]: the factor x + 1/2 is at most 3/2,
+    /// reached at x = 1, and |x² − 1/4| ≤ (3/2)|x − 1/2| at every grid point;
+    /// the found window 1/15 then keeps every grid pick within 1/10. (The
+    /// argument for every x is the chain in `found_window`'s doc; these are
+    /// checks at chosen points.)
+    #[test]
+    fn the_found_window_works_on_the_domain() {
+        let eps = SEARCH_EPS;
+        let bound = factor_bound(BASE).unwrap();
+        assert_eq!(bound, q(3, 2));
+        assert!(factor_bound(q(-1, 2)).is_err() && factor_bound(q(3, 2)).is_err());
+        let delta = found_window(BASE, eps).unwrap();
+        assert_eq!(delta, q(1, 15));
+        assert_eq!(found_window(q(1, 4), q(1, 2)).unwrap(), q(2, 5));
+        assert!(found_window(BASE, q(0, 1)).is_err());
+        for k in 0..=1000 {
+            let x = q(k, 1000);
+            let gap = x.times(x).unwrap().minus(q(1, 4)).unwrap();
+            let gap = if gap < q(0, 1) { gap.negated().unwrap() } else { gap };
+            let dist = x.minus(BASE).unwrap();
+            let dist = if dist < q(0, 1) { dist.negated().unwrap() } else { dist };
+            assert!(gap <= bound.times(dist).unwrap(), "x = {x}");
+            if dist < delta {
+                assert!(square_within(BASE, x, eps).unwrap(), "x = {x}");
+            }
+        }
+        assert_eq!(
+            q(1, 1).plus(BASE).unwrap(),
+            bound,
+            "the factor's largest value, at x = 1"
+        );
+    }
+
+    /// The found window is sufficient, not the widest: x = 1/2 + 2/25 lies
+    /// outside it and still passes. The widest symmetric window is
+    /// √(1/4 + 1/10) − 1/2 ≈ 0.0916, tight on the right: 0.5915 passes,
+    /// 0.5917 does not; on the left the curve allows more (0.4 passes).
+    #[test]
+    fn the_found_window_is_sufficient_not_widest() {
+        let eps = SEARCH_EPS;
+        let delta = found_window(BASE, eps).unwrap();
+        let beyond = BASE.plus(q(2, 25)).unwrap();
+        assert!(q(2, 25) > delta && square_within(BASE, beyond, eps).unwrap());
+        assert_eq!(widest_window_rounded(BASE, eps, 3).unwrap(), "0.092");
+        assert_eq!(widest_window_rounded(BASE, eps, 4).unwrap(), "0.0916");
+        let widest: f64 = widest_window_rounded(BASE, eps, 4).unwrap().parse().unwrap();
+        assert!(delta.f64() < widest);
+        assert!(square_within(BASE, q(5915, 10000), eps).unwrap());
+        assert!(!square_within(BASE, q(5917, 10000), eps).unwrap());
+        assert!(square_within(BASE, q(2, 5), eps).unwrap(), "the left side is wider");
+        assert!(widest_window_rounded(q(0, 1), eps, 3).is_err());
+        assert!(
+            widest_window_rounded(BASE, q(3, 10), 3).is_err(),
+            "eps > a² leaves the domain"
+        );
+        assert!(widest_window_rounded(q(9, 10), q(1, 5), 3).is_err(), "past 1");
+        assert!(widest_window_rounded(BASE, eps, 0).is_err() && widest_window_rounded(BASE, eps, 7).is_err());
     }
 
     /// The plot is 1296 pixels wide in the 4K picture; the strip is narrower
