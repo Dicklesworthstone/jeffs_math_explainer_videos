@@ -101,7 +101,49 @@ mod tests {
         ("03_5", "at most one square per column", "DT-F8.square", "1"),
         ("03_8", "sixty-four", "DT-F3.fits", "64"),
         ("03_8", "not whether only one", "DT-F8.built.only_one", "false"),
+        ("04_1", "the only one", "DT-F8.built.only_one", "false"),
+        ("04_2", "twelve switches", "DT-F10.face.switches", "12"),
+        ("04_2", "A second picture fits", "DT-F10.face.second.fits", "true"),
+        ("04_3", "one, three, five, one and one", "DT-F6.tree.rows", "1,3,5,1,1"),
+        ("04_3", "one, two, five, two and one", "DT-F6.tree.cols", "1,2,5,2,1"),
+        ("04_4", "the tree itself", "DT-F10.tree.built.is_tree", "true"),
+        ("04_5", "two rows", "DT-F10.switch.rows", "2"),
+        ("04_6", "any two rows", "DT-F10.tree.nested", "true"),
+        ("04_6", "the tree has no switch", "DT-F10.tree.built.switches", "0"),
+        ("04_7", "no other picture fits", "DT-F6.tree.fits", "1"),
+        ("04_8", "whether it's the only one", "DT-X4.disagree", "0"),
     ];
+
+    /// The counts 04_3 reads out are the tree's, its rows then its columns.
+    #[test]
+    fn the_spoken_tree_counts_are_the_trees() {
+        let script = Script::parse(SCRIPT).unwrap();
+        let text = script.text("04_3").unwrap();
+        let read = |words: &str| -> Vec<usize> {
+            words
+                .split([',', ' '])
+                .filter(|w| !w.is_empty() && *w != "and")
+                .map(|w| match w {
+                    "one" => 1,
+                    "two" => 2,
+                    "three" => 3,
+                    "five" => 5,
+                    other => panic!("an unexpected count word {other:?}"),
+                })
+                .collect()
+        };
+        let rows = text
+            .split("Rows of ")
+            .nth(1)
+            .unwrap()
+            .split(", columns of ")
+            .next()
+            .unwrap();
+        let cols = text.split("columns of ").nth(1).unwrap().split('.').next().unwrap();
+        let tree = model::tree();
+        assert_eq!(read(rows), tree.row_counts());
+        assert_eq!(read(cols), tree.col_counts());
+    }
 
     /// The column counts 03_1 reads out are the ones the chapter draws.
     #[test]
@@ -144,8 +186,9 @@ mod tests {
         assert_eq!(f.get("DT-F8.stuck.row"), Some((size[0] - 1).to_string().as_str()));
         // and no line carries a number word the table above does not know
         let numbers = [
-            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "sixty", "half",
-            "twice", "hundred", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth",
+            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+            "sixty", "half", "twice", "hundred", "first", "second", "third", "fourth", "fifth", "sixth", "seventh",
+            "eighth", "ninth",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

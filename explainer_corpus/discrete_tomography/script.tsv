@@ -27,3 +27,11 @@
 03_6	If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough.
 03_7	With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much.
 03_8	The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one.
+04_1	Water builds one picture. Can that picture alone tell us whether it is the only one?
+04_2	It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits.
+04_3	Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture.
+04_4	It is the tree itself. Could another picture cast the same shadows?
+04_5	No. A switch needs two rows that each have a filled square where the other is empty.
+04_6	But of any two rows in the tree, one has every square the other has. So the tree has no switch.
+04_7	Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits.
+04_8	So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one.

@@ -28,20 +28,30 @@ without failure; a silent draft of 86.37 s (scratch-voice timing) with no
 layout findings, whose reach-stroke and theorem-card frames root and an
 independent reviewer read. It runs 1.37 s past the 85 s target because the
 Gale card now stands whole 11.93 s, a readability repair root accepted.
+Chapter 04 (`04_the_only_picture`, `.9.4`: the scene, the tree's flow,
+the switch checks, the facts, the oracle and the tests) is source and silent
+visuals verified by root: fmt, strict all-target clippy, 53 tests, 114/114
+facts against the oracle, 93 glyph sources without failure and a build; a
+silent draft of 82.33 s (2,470 frames, scratch-voice timing) with no layout
+findings, six of whose frames and all nine glyph pages root read. An
+independent reviewer checked its frames: the tree's water reroutes for real,
+no answer shows during the prediction's hold, the face's water picture's 12
+switches recount, and the tree's rows nest; the Ryser card stands whole
+11.03 s, the two closing questions with their answers 11.93 s and 9.13 s.
 This lane compiled, rendered and synthesized nothing. No chapter has narration, and no continuous audio or
 whole-video acceptance is claimed; the owner's 2026-10-19 rejection of the
 first-wave narration applies, and the narration units are a proposed text
-grouping only. Chapters 04 and 05 are planned in the storyboard's arc, not
-written.
+grouping only. Chapter 05 is planned in the storyboard's arc, not written.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: pictures, shadows, switches, every picture that fits, walks by switches, Gale's network and its largest flow with every augmenting path it sends, the replay that rebuilds the water path by path, refusing a path that repeats a row or column or breaks a capacity (row and column balance asserted as an invariant), the cut where the water stops, Gale's table and test, the bottleneck |
+| `src/model.rs` | the mathematics: pictures, shadows, switches, every picture that fits, walks by switches, Gale's network and its largest flow with every augmenting path it sends, the replay that rebuilds the water path by path, refusing a path that repeats a row or column or breaks a capacity (row and column balance asserted as an invariant), the cut where the water stops, Gale's table and test, the bottleneck; rectangles, rows that nest, and the water's picture with its switches |
 | `src/facts.rs` | every number the video shows or says, and the edge checks on every 4 × 4 picture |
-| `oracle.py` | the same numbers computed independently (standard library only), and 38 cross-checks |
-| `src/chapters/same_shadows.rs` | chapter 01's scene |
+| `oracle.py` | the same numbers computed independently (standard library only), and 45 cross-checks |
+| `src/chapters/same_shadows.rs` | chapter 01's scene; its counts, squares and switch swap are chapter 04's too |
 | `src/chapters/water.rs` | chapter 02's scene: the real trace, drawn from replayed states only; its plumbing (counters, units in transit) is chapter 03's too |
-| `src/chapters/stops.rs` | chapter 03's scene: where the no-fit water stops, the cut there, and Gale's table |
+| `src/chapters/stops.rs` | chapter 03's scene: where the no-fit water stops, the cut there, and Gale's table; its reading hold is chapter 04's too |
+| `src/chapters/only.rs` | chapter 04's scene: the water's picture and its switches, the tree's water, why the tree has no switch, Ryser's theorem |
 | `src/chapters/draw.rs` | the grid, its squares and counts, switches, thumbnails, the think ring, line timing |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), the arc of the planned chapters |
 | `narration_units.json` | the script's lines grouped into whole thoughts for a future take (four a chapter), each the exact text of its lines |
@@ -49,7 +59,7 @@ written.
 | `docs/brief.md`, `docs/protected.tsv` | the brief; the words every revision must keep |
 
 ```bash
-python3 -I -B oracle.py                                   # every number, 38 cross-checks on stderr
+python3 -I -B oracle.py                                   # every number, 45 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check discrete_tomography
 python3 -I ../../tools/lint_script.py script.tsv
 ./x discrete_tomography protected                        # docs/protected.tsv against the script
@@ -99,14 +109,16 @@ python3 -I ../../tools/lint_script.py script.tsv
 - **Scope.** Two directions, exact counts, filled-or-empty squares. Real
   tomography is continuous, noisy and many-angled; the NP-hardness claim for
   three or more directions is known here only through Batenburg's citation.
-- **Review.** The silent drafts of chapters 01, 02 and 03 were rendered and
-  read by root (layout lint empty for all three; chapter 02's two cards
+- **Review.** The silent drafts of chapters 01 to 04 were rendered and
+  read by root (layout lint empty for all four; chapter 02's two cards
   legible in two lines). Chapter 03's first draft failed review three ways:
   teal reach strokes crossed the cut-off first column, the reach label was
   cut short, and the 218-character Gale card stood whole only 7.27 s. All
   three were repaired (strokes over the reached columns only, the full
   label, a 176-character card held for reading) and read again in the next
-  draft. Nothing was compiled or rendered in this lane. The drafts use the scratch voice: real
+  draft. Chapter 04's draft passed root's frame reading and an independent
+  frame review with no repairs. Nothing was compiled or rendered in this
+  lane. The drafts use the scratch voice: real
   timing, the runs of units against their words, and every question and
   reveal against a voice remain unmeasured.
 - **Narration.** Not synthesized. The pacing notes in the storyboard (the

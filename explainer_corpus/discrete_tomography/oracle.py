@@ -404,6 +404,19 @@ def edges():
     emit("DT-X3.alone", sum(alone))
     emit("DT-X3.no_switch", sum(lonely))
     emit("DT-X3.disagree", sum(a != b for a, b in zip(alone, lonely)))
+    # the water's picture settles uniqueness on every pair of shadows some
+    # picture casts: it fits, and it has no switch exactly when it is alone
+    wrong = 0
+    for (r, c), group in groups.items():
+        got = water_states(r, c, water_trace(r, c))
+        built = got[-1][0] if got else frozenset()
+        if built not in set(group) or (not switches(built)) != (len(group) == 1):
+            wrong += 1
+    emit("DT-X4.disagree", wrong)
+    # a picture's rows nest exactly when it has no switch
+    nested = [rows_nest(p, m) for p in pics]
+    emit("DT-X5.nested", sum(nested))
+    emit("DT-X5.disagree", sum(a != b for a, b in zip(nested, lonely)))
 
     # every pair of 4x4 shadows (counts 0 to 4): Gale's test, Gale's
     # construction and the closed-form flow each pick out exactly the
@@ -770,10 +783,88 @@ def chapter_03(rows, face_cols):
     check("chapter 03: every group of columns of every 4x4 picture holds at most what the rows can give", bad == 0)
 
 
+# ------------------------------------------- chapter 04, the only picture
+
+
+def rows_nest(cells, m):
+    """Of any two rows, one holds every square the other holds."""
+    held = [frozenset(c for r, c in cells if r == i) for i in range(m)]
+    return all(a <= b or b <= a for a, b in combinations(held, 2))
+
+
+def alternates(cells, rect):
+    """Whether a rectangle's corners, taken around it, go filled, empty,
+    filled, empty (or the other way): read corner by corner."""
+    (r0, r1), (c0, c1) = rect
+    tl, tr, br, bl = ((r0, c0) in cells, (r0, c1) in cells, (r1, c1) in cells, (r1, c0) in cells)
+    return tl == br and tr == bl and tl != tr
+
+
+def chapter_04(rows, cols):
+    m, n = len(rows), len(cols)
+    every = set(fits(rows, cols))
+    built = water_states(rows, cols, water_trace(rows, cols))[-1][0]
+    # in the model's order: pairs of rows, then pairs of columns
+    found = sorted(switches(built))
+    first = found[0]
+    second = switched(built, first)
+    emit("DT-F10.switch.rows", len(first[0]))
+    emit("DT-F10.face.switches", len(found))
+    emit("DT-F10.face.first", f"{csv(first[0])};{csv(first[1])}")
+    emit("DT-F10.face.second", pattern(second, m, n))
+    emit("DT-F10.face.second.differ", len(built ^ second))
+    emit("DT-F10.face.second.fits", flag(second in every))
+    check(
+        "chapter 04: every switch of the water's picture makes another of the 64",
+        all(switched(built, sw) in every and switched(built, sw) != built for sw in found),
+    )
+    rects = list(product(combinations(range(m), 2), combinations(range(n), 2)))
+    check(
+        "chapter 04: the water's switches are its alternating rectangles, read corner by corner",
+        set(found) == {rc for rc in rects if alternates(built, rc)},
+    )
+
+    tree = parse(TREE)
+    t_rows, t_cols = shadows(tree, m, n)
+    t_paths = water_trace(t_rows, t_cols)
+    t_built = water_states(t_rows, t_cols, t_paths)[-1][0]
+    emit("DT-F10.tree.total", len(tree))
+    emit("DT-F10.tree.paths", len(t_paths))
+    emit("DT-F10.tree.trace", ",".join(path_text(p) for p, _ in t_paths))
+    emit("DT-F10.tree.takebacks", sum(1 for p, _ in t_paths if len(p) > 4))
+    emit("DT-F10.tree.built", pattern(t_built, m, n))
+    emit("DT-F10.tree.built.is_tree", flag(t_built == tree))
+    emit("DT-F10.tree.built.switches", len(switches(t_built)))
+    emit("DT-F10.tree.rectangles", len(rects))
+    emit("DT-F10.tree.nested", flag(rows_nest(t_built, m)))
+    check(
+        "chapter 04: none of the tree's rectangles alternates, read corner by corner",
+        not any(alternates(t_built, rc) for rc in rects),
+    )
+    check("chapter 04: Gale's construction builds the tree too", gale_build(t_rows, t_cols) == tree)
+    check(
+        "chapter 04: the tree's shadows fit one picture, counted over the columns",
+        count_fits(tuple(sorted(t_rows)), t_cols) == 1,
+    )
+    check("chapter 04: the depth-first flow agrees (tree)", max_flow_dfs(t_rows, t_cols) == len(t_paths) == len(tree))
+
+    # Ryser's chain is not always one switch: two 3x3 pictures with one
+    # square in each row and column, six squares apart, two switches apart
+    a, b = parse(("100", "010", "001")), parse(("010", "001", "100"))
+    check(
+        "chapter 04: same shadows, six squares apart, no one switch between them, two switches do it",
+        shadows(a, 3, 3) == shadows(b, 3, 3)
+        and len(a ^ b) == 6
+        and all(switched(a, sw) != b for sw in switches(a))
+        and distances(a).get(b) == 2,
+    )
+
+
 def main():
     rows, cols = facts()
     chapter_02(rows, cols, fits(rows, cols), distances(parse(FACE)))
     chapter_03(rows, cols)
+    chapter_04(rows, cols)
     edges()
     print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
     return 1 if _FAILED else 0

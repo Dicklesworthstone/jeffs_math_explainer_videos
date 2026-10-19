@@ -38,7 +38,7 @@ dual-sequence test and n-step construction.
 | F4 | Gale's test; the largest flow; the cut | — (chapter 03) | `gale_ryser`; `max_flow` in `reconstruct`; the columns the flow cannot reach | `DT-F4.gale`, `.flow`, `.cut` | `false`; `8`; `0` | computed; the oracle lists every cut and keeps the smallest source side |
 | F4 | the bottleneck: the column, what it asks, what the rows can give | the red 5 and five rings (01_10) | `model::bottleneck`, `can_give` | `DT-F4.bottleneck`, `.bottleneck.asks`, `.bottleneck.can_give` | `0`; `5`; `4` | computed |
 | F5 | the face's shadows: the largest flow, and its picture fits | — (chapter 02) | `max_flow`, `reconstruct` | `DT-F5.face.flow`, `.face.built` | `9`; `true` | computed; the oracle builds by Gale's n-step method |
-| F6 | the tree, its counts, pictures that fit, switches | — (chapter 04) | `model::tree` | `DT-F6.tree`, `.tree.rows`, `.tree.cols`, `.tree.fits`, `.tree.switches` | `00100/01110/11111/00100/00100`; `1,3,5,1,1`; `1,2,5,2,1`; `1`; `0` | computed |
+| F6 | the tree, its counts, pictures that fit, switches | the counts read out (04_3); "no other picture fits", "1 picture fits these shadows" (04_7) | `model::tree` | `DT-F6.tree`, `.tree.rows`, `.tree.cols`, `.tree.fits`, `.tree.switches` | `00100/01110/11111/00100/00100`; `1,3,5,1,1`; `1,2,5,2,1`; `1`; `0` | computed |
 | F7 | questions on screen | "two questions" (01_11) | `same_shadows::QUESTIONS` | `DT-F7.questions` | `2` | computed; the oracle reads the scene's source |
 | S1 | Ryser's year | the card (01_8) | `facts::RYSER_YEAR` | `DT-S1.ryser` | `1957` | pinned: Canad. J. Math. 9 (1957) 371–377 |
 | S2 | Ford and Fulkerson's year | the card (02_9) | `facts::FORD_FULKERSON_YEAR` | `DT-S2.ford_fulkerson` | `1957` | pinned: Canad. J. Math. 9 (1957) 210–218 |
@@ -67,7 +67,9 @@ state with its own bookkeeping.
 | F8 | the water's picture: pattern, fits, is the face, the only one, switches from the face | "cast the face's shadows, but they aren't the face", "one of the sixty-four" (02_8); "whether that's the only one" (02_9) | the last replayed state | `DT-F8.built`, `.built.fits`, `.built.is_face`, `.built.only_one`, `.built.from_face` | `01010/01100/00000/01010/10011`; `true`; `false`; `false`; `3` | computed |
 | X1 | every switch of every 4 × 4 picture keeps both shadows and changes exactly the four corners | "It changes the picture, but neither shadow" (01_7) | `facts::edges` | `DT-X1.pairs`, `.failed` | `294912`; `0` | computed (edge test) |
 | X2 | 4 × 4 pairs of shadows some picture casts; how many have all their pictures joined by switches | the card (01_8): Ryser's Theorem 3.1 | same | `DT-X2.shadow_pairs`, `.connected` | `16145`; `16145` | computed (edge test) |
-| X3 | 4 × 4 pictures alone with their shadows; with no switch; disagreements | chapter 04's statement | same | `DT-X3.alone`, `.no_switch`, `.disagree` | `6902`; `6902`; `0` | computed (edge test) |
+| X3 | 4 × 4 pictures alone with their shadows; with no switch; disagreements | 04_7 (no switch, so no other picture) | same | `DT-X3.alone`, `.no_switch`, `.disagree` | `6902`; `6902`; `0` | computed (edge test) |
+| X4 | 4 × 4 pairs of shadows where the flow's picture having no switch and being the only picture disagree | "A switch in the water's picture answers whether it's the only one" (04_8) | `facts::edges` with `model::built_switches` | `DT-X4.disagree` | `0` | pinned (edge test; the oracle with its own trace) |
+| X5 | 4 × 4 pictures whose rows nest; disagreements with having no switch | "of any two rows in the tree, one has every square the other has. So the tree has no switch" (04_6) | `facts::edges` with `model::rows_nested` | `DT-X5.nested`, `.disagree` | `6902`; `0` | `.disagree` pinned (edge test) |
 
 ### Chapter 03 (the face's rows with columns 5, 1, 1, 1, 1; where the water stops)
 
@@ -87,6 +89,24 @@ the table from Gale's dual sequence.
 | F9 | the cut: unreached taps, pipes into the cut-off column, reached drains, in all | "Four into the first column, four out of the other drains. Eight is all that can pass" (03_4) | same | `DT-F9.cut.unreached_taps`, `.cut.into_unreached`, `.cut.reached_drains`, `DT-F9.cut` | `0`; `4`; `4`; `8` | computed |
 | F9 | Gale's table: columns largest first, what the k largest ask, what the rows can give, the sizes that fail | the table (03_5, 03_6), the red first size, the green last (03_7) | `model::gale_table` | `DT-F9.sorted`, `.asks`, `.gives`, `.failing` | `5,1,1,1,1`; `5,6,7,8,9`; `4,8,9,9,9`; `1` | computed; the oracle by the dual sequence |
 | F9 | the same for the face's shadows | the green table (03_8) | same | `DT-F9.face.sorted`, `.face.asks`, `.face.gives`, `.face.failing` | `3,3,1,1,1`; `3,6,7,8,9`; `4,8,9,9,9`; `none` | computed |
+
+### Chapter 04 (the water's picture and its switches; the tree)
+
+The face's water picture is chapter 02's (`facts::face_flow`); its switches
+are `model::switches` of it, in order (pairs of rows, then pairs of
+columns). The tree's picture is built by the method's real paths on the
+tree's shadows (`facts::tree_flow`, replayed by `model::replay`). The oracle
+derives both traces itself, finds switches from pairs of filled squares and
+also reads every rectangle corner by corner.
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F10 | the rows a switch takes | "two rows" (04_5) | `Switch::rows` | `DT-F10.switch.rows` | `2` | definition: a switch has two row indices (`Switch::rows: [usize; 2]`) |
+| F10 | switches of the face's water picture; the first; the picture it makes | "twelve switches" (04_2), "12 switches"; the swap | `model::switches` of `DT-F8.built`; `Switch::apply` | `DT-F10.face.switches`, `.face.first`, `.face.second` | `12`; rows `0,1`, columns `2,3`; `01100/01010/00000/01010/10011` | computed |
+| F10 | squares the second picture differs in; whether it fits | "every count stays. A second picture fits" (04_2) | `Picture::differences`; against `fits` | `DT-F10.face.second.differ`, `.face.second.fits` | `4`; `true` | computed |
+| F10 | the tree's water: squares to send, paths, rows and columns in order, paths that take back | "through: 0 of 11"; the eleven units (04_3) | `facts::tree_flow` | `DT-F10.tree.total`, `.tree.paths`, `.tree.trace`, `.tree.takebacks` | `11`; `11`; `r0c0,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r2c4,r3c2,r4c2,r2c0r0c2`; `1` | computed |
+| F10 | the picture it builds; whether it is the tree; its switches | "It is the tree itself" (04_4); "So the tree has no switch" (04_6) | the last replayed state; `model::switches` | `DT-F10.tree.built`, `.tree.built.is_tree`, `.tree.built.switches` | `00100/01110/11111/00100/00100`; `true`; `0` | computed; the oracle also builds it by Gale's n-step method |
+| F10 | its rectangles; whether its rows nest | "0 switches among 100 rectangles"; the nested outlines (04_6) | `model::rectangles`, `model::rows_nested` | `DT-F10.tree.rectangles`, `.tree.nested` | `100`; `true` | computed; the oracle reads all 100 corner by corner |
 
 `oracle.py` also checks, on stderr: the count of fits by a memoized count over
 columns; that every one of the 64 has a switch and every two of them are at
@@ -114,7 +134,17 @@ column asks for more than the dual sequence lets the rows give; that rows
 fit nothing; that on every 3 × 3 pair of shadows with equal totals the water
 stops short exactly when the table fails, and then the columns its search
 cannot reach ask too much; and that every group of columns of every 4 × 4
-picture holds at most what the rows can give.
+picture holds at most what the rows can give. For chapter 04 it checks that
+every switch of the face's water picture makes another of the 64; that its
+switches are exactly its rectangles whose corners alternate, read corner by
+corner; that none of the tree's 100 rectangles alternates; that Gale's
+construction builds the tree too, that the count over the columns finds one
+picture and that the depth-first flow agrees; and that two 3 × 3 pictures
+with one square in each row and column, one the other shifted a column,
+have the same shadows, differ in six squares, are not one switch apart and
+are two apart. Its edge rows add, on every pair of 4 × 4 shadows some
+picture casts, its own trace's picture against being alone (`DT-X4`), and
+on every 4 × 4 picture, nesting rows against having no switch (`DT-X5`).
 
 ## Non-numeric claims
 
@@ -122,7 +152,11 @@ picture holds at most what the rows can give.
 |---|---|---|
 | A switch changes a picture and neither shadow | 01_6, 01_7 | X1; `model` test on every switch of every 4 × 4 picture; Ryser 1957 §3 ("the resulting matrix A* has row sum vector R and column sum vector S") |
 | Any two pictures with the same row and column counts are joined by a chain of switches | the 01_8 card | Ryser 1957, Theorem 3.1, p. 373 (read); X2 |
-| A picture is the only one with its shadows exactly when it has no switch | chapter 04 (planned) | Batenburg 2006, Theorem 2 (citing Ryser's 1963 monograph, not read); follows from Theorem 3.1; X3 |
+| A picture is the only one with its shadows exactly when it has no switch | 04_2 (a switch makes a second picture), 04_7 (no switch, no chain, so no other picture) | a switch keeps both shadows (X1); with none, Ryser 1957 Theorem 3.1 (read) leaves no chain to another picture; X3 on every 4 × 4 picture; Batenburg 2006, Theorem 2 (read; it cites Ryser's 1963 monograph, not read) |
+| Any two pictures of filled and empty squares on one grid with the same row and column counts are joined by a finite chain of switches | 04_7 and its card | Ryser 1957, Theorem 3.1, p. 373 (read: m by n matrices of 0s and 1s with equal row sum vectors and equal column sum vectors, a finite number of interchanges); X2. The scope is the theorem's: two directions, filled-or-empty squares, one grid; nothing about more directions, noisy counts or continuous densities |
+| The chain can need more than one switch | 04_7 ("a chain of switches") | two 3 × 3 pictures six squares apart are two switches apart and not one (`model` test; the oracle) |
+| A switch needs two rows that each have a filled square where the other is empty; a picture has no switch exactly when, of any two rows, one holds every square of the other | 04_5, 04_6 | the switch's alternating corners, by definition; X5 on every 4 × 4 picture; `model` test on every 4 × 4 and 3 × 5 picture |
+| Checking the water's picture for a switch settles whether it is the only one | 04_8 | any picture that fits would do (the line above); X4 on every pair of 4 × 4 shadows some picture casts (`model::built_switches` and its test; the oracle with its own trace) |
 | A picture fits exactly when the totals agree and every k columns ask for at most what the rows can give k columns | 03_6, 03_7 and the 03_7 card | Gale 1957, p. 1080 (read: the dual sequence, the theorem, and the flow into k columns, Σ min(a_i, k)); Ryser 1957, Theorem 2.1 and its "added in proof" note crediting Gale; `model` test on every 4 × 4 equal-total pair; the oracle on all 390,625 pairs of 4 × 4 shadows |
 | A row gives a group of k columns at most min(its count, k) | 03_5 | at most one square a column and at most its count; `model` test on every group of every 4 × 4 picture; the oracle the same |
 | Checking the k largest columns checks every group of k | 03_6 | for fixed k the rows give the same to any k columns; the k largest ask the most |

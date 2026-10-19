@@ -27,7 +27,7 @@ on.
 | `01_same_shadows` | the face and its two shadows; hidden, could another picture cast them? (prediction); the other picture differs at a rectangle's alternating corners, and swapping filled and empty there keeps every count: a switch; 64 pictures fit, each within 3 switches of the face (Ryser's theorem on the card); the face's rows with columns 5, 1, 1, 1, 1 fit nothing, because that column needs a square in every row and the middle row is empty; the two questions | source and silent visuals verified by root on 2026-10-19 at 6bae9ea (`.9.1`: strict clippy, tests, 48/48 oracle facts, glyph probe, a 540p30 silent draft with no layout findings, cue-end and question/reveal frames read); no narration or audio exists or is claimed |
 | `02_water_through_the_grid` | Gale's network drawn on the grid itself: each row a tap that lets out its count, each square a pipe carrying at most one unit down into its column, each column a drain holding at most its count; the method's real augmenting paths, one unit each (`model::max_flow` records them, `model::replay` rebuilds and checks every state); eight go straight down, then the bottom row is stuck without taking back (prediction); the ninth unit takes the top row's unit back out of the first column, and the top row sends it to the fourth; every unit through, a picture with the face's shadows that is not the face, one of the 64; the water finds a picture whenever one exists and never says whether it is the only one | source and silent visuals verified by root on 2026-10-19 (`.9.2`): fmt, strict release all-target clippy, 35 tests, release build, 73/73 facts against the oracle's 31 checks; a silent 960x540 30 fps draft, 2,452 frames, 81.73 s by scratch-voice timing, no layout findings; all 9 cue ends, 12 frames of the first and ninth units in transit (counters leave and arrive correctly, the fourth column's unit in transit before "through: 9 of 9"), 6 prediction and reveal frames (the answer held back through the hold) and all 5 glyph pages read; the take-back trace and counters independently reviewed; no narration or audio exists or is claimed |
 | `03_where_the_water_stops` | the face's rows with columns 5, 1, 1, 1, 1: the method's real units, eight straight down, then the stop (prediction: could taking water back get the ninth through?); no: the first column needs five, each row sends it at most one, only four rows have water; everywhere the water can still go, taking back included, misses that column, and the cut there lets four units into it and four out of the other drains, eight in all (`facts::no_fit_flow`, `Flow::cut`); any k columns get at most min(count, k) from a row; Gale's table, the k largest columns against what the rows can give (`model::gale_table`); with equal totals the test is complete, because the columns the water cannot reach always ask too much; the face's shadows pass and 64 pictures fit: the test decides feasibility, not uniqueness | source and silent visuals verified by root on 2026-10-19 (`.9.3`). First native run: fmt, strict clippy, 43 tests, 96/96 facts against the oracle's 38 checks, 69 glyph sources. An independent image review of the first draft found three faults: teal reach strokes crossing the cut-off first column, a reach label cut short ("taking back") and the 218-character Gale card whole for only 7.27 s, mostly under speech. All three were repaired in this lane. After the repairs: fmt, strict clippy, a build, the 4 changed scene tests (the other 40 unchanged) and 68 glyph sources without failure. Silent draft06: 2,591 frames at 30 fps, 86.37 s by scratch-voice timing (sha256 `dd54be19d333…`), empty layout lint; the reach and theorem frames were read, and the 176-character card stands whole 11.93 s. It runs 1.37 s past 85 s for that reading hold, by root's decision. No narration or audio exists or is claimed |
-| 04 *(planned)* the only picture | Ryser: any two pictures with the same shadows are joined by switches, so a picture with no switch is the only one; the tree; checking the picture the flow built for a switch settles uniqueness (`model::switches`, `model::reachable`) | not written |
+| `04_the_only_picture` | the water's picture for the face's shadows (chapter 02's) has twelve switches; swapping one's corners keeps every count, so a second picture fits; the tree's shadows only, and the method's real units build the tree itself (prediction: could another picture cast them?); no: a switch needs two rows that each have a filled square where the other is empty, and of any two of the tree's rows one has every square of the other, so the tree has no switch; any two pictures with the same shadows are joined by a chain of switches (Ryser 1957, Theorem 3.1, scoped on the card), and from the tree none can start, so it is the only one; the water answers whether any picture fits, a switch in its picture whether it is the only one (`model::switches`, `model::rows_nested`, `model::built_switches`, `facts::tree_flow`) | source written 2026-10-19 (`.9.4`): scene, facts, oracle and tests; not compiled, rendered, narrated or reviewed in this lane |
 | 05 *(planned)* more shadows, and the limits | a third direction can tell some of the 64 apart, but reconstruction from three or more directions is NP-hard in general (Gardner, Gritzmann and Prangenberg 1999, as cited by Batenburg 2006); real CT scanners measure continuous densities along many angles, not counts of filled squares | not written; sources for the complexity claim not yet read in the original |
 
 ## Vocabulary (one word per idea)
@@ -260,3 +260,79 @@ from a tap to a drain), **room** (what a pipe can still carry), **take back**
   the question (03u1), the answer and the cut (03u2), the general count and
   why it is complete (03u3), feasibility against uniqueness (03u4).
   Boundaries are not frozen and nothing is synthesized.
+
+## 04_the_only_picture: The only picture (~83 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Water builds one picture. Can that picture alone tell us whether it is the only one? | Chapter 02's grid on the left, the face's counts 2, 2, 0, 2, 3 left of the rows and 1, 3, 1, 3, 1 under the columns *(face.rows, face.cols)*; on "builds one picture", the water's picture from chapter 02, 01010/01100/00000/01010/10011, square by square, "the water's picture" above it *(built)* | lagged reveal, grid | |
+| 04_2 | It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits. | On "twelve switches", the gold rectangles of its twelve switches one after another and "12 switches" in gold *(face.switches)*; on "Swap the corners", all but the first go, gold rings on its corners, and its filled corners empty as its empty corners fill *(face.first, face.second)*; on "every count stays", its two rows' and two columns' counts flash and every count turns green; on "A second picture", "a second picture, the same shadows" above the grid *(face.second.fits)* | highlight | |
+| 04_3 | Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture. | The picture, its marks and its counts go; on "Rows of", taps 1, 3, 5, 1, 1 left of the rows under "to send" *(tree.rows)*; on "columns of", drains 1, 2, 5, 2, 1 under the columns, "to drain", and "through: 0 of 11" *(tree.cols, tree.total)*; on "The water builds", the method's real units, eleven, each route coming in as its tap counts down and going as its drain and "through" count; the last takes the top row's unit back out of the first column and the top row sends it on to the middle one *(tree.trace, tree.takebacks)* | lagged reveal, motion | |
+| 04_4 | It is the tree itself. ⟨predict⟩ Could another picture cast the same shadows? | The counters, all 0, become the tree's counts, green; "through: 11 of 11" and the labels go; on "the tree itself", the wet squares flash and "the water's picture" stands above them *(tree.built.is_tree)*; the think ring, four seconds, the voice silent | highlight, tracker | |
+| 04_5 | No. A switch needs two rows that each have a filled square where the other is empty. | The ring goes; on "A switch needs", on the right a small copy of the face's water picture from 04_1 with its first switch's gold rectangle *(built, face.first)*; on "each have a filled square", gold rings on the switch's two filled corners, each in a column where the other row is empty, and "each row has a filled square" over "where the other row is empty" | highlight | |
+| 04_6 | But of any two rows in the tree, one has every square the other has. So the tree has no switch. | The small copy goes; on "of any two rows", an outline round each tree row's squares, shortest first, each run inside the columns of every longer one *(tree.nested)*, and "of any two rows, one has all the other's squares"; on "no switch", "0 switches among 100 rectangles" in gold *(tree.built.switches, tree.rectangles)* | lagged reveal, highlight | |
+| 04_7 | Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits. | A "precisely" lower-third: any two pictures of filled and empty squares on one grid with the same row counts and the same column counts are joined by a finite chain of switches (Ryser, 1957) *(ryser)*, held whole until it can be read; on "no other picture fits", "1 picture fits these shadows" in green *(tree.fits)* | lower-third, highlight | |
+| 04_8 | So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one. | The card, the outlines and the words go; on the right, chapter 01's two questions, each with its answer as it is spoken: "Does any picture fit?", "yes, exactly when the totals match and every unit gets through"; "Is it the only one?", "yes, exactly when the water's picture has no switch" *(questions)*; held until they can be read, then the fade | highlight | |
+
+### Notes for 04
+
+- **The pictures are the method's own.** 04_1's picture is chapter 02's
+  water (`facts::face_flow`, replayed by `model::replay`), not a picture
+  chosen for the chapter; its 12 switches are `model::switches` of it, and
+  the one swapped is the first in order, rows 0 and 1 with columns 2 and 3
+  (`DT-F10.face.first`). The second picture differs from it in those four
+  squares and is one of the 64. The tree's picture is built by the method's
+  real eleven units on the tree's shadows (`facts::tree_flow`), the last
+  one taking water back; it is the tree itself (`DT-F10.tree.built`).
+- **One switch is enough (04_2).** A switch takes one square from each of
+  its two rows and two columns and gives one back (`DT-X1`, every switch of
+  every 4 × 4 picture), so it makes a different picture with the same
+  shadows: the water's picture is not the only one.
+- **Prediction (04_4).** The question ends unit 04u2; the think ring drains
+  for four seconds with the voice silent and nothing moving; "No." opens
+  04u3. A viewer who looks for an alternating rectangle in the tree finds
+  none.
+- **Why the tree has no switch (04_5, 04_6).** A switch needs two rows and
+  two columns with the corners alternating: each of the two rows has a
+  filled square in a column where the other is empty. If one row holds
+  every square the other holds, that cannot happen. So a picture has no
+  switch exactly when, of any two rows, one holds every square of the
+  other (`model::rows_nested`; `DT-X5` on every 4 × 4 picture, a `model`
+  test on every 4 × 4 and 3 × 5 picture). The tree's rows hold {2},
+  {1, 2, 3}, {0, …, 4}, {2} and {2}: nested. None of its 100 rectangles
+  alternates (the oracle reads every one corner by corner).
+- **The theorem, scoped (04_7).** Ryser 1957, Theorem 3.1: two m by n
+  matrices of 0s and 1s with equal row sum vectors and equal column sum
+  vectors are transformable into each other by a finite number of
+  interchanges. The card says it in the video's words, for pictures of
+  filled and empty squares on one grid with the same row counts and the
+  same column counts. A chain from the tree to another picture would start
+  with a switch of the tree; there is none, so the tree is the only picture
+  with its shadows (`DT-F6.tree.fits` = 1, by enumeration). The theorem
+  joins pictures by chains, not always by one switch: two 3 × 3 pictures
+  with one square in each row and column, six squares apart, are two
+  switches apart (`model` test; the oracle). It says nothing about more
+  than two directions, counts with noise, or continuous densities.
+- **The water's picture settles it (04_8).** Any picture that fits would
+  do; the water's is the one at hand. On every pair of 4 × 4 shadows some
+  picture casts, the flow's picture has no switch exactly when it is the
+  only one (`DT-X4`; `model::built_switches` and its test). Feasibility
+  (chapters 02 and 03: equal totals and the water getting every unit
+  through) and uniqueness (this chapter: no switch) are two questions with
+  two tests; chapter 05 takes up more shadows and the limits.
+- **Reading holds.** The card stands whole at least its characters / 15
+  seconds after its fade-in, and the closing questions and answers at least
+  theirs after the first fades in (the corpus's provisional scene
+  convention, not a listening measure).
+- **Sources.** Ryser 1957, Theorem 3.1 (read). Batenburg 2006, Theorem 2
+  (read; it cites Ryser's 1963 monograph, not read here) states the same
+  uniqueness criterion with switching components; here it is derived from
+  Theorem 3.1 directly, as above.
+- **Budget.** 161 spoken words, 8 lines: about 78 s by the Golay measures.
+  The eleven units run about 2.5 s past 04_3's last word, the card's hold
+  about 0.9 s past 04_7's and the closing hold about 2.7 s past 04_8's, so
+  about 84 s in all, near the 85 s limit; no voice has measured it.
+- **Narration units.** 04u1 to 04u4 are a proposed grouping: the question
+  and the switch (04u1), the tree and the prediction (04u2), the answer and
+  why (04u3), the two questions answered (04u4). Boundaries are not frozen
+  and nothing is synthesized.

@@ -13,3 +13,7 @@ It never says whether that's the only one	script	feasibility from the flow, kept
 Could taking water back get the ninth through?	script	the prediction: taking back cannot beat the cut (DT-F9.cut)
 With equal totals, that test never misses	script	Gale's condition needs equal totals; without them the table can pass and nothing fit
 not whether only one	script	the test decides feasibility, not uniqueness (DT-F3.fits)
+Swap the corners of any of them, and every count stays	script	one switch shows the water's picture is not the only one (DT-X1, DT-F10.face.second.fits)
+Could another picture cast the same shadows?	script	the prediction: the tree has no switch, so it is the only one (DT-F6.tree.fits)
+one has every square the other has	script	rows that nest leave no switch, exactly (DT-X5)
+From the tree, no chain can start	script	Ryser's chain of switches: no switch means no other picture (DT-X3, DT-F6.tree.fits)

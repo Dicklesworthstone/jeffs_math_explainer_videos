@@ -4,6 +4,7 @@
 
 pub mod draw;
 pub mod glyphs;
+pub mod only;
 pub mod same_shadows;
 pub mod stops;
 pub mod water;
@@ -26,6 +27,11 @@ pub fn registry() -> Vec<Chapter> {
             key: "03_where_the_water_stops",
             make: |kit| Box::new(stops::WhereTheWaterStops { kit }),
             intensity: 0.5,
+        },
+        Chapter {
+            key: "04_the_only_picture",
+            make: |kit| Box::new(only::TheOnlyPicture { kit }),
+            intensity: 0.45,
         },
     ]
 }

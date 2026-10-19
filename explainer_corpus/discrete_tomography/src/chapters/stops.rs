@@ -93,7 +93,8 @@ fn gale_claim() -> String {
 /// Seconds a card needs on screen, from its fade-in done, to be read:
 /// fifteen characters a second, a quick reader (the corpus's provisional
 /// scene convention, not a listening measure; the video can be paused).
-fn read_s(text: &str) -> f64 {
+/// Chapter 04's card and closing words keep it too.
+pub(crate) fn read_s(text: &str) -> f64 {
     text.chars().count() as f64 / 15.0
 }
 

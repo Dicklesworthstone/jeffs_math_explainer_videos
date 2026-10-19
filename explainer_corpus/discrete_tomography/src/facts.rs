@@ -125,6 +125,18 @@ pub fn no_fit_flow() -> Result<(Flow, Vec<FlowState>), String> {
     }
 }
 
+/// Chapter 04: the flow through the tree's shadows, and the water after
+/// each of its paths (checked by [`model::replay`]).
+pub fn tree_flow() -> Result<(Flow, Vec<FlowState>), String> {
+    let s = model::tree().shadows();
+    let flow = model::max_flow(&s);
+    let states = model::replay(&s, &flow.paths)?;
+    match states.last() {
+        Some(last) if last.wet == flow.carried && last.through() == flow.value => Ok((flow, states)),
+        _ => Err("the replayed water is not the tree's flow's".into()),
+    }
+}
+
 /// Column counts from largest to smallest, as Gale's table takes them.
 pub fn largest_first(cols: &[usize]) -> Vec<usize> {
     let mut sorted = cols.to_vec();
@@ -184,6 +196,13 @@ pub struct Edges {
     pub alone: usize,
     pub no_switch: usize,
     pub disagree: usize,
+    /// Pairs of shadows where the flow's picture with no switch and being
+    /// the only picture disagree (or the flow builds none, or a wrong one).
+    pub built_disagree: usize,
+    /// Pictures whose rows nest, and pictures where nesting rows and having
+    /// no switch disagree.
+    pub nested: usize,
+    pub nested_disagree: usize,
 }
 
 pub fn edges() -> Edges {
@@ -194,6 +213,7 @@ pub fn edges() -> Edges {
     }
     let (mut pairs, mut failed) = (0, 0);
     let (mut alone, mut no_switch, mut disagree) = (0, 0, 0);
+    let (mut nested, mut nested_disagree) = (0, 0);
     for p in &pictures {
         let switches = model::switches(p);
         for s in &switches {
@@ -207,10 +227,20 @@ pub fn edges() -> Edges {
         alone += usize::from(only);
         no_switch += usize::from(switches.is_empty());
         disagree += usize::from(only != switches.is_empty());
+        let nests = model::rows_nested(p);
+        nested += usize::from(nests);
+        nested_disagree += usize::from(nests != switches.is_empty());
     }
     let connected = groups
         .values()
         .filter(|group| model::reachable(group[0]).len() == group.len())
+        .count();
+    let built_disagree = groups
+        .iter()
+        .filter(|(s, group)| match model::built_switches(s) {
+            Some((p, found)) => !group.contains(&&p) || found.is_empty() != (group.len() == 1),
+            None => true,
+        })
         .count();
     Edges {
         pairs,
@@ -220,6 +250,9 @@ pub fn edges() -> Edges {
         alone,
         no_switch,
         disagree,
+        built_disagree,
+        nested,
+        nested_disagree,
     }
 }
 
@@ -423,6 +456,42 @@ pub fn facts() -> Result<Facts, String> {
         f.add(&format!("{key}.failing"), failing_sizes(&table))?;
     }
 
+    // chapter 04: whether the water's picture is the only one, for the
+    // face's shadows (chapter 02's water) and for the tree's
+    let built = &last.wet;
+    let built_switches = model::switches(built);
+    let &first_switch = built_switches.first().ok_or("the water's picture has no switch")?;
+    let second = first_switch
+        .apply(built)
+        .ok_or("the water's first switch does not apply")?;
+    f.add("DT-F10.switch.rows", first_switch.rows.len())?;
+    f.add("DT-F10.face.switches", built_switches.len())?;
+    f.add(
+        "DT-F10.face.first",
+        format!("{};{}", csv(&first_switch.rows), csv(&first_switch.cols)),
+    )?;
+    f.add("DT-F10.face.second", second.pattern())?;
+    f.add("DT-F10.face.second.differ", built.differences(&second).len())?;
+    f.add(
+        "DT-F10.face.second.fits",
+        flag(second.shadows() == shadows && fit.contains(&second)),
+    )?;
+    let (tree_water, tree_states) = tree_flow()?;
+    let tree_built = &tree_states.last().ok_or("the tree's flow sends nothing")?.wet;
+    let tree_trace: Vec<String> = tree_water.paths.iter().map(path_text).collect();
+    f.add("DT-F10.tree.total", tree.count())?;
+    f.add("DT-F10.tree.paths", tree_water.paths.len())?;
+    f.add("DT-F10.tree.trace", tree_trace.join(","))?;
+    f.add(
+        "DT-F10.tree.takebacks",
+        tree_water.paths.iter().filter(|p| p.takes_back()).count(),
+    )?;
+    f.add("DT-F10.tree.built", tree_built.pattern())?;
+    f.add("DT-F10.tree.built.is_tree", flag(*tree_built == tree))?;
+    f.add("DT-F10.tree.built.switches", model::switches(tree_built).len())?;
+    f.add("DT-F10.tree.rectangles", model::rectangles(tree_built))?;
+    f.add("DT-F10.tree.nested", flag(model::rows_nested(tree_built)))?;
+
     f.add("DT-F7.questions", QUESTIONS.len())?;
     f.pin(
         "DT-S1.ryser",
@@ -451,6 +520,19 @@ pub fn facts() -> Result<Facts, String> {
     f.add("DT-X3.alone", e.alone)?;
     f.add("DT-X3.no_switch", e.no_switch)?;
     f.pin("DT-X3.disagree", e.disagree, "0", "Ryser: alone exactly when no switch")?;
+    f.pin(
+        "DT-X4.disagree",
+        e.built_disagree,
+        "0",
+        "the flow's picture has no switch exactly when it is the only one",
+    )?;
+    f.add("DT-X5.nested", e.nested)?;
+    f.pin(
+        "DT-X5.disagree",
+        e.nested_disagree,
+        "0",
+        "no switch exactly when the rows nest",
+    )?;
     Ok(f)
 }
 
@@ -543,6 +625,41 @@ mod tests {
         // every state of the no-fit flow keeps each row and column in count
         let (_, states) = no_fit_flow().unwrap();
         let s = no_fit();
+        for st in &states {
+            assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
+            assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
+        }
+    }
+
+    /// Chapter 04's numbers: the face's water picture has switches, and its
+    /// first makes a second picture with the same shadows, four squares
+    /// away; the tree's water, eleven units with one taken back, builds the
+    /// tree itself, whose rows nest, with no switch among its 100
+    /// rectangles; and on every 4x4 pair of shadows the water's picture
+    /// settles whether it is the only one.
+    #[test]
+    fn the_only_picture_facts_hold() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("DT-F10.face.switches"), Some("12"));
+        assert_eq!(f.get("DT-F10.face.first"), Some("0,1;2,3"));
+        assert_eq!(f.get("DT-F10.face.second"), Some("01100/01010/00000/01010/10011"));
+        assert_eq!(f.get("DT-F10.face.second.differ"), Some("4"));
+        assert_eq!(f.get("DT-F10.face.second.fits"), Some("true"));
+        assert_eq!(
+            f.get("DT-F10.tree.trace"),
+            Some("r0c0,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r2c4,r3c2,r4c2,r2c0r0c2")
+        );
+        assert_eq!(f.get("DT-F10.tree.takebacks"), Some("1"));
+        assert_eq!(f.get("DT-F10.tree.built"), f.get("DT-F6.tree"));
+        assert_eq!(f.get("DT-F10.tree.built.switches"), Some("0"));
+        assert_eq!(f.get("DT-F10.tree.rectangles"), Some("100"));
+        assert_eq!(f.get("DT-F10.tree.nested"), Some("true"));
+        assert_eq!(f.get("DT-F6.tree.fits"), Some("1"));
+        assert_eq!(f.get("DT-X4.disagree"), Some("0"));
+        assert_eq!(f.get("DT-X5.nested"), f.get("DT-X3.no_switch"));
+        // the tree's flow keeps every row and column in count
+        let (_, states) = tree_flow().unwrap();
+        let s = model::tree().shadows();
         for st in &states {
             assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
             assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));

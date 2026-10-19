@@ -82,8 +82,9 @@ pub(crate) fn gallery_at(k: usize, count: usize) -> Vec3 {
     )
 }
 
-/// Counts as text, one per value, each at `at(i)`. Detached.
-fn counts(
+/// Counts as text, one per value, each at `at(i)`. Detached (chapter 04
+/// draws its counts with it too).
+pub(crate) fn counts(
     kit: &Kit,
     stage: &mut Stage<'_>,
     values: &[usize],
@@ -98,7 +99,7 @@ fn counts(
 }
 
 /// The filled squares of `p` on `board`, by place. Detached.
-fn place(stage: &mut Stage<'_>, board: &Board, p: &Picture) -> fmn::Result<HashMap<(usize, usize), Mob>> {
+pub(crate) fn place(stage: &mut Stage<'_>, board: &Board, p: &Picture) -> fmn::Result<HashMap<(usize, usize), Mob>> {
     p.filled()
         .into_iter()
         .map(|(r, c)| Ok(((r, c), board.square(stage, r, c, palette::filled())?)))
@@ -115,7 +116,7 @@ fn marks(stage: &mut Stage<'_>, board: &Board, s: Switch) -> (Mob, [Mob; 4]) {
 
 /// Run switch `s` on picture `p`, drawn on `board` as `squares`: its filled
 /// corners fade as its empty corners fill. Returns the new picture.
-fn run_switch(
+pub(crate) fn run_switch(
     stage: &mut Stage<'_>,
     board: &Board,
     squares: &mut HashMap<(usize, usize), Mob>,

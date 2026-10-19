@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "a5a74cc5f92142d02fd96864c3e4e619d1840886616f5546813134e8d471fb3b",
+  "script_sha256": "0660c3c5ae3f9373156104dab7c8336ae97b97768ba6f497580438cc3391e33f",
   "units": [
     {
       "id": "01u1",
@@ -101,6 +101,38 @@
         "03_8"
       ],
       "text": "The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2"
+      ],
+      "text": "Water builds one picture. Can that picture alone tell us whether it is the only one? It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_3",
+        "04_4"
+      ],
+      "text": "Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture. It is the tree itself. Could another picture cast the same shadows?"
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_5",
+        "04_6",
+        "04_7"
+      ],
+      "text": "No. A switch needs two rows that each have a filled square where the other is empty. But of any two rows in the tree, one has every square the other has. So the tree has no switch. Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits."
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_8"
+      ],
+      "text": "So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one."
     }
   ]
 }

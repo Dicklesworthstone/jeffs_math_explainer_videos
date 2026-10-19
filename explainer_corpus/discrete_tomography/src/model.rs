@@ -409,6 +409,21 @@ pub fn reachable(start: &Picture) -> Vec<(Picture, usize)> {
     out
 }
 
+/// How many rectangles `p` has, two rows times two columns: every place a
+/// switch could be.
+pub fn rectangles(p: &Picture) -> usize {
+    let pairs = |n: usize| n * n.saturating_sub(1) / 2;
+    pairs(p.rows) * pairs(p.cols)
+}
+
+/// Whether, of any two rows of `p`, one holds every square the other holds.
+/// Exactly the pictures with no switch: a switch needs two rows that each
+/// have a filled square where the other is empty.
+pub fn rows_nested(p: &Picture) -> bool {
+    let within = |a: usize, b: usize| (0..p.cols).all(|c| !p.get(a, c) || p.get(b, c));
+    (0..p.rows).all(|a| (a + 1..p.rows).all(|b| within(a, b) || within(b, a)))
+}
+
 /// A shortest chain of switches from `from` to `to` (the first one found
 /// breadth first, switches in order), or `None` when no chain joins them.
 pub fn walk(from: &Picture, to: &Picture) -> Option<Vec<Switch>> {
@@ -825,6 +840,21 @@ pub fn gale_ryser(s: &Shadows) -> bool {
     s.row_total() == s.col_total() && gale_table(s).iter().all(|&(asks, gives)| asks <= gives)
 }
 
+/// Whether the water's picture is the only one: the picture the flow
+/// builds for `s` and every switch of it, or `None` when no picture fits.
+/// It is the only picture that fits exactly when it has no switch: a switch
+/// makes another; with none, no chain of switches leaves it, and Ryser's
+/// Theorem 3.1 joins any two pictures with the same shadows by such a chain.
+pub fn built_switches(s: &Shadows) -> Option<(Picture, Vec<Switch>)> {
+    match reconstruct(s) {
+        Reconstruction::Built(p) => {
+            let found = switches(&p);
+            Some((p, found))
+        }
+        Reconstruction::TotalsDiffer | Reconstruction::Stuck { .. } => None,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::collections::{BTreeSet, HashSet};
@@ -975,6 +1005,63 @@ mod tests {
         let tree = tree();
         assert!(switches(&tree).is_empty());
         assert_eq!(fits(&tree.shadows()), [tree]);
+    }
+
+    /// A picture has no switch exactly when, of any two rows, one holds every
+    /// square the other holds: on every 4x4 and every 3x5 picture. The tree's
+    /// rows nest; the face's top and bottom rows do not.
+    #[test]
+    fn no_switch_exactly_when_the_rows_nest() {
+        for (rows, cols) in [(4, 4), (3, 5)] {
+            for p in all_pictures(rows, cols) {
+                assert_eq!(rows_nested(&p), switches(&p).is_empty(), "{}", p.pattern());
+            }
+        }
+        assert!(rows_nested(&tree()));
+        assert!(!rows_nested(&face()));
+        assert_eq!(rectangles(&tree()), 100);
+        assert_eq!(rectangles(&Picture::empty(1, 5)), 0);
+        assert_eq!(rectangles(&Picture::empty(2, 2)), 1);
+    }
+
+    /// The water's picture settles uniqueness: on every pair of 4x4 shadows
+    /// some picture casts, the flow builds a picture with those shadows, and
+    /// it has no switch exactly when it is the only picture that fits; where
+    /// no picture fits there is nothing to check. The tree's water is the
+    /// tree, with no switch; the face's has switches.
+    #[test]
+    fn the_waters_picture_settles_whether_it_is_the_only_one() {
+        let groups = by_shadows(4, 4);
+        for (s, group) in &groups {
+            let (p, found) = built_switches(s).unwrap_or_else(|| panic!("{s:?}: nothing built"));
+            assert_eq!(&p.shadows(), s);
+            assert!(group.contains(&p), "{s:?}");
+            assert_eq!(found.is_empty(), group.len() == 1, "{s:?}");
+            for sw in &found {
+                let q = sw.apply(&p).unwrap();
+                assert!(q != p && group.contains(&q), "{s:?}: {sw:?}");
+            }
+        }
+        assert_eq!(built_switches(&Shadows::new(&[1, 1], &[2, 1])), None);
+        assert_eq!(built_switches(&Shadows::new(&face().row_counts(), &NO_FIT_COLS)), None);
+        let tree = tree();
+        assert_eq!(built_switches(&tree.shadows()), Some((tree, vec![])));
+        let (built, found) = built_switches(&face().shadows()).unwrap();
+        assert!(built != face() && found.len() > 1);
+    }
+
+    /// Ryser's theorem joins pictures by a chain, not always by one switch:
+    /// two 3x3 pictures with one square in each row and column, one the
+    /// other shifted a column, differ in six squares, no switch of one makes
+    /// the other, and two switches do.
+    #[test]
+    fn a_chain_can_need_more_than_one_switch() {
+        let a = Picture::parse(&["100", "010", "001"]).unwrap();
+        let b = Picture::parse(&["010", "001", "100"]).unwrap();
+        assert_eq!(a.shadows(), b.shadows());
+        assert_eq!(a.differences(&b).len(), 6);
+        assert!(switches(&a).iter().all(|s| s.apply(&a).as_ref() != Some(&b)));
+        assert_eq!(walk(&a, &b).unwrap().len(), 2);
     }
 
     /// The flow, Gale's test and enumeration agree on every pair of 4x4
