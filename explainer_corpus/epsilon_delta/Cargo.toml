@@ -1,0 +1,17 @@
+[package]
+name = "epsilon_delta"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Epsilon and Delta: Why Getting Closer Wasn't Enough: unbroken curves x^n whose limit jumps, a moving witness that keeps a gap of one half, and the guarantee epsilon and delta make precise; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "epsdelta"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "script_sha256": "cd5e0aa02376c4c6682080cf3b2019805a2a48100994e255627506916fa7b254",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3",
+        "01_4",
+        "01_5"
+      ],
+      "text": "Take the line y equals x, from zero to one. Square every height, and it sags. Higher powers sag further. Each curve is unbroken, from zero up to one. Pin one point, x equals nine tenths. Its heights go point nine, point eight one, point seven two nine, down toward zero. At x equals one, nothing moves. One to any power is one. So what shape are the curves heading for?"
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_6",
+        "01_7"
+      ],
+      "text": "Flat at zero all the way to one, then a single point at height one. Unbroken curves, and a limit that jumps. A picture of a few curves can't prove that. Arithmetic can. Below one, each new power multiplies the height by the same number less than one."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_9",
+        "01_10",
+        "01_11"
+      ],
+      "text": "Now let the point move. On each curve, mark where it crosses half height. There the curve is at one half and the limit is zero. As the power grows, the crossing creeps toward one, but the gap stays one half. So it matters who picks the point. Fix it first, and the gap shrinks to zero. Let it move with the curve, and the gap never does."
+    }
+  ]
+}

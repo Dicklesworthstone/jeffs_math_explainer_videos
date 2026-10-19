@@ -1,0 +1,11 @@
+# epsilon_delta: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Take the line y equals x, from zero to one. Square every height, and it sags. Higher powers sag further.
+01_2	Each curve is unbroken, from zero up to one.
+01_3	Pin one point, x equals nine tenths. Its heights go point nine, point eight one, point seven two nine, down toward zero.
+01_4	At x equals one, nothing moves. One to any power is one.
+01_5	So what shape are the curves heading for?
+01_6	Flat at zero all the way to one, then a single point at height one. Unbroken curves, and a limit that jumps.
+01_7	A picture of a few curves can't prove that. Arithmetic can. Below one, each new power multiplies the height by the same number less than one.
+01_9	Now let the point move. On each curve, mark where it crosses half height.
+01_10	There the curve is at one half and the limit is zero. As the power grows, the crossing creeps toward one, but the gap stays one half.
+01_11	So it matters who picks the point. Fix it first, and the gap shrinks to zero. Let it move with the curve, and the gap never does.
