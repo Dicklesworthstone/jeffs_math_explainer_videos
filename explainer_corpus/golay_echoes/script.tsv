@@ -4,7 +4,7 @@
 01_3	Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away.
 01_4	Lined up exactly, all four agree. A score of four, at the echo.
 01_5	One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is.
-01_6	Slide all the way, and ghosts appear on both sides, a quarter the echo's size.
+01_6	Slide all the way, and ghosts appear on both sides. Each is a quarter the echo's size.
 01_7	With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up.
 01_8	Its ghosts are the same size, at the same shifts. What if we add the two rows?
 01_9	Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost.
@@ -14,10 +14,10 @@
 02_3	Score it as before. The loud one stands tall at zero. At three steps, where the quiet one is, the score is zero.
 02_4	Zero is not empty. Each echo brings its own row of scores, and at three steps they collide.
 02_5	The loud one's ghost there is minus four. The quiet one's peak is plus four. They cancel.
-02_6	One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo.
+02_6	One step either side of the loud echo, its ghosts stand four tall. That's as tall as the quiet echo.
 02_7	Pattern B's ghosts have the other sign. What will B score at three steps?
 02_8	Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it.
-02_9	Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over.
+02_9	Add the two rows. Thirty-two at zero, eight at three, and zero everywhere else. The scene, eight times over.
 02_10	Sending pattern A twice just doubles its ghosts, and the quiet one stays hidden.
 03_1	Where do pairs like these come from? Start with one pulse, paired with itself.
 03_2	Now double it. Write the first, then the other. Then the first again, and the other flipped.
@@ -37,6 +37,6 @@
 04_6	Compared with the first send, it is the same echo at the same distance, only flipped. In radar, half a turn of phase does this.
 04_7	What happens to the true echo when we add?
 04_8	Cancelled out, and every ghost doubles instead.
-04_9	In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed.
+04_9	In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus another row. It is pattern A's row of whatever changed.
 04_10	Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels.
-04_11	So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added.
+04_11	So two bad echoes make one perfect measurement. But only in the ideal case, when both sends meet the same echoes and no noise is added.

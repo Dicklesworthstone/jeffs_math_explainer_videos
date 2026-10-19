@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "e718677121b0302b673e9ea11544213d249dbd606c8ba93d430998f59b3cb201",
+  "script_sha256": "ba954a8e1a16c3849dfc7b643629e274dfd7fa8c7ccd579c892173418157d7db",
   "units": [
     {
       "id": "01u1",
@@ -31,16 +31,22 @@
       "text": "Now gather everyone who tested positive. Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it. Five percent was a share of people without the disease. Your question is a share of people who tested positive."
     },
     {
-      "id": "02u1",
+      "id": "02u1a",
       "line_ids": [
         "02_1",
         "02_2",
-        "02_3",
+        "02_3"
+      ],
+      "text": "Take the same test to a clinic where one person in ten has the disease. The test hasn't changed, so it still catches nine in ten people with the disease, and still gives five percent of the rest a false alarm. So will a positive result mean more here, or less?"
+    },
+    {
+      "id": "02u1b",
+      "line_ids": [
         "02_4",
         "02_5",
         "02_6"
       ],
-      "text": "Take the same test to a clinic where one person in ten has the disease. The test hasn't changed, so it still catches nine in ten and gives five percent of the rest a false alarm. So will a positive result mean more here, or less? This time, a thousand have the disease, and nine hundred of them test positive. Of the other nine thousand, five percent is four hundred fifty false alarms. Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three."
+      "text": "This time, a thousand have the disease, and nine hundred of them test positive. The other nine thousand don't have it, and five percent of them still test positive. That's four hundred fifty false alarms. Gather the positives, thirteen hundred fifty of them. Nine hundred have the disease. That's two in three."
     },
     {
       "id": "02u2",
@@ -50,7 +56,7 @@
         "02_9",
         "02_10"
       ],
-      "text": "So here a positive result means about sixty-seven percent, not fifteen. Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease. Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing."
+      "text": "So here, about sixty-seven percent of the positives have the disease, not fifteen. Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease. Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing."
     },
     {
       "id": "03u1",
@@ -60,7 +66,7 @@
         "03_3",
         "03_4"
       ],
-      "text": "Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment. Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first. Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way. Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first."
+      "text": "Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment. Shorter recovery is better, so we decide in advance what counts as good news. A pair favours the treatment if its treated patient recovered first. Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way. Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first."
     },
     {
       "id": "03u2",
@@ -87,7 +93,7 @@
         "04_3",
         "04_4"
       ],
-      "text": "Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin picks the patient with the quicker recovery."
+      "text": "Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs can favour the treatment in only one way. Every coin picks the patient with the quicker recovery."
     },
     {
       "id": "04u1c",
@@ -95,7 +101,7 @@
         "04_5",
         "04_6"
       ],
-      "text": "For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all."
+      "text": "For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, and together they come to twenty-one thousand seven hundred ways."
     },
     {
       "id": "04u2",
@@ -105,17 +111,23 @@
         "04_9",
         "04_10"
       ],
-      "text": "Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable. And every one of those ways lives in a world where the treatment did nothing."
+      "text": "Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. Count only exactly fifteen, and you get about one and a half percent. Count only more than fifteen, and you get about six tenths of a percent. Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable. And every one of those ways lives in a world where the treatment did nothing."
     },
     {
-      "id": "05u1",
+      "id": "05u1a",
       "line_ids": [
         "05_1",
-        "05_2",
+        "05_2"
+      ],
+      "text": "Two percent is a share of that imaginary world, where no one's recovery changed. So is two percent the chance that the treatment did nothing?"
+    },
+    {
+      "id": "05u1b",
+      "line_ids": [
         "05_3",
         "05_4"
       ],
-      "text": "Two percent is a share of that imaginary world, where no one's recovery changed. So is two percent the chance that the treatment did nothing? No. The two percent was counted inside that world. It can't be the chance that world is true. Nor the chance the study is wrong. Both need more than this count."
+      "text": "No. The two percent was counted inside that world. It can't be the chance that world is true. Nor the chance the study is wrong. Both need more than this count."
     },
     {
       "id": "05u2a",

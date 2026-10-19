@@ -51,9 +51,9 @@ class TheRealUnits(unittest.TestCase):
         self.assertNotIn("01_3", said)
 
     # the units under 30 words: requests split off where a take ran two lines
-    # together, the one-line 05u2a (root, Mail 3384) and 04u1a, which ends on
-    # 04_2's question (Mail 3420)
-    SHORT = {"04u1a", "05u2a"}
+    # together, the one-line 05u2a (root, Mail 3384), 04u1a, which ends on
+    # 04_2's question (Mail 3420), and 05u1a, which ends on 05_2's (Mail 4297)
+    SHORT = {"04u1a", "05u1a", "05u2a"}
 
     def test_units_are_whole_thoughts_within_a_chapter(self):
         for u in self.doc["units"]:
@@ -118,7 +118,7 @@ class Boundaries(unittest.TestCase):
     def test_a_unit_across_two_chapters(self):
         # 01_11 then 02_1 is still script order: only the chapter rule sees it
         set_lines(unit(self.doc, "01u3"), ["01_9", "01_10", "01_11", "02_1"])
-        set_lines(unit(self.doc, "02u1"), ["02_2", "02_3", "02_4", "02_5", "02_6"])
+        set_lines(unit(self.doc, "02u1a"), ["02_2", "02_3"])
         found = nu.problems(self.doc, LINES, SCRIPT_BYTES)
         self.assertEqual(len(found), 1, found)
         self.assertIn("holds lines of chapters ['01', '02']", found[0])
@@ -183,10 +183,19 @@ class Boundaries(unittest.TestCase):
         unit(self.doc, "03u1")["id"] = "02u3"
         self.fails(self.doc, "the id must be '03u1'")
 
-    def test_the_two_split_units_keep_their_places(self):
+    def test_the_split_units_keep_their_places(self):
         ids = [u["id"] for u in self.doc["units"]]
+        self.assertEqual(ids[ids.index("02u1a"):ids.index("02u1a") + 3], ["02u1a", "02u1b", "02u2"])
+        # 02u1a ends on the prediction question; the count that answers it is the next request
+        self.assertEqual(unit(self.doc, "02u1a")["line_ids"], ["02_1", "02_2", "02_3"])
+        self.assertTrue(unit(self.doc, "02u1a")["text"].endswith("?"))
+        self.assertEqual(unit(self.doc, "02u1b")["line_ids"], ["02_4", "02_5", "02_6"])
         self.assertEqual(ids[ids.index("04u1a"):ids.index("04u1a") + 4], ["04u1a", "04u1b", "04u1c", "04u2"])
-        self.assertEqual(ids[ids.index("05u2a"):ids.index("05u2a") + 3], ["05u2a", "05u2b", "05u3"])
+        self.assertEqual(ids[ids.index("05u1a"):ids.index("05u1a") + 5], ["05u1a", "05u1b", "05u2a", "05u2b", "05u3"])
+        # 05u1a ends on the prediction question and 05u1b answers it
+        self.assertEqual(unit(self.doc, "05u1a")["line_ids"], ["05_1", "05_2"])
+        self.assertTrue(unit(self.doc, "05u1a")["text"].endswith("?"))
+        self.assertTrue(unit(self.doc, "05u1b")["text"].startswith("No. "))
         # 04u1a ends on the question; its answer starts the next request
         self.assertEqual(unit(self.doc, "04u1a")["line_ids"], ["04_1", "04_2"])
         self.assertTrue(unit(self.doc, "04u1a")["text"].endswith("?"))

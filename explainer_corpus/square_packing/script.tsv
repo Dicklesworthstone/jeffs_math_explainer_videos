@@ -29,8 +29,8 @@
 04_1	To rule out a smaller box, we need points no tile can dodge. Start with a tile in a corner.
 04_2	If its centre is within one tile of both walls, it always covers this point, one tile across and one tile up.
 04_3	A turned tile casts a wider shadow on the floor. So could a turned tile slip past the point?
-04_4	No. The walls keep its centre at least half a shadow out, so across and up, the point is at most one minus half a shadow away.
-04_5	Along the tile's own sides, that is at most the shadow times one minus half the shadow, which never passes one half.
+04_4	No. Its centre has to stay at least half a shadow from each wall. So the point is at most one minus half a shadow away, both across and up.
+04_5	Now measure along the tile's own sides. There, the point is at most the shadow times one minus half a shadow away. And that never passes one half.
 04_6	Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it.
 04_7	Let the centre stray past one tile, or drop a wall, and the point can escape.
 04_8	In our box, about two point seven one wide, this settles centres near the corners. The edges and the middle come next.

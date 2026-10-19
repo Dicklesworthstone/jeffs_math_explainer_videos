@@ -41,7 +41,13 @@ between them, so no cut there could keep both words whole: "first. | For
 nineteen" and "Fourteen. | Fourteen or more" (root, Mail 3384). 04u1 was
 split again after its question, "fifteen? | Fifteen itself", where the take
 left only shallow quiet before the answer (Mail 3420). So 04u1a ends on the
-question and 05u2a is one line.
+question and 05u2a is one line. 02u1 is split at its prediction hold, after
+02_3's question: with its counts said in fuller steps (the measured redo,
+Mail 4297) it is 103 words, over the cap, and its parts, 51 and 52 words,
+are each about the length of the owner-accepted opening, 01u1's 51. 05u1
+is split at its prediction hold for the reason 04u1a was: its take left
+0.10 s between "did nothing?" and "No.", where the scene then held five
+seconds, and 0.09 s at "true. | Nor" (the v4 cut's measured boundaries).
 """
 import hashlib
 import json
@@ -66,8 +72,9 @@ GROUPS = [
     ("01_4", "01_5", "01_6", "01_7", "01_8"),
     # the positives gathered, and the group each percent is a share of
     ("01_9", "01_10", "01_11"),
-    # 02: the same test in clinic B, counted
-    ("02_1", "02_2", "02_3", "02_4", "02_5", "02_6"),
+    # 02: the same test in clinic B and its question | the count that
+    # answers it (split at the prediction hold)
+    [("02_1", "02_2", "02_3"), ("02_4", "02_5", "02_6")],
     # what it means, why, the two rates apart, the study's imaginary world
     ("02_7", "02_8", "02_9", "02_10"),
     # 03: the pairs, the rule decided in advance, the sharp null, the fifteen
@@ -80,8 +87,9 @@ GROUPS = [
     [("04_1", "04_2"), ("04_3", "04_4"), ("04_5", "04_6")],
     # the share and its name, the wrong tails, the world it lives in
     ("04_7", "04_8", "04_9", "04_10"),
-    # 05: what two percent is not
-    ("05_1", "05_2", "05_3", "05_4"),
+    # 05: two percent, and the question asked of it | what two percent is not
+    # (split at the prediction hold)
+    [("05_1", "05_2"), ("05_3", "05_4")],
     # an imagined fourteen | its tail and the five percent convention (split
     # where the take ran "Fourteen." into "Fourteen or more")
     [("05_5",), ("05_6", "05_7")],

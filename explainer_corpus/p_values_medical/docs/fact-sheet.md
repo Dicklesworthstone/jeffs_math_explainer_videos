@@ -247,7 +247,7 @@ Downloaded texts stay outside the repository (public-repository hygiene).
 | 01_11 | "a share of people without the disease", "a share of people who tested positive" | P(positive \| no disease) = 1/20, P(disease \| positive) = 2/13; neither is a p-value (lower-third) |
 | 01_7 | "the test catches ninety" | sensitivity 9/10, assumed, and assumed the same in every clinic (storyboard 02) |
 | 02_2 | "The test hasn't changed" | the model test's sensitivity and false-alarm rate are assumed the same in both clinics (the card says "assumed") |
-| 02_7 | "a positive result means about sixty-seven percent" | P(disease \| positive) = 900/1,350 = 2/3 ≈ 66.67% for a person chosen at random from clinic B's positives (02_9's card) |
+| 02_7 | "about sixty-seven percent of the positives have the disease" | P(disease \| positive) = 900/1,350 = 2/3 ≈ 66.67% for a person chosen at random from clinic B's positives (02_9's card) |
 | 02_8 | "the false alarms barely moved" | 495 → 450 false alarms, the rate 5% in both (the outlined ledgers and fractions) |
 | 02_9 | "the chance a positive result is right" | the positive predictive value, P(disease \| positive): 2/13 in clinic A, 2/3 in clinic B (the card) |
 | 03_3 | "Each patient would have recovered at the same time either way" | the sharp null: every patient's recovery the same treated or untreated, no interference; a zero average effect alone would not give this world (the lower-third) |

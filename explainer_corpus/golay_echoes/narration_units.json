@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "5bcb14bde7f94a2a1ef01ab6ef4c71e7a13f8f9afc672147897fe9f4b16487ac",
+  "script_sha256": "d1452e24df5ba92d46560d60050ec1503561f9f44e4366bb6b0397ff7393faf1",
   "units": [
     {
       "id": "01u1a",
@@ -18,7 +18,7 @@
         "01_5",
         "01_6"
       ],
-      "text": "Slide a copy along what came back, and multiply the pulses that line up. Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. Lined up exactly, all four agree. A score of four, at the echo. One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. Slide all the way, and ghosts appear on both sides, a quarter the echo's size."
+      "text": "Slide a copy along what came back, and multiply the pulses that line up. Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away. Lined up exactly, all four agree. A score of four, at the echo. One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is. Slide all the way, and ghosts appear on both sides. Each is a quarter the echo's size."
     },
     {
       "id": "01u2",
@@ -50,7 +50,7 @@
         "02_9",
         "02_10"
       ],
-      "text": "One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo. Pattern B's ghosts have the other sign. What will B score at three steps? Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over. Sending pattern A twice just doubles its ghosts, and the quiet one stays hidden."
+      "text": "One step either side of the loud echo, its ghosts stand four tall. That's as tall as the quiet echo. Pattern B's ghosts have the other sign. What will B score at three steps? Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it. Add the two rows. Thirty-two at zero, eight at three, and zero everywhere else. The scene, eight times over. Sending pattern A twice just doubles its ghosts, and the quiet one stays hidden."
     },
     {
       "id": "03u1",
@@ -95,13 +95,19 @@
       "text": "Now keep it in place, and let the second send's echo come back upside down. Compared with the first send, it is the same echo at the same distance, only flipped. In radar, half a turn of phase does this. What happens to the true echo when we add? Cancelled out, and every ghost doubles instead."
     },
     {
-      "id": "04u3",
+      "id": "04u3a",
       "line_ids": [
         "04_9",
-        "04_10",
+        "04_10"
+      ],
+      "text": "In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus another row. It is pattern A's row of whatever changed. Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels."
+    },
+    {
+      "id": "04u3b",
+      "line_ids": [
         "04_11"
       ],
-      "text": "In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed. Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels. So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added."
+      "text": "So two bad echoes make one perfect measurement. But only in the ideal case, when both sends meet the same echoes and no noise is added."
     }
   ]
 }
