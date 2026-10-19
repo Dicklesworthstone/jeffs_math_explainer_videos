@@ -167,6 +167,57 @@ mod tests {
             "F-X3.blind_spot.fresh_catch_share",
             "1/2",
         ),
+        // the cost, counted in multiplications
+        ("04_1", "At a thousand rows", "F-F2.big.side", "1000"),
+        ("04_1", "twenty fresh checks", "F-F5.again", "20"),
+        (
+            "04_1",
+            "twenty million multiplications",
+            "F-F5.big.again_multiplications",
+            "20000000",
+        ),
+        ("04_1", "a fiftieth", "F-F5.big.again_share", "1/50"),
+        (
+            "04_1",
+            "the billion to redo the product",
+            "F-F2.big.product_multiplications",
+            "1000000000",
+        ),
+        // N + 1 in doubles, computed
+        ("04_2", "ten to the sixteen", "F-X4.big", "10000000000000000"),
+        (
+            "04_2",
+            "ten to the sixteen plus one",
+            "F-X4.plus_one.exact",
+            "10000000000000001",
+        ),
+        (
+            "04_3",
+            "Ten to the sixteen",
+            "F-X4.plus_one.double",
+            "10000000000000000",
+        ),
+        ("04_3", "two apart", "F-X4.gap", "2"),
+        ("04_3", "the one is lost", "F-X4.lost", "1"),
+        // the two rounded examples
+        ("04_4", "This C is A times B", "F-X4.reject.right_answer", "true"),
+        ("04_4", "two lost ones", "F-X4.reject.lost", "2"),
+        ("04_5", "too small by one", "F-X4.pass.mistake", "-1"),
+        ("04_5", "all four tosses miss it", "F-X4.pass.rounded_passes", "4"),
+        ("04_5", "all four tosses", "F-X4.tosses", "4"),
+        // the tolerance is the right C's largest gap in doubles, so it lets
+        // the right one through on every toss; the wrong C then passes all
+        (
+            "04_6",
+            "would let the right one through",
+            "F-X4.tolerance.right_passes",
+            "4",
+        ),
+        ("04_6", "passes every toss", "F-X4.tolerance.wrong_passes", "4"),
+        ("04_6", "no half guarantee", "F-F5.bound_per_toss", "1/2"),
+        // the promise
+        ("04_7", "A right C matches every toss", "F-F4.right_answer.passing", "8"),
+        ("04_7", "at most half the time", "F-F5.bound_per_toss", "1/2"),
         (
             "01_10",
             "once in a million",
@@ -187,7 +238,7 @@ mod tests {
         // and no line carries a number word the table above does not know
         let numbers = [
             "one", "single", "two", "three", "four", "seven", "eight", "nine", "twenty", "thousand", "million",
-            "billion", "half", "once", "minus", "sixteen", "sixty", "quarter",
+            "billion", "half", "once", "minus", "sixteen", "sixty", "quarter", "ten", "fiftieth",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();
@@ -201,9 +252,10 @@ mod tests {
         }
     }
 
-    /// The opening claims only the exact theorem: no line of the script
-    /// talks about rounding, decimals or floating point, which the exact
-    /// bound does not cover (the scope edge is F-X4 in the facts).
+    /// The voice claims only the exact theorem: no line of the script uses
+    /// the words of rounding, decimals or floating point, which the exact
+    /// bound does not cover. Chapter 04 names the boundary as doubles and
+    /// shows the rounding on screen and in its cards, from the F-X4 facts.
     #[test]
     fn the_narration_claims_only_exact_arithmetic() {
         let script = Script::parse(SCRIPT).unwrap();

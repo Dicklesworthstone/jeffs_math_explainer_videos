@@ -456,13 +456,41 @@ pub fn grid_colored(
     centre: Vec3,
     color_of: impl Fn(i64) -> Srgb,
 ) -> fmn::Result<Grid> {
+    grid_of(stage, values, centre, |stage, x, at| {
+        kit.text(stage, &num(x), ENTRY_SIZE, color_of(x), at)
+    })
+}
+
+/// As [`grid`], each entry typeset as the TeX `tex_of` gives its value, so
+/// a grid can hold numbers too wide to print ("N" for 10^16). Detached.
+pub fn tex_grid(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    values: Vec<Vec<i64>>,
+    centre: Vec3,
+    color: Srgb,
+    tex_of: impl Fn(i64) -> String,
+) -> fmn::Result<Grid> {
+    grid_of(stage, values, centre, |stage, x, at| {
+        kit.tex(stage, &tex_of(x), ENTRY_SIZE, color, &[], at)
+    })
+}
+
+/// The grid of `values` centred at `centre`, each entry the mobject `entry`
+/// makes of its value at its place, row by row, then the two brackets.
+fn grid_of(
+    stage: &mut Stage<'_>,
+    values: Vec<Vec<i64>>,
+    centre: Vec3,
+    mut entry: impl FnMut(&mut Stage<'_>, i64, Vec3) -> fmn::Result<Mob>,
+) -> fmn::Result<Grid> {
     let rows = values.len();
     let cols = values.first().map_or(0, Vec::len);
     let mut entries = Vec::with_capacity(rows);
     for (i, row) in values.iter().enumerate() {
         let mut texts = Vec::with_capacity(cols);
         for (j, &x) in row.iter().enumerate() {
-            texts.push(kit.text(stage, &num(x), ENTRY_SIZE, color_of(x), cell(centre, rows, cols, i, j))?);
+            texts.push(entry(stage, x, cell(centre, rows, cols, i, j))?);
         }
         entries.push(texts);
     }

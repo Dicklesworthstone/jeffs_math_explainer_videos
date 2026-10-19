@@ -531,6 +531,173 @@ fn chapter_03(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
     Ok(())
 }
 
+/// A column computed in doubles, as the whole numbers it holds (every value
+/// here is a double that is a whole number, so the cast is exact).
+pub fn as_whole<const N: usize>(v: &[f64; N]) -> [i64; N] {
+    v.map(|x| x as i64)
+}
+
+/// One toss of a rounded example (`model::ROUNDED_*`): the check's columns
+/// in exact arithmetic and in doubles.
+pub struct RoundedToss {
+    pub toss: Toss<2>,
+    pub exact: Check<2>,
+    pub br: [i64; 2],
+    pub a_br: [i64; 2],
+    pub cr: [i64; 2],
+}
+
+impl RoundedToss {
+    /// The two columns agree in doubles.
+    pub fn passes(&self) -> bool {
+        self.a_br == self.cr
+    }
+}
+
+/// The check of `c` against `a` times `b` on `toss`, both ways.
+pub fn rounded_toss(a: &Matrix<2>, b: &Matrix<2>, c: &Matrix<2>, toss: &Toss<2>) -> RoundedToss {
+    let r = toss.map(f64::from);
+    let br = model::rounded_times(b, &r);
+    RoundedToss {
+        toss: *toss,
+        exact: model::check(a, b, c, toss),
+        br: as_whole(&br),
+        a_br: as_whole(&model::rounded_times(a, &br)),
+        cr: as_whole(&model::rounded_times(c, &r)),
+    }
+}
+
+/// How far apart a check's two columns are: the largest gap over the rows.
+pub fn residual(x: &[i64; 2], y: &[i64; 2]) -> i64 {
+    x.iter().zip(y).map(|(p, q)| (p - q).abs()).max().unwrap_or(0)
+}
+
+/// The right C's residuals in doubles (`model::ROUNDED_REJECTS`), toss by
+/// toss in counting order.
+pub fn right_residuals() -> Vec<i64> {
+    let [a, b, c] = ROUNDED_REJECTS;
+    model::tosses::<2>()
+        .iter()
+        .map(|t| {
+            let rt = rounded_toss(&a, &b, &c, t);
+            residual(&rt.a_br, &rt.cr)
+        })
+        .collect()
+}
+
+/// The tolerance chapter 04 tries (04_6): the smallest that lets the right
+/// C through on every toss in doubles, its largest residual there. Computed
+/// from the example, never chosen.
+pub fn right_tolerance() -> i64 {
+    right_residuals().into_iter().max().unwrap_or(0)
+}
+
+/// The wrong C's residuals in exact sums (`model::ROUNDED_PASSES`), toss by
+/// toss in counting order.
+pub fn wrong_residuals() -> Vec<i64> {
+    let [a, b, c] = ROUNDED_PASSES;
+    model::tosses::<2>()
+        .iter()
+        .map(|t| {
+            let ch = model::check(&a, &b, &c, t);
+            residual(&ch.a_br, &ch.cr)
+        })
+        .collect()
+}
+
+/// Chapter 04's facts: what doubles do at N = 10^16, the two rounded
+/// examples on the tosses the scene shows, and a tolerance's test.
+fn chapter_04(f: &mut Facts) -> Result<(), String> {
+    // 04_2, 04_3: N + 1 in doubles, and the doubles near N
+    let big = model::BIG;
+    let digits = big.to_string().len() - 1;
+    if 10_i64.pow(digits as u32) != big {
+        return Err(format!("{big} is not a power of ten"));
+    }
+    let near = big as f64;
+    let plus_one = as_whole(&[near + 1.0])[0];
+    f.add("F-X4.big", big)?;
+    f.add("F-X4.big_exponent", digits)?;
+    f.add("F-X4.plus_one.exact", big + 1)?;
+    f.add("F-X4.plus_one.double", plus_one)?;
+    f.add("F-X4.lost", big + 1 - plus_one)?;
+    f.add("F-X4.gap", as_whole(&[near.next_up() - near])[0])?;
+    let doubles: Vec<i64> = (-2..=2i64)
+        .filter(|&k| as_whole(&[(big + k) as f64])[0] == big + k)
+        .collect();
+    f.add("F-X4.doubles_near", csv(&doubles))?;
+    f.add("F-X4.significand_bits", f64::MANTISSA_DIGITS)?;
+    f.add("F-X4.big_above_2_53", big > 1_i64 << f64::MANTISSA_DIGITS)?;
+
+    // 04_4: the right C, on the one toss doubles fail
+    let small = model::tosses::<2>();
+    let [a, b, c] = ROUNDED_REJECTS;
+    let failing: Vec<RoundedToss> = small
+        .iter()
+        .map(|t| rounded_toss(&a, &b, &c, t))
+        .filter(|rt| !rt.passes())
+        .collect();
+    let [shown] = &failing[..] else {
+        return Err("in doubles the right C must fail exactly one toss".into());
+    };
+    f.add("F-X4.reject.br.exact", csv(&shown.exact.br))?;
+    f.add("F-X4.reject.br.double", csv(&shown.br))?;
+    f.add("F-X4.reject.a_br.exact", csv(&shown.exact.a_br))?;
+    f.add("F-X4.reject.a_br.double", csv(&shown.a_br))?;
+    f.add("F-X4.reject.cr.double", csv(&shown.cr))?;
+    let lost: i64 = shown.exact.br.iter().zip(&shown.br).map(|(&x, &y)| x - y).sum();
+    f.add("F-X4.reject.lost", lost)?;
+    let both = |a: &Matrix<2>, b: &Matrix<2>, c: &Matrix<2>| -> (Vec<bool>, Vec<bool>) {
+        small
+            .iter()
+            .map(|t| {
+                let rt = rounded_toss(a, b, c, t);
+                (rt.exact.passes(), rt.passes())
+            })
+            .unzip()
+    };
+    let (exact, doubled) = both(&a, &b, &c);
+    f.add("F-X4.reject.exact_matches", csv(&exact))?;
+    f.add("F-X4.reject.double_matches", csv(&doubled))?;
+
+    // 04_5: the wrong C, on the first toss exact sums catch and doubles pass
+    let [a, b, c] = ROUNDED_PASSES;
+    let shown = small
+        .iter()
+        .map(|t| rounded_toss(&a, &b, &c, t))
+        .find(|rt| !rt.exact.passes() && rt.passes())
+        .ok_or("no toss shows the wrong C passing only in doubles")?;
+    f.add("F-X4.pass.shown_toss", model::toss_text(&shown.toss))?;
+    f.add("F-X4.pass.a_br.exact", csv(&shown.exact.a_br))?;
+    f.add("F-X4.pass.a_br.double", csv(&shown.a_br))?;
+    f.add("F-X4.pass.cr.double", csv(&shown.cr))?;
+    let d = model::mistake(&c, &model::product(&a, &b).0);
+    let wrong = model::wrong_entries(&d);
+    let [(i, j)] = wrong[..] else {
+        return Err("the wrong C must have exactly one wrong entry".into());
+    };
+    f.add("F-X4.pass.mistake", d[i][j])?;
+    let (exact, doubled) = both(&a, &b, &c);
+    f.add("F-X4.pass.exact_matches", csv(&exact))?;
+    f.add("F-X4.pass.double_matches", csv(&doubled))?;
+    f.add("F-X4.pass.exact_catches", exact.iter().filter(|&&m| !m).count())?;
+
+    // 04_6: the smallest tolerance that lets the right C through on every
+    // toss in doubles; with it the wrong C passes every toss in exact sums
+    let tolerance = right_tolerance();
+    let (right, wrong) = (right_residuals(), wrong_residuals());
+    let within = |residuals: &[i64]| residuals.iter().filter(|&&r| r <= tolerance).count();
+    f.add("F-X4.tolerance", tolerance)?;
+    f.add("F-X4.tolerance.right_residuals", csv(&right))?;
+    f.add("F-X4.tolerance.right_passes", within(right.as_slice()))?;
+    f.add("F-X4.tolerance.wrong_residuals", csv(&wrong))?;
+    f.add("F-X4.tolerance.wrong_passes", within(wrong.as_slice()))?;
+    if tolerance <= 0 || within(right.as_slice()) != small.len() || within(wrong.as_slice()) != small.len() {
+        return Err("the tolerance must let the right C through in doubles and the wrong C in exact sums".into());
+    }
+    Ok(())
+}
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     let ab = true_product();
@@ -708,6 +875,7 @@ pub fn facts() -> Result<Facts, String> {
 
     chapter_02(&mut f, &ab)?;
     chapter_03(&mut f, &ab)?;
+    chapter_04(&mut f)?;
     f.self_check()?;
     Ok(f)
 }
@@ -832,6 +1000,36 @@ mod tests {
             ("F-X3.n2.fooled", "4"),
             ("F-X3.n2.tosses", "4"),
             ("F-X3.n1.heads_fooled", "false"),
+            ("F-X4.big", "10000000000000000"),
+            ("F-X4.big_exponent", "16"),
+            ("F-X4.plus_one.exact", "10000000000000001"),
+            ("F-X4.plus_one.double", "10000000000000000"),
+            ("F-X4.lost", "1"),
+            ("F-X4.gap", "2"),
+            ("F-X4.doubles_near", "-2,0,2"),
+            ("F-X4.significand_bits", "53"),
+            ("F-X4.big_above_2_53", "true"),
+            ("F-X4.reject.br.exact", "10000000000000001,-9999999999999999"),
+            ("F-X4.reject.br.double", "10000000000000000,-10000000000000000"),
+            ("F-X4.reject.a_br.exact", "2,0"),
+            ("F-X4.reject.a_br.double", "0,0"),
+            ("F-X4.reject.cr.double", "2,0"),
+            ("F-X4.reject.lost", "2"),
+            ("F-X4.reject.exact_matches", "true,true,true,true"),
+            ("F-X4.reject.double_matches", "true,true,true,false"),
+            ("F-X4.pass.shown_toss", "10"),
+            ("F-X4.pass.a_br.exact", "10000000000000001,0"),
+            ("F-X4.pass.a_br.double", "10000000000000000,0"),
+            ("F-X4.pass.cr.double", "10000000000000000,0"),
+            ("F-X4.pass.mistake", "-1"),
+            ("F-X4.pass.exact_matches", "true,true,false,false"),
+            ("F-X4.pass.double_matches", "true,true,true,true"),
+            ("F-X4.pass.exact_catches", "2"),
+            ("F-X4.tolerance", "2"),
+            ("F-X4.tolerance.right_residuals", "0,0,0,2"),
+            ("F-X4.tolerance.right_passes", "4"),
+            ("F-X4.tolerance.wrong_residuals", "0,0,1,1"),
+            ("F-X4.tolerance.wrong_passes", "4"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

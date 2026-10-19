@@ -35,9 +35,13 @@ heads columns of B and C and multiplies A by that column, entry by entry):
     not as a product of shares;
   * fractions with fractions.Fraction, whose str() is the format the video
     prints;
+  * chapter 04's doubles near 10^16 from Python floats and math.nextafter,
+    and both rounded examples' columns by the explicit loop below, against
+    exact integer columns from multiplying;
   * doubles with an explicit left-to-right loop: Python's sum() of floats is
     compensated (Neumaier) since 3.12 and would hide the rounding.
 """
+import math
 import sys
 from fractions import Fraction
 from itertools import permutations, product
@@ -324,6 +328,7 @@ def facts():
     emit("F-X4.pass.rounded_passes", sum(1 for t in two if rounded_passes(a, b, c, t)))
     chapter_02(ab)
     chapter_03(ab, passing)
+    chapter_04()
     return ab, d, passing
 
 
@@ -493,6 +498,84 @@ def chapter_03(ab, passing):
     # fresh tosses (the general at-most-half bound is the pairing checks')
     check("chapter 03: every toss lets its blind spot through, and fresh tosses catch each exactly half the time",
           all(passes(plus(ab, dd), t) for t, dd in spots) and all(2 * c == len(all_tosses) for c in catches))
+
+
+def whole(column):
+    """A column of floats that hold whole numbers, as ints (exact)."""
+    return tuple(int(x) for x in column)
+
+
+def chapter_04():
+    """Chapter 04's facts: doubles at N = 10^16 from Python floats, and the
+    two rounded examples by the explicit loop against exact integers."""
+    big = BIG
+    near = float(big)
+    emit("F-X4.big", big)
+    emit("F-X4.big_exponent", len(str(big)) - 1)
+    emit("F-X4.plus_one.exact", big + 1)
+    emit("F-X4.plus_one.double", int(near + 1.0))
+    emit("F-X4.lost", big + 1 - int(near + 1.0))
+    emit("F-X4.gap", int(math.nextafter(near, math.inf) - near))
+    emit("F-X4.doubles_near", csv(k for k in range(-2, 3) if int(float(big + k)) == big + k))
+    emit("F-X4.significand_bits", sys.float_info.mant_dig)
+    emit("F-X4.big_above_2_53", big > 2 ** sys.float_info.mant_dig)
+
+    two = tosses(2)
+    a, b, c = ROUNDED_REJECTS
+    failing = [t for t in two if rounded_apply(a, rounded_apply(b, t)) != rounded_apply(c, t)]
+    (shown,) = failing
+    br, br_d = apply(b, shown), whole(rounded_apply(b, shown))
+    emit("F-X4.reject.br.exact", csv(br))
+    emit("F-X4.reject.br.double", csv(br_d))
+    emit("F-X4.reject.a_br.exact", csv(apply(a, br)))
+    emit("F-X4.reject.a_br.double", csv(whole(rounded_apply(a, rounded_apply(b, shown)))))
+    emit("F-X4.reject.cr.double", csv(whole(rounded_apply(c, shown))))
+    emit("F-X4.reject.lost", sum(x - y for x, y in zip(br, br_d)))
+
+    def verdicts(a, b, c):
+        exact = [apply(a, apply(b, t)) == apply(c, t) for t in two]
+        doubled = [rounded_apply(a, rounded_apply(b, t)) == rounded_apply(c, t) for t in two]
+        return ["true" if v else "false" for v in exact], ["true" if v else "false" for v in doubled]
+
+    exact, doubled = verdicts(a, b, c)
+    emit("F-X4.reject.exact_matches", ",".join(exact))
+    emit("F-X4.reject.double_matches", ",".join(doubled))
+
+    a, b, c = ROUNDED_PASSES
+    shown = next(t for t in two if apply(a, apply(b, t)) != apply(c, t)
+                 and rounded_apply(a, rounded_apply(b, t)) == rounded_apply(c, t))
+    emit("F-X4.pass.shown_toss", toss_text(shown))
+    emit("F-X4.pass.a_br.exact", csv(apply(a, apply(b, shown))))
+    emit("F-X4.pass.a_br.double", csv(whole(rounded_apply(a, rounded_apply(b, shown)))))
+    emit("F-X4.pass.cr.double", csv(whole(rounded_apply(c, shown))))
+    mistake = minus(c, row_times_column(a, b))
+    (value,) = [x for row in mistake for x in row if x]
+    emit("F-X4.pass.mistake", value)
+    exact, doubled = verdicts(a, b, c)
+    emit("F-X4.pass.exact_matches", ",".join(exact))
+    emit("F-X4.pass.double_matches", ",".join(doubled))
+    emit("F-X4.pass.exact_catches", exact.count("false"))
+    # the tolerance: the right C's largest gap in doubles, the smallest that
+    # lets it through; with it, the wrong C in exact sums
+    ra, rb, rc = ROUNDED_REJECTS
+    right = [max(abs(x - y) for x, y in zip(whole(rounded_apply(ra, rounded_apply(rb, t))), whole(rounded_apply(rc, t))))
+             for t in two]
+    wrong = [max(abs(x - y) for x, y in zip(apply(a, apply(b, t)), apply(c, t))) for t in two]
+    tolerance = max(right)
+    emit("F-X4.tolerance", tolerance)
+    emit("F-X4.tolerance.right_residuals", csv(right))
+    emit("F-X4.tolerance.right_passes", sum(1 for r in right if r <= tolerance))
+    emit("F-X4.tolerance.wrong_residuals", csv(wrong))
+    emit("F-X4.tolerance.wrong_passes", sum(1 for r in wrong if r <= tolerance))
+    check("chapter 04: the smallest tolerance that lets the right C through in doubles also passes the wrong C on "
+          "every toss in exact sums, and one less would still catch the right C",
+          all(r <= tolerance for r in right) and all(r <= tolerance for r in wrong)
+          and any(r > tolerance - 1 for r in right) and any(r > 0 for r in wrong))
+    check("chapter 04: in doubles N + 1 is N, the right C fails one toss and the wrong C passes all four, "
+          "while exact sums keep both promises",
+          int(near + 1.0) == big and len(failing) == 1 and doubled.count("true") == len(two)
+          and all(apply(ROUNDED_REJECTS[0], apply(ROUNDED_REJECTS[1], t)) == apply(ROUNDED_REJECTS[2], t) for t in two)
+          and exact.count("true") * 2 <= len(two))
 
 
 def cross_checks(ab, d, passing):

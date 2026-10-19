@@ -403,17 +403,21 @@ pub fn sweep<const N: usize>(a: &Matrix<N>, b: &Matrix<N>, values: &[i64]) -> Sw
 /// at +0.0, so none is −0.0, and finite entries make no NaN.
 pub fn rounded_passes<const N: usize>(a: &Matrix<N>, b: &Matrix<N>, c: &Matrix<N>, toss: &Toss<N>) -> bool {
     let r: [f64; N] = toss.map(f64::from);
-    let rounded_times = |m: &Matrix<N>, v: &[f64; N]| -> [f64; N] {
-        m.map(|row| {
-            let mut sum = 0.0;
-            for (&x, &y) in row.iter().zip(v) {
-                sum += x as f64 * y;
-            }
-            sum
-        })
-    };
     let a_br = rounded_times(a, &rounded_times(b, &r));
     a_br.map(f64::to_bits) == rounded_times(c, &r).map(f64::to_bits)
+}
+
+/// `m` times the column `v` in IEEE doubles, each row's sum from +0.0 and
+/// left to right, as the loops of [`rounded_passes`] run (each entry of `m`
+/// first becomes its nearest double).
+pub fn rounded_times<const N: usize>(m: &Matrix<N>, v: &[f64; N]) -> [f64; N] {
+    m.map(|row| {
+        let mut sum = 0.0;
+        for (&x, &y) in row.iter().zip(v) {
+            sum += x as f64 * y;
+        }
+        sum
+    })
 }
 
 #[cfg(test)]
@@ -661,6 +665,9 @@ mod tests {
         let rounded: Vec<bool> = tosses::<2>().iter().map(|t| rounded_passes(&a, &b, &c, t)).collect();
         assert_eq!(rounded, [true, true, true, false]);
         assert_eq!(passing(&a, &b, &c).len(), 4);
+        // on the toss that fails, both ones of B·r are lost in doubles
+        let br = rounded_times(&b, &[1.0, 1.0]);
+        assert_eq!(br.map(f64::to_bits), [BIG as f64, -(BIG as f64)].map(f64::to_bits));
 
         let [a, b, c] = ROUNDED_PASSES;
         assert_eq!(wrong_entries(&mistake(&c, &product(&a, &b).0)), [(0, 0)]);

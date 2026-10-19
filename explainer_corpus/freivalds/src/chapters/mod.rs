@@ -1,10 +1,10 @@
 //! One scene per chapter, in storyboard order, with its score intensity
 //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
-//! the chapter with the same `NN`. Chapter 04 is named in the storyboard's
-//! arc and not written yet.
+//! the chapter with the same `NN`.
 
 pub mod check_with_coins;
 pub mod draw;
+pub mod exact_and_rounded;
 pub mod glyphs;
 pub mod never_more_than_half;
 pub mod toss_again;
@@ -27,6 +27,11 @@ pub fn registry() -> Vec<Chapter> {
             key: "03_toss_again",
             make: |kit| Box::new(toss_again::TossAgain { kit }),
             intensity: 0.5,
+        },
+        Chapter {
+            key: "04_exact_and_rounded",
+            make: |kit| Box::new(exact_and_rounded::ExactAndRounded { kit }),
+            intensity: 0.45,
         },
     ]
 }

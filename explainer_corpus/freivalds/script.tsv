@@ -26,3 +26,10 @@
 03_6	Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses.
 03_7	Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel.
 03_8	So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time.
+04_1	At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds.
+04_2	But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?
+04_3	Ten to the sixteen. Doubles there are two apart, so the one is lost.
+04_4	So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ.
+04_5	And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it.
+04_6	A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee.
+04_7	So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time.

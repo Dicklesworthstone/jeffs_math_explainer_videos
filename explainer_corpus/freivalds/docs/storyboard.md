@@ -13,18 +13,21 @@ more time") before the next beat answers it.
 
 ## The arc
 
-One tiny example runs through the whole video, and stays on screen at the
-top of every chapter: A = (1 2 1 / 0 3 1 / 3 2 0), B = (2 1 0 / 1 0 2 /
-2 1 3), and the claim C, their product with one slip (row 2, column 2 says
-2; the product has 1). The true product's nine entries are the digits 1 to
-9, each once.
+One tiny example runs through the whole video: A = (1 2 1 / 0 3 1 /
+3 2 0), B = (2 1 0 / 1 0 2 / 2 1 3), and the claim C, their product with
+one slip (row 2, column 2 says 2; the product has 1). The true product's
+nine entries are the digits 1 to 9, each once. It is chapter 01's opening
+picture; chapters 02 and 03 work on its mistake, C − AB, and its tosses
+(chapter 03 sets it aside for the tosses seen first); chapter 04 leaves it
+for the cost at scale and two 2 × 2 examples with N = 10¹⁶ in them, and its
+last beat brings the opening picture back.
 
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_check_with_coins` | someone hands over C; redoing it is nine entries of three multiplications, a billion at a thousand rows; one spot check misses a single wrong entry eight times in nine; a coin for each column: add C's heads columns, add B's and multiply by A (nine multiplications); they must match if C is right, and do not; of the eight tosses, how many miss? Four, exactly the tails ones over the wrong entry's column; no wrong answer hides from more than half, so toss again: twenty fresh tosses all miss less than once in a million | source and silent visual checkpoint accepted by root at `94988fd`, on root's evidence, not this lane's: central06 ran fmt, strict release clippy, 32 tests, the release build and the 92 native/oracle facts with 17 oracle checks; root read all six glyph pages and the changed and prediction frames of draft02 (2,524 frames, empty layout lint); central07 reran the changed SPOKEN test. Narration not generated; no audio accepted |
 | `02_never_more_than_half` | the mistake on its own, C − AB: the check misses exactly when its heads columns add up to zero in every row (C·r − A(B·r) = (C − AB)·r); on the same A and B (`model::SHAPES`), two in one row, both one too big, hide only from tails on both coins (2 of 8); one too big and one too small by the same amount hide whenever their coins agree (4 of 8, a second equality case); one, one and minus one in a row hide from three (a prediction; not a power of two); one wrong entry per row and column hides only from all tails (1 of 8); the proof: pair the tosses that differ only in the coin of a column where C is wrong (with three coins, coin 1 pairs each toss with the one under it); across a pair that row's sum moves by the wrong entry, so at most one of each pair hides it; the pairs cover every toss once, at any size. The 19,682 and 624 small mistakes are a finite check, labelled as one | source, native checks and sampled silent visuals accepted by root for `.23.2`, on root's evidence, not this lane's: central14 passed fmt, strict release all-target clippy, 42 tests and the build, with 150 native/oracle fact rows equal, 20 oracle checks and 81 glyph sources with zero failures; root read the final changed source, all eight glyph pages, nine cue-end frames and twelve pairing and prediction frames of draft04 (chapter 02: 2,483 frames, 82.766667 s, silent 960 × 540 at 30 fps, empty layout lint, SHA-256 `8dd755a7…d5bd8fd`); EmeraldLeopard's independent image review (Mail 3894) found no blocker. After `.23.3`'s 02_3 wording change ("by the same amount"), root's central22 re-rendered it: 2,529 frames, 84.30 s, SHA-256 `12136612…d72d0b`. Narration not generated; no audio, continuous playback or full-video acceptance |
 | `03_toss_again` | two fresh tosses: 16 of the 64 ways they can land both miss the slip, exactly a quarter for this slip (four misses of the first toss times four of the second), and for any wrong C at most a quarter (the theorem's bound squared, kept apart from the example); one toss reused for both checks is the grid's diagonal, still half; a toss whoever wrote C saw first can be beaten (each of the eight has a wrong C it lets through, `model::blind_spot`: one wrong entry under a tails coin, or under all heads a cancelling pair in one row), while fresh tosses catch each of those wrong Cs half the time; so fresh means new coins for every check, tossed after C is fixed | source, native checks and sampled visuals accepted by root for `.23.3`, on root's evidence, not this lane's: central22 passed fmt, strict release all-target clippy, 48 native tests and the release build, with 177 native/oracle fact rows equal and 108 glyph sources with zero failures; chapter 03 is 2,371 frames, 79.033333 s, SHA-256 `2911f66e…84d9d9d`; root read the actual cue, reveal and card frames and the new glyph pages; FuchsiaHawk (Mail 3997) independently verified the final source, decoded pixels and card dwell. Narration not generated; no audio, continuous motion, full-video or publication acceptance |
-| `04_exact_and_rounded` | the cost at scale (twenty checks at a thousand rows: a fiftieth of the multiplications of redoing it); the theorem is about exact arithmetic: in doubles a right answer fails a toss and a wrong one passes all four (`model::ROUNDED_*`), so a tolerance turns it into a different question; the ending: the rigorous form of the opening picture | named, not storyboarded |
+| `04_exact_and_rounded` | the cost at scale, counted in multiplications and not in seconds (twenty checks at a thousand rows: twenty million against a billion, a fiftieth); the theorem is about exact arithmetic: in doubles 10^16 + 1 is stored as 10^16 (a prediction; computed, the doubles there two apart), so a right answer is caught on one toss and a wrong one by one passes all four (`model::ROUNDED_*`, every sum left to right as the loops run); a tolerance lets the right one through, but then a wrong C inside it passes every toss, a different test with no half guarantee; the ending: the opening picture with the exact promise, fair independent coins tossed after C is fixed, in exact arithmetic | source, native checks and sampled silent visuals accepted by root for `.23.4`, on root's and FuchsiaHawk's evidence, not this lane's: central36 passed fmt, strict Clippy, 55 tests with script coverage, 146 glyph sources with zero failures, build and render without input drift (207 native/oracle fact rows equal at central32, facts unchanged since); draft11's chapter 04 is 2,372 frames, 79.066667 s, 960 × 540 at 30 fps, empty layout lint, no audio stream, SHA-256 `7faf2967…5636b9`; root read six final frames, and FuchsiaHawk (Mail 4089) measured the decoded pixels: the 04_3 answer readable 6.0 s, the prediction hold and the dot's move kept, the schoolbook label fitting, the equality rows dimmed. Narration not generated; no audio, continuous motion, full-video or publication acceptance |
 
 ## Vocabulary (one word per idea)
 
@@ -44,7 +47,15 @@ of a miss: a mistake hides from a toss that misses it); **pair** (two
 tosses that differ only in one coin; each toss's **partner**); **way** (one
 landing of the coins: "the eight ways three coins can land", and in
 chapter 03 "the sixty-four ways two tosses can land"; never "pair", which
-is chapter 02's); **reuse** (one toss used for more than one check).
+is chapter 02's); **reuse** (one toss used for more than one check);
+**slip** (the claim's one wrong entry, row 2, column 2, and so its
+mistake: C − AB is a single 1 there; chapter 01's voice calls it "a single
+wrong entry" and "the wrong entry", the screen calls it "the slip" from
+chapter 02, and chapter 03's voice does too); **double** (the 64-bit
+numbers many programs compute with; "IEEE double"
+in the exact version; the voice never says "floating point" or
+"rounding", the screen shows it); **tolerance** (a gap the check lets
+pass instead of exact equality).
 
 ## Color roles
 
@@ -239,3 +250,60 @@ the F-X4 facts.
   also" and "Yet against", a turn of about 0.85 s.
 - Pronunciation to probe: "sixty-four", and the letter C as a name ("Any
   wrong C", "after C is handed over").
+
+## 04_exact_and_rounded: Exact and rounded (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds. | n = 1000 at the top. A faint track and a full bar for redoing the product, "redo the product (schoolbook): n³ = 1,000,000,000", the schoolbook count of 01_2 and not a bound on every method. On "twenty fresh checks" a second track, "20 fresh checks: 20 × n² = 20,000,000", and a blue bar to scale, a fiftieth of the first. On "a fiftieth" the ratio, 20,000,000 / 1,000,000,000 = 1/50. On "That counts work" a "for programmers" lower-third: these count multiplications, not time; adding up the heads columns of B and C still takes additions, and every entry is read from memory | bars to scale from facts, TeX, lower-third | |
+| 04_2 | But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles? ⟨predict⟩ | The cost clears. "N = 10¹⁶" at the top left, and a number line with the whole numbers N − 2 to N + 2. On "What is ten to the sixteen" the question, "What is N + 1 in doubles?"; four seconds of silence with the gold countdown ring and "pause for more time"; no double is marked yet | number line, think countdown | |
+| 04_3 | Ten to the sixteen. Doubles there are two apart, so the one is lost. | The ? goes, and as the answer is said the question becomes "N + 1 → N" over "(N + 1) − N = 0 in doubles", both computed in doubles; they stand through the whole line. On "Doubles there are two apart" the doubles near N are marked in teal (N − 2, N, N + 2, computed), "2 apart" between two of them, and a "precisely" lower-third: a double has 53 significant bits, so above 2^53 doubles are at least 2 apart; N + 1 is halfway between the doubles N and N + 2, and the tie goes to N. On "so the one is lost" a red dot at N + 1 moves to N | dots from the computed doubles, moves, lower-third | |
+| 04_4 | So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ. | The line clears. A, B and C, two by two, with N in their entries, and the mistake C − AB beside them, all zeros. The four tosses of two coins. On "This C is A times B" the exact row: "match" under every toss. On "with both coins heads" the doubles row, "match, match, match, no match" (the last in red), the toss 11 ringed in gold, and under it, both computed: exact B r = (N + 1, −N + 1) and A(B r) = (2, 0) = C r; in doubles B r = (N, −N) and A(B r) = (0, 0) ≠ (2, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
+| 04_5 | And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it. | The second example replaces the first: C − AB has −1 in its corner, outlined in red. On "This C is too small by one" the exact row: match, match, then "no match" in green twice, caught. On "all four tosses miss it" the doubles row, "match" under every toss in red, the toss 10 ringed, and exact A(B r) = (N + 1, 0) ≠ (N, 0) = C r against doubles A(B r) = (N, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
+| 04_6 | A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee. | The computations go. On "but then a wrong C inside it" the exact and doubles rows above, the test of equality, dim, and under them a check with a tolerance, \|A(B r) − C r\| ≤ 2 in every row, the tolerance computed as the right C's largest gap in doubles (toss 11: (0, 0) against (2, 0)), and "the right C passes 4 of 4 in doubles; this wrong C, 4 of 4 in exact sums", computed; a "precisely" lower-third: tolerance 2, the right C's largest gap in doubles, lets it through, but then this wrong C passes all 4 tosses in exact sums: no half bound | TeX, text from facts, lower-third | |
+| 04_7 | So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time. | Everything clears but the card. The opening picture returns, A × B = C with the slip outlined in red. On "A right C matches every toss" the first line, "a right C: every toss matches"; on "a wrong one gets past" "a wrong C: each fresh toss misses at most half the time", and k fresh tosses all miss ≤ 1/2^k, with "in doubles, both can fail" dim under them. The card gives way to the exact guarantee: with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2^k, in exact arithmetic. It stands until it has had time to be read, then the video fades | TeX from the bound, lower-third | |
+
+### Notes for 04
+
+- Prediction (04_2): the question is on screen from "What is ten to the
+  sixteen", before its last word; four seconds of silence with the
+  countdown; no double is marked until 04_3 starts. The answer is spoken
+  first ("Ten to the sixteen") and written with it: the question gives way
+  to the two answer lines at the start of 04_3, so they stand through the
+  whole line (about six seconds) while the doubles and the moving dot show
+  why, instead of arriving at its end.
+- At 04_6 the equality rows (exact and doubles) dim when the tolerant test
+  comes in under them, so their "no match" cannot be read against its
+  "4 of 4": they answer a different question.
+- Everything about doubles is computed, not drawn. The scene and the facts
+  run the same left-to-right sums as `model::rounded_passes`
+  (`model::rounded_times`), and the oracle repeats them in Python with an
+  explicit loop. The doubles near N, their spacing (`f64::next_up`), N + 1
+  in doubles, both examples' columns and their verdicts are all F-X4 facts.
+  The scene refuses to draw if the right C does not fail exactly one toss,
+  if the wrong C does not pass all four, or if the lost ones are not two.
+- The cost is a count of multiplications (`model::check_multiplications`,
+  `product_multiplications`), never a time. The programmers' card says that
+  the column sums still take additions and memory reads.
+- The tolerance is shown, not argued, and computed, not chosen. It is the
+  right C's largest gap in doubles, 2 on toss 11 (`facts::right_tolerance`,
+  F-X4.tolerance.right_residuals 0, 0, 0, 2), the smallest that lets the
+  right one through as the voice says (a tolerance of 1 would still catch
+  it). With it the wrong C passes all four tosses even in exact sums
+  (F-X4.tolerance.wrong_residuals 0, 0, 1, 1). The voice says only that the
+  half guarantee does not come with it.
+- The voice never says "floating point", "rounding", "decimal",
+  "precision" or "approximate" (the narration test in `main.rs`): it says
+  "doubles" and "the one is lost". The screen and the cards show the
+  rounding.
+- The final card is the exact guarantee in chapter 03's words. The panel
+  over it adds that a right C matches every toss and that in doubles both
+  can fail, as the two examples showed.
+- Narration units: the same unqualified, unfrozen proposal; 04_2's question
+  ends its unit and 04_3's answer opens the next, in the same unit as 04_4.
+  Six units of 21 to 39 words.
+- Pause targets, for listening, not rules: before "But many programs",
+  "So a right answer", "And a wrong answer" and "So the promise", a turn
+  of about 0.85 s.
+- Pronunciation to probe: "doubles", "ten to the sixteen", "fiftieth", and
+  the letters A, B and C as names.

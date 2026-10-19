@@ -10,11 +10,10 @@ answer passes at most half the tosses, and fresh tosses multiply that down.
 **Status.** The exact model (`src/model.rs`), every number
 (`src/facts.rs`), an independent oracle (`oracle.py`), and the scenes of
 chapters 01 (`src/chapters/check_with_coins.rs`), 02
-(`src/chapters/never_more_than_half.rs`) and 03
-(`src/chapters/toss_again.rs`), with their words and pictures
+(`src/chapters/never_more_than_half.rs`), 03 (`src/chapters/toss_again.rs`)
+and 04 (`src/chapters/exact_and_rounded.rs`), with their words and pictures
 (`docs/storyboard.md`, the generated `script.tsv`, and `narration_units.json`,
-an unqualified and unfrozen grouping proposal). Chapter 04 is named in the
-storyboard's arc and not written yet.
+an unqualified and unfrozen grouping proposal).
 
 - **Chapter 01:** source and silent visual checkpoint accepted by root at
   `94988fd`, on root's evidence, not this lane's. Root's central06 ran fmt,
@@ -50,6 +49,26 @@ storyboard's arc and not written yet.
     pages.
   - FuchsiaHawk (Mail 3997) independently verified the final source, the
     decoded pixels and how long the cards stay up.
+  - Not accepted: audio, continuous motion, the full video, or
+    publication.
+- **Chapter 04:** source, native checks and sampled silent visuals accepted
+  by root for `.23.4`, on root's and FuchsiaHawk's evidence, not this lane's.
+  - Root's central36 passed fmt, strict Clippy, 55 tests including script
+    coverage, the 146 glyph sources with zero failures, the build and the
+    render, with no input drift. The 207 native and oracle fact rows were
+    equal at central32; facts and oracle have not changed since.
+  - Draft11's chapter 04 is 2,372 frames (79.066667 s), 960 × 540 at 30
+    fps, with an empty layout lint and no audio stream. Its SHA-256 is
+    `7faf29678b6e9caecada1f36df7649a0b3ae31e2d8d21b6541f68dac985636b9`.
+    Root read six of its final frames.
+  - FuchsiaHawk (Mail 4089) measured the decoded pixels:
+    - the 04_3 answer is readable for 6.0 s (25.50–31.50 s);
+    - the prediction hold and the red dot's move to N are kept;
+    - the schoolbook cost label fits;
+    - the equality rows dim under the tolerance test;
+    - the cards stay up 18.33, 14.87, 12.30 and 10.07 s.
+    Earlier, FuchsiaHawk (4067) found the one-second answer, and root
+    (4042) the tolerance mismatch; both were repaired before draft11.
   - Not accepted: audio, continuous motion, the full video, or
     publication.
 
@@ -130,12 +149,30 @@ no audio of this video has been generated or accepted.
     cannot (F-X3.n1.heads_fooled), so the card says "from two by two up".
   - Each of those wrong Cs is still a fixed wrong C, and fresh tosses catch
     it 4 of 8 times (F-X3.blind_spot.fresh_catches).
-- **Not claimed:** anything about floating point. In IEEE doubles (`F-X4`,
-  `model::ROUNDED_*`), a right answer fails one toss of four and a wrong one
-  passes all four, so the exact bound does not transfer; a tolerance makes a
+- Chapter 04 shows where the exact theorem stops, all computed (F-X4):
+  - The cost at n = 1000 is a count of multiplications, not a time: twenty
+    checks are 20,000,000 against 1,000,000,000 for the product, a
+    fiftieth (F-F5.big). The column sums B·r and C·r still take additions
+    and memory reads, which the programmers' card says.
+  - In IEEE doubles, with every sum left to right as `model::rounded_times`
+    runs it, N + 1 = 10^16 + 1 is 10^16. The doubles there are 2 apart
+    (`f64::next_up`), and the tie goes to 10^16.
+  - So a right C (`model::ROUNDED_REJECTS`) fails toss 11, where both ones
+    of B·r are lost and A(B·r) is (0, 0) against C·r = (2, 0). A wrong C,
+    too small by one (`ROUNDED_PASSES`), passes all four tosses in doubles,
+    where exact sums catch it on two.
+  - The tolerance is computed: the right C's largest gap in doubles, 2 on
+    toss 11, is the smallest tolerance that lets it through on every toss
+    (F-X4.tolerance, .right_residuals 0,0,0,2, .right_passes 4); a
+    tolerance of 1 would still catch it. With that tolerance the wrong C
+    passes all four tosses even in exact sums (.wrong_residuals 0,0,1,1,
+    .wrong_passes 4). That is a different test, and the video claims no
+    bound for it.
+- **Not claimed:** anything about floating point beyond those examples. In
+  IEEE doubles the exact bound does not transfer, and a tolerance makes a
   different test. Also not claimed: that multiplication needs n³ steps (the
   01_2 card says faster methods exist and none is known to need only about
-  n² steps), or anything about derandomizing the check.
+  n² steps), wall-clock speed, or anything about derandomizing the check.
 
 ## Sources, checked 2026-10-19
 
@@ -189,14 +226,14 @@ lookup and probe (`lexicon.json`).
 Cheap, no compilation (run in this lane):
 
 ```bash
-python3 -I -B oracle.py                                   # from this folder: the facts, and 22 cross-checks
+python3 -I -B oracle.py                                   # from this folder: the facts, and 24 cross-checks
 python3 -I tools/storyboard.py --check freivalds          # from the repo root: G2, script.tsv current
-python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins,02_never_more_than_half,03_toss_again
+python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins,02_never_more_than_half,03_toss_again,04_exact_and_rounded
 ```
 
 The oracle ran 11 cross-checks in the first slice and 17 at `94988fd`. The
-three chapter 02 checks brought it to 20 at `ca4f677`, and the two chapter
-03 checks bring it to 22.
+three chapter 02 checks brought it to 20 at `ca4f677`, the two chapter 03
+checks to 22 at `d139ca3`, and the two chapter 04 checks bring it to 24.
 
 Native, root's batch: `./x freivalds facts-check`, the crate's fmt, clippy
 and tests, the glyph probe, and a 540p scratch-voice draft with the layout

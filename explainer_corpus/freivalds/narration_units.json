@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "2ebeb9124922501cc6ff9aad4e14fe96360ab78420a2b23079a80b0d9848a9ca",
+  "script_sha256": "33d8899b79e068f162faa465708bf68f40c051594cd8d49fcf0c0b92624a9e76",
   "units": [
     {
       "id": "01u1",
@@ -148,6 +148,49 @@
         "03_8"
       ],
       "text": "So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?"
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_3",
+        "04_4"
+      ],
+      "text": "Ten to the sixteen. Doubles there are two apart, so the one is lost. So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ."
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it."
+    },
+    {
+      "id": "04u5",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee."
+    },
+    {
+      "id": "04u6",
+      "line_ids": [
+        "04_7"
+      ],
+      "text": "So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time."
     }
   ]
 }
