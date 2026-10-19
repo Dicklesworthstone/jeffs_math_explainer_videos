@@ -15,16 +15,16 @@ more time") before the next beat answers it.
 
 One invented class runs through the whole video: twenty students, four of
 whom copied homework, and one coin rule defined before any formula.
-Chapters 01 to 03 are storyboarded and built; the rest is the plan their
-facts and model already compute (`src/model.rs`, `src/facts.rs`,
-`oracle.py`).
+Chapters 01 to 03 are storyboarded and built, and chapter 04 is written as
+source; chapter 05 is the plan their facts and model already compute
+(`src/model.rs`, `src/facts.rs`, `oracle.py`).
 
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_the_coin` | a direct question exposes whoever says yes; the coin rule (heads, the truth; tails, a second coin answers); the class routed through it on average: half tells the truth (two yes, eight no), the second coin answers the other ten (five and five); the survey sees seven yes and thirteen no; take away the second coin's yeses on average, a quarter of the class, and double what is left: four; but a yes is three times as likely from someone who copied | committed at eb81fbc (`.8.1`). Root verified it on 2026-10-19 (Mail 3759): fmt, strict Clippy, 30 tests, release build, facts against the oracle, glyph pages, and a silent 540p30 scratch draft of 81.1 s with zero layout findings, all 11 cue-end frames viewed and the prediction answer hidden through its hold. Source reviewed (Mail 3741, four low findings fixed). Not narrated; no audio or full-video acceptance |
 | `02_what_a_yes_says` | every student with all four coin outcomes, eighty in all; both answers' ratios of three counted from them; the prediction "a student says yes: what's the chance they copied?"; twelve of the twenty-eight yes outcomes are a copier's, three in seven (on average three of chapter 01's seven yeses), not three in four; why: copiers have three times the yeses but are outnumbered four to one; a no, four of fifty-two, one in thirteen; the chance moves from one in five, the coin fixing only the factor of three; deniable but not meaningless, and the count's accuracy is a separate question | `.8.2`, accepted by root on 2026-10-19 for source, native and sampled-visual criteria only (Mail 3831): fmt, strict release Clippy, 37 tests, the build and 105/105 facts against the oracle; a silent draft of 2,531 frames (84.37 s) with no layout findings; the 11 cue-end frames, 7 glyph pages, prediction and reveal, and both corrected cards viewed. Independently reviewed (TanElm, Mail 3802; repairs re-reviewed with no remaining findings, Mails 3827 and 3829). Not narrated; no audio or full-video acceptance |
 | `03_the_price_of_the_coin` | the same class asked eight times with fresh coins (a seeded generator): estimates from minus four to fourteen, one on four; then every one of the 4²⁰ equally likely ways the coins can land: the yes counts and the estimates pile up around seven and four; the prediction "how often exactly on four?": about one class in five, and about one in eleven below zero; below zero means fewer yeses than the second coin alone gives on average, and rounding up would push the average above four; every answer wobbles the same, so twenty doubled miss by about four people (√15); that is the fixed class: sampled from a big school, who gets picked adds p(1 − p)/n to the coins' 3/(4n), and at one in five the same precision takes almost six times the people (91/16; the coins' part alone 75/16) | `.8.3`, accepted by root on 2026-10-19 for source and sampled silent visuals only (Mail 3980); root closes it after verifying the commit. Draft06 was first accepted provisionally (Mail 3932), then held: its sample card had 4.20 s for 143 characters, and the runs and clamp cards about 5 s for 126 and 117 (FuchsiaHawk, Mail 3941). The repair (Mails 3944 and 3952) brings the sample card in at 03_9, shortens the other two, and has the clamp card read "allow negatives: …". Checks: central17 (Mail 3916): fmt, strict release Clippy, 44 tests, the build, 123 facts against the oracle (31 checks), 105 glyph sources. Draft06 (Mail 3932), after the title-safe row-name move: 2,338 frames (77.93 s), no layout findings; cue ends, prediction and reveal, glyph pages, labels and closing card viewed. Central21 (Mail 3980): fmt, strict Clippy, the build, 5 targeted tests, 103 glyph sources; draft07: 2,338 frames (77.93 s), no layout findings, unchanged cues; frames at 12, 50, 60, 64 and 76 s viewed. Independently reviewed by FuchsiaHawk: the source (Mail 3899; its card defect fixed), the rendered images (Mail 3926) and draft07's cards (Mail 3965: the sample card readable for 15.90 s). Not narrated; no audio, continuous-playback or full-video acceptance |
-| `04_asking_again` *(planned)* | one person asked three times with fresh coins: all 64 coin outcomes counted, three yeses 27 times likelier from someone who copied (posterior 27/31); a majority vote right 27 times in 32; each fresh answer multiplies the worst ratio by three; repeating one memoized answer keeps it at three (RAPPOR's permanent randomized response) | facts and model only |
+| `04_asking_again` | one student asked three times with fresh coins: all 64 coin outcomes for each truth; the prediction "how many times as likely are three yeses from someone who copied?": 27, counted (27 outcomes against 1), and each fresh answer can multiply it by three, three noes the other way; in the class, where one in five copied, 108 three-yes outcomes against 16, so twenty-seven in thirty-one against one yes's three in seven; a majority right twenty-seven times in thirty-two, whichever the truth; one flip whose answer is repeated (RAPPOR's memoized answer) keeps three yeses at three times, for one unchanged secret under this rule | source written 2026-10-19 (EmeraldTern, `.8.4`); not compiled, rendered, narrated or reviewed |
 | `05_the_dial` *(planned)* | a truth chance t instead of a fair first coin: ratio (1 + t)/(1 − t), coin variance (1 − t²)/(4t²); the edges, the direct question (no bound) and a pure coin (no estimate) | model only |
 
 ## Vocabulary (one word per idea)
@@ -47,7 +47,11 @@ them. "Odds" appears only on the 02_10 card. From chapter 03:
 chapter 01's code card named it; never "estimator"); **scatter** and
 **wobble** (how far real classes stray; "variance" and "standard
 deviation" only on cards); **this fixed class** (everyone in it answers)
-against **sample** (twenty picked at random from a big school).
+against **sample** (twenty picked at random from a big school). From
+chapter 04: **fresh coins** (new coins for every answer, independent of the
+last); **flips only once** and **repeats that answer** (the memoized
+answer; "memoized" only on cards); **the majority** (the answer given at
+least twice in three).
 
 ## Color roles
 
@@ -65,6 +69,7 @@ against **sample** (twenty picked at random from a big school).
 | the class's share who copied, one in five, on chapter 02's chance line | `hero` gold, a marker's stroke |
 | chapter 03's distribution: a bar per yes count | `dim` fill; the bar of exactly four `ink` once revealed; the bars below zero `red`, the warn role |
 | the true count, four, on chapter 03's axis | `hero` gold, a line's stroke and its words |
+| chapter 04's outcome squares: faint until counted; then blue for the pattern counted among yeses, violet among noes; the rest faint again | `faint`, the yes blue, the no violet |
 
 ## 01_the_coin: The coin (~82 s)
 
@@ -284,3 +289,72 @@ Units (unqualified proposals, text only): 03u1 the eight classes (03_1,
 03_2); 03u2 every outcome and the question (03_3 to 03_5, ending on the
 question); 03u3 the answer and below zero (03_6, 03_7); 03u4 the scatter and
 the sample (03_8 to 03_10).
+
+## 04_asking_again: Asking again (~82 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Ask one student the same question three times, with fresh coins each time. | One student (an ink disc, no ring: we do not know their truth). On "three times" three answer places appear one by one to its right, "ask 1", "ask 2", "ask 3"; on "fresh coins" each gets its own two coins, the first ink, the second dim | lagged places, coins | |
+| 04_2 | Four coin outcomes for each answer make sixty-four for all three, all equally likely. | The asks go. Two grids of 64 squares, "copied" (gold) on the left and "didn't copy" on the right, every square faint: one square per way the six coins can land, in 2 × 2 blocks of 4 × 4 (the first ask's coins pick the block, the second's the row, the third's the column). On "sixty-four", 4 × 4 × 4 = 64 (TeX) at the upper right. A "precisely" lower-third: each square is one way all 6 coins can land, 64 equally likely. Block: the first answer's coins; row: the second's; column: the third's | grid built from the rule, TeX, lower-third | |
+| 04_3 | ⟨predict⟩ How many times as likely are three yeses from someone who copied? | A "?" with the think ring and "pause for more time" at the right. No square is coloured yet, and nothing counts the yeses | predict pause | |
+| 04_4 | Twenty-seven. Someone who copied says yes three times in twenty-seven outcomes, anyone else in one. | The "?" goes. In the left grid the 27 squares whose three answers are all yes turn blue: three 3 × 3 blocks, 3 × 3 × 3. Under it "3 yes: 27 of 64". On "anyone else in one" the one such square on the right turns blue, "3 yes: 1 of 64", and 27/1 = 27 (TeX) at the right | highlight, TeX | |
+| 04_5 | Each fresh answer can multiply it by three. Three noes do the same the other way. | 27 = 3 × 3 × 3 (TeX) under the ratio. On "Three noes" the all-no squares turn violet, 1 on the left and 27 on the right, "3 no: 1 of 64" and "3 no: 27 of 64" under them. The card becomes: 0 to 3 yeses are 1/27, 1/3, 3, 27 times as likely from someone who copied; the most after 1 to 5 fresh answers: 3, 9, 27, 81, 243 | highlight, TeX, lower-third | |
+| 04_6 | In our class, one in five copied. Those four have a hundred and eight such outcomes, the sixteen others sixteen. | The violet squares and the right-hand TeX go. The grid names become "4 copied" and "16 didn't copy". On "a hundred and eight" the left grid's blue squares flash and 4 × 27 = 108 (TeX) appears under it; on "the sixteen others" the right grid's one blue square flashes and 16 × 1 = 16 | highlight, TeX | |
+| 04_7 | So after three yeses, the chance they copied is twenty-seven in thirty-one. After one, three in seven. | On "twenty-seven in thirty-one", 108/(108 + 16) = 27/31 (TeX) at the right, and the card becomes: 27/31 is the chance in this class, where 4 of 20 copied; from an even 1/2 the same 3 yeses would leave 27/28, and if nobody copied, 0. On "After one", "after one yes: 3/7" under the fraction in dim | TeX fraction, lower-third | |
+| 04_8 | The majority of three answers is right twenty-seven times in thirty-two, whichever the truth. | The products go and the grid names return to "copied" and "didn't copy". On the left the squares with at least two yeses turn blue, on the right those with at least two noes violet, the rest faint: "majority right: 54 of 64" under each. On "twenty-seven times", 54/64 = 27/32 (TeX) at the right; on "whichever the truth" both counts flash | highlight, TeX | |
+| 04_9 | But suppose the student flips only once, and repeats that answer. | On "flips only once" the grids and the right-hand TeX go. In their place, for each truth, four columns, one per outcome of the one flip (H H, H T, T H, T T over them), each column three squares of the same answer: on the left three columns blue and one violet, on the right one blue and three violet. The card becomes: memoized: one flip for this secret, its answer resent each ask, so repeats add no evidence; only for one unchanged secret, under this rule | grid built from the rule, lower-third | |
+| 04_10 | Then three yeses are three times as likely, the same as one. The repeats add nothing. | "3 yes: 3 of 4" and "3 yes: 1 of 4" under the columns; 3/1 = 3 (TeX) at the right; on "the same as one" it flashes, and "fresh coins: 27" appears under it in dim | TeX, highlight | |
+| 04_11 | That holds only while the secret stays the same, under this rule. | The columns and the card stay; the grid names flash. The picture holds 2 s after the line | highlight | hold |
+
+### Notes for 04
+
+- One student asked three times with fresh, independent coins: 4³ = 64
+  equally likely outcomes of the six coins (`R-F9.outcomes`), every square
+  `model::answer` run on one truth and one outcome, tallied against
+  `model::repeated_answers` before any count is drawn. By number of yeses,
+  0 to 3, someone who copied has 1, 9, 27, 27 of them and anyone else 27,
+  27, 9, 1 (`R-F9.by_yeses.*`); three yeses are 27 against 1, three noes 1
+  against 27 (`R-F9.all_yes.*`, `R-F9.all_no.*`).
+- Prediction (04_3): no square is coloured and no count of yeses is on
+  screen until 04_4. Chapters 01 and 02 said "three times as likely" for
+  one answer; the tempting answers are three (nothing changes) and nine
+  (three added three times); the counted answer is 27 = 3³.
+- "Can multiply it by three": the largest ratio over all answer patterns
+  after 1 to 5 fresh answers is 3, 9, 27, 81, 243 (`R-F9.worst_ratio_by_asks`);
+  mixed answers partly cancel (two yeses and a no: 3).
+- The chance after three yeses is the class's, counted as chapter 02 counts
+  it: every student with every outcome, the copiers' 4 × 27 = 108 three-yes
+  outcomes against the others' 16 × 1 = 16, so 27/31 (`R-F15.all_yes.*`,
+  `R-F9.posterior.all_yes`; the closed form checks it). It depends on the
+  class: from an even prior 27/28, if nobody copied 0
+  (`R-F15.posterior.*`). After one yes it was 3/7 (`R-F11.posterior.yes`).
+- The majority of three answers is right for someone who copied in 54 of
+  64 outcomes and for anyone else in 54 of 64, 27/32 either way
+  (`R-F9.majority.outcomes`, `R-F9.majority_right`, and `.didnt`).
+- A memoized answer (RAPPOR's permanent randomized response): the two
+  coins are flipped once for this secret and the answer is sent again on
+  every ask. Its outcomes are 4, not 64, and only all-yes or all-no
+  happen; three yeses are 3 against 1, the same as one yes
+  (`R-F10.memoized.*`), and in the class they leave 3/7, one yes's chance.
+  The chapter claims this only for one secret that does not change, asked
+  under this rule. It does not say how repeated surveys behave in general,
+  or what RAPPOR's full design guarantees.
+- Budget: 160 words, 11 lines; chapter 03's 152 words and 10 lines measured
+  77.93 s silent. The 128 squares fade in lagged inside 04_2's line.
+
+### Pauses for 04 (semantic timing)
+
+| where | kind | target |
+|---|---|---|
+| at 04_1 "three times, \| with fresh coins" | continuation | 0.5 s |
+| at 04_3 after "from someone who copied?" | **prediction hold**: a plain falling wh-question, then the countdown | the kit's breath + the countdown |
+| at 04_4 "Twenty-seven. \| Someone who copied" | **reveal**, then its count | 0.7 s |
+| at 04_6 "one in five copied. \| Those four" | continuation | 0.55 s |
+| at 04_7 "thirty-one. \| After one" | contrast | 0.6 s |
+| at 04_9 "But suppose" | turn from fresh coins to one flip | 0.6 s |
+| at 04_10 "the same as one. \| The repeats" | continuation | 0.55 s |
+
+Units (unqualified proposals, text only): 04u1 the asks and the question
+(04_1 to 04_3, ending on the question); 04u2 the answer and the factor
+(04_4, 04_5); 04u3 the class's chance and the majority (04_6 to 04_8); 04u4
+one flip, and what it covers (04_9 to 04_11).

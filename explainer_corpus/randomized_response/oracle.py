@@ -468,6 +468,42 @@ def main():
     check("a memoized all-yes stays at three for every ask count to ten",
           all(Fraction(repeated(k, True)[(True,) * k][1], repeated(k, True)[(True,) * k][0]) == 3
               for k in range(1, MAX_ASKS + 1)))
+    emit("R-F9.ratio.all_yes", Fraction(all_yes[1], all_yes[0]))
+    emit("R-F9.all_no.didnt", rep[(False,) * ASKS][0])
+    emit("R-F9.all_no.copied", rep[(False,) * ASKS][1])
+    # a majority for each fixed truth: more yeses from a copier, more noes otherwise
+    right_copied = sum(c[1] for s, c in rep.items() if 2 * sum(s) > ASKS)
+    right_didnt = sum(c[0] for s, c in rep.items() if 2 * sum(s) < ASKS)
+    emit("R-F9.majority.outcomes", right_copied)
+    emit("R-F9.majority_right.didnt", Fraction(right_didnt, len(OUTCOMES) ** ASKS))
+    check("a majority is right as often whichever the truth", right_copied == right_didnt)
+    memo_all_yes = memo[(True,) * ASKS]
+    emit("R-F10.memoized.outcomes", sum(c[1] for c in memo.values()))
+    check("one flip: as many outcomes for each truth", sum(c[0] for c in memo.values()) == len(OUTCOMES))
+    emit("R-F10.memoized.all_yes.copied", memo_all_yes[1])
+    emit("R-F10.memoized.all_yes.didnt", memo_all_yes[0])
+    # chapter 04's class: every seat with every outcome of its three asks
+    class_yes = [0, 0]
+    class_memo = [0, 0]
+    for seat in range(CLASS_SIZE):
+        copied = seat in COPIED_SEATS
+        for run in product(OUTCOMES, repeat=ASKS):
+            if all(says(copied, o) for o in run):
+                class_yes[int(copied)] += 1
+        for o in OUTCOMES:
+            if all(says(copied, x) for x in (o,) * ASKS):
+                class_memo[int(copied)] += 1
+    emit("R-F15.all_yes.copied", class_yes[1])
+    emit("R-F15.all_yes.didnt", class_yes[0])
+    emit("R-F15.all_yes", sum(class_yes))
+    check("the class's three-yes outcomes give the closed-form chance",
+          Fraction(class_yes[1], sum(class_yes)) == after)
+    memo_after = Fraction(class_memo[1], sum(class_memo))
+    emit("R-F10.memoized.posterior", memo_after)
+    check("a memoized three yeses leave one yes's chance",
+          memo_after == posterior(share, sum(says(True, o) for o in OUTCOMES), sum(says(False, o) for o in OUTCOMES)))
+    emit("R-F15.posterior.all_yes_at_half", posterior(Fraction(1, 2), all_yes[1], all_yes[0]))
+    emit("R-F15.posterior.all_yes_none_copied", posterior(Fraction(0), all_yes[1], all_yes[0]))
 
     # R-X: the edges
     emit("R-X1.direct.worst_ratio", "unbounded" if worst_ratio(Fraction(1)) is None else worst_ratio(Fraction(1)))

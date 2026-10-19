@@ -31,3 +31,14 @@
 03_8	Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people.
 03_9	That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter.
 03_10	If one in five copied, matching a direct question's precision takes almost six times as many people.
+04_1	Ask one student the same question three times, with fresh coins each time.
+04_2	Four coin outcomes for each answer make sixty-four for all three, all equally likely.
+04_3	How many times as likely are three yeses from someone who copied?
+04_4	Twenty-seven. Someone who copied says yes three times in twenty-seven outcomes, anyone else in one.
+04_5	Each fresh answer can multiply it by three. Three noes do the same the other way.
+04_6	In our class, one in five copied. Those four have a hundred and eight such outcomes, the sixteen others sixteen.
+04_7	So after three yeses, the chance they copied is twenty-seven in thirty-one. After one, three in seven.
+04_8	The majority of three answers is right twenty-seven times in thirty-two, whichever the truth.
+04_9	But suppose the student flips only once, and repeats that answer.
+04_10	Then three yeses are three times as likely, the same as one. The repeats add nothing.
+04_11	That holds only while the secret stays the same, under this rule.

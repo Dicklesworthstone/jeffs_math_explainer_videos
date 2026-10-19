@@ -69,8 +69,33 @@ not three in four; a no, one in thirteen; before any answer, one in five.
 
   This acceptance does not cover narration, audio, continuous playback, 4K
   or the full video.
-- Chapters 04 and 05 are planned (the storyboard's arc); chapter 04's numbers
-  are already computed and oracle-checked.
+- Chapter 04 (`04_asking_again`, Beads `.8.4`) passed root's native batch
+  and its actual-frame review (Mail 4053), for source and sampled silent
+  visuals only. Root closes the Bead.
+  - Before the batch: FuchsiaHawk checked the mathematics independently
+    (Mail 4026). Root asked for a clearer 04_8 sentence, "The majority of
+    three answers is right …" (Mail 4028).
+  - central28 stopped on two strict Clippy findings in the scene (Mail
+    4036). The fixes moved a test-only constant into the tests and replaced
+    a test's `vec!` with an array, with no allowance and no changed
+    assertion.
+  - central30 (Mail 4053): fmt, strict Clippy, 49 tests, 137 facts against
+    the oracle, 131 glyph sources with no failures, the build and the
+    render, with no input drift. Draft09 is a silent draft of 2,436 frames
+    (81.20 s) with no layout findings.
+  - Frames viewed: root saw 7 actual frames (13, 21, 29, 45, 60, 73 and 80
+    s) and all 13 glyph pages.
+  - EmeraldLeopard reviewed 15 frames and 10 fps regions independently
+    (Mail 4049). It confirmed the 27-against-1 grids and the prediction left
+    blank until 04_4, then the priors, the majority for both truths and the
+    memoized columns. Its measured card times were 23.6, 19, 12.8 and 18 s,
+    with no layout findings. Its one optional note, that the memo card
+    states its conclusion while 04_9 is still explaining, was accepted for
+    this slice without a change.
+
+  This does not cover narration, audio, continuous playback, 4K or the full
+  video.
+- Chapter 05 is planned (the storyboard's arc).
 
 The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md,
 "Owner rejection and withdrawal"): `narration_units.json` and the pause plans
@@ -80,18 +105,19 @@ rejected method. No audio or full-video acceptance exists.
 | File | What it holds |
 |---|---|
 | `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, every student's outcomes and the shares they give, odds, the yes count's exact distribution and the estimate's mean with and without rounding negatives up, a class's coins from one seeded draw, sampling variance, repeated and memoized answers |
-| `src/facts.rs` | every number the video shows or says (123 keys), three pinned to their sources; chapter 03's eight seeded classes (`runs`) |
-| `oracle.py` | the same numbers by independent methods (the standard library, and NumPy to replay the seeded classes), 31 cross-checks |
+| `src/facts.rs` | every number the video shows or says (137 keys), three pinned to their sources; chapter 03's eight seeded classes (`runs`) |
+| `oracle.py` | the same numbers by independent methods (the standard library, and NumPy to replay the seeded classes), 35 cross-checks |
 | `src/chapters/the_coin.rs` | chapter 01's scene |
 | `src/chapters/what_a_yes_says.rs` | chapter 02's scene |
 | `src/chapters/the_price_of_the_coin.rs` | chapter 03's scene |
+| `src/chapters/asking_again.rs` | chapter 04's scene |
 | `src/chapters/draw.rs` | the video's shapes, playback, line timing and think time |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), with each chapter's semantic pause plan |
 | `narration_units.json` | the lines in coherent takes for a later synthesis (text only for now) |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | each number's source; the brief; the words every revision keeps |
 
 ```bash
-uv run --no-project --with numpy python3 -I -B oracle.py # every number, and 31 cross-checks on stderr
+uv run --no-project --with numpy python3 -I -B oracle.py # every number, and 35 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check randomized_response
 python3 -I ../../tools/lint_script.py script.tsv
 ./x randomized_response facts-check                      # the Rust facts against the oracle (builds)
@@ -191,4 +217,11 @@ no vacant niche is claimed.
 - "Three times, never more" is about what one answer says about its own
   giver under this rule. Fresh coins on each repeat multiply the worst ratio
   (3, 9, 27, …); a memoized answer does not, while the truth stays put.
+- Chapter 04 counts one student asked three times about one secret that
+  does not change, with independent fresh coins, or with one flip whose
+  answer is resent (the memoized answer). Its 27/31 is this class's chance,
+  where one in five copied (27/28 from an even start, 0 if nobody copied;
+  `R-F15`). It makes no claim about repeated surveys in general, about other
+  questions asked of the same person, or about what RAPPOR's full design
+  guarantees.
 - The class, seats and question are invented; no real survey data is used.

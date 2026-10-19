@@ -3,9 +3,7 @@
 //! facts-check`): the rows of docs/fact-sheet.md. R-F rows are computed,
 //! R-X rows are the edges of the always/never sentences. Rows R-F1 to R-F5
 //! are chapter 01's, R-F6, R-F11, R-F12 and R-X5 chapter 02's, R-F7, R-F8,
-//! R-F13 and R-F14 chapter 03's; R-F9 and R-F10 belong to the planned
-//! chapter 04 (storyboard, "The arc"), computed now so the earlier
-//! chapters' promises are checked against them.
+//! R-F13 and R-F14 chapter 03's, R-F9, R-F10 and R-F15 chapter 04's.
 
 use explainer_kit::Facts;
 use explainer_kit::stats::Data;
@@ -368,17 +366,27 @@ pub fn facts() -> Result<Facts, String> {
     }
     f.add("R-F14.cost_rounded", rounded)?;
 
-    // chapter 04 (planned): one person asked three times, fresh coins
+    // chapter 04: one person asked three times, fresh coins
     let asks = ASKED_AGAIN;
     let counts = by_yeses(&model::repeated_answers(asks)?);
+    let total = (COIN_PAIRS.len() as u64).pow(asks);
     f.add("R-F9.asks", asks)?;
-    f.add("R-F9.outcomes", (COIN_PAIRS.len() as u64).pow(asks))?;
+    f.add("R-F9.outcomes", total)?;
     let column = |i: usize| counts.iter().map(|c| c[i]).collect::<Vec<u64>>();
     f.add("R-F9.by_yeses.didnt", csv(&column(0)))?;
     f.add("R-F9.by_yeses.copied", csv(&column(1)))?;
     let all_yes = counts[asks as usize];
     f.add("R-F9.all_yes.copied", all_yes[1])?;
     f.add("R-F9.all_yes.didnt", all_yes[0])?;
+    let all_yes_ratio = pattern_ratio(all_yes).ok_or("three yeses never happen to someone who didn't copy")?;
+    f.add("R-F9.ratio.all_yes", all_yes_ratio)?;
+    // three noes: the same factor, the other way
+    let all_no = counts[0];
+    if all_no != [all_yes[1], all_yes[0]] {
+        return Err(format!("three noes count {all_no:?}, three yeses {all_yes:?} reversed"));
+    }
+    f.add("R-F9.all_no.didnt", all_no[0])?;
+    f.add("R-F9.all_no.copied", all_no[1])?;
     let ratios: Vec<Q> = counts
         .iter()
         .map(|&c| pattern_ratio(c).ok_or("a pattern no one who didn't copy gives"))
@@ -390,11 +398,66 @@ pub fn facts() -> Result<Facts, String> {
     let majority = model::majority_right(asks)?;
     f.add("R-F9.majority_right", majority)?;
     f.add("R-F9.percent.majority_right", majority.percent())?;
+    // "whichever the truth": the majority's outcomes counted for each truth,
+    // more yeses for someone who copied, more noes for anyone else
+    let ahead = (asks as usize).div_ceil(2);
+    let right_copied: u64 = counts[ahead..].iter().map(|c| c[1]).sum();
+    let right_didnt: u64 = counts[..ahead].iter().map(|c| c[0]).sum();
+    let right_didnt_share = Q::new(i128::from(right_didnt), i128::from(total));
+    if Q::new(i128::from(right_copied), i128::from(total)) != majority || right_didnt_share != majority {
+        return Err(format!(
+            "a majority is right in {right_copied} and {right_didnt} of {total}, not {majority}"
+        ));
+    }
+    f.add("R-F9.majority.outcomes", right_copied)?;
+    f.add("R-F9.majority_right.didnt", right_didnt_share)?;
     let worst_by_asks: Vec<Q> = (1..=WORST_LISTED).map(worst_after).collect::<Result<_, _>>()?;
     f.add("R-F9.worst_ratio_by_asks", csv(&worst_by_asks))?;
     let memo = model::memoized_answers(asks)?;
-    let memo_ratio = pattern_ratio(memo[(1 << asks) - 1]).ok_or("the memoized all-yes never happens")?;
+    let memo_all_yes = memo[(1 << asks) - 1];
+    let memo_ratio = pattern_ratio(memo_all_yes).ok_or("the memoized all-yes never happens")?;
     f.add("R-F10.memoized.ratio", memo_ratio)?;
+    // one flip, its answer sent every time: only all-yes and all-no happen
+    let mixed: u64 = memo[1..(1 << asks) - 1].iter().flatten().sum();
+    if mixed != 0 {
+        return Err(format!("a memoized answer changed between asks in {mixed} outcomes"));
+    }
+    f.add("R-F10.memoized.outcomes", COIN_PAIRS.len())?;
+    f.add("R-F10.memoized.all_yes.copied", memo_all_yes[1])?;
+    f.add("R-F10.memoized.all_yes.didnt", memo_all_yes[0])?;
+    // chapter 04's class, every student with every outcome: three yeses
+    // counted, the copiers' share of them; and a memoized answer's
+    let others = others as u64;
+    let class_all_yes = [others * all_yes[0], copiers as u64 * all_yes[1]];
+    let counted = Q::new(
+        i128::from(class_all_yes[1]),
+        i128::from(class_all_yes[0] + class_all_yes[1]),
+    );
+    if counted != after_three {
+        return Err(format!(
+            "counting the class gives {counted}, the closed form {after_three}"
+        ));
+    }
+    f.add("R-F15.all_yes.copied", class_all_yes[1])?;
+    f.add("R-F15.all_yes.didnt", class_all_yes[0])?;
+    f.add("R-F15.all_yes", class_all_yes[0] + class_all_yes[1])?;
+    let memo_after = Q::new(
+        i128::from(copiers as u64 * memo_all_yes[1]),
+        i128::from(copiers as u64 * memo_all_yes[1] + others * memo_all_yes[0]),
+    );
+    if memo_after != model::posterior(share, 1, 1) {
+        return Err(format!("a memoized three yeses leave {memo_after}, unlike one yes"));
+    }
+    f.add("R-F10.memoized.posterior", memo_after)?;
+    // the same three yeses from other classes: the chance is the class's
+    f.add(
+        "R-F15.posterior.all_yes_at_half",
+        model::posterior(Q::new(1, 2), asks, asks),
+    )?;
+    f.add(
+        "R-F15.posterior.all_yes_none_copied",
+        model::posterior(Q::ZERO, asks, asks),
+    )?;
 
     // the edges of "three times, never more", "on average" and "four"
     let direct_question = Channel::new(Q::ONE)?;
@@ -550,10 +613,26 @@ mod tests {
             ("R-F9.ratios", "1/27,1/3,3,27"),
             ("R-F9.posterior.all_yes", "27/31"),
             ("R-F9.percent.all_yes", "87"),
+            ("R-F9.all_yes.copied", "27"),
+            ("R-F9.all_yes.didnt", "1"),
+            ("R-F9.ratio.all_yes", "27"),
+            ("R-F9.all_no.didnt", "27"),
+            ("R-F9.all_no.copied", "1"),
             ("R-F9.majority_right", "27/32"),
             ("R-F9.percent.majority_right", "84"),
+            ("R-F9.majority.outcomes", "54"),
+            ("R-F9.majority_right.didnt", "27/32"),
             ("R-F9.worst_ratio_by_asks", "3,9,27,81,243"),
             ("R-F10.memoized.ratio", "3"),
+            ("R-F10.memoized.outcomes", "4"),
+            ("R-F10.memoized.all_yes.copied", "3"),
+            ("R-F10.memoized.all_yes.didnt", "1"),
+            ("R-F10.memoized.posterior", "3/7"),
+            ("R-F15.all_yes.copied", "108"),
+            ("R-F15.all_yes.didnt", "16"),
+            ("R-F15.all_yes", "124"),
+            ("R-F15.posterior.all_yes_at_half", "27/28"),
+            ("R-F15.posterior.all_yes_none_copied", "0"),
             ("R-X1.direct.worst_ratio", "unbounded"),
             ("R-X1.pure_coin.worst_ratio", "1"),
             ("R-X1.pure_coin.estimate", "none"),

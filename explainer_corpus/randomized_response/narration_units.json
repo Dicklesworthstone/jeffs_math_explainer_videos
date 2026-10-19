@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "7558140bbc1417b532c1aa181e5a85ea28f28ac94237f66fad33298e7bd2cb03",
+  "script_sha256": "ffe679742c967063c7156412db5b499a9a1f860c73d723f10449a32064343312",
   "units": [
     {
       "id": "01u1",
@@ -93,6 +93,41 @@
         "03_10"
       ],
       "text": "Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people. That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter. If one in five copied, matching a direct question's precision takes almost six times as many people."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2",
+        "04_3"
+      ],
+      "text": "Ask one student the same question three times, with fresh coins each time. Four coin outcomes for each answer make sixty-four for all three, all equally likely. How many times as likely are three yeses from someone who copied?"
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_4",
+        "04_5"
+      ],
+      "text": "Twenty-seven. Someone who copied says yes three times in twenty-seven outcomes, anyone else in one. Each fresh answer can multiply it by three. Three noes do the same the other way."
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_6",
+        "04_7",
+        "04_8"
+      ],
+      "text": "In our class, one in five copied. Those four have a hundred and eight such outcomes, the sixteen others sixteen. So after three yeses, the chance they copied is twenty-seven in thirty-one. After one, three in seven. The majority of three answers is right twenty-seven times in thirty-two, whichever the truth."
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_9",
+        "04_10",
+        "04_11"
+      ],
+      "text": "But suppose the student flips only once, and repeats that answer. Then three yeses are three times as likely, the same as one. The repeats add nothing. That holds only while the secret stays the same, under this rule."
     }
   ]
 }

@@ -100,6 +100,35 @@ Pinned rows also match a literal from the named primary source.
 | A sample adds who gets picked | 03_9, 03_10 | `sampling_variance` = `direct_variance` + 3/(4n) for independent draws (`the_coins_add_three_quarters_over_n_to_the_sampling_variance`); without replacement from the whole class that term is 0 |
 | The eight classes are real, not chosen | 03_1, 03_2 and the card | seed 3, the first eight draws; the oracle replays them with NumPy |
 
+## Chapter 04: numbers
+
+| key | value | where | how it is obtained |
+|---|---|---|---|
+| `R-F9.asks`, `R-F9.outcomes` | 3, 64 | 04_1 "three times"; 04_2 "sixty-four"; TeX 4 × 4 × 4 = 64; the 04_2 card | 4^asks: every outcome of every ask's two coins |
+| `R-F9.by_yeses.copied`, `R-F9.by_yeses.didnt` | 1,9,27,27; 27,27,9,1 | the two grids (04_4, 04_5, 04_8) | `model::repeated_answers` runs the rule on every outcome, and the scene tallies its drawn squares against it; the oracle uses `itertools.product` over the written-out rule |
+| `R-F9.ratio.all_yes`, `R-F9.all_yes.copied`, `R-F9.all_yes.didnt` | 27; 27, 1 | 04_4 "Twenty-seven", "in twenty-seven outcomes, anyone else in one"; "3 yes: 27 of 64", "3 yes: 1 of 64"; TeX 27/1 = 27; 04_10 "fresh coins: 27" | the all-yes pattern's counts and their ratio |
+| `R-F9.all_no.didnt`, `R-F9.all_no.copied` | 27, 1 | 04_5 "Three noes do the same the other way"; "3 no: 1 of 64", "3 no: 27 of 64" | checked to be the all-yes counts reversed |
+| `R-F5.worst_ratio`, `R-F9.ratios`, `R-F9.worst_ratio_by_asks` | 3; 1/27,1/3,3,27; 3,9,27,81,243 | 04_5 "multiply it by three"; TeX 27 = 3 × 3 × 3; the 04_5 card | each pattern's ratio by its number of yeses; the largest over all patterns after 1 to 5 fresh asks |
+| `R-F1.copied_share`, `R-F1.copied`, `R-F11.others` | 1/5, 4, 16 | 04_6 "one in five copied", "Those four", "the sixteen others"; the grid names "4 copied", "16 didn't copy"; the 04_7 card "4 of 20" | as before |
+| `R-F15.all_yes.copied`, `R-F15.all_yes.didnt`, `R-F15.all_yes` | 108, 16, 124 | 04_6 "a hundred and eight", "others sixteen"; TeX 4 × 27 = 108, 16 × 1 = 16, 108/(108 + 16) | every student with every outcome: the class's three-yes outcomes (the oracle counts seat by seat) |
+| `R-F9.posterior.all_yes`, `R-F9.percent.all_yes` | 27/31, 87 | 04_7 "twenty-seven in thirty-one"; TeX = 27/31; the 04_7 card | 108 of 124, checked against the closed form `model::posterior` |
+| `R-F11.posterior.yes` | 3/7 | 04_7 "After one, three in seven"; "after one yes: 3/7" | chapter 02's count |
+| `R-F15.posterior.all_yes_at_half`, `R-F15.posterior.all_yes_none_copied` | 27/28, 0 | the 04_7 card | the same three yeses from an even prior, and in a class where nobody copied |
+| `R-F9.majority_right`, `R-F9.majority.outcomes`, `R-F9.majority_right.didnt`, `R-F9.percent.majority_right` | 27/32, 54, 27/32, 84 | 04_8 "twenty-seven times in thirty-two, whichever the truth"; "majority right: 54 of 64" under each grid; TeX 54/64 = 27/32 | at least two yeses for someone who copied, at least two noes for anyone else, counted for each truth and checked equal |
+| `R-F10.memoized.outcomes`, `R-F10.memoized.all_yes.copied`, `R-F10.memoized.all_yes.didnt`, `R-F10.memoized.ratio` | 4; 3, 1; 3 | 04_9 the columns; 04_10 "three times as likely"; "3 yes: 3 of 4", "3 yes: 1 of 4"; TeX 3/1 = 3 | one flip's four outcomes, its answer repeated; only all-yes and all-no happen (both sides check) |
+| `R-F5.ratio.yes` | 3 | 04_10 "the same as one" | as before |
+| `R-F10.memoized.posterior` | 3/7 | not shown | the class's memoized three yeses leave one yes's chance (checked) |
+
+## Chapter 04: claims
+
+| claim | where | evidence |
+|---|---|---|
+| Fresh answers about one unchanged secret multiply the evidence: three yeses are 27 times as likely from someone who copied | 04_4, 04_5 | `R-F9`; the oracle checks that every pattern's ratio is 3^(2y − k) whatever the order, and that each fresh ask multiplies the worst ratio by three |
+| The chance after three yeses is the class's | 04_6, 04_7 and the card | counted over the class (108 of 124) and by the closed form; 27/28 from an even prior, 0 if nobody copied |
+| A majority of three answers is right 27 times in 32 for either truth | 04_8 | counted for each truth, 54 of 64 each |
+| Repeating one memoized answer adds no evidence | 04_9, 04_10 | `R-F10`: only all-yes and all-no happen, and the all-yes ratio is 3 for every ask count from 1 to 10 |
+| Scope: one secret that never changes, under this rule | 04_11 and the 04_9 card | no claim about repeated surveys in general, other questions, or RAPPOR's full design. RAPPOR §1 states its own conditions for memoization (a true value that does not change, or changes in an uncorrelated way); this video does not test them |
+
 ## Planned chapters (computed now)
 
 | keys | values | for |

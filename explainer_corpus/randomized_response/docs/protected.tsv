@@ -8,3 +8,4 @@ three times as often	script	a yes is not harmless: 3/4 against 1/4 (R-F5.ratio.y
 Three in seven, not three in four.	script	a yes-sayer's chance (3/7, R-F11.posterior.yes) is not a copier's chance of saying yes (3/4); the chapter 02 distinction between ratio and chance
 Rounding those up to zero would push the average above four.	script	negative estimates are kept: the estimate is right on average only because it may go below zero (R-F14.clamped_mean, 4.26)
 That's for this fixed class.	script	the fixed class and a sample are kept apart before any cost is stated (R-F7, R-F8)
+That holds only while the secret stays the same, under this rule.	script	a memoized answer adds no evidence only for one unchanged secret under this rule; no claim about repeated surveys in general or RAPPOR's full design (R-F10)
