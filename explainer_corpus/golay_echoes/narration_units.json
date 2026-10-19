@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "d1452e24df5ba92d46560d60050ec1503561f9f44e4366bb6b0397ff7393faf1",
+  "script_sha256": "a118d2285b0666ba6529d094633d11d96e56b9a3ac9eaa25176e0d6d5c00cd73",
   "units": [
     {
       "id": "01u1a",
@@ -28,7 +28,7 @@
         "01_9",
         "01_10"
       ],
-      "text": "With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up. Its ghosts are the same size, at the same shifts. What if we add the two rows? Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost. But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return."
+      "text": "With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up. Its ghosts are the same size, at the same shifts. What if we add the two rows? Every ghost meets its opposite, and they cancel out. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost. But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return."
     },
     {
       "id": "02u1",

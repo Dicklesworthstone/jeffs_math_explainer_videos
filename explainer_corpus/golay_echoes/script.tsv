@@ -7,7 +7,7 @@
 01_6	Slide all the way, and ghosts appear on both sides. Each is a quarter the echo's size.
 01_7	With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up.
 01_8	Its ghosts are the same size, at the same shifts. What if we add the two rows?
-01_9	Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost.
+01_9	Every ghost meets its opposite, and they cancel out. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost.
 01_10	But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return.
 02_1	Now two things echo back. A loud one, and a quiet one three steps farther.
 02_2	Pattern A's two echoes overlap, and the receiver records their sum.
