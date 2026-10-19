@@ -13,7 +13,7 @@
 [![LaTeX: none, anywhere](https://img.shields.io/badge/LaTeX-none,_anywhere-teal.svg)](https://github.com/Dicklesworthstone/franken_manim)
 [![every number: oracle-checked](https://img.shields.io/badge/every_number-oracle--checked-success.svg)](./docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md)
 
-**A monorepo of narrated, 3Blue1Brown-style 4K math explainer videos, each one written in Rust against [franken_manim](https://github.com/Dicklesworthstone/franken_manim) (native TeX, no LaTeX, no Python) and voiced by [FrankenTTS](https://github.com/Dicklesworthstone/franken_tts). Every number on screen or in the narration is computed by the scene and pinned against an independent oracle, every narration line is checked by speech recognition and never time-stretched, every frame is looked at before it ships, and a warm, procedurally synthesized score sits under the voice without competing with it.**
+**A monorepo of narrated, 3Blue1Brown-style 4K math explainer videos, each one written in Rust against [franken_manim](https://github.com/Dicklesworthstone/franken_manim) (native TeX, no LaTeX, no Python) and voiced by [FrankenTTS](https://github.com/Dicklesworthstone/franken_tts). Every number on screen or in the narration is computed by the scene and pinned against an independent oracle, every narration line is checked by speech recognition and never time-stretched, publication requires continuous audiovisual review, including listening to the finished narration, and a warm, procedurally synthesized score sits under the voice without competing with it.**
 
 </div>
 
@@ -26,6 +26,14 @@
 > the work graph. Older build-status prose below is historical and does not
 > supersede those dated records. Proposed narration improvements are research,
 > not claims that the current audio has passed new listening tests.
+>
+> **2026-10-19 narration incident.** The owner rejected the newly published
+> packing, medical p-value and Golay videos for voice drift, pronunciation,
+> clipping and cadence. All three were set to Private. Their publication
+> lacked a demonstrated continuous listening review; technical checks did not
+> establish acceptable narration. Repairs and new silent chapter previews
+> remain separate from audio acceptance. They must not be republished without
+> a new explicit owner instruction.
 
 ---
 
