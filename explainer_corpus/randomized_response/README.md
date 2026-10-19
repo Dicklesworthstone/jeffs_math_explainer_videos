@@ -98,8 +98,8 @@ not three in four; a no, one in thirteen; before any answer, one in five.
   video.
 - Chapter 05 (`05_the_dial`, Beads `.8.5`, the last in the storyboard's
   arc) passed root's native batch and actual-frame review, for its
-  mathematics and sampled silent visuals only (Mail 4132). Root closes the
-  Bead.
+  mathematics and sampled silent visuals only (Mail 4132). Root closed the
+  Bead at 336ddce (Mail 4138).
   - The first version's draft10 was withheld. TanElm's review (Mail 4095)
     found 05_6 and 05_7 using "wobble" for a ratio of per-person variances,
     against chapter 03's miss size.
@@ -125,6 +125,27 @@ not three in four; a no, one in thirteen; before any answer, one in five.
 
   This does not cover narration, audio, continuous playback, 4K or the full
   video.
+- Follow-up `.8.6` (Mail 4138, from the full-assembly review in Mail 4137)
+  relabels chapter 05's table head and 05_6 card as "estimate variance".
+  The card now links it to chapter 03: 4 × an answer's 3/16 = 3/4 at 1/2.
+  This keeps each person's estimate variance apart from an answer's
+  variance. The words, the mathematics and the earlier chapters are
+  unchanged. It passed for source and sampled silent visuals only (Mail
+  4148), and root closes the Bead:
+  - central44: fmt, strict all-target release Clippy, the 8 changed-scene
+    tests, the build and 175 glyph sources, with the 20 input pins
+    unchanged.
+  - draft12's chapter 05 runs 2,425 frames, the same timing as before.
+  - The silent assembly assembled02 replaces only chapter 05. It is 12,163
+    frames (405.43 s), SHA-256
+    78c93726d0f16bdc323ad1fa36294b77ae64c8da14bda625433532839e9681d0. Every
+    decoded frame equals its five inputs, and its cues are byte-identical
+    to assembled01.
+  - Root viewed 6 actual frames and the 4 last join frames. EmeraldLeopard
+    reviewed the source and pixels independently and passed them (Mail
+    4147).
+
+  This does not cover audio, 4K or the full video.
 
 The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md,
 "Owner rejection and withdrawal"): `narration_units.json` and the pause plans
@@ -259,9 +280,11 @@ no vacant niche is claimed.
   first coin, so it is not Warner's spinner. The voice speaks chapter 03's
   misses: how far the fixed class of 20's count usually strays, the square
   root of its variance. That is about 4 at 1/2, about 2 at 3/4 (1.97) and
-  about 9 at 1/4 (8.66). The table shows the coins' variance per person,
-  (1 − t²)/(4t²). The count's variance is 20 times it, the share's 1/20 of
-  it, and a sample adds p(1 − p)/n (chapter 03). None of these is a chance
+  about 9 at 1/4 (8.66). The table's "estimate variance" is each person's
+  part of the estimate, (1 − t²)/(4t²). That is an answer's variance times
+  (1/t)², so at 1/2 it is 4 × chapter 03's 3/16 = 3/4, and it is never
+  that 3/16 itself. The class's estimate variance is 20 times it, the
+  share's 1/20 of it, and a sample adds p(1 − p)/n (chapter 03). None of these is a chance
   that anyone copied, and no ratio of per-person variances is spoken as a
   miss. The edges are exact: at t = 1 no ratio bounds a yes; at t = 0
   there is no estimate. The closing promise is for one answer each, with

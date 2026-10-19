@@ -10,9 +10,10 @@
 //! everyone following the rule (05_10).
 //!
 //! The voice's misses are 03_8's: how far the fixed class's count usually
-//! strays, the square root of its variance, n times the coins' variance per
-//! person that the table shows. Every card stays up at least its reading
-//! time.
+//! strays, the square root of its variance, n times each person's estimate
+//! variance that the table shows. That is the coins' variance in a person's
+//! part of the estimate, an answer's variance (03_8's 3/16) times (1/t)²:
+//! 4 × 3/16 = 3/4 for ours. Every card stays up at least its reading time.
 //!
 //! Every setting is `model::Channel` at k/4, the spinner's slice standing in
 //! for the first coin of `model::answer`. Every square is that rule run on
@@ -41,7 +42,9 @@ const DIAL_NAME: &str = "the chance of telling the truth";
 const COPIED: &str = "copied";
 const DIDNT: &str = "didn't copy";
 const YES: &str = "yes";
-const HEADS: [&str; 3] = ["the dial", "times as likely", "coins' variance"];
+/// The table's heads. Its variances are each person's part of the estimate
+/// (the coins'), not of an answer: "estimate variance" (review 4137).
+const HEADS: [&str; 3] = ["the dial", "times as likely", "estimate variance"];
 const NO_BOUND: &str = "no bound";
 const NO_ESTIMATE: &str = "no estimate";
 /// The table's last row: any setting t, its ratio and its coins' variance.
@@ -180,14 +183,29 @@ fn k_of(c: Channel) -> Result<i128, String> {
         .ok_or_else(|| format!("{} is not a whole number of slices", c.truth()))
 }
 
-/// 05_6's exact version: the table's variance is one person's; a fixed
-/// class of `n` has n times it for its count, whose square root is the miss
-/// the voice speaks of, and 1/n of it for its share; a sample adds more.
-fn variance_card(n: usize) -> String {
-    format!(
-        "per person (1 − t²)/(4t²); class of {n}: count variance {n} × it, miss about its square root, share variance \
-         it/{n}; a sample adds p(1 − p)/n"
-    )
+/// 05_6's exact version: the table's variance is one person's part of the
+/// estimate, not of their answer (chapter 03's 3/16): at our setting `c`,
+/// the answer's variance times (1/t)², 4 × 3/16 = 3/4. A fixed class of `n`
+/// has n times it, whose square root is the miss on screen, and its share
+/// 1/n of it; a sample adds more (chapter 03, review 4137).
+fn variance_card(c: Channel, n: usize) -> Result<String, String> {
+    let answer = c.answer_variance(true);
+    let per = c
+        .coin_variance()
+        .ok_or_else(|| format!("no estimate at {}", c.truth()))?;
+    let factor = Q::ONE / c.truth();
+    let scale = factor * factor;
+    if c.answer_variance(false) != answer || scale * answer != per {
+        return Err(format!(
+            "at {} the estimate's {per} is not {scale} × an answer's {answer}",
+            c.truth()
+        ));
+    }
+    Ok(format!(
+        "estimate variance per person (1 − t²)/(4t²), {scale} × an answer's {answer} = {per} at {}; class of {n}: {n} × \
+         it; share it/{n}; a sample adds p(1 − p)/n",
+        c.truth()
+    ))
 }
 
 /// The title over the misses (05_6), for a class of `n`.
@@ -475,7 +493,7 @@ impl SceneConstruct for TheDial {
         line.wait_for(stage, "miss by about two")?;
         let up_wobble = cell(&kit, stage, 2, row_y(up_row), wobble_cell(up))?;
         let general_wobble = kit.tex(stage, WOBBLE_TEX, 30.0, Palette::ink(), &[], v(COL_X[2], GENERAL_Y))?;
-        let card3_text = variance_card(n);
+        let card3_text = variance_card(ours, n).map_err(fail)?;
         let card3 = precisely(&kit, stage, &card3_text)?;
         let title = kit.text(stage, &miss_title(n), 20.0, Palette::dim(), v(MISS_X, MISS_TITLE_Y))?;
         let mut misses = Vec::with_capacity(MISS_Y.len());
@@ -653,13 +671,21 @@ mod tests {
         assert_eq!(f.get("R-F16.up.ratio"), Some("7"));
         assert_eq!(f.get("R-F16.class.count_variance"), Some("15"));
         assert_eq!(f.get("R-F16.class.share_variance"), Some("3/80"));
-        assert_eq!(
-            variance_card(20),
-            "per person (1 − t²)/(4t²); class of 20: count variance 20 × it, miss about its square root, share \
-             variance it/20; a sample adds p(1 − p)/n"
-        );
-        // the misses on screen are the facts' (03_8's for ours), to two places
+        // the estimate's variance per person, not an answer's: 4 × 3/16 = 3/4
         let (_, _, ours) = setting("ours").unwrap();
+        assert_eq!(
+            variance_card(ours, 20).unwrap(),
+            "estimate variance per person (1 − t²)/(4t²), 4 × an answer's 3/16 = 3/4 at 1/2; class of 20: 20 × it; \
+             share it/20; a sample adds p(1 − p)/n"
+        );
+        assert_eq!(f.get("R-F14.answer_variance"), Some("3/16"));
+        assert_eq!(f.get("R-F16.ours.coin_variance"), Some("3/4"));
+        assert_eq!(f.get("R-F4.factor"), Some("2"));
+        assert_eq!(HEADS[2], "estimate variance");
+        // where nobody tells the truth there is no estimate to give a variance
+        let (_, _, pure) = setting("pure").unwrap();
+        assert!(variance_card(pure, 20).is_err());
+        // the misses on screen are the facts' (03_8's for ours), to two places
         let (_, _, down) = setting("down").unwrap();
         assert_eq!(miss_title(20), "our class of 20 misses by");
         assert_eq!(
@@ -682,7 +708,6 @@ mod tests {
         assert_eq!(f.get("R-F16.up.miss_rounded"), Some("2"));
         assert_eq!(f.get("R-F16.ours.miss_rounded"), Some("4"));
         assert_eq!(f.get("R-F16.down.miss_rounded"), Some("9"));
-        let (_, _, pure) = setting("pure").unwrap();
         assert!(miss_tex(pure, 20).is_err());
         // the edges card's words: at 1 no yes from anyone who didn't copy,
         // so no bound; at 0 a yes half the time from everyone, no estimate
@@ -714,10 +739,11 @@ mod tests {
     #[test]
     fn the_cards_are_two_lines() {
         let (_, _, up) = setting("up").unwrap();
+        let (_, _, ours) = setting("ours").unwrap();
         for text in [
             spinner_card(3),
             ratio_card(up).unwrap(),
-            variance_card(20),
+            variance_card(ours, 20).unwrap(),
             edges_card(),
             scope_card(),
         ] {
