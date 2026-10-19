@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "script_sha256": "17e63e13cf8cdff3f82ed54613593d39ef8285603064eb52ce7f7946237c0ad0",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "Someone multiplied two matrices, A and B, and handed you the answer, C. Is C really A times B? You could multiply them again."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_2",
+        "01_3"
+      ],
+      "text": "Nine entries, three multiplications each, twenty-seven in all. With a thousand rows and columns, a billion. Checking one entry at random is cheap, but it misses a single wrong entry eight times in nine."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_4",
+        "01_5"
+      ],
+      "text": "Here is a better check. Toss a coin for each column of C, and add up the columns that land heads. Do the same to B, then multiply by A. That takes nine multiplications, not twenty-seven."
+    },
+    {
+      "id": "01u4",
+      "line_ids": [
+        "01_6",
+        "01_7"
+      ],
+      "text": "Both columns must match if C is right. They don't, so C is wrong, for certain. But that was one toss. Of the eight ways three coins can land, how many miss the wrong entry?"
+    },
+    {
+      "id": "01u5",
+      "line_ids": [
+        "01_8",
+        "01_9"
+      ],
+      "text": "Check all eight. Four of them miss, exactly half. Because every miss leaves out the column that holds the wrong entry."
+    },
+    {
+      "id": "01u6",
+      "line_ids": [
+        "01_10"
+      ],
+      "text": "But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million."
+    }
+  ]
+}

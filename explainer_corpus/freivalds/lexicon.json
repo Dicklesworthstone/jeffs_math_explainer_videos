@@ -1,0 +1,6 @@
+{
+  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapter 01 says no proper name and no term of art, so nothing is respelled yet. Before any synthesis: probe the letter names A, B and C as matrix names in their real sentences (A must not be read as the article; '...multiply by A.' ends a sentence); the script avoids a sentence-initial article 'A' so a respelling of the name cannot catch one. Before any chapter says 'Freivalds' (Latvian, Rusins Martins Freivalds), look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+  "words": {},
+  "accept": {},
+  "phrases": {}
+}

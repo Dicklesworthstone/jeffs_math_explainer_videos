@@ -1,0 +1,372 @@
+#!/usr/bin/env python3
+"""Facts oracle for "Check a Giant Matrix Product Without Doing the Product Again".
+
+Run from this folder (`./x freivalds facts-check` does):
+
+    python3 -I -B oracle.py
+
+stdout: one `KEY<TAB>VALUE` line per fact, the same keys `freivalds facts`
+prints (src/facts.rs): F-F rows (the example) and F-X rows (the edges of the
+always/never sentences).
+
+stderr: cross-checks (lines starting with "#") and a summary; exit 1 if any
+cross-check failed.
+
+How the values are obtained, independently of the Rust model (which adds the
+heads columns of B and C and multiplies A by that column, entry by entry):
+  * the product A·B as a sum of outer products, column k of A times row k of
+    B, accumulated over k, and cross-checked against row-times-column;
+  * each toss's check by actually multiplying by the 0/1 column r, and again
+    as the mistake D = C − A·B times r (a toss passes exactly when D·r = 0);
+  * the at-most-half sweep over every small mistake from per-row solution
+    sets: for each possible row, the set of tosses that row sends to zero,
+    intersected over D's rows (no check is run);
+  * the per-toss bound is the pairing proof's one half (any n, any ring),
+    not anything the finite sweeps compute: they check it at each size
+    (never exceeded, the pairing step never broken, an equality case), and
+    the twenty-toss bound is its twentieth power (the example's own share
+    is a separate fact);
+  * "a known toss can be fooled" by brute-force search for a nonzero D with
+    D·r = 0 among all 3 × 3 mistakes with entries −1, 0, 1 (the Rust
+    constructs one);
+  * fractions with fractions.Fraction, whose str() is the format the video
+    prints;
+  * doubles with an explicit left-to-right loop: Python's sum() of floats is
+    compensated (Neumaier) since 3.12 and would hide the rounding.
+"""
+import sys
+from fractions import Fraction
+from itertools import product
+
+_EMITTED = {}
+_FAILED = []
+_CHECKS = [0]
+
+A = ((1, 2, 1), (0, 3, 1), (3, 2, 0))
+B = ((2, 1, 0), (1, 0, 2), (2, 1, 3))
+C = ((6, 2, 7), (5, 2, 9), (8, 3, 4))
+A2 = ((1, 2), (0, 3))
+B2 = ((2, 1), (1, 0))
+FIRST_TOSS = (1, 1, 0)
+SPOT = (0, 2)
+BIG_SIDE = 1000
+AGAIN = 20
+MILLION = 10**6
+SHAPES = (
+    ("one_entry", ((0, 0, 0), (0, 1, 0), (0, 0, 0))),
+    ("two_in_a_row", ((0, 0, 0), (0, 1, 1), (0, 0, 0))),
+    ("cancelling", ((0, 0, 0), (0, 1, -1), (0, 0, 0))),
+    ("three_in_a_row", ((0, 0, 0), (1, 1, -1), (0, 0, 0))),
+    ("two_rows", ((1, 0, 0), (0, 1, 0), (0, 0, 0))),
+    ("every_column", ((1, 0, 0), (0, 1, 0), (0, 0, 1))),
+)
+# The pairing proof (UIUC CS 473, Fall 2019, lecture 12): two tosses that
+# differ only in the coin of a column where C is wrong cannot both pass, so at
+# most one toss of each pair of two passes, for any n over any ring.
+PAIRING_BOUND = Fraction(1, 2)
+BIG = 10**16
+ROUNDED_REJECTS = (((1, 1), (0, 0)), ((BIG, 1), (-BIG, 1)), ((0, 2), (0, 0)))
+ROUNDED_PASSES = (((BIG, 1), (0, 0)), ((1, 0), (1, 0)), ((BIG, 0), (0, 0)))
+
+
+def emit(key, value):
+    if key in _EMITTED:
+        raise SystemExit(f"oracle: {key} emitted twice")
+    if isinstance(value, bool):
+        value = "true" if value else "false"
+    _EMITTED[key] = str(value)
+    print(f"{key}\t{value}")
+
+
+def check(name, ok):
+    _CHECKS[0] += 1
+    if not ok:
+        _FAILED.append(name)
+    print(f"# {'ok  ' if ok else 'FAIL'} {name}", file=sys.stderr)
+
+
+def csv(values):
+    return ",".join(str(x) for x in values)
+
+
+def matrix_text(m):
+    return ";".join(csv(row) for row in m)
+
+
+def outer_product_sum(a, b):
+    """a·b as the sum over k of (column k of a) times (row k of b)."""
+    n = len(a)
+    out = [[0] * n for _ in range(n)]
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                out[i][j] += a[i][k] * b[k][j]
+    return tuple(tuple(row) for row in out)
+
+
+def row_times_column(a, b):
+    n = len(a)
+    return tuple(tuple(sum(a[i][k] * b[k][j] for k in range(n)) for j in range(n)) for i in range(n))
+
+
+def apply(m, r):
+    """m times the column r, by multiplying."""
+    return tuple(sum(x * y for x, y in zip(row, r)) for row in m)
+
+
+def minus(x, y):
+    return tuple(tuple(p - q for p, q in zip(rx, ry)) for rx, ry in zip(x, y))
+
+
+def plus(x, y):
+    return tuple(tuple(p + q for p, q in zip(rx, ry)) for rx, ry in zip(x, y))
+
+
+def tosses(n):
+    """Counting order, first coin first: 000, 001, ..., 111."""
+    return list(product((0, 1), repeat=n))
+
+
+def rounded_apply(m, r):
+    out = []
+    for row in m:
+        acc = 0.0
+        for x, y in zip(row, r):
+            acc = acc + float(x) * float(y)
+        out.append(acc)
+    return out
+
+
+def rounded_passes(a, b, c, r):
+    return rounded_apply(a, rounded_apply(b, r)) == rounded_apply(c, r)
+
+
+def zero_sets(n, values):
+    """For every row of n entries from `values`: the set of tosses it sends to zero."""
+    all_tosses = tosses(n)
+    return {row: frozenset(t for t in all_tosses if sum(x * y for x, y in zip(row, t)) == 0)
+            for row in product(values, repeat=n)}
+
+
+def sweep(n, values):
+    """Every nonzero n × n mistake from `values`: the tosses each one passes,
+    from the rows' solution sets."""
+    rows = zero_sets(n, values)
+    all_tosses = tosses(n)
+    everything = frozenset(all_tosses)
+    wrong = fewest = most = at_half = uneven = pairs = 0
+    fewest = len(all_tosses) + 1
+    for d in product(product(values, repeat=n), repeat=n):
+        if all(x == 0 for row in d for x in row):
+            continue
+        passing = everything
+        for row in d:
+            passing = passing & rows[row]
+        count = len(passing)
+        wrong += 1
+        fewest = min(fewest, count)
+        most = max(most, count)
+        at_half += 2 * count == len(all_tosses)
+        uneven += count & (count - 1) != 0
+        for j in range(n):
+            if all(row[j] == 0 for row in d):
+                continue
+            for t in passing:
+                if t[j] == 0:
+                    partner = t[:j] + (1,) + t[j + 1:]
+                    pairs += partner in passing
+    return wrong, fewest, most, at_half, uneven, pairs
+
+
+def facts():
+    n = len(A)
+    ab = outer_product_sum(A, B)
+    d = minus(C, ab)
+    wrong = [(i, j) for i in range(n) for j in range(n) if d[i][j] != 0]
+
+    # 01_1
+    emit("F-F1.factors", len((A, B)))
+    emit("F-F1.side", n)
+    emit("F-F1.a", matrix_text(A))
+    emit("F-F1.b", matrix_text(B))
+    emit("F-F1.ab", matrix_text(ab))
+    emit("F-F1.c", matrix_text(C))
+    emit("F-F1.wrong_entries", len(wrong))
+    (wi, wj), = wrong
+    emit("F-F1.wrong.row", wi + 1)
+    emit("F-F1.wrong.column", wj + 1)
+    emit("F-F1.wrong.claimed", C[wi][wj])
+    emit("F-F1.wrong.true", ab[wi][wj])
+
+    # 01_2, 01_3
+    si, sj = SPOT
+    terms = [A[si][k] * B[k][sj] for k in range(n)]
+    agreeing = sum(1 for i in range(n) for j in range(n) if C[i][j] == ab[i][j])
+    multiplications = len([(i, j, k) for i in range(n) for j in range(n) for k in range(n)])
+    emit("F-F2.spot.row", si + 1)
+    emit("F-F2.spot.column", sj + 1)
+    emit("F-F2.spot.products", csv(terms))
+    emit("F-F2.spot.value", sum(terms))
+    emit("F-F2.spot.claimed", C[si][sj])
+    emit("F-F2.spot.entries_checked", len([SPOT]))
+    emit("F-F2.per_entry", len(terms))
+    emit("F-F2.entries", n * n)
+    emit("F-F2.product_multiplications", multiplications)
+    emit("F-F2.spot.agreeing", agreeing)
+    emit("F-F2.spot.miss_chance", Fraction(agreeing, n * n))
+    check_mults = len([(i, k) for i in range(n) for k in range(n)])
+    emit("F-F2.check_multiplications", check_mults)
+    emit("F-F2.big.side", BIG_SIDE)
+    emit("F-F2.big.product_multiplications", BIG_SIDE**3)
+    emit("F-F2.big.check_multiplications", BIG_SIDE**2)
+
+    # 01_4 to 01_6
+    r = FIRST_TOSS
+    br, cr = apply(B, r), apply(C, r)
+    a_br = apply(A, br)
+    emit("F-F3.tried", len([FIRST_TOSS]))
+    emit("F-F3.toss", "".join(str(x) for x in r))
+    emit("F-F3.r", csv(r))
+    emit("F-F3.heads_columns", csv(j + 1 for j in range(n) if r[j]))
+    emit("F-F3.br", csv(br))
+    emit("F-F3.a_br", csv(a_br))
+    emit("F-F3.cr", csv(cr))
+    emit("F-F3.disagree_rows", csv(i + 1 for i in range(n) if a_br[i] != cr[i]))
+    emit("F-F3.passes", a_br == cr)
+    emit("F-F3.multiplications", check_mults)
+
+    # 01_7 to 01_9
+    all_tosses = tosses(n)
+    passing = [t for t in all_tosses if apply(A, apply(B, t)) == apply(C, t)]
+    emit("F-F4.coins", len(FIRST_TOSS))
+    emit("F-F4.tosses", len(all_tosses))
+    emit("F-F4.passing", ",".join("".join(str(x) for x in t) for t in passing))
+    emit("F-F4.misses", len(passing))
+    emit("F-F4.miss_fraction", Fraction(len(passing), len(all_tosses)))
+    emit("F-F4.misses_are_tails_on_wrong_column", set(passing) == {t for t in all_tosses if t[wj] == 0})
+    emit("F-F4.right_answer.passing", sum(1 for t in all_tosses if apply(A, apply(B, t)) == apply(ab, t)))
+
+    # the per-toss bound is the pairing proof's; this oracle's own sweep (row
+    # solution sets, no check run) only checks it at each size: never
+    # exceeded, the pairing step never broken, and an equality case. The
+    # example meeting the bound is a separate fact.
+    bound = PAIRING_BOUND
+    sweeps = {key: (size, values, sweep(size, values))
+              for key, size, values in (("n3", 3, (-1, 0, 1)), ("n2", 2, (-2, -1, 0, 1, 2)))}
+    for key, (size, _, result) in sweeps.items():
+        share = Fraction(result[2], 2**size)
+        check(f"{key}: no small mistake passes more than the pairing bound", share <= bound)
+        check(f"{key}: no coin pair passes twice", result[5] == 0)
+        check(f"{key}: some small mistake meets the bound (an equality case)", share == bound)
+    emit("F-F4.example_meets_bound", Fraction(len(passing), len(all_tosses)) == bound)
+
+    # 01_10
+    pairs = list(product(all_tosses, repeat=2))
+    both = sum(1 for s, t in pairs if s in passing and t in passing)
+    emit("F-F5.two.pairs", len(pairs))
+    emit("F-F5.two.both_miss", both)
+    emit("F-F5.two.fraction", Fraction(both, len(pairs)))
+    reused = sum(1 for t in all_tosses if t in passing and t in passing)
+    emit("F-F5.same_toss_twice.misses", reused)
+    emit("F-F5.same_toss_twice.fraction", Fraction(reused, len(all_tosses)))
+    emit("F-F5.bound_per_toss", bound)
+    again_bound = bound**AGAIN
+    emit("F-F5.again", AGAIN)
+    emit("F-F5.again.bound", again_bound)
+    emit("F-F5.million", MILLION)
+    emit("F-F5.again.under_one_in_a_million", again_bound < Fraction(1, MILLION))
+    again = AGAIN * BIG_SIDE**2
+    emit("F-F5.big.again_multiplications", again)
+    emit("F-F5.big.again_share", Fraction(again, BIG_SIDE**3))
+
+    # the bound's edges
+    for key, (size, values, result) in sweeps.items():
+        wrong_n, fewest, most, at_half, uneven, coin_pairs = result
+        count = 2**size
+        emit(f"F-X1.{key}.values", csv(values))
+        emit(f"F-X1.{key}.tosses", count)
+        emit(f"F-X1.{key}.wrong", wrong_n)
+        emit(f"F-X1.{key}.fewest", fewest)
+        emit(f"F-X1.{key}.most", most)
+        emit(f"F-X1.{key}.most_share", Fraction(most, count))
+        emit(f"F-X1.{key}.at_half", at_half)
+        emit(f"F-X1.{key}.uneven", uneven)
+        emit(f"F-X1.{key}.pairs_both_passing", coin_pairs)
+        emit(f"F-X1.{key}.attains_bound", Fraction(most, count) == PAIRING_BOUND)
+    for name, shape in SHAPES:
+        emit(f"F-X2.{name}.misses", sum(1 for t in all_tosses if all(x == 0 for x in apply(shape, t))))
+
+    # a toss known in advance: search every small mistake for one it passes
+    small = [dd for dd in product(product((-1, 0, 1), repeat=n), repeat=n) if any(x for row in dd for x in row)]
+    fooled = sum(1 for t in all_tosses if any(all(x == 0 for x in apply(dd, t)) for dd in small))
+    emit("F-X3.known_toss.fooled", fooled)
+    emit("F-X3.known_toss.tosses", len(all_tosses))
+
+    # the scope edge: rounding
+    two = tosses(2)
+    a, b, c = ROUNDED_REJECTS
+    failing = [t for t in two if not rounded_passes(a, b, c, t)]
+    emit("F-X4.tosses", len(two))
+    emit("F-X4.reject.right_answer", row_times_column(a, b) == c)
+    emit("F-X4.reject.exact_failures", sum(1 for t in two if apply(a, apply(b, t)) != apply(c, t)))
+    emit("F-X4.reject.rounded_failures", len(failing))
+    emit("F-X4.reject.failing_toss", ",".join("".join(str(x) for x in t) for t in failing))
+    a, b, c = ROUNDED_PASSES
+    mistake = minus(c, row_times_column(a, b))
+    emit("F-X4.pass.wrong_entries", sum(1 for row in mistake for x in row if x != 0))
+    emit("F-X4.pass.exact_passes", sum(1 for t in two if apply(a, apply(b, t)) == apply(c, t)))
+    emit("F-X4.pass.rounded_passes", sum(1 for t in two if rounded_passes(a, b, c, t)))
+    return ab, d, passing
+
+
+def cross_checks(ab, d, passing):
+    n = len(A)
+    all_tosses = tosses(n)
+    check("A·B by outer products equals A·B row times column", ab == row_times_column(A, B))
+    check("the product's nine entries are the digits 1 to 9", sorted(x for row in ab for x in row) == list(range(1, 10)))
+    check("a toss passes exactly when the mistake sends it to zero",
+          all((apply(A, apply(B, t)) == apply(C, t)) == all(x == 0 for x in apply(d, t)) for t in all_tosses))
+    check("C = A·B plus the first shape", C == plus(ab, SHAPES[0][1]))
+    # adding the heads columns is multiplying by the toss
+    kept = all(tuple(sum(row[j] for j in range(n) if t[j]) for row in m) == apply(m, t)
+               for m in (A, B, C) for t in all_tosses)
+    check("adding the heads columns is multiplying by the 0/1 column", kept)
+    # one wrong entry anywhere, of any size, hides from exactly half
+    single = []
+    for i, j, value in product(range(n), range(n), (-3, -1, 1, 5)):
+        dd = tuple(tuple(value if (p, q) == (i, j) else 0 for q in range(n)) for p in range(n))
+        single.append(sum(1 for t in all_tosses if all(x == 0 for x in apply(dd, t))))
+    check("every one-entry mistake hides from exactly 4 of 8 tosses", set(single) == {4})
+    # a right answer passes every toss, on a family of small integer matrices
+    right = True
+    for x in product((-1, 0, 2), repeat=4):
+        for y in product((1, -2, 0), repeat=4):
+            a2 = (x[0:2], x[2:4])
+            b2 = (y[0:2], y[2:4])
+            p2 = row_times_column(a2, b2)
+            right &= all(apply(a2, apply(b2, t)) == apply(p2, t) for t in tosses(2))
+    check("a right answer passes every toss (6561 small products)", right)
+    # the n = 2 sweep through the real check agrees with the row solution sets
+    real = 0
+    ab2 = row_times_column(A2, B2)
+    for dd in product(product((-2, -1, 0, 1, 2), repeat=2), repeat=2):
+        if not any(x for row in dd for x in row):
+            continue
+        c2 = plus(ab2, dd)
+        real = max(real, sum(1 for t in tosses(2) if apply(A2, apply(B2, t)) == apply(c2, t)))
+    check("n = 2: the real check's worst mistake passes 2 of 4", real == 2)
+    # the rounding itself
+    check("doubles: 1e16 + 1 rounds to 1e16", float(BIG) + 1.0 == float(BIG))
+    check("doubles: 1e16 + 2 does not", float(BIG) + 2.0 != float(BIG))
+    check("the misses are 000, 001, 100, 101", ["".join(map(str, t)) for t in passing] == ["000", "001", "100", "101"])
+
+
+def main():
+    rows = facts()
+    cross_checks(*rows)
+    print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
+    return 1 if _FAILED else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

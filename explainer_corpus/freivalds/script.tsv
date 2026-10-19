@@ -1,0 +1,11 @@
+# freivalds: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Someone multiplied two matrices, A and B, and handed you the answer, C. Is C really A times B? You could multiply them again.
+01_2	Nine entries, three multiplications each, twenty-seven in all. With a thousand rows and columns, a billion.
+01_3	Checking one entry at random is cheap, but it misses a single wrong entry eight times in nine.
+01_4	Here is a better check. Toss a coin for each column of C, and add up the columns that land heads.
+01_5	Do the same to B, then multiply by A. That takes nine multiplications, not twenty-seven.
+01_6	Both columns must match if C is right. They don't, so C is wrong, for certain.
+01_7	But that was one toss. Of the eight ways three coins can land, how many miss the wrong entry?
+01_8	Check all eight. Four of them miss, exactly half.
+01_9	Because every miss leaves out the column that holds the wrong entry.
+01_10	But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million.
