@@ -32,26 +32,43 @@ not three in four; a no, one in thirteen; before any answer, one in five.
   and domain repairs were then re-reviewed with no remaining findings, Mails
   3827 and 3829). This acceptance does not cover narration or the full video.
 - Chapter 03 (`03_the_price_of_the_coin`, Beads `.8.3`) is accepted by root
-  provisionally, for its source and visual criteria only (Mail 3932). It is
-  not fully accepted: a readability concern is still being measured (Mail
-  3934). The sample card is placed late in 03_10 and stays only until the
-  line ends plus 2 s. The acceptance rests on these native checks:
+  for its source and sampled silent visuals only (Mail 3980). Root closes
+  the Bead after verifying this commit. The acceptance took two steps:
+  - Root accepted draft06 provisionally (Mail 3932), then held it because
+    its sample card was on screen too briefly to read. FuchsiaHawk measured
+    the cards (Mail 3941): the sample card had 4.20 s for 143 characters,
+    and the denser runs and clamp cards 5.13 s for 126 and 5.27 s for 117.
+  - The repair (Mails 3944 and 3952) brings the sample card in at 03_9's
+    "Sample twenty", where the fixed class's card goes. It also shortens
+    the runs and clamp cards, and the clamp card now reads "allow negatives:
+    …" so it cannot be misread. The repair adds no wait.
+
+  The checks:
   - central17 (Mail 3916): fmt, strict release all-target Clippy, 44 tests,
     the build, 123 facts against the oracle (31 checks) and 105 glyph
     sources with no failures;
-  - central18, after the row names moved inside the title-safe edge (Mail
-    3932): fmt, strict Clippy, the layout test, the build and a rerender of
-    this chapter, a silent draft of 2,338 frames (77.93 s) with no layout
-    findings and cues byte-identical to the draft before;
-  - frames viewed: the 10 cue ends, the prediction and its reveal (the
-    answer hidden until 35.2 s), the 10 glyph pages, then the moved labels
-    (22.5 s) and the closing card (77.0 s).
+  - central18 (Mail 3932), after the row names moved inside the title-safe
+    edge: fmt, strict Clippy, the layout test, the build, and draft06, a
+    silent draft of 2,338 frames (77.93 s) with no layout findings;
+  - central21 (Mail 3980), after the card repair: fmt, strict release
+    all-target Clippy, the build, 5 targeted tests (the 39 unchanged ones
+    filtered out) and 103 glyph sources; draft07, 2,338 frames (77.93 s)
+    with no layout findings and unchanged cues;
+  - frames viewed: on draft06, the 10 cue ends, the prediction and its
+    reveal (the answer hidden until 35.2 s), the 10 glyph pages, the moved
+    labels (22.5 s) and the closing card (77.0 s); on draft07, the frames at
+    12, 50, 60, 64 and 76 s.
 
-  It was independently reviewed by FuchsiaHawk: the source in Mail 3899,
-  which reconstructed the seeded draws and the exact distribution and found
-  one card defect (fixed), and the rendered images in Mail 3926. This
-  acceptance does not cover narration, audio, continuous playback, 4K or the
-  full video.
+  FuchsiaHawk reviewed three things independently:
+  - the source (Mail 3899), reconstructing the seeded draws and the exact
+    distribution; one card defect was found and fixed;
+  - the rendered images (Mail 3926);
+  - draft07's cards (Mail 3965): the sample card is fully readable for
+    15.90 s (was 4.20 s), the clamp card's wording is complete, and no label
+    drops out.
+
+  This acceptance does not cover narration, audio, continuous playback, 4K
+  or the full video.
 - Chapters 04 and 05 are planned (the storyboard's arc); chapter 04's numbers
   are already computed and oracle-checked.
 

@@ -102,12 +102,10 @@ fn tex_thousands(n: u128) -> String {
     thousands(n).replace(',', "{,}")
 }
 
-/// 03_2's exact version: where the eight classes come from.
+/// 03_2's exact version: where the eight classes come from. Short, since it
+/// is on screen about 5 s (draft06 had 126 characters in 5.13 s; Mail 3941).
 fn runs_card() -> String {
-    format!(
-        "the first {RUNS} draws of a seeded generator (PCG64DXSM, seed {SEED}, the chapter's number), none thrown \
-         away; too few to show the rates"
-    )
+    format!("the first {RUNS} draws from PCG64DXSM, seed {SEED}, none thrown away; too few to show the rates")
 }
 
 /// 03_6's exact version: the two chances over every way the coins can land.
@@ -121,13 +119,13 @@ fn rates_card(outcomes: u128, truth: Q, exactly: Q, negative: Q) -> String {
     )
 }
 
-/// 03_7's exact version: the estimate is right on average because it may go
-/// below zero.
-fn clamp_card(n: usize, clamped: Q) -> String {
+/// 03_7's exact version: with its negative values allowed, the estimate
+/// averages `mean`; with them replaced by 0, `clamped`. Short, since it is on
+/// screen about 5 s (draft06 had 117 characters in 5.27 s; Mail 3941).
+fn clamp_card(n: usize, mean: Q, clamped: Q) -> String {
     let factor = Q::ONE / Channel::two_coins().truth();
     format!(
-        "the estimate, {factor} × yes − {}, is right on average because it may go below 0. Rounded up to 0, its \
-         average would be {:.2}",
+        "allow negatives: {factor} × yes − {} averages {mean}; replace them with 0: the average is {:.2}",
         n / 2,
         clamped.to_f64()
     )
@@ -147,7 +145,9 @@ fn sd_card(n: usize, answer: Q, count: Q, estimate: Q) -> String {
     )
 }
 
-/// 03_10's exact version: what "almost six times as many people" assumes.
+/// 03_9's exact version, on screen from "Sample twenty" to the end: what the
+/// sampling formula, and 03_10's "almost six times as many people", assume.
+/// Placed late in 03_10 it had 4.20 s for 143 characters (Mail 3941).
 fn sample_card(share: Q, cost: Q) -> String {
     format!(
         "assumes independent draws, with replacement or from a large population, and truthful direct answers. \
@@ -330,7 +330,8 @@ impl SceneConstruct for ThePriceOfTheCoin {
 
         // 03_4: piled up around four, the true count
         let line = say(&kit, stage, "03_4")?;
-        if model::estimate_mean(&dist) != truth {
+        let mean = model::estimate_mean(&dist);
+        if mean != truth {
             return Err(fail("the distribution's estimate does not average the truth".into()));
         }
         let truth_x = est_x(truth, low);
@@ -430,7 +431,7 @@ impl SceneConstruct for ThePriceOfTheCoin {
             Palette::dim(),
             v(NOTE_X, NOTE_Y[2]),
         )?;
-        let clamp = precisely(&kit, stage, &clamp_card(n, clamped))?;
+        let clamp = precisely(&kit, stage, &clamp_card(n, mean, clamped))?;
         swap(stage, &[card], &[note_clamped, clamp], 0.4)?;
 
         // 03_8: every answer wobbles the same; twenty, doubled: √15
@@ -477,8 +478,13 @@ impl SceneConstruct for ThePriceOfTheCoin {
         )?;
         fade_in_all(stage, &[bracket, bracket_label], 0.4)?;
 
-        // 03_9: a sample from a big school adds who gets picked
+        // 03_9: a sample from a big school adds who gets picked; the fixed
+        // class's card goes, and the sample's assumptions stay to the end
         let line = say(&kit, stage, "03_9")?;
+        let share = Q::new(copiers as i128, n as i128);
+        let with_coins = model::sampling_variance(Channel::two_coins(), share, 1)
+            .ok_or_else(|| fail("no sampling variance".into()))?;
+        let cost = with_coins / model::direct_variance(share, 1);
         line.wait_for(stage, "Sample twenty")?;
         let coin_part = Channel::two_coins()
             .coin_variance()
@@ -504,14 +510,13 @@ impl SceneConstruct for ThePriceOfTheCoin {
             Palette::dim(),
             v(FORMULA_X, FORMULA_Y[0] + SHARE_DY),
         )?;
-        swap(stage, &derivation, &[share_label, formula, picked], 0.4)?;
+        let sample = precisely(&kit, stage, &sample_card(share, cost))?;
+        let mut fixed_class = derivation;
+        fixed_class.push(sd);
+        swap(stage, &fixed_class, &[share_label, formula, picked, sample], 0.4)?;
 
         // 03_10: at one in five, almost six times the people
         let line = say(&kit, stage, "03_10")?;
-        let share = Q::new(copiers as i128, n as i128);
-        let with_coins = model::sampling_variance(Channel::two_coins(), share, 1)
-            .ok_or_else(|| fail("no sampling variance".into()))?;
-        let cost = with_coins / model::direct_variance(share, 1);
         line.wait_for(stage, "almost six times")?;
         let ratio = kit.tex(
             stage,
@@ -522,8 +527,7 @@ impl SceneConstruct for ThePriceOfTheCoin {
             v(FORMULA_X, FORMULA_Y[2]),
         )?;
         let people = kit.text(stage, PEOPLE, 20.0, Palette::dim(), v(FORMULA_X, FORMULA_Y[3]))?;
-        let sample = precisely(&kit, stage, &sample_card(share, cost))?;
-        swap(stage, &[sd], &[ratio, people, sample], 0.4)?;
+        fade_in_all(stage, &[ratio, people], 0.4)?;
         line.wait_end(stage)?;
         pause(stage, 2.0)?;
 
@@ -564,7 +568,10 @@ mod tests {
     #[test]
     fn the_cards_are_built_from_the_facts() {
         let f = facts::facts().unwrap();
-        assert!(runs_card().starts_with("the first 8 draws of a seeded generator (PCG64DXSM, seed 3"));
+        assert_eq!(
+            runs_card(),
+            "the first 8 draws from PCG64DXSM, seed 3, none thrown away; too few to show the rates"
+        );
         let dist = model::yes_count_distribution(20, 4).unwrap();
         let rates = rates_card(4u128.pow(20), Q::int(4), dist[7], model::p_negative_estimate(&dist));
         assert!(
@@ -577,12 +584,12 @@ mod tests {
         );
         assert_eq!(f.get("R-F7.percent.exactly_right"), Some("20"));
         assert_eq!(f.get("R-F7.percent.negative"), Some("9"));
-        let clamp = clamp_card(20, model::clamped_mean(&dist));
-        assert!(
-            clamp.starts_with("the estimate, 2 × yes − 10, is right on average"),
-            "{clamp}"
+        let clamp = clamp_card(20, model::estimate_mean(&dist), model::clamped_mean(&dist));
+        assert_eq!(
+            clamp,
+            "allow negatives: 2 × yes − 10 averages 4; replace them with 0: the average is 4.26"
         );
-        assert!(clamp.ends_with("its average would be 4.26"), "{clamp}");
+        assert_eq!(f.get("R-F14.estimate_mean"), Some("4"));
         assert_eq!(f.get("R-F14.clamped_mean_2dp"), Some("4.26"));
         let sd = sd_card(20, Q::new(3, 16), Q::new(15, 4), Q::int(15));
         assert!(
@@ -609,7 +616,7 @@ mod tests {
         for text in [
             runs_card(),
             rates_card(4u128.pow(20), Q::int(4), dist[7], model::p_negative_estimate(&dist)),
-            clamp_card(20, model::clamped_mean(&dist)),
+            clamp_card(20, model::estimate_mean(&dist), model::clamped_mean(&dist)),
             sd_card(20, Q::new(3, 16), Q::new(15, 4), Q::int(15)),
             sample_card(Q::new(1, 5), Q::new(91, 16)),
         ] {
