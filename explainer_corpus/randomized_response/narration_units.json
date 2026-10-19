@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "ffe679742c967063c7156412db5b499a9a1f860c73d723f10449a32064343312",
+  "script_sha256": "f3783241084a979596bd5b2c94408967d6992987602fa7a4fd48a8211c7cdc65",
   "units": [
     {
       "id": "01u1",
@@ -128,6 +128,40 @@
         "04_11"
       ],
       "text": "But suppose the student flips only once, and repeats that answer. Then three yeses are three times as likely, the same as one. The repeats add nothing. That holds only while the secret stays the same, under this rule."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2",
+        "05_3"
+      ],
+      "text": "Make the first coin a dial, the chance of telling the truth. Ours sits at one half. Set it to three quarters, a spinner of four slices, three saying tell the truth. At three quarters, how many times as likely is a yes from someone who copied?"
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_4",
+        "05_5",
+        "05_6"
+      ],
+      "text": "Seven. Of the eight outcomes, someone who copied says yes in seven, anyone else in one. Turning the dial up makes every answer say more. But the count gets sharper. Our class of twenty would miss by about two people, not four."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_7",
+        "05_8",
+        "05_9"
+      ],
+      "text": "Down at a quarter, a yes is under twice as likely, but the class would miss by about nine. All the way up is the direct question, no wobble and no limit on what a yes reveals. All the way down, the second coin answers for everyone. Nothing is revealed, and nothing can be counted."
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_10"
+      ],
+      "text": "In between, a survey counts a secret while every answer stays deniable, if each person answers once."
     }
   ]
 }

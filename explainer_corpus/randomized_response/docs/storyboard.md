@@ -15,17 +15,17 @@ more time") before the next beat answers it.
 
 One invented class runs through the whole video: twenty students, four of
 whom copied homework, and one coin rule defined before any formula.
-Chapters 01 to 03 are storyboarded and built, and chapter 04 is written as
-source; chapter 05 is the plan their facts and model already compute
-(`src/model.rs`, `src/facts.rs`, `oracle.py`).
+Chapters 01 to 04 are storyboarded and built, and chapter 05, the last, is
+written as source; every chapter's numbers come from the same model, facts
+and oracle (`src/model.rs`, `src/facts.rs`, `oracle.py`).
 
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_the_coin` | a direct question exposes whoever says yes; the coin rule (heads, the truth; tails, a second coin answers); the class routed through it on average: half tells the truth (two yes, eight no), the second coin answers the other ten (five and five); the survey sees seven yes and thirteen no; take away the second coin's yeses on average, a quarter of the class, and double what is left: four; but a yes is three times as likely from someone who copied | committed at eb81fbc (`.8.1`). Root verified it on 2026-10-19 (Mail 3759): fmt, strict Clippy, 30 tests, release build, facts against the oracle, glyph pages, and a silent 540p30 scratch draft of 81.1 s with zero layout findings, all 11 cue-end frames viewed and the prediction answer hidden through its hold. Source reviewed (Mail 3741, four low findings fixed). Not narrated; no audio or full-video acceptance |
 | `02_what_a_yes_says` | every student with all four coin outcomes, eighty in all; both answers' ratios of three counted from them; the prediction "a student says yes: what's the chance they copied?"; twelve of the twenty-eight yes outcomes are a copier's, three in seven (on average three of chapter 01's seven yeses), not three in four; why: copiers have three times the yeses but are outnumbered four to one; a no, four of fifty-two, one in thirteen; the chance moves from one in five, the coin fixing only the factor of three; deniable but not meaningless, and the count's accuracy is a separate question | `.8.2`, accepted by root on 2026-10-19 for source, native and sampled-visual criteria only (Mail 3831): fmt, strict release Clippy, 37 tests, the build and 105/105 facts against the oracle; a silent draft of 2,531 frames (84.37 s) with no layout findings; the 11 cue-end frames, 7 glyph pages, prediction and reveal, and both corrected cards viewed. Independently reviewed (TanElm, Mail 3802; repairs re-reviewed with no remaining findings, Mails 3827 and 3829). Not narrated; no audio or full-video acceptance |
 | `03_the_price_of_the_coin` | the same class asked eight times with fresh coins (a seeded generator): estimates from minus four to fourteen, one on four; then every one of the 4²⁰ equally likely ways the coins can land: the yes counts and the estimates pile up around seven and four; the prediction "how often exactly on four?": about one class in five, and about one in eleven below zero; below zero means fewer yeses than the second coin alone gives on average, and rounding up would push the average above four; every answer wobbles the same, so twenty doubled miss by about four people (√15); that is the fixed class: sampled from a big school, who gets picked adds p(1 − p)/n to the coins' 3/(4n), and at one in five the same precision takes almost six times the people (91/16; the coins' part alone 75/16) | `.8.3`, accepted by root on 2026-10-19 for source and sampled silent visuals only (Mail 3980); root closes it after verifying the commit. Draft06 was first accepted provisionally (Mail 3932), then held: its sample card had 4.20 s for 143 characters, and the runs and clamp cards about 5 s for 126 and 117 (FuchsiaHawk, Mail 3941). The repair (Mails 3944 and 3952) brings the sample card in at 03_9, shortens the other two, and has the clamp card read "allow negatives: …". Checks: central17 (Mail 3916): fmt, strict release Clippy, 44 tests, the build, 123 facts against the oracle (31 checks), 105 glyph sources. Draft06 (Mail 3932), after the title-safe row-name move: 2,338 frames (77.93 s), no layout findings; cue ends, prediction and reveal, glyph pages, labels and closing card viewed. Central21 (Mail 3980): fmt, strict Clippy, the build, 5 targeted tests, 103 glyph sources; draft07: 2,338 frames (77.93 s), no layout findings, unchanged cues; frames at 12, 50, 60, 64 and 76 s viewed. Independently reviewed by FuchsiaHawk: the source (Mail 3899; its card defect fixed), the rendered images (Mail 3926) and draft07's cards (Mail 3965: the sample card readable for 15.90 s). Not narrated; no audio, continuous-playback or full-video acceptance |
-| `04_asking_again` | one student asked three times with fresh coins: all 64 coin outcomes for each truth; the prediction "how many times as likely are three yeses from someone who copied?": 27, counted (27 outcomes against 1), and each fresh answer can multiply it by three, three noes the other way; in the class, where one in five copied, 108 three-yes outcomes against 16, so twenty-seven in thirty-one against one yes's three in seven; a majority right twenty-seven times in thirty-two, whichever the truth; one flip whose answer is repeated (RAPPOR's memoized answer) keeps three yeses at three times, for one unchanged secret under this rule | source written 2026-10-19 (EmeraldTern, `.8.4`); not compiled, rendered, narrated or reviewed |
-| `05_the_dial` *(planned)* | a truth chance t instead of a fair first coin: ratio (1 + t)/(1 − t), coin variance (1 − t²)/(4t²); the edges, the direct question (no bound) and a pure coin (no estimate) | model only |
+| `04_asking_again` | one student asked three times with fresh coins: all 64 coin outcomes for each truth; the prediction "how many times as likely are three yeses from someone who copied?": 27, counted (27 outcomes against 1), and each fresh answer can multiply it by three, three noes the other way; in the class, where one in five copied, 108 three-yes outcomes against 16, so twenty-seven in thirty-one against one yes's three in seven; a majority right twenty-seven times in thirty-two, whichever the truth; one flip whose answer is repeated (RAPPOR's memoized answer) keeps three yeses at three times, for one unchanged secret under this rule | `.8.4`, closed by root on 2026-10-19 at 8d6f615 for source, mathematics and sampled silent visuals only (Mails 4053 and 4061). Central30: fmt, strict Clippy, 49 tests, 137 facts against the oracle, 131 glyph sources, the build and the render; draft09, 2,436 frames (81.20 s), no layout findings; 7 actual frames and all 13 glyph pages viewed. Independently reviewed: FuchsiaHawk, the mathematics (Mail 4026); EmeraldLeopard, the actual frames and card times (Mail 4049). Before the batch the 04_8 sentence was clarified (Mail 4028) and two strict Clippy findings fixed (Mail 4036). Not narrated; no audio or full-video acceptance |
+| `05_the_dial` | the first coin becomes a dial, the chance t of telling the truth, ours at one half: a spinner of four slices over eight equally likely outcomes; the prediction "at three quarters, how many times as likely is a yes from someone who copied?": seven, 7 outcomes of 8 against 1, (1 + t)/(1 − t) for both answers; the count gets sharper, our class of twenty missing by about two people, not four (the coins' variance per person (1 − t²)/(4t²), 20 times it for the count); at a quarter a yes is under twice as likely but the class misses by about nine; the edges, the direct question (no wobble, no bound) and a pure coin (nothing revealed, nothing to count); the promise for one answer each, everyone following the rule | `.8.5`, accepted by root on 2026-10-19 for mathematics and sampled silent visuals only (Mail 4132); root closes the Bead. The first version's draft10 was withheld: TanElm's review (Mail 4095) found 05_6 and 05_7 speaking "wobble" in the per-person variance's sense, against chapter 03's miss size. The repair (Mail 4097) speaks the class's misses, about 2, not 4, and about 9. Central42: fmt, strict Clippy, 55 tests, 190 facts against the oracle, 175 glyph sources, the build and the render, all 20 input pins unchanged; draft11, 2,425 frames (80.83 s), silent 960×540, no layout findings, 10 changed frames viewed. Independently reviewed: the revised mathematics (Mail 4119) and the actual frames, phrase timing, card dwell and endpoints (Mail 4128). Not narrated; no audio, continuous-playback, 4K or full-video acceptance |
 
 ## Vocabulary (one word per idea)
 
@@ -51,7 +51,13 @@ against **sample** (twenty picked at random from a big school). From
 chapter 04: **fresh coins** (new coins for every answer, independent of the
 last); **flips only once** and **repeats that answer** (the memoized
 answer; "memoized" only on cards); **the majority** (the answer given at
-least twice in three).
+least twice in three). From chapter 05: **the dial** (the chance of telling
+the truth, t; the only other "chance" in the voice, and always said in
+full); **spinner** and **slices** (the dial drawn: so many equal slices say
+tell the truth, the rest hand the answer to the second coin); **miss by**
+(as 03_8: how far the fixed class's estimate usually strays; the coins'
+variance per person, the count's and the share's appear only on cards and
+in the table, never as "wobble" with a number).
 
 ## Color roles
 
@@ -358,3 +364,80 @@ Units (unqualified proposals, text only): 04u1 the asks and the question
 (04_1 to 04_3, ending on the question); 04u2 the answer and the factor
 (04_4, 04_5); 04u3 the class's chance and the majority (04_6 to 04_8); 04u4
 one flip, and what it covers (04_9 to 04_11).
+
+## 05_the_dial: The dial (~82 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Make the first coin a dial, the chance of telling the truth. Ours sits at one half. | A number line across the top left, "the chance of telling the truth", ticks 0, 1/4, 1/2, 3/4, 1, a green marker at 1/2. On "Ours sits at one half": a spinner of four slices over a row of eight outcome squares (each slice over its two second-coin faces, H and T), two slices green (tell the truth) and two dim (the second coin); two rows of eight squares, "copied" and "didn't copy", coloured by their answers, "yes: 6 of 8" and "yes: 2 of 8". At the right a table: the dial, times as likely, coins' variance; the 1/2 row reads 3 and 3/4 | number line, grid built from the rule, table | |
+| 05_2 | Set it to three quarters, a spinner of four slices, three saying tell the truth. | On "three quarters" the marker moves to 3/4, a third slice turns green, the squares go faint and their counts go; the table gains a 3/4 row with its ratio and variance blank. On "a spinner" a "precisely" lower-third: a spinner of 4 equal slices, 3 saying tell the truth and 1 handing the answer to the fair second coin: 4 × 2 = 8 equally likely outcomes | number line, lower-third | |
+| 05_3 | ⟨predict⟩ At three quarters, how many times as likely is a yes from someone who copied? | A "?" with the think ring and "pause for more time" at the lower right. The squares are faint and the 3/4 row has no ratio | predict pause | |
+| 05_4 | Seven. Of the eight outcomes, someone who copied says yes in seven, anyone else in one. | The "?" goes; the squares take their answers' colours, "yes: 7 of 8" and "yes: 1 of 8"; the 3/4 row's ratio reads 7. The card becomes: at 3/4 a yes is 7 of 8 outcomes for someone who copied, 1 of 8 for anyone else, and a no the reverse: 7 times either way, (1 + t)/(1 − t) | highlight, table, lower-third | |
+| 05_5 | Turning the dial up makes every answer say more. | Under the table a general row: t, (1 + t)/(1 − t) (TeX); the ratios 3 and 7 flash | TeX formula, highlight | |
+| 05_6 | But the count gets sharper. Our class of twenty would miss by about two people, not four. | On "miss by about two" the 3/4 row's variance reads 7/36 and the general row gains (1 − t²)/(4t²) (TeX). Under the outcome rows, "our class of 20 misses by" with two lines (TeX): 1/2: √(20 × 3/4) ≈ 3.87 and 3/4: √(20 × 7/36) ≈ 1.97; both flash. The card becomes: per person (1 − t²)/(4t²); class of 20: count variance 20 × it, miss about its square root, share variance it/20; a sample adds p(1 − p)/n | TeX formula, highlight, lower-third | |
+| 05_7 | Down at a quarter, a yes is under twice as likely, but the class would miss by about nine. | The marker moves to 1/4, two green slices turn dim, the squares recolour, "yes: 5 of 8" and "yes: 3 of 8"; the table gains the 1/4 row, 5/3 and 15/4. On "about nine" a third line, 1/4: √(20 × 15/4) ≈ 8.66, and it and the 1/2 line flash | number line, table, highlight | |
+| 05_8 | All the way up is the direct question, no wobble and no limit on what a yes reveals. | The marker moves to 1, every slice green; "yes: 8 of 8" and "yes: 0 of 8"; the 1 row reads "no bound" and 0. The card becomes: at 1 nobody who didn't copy says yes, so nothing bounds what a yes reveals; at 0 everyone says yes half the time, so no estimate exists | number line, table, lower-third | |
+| 05_9 | All the way down, the second coin answers for everyone. Nothing is revealed, and nothing can be counted. | The marker moves to 0, every slice dim; "yes: 4 of 8" for both rows; the 0 row reads 1 and "no estimate" | number line, table | |
+| 05_10 | In between, a survey counts a secret while every answer stays deniable, if each person answers once. | At the line's start the card becomes: if everyone follows the rule, with fair, private coins, once each; fresh coins on each repeat multiply the ratio (chapter 4). The marker returns to 1/2; the 1/4, 1/2 and 3/4 rows and the three misses flash. The picture holds 2 s after the line, and the card stays at least its reading time | highlight, lower-third | hold |
+
+### Notes for 05
+
+- The dial is `model::Channel` at t = k/4, the first coin replaced by a
+  spinner of four equal slices, k of them saying tell the truth and the
+  rest handing the answer to the fair second coin. Every setting has the
+  same 4 × 2 = 8 equally likely outcomes (`R-F16.outcomes`). The squares
+  are the rule run on each outcome, tallied against `Channel::p_said`
+  before a count is drawn; the table's numbers are `Channel::ratio` and
+  `Channel::coin_variance`. The spinner only replaces this rule's first
+  coin. It is not Warner's spinner, which chooses between two questions
+  (README, "Sources").
+- Both answers carry the same ratio, (1 + t)/(1 − t): at 3/4 a yes is 7/8
+  against 1/8 and a no 7/8 against 1/8 the other way (`R-F16.up.*`). The
+  facts and the oracle check both answers and the closed form at every
+  setting.
+- Prediction (05_3): the 3/4 row has no ratio and the squares are faint
+  until 05_4. The tempting answer is 3 (the slices' 3 to 1); counted, a
+  copier says yes in 7 of the 8 outcomes and anyone else in 1.
+- The voice speaks of misses, as 03_8 did ("miss by about four people"):
+  how far the fixed class of 20's estimate usually strays, the square root
+  of its count's variance. That variance is 20 times the coins' variance
+  per person, (1 − t²)/(4t²) (`R-F16.*.coin_variance`). At 1/2 it is
+  20 × 3/4 = 15, a miss of √15 ≈ 3.87, about four. At 3/4 it is
+  20 × 7/36 = 35/9, a miss of 1.97, about two. At 1/4 it is 20 × 15/4 = 75,
+  a miss of 8.66, about nine (`R-F16.*.class_variance`, `.miss_2dp`,
+  `.miss_rounded`, the rounding exact). The estimated share's variance is
+  the per-person one over 20 (3/80 at 1/2), and drawing a sample adds
+  p(1 − p)/n to it (chapter 03). The per-person ratios 7/27 and 5 are
+  variances, not misses, and are not spoken. None of these is a chance
+  that anyone copied.
+- Every card stays up at least its reading time, 15 characters a second
+  from the moment it is fully in, over the lines after it; the last card
+  holds past the 2 s if it needs to.
+- The edges: at 1 the direct question, coin variance 0 and no ratio bound
+  (a yes never comes from someone who didn't copy); at 0 a pure coin, ratio
+  1 and no estimate (nobody tells the truth, so nothing is left to divide
+  by) (`R-F16.direct.*`, `R-F16.pure.*`, `R-X1.*`).
+- The ending restates the video's promise for one answer each. Its card
+  names every condition: everyone follows the rule, with fair, private
+  coins, once each. It also repeats chapter 04's warning about fresh coins
+  on every ask. No claim is made about real surveys' honesty, about
+  repeated surveys in general, or about RAPPOR's guarantees.
+- Budget: 161 words, 10 lines; chapter 04's 160 words and 11 lines
+  measured 81.20 s silent.
+
+### Pauses for 05 (semantic timing)
+
+| where | kind | target |
+|---|---|---|
+| at 05_1 "the truth. \| Ours sits" | continuation | 0.55 s |
+| at 05_3 after "from someone who copied?" | **prediction hold**: a plain falling wh-question, then the countdown | the kit's breath + the countdown |
+| at 05_4 "Seven. \| Of the eight" | **reveal**, then its count | 0.7 s |
+| at 05_6 "sharper. \| Our class" | continuation | 0.55 s |
+| at 05_7 "a quarter, \| a yes" | comma, continuation | 0.35 s |
+| at 05_9 "for everyone. \| Nothing" | continuation | 0.55 s |
+| at 05_10 "In between" | turn to the conclusion | 0.6 s |
+
+Units (unqualified proposals, text only): 05u1 the dial and the question
+(05_1 to 05_3, ending on the question); 05u2 the answer and the price
+(05_4 to 05_6); 05u3 down and the edges (05_7 to 05_9); 05u4 the promise
+(05_10).

@@ -42,3 +42,13 @@
 04_9	But suppose the student flips only once, and repeats that answer.
 04_10	Then three yeses are three times as likely, the same as one. The repeats add nothing.
 04_11	That holds only while the secret stays the same, under this rule.
+05_1	Make the first coin a dial, the chance of telling the truth. Ours sits at one half.
+05_2	Set it to three quarters, a spinner of four slices, three saying tell the truth.
+05_3	At three quarters, how many times as likely is a yes from someone who copied?
+05_4	Seven. Of the eight outcomes, someone who copied says yes in seven, anyone else in one.
+05_5	Turning the dial up makes every answer say more.
+05_6	But the count gets sharper. Our class of twenty would miss by about two people, not four.
+05_7	Down at a quarter, a yes is under twice as likely, but the class would miss by about nine.
+05_8	All the way up is the direct question, no wobble and no limit on what a yes reveals.
+05_9	All the way down, the second coin answers for everyone. Nothing is revealed, and nothing can be counted.
+05_10	In between, a survey counts a secret while every answer stays deniable, if each person answers once.

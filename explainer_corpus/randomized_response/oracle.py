@@ -35,7 +35,13 @@ coin outcomes for repeated asks):
     two bits a student looked up in the written-out rule table (the Rust side
     draws through franken_manim's port of the same generator);
   * the estimate's mean, its mean rounded up at zero, and the "one in k"
-    readings straight from the person-by-person distribution.
+    readings straight from the person-by-person distribution;
+  * chapter 05's dial by counting a spinner's slices and the second coin's
+    faces with its own inline rule (a truthful slice gives the truth, any
+    other slice the face, heads for yes), equivalent to the rule table but
+    not read from it; the coins' variance as the variance of one person's
+    share over those outcomes; the fixed class's miss as the square root of
+    20 times it, rounded to the nearest whole by an integer square root.
 """
 import math
 import sys
@@ -59,6 +65,10 @@ MAX_ASKS = 10
 # Chapter 03's real classes: seed 3 (the chapter's number), eight draws.
 SEED = 3
 RUNS = 8
+# Chapter 05's dial: a spinner of four equal slices; each setting's name and
+# how many slices say "tell the truth" (the rest hand over to the second coin).
+SLICES = 4
+DIAL = (("pure", 0), ("down", 1), ("ours", 2), ("up", 3), ("direct", 4))
 
 # The rule, written out: (first coin, second coin) -> answer for someone who
 # copied, answer for someone who didn't; and what decided it.
@@ -504,6 +514,77 @@ def main():
           memo_after == posterior(share, sum(says(True, o) for o in OUTCOMES), sum(says(False, o) for o in OUTCOMES)))
     emit("R-F15.posterior.all_yes_at_half", posterior(Fraction(1, 2), all_yes[1], all_yes[0]))
     emit("R-F15.posterior.all_yes_none_copied", posterior(Fraction(0), all_yes[1], all_yes[0]))
+
+    # R-F16: the dial, every (slice, second-coin face) outcome of the spinner
+    emit("R-F16.slices", SLICES)
+    emit("R-F16.outcomes", 2 * SLICES)
+    ratios, wobbles, same_ratio, ratio_form, same_wobble, wobble_form = {}, {}, [], [], [], []
+    misses, miss_rounding = {}, []
+    for name, k in DIAL:
+        dial = Fraction(k, SLICES)
+        spins = [(s < k, face) for s in range(SLICES) for face in "HT"]
+
+        def spun(copied, spin):
+            truthful, face = spin
+            return copied if truthful else face == "H"
+
+        said_yes = {c: sum(spun(c, spin) for spin in spins) for c in (True, False)}
+        said_no = {c: len(spins) - said_yes[c] for c in (True, False)}
+        emit(f"R-F16.{name}.truth", dial)
+        emit(f"R-F16.{name}.truth_slices", k)
+        emit(f"R-F16.{name}.yes.copied", said_yes[True])
+        emit(f"R-F16.{name}.yes.didnt", said_yes[False])
+        r_yes = Fraction(said_yes[True], said_yes[False]) if said_yes[False] else None
+        r_no = Fraction(said_no[False], said_no[True]) if said_no[True] else None
+        same_ratio.append(r_yes == r_no)
+        ratio_form.append(r_yes == ((1 + dial) / (1 - dial) if dial < 1 else None))
+        ratios[name] = r_yes
+        emit(f"R-F16.{name}.ratio", "unbounded" if r_yes is None else r_yes)
+        # one person's share of the estimate, (answer - (1 - t)/2) / t, over the spins
+        wobble = None
+        if dial > 0:
+            per_truth = []
+            for c in (True, False):
+                xs = [(spun(c, spin) - (1 - dial) / 2) / dial for spin in spins]
+                mean_x = sum(xs) / len(xs)
+                per_truth.append(sum((x - mean_x) ** 2 for x in xs) / len(xs))
+            same_wobble.append(per_truth[0] == per_truth[1])
+            wobble = per_truth[0]
+            wobble_form.append(wobble == (1 - dial * dial) / (4 * dial * dial))
+        wobbles[name] = wobble
+        emit(f"R-F16.{name}.coin_variance", "none" if wobble is None else wobble)
+        # the fixed class of n: its count's variance and usual miss (the square root)
+        class_var = None if wobble is None else n * wobble
+        emit(f"R-F16.{name}.class_variance", "none" if class_var is None else class_var)
+        emit(f"R-F16.{name}.miss_2dp", "none" if class_var is None else f"{math.sqrt(class_var):.2f}")
+        if class_var is None:
+            emit(f"R-F16.{name}.miss_rounded", "none")
+        else:
+            # nearest whole to sqrt(p/q), halves up: the largest m with (2m - 1)^2 q <= 4p,
+            # found by the integer square root of 4pq
+            p, q = class_var.numerator, class_var.denominator
+            nearest_root = (math.isqrt(4 * p * q) // q + 1) // 2
+            miss_rounding.append(abs(nearest_root - math.sqrt(class_var)) <= 0.5)
+            misses[name] = nearest_root
+            emit(f"R-F16.{name}.miss_rounded", nearest_root)
+    check("the dial: a yes and a no carry the same ratio at every setting", all(same_ratio))
+    check("the dial: the ratio is (1 + t)/(1 - t), and unbounded at t = 1", all(ratio_form))
+    check("the dial: the coins' variance is the same for both truths, and (1 - t^2)/(4t^2)",
+          all(same_wobble) and all(wobble_form) and len(wobble_form) == len(DIAL) - 1)
+    check("the dial's middle is chapter 01's coin: 3 times, 3/4 a person",
+          ratios["ours"] == ratio(True) and wobbles["ours"] == per_person)
+    check("the dial's edges: at 0 no estimate, at 1 nobody who didn't copy says yes",
+          estimate(yes, n, Fraction(0)) is None and ratios["direct"] is None and ratios["pure"] == 1)
+    check("the dial's misses: each exact nearest root within 1/2 of the square root; at 1/2, chapter 03's",
+          all(miss_rounding) and len(misses) == len(DIAL) - 1
+          and n * wobbles["ours"] == est_var and misses["ours"] == round(math.sqrt(est_var)))
+    emit("R-F16.up.wobble_vs_ours", wobbles["up"] / wobbles["ours"])
+    emit("R-F16.up.wobble_vs_ours_nearest_quarter", Fraction(nearest(4 * wobbles["up"] / wobbles["ours"]), 4))
+    emit("R-F16.down.wobble_vs_ours", wobbles["down"] / wobbles["ours"])
+    emit("R-F16.down.ratio_under", math.floor(ratios["down"]) + 1)
+    emit("R-F16.class.count_variance", n * wobbles["ours"])
+    check("a fixed class's count: n people's coins, chapter 03's estimate variance", n * wobbles["ours"] == est_var)
+    emit("R-F16.class.share_variance", wobbles["ours"] / n)
 
     # R-X: the edges
     emit("R-X1.direct.worst_ratio", "unbounded" if worst_ratio(Fraction(1)) is None else worst_ratio(Fraction(1)))

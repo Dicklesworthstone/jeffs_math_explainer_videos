@@ -129,6 +129,35 @@ Pinned rows also match a literal from the named primary source.
 | Repeating one memoized answer adds no evidence | 04_9, 04_10 | `R-F10`: only all-yes and all-no happen, and the all-yes ratio is 3 for every ask count from 1 to 10 |
 | Scope: one secret that never changes, under this rule | 04_11 and the 04_9 card | no claim about repeated surveys in general, other questions, or RAPPOR's full design. RAPPOR §1 states its own conditions for memoization (a true value that does not change, or changes in an uncorrelated way); this video does not test them |
 
+## Chapter 05: numbers
+
+| key | value | where | how it is obtained |
+|---|---|---|---|
+| `R-F16.ours.truth`, `R-F16.ours.truth_slices`, `R-F16.ours.yes.copied`, `R-F16.ours.yes.didnt`, `R-F16.ours.ratio`, `R-F16.ours.coin_variance` | 1/2; 2; 6, 2; 3; 3/4 | 05_1 "Ours sits at one half"; the spinner's two green slices; "yes: 6 of 8", "yes: 2 of 8"; the table's 1/2 row | `Channel` at 1/2, which the facts check is `Channel::two_coins` |
+| `R-F16.slices`, `R-F16.outcomes` | 4, 8 | 05_2 "a spinner of four slices"; 05_4 "the eight outcomes"; the 05_2 card | a slice and the second coin's face, 4 × 2 |
+| `R-F16.up.truth`, `R-F16.up.truth_slices` | 3/4, 3 | 05_2 "three quarters", "three saying tell the truth"; 05_3; the dial and the table's 3/4 row | `Channel::new(3/4)` |
+| `R-F16.up.yes.copied`, `R-F16.up.yes.didnt`, `R-F16.up.ratio` | 7, 1, 7 | 05_4 "Seven", "yes in seven, anyone else in one"; "yes: 7 of 8", "yes: 1 of 8"; the table; the 05_4 card | `Channel::p_said` × 8 and `Channel::ratio`, both answers checked equal and equal to (1 + t)/(1 − t); the scene's squares are `model::answer` with the slice as the first coin; the oracle counts the spinner's 8 outcomes with its own inline rule (a truthful slice gives the truth, any other the second coin's face, heads for yes), equivalent to the rule table but not read from it |
+| `R-F16.up.coin_variance` | 7/36 | the table's 3/4 row | `Channel::coin_variance`, checked against (1 − t²)/(4t²); the oracle takes the variance of one person's share, (answer − (1 − t)/2)/t, over the 8 outcomes for each truth |
+| `R-F1.class`, `R-F16.up.class_variance`, `R-F16.up.miss_2dp`, `R-F16.up.miss_rounded`, `R-F16.ours.miss_2dp`, `R-F16.ours.miss_rounded` | 20; 35/9, 1.97, 2; 3.87, 4 | 05_6 "Our class of twenty would miss by about two people, not four"; TeX √(20 × 7/36) ≈ 1.97 and √(20 × 3/4) ≈ 3.87 | the fixed class's count variance, 20 times one person's; the miss is its square root (to two places from the float root) and the nearest whole number to it in exact arithmetic (Rust: the largest m with (m − 1/2)² ≤ v; the oracle: an integer square root of 4pq). At 1/2 checked equal to chapter 03's `R-F7.sd_estimate` 3.87 and `R-F14.sd_rounded` 4 |
+| `R-F16.down.truth`, `R-F16.down.truth_slices`, `R-F16.down.yes.copied`, `R-F16.down.yes.didnt`, `R-F16.down.ratio`, `R-F16.down.coin_variance` | 1/4; 1; 5, 3; 5/3; 15/4 | 05_7 "at a quarter"; "yes: 5 of 8", "yes: 3 of 8"; the table's 1/4 row | as above |
+| `R-F16.down.ratio_under`, `R-F16.down.class_variance`, `R-F16.down.miss_2dp`, `R-F16.down.miss_rounded` | 2; 75, 8.66, 9 | 05_7 "under twice as likely", "the class would miss by about nine"; TeX √(20 × 15/4) ≈ 8.66 | the whole number just above 5/3; the miss as above |
+| `R-F16.direct.class_variance`, `.miss_2dp`, `.miss_rounded`; `R-F16.pure.*` the same | 0, 0.00, 0; none | not shown (the table's 0 and "no estimate" stand for them) | as above |
+| `R-F16.up.wobble_vs_ours`, `R-F16.up.wobble_vs_ours_nearest_quarter`, `R-F16.down.wobble_vs_ours` | 7/27, 1/4, 5 | not shown or said (they compare per-person variances, not misses; the voice speaks misses, Mail 4097) | kept as exact checks: 7/36 over 3/4, its nearest quarter, 15/4 over 3/4 |
+| `R-F16.direct.truth`, `.truth_slices`, `.yes.copied`, `.yes.didnt`, `.ratio`, `.coin_variance` | 1; 4; 8, 0; unbounded; 0 | 05_8 "the direct question, no wobble and no limit"; "yes: 8 of 8", "yes: 0 of 8"; the table's 1 row "no bound", 0; the 05_8 card | `Channel::new(1)`: a yes never comes from someone who didn't copy, so `ratio` is `None` |
+| `R-F16.pure.truth`, `.truth_slices`, `.yes.copied`, `.yes.didnt`, `.ratio`, `.coin_variance` | 0; 0; 4, 4; 1; none | 05_9 "the second coin answers for everyone. Nothing is revealed, and nothing can be counted"; "yes: 4 of 8" twice; the table's 0 row, 1 and "no estimate"; the 05_8 card | `Channel::new(0)`: every answer as likely from everyone, and `coin_variance` and `estimate` are `None` (nothing to divide by; `R-X1.pure_coin.*`) |
+| `R-F16.class.count_variance`, `R-F16.class.share_variance` | 15, 3/80 | the 05_6 card ("count variance 20 × it", "share variance it/20") and the 1/2 miss line, √(20 × 3/4) | n times one person's 3/4 for a fixed class's count (checked equal to chapter 03's `R-F7.var_estimate`), 1/n of it for its share |
+| `R-F2.coins` | 2 | 05_9 "the second coin" | as before |
+
+## Chapter 05: claims
+
+| claim | where | evidence |
+|---|---|---|
+| A yes and a no carry the same ratio at every setting, (1 + t)/(1 − t) | 05_4, 05_5 and the card | the facts refuse to build otherwise; `the_formulas_on_screen_are_the_channels` checks every twelfth of the dial; the oracle counts both answers at every setting |
+| Turning the dial up makes every answer say more and the count sharper | 05_5, 05_6, 05_7 | the ratio rises and the variance falls at every step of twelfths between the edges (the same test); the class's misses, about 9, 4 and 2 at 1/4, 1/2 and 3/4 (`R-F16.*.miss_*`) |
+| The misses the voice speaks are 03_8's, the fixed class's; the table's variance is one person's; the count's variance is n times it, the share's 1/n of it, and a sample adds p(1 − p)/n | 05_6, 05_7 and the card | `R-F16.class.*` and the 1/2 miss checked against chapter 03; chapter 03's `sampling_variance`. No ratio of per-person variances is spoken as a miss (TanElm, Mail 4095). None of these is a chance that anyone copied |
+| At 1 nothing bounds a yes; at 0 nothing can be counted | 05_8, 05_9 and the card | `R-F16.direct.*`, `R-F16.pure.*`, `R-X1.*`; both edges are counted on screen (0 of 8, 4 of 8 and 4 of 8) |
+| The promise holds for one answer each, everyone following the rule with fair, private coins | 05_10 and the card | the brief's Assumption 1 (compliance) stated on the card; chapter 04's `R-F9` (fresh coins multiply the ratio) and `R-F10` (a memoized answer does not); no claim about real surveys' honesty or RAPPOR's guarantees |
+
 ## Planned chapters (computed now)
 
 | keys | values | for |

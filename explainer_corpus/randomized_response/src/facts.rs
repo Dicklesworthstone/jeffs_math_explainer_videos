@@ -24,6 +24,12 @@ const RAPPOR_EXAMPLE: (u32, u32) = (75, 100);
 pub const SEED: u64 = 3;
 pub const RUNS: usize = 8;
 
+/// Chapter 05's dial: a spinner of `SLICES` equal slices, and the settings
+/// the chapter turns it to, each a name and how many slices say "tell the
+/// truth" (the rest hand the answer to the fair second coin).
+pub const SLICES: i128 = 4;
+pub const DIAL: [(&str, i128); 5] = [("pure", 0), ("down", 1), ("ours", 2), ("up", 3), ("direct", 4)];
+
 /// Chapter 03's eight classes, asked with fresh coins: one raw draw each
 /// from the seeded generator (NumPy's `PCG64DXSM(3).random_raw()`, which the
 /// oracle replays), read two bits a student.
@@ -39,6 +45,22 @@ pub fn runs() -> Result<Vec<Vec<(Coin, Coin)>>, String> {
 fn nearest(q: Q) -> i128 {
     let twice = Q::int(2) * q + Q::ONE;
     twice.num().div_euclid(2 * twice.den())
+}
+
+/// The whole number nearest √v for v ≥ 0, in exact arithmetic: the largest
+/// m with (m − 1/2)² ≤ v (halves up, as `nearest`).
+fn nearest_root(v: Q) -> i128 {
+    let mut m = 0;
+    while Q::new(2 * m + 1, 2).pow(2) <= v {
+        m += 1;
+    }
+    m
+}
+
+/// A fixed class of `n`'s count variance under `channel`: n times one
+/// person's coins' variance, `None` when nobody tells the truth.
+fn setting_class(channel: Channel, n: usize) -> Option<Q> {
+    channel.coin_variance().map(|w| Q::int(n as i128) * w)
 }
 
 /// The nearest whole "one in k" to a chance `p`: k = round(1/p).
@@ -459,6 +481,99 @@ pub fn facts() -> Result<Facts, String> {
         model::posterior(Q::ZERO, asks, asks),
     )?;
 
+    // chapter 05: the dial. Each setting is `Channel` at k/SLICES; its yes
+    // counts are its chances over the 2 · SLICES equally likely outcomes of
+    // a slice and the second coin's face
+    let outcomes = 2 * SLICES;
+    f.add("R-F16.slices", SLICES)?;
+    f.add("R-F16.outcomes", outcomes)?;
+    for (name, k) in DIAL {
+        let dial = Channel::new(Q::new(k, SLICES))?;
+        let t = dial.truth();
+        f.add(&format!("R-F16.{name}.truth"), t)?;
+        f.add(&format!("R-F16.{name}.truth_slices"), k)?;
+        for (copied, who) in [(true, "copied"), (false, "didnt")] {
+            let yes = whole(dial.p_said(copied, true) * Q::int(outcomes), "a yes count")?;
+            f.add(&format!("R-F16.{name}.yes.{who}"), yes)?;
+        }
+        // both answers carry the same ratio, (1 + t)/(1 − t) below t = 1
+        let ratio = dial.ratio(true);
+        if ratio != dial.ratio(false) || ratio != (Q::ONE + t).checked_div(Q::ONE - t) {
+            return Err(format!(
+                "at {t} a yes carries {ratio:?} and a no {:?}",
+                dial.ratio(false)
+            ));
+        }
+        f.add(
+            &format!("R-F16.{name}.ratio"),
+            ratio.map_or("unbounded".into(), |r| r.to_string()),
+        )?;
+        // the coins' variance in one person's share, (1 − t²)/(4t²) above 0
+        let wobble = dial.coin_variance();
+        if wobble != (Q::ONE - t * t).checked_div(Q::int(4) * t * t) {
+            return Err(format!("at {t} the coins' variance is {wobble:?}"));
+        }
+        f.add(
+            &format!("R-F16.{name}.coin_variance"),
+            wobble.map_or("none".into(), |w| w.to_string()),
+        )?;
+        // what the voice says (as 03_8 did): how far the fixed class's count
+        // usually misses, the square root of n times one person's variance
+        let class = setting_class(dial, n);
+        f.add(
+            &format!("R-F16.{name}.class_variance"),
+            class.map_or("none".into(), |v| v.to_string()),
+        )?;
+        f.add(
+            &format!("R-F16.{name}.miss_2dp"),
+            class.map_or("none".into(), |v| format!("{:.2}", v.to_f64().sqrt())),
+        )?;
+        f.add(
+            &format!("R-F16.{name}.miss_rounded"),
+            class.map_or("none".into(), |v| nearest_root(v).to_string()),
+        )?;
+    }
+    // the dial's middle misses as chapter 03 said: "about four people"
+    if Some(sd.round() as i128) != setting_class(Channel::two_coins(), n).map(nearest_root) {
+        return Err(format!("the two coins' class misses by {sd:.2}, not as the dial says"));
+    }
+    let setting = |name: &str| -> Result<Channel, String> {
+        let (_, k) = DIAL
+            .iter()
+            .find(|(d, _)| *d == name)
+            .ok_or_else(|| format!("no dial setting {name}"))?;
+        Channel::new(Q::new(*k, SLICES))
+    };
+    let wobble = |c: Channel| {
+        c.coin_variance()
+            .ok_or_else(|| format!("no coins' variance at {}", c.truth()))
+    };
+    let ours = setting("ours")?;
+    if ours != Channel::two_coins() {
+        return Err(format!("the dial's middle, {}, is not the two coins", ours.truth()));
+    }
+    let (up, down) = (setting("up")?, setting("down")?);
+    // the per-person variances against ours: exact checks only, never said
+    // (they are variances; the voice speaks the class's misses, above)
+    let up_vs = wobble(up)? / wobble(ours)?;
+    f.add("R-F16.up.wobble_vs_ours", up_vs)?;
+    f.add(
+        "R-F16.up.wobble_vs_ours_nearest_quarter",
+        Q::new(nearest(up_vs * Q::int(4)), 4),
+    )?;
+    f.add("R-F16.down.wobble_vs_ours", wobble(down)? / wobble(ours)?)?;
+    // "under twice as likely": the whole number just above the ratio
+    let down_ratio = down.ratio(true).ok_or("no ratio a quarter of the way up")?;
+    f.add("R-F16.down.ratio_under", down_ratio.num() / down_ratio.den() + 1)?;
+    // one person's variance, a fixed class's count (n times it, chapter
+    // 03's 15) and its estimated share (divided by n)
+    let class_count = Q::int(n as i128) * wobble(ours)?;
+    if class_count != var_estimate {
+        return Err(format!("{n} people's coins make {class_count}, not {var_estimate}"));
+    }
+    f.add("R-F16.class.count_variance", class_count)?;
+    f.add("R-F16.class.share_variance", wobble(ours)? / Q::int(n as i128))?;
+
     // the edges of "three times, never more", "on average" and "four"
     let direct_question = Channel::new(Q::ONE)?;
     f.add(
@@ -633,6 +748,59 @@ mod tests {
             ("R-F15.all_yes", "124"),
             ("R-F15.posterior.all_yes_at_half", "27/28"),
             ("R-F15.posterior.all_yes_none_copied", "0"),
+            ("R-F16.slices", "4"),
+            ("R-F16.outcomes", "8"),
+            ("R-F16.pure.truth", "0"),
+            ("R-F16.pure.truth_slices", "0"),
+            ("R-F16.pure.yes.copied", "4"),
+            ("R-F16.pure.yes.didnt", "4"),
+            ("R-F16.pure.ratio", "1"),
+            ("R-F16.pure.coin_variance", "none"),
+            ("R-F16.pure.class_variance", "none"),
+            ("R-F16.pure.miss_2dp", "none"),
+            ("R-F16.pure.miss_rounded", "none"),
+            ("R-F16.down.class_variance", "75"),
+            ("R-F16.down.miss_2dp", "8.66"),
+            ("R-F16.down.miss_rounded", "9"),
+            ("R-F16.ours.class_variance", "15"),
+            ("R-F16.ours.miss_2dp", "3.87"),
+            ("R-F16.ours.miss_rounded", "4"),
+            ("R-F16.up.class_variance", "35/9"),
+            ("R-F16.up.miss_2dp", "1.97"),
+            ("R-F16.up.miss_rounded", "2"),
+            ("R-F16.direct.class_variance", "0"),
+            ("R-F16.direct.miss_2dp", "0.00"),
+            ("R-F16.direct.miss_rounded", "0"),
+            ("R-F16.down.truth", "1/4"),
+            ("R-F16.down.truth_slices", "1"),
+            ("R-F16.down.yes.copied", "5"),
+            ("R-F16.down.yes.didnt", "3"),
+            ("R-F16.down.ratio", "5/3"),
+            ("R-F16.down.coin_variance", "15/4"),
+            ("R-F16.ours.truth", "1/2"),
+            ("R-F16.ours.truth_slices", "2"),
+            ("R-F16.ours.yes.copied", "6"),
+            ("R-F16.ours.yes.didnt", "2"),
+            ("R-F16.ours.ratio", "3"),
+            ("R-F16.ours.coin_variance", "3/4"),
+            ("R-F16.up.truth", "3/4"),
+            ("R-F16.up.truth_slices", "3"),
+            ("R-F16.up.yes.copied", "7"),
+            ("R-F16.up.yes.didnt", "1"),
+            ("R-F16.up.ratio", "7"),
+            ("R-F16.up.coin_variance", "7/36"),
+            ("R-F16.direct.truth", "1"),
+            ("R-F16.direct.truth_slices", "4"),
+            ("R-F16.direct.yes.copied", "8"),
+            ("R-F16.direct.yes.didnt", "0"),
+            ("R-F16.direct.ratio", "unbounded"),
+            ("R-F16.direct.coin_variance", "0"),
+            ("R-F16.up.wobble_vs_ours", "7/27"),
+            ("R-F16.up.wobble_vs_ours_nearest_quarter", "1/4"),
+            ("R-F16.down.wobble_vs_ours", "5"),
+            ("R-F16.down.ratio_under", "2"),
+            ("R-F16.class.count_variance", "15"),
+            ("R-F16.class.share_variance", "3/80"),
             ("R-X1.direct.worst_ratio", "unbounded"),
             ("R-X1.pure_coin.worst_ratio", "1"),
             ("R-X1.pure_coin.estimate", "none"),

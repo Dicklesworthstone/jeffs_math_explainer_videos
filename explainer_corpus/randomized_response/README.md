@@ -71,7 +71,8 @@ not three in four; a no, one in thirteen; before any answer, one in five.
   or the full video.
 - Chapter 04 (`04_asking_again`, Beads `.8.4`) passed root's native batch
   and its actual-frame review (Mail 4053), for source and sampled silent
-  visuals only. Root closes the Bead.
+  visuals only. Root verified the commit, 8d6f615, and closed the Bead
+  (Mail 4061).
   - Before the batch: FuchsiaHawk checked the mathematics independently
     (Mail 4026). Root asked for a clearer 04_8 sentence, "The majority of
     three answers is right …" (Mail 4028).
@@ -95,7 +96,35 @@ not three in four; a no, one in thirteen; before any answer, one in five.
 
   This does not cover narration, audio, continuous playback, 4K or the full
   video.
-- Chapter 05 is planned (the storyboard's arc).
+- Chapter 05 (`05_the_dial`, Beads `.8.5`, the last in the storyboard's
+  arc) passed root's native batch and actual-frame review, for its
+  mathematics and sampled silent visuals only (Mail 4132). Root closes the
+  Bead.
+  - The first version's draft10 was withheld. TanElm's review (Mail 4095)
+    found 05_6 and 05_7 using "wobble" for a ratio of per-person variances,
+    against chapter 03's miss size.
+  - The repair (Mail 4097) speaks the fixed class's misses instead, about 2
+    rather than 4, and about 9. It adds the rule-following condition to the
+    closing card and holds every card for its reading time.
+  - central42: fmt, strict all-targets release Clippy, 55 tests, 190 facts
+    against the oracle, 175 glyph sources with no failures, the build and
+    the render, with all 20 input pins unchanged.
+  - draft11: `05_the_dial.mp4`, silent, 960×540 at 30 fps, 2,425 frames
+    (80.83 s), no layout findings, SHA-256
+    f4e69356dc9da2acfe58dd8366ef0d05698b6c9a2f2c958c6a87fbd479d75d22. Root
+    viewed 10 changed frames.
+  - Independent reviews:
+    - Mail 4119 checked the revised miss mathematics, its rounding, the
+      assertions and the scope.
+    - Mail 4128 checked the actual frames: the "Seven" and miss phrases
+      are on time, no answer is leaked before its reveal, all five cards
+      stay up long enough, and the endpoints are right.
+    - A doubled-looking table root saw near 70 s was checked frame by
+      frame and found not to be a defect. Optional alignment nits were not
+      blockers.
+
+  This does not cover narration, audio, continuous playback, 4K or the full
+  video.
 
 The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md,
 "Owner rejection and withdrawal"): `narration_units.json` and the pause plans
@@ -105,19 +134,20 @@ rejected method. No audio or full-video acceptance exists.
 | File | What it holds |
 |---|---|
 | `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, every student's outcomes and the shares they give, odds, the yes count's exact distribution and the estimate's mean with and without rounding negatives up, a class's coins from one seeded draw, sampling variance, repeated and memoized answers |
-| `src/facts.rs` | every number the video shows or says (137 keys), three pinned to their sources; chapter 03's eight seeded classes (`runs`) |
-| `oracle.py` | the same numbers by independent methods (the standard library, and NumPy to replay the seeded classes), 35 cross-checks |
+| `src/facts.rs` | every number the video shows or says (175 keys), three pinned to their sources; chapter 03's eight seeded classes (`runs`); chapter 05's dial settings (`DIAL`) |
+| `oracle.py` | the same numbers by independent methods (the standard library, and NumPy to replay the seeded classes), 41 cross-checks |
 | `src/chapters/the_coin.rs` | chapter 01's scene |
 | `src/chapters/what_a_yes_says.rs` | chapter 02's scene |
 | `src/chapters/the_price_of_the_coin.rs` | chapter 03's scene |
 | `src/chapters/asking_again.rs` | chapter 04's scene |
+| `src/chapters/the_dial.rs` | chapter 05's scene |
 | `src/chapters/draw.rs` | the video's shapes, playback, line timing and think time |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), with each chapter's semantic pause plan |
 | `narration_units.json` | the lines in coherent takes for a later synthesis (text only for now) |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | each number's source; the brief; the words every revision keeps |
 
 ```bash
-uv run --no-project --with numpy python3 -I -B oracle.py # every number, and 35 cross-checks on stderr
+uv run --no-project --with numpy python3 -I -B oracle.py # every number, and 41 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check randomized_response
 python3 -I ../../tools/lint_script.py script.tsv
 ./x randomized_response facts-check                      # the Rust facts against the oracle (builds)
@@ -224,4 +254,16 @@ no vacant niche is claimed.
   `R-F15`). It makes no claim about repeated surveys in general, about other
   questions asked of the same person, or about what RAPPOR's full design
   guarantees.
+- Chapter 05's dial changes only the chance t of telling the truth. The
+  second coin stays fair, and the spinner of four slices just replaces the
+  first coin, so it is not Warner's spinner. The voice speaks chapter 03's
+  misses: how far the fixed class of 20's count usually strays, the square
+  root of its variance. That is about 4 at 1/2, about 2 at 3/4 (1.97) and
+  about 9 at 1/4 (8.66). The table shows the coins' variance per person,
+  (1 − t²)/(4t²). The count's variance is 20 times it, the share's 1/20 of
+  it, and a sample adds p(1 − p)/n (chapter 03). None of these is a chance
+  that anyone copied, and no ratio of per-person variances is spoken as a
+  miss. The edges are exact: at t = 1 no ratio bounds a yes; at t = 0
+  there is no estimate. The closing promise is for one answer each, with
+  everyone following the rule with fair, private coins.
 - The class, seats and question are invented; no real survey data is used.
